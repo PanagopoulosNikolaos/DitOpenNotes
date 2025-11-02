@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Logic Design Progress Exam 2024 A</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+        }
+        #header {
+            background-color: #4a76a8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        #question-area {
+            padding: 30px;
+        }
+        #question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.selected {
+            border-color: #4a76a8;
+            background-color: #e7f0fa;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        #feedback-area {
+            padding: 0 30px 20px;
+        }
+        #explanation {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        #navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+        }
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            margin-bottom: 10px;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4a76a8;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+        #progress-text {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .nav-button {
+            background-color: #4a76a8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3b5f8a;
+        }
+        .nav-button:disabled {
+            background-color: #a0b4c9;
+            cursor: not-allowed;
+        }
+        #results-screen {
+            padding: 40px;
+            text-align: center;
+        }
+        #results-screen h2 {
+            font-size: 2em;
+            color: #4a76a8;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+        }
+        #restart-button {
+            background-color: #28a745;
+        }
+        #restart-button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="header">Logic Design Quiz: Progress Exam 2024 A</div>
+    
+    <div id="quiz-area">
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress-text">Question 1/20</div>
+        
+        <div id="question-area">
+            <div id="question-text"></div>
+            <div id="options-container"></div>
+        </div>
+
+        <div id="feedback-area">
+            <div id="explanation" style="display: none;"></div>
+        </div>
+
+        <div id="navigation">
+            <button id="prev-button" class="nav-button">Previous</button>
+            <button id="next-button" class="nav-button">Next</button>
+            <button id="submit-button" class="nav-button" style="display: none;">Submit</button>
+        </div>
+    </div>
+
+    <div id="results-screen" style="display: none;">
+        <h2>Quiz Complete!</h2>
+        <p id="score-text">Your score: 0/20</p>
+        <button id="restart-button" class="nav-button">Restart Quiz</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "What is the 8-bit binary representation of the decimal number 119?",
+        options: [
+            "01110111",
+            "1110111",
+            "10001001",
+            "01111000"
+        ],
+        correct: 0,
+        explanation: "The binary for 119 is 1110111. To make it 8 bits, we pad it with one leading zero to get 01110111."
+    },
+    {
+        question: "What is the 2-digit hexadecimal representation of the decimal number 119?",
+        options: [
+            "77",
+            "89",
+            "7F",
+            "6F"
+        ],
+        correct: 0,
+        explanation: "119 in 8-bit binary is 01110111. Grouping into 4-bit sets gives 0111 (7) and 0111 (7). So, it's 77₁₆."
+    },
+    {
+        question: "What is the 8-bit 2's complement of the decimal number 44 (binary 00101100)?",
+        options: [
+            "11010100",
+            "00101100",
+            "11010011",
+            "10101100"
+        ],
+        correct: 0,
+        explanation: "To find the 2's complement of 00101100, you invert the bits (11010011) and add 1, which results in 11010100."
+    },
+    {
+        question: "What is the 2-digit 16's complement of the hexadecimal number 11?",
+        options: [
+            "EF",
+            "EE",
+            "F1",
+            "1F"
+        ],
+        correct: 0,
+        explanation: "The 15's complement is (FF - 11) = EE. Adding 1 gives the 16's complement: EE + 1 = EF."
+    },
+    {
+        question: "Calculate the sum of (119)₁₀ and (44)₁₀ in 8-bit binary. (119=01110111, 44=00101100)",
+        options: [
+            "10100011",
+            "10100010",
+            "010100011",
+            "10011111"
+        ],
+        correct: 0,
+        explanation: "Adding 01110111 and 00101100 results in 10100011, which is 163 in decimal."
+    },
+    {
+        question: "Calculate the result of (44)₁₀ - (17)₁₀ using 8-bit 2's complement. (17 = 00010001)",
+        options: [
+            "00011011",
+            "11100101",
+            "100011011",
+            "00011010"
+        ],
+        correct: 0,
+        explanation: "The 2's complement of 17 is 11101111. Adding this to 44 (00101100) gives (1)00011011. Discarding the carry, the result is 00011011, which is 27 in decimal."
+    },
+    {
+        question: "What is the result of the hexadecimal addition 77 + 2C?",
+        options: [
+            "A3",
+            "93",
+            "A1",
+            "9F"
+        ],
+        correct: 0,
+        explanation: "7 + C(12) = 19, which is 3 with a carry of 1. 7 + 2 + 1(carry) = 10, which is A. The result is A3₁₆."
+    },
+    {
+        question: "What is the result of the hexadecimal subtraction 2C - 11 using 16's complement? The 16's complement of 11 is EF.",
+        options: [
+            "1B",
+            "2B",
+            "11B",
+            "1A"
+        ],
+        correct: 0,
+        explanation: "The subtraction becomes an addition: 2C + EF. C(12)+F(15) = 27, which is B with a carry of 1. 2+E(14)+1(carry) = 17, which is 1 with a carry of 1. The result is (1)1B. Discarding the carry gives 1B₁₆, which is 27 in decimal."
+    },
+    {
+        question: "Simplify the Boolean function f(x, y) = (x+y)'(x'+y').",
+        options: [
+            "x'y'",
+            "x+y",
+            "xy",
+            "(x+y)"
+        ],
+        correct: 0,
+        explanation: "Using De Morgan's law, (x+y)' becomes x'y'. The expression is then x'y'(x'+y'). Distributing gives x'y'x' + x'y'y' = x'y' + x'y' = x'y'. This is also equivalent to (x+y)'."
+    },
+    {
+        question: "What is the Product of Maxterms representation for the function f(x, y) = x'y'?",
+        options: [
+            "Π(1, 2, 3)",
+            "Π(0)",
+            "Σ(1, 2, 3)",
+            "Π(0, 1, 2, 3)"
+        ],
+        correct: 0,
+        explanation: "The function f(x,y) = x'y' is 1 only when x=0 and y=0 (minterm m0). It is 0 for all other cases (minterms m1, m2, m3). Therefore, the Product of Maxterms is Π(1, 2, 3)."
+    },
+    {
+        question: "Simplify the Boolean function g(x, y, z) = xy'z + xyz' + xz.",
+        options: [
+            "xy + xz",
+            "x(y+z)",
+            "xz",
+            "x(y' + z')"
+        ],
+        correct: 1,
+        explanation: "First, use absorption on xz + xy'z -> xz. The expression becomes xz + xyz'. Then factor out x: x(z + yz'). Using the distributive rule A+BC=(A+B)(A+C), we get x(z+y)(z+z') = x(z+y) = xz+xy."
+    },
+    {
+        question: "What is the Sum of Minterms representation for the simplified function g(x, y, z) = xy + xz?",
+        options: [
+            "Σ(5, 6, 7)",
+            "Σ(3, 5, 6, 7)",
+            "Σ(6, 7)",
+            "Σ(5, 7)"
+        ],
+        correct: 0,
+        explanation: "The term xy corresponds to minterms where x=1, y=1 (m6, m7). The term xz corresponds to minterms where x=1, z=1 (m5, m7). The union of these sets is {5, 6, 7}."
+    },
+    {
+        question: "Using De Morgan's theorem, find the complement of f(x, y) = (x+y)'.",
+        options: [
+            "x + y",
+            "x'y'",
+            "x' + y'",
+            "xy"
+        ],
+        correct: 0,
+        explanation: "The complement of f is [(x+y)']'. The double negation cancels out, resulting in x + y."
+    },
+    {
+        question: "Using De Morgan's theorem, find the complement of g(x, y, z) = x(y+z).",
+        options: [
+            "x' + y'z'",
+            "x'(y'+z')",
+            "x' + y' + z'",
+            "x + y'z'"
+        ],
+        correct: 0,
+        explanation: "The complement is [x(y+z)]'. Applying De Morgan's gives x' + (y+z)'. Applying it again gives x' + y'z'."
+    },
+    {
+        question: "The function f(x,y) = (x+y)' is the definition of which logic gate?",
+        options: [
+            "NOR",
+            "NAND",
+            "XOR",
+            "AND"
+        ],
+        correct: 0,
+        explanation: "The expression (x+y)' represents the OR of x and y, followed by a NOT. This is the definition of a NOR gate."
+    },
+    {
+        question: "The function g(x,y,z) = xy + xz can be implemented using which combination of gates?",
+        options: [
+            "Two 2-input AND gates and one 2-input OR gate",
+            "One 2-input AND gate and two 2-input OR gates",
+            "Two 3-input AND gates and one 2-input OR gate",
+            "One 2-input OR gate and two 2-input AND gates"
+        ],
+        correct: 0,
+        explanation: "This is a standard Sum of Products (SOP) form. It requires one AND gate for 'xy', one AND gate for 'xz', and one OR gate to combine their outputs."
+    },
+    {
+        question: "What is the value of f(x,y) = x'y' when x=1 and y=0?",
+        options: [
+            "0",
+            "1",
+            "x",
+            "y'"
+        ],
+        correct: 0,
+        explanation: "f(1,0) = (1)'(0)' = 0 * 1 = 0."
+    },
+    {
+        question: "What is the value of g(x,y,z) = xy + xz when x=1, y=0, z=1?",
+        options: [
+            "1",
+            "0",
+            "x",
+            "z"
+        ],
+        correct: 0,
+        explanation: "g(1,0,1) = (1*0) + (1*1) = 0 + 1 = 1."
+    },
+    {
+        question: "The binary number 10100011 represents 163 in decimal. Is this number representable as a signed 8-bit integer?",
+        options: [
+            "No, it would be interpreted as a negative number.",
+            "Yes, it is a valid positive number.",
+            "Only if it's an unsigned integer.",
+            "It depends on the system architecture."
+        ],
+        correct: 0,
+        explanation: "In signed 8-bit representation, the most significant bit (MSB) is the sign bit. Since the MSB of 10100011 is 1, it would be interpreted as a negative number, not positive 163. The range for signed 8-bit integers is -128 to 127."
+    },
+    {
+        question: "The expression x'y' is true for which minterm?",
+        options: [
+            "m0",
+            "m1",
+            "m2",
+            "m3"
+        ],
+        correct: 0,
+        explanation: "The expression x'y' is true only when x=0 and y=0. This corresponds to minterm m0 (binary 00)."
+    }
+];
+
+let currentQuestionIndex = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let score = 0;
+
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const explanationDiv = document.getElementById('explanation');
+const prevButton = document.getElementById('prev-button');
+const nextButton = document.getElementById('next-button');
+const submitButton = document.getElementById('submit-button');
+const progressText = document.getElementById('progress-text');
+const progressBar = document.getElementById('progress-bar');
+const quizArea = document.getElementById('quiz-area');
+const resultsScreen = document.getElementById('results-screen');
+const scoreText = document.getElementById('score-text');
+const restartButton = document.getElementById('restart-button');
+
+function loadQuestion(index) {
+    const question = questions[index];
+    questionText.innerHTML = question.question;
+    optionsContainer.innerHTML = '';
+    explanationDiv.style.display = 'none';
+    explanationDiv.innerHTML = '';
+
+    question.options.forEach((option, i) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('option');
+        optionDiv.innerHTML = option;
+        optionDiv.dataset.index = i;
+        optionDiv.addEventListener('click', () => selectOption(optionDiv, index, i));
+        optionsContainer.appendChild(optionDiv);
+    });
+
+    if (userAnswers[index] !== null) {
+        showFeedback(index);
+    }
+    
+    updateNavigation();
+    updateProgress();
+    MathJax.typesetPromise();
+}
+
+function selectOption(optionDiv, questionIndex, optionIndex) {
+    if (userAnswers[questionIndex] !== null) return; 
+
+    userAnswers[questionIndex] = optionIndex;
+    showFeedback(questionIndex);
+}
+
+function showFeedback(questionIndex) {
+    const question = questions[questionIndex];
+    const selectedOptionIndex = userAnswers[questionIndex];
+    const options = optionsContainer.children;
+
+    const correctOption = options[question.correct];
+    correctOption.classList.add('correct');
+
+    if (selectedOptionIndex !== question.correct) {
+        const selectedOption = options[selectedOptionIndex];
+        selectedOption.classList.add('incorrect');
+    }
+
+    explanationDiv.innerHTML = `<strong>Explanation:</strong> ${question.explanation}`;
+    explanationDiv.style.display = 'block';
+
+    for (let option of options) {
+        if (parseInt(option.dataset.index) === selectedOptionIndex) {
+            option.classList.add('selected');
+        }
+        option.style.cursor = 'not-allowed';
+    }
+}
+
+function updateNavigation() {
+    prevButton.disabled = currentQuestionIndex === 0;
+    nextButton.disabled = currentQuestionIndex === questions.length - 1;
+    
+    if (currentQuestionIndex === questions.length - 1) {
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+    } else {
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'none';
+    }
+}
+
+function updateProgress() {
+    progressText.textContent = `Question ${currentQuestionIndex + 1}/${questions.length}`;
+    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+}
+
+function showResults() {
+    score = 0;
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correct) {
+            score++;
+        }
+    }
+    
+    quizArea.style.display = 'none';
+    resultsScreen.style.display = 'block';
+    scoreText.textContent = `Your score: ${score}/${questions.length}`;
+}
+
+prevButton.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+submitButton.addEventListener('click', () => {
+    showResults();
+});
+
+restartButton.addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    userAnswers.fill(null);
+    score = 0;
+    resultsScreen.style.display = 'none';
+    quizArea.style.display = 'block';
+    loadQuestion(currentQuestionIndex);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuestion(currentQuestionIndex);
+});
+</script>
+
+</body>
+</html>

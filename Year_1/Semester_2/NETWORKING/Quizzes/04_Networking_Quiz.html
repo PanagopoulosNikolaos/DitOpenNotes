@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Networking MCQ Game (Internet Layer)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Networking Multiple Choice Game</div>
+  <div class="subtitle">Internet Layer</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">10</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { text: "What are the two parts of an IP address?", choices: ["Network ID and Subnet ID", "Network ID and Host ID", "Subnet ID and Host ID", "MAC Address and IP Address"], correctIndex: 1, explain: "An IP address consists of a Network ID and a Host ID." },
+  { text: "What is the length of an IPv4 address?", choices: ["32 bits", "64 bits", "128 bits", "256 bits"], correctIndex: 0, explain: "An IPv4 address is 32 bits (4 bytes) long." },
+  { text: "What is the length of an IPv6 address?", choices: ["32 bits", "64 bits", "128 bits", "256 bits"], correctIndex: 2, explain: "An IPv6 address is 128 bits (16 bytes) long." },
+  { text: "What protocol is used to resolve an IP address to a MAC address?", choices: ["ARP", "RARP", "ICMP", "IGMP"], correctIndex: 0, explain: "The Address Resolution Protocol (ARP) is used to resolve an IP address to a MAC address." },
+  { text: "What is the purpose of the Time to Live (TTL) field in the IP header?", choices: ["To indicate the total length of the datagram", "To indicate the time the packet was sent", "To limit the lifetime of the packet", "To indicate the protocol of the upper layer"], correctIndex: 2, explain: "The Time to Live (TTL) field limits the lifetime of the packet to prevent it from circulating indefinitely in the network." },
+  { text: "Which IP address class is used for multicast?", choices: ["Class A", "Class B", "Class C", "Class D"], correctIndex: 3, explain: "Class D addresses are used for multicast." },
+  { text: "What is the loopback address?", choices: ["0.0.0.0", "255.255.255.255", "127.0.0.1", "192.168.0.1"], correctIndex: 2, explain: "The loopback address is 127.0.0.1, also known as localhost." },
+  { text: "Which of the following is a private IP address range?", choices: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "All of the above"], correctIndex: 3, explain: "All of the above are private IP address ranges." },
+  { text: "What ICMP message type is used by the ping command?", choices: ["Echo Request/Reply", "Source Quench", "Destination Unreachable", "Time Exceeded"], correctIndex: 0, explain: "The ping command uses the Echo Request and Echo Reply ICMP message types to check for connectivity." },
+  { text: "What is the decimal representation of the binary number 11001111?", choices: ["207", "208", "209", "210"], correctIndex: 0, explain: "The decimal representation of the binary number 11001111 is 207." },
+  { text: "What is IPv4?", choices: ["The fourth version of IP", "A protocol for routing", "The Internet Protocol version 4", "A type of network cable"], correctIndex: 2, explain: "IPv4 is the fourth version of the Internet Protocol, which uses 32-bit addresses." },
+  { text: "What is IPv6?", choices: ["The sixth version of IP", "A protocol for security", "The Internet Protocol version 6", "A type of network device"], correctIndex: 2, explain: "IPv6 is the sixth version of the Internet Protocol, which uses 128-bit addresses." },
+  { text: "What is the main difference between IPv4 and IPv6?", choices: ["IPv4 uses 32-bit addresses, IPv6 uses 128-bit", "IPv4 is faster, IPv6 is slower", "IPv4 supports encryption, IPv6 does not", "IPv4 is wireless, IPv6 is wired"], correctIndex: 0, explain: "IPv4 uses 32-bit addresses allowing for about 4 billion addresses, while IPv6 uses 128-bit addresses allowing for a vastly larger number." },
+  { text: "What is subnetting?", choices: ["Dividing a network into smaller networks", "Combining networks", "Encrypting data", "Routing packets"], correctIndex: 0, explain: "Subnetting is the process of dividing a large network into smaller sub-networks." },
+  { text: "What is CIDR?", choices: ["Classless InterDomain Routing", "Classful InterDomain Routing", "Central Internet Domain Routing", "Common Internet Data Routing"], correctIndex: 0, explain: "CIDR is a method for allocating IP addresses and routing Internet Protocol packets." },
+  { text: "What is VLSM?", choices: ["Variable Length Subnet Mask", "Virtual Local Subnet Mask", "Variable Link Subnet Mask", "Virtual Link Subnet Mask"], correctIndex: 0, explain: "VLSM allows for the use of different subnet masks within the same network." },
+  { text: "What is a default gateway?", choices: ["The first router on a network", "The device that connects a local network to other networks", "A type of firewall", "A network protocol"], correctIndex: 1, explain: "A default gateway is the node on the computer network that the network software uses when an IP address does not match any other routes in the routing table." },
+  { text: "What is a broadcast address?", choices: ["An address for sending data to all devices", "An address for sending data to one device", "An address for routing", "An address for encryption"], correctIndex: 0, explain: "A broadcast address is a network address at which all devices connected to a multiple-access communications network are enabled to receive datagrams." },
+  { text: "What is a network address?", choices: ["The address of a specific device", "The address that identifies the network", "The address for broadcasting", "The address for routing"], correctIndex: 1, explain: "A network address is the portion of an IP address that identifies the network." },
+  { text: "What is a host address?", choices: ["The address of the network", "The address that identifies the specific device", "The address for broadcasting", "The address for routing"], correctIndex: 1, explain: "A host address is the portion of an IP address that identifies the specific host on the network." }
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false;
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  q.choices.forEach((opt, i)=> {
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=> {
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+elNext.addEventListener('click', ()=> {
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=> {
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>

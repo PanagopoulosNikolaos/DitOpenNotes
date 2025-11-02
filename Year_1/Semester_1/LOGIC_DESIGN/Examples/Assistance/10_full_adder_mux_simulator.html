@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Βήμα-Βήμα: Πλήρης Αθροιστής με δύο 4:1 MUX</title>
+  <style>
+    :root{
+      --bg:#0c0f14;--panel:#121722;--text:#e8eefc;--muted:#9bb0d0;--accent:#4cc9f0;
+      --hot:#7cff6b;--warn:#ffb84d;--bit-on:#00e676;--bit-off:#2b3446;--wire:#5c6b86;--wire-active:#43d966;--gate:#263246;--mux:#1f2a3b;
+      --hl:#ffd54a;--cin-color:#ffd400;--cin-inv:#ff6b6b;--zero-color:#6b7280;--one-color:#22c55e;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 800px at 30% 0%, #152033 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height:1.4; padding:18px;
+    }
+    .container{max-width:1280px;margin:0 auto}
+    .header-flex{display:flex; justify-content:space-between; align-items:center; gap: 16px; flex-wrap: wrap;}
+    h1{margin:0 0 12px; font-size:22px; color:var(--accent)}
+    .panel{
+      background: linear-gradient(180deg,#111827 0%, var(--panel) 100%);
+      border:1px solid #1f2937; border-radius:14px; padding:16px; margin:14px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .grid-3{display:grid; grid-template-columns: repeat(3,1fr); gap:16px}
+    @media (max-width: 768px) { .grid-3{grid-template-columns: 1fr;} }
+    .note{color:#cfe3ff; font-size:13px}
+    table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:10px; background:#0f1624}
+    th,td{border:1px solid #1e2a3c; padding:10px 12px; text-align:center; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
+    th{background:#1a2332; color:var(--accent)}
+    .row-hl{background: rgba(255,213,74,.15)}
+    .cell-hl{background: rgba(124,255,107,.15)}
+    .bit1{color:var(--hot); font-weight:700}
+    .bit0{color:var(--muted)}
+    .btn{padding:8px 12px; border:none; border-radius:8px; background:#2a3447; color:var(--text); cursor:pointer; font-size: 14px;}
+    .btn:hover{background:#3a4557}
+    .btn.active{background:var(--accent); color:#000}
+    .btn.play{background:var(--hot); color:#000}
+    .btn.pause{background:var(--warn); color:#000}
+    #toggle-view-btn {background: #3a4557;}
+    .status{background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:10px; font-family: ui-monospace, monospace; font-size: 13px;}
+    .explain{background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:12px; font-family: ui-monospace, monospace; min-height:42px}
+    .kpi{display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px;}
+    .tag{padding:4px 8px; border-radius:999px; background:#0f1624; border:1px solid #1e2a3c; font-size:12px}
+    svg{width:100%; height:auto; aspect-ratio: 1000 / 650; background: linear-gradient(180deg, rgba(17,24,39,.2) 0%, rgba(17,24,39,.05) 100%); border-radius:12px; border:1px solid #1e293b}
+    .mux{fill:var(--mux); stroke:#2a3a52; stroke-width:1.5}
+    .label{fill:#bcd5ff; font-size:12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
+    .label.big{font-weight:700; font-size:14px}
+    .label.small{font-size:10px}
+    .dnode{fill:#0e1523; stroke:#22324a; stroke-width:1.5}
+    .dnode.active{fill:#0a2513; stroke:#2b7a3a; filter: drop-shadow(0 0 10px rgba(67,217,102,.6))}
+    .wire{stroke:var(--wire); stroke-width:2.2; fill:none}
+    .wire.active{stroke:var(--wire-active); stroke-width:3.4; filter: drop-shadow(0 0 6px rgba(67,217,102,.4))}
+    .wire.cin{stroke:var(--cin-color); stroke-width:2.2;}
+    .wire.cin.active{stroke:var(--cin-color); stroke-width:3.4; filter: drop-shadow(0 0 6px rgba(255,212,0,.4))}
+    .wire.cin-inv{stroke:var(--cin-inv); stroke-width:2.2; stroke-dasharray:8,4;}
+    .wire.cin-inv.active{stroke:var(--cin-inv); stroke-width:3.4; filter: drop-shadow(0 0 6px rgba(255,107,107,.4))}
+    .wire.zero{stroke:var(--zero-color);}
+    .wire.one{stroke:var(--one-color);}
+    .outbox{fill:#0f1624; stroke:#20324d; stroke-width:1.4; rx:8; ry:8}
+    .outbox.on{stroke:#2d7f4a; fill:rgba(67,217,102,.12)}
+    .eq{font-family: ui-monospace, monospace; background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:10px; color:#b9cff2}
+    .inverter{fill:#f8fafc; stroke:#9fb3ff; stroke-width:1.2}
+    .bubble{fill:#fef3c7; stroke:#9fb3ff; stroke-width:1.2}
+    #explanation-page .panel { padding: 24px; } 
+    #explanation-page h2 { color: var(--accent); margin-top: 20px; border-bottom: 1px solid #2a3a52; padding-bottom: 8px; }
+    #explanation-page h3 { color: var(--hot); margin-top: 24px; } 
+    #explanation-page p { margin: 8px 0; }
+    #explanation-page code { background: #0f1624; padding: 3px 6px; border-radius: 4px; border: 1px solid #1e2a3c; }
+    #explanation-page hr { border: none; height: 1px; background-color: #2a3a52; margin-top: 32px; }
+    .select-info{background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:8px; margin:8px 0; font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-flex">
+      <h1>Πλήρης Αθροιστής με δύο 4:1 MUX</h1>
+      <button id="toggle-view-btn" class="btn">Αναλυτική Εξήγηση</button>
+    </div>
+
+    <!-- Page 1: Interactive Simulation -->
+    <div id="simulation-page">
+      <div class="panel controls">
+        <div class="grid-3">
+          <div>
+            <div style="margin-bottom:6px;color:#b9cff2">Ταχύτητα</div>
+            <button class="btn speed active" data-ms="1000">Κανονική</button>
+            <button class="btn speed" data-ms="1800">Αργή</button>
+            <button class="btn speed" data-ms="500">Γρήγορη</button>
+          </div>
+          <div>
+            <div style="margin-bottom:6px;color:#b9cff2">Έλεγχος</div>
+            <button id="play" class="btn play">▶ Έναρξη</button>
+            <button id="pause" class="btn">⏸ Παύση</button>
+            <button id="step" class="btn">➤ Βήμα</button>
+            <button id="reset" class="btn">🔄 Επαναφορά</button>
+          </div>
+          <div class="status">
+            Είσοδοι: a=<span id="a-val"></span> b=<span id="b-val"></span> cin=<span id="cin-val"></span><br>
+            Στάδιο: <span id="stageName"></span>
+          </div>
+        </div>
+        <div class="explain" id="explain">Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.</div>
+        <div class="select-info">
+          Select: S1=a, S0=b → <span id="select-info">ab=00 → D0</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <table id="tt">
+          <thead>
+            <tr>
+              <th>a</th><th>b</th><th>cin</th>
+              <th>Select</th><th>Sum MUX</th><th>Carry MUX</th>
+              <th>S</th><th>C</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="eq">
+          Sum MUX: D0=cin, D1=cin′, D2=cin′, D3=cin<br>
+          Carry MUX: D0=0, D1=cin, D2=cin, D3=1
+        </div>
+        <div class="kpi">
+          <span class="tag">S = a ⊕ b ⊕ cin</span>
+          <span class="tag">C = ab + acin + bcin</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <svg viewBox="0 0 1000 650">
+          <!-- Input labels -->
+          <text x="50" y="100" class="label big">a</text>
+          <text x="50" y="140" class="label big">b</text>
+          <text x="50" y="180" class="label big">cin</text>
+          
+          <!-- Input wires -->
+          <line id="wire-a" x1="80" y1="95" x2="200" y2="95" class="wire"/>
+          <line id="wire-b" x1="80" y1="135" x2="200" y2="135" class="wire"/>
+          <line id="wire-cin" x1="80" y1="175" x2="200" y2="175" class="wire cin"/>
+          
+          <!-- Inverter for cin' -->
+          <g id="inverter" transform="translate(220,175)">
+            <polygon points="-10,-8 -10,8 8,0" class="inverter"/>
+            <circle cx="14" cy="0" r="4" class="bubble"/>
+            <line x1="200" y1="0" x2="220" y2="0" class="wire cin"/>
+            <line x1="18" y1="0" x2="50" y2="0" class="wire cin-inv"/>
+          </g>
+          <text x="290" y="180" class="label small">cin′</text>
+          
+          <!-- Constants -->
+          <text x="50" y="220" class="label">0</text>
+          <text x="50" y="250" class="label">1</text>
+          <line id="wire-zero" x1="80" y1="215" x2="200" y2="215" class="wire zero"/>
+          <line id="wire-one" x1="80" y1="245" x2="200" y2="245" class="wire one"/>
+          
+          <!-- Sum MUX -->
+          <rect x="350" y="120" width="120" height="160" rx="8" class="mux"/>
+          <text x="410" y="110" class="label big" text-anchor="middle">4:1 MUX</text>
+          <text x="410" y="140" class="label" text-anchor="middle">SUM</text>
+          
+          <!-- Sum MUX inputs -->
+          <text x="340" y="150" class="label small" text-anchor="end">D0</text>
+          <text x="340" y="175" class="label small" text-anchor="end">D1</text>
+          <text x="340" y="200" class="label small" text-anchor="end">D2</text>
+          <text x="340" y="225" class="label small" text-anchor="end">D3</text>
+          
+          <circle cx="345" cy="145" r="3" id="sum-d0" class="dnode"/>
+          <circle cx="345" cy="170" r="3" id="sum-d1" class="dnode"/>
+          <circle cx="345" cy="195" r="3" id="sum-d2" class="dnode"/>
+          <circle cx="345" cy="220" r="3" id="sum-d3" class="dnode"/>
+          
+          <!-- Sum MUX D input connections -->
+          <path id="sum-d0-wire" d="M200,175 L300,175 L300,145 L345,145" class="wire cin"/>
+          <path id="sum-d1-wire" d="M270,175 L320,175 L320,170 L345,170" class="wire cin-inv"/>
+          <path id="sum-d2-wire" d="M270,175 L315,175 L315,195 L345,195" class="wire cin-inv"/>
+          <path id="sum-d3-wire" d="M200,175 L310,175 L310,220 L345,220" class="wire cin"/>
+          
+          <!-- Sum MUX selects -->
+          <line id="sum-s1" x1="380" y1="280" x2="380" y2="320" class="wire"/>
+          <line id="sum-s0" x1="420" y1="280" x2="420" y2="320" class="wire"/>
+          <text x="380" y="340" class="label small" text-anchor="middle">S1=a</text>
+          <text x="420" y="340" class="label small" text-anchor="middle">S0=b</text>
+          
+          <!-- Sum MUX select connections -->
+          <path id="sum-s1-wire" d="M200,95 L380,95 L380,280" class="wire"/>
+          <path id="sum-s0-wire" d="M200,135 L420,135 L420,280" class="wire"/>
+          
+          <!-- Sum output -->
+          <line id="sum-out" x1="470" y1="200" x2="550" y2="200" class="wire"/>
+          <rect id="sum-box" x="550" y="180" width="60" height="40" class="outbox"/>
+          <text x="580" y="205" class="label big" text-anchor="middle">S</text>
+          
+          <!-- Carry MUX -->
+          <rect x="350" y="380" width="120" height="160" rx="8" class="mux"/>
+          <text x="410" y="370" class="label big" text-anchor="middle">4:1 MUX</text>
+          <text x="410" y="400" class="label" text-anchor="middle">CARRY</text>
+          
+          <!-- Carry MUX inputs -->
+          <text x="340" y="410" class="label small" text-anchor="end">D0</text>
+          <text x="340" y="435" class="label small" text-anchor="end">D1</text>
+          <text x="340" y="460" class="label small" text-anchor="end">D2</text>
+          <text x="340" y="485" class="label small" text-anchor="end">D3</text>
+          
+          <circle cx="345" cy="405" r="3" id="carry-d0" class="dnode"/>
+          <circle cx="345" cy="430" r="3" id="carry-d1" class="dnode"/>
+          <circle cx="345" cy="455" r="3" id="carry-d2" class="dnode"/>
+          <circle cx="345" cy="480" r="3" id="carry-d3" class="dnode"/>
+          
+          <!-- Carry MUX D input connections -->
+          <path id="carry-d0-wire" d="M200,215 L305,215 L305,405 L345,405" class="wire zero"/>
+          <path id="carry-d1-wire" d="M200,175 L295,175 L295,430 L345,430" class="wire cin"/>
+          <path id="carry-d2-wire" d="M200,175 L290,175 L290,455 L345,455" class="wire cin"/>
+          <path id="carry-d3-wire" d="M200,245 L285,245 L285,480 L345,480" class="wire one"/>
+          
+          <!-- Carry MUX selects -->
+          <line id="carry-s1" x1="380" y1="540" x2="380" y2="580" class="wire"/>
+          <line id="carry-s0" x1="420" y1="540" x2="420" y2="580" class="wire"/>
+          <text x="380" y="600" class="label small" text-anchor="middle">S1=a</text>
+          <text x="420" y="600" class="label small" text-anchor="middle">S0=b</text>
+          
+          <!-- Carry MUX select connections -->
+          <path id="carry-s1-wire" d="M380,95 L380,540" class="wire"/>
+          <path id="carry-s0-wire" d="M420,135 L420,540" class="wire"/>
+          
+          <!-- Carry output -->
+          <line id="carry-out" x1="470" y1="460" x2="550" y2="460" class="wire"/>
+          <rect id="carry-box" x="550" y="440" width="60" height="40" class="outbox"/>
+          <text x="580" y="465" class="label big" text-anchor="middle">C</text>
+          
+          <!-- Truth table reference -->
+          <text x="650" y="150" class="label">Πίνακας Αληθείας:</text>
+          <text x="650" y="170" class="label small">ab=00: S=cin, C=0</text>
+          <text x="650" y="185" class="label small">ab=01: S=cin′, C=cin</text>
+          <text x="650" y="200" class="label small">ab=10: S=cin′, C=cin</text>
+          <text x="650" y="215" class="label small">ab=11: S=cin, C=1</text>
+          
+        </svg>
+      </div>
+    </div>
+
+    <!-- Page 2: Detailed Explanation -->
+    <div id="explanation-page" style="display: none;">
+      <div class="panel">
+        <h2>Αναλυτική Εξήγηση Πλήρους Αθροιστή με 4:1 MUX</h2>
+        <p>Αυτή η σελίδα εξηγεί πώς υλοποιείται ο πλήρης αθροιστής χρησιμοποιώντας δύο πολυπλέκτες 4:1.</p>
+        <div id="explanation-content"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    // --- DATA & CONFIG ---
+    const truthTable = [
+      {a:0, b:0, cin:0, S:0, C:0}, {a:0, b:0, cin:1, S:1, C:0},
+      {a:0, b:1, cin:0, S:1, C:0}, {a:0, b:1, cin:1, S:0, C:1},
+      {a:1, b:0, cin:0, S:1, C:0}, {a:1, b:0, cin:1, S:0, C:1},
+      {a:1, b:1, cin:0, S:0, C:1}, {a:1, b:1, cin:1, S:1, C:1}
+    ];
+    
+    const stages = ["Επιλογή Εισόδων", "MUX Selection", "Υπολογισμός Εξόδων"];
+    
+    // --- DOM ELEMENTS ---
+    const ttBody = document.querySelector('#tt tbody');
+    const aVal = document.getElementById('a-val');
+    const bVal = document.getElementById('b-val');
+    const cinVal = document.getElementById('cin-val');
+    const stageEl = document.getElementById('stageName');
+    const explainEl = document.getElementById('explain');
+    const selectInfo = document.getElementById('select-info');
+    
+    const btnPlay = document.getElementById('play');
+    const btnPause = document.getElementById('pause');
+    const btnStep = document.getElementById('step');
+    const btnReset = document.getElementById('reset');
+    const speedBtns = document.querySelectorAll('.speed');
+    const toggleBtn = document.getElementById('toggle-view-btn');
+    
+    const simPage = document.getElementById('simulation-page');
+    const expPage = document.getElementById('explanation-page');
+    const explanationContent = document.getElementById('explanation-content');
+    
+    // --- STATE ---
+    let curRow = 0, stage = 0, timer = null, delay = 1000, playing = false;
+    
+    // --- HELPERS ---
+    function getMuxInputs(a, b, cin) {
+      const cinInv = cin ? 0 : 1;
+      const sumInputs = [cin, cinInv, cinInv, cin];  // D0, D1, D2, D3
+      const carryInputs = [0, cin, cin, 1];          // D0, D1, D2, D3
+      return {sumInputs, carryInputs};
+    }
+    
+    function getSelectedInput(a, b) {
+      return (a << 1) | b;  // S1=a, S0=b
+    }
+    
+    // --- INITIALIZATION ---
+    function buildTable() {
+      ttBody.innerHTML = '';
+      truthTable.forEach((row, i) => {
+        const tr = document.createElement('tr');
+        tr.dataset.row = i;
+        const select = getSelectedInput(row.a, row.b);
+        const {sumInputs, carryInputs} = getMuxInputs(row.a, row.b, row.cin);
+        tr.innerHTML = `
+          <td class="${row.a ? 'bit1' : 'bit0'}">${row.a}</td>
+          <td class="${row.b ? 'bit1' : 'bit0'}">${row.b}</td>
+          <td class="${row.cin ? 'bit1' : 'bit0'}">${row.cin}</td>
+          <td>D${select}</td>
+          <td>${['cin', 'cin′', 'cin′', 'cin'][select]} = ${sumInputs[select]}</td>
+          <td>${['0', 'cin', 'cin', '1'][select]} = ${carryInputs[select]}</td>
+          <td class="${row.S ? 'bit1' : 'bit0'}"></td>
+          <td class="${row.C ? 'bit1' : 'bit0'}"></td>
+        `;
+        ttBody.appendChild(tr);
+      });
+    }
+    
+    function generateExplanation() {
+      let html = '<h3>Αρχή Λειτουργίας</h3>';
+      html += '<p>Ο πλήρης αθροιστής υλοποιείται με δύο 4:1 πολυπλέκτες:</p>';
+      html += '<ul>';
+      html += '<li><b>Επιλογές (Select):</b> S1=a, S0=b</li>';
+      html += '<li><b>Sum MUX:</b> D0=cin, D1=cin′, D2=cin′, D3=cin</li>';
+      html += '<li><b>Carry MUX:</b> D0=0, D1=cin, D2=cin, D3=1</li>';
+      html += '</ul>';
+      
+      html += '<h3>Ανάλυση για κάθε περίπτωση ab:</h3>';
+      
+      const cases = [
+        {ab: '00', desc: 'Όταν a=0, b=0: S=cin, C=0'},
+        {ab: '01', desc: 'Όταν a=0, b=1: S=cin′, C=cin'},
+        {ab: '10', desc: 'Όταν a=1, b=0: S=cin′, C=cin'},
+        {ab: '11', desc: 'Όταν a=1, b=1: S=cin, C=1'}
+      ];
+      
+      cases.forEach(c => {
+        html += `<h4>Περίπτωση ab=${c.ab}</h4>`;
+        html += `<p>${c.desc}</p>`;
+      });
+      
+      html += '<h3>Απόδειξη ορθότητας</h3>';
+      html += '<p>Η υλοποίηση παράγει τις σωστές εξισώσεις:</p>';
+      html += '<ul>';
+      html += '<li><b>S = a ⊕ b ⊕ cin</b> (XOR των τριών εισόδων)</li>';
+      html += '<li><b>C = ab + acin + bcin</b> (carry-out του πλήρους αθροιστή)</li>';
+      html += '</ul>';
+      
+      explanationContent.innerHTML = html;
+    }
+    
+    // --- SIMULATION LOGIC ---
+    function clearHighlights() {
+      document.querySelectorAll('#tt tr, #tt td').forEach(el => 
+        el.classList.remove('row-hl', 'cell-hl'));
+      document.querySelectorAll('.wire, .dnode, .outbox').forEach(el => 
+        el.classList.remove('active', 'on'));
+    }
+    
+    function updateSimulation() {
+      if (curRow >= truthTable.length) { 
+        pause(); 
+        return; 
+      }
+      
+      const row = truthTable[curRow];
+      const select = getSelectedInput(row.a, row.b);
+      const {sumInputs, carryInputs} = getMuxInputs(row.a, row.b, row.cin);
+      
+      aVal.textContent = row.a;
+      bVal.textContent = row.b;
+      cinVal.textContent = row.cin;
+      stageEl.textContent = stages[stage];
+      
+      clearHighlights();
+      
+      // Highlight current row
+      const tr = ttBody.querySelector(`tr[data-row="${curRow}"]`);
+      tr.classList.add('row-hl');
+      
+      // Update select info
+      selectInfo.textContent = `ab=${row.a}${row.b} → D${select}`;
+      
+      // Activate input wires
+      if (row.a) document.getElementById('wire-a').classList.add('active');
+      if (row.b) document.getElementById('wire-b').classList.add('active');
+      if (row.cin) document.getElementById('wire-cin').classList.add('active');
+      
+      if (stage === 0) {
+        explainEl.textContent = `Εισόδους: a=${row.a}, b=${row.b}, cin=${row.cin}`;
+      } else if (stage === 1) {
+        explainEl.textContent = `Select ab=${row.a}${row.b} επιλέγει D${select} από κάθε MUX`;
+        
+        // Highlight selected D inputs
+        document.getElementById(`sum-d${select}`).classList.add('active');
+        document.getElementById(`carry-d${select}`).classList.add('active');
+        
+        // Highlight D input wires
+        document.getElementById(`sum-d${select}-wire`).classList.add('active');
+        document.getElementById(`carry-d${select}-wire`).classList.add('active');
+        
+      } else if (stage === 2) {
+        const S = sumInputs[select];
+        const C = carryInputs[select];
+        
+        explainEl.textContent = `Αποτελέσματα: S=${S}, C=${C}`;
+        
+        // Fill in results
+        tr.children[6].textContent = S;
+        tr.children[7].textContent = C;
+        tr.children[6].classList.add('cell-hl');
+        tr.children[7].classList.add('cell-hl');
+        
+        // Highlight outputs
+        document.getElementById('sum-out').classList.add('active');
+        document.getElementById('carry-out').classList.add('active');
+        
+        if (S) document.getElementById('sum-box').classList.add('on');
+        if (C) document.getElementById('carry-box').classList.add('on');
+      }
+    }
+    
+    function next() {
+      if (stage < 2) {
+        stage++;
+      } else {
+        stage = 0;
+        curRow = (curRow + 1) % truthTable.length;
+      }
+      updateSimulation();
+    }
+    
+    // --- CONTROLS ---
+    function start() {
+      if (playing) return;
+      playing = true;
+      btnPlay.classList.replace('play', 'pause');
+      btnPlay.textContent = '⏸ Εκτέλεση';
+      updateSimulation();
+      timer = setInterval(next, delay);
+    }
+    
+    function pause() {
+      playing = false;
+      btnPlay.classList.replace('pause', 'play');
+      btnPlay.textContent = '▶ Έναρξη';
+      clearInterval(timer);
+      timer = null;
+    }
+    
+    function reset() {
+      pause();
+      curRow = 0;
+      stage = 0;
+      buildTable();
+      clearHighlights();
+      explainEl.textContent = 'Πατήστε \'Έναρξη\' για να ξεκινήσει η προσομοίωση.';
+      stageEl.textContent = "Αναμονή";
+      aVal.textContent = "-";
+      bVal.textContent = "-";
+      cinVal.textContent = "-";
+      selectInfo.textContent = "ab=-- → D-";
+    }
+    
+    // --- EVENT LISTENERS ---
+    speedBtns.forEach(btn => btn.addEventListener('click', () => {
+      speedBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      delay = parseInt(btn.dataset.ms, 10);
+      if (playing) {
+        pause();
+        start();
+      }
+    }));
+    
+    btnPlay.addEventListener('click', () => playing ? pause() : start());
+    btnPause.addEventListener('click', pause);
+    btnStep.addEventListener('click', () => { pause(); next(); });
+    btnReset.addEventListener('click', reset);
+    
+    toggleBtn.addEventListener('click', () => {
+      const isSimVisible = simPage.style.display !== 'none';
+      simPage.style.display = isSimVisible ? 'none' : 'block';
+      expPage.style.display = isSimVisible ? 'block' : 'none';
+      toggleBtn.textContent = isSimVisible ? 'Επιστροφή στην Προσομοίωση' : 'Αναλυτική Εξήγηση';
+      if (!isSimVisible) reset();
+    });
+    
+    // --- INITIALIZATION ---
+    buildTable();
+    generateExplanation();
+    reset();
+</script>
+</body>
+</html>

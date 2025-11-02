@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combinational Logic Quiz</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #4caf50 !important;
+            color: white !important;
+            border-color: #4caf50 !important;
+        }
+
+        .option.incorrect {
+            background: #f44336 !important;
+            color: white !important;
+            border-color: #f44336 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left: 5px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 5px solid #f44336;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .results {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #4caf50; }
+        .score-good { color: #ff9800; }
+        .score-poor { color: #f44336; }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Combinational Logic Quiz</h1>
+            <p>Test your knowledge of combinational logic circuits</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/20</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/20</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What defines a combinational logic circuit?",
+                options: [
+                    "Its output depends on the current inputs and past outputs.",
+                    "Its output depends only on the current inputs.",
+                    "It contains memory elements like flip-flops.",
+                    "It always has a feedback loop."
+                ],
+                correct: 1,
+                explanation: "In a combinational circuit, the output at any given time is determined exclusively by the values of the inputs at that same time. It has no memory."
+            },
+            {
+                question: "What are the two main outputs of a half adder?",
+                options: ["Sum and Remainder", "Quotient and Carry", "Sum and Carry", "Difference and Borrow"],
+                correct: 2,
+                explanation: "A half adder adds two single binary digits and produces a Sum (S) and a Carry (C) output."
+            },
+            {
+                question: "A full adder can be constructed using two half adders and which other gate?",
+                options: ["AND gate", "NAND gate", "XOR gate", "OR gate"],
+                correct: 3,
+                explanation: "A full adder can be implemented with two half adders and an OR gate to combine their carry outputs."
+            },
+            {
+                question: "What is the main purpose of a decoder?",
+                options: [
+                    "To convert a binary code into a set of signals, where only one signal is active.",
+                    "To select one of many inputs to a single output line.",
+                    "To add two binary numbers.",
+                    "To store a bit of information."
+                ],
+                correct: 0,
+                explanation: "A decoder converts an n-bit input code into 2ⁿ unique output lines, activating only one output line for each unique input combination."
+            },
+            {
+                question: "A 3-to-8 decoder has how many inputs and outputs?",
+                options: ["3 inputs, 8 outputs", "8 inputs, 3 outputs", "2 inputs, 4 outputs", "4 inputs, 16 outputs"],
+                correct: 0,
+                explanation: "A 3-to-8 decoder takes a 3-bit binary input and activates one of its 8 outputs."
+            },
+            {
+                question: "What is the function of an encoder?",
+                options: [
+                    "To convert a set of signals into a binary code.",
+                    "To select one of many inputs to a single output line.",
+                    "To store multiple bits of information.",
+                    "To perform arithmetic operations."
+                ],
+                correct: 0,
+                explanation: "An encoder performs the reverse operation of a decoder. It converts an active input signal (out of 2ⁿ possible inputs) into an n-bit binary code."
+            },
+            {
+                question: "What is a multiplexer (MUX)?",
+                options: [
+                    "A circuit that has many inputs and many outputs.",
+                    "A circuit that converts a binary code to a single active output.",
+                    "A circuit that selects one of several input lines and directs it to a single output line.",
+                    "A circuit that performs binary subtraction."
+                ],
+                correct: 2,
+                explanation: "A multiplexer, or data selector, is a circuit that selects one of its 2ⁿ data inputs and routes it to a single output, based on the value of its n select lines."
+            },
+            {
+                question: "How many select lines are required for a 16-to-1 multiplexer?",
+                options: ["1", "2", "4", "16"],
+                correct: 2,
+                explanation: "To select one of 16 inputs, you need n select lines where 2ⁿ ≥ 16. In this case, 2⁴ = 16, so 4 select lines are needed."
+            },
+            {
+                question: "What is the function of a demultiplexer (DEMUX)?",
+                options: [
+                    "To distribute a single input to one of several output lines.",
+                    "To combine several inputs into a single output.",
+                    "To compare two binary numbers.",
+                    "To add a parity bit to data."
+                ],
+                correct: 0,
+                explanation: "A demultiplexer takes a single input and routes it to one of 2ⁿ possible outputs, determined by n select lines. It's the opposite of a multiplexer."
+            },
+            {
+                question: "A binary subtractor can be built using a binary adder and what other components?",
+                options: ["A decoder", "A multiplexer", "Inverters (for 1's complement) and adding 1", "A shift register"],
+                correct: 2,
+                explanation: "Subtraction (A - B) can be performed by adding the 2's complement of B to A. This is done by inverting the bits of B (1's complement) and adding 1 via the carry-in of the adder."
+            },
+            {
+                question: "What is the purpose of a magnitude comparator?",
+                options: [
+                    "To add two binary numbers.",
+                    "To determine if two binary numbers are equal, or if one is greater than the other.",
+                    "To select the larger of two numbers.",
+                    "To store the magnitude of a number."
+                ],
+                correct: 1,
+                explanation: "A magnitude comparator is a combinational circuit that compares two numbers (A and B) and determines their relative magnitudes (A > B, A = B, or A < B)."
+            },
+            {
+                question: "What is the 'carry lookahead' technique used for?",
+                options: [
+                    "To simplify the design of a full adder.",
+                    "To reduce the propagation delay in ripple-carry adders.",
+                    "To implement subtraction using an adder.",
+                    "To decode BCD numbers."
+                ],
+                correct: 1,
+                explanation: "Carry lookahead logic is a technique to speed up binary addition by calculating the carry signals in advance, rather than waiting for them to ripple through each stage of the adder."
+            },
+            {
+                question: "How is the BCD number 9 represented in Excess-3 code?",
+                options: ["1001", "1100", "0110", "1010"],
+                correct: 1,
+                explanation: "Excess-3 code is found by adding 3 to the BCD value. For 9 (1001), adding 3 (0011) gives 1100. So, (9)BCD = (1100)Excess-3."
+            },
+            {
+                question: "A seven-segment display decoder takes a BCD input and outputs signals to drive which segments for the digit '1'?",
+                options: ["a, b, c, d, e, f", "b, c", "a, b, g, e, d", "all seven segments"],
+                correct: 1,
+                explanation: "To display the digit '1', a seven-segment decoder activates segments 'b' and 'c'."
+            },
+            {
+                question: "What is the third state of a three-state (or tri-state) logic gate?",
+                options: ["A low voltage state", "A high voltage state", "A high-impedance (Hi-Z) state", "An oscillating state"],
+                correct: 2,
+                explanation: "Besides the standard high (1) and low (0) logic levels, a three-state gate has a third state called high-impedance (Hi-Z), which effectively disconnects the output from the circuit."
+            },
+            {
+                question: "What are the outputs for a full adder with inputs A=1, B=1, and Cin=1?",
+                options: ["Sum=1, Cout=1", "Sum=0, Cout=1", "Sum=1, Cout=0", "Sum=0, Cout=0"],
+                correct: 0,
+                explanation: "1 + 1 + 1 = 3 in decimal, which is 11 in binary. Therefore, the Sum is 1 and the Carry-out is 1."
+            },
+            {
+                question: "A priority encoder outputs the binary code for which input?",
+                options: [
+                    "The lowest-numbered active input.",
+                    "The highest-numbered active input.",
+                    "All active inputs combined.",
+                    "The last input that became active."
+                ],
+                correct: 1,
+                explanation: "If multiple inputs are active at the same time, a priority encoder generates the binary code corresponding to the highest-priority (usually highest-numbered) input."
+            },
+            {
+                question: "How can a Boolean function be implemented using a multiplexer?",
+                options: [
+                    "By connecting the function's variables to the data inputs and the minterms to the select lines.",
+                    "By connecting the function's variables to the select lines and setting the data inputs to 0, 1, a variable, or its complement.",
+                    "It is not possible to implement a general Boolean function with a MUX.",
+                    "By connecting the function's variables to both the select and data lines."
+                ],
+                correct: 1,
+                explanation: "A common method is to use the n-1 variables of an n-variable function as select lines and connect the data lines to 0, 1, the remaining variable, or its complement, based on the truth table."
+            },
+            {
+                question: "What is overflow in binary addition?",
+                options: [
+                    "When the carry-out of the most significant bit is 1.",
+                    "When the result of an addition is too large to be represented by the number of available bits.",
+                    "When two negative numbers are added.",
+                    "When the sum is zero."
+                ],
+                correct: 1,
+                explanation: "Overflow occurs when the result of an arithmetic operation, like addition, exceeds the magnitude that can be represented with the given number of bits, leading to an incorrect result."
+            },
+            {
+                question: "A 4-bit ripple-carry adder is constructed from four full adders. What is the critical path for delay?",
+                options: [
+                    "The path from the first adder's inputs to its sum output.",
+                    "The path of the carry signal from the first adder (C_in) to the last adder's carry-out (C_out).",
+                    "The path from the last adder's inputs to its sum output.",
+                    "All paths have the same delay."
+                ],
+                correct: 2,
+                explanation: "The critical path, which determines the overall delay, is the propagation of the carry signal from the least significant bit to the most significant bit."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span>${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (showingResults) return;
+            
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            
+            userAnswers[currentQuestion] = optionIndex;
+            
+            showAnswer(currentQuestion);
+            
+            updateScore();
+            updateProgress();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = '🎉 Excellent! You have mastered the concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = '👍 Good job! You have a solid understanding.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = '📚 Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

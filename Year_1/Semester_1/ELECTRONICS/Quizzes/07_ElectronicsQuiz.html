@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (BJT Fundamentals)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">BJT Fundamentals, Characteristics, and Applications</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">50</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'bjt_output'|'bjt_input'|'iv', params:{...} }
+}
+All content is aligned to the attached PDF topics.
+*/
+
+const questions = [
+  { text: "What are the two primary functions of a transistor in an electronic circuit?", choices: ["Generating power and storing charge", "Amplifying signals and acting as a switch", "Resisting current and inducing magnetism", "Filtering frequencies and rectifying AC"], correctIndex: 1, explain: "Transistors are fundamental building blocks used for both signal amplification (making a weak signal stronger) and as electronically controlled switches." },
+  { text: "The term 'transistor' is a combination of which two words, reflecting its basic operation?", choices: ["Transmit Resonator", "Transform Resistor", "Transfer Resistor", "Transient Conductor"], correctIndex: 2, explain: "The name transistor comes from 'Transfer Resistor,' describing how it can control the current through a large resistance using a small change in a small resistance path." },
+  { text: "Who are the three inventors credited with the creation of the first point-contact transistor at Bell Labs in 1947?", choices: ["Ohm, Kirchhoff, and Volta", "Bardeen, Brattain, and Shockley", "Maxwell, Faraday, and Henry", "Tesla, Edison, and Marconi"], correctIndex: 1, explain: "John Bardeen, Walter Brattain, and William Shockley were awarded the Nobel Prize in Physics in 1956 for their invention of the transistor." },
+  { text: "Which type of transistor was invented first, marking the beginning of the solid-state electronics era?", choices: ["MOSFET", "JFET", "Bipolar Junction Transistor (BJT)", "IGBT"], correctIndex: 2, explain: "The first functional transistor was the point-contact BJT in 1947. The MOSFET, which is dominant today, was invented later in 1959 by Kahng and Atalla at Bell Labs." },
+  { text: "Moore's Law describes a long-term trend in the history of computing hardware. What does it state?", choices: ["The speed of light is constant", "A processor's power consumption doubles every two years", "The number of transistors in an integrated circuit (IC) doubles approximately every two years", "The cost of a transistor halves every year"], correctIndex: 2, explain: "Moore's Law is an observation that the density of transistors on a chip doubles about every two years, leading to exponential growth in computing power." },
+  { text: "A Bipolar Junction Transistor (BJT) is known as a current-controlled device. What type of device is a Field-Effect Transistor (FET)?", choices: ["A current-controlled device", "A voltage-controlled device", "A resistance-controlled device", "A power-controlled device"], correctIndex: 1, explain: "In a BJT, a small base current controls a large collector current. In a FET (like a MOSFET), a voltage applied to the gate controls the current flow between drain and source." },
+  { text: "Transistors are built using semiconductor materials. Which two elements are the most common choices for these materials?", choices: ["Gold and Silver", "Copper and Aluminum", "Silicon and Germanium", "Carbon and Boron"], correctIndex: 2, explain: "Silicon (Si) is the most widely used semiconductor material for modern electronics due to its stability and abundance. Germanium (Ge) was used for many early transistors." },
+  { text: "What are the two main types of Bipolar Junction Transistors (BJTs)?", choices: ["N-Channel and P-Channel", "Enhancement and Depletion", "NPN and PNP", "Junction and Point-Contact"], correctIndex: 2, explain: "BJTs are classified as NPN or PNP based on the arrangement of their n-type and p-type semiconductor layers." },
+  { text: "What are the names of the three terminals of a BJT?", choices: ["Source, Drain, Gate", "Anode, Cathode, Gate", "Emitter, Base, Collector", "Input, Output, Ground"], correctIndex: 2, explain: "Every BJT has three terminals: the Emitter (E), the Base (B), and the Collector (C)." },
+  { text: "In an NPN transistor, the structure is a sandwich of semiconductor materials. What type of material is the Base made of?", choices: ["n-type", "p-type", "intrinsic semiconductor", "metal"], correctIndex: 1, explain: "An NPN transistor consists of a thin layer of p-type material (the Base) sandwiched between two layers of n-type material (the Emitter and Collector)." },
+  { text: "In a standard BJT, which of the three regions is intentionally made very thin and lightly doped?", choices: ["Emitter", "Base", "Collector", "Substrate"], correctIndex: 1, explain: "The Base is made very thin and is lightly doped to ensure most charge carriers from the Emitter pass through to the Collector without recombining." },
+  { text: "To ensure a BJT can supply many charge carriers, which of its regions is the most heavily doped?", choices: ["Emitter", "Base", "Collector", "The doping is uniform"], correctIndex: 0, explain: "The Emitter is heavily doped so it can 'emit' or inject a large number of charge carriers into the base." },
+  { text: "On a schematic symbol for an NPN transistor, the arrow is on the Emitter terminal. Which way does it point?", choices: ["Towards the Base", "Away from the Base", "Towards the Collector", "Away from the Collector"], correctIndex: 1, explain: "The arrow on an NPN symbol is on the Emitter and points away from the base, indicating the direction of conventional current flow. A helpful mnemonic is 'NPN - Not Pointing In'." },
+  { text: "How does the arrow on the schematic symbol for a PNP transistor differ from an NPN?", choices: ["It is on the Collector", "It is on the Base", "It points towards the Base", "There is no arrow"], correctIndex: 2, explain: "For a PNP transistor, the arrow is also on the Emitter, but it 'Points iN Proudly' (PNP) towards the base." },
+  { text: "Why is the Collector region physically the largest of the three BJT regions?", choices: ["To make it easy to connect a wire", "To dissipate the most heat", "To provide structural support", "To have the highest doping concentration"], correctIndex: 1, explain: "The Collector-Base junction handles the most power and dissipates the most heat, so the Collector is made larger to manage this thermal load." },
+  { text: "For a BJT to operate in the 'active region' for signal amplification, how must its two PN junctions be biased?", choices: ["Both forward biased", "Both reverse biased", "Emitter-Base forward biased, Collector-Base reverse biased", "Emitter-Base reverse biased, Collector-Base forward biased"], correctIndex: 2, explain: "This specific biasing scheme (EB forward, CB reverse) allows the transistor to act as a current amplifier, where a small base current controls a large collector current." },
+  { text: "In an NPN transistor operating in the active region, what are the majority carriers that flow from the Emitter, through the Base, to the Collector?", choices: ["Holes", "Protons", "Neutrons", "Electrons"], correctIndex: 3, explain: "In an NPN transistor, the heavily doped n-type emitter injects electrons into the base. Most of these electrons are then swept into the collector." },
+  { text: "Which equation correctly represents the relationship between the three BJT currents (\\(I_E, I_B, I_C\\)) based on Kirchhoff's Current Law?", choices: ["\\(I_B = I_C + I_E\\)", "\\(I_C = I_E + I_B\\)", "\\(I_E = I_C + I_B\\)", "\\(I_E = I_C - I_B\\)"], correctIndex: 2, explain: "The current flowing into the transistor (from the emitter) must equal the sum of the currents flowing out (from the collector and base). Thus, \\(I_E = I_C + I_B\\)." },
+  { text: "In a PNP transistor operating in the active region, the flow of conventional current is primarily composed of what charge carriers?", choices: ["Electrons", "Holes", "Ions", "Phonons"], correctIndex: 1, explain: "In a PNP transistor, the p-type emitter injects holes into the base, and these holes are the primary charge carriers that flow to the collector." },
+  { text: "The term 'bipolar' in Bipolar Junction Transistor signifies that its operation involves:", choices: ["Only one type of charge carrier", "Two power supplies", "Two types of charge carriers: electrons and holes", "Two operating states: ON and OFF"], correctIndex: 2, explain: "'Bipolar' refers to the fact that both majority carriers (e.g., electrons in NPN) and minority carriers (e.g., holes in NPN) participate in the current flow." },
+  { text: "For a forward-biased Emitter-Base junction in a silicon BJT, what is the approximate voltage drop \\(V_{BE}\\)?", choices: ["0 V", "0.3 V", "0.7 V", "5.0 V"], correctIndex: 2, explain: "Similar to a standard silicon diode, the forward voltage drop across the Emitter-Base junction is approximately 0.6V to 0.7V.", plot: { type:'bjt_input', params:{ vce_values: [1, 10] } } },
+  { text: "The analogy of a BJT as two back-to-back diodes is incomplete. Why can't you build a working transistor by just connecting two diodes together?", choices: ["Diodes are too large", "The thin, active base region is missing", "Diodes cannot handle enough current", "It is possible, but inefficient"], correctIndex: 1, explain: "A transistor's function relies on the quantum mechanical interaction within a single, continuous crystal structure with a very thin base. Two separate diodes lack this crucial coupling." },
+  { text: "In the active region, a small change in Base current (\\( \\Delta I_B \\)) results in a:", choices: ["Small change in Collector current", "Large change in Collector current", "No change in Collector current", "Large change in Emitter voltage"], correctIndex: 1, explain: "This is the essence of current amplification. The change in collector current is proportional to the change in base current, scaled by the gain factor \\(\\beta\\)." },
+  { text: "What does the parameter \\(\\beta_{DC}\\) (also known as \\(h_{FE}\\)) represent in a BJT?", choices: ["The ratio \\(\\frac{I_C}{I_E}\\)", "The ratio \\(\\frac{I_C}{I_B}\\)", "The ratio \\(\\frac{I_B}{I_E}\\)", "The breakdown voltage"], correctIndex: 1, explain: "\\(\\beta_{DC}\\) is the DC current gain, defined as the ratio of the collector current to the base current in the active region. It indicates the transistor's amplifying capability.", plot: { type:'bjt_output', params:{ beta: 100, ib_steps: [10, 20, 30, 40, 50] } } },
+  { text: "The common-base DC current gain is represented by \\(\\alpha_{DC}\\). It relates which two currents?", choices: ["\\(\\alpha_{DC} = \\frac{I_C}{I_B}\\)", "\\(\\alpha_{DC} = \\frac{I_B}{I_E}\\)", "\\(\\alpha_{DC} = \\frac{I_C}{I_E}\\)", "\\(\\alpha_{DC} = \\frac{I_E}{I_B}\\)"], correctIndex: 2, explain: "\\(\\alpha_{DC}\\) is the ratio of collector current to emitter current. It is always slightly less than 1, as \\(I_C\\) is slightly smaller than \\(I_E\\)." },
+  { text: "What is a typical range of values for \\(\\beta\\) for a general-purpose BJT?", choices: ["Less than 1", "Exactly 1", "Between 1 and 10", "Between 50 and 300"], correctIndex: 3, explain: "\\(\\beta\\) varies widely between transistor types but is typically in the range of 50 to 300, indicating significant current gain." },
+  { text: "What is the typical range of values for the common-base current gain, \\(\\alpha\\)?", choices: ["Greater than 1", "0.95 to 0.998", "0.5 to 0.8", "Exactly 1"], correctIndex: 1, explain: "Since \\(I_C\\) is always slightly less than \\(I_E\\), \\(\\alpha = \\frac{I_C}{I_E}\\) is always just under 1." },
+  { text: "Given the common-emitter current gain \\(\\beta\\), what is the correct formula to find the common-base current gain \\(\\alpha\\)?", choices: ["\\(\\alpha = \\beta + 1\\)", "\\(\\alpha = \\frac{\\beta}{\\beta+1}\\)", "\\(\\alpha = \\frac{\\beta+1}{\\beta}\\)", "\\(\\alpha = \\beta - 1\\)"], correctIndex: 1, explain: "Starting from \\(I_E = I_C + I_B\\) and the definitions of \\(\\alpha\\) and \\(\\beta\\), one can derive the relationship \\(\\alpha = \\frac{\\beta}{\\beta+1}\\)." },
+  { text: "The Early effect describes the slight increase in Collector current \\(I_C\\) as \\(V_{CE}\\) increases in the active region. How does this appear on the output characteristic curves?", choices: ["As a perfectly flat line", "As a slight upward slope", "As a sharp drop to zero", "As a vertical line"], correctIndex: 1, explain: "The Early effect, caused by base-width modulation, results in the output characteristic curves having a small, finite positive slope instead of being perfectly horizontal.", plot: { type:'bjt_output', params:{ beta: 120, ib_steps: [20, 40, 60] } } },
+  { text: "A transistor with a very high Early Voltage (\\(V_A\\)) is considered more ideal. What does this imply about its output characteristics?", choices: ["The curves are steeper", "The transistor has low gain", "The curves are flatter (more horizontal)", "The breakdown voltage is lower"], correctIndex: 2, explain: "A higher \\(V_A\\) means a smaller slope on the I-V curves, indicating that \\(I_C\\) is less dependent on \\(V_{CE}\\), which is closer to the ideal behavior of a current source." },
+  { text: "Which BJT configuration is most widely used for amplification because it provides both high current gain and high voltage gain?", choices: ["Common Emitter (CE)", "Common Base (CB)", "Common Collector (CC)", "Common Ground"], correctIndex: 0, explain: "The Common Emitter configuration is the workhorse of BJT amplifiers, offering a good balance of voltage and current gain, resulting in the highest power gain." },
+  { text: "In a Common Base (CB) configuration, the input signal is applied to the Emitter and the output is taken from the Collector. Which terminal is common to both input and output?", choices: ["Emitter", "Base", "Collector", "Power Supply"], correctIndex: 1, explain: "As the name implies, the Base terminal is common (often connected to AC ground) to both the input and output circuits in the CB configuration." },
+  { text: "The Common Collector (CC) configuration is also known as an Emitter Follower. What is its main advantage?", choices: ["Very high voltage gain", "A voltage gain near 1 and high input impedance", "Negative input impedance", "Very low current gain"], correctIndex: 1, explain: "The Emitter Follower has a voltage gain of approximately 1, high current gain, and high input impedance, making it excellent as a buffer to connect a high-impedance source to a low-impedance load." },
+  { text: "In the popular Common Emitter (CE) amplifier, where is the input signal typically applied and from where is the output signal taken?", choices: ["Input: Emitter, Output: Base", "Input: Collector, Output: Emitter", "Input: Base, Output: Collector", "Input: Base, Output: Emitter"], correctIndex: 2, explain: "In a CE amplifier, the small input signal is applied to the Base (controlling \\(I_B\\)), and the amplified output signal is taken from the Collector." },
+  { text: "Which configuration is characterized by a current gain (\\(\\alpha\\)) that is slightly less than 1?", choices: ["Common Emitter", "Common Base", "Common Collector", "All of them"], correctIndex: 1, explain: "The Common Base configuration's current gain is \\(\\alpha = \\frac{I_C}{I_E}\\), which is always slightly less than unity." },
+  { text: "When a BJT is used as a fully 'ON' or closed switch, in which region is it operating?", choices: ["Active", "Cutoff", "Breakdown", "Saturation"], correctIndex: 3, explain: "In saturation, the transistor acts like a closed switch with a small voltage drop (\\(V_{CE(sat)}\\)) across it, allowing maximum current to flow as limited by the external circuit." },
+  { text: "In the Cutoff region, a BJT acts like an open switch. How are its junctions biased?", choices: ["Both forward biased", "Both reverse biased", "EB forward, CB reverse", "EB reverse, CB forward"], correctIndex: 1, explain: "In cutoff, there is no significant base current, so both the emitter-base and collector-base junctions are effectively reverse-biased (or have less than 0.7V forward bias), blocking current flow." },
+  { text: "What are the biasing conditions for the Emitter-Base (EB) and Collector-Base (CB) junctions when a BJT is in the Saturation region?", choices: ["EB Reverse, CB Reverse", "EB Forward, CB Reverse", "EB Reverse, CB Forward", "EB Forward, CB Forward"], correctIndex: 3, explain: "Saturation occurs when the base current is so large that it forces the collector-base junction to also become forward-biased, along with the already forward-biased emitter-base junction." },
+  { text: "On a family of \\(I_C\\) vs. \\(V_{CE}\\) characteristic curves, what does the horizontal x-axis represent?", choices: ["Base Current (\\(I_B\\))", "Emitter Current (\\(I_E\\))", "Base-Emitter Voltage (\\(V_{BE}\\))", "Collector-Emitter Voltage (\\(V_{CE}\\))"], correctIndex: 3, explain: "The output characteristics plot the output current (\\(I_C\\)) against the output voltage (\\(V_{CE}\\)).", plot: { type:'bjt_output', params:{ beta: 100, ib_steps: [10, 20, 30, 40, 50, 60] } } },
+  { text: "On the plot of output characteristics, each individual curve corresponds to a constant value of which parameter?", choices: ["Collector Voltage (\\(V_C\\))", "Base Current (\\(I_B\\))", "Temperature", "Collector Resistance (\\(R_C\\))"], correctIndex: 1, explain: "Each curve shows how \\(I_C\\) changes with \\(V_{CE}\\) for a specific, constant base current \\(I_B\\). Higher curves correspond to higher values of \\(I_B\\).", plot: { type:'bjt_output', params:{ beta: 100, ib_steps: [10, 20, 30, 40, 50, 60] } } },
+  { text: "A DC load line is drawn on the output characteristic curves to visualize a circuit's operation. What do the two endpoints of the load line represent?", choices: ["Max power and min power", "The Q-point and the origin", "The saturation point and the cutoff point", "Input voltage and output voltage"], correctIndex: 2, explain: "The load line intersects the y-axis (\\(V_{CE}=0\\)) at the saturation current \\(I_{C(sat)}\\) and the x-axis (\\(I_C=0\\)) at the cutoff voltage \\(V_{CE(off)}\\), which is typically equal to the supply voltage \\(V_{CC}\\)." },
+  { text: "The operating point, or Q-point, of a transistor amplifier represents its DC state with no signal applied. For linear amplification, where should it be located?", choices: ["At the cutoff point", "At the saturation point", "In the center of the active region, on the load line", "Anywhere in the active region"], correctIndex: 2, explain: "Centering the Q-point on the load line allows the AC signal to cause the maximum possible symmetrical swing in output voltage and current without clipping (entering cutoff or saturation)." },
+  { text: "If the voltage \\(V_{CE}\\) across a transistor exceeds its maximum rating, it can enter the breakdown region. What happens to the collector current in this region?", choices: ["It drops to zero", "It remains constant", "It increases sharply and uncontrollably", "It becomes negative"], correctIndex: 2, explain: "In the breakdown region, an avalanche effect occurs, causing a sudden and very large increase in current that can permanently damage the transistor." },
+  { text: "In the Saturation region, the collector current \\(I_C\\) is no longer proportional to \\(I_B\\). What primarily limits its value?", choices: ["The transistor's \\(\\beta\\)", "The base current \\(I_B\\)", "The external circuit components (e.g., \\(V_{CC}\\) and \\(R_C\\))", "The ambient temperature"], correctIndex: 2, explain: "In saturation, the transistor acts like a closed switch. The current is then determined by Ohm's Law applied to the external circuit: \\(I_{C(sat)} \\approx \\frac{V_{CC}}{R_C}\\)." },
+  { text: "What is the ideal value of collector current \\(I_C\\) when a transistor is in the cutoff region?", choices: ["Infinite", "Equal to \\(I_B\\)", "Zero", "Equal to \\(\\frac{V_{CC}}{R_C}\\)"], correctIndex: 2, explain: "In the ideal cutoff state, the transistor acts as a perfect open switch, and no collector current flows (\\(I_C = 0\\)). In reality, a very small leakage current may exist." },
+  { text: "When using an NPN transistor as a simple switch to turn on an LED, applying a positive voltage (through a current-limiting resistor) to the base will...", choices: ["Turn the switch OFF (cutoff)", "Damage the LED", "Turn the switch ON (saturation)", "Cause the circuit to oscillate"], correctIndex: 2, explain: "Applying sufficient base current will drive the transistor into saturation, effectively closing the switch between the collector and emitter, and allowing current to flow through the LED." },
+  { text: "The main purpose of a biasing circuit for a transistor amplifier is to...", choices: ["Set the AC voltage gain", "Provide over-voltage protection", "Establish a stable DC operating point (Q-point) in the active region", "Filter out unwanted noise"], correctIndex: 2, explain: "Biasing uses resistors and voltage sources to set the DC currents (\\(I_B\\), \\(I_C\\)) and voltages (\\(V_{BE}\\), \\(V_{CE}\\)) so the transistor operates correctly in the active region." },
+  { text: "Which property of a BJT in the active region is fundamental to its use as an amplifier for small AC signals?", choices: ["Its low ON-state resistance", "Its high OFF-state resistance", "A small change in input current \\(I_B\\) creates a large, proportional change in output current \\(I_C\\)", "Its ability to store charge"], correctIndex: 2, explain: "The linear relationship \\(\\Delta I_C = \\beta \\cdot \\Delta I_B\\) in the active region means that the shape of a small input current signal is faithfully reproduced as a larger output current signal, which is the essence of amplification." },
+  { text: "The total power dissipated by a transistor is approximately \\(P_D \\approx I_C \\cdot V_{CE}\\). In which operating region is this power dissipation often highest for an amplifier?", choices: ["Cutoff (\\(I_C \\approx 0\\))", "Saturation (\\(V_{CE} \\approx 0\\))", "The middle of the active region", "Breakdown"], correctIndex: 2, explain: "Power is the product of current and voltage. In cutoff, current is near zero. In saturation, voltage is near zero. In the active region, both are significant, so their product (power) is highest." },
+  { text: "To identify the terminals of an unknown BJT with a multimeter in diode test mode, the base is the terminal that shows a diode drop to the...", choices: ["Other two terminals, for both NPN and PNP", "Other two terminals for an NPN, but not a PNP", "Collector only", "Emitter only"], correctIndex: 0, explain: "The base forms a PN junction with both the emitter and collector. Therefore, you can find a diode reading (approx. 0.7V) from the base to the other two terminals (for NPN: positive lead on base) or from the other two terminals to the base (for PNP: negative lead on base)." }
+];
+
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); // y
+  ctx.moveTo(0, h); ctx.lineTo(w, h); // x
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(xlabel, w, h - 6);
+  ctx.textAlign = 'left';
+  ctx.fillText(ylabel, 6, 12);
+  ctx.restore();
+}
+
+function plotIV(R){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'I');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Vmax = 10;
+  for(let i=0;i<=100;i++){
+    const V = Vmax*i/100;
+    const I = V/R;
+    const px = (V/Vmax)*w;
+    const Imax = Vmax/R;
+    const py = h - (I/Imax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`R = ${R} Ω`, 10, 16);
+  ctx.restore();
+}
+
+function plotBJTOutput(beta, ib_steps) { // ib_steps in microamps
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V_CE (V)', 'I_C (mA)');
+  ctx.save();
+  ctx.translate(pad, pad);
+  
+  const Vce_max = 20; // Volts
+  const Vce_sat = 0.2; // Saturation voltage
+  
+  const max_ib = ib_steps[ib_steps.length - 1];
+  const Ic_max_est = beta * (max_ib * 1e-6); // Amps
+  const Ic_max_mA = Ic_max_est * 1000 * 1.1; // mA, with some headroom
+
+  ctx.lineWidth = 1.5;
+  ctx.font = '11px system-ui';
+  
+  ib_steps.forEach((ib_uA, index) => {
+    ctx.strokeStyle = `hsl(${180 + index*25}, 80%, 65%)`;
+    ctx.beginPath();
+    const ib_A = ib_uA * 1e-6;
+    const ic_active_A = beta * ib_A;
+    const ic_active_mA = ic_active_A * 1000;
+
+    for(let i=0; i<=200; i++) {
+      const vce = (i/200) * Vce_max;
+      let ic_mA;
+      
+      if (vce < Vce_sat) {
+        ic_mA = (vce / Vce_sat) * ic_active_mA;
+      } else {
+        const VA = 100; // Early voltage
+        ic_mA = ic_active_mA * (1 + vce / VA);
+      }
+      
+      const px = (vce / Vce_max) * w;
+      const py = h - (ic_mA / Ic_max_mA) * h;
+      
+      if (i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    const text_px = w - 55;
+    const text_py = h - (ic_active_mA * (1 + Vce_max/100) / Ic_max_mA) * h + 4;
+    ctx.fillStyle = '#d6dbff';
+    ctx.textAlign = 'left';
+    ctx.fillText(`I_B = ${ib_uA}μA`, text_px, text_py);
+  });
+  
+  ctx.restore();
+}
+
+function plotBJTInput(vce_values) { // vce_values in Volts
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V_BE (V)', 'I_B (μA)');
+  ctx.save();
+  ctx.translate(pad, pad);
+
+  const Vbe_max = 1.0;
+  const Is = 2e-15; // Saturation current
+  const Vt = 0.0258; // Thermal voltage
+  const Ib_max_uA = 120;
+
+  ctx.lineWidth = 1.5;
+  ctx.font = '11px system-ui';
+  ctx.textAlign = 'left';
+
+  vce_values.forEach((vce, index) => {
+      ctx.strokeStyle = `hsl(${200 + index*40}, 80%, 65%)`;
+      ctx.beginPath();
+      let firstPoint = true;
+      for(let i=0; i<=200; i++) {
+        const vbe = (i/200) * Vbe_max;
+        let ib_A = Is * (Math.exp(vbe/Vt) - 1);
+        let ib_uA = ib_A * 1e6;
+
+        const px = (vbe / Vbe_max) * w;
+        const py = h - (ib_uA / Ib_max_uA) * h;
+
+        if (py < -10) continue;
+        if (firstPoint) { ctx.moveTo(px, Math.min(py, h)); firstPoint = false; } else { ctx.lineTo(px, py); }
+      }
+      ctx.stroke();
+      const text_px = 0.75 * w;
+      const text_py = 20 + index * 15;
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.fillText(`V_CE = ${vce}V`, text_px, text_py);
+  });
+  
+  ctx.restore();
+}
+
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'iv'){ plotIV(params.R ?? 100); }
+  else if(type === 'bjt_output'){ plotBJTOutput(params.beta, params.ib_steps); }
+  else if(type === 'bjt_input'){ plotBJTInput(params.vce_values); }
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

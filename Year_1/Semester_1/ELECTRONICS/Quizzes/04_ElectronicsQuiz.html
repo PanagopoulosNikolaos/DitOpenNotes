@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (Diode Fundamentals)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">Diode Characteristics, Models, and Applications</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">40</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'diode_iv'|'load_line'|'approximations', params:{...} }
+}
+All content is aligned to the attached PDF topics.
+*/
+
+const questions = [
+  { text: "How is an n-type semiconductor created?", choices: ["Doping silicon with a trivalent element (e.g., Boron)", "Doping silicon with a pentavalent element (e.g., Phosphorus)", "Using pure, undoped silicon", "By heating silicon to a very high temperature"], correctIndex: 1, explain: "An n-type semiconductor is created by doping a pure semiconductor like silicon with pentavalent impurities (e.g., Phosphorus), which donate free electrons as majority charge carriers." },
+  { text: "In a p-n junction diode, the anode terminal corresponds to the:", choices: ["n-type material", "p-type material", "The metallic contact", "The depletion region"], correctIndex: 1, explain: "The anode is the terminal connected to the p-type material, where holes are the majority carriers. The cathode is connected to the n-type material." },
+  { text: "What is the fundamental property of a p-n junction diode?", choices: ["It amplifies current", "It stores energy in a magnetic field", "It allows current to flow easily in one direction but not the other", "It has a constant resistance regardless of voltage"], correctIndex: 2, explain: "A diode is a device that controls the direction of current flow. It permits current to flow easily in the forward direction and blocks it in the reverse direction." },
+  { text: "On a physical diode package, how is the cathode terminal typically identified?", choices: ["A red dot", "The longer lead", "A colored band or stripe", "The shorter lead"], correctIndex: 2, explain: "The cathode is almost always marked with a band or stripe on the diode's body, corresponding to the vertical line in the schematic symbol." },
+  { text: "At a p-n junction with no external voltage applied, a 'depletion region' forms. This region is depleted of:", choices: ["Silicon atoms", "Mobile charge carriers (electrons and holes)", "Impurities", "Positive ions"], correctIndex: 1, explain: "The depletion region forms at the junction as free electrons and holes combine, leaving behind immobile ions and creating a region free of mobile charge carriers." },
+  { text: "What is the typical potential barrier (or 'built-in potential') for a silicon diode at room temperature?", choices: ["0.3 V", "1.5 V", "0 V", "0.7 V"], correctIndex: 3, explain: "The potential barrier for a silicon diode is approximately 0.6V to 0.7V. This voltage must be overcome by an external source for significant current to flow." },
+  { text: "What happens to the depletion region and potential barrier when a diode is forward-biased?", choices: ["Both widen", "Both narrow", "The region widens, the barrier narrows", "The region narrows, the barrier widens"], correctIndex: 1, explain: "Applying a forward voltage opposes the internal potential barrier, causing the depletion region to narrow and allowing current to flow more easily." },
+  { text: "What happens to the depletion region when a diode is reverse-biased?", choices: ["It narrows", "It disappears", "It widens", "It remains unchanged"], correctIndex: 2, explain: "Applying a reverse voltage aids the internal potential barrier, pulling charge carriers away from the junction and widening the depletion region, which blocks current flow." },
+  { text: "To correctly forward-bias a diode, you should connect:", choices: ["The positive supply to the cathode and negative to the anode", "The positive supply to the anode and negative to the cathode", "Both terminals to the positive supply", "The anode to ground"], correctIndex: 1, explain: "Forward bias occurs when the p-type region (anode) is made more positive than the n-type region (cathode), allowing current to flow." },
+  { text: "A forward-biased diode exhibits ___ resistance, while a reverse-biased diode exhibits ___ resistance.", choices: ["low, high", "high, low", "low, low", "high, high"], correctIndex: 0, explain: "In forward bias, the diode conducts well and has a very low resistance (typically 50-100Ω). In reverse bias, it blocks current and has a very high resistance ( > 10 kΩ)." },
+  { text: "The forward voltage required for a silicon diode to start conducting significantly is called the threshold voltage (\\(V_T\\)). Its typical value is:", choices: ["0.2 V", "0.7 V", "1.2 V", "5.0 V"], correctIndex: 1, explain: "The threshold voltage (also called turn-on or cut-in voltage) for a silicon diode is approximately 0.7V. For Germanium diodes, it's lower, around 0.3V." },
+  { text: "The I-V characteristic of a real diode, as shown in the plot, is best described as:", choices: ["Linear", "Parabolic", "Sinusoidal", "Non-linear and exponential"], correctIndex: 3, explain: "The relationship between current and voltage in a diode is non-linear. The forward current increases exponentially with voltage, while the reverse current is nearly zero until breakdown.", plot: { type: "diode_iv" } },
+  { text: "What is the 'breakdown region' in a diode's operation?", choices: ["The point where forward current becomes infinite", "A region of reverse bias where a large current flows if voltage exceeds \\(V_{br}\\)", "The normal operating region for rectification", "A manufacturing defect"], correctIndex: 1, explain: "If the reverse voltage becomes too large (exceeding the breakdown voltage \\(V_{br}\\)), the diode breaks down and allows a large reverse current to flow, which can destroy a standard diode." },
+  { text: "In the Shockley diode equation \\(I_D = I_S (e^{\\frac{V_D}{nV_T}} - 1)\\), what does the term \\(I_S\\) represent?", choices: ["Source current", "Short-circuit current", "Reverse saturation current", "Surge current"], correctIndex: 2, explain: "\\(I_S\\) is the reverse saturation current, which is the very small, nearly constant current that flows when the diode is reverse-biased (before breakdown)." },
+  { text: "In diode circuit analysis, what is a 'load line' used for?", choices: ["To calculate the diode's power dissipation", "To find the operating point (Q-point) of the diode in a circuit", "To determine the maximum current the diode can handle", "To measure the diode's internal resistance"], correctIndex: 1, explain: "The load line represents all possible voltage and current combinations for the resistive part of the circuit. Its intersection with the diode's characteristic curve gives the actual operating point (Q-point)." },
+  { text: "The intersection of the diode's characteristic curve and the circuit's load line determines the:", choices: ["Breakdown voltage", "Threshold voltage", "Quiescent point (Q-point)", "Maximum power point"], correctIndex: 2, explain: "The Q-point (or operating point) is the specific voltage across and current through the diode when it is operating in a given circuit. It is found at the intersection of the I-V curve and the load line.", plot: { type: "load_line", params: { VDD: 5, R: 470 } } },
+  { text: "For a series circuit with a voltage source \\(V_{DD}\\), a resistor \\(R\\), and a diode, the load line equation is:", choices: ["\\(I_D = V_{DD} / R\\)", "\\(I_D = -\\frac{1}{R}V_D + \\frac{V_{DD}}{R}\\)", "\\(V_D = I_D R\\)", "\\(I_D = V_D / R\\)"], correctIndex: 1, explain: "Applying Kirchhoff's Voltage Law gives \\(V_{DD} = I_D R + V_D\\). Rearranging for \\(I_D\\) gives the equation of a straight line (the load line) on the I-V plot: \\(I_D = -\\frac{1}{R}V_D + \\frac{V_{DD}}{R}\\)." },
+  { text: "The static DC resistance of a diode at its Q-point (\\(V_{DQ}, I_{DQ}\\)) is defined as:", choices: ["\\(R_{DC} = V_{DQ} / I_{DQ}\\)", "\\(R_{DC} = \\Delta V_D / \\Delta I_D\\)", "The value of the series resistor R", "Zero"], correctIndex: 0, explain: "The static or DC resistance is the simple ratio of the total DC voltage across the diode to the total DC current through it at a specific operating point." },
+  { text: "The dynamic AC resistance (\\(r_{ac}\\)) of a diode is determined by the:", choices: ["Slope of the load line", "Reciprocal of the slope of the tangent to the I-V curve at the Q-point", "Ratio of \\(V_{DQ} / I_{DQ}\\)", "The supply voltage"], correctIndex: 1, explain: "Dynamic resistance (\\(r_{ac} = \\Delta V_D / \\Delta I_D\\)) describes how the diode responds to small signal changes. It's the reciprocal of the slope of the I-V curve at the operating point, meaning it's smaller where the curve is steeper." },
+  { text: "In a diode circuit with a fixed resistor, what happens to the Q-point if the supply voltage \\(V_{DD}\\) is increased?", choices: ["Both \\(I_{DQ}\\) and \\(V_{DQ}\\) decrease", "The Q-point moves along the curve to a higher current and slightly higher voltage", "Only \\(V_{DQ}\\) increases", "The Q-point remains unchanged"], correctIndex: 1, explain: "Increasing \\(V_{DD}\\) shifts the load line's y-intercept (\\(V_{DD}/R\\)) and x-intercept (\\(V_{DD}\\)) upwards and to the right, resulting in a new intersection point (Q-point) with higher current and slightly higher voltage." },
+  { text: "In the ideal diode model (1st approximation), what is the voltage drop across a forward-biased diode?", choices: ["0.7 V", "0.3 V", "0 V", "Depends on the current"], correctIndex: 2, explain: "The ideal diode model is the simplest approximation. It treats the diode as a perfect switch: 0V drop and zero resistance when ON (forward-biased)." },
+  { text: "An ideal diode acts like a(n) ___ in forward bias and a(n) ___ in reverse bias.", choices: ["open switch, closed switch", "resistor, capacitor", "closed switch, open switch", "voltage source, current source"], correctIndex: 2, explain: "As a perfect switch, the ideal diode model assumes it is a closed circuit (short circuit) in forward bias and an open circuit in reverse bias." },
+  { text: "In the 2nd approximation (constant voltage drop model), a forward-biased silicon diode is modeled as:", choices: ["A simple closed switch", "A small resistor", "An ideal switch in series with a 0.7V voltage source", "An open switch"], correctIndex: 2, explain: "This model is more realistic than the ideal model. It accounts for the threshold voltage by including an ideal 0.7V source that opposes the current flow, in series with an ideal switch." },
+  { text: "The graph shows the I-V characteristics for the three diode approximations. Which curve represents the 1st (Ideal) approximation?", choices: ["The gold curve with a slope", "The blue L-shaped curve at V=0", "The aqua L-shaped curve at V=0.7V", "None of them"], correctIndex: 1, explain: "The ideal model (blue) turns on at exactly 0V. The 2nd approximation (aqua) turns on at 0.7V. The 3rd approximation (gold) turns on at 0.7V and has a finite slope, representing its internal resistance.", plot: { type: "approximations" } },
+  { text: "The 3rd approximation (piecewise linear model) improves on the 2nd by adding what component to the model?", choices: ["A parallel capacitor", "A small series resistor (\\(R_d\\))", "A larger voltage source", "A current source"], correctIndex: 1, explain: "The 3rd and most accurate approximation adds a small series resistor, \\(R_d\\) (or \\(r_{ac}\\)), to account for the slight increase in voltage drop as current increases, which is represented by the slope in the I-V curve." },
+  { text: "Which of the three diode approximations is the most accurate for detailed circuit analysis?", choices: ["1st (Ideal)", "2nd (Constant Voltage Drop)", "3rd (Piecewise Linear)", "They are all equally accurate"], correctIndex: 2, explain: "The 3rd approximation is the most accurate because it models both the turn-on voltage and the bulk resistance of the diode, providing a result closer to a real diode's behavior." },
+  { text: "When testing a diode with an ohmmeter, what readings indicate a functional diode?", choices: ["Low resistance in both directions", "High resistance in both directions", "Low resistance in one direction and very high ('OL') in the other", "The resistance reading fluctuates wildly"], correctIndex: 2, explain: "A good diode has low resistance when the meter's positive lead is on the anode and negative on the cathode (forward bias), and a very high (often 'Over-Limit') reading when the leads are reversed." },
+  { text: "What does the 'Peak Repetitive Reverse Voltage' (VRRM) rating on a diode datasheet signify?", choices: ["The normal forward operating voltage", "The maximum reverse voltage the diode can safely block repeatedly", "The voltage at which the forward current is 1A", "The minimum voltage required for operation"], correctIndex: 1, explain: "VRRM is a critical rating that specifies the maximum reverse voltage the diode can withstand without breaking down. Exceeding this voltage can permanently damage the component." },
+  { text: "A 10V source is connected in series with a 10 kΩ resistor and a silicon diode. Using the ideal diode model, what is the current \\(I_D\\)?", choices: ["0.93 mA", "1 mA", "0 mA", "10 mA"], correctIndex: 1, explain: "In the ideal model, the diode has a 0V drop when forward-biased. The entire 10V is across the resistor. By Ohm's Law: \\(I = V/R = 10V / 10k\\Omega = 1mA\\)." },
+  { text: "A 10V source is connected in series with a 10 kΩ resistor and a silicon diode. Using the 2nd approximation (\\(V_D = 0.7V\\)), what is the current \\(I_D\\)?", choices: ["1 mA", "0.93 mA", "0 mA", "0.7 mA"], correctIndex: 1, explain: "In the 2nd approximation, the diode drops 0.7V. The remaining voltage across the resistor is \\(10V - 0.7V = 9.3V\\). So, \\(I = V_R/R = 9.3V / 10k\\Omega = 0.93mA\\)." },
+  { text: "A 10V source is connected in series with a 10 kΩ resistor and a diode with \\(V_T = 0.7V\\) and bulk resistance \\(r=200\\Omega\\). Using the 3rd approximation, find \\(I_D\\).", choices: ["0.93 mA", "1 mA", "0.91 mA", "0.88 mA"], correctIndex: 2, explain: "Using the 3rd approximation, the total resistance is \\(R_{total} = 10k\\Omega + 200\\Omega = 10.2k\\Omega\\). The voltage across this total resistance is \\(10V - 0.7V = 9.3V\\). So, \\(I = 9.3V / 10.2k\\Omega \\approx 0.91mA\\)." },
+  { text: "A 1V source is connected in series with a 10 kΩ resistor and a silicon diode. Using the 2nd approximation (\\(V_D = 0.7V\\)), what is the current \\(I_D\\)?", choices: ["0.1 mA", "0.03 mA", "0.07 mA", "0 mA"], correctIndex: 1, explain: "The voltage across the resistor is \\(1V - 0.7V = 0.3V\\). The current is \\(I = V_R/R = 0.3V / 10k\\Omega = 0.03mA\\). The 1V source is sufficient to turn the diode on." },
+  { text: "A 0.5V source is connected in series with a 10 kΩ resistor and a silicon diode. Using the 2nd approximation (\\(V_D = 0.7V\\)), what is the current \\(I_D\\)?", choices: ["0.05 mA", "0.02 mA", "0 mA", "-0.02 mA"], correctIndex: 2, explain: "The source voltage (0.5V) is less than the diode's threshold voltage (0.7V). Therefore, the diode cannot turn on, and it acts as an open switch. The current in the circuit is 0 mA." },
+  { text: "In a p-type semiconductor, the majority charge carriers are:", choices: ["Free electrons", "Holes", "Neutrons", "Silicon ions"], correctIndex: 1, explain: "P-type material is created by doping with trivalent atoms, which creates 'holes' (absences of electrons) that act as positive majority charge carriers." },
+  { text: "The term 'crystal diode' was originally used to distinguish solid-state diodes from:", choices: ["Light Emitting Diodes (LEDs)", "Zener Diodes", "Vacuum Tube Diodes", "Capacitors"], correctIndex: 2, explain: "Before the invention of semiconductor devices, rectification was often performed by electronic vacuum tubes. The new solid-state devices were called 'crystal diodes' to differentiate them." },
+  { text: "A germanium (Ge) diode, compared to a silicon (Si) diode, typically has a:", choices: ["Higher threshold voltage", "Lower threshold voltage", "Higher power rating", "Longer lifespan"], correctIndex: 1, explain: "Germanium diodes have a lower potential barrier and thus a lower threshold voltage, typically around 0.2V to 0.3V, compared to 0.7V for silicon." },
+  { text: "If you reverse the polarity of the voltage source in a simple diode-resistor circuit, the diode becomes:", choices: ["Forward-biased and conducts", "Reverse-biased and acts like an open circuit", "Hotter but otherwise unaffected", "A short circuit"], correctIndex: 1, explain: "Reversing the source polarity applies a negative voltage to the anode and positive to the cathode, which is the condition for reverse bias. The diode will block current flow (acting like an open circuit)." },
+  { text: "If the resistor \\(R\\) in a diode circuit is decreased (while \\(V_{DD}\\) is constant), the slope of the load line will:", choices: ["Become steeper", "Become flatter", "Remain the same", "Become vertical"], correctIndex: 0, explain: "The slope of the load line is \\(-1/R\\). Decreasing \\(R\\) makes the magnitude of the slope, \\(|-1/R|\\), larger. This results in a steeper load line on the I-V plot." },
+  { text: "For the circuit shown, if \\(V_{DD}\\) is 12V and \\(R\\) is 2.2kΩ, what are the x- and y-intercepts of the load line?", choices: ["x=2.2V, y=12mA", "x=12V, y=5.45mA", "x=5.45V, y=2.2mA", "x=12V, y=12mA"], correctIndex: 1, explain: "The x-intercept occurs when \\(I_D = 0\\), so \\(V_D = V_{DD} = 12V\\). The y-intercept occurs when \\(V_D = 0\\), so \\(I_D = V_{DD}/R = 12V / 2.2k\\Omega \\approx 5.45mA\\).", plot: { type: "load_line", params: { VDD: 12, R: 2200 } } },
+  { text: "Which statement is true about the current flowing through components in a simple series circuit?", choices: ["Current is highest at the source and lowest at the end", "Current is different through each component", "Current is the same through all components", "Current is zero everywhere"], correctIndex: 2, explain: "A fundamental principle of series circuits is that the electric current is the same at every point and through every component in the series path." }
+];
+
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel, xmin=0, ymin=0){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+
+  // X and Y axes
+  const yAxisPos = (xmin < 0) ? (-xmin / (w / (ctx.canvas.width-x*2))) * w : 0;
+  const xAxisPos = (ymin < 0) ? (-ymin / (h / (ctx.canvas.height-y*2))) * h : h;
+
+  ctx.beginPath();
+  ctx.moveTo(yAxisPos, h); ctx.lineTo(yAxisPos, 0); // y axis
+  ctx.moveTo(0, xAxisPos); ctx.lineTo(w, xAxisPos); // x axis
+  ctx.stroke();
+
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(xlabel, w, xAxisPos - 6);
+  ctx.textAlign = 'left';
+  ctx.fillText(ylabel, yAxisPos + 6, 12);
+  ctx.restore();
+}
+
+function plotDiodeIV() {
+    const Is = 1e-9, n = 1.7, VT = 0.02585; // More realistic params
+    const Vbr = -75;
+    const cvs = document.getElementById('qCanvas');
+    const ctx = cvs.getContext('2d');
+    ctx.clearRect(0,0,cvs.width,cvs.height);
+    const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+
+    const Vmax_fwd = 1.0;
+    const Imax_fwd = 0.05; // 50mA
+    const Vmax_rev = -80;
+    const Imax_rev = -0.0001; // 100uA for breakdown visualization
+
+    // Map world coords to pixel coords
+    const toPx = (Vd, Id) => {
+        let px, py;
+        if (Vd >= 0) {
+            px = (Vd / Vmax_fwd) * w;
+            py = h - (Id / Imax_fwd) * h;
+        } else { // Vd < 0
+            px = (Vd / Vmax_rev) * w * 0.4; // Squeeze reverse axis
+            // Highly non-linear scale for reverse current
+            if (Id > Imax_rev) py = h * 0.51; // Just below axis
+            else py = h; // At bottom for breakdown
+        }
+        return {x: px, y: py};
+    };
+
+    drawAxes(ctx, pad, pad, w, h, 'Vd', 'Id');
+    ctx.save();
+    ctx.translate(pad, pad);
+
+    // Forward bias curve
+    ctx.strokeStyle = '#12d7d0';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    let firstPoint = true;
+    for (let Vd = 0; Vd <= Vmax_fwd; Vd += 0.005) {
+        const Id = Is * (Math.exp(Vd / (n * VT)) - 1);
+        if (Id > Imax_fwd) break;
+        const p = toPx(Vd, Id);
+        if(firstPoint) { ctx.moveTo(p.x, p.y); firstPoint=false; } else { ctx.lineTo(p.x, p.y); }
+    }
+    ctx.stroke();
+
+    // Reverse bias and breakdown
+    ctx.strokeStyle = '#ff6e6e';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    const p_rev_start = toPx(-0.1, -Is);
+    const p_rev_knee = toPx(Vbr + 1, -Is);
+    const p_breakdown = toPx(Vbr, Imax_rev);
+    ctx.moveTo(toPx(0,0).x, toPx(0,0).y);
+    ctx.lineTo(p_rev_start.x, p_rev_start.y);
+    ctx.lineTo(p_rev_knee.x, p_rev_knee.y);
+    ctx.lineTo(p_breakdown.x, p_breakdown.y);
+    ctx.stroke();
+
+    ctx.fillStyle = '#9aa1c6';
+    ctx.font = '12px system-ui';
+    ctx.fillText(`Forward (Aqua), Reverse & Breakdown (Red)`, 10, 16);
+    ctx.fillText(`Vbr ≈ ${Vbr}V`, toPx(Vbr, Imax_rev).x - 40, h-10);
+    ctx.restore();
+}
+
+function plotLoadLine(params) {
+    plotDiodeIV(); // Draw the diode curve first
+    const { VDD = 5, R = 1000 } = params;
+    const cvs = document.getElementById('qCanvas');
+    const ctx = cvs.getContext('2d');
+    const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+    const Vmax_fwd = 1.0;
+    const Imax_fwd = 0.05; // 50mA
+
+    // Overlay load line
+    ctx.save();
+    ctx.translate(pad, pad);
+    ctx.strokeStyle = '#ffd166';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    
+    // Y-intercept: Id = VDD/R (when Vd = 0)
+    const y_int = VDD / R;
+    // X-intercept: Vd = VDD (when Id = 0)
+    const x_int = VDD;
+
+    const px1 = (x_int / Vmax_fwd) * w;
+    const py1 = h;
+    const px2 = 0;
+    const py2 = h - (y_int / Imax_fwd) * h;
+
+    ctx.moveTo(px1 > w ? w : px1, py1);
+    ctx.lineTo(px2, py2 < 0 ? 0 : py2);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#ffd166';
+    ctx.font = '12px system-ui';
+    ctx.fillText(`Load Line (VDD=${VDD}V, R=${R}Ω)`, 10, 32);
+    ctx.restore();
+}
+
+function plotApproximations() {
+    const cvs = document.getElementById('qCanvas');
+    const ctx = cvs.getContext('2d');
+    ctx.clearRect(0,0,cvs.width,cvs.height);
+    const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+    drawAxes(ctx, pad, pad, w, h, 'Vd', 'Id');
+    ctx.save();
+    ctx.translate(pad, pad);
+
+    const Vmax = 1.5;
+    const V_T = 0.7;
+    const Rd = 50; // Ohms for 3rd approx
+
+    // 1st Approx (Ideal) - Blue
+    ctx.strokeStyle = '#7c5cff';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(0, h); ctx.lineTo(0, 0); // V=0, I>0
+    ctx.moveTo(0,h); ctx.lineTo(w*0.4, h); // I=0 for V<0
+    ctx.stroke();
+
+    // 2nd Approx (Typical) - Aqua
+    const x_vt_2 = (V_T / Vmax) * w;
+    ctx.strokeStyle = '#12d7d0';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(x_vt_2, h); ctx.lineTo(x_vt_2, 0); // V=0.7, I>0
+    ctx.moveTo(x_vt_2,h); ctx.lineTo(0,h); // I=0 for V<0.7
+    ctx.stroke();
+    
+    // 3rd Approx (Practical) - Gold
+    const x_vt_3 = (V_T / Vmax) * w;
+    ctx.strokeStyle = '#ffd166';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(x_vt_3, h); ctx.lineTo(0,h); // I=0 for V<0.7
+    // Line with slope 1/Rd starting from (V_T, 0)
+    const end_V = Vmax;
+    const end_I = (end_V - V_T) / Rd;
+    const I_range = (Vmax - V_T)/Rd;
+    const end_x = w;
+    const end_y = h - (end_I / I_range) * h;
+    ctx.moveTo(x_vt_3, h);
+    ctx.lineTo(w, h - ( ((Vmax-V_T)/Rd) / ((Vmax-0)/Rd) ) * h );
+    ctx.stroke();
+
+    ctx.font = 'bold 12px system-ui';
+    ctx.fillStyle = '#7c5cff'; ctx.fillText('1st (Ideal)', w - 150, 60);
+    ctx.fillStyle = '#12d7d0'; ctx.fillText('2nd (Typical, V_T=0.7V)', w - 150, 80);
+    ctx.fillStyle = '#ffd166'; ctx.fillText(`3rd (Practical, R_d=${Rd}Ω)`, w - 150, 100);
+    ctx.restore();
+}
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'diode_iv'){ plotDiodeIV(); }
+  else if(type === 'load_line'){ plotLoadLine(params); }
+  else if(type === 'approximations'){ plotApproximations(); }
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

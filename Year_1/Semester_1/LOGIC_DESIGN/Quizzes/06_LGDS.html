@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Logic Design Exam B</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+        }
+        #header {
+            background-color: #4a76a8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        #question-area {
+            padding: 30px;
+        }
+        #question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.selected {
+            border-color: #4a76a8;
+            background-color: #e7f0fa;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        #feedback-area {
+            padding: 0 30px 20px;
+        }
+        #explanation {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        #navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+        }
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            margin-bottom: 10px;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4a76a8;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+        #progress-text {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .nav-button {
+            background-color: #4a76a8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3b5f8a;
+        }
+        .nav-button:disabled {
+            background-color: #a0b4c9;
+            cursor: not-allowed;
+        }
+        #results-screen {
+            padding: 40px;
+            text-align: center;
+        }
+        #results-screen h2 {
+            font-size: 2em;
+            color: #4a76a8;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+        }
+        #restart-button {
+            background-color: #28a745;
+        }
+        #restart-button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="header">Logic Design Quiz: Exam Problems B</div>
+    
+    <div id="quiz-area">
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress-text">Question 1/20</div>
+        
+        <div id="question-area">
+            <div id="question-text"></div>
+            <div id="options-container"></div>
+        </div>
+
+        <div id="feedback-area">
+            <div id="explanation" style="display: none;"></div>
+        </div>
+
+        <div id="navigation">
+            <button id="prev-button" class="nav-button">Previous</button>
+            <button id="next-button" class="nav-button">Next</button>
+            <button id="submit-button" class="nav-button" style="display: none;">Submit</button>
+        </div>
+    </div>
+
+    <div id="results-screen" style="display: none;">
+        <h2>Quiz Complete!</h2>
+        <p id="score-text">Your score: 0/20</p>
+        <button id="restart-button" class="nav-button">Restart Quiz</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "What is the 12-bit binary representation of the decimal number 301?",
+        options: [
+            "000100101101",
+            "100101101",
+            "001011010001",
+            "111011010010"
+        ],
+        correct: 0,
+        explanation: "The binary representation of 301 is 100101101. To make it a 12-bit number, we pad it with leading zeros, resulting in 000100101101."
+    },
+    {
+        question: "What is the 3-digit hexadecimal representation of the decimal number 301?",
+        options: [
+            "12D",
+            "301",
+            "1F5",
+            "C1"
+        ],
+        correct: 0,
+        explanation: "The 12-bit binary is 0001 0010 1101. Grouping into 4-bit chunks gives 1, 2, and D. So, the hexadecimal representation is 12D."
+    },
+    {
+        question: "What is the 12-bit 2's complement of the decimal number 201 (binary 000011001001)?",
+        options: [
+            "111100110111",
+            "000011001001",
+            "111100110110",
+            "100011001001"
+        ],
+        correct: 0,
+        explanation: "To find the 2's complement of 000011001001, you find the first '1' from the right (which is the last bit) and invert all bits to its left. This gives 111100110111."
+    },
+    {
+        question: "What is the 3-digit 16's complement of the hexadecimal number 0C9?",
+        options: [
+            "F37",
+            "F36",
+            "E37",
+            "0C9"
+        ],
+        correct: 0,
+        explanation: "The 15's complement is (FFF - 0C9) = F36. Adding 1 gives the 16's complement: F36 + 1 = F37."
+    },
+    {
+        question: "Calculate the sum of (301)₁₀ and (201)₁₀ in 12-bit binary. (301=000100101101, 201=000011001001)",
+        options: [
+            "000111110110",
+            "010111110110",
+            "000111110111",
+            "100111110110"
+        ],
+        correct: 0,
+        explanation: "Adding 000100101101 and 000011001001 results in 000111110110, which is 502 in decimal."
+    },
+    {
+        question: "Calculate the result of (301)₁₀ - (100)₁₀ using 12-bit 2's complement. (100 = 000001100100)",
+        options: [
+            "000011001001",
+            "111100110111",
+            "000101010101",
+            "1000011001001"
+        ],
+        correct: 0,
+        explanation: "The 2's complement of 100 is 111110011100. Adding this to 301 (000100101101) gives (1)000011001001. Discarding the carry, the result is 000011001001, which is 201 in decimal."
+    },
+    {
+        question: "For the function f(x, y, z) = (y' + z)(x + y'), what is its Sum of Minterms representation?",
+        options: [
+            "Σ(0, 1, 4, 5, 7)",
+            "Σ(2, 3, 6)",
+            "Σ(0, 1, 2, 3)",
+            "Σ(4, 5, 6, 7)"
+        ],
+        correct: 0,
+        explanation: "By creating the truth table, the function f is 1 for the input combinations (x,y,z) corresponding to minterms m0, m1, m4, m5, and m7."
+    },
+    {
+        question: "For the function f(x, y, z) = (y' + z)(x + y'), what is its Product of Maxterms representation?",
+        options: [
+            "Π(2, 3, 6)",
+            "Π(0, 1, 4, 5, 7)",
+            "Π(0, 1, 2)",
+            "Π(3, 4, 5)"
+        ],
+        correct: 0,
+        explanation: "The function is 0 for the minterms not in the SOP form. Therefore, the maxterms are M2, M3, and M6, leading to Π(2, 3, 6)."
+    },
+    {
+        question: "What is the value of the logical expression [f(0,0,0) + f(0,1,0)] * f(1,1,0) for the function f(x, y, z) = (y' + z)(x + y')?",
+        options: [
+            "0",
+            "1",
+            "f(0,0,0)",
+            "f(1,1,0)"
+        ],
+        correct: 0,
+        explanation: "From the truth table: f(0,0,0) = 1, f(0,1,0) = 0, and f(1,1,0) = 0. The expression becomes [1 + 0] * 0 = 1 * 0 = 0."
+    },
+    {
+        question: "Given F(w, x, y, z) = Σ(0, 2, 5, 7, 8, 10, 12, 13, 14, 15), what is the simplified expression using a Karnaugh map?",
+        options: [
+            "x'z' + wx + xz",
+            "w'x'z' + wx + xz",
+            "x'z' + w'x + yz",
+            "wz + x'y' + xz"
+        ],
+        correct: 0,
+        explanation: "The K-map simplification yields three prime implicants: a group of 4 for x'z' (m0, m2, m8, m10), a group of 4 for wx (m12, m13, m14, m15), and a group of 4 for xz (m5, m7, m13, m15). The sum is x'z' + wx + xz."
+    },
+    {
+        question: "How can the simplified function F = x'z' + wx + xz be implemented using only NAND gates?",
+        options: [
+            "By applying De Morgan's law twice: F = ((x'z')' (wx)' (xz)')'",
+            "It requires at least one AND or OR gate.",
+            "F = (x NAND z)' NAND (w NAND x)' NAND (x NAND z)'",
+            "It's not possible."
+        ],
+        correct: 0,
+        explanation: "Any SOP expression can be implemented using only NAND gates. We can double-negate the expression F'' = ( (x'z' + wx + xz)' )'. Applying De Morgan's law gives F = ( (x'z')' * (wx)' * (xz)' )'. This is a NAND gate with inputs from other NAND gates."
+    },
+    {
+        question: "What are the outputs (Sum 'S' and Carry-out 'Cout') of a full adder when the inputs are A=1, B=1, and Cin=1?",
+        options: [
+            "S=1, Cout=1",
+            "S=0, Cout=1",
+            "S=1, Cout=0",
+            "S=0, Cout=0"
+        ],
+        correct: 0,
+        explanation: "1 + 1 + 1 = 3 in decimal, which is 11 in binary. The sum bit S is 1, and the carry-out bit Cout is 1."
+    },
+    {
+        question: "The Sum output of a full adder is S = A ⊕ B ⊕ Cin. What does this represent?",
+        options: [
+            "An odd parity function",
+            "An even parity function",
+            "A majority function",
+            "A simple OR function"
+        ],
+        correct: 0,
+        explanation: "The XOR function produces a 1 when an odd number of its inputs are 1. Therefore, the sum bit of a full adder acts as an odd parity generator for the three inputs."
+    },
+    {
+        question: "The Carry-out of a full adder is Cout = AB + BCin + ACin. This is also known as a...",
+        options: [
+            "Majority function",
+            "Minority function",
+            "Parity function",
+            "Decoder function"
+        ],
+        correct: 0,
+        explanation: "The carry-out is 1 if two or more of the inputs (A, B, Cin) are 1. This is the definition of a majority function."
+    },
+    {
+        question: "To implement a full adder's Sum (S) output with a 4-to-1 MUX, what should the inputs to the MUX be if A and B are the select lines?",
+        options: [
+            "I₀=Cin, I₁=Cin', I₂=Cin', I₃=Cin",
+            "I₀=0, I₁=1, I₂=1, I₃=0",
+            "I₀=Cin, I₁=Cin, I₂=Cin, I₃=Cin",
+            "I₀=0, I₁=Cin, I₂=Cin, I₃=1"
+        ],
+        correct: 0,
+        explanation: "With A and B as select lines (S₁, S₀): If AB=00, S=Cin. If AB=01, S=Cin'. If AB=10, S=Cin'. If AB=11, S=Cin. This maps directly to the MUX inputs."
+    },
+    {
+        question: "To implement a full adder's Carry-out (Cout) output with a 4-to-1 MUX, what should the inputs be if A and B are the select lines?",
+        options: [
+            "I₀=0, I₁=Cin, I₂=Cin, I₃=1",
+            "I₀=Cin, I₁=0, I₂=0, I₃=Cin",
+            "I₀=0, I₁=0, I₂=1, I₃=1",
+            "I₀=Cin, I₁=Cin, I₂=1, I₃=1"
+        ],
+        correct: 0,
+        explanation: "With A and B as select lines (S₁, S₀): If AB=00, Cout=0. If AB=01, Cout=Cin. If AB=10, Cout=Cin. If AB=11, Cout=1. This maps directly to the MUX inputs."
+    },
+    {
+        question: "For the function g(a, b, c, d) = bd' + acd' + ab'c + a'c', what is the value of g(1,0,1,0)?",
+        options: [
+            "1",
+            "0",
+            "Cannot be determined",
+            "d'"
+        ],
+        correct: 0,
+        explanation: "Substitute a=1, b=0, c=1, d=0. g = (0*1) + (1*1*1) + (1*1*1) + (0*0) = 0 + 1 + 1 + 0 = 1. The terms acd' and ab'c are both 1."
+    },
+    {
+        question: "Which minterm corresponds to the input combination a=0, b=1, c=1, d=0?",
+        options: [
+            "m6",
+            "m5",
+            "m9",
+            "m10"
+        ],
+        correct: 0,
+        explanation: "The binary representation of the input is 0110, which corresponds to the decimal number 6. Therefore, it is minterm m6."
+    },
+    {
+        question: "In the K-map for F(w, x, y, z) = Σ(0, 2, 5, 7, 8, 10, 12, 13, 14, 15), which of the following is a valid prime implicant?",
+        options: [
+            "x'z'",
+            "wy",
+            "y'z",
+            "w'x'y'"
+        ],
+        correct: 0,
+        explanation: "The group covering minterms m0, m2, m8, and m10 simplifies to x'z', which is one of the essential prime implicants of the function."
+    },
+    {
+        question: "When performing subtraction A - B using 2's complement, if there is a carry-out from the most significant bit, what does it signify?",
+        options: [
+            "The result is positive and correct.",
+            "The result is negative and in 2's complement form.",
+            "An overflow has occurred.",
+            "The result is zero."
+        ],
+        correct: 0,
+        explanation: "In 2's complement subtraction (A + (-B)), a carry-out from the MSB indicates that the result is positive. The carry bit itself is discarded."
+    }
+];
+
+let currentQuestionIndex = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let score = 0;
+
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const explanationDiv = document.getElementById('explanation');
+const prevButton = document.getElementById('prev-button');
+const nextButton = document.getElementById('next-button');
+const submitButton = document.getElementById('submit-button');
+const progressText = document.getElementById('progress-text');
+const progressBar = document.getElementById('progress-bar');
+const quizArea = document.getElementById('quiz-area');
+const resultsScreen = document.getElementById('results-screen');
+const scoreText = document.getElementById('score-text');
+const restartButton = document.getElementById('restart-button');
+
+function loadQuestion(index) {
+    const question = questions[index];
+    questionText.innerHTML = question.question;
+    optionsContainer.innerHTML = '';
+    explanationDiv.style.display = 'none';
+    explanationDiv.innerHTML = '';
+
+    question.options.forEach((option, i) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('option');
+        optionDiv.innerHTML = option;
+        optionDiv.dataset.index = i;
+        optionDiv.addEventListener('click', () => selectOption(optionDiv, index, i));
+        optionsContainer.appendChild(optionDiv);
+    });
+
+    if (userAnswers[index] !== null) {
+        showFeedback(index);
+    }
+    
+    updateNavigation();
+    updateProgress();
+    MathJax.typesetPromise();
+}
+
+function selectOption(optionDiv, questionIndex, optionIndex) {
+    if (userAnswers[questionIndex] !== null) return; 
+
+    userAnswers[questionIndex] = optionIndex;
+    showFeedback(questionIndex);
+}
+
+function showFeedback(questionIndex) {
+    const question = questions[questionIndex];
+    const selectedOptionIndex = userAnswers[questionIndex];
+    const options = optionsContainer.children;
+
+    const correctOption = options[question.correct];
+    correctOption.classList.add('correct');
+
+    if (selectedOptionIndex !== question.correct) {
+        const selectedOption = options[selectedOptionIndex];
+        selectedOption.classList.add('incorrect');
+    }
+
+    explanationDiv.innerHTML = `<strong>Explanation:</strong> ${question.explanation}`;
+    explanationDiv.style.display = 'block';
+
+    for (let option of options) {
+        if (parseInt(option.dataset.index) === selectedOptionIndex) {
+            option.classList.add('selected');
+        }
+        option.style.cursor = 'not-allowed';
+    }
+}
+
+function updateNavigation() {
+    prevButton.disabled = currentQuestionIndex === 0;
+    nextButton.disabled = currentQuestionIndex === questions.length - 1;
+    
+    if (currentQuestionIndex === questions.length - 1) {
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+    } else {
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'none';
+    }
+}
+
+function updateProgress() {
+    progressText.textContent = `Question ${currentQuestionIndex + 1}/${questions.length}`;
+    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+}
+
+function showResults() {
+    score = 0;
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correct) {
+            score++;
+        }
+    }
+    
+    quizArea.style.display = 'none';
+    resultsScreen.style.display = 'block';
+    scoreText.textContent = `Your score: ${score}/${questions.length}`;
+}
+
+prevButton.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+submitButton.addEventListener('click', () => {
+    showResults();
+});
+
+restartButton.addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    userAnswers.fill(null);
+    score = 0;
+    resultsScreen.style.display = 'none';
+    quizArea.style.display = 'block';
+    loadQuestion(currentQuestionIndex);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuestion(currentQuestionIndex);
+});
+</script>
+
+</body>
+</html>

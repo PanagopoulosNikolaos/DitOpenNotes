@@ -1,0 +1,657 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Electromagnetism Electric Potential and Current Chapter 4 Quiz</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+.results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Electromagnetism Electric Potential and Current Chapter 4 Quiz</h1>
+            <p>Test your knowledge of electric potential, currents, and Ohm's law</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/18</div>
+
+            <div id="questions-container"></div>
+
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/18</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is electromotive force (EMF)?",
+                options: [
+                    "Work done per unit charge to move along closed path",
+                    "Electric potential energy",
+                    "Magnetic force on charged particle",
+                    "Resistance to current flow"
+                ],
+                correct: 0,
+                explanation: "EMF is the work done per unit charge when moving a charge along a closed path."
+            },
+            {
+                question: "How is electric potential φ related to electric field E?",
+                options: [
+                    "\\(\\vec{E} = \\phi\\)",
+                    "\\(\\vec{E} = -\\nabla\\phi\\)",
+                    "\\(\\vec{E} = \\nabla\\phi\\)",
+                    "\\(\\vec{E} = \\frac{\\phi}{q}\\)"
+                ],
+                correct: 1,
+                explanation: "The electric field is the negative gradient of the potential: \\(\\vec{E} = -\\nabla\\phi\\)."
+            },
+            {
+                question: "What is the Laplace equation?",
+                options: [
+                    "\\(\\nabla^2\\phi = 0\\)",
+                    "\\(\\nabla^2\\phi = -\\frac{\\rho}{\\epsilon_0}\\)",
+                    "\\(\\nabla \\cdot \\vec{E} = \\frac{\\rho}{\\epsilon_0}\\)",
+                    "\\(\\nabla \\times \\vec{E} = 0\\)"
+                ],
+                correct: 0,
+                explanation: "Laplace equation \\(\\nabla^2\\phi = 0\\) holds in regions without charge."
+            },
+            {
+                question: "What is the Poisson equation?",
+                options: [
+                    "\\(\\nabla^2\\phi = 0\\)",
+                    "\\(\\nabla^2\\phi = -\\frac{\\rho}{\\epsilon_0}\\)",
+                    "\\(\\nabla \\cdot \\vec{D} = \\rho_{free}\\)",
+                    "\\(\\nabla \\times \\vec{H} = \\vec{J}\\)"
+                ],
+                correct: 1,
+                explanation: "Poisson equation \\(\\nabla^2\\phi = -\\frac{\\rho}{\\epsilon_0}\\) holds where there is charge density."
+            },
+            {
+                question: "What is current density J?",
+                options: [
+                    "Total current through surface",
+                    "Current per unit area",
+                    "Charge per unit time",
+                    "Voltage per unit length"
+                ],
+                correct: 1,
+                explanation: "Current density \\(\\vec{J}\\) is the current per unit area perpendicular to flow."
+            },
+            {
+                question: "Current I through a surface is:",
+                options: [
+                    "I = \\(\\vec{J} \\cdot \\vec{A}\\)",
+                    "I = |\\(\\vec{J}\\) \\times \\(\\vec{A}\\)|",
+                    "I = J/A",
+                    "I = \\(\\oint \\vec{J} \\cdot d\\vec{A}\\)"
+                ],
+                correct: 3,
+                explanation: "Current I = \\(\\oint \\vec{J} \\cdot d\\vec{A}\\) through a closed surface."
+            },
+            {
+                question: "What is the continuity equation?",
+                options: [
+                    "\\(\\nabla \\cdot \\vec{J} = -\\frac{\\partial \\rho}{\\partial t}\\)",
+                    "\\(\\nabla \\cdot \\vec{E} = \\frac{\\rho}{\\epsilon_0}\\)",
+                    "\\(\\nabla \\times \\vec{B} = \\mu_0 \\vec{J}\\)",
+                    "\\(\\nabla \\cdot \\vec{B} = 0\\)"
+                ],
+                correct: 0,
+                explanation: "Continuity equation: \\(\\nabla \\cdot \\vec{J} + \\frac{\\partial \\rho}{\\partial t} = 0\\)."
+            },
+            {
+                question: "What is Kirchhoff's current law?",
+                options: [
+                    "Algebraic sum of currents at node is zero",
+                    "Algebraic sum of voltages around loop is zero",
+                    "Power in equals power out",
+                    "Resistance equals voltage/current"
+                ],
+                correct: 0,
+                explanation: "KCL: The sum of currents entering a node equals sum leaving."
+            },
+            {
+                question: "What is Kirchhoff's voltage law?",
+                options: [
+                    "Algebraic sum of currents at node is zero",
+                    "Algebraic sum of voltages around closed loop is zero",
+                    "EMF equals IR",
+                    "Current divides inversely to resistance"
+                ],
+                correct: 1,
+                explanation: "KVL: The sum of voltages around a closed loop is zero."
+            },
+            {
+                question: "What is Ohm's law at microscopic level?",
+                options: [
+                    "\\(\\vec{J} = \\sigma \\vec{E}\\)",
+                    "\\(V = IR\\)",
+                    "\\(P = VI\\)",
+                    "\\(\\vec{F} = q(\\vec{E} + \\vec{v} \\times \\vec{B})\\)"
+                ],
+                correct: 0,
+                explanation: "Microscopic Ohm's law: \\(\\vec{J} = \\sigma \\vec{E}\\), where σ is conductivity."
+            },
+            {
+                question: "How is resistivity ρ related to conductivity σ?",
+                options: [
+                    "\\(\\rho = \\sigma\\)",
+                    "\\(\\rho = 1/\\sigma\\)",
+                    "\\(\\rho = \\sigma^2\\)",
+                    "\\(\\rho = \\sqrt{\\sigma}\\)"
+                ],
+                correct: 1,
+                explanation: "Resistivity \\(\\rho = 1/\\sigma\\), the inverse relationship."
+            },
+            {
+                question: "The unit of resistance is:",
+                options: [
+                    "Volt (V)",
+                    "Ampere (A)",
+                    "Ohm (Ω)",
+                    "Farad (F)"
+                ],
+                correct: 2,
+                explanation: "Resistance is measured in ohms (Ω)."
+            },
+            {
+                question: "What is the resistance of a conductor?",
+                options: [
+                    "R = \\(\\rho \\frac{l}{A}\\)",
+                    "R = \\(\\sigma \\frac{A}{l}\\)",
+                    "R = \\(\\rho \\frac{A}{l}\\)",
+                    "R = \\(\\sigma \\frac{l}{A}\\)"
+                ],
+                correct: 0,
+                explanation: "R = \\(\\rho \\frac{l}{A}\\) for a conductor of length l, cross-section A."
+            },
+            {
+                question: "What does Joule's law state?",
+                options: [
+                    "P = VI",
+                    "P = I²R",
+                    "P = V²/R",
+                    "All of the above"
+                ],
+                correct: 3,
+                explanation: "Joule's law gives power dissipated as P = VI = I²R = V²/R."
+            },
+            {
+                question: "Power density p in a conductor is:",
+                options: [
+                    "p = \\(\\vec{J} \\cdot \\vec{E}\\)",
+                    "p = J/E",
+                    "p = \\(\\vec{J} \\times \\vec{E}\\)",
+                    "p = \\(\\frac{J}{E}\\)"
+                ],
+                correct: 0,
+                explanation: "Power density p = \\(\\vec{J} \\cdot \\vec{E}\\) (W/m³)."
+            },
+            {
+                question: "The direction of conventional current is:",
+                options: [
+                    "Same as electron flow",
+                    "Opposite to electron flow",
+                    "Perpendicular to electron flow",
+                    "Independent of electron flow"
+                ],
+                correct: 1,
+                explanation: "Conventional current opposes electron flow direction."
+            },
+            {
+                question: "Materials with high resistivity are called:",
+                options: [
+                    "Conductors",
+                    "Semiconductors",
+                    "Insulators",
+                    "Superconductors"
+                ],
+                correct: 2,
+                explanation: "Insulators have high resistivity (e.g., glass ~10¹² Ω⋅m)."
+            },
+            {
+                question: "What affects the resistance of a conductor?",
+                options: [
+                    "Material, length, cross-section, temperature",
+                    "Only material",
+                    "Only length",
+                    "Only temperature"
+                ],
+                correct: 0,
+                explanation: "Resistance depends on material resistivity, geometry (l/A), and temperature."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) =>
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestion === 0;
+
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) =>
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered electric potential and currents!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of Ohm\'s law and resistances.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review potential, currents, and conduction concepts.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            // Reset progress bar on restart
+            document.getElementById('progress-fill').style.width = `${100 / questions.length}%`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            // Set initial progress bar width
+            document.getElementById('progress-fill').style.width = `${100 / questions.length}%`;
+        });
+    </script>
+</body>
+</html>

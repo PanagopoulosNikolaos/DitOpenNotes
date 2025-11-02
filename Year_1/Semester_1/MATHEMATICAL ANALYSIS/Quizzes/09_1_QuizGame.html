@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Derivative Rules</title>
+    <!-- MathJax Configuration -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Overall Theme & Backgrounds */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f2f5; /* Light text for readability */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Containers Styling */
+        .quiz-container {
+            background-color: #857c7c; /* Lighter muted grey container */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with Gradient */
+        .quiz-header {
+            background-image: linear-gradient(45deg, #4f46e5, #7c3aed); /* Blue -> Purple gradient */
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* Main Quiz Body */
+        .quiz-body {
+            padding: 24px;
+        }
+        #question-container {
+            margin-bottom: 20px;
+        }
+        #question-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options Grid & Buttons */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: left;
+            color: #f0f2f5;
+            background-color: #6b6464; /* Darker grey for options */
+            border: 1px solid #9e9696;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #7d7575;
+            border-color: #b1a8a8;
+        }
+
+        /* Button Feedback Colors */
+        .option-btn.correct {
+            background-color: #10b981; /* Bright green for correct */
+            border-color: #0f9a6d;
+            color: white;
+        }
+        .option-btn.incorrect {
+            background-color: #ef4444; /* Bright red for incorrect */
+            border-color: #d83a3a;
+            color: white;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        /* Explanation/Feedback Box */
+        #feedback-container {
+            margin-top: 20px;
+        }
+        #explanation {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            background-color: #4a4843; /* Darker background for explanation */
+            border: 1px solid #6b6464;
+        }
+
+        /* Footer and Navigation */
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background-color: #857c7c; /* Lighter muted grey footer */
+            border-top: 1px solid #9e9696;
+        }
+        #progress-text {
+            font-size: 1em;
+            color: #d1d5db; /* Lighter grey for secondary text */
+        }
+        .nav-btn {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background-color: #4338ca;
+        }
+        .nav-btn:disabled {
+            background-color: #52504b;
+            cursor: not-allowed;
+        }
+        #navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Results Screen */
+        #results-container {
+            text-align: center;
+            padding: 40px 24px;
+        }
+        #results-container h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        #restart-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #restart-btn:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Quiz Game: Derivative Rules</h1>
+        </div>
+        <div class="quiz-body">
+            <div id="question-container" style="display: none;">
+                <p id="question-text"></p>
+                <div id="options-grid" class="options-grid"></div>
+                <div id="feedback-container">
+                    <div id="explanation"></div>
+                </div>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn" class="nav-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-footer" style="display: none;">
+            <p id="progress-text"></p>
+            <div id="navigation-buttons">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <button id="next-btn" class="nav-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the Product Rule for derivatives, \\(\\frac{d}{dx}[f(x)g(x)]\\)?", options: ["\\(f'(x)g'(x)\\)", "\\(f'(x)g(x) + f(x)g'(x)\\)", "\\(f'(x)g(x) - f(x)g'(x)\\)", "\\(\\frac{f'(x)}{g'(x)}\\)"], correct: 1, explanation: "The Product Rule states that the derivative of a product of two functions is the derivative of the first function times the second function, plus the first function times the derivative of the second function." },
+            { question: "What is the Quotient Rule for derivatives, \\(\\frac{d}{dx}[\\frac{f(x)}{g(x)}]\\)?", options: ["\\(\\frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}\\)", "\\(\\frac{f(x)g'(x) - f'(x)g(x)}{[g(x)]^2}\\)", "\\(\\frac{f'(x)}{g'(x)}\\)", "\\(\\frac{f'(x)g'(x) - f(x)g(x)}{[g(x)]^2}\\)"], correct: 0, explanation: "The Quotient Rule is 'low d-high minus high d-low, square the bottom and away we go': \\(\\frac{g(x)f'(x) - f(x)g'(x)}{[g(x)]^2}\\)." },
+            { question: "What is the Chain Rule for derivatives, \\(\\frac{d}{dx}[f(g(x))]\\)?", options: ["\\(f'(g(x))\\)", "\\(f'(x)g'(x)\\)", "\\(f'(g(x))g'(x)\\)", "\\(f'(g'(x))\\)"], correct: 2, explanation: "The Chain Rule states that you take the derivative of the outer function (with the inner function left alone) and multiply it by the derivative of the inner function." },
+            { question: "What is the derivative of \\(x^n\\)?", options: ["\\(nx^{n-1}\\)", "\\(x^{n+1}\\)", "\\(\\frac{x^{n+1}}{n+1}\\)", "\\(nx^n\\)"], correct: 0, explanation: "This is the Power Rule. You bring the exponent down as a coefficient and subtract one from the exponent." },
+            { question: "What is the derivative of \\(\\sin(x)\\)?", options: ["\\(-\\cos(x)\\)", "\\(\\cos(x)\\)", "\\(-\\sin(x)\\)", "\\(\\sec^2(x)\\)"], correct: 1, explanation: "The derivative of \\(\\sin(x)\\) is \\(\\cos(x)\\)." },
+            { question: "What is the derivative of \\(\\cos(x)\\)?", options: ["\\(-\\cos(x)\\)", "\\(\\cos(x)\\)", "\\(-\\sin(x)\\)", "\\(\\sin(x)\\)"], correct: 2, explanation: "The derivative of \\(\\cos(x)\\) is \\(-\\sin(x)\\)." },
+            { question: "What is the derivative of \\(e^x\\)?", options: ["\\(xe^{x-1}\\)", "\\(\\ln(x)\\)", "\\(e^x\\)", "\\(0\\)"], correct: 2, explanation: "The exponential function \\(e^x\\) is its own derivative." },
+            { question: "What is the derivative of \\(\\ln(x)\\)?", options: ["\\(e^x\\)", "\\(\\frac{1}{x}\\)", "\\(x \\ln(x) - x\\)", "\\(\\frac{1}{x \\ln(10)}\\)"], correct: 1, explanation: "The derivative of the natural logarithm \\(\\ln(x)\\) is \\(\\frac{1}{x}\\)." },
+            { question: "Using the Chain Rule, what is the derivative of \\(\\sin(x^2)\\)?", options: ["\\(\\cos(x^2)\\)", "\\(2x\\cos(x^2)\\)", "\\(2x\\sin(x^2)\\)", "\\(\\cos(2x)\\)"], correct: 1, explanation: "Let \\(f(u) = \\sin(u)\\) and \\(g(x) = x^2\\). Then \\(f'(u) = \\cos(u)\\) and \\(g'(x) = 2x\\). By the Chain Rule, the derivative is \\(f'(g(x))g'(x) = \\cos(x^2) \\cdot 2x\\)." },
+            { question: "What is the derivative of \\(\\tan(x)\\)?", options: ["\\(\\cot(x)\\)", "\\(\\sec^2(x)\\)", "\\(-\\csc^2(x)\\)", "\\(\\sec(x)\\tan(x)\\)"], correct: 1, explanation: "The derivative of \\(\\tan(x)\\) is \\(\\sec^2(x)\\)." },
+            { question: "What is the derivative of \\(a^x\\) for a constant \\(a\\)?", options: ["\\(a^x\\)", "\\(xa^{x-1}\\)", "\\(a^x \\ln(a)\\)", "\\(\\frac{a^x}{\\ln(a)}\\)"], correct: 2, explanation: "The derivative of an exponential function with base \\(a\\) is the function itself times the natural log of the base: \\(a^x \\ln(a)\\)." },
+            { question: "Using the Chain Rule, what is the derivative of \\((f(x))^n\\)?", options: ["\\(n(f(x))^{n-1}\\)", "\\(n(f'(x))^{n-1}\\)", "\\(n(f(x))^{n-1}f'(x)\\)", "\\(f'(x^n)\\)"], correct: 2, explanation: "This is the General Power Rule, an application of the Chain Rule. The derivative is \\(n(f(x))^{n-1} \\cdot f'(x)\\)." },
+            { question: "What is the antiderivative of \\(x^n\\) for \\(n \\neq -1\\)?", options: ["\\(nx^{n-1} + C\\)", "\\(\\frac{x^{n+1}}{n+1} + C\\)", "\\(\\frac{x^{n-1}}{n-1} + C\\)", "\\(x^n + C\\)"], correct: 1, explanation: "To find the antiderivative (integral), we use the reverse power rule: add one to the exponent and divide by the new exponent." },
+            { question: "What is the antiderivative of \\(\\frac{1}{x}\\)?", options: ["\\(\\ln|x| + C\\)", "\\(-x^{-2} + C\\)", "\\(e^x + C\\)", "This function has no antiderivative."], correct: 0, explanation: "The antiderivative of \\(x^{-1}\\) is a special case of the power rule. The integral of \\(\\frac{1}{x}\\) is \\(\\ln|x| + C\\). The absolute value is needed to match the domain." },
+            { question: "What is the antiderivative of \\(\\cos(x)\\)?", options: ["\\(-\\sin(x) + C\\)", "\\(\\sin(x) + C\\)", "\\(\\cos(x) + C\\)", "\\(-\\cos(x) + C\\)"], correct: 1, explanation: "The antiderivative of \\(\\cos(x)\\) is \\(\\sin(x) + C\\), because the derivative of \\(\\sin(x)\\) is \\(\\cos(x)\\)." },
+            { question: "What is the antiderivative of \\(e^x\\)?", options: ["\\(e^x + C\\)", "\\(\\frac{e^{x+1}}{x+1} + C\\)", "\\(\\ln(x) + C\\)", "\\(xe^x + C\\)"], correct: 0, explanation: "Just like its derivative, the antiderivative of \\(e^x\\) is simply \\(e^x + C\\)." },
+            { question: "What is the derivative of \\(\\sec(x)\\)?", options: ["\\(\\csc(x)\\)", "\\(\\sec^2(x)\\)", "\\(\\sec(x)\\tan(x)\\)", "\\(-\\sec(x)\\)"], correct: 2, explanation: "The derivative of \\(\\sec(x)\\) is \\(\\sec(x)\\tan(x)\\)." },
+            { question: "Using the Chain Rule, what is the derivative of \\(\\ln(f(x))\\)?", options: ["\\(\\frac{1}{f(x)}\\)", "\\(\\frac{f'(x)}{f(x)}\\)", "\\(\\ln(f'(x))\\)", "\\(\\frac{1}{f'(x)}\\)"], correct: 1, explanation: "The derivative of the outer function \\(\\ln(u)\\) is \\(\\frac{1}{u}\\). Multiplying by the derivative of the inner function \\(f'(x)\\) gives \\(\\frac{1}{f(x)} \\cdot f'(x) = \\frac{f'(x)}{f(x)}\\)." },
+            { question: "What is the antiderivative of \\(\\sin(x)\\)?", options: ["\\(\\cos(x) + C\\)", "\\(-\\cos(x) + C\\)", "\\(\\sin(x) + C\\)", "\\(-\\sin(x) + C\\)"], correct: 1, explanation: "The antiderivative of \\(\\sin(x)\\) is \\(-\\cos(x) + C\\), because the derivative of \\(-\\cos(x)\\) is \\(-(-\\sin(x))) = \\sin(x)\\)." },
+            { question: "What is the derivative of \\(\\log_a(x)\\)?", options: ["\\(\\frac{1}{x}\\)", "\\(\\frac{\\ln(a)}{x}\\)", "\\(\\frac{1}{x \\ln(a)}\\)", "\\(\\frac{a^x}{\\ln(a)}\\)"], correct: 2, explanation: "The derivative of a logarithm with base \\(a\\) is \\(\\frac{1}{x \\ln(a)}\\). This can be found using the change of base formula: \\(\\log_a(x) = \\frac{\\ln(x)}{\\ln(a)}\\)." }
+        ];
+
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const explanation = document.getElementById('explanation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const quizFooter = document.querySelector('.quiz-footer');
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            quizFooter.style.display = 'flex';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsGrid.appendChild(button);
+            });
+            
+            updateNavigation();
+            restoreAnswerState();
+            MathJax.typesetPromise();
+        }
+        
+        function resetState() {
+            while (optionsGrid.firstChild) {
+                optionsGrid.removeChild(optionsGrid.firstChild);
+            }
+            explanation.style.display = 'none';
+        }
+
+        function updateNavigation() {
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
+        }
+
+        function restoreAnswerState() {
+            const userAnswer = userAnswers[currentQuestionIndex];
+            if (userAnswer !== null) {
+                showFeedback(userAnswer);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedIndex = parseInt(e.target.dataset.index);
+            if (userAnswers[currentQuestionIndex] === null) { // Only score if it's the first time answering
+                userAnswers[currentQuestionIndex] = selectedIndex;
+                showFeedback(selectedIndex);
+            }
+        }
+
+        function showFeedback(selectedIndex) {
+            const correctIndex = questions[currentQuestionIndex].correct;
+            
+            Array.from(optionsGrid.children).forEach((button, index) => {
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+                button.disabled = true;
+            });
+            
+            explanation.innerHTML = "<b>Explanation:</b> " + questions[currentQuestionIndex].explanation;
+            explanation.style.display = 'block';
+            MathJax.typesetPromise();
+        }
+
+        function showResults() {
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+
+            questionContainer.style.display = 'none';
+            quizFooter.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const scorePercent = Math.round((score / questions.length) * 100);
+            scoreText.innerText = `You scored ${score} out of ${questions.length} (${scorePercent}%)`;
+        }
+
+        function handleNextButton() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function handlePrevButton() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        nextBtn.addEventListener('click', handleNextButton);
+        prevBtn.addEventListener('click', handlePrevButton);
+        restartBtn.addEventListener('click', startQuiz);
+
+        startQuiz();
+    </script>
+</body>
+</html>

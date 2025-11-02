@@ -1,0 +1,959 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discrete Mathematics Quiz - Comprehensive</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Discrete Mathematics Quiz</h1>
+            <p>Comprehensive test from basic to advanced topics</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/40</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/40</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // BASIC TOPICS (Questions 1-10)
+            {
+                question: "What is the cardinality of the set \\(A = \\{1, 2, 3, 4, 5\\}\\)?",
+                options: [
+                    "4",
+                    "5",
+                    "6",
+                    "Infinite"
+                ],
+                correct: 1,
+                explanation: "The cardinality of a set is the number of elements it contains. Set A has 5 elements, so |A| = 5."
+            },
+            {
+                question: "Which of the following is a proper subset of \\(\\{a, b, c\\}\\)?",
+                options: [
+                    "\\(\\{a, b, c\\}\\)",
+                    "\\(\\{a, b\\}\\)",
+                    "\\(\\{a, b, c, d\\}\\)",
+                    "\\(\\{\\}\\) only"
+                ],
+                correct: 1,
+                explanation: "A proper subset must contain fewer elements than the original set. \\(\\{a, b\\}\\) is a proper subset because it's contained in \\(\\{a, b, c\\}\\) but not equal to it."
+            },
+            {
+                question: "What is \\(\\{1, 2, 3\\} \\cup \\{3, 4, 5\\}\\)?",
+                options: [
+                    "\\(\\{3\\}\\)",
+                    "\\(\\{1, 2, 3, 4, 5\\}\\)",
+                    "\\(\\{1, 2, 4, 5\\}\\)",
+                    "\\(\\{1, 2, 3, 3, 4, 5\\}\\)"
+                ],
+                correct: 1,
+                explanation: "The union operation combines all elements from both sets. Elements are not repeated in sets, so the result is \\(\\{1, 2, 3, 4, 5\\}\\)."
+            },
+            {
+                question: "What is \\(\\{1, 2, 3, 4\\} \\cap \\{3, 4, 5, 6\\}\\)?",
+                options: [
+                    "\\(\\{1, 2, 5, 6\\}\\)",
+                    "\\(\\{3, 4\\}\\)",
+                    "\\(\\{1, 2, 3, 4, 5, 6\\}\\)",
+                    "\\(\\emptyset\\)"
+                ],
+                correct: 1,
+                explanation: "The intersection contains only elements that appear in both sets. Both sets contain 3 and 4, so the intersection is \\(\\{3, 4\\}\\)."
+            },
+            {
+                question: "Which logical operator represents 'AND'?",
+                options: [
+                    "\\(\\lor\\)",
+                    "\\(\\land\\)",
+                    "\\(\\neg\\)",
+                    "\\(\\rightarrow\\)"
+                ],
+                correct: 1,
+                explanation: "The symbol \\(\\land\\) represents logical conjunction (AND). \\(\\lor\\) is OR, \\(\\neg\\) is NOT, and \\(\\rightarrow\\) is implication."
+            },
+            {
+                question: "What is the truth value of \\(\\text{True} \\land \\text{False}\\)?",
+                options: [
+                    "True",
+                    "False",
+                    "Undefined",
+                    "Either True or False"
+                ],
+                correct: 1,
+                explanation: "The AND operation returns True only when both operands are True. Since one operand is False, the result is False."
+            },
+            {
+                question: "What is \\(\\neg(\\text{True})\\)?",
+                options: [
+                    "True",
+                    "False",
+                    "Undefined",
+                    "1"
+                ],
+                correct: 1,
+                explanation: "The negation operator \\(\\neg\\) flips the truth value. The negation of True is False."
+            },
+            {
+                question: "How many elements are in the power set of \\(\\{a, b\\}\\)?",
+                options: [
+                    "2",
+                    "3",
+                    "4",
+                    "8"
+                ],
+                correct: 2,
+                explanation: "The power set contains all subsets: \\(\\emptyset, \\{a\\}, \\{b\\}, \\{a,b\\}\\). For a set with n elements, the power set has \\(2^n\\) elements. Here, \\(2^2 = 4\\)."
+            },
+            {
+                question: "What is the complement of set A if \\(A = \\{1, 2\\}\\) and the universal set \\(U = \\{1, 2, 3, 4\\}\\)?",
+                options: [
+                    "\\(\\{1, 2\\}\\)",
+                    "\\(\\{3, 4\\}\\)",
+                    "\\(\\{1, 2, 3, 4\\}\\)",
+                    "\\(\\emptyset\\)"
+                ],
+                correct: 1,
+                explanation: "The complement of A contains all elements in the universal set U that are not in A. So \\(A' = \\{3, 4\\}\\)."
+            },
+            {
+                question: "Which of the following represents a proposition?",
+                options: [
+                    "What time is it?",
+                    "Close the door!",
+                    "2 + 2 = 5",
+                    "x + 3 = 7"
+                ],
+                correct: 2,
+                explanation: "A proposition is a declarative statement that is either true or false. '2 + 2 = 5' is false, but it's still a proposition. The others are questions, commands, or open sentences."
+            },
+
+            // INTERMEDIATE TOPICS (Questions 11-25)
+            {
+                question: "What is the negation of \\(\\forall x P(x)\\)?",
+                options: [
+                    "\\(\\forall x \\neg P(x)\\)",
+                    "\\(\\exists x \\neg P(x)\\)",
+                    "\\(\\neg \\exists x P(x)\\)",
+                    "\\(\\exists x P(x)\\)"
+                ],
+                correct: 1,
+                explanation: "The negation of 'for all x, P(x)' is 'there exists an x such that not P(x)': \\(\\neg(\\forall x P(x)) \\equiv \\exists x \\neg P(x)\\)."
+            },
+            {
+                question: "How many relations are possible from set A to set B if \\(|A| = 2\\) and \\(|B| = 3\\)?",
+                options: [
+                    "6",
+                    "8",
+                    "32",
+                    "64"
+                ],
+                correct: 3,
+                explanation: "A relation is a subset of \\(A \\times B\\). Since \\(|A \\times B| = 2 \\times 3 = 6\\), there are \\(2^6 = 64\\) possible relations (subsets of the Cartesian product)."
+            },
+            {
+                question: "Which property does the relation 'less than' (<) on integers satisfy?",
+                options: [
+                    "Reflexive",
+                    "Symmetric",
+                    "Transitive",
+                    "All of the above"
+                ],
+                correct: 2,
+                explanation: "The < relation is transitive: if a < b and b < c, then a < c. It's not reflexive (a ≮ a) nor symmetric (if a < b, then b ≮ a)."
+            },
+            {
+                question: "A function \\(f: A \\rightarrow B\\) is bijective if it is:",
+                options: [
+                    "Only injective",
+                    "Only surjective",
+                    "Both injective and surjective",
+                    "Neither injective nor surjective"
+                ],
+                correct: 2,
+                explanation: "A bijective function is both one-to-one (injective) and onto (surjective). This means every element in B is mapped to exactly once."
+            },
+            {
+                question: "What is \\(5 \\bmod 3\\)?",
+                options: [
+                    "1",
+                    "2",
+                    "3",
+                    "5"
+                ],
+                correct: 1,
+                explanation: "The modulo operation gives the remainder after division. \\(5 = 3 \\times 1 + 2\\), so \\(5 \\bmod 3 = 2\\)."
+            },
+            {
+                question: "How many elements are in \\(\\mathbb{Z}_7\\) (integers modulo 7)?",
+                options: [
+                    "6",
+                    "7",
+                    "8",
+                    "Infinite"
+                ],
+                correct: 1,
+                explanation: "\\(\\mathbb{Z}_7\\) contains the equivalence classes {0, 1, 2, 3, 4, 5, 6}, which is 7 elements."
+            },
+            {
+                question: "What is the contrapositive of \\(P \\rightarrow Q\\)?",
+                options: [
+                    "\\(Q \\rightarrow P\\)",
+                    "\\(\\neg P \\rightarrow \\neg Q\\)",
+                    "\\(\\neg Q \\rightarrow \\neg P\\)",
+                    "\\(P \\rightarrow \\neg Q\\)"
+                ],
+                correct: 2,
+                explanation: "The contrapositive of \\(P \\rightarrow Q\\) is \\(\\neg Q \\rightarrow \\neg P\\), which is logically equivalent to the original statement."
+            },
+            {
+                question: "Which of the following is a tautology?",
+                options: [
+                    "\\(P \\land \\neg P\\)",
+                    "\\(P \\lor \\neg P\\)",
+                    "\\(P \\rightarrow \\neg P\\)",
+                    "\\(P \\land Q\\)"
+                ],
+                correct: 1,
+                explanation: "\\(P \\lor \\neg P\\) (law of excluded middle) is always true regardless of P's value. It's a tautology."
+            },
+            {
+                question: "What is \\(\\gcd(24, 36)\\)?",
+                options: [
+                    "6",
+                    "12",
+                    "24",
+                    "72"
+                ],
+                correct: 1,
+                explanation: "The greatest common divisor of 24 and 36 is 12. Both numbers are divisible by 12, and 12 is the largest such divisor."
+            },
+            {
+                question: "If a relation R on set A is reflexive, symmetric, and transitive, it is called:",
+                options: [
+                    "A function",
+                    "An equivalence relation",
+                    "A partial order",
+                    "A total order"
+                ],
+                correct: 1,
+                explanation: "An equivalence relation must satisfy all three properties: reflexivity, symmetry, and transitivity."
+            },
+            {
+                question: "How many ways can you arrange 4 distinct objects?",
+                options: [
+                    "4",
+                    "12",
+                    "24",
+                    "256"
+                ],
+                correct: 2,
+                explanation: "The number of permutations of n distinct objects is n!. For 4 objects: 4! = 4 × 3 × 2 × 1 = 24."
+            },
+            {
+                question: "What is \\(\\binom{5}{2}\\) (5 choose 2)?",
+                options: [
+                    "5",
+                    "10",
+                    "20",
+                    "25"
+                ],
+                correct: 1,
+                explanation: "\\(\\binom{5}{2} = \\frac{5!}{2!(5-2)!} = \\frac{5 \\times 4}{2 \\times 1} = 10\\). This counts the number of ways to choose 2 items from 5."
+            },
+            {
+                question: "A graph with no cycles is called:",
+                options: [
+                    "A complete graph",
+                    "A tree",
+                    "A bipartite graph",
+                    "An Eulerian graph"
+                ],
+                correct: 1,
+                explanation: "A connected acyclic graph is called a tree. It has no cycles and is minimally connected."
+            },
+            {
+                question: "What is the minimum number of edges in a connected graph with n vertices?",
+                options: [
+                    "\\(n-1\\)",
+                    "\\(n\\)",
+                    "\\(n+1\\)",
+                    "\\(\\frac{n(n-1)}{2}\\)"
+                ],
+                correct: 0,
+                explanation: "A tree with n vertices has exactly n-1 edges and is the minimum connected structure. Fewer edges would disconnect the graph."
+            },
+            {
+                question: "The pigeonhole principle states that if n+1 objects are placed into n boxes, then:",
+                options: [
+                    "At least one box is empty",
+                    "At least one box contains at least two objects",
+                    "All boxes contain exactly one object",
+                    "No box contains more than one object"
+                ],
+                correct: 1,
+                explanation: "By the pigeonhole principle, if you have more objects than boxes, at least one box must contain more than one object."
+            },
+
+            // ADVANCED TOPICS (Questions 26-40)
+            {
+                question: "What is the chromatic number of a complete graph \\(K_5\\)?",
+                options: [
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ],
+                correct: 3,
+                explanation: "In a complete graph \\(K_n\\), every vertex is adjacent to every other vertex, requiring n different colors. For \\(K_5\\), we need 5 colors."
+            },
+            {
+                question: "A graph has an Eulerian circuit if and only if:",
+                options: [
+                    "It is connected and all vertices have even degree",
+                    "It is connected and has exactly two vertices of odd degree",
+                    "It is a tree",
+                    "It is bipartite"
+                ],
+                correct: 0,
+                explanation: "A connected graph has an Eulerian circuit (a cycle visiting every edge exactly once) if and only if all vertices have even degree."
+            },
+            {
+                question: "What is the recurrence relation for the Fibonacci sequence?",
+                options: [
+                    "\\(F(n) = F(n-1) + n\\)",
+                    "\\(F(n) = F(n-1) + F(n-2)\\)",
+                    "\\(F(n) = 2F(n-1)\\)",
+                    "\\(F(n) = F(n-1) \\times F(n-2)\\)"
+                ],
+                correct: 1,
+                explanation: "The Fibonacci sequence is defined by \\(F(n) = F(n-1) + F(n-2)\\) with initial conditions \\(F(0) = 0, F(1) = 1\\)."
+            },
+            {
+                question: "The solution to the recurrence relation \\(a_n = 2a_{n-1}\\) with \\(a_0 = 1\\) is:",
+                options: [
+                    "\\(a_n = n\\)",
+                    "\\(a_n = 2n\\)",
+                    "\\(a_n = 2^n\\)",
+                    "\\(a_n = n^2\\)"
+                ],
+                correct: 2,
+                explanation: "This is a geometric sequence with ratio 2. Starting with \\(a_0 = 1\\), we get \\(a_n = 2^n\\)."
+            },
+            {
+                question: "What is the time complexity of finding the minimum spanning tree using Kruskal's algorithm?",
+                options: [
+                    "\\(O(n)\\)",
+                    "\\(O(n \\log n)\\)",
+                    "\\(O(E \\log E)\\)",
+                    "\\(O(n^2)\\)"
+                ],
+                correct: 2,
+                explanation: "Kruskal's algorithm sorts all edges, which takes \\(O(E \\log E)\\) time, where E is the number of edges. This dominates the overall complexity."
+            },
+            {
+                question: "A poset (partially ordered set) must satisfy which properties?",
+                options: [
+                    "Reflexive, antisymmetric, transitive",
+                    "Reflexive, symmetric, transitive",
+                    "Irreflexive, antisymmetric, transitive",
+                    "Symmetric and transitive only"
+                ],
+                correct: 0,
+                explanation: "A partial order is a relation that is reflexive (a ≤ a), antisymmetric (if a ≤ b and b ≤ a then a = b), and transitive."
+            },
+            {
+                question: "What is \\(\\phi(12)\\), where \\(\\phi\\) is Euler's totient function?",
+                options: [
+                    "4",
+                    "6",
+                    "8",
+                    "12"
+                ],
+                correct: 0,
+                explanation: "\\(\\phi(12)\\) counts integers from 1 to 12 that are coprime to 12. These are {1, 5, 7, 11}, so \\(\\phi(12) = 4\\)."
+            },
+            {
+                question: "The generating function for the sequence \\(1, 1, 1, 1, ...\\) is:",
+                options: [
+                    "\\(\\frac{1}{1-x}\\)",
+                    "\\(\\frac{1}{1+x}\\)",
+                    "\\(\\frac{x}{1-x}\\)",
+                    "\\(1 + x + x^2\\)"
+                ],
+                correct: 0,
+                explanation: "The generating function is \\(\\sum_{n=0}^{\\infty} x^n = \\frac{1}{1-x}\\) for |x| < 1."
+            },
+            {
+                question: "What is the number of spanning trees in the complete graph \\(K_4\\)?",
+                options: [
+                    "4",
+                    "8",
+                    "16",
+                    "24"
+                ],
+                correct: 2,
+                explanation: "By Cayley's formula, the number of spanning trees in \\(K_n\\) is \\(n^{n-2}\\). For \\(K_4\\): \\(4^{4-2} = 4^2 = 16\\)."
+            },
+            {
+                question: "A Hamilton path in a graph is:",
+                options: [
+                    "A path that visits every edge exactly once",
+                    "A path that visits every vertex exactly once",
+                    "A cycle that visits every edge exactly once",
+                    "A path of maximum length"
+                ],
+                correct: 1,
+                explanation: "A Hamilton path visits every vertex in the graph exactly once (unlike Eulerian paths which visit every edge once)."
+            },
+            {
+                question: "The principle of inclusion-exclusion for two sets states: \\(|A \\cup B| = \\)",
+                options: [
+                    "\\(|A| + |B|\\)",
+                    "\\(|A| + |B| - |A \\cap B|\\)",
+                    "\\(|A| \\times |B|\\)",
+                    "\\(|A \\cap B|\\)"
+                ],
+                correct: 1,
+                explanation: "To avoid double-counting elements in both sets, we must subtract the intersection: \\(|A \\cup B| = |A| + |B| - |A \\cap B|\\)."
+            },
+            {
+                question: "What is the characteristic of a Boolean algebra?",
+                options: [
+                    "It has prime order",
+                    "Every element is its own inverse under addition",
+                    "It contains exactly two elements",
+                    "It is commutative under all operations"
+                ],
+                correct: 1,
+                explanation: "In a Boolean algebra, every element is its own inverse under addition (XOR): \\(a \\oplus a = 0\\)."
+            },
+            {
+                question: "The Master Theorem is used for analyzing:",
+                options: [
+                    "Graph algorithms",
+                    "Divide-and-conquer recurrences",
+                    "Network flows",
+                    "Sorting algorithms only"
+                ],
+                correct: 1,
+                explanation: "The Master Theorem provides a method for analyzing the time complexity of divide-and-conquer algorithms via their recurrence relations."
+            },
+            {
+                question: "In graph theory, a cut vertex is:",
+                options: [
+                    "A vertex with degree 1",
+                    "A vertex whose removal increases the number of connected components",
+                    "A vertex in a cycle",
+                    "A vertex with maximum degree"
+                ],
+                correct: 1,
+                explanation: "A cut vertex (or articulation point) is a vertex whose removal disconnects the graph or increases the number of components."
+            },
+            {
+                question: "The Chinese Remainder Theorem deals with:",
+                options: [
+                    "Graph coloring",
+                    "Systems of congruences with coprime moduli",
+                    "Prime factorization",
+                    "Matrix operations"
+                ],
+                correct: 1,
+                explanation: "The CRT provides a unique solution to systems of congruences \\(x \\equiv a_i \\pmod{m_i}\\) when the moduli are pairwise coprime."
+            },
+            {
+                question: "A graph is bipartite if and only if:",
+                options: [
+                    "It contains no odd cycles",
+                    "It is planar",
+                    "It has an Eulerian circuit",
+                    "All vertices have even degree"
+                ],
+                correct: 0,
+                explanation: "A graph is bipartite (vertices can be divided into two disjoint sets with edges only between sets) if and only if it contains no odd-length cycles."
+            },
+            {
+                question: "What is \\(\\sum_{i=1}^{n} i\\)?",
+                options: [
+                    "\\(n^2\\)",
+                    "\\(\\frac{n(n+1)}{2}\\)",
+                    "\\(\\frac{n(n-1)}{2}\\)",
+                    "\\(2^n\\)"
+                ],
+                correct: 1,
+                explanation: "The sum of the first n positive integers is given by the formula \\(\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}\\)."
+            },
+            {
+                question: "The number of derangements of n objects (permutations with no fixed points) is approximately:",
+                options: [
+                    "\\(n!\\)",
+                    "\\(\\frac{n!}{e}\\)",
+                    "\\(2^n\\)",
+                    "\\(n^n\\)"
+                ],
+                correct: 1,
+                explanation: "The number of derangements \\(D_n\\) approaches \\(\\frac{n!}{e}\\) as n grows large, from the formula \\(D_n = n!\\sum_{i=0}^{n}\\frac{(-1)^i}{i!}\\)."
+            },
+            {
+                question: "Fermat's Little Theorem states that if p is prime and a is not divisible by p:",
+                options: [
+                    "\\(a^p \\equiv 1 \\pmod{p}\\)",
+                    "\\(a^{p-1} \\equiv 1 \\pmod{p}\\)",
+                    "\\(a^p \\equiv a \\pmod{p}\\)",
+                    "Both B and C"
+                ],
+                correct: 3,
+                explanation: "Fermat's Little Theorem states \\(a^p \\equiv a \\pmod{p}\\) for any a, and if gcd(a,p)=1, then \\(a^{p-1} \\equiv 1 \\pmod{p}\\). Both B and C are correct."
+            },
+            {
+                question: "The pumping lemma is used to prove that a language is:",
+                options: [
+                    "Regular",
+                    "Context-free",
+                    "Not regular",
+                    "Decidable"
+                ],
+                correct: 2,
+                explanation: "The pumping lemma for regular languages is typically used as a tool to prove that certain languages are NOT regular by contradiction."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered discrete mathematics!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of the concepts.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

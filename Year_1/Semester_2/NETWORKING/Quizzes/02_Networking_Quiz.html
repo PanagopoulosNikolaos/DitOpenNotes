@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Networking MCQ Game (TCP/IP)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Networking Multiple Choice Game</div>
+  <div class="subtitle">TCP/IP Protocol Suite</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">10</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { text: "Which layer of the OSI model is responsible for converting data into an electrical signal?", choices: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"], correctIndex: 0, explain: "The Physical Layer is responsible for converting data into an electrical signal and providing the interface." },
+  { text: "Which layer of the TCP/IP model is responsible for logical addressing and routing?", choices: ["Application Layer", "Transport Layer", "Internet Layer", "Network Access Layer"], correctIndex: 2, explain: "The Internet Layer provides logical addressing for routing data." },
+  { text: "Which of the following protocols is NOT part of the Application Layer in the TCP/IP model?", choices: ["HTTP", "FTP", "TCP", "DNS"], correctIndex: 2, explain: "TCP is a Transport Layer protocol, not an Application Layer protocol." },
+  { text: "What is the main function of the Transport Layer in the TCP/IP model?", choices: ["To provide a physical interface to the network", "To provide logical addressing for routing data", "To provide flow and error control", "To support network applications"], correctIndex: 2, explain: "The Transport Layer (TCP) provides flow and error control, and offers notification services." },
+  { text: "What is a data packet called at the TCP Transport Layer?", choices: ["Message", "Segment", "Datagram", "Frame"], correctIndex: 1, explain: "A data packet at the TCP Transport Layer is called a segment." },
+  { text: "What is a data packet called at the UDP Transport Layer?", choices: ["Message", "Segment", "Datagram", "Frame"], correctIndex: 2, explain: "A data packet at the UDP Transport Layer is called a datagram." },
+  { text: "What is a data packet called at the Internet Layer?", choices: ["Message", "Segment", "Datagram", "Frame"], correctIndex: 2, explain: "A data packet at the Internet Layer is called a datagram." },
+  { text: "What is a data packet called at the Network Access Layer?", choices: ["Message", "Segment", "Datagram", "Frame"], correctIndex: 3, explain: "A data packet at the Network Access Layer is called a frame." },
+  { text: "Which of the following is an advantage of modular design in networking?", choices: ["It is difficult to adapt to specific hardware", "It is difficult to adapt to an operating system", "It can be easily adapted to specific hardware and operating systems", "It is less secure"], correctIndex: 2, explain: "Modular design allows for easy adaptation to specific hardware and operating systems." },
+  { text: "Which layer of the OSI model is responsible for encryption and compression?", choices: ["Application Layer", "Presentation Layer", "Session Layer", "Transport Layer"], correctIndex: 1, explain: "The Presentation Layer is responsible for translating data into a standard format and managing encryption and compression." },
+  { text: "What is TCP?", choices: ["A connection-oriented protocol", "A connectionless protocol", "A routing protocol", "An application protocol"], correctIndex: 0, explain: "TCP (Transmission Control Protocol) is a connection-oriented protocol that provides reliable data transmission." },
+  { text: "What is UDP?", choices: ["A connection-oriented protocol", "A connectionless protocol", "A routing protocol", "An application protocol"], correctIndex: 1, explain: "UDP (User Datagram Protocol) is a connectionless protocol that provides fast but unreliable data transmission." },
+  { text: "What is the main difference between TCP and UDP?", choices: ["TCP is faster, UDP is slower", "TCP provides reliability, UDP does not", "TCP uses ports, UDP does not", "TCP is for routing, UDP is for applications"], correctIndex: 1, explain: "TCP provides reliable, ordered, and error-checked delivery of data, while UDP provides faster but unreliable transmission." },
+  { text: "What is IP?", choices: ["Internet Protocol", "Internet Packet", "Internet Port", "Internet Path"], correctIndex: 0, explain: "IP (Internet Protocol) is responsible for addressing and routing packets across networks." },
+  { text: "What is ICMP?", choices: ["Internet Control Message Protocol", "Internet Connection Management Protocol", "Internet Communication Protocol", "Internet Control Protocol"], correctIndex: 0, explain: "ICMP (Internet Control Message Protocol) is used for error reporting and diagnostic functions." },
+  { text: "What is ARP?", choices: ["Address Resolution Protocol", "Address Routing Protocol", "Application Resolution Protocol", "Application Routing Protocol"], correctIndex: 0, explain: "ARP (Address Resolution Protocol) maps IP addresses to MAC addresses." },
+  { text: "What is RARP?", choices: ["Reverse Address Resolution Protocol", "Remote Address Resolution Protocol", "Reverse Application Resolution Protocol", "Remote Application Resolution Protocol"], correctIndex: 0, explain: "RARP (Reverse Address Resolution Protocol) maps MAC addresses to IP addresses." },
+  { text: "What is DHCP?", choices: ["Dynamic Host Configuration Protocol", "Dynamic Hardware Configuration Protocol", "Domain Host Configuration Protocol", "Domain Hardware Configuration Protocol"], correctIndex: 0, explain: "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses to devices on a network." },
+  { text: "What is NAT?", choices: ["Network Address Translation", "Network Access Translation", "Network Application Translation", "Network Address Transfer"], correctIndex: 0, explain: "NAT (Network Address Translation) translates private IP addresses to public IP addresses." },
+  { text: "What is a VPN?", choices: ["Virtual Private Network", "Virtual Public Network", "Virtual Protocol Network", "Virtual Packet Network"], correctIndex: 0, explain: "A VPN (Virtual Private Network) creates a secure connection over a public network." }
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false;
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  q.choices.forEach((opt, i)=> {
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=> {
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+elNext.addEventListener('click', ()=> {
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=> {
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>

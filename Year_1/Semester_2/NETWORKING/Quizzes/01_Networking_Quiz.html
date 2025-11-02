@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Networking MCQ Game (Basics)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Networking Multiple Choice Game</div>
+  <div class="subtitle">Basics of Computer Communication</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">10</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { text: "What is a computer network?", choices: ["A single computer", "A collection of computers that can communicate with each other", "A type of software", "A type of hardware"], correctIndex: 1, explain: "A computer network is a set of computers or devices that can communicate with each other through one or more common transmission media." },
+  { text: "What is a network protocol?", choices: ["A type of network cable", "A set of rules for data transmission", "A type of network device", "A programming language"], correctIndex: 1, explain: "A network protocol is a system of common rules that helps to carry out the process of data transmission between network resources." },
+  { text: "What is the main function of the TCP/IP protocol suite?", choices: ["To define the physical characteristics of a network", "To define how data is processed, transmitted, and received on a network", "To provide a graphical user interface for network management", "To create and edit text documents"], correctIndex: 1, explain: "TCP/IP and its related protocols form a complete system that defines how data will be processed, transmitted, and received on a network that implements these protocols." },
+  { text: "What was the predecessor of the TCP/IP protocol suite?", choices: ["ARPANET", "Ethernet", "Token Ring", "FDDI"], correctIndex: 0, explain: "The TCP/IP protocol suite evolved from the experimental ARPANET network, developed by the Advanced Research Project Agency (ARPA)." },
+  { text: "Which of the following is a key feature of the TCP/IP protocol suite?", choices: ["Centralized routing", "Static addressing", "Dynamic routing", "Hierarchical network structure"], correctIndex: 2, explain: "Dynamic routing is a key feature of TCP/IP, where routers can direct data to its destination and segment large networks." },
+  { text: "What is the purpose of the Domain Name System (DNS)?", choices: ["To assign IP addresses to devices", "To convert domain names to IP addresses", "To encrypt network traffic", "To manage network security"], correctIndex: 1, explain: "The Domain Name System (DNS) is a name resolution service that converts domain names to IP addresses." },
+  { text: "What is an IP address?", choices: ["A physical address of a device", "A logical address of a network interface", "A type of network cable", "A network protocol"], correctIndex: 1, explain: "An IP address is a unique logical address (32 bits in IPv4) for each network device interface." },
+  { text: "Which organization is responsible for assigning domain names and IP addresses?", choices: ["IETF", "IRTF", "ICANN", "IAB"], correctIndex: 2, explain: "The Internet Corporation for Assigned Names and Numbers (ICANN) is responsible for assigning domain names and IP addresses." },
+  { text: "What are RFCs (Requests For Comment)?", choices: ["Informal blog posts about networking", "Official technical documents that provide technical information and standardizations for TCP/IP and other protocols", "A type of network hardware", "A type of network software"], correctIndex: 1, explain: "RFCs are official technical documents that provide technical information and standardizations concerning TCP/IP, the Internet, and other protocols." },
+  { text: "Which layer of the OSI model corresponds to the TCP/IP Application Layer?", choices: ["Application, Presentation, and Session", "Transport and Network", "Data Link and Physical", "Only the Application layer"], correctIndex: 0, explain: "The TCP/IP Application Layer corresponds to the Application, Presentation, and Session layers of the OSI model." },
+  { text: "What is a Local Area Network (LAN)?", choices: ["A network that covers a large geographical area", "A network that covers a small geographical area like a home or office", "A network that connects different countries", "A network that uses wireless technology"], correctIndex: 1, explain: "A LAN is a network that connects computers and devices in a limited area such as a home, school, or office building." },
+  { text: "What is a Wide Area Network (WAN)?", choices: ["A network that covers a small geographical area", "A network that covers a large geographical area", "A network that connects devices in the same room", "A network that uses only wired connections"], correctIndex: 1, explain: "A WAN is a network that extends over a large geographical area, often connecting multiple LANs." },
+  { text: "What is the difference between a hub and a switch?", choices: ["A hub is intelligent, a switch is not", "A switch operates at the physical layer, a hub at the data link layer", "A switch forwards data based on MAC addresses, a hub broadcasts to all ports", "There is no difference"], correctIndex: 2, explain: "A switch forwards data to the specific port based on MAC addresses, while a hub broadcasts data to all connected ports." },
+  { text: "What is a router?", choices: ["A device that connects multiple networks", "A device that connects multiple devices in the same network", "A device that provides wireless connectivity", "A device that encrypts data"], correctIndex: 0, explain: "A router is a networking device that forwards data packets between computer networks." },
+  { text: "What is bandwidth?", choices: ["The speed of data transmission", "The amount of data that can be transmitted in a given time", "The distance data can travel", "The security of a network"], correctIndex: 1, explain: "Bandwidth is the maximum amount of data that can be transmitted over a network in a given time period." },
+  { text: "What is latency?", choices: ["The speed of data transmission", "The delay before data transfer begins", "The amount of data transmitted", "The security of a network"], correctIndex: 1, explain: "Latency is the time it takes for data to travel from source to destination." },
+  { text: "What is packet switching?", choices: ["A method of switching circuits", "A method of breaking data into packets and sending them independently", "A method of encrypting data", "A method of compressing data"], correctIndex: 1, explain: "Packet switching is a method of transmitting data in which messages are broken into packets and sent independently." },
+  { text: "What is circuit switching?", choices: ["A method of switching packets", "A method of establishing a dedicated path for data transmission", "A method of encrypting data", "A method of compressing data"], correctIndex: 1, explain: "Circuit switching is a method of establishing a dedicated communication path between two devices before data transmission." },
+  { text: "What is a firewall?", choices: ["A device that connects networks", "A security system that monitors and controls incoming and outgoing network traffic", "A device that amplifies signals", "A device that stores data"], correctIndex: 1, explain: "A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules." },
+  { text: "What is encryption?", choices: ["A method of compressing data", "A method of converting data into a coded format to prevent unauthorized access", "A method of increasing data speed", "A method of routing data"], correctIndex: 1, explain: "Encryption is the process of converting information or data into a code to prevent unauthorized access." }
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false;
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  q.choices.forEach((opt, i)=> {
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=> {
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+elNext.addEventListener('click', ()=> {
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=> {
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>

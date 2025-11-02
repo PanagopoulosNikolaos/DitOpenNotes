@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions Quiz (Part B)</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧩 Functions Quiz (Part B)</h1>
+            <p>Test your knowledge of function composition and transformations</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/20</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/20</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "If \\(f(x) = x^2\\) and \\(g(x) = x+1\\), what is \\((f \\circ g)(x)\\)?",
+                options: [
+                    "\\(x^2 + 1\\)",
+                    "\\((x+1)^2\\)",
+                    "\\(x^2+x+1\\)",
+                    "\\(x^2(x+1)\\)"
+                ],
+                correct: 1,
+                explanation: "The composition \\((f \\circ g)(x)\\) means \\(f(g(x))\\). We substitute \\(g(x)\\) into \\(f(x)\\), so \\(f(g(x)) = f(x+1) = (x+1)^2\\)."
+            },
+            {
+                question: "If \\(f(x) = 3x\\) and \\(g(x) = \\sqrt{x}\\), what is the domain of \\((g \\circ f)(x)\\)?",
+                options: [
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\((0, \\infty)\\)",
+                    "\\([0, \\infty)\\)",
+                    "\\((-\\infty, 0]\\)"
+                ],
+                correct: 2,
+                explanation: "The composition is \\((g \\circ f)(x) = g(f(x)) = g(3x) = \\sqrt{3x}\\). For the square root to be defined, its argument must be non-negative, so \\(3x \\ge 0\\), which implies \\(x \\ge 0\\). The domain is \\([0, \\infty)\\)."
+            },
+            {
+                question: "Decompose \\(h(x) = \\sqrt{x^2+4}\\) into two functions \\(f(x)\\) and \\(g(x)\\) such that \\(h(x) = (f \\circ g)(x)\\).",
+                options: [
+                    "\\(f(x) = \\sqrt{x}, g(x) = x^2+4\\)",
+                    "\\(f(x) = x^2+4, g(x) = \\sqrt{x}\\)",
+                    "\\(f(x) = x+4, g(x) = \\sqrt{x^2}\\)",
+                    "\\(f(x) = \\sqrt{x+4}, g(x) = x^2\\)"
+                ],
+                correct: 0,
+                explanation: "Let the outer function be \\(f(x) = \\sqrt{x}\\) and the inner function be \\(g(x) = x^2+4\\). Then \\(f(g(x)) = f(x^2+4) = \\sqrt{x^2+4} = h(x)\\)."
+            },
+            {
+                question: "A graph is symmetric with respect to the y-axis if for every point \\((x, y)\\) on the graph, the point _____ is also on the graph.",
+                options: [
+                    "\\((x, -y)\\)",
+                    "\\((-x, y)\\)",
+                    "\\((-x, -y)\\)",
+                    "\\((y, x)\\)"
+                ],
+                correct: 1,
+                explanation: "Symmetry with respect to the y-axis means that reflecting the graph across the y-axis leaves it unchanged. This occurs when \\(f(-x) = f(x)\\)."
+            },
+            {
+                question: "A graph is symmetric with respect to the origin if for every point \\((x, y)\\) on the graph, the point _____ is also on the graph.",
+                options: [
+                    "\\((x, -y)\\)",
+                    "\\((-x, y)\\)",
+                    "\\((-x, -y)\\)",
+                    "\\((y, x)\\)"
+                ],
+                correct: 2,
+                explanation: "Symmetry with respect to the origin means that rotating the graph 180 degrees around the origin leaves it unchanged. This occurs when \\(f(-x) = -f(x)\\)."
+            },
+            {
+                question: "A function \\(f\\) is called an 'even function' if...",
+                options: [
+                    "\\(f(-x) = f(x)\\) for all \\(x\\) in its domain.",
+                    "\\(f(-x) = -f(x)\\) for all \\(x\\) in its domain.",
+                    "\\(f(x) = f(x+T)\\) for some period T.",
+                    "The graph is symmetric with respect to the x-axis."
+                ],
+                correct: 0,
+                explanation: "The definition of an even function is \\(f(-x) = f(x)\\). Its graph is symmetric with respect to the y-axis."
+            },
+            {
+                question: "The function \\(f(x) = x^3 - x\\) is...",
+                options: [
+                    "Even",
+                    "Odd",
+                    "Neither even nor odd",
+                    "Both even and odd"
+                ],
+                correct: 1,
+                explanation: "\\(f(-x) = (-x)^3 - (-x) = -x^3 + x = -(x^3 - x) = -f(x)\\). Since \\(f(-x) = -f(x)\\), the function is odd."
+            },
+            {
+                question: "The graph of an odd function is symmetric with respect to...",
+                options: [
+                    "The y-axis",
+                    "The x-axis",
+                    "The origin",
+                    "The line \\(y=x\\)"
+                ],
+                correct: 2,
+                explanation: "An odd function satisfies the property \\(f(-x) = -f(x)\\), which corresponds to 180-degree rotational symmetry about the origin."
+            },
+            {
+                question: "How is the graph of \\(y = f(x) + 3\\) obtained from the graph of \\(y = f(x)\\)?",
+                options: [
+                    "Shift 3 units to the right.",
+                    "Shift 3 units to the left.",
+                    "Shift 3 units up.",
+                    "Shift 3 units down."
+                ],
+                correct: 2,
+                explanation: "Adding a constant \\(k\\) to a function, \\(f(x)+k\\), results in a vertical shift. Since \\(k=3\\) is positive, the shift is 3 units upwards."
+            },
+            {
+                question: "How is the graph of \\(y = f(x-2)\\) obtained from the graph of \\(y = f(x)\\)?",
+                options: [
+                    "Shift 2 units to the right.",
+                    "Shift 2 units to the left.",
+                    "Shift 2 units up.",
+                    "Shift 2 units down."
+                ],
+                correct: 0,
+                explanation: "Replacing \\(x\\) with \\(x-k\\) results in a horizontal shift. Since \\(k=2\\) is positive, the shift is 2 units to the right."
+            },
+            {
+                question: "The graph of \\(y = -f(x)\\) is a reflection of the graph of \\(y = f(x)\\) across...",
+                options: [
+                    "The y-axis",
+                    "The x-axis",
+                    "The origin",
+                    "The line \\(y=x\\)"
+                ],
+                correct: 1,
+                explanation: "Multiplying the entire function's output by -1 inverts the y-values, causing a reflection across the x-axis."
+            },
+            {
+                question: "The graph of \\(y = f(-x)\\) is a reflection of the graph of \\(y = f(x)\\) across...",
+                options: [
+                    "The y-axis",
+                    "The x-axis",
+                    "The origin",
+                    "The line \\(y=x\\)"
+                ],
+                correct: 0,
+                explanation: "Replacing the input \\(x\\) with \\(-x\\) inverts the x-values, causing a reflection across the y-axis."
+            },
+            {
+                question: "Starting with \\(y = x^2\\), what transformations are needed to get \\(y = (x+1)^2 - 5\\)?",
+                options: [
+                    "Shift right 1, shift down 5.",
+                    "Shift left 1, shift down 5.",
+                    "Shift left 1, shift up 5.",
+                    "Shift right 1, shift up 5."
+                ],
+                correct: 1,
+                explanation: "The transformation \\(f(x) \\to f(x+1)\\) shifts the graph 1 unit to the left. The transformation \\(f(x+1) \\to f(x+1)-5\\) then shifts it 5 units down."
+            },
+            {
+                question: "How is the graph of \\(y = |f(x)|\\) related to the graph of \\(y = f(x)\\)?",
+                options: [
+                    "The part of the graph below the x-axis is reflected above the x-axis.",
+                    "The part of the graph to the left of the y-axis is reflected to the right.",
+                    "The entire graph is shifted up.",
+                    "The entire graph is reflected across the y-axis."
+                ],
+                correct: 0,
+                explanation: "The absolute value function makes all negative output values positive. This means any part of the graph that is below the x-axis (where \\(f(x) < 0\\)) is reflected to be above the x-axis."
+            },
+            {
+                question: "What is a piecewise function?",
+                options: [
+                    "A function defined by a single formula.",
+                    "A function that is a piece of a larger function.",
+                    "A function defined by multiple sub-functions, each applying to a different interval of the domain.",
+                    "A function that is not continuous."
+                ],
+                correct: 2,
+                explanation: "A piecewise function is defined by different formulas for different parts ('pieces') of its domain. It may or may not be continuous."
+            },
+            {
+                question: "Given \\(f(x) = \\begin{cases} x^2 & \\text{if } x < 1 \\\\ 2x+1 & \\text{if } x \\ge 1 \\end{cases}\\), find \\(f(3)\\).",
+                options: [
+                    "9",
+                    "6",
+                    "7",
+                    "4"
+                ],
+                correct: 2,
+                explanation: "Since \\(3 \\ge 1\\), we use the second piece of the function definition: \\(f(3) = 2(3) + 1 = 7\\)."
+            },
+            {
+                question: "Given \\(f(x) = \\begin{cases} x^2 & \\text{if } x < 1 \\\\ 2x+1 & \\text{if } x \\ge 1 \\end{cases}\\), find \\(f(-2)\\).",
+                options: [
+                    "-4",
+                    "4",
+                    "-3",
+                    "5"
+                ],
+                correct: 1,
+                explanation: "Since \\(-2 < 1\\), we use the first piece of the function definition: \\(f(-2) = (-2)^2 = 4\\)."
+            },
+            {
+                question: "Is the function \\(f(x) = x^2 + 1\\) even, odd, or neither?",
+                options: [
+                    "Even",
+                    "Odd",
+                    "Neither"
+                ],
+                correct: 0,
+                explanation: "We check \\(f(-x) = (-x)^2 + 1 = x^2 + 1\\). Since \\(f(-x) = f(x)\\), the function is even."
+            },
+            {
+                question: "If \\(f(x) = \\frac{1}{x}\\) and \\(g(x) = x-2\\), what is \\((f \\circ g)(x)\\)?",
+                options: [
+                    "\\(\\frac{1}{x-2}\\)",
+                    "\\(\\frac{1}{x} - 2\\)",
+                    "\\(x-2\\)",
+                    "\\(\\frac{x}{x-2}\\)"
+                ],
+                correct: 0,
+                explanation: "The composition is \\((f \\circ g)(x) = f(g(x)) = f(x-2) = \\frac{1}{x-2}\\)."
+            },
+            {
+                question: "The graph of \\(y = 2f(x)\\) is a _____ of the graph of \\(y = f(x)\\).",
+                options: [
+                    "Vertical stretch",
+                    "Vertical shrink",
+                    "Horizontal stretch",
+                    "Horizontal shrink"
+                ],
+                correct: 0,
+                explanation: "Multiplying the function's output by a constant \\(c > 1\\) results in a vertical stretch, making the graph appear taller."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered these concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

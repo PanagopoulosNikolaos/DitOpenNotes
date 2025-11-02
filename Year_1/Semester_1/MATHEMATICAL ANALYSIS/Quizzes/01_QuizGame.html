@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions Quiz (Part A)</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 Functions Quiz (Part A)</h1>
+            <p>Test your knowledge of basic function concepts</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/20</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/20</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the definition of a function \\(f\\) from a set \\(X\\) to a set \\(Y\\)?",
+                options: [
+                    "A relation that connects some elements of \\(X\\) with some elements of \\(Y\\).",
+                    "A relation that connects each element of \\(X\\) with exactly one element of \\(Y\\).",
+                    "A relation that connects each element of \\(Y\\) with exactly one element of \\(X\\).",
+                    "A relation that connects every element of \\(X\\) with at least one element of \\(Y\\)."
+                ],
+                correct: 1,
+                explanation: "A function \\(f\\) from \\(X\\) to \\(Y\\) is a rule that assigns to each element \\(x\\) in \\(X\\) exactly one element \\(y\\) in \\(Y\\)."
+            },
+            {
+                question: "In the expression \\(y = f(x)\\), what is '\\(x\\)' called?",
+                options: [
+                    "Dependent variable",
+                    "Output",
+                    "Independent variable",
+                    "Range"
+                ],
+                correct: 2,
+                explanation: "'\\(x\\)' is the independent variable or the input of the function."
+            },
+            {
+                question: "What is the 'domain' of a function?",
+                options: [
+                    "The set of all possible output values.",
+                    "The set of input values for which the function is defined.",
+                    "The set of all real numbers.",
+                    "The graph of the function."
+                ],
+                correct: 1,
+                explanation: "The domain of a function is the set of all possible input values (\\(x\\)-values) for which the function has a meaningful output."
+            },
+            {
+                question: "What is the 'range' of a function?",
+                options: [
+                    "The set of all possible input values.",
+                    "The set of all output values (\\(f(x)\\)) produced by the function.",
+                    "The set of integers.",
+                    "The x-axis."
+                ],
+                correct: 1,
+                explanation: "The range of a function is the set of all possible output values (\\(y\\)-values or \\(f(x)\\)) that the function can produce."
+            },
+            {
+                question: "Which of the following is NOT a way to express a function?",
+                options: [
+                    "With a formula (analytical expression).",
+                    "With a table of values.",
+                    "With a graphical representation.",
+                    "With a single point."
+                ],
+                correct: 3,
+                explanation: "Functions can be expressed with a formula, a table of values, or a graph. A single point is not enough to define a function over a domain."
+            },
+            {
+                question: "What is the vertical line test used for?",
+                options: [
+                    "To find the domain of a function.",
+                    "To determine if a graph represents a function.",
+                    "To find the range of a function.",
+                    "To check if a function is linear."
+                ],
+                correct: 1,
+                explanation: "The vertical line test states that a graph represents a function if and only if no vertical line intersects the graph at more than one point."
+            },
+            {
+                question: "Which of the following graphs represents a function?",
+                options: [
+                    "A circle",
+                    "A sideways parabola",
+                    "An 'S' shaped curve",
+                    "An upward-opening parabola"
+                ],
+                correct: 3,
+                explanation: "An upward-opening parabola is the only graph that passes the vertical line test, as any vertical line will intersect it at most once."
+            },
+            {
+                question: "What is the domain of the function \\(f(x) = x^2 + 1\\)?",
+                options: [
+                    "\\([1, \\infty)\\)",
+                    "\\((-\\infty, \\infty)\\) or \\(\\mathbb{R}\\)",
+                    "\\([0, \\infty)\\)",
+                    "All positive integers."
+                ],
+                correct: 1,
+                explanation: "The function \\(f(x) = x^2 + 1\\) is a polynomial, which is defined for all real numbers. Therefore, its domain is \\(\\mathbb{R}\\)."
+            },
+            {
+                question: "What is the range of the function \\(f(x) = x^2 + 1\\)?",
+                options: [
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\([0, \\infty)\\)",
+                    "\\([1, \\infty)\\)",
+                    "All integers."
+                ],
+                correct: 2,
+                explanation: "Since \\(x^2 \\ge 0\\) for all real x, then \\(x^2 + 1 \\ge 1\\). So, the range of the function is \\([1, \\infty)\\)."
+            },
+            {
+                question: "What is the name of the function \\(f(x) = x\\)?",
+                options: [
+                    "Constant function",
+                    "Identity function",
+                    "Absolute value function",
+                    "Square function"
+                ],
+                correct: 1,
+                explanation: "The function \\(f(x) = x\\) is called the identity function because the output is identical to the input."
+            },
+            {
+                question: "What is the name of the function \\(f(x) = k\\), where k is a constant?",
+                options: [
+                    "Linear function",
+                    "Identity function",
+                    "Constant function",
+                    "Power function"
+                ],
+                correct: 2,
+                explanation: "The function \\(f(x) = k\\) is a constant function because its output value is always the same, regardless of the input."
+            },
+            {
+                question: "The function \\(f(x) = x^n\\) where n is a positive integer is called a...",
+                options: [
+                    "Root function",
+                    "Exponential function",
+                    "Logarithmic function",
+                    "Power function"
+                ],
+                correct: 3,
+                explanation: "A function of the form \\(f(x) = x^n\\) where n is a positive integer is known as a power function."
+            },
+            {
+                question: "What is the domain of the function \\(f(x) = \\sqrt{x}\\)?",
+                options: [
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\((0, \\infty)\\)",
+                    "\\([0, \\infty)\\)",
+                    "All integers."
+                ],
+                correct: 2,
+                explanation: "The square root function is only defined for non-negative numbers. Therefore, the domain is \\([0, \\infty)\\)."
+            },
+            {
+                question: "What is the domain of the function \\(f(x) = 1/x\\)?",
+                options: [
+                    "All real numbers.",
+                    "All real numbers except 0.",
+                    "All positive real numbers.",
+                    "All integers."
+                ],
+                correct: 1,
+                explanation: "The function \\(f(x) = 1/x\\) is not defined when the denominator is zero, so \\(x \\neq 0\\). The domain is \\((-\\infty, 0) \\cup (0, \\infty)\\)."
+            },
+            {
+                question: "If a function is defined on a set of real numbers and produces real numbers, what is it called?",
+                options: [
+                    "A complex function",
+                    "A discrete function",
+                    "A real function",
+                    "An integer function"
+                ],
+                correct: 2,
+                explanation: "A function where the domain and codomain are sets of real numbers is called a real function."
+            },
+            {
+                question: "In the stone-throwing example, \\(h(t) = 30t - 5t^2\\), what does the domain \\([0, 6]\\) represent?",
+                options: [
+                    "The height the stone reaches.",
+                    "The time the stone is in the air.",
+                    "The initial speed of the stone.",
+                    "The total distance traveled."
+                ],
+                correct: 1,
+                explanation: "The domain represents the time from when the stone is thrown (\\(t=0\\)) until it hits the ground again (\\(t=6\\))."
+            },
+            {
+                question: "In the stone-throwing example, \\(h(t) = 30t - 5t^2\\), what is the range \\([0, 45]\\)?",
+                options: [
+                    "The time the stone is in the air.",
+                    "The possible heights of the stone above the ground.",
+                    "The speed of the stone.",
+                    "The acceleration of the stone."
+                ],
+                correct: 1,
+                explanation: "The range represents the possible heights of the stone, from ground level (0m) to its maximum height (45m)."
+            },
+            {
+                question: "Which function is represented by a U-shaped graph opening upwards?",
+                options: [
+                    "\\(f(x) = x^3\\)",
+                    "\\(f(x) = 1/x\\)",
+                    "\\(f(x) = x^2\\)",
+                    "\\(f(x) = \\sqrt{x}\\)"
+                ],
+                correct: 2,
+                explanation: "The function \\(f(x) = x^2\\) is a parabola, which has a characteristic U-shape."
+            },
+            {
+                question: "The graph of \\(f(x) = \\sin(x)\\) is...",
+                options: [
+                    "A straight line.",
+                    "A parabola.",
+                    "A periodic wave.",
+                    "An exponential curve."
+                ],
+                correct: 2,
+                explanation: "The sine function produces a periodic, wave-like graph that oscillates between -1 and 1."
+            },
+            {
+                question: "What command is used in Octave/Matlab to create 2D plots?",
+                options: [
+                    "`graph()`",
+                    "`draw()`",
+                    "`plot()`",
+                    "`figure()`"
+                ],
+                correct: 2,
+                explanation: "The `plot()` command is the primary function used for creating 2D graphs in Octave and Matlab."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered these function concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of the concepts.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

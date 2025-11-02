@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Logic Design Progress Exam 2022 A</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+        }
+        #header {
+            background-color: #4a76a8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        #question-area {
+            padding: 30px;
+        }
+        #question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.selected {
+            border-color: #4a76a8;
+            background-color: #e7f0fa;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        #feedback-area {
+            padding: 0 30px 20px;
+        }
+        #explanation {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        #navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+        }
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            margin-bottom: 10px;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4a76a8;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+        #progress-text {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .nav-button {
+            background-color: #4a76a8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3b5f8a;
+        }
+        .nav-button:disabled {
+            background-color: #a0b4c9;
+            cursor: not-allowed;
+        }
+        #results-screen {
+            padding: 40px;
+            text-align: center;
+        }
+        #results-screen h2 {
+            font-size: 2em;
+            color: #4a76a8;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+        }
+        #restart-button {
+            background-color: #28a745;
+        }
+        #restart-button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="header">Logic Design Quiz: Progress Exam 2022 A</div>
+    
+    <div id="quiz-area">
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress-text">Question 1/20</div>
+        
+        <div id="question-area">
+            <div id="question-text"></div>
+            <div id="options-container"></div>
+        </div>
+
+        <div id="feedback-area">
+            <div id="explanation" style="display: none;"></div>
+        </div>
+
+        <div id="navigation">
+            <button id="prev-button" class="nav-button">Previous</button>
+            <button id="next-button" class="nav-button">Next</button>
+            <button id="submit-button" class="nav-button" style="display: none;">Submit</button>
+        </div>
+    </div>
+
+    <div id="results-screen" style="display: none;">
+        <h2>Quiz Complete!</h2>
+        <p id="score-text">Your score: 0/20</p>
+        <button id="restart-button" class="nav-button">Restart Quiz</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "What is the 12-bit binary representation of the decimal number 215?",
+        options: [
+            "000011010111",
+            "11010111",
+            "000110101110",
+            "111100101001"
+        ],
+        correct: 0,
+        explanation: "The binary for 215 is 11010111. To make it 12 bits, we pad with four leading zeros to get 000011010111."
+    },
+    {
+        question: "What is the 3-digit hexadecimal representation of the decimal number 329?",
+        options: [
+            "149",
+            "329",
+            "1A1",
+            "EB7"
+        ],
+        correct: 0,
+        explanation: "329 in 12-bit binary is 000101001001. Grouping into 4-bit sets gives 0001 (1), 0100 (4), and 1001 (9). So, it's 149₁₆."
+    },
+    {
+        question: "What is the 12-bit 2's complement of the decimal number 215 (binary 000011010111)?",
+        options: [
+            "111100101001",
+            "000011010111",
+            "111100101000",
+            "100011010111"
+        ],
+        correct: 0,
+        explanation: "To find the 2's complement, find the first '1' from the right (bit 0), keep it and all bits to its right, and invert all bits to its left. This gives 111100101001."
+    },
+    {
+        question: "What is the 3-digit 16's complement of the hexadecimal number 265?",
+        options: [
+            "D9B",
+            "D9A",
+            "E9B",
+            "265"
+        ],
+        correct: 0,
+        explanation: "The 15's complement is (FFF - 265) = D9A. Adding 1 gives the 16's complement: D9A + 1 = D9B."
+    },
+    {
+        question: "Calculate the sum of (215)₁₀ and (329)₁₀ in 12-bit binary. (215=000011010111, 329=000101001001)",
+        options: [
+            "001000100000",
+            "011000100000",
+            "001000010000",
+            "101000100000"
+        ],
+        correct: 0,
+        explanation: "Adding 000011010111 and 000101001001 results in 001000100000, which is 544 in decimal."
+    },
+    {
+        question: "When calculating 215 - 613 using 12-bit 2's complement, the result is 111001110010. What does the absence of a final carry-out signify?",
+        options: [
+            "The result is negative, and this is its 2's complement form.",
+            "The result is positive.",
+            "An overflow occurred.",
+            "The calculation is incorrect."
+        ],
+        correct: 0,
+        explanation: "When subtracting a larger number from a smaller one using complements, no end-around carry is generated. This indicates the result is negative and is already in its 2's complement representation."
+    },
+    {
+        question: "What is the decimal magnitude of the negative result 111001110010₂?",
+        options: [
+            "398",
+            "544",
+            "613",
+            "215"
+        ],
+        correct: 0,
+        explanation: "To find the magnitude of a negative 2's complement number, you take its 2's complement. The 2's complement of 111001110010 is 000110001110, which is 256 + 128 + 8 + 4 + 2 = 398."
+    },
+    {
+        question: "Simplify the Boolean function f(x, y, z) = (x + y)'(x' + y').",
+        options: [
+            "x'y'",
+            "x + y",
+            "xy",
+            "x' + y'"
+        ],
+        correct: 0,
+        explanation: "Using De Morgan's law, (x + y)' becomes x'y'. The expression is x'y'(x' + y'). Distributing gives x'y'x' + x'y'y' = x'y' + x'y' = x'y'."
+    },
+    {
+        question: "What is the Sum of Minterms representation for the simplified function f(x, y, z) = x'y'?",
+        options: [
+            "Σ(0, 1)",
+            "Σ(2, 3)",
+            "Σ(0)",
+            "Σ(0, 1, 2, 3)"
+        ],
+        correct: 0,
+        explanation: "The term x'y' is 1 when x=0 and y=0. It doesn't depend on z, so it's true for z=0 and z=1. This corresponds to minterms m₀ (000) and m₁ (001)."
+    },
+    {
+        question: "What is the Product of Maxterms representation for f(x, y, z) = x'y'?",
+        options: [
+            "Π(2, 3, 4, 5, 6, 7)",
+            "Π(0, 1)",
+            "Π(2, 3)",
+            "Π(4, 5, 6, 7)"
+        ],
+        correct: 0,
+        explanation: "The function is 1 for minterms 0 and 1. Therefore, it must be 0 for all other minterms, which are 2, 3, 4, 5, 6, and 7. These correspond to the maxterms in the product."
+    },
+    {
+        question: "Simplify the Boolean function g(w, x, y, z) = wxy'z + wxz + wxyz.",
+        options: [
+            "wxz",
+            "wx",
+            "wz",
+            "wx(y'z + z + yz)"
+        ],
+        correct: 0,
+        explanation: "Factor out wxz: g = wxz(y' + 1 + y). Since (anything + 1) = 1, the expression simplifies to wxz * 1 = wxz."
+    },
+    {
+        question: "Using De Morgan's theorem, find the complement of f(x, y, z) = x'y'.",
+        options: [
+            "x + y",
+            "xy",
+            "(x+y)'",
+            "x' + y'"
+        ],
+        correct: 0,
+        explanation: "The complement of f is (x'y')'. Applying De Morgan's theorem gives (x')' + (y')' = x + y."
+    },
+    {
+        question: "Using De Morgan's theorem, find the complement of g(w, x, z) = wxz.",
+        options: [
+            "w' + x' + z'",
+            "w'x'z'",
+            "(w+x+z)'",
+            "w(x'+z')"
+        ],
+        correct: 0,
+        explanation: "The complement of g is (wxz)'. Applying De Morgan's theorem gives w' + x' + z'."
+    },
+    {
+        question: "The simplified function f(x, y) = x'y' is equivalent to which logic gate?",
+        options: [
+            "NOR",
+            "NAND",
+            "AND",
+            "XOR"
+        ],
+        correct: 0,
+        explanation: "By De Morgan's law, x'y' is equal to (x+y)'. This is the definition of a NOR gate."
+    },
+    {
+        question: "The simplified function g(w, x, z) = wxz is equivalent to which logic gate?",
+        options: [
+            "A 3-input AND gate",
+            "A 3-input OR gate",
+            "A 3-input NAND gate",
+            "A 3-input NOR gate"
+        ],
+        correct: 0,
+        explanation: "The expression represents the logical AND of the three variables w, x, and z."
+    },
+    {
+        question: "What is the result of the hexadecimal addition 0D7 + 149?",
+        options: [
+            "220",
+            "210",
+            "110",
+            "22F"
+        ],
+        correct: 0,
+        explanation: "7+9 = 16, which is 0 with a carry of 1. D(13)+4+1(carry) = 18, which is 2 with a carry of 1. 0+1+1(carry) = 2. The result is 220₁₆."
+    },
+    {
+        question: "What is the result of the hexadecimal subtraction 0D7 - 265 using 16's complement? The 16's complement of 265 is D9B.",
+        options: [
+            "E72",
+            "F72",
+            "1E72",
+            "E71"
+        ],
+        correct: 0,
+        explanation: "The subtraction becomes an addition: 0D7 + D9B. 7+B(11) = 18, which is 2 with a carry of 1. D(13)+9+1(carry) = 23, which is 7 with a carry of 1. 0+D(13)+1(carry) = 14, which is E. The result is E72₁₆."
+    },
+    {
+        question: "The hexadecimal number E72 is the 16's complement representation of a negative number. What is its decimal magnitude?",
+        options: [
+            "398",
+            "215",
+            "613",
+            "544"
+        ],
+        correct: 0,
+        explanation: "To find the magnitude, we take the 16's complement of E72. (FFF - E72) + 1 = 18D + 1 = 18E. 18E₁₆ = 1*16² + 8*16¹ + 14*16⁰ = 256 + 128 + 14 = 398."
+    },
+    {
+        question: "For the function f(x, y, z) = (x + y)'(x' + y'), what is the value of f(0, 0, 1)?",
+        options: [
+            "1",
+            "0",
+            "z",
+            "z'"
+        ],
+        correct: 0,
+        explanation: "The simplified function is f = x'y'. For the input (0,0,1), f = (0)'(0)' = 1 * 1 = 1."
+    },
+    {
+        question: "For the function g(w, x, y, z) = wxy'z + wxz + wxyz, what is the value of g(1, 1, 0, 1)?",
+        options: [
+            "1",
+            "0",
+            "y",
+            "y'"
+        ],
+        correct: 0,
+        explanation: "The simplified function is g = wxz. For the input (1,1,0,1), g = 1 * 1 * 1 = 1."
+    }
+];
+
+let currentQuestionIndex = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let score = 0;
+
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const explanationDiv = document.getElementById('explanation');
+const prevButton = document.getElementById('prev-button');
+const nextButton = document.getElementById('next-button');
+const submitButton = document.getElementById('submit-button');
+const progressText = document.getElementById('progress-text');
+const progressBar = document.getElementById('progress-bar');
+const quizArea = document.getElementById('quiz-area');
+const resultsScreen = document.getElementById('results-screen');
+const scoreText = document.getElementById('score-text');
+const restartButton = document.getElementById('restart-button');
+
+function loadQuestion(index) {
+    const question = questions[index];
+    questionText.innerHTML = question.question;
+    optionsContainer.innerHTML = '';
+    explanationDiv.style.display = 'none';
+    explanationDiv.innerHTML = '';
+
+    question.options.forEach((option, i) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('option');
+        optionDiv.innerHTML = option;
+        optionDiv.dataset.index = i;
+        optionDiv.addEventListener('click', () => selectOption(optionDiv, index, i));
+        optionsContainer.appendChild(optionDiv);
+    });
+
+    if (userAnswers[index] !== null) {
+        showFeedback(index);
+    }
+    
+    updateNavigation();
+    updateProgress();
+    MathJax.typesetPromise();
+}
+
+function selectOption(optionDiv, questionIndex, optionIndex) {
+    if (userAnswers[questionIndex] !== null) return; 
+
+    userAnswers[questionIndex] = optionIndex;
+    showFeedback(questionIndex);
+}
+
+function showFeedback(questionIndex) {
+    const question = questions[questionIndex];
+    const selectedOptionIndex = userAnswers[questionIndex];
+    const options = optionsContainer.children;
+
+    const correctOption = options[question.correct];
+    correctOption.classList.add('correct');
+
+    if (selectedOptionIndex !== question.correct) {
+        const selectedOption = options[selectedOptionIndex];
+        selectedOption.classList.add('incorrect');
+    }
+
+    explanationDiv.innerHTML = `<strong>Explanation:</strong> ${question.explanation}`;
+    explanationDiv.style.display = 'block';
+
+    for (let option of options) {
+        if (parseInt(option.dataset.index) === selectedOptionIndex) {
+            option.classList.add('selected');
+        }
+        option.style.cursor = 'not-allowed';
+    }
+}
+
+function updateNavigation() {
+    prevButton.disabled = currentQuestionIndex === 0;
+    nextButton.disabled = currentQuestionIndex === questions.length - 1;
+    
+    if (currentQuestionIndex === questions.length - 1) {
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+    } else {
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'none';
+    }
+}
+
+function updateProgress() {
+    progressText.textContent = `Question ${currentQuestionIndex + 1}/${questions.length}`;
+    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+}
+
+function showResults() {
+    score = 0;
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correct) {
+            score++;
+        }
+    }
+    
+    quizArea.style.display = 'none';
+    resultsScreen.style.display = 'block';
+    scoreText.textContent = `Your score: ${score}/${questions.length}`;
+}
+
+prevButton.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+submitButton.addEventListener('click', () => {
+    showResults();
+});
+
+restartButton.addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    userAnswers.fill(null);
+    score = 0;
+    resultsScreen.style.display = 'none';
+    quizArea.style.display = 'block';
+    loadQuestion(currentQuestionIndex);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuestion(currentQuestionIndex);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Boolean to Logic Gates (1–10 vars)</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#101735; --ink:#ecfeff; --muted:#a5b4fc;
+    --accent:#22d3ee; --ok:#34d399; --warn:#fbbf24; --err:#fb7185;
+    --and:#7c3aed; --or:#f97316; --not:#06b6d4; --io:#22c55e;
+    /* Default wire color for fallback */
+    --wire-default:#cbd5e1; --grid:#1f2a52;
+    --edge:#334155; --shadow:0 10px 30px rgba(34,211,238,.15);
+  }
+  html,body{margin:0;background:
+    radial-gradient(80vw 80vh at 10% 10%, #0f1a3a 0%, #0b1020 40%, #050812 100%);
+    color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  }
+  .wrap{max-width:1200px; margin:0 auto; padding:28px;}
+  h1{margin:0 0 10px; font-size:2rem; font-weight:800;
+     background:linear-gradient(135deg,#22d3ee 0%,#34d399 50%,#fbbf24 100%);
+     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .sub{color:var(--muted); margin-bottom:18px;}
+  .grid{display:grid; grid-template-columns: 1fr; gap:18px; align-items:start;}
+  .card{background:linear-gradient(145deg, rgba(16,23,53,.85), rgba(16,23,53,.6));
+        border:1.5px solid rgba(96,165,250,.25); border-radius:14px; padding:16px; box-shadow:var(--shadow);}
+  .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;}
+  label{font-weight:600; color:#c7d2fe;}
+  input[type=text]{flex:1 1 420px; padding:10px 12px; border-radius:10px; border:1px solid var(--edge);
+    background:#0b122b; color:var(--ink); font-size:14px; outline:none;}
+  input[type=text]::placeholder{color:#9ca3af;}
+  .btn{border:0; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer; color:#0b1020;}
+  .primary{background:linear-gradient(135deg,#22d3ee,#34d399);}
+  .ghost{background:linear-gradient(135deg,#8b5cf6,#f97316); color:#0b1020;}
+  .muted{color:var(--muted);}
+  .pill{display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid var(--edge); background:#0b122b; color:#cbd5e1;}
+  .row .pill{margin-left:auto;}
+  .hint{font-size:13px; color:#c7d2fe;}
+  .bad{color:var(--err);}
+  svg{width:100%; height:680px; background:
+      linear-gradient(180deg, rgba(15,23,42,.35) 0%, rgba(2,6,23,.2) 100%);
+      border-radius:12px; border:1px solid rgba(96,165,250,.25);}
+  .gridlines line{stroke:var(--grid); stroke-width:1;}
+  .gate{fill:#0d1534; stroke:#334155; stroke-width:2;}
+  .gate.and{stroke:var(--and); fill:rgba(124,58,237,.15);}
+  .gate.or{stroke:var(--or); fill:rgba(249,115,22,.12);}
+  .gate.not{stroke:var(--not); fill:rgba(6,182,212,.12);}
+  .io{fill:#0d3422; stroke:var(--io); stroke-width:2;}
+  .label{fill:#e5e7eb; font-weight:800; font-size:12px; text-anchor:middle; dominant-baseline:middle; pointer-events:none;}
+  .sublabel{fill:#cbd5e1; font-weight:600; font-size:11px; text-anchor:middle; dominant-baseline:middle; pointer-events:none;}
+  .var{fill:#0b1f12; stroke:#16a34a; stroke-width:2;}
+  /* Wires are now colored dynamically, this is just a fallback */
+  .wire{fill:none; stroke:var(--wire-default); stroke-width:2;}
+  .phase{margin-top:8px; display:flex; gap:8px; align-items:center;}
+  .k{width:11px; height:11px; border-radius:3px; display:inline-block;}
+  .k.and{background:var(--and);} .k.or{background:var(--or);} .k.not{background:var(--not);} .k.io{background:var(--io);}
+  .stack{display:flex; gap:8px; flex-wrap:wrap;}
+  .errbox{margin-top:8px; color:#fecaca; background:#450a0a; border:1px solid #7f1d1d; padding:8px 10px; border-radius:8px;}
+  @media (max-width: 980px){ .grid{grid-template-columns: 1fr;} svg{height:760px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Boolean → Logic Gate Diagram (up to 10 vars)</h1>
+  <div class="sub">Layered gates, orthogonal connections, and staged drawing: Inputs → Gates → Wires for readability and low crossing[Layered layout, orthogonal routing][6][7].</div>
+  <div class="grid">
+    <div class="card">
+      <div class="row">
+        <label for="expr">Boolean expression</label>
+        <input id="expr" type="text" placeholder="e.g., xy + y'z' + xy'z'  or  (a+b')(c+d)" value="x y + y' z' + x y' z'">
+      </div>
+      <div class="row hint">
+        Notation: + is OR, adjacency is AND (xy), parentheses (), and postfix ' is NOT (y')—supports 1–10 variables[Parsing and notation][1][3].
+      </div>
+      <div class="row">
+        <label>Speed</label>
+        <select id="speed">
+          <option value="1200">Very Slow</option>
+          <option value="900" selected>Slow</option>
+          <option value="600">Normal</option>
+          <option value="300">Fast</option>
+        </select>
+        <button id="render" class="btn primary">Render Diagram</button>
+        <button id="step" class="btn ghost">Step Phase</button>
+        <button id="zoom-in" class="btn ghost" title="Zoom In">+</button>
+        <button id="zoom-out" class="btn ghost" title="Zoom Out">−</button>
+        <button id="reset-zoom" class="btn ghost" title="Reset Zoom">Reset</button>
+        <span id="status" class="pill">Ready</span>
+      </div>
+      <svg id="stage" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet">
+        <g id="zoom-group">
+          <g class="gridlines"></g>
+          <g id="layer-variables"></g>
+          <g id="layer-gates"></g>
+          <g id="layer-wires"></g>
+        </g>
+      </svg>
+      <div id="err" class="errbox" style="display:none;"></div>
+      <div class="phase">
+        <span class="k io"></span> Inputs • <span class="k and"></span> AND • <span class="k or"></span> OR • <span class="k not"></span> NOT • Orthogonal wires with mid-way bends[Orthogonal polylines][7][10].
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  // --- FEATURE 1: Wire Color Palette ---
+  const WIRE_COLORS = [ '#34d399', '#f97316', '#38bdf8', '#eab308', '#ec4899', '#6d28d9', '#f87171', '#a3e635', '#2dd4bf', '#a78bfa' ];
+
+  // --- Utility: tokenization and parsing ---
+  function tokenize(expr){
+    const s = expr.replace(/\s+/g,'');
+    const toks = []; let i=0;
+    const isVar = c => /[A-Za-z0-9_]/.test(c);
+    while(i<s.length){
+      const c = s[i];
+      if (isVar(c)){ toks.push({t:'VAR', v:c}); i++; continue; }
+      if (c === '('){ toks.push({t:'LP'}); i++; continue; }
+      if (c === ')'){ toks.push({t:'RP'}); i++; continue; }
+      if (c === '+'){ toks.push({t:'OR'}); i++; continue; }
+      if (c === "'"){ toks.push({t:'NOTP'}); i++; continue; }
+      if (c === '*'){ toks.push({t:'AND'}); i++; continue; }
+      if (c === '!'){ toks.push({t:'NOT_PREF'}); i++; continue; }
+      i++;
+    }
+    const withAnd = [];
+    for (let k=0;k<toks.length;k++){
+      const a = toks[k], b = toks[k+1];
+      withAnd.push(a);
+      if (!b) break;
+      const aEnd = (a.t==='VAR' || a.t==='RP' || a.t==='NOTP');
+      const bStart = (b.t==='VAR' || b.t==='LP' || b.t==='NOT_PREF');
+      if (aEnd && bStart){ withAnd.push({t:'AND'}); }
+    }
+    return withAnd;
+  }
+  
+  function toRPN(tokens){
+    const out=[], op=[];
+    const tks = []; const stackPref = [];
+    for (let i=0;i<tokens.length;i++){
+      const t = tokens[i];
+      if (t.t==='NOT_PREF'){ stackPref.push('!'); continue; }
+      tks.push(t);
+      if (t.t==='VAR' || t.t==='RP'){
+        while(stackPref.length){ tks.push({t:'NOTP'}); stackPref.pop(); }
+      }
+    }
+    const prec = { 'OR':1, 'AND':2, 'NOTP':3 };
+    const isOp = t => t.t==='OR'||t.t==='AND'||t.t==='NOTP';
+    for (let i=0;i<tks.length;i++){
+      const t=tks[i];
+      if (t.t==='VAR'){ out.push(t); continue; }
+      if (t.t==='LP'){ op.push(t); continue; }
+      if (t.t==='RP'){
+        while(op.length && op[op.length-1].t!=='LP'){ out.push(op.pop()); }
+        if (op.length && op[op.length-1].t==='LP') op.pop();
+        continue;
+      }
+      if (isOp(t)){
+        while(op.length && isOp(op[op.length-1]) && prec[op[op.length-1].t] >= prec[t.t]){
+          out.push(op.pop());
+        }
+        op.push(t);
+        continue;
+      }
+    }
+    while(op.length){ out.push(op.pop()); }
+    return out;
+  }
+  
+  function rpnToAST(rpn){
+    const st=[];
+    for (const t of rpn){
+      if (t.t==='VAR'){ st.push({k:'VAR', name:t.v}); continue; }
+      if (t.t==='NOTP'){
+        const a = st.pop(); if(!a) throw new Error("Invalid expression: NOT needs operand.");
+        st.push({k:'NOT', a});
+        continue;
+      }
+      if (t.t==='AND' || t.t==='OR'){
+        const b = st.pop(), a = st.pop(); if(!a||!b) throw new Error(`Invalid expression: ${t.t} needs two operands.`);
+        st.push({k:t.t, a, b});
+        continue;
+      }
+    }
+    return st.pop();
+  }
+
+  function normalize(n){
+    if (!n) return n;
+    if (n.k==='VAR') return n;
+    if (n.k==='NOT'){ const a = normalize(n.a); if (a && a.k==='NOT') return normalize(a.a); return {k:'NOT', a}; }
+    if (n.k==='AND' || n.k==='OR'){
+      const children = (n.args || [n.a, n.b]).map(normalize);
+      const bucket = [];
+      children.forEach(child => {
+          if (child && child.k === n.k && child.args) {
+              bucket.push(...child.args);
+          } else if (child) {
+              bucket.push(child);
+          }
+      });
+      return {k:n.k, args:bucket};
+    }
+    return n;
+  }
+
+  let gateIdSeq = 0;
+  function makeGate(type, inputs){
+    return { id: `g${++gateIdSeq}`, type, inputs, depth:0, expression: '' };
+  }
+  
+  // --- FEATURE 2: Generate expressions during netlist build ---
+  function buildNetlist(ast){
+    gateIdSeq = 0;
+    const vars = new Map();
+    const gates = [];
+    const edges = [];
+    const notGateCache = new Map();
+
+    function varNode(name){
+      if (!vars.has(name)){
+        vars.set(name, { id: `v_${name}`, type:'VAR', name, depth:0, expression: name });
+      }
+      return vars.get(name);
+    }
+
+    function visit(n){
+      if (!n) return null;
+      if (n.k==='VAR') return varNode(n.name);
+      
+      if (n.k==='NOT'){
+        if (n.a.k === 'VAR') {
+          const varName = n.a.name;
+          if (notGateCache.has(varName)) return notGateCache.get(varName);
+        }
+        const a = visit(n.a);
+        const g = makeGate('NOT',[a]);
+        g.depth = a.depth + 1;
+        g.expression = `${a.name}'`;
+        gates.push(g);
+        edges.push({from:a.id, to:g.id});
+        if (n.a.k === 'VAR') {
+           notGateCache.set(n.a.name, g);
+        }
+        return g;
+      }
+      
+      if (n.k==='AND' || n.k==='OR'){
+        const args = n.args || [n.a, n.b];
+        const ins = args.map(visit).filter(Boolean);
+        const g = makeGate(n.k, ins);
+        g.depth = ins.length > 0 ? Math.max(...ins.map(x=>x.depth)) + 1 : 1;
+        
+        // Generate expression string
+        const op = g.type === 'AND' ? '' : ' + ';
+        g.expression = ins.map(i => i.expression.length > 1 ? `(${i.expression})` : i.expression).join(op);
+
+        gates.push(g);
+        ins.forEach(s=>edges.push({from:s.id, to:g.id}));
+        return g;
+      }
+      return null;
+    }
+
+    const outGate = visit(ast);
+    const outNode = { id:'OUT', type:'OUT', name:'f', depth: (outGate? outGate.depth : 0) + 1, inputs: outGate ? [outGate] : [], expression: outGate ? outGate.expression : 'N/A' };
+    if (outGate){
+      edges.push({from: outGate.id, to: outNode.id});
+    }
+    return { vars:[...vars.values()], gates, edges, out: outNode };
+  }
+
+  function adjustLayoutForSOP(net) {
+    const { gates, edges, vars, out } = net;
+    const nodeMap = new Map();
+    [...vars, ...gates, out].forEach(n => nodeMap.set(n.id, n));
+
+    const productTermGates = new Set();
+    edges.forEach(edge => {
+        const fromNode = nodeMap.get(edge.from);
+        const toNode = nodeMap.get(edge.to);
+        if (fromNode && toNode && fromNode.type === 'AND' && toNode.type === 'OR') {
+            productTermGates.add(fromNode);
+        }
+    });
+
+    if (productTermGates.size <= 1) return;
+
+    const maxDepth = Math.max(...[...productTermGates].map(g => g.depth));
+    [...productTermGates].forEach(g => g.depth = maxDepth);
+
+    let changed = true;
+    for (let i = 0; i < gates.length * 2 && changed; i++) { // Limit iterations to prevent infinite loops
+        changed = false;
+        gates.forEach(gate => {
+            if (gate.inputs.length > 0) {
+                const maxInputDepth = Math.max(...gate.inputs.map(input => (nodeMap.get(input.id) || {depth: -1}).depth));
+                if (gate.depth <= maxInputDepth) {
+                    gate.depth = maxInputDepth + 1;
+                    changed = true;
+                }
+            }
+        });
+        if(out.inputs.length > 0) {
+          const outInputNode = nodeMap.get(out.inputs[0].id);
+          if (outInputNode && out.depth <= outInputNode.depth) {
+            out.depth = outInputNode.depth + 1;
+            changed = true;
+          }
+        }
+    }
+  }
+
+  function layoutNetlist(net){
+    const colW = 180, rowH = 70, marginX = 60, marginY = 40;
+    const layers = new Map();
+    const pushLayer = (d, node)=>{ if(!layers.has(d)) layers.set(d, []); layers.get(d).push(node); };
+    net.vars.forEach(v=>pushLayer(0,v));
+    net.gates.forEach(g=>pushLayer(g.depth,g));
+    if (net.out.depth > 0) pushLayer(net.out.depth, net.out);
+
+    const sortedLayers = new Map([...layers.entries()].sort((a, b) => a[0] - b[0]));
+
+    if (sortedLayers.has(0)) sortedLayers.set(0, sortedLayers.get(0).sort((a,b)=>a.name.localeCompare(b.name)));
+    [...sortedLayers.keys()].forEach(k=>{
+      if (k===0) return;
+      sortedLayers.set(k, sortedLayers.get(k).sort((a,b)=>{
+        const prio = t => t.type==='NOT'?0: t.type==='AND'?1: t.type==='OR'?2:3;
+        return prio(a.type)-prio(b.type) || (a.inputs.length - b.inputs.length);
+      }));
+    });
+
+    const pos = new Map();
+    const layerIdxs = [...sortedLayers.keys()];
+    layerIdxs.forEach((d, col)=>{
+      const arr = sortedLayers.get(d);
+      const layerHeight = arr.length * rowH;
+      const startY = (680 - layerHeight) / 2;
+      const x = marginX + col * colW;
+      
+      arr.forEach((n, i)=>{
+        const y = startY + i * rowH + rowH/2;
+        pos.set(n.id, {x,y,w:100,h:50, depth:d, order:i});
+      });
+    });
+    return { pos, layers: layerIdxs, colW, rowH, marginX, marginY };
+  }
+  
+  const svgNS = "http://www.w3.org/2000/svg";
+  function el(name, attrs={}){
+    const n = document.createElementNS(svgNS, name);
+    for (const k in attrs){ n.setAttribute(k, attrs[k]); }
+    return n;
+  }
+  
+  function drawGrid(svg){
+    const g = svg.querySelector('.gridlines');
+    g.innerHTML = '';
+    for (let x=50; x<1200; x+=50){ g.appendChild(el('line', {x1:x,y1:0,x2:x,y2:680,opacity:0.18})); }
+    for (let y=50; y<680; y+=50){ g.appendChild(el('line', {x1:0,y1:y,x2:1200,y2:y,opacity:0.18})); }
+  }
+  
+  function drawNodes(svg, net, lay, phase){
+    const gVars = svg.querySelector('#layer-variables');
+    const gGates = svg.querySelector('#layer-gates');
+    if (phase === 0){ gVars.innerHTML=''; gGates.innerHTML=''; }
+    
+    if (phase >= 1){
+      gVars.innerHTML='';
+      net.vars.forEach(v=>{
+        const p = lay.pos.get(v.id);
+        if(!p) return;
+        const g = el('g');
+        g.appendChild(el('rect', {x:p.x-34, y:p.y-14, width:68, height:28, rx:6, class:'var'}));
+        g.appendChild(el('text', {x:p.x, y:p.y, class:'label'})).textContent=v.name;
+        // FEATURE 2: Add tooltip to input variable
+        g.appendChild(el('title')).textContent = v.expression;
+        gVars.appendChild(g);
+      });
+    }
+
+    if (phase >= 2){
+      gGates.innerHTML='';
+      const all = [...net.gates, net.out];
+      all.forEach(g=>{
+        const p = lay.pos.get(g.id);
+        if (!p) return;
+        const cls = g.type==='AND'?'gate and': g.type==='OR'?'gate or': g.type==='NOT'?'gate not':'io';
+        const group = el('g');
+        group.appendChild(el('rect', {x:p.x-50, y:p.y-25, width:100, height:50, rx:10, class: cls}));
+        const l1 = el('text', {x:p.x, y:p.y-6, class:'label'});
+        l1.textContent = g.type==='OUT' ? 'OUT' : g.type;
+        const count = (g.inputs? g.inputs.length : 0);
+        const l2 = el('text', {x:p.x, y:p.y+12, class:'sublabel'});
+        l2.textContent = count === 1 ? '1 input' : `${count} inputs`;
+        group.appendChild(l1); group.appendChild(l2);
+        // FEATURE 2: Add tooltip to gate
+        group.appendChild(el('title')).textContent = g.expression;
+        gGates.appendChild(group);
+      });
+    }
+  }
+
+  function routeWires(svg, net, lay, sourceColorMap, phase){
+    const gWires = svg.querySelector('#layer-wires');
+    if (phase < 3){ gWires.innerHTML=''; return; }
+    gWires.innerHTML='';
+    const inIndex = new Map();
+    const inTotal = new Map();
+    const nodeMap = new Map();
+    [...net.vars, ...net.gates, net.out].forEach(n => nodeMap.set(n.id, lay.pos.get(n.id)));
+
+    net.edges.forEach(e => { inTotal.set(e.to, (inTotal.get(e.to) || 0) + 1); });
+
+    const countIn = (toId)=>{
+      const n = inIndex.get(toId)||0; inIndex.set(toId, n+1); return n;
+    };
+
+    net.edges.forEach((e, idx)=>{
+      const s = nodeMap.get(e.from), t = nodeMap.get(e.to);
+      if (!s || !t) return;
+
+      const sx = s.depth === 0 ? s.x + 34 : s.x + 50, sy = s.y;
+      const tx = t.x - 50, ty = t.y;
+
+      const lane = countIn(e.to);
+      const totalLanes = inTotal.get(e.to) || 1;
+      const offV = totalLanes > 1 ? (lane - (totalLanes - 1) / 2 - 0.5) * 10 : 0;
+      
+      const midx = sx + lay.colW / 2.5;
+      const points = `M ${sx},${sy} L ${midx},${sy} L ${midx},${ty + offV} L ${tx},${ty + offV}`;
+      
+      // FEATURE 1: Get wire color from source map
+      const color = sourceColorMap.get(e.from) || 'var(--wire-default)';
+      
+      const path = el('path', {d: points, stroke: color, 'stroke-width': 2, fill:'none' });
+      gWires.appendChild(path);
+
+      gWires.appendChild(el('circle', {cx:sx, cy:sy, r:3.5, fill: color}));
+      gWires.appendChild(el('circle', {cx:tx, cy:ty+offV, r:3.5, fill: color}));
+    });
+  }
+  
+  function analyze(ast){
+    const set = new Set();
+    (function walk(n){
+      if (!n) return;
+      if (n.k==='VAR') set.add(n.name);
+      else if (n.k==='NOT') walk(n.a);
+      else if (n.k==='AND' || n.k==='OR'){
+        (n.args||[n.a,n.b]).forEach(walk);
+      }
+    })(ast);
+    return [...set].sort();
+  }
+
+  const exprEl = document.getElementById('expr');
+  const svg = document.getElementById('stage');
+  const errEl = document.getElementById('err');
+  const statusEl = document.getElementById('status');
+  const speedSel = document.getElementById('speed');
+  const renderBtn = document.getElementById('render');
+  const stepBtn = document.getElementById('step');
+  const zoomInBtn = document.getElementById('zoom-in');
+  const zoomOutBtn = document.getElementById('zoom-out');
+  const resetZoomBtn = document.getElementById('reset-zoom');
+  let phase = 0, timer=null, net=null, lay=null, sourceColorMap=null;
+
+  // Zoom and pan variables
+  let zoomLevel = 1;
+  let panX = 0;
+  let panY = 0;
+  let isDragging = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
+  const zoomGroup = svg.querySelector('#zoom-group');
+
+  function updateZoom(){
+    zoomGroup.setAttribute('transform', `translate(${panX}, ${panY}) scale(${zoomLevel})`);
+  }
+
+  function zoom(factor, centerX, centerY){
+    const rect = svg.getBoundingClientRect();
+    const svgX = centerX - rect.left;
+    const svgY = centerY - rect.top;
+    const scaleX = svgX / rect.width;
+    const scaleY = svgY / rect.height;
+
+    const newZoom = Math.max(0.1, Math.min(5, zoomLevel * factor));
+    if (newZoom === zoomLevel) return;
+
+    const zoomChange = newZoom / zoomLevel;
+    panX = svgX - (svgX - panX) * zoomChange;
+    panY = svgY - (svgY - panY) * zoomChange;
+    zoomLevel = newZoom;
+    updateZoom();
+  }
+
+  function resetZoom(){
+    zoomLevel = 1;
+    panX = 0;
+    panY = 0;
+    updateZoom();
+  }
+
+  // Mouse wheel zoom
+  svg.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const factor = e.deltaY > 0 ? 0.9 : 1.1;
+    zoom(factor, e.clientX, e.clientY);
+  });
+
+  // Mouse pan
+  svg.addEventListener('mousedown', (e) => {
+    if (e.button === 0) { // Left mouse button
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      svg.style.cursor = 'grabbing';
+    }
+  });
+
+  svg.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      const dx = e.clientX - lastMouseX;
+      const dy = e.clientY - lastMouseY;
+      panX += dx;
+      panY += dy;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      updateZoom();
+    }
+  });
+
+  svg.addEventListener('mouseup', () => {
+    isDragging = false;
+    svg.style.cursor = 'grab';
+  });
+
+  svg.addEventListener('mouseleave', () => {
+    isDragging = false;
+    svg.style.cursor = 'default';
+  });
+
+  // Button events
+  zoomInBtn.addEventListener('click', () => {
+    const rect = svg.getBoundingClientRect();
+    zoom(1.2, rect.left + rect.width / 2, rect.top + rect.height / 2);
+  });
+
+  zoomOutBtn.addEventListener('click', () => {
+    const rect = svg.getBoundingClientRect();
+    zoom(0.8, rect.left + rect.width / 2, rect.top + rect.height / 2);
+  });
+
+  resetZoomBtn.addEventListener('click', resetZoom);
+
+  // Set initial cursor
+  svg.style.cursor = 'grab';
+  
+  function setStatus(s){ statusEl.textContent = s; }
+  
+  function resetPhases(){
+      phase = 0;
+      if (timer) clearInterval(timer);
+      timer = null;
+      svg.querySelector('#layer-variables').innerHTML = '';
+      svg.querySelector('#layer-gates').innerHTML = '';
+      svg.querySelector('#layer-wires').innerHTML = '';
+      drawGrid(svg);
+      resetZoom();
+  }
+
+  function render(){
+    try{
+      errEl.style.display='none'; errEl.textContent='';
+      const tokens = tokenize(exprEl.value);
+      if (tokens.length === 0) { resetPhases(); setStatus('Ready'); return; }
+      const rpn = toRPN(tokens);
+      const ast = normalize(rpnToAST(rpn));
+      const names = analyze(ast);
+      if (names.length > 10) throw new Error('This demo supports up to 10 variables.');
+      
+      net = buildNetlist(ast);
+      adjustLayoutForSOP(net);
+      lay = layoutNetlist(net);
+      
+      // FEATURE 1: Create the color map for wires
+      sourceColorMap = new Map();
+      const sourceIds = [...new Set(net.edges.map(e => e.from))];
+      sourceIds.forEach((id, i) => sourceColorMap.set(id, WIRE_COLORS[i % WIRE_COLORS.length]));
+      
+      resetPhases();
+      setStatus('Phase 1: Draw inputs');
+      phase = 1; drawNodes(svg, net, lay, phase);
+      
+      const delay = parseInt(speedSel.value,10);
+      let step=2;
+      timer = setInterval(()=>{
+        if (step===2){ setStatus('Phase 2: Draw gates'); drawNodes(svg, net, lay, 2); }
+        if (step===3){ setStatus('Phase 3: Route wires'); routeWires(svg, net, lay, sourceColorMap, 3); clearInterval(timer); timer=null; setStatus('Done'); }
+        step++;
+      }, delay);
+    }catch(ex){
+      errEl.style.display='block';
+      errEl.textContent = 'Parse/layout error: ' + ex.message;
+      setStatus('Error');
+    }
+  }
+  
+  function stepOnce(){
+    try {
+        if (!net || !lay || phase === 0) {
+            errEl.style.display='none';
+            const tokens = tokenize(exprEl.value);
+            if (tokens.length === 0) { resetPhases(); setStatus('Ready'); return; }
+            const rpn = toRPN(tokens);
+            const ast = normalize(rpnToAST(rpn));
+            net = buildNetlist(ast);
+            adjustLayoutForSOP(net);
+            lay = layoutNetlist(net);
+            // FEATURE 1: Create color map for step mode too
+            sourceColorMap = new Map();
+            const sourceIds = [...new Set(net.edges.map(e => e.from))];
+            sourceIds.forEach((id, i) => sourceColorMap.set(id, WIRE_COLORS[i % WIRE_COLORS.length]));
+            resetPhases();
+            phase = 0;
+        }
+
+        if (phase < 1){ phase=1; setStatus('Phase 1: Draw inputs'); drawNodes(svg, net, lay, 1); return; }
+        if (phase === 1){ phase=2; setStatus('Phase 2: Draw gates'); drawNodes(svg, net, lay, 2); return; }
+        if (phase === 2){ phase=3; setStatus('Phase 3: Route wires'); routeWires(svg, net, lay, sourceColorMap, 3); setStatus('Done'); return; }
+        if (phase >= 3){ setStatus('Done'); return; }
+    } catch(ex) {
+        errEl.style.display='block';
+        errEl.textContent = 'Parse/layout error: ' + ex.message;
+        setStatus('Error');
+        net=null; lay=null; phase=0;
+    }
+  }
+  
+  drawGrid(svg);
+  renderBtn.addEventListener('click', render);
+  stepBtn.addEventListener('click', stepOnce);
+  render(); 
+})();
+</script>
+</body>
+</html>

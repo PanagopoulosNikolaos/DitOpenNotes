@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Continuity of Functions</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            background-color: #857c7c; /* Lighter muted grey for container */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .quiz-body {
+            padding: 24px;
+        }
+
+        #question-container {
+            margin-bottom: 20px;
+        }
+
+        #question-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: left;
+            color: #f0f0f0;
+            background-color: #857c7c; /* Lighter muted grey for buttons */
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494;
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option-btn.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            border-color: #10b981 !important;
+            color: white !important;
+        }
+
+        .option-btn.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            border-color: #ef4444 !important;
+            color: white !important;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+            transform: none;
+        }
+
+        #explanation {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            background-color: rgba(79, 70, 229, 0.15);
+            border-left: 5px solid #4f46e5;
+            color: #e0e7ff;
+        }
+
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background-color: #857c7c; /* Consistent container background */
+            border-top: 1px solid #6b6666;
+        }
+
+        #progress-text {
+            font-size: 1em;
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+        
+        /* --- Interactive Elements --- */
+        #next-btn, #restart-btn {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        #next-btn:hover, #restart-btn:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+
+        #restart-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+        }
+
+        #results-container {
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        #results-container h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        #score-text {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Continuity of Functions Quiz</h1>
+        </div>
+        <div class="quiz-body">
+            <div id="question-container">
+                <p id="question-text"></p>
+                <div id="options-grid" class="options-grid"></div>
+            </div>
+            <div id="feedback-container">
+                <div id="explanation"></div>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-footer">
+            <p id="progress-text"></p>
+            <button id="next-btn" style="display: none;">Next Question</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the definition of a function \\(f\\) being continuous at a point \\(a\\)?",
+                options: [
+                    "The function has a value at \\(a\\).",
+                    "The limit of the function exists at \\(a\\).",
+                    "\\(\\lim_{x \\to a} f(x) = f(a)\\)",
+                    "The graph has no sharp corners at \\(a\\)."
+                ],
+                correct: 2,
+                explanation: "For a function to be continuous at a point \\(a\\), three conditions must be met: 1) \\(f(a)\\) must be defined, 2) \\(\\lim_{x \\to a} f(x)\\) must exist, and 3) the limit must equal the function's value."
+            },
+            {
+                question: "Which of the following functions is NOT continuous on its entire domain?",
+                options: [
+                    "\\(f(x) = x^2 + 5x - 3\\)",
+                    "\\(f(x) = \\sin(x)\\)",
+                    "\\(f(x) = \\frac{1}{x}\\)",
+                    "\\(f(x) = e^x\\)"
+                ],
+                correct: 2,
+                explanation: "Polynomials, sine, and exponential functions are continuous everywhere they are defined. The function \\(f(x) = \\frac{1}{x}\\) is continuous on its domain, which is \\((-\\infty, 0) \\cup (0, \\infty)\\), but it has an infinite discontinuity at \\(x=0\\) (which is not in its domain)."
+            },
+            {
+                question: "A function \\(f\\) is defined as \\(f(x) = \\begin{cases} x+1 & x < 2 \\\\ k & x=2 \\\\ x^2-1 & x > 2 \\end{cases}\\). For what value of \\(k\\) is \\(f\\) continuous at \\(x=2\\)?",
+                options: [
+                    "2",
+                    "3",
+                    "4",
+                    "No such value exists."
+                ],
+                correct: 1,
+                explanation: "For continuity at \\(x=2\\), we need \\(\\lim_{x \\to 2^-} f(x) = \\lim_{x \\to 2^+} f(x) = f(2)\\). The left limit is \\(\\lim_{x \\to 2^-} (x+1) = 3\\). The right limit is \\(\\lim_{x \\to 2^+} (x^2-1) = 3\\). So, we need \\(f(2)=k=3\\)."
+            },
+            {
+                question: "What does the Intermediate Value Theorem (IVT) guarantee for a continuous function \\(f\\) on a closed interval \\([a, b]\\)?",
+                options: [
+                    "The function must have a maximum value on \\([a, b]\\).",
+                    "The function must have a minimum value on \\([a, b]\\).",
+                    "The function must take on every value between \\(f(a)\\) and \\(f(b)\\).",
+                    "The function must have a root in \\((a, b)\\)."
+                ],
+                correct: 2,
+                explanation: "The Intermediate Value Theorem states that if \\(f\\) is continuous on \\([a, b]\\) and \\(y_0\\) is any number between \\(f(a)\\) and \\(f(b)\\), then there exists at least one \\(c\\) in \\((a, b)\\) such that \\(f(c) = y_0\\)."
+            },
+            {
+                question: "If a function \\(f\\) is continuous on \\([0, 5]\\) and \\(f(0) = -2\\) and \\(f(5) = 10\\), what does Bolzano's Theorem (a special case of IVT) guarantee?",
+                options: [
+                    "There is a root \\(c \\in (0, 5)\\) such that \\(f(c)=0\\).",
+                    "The function is always increasing.",
+                    "\\(f(c)=1\\) for some \\(c \\in (0, 5)\\).",
+                    "The function has no roots."
+                ],
+                correct: 0,
+                explanation: "Bolzano's Theorem states that if a continuous function on \\([a, b]\\) has values of opposite sign at the endpoints (i.e., \\(f(a)f(b) < 0\\)), then it must have at least one root in the open interval \\((a, b)\\). Here, \\(f(0) < 0\\) and \\(f(5) > 0\\)."
+            },
+            {
+                question: "If functions \\(f\\) and \\(g\\) are continuous at \\(x=a\\), which of the following is NOT necessarily continuous at \\(x=a\\)?",
+                options: [
+                    "\\(f(x) + g(x)\\)",
+                    "\\(f(x) \\cdot g(x)\\)",
+                    "\\(\\frac{f(x)}{g(x)}\\)",
+                    "\\(c \\cdot f(x)\\) for a constant \\(c\\)"
+                ],
+                correct: 2,
+                explanation: "The sum, product, and constant multiple of continuous functions are also continuous. The quotient \\(\\frac{f(x)}{g(x)}\\) is continuous at \\(x=a\\) only if \\(g(a) \\neq 0\\)."
+            },
+            {
+                question: "A function is said to be 'continuous from the right' at \\(x=a\\) if:",
+                options: [
+                    "\\(\\lim_{x \\to a} f(x) = f(a)\\)",
+                    "\\(\\lim_{x \\to a^-} f(x) = f(a)\\)",
+                    "\\(\\lim_{x \\to a^+} f(x) = f(a)\\)",
+                    "The function is defined at \\(a\\)."
+                ],
+                correct: 2,
+                explanation: "Continuity from the right requires the right-hand limit at \\(a\\) to exist and be equal to the function's value at \\(a\\). This is important for defining continuity on closed intervals."
+            },
+            {
+                question: "If \\(\\lim_{x \\to a} g(x) = L\\) and \\(f\\) is a function continuous at \\(L\\), what is \\(\\lim_{x \\to a} f(g(x))\\)?",
+                options: [
+                    "\\(f(L)\\)",
+                    "\\(g(a)\\)",
+                    "\\(L\\)",
+                    "Cannot be determined"
+                ],
+                correct: 0,
+                explanation: "This is a key property of composite functions. If the outer function \\(f\\) is continuous at the limit of the inner function \\(g\\), you can 'push' the limit inside: \\(\\lim f(g(x)) = f(\\lim g(x)) = f(L)\\)."
+            },
+            {
+                question: "The function \\(f(x) = \\sqrt{x-3}\\) is continuous on which interval?",
+                options: [
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\((3, \\infty)\\)",
+                    "\\([3, \\infty)\\)",
+                    "\\((-\\infty, 3]\\)"
+                ],
+                correct: 2,
+                explanation: "The function is defined for \\(x-3 \\ge 0\\), which means \\(x \\ge 3\\). Since the square root function is continuous on its domain, \\(f(x)\\) is continuous on \\([3, \\infty)\\)."
+            },
+            {
+                question: "The function \\(f(x) = \\frac{|x|}{x}\\) has what type of discontinuity at \\(x=0\\)?",
+                options: [
+                    "Removable discontinuity",
+                    "Jump discontinuity",
+                    "Infinite discontinuity",
+                    "It is continuous at \\(x=0\\)."
+                ],
+                correct: 1,
+                explanation: "For \\(x>0\\), \\(f(x)=1\\). For \\(x<0\\), \\(f(x)=-1\\). So, \\(\\lim_{x \\to 0^+} f(x) = 1\\) and \\(\\lim_{x \\to 0^-} f(x) = -1\\). Since the one-sided limits exist but are not equal, this is a jump discontinuity."
+            },
+            {
+                question: "Which theorem states that a continuous function on a closed, bounded interval \\([a, b]\\) must attain a maximum and a minimum value on that interval?",
+                options: [
+                    "Intermediate Value Theorem",
+                    "Squeeze Theorem",
+                    "Extreme Value Theorem",
+                    "Mean Value Theorem"
+                ],
+                correct: 2,
+                explanation: "The Extreme Value Theorem guarantees the existence of absolute maximum and minimum values for any function that is continuous on a closed interval \\([a, b]\\)."
+            },
+            {
+                question: "If a continuous function \\(f\\) on \\((-\\infty, \\infty)\\) has roots only at \\(x=-2\\) and \\(x=5\\), what can be said about the sign of \\(f(x)\\) on the interval \\((-2, 5)\\)?",
+                options: [
+                    "It is always positive.",
+                    "It is always negative.",
+                    "It changes sign on the interval.",
+                    "It is either always positive or always negative."
+                ],
+                correct: 3,
+                explanation: "A consequence of the Intermediate Value Theorem is that a continuous function maintains the same sign in the intervals between its consecutive roots. To find the sign, one would test a single point within \\((-2, 5)\\)."
+            },
+            {
+                question: "Calculate \\(\\lim_{x \\to 1} \\sin(\\frac{\\pi}{4} \\frac{x^2-1}{x-1})\\).",
+                options: [
+                    "0",
+                    "1",
+                    "Undefined",
+                    "\\(\\sin(1)\\)"
+                ],
+                correct: 1,
+                explanation: "Since \\(\\sin\\) is continuous, \\(\\lim_{x \\to 1} \\sin(g(x)) = \\sin(\\lim_{x \\to 1} g(x))\\). We have \\(\\lim_{x \\to 1} \\frac{\\pi}{4} \\frac{x^2-1}{x-1} = \\lim_{x \\to 1} \\frac{\\pi}{4}(x+1) = \\frac{\\pi}{4}(2) = \\frac{\\pi}{2}\\). The final result is \\(\\sin(\\frac{\\pi}{2}) = 1\\)."
+            },
+            {
+                question: "The function \\(f(x) = \\lfloor x \\rfloor\\) (the greatest integer function) is:",
+                options: [
+                    "Continuous everywhere.",
+                    "Continuous only at integer values.",
+                    "Discontinuous at all integer values.",
+                    "Continuous only at non-integer values."
+                ],
+                correct: 3,
+                explanation: "The greatest integer function is a step function. At every integer \\(n\\), the left limit is \\(n-1\\) while the right limit is \\(n\\). Since the one-sided limits are not equal, it has a jump discontinuity at every integer."
+            },
+            {
+                question: "If a function is continuous at a point \\(x=a\\), it must also be...",
+                options: [
+                    "Differentiable at \\(x=a\\).",
+                    "Defined at \\(x=a\\).",
+                    "Increasing at \\(x=a\\).",
+                    "A polynomial."
+                ],
+                correct: 1,
+                explanation: "The very first condition for continuity at a point \\(a\\) is that the function must be defined at \\(a\\), i.e., \\(f(a)\\) exists. A function can be continuous but not differentiable (e.g., \\(f(x)=|x|\\) at \\(x=0\\))."
+            },
+            {
+                question: "To show that the equation \\(x^3 - x - 1 = 0\\) has a solution in the interval \\((1, 2)\\), which theorem would be most directly applicable?",
+                options: [
+                    "Extreme Value Theorem",
+                    "Squeeze Theorem",
+                    "Intermediate Value Theorem (Bolzano)",
+                    "Mean Value Theorem"
+                ],
+                correct: 2,
+                explanation: "Let \\(f(x) = x^3 - x - 1\\). This is a polynomial, so it's continuous. We check the endpoints: \\(f(1) = 1-1-1 = -1\\) and \\(f(2) = 8-2-1 = 5\\). Since \\(f(1)\\) and \\(f(2)\\) have opposite signs, the Intermediate Value Theorem (Bolzano's) guarantees there is at least one root \\(c \\in (1, 2)\\)."
+            },
+            {
+                question: "A 'removable' discontinuity at \\(x=a\\) occurs when...",
+                options: [
+                    "The one-sided limits are not equal.",
+                    "The limit at \\(a\\) is infinite.",
+                    "\\(\\lim_{x \\to a} f(x)\\) exists, but is not equal to \\(f(a)\\) (or \\(f(a)\\) is undefined).",
+                    "The function is not defined at \\(a\\)."
+                ],
+                correct: 2,
+                explanation: "A removable discontinuity is like a 'hole' in the graph. The limit exists, meaning the function approaches a specific value from both sides, but the function's actual value at that point is either different or doesn't exist. It can be 'removed' by redefining the function at that single point."
+            },
+            {
+                question: "Which of these is a continuous function?",
+                options: [
+                    "The cost of a taxi ride as a function of distance.",
+                    "The temperature of a room as a function of time.",
+                    "The number of students in a classroom as a function of time.",
+                    "The postage cost of a letter as a function of its weight."
+                ],
+                correct: 1,
+                explanation: "Temperature changes gradually and doesn't jump instantly from one value to another, representing a continuous process. Taxi fares, student counts, and postage costs all involve sudden jumps (step functions) and are therefore discontinuous."
+            },
+            {
+                question: "If \\(f(x)\\) is continuous on \\([a,b]\\), then the function \\(|f(x)|\\) is...",
+                options: [
+                    "Also continuous on \\([a,b]\\).",
+                    "Discontinuous where \\(f(x)=0\\).",
+                    "Not necessarily continuous.",
+                    "Continuous only if \\(f(x) > 0\\)."
+                ],
+                correct: 0,
+                explanation: "The absolute value function \\(g(y)=|y|\\) is continuous everywhere. Since \\(f(x)\\) is continuous, the composition \\(g(f(x)) = |f(x)|\\) is also continuous."
+            },
+            {
+                question: "The function \\(f(x) = \\tan(x)\\) is...",
+                options: [
+                    "Continuous everywhere.",
+                    "Continuous on its domain.",
+                    "Discontinuous at \\(x=0\\).",
+                    "Continuous only on \\([0, \\pi]\\)."
+                ],
+                correct: 1,
+                explanation: "The tangent function is a rational function (\\(\\sin(x)/\\cos(x)\\)) and is continuous wherever it is defined. Its domain excludes points where \\(\\cos(x)=0\\), such as \\(x = \\frac{\\pi}{2} + n\\pi\\) for any integer \\(n\\). At these points, it has infinite discontinuities."
+            }
+        ];
+
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const explanation = document.getElementById('explanation');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const quizBody = document.querySelector('.quiz-body');
+        const quizFooter = document.querySelector('.quiz-footer');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            quizFooter.style.display = 'flex';
+            nextBtn.style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsGrid.appendChild(button);
+            });
+
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            MathJax.typesetPromise();
+        }
+
+        function resetState() {
+            while (optionsGrid.firstChild) {
+                optionsGrid.removeChild(optionsGrid.firstChild);
+            }
+            explanation.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target.closest('.option-btn');
+            const correctIndex = questions[currentQuestionIndex].correct;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+
+            if (selectedIndex === correctIndex) {
+                score++;
+            }
+
+            Array.from(optionsGrid.children).forEach(button => {
+                const buttonIndex = parseInt(button.dataset.index);
+                if (buttonIndex === correctIndex) {
+                    button.classList.add('correct');
+                } else if (buttonIndex === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+                button.disabled = true;
+            });
+
+            explanation.innerHTML = "<b>Explanation:</b> " + questions[currentQuestionIndex].explanation;
+            explanation.style.display = 'block';
+            MathJax.typesetPromise();
+
+            if (questions.length > currentQuestionIndex + 1) {
+                nextBtn.style.display = 'block';
+            } else {
+                setTimeout(showResults, 1000); // Delay before showing results
+            }
+        }
+
+        function showResults() {
+            questionContainer.style.display = 'none';
+            quizFooter.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const scorePercent = Math.round((score / questions.length) * 100);
+            scoreText.innerText = `You scored ${score} out of ${questions.length} (${scorePercent}%)`;
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+
+        startQuiz();
+    </script>
+</body>
+</html>

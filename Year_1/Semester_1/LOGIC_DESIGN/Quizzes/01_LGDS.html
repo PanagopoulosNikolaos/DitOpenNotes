@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Systems & Binary Numbers Quiz</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #4caf50 !important;
+            color: white !important;
+            border-color: #4caf50 !important;
+        }
+
+        .option.incorrect {
+            background: #f44336 !important;
+            color: white !important;
+            border-color: #f44336 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left: 5px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 5px solid #f44336;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .results {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #4caf50; }
+        .score-good { color: #ff9800; }
+        .score-poor { color: #f44336; }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Digital Systems & Binary Numbers Quiz</h1>
+            <p>Test your knowledge of digital systems and binary numbers</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/25</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/25</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Which of the following best describes a digital signal?",
+                options: [
+                    "A signal that can take any value in a continuous range.",
+                    "A signal that can only take discrete values.",
+                    "A signal that is always represented by voltage.",
+                    "A signal that is only used in analog computers."
+                ],
+                correct: 1,
+                explanation: "A digital signal can only take on a finite number of discrete values, typically represented as 0 and 1."
+            },
+            {
+                question: "What is the base of the decimal number system?",
+                options: ["2", "8", "10", "16"],
+                correct: 2,
+                explanation: "The decimal system (base 10) uses ten digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9."
+            },
+            {
+                question: "What is the binary equivalent of the decimal number 13?",
+                options: ["1101", "1011", "1110", "1001"],
+                correct: 0,
+                explanation: "To convert (13)₁₀ to binary: 13/2 = 6 remainder 1, 6/2 = 3 remainder 0, 3/2 = 1 remainder 1, 1/2 = 0 remainder 1. Reading the remainders from bottom to top gives (1101)₂."
+            },
+            {
+                question: "What is the decimal equivalent of the binary number (101.01)₂?",
+                options: ["5.5", "5.25", "6.25", "5.75"],
+                correct: 1,
+                explanation: "(101.01)₂ = 1*2² + 0*2¹ + 1*2⁰ + 0*2⁻¹ + 1*2⁻² = 4 + 0 + 1 + 0 + 0.25 = (5.25)₁₀."
+            },
+            {
+                question: "What is the hexadecimal equivalent of the binary number (11010110)₂?",
+                options: ["D6", "C6", "E6", "B6"],
+                correct: 0,
+                explanation: "Group the binary number into 4-bit sections: (1101)(0110)₂. (1101)₂ = (D)₁₆ and (0110)₂ = (6)₁₆. So, the hexadecimal number is D6."
+            },
+            {
+                question: "What is the result of the binary addition 1011 + 1101?",
+                options: ["11000", "10100", "11010", "10000"],
+                correct: 0,
+                explanation: "1011 + 1101 = 11000.  (11 + 13 = 24 in decimal)."
+            },
+            {
+                question: "What is the 1's complement of the binary number 10110010?",
+                options: ["01001101", "01001110", "10110011", "01001100"],
+                correct: 0,
+                explanation: "The 1's complement is found by inverting all the bits. 1s become 0s and 0s become 1s."
+            },
+            {
+                question: "What is the 2's complement of the binary number 10110010?",
+                options: ["01001101", "01001110", "10110011", "01001100"],
+                correct: 1,
+                explanation: "To find the 2's complement, first find the 1's complement (01001101) and then add 1, which results in 01001110."
+            },
+            {
+                question: "In signed magnitude representation, what does the leftmost bit represent?",
+                options: ["The least significant bit (LSB)", "The sign of the number", "The magnitude of the number", "A parity bit"],
+                correct: 1,
+                explanation: "The leftmost bit is the sign bit. '0' typically represents a positive number, and '1' represents a negative number."
+            },
+            {
+                question: "How is the decimal number 185 represented in BCD (Binary-Coded Decimal)?",
+                options: ["0001 1000 0101", "10111001", "0001 0100 0001", "11000001"],
+                correct: 0,
+                explanation: "In BCD, each decimal digit is represented by its 4-bit binary equivalent. 1 is 0001, 8 is 1000, and 5 is 0101."
+            },
+            {
+                question: "What is the primary advantage of the Gray code?",
+                options: [
+                    "It is weighted, making arithmetic easy.",
+                    "Only one bit changes between successive values.",
+                    "It is used for error correction.",
+                    "It directly represents decimal values."
+                ],
+                correct: 1,
+                explanation: "The Gray code is an unweighted code where only one bit changes at a time, which is useful for preventing errors in digital systems."
+            },
+            {
+                question: "Which logic gate produces a high output (1) only when all its inputs are high?",
+                options: ["OR", "NOT", "AND", "XOR"],
+                correct: 2,
+                explanation: "The AND gate outputs 1 if and only if all of its inputs are 1."
+            },
+            {
+                question: "Which logic gate produces a high output (1) if any of its inputs are high?",
+                options: ["OR", "NOT", "AND", "NAND"],
+                correct: 0,
+                explanation: "The OR gate outputs 1 if at least one of its inputs is 1."
+            },
+            {
+                question: "What is the octal equivalent of the binary number (110101.110)₂?",
+                options: ["65.6", "55.3", "65.3", "55.6"],
+                correct: 0,
+                explanation: "Group bits in threes from the binary point: (110)(101).(110)₂. (110)₂ = 6, (101)₂ = 5. So, the octal number is 65.6."
+            },
+            {
+                question: "What is the decimal value of the hexadecimal number (1A)₁₆?",
+                options: ["26", "11", "36", "16"],
+                correct: 0,
+                explanation: "(1A)₁₆ = 1 * 16¹ + 10 * 16⁰ = 16 + 10 = 26."
+            },
+            {
+                question: "What is a nibble?",
+                options: ["2 bits", "4 bits", "8 bits", "16 bits"],
+                correct: 1,
+                explanation: "A nibble is a group of 4 bits."
+            },
+            {
+                question: "What is a byte?",
+                options: ["2 bits", "4 bits", "8 bits", "16 bits"],
+                correct: 2,
+                explanation: "A byte is a group of 8 bits."
+            },
+            {
+                question: "What is the result of the binary subtraction 1101 - 1011?",
+                options: ["0010", "0110", "0011", "0100"],
+                correct: 0,
+                explanation: "1101 - 1011 = 0010. (13 - 11 = 2 in decimal)."
+            },
+            {
+                question: "What does ASCII stand for?",
+                options: [
+                    "American Standard Code for Information Interchange",
+                    "American Standard Computer Information Interface",
+                    "All-purpose Standard Code for Information Interchange",
+                    "American Symbolic Code for Information Interchange"
+                ],
+                correct: 0,
+                explanation: "ASCII stands for American Standard Code for Information Interchange."
+            },
+            {
+                question: "What is a parity bit used for?",
+                options: ["Error detection", "Error correction", "Data encryption", "Data compression"],
+                correct: 0,
+                explanation: "A parity bit is added to a string of binary code to ensure that the total number of 1-bits in the string is even or odd. It is used for error detection."
+            },
+            {
+                question: "Convert the decimal number 175 to octal.",
+                options: ["257", "275", "357", "267"],
+                correct: 0,
+                explanation: "175/8 = 21 remainder 7, 21/8 = 2 remainder 5, 2/8 = 0 remainder 2. Reading the remainders from bottom to top gives (257)₈."
+            },
+            {
+                question: "What is the 2's complement representation of -6 using 8 bits?",
+                options: ["11111010", "00000110", "11111001", "10000110"],
+                correct: 0,
+                explanation: "First, find the binary of 6: 00000110. Then, find the 1's complement: 11111001. Finally, add 1 to get the 2's complement: 11111010."
+            },
+            {
+                question: "The expression z = x + y represents which logic gate?",
+                options: ["AND", "OR", "NOT", "XOR"],
+                correct: 1,
+                explanation: "In boolean algebra, the '+' symbol represents the OR operation."
+            },
+            {
+                question: "The expression z = x * y represents which logic gate?",
+                options: ["AND", "OR", "NOT", "XOR"],
+                correct: 0,
+                explanation: "In boolean algebra, the '*' or '•' symbol represents the AND operation."
+            },
+            {
+                question: "A register is a group of what?",
+                options: ["Logic gates", "Binary cells", "Capacitors", "Resistors"],
+                correct: 1,
+                explanation: "A register is a group of binary cells, where each cell can store one bit of information."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span>${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (showingResults) return;
+            
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            
+            userAnswers[currentQuestion] = optionIndex;
+            
+            showAnswer(currentQuestion);
+            
+            updateScore();
+            updateProgress();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = '🎉 Excellent! You have mastered the concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = '👍 Good job! You have a solid understanding.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = '📚 Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

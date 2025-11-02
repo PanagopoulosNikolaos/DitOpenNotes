@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sum of Minterms Visualizer: f(x,y,z) = xy + y'z' + xy'z'</title>
+<style>
+  :root { --bg:#0f172a; --panel:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22d3ee; --hi:#fde68a; --good:#a7f3d0; --scan:#60a5fa; }
+  body { margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--ink); }
+  .wrap { max-width:1100px; margin:0 auto; padding:24px; }
+  h1 { font-weight:700; margin:0 0 10px; }
+  .subtitle { color:var(--muted); margin-bottom:18px; }
+  .grid { display:grid; grid-template-columns: 1.2fr 0.8fr; gap:18px; align-items:start; }
+  .card { background:var(--panel); border:1px solid #1f2937; border-radius:12px; padding:16px; }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+  button { background:#1f2937; color:var(--ink); border:1px solid #334155; padding:8px 12px; border-radius:8px; cursor:pointer; }
+  button:hover { border-color:#475569; }
+  button.primary { background:#0b2a35; border-color:#0ea5b7; color:#e6fdff; }
+  .status { color:var(--muted); margin-left:auto; }
+  table { width:100%; border-collapse:collapse; }
+  th, td { text-align:center; padding:8px; border-bottom:1px solid #1f2937; }
+  th { color:#cbd5e1; font-weight:600; position:sticky; top:0; background:var(--panel); }
+  tr.minterm { background:rgba(34, 211, 238, 0.08); }
+  tr.scan { outline:2px solid var(--scan); outline-offset:-2px; }
+  .legend { display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:14px; margin-top:8px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; background:#0b1324; border:1px solid #1f2937; border-radius:999px; padding:4px 8px; }
+  .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .dot-hi { background:var(--hi); }
+  .dot-scan { background:var(--scan); }
+  .dot-min { background:var(--accent); }
+  .code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; background:#0b1324; border:1px solid #1f2937; border-radius:8px; padding:8px 10px; display:inline-block; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+  .list { margin:0; padding-left:18px; }
+  .pill { display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid #1f2937; background:#0b1324; }
+  .flexcol { display:flex; flex-direction:column; gap:10px; }
+  .muted { color:var(--muted); }
+  .big { font-size:18px; }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Sum of Minterms Visualizer</h1>
+    <div class="subtitle">
+      Function: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="controls">
+          <button id="play" class="primary">▶ Play</button>
+          <button id="pause">⏸ Pause</button>
+          <button id="reset">↺ Reset</button>
+          <label class="muted">
+            Speed:
+            <select id="speed">
+              <option value="900">Slow</option>
+              <option value="550" selected>Normal</option>
+              <option value="250">Fast</option>
+            </select>
+          </label>
+          <div class="status" id="status">Ready</div>
+        </div>
+
+        <table id="tt">
+          <thead>
+            <tr><th>x</th><th>y</th><th>z</th><th>f(x,y,z)</th><th>index</th></tr>
+          </thead>
+          <tbody id="tt-body"></tbody>
+        </table>
+
+        <div class="legend">
+          <span class="chip"><span class="dot dot-scan"></span> currently scanning</span>
+          <span class="chip"><span class="dot dot-min"></span> f=1 row (minterm)</span>
+        </div>
+      </div>
+
+      <div class="card flexcol">
+        <div>
+          <div class="big">Discovered 1-minterms</div>
+          <div class="muted">Added when a scanned row has f=1</div>
+          <ol id="minterm-list" class="list"></ol>
+        </div>
+
+        <div>
+          <div class="big">Sigma notation</div>
+          <div id="sigma" class="mono pill">f(x,y,z) = Σ( )</div>
+        </div>
+
+        <div>
+          <div class="big">Canonical Sum of Minterms (expanded)</div>
+          <div id="expanded" class="code">f(x,y,z) = </div>
+          <div class="muted">Canonical SoP lists all 1-minterms; it is not simplified.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  // Evaluate f(x,y,z) = xy + y'z' + xy'z'
+  function f(x,y,z){
+    return (x && y) || ((!y) && (!z)) || (x && (!y) && (!z));
+  }
+  // Decimal index with x as MSB: index = 4x + 2y + z
+  function idx(x,y,z){ return (x<<2) | (y<<1) | z; }
+  // Minterm string like x'y'z'
+  function mintermStr(x,y,z){
+    const sx = x ? "x" : "x'";
+    const sy = y ? "y" : "y'";
+    const sz = z ? "z" : "z'";
+    return sx + sy + sz;
+  }
+
+  // Build data for all 8 combinations in Gray-code or binary order; here: binary 000..111
+  const rows = [];
+  for(let x=0;x<=1;x++){
+    for(let y=0;y<=1;y++){
+      for(let z=0;z<=1;z++){
+        const val = f(x,y,z) ? 1 : 0;
+        rows.push({
+          x,y,z,
+          f: val,
+          index: idx(x,y,z),
+          term: mintermStr(x,y,z)
+        });
+      }
+    }
+  }
+  // Sort by index to show 000..111
+  rows.sort((a,b)=>a.index-b.index);
+
+  // Render truth table
+  const tbody = document.getElementById("tt-body");
+  rows.forEach((r,i)=>{
+    const tr = document.createElement("tr");
+    tr.id = "row-"+i;
+    tr.innerHTML = `<td>${r.x}</td><td>${r.y}</td><td>${r.z}</td><td>${r.f}</td><td>${r.index}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  const playBtn = document.getElementById("play");
+  const pauseBtn = document.getElementById("pause");
+  const resetBtn = document.getElementById("reset");
+  const speedSel = document.getElementById("speed");
+  const status = document.getElementById("status");
+  const list = document.getElementById("minterm-list");
+  const sigma = document.getElementById("sigma");
+  const expanded = document.getElementById("expanded");
+
+  let i = 0, timer = null, done = false;
+  const foundIdx = [];
+  const foundTerms = [];
+
+  function updateSigma(){
+    sigma.textContent = `f(x,y,z) = Σ(${foundIdx.join(", ")})`;
+  }
+  function updateExpanded(){
+    expanded.textContent = `f(x,y,z) = ${foundTerms.join(" + ")}`;
+  }
+  function clearScanClasses(){
+    rows.forEach((_,k)=>{
+      const rowEl = document.getElementById("row-"+k);
+      rowEl.classList.remove("scan");
+    });
+  }
+  function markRowKinds(){
+    rows.forEach((r,k)=>{
+      const rowEl = document.getElementById("row-"+k);
+      rowEl.classList.toggle("minterm", r.f===1);
+    });
+  }
+  function resetUI(){
+    if (timer) { clearInterval(timer); timer = null; }
+    i = 0; done = false;
+    foundIdx.length = 0;
+    foundTerms.length = 0;
+    list.innerHTML = "";
+    clearScanClasses();
+    rows.forEach((_,k)=>{
+      const rowEl = document.getElementById("row-"+k);
+      rowEl.classList.remove("minterm");
+    });
+    updateSigma();
+    updateExpanded();
+    status.textContent = "Ready";
+  }
+
+  function step(){
+    clearScanClasses();
+    if (i >= rows.length){
+      done = true;
+      status.textContent = "Done: canonical Sum of Minterms built";
+      if (timer) { clearInterval(timer); timer = null; }
+      return;
+    }
+    const r = rows[i];
+    const rowEl = document.getElementById("row-"+i);
+    rowEl.classList.add("scan");
+    status.textContent = `Scanning row ${i} (x=${r.x}, y=${r.y}, z=${r.z})`;
+    if (r.f === 1){
+      // mark minterm
+      rowEl.classList.add("minterm");
+      if (!foundIdx.includes(r.index)){
+        foundIdx.push(r.index);
+        foundTerms.push(r.term);
+        // Append to list
+        const li = document.createElement("li");
+        li.className = "mono";
+        li.textContent = `m${r.index} = ${r.term}`;
+        list.appendChild(li);
+        updateSigma();
+        updateExpanded();
+      }
+    }
+    i++;
+  }
+
+  // Initialize static highlights of f=1 rows (optional)
+  markRowKinds();
+  updateSigma();
+  updateExpanded();
+
+  playBtn.addEventListener("click", ()=>{
+    if (done) return;
+    if (timer) return;
+    const delay = parseInt(speedSel.value,10);
+    status.textContent = "Playing…";
+    timer = setInterval(step, delay);
+  });
+  pauseBtn.addEventListener("click", ()=>{
+    if (timer){ clearInterval(timer); timer = null; status.textContent = "Paused"; }
+  });
+  resetBtn.addEventListener("click", resetUI);
+})();
+</script>
+</body>
+</html>

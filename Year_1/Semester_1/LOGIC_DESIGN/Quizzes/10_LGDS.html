@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Logic Design Course Review</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+        }
+        #header {
+            background-color: #4a76a8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        #question-area {
+            padding: 30px;
+        }
+        #question-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        .option.selected {
+            border-color: #4a76a8;
+            background-color: #e7f0fa;
+        }
+        .option.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .option.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        #feedback-area {
+            padding: 0 30px 20px;
+        }
+        #explanation {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        #navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+        }
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            margin-bottom: 10px;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #4a76a8;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+        #progress-text {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .nav-button {
+            background-color: #4a76a8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #3b5f8a;
+        }
+        .nav-button:disabled {
+            background-color: #a0b4c9;
+            cursor: not-allowed;
+        }
+        #results-screen {
+            padding: 40px;
+            text-align: center;
+        }
+        #results-screen h2 {
+            font-size: 2em;
+            color: #4a76a8;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+        }
+        #restart-button {
+            background-color: #28a745;
+        }
+        #restart-button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div id="header">Logic Design Quiz: Course Review</div>
+    
+    <div id="quiz-area">
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+        </div>
+        <div id="progress-text">Question 1/25</div>
+        
+        <div id="question-area">
+            <div id="question-text"></div>
+            <div id="options-container"></div>
+        </div>
+
+        <div id="feedback-area">
+            <div id="explanation" style="display: none;"></div>
+        </div>
+
+        <div id="navigation">
+            <button id="prev-button" class="nav-button">Previous</button>
+            <button id="next-button" class="nav-button">Next</button>
+            <button id="submit-button" class="nav-button" style="display: none;">Submit</button>
+        </div>
+    </div>
+
+    <div id="results-screen" style="display: none;">
+        <h2>Quiz Complete!</h2>
+        <p id="score-text">Your score: 0/25</p>
+        <button id="restart-button" class="nav-button">Restart Quiz</button>
+    </div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "Which number system is the native language of digital computers?",
+        options: [
+            "Decimal (base-10)",
+            "Binary (base-2)",
+            "Hexadecimal (base-16)",
+            "Octal (base-8)"
+        ],
+        correct: 1,
+        explanation: "Digital systems are built on transistors that operate in two states (on/off), which is naturally represented by the binary system's two digits, 0 and 1."
+    },
+    {
+        question: "What is the primary advantage of using 2's complement to represent signed numbers?",
+        options: [
+            "It makes multiplication easier.",
+            "It allows subtraction to be performed by addition.",
+            "It can represent a larger range of positive numbers.",
+            "It is easier for humans to read."
+        ],
+        correct: 1,
+        explanation: "Using 2's complement allows the same hardware (an adder) to perform both addition and subtraction, simplifying the design of the Arithmetic Logic Unit (ALU)."
+    },
+    {
+        question: "Which Boolean algebra theorem states that (A + B)' = A' * B'?",
+        options: [
+            "Commutative Law",
+            "Associative Law",
+            "Distributive Law",
+            "De Morgan's Theorem"
+        ],
+        correct: 3,
+        explanation: "De Morgan's Theorem describes how to complement a Boolean expression, stating that the complement of a sum is the product of the complements, and vice versa."
+    },
+    {
+        question: "A Boolean function expressed as a sum of minterms (e.g., F = Σ(1, 4, 7)) is in which canonical form?",
+        options: [
+            "Product of Sums (POS)",
+            "Sum of Products (SOP)",
+            "Standard Form",
+            "Minimized Form"
+        ],
+        correct: 1,
+        explanation: "The Sum of Products (SOP) canonical form is an expression written as an ORing of minterms. A minterm is a product term that includes all variables."
+    },
+    {
+        question: "Which logic gate is known as a 'universal gate' because it can be used to create any other logic gate?",
+        options: [
+            "AND",
+            "OR",
+            "NAND",
+            "XOR"
+        ],
+        correct: 2,
+        explanation: "Both NAND and NOR gates are universal gates. You can construct AND, OR, and NOT gates using only NAND gates (or only NOR gates)."
+    },
+    {
+        question: "What is the primary purpose of using a Karnaugh map (K-map)?",
+        options: [
+            "To find the truth table of a function.",
+            "To convert a function from SOP to POS.",
+            "To systematically minimize a Boolean expression.",
+            "To calculate the number of required logic gates."
+        ],
+        correct: 2,
+        explanation: "A K-map is a graphical method used to simplify Boolean algebra expressions by visually grouping adjacent minterms to find the simplest possible expression."
+    },
+    {
+        question: "What does a 'don't care' condition (marked with 'X') in a K-map signify?",
+        options: [
+            "An impossible input combination.",
+            "An input combination for which the output can be either 0 or 1.",
+            "A required output of 1.",
+            "An error in the function."
+        ],
+        correct: 1,
+        explanation: "'Don't care' conditions represent input combinations that will never occur. We can assign their output to be either 0 or 1, whichever helps create a larger group for simplification."
+    },
+    {
+        question: "What is the fundamental difference between combinational and sequential logic circuits?",
+        options: [
+            "Combinational circuits are faster.",
+            "Sequential circuits have memory; combinational circuits do not.",
+            "Combinational circuits use only AND/OR gates.",
+            "Sequential circuits are only used for counting."
+        ],
+        correct: 1,
+        explanation: "A combinational circuit's output depends only on its current inputs. A sequential circuit's output depends on the current inputs AND the past sequence of inputs, requiring memory elements."
+    },
+    {
+        question: "A circuit that adds two bits and an input carry to produce a sum bit and an output carry is called a...",
+        options: [
+            "Half Adder",
+            "Full Adder",
+            "Comparator",
+            "Decoder"
+        ],
+        correct: 1,
+        explanation: "A full adder is the fundamental building block for adding binary numbers of any length, as it can be cascaded by connecting the carry-out of one stage to the carry-in of the next."
+    },
+    {
+        question: "How can a binary subtractor be built using an adder circuit?",
+        options: [
+            "By inverting the output of the adder.",
+            "By using the 2's complement of the subtrahend and adding.",
+            "It's not possible; a separate circuit is needed.",
+            "By swapping the sum and carry outputs."
+        ],
+        correct: 1,
+        explanation: "The operation A - B is equivalent to A + (2's complement of B). This is implemented with an adder and a set of inverters (or XOR gates) to generate the complement."
+    },
+    {
+        question: "What is the function of a decoder?",
+        options: [
+            "To convert a binary code into a single active output.",
+            "To select one of many inputs to a single output.",
+            "To add multiple binary numbers.",
+            "To store a binary value."
+        ],
+        correct: 0,
+        explanation: "An n-to-2ⁿ decoder takes an n-bit binary input and activates exactly one of its 2ⁿ outputs, corresponding to that binary code."
+    },
+    {
+        question: "What is the function of a multiplexer (MUX)?",
+        options: [
+            "To route one of several input lines to a single output line.",
+            "To activate one of many output lines.",
+            "To convert a binary code to an analog signal.",
+            "To perform arithmetic operations."
+        ],
+        correct: 0,
+        explanation: "A multiplexer, or data selector, uses select lines to choose which of its data input lines is routed to its single output."
+    },
+    {
+        question: "An encoder performs the opposite function of which device?",
+        options: [
+            "A Multiplexer",
+            "A Comparator",
+            "A Decoder",
+            "An Adder"
+        ],
+        correct: 2,
+        explanation: "An encoder takes one of 2ⁿ active input lines and converts it into an n-bit binary code, which is the reverse operation of a decoder."
+    },
+    {
+        question: "A 4-bit magnitude comparator takes two 4-bit numbers, A and B, as input. What are its typical outputs?",
+        options: [
+            "Sum and Carry",
+            "A+B, A-B, A*B",
+            "A > B, A < B, A = B",
+            "The larger of the two numbers"
+        ],
+        correct: 2,
+        explanation: "A magnitude comparator is a combinational circuit that determines the relative magnitude of two binary numbers, indicating if A is greater than, less than, or equal to B."
+    },
+    {
+        question: "The Boolean expression for the Sum bit of a full adder is S = A ⊕ B ⊕ Cin. Which gate does this represent?",
+        options: [
+            "A 3-input AND gate",
+            "A 3-input OR gate",
+            "A 3-input XOR gate",
+            "A 3-input NAND gate"
+        ],
+        correct: 2,
+        explanation: "The XOR (Exclusive OR) gate produces a 1 output only when an odd number of its inputs are 1, which exactly matches the behavior of the sum bit in binary addition."
+    },
+    {
+        question: "What is the hexadecimal equivalent of the binary number 11010101?",
+        options: [
+            "D5",
+            "C5",
+            "E5",
+            "D4"
+        ],
+        correct: 0,
+        explanation: "Group the binary number into 4-bit sets: 1101 0101. Convert each set: 1101 is D in hex, and 0101 is 5 in hex. The result is D5."
+    },
+    {
+        question: "The expression A + A'B simplifies to:",
+        options: [
+            "A + B",
+            "A",
+            "B",
+            "A' + B"
+        ],
+        correct: 0,
+        explanation: "This is the Absorption Law: X + X'Y = X + Y. So, A + A'B simplifies to A + B."
+    },
+    {
+        question: "How many select lines are required for a 16-to-1 multiplexer?",
+        options: [
+            "2",
+            "4",
+            "8",
+            "16"
+        ],
+        correct: 1,
+        explanation: "The number of select lines (n) is related to the number of data inputs (m) by the formula m = 2ⁿ. For m=16, we need 2⁴, so n=4 select lines are required."
+    },
+    {
+        question: "Which of these is a valid BCD (Binary-Coded Decimal) representation?",
+        options: [
+            "1010 (for 10)",
+            "1100 (for 12)",
+            "0101 (for 5)",
+            "1111 (for 15)"
+        ],
+        correct: 2,
+        explanation: "In BCD, each decimal digit (0-9) is represented by its 4-bit binary equivalent. Binary patterns from 1010 to 1111 are invalid in BCD."
+    },
+    {
+        question: "A logic circuit that can store one bit of information is called a:",
+        options: [
+            "Decoder",
+            "Multiplexer",
+            "Flip-Flop or Latch",
+            "Comparator"
+        ],
+        correct: 2,
+        explanation: "Flip-flops and latches are the fundamental building blocks of sequential logic and are used to store state information."
+    },
+    {
+        question: "What is the result of (1011)₂ + (0110)₂?",
+        options: [
+            "10001",
+            "1111",
+            "10010",
+            "1101"
+        ],
+        correct: 0,
+        explanation: "11 (decimal) + 6 (decimal) = 17 (decimal). 17 in binary is 10001."
+    },
+    {
+        question: "The canonical form that is a Product of Maxterms is also known as:",
+        options: [
+            "SOP (Sum of Products)",
+            "POS (Product of Sums)",
+            "AND-OR logic",
+            "OR-AND logic"
+        ],
+        correct: 1,
+        explanation: "A maxterm is a sum (OR) of literals. The Product of Sums (POS) form is an ANDing of these maxterms."
+    },
+    {
+        question: "A half adder has how many inputs and outputs?",
+        options: [
+            "2 inputs, 2 outputs",
+            "3 inputs, 2 outputs",
+            "2 inputs, 1 output",
+            "1 input, 2 outputs"
+        ],
+        correct: 0,
+        explanation: "A half adder takes two bits as input (A and B) and produces two bits as output (Sum and Carry)."
+    },
+    {
+        question: "Which logic family is known for its very low power consumption?",
+        options: [
+            "TTL (Transistor-Transistor Logic)",
+            "ECL (Emitter-Coupled Logic)",
+            "CMOS (Complementary Metal-Oxide-Semiconductor)",
+            "DTL (Diode-Transistor Logic)"
+        ],
+        correct: 2,
+        explanation: "CMOS technology is the dominant technology for modern integrated circuits due to its extremely low static power consumption."
+    },
+    {
+        question: "What does the term 'fan-out' refer to in digital logic?",
+        options: [
+            "The number of inputs a gate can have.",
+            "The physical size of the gate.",
+            "The number of gate inputs that the output of a single gate can drive.",
+            "The speed at which the gate operates."
+        ],
+        correct: 2,
+        explanation: "Fan-out is a measure of the load-driving capability of a logic gate's output. Exceeding the maximum fan-out can lead to incorrect voltage levels and circuit failure."
+    }
+];
+
+let currentQuestionIndex = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let score = 0;
+
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const explanationDiv = document.getElementById('explanation');
+const prevButton = document.getElementById('prev-button');
+const nextButton = document.getElementById('next-button');
+const submitButton = document.getElementById('submit-button');
+const progressText = document.getElementById('progress-text');
+const progressBar = document.getElementById('progress-bar');
+const quizArea = document.getElementById('quiz-area');
+const resultsScreen = document.getElementById('results-screen');
+const scoreText = document.getElementById('score-text');
+const restartButton = document.getElementById('restart-button');
+
+function loadQuestion(index) {
+    const question = questions[index];
+    questionText.innerHTML = question.question;
+    optionsContainer.innerHTML = '';
+    explanationDiv.style.display = 'none';
+    explanationDiv.innerHTML = '';
+
+    question.options.forEach((option, i) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('option');
+        optionDiv.innerHTML = option;
+        optionDiv.dataset.index = i;
+        optionDiv.addEventListener('click', () => selectOption(optionDiv, index, i));
+        optionsContainer.appendChild(optionDiv);
+    });
+
+    if (userAnswers[index] !== null) {
+        showFeedback(index);
+    }
+    
+    updateNavigation();
+    updateProgress();
+    MathJax.typesetPromise();
+}
+
+function selectOption(optionDiv, questionIndex, optionIndex) {
+    if (userAnswers[questionIndex] !== null) return; 
+
+    userAnswers[questionIndex] = optionIndex;
+    showFeedback(questionIndex);
+}
+
+function showFeedback(questionIndex) {
+    const question = questions[questionIndex];
+    const selectedOptionIndex = userAnswers[questionIndex];
+    const options = optionsContainer.children;
+
+    const correctOption = options[question.correct];
+    correctOption.classList.add('correct');
+
+    if (selectedOptionIndex !== question.correct) {
+        const selectedOption = options[selectedOptionIndex];
+        selectedOption.classList.add('incorrect');
+    }
+
+    explanationDiv.innerHTML = `<strong>Explanation:</strong> ${question.explanation}`;
+    explanationDiv.style.display = 'block';
+
+    for (let option of options) {
+        if (parseInt(option.dataset.index) === selectedOptionIndex) {
+            option.classList.add('selected');
+        }
+        option.style.cursor = 'not-allowed';
+    }
+}
+
+function updateNavigation() {
+    prevButton.disabled = currentQuestionIndex === 0;
+    nextButton.disabled = currentQuestionIndex === questions.length - 1;
+    
+    if (currentQuestionIndex === questions.length - 1) {
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+    } else {
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'none';
+    }
+}
+
+function updateProgress() {
+    progressText.textContent = `Question ${currentQuestionIndex + 1}/${questions.length}`;
+    const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+}
+
+function showResults() {
+    score = 0;
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correct) {
+            score++;
+        }
+    }
+    
+    quizArea.style.display = 'none';
+    resultsScreen.style.display = 'block';
+    scoreText.textContent = `Your score: ${score}/${questions.length}`;
+}
+
+prevButton.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+    }
+});
+
+submitButton.addEventListener('click', () => {
+    showResults();
+});
+
+restartButton.addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    userAnswers.fill(null);
+    score = 0;
+    resultsScreen.style.display = 'none';
+    quizArea.style.display = 'block';
+    loadQuestion(currentQuestionIndex);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuestion(currentQuestionIndex);
+});
+</script>
+
+</body>
+</html>

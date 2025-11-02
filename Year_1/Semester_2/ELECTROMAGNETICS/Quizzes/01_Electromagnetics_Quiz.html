@@ -1,0 +1,657 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Electromagnetism Principles Chapter 1 Quiz</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+.results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Electromagnetism Principles Chapter 1 Quiz</h1>
+            <p>Test your knowledge of basic electromagnetism concepts</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/18</div>
+
+            <div id="questions-container"></div>
+
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/18</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the approximate speed of light in vacuum?",
+                options: [
+                    "299,792,458 m/s",
+                    "300,000,000 m/s",
+                    "308,775,456 m/s",
+                    "285,000,000 m/s"
+                ],
+                correct: 0,
+                explanation: "The speed of light in vacuum is approximately 299,792,458 m/s, often rounded to 300,000,000 m/s for practical purposes."
+            },
+            {
+                question: "What is a vector?",
+                options: [
+                    "A quantity with only magnitude",
+                    "A quantity with magnitude and direction",
+                    "A single point in space",
+                    "A line without direction"
+                ],
+                correct: 1,
+                explanation: "A vector is a mathematical object that has both magnitude (size) and direction."
+            },
+            {
+                question: "How are two vectors added in Cartesian coordinates?",
+                options: [
+                    "By multiplying their components",
+                    "By subtracting their components",
+                    "By adding their corresponding components",
+                    "By taking the square root of their sum"
+                ],
+                correct: 2,
+                explanation: "\\(\\vec{a} + \\vec{b} = (a_x + b_x, a_y + b_y, a_z + b_z)\\)."
+            },
+            {
+                question: "What is the result of the dot product (scalar product) of two vectors?",
+                options: [
+                    "A vector",
+                    "A scalar (number)",
+                    "A matrix",
+                    "None of the above"
+                ],
+                correct: 1,
+                explanation: "The dot product \\(\\vec{a} \\cdot \\vec{b}\\) returns a scalar value equal to \\(|\\vec{a}| \\ |\\vec{b}| \\cos\\theta\\)."
+            },
+            {
+                question: "What is the result of the cross product (vector product) of two vectors?",
+                options: [
+                    "A scalar",
+                    "A vector",
+                    "A tensor",
+                    "A complex number"
+                ],
+                correct: 1,
+                explanation: "The cross product \\(\\vec{a} \\times \\vec{b}\\) returns a vector perpendicular to both input vectors."
+            },
+            {
+                question: "In electromagnetism, the electric field is:",
+                options: [
+                    "A scalar quantity",
+                    "A vector quantity",
+                    "Always constant",
+                    "Only found in conductors"
+                ],
+                correct: 1,
+                explanation: "The electric field \\(\\vec{E}\\) is a vector field that associates a vector to each point in space."
+            },
+            {
+                question: "The magnetic field is:",
+                options: [
+                    "A scalar field",
+                    "A vector field",
+                    "Only found inside magnetic materials",
+                    "Independent of current"
+                ],
+                correct: 1,
+                explanation: "The magnetic field \\(\\vec{B}\\) is a vector field that describes the magnetic effect of electric currents, etc."
+            },
+            {
+                question: "What does electromagnetic induction refer to?",
+                options: [
+                    "Generation of electric current from changing magnetic fields",
+                    "Generation of magnetic fields from static charges",
+                    "Creation of light from sound",
+                    "Conversion of matter into energy"
+                ],
+                correct: 0,
+                explanation: "Electromagnetic induction is the process by which a changing magnetic field induces an electromotive force."
+            },
+            {
+                question: "Maxwell's equations describe:",
+                options: [
+                    "Newtonian mechanics",
+                    "Electromagnetic field behavior",
+                    "Quantum mechanics",
+                    "Thermodynamics"
+                ],
+                correct: 1,
+                explanation: "Maxwell's equations are a set of four differential equations that describe the behavior of electromagnetic fields."
+            },
+            {
+                question: "What is a plane wave?",
+                options: [
+                    "A wave confined to a straight line",
+                    "A wave with surfaces of constant phase that are infinite planes",
+                    "A wave that only exists in air",
+                    "A wave that cannot propagate"
+                ],
+                correct: 1,
+                explanation: "A plane wave has surfaces of constant phase that are infinite planes."
+            },
+            {
+                question: "Electromagnetic radiation propagates at:",
+                options: [
+                    "The speed of sound",
+                    "Half the speed of light",
+                    "The speed of light in vacuum",
+                    "Different speeds depending on frequency"
+                ],
+                correct: 2,
+                explanation: "Electromagnetic radiation propagates at the speed of light in vacuum, approximately 3 × 10⁸ m/s."
+            },
+            {
+                question: "What systems of coordinates are mentioned in the course?",
+                options: [
+                    "Only Cartesian",
+                    "Cartesian and cylindrical",
+                    "Cartesian, cylindrical, and spherical",
+                    "Only spherical"
+                ],
+                correct: 2,
+                explanation: "The course covers Cartesian, cylindrical, and spherical coordinate systems."
+            },
+            {
+                question: "The Laplacian operator \\(\\nabla^2\\) is:",
+                options: [
+                    "A scalar operator",
+                    "A vector operator",
+                    "Both scalar and vector depending on context",
+                    "Not used in electromagnetism"
+                ],
+                correct: 2,
+                explanation: "The Laplacian can be applied to scalar functions (scalar Laplacian) or vector functions (vector Laplacian)."
+            },
+            {
+                question: "What does the divergence operator measure?",
+                options: [
+                    "The curl of a field",
+                    "The rate of change along a direction",
+                    "The outward flux per unit volume",
+                    "The cross product"
+                ],
+                correct: 2,
+                explanation: "The divergence \\(\\nabla \\cdot \\vec{A}\\) measures how much a vector field spreads out from a point."
+            },
+            {
+                question: "What does the curl operator measure?",
+                options: [
+                    "The divergence",
+                    "The gradient",
+                    "The circulation per unit area",
+                    "The magnitude of a vector"
+                ],
+                correct: 2,
+                explanation: "The curl \\(\\nabla \\times \\vec{A}\\) measures the rotation of a vector field in a given region."
+            },
+            {
+                question: "Telecommunications refers to:",
+                options: [
+                    "Only wired communication",
+                    "Only wireless communication",
+                    "Wired, wireless, or optical communication over any distance",
+                    "Communication within a room only"
+                ],
+                correct: 2,
+                explanation: "Telecommunications includes any form of communication regardless of distance and medium."
+            },
+            {
+                question: "What characterizes electromagnetic waves?",
+                options: [
+                    "Only electric oscillations",
+                    "Only magnetic oscillations",
+                    "Synchronized oscillating electric and magnetic fields",
+                    "Static fields only"
+                ],
+                correct: 2,
+                explanation: "Electromagnetic waves consist of synchronized oscillating electric and magnetic fields perpendicular to each other and the direction of propagation."
+            },
+            {
+                question: "The cross product in Cartesian coordinates for \\(\\vec{i}, \\vec{j}\\) is:",
+                options: [
+                    "0",
+                    "\\(\\vec{k}\\)",
+                    "\\(-\\vec{k}\\)",
+                    "undefined"
+                ],
+                correct: 1,
+                explanation: "\\(\\vec{i} \\times \\vec{j} = \\vec{k}\\) using the right-hand rule."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) =>
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestion === 0;
+
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) =>
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered the basic concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of the concepts.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            // Reset progress bar on restart
+            document.getElementById('progress-fill').style.width = `${100 / questions.length}%`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            // Set initial progress bar width
+            document.getElementById('progress-fill').style.width = `${100 / questions.length}%`;
+        });
+    </script>
+</body>
+</html>

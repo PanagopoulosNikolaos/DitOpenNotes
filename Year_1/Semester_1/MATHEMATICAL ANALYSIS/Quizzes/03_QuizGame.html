@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inverse Functions Quiz</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Inverse Functions Quiz</h1>
+            <p>Test your knowledge of inverse functions</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/20</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/20</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the fundamental property of an inverse function \\(f^{-1}\\) with respect to a function \\(f\\)?",
+                options: [
+                    "\\(f^{-1}(f(x)) = x\\)",
+                    "\\(f^{-1}(x) = 1/f(x)\\)",
+                    "\\(f^{-1}(x) = -f(x)\\)",
+                    "\\(f^{-1}(x) = f(x)\\)"
+                ],
+                correct: 0,
+                explanation: "The inverse function \\(f^{-1}\\) 'undoes' or 'cancels' the action of \\(f\\), meaning that applying \\(f\\) and then \\(f^{-1}\\) returns the original input \\(x\\)."
+            },
+            {
+                question: "What condition must a function \\(f\\) satisfy to have an inverse function?",
+                options: [
+                    "It must be continuous.",
+                    "It must be a polynomial.",
+                    "It must be one-to-one (1-1).",
+                    "It must be defined for all real numbers."
+                ],
+                correct: 2,
+                explanation: "A function must be one-to-one (1-1) to have an inverse. This ensures that each output value in the range corresponds to exactly one input value in the domain."
+            },
+            {
+                question: "What is the Horizontal Line Test used for?",
+                options: [
+                    "To determine if a graph represents a function.",
+                    "To find the domain of a function.",
+                    "To determine if a function is one-to-one.",
+                    "To find the roots of a function."
+                ],
+                correct: 2,
+                explanation: "The Horizontal Line Test states that a function is one-to-one if and only if no horizontal line intersects its graph more than once."
+            },
+            {
+                question: "Which of the following functions is one-to-one?",
+                options: [
+                    "\\(f(x) = x^2\\)",
+                    "\\(f(x) = |x|\\)",
+                    "\\(f(x) = 5\\)",
+                    "\\(f(x) = x^3\\)"
+                ],
+                correct: 3,
+                explanation: "The function \\(f(x) = x^3\\) is one-to-one because it is strictly increasing and passes the Horizontal Line Test. The other functions fail the test (e.g., for \\(f(x)=x^2\\), the line \\(y=4\\) intersects the graph at \\(x=2\\) and \\(x=-2\\))."
+            },
+            {
+                question: "If \\(f(x) = 2x + 3\\), what is its inverse function \\(f^{-1}(x)\\)?",
+                options: [
+                    "\\(\\frac{x-3}{2}\\)",
+                    "\\(\\frac{x+3}{2}\\)",
+                    "\\(2x - 3\\)",
+                    "\\(\\frac{1}{2x+3}\\)"
+                ],
+                correct: 0,
+                explanation: "To find the inverse, set \\(y = 2x+3\\), solve for \\(x\\): \\(y-3 = 2x \\implies x = \\frac{y-3}{2}\\). Then swap \\(x\\) and \\(y\\): \\(y = \\frac{x-3}{2}\\). So, \\(f^{-1}(x) = \\frac{x-3}{2}\\)."
+            },
+            {
+                question: "The graph of \\(f^{-1}\\) is a reflection of the graph of \\(f\\) across which line?",
+                options: [
+                    "The x-axis",
+                    "The y-axis",
+                    "The line \\(y = x\\)",
+                    "The origin"
+                ],
+                correct: 2,
+                explanation: "The graph of an inverse function \\(f^{-1}\\) is always the reflection of the graph of \\(f\\) across the line \\(y=x\\). This is because the roles of \\(x\\) and \\(y\\) are swapped."
+            },
+            {
+                question: "If the point \\((a, b)\\) is on the graph of \\(f\\), which point must be on the graph of \\(f^{-1}\\)?",
+                options: [
+                    "\\((-a, b)\\)",
+                    "\\((a, -b)\\)",
+                    "\\((-a, -b)\\)",
+                    "\\((b, a)\\)"
+                ],
+                correct: 3,
+                explanation: "If \\(f(a) = b\\), then by definition of the inverse, \\(f^{-1}(b) = a\\). This means if the point \\((a, b)\\) is on the graph of \\(f\\), the point \\((b, a)\\) must be on the graph of \\(f^{-1}\\)."
+            },
+            {
+                question: "If the domain of a one-to-one function \\(f\\) is \\([0, \\infty)\\) and its range is \\([1, \\infty)\\), what is the domain of \\(f^{-1}\\)?",
+                options: [
+                    "\\([0, \\infty)\\)",
+                    "\\([1, \\infty)\\)",
+                    "\\((-\\infty, 0]\\)",
+                    "\\((-\\infty, 1]\\)"
+                ],
+                correct: 1,
+                explanation: "The domain of the inverse function \\(f^{-1}\\) is the range of the original function \\(f\\). Therefore, the domain of \\(f^{-1}\\) is \\([1, \\infty)\\)."
+            },
+            {
+                question: "If the range of a one-to-one function \\(f\\) is \\((-\\infty, \\infty)\\), what is the domain of \\(f^{-1}\\)?",
+                options: [
+                    "\\((0, \\infty)\\)",
+                    "\\((-\\infty, 0)\\)",
+                    "\\((-\\infty, \\infty)\\)",
+                    "Cannot be determined"
+                ],
+                correct: 2,
+                explanation: "The domain of \\(f^{-1}\\) is the range of \\(f\\). If the range of \\(f\\) is all real numbers, then the domain of \\(f^{-1}\\) is also all real numbers."
+            },
+            {
+                question: "Find the inverse of \\(f(x) = x^3 - 1\\).",
+                options: [
+                    "\\(\\sqrt[3]{x+1}\\)",
+                    "\\(\\sqrt[3]{x-1}\\)",
+                    "\\((x+1)^3\\)",
+                    "\\(\\frac{1}{x^3-1}\\)"
+                ],
+                correct: 0,
+                explanation: "Set \\(y = x^3 - 1\\). Solve for \\(x\\): \\(y+1 = x^3 \\implies x = \\sqrt[3]{y+1}\\). Swap variables: \\(y = \\sqrt[3]{x+1}\\). So, \\(f^{-1}(x) = \\sqrt[3]{x+1}\\)."
+            },
+            {
+                question: "Why does the function \\(f(x) = x^2\\) not have an inverse on the domain \\((-\\infty, \\infty)\\)?",
+                options: [
+                    "It is not a function.",
+                    "It is not one-to-one.",
+                    "Its domain is not all real numbers.",
+                    "Its graph is a curve."
+                ],
+                correct: 1,
+                explanation: "\\(f(x) = x^2\\) is not one-to-one because it fails the Horizontal Line Test (e.g., \\(f(2)=4\\) and \\(f(-2)=4\\)). Different inputs give the same output."
+            },
+            {
+                question: "How can we make the function \\(f(x) = x^2\\) have an inverse?",
+                options: [
+                    "Shift the graph up.",
+                    "Reflect the graph across the y-axis.",
+                    "Restrict its domain.",
+                    "It's impossible."
+                ],
+                correct: 2,
+                explanation: "We can restrict the domain of \\(f(x) = x^2\\) to, for example, \\([0, \\infty)\\). On this restricted domain, the function is one-to-one and has an inverse, which is \\(f^{-1}(x) = \\sqrt{x}\\)."
+            },
+            {
+                question: "If \\(f(5) = 10\\), what is \\(f^{-1}(10)\\)?",
+                options: [
+                    "5",
+                    "10",
+                    "1/5",
+                    "1/10"
+                ],
+                correct: 0,
+                explanation: "The definition of an inverse function states that if \\(f(a)=b\\), then \\(f^{-1}(b)=a\\). Since \\(f(5)=10\\), it follows that \\(f^{-1}(10)=5\\)."
+            },
+            {
+                question: "Which of the following is a correct step to find the inverse of \\(y = f(x)\\)?",
+                options: [
+                    "Solve for y in terms of x.",
+                    "Swap x and y, then solve for y.",
+                    "Set x = 0.",
+                    "Differentiate the function."
+                ],
+                correct: 1,
+                explanation: "A standard procedure is to write \\(y=f(x)\\), swap the variables to get \\(x=f(y)\\), and then solve this equation for \\(y\\) to find the inverse."
+            },
+            {
+                question: "The function \\(f(x) = \\frac{x}{x-1}\\) is its own inverse. What does this imply about its graph?",
+                options: [
+                    "It is a straight line.",
+                    "It is symmetric with respect to the line \\(y=x\\).",
+                    "It is symmetric with respect to the y-axis.",
+                    "It passes through the origin."
+                ],
+                correct: 1,
+                explanation: "If a function is its own inverse, its graph is symmetric with respect to the line \\(y=x\\). Reflecting the graph across \\(y=x\\) leaves it unchanged."
+            },
+            {
+                question: "If \\(f(x) = \\frac{x+1}{x-1}\\), find \\(f^{-1}(x)\\).",
+                options: [
+                    "\\(\\frac{x+1}{x-1}\\)",
+                    "\\(\\frac{x-1}{x+1}\\)",
+                    "\\(\\frac{1-x}{1+x}\\)",
+                    "It does not have an inverse."
+                ],
+                correct: 0,
+                explanation: "Set \\(y = \\frac{x+1}{x-1}\\). Swap variables: \\(x = \\frac{y+1}{y-1}\\). Solve for y: \\(x(y-1) = y+1 \\implies xy-x = y+1 \\implies xy-y = x+1 \\implies y(x-1) = x+1 \\implies y = \\frac{x+1}{x-1}\\). The function is its own inverse."
+            },
+            {
+                question: "If a function is strictly monotonic (always increasing or always decreasing), is it guaranteed to be one-to-one?",
+                options: [
+                    "Yes",
+                    "No",
+                    "Only if it's increasing",
+                    "Only if it's decreasing"
+                ],
+                correct: 0,
+                explanation: "Yes, a strictly monotonic function will always pass the Horizontal Line Test, because the y-values never repeat. Therefore, it is always one-to-one."
+            },
+            {
+                question: "What is the relationship between the domain of \\(f\\) and the range of \\(f^{-1}\\)?",
+                options: [
+                    "They are unrelated.",
+                    "The domain of \\(f\\) is the range of \\(f^{-1}\\).",
+                    "The domain of \\(f\\) is the domain of \\(f^{-1}\\).",
+                    "The range of \\(f^{-1}\\) is a subset of the domain of \\(f\\)."
+                ],
+                correct: 1,
+                explanation: "The domain of the original function \\(f\\) becomes the range of its inverse \\(f^{-1}\\), and the range of \\(f\\) becomes the domain of \\(f^{-1}\\)."
+            },
+            {
+                question: "If \\(f(x) = 4-x^2\\) on the domain \\(x \\ge 0\\), find its inverse.",
+                options: [
+                    "\\(f^{-1}(x) = \\sqrt{4-x}\\)",
+                    "\\(f^{-1}(x) = \\sqrt{x-4}\\)",
+                    "\\(f^{-1}(x) = 4-x^2\\)",
+                    "\\(f^{-1}(x) = -\\sqrt{4-x}\\)"
+                ],
+                correct: 0,
+                explanation: "Set \\(y = 4-x^2\\). Swap: \\(x = 4-y^2\\). Solve for y: \\(y^2 = 4-x \\implies y = \\pm\\sqrt{4-x}\\). Since the original domain was \\(x \\ge 0\\), the range is \\(y \\le 4\\). The inverse's domain is \\(x \\le 4\\) and its range must be \\(y \\ge 0\\). We must choose the positive root: \\(f^{-1}(x) = \\sqrt{4-x}\\)."
+            },
+            {
+                question: "If \\(f^{-1}(f(x)) = x\\) and \\(f(f^{-1}(y)) = y\\), these are called...",
+                options: [
+                    "Reflection properties",
+                    "Symmetry properties",
+                    "Inverse function properties",
+                    "Cancellation properties"
+                ],
+                correct: 3,
+                explanation: "These are often called the cancellation properties or cancellation equations, because the function and its inverse cancel each other out when composed."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered inverse functions!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Applications of Derivatives</title>
+    <!-- MathJax Configuration -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Overall Theme & Backgrounds */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f2f5; /* Light text for readability */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Containers Styling */
+        .quiz-container {
+            background-color: #857c7c; /* Lighter muted grey container */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with Gradient */
+        .quiz-header {
+            background-image: linear-gradient(45deg, #4f46e5, #7c3aed); /* Blue -> Purple gradient */
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* Main Quiz Body */
+        .quiz-body {
+            padding: 24px;
+        }
+        #question-container {
+            margin-bottom: 20px;
+        }
+        #question-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options Grid & Buttons */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: left;
+            color: #f0f2f5;
+            background-color: #6b6464; /* Darker grey for options */
+            border: 1px solid #9e9696;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #7d7575;
+            border-color: #b1a8a8;
+        }
+
+        /* Button Feedback Colors */
+        .option-btn.correct {
+            background-color: #10b981; /* Bright green for correct */
+            border-color: #0f9a6d;
+            color: white;
+        }
+        .option-btn.incorrect {
+            background-color: #ef4444; /* Bright red for incorrect */
+            border-color: #d83a3a;
+            color: white;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        /* Explanation/Feedback Box */
+        #feedback-container {
+            margin-top: 20px;
+        }
+        #explanation {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            background-color: #4a4843; /* Darker background for explanation */
+            border: 1px solid #6b6464;
+        }
+
+        /* Footer and Navigation */
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background-color: #857c7c; /* Lighter muted grey footer */
+            border-top: 1px solid #9e9696;
+        }
+        #progress-text {
+            font-size: 1em;
+            color: #d1d5db; /* Lighter grey for secondary text */
+        }
+        .nav-btn {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background-color: #4338ca;
+        }
+        .nav-btn:disabled {
+            background-color: #52504b;
+            cursor: not-allowed;
+        }
+        #navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Results Screen */
+        #results-container {
+            text-align: center;
+            padding: 40px 24px;
+        }
+        #results-container h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        #restart-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #restart-btn:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Quiz Game: Applications of Derivatives</h1>
+        </div>
+        <div class="quiz-body">
+            <div id="question-container" style="display: none;">
+                <p id="question-text"></p>
+                <div id="options-grid" class="options-grid"></div>
+                <div id="feedback-container">
+                    <div id="explanation"></div>
+                </div>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn" class="nav-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-footer" style="display: none;">
+            <p id="progress-text"></p>
+            <div id="navigation-buttons">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <button id="next-btn" class="nav-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "If \\(f'(x) > 0\\) for all \\(x\\) in an interval \\((a, b)\\), what can we conclude about the function \\(f(x)\\) on that interval?", options: ["It is decreasing.", "It is increasing.", "It is constant.", "It is concave up."], correct: 1, explanation: "A positive first derivative indicates that the slope of the tangent line is positive, which means the function is increasing." },
+            { question: "What is a critical point of a function \\(f\\)?", options: ["A point where \\(f(x) = 0\\).", "A point where the graph crosses the y-axis.", "A point \\(c\\) in the domain where \\(f'(c) = 0\\) or \\(f'(c)\\) does not exist.", "A point where the function is at its maximum value."], correct: 2, explanation: "Critical points are the candidates for local maxima and minima. They occur where the derivative is zero (horizontal tangent) or undefined (sharp corner, cusp, vertical tangent)." },
+            { question: "According to the First Derivative Test, a function has a local maximum at a critical point \\(c\\) if \\(f'(x)\\) changes from...", options: ["Positive to negative.", "Negative to positive.", "Positive to positive.", "Negative to negative."], correct: 0, explanation: "A local maximum occurs when the function changes from increasing (\\(f'>0\\)) to decreasing (\\(f'<0\\))." },
+            { question: "If \\(f''(x) < 0\\) for all \\(x\\) in an interval \\((a, b)\\), what can we conclude about the graph of \\(f(x)\\) on that interval?", options: ["It is increasing.", "It is decreasing.", "It is concave up.", "It is concave down."], correct: 3, explanation: "A negative second derivative indicates that the slope of the function (\\(f'\\)) is decreasing. This corresponds to a shape that is concave down (like an upside-down bowl)." },
+            { question: "A point \\((c, f(c))\\) on the graph of a function where the concavity changes is called a(n)...", options: ["Critical point.", "Local maximum.", "Inflection point.", "Asymptote."], correct: 2, explanation: "An inflection point is precisely where the graph switches from concave up to concave down, or vice versa. If the function is twice differentiable, this often occurs where \\(f''(c)=0\\)." },
+            { question: "Find the intervals where the function \\(f(x) = 2x^3 - 3x^2 + 5\\) is increasing.", options: ["\\((0, 1)\\)", "\\((-\\infty, 0) \\cup (1, \\infty)\\)", "\\((-\\infty, \\infty)\\)", "Only at \\(x=0\\) and \\(x=1\\)."], correct: 1, explanation: "First, find the derivative: \\(f'(x) = 6x^2 - 6x = 6x(x-1)\\). The critical points are \\(x=0\\) and \\(x=1\\). Testing the intervals, we find \\(f'(x)>0\\) when \\(x<0\\) or \\(x>1\\). So, \\(f\\) is increasing on \\((-\\infty, 0) \\cup (1, \\infty)\\)." },
+            { question: "Find the local minimum of the function \\(f(x) = x e^x\\).", options: ["At \\(x=0\\), value is \\(0\\).", "At \\(x=1\\), value is \\(e\\).", "At \\(x=-1\\), value is \\(-1/e\\).", "The function has no local minimum."], correct: 2, explanation: "Using the product rule, \\(f'(x) = 1 \\cdot e^x + x \\cdot e^x = e^x(1+x)\\). The critical point is where \\(f'(x)=0\\), which is at \\(x=-1\\). For \\(x<-1\\), \\(f'<0\\) (decreasing), and for \\(x>-1\\), \\(f'>0\\) (increasing). Thus, a local minimum occurs at \\(x=-1\\). The value is \\(f(-1) = -1 \\cdot e^{-1} = -1/e\\)." },
+            { question: "L'Hôpital's Rule can be directly applied to which of the following indeterminate forms?", options: ["\\(0 \\cdot \\infty\\)", "\\(\\infty - \\infty\\)", "\\(\\frac{0}{0}\\)", "\\(1^\\infty\\)"], correct: 2, explanation: "L'Hôpital's Rule applies directly to limits that result in the forms \\(\\frac{0}{0}\\) or \\(\\frac{\\infty}{\\infty}\\). Other forms must first be algebraically manipulated into one of these two forms." },
+            { question: "Use L'Hôpital's Rule to evaluate \\(\\lim_{x \\to 1} \\frac{2\\ln(x)}{x-1}\\).", options: ["0", "1", "2", "\\(\\infty\\)"], correct: 2, explanation: "Substituting \\(x=1\\) gives \\(\\frac{2\\ln(1)}{1-1} = \\frac{0}{0}\\). Applying L'Hôpital's Rule: \\(\\lim_{x \\to 1} \\frac{(2\\ln x)'}{(x-1)'} = \\lim_{x \\to 1} \\frac{2/x}{1} = \\frac{2/1}{1} = 2\\)." },
+            { question: "What is the linear approximation \\(L(x)\\) for a function \\(f(x)\\) at a point \\(x=a\\)?", options: ["\\(L(x) = f'(a)(x-a)\\)", "\\(L(x) = f(a) + f'(a)(x-a)\\)", "\\(L(x) = f(x) - f(a)\\)", "\\(L(x) = f(a) - f'(a)(x-a)\\)"], correct: 1, explanation: "The linear approximation is the equation of the tangent line at \\(x=a\\). Its formula is \\(L(x) = f(a) + f'(a)(x-a)\\), which uses the point \\((a, f(a))\\) and the slope \\(f'(a)\\)." },
+            { question: "Find the linear approximation of \\(f(x) = \\sqrt{x}\\) at \\(a=1\\).", options: ["\\(L(x) = x\\)", "\\(L(x) = \\frac{1}{2}x + \\frac{1}{2}\\)", "\\(L(x) = x + 1\\)", "\\(L(x) = 2x - 1\\)"], correct: 1, explanation: "We need \\(f(1)\\) and \\(f'(1)\\). \\(f(1) = \\sqrt{1} = 1\\). The derivative is \\(f'(x) = \\frac{1}{2\\sqrt{x}}\\), so \\(f'(1) = \\frac{1}{2}\\). The approximation is \\(L(x) = f(1) + f'(1)(x-1) = 1 + \\frac{1}{2}(x-1) = 1 + \\frac{1}{2}x - \\frac{1}{2} = \\frac{1}{2}x + \\frac{1}{2}\\)." },
+            { question: "To find the absolute (global) maximum and minimum of a continuous function \\(f\\) on a closed interval \\([a, b]\\), you must check which values?", options: ["Only the points where \\(f'(x)=0\\).", "Only the endpoints \\(f(a)\\) and \\(f(b)\\).", "The values of \\(f\\) at all critical points and at the endpoints \\(a\\) and \\(b\\).", "Only the points where \\(f''(x)=0\\)."], correct: 2, explanation: "The Extreme Value Theorem guarantees that the absolute extrema exist on a closed interval. They can occur either at an interior critical point or at one of the endpoints of the interval." },
+            { question: "Find the inflection point of the function \\(f(x) = x^3 - 3x^2 + x - 2\\).", options: ["\\(x=0\\)", "\\(x=1\\)", "\\(x=2\\)", "\\(x=3\\)"], correct: 1, explanation: "\\(f'(x) = 3x^2 - 6x + 1\\). \\(f''(x) = 6x - 6\\). An inflection point can occur where \\(f''(x)=0\\), so \\(6x-6=0 \\implies x=1\\). We check that the concavity changes: for \\(x<1\\), \\(f''<0\\) (concave down), and for \\(x>1\\), \\(f''>0\\) (concave up). So, \\(x=1\\) is an inflection point." },
+            { question: "How do you handle the indeterminate form \\(0 \\cdot \\infty\\) to use L'Hôpital's Rule?", options: ["Take the logarithm of the expression.", "Take the derivative of the product directly.", "Rewrite the product \\(f \\cdot g\\) as a quotient, either \\(\\frac{f}{1/g}\\) or \\(\\frac{g}{1/f}\\).", "L'Hôpital's Rule cannot be used for this form."], correct: 2, explanation: "To apply L'Hôpital's Rule, the limit must be in the form \\(\\frac{0}{0}\\) or \\(\\frac{\\infty}{\\infty}\\). Rewriting \\(f \\cdot g\\) as \\(\\frac{f}{1/g}\\) transforms the \\(0 \\cdot \\infty\\) form into a \\(\\frac{0}{0}\\) form, allowing the rule to be used." },
+            { question: "The common approximation \\(\\sin(x) \\approx x\\) for small \\(x\\) is an example of...", options: ["The Squeeze Theorem", "The Intermediate Value Theorem", "L'Hôpital's Rule", "Linear Approximation"], correct: 3, explanation: "This is the linear approximation of \\(f(x)=\\sin(x)\\) at \\(a=0\\). Since \\(f(0)=0\\) and \\(f'(x)=\\cos(x)\\), so \\(f'(0)=1\\), the approximation is \\(L(x) = f(0) + f'(0)(x-0) = 0 + 1(x) = x\\)." },
+            { question: "If \\(f'(x)\\) is increasing on an interval, what is the concavity of \\(f(x)\\)?", options: ["Concave up", "Concave down", "Linear", "Cannot be determined"], correct: 0, explanation: "If \\(f'(x)\\) is increasing, its derivative, which is \\(f''(x)\\), must be positive. A positive second derivative corresponds to a concave up graph." },
+            { question: "Find the absolute maximum value of \\(f(x) = 3x^4 - 4x^3 - 12x^2 + 3\\) on the interval \\([-2, 3]\\).", options: ["-29", "3", "30", "35"], correct: 3, explanation: "\\(f'(x) = 12x^3 - 12x^2 - 24x = 12x(x^2 - x - 2) = 12x(x+1)(x-2)\\). Critical points are \\(x=0, -1, 2\\). We check values: \\(f(-2)=35\\), \\(f(-1)=-2\\), \\(f(0)=3\\), \\(f(2)=-29\\), \\(f(3)=30\\). The largest value is 35." },
+            { question: "Find the absolute minimum value of \\(f(x) = 3x^4 - 4x^3 - 12x^2 + 3\\) on the interval \\([-2, 3]\\).", options: ["-29", "-2", "3", "30"], correct: 0, explanation: "\\(f'(x) = 12x(x+1)(x-2)\\). Critical points are \\(x=0, -1, 2\\). We check values: \\(f(-2)=35\\), \\(f(-1)=-2\\), \\(f(0)=3\\), \\(f(2)=-29\\), \\(f(3)=30\\). The smallest value is -29." },
+            { question: "If \\(f'(c)=0\\) and \\(f''(c) > 0\\), what can be concluded about the point \\(c\\)?", options: ["It is a local maximum.", "It is a local minimum.", "It is an inflection point.", "Nothing can be concluded."], correct: 1, explanation: "This is the Second Derivative Test. A zero derivative means a horizontal tangent (a critical point). A positive second derivative means the function is concave up at that point. A horizontal tangent on a concave up curve corresponds to a local minimum." },
+            { question: "If \\(f'(c)=0\\) and \\(f''(c) < 0\\), what can be concluded about the point \\(c\\)?", options: ["It is a local maximum.", "It is a local minimum.", "It is an inflection point.", "The test is inconclusive."], correct: 0, explanation: "This is the Second Derivative Test. A zero derivative means a horizontal tangent. A negative second derivative means the function is concave down at that point. A horizontal tangent on a concave down curve corresponds to a local maximum." }
+        ];
+        
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const explanation = document.getElementById('explanation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const quizFooter = document.querySelector('.quiz-footer');
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            quizFooter.style.display = 'flex';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsGrid.appendChild(button);
+            });
+            
+            updateNavigation();
+            restoreAnswerState();
+            MathJax.typesetPromise();
+        }
+        
+        function resetState() {
+            while (optionsGrid.firstChild) {
+                optionsGrid.removeChild(optionsGrid.firstChild);
+            }
+            explanation.style.display = 'none';
+        }
+
+        function updateNavigation() {
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
+        }
+
+        function restoreAnswerState() {
+            const userAnswer = userAnswers[currentQuestionIndex];
+            if (userAnswer !== null) {
+                showFeedback(userAnswer);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedIndex = parseInt(e.target.dataset.index);
+            if (userAnswers[currentQuestionIndex] === null) { // Only process if it's the first time answering
+                userAnswers[currentQuestionIndex] = selectedIndex;
+                showFeedback(selectedIndex);
+            }
+        }
+
+        function showFeedback(selectedIndex) {
+            const correctIndex = questions[currentQuestionIndex].correct;
+            
+            Array.from(optionsGrid.children).forEach((button, index) => {
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+                button.disabled = true;
+            });
+            
+            explanation.innerHTML = "<b>Explanation:</b> " + questions[currentQuestionIndex].explanation;
+            explanation.style.display = 'block';
+            MathJax.typesetPromise();
+        }
+
+        function showResults() {
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+
+            questionContainer.style.display = 'none';
+            quizFooter.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const scorePercent = Math.round((score / questions.length) * 100);
+            scoreText.innerText = `You scored ${score} out of ${questions.length} (${scorePercent}%)`;
+        }
+
+        function handleNextButton() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function handlePrevButton() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        nextBtn.addEventListener('click', handleNextButton);
+        prevBtn.addEventListener('click', handlePrevButton);
+        restartBtn.addEventListener('click', startQuiz);
+
+        startQuiz();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Mastery Quiz</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .question-text pre {
+            background-color: #2a2824;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .question-text code {
+            background-color: #2a2824;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💻 C Programming Mastery Quiz</h1>
+            <p>From Basics to Advanced - Test Your C Knowledge</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/50</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/50</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // Basic C Concepts (10 questions)
+            {
+                question: "What is the typical size of an <code>int</code> on a 32-bit system?",
+                options: [
+                    "2 bytes",
+                    "4 bytes",
+                    "8 bytes",
+                    "1 byte"
+                ],
+                correct: 1,
+                explanation: "On a 32-bit system, an <code>int</code> is typically 4 bytes (32 bits). However, the C standard only guarantees that an <code>int</code> is at least 16 bits."
+            },
+            {
+                question: "What is the output of this code?<pre>int x = 5;\nprintf(\"%d\", x++);</pre>",
+                options: [
+                    "5",
+                    "6",
+                    "Compilation error",
+                    "Undefined behavior"
+                ],
+                correct: 0,
+                explanation: "The post-increment operator <code>x++</code> returns the current value (5) before incrementing. After this statement, x becomes 6, but 5 is printed."
+            },
+            {
+                question: "Which operator has the highest precedence in C?",
+                options: [
+                    "*",
+                    "+",
+                    "()",
+                    "="
+                ],
+                correct: 2,
+                explanation: "Parentheses <code>()</code> have the highest precedence in C. They are used to explicitly control the order of operations."
+            },
+            {
+                question: "What does the modulo operator <code>%</code> return?",
+                options: [
+                    "The quotient of division",
+                    "The remainder of division",
+                    "The absolute value",
+                    "The percentage"
+                ],
+                correct: 1,
+                explanation: "The modulo operator <code>%</code> returns the remainder after integer division. For example, <code>7 % 3</code> returns 1."
+            },
+            {
+                question: "What is the result of <code>5 & 3</code> (bitwise AND)?",
+                options: [
+                    "1",
+                    "7",
+                    "5",
+                    "3"
+                ],
+                correct: 0,
+                explanation: "Binary: 5 = 101, 3 = 011. Bitwise AND: 101 & 011 = 001 = 1. Each bit is ANDed together."
+            },
+            {
+                question: "Which statement correctly declares a constant in C?",
+                options: [
+                    "const int MAX = 100;",
+                    "#define MAX 100",
+                    "Both A and B",
+                    "constant int MAX = 100;"
+                ],
+                correct: 2,
+                explanation: "Both <code>const int MAX = 100;</code> and <code>#define MAX 100</code> can be used to create constants. The first is type-safe, the second is a preprocessor macro."
+            },
+            {
+                question: "What is the output of <code>printf(\"%d\", sizeof(char))</code>?",
+                options: [
+                    "0",
+                    "1",
+                    "2",
+                    "Implementation dependent"
+                ],
+                correct: 1,
+                explanation: "By definition in the C standard, <code>sizeof(char)</code> is always 1 byte, regardless of the system architecture."
+            },
+            {
+                question: "Which loop is guaranteed to execute at least once?",
+                options: [
+                    "for loop",
+                    "while loop",
+                    "do-while loop",
+                    "None of the above"
+                ],
+                correct: 2,
+                explanation: "The <code>do-while</code> loop checks its condition after executing the loop body, so it always executes at least once."
+            },
+            {
+                question: "What is the difference between <code>++i</code> and <code>i++</code>?",
+                options: [
+                    "No difference",
+                    "++i increments before use, i++ increments after use",
+                    "++i is faster",
+                    "i++ is deprecated"
+                ],
+                correct: 1,
+                explanation: "<code>++i</code> (pre-increment) increments the variable and returns the new value. <code>i++</code> (post-increment) returns the current value and then increments."
+            },
+            {
+                question: "What is the range of a <code>signed char</code>?",
+                options: [
+                    "0 to 255",
+                    "-128 to 127",
+                    "-127 to 128",
+                    "0 to 127"
+                ],
+                correct: 1,
+                explanation: "A <code>signed char</code> is typically 8 bits and can represent values from -128 to 127 using two's complement representation."
+            },
+
+            // Pointers and Memory (8 questions)
+            {
+                question: "What does the following declaration mean?<pre>int *ptr;</pre>",
+                options: [
+                    "ptr is an integer",
+                    "ptr is a pointer to an integer",
+                    "ptr is a reference to an integer",
+                    "ptr is an array of integers"
+                ],
+                correct: 1,
+                explanation: "<code>int *ptr;</code> declares ptr as a pointer to an integer. It can store the address of an integer variable."
+            },
+            {
+                question: "If <code>int arr[5]</code> and <code>ptr = arr</code>, what does <code>ptr + 2</code> point to?",
+                options: [
+                    "arr[1]",
+                    "arr[2]",
+                    "arr[3]",
+                    "Invalid operation"
+                ],
+                correct: 1,
+                explanation: "Pointer arithmetic adds <code>2 * sizeof(int)</code> to the pointer address. <code>ptr + 2</code> points to <code>arr[2]</code>."
+            },
+            {
+                question: "What is the difference between <code>malloc()</code> and <code>calloc()</code>?",
+                options: [
+                    "No difference",
+                    "malloc() initializes memory to zero, calloc() doesn't",
+                    "calloc() initializes memory to zero, malloc() doesn't",
+                    "calloc() is faster"
+                ],
+                correct: 2,
+                explanation: "<code>calloc()</code> allocates memory and initializes it to zero. <code>malloc()</code> allocates memory but leaves it uninitialized."
+            },
+            {
+                question: "What happens if <code>malloc()</code> fails to allocate memory?",
+                options: [
+                    "Returns 0",
+                    "Returns NULL",
+                    "Program crashes",
+                    "Returns -1"
+                ],
+                correct: 1,
+                explanation: "If <code>malloc()</code> fails to allocate memory, it returns <code>NULL</code>. Always check the return value before using the pointer."
+            },
+            {
+                question: "What does <code>int **ptr</code> represent?",
+                options: [
+                    "A pointer to an integer",
+                    "A pointer to a pointer to an integer",
+                    "An array of pointers",
+                    "Invalid syntax"
+                ],
+                correct: 1,
+                explanation: "<code>int **ptr</code> is a pointer to a pointer to an integer. This is useful for dynamic 2D arrays and for modifying pointers in functions."
+            },
+            {
+                question: "What is a memory leak?",
+                options: [
+                    "Accessing freed memory",
+                    "Allocated memory that is never freed",
+                    "Stack overflow",
+                    "Buffer overflow"
+                ],
+                correct: 1,
+                explanation: "A memory leak occurs when dynamically allocated memory is not freed, making it unavailable for reuse even though the program no longer needs it."
+            },
+            {
+                question: "What causes a segmentation fault?",
+                options: [
+                    "Division by zero",
+                    "Accessing memory outside allowed boundaries",
+                    "Infinite recursion",
+                    "Syntax error"
+                ],
+                correct: 1,
+                explanation: "A segmentation fault occurs when a program tries to access memory it doesn't have permission to access, such as dereferencing a NULL pointer or accessing out-of-bounds array elements."
+            },
+            {
+                question: "What does <code>realloc(ptr, 0)</code> do?",
+                options: [
+                    "Returns NULL",
+                    "Equivalent to free(ptr)",
+                    "Does nothing",
+                    "Undefined behavior"
+                ],
+                correct: 1,
+                explanation: "<code>realloc(ptr, 0)</code> is equivalent to <code>free(ptr)</code> in most implementations, though the behavior is implementation-defined."
+            },
+
+            // Arrays and Strings (7 questions)
+            {
+                question: "How do you initialize an array with all zeros?",
+                options: [
+                    "int arr[5] = {0};",
+                    "int arr[5] = {};",
+                    "int arr[5]; memset(arr, 0, sizeof(arr));",
+                    "Both A and C"
+                ],
+                correct: 3,
+                explanation: "Both <code>int arr[5] = {0};</code> and using <code>memset()</code> initialize all elements to zero. The first method is simpler and preferred."
+            },
+            {
+                question: "What is the output of <code>sizeof(arr)</code> for <code>int arr[10]</code>?",
+                options: [
+                    "10",
+                    "40 (on a 32-bit system)",
+                    "4",
+                    "Undefined"
+                ],
+                correct: 1,
+                explanation: "<code>sizeof(arr)</code> returns the total size in bytes. For <code>int arr[10]</code> on a 32-bit system, it's <code>10 * 4 = 40 bytes</code>."
+            },
+            {
+                question: "What is the difference between <code>char str[]</code> and <code>char *str</code>?",
+                options: [
+                    "No difference",
+                    "Array is modifiable, pointer to string literal is not",
+                    "Pointer is faster",
+                    "Array cannot be reassigned"
+                ],
+                correct: 1,
+                explanation: "<code>char str[] = \"hello\"</code> creates a modifiable array. <code>char *str = \"hello\"</code> points to a string literal which cannot be modified."
+            },
+            {
+                question: "How do you declare a 2D array of 3 rows and 4 columns?",
+                options: [
+                    "int arr[3,4];",
+                    "int arr[3][4];",
+                    "int arr[4][3];",
+                    "int arr(3)(4);"
+                ],
+                correct: 1,
+                explanation: "The syntax <code>int arr[3][4];</code> declares a 2D array with 3 rows and 4 columns. The first dimension is rows, second is columns."
+            },
+            {
+                question: "What does the name of an array represent?",
+                options: [
+                    "The first element",
+                    "A pointer to the first element",
+                    "The size of the array",
+                    "Nothing"
+                ],
+                correct: 1,
+                explanation: "In most contexts, the array name decays to a pointer to its first element. However, <code>sizeof(array)</code> and <code>&array</code> are exceptions."
+            },
+            {
+                question: "What does <code>strlen()</code> return for an empty string \"\"?",
+                options: [
+                    "1",
+                    "0",
+                    "NULL",
+                    "-1"
+                ],
+                correct: 1,
+                explanation: "<code>strlen()</code> returns the number of characters before the null terminator. An empty string has length 0."
+            },
+            {
+                question: "What is wrong with this code?<pre>char str[5] = \"hello\";</pre>",
+                options: [
+                    "Nothing wrong",
+                    "Array too small (needs space for null terminator)",
+                    "Syntax error",
+                    "Should use malloc"
+                ],
+                correct: 1,
+                explanation: "The string \"hello\" has 5 characters plus a null terminator ('\\0'), requiring 6 bytes. The array should be <code>char str[6]</code>."
+            },
+
+            // Functions (6 questions)
+            {
+                question: "What is the difference between function declaration and definition?",
+                options: [
+                    "No difference",
+                    "Declaration specifies interface, definition provides implementation",
+                    "Declaration is optional",
+                    "Definition comes first"
+                ],
+                correct: 1,
+                explanation: "A function declaration (prototype) specifies the function's interface (return type, name, parameters). The definition provides the actual implementation."
+            },
+            {
+                question: "How do you pass an array to a function to modify its elements?",
+                options: [
+                    "Pass by value",
+                    "Arrays are automatically passed by reference",
+                    "Use & operator",
+                    "Cannot be done"
+                ],
+                correct: 1,
+                explanation: "Arrays are automatically passed as pointers (by reference), so any modifications affect the original array."
+            },
+            {
+                question: "What is tail recursion?",
+                options: [
+                    "Recursion at the end of a program",
+                    "Recursion where the recursive call is the last operation",
+                    "A type of infinite recursion",
+                    "Invalid concept"
+                ],
+                correct: 1,
+                explanation: "Tail recursion occurs when the recursive call is the last operation in the function. It can be optimized by compilers to avoid stack overflow."
+            },
+            {
+                question: "How do you declare a pointer to a function that returns int and takes two int parameters?",
+                options: [
+                    "int *func(int, int);",
+                    "int (*func)(int, int);",
+                    "int func*(int, int);",
+                    "pointer func(int, int);"
+                ],
+                correct: 1,
+                explanation: "<code>int (*func)(int, int);</code> declares a pointer to a function. The parentheses around *func are necessary to distinguish it from a function returning int*."
+            },
+            {
+                question: "What is a static function in C?",
+                options: [
+                    "A function that cannot be modified",
+                    "A function with internal linkage (only visible in its file)",
+                    "A function that uses static variables",
+                    "A deprecated function type"
+                ],
+                correct: 1,
+                explanation: "A static function has internal linkage, meaning it's only visible within the file it's defined in. This helps prevent naming conflicts."
+            },
+            {
+                question: "To modify a pointer in a called function, you must pass:",
+                options: [
+                    "The pointer",
+                    "A pointer to the pointer",
+                    "The address operator",
+                    "Cannot be done"
+                ],
+                correct: 1,
+                explanation: "To modify a pointer itself (not what it points to), you need to pass a pointer to the pointer (double pointer)."
+            },
+
+            // Standard Library Functions (10 questions)
+            {
+                question: "What does <code>printf()</code> return?",
+                options: [
+                    "Number of characters printed",
+                    "0 on success",
+                    "NULL",
+                    "void (nothing)"
+                ],
+                correct: 0,
+                explanation: "<code>printf()</code> returns the number of characters successfully printed, or a negative value on error."
+            },
+            {
+                question: "What does <code>strcmp(str1, str2)</code> return when strings are equal?",
+                options: [
+                    "1",
+                    "0",
+                    "true",
+                    "-1"
+                ],
+                correct: 1,
+                explanation: "<code>strcmp()</code> returns 0 when strings are equal, a negative value if str1 < str2, and a positive value if str1 > str2."
+            },
+            {
+                question: "What does <code>fgets()</code> return on error or EOF?",
+                options: [
+                    "0",
+                    "NULL",
+                    "EOF",
+                    "-1"
+                ],
+                correct: 1,
+                explanation: "<code>fgets()</code> returns NULL on error or end-of-file condition. Otherwise, it returns the string buffer."
+            },
+            {
+                question: "Which function is safer for reading strings?",
+                options: [
+                    "gets()",
+                    "scanf(\"%s\")",
+                    "fgets()",
+                    "All are equally safe"
+                ],
+                correct: 2,
+                explanation: "<code>fgets()</code> is safer because it allows you to specify the buffer size, preventing buffer overflows. <code>gets()</code> is deprecated and dangerous."
+            },
+            {
+                question: "What does <code>atoi(\"123abc\")</code> return?",
+                options: [
+                    "0",
+                    "123",
+                    "Error",
+                    "NULL"
+                ],
+                correct: 1,
+                explanation: "<code>atoi()</code> converts the initial portion of a string to an integer. It stops at the first non-numeric character, returning 123."
+            },
+            {
+                question: "What is the purpose of <code>memcpy()</code>?",
+                options: [
+                    "Copy strings",
+                    "Copy memory blocks byte by byte",
+                    "Compare memory",
+                    "Allocate memory"
+                ],
+                correct: 1,
+                explanation: "<code>memcpy()</code> copies a specified number of bytes from source to destination. It works with any data type, not just strings."
+            },
+            {
+                question: "What does <code>sqrt()</code> from math.h require for linking?",
+                options: [
+                    "Nothing special",
+                    "-lm flag (link math library)",
+                    "--math flag",
+                    "Cannot be used"
+                ],
+                correct: 1,
+                explanation: "On Unix-like systems, you need to link the math library using the <code>-lm</code> flag when compiling: <code>gcc program.c -lm</code>."
+            },
+            {
+                question: "What does <code>isdigit('5')</code> return?",
+                options: [
+                    "true",
+                    "5",
+                    "Non-zero value (true)",
+                    "1"
+                ],
+                correct: 2,
+                explanation: "<code>isdigit()</code> returns a non-zero value (true) if the character is a digit (0-9), and 0 (false) otherwise."
+            },
+            {
+                question: "What is the difference between <code>strcat()</code> and <code>strncat()</code>?",
+                options: [
+                    "No difference",
+                    "strncat() limits the number of characters concatenated",
+                    "strcat() is faster",
+                    "strncat() is deprecated"
+                ],
+                correct: 1,
+                explanation: "<code>strncat()</code> allows you to specify the maximum number of characters to concatenate, making it safer against buffer overflows."
+            },
+            {
+                question: "What does <code>rand()</code> return?",
+                options: [
+                    "A random float between 0 and 1",
+                    "A pseudo-random integer between 0 and RAND_MAX",
+                    "A truly random number",
+                    "A random character"
+                ],
+                correct: 1,
+                explanation: "<code>rand()</code> returns a pseudo-random integer between 0 and <code>RAND_MAX</code>. Use <code>srand()</code> to seed the generator."
+            },
+
+            // Structures and Unions (4 questions)
+            {
+                question: "How do you access a structure member using a pointer?",
+                options: [
+                    "ptr.member",
+                    "ptr->member",
+                    "(*ptr).member",
+                    "Both B and C"
+                ],
+                correct: 3,
+                explanation: "Both <code>ptr->member</code> and <code>(*ptr).member</code> access a structure member through a pointer. The arrow operator is shorthand for the second form."
+            },
+            {
+                question: "What is the main difference between structures and unions?",
+                options: [
+                    "No difference",
+                    "Unions share memory among members, structures don't",
+                    "Structures are faster",
+                    "Unions are deprecated"
+                ],
+                correct: 1,
+                explanation: "In a union, all members share the same memory location. The size of a union is the size of its largest member. Structures allocate separate memory for each member."
+            },
+            {
+                question: "What does <code>typedef</code> do?",
+                options: [
+                    "Defines a new type",
+                    "Creates an alias for an existing type",
+                    "Declares a variable",
+                    "Defines a macro"
+                ],
+                correct: 1,
+                explanation: "<code>typedef</code> creates an alias for an existing type, making code more readable. Example: <code>typedef struct Point Point;</code> allows using <code>Point</code> instead of <code>struct Point</code>."
+            },
+            {
+                question: "Can you have a structure within a structure?",
+                options: [
+                    "No",
+                    "Yes, called nested structures",
+                    "Only with typedef",
+                    "Only in C++"
+                ],
+                correct: 1,
+                explanation: "Yes, you can have nested structures where one structure contains another structure as a member. This is useful for organizing complex data."
+            },
+
+            // Advanced Topics (5 questions)
+            {
+                question: "What does <code>#define PI 3.14</code> do?",
+                options: [
+                    "Declares a variable",
+                    "Creates a preprocessor macro (text replacement)",
+                    "Declares a constant",
+                    "Defines a function"
+                ],
+                correct: 1,
+                explanation: "<code>#define</code> creates a preprocessor macro. Before compilation, all occurrences of PI are replaced with 3.14. This is text substitution, not a typed constant."
+            },
+            {
+                question: "What does the <code>volatile</code> keyword indicate?",
+                options: [
+                    "The variable is unstable",
+                    "The variable can change unexpectedly (prevents optimization)",
+                    "The variable is temporary",
+                    "The variable is constant"
+                ],
+                correct: 1,
+                explanation: "<code>volatile</code> tells the compiler that a variable's value can change unexpectedly (e.g., hardware register, signal handler), preventing certain optimizations."
+            },
+            {
+                question: "What is the purpose of <code>#ifdef</code>?",
+                options: [
+                    "Define a macro",
+                    "Conditional compilation based on macro definition",
+                    "Check function definition",
+                    "Include a file"
+                ],
+                correct: 1,
+                explanation: "<code>#ifdef</code> allows conditional compilation. Code inside is only compiled if the specified macro is defined."
+            },
+            {
+                question: "What is the storage class of a variable declared inside a function without any keyword?",
+                options: [
+                    "static",
+                    "extern",
+                    "auto",
+                    "register"
+                ],
+                correct: 2,
+                explanation: "Variables declared inside a function without any storage class keyword have <code>auto</code> storage class by default. They are created when the function is called and destroyed when it returns."
+            },
+            {
+                question: "How do you open a file for reading in binary mode?",
+                options: [
+                    "fopen(\"file.txt\", \"r\")",
+                    "fopen(\"file.txt\", \"rb\")",
+                    "fopen(\"file.txt\", \"b\")",
+                    "fopen(\"file.txt\", \"read\")"
+                ],
+                correct: 1,
+                explanation: "Use <code>fopen(\"file.txt\", \"rb\")</code> to open a file in binary read mode. The 'b' flag is important for binary files, especially on Windows."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered C programming concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of C.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

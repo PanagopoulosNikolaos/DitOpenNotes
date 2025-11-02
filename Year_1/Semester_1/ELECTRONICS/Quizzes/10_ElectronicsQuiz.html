@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (Based on Presentation)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">Based on the "Ηλεκτρονική" Presentation by Nikolaos Giannakeas</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">49</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'iv'|'rc'|'acdc'|'cv_energy'|'li_energy', params:{...} }
+}
+All content is aligned to the attached PDF topics.
+*/
+
+const questions = [
+  // Basics from Slides 3-9
+  { text: "According to the Drude model for metals, valence electrons form a:", choices: ["Fixed crystal lattice", "Cloud of free electrons", "Series of covalent bonds", "Set of isolated orbitals"], correctIndex: 1, explain: "In metals, valence electrons are loosely bound and form a 'sea' or 'cloud' of free electrons, which allows for high electrical conductivity." },
+  { text: "What key characteristic distinguishes a conductor from an insulator in terms of energy bands?", choices: ["Conductors have a large energy gap", "Insulators have overlapping energy bands", "Conductors have overlapping valence and conduction bands", "Insulators have no valence band"], correctIndex: 2, explain: "Conductors have their valence and conduction bands overlapping, allowing electrons to move freely. Insulators have a large energy gap between these bands." },
+  { text: "A semiconductor has an energy band gap that is:", choices: ["Very large, like an insulator", "Overlapping, like a conductor", "Relatively small, allowing for conductivity under certain conditions", "Always zero at room temperature"], correctIndex: 2, explain: "Semiconductors have a small but non-zero energy gap, allowing electrons to be excited into the conduction band by thermal energy or other stimuli." },
+  { text: "What is the primary role of a voltage source in a circuit?", choices: ["To limit the flow of current", "To create a potential difference that drives current", "To consume electrical power", "To store charge indefinitely"], correctIndex: 1, explain: "A voltage source (like a battery) provides the potential difference (voltage) necessary to cause electric current to flow through a circuit." },
+  { text: "Conventional current is defined as the direction of flow of:", choices: ["Negative charges (electrons)", "Positive charges", "Both positive and negative charges", "Neutral particles"], correctIndex: 1, explain: "By convention, the direction of electric current is defined as the direction that positive charge would flow, i.e., from a higher potential (positive terminal) to a lower potential (negative terminal)." },
+  { text: "A signal that maintains a constant polarity (sign) over time is called:", choices: ["An Alternating Current (AC) signal", "A Direct Current (DC) signal", "A pulsed signal", "A noisy signal"], correctIndex: 1, explain: "A DC signal has a constant sign (it is always positive or always negative). An AC signal alternates its polarity over time.", plot: { type: "acdc", params: { Vdc: 2.0, Vac: 2.0, f: 1 } } },
+  { text: "Ohm's Law is correctly stated as:", choices: ["\\( P = IV \\)", "\\( R = V/I \\)", "\\( V = I/R \\)", "\\( I = VR \\)"], correctIndex: 1, explain: "Ohm's Law states that voltage is the product of current and resistance (\\(V=IR\\)), which can be rearranged to \\(R = V/I\\) or \\(I = V/R\\)." },
+  { text: "The current-voltage (I-V) characteristic of an ideal resistor is a:", choices: ["Parabola", "Exponential curve", "Straight line passing through the origin", "Horizontal line"], correctIndex: 2, explain: "According to Ohm's Law (\\(I = V/R\\)), the relationship between current and voltage is linear for a resistor. The plot of I versus V is a straight line through the origin with a slope of \\(1/R\\).", plot: { type: "iv", params: { R: 200 } } },
+  { text: "For three resistors \\(R_1, R_2, R_3\\) connected in series, the total equivalent resistance \\(R_{eq}\\) is:", choices: ["\\(R_1 + R_2 + R_3\\)", "\\( (1/R_1 + 1/R_2 + 1/R_3)^{-1} \\)", "The smallest of the three resistances", "The average of the three resistances"], correctIndex: 0, explain: "When resistors are connected in series, their resistances add up directly: \\(R_{eq} = \\sum R_i\\)." },
+  { text: "For two resistors \\(R_1, R_2\\) connected in parallel, the total equivalent resistance \\(R_{eq}\\) is:", choices: ["\\(R_1 + R_2\\)", "\\(R_1 - R_2\\)", "\\((R_1 R_2) / (R_1 + R_2)\\)", "\\(R_1 R_2\\)"], correctIndex: 2, explain: "For parallel resistors, the reciprocal of the total resistance is the sum of the reciprocals: \\(1/R_{eq} = 1/R_1 + 1/R_2\\). For two resistors, this simplifies to the product-over-sum formula." },
+  // Circuit Analysis from Slides 10-15
+  { text: "Kirchhoff's Current Law (KCL) states that:", choices: ["The sum of voltages around a closed loop is zero", "The algebraic sum of currents entering a node is zero", "Voltage equals current times resistance", "All components in a series circuit have the same current"], correctIndex: 1, explain: "KCL is based on the conservation of charge and states that the total current entering any junction (node) in a circuit must equal the total current leaving that junction." },
+  { text: "Kirchhoff's Voltage Law (KVL) states that:", choices: ["The algebraic sum of voltages around any closed loop is zero", "The sum of currents at a node is zero", "The total power in a circuit is always constant", "Parallel components have the same voltage across them"], correctIndex: 0, explain: "KVL is based on the conservation of energy and states that the sum of voltage drops and rises in any closed path (loop) of a circuit must be zero." },
+  { text: "According to Thevenin's theorem, any linear two-terminal network can be replaced by:", choices: ["A single current source", "A single resistor", "An ideal voltage source in parallel with a resistor", "An ideal voltage source \\(V_{Th}\\) in series with a resistor \\(R_{Th}\\)"], correctIndex: 3, explain: "Thevenin's theorem simplifies a complex circuit into an equivalent circuit consisting of a single voltage source (\\(V_{Th}\\)) and a single series resistor (\\(R_{Th}\\))." },
+  { text: "To find the Thevenin resistance \\(R_{Th}\\) of a circuit, one must:", choices: ["Calculate the open-circuit voltage", "Short-circuit all current sources and open-circuit all voltage sources", "Replace voltage sources with shorts and current sources with opens", "Measure the current with the output shorted"], correctIndex: 2, explain: "To find \\(R_{Th}\\), all independent sources are deactivated: voltage sources are replaced by short circuits, and current sources are replaced by open circuits. Then, the equivalent resistance looking into the terminals is calculated." },
+  { text: "The Thevenin voltage \\(V_{Th}\\) is the:", choices: ["Voltage across the terminals when they are short-circuited", "Voltage across the terminals under normal load", "Voltage across the terminals when they are open-circuited", "Maximum voltage the circuit can supply"], correctIndex: 2, explain: "\\(V_{Th}\\) is defined as the open-circuit voltage between the two output terminals of the network." },
+  { text: "In a voltage divider with two series resistors \\(R_1\\) and \\(R_2\\) across a total voltage \\(V_{in}\\), the voltage \\(V_2\\) across \\(R_2\\) is:", choices: ["\\(V_{in} \\cdot (R_2 / R_1)\\)", "\\(V_{in} \\cdot (R_1 / (R_1 + R_2))\\)", "\\(V_{in} \\cdot (R_2 / (R_1 + R_2))\\)", "\\(V_{in} \\cdot (R_1 + R_2)\\)"], correctIndex: 2, explain: "The voltage divider formula states that the voltage across a resistor in a series chain is proportional to its resistance relative to the total resistance: \\(V_2 = V_{in} \\frac{R_2}{R_1 + R_2}\\)." },
+  // Semiconductors & Diodes from Slides 16-31
+  { text: "To create an N-type semiconductor from pure silicon, one should add impurity atoms with:", choices: ["3 valence electrons (e.g., Boron)", "4 valence electrons (e.g., Carbon)", "5 valence electrons (e.g., Phosphorus)", "8 valence electrons (e.g., Neon)"], correctIndex: 2, explain: "Doping silicon (4 valence electrons) with a pentavalent element like Phosphorus (5 valence electrons) introduces extra 'free' electrons, making it an N-type semiconductor." },
+  { text: "Doping pure silicon with Boron (a trivalent element) creates:", choices: ["An N-type semiconductor", "A P-type semiconductor", "An intrinsic semiconductor", "An insulator"], correctIndex: 1, explain: "Doping silicon with a trivalent element like Boron (3 valence electrons) creates an electron deficit, or a 'hole', which acts as a positive charge carrier. This results in a P-type semiconductor." },
+  { text: "At the junction of P-type and N-type semiconductors, a 'depletion region' forms which is depleted of:", choices: ["Impurity atoms", "Silicon atoms", "Fixed ions", "Mobile charge carriers (electrons and holes)"], correctIndex: 3, explain: "The depletion region forms as electrons from the N-side diffuse to the P-side and combine with holes, leaving behind a region near the junction that is free of mobile charge carriers." },
+  { text: "Applying a voltage that reduces the depletion region and allows significant current to flow through a PN junction is called:", choices: ["Reverse bias", "Forward bias", "Breakdown condition", "Zener mode"], correctIndex: 1, explain: "Forward bias (positive voltage to P-side, negative to N-side) opposes the built-in potential, narrows the depletion region, and allows current to flow easily." },
+  { text: "Applying a voltage that widens the depletion region and allows only a very small leakage current to flow is called:", choices: ["Forward bias", "Saturation", "Reverse bias", "Avalanche"], correctIndex: 2, explain: "Reverse bias (negative voltage to P-side, positive to N-side) reinforces the built-in potential, widens the depletion region, and blocks the flow of significant current." },
+  { text: "In a standard diode symbol, the arrow points from the:", choices: ["Cathode to the Anode", "Anode to the Cathode", "N-side to the P-side", "Point of highest resistance to lowest"], correctIndex: 1, explain: "The arrow in the diode symbol points in the direction of conventional current flow, from the Anode (P-side) to the Cathode (N-side)." },
+  { text: "The 'ideal diode' model approximates the diode as a(n):", choices: ["Open circuit always", "Perfect closed switch when forward biased, perfect open switch when reverse biased", "Constant voltage source", "Resistor"], correctIndex: 1, explain: "The ideal diode model is the simplest approximation, treating the diode as a perfect switch with zero voltage drop or resistance when on, and infinite resistance when off." },
+  { text: "The constant voltage drop model for a forward-biased silicon diode approximates it as a:", choices: ["Closed switch with a 0V drop", "0.7V voltage source in series with a closed switch", "Small resistor", "Current source"], correctIndex: 1, explain: "A more practical approximation models a forward-biased silicon diode as having a constant voltage drop of approximately 0.7V, regardless of the current." },
+  { text: "The intersection of the diode's characteristic curve and the circuit's load line determines the:", choices: ["Breakdown voltage", "Thevenin resistance", "Operating Point (Q-point)", "Maximum power rating"], correctIndex: 2, explain: "The operating point (or quiescent point, Q-point) represents the actual DC voltage across the diode and current through it when it is placed in a specific circuit." },
+  { text: "What is the primary application of a Zener diode?", choices: ["Amplification", "Rectification", "Voltage regulation", "Oscillation"], correctIndex: 2, explain: "A Zener diode is designed to operate in the reverse breakdown region, where it maintains a nearly constant voltage across its terminals, making it ideal for voltage regulation." },
+  { text: "For a Zener diode to function correctly as a voltage regulator, it must be:", choices: ["Forward biased", "Reverse biased into its breakdown region", "Connected in series with the load", "Operated with zero current"], correctIndex: 1, explain: "The voltage regulation effect occurs when the Zener diode is reverse biased with a voltage greater than or equal to its Zener voltage (\\(V_Z\\)), causing it to operate in the stable breakdown region." },
+  { text: "The process of converting an AC voltage to a pulsating DC voltage is called:", choices: ["Amplification", "Filtering", "Modulation", "Rectification"], correctIndex: 3, explain: "Rectification is the process of using diodes to block or invert one half of the AC waveform, resulting in a DC output that still contains ripples." },
+  { text: "A full-wave bridge rectifier uses four diodes to:", choices: ["Convert only the positive half of the AC cycle", "Create an output frequency that is half the input frequency", "Utilize both positive and negative halves of the AC cycle for the output", "Amplify the input AC signal"], correctIndex: 2, explain: "A bridge rectifier cleverly routes the current from both the positive and negative half-cycles of the AC input to flow in the same direction through the load, making it more efficient than a half-wave rectifier." },
+  // BJT Transistors from Slides 32-40
+  { text: "A Bipolar Junction Transistor (BJT) is a three-terminal device. The three terminals are:", choices: ["Gate, Drain, Source", "Anode, Cathode, Gate", "Emitter, Base, Collector", "Input, Output, Ground"], correctIndex: 2, explain: "The three terminals of a BJT are the Emitter (E), Base (B), and Collector (C)." },
+  { text: "For a BJT to operate in the 'active region' for amplification, how must its junctions be biased?", choices: ["Both junctions forward biased", "Both junctions reverse biased", "Emitter-Base forward biased, Collector-Base reverse biased", "Emitter-Base reverse biased, Collector-Base forward biased"], correctIndex: 2, explain: "In the active region, the Emitter-Base (BE) junction is forward biased to allow current injection, and the Collector-Base (BC) junction is reverse biased to collect that current." },
+  { text: "When a BJT is in the 'saturation region', it acts most like a(n):", choices: ["Open switch", "Closed switch", "Current source", "Amplifier"], correctIndex: 1, explain: "In saturation, both the BE and BC junctions are forward biased, the voltage between collector and emitter (\\(V_{CE}\\)) is very small, and the transistor acts like a closed switch." },
+  { text: "When a BJT is in the 'cutoff region', it acts most like a(n):", choices: ["Closed switch", "Amplifier", "Open switch", "Voltage source"], correctIndex: 2, explain: "In cutoff, both junctions are reverse biased, virtually no collector current flows, and the transistor acts like an open switch." },
+  { text: "The relationship between collector current (\\(I_C\\)) and base current (\\(I_B\\)) in the active region is given by:", choices: ["\\(I_C = I_B\\)", "\\(I_C = \\alpha I_E\\)", "\\(I_B = \\beta I_C\\)", "\\(I_C = \\beta I_B\\)"], correctIndex: 3, explain: "The DC current gain, \\(\\beta\\) (or h_FE), defines the relationship in the active region, where a small base current controls a much larger collector current: \\(I_C = \\beta I_B\\)." },
+  { text: "The output characteristic curves of a BJT plot:", choices: ["\\(I_B\\) versus \\(V_{BE}\\)", "\\(I_C\\) versus \\(V_{CE}\\) for different values of \\(I_B\\)", "\\(I_C\\) versus \\(I_B\\)", "\\(V_{CE}\\) versus \\(V_{BE}\\)"], correctIndex: 1, explain: "The output characteristics show how the collector current \\(I_C\\) changes with the collector-emitter voltage \\(V_{CE}\\), with each curve corresponding to a specific, constant base current \\(I_B\\)." },
+  { text: "What does the DC load line on a BJT's output characteristics represent?", choices: ["The behavior of the BJT itself", "All possible operating points (Q-points) for the transistor in a given circuit", "The input signal's path", "The power dissipation limit"], correctIndex: 1, explain: "The load line is a graphical representation of the external circuit's constraints (from KVL on the output loop) and shows all possible combinations of \\(I_C\\) and \\(V_{CE}\\) that the circuit allows." },
+  { text: "The intersection of the DC load line and the specific characteristic curve for the active base current gives the:", choices: ["Saturation point", "Cutoff point", "Quiescent Operating Point (Q-point)", "Breakdown voltage"], correctIndex: 2, explain: "The Q-point is the specific DC operating point (the values of \\(I_C\\) and \\(V_{CE}\\)) of the transistor when there is no input signal, found at the intersection of the load line and the relevant \\(I_B\\) curve." },
+  { text: "The saturation point on the DC load line corresponds to \\(V_{CE}\\) being approximately:", choices: ["Equal to the supply voltage \\(V_{CC}\\)", "Zero", "0.7V", "Half of \\(V_{CC}\\)"], correctIndex: 1, explain: "The saturation point is where the load line intersects the y-axis (or very close to it), representing maximum collector current and a minimal \\(V_{CE}\\) (ideally 0V, practically ~0.2V)." },
+  { text: "The cutoff point on the DC load line corresponds to \\(I_C\\) being approximately:", choices: ["Maximum (saturation current)", "Half of the maximum", "Equal to the base current", "Zero"], correctIndex: 3, explain: "The cutoff point is where the load line intersects the x-axis, representing zero collector current. At this point, \\(V_{CE}\\) is equal to the supply voltage \\(V_{CC}\\)." },
+  // Amplifiers from Slides 41-47
+  { text: "In a BJT amplifier circuit, what is the purpose of biasing?", choices: ["To turn the transistor off completely", "To establish a stable DC operating point (Q-point) in the active region", "To saturate the transistor for switching", "To block the AC signal"], correctIndex: 1, explain: "Biasing sets up the DC voltages and currents so that the transistor is in the active region, ready to amplify an AC signal without distortion (clipping)." },
+  { text: "What is the primary function of coupling capacitors in an amplifier circuit?", choices: ["To filter out noise", "To set the DC bias point", "To block the DC component of signals while allowing the AC component to pass", "To store energy for the circuit"], correctIndex: 2, explain: "Coupling capacitors are used at the input and output to isolate the DC biasing of one stage from another (or from the source/load), ensuring that only the AC signal is passed through." },
+  { text: "An emitter bypass capacitor is used in parallel with the emitter resistor primarily to:", choices: ["Increase the DC voltage gain", "Increase the AC voltage gain", "Stabilize the Q-point", "Decrease the input impedance"], correctIndex: 1, explain: "A bypass capacitor acts as a short circuit for AC signals, effectively removing the emitter resistor from the AC gain calculation. This significantly increases the amplifier's AC voltage gain." },
+  { text: "Which BJT biasing configuration is known for providing the most stable Q-point against variations in \\(\\beta\\)?", choices: ["Fixed Base Bias", "Collector Feedback Bias", "Voltage Divider Bias", "Emitter Bias"], correctIndex: 2, explain: "Voltage divider bias is highly stable because the base voltage is primarily determined by the two resistors in the divider, making it largely independent of the transistor's current gain (\\(\\beta\\))." },
+  { text: "The first step in analyzing a BJT amplifier circuit is always:", choices: ["AC analysis to find the gain", "Calculating the output power", "DC analysis to find the Q-point", "Measuring the input impedance"], correctIndex: 2, explain: "DC analysis must be performed first to determine the Q-point (\\(I_C\\), \\(V_{CE}\\)), as the parameters for the AC analysis (like \\(r'_e\\)) depend on these DC values." },
+  { text: "During the DC analysis of a BJT amplifier, how are all capacitors treated?", choices: ["As short circuits", "As open circuits", "As small resistors", "They are ignored"], correctIndex: 1, explain: "In DC analysis, a capacitor has infinite impedance (\\(X_C = 1/(2\\pi fC)\\) and \\(f=0\\) for DC), so it is treated as an open circuit." },
+  { text: "During the AC analysis of a BJT amplifier, how are coupling and bypass capacitors ideally treated?", choices: ["As open circuits", "As large resistors", "As short circuits", "As DC voltage sources"], correctIndex: 2, explain: "For AC analysis, capacitors are chosen to have very low impedance at the signal frequencies of interest, so they are approximated as short circuits." },
+  { text: "In AC analysis, how are DC voltage sources like \\(V_{CC}\\) treated?", choices: ["As open circuits", "As the main signal source", "As an AC ground", "They are kept as is"], correctIndex: 2, explain: "A DC voltage source has zero internal resistance to AC signals. Therefore, in an AC equivalent circuit, it is replaced by a short circuit to ground (an AC ground)." },
+  { text: "The small-signal emitter resistance \\(r'_e\\) is a key parameter in AC analysis. How is it calculated?", choices: ["\\(r'_e \\approx 25mV / I_B\\)", "\\(r'_e \\approx 25mV / I_C\\)", "\\(r'_e = V_{CE} / I_C\\)", "\\(r'_e = \\beta R_E\\)"], correctIndex: 1, explain: "The value of \\(r'_e\\) depends on the DC operating point and is calculated using the formula \\(r'_e \\approx 25mV / I_E\\) at room temperature. Since \\(I_C \\approx I_E\\), it is often calculated as \\(25mV / I_C\\)." }
+];
+
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); // y
+  ctx.moveTo(0, h); ctx.lineTo(w, h); // x
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText(xlabel, w-20, h-6);
+  ctx.fillText(ylabel, 6, 12);
+  ctx.restore();
+}
+
+function plotIV(R){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'I');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Vmax = 10;
+  for(let i=0;i<=100;i++){
+    const V = Vmax*i/100;
+    const I = V/R;
+    const px = (V/Vmax)*w;
+    const Imax = Vmax/R;
+    const py = h - (I/Imax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`R = ${R} Ω`, 10, 16);
+  ctx.restore();
+}
+
+function plotRC(V, R, C){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 't', 'Vc');
+  ctx.save();
+  ctx.translate(pad, pad);
+  const tau = R*C;
+  const tmax = 5*tau;
+  ctx.strokeStyle = '#7c5cff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i=0;i<=200;i++){
+    const t = tmax*i/200;
+    const Vc = V*(1 - Math.exp(-t/tau));
+    const px = (t/tmax)*w;
+    const py = h - (Vc/V)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`V = ${V.toFixed(2)} V, R = ${R} Ω, C = ${C} F, τ = ${(tau).toFixed(3)} s`, 10, 16);
+  ctx.strokeStyle = 'rgba(255,255,255,.2)';
+  ctx.setLineDash([4,3]);
+  for(let k=1;k<=5;k++){
+    const x = (k*tau/tmax)*w;
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function plotACDC(Vdc, Vac){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 't', 'v(t)');
+  ctx.save();
+  ctx.translate(pad, pad);
+
+  // DC line
+  ctx.strokeStyle = '#ffd166';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i=0;i<=200;i++){
+    const t = i/200;
+    const v = Vdc;
+    const px = t*w;
+    const py = h - 0.5*h; // center the DC line visually
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  // AC sine
+  ctx.strokeStyle = '#ff6e6e';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i=0;i<=400;i++){
+    const t = i/200; // 0..2
+    const v = Vac*Math.sin(2*Math.PI*t);
+    const px = (t/2)*w;
+    const py = h - ((v + Vac)/(2*Vac))*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`DC (gold): keeps constant sign,  AC (red): alternates polarity`, 10, 16);
+  ctx.restore();
+}
+
+function plotCapEnergy(C, Vmax){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'W');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Wmax = 0.5*C*Vmax*Vmax;
+  for(let i=0;i<=200;i++){
+    const V = Vmax*i/200;
+    const W = 0.5*C*V*V;
+    const px = (V/Vmax)*w;
+    const py = h - (W/Wmax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`W = 1/2 C V^2,  C=${C} F`, 10, 16);
+  ctx.restore();
+}
+
+function plotIndEnergy(L, Imax){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'I', 'E');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#7c5cff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Emax = 0.5*L*Imax*Imax;
+  for(let i=0;i<=200;i++){
+    const I = Imax*i/200;
+    const E = 0.5*L*I*I;
+    const px = (I/Imax)*w;
+    const py = h - (E/Emax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`E = 1/2 L I^2,  L=${L} H`, 10, 16);
+  ctx.restore();
+}
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'iv'){ plotIV(params.R ?? 100); }
+  else if(type === 'rc'){ plotRC(params.V ?? 5, params.R ?? 1000, params.C ?? 1e-6); }
+  else if(type === 'acdc'){ plotACDC(params.Vdc ?? 2, params.Vac ?? 2); }
+  else if(type === 'cv_energy'){ plotCapEnergy(params.C ?? 1e-6, params.Vmax ?? 10); }
+  else if(type === 'li_energy'){ plotIndEnergy(params.L ?? 0.1, params.Imax ?? 2.0); }
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

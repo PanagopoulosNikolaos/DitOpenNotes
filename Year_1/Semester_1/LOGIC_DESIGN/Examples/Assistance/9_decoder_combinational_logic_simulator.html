@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Βήμα-Βήμα: mi,x,y,z → A,B,C (Απλοποιημένο)</title>
+  <style>
+    :root{
+      --bg:#0c0f14;--panel:#121722;--text:#e8eefc;--muted:#9bb0d0;--accent:#4cc9f0;
+      --hot:#7cff6b;--warn:#ffb84d;--bit-on:#00e676;--bit-off:#2b3446;--wire:#5c6b86;--wire-active:#43d966;--gate:#263246;--decoder:#1f2a3b;
+      --hl:#ffd54a;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 800px at 30% 0%, #152033 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height:1.4; padding:18px;
+    }
+    .container{max-width:1280px;margin:0 auto}
+    .header-flex{display:flex; justify-content:space-between; align-items:center; gap: 16px; flex-wrap: wrap;}
+    h1{margin:0 0 12px; font-size:22px; color:var(--accent)}
+    .panel{
+      background: linear-gradient(180deg,#111827 0%, var(--panel) 100%);
+      border:1px solid #1f2937; border-radius:14px; padding:16px; margin:14px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .grid-3{display:grid; grid-template-columns: repeat(3,1fr); gap:16px}
+    @media (max-width: 768px) { .grid-3{grid-template-columns: 1fr;} }
+    .note{color:#cfe3ff; font-size:13px}
+    table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:10px; background:#0f1624}
+    th,td{border:1px solid #1e2a3c; padding:10px 12px; text-align:center; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
+    th{background:#1a2332; color:var(--accent)}
+    .row-hl{background: rgba(255,213,74,.15)}
+    .cell-hl{background: rgba(124,255,107,.15)}
+    .bit1{color:var(--hot); font-weight:700}
+    .bit0{color:var(--muted)}
+    .btn{padding:8px 12px; border:none; border-radius:8px; background:#2a3447; color:var(--text); cursor:pointer; font-size: 14px;}
+    .btn:hover{background:#3a4557}
+    .btn.active{background:var(--accent); color:#000}
+    .btn.play{background:var(--hot); color:#000}
+    .btn.pause{background:var(--warn); color:#000}
+    #toggle-view-btn {background: #3a4557;}
+    .status{background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:10px; font-family: ui-monospace, monospace; font-size: 13px;}
+    .explain{background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:12px; font-family: ui-monospace, monospace; min-height:42px}
+    .kpi{display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px;}
+    .tag{padding:4px 8px; border-radius:999px; background:#0f1624; border:1px solid #1e2a3c; font-size:12px}
+    svg{width:100%; height:auto; aspect-ratio: 1000 / 580; background: linear-gradient(180deg, rgba(17,24,39,.2) 0%, rgba(17,24,39,.05) 100%); border-radius:12px; border:1px solid #1e293b}
+    .decoder{fill:var(--decoder); stroke:#2a3a52; stroke-width:1.5}
+    .label{fill:#bcd5ff; font-size:12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
+    .label.big{font-weight:700; font-size:14px}
+    .dnode{fill:#0e1523; stroke:#22324a; stroke-width:1.5}
+    .dnode.active{fill:#0a2513; stroke:#2b7a3a; filter: drop-shadow(0 0 10px rgba(67,217,102,.6))}
+    .wire{stroke:var(--wire); stroke-width:2.2; fill:none}
+    .wire.active{stroke:var(--wire-active); stroke-width:3.4; filter: drop-shadow(0 0 6px rgba(67,217,102,.4))}
+    .orgate{fill:var(--gate); stroke:#2a3a52; stroke-width:1.5}
+    .outbox{fill:#0f1624; stroke:#20324d; stroke-width:1.4; rx:8; ry:8}
+    .outbox.on{stroke:#2d7f4a; fill:rgba(67,217,102,.12)}
+    .eq{font-family: ui-monospace, monospace; background:#0f1725; border:1px solid #1e293b; border-radius:8px; padding:10px; color:#b9cff2}
+    #explanation-page .panel { padding: 24px; } #explanation-page h2 { color: var(--accent); margin-top: 20px; border-bottom: 1px solid #2a3a52; padding-bottom: 8px; }
+    #explanation-page h3 { color: var(--hot); margin-top: 24px; } #explanation-page p { margin: 8px 0; }
+    #explanation-page code { background: #0f1624; padding: 3px 6px; border-radius: 4px; border: 1px solid #1e2a3c; }
+    #explanation-page hr { border: none; height: 1px; background-color: #2a3a52; margin-top: 32px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-flex">
+      <h1>Από mi,x,y,z σε A,B,C (Απλοποιημένο)</h1>
+      <button id="toggle-view-btn" class="btn">Αναλυτική Εξήγηση</button>
+    </div>
+
+    <!-- Page 1: Interactive Simulation -->
+    <div id="simulation-page">
+      <div class="panel controls">
+        <div class="grid-3">
+          <div>
+            <div style="margin-bottom:6px;color:#b9cff2">Ταχύτητα</div>
+            <button class="btn speed active" data-ms="800">Κανονική</button>
+            <button class="btn speed" data-ms="1500">Αργή</button>
+            <button class="btn speed" data-ms="400">Γρήγορη</button>
+          </div>
+          <div>
+            <div style="margin-bottom:6px;color:#b9cff2">Έλεγχος</div>
+            <button id="play" class="btn play">▶ Έναρξη</button>
+            <button id="pause" class="btn">⏸ Παύση</button>
+            <button id="step" class="btn">➤ Βήμα</button>
+            <button id="reset" class="btn">🔄 Επαναφορά</button>
+          </div>
+          <div class="status">
+            Σειρά: mi=<span id="mi"></span> | xyz=<span id="xyz"></span><br>
+            Στάδιο: <span id="stageName"></span>
+          </div>
+        </div>
+        <div class="explain" id="explain">Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.</div>
+      </div>
+
+      <div class="panel"> <table id="tt"> <thead> <tr> <th>mi</th><th>x</th><th>y</th><th>z</th> <th>v</th><th>Κανόνας</th><th>f(v)</th><th>f(v)₂</th> <th>A</th><th>B</th><th>C</th> </tr> </thead> <tbody></tbody> </table> </div>
+      <div class="panel"> <div class="eq"> A = Σm(3,6,7), B = Σm(1,2,4,5), C = Σm(0,2,5,7) </div> <div class="kpi"> <span class="tag">A ⇐ D3,D6,D7</span> <span class="tag">B ⇐ D1,D2,D4,D5</span> <span class="tag">C ⇐ D0,D2,D5,D7</span> </div> </div>
+      <div class="panel"> <svg viewBox="0 0 1000 580"> <rect x="150" y="100" width="210" height="380" rx="12" class="decoder"/> <text x="255" y="125" class="label big" text-anchor="middle">3→8 DECODER</text> <text x="55" y="170" class="label">x</text> <text x="55" y="210" class="label">y</text> <text x="55" y="250" class="label">z</text> <line id="wx" x1="80" y1="165" x2="150" y2="165" class="wire"/> <line id="wy" x1="80" y1="205" x2="150" y2="205" class="wire"/> <line id="wz" x1="80" y1="245" x2="150" y2="245" class="wire"/> <g id="Douts"></g> <path d="M650,220 C670,220 680,230 690,240 C680,250 670,260 650,260 C655,250 655,230 650,220 Z" class="orgate"/> <text x="700" y="245" class="label big">OR→B</text> <path d="M650,320 C670,320 680,330 690,340 C680,350 670,360 650,360 C655,350 655,330 650,320 Z" class="orgate"/> <text x="700" y="345" class="label big">OR→A</text> <path d="M650,420 C670,420 680,430 690,440 C680,450 670,460 650,460 C655,450 655,430 650,420 Z" class="orgate"/> <text x="700" y="445" class="label big">OR→C</text> <rect id="boxB" x="800" y="220" width="80" height="40" class="outbox"/> <text x="840" y="244" class="label big" text-anchor="middle">B</text> <line id="woutB" x1="690" y1="240" x2="800" y2="240" class="wire"/> <rect id="boxA" x="800" y="320" width="80" height="40" class="outbox"/> <text x="840" y="344" class="label big" text-anchor="middle">A</text> <line id="woutA" x1="690" y1="340" x2="800" y2="340" class="wire"/> <rect id="boxC" x="800" y="420" width="80" height="40" class="outbox"/> <text x="840" y="444" class="label big" text-anchor="middle">C</text> <line id="woutC" x1="690" y1="440" x2="800" y2="440" class="wire"/> <g id="wires"></g> </svg> </div>
+    </div>
+
+    <div id="explanation-page" style="display: none;"> <div class="panel"> <h2>Αναλυτικός Υπολογισμός (Απλοποιημένος)</h2> <p>Αυτή η σελίδα περιγράφει τους υπολογισμούς για κάθε γραμμή του πίνακα αληθείας με απλό τρόπο.</p> <div id="explanation-content"></div> </div> </div>
+  </div>
+
+<script>
+    // --- DATA & CONFIG ---
+    const rowsData = [
+      {mi:0, x:0,y:0,z:0}, {mi:1, x:0,y:0,z:1}, {mi:2, x:0,y:1,z:0}, {mi:3, x:0,y:1,z:1},
+      {mi:4, x:1,y:0,z:0}, {mi:5, x:1,y:0,z:1}, {mi:6, x:1,y:1,z:0}, {mi:7, x:1,y:1,z:1}
+    ];
+    const minterms = { A: [3,6,7], B: [1,2,4,5], C: [0,2,5,7] };
+    const stages = ["Επιλογή Κανόνα", "Υπολογισμός Εξόδου", "Ανάθεση A, B, C"];
+
+    // --- DOM ELEMENTS ---
+    const ttBody = document.querySelector('#tt tbody'), miEl = document.getElementById('mi'), xyzEl = document.getElementById('xyz');
+    const stageEl = document.getElementById('stageName'), explainEl = document.getElementById('explain'), btnPlay = document.getElementById('play');
+    const btnPause = document.getElementById('pause'), btnStep = document.getElementById('step'), btnReset = document.getElementById('reset');
+    const speedBtns = document.querySelectorAll('.speed'), toggleBtn = document.getElementById('toggle-view-btn');
+    const simPage = document.getElementById('simulation-page'), expPage = document.getElementById('explanation-page');
+    const explanationContent = document.getElementById('explanation-content'), Dgroup = document.getElementById('Douts'), wiresGroup = document.getElementById('wires');
+    const wx = document.getElementById('wx'), wy = document.getElementById('wy'), wz = document.getElementById('wz');
+    const woutA = document.getElementById('woutA'), woutB = document.getElementById('woutB'), woutC = document.getElementById('woutC');
+    const boxA = document.getElementById('boxA'), boxB = document.getElementById('boxB'), boxC = document.getElementById('boxC');
+
+    // --- STATE ---
+    let curRow = 0, stage = 0, timer = null, delay = 800, playing = false;
+
+    // --- HELPERS ---
+    const pad3 = n => n.toString(2).padStart(3, '0');
+    const getCells = mi => {
+      const tr = ttBody.querySelector(`tr[data-mi="${mi}"]`);
+      if (!tr) return null;
+      const tds = tr.querySelectorAll('td');
+      return { tr, v: tds[4], rule: tds[5], f: tds[6], fbin: tds[7], A: tds[8], B: tds[9], C: tds[10] };
+    };
+
+    // --- INITIALIZATION ---
+    function buildTable() {
+      ttBody.innerHTML = '';
+      rowsData.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.dataset.mi = r.mi;
+        tr.innerHTML = `<td>${r.mi}</td><td class="${r.x ? 'bit1' : 'bit0'}">${r.x}</td><td class="${r.y ? 'bit1' : 'bit0'}">${r.y}</td><td class="${r.z ? 'bit1' : 'bit0'}">${r.z}</td>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>`;
+        ttBody.appendChild(tr);
+      });
+    }
+
+    function buildCircuit() {
+      Dgroup.innerHTML = ''; wiresGroup.innerHTML = ''; // Clear previous
+      for (let i = 0; i < 8; i++) {
+        const cy = 140 + i * 40;
+        Dgroup.innerHTML += `<circle cx="360" cy="${cy}" r="6" id="D${i}" class="dnode"></circle>
+                             <text x="375" y="${cy + 4}" class="label">D${i}</text>`;
+      }
+      minterms.A.forEach(m => wiresGroup.innerHTML += `<path d="M360,${140 + m * 40} L520,${140 + m * 40} L520,340 L650,340" class="wire" id="w-A-${m}"></path>`);
+      minterms.B.forEach(m => wiresGroup.innerHTML += `<path d="M360,${140 + m * 40} L500,${140 + m * 40} L500,240 L650,240" class="wire" id="w-B-${m}"></path>`);
+      minterms.C.forEach(m => wiresGroup.innerHTML += `<path d="M360,${140 + m * 40} L480,${140 + m * 40} L480,440 L650,440" class="wire" id="w-C-${m}"></path>`);
+    }
+
+    function generateTextExplanation() {
+      let html = '';
+      rowsData.forEach(row => {
+        const v = (row.x << 2) | (row.y << 1) | row.z;
+        const usePlus1 = v <= 3;
+        const ruleText = usePlus1 ? '+1' : '−2';
+        const f = usePlus1 ? v + 1 : v - 2;
+        const fbin = pad3(f);
+        const [A, B, C] = fbin.split('');
+        html += `<hr>
+                <h2>Γραμμή mi = ${row.mi} (xyz = ${row.x}${row.y}${row.z})</h2>
+                <h3>1. Προσδιορισμός Κανόνα</h3>
+                <p>Η δυαδική είσοδος <code>${row.x}${row.y}${row.z}</code> αντιστοιχεί στη δεκαδική τιμή <b>${v}</b>.</p>
+                <p>Επειδή ${v} ${usePlus1 ? 'είναι στην περιοχή [0-3]' : 'είναι στην περιοχή [4-7]'}, εφαρμόζεται ο κανόνας: <b>${ruleText}</b>.</p>
+                <h3>2. Υπολογισμός Εξόδου</h3>
+                <p>Εκτελούμε την πράξη: <code>${v} ${ruleText} = ${f}</code>.</p>
+                <p>Το αποτέλεσμα ${f} σε τριψήφιο δυαδικό είναι <code>${fbin}</code>.</p>
+                <h3>3. Ανάθεση A, B, C</h3>
+                <p>Από το δυαδικό αποτέλεσμα <code>${A}${B}${C}</code>, οι έξοδοι είναι:</p>
+                <p><b>A = ${A}</b>, <b>B = ${B}</b>, <b>C = ${C}</b></p>`;
+      });
+      explanationContent.innerHTML = html;
+    }
+
+    // --- SIMULATION LOGIC ---
+    function clearHighlights() {
+      document.querySelectorAll('#tt tr, #tt td').forEach(el => el.classList.remove('row-hl', 'cell-hl'));
+      document.querySelectorAll('.dnode, .wire, .outbox').forEach(el => el.classList.remove('active', 'on'));
+    }
+
+    function updateRowStage() {
+      if (curRow >= rowsData.length) { pause(); return; }
+      const r = rowsData[curRow];
+      const cells = getCells(r.mi);
+      const v = (r.x << 2) | (r.y << 1) | r.z;
+      const rule = (v <= 3) ? '+1' : '−2';
+      const f = (v <= 3) ? v + 1 : v - 2;
+      const fbin = pad3(f);
+      const [A, B, C] = fbin.split('').map(Number);
+
+      miEl.textContent = r.mi;
+      xyzEl.textContent = `${r.x}${r.y}${r.z}`;
+      stageEl.textContent = stages[stage];
+
+      clearHighlights();
+      cells.tr.classList.add('row-hl');
+      wx.classList.toggle('active', r.x === 1); wy.classList.toggle('active', r.y === 1); wz.classList.toggle('active', r.z === 1);
+      document.getElementById(`D${v}`).classList.add('active');
+
+      const highlightCell = (cell, value) => { cell.textContent = value; cell.classList.add('cell-hl'); };
+
+      if (stage === 0) {
+        explainEl.textContent = `xyz=${r.x}${r.y}${r.z} → v=${v}. Επειδή ${v}≤3, ο κανόνας είναι +1.`;
+        if (v > 3) explainEl.textContent = `xyz=${r.x}${r.y}${r.z} → v=${v}. Επειδή ${v}>3, ο κανόνας είναι -2.`;
+        highlightCell(cells.v, v);
+        highlightCell(cells.rule, rule);
+      } else if (stage === 1) {
+        explainEl.textContent = `Πράξη: ${v} ${rule} = ${f}. Δυαδική μορφή: ${fbin}.`;
+        highlightCell(cells.f, f);
+        highlightCell(cells.fbin, fbin);
+      } else if (stage === 2) {
+        explainEl.textContent = `Από ${fbin} → A=${A}, B=${B}, C=${C}.`;
+        [cells.A, cells.B, cells.C].forEach(c => c.classList.add('cell-hl'));
+        cells.A.textContent = A; cells.B.textContent = B; cells.C.textContent = C;
+        cells.A.className += A ? ' bit1' : ' bit0';
+        cells.B.className += B ? ' bit1' : ' bit0';
+        cells.C.className += C ? ' bit1' : ' bit0';
+        
+        if (A) { document.getElementById(`w-A-${v}`)?.classList.add('active'); boxA.classList.add('on'); woutA.classList.add('active'); }
+        if (B) { document.getElementById(`w-B-${v}`)?.classList.add('active'); boxB.classList.add('on'); woutB.classList.add('active'); }
+        if (C) { document.getElementById(`w-C-${v}`)?.classList.add('active'); boxC.classList.add('on'); woutC.classList.add('active'); }
+      }
+    }
+
+    function next() {
+      if (stage < 2) { stage++; }
+      else { stage = 0; curRow = (curRow + 1) % rowsData.length; }
+      updateRowStage();
+    }
+
+    // --- CONTROLS ---
+    function start() {
+      if (playing) return;
+      playing = true;
+      btnPlay.classList.replace('play', 'pause'); btnPlay.textContent = '⏸ Εκτέλεση';
+      updateRowStage();
+      timer = setInterval(next, delay);
+    }
+    function pause() {
+      playing = false;
+      btnPlay.classList.replace('pause', 'play'); btnPlay.textContent = '▶ Έναρξη';
+      clearInterval(timer); timer = null;
+    }
+    function reset() {
+      pause();
+      curRow = 0; stage = 0;
+      buildTable();
+      clearHighlights();
+      updateRowStage();
+      explainEl.textContent = `Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.`;
+      stageEl.textContent = "Αναμονή"; miEl.textContent = "-"; xyzEl.textContent = "---";
+    }
+
+    // --- EVENT LISTENERS ---
+    speedBtns.forEach(b => b.addEventListener('click', () => {
+      speedBtns.forEach(bb => bb.classList.remove('active'));
+      b.classList.add('active');
+      delay = parseInt(b.dataset.ms, 10);
+      if (playing) { pause(); start(); }
+    }));
+    btnPlay.addEventListener('click', () => playing ? pause() : start());
+    btnPause.addEventListener('click', pause);
+    btnStep.addEventListener('click', () => { pause(); next(); });
+    btnReset.addEventListener('click', reset);
+    toggleBtn.addEventListener('click', () => {
+      const isSimVisible = simPage.style.display !== 'none';
+      simPage.style.display = isSimVisible ? 'none' : 'block';
+      expPage.style.display = isSimVisible ? 'block' : 'none';
+      toggleBtn.textContent = isSimVisible ? 'Επιστροφή στην Προσομοίωση' : 'Αναλυτική Εξήγηση';
+      if (!isSimVisible) reset();
+    });
+
+    // --- SCRIPT KICK-OFF ---
+    buildTable();
+    buildCircuit();
+    generateTextExplanation();
+    reset();
+</script>
+</body>
+</html>

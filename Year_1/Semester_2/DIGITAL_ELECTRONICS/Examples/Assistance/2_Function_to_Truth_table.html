@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Advanced Truth Table Generator (1–10 variables)</title>
+<style>
+  :root{
+    --bg1:#0b1021; --bg2:#1a0a2e; --panel:#0f172a; --ink:#e6f1ff; --muted:#94a3b8;
+    --pri1:#22d3ee; --pri2:#a78bfa; --pri3:#f97316; --good:#34d399; --bad:#f87171; --grid:#1f2a44;
+  }
+  body{margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--ink);
+        font-family:Inter,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif;}
+  .wrap{max-width:1200px;margin:0 auto;padding:28px;}
+  h1{margin:0 0 8px;font-size:2.2rem;font-weight:800;
+     background:linear-gradient(135deg,var(--pri3),var(--pri1) 50%,var(--pri2));
+     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{color:var(--muted);margin:0 0 20px;}
+  .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;align-items:start;}
+  .card{background:linear-gradient(145deg,rgba(15,23,42,0.9),rgba(15,23,42,0.6));
+        border:1px solid rgba(167,139,250,0.25);border-radius:14px;padding:16px;backdrop-filter:blur(8px);
+        box-shadow:0 8px 32px rgba(167,139,250,0.15);}
+  label{display:block;margin:8px 0;color:var(--muted);font-weight:600;}
+  textarea{width:100%;min-height:92px;border-radius:10px;border:1px solid #26334e;background:#0b1324;
+           color:var(--ink);padding:10px 12px;font-family:ui-monospace,Consolas,Menlo,monospace;resize:vertical;}
+  input[type="text"]{width:100%;border-radius:10px;border:1px solid #26334e;background:#0b1324;
+           color:var(--ink);padding:10px 12px;font-family:ui-monospace,Consolas,Menlo,monospace;}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px;}
+  .btn{background:linear-gradient(135deg,var(--pri3),#fbbf24);color:#1b0b11;border:none;border-radius:10px;
+       padding:10px 14px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(249,115,22,0.4);}
+  .btn.alt{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:white;box-shadow:0 6px 18px rgba(124,58,237,0.4);}
+  .btn:disabled{opacity:0.5;cursor:not-allowed;}
+  .hint{color:var(--muted);font-size:0.9rem;margin-top:6px;}
+  table{width:100%;border-collapse:collapse;margin-top:10px;border-radius:10px;overflow:hidden;}
+  th,td{padding:10px;text-align:center;border-bottom:1px solid var(--grid);border-left:1px solid var(--grid);}
+  th:first-child, td:first-child{border-left:none;}
+  thead th{position:sticky;top:0;background:linear-gradient(135deg,#0d162b,#121a33);color:#c7d2fe;font-weight:800;}
+  tbody tr:nth-child(odd){background:rgba(34,211,238,0.03);}
+  td.val1{color:#06281c;background:rgba(52,211,153,0.25);font-weight:700;}
+  td.val0{color:#310a0a;background:rgba(248,113,113,0.22);font-weight:700;}
+  .badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(34,211,238,0.35);
+         background:linear-gradient(135deg,rgba(34,211,238,0.1),rgba(167,139,250,0.08));}
+  .caps{font-family:ui-monospace,Consolas,monospace;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .warn{color:#fde68a;}
+  .ok{color:var(--good);}
+  .err{color:#fecaca;}
+  .footer{margin-top:8px;color:var(--muted);font-size:0.9rem;}
+  #results h3 { margin-top: 20px; margin-bottom: 8px; border-bottom: 1px solid var(--grid); padding-bottom: 5px; }
+  .expression-box { background: #0b1324; border: 1px solid #26334e; border-radius: 8px; padding: 12px; font-family: ui-monospace, Consolas, Menlo, monospace; margin-top: 5px; }
+  @media (max-width:1000px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Advanced Truth Table Generator</h1>
+    <p class="sub">Enter a Boolean function, specify intermediate steps, and generate a detailed truth table with simplified minterm and maxterm forms.</p>
+
+    <div class="grid">
+      <div class="card">
+        <label for="expr">Boolean function (infix, supports +, adjacency/·/* for AND, postfix ' or ’ for NOT, parentheses)</label>
+        <textarea id="expr" spellcheck="false">g(a, b, c, d) = (cd + b'c + bd')(b + d)</textarea>
+
+        <label for="intermediates">Intermediate expressions (optional, comma-separated)</label>
+        <input id="intermediates" type="text" placeholder="e.g., cd, b'c, b+d" />
+
+        <div class="grid2">
+          <div>
+            <label for="vars">Variable order (optional, comma-separated)</label>
+            <input id="vars" type="text" placeholder="e.g., a,b,c,d" />
+            <div class="hint">Detected variables are sorted alphabetically if left empty.</div>
+          </div>
+          <div>
+            <label>Options</label>
+            <div class="row">
+              <label><input type="checkbox" id="showSigma" checked /> Show Σ (minterm indices)</label>
+              <label><input type="checkbox" id="showPi" checked /> Show Π (maxterm indices)</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn" id="gen">Generate Truth Table</button>
+          <button class="btn alt" id="csv" disabled>Download CSV</button>
+          <span id="status" class="badge">Ready</span>
+        </div>
+        <div id="note" class="footer"></div>
+      </div>
+
+      <div class="card" id="results">
+        <div id="meta" class="footer"></div>
+        <div id="indices" class="footer"></div>
+        <div id="tableWrap" style="max-height:60vh; overflow:auto;"></div>
+        <div id="mintermInfo"></div>
+        <div id="maxtermInfo"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+// Quine-McCluskey Simplification Algorithm (ES6 version)
+// A lightweight implementation for boolean simplification.
+const QuineMcCluskey = {
+  simplify: (minterms, numVars) => {
+    if (!minterms || minterms.length === 0) return '0';
+    if (minterms.length === (1 << numVars)) return '1';
+
+    const primeImplicants = QuineMcCluskey.getPrimeImplicants(minterms, numVars);
+    const essentialPrimeImplicants = QuineMcCluskey.getEssentialImplicants(primeImplicants, minterms);
+
+    return QuineMcCluskey.formatImplicants(essentialPrimeImplicants, numVars);
+  },
+
+  getPrimeImplicants: (minterms, numVars) => {
+    let groups = Array(numVars + 1).fill(0).map(() => []);
+    minterms.forEach(m => {
+      const ones = m.toString(2).split('1').length - 1;
+      groups[ones].push({ value: m, term: m.toString(2).padStart(numVars, '0'), used: false });
+    });
+
+    let primeImplicants = [];
+    let currentGroups = groups;
+
+    while (true) {
+      let nextGroups = Array(numVars).fill(0).map(() => []);
+      let changed = false;
+      for (let i = 0; i < currentGroups.length - 1; i++) {
+        for (const term1 of currentGroups[i]) {
+          for (const term2 of currentGroups[i + 1]) {
+            let diff = term1.value ^ term2.value;
+            if ((diff & (diff - 1)) === 0) { // is power of 2
+              term1.used = term2.used = true;
+              const newTermStr = term1.term.split('').map((c, j) => (term2.term[j] !== c ? '-' : c)).join('');
+              const newTerm = { value: term1.value, term: newTermStr, used: false };
+              if (!nextGroups[i].some(t => t.term === newTerm.term)) {
+                nextGroups[i].push(newTerm);
+              }
+              changed = true;
+            }
+          }
+        }
+      }
+
+      for (const group of currentGroups) {
+        for (const term of group) {
+          if (!term.used && !primeImplicants.some(p => p.term === term.term)) {
+            primeImplicants.push(term);
+          }
+        }
+      }
+
+      if (!changed) break;
+      currentGroups = nextGroups;
+    }
+    return primeImplicants;
+  },
+
+  getEssentialImplicants: (primeImplicants, minterms) => {
+    const chart = new Map();
+    minterms.forEach(m => chart.set(m, []));
+
+    primeImplicants.forEach((pi, piIndex) => {
+      const base = parseInt(pi.term.replace(/-/g, '0'), 2);
+      const mask = parseInt(pi.term.replace(/[^]/g, c => c === '-' ? '1' : '0'), 2);
+      for (let i = 0; i < (1 << (pi.term.match(/-/g) || []).length); i++) {
+        let current = i;
+        let minterm = base;
+        for (let j = 0; j < pi.term.length; j++) {
+            if (pi.term[j] === '-') {
+                if (current % 2 === 1) minterm |= (1 << (pi.term.length - 1 - j));
+                current >>= 1;
+            }
+        }
+        if (chart.has(minterm)) {
+            chart.get(minterm).push(piIndex);
+        }
+      }
+    });
+
+    let essentialPIs = new Set();
+    let coveredMinterms = new Set();
+
+    chart.forEach((pis, minterm) => {
+      if (pis.length === 1) essentialPIs.add(pis[0]);
+    });
+
+    essentialPIs.forEach(piIndex => {
+        // find minterms covered by this essential PI
+        const pi = primeImplicants[piIndex];
+        const base = parseInt(pi.term.replace(/-/g, '0'), 2);
+        const wildcards = (pi.term.match(/-/g) || []).length;
+        for (let i = 0; i < (1 << wildcards); i++) {
+            let temp = i;
+            let mintermVal = base;
+            for(let j = pi.term.length - 1; j >= 0; j--) {
+                if(pi.term[j] === '-') {
+                    if((temp & 1) === 1) mintermVal |= (1 << (pi.term.length - 1 - j));
+                    temp >>= 1;
+                }
+            }
+            if(minterms.includes(mintermVal)) coveredMinterms.add(mintermVal);
+        }
+    });
+
+    let uncoveredMinterms = minterms.filter(m => !coveredMinterms.has(m));
+    if (uncoveredMinterms.length === 0) {
+      return Array.from(essentialPIs).map(i => primeImplicants[i]);
+    }
+    
+    // Petrick's method or other heuristics would go here for cyclic cores.
+    // For simplicity, we'll use a greedy approach for remaining implicants.
+    let finalPIs = new Set(essentialPIs);
+    while(uncoveredMinterms.length > 0) {
+        let bestPI = -1;
+        let maxCovered = -1;
+
+        primeImplicants.forEach((pi, i) => {
+            if(finalPIs.has(i)) return;
+            let coveredCount = 0;
+            // logic to count how many *uncovered* minterms this PI covers
+            // This is a simplification; a full greedy algorithm is more complex.
+            uncoveredMinterms.forEach(m => {
+                let match = true;
+                const mBin = m.toString(2).padStart(pi.term.length, '0');
+                for(let k=0; k<pi.term.length; k++) {
+                    if(pi.term[k] !== '-' && pi.term[k] !== mBin[k]) {
+                        match = false;
+                        break;
+                    }
+                }
+                if(match) coveredCount++;
+            });
+            
+            if(coveredCount > maxCovered) {
+                maxCovered = coveredCount;
+                bestPI = i;
+            }
+        });
+
+        if(bestPI !== -1) {
+            finalPIs.add(bestPI);
+            const pi = primeImplicants[bestPI];
+            const newCovered = [];
+            uncoveredMinterms.forEach(m => {
+                 let match = true;
+                const mBin = m.toString(2).padStart(pi.term.length, '0');
+                for(let k=0; k<pi.term.length; k++) {
+                    if(pi.term[k] !== '-' && pi.term[k] !== mBin[k]) {
+                        match = false;
+                        break;
+                    }
+                }
+                if(!match) newCovered.push(m);
+            });
+            uncoveredMinterms = newCovered;
+        } else {
+             break; // No more minterms can be covered
+        }
+    }
+
+    return Array.from(finalPIs).map(i => primeImplicants[i]);
+  },
+
+  formatImplicants: (implicants, numVars, isPOS = false) => {
+    const varNames = "abcdefghijklmnopqrstuvwxyz".slice(0, numVars);
+    const terms = implicants.map(imp => {
+      let termStr = '';
+      for (let i = 0; i < imp.term.length; i++) {
+        if (imp.term[i] !== '-') {
+          termStr += varNames[i] + ( (imp.term[i] === '0' && !isPOS) || (imp.term[i] === '1' && isPOS) ? "'" : '');
+        }
+      }
+      return isPOS ? `(${termStr.split('').join(' + ')})` : termStr;
+    });
+    return terms.join(isPOS ? ' ' : ' + ');
+  }
+};
+
+
+(function(){
+  const exprEl = document.getElementById('expr');
+  const varsEl = document.getElementById('vars');
+  const intermediatesEl = document.getElementById('intermediates');
+  const genBtn = document.getElementById('gen');
+  const csvBtn = document.getElementById('csv');
+  const tableWrap = document.getElementById('tableWrap');
+  const statusEl = document.getElementById('status');
+  const metaEl = document.getElementById('meta');
+  const indicesEl = document.getElementById('indices');
+  const noteEl = document.getElementById('note');
+  const mintermInfoEl = document.getElementById('mintermInfo');
+  const maxtermInfoEl = document.getElementById('maxtermInfo');
+  const showSigma = document.getElementById('showSigma');
+  const showPi = document.getElementById('showPi');
+
+  function normalizeInput(str){
+    str = String(str || '');
+    const eqAt = str.indexOf('=');
+    if (eqAt >= 0) str = str.slice(eqAt+1);
+    return str.replace(/\u2019/g, "'")
+              .replace(/[·•]/g, '*')
+              .replace(/\s+/g, '');
+  }
+
+  function tokenize(expr){
+    const tokens = [];
+    const isVar = c => /[A-Za-z]/.test(c);
+    for (let i=0;i<expr.length;i++){
+      const c = expr[i];
+      if (isVar(c)) tokens.push({type:'VAR', val:c});
+      else if (c === '+') tokens.push({type:'OR', val:'+'});
+      else if (c === '*') tokens.push({type:'AND', val:'*'});
+      else if (c === "'") tokens.push({type:'NOT', val:"'"});
+      else if (c === '(') tokens.push({type:'LP', val:'('});
+      else if (c === ')') tokens.push({type:'RP', val:')'});
+      else throw new Error('Unsupported character: ' + c);
+    }
+    const out = [];
+    for (let i=0;i<tokens.length;i++){
+      const t = tokens[i], n = tokens[i+1];
+      out.push(t);
+      if (n && (t.type==='VAR' || t.type==='RP' || t.type==='NOT') && (n.type==='VAR' || n.type==='LP')){
+        out.push({type:'AND', val:'*'});
+      }
+    }
+    return out;
+  }
+  
+  function toRPN(tokens){
+    const prec = { 'NOT':3, 'AND':2, 'OR':1 };
+    const output = [];
+    const ops = [];
+    tokens.forEach(t => {
+      if (t.type === 'VAR') output.push(t);
+      else if (t.type === 'OR' || t.type === 'AND' || t.type === 'NOT'){
+        while (ops.length > 0 && ops[ops.length-1].type !== 'LP' && prec[ops[ops.length-1].type] >= prec[t.type]){
+          output.push(ops.pop());
+        }
+        ops.push(t);
+      } else if (t.type === 'LP') ops.push(t);
+      else if (t.type === 'RP'){
+        while (ops.length > 0 && ops[ops.length-1].type !== 'LP') output.push(ops.pop());
+        if(ops.length === 0) throw new Error('Mismatched parentheses');
+        ops.pop(); // Discard LP
+      }
+    });
+    while(ops.length > 0) {
+      if(ops[ops.length-1].type === 'LP') throw new Error('Mismatched parentheses');
+      output.push(ops.pop());
+    }
+    return output;
+  }
+
+  function evalRPN(rpn, env){
+    const st = [];
+    for (const t of rpn){
+      if (t.type==='VAR'){
+        if (env[t.val] === undefined) throw new Error('Value missing for variable: ' + t.val);
+        st.push(Boolean(env[t.val]));
+      } else if (t.type==='NOT'){
+        st.push(!st.pop());
+      } else if (t.type==='AND'){
+        const b = st.pop(), a = st.pop();
+        st.push(a && b);
+      } else if (t.type==='OR'){
+        const b = st.pop(), a = st.pop();
+        st.push(a || b);
+      }
+    }
+    if (st.length!==1) throw new Error('Malformed expression evaluation');
+    return st[0] ? 1 : 0;
+  }
+  
+  function detectVars(tokens){
+    return Array.from(new Set(tokens.filter(t => t.type==='VAR').map(t => t.val))).sort();
+  }
+
+  function* assignments(vars){
+    const n = vars.length;
+    for (let i=0; i < (1 << n); i++){
+      const env = {};
+      vars.forEach((v, j) => env[v] = (i >> (n-1-j)) & 1);
+      yield { env, index:i };
+    }
+  }
+
+  function buildTable(vars, intermediateExprs, rows){
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const trh = document.createElement('tr');
+    
+    [...vars, ...intermediateExprs.map(e => e.name), 'F', 'index'].forEach(h => {
+      const th = document.createElement('th'); th.textContent = h; trh.appendChild(th);
+    });
+    thead.appendChild(trh);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      vars.forEach(v => {
+        const td = document.createElement('td'); td.textContent = r.env[v]; tr.appendChild(td);
+      });
+      r.intermediateVals.forEach(val => {
+        const td = document.createElement('td'); td.textContent = val; tr.appendChild(td);
+      });
+      const tdF = document.createElement('td');
+      tdF.textContent = r.val;
+      tdF.className = r.val ? 'val1' : 'val0';
+      tr.appendChild(tdF);
+      const tdI = document.createElement('td'); tdI.textContent = r.index; tr.appendChild(tdI);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    return table;
+  }
+
+  function toCSV(vars, intermediateExprs, rows){
+    const headers = [...vars, ...intermediateExprs.map(e => e.name), 'F', 'index'];
+    const body = rows.map(r => 
+        [...vars.map(v => r.env[v]), ...r.intermediateVals, r.val, r.index].join(',')
+    );
+    return [headers.join(','), ...body].join('\n');
+  }
+
+  function generateTermString(vars, env, isMinterm) {
+    if (isMinterm) {
+        return vars.map(v => env[v] ? v : `${v}'`).join('');
+    } else {
+        return `(${vars.map(v => env[v] ? `${v}'` : v).join(' + ')})`;
+    }
+  }
+
+  genBtn.addEventListener('click', ()=>{
+    statusEl.textContent = 'Processing…';
+    [tableWrap, metaEl, indicesEl, noteEl, mintermInfoEl, maxtermInfoEl].forEach(el => el.innerHTML = '');
+    csvBtn.disabled = true;
+
+    try{
+      const mainExprNorm = normalizeInput(exprEl.value);
+      if (!mainExprNorm) throw new Error('Empty expression');
+      
+      const mainTokens = tokenize(mainExprNorm);
+      const mainRpn = toRPN(mainTokens);
+      
+      const intermediateRaw = intermediatesEl.value.split(',').map(s => s.trim()).filter(Boolean);
+      const intermediateExprs = intermediateRaw.map(expr => ({
+        name: expr,
+        rpn: toRPN(tokenize(normalizeInput(expr)))
+      }));
+
+      let varList = varsEl.value.trim() ? varsEl.value.split(',').map(s=>s.trim()) : detectVars(mainTokens);
+      if (varList.length < 1 || varList.length > 10) throw new Error('Requires 1–10 variables');
+
+      const rows = [];
+      const mintermIndices = [], maxtermIndices = [];
+      let ones = 0;
+
+      for (const it of assignments(varList)){
+        const val = evalRPN(mainRpn, it.env);
+        const intermediateVals = intermediateExprs.map(expr => evalRPN(expr.rpn, it.env));
+        rows.push({ ...it, val, intermediateVals });
+        (val ? mintermIndices : maxtermIndices).push(it.index);
+        if(val) ones++;
+      }
+
+      tableWrap.appendChild(buildTable(varList, intermediateExprs, rows));
+      const total = rows.length;
+      metaEl.innerHTML = `<div class="badge">Variables: <span class="caps">${varList.join(', ')}</span></div>
+                          <div class="badge">Rows: ${total}</div>
+                          <div class="badge ok">Ones: ${ones}</div>
+                          <div class="badge warn">Zeros: ${total-ones}</div>`;
+      
+      let idxHTML = '';
+      if (showSigma.checked) idxHTML += `<div class="badge">Σ (minterms): ${mintermIndices.join(', ')}</div> `;
+      if (showPi.checked) idxHTML += `<div class="badge">Π (maxterms): ${maxtermIndices.join(', ')}</div>`;
+      indicesEl.innerHTML = idxHTML;
+
+      // Minterm / Maxterm Info
+      const mintermRows = rows.filter(r => r.val === 1);
+      const detailedSOP = mintermRows.map(r => generateTermString(varList, r.env, true)).join(' + ') || '0';
+      const simplifiedSOP = QuineMcCluskey.simplify(mintermIndices, varList.length);
+      mintermInfoEl.innerHTML = `<h3>Sum of Minterms (SOP)</h3>
+                                 <b>Detailed:</b> <div class="expression-box">${detailedSOP}</div>
+                                 <b>Simplified:</b> <div class="expression-box">${simplifiedSOP}</div>`;
+      
+      const maxtermRows = rows.filter(r => r.val === 0);
+      const detailedPOS = maxtermRows.map(r => generateTermString(varList, r.env, false)).join(' ') || '1';
+      const simplifiedPOS = QuineMcCluskey.simplify(maxtermIndices, varList.length, true); // POS simplification
+      maxtermInfoEl.innerHTML = `<h3>Product of Maxterms (POS)</h3>
+                                 <b>Detailed:</b> <div class="expression-box">${detailedPOS}</div>
+                                 <b>Simplified:</b> <div class="expression-box">${simplifiedPOS}</div>`;
+
+      const csvContent = toCSV(varList, intermediateExprs, rows);
+      const blob = new Blob([csvContent], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      csvBtn.onclick = () => {
+        const a = document.createElement('a');
+        a.href = url; a.download = 'truth_table.csv';
+        document.body.appendChild(a); a.click(); a.remove();
+      };
+      csvBtn.disabled = false;
+      if (total > 512) noteEl.textContent = 'Large table rendering may be slow.';
+      statusEl.textContent = 'Done';
+    } catch (err){
+      statusEl.textContent = 'Error';
+      tableWrap.innerHTML = `<div class="err">${err.message}</div>`;
+    }
+  });
+})();
+</script>
+</body>
+</html>

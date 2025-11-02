@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>K-Map Simplifier with Step-by-Step Derivation</title>
+<style>
+  :root{
+    --bg:#06051a; --panel:#0d0a2a; --ink:#f8fafc; --muted:#a5b4fc;
+    --accent:#22d3ee; --accent2:#f97316; --accent3:#22c55e; --accent4:#e879f9;
+    --border:rgba(99,102,241,.35); --grid:#1f2348; --cell0:#0b0f2d; --cell1:#0f2e3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 10% -10%,#1d0f52 0%,#0b0526 45%,#06051a 65%),#06051a;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;}
+  .wrap{max-width:1250px;margin:0 auto;padding:28px}
+  h1{margin:0 0 10px;font-weight:800;letter-spacing:0.2px;font-size:2.2rem;
+     background:linear-gradient(120deg,#22d3ee 0%,#a78bfa 45%,#f97316 80%);
+     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--muted);margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:18px}
+  .card{background:linear-gradient(160deg,var(--panel) 0%,rgba(167,139,250,0.08) 100%);border:1.5px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(49,46,129,.25)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+  label{color:var(--muted)}
+  select{background:#0b0d2b;color:var(--ink);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+  button{background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(124,58,237,.45);transition:.2s}
+  button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(124,58,237,.6)}
+  .primary{background:linear-gradient(135deg,#f97316 0%,#fbbf24 100%);box-shadow:0 6px 18px rgba(249,115,22,.45)}
+  .ghost{background:linear-gradient(135deg,#0ea5e9 0%,#22d3ee 100%);box-shadow:0 6px 18px rgba(14,165,233,.45)}
+  .danger{background:linear-gradient(135deg,#ef4444 0%,#f43f5e 100%)}
+  .status{margin-left:auto;color:#a7f3d0;font-weight:600}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);margin-top:10px}
+  .chip{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:#0b0d2b}
+  .dot{width:12px;height:12px;border-radius:999px;display:inline-block}
+  .d1{background:linear-gradient(135deg,#22d3ee,#38bdf8)}
+  .d2{background:linear-gradient(135deg,#f97316,#fbbf24)}
+  .d3{background:linear-gradient(135deg,#22c55e,#84cc16)}
+  .d4{background:linear-gradient(135deg,#e879f9,#a78bfa)}
+
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#0b0d2b}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .expr{background:#0b0d2b;border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+
+  /* K-map */
+  .kmap{--rows:4; --cols:4; display:grid; grid-template-columns: 100px repeat(var(--cols), 48px);
+        grid-auto-rows:48px; gap:4px; align-items:center; overflow:auto; padding:10px;
+        background:radial-gradient(600px 300px at -10% -30%, rgba(99,102,241,.25) 0%, rgba(99,102,241,.08) 70%, transparent 80%), #0a0922;
+        border-radius:12px; border:1px dashed var(--border)}
+  .lab{color:#e2e8f0;text-align:center}
+  .axis{color:#93c5fd}
+  .cell{width:48px;height:48px;display:flex;justify-content:center;align-items:center;
+        border-radius:8px;background:var(--cell0);border:1px solid #1b1f4b;cursor:pointer;position:relative;transition:.15s}
+  .cell.one{background:linear-gradient(135deg,#0d2931,#0a3a4a);border-color:#184d5d}
+  .cell .idx{position:absolute;bottom:2px;right:4px;font-size:10px;color:#9ca3af}
+  .cell .bit{font-weight:800;color:#c7f9ff;text-shadow:0 1px 10px rgba(34,211,238,.35)}
+  .cover{position:absolute; inset:0; border-radius:8px; pointer-events:none; border:2px solid transparent; box-shadow: inset 0 0 0 2px transparent}
+  .scan{background:linear-gradient(135deg, rgba(244,114,182,.3), rgba(236,72,153,.1)) !important; animation:scanPulse 1s infinite}
+  @keyframes scanPulse{0%{box-shadow:0 0 0 rgba(244,114,182,.3)}50%{box-shadow:0 0 16px rgba(244,114,182,.6)}100%{box-shadow:0 0 0 rgba(244,114,182,.3)}}
+  .g1{box-shadow: inset 0 0 0 2px #22d3ee}
+  .g2{box-shadow: inset 0 0 0 2px #f97316}
+  .g3{box-shadow: inset 0 0 0 2px #22c55e}
+  .g4{box-shadow: inset 0 0 0 2px #e879f9}
+  .g5{box-shadow: inset 0 0 0 2px #60a5fa}
+  .g6{box-shadow: inset 0 0 0 2px #f59e0b}
+  .g7{box-shadow: inset 0 0 0 2px #10b981}
+  .g8{box-shadow: inset 0 0 0 2px #c084fc}
+
+  /* Derivation panel */
+  .derive{display:flex;flex-direction:column;gap:10px}
+  .step{background:linear-gradient(145deg, rgba(96,165,250,.1), transparent);border:1px solid var(--border);border-radius:12px;padding:12px}
+  .step h3{margin:0 0 8px;font-size:1.05rem}
+  .tbl{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden}
+  .tbl th,.tbl td{border-bottom:1px solid rgba(148,163,184,.15);padding:8px 10px;text-align:left}
+  .ok{color:#34d399;font-weight:700}
+  .no{color:#fda4af;font-weight:700}
+  .lit{font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>K‑Map Simplifier with Step‑by‑Step Term Derivation</h1>
+  <div class="sub">Groups 1‑cells on a Gray‑ordered K‑map, then derives each product term by keeping variables that remain constant across the group and assembling the minimal SOP expression[13][14].</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="controls">
+        <label>Variables
+          <select id="varCount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </label>
+        <label>Examples
+          <select id="example">
+            <option value="custom" selected>Custom (click cells)</option>
+          </select>
+        </label>
+        <button id="fill" class="ghost">Fill example</button>
+        <button id="clear">Clear</button>
+        <button id="group" class="primary">Group</button>
+        <button id="derive">Derive Terms</button>
+        <button id="auto" class="primary">Auto Derive</button>
+        <label>Speed
+          <select id="speed">
+            <option value="1200" selected>Very slow</option>
+            <option value="800">Slow</option>
+            <option value="500">Normal</option>
+            <option value="250">Fast</option>
+          </select>
+        </label>
+        <button id="reset" class="danger">Reset</button>
+        <div class="status" id="status">Ready</div>
+      </div>
+
+      <div id="kmap" class="kmap"></div>
+
+      <div class="legend">
+        <span class="chip"><span class="dot d1"></span> 1‑cells (SOP)</span>
+        <span class="chip"><span class="dot d2"></span> grouping overlay</span>
+        <span class="chip"><span class="dot d3"></span> Gray‑code axes</span>
+        <span class="chip"><span class="dot d4"></span> animated scan</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="pill mono" id="varsLbl">Vars: A,B,C,D</div>
+        <div class="pill mono" id="shapeLbl">Shape: 4×4</div>
+      </div>
+      <div class="row">
+        <div>Σm indices:</div>
+        <div class="expr mono" id="sig">Σ( )</div>
+      </div>
+      <div class="row">
+        <div>Minimal SOP:</div>
+        <div class="expr mono" id="sop">F = </div>
+      </div>
+
+      <div class="derive">
+        <div class="step">
+          <h3>Active Group</h3>
+          <div class="expr mono" id="ginfo">None</div>
+        </div>
+
+        <div class="step">
+          <h3>Compare Variables Across Group</h3>
+          <table class="tbl" id="varTbl">
+            <thead><tr><th>Variable</th><th>Values across cells</th><th>Constant?</th><th>Literal</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="step">
+          <h3>Derived Term</h3>
+          <div class="expr mono" id="termOut">Term: —</div>
+        </div>
+        <div class="step">
+          <h3>Expression Builder</h3>
+          <div class="expr mono" id="builder">F = </div>
+          <div class="sub">Terms are added as groups are processed, keeping only variables that remain constant within each group[14][13].</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function gray(n){ return n ^ (n>>1); }
+  function graySeq(bits){ const N=1<<bits, arr=[]; for(let i=0;i<N;i++) arr.push(gray(i)); return arr; }
+  function bit(val, pos, totalBits){ return (val >> (totalBits-1-pos)) & 1; }
+  function bin(val,bits){ return val.toString(2).padStart(bits,'0'); }
+  const VARS=['A','B','C','D','E','F','G','H','I','J'];
+
+  let nvars=4, rowsBits=2, colsBits=2, R=4, C=4;
+  let gRows=graySeq(rowsBits), gCols=graySeq(colsBits);
+  let cells=[], groups=[], derived=[], animTimer=null;
+
+  const el={
+    kmap:document.getElementById('kmap'),
+    varCount:document.getElementById('varCount'),
+    example:document.getElementById('example'),
+    fill:document.getElementById('fill'),
+    clear:document.getElementById('clear'),
+    group:document.getElementById('group'),
+    derive:document.getElementById('derive'),
+    auto:document.getElementById('auto'),
+    reset:document.getElementById('reset'),
+    speed:document.getElementById('speed'),
+    status:document.getElementById('status'),
+    varsLbl:document.getElementById('varsLbl'),
+    shapeLbl:document.getElementById('shapeLbl'),
+    sig:document.getElementById('sig'),
+    sop:document.getElementById('sop'),
+    // derivation
+    ginfo:document.getElementById('ginfo'),
+    varTbl:document.getElementById('varTbl').querySelector('tbody'),
+    termOut:document.getElementById('termOut'),
+    builder:document.getElementById('builder')
+  };
+
+  const examples={
+    1:[ {name:"F(A)=Σm(1) → A", mins:[1]} ],
+    2:[ {name:"F(A,B)=Σm(1,2,3) → A+B", mins:[1,2,3]} ],
+    3:[ {name:"A'C + AC'", mins:[1,3,4,6]} ],
+    4:[ {name:"Σm(2,3,6,7,8,10,13,15)", mins:[2,3,6,7,8,10,13,15]},
+        {name:"Corners wrap", mins:[0,1,4,5,10,11,14,15]} ],
+    5:[ {name:"A'B'E + C'D'E'", mins:[1, 17, 0, 4, 16, 20]} ],
+    6:[ {name:"A·D' (large groups)", mins:genCondition(6,{A:1,D:0})},
+        {name:"Σm sparse", mins:[3,5,7,9,11,24,28,32,40,41,45,60]} ],
+    7:[ {name:"Sparse example", mins:[0, 15, 29, 43, 57, 71, 85, 99, 113, 127]} ],
+    8:[ {name:"A·B (illustrative)", mins:genCondition(8,{A:1,B:1})},
+        {name:"Sparse Σm", mins:[1,2,4,8,16,32,64,128,255]} ],
+    9:[ {name:"A'B'C'D'E'", mins:genCondition(9,{A:0,B:0,C:0,D:0,E:0})} ],
+    10:[{name:"A=1, J=0", mins:genCondition(10,{A:1,J:0})} ]
+  };
+
+  function genCondition(bits, fixed){
+    const idxOf=n=>VARS.indexOf(n); const m={}; for(const k in fixed) m[idxOf(k)]=fixed[k];
+    const N=1<<bits, out=[]; for(let i=0;i<N;i++){ let ok=true;
+      for(const p in m){ const b=(i>>(bits-1-p))&1; if(b!==m[p]){ok=false;break;} }
+      if(ok) out.push(i);
+    } return out;
+  }
+
+  function refreshExamples(){
+    const list=examples[nvars]||[];
+    el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+
+      list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
+  }
+
+  function initGrid(){
+    rowsBits = Math.floor(nvars/2);
+    colsBits = nvars-rowsBits;
+    R=1<<rowsBits; C=1<<colsBits;
+    gRows=graySeq(rowsBits); gCols=graySeq(colsBits);
+    cells=Array.from({length:R},_=>Array(C).fill(0));
+    groups=[]; derived=[]; clearDeriveUI();
+    el.kmap.style.setProperty('--rows',R);
+    el.kmap.style.setProperty('--cols',C);
+    el.kmap.innerHTML='';
+    const corner=document.createElement('div'); corner.className='lab'; corner.textContent=VARS.slice(colsBits, nvars).join(''); // Var names for rows
+    el.kmap.appendChild(corner);
+    for(let c=0;c<C;c++){ const lab=document.createElement('div'); lab.className='lab axis mono'; lab.textContent=bin(gCols[c],colsBits); el.kmap.appendChild(lab); } // Column headers
+    
+    // Create row labels and cells
+    const rowVarNames = VARS.slice(0, colsBits).join('');
+    for(let r=0;r<R;r++){
+      const rlab=document.createElement('div'); rlab.className='lab axis mono'; rlab.textContent=bin(gRows[r],rowsBits);
+      // Adjust grid placement for new layout
+      rlab.style.gridRow = r + 2;
+      rlab.style.gridColumn = 1;
+      el.kmap.appendChild(rlab);
+
+      for(let c=0;c<C;c++){
+        const d=document.createElement('div'); d.className='cell'; d.dataset.r=r; d.dataset.c=c;
+        d.innerHTML=`<span class="bit">0</span><span class="idx mono"></span><div class="cover"></div>`;
+        d.addEventListener('click',()=>toggleCell(r,c));
+        
+        // Adjust grid placement for new layout
+        d.style.gridRow = r + 2;
+        d.style.gridColumn = c + 2;
+        el.kmap.appendChild(d);
+      }
+    }
+    // Update top-left corner label for clarity
+    const topLeftLabel = el.kmap.firstChild;
+    topLeftLabel.innerHTML = `${VARS.slice(0, colsBits).join('')} \\ ${VARS.slice(colsBits, nvars).join('')}`;
+    topLeftLabel.style.gridRow = 1;
+    topLeftLabel.style.gridColumn = 1;
+
+    // Update column labels
+    const colLabels = el.kmap.querySelectorAll('.lab.axis.mono');
+    colLabels.forEach((lab, c) => {
+        if(c < C) { // Only update column headers
+            lab.style.gridRow = 1;
+            lab.style.gridColumn = c + 2;
+        }
+    });
+    
+    // This is a correction to the original logic which had row/col vars backwards
+    // Now, A,B... are column vars, and C,D... are row vars
+    const tempRowsBits = rowsBits;
+    rowsBits = colsBits;
+    colsBits = tempRowsBits;
+    
+    updateIndices(); render();
+    el.varsLbl.textContent=`Vars: ${VARS.slice(0,nvars).join(',')}`;
+    el.shapeLbl.textContent=`Shape: ${R}×${C}`;
+    el.sig.textContent='Σ( )'; el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Ready';
+  }
+
+  function cellEl(r,c){ return el.kmap.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`); }
+
+  function updateIndices(){
+    const tempRowsBits = colsBits; // Re-swap for calculation
+    const tempColsBits = rowsBits;
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      const idx=(gCols[c]<<tempRowsBits)|gRows[r];
+      cellEl(r,c).querySelector('.idx').textContent=idx;
+    }
+  }
+
+  function toggleCell(r,c){
+    cells[r][c]=cells[r][c]?0:1; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = ';
+  }
+
+  function render(){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      const node=cellEl(r,c);
+      node.classList.toggle('one', !!cells[r][c]);
+      node.querySelector('.bit').textContent=cells[r][c]? '1':'0';
+      node.querySelector('.cover').className='cover';
+      node.classList.remove('scan');
+    }
+    groups.forEach((g,i)=>{
+      const cls='g'+((i%8)+1);
+      g.cells.forEach(([rr,cc])=>cellEl(rr,cc).querySelector('.cover').classList.add(cls));
+    });
+  }
+
+  function updateSigma(){
+    const mins=[];
+    const tempRowsBits = colsBits;
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++) if(cells[r][c]){
+      mins.push((gCols[c]<<tempRowsBits)|gRows[r]);
+    }
+    mins.sort((a,b)=>a-b);
+    el.sig.textContent=`Σ(${mins.join(',')})`;
+  }
+
+  function powers(n){const a=[];let p=1;while(p<=n){a.push(p);p<<=1}return a;}
+  function groupOnes(){
+    groups=[]; derived=[]; clearDeriveUI();
+    const sizesR=powers(R).reverse(), sizesC=powers(C).reverse();
+    const covered=Array.from({length:R},_=>Array(C).fill(0));
+    function can(r0,c0,h,w){
+      for(let dr=0;dr<h;dr++) for(let dc=0;dc<w;dc++){
+        const rr=(r0+dr)%R, cc=(c0+dc)%C; if(!cells[rr][cc]) return false;
+      } return true;
+    }
+    function collect(r0,c0,h,w){
+      const arr=[]; for(let dr=0;dr<h;dr++) for(let dc=0;dc<w;dc++){ const rr=(r0+dr)%R, cc=(c0+dc)%C; arr.push([rr,cc]); } return arr;
+    }
+    for(const h of sizesR){
+      for(const w of sizesC){
+        if(h*w===1) continue;
+        for(let r0=0;r0<R;r0++) for(let c0=0;c0<C;c0++){
+          if(!can(r0,c0,h,w)) continue;
+          let fresh=false;
+          outer: for(let dr=0;dr<h;dr++) for(let dc=0;dc<w;dc++){ const rr=(r0+dr)%R, cc=(c0+dc)%C; if(!covered[rr][cc]){fresh=true;break outer;} }
+          if(!fresh) continue;
+          const cellsArr=collect(r0,c0,h,w); cellsArr.forEach(([rr,cc])=>covered[rr][cc]=1);
+          const term=termFromGroup(cellsArr);
+          groups.push({h,w,r0,c0,cells:cellsArr, term});
+        }
+      }
+    }
+    // singles
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++) if(cells[r][c] && !covered[r][c]){
+      const arr=[[r,c]]; const term=termFromGroup(arr); groups.push({h:1,w:1,r0:r,c0:c,cells:arr, term});
+    }
+    render(); showSOP(); el.status.textContent=`Found ${groups.length} group(s)`;
+  }
+
+  function termFromGroup(arr){
+    const rowSet=[...new Set(arr.map(([r,_])=>r))];
+    const colSet=[...new Set(arr.map(([_,c])=>c))];
+    const parts=[];
+    const tempRowsBits = colsBits;
+    const tempColsBits = rowsBits;
+
+    for(let cv=0; cv<tempColsBits; cv++){
+      const vals=new Set(colSet.map(c=>bit(gCols[c], cv, tempColsBits)));
+      if(vals.size===1){ const v=vals.values().next().value; parts.push(v? VARS[cv]: VARS[cv]+"'"); }
+    }
+    for(let rv=0; rv<tempRowsBits; rv++){
+      const vals=new Set(rowSet.map(r=>bit(gRows[r], rv, tempRowsBits)));
+      if(vals.size===1){ const v=vals.values().next().value; parts.push(v? VARS[tempColsBits+rv]: VARS[tempColsBits+rv]+"'"); }
+    }
+    return parts.join('');
+  }
+
+  function showSOP(){
+    const terms=groups.map(g=>g.term).filter(Boolean);
+    el.sop.textContent=`F = ${terms.join(' + ')}`;
+  }
+
+  function clearDeriveUI(){
+    el.ginfo.textContent='None';
+    el.varTbl.innerHTML='';
+    el.termOut.textContent='Term: —';
+    el.builder.textContent='F = ';
+  }
+
+  function loadExample(){
+    const v=el.example.value; if(v==='custom') return;
+    const set=examples[nvars]||[]; const ex=set[parseInt(v,10)];
+    setFromMinterms(ex.mins);
+  }
+
+  function setFromMinterms(mins){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0;
+    const mset=new Set(mins);
+    const tempRowsBits = colsBits;
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      const idx=(gCols[c]<<tempRowsBits)|gRows[r]; if(mset.has(idx)) cells[r][c]=1;
+    }
+    render(); updateSigma(); el.status.textContent=`Loaded ${mins.length} minterm(s)`;
+  }
+
+  // Derivation workflow
+  let dIndex=0, dStage=0; // per-group stage
+  function deriveStep(){
+    if(groups.length===0){ el.status.textContent='Group first'; return; }
+    if(dIndex>=groups.length){ el.status.textContent='All groups derived'; return; }
+    const g=groups[dIndex];
+    // highlight active group
+    highlightOnlyGroup(dIndex);
+    // stages: 0=show group info, 1=compute table, 2=emit term, 3=append to builder, then advance group
+    if(dStage===0){
+        const tempRowsBits = colsBits;
+        el.ginfo.textContent=`Group ${dIndex+1} of ${groups.length}: size ${g.h}×${g.w}, cells=${g.cells.map(([r,c])=>((gCols[c]<<tempRowsBits)|gRows[r])).join(',')}`;
+        el.varTbl.innerHTML=''; el.termOut.textContent='Term: —'; el.status.textContent='Analyzing variables…';
+        dStage=1; return;
+    }
+    if(dStage===1){
+      buildVarTable(g);
+      el.status.textContent='Checking constants per variable…';
+      dStage=2; return;
+    }
+    if(dStage===2){
+      el.termOut.textContent=`Term: ${g.term || '1'}`;
+      el.status.textContent='Derived term from constants';
+      dStage=3; return;
+    }
+    if(dStage===3){
+      const curr=el.builder.textContent.replace(/^F =\s*/,'').trim();
+      el.builder.textContent = 'F = ' + ([...curr? [curr]:[], g.term||'1'].join(' + '));
+      el.status.textContent='Added term to expression';
+      // next group
+      dIndex++; dStage=0;
+      if(dIndex>=groups.length) { el.status.textContent='All groups derived'; }
+      return;
+    }
+  }
+
+  function highlightOnlyGroup(idx){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){ cellEl(r,c).classList.remove('scan'); cellEl(r,c).querySelector('.cover').className='cover'; }
+    const cls='g1';
+    groups[idx].cells.forEach(([rr,cc])=>{
+      cellEl(rr,cc).classList.add('scan');
+      cellEl(rr,cc).querySelector('.cover').classList.add(cls);
+    });
+  }
+
+  function buildVarTable(g){
+    const arr=g.cells;
+    const rowSet=[...new Set(arr.map(([r,_])=>r))];
+    const colSet=[...new Set(arr.map(([_,c])=>c))];
+    el.varTbl.innerHTML='';
+    const tempRowsBits = colsBits;
+    const tempColsBits = rowsBits;
+
+    for(let cv=0; cv<tempColsBits; cv++){
+        const vals=colSet.map(c=>bit(gCols[c], cv, tempColsBits));
+        const isConstant=vals.every(v=>v===vals[0]);
+        const literal = isConstant ? (vals[0] ? VARS[cv] : VARS[cv]+"'") : '—';
+        addVarRow(VARS[cv], vals.join(' '), isConstant, literal);
+    }
+    for(let rv=0; rv<tempRowsBits; rv++){
+        const vals=rowSet.map(r=>bit(gRows[r], rv, tempRowsBits));
+        const isConstant=vals.every(v=>v===vals[0]);
+        const literal=isConstant ? (vals[0] ? VARS[tempColsBits+rv] : VARS[tempColsBits+rv]+"'") : '—';
+        addVarRow(VARS[tempColsBits+rv], vals.join(' '), isConstant, literal);
+    }
+  }
+
+  function addVarRow(v, vals, cons, lit){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="mono">${v}</td><td class="mono">${vals}</td><td class="${cons?'ok':'no'}">${cons?'Yes':'No'}</td><td class="lit mono">${lit}</td>`;
+    el.varTbl.appendChild(tr);
+  }
+
+  function autoDerive(){
+    if(groups.length===0){ el.status.textContent='Group first'; return; }
+    if(animTimer){ clearInterval(animTimer); animTimer=null; }
+    dIndex=0; dStage=0; clearDeriveUI();
+    animTimer=setInterval(()=>{
+      deriveStep();
+      if(dIndex>=groups.length){ clearInterval(animTimer); animTimer=null; }
+    }, parseInt(el.speed.value,10));
+  }
+
+  // Events
+  el.varCount.addEventListener('change', ()=>{ nvars=parseInt(el.varCount.value,10); refreshExamples(); initGrid(); });
+  el.fill.addEventListener('click', loadExample);
+  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Cleared'; });
+  el.group.addEventListener('click', groupOnes);
+  el.derive.addEventListener('click', deriveStep);
+  el.auto.addEventListener('click', autoDerive);
+  el.reset.addEventListener('click', ()=>{ if(animTimer){clearInterval(animTimer);animTimer=null;} initGrid(); });
+
+  // Boot
+  refreshExamples(); initGrid();
+})();
+</script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>K-Map Simplifier with Step-by-Step Derivation</title>
+<style>
+  :root{
+    --bg:#06051a; --panel:#0d0a2a; --ink:#f8fafc; --muted:#a5b4fc;
+    --accent:#22d3ee; --accent2:#f97316; --accent3:#22c55e; --accent4:#e879f9;
+    --border:rgba(99,102,241,.35); --grid:#1f2348; --cell0:#0b0f2d; --cell1:#0f2e3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 10% -10%,#1d0f52 0%,#0b0526 45%,#06051a 65%),#06051a;color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;}
+  .wrap{max-width:1250px;margin:0 auto;padding:28px}
+  h1{margin:0 0 10px;font-weight:800;letter-spacing:0.2px;font-size:2.2rem;
+     background:linear-gradient(120deg,#22d3ee 0%,#a78bfa 45%,#f97316 80%);
+     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--muted);margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:18px}
+  .card{background:linear-gradient(160deg,var(--panel) 0%,rgba(167,139,250,0.08) 100%);border:1.5px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(49,46,129,.25)}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+  label{color:var(--muted)}
+  select{background:#0b0d2b;color:var(--ink);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+  button{background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);color:#fff;border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(124,58,237,.45);transition:.2s}
+  button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(124,58,237,.6)}
+  .primary{background:linear-gradient(135deg,#f97316 0%,#fbbf24 100%);box-shadow:0 6px 18px rgba(249,115,22,.45)}
+  .ghost{background:linear-gradient(135deg,#0ea5e9 0%,#22d3ee 100%);box-shadow:0 6px 18px rgba(14,165,233,.45)}
+  .danger{background:linear-gradient(135deg,#ef4444 0%,#f43f5e 100%)}
+  .status{margin-left:auto;color:#a7f3d0;font-weight:600}
+  .legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);margin-top:10px}
+  .chip{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:#0b0d2b}
+  .dot{width:12px;height:12px;border-radius:999px;display:inline-block}
+  .d1{background:linear-gradient(135deg,#22d3ee,#38bdf8)}
+  .d2{background:linear-gradient(135deg,#f97316,#fbbf24)}
+  .d3{background:linear-gradient(135deg,#22c55e,#84cc16)}
+  .d4{background:linear-gradient(135deg,#e879f9,#a78bfa)}
+
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#0b0d2b}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .expr{background:#0b0d2b;border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+
+  /* K-map */
+  .kmap{--rows:4; --cols:4; display:grid; grid-template-columns: 100px repeat(var(--cols), 48px);
+        grid-auto-rows:48px; gap:4px; align-items:center; overflow:auto; padding:10px;
+        background:radial-gradient(600px 300px at -10% -30%, rgba(99,102,241,.25) 0%, rgba(99,102,241,.08) 70%, transparent 80%), #0a0922;
+        border-radius:12px; border:1px dashed var(--border)}
+  .lab{color:#e2e8f0;text-align:center}
+  .axis{color:#93c5fd}
+  .cell{width:48px;height:48px;display:flex;justify-content:center;align-items:center;
+        border-radius:8px;background:var(--cell0);border:1px solid #1b1f4b;cursor:pointer;position:relative;transition:.15s}
+  .cell.one{background:linear-gradient(135deg,#0d2931,#0a3a4a);border-color:#184d5d}
+  .cell .idx{position:absolute;bottom:2px;right:4px;font-size:10px;color:#9ca3af}
+  .cell .bit{font-weight:800;color:#c7f9ff;text-shadow:0 1px 10px rgba(34,211,238,.35)}
+  .cover{position:absolute; inset:0; border-radius:8px; pointer-events:none; border:2px solid transparent; box-shadow: inset 0 0 0 2px transparent}
+  .scan{background:linear-gradient(135deg, rgba(244,114,182,.3), rgba(236,72,153,.1)) !important; animation:scanPulse 1s infinite}
+  @keyframes scanPulse{0%{box-shadow:0 0 0 rgba(244,114,182,.3)}50%{box-shadow:0 0 16px rgba(244,114,182,.6)}100%{box-shadow:0 0 0 rgba(244,114,182,.3)}}
+  .g1{box-shadow: inset 0 0 0 2px #22d3ee}
+  .g2{box-shadow: inset 0 0 0 2px #f97316}
+  .g3{box-shadow: inset 0 0 0 2px #22c55e}
+  .g4{box-shadow: inset 0 0 0 2px #e879f9}
+  .g5{box-shadow: inset 0 0 0 2px #60a5fa}
+  .g6{box-shadow: inset 0 0 0 2px #f59e0b}
+  .g7{box-shadow: inset 0 0 0 2px #10b981}
+  .g8{box-shadow: inset 0 0 0 2px #c084fc}
+
+  /* Derivation panel */
+  .derive{display:flex;flex-direction:column;gap:10px}
+  .step{background:linear-gradient(145deg, rgba(96,165,250,.1), transparent);border:1px solid var(--border);border-radius:12px;padding:12px}
+  .step h3{margin:0 0 8px;font-size:1.05rem}
+  .tbl{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden}
+  .tbl th,.tbl td{border-bottom:1px solid rgba(148,163,184,.15);padding:8px 10px;text-align:left}
+  .ok{color:#34d399;font-weight:700}
+  .no{color:#fda4af;font-weight:700}
+  .lit{font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>K‑Map Simplifier with Step‑by‑Step Term Derivation</h1>
+  <div class="sub">Groups 1‑cells on a Gray‑ordered K‑map, then derives each product term by keeping variables that remain constant across the group and assembling the minimal SOP expression[13][14].</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="controls">
+        <label>Variables
+          <select id="varCount">
+            <option value="2">2</option>
+            <option value="4" selected>4</option>
+            <option value="6">6</option>
+            <option value="8">8</option>
+          </select>
+        </label>
+        <label>Examples
+          <select id="example">
+            <option value="custom" selected>Custom (click cells)</option>
+          </select>
+        </label>
+        <button id="fill" class="ghost">Fill example</button>
+        <button id="clear">Clear</button>
+        <button id="group" class="primary">Group</button>
+        <button id="derive">Derive Terms</button>
+        <button id="auto" class="primary">Auto Derive</button>
+        <label>Speed
+          <select id="speed">
+            <option value="1200" selected>Very slow</option>
+            <option value="800">Slow</option>
+            <option value="500">Normal</option>
+            <option value="250">Fast</option>
+          </select>
+        </label>
+        <button id="reset" class="danger">Reset</button>
+        <div class="status" id="status">Ready</div>
+      </div>
+
+      <div id="kmap" class="kmap"></div>
+
+      <div class="legend">
+        <span class="chip"><span class="dot d1"></span> 1‑cells (SOP)</span>
+        <span class="chip"><span class="dot d2"></span> grouping overlay</span>
+        <span class="chip"><span class="dot d3"></span> Gray‑code axes</span>
+        <span class="chip"><span class="dot d4"></span> animated scan</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div class="pill mono" id="varsLbl">Vars: A,B,C,D</div>
+        <div class="pill mono" id="shapeLbl">Shape: 4×4</div>
+      </div>
+      <div class="row">
+        <div>Σm indices:</div>
+        <div class="expr mono" id="sig">Σ( )</div>
+      </div>
+      <div class="row">
+        <div>Minimal SOP:</div>
+        <div class="expr mono" id="sop">F = </div>
+      </div>
+
+      <div class="derive">
+        <div class="step">
+          <h3>Active Group</h3>
+          <div class="expr mono" id="ginfo">None</div>
+        </div>
+
+        <div class="step">
+          <h3>Compare Variables Across Group</h3>
+          <table class="tbl" id="varTbl">
+            <thead><tr><th>Variable</th><th>Values across cells</th><th>Constant?</th><th>Literal</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="step">
+          <h3>Derived Term</h3>
+          <div class="expr mono" id="termOut">Term: —</div>
+        </div>
+        <div class="step">
+          <h3>Expression Builder</h3>
+          <div class="expr mono" id="builder">F = </div>
+          <div class="sub">Terms are added as groups are processed, keeping only variables that remain constant within each group[14][13].</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function gray(n){ return n ^ (n>>1); }
+  function graySeq(bits){ const N=1<<bits, arr=[]; for(let i=0;i<N;i++) arr.push(gray(i)); return arr; }
+  function bit(val, pos, totalBits){ return (val >> (totalBits-1-pos)) & 1; }
+  function bin(val,bits){ return val.toString(2).padStart(bits,'0'); }
+  const VARS=['A','B','C','D','E','F','G','H'];
+
+  let nvars=4, rowsBits=2, colsBits=2, R=4, C=4;
+  let gRows=graySeq(rowsBits), gCols=graySeq(colsBits);
+  let cells=[], groups=[], derived=[], animTimer=null;
+
+  const el={
+    kmap:document.getElementById('kmap'),
+    varCount:document.getElementById('varCount'),
+    example:document.getElementById('example'),
+    fill:document.getElementById('fill'),
+    clear:document.getElementById('clear'),
+    group:document.getElementById('group'),
+    derive:document.getElementById('derive'),
+    auto:document.getElementById('auto'),
+    reset:document.getElementById('reset'),
+    speed:document.getElementById('speed'),
+    status:document.getElementById('status'),
+    varsLbl:document.getElementById('varsLbl'),
+    shapeLbl:document.getElementById('shapeLbl'),
+    sig:document.getElementById('sig'),
+    sop:document.getElementById('sop'),
+    // derivation
+    ginfo:document.getElementById('ginfo'),
+    varTbl:document.getElementById('varTbl').querySelector('tbody'),
+    termOut:document.getElementById('termOut'),
+    builder:document.getElementById('builder')
+  };
+
+  const examples={
+    2:[ {name:"F(A,B)=Σm(1,2,3) → A + B", mins:[1,2,3]} ],
+    4:[ {name:"Σm(2,3,6,7,8,10,13,15)", mins:[2,3,6,7,8,10,13,15]},
+        {name:"Corners wrap", mins:[0,1,4,5,10,11,14,15]} ],
+    6:[ {name:"A·D' (large groups)", mins:genCondition(6,{A:1,D:0})},
+        {name:"Σm sparse", mins:[3,5,7,9,11,24,28,32,40,41,45,60]} ],
+    8:[ {name:"A·B (illustrative)", mins:genCondition(8,{A:1,B:1})},
+        {name:"Sparse Σm", mins:[1,2,4,8,16,32,64,128,255]} ]
+  };
+
+  function genCondition(bits, fixed){
+    const idxOf=n=>VARS.indexOf(n); const m={}; for(const k in fixed) m[idxOf(k)]=fixed[k];
+    const N=1<<bits, out=[]; for(let i=0;i<N;i++){ let ok=true;
+      for(const p in m){ const b=(i>>(bits-1-p))&1; if(b!==m[p]){ok=false;break;} }
+      if(ok) out.push(i);
+    } return out;
+  }
+
+  function refreshExamples(){
+    const list=examples[nvars]||[];
+    el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+
+      list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
+  }
+
+  function initGrid(){
+    rowsBits = Math.floor(nvars/2);
+    colsBits = nvars-rowsBits;
+    R=1<<rowsBits; C=1<<colsBits;
+    gRows=graySeq(rowsBits); gCols=graySeq(colsBits);
+    cells=Array.from({length:R},_=>Array(C).fill(0));
+    groups=[]; derived=[]; clearDeriveUI();
+    el.kmap.style.setProperty('--rows',R);
+    el.kmap.style.setProperty('--cols',C);
+    el.kmap.innerHTML='';
+    const corner=document.createElement('div'); corner.className='lab'; corner.textContent=VARS.slice(rowsBits,nvars).join(''); el.kmap.appendChild(corner);
+    for(let c=0;c<C;c++){ const lab=document.createElement('div'); lab.className='lab axis mono'; lab.textContent=bin(gCols[c],colsBits); el.kmap.appendChild(lab); }
+    for(let r=0;r<R;r++){
+      const rlab=document.createElement('div'); rlab.className='lab axis mono'; rlab.textContent=bin(gRows[r],rowsBits); el.kmap.appendChild(rlab);
+      for(let c=0;c<C;c++){
+        const d=document.createElement('div'); d.className='cell'; d.dataset.r=r; d.dataset.c=c;
+        d.innerHTML=`<span class="bit">0</span><span class="idx mono"></span><div class="cover"></div>`;
+        d.addEventListener('click',()=>toggleCell(r,c));
+        el.kmap.appendChild(d);
+      }
+    }
+    updateIndices(); render();
+    el.varsLbl.textContent=`Vars: ${VARS.slice(0,nvars).join(',')}`;
+    el.shapeLbl.textContent=`Shape: ${R}×${C}`;
+    el.sig.textContent='Σ( )'; el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Ready';
+  }
+
+  function cellEl(r,c){ return el.kmap.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`); }
+
+  function updateIndices(){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      const idx=(gRows[r]<<colsBits)|gCols[c];
+      cellEl(r,c).querySelector('.idx').textContent=idx;
+    }
+  }
+
+  function toggleCell(r,c){
+    cells[r][c]=cells[r][c]?0:1; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = ';
+  }
+
+  function render(){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      const node=cellEl(r,c);
+      node.classList.toggle('one', !!cells[r][c]);
+      node.querySelector('.bit').textContent=cells[r][c]? '1':'0';
+      node.querySelector('.cover').className='cover';
+      node.classList.remove('scan');
+    }
+    groups.forEach((g,i)=>{
+      const cls='g'+((i%8)+1);
+      g.cells.forEach(([rr,cc])=>cellEl(rr,cc).querySelector('.cover').classList.add(cls));
+    });
+  }
+
+  function updateSigma(){
+    const mins=[];
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++) if(cells[r][c]){
+      mins.push((gRows[r]<<colsBits)|gCols[c]);
+    }
+    mins.sort((a,b)=>a-b);
+    el.sig.textContent=`Σ(${mins.join(',')})`;
+  }
+
+  function powers(n){const a=[];let p=1;while(p<=n){a.push(p);p<<=1}return a;}
+  function groupOnes(){
+    groups=[]; derived=[]; clearDeriveUI();
+    const sizesR=powers(R).reverse(), sizesC=powers(C).reverse();
+    const covered=Array.from({length:R},_=>Array(C).fill(0));
+    function can(r0,c0,h,w){
+      for(let dr=0;dr<h;dr++) for(let dc=0;dc<w;dc++){
+        const rr=(r0+dr)%R, cc=(c0+dc)%C; if(!cells[rr][cc]) return false;
+      } return true;
+    }
+    function collect(r0,c0,h,w){
+      const arr=[]; for(let dr=0;dr<h;dr++) for(let dc=0;dc<w;dc++){ const rr=(r0+dr)%R, cc=(c0+dc)%C; arr.push([rr,cc]); } return arr;
+    }
+    for(const h of sizesR){
+      for(const w of sizesC){
+        if(h*w===1) continue;
+        for(let r0=0;r0<R;r0++) for(let c0=0;c0<C;c0++){
+          if(!can(r0,c0,h,w)) continue;
+          let fresh=false;
+          outer: for(let dr=0;dr<h;dr++) for(let dc=0;dc<w;dc++){ const rr=(r0+dr)%R, cc=(c0+dc)%C; if(!covered[rr][cc]){fresh=true;break outer;} }
+          if(!fresh) continue;
+          const cellsArr=collect(r0,c0,h,w); cellsArr.forEach(([rr,cc])=>covered[rr][cc]=1);
+          const term=termFromGroup(cellsArr);
+          groups.push({h,w,r0,c0,cells:cellsArr, term});
+        }
+      }
+    }
+    // singles
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++) if(cells[r][c] && !covered[r][c]){
+      const arr=[[r,c]]; const term=termFromGroup(arr); groups.push({h:1,w:1,r0:r,c0:c,cells:arr, term});
+    }
+    render(); showSOP(); el.status.textContent=`Found ${groups.length} group(s)`;
+  }
+
+  function termFromGroup(arr){
+    const rowSet=[...new Set(arr.map(([r,_])=>r))];
+    const colSet=[...new Set(arr.map(([_,c])=>c))];
+    const parts=[];
+    for(let rv=0; rv<rowsBits; rv++){
+      const vals=new Set(rowSet.map(r=>bit(gRows[r], rv, rowsBits)));
+      if(vals.size===1){ const v=vals.values().next().value; parts.push(v? VARS[rv]: VARS[rv]+"'"); }
+    }
+    for(let cv=0; cv<colsBits; cv++){
+      const vals=new Set(colSet.map(c=>bit(gCols[c], cv, colsBits)));
+      if(vals.size===1){ const v=vals.values().next().value; parts.push(v? VARS[rowsBits+cv]: VARS[rowsBits+cv]+"'"); }
+    }
+    return parts.join('');
+  }
+
+  function showSOP(){
+    const terms=groups.map(g=>g.term).filter(Boolean);
+    el.sop.textContent=`F = ${terms.join(' + ')}`;
+  }
+
+  function clearDeriveUI(){
+    el.ginfo.textContent='None';
+    el.varTbl.innerHTML='';
+    el.termOut.textContent='Term: —';
+    el.builder.textContent='F = ';
+  }
+
+  function loadExample(){
+    const v=el.example.value; if(v==='custom') return;
+    const set=examples[nvars]||[]; const ex=set[parseInt(v,10)];
+    setFromMinterms(ex.mins);
+  }
+
+  function setFromMinterms(mins){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0;
+    const mset=new Set(mins);
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      const idx=(gRows[r]<<colsBits)|gCols[c]; if(mset.has(idx)) cells[r][c]=1;
+    }
+    render(); updateSigma(); el.status.textContent=`Loaded ${mins.length} minterm(s)`;
+  }
+
+  // Derivation workflow
+  let dIndex=0, dStage=0; // per-group stage
+  function deriveStep(){
+    if(groups.length===0){ el.status.textContent='Group first'; return; }
+    if(dIndex>=groups.length){ el.status.textContent='All groups derived'; return; }
+    const g=groups[dIndex];
+    // highlight active group
+    highlightOnlyGroup(dIndex);
+    // stages: 0=show group info, 1=compute table, 2=emit term, 3=append to builder, then advance group
+    if(dStage===0){
+      el.ginfo.textContent=`Group ${dIndex+1} of ${groups.length}: size ${g.h}×${g.w}, cells=${g.cells.map(([r,c])=>((gRows[r]<<colsBits)|gCols[c])).join(',')}`;
+      el.varTbl.innerHTML=''; el.termOut.textContent='Term: —'; el.status.textContent='Analyzing variables…';
+      dStage=1; return;
+    }
+    if(dStage===1){
+      // build rows for each variable
+      buildVarTable(g);
+      el.status.textContent='Checking constants per variable…';
+      dStage=2; return;
+    }
+    if(dStage===2){
+      el.termOut.textContent=`Term: ${g.term || '1'}`;
+      el.status.textContent='Derived term from constants';
+      dStage=3; return;
+    }
+    if(dStage===3){
+      const curr=el.builder.textContent.replace(/^F =\s*/,'').trim();
+      el.builder.textContent = 'F = ' + ([...curr? [curr]:[], g.term||'1'].join(' + '));
+      el.status.textContent='Added term to expression';
+      // next group
+      dIndex++; dStage=0;
+      if(dIndex>=groups.length) { el.status.textContent='All groups derived'; }
+      return;
+    }
+  }
+
+  function highlightOnlyGroup(idx){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){ cellEl(r,c).classList.remove('scan'); cellEl(r,c).querySelector('.cover').className='cover'; }
+    const cls='g1';
+    groups[idx].cells.forEach(([rr,cc])=>{
+      cellEl(rr,cc).classList.add('scan');
+      cellEl(rr,cc).querySelector('.cover').classList.add(cls);
+    });
+  }
+
+  function buildVarTable(g){
+    const arr=g.cells;
+    const rowSet=[...new Set(arr.map(([r,_])=>r))];
+    const colSet=[...new Set(arr.map(([_,c])=>c))];
+    el.varTbl.innerHTML='';
+    // rows variables
+    for(let rv=0; rv<rowsBits; rv++){
+      const vals=rowSet.map(r=>bit(gRows[r], rv, rowsBits));
+      const cons=vals.every(v=>v===vals); const lit=cons? (vals? VARS[rv]: VARS[rv]+"'") : '—';
+      addVarRow(VARS[rv], vals.join(' '), cons, lit);
+    }
+    for(let cv=0; cv<colsBits; cv++){
+      const vals=colSet.map(c=>bit(gCols[c], cv, colsBits));
+      const cons=vals.every(v=>v===vals); const lit=cons? (vals? VARS[rowsBits+cv]: VARS[rowsBits+cv]+"'") : '—';
+      addVarRow(VARS[rowsBits+cv], vals.join(' '), cons, lit);
+    }
+  }
+
+  function addVarRow(v, vals, cons, lit){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="mono">${v}</td><td class="mono">${vals}</td><td class="${cons?'ok':'no'}">${cons?'Yes':'No'}</td><td class="lit mono">${lit}</td>`;
+    el.varTbl.appendChild(tr);
+  }
+
+  function autoDerive(){
+    if(groups.length===0){ el.status.textContent='Group first'; return; }
+    if(animTimer){ clearInterval(animTimer); animTimer=null; }
+    dIndex=0; dStage=0; clearDeriveUI();
+    animTimer=setInterval(()=>{
+      deriveStep();
+      if(dIndex>=groups.length){ clearInterval(animTimer); animTimer=null; }
+    }, parseInt(el.speed.value,10));
+  }
+
+  // Events
+  el.varCount.addEventListener('change', ()=>{ nvars=parseInt(el.varCount.value,10); refreshExamples(); initGrid(); });
+  el.fill.addEventListener('click', loadExample);
+  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Cleared'; });
+  el.group.addEventListener('click', groupOnes);
+  el.derive.addEventListener('click', deriveStep);
+  el.auto.addEventListener('click', autoDerive);
+  el.reset.addEventListener('click', ()=>{ if(animTimer){clearInterval(animTimer);animTimer=null;} initGrid(); });
+
+  // Boot
+  function refreshExamples(){ const list=examples[nvars]||[]; el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join(''); }
+  refreshExamples(); initGrid();
+})();
+</script>
+</body>
+</html> -->

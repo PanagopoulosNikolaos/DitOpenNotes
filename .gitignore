@@ -1,24 +1,78 @@
-# Composer files
-composer.phar
-vendor/
+# Ignore common C/C++ build artifacts and binaries
 
-# Local configs
-config/autoload/*.local.php
+# Object files and precompiled headers
+*.o
+*.obj
+*.lo
+*.la
+*.slo
+*.gch
+*.pch
 
-# Binary gettext files
-*.mo
+# Static and shared libraries
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
 
-# Data
-data/logs/
-data/cache/
-data/sessions/
-data/tmp/
-temp/
+# Executables and general compiled output
+a.out
+*.out
+*.elf
+*.exe
 
-#Doctrine 2
-data/DoctrineORMModule/Proxy/
-data/DoctrineORMModule/cache/
+# Debugging and crash files
+core
+*.stackdump
+*.dSYM/
 
-# Legacy ZF1
-demos/
-extras/documentation
+# Common build directories (anywhere in tree)
+build/
+bin/
+out/
+dist/
+Debug/
+Release/
+cmake-build-*/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+
+# Qt / qmake
+*.moc
+moc_*
+
+# Documentation files that bloat repo
+#*.pdf
+#*.PDF
+
+# Data files
+*.csv
+*.dat
+*.data
+*.db
+*.sqlite
+*.sqlite3
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Large binary data files
+*.bin
+*.dump
+
+# Project-specific files
+StandardizationScript.sh
+improvements.md
+.env
+
+# VS Code
+.vscode/

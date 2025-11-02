@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Definite Integrals</title>
+    <!-- MathJax Configuration -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Overall Theme & Backgrounds */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f2f5; /* Light text for readability */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Containers Styling */
+        .quiz-container {
+            background-color: #857c7c; /* Lighter muted grey container */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with Gradient */
+        .quiz-header {
+            background-image: linear-gradient(45deg, #4f46e5, #7c3aed); /* Blue -> Purple gradient */
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* Main Quiz Body */
+        .quiz-body {
+            padding: 24px;
+        }
+        #question-container {
+            margin-bottom: 20px;
+        }
+        #question-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options Grid & Buttons */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: left;
+            color: #f0f2f5;
+            background-color: #6b6464; /* Darker grey for options */
+            border: 1px solid #9e9696;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #7d7575;
+            border-color: #b1a8a8;
+        }
+
+        /* Button Feedback Colors */
+        .option-btn.correct {
+            background-color: #10b981; /* Bright green for correct */
+            border-color: #0f9a6d;
+            color: white;
+        }
+        .option-btn.incorrect {
+            background-color: #ef4444; /* Bright red for incorrect */
+            border-color: #d83a3a;
+            color: white;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        /* Explanation/Feedback Box */
+        #feedback-container {
+            margin-top: 20px;
+        }
+        #explanation {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            background-color: #4a4843; /* Darker background for explanation */
+            border: 1px solid #6b6464;
+        }
+
+        /* Footer and Navigation */
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background-color: #857c7c; /* Lighter muted grey footer */
+            border-top: 1px solid #9e9696;
+        }
+        #progress-text {
+            font-size: 1em;
+            color: #d1d5db; /* Lighter grey for secondary text */
+        }
+        .nav-btn {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background-color: #4338ca;
+        }
+        .nav-btn:disabled {
+            background-color: #52504b;
+            cursor: not-allowed;
+        }
+        #navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Results Screen */
+        #results-container {
+            text-align: center;
+            padding: 40px 24px;
+        }
+        #results-container h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        #restart-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #restart-btn:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Quiz Game: Definite Integrals</h1>
+        </div>
+        <div class="quiz-body">
+            <div id="question-container" style="display: none;">
+                <p id="question-text"></p>
+                <div id="options-grid" class="options-grid"></div>
+                <div id="feedback-container">
+                    <div id="explanation"></div>
+                </div>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn" class="nav-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-footer" style="display: none;">
+            <p id="progress-text"></p>
+            <div id="navigation-buttons">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <button id="next-btn" class="nav-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What does the definite integral \\(\\int_a^b f(x) \\,dx\\) represent geometrically if \\(f(x) \\ge 0\\)?", options: ["The slope of the function at \\(x=b\\).", "The length of the curve from \\(a\\) to \\(b\\).", "The net area between the curve \\(f(x)\\) and the x-axis from \\(x=a\\) to \\(x=b\\).", "The average value of the function on \\([a, b]\\)."], correct: 2, explanation: "The definite integral calculates the net area. If \\(f(x)\\) is positive, this is the area under the curve. If \\(f(x)\\) goes below the x-axis, that area is subtracted." },
+            { question: "What is a Riemann Sum?", options: ["The exact area under a curve.", "An approximation of the area under a curve using a sum of rectangles.", "The derivative of the area function.", "A method for finding antiderivatives."], correct: 1, explanation: "A Riemann Sum, \\(\\sum_{k=1}^n f(x_k^*) \\Delta x\\), approximates the area under a curve by summing the areas of a finite number of rectangles whose heights are determined by the function's value." },
+            { question: "The definite integral is defined as:", options: ["The sum of a finite number of rectangles.", "The antiderivative evaluated at the upper limit.", "The limit of a Riemann Sum as the number of rectangles approaches infinity.", "The difference between the function's values at the limits of integration."], correct: 2, explanation: "The precise definition of the definite integral is \\(\\int_a^b f(x) \\,dx = \\lim_{n \\to \\infty} \\sum_{k=1}^n f(x_k^*) \\Delta x\\). It turns the approximation of a Riemann sum into an exact value." },
+            { question: "According to the Fundamental Theorem of Calculus, if \\(F'(x) = f(x)\\), what is \\(\\int_a^b f(x) \\,dx\\)?", options: ["\\(F(b)\\)", "\\(F(a) - F(b)\\)", "\\(F(b) - F(a)\\)", "\\(F'(b) - F'(a)\\)"], correct: 2, explanation: "The Fundamental Theorem of Calculus, Part 2, provides a powerful method to calculate definite integrals. It states that the integral is the difference in the antiderivative's values at the limits of integration." },
+            { question: "What is the value of \\(\\int_a^a f(x) \\,dx\\)?", options: ["0", "1", "\\(f(a)\\)", "It cannot be determined."], correct: 0, explanation: "The integral from a point to itself represents an area with zero width. Therefore, the area is zero. This can also be seen from the Fundamental Theorem: \\(F(a) - F(a) = 0\\)." },
+            { question: "If \\(\\int_a^b f(x) \\,dx = 5\\), what is the value of \\(\\int_b^a f(x) \\,dx\\)?", options: ["5", "-5", "1/5", "0"], correct: 1, explanation: "Reversing the limits of integration negates the value of the definite integral. This is a standard property: \\(\\int_b^a f(x) \\,dx = -\\int_a^b f(x) \\,dx\\)." },
+            { question: "Calculate the definite integral \\(\\int_0^2 3x^2 \\,dx\\).", options: ["6", "8", "12", "9"], correct: 1, explanation: "First, find the antiderivative of \\(3x^2\\), which is \\(x^3\\). Then, evaluate it at the limits: \\(F(b) - F(a) = (2)^3 - (0)^3 = 8 - 0 = 8\\)." },
+            { question: "What is the value of \\(\\int_0^\\pi \\cos(x) \\,dx\\)?", options: ["0", "1", "2", "\\(\\pi\\)"], correct: 0, explanation: "The antiderivative of \\(\\cos(x)\\) is \\(\\sin(x)\\). Evaluating at the limits gives \\(\\sin(\\pi) - \\sin(0) = 0 - 0 = 0\\). Geometrically, the positive area from 0 to \\(\\pi/2\\) is cancelled out by the negative area from \\(\\pi/2\\) to \\(\\pi\\)." },
+            { question: "Given \\(\\int_1^3 f(x)dx = 4\\) and \\(\\int_3^5 f(x)dx = 2\\), what is \\(\\int_1^5 f(x)dx\\)?", options: ["2", "6", "8", "Cannot be determined."], correct: 1, explanation: "This uses the additivity property of integrals: \\(\\int_a^c f(x)dx = \\int_a^b f(x)dx + \\int_b^c f(x)dx\\). So, \\(\\int_1^5 f(x)dx = \\int_1^3 f(x)dx + \\int_3^5 f(x)dx = 4 + 2 = 6\\)." },
+            { question: "Calculate \\(\\int_1^e \\frac{1}{x} \\,dx\\).", options: ["0", "1", "\\(e\\)", "\\(e-1\\)"], correct: 1, explanation: "The antiderivative of \\(1/x\\) is \\(\\ln|x|\\). Evaluating from 1 to \\(e\\) gives \\(\\ln(e) - \\ln(1) = 1 - 0 = 1\\)." },
+            { question: "In the expression \\(\\int_a^b f(x) \\,dx\\), what is \\(x\\) called?", options: ["The integrand", "The limit of integration", "The variable of integration", "The constant of integration"], correct: 2, explanation: "The variable \\(x\\) is a 'dummy variable' or 'variable of integration'. The value of the definite integral does not depend on it. For example, \\(\\int_a^b f(x) \\,dx = \\int_a^b f(t) \\,dt\\)." },
+            { question: "If \\(f(x) \\ge g(x)\\) for all \\(x\\) in \\([a, b]\\), which of the following is true?", options: ["\\(\\int_a^b f(x) \\,dx \\le \\int_a^b g(x) \\,dx\\)", "\\(\\int_a^b f(x) \\,dx \\ge \\int_a^b g(x) \\,dx\\)", "\\(\\int_a^b f(x) \\,dx = \\int_a^b g(x) \\,dx\\)", "Their integrals are unrelated."], correct: 1, explanation: "This is the comparison property of integrals. If one function is always greater than or equal to another over an interval, its integral over that interval will also be greater than or equal to the other's integral." },
+            { question: "Calculate \\(\\int_0^1 e^x \\,dx\\).", options: ["\\(e\\)", "\\(e-1\\)", "1", "\\(e+1\\)"], correct: 1, explanation: "The antiderivative of \\(e^x\\) is \\(e^x\\). Evaluating at the limits gives \\(e^1 - e^0 = e - 1\\)." },
+            { question: "What does the notation \\([F(x)]_a^b\\) represent?", options: ["\\(F(b) \\cdot F(a)\\)", "\\(F(a) - F(b)\\)", "\\(F(x) + b - a\\)", "\\(F(b) - F(a)\\)"], correct: 3, explanation: "This is a standard shorthand notation used with the Fundamental Theorem of Calculus. It means to evaluate the function \\(F(x)\\) at the upper limit \\(b\\) and subtract its value at the lower limit \\(a\\)." },
+            { question: "Find the area of the region under the curve \\(y=x\\) from \\(x=0\\) to \\(x=4\\).", options: ["4", "16", "2", "8"], correct: 3, explanation: "We need to calculate \\(\\int_0^4 x \\,dx\\). The antiderivative is \\(\\frac{1}{2}x^2\\). Evaluating gives \\(\\frac{1}{2}(4)^2 - \\frac{1}{2}(0)^2 = \\frac{16}{2} - 0 = 8\\). This is also the area of a triangle with base 4 and height 4." },
+            { question: "What is the value of \\(\\int_{-1}^1 x^3 \\,dx\\)?", options: ["0", "1/2", "1/4", "2"], correct: 0, explanation: "The function \\(f(x)=x^3\\) is an odd function. The integral of an odd function over a symmetric interval \\([-a, a]\\) is always zero. The negative area from -1 to 0 cancels the positive area from 0 to 1. Calculation: \\([\\frac{x^4}{4}]_{-1}^1 = \\frac{1^4}{4} - \\frac{(-1)^4}{4} = \\frac{1}{4} - \\frac{1}{4} = 0\\)." },
+            { question: "The expression \\(\\lim_{n \\to \\infty} \\sum_{k=1}^n (a + k\\Delta x)^2 \\Delta x\\) where \\(\\Delta x = \\frac{b-a}{n}\\) is the definite integral for:", options: ["\\(\\int_a^b x \\,dx\\)", "\\(\\int_a^b x^2 \\,dx\\)", "\\(\\int_0^b x \\,dx\\)", "\\(\\int_a^b 2x \\,dx\\)"], correct: 1, explanation: "This is the Riemann sum definition for the function \\(f(x) = x^2\\) over the interval \\([a, b]\\). The term \\((a + k\\Delta x)\\) represents the x-coordinate \\(x_k\\) within the interval, and it is being squared." },
+            { question: "If \\(\\int_0^5 f(x)dx = 10\\) and \\(\\int_0^5 g(x)dx = -3\\), what is \\(\\int_0^5 (2f(x) + 3g(x))dx\\)?", options: ["11", "29", "17", "21"], correct: 0, explanation: "Using the linearity property: \\(\\int_0^5 (2f(x) + 3g(x))dx = 2\\int_0^5 f(x)dx + 3\\int_0^5 g(x)dx = 2(10) + 3(-3) = 20 - 9 = 11\\)." },
+            { question: "The definite integral \\(\\int_a^b f(x)dx\\) results in:", options: ["A function of x.", "A family of functions.", "A single numerical value.", "A function of a and b."], correct: 2, explanation: "Unlike the indefinite integral, which is a family of functions (e.g., \\(x^2+C\\)), the definite integral evaluates to a specific number representing the net area." },
+            { question: "Calculate \\(\\int_1^2 \\frac{x^2+1}{x} \\,dx\\).", options: ["\\(\\frac{3}{2} + \\ln(2)\\)", "\\(2 + \\ln(2)\\)", "\\(\\frac{1}{2} + \\ln(2)\\)", "\\(\\frac{3}{2}\\)"], correct: 0, explanation: "First, simplify the integrand: \\(\\frac{x^2+1}{x} = x + \\frac{1}{x}\\). The antiderivative is \\(\\frac{1}{2}x^2 + \\ln|x|\\). Evaluate at the limits: \\((\\frac{1}{2}(2)^2 + \\ln(2)) - (\\frac{1}{2}(1)^2 + \\ln(1)) = (2 + \\ln(2)) - (\\frac{1}{2} + 0) = \\frac{3}{2} + \\ln(2)\\)." }
+        ];
+
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const explanation = document.getElementById('explanation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const quizFooter = document.querySelector('.quiz-footer');
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            quizFooter.style.display = 'flex';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsGrid.appendChild(button);
+            });
+            
+            updateNavigation();
+            restoreAnswerState();
+            MathJax.typesetPromise();
+        }
+        
+        function resetState() {
+            while (optionsGrid.firstChild) {
+                optionsGrid.removeChild(optionsGrid.firstChild);
+            }
+            explanation.style.display = 'none';
+        }
+
+        function updateNavigation() {
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
+        }
+
+        function restoreAnswerState() {
+            const userAnswer = userAnswers[currentQuestionIndex];
+            if (userAnswer !== null) {
+                showFeedback(userAnswer);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedIndex = parseInt(e.target.dataset.index);
+            if (userAnswers[currentQuestionIndex] === null) { // Only process if it's the first time answering
+                userAnswers[currentQuestionIndex] = selectedIndex;
+                showFeedback(selectedIndex);
+            }
+        }
+
+        function showFeedback(selectedIndex) {
+            const correctIndex = questions[currentQuestionIndex];
+            
+            Array.from(optionsGrid.children).forEach((button, index) => {
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+                button.disabled = true;
+            });
+            
+            explanation.innerHTML = "<b>Explanation:</b> " + questions[currentQuestionIndex].explanation;
+            explanation.style.display = 'block';
+            MathJax.typesetPromise();
+        }
+
+        function showResults() {
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+
+            questionContainer.style.display = 'none';
+            quizFooter.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const scorePercent = Math.round((score / questions.length) * 100);
+            scoreText.innerText = `You scored ${score} out of ${questions.length} (${scorePercent}%)`;
+        }
+
+        function handleNextButton() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function handlePrevButton() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        nextBtn.addEventListener('click', handleNextButton);
+        prevBtn.addEventListener('click', handlePrevButton);
+        restartBtn.addEventListener('click', startQuiz);
+
+        startQuiz();
+    </script>
+</body>
+</html>

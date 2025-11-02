@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Inverse Trigonometric Functions</title>
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #363530; /* Vibrant light blue/lavender background */
+            color: #1f2937;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .quiz-container {
+            background-color: #857c7c;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .quiz-header {
+            /* Vibrant gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .quiz-body {
+            padding: 24px 32px;
+        }
+        #question-container {
+            margin-bottom: 20px;
+        }
+        #question-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            color: #374151;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: left;
+            background-color: #857c7c;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #dbeafe; /* Light blue hover */
+            border-color: #93c5fd;
+            transform: translateY(-2px);
+        }
+        .option-btn.correct {
+            background-color: #10b981; /* Vibrant green */
+            border-color: #059669;
+            color: white;
+            font-weight: bold;
+        }
+        .option-btn.incorrect {
+            background-color: #ef4444; /* Vibrant red */
+            border-color: #dc2626;
+            color: white;
+            font-weight: bold;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+        #feedback-container {
+            margin-top: 24px;
+        }
+        #explanation {
+            display: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            background-color: #f0f9ff; /* Light blue feedback box */
+            border-left: 5px solid #3b82f6; /* Blue accent border */
+            color: #022c4b;
+        }
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            background-color: #857c7c;
+            border-top: 1px solid #e5e7eb;
+        }
+        #progress-text {
+            font-size: 1em;
+            color: #35373b;
+            font-weight: 500;
+        }
+        #next-btn, #restart-btn {
+            padding: 12px 28px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Primary vibrant color */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        #next-btn:hover, #restart-btn:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: scale(1.05);
+        }
+        #results-container {
+            text-align: center;
+            padding: 40px 24px;
+        }
+        #results-container h2 {
+            font-size: 2.2em;
+            color: #4f46e5;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Quiz Game: Inverse Trigonometric Functions</h1>
+        </div>
+        <div class="quiz-body">
+            <div id="question-container">
+                <p id="question-text"></p>
+                <div id="options-grid" class="options-grid"></div>
+            </div>
+            <div id="feedback-container">
+                <div id="explanation"></div>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-footer">
+            <p id="progress-text"></p>
+            <button id="next-btn" style="display: none;">Next Question</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Why must the domain of the sine function be restricted to define its inverse, arcsin?",
+                options: [
+                    "Because sine is not continuous.",
+                    "Because sine is not a one-to-one function.",
+                    "Because the range of sine is limited.",
+                    "Because sine is an odd function."
+                ],
+                correct: 1,
+                explanation: "The sine function is periodic and therefore not one-to-one (it fails the horizontal line test). To define a unique inverse, we must restrict its domain to an interval where it is one-to-one, such as \\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)."
+            },
+            {
+                question: "What is the restricted domain of \\(y = \\sin(x)\\) for which the inverse function \\(y = \\arcsin(x)\\) is defined?",
+                options: [
+                    "\\([0, \\pi]\\)",
+                    "\\((-\\frac{\\pi}{2}, \\frac{\\pi}{2})\\)",
+                    "\\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)",
+                    "\\([0, 2\\pi]\\)"
+                ],
+                correct: 2,
+                explanation: "The standard convention is to restrict the domain of \\(\\sin(x)\\) to the interval \\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\) to ensure the function is one-to-one and covers the entire range \\([-1, 1]\\)."
+            },
+            {
+                question: "What is the domain of the function \\(f(x) = \\arcsin(x)\\)?",
+                options: [
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\([-1, 1]\\)",
+                    "\\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)",
+                    "\\([0, \\pi]\\)"
+                ],
+                correct: 1,
+                explanation: "The domain of the inverse function \\(\\arcsin(x)\\) is the range of the original restricted sine function, which is \\([-1, 1]\\)."
+            },
+            {
+                question: "What is the range of the function \\(f(x) = \\arccos(x)\\)?",
+                options: [
+                    "\\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)",
+                    "\\([-1, 1]\\)",
+                    "\\((-\\frac{\\pi}{2}, \\frac{\\pi}{2})\\)",
+                    "\\([0, \\pi]\\)"
+                ],
+                correct: 3,
+                explanation: "The range of \\(\\arccos(x)\\) is the restricted domain of the cosine function, which is conventionally chosen as \\([0, \\pi]\\) to make it one-to-one."
+            },
+            {
+                question: "Calculate the value of \\(\\arcsin(\\frac{1}{2})\\).",
+                options: [
+                    "\\(\\frac{\\pi}{6}\\)",
+                    "\\(\\frac{\\pi}{4}\\)",
+                    "\\(\\frac{\\pi}{3}\\)",
+                    "\\(\\frac{\\pi}{2}\\)"
+                ],
+                correct: 0,
+                explanation: "We are looking for the angle \\(\\theta\\) in \\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\) such that \\(\\sin(\\theta) = \\frac{1}{2}\\). This angle is \\(\\frac{\\pi}{6}\\)."
+            },
+            {
+                question: "Calculate the value of \\(\\arccos(-\\frac{\\sqrt{2}}{2})\\).",
+                options: [
+                    "\\(\\frac{\\pi}{4}\\)",
+                    "\\(-\\frac{\\pi}{4}\\)",
+                    "\\(\\frac{3\\pi}{4}\\)",
+                    "\\(\\frac{5\\pi}{4}\\)"
+                ],
+                correct: 2,
+                explanation: "We need the angle \\(\\theta\\) in \\([0, \\pi]\\) such that \\(\\cos(\\theta) = -\\frac{\\sqrt{2}}{2}\\). This angle is in the second quadrant, which is \\(\\frac{3\\pi}{4}\\)."
+            },
+            {
+                question: "What is the domain of the function \\(f(x) = \\arctan(x)\\)?",
+                options: [
+                    "\\([-1, 1]\\)",
+                    "\\((-\\frac{\\pi}{2}, \\frac{\\pi}{2})\\)",
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\([0, \\infty)\\)"
+                ],
+                correct: 2,
+                explanation: "The domain of \\(\\arctan(x)\\) is the range of the restricted tangent function. Since \\(\\tan(x)\\) can take any real value, the domain of its inverse is \\((-\\infty, \\infty)\\)."
+            },
+            {
+                question: "What is the range of the function \\(f(x) = \\arctan(x)\\)?",
+                options: [
+                    "\\((-\\infty, \\infty)\\)",
+                    "\\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)",
+                    "\\((-\\frac{\\pi}{2}, \\frac{\\pi}{2})\\)",
+                    "\\([0, \\pi]\\)"
+                ],
+                correct: 2,
+                explanation: "The range of \\(\\arctan(x)\\) is the restricted domain of the tangent function, which is the open interval \\((-\\frac{\\pi}{2}, \\frac{\\pi}{2})\\). The endpoints are excluded because \\(\\tan(x)\\) is undefined at \\(\\pm\\frac{\\pi}{2}\\)."
+            },
+            {
+                question: "Simplify the expression \\(\\sin(\\arcsin(x))\\) for \\(x \\in [-1, 1]\\).",
+                options: [
+                    "\\(x\\)",
+                    "\\(\\frac{1}{x}\\)",
+                    "\\(\\pi - x\\)",
+                    "Undefined"
+                ],
+                correct: 0,
+                explanation: "By definition of an inverse function, \\(\\sin(\\arcsin(x)) = x\\) for any \\(x\\) in the domain of \\(\\arcsin\\), which is \\([-1, 1]\\)."
+            },
+            {
+                question: "Simplify the expression \\(\\arcsin(\\sin(\\frac{3\\pi}{4}))\\).",
+                options: [
+                    "\\(\\frac{3\\pi}{4}\\)",
+                    "\\(\\frac{\\pi}{4}\\)",
+                    "\\(-\\frac{\\pi}{4}\\)",
+                    "\\(\\frac{5\\pi}{4}\\)"
+                ],
+                correct: 1,
+                explanation: "First, \\(\\sin(\\frac{3\\pi}{4}) = \\frac{\\sqrt{2}}{2}\\). Then, \\(\\arcsin(\\frac{\\sqrt{2}}{2}) = \\frac{\\pi}{4}\\). The result must be in the range of arcsin, \\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)."
+            },
+            {
+                question: "Simplify the expression \\(\\cos(\\arctan(x))\\).",
+                options: [
+                    "\\(x\\)",
+                    "\\(\\sqrt{1+x^2}\\)",
+                    "\\(\\frac{1}{\\sqrt{1+x^2}}\\)",
+                    "\\(\\frac{x}{\\sqrt{1+x^2}}\\)"
+                ],
+                correct: 2,
+                explanation: "Let \\(\\theta = \\arctan(x)\\), so \\(\\tan(\\theta) = x = \\frac{x}{1}\\). This corresponds to a right triangle with opposite side \\(x\\) and adjacent side \\(1\\). The hypotenuse is \\(\\sqrt{1^2 + x^2} = \\sqrt{1+x^2}\\). Therefore, \\(\\cos(\\theta) = \\frac{\\text{adjacent}}{\\text{hypotenuse}} = \\frac{1}{\\sqrt{1+x^2}}\\)."
+            },
+            {
+                question: "What is the value of \\(\\arctan(1)\\)?",
+                options: [
+                    "\\(0\\)",
+                    "\\(\\frac{\\pi}{4}\\)",
+                    "\\(\\frac{\\pi}{2}\\)",
+                    "\\(\\pi\\)"
+                ],
+                correct: 1,
+                explanation: "We are looking for the angle \\(\\theta\\) in \\((-\\frac{\\pi}{2}, \\frac{\\pi}{2})\\) such that \\(\\tan(\\theta) = 1\\). This angle is \\(\\frac{\\pi}{4}\\)."
+            },
+            {
+                question: "Which of the following is the graph of \\(y = \\arcsin(x)\\)?",
+                options: [
+                    "A wave oscillating between -1 and 1.",
+                    "A curve increasing from \\( (-1, -\\frac{\\pi}{2}) \\) to \\( (1, \\frac{\\pi}{2}) \\).",
+                    "A curve decreasing from \\( (-1, \\pi) \\) to \\( (1, 0) \\).",
+                    "A curve with horizontal asymptotes at \\(y = \\pm \\frac{\\pi}{2}\\)."
+                ],
+                correct: 1,
+                explanation: "The graph of \\(y = \\arcsin(x)\\) is a reflection of the restricted \\(y = \\sin(x)\\) graph across the line \\(y=x\\). It starts at \\((-1, -\\pi/2)\\) and ends at \\((1, \\pi/2)\\)."
+            },
+            {
+                question: "Which identity is correct for \\(x > 0\\)?",
+                options: [
+                    "\\(\\arctan(x) + \\arctan(\\frac{1}{x}) = \\frac{\\pi}{2}\\)",
+                    "\\(\\arcsin(x) + \\arccos(x) = \\pi\\)",
+                    "\\(\\arctan(x) - \\arctan(\\frac{1}{x}) = 0\\)",
+                    "\\(\\arcsin(x) + \\arccos(x) = 0\\)"
+                ],
+                correct: 0,
+                explanation: "The identity \\(\\arcsin(x) + \\arccos(x) = \\frac{\\pi}{2}\\) is always true for \\(x \\in [-1, 1]\\). The identity \\(\\arctan(x) + \\arctan(\\frac{1}{x}) = \\frac{\\pi}{2}\\) is true for \\(x > 0\\)."
+            },
+            {
+                question: "What is the derivative of \\(\\arcsin(x)\\)?",
+                options: [
+                    "\\(\\frac{1}{1+x^2}\\)",
+                    "\\(\\frac{-1}{\\sqrt{1-x^2}}\\)",
+                    "\\(\\frac{1}{\\sqrt{1-x^2}}\\)",
+                    "\\(\\arccos(x)\\)"
+                ],
+                correct: 2,
+                explanation: "The derivative of \\(\\arcsin(x)\\) with respect to \\(x\\) is \\(\\frac{d}{dx}(\\arcsin x) = \\frac{1}{\\sqrt{1-x^2}}\\) for \\(x \\in (-1, 1)\\)."
+            },
+            {
+                question: "What is the derivative of \\(\\arctan(x)\\)?",
+                options: [
+                    "\\(\\frac{1}{1+x^2}\\)",
+                    "\\(\\frac{-1}{1+x^2}\\)",
+                    "\\(\\frac{1}{\\sqrt{1-x^2}}\\)",
+                    "\\(\\cot(x)\\)"
+                ],
+                correct: 0,
+                explanation: "The derivative of \\(\\arctan(x)\\) with respect to \\(x\\) is \\(\\frac{d}{dx}(\\arctan x) = \\frac{1}{1+x^2}\\)."
+            },
+            {
+                question: "What is the derivative of \\(\\arccos(x)\\)?",
+                options: [
+                    "\\(\\frac{1}{\\sqrt{1-x^2}}\\)",
+                    "\\(\\frac{-1}{\\sqrt{1-x^2}}\\)",
+                    "\\(\\frac{1}{1+x^2}\\)",
+                    "\\(-\\arcsin(x)\\)"
+                ],
+                correct: 1,
+                explanation: "The derivative of \\(\\arccos(x)\\) with respect to \\(x\\) is \\(\\frac{d}{dx}(\\arccos x) = \\frac{-1}{\\sqrt{1-x^2}}\\) for \\(x \\in (-1, 1)\\)."
+            },
+            {
+                question: "Evaluate \\(\\tan(\\arcsin(\\frac{3}{5}))\\).",
+                options: [
+                    "\\(\\frac{3}{4}\\)",
+                    "\\(\\frac{4}{3}\\)",
+                    "\\(\\frac{3}{5}\\)",
+                    "\\(\\frac{4}{5}\\)"
+                ],
+                correct: 0,
+                explanation: "Let \\(\\theta = \\arcsin(\\frac{3}{5})\\). Then \\(\\sin(\\theta) = \\frac{3}{5}\\). This is a right triangle with opposite side 3 and hypotenuse 5. The adjacent side is \\(\\sqrt{5^2 - 3^2} = \\sqrt{16} = 4\\). So, \\(\\tan(\\theta) = \\frac{\\text{opposite}}{\\text{adjacent}} = \\frac{3}{4}\\)."
+            },
+            {
+                question: "The function \\(y = \\sec(x)\\) must be restricted to which domain to have an inverse?",
+                options: [
+                    "\\([0, \\pi]\\)",
+                    "\\([-\\frac{\\pi}{2}, \\frac{\\pi}{2}]\\)",
+                    "\\([0, \\pi], x \\neq \\frac{\\pi}{2}\\)",
+                    "\\((-\\infty, \\infty)\\)"
+                ],
+                correct: 2,
+                explanation: "To define \\(y = \\text{arcsec}(x)\\), the domain of secant is restricted to \\([0, \\pi]\\), but excluding the point \\(x = \\frac{\\pi}{2}\\) where the function is undefined."
+            },
+            {
+                question: "Simplify \\(\\arccos(\\cos(-\\frac{\\pi}{6}))\\).",
+                options: [
+                    "\\(-\\frac{\\pi}{6}\\)",
+                    "\\(\\frac{11\\pi}{6}\\)",
+                    "\\(\\frac{7\\pi}{6}\\)",
+                    "\\(\\frac{\\pi}{6}\\)"
+                ],
+                correct: 3,
+                explanation: "First, \\(\\cos(-\\frac{\\pi}{6}) = \\cos(\\frac{\\pi}{6}) = \\frac{\\sqrt{3}}{2}\\). Then we need to find \\(\\arccos(\\frac{\\sqrt{3}}{2})\\). The angle must be in the range \\([0, \\pi]\\), so the answer is \\(\\frac{\\pi}{6}\\)."
+            }
+        ];
+
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const explanation = document.getElementById('explanation');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            document.querySelector('.quiz-footer').style.display = 'flex';
+            nextBtn.style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsGrid.appendChild(button);
+            });
+
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            // Typeset the newly added content
+            MathJax.typesetPromise([questionText, optionsGrid]);
+        }
+
+        function resetState() {
+            while (optionsGrid.firstChild) {
+                optionsGrid.removeChild(optionsGrid.firstChild);
+            }
+            explanation.style.display = 'none';
+            nextBtn.style.display = 'none';
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.currentTarget; // Use currentTarget for better event handling
+            const correctIndex = questions[currentQuestionIndex].correct;
+            const selectedIndex = parseInt(selectedBtn.dataset.index);
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                selectedBtn.classList.add('correct');
+            } else {
+                selectedBtn.classList.add('incorrect');
+            }
+
+            Array.from(optionsGrid.children).forEach(button => {
+                if (parseInt(button.dataset.index) === correctIndex) {
+                    button.classList.add('correct');
+                }
+                button.disabled = true;
+            });
+
+            explanation.innerHTML = "<b>Explanation:</b> " + questions[currentQuestionIndex].explanation;
+            explanation.style.display = 'block';
+            // Typeset the explanation content
+            MathJax.typesetPromise([explanation]);
+
+            if (questions.length > currentQuestionIndex + 1) {
+                nextBtn.style.display = 'block';
+            } else {
+                // Use a timeout to let the user see the last feedback before showing results
+                setTimeout(showResults, 1500);
+            }
+        }
+
+        function showResults() {
+            questionContainer.style.display = 'none';
+            document.querySelector('.quiz-footer').style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const scorePercent = Math.round((score / questions.length) * 100);
+            scoreText.innerText = `You scored ${score} out of ${questions.length} (${scorePercent}%)`;
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+
+        // Initial start
+        startQuiz();
+    </script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Electromagnetism Dielectrics and Capacitors Chapter 3 Quiz</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+.results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Electromagnetism Dielectrics and Capacitors Chapter 3 Quiz</h1>
+            <p>Test your knowledge of dielectric materials and capacitor systems</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/18</div>
+
+            <div id="questions-container"></div>
+
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/18</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is dielectric displacement D?",
+                options: [
+                    "Electric field in free space",
+                    "\\(\\vec{D} = \\epsilon_0 \\vec{E} + \\vec{P}\\)",
+                    "Polarization vector",
+                    "Charge density"
+                ],
+                correct: 1,
+                explanation: "Dielectric displacement \\(\\vec{D} = \\epsilon_0 \\vec{E} + \\vec{P}\\) relates to the total electric flux."
+            },
+            {
+                question: "What does polarization P represent in dielectric materials?",
+                options: [
+                    "Electric field intensity",
+                    "Dipole moment per unit volume",
+                    "Charge density",
+                    "Conductivity"
+                ],
+                correct: 1,
+                explanation: "Polarization \\(\\vec{P}\\) is the dipole moment per unit volume induced in dielectric materials."
+            },
+            {
+                question: "What is the relative permittivity ε_r?",
+                options: [
+                    "Permittivity of free space",
+                    "\\(\\epsilon_r = 1 + \\chi_e\\)",
+                    "\\(\\epsilon_r = \\epsilon_0\\)",
+                    "Electric susceptibility"
+                ],
+                correct: 1,
+                explanation: "Relative permittivity \\(\\epsilon_r = 1 + \\chi_e\\) where \\(\\chi_e\\) is the electric susceptibility."
+            },
+            {
+                question: "In electrostatic equilibrium, what is true about the electric field inside a conductor?",
+                options: [
+                    "It is maximum",
+                    "It is uniform",
+                    "It is zero",
+                    "It equals the applied field"
+                ],
+                correct: 2,
+                explanation: "In electrostatic equilibrium, \\(\\vec{E} = 0\\) inside conductors."
+            },
+            {
+                question: "Where do charges accumulate on a conductor in electrostatic equilibrium?",
+                options: [
+                    "Uniformly throughout the volume",
+                    "Only at the center",
+                    "On the surface",
+                    "In cavities"
+                ],
+                correct: 2,
+                explanation: "Free charges accumulate on the surface of conductors in electrostatic equilibrium."
+            },
+            {
+                question: "What is capacitance C defined as?",
+                options: [
+                    "Charge per unit voltage",
+                    "Voltage per unit charge",
+                    "Power per unit charge",
+                    "Resistance per unit length"
+                ],
+                correct: 0,
+                explanation: "Capacitance C = Q/V, the charge stored per unit voltage."
+            },
+            {
+                question: "What is the unit of capacitance?",
+                options: [
+                    "Volt (V)",
+                    "Coulomb (C)",
+                    "Farad (F)",
+                    "Henry (H)"
+                ],
+                correct: 2,
+                explanation: "Capacitance is measured in Farads (F)."
+            },
+            {
+                question: "For a parallel plate capacitor, what is the capacitance formula?",
+                options: [
+                    "\\(C = \\frac{\\epsilon A}{d}\\)",
+                    "\\(C = \\frac{A}{4\\pi\\epsilon d}\\)",
+                    "\\(C = \\epsilon_0 \\frac{A}{d}\\)",
+                    "\\(C = \\frac{4\\pi\\epsilon A}{d}\\)"
+                ],
+                correct: 0,
+                explanation: "For parallel plate: \\(C = \\frac{\\epsilon A}{d}\\) where \\(\\epsilon = \\epsilon_0 \\epsilon_r\\)."
+            },
+            {
+                question: "Is the electric field uniform in a parallel plate capacitor?",
+                options: [
+                    "Yes, between the plates",
+                    "No, varies with distance",
+                    "Only near the edges",
+                    "Zero everywhere"
+                ],
+                correct: 0,
+                explanation: "The field is uniform between parallel plates (neglecting edge effects)."
+            },
+            {
+                question: "For a cylindrical capacitor with radii a and b (b > a), capacity is:",
+                options: [
+                    "\\(C = \\frac{2\\pi\\epsilon l}{\\ln(b/a)}\\)",
+                    "\\(C = 2\\pi\\epsilon l \\ln(b/a)\\)",
+                    "\\(C = \\frac{2\\pi\\epsilon}{l \\ln(b/a)}\\)",
+                    "\\(C = \\frac{\\epsilon A}{d}\\)"
+                ],
+                correct: 0,
+                explanation: "Cylindrical capacitor: \\(C = \\frac{2\\pi\\epsilon l}{\\ln(b/a)}\\)."
+            },
+            {
+                question: "Is the electric field uniform in a cylindrical capacitor?",
+                options: [
+                    "Yes",
+                    "No, E ∝ 1/r",
+                    "Constant with r",
+                    "Zero at center"
+                ],
+                correct: 1,
+                explanation: "In cylindrical coordinates, E(r) = λ/(2πεr), so E decreases with increasing r."
+            },
+            {
+                question: "For a spherical capacitor with radii R1 and R2 (R2 > R1), capacity is:",
+                options: [
+                    "\\(C = \\frac{4\\pi\\epsilon}{\\frac{1}{R1} - \\frac{1}{R2}}\\)",
+                    "\\(C = 4\\pi\\epsilon (R2 - R1)\\)",
+                    "\\(C = \\frac{\\epsilon A}{d}\\)",
+                    "\\(C = \\frac{2\\pi\\epsilon l}{\\ln(b/a)}\\)"
+                ],
+                correct: 0,
+                explanation: "Spherical capacitor: \\(C = \\frac{4\\pi\\epsilon}{\\frac{1}{R1} - \\frac{1}{R2}}\\)."
+            },
+            {
+                question: "Is the electric field uniform in a spherical capacitor?",
+                options: [
+                    "Yes",
+                    "No, E ∝ 1/r²",
+                    "Zero everywhere",
+                    "Constant throughout"
+                ],
+                correct: 1,
+                explanation: "In spherical coordinates, E(r) = 1/(4πεr²) × Q_encl, so decreases as 1/r²."
+            },
+            {
+                question: "What happens to capacitance when a dielectric is inserted between plates?",
+                options: [
+                    "Decreases",
+                    "Remains the same",
+                    "Increases by factor ε_r",
+                    "Becomes zero"
+                ],
+                correct: 2,
+                explanation: "Dielectric increases capacitance by factor κ = ε_r relative to vacuum."
+            },
+            {
+                question: "What is dielectric strength?",
+                options: [
+                    "Maximum voltage dielectric can withstand",
+                    "Maximum electric field before breakdown",
+                    "Dielectric constant",
+                    "Polarization limit"
+                ],
+                correct: 1,
+                explanation: "Dielectric strength is the maximum electric field a dielectric can withstand without breakdown."
+            },
+            {
+                question: "Why are dielectrics used in capacitors?",
+                options: [
+                    "To decrease capacitance",
+                    "For insulation and increased capacitance",
+                    "To reduce plate separation",
+                    "To allow current flow"
+                ],
+                correct: 1,
+                explanation: "Dielectrics increase capacitance and prevents arcing between plates."
+            },
+            {
+                question: "What is the relationship between D and E in linear dielectrics?",
+                options: [
+                    "\\(\\vec{D} = \\epsilon_0 \\vec{E}\\)",
+                    "\\(\\vec{D} = \\epsilon_r \\vec{E}\\)",
+                    "\\(\\vec{D} = \\epsilon \\vec{E}\\)",
+                    "\\(\\vec{D} = \\epsilon_0 \\epsilon_r \\vec{E}\\)"
+                ],
+                correct: 3,
+                explanation: "In linear media: \\(\\vec{D} = \\epsilon_0 \\epsilon_r \\vec{E} = \\epsilon \\vec{E}\\)."
+            },
+            {
+                question: "In electrostatic equilibrium, charges in conductor cavities are:",
+                options: [
+                    "Uniformly distributed",
+                    "On the inner surface",
+                    "On the outer surface",
+                    "Zero"
+                ],
+                correct: 2,
+                explanation: "Charges accumulate on the outer surface of conductors, not in cavities."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) =>
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestion === 0;
+
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) =>
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered dielectrics and capacitors!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of capacitor theory.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review dielectric properties and capacitor formulas.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            // Reset progress bar on restart
+            document.getElementById('progress-fill').style.width = `${100 / questions.length}%`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            // Set initial progress bar width
+            document.getElementById('progress-fill').style.width = `${100 / questions.length}%`;
+        });
+    </script>
+</body>
+</html>

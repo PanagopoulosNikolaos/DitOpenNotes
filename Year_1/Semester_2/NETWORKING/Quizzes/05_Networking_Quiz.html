@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Networking MCQ Game (Subnetting)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Networking Multiple Choice Game</div>
+  <div class="subtitle">Subnetting</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">10</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { text: "What is subnetting?", choices: ["A method for increasing the number of IP addresses", "A process of dividing a network into smaller networks", "A way to increase the speed of a network", "A type of network security"], correctIndex: 1, explain: "Subnetting is the process of dividing a set of IP addresses into smaller groups, allowing for a second level of logical organization of a network." },
+  { text: "What are the three parts of an IP address in a subnetted network?", choices: ["Net-ID, Subnet-ID, and Host-ID", "Net-ID, MAC-ID, and Host-ID", "Net-ID, Subnet-ID, and Port-ID", "Net-ID, Host-ID, and Port-ID"], correctIndex: 0, explain: "In a subnetted network, an IP address is divided into three parts: Net-ID, Subnet-ID, and Host-ID." },
+  { text: "What is the purpose of a subnet mask?", choices: ["To hide the IP address of a device", "To indicate which part of the IP address is the Net-ID and which is the Host-ID", "To encrypt network traffic", "To manage network security"], correctIndex: 1, explain: "A subnet mask is a 32-bit binary number that indicates which part of the IP address is used as the Subnet-ID and which is the Host-ID." },
+  { text: "What is Classless InterDomain Routing (CIDR)?", choices: ["A method for assigning IP addresses based on classes", "A method that allows for an arbitrary length of the Net-ID field", "A type of routing protocol", "A type of network security"], correctIndex: 1, explain: "CIDR allows for an arbitrary length of the Net-ID field, instead of what is determined by classes A, B, or C." },
+  { text: "What is the CIDR notation for the subnet mask 255.255.248.0?", choices: ["/20", "/21", "/22", "/23"], correctIndex: 1, explain: "The subnet mask 255.255.248.0 corresponds to the CIDR notation /21." },
+  { text: "How many hosts can a subnet with 5 host bits have?", choices: ["30", "31", "32", "33"], correctIndex: 0, explain: "A subnet with 5 host bits can have 2^5 - 2 = 30 hosts. The two addresses that cannot be used are the network address (all host bits are 0) and the broadcast address (all host bits are 1)." },
+  { text: "What is the default subnet mask for a Class B network?", choices: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], correctIndex: 1, explain: "The default subnet mask for a Class B network is 255.255.0.0." },
+  { text: "How many bits are needed to create 5 subnets in a Class C network?", choices: ["2", "3", "4", "5"], correctIndex: 1, explain: "To create 5 subnets, you need 3 bits, since 2^3 = 8, which is the smallest power of 2 greater than or equal to 5." },
+  { text: "What is the new subnet mask for a Class A network with 4 subnets?", choices: ["255.192.0.0", "255.224.0.0", "255.240.0.0", "255.248.0.0"], correctIndex: 0, explain: "To create 4 subnets in a Class A network, you need 2 bits for the subnet ID. This results in a new subnet mask of 255.192.0.0." },
+  { text: "How many bits are needed to create 12 subnets in an IPv6 network with a /64 prefix?", choices: ["3", "4", "5", "6"], correctIndex: 1, explain: "To create 12 subnets, you need 4 bits, since 2^4 = 16, which is the smallest power of 2 greater than or equal to 12." },
+  { text: "How to calculate the number of subnets?", choices: ["2^subnet bits", "2^host bits", "2^(subnet bits - 1)", "2^(host bits - 1)"], correctIndex: 0, explain: "The number of subnets is 2 raised to the power of the number of subnet bits." },
+  { text: "How to calculate the number of hosts per subnet?", choices: ["2^subnet bits - 2", "2^host bits - 2", "2^subnet bits", "2^host bits"], correctIndex: 1, explain: "The number of hosts per subnet is 2 raised to the power of the number of host bits minus 2 (for network and broadcast addresses)." },
+  { text: "What is FLSM?", choices: ["Fixed Length Subnet Mask", "Flexible Length Subnet Mask", "Fast Link Subnet Mask", "Full Link Subnet Mask"], correctIndex: 0, explain: "FLSM uses the same subnet mask for all subnets in a network." },
+  { text: "What is the difference between FLSM and VLSM?", choices: ["FLSM uses variable masks, VLSM uses fixed", "FLSM uses fixed masks, VLSM uses variable", "FLSM is for IPv4, VLSM for IPv6", "There is no difference"], correctIndex: 1, explain: "FLSM uses the same subnet mask for all subnets, while VLSM allows different subnet masks for different subnets." },
+  { text: "What is supernetting?", choices: ["Combining multiple networks into one", "Dividing a network into subnets", "Encrypting network traffic", "Routing packets"], correctIndex: 0, explain: "Supernetting is the process of combining multiple smaller networks into a larger one." },
+  { text: "What is route aggregation?", choices: ["Combining routes into a single route", "Splitting routes", "Encrypting routes", "Broadcasting routes"], correctIndex: 0, explain: "Route aggregation combines multiple routes into a single route to reduce routing table size." },
+  { text: "What is a subnet calculator?", choices: ["A tool for calculating subnet masks", "A device for subnetting", "A protocol for subnetting", "A type of router"], correctIndex: 0, explain: "A subnet calculator is a tool that helps calculate subnet masks, network addresses, and host ranges." },
+  { text: "What is the purpose of subnetting?", choices: ["To increase IP addresses", "To improve network performance and security", "To decrease network speed", "To encrypt data"], correctIndex: 1, explain: "Subnetting improves network performance, security, and organization by dividing large networks into smaller ones." },
+  { text: "What is the subnet mask for /24?", choices: ["255.255.255.0", "255.255.0.0", "255.0.0.0", "255.255.255.255"], correctIndex: 0, explain: "The CIDR notation /24 corresponds to the subnet mask 255.255.255.0." },
+  { text: "How many subnets can be created with 3 subnet bits?", choices: ["6", "7", "8", "9"], correctIndex: 2, explain: "With 3 subnet bits, you can create 2^3 = 8 subnets." }
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false;
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  q.choices.forEach((opt, i)=> {
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=> {
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+elNext.addEventListener('click', ()=> {
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=> {
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>

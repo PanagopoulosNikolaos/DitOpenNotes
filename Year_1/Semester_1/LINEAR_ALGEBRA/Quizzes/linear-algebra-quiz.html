@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Algebra Quiz - Comprehensive</title>
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 Linear Algebra Quiz</h1>
+            <p>Comprehensive assessment from basics to advanced topics</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/40</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/40</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // BASIC CONCEPTS (Questions 1-10)
+            {
+                question: "What is a vector in \\(\\mathbb{R}^3\\)?",
+                options: [
+                    "An ordered triple of real numbers",
+                    "A 3×3 matrix",
+                    "A function from \\(\\mathbb{R}\\) to \\(\\mathbb{R}^3\\)",
+                    "A linear transformation"
+                ],
+                correct: 0,
+                explanation: "A vector in \\(\\mathbb{R}^3\\) is an ordered triple \\((x, y, z)\\) where \\(x, y, z \\in \\mathbb{R}\\)."
+            },
+            {
+                question: "What is the dot product of \\(\\mathbf{u} = (2, 3)\\) and \\(\\mathbf{v} = (1, 4)\\)?",
+                options: [
+                    "14",
+                    "10",
+                    "5",
+                    "11"
+                ],
+                correct: 0,
+                explanation: "The dot product is \\(\\mathbf{u} \\cdot \\mathbf{v} = 2(1) + 3(4) = 2 + 12 = 14\\)."
+            },
+            {
+                question: "What is the magnitude of the vector \\(\\mathbf{v} = (3, 4)\\)?",
+                options: [
+                    "5",
+                    "7",
+                    "25",
+                    "12"
+                ],
+                correct: 0,
+                explanation: "The magnitude is \\(\\|\\mathbf{v}\\| = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5\\)."
+            },
+            {
+                question: "Which of the following is a unit vector?",
+                options: [
+                    "\\((\\frac{3}{5}, \\frac{4}{5})\\)",
+                    "\\((1, 1)\\)",
+                    "\\((2, 0)\\)",
+                    "\\((0.5, 0.5)\\)"
+                ],
+                correct: 0,
+                explanation: "A unit vector has magnitude 1. For \\((\\frac{3}{5}, \\frac{4}{5})\\): \\(\\sqrt{(\\frac{3}{5})^2 + (\\frac{4}{5})^2} = \\sqrt{\\frac{9}{25} + \\frac{16}{25}} = \\sqrt{1} = 1\\)."
+            },
+            {
+                question: "What is the result of scalar multiplication \\(3 \\cdot (2, -1, 4)\\)?",
+                options: [
+                    "\\((6, -3, 12)\\)",
+                    "\\((5, 2, 7)\\)",
+                    "\\((6, 3, 12)\\)",
+                    "\\((2, -1, 12)\\)"
+                ],
+                correct: 0,
+                explanation: "Scalar multiplication distributes: \\(3(2, -1, 4) = (3 \\cdot 2, 3 \\cdot (-1), 3 \\cdot 4) = (6, -3, 12)\\)."
+            },
+            {
+                question: "What is the dimension of the vector space \\(\\mathbb{R}^5\\)?",
+                options: [
+                    "5",
+                    "4",
+                    "25",
+                    "Infinite"
+                ],
+                correct: 0,
+                explanation: "The dimension of \\(\\mathbb{R}^n\\) is \\(n\\), so \\(\\mathbb{R}^5\\) has dimension 5."
+            },
+            {
+                question: "If \\(\\mathbf{u} = (1, 2)\\) and \\(\\mathbf{v} = (3, -1)\\), what is \\(\\mathbf{u} + \\mathbf{v}\\)?",
+                options: [
+                    "\\((4, 1)\\)",
+                    "\\((4, -1)\\)",
+                    "\\((3, 1)\\)",
+                    "\\((2, 3)\\)"
+                ],
+                correct: 0,
+                explanation: "Vector addition is component-wise: \\((1, 2) + (3, -1) = (1+3, 2+(-1)) = (4, 1)\\)."
+            },
+            {
+                question: "What is the zero vector in \\(\\mathbb{R}^3\\)?",
+                options: [
+                    "\\((0, 0, 0)\\)",
+                    "\\((1, 1, 1)\\)",
+                    "\\((0, 0, 1)\\)",
+                    "\\(0\\)"
+                ],
+                correct: 0,
+                explanation: "The zero vector in \\(\\mathbb{R}^3\\) is \\((0, 0, 0)\\), the additive identity."
+            },
+            {
+                question: "Two vectors are orthogonal if their dot product is:",
+                options: [
+                    "0",
+                    "1",
+                    "-1",
+                    "Undefined"
+                ],
+                correct: 0,
+                explanation: "Two vectors are orthogonal (perpendicular) if and only if their dot product equals zero."
+            },
+            {
+                question: "What is the angle between vectors \\(\\mathbf{u} = (1, 0)\\) and \\(\\mathbf{v} = (0, 1)\\)?",
+                options: [
+                    "90°",
+                    "0°",
+                    "180°",
+                    "45°"
+                ],
+                correct: 0,
+                explanation: "These are standard basis vectors pointing along perpendicular axes. Their dot product is 0, so they are orthogonal (90°)."
+            },
+
+            // MATRICES AND OPERATIONS (Questions 11-20)
+            {
+                question: "What is the result of \\(\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} + \\begin{pmatrix} 5 & 6 \\\\ 7 & 8 \\end{pmatrix}\\)?",
+                options: [
+                    "\\(\\begin{pmatrix} 6 & 8 \\\\ 10 & 12 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 5 & 8 \\\\ 10 & 12 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 6 & 6 \\\\ 10 & 10 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 19 & 22 \\\\ 43 & 50 \\end{pmatrix}\\)"
+                ],
+                correct: 0,
+                explanation: "Matrix addition is element-wise: each entry is the sum of corresponding entries."
+            },
+            {
+                question: "What is the determinant of \\(\\begin{pmatrix} 2 & 3 \\\\ 1 & 4 \\end{pmatrix}\\)?",
+                options: [
+                    "5",
+                    "8",
+                    "11",
+                    "-5"
+                ],
+                correct: 0,
+                explanation: "For a 2×2 matrix \\(\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}\\), the determinant is \\(ad - bc = 2(4) - 3(1) = 8 - 3 = 5\\)."
+            },
+            {
+                question: "What is the identity matrix \\(I_2\\) in \\(\\mathbb{R}^{2 \\times 2}\\)?",
+                options: [
+                    "\\(\\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 1 & 1 \\\\ 1 & 1 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}\\)"
+                ],
+                correct: 0,
+                explanation: "The identity matrix has 1s on the diagonal and 0s elsewhere. For any matrix \\(A\\), \\(AI = IA = A\\)."
+            },
+            {
+                question: "If \\(A\\) is a 3×4 matrix and \\(B\\) is a 4×2 matrix, what is the size of \\(AB\\)?",
+                options: [
+                    "3×2",
+                    "4×4",
+                    "3×4",
+                    "Undefined"
+                ],
+                correct: 0,
+                explanation: "When multiplying an \\(m \\times n\\) matrix by an \\(n \\times p\\) matrix, the result is \\(m \\times p\\). So \\(3 \\times 4\\) times \\(4 \\times 2\\) gives \\(3 \\times 2\\)."
+            },
+            {
+                question: "What is the transpose of \\(\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}\\)?",
+                options: [
+                    "\\(\\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 3 & 2 & 1 \\\\ 6 & 5 & 4 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 6 & 5 & 4 \\\\ 3 & 2 & 1 \\end{pmatrix}\\)"
+                ],
+                correct: 0,
+                explanation: "The transpose \\(A^T\\) is obtained by swapping rows and columns. Row 1 becomes column 1, and row 2 becomes column 2."
+            },
+            {
+                question: "A matrix \\(A\\) is symmetric if:",
+                options: [
+                    "\\(A = A^T\\)",
+                    "\\(A = -A^T\\)",
+                    "\\(A = A^{-1}\\)",
+                    "\\(\\det(A) = 1\\)"
+                ],
+                correct: 0,
+                explanation: "A matrix is symmetric if it equals its transpose: \\(A = A^T\\). This means \\(a_{ij} = a_{ji}\\) for all \\(i, j\\)."
+            },
+            {
+                question: "What is \\(\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix} \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}\\)?",
+                options: [
+                    "\\(\\begin{pmatrix} 2 \\\\ 6 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 3 \\\\ 5 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix}\\)",
+                    "\\(\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}\\)"
+                ],
+                correct: 0,
+                explanation: "Matrix-vector multiplication: \\(\\begin{pmatrix} 2(1) + 0(2) \\\\ 0(1) + 3(2) \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 6 \\end{pmatrix}\\)."
+            },
+            {
+                question: "The trace of a matrix is:",
+                options: [
+                    "The sum of its diagonal entries",
+                    "The product of its diagonal entries",
+                    "The sum of all its entries",
+                    "Its determinant"
+                ],
+                correct: 0,
+                explanation: "The trace of a square matrix \\(A\\) is \\(\\text{tr}(A) = \\sum_{i} a_{ii}\\), the sum of diagonal elements."
+            },
+            {
+                question: "What is the determinant of \\(\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}\\)?",
+                options: [
+                    "6",
+                    "5",
+                    "0",
+                    "1"
+                ],
+                correct: 0,
+                explanation: "For a diagonal matrix, the determinant is the product of diagonal entries: \\(1 \\times 2 \\times 3 = 6\\)."
+            },
+            {
+                question: "Which property holds for matrix multiplication?",
+                options: [
+                    "Associative: \\((AB)C = A(BC)\\)",
+                    "Commutative: \\(AB = BA\\)",
+                    "Always invertible",
+                    "\\(AB = 0\\) implies \\(A = 0\\) or \\(B = 0\\)"
+                ],
+                correct: 0,
+                explanation: "Matrix multiplication is associative but generally not commutative. \\((AB)C = A(BC)\\) always holds when dimensions are compatible."
+            },
+
+            // SYSTEMS OF LINEAR EQUATIONS (Questions 21-25)
+            {
+                question: "The system \\(\\begin{cases} x + y = 3 \\\\ 2x + 2y = 6 \\end{cases}\\) has:",
+                options: [
+                    "Infinitely many solutions",
+                    "Exactly one solution",
+                    "No solution",
+                    "Exactly two solutions"
+                ],
+                correct: 0,
+                explanation: "The second equation is twice the first, so they represent the same line. The system has infinitely many solutions."
+            },
+            {
+                question: "What is the solution to \\(\\begin{cases} x + 2y = 5 \\\\ 3x - 2y = 3 \\end{cases}\\)?",
+                options: [
+                    "\\(x = 2, y = \\frac{3}{2}\\)",
+                    "\\(x = 1, y = 2\\)",
+                    "\\(x = 3, y = 1\\)",
+                    "No solution"
+                ],
+                correct: 0,
+                explanation: "Adding the equations: \\(4x = 8\\), so \\(x = 2\\). Substituting: \\(2 + 2y = 5\\), so \\(y = \\frac{3}{2}\\)."
+            },
+            {
+                question: "A system of linear equations is consistent if it has:",
+                options: [
+                    "At least one solution",
+                    "No solution",
+                    "Exactly one solution",
+                    "Infinitely many solutions"
+                ],
+                correct: 0,
+                explanation: "A system is consistent if it has at least one solution (either unique or infinitely many). Otherwise, it's inconsistent."
+            },
+            {
+                question: "Row echelon form requires:",
+                options: [
+                    "Leading entries in each row are to the right of the leading entry in the row above",
+                    "All diagonal entries equal 1",
+                    "The matrix is square",
+                    "All entries below the diagonal are zero"
+                ],
+                correct: 0,
+                explanation: "In row echelon form, the leading entry (pivot) of each non-zero row is to the right of the leading entry in the row above it."
+            },
+            {
+                question: "Gaussian elimination is used to:",
+                options: [
+                    "Solve systems of linear equations",
+                    "Find eigenvalues",
+                    "Compute matrix products",
+                    "Calculate determinants only"
+                ],
+                correct: 0,
+                explanation: "Gaussian elimination transforms a system into row echelon form to solve it. It can also be used to find rank and compute determinants."
+            },
+
+            // LINEAR TRANSFORMATIONS (Questions 26-30)
+            {
+                question: "A function \\(T: \\mathbb{R}^n \\to \\mathbb{R}^m\\) is linear if:",
+                options: [
+                    "\\(T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u}) + T(\\mathbf{v})\\) and \\(T(c\\mathbf{u}) = cT(\\mathbf{u})\\)",
+                    "\\(T(\\mathbf{u} \\cdot \\mathbf{v}) = T(\\mathbf{u}) \\cdot T(\\mathbf{v})\\)",
+                    "\\(T\\) is continuous",
+                    "\\(T\\) is one-to-one"
+                ],
+                correct: 0,
+                explanation: "A linear transformation preserves addition and scalar multiplication: \\(T(\\mathbf{u} + \\mathbf{v}) = T(\\mathbf{u}) + T(\\mathbf{v})\\) and \\(T(c\\mathbf{u}) = cT(\\mathbf{u})\\)."
+            },
+            {
+                question: "The matrix \\(\\begin{pmatrix} \\cos\\theta & -\\sin\\theta \\\\ \\sin\\theta & \\cos\\theta \\end{pmatrix}\\) represents:",
+                options: [
+                    "Rotation by angle \\(\\theta\\)",
+                    "Reflection about the x-axis",
+                    "Scaling by factor \\(\\theta\\)",
+                    "Projection onto a line"
+                ],
+                correct: 0,
+                explanation: "This is the standard rotation matrix that rotates vectors counterclockwise by angle \\(\\theta\\) in \\(\\mathbb{R}^2\\)."
+            },
+            {
+                question: "The kernel (null space) of a linear transformation \\(T\\) is:",
+                options: [
+                    "The set of all vectors \\(\\mathbf{v}\\) such that \\(T(\\mathbf{v}) = \\mathbf{0}\\)",
+                    "The set of all possible outputs of \\(T\\)",
+                    "The set of eigenvectors",
+                    "The inverse of \\(T\\)"
+                ],
+                correct: 0,
+                explanation: "The kernel (or null space) of \\(T\\) is \\(\\ker(T) = \\{\\mathbf{v} : T(\\mathbf{v}) = \\mathbf{0}\\}\\), all vectors that map to zero."
+            },
+            {
+                question: "The range (image) of a linear transformation \\(T: \\mathbb{R}^n \\to \\mathbb{R}^m\\) is:",
+                options: [
+                    "The set of all possible outputs \\(T(\\mathbf{v})\\) for \\(\\mathbf{v} \\in \\mathbb{R}^n\\)",
+                    "The set of all inputs that map to zero",
+                    "\\(\\mathbb{R}^m\\)",
+                    "The set of eigenvectors"
+                ],
+                correct: 0,
+                explanation: "The range (or image) is \\(\\text{range}(T) = \\{T(\\mathbf{v}) : \\mathbf{v} \\in \\mathbb{R}^n\\}\\), all possible output vectors."
+            },
+            {
+                question: "A linear transformation \\(T\\) is one-to-one if:",
+                options: [
+                    "\\(\\ker(T) = \\{\\mathbf{0}\\}\\)",
+                    "\\(\\text{range}(T) = \\mathbb{R}^m\\)",
+                    "\\(T\\) is continuous",
+                    "The matrix of \\(T\\) is diagonal"
+                ],
+                correct: 0,
+                explanation: "\\(T\\) is one-to-one (injective) if and only if its kernel contains only the zero vector: \\(\\ker(T) = \\{\\mathbf{0}\\}\\)."
+            },
+
+            // EIGENVALUES AND EIGENVECTORS (Questions 31-35)
+            {
+                question: "If \\(\\mathbf{v}\\) is an eigenvector of matrix \\(A\\) with eigenvalue \\(\\lambda\\), then:",
+                options: [
+                    "\\(A\\mathbf{v} = \\lambda\\mathbf{v}\\)",
+                    "\\(A\\mathbf{v} = \\mathbf{v} + \\lambda\\)",
+                    "\\(\\mathbf{v}^T A = \\lambda\\mathbf{v}^T\\)",
+                    "\\(\\|A\\mathbf{v}\\| = \\lambda\\)"
+                ],
+                correct: 0,
+                explanation: "By definition, \\(\\mathbf{v}\\) is an eigenvector with eigenvalue \\(\\lambda\\) if \\(A\\mathbf{v} = \\lambda\\mathbf{v}\\) and \\(\\mathbf{v} \\neq \\mathbf{0}\\)."
+            },
+            {
+                question: "The characteristic polynomial of a 2×2 matrix \\(A\\) is found by computing:",
+                options: [
+                    "\\(\\det(A - \\lambda I)\\)",
+                    "\\(\\text{tr}(A - \\lambda I)\\)",
+                    "\\(A - \\lambda I\\)",
+                    "\\(\\det(A) - \\lambda\\)"
+                ],
+                correct: 0,
+                explanation: "The characteristic polynomial is \\(p(\\lambda) = \\det(A - \\lambda I)\\). Its roots are the eigenvalues of \\(A\\)."
+            },
+            {
+                question: "What are the eigenvalues of \\(\\begin{pmatrix} 3 & 0 \\\\ 0 & 5 \\end{pmatrix}\\)?",
+                options: [
+                    "3 and 5",
+                    "0 and 8",
+                    "8 and 15",
+                    "3 and 0"
+                ],
+                correct: 0,
+                explanation: "For a diagonal matrix, the eigenvalues are the diagonal entries. So the eigenvalues are 3 and 5."
+            },
+            {
+                question: "A matrix \\(A\\) is diagonalizable if:",
+                options: [
+                    "It has \\(n\\) linearly independent eigenvectors",
+                    "All eigenvalues are distinct",
+                    "\\(\\det(A) \\neq 0\\)",
+                    "It is symmetric"
+                ],
+                correct: 0,
+                explanation: "An \\(n \\times n\\) matrix is diagonalizable if it has \\(n\\) linearly independent eigenvectors, which allows \\(A = PDP^{-1}\\)."
+            },
+            {
+                question: "The trace of a matrix equals:",
+                options: [
+                    "The sum of its eigenvalues (with multiplicity)",
+                    "The product of its eigenvalues",
+                    "The largest eigenvalue",
+                    "The determinant"
+                ],
+                correct: 0,
+                explanation: "An important property: \\(\\text{tr}(A) = \\sum \\lambda_i\\) where \\(\\lambda_i\\) are eigenvalues counted with their algebraic multiplicity."
+            },
+
+            // ADVANCED TOPICS (Questions 36-40)
+            {
+                question: "The rank of a matrix is:",
+                options: [
+                    "The dimension of its column space",
+                    "The number of rows",
+                    "The number of columns",
+                    "Its determinant"
+                ],
+                correct: 0,
+                explanation: "The rank is the dimension of the column space (or row space, since they're equal), which equals the number of linearly independent columns."
+            },
+            {
+                question: "The Rank-Nullity Theorem states that for \\(T: \\mathbb{R}^n \\to \\mathbb{R}^m\\):",
+                options: [
+                    "\\(\\dim(\\ker(T)) + \\dim(\\text{range}(T)) = n\\)",
+                    "\\(\\dim(\\ker(T)) + \\dim(\\text{range}(T)) = m\\)",
+                    "\\(\\dim(\\ker(T)) = \\dim(\\text{range}(T))\\)",
+                    "\\(\\text{rank}(T) = n - m\\)"
+                ],
+                correct: 0,
+                explanation: "The Rank-Nullity Theorem: \\(\\dim(\\ker(T)) + \\text{rank}(T) = n\\), where \\(n\\) is the dimension of the domain."
+            },
+            {
+                question: "An orthogonal matrix \\(Q\\) satisfies:",
+                options: [
+                    "\\(Q^T Q = I\\)",
+                    "\\(Q^2 = I\\)",
+                    "\\(Q = Q^T\\)",
+                    "\\(\\det(Q) = 0\\)"
+                ],
+                correct: 0,
+                explanation: "A matrix \\(Q\\) is orthogonal if \\(Q^T Q = I\\), which means \\(Q^{-1} = Q^T\\). The columns form an orthonormal basis."
+            },
+            {
+                question: "The Gram-Schmidt process is used to:",
+                options: [
+                    "Construct an orthonormal basis from a linearly independent set",
+                    "Find eigenvalues",
+                    "Solve systems of equations",
+                    "Compute determinants"
+                ],
+                correct: 0,
+                explanation: "The Gram-Schmidt process takes a linearly independent set of vectors and produces an orthonormal basis for the same subspace."
+            },
+            {
+                question: "If \\(A\\) is an \\(n \\times n\\) matrix, then \\(\\det(A^T) =\\):",
+                options: [
+                    "\\(\\det(A)\\)",
+                    "\\(-\\det(A)\\)",
+                    "\\(\\frac{1}{\\det(A)}\\)",
+                    "\\(0\\)"
+                ],
+                correct: 0,
+                explanation: "One of the fundamental properties of determinants: \\(\\det(A^T) = \\det(A)\\) for any square matrix \\(A\\)."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Outstanding! You have mastered linear algebra!';
+            } else if (percentage >= 75) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Great job! You have a strong understanding of linear algebra.';
+            } else if (percentage >= 60) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good effort! Review some concepts and you\'ll master it.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the fundamentals and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

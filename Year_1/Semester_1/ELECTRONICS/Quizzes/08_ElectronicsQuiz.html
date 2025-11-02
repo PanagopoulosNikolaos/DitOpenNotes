@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (BJT Biasing)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">BJT DC Analysis and Biasing Circuits</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">40</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'loadline', params:{...} }
+}
+All content is aligned to the provided PDF topics.
+*/
+
+const questions = [
+  { text: "What are the three terminals of a Bipolar Junction Transistor (BJT)?", choices: ["Source, Drain, Gate", "Anode, Cathode, Gate", "Emitter, Base, Collector", "Input, Output, Ground"], correctIndex: 2, explain: "A BJT has three terminals: the Emitter (e), Base (b), and Collector (c)." },
+  { text: "In an NPN transistor operating in the active region, the relationship between currents is:", choices: ["\\(I_E = I_B - I_C\\)", "\\(I_B = I_E + I_C\\)", "\\(I_C = I_E + I_B\\)", "\\(I_E = I_B + I_C\\)"], correctIndex: 3, explain: "By Kirchhoff's Current Law, the emitter current is the sum of the base and collector currents: \\(I_E = I_B + I_C\\)." },
+  { text: "The current gain of a BJT in a common-emitter configuration is represented by which parameter?", choices: ["\\(\\alpha\\)", "\\(\\beta\\)", "\\(\\gamma\\)", "\\(\\delta\\)"], correctIndex: 1, explain: "Beta (\\(\\beta\\)) is the common-emitter current gain, defined as the ratio of collector current to base current: \\(\\beta = \\frac{I_C}{I_B}\\)." },
+  { text: "What is the primary goal of DC analysis for a transistor circuit?", choices: ["To calculate the AC gain", "To find the frequency response", "To determine the stable DC operating point (Q-point)", "To measure the input impedance"], correctIndex: 2, explain: "DC analysis is performed to find the DC currents (\\(I_B, I_C\\)) and voltages (\\(V_{CE}\\)) that define the quiescent or Q-point, ensuring the transistor operates in the desired region." },
+  { text: "The DC load line is a graphical representation of which equation?", choices: ["The input loop KVL equation", "The output loop (collector-emitter) KVL equation", "The current gain equation \\(I_C = \\beta I_B\\)", "The power dissipation equation"], correctIndex: 1, explain: "The DC load line graphically represents all possible Q-points based on the KVL equation of the output loop, which relates \\(I_C\\) and \\(V_{CE}\\)." },
+  { text: "What are the two endpoints of a DC load line?", choices: ["Active and Inactive points", "Input and Output points", "Saturation and Cutoff points", "Forward and Reverse bias points"], correctIndex: 2, explain: "The load line is drawn between the saturation point (where \\(V_{CE} \\approx 0\\)) and the cutoff point (where \\(I_C \\approx 0\\)).", plot: { type: "loadline", params: { vce_off: 15, ic_sat: 0.005 } } },
+  { text: "When a transistor is in saturation, the collector-emitter voltage \\(V_{CE}\\) is:", choices: ["Maximum (approximately \\(V_{CC}\\))", "Approximately equal to \\(V_{BE}\\)", "Minimum (close to 0 V)", "Negative"], correctIndex: 2, explain: "In saturation, the transistor acts like a closed switch, and the voltage drop across it, \\(V_{CE}\\), is minimal, typically around 0.2V." },
+  { text: "When a transistor is in cutoff, the collector current \\(I_C\\) is:", choices: ["Maximum (\\(I_{C(sat)}\\))", "Equal to the base current \\(I_B\\)", "Minimum (ideally 0 A)", "Equal to the emitter current \\(I_E\\)"], correctIndex: 2, explain: "In cutoff, the transistor acts like an open switch, and ideally no collector current flows (\\(I_C \\approx 0\\))." },
+  { text: "For a small-signal amplifier, where should the Q-point ideally be located on the DC load line?", choices: ["At the saturation point", "At the cutoff point", "Near the middle of the active region", "As close to \\(V_{CC}\\) as possible"], correctIndex: 2, explain: "For linear amplification without clipping, the Q-point should be centered on the load line to allow for maximum symmetrical swing of the output signal.", plot: { type: "loadline", params: { vce_off: 20, ic_sat: 0.010, vceq: 10, icq: 0.005 } } },
+  { text: "Which biasing circuit is known for having a Q-point that is highly dependent on the transistor's \\(\\beta\\)?", choices: ["Voltage Divider Bias", "Emitter Bias", "Base Bias", "Collector Feedback Bias"], correctIndex: 2, explain: "Base bias is the simplest but least stable configuration because its collector current is directly proportional to \\(\\beta\\) (\\(I_C = \\beta I_B\\)), which can vary significantly." },
+  { text: "In a Base Bias circuit, the base current \\(I_B\\) is determined by:", choices: ["\\(\\frac{V_{CC}}{R_C}\\)", "\\(\\frac{V_{CC} - V_{BE}}{R_B}\\)", "\\(\\frac{V_{BE}}{R_B}\\)", "\\(\\frac{V_{CC}}{R_B + R_C}\\)"], correctIndex: 1, explain: "Applying KVL to the base-emitter input loop gives \\(V_{CC} - I_B R_B - V_{BE} = 0\\), so \\(I_B = \\frac{V_{CC} - V_{BE}}{R_B}\\)." },
+  { text: "The load line equation for a simple Base Bias circuit is:", choices: ["\\(V_{CC} - I_C R_C - V_{CE} = 0\\)", "\\(V_{CC} - I_B R_B - V_{BE} = 0\\)", "\\(V_{CE} = I_C R_C\\)", "\\(V_{CC} = I_C (R_B + R_C)\\)"], correctIndex: 0, explain: "Applying KVL around the collector-emitter output loop gives the load line equation: \\(V_{CC} - I_C R_C - V_{CE} = 0\\)." },
+  { text: "What is the primary function of the emitter resistor (\\(R_E\\)) in an Emitter Bias circuit?", choices: ["To increase the voltage gain", "To set the base current", "To stabilize the Q-point against changes in \\(\\beta\\)", "To decrease the input impedance"], correctIndex: 2, explain: "The emitter resistor provides negative feedback, which stabilizes the Q-point. If \\(I_C\\) tries to increase, \\(I_E\\) increases, the voltage across \\(R_E\\) increases, which reduces the base-emitter voltage and counteracts the increase in \\(I_C\\)." },
+  { text: "In the DC analysis of an Emitter Bias circuit, we often use the approximation:", choices: ["\\(I_C \\approx I_B\\)", "\\(I_C \\approx I_E\\)", "\\(I_B \\approx I_E\\)", "\\(V_{CE} \\approx V_{BE}\\)"], correctIndex: 1, explain: "Since \\(\\beta\\) is usually large (e.g., > 50), the base current \\(I_B\\) is much smaller than the collector current \\(I_C\\). Therefore, \\(I_E = I_C + I_B\\) is very close to \\(I_C\\)." },
+  { text: "The load line equation for an Emitter Bias circuit is:", choices: ["\\(V_{CC} - I_C R_C - V_{CE} = 0\\)", "\\(V_{CC} - I_C R_C - I_E R_E - V_{CE} = 0\\)", "\\(V_{BB} - I_B R_B - V_{BE} = 0\\)", "\\(V_{CE} = I_C(R_C + R_E)\\)"], correctIndex: 1, explain: "Applying KVL around the output loop gives \\(V_{CC} - I_C R_C - I_E R_E - V_{CE} = 0\\). Using \\(I_C \\approx I_E\\), this becomes \\(V_{CC} - I_C(R_C + R_E) - V_{CE} = 0\\)." },
+  { text: "Which biasing circuit is considered the most widely used and stable?", choices: ["Base Bias", "Collector Feedback Bias", "Emitter Bias with dual supply", "Voltage Divider Bias"], correctIndex: 3, explain: "Voltage Divider Bias provides a stable Q-point that is nearly independent of \\(\\beta\\) variations, making it very reliable and popular for amplifier design." },
+  { text: "In a Voltage Divider Bias circuit, what is the first step to find the Q-point?", choices: ["Calculate \\(I_C\\) using \\(\\beta\\)", "Find the voltage at the base (\\(V_B\\)) using the voltage divider rule", "Apply KVL to the output loop", "Assume the transistor is in saturation"], correctIndex: 1, explain: "The first step is to calculate the DC voltage at the base, \\(V_B = V_{CC} \\frac{R_2}{R_1 + R_2}\\), assuming the base current is negligible compared to the divider current." },
+  { text: "For a Voltage Divider Bias circuit, the KVL equation for the base-emitter loop is:", choices: ["\\(V_B - I_B R_B - V_{BE} - I_E R_E = 0\\)", "\\(V_B - V_{BE} - I_E R_E = 0\\)", "\\(V_{CC} - I_B R_1 - V_{BE} = 0\\)", "\\(V_B + V_{BE} + I_E R_E = 0\\)"], correctIndex: 1, explain: "Starting from the calculated base voltage \\(V_B\\), the KVL equation for the input loop is \\(V_B - V_{BE} - I_E R_E = 0\\), which allows you to solve for \\(I_E\\)." },
+  { text: "The cutoff voltage \\(V_{CE(cutoff)}\\) for a Voltage Divider Bias circuit is:", choices: ["\\(V_{CC}\\)", "\\(V_B\\)", "\\(I_C R_C\\)", "\\(V_{CC} - I_C R_C\\)"], correctIndex: 0, explain: "At cutoff, \\(I_C = 0\\), so there are no voltage drops across \\(R_C\\) and \\(R_E\\). The full supply voltage \\(V_{CC}\\) appears across the collector-emitter terminals." },
+  { text: "The saturation current \\(I_{C(sat)}\\) for a Voltage Divider Bias circuit is:", choices: ["\\(\\frac{V_{CC}}{R_C}\\)", "\\(\\frac{V_{B}}{R_E}\\)", "\\(\\frac{V_{CC}}{R_C + R_E}\\)", "\\(\\frac{V_{CC} - V_{BE}}{R_C}\\)"], correctIndex: 2, explain: "At saturation, \\(V_{CE} \\approx 0\\). The KVL equation \\(V_{CC} - I_C(R_C + R_E) - V_{CE} = 0\\) simplifies to \\(I_{C(sat)} = \\frac{V_{CC}}{R_C + R_E}\\)." },
+  { text: "What is a key feature of an Emitter Bias circuit with a dual (positive and negative) power supply?", choices: ["It requires a larger \\(\\beta\\) to work", "It provides a very stable Q-point, often independent of \\(\\beta\\)", "It has a very high voltage gain", "It is less stable than Base Bias"], correctIndex: 1, explain: "Using a negative supply \\(V_{EE}\\) on the emitter allows for excellent Q-point stability, especially if the base is grounded, making the emitter current \\(I_E \\approx \\frac{-V_{BE} + V_{EE}}{R_E}\\) nearly constant." },
+  { text: "For a dual-supply emitter bias circuit, the load line equation is:", choices: ["\\(V_{CC} - I_C(R_C + R_E) - V_{CE} = 0\\)", "\\(V_{CC} + V_{EE} - I_C(R_C + R_E) - V_{CE} = 0\\)", "\\(V_{EE} - I_E R_E - V_{BE} = 0\\)", "\\(V_{CC} - I_C R_C - V_{CE} = 0\\)"], correctIndex: 1, explain: "Applying KVL from \\(V_{CC}\\) to \\(V_{EE}\\) through the output loop gives \\(V_{CC} - I_C R_C - V_{CE} - I_E R_E + V_{EE} = 0\\). Rearranging and using \\(I_C \\approx I_E\\) gives the stated equation." },
+  { text: "The cutoff voltage \\(V_{CE(cutoff)}\\) in a dual-supply emitter bias circuit is:", choices: ["\\(V_{CC}\\)", "\\(V_{EE}\\)", "\\(V_{CC} - V_{EE}\\)", "\\(V_{CC} + V_{EE}\\)"], correctIndex: 3, explain: "At cutoff \\(I_C = 0\\). The KVL equation becomes \\(V_{CC} - V_{CE} + V_{EE} = 0\\), so \\(V_{CE(cutoff)} = V_{CC} + V_{EE}\\). The total voltage span is across the transistor." },
+  { text: "The saturation current \\(I_{C(sat)}\\) in a dual-supply emitter bias circuit is:", choices: ["\\(\\frac{V_{CC}}{R_C + R_E}\\)", "\\(\\frac{V_{EE}}{R_E}\\)", "\\(\\frac{V_{CC} + V_{EE}}{R_C + R_E}\\)", "\\(\\frac{V_{CC} - V_{EE}}{R_C + R_E}\\)"], correctIndex: 2, explain: "At saturation \\(V_{CE} = 0\\). The KVL equation becomes \\(V_{CC} + V_{EE} - I_C(R_C+R_E) = 0\\), so \\(I_{C(sat)} = \\frac{V_{CC} + V_{EE}}{R_C + R_E}\\)." },
+  { text: "In a Collector Feedback biasing circuit, the base resistor \\(R_B\\) is connected between:", choices: ["\\(V_{CC}\\) and the base", "The base and ground", "The collector and the base", "The emitter and the base"], correctIndex: 2, explain: "This configuration creates a feedback path by connecting \\(R_B\\) from the collector terminal back to the base terminal." },
+  { text: "How does Collector Feedback provide stability?", choices: ["By increasing the base current", "By making the base voltage constant", "Through negative feedback; if \\(I_C\\) increases, \\(V_C\\) drops, reducing \\(I_B\\)", "By using a negative power supply"], correctIndex: 2, explain: "If \\(I_C\\) increases, the voltage drop across \\(R_C\\) increases, lowering the collector voltage \\(V_C\\). Since \\(I_B\\) depends on \\(V_C\\), \\(I_B\\) decreases, which in turn reduces \\(I_C\\), thus stabilizing the Q-point." },
+  { text: "The KVL equation for the input loop of a Collector Feedback circuit (with an emitter resistor) is:", choices: ["\\(V_{CC} - I_B R_B - V_{BE} = 0\\)", "\\(V_{CC} - (I_C+I_B)R_C - I_B R_B - V_{BE} - I_E R_E = 0\\)", "\\(V_{C} - I_B R_B - V_{BE} = 0\\)", "\\(V_{CC} - I_C R_C - V_{CE} = 0\\)"], correctIndex: 1, explain: "The KVL path goes from \\(V_{CC}\\), through \\(R_C\\) (carrying both \\(I_C\\) and \\(I_B\\)), through \\(R_B\\), across the base-emitter junction, and through \\(R_E\\) to ground." },
+  { text: "Emitter Feedback bias (also called single-supply emitter bias) is a variation of which circuit?", choices: ["Base Bias, with an added \\(R_E\\)", "Voltage Divider Bias, with \\(R_1\\) removed", "Collector Feedback, with \\(R_B\\) moved", "Dual Supply Bias, with \\(V_{EE}\\) set to 0V"], correctIndex: 0, explain: "It is essentially a Base Bias circuit with an emitter resistor \\(R_E\\) added for improved stability." },
+  { text: "The main stability advantage of Emitter Bias over simple Base Bias comes from:", choices: ["A larger base resistor", "The negative feedback provided by the voltage drop across \\(R_E\\)", "A higher \\(V_{CC}\\)", "A smaller collector resistor"], correctIndex: 1, explain: "The voltage \\(I_E R_E\\) opposes changes in emitter current, providing stabilizing negative feedback, making the Q-point less dependent on \\(\\beta\\)." },
+  { text: "Which BJT configuration is shown in most of the biasing circuits in the presentation?", choices: ["Common Base", "Common Collector (Emitter Follower)", "Common Emitter", "Darlington Pair"], correctIndex: 2, explain: "All the biasing circuits discussed (Base, Emitter, Voltage Divider, etc.) are for the Common Emitter configuration, where the input is applied to the base and the output is taken from the collector." },
+  { text: "A PNP transistor is biased correctly when:", choices: ["The base is more positive than the emitter", "The collector is more positive than the base", "The base is more negative than the emitter", "All terminals are at the same potential"], correctIndex: 2, explain: "For a PNP transistor, the base-emitter junction must be forward-biased, which means the base must be more negative than the emitter (typically \\(V_{EB} \\approx 0.7V\\))." },
+  { text: "In a PNP biasing circuit, the currents \\(I_B\\) and \\(I_C\\) flow:", choices: ["Into the transistor", "Out of the transistor", "\\(I_B\\) in, \\(I_C\\) out", "\\(I_B\\) out, \\(I_C\\) in"], correctIndex: 1, explain: "For a PNP transistor, conventional current flows out of the base and collector terminals, while the emitter current flows into the transistor." },
+  { text: "What is 'thermal runaway' in a BJT?", choices: ["The transistor operates more efficiently at high temperatures", "An unstable condition where increasing temperature causes increased \\(I_C\\), which further increases temperature", "A desired state for power transistors", "The process of cooling a transistor with a heat sink"], correctIndex: 1, explain: "Thermal runaway is a dangerous positive feedback loop. Circuits with poor Q-point stability (like Base Bias) are susceptible to it." },
+  { text: "How does adding an emitter resistor \\(R_E\\) help prevent thermal runaway?", choices: ["It acts as a heat sink", "It reduces the power consumption to zero", "It provides negative feedback that counteracts increases in \\(I_C\\) due to temperature", "It inverts the current gain \\(\\beta\\)"], correctIndex: 2, explain: "If temperature rises, \\(I_C\\) tends to increase. This increases \\(I_E\\), raising the voltage across \\(R_E\\), which reduces \\(V_{BE}\\) and opposes the initial rise in \\(I_C\\)." },
+  { text: "For a voltage divider circuit to be 'stiff' (independent of \\(\\beta\\)), the divider current should be:", choices: ["Much smaller than the base current", "Approximately equal to the base current", "Much larger than the base current", "Zero"], correctIndex: 2, explain: "A common rule of thumb is that the current through \\(R_2\\) should be at least 10 times the base current (\\(I_{R2} \\ge 10 I_B\\)). This ensures the base voltage \\(V_B\\) is not significantly loaded down by \\(I_B\\)." },
+  { text: "If \\(V_{CEQ}\\) is found to be greater than \\(V_{CC}\\) in a calculation, what is the most likely state of the transistor?", choices: ["Active region", "Saturation", "Cutoff", "Calculation error or reverse breakdown"], correctIndex: 3, explain: "In a standard single-supply circuit, \\(V_{CE}\\) cannot exceed \\(V_{CC}\\). Such a result indicates either a calculation error or that the transistor is in cutoff, where \\(V_{CE} = V_{CC}\\). A value greater than \\(V_{CC}\\) is not physically possible without another supply." },
+  { text: "The primary purpose of a DC biasing circuit is to:", choices: ["Amplify the AC signal", "Establish a stable and predictable DC operating point (Q-point)", "Filter out unwanted noise", "Provide power to the circuit"], correctIndex: 1, explain: "Biasing sets the stage. It establishes the correct DC voltages and currents so that when an AC signal is applied, the transistor operates correctly in the desired region (usually active)." },
+  { text: "In the load line equation \\(V_{CE} = V_{CC} - I_C(R_C + R_E)\\), what does the term \\(I_C(R_C + R_E)\\) represent?", choices: ["The total power dissipated", "The voltage gain of the amplifier", "The total voltage drop across the collector and emitter resistors", "The current flowing into the base"], correctIndex: 2, explain: "This term represents the sum of the voltage drops across the collector resistor (\\(I_C R_C\\)) and the emitter resistor (\\(I_E R_E \\approx I_C R_E\\)) based on Ohm's law." },
+  { text: "What happens to the DC load line if the supply voltage \\(V_{CC}\\) is increased?", choices: ["It shifts upwards and to the right", "It shifts downwards and to the left", "Its slope changes", "It remains unchanged"], correctIndex: 0, explain: "Increasing \\(V_{CC}\\) increases both the cutoff voltage (\\(V_{CE(cutoff)} = V_{CC}\\)) and the saturation current (\\(I_{C(sat)} = V_{CC} / R_{total}\\)), causing the entire line to shift up and to the right without changing its slope." , plot: { type: "loadline", params: { vce_off: 20, ic_sat: 0.005 } } },
+  { text: "What happens to the DC load line if the collector resistance \\(R_C\\) is increased?", choices: ["The slope becomes steeper (more vertical)", "The slope becomes less steep (more horizontal)", "The \\(V_{CE(cutoff)}\\) point changes", "The line shifts in parallel"], correctIndex: 1, explain: "The slope of the load line is \\(-1/R_{total}\\). Increasing \\(R_C\\) increases the total resistance, making the slope's magnitude smaller, which results in a less steep (more horizontal) line. \\(V_{CE(cutoff)}\\) stays the same but \\(I_{C(sat)}\\) decreases." }
+];
+
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); // y
+  ctx.moveTo(0, h); ctx.lineTo(w, h); // x
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText(xlabel, w-30, h-6);
+  ctx.fillText(ylabel, 6, 12);
+  ctx.restore();
+}
+
+// NEW PLOT FUNCTION FOR DC LOAD LINE
+function plotLoadLine(Vce_cutoff, Ic_sat, Vceq, Icq){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'VCE (V)', 'IC (mA)');
+  
+  ctx.save();
+  ctx.translate(pad, pad);
+  
+  // Draw the load line
+  ctx.strokeStyle = '#7c5cff';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(w, h); // Vce_cutoff point (Vce_cutoff, 0)
+  ctx.lineTo(0, 0); // Ic_sat point (0, Ic_sat)
+  ctx.stroke();
+  
+  // Draw Q-point if provided
+  if(Vceq !== undefined && Icq !== undefined){
+    const qx = (Vceq / Vce_cutoff) * w;
+    const qy = h - (Icq / Ic_sat) * h;
+    ctx.fillStyle = '#ffd166';
+    ctx.beginPath();
+    ctx.arc(qx, qy, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.font = 'bold 12px system-ui';
+    ctx.fillStyle = '#0f1226';
+    ctx.fillText('Q', qx-4, qy+4);
+  }
+
+  // Add labels for endpoints
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`VCE(cut) = ${Vce_cutoff.toFixed(1)} V`, w-80, h-6);
+  ctx.fillText(`IC(sat) = ${(Ic_sat*1000).toFixed(1)} mA`, 6, 12);
+
+  if(Vceq !== undefined && Icq !== undefined){
+     ctx.fillStyle = '#ffd166';
+     ctx.fillText(`Q-Point: (${Vceq.toFixed(1)}V, ${(Icq*1000).toFixed(1)}mA)`, w/2 - 70, 16);
+  }
+  
+  ctx.restore();
+}
+
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'loadline'){ 
+    plotLoadLine(params.vce_off, params.ic_sat, params.vceq, params.icq); 
+  }
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

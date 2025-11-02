@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-bit D Flip-Flop Register Waveform Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d4ff, #0099ff, #0066ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            font-size: 1.2em;
+        }
+
+        .circuit-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .flip-flop-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flip-flop {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #4a4a4a;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            position: relative;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .flip-flop.active {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0,212,255,0.5);
+        }
+
+        .flip-flop-label {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .pin {
+            position: absolute;
+            width: 40px;
+            height: 25px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pin:hover {
+            background: #444;
+            transform: scale(1.1);
+        }
+
+        .pin.input-d {
+            left: -50px;
+            top: 30%;
+        }
+
+        .pin.input-clk {
+            left: -50px;
+            bottom: 30%;
+        }
+
+        .pin.output-q {
+            right: -50px;
+            top: 30%;
+        }
+
+        .pin.reset {
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .pin.high {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+
+        .pin.low {
+            background: #333;
+            color: #aaa;
+        }
+
+        .control-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .control-section {
+            margin: 20px 0;
+        }
+
+        .control-section h3 {
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+
+        .input-controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .input-toggle {
+            background: #333;
+            border: 2px solid #555;
+            border-radius: 10px;
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .input-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .input-toggle.active {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            box-shadow: 0 0 20px rgba(76,175,80,0.5);
+        }
+
+        .clock-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .clock-display {
+            width: 120px;
+            height: 60px;
+            background: #222;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 2px solid #444;
+        }
+
+        .clock-display.high {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            box-shadow: 0 0 20px rgba(76,175,80,0.5);
+        }
+
+        button {
+            background: #0099ff;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,153,255,0.3);
+        }
+
+        button:hover {
+            background: #0066ff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,153,255,0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .waveform-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+        }
+
+        #waveformCanvas {
+            width: 100%;
+            height: 400px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.08);
+            border-left: 4px solid #00d4ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .state-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .state-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .state-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        .simulation-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pattern-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        .pattern-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            width: 150px;
+        }
+
+        @media (max-width: 768px) {
+            .flip-flop {
+                width: 150px;
+                padding: 15px;
+            }
+            
+            .pin {
+                font-size: 0.7em;
+                width: 35px;
+                height: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>4-bit D Flip-Flop Register Simulator</h1>
+        <p class="subtitle">Καταχωρητής 4-bit με D Flip-Flops - Προσομοίωση Κυματομορφών</p>
+
+        <!-- Circuit Visualization -->
+        <div class="circuit-container">
+            <h2>Circuit Diagram - Διάγραμμα Κυκλώματος</h2>
+            <div class="info-box">
+                <p><strong>Περιγραφή:</strong> Το κύκλωμα αποτελείται από 4 D Flip-Flops με κοινή είσοδο ρολογιού (CLK) και μηδενισμού (R). 
+                Τα δεδομένα από τις εισόδους I₀-I₃ μεταφέρονται στις εξόδους A₀-A₃ κατά την άνοδο του παλμού του ρολογιού.</p>
+            </div>
+            
+            <div class="flip-flop-row">
+                <div class="flip-flop" id="ff3">
+                    <div class="flip-flop-label">D-FF 3</div>
+                    <div class="pin input-d" id="i3">I₃: 0</div>
+                    <div class="pin input-clk">CLK</div>
+                    <div class="pin output-q" id="a3">A₃: 0</div>
+                    <div class="pin reset" id="r3">R</div>
+                </div>
+                
+                <div class="flip-flop" id="ff2">
+                    <div class="flip-flop-label">D-FF 2</div>
+                    <div class="pin input-d" id="i2">I₂: 0</div>
+                    <div class="pin input-clk">CLK</div>
+                    <div class="pin output-q" id="a2">A₂: 0</div>
+                    <div class="pin reset" id="r2">R</div>
+                </div>
+                
+                <div class="flip-flop" id="ff1">
+                    <div class="flip-flop-label">D-FF 1</div>
+                    <div class="pin input-d" id="i1">I₁: 0</div>
+                    <div class="pin input-clk">CLK</div>
+                    <div class="pin output-q" id="a1">A₁: 0</div>
+                    <div class="pin reset" id="r1">R</div>
+                </div>
+                
+                <div class="flip-flop" id="ff0">
+                    <div class="flip-flop-label">D-FF 0</div>
+                    <div class="pin input-d" id="i0">I₀: 0</div>
+                    <div class="pin input-clk">CLK</div>
+                    <div class="pin output-q" id="a0">A₀: 0</div>
+                    <div class="pin reset" id="r0">R</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <h2>Control Panel - Πίνακας Ελέγχου</h2>
+            
+            <div class="control-section">
+                <h3>Data Inputs - Είσοδοι Δεδομένων (I₀-I₃)</h3>
+                <div class="input-controls">
+                    <div class="input-toggle" id="input3" onclick="toggleInput(3)">I₃ = 0</div>
+                    <div class="input-toggle" id="input2" onclick="toggleInput(2)">I₂ = 0</div>
+                    <div class="input-toggle" id="input1" onclick="toggleInput(1)">I₁ = 0</div>
+                    <div class="input-toggle" id="input0" onclick="toggleInput(0)">I₀ = 0</div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Clock & Reset Controls - Έλεγχος Ρολογιού & Μηδενισμού</h3>
+                <div class="clock-control">
+                    <button onclick="pulseClockManual()">Manual Clock Pulse</button>
+                    <div class="clock-display" id="clockDisplay">LOW</div>
+                    <button onclick="toggleReset()" id="resetButton">Reset (R=1)</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Simulation Controls - Έλεγχος Προσομοίωσης</h3>
+                <div class="simulation-controls">
+                    <button onclick="startSimulation()" id="startBtn">Start Auto Clock</button>
+                    <button onclick="stopSimulation()" id="stopBtn" disabled>Stop</button>
+                    <button onclick="clearWaveform()">Clear Waveform</button>
+                    <div class="speed-control">
+                        <label>Speed:</label>
+                        <input type="range" id="speedSlider" min="500" max="3000" value="1500">
+                        <span id="speedValue">1500ms</span>
+                    </div>
+                </div>
+                <div class="pattern-control">
+                    <input type="checkbox" id="autoPattern" class="pattern-checkbox" checked>
+                    <label for="autoPattern">Auto-generate input patterns</label>
+                    <select id="patternType">
+                        <option value="count">Counter (0-15)</option>
+                        <option value="random">Random</option>
+                        <option value="shift">Shift Pattern</option>
+                        <option value="alternate">Alternating</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="state-display">
+                <div class="state-item">
+                    <div>Input Binary</div>
+                    <div class="state-value" id="inputBinary">0000</div>
+                </div>
+                <div class="state-item">
+                    <div>Input Decimal</div>
+                    <div class="state-value" id="inputDecimal">0</div>
+                </div>
+                <div class="state-item">
+                    <div>Output Binary</div>
+                    <div class="state-value" id="outputBinary">0000</div>
+                </div>
+                <div class="state-item">
+                    <div>Output Decimal</div>
+                    <div class="state-value" id="outputDecimal">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Waveform Display -->
+        <div class="waveform-section">
+            <h2>Waveform Display - Απεικόνιση Κυματομορφών</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff6b6b;"></div>
+                    <span>Clock (CLK)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffd93d;"></div>
+                    <span>Reset (R)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #6bcf7f;"></div>
+                    <span>Inputs (I₀-I₃)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4ecdc4;"></div>
+                    <span>Outputs (A₀-A₃)</span>
+                </div>
+            </div>
+            <canvas id="waveformCanvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // State variables
+        let inputs = [0, 0, 0, 0];
+        let outputs = [0, 0, 0, 0];
+        let clockState = 0;
+        let resetState = 1; // Active high (normal operation)
+        let simulationRunning = false;
+        let simulationInterval = null;
+        let patternCounter = 0;
+        let clockCycleCount = 0;
+        
+        // Waveform data
+        let timePoints = [];
+        let waveformData = {
+            clock: [],
+            reset: [],
+            i0: [], i1: [], i2: [], i3: [],
+            a0: [], a1: [], a2: [], a3: []
+        };
+        
+        // Canvas setup
+        const canvas = document.getElementById('waveformCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // Initialize speed slider
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        speedSlider.addEventListener('input', (e) => {
+            speedValue.textContent = e.target.value + 'ms';
+            if (simulationRunning) {
+                stopSimulation();
+                startSimulation();
+            }
+        });
+        
+        // Toggle input values
+        function toggleInput(index) {
+            inputs[index] = inputs[index] === 0 ? 1 : 0;
+            updateInputDisplay();
+            recordWaveformPoint();
+            drawWaveform();
+        }
+        
+        // Update input display
+        function updateInputDisplay() {
+            for (let i = 0; i < 4; i++) {
+                const inputEl = document.getElementById(`input${i}`);
+                const pinEl = document.getElementById(`i${i}`);
+                
+                inputEl.textContent = `I${i} = ${inputs[i]}`;
+                inputEl.classList.toggle('active', inputs[i] === 1);
+                
+                pinEl.textContent = `I${i}: ${inputs[i]}`;
+                pinEl.classList.toggle('high', inputs[i] === 1);
+                pinEl.classList.toggle('low', inputs[i] === 0);
+            }
+            
+            updateStateDisplay();
+        }
+        
+        // Update output display
+        function updateOutputDisplay() {
+            for (let i = 0; i < 4; i++) {
+                const pinEl = document.getElementById(`a${i}`);
+                pinEl.textContent = `A${i}: ${outputs[i]}`;
+                pinEl.classList.toggle('high', outputs[i] === 1);
+                pinEl.classList.toggle('low', outputs[i] === 0);
+                
+                // Highlight flip-flop when output is high
+                const ffEl = document.getElementById(`ff${i}`);
+                ffEl.classList.toggle('active', outputs[i] === 1);
+            }
+            
+            updateStateDisplay();
+        }
+        
+        // Update state display
+        function updateStateDisplay() {
+            const inputBin = inputs.slice().reverse().join('');
+            const outputBin = outputs.slice().reverse().join('');
+            const inputDec = parseInt(inputBin, 2);
+            const outputDec = parseInt(outputBin, 2);
+            
+            document.getElementById('inputBinary').textContent = inputBin;
+            document.getElementById('inputDecimal').textContent = inputDec;
+            document.getElementById('outputBinary').textContent = outputBin;
+            document.getElementById('outputDecimal').textContent = outputDec;
+        }
+        
+        // Clock control
+        function updateClockDisplay() {
+            const display = document.getElementById('clockDisplay');
+            display.textContent = clockState ? 'HIGH' : 'LOW';
+            display.classList.toggle('high', clockState === 1);
+        }
+        
+        // Generate input patterns
+        function generateNextPattern() {
+            const autoPattern = document.getElementById('autoPattern').checked;
+            if (!autoPattern) return;
+            
+            const patternType = document.getElementById('patternType').value;
+            
+            switch (patternType) {
+                case 'count':
+                    // Binary counter pattern
+                    for (let i = 0; i < 4; i++) {
+                        inputs[i] = (patternCounter >> i) & 1;
+                    }
+                    patternCounter = (patternCounter + 1) % 16;
+                    break;
+                    
+                case 'random':
+                    // Random pattern
+                    for (let i = 0; i < 4; i++) {
+                        inputs[i] = Math.random() > 0.5 ? 1 : 0;
+                    }
+                    break;
+                    
+                case 'shift':
+                    // Shift pattern
+                    if (clockCycleCount % 4 === 0) {
+                        inputs = [1, 0, 0, 0];
+                    } else {
+                        // Shift left
+                        inputs = [inputs[1], inputs[2], inputs[3], inputs[0]];
+                    }
+                    break;
+                    
+                case 'alternate':
+                    // Alternating pattern
+                    const pattern = clockCycleCount % 2;
+                    inputs = [pattern, 1-pattern, pattern, 1-pattern];
+                    break;
+            }
+            
+            updateInputDisplay();
+        }
+        
+        // Manual clock pulse
+        function pulseClockManual() {
+            if (clockState === 0) {
+                // Generate new input pattern before clock rising edge
+                if (simulationRunning) {
+                    generateNextPattern();
+                }
+                
+                // Record state before clock edge
+                recordWaveformPoint();
+                
+                // Rising edge
+                clockState = 1;
+                updateClockDisplay();
+                recordWaveformPoint();
+                
+                // Transfer data on rising edge if reset is high
+                if (resetState === 1) {
+                    outputs = [...inputs];
+                    updateOutputDisplay();
+                }
+                
+                // Record state after data transfer
+                recordWaveformPoint();
+                
+                // Falling edge after delay
+                setTimeout(() => {
+                    clockState = 0;
+                    updateClockDisplay();
+                    recordWaveformPoint();
+                    drawWaveform();
+                    clockCycleCount++;
+                }, 200);
+            }
+        }
+        
+        // Reset control
+        function toggleReset() {
+            resetState = resetState === 1 ? 0 : 1;
+            const resetBtn = document.getElementById('resetButton');
+            resetBtn.textContent = `Reset (R=${resetState})`;
+            resetBtn.style.background = resetState === 0 ? '#f44336' : '#0099ff';
+            
+            // Update all reset pins
+            for (let i = 0; i < 4; i++) {
+                const resetPin = document.getElementById(`r${i}`);
+                resetPin.classList.toggle('high', resetState === 1);
+                resetPin.classList.toggle('low', resetState === 0);
+            }
+            
+            // If reset is low, clear outputs
+            if (resetState === 0) {
+                outputs = [0, 0, 0, 0];
+                updateOutputDisplay();
+            }
+            
+            recordWaveformPoint();
+            drawWaveform();
+        }
+        
+        // Simulation control
+        function startSimulation() {
+            simulationRunning = true;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+            
+            const speed = parseInt(speedSlider.value);
+            
+            simulationInterval = setInterval(() => {
+                pulseClockManual();
+            }, speed);
+        }
+        
+        function stopSimulation() {
+            simulationRunning = false;
+            clearInterval(simulationInterval);
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+        }
+        
+        // Waveform recording
+        function recordWaveformPoint() {
+            const currentTime = timePoints.length > 0 ? 
+                timePoints[timePoints.length - 1] + 1 : 0;
+            
+            timePoints.push(currentTime);
+            waveformData.clock.push(clockState);
+            waveformData.reset.push(resetState);
+            
+            for (let i = 0; i < 4; i++) {
+                waveformData[`i${i}`].push(inputs[i]);
+                waveformData[`a${i}`].push(outputs[i]);
+            }
+            
+            // Keep only last 100 points
+            if (timePoints.length > 100) {
+                timePoints.shift();
+                Object.keys(waveformData).forEach(key => {
+                    waveformData[key].shift();
+                });
+            }
+        }
+        
+        // Draw waveform
+        function drawWaveform() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (timePoints.length < 2) return;
+            
+            const margin = 40;
+            const signalHeight = 25;
+            const signalSpacing = 35;
+            const timeScale = (canvas.width - 2 * margin) / Math.max(50, timePoints.length);
+            
+            // Signal definitions
+            const signals = [
+                { name: 'CLK', data: waveformData.clock, color: '#ff6b6b' },
+                { name: 'R', data: waveformData.reset, color: '#ffd93d' },
+                { name: 'I₃', data: waveformData.i3, color: '#6bcf7f' },
+                { name: 'I₂', data: waveformData.i2, color: '#6bcf7f' },
+                { name: 'I₁', data: waveformData.i1, color: '#6bcf7f' },
+                { name: 'I₀', data: waveformData.i0, color: '#6bcf7f' },
+                { name: 'A₃', data: waveformData.a3, color: '#4ecdc4' },
+                { name: 'A₂', data: waveformData.a2, color: '#4ecdc4' },
+                { name: 'A₁', data: waveformData.a1, color: '#4ecdc4' },
+                { name: 'A₀', data: waveformData.a0, color: '#4ecdc4' }
+            ];
+            
+            // Draw grid
+            ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+            ctx.lineWidth = 1;
+            
+            // Vertical grid lines
+            for (let i = 0; i <= Math.max(50, timePoints.length); i += 10) {
+                const x = margin + i * timeScale;
+                ctx.beginPath();
+                ctx.moveTo(x, margin);
+                ctx.lineTo(x, canvas.height - margin);
+                ctx.stroke();
+            }
+            
+            // Draw signals
+            signals.forEach((signal, index) => {
+                const y = margin + index * signalSpacing;
+                
+                // Draw signal label
+                ctx.fillStyle = signal.color;
+                ctx.font = '12px Arial';
+                ctx.fillText(signal.name, 5, y + signalHeight/2 + 4);
+                
+                // Draw signal line
+                ctx.strokeStyle = signal.color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                
+                for (let i = 0; i < signal.data.length; i++) {
+                    const x = margin + i * timeScale;
+                    const yHigh = y;
+                    const yLow = y + signalHeight;
+                    const currentY = signal.data[i] === 1 ? yHigh : yLow;
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, currentY);
+                    } else {
+                        const prevY = signal.data[i-1] === 1 ? yHigh : yLow;
+                        if (prevY !== currentY) {
+                            // Draw transition
+                            ctx.lineTo(x, prevY);
+                            ctx.lineTo(x, currentY);
+                        } else {
+                            ctx.lineTo(x, currentY);
+                        }
+                    }
+                }
+                
+                ctx.stroke();
+            });
+            
+            // Draw time axis
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.font = '10px Arial';
+            ctx.fillText('Time →', canvas.width - 60, canvas.height - 10);
+            
+            // Draw clock cycle markers
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+            ctx.setLineDash([5, 5]);
+            for (let i = 0; i < waveformData.clock.length - 1; i++) {
+                if (waveformData.clock[i] === 0 && waveformData.clock[i+1] === 1) {
+                    const x = margin + (i + 1) * timeScale;
+                    ctx.beginPath();
+                    ctx.moveTo(x, margin - 10);
+                    ctx.lineTo(x, margin + signals.length * signalSpacing);
+                    ctx.stroke();
+                }
+            }
+            ctx.setLineDash([]);
+        }
+        
+        // Clear waveform
+        function clearWaveform() {
+            timePoints = [];
+            Object.keys(waveformData).forEach(key => {
+                waveformData[key] = [];
+            });
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            patternCounter = 0;
+            clockCycleCount = 0;
+        }
+        
+        // Initialize displays
+        updateInputDisplay();
+        updateOutputDisplay();
+        updateClockDisplay();
+        
+        // Record initial state
+        recordWaveformPoint();
+        drawWaveform();
+    </script>
+</body>
+</html>

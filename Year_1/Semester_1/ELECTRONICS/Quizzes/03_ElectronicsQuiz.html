@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (Semiconductor Basics)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">Semiconductor Physics, Diodes, and P-N Junctions</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">40</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'energy_bands'|'pn_junction'|..., params:{...} }
+}
+All content is aligned to the attached PDF topics.
+*/
+
+const questions = [
+  { text: "What uniquely defines a semiconductor's electrical behavior?", choices: ["It always conducts electricity perfectly", "It never conducts electricity", "Its conductivity can be changed, acting as a conductor or insulator", "It only conducts electricity when melted"], correctIndex: 2, explain: "Semiconductors can behave as conductors or insulators depending on conditions like temperature and impurities (doping)." },
+  { text: "How does the electrical resistance of a pure semiconductor change as temperature increases?", choices: ["It increases significantly", "It decreases significantly", "It remains constant", "It drops to zero instantly"], correctIndex: 1, explain: "Unlike metals, a semiconductor's resistance decreases as temperature rises because more charge carriers (electron-hole pairs) are thermally generated." },
+  { text: "Which group in the periodic table contains the most common elemental semiconductors, Silicon (Si) and Germanium (Ge)?", choices: ["Group III (Boron, Aluminum)", "Group IV (Carbon, Silicon)", "Group V (Phosphorus, Arsenic)", "Group VIII (Noble Gases)"], correctIndex: 1, explain: "Silicon (Si) and Germanium (Ge) are in Group IV, meaning they have 4 valence electrons, which is ideal for forming stable crystal lattices." },
+  { text: "What type of chemical bond holds atoms together in a pure silicon crystal?", choices: ["Ionic Bond", "Metallic Bond", "Covalent Bond", "Hydrogen Bond"], correctIndex: 2, explain: "In a silicon crystal, each atom shares its 4 valence electrons with its four neighbors, forming strong covalent bonds." },
+  { text: "At absolute zero temperature (0 K), a pure (intrinsic) semiconductor behaves as a perfect...", choices: ["Conductor", "Superconductor", "Insulator", "Voltage source"], correctIndex: 2, explain: "At 0 K, there is no thermal energy to break covalent bonds. All electrons are locked in the valence band, so the material acts as an insulator." },
+  { text: "What is created when a covalent bond in a semiconductor is broken by thermal energy?", choices: ["Only a free electron", "Only a hole", "An electron-hole pair", "A free proton"], correctIndex: 2, explain: "When an electron gains enough energy to leave its bond, it becomes a free electron, and the vacancy it leaves behind is called a hole. They are always created in pairs in an intrinsic semiconductor." },
+  { text: "In semiconductor physics, what is a 'hole'?", choices: ["A physical gap in the crystal", "A particle with positive mass and negative charge", "The absence of an electron in a covalent bond, behaving like a positive charge carrier", "A trapped neutron"], correctIndex: 2, explain: "A hole represents a position where a valence electron is missing. The net effect of an adjacent electron moving into this vacancy makes the hole appear to move in the opposite direction, behaving as a positive charge carrier." },
+  { text: "The 'Energy Band Gap' (\\(E_g\\)) in a semiconductor is the energy difference between which two bands?", choices: ["The Core Band and the Valence Band", "The Valence Band and the Conduction Band", "The Conduction Band and the Free Space Level", "The Fermi Level and the Valence Band"], correctIndex: 1, explain: "The band gap is the forbidden energy range between the top of the valence band and the bottom of the conduction band. Electrons must gain at least this much energy to become free carriers." },
+  { text: "Which type of material typically has the largest energy band gap?", choices: ["Conductor", "Semiconductor", "Insulator", "Superconductor"], correctIndex: 2, explain: "Insulators have a very large band gap, making it extremely difficult for electrons to jump from the valence to the conduction band.", plot: { type: "energy_bands", params: { gap: 0.8, label: "Insulator", bandFill: '#ff6e6e' } } },
+  { text: "How do the energy bands of a conductor (metal) typically appear?", choices: ["Separated by a large gap", "Separated by a small gap", "The valence and conduction bands overlap", "There is only one energy band"], correctIndex: 2, explain: "In conductors, the valence and conduction bands overlap, so there is no energy gap. Electrons can move freely with very little applied energy.", plot: { type: "energy_bands", params: { gap: 0, label: "Conductor", bandFill: '#11d676' } } },
+  { text: "An 'intrinsic' semiconductor is one that is...", choices: ["Heavily doped with impurities", "Chemically pure with no impurities", "Always p-type", "Always n-type"], correctIndex: 1, explain: "An intrinsic semiconductor is a pure semiconductor without any significant dopant species present. Its electrical properties are determined by the material itself." },
+  { text: "In an intrinsic semiconductor at room temperature, how does the concentration of free electrons (n) relate to the concentration of holes (p)?", choices: ["n > p", "p > n", "n = p", "n is zero, p is large"], correctIndex: 2, explain: "In a pure semiconductor, electrons and holes are created in pairs. Therefore, their concentrations are equal: \\(n = p = n_i\\), where \\(n_i\\) is the intrinsic carrier concentration." },
+  { text: "The process of intentionally adding impurities to a semiconductor to alter its conductivity is called:", choices: ["Annealing", "Doping", "Sintering", "Ionization"], correctIndex: 1, explain: "Doping is the deliberate introduction of impurities into an intrinsic semiconductor for the purpose of modulating its electrical, optical, and structural properties." },
+  { text: "To create an n-type semiconductor from silicon, one should dope it with an element from which periodic table group?", choices: ["Group III (e.g., Boron)", "Group IV (e.g., Carbon)", "Group V (e.g., Phosphorus)", "Group VI (e.g., Sulfur)"], correctIndex: 2, explain: "Doping with a Group V element (pentavalent) like Phosphorus introduces an extra electron that does not fit into the covalent bonds and is easily freed, creating an n-type material." },
+  { text: "What are the majority charge carriers in a p-type semiconductor?", choices: ["Free electrons", "Holes", "Protons", "Ions"], correctIndex: 1, explain: "P-type material is created by doping with Group III elements (trivalent), which have one less valence electron than silicon. This creates an abundance of holes, making them the majority carriers." },
+  { text: "An impurity atom like Phosphorus, which donates a free electron in an n-type semiconductor, is known as a:", choices: ["Donor", "Acceptor", "Trap", "Recombination center"], correctIndex: 0, explain: "Pentavalent impurities are called 'donors' because they donate an excess electron to the conduction band." },
+  { text: "An impurity atom like Boron, which accepts an electron to complete its bonds and creates a hole, is known as an:", choices: ["Donor", "Acceptor", "Insulator", "Conductor"], correctIndex: 1, explain: "Trivalent impurities are called 'acceptors' because they accept an electron from the valence band, thereby creating a mobile hole." },
+  { text: "A P-N junction is formed by...", choices: ["Physically pressing a P-type and N-type material together", "Creating a boundary between P-type and N-type regions within a single semiconductor crystal", "Melting two materials together", "Layering a conductor on an insulator"], correctIndex: 1, explain: "A practical P-N junction is formed within a single crystal of semiconductor by doping one side to be P-type and the other to be N-type." },
+  { text: "Immediately after a P-N junction is formed, what is the initial dominant process?", choices: ["Drift of minority carriers", "Diffusion of majority carriers", "Generation of photons", "Recombination only at the edges"], correctIndex: 1, explain: "Due to the concentration gradient, majority carriers diffuse across the junction: electrons from the n-side to the p-side, and holes from the p-side to the n-side." },
+  { text: "The region near the metallurgical junction that is depleted of mobile charge carriers is called the:", choices: ["Channel region", "Ohmic region", "Depletion region (or Space Charge Region)", "Active region"], correctIndex: 2, explain: "The diffusion and subsequent recombination of carriers near the junction leaves behind immobile ionized donor and acceptor atoms, creating a region free of mobile carriers called the depletion region." },
+  { text: "The process where a free electron moves into the position of a hole, eliminating both as mobile carriers, is called:", choices: ["Generation", "Diffusion", "Drift", "Recombination"], correctIndex: 3, explain: "Recombination is the process by which an electron from the conduction band transitions into an empty state (a hole) in the valence band, releasing energy." },
+  { text: "The immobile ionized atoms in the depletion region create what?", choices: ["A magnetic field", "An internal electric field and a potential barrier", "A region of high conductivity", "A neutral zone"], correctIndex: 1, explain: "The uncovered positive ions on the n-side and negative ions on the p-side create an electric field that opposes further diffusion. This results in a built-in potential barrier (V₀)." },
+  { text: "In a P-N junction at thermal equilibrium (no external voltage), how does the Fermi energy level (\\(E_F\\)) appear across the device?", choices: ["It is higher on the p-side", "It is higher on the n-side", "It is constant (flat) across the entire junction", "It does not exist"], correctIndex: 2, explain: "A key principle of thermal equilibrium is that the Fermi level must be constant throughout the entire system. This constancy forces the energy bands to bend at the junction.", plot: { type: "pn_junction", params: { bias: "none" } } },
+  { text: "The built-in potential barrier (V₀) in a P-N junction acts to oppose the flow of:", choices: ["Minority carriers", "Majority carriers via diffusion", "All carriers equally", "Photons"], correctIndex: 1, explain: "The electric field of the potential barrier pushes electrons back to the n-side and holes back to the p-side, thus opposing the diffusion of majority carriers." },
+  { text: "The separation of positive and negative charges in the depletion region gives the P-N junction a property similar to a:", choices: ["Resistor", "Inductor", "Capacitor", "Battery"], correctIndex: 2, explain: "With a region of separated charge (ionized atoms) and a dielectric (the depleted semiconductor), the junction exhibits capacitance, known as junction or depletion capacitance." },
+  { text: "Applying a 'reverse bias' to a P-N junction involves connecting the positive terminal of a voltage source to the...", choices: ["P-side and the negative terminal to the N-side", "N-side and the negative terminal to the P-side", "P-side and grounding the N-side", "N-side and leaving the P-side open"], correctIndex: 1, explain: "Reverse bias enhances the internal potential barrier by connecting the external positive voltage to the n-side and negative to the p-side." },
+  { text: "What happens to the width of the depletion region when a P-N junction is reverse-biased?", choices: ["It narrows", "It widens", "It stays the same", "It disappears"], correctIndex: 1, explain: "The external reverse voltage pulls majority carriers away from the junction, uncovering more ionized atoms and thus widening the depletion region.", plot: { type: "pn_junction", params: { bias: "reverse" } } },
+  { text: "The current that flows under reverse bias is typically very small and is called the reverse saturation current. It is primarily due to the flow of:", choices: ["Majority carriers", "Minority carriers", "Bonded electrons", "Protons"], correctIndex: 1, explain: "The small reverse current is caused by thermally generated minority carriers being swept across the junction by the strong electric field in the depletion region." },
+  { text: "Applying a 'forward bias' to a P-N junction involves connecting the positive terminal of a voltage source to the...", choices: ["N-side and the negative terminal to the P-side", "P-side and the negative terminal to the N-side", "N-side and grounding the P-side", "P-side and leaving the N-side open"], correctIndex: 1, explain: "Forward bias opposes the internal potential barrier by connecting the external positive voltage to the p-side and negative to the n-side." },
+  { text: "What happens to the potential barrier of a P-N junction when it is forward-biased?", choices: ["It is increased", "It is lowered", "It remains unchanged", "It reverses polarity"], correctIndex: 1, explain: "The external forward voltage counteracts the built-in potential, effectively lowering the height of the energy barrier that majority carriers must overcome.", plot: { type: "pn_junction", params: { bias: "forward" } } },
+  { text: "When a P-N junction is sufficiently forward-biased, what is the result?", choices: ["Almost no current flows", "A very small reverse current flows", "A large forward current flows", "The junction is destroyed"], correctIndex: 2, explain: "Once the applied forward voltage overcomes the potential barrier, the depletion region narrows significantly, and a large current of majority carriers can flow across the junction." },
+  { text: "Fundamentally, a P-N junction diode acts as a...", choices: ["Voltage amplifier", "Current source", "One-way valve for electric current", "Variable resistor"], correctIndex: 2, explain: "The diode's behavior—low resistance to current in one direction (forward bias) and high resistance in the other (reverse bias)—makes it an electronic one-way valve or switch." },
+  { text: "What are the minority carriers in an n-type semiconductor?", choices: ["Free electrons", "Holes", "Protons", "Donor ions"], correctIndex: 1, explain: "In an n-type material, electrons are the majority carriers. Holes, which are generated thermally, are present in much smaller concentrations and are therefore the minority carriers." },
+  { text: "What are the minority carriers in a p-type semiconductor?", choices: ["Holes", "Free electrons", "Acceptor ions", "Neutrons"], correctIndex: 1, explain: "In a p-type material, holes are the majority carriers. Thermally generated free electrons are the minority carriers." },
+  { text: "The equation \\(n_i^2 = np\\) is known as the Mass Action Law. It is valid for a semiconductor...", choices: ["Only when it is intrinsic", "Only under forward bias", "In thermal equilibrium, regardless of doping", "Only at absolute zero"], correctIndex: 2, explain: "The Mass Action Law states that in thermal equilibrium, the product of the electron and hole concentrations is constant and equal to the square of the intrinsic carrier concentration, even in doped material." },
+  { text: "The movement of charge carriers due to an applied electric field is called:", choices: ["Diffusion", "Recombination", "Drift", "Generation"], correctIndex: 2, explain: "Drift is the motion of charge carriers under the influence of an electric field. This is distinct from diffusion, which is caused by a concentration gradient." },
+  { text: "The movement of charge carriers from a region of high concentration to a region of low concentration is called:", choices: ["Drift", "Diffusion", "Ionization", "Avalanche"], correctIndex: 1, explain: "Diffusion is the net movement of particles driven by a difference in concentration, a fundamental process in forming the P-N junction depletion region." },
+  { text: "What effect does increasing the doping concentration have on the width of the depletion region in a P-N junction?", choices: ["It widens the depletion region", "It has no effect on the width", "It narrows the depletion region", "It makes the region conductive"], correctIndex: 2, explain: "Higher doping means a greater concentration of charge carriers, so a smaller depleted width is required to build up the necessary potential barrier." },
+  { text: "In a P-N junction energy diagram, the Fermi level (\\(E_F\\)) is closer to the conduction band on which side?", choices: ["The P-side", "The N-side", "It is in the middle on both sides", "It is closer to the valence band on both sides"], correctIndex: 1, explain: "On the n-side, there is a high concentration of electrons, so the Fermi level (representing the energy where state occupancy is 50%) is located high in the band gap, near the conduction band." },
+  { text: "Which statement best describes the overall charge of a piece of p-type or n-type semiconductor material?", choices: ["P-type is positively charged, N-type is negatively charged", "P-type is negatively charged, N-type is positively charged", "Both are electrically neutral", "Both are positively charged"], correctIndex: 2, explain: "Although they have mobile positive (holes) or negative (electrons) carriers, the material as a whole is electrically neutral because the charge of the dopant ions in the lattice perfectly balances the charge of the majority carriers." },
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  // Y-axis (Energy)
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); 
+  ctx.moveTo(-5, 10); ctx.lineTo(0, 0); ctx.lineTo(5, 10);
+  // X-axis (Position)
+  ctx.moveTo(0, h); ctx.lineTo(w, h); 
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(xlabel, w / 2, h + 18);
+  ctx.textAlign = 'left';
+  ctx.save();
+  ctx.translate(-20, h/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.textAlign = 'center';
+  ctx.fillText(ylabel, 0, 0);
+  ctx.restore();
+  ctx.restore();
+}
+
+// *** NEW PLOTTING FUNCTION FOR ENERGY BANDS ***
+function plotEnergyBands(gap, label, bandFill) {
+    const cvs = document.getElementById('qCanvas');
+    const ctx = cvs.getContext('2d');
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    const padX = 60, padY = 20;
+    const w = cvs.width - padX * 2, h = cvs.height - padY * 2;
+
+    drawAxes(ctx, padX, padY, w, h, 'Position', 'Energy');
+
+    ctx.save();
+    ctx.translate(padX, padY);
+
+    const bandHeight = h * 0.3;
+    const gapHeight = h * gap; 
+    
+    // Conduction Band
+    ctx.fillStyle = bandFill + '40'; // semi-transparent
+    ctx.fillRect(0, 0, w, bandHeight);
+    ctx.strokeStyle = bandFill;
+    ctx.strokeRect(0, 0, w, bandHeight);
+
+    // Valence Band
+    const vbY = bandHeight + gapHeight;
+    ctx.fillRect(0, vbY, w, bandHeight);
+    ctx.strokeRect(0, vbY, w, bandHeight);
+    
+    // Labels
+    ctx.fillStyle = '#eef1ff';
+    ctx.font = 'bold 13px system-ui';
+    ctx.fillText('Conduction Band', 10, 20);
+    ctx.fillText('Valence Band', 10, vbY + 20);
+
+    // Band Gap Arrow and Label
+    if (gap > 0.05) {
+        const arrowX = w + 20;
+        const startY = bandHeight;
+        const endY = vbY;
+        ctx.beginPath();
+        ctx.moveTo(arrowX, startY);
+        ctx.lineTo(arrowX, endY);
+        ctx.moveTo(arrowX-5, startY+5); ctx.lineTo(arrowX, startY); ctx.lineTo(arrowX+5, startY+5);
+        ctx.moveTo(arrowX-5, endY-5); ctx.lineTo(arrowX, endY); ctx.lineTo(arrowX+5, endY-5);
+        ctx.strokeStyle = '#ffd166';
+        ctx.stroke();
+        ctx.fillStyle = '#ffd166';
+        ctx.fillText('Eg', arrowX + 10, (startY + endY) / 2 + 5);
+    }
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 16px system-ui';
+    ctx.textAlign = 'right';
+    ctx.fillText(label, w-10, h-10);
+    
+    ctx.restore();
+}
+
+// *** NEW PLOTTING FUNCTION FOR P-N JUNCTION BANDS ***
+function plotPNJunctionBands(bias) {
+    const cvs = document.getElementById('qCanvas');
+    const ctx = cvs.getContext('2d');
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    const padX = 60, padY = 20;
+    const w = cvs.width - padX * 2, h = cvs.height - padY * 2;
+    drawAxes(ctx, padX, padY, w, h, 'Position', 'Energy');
+
+    ctx.save();
+    ctx.translate(padX, padY);
+
+    let title = 'Equilibrium (No Bias)';
+    let barrierHeight = h * 0.3;
+    if (bias === 'forward') {
+        barrierHeight *= 0.4;
+        title = 'Forward Bias';
+    } else if (bias === 'reverse') {
+        barrierHeight *= 1.6;
+        title = 'Reverse Bias';
+    }
+    
+    const depletionWidth = w * (bias === 'reverse' ? 0.6 : (bias === 'forward' ? 0.2 : 0.4));
+    const junctionX = w / 2;
+    const p_side_x = [0, junctionX - depletionWidth/2];
+    const n_side_x = [junctionX + depletionWidth/2, w];
+    
+    const bandHeight = h * 0.25;
+    const gap = h * 0.15;
+    
+    // Draw bands function
+    function drawBands(y_offset_p, y_offset_n, color) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        // P-side flat part (Valence and Conduction)
+        ctx.beginPath(); ctx.moveTo(p_side_x[0], y_offset_p); ctx.lineTo(p_side_x[1], y_offset_p); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(p_side_x[0], y_offset_p + gap); ctx.lineTo(p_side_x[1], y_offset_p + gap); ctx.stroke();
+        
+        // N-side flat part
+        ctx.beginPath(); ctx.moveTo(n_side_x[0], y_offset_n); ctx.lineTo(n_side_x[1], y_offset_n); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(n_side_x[0], y_offset_n + gap); ctx.lineTo(n_side_x[1], y_offset_n + gap); ctx.stroke();
+        
+        // Curved part in depletion region
+        ctx.beginPath(); ctx.moveTo(p_side_x[1], y_offset_p); ctx.bezierCurveTo(junctionX, y_offset_p, junctionX, y_offset_n, n_side_x[0], y_offset_n); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(p_side_x[1], y_offset_p + gap); ctx.bezierCurveTo(junctionX, y_offset_p + gap, junctionX, y_offset_n + gap, n_side_x[0], y_offset_n + gap); ctx.stroke();
+    }
+
+    const ec_p = h*0.1;
+    const ec_n = ec_p + barrierHeight;
+    drawBands(h - ec_n - gap, h - ec_p - gap, '#7c5cff'); // Conduction Band (lower values are higher energy)
+    drawBands(h - ec_n, h - ec_p, '#12d7d0'); // Valence Band
+    
+    // Fermi Level
+    let fermi_y_p = h - ec_n + gap*0.1;
+    let fermi_y_n = h - ec_p - gap*0.1;
+    ctx.strokeStyle = '#ffd166';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 2]);
+    if (bias === 'none') {
+        const fermi_y = (fermi_y_p + fermi_y_n) / 2;
+        ctx.beginPath(); ctx.moveTo(0, fermi_y); ctx.lineTo(w, fermi_y); ctx.stroke();
+    } else {
+        ctx.beginPath(); ctx.moveTo(0, fermi_y_p); ctx.lineTo(p_side_x[1], fermi_y_p); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(n_side_x[0], fermi_y_n); ctx.lineTo(w, fermi_y_n); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // Labels
+    ctx.fillStyle = '#eef1ff'; ctx.font = 'bold 13px system-ui';
+    ctx.fillText('P-Side', p_side_x[1]/2, 15);
+    ctx.fillText('N-Side', n_side_x[0] + (w-n_side_x[0])/2, 15);
+    ctx.fillStyle = '#7c5cff'; ctx.fillText('Ec', 5, h - ec_n - gap - 5);
+    ctx.fillStyle = '#12d7d0'; ctx.fillText('Ev', 5, h - ec_n + 15);
+    ctx.fillStyle = '#ffd166'; ctx.fillText('EF', 5, fermi_y_p + (bias === 'none' ? 15 : 0));
+
+    ctx.fillStyle = '#ffffff'; ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'right';
+    ctx.fillText(title, w-10, h-10);
+    
+    ctx.restore();
+}
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'energy_bands'){ plotEnergyBands(params.gap ?? 0.3, params.label ?? 'Semiconductor', params.bandFill ?? '#7c5cff'); }
+  else if(type === 'pn_junction'){ plotPNJunctionBands(params.bias ?? 'none'); }
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

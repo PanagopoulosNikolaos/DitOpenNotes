@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Basics Quiz</title>
+    
+    <style>
+        /* --- Dark Mode Theme --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f0f0; /* Light text for readability */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            /* Vibrant blue to purple gradient header */
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container,
+        .results {
+            background-color: #857c7c; /* Lighter muted grey for containers */
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #6b6666; /* Darker border for contrast */
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #4f46e5; /* Vibrant blue accent for current question */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #d1d1d1;
+        }
+        
+        .question-header .progress-text {
+            color: #35373b; /* Dark grey for secondary text */
+            font-weight: bold;
+        }
+
+        .question-number {
+            background: #4f46e5; /* Vibrant blue accent */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #ffffff; /* Ensure text stands out */
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #857c7c; /* Same as container background */
+            padding: 15px 20px;
+            border: 2px solid #6b6666; /* Darker border */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #4f46e5; /* Accent color on hover */
+            background-color: #9c9494; /* Slightly lighter on hover */
+            transform: translateX(5px);
+        }
+        
+        /* --- Button Feedback Colors --- */
+        .option.correct {
+            background-color: #10b981 !important; /* Bright green for correct */
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+
+        .option.incorrect {
+            background-color: #ef4444 !important; /* Bright red for incorrect */
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-left: 5px solid #ef4444;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #6b6666;
+        }
+        
+        /* --- Interactive Elements --- */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5; /* Vibrant blue for primary actions */
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* Darker shade on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #52504a;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #363530;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* --- Progress Bar & Score --- */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #363530; /* Darkest grey for contrast */
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed); /* Vibrant accent fill */
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #35373b; /* Dark grey for secondary text */
+        }
+
+        /* --- Results Screen --- */
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #10b981; } /* Correct green */
+        .score-good { color: #ff9800; } /* Good score orange */
+        .score-poor { color: #ef4444; } /* Incorrect red */
+
+        .hidden {
+            display: none;
+        }
+
+        code {
+            background-color: #363530;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #f0f0f0;
+        }
+
+        pre {
+            background-color: #363530;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { margin: 0; border-radius: 10px; }
+            .quiz-container, .results { padding: 20px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 C Programming Basics Quiz</h1>
+            <p>Test your knowledge of C fundamentals and standard libraries</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/30</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/30</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // Questions 1-5: Basic syntax, data types, variables
+            {
+                question: "What is the correct way to declare an integer variable in C?",
+                options: [
+                    "integer x;",
+                    "int x;",
+                    "var x: int;",
+                    "x = integer;"
+                ],
+                correct: 1,
+                explanation: "In C, you declare an integer variable using the <code>int</code> keyword followed by the variable name. Example: <code>int x;</code>"
+            },
+            {
+                question: "What is the size of a <code>char</code> data type in C?",
+                options: [
+                    "1 byte",
+                    "2 bytes",
+                    "4 bytes",
+                    "Depends on the compiler"
+                ],
+                correct: 0,
+                explanation: "The <code>char</code> data type in C is always 1 byte (8 bits) according to the C standard."
+            },
+            {
+                question: "Which of the following is a valid C comment?",
+                options: [
+                    "<!-- This is a comment -->",
+                    "# This is a comment",
+                    "// This is a comment",
+                    "' This is a comment"
+                ],
+                correct: 2,
+                explanation: "C supports two types of comments: single-line comments using <code>//</code> and multi-line comments using <code>/* */</code>."
+            },
+            {
+                question: "What is the correct format specifier for printing a float in C?",
+                options: [
+                    "%d",
+                    "%f",
+                    "%c",
+                    "%s"
+                ],
+                correct: 1,
+                explanation: "<code>%f</code> is used to print floating-point numbers. <code>%d</code> is for integers, <code>%c</code> for characters, and <code>%s</code> for strings."
+            },
+            {
+                question: "What does the <code>sizeof</code> operator return?",
+                options: [
+                    "The value of a variable",
+                    "The address of a variable",
+                    "The size in bytes of a data type or variable",
+                    "The length of a string"
+                ],
+                correct: 2,
+                explanation: "The <code>sizeof</code> operator returns the size in bytes of a data type or variable. Example: <code>sizeof(int)</code> typically returns 4."
+            },
+            
+            // Questions 6-10: Operators and expressions
+            {
+                question: "What is the result of <code>5 / 2</code> in C?",
+                options: [
+                    "2.5",
+                    "2",
+                    "3",
+                    "2.0"
+                ],
+                correct: 1,
+                explanation: "When dividing two integers in C, the result is an integer. <code>5 / 2</code> equals <code>2</code> (the decimal part is truncated). For 2.5, you'd need <code>5.0 / 2</code> or <code>5 / 2.0</code>."
+            },
+            {
+                question: "What does the modulo operator <code>%</code> do?",
+                options: [
+                    "Calculates percentage",
+                    "Returns the remainder of division",
+                    "Performs multiplication",
+                    "Formats output"
+                ],
+                correct: 1,
+                explanation: "The modulo operator <code>%</code> returns the remainder of integer division. For example, <code>7 % 3</code> equals <code>1</code>."
+            },
+            {
+                question: "What is the difference between <code>++i</code> and <code>i++</code>?",
+                options: [
+                    "No difference",
+                    "++i increments before use, i++ increments after use",
+                    "++i is faster than i++",
+                    "i++ increments before use, ++i increments after use"
+                ],
+                correct: 1,
+                explanation: "<code>++i</code> (pre-increment) increments the value first then returns it. <code>i++</code> (post-increment) returns the current value then increments it."
+            },
+            {
+                question: "What is the result of <code>10 & 6</code> (bitwise AND)?",
+                options: [
+                    "2",
+                    "14",
+                    "4",
+                    "16"
+                ],
+                correct: 0,
+                explanation: "Bitwise AND compares each bit: 1010 (10) & 0110 (6) = 0010 (2). Only bits that are 1 in both numbers result in 1."
+            },
+            {
+                question: "Which operator has the highest precedence in C?",
+                options: [
+                    "+ (addition)",
+                    "* (multiplication)",
+                    "() (parentheses)",
+                    "= (assignment)"
+                ],
+                correct: 2,
+                explanation: "Parentheses <code>()</code> have the highest precedence in C, followed by unary operators, then multiplication/division, then addition/subtraction, and finally assignment."
+            },
+            
+            // Questions 11-15: Control structures and loops
+            {
+                question: "What is the output of: <code>if(5) printf(\"True\");</code>",
+                options: [
+                    "Error",
+                    "Nothing",
+                    "True",
+                    "False"
+                ],
+                correct: 2,
+                explanation: "In C, any non-zero value is considered true. Since 5 is non-zero, the condition evaluates to true and prints \"True\"."
+            },
+            {
+                question: "Which loop is guaranteed to execute at least once?",
+                options: [
+                    "for loop",
+                    "while loop",
+                    "do-while loop",
+                    "None of the above"
+                ],
+                correct: 2,
+                explanation: "The <code>do-while</code> loop checks its condition after executing the loop body, so it always executes at least once."
+            },
+            {
+                question: "What does the <code>break</code> statement do in a loop?",
+                options: [
+                    "Skips the current iteration",
+                    "Exits the loop immediately",
+                    "Pauses the loop",
+                    "Restarts the loop"
+                ],
+                correct: 1,
+                explanation: "The <code>break</code> statement exits the loop immediately. The <code>continue</code> statement skips the current iteration and moves to the next one."
+            },
+            {
+                question: "What is required at the end of each case in a switch statement to prevent fall-through?",
+                options: [
+                    "return",
+                    "break",
+                    "continue",
+                    "exit"
+                ],
+                correct: 1,
+                explanation: "Each case in a switch statement should end with <code>break</code> to prevent fall-through to the next case. Without it, execution continues to the next case."
+            },
+            {
+                question: "Which of the following is the correct syntax for a for loop?",
+                options: [
+                    "for(int i=0; i<10; i++)",
+                    "for i=0 to 10",
+                    "for(i=0; i<10)",
+                    "loop(i=0; i<10; i++)"
+                ],
+                correct: 0,
+                explanation: "A for loop in C has three parts separated by semicolons: initialization, condition, and increment. Format: <code>for(init; condition; increment)</code>"
+            },
+            
+            // Questions 16-20: Functions and scope
+            {
+                question: "What is the return type of a function that doesn't return any value?",
+                options: [
+                    "null",
+                    "void",
+                    "empty",
+                    "int"
+                ],
+                correct: 1,
+                explanation: "Functions that don't return a value use the <code>void</code> return type. Example: <code>void myFunction() { }</code>"
+            },
+            {
+                question: "Where should function prototypes be declared?",
+                options: [
+                    "After main() function",
+                    "Inside main() function",
+                    "Before main() function",
+                    "Function prototypes are not necessary"
+                ],
+                correct: 2,
+                explanation: "Function prototypes should be declared before <code>main()</code> or before the function is called. This tells the compiler about the function's existence before it's used."
+            },
+            {
+                question: "What is a global variable?",
+                options: [
+                    "A variable declared inside a function",
+                    "A variable declared outside all functions",
+                    "A variable that can only be used in main()",
+                    "A variable that doesn't need initialization"
+                ],
+                correct: 1,
+                explanation: "A global variable is declared outside all functions and can be accessed from any function in the program. Local variables are declared inside functions."
+            },
+            {
+                question: "What is recursion?",
+                options: [
+                    "A loop that runs forever",
+                    "A function that calls itself",
+                    "A type of array",
+                    "An error in code"
+                ],
+                correct: 1,
+                explanation: "Recursion is when a function calls itself. It's useful for problems that can be broken down into smaller, similar sub-problems (like factorial or Fibonacci)."
+            },
+            {
+                question: "How are arguments passed to functions in C by default?",
+                options: [
+                    "By reference",
+                    "By value",
+                    "By pointer",
+                    "By address"
+                ],
+                correct: 1,
+                explanation: "C passes arguments by value by default, meaning a copy of the variable is passed. To modify the original variable, you must pass a pointer (pass by reference)."
+            },
+            
+            // Questions 21-25: Pointers, arrays, and strings
+            {
+                question: "What does the <code>&</code> operator do?",
+                options: [
+                    "Performs bitwise AND",
+                    "Returns the address of a variable",
+                    "Dereferences a pointer",
+                    "Declares a reference"
+                ],
+                correct: 1,
+                explanation: "The <code>&</code> operator returns the memory address of a variable. Example: <code>&x</code> gives the address of variable x."
+            },
+            {
+                question: "What does the <code>*</code> operator do when used with pointers?",
+                options: [
+                    "Multiplies two values",
+                    "Declares a pointer",
+                    "Dereferences a pointer (accesses the value it points to)",
+                    "Both B and C"
+                ],
+                correct: 3,
+                explanation: "The <code>*</code> operator has two uses with pointers: declaring a pointer (<code>int *ptr;</code>) and dereferencing it (<code>*ptr</code> accesses the value)."
+            },
+            {
+                question: "How do you declare an array of 10 integers in C?",
+                options: [
+                    "int array[10];",
+                    "array int[10];",
+                    "int array(10);",
+                    "int[10] array;"
+                ],
+                correct: 0,
+                explanation: "Arrays are declared as: <code>type arrayName[size];</code>. So <code>int array[10];</code> creates an array of 10 integers."
+            },
+            {
+                question: "What is the index of the first element in a C array?",
+                options: [
+                    "1",
+                    "0",
+                    "-1",
+                    "Depends on declaration"
+                ],
+                correct: 1,
+                explanation: "C arrays are zero-indexed, meaning the first element is at index 0. An array of size 10 has indices from 0 to 9."
+            },
+            {
+                question: "What function is used to find the length of a string?",
+                options: [
+                    "size()",
+                    "length()",
+                    "strlen()",
+                    "strlength()"
+                ],
+                correct: 2,
+                explanation: "<code>strlen()</code> from <code>string.h</code> returns the length of a string (not counting the null terminator '\\0')."
+            },
+            
+            // Questions 26-30: Standard libraries
+            {
+                question: "Which header file is required to use <code>printf()</code> and <code>scanf()</code>?",
+                options: [
+                    "stdlib.h",
+                    "stdio.h",
+                    "string.h",
+                    "conio.h"
+                ],
+                correct: 1,
+                explanation: "<code>stdio.h</code> (Standard Input/Output) provides functions like <code>printf()</code>, <code>scanf()</code>, <code>fopen()</code>, etc."
+            },
+            {
+                question: "Which function is used to allocate memory dynamically in C?",
+                options: [
+                    "alloc()",
+                    "new()",
+                    "malloc()",
+                    "memory()"
+                ],
+                correct: 2,
+                explanation: "<code>malloc()</code> from <code>stdlib.h</code> allocates memory dynamically at runtime. You must free it with <code>free()</code> to prevent memory leaks."
+            },
+            {
+                question: "Which function from <code>string.h</code> copies one string to another?",
+                options: [
+                    "strcopy()",
+                    "strcpy()",
+                    "strdup()",
+                    "strmove()"
+                ],
+                correct: 1,
+                explanation: "<code>strcpy(dest, src)</code> copies the string from source to destination. Be careful to ensure the destination has enough space!"
+            },
+            {
+                question: "Which function from <code>math.h</code> calculates the square root?",
+                options: [
+                    "sqrt()",
+                    "sqr()",
+                    "square_root()",
+                    "root()"
+                ],
+                correct: 0,
+                explanation: "<code>sqrt()</code> from <code>math.h</code> returns the square root of a number. You may need to link with <code>-lm</code> when compiling."
+            },
+            {
+                question: "Which function from <code>ctype.h</code> checks if a character is uppercase?",
+                options: [
+                    "isupper()",
+                    "isuppercase()",
+                    "toupper()",
+                    "checkupper()"
+                ],
+                correct: 0,
+                explanation: "<code>isupper()</code> checks if a character is uppercase. <code>toupper()</code> converts a character to uppercase. Other functions include <code>islower()</code>, <code>isdigit()</code>, etc."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span class="progress-text">${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+        }
+
+        function selectAnswer(optionIndex) {
+            if (userAnswers[currentQuestion] !== undefined) return;
+            
+            userAnswers[currentQuestion] = optionIndex;
+            showAnswer(currentQuestion);
+            updateScore();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer !== undefined && answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = 'Excellent! You have mastered C programming basics!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = 'Good job! You have a solid understanding of C.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = 'Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

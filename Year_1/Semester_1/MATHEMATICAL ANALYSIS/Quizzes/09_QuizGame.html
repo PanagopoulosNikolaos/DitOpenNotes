@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game - Derivatives</title>
+    <!-- MathJax Configuration -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Overall Theme & Backgrounds */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #363530; /* Dark grey page background */
+            color: #f0f2f5; /* Light text for readability */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Containers Styling */
+        .quiz-container {
+            background-color: #857c7c; /* Lighter muted grey container */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with Gradient */
+        .quiz-header {
+            background-image: linear-gradient(45deg, #4f46e5, #7c3aed); /* Blue -> Purple gradient */
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        .quiz-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* Main Quiz Body */
+        .quiz-body {
+            padding: 24px;
+        }
+        #question-container {
+            margin-bottom: 20px;
+        }
+        #question-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Options Grid & Buttons */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: left;
+            color: #f0f2f5;
+            background-color: #6b6464; /* Darker grey for options */
+            border: 1px solid #9e9696;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #7d7575;
+            border-color: #b1a8a8;
+        }
+
+        /* Button Feedback Colors */
+        .option-btn.correct {
+            background-color: #10b981; /* Bright green for correct */
+            border-color: #0f9a6d;
+            color: white;
+        }
+        .option-btn.incorrect {
+            background-color: #ef4444; /* Bright red for incorrect */
+            border-color: #d83a3a;
+            color: white;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        /* Explanation/Feedback Box */
+        #feedback-container {
+            margin-top: 20px;
+        }
+        #explanation {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            background-color: #4a4843; /* Darker background for explanation */
+            border: 1px solid #6b6464;
+        }
+
+        /* Footer and Navigation */
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            background-color: #857c7c; /* Lighter muted grey footer */
+            border-top: 1px solid #9e9696;
+        }
+        #progress-text {
+            font-size: 1em;
+            color: #d1d5db; /* Lighter grey for secondary text */
+        }
+        .nav-btn {
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background-color: #4338ca;
+        }
+        .nav-btn:disabled {
+            background-color: #52504b;
+            cursor: not-allowed;
+        }
+        #navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Results Screen */
+        #results-container {
+            text-align: center;
+            padding: 40px 24px;
+        }
+        #results-container h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #score-text {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        #restart-btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background-color: #4f46e5; /* Vibrant blue for actions */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #restart-btn:hover {
+            background-color: #4338ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Quiz Game: Derivatives</h1>
+        </div>
+        <div class="quiz-body">
+            <div id="question-container" style="display: none;">
+                <p id="question-text"></p>
+                <div id="options-grid" class="options-grid"></div>
+                <div id="feedback-container">
+                    <div id="explanation"></div>
+                </div>
+            </div>
+            <div id="results-container" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <p id="score-text"></p>
+                <button id="restart-btn" class="nav-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-footer" style="display: none;">
+            <p id="progress-text"></p>
+            <div id="navigation-buttons">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <button id="next-btn" class="nav-btn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "The derivative of a function \\(f(x)\\) at a point \\(x_0\\), denoted \\(f'(x_0)\\), represents the...", options: ["Area under the curve at \\(x_0\\).", "Value of the function at \\(x_0\\).", "Instantaneous rate of change of the function at \\(x_0\\).", "Average rate of change of the function."], correct: 2, explanation: "The derivative \\(f'(x_0)\\) gives the slope of the tangent line to the graph of \\(f(x)\\) at \\(x_0\\), which represents the instantaneous rate of change." },
+            { question: "Which of the following limits defines the derivative \\(f'(x)\\)?", options: ["\\(\\lim_{\\Delta x \\to 0} \\frac{f(x+\\Delta x) - f(x)}{\\Delta x}\\)", "\\(\\lim_{x \\to a} \\frac{f(x) - f(a)}{x}\\)", "\\(\\frac{f(b) - f(a)}{b-a}\\)", "\\(\\lim_{\\Delta x \\to 0} f(x+\\Delta x)\\)"], correct: 0, explanation: "The formal definition of the derivative is \\(f'(x) = \\lim_{\\Delta x \\to 0} \\frac{f(x+\\Delta x) - f(x)}{\\Delta x}\\). This represents the limit of the slope of secant lines." },
+            { question: "If a function is differentiable at a point \\(x_0\\), what must be true?", options: ["It must be a polynomial.", "It must be continuous at \\(x_0\\).", "It cannot be continuous at \\(x_0\\).", "It must have a vertical tangent at \\(x_0\\)."], correct: 1, explanation: "Differentiability implies continuity. If a function has a derivative at a point, it must be continuous there. The converse is not true (e.g., \\(f(x)=|x|\\) at \\(x=0\\))." },
+            { question: "Find the derivative of \\(f(x) = x^5\\).", options: ["\\(5x^4\\)", "\\(4x^5\\)", "\\(\\frac{x^6}{6}\\)", "\\(5x^5\\)"], correct: 0, explanation: "Using the Power Rule, \\((x^n)' = nx^{n-1}\\). So, \\((x^5)' = 5x^{5-1} = 5x^4\\)." },
+            { question: "Find the derivative of \\(f(x) = 3x^2 - 6x - 36\\).", options: ["\\(6x - 6\\)", "\\(3x - 6\\)", "\\(6x^2 - 6x\\)", "\\(x^3 - 3x^2 - 36x\\)"], correct: 0, explanation: "Using the power rule on each term: \\((3x^2)' = 6x\\), \\((-6x)' = -6\\), and \\((-36)' = 0\\). The result is \\(6x-6\\)." },
+            { question: "What is the equation of the tangent line to the curve \\(y=f(x)\\) at the point \\((x_0, f(x_0))\\)?", options: ["\\(y - f'(x_0) = f(x_0)(x - x_0)\\)", "\\(y - f(x_0) = f'(x_0)(x - x_0)\\)", "\\(y - x_0 = f'(x_0)(x - f(x_0))\\)", "\\(y = f'(x_0)\\)"], correct: 1, explanation: "The point-slope form of a line is \\(y - y_1 = m(x - x_1)\\). For the tangent line, the point is \\((x_0, f(x_0))\\) and the slope \\(m\\) is the derivative \\(f'(x_0)\\)." },
+            { question: "A function is NOT differentiable at a point if its graph has a...", options: ["Smooth curve.", "Zero slope.", "Sharp corner or cusp.", "Y-intercept."], correct: 2, explanation: "A function is not differentiable at any point of discontinuity, or at points where the graph has a sharp corner (like \\(|x|\\) at \\(x=0\\)) or a vertical tangent." },
+            { question: "Find the derivative of \\(f(x) = e^{\\sin(x)}\\) using the Chain Rule.", options: ["\\(\\cos(x) e^{\\sin(x)}\\)", "\\(e^{\\cos(x)}\\)", "\\(e^{\\sin(x)}\\)", "\\(\\sin(x) e^{\\cos(x)}\\)"], correct: 0, explanation: "Let the outer function be \\(e^u\\) and the inner function be \\(u=\\sin(x)\\). The derivative is (derivative of outer) * (derivative of inner) = \\(e^u \\cdot \\cos(x) = e^{\\sin(x)}\\cos(x)\\)." },
+            { question: "If \\(x^2 + y^2 = 25\\), find \\(\\frac{dy}{dx}\\) using implicit differentiation.", options: ["\\(\\frac{x}{y}\\)", "\\(-\\frac{x}{y}\\)", "\\(2x+2y\\)", "\\(\\frac{y}{x}\\)"], correct: 1, explanation: "Differentiate both sides with respect to \\(x\\): \\(2x + 2y \\frac{dy}{dx} = 0\\). Then, solve for \\(\\frac{dy}{dx}\\): \\(2y \\frac{dy}{dx} = -2x\\), so \\(\\frac{dy}{dx} = -\\frac{x}{y}\\)." },
+            { question: "What is the second derivative of \\(f(x) = x^3 - 4x^2 + 5\\)?", options: ["\\(3x^2 - 8x\\)", "\\(6x - 8\\)", "\\(6x\\)", "\\(3x - 8\\)"], correct: 1, explanation: "First derivative: \\(f'(x) = 3x^2 - 8x\\). Second derivative: \\(f''(x) = (3x^2 - 8x)' = 6x - 8\\)." },
+            { question: "Logarithmic differentiation is useful for functions of the form...", options: ["\\(f(x) + g(x)\\)", "\\(\\frac{f(x)}{g(x)}\\)", "\\([f(x)]^{g(x)}\\)", "\\(c \\cdot f(x)\\)"], correct: 2, explanation: "Logarithmic differentiation is the standard method for finding the derivative of functions where the variable appears in both the base and the exponent, like \\(y=x^x\\)." },
+            { question: "Find the derivative of \\(y = x^x\\).", options: ["\\(x \\cdot x^{x-1}\\)", "\\(x^x (\\ln(x) + 1)\\)", "\\(x^x \\ln(x)\\)", "\\(1\\)"], correct: 1, explanation: "Use logarithmic differentiation. \\(\\ln(y) = \\ln(x^x) = x \\ln(x)\\). Differentiating gives \\(\\frac{y'}{y} = 1 \\cdot \\ln(x) + x \\cdot \\frac{1}{x} = \\ln(x) + 1\\). So, \\(y' = y(\\ln(x)+1) = x^x(\\ln(x)+1)\\)." },
+            { question: "If \\(s(t)\\) is the position of a particle at time \\(t\\), what does \\(s'(t)\\) represent?", options: ["Acceleration", "Position", "Jerk", "Velocity"], correct: 3, explanation: "The derivative of the position function with respect to time is the instantaneous velocity, \\(v(t) = s'(t)\\)." },
+            { question: "If \\(v(t)\\) is the velocity of a particle at time \\(t\\), what does \\(v'(t)\\) represent?", options: ["Acceleration", "Position", "Speed", "Displacement"], correct: 0, explanation: "The derivative of the velocity function with respect to time is the instantaneous acceleration, \\(a(t) = v'(t) = s''(t)\\)." },
+            { question: "Find the derivative of \\(f(x) = \\frac{\\sin(x)}{x}\\).", options: ["\\(\\frac{\\cos(x)}{1}\\)", "\\(\\frac{x\\cos(x) - \\sin(x)}{x^2}\\)", "\\(\\frac{\\sin(x) - x\\cos(x)}{x^2}\\)", "\\(\\cos(x)\\)"], correct: 1, explanation: "Using the Quotient Rule: \\(\\frac{g f' - f g'}{g^2} = \\frac{x(\\cos x) - (\\sin x)(1)}{x^2} = \\frac{x\\cos(x) - \\sin(x)}{x^2}\\)." },
+            { question: "Find the derivative of \\(f(x) = x^2 \\ln(x)\\).", options: ["\\(2x \\cdot \\frac{1}{x}\\)", "\\(2x \\ln(x) + x\\)", "\\(2x \\ln(x) + x^2\\)", "\\(2x + \\frac{1}{x}\\)"], correct: 1, explanation: "Using the Product Rule: \\(f'g + fg' = (2x)(\\ln x) + (x^2)(\\frac{1}{x}) = 2x \\ln(x) + x\\)." },
+            { question: "The derivative of \\(f(x) = \\sqrt{x}\\) is:", options: ["\\(\\frac{1}{2\\sqrt{x}}\\)", "\\(2\\sqrt{x}\\)", "\\(\\frac{1}{\\sqrt{x}}\\)", "\\(x^{-1/2}\\)"], correct: 0, explanation: "\\(f(x) = x^{1/2}\\). Using the power rule, \\(f'(x) = \\frac{1}{2}x^{1/2 - 1} = \\frac{1}{2}x^{-1/2} = \\frac{1}{2\\sqrt{x}}\\)." },
+            { question: "The derivative of \\(f(x) = \\tan^{-1}(x)\\) (or arctan x) is:", options: ["\\(\\frac{1}{\\sqrt{1-x^2}}\\)", "\\(\\frac{1}{1+x^2}\\)", "\\(\\sec^2(x)\\)", "\\(\\frac{-1}{\\sqrt{1-x^2}}\\)"], correct: 1, explanation: "This is a standard derivative rule. \\(\\frac{d}{dx}(\\tan^{-1}x) = \\frac{1}{1+x^2}\\)." },
+            { question: "If the radius \\(r\\) of a circle grows at a rate of \\(2\\) m/s (\\(\\frac{dr}{dt}=2\\)), how fast is the area \\(A\\) growing when \\(r=10\\)m? (\\(A=\\pi r^2\\))", options: ["\\(20\\pi\\) m$^2$/s", "\\(40\\pi\\) m$^2$/s", "\\(100\\pi\\) m$^2$/s", "\\(200\\pi\\) m$^2$/s"], correct: 1, explanation: "This is a related rates problem. \\(A = \\pi r^2\\). Differentiate with respect to time \\(t\\): \\(\\frac{dA}{dt} = 2\\pi r \\frac{dr}{dt}\\). Plug in the values: \\(\\frac{dA}{dt} = 2\\pi (10)(2) = 40\\pi\\) m$^2$/s." },
+            { question: "Find the derivative of \\(f(x) = (x^3+5)^9\\).", options: ["\\(9(x^3+5)^8\\)", "\\(9(3x^2)^8\\)", "\\(27x^2(x^3+5)^8\\)", "\\(9(x^3+5)^8 \\cdot 3x\\)"], correct: 2, explanation: "Using the General Power Rule (Chain Rule): \\(f'(x) = 9(x^3+5)^{8} \\cdot \\frac{d}{dx}(x^3+5) = 9(x^3+5)^8 \\cdot 3x^2 = 27x^2(x^3+5)^8\\)." }
+        ];
+
+        const questionContainer = document.getElementById('question-container');
+        const questionText = document.getElementById('question-text');
+        const optionsGrid = document.getElementById('options-grid');
+        const explanation = document.getElementById('explanation');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const quizFooter = document.querySelector('.quiz-footer');
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            quizFooter.style.display = 'flex';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            const question = questions[currentQuestionIndex];
+            questionText.innerHTML = question.question;
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerHTML = option;
+                button.classList.add('option-btn');
+                button.dataset.index = index;
+                button.addEventListener('click', selectAnswer);
+                optionsGrid.appendChild(button);
+            });
+            
+            updateNavigation();
+            restoreAnswerState();
+            MathJax.typesetPromise();
+        }
+        
+        function resetState() {
+            while (optionsGrid.firstChild) {
+                optionsGrid.removeChild(optionsGrid.firstChild);
+            }
+            explanation.style.display = 'none';
+        }
+
+        function updateNavigation() {
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
+        }
+
+        function restoreAnswerState() {
+            const userAnswer = userAnswers[currentQuestionIndex];
+            if (userAnswer !== null) {
+                showFeedback(userAnswer);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedIndex = parseInt(e.target.dataset.index);
+            if (userAnswers[currentQuestionIndex] === null) { // Only process if it's the first time answering
+                userAnswers[currentQuestionIndex] = selectedIndex;
+                showFeedback(selectedIndex);
+            }
+        }
+
+        function showFeedback(selectedIndex) {
+            const correctIndex = questions[currentQuestionIndex].correct;
+            
+            Array.from(optionsGrid.children).forEach((button, index) => {
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+                button.disabled = true;
+            });
+            
+            explanation.innerHTML = "<b>Explanation:</b> " + questions[currentQuestionIndex].explanation;
+            explanation.style.display = 'block';
+            MathJax.typesetPromise();
+        }
+
+        function showResults() {
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+
+            questionContainer.style.display = 'none';
+            quizFooter.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const scorePercent = Math.round((score / questions.length) * 100);
+            scoreText.innerText = `You scored ${score} out of ${questions.length} (${scorePercent}%)`;
+        }
+
+        function handleNextButton() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function handlePrevButton() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        nextBtn.addEventListener('click', handleNextButton);
+        prevBtn.addEventListener('click', handlePrevButton);
+        restartBtn.addEventListener('click', startQuiz);
+
+        startQuiz();
+    </script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (Ohm’s Law & Basics)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">Ohm’s Law, components, sources, signals, and fundamentals with LaTeX and inline plots</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">40</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'iv'|'rc'|'acdc'|'cv_energy'|'li_energy', params:{...} }
+}
+All content is aligned to the attached PDF topics.
+*/
+
+const questions = [
+  // Section 1: Basic Concepts & Components (Slides 3-5)
+  { text: "Which of the following is considered a fundamental component of any electronic circuit?", choices: ["A display screen", "An energy source (voltage or current)", "A microcontroller", "A plastic enclosure"], correctIndex: 1, explain: "Every circuit requires an energy source, like a battery or power supply, to drive the flow of charge. Conductors, insulators, and components like resistors complete the circuit." },
+  { text: "What is the primary purpose of a schematic diagram in electronics?", choices: ["To show the physical layout of components on a board", "To use standardized symbols to represent components and their interconnections", "To calculate the total cost of the circuit", "To serve as a user manual for the device"], correctIndex: 1, explain: "A schematic diagram is an abstract representation that uses symbols to clearly show the function and connectivity of a circuit, not its physical appearance." },
+  { text: "In a component symbol, what does a zig-zag line typically represent?", choices: ["A capacitor", "An inductor", "A resistor", "A diode"], correctIndex: 2, explain: "The zig-zag line is the standard international symbol for a resistor, representing opposition to current flow." },
+
+  // Section 2: Sources (Slides 6-7, 47-48)
+  { text: "What defines an ideal independent voltage source?", choices: ["Its voltage varies with the load current", "It provides a constant voltage regardless of the current drawn from it", "It can only supply AC voltage", "It has a very high internal resistance"], correctIndex: 1, explain: "An ideal independent voltage source maintains a constant terminal voltage, irrespective of the current it supplies or the connected load." },
+  { text: "A dependent voltage source (e.g., VCCS) provides a voltage that is proportional to:", choices: ["A constant value set at the factory", "The ambient temperature", "A voltage or current elsewhere in the circuit", "The time since the circuit was powered on"], correctIndex: 2, explain: "Dependent (or controlled) sources have an output (voltage or current) that is a function of another voltage or current within the same circuit." },
+  { text: "How can a practical voltage source, consisting of an ideal voltage source \\(V_S\\) in series with a resistor \\(R_S\\), be converted into an equivalent current source?", choices: ["A current source \\(I_N = V_S / R_S\\) in series with \\(R_S\\)", "A current source \\(I_N = V_S \cdot R_S\\) in parallel with \\(R_S\\)", "A current source \\(I_N = V_S / R_S\\) in parallel with \\(R_S\\)", "It cannot be converted"], correctIndex: 2, explain: "This is a source transformation. The equivalent Norton current is \\(I_N = V_S / R_S\\), and the resistor \\(R_S\\) is placed in parallel with this new current source." },
+
+  // Section 3: Power & Energy (Slide 8)
+  { text: "Which formula correctly represents the electrical power \\(P\\) dissipated by a component?", choices: ["\\( P = V / I \\)", "\\( P = I^2 / R \\)", "\\( P = V \cdot I \\)", "\\( P = V^2 \cdot R \\)"], correctIndex: 2, explain: "The fundamental formula for power is \\( P = V \cdot I \\). Using Ohm's Law (\\(V=IR\\)), it can also be expressed as \\( P = I^2 R \\) or \\( P = V^2 / R \\)." },
+  { text: "If a device consumes \\(P\\) watts for \\(t\\) seconds, what is the total energy \\(W\\) consumed?", choices: ["\\( W = P / t \\)", "\\( W = P \cdot t \\)", "\\( W = P^2 \cdot t \\)", "\\( W = \sqrt{P \cdot t} \\)"], correctIndex: 1, explain: "Energy is power integrated over time. For constant power, the formula is simply \\( W = P \cdot t \\). The unit of energy is the Joule (1 Joule = 1 Watt-second)." },
+
+  // Section 4: Measurement Instruments (Slides 10-17)
+  { text: "To measure the current flowing through a resistor in a circuit, an ammeter must be connected:", choices: ["In parallel with the resistor", "In series with the resistor", "To the ground point only", "Across the power source"], correctIndex: 1, explain: "An ammeter measures current flow, so it must be placed in the path of the current, which means connecting it in series with the component." },
+  { text: "An ideal voltmeter has a very high internal resistance. Why is this important?", choices: ["To allow maximum current to flow through it", "To minimize its own power consumption", "To avoid significantly altering the voltage it is measuring by drawing minimal current", "To protect the user from electric shock"], correctIndex: 2, explain: "A voltmeter is connected in parallel. If it had low resistance, it would draw a significant current, altering the behavior of the circuit and leading to an inaccurate voltage reading. High resistance ensures it has a minimal effect." },
+  { text: "What is a crucial first step before using an ohmmeter to measure the resistance of a component that is part of a larger circuit?", choices: ["Increase the circuit's supply voltage", "Ensure the component is cool to the touch", "Disconnect the component or at least one of its leads from the circuit's power source", "Connect the ohmmeter in series with the power supply"], correctIndex: 2, explain: "An ohmmeter works by passing its own small current through the component. Any external voltage will interfere with the reading and can damage the meter. The power must be off." },
+  { text: "A multimeter is a versatile instrument because it can typically measure:", choices: ["Only voltage and current", "Only resistance and capacitance", "Voltage, current, and resistance, among other things", "Only temperature and frequency"], correctIndex: 2, explain: "The name 'multi-meter' implies its ability to measure multiple quantities. Voltage, current (AC/DC), and resistance are the most common functions." },
+
+  // Section 5: Ohm's Law & Resistor Combinations (Slides 19-23)
+  { text: "Ohm's Law states that the voltage across a resistor is directly proportional to the current flowing through it. What is the constant of proportionality?", choices: ["The capacitance", "The inductance", "The power", "The resistance"], correctIndex: 3, explain: "Ohm's Law is formulated as \\( V = I \cdot R \\), where the resistance \\(R\\) is the constant of proportionality between voltage \\(V\\) and current \\(I\\)." },
+  { text: "The I-V characteristic (Current vs. Voltage graph) for an ideal resistor is a:", choices: ["Parabola", "Straight line passing through the origin", "Exponential curve", "Circle"], correctIndex: 1, explain: "Since \\(I = V/R\\), the relationship is linear. The graph of \\(I\\) versus \\(V\\) is a straight line with a slope of \\(1/R\\) that passes through (0,0).", plot: { type:"iv", params:{ R: 50 } } },
+  { text: "If three resistors, \\(R_1 = 10 \Omega\\), \\(R_2 = 20 \Omega\\), and \\(R_3 = 30 \Omega\\), are connected in series, what is their total equivalent resistance?", choices: ["\\(60 \Omega\\)", "\\(5.45 \Omega\\)", "\\(110 \Omega\\)", "\\(6 \Omega\\)"], correctIndex: 0, explain: "For resistors in series, the total resistance is the sum of the individual resistances: \\( R_{eq} = R_1 + R_2 + R_3 = 10 + 20 + 30 = 60 \Omega \\)." },
+  { text: "If two resistors, \\(R_1 = 10 \Omega\\) and \\(R_2 = 10 \Omega\\), are connected in parallel, what is their total equivalent resistance?", choices: ["\\(20 \Omega\\)", "\\(10 \Omega\\)", "\\(5 \Omega\\)", "\\(0 \Omega\\)"], correctIndex: 2, explain: "For resistors in parallel, \\( \\frac{1}{R_{eq}} = \\frac{1}{R_1} + \\frac{1}{R_2} = \\frac{1}{10} + \\frac{1}{10} = \\frac{2}{10} \\). Therefore, \\( R_{eq} = \\frac{10}{2} = 5 \Omega \\)." },
+  { text: "In a mixed connection, a \\(R_1 = 10 \Omega\\) resistor is in series with a parallel combination of \\(R_2 = 20 \Omega\\) and \\(R_3 = 20 \Omega\\). What is the total resistance?", choices: ["\\(50 \Omega\\)", "\\(30 \Omega\\)", "\\(20 \Omega\\)", "\\(15 \Omega\\)"], correctIndex: 2, explain: "First, calculate the parallel part: \\(R_{23} = (\\frac{1}{20} + \\frac{1}{20})^{-1} = 10 \Omega\\). Then, add the series resistor: \\(R_{total} = R_1 + R_{23} = 10 + 10 = 20 \Omega\\)." },
+
+  // Section 6: Source Combinations (Slides 24-26)
+  { text: "If two ideal 9V batteries are connected in series (negative terminal of the first to the positive of the second), what is the resulting voltage?", choices: ["9V", "4.5V", "0V", "18V"], correctIndex: 3, explain: "When voltage sources are connected in series with assisting polarity, their voltages add up. So, \\(V_{total} = 9V + 9V = 18V\\)." },
+  { text: "What is a critical rule when connecting ideal voltage sources in parallel?", choices: ["They must have different voltage ratings", "They must all have the same voltage rating", "They must be connected in alternating polarity", "Parallel connection of voltage sources is never allowed"], correctIndex: 1, explain: "Connecting ideal voltage sources of different voltages in parallel creates a logical contradiction (a single node cannot have two different potentials) and would result in theoretically infinite current. They must be identical." },
+
+  // Section 7: Kirchhoff's Laws (Slides 27-32)
+  { text: "What is a 'node' in an electrical circuit?", choices: ["Any closed loop", "A component that stores energy", "A point where two or more circuit elements are connected", "The path between two nodes"], correctIndex: 2, explain: "A node is a junction or point in a circuit where the terminals of two or more components meet." },
+  { text: "Kirchhoff's Current Law (KCL) states that:", choices: ["The sum of voltages around any closed loop is zero", "The algebraic sum of currents entering and leaving a node is zero", "The total resistance in a series circuit is the sum of individual resistances", "Voltage equals current times resistance"], correctIndex: 1, explain: "KCL is based on the conservation of charge and states that for any node, \\( \\sum I_{in} = \\sum I_{out} \\), or \\( \\sum I = 0 \\)." },
+  { text: "Kirchhoff's Voltage Law (KVL) is applied to:", choices: ["Individual components", "Any open path in a circuit", "Any single node", "Any closed loop (or mesh) in a circuit"], correctIndex: 3, explain: "KVL is based on the conservation of energy and states that the algebraic sum of voltage drops and rises around any closed path must be zero (\\( \\sum V = 0 \\))." },
+  { text: "If at a node, current \\(I_1 = 2A\\) and \\(I_2 = 3A\\) are entering, and current \\(I_3\\) is leaving, what is the value of \\(I_3\\) according to KCL?", choices: ["1A", "5A", "-1A", "0A"], correctIndex: 1, explain: "According to KCL, \\( \\sum I_{in} = \\sum I_{out} \\). Here, \\( 2A + 3A = I_3 \\), so \\( I_3 = 5A \\)." },
+
+  // Section 8: Analysis Methods (Slides 33-36)
+  { text: "The Mesh Analysis method (Method of Loop Currents) is a direct application of which law?", choices: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Kirchhoff's Voltage Law (KVL)", "Thevenin's Theorem"], correctIndex: 2, explain: "Mesh analysis involves writing equations for the sum of voltages around each independent loop (mesh) in the circuit, which is a direct application of KVL." },
+  { text: "The Nodal Analysis method is a direct application of which law?", choices: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Kirchhoff's Voltage Law (KVL)", "Norton's Theorem"], correctIndex: 1, explain: "Nodal analysis involves writing equations for the sum of currents entering/leaving each independent node, which is a direct application of KCL." },
+  { text: "For a circuit with \\(n\\) nodes, how many independent node-voltage equations are needed for Nodal Analysis?", choices: ["\\(n\\)", "\\(n+1\\)", "\\(n-1\\)", "\\(n/2\\)"], correctIndex: 2, explain: "In Nodal Analysis, one node is chosen as the reference (ground) node (0V). The voltages of the remaining \\(n-1\\) nodes are then solved for, requiring \\(n-1\\) equations." },
+  { text: "For a planar circuit with \\(b\\) branches and \\(n\\) nodes, how many independent mesh equations are needed for Mesh Analysis?", choices: ["\\(b-n\\)", "\\(b-n+1\\)", "\\(b+n-1\\)", "\\(b\\)"], correctIndex: 1, explain: "The number of independent meshes (and thus the number of required KVL equations for Mesh Analysis) is given by the formula \\(m = b - n + 1\\)." },
+
+  // Section 9: Circuit Theorems (Slides 37-41)
+  { text: "According to the Maximum Power Transfer Theorem, for a DC circuit, maximum power is delivered from a source to a load when:", choices: ["The load resistance is much larger than the source resistance", "The load resistance is much smaller than the source resistance", "The load resistance is equal to the Thevenin resistance of the source", "The load resistance is zero (a short circuit)"], correctIndex: 2, explain: "Maximum power is transferred to the load \\(R_L\\) when it is matched to the equivalent (Thevenin) resistance of the source network, i.e., \\(R_L = R_{Th}\\)." },
+  { text: "Thevenin's Theorem allows us to replace any complex linear circuit with:", choices: ["A single current source and a parallel resistor", "A single ideal resistor", "A single voltage source and a series resistor", "A single ideal capacitor"], correctIndex: 2, explain: "Thevenin's Theorem simplifies a two-terminal linear network into an equivalent circuit consisting of a single voltage source (\\(V_{Th}\\)) in series with a single resistor (\\(R_{Th}\\))." },
+  { text: "The Thevenin voltage \\(V_{Th}\\) is found by:", choices: ["Short-circuiting the output terminals and measuring the current", "Calculating the total power consumed by the circuit", "Removing the load and measuring the open-circuit voltage across the output terminals", "Setting all sources to zero"], correctIndex: 2, explain: "\\(V_{Th}\\) is the voltage that appears at the output terminals A and B when the load is disconnected (open circuit)." },
+  { text: "Norton's Theorem simplifies a complex linear circuit into:", choices: ["A single current source and a parallel resistor", "A single voltage source and a series resistor", "A single ideal inductor", "A single dependent source"], correctIndex: 0, explain: "Norton's Theorem provides an equivalent circuit consisting of a single current source (\\(I_N\\)) in parallel with a single resistor (\\(R_N\\))." },
+  { text: "What is the relationship between the Thevenin equivalent and the Norton equivalent of the same circuit?", choices: ["\\(R_{Th} = 1/R_N\\)", "\\(R_{Th} = R_N\\) and \\(V_{Th} = I_N \cdot R_N\\)", "\\(R_{Th} = R_N\\) and \\(V_{Th} = I_N / R_N\\)", "There is no direct relationship"], correctIndex: 1, explain: "The Thevenin and Norton equivalents are duals. Their resistances are identical (\\(R_{Th} = R_N\\)), and their source values are related by Ohm's law: \\(V_{Th} = I_N \cdot R_N\\)." },
+  
+  // Section 10: Dividers & Simplifications (Slides 42-50)
+  { 
+    text: "In a simple voltage divider with a source \\(V_{in}\\) and two series resistors \\(R_1\\) and \\(R_2\\), the voltage across \\(R_2\\) is:", 
+    choices: [
+      "\\( V_{in} \cdot \\frac{R_1}{R_1 + R_2} \\)", 
+      "\\( V_{in} \cdot \\frac{R_2}{R_1 + R_2} \\)", 
+      "\\( V_{in} \cdot \\frac{R_1 + R_2}{R_2} \\)", 
+      "\\( V_{in} \cdot \\frac{R_1}{R_2} \\)"
+    ], 
+    correctIndex: 1, 
+    explain: "The voltage divides proportionally to the resistance. The voltage across \\(R_2\\) is its fraction of the total resistance, multiplied by the input voltage: \\(V_{R2} = V_{in} \cdot \\frac{R_2}{R_{total}}\\)." 
+  },    { 
+    text: "In a current divider with a total current \\(I_{in}\\) splitting between two parallel resistors \\(R_1\\) and \\(R_2\\), the current through \\(R_1\\) is:", 
+    choices: [
+      "\\( I_{in} \cdot \\frac{R_1}{R_1 + R_2} \\)", 
+      "\\( I_{in} \cdot \\frac{R_2}{R_1 + R_2} \\)", 
+      "\\( I_{in} \cdot \\frac{R_1 + R_2}{R_1} \\)", 
+      "\\( I_{in} \cdot \\frac{R_2}{R_1} \\)"
+    ], 
+    correctIndex: 1, 
+    explain: "Current divides inversely with resistance (more current flows through the path of less resistance). The current through \\(R_1\\) is proportional to the *other* resistor's value: \\(I_1 = I_{in} \cdot \\frac{R_2}{R_1 + R_2}\\)." 
+  },
+  { text: "A potentiometer is a three-terminal variable resistor. When used to provide a variable voltage, it functions as a:", choices: ["Variable current source", "Adjustable voltage divider", "Switch", "Fixed resistor"], correctIndex: 1, explain: "By applying a voltage across its two outer terminals and taking the output from the middle (wiper) terminal, a potentiometer acts as an adjustable voltage divider." },
+  { text: "A rheostat is typically a two-terminal variable resistor used to:", choices: ["Divide a voltage", "Control or limit current", "Generate a signal", "Measure resistance"], correctIndex: 1, explain: "A rheostat is connected in series with a load to vary the total resistance of the path, thereby controlling the current that flows through it." },
+  { text: "If a resistor \\(R\\) is connected in series with an ideal current source \\(I\\), how can the circuit be simplified for analysis purposes regarding the current delivered to the rest of the circuit?", choices: ["The resistor can be removed (shorted out) without changing the current", "The current source must be turned off", "The resistor's value must be doubled", "The resistor can be replaced with a capacitor"], correctIndex: 0, explain: "An ideal current source delivers a constant current \\(I\\) regardless of the series components. The resistor will develop a voltage across it (\\(V=IR\\)) but it will not change the current \\(I\\) flowing out of the source into the rest of the circuit. Thus, for current calculations, it can often be ignored." },
+  { text: "If a resistor \\(R\\) is connected in parallel with an ideal voltage source \\(V\\), how does this affect the voltage seen by other parallel branches?", choices: ["The voltage is reduced by half", "The voltage is unaffected and remains \\(V\\)", "The voltage becomes dependent on \\(R\\)", "The resistor shorts out the voltage source"], correctIndex: 1, explain: "An ideal voltage source maintains a constant voltage \\(V\\) across its terminals, regardless of what is connected in parallel. The resistor will draw current from the source, but any other branch connected in parallel will still see the same voltage \\(V\\)." },
+
+  // Add 5 more review questions to reach 45
+  { text: "The unit of electrical charge is the Coulomb (C). What is the charge of a single electron?", choices: ["1.602 x 10^{-19} C", "1 C", "-1.602 x 10^{-19} C", "-1 C"], correctIndex: 2, explain: "The elementary charge is approximately \\(1.602 \times 10^{-19}\\) Coulombs. Since electrons are negatively charged, their charge is \\(-e\\)." },
+  { text: "Semiconductors like Silicon have a conductivity that is:", choices: ["Higher than conductors and lower than insulators", "Exactly zero at room temperature", "Intermediate between conductors and insulators", "Higher than both conductors and insulators"], correctIndex: 2, explain: "Semiconductors are defined by their conductivity, which can be modified and is situated between that of highly conductive metals and highly resistive insulators." },
+  { text: "In KVL, a voltage rise (e.g., moving from '-' to '+' across a battery) is often treated with a positive sign. What sign would a voltage drop (e.g., moving across a resistor in the direction of current) have in the loop equation?", choices: ["Positive", "Negative", "Zero", "It depends on the resistance value"], correctIndex: 1, explain: "To maintain the sum \\(\\sum V = 0\\), if voltage rises are positive, then voltage drops must be negative. This is a common sign convention in circuit analysis." },
+  { text: "To turn off an independent voltage source for circuit analysis (like finding \\(R_{Th}\\)), you should:", choices: ["Replace it with an open circuit", "Replace it with a short circuit (a wire)", "Disconnect it from the circuit entirely", "Double its value"], correctIndex: 1, explain: "Turning off a voltage source means setting its voltage to zero. A component with zero volts across it for any current is a short circuit (a wire)." },
+  { text: "To turn off an independent current source for circuit analysis (like finding \\(R_{Th}\\)), you should:", choices: ["Replace it with an open circuit", "Replace it with a short circuit (a wire)", "Reverse its direction", "Halve its value"], correctIndex: 0, explain: "Turning off a current source means setting its current to zero. A component with zero current flowing through it for any voltage is an open circuit." },
+];
+
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); // y
+  ctx.moveTo(0, h); ctx.lineTo(w, h); // x
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText(xlabel, w-20, h-6);
+  ctx.fillText(ylabel, 6, 12);
+  ctx.restore();
+}
+
+function plotIV(R){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'I');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Vmax = 10;
+  for(let i=0;i<=100;i++){
+    const V = Vmax*i/100;
+    const I = V/R;
+    const px = (V/Vmax)*w;
+    const Imax = Vmax/R;
+    const py = h - (I/Imax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`R = ${R} Ω`, 10, 16);
+  ctx.restore();
+}
+
+function plotRC(V, R, C){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 't', 'Vc');
+  ctx.save();
+  ctx.translate(pad, pad);
+  const tau = R*C;
+  const tmax = 5*tau;
+  ctx.strokeStyle = '#7c5cff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i=0;i<=200;i++){
+    const t = tmax*i/200;
+    const Vc = V*(1 - Math.exp(-t/tau));
+    const px = (t/tmax)*w;
+    const py = h - (Vc/V)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`V = ${V.toFixed(2)} V, R = ${R} Ω, C = ${C} F, τ = ${(tau).toFixed(3)} s`, 10, 16);
+  ctx.strokeStyle = 'rgba(255,255,255,.2)';
+  ctx.setLineDash([4,3]);
+  for(let k=1;k<=5;k++){
+    const x = (k*tau/tmax)*w;
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function plotACDC(Vdc, Vac){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 't', 'v(t)');
+  ctx.save();
+  ctx.translate(pad, pad);
+
+  // DC line
+  ctx.strokeStyle = '#ffd166';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i=0;i<=200;i++){
+    const t = i/200;
+    const v = Vdc;
+    const px = t*w;
+    const py = h - 0.5*h; // center the DC line visually
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  // AC sine
+  ctx.strokeStyle = '#ff6e6e';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for(let i=0;i<=400;i++){
+    const t = i/200; // 0..2
+    const v = Vac*Math.sin(2*Math.PI*t);
+    const px = (t/2)*w;
+    const py = h - ((v + Vac)/(2*Vac))*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`DC (gold): ${Vdc.toFixed(1)} V,  AC (red): ±${Vac.toFixed(1)} V`, 10, 16);
+  ctx.restore();
+}
+
+function plotCapEnergy(C, Vmax){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'W');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Wmax = 0.5*C*Vmax*Vmax;
+  for(let i=0;i<=200;i++){
+    const V = Vmax*i/200;
+    const W = 0.5*C*V*V;
+    const px = (V/Vmax)*w;
+    const py = h - (W/Wmax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`W = 1/2 C V^2,  C=${C} F`, 10, 16);
+  ctx.restore();
+}
+
+function plotIndEnergy(L, Imax){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'I', 'E');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#7c5cff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Emax = 0.5*L*Imax*Imax;
+  for(let i=0;i<=200;i++){
+    const I = Imax*i/200;
+    const E = 0.5*L*I*I;
+    const px = (I/Imax)*w;
+    const py = h - (E/Emax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`E = 1/2 L I^2,  L=${L} H`, 10, 16);
+  ctx.restore();
+}
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'iv'){ plotIV(params.R ?? 100); }
+  else if(type === 'rc'){ plotRC(params.V ?? 5, params.R ?? 1000, params.C ?? 1e-6); }
+  else if(type === 'acdc'){ plotACDC(params.Vdc ?? 2, params.Vac ?? 2); }
+  else if(type === 'cv_energy'){ plotCapEnergy(params.C ?? 1e-6, params.Vmax ?? 10); }
+  else if(type === 'li_energy'){ plotIndEnergy(params.L ?? 0.1, params.Imax ?? 2.0); }
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

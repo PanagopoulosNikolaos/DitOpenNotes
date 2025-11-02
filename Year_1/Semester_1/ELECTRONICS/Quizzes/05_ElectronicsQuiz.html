@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (Diodes & Optoelectronics)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">Special Diodes and Optoelectronics (based on presentation)</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">40</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX",
+  plot: { type:'zener_iv'|'iv'|'rc'|'acdc'|'cv_energy'|'li_energy', params:{...} }
+}
+All content is aligned to the attached PDF topics.
+*/
+
+const questions = [
+  { text: "A Zener diode is specifically designed to operate reliably in which region?", choices: ["Forward-bias region", "Reverse-breakdown region", "Saturation region", "Cut-off region"], correctIndex: 1, explain: "Zener diodes are designed for continuous operation in the reverse-breakdown region, where they maintain a stable voltage (Vz)." },
+  { text: "What happens to the voltage across a Zener diode when it operates in its breakdown region?", choices: ["It increases proportionally with the current", "It drops to zero", "It remains nearly constant, regardless of the current", "It alternates polarity"], correctIndex: 2, explain: "The key feature of a Zener diode is that its voltage \\(V_Z\\) remains almost constant over a wide range of reverse currents." },
+  { text: "The characteristic curve of a Zener diode shows a sharp increase in reverse current at a specific voltage. What is this voltage called?", choices: ["Forward Voltage (Vf)", "Zener Voltage (Vz)", "Threshold Voltage (Vt)", "Peak Inverse Voltage (PIV)"], correctIndex: 1, explain: "The voltage at which reverse breakdown occurs and current increases sharply is called the Zener voltage, \\(V_Z\\).", plot: { type: "zener_iv", params: { Vz: 5.1 } } },
+  { text: "The maximum power a Zener diode can dissipate is given by \\(P_D = I_{Zmax} \\times V_Z\\). What happens if this power is exceeded?", choices: ["The diode operates more efficiently", "The Zener voltage will increase", "The diode may be permanently damaged or destroyed", "The diode will temporarily stop conducting"], correctIndex: 2, explain: "Exceeding the maximum power dissipation rating (PD) will cause the diode to overheat and likely result in permanent damage." },
+  { text: "What is the primary application of a Zener diode?", choices: ["Amplification", "Rectification", "Oscillation", "Voltage regulation/stabilization"], correctIndex: 3, explain: "Due to its ability to maintain a constant voltage under varying current conditions, the Zener diode is primarily used as a voltage regulator." },
+  { text: "In a simple Zener voltage regulator circuit, the Zener diode is connected in...", choices: ["Series with the load, forward-biased", "Parallel with the load, reverse-biased", "Series with the load, reverse-biased", "Parallel with the load, forward-biased"], correctIndex: 1, explain: "For voltage regulation, the Zener diode is placed in parallel with the load and operated in its reverse-breakdown region." },
+  { text: "A Zener regulator that maintains a stable output voltage when the input voltage varies is performing:", choices: ["Load regulation", "Line regulation", "Current limiting", "Thermal runaway"], correctIndex: 1, explain: "Line regulation refers to the ability of the regulator to maintain a constant output voltage despite changes in the input (line) voltage." },
+  { text: "The dynamic resistance of a Zener diode \\(Z_{ZT}\\) is defined as:", choices: ["\\(Z_{ZT} = V_Z / I_Z\\)", "\\(Z_{ZT} = \\Delta V_Z / \\Delta I_Z\\)", "\\(Z_{ZT} = I_Z / V_Z\\)", "\\(Z_{ZT} = P_D / I_{Zmax}\\)"], correctIndex: 1, explain: "The dynamic resistance \\(Z_{ZT}\\) represents the small change in Zener voltage for a given change in Zener current in the breakdown region. A smaller value indicates better regulation." },
+  { text: "For a Zener diode to enter its breakdown region in a circuit, what condition must be met regarding the Thevenin voltage (Vth) across its terminals?", choices: ["\\(V_{th} < V_Z\\)", "\\(V_{th} = V_Z\\)", "\\(V_{th} > V_Z\\)", "\\(V_{th} = 0\\)"], correctIndex: 2, explain: "The Zener diode will only enter reverse breakdown and start regulating if the voltage supplied to it (Vth) is greater than its rated Zener voltage (Vz)." },
+  { text: "If the Thevenin voltage (Vth) across a Zener diode is less than its Zener voltage (Vz), the diode will:", choices: ["Act like a constant voltage source", "Short circuit", "Conduct a large reverse current", "Act like an open circuit (conduct negligible current)"], correctIndex: 3, explain: "If \\(V_{th} < V_Z\\), the diode is not in breakdown and only a very small reverse leakage current flows. It behaves essentially as an open circuit." },
+  { text: "What is the key structural difference between a Schottky diode and a standard P-N junction diode?", choices: ["It uses two P-type materials", "It has a metal-semiconductor junction", "It is made from germanium instead of silicon", "It has no junction at all"], correctIndex: 1, explain: "A Schottky diode is formed by a junction between a metal and an N-type semiconductor, unlike the P-N junction of a standard diode." },
+  { text: "Compared to a standard silicon P-N diode, a Schottky diode typically has:", choices: ["A higher forward voltage drop and slower switching speed", "A lower forward voltage drop and faster switching speed", "A higher forward voltage drop and faster switching speed", "A lower forward voltage drop and slower switching speed"], correctIndex: 1, explain: "The metal-semiconductor junction results in a lower forward voltage (typically 0.2-0.4V) and faster switching because it eliminates minority carrier storage time." },
+  { text: "What is the basic principle of a Light Emitting Diode (LED)?", choices: ["It converts light energy into electrical energy", "It emits light when reverse-biased", "It emits light when forward-biased", "It changes its resistance based on light intensity"], correctIndex: 2, explain: "An LED is a semiconductor diode that emits photons (light) when a sufficient forward current flows through its P-N junction." },
+  { text: "A resistor is usually connected in series with an LED to:", choices: ["Increase the brightness of the LED", "Limit the current to a safe level", "Store energy for the LED", "Change the color of the emitted light"], correctIndex: 1, explain: "LEDs have very low internal resistance. Without a series resistor, connecting them directly to a voltage source would cause excessive current to flow, destroying the LED." },
+  { text: "The color of light emitted by an LED is primarily determined by:", choices: ["The amount of current flowing through it", "The size and shape of the LED's package", "The semiconductor materials used and their band gap energy", "The temperature of the LED"], correctIndex: 2, explain: "The energy of the emitted photons, which determines the light's color, corresponds to the band gap energy of the semiconductor material used in the LED." },
+  { text: "An LED is connected to a 5V source. The LED has a forward voltage drop of 2V and requires 15 mA. What value of series resistor is needed?", choices: ["\\(467 \, \\Omega\\)", "\\(333 \, \\Omega\\)", "\\(133 \, \\Omega\\)", "\\(200 \, \\Omega\\)"], correctIndex: 3, explain: "Voltage across resistor: \\( V_R = V_{source} - V_{LED} = 5V - 2V = 3V \\). Ohm's Law: \\( R = V_R / I_F = 3V / 0.015A = 200 \, \\Omega \\)." },
+  { text: "What is a major advantage of LED lighting compared to incandescent bulbs?", choices: ["Lower initial cost", "They produce a lot of waste heat", "Much higher energy efficiency and longer lifespan", "They operate on AC voltage directly without a driver"], correctIndex: 2, explain: "LEDs convert a much larger percentage of electrical energy into visible light, making them far more efficient. They also have a significantly longer operational life (e.g., 50,000 hours vs. 1,000 hours)." },
+  { text: "In a seven-segment display, what does the 'common cathode' configuration mean?", choices: ["All the anodes of the LED segments are connected together", "All the cathodes of the LED segments are connected together", "The display can only show numbers, not letters", "The segments are arranged in a circle"], correctIndex: 1, explain: "In a common cathode display, all the negative terminals (cathodes) of the LEDs are tied to a common pin, typically connected to ground." },
+  { text: "One disadvantage of LEDs mentioned in the presentation is their sensitivity to:", choices: ["Magnetic fields", "High temperature and excessive voltage/current", "Mechanical vibration", "Low frequency sounds"], correctIndex: 1, explain: "The performance and lifespan of an LED can be significantly degraded by high operating temperatures. They are also sensitive to being supplied with the correct voltage and current." },
+  { text: "What is meant by the 'blue light hazard' associated with some LEDs?", choices: ["Blue LEDs are more likely to explode", "Blue light is invisible to the human eye", "The high-energy blue light from some white LEDs can potentially harm the retina", "Blue LEDs use toxic materials"], correctIndex: 2, explain: "The spectrum of many white LEDs has a strong peak in the blue region. Concerns exist that prolonged exposure to this high-energy light could contribute to eye strain or retinal damage." },
+  { text: "How is polarity typically identified on a through-hole LED?", choices: ["The shorter lead is the anode (+)", "The longer lead is the anode (+), and the shorter lead is the cathode (-)", "Both leads are the same length", "The flat side of the casing indicates the anode (+)"], correctIndex: 1, explain: "By convention, the longer lead is the anode (positive) and the shorter lead is the cathode (negative). The flat edge on the package also typically indicates the cathode side." },
+  { text: "A TV screen has a resolution of 1366x768 pixels. If each pixel consists of 3 sub-pixel LEDs (Red, Green, Blue), what is the total number of LEDs?", choices: ["\\(1,049,088\\) LEDs", "\\(2,098,176\\) LEDs", "\\(3,147,264\\) LEDs", "\\(768\\) LEDs"], correctIndex: 2, explain: "The total number of LEDs is the number of pixels multiplied by the number of LEDs per pixel: \\(1366 \\times 768 \\times 3 = 3,147,264\\)." },
+  { text: "Why do LEDs have a very fast ON/OFF switching time (e.g., microseconds)?", choices: ["They have a filament that heats up instantly", "They are solid-state devices with no thermal inertia", "They store a large amount of charge", "They require a very high voltage to turn on"], correctIndex: 1, explain: "Unlike incandescent bulbs which rely on heating a filament, LEDs are semiconductor devices. The light-emitting process is electronic and virtually instantaneous." },
+  { text: "What is the primary difference between a regular LED and a Laser Diode?", choices: ["A laser diode emits incoherent light", "A laser diode works in reverse bias", "A laser diode has an optical cavity producing a coherent light beam", "Laser diodes cannot emit visible light"], correctIndex: 2, explain: "A laser diode contains an optical resonant cavity which causes stimulated emission, resulting in a coherent and highly directional beam of light." },
+  { text: "A photodiode is a semiconductor device that:", choices: ["Emits light when current passes through it", "Converts light energy into an electrical current", "Stores light energy for later use", "Changes color when exposed to light"], correctIndex: 1, explain: "When photons strike the photodiode's junction, they create electron-hole pairs, generating a current. It is typically operated in reverse bias." },
+  { text: "A phototransistor can be described as a:", choices: ["Transistor that emits light from its collector", "Transistor where the base current is generated by incident light", "Type of LED with three terminals", "Resistor whose value changes with light"], correctIndex: 1, explain: "A phototransistor uses a light-sensitive base-collector junction. Incident photons generate a small base current, which is then amplified by the transistor's gain." },
+  { text: "What is the primary function of an optocoupler (or optoisolator)?", choices: ["To amplify optical signals", "To mix optical and electrical signals", "To provide electrical isolation between two circuits", "To filter out unwanted light frequencies"], correctIndex: 2, explain: "An optocoupler contains an LED and a photosensor in one package. It transmits a signal via light, completely isolating the input circuit from the output circuit electrically." },
+  { text: "In the alarm circuit on slide 40, what happens when the light beam shining on phototransistor Q1 is interrupted?", choices: ["Q1 conducts more current, activating the relay", "Q1 stops conducting, turning Q2 on and activating the relay", "The voltage at Vcc drops to zero", "The phototransistor emits an audible alarm"], correctIndex: 1, explain: "When light is blocked, Q1 stops conducting. The voltage at Q2's base rises through resistor R, turning Q2 on. This energizes the relay coil, which can trigger an alarm." },
+  { text: "When operating a photodiode, an increase in light intensity will cause the reverse current (Iλ) to:", choices: ["Decrease", "Remain unchanged", "Increase", "Change direction"], correctIndex: 2, explain: "More incident photons create more electron-hole pairs, leading to a larger reverse current flowing through the photodiode. The current is proportional to the light intensity." },
+  { text: "Which of the following is NOT an advantage of LEDs?", choices: ["Resistance to mechanical shock and vibration", "Very low initial purchase cost compared to all other lighting types", "Long operational lifespan", "They do not contain toxic mercury"], correctIndex: 1, explain: "While the lifetime cost is low, the initial purchase price of LEDs is generally higher than that of incandescent or fluorescent lamps." },
+  { text: "The symbol with a diode inside a circle and two arrows pointing away from it represents a(n):", choices: ["Photodiode", "Zener diode", "Schottky diode", "Light Emitting Diode (LED)"], correctIndex: 3, explain: "The arrows pointing away from the diode symbol indicate that it emits light." },
+  { text: "The symbol with a diode inside a circle and two arrows pointing towards it represents a(n):", choices: ["Photodiode", "Zener diode", "Varactor diode", "Light Emitting Diode (LED)"], correctIndex: 0, explain: "The arrows pointing towards the diode symbol indicate that it is light-sensitive." },
+  { text: "The special 'Z' shape on the cathode bar in a diode symbol represents a(n):", choices: ["Photodiode", "Zener diode", "Schottky diode", "Light Emitting Diode (LED)"], correctIndex: 1, explain: "The bent or Z-shaped cathode line is the standard schematic symbol for a Zener diode." },
+  { text: "A device that provides high electrical isolation by coupling an LED with a phototransistor is a(n):", choices: ["Seven-segment display", "Laser diode", "Optocoupler", "Zener regulator"], correctIndex: 2, explain: "This is the definition of an optocoupler, used to transfer signals between circuits without a direct electrical connection." },
+  { text: "Which device is most suitable for creating a stable 5.1V reference from a fluctuating 9V supply?", choices: ["A standard silicon diode", "A 5.1V Zener diode", "A red LED", "A Schottky diode"], correctIndex: 1, explain: "A 5.1V Zener diode, when reverse-biased into its breakdown region, will maintain a voltage of approximately 5.1V across its terminals, making it ideal for this purpose." },
+  { text: "For very high-speed digital logic circuits, which type of diode would be preferred due to its fast switching speed?", choices: ["Zener diode", "LED", "Standard silicon diode", "Schottky diode"], correctIndex: 3, explain: "Schottky diodes have virtually no reverse recovery time because they don't use minority charge carriers, making them ideal for high-frequency applications." },
+  { text: "According to the comparison chart on slide 28, which light source is the most energy-efficient for producing 1600 lumens?", choices: ["Incandescent (100W)", "Halogen (77W)", "CFL (20W)", "LED (10W)"], correctIndex: 3, explain: "The LED lamp produces the same light output (1600 lumens) while consuming the least amount of power (10 watts)." },
+  { text: "According to the chart on slide 28, which light source has the longest lifespan?", choices: ["Incandescent (750 hours)", "Halogen (1,000 hours)", "CFL (10,000 hours)", "LED (50,000 hours)"], correctIndex: 3, explain: "The LED lamp is rated for 50,000 hours, which is significantly longer than any of the other technologies listed." },
+  { text: "An optoelectronic device that operates based on a light-sensitive base is the:", choices: ["Photodiode", "Phototransistor", "Laser Diode", "LED"], correctIndex: 1, explain: "The phototransistor functions by amplifying a small base current generated by photons striking its base-collector junction." },
+  { text: "In a load regulation scenario for a Zener stabilizer, the input voltage \\(V_{in}\\) is constant. What parameter changes?", choices: ["The series resistance \\(R_S\\)", "The Zener voltage \\(V_Z\\)", "The load resistance \\(R_L\\) (and thus load current \\(I_L\\))", "The ambient temperature"], correctIndex: 2, explain: "Load regulation tests the stabilizer's ability to maintain a constant output voltage as the load current, determined by the load resistance \\(R_L\\), changes." }
+];
+
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); // y
+  ctx.moveTo(0, h); ctx.lineTo(w, h); // x
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText(xlabel, w-20, h-6);
+  ctx.fillText(ylabel, 6, 12);
+  ctx.restore();
+}
+
+function plotIV(R){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'I');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Vmax = 10;
+  for(let i=0;i<=100;i++){
+    const V = Vmax*i/100;
+    const I = V/R;
+    const px = (V/Vmax)*w;
+    const Imax = Vmax/R;
+    const py = h - (I/Imax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`R = ${R} Ω`, 10, 16);
+  ctx.restore();
+}
+
+function plotZenerIV(Vz, Vf = 0.7) {
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  const pad = 42, w = cvs.width - pad * 2, h = cvs.height - pad * 2;
+  const Vmax = Vz * 1.5;
+
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  const originX = w / 2;
+  const originY = h * 0.85;
+
+  ctx.beginPath();
+  ctx.moveTo(originX, 0); ctx.lineTo(originX, h); // Y-axis
+  ctx.moveTo(0, originY); ctx.lineTo(w, originY); // X-axis
+  ctx.stroke();
+
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText('V', w - 10, originY - 6);
+  ctx.fillText('+I', originX + 6, 12);
+  ctx.fillText('-I', originX + 6, h-2);
+  const Vz_pos = originX - (Vz/Vmax) * (w/2);
+  ctx.fillText(`-Vz`, Vz_pos -10, originY + 14);
+  
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.setLineDash([2,3]);
+  ctx.beginPath(); ctx.moveTo(Vz_pos, 0); ctx.lineTo(Vz_pos, h); ctx.stroke();
+  ctx.setLineDash([]);
+  
+  ctx.restore();
+
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#ff6e6e';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  
+  // Forward bias
+  let firstPoint = true;
+  for (let v = 0; v <= Vmax; v += 0.05) {
+    let i = 0;
+    if (v > Vf) {
+      i = 0.01 * (Math.exp((v - Vf) / 0.1) - 1);
+    }
+    const px = originX + (v / Vmax) * (w / 2);
+    const py = originY - i * h * 5; // Scaling factor for current
+    if(py < 0) break;
+    if (firstPoint) { ctx.moveTo(px, py); firstPoint=false; } else { ctx.lineTo(px, py); }
+  }
+
+  // Reverse bias
+  for (let v = 0; v >= -Vmax; v -= 0.01) {
+    let i = 0.0005; // Small leakage current
+    if (v < -Vz) {
+      i = 0.0005 + Math.pow((-v - Vz)*5, 2);
+    }
+    const px = originX + (v / Vmax) * (w / 2);
+    const py = originY + i * h * 5; // Scaling factor for current
+    if(py > h) break;
+    ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`Zener I-V Curve: Vz ≈ ${Vz.toFixed(1)} V`, 10, 16);
+  ctx.restore();
+}
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'iv'){ plotIV(params.R ?? 100); }
+  else if(type === 'zener_iv') { plotZenerIV(params.Vz ?? 5.1); }
+  // other plot types can be added here if needed in the future
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot);
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+// Next also acts as Skip: always enabled, advances even if no option chosen
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>

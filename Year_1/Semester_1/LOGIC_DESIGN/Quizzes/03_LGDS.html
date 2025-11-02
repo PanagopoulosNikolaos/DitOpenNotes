@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate-Level Minimization Quiz</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #4caf50 !important;
+            color: white !important;
+            border-color: #4caf50 !important;
+        }
+
+        .option.incorrect {
+            background: #f44336 !important;
+            color: white !important;
+            border-color: #f44336 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left: 5px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 5px solid #f44336;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .results {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #4caf50; }
+        .score-good { color: #ff9800; }
+        .score-poor { color: #f44336; }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Gate-Level Minimization Quiz</h1>
+            <p>Test your knowledge of gate-level minimization techniques</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/20</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/20</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the primary purpose of the Karnaugh map (K-map) method?",
+                options: [
+                    "To implement a function directly using logic gates.",
+                    "To provide a systematic method for simplifying Boolean expressions.",
+                    "To convert a function from SOP to POS form.",
+                    "To analyze the timing of a digital circuit."
+                ],
+                correct: 1,
+                explanation: "The Karnaugh map is a graphical method used to simplify Boolean algebra expressions, which helps in creating simpler, more optimal digital circuits."
+            },
+            {
+                question: "In a three-variable K-map, how many squares (cells) are there?",
+                options: ["2", "4", "8", "16"],
+                correct: 2,
+                explanation: "A K-map for n variables has 2ⁿ squares. For three variables, there are 2³ = 8 squares."
+            },
+            {
+                question: "What is the key property of adjacent cells in a K-map?",
+                options: [
+                    "They represent minterms that are complements of each other.",
+                    "They represent minterms that differ by only one variable.",
+                    "They always contain a '1'.",
+                    "They are located diagonally from each other."
+                ],
+                correct: 1,
+                explanation: "Adjacent cells in a K-map represent minterms that differ in only one literal, which allows for simplification using the adjacency property (e.g., xy'z + xyz = xz)."
+            },
+            {
+                question: "When grouping 1s in a K-map, how many cells can be in a group?",
+                options: [
+                    "Any number of cells.",
+                    "Only prime numbers of cells (2, 3, 5, ...).",
+                    "Powers of 2 (1, 2, 4, 8, ...).",
+                    "Only even numbers of cells."
+                ],
+                correct: 2,
+                explanation: "Valid groups in a K-map must contain a number of cells that is a power of 2 (1, 2, 4, 8, 16, etc.)."
+            },
+            {
+                question: "Simplify the function F(x, y, z) = Σ(2, 3, 4, 5) using a K-map.",
+                options: ["x'y + xy'", "x + y", "xy + x'y'", "y + z"],
+                correct: 0,
+                explanation: "Grouping m₂ and m₃ gives x'y. Grouping m₄ and m₅ gives xy'. The simplified expression is F = x'y + xy'."
+            },
+            {
+                question: "What is a prime implicant?",
+                options: [
+                    "A single minterm in the K-map.",
+                    "A group of 1s that cannot be made any larger.",
+                    "A group that must be included in the final expression.",
+                    "A group of 0s in the K-map."
+                ],
+                correct: 1,
+                explanation: "A prime implicant is a product term obtained by combining the maximum possible number of adjacent squares in the map. It cannot be combined with any other group to eliminate another variable."
+            },
+            {
+                question: "What is an essential prime implicant?",
+                options: [
+                    "The largest prime implicant on the map.",
+                    "A prime implicant that covers at least one minterm not covered by any other prime implicant.",
+                    "A prime implicant that includes the minterm m₀.",
+                    "A prime implicant that can be optionally included in the final expression."
+                ],
+                correct: 1,
+                explanation: "An essential prime implicant is a prime implicant that is the only one covering a particular minterm. It must be included in the final simplified expression."
+            },
+            {
+                question: "What do 'don't-care' conditions represent in a K-map?",
+                options: [
+                    "Outputs that must be 0.",
+                    "Outputs that must be 1.",
+                    "Input combinations that will never occur.",
+                    "Outputs that can be either 0 or 1."
+                ],
+                correct: 3,
+                explanation: "Don't-care conditions (marked with 'X') represent input combinations for which the output value is not specified. They can be treated as either 0 or 1 to help form larger groups and achieve better simplification."
+            },
+            {
+                question: "To obtain a simplified Product-of-Sums (POS) expression from a K-map, you should group the:",
+                options: ["1s and find the SOP expression.", "0s and find the SOP of the complement (F').", "1s and find the POS expression directly.", "Don't-care terms only."],
+                correct: 1,
+                explanation: "The simplest way to get a POS expression is to group the 0s to find the simplified SOP expression for the complement (F'), and then apply De Morgan's theorem to get F."
+            },
+            {
+                question: "A two-level NAND-NAND implementation is equivalent to which standard form?",
+                options: ["Sum-of-Products (SOP)", "Product-of-Sums (POS)", "A single AND gate", "A single OR gate"],
+                correct: 0,
+                explanation: "A two-level circuit with NAND gates at both levels is a direct implementation of a Sum-of-Products (SOP) expression."
+            },
+            {
+                question: "A two-level NOR-NOR implementation is equivalent to which standard form?",
+                options: ["Sum-of-Products (SOP)", "Product-of-Sums (POS)", "A single AND gate", "A single OR gate"],
+                correct: 1,
+                explanation: "A two-level circuit with NOR gates at both levels is a direct implementation of a Product-of-Sums (POS) expression."
+            },
+            {
+                question: "The function F = A'B'C + A'BC + AB'C is given. What is its simplified SOP form?",
+                options: ["A'C + AB'C", "A'B + B'C", "A'C + B'C", "A'B + AC"],
+                correct: 2,
+                explanation: "Using a K-map or Boolean algebra, F = A'C(B'+B) + AB'C = A'C + AB'C = C(A' + AB') = C(A' + B'). The correct simplification is F = A'C + B'C."
+            },
+            {
+                question: "How is the Exclusive-OR (XOR) function, A ⊕ B, defined?",
+                options: ["AB + A'B'", "A'B + AB'", "A + B", " (A+B)' "],
+                correct: 1,
+                explanation: "The XOR function is defined as A ⊕ B = A'B + AB'. It outputs 1 when the inputs are different."
+            },
+            {
+                question: "What is the output of a 3-input XOR gate if the inputs are A=1, B=1, C=1?",
+                options: ["0", "1", "It depends on the gate implementation", "The output is invalid"],
+                correct: 1,
+                explanation: "A multi-input XOR gate acts as an 'odd function'. The output is 1 if an odd number of inputs are 1. Since there are three 1s (an odd number), the output is 1."
+            },
+            {
+                question: "What is the primary function of a parity generator?",
+                options: [
+                    "To correct errors in data transmission.",
+                    "To encrypt data.",
+                    "To add a bit to a message to make the total number of 1s either even or odd.",
+                    "To compress data."
+                ],
+                correct: 2,
+                explanation: "A parity generator creates a parity bit, which is appended to a binary message for the purpose of error detection."
+            },
+            {
+                question: "A 4-variable K-map has its cells arranged in what sequence to maintain adjacency?",
+                options: ["Standard binary sequence (00, 01, 10, 11)", "Gray code sequence (00, 01, 11, 10)", "Reverse binary sequence (11, 10, 01, 00)", "Random sequence"],
+                correct: 1,
+                explanation: "The rows and columns of a K-map are labeled in Gray code sequence to ensure that any two physically adjacent cells only differ by one variable."
+            },
+            {
+                question: "Simplify the function F(A, B, C, D) = Σ(0, 2, 8, 10).",
+                options: ["B'D'", "BD", "A'C'", "AC"],
+                correct: 0,
+                explanation: "Grouping the four corner cells (m₀, m₂, m₈, m₁₀) on a 4-variable K-map results in the term B'D'."
+            },
+            {
+                question: "Which of the following is a universal gate?",
+                options: ["AND", "XOR", "NOR", "OR"],
+                correct: 2,
+                explanation: "Both NAND and NOR gates are universal gates, meaning any Boolean function can be implemented using only one type of these gates."
+            },
+            {
+                question: "What does HDL stand for?",
+                options: ["High-level Design Language", "Hardware Description Language", "Hardware Design Logic", "High-level Definition Logic"],
+                correct: 1,
+                explanation: "HDL stands for Hardware Description Language, a specialized computer language used to describe the structure and behavior of electronic circuits."
+            },
+            {
+                question: "The expression for an XNOR gate is:",
+                options: ["A'B + AB'", "AB + A'B'", "(A+B)'", "(AB)'"],
+                correct: 1,
+                explanation: "The XNOR function, or equivalence, is true only when both inputs are the same. Its expression is AB + A'B'."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span>${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (showingResults) return;
+            
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            
+            userAnswers[currentQuestion] = optionIndex;
+            
+            showAnswer(currentQuestion);
+            
+            updateScore();
+            updateProgress();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = '🎉 Excellent! You have mastered the concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = '👍 Good job! You have a solid understanding.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = '📚 Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

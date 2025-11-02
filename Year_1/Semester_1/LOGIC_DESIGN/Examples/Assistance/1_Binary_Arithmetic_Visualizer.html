@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Binary Arithmetic Visualizer (+, −, ×, ÷)</title>
+<style>
+  :root{
+    --bg:#0b1221; --panel:#0f1b33; --ink:#f8fafc; --muted:#93c5fd;
+    --grad1:#06b6d4; --grad2:#22c55e; --grad3:#f97316; --grad4:#a855f7;
+    --scan:#ef4444; --good:#34d399; --warn:#f59e0b; --hl:#fde68a;
+    --line:#1f2a44;
+  }
+  body{margin:0;background:radial-gradient(1200px 800px at 20% 10%, #0e1a32 0%, #0b1221 60%, #0b1221 100%);color:var(--ink);font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;}
+  .wrap{max-width:1200px;margin:0 auto;padding:28px;}
+  h1{margin:0 0 10px;font-weight:800;font-size:2.4rem;background:linear-gradient(120deg,var(--grad3),var(--grad1),var(--grad4),var(--grad2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .subtitle{color:var(--muted);margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;align-items:start}
+  @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+  .card{background:linear-gradient(160deg, rgba(168,85,247,0.10), rgba(6,182,212,0.08));border:1px solid #203052;border-radius:16px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  input[type=text]{background:#0b152b;border:1px solid #223252;color:var(--ink);padding:10px 12px;border-radius:10px;min-width:170px;font-weight:600}
+  select{background:#0b152b;border:1px solid #223252;color:var(--ink);padding:10px;border-radius:10px}
+  button{border:none;border-radius:10px;padding:10px 16px;color:#051422;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(250,204,21,0.25);background:linear-gradient(135deg,#fde047,#f59e0b)}
+  button.secondary{background:linear-gradient(135deg,#93c5fd,#60a5fa);box-shadow:0 8px 24px rgba(96,165,250,0.25)}
+  button.ghost{background:linear-gradient(135deg,#a7f3d0,#34d399);box-shadow:0 8px 24px rgba(52,211,153,0.25)}
+  .status{margin-left:auto;color:var(--good);font-weight:700}
+  .warn{color:var(--warn);font-weight:700}
+  .panel{background:#0b152b;border:1px dashed #203052;border-radius:12px;padding:14px;margin-top:12px}
+  .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
+  .cols{display:grid;grid-template-columns: 1fr; gap:10px}
+  .stack{display:flex;flex-direction:column;gap:6px}
+  .line{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .label{min-width:90px;color:#a5b4fc}
+  .bits{display:flex;gap:6px;flex-wrap:wrap}
+  .bit{min-width:22px;text-align:center;padding:6px 0;border-radius:8px;background:#0e1a2a;border:1px solid #1b2a47}
+  .bit.scan{outline:2px solid var(--scan);background:#2b1220}
+  .bit.hl{background:#1d283a;outline:2px solid #22d3ee}
+  .tag{display:inline-block;padding:3px 8px;border-radius:999px;background:#0e1a2a;border:1px solid #1b2a47;color:#cbd5e1}
+  .log{max-height:260px;overflow:auto;border:1px solid #1f2a44;border-radius:12px;padding:10px;background:linear-gradient(180deg, rgba(14,26,42,.8), rgba(14,26,42,.6))}
+  .log p{margin:6px 0}
+  .title{font-weight:800;color:#a5b4fc;margin-bottom:6px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#0e1a2a;border:1px solid #1b2a47;color:#e5e7eb}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;color:#93c5fd}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Binary Arithmetic Visualizer (+, −, ×, ÷)</h1>
+  <div class="subtitle">Step through carries, borrows, partial products, and long division with vibrant visuals and a slow default speed.</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="row" style="margin-bottom:10px">
+        <label>A: <input id="ain" type="text" value="101101" class="mono" /></label>
+        <label>B: <input id="bin" type="text" value="001011" class="mono" /></label>
+        <label>Op:
+          <select id="op">
+            <option value="+">Addition (+)</option>
+            <option value="-">Subtraction (−)</option>
+            <option value="*">Multiplication (×)</option>
+            <option value="/">Division (÷)</option>
+          </select>
+        </label>
+        <label>Speed:
+          <select id="speed">
+            <option value="1200" selected>Very Slow</option>
+            <option value="900">Slow</option>
+            <option value="600">Normal</option>
+            <option value="300">Fast</option>
+          </select>
+        </label>
+        <button id="play">▶ Play</button>
+        <button id="pause" class="secondary">⏸ Pause</button>
+        <button id="reset" class="ghost">↺ Reset</button>
+        <div id="status" class="status">Ready</div>
+      </div>
+
+      <div class="legend">
+        <span class="pill">Scan = current bit(s)</span>
+        <span class="pill">Carry/Borrow row shown when relevant</span>
+        <span class="pill">Logs explain each step</span>
+      </div>
+
+      <div class="panel">
+        <div class="title">Aligned Bits</div>
+        <div class="stack">
+          <div class="line"><span class="label">Carry</span><div id="carryRow" class="bits"></div><span class="tag">only for + / −</span></div>
+          <div class="line"><span class="label">A</span><div id="aRow" class="bits"></div></div>
+          <div class="line"><span class="label" id="bLabel">B</span><div id="bRow" class="bits"></div></div>
+          <div class="line"><span class="label">Result</span><div id="rRow" class="bits"></div></div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="panel">
+          <div class="title">Step Log</div>
+          <div id="log" class="log mono"></div>
+        </div>
+        <div class="panel">
+          <div class="title">Summary</div>
+          <p class="mono" id="summaryA">A = 0 (dec)</p>
+          <p class="mono" id="summaryB">B = 0 (dec)</p>
+          <p class="mono" id="summaryR">Result = </p>
+          <p class="mono" id="summaryExtra"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="title">Notes</div>
+      <ul>
+        <li>This visualizer pads inputs so both numbers have equal length; addition and subtraction compute from LSB to MSB, and multiplication uses shift-and-add partial products[1][3].</li>
+        <li>Subtraction uses 2’s complement: one’s complement, add 1, then add to A; a final carry means positive result, while no carry means a negative result whose magnitude is the 2’s complement of the sum[6][1].</li>
+        <li>Division uses a restoring long-division style approach by shifting in dividend bits, comparing against the divisor, subtracting when possible, and emitting quotient bits left-to-right[10][7].</li>
+        <li>Division shows quotient and remainder for unsigned inputs; invalid cases like division by zero are guarded with a warning[1][7].</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const ain = document.getElementById('ain');
+  const bin = document.getElementById('bin');
+  const opSel = document.getElementById('op');
+  const speedSel = document.getElementById('speed');
+  const playBtn = document.getElementById('play');
+  const pauseBtn = document.getElementById('pause');
+  const resetBtn = document.getElementById('reset');
+  const status = document.getElementById('status');
+  const carryRow = document.getElementById('carryRow');
+  const aRow = document.getElementById('aRow');
+  const bRow = document.getElementById('bRow');
+  const rRow = document.getElementById('rRow');
+  const logEl = document.getElementById('log');
+  const sumA = document.getElementById('summaryA');
+  const sumB = document.getElementById('summaryB');
+  const sumR = document.getElementById('summaryR');
+  const sumX = document.getElementById('summaryExtra');
+  const bLabel = document.getElementById('bLabel');
+
+  function sanitizeBinary(s){
+    s = (s||'').trim();
+    if (!s) return '0';
+    s = s.replace(/[^01]/g,'');
+    return s.length ? s.replace(/^0+(?=\d)/,'') || '0' : '0';
+  }
+
+  function toDec(bin){
+    return parseInt(bin||'0',2)||0;
+  }
+
+  function padLeft(a,b){
+    const n = Math.max(a.length,b.length);
+    return [a.padStart(n,'0'), b.padStart(n,'0')];
+  }
+
+  function renderBits(container, bits, scanIndexSet){
+    container.innerHTML = '';
+    bits.forEach((bit, idx)=>{
+      const d = document.createElement('div');
+      d.className = 'bit' + (scanIndexSet && scanIndexSet.has(idx) ? ' scan' : '');
+      d.textContent = bit;
+      container.appendChild(d);
+    });
+  }
+
+  function renderAll(A,B,R, carry=null, scanSet=null){
+    renderBits(aRow, A.split(''), scanSet);
+    renderBits(bRow, B.split(''), scanSet);
+    renderBits(rRow, R.split(''), scanSet);
+    if (carry){
+      renderBits(carryRow, carry.split(''), scanSet);
+    } else {
+      carryRow.innerHTML = '';
+    }
+  }
+
+  function setSummary(A,B,R,extra=''){
+    sumA.textContent = `A = ${A} (dec ${toDec(A)})`;
+    sumB.textContent = `B = ${B} (dec ${toDec(B)})`;
+    sumR.textContent = `Result = ${R} (dec ${R ? parseInt(R.replace(/^-/,'')||'0',2)*(R==='-'?-1:1) : 0})`;
+    sumX.textContent = extra;
+  }
+
+  function log(msg){
+    const p = document.createElement('p');
+    p.textContent = msg;
+    logEl.appendChild(p);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function resetUI(){
+    status.textContent = 'Ready';
+    logEl.innerHTML = '';
+    sumX.textContent = '';
+    const A0 = sanitizeBinary(ain.value);
+    const B0 = sanitizeBinary(bin.value);
+    ain.value = A0;
+    bin.value = B0;
+    const [A,B] = padLeft(A0,B0);
+    const zeros = '0'.repeat(Math.max(1, A.length));
+    bLabel.textContent = 'B';
+    renderAll(A,B, zeros, zeros);
+    setSummary(A,B,'', '');
+  }
+
+  // Addition steps (LSB->MSB)
+  function stepsAdd(A,B){
+    const n = A.length;
+    let carry = 0;
+    let out = Array(n).fill('0');
+    const steps = [];
+    for (let i=n-1;i>=0;i--){
+      const ai = +A[i], bi = +B[i];
+      const s = ai ^ bi ^ carry;
+      const cout = (ai & bi) | (ai & carry) | (bi & carry);
+      out[i] = String(s);
+      steps.push({
+        type:'add', i,
+        A, B,
+        carryRow: (Array(n).fill('0').map((_,k)=> k===i? String(carry): '0')).join(''),
+        result: out.join(''),
+        info:`i=${i}: ${ai}+${bi}+carry(${carry}) → sum=${s}, carry_out=${cout}`
+      });
+      carry = cout;
+    }
+    if (carry){
+      steps.push({
+        type:'carryOut',
+        A, B,
+        carryRow: (Array(n+1).fill('0').map((_,k)=> k===0? '1':'0')).join(''),
+        result: ('1'+out.join('')),
+        info:`final carry_out=1 prepended to result`
+      });
+    }
+    return steps;
+  }
+
+  // Subtraction via 2's complement: A - B = A + (~B + 1)
+  function stepsSub(A,B){
+    const n = A.length;
+    const ones = B.split('').map(b=> b==='0'?'1':'0').join('');
+    const twoComp = (function(){
+      // add 1 to ones
+      let c=1; const t = ones.split('');
+      for (let i=n-1;i>=0;i--){
+        const s = (+t[i]) ^ c;
+        const cout = (+t[i]) & c;
+        t[i] = String(s);
+        c = cout;
+      }
+      return t.join('');
+    })();
+
+    const pre = [
+      {type:'note', A, B, carryRow:'', result:'', info:`one's complement of B = ${ones}`},
+      {type:'note', A, B, carryRow:'', result:'', info:`2's complement of B = ${twoComp}`}
+    ];
+
+    const addSteps = stepsAdd(A, twoComp);
+    // Determine carry out by comparing length of last step result
+    const last = addSteps[addSteps.length-1];
+    let positive = false, sumBits = '';
+    if (last && last.type==='carryOut'){
+      positive = true;
+      sumBits = last.result;
+    } else {
+      positive = false;
+      sumBits = addSteps[addSteps.length-1].result;
+    }
+
+    // Normalize sumBits to n bits (drop carry if present)
+    if (sumBits.length>n) sumBits = sumBits.slice(-n);
+
+    let extra='';
+    let final = sumBits;
+    if (positive){
+      extra = 'Carry out present → positive result';
+    } else {
+      // negative: magnitude = 2's complement of sumBits
+      const onesS = sumBits.split('').map(b=> b==='0'?'1':'0').join('');
+      // +1
+      let c=1; const t = onesS.split('');
+      for (let i=n-1;i>=0;i--){
+        const s = (+t[i]) ^ c;
+        const cout = (+t[i]) & c;
+        t[i] = String(s);
+        c = cout;
+      }
+      final = '-'+t.join('');
+      extra = `No carry out → negative; magnitude = 2's complement of ${sumBits} = ${t.join('')}`;
+    }
+
+    return [...pre, ...addSteps, {type:'final', A, B, carryRow:'', result:final, info:extra}];
+  }
+
+  // Multiplication: shift-and-add using multiplier B (LSB->MSB)
+  function stepsMul(A,B){
+    const n = Math.max(A.length,B.length);
+    const a = A.padStart(n,'0'), b = B.padStart(n,'0');
+    let acc = Array(n*2).fill('0'); // room for growth
+    const steps = [];
+    steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Initialize accumulator = ${acc.join('')}`});
+    for (let i=n-1;i>=0;i--){
+      const bit = b[i];
+      const shifted = (a + '0'.repeat((n-1-i))).padStart(n*2,'0');
+      if (bit==='1'){
+        // acc = acc + shifted
+        const add = stepsAdd(acc.join(''), shifted);
+        steps.push({type:'note', A:a, B:b, carryRow:'', result:shifted, info:`Bit b[${i}]=1 → add shifted A: ${shifted}`});
+        steps.push(...add.map(s => ({...s, A:acc.join(''), B:shifted})));
+        acc = (add[add.length-1].result.length>n*2) ? add[add.length-1].result.slice(-n*2).split('') : add[add.length-1].result.split('');
+      } else {
+        steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Bit b[${i}]=0 → add 0 (skip)`});
+      }
+      steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Accumulator now ${acc.join('')}`});
+    }
+    return steps;
+  }
+
+  // Division: restoring-like algorithm (unsigned)
+  function stepsDiv(A,B){
+    // Guard
+    if (B.replace(/^0+/,'')==='' ){ 
+      return [{type:'final', A, B, carryRow:'', result:'', info:'Division by zero'}]; 
+    }
+    const n = Math.max(A.length,B.length);
+    const dividend = A.padStart(n,'0');
+    const divisor = B.padStart(n,'0');
+    let rem = '0'.repeat(n);
+    let quot = Array(n).fill('0');
+    const steps = [];
+    steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`Initialize remainder=${rem}, quotient=${quot.join('')}`});
+    for (let i=0;i<n;i++){
+      // Shift left rem and bring next dividend bit
+      rem = (rem + dividend[i]).slice(1);
+      steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`Bring down dividend bit ${dividend[i]} → remainder=${rem}`});
+      // Compare rem >= divisor
+      if (parseInt(rem,2) >= parseInt(divisor,2)){
+        const diff = (function(){
+          // rem - divisor (simple binary subtract with borrow)
+          let r = rem.split(''), d = divisor.split('');
+          let borrow = 0;
+          for (let k=n-1;k>=0;k--){
+            let R = (+r[k]) - (+d[k]) - borrow;
+            if (R>=0){ r[k]=String(R); borrow=0; }
+            else{ r[k]=String(R+2); borrow=1; }
+          }
+          return r.join('');
+        })();
+        rem = diff;
+        quot[i] = '1';
+        steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`remainder ≥ divisor → subtract: new remainder=${rem}, set quotient bit=1`});
+      } else {
+        quot[i] = '0';
+        steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`remainder < divisor → set quotient bit=0`});
+      }
+    }
+    steps.push({type:'final', A:dividend, B:divisor, carryRow:'', result:quot.join(''), info:`Quotient=${quot.join('')}, Remainder=${rem}`});
+    return steps;
+  }
+
+  let timer=null, idx=0, steps=[];
+  function applyStep(s){
+    const A = (s.A||'').padStart(Math.max((s.A||'').length,(s.B||'').length), '0');
+    const B = (s.B||'').padStart(Math.max((s.A||'').length,(s.B||'').length), '0');
+    const n = Math.max(A.length,B.length);
+    let R = (s.result||'').padStart(Math.max(n, (s.result||'').length), '0');
+    let carry = s.carryRow || '';
+    // Scan highlight: bit index for add steps
+    let scanSet = null;
+    if (s.i!==undefined){
+      const len = Math.max(A.length,B.length, R.length, carry.length);
+      scanSet = new Set([len - (Math.max(A.length,B.length) - s.i)]);
+    }
+    // For alignment, re-pad rows to the widest
+    const width = Math.max(A.length, B.length, R.length, carry.length);
+    const A2 = A.padStart(width,'0'), B2=B.padStart(width,'0'), R2=R.padStart(width,'0');
+    const C2 = carry ? carry.padStart(width, '0'): '';
+    // Switch label for subtraction 2's complement phase? We always keep label B
+    renderAll(A2,B2,R2, C2||null, scanSet);
+    log(s.info);
+  }
+
+  function start(){
+    if (timer) return;
+    logEl.innerHTML='';
+    sumX.textContent = '';
+    const A0 = sanitizeBinary(ain.value);
+    const B0 = sanitizeBinary(bin.value);
+    ain.value = A0; bin.value = B0;
+    status.textContent='Running…';
+    bLabel.textContent = 'B';
+    let A,B;
+    if (opSel.value==='*' || opSel.value==='/'){
+      // keep as is but pad inside algorithms
+      A=A0; B=B0;
+    } else {
+      [A,B] = padLeft(A0,B0);
+    }
+    // Prepare steps
+    if (opSel.value==='+'){
+      steps = stepsAdd(A,B);
+    } else if (opSel.value==='-'){
+      steps = stepsSub(A,B);
+    } else if (opSel.value==='*'){
+      steps = stepsMul(A,B);
+    } else {
+      steps = stepsDiv(A,B);
+    }
+    idx = 0;
+    const delay = parseInt(speedSel.value,10);
+    applyStep(steps);
+    idx=1;
+    timer = setInterval(()=>{
+      if (idx>=steps.length){
+        clearInterval(timer); timer=null; status.textContent='Done';
+        // Summaries
+        let Ashow = sanitizeBinary(ain.value), Bshow=sanitizeBinary(bin.value);
+        let Rtxt = steps[steps.length-1].result||'';
+        setSummary(Ashow, Bshow, Rtxt, steps[steps.length-1].info||'');
+        return;
+      }
+      applyStep(steps[idx++]);
+    }, delay);
+  }
+
+  function pause(){
+    if (timer){ clearInterval(timer); timer=null; status.textContent='Paused'; }
+  }
+
+  playBtn.addEventListener('click', start);
+  pauseBtn.addEventListener('click', pause);
+  resetBtn.addEventListener('click', ()=>{ pause(); resetUI(); });
+  resetUI();
+})();
+</script>
+</body>
+</html>

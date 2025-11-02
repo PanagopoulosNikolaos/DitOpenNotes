@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Algebra & Logic Gates Quiz</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 40px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container.current {
+            border-color: #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #4caf50 !important;
+            color: white !important;
+            border-color: #4caf50 !important;
+        }
+
+        .option.incorrect {
+            background: #f44336 !important;
+            color: white !important;
+            border-color: #f44336 !important;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border-left: 5px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+            border-left: 5px solid #f44336;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .results {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .results h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .final-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-excellent { color: #4caf50; }
+        .score-good { color: #ff9800; }
+        .score-poor { color: #f44336; }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Boolean Algebra & Logic Gates Quiz</h1>
+            <p>Test your knowledge of Boolean algebra and logic gates</p>
+        </div>
+
+        <div id="quiz-container" class="quiz-container">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="score-display" class="score-display">Score: 0/25</div>
+            
+            <div id="questions-container"></div>
+            
+            <div class="controls">
+                <button id="prev-btn" class="btn btn-secondary" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button id="submit-btn" class="btn btn-primary hidden" onclick="submitQuiz()">Submit Quiz</button>
+            </div>
+        </div>
+
+        <div id="results-container" class="results hidden">
+            <h2>🎉 Quiz Complete!</h2>
+            <div id="final-score" class="final-score">0/25</div>
+            <p id="score-message"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Which of the following is NOT a basic axiom of Boolean algebra?",
+                options: ["Commutative Law", "Associative Law", "Distributive Law", "Transitive Law"],
+                correct: 3,
+                explanation: "The basic axioms of Boolean algebra include the commutative, associative, and distributive laws, as well as closure, identity, and complement."
+            },
+            {
+                question: "According to the Commutative Law for addition in Boolean algebra, which expression is correct?",
+                options: ["x + y = y + x", "x * y = y * x", "(x + y) + z = x + (y + z)", "x(y + z) = xy + xz"],
+                correct: 0,
+                explanation: "The commutative law for addition states that the order of variables does not matter: x + y = y + x."
+            },
+            {
+                question: "What is the identity element for the AND operation (·)?",
+                options: ["0", "1", "x", "x'"],
+                correct: 1,
+                explanation: "The identity element for the AND operation is 1, because x · 1 = x."
+            },
+            {
+                question: "What is the identity element for the OR operation (+)?",
+                options: ["0", "1", "x", "x'"],
+                correct: 0,
+                explanation: "The identity element for the OR operation is 0, because x + 0 = x."
+            },
+            {
+                question: "Which theorem is known as De Morgan's theorem?",
+                options: ["x + xy = x", "(x + y)' = x'y'", "x + x' = 1", "(x')' = x"],
+                correct: 1,
+                explanation: "De Morgan's theorem states that (x + y)' = x'y' and (xy)' = x' + y'."
+            },
+            {
+                question: "What is the result of the expression x + x?",
+                options: ["1", "0", "x", "x'"],
+                correct: 2,
+                explanation: "According to the idempotency theorem, x + x = x."
+            },
+            {
+                question: "What is the result of the expression x · x'?",
+                options: ["1", "0", "x", "x'"],
+                correct: 1,
+                explanation: "A variable ANDed with its complement always results in 0."
+            },
+            {
+                question: "Simplify the expression x + 1.",
+                options: ["1", "0", "x", "x'"],
+                correct: 0,
+                explanation: "A variable ORed with 1 always results in 1."
+            },
+            {
+                question: "What is the dual of the expression a + (bc) = (a + b)(a + c)?",
+                options: ["a(b + c) = ab + ac", "a'(b' + c') = a'b' + a'c'", "a + bc = (a+b)(a+c)", "a(b+c) = a+b+c"],
+                correct: 0,
+                explanation: "To find the dual, you swap AND and OR operators, and swap 0s and 1s. The dual of a + (bc) = (a + b)(a + c) is a(b + c) = ab + ac."
+            },
+            {
+                question: "What is a minterm?",
+                options: [
+                    "An OR term of all variables in the function, in either their true or complemented form.",
+                    "An AND term of all variables in the function, in either their true or complemented form.",
+                    "A product of sums expression.",
+                    "A sum of products expression."
+                ],
+                correct: 1,
+                explanation: "A minterm is an AND term (product) that includes every variable of a function, either in its original or complemented form."
+            },
+            {
+                question: "What is a maxterm?",
+                options: [
+                    "An OR term of all variables in the function, in either their true or complemented form.",
+                    "An AND term of all variables in the function, in either their true or complemented form.",
+                    "A product of sums expression.",
+                    "A sum of products expression."
+                ],
+                correct: 0,
+                explanation: "A maxterm is an OR term (sum) that includes every variable of a function, either in its original or complemented form."
+            },
+            {
+                question: "The expression F(x, y, z) = Σ(1, 4, 5, 6, 7) represents a function as a:",
+                options: ["Product of Maxterms", "Sum of Minterms", "Product of Sums", "Sum of Products"],
+                correct: 1,
+                explanation: "The Σ symbol followed by a list of numbers indicates a sum of minterms, where the numbers correspond to the minterm indices."
+            },
+            {
+                question: "The expression F(x, y, z) = Π(0, 2, 3) represents a function as a:",
+                options: ["Product of Maxterms", "Sum of Minterms", "Product of Sums", "Sum of Products"],
+                correct: 0,
+                explanation: "The Π symbol followed by a list of numbers indicates a product of maxterms, where the numbers correspond to the maxterm indices."
+            },
+            {
+                question: "Which logic gate is represented by the expression F = (xy)'?",
+                options: ["AND", "OR", "NAND", "NOR"],
+                correct: 2,
+                explanation: "The NAND gate is the complement of the AND operation."
+            },
+            {
+                question: "Which logic gate is known as the universal gate?",
+                options: ["AND", "OR", "XOR", "NAND"],
+                correct: 3,
+                explanation: "The NAND gate (and the NOR gate) is considered a universal gate because any other logic function can be implemented using only NAND gates."
+            },
+            {
+                question: "What is the output of an XOR gate if its inputs are 1 and 1?",
+                options: ["0", "1", "Cannot be determined", "It oscillates"],
+                correct: 0,
+                explanation: "The XOR (Exclusive OR) gate outputs 1 only if an odd number of its inputs are 1. With inputs 1 and 1, the output is 0."
+            },
+            {
+                question: "What is the output of an XNOR gate if its inputs are 1 and 1?",
+                options: ["0", "1", "Cannot be determined", "It oscillates"],
+                correct: 1,
+                explanation: "The XNOR (Exclusive NOR) gate, or equivalence gate, outputs 1 when its inputs are the same. With inputs 1 and 1, the output is 1."
+            },
+            {
+                question: "What does 'fan-out' refer to in digital logic families?",
+                options: [
+                    "The number of inputs a gate can have.",
+                    "The number of gates an output can drive.",
+                    "The power consumed by the gate.",
+                    "The propagation delay of the gate."
+                ],
+                correct: 1,
+                explanation: "Fan-out is the maximum number of standard loads (inputs of other gates in the same logic family) that the output of a gate can drive reliably."
+            },
+            {
+                question: "What is the main advantage of CMOS logic?",
+                options: ["High speed", "High density", "Low power consumption", "High fan-out"],
+                correct: 2,
+                explanation: "CMOS (Complementary Metal-Oxide-Semiconductor) technology is known for its very low static power consumption."
+            },
+            {
+                question: "What does 'propagation delay' mean?",
+                options: [
+                    "The time it takes for a signal to travel from input to output.",
+                    "The time a gate can hold a signal.",
+                    "The delay before a chip powers on.",
+                    "The time it takes to design a circuit."
+                ],
+                correct: 0,
+                explanation: "Propagation delay is the time taken for a change at the input of a logic gate to cause a change at its output."
+            },
+            {
+                question: "Simplify the Boolean expression: A + A'B",
+                options: ["A + B", "A' + B", "A", "B"],
+                correct: 0,
+                explanation: "Using the distributive law: A + A'B = (A + A')(A + B) = 1 · (A + B) = A + B."
+            },
+            {
+                question: "What is the canonical 'Sum of Products' form?",
+                options: ["An expression containing only AND operators.", "An expression that is a sum of minterms.", "An expression that is a product of maxterms.", "Any simplified Boolean expression."],
+                correct: 1,
+                explanation: "The canonical Sum of Products (SOP) form of a function is a sum (ORing) of the minterms for which the function evaluates to 1."
+            },
+            {
+                question: "What is the canonical 'Product of Sums' form?",
+                options: ["An expression containing only OR operators.", "An expression that is a sum of minterms.", "An expression that is a product of maxterms.", "Any simplified Boolean expression."],
+                correct: 2,
+                explanation: "The canonical Product of Sums (POS) form of a function is a product (ANDing) of the maxterms for which the function evaluates to 0."
+            },
+            {
+                question: "Which technology is associated with LSI (Large-Scale Integration)?",
+                options: ["Fewer than 10 gates", "10 to 100 gates", "100 to thousands of gates", "Millions of gates"],
+                correct: 2,
+                explanation: "Large-Scale Integration (LSI) refers to integrated circuits with hundreds to thousands of gates per chip."
+            },
+            {
+                question: "What is the result of the absorption law given by x(x+y)?",
+                options: ["x", "y", "x+y", "xy"],
+                correct: 0,
+                explanation: "The absorption law states that x(x+y) = x and x+xy = x."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let showingResults = false;
+
+        function renderQuestion(index) {
+            const question = questions[index];
+            const container = document.getElementById('questions-container');
+            
+            container.innerHTML = `
+                <div class="question-container current">
+                    <div class="question-header">
+                        <span class="question-number">Question ${index + 1}</span>
+                        <span>${index + 1} / ${questions.length}</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${question.options.map((option, i) => 
+                            `<div class="option" onclick="selectAnswer(${i})" data-option="${i}">
+                                ${option}
+                            </div>`
+                        ).join('')}
+                    </div>
+                    <div id="feedback" class="feedback hidden"></div>
+                </div>
+            `;
+            
+            if (userAnswers[index] !== undefined) {
+                showAnswer(index);
+            }
+            
+            MathJax.typesetPromise();
+        }
+
+        function selectAnswer(optionIndex) {
+            if (showingResults) return;
+            
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-option="${optionIndex}"]`).classList.add('selected');
+            
+            userAnswers[currentQuestion] = optionIndex;
+            
+            showAnswer(currentQuestion);
+            
+            updateScore();
+            updateProgress();
+        }
+
+        function showAnswer(questionIndex) {
+            const question = questions[questionIndex];
+            const userAnswer = userAnswers[questionIndex];
+            const isCorrect = userAnswer === question.correct;
+            
+            document.querySelectorAll('.option').forEach((opt, i) => {
+                if (i === question.correct) {
+                    opt.classList.add('correct');
+                } else if (i === userAnswer && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+                opt.style.pointerEvents = 'none';
+            });
+            
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect!'}</strong><br>
+                ${question.explanation}
+            `;
+            feedback.classList.remove('hidden');
+            
+            MathJax.typesetPromise();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion(currentQuestion);
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            score = userAnswers.filter((answer, index) => 
+                answer === questions[index].correct
+            ).length;
+            
+            document.getElementById('score-display').textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function submitQuiz() {
+            showingResults = true;
+            updateScore();
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            const finalScore = document.getElementById('final-score');
+            const scoreMessage = document.getElementById('score-message');
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            finalScore.textContent = `${score}/${questions.length} (${percentage}%)`;
+            
+            if (percentage >= 90) {
+                finalScore.className = 'final-score score-excellent';
+                scoreMessage.textContent = '🎉 Excellent! You have mastered the concepts!';
+            } else if (percentage >= 70) {
+                finalScore.className = 'final-score score-good';
+                scoreMessage.textContent = '👍 Good job! You have a solid understanding.';
+            } else {
+                finalScore.className = 'final-score score-poor';
+                scoreMessage.textContent = '📚 Keep studying! Review the concepts and try again.';
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showingResults = false;
+            
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            
+            renderQuestion(0);
+            updateButtons();
+            updateScore();
+            updateProgress();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestion(0);
+            updateButtons();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

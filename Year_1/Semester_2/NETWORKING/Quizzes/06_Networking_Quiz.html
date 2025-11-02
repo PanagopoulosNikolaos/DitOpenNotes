@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Networking MCQ Game (IGMP)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Networking Multiple Choice Game</div>
+  <div class="subtitle">IGMP</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">10</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  { text: "What is the main purpose of the IGMP protocol?", choices: ["To manage membership in multicasting groups", "To route packets between networks", "To provide a reliable data transfer service", "To resolve IP addresses to MAC addresses"], correctIndex: 0, explain: "IGMP is a communication protocol used to manage membership in multicasting groups in IP networks." },
+  { text: "What is multicasting?", choices: ["Sending data to all devices on a network", "Sending data to a single device on a network", "Sending data to a selected group of devices on a network", "A type of network security"], correctIndex: 2, explain: "Multicasting is a method of transmitting data to multiple recipients simultaneously." },
+  { text: "Which of the following is NOT a type of IGMP message?", choices: ["General Query", "Membership Report", "Leave Report", "Join Report"], correctIndex: 3, explain: "The three types of IGMP messages are General Query, Membership Report, and Leave Report. There is no Join Report message." },
+  { text: "What is the destination IP address for a General Query message?", choices: ["224.0.0.1", "224.0.0.2", "The multicast address of the group", "The IP address of the host"], correctIndex: 0, explain: "The destination IP address for a General Query message is 224.0.0.1, which is the all-systems multicast address." },
+  { text: "What is the destination IP address for a Leave Report message?", choices: ["224.0.0.1", "224.0.0.2", "The multicast address of the group", "The IP address of the host"], correctIndex: 1, explain: "The destination IP address for a Leave Report message is 224.0.0.2, which is the all-routers multicast address." },
+  { text: "What is the value of the protocol field in the IP header of an IGMP packet?", choices: ["1", "2", "6", "17"], correctIndex: 1, explain: "The protocol field in the IP header of an IGMP packet has a value of 2." },
+  { text: "What is the value of the TTL field in the IP header of an IGMP packet?", choices: ["1", "2", "64", "255"], correctIndex: 0, explain: "The TTL field in the IP header of an IGMP packet has a value of 1." },
+  { text: "How is a Class D multicast address mapped to an Ethernet MAC address?", choices: ["The last 23 bits of the multicast address are appended to 01:00:5E", "The first 23 bits of the multicast address are appended to 01:00:5E", "The entire multicast address is used as the MAC address", "The MAC address is randomly generated"], correctIndex: 0, explain: "The last 23 bits of the Class D multicast address are appended to the prefix 01:00:5E to form the Ethernet MAC address." },
+  { text: "What is the first step a host takes to join a multicast group?", choices: ["It sends a General Query message", "It sends a Membership Report message", "It sends a Leave Report message", "It does nothing"], correctIndex: 1, explain: "When a host wants to join a multicast group, it sends a Membership Report message." },
+  { text: "What is the purpose of the multicast router?", choices: ["To send data to all devices on a network", "To discover devices that want to receive multicast traffic", "To encrypt network traffic", "To manage network security"], correctIndex: 1, explain: "Multicast routers are responsible for discovering devices that want to receive multicast traffic, maintaining multicast routing tables, and applying multicast routing protocols." },
+  { text: "What are the versions of IGMP?", choices: ["IGMPv1, IGMPv2, IGMPv3", "IGMPv1, IGMPv2", "IGMPv2, IGMPv3", "Only IGMPv1"], correctIndex: 0, explain: "The versions of IGMP are IGMPv1, IGMPv2, and IGMPv3." },
+  { text: "What is IGMPv1?", choices: ["The first version of IGMP", "Supports source-specific multicast", "Uses Leave messages", "The latest version"], correctIndex: 0, explain: "IGMPv1 is the first version of IGMP, which does not support Leave messages." },
+  { text: "What is IGMPv2?", choices: ["Adds Leave messages", "Supports source-specific multicast", "The first version", "Only for IPv6"], correctIndex: 0, explain: "IGMPv2 adds support for Leave messages and Group-Specific Queries." },
+  { text: "What is IGMPv3?", choices: ["Supports source-specific multicast", "Does not support Leave messages", "Only for IPv4", "The first version"], correctIndex: 0, explain: "IGMPv3 supports source-specific multicast and allows hosts to specify sources." },
+  { text: "What is a multicast group?", choices: ["A group of devices that receive the same data", "A group of routers", "A type of firewall", "A network protocol"], correctIndex: 0, explain: "A multicast group is a set of hosts that want to receive multicast traffic for a specific multicast address." },
+  { text: "What is the multicast address range?", choices: ["224.0.0.0 to 239.255.255.255", "192.168.0.0 to 192.168.255.255", "10.0.0.0 to 10.255.255.255", "172.16.0.0 to 172.31.255.255"], correctIndex: 0, explain: "The multicast address range is from 224.0.0.0 to 239.255.255.255." },
+  { text: "What is IGMP snooping?", choices: ["A feature that allows switches to listen to IGMP messages", "A type of IGMP message", "A multicast router", "A network security tool"], correctIndex: 0, explain: "IGMP snooping allows switches to listen to IGMP messages and forward multicast traffic only to ports that have requested it." },
+  { text: "What is the TTL for multicast packets?", choices: ["1", "64", "128", "255"], correctIndex: 0, explain: "Multicast packets typically have a TTL of 1 to prevent them from traveling beyond the local network." },
+  { text: "What is the all-systems multicast address?", choices: ["224.0.0.1", "224.0.0.2", "239.255.255.255", "255.255.255.255"], correctIndex: 0, explain: "224.0.0.1 is the all-systems multicast address used for General Queries." },
+  { text: "What is the all-routers multicast address?", choices: ["224.0.0.1", "224.0.0.2", "224.0.0.5", "224.0.0.9"], correctIndex: 1, explain: "224.0.0.2 is the all-routers multicast address used for Leave Reports." }
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false;
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  q.choices.forEach((opt, i)=> {
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=> {
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.disabled = true;
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  elFooter.textContent = correct ? "Nice! Correct answer." : "Review the explanation above.";
+}
+
+elNext.addEventListener('click', ()=> {
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=> {
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>

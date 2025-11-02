@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Electronics MCQ Game (BJT Amplifiers)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#0f1226;
+    --panel:#161a36;
+    --accent:#7c5cff;
+    --accent2:#12d7d0;
+    --accent3:#ff6e6e;
+    --text:#eef1ff;
+    --muted:#9aa1c6;
+    --correct:#11d676;
+    --wrong:#ff4d6d;
+    --gold:#ffd166;
+  }
+  html,body{
+    margin:0; padding:0; height:100%; background: radial-gradient(1200px 600px at 30% 10%, rgba(124,92,255,.35), transparent 50%),
+                                     radial-gradient(800px 500px at 80% 0%, rgba(18,215,208,.25), transparent 50%),
+                                     var(--bg);
+    color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  }
+  .app{
+    max-width:1000px; margin:0 auto; padding:24px;
+  }
+  .title{
+    font-size:28px; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin:10px 0 6px;
+  }
+  .subtitle{
+    color:var(--muted); margin:0 0 18px; font-size:14px;
+  }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .hud{
+    display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:10px;
+  }
+  .badge{
+    background: linear-gradient(180deg, rgba(124,92,255,.25), rgba(124,92,255,.08));
+    border:1px solid rgba(124,92,255,.35);
+    color:#ded9ff; padding:8px 10px; border-radius:10px; font-weight:700; font-size:12px;
+  }
+  .badge.alt{ background: linear-gradient(180deg, rgba(18,215,208,.25), rgba(18,215,208,.08)); border-color: rgba(18,215,208,.35); color:#d6fffb; }
+  .badge.warn{ background: linear-gradient(180deg, rgba(255,110,110,.25), rgba(255,110,110,.08)); border-color: rgba(255,110,110,.35); color:#ffe6e6; }
+
+  /* Progress bar moved under HUD (question count) */
+  .progress{
+    height:10px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; margin:6px 0 14px;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .bar{ height:100%; width:0%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width .3s ease; }
+
+  .question{
+    font-size:18px; font-weight:700; line-height:1.35; margin:8px 0 12px;
+  }
+  .canvas-wrap{
+    margin:10px 0 16px; background: #0c0f24; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:10px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px;
+  }
+  .option{
+    position:relative;
+    border:1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    color:var(--text); padding:12px 14px; border-radius:12px; cursor:pointer;
+    transition: transform .08s ease, border-color .15s ease, background .2s ease;
+    font-weight:700;
+  }
+  .option:hover{ transform: translateY(-1px); border-color: rgba(124,92,255,.55); background: linear-gradient(180deg, rgba(124,92,255,.14), rgba(124,92,255,.06)); }
+  .option.correct{ border-color: rgba(17,214,118,.75); background: linear-gradient(180deg, rgba(17,214,118,.18), rgba(17,214,118,.06)); }
+  .option.wrong{ border-color: rgba(255,77,109,.8); background: linear-gradient(180deg, rgba(255,77,109,.18), rgba(255,77,109,.06)); }
+  .controls{ display:flex; gap:10px; align-items:center; margin-top:16px; }
+  .btn{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0e1f; font-weight:900; border:none; padding:10px 14px; border-radius:10px; cursor:pointer;
+    letter-spacing:.3px; box-shadow: 0 6px 18px rgba(124,92,255,.35); transition: transform .08s ease, box-shadow .2s ease;
+  }
+  .btn:disabled{ opacity:.5; cursor:not-allowed; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(124,92,255,.45); }
+  .explain{
+    margin-top:12px; color:#d6dbff; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; font-size:14px;
+  }
+  .pill{ font-size:11px; color:var(--muted); }
+  .footer{
+    margin-top:18px; font-size:12px; color:var(--muted);
+  }
+  .score{ font-weight:900; color:var(--gold); }
+  .math{ font-weight:800; color:#fefbff; }
+  @media(min-width:720px){
+    .options{ grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">Electronics Multiple Choice Game</div>
+  <div class="subtitle">BJT Amplifiers, Biasing, and Small-Signal Analysis</div>
+
+  <div class="card">
+    <div class="hud">
+      <div class="badge">Question <span id="qNum">1</span> / <span id="qTotal">40</span></div>
+      <div class="badge alt">Score: <span class="score" id="score">0</span></div>
+      <div class="badge warn pill">Tip: Click an option to check; use Next to skip or continue</div>
+    </div>
+
+    <!-- Progress bar repositioned directly under HUD -->
+    <div class="progress" aria-label="Progress">
+      <div class="bar" id="bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+    <div id="plot" class="canvas-wrap" style="display:none;">
+      <canvas id="qCanvas" width="900" height="260"></canvas>
+    </div>
+    <div id="options" class="options"></div>
+
+    <div class="controls">
+      <!-- Next is always enabled to allow skipping -->
+      <button id="next" class="btn">Next</button>
+      <button id="restart" class="btn" style="display:none;">Restart</button>
+    </div>
+
+    <div class="explain" id="explain" style="display:none;"></div>
+    <div class="footer" id="footerNote"></div>
+  </div>
+</div>
+
+<!-- MathJax for LaTeX rendering -->
+<script>
+  // Correct MathJax v3 config: use single backslash in string literals for delimiters
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+<script>
+/*
+Question Schema:
+{
+  text: "string with LaTeX like \\( V = IR \\)",
+  choices: ["A","B","C","D"],
+  correctIndex: 0..3,
+  explain: "string with LaTeX"
+}
+*/
+
+const questions = [
+  { text: "For a BJT to function as a linear amplifier, in which operating region must it be biased?", choices: ["Cutoff", "Saturation", "Active", "Breakdown"], correctIndex: 2, explain: "The active region provides a nearly linear relationship between input and output signals, which is essential for amplification without significant distortion." },
+  { text: "What is the primary function of a coupling capacitor at the input of a BJT amplifier?", choices: ["To block the AC signal", "To short the DC bias voltage", "To block DC and pass the AC signal", "To increase the DC current"], correctIndex: 2, explain: "Coupling capacitors act as high-pass filters, blocking the DC component of the bias from affecting the signal source and vice-versa, while allowing the AC signal to pass." },
+  { text: "What is the main purpose of adding a bypass capacitor in parallel with an emitter resistor \\(R_E\\)?", choices: ["To decrease the voltage gain", "To increase the voltage gain", "To stabilize the DC bias point", "To limit the collector current"], correctIndex: 1, explain: "A bypass capacitor provides a low-impedance path for the AC signal to ground, effectively 'shorting out' the emitter resistor for AC analysis. This removes emitter degeneration and significantly increases the voltage gain." },
+  { text: "The configuration of a BJT amplifier is determined by which terminals serve as input, output, and the common reference. Which configuration is most known for voltage gain?", choices: ["Common Collector (Emitter Follower)", "Common Base", "Common Emitter", "Common Gate"], correctIndex: 2, explain: "The Common Emitter (CE) configuration is the most widely used because it provides significant voltage gain and current gain, resulting in high power gain." },
+  { text: "Which BJT biasing configuration offers the best Q-point stability against variations in transistor beta (\\(\\beta\\))?", choices: ["Fixed Bias", "Emitter Bias", "Collector Feedback Bias", "Voltage Divider Bias"], correctIndex: 3, explain: "Voltage Divider Bias makes the base voltage largely independent of \\(\\beta\\), leading to a very stable Q-point, which is crucial for consistent amplifier performance." },
+  { text: "In a voltage-divider biased amplifier, the DC base voltage \\(V_B\\) is approximately determined by:", choices: ["\\(V_{CC} \\cdot R_C / R_1\\)", "The voltage divider \\(R_1\\) and \\(R_2\\)", "\\(I_E \\cdot R_E\\)", "The transistor's \\(\\beta\\) value"], correctIndex: 1, explain: "Assuming the base current is small compared to the divider current, the base voltage is set by the ratio \\(V_B \\approx V_{CC} \\cdot R_2 / (R_1 + R_2)\\)." },
+  { text: "An amplifier that takes its output from the emitter terminal, providing a voltage gain close to 1 and a high input impedance, is known as a:", choices: ["Common Emitter amplifier", "Emitter Follower (Common Collector)", "Common Base amplifier", "Differential amplifier"], correctIndex: 1, explain: "The Emitter Follower (CC) configuration has a voltage gain slightly less than unity, no phase inversion, and is used as a buffer due to its high input and low output impedance." },
+  { text: "In BJT analysis, how is the small-signal (AC) component of the collector current typically denoted?", choices: ["\\(I_C\\)", "\\(i_c\\)", "\\(I_c\\)", "\\(i_C\\)"], correctIndex: 1, explain: "Standard notation uses lowercase letters for the variable/AC part and uppercase subscripts (e.g., \\(i_c\\), \\(v_{be}\\)). DC quantities use uppercase letters and subscripts (e.g., \\(I_C\\), \\(V_{BE}\\))." },
+  { text: "The total instantaneous base-emitter voltage, \\(v_{BE}\\), is the sum of which two components?", choices: ["\\(V_{CC} + v_{in}\\)", "\\(I_B R_B + i_b r_e\\)", "\\(V_{BE(DC)} + v_{be(ac)}\\)", "\\(V_T + V_{CE}\\)"], correctIndex: 2, explain: "The total signal is the superposition of the DC bias point (quiescent value \\(V_{BE}\\)) and the time-varying AC signal (\\(v_{be}\\)). So, \\(v_{BE}(t) = V_{BE} + v_{be}(t)\\)." },
+  { text: "The transconductance, \\(g_m\\), of a BJT relates which two small-signal quantities?", choices: ["\\(i_b\\) to \\(v_{be}\\)", "\\(i_c\\) to \\(i_b\\)", "\\(i_c\\) to \\(v_{be}\\)", "\\(v_{ce}\\) to \\(i_c\\)"], correctIndex: 2, explain: "\\(g_m\\) is the 'transfer conductance' that determines how the input voltage \\(v_{be}\\) controls the output current \\(i_c\\), via the relation \\(i_c = g_m v_{be}\\)." },
+  { text: "How is the transconductance \\(g_m\\) calculated from the DC collector current \\(I_C\\) and thermal voltage \\(V_T\\)?", choices: ["\\(g_m = I_C \\cdot V_T\\)", "\\(g_m = V_T / I_C\\)", "\\(g_m = I_C / V_T\\)", "\\(g_m = I_C / \\beta\\)"], correctIndex: 2, explain: "The transconductance is directly proportional to the DC collector current: \\(g_m = I_C / V_T\\). A higher bias current results in higher transconductance." },
+  { text: "If the DC collector current \\(I_C\\) is 2 mA, what is the approximate transconductance \\(g_m\\) at room temperature (\\(V_T \\approx 25\\,mV\\))?", choices: ["50 mS", "80 mS", "20 \\(\\mu\\)S", "125 mS"], correctIndex: 1, explain: "Calculation: \\(g_m = I_C / V_T = 2\\,mA / 25\\,mV = 0.002\\,A / 0.025\\,V = 0.08\\,S = 80\\,mS\\)." },
+  { text: "The small-signal input resistance looking into the base of a BJT is \\(r_\\pi\\). How is it related to \\(g_m\\) and \\(\\beta\\)?", choices: ["\\(r_\\pi = g_m / \\beta\\)", "\\(r_\\pi = \\beta / g_m\\)", "\\(r_\\pi = \\beta \\cdot g_m\\)", "\\(r_\\pi = g_m \\cdot V_T\\)"], correctIndex: 1, explain: "The relationship is \\(r_\\pi = \\beta / g_m\\). It can also be found as \\(r_\\pi = V_T / I_B\\)." },
+  { text: "What is the formula for the small-signal emitter resistance, \\(r_e\\)?", choices: ["\\(r_e = V_T / I_B\\)", "\\(r_e = V_T / I_C\\)", "\\(r_e = I_E / V_T\\)", "\\(r_e = V_T / I_E\\)"], correctIndex: 3, explain: "The dynamic emitter resistance \\(r_e\\) is inversely proportional to the DC emitter current: \\(r_e = V_T / I_E\\)." },
+  { text: "If the DC emitter current \\(I_E\\) in a BJT amplifier is 1 mA, what is the approximate value of \\(r_e\\) at room temperature?", choices: ["1 \\(\\Omega\\)", "1 k\\(\\Omega\\)", "25 \\(\\Omega\\)", "25 mV"], correctIndex: 2, explain: "Using \\(V_T \\approx 25\\,mV\\), \\(r_e = V_T / I_E = 25\\,mV / 1\\,mA = 25\\,\\Omega\\)." },
+  { text: "What is the fundamental relationship between the small-signal parameters \\(r_\\pi\\) and \\(r_e\\)?", choices: ["\\(r_\\pi = r_e\\)", "\\(r_\\pi = \\beta \\cdot r_e\\)", "\\(r_\\pi = (\\beta+1)r_e\\)", "\\(r_e = (\\beta+1)r_\\pi\\)"], correctIndex: 2, explain: "The resistance seen from the base (\\(r_\\pi\\)) is \\(\\beta+1\\) times larger than the resistance seen from the emitter (\\(r_e\\)), because \\(i_e = (\\beta+1)i_b\\). The relation is \\(r_\\pi = (\\beta+1)r_e\\)." },
+  { text: "What is the main objective of performing a DC analysis on a transistor amplifier circuit?", choices: ["To calculate the voltage gain", "To find the Q-point and determine small-signal parameters", "To analyze the frequency response", "To measure the output power"], correctIndex: 1, explain: "DC analysis is the first step. It establishes the quiescent operating point (Q-point), which is necessary to calculate the small-signal parameters (like \\(g_m\\) and \\(r_e\\)) needed for the subsequent AC analysis." },
+  { text: "When creating the DC equivalent circuit for a BJT amplifier, how are capacitors treated?", choices: ["As short circuits", "As open circuits", "As resistors", "They are ignored completely"], correctIndex: 1, explain: "In DC analysis (frequency = 0 Hz), a capacitor has infinite impedance (\\(Z_C = 1/(j\\omega C)\\)), so it is treated as an open circuit, blocking DC current." },
+  { text: "The Q-point (quiescent operating point) of a BJT amplifier is specified by which pair of DC values?", choices: ["\\((I_B, V_{BE})\\)", "\\((I_C, V_{CE})\\)", "\\((I_E, V_B)\\)", ["\\((\\beta, \\alpha)\\)"]], correctIndex: 1, explain: "The Q-point defines the DC condition of the transistor's output. It is the pair of DC collector current (\\(I_C\\)) and DC collector-emitter voltage (\\(V_{CE}\\)) with no AC signal applied." },
+  { text: "When performing a small-signal AC analysis, how are ideal DC voltage sources (like \\(V_{CC}\\)) treated?", choices: ["As an open circuit", "As a current source", "As a short circuit to ground (AC ground)", "Their value is added to the AC signal"], correctIndex: 2, explain: "An ideal DC voltage source has zero internal impedance. For AC signals, it acts as a short circuit to the reference potential, which is ground. This is often called an 'AC ground'." },
+  { text: "In an AC equivalent circuit for a mid-band frequency amplifier, how are large coupling and bypass capacitors treated?", choices: ["As open circuits", "As short circuits", "As inductors", "As variable resistors"], correctIndex: 1, explain: "At mid-band frequencies, the impedance of large capacitors (\\(Z_C = 1/(j\\omega C)\\)) is very small and can be approximated as zero. Therefore, they are treated as short circuits." },
+  { text: "What are the two most common small-signal equivalent models used for analyzing BJT amplifiers?", choices: ["Norton and Thevenin models", "Diode and Zener models", "Hybrid-pi (\\(\\pi\\)) model and T-model", "Ebers-Moll and Gummel-Poon models"], correctIndex: 2, explain: "The hybrid-pi and T-models are simplified linear circuits that represent the BJT's behavior for small AC signals around its DC Q-point, making analysis much easier." },
+  { text: "The hybrid-pi (\\(\\pi\\)-model) for a BJT consists of an input resistance \\(r_\\pi\\) between base and emitter, and a:", choices: ["voltage-controlled current source \\(g_m v_{be}\\)", "current-controlled voltage source \\(\\beta i_b r_o\\)", "resistor \\(r_o\\)", "capacitor \\(C_\\pi\\)"], correctIndex: 0, explain: "The core of the hybrid-pi model is the input resistance \\(r_\\pi\\) and the voltage-controlled current source \\(g_m v_{be}\\) that models the transistor's amplifying action." },
+  { text: "The T-model is often preferred for analyzing which amplifier configuration due to its explicit representation of the emitter resistance?", choices: ["Common Emitter", "Common Collector", "Common Base", "Darlington Pair"], correctIndex: 2, explain: "The T-model directly includes the emitter terminal and the small-signal emitter resistance \\(r_e\\), making it intuitive to analyze Common Base circuits where the input is applied at the emitter." },
+  { text: "For a common-emitter amplifier with collector resistor \\(R_C\\) and load resistor \\(R_L\\), what is the total AC resistance at the collector, \\(r_c\\)?", choices: ["\\(R_C + R_L\\)", "\\(R_C || R_L\\)", "\\(R_C - R_L\\)", "\\(R_C / R_L\\)"], correctIndex: 1, explain: "In the AC equivalent circuit, \\(R_C\\) (connected to AC ground) and \\(R_L\\) are in parallel from the collector node to ground. Thus, the total AC collector resistance is \\(r_c = R_C || R_L\\)." },
+  { text: "What is the approximate input impedance looking into the base (\\(Z_{inBase}\\)) of a CE amplifier with an unbypassed emitter resistor \\(R_E\\)?", choices: ["\\(r_e + R_E\\)", "\\((\\beta+1)(r_e + R_E)\\)", ["\\(\\beta R_L\\)"], ["\\(r_\\pi || R_E\\)"]], correctIndex: 1, explain: "This is known as the 'resistance reflection rule'. Any impedance in the emitter is multiplied by \\((\\beta+1)\\) when viewed from the base. So, \\(Z_{inBase} = r_\\pi + (\\beta+1)R_E \\approx (\\beta+1)(r_e + R_E)\\)." },
+  { text: "What is the approximate voltage gain \\(A_v\\) of a common-emitter amplifier with an unbypassed emitter resistor \\(R_E\\)?", choices: ["\\(-r_c / r_e\\)", "\\(-R_C / R_E\\)", "\\(-\\beta r_c / r_\\pi\\)", "\\(-r_c / (r_e + R_E)\\)"], correctIndex: 3, explain: "The voltage gain is the ratio of the total AC collector resistance to the total AC emitter resistance. \\(A_v = v_{out}/v_{in} \\approx -r_c / (r_e + R_E)\\)." },
+  { text: "What does the negative sign in the voltage gain formula for a common-emitter amplifier signify?", choices: ["The gain is less than 1", "The amplifier is unstable", "A 180-degree phase shift between input and output", "The output is a DC voltage"], correctIndex: 2, explain: "A CE amplifier is an inverting amplifier. This means that as the input voltage goes positive, the output voltage goes negative, resulting in a 180° phase inversion." },
+  { text: "For a voltage-divider biased CE amplifier, the total AC input impedance of the stage, \\(Z_{inStage}\\), is the parallel combination of:", choices: ["\\(R_1\\) and \\(R_2\\)", "\\(R_g\\) and \\(Z_{inBase}\\)", "\\(R_1\\), \\(R_2\\), and \\(Z_{inBase}\\)", "\\(R_C\\) and \\(R_L\\)"], correctIndex: 2, explain: "The AC signal sees the biasing resistors \\(R_1\\) and \\(R_2\\) connected to AC ground, in parallel with the impedance looking into the transistor's base (\\(Z_{inBase}\\)). So, \\(Z_{inStage} = R_1 || R_2 || Z_{inBase}\\)." },
+  { text: "What happens to the voltage gain of a CE amplifier when a bypass capacitor is placed across the emitter resistor \\(R_E\\)?", choices: ["It decreases significantly", "It remains the same", "It increases significantly", "It becomes zero"], correctIndex: 2, explain: "The bypass capacitor shorts \\(R_E\\) for AC signals. This reduces the total AC emitter resistance from \\((r_e + R_E)\\) to just \\(r_e\\). Since \\(r_e\\) is much smaller, the gain \\(A_v \\approx -r_c/r_e\\) becomes much larger." },
+  { text: "With a fully bypassed emitter resistor, the voltage gain of a CE amplifier becomes approximately:", choices: ["\\(-r_c / R_E\\)", "\\(-R_C / r_e\\)", "\\(-r_c / r_e\\)", "-1"], correctIndex: 2, explain: "When \\(R_E\\) is bypassed, the AC resistance in the emitter is just \\(r_e\\). The gain is the ratio of total AC collector resistance to total AC emitter resistance: \\(A_v \\approx -r_c / r_e\\)." },
+  { text: "When an AC signal source \\(v_g\\) with internal resistance \\(R_g\\) drives an amplifier, the overall gain is affected by:", choices: ["The output load resistance only", "A voltage divider effect at the input", "The power supply voltage", "The transistor's temperature"], correctIndex: 1, explain: "\\(R_g\\) and the amplifier's input impedance \\(Z_{inStage}\\) form a voltage divider. This attenuates the signal, so the voltage actually reaching the amplifier's input is less than \\(v_g\\)." },
+  { text: "The voltage \\(v_{in}\\) at the input of an amplifier stage, driven by a source \\(v_g\\) with resistance \\(R_g\\), is given by:", choices: ["\\(v_{in} = v_g \\cdot R_g / (R_g + Z_{inStage})\\)", "\\(v_{in} = v_g \\cdot Z_{inStage} / (R_g + Z_{inStage})\\)", "\\(v_{in} = v_g\\)", "\\(v_{in} = v_g - I_B R_g\\)"], correctIndex: 1, explain: "This is the standard voltage divider rule. The voltage across \\(Z_{inStage}\\) is the total voltage \\(v_g\\) multiplied by the ratio of \\(Z_{inStage}\\) to the total series resistance \\((R_g + Z_{inStage})\\)." },
+  { text: "What is the very first step in the AC analysis of a BJT amplifier, performed immediately after the DC analysis is complete?", choices: ["Draw the AC equivalent circuit", "Calculate the small-signal emitter resistance, \\(r_e\\)", "Find the voltage gain", "Determine the output impedance"], correctIndex: 1, explain: "The results of the DC analysis (specifically \\(I_E\\)) are needed to find the small-signal parameters. The first and most crucial one is \\(r_e = V_T/I_E\\), as all other parameters and impedances depend on it." },
+  { text: "In the AC equivalent \\(\\pi\\)-model, how is an unbypassed emitter resistor \\(R_E\\) accounted for at the base?", choices: ["It is ignored", "It appears in parallel with \\(r_\\pi\\)", "It is reflected to the base as a resistance of \\((\\beta+1)R_E\\)", "It is placed between collector and emitter"], correctIndex: 2, explain: "Using the resistance reflection rule, \\(R_E\\) in the emitter circuit is seen from the base as a much larger resistance, \\((\\beta+1)R_E\\), which appears in series with \\(r_\\pi\\)." },
+  { text: "What is the final step in calculating the output voltage \\(v_{out}\\) if the source voltage \\(v_g\\) and its resistance \\(R_g\\) are given?", choices: ["\\(v_{out} = A_v \\cdot v_g\\)", "\\(v_{out} = A_v \\cdot (v_g/2)\\)", "\\(v_{out} = A_v \\cdot v_{in}\\), where \\(v_{in}\\) is found from the input voltage divider", "Assume \\(v_{out} = v_{in}\\)"], correctIndex: 2, explain: "First, calculate the voltage gain of the stage, \\(A_v = v_{out}/v_{in}\\). Then, find the actual input voltage \\(v_{in}\\) considering the attenuation from \\(R_g\\) and \\(Z_{inStage}\\). Finally, combine them: \\(v_{out} = A_v \\cdot v_{in}\\)." },
+  { text: "What is the correct overall sequence of operations for a complete BJT amplifier analysis?", choices: ["AC analysis, then DC analysis", "1. Calculate gain, 2. Find Q-point", "1. DC analysis, 2. Calculate \\(r_e\\) & \\(g_m\\), 3. AC analysis", "1. Build AC model, 2. Add DC sources"], correctIndex: 2, explain: "The correct methodology is always to perform the DC analysis first to find the Q-point. Use the Q-point currents to calculate the small-signal parameters. Then, use those parameters in the AC analysis to find gain and impedances." },
+  { text: "An amplifier with a very high input impedance and a voltage gain of approximately +1 is best suited for use as a(n):", choices: ["Inverting amplifier", "Buffer", "Low-pass filter", "Power oscillator"], correctIndex: 1, explain: "These are the key characteristics of a Common Collector (Emitter Follower) amplifier. It is used as a buffer to connect a high-impedance source to a low-impedance load without loading down the source." },
+  { text: "The total AC input impedance \\(Z_{inStage}\\) of a CE amplifier with voltage divider biasing is typically dominated by which component?", choices: ["\\(R_C\\)", "\\(R_1 || R_2\\)", "The reflected emitter impedance \\((\\beta+1)R_E\\)", "The input impedance at the base, \\(Z_{inBase}\\)"], correctIndex: 3, explain: "\\(Z_{inStage} = R_1 || R_2 || Z_{inBase}\\). The parallel combination will always be smaller than the smallest individual resistance. Often, \\(Z_{inBase}\\) is smaller than \\(R_1\\) or \\(R_2\\), making it a major factor." },
+  { text: "The general expression for voltage gain \\(A_v\\) of a CE amplifier is the ratio of total AC collector resistance to total AC emitter resistance. What is the formula?", choices: ["\\(A_v \\approx R_C / R_E\\)", "\\(A_v \\approx -r_c / r_e\\)", "\\(A_v \\approx -(R_C||R_L) / (r_e+R_E)\\)", "\\(A_v \\approx g_m R_C\\)"], correctIndex: 2, explain: "This is the most general form. \\(r_c = R_C||R_L\\) is the total collector resistance, and \\(r_e+R_E\\) is the total emitter resistance (where \\(R_E\\) would be zero if bypassed). The negative sign indicates inversion." }
+];
+
+const elQ = document.getElementById('question');
+const elOptions = document.getElementById('options');
+const elExplain = document.getElementById('explain');
+const elNext = document.getElementById('next');
+const elRestart = document.getElementById('restart');
+const elBar = document.getElementById('bar');
+const elQNum = document.getElementById('qNum');
+const elQTotal = document.getElementById('qTotal');
+const elScore = document.getElementById('score');
+const elPlotWrap = document.getElementById('plot');
+const elFooter = document.getElementById('footerNote');
+
+elQTotal.textContent = questions.length.toString();
+
+let idx = 0;
+let score = 0;
+let answeredThis = false; // track if current question was answered
+
+function resetState(){
+  answeredThis = false;
+  elExplain.style.display = 'none';
+  elExplain.innerHTML = '';
+  elPlotWrap.style.display = 'none';
+  elFooter.textContent = '';
+  elOptions.innerHTML = '';
+}
+
+function renderMath(){
+  if (window.MathJax && window.MathJax.typesetPromise){
+    window.MathJax.typesetPromise();
+  }
+}
+
+// Plotting functions are kept but will not be used by the new question set.
+function drawAxes(ctx, x, y, w, h, xlabel, ylabel){
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.strokeStyle = '#5d6aa3';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h); ctx.lineTo(0, 0); // y
+  ctx.moveTo(0, h); ctx.lineTo(w, h); // x
+  ctx.stroke();
+  ctx.fillStyle = '#b9c3ff';
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText(xlabel, w-20, h-6);
+  ctx.fillText(ylabel, 6, 12);
+  ctx.restore();
+}
+
+function plotIV(R){
+  const cvs = document.getElementById('qCanvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  const pad = 42, w = cvs.width - pad*2, h = cvs.height - pad*2;
+  drawAxes(ctx, pad, pad, w, h, 'V', 'I');
+  ctx.save();
+  ctx.translate(pad, pad);
+  ctx.strokeStyle = '#12d7d0';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  const Vmax = 10;
+  for(let i=0;i<=100;i++){
+    const V = Vmax*i/100;
+    const I = V/R;
+    const px = (V/Vmax)*w;
+    const Imax = Vmax/R;
+    const py = h - (I/Imax)*h;
+    if(i===0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.fillStyle = '#9aa1c6';
+  ctx.font = '12px system-ui';
+  ctx.fillText(`R = ${R} Ω`, 10, 16);
+  ctx.restore();
+}
+
+function renderPlot(plot){
+  if(!plot){ elPlotWrap.style.display='none'; return; }
+  elPlotWrap.style.display = 'block';
+  const {type, params} = plot;
+  if(type === 'iv'){ plotIV(params.R ?? 100); }
+  // other plot types removed for brevity as they are not used.
+}
+
+function renderQuestion(){
+  resetState();
+  const q = questions[idx];
+  elQNum.textContent = (idx+1).toString();
+  elQ.innerHTML = q.text;
+  renderPlot(q.plot); // This will do nothing as no question has a 'plot' property.
+  q.choices.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'option';
+    b.innerHTML = opt;
+    b.addEventListener('click', ()=>onChoose(i));
+    elOptions.appendChild(b);
+  });
+  // Update progress bar to reflect question index (before answering)
+  elBar.style.width = `${(idx)/questions.length*100}%`;
+  renderMath();
+}
+
+function onChoose(i){
+  if(answeredThis) return;
+  answeredThis = true;
+  const q = questions[idx];
+  const nodes = [...document.querySelectorAll('.option')];
+  nodes.forEach((n,k)=>{
+    if(k === q.correctIndex){ n.classList.add('correct'); }
+    if(k === i && k !== q.correctIndex){ n.classList.add('wrong'); }
+    n.style.cursor = 'default'; // Make options unclickable after selection
+  });
+  const correct = i === q.correctIndex;
+  if(correct) score++;
+  elScore.textContent = score.toString();
+  elExplain.style.display = 'block';
+  elExplain.innerHTML = `<span class="math">${q.explain}</span>`;
+  renderMath();
+  elFooter.textContent = correct ? "Excellent! That's correct." : "Not quite. Review the explanation above.";
+}
+
+elNext.addEventListener('click', ()=>{
+  idx++;
+  if(idx >= questions.length){
+    elQ.innerHTML = `Game complete! Final score: <span class="score">${score}</span> / ${questions.length}`;
+    elOptions.innerHTML = '';
+    elExplain.style.display = 'none';
+    elPlotWrap.style.display = 'none';
+    elNext.style.display = 'none';
+    elRestart.style.display = 'inline-block';
+    elBar.style.width = '100%';
+    elFooter.textContent = `You've completed the quiz on BJT Amplifiers.`;
+  }else{
+    renderQuestion();
+  }
+});
+
+elRestart.addEventListener('click', ()=>{
+  idx = 0; score = 0;
+  elScore.textContent = '0';
+  elNext.style.display = 'inline-block';
+  elRestart.style.display = 'none';
+  renderQuestion();
+});
+
+// initial render
+renderQuestion();
+</script>
+</body>
+</html>
