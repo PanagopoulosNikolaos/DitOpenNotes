@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 01: Intro to Signals & Systems</title>
+    
+    <!-- Tailwind CSS for Dark Theme -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for Graphing -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- MathJax for LaTeX -->
+    <script>
+        window.MathJax = {
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { 
+                fontCache: 'global' 
+            },
+            startup: {
+                ready: function () {
+                    MathJax.startup.defaultReady();
+                    // Add a small delay to ensure proper rendering
+                    setTimeout(function() {
+                        MathJax.typeset();
+                    }, 100);
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .canvas-container { position: relative; height: 350px; width: 100%; display: flex; justify-content: center; align-items: center; background: #0f172a; border-radius: 0.5rem; overflow: hidden; }
+        
+        /* Grid for 2D/3D Visualization */
+        .pixel-grid { display: grid; grid-template-columns: repeat(20, 1fr); width: 300px; height: 300px; gap: 1px; }
+        .pixel { width: 100%; height: 100%; transition: background-color 0.1s; }
+        
+        /* Improved spacing and layout */
+        .main-container { 
+            display: flex; 
+            flex-direction: column; 
+            height: calc(100vh - 0px); /* Full height minus any header if present */
+        }
+        
+        @media (min-width: 768px) {
+            .main-container { 
+                flex-direction: row; 
+            }
+        }
+        
+        .sidebar { 
+            width: 100%; 
+            height: auto; 
+            border-bottom: 1px solid #334155; 
+        }
+        
+        @media (min-width: 768px) {
+            .sidebar { 
+                width: 18rem; 
+                height: 100vh; 
+                border-bottom: none;
+                border-right: 1px solid #334155;
+            }
+        }
+        
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .module-content {
+            margin-bottom: 2rem;
+        }
+        
+        .visualization-panel {
+            margin-bottom: 2rem;
+        }
+        
+        .controls-panel {
+            margin-top: 2rem;
+        }
+        
+        /* Better responsive spacing */
+        .responsive-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .responsive-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .responsive-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Improved visual appearance */
+        .card {
+            background: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #334155;
+        }
+        
+        .highlight-box {
+            background: #334155;
+            border-left: 4px solid #06b6d4;
+            padding: 1rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .info-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .button-primary {
+            background: #06b6d4;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background 0.2s;
+        }
+        
+        .button-primary:hover {
+            background: #0891b2;
+        }
+        
+        /* Better responsive behavior for content */
+        .content-wrapper {
+            max-width: 100%;
+        }
+        
+        .theory-content {
+            line-height: 1.6;
+        }
+        
+        .theory-content h2 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .theory-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .theory-content ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .theory-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Improve formula display */
+        .formula-display {
+            font-size: 0.875rem;
+            background: #0f172a;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+            font-family: monospace;
+            color: #f59e0b;
+        }
+        
+        /* Improve visualization container */
+        .visualization-container {
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0f172a;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        
+        /* Better control panel styling */
+        .control-panel {
+            background: #1e293b;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+        }
+        
+        /* Improve navigation buttons */
+        .nav-button {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background: #1e293b;
+            border: 1px solid #334155;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .nav-button:hover {
+            background: #334155;
+        }
+        
+        .nav-button.active {
+            background: #06b6d4;
+            border-color: #06b6d4;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-72 bg-slate-800 border-r border-slate-700 flex-shrink-0 flex flex-col shadow-xl z-10">
+        <div class="p-6 border-b border-slate-700">
+            <h1 class="text-2xl font-bold text-cyan-400">Lecture 01</h1>
+            <p class="text-sm text-slate-400 mt-1">Introduction & Organization</p>
+        </div>
+        <nav class="flex-1 overflow-y-auto p-3 space-y-2">
+            <button onclick="loadModule(1)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod1">
+                <div class="font-semibold">1. Definitions & Basics</div>
+                <div class="text-xs text-slate-400 mt-1">What is a Signal? How to plot?</div>
+            </button>
+            <button onclick="loadModule(2)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod2">
+                <div class="font-semibold">2. Signal Dimensions</div>
+                <div class="text-xs text-slate-400 mt-1">1D (Audio), 2D (Image), 3D (Video)</div>
+            </button>
+            <button onclick="loadModule(3)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod3">
+                <div class="font-semibold">3. The System Concept</div>
+                <div class="text-xs text-slate-400 mt-1">Input $\to$ System $\to$ Output</div>
+            </button>
+            <button onclick="loadModule(4)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod4">
+                <div class="font-semibold">4. CT vs. DT Signals</div>
+                <div class="text-xs text-slate-400 mt-1">Continuous vs Discrete Time</div>
+            </button>
+        </nav>
+        <div class="p-4 border-t border-slate-700 text-xs text-slate-500 text-center">
+            Based on "Διάλεξη 01.pdf"
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-y-auto bg-slate-900 relative">
+        
+        <!-- Theory Header -->
+        <div id="theory-section" class="p-8 bg-slate-850 border-b border-slate-700 shadow-md">
+            <!-- Content injected by JS -->
+        </div>
+
+        <!-- Interactive Lab -->
+        <div class="flex-1 p-8 space-y-8 max-w-7xl mx-auto w-full">
+            
+            <!-- Visualization Panel -->
+            <div class="bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-cyan-400 flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        Visualizer
+                    </h3>
+                    <div id="formula-display" class="text-sm bg-slate-900 px-4 py-2 rounded-lg border border-slate-600 font-mono text-yellow-400 shadow-inner">
+                        $$ x(t) = ... $$
+                    </div>
+                </div>
+                
+                <!-- Canvas Container -->
+                <div id="viz-container" class="canvas-container border border-slate-700 bg-slate-900/50">
+                    <!-- Content (Canvas or Div) injected here -->
+                    <canvas id="signalChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Controls Panel -->
+            <div id="controls-area" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700">
+                <!-- Controls injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let chartInstance = null;
+        let animationId = null;
+
+        // --- Module Content (Lecture 01 Only) ---
+        const modules = {
+            1: {
+                title: "Definitions & Basics",
+                theory: `
+                    <div class="space-y-4">
+                        <h2 class="text-3xl font-bold text-white">1. What is a Signal?</h2>
+                        <p class="text-lg text-slate-300 leading-relaxed">
+                            A <strong>Signal</strong> is a physical quantity that varies with respect to time, space, or other independent variables. Mathematically, it is a function containing information about the state of a system.
+                        </p>
+                        <div class="bg-slate-800 p-4 rounded-lg border-l-4 border-cyan-500 my-4">
+                            <h3 class="font-semibold text-cyan-400 mb-2">Examples (from Page 3):</h3>
+                            <ul class="list-disc list-inside text-slate-300 space-y-1">
+                                <li>Voltage/Current in a circuit.</li>
+                                <li>Position/Velocity of an object.</li>
+                                <li>Stock market index.</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 p-4 bg-slate-900 rounded border border-slate-700">
+                            <h4 class="font-bold text-yellow-400 mb-2">How to Plot a Signal?</h4>
+                            <p class="text-sm text-slate-400">
+                                1. Identify the <strong>Independent Variable</strong> (e.g., Time $t$) $\to$ X-Axis.<br>
+                                2. Identify the <strong>Dependent Variable</strong> (e.g., Voltage $v(t)$) $\to$ Y-Axis.<br>
+                                3. Map the function values for specific time instances.
+                            </p>
+                        </div>
+                    </div>
+                `,
+                controls: `
+                    <div class="col-span-full">
+                        <p class="text-sm text-cyan-400 mb-4 font-medium uppercase tracking-wider">Generate a Simple Signal</p>
+                        <div class="space-y-6">
+                            <div>
+                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-2"> Signal Type </label>
+                                <select id="m1-type" onchange="renderModule1()" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-cyan-500 outline-none transition">
+                                    <option value="voltage">Voltage $v(t) = A \sin(t)$</option>
+                                    <option value="stock">Stock Index (Random Walk)</option>
+                                    <option value="velocity">Velocity (Linear Ramp)</option>
+                                </select>
+                            </div>
+                            <div id="m1-slider-container">
+                                <label class="flex justify-between text-sm text-slate-400 mb-2"><span>Amplitude / Slope</span> <span id="m1-val">1.0</span></label>
+                                <input type="range" id="m1-param" min="0.5" max="5" step="0.5" value="1" oninput="renderModule1()" class="w-full accent-cyan-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+                `,
+                render: renderModule1
+            },
+            2: {
+                title: "Signal Dimensions",
+                theory: `
+                    <div class="space-y-4">
+                        <h2 class="text-3xl font-bold text-white">2. Signal Dimensions</h2>
+                        <p class="text-lg text-slate-300">
+                            Signals are classified by the number of independent variables they depend on (Page 4).
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-slate-800 p-4 rounded border-t-4 border-blue-500">
+                                <h3 class="font-bold text-white">1-D Signal</h3>
+                                <p class="text-sm text-slate-400 mt-1">Depends on 1 variable (e.g., Time $t$). <br><em>Example: Speech, Audio.</em></p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded border-t-4 border-green-500">
+                                <h3 class="font-bold text-white">2-D Signal</h3>
+                                <p class="text-sm text-slate-400 mt-1">Depends on 2 variables ($x, y$). <br><em>Example: Image (Photograph).</em></p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded border-t-4 border-purple-500">
+                                <h3 class="font-bold text-white">3-D Signal</h3>
+                                <p class="text-sm text-slate-400 mt-1">Depends on 3 variables ($x, y, t$). <br><em>Example: Video (Image sequence over time).</em></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 bg-slate-800 p-4 rounded-lg border border-slate-700">
+                            <h3 class="text-xl font-semibold text-cyan-400 mb-3">Audio Signal Properties</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-bold text-yellow-400">Frequency</h4>
+                                    <p class="text-sm text-slate-300">The number of oscillations per second, measured in Hertz (Hz). Determines the pitch of the sound.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-yellow-400">Amplitude</h4>
+                                    <p class="text-sm text-slate-300">The maximum displacement from equilibrium. Determines the loudness of the sound.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-yellow-400">Wavelength</h4>
+                                    <p class="text-sm text-slate-300">The distance between successive peaks. Inversely related to frequency.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-yellow-400">Phase</h4>
+                                    <p class="text-sm text-slate-300">The position of a point in time on a waveform cycle. Important for understanding interference.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 bg-slate-900 p-4 rounded border border-slate-700">
+                            <h4 class="font-bold text-yellow-400 mb-2">Mathematical Representation</h4>
+                            <p class="text-sm text-slate-400">
+                                A 1-D audio signal can be represented as: $s(t) = A \sin(2\pi f t + \phi)$<br>
+                                Where: $A$ = Amplitude, $f$ = Frequency, $\phi$ = Phase, $t$ = Time
+                            </p>
+                        </div>
+                    </div>
+                `,
+                controls: `
+                    <div class="col-span-full">
+                        <label class="block text-sm font-medium text-slate-400 mb-3">Select Dimension to Visualize</label>
+                        <div class="flex gap-4">
+                            <button onclick="setDimMode('1d')" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-blue-500">1-D Audio</button>
+                            <button onclick="setDimMode('2d')" class="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-green-500">2-D Image</button>
+                            <button onclick="setDimMode('3d')" class="flex-1 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-purple-500">3-D Video</button>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4 text-center italic" id="dim-desc">Click a button to load the visualization.</p>
+                        
+                        <!-- Audio Controls for 1D -->
+                        <div id="audio-controls" class="mt-4 space-y-3">
+                            <div>
+                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-1">Frequency (Hz)</label>
+                                <input type="range" id="audio-freq" min="1" max="10" value="2" step="0.1" oninput="updateAudioParams()" class="w-full accent-cyan-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-slate-400">
+                                    <span>Low</span>
+                                    <span id="freq-value">2.0 Hz</span>
+                                    <span>High</span>
+                                </div>
+                            <div>
+                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-1">Amplitude</label>
+                                <input type="range" id="audio-amp" min="0.1" max="1" value="0.5" step="0.1" oninput="updateAudioParams()" class="w-full accent-cyan-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-slate-400">
+                                    <span>Quiet</span>
+                                    <span id="amp-value">0.5</span>
+                                    <span>Loud</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                render: () => setDimMode('1d') // Default
+            },
+            3: {
+                title: "The System Concept",
+                theory: `
+                    <div class="space-y-4">
+                        <h2 class="text-3xl font-bold text-white">3. Signals & Systems</h2>
+                        <p class="text-lg text-slate-300">
+                            A <strong>System</strong> is an entity that takes an input signal $x(t)$, analyzes or modifies it, and produces an output signal $y(t)$ (Page 5).
+                        </p>
+                        <div class="flex items-center justify-center gap-4 my-6 text-xl font-mono">
+                            <div class="bg-blue-900 text-blue-200 px-4 py-2 rounded border border-blue-500">Input $x(t)$</div>
+                            <div class="text-slate-500">$\longrightarrow$</div>
+                            <div class="bg-slate-700 text-white px-6 py-4 rounded border border-slate-500 shadow-lg transform hover:scale-105 transition">SYSTEM $S[\cdot]$</div>
+                            <div class="text-slate-500">$\longrightarrow$</div>
+                            <div class="bg-yellow-900 text-yellow-200 px-4 py-2 rounded border border-yellow-500">Output $y(t)$</div>
+                        </div>
+                        <p class="text-sm text-slate-400">
+                            <strong>Examples:</strong> An amplifier increases amplitude. A noise filter removes jagged edges.
+                        </p>
+                    </div>
+                `,
+                controls: `
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Input Signal $x(t)$</label>
+                        <select id="sys-input" onchange="renderModule3()" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                            <option value="sine">Clean Sine Wave</option>
+                            <option value="noise">Noisy Signal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">System Operation</label>
+                        <select id="sys-op" onchange="renderModule3()" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                            <option value="amp">Amplifier (Gain x2)</option>
+                            <option value="rect">Rectifier (Absolute Value)</option>
+                            <option value="filter">Moving Average Filter (Smooth)</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
+                         <div class="text-xs text-slate-500 mb-1">System Status</div>
+                         <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                    </div>
+                `,
+                render: renderModule3
+            },
+            4: {
+                title: "CT vs DT Signals",
+                theory: `
+                    <div class="space-y-4">
+                        <h2 class="text-3xl font-bold text-white">4. Continuous vs Discrete</h2>
+                        <p class="text-lg text-slate-300">
+                            Signals are classified based on the continuity of their independent variable (Time) (Page 8).
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="bg-slate-800 p-4 rounded border-l-4 border-teal-500">
+                                <h3 class="font-bold text-white">Continuous Time (CT)</h3>
+                                <p class="text-sm text-slate-400 mt-2">Defined for all $t \in \mathbb{R}$. <br>Notation: $x(t)$.<br><em>e.g. Analog signals from nature.</em></p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded border-l-4 border-orange-500">
+                                <h3 class="font-bold text-white">Discrete Time (DT)</h3>
+                                <p class="text-sm text-slate-400 mt-2">Defined only at integers $n \in \mathbb{Z}$. <br>Notation: $x[n]$.<br><em>e.g. Digital signals in computers.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                controls: `
+                    <div class="col-span-full">
+                        <label class="block text-sm font-medium text-slate-400 mb-3">Representation Mode</label>
+                        <div class="flex gap-4">
+                            <button onclick="setCTDT('ct')" class="flex-1 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded shadow transition">Continuous (Analog)</button>
+                            <button onclick="setCTDT('dt')" class="flex-1 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded shadow transition">Discrete (Digital)</button>
+                        </div>
+                    </div>
+                `,
+                render: () => setCTDT('ct')
+            }
+        };
+
+        // --- Core Logic ---
+
+        function clearContainer() {
+            if (animationId) cancelAnimationFrame(animationId);
+            const container = document.getElementById('viz-container');
+            container.innerHTML = '<canvas id="signalChart" class="w-full h-full"></canvas>';
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+        }
+
+        function loadModule(id) {
+            // Nav Styling
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-700', 'border-l-4', 'border-cyan-500', 'bg-slate-800');
+                btn.classList.add('hover:bg-slate-700');
+            });
+            const btn = document.getElementById(`btn-mod${id}`);
+            btn.classList.add('bg-slate-800', 'border-l-4', 'border-cyan-500');
+            
+            // Load Content
+            const mod = modules[id];
+            document.getElementById('theory-section').innerHTML = mod.theory;
+            document.getElementById('controls-area').innerHTML = mod.controls;
+            
+            // Re-render LaTeX after content is loaded
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise()
+                    .catch(function (err) {
+                        console.error('MathJax typeset error:', err);
+                    });
+            }
+            
+            mod.render();
+            
+            // Ensure proper rendering after a short delay
+            setTimeout(() => {
+                if (typeof MathJax !== 'undefined' && MathJax.typeset) {
+                    MathJax.typeset();
+                }
+            }, 100);
+        }
+
+        // --- Module 1 Renderer ---
+        function renderModule1() {
+            clearContainer();
+            const type = document.getElementById('m1-type').value;
+            const param = parseFloat(document.getElementById('m1-param').value);
+            document.getElementById('m1-val').innerText = param;
+
+            const ctx = document.getElementById('signalChart').getContext('2d');
+            
+            let labels = [], data = [], formula = "";
+            for (let i = 0; i <= 10; i += 0.1) labels.push(i.toFixed(1));
+
+            if (type === 'voltage') {
+                data = labels.map(t => param * Math.sin(t));
+                formula = `$$ v(t) = ${param} \\sin(t) $$`;
+            } else if (type === 'stock') {
+                let val = 100;
+                data = labels.map(() => { val += (Math.random() - 0.5) * param * 10; return val; });
+                formula = "$$ x(t) \\text{ (Random Walk)} $$";
+            } else {
+                data = labels.map(t => param * t);
+                formula = `$$ v(t) = ${param}t $$`;
+            }
+
+            document.getElementById('formula-display').innerHTML = formula;
+            MathJax.typesetPromise();
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Signal Amplitude',
+                        data: data,
+                        borderColor: '#06b6d4',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: '#334155' }, title: { display: true, text: 'Independent Variable (t)', color: '#94a3b8' } },
+                        y: { grid: { color: '#334155' }, title: { display: true, text: 'Dependent Variable', color: '#94a3b8' } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // --- Module 2 Logic (1D/2D/3D) ---
+        function setDimMode(mode) {
+            clearContainer();
+            const container = document.getElementById('viz-container');
+            const desc = document.getElementById('dim-desc');
+            const formula = document.getElementById('formula-display');
+
+            if (mode === '1d') {
+                desc.innerText = "1-D Signal: Amplitude varies with time (Audio).";
+                formula.innerHTML = "$$ f(t) $$";
+                
+                // Create animated speaker visualization for audio
+                container.innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%; position: relative;">
+                        <div id="speaker" style="position: relative; width: 100px; height: 100px;">
+                            <!-- Speaker -->
+                            <div style="position: absolute; width: 40px; height: 60px; background: #4b5563; border-radius: 5px; left: 30px; top: 20px;"></div>
+                            <div style="position: absolute; width: 20px; height: 30px; background: #1f2937; border-radius: 3px; left: 70px; top: 35px;"></div>
+                            
+                            <!-- Sound waves -->
+                            <div id="sound-wave-1" class="sound-wave" style="position: absolute; width: 10px; height: 10px; border: 2px solid #06b6d4; border-radius: 50%; left: 90px; top: 55px; opacity: 0;"></div>
+                            <div id="sound-wave-2" class="sound-wave" style="position: absolute; width: 10px; height: 10px; border: 2px solid #06b6d4; border-radius: 50%; left: 90px; top: 5px; opacity: 0;"></div>
+                            <div id="sound-wave-3" class="sound-wave" style="position: absolute; width: 10px; height: 10px; border: 2px solid #06b6d4; border-radius: 50%; left: 90px; top: 55px; opacity: 0;"></div>
+                        </div>
+                        
+                        <!-- Canvas for audio waveform -->
+                        <canvas id="audio-waveform" style="position: absolute; width: 80%; height: 60%;"></canvas>
+                    </div>
+                `;
+                
+                // Animate sound waves
+                animateSoundWaves();
+                
+                // Draw audio waveform
+                drawAudioWaveform();
+            } else if (mode === '2d') {
+                desc.innerText = "2-D Signal: Intensity varies with x and y (Image).";
+                formula.innerHTML = "$$ f(x, y) $$";
+                
+                // Create Heatmap Grid
+                container.innerHTML = '';
+                const grid = document.createElement('div');
+                grid.className = 'pixel-grid';
+                
+                for (let i = 0; i < 400; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'pixel';
+                    // Static Gradient Pattern
+                    const x = i % 20; 
+                    const y = Math.floor(i / 20);
+                    const intensity = Math.floor(((x+y)/40) * 255);
+                    div.style.backgroundColor = `rgb(${intensity}, ${intensity}, ${intensity})`;
+                    grid.appendChild(div);
+                }
+                container.appendChild(grid);
+            } else if (mode === '3d') {
+                desc.innerText = "3-D Signal: Intensity varies with x, y, and time (Video).";
+                formula.innerHTML = "$$ f(x, y, t) $$";
+                
+                container.innerHTML = '';
+                const grid = document.createElement('div');
+                grid.className = 'pixel-grid';
+                
+                // Create pixels
+                const pixels = [];
+                for (let i = 0; i < 400; i++) {
+                    const div = document.createElement('div');
+                    div.className = 'pixel';
+                    grid.appendChild(div);
+                    pixels.push(div);
+                }
+                container.appendChild(grid);
+
+                // Animate
+                let t = 0;
+                function animate() {
+                    t += 0.1;
+                    pixels.forEach((p, i) => {
+                        const x = i % 20; 
+                        const y = Math.floor(i / 20);
+                        // Moving wave pattern
+                        const val = Math.sin(x * 0.5 + t) * Math.cos(y * 0.5 + t); 
+                        const intensity = Math.floor(((val + 1) / 2) * 255);
+                        p.style.backgroundColor = `rgb(${intensity}, ${intensity}, 50)`;
+                    });
+                    animationId = requestAnimationFrame(animate);
+                }
+                animate();
+            }
+            MathJax.typesetPromise();
+        }
+        
+        // Function to animate sound waves for 1D audio visualization
+        function animateSoundWaves() {
+            const waves = document.querySelectorAll('.sound-wave');
+            let waveIndex = 0;
+            
+            function animate() {
+                // Reset all waves
+                waves.forEach(wave => {
+                    wave.style.opacity = '0';
+                    wave.style.transform = 'scale(1)';
+                });
+                
+                // Animate current wave
+                const currentWave = waves[waveIndex];
+                if (currentWave) {
+                    currentWave.style.transition = 'none';
+                    currentWave.style.opacity = '0.7';
+                    currentWave.style.transform = 'scale(1)';
+                    
+                    // Trigger reflow
+                    void currentWave.offsetWidth;
+                    
+                    currentWave.style.transition = 'all 1.5s ease-in-out';
+                    currentWave.style.transform = 'scale(5)';
+                    currentWave.style.opacity = '0';
+                }
+                
+                waveIndex = (waveIndex + 1) % waves.length;
+                setTimeout(animate, 500); // Change every 500ms
+            }
+            
+            animate();
+        }
+        
+        // Function to draw audio waveform
+        function drawAudioWaveform() {
+            const canvas = document.getElementById('audio-waveform');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.parentElement.clientWidth;
+            const height = canvas.parentElement.clientHeight;
+            
+            // Set canvas dimensions
+            canvas.width = width;
+            canvas.height = height;
+            
+            let time = 0;
+            
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw waveform
+                ctx.beginPath();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#06b6d4';
+                
+                const centerY = height / 2;
+                const amplitude = height * 0.3;
+                
+                for (let x = 0; x < width; x += 2) {
+                    // Calculate Y position based on sine wave
+                    const y = centerY + Math.sin((x * 0.05) + time) * amplitude * 0.5;
+                    
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                
+                ctx.stroke();
+                
+                // Update time for animation
+                time += 0.05;
+                
+                requestAnimationFrame(draw);
+            }
+            
+            draw();
+        }
+        
+        // Function to update audio parameters based on slider values
+        function updateAudioParams() {
+            const freqSlider = document.getElementById('audio-freq');
+            const ampSlider = document.getElementById('audio-amp');
+            const freqValue = document.getElementById('freq-value');
+            const ampValue = document.getElementById('amp-value');
+            
+            if (freqSlider && freqValue) {
+                const freq = parseFloat(freqSlider.value);
+                freqValue.textContent = freq.toFixed(1) + ' Hz';
+            }
+            
+            if (ampSlider && ampValue) {
+                const amp = parseFloat(ampSlider.value);
+                ampValue.textContent = amp.toFixed(1);
+            }
+        }
+        
+        // Initialize audio parameter display on page load
+        window.addEventListener('load', function() {
+            updateAudioParams();
+        });
+
+        // --- Module 3 Logic (Systems) ---
+        function renderModule3() {
+            clearContainer();
+            const inputType = document.getElementById('sys-input').value;
+            const opType = document.getElementById('sys-op').value;
+            
+            const ctx = document.getElementById('signalChart').getContext('2d');
+            let labels = [];
+            for(let i=0; i<=20; i+=0.2) labels.push(i.toFixed(1));
+
+            // Generate Input
+            let inputData = [];
+            if (inputType === 'sine') {
+                inputData = labels.map(t => Math.sin(t));
+            } else {
+                inputData = labels.map(t => Math.sin(t) + (Math.random()-0.5)*0.5);
+            }
+
+            // Process Output
+            let outputData = [];
+            let formula = "";
+            
+            if (opType === 'amp') {
+                outputData = inputData.map(x => x * 2);
+                formula = "$$ y(t) = 2x(t) $$";
+            } else if (opType === 'rect') {
+                outputData = inputData.map(x => Math.abs(x));
+                formula = "$$ y(t) = |x(t)| $$";
+            } else if (opType === 'filter') {
+                // Simple Moving Average
+                outputData = inputData.map((val, idx, arr) => {
+                    if (idx < 2) return val;
+                    return (arr[idx] + arr[idx-1] + arr[idx-2]) / 3;
+                });
+                formula = "$$ y(t) = \\frac{1}{3} \\sum x(t-k) $$";
+            }
+
+            document.getElementById('formula-display').innerHTML = formula;
+            MathJax.typesetPromise();
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Input x(t)',
+                            data: inputData,
+                            borderColor: '#3b82f6', // Blue
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            borderDash: [5, 5]
+                        },
+                        {
+                            label: 'Output y(t)',
+                            data: outputData,
+                            borderColor: '#eab308', // Yellow
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { grid: { color: '#334155' } }, y: { grid: { color: '#334155' } } }
+                }
+            });
+        }
+
+        // --- Module 4 Logic (CT vs DT) ---
+        function setCTDT(mode) {
+            clearContainer();
+            const ctx = document.getElementById('signalChart').getContext('2d');
+            const labels = Array.from({length: 20}, (_, i) => i);
+            const data = labels.map(t => Math.sin(t * 0.5) * Math.exp(-0.1 * t) * 2);
+            
+            let formula = "";
+            
+            let dataset = {
+                label: 'Signal',
+                data: data,
+                borderColor: '#14b8a6', // Teal
+                borderWidth: 2
+            };
+
+            if (mode === 'ct') {
+                // Continuous: Line chart, smooth tension
+                dataset.type = 'line';
+                dataset.tension = 0.4;
+                dataset.pointRadius = 0;
+                formula = "$$ x(t) \\in \\mathbb{R} $$";
+            } else {
+                // Discrete: Bar chart (thin bars like stems) or Scatter
+                // Chart.js "Bar" can simulate stems if thin
+                dataset.type = 'bar';
+                dataset.barThickness = 2; 
+                dataset.backgroundColor = '#f97316'; // Orange
+                dataset.borderColor = '#f97316';
+                // Add points on top
+                formula = "$$ x[n], n \\in \\mathbb{Z} $$";
+            }
+
+            document.getElementById('formula-display').innerHTML = formula;
+            MathJax.typesetPromise();
+
+            chartInstance = new Chart(ctx, {
+                type: mode === 'ct' ? 'line' : 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [dataset]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { color: '#334155' }, title: { display: true, text: mode==='ct'?'Time (t)':'Index [n]' } },
+                        y: { grid: { color: '#334155' }, beginAtZero: true }
+                    },
+                    // If Discrete, add scatter points to look like lollipops
+                    plugins: {
+                        annotation: {
+                            // (Chartjs annotation plugin not loaded to keep single file simple)
+                            // Visual approximation with bar chart is sufficient for basic demo
+                        }
+                    }
+                }
+            });
+            
+            // If discrete, we add a second dataset for points
+            if (mode === 'dt') {
+                chartInstance.data.datasets.push({
+                    type: 'scatter',
+                    data: data,
+                    backgroundColor: '#f97316',
+                    radius: 5
+                });
+                chartInstance.update();
+            }
+        }
+
+        // Init
+        window.onload = () => {
+            loadModule(1);
+        };
+
+    </script>
+</body>
+</html>

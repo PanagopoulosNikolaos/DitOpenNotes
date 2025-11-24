@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Concepts Explorer</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+            --accent: #38bdf8;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --canvas-bg: #020617;
+            --purple: #a78bfa;
+            --cyan: #06b6d4;
+            --green: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { margin-top: 0; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2.5fr 1.5fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 1100px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: var(--text);
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .control-group {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid transparent;
+        }
+
+        .group-signal { border-color: var(--cyan); }
+        .group-class { border-color: var(--purple); }
+        .group-param { border-color: var(--green); }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        input[type="range"], input[type="number"] {
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+        }
+
+        input[type="number"] {
+            width: auto;
+            padding: 6px 12px;
+        }
+
+        .val-display {
+            float: right;
+            color: var(--accent);
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .prop-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prop-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9em;
+        }
+
+        .prop-item:last-child { border-bottom: none; }
+        .prop-val { font-weight: bold; color: var(--accent); }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+        }
+
+        button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9em;
+        }
+
+        button:hover { background: rgba(255,255,255,0.1); }
+        button.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .canvas-container {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--canvas-bg);
+        }
+
+        canvas {
+            width: 100%;
+            height: 350px;
+            display: block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge-energy { background: rgba(74, 222, 128, 0.3); color: var(--success); }
+        .badge-power { background: rgba(251, 191, 36, 0.3); color: var(--warning); }
+        .badge-periodic { background: rgba(56, 189, 248, 0.3); color: var(--accent); }
+        .badge-causal { background: rgba(167, 139, 250, 0.3); color: var(--purple); }
+        .badge-even { background: rgba(6, 182, 212, 0.3); color: var(--cyan); }
+
+        .formula-box {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+            margin: 10px 0;
+            font-size: 0.95em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center; margin-bottom:30px; color:var(--accent);">📊 Signal Concepts Explorer</h1>
+    <p style="text-align:center; color:#94a3b8; margin-bottom:30px;">Interactive Tool for Understanding Basic Signal Theory (Lecture 02)</p>
+
+    <div class="main-grid">
+        
+        <!-- LEFT COLUMN: Visualization & Signal Selection -->
+        <div>
+            <!-- Signal Classification & Selection -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>1. Signal Classification</h3>
+                </div>
+
+                <div class="tab-group">
+                    <button class="tab-btn active" onclick="switchClassTab('timedom', this)">Time Domain</button>
+                    <button class="tab-btn" onclick="switchClassTab('ampldom', this)">Amplitude Domain</button>
+                    <button class="tab-btn" onclick="switchClassTab('determin', this)">Determinism</button>
+                </div>
+
+                <!-- Time Domain Tab -->
+                <div id="tab-timedom" class="tab-content active">
+                    <div class="control-group group-class">
+                        <label>Select Time Domain Type:</label>
+                        <div class="btn-grid">
+                            <button onclick="setTimeClass('continuous')" id="btnContinuous" class="active">Continuous x(t)</button>
+                            <button onclick="setTimeClass('discrete')" id="btnDiscrete">Discrete x[n]</button>
+                        </div>
+                    </div>
+                    <div class="formula-box" id="formulaTimeClass"></div>
+                </div>
+
+                <!-- Amplitude Domain Tab -->
+                <div id="tab-ampldom" class="tab-content">
+                    <div class="control-group group-class">
+                        <label>Select Amplitude Domain Type:</label>
+                        <div class="btn-grid">
+                            <button onclick="setAmplClass('analog')" id="btnAnalog" class="active">Analog (Continuous Amplitude)</button>
+                            <button onclick="setAmplClass('digital')" id="btnDigital">Digital (Discrete Amplitude)</button>
+                        </div>
+                    </div>
+                    <div class="formula-box" id="formulaAmplClass"></div>
+                </div>
+
+                <!-- Determinism Tab -->
+                <div id="tab-determin" class="tab-content">
+                    <div class="control-group group-class">
+                        <label>Select Signal Type:</label>
+                        <div class="btn-grid">
+                            <button onclick="setDeterminism('deterministic')" id="btnDeterministic" class="active">Deterministic</button>
+                            <button onclick="setDeterminism('stochastic')" id="btnStochastic">Stochastic (Random)</button>
+                        </div>
+                    </div>
+                    <div class="formula-box" id="formulaDeterminism"></div>
+                </div>
+            </div>
+
+            <!-- Visualization -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>2. Signal Visualization</h3>
+                </div>
+                <div class="control-group group-signal">
+                    <label>Choose Base Signal:</label>
+                    <div class="btn-grid">
+                        <button onclick="setSignal('sine')" id="btnSine" class="active">Sine</button>
+                        <button onclick="setSignal('cosine')" id="btnCosine">Cosine</button>
+                        <button onclick="setSignal('pulse')" id="btnPulse">Pulse</button>
+                        <button onclick="setSignal('step')" id="btnStep">Step u(t)</button>
+                        <button onclick="setSignal('ramp')" id="btnRamp">Ramp r(t)</button>
+                    </div>
+                </div>
+
+                <div class="canvas-container">
+                    <canvas id="mainCanvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Transformations Card -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>3. Signal Transformations</h3>
+                    <button onclick="resetAllTransforms()" style="width:auto; padding: 5px 15px;">Reset</button>
+                </div>
+
+                <div class="info-grid">
+                    <!-- Time Operations -->
+                    <div class="control-group group-param">
+                        <h4 style="margin-top:0; color:#06b6d4;">⏱️ Time Operations</h4>
+                        
+                        <label>Time Shift t₀ <span class="val-display" id="dispT0">0</span></label>
+                        <input type="range" id="sliderT0" min="-3" max="3" step="0.1" value="0">
+                        
+                        <label style="margin-top:10px;">Time Scale a <span class="val-display" id="dispA">1.0</span></label>
+                        <input type="range" id="sliderA" min="0.3" max="2.5" step="0.1" value="1">
+                        
+                        <label style="margin-top:10px;">
+                            <input type="checkbox" id="checkTimeRev" onchange="toggleTimeRev()"> Time Reversal
+                        </label>
+                    </div>
+
+                    <!-- Amplitude Operations -->
+                    <div class="control-group group-param">
+                        <h4 style="margin-top:0; color:#10b981;">📊 Amplitude Operations</h4>
+                        
+                        <label>Scale Factor β <span class="val-display" id="dispBeta">1.0</span></label>
+                        <input type="range" id="sliderBeta" min="0.2" max="2.5" step="0.1" value="1">
+                        
+                        <label style="margin-top:10px;">Shift x₀ <span class="val-display" id="dispX0">0</span></label>
+                        <input type="range" id="sliderX0" min="-2" max="2" step="0.1" value="0">
+                        
+                        <label style="margin-top:10px;">
+                            <input type="checkbox" id="checkAmpRev" onchange="toggleAmpRev()"> Amplitude Reversal
+                        </label>
+                    </div>
+                </div>
+
+                <div class="formula-box" style="margin-top:15px;" id="transformFormula">
+                    General: \(y(t) = \beta x(at - t_0) + x_0\)
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Analysis & Properties -->
+        <div>
+            <!-- Signal Properties -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>4. Signal Properties</h3>
+                </div>
+
+                <div class="control-group group-signal">
+                    <label>Current Signal Properties:</label>
+                    <div id="propertiesBadges" style="margin-bottom:15px;"></div>
+                </div>
+
+                <ul class="prop-list">
+                    <li class="prop-item">
+                        <span>Classification</span>
+                        <span class="prop-val" id="propClass">Analog, Continuous</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Determinism</span>
+                        <span class="prop-val" id="propDeterm">Deterministic</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Causality</span>
+                        <span class="prop-val" id="propCausal">Non-Causal</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Periodicity</span>
+                        <span class="prop-val" id="propPeriodic">Periodic</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Period T₀</span>
+                        <span class="prop-val" id="propT0">2π</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Frequency f</span>
+                        <span class="prop-val" id="propFreq">0.159 Hz</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Symmetry</span>
+                        <span class="prop-val" id="propSym">Odd</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Energy & Power Calculations -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>5. Energy & Power</h3>
+                </div>
+
+                <div class="control-group group-param">
+                    <label>Analysis Interval <span class="val-display" id="dispInterval">[-2π, 2π]</span></label>
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <input type="number" id="inputTstart" value="-6.28" placeholder="t_start" style="width:50%;">
+                        <input type="number" id="inputTend" value="6.28" placeholder="t_end" style="width:50%;">
+                    </div>
+                    <button onclick="calculateEnergyPower()" style="width:100%; padding:8px; background:rgba(74,222,128,0.2); border-color:var(--success); color:var(--success);">Calculate</button>
+                </div>
+
+                <ul class="prop-list">
+                    <li class="prop-item">
+                        <span>Energy E<sub>x</sub></span>
+                        <span class="prop-val" id="calcEnergy">-</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Power P<sub>x</sub></span>
+                        <span class="prop-val" id="calcPower">-</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Classification</span>
+                        <span class="prop-val" id="calcClass">-</span>
+                    </li>
+                </ul>
+
+                <div class="formula-box" style="font-size:0.85em; margin-top:10px;">
+                    Energy: \(E_x = \int_{t_1}^{t_2} |x(t)|^2 dt\)<br>
+                    Power: \(P_x = \frac{1}{t_2-t_1} \int_{t_1}^{t_2} |x(t)|^2 dt\)
+                </div>
+            </div>
+
+            <!-- Transformation Reference -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>6. Transformation Reference</h3>
+                </div>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Operation</th>
+                        <th>Formula</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Time Shift</strong></td>
+                        <td>\(y(t) = x(t-t_0)\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time Reversal</strong></td>
+                        <td>\(y(t) = x(-t)\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Time Scale</strong></td>
+                        <td>\(y(t) = x(at)\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amp Scale</strong></td>
+                        <td>\(y(t) = \beta x(t)\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amp Shift</strong></td>
+                        <td>\(y(t) = x(t) + x_0\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amp Reversal</strong></td>
+                        <td>\(y(t) = -x(t)\)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Canvas Setup
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // State
+        let currentSignal = 'sine';
+        let timeClass = 'continuous';
+        let amplClass = 'analog';
+        let determinism = 'deterministic';
+
+        let timeShift = 0;
+        let timeScale = 1.0;
+        let timeReversed = false;
+        let ampScale = 1.0;
+        let ampShift = 0;
+        let ampReversed = false;
+
+        let width, height;
+        const tMin = -8, tMax = 8;
+        const yMin = -3, yMax = 3;
+
+        // Signal Library
+        const signals = {
+            'sine': {
+                func: (t) => Math.sin(Math.PI * t),
+                name: 'Sine Wave x(t) = sin(πt)',
+                causal: false,
+                periodic: true,
+                period: 2,
+                frequency: 0.5,
+                symmetry: 'Odd'
+            },
+            'cosine': {
+                func: (t) => Math.cos(Math.PI * t),
+                name: 'Cosine Wave x(t) = cos(πt)',
+                causal: false,
+                periodic: true,
+                period: 2,
+                frequency: 0.5,
+                symmetry: 'Even'
+            },
+            'pulse': {
+                func: (t) => (t >= -1 && t <= 1) ? 1 : 0,
+                name: 'Rectangular Pulse',
+                causal: false,
+                periodic: false,
+                period: '∞',
+                frequency: '-',
+                symmetry: 'Even'
+            },
+            'step': {
+                func: (t) => (t >= 0) ? 1 : 0,
+                name: 'Unit Step u(t)',
+                causal: true,
+                periodic: false,
+                period: '∞',
+                frequency: '-',
+                symmetry: 'Neither'
+            },
+            'ramp': {
+                func: (t) => (t >= 0) ? t : 0,
+                name: 'Ramp r(t)',
+                causal: true,
+                periodic: false,
+                period: '∞',
+                frequency: '-',
+                symmetry: 'Neither'
+            }
+        };
+
+        // Canvas mapping
+        function mapT(t) { return ((t - tMin) / (tMax - tMin)) * width; }
+        function mapY(y) { return height - ((y - yMin) / (yMax - yMin)) * height; }
+
+        // Signal evaluation
+        function originalSignal(t) {
+            let y = signals[currentSignal].func(t);
+            // Add noise if stochastic
+            if(determinism === 'stochastic') y += (Math.random() - 0.5) * 0.3;
+            return y;
+        }
+
+        function transformedSignal(t) {
+            let t_arg = t * (timeReversed ? -timeScale : timeScale);
+            t_arg = t_arg + timeShift;
+            
+            let y = originalSignal(t_arg);
+            
+            if(ampReversed) y = -y;
+            y = ampScale * y + ampShift;
+            
+            return y;
+        }
+
+        // Drawing
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            drawGrid();
+            drawOriginal();
+            drawTransformed();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 1;
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#64748b';
+            ctx.font = '11px monospace';
+
+            const x0 = mapT(0);
+            const y0 = mapY(0);
+
+            ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(width, y0); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0, height); ctx.stroke();
+
+            for(let i = Math.ceil(tMin); i <= Math.floor(tMax); i++) {
+                const x = mapT(i);
+                ctx.beginPath(); ctx.moveTo(x, y0-4); ctx.lineTo(x, y0+4); ctx.stroke();
+                if(i !== 0) ctx.fillText(i, x, y0+15);
+            }
+        }
+
+        function drawOriginal() {
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 4]);
+            let first = true;
+            for(let t = tMin; t <= tMax; t += 0.05) {
+                let y = originalSignal(t);
+                if(y > 5) y = 5; if(y < -5) y = -5;
+                if(first) { ctx.moveTo(mapT(t), mapY(y)); first = false; }
+                else ctx.lineTo(mapT(t), mapY(y));
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawTransformed() {
+            ctx.beginPath();
+            ctx.strokeStyle = '#f472b6';
+            ctx.lineWidth = 3;
+            let first = true;
+            for(let t = tMin; t <= tMax; t += 0.05) {
+                let y = transformedSignal(t);
+                if(y > 5) y = 5; if(y < -5) y = -5;
+                if(first) { ctx.moveTo(mapT(t), mapY(y)); first = false; }
+                else ctx.lineTo(mapT(t), mapY(y));
+            }
+            ctx.stroke();
+        }
+
+        function queueMathRender(elements = []) {
+            if(window.MathJax && typeof MathJax.typesetPromise === 'function') {
+                MathJax.typesetPromise(elements);
+            }
+        }
+
+        // Tab switching
+        function switchClassTab(tab, button) {
+            document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            button.classList.add('active');
+            updateClassificationInfo();
+        }
+
+        // Classification functions
+        function setTimeClass(type) {
+            timeClass = type;
+            document.querySelectorAll('#btnContinuous, #btnDiscrete').forEach(e => e.classList.remove('active'));
+            document.getElementById('btn' + (type === 'continuous' ? 'Continuous' : 'Discrete')).classList.add('active');
+            updateClassificationInfo();
+        }
+
+        function setAmplClass(type) {
+            amplClass = type;
+            document.querySelectorAll('#btnAnalog, #btnDigital').forEach(e => e.classList.remove('active'));
+            document.getElementById('btn' + (type === 'analog' ? 'Analog' : 'Digital')).classList.add('active');
+            updateClassificationInfo();
+        }
+
+        function setDeterminism(type) {
+            determinism = type;
+            document.querySelectorAll('#btnDeterministic, #btnStochastic').forEach(e => e.classList.remove('active'));
+            document.getElementById('btn' + (type === 'deterministic' ? 'Deterministic' : 'Stochastic')).classList.add('active');
+            updateClassificationInfo();
+            draw();
+        }
+
+        function updateClassificationInfo() {
+            const timeDesc = timeClass === 'continuous' 
+                ? 'Defined for all t ∈ ℝ' 
+                : 'Defined at discrete time instants n ∈ ℤ';
+            document.getElementById('formulaTimeClass').innerHTML = 
+                timeClass === 'continuous' 
+                    ? '$$x(t), \\quad t \\in \\mathbb{R}$$' + timeDesc
+                    : '$$x[n], \\quad n \\in \\mathbb{Z}$$' + timeDesc;
+
+            const amplDesc = amplClass === 'analog'
+                ? 'Amplitude takes all real values in an interval'
+                : 'Amplitude takes discrete values from finite set';
+            document.getElementById('formulaAmplClass').innerHTML = 
+                amplClass === 'analog'
+                    ? 'Continuous amplitude: $$x(t) \\in \\mathbb{R}$$' + amplDesc
+                    : 'Discrete amplitude (Quantized): $$x(t) \\in \\{0, 1, 2, ...\\}$$' + amplDesc;
+
+            const determDesc = determinism === 'deterministic'
+                ? 'Deterministic: $$x(t) = f(t)$$'
+                : 'Stochastic: $$x(t) = f(t) + w(t)$$';
+            document.getElementById('formulaDeterminism').innerHTML = determDesc;
+
+            updateProperties();
+            queueMathRender([
+                document.getElementById('formulaTimeClass'),
+                document.getElementById('formulaAmplClass'),
+                document.getElementById('formulaDeterminism')
+            ]);
+        }
+
+        function setSignal(type) {
+            currentSignal = type;
+            document.querySelectorAll('.btn-grid button').forEach((b, i) => {
+                if(b.id.includes('Sine') || b.id.includes('Cosine') || b.id.includes('Pulse') || 
+                   b.id.includes('Step') || b.id.includes('Ramp')) {
+                    b.classList.remove('active');
+                }
+            });
+            document.getElementById('btn' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active');
+            updateProperties();
+            draw();
+        }
+
+        function updateProperties() {
+            const sig = signals[currentSignal];
+            document.getElementById('propClass').innerText = timeClass === 'continuous' ? 'Continuous' : 'Discrete';
+            document.getElementById('propDeterm').innerText = determinism === 'deterministic' ? 'Deterministic' : 'Stochastic';
+            document.getElementById('propCausal').innerText = sig.causal ? 'Causal' : 'Non-Causal';
+            document.getElementById('propPeriodic').innerText = sig.periodic ? 'Periodic' : 'Aperiodic';
+            document.getElementById('propT0').innerText = typeof sig.period === 'number' ? (Math.PI * sig.period).toFixed(2) : '∞';
+            document.getElementById('propFreq').innerText = typeof sig.frequency === 'number' ? sig.frequency.toFixed(3) + ' Hz' : '-';
+            document.getElementById('propSym').innerText = sig.symmetry;
+
+            // Update badges
+            let badges = '';
+            if(sig.periodic) badges += '<span class="badge badge-periodic">Periodic</span>';
+            if(sig.causal) badges += '<span class="badge badge-causal">Causal</span>';
+            if(sig.symmetry === 'Even') badges += '<span class="badge badge-even">Even Symmetry</span>';
+            if(sig.symmetry === 'Odd') badges += '<span class="badge badge-even">Odd Symmetry</span>';
+            document.getElementById('propertiesBadges').innerHTML = badges;
+        }
+
+        // Transformation handlers
+        document.getElementById('sliderT0').addEventListener('input', (e) => {
+            timeShift = parseFloat(e.target.value);
+            document.getElementById('dispT0').innerText = timeShift.toFixed(2);
+            updateTransformFormula();
+            draw();
+        });
+
+        document.getElementById('sliderA').addEventListener('input', (e) => {
+            timeScale = parseFloat(e.target.value);
+            document.getElementById('dispA').innerText = timeScale.toFixed(2);
+            updateTransformFormula();
+            draw();
+        });
+
+        document.getElementById('sliderBeta').addEventListener('input', (e) => {
+            ampScale = parseFloat(e.target.value);
+            document.getElementById('dispBeta').innerText = ampScale.toFixed(2);
+            updateTransformFormula();
+            draw();
+        });
+
+        document.getElementById('sliderX0').addEventListener('input', (e) => {
+            ampShift = parseFloat(e.target.value);
+            document.getElementById('dispX0').innerText = ampShift.toFixed(2);
+            updateTransformFormula();
+            draw();
+        });
+
+        function toggleTimeRev() {
+            timeReversed = document.getElementById('checkTimeRev').checked;
+            updateTransformFormula();
+            draw();
+        }
+
+        function toggleAmpRev() {
+            ampReversed = document.getElementById('checkAmpRev').checked;
+            updateTransformFormula();
+            draw();
+        }
+
+        function updateTransformFormula() {
+            let ampPart = '';
+            if(ampReversed) ampPart = '-';
+            if(ampScale !== 1.0) ampPart += ampScale.toFixed(2);
+            if(ampPart === '') ampPart = '1';
+            
+            let timePart = '';
+            if(timeReversed) timePart = '-';
+            if(timeScale !== 1.0) timePart += timeScale.toFixed(2);
+            timePart += 't';
+            if(timeShift !== 0) timePart += (timeShift > 0 ? ' + ' : ' - ') + Math.abs(timeShift).toFixed(2);
+            
+            document.getElementById('transformFormula').innerHTML = '$$y(t) = ' + ampPart + ' \\cdot x(' + timePart + ')' + (ampShift !== 0 ? (ampShift > 0 ? ' + ' : ' - ') + Math.abs(ampShift).toFixed(2) : '') + '$$';
+            queueMathRender([document.getElementById('transformFormula')]);
+        }
+
+        function resetAllTransforms() {
+            timeShift = 0;
+            timeScale = 1.0;
+            timeReversed = false;
+            ampScale = 1.0;
+            ampShift = 0;
+            ampReversed = false;
+
+            document.getElementById('sliderT0').value = 0;
+            document.getElementById('dispT0').innerText = '0';
+            document.getElementById('sliderA').value = 1;
+            document.getElementById('dispA').innerText = '1.0';
+            document.getElementById('sliderBeta').value = 1;
+            document.getElementById('dispBeta').innerText = '1.0';
+            document.getElementById('sliderX0').value = 0;
+            document.getElementById('dispX0').innerText = '0';
+            document.getElementById('checkTimeRev').checked = false;
+            document.getElementById('checkAmpRev').checked = false;
+
+            updateTransformFormula();
+            draw();
+        }
+
+        function calculateEnergyPower() {
+            const t_start = parseFloat(document.getElementById('inputTstart').value);
+            const t_end = parseFloat(document.getElementById('inputTend').value);
+            
+            let energy = 0;
+            const dt = 0.01;
+            for(let t = t_start; t <= t_end; t += dt) {
+                const y = transformedSignal(t);
+                energy += y * y * dt;
+            }
+            
+            const power = (t_end - t_start) > 0 ? energy / (t_end - t_start) : 0;
+            
+            document.getElementById('calcEnergy').innerText = energy.toFixed(4);
+            document.getElementById('calcPower').innerText = power.toFixed(6);
+            document.getElementById('calcClass').innerText = energy < 1 ? 'Energy Signal' : 'Power Signal';
+        }
+
+        // Init
+        function resize() {
+            width = document.querySelector('.canvas-container').clientWidth;
+            height = 350;
+            canvas.width = width;
+            canvas.height = height;
+            draw();
+        }
+
+        window.addEventListener('resize', resize);
+        
+        resize();
+        updateClassificationInfo();
+        updateTransformFormula();
+
+    </script>
+</body>
+</html>

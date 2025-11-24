@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTI Systems & Properties Explorer</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+            --accent: #38bdf8;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --canvas-bg: #020617;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { margin-top: 0; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+
+        @media (max-width: 1000px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .canvas-container {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--canvas-bg);
+            margin-bottom: 15px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 350px;
+            display: block;
+        }
+
+        .math-overlay {
+            background: rgba(56, 189, 248, 0.1); 
+            border: 1px solid var(--border); 
+            padding: 15px; 
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-group {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .val-display {
+            float: right;
+            color: var(--text);
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+        }
+
+        button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        button:hover { background: rgba(255,255,255,0.1); }
+
+        button.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);
+        }
+
+        .prop-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prop-item {
+            display: TableLayout;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9em;
+        }
+
+        .prop-item:last-child { border-bottom: none; }
+
+        .prop-val {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .prop-val.pass { color: var(--success); }
+        .prop-val.fail { color: var(--danger); }
+
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-family: monospace;
+        }
+
+        .test-pass { background: rgba(74, 222, 128, 0.1); color: var(--success); }
+        .test-fail { background: rgba(248, 113, 113, 0.1); color: var(--danger); }
+
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center; margin-bottom:30px;">🔬 LTI Systems & Properties Explorer</h1>
+
+    <div class="main-grid">
+        
+        <div>
+            <div class="card">
+                <div class="section-header">
+                    <h3>System Response Visualization</h3>
+                    <small style="color:#94a3b8;">y(t) = System[x(t)]</small>
+                </div>
+                
+                <div class="canvas-container">
+                    <canvas id="mainCanvas"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">
+                    <h3>1. Select System Type</h3>
+                </div>
+
+                <div class="math-overlay" id="eqOverlay">
+                    $$y(t) = f(x(t))$$
+                </div>
+
+                <div class="btn-grid">
+                    <button onclick="setSystem('linear')" id="btnLinear" class="active">
+                        Linear<br><small style="opacity:0.7">y=ax+b</small>
+                    </button>
+                    <button onclick="setSystem('nonlinear')" id="btnNonlinear">
+                        Non-Linear<br><small style="opacity:0.7">y=x²</small>
+                    </button>
+                    <button onclick="setSystem('timeinvariant')" id="btnTimeinvariant">
+                        Time Variant<br><small style="opacity:0.7">y=tx</small>
+                    </button>
+                    <button onclick="setSystem('amplifier')" id="btnAmplifier">
+                        Amplifier<br><small style="opacity:0.7">y=A·sin</small>
+                    </button>
+                </div>
+
+                <div class="btn-grid" style="margin-top:10px;">
+                    <button onclick="setSystem('dynamic')" id="btnDynamic">
+                        Dynamic<br><small style="opacity:0.7">Memory</small>
+                    </button>
+                    <button onclick="setSystem('stable')" id="btnStable">
+                        Stable<br><small style="opacity:0.7">BIBO</small>
+                    </button>
+                    <button onclick="setSystem('causal')" id="btnCausal">
+                        Causal<br><small style="opacity:0.7">No Future</small>
+                    </button>
+                    <button onclick="setSystem('unstable')" id="btnUnstable">
+                        Unstable<br><small style="opacity:0.7">Diverging</small>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">
+                    <h3>2. Adjust Parameters</h3>
+                </div>
+
+                <div class="control-group">
+                    <label>Scaling Factor (A) <span class="val-display" id="dispA">2.0</span></label>
+                    <input type="range" id="sliderA" min="0.5" max="4" step="0.1" value="2">
+                </div>
+
+                <div class="control-group">
+                    <label>Time Delay (τ) <span class="val-display" id="dispDelay">0</span></label>
+                    <input type="range" id="sliderDelay" min="-3" max="3" step="0.1" value="0">
+                    <small style="color:#64748b;">Tests time-invariance (shifts t)</small>
+                </div>
+
+                <div class="control-group">
+                    <label>Amplitude Offset (b) <span class="val-display" id="dispOffset">0</span></label>
+                    <input type="range" id="sliderOffset" min="-2" max="2" step="0.1" value="0">
+                </div>
+
+                <button onclick="resetParams()" style="width:100%; margin-top:10px;">Reset Parameters</button>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="section-header">
+                    <h3>3. System Properties</h3>
+                </div>
+
+                <ul class="prop-list">
+                    <li class="prop-item">
+                        <span>Linearity</span>
+                        <span class="prop-val fail" id="propLinear">✗ Non-Linear</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Time Invariance</span>
+                        <span class="prop-val fail" id="propTI">✗ Time-Variant</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Causality</span>
+                        <span class="prop-val pass" id="propCausal">✓ Causal</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Memory</span>
+                        <span class="prop-val" id="propMemory">Static</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Stability (BIBO)</span>
+                        <span class="prop-val pass" id="propStable">✓ Stable</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Classification</span>
+                        <span class="prop-val" id="propClass">—</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card" style="text-align:center; background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.2);">
+                <h4 style="margin:0; color: var(--success);">Is this System LTI?</h4>
+                <div style="font-size:2em; font-weight:bold; color: var(--danger); margin:10px 0;" id="ltiStatus">✗ NO</div>
+                <small style="color:#94a3b8;">
+                    LTI requires: <strong>Linear</strong> AND <strong>Time-Invariant</strong>
+                </small>
+            </div>
+
+            <div class="card">
+                <div class="section-header">
+                    <h3>4. Verification Tests</h3>
+                </div>
+
+                <div style="margin-bottom:15px;">
+                    <button onclick="testLinearity()" style="width:100%; margin-bottom:5px;">Test Linearity</button>
+                    <div id="linearityResult" style="display:none;"></div>
+                </div>
+
+                <div style="margin-bottom:15px;">
+                    <button onclick="testTimeInvariance()" style="width:100%; margin-bottom:5px;">Test Time Invariance</button>
+                    <div id="tiResult" style="display:none;"></div>
+                </div>
+
+                <div style="margin-bottom:15px;">
+                    <button onclick="testStability()" style="width:100%; margin-bottom:5px;">Test BIBO Stability</button>
+                    <div id="stabilityResult" style="display:none;"></div>
+                </div>
+
+                <div>
+                    <button onclick="testCausality()" style="width:100%; margin-bottom:5px;">Test Causality</button>
+                    <div id="causalityResult" style="display:none;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">
+                    <h3>📚 Property Reference</h3>
+                </div>
+
+                <div style="font-size:0.85em; color:#cbd5e1; line-height:1.6;">
+                    <strong style="color:var(--accent);">Linearity:</strong><br>
+                    α·x₁(t) + β·x₂(t) → α·y₁(t) + β·y₂(t)<br><br>
+
+                    <strong style="color:var(--accent);">Time Invariance:</strong><br>
+                    x(t-t₀) → y(t-t₀) (shift in = shift out)<br><br>
+
+                    <strong style="color:var(--accent);">Causality:</strong><br>
+                    y(t) depends only on x(τ), τ ≤ t<br><br>
+
+                    <strong style="color:var(--accent);">BIBO Stability:</strong><br>
+                    |x(t)| ≤ M → |y(t)| ≤ N
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const eqOverlay = document.getElementById('eqOverlay');
+
+        let currentSystem = 'linear';
+        let scaleFactor = 2.0;
+        let timeDelay = 0;
+        let ampOffset = 0;
+
+        const defaultParams = Object.freeze({ scale: 2.0, delay: 0, offset: 0 });
+        let baselinePoints = [];
+
+        const tMin = -6, tMax = 6;
+        const yMin = -4, yMax = 4;
+
+        function fmtVal(val) { return Math.abs(val).toFixed(1); }
+        function fmtOffset(val) { 
+            if (Math.abs(val) < 0.05) return ''; 
+            return (val > 0 ? ' + ' : ' - ') + fmtVal(val); 
+        }
+        function fmtDelay(val) {
+            if (Math.abs(val) < 0.05) return '';
+            return (val > 0 ? '-' : '+') + fmtVal(val);
+        }
+
+        const systems = {
+            'linear': {
+                name: 'Linear System',
+                func: (t, a, tau, b) => a * (t - tau) + b,
+                eqDisplay: (a, tau, b) => `y(t) = ${a.toFixed(1)} \\cdot (t${fmtDelay(tau)}) ${fmtOffset(b)}`,
+                props: { linear: true, ti: true, causal: true, memory: 'Static', stable: true, class: 'LTI' }
+            },
+            'nonlinear': {
+                name: 'Non-Linear System (Squaring)',
+                func: (t, a, tau, b) => Math.pow(t - tau, 2) + b,
+                eqDisplay: (a, tau, b) => `y(t) = (t${fmtDelay(tau)})^2 ${fmtOffset(b)}`,
+                props: { linear: false, ti: true, causal: true, memory: 'Static', stable: false, class: 'TI (Not LTI)' }
+            },
+            'timeinvariant': {
+                name: 'Time-Variant System',
+                func: (t, a, tau, b) => (t) * (t - tau) + b,
+                eqDisplay: (a, tau, b) => `y(t) = t \\cdot x(t) ${fmtOffset(b)}`,
+                props: { linear: true, ti: false, causal: true, memory: 'Static', stable: false, class: 'Linear (Not LTI)' }
+            },
+            'amplifier': {
+                name: 'Amplifier System',
+                func: (t, a, tau, b) => a * Math.sin(Math.PI * (t - tau)) + b,
+                eqDisplay: (a, tau, b) => `y(t) = ${a.toFixed(1)} \\cdot \\sin(\\pi (t${fmtDelay(tau)})) ${fmtOffset(b)}`,
+                props: { linear: true, ti: true, causal: true, memory: 'Static', stable: true, class: 'LTI' }
+            },
+            'dynamic': {
+                name: 'Dynamic System (with Memory)',
+                func: (t, a, tau, b) => {
+                    let sum = 0;
+                    for(let s = -6; s < t - tau; s += 0.2) sum += Math.sin(Math.PI * s) * 0.2;
+                    return (sum / 5) + b;
+                },
+                eqDisplay: (a, tau, b) => `y(t) = \\int_{-\\infty}^{t} x(\\tau) d\\tau ${fmtOffset(b)}`,
+                props: { linear: true, ti: true, causal: true, memory: 'Infinite', stable: false, class: 'LTI (Marginally)' }
+            },
+            'stable': {
+                name: 'Stable System (Exponential Decay)',
+                func: (t, a, tau, b) => a * Math.exp(-0.5 * Math.abs(t - tau)) * Math.sin(Math.PI * (t - tau)) + b,
+                eqDisplay: (a, tau, b) => `y(t) = ${a.toFixed(1)} \\cdot e^{-0.5|t${fmtDelay(tau)}|} \\cdot \\sin(\\pi t) ${fmtOffset(b)}`,
+                props: { linear: false, ti: true, causal: true, memory: 'Static', stable: true, class: 'TI-Stable' }
+            },
+            'causal': {
+                name: 'Causal System (No Future)',
+                func: (t, a, tau, b) => (t >= tau) ? a * Math.sin(Math.PI * (t - tau)) + b : 0,
+                eqDisplay: (a, tau, b) => `y(t) = \\begin{cases} ${a.toFixed(1)}\\sin(\\pi(t${fmtDelay(tau)})) & t \\geq \\tau \\\\ 0 & t < \\tau \\end{cases}`,
+                props: { linear: false, ti: true, causal: true, memory: 'Static', stable: true, class: 'Causal' }
+            },
+            'unstable': {
+                name: 'Unstable System (Exponential Growth)',
+                func: (t, a, tau, b) => a * Math.exp(0.3 * Math.abs(t - tau)) * Math.sin(0.5 * Math.PI * (t - tau)) + b,
+                eqDisplay: (a, tau, b) => `y(t) = ${a.toFixed(1)} \\cdot e^{0.3|t|} \\cdot \\sin(0.5\\pi t) ${fmtOffset(b)}`,
+                props: { linear: false, ti: true, causal: false, memory: 'Static', stable: false, class: 'Unstable' }
+            }
+        };
+
+        function mapT(t) { return ((t - tMin) / (tMax - tMin)) * canvas.offsetWidth; }
+        function mapY(y) { return canvas.offsetHeight - ((y - yMin) / (yMax - yMin)) * canvas.offsetHeight; }
+
+        function computeBaselinePoints(type) {
+            const sys = systems[type];
+            const points = [];
+            if(!sys) return points;
+            for(let t = tMin; t <= tMax; t += 0.05) {
+                let y = sys.func(t, defaultParams.scale, defaultParams.delay, defaultParams.offset);
+                if(y > 10) y = 10;
+                if(y < -10) y = -10;
+                points.push({ t, y });
+            }
+            return points;
+        }
+
+        function systemOutput(t) {
+            return systems[currentSystem].func(t, scaleFactor, timeDelay, ampOffset);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+            drawGrid();
+
+            if (baselinePoints.length) {
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.5)';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([6, 4]);
+                baselinePoints.forEach((pt, idx) => {
+                    const x = mapT(pt.t);
+                    const y = mapY(pt.y);
+                    if(idx === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#f472b6';
+            ctx.lineWidth = 3;
+            let first = true;
+            for(let t = tMin; t <= tMax; t += 0.03) {
+                let y = systemOutput(t);
+                if(y > 10) y = 10; if(y < -10) y = -10;
+                if(first) { ctx.moveTo(mapT(t), mapY(y)); first = false; }
+                else { ctx.lineTo(mapT(t), mapY(y)); }
+            }
+            ctx.stroke();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 1;
+            const x0 = mapT(0);
+            const y0 = mapY(0);
+
+            ctx.beginPath(); ctx.moveTo(0, y0); ctx.lineTo(canvas.offsetWidth, y0); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x0, canvas.offsetHeight); ctx.stroke();
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = '11px monospace';
+            ctx.textAlign = 'center';
+            for(let i = Math.ceil(tMin); i <= Math.floor(tMax); i++) {
+                if(i===0) continue;
+                const x = mapT(i);
+                ctx.beginPath(); ctx.moveTo(x, y0-4); ctx.lineTo(x, y0+4); ctx.stroke();
+                ctx.fillText(i, x, y0+16);
+            }
+        }
+
+        function setSystem(type) {
+            currentSystem = type;
+            document.querySelectorAll('.btn-grid button').forEach(b => b.classList.remove('active'));
+            const btnId = 'btn' + type.charAt(0).toUpperCase() + type.slice(1);
+            const btn = document.getElementById(btnId);
+            if(btn) btn.classList.add('active');
+            baselinePoints = computeBaselinePoints(type);
+            updateUI();
+        }
+
+        function updateUI() {
+            const sys = systems[currentSystem];
+            
+            document.getElementById('propLinear').textContent = sys.props.linear ? '✓ Linear' : '✗ Non-Linear';
+            document.getElementById('propLinear').className = 'prop-val ' + (sys.props.linear ? 'pass' : 'fail');
+            
+            document.getElementById('propTI').textContent = sys.props.ti ? '✓ Time-Invariant' : '✗ Time-Variant';
+            document.getElementById('propTI').className = 'prop-val ' + (sys.props.ti ? 'pass' : 'fail');
+            
+            document.getElementById('propCausal').textContent = sys.props.causal ? '✓ Causal' : '✗ Non-Causal';
+            document.getElementById('propCausal').className = 'prop-val ' + (sys.props.causal ? 'pass' : 'fail');
+            
+            document.getElementById('propMemory').textContent = sys.props.memory;
+            document.getElementById('propStable').textContent = sys.props.stable ? '✓ Stable (BIBO)' : '✗ Unstable';
+            document.getElementById('propStable').className = 'prop-val ' + (sys.props.stable ? 'pass' : 'fail');
+            
+            document.getElementById('propClass').textContent = sys.props.class;
+
+            const isLTI = sys.props.linear && sys.props.ti;
+            document.getElementById('ltiStatus').textContent = isLTI ? '✓ YES - LTI' : '✗ NO';
+            document.getElementById('ltiStatus').style.color = isLTI ? 'var(--success)' : 'var(--danger)';
+
+            const eqStr = sys.eqDisplay(scaleFactor, timeDelay, ampOffset);
+            eqOverlay.innerHTML = '$$' + eqStr + '$$';
+            if(window.MathJax) MathJax.typesetPromise([eqOverlay]);
+
+            document.querySelectorAll('.test-result').forEach(el => el.style.display = 'none');
+
+            draw();
+        }
+
+        document.getElementById('sliderA').addEventListener('input', (e) => {
+            scaleFactor = parseFloat(e.target.value);
+            document.getElementById('dispA').textContent = scaleFactor.toFixed(1);
+            updateUI();
+        });
+
+        document.getElementById('sliderDelay').addEventListener('input', (e) => {
+            timeDelay = parseFloat(e.target.value);
+            document.getElementById('dispDelay').textContent = (timeDelay > 0 ? '+' : '') + timeDelay.toFixed(1);
+            updateUI();
+        });
+
+        document.getElementById('sliderOffset').addEventListener('input', (e) => {
+            ampOffset = parseFloat(e.target.value);
+            document.getElementById('dispOffset').textContent = (ampOffset > 0 ? '+' : '') + ampOffset.toFixed(1);
+            updateUI();
+        });
+
+        function resetParams() {
+            scaleFactor = defaultParams.scale;
+            timeDelay = defaultParams.delay;
+            ampOffset = defaultParams.offset;
+            document.getElementById('sliderA').value = defaultParams.scale;
+            document.getElementById('sliderDelay').value = defaultParams.delay;
+            document.getElementById('sliderOffset').value = defaultParams.offset;
+            document.getElementById('dispA').textContent = defaultParams.scale.toFixed(1);
+            document.getElementById('dispDelay').textContent = '0';
+            document.getElementById('dispOffset').textContent = '0';
+            updateUI();
+        }
+
+        function testLinearity() {
+            const result = document.getElementById('linearityResult');
+            const sys = systems[currentSystem];
+            result.className = 'test-result ' + (sys.props.linear ? 'test-pass' : 'test-fail');
+            result.textContent = sys.props.linear ? 
+                '✓ PASS: Superposition holds: f(ax+by) = a·f(x) + b·f(y)' :
+                '✗ FAIL: Superposition violated';
+            result.style.display = 'block';
+        }
+
+        function testTimeInvariance() {
+            const result = document.getElementById('tiResult');
+            const sys = systems[currentSystem];
+            result.className = 'test-result ' + (sys.props.ti ? 'test-pass' : 'test-fail');
+            result.textContent = sys.props.ti ? 
+                '✓ PASS: Shifted input results in shifted output' :
+                '✗ FAIL: System depends on absolute time t';
+            result.style.display = 'block';
+        }
+
+        function testStability() {
+            const result = document.getElementById('stabilityResult');
+            const sys = systems[currentSystem];
+            result.className = 'test-result ' + (sys.props.stable ? 'test-pass' : 'test-fail');
+            result.textContent = sys.props.stable ? 
+                '✓ PASS: Bounded Input yields Bounded Output' :
+                '✗ FAIL: Output grows to infinity';
+            result.style.display = 'block';
+        }
+
+        function testCausality() {
+            const result = document.getElementById('causalityResult');
+            const sys = systems[currentSystem];
+            result.className = 'test-result ' + (sys.props.causal ? 'test-pass' : 'test-fail');
+            result.textContent = sys.props.causal ? 
+                '✓ PASS: Output depends only on past/present' :
+                '✗ FAIL: Output depends on future values';
+            result.style.display = 'block';
+        }
+
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 350;
+            draw();
+        }
+        window.addEventListener('resize', resize);
+        
+        setSystem('linear');
+        resize();
+
+    </script>
+</body>
+</html>

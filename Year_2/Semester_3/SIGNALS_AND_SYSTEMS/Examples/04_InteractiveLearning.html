@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT Systems Properties Dashboard</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+            --accent: #38bdf8;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --canvas-bg: #020617;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { margin-top: 0; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .canvas-container {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--canvas-bg);
+        }
+
+        canvas {
+            width: 100%;
+            height: 350px;
+            display: block;
+        }
+
+        .math-overlay {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(4px);
+            font-size: 0.95em;
+            max-width: 90%;
+            z-index: 10;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-group {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid transparent;
+        }
+
+        .group-linearity { border-color: #ec4899; }
+        .group-causality { border-color: #f59e0b; }
+        .group-ti { border-color: #38bdf8; }
+        .group-stability { border-color: #4ade80; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .val-display {
+            float: right;
+            color: var(--text);
+            font-family: monospace;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+        }
+
+        button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85em;
+        }
+
+        button:hover { background: rgba(255,255,255,0.1); }
+
+        button.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .prop-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prop-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9em;
+        }
+
+        .prop-item:last-child { border-bottom: none; }
+
+        .prop-val {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .badge-linear { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+        .badge-nonlinear { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .badge-causal { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .badge-noncausal { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+        .badge-ti { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .badge-tv { background: rgba(251, 158, 11, 0.2); color: #fbbf24; }
+        .badge-stable { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .badge-unstable { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+
+        .formula-box {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .three-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .three-grid { grid-template-columns: 1fr; }
+        }
+
+        .test-input {
+            background: rgba(255,255,255,0.02);
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin: 10px 0;
+        }
+
+        small { color: #64748b; }
+
+    </style>
+</head>
+<body>
+
+    <h1 style="text-align:center; margin-bottom:10px;">CT Systems Properties Analysis Dashboard</h1>
+    <p style="text-align:center; color:#94a3b8; margin-bottom:30px;">Explore linearity, causality, time-invariance, and stability</p>
+
+    <!-- Top: System Selection -->
+    <div class="card" style="margin-bottom:20px;">
+        <div class="section-header">
+            <h3>1. Select a System Model</h3>
+        </div>
+        <div class="control-group group-ti">
+            <div class="btn-grid">
+                <button onclick="selectSystem('amplifier')" id="btnAmp" class="active">Amplifier</button>
+                <button onclick="selectSystem('delay')" id="btnDelay">Delay</button>
+                <button onclick="selectSystem('derivative')" id="btnDeriv">Differentiator</button>
+                <button onclick="selectSystem('integral')" id="btnInteg">Integrator</button>
+                <button onclick="selectSystem('quadratic')" id="btnQuad">Quadratic (NL)</button>
+                <button onclick="selectSystem('future')" id="btnFuture">Future Ref (NC)</button>
+                <button onclick="selectSystem('timevar')" id="btnTimeVar">Time-Variant</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <!-- Left Column: Visualization & Test Input -->
+        <div>
+            <div class="card">
+                <div class="section-header">
+                    <h3>Input Signal Visualization</h3>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="mainCanvas"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header">
+                    <h3>Output Signal</h3>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="outputCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Analysis & Properties -->
+        <div>
+            <!-- System Properties Panel -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>2. System Properties</h3>
+                </div>
+
+                <div class="control-group group-linearity">
+                    <label>Linearity</label>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <span class="status-badge" id="badgeLinear"></span>
+                        <span id="propLinear" style="flex:1; color:#cbd5e1;"></span>
+                    </div>
+                </div>
+
+                <div class="control-group group-causality">
+                    <label>Causality</label>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <span class="status-badge" id="badgeCausal"></span>
+                        <span id="propCausal" style="flex:1; color:#cbd5e1;"></span>
+                    </div>
+                </div>
+
+                <div class="control-group group-ti">
+                    <label>Time-Invariance</label>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <span class="status-badge" id="badgeTI"></span>
+                        <span id="propTI" style="flex:1; color:#cbd5e1;"></span>
+                    </div>
+                </div>
+
+                <div class="control-group group-stability">
+                    <label>Stability</label>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <span class="status-badge" id="badgeStable"></span>
+                        <span id="propStable" style="flex:1; color:#cbd5e1;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formula & Definition -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>3. Mathematical Model</h3>
+                </div>
+                <div class="formula-box" id="formulaBox">
+                    $$y(t) = a \cdot x(t)$$
+                </div>
+                <p style="font-size:0.85em; color:#94a3b8;" id="descBox">
+                    Scaling system: output is the input scaled by constant factor.
+                </p>
+            </div>
+
+            <!-- System Definition & Properties -->
+            <div class="card">
+                <div class="section-header">
+                    <h3>4. Detailed Analysis</h3>
+                </div>
+                <ul class="prop-list" id="detailsList">
+                    <li class="prop-item">
+                        <span>Classification</span>
+                        <span class="prop-val" id="detClass">-</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Input-Output Type</span>
+                        <span class="prop-val" id="detIO">-</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Memory</span>
+                        <span class="prop-val" id="detMemory">-</span>
+                    </li>
+                    <li class="prop-item">
+                        <span>Application Domain</span>
+                        <span class="prop-val" id="detApp">-</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Signals Section -->
+    <div class="card">
+        <div class="section-header">
+            <h3>5. Superposition Test (Linear Systems)</h3>
+        </div>
+        <div class="three-grid">
+            <div class="control-group">
+                <label>Test Signal 1 Weight (a) <span class="val-display" id="dispA1">1.0</span></label>
+                <input type="range" id="sliderA1" min="0" max="2" step="0.1" value="1.0">
+                <small>Scaling coefficient for first input</small>
+            </div>
+
+            <div class="control-group">
+                <label>Test Signal 2 Weight (b) <span class="val-display" id="dispA2">1.0</span></label>
+                <input type="range" id="sliderA2" min="0" max="2" step="0.1" value="1.0">
+                <small>Scaling coefficient for second input</small>
+            </div>
+
+            <div class="control-group">
+                <label>Time Delay (t₀) <span class="val-display" id="dispDelay">0</span></label>
+                <input type="range" id="sliderDelay" min="0" max="3" step="0.1" value="0">
+                <small>For testing time-invariance</small>
+            </div>
+        </div>
+
+        <div class="test-input" style="margin-top:15px;">
+            <p style="margin:0; font-weight:600; color:var(--accent);">Superposition Result:</p>
+            <div id="supResult" style="margin:5px 0; color:#cbd5e1;"></div>
+            <p style="margin:5px 0; font-size:0.85em; color:#64748b;">
+                Test: Does this equal $$S[a_1 \cdot x_1(t) + a_2 \cdot x_2(t)]$$?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const outputCanvas = document.getElementById('outputCanvas');
+        const outCtx = outputCanvas.getContext('2d');
+        const formulaBox = document.getElementById('formulaBox');
+        const descBox = document.getElementById('descBox');
+        const supResult = document.getElementById('supResult');
+
+        let currentSystem = 'amplifier';
+        let a1 = 1.0, a2 = 1.0, delayVal = 0;
+
+        const systems = {
+            'amplifier': {
+                name: 'Amplifier',
+                formula: 'y(t) = 2 \\cdot x(t)',
+                desc: 'Scaling system: amplifies input by factor of 2.',
+                func: (t, x) => 2 * x,
+                linear: true, causal: true, ti: true, stable: true,
+                io: 'SISO', memory: 'Static', app: 'Signal amplification',
+                classification: 'Linear, Causal, Time-Invariant, Stable',
+                test: (a, b) => `y(t) = 2(a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t)) = a_1 \\cdot 2 \\cdot x_1(t) + a_2 \\cdot 2 \\cdot x_2(t) \\, ✓`
+            },
+            'delay': {
+                name: 'Delay System',
+                formula: 'y(t) = x(t - 2)',
+                desc: 'Introduces fixed 2-unit time delay to input signal.',
+                func: (t, x, inputFunc) => inputFunc ? inputFunc(t - 2) : 0,
+                linear: true, causal: true, ti: true, stable: true,
+                io: 'SISO', memory: 'Dynamic', app: 'Signal transmission',
+                classification: 'Linear, Causal, Time-Invariant, Stable',
+                test: (a, b) => `y(t) = a_1 \\cdot x_1(t-2) + a_2 \\cdot x_2(t-2) \\, ✓`
+            },
+            'derivative': {
+                name: 'Differentiator',
+                formula: '\\frac{dy}{dt} = \\frac{dx}{dt}',
+                desc: 'Outputs the time derivative of input signal.',
+                func: (t, x, inputFunc, h = 0.01) => inputFunc ? (inputFunc(t + h) - inputFunc(t - h)) / (2 * h) : 0,
+                linear: true, causal: true, ti: true, stable: false,
+                io: 'SISO', memory: 'Dynamic', app: 'Differentiation, edge detection',
+                classification: 'Linear, Causal, Time-Invariant, UNSTABLE (noise amplification)',
+                test: (a, b) => `y(t) = a_1 \\cdot \\frac{dx_1}{dt} + a_2 \\cdot \\frac{dx_2}{dt} \\, ✓`
+            },
+            'integral': {
+                name: 'Integrator',
+                formula: 'y(t) = \\int_{-\\infty}^{t} x(\\tau)d\\tau',
+                desc: 'Integrates input signal from past to present.',
+                func: (t, x) => x * 0.5,  // Approximation
+                linear: true, causal: true, ti: true, stable: false,
+                io: 'SISO', memory: 'Dynamic', app: 'Integration, accumulation',
+                classification: 'Linear, Causal, Time-Invariant, UNSTABLE (unbounded)',
+                test: (a, b) => `y(t) = a_1 \\cdot \\int x_1(\\tau)d\\tau + a_2 \\cdot \\int x_2(\\tau)d\\tau \\, ✓`
+            },
+            'quadratic': {
+                name: 'Quadratic (Nonlinear)',
+                formula: 'y(t) = x^2(t)',
+                desc: 'Nonlinear system: output is square of input.',
+                func: (t, x) => x * x,
+                linear: false, causal: true, ti: true, stable: true,
+                io: 'SISO', memory: 'Static', app: 'Envelope detection, modulation',
+                classification: 'Nonlinear, Causal, Time-Invariant, Stable',
+                test: (a, b) => `y(t) = (a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t))^2 \\neq a_1 \\cdot x_1^2(t) + a_2 \\cdot x_2^2(t) \\, ✗`
+            },
+            'future': {
+                name: 'Future Reference',
+                formula: 'y(t) = x(t + 1)',
+                desc: 'Non-causal: output depends on future input value.',
+                func: (t, x, inputFunc) => inputFunc ? inputFunc(t + 1) : 0,
+                linear: true, causal: false, ti: true, stable: true,
+                io: 'SISO', memory: 'Dynamic', app: 'Preview systems, offline processing',
+                classification: 'Linear, NON-CAUSAL, Time-Invariant, Stable',
+                test: (a, b) => `y(t) = a_1 \\cdot x_1(t+1) + a_2 \\cdot x_2(t+1) \\, ✓`
+            },
+            'timevar': {
+                name: 'Time-Variant',
+                formula: 'y(t) = t \\cdot x(t)',
+                desc: 'System output is scaled by time itself.',
+                func: (t, x) => t * x,
+                linear: true, causal: true, ti: false, stable: true,
+                io: 'SISO', memory: 'Static', app: 'Amplitude modulation',
+                classification: 'Linear, Causal, TIME-VARIANT, Stable',
+                test: (a, b) => `y(t) = t(a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t)) \\, ✓ \\text{ (but not time-invariant)}`
+            }
+        };
+
+        // Input signal generators
+        function generateInputSignal(t) {
+            return Math.sin(Math.PI * t) * Math.exp(-Math.abs(t) / 5);
+        }
+
+        function generateInputSignal2(t) {
+            return Math.cos(Math.PI * t) * Math.exp(-Math.abs(t) / 5) * 0.7;
+        }
+
+        let width = 0, height = 0;
+        const tMin = -6, tMax = 6, yMin = -3, yMax = 3;
+
+        function mapT(t) { return ((t - tMin) / (tMax - tMin)) * width; }
+        function mapY(y) { return height - ((y - yMin) / (yMax - yMin)) * height; }
+
+        function drawAxis(ctx) {
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 1;
+            const x0 = mapT(0), y0 = mapY(0);
+
+            ctx.beginPath();
+            ctx.moveTo(0, y0);
+            ctx.lineTo(width, y0);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(x0, 0);
+            ctx.lineTo(x0, height);
+            ctx.stroke();
+
+            // Grid
+            ctx.strokeStyle = 'rgba(51, 65, 85, 0.3)';
+            for(let i = Math.ceil(tMin); i <= Math.floor(tMax); i++) {
+                const x = mapT(i);
+                ctx.beginPath();
+                ctx.moveTo(x, y0 - 4);
+                ctx.lineTo(x, y0 + 4);
+                ctx.stroke();
+            }
+        }
+
+        function drawSignal(ctx, generator, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            let first = true;
+            for(let t = tMin; t <= tMax; t += 0.05) {
+                let y = generator(t);
+                if(y > 10) y = 10; if(y < -10) y = -10;
+                if(first) { ctx.moveTo(mapT(t), mapY(y)); first = false; }
+                else { ctx.lineTo(mapT(t), mapY(y)); }
+            }
+            ctx.stroke();
+        }
+
+        function updateSystem(systemName) {
+            const sys = systems[systemName];
+            formulaBox.innerHTML = `$$${sys.formula}$$`;
+            descBox.innerHTML = sys.desc;
+
+            // Update badges
+            document.getElementById('badgeLinear').className = `status-badge ${sys.linear ? 'badge-linear' : 'badge-nonlinear'}`;
+            document.getElementById('badgeLinear').innerText = sys.linear ? 'Linear' : 'Nonlinear';
+
+            document.getElementById('badgeCausal').className = `status-badge ${sys.causal ? 'badge-causal' : 'badge-noncausal'}`;
+            document.getElementById('badgeCausal').innerText = sys.causal ? 'Causal' : 'Non-Causal';
+
+            document.getElementById('badgeTI').className = `status-badge ${sys.ti ? 'badge-ti' : 'badge-tv'}`;
+            document.getElementById('badgeTI').innerText = sys.ti ? 'Time-Inv.' : 'Time-Var.';
+
+            document.getElementById('badgeStable').className = `status-badge ${sys.stable ? 'badge-stable' : 'badge-unstable'}`;
+            document.getElementById('badgeStable').innerText = sys.stable ? 'Stable' : 'Unstable';
+
+            // Properties
+            document.getElementById('propLinear').innerText = sys.linear ? 'Satisfies superposition principle' : 'Violates superposition';
+            document.getElementById('propCausal').innerText = sys.causal ? 'Output depends only on past/present inputs' : 'Output depends on future inputs';
+            document.getElementById('propTI').innerText = sys.ti ? 'Time-shift in = Time-shift out' : 'Output changes with different input timing';
+            document.getElementById('propStable').innerText = sys.stable ? 'Bounded inputs → Bounded outputs' : 'Unbounded behavior possible';
+
+            // Details
+            document.getElementById('detClass').innerText = sys.classification;
+            document.getElementById('detIO').innerText = sys.io;
+            document.getElementById('detMemory').innerText = sys.memory;
+            document.getElementById('detApp').innerText = sys.app;
+
+            // Superposition test with LaTeX
+            const testResult = sys.test(a1, a2);
+            supResult.innerHTML = `$$y(t) = ${testResult}$$`;
+
+            if(window.MathJax) {
+                MathJax.typesetPromise([formulaBox, supResult]);
+            }
+            
+            draw();
+        }
+
+        function draw() {
+            // Input canvas
+            width = canvas.parentElement.clientWidth;
+            height = 350;
+            canvas.width = width;
+            canvas.height = height;
+
+            drawAxis(ctx);
+            drawSignal(ctx, t => a1 * generateInputSignal(t), '#38bdf8');
+            drawSignal(ctx, t => a2 * generateInputSignal2(t + delayVal), 'rgba(56, 189, 248, 0.5)');
+
+            // Output canvas
+            outputCanvas.width = width;
+            outputCanvas.height = height;
+            drawAxis(outCtx);
+
+            const sys = systems[currentSystem];
+            
+            if(sys.name === 'Delay System') {
+                drawSignal(outCtx, t => sys.func(t, 0, t => a1 * generateInputSignal(t) + a2 * generateInputSignal2(t + delayVal)), '#f472b6');
+            } else if(sys.name === 'Future Reference') {
+                drawSignal(outCtx, t => sys.func(t, 0, t => a1 * generateInputSignal(t) + a2 * generateInputSignal2(t + delayVal)), '#f472b6');
+            } else if(sys.name === 'Differentiator') {
+                drawSignal(outCtx, t => sys.func(t, 0, t => a1 * generateInputSignal(t) + a2 * generateInputSignal2(t + delayVal), 0.01), '#f472b6');
+            } else {
+                drawSignal(outCtx, t => sys.func(t, a1 * generateInputSignal(t) + a2 * generateInputSignal2(t + delayVal)), '#f472b6');
+            }
+        }
+
+        function selectSystem(type) {
+            currentSystem = type;
+            document.querySelectorAll('.btn-grid button').forEach(b => b.classList.remove('active'));
+            const buttonMap = {
+                'amplifier': 'btnAmp',
+                'delay': 'btnDelay',
+                'derivative': 'btnDeriv',
+                'integral': 'btnInteg',
+                'quadratic': 'btnQuad',
+                'future': 'btnFuture',
+                'timevar': 'btnTimeVar'
+            };
+            const btnId = buttonMap[type];
+            if(btnId) document.getElementById(btnId).classList.add('active');
+            updateSystem(type);
+        }
+
+        // Event listeners
+        document.getElementById('sliderA1').addEventListener('input', (e) => {
+            a1 = parseFloat(e.target.value);
+            document.getElementById('dispA1').innerText = a1.toFixed(1);
+            updateSystem(currentSystem);
+        });
+
+        document.getElementById('sliderA2').addEventListener('input', (e) => {
+            a2 = parseFloat(e.target.value);
+            document.getElementById('dispA2').innerText = a2.toFixed(1);
+            updateSystem(currentSystem);
+        });
+
+        document.getElementById('sliderDelay').addEventListener('input', (e) => {
+            delayVal = parseFloat(e.target.value);
+            document.getElementById('dispDelay').innerText = delayVal.toFixed(1);
+            updateSystem(currentSystem);
+        });
+
+        window.addEventListener('resize', draw);
+        selectSystem('amplifier');
+
+    </script>
+</body>
+</html>
