@@ -69,8 +69,8 @@ Extract the downloaded archive and run the installer :
 
 ```bash
 tar -xvf Quartus-lite-20.1.0.711-linux.tar
-chmod u+x install.sh
-./install.sh
+chmod u+x setup.sh
+./setup.sh
 ```
 
 **Recommended:** Reboot after installation completes:
