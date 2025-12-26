@@ -1,0 +1,75 @@
+----------------------------------------------------------------------------------
+-- File: ALU.vhd
+-- Author: Panagopoulos Nikolaos
+-- Year: 2025
+--
+-- Description: ALU implementation for MIPS processor subset.
+-- Performs arithmetic and logic operations and calculates branch addresses.
+--
+-- Copyright (c) Panagopoulos Nikolaos, 2025
+-- Με επιφύλαξη παντός δικαιώματος. All rights reserved.
+----------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_signed.all;
+
+entity ALU is
+port(
+    Read_data_1 : in std_logic_vector(31 downto 0);
+    Read_data_2 : in std_logic_vector(31 downto 0); 
+    Sign_extend : in std_logic_vector(31 downto 0);
+    Function_opcode : in std_logic_vector(5 downto 0); 
+    ALUOp : in std_logic_vector(1 downto 0);
+    ALUSrc : in std_logic; 
+    Zero : out std_logic;
+    ALU_Result : out std_logic_vector(31 downto 0); 
+    Add_Result : out std_logic_vector(7 downto 0);
+    PC_plus_4 : in std_logic_vector(7 downto 0); 
+    clock, reset : in std_logic
+);
+end ALU;
+
+architecture behavior of ALU is
+    signal Ainput, Binput : std_logic_vector(31 downto 0);
+    signal ALU_output_mux : std_logic_vector(31 downto 0);
+    signal Branch_Add : std_logic_vector(7 downto 0);
+    signal ALU_ctl : std_logic_vector(2 downto 0);
+begin 
+    Ainput <= Read_data_1;
+    
+    -- ALU input mux (Page 22)
+    Binput <= Read_data_2 when (ALUSrc = '0') else Sign_extend;
+
+    -- Generate ALU control bits (Page 22)
+    ALU_ctl(0) <= (Function_opcode(0) OR Function_opcode(3)) AND ALUOp(1);
+    ALU_ctl(1) <= (NOT Function_opcode(2)) OR (NOT ALUOp(1)); 
+    ALU_ctl(2) <= (Function_opcode(1) AND ALUOp(1)) OR ALUOp(0);
+
+    -- Generate Zero Flag (Page 22)
+    Zero <= '1' when (ALU_output_mux = X"00000000") else '0';
+
+    -- ALU output for SLT (Set Less Than) (Page 23)
+    ALU_Result <= X"0000000" & "000" & ALU_output_mux(31) 
+                  when ALU_ctl = "111" 
+                  else ALU_output_mux;
+
+    -- Adder to compute Branch Address (Page 23)
+    Branch_Add <= PC_plus_4 + Sign_extend(7 downto 0); 
+    Add_Result <= Branch_Add;
+
+    -- ALU Core Process
+    process (ALU_ctl, Ainput, Binput) 
+    begin
+        -- Select ALU operation based on Table (Page 19)
+        case ALU_ctl is 
+            when "000" => ALU_output_mux <= Ainput AND Binput; -- AND
+            when "001" => ALU_output_mux <= Ainput OR Binput;  -- OR
+            when "010" => ALU_output_mux <= Ainput + Binput;   -- ADD (lw, sw, add)
+            when "011" => ALU_output_mux <= Ainput XOR Binput; -- XOR (optional but good)
+            when "110" => ALU_output_mux <= Ainput - Binput;   -- SUB (beq, sub)
+            when "111" => ALU_output_mux <= Ainput - Binput;   -- SLT (calculation)
+            when others => ALU_output_mux <= (others => '0');
+        end case;
+    end process;
+end behavior;
