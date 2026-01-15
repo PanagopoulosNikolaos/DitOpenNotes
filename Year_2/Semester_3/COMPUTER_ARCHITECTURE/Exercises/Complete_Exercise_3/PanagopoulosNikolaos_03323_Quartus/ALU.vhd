@@ -38,30 +38,30 @@ architecture behavior of ALU is
 begin 
     Ainput <= Read_data_1;
     
-    -- ALU input mux (Page 22)
+    -- ALU input mux 
     Binput <= Read_data_2 when (ALUSrc = '0') else Sign_extend;
 
-    -- Generate ALU control bits (Page 22)
+    -- Generate ALU control bits
     ALU_ctl(0) <= (Function_opcode(0) OR Function_opcode(3)) AND ALUOp(1);
     ALU_ctl(1) <= (NOT Function_opcode(2)) OR (NOT ALUOp(1)); 
     ALU_ctl(2) <= (Function_opcode(1) AND ALUOp(1)) OR ALUOp(0);
 
-    -- Generate Zero Flag (Page 22)
+    -- Generate Zero Flag
     Zero <= '1' when (ALU_output_mux = X"00000000") else '0';
 
-    -- ALU output for SLT (Set Less Than) (Page 23)
+    -- ALU output for SLT 
     ALU_Result <= X"0000000" & "000" & ALU_output_mux(31) 
                   when ALU_ctl = "111" 
                   else ALU_output_mux;
 
-    -- Adder to compute Branch Address (Page 23)
+    -- Adder to compute Branch Address 
     Branch_Add <= PC_plus_4 + Sign_extend(7 downto 0); 
     Add_Result <= Branch_Add;
 
-    -- ALU Core Process
+   
     process (ALU_ctl, Ainput, Binput) 
     begin
-        -- Select ALU operation based on Table (Page 19)
+        -- Select ALU operation based on Table 
         case ALU_ctl is 
             when "000" => ALU_output_mux <= Ainput AND Binput; -- AND
             when "001" => ALU_output_mux <= Ainput OR Binput;  -- OR
