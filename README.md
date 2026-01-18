@@ -10,7 +10,6 @@ All projects and available code are licensed under the MIT license.
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 
 #  Repository Cleanup Notice
