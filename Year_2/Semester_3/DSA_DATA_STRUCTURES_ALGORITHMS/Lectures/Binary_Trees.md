@@ -34,13 +34,13 @@ graph TD
     C --> F[12]
     C --> G[20]
     
-    style A fill:#e1f5ff
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#f1f8e9
-    style F fill:#f1f8e9
-    style G fill:#f1f8e9
+    style A fill:#e1f5ff,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style D fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Χαρακτηριστικά**:
@@ -72,14 +72,14 @@ graph TD
     C --> F["7️⃣ 12"]
     C --> G["8️⃣ 20"]
     
-    style A fill:#ff6b6b
-    style B fill:#ffa06b
-    style D fill:#ffe66b
-    style E fill:#6bff8d
-    style EA fill:#6bffd9
-    style C fill:#6bd9ff
-    style F fill:#6b8dff
-    style G fill:#d96bff
+    style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
+    style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
+    style D fill:#ffe66b,stroke:#333,stroke-width:2px,color:black
+    style E fill:#6bff8d,stroke:#333,stroke-width:2px,color:black
+    style EA fill:#6bffd9,stroke:#333,stroke-width:2px,color:black
+    style C fill:#6bd9ff,stroke:#333,stroke-width:2px,color:black
+    style F fill:#6b8dff,stroke:#333,stroke-width:2px,color:black
+    style G fill:#d96bff,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Αποτέλεσμα Διάσχισης**: 10, 5, 3, 7, 6, 15, 12, 20
@@ -105,19 +105,19 @@ graph TD
     C --> G["7️⃣ 20"]
     G --> GA["8️⃣ 25"]
     
-    style D fill:#ff6b6b
-    style B fill:#ffa06b
-    style E fill:#ffe66b
-    style A fill:#6bff8d
-    style C fill:#6bffd9
-    style F fill:#6bd9ff
-    style G fill:#6b8dff
-    style GA fill:#d96bff
+    style D fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
+    style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
+    style E fill:#ffe66b,stroke:#333,stroke-width:2px,color:black
+    style A fill:#6bff8d,stroke:#333,stroke-width:2px,color:black
+    style C fill:#6bffd9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#6bd9ff,stroke:#333,stroke-width:2px,color:black
+    style G fill:#6b8dff,stroke:#333,stroke-width:2px,color:black
+    style GA fill:#d96bff,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Αποτέλεσμα Διάσχισης**: 3, 5, 7, 10, 12, 15, 20, 25
 
-💡 **Σημαντικό**: Στα **Δυαδικά Δέντρα Αναζήτησης (BST)**, η in-order διάσχιση επιστρέφει τα στοιχεία σε **αύξουσα ταξινομημένη σειρά**!
+ **Σημαντικό**: Στα **Δυαδικά Δέντρα Αναζήτησης (BST)**, η in-order διάσχιση επιστρέφει τα στοιχεία σε **αύξουσα ταξινομημένη σειρά**!
 
 **Χρήση**: Ταξινόμηση στοιχείων BST, υπολογισμός παράστασης infix
 
@@ -141,15 +141,15 @@ graph TD
     G --> GA["5️⃣ 17"]
     G --> GB["6️⃣ 19"]
     
-    style D fill:#ff6b6b
-    style E fill:#ffa06b
-    style B fill:#ffe66b
-    style F fill:#6bff8d
-    style GA fill:#6bffd9
-    style GB fill:#6bd9ff
-    style G fill:#6b8dff
-    style C fill:#d96bff
-    style A fill:#ff6bd9
+    style D fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
+    style E fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
+    style B fill:#ffe66b,stroke:#333,stroke-width:2px,color:black
+    style F fill:#6bff8d,stroke:#333,stroke-width:2px,color:black
+    style GA fill:#6bffd9,stroke:#333,stroke-width:2px,color:black
+    style GB fill:#6bd9ff,stroke:#333,stroke-width:2px,color:black
+    style G fill:#6b8dff,stroke:#333,stroke-width:2px,color:black
+    style C fill:#d96bff,stroke:#333,stroke-width:2px,color:black
+    style A fill:#ff6bd9,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Αποτέλεσμα Διάσχισης**: 2, 7, 5, 12, 17, 19, 18, 15, 10
@@ -173,14 +173,14 @@ graph TD
     C --> G["7️⃣ 20<br/>(Επίπεδο 2)"]
     D --> H["8️⃣ 1<br/>(Επίπεδο 3)"]
     
-    style A fill:#ff6b6b
-    style B fill:#ffa06b
-    style C fill:#ffe66b
-    style D fill:#6bff8d
-    style E fill:#6bffd9
-    style F fill:#6bd9ff
-    style G fill:#6b8dff
-    style H fill:#d96bff
+    style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
+    style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
+    style C fill:#ffe66b,stroke:#333,stroke-width:2px,color:black
+    style D fill:#6bff8d,stroke:#333,stroke-width:2px,color:black
+    style E fill:#6bffd9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#6bd9ff,stroke:#333,stroke-width:2px,color:black
+    style G fill:#6b8dff,stroke:#333,stroke-width:2px,color:black
+    style H fill:#d96bff,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Αποτέλεσμα Διάσχισης**: 10, 5, 15, 3, 7, 12, 20, 1
@@ -200,13 +200,13 @@ graph TD
     C --> F[60]
     C --> G[80]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#f1f8e9
-    style F fill:#f1f8e9
-    style G fill:#f1f8e9
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style D fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
 | Μέθοδος | Αποτέλεσμα | Χρήση |
@@ -235,10 +235,10 @@ graph TD
 ```mermaid
 graph TD
     A[8]
-    style A fill:#90EE90
+    style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-✅ Το πρώτο στοιχείο γίνεται αυτόματα η **ρίζα** του δέντρου.
+ Το πρώτο στοιχείο γίνεται αυτόματα η **ρίζα** του δέντρου.
 
 ---
 
@@ -250,7 +250,7 @@ graph TD
 ```mermaid
 graph TD
     A[8]
-    style A fill:#e3f2fd
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
 #### Βήμα 2: Εισαγωγή 3
@@ -259,7 +259,7 @@ graph TD
 ```mermaid
 graph TD
     A[8] --> B[3]
-    style B fill:#90EE90
+    style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 #### Βήμα 3: Εισαγωγή 10
@@ -269,7 +269,7 @@ graph TD
 graph TD
     A[8] --> B[3]
     A --> C[10]
-    style C fill:#90EE90
+    style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 #### Βήμα 4: Εισαγωγή 1
@@ -281,7 +281,7 @@ graph TD
     A[8] --> B[3]
     A --> C[10]
     B --> D[1]
-    style D fill:#90EE90
+    style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 #### Βήμα 5: Εισαγωγή 6
@@ -294,7 +294,7 @@ graph TD
     A --> C[10]
     B --> D[1]
     B --> E[6]
-    style E fill:#90EE90
+    style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 #### Βήμα 6: Εισαγωγή 14
@@ -308,7 +308,7 @@ graph TD
     B --> D[1]
     B --> E[6]
     C --> F[14]
-    style F fill:#90EE90
+    style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 #### Βήμα 7: Εισαγωγή 4
@@ -324,7 +324,7 @@ graph TD
     B --> E[6]
     C --> F[14]
     E --> G[4]
-    style G fill:#90EE90
+    style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Τελικό Δέντρο**:
@@ -337,13 +337,13 @@ graph TD
     C --> F[14]
     E --> G[4]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#f1f8e9
-    style F fill:#f1f8e9
-    style G fill:#f1f8e9
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style D fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
@@ -373,13 +373,13 @@ graph TD
     C --> F[25]
     D --> G[6]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#f1f8e9
-    style F fill:#f1f8e9
-    style G fill:#f1f8e9
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style D fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
@@ -396,15 +396,15 @@ graph TD
     D --> E[5]
     E --> F[6]
     
-    style A fill:#ffcccc
-    style B fill:#ffcccc
-    style C fill:#ffcccc
-    style D fill:#ffcccc
-    style E fill:#ffcccc
-    style F fill:#ffcccc
+    style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style B fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style C fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style D fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style E fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style F fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
-⚠️ **Πρόβλημα**: Το δέντρο εκφυλίζεται σε **γραμμική λίστα**!
+ **Πρόβλημα**: Το δέντρο εκφυλίζεται σε **γραμμική λίστα**!
 - Ύψος = n-1 = 5
 - Πολυπλοκότητα αναζήτησης: O(n)
 
@@ -432,7 +432,7 @@ graph TD
     E --> EA[6]
     C --> F[20]
     
-    style EA fill:#ffcccc
+    style EA fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
     classDef deleteNode fill:#ffcccc,stroke:#ff0000,stroke-width:3px
     class EA deleteNode
 ```
@@ -446,15 +446,15 @@ graph TD
     B --> E[7]
     C --> F[20]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#f1f8e9
-    style F fill:#f1f8e9
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style D fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
-✅ **Απλή διαδικασία**: Διαγράφουμε με την κατάλληλη σύνδεση του γονέα.
+ **Απλή διαδικασία**: Διαγράφουμε με την κατάλληλη σύνδεση του γονέα.
 
 ---
 
@@ -472,7 +472,7 @@ graph TD
     B --> D[3]
     C --> F[20]
     
-    style B fill:#ffcccc
+    style B fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
     classDef deleteNode fill:#ffcccc,stroke:#ff0000,stroke-width:3px
     class B deleteNode
 ```
@@ -484,13 +484,13 @@ graph TD
     A --> C[15]
     C --> F[20]
     
-    style A fill:#e3f2fd
-    style D fill:#90EE90
-    style C fill:#fff3e0
-    style F fill:#f1f8e9
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
+    style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
-✅ Το **3 μετακινείται** στη θέση του 5.
+ Το **3 μετακινείται** στη θέση του 5.
 
 ---
 
@@ -507,7 +507,7 @@ graph TD
     B --> E[7]
     C --> F[20]
     
-    style C fill:#ffcccc
+    style C fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
     classDef deleteNode fill:#ffcccc,stroke:#ff0000,stroke-width:3px
     class C deleteNode
 ```
@@ -520,10 +520,10 @@ graph TD
     B --> D[3]
     B --> E[7]
     
-    style F fill:#90EE90
+    style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-✅ Το **20 μετακινείται** στη θέση του 15.
+ Το **20 μετακινείται** στη θέση του 15.
 
 ---
 
@@ -545,7 +545,7 @@ graph TD
     C --> F[12]
     C --> G[20]
     
-    style A fill:#ffcccc
+    style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
     classDef deleteNode fill:#ffcccc,stroke:#ff0000,stroke-width:3px
     class A deleteNode
 ```
@@ -563,8 +563,8 @@ graph TD
     C --> F[12]
     C --> G[20]
     
-    style A fill:#ffcccc
-    style F fill:#90EE90
+    style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
     classDef deleteNode fill:#ffcccc,stroke:#ff0000,stroke-width:3px
     classDef successor fill:#90EE90,stroke:#00ff00,stroke-width:3px
     class A deleteNode
@@ -581,10 +581,10 @@ graph TD
     B --> E[7]
     C --> G[20]
     
-    style A fill:#90EE90
+    style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-✅ Το **12 αντικαθιστά** το 10!
+ Το **12 αντικαθιστά** το 10!
 
 ---
 
@@ -606,14 +606,14 @@ graph TD
     F --> FA[55]
     F --> FB[65]
     
-    style A fill:#ffcccc
+    style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
     classDef deleteNode fill:#ffcccc,stroke:#ff0000,stroke-width:3px
     class A deleteNode
 ```
 
 **Εύρεση In-order Successor**:
 - Δεξί υποδέντρο: 70
-- Πιο αριστερά: 60 → 55 ✅
+- Πιο αριστερά: 60 → 55 
 
 **Μετά (Αντικατάσταση με 55)**:
 ```mermaid
@@ -628,7 +628,7 @@ graph TD
     E --> EB[45]
     F --> FB[65]
     
-    style A fill:#90EE90
+    style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
@@ -647,12 +647,12 @@ graph TD
     E --> EA[12]
     E --> EB[18]
     
-    style A fill:#ffcccc
+    style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Εύρεση In-order Predecessor**:
 - Αριστερό υποδέντρο: 10
-- Πιο δεξιά: 15 → 18 ✅
+- Πιο δεξιά: 15 → 18 
 
 **Μετά**:
 ```mermaid
@@ -663,7 +663,7 @@ graph TD
     B --> E[15]
     E --> EA[12]
     
-    style A fill:#90EE90
+    style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
@@ -684,18 +684,18 @@ graph TD
     C --> F[60]
     C --> G[80]
     
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#fff3e0
-    style D fill:#f1f8e9
-    style E fill:#f1f8e9
-    style F fill:#f1f8e9
-    style G fill:#f1f8e9
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#fff3e0,stroke:#333,stroke-width:2px,color:black
+    style D fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
+    style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Διασχίσεις**:
 - **Pre-order**: 50, 30, 20, 40, 70, 60, 80
-- **In-order**: 20, 30, 40, 50, 60, 70, 80 ✅ (ταξινομημένη)
+- **In-order**: 20, 30, 40, 50, 60, 70, 80  (ταξινομημένη)
 - **Post-order**: 20, 40, 30, 60, 80, 70, 50
 - **Level-order**: 50, 30, 70, 20, 40, 60, 80
 
@@ -708,7 +708,7 @@ graph TD
     C --> F[60]
     C --> G[80]
     
-    style B fill:#90EE90
+    style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
@@ -728,10 +728,10 @@ graph TD
     F --> FA[55]
     F --> FB[65]
     
-    style A fill:#ffffcc
-    style C fill:#ffffcc
-    style F fill:#ffffcc
-    style FB fill:#90EE90
+    style A fill:#ffffcc,stroke:#333,stroke-width:2px,color:black
+    style C fill:#ffffcc,stroke:#333,stroke-width:2px,color:black
+    style F fill:#ffffcc,stroke:#333,stroke-width:2px,color:black
+    style FB fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Διαδρομή Αναζήτησης**:
@@ -742,7 +742,7 @@ graph TD
 3. Επισκέπτομαι: **60**
    - 65 > 60 → πάω **δεξιά**
 4. Επισκέπτομαι: **65**
-   - **Βρέθηκε!** ✅
+   - **Βρέθηκε!** 
 
 **Συνολικές Συγκρίσεις**: 4
 
@@ -761,11 +761,11 @@ graph TD
     C --> D[4]
     D --> E[5]
     
-    style A fill:#ffcccc
-    style B fill:#ffcccc
-    style C fill:#ffcccc
-    style D fill:#ffcccc
-    style E fill:#ffcccc
+    style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style B fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style C fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style D fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
+    style E fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
 - **Ύψος**: 4
@@ -783,11 +783,11 @@ graph TD
     B --> D[2]
     C --> E[4]
     
-    style A fill:#90EE90
-    style B fill:#90EE90
-    style C fill:#90EE90
-    style D fill:#90EE90
-    style E fill:#90EE90
+    style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
+    style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
+    style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
+    style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
+    style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 - **Ύψος**: 2
@@ -818,7 +818,7 @@ graph TD
     C --> F[25]
     C --> G[35]
     
-    style B fill:#90EE90
+    style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 **2. Εισαγωγή του 12**:
@@ -831,7 +831,7 @@ graph TD
     C --> F[25]
     C --> G[35]
     
-    style E fill:#90EE90
+    style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 **3. Διαγραφή του 20**:
@@ -843,7 +843,7 @@ graph TD
     D --> E[12]
     C --> G[35]
     
-    style A fill:#90EE90
+    style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
@@ -864,7 +864,7 @@ graph TD
     E --> J[25]
     E --> K[35]
     
-    style A fill:#e3f2fd
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
 **Διαγραφή: 20, 60, 10**
@@ -907,7 +907,7 @@ graph TD
     D --> H[5]
     E --> K[35]
     
-    style A fill:#e3f2fd
+    style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
 ---
