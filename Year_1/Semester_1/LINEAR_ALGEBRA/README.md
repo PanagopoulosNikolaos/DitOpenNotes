@@ -4,7 +4,7 @@
 This course provides an introduction to the fundamental concepts of linear algebra, including vectors, matrices, systems of linear equations, and eigenvalues.
 
 ## Course Code
-MAT 101
+102 (ΓΡΑΜΜΙΚΗ ΑΛΓΕΒΡΑ)
 
 ## Prerequisites
 None

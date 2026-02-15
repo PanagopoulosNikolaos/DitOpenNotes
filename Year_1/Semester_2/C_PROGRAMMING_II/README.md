@@ -4,7 +4,7 @@
 This course continues from C Programming I and delves deeper into advanced programming concepts in C.
 
 ## Course Code
-CPE 102
+204 (ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ II)
 
 ## Prerequisites
 - C Programming I (CPE 101)

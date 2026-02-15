@@ -4,7 +4,7 @@
 This course covers the principles of signal propagation in various media, including electromagnetic wave propagation, transmission line theory, and antenna systems.
 
 ## Course Code
-ECE 201
+304 (SIGNAL PROPAGATION)
 
 ## Prerequisites
 - Electromagnetics (ECE 103)

@@ -4,7 +4,7 @@
 This course covers the analysis of continuous and discrete signals and systems, including time-domain and frequency-domain analysis techniques.
 
 ## Course Code
-ECE 202
+303 (SIGNALS AND SYSTEMS)
 
 ## Prerequisites
 - Mathematical Analysis (MAT 101)

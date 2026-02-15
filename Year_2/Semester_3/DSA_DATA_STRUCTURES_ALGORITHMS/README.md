@@ -4,7 +4,7 @@
 This course covers fundamental data structures and algorithms, including their implementation, analysis, and application in solving computational problems.
 
 ## Course Code
-CPE 202
+305 (DATA STRUCTURES AND ALGORITHMS)
 
 ## Prerequisites
 - C Programming II (CPE 102)

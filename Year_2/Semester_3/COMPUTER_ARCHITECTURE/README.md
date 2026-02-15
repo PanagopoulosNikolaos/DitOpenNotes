@@ -4,7 +4,7 @@
 This course covers the fundamental concepts of computer architecture and organization, including processor design, memory hierarchy, and instruction set architectures.
 
 ## Course Code
-CPE 201
+301 (COMPUTER ARCHITECTURE)
 
 ## Prerequisites
 - Digital Electronics (ECE 102)

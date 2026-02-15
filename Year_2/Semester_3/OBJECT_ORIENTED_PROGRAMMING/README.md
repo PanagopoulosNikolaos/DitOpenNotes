@@ -4,7 +4,7 @@
 This course introduces the principles and practices of object-oriented programming, including encapsulation, inheritance, and polymorphism, using a modern programming language.
 
 ## Course Code
-CPE 203
+302 (OBJECT ORIENTED PROGRAMMING)
 
 ## Prerequisites
 - C Programming II (CPE 102)

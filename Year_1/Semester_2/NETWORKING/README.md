@@ -4,7 +4,7 @@
 This course introduces fundamental concepts of computer networking, including network protocols, architectures, and communication principles.
 
 ## Course Code
-CPE 103
+202 (NETWORKING)
 
 ## Prerequisites
 None

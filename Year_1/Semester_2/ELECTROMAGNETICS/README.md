@@ -4,7 +4,7 @@
 This course covers the fundamental principles of electromagnetic fields and waves, including Maxwell's equations and their applications in engineering.
 
 ## Course Code
-ECE 103
+201 (ΑΡΧΕΣ ΗΛΕΚΤΡΟΜΑΓΝΗΤΙΣΜΟΥ & ΤΗΛΕΠΙΚΟΙΝΩΝΙΩΝ)
 
 ## Prerequisites
 - Mathematical Analysis (MAT 101)

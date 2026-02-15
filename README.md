@@ -25,24 +25,30 @@ This repository was cleaned up to reduce size. PDFs, compiled data, old commit h
 ├── Applications
 ├── Year_1
 │   ├── Semester_1
-│   │   ├── C_PROGRAMMING_I
-│   │   ├── ELECTRONICS
-│   │   ├── LINEAR_ALGEBRA
-│   │   ├── LOGIC_DESIGN
-│   │   └── MATHEMATICAL ANALYSIS
+│   │   ├── C_PROGRAMMING_I (103)
+│   │   ├── ELECTRONICS (105)
+│   │   ├── LINEAR_ALGEBRA (102)
+│   │   ├── LOGIC_DESIGN (104)
+│   │   └── MATHEMATICAL ANALYSIS (101)
 │   └── Semester_2
-│       ├── C_PROGRAMMING_II
-│       ├── DIGITAL_ELECTRONICS
-│       ├── DISCREET_MATHEMATICS
-│       ├── ELECTROMAGNETICS
-│       └── NETWORKING
+│       ├── C_PROGRAMMING_II (204)
+│       ├── DIGITAL_ELECTRONICS (205)
+│       ├── DISCREET_MATHEMATICS (203)
+│       ├── ELECTROMAGNETICS (201)
+│       └── NETWORKING (202)
 ├── Year_2
 │   ├── Semester_3
-│   │   ├── COMPUTER_ARCHITECTURE
-│   │   ├── DSA_DATA_STRUCTURES_ALGORITHMS
-│   │   ├── OBJECT_ORIENTED_PROGRAMMING
-│   │   ├── SIGNAL_PROPAGATION
-│   │   └── SIGNALS_AND_SYSTEMS
+│   │   ├── COMPUTER_ARCHITECTURE (301)
+│   │   ├── DSA_DATA_STRUCTURES_ALGORITHMS (305)
+│   │   ├── OBJECT_ORIENTED_PROGRAMMING (302)
+│   │   ├── SIGNAL_PROPAGATION (304)
+│   │   └── SIGNALS_AND_SYSTEMS (303)
+│   └── Semester_4
+│       ├── PROGRAMMING_LANGUAGES_PRINCIPLES (401)
+│       ├── OPERATING_SYSTEMS (402)
+│       ├── COMPUTER_NETWORKS (403)
+│       ├── DATABASES (404)
+│       └── PROBABILITY_STATISTICS (405)
 │   └── Semester_4
 ├── Year_3
 │   ├── Semester_5
