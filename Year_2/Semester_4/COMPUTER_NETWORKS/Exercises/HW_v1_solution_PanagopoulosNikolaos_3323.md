@@ -307,22 +307,61 @@ traceroute to www.google.com (142.251.209.36), 30 hops max, 60 byte packets
 
 ### **Στόχος 1: www.dit.uoi.gr**
 ![Διαδρομή traceroute προς www.dit.uoi.gr](images/imageDIT.png)
+
+| Hop | Host / IP | AS Info | Country | Response |
+|-----|-----------|---------|---------|----------|
+| 0 | Linode 66.228.62.158 | LINODE-AP Akamai Connected Cloud AS63949 66.228.32.0/19 | United States | 0.0ms |
+| 4 | lo0-0.gw3.atl1.us.linode.com 74.207.239.105 | AKAMAI-LINODE-AP Akamai Connected Cloud, SG AS63949 74.207.224.0/20 | United States | 4.8ms |
+| 5 | ae48.r21.atl01.ien.netarch.akamai.com 23.203.144.38 | AKAMAI-ASN1, NL AS20940 23.203.144.0/20 | United States | 0.6ms |
+| 6 | ae3.r22.atl02.mag.netarch.akamai.com 23.192.0.106 | AKAMAI-ASN1, NL AS20940 23.192.0.0/11 | United States | 1.1ms |
+| 7 | ae3.r24.atl01.ien.netarch.akamai.com 23.192.0.119 | AKAMAI-ASN1, NL AS20940 23.192.0.0/11 | United States | 1.2ms |
+| 8 | ??? | Unknown | - | 0.0ms |
+| 9 | ??? | Unknown | - | 0.0ms |
+| 10 | be8804.ccr41.atl01.atlas.cogentco.com 154.54.2.169 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | United States | 1.7ms |
+| 11 | port-channel3482.ccr91.dca04.atlas.cogentco.com 154.54.169.177 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | United States | 17.6ms |
+| 12 | be2261.ccr41.par01.atlas.cogentco.com 154.54.47.166 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | United States | 96.3ms |
+| 13 | be4975.ccr41.fra05.atlas.cogentco.com 154.54.63.69 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | United States | 105.4ms |
+| 14 | be5516.ccr21.muc03.atlas.cogentco.com 154.54.62.122 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | Germany | 113.0ms |
+| 15 | be5456.ccr81.vie01.atlas.cogentco.com 154.54.72.166 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | Austria | 117.6ms |
+| 16 | be9463.ccr21.bts01.atlas.cogentco.com 154.54.72.169 | COGENT-174 - Cogent Communications, LLC, US AS174 154.48.0.0/12 | United States | 118.0ms |
+| 17 | be3261.ccr31.bud01.atlas.cogentco.com 130.117.3.138 | COGENT-174 - Cogent Communications, LLC, US AS174 130.117.0.0/16 | United States | 120.3ms |
+| 18 | be2246.rcr51.b020664-1.bud01.atlas.cogentco.com 130.117.1.14 | COGENT-174 - Cogent Communications, LLC, US AS174 130.117.0.0/16 | United States | 120.5ms |
+| 19 | 149.6.182.114 | COGENT-174 - Cogent Communications, LLC, US AS174 149.6.0.0/15 | Hungary | 119.9ms |
+| 20 | grnet-ias-gw.rt1.ath2.gr.geant.net 83.97.89.66 | GEANT_IAS_VRF, NL AS21320 83.97.88.0/21 | Netherlands | 147.2ms |
+| 21 | grnet-ias.rt1.ath2.gr.geant.net 83.97.89.67 | GEANT_IAS_VRF, NL AS21320 83.97.88.0/21 | Netherlands | 150.0ms |
+| 22 | ??? | Unknown | - | 0.0ms |
+| 23 | gnt4-0801.yp3.grnet.gr 62.217.92.35 | GR-NET www.grnet.gr, GR AS5408 62.217.64.0/18 | Greece | 148.1ms |
+| 24 | www.dit.uoi.gr 83.212.170.184 | GR-NET www.grnet.gr, GR AS5408 83.212.170.0/23 | Greece | 148.2ms |
 *   **Τοποθεσία Hop 11:**
     ```
-    Washington D.C., United States (dca04.atlas.cogentco.com)
+    Washington D.C., United States (port-channel3482.ccr91.dca04.atlas.cogentco.com)
     ```
 *   **Τοποθεσία Hop 16:**
     ```
-    Bratislava, Slovakia (bts01.atlas.cogentco.com)
+    Bratislava, Slovakia (be9463.ccr21.bts01.atlas.cogentco.com)
     ```
 
 *   **Σχόλια:**
-    Αυτή η διαδρομή δείχνει ένα διηπειρωτικό ταξίδι. Το πακέτο ταξιδεύει από την Ατλάντα στην Washington D.C., όπου παρατηρείται σημαντική αύξηση καθυστέρησης (από 17ms σε 94ms), υποδεικνύοντας διατλαντική διέλευση προς το Παρίσι. Στη συνέχεια διασχίζει αρκετές ευρωπαϊκές πόλεις (Φρανκφούρτη, Μόναχο, Βιέννη, Βρατισλάβα, Βουδαπέστη) μέσω Cogent πριν εισέλθει στο δίκτυο GEANT/GR-NET για να φτάσει στην Ελλάδα.
+    Αυτή η διαδρομή δείχνει το πακέτο να ταξιδεύει από την Ατλάντα στην Washington D.C., όπου παρατηρείται σημαντική αύξηση καθυστέρησης (από 17.6ms σε 96.3ms), υποδεικνύοντας διατλαντική διέλευση προς το Παρίσι (Hop 12). Στη συνέχεια διασχίζει ευρωπαϊκές πόλεις (Φρανκφούρτη, Μόναχο, Βιέννη, Βρατισλάβα, Βουδαπέστη) μέσω Cogent πριν εισέλθει στο δίκτυο GEANT/GR-NET για να φτάσει στην Ελλάδα. 
+    
+    - Σημείωση: Ο πίνακας καταγράφει λανθασμένα πολλούς ευρωπαϊκούς κόμβους (όπως Hop 12, 13 και 16) ως United States λόγω ανακριβών δεδομένων GeoIP.
 
 ---
 
 ### **Στόχος 2: www.unimelb.edu.au**
 ![Διαδρομή traceroute προς www.unimelb.edu.au](images/imageMELB.png)
+
+| Hop | Host / IP | AS Info | Country | Response |
+|-----|-----------|---------|---------|----------|
+| 0 | Linode 66.228.62.158 | LINODE-AP Akamai Connected Cloud AS63949 66.228.32.0/19 | United States | 0.0ms |
+| 4 | lo0-0.gw4.atl1.us.linode.com 74.207.239.106 | AKAMAI-LINODE-AP Akamai Connected Cloud, SG AS63949 74.207.224.0/20 | United States | 7.4ms |
+| 5 | ae45.r22.atl01.ien.netarch.akamai.com 23.203.144.36 | AKAMAI-ASN1, NL AS20940 23.203.144.0/20 | United States | 0.5ms |
+| 6 | ae4.r22.atl02.mag.netarch.akamai.com 23.192.0.110 | AKAMAI-ASN1, NL AS20940 23.192.0.0/11 | United States | 1.1ms |
+| 7 | ae3.r23.atl01.ien.netarch.akamai.com 23.192.0.115 | AKAMAI-ASN1, NL AS20940 23.192.0.0/11 | United States | 0.8ms |
+| 8 | a23-203-144-239.deploy.static.akamaitechnologies.com 23.203.144.239 | AKAMAI-ASN1, NL AS20940 23.203.144.0/20 | United States | 1.6ms |
+| 9 | 108.162.235.103 | CLOUDFLARENET - Cloudflare, Inc., US AS13335 108.162.235.0/24 | United States | 1.9ms |
+| 10 | 2.58.104.10 | SQUIZ-AS-AP Squiz Pty Ltd, AU AS55532 2.58.104.0/24 | - | 1.2ms |
+
 *   **Τοποθεσία Hop 11:**
     ```
     N/A (Ο προορισμός επιτεύχθηκε στο Hop 10)
@@ -332,9 +371,7 @@ traceroute to www.google.com (142.251.209.36), 30 hops max, 60 byte packets
     N/A (Ο προορισμός επιτεύχθηκε στο Hop 10)
     ```
 *   **Σχόλια:**
-    
-    Παρόλο που ο στόχος είναι αυστραλιανό πανεπιστήμιο, το traceroute είναι πολύ σύντομο (10 hops) και ο χρόνος απόκρισης είναι πολύ χαμηλός (1.0ms). Αυτό υποδηλώνει ότι το αίτημα δεν ταξίδεψε ποτέ πραγματικά στην Αυστραλία αλλά αντίθετα, εξυπηρετήθηκε από τοπικό κόμβο CDN (Squiz/Cloudflare) κοντά στην Ατλάντα της Τζόρτζια, όπου φιλοξενείται στιγμιότυπο (instance) της Linode.
-    
+    Παρόλο που ο στόχος είναι αυστραλιανό πανεπιστήμιο, το traceroute είναι πολύ σύντομο (10 hops) και ο χρόνος απόκρισης είναι πολύ χαμηλός (1.2ms). Αυτό υποδηλώνει ότι το αίτημα δεν ταξίδεψε ποτέ πραγματικά στην Αυστραλία αλλά αντίθετα, εξυπηρετήθηκε από τοπικό κόμβο CDN (Squiz/Cloudflare) κοντά στην Ατλάντα της Τζόρτζια, όπου φιλοξενείται στιγμιότυπο της Linode.
 
 ---
 
