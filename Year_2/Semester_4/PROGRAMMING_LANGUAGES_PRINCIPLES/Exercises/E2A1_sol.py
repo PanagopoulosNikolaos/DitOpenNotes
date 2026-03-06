@@ -1,7 +1,7 @@
 import unittest
 
 
-def hammingDistance(s, t):
+def hammingDistance(s: str, t: str) -> int:
     """
     Calculates the Hamming distance between two strings.
 

@@ -30,20 +30,8 @@ def longestWords(s):
     # Identifies all words whose character count matches the maximum length.
     result_words = [word for word in word_list if len(word) == max_len]
     
-    # Sorts the resulting list of longest words into alphanumeric order.
-    # We use set to avoid duplicates and sorted to make it deterministic.
-    # Looking at the test cases, some have the same word with different casing or same word twice.
-    # The requirement says "返回所有长度等于最大长度的单词列表，按升序排列".
-    # Let's check s5 = "ab,,cd..ef gh.." -> ["ab", "cd", "ef", "gh"].
-    # Sorting: sorted(result_words)
-    # The tests show duplicates are allowed but must be sorted.
-    # Wait, in s5 they are sorted already. In s3 "arta Άρτα" they are sorted "arta" < "Άρτα" (Greek comes after).
-    # Re-checking the requirement: "επιστρέφει μια λίστα με όλες τις λέξεις του κειμένου με μήκος ίσο με το μεγαλύτερο μήκος, ταξινομημένες σε αύξουσα σειρά."
-    # Let's check s5: "ab", "cd", "ef", "gh" are all length 2. Sort order is alphabetical.
-    
     final_result = sorted(result_words)
-    # Unique result or all? The test s5 shows all of them if they are unique words.
-    # Let's just use regular sort.
+    
     return final_result
 
 
