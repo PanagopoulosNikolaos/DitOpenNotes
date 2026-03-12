@@ -63,44 +63,33 @@ def printTables():
     #========================================================================================================
 
 
-def calculateFileTransfer(file_size_kb, rate_mbps=1.0, packet_size_kb=1, header_bytes=40,
-                          one_way_delay_ms=40.0):
+def initializeTransferParams(file_size_kb, rate_mbps, packet_size_kb, header_bytes, one_way_delay_ms):
     """
-    Calculates total file transfer time under three transmission strategies.
-
-    Covers Case A (continuous transmission), Case B (stop-and-wait), and
-    Case C (TCP slow-start style exponential window growth with infinite bandwidth).
+    Initializes transmission parameters and prints the system configuration.
 
     Args:
-        file_size_kb (float): Total file size in kilobytes (using 1 KB = 1024 bytes).
-        rate_mbps (float): Link rate in megabits per second (1 Mbps = 10^6 bps).
-        packet_size_kb (float): Payload size per packet in kilobytes.
-        header_bytes (int): Per-packet header overhead in bytes.
-        one_way_delay_ms (float): One-way propagation delay in milliseconds.
+        file_size_kb (float): The size of the file in kilobytes.
+        rate_mbps (float): The transmission rate in megabits per second.
+        packet_size_kb (float): The payload capacity of each packet in kilobytes.
+        header_bytes (int): The overhead per packet in bytes.
+        one_way_delay_ms (float): The propagation delay for a single trip.
 
     Returns:
-        dict: A dictionary with keys 'case_a', 'case_b', 'case_c', each holding
-              the total transfer time in milliseconds for the respective case.
+        dict: A collection of calculated parameters including rates, sizes, and delays.
     """
-    rtt_ms = 2 * one_way_delay_ms                          # Round-trip time in ms.
-    rate_bps = rate_mbps * 1e6                              # Converts Mbps to bps.
+    rtt_ms = 2 * one_way_delay_ms  # Doubles one-way delay to account for the return trip.
+    rate_bps = rate_mbps * 1e6  # Normalizes link speed to bits per second for math operations.
 
-    file_bytes = file_size_kb * 1024                        # Converts KB to bytes (1 KB = 1024 bytes).
-    payload_bytes = packet_size_kb * 1024                   # Payload bytes per packet.
-    packet_bytes = payload_bytes + header_bytes             # Total bytes on wire per packet.
-    packet_bits = packet_bytes * 8                          # Bits per packet.
+    file_bytes = file_size_kb * 1024  # Standardizes file size to bytes using binary kilo prefix.
+    payload_bytes = packet_size_kb * 1024  # Standardizes payload size to bytes.
+    packet_bytes = payload_bytes + header_bytes  # Includes overhead in total wire footprint.
+    packet_bits = packet_bytes * 8  # Converts total footprint to bits.
 
-    # Transmission time for a single packet at the given rate.
-    t_packet_ms = (packet_bits / rate_bps) * 1000
-
-    # Total number of packets required to transmit the file.
-    num_packets = file_bytes / payload_bytes
-
-    # Handshake cost is one full RTT before any data is sent.
-    handshake_ms = rtt_ms
+    t_packet_ms = (packet_bits / rate_bps) * 1000  # Determines time required to serialize one packet.
+    num_packets = file_bytes / payload_bytes  # Calculates exact packet count needed for transfer.
+    handshake_ms = rtt_ms  # Models initial connection establishment as one round trip.
 
     sep = "=" * 70
-
     print(sep)
     print("Part 3: File Transfer Performance")
     print(sep)
@@ -114,74 +103,140 @@ def calculateFileTransfer(file_size_kb, rate_mbps=1.0, packet_size_kb=1, header_
     print(f"  Number of packets    : {num_packets:,.0f}")
     print(f"  Tx time / packet     : {t_packet_ms:.6f} ms")
 
-    #========================================================================================================
-    #  Case A
+    return {
+        "file_bytes": file_bytes,
+        "rate_bps": rate_bps,
+        "one_way_delay_ms": one_way_delay_ms,
+        "handshake_ms": handshake_ms,
+        "t_packet_ms": t_packet_ms,
+        "num_packets": num_packets,
+        "rtt_ms": rtt_ms,
+        "sep": sep
+    }
+
+
+def calculateCaseA(params):
+    """
+    Calculates and prints the total transfer time for continuous transmission.
+
+    Args:
+        params (dict): System parameters containing bit rates and base delays.
+
+    Returns:
+        float: The total calculated time in milliseconds.
+    """
     print(f"\n{'-' * 70}")
     print("Case A: Continuous Transmission")
     print(f"{'-' * 70}")
     print("  Formula: T = Handshake + (TotalBits / Rate) + PropDelay")
-    total_bits = file_bytes * 8
-    tx_time_ms = (total_bits / rate_bps) * 1000             # Time to clock all bits onto the wire.
-    case_a_ms = handshake_ms + tx_time_ms + one_way_delay_ms
+    
+    total_bits = params["file_bytes"] * 8
+    tx_time_ms = (total_bits / params["rate_bps"]) * 1000  # Clocks all data bits onto the link.
+    case_a_ms = params["handshake_ms"] + tx_time_ms + params["one_way_delay_ms"]
+    
     print(f"  Total file bits      : {total_bits:,.0f} bits")
-    print(f"  Tx time (all bits)   : {total_bits:,.0f} / {rate_bps:,.0f} = {tx_time_ms:.4f} ms")
-    print(f"  Propagation delay    : {one_way_delay_ms} ms  (last bit reaching receiver)")
-    print(f"  T = {handshake_ms} + {tx_time_ms:.4f} + {one_way_delay_ms}")
+    print(f"  Tx time (all bits)   : {total_bits:,.0f} / {params['rate_bps']:,.0f} = {tx_time_ms:.4f} ms")
+    print(f"  Propagation delay    : {params['one_way_delay_ms']} ms  (last bit reaching receiver)")
+    print(f"  T = {params['handshake_ms']} + {tx_time_ms:.4f} + {params['one_way_delay_ms']}")
     print(f"  T = {case_a_ms:.4f} ms  ({case_a_ms / 1000:.4f} s)")
+    
+    return case_a_ms
 
-    #========================================================================================================
-    #  Case B
+
+def calculateCaseB(params):
+    """
+    Calculates and prints the total transfer time for stop-and-wait transmission.
+
+    Args:
+        params (dict): System parameters containing packet times and round-trip times.
+
+    Returns:
+        float: The total calculated time in milliseconds.
+    """
     print(f"\n{'-' * 70}")
     print("Case B: Stop-and-Wait")
     print(f"{'-' * 70}")
     print("  Methodology: after each packet the sender waits one full RTT.")
     print("  Formula: T = Handshake + N * (TxPacket + RTT)")
-    # Each cycle: transmit one packet, then wait for ACK (RTT includes prop there + back).
-    # The last packet only needs prop delay to reach receiver, but we count RTT for ACK.
-    cycle_ms = t_packet_ms + rtt_ms                         # Time per packet cycle.
-    case_b_ms = handshake_ms + num_packets * cycle_ms
-    print(f"  Cycle per packet     : {t_packet_ms:.6f} + {rtt_ms} = {cycle_ms:.6f} ms")
-    print(f"  T = {handshake_ms} + {num_packets:,.0f} × {cycle_ms:.6f}")
-    print(f"  T = {handshake_ms} + {num_packets * cycle_ms:.4f}")
+    
+    cycle_ms = params["t_packet_ms"] + params["rtt_ms"]  # Aggregates serialization and acknowledgment wait.
+    case_b_ms = params["handshake_ms"] + params["num_packets"] * cycle_ms
+    
+    print(f"  Cycle per packet     : {params['t_packet_ms']:.6f} + {params['rtt_ms']} = {cycle_ms:.6f} ms")
+    print(f"  T = {params['handshake_ms']} + {params['num_packets']:,.0f} \u00d7 {cycle_ms:.6f}")
+    print(f"  T = {params['handshake_ms']} + {params['num_packets'] * cycle_ms:.4f}")
     print(f"  T = {case_b_ms:.4f} ms  ({case_b_ms / 1000:.4f} s)")
+    
+    return case_b_ms
 
-    #========================================================================================================
-    #  Case C
+
+def calculateCaseC(params):
+    """
+    Calculates and prints transfer time for exponential window growth.
+
+    Args:
+        params (dict): System parameters containing packet counts and timing.
+
+    Returns:
+        float: The total calculated time in milliseconds.
+    """
     print(f"\n{'-' * 70}")
     print("Case C: Exponential Window Growth (TCP Slow-Start style)")
     print(f"{'-' * 70}")
     print("  Methodology: window = 1, 2, 4, 8 ... packets per RTT (infinite bandwidth).")
     print("  Formula: advance window each RTT; count RTTs until all packets are sent.")
-    print("  Note: 'Infinite bandwidth' means Tx time per packet is negligible (0 ms).")
 
-    # With infinite bandwidth, transmission delay per packet = 0.
-    # Each RTT, the window doubles; packets are counted until file exhausted.
-    packets_remaining = num_packets
-    window = 1          # Packets sendable in the first RTT.
-    rtts_used = 0       # Number of data-phase RTTs consumed.
-    rtt_log = []        # Stores (rtt_index, window, sent_this_rtt) for display.
+    packets_remaining = params["num_packets"]
+    window = 1  # Initializes the initial burst size.
+    rtts_used = 0
+    rtt_log = []
 
     while packets_remaining > 0:
-        sent_this_rtt = min(window, packets_remaining)      # Cannot send more than remaining.
+        sent_this_rtt = min(window, packets_remaining)  # Caps transmission by remaining file size.
         rtt_log.append((rtts_used + 1, window, sent_this_rtt))
         packets_remaining -= sent_this_rtt
         rtts_used += 1
-        window *= 2     # Doubles window capacity each RTT (slow-start doubling rule).
+        window *= 2  # Doubles capacity each round to simulate slow-start acceleration.
 
-    case_c_ms = handshake_ms + rtts_used * rtt_ms          # No propagation term; RTT subsumes it.
+    case_c_ms = params["handshake_ms"] + rtts_used * params["rtt_ms"]
 
     print(f"  {'RTT':<6} {'Window (pkts)':<16} {'Sent this RTT':<18} {'Remaining after'}")
     print(f"  {'-'*6} {'-'*16} {'-'*18} {'-'*15}")
     pkts_sent_so_far = 0
     for rtt_idx, win, sent in rtt_log:
         pkts_sent_so_far += sent
-        print(f"  {rtt_idx:<6} {win:<16} {sent:<18.0f} {num_packets - pkts_sent_so_far:.0f}")
+        print(f"  {rtt_idx:<6} {win:<16} {sent:<18.0f} {params['num_packets'] - pkts_sent_so_far:.0f}")
 
     print(f"\n  RTTs required (data) : {rtts_used}")
-    print(f"  T = Handshake + DataRTTs × RTT")
-    print(f"  T = {handshake_ms} + {rtts_used} × {rtt_ms}")
+    print(f"  T = Handshake + DataRTTs \u00d7 RTT")
+    print(f"  T = {params['handshake_ms']} + {rtts_used} \u00d7 {params['rtt_ms']}")
     print(f"  T = {case_c_ms:.4f} ms  ({case_c_ms / 1000:.4f} s)")
+    
+    return case_c_ms
 
+
+def calculateFileTransfer(file_size_kb, rate_mbps=1.0, packet_size_kb=1, header_bytes=40,
+                          one_way_delay_ms=40.0):
+    """
+    Coordinates the calculation and reporting of three file transfer cases.
+
+    Args:
+        file_size_kb (float): Total file size in kilobytes.
+        rate_mbps (float): Link rate in megabits per second.
+        packet_size_kb (float): Payload size per packet in kilobytes.
+        header_bytes (int): Per-packet header overhead in bytes.
+        one_way_delay_ms (float): Propagation delay in one direction.
+
+    Returns:
+        dict: Summary results for Cases A, B, and C in milliseconds.
+    """
+    params = initializeTransferParams(file_size_kb, rate_mbps, packet_size_kb, header_bytes, one_way_delay_ms)
+    
+    case_a_ms = calculateCaseA(params)
+    case_b_ms = calculateCaseB(params)
+    case_c_ms = calculateCaseC(params)
+    
+    sep = params["sep"]
     print(f"\n{sep}")
     print("Summary")
     print(sep)
