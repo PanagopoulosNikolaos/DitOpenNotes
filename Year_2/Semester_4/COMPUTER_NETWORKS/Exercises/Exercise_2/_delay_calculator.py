@@ -133,8 +133,8 @@ def calculateCaseA(params):
     print(f"{'-' * 70}")
     print("  Formula: T = Handshake + (TotalBits / Rate) + PropDelay")
     
-    total_bits = params["file_bytes"] * 8
-    tx_time_ms = (total_bits / params["rate_bps"]) * 1000  # Clocks all data bits onto the link.
+    total_bits = params["num_packets"] * params["packet_bits"]
+    tx_time_ms = (total_bits / params["rate_bps"]) * 1000
     case_a_ms = params["handshake_ms"] + tx_time_ms + params["one_way_delay_ms"]
     
     print(f"  Total file bits      : {total_bits:,.0f} bits")
