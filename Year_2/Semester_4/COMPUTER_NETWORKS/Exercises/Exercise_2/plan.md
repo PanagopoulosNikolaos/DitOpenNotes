@@ -113,7 +113,7 @@ Use the [online simulator](https://computerscience.unicam.it/marcantoni/reti/app
 | Case | Description | Total Time |
 | :--- | :--- | :--- |
 | A | Continuous Transmission (1 Mbps, 1 KB packets, 40B header) | 27,342.016 ms (27.34 s) |
-| B | Stop-and-Wait (wait 1 RTT after each packet) | 294,205.376 ms (294.21 s) |
+| B | Stop-and-Wait (wait 1 RTT after each packet) | 305,136.128 ms (305.14 s) |
 | C | Infinite bandwidth, exponential window growth (TCP Slow-Start) | 1,040.000 ms (1.04 s) |
 
 **Deliverable files:**
@@ -129,8 +129,8 @@ Use the [online simulator](https://computerscience.unicam.it/marcantoni/reti/app
     - [x] Completed tables from Part 1 (all three tables).
     - [x] Graphs for delay (Delay vs. Distance / Size / Rate).
     - [x] Jitter graph and calculated jitter value.
-    - [ ] Screenshots of Packet Tracer topologies (Part 2 — pending).
-    - [ ] Screenshots of successful ping results in Packet Tracer (Part 2 — pending).
+    - [x] Screenshots of Packet Tracer topologies (Part 2 — pending).
+    - [x] Screenshots of successful ping results in Packet Tracer (Part 2 — pending).
     - [x] Detailed answers for Part 3 calculations (Cases A, B, C).
 - [ ] **Packet Tracer File:** `.pkt` file(s) for both topologies.
 - [ ] **Code files:** `_delay_calculator.py`, `_plots.py`.

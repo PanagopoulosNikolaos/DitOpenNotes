@@ -1,3 +1,5 @@
+import math
+
 def calculateDelay(packet_size_bytes, rate_kbps, distance_km, prop_speed):
     """
     Calculates the total network delay including transmission and propagation.
@@ -80,13 +82,13 @@ def initializeTransferParams(file_size_kb, rate_mbps, packet_size_kb, header_byt
     rtt_ms = 2 * one_way_delay_ms  # Doubles one-way delay to account for the return trip.
     rate_bps = rate_mbps * 1e6  # Normalizes link speed to bits per second for math operations.
 
-    file_bytes = file_size_kb * 1024  # Standardizes file size to bytes using binary kilo prefix.
-    payload_bytes = packet_size_kb * 1024  # Standardizes payload size to bytes.
-    packet_bytes = payload_bytes + header_bytes  # Includes overhead in total wire footprint.
+    file_bytes = file_size_kb * 1024  # Standardizes file size to bytes.
+    packet_bytes = packet_size_kb * 1024  # Standardizes packet size to bytes.
+    payload_bytes = packet_bytes - header_bytes  # Excludes overhead from data payload.
     packet_bits = packet_bytes * 8  # Converts total footprint to bits.
 
     t_packet_ms = (packet_bits / rate_bps) * 1000  # Determines time required to serialize one packet.
-    num_packets = file_bytes / payload_bytes  # Calculates exact packet count needed for transfer.
+    num_packets = math.ceil(file_bytes / payload_bytes)  # Calculates exact packet count needed for transfer.
     handshake_ms = rtt_ms  # Models initial connection establishment as one round trip.
 
     sep = "=" * 70
@@ -95,9 +97,9 @@ def initializeTransferParams(file_size_kb, rate_mbps, packet_size_kb, header_byt
     print(sep)
     print(f"  File size            : {file_size_kb} KB  ({file_bytes:,.0f} bytes)")
     print(f"  Link rate            : {rate_mbps} Mbps  ({rate_bps:,.0f} bps)")
-    print(f"  Packet payload       : {packet_size_kb} KB  ({payload_bytes} bytes)")
+    print(f"  Packet payload       : {payload_bytes} bytes")
     print(f"  Header overhead      : {header_bytes} bytes")
-    print(f"  Packet total on wire : {packet_bytes} bytes  ({packet_bits} bits)")
+    print(f"  Packet total on wire : {packet_size_kb} KB  ({packet_bytes} bytes)  ({packet_bits} bits)")
     print(f"  One-way delay        : {one_way_delay_ms} ms  |  RTT = {rtt_ms} ms")
     print(f"  Handshake cost       : 1 RTT = {handshake_ms} ms")
     print(f"  Number of packets    : {num_packets:,.0f}")
@@ -224,7 +226,7 @@ def calculateFileTransfer(file_size_kb, rate_mbps=1.0, packet_size_kb=1, header_
     Args:
         file_size_kb (float): Total file size in kilobytes.
         rate_mbps (float): Link rate in megabits per second.
-        packet_size_kb (float): Payload size per packet in kilobytes.
+        packet_size_kb (float): Total size per packet in kilobytes (including headers).
         header_bytes (int): Per-packet header overhead in bytes.
         one_way_delay_ms (float): Propagation delay in one direction.
 
