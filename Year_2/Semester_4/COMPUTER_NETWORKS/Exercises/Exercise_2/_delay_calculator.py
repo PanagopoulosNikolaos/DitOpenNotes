@@ -111,6 +111,7 @@ def initializeTransferParams(file_size_kb, rate_mbps, packet_size_kb, header_byt
         "t_packet_ms": t_packet_ms,
         "num_packets": num_packets,
         "rtt_ms": rtt_ms,
+        "packet_bits": packet_bits,
         "sep": sep
     }
 
