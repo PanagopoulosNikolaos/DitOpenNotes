@@ -13,11 +13,11 @@ def calculateDelay(packet_size_bytes, rate_kbps, distance_km, prop_speed):
     Returns:
         float: The total calculated delay in milliseconds.
     """
-    transmission_delay = (packet_size_bytes * 8) / (rate_kbps * 1000) # Converts bytes to bits and kbps to bps.
+    transmission_delay = (packet_size_bytes * 8) / (rate_kbps * 1000) # Converts bytes to bits & kbps to bps.
     propagation_delay = (distance_km * 1000) / prop_speed # Converts km to meters.
     return (transmission_delay + propagation_delay) * 1000 # Returns total delay in ms.
 
-# Constants and parameters
+
 propagation_speed = 2.8e8 # Speed 
 
 def printTables():
@@ -190,16 +190,16 @@ def calculateCaseC(params):
     print("  Formula: advance window each RTT; count RTTs until all packets are sent.")
 
     packets_remaining = params["num_packets"]
-    window = 1  # Initializes the initial burst size.
+    window = 1  
     rtts_used = 0
     rtt_log = []
 
     while packets_remaining > 0:
-        sent_this_rtt = min(window, packets_remaining)  # Caps transmission by remaining file size.
+        sent_this_rtt = min(window, packets_remaining)  
         rtt_log.append((rtts_used + 1, window, sent_this_rtt))
         packets_remaining -= sent_this_rtt
         rtts_used += 1
-        window *= 2  # Doubles capacity each round to simulate slow-start acceleration.
+        window *= 2  
 
     case_c_ms = params["handshake_ms"] + rtts_used * params["rtt_ms"]
 

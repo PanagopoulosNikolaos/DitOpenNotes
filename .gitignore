@@ -59,7 +59,7 @@ moc_*
 *.sqlite3
 
 # Archives
-*.zip
+# *.zip
 *.tar
 *.tar.gz
 *.rar
@@ -76,3 +76,4 @@ improvements.md
 
 # VS Code
 .vscode/
+*.obsidian/
