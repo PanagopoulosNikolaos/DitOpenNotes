@@ -319,12 +319,12 @@ graph TB
 ```mermaid
 flowchart TD
     A[CPU Request Data] --> B{Data in L1?}
-    B -->|Yes - HIT| C[Return in 2-3 cycles<br/>✓ Fast Access]
+    B -->|Yes - HIT| C[Return in 2-3 cycles<br/> Fast Access]
     B -->|No - MISS| D{Data in L2?}
-    D -->|Yes - HIT| E[Return in 3-5 cycles<br/>✓ Medium Speed]
+    D -->|Yes - HIT| E[Return in 3-5 cycles<br/> Medium Speed]
     D -->|No - MISS| F{Data in L3?}
-    F -->|Yes - HIT| G[Return in 30-50 cycles<br/>✓ Slower]
-    F -->|No - MISS| H[Access RAM<br/>50-200 cycles<br/>✗ Penalty]
+    F -->|Yes - HIT| G[Return in 30-50 cycles<br/> Slower]
+    F -->|No - MISS| H[Access RAM<br/>50-200 cycles<br/> Penalty]
     
     style C fill:#4caf50,color:#fff
     style E fill:#8bc34a
@@ -413,8 +413,8 @@ flowchart TD
     D --> F{Actual Outcome?}
     E --> F
     
-    F -->|Correct ✓| G[Continue Execution<br/>Keep Results]
-    F -->|Wrong ✗| H[Pipeline Flush<br/>Rollback State<br/>Restart Correct Path]
+    F -->|Correct | G[Continue Execution<br/>Keep Results]
+    F -->|Wrong | H[Pipeline Flush<br/>Rollback State<br/>Restart Correct Path]
     
     style G fill:#4caf50,color:#fff
     style H fill:#f44336,color:#fff
@@ -806,6 +806,6 @@ $$
 
 ---
 
-## 📚 Τέλος Smart Notes
+##  Τέλος Smart Notes
 
 > **Σημείωση:** Αυτές οι σημειώσεις συνθέτουν το περιεχόμενο της 8ης διάλεξης για τη Διαδικασία Σχεδίασης Επεξεργαστών. Για βαθύτερη κατανόηση, συμβουλευτείτε τα εκπαιδευτικά βίντεο και πραγματοποιήστε hands-on πειράματα με simulators (π.χ. RISC-V simulator, cache simulators).

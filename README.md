@@ -23,6 +23,7 @@ This repository was cleaned up to reduce size. PDFs, compiled data, old commit h
 ```shell
 .
 ├── Applications
+├── scripts
 ├── Year_1
 │   ├── Semester_1
 │   │   ├── C_PROGRAMMING_I (103)
@@ -49,14 +50,12 @@ This repository was cleaned up to reduce size. PDFs, compiled data, old commit h
 │       ├── COMPUTER_NETWORKS (403)
 │       ├── DATABASES (404)
 │       └── PROBABILITY_STATISTICS (405)
-│   └── Semester_4
 ├── Year_3
 │   ├── Semester_5
 │   └── Semester_6
 └── Year_4
     ├── Semester_7
     └── Semester_8
-
 ```
 
 ## Repository Structure

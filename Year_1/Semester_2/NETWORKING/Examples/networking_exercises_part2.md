@@ -20,7 +20,7 @@ For each network, provide: subnet address, subnet mask, first host, last host, a
 Start with the largest network and work down:
 
 **Network A: 5000 hosts**
-- Need: 2^n - 2 ≥ 5000 → 2^13 - 2 = 8190 hosts ✓
+- Need: 2^n - 2 ≥ 5000 → 2^13 - 2 = 8190 hosts 
 - Host bits: 13, Network bits: 32 - 13 = 19
 - Subnet: 172.16.0.0/19
 - Mask: 255.255.224.0
@@ -30,7 +30,7 @@ Start with the largest network and work down:
 - Broadcast: 172.16.31.255
 
 **Network B: 2000 hosts**
-- Need: 2^11 - 2 = 2046 hosts ✓
+- Need: 2^11 - 2 = 2046 hosts 
 - Host bits: 11, Network bits: 21
 - Subnet: 172.16.32.0/21
 - Mask: 255.255.248.0
@@ -40,7 +40,7 @@ Start with the largest network and work down:
 - Broadcast: 172.16.39.255
 
 **Network C: 500 hosts**
-- Need: 2^9 - 2 = 510 hosts ✓
+- Need: 2^9 - 2 = 510 hosts 
 - Host bits: 9, Network bits: 23
 - Subnet: 172.16.40.0/23
 - Mask: 255.255.254.0
@@ -50,7 +50,7 @@ Start with the largest network and work down:
 - Broadcast: 172.16.41.255
 
 **Network D: 100 hosts**
-- Need: 2^7 - 2 = 126 hosts ✓
+- Need: 2^7 - 2 = 126 hosts 
 - Host bits: 7, Network bits: 25
 - Subnet: 172.16.42.0/25
 - Mask: 255.255.255.128
@@ -60,7 +60,7 @@ Start with the largest network and work down:
 - Broadcast: 172.16.42.127
 
 **Network E: 2 hosts (point-to-point)**
-- Need: 2^2 - 2 = 2 hosts ✓
+- Need: 2^2 - 2 = 2 hosts 
 - Host bits: 2, Network bits: 30
 - Subnet: 172.16.42.128/30
 - Mask: 255.255.255.252
@@ -370,26 +370,26 @@ Fill in the NAT translation table:
 - Offset: 0 × 8 = 0
 - Data length: 1500 - 20 = 1480 bytes
 - Range: bytes 0-1479
-- MF=1 ✓ (more fragments)
+- MF=1  (more fragments)
 
 **Fragment B:**
 - Offset: 185 × 8 = 1480
 - Data length: 1500 - 20 = 1480 bytes
 - Range: bytes 1480-2959
-- MF=1 ✓ (more fragments)
+- MF=1  (more fragments)
 
 **Fragment C:**
 - Offset: 370 × 8 = 2960
 - Data length: 540 - 20 = 520 bytes
 - Range: bytes 2960-3479
-- MF=0 ✓ (last fragment)
+- MF=0  (last fragment)
 
 **c) Verification:**
 - Fragment A ends at byte 1479
-- Fragment B starts at byte 1480 ✓ (no gap)
+- Fragment B starts at byte 1480  (no gap)
 - Fragment B ends at byte 2959
-- Fragment C starts at byte 2960 ✓ (no gap)
-- Fragment C is last (MF=0) ✓
+- Fragment C starts at byte 2960  (no gap)
+- Fragment C is last (MF=0) 
 - **Fragmentation is correct!**
 
 ---
@@ -430,7 +430,7 @@ Find the single CIDR route that summarizes all four networks.
 **Step 4: Verification**
 - 192.168.16.0/22 covers: 192.168.16.0 to 192.168.19.255
 - Binary: 192.168.000100xx.xxxxxxxx
-- This includes all four /24 networks ✓
+- This includes all four /24 networks 
 
 **Answer: 192.168.16.0/22**
 
@@ -486,7 +486,7 @@ Use the network 192.168.100.0/24. Minimize IP waste.
 3. Management: 30 hosts
 
 **Step 2: Engineering subnet (120 hosts)**
-- Need: 2^n - 2 ≥ 120 → 2^7 - 2 = 126 ✓
+- Need: 2^n - 2 ≥ 120 → 2^7 - 2 = 126 
 - Subnet: 192.168.100.0/25
 - Mask: 255.255.255.128
 - Hosts: 126 usable
@@ -496,7 +496,7 @@ Use the network 192.168.100.0/24. Minimize IP waste.
 - Broadcast: 192.168.100.127
 
 **Step 3: Sales subnet (60 hosts)**
-- Need: 2^6 - 2 = 62 ✓
+- Need: 2^6 - 2 = 62 
 - Subnet: 192.168.100.128/26
 - Mask: 255.255.255.192
 - Hosts: 62 usable
@@ -506,7 +506,7 @@ Use the network 192.168.100.0/24. Minimize IP waste.
 - Broadcast: 192.168.100.191
 
 **Step 4: Management subnet (30 hosts)**
-- Need: 2^5 - 2 = 30 ✓
+- Need: 2^5 - 2 = 30 
 - Subnet: 192.168.100.192/27
 - Mask: 255.255.255.224
 - Hosts: 30 usable
@@ -587,7 +587,7 @@ Verify if the checksum is correct.
 **Expected checksum: 0xB85F**
 **Given checksum: 0xB861**
 
-**Result: Checksum is INCORRECT** ❌
+**Result: Checksum is INCORRECT** 
 
 The packet may be corrupted and should be discarded.
 
@@ -782,31 +782,31 @@ What happens at each hop? What ICMP message (if any) is generated?
 **At Router A:**
 - Receives packet, TTL: 5
 - Decrements TTL: 5 - 1 = 4
-- Check: TTL > 0 ✓
+- Check: TTL > 0 
 - Action: Forward to Router B
 
 **At Router B:**
 - Receives packet, TTL: 4
 - Decrements TTL: 4 - 1 = 3
-- Check: TTL > 0 ✓
+- Check: TTL > 0 
 - Action: Forward to Router C
 
 **At Router C:**
 - Receives packet, TTL: 3
 - Decrements TTL: 3 - 1 = 2
-- Check: TTL > 0 ✓
+- Check: TTL > 0 
 - Action: Forward to destination
 
 **At Destination:**
 - Receives packet, TTL: 2
-- Packet delivered successfully ✓
+- Packet delivered successfully 
 
 **Scenario 2: If initial TTL was 3:**
 
 **At Router C:**
 - Receives packet, TTL: 1
 - Decrements TTL: 1 - 1 = 0
-- Check: TTL = 0 ✗ **DISCARD PACKET**
+- Check: TTL = 0  **DISCARD PACKET**
 - Action: 
   - Drop packet
   - Generate **ICMP Time Exceeded** message
@@ -966,17 +966,17 @@ Diagnose the problem and suggest solutions.
 
 **Analysis:**
 
-**Test 1: ping 127.0.0.1 → Success ✓**
+**Test 1: ping 127.0.0.1 → Success **
 - **Interpretation:** TCP/IP stack is working
 - Loopback interface operational
 - Problem is NOT in OS network stack
 
-**Test 2: ping 192.168.10.50 → Success ✓**
+**Test 2: ping 192.168.10.50 → Success **
 - **Interpretation:** NIC (Network Interface Card) is working
 - IP configuration is correct
 - Problem is NOT in local interface
 
-**Test 3: ping 192.168.10.1 → Request timeout ✗**
+**Test 3: ping 192.168.10.1 → Request timeout **
 - **Interpretation:** Cannot reach default gateway
 - **Critical problem identified!**
 - Possible causes:
@@ -985,11 +985,11 @@ Diagnose the problem and suggest solutions.
   - Firewall blocking ICMP on gateway
   - ARP resolution failure
 
-**Test 4: ping 93.184.216.34 → Request timeout ✗**
+**Test 4: ping 93.184.216.34 → Request timeout **
 - **Expected:** Fails because gateway unreachable
 - Cannot route outside local network
 
-**Test 5: nslookup www.example.com → Returns IP ✓**
+**Test 5: nslookup www.example.com → Returns IP **
 - **Interpretation:** DNS resolution working
 - But this might be cached or local hosts file
 - DNS server might be on local network
@@ -1043,8 +1043,8 @@ arping 192.168.10.1
    - Check for ARP conflicts
 
 **Troubleshooting Order (OSI Model):**
-1. ✓ Physical: Cable, link status
-2. ✓ Data Link: ARP, MAC address
+1.  Physical: Cable, link status
+2.  Data Link: ARP, MAC address
 3. → Network: IP configuration, routing
 4. → Transport: TCP/UDP (not reached yet)
 5. → Application: DNS, services (not reached yet)
@@ -1054,16 +1054,16 @@ arping 192.168.10.1
 ## Final Exam Tips
 
 **Key Topics Mastered:**
-1. ✓ VLSM and complex subnetting
-2. ✓ Routing tables and packet forwarding
-3. ✓ IP fragmentation (MF, DF, offsets)
-4. ✓ TCP windowing and flow control
-5. ✓ NAT translation tables
-6. ✓ Congestion control algorithms
-7. ✓ Routing protocols (RIP, OSPF, BGP)
-8. ✓ Network troubleshooting methodology
-9. ✓ TCP sequence/ACK numbers
-10. ✓ Bandwidth calculations and overhead
+1.  VLSM and complex subnetting
+2.  Routing tables and packet forwarding
+3.  IP fragmentation (MF, DF, offsets)
+4.  TCP windowing and flow control
+5.  NAT translation tables
+6.  Congestion control algorithms
+7.  Routing protocols (RIP, OSPF, BGP)
+8.  Network troubleshooting methodology
+9.  TCP sequence/ACK numbers
+10.  Bandwidth calculations and overhead
 
 **Exam Strategy:**
 - Draw diagrams for complex problems

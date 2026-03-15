@@ -64,13 +64,13 @@ graph TD
 
 ```mermaid
 graph TD
-    A["1️⃣ 10<br/>Ρίζα"] --> B["2️⃣ 5"]
-    A --> C["6️⃣ 15"]
-    B --> D["3️⃣ 3"]
-    B --> E["4️⃣ 7"]
-    E --> EA["5️⃣ 6"]
-    C --> F["7️⃣ 12"]
-    C --> G["8️⃣ 20"]
+    A[" 10<br/>Ρίζα"] --> B[" 5"]
+    A --> C[" 15"]
+    B --> D[" 3"]
+    B --> E[" 7"]
+    E --> EA[" 6"]
+    C --> F[" 12"]
+    C --> G[" 20"]
     
     style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
     style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
@@ -97,13 +97,13 @@ graph TD
 
 ```mermaid
 graph TD
-    A["4️⃣ 10<br/>Ρίζα"] --> B["2️⃣ 5"]
-    A --> C["6️⃣ 15"]
-    B --> D["1️⃣ 3"]
-    B --> E["3️⃣ 7"]
-    C --> F["5️⃣ 12"]
-    C --> G["7️⃣ 20"]
-    G --> GA["8️⃣ 25"]
+    A[" 10<br/>Ρίζα"] --> B[" 5"]
+    A --> C[" 15"]
+    B --> D[" 3"]
+    B --> E[" 7"]
+    C --> F[" 12"]
+    C --> G[" 20"]
+    G --> GA[" 25"]
     
     style D fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
     style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
@@ -132,14 +132,14 @@ graph TD
 
 ```mermaid
 graph TD
-    A["9️⃣ 10<br/>Ρίζα"] --> B["3️⃣ 5"]
-    A --> C["8️⃣ 15"]
-    B --> D["1️⃣ 2"]
-    B --> E["2️⃣ 7"]
-    C --> F["4️⃣ 12"]
-    C --> G["7️⃣ 18"]
-    G --> GA["5️⃣ 17"]
-    G --> GB["6️⃣ 19"]
+    A[" 10<br/>Ρίζα"] --> B[" 5"]
+    A --> C[" 15"]
+    B --> D[" 2"]
+    B --> E[" 7"]
+    C --> F[" 12"]
+    C --> G[" 18"]
+    G --> GA[" 17"]
+    G --> GB[" 19"]
     
     style D fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
     style E fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
@@ -165,13 +165,13 @@ graph TD
 
 ```mermaid
 graph TD
-    A["1️⃣ 10<br/>(Επίπεδο 0)"] --> B["2️⃣ 5<br/>(Επίπεδο 1)"]
-    A --> C["3️⃣ 15<br/>(Επίπεδο 1)"]
-    B --> D["4️⃣ 3<br/>(Επίπεδο 2)"]
-    B --> E["5️⃣ 7<br/>(Επίπεδο 2)"]
-    C --> F["6️⃣ 12<br/>(Επίπεδο 2)"]
-    C --> G["7️⃣ 20<br/>(Επίπεδο 2)"]
-    D --> H["8️⃣ 1<br/>(Επίπεδο 3)"]
+    A[" 10<br/>(Επίπεδο 0)"] --> B[" 5<br/>(Επίπεδο 1)"]
+    A --> C[" 15<br/>(Επίπεδο 1)"]
+    B --> D[" 3<br/>(Επίπεδο 2)"]
+    B --> E[" 7<br/>(Επίπεδο 2)"]
+    C --> F[" 12<br/>(Επίπεδο 2)"]
+    C --> G[" 20<br/>(Επίπεδο 2)"]
+    D --> H[" 1<br/>(Επίπεδο 3)"]
     
     style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
     style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black

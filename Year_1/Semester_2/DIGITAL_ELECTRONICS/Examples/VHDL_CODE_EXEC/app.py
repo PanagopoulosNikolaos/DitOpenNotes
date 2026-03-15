@@ -57,7 +57,7 @@ except Exception as e:
 
 st.set_page_config(
     page_title="VHDL Simulation Platform",
-    page_icon="🔌",
+    page_icon="",
     layout="wide"
 )
 

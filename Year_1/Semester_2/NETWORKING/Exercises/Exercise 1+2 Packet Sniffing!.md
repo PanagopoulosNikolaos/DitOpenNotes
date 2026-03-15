@@ -11,7 +11,7 @@ arp -a # or arp
 Example output showing IP addresses and their corresponding MAC addresses:
 
 ```Shell
-┌─[✗]─[root@parrot]─[/home/ice]
+┌─[]─[root@parrot]─[/home/ice]
 └──╼ \#arp
 Address                  HWtype  HWaddress           Flags Mask            Iface
 172.21.0.2               ether   00:17:08:ff:60:73   C                     wlp4s0

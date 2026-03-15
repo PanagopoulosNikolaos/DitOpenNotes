@@ -434,7 +434,7 @@ Total: 1460 + 20 + 20 + 14 = 1514 bytes
 # Με tcpdump:
 2) Ποια η IP διεύθυνση του server. Εξηγήστε με ποια εντολή βρήκατε την IP;
 ```shell
-┌─[✗]─[ice@parrot]─[~/Desktop/captures/TCP_COMMUNICATIONS]
+┌─[]─[ice@parrot]─[~/Desktop/captures/TCP_COMMUNICATIONS]
 └──╼ $tcpdump -r capture.pcap -n -vv | grep "gaia.cs.umass.edu"
 reading from file capture.pcap, link-type EN10MB (Ethernet), snapshot length 262144
     172.21.2.48.18626 > 194.177.210.210.53: [udp sum ok] 53211+ A? gaia.cs.umass.edu. (35)

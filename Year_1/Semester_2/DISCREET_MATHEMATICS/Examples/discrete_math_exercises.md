@@ -117,7 +117,7 @@ $$2^{100} \equiv 2^1 \equiv 2 \pmod{7}$$
 **Problem:** Prove that $1 + 2 + 3 + ... + n = \frac{n(n+1)}{2}$ for all positive integers n.
 
 **Solution:**
-**Base case** (n=1): $1 = \frac{1(2)}{2} = 1$ ✓
+**Base case** (n=1): $1 = \frac{1(2)}{2} = 1$ 
 
 **Inductive step:** Assume true for n=k: $1 + 2 + ... + k = \frac{k(k+1)}{2}$
 
@@ -125,7 +125,7 @@ For n=k+1:
 $$1 + 2 + ... + k + (k+1) = \frac{k(k+1)}{2} + (k+1)$$
 $$= \frac{k(k+1) + 2(k+1)}{2} = \frac{(k+1)(k+2)}{2}$$
 
-This matches the formula for n=k+1. ✓
+This matches the formula for n=k+1. 
 
 ---
 
@@ -161,7 +161,7 @@ Let's compute first few terms:
 
 Pattern: $a_n = 2^{n+1} - 1$
 
-**Verification:** $a_n = 2(2^n - 1) + 1 = 2^{n+1} - 2 + 1 = 2^{n+1} - 1$ ✓
+**Verification:** $a_n = 2(2^n - 1) + 1 = 2^{n+1} - 2 + 1 = 2^{n+1} - 1$ 
 
 ---
 

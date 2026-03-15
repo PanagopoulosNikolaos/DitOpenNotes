@@ -42,7 +42,7 @@ Logical connectives are operators that combine propositions to form compound sta
 | ∧ | &, · | Conjunction (AND) | True only when both are true |
 | ∨ | + | Disjunction (OR) | True when at least one is true |
 | → | ⊃ | Conditional (IF-THEN) | False only when antecedent true, consequent false |
-| ↔ | ≡ | Biconditional (IFF) | True when both have same truth value |
+|  | ≡ | Biconditional (IFF) | True when both have same truth value |
 
 ### Detailed Connective Explanations
 
@@ -65,7 +65,7 @@ Logical connectives are operators that combine propositions to form compound sta
 - **Structure**: If p (antecedent) then q (consequent)
 - **Key insight**: False only when antecedent is true and consequent is false
 
-#### Biconditional (↔)
+#### Biconditional ()
 - **Structure**: p if and only if q
 - **Meaning**: Combines both directions (p → q and q → p)
 - **Truth condition**: True when both propositions have the same truth value
@@ -79,7 +79,7 @@ graph LR
     H[q] --> G
     I[p] --> J[p → q]
     K[q] --> J
-    L[p] --> M[p ↔ q]
+    L[p] --> M[p  q]
     N[q] --> M
 ```
 
@@ -91,12 +91,12 @@ A **well-formed formula** is a syntactically correct logical expression that fol
 ### Valid Construction Rules
 1. Any single proposition (p, q, r) is a WFF
 2. If A is a WFF, then ¬A is a WFF
-3. If A and B are WFFs, then (A ∧ B), (A ∨ B), (A → B), and (A ↔ B) are WFFs
+3. If A and B are WFFs, then (A ∧ B), (A ∨ B), (A → B), and (A  B) are WFFs
 
 ### Invalid Constructions
-- Two propositions without connectives: "p q" ❌
-- Connectives without proper operands: "p ∧ ∨ q" ❌
-- Hanging connectives: "p ∧" ❌
+- Two propositions without connectives: "p q" 
+- Connectives without proper operands: "p ∧ ∨ q" 
+- Hanging connectives: "p ∧" 
 
 ### Main Connective
 The **main connective** is the operator that scopes over the entire formula. It's typically the last connective added when building the formula and can be identified by the outermost brackets.
@@ -127,7 +127,7 @@ Truth tables systematically list all possible truth value combinations for propo
 
 ### Complete Truth Table for Basic Connectives
 
-| p | q | ¬p | p ∧ q | p ∨ q | p → q | p ↔ q |
+| p | q | ¬p | p ∧ q | p ∨ q | p → q | p  q |
 |---|---|----|----|----|----|----| 
 | 1 | 1 | 0  | 1  | 1  | 1  | 1  |
 | 1 | 0 | 0  | 0  | 1  | 0  | 0  |
@@ -176,7 +176,7 @@ graph TD
 Two formulas are **logically equivalent** if they have identical truth values in all possible scenarios. This means they have the same truth table output.
 
 ### Examples of Equivalence
-- p ↔ q ≡ (p ∧ q) ∨ (¬p ∧ ¬q)
+- p  q ≡ (p ∧ q) ∨ (¬p ∧ ¬q)
 - All tautologies are equivalent to each other
 - All contradictions are equivalent to each other
 
@@ -368,11 +368,11 @@ graph TD
 - **Build complex proofs** step by step using established rules
 
 SOS:
-1. Kill all → and ↔
+1. Kill all → and 
     
     - p→q ≡ ¬p ∨ q
         
-    - p↔q ≡ (p∧q) ∨ (¬p∧¬q)
+    - pq ≡ (p∧q) ∨ (¬p∧¬q)
 
 |   |   |   |   |   |   |   |
 |---|---|---|---|---|---|---|

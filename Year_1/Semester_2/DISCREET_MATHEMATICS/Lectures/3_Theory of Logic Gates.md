@@ -5,7 +5,7 @@
 |---|---|---|---|  
 | AND | $$Y=A\cdot B$$ | “1 only if both inputs are 1” | 11 → 1, else 0 |  
 | OR  | $$Y=A+B$$ | “1 if at least one input is 1” | 00 → 0, else 1 |  
-| NOT | $$Y=\overline{A}$$ | “Inverts its single input” | 0 ↔ 1 |  
+| NOT | $$Y=\overline{A}$$ | “Inverts its single input” | 0  1 |  
 | NAND| $$Y=\overline{A\cdot B}$$ | “AND followed by NOT” | 11 → 0, else 1 |  
 | NOR | $$Y=\overline{A+B}$$ | “OR followed by NOT” | 00 → 1, else 0 |  
 | XOR | $$Y=A\oplus B$$ | “1 when inputs differ” | 00/11 → 0, 01/10 → 1 |  

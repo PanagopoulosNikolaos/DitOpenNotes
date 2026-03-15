@@ -75,10 +75,10 @@ $$|P(A)| = 2^{|A|}$$
 - $D = \emptyset$
 
 **Solutions:**
-- $A \subset S$ ✓ (proper subset)
-- $B \subseteq S$ ✓ (subset, not proper)
-- $C \not\subseteq S$ ✗ (4 ∉ S)
-- $D \subset S$ ✓ (proper subset)
+- $A \subset S$  (proper subset)
+- $B \subseteq S$  (subset, not proper)
+- $C \not\subseteq S$  (4 ∉ S)
+- $D \subset S$  (proper subset)
 
 ### Exercise Set B: Power Sets
 

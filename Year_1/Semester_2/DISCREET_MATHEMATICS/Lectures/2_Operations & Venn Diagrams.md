@@ -15,7 +15,7 @@
 ### 1+2:
 ```mermaid
 graph TD
-    subgraph U ["🌍 Universe U = {1, 2, 3, 4, 5}"]
+    subgraph U [" Universe U = {1, 2, 3, 4, 5}"]
         subgraph A ["Set A = {1, 2}"]
             style A fill:#ffcccb,stroke:#ff6b6b,stroke-width:3px
             a1[1]
@@ -28,8 +28,8 @@ graph TD
     end
     
     subgraph Legend [" "]
-        L1["🔴 Set A"]
-        L2["⚪ Complement A' = {3, 4, 5}"]
+        L1[" Set A"]
+        L2[" Complement A' = {3, 4, 5}"]
     end
     
     style U fill:#f0f8ff,stroke:#4682b4,stroke-width:2px
@@ -74,7 +74,7 @@ graph LR
 -  **Example**: $\{1, 2, 3\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}$
 ```mermaid
 graph TD
-    subgraph Result ["🤝 Union: A ∪ B = {1, 2, 3, 4, 5}"]
+    subgraph Result [" Union: A ∪ B = {1, 2, 3, 4, 5}"]
         subgraph OnlyA ["Only in A"]
             style OnlyA fill:#ffebee,stroke:#e91e63
             ua1[1]
@@ -102,19 +102,19 @@ graph TD
 graph TD
     subgraph Operation ["A - B: Remove B elements from A"]
         subgraph Original ["Original Set A = {1, 2, 3}"]
-            subgraph Keep ["✅ Keep (not in B)"]
+            subgraph Keep [" Keep (not in B)"]
                 style Keep fill:#c8e6c9,stroke:#4caf50,stroke-width:2px
                 k1[1]
                 k2[2]
             end
             
-            subgraph Remove ["❌ Remove (also in B)"]
+            subgraph Remove [" Remove (also in B)"]
                 style Remove fill:#ffcdd2,stroke:#f44336,stroke-width:2px,stroke-dasharray: 5 5
                 r3[3]
             end
         end
         
-        subgraph Result ["📋 Result: A - B = {1, 2}"]
+        subgraph Result [" Result: A - B = {1, 2}"]
             style Result fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px
             res1[1]
             res2[2]
@@ -129,10 +129,10 @@ graph TD
 
 ```mermaid
 graph TD
-    subgraph Summary ["🎯 Set Operations Visual Summary"]
+    subgraph Summary [" Set Operations Visual Summary"]
         subgraph Row1 ["Basic Operations"]
-            A1["🔴 Set A<br/>{1,2,3}"]
-            B1["🔵 Set B<br/>{3,4,5}"]
+            A1[" Set A<br/>{1,2,3}"]
+            B1[" Set B<br/>{3,4,5}"]
         end
         
         subgraph Row2 ["Results"]

@@ -90,13 +90,13 @@ Prove that every integer $n \geq 8$ can be written as $n = 3a + 5b$ where $a, b 
 
 **By Strong Induction**:
 - **Base cases**: 
-  - $n = 8 = 3(1) + 5(1)$ ✓
-  - $n = 9 = 3(3) + 5(0)$ ✓  
-  - $n = 10 = 3(0) + 5(2)$ ✓
+  - $n = 8 = 3(1) + 5(1)$ 
+  - $n = 9 = 3(3) + 5(0)$   
+  - $n = 10 = 3(0) + 5(2)$ 
 
 - **Inductive step**: For $n \geq 11$, assume true for all $k < n$
   - Since $n-3 \geq 8$, by hypothesis: $n-3 = 3a + 5b$
-  - Therefore: $n = 3(a+1) + 5b$ ✓
+  - Therefore: $n = 3(a+1) + 5b$ 
 
 
 

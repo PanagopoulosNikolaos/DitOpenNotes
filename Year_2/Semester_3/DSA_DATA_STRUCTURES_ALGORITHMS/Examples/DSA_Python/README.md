@@ -2,7 +2,7 @@
 
 A comprehensive collection of data structures and algorithms implemented in Python with detailed explanations and examples. All implementations follow clean, class-based design patterns with extensive documentation.
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 DSA_Python/
@@ -26,7 +26,7 @@ DSA_Python/
 └── README.md
 ```
 
-## 📚 Data Structures
+##  Data Structures
 
 ### Arrays
 - **DynamicArray**: Auto-resizing array with O(1) amortized append
@@ -105,7 +105,7 @@ DSA_Python/
 - DFS Traversal: O(V + E)
 - Cycle Detection: O(V + E)
 
-## 🔄 Algorithms
+##  Algorithms
 
 ### Sorting Algorithms
 
@@ -144,7 +144,7 @@ DSA_Python/
 - **Ford-Fulkerson Algorithm**: O(E · max_flow) - uses DFS
 - **Edmonds-Karp Algorithm**: O(V · E²) - uses BFS
 
-## 🚀 Usage Examples
+##  Usage Examples
 
 ### Using Data Structures
 
@@ -200,7 +200,7 @@ distances, _ = ShortestPathAlgorithms.dijkstra(graph, 'A')
 print(distances)  # Shortest distances from A to all vertices
 ```
 
-## 📖 Documentation
+##  Documentation
 
 Each implementation includes:
 - **Detailed docstrings** explaining how the algorithm/data structure works
@@ -209,17 +209,17 @@ Each implementation includes:
 - **Common use cases** and applications
 - **Working example code** at the bottom of each file
 
-## 🎯 Features
+##  Features
 
-✅ Clean, class-based implementations  
-✅ Comprehensive documentation with large comment blocks  
-✅ Time and space complexity analysis  
-✅ Working examples for every data structure and algorithm  
-✅ Educational focus with detailed explanations  
-✅ Production-ready code with proper error handling  
-✅ Minimal inline comments, focus on docstrings  
+ Clean, class-based implementations  
+ Comprehensive documentation with large comment blocks  
+ Time and space complexity analysis  
+ Working examples for every data structure and algorithm  
+ Educational focus with detailed explanations  
+ Production-ready code with proper error handling  
+ Minimal inline comments, focus on docstrings  
 
-## 📝 Running Examples
+##  Running Examples
 
 Each file can be run independently to see examples:
 
@@ -235,7 +235,7 @@ python -m DSA_Python.algorithms.searching
 python -m DSA_Python.algorithms.graph_algorithms
 ```
 
-## 🎓 Learning Resources
+##  Learning Resources
 
 This package is designed for:
 - Computer Science students learning DSA
@@ -243,11 +243,11 @@ This package is designed for:
 - Algorithm study and reference
 - Teaching and educational purposes
 
-## 📄 License
+##  License
 
 Educational use - Feel free to use and modify for learning purposes.
 
-## 🤝 Contributing
+##  Contributing
 
 This is an educational project. Feel free to extend it with:
 - Additional data structures (Heaps, Tries, Segment Trees)
@@ -257,4 +257,4 @@ This is an educational project. Feel free to extend it with:
 
 ---
 
-**Happy Learning! 🚀**
+**Happy Learning! **

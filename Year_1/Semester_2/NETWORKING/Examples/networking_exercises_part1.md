@@ -302,7 +302,7 @@ After these three steps, the connection is established and data transfer can beg
 **Solution:**
 - Need 50 usable hosts per subnet
 - Formula: 2^n - 2 ≥ 50
-- 2^6 - 2 = 62 hosts ✓ (2^5 - 2 = 30 is too few)
+- 2^6 - 2 = 62 hosts  (2^5 - 2 = 30 is too few)
 - Need 6 bits for hosts
 - Network bits: 32 - 6 = 26 bits
 
