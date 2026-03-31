@@ -1,0 +1,298 @@
+Starting repository restructuring...
+Repository root: /home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes
+Mode: ACTUAL CHANGES
+
+=== Step 1: Renaming Course Folders ===
+Renamed: MATHEMATICAL ANALYSIS → MATHEMATICAL_ANALYSIS
+
+=== Step 2: Creating New Folder Structure ===
+
+Processing: C_PROGRAMMING_I
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: ELECTRONICS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: LINEAR_ALGEBRA
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: LOGIC_DESIGN
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: MATHEMATICAL_ANALYSIS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: C_PROGRAMMING_II
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: DIGITAL_ELECTRONICS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: DISCREET_MATHEMATICS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: ELECTROMAGNETICS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: NETWORKING
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: COMPUTER_ARCHITECTURE
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: DSA_DATA_STRUCTURES_ALGORITHMS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: OBJECT_ORIENTED_PROGRAMMING
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: SIGNALS_AND_SYSTEMS
+  Created: Tutorials
+  Created: Assignments
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: SIGNAL_PROPAGATION
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: COMPUTER_NETWORKS
+  Created: Lectures
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: DATABASES
+  Created: Lectures
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: OPERATING_SYSTEMS
+  Created: Lectures
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: PROBABILITY_STATISTICS
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+Processing: PROGRAMMING_LANGUAGES_PRINCIPLES
+  Created: Lectures
+  Created: Tutorials
+  Created: Assignments
+  Created: Examples
+  Created: Exams
+  Created: Resources
+  Created: Projects
+  Created: Exams/Papers
+  Created: Exams/Solutions
+
+=== Step 3: Moving Content to New Structure ===
+Removed outdated path: ScientificCalculator
+
+Processing: C_PROGRAMMING_I
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: ELECTRONICS
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: LINEAR_ALGEBRA
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: LOGIC_DESIGN
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: MATHEMATICAL_ANALYSIS
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: C_PROGRAMMING_II
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: DIGITAL_ELECTRONICS
+  Moved contents: Exercises → Assignments
+
+Processing: DISCREET_MATHEMATICS
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: ELECTROMAGNETICS
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: NETWORKING
+  Removed: Quizzes
+  Moved contents: Exercises → Assignments
+
+Processing: COMPUTER_ARCHITECTURE
+  Keeping folder as is: Arduino
+  Moved contents: Exercises → Assignments
+
+Processing: DSA_DATA_STRUCTURES_ALGORITHMS
+  Moved contents: Exercises → Assignments
+
+Processing: OBJECT_ORIENTED_PROGRAMMING
+  Moved contents: Exercises → Assignments
+
+Processing: SIGNALS_AND_SYSTEMS
+  Moved contents: Exercises → Assignments
+
+Processing: SIGNAL_PROPAGATION
+
+Processing: COMPUTER_NETWORKS
+  Moved contents: Exercises → Assignments
+
+Processing: DATABASES
+
+Processing: OPERATING_SYSTEMS
+
+Processing: PROBABILITY_STATISTICS
+  Moved contents: Exercises → Assignments
+  Moved to Resources/
+
+Processing: PROGRAMMING_LANGUAGES_PRINCIPLES
+  Moved contents: Exercises → Assignments
+  Moved to Resources/
+
+=== Step 4: Handling Special Cases (Quartus) ===
+  Zipping: Quartus_Projects
+    Success: Created zip and removed original directory
+  Zipping: PanagopoulosNikolaos_03323_Quartus
+    Success: Created zip and removed original directory
+
+=== Step 5: Updating .gitignore ===
+  Updated .gitignore with new patterns
+
+=== Summary Report ===
+Total courses processed: 20
+
+Folder distribution across courses:
+  Arduino: 1 courses
+  Assignments: 20 courses
+  Examples: 20 courses
+  Exams: 20 courses
+  Lectures: 20 courses
+  Projects: 20 courses
+  Resources: 20 courses
+  Tutorials: 20 courses
+
+Log file saved to: /home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/scripts/restructure_log_20260331_232516.txt
+
+Restructuring completed successfully!

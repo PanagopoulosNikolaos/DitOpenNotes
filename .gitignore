@@ -77,3 +77,15 @@ improvements.md
 # VS Code
 .vscode/
 *.obsidian/
+# Quartus project files
+*.qpf
+*.qsf
+*.qws
+*.vhd.bak
+db/
+incremental_db/
+output_files/
+simulation/
+
+# Build artifacts
+*.zip
