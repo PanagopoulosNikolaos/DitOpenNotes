@@ -6,15 +6,15 @@ Data organization is the first step in descriptive statistics. It involves trans
 
 Before building a table, we must understand the four types of frequencies:
 
-*   **Absolute Frequency ($f_i$):** The number of times a specific value or interval occurs. The sum of all absolute frequencies equals the total number of observations ($N$):
-    $$\sum_{i=1}^{k} f_i = N$$
+*   **Absolute Frequency ($f_i$):** The number of times a specific value or interval occurs. The sum of all absolute frequencies equals the total number of observations ($n$):
+    $$\sum_{i=1}^{k} f_i = n$$
 *   **Relative Frequency ($h_i$):** The proportion or percentage of the total data that a value represents:
-    $$h_i = \frac{f_i}{N}$$
+    $$h_i = \frac{f_i}{n}$$
     The sum of all relative frequencies must always equal 1 (or 100%): $\sum h_i = 1$.
 *   **Cumulative Absolute Frequency ($F_i$):** The running total of absolute frequencies up to a certain point:
     $$F_i = f_1 + f_2 + \dots + f_i$$
 *   **Cumulative Relative Frequency ($H_i$):** The running total of relative frequencies:
-    $$H_i = h_1 + h_2 + \dots + h_i \quad \text{or} \quad H_i = \frac{F_i}{N}$$
+    $$H_i = h_1 + h_2 + \dots + h_i \quad \text{or} \quad H_i = \frac{F_i}{n}$$
 
 ---
 
@@ -22,7 +22,7 @@ Before building a table, we must understand the four types of frequencies:
 When datasets are large or continuous, we group them into **Class Intervals**.
 
 1.  **Range ($R$):** $R = x_{max} - x_{min}$
-2.  **Number of Classes ($k$):** (Sturges' Rule) $k = 1 + 3.322 \cdot \log_{10}(N)$
+2.  **Number of Classes ($k$):** (Sturges' Rule) $k = 1 + 3.322 \cdot \log_{10}(n)$
 3.  **Class Width ($w$):** $w = \frac{R}{k}$ (Always round up for convenience in manual tables).
 4.  **Class Mark ($x_i$):** Midpoint of the interval: $x_i = \frac{\text{Lower} + \text{Upper}}{2}$
 
@@ -34,14 +34,16 @@ When datasets are large or continuous, we group them into **Class Intervals**.
 **Problem:** A survey of 15 people asked for their favorite color among: Red (R), Blue (B), and Green (G). The results: `R, B, B, G, R, B, G, G, B, B, R, G, B, B, R`. Create a frequency table.
 
 **Solution:**
-1.  **Count:** Red (4), Blue (7), Green (4). Total $N=15$.
+1.  **Count:** Red (4), Blue (7), Green (4). Total $n=15$.
 2.  **Relative Frequency:** $h_{Red} = 4/15 \approx 0.267$.
 
 | Color | $f_i$ | $h_i$ | $F_i$ | $H_i$ |
 | :--- | :--- | :--- | :--- | :--- |
 | Red | 4 | 0.267 | 4 | 0.267 |
-| Blue | 7 | 0.466 | 11 | 0.733 |
-| Green | 4 | 0.267 | 15 | 1.000 |
+| Blue | 7 | 0.467 | 11 | 0.734 |
+| Green | 4 | 0.267 | 15 | 1.001 |
+
+*(Note: The $H_i$ column sums to 1.001 due to rounding each $h_i$ to 3 decimal places. This is a standard rounding artifact — see the Exam Tip at the end of this file.)*
 
 ---
 
@@ -61,7 +63,7 @@ Identify unique values: 0, 1, 2, 3.
 ---
 
 ### Exercise 3: Finding Missing Frequencies
-**Problem:** A table has $N=20$. Given $f_1=5, f_2=?, f_3=8, f_4=2$. Find $f_2$ and $h_2$.
+**Problem:** A table has $n=20$. Given $f_1=5, f_2=?, f_3=8, f_4=2$. Find $f_2$ and $h_2$.
 
 **Solution:**
 1.  Sum condition: $5 + f_2 + 8 + 2 = 20$
@@ -86,12 +88,12 @@ Intervals: `[150, 165)` and `[165, 180]`.
 ---
 
 ### Exercise 5: Applying Sturges' Rule
-**Problem:** For $N=40$ observations, find the ideal number of classes $k$.
+**Problem:** For $n=40$ observations, find the ideal number of classes $k$.
 
 **Solution:**
 $$k = 1 + 3.322 \cdot \log_{10}(40)$$
 $$k = 1 + 3.322 \cdot (1.602) \approx 1 + 5.32 = 6.32$$
-Rounding, we use **6 classes**.
+Rounding up (as per the convention stated above), we use **7 classes**.
 
 ---
 

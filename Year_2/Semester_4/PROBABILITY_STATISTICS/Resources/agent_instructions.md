@@ -32,7 +32,7 @@ When generating the content for each file, strictly adhere to the following rule
 - **Use Web Search:** Use web search whenever necessary to research and confirm facts, supplement your theoretical explanations, or find better analogies and examples for the concepts.
 
 ### 4. Interactive & Progressive Examples
-- Provide detailed, step-by-step examples. **You must include at least 8 solved examples or exercises in every file you generate.**
+- Provide detailed, step-by-step examples. **You must include at least (8 to 15) solved examples or exercises in every file you generate.**
 - When demonstrating a computational process (like filling out a frequency table or applying a formula), do not just provide the final answer.
 - **Provide "Work-in-Progress" states:** Show a half-finished column or equation, explicitly explain the calculation required to find the next value, and *then* display the fully completed table or solved equation.
 

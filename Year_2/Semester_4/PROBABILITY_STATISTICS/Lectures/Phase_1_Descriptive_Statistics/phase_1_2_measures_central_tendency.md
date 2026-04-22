@@ -109,4 +109,10 @@ $$\bar{x} = 0.2 + 1.0 + 0.9 = \mathbf{2.1}$$
 *   **Mean:** Best for symmetrical data without outliers.
 *   **Median:** Best for skewed data or data with extreme outliers.
 *   **Mode:** Best for categorical (qualitative) data.
-*   If **Mean > Median**, the distribution is **Positively Skewed**.
+
+### Skewness Relationship
+| Condition | Distribution Shape |
+| :--- | :--- |
+| **Mean > Median** | **Positively Skewed** (right tail is longer) |
+| **Mean < Median** | **Negatively Skewed** (left tail is longer) |
+| **Mean = Median** | **Symmetric** (e.g., Normal distribution) |
