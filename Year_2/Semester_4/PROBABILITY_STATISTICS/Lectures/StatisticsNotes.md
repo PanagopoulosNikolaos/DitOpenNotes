@@ -4,7 +4,7 @@ Generated from individual lecture phases.
 
 ---
 
-<!-- Source: Phase_1_Descriptive_Statistics/phase_1_1_data_organization.md -->
+<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_1_data_organization.md -->
 # Phase 1.1: Data Organization
 
 Data organization is the first step in descriptive statistics. It involves transforming raw data into a structured format, primarily through **Frequency Tables**. This allows us to see patterns, distributions, and summary characteristics of the dataset.
@@ -157,7 +157,7 @@ If your relative frequencies ($h_i$) sum to 0.99 or 1.01 due to rounding, usuall
 
 ---
 
-<!-- Source: Phase_1_Descriptive_Statistics/phase_1_2_measures_central_tendency.md -->
+<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_2_measures_central_tendency.md -->
 # Phase 1.2: Measures of Central Tendency
 
 Measures of central tendency are statistical values that represent the "center" or "typical" value of a dataset. The three most common measures are the **Mean**, **Median**, and **Mode**.
@@ -280,7 +280,7 @@ $$\bar{x} = 0.2 + 1.0 + 0.9 = \mathbf{2.1}$$
 
 ---
 
-<!-- Source: Phase_1_Descriptive_Statistics/phase_1_3_measures_position.md -->
+<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_3_measures_position.md -->
 # Phase 1.3: Measures of Position
 
 Measures of position (or quantiles) are values that divide a sorted dataset into equal parts. The most common are **Quartiles** (divided into 4 parts) and **Percentiles** (divided into 100 parts).
@@ -396,7 +396,7 @@ These are also the components used to draw a **Boxplot**.
 
 ---
 
-<!-- Source: Phase_1_Descriptive_Statistics/phase_1_4_measures_dispersion.md -->
+<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_4_measures_dispersion.md -->
 # Phase 1.4: Measures of Dispersion
 
 Measures of dispersion (or variability) describe how "spread out" the values in a dataset are. While central tendency tells us where the center is, dispersion tells us how much the data deviates from that center.
@@ -502,7 +502,7 @@ If a professor asks "Which stock is riskier?" or "Which machine is more consiste
 
 ---
 
-<!-- Source: Phase_1_Descriptive_Statistics/phase_1_5_core_formulas_summary.md -->
+<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_5_core_formulas_summary.md -->
 # Phase 1.5: Core Formulas Summary (Grouped Data)
 
 This file serves as a quick-reference guide for the mathematical foundation of Descriptive Statistics when dealing with **Grouped Data**.
@@ -558,7 +558,7 @@ Always remember that **Variance** is in squared units (e.g., $kg^2$), while **Me
 
 ---
 
-<!-- Source: Phase_2_Probability_Theory/phase_2_1_set_theory_fundamentals.md -->
+<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_1_set_theory_fundamentals.md -->
 # Phase 2.1: Set Theory Fundamentals
 
 Set Theory provides the mathematical language used to define and manipulate probability. Every probability problem is, at its core, a question about sets. Understanding the formal notation and operations is the foundation upon which all probability rules are built.
@@ -782,7 +782,7 @@ In exam problems, you may be asked to either **list** the outcomes of an event (
 
 ---
 
-<!-- Source: Phase_2_Probability_Theory/phase_2_2_venn_diagrams.md -->
+<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_2_venn_diagrams.md -->
 # Phase 2.2: Venn Diagrams & Translating Worded Problems
 
 Venn Diagrams are a visual tool that maps relationships between events onto overlapping circles. Their primary purpose in probability is to **translate English language problem descriptions into precise set notation**, which can then be evaluated using formulas. Mastering this translation is one of the highest-leverage skills for exams.
@@ -1025,7 +1025,7 @@ Once these four values are known, **any probability expression** involving $A$ a
 
 ---
 
-<!-- Source: Phase_2_Probability_Theory/phase_2_3_probability_axioms_rules.md -->
+<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_3_probability_axioms_rules.md -->
 # Phase 2.3: Probability Axioms & Rules
 
 The **Probability Axioms** (Kolmogorov's Axioms) are the three foundational rules from which all of probability theory is derived. The **Addition Rule** and **De Morgan's Laws** are the most practically important tools built on top of these axioms for computing probabilities in exam problems.
@@ -1311,7 +1311,7 @@ This two-step method is the fastest and most reliable approach and reduces compl
 
 ---
 
-<!-- Source: Phase_3_Conditional_Probability_Independence/phase_3_1_conditional_probability.md -->
+<!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_1_conditional_probability.md -->
 # Phase 3.1: Conditional Probability
 
 Conditional probability is a fundamental concept in statistics that measures the likelihood of an event occurring, given that another event has already taken place. This "given" information effectively restricts the sample space to a specific subset.
@@ -1519,7 +1519,7 @@ $$P(D|A) = 0.05$$
 
 ---
 
-<!-- Source: Phase_3_Conditional_Probability_Independence/phase_3_2_independence.md -->
+<!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_2_independence.md -->
 # Phase 3.2: Independence
 
 Independence is a statistical property where the occurrence of one event does not affect the probability of another event occurring. Understanding independence is crucial for simplifying complex probability calculations.
@@ -1702,7 +1702,7 @@ $P(\text{Exactly one}) = 0.52$.
 
 ---
 
-<!-- Source: Phase_3_Conditional_Probability_Independence/phase_3_3_total_probability_bayes_theorem.md -->
+<!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_3_total_probability_bayes_theorem.md -->
 # Phase 3.3: Law of Total Probability & Bayes' Theorem
 
 These two theorems are the most powerful tools in probability for handling multi-stage processes and updating beliefs based on new evidence.
@@ -1889,7 +1889,7 @@ There is an 82.35% chance it came from Supplier X.
 
 ---
 
-<!-- Source: Phase_4_Discrete_Random_Variables/phase_4_1_discrete_rv_fundamentals.md -->
+<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_1_discrete_rv_fundamentals.md -->
 # Phase 4.1: Discrete Random Variables — Fundamentals
 
 A **Random Variable** maps each outcome of a random experiment to a number. A **Discrete Random Variable** takes on a finite or countably infinite set of values. The three pillars of this topic — the PMF, the Expected Value, and the Variance — completely characterise the distribution's shape, centre, and spread.
@@ -2133,7 +2133,7 @@ Always use $V(X) = E[X^2] - (E[X])^2$ rather than the definition formula $\sum (
 
 ---
 
-<!-- Source: Phase_4_Discrete_Random_Variables/phase_4_2_binomial_distribution.md -->
+<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_2_binomial_distribution.md -->
 # Phase 4.2: Binomial Distribution
 
 The Binomial Distribution models the number of **successes** in a fixed sequence of independent trials where each trial has exactly two possible outcomes (success or failure) and the probability of success is constant. It is the most frequently examined discrete distribution at the university level.
@@ -2363,7 +2363,7 @@ The words "independent", "fixed number of trials", "probability of success", and
 
 ---
 
-<!-- Source: Phase_4_Discrete_Random_Variables/phase_4_3_poisson_distribution.md -->
+<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_3_poisson_distribution.md -->
 # Phase 4.3: Poisson Distribution
 
 The Poisson Distribution models the number of times a **rare event** occurs within a fixed interval of time, space, or volume, given a known average rate. It fills the gap in the discrete distribution toolkit: where the Binomial requires a fixed, finite $n$, the Poisson handles situations where the number of "trials" is very large (or effectively infinite) and the individual probability of each event is very small.
@@ -2631,7 +2631,7 @@ The most common Poisson exam error is substituting the wrong rate into the formu
 
 ---
 
-<!-- Source: Phase_5_Continuous_Random_Variables_Distributions/phase_5_1_normal_distribution.md -->
+<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_1_normal_distribution.md -->
 # Phase 5.1: Normal Distribution
 
 The Normal Distribution ($X \sim N(\mu, \sigma^2)$) is the most important continuous distribution in statistics. It is characterized by its symmetric, bell-shaped curve, where the mean, median, and mode are all equal and located at the center.
@@ -2794,7 +2794,7 @@ The standard deviation is **5**.
 
 ---
 
-<!-- Source: Phase_5_Continuous_Random_Variables_Distributions/phase_5_2_empirical_rule.md -->
+<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_2_empirical_rule.md -->
 # Phase 5.2: The Empirical Rule (68-95-99.7 Rule)
 
 The Empirical Rule is a quick way to estimate probabilities for any normal distribution without needing a Z-table. It describes the percentage of data that falls within specific standard deviation intervals from the mean.
@@ -2953,7 +2953,7 @@ Being closer to the mean (in standard deviation units) means a **larger upper ta
 
 ---
 
-<!-- Source: Phase_5_Continuous_Random_Variables_Distributions/phase_5_3_other_continuous_distributions.md -->
+<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_3_other_continuous_distributions.md -->
 # Phase 5.3: Other Continuous Distributions
 
 While the Normal distribution is the most famous, other continuous distributions like the **Uniform** and **Exponential** are essential for modeling specific real-world phenomena like wait times and equally likely outcomes over an interval.
@@ -3112,7 +3112,7 @@ $$P(X > 5) = e^{-0.2(5)} = e^{-1} \approx 0.3679$$
 
 ---
 
-<!-- Source: Phase_6_Inferential_Statistics/phase_6_1_central_limit_theorem.md -->
+<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_1_central_limit_theorem.md -->
 # Phase 6: Inferential Statistics - Central Limit Theorem (CLT)
 
 ## 1. Theoretical Foundation
@@ -3315,7 +3315,7 @@ $$ P(\hat{p} > 0.65) = P(Z > 2.04) = 1 - 0.9793 = 0.0207 $$
 
 ---
 
-<!-- Source: Phase_6_Inferential_Statistics/phase_6_2_confidence_intervals.md -->
+<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_2_confidence_intervals.md -->
 # Phase 6: Inferential Statistics - Confidence Intervals
 
 ## 1. Theoretical Foundation
@@ -3507,7 +3507,7 @@ $n = 505$.
 
 ---
 
-<!-- Source: Phase_6_Inferential_Statistics/phase_6_3_hypothesis_testing.md -->
+<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_3_hypothesis_testing.md -->
 # Phase 6: Inferential Statistics - Hypothesis Testing
 
 ## 1. Theoretical Foundation
@@ -3704,7 +3704,7 @@ Another trap is contextualizing the error. It's not enough to say "rejecting $H_
 
 ---
 
-<!-- Source: Phase_7_R_Programming_Commands/phase_7_1_descriptive_stats.md -->
+<!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_1_descriptive_stats.md -->
 # Phase 7: R Programming Commands - Descriptive Stats
 
 ## 1. Theoretical Foundation
@@ -3934,7 +3934,7 @@ pop_var_adjusted <- var(pop_ages) * ((n - 1) / n)
 
 ---
 
-<!-- Source: Phase_7_R_Programming_Commands/phase_7_2_binomial_distribution.md -->
+<!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_2_binomial_distribution.md -->
 # Phase 7: R Programming Commands - Binomial Distribution
 
 ## 1. Theoretical Foundation
@@ -4108,7 +4108,7 @@ ans_lower_tail <- pbinom(14, size = 200, prob = 0.05, lower.tail = FALSE)
 
 ---
 
-<!-- Source: Phase_7_R_Programming_Commands/phase_7_3_normal_distribution.md -->
+<!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_3_normal_distribution.md -->
 # Phase 7: R Programming Commands - Normal Distribution
 
 ## 1. Theoretical Foundation
