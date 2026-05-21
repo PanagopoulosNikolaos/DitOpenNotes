@@ -12,9 +12,12 @@ def runningTotals(numbers: list[int]) -> Generator[int, None, None]:
         int: The cumulative sum calculated up to the current element.
     """
     total = 0
+    # totals = []
     for n in numbers:
         total += n
         yield total
+        # totals.append(total)
+    # return totals
 
 
 def runExercise() -> None:
