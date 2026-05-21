@@ -1311,6 +1311,239 @@ This two-step method is the fastest and most reliable approach and reduces compl
 
 ---
 
+<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_4_combinatorics_counting_methods.md -->
+# Phase 2.4: Combinatorics and Counting Methods
+
+Combinatorial analysis provides the mathematical techniques for counting the number of elements in a set without listing them individually. In probability theory, when outcomes in a sample space $\Omega$ are equally likely, the probability of an event $A$ is:
+
+$$P(A) = \frac{|A|}{|\Omega|} = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}$$
+
+Determining $|A|$ and $|\Omega|$ often requires the counting methods detailed below.
+
+---
+
+## 1. Fundamental Principles of Counting
+
+### 1.1 The Multiplication Rule (Product Rule)
+If an operation can be performed in $n_1$ ways, and for each of these a second operation can be performed in $n_2$ ways, and for each of these a third operation can be performed in $n_3$ ways, and so on, then the sequence of $k$ operations can be performed in:
+
+$$N = n_1 \cdot n_2 \cdot \dots \cdot n_k \text{ ways}$$
+
+### 1.2 The Addition Rule (Sum Rule)
+If an operation can be performed in $n_1$ ways, and a second disjoint operation can be performed in $n_2$ ways, then the total number of ways to perform either the first or the second operation is:
+
+$$N = n_1 + n_2 \text{ ways}$$
+
+---
+
+## 2. Permutations
+
+A permutation is an ordered arrangement of all or part of a set of objects. The order of selection matters.
+
+### 2.1 Permutations of Distinct Objects
+The number of permutations of $n$ distinct objects taken all at a time is:
+
+$$P(n, n) = n!$$
+
+The number of permutations of $n$ distinct objects taken $r$ at a time (where $0 \le r \le n$) is:
+
+$$P(n, r) = \frac{n!}{(n-r)!}$$
+
+### 2.2 Permutations with Repetition (Identical Objects)
+The number of distinct permutations of $n$ objects of which $n_1$ are of one type, $n_2$ are of a second type, $\dots$, and $n_k$ are of a $k$-th type (such that $n_1 + n_2 + \dots + n_k = n$) is:
+
+$$P(n; n_1, n_2, \dots, n_k) = \frac{n!}{n_1! \cdot n_2! \dots n_k!}$$
+
+---
+
+## 3. Combinations
+
+A combination is a selection of all or part of a set of objects without regard to order. The order of selection does not matter.
+
+### 3.1 Combinations of Distinct Objects (Without Replacement)
+The number of combinations of $n$ distinct objects taken $r$ at a time (where $0 \le r \le n$) is given by the binomial coefficient:
+
+$$C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
+
+### 3.2 Combinations with Replacement
+The number of ways to choose $r$ objects from a set of $n$ distinct objects when repetition is allowed (and order does not matter) is:
+
+$$C^{R}(n, r) = \binom{n + r - 1}{r} = \frac{(n + r - 1)!}{r!(n - 1)!}$$
+
+---
+
+## 4. Partitions & Multinomial Coefficients
+
+The number of ways of partitioning a set of $n$ distinct objects into $k$ cells with $r_1$ objects in the first cell, $r_2$ objects in the second cell, and so on, where $r_1 + r_2 + \dots + r_k = n$, is:
+
+$$\binom{n}{r_1, r_2, \dots, r_k} = \frac{n!}{r_1! \cdot r_2! \dots r_k!}$$
+
+---
+
+## 5. Solved Exercises (10 Examples)
+
+### Exercise 1: License Plate Codes (Multiplication Rule)
+**Problem:** A license plate contains 3 letters followed by 3 digits. Letters cannot be repeated, but digits can. How many distinct license plates can be formed if there are 26 letters in the alphabet?
+
+**Solution:**
+- **Step 1: Define operations.**
+  We have 6 slots to fill. Let $n_i$ represent the number of choices for slot $i$.
+- **Step 2: WIP State.**
+  For letters (no repetition):
+  - Slot 1: 26 choices
+  - Slot 2: 25 choices
+  - Slot 3: 24 choices
+  For digits (repetition allowed):
+  - Slot 4: 10 choices (0-9)
+  - Slot 5: 10 choices
+  - Slot 6: ? choices
+- **Step 3: Final Calculation.**
+  - Slot 6 has 10 choices.
+  - Total plates $= 26 \cdot 25 \cdot 24 \cdot 10 \cdot 10 \cdot 10 = 15,600 \cdot 1,000 = 15,600,000$.
+
+---
+
+### Exercise 2: Selecting a Committee (Combinations)
+**Problem:** From a group of 8 men and 6 women, a committee of 5 people must be formed. How many committees are possible if it must contain exactly 3 men and 2 women?
+
+**Solution:**
+- **Step 1: Split the selections.**
+  We select men and women independently, then multiply the results.
+- **Step 2: WIP State.**
+  - Selection of men: $\binom{8}{3} = \frac{8!}{3! \cdot 5!} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} = 56$.
+  - Selection of women: $\binom{6}{2} = \frac{6!}{2! \cdot 4!} = \frac{6 \cdot 5}{?} = 15$.
+- **Step 3: Final Calculation.**
+  Total committees $= 56 \cdot 15 = 840$.
+
+---
+
+### Exercise 3: Arranging Books on a Shelf (Permutations)
+**Problem:** There are 4 Math books, 3 Physics books, and 2 Chemistry books. In how many ways can they be arranged on a shelf if books of the same subject must be kept together?
+
+**Solution:**
+- **Step 1: Treat groups as units.**
+  We arrange the 3 subjects (Math, Physics, Chemistry) first: $3!$ ways.
+- **Step 2: WIP State.**
+  Within each subject group:
+  - Math books can be arranged in $4!$ ways.
+  - Physics books can be arranged in $3!$ ways.
+  - Chemistry books can be arranged in ? ways.
+- **Step 3: Final Calculation.**
+  - Chemistry arrangements $= 2! = 2$ ways.
+  - Total arrangements $= 3! \cdot (4! \cdot 3! \cdot 2!) = 6 \cdot (24 \cdot 6 \cdot 2) = 6 \cdot 288 = 1728$.
+
+---
+
+### Exercise 4: Distributing Toys (Multinomial Coefficient)
+**Problem:** In how many ways can 10 distinct toys be distributed among 3 children if the eldest receives 5 toys, the middle child receives 3 toys, and the youngest receives 2 toys?
+
+**Solution:**
+- **Step 1: Set up the partition.**
+  This is a partition of $n=10$ objects into cells of sizes $r_1=5, r_2=3, r_3=2$.
+- **Step 2: WIP State.**
+  $$\binom{10}{5, 3, 2} = \frac{10!}{5! \cdot 3! \cdot 2!} = \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5!}{5! \cdot (3 \cdot 2 \cdot 1) \cdot (2 \cdot 1)} = \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6}{?}$$
+- **Step 3: Final Calculation.**
+  $$\text{Denominator} = 6 \cdot 2 = 12$$
+  $$\text{Numerator} = 30240$$
+  $$\text{Total ways} = \frac{30240}{12} = 2520 \text{ ways}.$$
+
+---
+
+### Exercise 5: Word Permutations with Repetition
+**Problem:** How many distinct words (including nonsense words) can be formed by rearranging the letters of the word "PROBABILITY"?
+
+**Solution:**
+- **Step 1: Count letter frequencies.**
+  Total letters $n = 11$.
+  Frequencies: P (1), R (1), O (1), B (2), A (1), I (2), L (1), T (1), Y (1).
+- **Step 2: WIP State.**
+  We apply the permutation of identical objects formula:
+  $$\text{Total permutations} = \frac{11!}{1! \cdot 1! \cdot 1! \cdot 2! \cdot 1! \cdot 2! \cdot 1! \cdot 1! \cdot 1!} = \frac{11!}{2! \cdot 2!} = \frac{39,916,800}{?}$$
+- **Step 3: Final Calculation.**
+  $$\text{Total permutations} = \frac{39,916,800}{4} = 9,979,200 \text{ words}.$$
+
+---
+
+### Exercise 6: Seating Arrangements at a Round Table
+**Problem:** In how many ways can 6 people be seated at a round table? (Note: Two arrangements are considered identical if each person has the same left and right neighbors).
+
+**Solution:**
+- **Step 1: Identify circular permutation.**
+  For circular permutations of $n$ distinct objects, we fix one person's position to eliminate rotational equivalence, leaving $(n-1)!$ arrangements.
+- **Step 2: WIP State.**
+  $$\text{Arrangements} = (6 - 1)! = ?!$$
+- **Step 3: Final Calculation.**
+  $$5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120 \text{ ways}.$$
+
+---
+
+### Exercise 7: Choosing Donuts (Combinations with Replacement)
+**Problem:** A bakery sells 4 varieties of donuts. In how many ways can a customer select 6 donuts?
+
+**Solution:**
+- **Step 1: Identify model parameters.**
+  We are selecting $r = 6$ donuts from $n = 4$ types, where order does not matter and repetition is allowed.
+- **Step 2: WIP State.**
+  Use the combination with replacement formula:
+  $$\binom{n + r - 1}{r} = \binom{4 + 6 - 1}{6} = \binom{9}{6} = \frac{9!}{6! \cdot 3!} = \frac{9 \cdot 8 \cdot 7}{?}$$
+- **Step 3: Final Calculation.**
+  $$\text{Denominator} = 3 \cdot 2 \cdot 1 = 6$$
+  $$\text{Total ways} = \frac{504}{6} = 84 \text{ ways}.$$
+
+---
+
+### Exercise 8: Pathfinding on a Grid
+**Problem:** A grid has coordinates from $(0,0)$ to $(5,4)$. A path moves only step-by-step to the right or up. How many paths exist from $(0,0)$ to $(5,4)$?
+
+**Solution:**
+- **Step 1: Translate to symbols.**
+  Any path requires exactly 5 Right (R) moves and 4 Up (U) moves, totaling $n = 9$ moves.
+- **Step 2: WIP State.**
+  We need to choose which 5 of the 9 moves are R (the rest will be U):
+  $$\text{Paths} = \binom{9}{5} = \frac{9!}{5! \cdot 4!} = \frac{9 \cdot 8 \cdot 7 \cdot 6}{?}$$
+- **Step 3: Final Calculation.**
+  $$\text{Denominator} = 4 \cdot 3 \cdot 2 \cdot 1 = 24$$
+  $$\text{Total paths} = \frac{3024}{24} = 126 \text{ paths}.$$
+
+---
+
+### Exercise 9: Sum of Dice (Combinatorics for Probability)
+**Problem:** Three fair six-sided dice are rolled. What is the probability that the sum of the numbers shown is exactly 5?
+
+**Solution:**
+- **Step 1: Calculate the size of the sample space $|\Omega|$.**
+  Each die has 6 outcomes. For 3 dice: $|\Omega| = 6^3 = 216$.
+- **Step 2: WIP State.**
+  We count the combinations of $(x_1, x_2, x_3)$ such that $x_1 + x_2 + x_3 = 5$, where $1 \le x_i \le 6$.
+  Possible partitions of 5 into 3 positive integers:
+  - $\{3, 1, 1\}$ (order matters): can occur as $(3,1,1)$, $(1,3,1)$, or $(1,1,3)$ $\Rightarrow$ 3 ways.
+  - $\{2, 2, 1\}$ (order matters): can occur as $(2,2,1)$, $(2,1,2)$, or $(1,2,2)$ $\Rightarrow$ ? ways.
+- **Step 3: Final Calculation.**
+  - There are 3 ways for $\{2, 2, 1\}$.
+  - Total favorable outcomes $|A| = 3 + 3 = 6$.
+  - Probability $= \frac{|A|}{|\Omega|} = \frac{6}{216} = \frac{1}{36} \approx 0.0278$.
+
+---
+
+### Exercise 10: Standard Poker Hands (Combination)
+**Problem:** A standard poker deck has 52 cards. What is the probability of being dealt a "Four of a Kind" (4 cards of one rank, and 1 card of another rank) in a 5-card hand?
+
+**Solution:**
+- **Step 1: Compute total hands.**
+  $$|\Omega| = \binom{52}{5} = 2,598,960$$
+- **Step 2: WIP State.**
+  To get a Four of a Kind:
+  1. Choose the rank of the four cards: $\binom{13}{1} = 13$ ways.
+  2. Select all 4 cards of that rank: $\binom{4}{4} = 1$ way.
+  3. Choose the remaining card from the remaining cards: $\binom{48}{1} = ?$ ways.
+- **Step 3: Final Calculation.**
+  - $\binom{48}{1} = 48$ ways.
+  - Total favorable hands $|A| = 13 \cdot 1 \cdot 48 = 624$.
+  - Probability $= \frac{624}{2,598,960} \approx 0.00024$.
+
+
+---
+
 <!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_1_conditional_probability.md -->
 # Phase 3.1: Conditional Probability
 
@@ -2631,6 +2864,421 @@ The most common Poisson exam error is substituting the wrong rate into the formu
 
 ---
 
+<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_4_geometric_hypergeometric_distributions.md -->
+# Phase 4.4: Geometric and Hypergeometric Distributions
+
+This file covers two important discrete distributions: the **Geometric Distribution** (which models the number of trials until the first success) and the **Hypergeometric Distribution** (which models sampling without replacement).
+
+---
+
+## 1. Geometric Distribution ($X \sim Geo(p)$)
+
+The Geometric distribution models the number of independent Bernoulli trials required to obtain the first success. 
+
+> **Critical Exam Gotcha:** There are two common definitions of the Geometric distribution used in university syllabi. Confusing them will lead to wrong formulas for the PMF and expected value. Always check which definition your professor uses.
+
+### Definition A: Counting the Number of Trials ($k = 1, 2, 3, \dots$)
+Here, $X$ is the trial number of the first success.
+*   **PMF:** $P(X = k) = (1-p)^{k-1} p$
+*   **Mean (Expected Value):** $E[X] = \frac{1}{p}$
+*   **Variance:** $Var(X) = \frac{1-p}{p^2}$
+*   **CDF:** $P(X \le k) = 1 - (1-p)^k$
+
+### Definition B: Counting the Number of Failures Before the First Success ($k = 0, 1, 2, \dots$)
+Here, $Y$ is the number of failures before the first success occurs. Note that $Y = X - 1$.
+*   **PMF:** $P(Y = k) = (1-p)^k p$
+*   **Mean (Expected Value):** $E[Y] = \frac{1-p}{p}$
+*   **Variance:** $Var(Y) = \frac{1-p}{p^2}$
+*   **CDF:** $P(Y \le k) = 1 - (1-p)^{k+1}$
+
+---
+
+## 2. Hypergeometric Distribution ($X \sim HG(N, K, n)$)
+
+The Hypergeometric distribution models the number of successes in a sample of size $n$ drawn from a finite population of size $N$ containing exactly $K$ successes, **without replacement**.
+
+Unlike the Binomial distribution, the trials are **not independent** because the probability of success changes with each draw.
+
+*   **Parameters:**
+    *   $N$: Total population size
+    *   $K$: Number of success items in the population
+    *   $n$: Number of items drawn (sample size)
+    *   $k$: Number of success items in the sample
+*   **PMF:**
+    $$P(X = k) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}, \quad \max(0, n - (N - K)) \le k \le \min(n, K)$$
+*   **Expected Value:** $E[X] = n \cdot \frac{K}{N}$
+*   **Variance:**
+    $$Var(X) = n \cdot \frac{K}{N} \cdot \left(1 - \frac{K}{N}\right) \cdot \left(\frac{N - n}{N - 1}\right)$$
+    The term $\frac{N-n}{N-1}$ is known as the **finite population correction factor**.
+
+---
+
+## 3. Solved Exercises (10 Examples)
+
+### Exercise 1: Finding first success on a specific trial (Geometric)
+**Problem:** A basketball player makes a free throw with probability $p = 0.7$. Find the probability that they make their first successful free throw on their 4th attempt.
+
+**Solution:**
+- **Step 1: Identify distribution and parameters.**
+  We count the trials, so we use Definition A ($X \sim Geo(0.7)$). We want to find $P(X = 4)$.
+- **Step 2: WIP State.**
+  Formula: $P(X=4) = (1-p)^{4-1} p = (0.3)^3 \cdot ?$
+- **Step 3: Final Calculation.**
+  $$P(X=4) = (0.3)^3 \cdot 0.7 = 0.027 \cdot 0.7 = 0.0189.$$
+
+---
+
+### Exercise 2: Rolling a Die (Geometric)
+**Problem:** A fair six-sided die is rolled repeatedly. What is the expected number of rolls needed to get the first 6?
+
+**Solution:**
+- **Step 1: Identify parameter.**
+  Success is rolling a 6, so $p = 1/6$. We are counting the number of rolls (trials), so we use Definition A.
+- **Step 2: WIP State.**
+  Expected value $E[X] = \frac{1}{?}$
+- **Step 3: Final Calculation.**
+  $$E[X] = \frac{1}{1/6} = 6 \text{ rolls}.$$
+
+---
+
+### Exercise 3: Cumulative Geometric Probability ("At Most")
+**Problem:** A computer system has a 5% chance of crash during a boot sequence. What is the probability that the first crash occurs within the first 3 boots?
+
+**Solution:**
+- **Step 1: Define variables.**
+  Let $X$ be the boot sequence number of the first crash. $X \sim Geo(0.05)$. We want $P(X \le 3)$.
+- **Step 2: WIP State.**
+  Use the CDF formula: $P(X \le 3) = 1 - (1-p)^3 = 1 - (0.95)^3 = 1 - ?$
+- **Step 3: Final Calculation.**
+  $$(0.95)^3 = 0.857375$$
+  $$P(X \le 3) = 1 - 0.857375 = 0.142625 \approx 0.1426.$$
+
+---
+
+### Exercise 4: Geometric Complement Rule ("More Than")
+**Problem:** A salesman makes a sale with a probability of 0.2 on any call. What is the probability that he needs more than 5 calls to make his first sale?
+
+**Solution:**
+- **Step 1: Define target probability.**
+  We want $P(X > 5)$, where $X \sim Geo(0.2)$.
+- **Step 2: WIP State.**
+  The complement rule for "more than $k$ trials" is:
+  $$P(X > k) = (1-p)^k$$
+  So, $P(X > 5) = (1 - 0.2)^5 = (0.8)^5 = ?$
+- **Step 3: Final Calculation.**
+  $$P(X > 5) = 0.32768 \approx 0.3277.$$
+  *(Exam shortcut: "More than $k$" simply means the first $k$ trials were all failures. So the probability is just $(1-p)^k$. Never sum terms or use the CDF if you can avoid it!)*
+
+---
+
+### Exercise 5: Memoryless Property of Geometric Distribution
+**Problem:** A tester is testing chips until a defective one is found. The probability of finding a defect on any chip is $p = 0.1$. If the first 5 chips tested were good, what is the probability that the first defective chip is found on the 8th test?
+
+**Solution:**
+- **Step 1: Understand the setup.**
+  We want the conditional probability $P(X = 8 | X > 5)$.
+- **Step 2: WIP State.**
+  By the memoryless property of the Geometric distribution, the fact that 5 trials failed does not affect future trials. Thus, finding the first defect on the 8th trial (which is 3 additional trials) is equivalent to finding the first defect on the 3rd trial starting from scratch:
+  $$P(X = 8 | X > 5) = P(X = 3) = (0.9)^2 \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$P(X=3) = 0.81 \cdot 0.1 = 0.081.$$
+
+---
+
+### Exercise 6: Card Selection (Hypergeometric)
+**Problem:** A hand of 5 cards is dealt from a standard deck of 52 cards. What is the probability that the hand contains exactly 3 Aces?
+
+**Solution:**
+- **Step 1: Identify population and sample parameters.**
+  - Total population $N = 52$
+  - Successes in population $K = 4$ (Aces)
+  - Sample size $n = 5$
+  - Successes in sample $k = 3$
+- **Step 2: WIP State.**
+  We apply the Hypergeometric PMF:
+  $$P(X = 3) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}} = \frac{\binom{4}{3} \binom{48}{2}}{\binom{52}{5}}$$
+  - $\binom{4}{3} = 4$
+  - $\binom{48}{2} = \frac{48 \cdot 47}{2} = 1128$
+  - $\binom{52}{5} = ?$
+- **Step 3: Final Calculation.**
+  - $\binom{52}{5} = 2,598,960$
+  - $P(X=3) = \frac{4 \cdot 1128}{2,598,960} = \frac{4512}{2,598,960} \approx 0.001736$.
+
+---
+
+### Exercise 7: Quality Control (Hypergeometric)
+**Problem:** A box contains 20 components, of which 4 are defective. An engineer randomly selects 5 components without replacement. Find the probability that no defective components are in the sample.
+
+**Solution:**
+- **Step 1: Map parameters.**
+  - Population $N = 20$, Defectives (successes) $K = 4$, Sample size $n = 5$.
+  - We want $P(X = 0)$ successes in the sample.
+- **Step 2: WIP State.**
+  $$P(X = 0) = \frac{\binom{4}{0} \binom{16}{5}}{\binom{20}{5}} = \frac{1 \cdot \frac{16!}{5! \cdot 11!}}{\frac{20!}{5! \cdot 15!}} = \frac{4368}{?}$$
+- **Step 3: Final Calculation.**
+  - $\binom{20}{5} = 15,504$
+  - $P(X = 0) = \frac{4368}{15,504} \approx 0.2817$.
+
+---
+
+### Exercise 8: Expected Value & Variance of Hypergeometric
+**Problem:** Using the same quality control setup from Exercise 7 ($N=20, K=4, n=5$), calculate the expected number of defective components in the sample and the variance.
+
+**Solution:**
+- **Step 1: Calculate Mean.**
+  $$E[X] = n \cdot \frac{K}{N} = 5 \cdot \frac{4}{20} = 1$$
+- **Step 2: WIP State for Variance.**
+  $$Var(X) = n \cdot \frac{K}{N} \cdot \left(1 - \frac{K}{N}\right) \cdot \left(\frac{N - n}{N - 1}\right)$$
+  $$Var(X) = 5 \cdot \frac{4}{20} \cdot \left(1 - \frac{4}{20}\right) \cdot \left(\frac{20 - 5}{20 - 1}\right) = 1 \cdot 0.8 \cdot \frac{15}{?}$$
+- **Step 3: Final Calculation.**
+  $$Var(X) = 0.8 \cdot \frac{15}{19} = \frac{12}{19} \approx 0.6316.$$
+
+---
+
+### Exercise 9: Hypergeometric vs. Binomial Approximation
+**Problem:** A batch of 1000 items contains 100 defective items. If a sample of 10 items is selected without replacement, find the exact probability of getting exactly 1 defective item using the Hypergeometric distribution, and compare it to the Binomial approximation.
+
+**Solution:**
+- **Step 1: Exact Hypergeometric calculation.**
+  $N = 1000, K = 100, n = 10, k = 1$.
+  $$P(X = 1) = \frac{\binom{100}{1} \binom{900}{9}}{\binom{1000}{10}} \approx 0.3899$$
+- **Step 2: WIP State for Binomial approximation.**
+  Since the population $N$ is very large compared to the sample size $n$ ($n/N = 10/1000 = 0.01 \le 0.05$), we can approximate this using a Binomial model with $p = K/N = 0.1$.
+  $$Y \sim B(10, 0.1)$$
+  $$P(Y = 1) = \binom{10}{1} (0.1)^1 (0.9)^9 = 10 \cdot 0.1 \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$(0.9)^9 = 0.38742$$
+  $$P(Y=1) = 1 \cdot 0.38742 = 0.3874$$
+  **Comparison:** The difference is very small ($0.3899 - 0.3874 = 0.0025$). This illustrates why the Binomial approximation is highly accurate when the sample is less than 5% of the population.
+
+---
+
+### Exercise 10: Cumulative Hypergeometric ("At Least")
+**Problem:** A bag contains 6 red marbles and 4 blue marbles. A child draws 3 marbles at random without replacement. Find the probability of getting at least 2 red marbles.
+
+**Solution:**
+- **Step 1: Map variables.**
+  - Population $N = 10$, Red Marbles $K = 6$, Sample size $n = 3$.
+  - We want $P(X \ge 2) = P(X = 2) + P(X = 3)$.
+- **Step 2: WIP State.**
+  - $P(X=2) = \frac{\binom{6}{2} \binom{4}{1}}{\binom{10}{3}} = \frac{15 \cdot 4}{120} = \frac{60}{120} = 0.5$
+  - $P(X=3) = \frac{\binom{6}{3} \binom{4}{0}}{\binom{10}{3}} = \frac{20 \cdot 1}{?}$
+- **Step 3: Final Calculation.**
+  - $P(X=3) = \frac{20}{120} \approx 0.1667$.
+  - $P(X \ge 2) = 0.5 + 0.1667 = 0.6667$.
+
+
+---
+
+<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_5_moment_generating_functions.md -->
+# Phase 4.5: Moment Generating Functions and Characteristic Functions
+
+This file introduces **Moment Generating Functions (MGFs)** and **Characteristic Functions**, which are powerful tools for finding moments (mean, variance, etc.) and identifying the distributions of sums of independent random variables.
+
+---
+
+## 1. Moment Generating Function (MGF)
+
+### 1.1 Definition
+The Moment Generating Function $M_X(t)$ of a random variable $X$ is defined for all real values of $t$ for which the expected value exists in an open interval around $t = 0$:
+
+$$M_X(t) = E\left[e^{tX}\right]$$
+
+*   **Discrete RV:** $M_X(t) = \sum_{x} e^{tx} \cdot P(X = x)$
+*   **Continuous RV:** $M_X(t) = \int_{-\infty}^{\infty} e^{tx} \cdot f(x) \, dx$
+
+### 1.2 Finding Moments via Differentiation
+The term "moment generating" comes from the fact that we can generate any $n$-th raw moment $E[X^n]$ by taking the $n$-th derivative of $M_X(t)$ with respect to $t$ and evaluating it at $t = 0$:
+
+$$E[X^n] = \left. \frac{d^n}{dt^n} M_X(t) \right|_{t=0} = M_X^{(n)}(0)$$
+
+Specifically:
+*   **Mean:** $E[X] = M'_X(0)$
+*   **Variance:** $Var(X) = E[X^2] - (E[X])^2 = M''_X(0) - (M'_X(0))^2$
+
+### 1.3 Key Properties
+1.  **Linear Transformation:** If $Y = aX + b$, then:
+    $$M_Y(t) = M_{aX+b}(t) = e^{bt} \cdot M_X(at)$$
+2.  **Sum of Independent RVs:** If $X$ and $Y$ are independent random variables, the MGF of their sum is the product of their individual MGFs:
+    $$M_{X+Y}(t) = M_X(t) \cdot M_Y(t)$$
+3.  **Uniqueness Theorem:** If two random variables have the same MGF in an interval containing 0, they have the exact same probability distribution.
+
+---
+
+## 2. Common MGFs
+
+| Distribution | parameters | MGF $M_X(t)$ |
+| :--- | :--- | :--- |
+| **Bernoulli** | $p$ | $q + p e^t \quad (\text{where } q = 1-p)$ |
+| **Binomial** | $n, p$ | $(q + p e^t)^n$ |
+| **Poisson** | $\lambda$ | $e^{\lambda (e^t - 1)}$ |
+| **Geometric** (Definition A) | $p$ | $\frac{p e^t}{1 - q e^t} \quad (\text{for } t < -\ln q)$ |
+| **Exponential** | $\lambda$ | $\frac{\lambda}{\lambda - t} \quad (\text{for } t < \lambda)$ |
+| **Normal** | $\mu, \sigma^2$ | $e^{\mu t + \frac{1}{2}\sigma^2 t^2}$ |
+
+---
+
+## 3. Characteristic Function ($\phi_X(t)$)
+
+The MGF of a random variable might not exist if the integral or sum does not converge for $t \neq 0$ (e.g., Cauchy distribution). To guarantee existence, we define the **Characteristic Function** using complex numbers:
+
+$$\phi_X(t) = E\left[e^{itX}\right] = E[\cos(tX)] + i \cdot E[\sin(tX)]$$
+
+Since $|e^{itX}| = 1$ for all real $t$ and $X$, the expectation $\phi_X(t)$ is **guaranteed to exist** for all random variables. The properties of characteristic functions are identical to MGFs, replacing $t$ with $it$.
+
+---
+
+## 4. Solved Exercises (9 Examples)
+
+### Exercise 1: Finding moments from an MGF
+**Problem:** The MGF of a random variable $X$ is $M_X(t) = \frac{1}{1 - 2t}$ for $t < 0.5$. Find the mean and variance of $X$.
+
+**Solution:**
+- **Step 1: Compute the first derivative.**
+  $$M_X(t) = (1 - 2t)^{-1}$$
+  $$M'_X(t) = -1 \cdot (1 - 2t)^{-2} \cdot (-2) = 2 \cdot (1 - 2t)^{-2}$$
+- **Step 2: WIP State for mean.**
+  Evaluate at $t=0$:
+  $$E[X] = M'_X(0) = 2 \cdot (1 - 0)^{-2} = ?$$
+- **Step 3: Compute the second derivative and variance.**
+  - Mean $E[X] = 2$.
+  - Second derivative:
+    $$M''_X(t) = 2 \cdot (-2) \cdot (1 - 2t)^{-3} \cdot (-2) = 8 \cdot (1 - 2t)^{-3}$$
+  - Evaluate at $t=0$: $E[X^2] = M''_X(0) = 8 \cdot (1)^{-3} = 8$.
+  - Variance:
+    $$Var(X) = E[X^2] - (E[X])^2 = 8 - 2^2 = 8 - 4 = 4.$$
+
+---
+
+### Exercise 2: Deriving the MGF of a Bernoulli Distribution
+**Problem:** Derive the MGF of a Bernoulli random variable $X$ with success probability $p$.
+
+**Solution:**
+- **Step 1: Set up the sum.**
+  A Bernoulli variable takes value 1 with probability $p$ and 0 with probability $q = 1-p$.
+- **Step 2: WIP State.**
+  $$M_X(t) = E\left[e^{tX}\right] = e^{t(0)} \cdot P(X=0) + e^{t(1)} \cdot P(X=1) = 1 \cdot q + ?$$
+- **Step 3: Final Calculation.**
+  $$M_X(t) = q + p e^t.$$
+
+---
+
+### Exercise 3: Sum of Independent Poissons
+**Problem:** Let $X \sim Po(\lambda_1)$ and $Y \sim Po(\lambda_2)$ be independent random variables. Find the distribution of $W = X + Y$.
+
+**Solution:**
+- **Step 1: Set up the MGF multiplication.**
+  Since $X$ and $Y$ are independent, $M_W(t) = M_X(t) \cdot M_Y(t)$.
+- **Step 2: WIP State.**
+  $$M_X(t) = e^{\lambda_1 (e^t - 1)}, \quad M_Y(t) = e^{\lambda_2 (e^t - 1)}$$
+  $$M_W(t) = e^{\lambda_1 (e^t - 1)} \cdot e^{\lambda_2 (e^t - 1)} = e^{?}$$
+- **Step 3: Final Calculation.**
+  $$M_W(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}$$
+  By the uniqueness theorem, this is the MGF of a Poisson distribution with parameter $\lambda_1 + \lambda_2$.
+  Thus, $W \sim Po(\lambda_1 + \lambda_2)$.
+
+---
+
+### Exercise 4: MGF Linear Transformation
+**Problem:** If $X$ has MGF $M_X(t) = e^{2t + 8t^2}$, find the MGF of $Y = 3X - 5$.
+
+**Solution:**
+- **Step 1: Use the linear transformation formula.**
+  $$M_Y(t) = e^{-5t} \cdot M_X(3t)$$
+- **Step 2: WIP State.**
+  Substitute $3t$ for $t$ in $M_X(t)$:
+  $$M_X(3t) = e^{2(3t) + 8(3t)^2} = e^{6t + 8(9t^2)} = e^{6t + ?}$$
+- **Step 3: Final Calculation.**
+  $$M_X(3t) = e^{6t + 72t^2}$$
+  $$M_Y(t) = e^{-5t} \cdot e^{6t + 72t^2} = e^{(-5t + 6t + 72t^2)} = e^{t + 72t^2}$$
+  *(Exam note: Since the MGF of a normal variable is $e^{\mu t + \frac{1}{2}\sigma^2 t^2}$, this proves $Y \sim N(1, 144)$ because $\mu = 1$ and $\frac{1}{2}\sigma^2 = 72 \Rightarrow \sigma^2 = 144$.)*
+
+---
+
+### Exercise 5: Expected value from discrete probability generating MGF
+**Problem:** A discrete random variable $X$ has PMF $P(X=1) = 0.2$, $P(X=2) = 0.5$, $P(X=3) = 0.3$. Write its MGF and compute the mean.
+
+**Solution:**
+- **Step 1: Write the MGF expression.**
+  $$M_X(t) = \sum e^{tx} P(X=x) = 0.2 e^t + 0.5 e^{2t} + 0.3 e^{3t}$$
+- **Step 2: WIP State for derivative.**
+  $$M'_X(t) = \frac{d}{dt}\left(0.2 e^t + 0.5 e^{2t} + 0.3 e^{3t}\right) = 0.2 e^t + 1.0 e^{2t} + ?$$
+- **Step 3: Final Calculation.**
+  $$M'_X(t) = 0.2 e^t + 1.0 e^{2t} + 0.9 e^{3t}$$
+  Evaluate at $t=0$:
+  $$E[X] = M'_X(0) = 0.2 + 1.0 + 0.9 = 2.1.$$
+
+---
+
+### Exercise 6: Sum of Independent Binomials
+**Problem:** Let $X \sim B(n, p)$ and $Y \sim B(m, p)$ be independent random variables. Find the distribution of $W = X + Y$.
+
+**Solution:**
+- **Step 1: Recall MGF formulas.**
+  $$M_X(t) = (q + p e^t)^n, \quad M_Y(t) = (q + p e^t)^m$$
+- **Step 2: WIP State.**
+  $$M_W(t) = M_X(t) \cdot M_Y(t) = (q + p e^t)^n \cdot (q + p e^t)^m = (q + p e^t)^{?}$$
+- **Step 3: Final Calculation.**
+  $$M_W(t) = (q + p e^t)^{n+m}$$
+  By the uniqueness theorem, this matches the MGF of a Binomial distribution with parameters $n+m$ and $p$.
+  Thus, $W \sim B(n + m, p)$.
+  *(Warning: This property ONLY holds if the success probability $p$ is identical for both variables!)*
+
+---
+
+### Exercise 7: Deriving Exponential MGF
+**Problem:** Derive the MGF of $X \sim Exp(\lambda)$.
+
+**Solution:**
+- **Step 1: Set up the integral.**
+  The PDF is $f(x) = \lambda e^{-\lambda x}$ for $x \ge 0$.
+  $$M_X(t) = \int_{0}^{\infty} e^{tx} \cdot \lambda e^{-\lambda x} \, dx = \lambda \int_{0}^{\infty} e^{(t - \lambda)x} \, dx$$
+- **Step 2: WIP State.**
+  Evaluate the integral (assuming $t < \lambda$ for convergence):
+  $$\int_{0}^{\infty} e^{(t - \lambda)x} \, dx = \left[ \frac{e^{(t - \lambda)x}}{t - \lambda} \right]_{0}^{\infty} = 0 - \frac{1}{?}$$
+- **Step 3: Final Calculation.**
+  $$\text{Denominator} = t - \lambda$$
+  $$M_X(t) = \lambda \cdot \left( \frac{-1}{t - \lambda} \right) = \frac{\lambda}{\lambda - t} \quad (\text{for } t < \lambda).$$
+
+---
+
+### Exercise 8: Expansion of MGF to find moments
+**Problem:** If the MGF of $X$ is $M_X(t) = e^{t^2/2}$, find $E[X^4]$ using Taylor expansion.
+
+**Solution:**
+- **Step 1: Recall the Taylor series for $e^u$.**
+  $$e^u = 1 + u + \frac{u^2}{2!} + \frac{u^3}{3!} + \dots$$
+- **Step 2: WIP State.**
+  Substitute $u = t^2/2$:
+  $$M_X(t) = 1 + \left(\frac{t^2}{2}\right) + \frac{\left(\frac{t^2}{2}\right)^2}{2!} + \frac{\left(\frac{t^2}{2}\right)^3}{3!} + \dots$$
+  $$M_X(t) = 1 + \frac{t^2}{2} + \frac{t^4}{8} + \dots$$
+  Recall the general definition of MGF as a power series of moments:
+  $$M_X(t) = \sum_{k=0}^{\infty} \frac{E[X^k]}{k!} t^k = 1 + E[X]t + \frac{E[X^2]}{2!} t^2 + \frac{E[X^3]}{3!} t^3 + \frac{E[X^4]}{4!} t^4 + \dots$$
+- **Step 3: Final Calculation.**
+  Compare coefficients of $t^4$:
+  $$\frac{E[X^4]}{4!} = \frac{1}{8} \implies E[X^4] = \frac{4!}{8} = \frac{24}{8} = 3.$$
+
+---
+
+### Exercise 9: Characteristic function of a symmetric distribution
+**Problem:** Show that if a random variable $X$ is symmetric about 0 (i.e. $X$ and $-X$ have the same distribution), then its characteristic function $\phi_X(t)$ is purely real.
+
+**Solution:**
+- **Step 1: Relate $\phi_X(t)$ to $\phi_{-X}(t)$.**
+  $$\phi_{-X}(t) = E\left[e^{it(-X)}\right] = \phi_X(-t)$$
+- **Step 2: WIP State.**
+  Since $X$ is symmetric, $X \sim -X$, meaning their characteristic functions must be identical:
+  $$\phi_X(t) = \phi_{-X}(t) \implies \phi_X(t) = \phi_X(-t)$$
+  Also, recall that the complex conjugate is:
+  $$\overline{\phi_X(t)} = \overline{E[\cos(tX) + i\sin(tX)]} = E[\cos(tX)] - i E[\sin(tX)] = \phi_X(-t)$$
+- **Step 3: Final Calculation.**
+  Combining these yields:
+  $$\overline{\phi_X(t)} = \phi_X(t)$$
+  Any complex number equal to its own conjugate must be purely real. Thus, $\phi_X(t)$ is purely real (and specifically, $E[\sin(tX)] = 0$).
+
+
+---
+
 <!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_1_normal_distribution.md -->
 # Phase 5.1: Normal Distribution
 
@@ -3108,6 +3756,1185 @@ $$P(X > 5) = e^{-0.2(5)} = e^{-1} \approx 0.3679$$
 
 **Result:** The probability is **0.3679**, exactly the same as if you had just started waiting! This is counter-intuitive but a key property of the Exponential distribution.
 *(Warning: This property ONLY applies to the Exponential distribution in the continuous world!)*
+
+
+---
+
+<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_4_gamma_distribution.md -->
+# Phase 5.4: Gamma Distribution
+
+The Gamma Distribution is a continuous probability distribution that generalizes the Exponential distribution. It is widely used to model wait times for multiple independent events to occur.
+
+---
+
+## 1. The Gamma Function ($\Gamma(\alpha)$)
+
+Before defining the Gamma distribution, we must define the **Gamma Function**, which acts as a continuous generalization of the factorial function:
+
+$$\Gamma(\alpha) = \int_{0}^{\infty} y^{\alpha-1} e^{-y} \, dy \quad \text{for } \alpha > 0$$
+
+### Key Properties of the Gamma Function
+1.  **Recursive Relation:** $\Gamma(\alpha + 1) = \alpha \cdot \Gamma(\alpha)$
+2.  **Factorial Relation:** For any positive integer $n$:
+    $$\Gamma(n) = (n-1)!$$
+3.  **Special Value:** $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$
+4.  **Base Case:** $\Gamma(1) = 0! = 1$
+
+---
+
+## 2. The Gamma Distribution
+
+There are two common parameterisations of the Gamma distribution. Confusing them in an exam is a common mistake.
+
+### 2.1 Rate Parameterisation (Standard in most syllabus structures)
+If $X \sim Gamma(\alpha, \beta)$, where $\alpha > 0$ is the **shape parameter** and $\beta > 0$ is the **rate parameter**:
+
+*   **PDF:**
+    $$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}, \quad x > 0$$
+*   **Mean:** $E[X] = \frac{\alpha}{\beta}$
+*   **Variance:** $Var(X) = \frac{\alpha}{\beta^2}$
+*   **MGF:** $M_X(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha} \quad (\text{for } t < \beta)$
+
+### 2.2 Scale Parameterisation (Alternative)
+Using the **scale parameter** $\theta = \frac{1}{\beta}$:
+*   **PDF:** $f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}$
+*   **Mean:** $E[X] = \alpha\theta$
+*   **Variance:** $Var(X) = \alpha\theta^2$
+
+---
+
+## 3. Relationships to Other Distributions
+
+1.  **Exponential Distribution:** A Gamma distribution with shape $\alpha = 1$ is exactly the Exponential distribution:
+    $$Gamma(1, \beta) \equiv Exp(\beta)$$
+2.  **Sum of Independent Exponentials:** If $X_1, X_2, \dots, X_n$ are independent, identically distributed random variables with $X_i \sim Exp(\beta)$, then their sum follows a Gamma distribution (sometimes called the Erlang distribution):
+    $$\sum_{i=1}^{n} X_i \sim Gamma(n, \beta)$$
+3.  **Chi-Square Distribution:** The Chi-square distribution with $\nu$ degrees of freedom is a special case of the Gamma distribution:
+    $$\chi^2_\nu \equiv Gamma\left(\frac{\nu}{2}, \frac{1}{2}\right)$$
+
+---
+
+## 4. Solved Exercises (9 Examples)
+
+### Exercise 1: Evaluating the Gamma Function
+**Problem:** Calculate the exact value of $\Gamma\left(\frac{5}{2}\right)$.
+
+**Solution:**
+- **Step 1: Apply the recursive formula $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$.**
+  $$\Gamma\left(\frac{5}{2}\right) = \Gamma\left(\frac{3}{2} + 1\right) = \frac{3}{2} \cdot \Gamma\left(\frac{3}{2}\right)$$
+- **Step 2: WIP State.**
+  Apply the recursive formula again:
+  $$\Gamma\left(\frac{3}{2}\right) = \Gamma\left(\frac{1}{2} + 1\right) = \frac{1}{2} \cdot \Gamma\left(\frac{1}{2}\right)$$
+  Recall that $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$.
+  So, $\Gamma\left(\frac{5}{2}\right) = \frac{3}{2} \cdot \left(\frac{1}{2} \cdot ?\right)$
+- **Step 3: Final Calculation.**
+  $$\Gamma\left(\frac{5}{2}\right) = \frac{3}{2} \cdot \frac{1}{2} \cdot \sqrt{\pi} = \frac{3}{4}\sqrt{\pi}.$$
+
+---
+
+### Exercise 2: Identifying Shape and Rate
+**Problem:** A wait time $X$ has PDF $f(x) = 4 x e^{-2x}$ for $x > 0$. Identify the distribution and calculate its mean and variance.
+
+**Solution:**
+- **Step 1: Match the PDF structure with the Gamma PDF.**
+  $$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
+  Looking at $e^{-2x}$, we get $\beta = 2$.
+  Looking at $x = x^1$, we get $\alpha - 1 = 1 \implies \alpha = 2$.
+- **Step 2: WIP State.**
+  Verify the constant coefficient:
+  $$\frac{\beta^\alpha}{\Gamma(\alpha)} = \frac{2^2}{\Gamma(2)} = \frac{4}{1!} = 4$$
+  This matches the coefficient in the problem.
+  Therefore, $X \sim Gamma(\alpha = 2, \beta = 2)$.
+  Mean: $E[X] = \frac{\alpha}{\beta} = \frac{2}{2} = 1$.
+  Variance: $Var(X) = \frac{\alpha}{\beta^2} = \frac{2}{?}$
+- **Step 3: Final Calculation.**
+  $$Var(X) = \frac{2}{4} = 0.5.$$
+
+---
+
+### Exercise 3: Sum of Wait Times
+**Problem:** The time (in hours) to repair a server is exponentially distributed with a mean of 0.5 hours. If a technician has 4 independent server repairs scheduled, find the probability distribution of the total repair time $Y$. What is the expected total repair time and its variance?
+
+**Solution:**
+- **Step 1: Identify individual parameters.**
+  Each repair $X_i \sim Exp(\lambda)$.
+  Since the mean is $0.5$, $\frac{1}{\lambda} = 0.5 \implies \lambda = 2$.
+- **Step 2: WIP State.**
+  Since $Y = \sum_{i=1}^{4} X_i$ is a sum of $n=4$ independent exponential variables, it follows a Gamma distribution:
+  $$Y \sim Gamma(\alpha = 4, \beta = 2)$$
+  Expected total repair time: $E[Y] = \frac{\alpha}{\beta} = \frac{4}{2} = 2$ hours.
+  Variance: $Var(Y) = \frac{4}{?}$
+- **Step 3: Final Calculation.**
+  $$Var(Y) = \frac{4}{2^2} = \frac{4}{4} = 1.$$
+
+---
+
+### Exercise 4: Integrating a Gamma PDF to Find Constants
+**Problem:** Find the value of the constant $c$ such that $f(x) = c x^2 e^{-3x}$ for $x > 0$ is a valid PDF.
+
+**Solution:**
+- **Step 1: Identify parameters.**
+  This matches a Gamma PDF with $\alpha - 1 = 2 \implies \alpha = 3$ and $\beta = 3$.
+- **Step 2: WIP State.**
+  The normalisation constant for a Gamma distribution requires that the total area equals 1:
+  $$c = \frac{\beta^\alpha}{\Gamma(\alpha)} = \frac{3^3}{\Gamma(3)} = \frac{27}{?}$$
+- **Step 3: Final Calculation.**
+  $$\Gamma(3) = 2! = 2$$
+  $$c = \frac{27}{2} = 13.5.$$
+
+---
+
+### Exercise 5: Deriving Mean using MGF
+**Problem:** Find the expected value of $X \sim Gamma(\alpha, \beta)$ by differentiating its MGF.
+
+**Solution:**
+- **Step 1: Set up the derivative.**
+  $$M_X(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha}$$
+  Use the chain rule:
+  $$M'_X(t) = -\alpha \left(1 - \frac{t}{\beta}\right)^{-\alpha-1} \cdot \left(-\frac{1}{\beta}\right)$$
+- **Step 2: WIP State.**
+  Simplify the derivative:
+  $$M'_X(t) = \frac{\alpha}{\beta} \left(1 - \frac{t}{\beta}\right)^{-\alpha-1}$$
+  Evaluate at $t=0$:
+  $$E[X] = M'_X(0) = \frac{\alpha}{\beta} (1 - 0)^{-( \alpha + 1 )} = ?$$
+- **Step 3: Final Calculation.**
+  $$E[X] = \frac{\alpha}{\beta}.$$
+
+---
+
+### Exercise 6: Sum of Independent Gammas
+**Problem:** Let $X \sim Gamma(2, 5)$ and $Y \sim Gamma(3, 5)$ be independent random variables. Find the distribution of $W = X + Y$.
+
+**Solution:**
+- **Step 1: Recall MGF of Gamma.**
+  $$M_X(t) = \left(1 - \frac{t}{5}\right)^{-2}, \quad M_Y(t) = \left(1 - \frac{t}{5}\right)^{-3}$$
+- **Step 2: WIP State.**
+  Since they are independent:
+  $$M_W(t) = M_X(t) \cdot M_Y(t) = \left(1 - \frac{t}{5}\right)^{-2} \cdot \left(1 - \frac{t}{5}\right)^{-3} = \left(1 - \frac{t}{5}\right)^{?}$$
+- **Step 3: Final Calculation.**
+  $$M_W(t) = \left(1 - \frac{t}{5}\right)^{-5}$$
+  By uniqueness of the MGF, $W \sim Gamma(5, 5)$.
+  *(Exam note: You can add independent Gamma variables ONLY if they share the same rate parameter $\beta$!)*
+
+---
+
+### Exercise 7: Connection to Chi-Square
+**Problem:** Show that the Chi-square distribution with $\nu$ degrees of freedom is a special case of the Gamma distribution by comparing their MGFs. Recall that the MGF of a Chi-square variable is $M_{\chi^2}(t) = (1 - 2t)^{-\nu/2}$.
+
+**Solution:**
+- **Step 1: Look at the Gamma MGF.**
+  $$M_{Gamma}(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha}$$
+- **Step 2: WIP State.**
+  We want to set:
+  $$\left(1 - \frac{t}{\beta}\right)^{-\alpha} = (1 - 2t)^{-\nu/2}$$
+  Matching the terms:
+  - Exponent: $-\alpha = -\frac{\nu}{2} \implies \alpha = \frac{\nu}{2}$.
+  - Fraction: $\frac{t}{\beta} = 2t \implies \beta = ?$.
+- **Step 3: Final Calculation.**
+  $$\beta = \frac{1}{2}$$
+  Thus, a Chi-square distribution with $\nu$ degrees of freedom is exactly equivalent to $Gamma\left(\alpha = \frac{\nu}{2}, \beta = \frac{1}{2}\right)$.
+
+---
+
+### Exercise 8: Expected Value of a Reciprocal
+**Problem:** Let $X \sim Gamma(\alpha, \beta)$ with $\alpha > 1$. Find the expected value of the reciprocal of $X$, $E\left[\frac{1}{X}\right]$.
+
+**Solution:**
+- **Step 1: Set up the integral.**
+  $$E\left[\frac{1}{X}\right] = \int_{0}^{\infty} \frac{1}{x} \cdot f(x) \, dx = \int_{0}^{\infty} \frac{1}{x} \cdot \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x} \, dx$$
+- **Step 2: WIP State.**
+  Simplify the integrand:
+  $$E\left[\frac{1}{X}\right] = \frac{\beta^\alpha}{\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha-2} e^{-\beta x} \, dx$$
+  Notice that the integral is almost the integral of a Gamma PDF with shape parameter $\alpha' = \alpha - 1$ and rate parameter $\beta' = \beta$.
+  $$\int_{0}^{\infty} x^{(\alpha-1)-1} e^{-\beta x} \, dx = \frac{\Gamma(\alpha-1)}{\beta^{\alpha-1}}$$
+  Substituting this back:
+  $$E\left[\frac{1}{X}\right] = \frac{\beta^\alpha}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha-1)}{\beta^{\alpha-1}} = \beta \cdot \frac{\Gamma(\alpha-1)}{?}$$
+- **Step 3: Final Calculation.**
+  Recall that $\Gamma(\alpha) = (\alpha - 1) \cdot \Gamma(\alpha - 1)$.
+  $$E\left[\frac{1}{X}\right] = \beta \cdot \frac{\Gamma(\alpha-1)}{(\alpha-1)\Gamma(\alpha-1)} = \frac{\beta}{\alpha - 1}.$$
+
+---
+
+### Exercise 9: Linear Transformation (Gotcha Moment)
+**Problem:** If $X \sim Gamma(\alpha, \beta)$, does $Y = cX$ (where $c > 0$) follow a Gamma distribution? If so, what are its parameters?
+
+**Solution:**
+- **Step 1: Use the MGF method.**
+  $$M_Y(t) = M_{cX}(t) = M_X(ct)$$
+- **Step 2: WIP State.**
+  Substitute $ct$ into the MGF of $X$:
+  $$M_Y(t) = \left(1 - \frac{ct}{\beta}\right)^{-\alpha} = \left(1 - \frac{t}{\beta/c}\right)^{?}$$
+- **Step 3: Final Calculation.**
+  $$M_Y(t) = \left(1 - \frac{t}{\beta/c}\right)^{-\alpha}$$
+  By uniqueness of the MGF, this represents a Gamma distribution:
+  $$Y \sim Gamma\left(\alpha, \frac{\beta}{c}\right)$$
+  *(Gotcha check: Scaling a Gamma variable changes its rate parameter to $\beta/c$ while keeping the shape parameter $\alpha$ unchanged. If you scale by 2, the rate is cut in half, which makes physical sense as the variable becomes twice as spread out!)*
+
+
+---
+
+<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_5_transformations_of_random_variables.md -->
+# Phase 5.5: Transformations of Random Variables
+
+In probability theory, we often need to find the probability distribution of a new random variable $Y$ that is a function of an existing random variable $X$, written as $Y = g(X)$. This process is called a **transformation**.
+
+---
+
+## 1. Discrete Random Variables
+
+For a discrete random variable $X$ with probability mass function $p_X(x)$, the PMF of $Y = g(X)$ is obtained by summing the probabilities of all $x$ values that map to $y$:
+
+$$p_Y(y) = P(Y = y) = \sum_{x : g(x) = y} p_X(x)$$
+
+---
+
+## 2. Continuous Random Variables
+
+There are two primary methods for finding the PDF of $Y = g(X)$ when $X$ is continuous.
+
+### 2.1 The CDF Method (First Principles)
+This is the most robust method and works for both monotonic and non-monotonic functions (like $Y = X^2$).
+
+1.  Write the cumulative distribution function (CDF) of $Y$:
+    $$F_Y(y) = P(Y \le y) = P(g(X) \le y)$$
+2.  Rewrite the inequality in terms of $X$.
+3.  Express $F_Y(y)$ in terms of the CDF of $X$, $F_X(x)$.
+4.  Differentiate $F_Y(y)$ with respect to $y$ to get the PDF $f_Y(y)$:
+    $$f_Y(y) = \frac{d}{dy} F_Y(y)$$
+
+### 2.2 The Change of Variables Formula (Jacobian Method)
+If $g(x)$ is **strictly monotonic** (either strictly increasing or strictly decreasing) and differentiable, the PDF of $Y$ can be computed directly using:
+
+$$f_Y(y) = f_X(x) \cdot \left| \frac{dx}{dy} \right| \quad \text{where } x = g^{-1}(y)$$
+
+Or written equivalently as:
+
+$$f_Y(y) = f_X(g^{-1}(y)) \cdot \left| \frac{d}{dy} g^{-1}(y) \right|$$
+
+> **Exam Warning:** Always specify the **domain (range of validity)** of the new PDF $f_Y(y)$ by mapping the original boundaries of $X$ through the function $g(x)$. Leaving out the domain is a guaranteed way to lose marks.
+
+---
+
+## 3. Solved Exercises (9 Examples)
+
+### Exercise 1: Discrete Transformation
+**Problem:** Let $X$ have PMF:
+*   $P(X = -1) = 0.2$
+*   $P(X = 0) = 0.3$
+*   $P(X = 1) = 0.4$
+*   $P(X = 2) = 0.1$
+
+Find the PMF of $Y = X^2$.
+
+**Solution:**
+- **Step 1: Map the values of $X$ to $Y$.**
+  - If $x = -1 \implies y = (-1)^2 = 1$
+  - If $x = 0 \implies y = 0^2 = 0$
+  - If $x = 1 \implies y = 1^2 = 1$
+  - If $x = 2 \implies y = 2^2 = 4$
+  The possible values for $Y$ are $\{0, 1, 4\}$.
+- **Step 2: WIP State.**
+  Sum probabilities for each unique $y$:
+  - $P(Y = 0) = P(X = 0) = 0.3$
+  - $P(Y = 1) = P(X = -1) + P(X = 1) = 0.2 + 0.4 = 0.6$
+  - $P(Y = 4) = P(X = ?) = ?$
+- **Step 3: Final Calculation.**
+  - $P(Y = 4) = P(X = 2) = 0.1$.
+  - PMF Table:
+    | $y$ | 0 | 1 | 4 |
+    | :--- | :--- | :--- | :--- |
+    | $P(Y = y)$ | 0.3 | 0.6 | 0.1 |
+  Check sum: $0.3 + 0.6 + 0.1 = 1.0$.
+
+---
+
+### Exercise 2: Monotonic Linear Transformation (Continuous)
+**Problem:** Let $X$ be a continuous random variable with PDF $f_X(x) = 2x$ for $0 < x < 1$. Find the PDF of $Y = 3X + 2$.
+
+**Solution:**
+- **Step 1: Find the inverse function and its derivative.**
+  Let $y = 3x + 2 \implies x = \frac{y - 2}{3}$.
+  $$\frac{dx}{dy} = \frac{1}{3}$$
+- **Step 2: WIP State.**
+  Find the new domain for $Y$:
+  - When $x = 0 \implies y = 3(0) + 2 = 2$.
+  - When $x = 1 \implies y = 3(1) + 2 = 5$.
+  So the domain of $Y$ is $2 < y < 5$.
+  Apply the Change of Variables formula:
+  $$f_Y(y) = f_X(x) \cdot \left| \frac{dx}{dy} \right| = 2 \cdot \left(\frac{y-2}{3}\right) \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = 2 \cdot \left(\frac{y - 2}{3}\right) \cdot \frac{1}{3} = \frac{2(y - 2)}{9}$$
+  So, the final PDF is:
+  $$f_Y(y) = \frac{2(y - 2)}{9}, \quad 2 < y < 5$$
+
+---
+
+### Exercise 3: Non-Monotonic Transformation ($Y = X^2$)
+**Problem:** Let $X \sim U(-1, 2)$. Find the PDF of $Y = X^2$.
+
+**Solution:**
+- **Step 1: Write original PDF and find domain.**
+  $$f_X(x) = \frac{1}{2 - (-1)} = \frac{1}{3}, \quad -1 < x < 2$$
+  Since $Y = X^2$, the range of $Y$ is $[0, 4]$.
+- **Step 2: WIP State (Apply CDF method).**
+  For $0 < y < 1$, the values of $X$ that satisfy $X^2 \le y$ are $-\sqrt{y} \le X \le \sqrt{y}$.
+  $$F_Y(y) = P(X^2 \le y) = P(-\sqrt{y} \le X \le \sqrt{y}) = F_X(\sqrt{y}) - F_X(-\sqrt{y})$$
+  Differentiating:
+  $$f_Y(y) = \frac{d}{dy}\left(F_X(\sqrt{y}) - F_X(-\sqrt{y})\right) = f_X(\sqrt{y}) \cdot \frac{1}{2\sqrt{y}} - f_X(-\sqrt{y}) \cdot \left(-\frac{1}{2\sqrt{y}}\right)$$
+  $$f_Y(y) = \frac{1}{2\sqrt{y}} \left( f_X(\sqrt{y}) + f_X(-\sqrt{y}) \right)$$
+  For $1 \le y < 4$, $X$ can only be positive because the lower boundary of $X$ is $-1$ (which squares to $1$). Thus, $X^2 \le y$ implies $-1 < X \le \sqrt{y}$.
+  $$F_Y(y) = P(-1 < X \le \sqrt{y}) = F_X(\sqrt{y}) - F_X(-1)$$
+  Differentiating:
+  $$f_Y(y) = f_X(\sqrt{y}) \cdot \frac{1}{2\sqrt{y}} = \frac{1}{3} \cdot \frac{1}{2\sqrt{y}} = ?$$
+- **Step 3: Final Calculation.**
+  - For $0 < y < 1$: Both $\sqrt{y}$ and $-\sqrt{y}$ lie in the domain of $X$ ($-1 < x < 2$).
+    $$f_Y(y) = \frac{1}{2\sqrt{y}} \left( \frac{1}{3} + \frac{1}{3} \right) = \frac{1}{3\sqrt{y}}$$
+  - For $1 \le y < 4$: Only $\sqrt{y}$ lies in the domain of $X$.
+    $$f_Y(y) = \frac{1}{6\sqrt{y}}$$
+  Final piecewise PDF:
+  $$f_Y(y) = \begin{cases} \frac{1}{3\sqrt{y}}, & 0 < y < 1 \\ \frac{1}{6\sqrt{y}}, & 1 \le y < 4 \\ 0, & \text{otherwise} \end{cases}$$
+
+---
+
+### Exercise 4: Exponential from Uniform
+**Problem:** Let $X \sim U(0, 1)$. Find the PDF of $Y = -\ln(X)$.
+
+**Solution:**
+- **Step 1: Inverse function and derivative.**
+  Let $y = -\ln(x) \implies -y = \ln(x) \implies x = e^{-y}$.
+  $$\frac{dx}{dy} = -e^{-y} \implies \left| \frac{dx}{dy} \right| = e^{-y}$$
+- **Step 2: WIP State.**
+  Domain mapping:
+  - As $x \to 0^+ \implies y \to \infty$.
+  - As $x \to 1^- \implies y \to 0$.
+  So the domain of $Y$ is $y > 0$.
+  Apply formula:
+  $$f_Y(y) = f_X(x) \cdot \left| \frac{dx}{dy} \right|$$
+  Since $X \sim U(0, 1)$, $f_X(x) = 1$ on $(0, 1)$.
+  $$f_Y(y) = 1 \cdot e^{-y} = ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = e^{-y}, \quad y > 0$$
+  *(Note: This is exactly the PDF of an Exponential distribution with parameter $\lambda = 1$. This is the basis of the Inverse Transform Method for generating random variables!)*
+
+---
+
+### Exercise 5: Transformation of a Normal Variable to Log-Normal
+**Problem:** Let $X \sim N(\mu, \sigma^2)$. Find the PDF of $Y = e^X$.
+
+**Solution:**
+- **Step 1: Inverse and derivative.**
+  Let $y = e^x \implies x = \ln(y)$ (for $y > 0$).
+  $$\frac{dx}{dy} = \frac{1}{y}$$
+- **Step 2: WIP State.**
+  Domain: Since $x \in (-\infty, \infty)$, $y = e^x \in (0, \infty)$.
+  Recall the Normal PDF:
+  $$f_X(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+  Apply Change of Variables formula:
+  $$f_Y(y) = f_X(\ln(y)) \cdot \left| \frac{dx}{dy} \right| = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(\ln(y) - \mu)^2}{2\sigma^2}} \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = \frac{1}{y \sigma \sqrt{2\pi}} e^{-\frac{(\ln(y) - \mu)^2}{2\sigma^2}}, \quad y > 0$$
+  This is the PDF of the **Log-Normal distribution**.
+
+---
+
+### Exercise 6: CDF Method for a Square Root Function
+**Problem:** Let $X \sim Exp(\lambda)$. Find the PDF of $Y = \sqrt{X}$.
+
+**Solution:**
+- **Step 1: Use the CDF method.**
+  For $y > 0$:
+  $$F_Y(y) = P(Y \le y) = P(\sqrt{X} \le y) = P(X \le y^2) = F_X(y^2)$$
+- **Step 2: WIP State.**
+  Since $X \sim Exp(\lambda)$, its CDF is $F_X(x) = 1 - e^{-\lambda x}$ for $x > 0$.
+  $$F_Y(y) = 1 - e^{-\lambda y^2}$$
+  Differentiate with respect to $y$ using the chain rule:
+  $$f_Y(y) = \frac{d}{dy}\left(1 - e^{-\lambda y^2}\right) = -e^{-\lambda y^2} \cdot (-2\lambda y) = ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = 2\lambda y e^{-\lambda y^2}, \quad y > 0$$
+  *(Note: This is the Weibull distribution with shape parameter 2).*
+
+---
+
+### Exercise 7: Monotonic Decreasing Transformation
+**Problem:** Let $X$ have PDF $f_X(x) = 3x^2$ for $0 < x < 1$. Find the PDF of $Y = \frac{1}{X}$.
+
+**Solution:**
+- **Step 1: Find inverse and derivative.**
+  Let $y = 1/x \implies x = 1/y$.
+  $$\frac{dx}{dy} = -\frac{1}{y^2} \implies \left| \frac{dx}{dy} \right| = \frac{1}{y^2}$$
+- **Step 2: WIP State.**
+  Domain mapping:
+  - When $x = 0^+ \implies y \to \infty$.
+  - When $x = 1 \implies y = 1$.
+  So the domain of $Y$ is $y > 1$.
+  Apply formula:
+  $$f_Y(y) = f_X\left(\frac{1}{y}\right) \cdot \left| \frac{dx}{dy} \right| = 3\left(\frac{1}{y}\right)^2 \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = \frac{3}{y^2} \cdot \frac{1}{y^2} = \frac{3}{y^4}, \quad y > 1$$
+
+---
+
+### Exercise 8: The Linear Scaling Gotcha
+**Problem:** Let $X$ follow a distribution with PDF $f_X(x)$. If $Y = aX$, write the PDF $f_Y(y)$ using $f_X$.
+
+**Solution:**
+- **Step 1: Find inverse and derivative.**
+  Let $y = ax \implies x = y/a$.
+  $$\frac{dx}{dy} = \frac{1}{a} \implies \left| \frac{dx}{dy} \right| = \frac{1}{|a|}$$
+- **Step 2: WIP State.**
+  Apply formula:
+  $$f_Y(y) = f_X\left(\frac{y}{a}\right) \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = \frac{1}{|a|} f_X\left(\frac{y}{a}\right)$$
+  *(Gotcha check: Students frequently write $f_Y(y) = f_X(y/a)$ and forget the division by $|a|$. This constant factor is mathematically required so that the PDF integrates to 1).*
+
+---
+
+### Exercise 9: Cauchy from Uniform (The tangent transformation)
+**Problem:** Let $X \sim U\left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$. Find the PDF of $Y = \tan(X)$.
+
+**Solution:**
+- **Step 1: Inverse function and derivative.**
+  Let $y = \tan(x) \implies x = \arctan(y)$.
+  $$\frac{dx}{dy} = \frac{1}{1 + y^2}$$
+- **Step 2: WIP State.**
+  Domain mapping:
+  - When $x \to -\frac{\pi}{2}^+ \implies y \to -\infty$.
+  - When $x \to \frac{\pi}{2}^- \implies y \to \infty$.
+  So the domain of $Y$ is $-\infty < y < \infty$.
+  The PDF of $X$ is $f_X(x) = \frac{1}{\frac{\pi}{2} - (-\frac{\pi}{2})} = \frac{1}{\pi}$ on its interval.
+  Apply formula:
+  $$f_Y(y) = f_X(\arctan(y)) \cdot \left| \frac{dx}{dy} \right| = \frac{1}{\pi} \cdot ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = \frac{1}{\pi(1 + y^2)}, \quad -\infty < y < \infty$$
+  This is the PDF of the standard **Cauchy distribution**.
+
+
+---
+
+<!-- Source: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_6_multivariate_rv_fundamentals.md -->
+# Phase 5.6: Multivariate Random Variables - Fundamentals
+
+Multivariate random variables model scenarios where multiple outcomes are observed simultaneously from the same random experiment. We study joint, marginal, and conditional distributions for both discrete and continuous cases.
+
+---
+
+## 1. Joint and Marginal Distributions
+
+### 1.1 Discrete Random Variables
+Let $X$ and $Y$ be discrete random variables defined on the same sample space.
+
+*   **Joint Probability Mass Function (Joint PMF):**
+    $$p_{X,Y}(x, y) = P(X = x, Y = y)$$
+    Subject to:
+    $$\sum_{x} \sum_{y} p_{X,Y}(x, y) = 1$$
+*   **Marginal PMFs:** To find the probability distribution of one variable alone, sum out the other variable:
+    $$p_X(x) = \sum_{y} p_{X,Y}(x, y) \quad \text{and} \quad p_Y(y) = \sum_{x} p_{X,Y}(x, y)$$
+
+### 1.2 Continuous Random Variables
+Let $X$ and $Y$ be continuous random variables.
+
+*   **Joint Probability Density Function (Joint PDF):**
+    A function $f(x, y)$ such that:
+    $$P((X, Y) \in A) = \iint_A f(x, y) \, dx \, dy$$
+    Subject to:
+    $$\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1 \quad \text{and} \quad f(x,y) \ge 0$$
+*   **Marginal PDFs:** Integrate out the other variable:
+    $$f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy \quad \text{and} \quad f_Y(y) = \int_{-\infty}^{\infty} f(x, y) \, dx$$
+
+---
+
+## 2. Conditional Distributions
+
+Conditional distributions describe the behavior of one random variable when the value of the other is known.
+
+*   **Discrete Case:**
+    $$p_{X|Y}(x | y) = P(X = x | Y = y) = \frac{p_{X,Y}(x, y)}{p_Y(y)} \quad (\text{provided } p_Y(y) > 0)$$
+*   **Continuous Case:**
+    $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)} \quad (\text{provided } f_Y(y) > 0)$$
+
+---
+
+## 3. Independence of Random Variables
+
+Two random variables $X$ and $Y$ are independent if their joint distribution is the product of their marginal distributions for all values of $x$ and $y$.
+
+*   **Discrete:** $p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y)$
+*   **Continuous:** $f(x, y) = f_X(x) \cdot f_Y(y)$
+
+If this product relation fails for even a single coordinate in the domain, the variables are dependent.
+
+---
+
+## 4. Solved Exercises (9 Examples)
+
+### Exercise 1: Discrete Joint PMF Table
+**Problem:** The joint PMF of $X$ and $Y$ is given by the table below. Find the marginal PMF of $X$ and $Y$, and compute $P(X \le 1, Y \ge 1)$.
+
+| $X \setminus Y$ | 0 | 1 | 2 |
+| :--- | :--- | :--- | :--- |
+| **0** | 0.1 | 0.2 | 0.05 |
+| **1** | 0.15 | 0.1 | 0.15 |
+| **2** | 0.05 | 0.1 | 0.1 |
+
+**Solution:**
+- **Step 1: Calculate marginals by summing rows and columns.**
+  - Row sums (Marginal PMF of $X$):
+    - $P(X=0) = 0.1 + 0.2 + 0.05 = 0.35$
+    - $P(X=1) = 0.15 + 0.1 + 0.15 = 0.40$
+    - $P(X=2) = 0.05 + 0.1 + 0.1 = ?$
+- **Step 2: WIP State.**
+  - $P(X=2) = 0.25$.
+  - Column sums (Marginal PMF of $Y$):
+    - $P(Y=0) = 0.1 + 0.15 + 0.05 = 0.30$
+    - $P(Y=1) = 0.2 + 0.1 + 0.1 = 0.40$
+    - $P(Y=2) = 0.05 + 0.15 + 0.1 = ?$
+- **Step 3: Final Calculation.**
+  - $P(Y=2) = 0.30$.
+  - To find $P(X \le 1, Y \ge 1)$, sum cells where $X \in \{0, 1\}$ and $Y \in \{1, 2\}$:
+    $$P(X \le 1, Y \ge 1) = p(0,1) + p(0,2) + p(1,1) + p(1,2)$$
+    $$P(X \le 1, Y \ge 1) = 0.2 + 0.05 + 0.1 + 0.15 = 0.50.$$
+
+---
+
+### Exercise 2: Discrete Independence Check
+**Problem:** Using the joint PMF table from Exercise 1, determine if $X$ and $Y$ are independent.
+
+**Solution:**
+- **Step 1: Check the independence condition $P(X=x, Y=y) = P(X=x)P(Y=y)$ for a specific cell.**
+  Let's check the cell $(0,0)$.
+  From the table: $P(X=0, Y=0) = 0.1$.
+- **Step 2: WIP State.**
+  From Exercise 1: $P(X=0) = 0.35$ and $P(Y=0) = 0.30$.
+  $$P(X=0) \cdot P(Y=0) = 0.35 \cdot 0.30 = ?$$
+- **Step 3: Final Calculation.**
+  $$P(X=0) \cdot P(Y=0) = 0.105$$
+  Since $0.1 \ne 0.105$, the independence condition fails.
+  Therefore, $X$ and $Y$ are **dependent**.
+
+---
+
+### Exercise 3: Continuous Normalising Constant
+**Problem:** Find the constant $c$ such that $f(x, y) = c(x + 2y)$ is a valid PDF on $0 < x < 1, 0 < y < 1$.
+
+**Solution:**
+- **Step 1: Set up the double integral equal to 1.**
+  $$\int_{0}^{1} \int_{0}^{1} c(x + 2y) \, dy \, dx = 1$$
+- **Step 2: WIP State.**
+  Integrate with respect to $y$ first:
+  $$\int_{0}^{1} \left[ c\left(xy + y^2\right) \right]_{0}^{1} \, dx = c \int_{0}^{1} (x + 1) \, dx$$
+  Now integrate with respect to $x$:
+  $$c \left[ \frac{x^2}{2} + x \right]_{0}^{1} = c \left( \frac{1}{2} + 1 \right) = c \cdot \frac{3}{2}$$
+  Set this equal to 1:
+  $$c \cdot \frac{3}{2} = 1 \implies c = ?$$
+- **Step 3: Final Calculation.**
+  $$c = \frac{2}{3}.$$
+
+---
+
+### Exercise 4: Continuous Marginal PDFs
+**Problem:** For the joint PDF $f(x, y) = \frac{2}{3}(x + 2y)$ on $0 < x < 1, 0 < y < 1$, find the marginal PDFs of $X$ and $Y$.
+
+**Solution:**
+- **Step 1: Integrate out $y$ to find $f_X(x)$.**
+  $$f_X(x) = \int_{0}^{1} \frac{2}{3}(x + 2y) \, dy = \frac{2}{3} \left[ xy + y^2 \right]_{0}^{1} = \frac{2}{3}(x + 1), \quad 0 < x < 1$$
+- **Step 2: WIP State for $f_Y(y)$.**
+  Integrate out $x$ to find $f_Y(y)$:
+  $$f_Y(y) = \int_{0}^{1} \frac{2}{3}(x + 2y) \, dx = \frac{2}{3} \left[ \frac{x^2}{2} + 2xy \right]_{0}^{1} = \frac{2}{3}\left( \frac{1}{2} + ? \right)$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = \frac{2}{3}\left( \frac{1}{2} + 2y \right) = \frac{1}{3} + \frac{4}{3}y, \quad 0 < y < 1.$$
+
+---
+
+### Exercise 5: Continuous Conditional PDF
+**Problem:** Using the joint PDF from Exercise 4, find the conditional PDF of $X$ given $Y = y$, $f_{X|Y}(x | y)$.
+
+**Solution:**
+- **Step 1: Recall the conditional PDF formula.**
+  $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)}$$
+- **Step 2: WIP State.**
+  From Exercise 4, $f_Y(y) = \frac{1 + 4y}{3}$ and $f(x, y) = \frac{2(x + 2y)}{3}$.
+  Substitute these into the formula:
+  $$f_{X|Y}(x | y) = \frac{\frac{2(x + 2y)}{3}}{\frac{1 + 4y}{3}} = \frac{2(x + 2y)}{?}$$
+- **Step 3: Final Calculation.**
+  $$f_{X|Y}(x | y) = \frac{2(x + 2y)}{1 + 4y}, \quad 0 < x < 1$$
+  *(Note: For any fixed value of $y$, this is a valid 1D PDF for $X$ on $0 < x < 1$).*
+
+---
+
+### Exercise 6: Continuous Independence Check
+**Problem:** Determine if $X$ and $Y$ with joint PDF $f(x, y) = 4xy$ for $0 < x < 1, 0 < y < 1$ are independent.
+
+**Solution:**
+- **Step 1: Find marginal PDFs.**
+  $$f_X(x) = \int_{0}^{1} 4xy \, dy = \left[ 2xy^2 \right]_{0}^{1} = 2x, \quad 0 < x < 1$$
+- **Step 2: WIP State.**
+  $$f_Y(y) = \int_{0}^{1} 4xy \, dx = \left[ 2x^2y \right]_{0}^{1} = 2y, \quad 0 < y < 1$$
+  Check if $f_X(x) \cdot f_Y(y) = f(x, y)$:
+  $$f_X(x) \cdot f_Y(y) = 2x \cdot 2y = ?$$
+- **Step 3: Final Calculation.**
+  $$2x \cdot 2y = 4xy = f(x, y)$$
+  Since the product of the marginals equals the joint PDF over the entire domain, $X$ and $Y$ are **independent**.
+  *(Exam tip: If the joint PDF can be written as $g(x)h(y)$ and the domain is rectangular, the variables are always independent!).*
+
+---
+
+### Exercise 7: Non-Rectangular Domain (Gotcha Moment)
+**Problem:** Let $f(x, y) = 8xy$ on the domain $0 < x < y < 1$. Are $X$ and $Y$ independent?
+
+**Solution:**
+- **Step 1: Analyze the domain boundary.**
+  The domain is a triangle ($0 < x < y < 1$). The bounds of $x$ depend directly on $y$.
+- **Step 2: WIP State.**
+  Calculate the marginal of $X$ (integrate over $y$ from $x$ to 1):
+  $$f_X(x) = \int_{x}^{1} 8xy \, dy = \left[ 4xy^2 \right]_{x}^{1} = 4x(1 - x^2), \quad 0 < x < 1$$
+  Calculate the marginal of $Y$ (integrate over $x$ from 0 to $y$):
+  $$f_Y(y) = \int_{0}^{y} 8xy \, dx = \left[ 4x^2y \right]_{0}^{y} = 4y^3, \quad 0 < y < 1$$
+  Check product:
+  $$f_X(x) \cdot f_Y(y) = 4x(1-x^2) \cdot 4y^3 = 16xy^3(1-x^2) \neq 8xy$$
+- **Step 3: Final Calculation.**
+  The variables are **dependent**.
+  **Gotcha Rule:** If the domain is non-rectangular (e.g., $x < y$), the random variables are **always dependent**, regardless of the PDF formula, because the range of one variable is restricted by the value of the other.
+
+---
+
+### Exercise 8: Joint CDF to PDF
+**Problem:** The joint CDF of $X$ and $Y$ is $F(x, y) = (1 - e^{-x})(1 - e^{-2y})$ for $x > 0, y > 0$. Find the joint PDF $f(x, y)$.
+
+**Solution:**
+- **Step 1: Set up the partial derivatives.**
+  $$f(x, y) = \frac{\partial^2}{\partial x \partial y} F(x, y)$$
+- **Step 2: WIP State.**
+  Differentiate with respect to $x$ first:
+  $$\frac{\partial}{\partial x} F(x, y) = e^{-x} (1 - e^{-2y})$$
+  Now, differentiate this result with respect to $y$:
+  $$\frac{\partial}{\partial y} \left( e^{-x} (1 - e^{-2y}) \right) = e^{-x} \cdot (2e^{-2y}) = ?$$
+- **Step 3: Final Calculation.**
+  $$f(x, y) = 2 e^{-x - 2y}, \quad x > 0, y > 0.$$
+
+---
+
+### Exercise 9: Probability on a Region
+**Problem:** Let $X$ and $Y$ have joint PDF $f(x, y) = x + y$ on $0 < x < 1, 0 < y < 1$. Find $P(X + Y < 1)$.
+
+**Solution:**
+- **Step 1: Set up the bounds for integration.**
+  The condition $x + y < 1$ translates to $y < 1 - x$.
+  Thus, $x$ ranges from 0 to 1, and for a fixed $x$, $y$ ranges from 0 to $1 - x$.
+- **Step 2: WIP State.**
+  $$P(X + Y < 1) = \int_{0}^{1} \int_{0}^{1-x} (x + y) \, dy \, dx$$
+  Integrate with respect to $y$:
+  $$\int_{0}^{1-x} (x + y) \, dy = \left[ xy + \frac{y^2}{2} \right]_{0}^{1-x} = x(1-x) + \frac{(1-x)^2}{2} = x - x^2 + \frac{1 - 2x + x^2}{2} = \frac{1 - x^2}{2}$$
+  Now integrate with respect to $x$:
+  $$\int_{0}^{1} \frac{1 - x^2}{2} \, dx = \left[ \frac{x}{2} - \frac{x^3}{6} \right]_{0}^{1} = \frac{1}{2} - ?$$
+- **Step 3: Final Calculation.**
+  $$\text{Fraction} = \frac{1}{6}$$
+  $$P(X + Y < 1) = \frac{1}{2} - \frac{1}{6} = \frac{1}{3} \approx 0.3333.$$
+
+
+---
+
+<!-- Source: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_7_multivariate_moments.md -->
+# Phase 5.7: Multivariate Random Variables - Moments and Joint Expectations
+
+This file covers moments of joint distributions, including joint expectation, covariance, correlation, conditional expectation, and the properties of variances of sums of random variables.
+
+---
+
+## 1. Joint Expectations
+
+The expected value of a function of two random variables, $g(X, Y)$, is defined as:
+
+*   **Discrete Case:**
+    $$E[g(X, Y)] = \sum_{x} \sum_{y} g(x, y) \cdot p_{X,Y}(x, y)$$
+*   **Continuous Case:**
+    $$E[g(X, Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) \cdot f(x, y) \, dx \, dy$$
+
+### Linearity of Expectation
+Expectation is always linear, regardless of whether $X$ and $Y$ are independent:
+
+$$E[aX + bY + c] = aE[X] + bE[Y] + c$$
+
+---
+
+## 2. Covariance and Correlation
+
+### 2.1 Covariance ($Cov(X, Y)$)
+Covariance measures the strength of the linear relationship between two random variables.
+
+*   **Definition:**
+    $$Cov(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]$$
+*   **Key Properties:**
+    1.  $Cov(X, X) = Var(X)$
+    2.  $Cov(X, Y) = Cov(Y, X)$
+    3.  $Cov(aX + b, cY + d) = ac \cdot Cov(X, Y)$
+    4.  **Independence:** If $X$ and $Y$ are independent, then $E[XY] = E[X]E[Y]$, which implies:
+        $$Cov(X, Y) = 0$$
+
+> **Exam Warning (True/False Gotcha):** If $Cov(X, Y) = 0$, $X$ and $Y$ are **not necessarily independent**. They are only uncorrelated. There can still be non-linear relationships.
+
+### 2.2 Correlation Coefficient ($\rho_{X,Y}$)
+Correlation scale-normalizes covariance to a value between $-1$ and $+1$.
+
+$$\rho_{X,Y} = \frac{Cov(X, Y)}{\sigma_X \sigma_Y} = \frac{Cov(X, Y)}{\sqrt{Var(X) Var(Y)}}$$
+
+*   $\rho = 1$: Perfect positive linear relationship.
+*   $\rho = -1$: Perfect negative linear relationship.
+*   $\rho = 0$: No linear relationship (uncorrelated).
+
+---
+
+## 3. Variance of a Linear Combination
+
+For any random variables $X$ and $Y$:
+
+$$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y) + 2ab \cdot Cov(X, Y)$$
+
+If $X$ and $Y$ are **independent** (or simply uncorrelated):
+
+$$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y)$$
+
+Specifically, $Var(X - Y) = Var(X) + Var(Y)$ for independent variables. A very common exam mistake is writing $Var(X - Y) = Var(X) - Var(Y)$.
+
+---
+
+## 4. Conditional Expectation and Variance
+
+### 4.1 Conditional Expectation ($E[X | Y]$)
+*   **Discrete:** $E[X | Y = y] = \sum_{x} x \cdot p_{X|Y}(x | y)$
+*   **Continuous:** $E[X | Y = y] = \int_{-\infty}^{\infty} x \cdot f_{X|Y}(x | y) \, dx$
+
+### 4.2 Law of Total Expectation (Adam's Law)
+The overall expected value of $X$ can be found by taking the expected value of the conditional expectation:
+
+$$E[E[X|Y]] = E[X]$$
+
+### 4.3 Law of Total Variance (Eve's Law)
+The overall variance of $X$ is divided into the expectation of conditional variance and the variance of conditional expectation:
+
+$$Var(X) = E[Var(X|Y)] + Var(E[X|Y])$$
+
+---
+
+## 5. Solved Exercises (9 Examples)
+
+### Exercise 1: Discrete Covariance
+**Problem:** Calculate $Cov(X, Y)$ using the joint PMF table from Phase 5.6 Exercise 1:
+
+| $X \setminus Y$ | 0 | 1 | 2 |
+| :--- | :--- | :--- | :--- |
+| **0** | 0.1 | 0.2 | 0.05 |
+| **1** | 0.15 | 0.1 | 0.15 |
+| **2** | 0.05 | 0.1 | 0.1 |
+
+Recall from marginals: $E[X] = 0.9$ and $E[Y] = 1.0$.
+
+**Solution:**
+- **Step 1: Calculate $E[XY]$.**
+  $$E[XY] = \sum_x \sum_y x y \cdot p(x, y)$$
+  Terms with 0 can be ignored:
+  $$E[XY] = (1)(1)(0.1) + (1)(2)(0.15) + (2)(1)(0.1) + (2)(2)(0.1) = 0.1 + 0.3 + 0.2 + ?$$
+- **Step 2: WIP State.**
+  - Last term $= 0.4$.
+  - $E[XY] = 0.1 + 0.3 + 0.2 + 0.4 = 1.0$.
+  Apply the covariance shortcut formula:
+  $$Cov(X, Y) = E[XY] - E[X]E[Y] = 1.0 - (0.9)(1.0) = ?$$
+- **Step 3: Final Calculation.**
+  $$Cov(X, Y) = 1.0 - 0.9 = 0.1.$$
+
+---
+
+### Exercise 2: Continuous Expectation $E[XY]$
+**Problem:** Let $X$ and $Y$ have joint PDF $f(x, y) = x + y$ on $0 < x < 1, 0 < y < 1$. Find $E[XY]$.
+
+**Solution:**
+- **Step 1: Set up the double integral.**
+  $$E[XY] = \int_{0}^{1} \int_{0}^{1} xy(x + y) \, dy \, dx = \int_{0}^{1} \int_{0}^{1} \left( x^2 y + x y^2 \right) \, dy \, dx$$
+- **Step 2: WIP State.**
+  Integrate with respect to $y$ first:
+  $$\int_{0}^{1} \left( x^2 y + x y^2 \right) \, dy = \left[ x^2 \frac{y^2}{2} + x \frac{y^3}{3} \right]_{0}^{1} = \frac{x^2}{2} + \frac{x}{3}$$
+  Now integrate with respect to $x$:
+  $$\int_{0}^{1} \left( \frac{x^2}{2} + \frac{x}{3} \right) \, dx = \left[ \frac{x^3}{6} + \frac{x^2}{6} \right]_{0}^{1} = \frac{1}{6} + ?$$
+- **Step 3: Final Calculation.**
+  $$\text{Second term} = \frac{1}{6}$$
+  $$E[XY] = \frac{1}{6} + \frac{1}{6} = \frac{1}{3} \approx 0.3333.$$
+
+---
+
+### Exercise 3: Correlation Calculation
+**Problem:** For the setup in Exercise 2, given that $E[X] = E[Y] = \frac{7}{12}$ and $Var(X) = Var(Y) = \frac{11}{144}$, find the correlation coefficient $\rho_{X,Y}$.
+
+**Solution:**
+- **Step 1: Find covariance first.**
+  $$Cov(X, Y) = E[XY] - E[X]E[Y] = \frac{1}{3} - \left(\frac{7}{12}\right)^2 = \frac{1}{3} - \frac{49}{144}$$
+- **Step 2: WIP State.**
+  - Common denominator for covariance: $\frac{1}{3} = \frac{48}{144}$.
+  - $Cov(X, Y) = \frac{48}{144} - \frac{49}{144} = -\frac{1}{144}$.
+  Now apply the correlation formula:
+  $$\rho_{X,Y} = \frac{Cov(X, Y)}{\sqrt{Var(X) Var(Y)}} = \frac{-\frac{1}{144}}{\sqrt{\frac{11}{144} \cdot \frac{11}{144}}} = \frac{-\frac{1}{144}}{?}$$
+- **Step 3: Final Calculation.**
+  $$\text{Denominator} = \frac{11}{144}$$
+  $$\rho_{X,Y} = \frac{-1/144}{11/144} = -\frac{1}{11} \approx -0.0909.$$
+
+---
+
+### Exercise 4: Uncorrelated but Dependent (Classic Exam Question)
+**Problem:** Let $X \sim U(-1, 1)$ and $Y = X^2$. Show that $Cov(X, Y) = 0$, even though $X$ and $Y$ are completely dependent.
+
+**Solution:**
+- **Step 1: Find $E[X]$ and $E[XY]$.**
+  Since $X \sim U(-1, 1)$, $E[X] = 0$.
+  $$E[XY] = E[X \cdot X^2] = E[X^3]$$
+- **Step 2: WIP State.**
+  For any symmetric distribution around 0, odd moments are 0.
+  $$E[X^3] = \int_{-1}^{1} x^3 \cdot \frac{1}{2} \, dx = \left[ \frac{x^4}{8} \right]_{-1}^{1} = \frac{1}{8} - ?$$
+- **Step 3: Final Calculation.**
+  $$\text{Second term} = \frac{1}{8}$$
+  $$E[X^3] = 0$$
+  $$Cov(X, Y) = E[XY] - E[X]E[Y] = 0 - (0)E[Y] = 0$$
+  This proves they are uncorrelated, yet they are functionally dependent since $Y = X^2$.
+
+---
+
+### Exercise 5: Variance of a Sum
+**Problem:** Let $X$ and $Y$ be random variables with $Var(X) = 9$, $Var(Y) = 16$, and $\rho_{X,Y} = 0.5$. Find $Var(2X - 3Y)$.
+
+**Solution:**
+- **Step 1: Compute standard deviations and covariance.**
+  - $\sigma_X = \sqrt{9} = 3$
+  - $\sigma_Y = \sqrt{16} = 4$
+  - $Cov(X, Y) = \rho_{X,Y} \cdot \sigma_X \sigma_Y = 0.5 \cdot 3 \cdot 4 = 6$.
+- **Step 2: WIP State.**
+  Apply the variance formula:
+  $$Var(2X - 3Y) = (2)^2 Var(X) + (-3)^2 Var(Y) + 2(2)(-3) \cdot Cov(X, Y)$$
+  $$Var(2X - 3Y) = 4(9) + 9(16) - 12(6) = 36 + 144 - ?$$
+- **Step 3: Final Calculation.**
+  - $12 \cdot 6 = 72$.
+  - $Var(2X - 3Y) = 180 - 72 = 108$.
+
+---
+
+### Exercise 6: Conditional Expectation (Continuous)
+**Problem:** Let $f(x, y) = \frac{2}{3}(x + 2y)$ on $0 < x < 1, 0 < y < 1$. Find $E[X | Y = y]$.
+
+**Solution:**
+- **Step 1: Write down the conditional PDF.**
+  From Phase 5.6 Exercise 5, we have:
+  $$f_{X|Y}(x | y) = \frac{2(x + 2y)}{1 + 4y}, \quad 0 < x < 1$$
+- **Step 2: WIP State.**
+  Integrate $x \cdot f_{X|Y}(x | y)$:
+  $$E[X | Y = y] = \int_{0}^{1} x \cdot \frac{2(x + 2y)}{1 + 4y} \, dx = \frac{2}{1 + 4y} \int_{0}^{1} (x^2 + 2xy) \, dx$$
+  Evaluate the integral:
+  $$\int_{0}^{1} (x^2 + 2xy) \, dx = \left[ \frac{x^3}{3} + x^2 y \right]_{0}^{1} = \frac{1}{3} + ?$$
+- **Step 3: Final Calculation.**
+  - Integral value $= \frac{1}{3} + y = \frac{1 + 3y}{3}$.
+  - $E[X | Y = y] = \frac{2}{1 + 4y} \cdot \frac{1 + 3y}{3} = \frac{2(1 + 3y)}{3(1 + 4y)}$.
+
+---
+
+### Exercise 7: Applying Adam's Law (Law of Total Expectation)
+**Problem:** A hen lays $N$ eggs, where $N \sim Po(\lambda)$. Each egg hatches with probability $p$ independently. Let $X$ be the number of hatched chicks. Find $E[X]$.
+
+**Solution:**
+- **Step 1: Identify conditional distribution.**
+  Given $N = n$ eggs, the number of hatched chicks $X$ follows a Binomial distribution:
+  $$X | N = n \sim B(n, p)$$
+  Therefore, $E[X | N] = Np$.
+- **Step 2: WIP State.**
+  Apply Adam's Law:
+  $$E[X] = E[E[X | N]] = E[Np] = p \cdot E[?]$$
+- **Step 3: Final Calculation.**
+  - Since $N \sim Po(\lambda)$, $E[N] = \lambda$.
+  - $E[X] = p\lambda$.
+
+---
+
+### Exercise 8: Applying Eve's Law (Law of Total Variance)
+**Problem:** For the egg hatching problem in Exercise 7, find the variance $Var(X)$.
+
+**Solution:**
+- **Step 1: Identify conditional moments.**
+  - $E[X | N] = Np$
+  - $Var(X | N) = Np(1-p)$
+- **Step 2: WIP State.**
+  Apply Eve's Law:
+  $$Var(X) = E[Var(X|N)] + Var(E[X|N])$$
+  $$Var(X) = E[Np(1-p)] + Var(Np) = p(1-p)E[N] + p^2 Var(N)$$
+  Recall that for $N \sim Po(\lambda)$, $E[N] = Var(N) = \lambda$.
+  $$Var(X) = p(1-p)\lambda + p^2 \cdot ?$$
+- **Step 3: Final Calculation.**
+  - $Var(N) = \lambda$.
+  - $Var(X) = p\lambda - p^2\lambda + p^2\lambda = p\lambda$.
+  *(Interesting result: Both $E[X]$ and $Var(X)$ equal $p\lambda$, suggesting $X$ itself is Poisson distributed, which is indeed true!).*
+
+---
+
+### Exercise 9: Covariance of Sums (General Property)
+**Problem:** Prove that for any random variables $X, Y, Z$ and constants $a, b$:
+$$Cov(aX + bY, Z) = a \cdot Cov(X, Z) + b \cdot Cov(Y, Z)$$
+
+**Solution:**
+- **Step 1: Use the covariance definition.**
+  $$Cov(aX + bY, Z) = E[(aX + bY)Z] - E[aX + bY]E[Z]$$
+- **Step 2: WIP State.**
+  Distribute and apply linearity of expectation:
+  $$E[aXZ + bYZ] - (aE[X] + bE[Y])E[Z] = aE[XZ] + bE[YZ] - aE[X]E[Z] - bE[Y]E[Z]$$
+  Group the terms by constants $a$ and $b$:
+  $$a \left( E[XZ] - E[X]E[Z] \right) + b \left( ? \right)$$
+- **Step 3: Final Calculation.**
+  - The second grouped term is $E[YZ] - E[Y]E[Z]$.
+  - Rewrite using covariance definition:
+    $$Cov(aX + bY, Z) = a \cdot Cov(X, Z) + b \cdot Cov(Y, Z).$$
+
+
+---
+
+<!-- Source: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_8_functions_of_multiple_rvs.md -->
+# Phase 5.8: Distributions of Functions of Multiple Random Variables
+
+This file details the techniques for finding the probability distribution of a new random variable $Z$ which is defined as a function of multiple random variables, $Z = g(X, Y)$.
+
+---
+
+## 1. The CDF Method (First Principles)
+
+Like the single-variable case, the CDF method is highly reliable and works by finding the region of the joint PDF that satisfies the inequality $g(X, Y) \le z$.
+
+$$F_Z(z) = P(g(X, Y) \le z) = \iint_{g(x,y) \le z} f(x, y) \, dx \, dy$$
+
+Once $F_Z(z)$ is found, the PDF is obtained by differentiating: $f_Z(z) = F'_Z(z)$.
+
+---
+
+## 2. Convolution (Sum of Independent Variables)
+
+If $X$ and $Y$ are independent, the distribution of their sum $Z = X + Y$ is called the **convolution** of their individual distributions.
+
+*   **Discrete Case:**
+    $$p_Z(z) = P(X + Y = z) = \sum_{x} p_X(x) \cdot p_Y(z - x)$$
+*   **Continuous Case:**
+    $$f_Z(z) = \int_{-\infty}^{\infty} f_X(x) \cdot f_Y(z - x) \, dx$$
+
+---
+
+## 3. The bivariate Change of Variables (Jacobian Method)
+
+If we have two random variables $X_1, X_2$ with joint PDF $f_{X_1, X_2}(x_1, x_2)$, and we define two new variables:
+$$Y_1 = g_1(X_1, X_2) \quad \text{and} \quad Y_2 = g_2(X_1, X_2)$$
+
+If this transformation is a one-to-one (bijective) mapping, we can solve for $X_1$ and $X_2$ in terms of $Y_1, Y_2$:
+$$X_1 = h_1(Y_1, Y_2) \quad \text{and} \quad X_2 = h_2(Y_1, Y_2)$$
+
+The joint PDF of $Y_1$ and $Y_2$ is:
+$$f_{Y_1, Y_2}(y_1, y_2) = f_{X_1, X_2}(h_1(y_1, y_2), h_2(y_1, y_2)) \cdot |J|$$
+
+where $J$ is the Jacobian determinant of the inverse transformation:
+$$J = \det \begin{pmatrix} \frac{\partial x_1}{\partial y_1} & \frac{\partial x_1}{\partial y_2} \\ \frac{\partial x_2}{\partial y_1} & \frac{\partial x_2}{\partial y_2} \end{pmatrix} = \frac{\partial x_1}{\partial y_1} \frac{\partial x_2}{\partial y_2} - \frac{\partial x_1}{\partial y_2} \frac{\partial x_2}{\partial y_1}$$
+
+> **Exam Shortcut:** If you only want the distribution of a single function $Y_1 = g_1(X_1, X_2)$, you can define a dummy variable (e.g., $Y_2 = X_1$ or $Y_2 = X_2$), apply the 2D Jacobian method to find $f_{Y_1, Y_2}(y_1, y_2)$, and then integrate out $Y_2$ to find the marginal PDF $f_{Y_1}(y_1)$.
+
+---
+
+## 4. Order Statistics: Min and Max of Independent Variables
+
+Let $X_1, X_2, \dots, X_n$ be independent, identically distributed (i.i.d.) random variables with CDF $F_X(x)$ and PDF $f_X(x)$.
+
+### 4.1 Distribution of the Maximum ($Y_{max} = \max(X_1, \dots, X_n)$)
+For the maximum to be less than $y$, **all** individual variables must be less than $y$:
+$$F_{Y_{max}}(y) = P(X_1 \le y, \dots, X_n \le y) = [F_X(y)]^n$$
+Differentiating gives the PDF:
+$$f_{Y_{max}}(y) = n \cdot [F_X(y)]^{n-1} \cdot f_X(y)$$
+
+### 4.2 Distribution of the Minimum ($Y_{min} = \min(X_1, \dots, X_n)$)
+For the minimum to be greater than $y$, **all** individual variables must be greater than $y$:
+$$P(Y_{min} > y) = P(X_1 > y, \dots, X_n > y) = [1 - F_X(y)]^n$$
+$$F_{Y_{min}}(y) = 1 - [1 - F_X(y)]^n$$
+Differentiating gives the PDF:
+$$f_{Y_{min}}(y) = n \cdot [1 - F_X(y)]^{n-1} \cdot f_X(y)$$
+
+---
+
+## 5. Solved Exercises (9 Examples)
+
+### Exercise 1: Sum of Two Independent Uniform Variables (Convolution)
+**Problem:** Let $X \sim U(0, 1)$ and $Y \sim U(0, 1)$ be independent. Find the PDF of $Z = X + Y$.
+
+**Solution:**
+- **Step 1: Set up the convolution integral.**
+  The PDFs are $f_X(x) = 1$ for $0 < x < 1$ and $f_Y(y) = 1$ for $0 < y < 1$.
+  $$f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \, dx = \int_{0}^{1} 1 \cdot f_Y(z-x) \, dx$$
+- **Step 2: WIP State.**
+  The term $f_Y(z-x)$ is 1 only when $0 < z - x < 1 \implies z - 1 < x < z$.
+  We split the analysis into two cases based on the value of $z \in (0, 2)$:
+  - **Case 1: $0 < z \le 1$.**
+    Here, the overlap region is $0 < x < z$.
+    $$f_Z(z) = \int_{0}^{z} 1 \, dx = z$$
+  - **Case 2: $1 < z < 2$.**
+    Here, the overlap region is $z - 1 < x < 1$.
+    $$f_Z(z) = \int_{z-1}^{1} 1 \, dx = 1 - (z-1) = ?$$
+- **Step 3: Final Calculation.**
+  - Case 2 value $= 2 - z$.
+  - This results in a triangular PDF:
+    $$f_Z(z) = \begin{cases} z, & 0 < z \le 1 \\ 2 - z, & 1 < z < 2 \\ 0, & \text{otherwise} \end{cases}$$
+
+---
+
+### Exercise 2: Ratio of Two Independent Exponentials (CDF Method)
+**Problem:** Let $X \sim Exp(1)$ and $Y \sim Exp(1)$ be independent. Find the PDF of $Z = \frac{Y}{X}$.
+
+**Solution:**
+- **Step 1: Write down the CDF of $Z$ for $z > 0$.**
+  $$F_Z(z) = P\left(\frac{Y}{X} \le z\right) = P(Y \le zX)$$
+- **Step 2: WIP State.**
+  Integrate over the region $y \le zx$ in the first quadrant:
+  $$F_Z(z) = \int_{0}^{\infty} \int_{0}^{zx} e^{-x} e^{-y} \, dy \, dx = \int_{0}^{\infty} e^{-x} \left( 1 - e^{-zx} \right) \, dx$$
+  $$F_Z(z) = \int_{0}^{\infty} \left( e^{-x} - e^{-(1+z)x} \right) \, dx = 1 - \frac{1}{?}$$
+- **Step 3: Final Calculation.**
+  - Integral of $e^{-(1+z)x}$ is $\frac{1}{1+z}$.
+  - $F_Z(z) = 1 - \frac{1}{1+z} = \frac{z}{1+z}$.
+  Differentiating with respect to $z$:
+  $$f_Z(z) = \frac{d}{dz}\left(1 - (1+z)^{-1}\right) = (1+z)^{-2} = \frac{1}{(1+z)^2}, \quad z > 0.$$
+
+---
+
+### Exercise 3: Dummy Variable and 2D Jacobian Method
+**Problem:** Let $X_1, X_2$ be independent random variables with joint PDF $f(x_1, x_2) = e^{-x_1 - x_2}$ for $x_1 > 0, x_2 > 0$. Find the joint PDF of $Y_1 = X_1 + X_2$ and $Y_2 = \frac{X_1}{X_2}$.
+
+**Solution:**
+- **Step 1: Solve for the inverse transformation.**
+  We have:
+  - $y_1 = x_1 + x_2$
+  - $y_2 = \frac{x_1}{x_2} \implies x_1 = y_2 x_2$
+  Substitute $x_1$ into $y_1$:
+  $y_1 = y_2 x_2 + x_2 = x_2(1 + y_2) \implies x_2 = \frac{y_1}{1 + y_2}$.
+  Then:
+  $x_1 = \frac{y_1 y_2}{1 + y_2}$.
+- **Step 2: WIP State for the Jacobian.**
+  Compute partial derivatives:
+  - $\frac{\partial x_1}{\partial y_1} = \frac{y_2}{1+y_2}$, $\frac{\partial x_1}{\partial y_2} = \frac{y_1(1+y_2) - y_1 y_2}{(1+y_2)^2} = \frac{y_1}{(1+y_2)^2}$
+  - $\frac{\partial x_2}{\partial y_1} = \frac{1}{1+y_2}$, $\frac{\partial x_2}{\partial y_2} = -\frac{y_1}{(1+y_2)^2}$
+  Determinant:
+  $$J = \det \begin{pmatrix} \frac{y_2}{1+y_2} & \frac{y_1}{(1+y_2)^2} \\ \frac{1}{1+y_2} & -\frac{y_1}{(1+y_2)^2} \end{pmatrix} = \left(\frac{y_2}{1+y_2}\right)\left(-\frac{y_1}{(1+y_2)^2}\right) - \left(\frac{y_1}{(1+y_2)^2}\right)\left(\frac{1}{1+y_2}\right)$$
+  $$J = \frac{-y_1 y_2 - y_1}{(1+y_2)^3} = \frac{-y_1(y_2 + 1)}{(1+y_2)^3} = -\frac{y_1}{?}$$
+- **Step 3: Final Calculation.**
+  - Denominator $= (1 + y_2)^2$.
+  - $|J| = \frac{y_1}{(1+y_2)^2}$.
+  Apply the transformation formula:
+  $$f_{Y_1, Y_2}(y_1, y_2) = e^{-(x_1 + x_2)} \cdot |J| = e^{-y_1} \cdot \frac{y_1}{(1 + y_2)^2}, \quad y_1 > 0, y_2 > 0.$$
+
+---
+
+### Exercise 4: Marginal PDF from Joint Jacobian Result
+**Problem:** Using the joint PDF of $Y_1, Y_2$ found in Exercise 3, find the marginal PDF of $Y_1$ and $Y_2$ to show they are independent.
+
+**Solution:**
+- **Step 1: Integrate out $y_2$ to find the marginal of $Y_1$.**
+  $$f_{Y_1}(y_1) = \int_{0}^{\infty} y_1 e^{-y_1} \frac{1}{(1 + y_2)^2} \, dy_2 = y_1 e^{-y_1} \left[ -\frac{1}{1 + y_2} \right]_{0}^{\infty} = y_1 e^{-y_1}, \quad y_1 > 0$$
+- **Step 2: WIP State.**
+  Integrate out $y_1$ to find the marginal of $Y_2$:
+  $$f_{Y_2}(y_2) = \int_{0}^{\infty} \frac{1}{(1 + y_2)^2} y_1 e^{-y_1} \, dy_1 = \frac{1}{(1 + y_2)^2} \int_{0}^{\infty} y_1 e^{-y_1} \, dy_1$$
+  Notice that $\int_{0}^{\infty} y_1 e^{-y_1} \, dy_1$ is $\Gamma(2) = 1! = 1$.
+  So $f_{Y_2}(y_2) = \frac{1}{(1 + y_2)^2}$ for $y_2 > 0$.
+  Check product:
+  $$f_{Y_1}(y_1) f_{Y_2}(y_2) = y_1 e^{-y_1} \cdot \frac{1}{(1+y_2)^2} = ?$$
+- **Step 3: Final Calculation.**
+  - Product $= f_{Y_1, Y_2}(y_1, y_2)$.
+  Thus, $Y_1$ and $Y_2$ are independent random variables.
+
+---
+
+### Exercise 5: Minimum of Independent Exponentials
+**Problem:** Let $X_1, X_2, \dots, X_n$ be i.i.d. random variables with $X_i \sim Exp(\lambda)$. Find the distribution of $W = \min(X_1, \dots, X_n)$.
+
+**Solution:**
+- **Step 1: Recall the continuous minimum CDF formula.**
+  $$F_W(w) = 1 - [1 - F_X(w)]^n$$
+- **Step 2: WIP State.**
+  For $X_i \sim Exp(\lambda)$, the CDF is $F_X(w) = 1 - e^{-\lambda w}$.
+  Substitute this into the formula:
+  $$F_W(w) = 1 - \left[1 - \left(1 - e^{-\lambda w}\right)\right]^n = 1 - \left[e^{-\lambda w}\right]^n = 1 - e^{-?}$$
+- **Step 3: Final Calculation.**
+  - Exponent $= n\lambda w$.
+  - $F_W(w) = 1 - e^{-n\lambda w}$.
+  This is the CDF of an Exponential distribution with rate parameter $n\lambda$.
+  Thus, $\min(X_1, \dots, X_n) \sim Exp(n\lambda)$.
+  *(Exam shortcut: The minimum of $n$ independent Exponentials is always Exponential, and its rate is simply the sum of the individual rates!).*
+
+---
+
+### Exercise 6: Maximum of Independent Uniforms
+**Problem:** Let $X_1, X_2, \dots, X_n$ be i.i.d. $U(0, 1)$ random variables. Find the PDF of $Y = \max(X_1, \dots, X_n)$.
+
+**Solution:**
+- **Step 1: Write down the CDF of $U(0, 1)$.**
+  $F_X(x) = x$ for $0 < x < 1$.
+- **Step 2: WIP State.**
+  Apply maximum CDF formula:
+  $$F_Y(y) = [F_X(y)]^n = y^n, \quad 0 < y < 1$$
+  Differentiate to obtain PDF:
+  $$f_Y(y) = \frac{d}{dy}\left(y^n\right) = ?$$
+- **Step 3: Final Calculation.**
+  $$f_Y(y) = n y^{n-1}, \quad 0 < y < 1.$$
+
+---
+
+### Exercise 7: Distribution of a Product (Continuous)
+**Problem:** Let $X$ and $Y$ be independent random variables, both distributed as $U(0, 1)$. Find the PDF of their product $Z = XY$.
+
+**Solution:**
+- **Step 1: Set up the CDF equation for $0 < z < 1$.**
+  $$F_Z(z) = P(XY \le z) = \iint_{xy \le z} 1 \, dx \, dy$$
+- **Step 2: WIP State.**
+  Split the unit square region:
+  - If $x \le z$, then $y$ can take any value in $[0, 1]$.
+  - If $x > z$, then $y$ must be $\le z/x$.
+  $$F_Z(z) = \int_{0}^{z} \left( \int_{0}^{1} 1 \, dy \right) \, dx + \int_{z}^{1} \left( \int_{0}^{z/x} 1 \, dy \right) \, dx$$
+  $$F_Z(z) = \int_{0}^{z} 1 \, dx + \int_{z}^{1} \frac{z}{x} \, dx = z + z \left[ \ln(x) \right]_{z}^{1} = z + z(0 - \ln(z)) = z - z\ln(z)$$
+  Now, differentiate with respect to $z$:
+  $$f_Z(z) = \frac{d}{dz}\left(z - z\ln(z)\right) = 1 - \left( 1 \cdot \ln(z) + z \cdot \frac{1}{z} \right) = ?$$
+- **Step 3: Final Calculation.**
+  $$f_Z(z) = 1 - \ln(z) - 1 = -\ln(z), \quad 0 < z < 1.$$
+
+---
+
+### Exercise 8: Sum of Independent Normal Variables (MGF Method)
+**Problem:** Let $X \sim N(\mu_1, \sigma_1^2)$ and $Y \sim N(\mu_2, \sigma_2^2)$ be independent. Prove that $W = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$ using MGFs.
+
+**Solution:**
+- **Step 1: Set up MGF product.**
+  $$M_W(t) = M_X(t) \cdot M_Y(t)$$
+- **Step 2: WIP State.**
+  $$M_X(t) = e^{\mu_1 t + \frac{1}{2}\sigma_1^2 t^2}, \quad M_Y(t) = e^{\mu_2 t + \frac{1}{2}\sigma_2^2 t^2}$$
+  $$M_W(t) = e^{\mu_1 t + \frac{1}{2}\sigma_1^2 t^2} \cdot e^{\mu_2 t + \frac{1}{2}\sigma_2^2 t^2} = e^{?}$$
+- **Step 3: Final Calculation.**
+  $$M_W(t) = e^{(\mu_1 + \mu_2)t + \frac{1}{2}(\sigma_1^2 + \sigma_2^2)t^2}$$
+  By uniqueness of the MGF, this represents a Normal distribution:
+  $$W \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2).$$
+
+---
+
+### Exercise 9: Box-Muller Transform (Advanced Jacobian)
+**Problem:** Let $U_1, U_2$ be independent $U(0, 1)$ variables. Define:
+$$Z_0 = \sqrt{-2\ln U_1} \cos(2\pi U_2) \quad \text{and} \quad Z_1 = \sqrt{-2\ln U_1} \sin(2\pi U_2)$$
+Find the joint PDF of $Z_0$ and $Z_1$.
+
+**Solution:**
+- **Step 1: Solve for $U_1, U_2$.**
+  Squaring and adding:
+  $$Z_0^2 + Z_1^2 = -2\ln U_1 \implies U_1 = e^{-\frac{Z_0^2 + Z_1^2}{2}}$$
+  Dividing:
+  $$\frac{Z_1}{Z_0} = \tan(2\pi U_2) \implies U_2 = \frac{1}{2\pi} \arctan\left(\frac{Z_1}{Z_0}\right)$$
+- **Step 2: WIP State for the Jacobian.**
+  Compute the Jacobian $J$ of the transformation from $(Z_0, Z_1)$ to $(U_1, U_2)$:
+  $$J = \det \begin{pmatrix} \frac{\partial u_1}{\partial z_0} & \frac{\partial u_1}{\partial z_1} \\ \frac{\partial u_2}{\partial z_0} & \frac{\partial u_2}{\partial z_1} \end{pmatrix}$$
+  After differentiation and simplification:
+  $$|J| = \frac{1}{2\pi} e^{-\frac{z_0^2 + z_1^2}{2}}$$
+  Since $U_1, U_2$ are independent $U(0, 1)$, their joint PDF is $f(u_1, u_2) = 1$.
+  Apply transformation:
+  $$f_{Z_0, Z_1}(z_0, z_1) = 1 \cdot |J| = ?$$
+- **Step 3: Final Calculation.**
+  $$f_{Z_0, Z_1}(z_0, z_1) = \left( \frac{1}{\sqrt{2\pi}} e^{-z_0^2/2} \right) \cdot \left( \frac{1}{\sqrt{2\pi}} e^{-z_1^2/2} \right)$$
+  This factors into the product of two standard normal PDFs, proving that $Z_0$ and $Z_1$ are independent standard normal variables!
 
 
 ---
@@ -3704,6 +5531,456 @@ Another trap is contextualizing the error. It's not enough to say "rejecting $H_
 
 ---
 
+<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_4_sampling_distributions_chi_square_f.md -->
+# Phase 6.4: Sampling Distributions, Chi-Square, t, and F Distributions
+
+In inferential statistics, we use sample statistics (like the sample mean $\bar{X}$ or sample variance $S^2$) to estimate population parameters (like $\mu$ or $\sigma^2$). The probability distributions of these statistics are called **sampling distributions**.
+
+---
+
+## 1. Distribution of the Sample Variance ($S^2$)
+
+Let $X_1, X_2, \dots, X_n$ be a random sample of size $n$ from a **Normal population** $N(\mu, \sigma^2)$. The sample variance is defined as:
+
+$$S^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - \bar{X})^2$$
+
+A fundamental theorem in statistics states that:
+
+$$\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$$
+
+This means that the scaled sample variance follows a Chi-square distribution with $\nu = n-1$ degrees of freedom. Furthermore, $\bar{X}$ and $S^2$ are independent random variables when sampling from a normal population.
+
+---
+
+## 2. The Chi-Square ($\chi^2$) Distribution
+
+The Chi-square distribution with $\nu$ degrees of freedom is the distribution of the sum of squares of $\nu$ independent standard normal variables:
+
+$$\chi^2_\nu = \sum_{i=1}^{\nu} Z_i^2, \quad \text{where } Z_i \sim N(0, 1) \text{ i.i.d.}$$
+
+### Properties
+*   **Domain:** $x \ge 0$
+*   **Mean:** $E[\chi^2_\nu] = \nu$
+*   **Variance:** $Var(\chi^2_\nu) = 2\nu$
+*   **Additivity:** If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are independent, then:
+    $$U + V \sim \chi^2_{\nu_1 + \nu_2}$$
+
+---
+
+## 3. Student's t-Distribution
+
+The t-distribution arises when estimating the mean of a normally distributed population when the sample size is small ($n < 30$) and the population standard deviation $\sigma$ is unknown.
+
+### Definition
+If $Z \sim N(0, 1)$ and $W \sim \chi^2_\nu$ are independent, then the random variable:
+
+$$T = \frac{Z}{\sqrt{W / \nu}} \sim t_\nu$$
+
+follows Student's t-distribution with $\nu$ degrees of freedom.
+
+### Properties
+*   Symmetric and bell-shaped around 0 (like the standard normal, but with heavier tails).
+*   As $\nu \to \infty$, the t-distribution converges to the standard normal distribution $N(0, 1)$.
+
+---
+
+## 4. Fisher-Snedecor F-Distribution
+
+The F-distribution is used to compare the variances of two independent normal populations (e.g., in ANOVA or two-sample variance tests).
+
+### Definition
+If $U \sim \chi^2_{d_1}$ and $V \sim \chi^2_{d_2}$ are independent, then the ratio of their scaled variables:
+
+$$F = \frac{U / d_1}{V / d_2} \sim F_{d_1, d_2}$$
+
+follows the F-distribution with $d_1$ (numerator) and $d_2$ (denominator) degrees of freedom.
+
+### Properties
+*   **Domain:** $x > 0$
+*   **Reciprocal Property:** If $F \sim F_{d_1, d_2}$, then:
+    $$\frac{1}{F} \sim F_{d_2, d_1}$$
+
+---
+
+## 5. Solved Exercises (9 Examples)
+
+### Exercise 1: Probability of Sample Variance
+**Problem:** A random sample of size $n = 10$ is taken from a normal population with variance $\sigma^2 = 4$. Find the probability that the sample variance $S^2$ is less than 5.25. (Use the Chi-square table values: $P(\chi^2_9 \le 11.81) = 0.77$, $P(\chi^2_9 \le 16.92) = 0.95$).
+
+**Solution:**
+- **Step 1: Set up the Chi-square transformation.**
+  We know that $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+  Substitute $n = 10$ and $\sigma^2 = 4$:
+  $$\frac{9 S^2}{4} \sim \chi^2_9$$
+- **Step 2: WIP State.**
+  We want to find $P(S^2 < 5.25)$:
+  $$P(S^2 < 5.25) = P\left(\frac{9 S^2}{4} < \frac{9 \cdot 5.25}{4}\right) = P\left(\chi^2_9 < \frac{47.25}{4}\right)$$
+  Compute the fraction:
+  $$\frac{47.25}{4} = ?$$
+- **Step 3: Final Calculation.**
+  - $\frac{47.25}{4} = 11.8125 \approx 11.81$.
+  - $P(S^2 < 5.25) \approx P(\chi^2_9 < 11.81) = 0.77$.
+
+---
+
+### Exercise 2: Expected Value and Variance of Sample Variance
+**Problem:** A sample of size $n = 25$ is drawn from a normal population with variance $\sigma^2 = 8$. Find the mean and variance of the sample variance $S^2$.
+
+**Solution:**
+- **Step 1: Express $S^2$ in terms of a Chi-square variable.**
+  Let $Y = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+  So, $S^2 = \frac{\sigma^2}{n-1} Y$.
+- **Step 2: WIP State.**
+  Compute the mean:
+  $$E[S^2] = E\left[ \frac{\sigma^2}{n-1} Y \right] = \frac{\sigma^2}{n-1} E[Y]$$
+  Since $Y \sim \chi^2_{n-1}$, $E[Y] = n-1 = 24$.
+  $$E[S^2] = \frac{8}{24} \cdot 24 = 8$$
+  Compute the variance:
+  $$Var(S^2) = Var\left( \frac{\sigma^2}{n-1} Y \right) = \left( \frac{\sigma^2}{n-1} \right)^2 Var(Y)$$
+  Since $Y \sim \chi^2_{n-1}$, $Var(Y) = 2(n-1) = 48$.
+  $$Var(S^2) = \left(\frac{8}{24}\right)^2 \cdot 48 = \left(\frac{1}{3}\right)^2 \cdot 48 = \frac{48}{?}$$
+- **Step 3: Final Calculation.**
+  - Denominator $= 9$.
+  - $Var(S^2) = \frac{48}{9} = \frac{16}{3} \approx 5.3333$.
+  *(Important check: Notice that $E[S^2] = \sigma^2$, which proves that the sample variance is an unbiased estimator of the population variance!).*
+
+---
+
+### Exercise 3: Sum of Independent Chi-Squares
+**Problem:** Let $U \sim \chi^2_{10}$ and $V \sim \chi^2_{15}$ be independent. What is the distribution of $W = U + V$? Find $E[W]$ and $Var(W)$.
+
+**Solution:**
+- **Step 1: Identify the distribution of the sum.**
+  By the additivity property of independent Chi-square variables:
+  $$W = U + V \sim \chi^2_{10 + 15} \implies W \sim \chi^2_{25}$$
+- **Step 2: WIP State.**
+  For a Chi-square variable with $\nu = 25$ degrees of freedom:
+  - $E[W] = \nu = 25$.
+  - $Var(W) = 2\nu = 2 \cdot ?$.
+- **Step 3: Final Calculation.**
+  - $Var(W) = 50$.
+
+---
+
+### Exercise 4: Constructing a t-Statistic (Gotcha Moment)
+**Problem:** Let $Z \sim N(0, 1)$ and $U \sim \chi^2_9$ be independent. Does $T = \frac{Z}{\sqrt{U}}$ follow a t-distribution? If not, modify it so it does.
+
+**Solution:**
+- **Step 1: Match the t-distribution definition.**
+  The definition of a t-variable is:
+  $$T = \frac{Z}{\sqrt{W / \nu}}$$
+- **Step 2: WIP State.**
+  Looking at $T = \frac{Z}{\sqrt{U}}$, the Chi-square variable $U$ (which has $\nu = 9$) is not divided by its degrees of freedom.
+  Therefore, $T$ does **not** follow a t-distribution.
+- **Step 3: Final Calculation.**
+  To correct it, we must divide $U$ by 9 under the square root:
+  $$T_{correct} = \frac{Z}{\sqrt{U / 9}} \sim t_9.$$
+
+---
+
+### Exercise 5: F-Distribution Bounds Transformation
+**Problem:** Let $F \sim F_{5, 8}$. Find the value of $c$ such that $P(F > c) = 0.05$, given that for a variable $Y \sim F_{8, 5}$, we have $P(Y \le 4.82) = 0.95$.
+
+**Solution:**
+- **Step 1: Use the reciprocal property of the F-distribution.**
+  If $F \sim F_{5, 8}$, then $\frac{1}{F} \sim F_{8, 5}$.
+- **Step 2: WIP State.**
+  We write the probability statement:
+  $$P(F > c) = 0.05 \implies P\left(\frac{1}{F} < \frac{1}{c}\right) = 0.05$$
+  Since $\frac{1}{F} \sim F_{8, 5}$, this is equivalent to:
+  $$P\left(Y < \frac{1}{c}\right) = 0.05 \implies P\left(Y \ge \frac{1}{c}\right) = 0.95$$
+  Wait, the problem states $P(Y \le 4.82) = 0.95 \implies P(Y > 4.82) = 0.05$.
+  Let's reformulate:
+  $$P(F > c) = 0.05 \implies P\left(\frac{1}{F} < \frac{1}{c}\right) = 0.05$$
+  This means the left-tail probability of $Y = 1/F$ is 0.05.
+  We know that for $Y \sim F_{8, 5}$, $P(Y > 4.82) = 0.05 \implies P(Y \le 4.82) = 0.95$.
+  By reciprocal properties of critical values:
+  $$c = F_{0.05}(5, 8) = \frac{1}{F_{0.95}(8, 5)} = \frac{1}{?}$$
+- **Step 3: Final Calculation.**
+  - $F_{0.95}(8, 5) = 4.82$.
+  - $c = \frac{1}{4.82} \approx 0.2075$.
+
+---
+
+### Exercise 6: Normal Approximation of Chi-Square
+**Problem:** For a Chi-square variable $X \sim \chi^2_{100}$, use the Central Limit Theorem to approximate $P(X \le 120)$. (Recall $\Phi(2) = 0.9772$).
+
+**Solution:**
+- **Step 1: Find the mean and variance of $X$.**
+  - $\mu = \nu = 100$
+  - $\sigma^2 = 2\nu = 200 \implies \sigma = \sqrt{200} \approx 14.14$.
+- **Step 2: WIP State.**
+  Standardize the variable:
+  $$P(X \le 120) = P\left(\frac{X - 100}{14.14} \le \frac{120 - 100}{14.14}\right) \approx P\left(Z \le \frac{20}{14.14}\right)$$
+  Compute the fraction:
+  $$\frac{20}{14.14} = ?$$
+- **Step 3: Final Calculation.**
+  - $\frac{20}{14.14} \approx 1.414$ (which is exactly $\sqrt{2}$).
+  - $P(Z \le 1.41) = \Phi(1.41) \approx 0.9207$.
+
+---
+
+### Exercise 7: Mean of F-Distribution
+**Problem:** Calculate the expected value of $F \sim F_{d_1, d_2}$ where $d_2 > 2$. Use the fact that if $V \sim \chi^2_{d_2}$, then $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
+
+**Solution:**
+- **Step 1: Write $F$ in terms of $U$ and $V$.**
+  $$F = \frac{U / d_1}{V / d_2} = \frac{d_2}{d_1} \cdot U \cdot \frac{1}{V}$$
+- **Step 2: WIP State.**
+  Since $U \sim \chi^2_{d_1}$ and $V \sim \chi^2_{d_2}$ are independent:
+  $$E[F] = \frac{d_2}{d_1} \cdot E[U] \cdot E\left[\frac{1}{V}\right]$$
+  We know $E[U] = d_1$ and $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
+  $$E[F] = \frac{d_2}{d_1} \cdot d_1 \cdot \frac{1}{?}$$
+- **Step 3: Final Calculation.**
+  - Denominator $= d_2 - 2$.
+  - $E[F] = \frac{d_2}{d_2 - 2}$.
+  *(Note: The mean of an F-distribution depends solely on the denominator degrees of freedom $d_2$!).*
+
+---
+
+### Exercise 8: Sample Variance Ratio (ANOVA Precursor)
+**Problem:** We draw a sample of size $n_1 = 6$ from population 1 ($N(\mu_1, \sigma^2)$) and a sample of size $n_2 = 11$ from population 2 ($N(\mu_2, \sigma^2)$). Find the distribution of the ratio of their sample variances, $\frac{S_1^2}{S_2^2}$.
+
+**Solution:**
+- **Step 2: WIP State.**
+  We know that:
+  - $U = \frac{(n_1 - 1)S_1^2}{\sigma^2} \sim \chi^2_{n_1 - 1} \implies U \sim \chi^2_5$
+  - $V = \frac{(n_2 - 1)S_2^2}{\sigma^2} \sim \chi^2_{n_2 - 1} \implies V \sim \chi^2_{10}$
+  By the definition of the F-distribution:
+  $$\frac{U / 5}{V / 10} \sim F_{5, 10}$$
+  Substitute the expressions for $U$ and $V$:
+  $$\frac{\frac{(n_1 - 1)S_1^2}{\sigma^2} \cdot \frac{1}{n_1 - 1}}{\frac{(n_2 - 1)S_2^2}{\sigma^2} \cdot \frac{1}{n_2 - 1}} = \frac{\frac{S_1^2}{\sigma^2}}{\frac{S_2^2}{\sigma^2}} = ?$$
+- **Step 3: Final Calculation.**
+  - The ratio simplifies to $\frac{S_1^2}{S_2^2}$.
+  - Thus, $\frac{S_1^2}{S_2^2} \sim F_{5, 10}$.
+
+---
+
+### Exercise 9: Probability Bounds for t-Distribution
+**Problem:** Let $T \sim t_{15}$. If $P(T > 2.131) = 0.025$, find $P(-2.131 < T < 2.131)$.
+
+**Solution:**
+- **Step 1: Use symmetry of the t-distribution.**
+  Since the t-distribution is symmetric about 0:
+  $$P(T < -2.131) = P(T > 2.131) = 0.025$$
+- **Step 2: WIP State.**
+  The total area under the PDF is 1. The two tails combined contain:
+  $$P(T \le -2.131) + P(T \ge 2.131) = 0.025 + 0.025 = 0.05$$
+  The area in the middle is the complement:
+  $$P(-2.131 < T < 2.131) = 1 - 0.05 = ?$$
+- **Step 3: Final Calculation.**
+  $$P(-2.131 < T < 2.131) = 0.95.$$
+
+
+---
+
+<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_5_inequalities_laws_large_numbers.md -->
+# Phase 6.5: Probability Inequalities and Laws of Large Numbers
+
+This file covers fundamental probability bounds (**Markov's Inequality** and **Chebyshev's Inequality**) and the asymptotic behaviors of sample averages (**Weak and Strong Laws of Large Numbers**).
+
+---
+
+## 1. Probability Inequalities
+
+Probability inequalities allow us to bound the probability of tail events when the exact distribution of a random variable is unknown or complex, requiring only its moments (like mean and variance).
+
+### 1.1 Markov's Inequality
+Let $X$ be a **non-negative** random variable ($X \ge 0$). For any constant $a > 0$:
+
+$$P(X \ge a) \le \frac{E[X]}{a}$$
+
+### 1.2 Chebyshev's Inequality
+Let $X$ be any random variable with mean $\mu$ and variance $\sigma^2 > 0$. For any constant $\epsilon > 0$:
+
+$$P(|X - \mu| \ge \epsilon) \le \frac{Var(X)}{\epsilon^2}$$
+
+Alternatively, setting $\epsilon = k\sigma$ (where $k > 0$ is the number of standard deviations from the mean):
+
+$$P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}$$
+
+This states that the probability of any random variable falling more than $k$ standard deviations away from its mean is at most $1/k^2$. E.g., for $k=2$, at least $75\%$ of the data must lie within 2 standard deviations of the mean.
+
+---
+
+## 2. Laws of Large Numbers (LLN)
+
+Let $X_1, X_2, \dots$ be a sequence of independent and identically distributed (i.i.d.) random variables, each with mean $E[X_i] = \mu$ and variance $Var(X_i) = \sigma^2$. The sample mean is:
+
+$$\bar{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i$$
+
+### 2.1 The Weak Law of Large Numbers (WLLN)
+As the sample size $n$ approaches infinity, the sample mean converges in **probability** to the population mean $\mu$. That is, for any $\epsilon > 0$:
+
+$$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) = 0$$
+
+### 2.2 The Strong Law of Large Numbers (SLLN)
+As the sample size $n$ approaches infinity, the sample mean converges **almost surely** (with probability 1) to the population mean $\mu$:
+
+$$P\left( \lim_{n \to \infty} \bar{X}_n = \mu \right) = 1$$
+
+---
+
+## 3. Solved Exercises (9 Examples)
+
+### Exercise 1: Basic Markov's Inequality
+**Problem:** A post office handles an average of 10,000 letters per day. What is the maximum probability that it will handle at least 15,000 letters tomorrow?
+
+**Solution:**
+- **Step 1: Check conditions and identify parameters.**
+  The number of letters $X \ge 0$, and we are given $E[X] = 10,000$.
+- **Step 2: WIP State.**
+  Apply Markov's Inequality with $a = 15,000$:
+  $$P(X \ge 15,000) \le \frac{E[X]}{15,000} = \frac{10,000}{15,000} = ?$$
+- **Step 3: Final Calculation.**
+  $$P(X \ge 15,000) \le \frac{2}{3} \approx 0.6667.$$
+
+---
+
+### Exercise 2: Basic Chebyshev's Inequality
+**Problem:** The height of adults in a city has a mean of 170 cm and a standard deviation of 8 cm. Find the upper bound for the probability that a randomly chosen adult has a height outside the range $(154 \text{ cm}, 186 \text{ cm})$.
+
+**Solution:**
+- **Step 1: Map the range to the inequality format $|X - \mu| \ge \epsilon$.**
+  - $\mu = 170$
+  - $\sigma = 8 \implies Var(X) = 64$.
+  - The range $(154, 186)$ is $(170 - 16, 170 + 16)$, which corresponds to $\epsilon = 16$.
+- **Step 2: WIP State.**
+  Apply Chebyshev's Inequality:
+  $$P(|X - 170| \ge 16) \le \frac{Var(X)}{16^2} = \frac{64}{256} = ?$$
+- **Step 3: Final Calculation.**
+  $$P(|X - 170| \ge 16) \le \frac{1}{4} = 0.25.$$
+
+---
+
+### Exercise 3: Chebyshev's Inequality vs. Normal Distribution
+**Problem:** For the height data in Exercise 2 (assuming height is normally distributed), find the exact probability of being outside $(154 \text{ cm}, 186 \text{ cm})$, and compare it to Chebyshev's bound. (Recall $\Phi(2) = 0.9772$).
+
+**Solution:**
+- **Step 1: Convert the range to Z-scores.**
+  - Lower bound Z-score: $z_1 = \frac{154 - 170}{8} = -2$
+  - Upper bound Z-score: $z_2 = \frac{186 - 170}{8} = 2$
+- **Step 2: WIP State.**
+  Calculate the exact probability:
+  $$P(|Z| \ge 2) = 2 \cdot P(Z < -2) = 2(1 - \Phi(2)) = 2(1 - 0.9772) = 2 \cdot ?$$
+- **Step 3: Final Calculation.**
+  - $2 \cdot 0.0228 = 0.0456$.
+  **Comparison:** Chebyshev's bound is $0.25$, which is much wider than the exact probability $0.0456$. This illustrates that while Chebyshev's inequality is guaranteed to hold for *any* distribution, it can be very conservative for specific distributions like the normal distribution.
+
+---
+
+### Exercise 4: Sample Size Determination using Chebyshev
+**Problem:** A coin is flipped $n$ times. We want to estimate the probability of heads $p$ using the sample proportion $\hat{p}_n$. Use Chebyshev's inequality to find the minimum number of flips $n$ required to be at least $95\%$ confident that $\hat{p}_n$ is within $0.05$ of the true probability $p$.
+
+**Solution:**
+- **Step 1: Identify mean and variance of $\hat{p}_n$.**
+  Let $X_i \sim Bernoulli(p)$ for $i=1,\dots,n$.
+  - $E[\hat{p}_n] = p$
+  - $Var(\hat{p}_n) = \frac{p(1-p)}{n}$.
+- **Step 2: WIP State.**
+  We want to find $n$ such that:
+  $$P(|\hat{p}_n - p| < 0.05) \ge 0.95 \implies P(|\hat{p}_n - p| \ge 0.05) \le 0.05$$
+  Apply Chebyshev's Inequality:
+  $$P(|\hat{p}_n - p| \ge 0.05) \le \frac{Var(\hat{p}_n)}{0.05^2} = \frac{p(1-p)}{n \cdot 0.0025}$$
+  Since we don't know $p$, we use the worst-case variance value, which occurs at $p = 0.5 \implies p(1-p) = 0.25$.
+  $$P(|\hat{p}_n - p| \ge 0.05) \le \frac{0.25}{n \cdot 0.0025} = \frac{100}{n}$$
+  We set this upper bound $\le 0.05$:
+  $$\frac{100}{n} \le 0.05 \implies n \ge ?$$
+- **Step 3: Final Calculation.**
+  $$n \ge \frac{100}{0.05} = 2000 \text{ flips}.$$
+
+---
+
+### Exercise 5: Bound for Exponential Variable (Markov vs Chebyshev)
+**Problem:** Let $X \sim Exp(1)$. Compare the upper bounds of $P(X \ge 3)$ given by Markov's and Chebyshev's inequalities with the exact probability.
+
+**Solution:**
+- **Step 1: Identify moments and exact value.**
+  - Mean $E[X] = 1$, Variance $Var(X) = 1$.
+  - Exact probability: $P(X \ge 3) = e^{-3} \approx 0.0498$.
+- **Step 2: WIP State.**
+  - **Markov's Bound:**
+    $$P(X \ge 3) \le \frac{E[X]}{3} = \frac{1}{3} \approx 0.3333$$
+  - **Chebyshev's Bound:**
+    Note that $P(X \ge 3) = P(X - 1 \ge 2)$. Since $X \ge 0$:
+    $$P(X \ge 3) \le P(|X - 1| \ge 2) \le \frac{Var(X)}{2^2} = \frac{1}{4} = ?$$
+- **Step 3: Final Calculation.**
+  - Chebyshev's bound $= 0.25$.
+  - **Comparison:** The exact value is $0.0498$. Chebyshev's bound ($0.25$) is tighter than Markov's bound ($0.3333$), but both are much larger than the true value.
+
+---
+
+### Exercise 6: One-Sided Chebyshev Inequality (Cantelli's Inequality)
+**Problem:** Let $X$ have mean $\mu$ and variance $\sigma^2$. Cantelli's inequality states that for any $a > 0$:
+$$P(X - \mu \ge a) \le \frac{\sigma^2}{\sigma^2 + a^2}$$
+If the test scores have a mean of 70 and variance of 25, find the upper bound for the probability that a student scores at least 85.
+
+**Solution:**
+- **Step 1: Map variables.**
+  - $\mu = 70$
+  - $\sigma^2 = 25$
+  - We want $P(X \ge 85) = P(X - 70 \ge 15)$, so $a = 15$.
+- **Step 2: WIP State.**
+  Apply Cantelli's inequality:
+  $$P(X - 70 \ge 15) \le \frac{25}{25 + 15^2} = \frac{25}{25 + 225} = \frac{25}{?}$$
+- **Step 3: Final Calculation.**
+  - Denominator $= 250$.
+  - $P(X - 70 \ge 15) \le \frac{25}{250} = 0.1$.
+
+---
+
+### Exercise 7: Applying WLLN to Sample Variance
+**Problem:** Let $X_1, X_2, \dots$ be i.i.d. random variables with mean $\mu$ and finite 4th moment ($E[X^4] < \infty$). Show that the sample variance $S_n^2$ converges in probability to the population variance $\sigma^2$ as $n \to \infty$.
+
+**Solution:**
+- **Step 1: Write the expansion of $S_n^2$.**
+  $$S_n^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X}_n)^2 = \frac{n}{n-1} \left( \frac{1}{n}\sum_{i=1}^{n} X_i^2 - \bar{X}_n^2 \right)$$
+- **Step 2: WIP State.**
+  - As $n \to \infty$, $\frac{n}{n-1} \to 1$.
+  - Let $Y_i = X_i^2$. Since $X_i$ are i.i.d., $Y_i$ are also i.i.d. with mean $E[Y_i] = E[X_i^2]$. By WLLN:
+    $$\frac{1}{n}\sum_{i=1}^{n} X_i^2 \xrightarrow{P} E[X^2]$$
+  - By WLLN, $\bar{X}_n \xrightarrow{P} \mu$. Since the square function is continuous, $\bar{X}_n^2 \xrightarrow{P} \mu^2$.
+- **Step 3: Final Calculation.**
+  Using the properties of convergence in probability:
+  $$S_n^2 \xrightarrow{P} 1 \cdot \left( E[X^2] - \mu^2 \right) = \sigma^2.$$
+
+---
+
+### Exercise 8: Chebyshev Bound for Sample Mean
+**Problem:** Let $X_1, \dots, X_n$ be i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Show that for any $\epsilon > 0$, WLLN holds by using Chebyshev's inequality on the sample mean $\bar{X}_n$.
+
+**Solution:**
+- **Step 1: Find properties of $\bar{X}_n$.**
+  - $E[\bar{X}_n] = \mu$
+  - $Var(\bar{X}_n) = \frac{\sigma^2}{n}$
+- **Step 2: WIP State.**
+  Apply Chebyshev's Inequality:
+  $$P(|\bar{X}_n - \mu| \ge \epsilon) \le \frac{Var(\bar{X}_n)}{\epsilon^2} = \frac{\sigma^2}{n\epsilon^2}$$
+- **Step 3: Final Calculation.**
+  Take the limit as $n \to \infty$:
+  $$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) \le \lim_{n \to \infty} \frac{\sigma^2}{n\epsilon^2} = 0$$
+  Since probability is non-negative, the limit must be exactly 0, proving WLLN.
+
+---
+
+### Exercise 9: Monte Carlo Integration (LLN Application)
+**Problem:** Explain how the Law of Large Numbers justifies using random numbers to estimate the value of the integral $I = \int_{0}^{1} g(x) \, dx$.
+
+**Solution:**
+- **Step 1: Relate the integral to an expectation.**
+  Let $U \sim U(0, 1)$. The expected value of $g(U)$ is:
+  $$E[g(U)] = \int_{0}^{1} g(x) \cdot f_U(x) \, dx = \int_{0}^{1} g(x) \cdot 1 \, dx = I$$
+- **Step 2: WIP State.**
+  Generate $n$ independent random variables $U_1, U_2, \dots, U_n$ from $U(0, 1)$.
+  Let $Y_i = g(U_i)$. The variables $Y_i$ are i.i.d. with mean $E[Y_i] = I$.
+- **Step 3: Final Calculation.**
+  By the Law of Large Numbers, the sample mean converges to the expected value:
+  $$\frac{1}{n} \sum_{i=1}^{n} g(U_i) \xrightarrow{a.s.} E[g(U)] = I$$
+  This justifies approximating the integral by the average value of the function evaluated at random points.
+
+
+---
+
 <!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_1_descriptive_stats.md -->
 # Phase 7: R Programming Commands - Descriptive Stats
 
@@ -4266,6 +6543,210 @@ correct_score_2 <- qnorm(0.05, mean = 100, sd = 15, lower.tail = FALSE)
 # Result: 124.6728
 ```
 *(Always draw a quick sketch of the bell curve to visually verify if the answer makes logical sense!)*
+
+
+---
+
+<!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_4_additional_distributions_r.md -->
+# Phase 7.4: R Programming Commands - Additional Distributions and Statistical Functions
+
+This file provides the R syntax, parameters, and exam gotchas for the remaining discrete and continuous probability distributions (Geometric, Hypergeometric, Exponential, Uniform, Gamma, Chi-Square, Student's t, and Fisher's F).
+
+---
+
+## 1. Geometric Distribution (`*geom`)
+
+R functions: `dgeom()`, `pgeom()`, `qgeom()`, `rgeom()`.
+
+> **CRITICAL EXAM GOTCHA:** R's geometric functions strictly model **Definition B** (the number of failures *before* the first success). 
+> If a problem asks for the probability that the first success is on the 4th trial, this means there were exactly 3 failures. In R, you must use `x = 3`, not `4`!
+> *   $P(X = 4 \text{ trials}) = \text{`dgeom(3, prob)`}$
+> *   $P(X \le 4 \text{ trials}) = P(\text{failures} \le 3) = \text{`pgeom(3, prob)`}$
+
+---
+
+## 2. Hypergeometric Distribution (`*hyper`)
+
+R functions: `dhyper()`, `phyper()`, `qhyper()`, `rhyper()`.
+
+> **CRITICAL EXAM GOTCHA:** R's naming convention for hypergeometric parameters is completely different from standard textbook notation ($N, K, n$).
+> *   R syntax: `dhyper(x, m, n, k)`
+> *   Parameter Mapping:
+>     *   `x`: Number of successes in the sample ($k$).
+>     *   `m`: Number of success items in the population ($K$).
+>     *   `n`: Number of **failure** items in the population ($N - K$). *(Do not pass the total population $N$ here!)*
+>     *   `k`: The sample size ($n$).
+
+---
+
+## 3. Other Continuous Distributions (`*exp`, `*unif`, `*gamma`)
+
+### 3.1 Exponential: `dexp(x, rate)`, `pexp(q, rate)`
+*   `rate` is $\lambda$ (where mean $= 1/\lambda$).
+
+### 3.2 Uniform: `dunif(x, min, max)`, `punif(q, min, max)`
+*   `min` and `max` are the lower ($a$) and upper ($b$) boundaries.
+
+### 3.3 Gamma: `dgamma(x, shape, rate, scale = 1/rate)`
+*   R accepts both the rate parameter $\beta$ (`rate`) and scale parameter $\theta$ (`scale`). 
+*   **Safety Tip:** Always explicitly name the parameter in the function call to avoid using the wrong parameterization: e.g., `dgamma(x, shape = 3, rate = 2)`.
+
+---
+
+## 4. Sampling Distributions (`*chisq`, `*t`, `*f`)
+
+These functions are primarily used to find critical values (using `q*`) and p-values (using `p*`) for hypothesis testing.
+
+*   **Chi-Square:** `pchisq(q, df)`, `qchisq(p, df)`
+*   **Student's t:** `pt(q, df)`, `qt(p, df)`
+*   **Fisher's F:** `pf(q, df1, df2)`, `qf(p, df1, df2)`
+
+---
+
+## 5. Solved Exercises (9 Examples)
+
+### Example 1: Geometric Probability (Trials vs. Failures)
+**Problem:** A machine produces defective parts with probability $p = 0.08$. Write the R command to calculate the probability that the first defective part is found on the 5th test.
+
+**Solution:**
+- **Step 1: Translate trials to failures.**
+  Finding the first success on the 5th test means the first 4 tests were failures.
+- **Step 2: WIP State.**
+  We want 4 failures before the first success.
+  R function call:
+  `dgeom(x = 4, prob = ?)`
+- **Step 3: Final Calculation.**
+  `dgeom(x = 4, prob = 0.08)`
+  *(Result: 0.0573)*
+
+---
+
+### Example 2: Hypergeometric Probability Mapping
+**Problem:** A deck of 52 cards contains 4 Aces. If we draw 5 cards without replacement, write the R command to find the probability of getting exactly 2 Aces.
+
+**Solution:**
+- **Step 1: Map standard parameters to R parameters.**
+  - Successes in sample $x = 2$
+  - Successes in population $m = 4$
+  - Failures in population $n = 52 - 4 = 48$ *(not 52!)*
+  - Sample size $k = 5$
+- **Step 2: WIP State.**
+  `dhyper(x = 2, m = 4, n = 48, k = ?)`
+- **Step 3: Final Calculation.**
+  `dhyper(x = 2, m = 4, n = 48, k = 5)`
+  *(Result: 0.0399)*
+
+---
+
+### Example 3: Uniform Distribution Wait Time
+**Problem:** A bus arrives randomly between 10:00 and 10:30. Write the R command to find the probability that a passenger waiting since 10:00 waits more than 20 minutes.
+
+**Solution:**
+- **Step 1: Identify bounds.**
+  Let time $X \sim U(0, 30)$. We want $P(X > 20) = 1 - P(X \le 20)$.
+- **Step 2: WIP State.**
+  Using `punif`:
+  `1 - punif(q = 20, min = 0, max = 30)`
+  Alternatively, using `lower.tail = FALSE`:
+  `punif(q = 20, min = 0, max = 30, lower.tail = ?)`
+- **Step 3: Final Calculation.**
+  `punif(q = 20, min = 0, max = 30, lower.tail = FALSE)`
+  *(Result: 0.3333)*
+
+---
+
+### Example 4: Exponential Wait Time
+**Problem:** The lifetime of a light bulb is exponentially distributed with a mean of 1000 hours. Write the R command to find the probability that a bulb lasts less than 800 hours.
+
+**Solution:**
+- **Step 1: Calculate rate parameter.**
+  Mean $= 1000 \implies \lambda = 1/1000 = 0.001$.
+- **Step 2: WIP State.**
+  We want $P(X < 800)$.
+  `pexp(q = 800, rate = ?)`
+- **Step 3: Final Calculation.**
+  `pexp(q = 800, rate = 0.001)`
+  *(Result: 0.5507)*
+
+---
+
+### Example 5: Gamma Wait Time
+**Problem:** A service center receives calls where the wait time between calls is exponentially distributed with a mean of 2 minutes. Write the R command to find the probability that it takes more than 15 minutes to receive 5 calls.
+
+**Solution:**
+- **Step 1: Map to Gamma parameters.**
+  The sum of 5 independent $Exp(0.5)$ variables follows $Gamma(\alpha = 5, \beta = 0.5)$.
+  - `shape` $= 5$
+  - `rate` $= 1/2 = 0.5$
+- **Step 2: WIP State.**
+  We want $P(X > 15)$, so we use `lower.tail = FALSE`:
+  `pgamma(q = 15, shape = 5, rate = 0.5, lower.tail = ?)`
+- **Step 3: Final Calculation.**
+  `pgamma(q = 15, shape = 5, rate = 0.5, lower.tail = FALSE)`
+  *(Result: 0.1334)*
+
+---
+
+### Example 6: Finding Chi-Square Critical Values
+**Problem:** Find the critical value $\chi^2_{\alpha}$ such that the area in the right tail is $0.05$ for a Chi-square distribution with 14 degrees of freedom.
+
+**Solution:**
+- **Step 1: Identify quantile function and area.**
+  An upper-tail area of $0.05$ means the cumulative area from the left is $0.95$.
+- **Step 2: WIP State.**
+  `qchisq(p = 0.95, df = 14)`
+  Or, using the upper tail:
+  `qchisq(p = 0.05, df = 14, lower.tail = ?)`
+- **Step 3: Final Calculation.**
+  `qchisq(p = 0.05, df = 14, lower.tail = FALSE)`
+  *(Result: 23.68)*
+
+---
+
+### Example 7: Student's t Hypothesis p-value
+**Problem:** A researcher computes a t-statistic of $t = -2.15$ with $df = 18$ for a two-tailed test. Write the R command to calculate the p-value.
+
+**Solution:**
+- **Step 1: Recall two-tailed p-value formula.**
+  $$\text{p-value} = 2 \cdot P(T \le -|t|)$$
+- **Step 2: WIP State.**
+  Since $t = -2.15$ is negative, the left tail probability is `pt(-2.15, df = 18)`.
+  Multiply this by 2 to get both tails:
+  `2 * pt(q = -2.15, df = ?)`
+- **Step 3: Final Calculation.**
+  `2 * pt(q = -2.15, df = 18)`
+  *(Result: 0.0454)*
+
+---
+
+### Example 8: F-Distribution Quantiles for ANOVA
+**Problem:** In an ANOVA test, the numerator degrees of freedom is 3 and the denominator degrees of freedom is 20. Find the critical F-value for a significance level of $\alpha = 0.01$.
+
+**Solution:**
+- **Step 1: Map parameters.**
+  We want the 99th percentile of $F_{3, 20}$.
+- **Step 2: WIP State.**
+  `qf(p = 0.99, df1 = 3, df2 = 20)`
+  Or, using the upper tail:
+  `qf(p = 0.01, df1 = 3, df2 = 20, lower.tail = ?)`
+- **Step 3: Final Calculation.**
+  `qf(p = 0.01, df1 = 3, df2 = 20, lower.tail = FALSE)`
+  *(Result: 4.938)*
+
+---
+
+### Example 9: Sample Variance Probability Calculation
+**Problem:** For a sample of size $n = 16$ from a normal population with $\sigma^2 = 25$, write the R command to find the probability that the sample variance $S^2$ exceeds 35.
+
+**Solution:**
+- **Step 1: Relate $S^2$ to the Chi-square distribution.**
+  $$P(S^2 > 35) = P\left(\frac{15 S^2}{25} > \frac{15 \cdot 35}{25}\right) = P\left(\chi^2_{15} > 21\right)$$
+- **Step 2: WIP State.**
+  Compute the right tail of $\chi^2_{15}$ at 21:
+  `pchisq(q = 21, df = 15, lower.tail = ?)`
+- **Step 3: Final Calculation.**
+  `pchisq(q = 21, df = 15, lower.tail = FALSE)`
+  *(Result: 0.1369)*
 
 
 ---
