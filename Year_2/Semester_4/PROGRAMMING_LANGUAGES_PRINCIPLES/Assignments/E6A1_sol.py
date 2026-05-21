@@ -76,6 +76,14 @@ def runExercise() -> None:
     print("\nΠροϊόν με τα μεγαλύτερα συνολικά έσοδα:")
     print(top_product)
 
+    # Gets Product price and adds FPA 24%
+    orders_fpa_24 = list(map(
+        lambda o: (o[0], o[1], o[2] * 1.24),
+        orders
+    ))
+    print("\nΣυνολική αξία κάθε παραγγελίας με FPA 24%:")
+    print(orders_fpa_24)
+
 
 if __name__ == "__main__":
     runExercise()
