@@ -141,6 +141,16 @@ class TestItertools(unittest.TestCase):
             ["A", "B", "A", "B", "A"]
         )
 
+    def printOutput(self) -> None:
+        """
+        Prints all the outputs of the itertools helper functions.
+        """
+        print("First numbers:", firstNumbers(0, 2, 5))
+        print("Combinations:", pairCombinations(["A", "B", "C"]))
+        print("Product:", cartesianProduct([1, 2], ["x", "y"]))
+        print("Cumulative sums:", cumulativeSums([1, 2, 3, 4]))
+        print("Repeat pattern:", repeatPattern(["A", "B"], 5))
 
 if __name__ == "__main__":
-    unittest.main()
+    # unittest.main()
+    TestItertools().printOutput()
