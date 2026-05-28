@@ -1,12 +1,18 @@
 from ortools.sat.python import cp_model
+import plotly.express as px
 
 
 def solveMapColoring() -> None:
-    """
-    Solves the map coloring problem for the contiguous 48 US states.
+    """Solves the map coloring problem for the contiguous 48 US states.
 
     Assigns one of four colors to each state such that no two adjacent
-    states share the same color.
+    states share the same color, and plots the results.
+
+    Args:
+        None
+
+    Returns:
+        None: The function returns nothing.
     """
     states = [
         "AL", "AZ", "AR", "CA", "CO", "CT", "DE", "FL",
@@ -76,9 +82,29 @@ def solveMapColoring() -> None:
     # Outputs the assignment of colors to states if a feasible coloring is found.
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
         color_names = ["Red", "Green", "Blue", "Yellow"]
+        state_list = []
+        color_list = []
         for state in sorted(states):
             color_id = solver.value(color_vars[state])
             print(f"{state}: {color_names[color_id]}")
+            state_list.append(state)
+            color_list.append(color_names[color_id])
+
+        # Generates a choropleth map of the US to visualize the coloring.
+        fig = px.choropleth(
+            locations=state_list,
+            locationmode="USA-states",
+            color=color_list,
+            scope="usa",
+            color_discrete_map={
+                "Red": "#FF6B6B",
+                "Green": "#51CF66",
+                "Blue": "#339AF0",
+                "Yellow": "#FCC419"
+            },
+            title="USA Map Coloring Solution"
+        )
+        fig.show()
     else:
         print("No feasible coloring solution found.")
 
