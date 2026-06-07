@@ -91,10 +91,10 @@ Reading: "NOT (A and B)" is the same as "(NOT A) OR (NOT B)". At least one event
 
 **Intuition:** De Morgan's Laws "push the complement inside" while swapping the operator between $\cup$ and $\cap$.
 
-| Operation | After applying De Morgan | Operator swap |
-| :--- | :--- | :--- |
-| $(A \cup B)'$ | $A' \cap B'$ | $\cup \to \cap$ |
-| $(A \cap B)'$ | $A' \cup B'$ | $\cap \to \cup$ |
+| Operation     | After applying De Morgan | Operator swap   |
+| :------------ | :----------------------- | :-------------- |
+| $(A \cup B)'$ | $A' \cap B'$             | $\cup \to \cap$ |
+| $(A \cap B)'$ | $A' \cup B'$             | $\cap \to \cup$ |
 
 ---
 
