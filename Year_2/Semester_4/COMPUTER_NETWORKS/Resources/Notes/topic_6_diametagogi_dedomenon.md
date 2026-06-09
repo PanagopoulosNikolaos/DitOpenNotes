@@ -113,6 +113,11 @@ $$d_{total} = d_{proc} + d_{queue} + d_{trans} + d_{prop}$$
 
 **Key Distinction:** $d_{trans}$ εξαρτάται από το **μέγεθος πακέτου και το bandwidth της ζεύξης** — δεν έχει σχέση με την απόσταση. Αντίθετα, $d_{prop}$ εξαρτάται αποκλειστικά από τη **φυσική απόσταση** και το μέσο μετάδοσης.
 
+**Γινόμενο Καθυστέρησης-Εύρους Ζώνης (Bandwidth-Delay Product & Bits in Flight):**
+Ο μέγιστος αριθμός bits που μπορούν να βρίσκονται "στον αέρα" (μέσα στο φυσικό μέσο μετάδοσης) ανά πάσα στιγμή σε μια ζεύξη υπολογίζεται από το γινόμενο του ρυθμού μετάδοσης $R$ (bandwidth) και της καθυστέρησης διάδοσης $d_{prop}$:
+$$\text{Bits in flight} = R \times d_{prop}$$
+Αυτό το μέγεθος εκφράζει την μέγιστη "χωρητικότητα" του καλωδίου σε bits.
+
 ---
 
 ## Μεταγωγή Πακέτου και Κυκλώματος
@@ -625,6 +630,18 @@ $$d_x(y) = \min_{v \in \text{neighbors}(x)} \{ c(x,v) + d_v(y) \}$$
   Πρωτόκολλο: UDP port 520
 ```
 
+**Cisco IOS Configuration - RIPv2:**
+Για την ενεργοποίηση του RIP version 2 σε έναν Cisco router, χρησιμοποιούνται οι εξής εντολές:
+```bash
+Router> enable
+Router# configure terminal
+Router(config)# router rip
+Router(config-router)# version 2
+Router(config-router)# no auto-summary
+Router(config-router)# network 192.168.1.0  ! Ανακοίνωση των άμεσα συνδεδεμένων δικτύων
+Router(config-router)# end
+```
+
 **OSPF (Open Shortest Path First):**
 
 Βασίζεται σε **Link State** και χρησιμοποιεί τον αλγόριθμο **Dijkstra**. Είναι το κυρίαρχο interior gateway protocol (IGP) σε εταιρικά δίκτυα. Υποστηρίζει **areas** για κλιμακωσιμότητα σε μεγάλα δίκτυα.
@@ -648,6 +665,29 @@ $$d_x(y) = \min_{v \in \text{neighbors}(x)} \{ c(x,v) + d_v(y) \}$$
 
   Πρωτόκολλο: IP Protocol 89 (πάνω από IP, όχι TCP/UDP)
 ```
+
+**Cisco IOS Configuration - OSPF:**
+Για την ενεργοποίηση του OSPF (π.χ. με Process ID 1 στο Area 0), χρησιμοποιούνται οι εξής εντολές:
+```bash
+Router> enable
+Router# configure terminal
+Router(config)# router ospf 1
+Router(config-router)# network 192.168.1.0 0.0.0.255 area 0
+Router(config-router)# network 10.10.10.0 0.0.0.3 area 0
+Router(config-router)# end
+```
+
+*Σημείωση για τις Wildcard Masks:*
+Στο OSPF η εντολή `network` χρησιμοποιεί **wildcard mask**, η οποία υπολογίζεται αφαιρώντας τη μάσκα υποδικτύου (subnet mask) από την `255.255.255.255`.
+- Για δίκτυο `/24` (Μάσκα `255.255.255.0`) $\to$ Wildcard: `0.0.0.255`
+- Για δίκτυο `/29` (Μάσκα `255.255.255.248`) $\to$ Wildcard: `0.0.0.7`
+- Για δίκτυο `/30` (Μάσκα `255.255.255.252`) $\to$ Wildcard: `0.0.0.3`
+
+**Βασικές Εντολές Επαλήθευσης (Verification Commands):**
+- `show ip route`: Εμφανίζει τον πίνακα δρομολόγησης (routing table).
+- `show ip protocols`: Εμφανίζει πληροφορίες για τα ενεργά πρωτόκολλα δρομολόγησης.
+- `show ip ospf neighbor`: Εμφανίζει πληροφορίες για τους OSPF γείτονες.
+- `show ip ospf interface brief`: Εμφανίζει μια συνοπτική εικόνα των διεπαφών που συμμετέχουν στο OSPF.
 
 **BGP (Border Gateway Protocol):**
 
