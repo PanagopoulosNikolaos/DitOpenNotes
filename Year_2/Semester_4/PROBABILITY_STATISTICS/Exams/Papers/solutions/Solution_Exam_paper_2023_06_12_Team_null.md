@@ -142,13 +142,13 @@ $$s^2 = \frac{1}{n-1} \sum f_i(x_i - \bar{x})^2 = \frac{137188}{299} \approx 458
 
 $$s = \sqrt{458.82} \approx \boxed{21.42}$$
 
-**Διάμεσος $M$**
+**Διάμεσος $M_e$**
 
-- $N/2 = 150$. Η τιμή $F_2 = 96 < 150 \le 206 = F_3$, άρα η διάμεσος βρίσκεται στη 3η κλάση $[40, 60)$.
+- $n/2 = 150$. Η τιμή $F_2 = 96 < 150 \le 206 = F_3$, άρα η διάμεσος βρίσκεται στη 3η κλάση $[40, 60)$.
 
-$$M = x_{(i-1)} + \frac{\delta}{f_i}\left(\frac{N}{2} - F_{(i-1)}\right) = 40 + \frac{20}{110}(150 - 96)$$
+$$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w = 40 + \left( \frac{150 - 96}{110} \right) \cdot 20$$
 
-$$M = 40 + \frac{20 \times 54}{110} = 40 + 9.818 \approx \boxed{49.82}$$
+$$M_e = 40 + \left( \frac{54}{110} \right) \cdot 20 \approx 40 + 9.82 = \boxed{49.82}$$
 
 **ii. Βάση αν προσληφθούν οι μισοί**
 
@@ -227,13 +227,13 @@ $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_
 
 **Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
 
-Αν $F_{(i-1)} \le \frac{N}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
+Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
+$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
 
-Αν $F_{(i-1)} \le \frac{kN}{4} \le F_i$ τότε $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
+Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
 
 **Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
+$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
 
 **Κλασικός ορισμός πιθανότητας:**
 $P(A) = \frac{N(A)}{N(\Omega)}$, 

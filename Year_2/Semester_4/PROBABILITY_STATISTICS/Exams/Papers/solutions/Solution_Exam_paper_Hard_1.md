@@ -60,11 +60,11 @@ $$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{53000}{100} = \boxed{530 \text{ €}}
 
 $$s^2 = \frac{1160000}{99} \approx 11717.17, \qquad s = \sqrt{11717.17} \approx \boxed{108.25 \text{ €}}$$
 
-**Διάμεσος $M$**
+**Διάμεσος $M_e$**
 
-- $N/2 = 50$. Έχουμε $F_2 = 35 < 50 \le 75 = F_3$, άρα η διάμεσος βρίσκεται στην κλάση $[500, 600)$.
+- $n/2 = 50$. Έχουμε $F_2 = 35 < 50 \le 75 = F_3$, άρα η διάμεσος βρίσκεται στην κλάση $[500, 600)$.
 
-$$M = 500 + \frac{100}{40}(50 - 35) = 500 + 2.5 \times 15 = 500 + 37.5 = \boxed{537.50 \text{ €}}$$
+$$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w = 500 + \left( \frac{50 - 35}{40} \right) \cdot 100 = 500 + 37.5 = \boxed{537.50 \text{ €}}$$
 
 **c. Εντολές R για μέση τιμή**
 
@@ -218,13 +218,13 @@ $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_
 
 **Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
 
-Αν $F_{(i-1)} \le \frac{N}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
+Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
+$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
 
-Αν $F_{(i-1)} \le \frac{kN}{4} \le F_i$ τότε $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
+Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
 
 **Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
+$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
 
 **Κλασικός ορισμός πιθανότητας:**
 $P(A) = \frac{N(A)}{N(\Omega)}$, 
