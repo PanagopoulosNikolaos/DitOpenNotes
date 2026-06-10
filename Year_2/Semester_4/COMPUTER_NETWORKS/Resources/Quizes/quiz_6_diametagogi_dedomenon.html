@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Διαμεταγωγή Δεδομένων - Quiz 6</title>
+  
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+  <style>
+    /* CSS Variables for Split-Pane Workspace Dark Theme */
+    :root {
+      --bg-color: #0c0c0e;
+      --sidebar-bg: #141417;
+      --workspace-bg: #1a1a1e;
+      --border-color: #2a2a32;
+      --border-focus: #3e3e4a;
+      --text-main: #f4f4f7;
+      --text-muted: #8e8e9f;
+      --accent-color: #8b5cf6;
+      --accent-hover: #7c3aed;
+      --accent-bg: rgba(139, 92, 246, 0.1);
+      --success-color: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --error-color: #ef4444;
+      --error-bg: rgba(239, 68, 68, 0.15);
+    }
+
+    /* Base body configurations with fluid fonts */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      font-size: clamp(0.9em, 0.8vw + 0.6em, 1.25em);
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    /* Fluid container wrapping the sidebar and workspace */
+    .app-workspace {
+      display: flex;
+      flex-direction: row;
+      width: min(95%, 52em);
+      height: min(90vh, 38em);
+      background-color: var(--workspace-bg);
+      border: 0.1em solid var(--border-color);
+      border-radius: 1em;
+      overflow: hidden;
+      box-shadow: 0 1em 3em rgba(0, 0, 0, 0.4);
+    }
+
+    /* Left Sidebar Navigation */
+    .sidebar {
+      width: min(30%, 15em);
+      background-color: var(--sidebar-bg);
+      border-right: 0.1em solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5em 1.2em;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-size: 0.8em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0 0 1.5em 0;
+      letter-spacing: 0.08em;
+      border-bottom: 0.1em solid var(--border-color);
+      padding-bottom: 0.8em;
+    }
+
+    .nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(2.2em, 1fr));
+      gap: 0.7em;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    /* Interactive node buttons */
+    .node-item {
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .node-button {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 0.1em solid var(--border-color);
+      background-color: transparent;
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.9em;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .node-button:hover:not(:disabled) {
+      border-color: var(--accent-color);
+      background-color: var(--accent-bg);
+    }
+
+    /* Node states representing quiz progress */
+    .node-button.active {
+      border-color: var(--accent-color);
+      background-color: var(--accent-color);
+      color: var(--bg-color);
+      box-shadow: 0 0 0.8em rgba(139, 92, 246, 0.4);
+    }
+
+    .node-button.correct {
+      border-color: var(--success-color);
+      background-color: var(--success-bg);
+      color: var(--success-color);
+    }
+
+    .node-button.incorrect {
+      border-color: var(--error-color);
+      background-color: var(--error-bg);
+      color: var(--error-color);
+    }
+
+    /* Sidebar footer and navigation slabs */
+    .sidebar-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      padding-top: 1em;
+      border-top: 0.1em solid var(--border-color);
+    }
+
+    .sidebar-slab-btn {
+      width: 100%;
+      padding: 0.7em;
+      border-radius: 0.4em;
+      border: 0.1em solid var(--border-color);
+      background-color: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+      font-size: 0.85em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .sidebar-slab-btn:hover:not(:disabled) {
+      background-color: var(--accent-bg);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .sidebar-slab-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .sidebar-slab-btn.active {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      color: var(--bg-color);
+      box-shadow: 0 0 0.8em rgba(139, 92, 246, 0.4);
+    }
+
+    /* Right Active Workspace Content Area */
+    .workspace-content {
+      flex-grow: 1;
+      padding: 2em;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background-color: var(--workspace-bg);
+    }
+
+    .question-header {
+      margin-bottom: 1.2em;
+    }
+
+    .topic-badge {
+      font-size: 0.75em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      background-color: var(--accent-bg);
+      padding: 0.3em 0.8em;
+      border-radius: 1em;
+      display: inline-block;
+      margin-bottom: 0.8em;
+    }
+
+    .question-text {
+      font-size: clamp(1.1em, 1.8vw + 0.6em, 1.35em);
+      font-weight: 500;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Option inputs styling */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7em;
+      margin-bottom: 1.5em;
+    }
+
+    .option-row {
+      width: 100%;
+      text-align: left;
+      padding: 0.9em 1.1em;
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 0.1em solid var(--border-color);
+      border-radius: 0.5em;
+      color: var(--text-main);
+      font-size: 0.92em;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .option-row:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.03);
+      border-color: var(--border-focus);
+    }
+
+    .option-row:disabled {
+      cursor: not-allowed;
+    }
+
+    /* Correctness highlights */
+    .option-row.correct {
+      background-color: var(--success-bg);
+      border-color: var(--success-color);
+      color: var(--success-color);
+      font-weight: 600;
+    }
+
+    .option-row.incorrect {
+      background-color: var(--error-bg);
+      border-color: var(--error-color);
+      color: var(--error-color);
+      font-weight: 600;
+    }
+
+    .status-badge {
+      font-size: 0.8em;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2em 0.5em;
+      border-radius: 0.25em;
+      margin-left: 1em;
+      flex-shrink: 0;
+    }
+
+    .status-badge.correct-badge {
+      background-color: var(--success-color);
+      color: var(--bg-color);
+    }
+
+    .status-badge.incorrect-badge {
+      background-color: var(--error-color);
+      color: var(--bg-color);
+    }
+
+    /* Explanation display panel */
+    .explanation-panel {
+      padding: 1em;
+      background-color: rgba(255, 255, 255, 0.02);
+      border-left: 0.2em solid var(--accent-color);
+      border-radius: 0.25em;
+      margin-bottom: 1.5em;
+      display: none;
+      font-size: 0.88em;
+    }
+
+    .explanation-title {
+      font-weight: 600;
+      color: var(--text-main);
+      margin: 0 0 0.3em 0;
+    }
+
+    .explanation-text {
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Footer section triggers */
+    .workspace-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 1em;
+      border-top: 0.1em solid var(--border-color);
+    }
+
+    .btn-primary {
+      padding: 0.7em 1.5em;
+      background-color: var(--accent-color);
+      color: var(--text-main);
+      border: none;
+      border-radius: 0.4em;
+      font-size: 0.92em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Completed state summaries layout */
+    .report-view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .report-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 0 0 1em 0;
+    }
+
+    .summary-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5em;
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 0.1em solid var(--border-color);
+      border-radius: 0.6em;
+      margin-bottom: 1.5em;
+    }
+
+    .score-number {
+      font-size: clamp(2.5em, 5vw + 1em, 3.8em);
+      font-weight: 800;
+      color: var(--accent-color);
+      line-height: 1;
+      margin-bottom: 0.2em;
+    }
+
+    .score-desc {
+      font-size: 0.9em;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .click-hint {
+      font-size: 0.85em;
+      color: var(--accent-color);
+      margin-top: 0.8em;
+      font-weight: 600;
+    }
+
+    .report-controls {
+      display: flex;
+      gap: 1em;
+      justify-content: center;
+      margin-top: auto;
+    }
+
+    .btn-secondary {
+      padding: 0.7em 1.5em;
+      background: transparent;
+      color: var(--text-main);
+      border: 0.1em solid var(--border-color);
+      border-radius: 0.4em;
+      font-size: 0.92em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+      border-color: var(--border-focus);
+    }
+
+    /* Responsive adjustment for small Viewports */
+    @media (max-width: 32em) {
+      .app-workspace {
+        flex-direction: column;
+        height: auto;
+        min-height: min(90vh, 38em);
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 0.1em solid var(--border-color);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-workspace">
+    <!-- Left Navigation Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-title">Ερωτήσεις</div>
+      <ul id="nodes-container" class="nodes-grid">
+        <!-- Generates circular indicator nodes -->
+      </ul>
+      <div class="sidebar-footer">
+        <button id="home-btn" class="sidebar-slab-btn">Home</button>
+        <button id="status-btn" class="sidebar-slab-btn" disabled>Status</button>
+      </div>
+    </div>
+
+    <!-- Right Content Workspace -->
+    <div class="workspace-content">
+      <!-- Active Question panel -->
+      <div id="quiz-view">
+        <div class="question-header">
+          <div class="topic-badge">Διαμεταγωγή Δεδομένων</div>
+          <h2 id="question-text" class="question-text">Φόρτωση ερώτησης...</h2>
+        </div>
+
+        <div id="options-box" class="options-container">
+          <!-- Populated dynamically -->
+        </div>
+
+        <div id="explanation-box" class="explanation-panel">
+          <div class="explanation-title">Επεξήγηση</div>
+          <p id="explanation-text" class="explanation-text"></p>
+        </div>
+
+        <div class="workspace-footer">
+          <button id="next-button" class="btn-primary">Επόμενο</button>
+        </div>
+      </div>
+
+      <!-- Final Report View -->
+      <div id="report-view" class="report-view">
+        <h2 class="report-title">Αξιολόγηση</h2>
+        <div class="summary-card">
+          <div id="score-display" class="score-number">0 / 0</div>
+          <div class="score-desc">Σωστά Απαντημένες Ερωτήσεις</div>
+          <div class="click-hint">Κάντε κλικ στα αριστερά νούμερα για αναλυτική επισκόπηση ερώτησης.</div>
+        </div>
+
+        <div class="report-controls">
+          <button id="shuffle-button" class="btn-secondary">Shuffle</button>
+          <button id="retake-button" class="btn-primary">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Variable casing rules: snake_case, functions: camelCase, classes: PascalCase
+
+    const quiz_questions = [
+      {
+        question: "Ποιος είναι ο κύριος σκοπός της ανταλλαγής πληροφοριών στο network core;",
+        options: [
+          "Μεταφορά δεδομένων και κοινή χρήση πόρων",
+          "Μείωση του bandwidth και της κατανάλωσης ενέργειας",
+          "Αποκλεισμός της πρόσβασης P2P εφαρμογών",
+          "Κρυπτογράφηση των πακέτων στο φυσικό επίπεδο"
+        ],
+        correct_index: 0,
+        explanation: "Ο σκοπός της ανταλλαγής πληροφοριών είναι διπλός: η σωστή μεταφορά δεδομένων από την πηγή στον προορισμό και η κοινή χρήση των πόρων (resource sharing) ώστε πολλοί χρήστες να μοιράζονται την ίδια φυσική υποδομή."
+      },
+      {
+        question: "Ποια ενέργεια πραγματοποιείται κατά την καθυστέρηση επεξεργασίας ($d_{\\text{proc}}$) σε έναν router;",
+        options: [
+          "Αναμονή στη buffer μέχρι να αδειάσει η ζεύξη μετάδοσης",
+          "Έλεγχος σφαλμάτων bit στην επικεφαλίδα και απόφαση θύρας εξόδου",
+          "Ώθηση των bits του πακέτου στο φυσικό μέσο μετάδοσης",
+          "Διάδοση του σήματος κατά μήκος του καλωδίου με την ταχύτητα του φωτός"
+        ],
+        correct_index: 1,
+        explanation: "Η καθυστέρηση επεξεργασίας ($d_{\\text{proc}}$) είναι ο χρόνος που χρειάζεται ο router για να εξετάσει την επικεφαλίδα του πακέτου, να ελέγξει για σφάλματα bit και να καθορίσει την εξερχόμενη θύρα."
+      },
+      {
+        question: "Ποιο από τα ακόλουθα χαρακτηρίζει την καθυστέρηση ουράς ($d_{\\text{queue}}$);",
+        options: [
+          "Υπολογίζεται με ακρίβεια από τον τύπο $L/R$ για κάθε hop",
+          "Είναι σταθερή και εξαρτάται αποκλειστικά από το μήκος της ζεύξης",
+          "Είναι μεταβλητή και εξαρτάται από τον τρέχοντα φόρτο κίνησης (traffic load)",
+          "Είναι πάντα μηδενική σε packet-switched δίκτυα χωρίς συμφόρηση"
+        ],
+        correct_index: 2,
+        explanation: "Η καθυστέρηση ουράς ($d_{\\text{queue}}$) είναι ο χρόνος αναμονής του πακέτου στη buffer του router μέχρι να αδειάσει η ζεύξη εξόδου. Είναι μεταβλητή και εξαρτάται άμεσα από τον τρέχοντα φόρτο κίνησης."
+      },
+      {
+        question: "Πώς ορίζεται η καθυστέρηση μετάδοσης ($d_{\\text{trans}}$) για ένα πακέτο μεγέθους $L$ bits σε ζεύξη με ρυθμό μετάδοσης $R$ bps;",
+        options: [
+          "$\\frac{d}{s}$",
+          "$R \\times d_{\\text{prop}}$",
+          "$N \\times \\frac{L}{R}$",
+          "$\\frac{L}{R}$"
+        ],
+        correct_index: 3,
+        explanation: "Η καθυστέρηση μετάδοσης ($d_{\\text{trans}}$) είναι ο χρόνος που απαιτείται για να «σπρωχτούν» όλα τα bits του πακέτου στη ζεύξη, και ισούται με το μέγεθος του πακέτου προς τον ρυθμό μετάδοσης ($L/R$)."
+      },
+      {
+        question: "Ποια είναι η κύρια διαφορά μεταξύ της καθυστέρησης μετάδοσης ($d_{\\text{trans}}$) και της καθυστέρησης διάδοσης ($d_{\\text{prop}}$);",
+        options: [
+          "Η $d_{\\text{prop}}$ εξαρτάται από τη φυσική απόσταση της ζεύξης, ενώ η $d_{\\text{trans}}$ εξαρτάται από το μέγεθος του πακέτου και το bandwidth",
+          "Η $d_{\\text{trans}}$ εξαρτάται από την απόσταση της ζεύξης, ενώ η $d_{\\text{prop}}$ από το bandwidth",
+          "Η $d_{\\text{prop}}$ υπολογίζεται ως $L/R$ και η $d_{\\text{trans}}$ ως $d/s$",
+          "Δεν έχουν καμία διαφορά και χρησιμοποιούνται ως συνώνυμα"
+        ],
+        correct_index: 0,
+        explanation: "Η καθυστέρηση μετάδοσης ($d_{\\text{trans}} = L/R$) εξαρτάται από το μέγεθος του πακέτου και την ταχύτητα της θύρας, ενώ η καθυστέρηση διάδοσης ($d_{\\text{prop}} = d/s$) εξαρτάται αποκλειστικά από τη φυσική απόσταση και την ταχύτητα του σήματος στο μέσο."
+      },
+      {
+        question: "Ποιος τύπος υπολογίζει το γινόμενο καθυστέρησης-εύρους ζώνης (Bandwidth-Delay Product), το οποίο εκφράζει τα bits που βρίσκονται \"στον αέρα\" (bits in flight);",
+        options: [
+          "$\\frac{L}{R}$",
+          "$R \\times d_{\\text{prop}}$",
+          "$\\frac{d}{s}$",
+          "$N \\times \\frac{L}{R}$"
+        ],
+        correct_index: 1,
+        explanation: "Το γινόμενο $R \\times d_{\\text{prop}}$ (Bandwidth-Delay Product) ορίζει τον μέγιστο αριθμό bits που μπορούν να βρίσκονται ταυτόχρονα υπό διάδοση μέσα στη φυσική ζεύξη (bits in flight)."
+      },
+      {
+        question: "Ποιο είναι το βασικό χαρακτηριστικό της μεταγωγής κυκλώματος (circuit switching);",
+        options: [
+          "Δυναμική κοινή χρήση πόρων κατ' απαίτηση (on-demand)",
+          "Αποθήκευση store-and-forward όλων των πακέτων",
+          "Δέσμευση αποκλειστικών και αδιαίρετων πόρων εκ των προτέρων για κάθε σύνδεση",
+          "Χρήση πινάκων FIB στο data plane"
+        ],
+        correct_index: 2,
+        explanation: "Στη μεταγωγή κυκλώματος, δεσμεύεται ένα αποκλειστικό φυσικό κανάλι (circuit) για όλη τη διάρκεια της σύνδεσης. Οι πόροι αυτοί ανήκουν αποκλειστικά στους δύο χρήστες ακόμα και κατά τις περιόδους αδράνειας."
+      },
+      {
+        question: "Πώς λειτουργεί η πολυπλεξία TDM (Time Division Multiplexing) στη μεταγωγή κυκλώματος;",
+        options: [
+          "Η συνολική συχνοτική ζώνη διαιρείται σε στενότερες υποζώνες συχνοτήτων",
+          "Τα δεδομένα κόβονται σε πακέτα που φέρουν επικεφαλίδα με διευθύνσεις",
+          "Οι χρήστες μοιράζονται δυναμικά το bandwidth κατ' απαίτηση",
+          "Ο χρόνος διαιρείται σε frames και slots, και κάθε κύκλωμα λαμβάνει ένα σταθερό slot"
+        ],
+        correct_index: 3,
+        explanation: "Στο TDM, ο χρόνος χωρίζεται σε frames σταθερής διάρκειας και κάθε frame σε χρονικές σχισμές (time slots). Κάθε σύνδεση καταλαμβάνει ένα συγκεκριμένο slot σε κάθε frame κατ' αποκλειστικότητα."
+      },
+      {
+        question: "Ποιο είναι ένα σημαντικό μειονέκτημα της μεταγωγής κυκλώματος;",
+        options: [
+          "Σπατάλη πόρων κατά την αδράνεια (idle capacity)",
+          "Πιθανότητα απώλειας πακέτων λόγω buffer overflow",
+          "Μεγάλη καθυστέρηση επεξεργασίας κεφαλίδας",
+          "Έλλειψη εγγυημένου QoS και bandwidth"
+        ],
+        correct_index: 0,
+        explanation: "Εάν δεν μεταδίδονται δεδομένα (π.χ. σιωπή σε τηλεφωνική κλήση), το δεσμευμένο bandwidth μένει ανεκμετάλλευτο και σπαταλάται, καθώς δεν επιτρέπεται η χρήση του από άλλες συνδέσεις."
+      },
+      {
+        question: "Πώς διαχειρίζεται τους πόρους η μεταγωγή πακέτου (packet switching);",
+        options: [
+          "Δεσμεύοντας σταθερά χρονικά slots για κάθε ενεργό χρήστη",
+          "Δυναμικά κατ' απαίτηση (on-demand) χωρίς εκ των προτέρων δέσμευση",
+          "Μέσω FDM συχνοτήτων",
+          "Αποκλείοντας άλλες συνδέσεις κατά τη διάρκεια της μετάδοσης"
+        ],
+        correct_index: 1,
+        explanation: "Στη μεταγωγή πακέτου δεν υπάρχει κράτηση πόρων. Οι ζεύξεις χρησιμοποιούνται κατ' απαίτηση (on-demand) μόνο όταν υπάρχουν πακέτα προς αποστολή, επιτρέποντας δυναμικό διαμοιρασμό."
+      },
+      {
+        question: "Τι σημαίνει η αρχή store-and-forward στη μεταγωγή πακέτου;",
+        options: [
+          "Ο router προωθεί τα bits αμέσως μόλις φτάσουν, χωρίς να περιμένει το υπόλοιπο πακέτο",
+          "Τα πακέτα αποθηκεύονται μόνιμα στον σκληρό δίσκο του router",
+          "Ο router πρέπει να λάβει ολόκληρο το πακέτο πριν αρχίσει να το μεταδίδει στην επόμενη ζεύξη",
+          "Δεν χρησιμοποιούνται buffers ουράς στους ενδιάμεσους κόμβους"
+        ],
+        correct_index: 2,
+        explanation: "Η store-and-forward μετάδοση απαιτεί να ληφθεί πλήρως το πακέτο (συμπεριλαμβανομένου του τελευταίου bit) από τον router, ώστε να επαληθευτεί το checksum και να διαβαστεί η επικεφαλίδα πριν ξεκινήσει η προώθηση."
+      },
+      {
+        question: "Ποια είναι η συνολική καθυστέρηση store-and-forward για ένα μόνο πακέτο μεγέθους $L$ μέσω $N$ ίδιων ζεύξεων ρυθμού $R$ (αγνοώντας queuing και propagation delay);",
+        options: [
+          "$(N - 1) \\times \\frac{L}{R}$",
+          "$\\frac{L}{R}$",
+          "$N^2 \\times \\frac{L}{R}$",
+          "$N \\times \\frac{L}{R}$"
+        ],
+        correct_index: 3,
+        explanation: "Ένα μόνο πακέτο πρέπει να μεταδοθεί $N$ φορές (μια φορά σε κάθε μία από τις $N$ ζεύξεις), επομένως η συνολική καθυστέρηση store-and-forward είναι $N \\times (L/R)$."
+      },
+      {
+        question: "Γιατί η στατιστική πολυπλεξία (statistical multiplexing) είναι καταλληλότερη για την κίνηση του Διαδικτύου;",
+        options: [
+          "Επειδή η κίνηση του Διαδικτύου είναι bursty (εκρηκτική) και η κοινή χρήση κατ' απαίτηση αποφεύγει τη σπατάλη",
+          "Επειδή εγγυάται σταθερό bandwidth για κάθε χρήστη",
+          "Επειδή αποτρέπει πλήρως το queuing delay",
+          "Επειδή καταργεί την ανάγκη για IP διευθύνσεις"
+        ],
+        correct_index: 0,
+        explanation: "Η κίνηση στο Internet παρουσιάζει εξάρσεις (bursty traffic). Η στατιστική πολυπλεξία επιτρέπει στους χρήστες να μοιράζονται δυναμικά το bandwidth, αξιοποιώντας τις περιόδους αδράνειας κάποιων για να εξυπηρετήσει άλλους."
+      },
+      {
+        question: "Σε ποια από τις δύο τεχνικές μεταγωγής είναι δυνατή η απώλεια δεδομένων (packet loss) λόγω buffer overflow;",
+        options: [
+          "Και στις δύο",
+          "Μόνο στη μεταγωγή πακέτου",
+          "Μόνο στη μεταγωγή κυκλώματος",
+          "Σε καμία"
+        ],
+        correct_index: 1,
+        explanation: "Στη μεταγωγή πακέτου, αν ο ρυθμός άφιξης πακέτων υπερβεί τη χωρητικότητα της ουράς (buffer) εξόδου ενός router, η buffer γεμίζει και τα νέα πακέτα απορρίπτονται (packet loss). Στη μεταγωγή κυκλώματος οι πόροι είναι εγγυημένοι και δεν υπάρχουν ουρές."
+      },
+      {
+        question: "Ένα αρχείο 3 MB ($24 \\times 10^6 \\text{ bits}$) στέλνεται ως πακέτα των $L = 12.000 \\text{ bits}$ μέσω 3 hops ($N=3$, $R=10 \\text{ Mbps}$). Ποιο είναι το end-to-end delay λόγω μετάδοσης λαμβάνοντας υπόψη το pipeline effect;",
+        options: [
+          "$7.2 \\text{ s}$",
+          "$2.4024 \\text{ s}$ ($2402.4 \\text{ ms}$)",
+          "$0.8 \\text{ s}$",
+          "$4.8 \\text{ s}$"
+        ],
+        correct_index: 1,
+        explanation: "Ο αριθμός των πακέτων είναι $24.000.000 / 12.000 = 2.000$. Η καθυστέρηση μετάδοσης ανά πακέτο είναι $12.000 / 10^7 = 1.2 \\text{ ms}$. Λόγω pipeline, ο συνολικός χρόνος είναι $(n_{\\text{packets}} + N - 1) \\times d_{\\text{trans}} = (2.000 + 3 - 1) \\times 1.2 \\text{ ms} = 2.002 \\times 1.2 \\text{ ms} = 2402.4 \\text{ ms} = 2.4024 \\text{ s}$."
+      },
+      {
+        question: "Ποια είναι η βασική ευθύνη του Data Plane σε έναν router;",
+        options: [
+          "Ο υπολογισμός των βέλτιστων διαδρομών μέσω αλγορίθμων δρομολόγησης",
+          "Η ανταλλαγή OSPF μηνυμάτων με άλλους routers",
+          "Η φυσική προώθηση των πακέτων από μια θύρα εισόδου στη σωστή θύρα εξόδου σε επίπεδο hardware",
+          "Η χειροκίνητη παραμετροποίηση των static routes"
+        ],
+        correct_index: 2,
+        explanation: "Το Data Plane (ή επίπεδο δεδομένων) εκτελεί τη φυσική προώθηση (forwarding) των πακέτων από την είσοδο στην έξοδο του router σε nanoseconds, χρησιμοποιώντας τη Forwarding Table (FIB) σε επίπεδο hardware (ASIC/TCAM)."
+      },
+      {
+        question: "Ποια είναι η διαφορά μεταξύ της Routing Table (RIB) και της Forwarding Table (FIB);",
+        options: [
+          "Η FIB περιέχει μόνο static routes, ενώ η RIB περιέχει dynamic routes",
+          "Η RIB περιέχει μόνο BGP routes, ενώ η FIB περιέχει OSPF routes",
+          "Δεν διαφέρουν σε τίποτα, είναι απλώς δύο ονομασίες για τον ίδιο πίνακα",
+          "Η RIB βρίσκεται στο control plane και περιέχει όλες τις γνωστές διαδρομές, ενώ η FIB βρίσκεται στο data plane και είναι βελτιστοποιημένη για hardware lookup"
+        ],
+        correct_index: 3,
+        explanation: "Η Routing Table (RIB) βρίσκεται στο Control Plane (software) και περιέχει όλες τις γνωστές διαδρομές με τις μετρικές τους. Η Forwarding Table (FIB) είναι ένα βελτιστοποιημένο υποσύνολο της RIB που μεταφέρεται στο Data Plane (hardware) για άμεση αναζήτηση."
+      },
+      {
+        question: "Τι ορίζει ο κανόνας Longest Prefix Match (LPM);",
+        options: [
+          "Επιλέγεται η εγγραφή στον πίνακα προώθησης που έχει το μεγαλύτερο πλήθος matching bits (το πιο συγκεκριμένο prefix)",
+          "Επιλέγεται η εγγραφή με το μικρότερο prefix length",
+          "Επιλέγεται η πρώτη εγγραφή που ταιριάζει ανεξάρτητα από το μήκος μάσκας",
+          "Επιλέγεται πάντα το default route"
+        ],
+        correct_index: 0,
+        explanation: "Ο κανόνας LPM ορίζει ότι όταν ένας προορισμός IP ταιριάζει με περισσότερες από μία εγγραφές του πίνακα FIB, ο router επιλέγει εκείνη που έχει τη μεγαλύτερη μάσκα (περισσότερα bits matching), δηλαδή την πιο συγκεκριμένη διαδρομή."
+      },
+      {
+        question: "Ένας router έχει στο FIB τις εγγραφές `192.168.0.0/16`, `192.168.20.0/24`, `192.168.20.128/25` και `0.0.0.0/0`. Πού θα προωθηθεί πακέτο με IP προορισμού `192.168.20.150`;",
+        options: [
+          "Στη διαδρομή του `192.168.20.0/24`",
+          "Στη διαδρομή του `192.168.20.128/25`",
+          "Στη διαδρομή του `192.168.0.0/16`",
+          "Στο default route `0.0.0.0/0`"
+        ],
+        correct_index: 1,
+        explanation: "Η διεύθυνση `192.168.20.150` ταιριάζει με το `192.168.0.0/16` (16 bits), το `192.168.20.0/24` (24 bits) και το `192.168.20.128/25` (25 bits, αφού το εύρος είναι 128-255). Λόγω LPM, επιλέγεται η εγγραφή `/25` ως η πλέον εξειδικευμένη."
+      },
+      {
+        question: "Ποιο εξειδικευμένο hardware χρησιμοποιείται στους core routers για την εκτέλεση LPM lookups σε ένα μόνο κύκλο ρολογιού;",
+        options: [
+          "Trie (Prefix Tree)",
+          "ASIC Cache",
+          "TCAM (Ternary Content-Addressable Memory)",
+          "SRAM"
+        ],
+        correct_index: 2,
+        explanation: "Η μνήμη TCAM (Ternary Content-Addressable Memory) επιτρέπει την αναζήτηση ολόκληρου του πίνακα προώθησης και την εύρεση της LPM αντιστοίχισης μέσα σε ένα μόνο κύκλο ρολογιού, σε hardware επίπεδο."
+      },
+      {
+        question: "Γιατί ο router μειώνει κατά 1 την τιμή του πεδίου TTL (Time-To-Live) στην επικεφαλίδα του IP πακέτου;",
+        options: [
+          "Για να υπολογίσει το transmission delay",
+          "Για να αυξήσει την ταχύτητα διάδοσης",
+          "Για να ελέγξει αν το πακέτο έχει σωστό checksum",
+          "Ως αντίμετρο για την αποτροπή ατέρμονης ανακύκλωσης πακέτων σε routing loops"
+        ],
+        correct_index: 3,
+        explanation: "Το TTL μειώνεται κατά 1 σε κάθε hop. Αν φτάσει στο 0, το πακέτο απορρίπτεται. Αυτό εμποδίζει πακέτα να ανακυκλώνονται για πάντα μέσα στο δίκτυο σε περίπτωση που δημιουργηθεί βρόχος δρομολόγησης (routing loop)."
+      },
+      {
+        question: "Ποια είναι η διαφορά μεταξύ centralized και decentralized αλγορίθμων δρομολόγησης;",
+        options: [
+          "Στους centralized ένας κεντρικός κόμβος έχει πλήρη γνώση της τοπολογίας, ενώ στους decentralized οι routers ανταλλάσσουν πληροφορίες τοπικά",
+          "Οι centralized χρησιμοποιούν Bellman-Ford και οι decentralized Dijkstra",
+          "Οι decentralized χρησιμοποιούνται μόνο στο BGP",
+          "Δεν διαφέρουν καθόλου στην πράξη"
+        ],
+        correct_index: 0,
+        explanation: "Οι centralized αλγόριθμοι απαιτούν έναν κεντρικό ελεγκτή με καθολική γνώση του δικτύου (SDN λογική). Οι decentralized εκτελούνται κατανεμημένα σε κάθε router, ο οποίος επικοινωνεί με τους υπόλοιπους για να υπολογίσει τις διαδρομές."
+      },
+      {
+        question: "Ποια είναι η εξίσωση Bellman-Ford που χρησιμοποιείται στο Distance Vector routing;",
+        options: [
+          "$d(u) + c(u,v) < d(v)$",
+          "$d_x(y) = \\min_{v} \\{ c(x,v) + d_v(y) \\}$",
+          "$d_{\\text{trans}} = L/R$",
+          "$RTT = 4h/c$"
+        ],
+        correct_index: 1,
+        explanation: "Η εξίσωση Bellman-Ford ορίζει ότι το ελάχιστο κόστος από τον $x$ στον $y$ είναι το ελάχιστο άθροισμα του άμεσου κόστους προς έναν γείτονα $v$ ($c(x,v)$) και του εκτιμώμενου κόστους από αυτόν τον γείτονα στον $y$ ($d_v(y)$)."
+      },
+      {
+        question: "Ποιο πρόβλημα εμφανίζεται στο Distance Vector routing όταν μια ζεύξη αποτύχει και η λανθασμένη πληροφορία ανακυκλώνεται μεταξύ γειτόνων;",
+        options: [
+          "Split horizon failure",
+          "Database desynchronization",
+          "Count-to-infinity",
+          "Shortest path loop"
+        ],
+        correct_index: 2,
+        explanation: "Το πρόβλημα count-to-infinity συμβαίνει όταν μια ζεύξη αποτύχει, αλλά λόγω της «routing by rumor» φύσης του Distance Vector, οι routers συνεχίζουν να ενημερώνουν ο ένας τον άλλον αυξάνοντας σταδιακά το κόστος προς το άπειρο."
+      },
+      {
+        question: "Ποιες τεχνικές χρησιμοποιούνται για την αντιμετώπιση του count-to-infinity στο Distance Vector routing;",
+        options: [
+          "LSA Flooding",
+          "Dijkstra SPF calculation",
+          "Wildcard masking",
+          "Split horizon και poison reverse"
+        ],
+        correct_index: 3,
+        explanation: "Το split horizon (μην ανακοινώνεις πίσω σε έναν γείτονα μια διαδρομή που έμαθες από αυτόν) και το poison reverse (ανακοίνωσε τη διαδρομή με κόστος άπειρο στον γείτονα από τον οποίο την έμαθες) βοηθούν στην αποφυγή loops δύο κόμβων."
+      },
+      {
+        question: "Πώς αποκτούν οι routers πλήρη γνώση της τοπολογίας στο Link State routing;",
+        options: [
+          "Μέσω διάδοσης (flooding) Link State Advertisements (LSA) σε όλο το δίκτυο",
+          "Ανταλλάσσοντας ολόκληρο τον πίνακα δρομολόγησής τους ανά 30 δευτερόλεπτα με τους γείρονες",
+          "Ρωτώντας έναν κεντρικό SDN controller",
+          "Διαβάζοντας τις διευθύνσεις MAC"
+        ],
+        correct_index: 0,
+        explanation: "Στο Link State, κάθε router παράγει LSA που περιγράφουν τις άμεσες ζεύξεις του. Αυτά διαδίδονται με flooding σε όλους τους routers της περιοχής, ώστε όλοι να αποκτήσουν πανομοιότυπη βάση δεδομένων τοπολογίας (LSDB)."
+      },
+      {
+        question: "Σε εκτέλεση Dijkstra από τον A, οι γείτονες είναι B (κόστος 1) και C (κόστος 4). Ο B συνδέεται με τον D (κόστος 2) και E (κόστος 3). Ποιο είναι το ελάχιστο κόστος από τον A στον D;",
+        options: [
+          "4",
+          "3 (A-B-D)",
+          "5",
+          "2"
+        ],
+        correct_index: 1,
+        explanation: "Η συντομότερη διαδρομή είναι A -> B -> D με συνολικό κόστος $c(A,B) + c(B,D) = 1 + 2 = 3$. Αυτή η τιμή είναι μικρότερη από οποιαδήποτε άλλη διαδρομή (π.χ. A-C ή A-B-E)."
+      },
+      {
+        question: "Ποιο από τα παρακάτω είναι πλεονέκτημα του Link State έναντι του Distance Vector;",
+        options: [
+          "Χαμηλότερες απαιτήσεις CPU και μνήμης",
+          "Απλούστερη υλοποίηση",
+          "Γρήγορη σύγκλιση (convergence) και ανθεκτικότητα σε routing loops",
+          "Χρήση περιοδικών full table updates"
+        ],
+        correct_index: 2,
+        explanation: "Λόγω της πλήρους γνώσης της τοπολογίας, το Link State συγκλίνει εξαιρετικά γρήγορα μετά από μια αλλαγή και είναι πολύ πιο ανθεκτικό σε loops, αν και απαιτεί περισσότερη CPU και μνήμη για την εκτέλεση του Dijkstra."
+      },
+      {
+        question: "Ποια είναι η μετρική που χρησιμοποιεί το RIP (Routing Information Protocol) και ποιο είναι το μέγιστο όριο της;",
+        options: [
+          "Bandwidth, με μέγιστο όριο τα 100 Gbps",
+          "AS-path length, χωρίς όριο",
+          "Delay, με μέγιστο όριο τα 15 ms",
+          "Hop count, με μέγιστο όριο τα 15 (16 σημαίνει απροσπέλαστο)"
+        ],
+        correct_index: 3,
+        explanation: "Το RIP χρησιμοποιεί το hop count (αριθμό ενδιάμεσων routers) ως μετρική. Το μέγιστο επιτρεπτό όριο είναι 15 hops. Η τιμή 16 θεωρείται άπειρο (unreachable), γεγονός που περιορίζει το RIP σε μικρά δίκτυα."
+      },
+      {
+        question: "Ποια εντολή χρησιμοποιείται στις ρυθμίσεις του RIPv2 για να αποτραπεί η αυτόματη σύνοψη των δικτύων στα όρια των κλάσεων (classful boundaries);",
+        options: [
+          "`no auto-summary`",
+          "`version 2`",
+          "`router rip`",
+          "`network`"
+        ],
+        correct_index: 0,
+        explanation: "Η εντολή `no auto-summary` απενεργοποιεί την αυτόματη σύνοψη στα classful όρια, επιτρέποντας στο RIPv2 να μεταφέρει σωστά τις πληροφορίες CIDR/VLSM υποδικτύων."
+      },
+      {
+        question: "Πάνω από ποιο πρωτόκολλο μεταφέρονται τα OSPF πακέτα και ποιος είναι ο αριθμός πρωτοκόλλου του;",
+        options: [
+          "Πάνω από το UDP (port 520)",
+          "Απευθείας πάνω από το IP (IP Protocol 89)",
+          "Πάνω από το TCP (port 179)",
+          "Πάνω από το Ethernet (EtherType 0x800)"
+        ],
+        correct_index: 1,
+        explanation: "Το OSPF δεν χρησιμοποιεί ενδιάμεσο πρωτόκολλο μεταφοράς (TCP ή UDP). Τα OSPF μηνύματα ενθυλακώνονται απευθείας σε IP πακέτα με πεδίο Protocol Number 89."
+      },
+      {
+        question: "Αν θέλουμε να εισάγουμε στο OSPF ένα δίκτυο με μάσκα υποδικτύου `255.255.255.252` (/30), ποια wildcard mask πρέπει να χρησιμοποιήσουμε;",
+        options: [
+          "`0.0.0.255`",
+          "`0.0.0.7`",
+          "`0.0.0.3`",
+          "`255.255.255.255`"
+        ],
+        correct_index: 2,
+        explanation: "Η wildcard mask υπολογίζεται αφαιρώντας τη μάσκα υποδικτύου από την `255.255.255.255`. Έτσι, `255.255.255.255 - 255.255.255.252 = 0.0.0.3`."
+      },
+      {
+        question: "Πώς το BGP (Border Gateway Protocol) αποτρέπει τα routing loops μεταξύ Αυτόνομων Συστημάτων (AS);",
+        options: [
+          "Χρησιμοποιώντας το split horizon",
+          "Θέτοντας μέγιστο hop count τα 15",
+          "Τρέχοντας τον αλγόριθμο Dijkstra σε παγκόσμια κλίμακα",
+          "Κάθε ανακοίνωση περιέχει το AS-path, και αν ένα AS δει τον εαυτό του σε αυτό, απορρίπτει την ανακοίνωση"
+        ],
+        correct_index: 3,
+        explanation: "Το BGP είναι πρωτόκολλο path-vector. Στις ανακοινώσεις του περιέχει το AS-path (τη λίστα των AS από όπου πέρασε η διαδρομή). Αν ένας BGP router δει το δικό του AS στη λίστα, καταλαβαίνει ότι υπάρχει βρόχος και απορρίπτει τη διαδρομή."
+      }
+    ];
+
+    class QuizManager {
+      /**
+       * Manages the state, user interactions, and rendering of the quiz application.
+       *
+       * This class handles loading and shuffling questions, rendering the question cards,
+       * updating the left sidebar navigation, tracking user answers, providing instant feedback,
+       * displaying the final score report, and handling shuffling or retaking the quiz.
+       *
+       * Methods:
+       * - constructor: Instantiates the state elements and sets up event listeners.
+       * - loadQuestions: Deep copies questions and randomizes the order of their options.
+       * - randomizeOptions: Shuffles the answers/options for all questions.
+       * - renderSidebar: Renders the navigation circles in the left sidebar.
+       * - initQuiz: Prepares the engine for initialization.
+       * - renderQuestion: Displays active question details.
+       * - selectOption: Reviews option selection accuracy.
+       * - jumpToQuestion: Safe routing logic for sidebar node interactions.
+       * - nextQuestion: Sets state to the next question card.
+       * - showResults: Visualizes the evaluation summary layout.
+       * - shuffleQuestions: Shuffles indices randomly and re-evaluates.
+       * - resetQuiz: Restores sequencing to the setup order.
+       */
+
+      /**
+       * Instantiates state elements.
+       * Args:
+       * questions (Array): Questions array.
+       */
+      constructor(questions) {
+        this.original_order = questions;
+        this.questions_list = [];
+        this.user_answers = [];
+        this.current_index = 0;
+
+        // Workspace layouts
+        this.quiz_view = document.getElementById("quiz-view");
+        this.report_view = document.getElementById("report-view");
+        this.sidebar_grid = document.getElementById("nodes-container");
+        this.text_container = document.getElementById("question-text");
+        this.options_container = document.getElementById("options-box");
+        this.explanation_panel = document.getElementById("explanation-box");
+        this.explanation_txt = document.getElementById("explanation-text");
+        this.next_btn = document.getElementById("next-button");
+        this.score_val = document.getElementById("score-display");
+        this.home_btn = document.getElementById("home-btn");
+        this.status_btn = document.getElementById("status-btn");
+
+        // Action bindings
+        this.next_btn.addEventListener("click", () => this.nextQuestion());
+        document.getElementById("shuffle-button").addEventListener("click", () => this.shuffleQuestions());
+        document.getElementById("retake-button").addEventListener("click", () => this.resetQuiz(true));
+        this.home_btn.addEventListener("click", () => this.resetQuiz(false));
+        this.status_btn.addEventListener("click", () => this.showResults());
+
+        // Prepares initial questions copies
+        this.loadQuestions(this.original_order);
+      }
+
+      /**
+       * Deep copies the questions and randomizes the order of their options.
+       * Args:
+       * source_questions (Array): The raw question data list.
+       * Returns:
+       * void
+       */
+      loadQuestions(source_questions) {
+        this.questions_list = source_questions.map(q => ({
+          question: q.question,
+          options: [...q.options],
+          correct_index: q.correct_index,
+          explanation: q.explanation
+        }));
+        this.randomizeOptions();
+      }
+
+      /**
+       * Shuffles the answers/options for all questions.
+       * Returns:
+       * void
+       */
+      randomizeOptions() {
+        this.questions_list.forEach(item => {
+          // Finds correct text before options are shuffled
+          const correct_text = item.options[item.correct_index];
+          
+          // Shuffles choices using Fisher-Yates
+          for (let idx = item.options.length - 1; idx > 0; idx--) {
+            const rand_idx = Math.floor(Math.random() * (idx + 1));
+            [item.options[idx], item.options[rand_idx]] = [item.options[rand_idx], item.options[idx]];
+          }
+          
+          // Registers the new index location
+          item.correct_index = item.options.indexOf(correct_text);
+        });
+      }
+
+      /**
+       * Renders the navigation circles in the left sidebar.
+       * Returns:
+       * void
+       */
+      renderSidebar() {
+        this.sidebar_grid.innerHTML = "";
+        this.questions_list.forEach((_, idx) => {
+          const li_el = document.createElement("li");
+          li_el.className = "node-item";
+
+          const btn_el = document.createElement("button");
+          btn_el.className = "node-button";
+          btn_el.textContent = idx + 1;
+          
+          btn_el.addEventListener("click", () => this.jumpToQuestion(idx));
+
+          li_el.appendChild(btn_el);
+          this.sidebar_grid.appendChild(li_el);
+        });
+      }
+
+      /**
+       * Prepares engine for initialization.
+       * Returns:
+       * void
+       */
+      initQuiz() {
+        this.current_index = 0;
+        this.user_answers = new Array(this.questions_list.length).fill(null);
+
+        this.quiz_view.style.display = "block";
+        this.report_view.style.display = "none";
+        this.status_btn.disabled = true;
+        this.status_btn.classList.remove("active");
+
+        this.renderSidebar();
+        this.renderQuestion();
+      }
+
+      /**
+       * Displays active question details.
+       * Returns:
+       * void
+       */
+      renderQuestion() {
+        this.explanation_panel.style.display = "none";
+        this.status_btn.classList.remove("active");
+
+        const total_len = this.questions_list.length;
+
+        // Updates active class status in sidebar circles
+        const nodes = this.sidebar_grid.querySelectorAll(".node-button");
+        nodes.forEach((n, idx) => {
+          n.classList.remove("active", "correct", "incorrect");
+          if (idx === this.current_index) {
+            n.classList.add("active");
+          }
+
+          const ans = this.user_answers[idx];
+          if (ans !== null) {
+            if (ans.is_correct) {
+              n.classList.add("correct");
+            } else {
+              n.classList.add("incorrect");
+            }
+          }
+        });
+
+        const item = this.questions_list[this.current_index];
+        this.text_container.innerHTML = item.question;
+        this.options_container.innerHTML = "";
+
+        const ans_data = this.user_answers[this.current_index];
+
+        item.options.forEach((opt, idx) => {
+          const btn_el = document.createElement("button");
+          btn_el.className = "option-row";
+          btn_el.innerHTML = `<span>${opt}</span>`;
+
+          if (ans_data === null) {
+            // Unanswered state is interactive
+            btn_el.addEventListener("click", () => this.selectOption(idx));
+          } else {
+            // Answered state is static/read-only
+            btn_el.disabled = true;
+            if (idx === item.correct_index) {
+              btn_el.classList.add("correct");
+              btn_el.insertAdjacentHTML("beforeend", `<span class="status-badge correct-badge">✓ Correct</span>`);
+            } else if (idx === ans_data.selected_index) {
+              btn_el.classList.add("incorrect");
+              btn_el.insertAdjacentHTML("beforeend", `<span class="status-badge incorrect-badge">✗ Wrong</span>`);
+            }
+          }
+          this.options_container.appendChild(btn_el);
+        });
+
+        // Recovers explanation block if question was already resolved
+        if (ans_data !== null) {
+          this.explanation_txt.innerHTML = item.explanation;
+          this.explanation_panel.style.display = "block";
+        }
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise();
+        }
+      }
+
+      /**
+       * Reviews option selection accuracy.
+       * Args:
+       * selected_idx (number): The chosen option item index.
+       * Returns:
+       * void
+       */
+      selectOption(selected_idx) {
+        // Prevents double answering same question
+        if (this.user_answers[this.current_index] !== null) {
+          return;
+        }
+
+        const current_q = this.questions_list[this.current_index];
+        const correct_idx = current_q.correct_index;
+        const opt_buttons = this.options_container.querySelectorAll(".option-row");
+
+        const is_correct = (selected_idx === correct_idx);
+        
+        // Caches answer selection details
+        this.user_answers[this.current_index] = {
+          selected_index: selected_idx,
+          is_correct: is_correct
+        };
+
+        // Highlights outcome elements
+        if (is_correct) {
+          opt_buttons[selected_idx].classList.add("correct");
+          opt_buttons[selected_idx].insertAdjacentHTML("beforeend", `<span class="status-badge correct-badge">✓ Correct</span>`);
+        } else {
+          opt_buttons[selected_idx].classList.add("incorrect");
+          opt_buttons[selected_idx].insertAdjacentHTML("beforeend", `<span class="status-badge incorrect-badge">✗ Wrong</span>`);
+          
+          opt_buttons[correct_idx].classList.add("correct");
+          opt_buttons[correct_idx].insertAdjacentHTML("beforeend", `<span class="status-badge correct-badge">✓ Correct</span>`);
+        }
+
+        opt_buttons.forEach(btn => btn.disabled = true);
+
+        // Reflects results immediately on corresponding sidebar nodes
+        const nodes = this.sidebar_grid.querySelectorAll(".node-button");
+        if (is_correct) {
+          nodes[this.current_index].classList.add("correct");
+        } else {
+          nodes[this.current_index].classList.add("incorrect");
+        }
+
+        this.explanation_txt.innerHTML = current_q.explanation;
+        this.explanation_panel.style.display = "block";
+
+        // Activates summary status control if entire layout is complete
+        const all_answered = this.user_answers.every(ans => ans !== null);
+        if (all_answered) {
+          this.status_btn.disabled = false;
+        }
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise();
+        }
+      }
+
+      /**
+       * Safe routing logic for sidebar node interactions.
+       * Args:
+       * target_idx (number): The grid item to route layout to.
+       * Returns:
+       * void
+       */
+      jumpToQuestion(target_idx) {
+        this.current_index = target_idx;
+        this.quiz_view.style.display = "block";
+        this.report_view.style.display = "none";
+        this.renderQuestion();
+      }
+
+      /**
+       * Sets state to next question card.
+       * Returns:
+       * void
+       */
+      nextQuestion() {
+        const total_len = this.questions_list.length;
+        
+        // Jumps to results panel if all questions have been answered
+        const all_answered = this.user_answers.every(ans => ans !== null);
+        if (all_answered) {
+          this.showResults();
+          return;
+        }
+
+        // Default jump from the current question to the next one if it is unanswered
+        const next_idx = (this.current_index + 1) % total_len;
+        if (this.user_answers[next_idx] === null) {
+          this.current_index = next_idx;
+          this.renderQuestion();
+          return;
+        }
+
+        // Jumps to the most recent backtracked (skipped) question found by searching backwards
+        let search_idx = (this.current_index - 1 + total_len) % total_len;
+        while (search_idx !== this.current_index) {
+          if (this.user_answers[search_idx] === null) {
+            this.current_index = search_idx;
+            this.renderQuestion();
+            return;
+          }
+          search_idx = (search_idx - 1 + total_len) % total_len;
+        }
+
+        // Fallback to sequential index if no other unanswered question is found
+        this.current_index = next_idx;
+        this.renderQuestion();
+      }
+
+      /**
+       * Visualizes the evaluation summary layout.
+       * Returns:
+       * void
+       */
+      showResults() {
+        // Blocks display of evaluation if user has unanswered items
+        const all_answered = this.user_answers.every(ans => ans !== null);
+        if (!all_answered) {
+          return;
+        }
+
+        this.quiz_view.style.display = "none";
+        this.report_view.style.display = "flex";
+        this.status_btn.disabled = false;
+        this.status_btn.classList.add("active");
+
+        const score = this.user_answers.filter(ans => ans && ans.is_correct).length;
+        const total_len = this.questions_list.length;
+        this.score_val.textContent = `${score} / ${total_len}`;
+
+        // Deactivates active markers on circular nodes
+        const nodes = this.sidebar_grid.querySelectorAll(".node-button");
+        nodes.forEach(n => n.classList.remove("active"));
+      }
+
+      /**
+       * Shuffles indices randomly and re-evaluates.
+       * Returns:
+       * void
+       */
+      shuffleQuestions() {
+        const shuffled = [...this.original_order];
+        for (let idx = shuffled.length - 1; idx > 0; idx--) {
+          const rand_idx = Math.floor(Math.random() * (idx + 1));
+          [shuffled[idx], shuffled[rand_idx]] = [shuffled[rand_idx], shuffled[idx]];
+        }
+        this.loadQuestions(shuffled);
+        this.initQuiz();
+      }
+
+      /**
+       * Restores sequencing to setup order.
+       * Args:
+       * keep_order (boolean): Directs ordering state.
+       * Returns:
+       * void
+       */
+      resetQuiz(keep_order) {
+        if (keep_order) {
+          // Re-shuffles active questions structure
+          const current_seq = this.questions_list.map(q => {
+            return this.original_order.find(o => o.question === q.question);
+          });
+          this.loadQuestions(current_seq);
+        } else {
+          this.loadQuestions(this.original_order);
+        }
+        this.initQuiz();
+      }
+    }
+
+    // Instantiates Manager on load
+    document.addEventListener("DOMContentLoaded", () => {
+      const controller = new QuizManager(quiz_questions);
+      controller.initQuiz();
+    });
+  </script>
+</body>
+</html>

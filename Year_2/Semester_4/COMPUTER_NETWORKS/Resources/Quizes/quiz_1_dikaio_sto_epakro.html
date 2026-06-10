@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Δίκτυο στο Έπακρο - Quiz 1</title>
+  
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+  <style>
+    /* CSS Variables for Split-Pane Workspace Dark Theme */
+    :root {
+      --bg-color: #0c0c0e;
+      --sidebar-bg: #141417;
+      --workspace-bg: #1a1a1e;
+      --border-color: #2a2a32;
+      --border-focus: #3e3e4a;
+      --text-main: #f4f4f7;
+      --text-muted: #8e8e9f;
+      --accent-color: #8b5cf6;
+      --accent-hover: #7c3aed;
+      --accent-bg: rgba(139, 92, 246, 0.1);
+      --success-color: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --error-color: #ef4444;
+      --error-bg: rgba(239, 68, 68, 0.15);
+    }
+
+    /* Base body configurations with fluid fonts */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      font-size: clamp(0.9em, 0.8vw + 0.6em, 1.25em);
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    /* Fluid container wrapping the sidebar and workspace */
+    .app-workspace {
+      display: flex;
+      flex-direction: row;
+      width: min(95%, 52em);
+      height: min(90vh, 38em);
+      background-color: var(--workspace-bg);
+      border: 0.1em solid var(--border-color);
+      border-radius: 1em;
+      overflow: hidden;
+      box-shadow: 0 1em 3em rgba(0, 0, 0, 0.4);
+    }
+
+    /* Left Sidebar Navigation */
+    .sidebar {
+      width: min(30%, 15em);
+      background-color: var(--sidebar-bg);
+      border-right: 0.1em solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5em 1.2em;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-size: 0.8em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0 0 1.5em 0;
+      letter-spacing: 0.08em;
+      border-bottom: 0.1em solid var(--border-color);
+      padding-bottom: 0.8em;
+    }
+
+    .nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(2.2em, 1fr));
+      gap: 0.7em;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    /* Interactive node buttons */
+    .node-item {
+      aspect-ratio: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .node-button {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 0.1em solid var(--border-color);
+      background-color: transparent;
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.9em;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .node-button:hover:not(:disabled) {
+      border-color: var(--accent-color);
+      background-color: var(--accent-bg);
+    }
+
+    /* Node states representing quiz progress */
+    .node-button.active {
+      border-color: var(--accent-color);
+      background-color: var(--accent-color);
+      color: var(--bg-color);
+      box-shadow: 0 0 0.8em rgba(139, 92, 246, 0.4);
+    }
+
+    .node-button.correct {
+      border-color: var(--success-color);
+      background-color: var(--success-bg);
+      color: var(--success-color);
+    }
+
+    .node-button.incorrect {
+      border-color: var(--error-color);
+      background-color: var(--error-bg);
+      color: var(--error-color);
+    }
+
+    /* Sidebar footer and navigation slabs */
+    .sidebar-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      padding-top: 1em;
+      border-top: 0.1em solid var(--border-color);
+    }
+
+    .sidebar-slab-btn {
+      width: 100%;
+      padding: 0.7em;
+      border-radius: 0.4em;
+      border: 0.1em solid var(--border-color);
+      background-color: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+      font-size: 0.85em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .sidebar-slab-btn:hover:not(:disabled) {
+      background-color: var(--accent-bg);
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .sidebar-slab-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .sidebar-slab-btn.active {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      color: var(--bg-color);
+      box-shadow: 0 0 0.8em rgba(139, 92, 246, 0.4);
+    }
+
+    /* Right Active Workspace Content Area */
+    .workspace-content {
+      flex-grow: 1;
+      padding: 2em;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background-color: var(--workspace-bg);
+    }
+
+    .question-header {
+      margin-bottom: 1.2em;
+    }
+
+    .topic-badge {
+      font-size: 0.75em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      background-color: var(--accent-bg);
+      padding: 0.3em 0.8em;
+      border-radius: 1em;
+      display: inline-block;
+      margin-bottom: 0.8em;
+    }
+
+    .question-text {
+      font-size: clamp(1.1em, 1.8vw + 0.6em, 1.35em);
+      font-weight: 500;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Option inputs styling */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7em;
+      margin-bottom: 1.5em;
+    }
+
+    .option-row {
+      width: 100%;
+      text-align: left;
+      padding: 0.9em 1.1em;
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 0.1em solid var(--border-color);
+      border-radius: 0.5em;
+      color: var(--text-main);
+      font-size: 0.92em;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .option-row:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.03);
+      border-color: var(--border-focus);
+    }
+
+    .option-row:disabled {
+      cursor: not-allowed;
+    }
+
+    /* Correctness highlights */
+    .option-row.correct {
+      background-color: var(--success-bg);
+      border-color: var(--success-color);
+      color: var(--success-color);
+      font-weight: 600;
+    }
+
+    .option-row.incorrect {
+      background-color: var(--error-bg);
+      border-color: var(--error-color);
+      color: var(--error-color);
+      font-weight: 600;
+    }
+
+    .status-badge {
+      font-size: 0.8em;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2em 0.5em;
+      border-radius: 0.25em;
+      margin-left: 1em;
+      flex-shrink: 0;
+    }
+
+    .status-badge.correct-badge {
+      background-color: var(--success-color);
+      color: var(--bg-color);
+    }
+
+    .status-badge.incorrect-badge {
+      background-color: var(--error-color);
+      color: var(--bg-color);
+    }
+
+    /* Explanation display panel */
+    .explanation-panel {
+      padding: 1em;
+      background-color: rgba(255, 255, 255, 0.02);
+      border-left: 0.2em solid var(--accent-color);
+      border-radius: 0.25em;
+      margin-bottom: 1.5em;
+      display: none;
+      font-size: 0.88em;
+    }
+
+    .explanation-title {
+      font-weight: 600;
+      color: var(--text-main);
+      margin: 0 0 0.3em 0;
+    }
+
+    .explanation-text {
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Footer section triggers */
+    .workspace-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 1em;
+      border-top: 0.1em solid var(--border-color);
+    }
+
+    .btn-primary {
+      padding: 0.7em 1.5em;
+      background-color: var(--accent-color);
+      color: var(--text-main);
+      border: none;
+      border-radius: 0.4em;
+      font-size: 0.92em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Completed state summaries layout */
+    .report-view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .report-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 0 0 1em 0;
+    }
+
+    .summary-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5em;
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 0.1em solid var(--border-color);
+      border-radius: 0.6em;
+      margin-bottom: 1.5em;
+    }
+
+    .score-number {
+      font-size: clamp(2.5em, 5vw + 1em, 3.8em);
+      font-weight: 800;
+      color: var(--accent-color);
+      line-height: 1;
+      margin-bottom: 0.2em;
+    }
+
+    .score-desc {
+      font-size: 0.9em;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .click-hint {
+      font-size: 0.85em;
+      color: var(--accent-color);
+      margin-top: 0.8em;
+      font-weight: 600;
+    }
+
+    .report-controls {
+      display: flex;
+      gap: 1em;
+      justify-content: center;
+      margin-top: auto;
+    }
+
+    .btn-secondary {
+      padding: 0.7em 1.5em;
+      background: transparent;
+      color: var(--text-main);
+      border: 0.1em solid var(--border-color);
+      border-radius: 0.4em;
+      font-size: 0.92em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+      border-color: var(--border-focus);
+    }
+
+    /* Responsive adjustment for small Viewports */
+    @media (max-width: 32em) {
+      .app-workspace {
+        flex-direction: column;
+        height: auto;
+        min-height: min(90vh, 38em);
+      }
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 0.1em solid var(--border-color);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-workspace">
+    <!-- Left Navigation Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-title">Ερωτήσεις</div>
+      <ul id="nodes-container" class="nodes-grid">
+        <!-- Generates circular indicator nodes -->
+      </ul>
+      <div class="sidebar-footer">
+        <button id="home-btn" class="sidebar-slab-btn">Home</button>
+        <button id="status-btn" class="sidebar-slab-btn" disabled>Status</button>
+      </div>
+    </div>
+
+    <!-- Right Content Workspace -->
+    <div class="workspace-content">
+      <!-- Active Question panel -->
+      <div id="quiz-view">
+        <div class="question-header">
+          <div class="topic-badge">COMPUTER NETWORKS</div>
+          <h2 id="question-text" class="question-text">Φόρτωση ερώτησης...</h2>
+        </div>
+
+        <div id="options-box" class="options-container">
+          <!-- Populated dynamically -->
+        </div>
+
+        <div id="explanation-box" class="explanation-panel">
+          <div class="explanation-title">Επεξήγηση</div>
+          <p id="explanation-text" class="explanation-text"></p>
+        </div>
+
+        <div class="workspace-footer">
+          <button id="next-button" class="btn-primary">Επόμενο</button>
+        </div>
+      </div>
+
+      <!-- Final Report View -->
+      <div id="report-view" class="report-view">
+        <h2 class="report-title">Αξιολόγηση</h2>
+        <div class="summary-card">
+          <div id="score-display" class="score-number">0 / 0</div>
+          <div class="score-desc">Σωστά Απαντημένες Ερωτήσεις</div>
+          <div class="click-hint">Κάντε κλικ στα αριστερά νούμερα για αναλυτική επισκόπηση ερώτησης.</div>
+        </div>
+
+        <div class="report-controls">
+          <button id="shuffle-button" class="btn-secondary">Shuffle</button>
+          <button id="retake-button" class="btn-primary">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Variable casing rules: snake_case, functions: camelCase, classes: PascalCase
+
+    const quiz_questions = [
+      {
+        question: "Τι ορίζει ο όρος «Δίκτυο στο Έπακρο» (network edge) στην αρχιτεκτονική του Διαδικτύου;",
+        options: [
+          "Το σύνολο των συσκευών και των μηχανισμών πρόσβασης που βρίσκονται στην περιφέρεια της δικτυακής υποδομής (hosts/τελικά συστήματα και δίκτυα πρόσβασης).",
+          "Τον κεντρικό πυρήνα με τους routers υψηλής ταχύτητας που συνδέουν τις ηπείρους.",
+          "Τα υποβρύχια καλώδια οπτικών ινών των Tier 1 ISP.",
+          "Τον μηχανισμό ελέγχου συμφόρησης του πρωτοκόλλου TCP."
+        ],
+        correct_index: 0,
+        explanation: "Το Δίκτυο στο Έπακρο (network edge) αποτελεί το εξωτερικό στρώμα της αρχιτεκτονικής του Διαδικτύου, δηλαδή τις συσκευές (τελικά συστήματα) και τα δίκτυα πρόσβασης στην περιφέρεια."
+      },
+      {
+        question: "Γιατί οι συσκευές όπως υπολογιστές, smartphones και IoT αισθητήρες ονομάζονται «τελικά συστήματα» (end systems) ή «hosts»;",
+        options: [
+          "Επειδή εκτελούν αποκλειστικά τη δρομολόγηση των πακέτων στον πυρήνα του δικτύου.",
+          "Επειδή βρίσκονται στα άκρα του δικτύου και αποτελούν το σημείο έναρξης ή λήξης της επικοινωνίας, εκτελώντας εφαρμογές.",
+          "Επειδή είναι οι τελευταίες συσκευές που κατασκευάστηκαν ιστορικά στο Διαδίκτυο.",
+          "Επειδή συνδέονται αποκλειστικά με ασύρματο τρόπο (Wi-Fi ή κινητά δίκτυα)."
+        ],
+        correct_index: 1,
+        explanation: "Ονομάζονται τελικά συστήματα επειδή βρίσκονται στα άκρα του δικτύου και τρέχουν εφαρμογές, όντας η αρχή και το τέλος της επικοινωνίας, σε αντίθεση με routers/switches που απλώς προωθούν δεδομένα."
+      },
+      {
+        question: "Σε ποιο επίπεδο του μοντέλου OSI ανήκουν τα πρωτόκολλα (π.χ. HTTP, SMTP, DNS) μέσω των οποίων επικοινωνούν οι εφαρμογές στα τελικά συστήματα;",
+        options: [
+          "Επίπεδο Δικτύου (Layer 3)",
+          "Επίπεδο Μεταφοράς (Layer 4)",
+          "Επίπεδο Εφαρμογής (Layer 7)",
+          "Φυσικό Επίπεδο (Layer 1)"
+        ],
+        correct_index: 2,
+        explanation: "Τα πρωτόκολλα όπως HTTP, SMTP, FTP, DNS ανήκουν στο Επίπεδο Εφαρμογής (Layer 7) του μοντέλου OSI."
+      },
+      {
+        question: "Τι αντιπροσωπεύει η έννοια NaaS (Network as a Service) στο σύγχρονο cloud computing;",
+        options: [
+          "Ένα hardware switch που εγκαθίσταται τοπικά στο σπίτι του χρήστη.",
+          "Μια δωρεάν υπηρεσία του PSTN για τηλεφωνικές κλήσεις μέσω Διαδικτύου.",
+          "Ένα πρωτόκολλο ασφαλείας για την προστασία των email από spam.",
+          "Ένα μοντέλο όπου οι οργανισμοί «νοικιάζουν» δικτυακές δυνατότητες και υποδομές από παρόχους cloud αντί να αγοράζουν φυσικό εξοπλισμό."
+        ],
+        correct_index: 3,
+        explanation: "Το NaaS επιτρέπει σε εταιρείες να ενοικιάζουν δικτυακές υποδομές και υπηρεσίες (bandwidth, routing, firewalls) από cloud providers, μειώνοντας το κόστος αγοράς φυσικού εξοπλισμού."
+      },
+      {
+        question: "Ποιο από τα παρακάτω αποτελεί βασικό χαρακτηριστικό των Tier 1 Internet Service Providers (ISPs);",
+        options: [
+          "Ανταλλάσσουν κίνηση δεδομένων μεταξύ τους δωρεάν μέσω settlement-free peering και κατέχουν παγκόσμια backbones (π.χ. υποβρύχιες οπτικές ίνες).",
+          "Παρέχουν αποκλειστικά τη σύνδεση «τελευταίου μιλίου» (last-mile) σε οικιακούς χρήστες.",
+          "Αγοράζουν υποχρεωτικά transit (διέλευση) από Tier 2 ISPs.",
+          "Λειτουργούν αποκλειστικά εντός των ορίων μιας πόλης ή περιφέρειας."
+        ],
+        correct_index: 0,
+        explanation: "Οι Tier 1 ISPs αποτελούν το παγκόσμιο backbone του Διαδικτύου, κατέχουν υποβρύχια καλώδια οπτικών ινών και ανταλλάσσουν κίνηση μεταξύ τους χωρίς χρέωση (settlement-free peering)."
+      },
+      {
+        question: "Ποια είναι η βασική διαφορά στη χρέωση κίνησης μεταξύ των Tier 1 και των Tier 2/3 ISPs;",
+        options: [
+          "Οι Tier 1 ISPs πληρώνουν μηνιαίο transit στους Tier 2, ενώ οι Tier 3 δεν πληρώνουν τίποτα.",
+          "Οι Tier 2 και Tier 3 ISPs πληρώνουν για τη διέλευση (transit) των δεδομένων τους προς τα πάνω, ενώ οι Tier 1 ανταλλάσσουν κίνηση δωρεάν (peering).",
+          "Όλοι οι ISPs ανεξαρτήτως επιπέδου ανταλλάσσουν κίνηση δωρεάν.",
+          "Οι Tier 3 ISPs χρεώνουν τους Tier 1 για κάθε byte που στέλνουν στους οικιακούς χρήστες."
+        ],
+        correct_index: 1,
+        explanation: "Οι Tier 1 ISPs επικοινωνούν μεταξύ τους με settlement-free peering (χωρίς χρέωση), ενώ οι χαμηλότερης ιεραρχίας ISPs (Tier 2 και Tier 3) πρέπει να πληρώνουν για transit."
+      },
+      {
+        question: "Ποια υπηρεσία επιπέδου μεταφοράς παρέχει το TCP (Transmission Control Protocol) στις εφαρμογές του Διαδικτύου;",
+        options: [
+          "Μια υπηρεσία χωρίς σύνδεση (connectionless), γρήγορη αλλά χωρίς εγγύηση σειράς ή παράδοσης.",
+          "Μια υπηρεσία κρυπτογράφησης πακέτων στο Φυσικό επίπεδο.",
+          "Μια αξιόπιστη υπηρεσία προσανατολισμένη στη σύνδεση (connection-oriented reliable service) με έλεγχο ροής και συμφόρησης.",
+          "Μια υπηρεσία αυτόματης απόδοσης IP διευθύνσεων σε τοπικά δίκτυα."
+        ],
+        correct_index: 2,
+        explanation: "Το TCP παρέχει αξιόπιστη μεταφορά δεδομένων με εγγύηση παράδοσης, διατήρηση της σειράς των πακέτων, καθώς και μηχανισμούς ελέγχου ροής και συμφόρησης."
+      },
+      {
+        question: "Ποιο από τα παρακάτω ζευγάρια εφαρμογής και πρωτοκόλλου μεταφοράς είναι σωστά συζευγμένο σύμφωνα με τις απαιτήσεις της εφαρμογής;",
+        options: [
+          "Email (SMTP) -> UDP, Video streaming -> TCP",
+          "File Transfer (FTP) -> UDP, DNS -> TCP",
+          "VoIP -> TCP, Web browsing (HTTP) -> UDP",
+          "DNS -> UDP, Web browsing (HTTP) -> TCP"
+        ],
+        correct_index: 3,
+        explanation: "Εφαρμογές που απαιτούν ακρίβεια (HTTP, SMTP, FTP) χρησιμοποιούν TCP, ενώ εφαρμογές που απαιτούν ταχύτητα και ανέχονται απώλειες (DNS, VoIP, streaming) χρησιμοποιούν UDP."
+      },
+      {
+        question: "Στην αρχιτεκτονική Client-Server, ποιο από τα παρακάτω ισχύει για τη διεύθυνση IP του client και του server;",
+        options: [
+          "Ο server έχει σταθερή (static) και γνωστή IP διεύθυνση, ενώ ο client μπορεί να έχει δυναμική (dynamic) IP που μεταβάλλεται.",
+          "Και οι δύο πρέπει να έχουν στατικές IP διευθύνσεις στην ίδια υποομάδα δικτύου (subnet).",
+          "Ο client έχει σταθερή IP και ο server έχει πάντα δυναμική IP.",
+          "Δεν χρησιμοποιούνται διευθύνσεις IP σε αυτή την αρχιτεκτονική, αλλά μόνο διευθύνσεις MAC."
+        ],
+        correct_index: 0,
+        explanation: "Στο client-server μοντέλο, ο server είναι always-on και διαθέτει σταθερή, γνωστή IP για να τον βρίσκουν οι clients. Οι clients εκκινούν την επικοινωνία και έχουν συχνά δυναμικές IP."
+      },
+      {
+        question: "Σε μια κλασική αρχιτεκτονική client-server, χρειάζεται ένας client (π.χ. ένας web browser) να γνωρίζει τις διευθύνσεις IP άλλων clients;",
+        options: [
+          "Ναι, για να γίνει η αρχική εύρεση (discovery) των γειτονικών clients.",
+          "Όχι, οι clients επικοινωνούν αποκλειστικά με τον server και δεν χρειάζεται να γνωρίζουν ο ένας τον άλλον.",
+          "Ναι, διότι η κίνηση δεδομένων δρομολογείται P2P μεταξύ των clients.",
+          "Όχι, εκτός αν χρησιμοποιείται το πρωτόκολλο IPv6."
+        ],
+        correct_index: 1,
+        explanation: "Στην αρχιτεκτονική client-server, οι clients επικοινωνούν μόνο με τον κεντρικό server και ποτέ απευθείας μεταξύ τους. Συνεπώς, δεν γνωρίζουν ούτε χρειάζεται να γνωρίζουν τις IP των άλλων clients."
+      },
+      {
+        question: "Για ποιο λόγο οι σύγχρονες υπηρεσίες ιστού φιλοξενούνται σε data centers (server farms) με χιλιάδες servers αντί για έναν μεμονωμένο server;",
+        options: [
+          "Για να μειωθεί η απόσταση διάδοσης των ραδιοκυμάτων Wi-Fi.",
+          "Επειδή το πρωτόκολλο TCP δεν επιτρέπει σε έναν server να συνδεθεί με περισσότερους από 10 clients ταυτόχρονα.",
+          "Γιατί ένας μεμονωμένος server έχει περιορισμένη χωρητικότητα και δεν μπορεί να κλιμακωθεί (scale) για να εξυπηρετήσει εκατομμύρια concurrent χρήστες.",
+          "Για να μετατραπεί το δίκτυο σε αμιγώς Peer-to-Peer."
+        ],
+        correct_index: 2,
+        explanation: "Ένας μεμονωμένος server έχει πεπερασμένους πόρους (CPU, RAM, bandwidth). Για την εξυπηρέτηση μεγάλου όγκου χρηστών χρησιμοποιούνται data centers με load balancing για κατανομή του φορτίου."
+      },
+      {
+        question: "Ποια είναι η βασική δικτυακή διαφορά μεταξύ ενός κεντρικού κόμβου (server) και ενός router;",
+        options: [
+          "Ο server προωθεί πακέτα σε άλλα δίκτυα, ενώ ο router εκτελεί μόνο εφαρμογές χρήστη.",
+          "Ο server είναι τελικό σύστημα (end system) που εκτελεί εφαρμογές και δεν προωθεί πακέτα σε άλλα δίκτυα, ενώ ο router είναι ενδιάμεσος κόμβος του πυρήνα που προωθεί πακέτα.",
+          "Ο server λειτουργεί στο Φυσικό Επίπεδο, ενώ ο router λειτουργεί στο Επίπεδο Εφαρμογής.",
+          "Δεν υπάρχει καμία διαφορά, οι όροι είναι ταυτόσημοι."
+        ],
+        correct_index: 1,
+        explanation: "Ο server είναι host (τελικό σύστημα), δηλαδή παράγει ή καταναλώνει δεδομένα. Ο router είναι συσκευή του πυρήνα του δικτύου (network core) με αποκλειστική δουλειά τη δρομολόγηση πακέτων μεταξύ δικτύων."
+      },
+      {
+        question: "Πώς επικοινωνούν οι συσκευές (peers) σε ένα δίκτυο ομοτιμότητας (Peer-to-Peer - P2P);",
+        options: [
+          "Επικοινωνούν αποκλειστικά μέσω ενός always-on κεντρικού server που αναλαμβάνει όλη τη μεταφορά δεδομένων.",
+          "Συνδέονται απευθείας με υποβρύχια καλώδια οπτικών ινών Tier 1.",
+          "Χρησιμοποιούν αποκλειστικά αναλογικά σήματα PSTN.",
+          "Επικοινωνούν απευθείας μεταξύ τους χωρίς τη μεσολάβηση κάποιου αφοσιωμένου κεντρικού server, λειτουργώντας ταυτόχρονα ως πελάτες και ως εξυπηρετητές."
+        ],
+        correct_index: 3,
+        explanation: "Στο P2P μοντέλο δεν υπάρχει μόνιμος κεντρικός server. Οι peers (ομότιμοι κόμβοι) επικοινωνούν απευθείας μεταξύ τους και μοιράζονται το φορτίο, λειτουργώντας ως clients και servers ταυτόχρονα."
+      },
+      {
+        question: "Τι σημαίνει ο όρος «αυτο-κλιμακωσιμότητα» (self-scalability) στα δίκτυα P2P;",
+        options: [
+          "Κάθε νέος peer που προστίθεται στο δίκτυο φέρνει μαζί του επιπλέον πόρους (όπως upload bandwidth και αποθηκευτικό χώρο), αυξάνοντας τη συνολική χωρητικότητα του συστήματος.",
+          "Το δίκτυο P2P κλείνει αυτόματα όταν ο αριθμός των χρηστών ξεπεράσει ένα όριο.",
+          "Οι servers του data center αυξάνουν αυτόματα την επεξεργαστική τους ισχύ.",
+          "Το δίκτυο μετατρέπεται αυτόματα σε DSL."
+        ],
+        correct_index: 0,
+        explanation: "Στα P2P δίκτυα, οι peers είναι και πάροχοι πόρων. Όσο αυξάνονται οι χρήστες, αυξάνεται και η χωρητικότητα του δικτύου (π.χ. περισσότεροι seeders στο BitTorrent), σε αντίθεση με το client-server όπου οι νέοι χρήστες απλώς επιβαρύνουν τον server."
+      },
+      {
+        question: "Ποιο από τα παρακάτω συστήματα χρησιμοποιεί ή χρησιμοποιούσε ιστορικά Peer-to-Peer (P2P) αρχιτεκτονική για τη λειτουργία του;",
+        options: [
+          "Google Search και Nginx",
+          "Παραδοσιακό Web browsing (HTTP)",
+          "BitTorrent και Blockchain/Bitcoin",
+          "Netflix CDN streaming"
+        ],
+        correct_index: 2,
+        explanation: "Το BitTorrent (διαμοιρασμός αρχείων) και το Bitcoin/Blockchain (αποκεντρωμένο καθολικό) αποτελούν κλασικά παραδείγματα P2P αρχιτεκτονικής."
+      },
+      {
+        question: "Ποιος είναι ο ρόλος του κεντρικού server σε μια υβριδική P2P αρχιτεκτονική (όπως στο παλιό Skype ή σε ορισμένες πλατφόρμες streaming);",
+        options: [
+          "Χρησιμοποιείται για την εύρεση (discovery) των διευθύνσεων των peers, ενώ η μεταφορά των δεδομένων γίνεται απευθείας P2P.",
+          "Αναλαμβάνει την κρυπτογράφηση των σημάτων Wi-Fi.",
+          "Αποθηκεύει όλα τα αρχεία και τα στέλνει ξεχωριστά σε κάθε χρήστη.",
+          "Λειτουργεί ως DSLAM για τη χάλκινη γραμμή."
+        ],
+        correct_index: 0,
+        explanation: "Σε υβριδικά μοντέλα, ένας κεντρικός server βοηθά στη φάση της εύρεσης/συντονισμού (directory/discovery service), αλλά η actual ανταλλαγή δεδομένων (π.χ. φωνή, αρχεία) γίνεται απευθείας μεταξύ των peers."
+      },
+      {
+        question: "Ποια συσκευή βρίσκεται στο τοπικό κέντρο (central office) του ISP και είναι υπεύθυνη για τον διαχωρισμό των δεδομένων DSL από τις φωνητικές κλήσεις;",
+        options: [
+          "WAP (Wireless Access Point)",
+          "DSLAM (DSL Access Multiplexer)",
+          "OLT (Optical Line Terminal)",
+          "Cable Modem"
+        ],
+        correct_index: 1,
+        explanation: "Το DSLAM (DSL Access Multiplexer) βρίσκεται στο κεντρικό γραφείο του ISP και συγκεντρώνει τα σήματα δεδομένων από πολλαπλές DSL γραμμές, διαχωρίζοντάς τα από τις τηλεφωνικές κλήσεις φωνής."
+      },
+      {
+        question: "Ποιο είδος DSL παρουσιάζει ασύμμετρες ταχύτητες λήψης (download) και αποστολής (upload) με το download να είναι σημαντικά μεγαλύτερο;",
+        options: [
+          "SDSL (Symmetric DSL)",
+          "HFC",
+          "FTTH",
+          "ADSL (Asymmetric DSL)"
+        ],
+        correct_index: 3,
+        explanation: "Το ADSL (Asymmetric Digital Subscriber Line) είναι σχεδιασμένο για οικιακούς χρήστες που κατεβάζουν πολύ περισσότερα δεδομένα από όσα ανεβάζουν, προσφέροντας ασύμμετρο ρυθμό μετάδοσης."
+      },
+      {
+        question: "Γιατί η ταχύτητα μιας σύνδεσης DSL υποβαθμίζεται δραματικά αν η απόσταση του σπιτιού από το Central Office του ISP υπερβαίνει τα $5\\text{ km}$;",
+        options: [
+          "Λόγω της εξασθένισης του σήματος (attenuation) στις χάλκινες γραμμές σε υψηλές συχνότητες.",
+          "Λόγω των παθητικών splitters που κόβουν το ρεύμα.",
+          "Επειδή οι οπτικές ίνες του DSL δεν λυγίζουν σε γωνίες.",
+          "Λόγω του περιορισμού του Wi-Fi Access Point."
+        ],
+        correct_index: 0,
+        explanation: "Η τεχνολογία DSL χρησιμοποιεί τις υπάρχουσες χάλκινες γραμμές τηλεφώνου. Τα ηλεκτρικά σήματα υψηλής συχνότητας εξασθενούν γρήγορα με την απόσταση, περιορίζοντας την εμβέλεια στα ~5 km."
+      },
+      {
+        question: "Τι σημαίνει ο όρος HFC (Hybrid Fiber-Coaxial) στην παροχή δικτύου;",
+        options: [
+          "Χρήση ασύρματων mmWave συχνοτήτων σε συνδυασμό με χάλκινα καλώδια.",
+          "Σύνδεση με δορυφόρο και ADSL ταυτόχρονα.",
+          "Χρήση οπτικών ινών από τον ISP μέχρι ένα τοπικό κόμβο γειτονιάς (fiber node) και ομοαξονικού καλωδίου από τον κόμβο μέχρι το σπίτι.",
+          "Ένα δίκτυο που αποτελείται αποκλειστικά από οπτικές ίνες."
+        ],
+        correct_index: 2,
+        explanation: "Το HFC (Hybrid Fiber-Coaxial) συνδυάζει οπτικές ίνες (backbone/διανομή) και ομοαξονικά καλώδια (τελευταίο κομμάτι προς τα σπίτια), προσφέροντας υψηλές ταχύτητες."
+      },
+      {
+        question: "Ποιο είναι το κύριο μειονέκτημα του ομοαξονικού τμήματος (coaxial segment) στην αρχιτεκτονική HFC;",
+        options: [
+          "Δεν μπορεί να μεταφέρει τηλεοπτικό σήμα.",
+          "Είναι κοινόχρηστο μέσο (shared medium), πράγμα που σημαίνει ότι η ταχύτητα σύνδεσης μπορεί να μειωθεί όταν πολλοί γείτονες χρησιμοποιούν το δίκτυο ταυτόχρονα.",
+          "Απαιτεί οπτικό splitter (passive splitter) σε κάθε δωμάτιο.",
+          "Έχει μέγιστη εμβέλεια μόνο 30 μέτρα."
+        ],
+        correct_index: 1,
+        explanation: "Στο HFC, το ομοαξονικό καλώδιο στη γειτονιά μοιράζεται μεταξύ πολλαπλών σπιτιών. Αν πολλοί χρήστες κατεβάζουν ταυτόχρονα, μοιράζονται το διαθέσιμο bandwidth, μειώνοντας την απόδοση."
+      },
+      {
+        question: "Ποια είναι η διαφορά μεταξύ Active Optical Network (AON) και Passive Optical Network (PON) στα δίκτυα FTTH;",
+        options: [
+          "Το AON χρησιμοποιεί χάλκινα καλώδια, ενώ το PON χρησιμοποιεί μόνο οπτικές ίνες.",
+          "Το PON είναι ταχύτερο αλλά απαιτεί Massive MIMO κεραίες.",
+          "Το AON δεν έχει καθόλου switches ή routers.",
+          "Το PON χρησιμοποιεί παθητικούς οπτικούς διαχωριστές (splitters) χωρίς ανάγκη παροχής ηλεκτρικού ρεύματος στο εξωτερικό δίκτυο διανομής, ενώ το AON χρησιμοποιεί ενεργά switches."
+        ],
+        correct_index: 3,
+        explanation: "Το PON (Passive Optical Network) είναι οικονομικότερο και πιο διαδεδομένο επειδή χρησιμοποιεί παθητικούς διαχωριστές (splitters) που δεν απαιτούν ηλεκτρικό ρεύμα στο δίκτυο διανομής, σε αντίθεση με το AON που χρησιμοποιεί ενεργά, ηλεκτροδοτούμενα switches."
+      },
+      {
+        question: "Στην αρχιτεκτονική PON, τι αντιπροσωπεύουν τα ακρωνύμια OLT και ONT;",
+        options: [
+          "OLT = Optical Line Terminal (στον ISP), ONT = Optical Network Terminal (στο σπίτι του χρήστη).",
+          "OLT = Online Loop Transmitter, ONT = Output Network Transceiver.",
+          "OLT = Optical Local Traffic, ONT = Optical Node Transmitter.",
+          "OLT = Off-line Line Termination, ONT = On-line Network Terminal."
+        ],
+        correct_index: 0,
+        explanation: "Το OLT (Optical Line Terminal) βρίσκεται στο κέντρο του ISP και στέλνει/λαμβάνει το οπτικό σήμα, ενώ το ONT (Optical Network Terminal) βρίσκεται στην πλευρά του πελάτη (στο σπίτι) και μετατρέπει το φως σε ηλεκτρικό σήμα (Ethernet)."
+      },
+      {
+        question: "Έστω ότι θέλουμε να μεταφέρουμε ένα αρχείο μεγέθους $50\\text{ MB}$ (όπου $1\\text{ MB} = 10^6\\text{ bytes}$). Πόσος χρόνος $T$ απαιτείται για τη μετάδοση μέσω σύνδεσης FTTH με ρυθμό μετάδοσης $1\\text{ Gbps}$ ($10^9\\text{ bps}$);",
+        options: [
+          "$4\\text{ sec}$",
+          "$0.05\\text{ sec}$",
+          "$0.4\\text{ sec}$",
+          "$40\\text{ sec}$"
+        ],
+        correct_index: 2,
+        explanation: "Μετατρέπουμε τα bytes σε bits: $50\\text{ MB} = 50 \\times 10^6 \\times 8\\text{ bits} = 4 \\times 10^8\\text{ bits}$. Διαιρούμε με το bandwidth: $T = \\frac{4 \\times 10^8}{10^9} = 0.4\\text{ sec}$."
+      },
+      {
+        question: "Ποια είναι η βασική δικτυακή διάκριση του Wi-Fi (IEEE 802.11) όσον αφορά την εμβέλεια και τη σύνδεση με το Διαδίκτυο;",
+        options: [
+          "Το Wi-Fi είναι αυτόνομη τεχνολογία WAN που συνδέει απευθείας τα σπίτια με το παγκόσμιο backbone χωρίς καλώδια.",
+          "Το Wi-Fi είναι τεχνολογία LAN (τοπικής εμβέλειας ~30-100m) και απαιτεί ενσύρματη backhaul σύνδεση (DSL/HFC/FTTH) για να προσφέρει πρόσβαση στο WAN/Διαδίκτυο.",
+          "Το Wi-Fi λειτουργεί αποκλειστικά μέσω δορυφόρου και mmWave συχνοτήτων.",
+          "Το Wi-Fi χρησιμοποιεί circuit switching για τη δέσμευση συχνότητας ανά χρήστη."
+        ],
+        correct_index: 1,
+        explanation: "Το Wi-Fi είναι τεχνολογία τοπικού δικτύου (LAN). Για να παρέχει Ίντερνετ, το Wireless Access Point πρέπει να συνδέεται ενσύρματα (π.χ. με DSL/FTTH) στο δίκτυο του ISP."
+      },
+      {
+        question: "Ποιο από τα παρακάτω πρότυπα Wi-Fi υποστηρίζει τη ζώνη συχνοτήτων των $6\\text{ GHz}$ (εκτός από τις $2.4\\text{ GHz}$ και $5\\text{ GHz}$) και επιτυγχάνει θεωρητικές ταχύτητες έως $9.6\\text{ Gbps}$;",
+        options: [
+          "802.11ac (Wi-Fi 5)",
+          "802.11n (Wi-Fi 4)",
+          "802.11g",
+          "802.11ax (Wi-Fi 6)"
+        ],
+        correct_index: 3,
+        explanation: "Το πρότυπο 802.11ax (Wi-Fi 6) εισήγαγε υποστήριξη για τις τρεις ζώνες (2.4, 5 και 6 GHz) με θεωρητική μέγιστη ταχύτητα 9.6 Gbps."
+      },
+      {
+        question: "Ποια δομική αλλαγή χαρακτηρίζει την αρχιτεκτονική του 4G LTE σε σχέση με τις προηγούμενες γενιές κινητής τηλεφωνίας (2G/3G);",
+        options: [
+          "Είναι μια αρχιτεκτονική all-packet (όλα σε πακέτα IP), καταργώντας πλήρως τη μεταγωγή κυκλώματος (circuit switching) ακόμα και για τη φωνή (VoLTE).",
+          "Εισήγαγε για πρώτη φορά την αναλογική μετάδοση φωνής.",
+          "Βασίζεται αποκλειστικά σε παθητικούς οπτικούς διαχωριστές (PON splitters) στα base stations.",
+          "Απαιτεί απόσταση μικρότερη από 30 μέτρα από το base station."
+        ],
+        correct_index: 0,
+        explanation: "Η μετάβαση στο 4G LTE σηματοδότησε την πλήρη κατάργηση της μεταγωγής κυκλώματος (circuit switching). Όλα τα δεδομένα, συμπεριλαμβανομένης της φωνής (VoLTE), μεταδίδονται ως πακέτα IP (all-packet/all-IP αρχιτεκτονική)."
+      },
+      {
+        question: "Ποια τεχνολογία του 5G NR επιτρέπει τη δημιουργία πολλαπλών εικονικών δικτύων με διαφορετικά χαρακτηριστικά (π.χ. χαμηλό latency για αυτόνομα οχήματα vs. υψηλό bandwidth για streaming) πάνω στην ίδια φυσική υποδομή;",
+        options: [
+          "Beamforming",
+          "Massive MIMO",
+          "Network Slicing",
+          "DSLAM Multiplexing"
+        ],
+        correct_index: 2,
+        explanation: "Το Network Slicing επιτρέπει στους παρόχους 5G να «τεμαχίζουν» τη φυσική υποδομή σε ανεξάρτητα εικονικά δίκτυα (slices), καθένα βελτιστοποιημένο για συγκεκριμένες απαιτήσεις εφαρμογών."
+      },
+      {
+        question: "Ποιες είναι οι τυπικές τιμές καθυστέρησης (latency) στο 4G LTE και στο 5G NR αντίστοιχα;",
+        options: [
+          "4G LTE: < 1 ms, 5G NR: ~30-50 ms",
+          "4G LTE: ~30-50 ms, 5G NR: < 1 ms",
+          "4G LTE: ~200 ms, 5G NR: ~100 ms",
+          "Και στα δύο δίκτυα η καθυστέρηση είναι ακριβώς 0 ms."
+        ],
+        correct_index: 1,
+        explanation: "Το 5G NR επιτυγχάνει εξαιρετικά χαμηλή καθυστέρηση (ultra-low latency) κάτω από 1 ms, σε σύγκριση με τα ~30-50 ms του 4G LTE."
+      },
+      {
+        question: "Γιατί τα χάλκινα σύρματα στα καλώδια Ethernet (Twisted Pair) είναι συνεστραμμένα σε ζεύγη;",
+        options: [
+          "Για να αυξηθεί η ηλεκτρική αντίσταση του χαλκού.",
+          "Για να μπορούν να μεταφέρουν παλμούς φωτός αντί για ρεύμα.",
+          "Για να μειωθεί το κόστος κατασκευής του πλαστικού jacket.",
+          "Για τη μείωση της συνακρόασης (crosstalk) και των εξωτερικών ηλεκτρομαγνητικών παρεμβολών."
+        ],
+        correct_index: 3,
+        explanation: "Το στρίψιμο των συρμάτων βοηθά στην εξουδετέρωση των ηλεκτρομαγνητικών παρεμβολών από το περιβάλλον αλλά και της συνακρόασης (crosstalk) μεταξύ γειτονικών ζευγών μέσα στο ίδιο καλώδιο."
+      },
+      {
+        question: "Ποιο από τα παρακάτω είναι βασικό δομικό χαρακτηριστικό του ομοαξονικού καλωδίου (coaxial cable);",
+        options: [
+          "Αποτελείται από έναν κεντρικό αγωγό χαλκού, περιβαλλόμενο από μόνωση, έναν εξωτερικό κυλινδρικό αγωγό (πλέγμα) και εξωτερική προστασία, προσφέροντας εξαιρετική θωράκιση.",
+          "Αποτελείται αποκλειστικά από 8 λεπτά συνεστραμμένα γυάλινα νήματα.",
+          "Δεν περιέχει μέταλλο και μεταδίδει μόνο φωτεινά σήματα.",
+          "Έχει μέγιστη απόσταση μετάδοσης χωρίς απώλειες τα 10 μέτρα."
+        ],
+        correct_index: 0,
+        explanation: "Το ομοαξονικό καλώδιο έχει ομόκεντρη δομή (κεντρικός αγωγός + πλέγμα θωράκισης) που το προστατεύει πολύ καλά από παρεμβολές. Χρησιμοποιείται σε HFC δίκτυα και καλωδιακή TV."
+      },
+      {
+        question: "Ποια είναι η βασική διαφορά στη δομή και τη χρήση μεταξύ οπτικής ίνας απλού τρόπου (Single-mode) και πολλαπλού τρόπου (Multimode);",
+        options: [
+          "Η Single-mode μεταφέρει ηλεκτρικό ρεύμα, ενώ η Multimode μεταφέρει φως.",
+          "Η Multimode χρησιμοποιεί laser για διηπειρωτικές συνδέσεις και η Single-mode LED για τοπικά LAN.",
+          "Η Single-mode έχει πολύ λεπτό πυρήνα (~9 μm), χρησιμοποιεί laser και ενδείκνυται για μεγάλες αποστάσεις, ενώ η Multimode έχει παχύτερο πυρήνα (~50-62.5 μm), χρησιμοποιεί LED και ενδείκνυται για μικρές αποστάσεις (π.χ. data centers).",
+          "Δεν υπάρχει καμία διαφορά στον πυρήνα, αλλάζουν μόνο τα εξωτερικά χρώματα των καλωδίων."
+        ],
+        correct_index: 2,
+        explanation: "Η οπτική ίνα απλού τρόπου (Single-mode Fiber / SMF) περιορίζει το φως σε μία μόνο δέσμη χάρη στον πολύ λεπτό πυρήνα της, εξαλείφοντας τις παραμορφώσεις και επιτρέποντας αποστάσεις >100 km. Η Multimode έχει παχύτερο πυρήνα, παρουσιάζει περισσότερες αντανακλάσεις και χρησιμοποιείται για οικονομικότερες, κοντινές συνδέσεις."
+      },
+      {
+        question: "Ποιο είναι το κύριο μειονέκτημα του Circuit Switching που χρησιμοποιείται στο παραδοσιακό PSTN (τηλεφωνικό δίκτυο);",
+        options: [
+          "Η έλλειψη εγγυημένου εύρους ζώνης κατά τη διάρκεια της κλήσης.",
+          "Σπατάλη πόρων (inefficient resource utilization), καθώς οι δεσμευμένοι πόροι της γραμμής παραμένουν ανενεργοί (αδρανείς) όταν οι συνομιλητές δεν μιλούν.",
+          "Η ανάγκη για ψηφιακή μετατροπή του σήματος Wi-Fi.",
+          "Η μεγάλη καθυστέρηση λόγω κατάτμησης των δεδομένων σε πακέτα."
+        ],
+        correct_index: 1,
+        explanation: "Στη μεταγωγή κυκλώματος (circuit switching), δεσμεύεται ένα αποκλειστικό μονοπάτι για όλη τη διάρκεια της κλήσης. Αν οι χρήστες σιωπούν, το κανάλι παραμένει δεσμευμένο και δεν μπορεί να χρησιμοποιηθεί από άλλους, οδηγώντας σε σπατάλη πόρων."
+      },
+      {
+        question: "Ποια πρωτόκολλα χρησιμοποιούνται στο VoIP για τη διαχείριση της κλήσης και για τη μεταφορά του ήχου αντίστοιχα;",
+        options: [
+          "HTTP για τη διαχείριση της κλήσης και TCP για τη μεταφορά του ήχου.",
+          "SMTP για την έναρξη και FTP για τη μεταφορά του ήχου.",
+          "DNS για τη διαχείριση και UDP για τη μεταφορά του ήχου.",
+          "SIP (Session Initiation Protocol) για τη διαχείριση/έναρξη της κλήσης και RTP (Real-time Transport Protocol) για τη μεταφορά των δεδομένων ήχου."
+        ],
+        correct_index: 3,
+        explanation: "Στο VoIP, η εγκαθίδρυση και ο τερματισμός της κλήσης γίνονται με το SIP (Session Initiation Protocol), ενώ η πραγματική ροή ήχου μεταφέρεται σε πραγματικό χρόνο με το RTP (Real-time Transport Protocol)."
+      },
+      {
+        question: "Ποια διαδικασία προηγείται της αποστολής ενός HTTP GET αιτήματος από τον client στον server στο Διαδίκτυο;",
+        options: [
+          "Η χειραψία τριών φάσεων του TCP (TCP Three-way handshake: SYN, SYN-ACK, ACK) για την εγκαθίδρυση σύνδεσης μεταφοράς.",
+          "Η αυτόματη μετατροπή της γραμμής σε circuit-switched PSTN.",
+          "Ο διαχωρισμός του σήματος από ένα DSLAM Access Point.",
+          "Η εκπομπή Massive MIMO σημάτων mmWave."
+        ],
+        correct_index: 0,
+        explanation: "Επειδή το HTTP χρησιμοποιεί TCP ως πρωτόκολλο μεταφοράς, πρέπει πρώτα να πραγματοποιηθεί η χειραψία τριών φάσεων (TCP 3-way handshake: SYN, SYN-ACK, ACK) για να ανοίξει η σύνδεση TCP προτού σταλεί το HTTP GET αίτημα."
+      }
+    ];
+
+    class QuizManager {
+      /**
+       * Instantiates state elements.
+       * Args:
+       * questions (Array): Questions array.
+       */
+      constructor(questions) {
+        this.original_order = questions;
+        this.questions_list = [];
+        this.user_answers = [];
+        this.current_index = 0;
+
+        // Workspace layouts
+        this.quiz_view = document.getElementById("quiz-view");
+        this.report_view = document.getElementById("report-view");
+        this.sidebar_grid = document.getElementById("nodes-container");
+        this.text_container = document.getElementById("question-text");
+        this.options_container = document.getElementById("options-box");
+        this.explanation_panel = document.getElementById("explanation-box");
+        this.explanation_txt = document.getElementById("explanation-text");
+        this.next_btn = document.getElementById("next-button");
+        this.score_val = document.getElementById("score-display");
+        this.home_btn = document.getElementById("home-btn");
+        this.status_btn = document.getElementById("status-btn");
+
+        // Action bindings
+        this.next_btn.addEventListener("click", () => this.nextQuestion());
+        document.getElementById("shuffle-button").addEventListener("click", () => this.shuffleQuestions());
+        document.getElementById("retake-button").addEventListener("click", () => this.resetQuiz(true));
+        this.home_btn.addEventListener("click", () => this.resetQuiz(false));
+        this.status_btn.addEventListener("click", () => this.showResults());
+
+        // Prepares initial questions copies
+        this.loadQuestions(this.original_order);
+      }
+
+      /**
+       * Deep copies the questions and randomizes the order of their options.
+       * Args:
+       * source_questions (Array): The raw question data list.
+       * Returns:
+       * void
+       */
+      loadQuestions(source_questions) {
+        this.questions_list = source_questions.map(q => ({
+          question: q.question,
+          options: [...q.options],
+          correct_index: q.correct_index,
+          explanation: q.explanation
+        }));
+        this.randomizeOptions();
+      }
+
+      /**
+       * Shuffles the answers/options for all questions.
+       * Returns:
+       * void
+       */
+      randomizeOptions() {
+        this.questions_list.forEach(item => {
+          // Finds correct text before options are shuffled
+          const correct_text = item.options[item.correct_index];
+          
+          // Shuffles choices using Fisher-Yates
+          for (let idx = item.options.length - 1; idx > 0; idx--) {
+            const rand_idx = Math.floor(Math.random() * (idx + 1));
+            [item.options[idx], item.options[rand_idx]] = [item.options[rand_idx], item.options[idx]];
+          }
+          
+          // Registers the new index location
+          item.correct_index = item.options.indexOf(correct_text);
+        });
+      }
+
+      /**
+       * Renders the navigation circles in the left sidebar.
+       * Returns:
+       * void
+       */
+      renderSidebar() {
+        this.sidebar_grid.innerHTML = "";
+        this.questions_list.forEach((_, idx) => {
+          const li_el = document.createElement("li");
+          li_el.className = "node-item";
+
+          const btn_el = document.createElement("button");
+          btn_el.className = "node-button";
+          btn_el.textContent = idx + 1;
+          
+          btn_el.addEventListener("click", () => this.jumpToQuestion(idx));
+
+          li_el.appendChild(btn_el);
+          this.sidebar_grid.appendChild(li_el);
+        });
+      }
+
+      /**
+       * Prepares engine for initialization.
+       * Returns:
+       * void
+       */
+      initQuiz() {
+        this.current_index = 0;
+        this.user_answers = new Array(this.questions_list.length).fill(null);
+
+        this.quiz_view.style.display = "block";
+        this.report_view.style.display = "none";
+        this.status_btn.disabled = true;
+        this.status_btn.classList.remove("active");
+
+        this.renderSidebar();
+        this.renderQuestion();
+      }
+
+      /**
+       * Displays active question details.
+       * Returns:
+       * void
+       */
+      renderQuestion() {
+        this.explanation_panel.style.display = "none";
+        this.status_btn.classList.remove("active");
+
+        const total_len = this.questions_list.length;
+
+        // Updates active class status in sidebar circles
+        const nodes = this.sidebar_grid.querySelectorAll(".node-button");
+        nodes.forEach((n, idx) => {
+          n.classList.remove("active", "correct", "incorrect");
+          if (idx === this.current_index) {
+            n.classList.add("active");
+          }
+
+          const ans = this.user_answers[idx];
+          if (ans !== null) {
+            if (ans.is_correct) {
+              n.classList.add("correct");
+            } else {
+              n.classList.add("incorrect");
+            }
+          }
+        });
+
+        const item = this.questions_list[this.current_index];
+        this.text_container.innerHTML = item.question;
+        this.options_container.innerHTML = "";
+
+        const ans_data = this.user_answers[this.current_index];
+
+        item.options.forEach((opt, idx) => {
+          const btn_el = document.createElement("button");
+          btn_el.className = "option-row";
+          btn_el.innerHTML = `<span>${opt}</span>`;
+
+          if (ans_data === null) {
+            // Unanswered state is interactive
+            btn_el.addEventListener("click", () => this.selectOption(idx));
+          } else {
+            // Answered state is static/read-only
+            btn_el.disabled = true;
+            if (idx === item.correct_index) {
+              btn_el.classList.add("correct");
+              btn_el.insertAdjacentHTML("beforeend", `<span class="status-badge correct-badge">✓ Correct</span>`);
+            } else if (idx === ans_data.selected_index) {
+              btn_el.classList.add("incorrect");
+              btn_el.insertAdjacentHTML("beforeend", `<span class="status-badge incorrect-badge">✗ Wrong</span>`);
+            }
+          }
+          this.options_container.appendChild(btn_el);
+        });
+
+        // Recovers explanation block if question was already resolved
+        if (ans_data !== null) {
+          this.explanation_txt.innerHTML = item.explanation;
+          this.explanation_panel.style.display = "block";
+        }
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise();
+        }
+      }
+
+      /**
+       * Reviews option selection accuracy.
+       * Args:
+       * selected_idx (number): The chosen option item index.
+       * Returns:
+       * void
+       */
+      selectOption(selected_idx) {
+        // Prevents double answering same question
+        if (this.user_answers[this.current_index] !== null) {
+          return;
+        }
+
+        const current_q = this.questions_list[this.current_index];
+        const correct_idx = current_q.correct_index;
+        const opt_buttons = this.options_container.querySelectorAll(".option-row");
+
+        const is_correct = (selected_idx === correct_idx);
+        
+        // Caches answer selection details
+        this.user_answers[this.current_index] = {
+          selected_index: selected_idx,
+          is_correct: is_correct
+        };
+
+        // Highlights outcome elements
+        if (is_correct) {
+          opt_buttons[selected_idx].classList.add("correct");
+          opt_buttons[selected_idx].insertAdjacentHTML("beforeend", `<span class="status-badge correct-badge">✓ Correct</span>`);
+        } else {
+          opt_buttons[selected_idx].classList.add("incorrect");
+          opt_buttons[selected_idx].insertAdjacentHTML("beforeend", `<span class="status-badge incorrect-badge">✗ Wrong</span>`);
+          
+          opt_buttons[correct_idx].classList.add("correct");
+          opt_buttons[correct_idx].insertAdjacentHTML("beforeend", `<span class="status-badge correct-badge">✓ Correct</span>`);
+        }
+
+        opt_buttons.forEach(btn => btn.disabled = true);
+
+        // Reflects results immediately on corresponding sidebar nodes
+        const nodes = this.sidebar_grid.querySelectorAll(".node-button");
+        if (is_correct) {
+          nodes[this.current_index].classList.add("correct");
+        } else {
+          nodes[this.current_index].classList.add("incorrect");
+        }
+
+        this.explanation_txt.innerHTML = current_q.explanation;
+        this.explanation_panel.style.display = "block";
+
+        // Activates summary status control if entire layout is complete
+        const all_answered = this.user_answers.every(ans => ans !== null);
+        if (all_answered) {
+          this.status_btn.disabled = false;
+        }
+
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          window.MathJax.typesetPromise();
+        }
+      }
+
+      /**
+       * Safe routing logic for sidebar node interactions.
+       * Args:
+       * target_idx (number): The grid item to route layout to.
+       * Returns:
+       * void
+       */
+      jumpToQuestion(target_idx) {
+        this.current_index = target_idx;
+        this.quiz_view.style.display = "block";
+        this.report_view.style.display = "none";
+        this.renderQuestion();
+      }
+
+      /**
+       * Sets state to next question card.
+       * Returns:
+       * void
+       */
+      nextQuestion() {
+        const total_len = this.questions_list.length;
+        
+        // Jumps to results panel if all questions have been answered
+        const all_answered = this.user_answers.every(ans => ans !== null);
+        if (all_answered) {
+          this.showResults();
+          return;
+        }
+
+        // Default jump from the current question to the next one if it is unanswered
+        const next_idx = (this.current_index + 1) % total_len;
+        if (this.user_answers[next_idx] === null) {
+          this.current_index = next_idx;
+          this.renderQuestion();
+          return;
+        }
+
+        // Jumps to the most recent backtracked (skipped) question found by searching backwards
+        let search_idx = (this.current_index - 1 + total_len) % total_len;
+        while (search_idx !== this.current_index) {
+          if (this.user_answers[search_idx] === null) {
+            this.current_index = search_idx;
+            this.renderQuestion();
+            return;
+          }
+          search_idx = (search_idx - 1 + total_len) % total_len;
+        }
+
+        // Fallback to sequential index if no other unanswered question is found
+        this.current_index = next_idx;
+        this.renderQuestion();
+      }
+
+      /**
+       * Visualizes the evaluation summary layout.
+       * Returns:
+       * void
+       */
+      showResults() {
+        // Blocks display of evaluation if user has unanswered items
+        const all_answered = this.user_answers.every(ans => ans !== null);
+        if (!all_answered) {
+          return;
+        }
+
+        this.quiz_view.style.display = "none";
+        this.report_view.style.display = "flex";
+        this.status_btn.disabled = false;
+        this.status_btn.classList.add("active");
+
+        const score = this.user_answers.filter(ans => ans && ans.is_correct).length;
+        const total_len = this.questions_list.length;
+        this.score_val.textContent = `${score} / ${total_len}`;
+
+        // Deactivates active markers on circular nodes
+        const nodes = this.sidebar_grid.querySelectorAll(".node-button");
+        nodes.forEach(n => n.classList.remove("active"));
+      }
+
+      /**
+       * Shuffles indices randomly and re-evaluates.
+       * Returns:
+       * void
+       */
+      shuffleQuestions() {
+        const shuffled = [...this.original_order];
+        for (let idx = shuffled.length - 1; idx > 0; idx--) {
+          const rand_idx = Math.floor(Math.random() * (idx + 1));
+          [shuffled[idx], shuffled[rand_idx]] = [shuffled[rand_idx], shuffled[idx]];
+        }
+        this.loadQuestions(shuffled);
+        this.initQuiz();
+      }
+
+      /**
+       * Restores sequencing to setup order.
+       * Args:
+       * keep_order (boolean): Directs ordering state.
+       * Returns:
+       * void
+       */
+      resetQuiz(keep_order) {
+        if (keep_order) {
+          // Re-shuffles active questions structure
+          const current_seq = this.questions_list.map(q => {
+            return this.original_order.find(o => o.question === q.question);
+          });
+          this.loadQuestions(current_seq);
+        } else {
+          this.loadQuestions(this.original_order);
+        }
+        this.initQuiz();
+      }
+    }
+
+    // Instantiates Manager on load
+    document.addEventListener("DOMContentLoaded", () => {
+      const controller = new QuizManager(quiz_questions);
+      controller.initQuiz();
+    });
+  </script>
+</body>
+</html>
