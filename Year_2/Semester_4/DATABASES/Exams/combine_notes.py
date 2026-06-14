@@ -18,7 +18,7 @@ def combineMarkdownFiles(output_path: str) -> None:
     with open(output_path, "w", encoding="utf-8") as out_file:
         for i in range(1, 9):
             # Locates files prefix-matched with the current index to ensure ordered processing.
-            pattern = f"topic_{i}_*.md"
+            pattern = f"Practice_Exam_{i}_*.md"
             matched_files = glob.glob(pattern)
 
             if not matched_files:
