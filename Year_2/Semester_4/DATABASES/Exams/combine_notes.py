@@ -43,5 +43,5 @@ def combineMarkdownFiles(output_path: str) -> None:
 
 if __name__ == "__main__":
     # Establishes the default destination file name for the combined markdown results.
-    combined_output = "all_notes.md"
+    combined_output = "all_exams.md"
     combineMarkdownFiles(combined_output)
