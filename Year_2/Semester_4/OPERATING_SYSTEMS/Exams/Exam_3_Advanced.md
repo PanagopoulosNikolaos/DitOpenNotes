@@ -1,6 +1,5 @@
 # Exam 3: Advanced Permissions and System Logic
 
-This exam tests your understanding of edge cases, destructive commands, and complex permission modifications.
 
 ***
 

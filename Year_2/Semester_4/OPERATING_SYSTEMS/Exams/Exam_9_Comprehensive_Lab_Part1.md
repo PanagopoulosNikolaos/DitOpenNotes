@@ -1,6 +1,5 @@
 # Exam 9: Comprehensive Lab Part 1 - Navigation and Operations
 
-This exam simulates a full laboratory assessment, focusing on file navigation, directory manipulation, and basic commands.
 
 ***
 

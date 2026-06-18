@@ -1,6 +1,5 @@
 # Exam 10: Comprehensive Lab Part 2 - Analysis and Permissions
 
-This exam continues the comprehensive assessment, focusing on text processing, permissions analysis, and pattern matching.
 
 ***
 

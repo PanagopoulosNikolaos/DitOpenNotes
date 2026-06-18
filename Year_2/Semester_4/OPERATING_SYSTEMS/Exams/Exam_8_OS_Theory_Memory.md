@@ -1,7 +1,5 @@
 # Exam 8: OS Theory - Memory Management
 
-This theoretical exam covers memory management, specifically focusing on virtual memory, paging, and logical address translation.
-
 ***
 
 ## Questions

@@ -1,6 +1,5 @@
 # Exam 2: Intermediate File Management and Permission Scenarios
 
-This exam increases the difficulty by combining flags and requiring a deeper understanding of how directory permissions differ from file permissions.
 
 ***
 

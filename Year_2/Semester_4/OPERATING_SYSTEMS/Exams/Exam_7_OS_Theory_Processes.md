@@ -1,7 +1,5 @@
 # Exam 7: OS Theory - Processes and Semaphores
 
-This theoretical exam evaluates your understanding of process states and synchronization mechanisms like semaphores.
-
 ***
 
 ## Questions

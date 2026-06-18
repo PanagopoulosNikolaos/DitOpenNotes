@@ -1,7 +1,5 @@
 # Exam 1: Terminal Basics & Introduction to Permissions
 
-Welcome to Exam 1. This test covers standard navigation, file operations, and the basics of UNIX permissions. 
-
 ***
 
 ## Questions

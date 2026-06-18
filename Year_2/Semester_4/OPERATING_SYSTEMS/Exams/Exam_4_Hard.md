@@ -1,6 +1,5 @@
 # Exam 4: Expert Challenge
 
-This final exam tests your knowledge of file creation masking, ownership changes, symbolic linking behavior, and deep troubleshooting. 
 
 ***
 

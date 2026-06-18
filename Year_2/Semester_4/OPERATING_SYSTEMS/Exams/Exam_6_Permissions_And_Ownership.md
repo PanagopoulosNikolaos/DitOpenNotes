@@ -1,7 +1,5 @@
 # Exam 6: Advanced Permissions and Ownership
 
-This exam tests your ability to interpret and manipulate file permissions using both symbolic and numeric notation, based on real exam scenarios.
-
 ***
 
 ## Questions

@@ -1,7 +1,5 @@
 # Exam 5: Wildcards and Command Piping
 
-This exam focuses on combining commands using pipes and utilizing wildcards for pattern matching, heavily inspired by past lab exams.
-
 ***
 
 ## Questions
