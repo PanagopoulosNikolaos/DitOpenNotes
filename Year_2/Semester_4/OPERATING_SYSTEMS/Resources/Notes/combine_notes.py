@@ -16,6 +16,33 @@ def combineMarkdownFiles(output_path: str) -> None:
     """
     # Opens the file in write mode to initialize a clean, empty output document.
     with open(output_path, "w", encoding="utf-8") as out_file:
+        for i in range(1, 10):
+            # Locates files prefix-matched with the current index to ensure ordered processing.
+            pattern = f"OS_Lec{i:02d}_NOTES.md"
+            matched_files = glob.glob(pattern)
+
+            if not matched_files:
+                print("No files found for index " + str(i))
+                continue
+
+            # Selects the first matched file under the assumption of unique indexing.
+            file_path = matched_files[0]
+            file_name = os.path.basename(file_path)
+
+            # Appends the formatted file name header to demarcate document sections.
+            out_file.write(f"---\n# {file_name}\n---\n\n")
+            print("Appended " + file_name + " to " + output_path)
+
+            # Transfers the entire source document content into the merged destination.
+            with open(file_path, "r", encoding="utf-8") as in_file:
+                content = in_file.read()
+                out_file.write(content)
+                # Appends trailing newlines to prevent formatting overlap between topics.
+                if not content.endswith("\n"):
+                    out_file.write("\n")
+                out_file.write("\n")
+
+
         for i in range(1, 8):
             # Locates files prefix-matched with the current index to ensure ordered processing.
             pattern = f"{i}_*.md"
@@ -42,31 +69,7 @@ def combineMarkdownFiles(output_path: str) -> None:
                     out_file.write("\n")
                 out_file.write("\n")
 
-        for i in range(1, 10):
-            # Locates files prefix-matched with the current index to ensure ordered processing.
-            pattern = f"OS_Lec{i:02d}_NOTES.md"
-            matched_files = glob.glob(pattern)
-
-            if not matched_files:
-                print("No files found for index " + str(i))
-                continue
-
-            # Selects the first matched file under the assumption of unique indexing.
-            file_path = matched_files[0]
-            file_name = os.path.basename(file_path)
-
-            # Appends the formatted file name header to demarcate document sections.
-            out_file.write(f"---\n# {file_name}\n---\n\n")
-            print("Appended " + file_name + " to " + output_path)
-
-            # Transfers the entire source document content into the merged destination.
-            with open(file_path, "r", encoding="utf-8") as in_file:
-                content = in_file.read()
-                out_file.write(content)
-                # Appends trailing newlines to prevent formatting overlap between topics.
-                if not content.endswith("\n"):
-                    out_file.write("\n")
-                out_file.write("\n")
+        
 
 if __name__ == "__main__":
     # Establishes the default destination file name for the combined markdown results.

@@ -1,1108 +1,4 @@
 ---
-# 1_Introduction_to_UNIX.md
----
-
-# 1. Introduction to UNIX and Linux Terminal Basics
-
-***
-
-## What is an Operating System?
-
-An Operating System (OS) is the foundational software layer that manages all hardware and software resources of a computer. Without an OS, computers are unusable by standard applications and end-users. It handles CPU scheduling, memory management, file systems, and peripheral devices.
-
-Common operating systems include Windows, macOS, UNIX, and Linux distributions.
-
-***
-
-## History and Philosophy of UNIX
-
-| Year | Event |
-|------|-------|
-| 1969 | Created by Kenneth Thompson at Bell Labs, written in PDP-7 assembly (initially single-user). |
-| 1971 | Rewritten in PDP-11 assembly. |
-| 1973 | Rewritten entirely in the C programming language by Dennis Ritchie at Bell Labs. This transition made it multi-user and highly portable. |
-| 1984 | Standardization efforts began to ensure portability across various hardware architectures. |
-
-**UNIX Philosophy Highlights:**
-- **Everything is a file:** From regular text files to directories, keyboards, and network connections, UNIX treats almost all resources as files.
-- **Do one thing and do it well:** Programs are designed to be small, modular, and focused on a single task.
-- **Chaining programs:** Complex tasks are accomplished by combining simple programs together.
-
-***
-
-## UNIX and Linux Distributions
-
-UNIX evolved into numerous commercial and open-source variants:
-- **Commercial UNIX:** Solaris (Sun Microsystems), AIX (IBM), HP/UX (Hewlett-Packard).
-- **Free/Open Source:** Linux (originally created by Linus Torvalds), FreeBSD.
-- **JSLinux / Lightweight Terminals:** Environments like JSLinux run a minimal Linux kernel (often using BusyBox) directly in a web browser, providing a lightweight sandbox for learning terminal basics without local installation.
-
-***
-
-## UNIX Core Features
-
-- **Multi-User / Time Sharing:** Multiple users can access the system simultaneously, sharing the CPU and memory.
-- **Multi-Tasking:** Each user can run multiple programs concurrently.
-- **User Accounts:** Every user has a dedicated account, ensuring security and isolation of file spaces.
-- **Networking:** Built from the ground up with networking in mind, allowing remote access and resource sharing.
-
-***
-
-## User Account Properties
-
-When you interact with a Linux terminal, you do so under a specific user account.
-
-| Property | Description |
-|----------|-------------|
-| `username` | The identifier used to log in. |
-| `password` | The secret authentication key (stored in encrypted format, usually in `/etc/shadow`). |
-| `userid` (UID) | A unique integer representing the user internally. Root is always `0`. |
-| `groupid` (GID) | An integer identifying the user's primary group, used for resource access control. |
-| `home directory` | The dedicated directory where the user stores personal files (e.g., `/home/username`). |
-| `shell` | The command-line interpreter that processes your commands (e.g., `/bin/bash`, `/bin/sh`). |
-
-***
-
-## The Filesystem Structure
-
-The UNIX filesystem is organized as a hierarchical tree. The absolute top of this tree is the **root directory**, represented by a single forward slash `/`.
-
-```text
-/
-├── bin/      (Essential command binaries)
-├── etc/      (System configuration files)
-├── home/     (User home directories)
-│   ├── fred/
-│   ├── sue/
-│   └── user1/
-├── root/     (Home directory for the root superuser)
-└── tmp/      (Temporary files)
-```
-
-***
-
-## Login, Logout, and the Shell
-
-### The Login Process
-
-When you connect to a UNIX system, you are prompted for your credentials.
-
-```sh
-login: user1
-Password: 
-```
-
-- Passwords are **case-sensitive** and are **never echoed** to the screen for security reasons.
-- Upon successful authentication, the system sets your current working directory to your home directory and launches your default **shell**.
-
-### The Shell Prompt
-
-The shell indicates it is ready to accept commands by displaying a prompt.
-- `$` usually denotes a standard user.
-- `#` usually denotes the root user (superuser).
-
-### Logout
-
-To terminate your session, use any of the following methods:
-
-```sh
-exit
-```
-```sh
-logout
-```
-Alternatively, press `Ctrl + D` (which sends an End-of-File signal to the shell).
-
-***
-
-## Basic Terminal Commands
-
-### `passwd` — Change Password
-
-Changes the password for the current user. Root users can change any user's password by supplying the username as an argument.
-
-```sh
-passwd
-```
-
-**Interactive Flow:**
-```text
-Changing password for user1.
-(current) UNIX password: 
-Enter new UNIX password: 
-Retype new UNIX password: 
-passwd: password updated successfully
-```
-
-### `date` — Display Date and Time
-
-Outputs the current system date and time.
-
-```sh
-date
-```
-```text
-Thu Oct 24 10:00:00 UTC 2024
-```
-
-**Custom Formatting:**
-```sh
-date +"%Y-%m-%d %H:%M:%S"
-```
-
-### `cal` — Display Calendar
-
-Displays a formatted calendar.
-
-```sh
-cal               # Shows the current month
-cal 2024          # Shows the entire year 2024
-cal 5 2024        # Shows May 2024
-```
-
-### `who` and `whoami` — User Information
-
-Identify who is currently logged into the system.
-
-```sh
-who
-```
-Displays a list of all currently logged-in users, their terminal line, and login time.
-
-```sh
-whoami
-```
-Displays only the username associated with the current effective user ID.
-
-```sh
-who am i
-```
-Displays details specifically for the current terminal session.
-
-***
-
-## Lab Environment Note: QEMU / JSLinux
-
-If you are using a virtualized environment like QEMU or a browser-based emulator like JSLinux:
-- You are typically interacting with a minimal command-line interface.
-- You may start out automatically logged in as `root` or a generic user.
-- To shut down a virtual machine safely from the command line, use the `halt`, `poweroff`, or `shutdown -h now` commands (requires root privileges).
-
----
-# 2_UNIX_File_System_Navigation.md
----
-
-# 2. UNIX File System Navigation
-
-***
-
-## Understanding the File System
-
-The file system is the component of the operating system responsible for organizing, storing, and retrieving files. In UNIX and Linux, the file system is strictly hierarchical (tree-shaped), with all files and directories stemming from a single origin.
-
-***
-
-## Unix File Types
-
-While UNIX adheres to the philosophy that "everything is a file," it distinguishes between several file types:
-
-- **Regular Files (`-`):** Standard files containing data, text, or executable code.
-- **Directories (`d`):** Special files that contain lists of other files and directories.
-- **Symbolic Links (`l`):** Pointers to other files or directories.
-- **Special Files (`c` or `b`):** Represent hardware devices (e.g., terminals, hard drives) usually found in `/dev`.
-- **Pipes and Sockets (`p` or `s`):** Used for inter-process communication.
-
-***
-
-## The Hierarchy and Important Directories
-
-The top level of the hierarchy is the **root directory**, represented by `/`. 
-
-| Directory | Common Contents |
-|-----------|-----------------|
-| `/` | The absolute root of the file system. |
-| `/bin` | Essential executable commands (e.g., `ls`, `cp`, `mkdir`). |
-| `/dev` | Device files representing hardware. |
-| `/etc` | System-wide configuration files. |
-| `/home` | User home directories (e.g., `/home/username`). |
-| `/tmp` | Temporary files, often cleared when the system reboots. |
-| `/var` | Variable data files, such as logs and databases. |
-| `/usr` | Secondary hierarchy for user data and read-only applications. |
-
-***
-
-## Pathnames: Absolute vs. Relative
-
-A pathname is the string of characters used to identify a location in the directory tree. Understanding the difference between absolute and relative pathnames is critical for navigation.
-
-### Absolute Pathnames
-
-An absolute path always defines the location starting from the root directory (`/`). It is a complete path that will work regardless of your current working directory.
-
-**Characteristics:**
-- Always begins with a forward slash `/`.
-- Uniquely identifies a single file or directory.
-
-**Examples:**
-```sh
-/home/user1/documents/report.txt
-/etc/ssh/sshd_config
-/var/log/syslog
-```
-
-### Relative Pathnames
-
-A relative path defines the location starting from your **Current Working Directory (CWD)**. It is relative to where you currently are in the file system.
-
-**Characteristics:**
-- Never begins with a forward slash `/`.
-- Can be shorter and more convenient.
-
-**Special Navigational Symbols:**
-| Symbol | Meaning |
-|--------|---------|
-| `.` | The current directory. |
-| `..` | The parent directory (one level up). |
-| `~` | The current user's home directory. |
-
-**Examples (Assuming CWD is `/home/user1/`):**
-```sh
-documents/report.txt     # Refers to /home/user1/documents/report.txt
-./documents/report.txt   # Identical to the above
-../user2/file.txt        # Refers to /home/user2/file.txt
-../../etc/passwd         # Refers to /etc/passwd
-```
-
-***
-
-## Navigation Commands
-
-### `pwd` — Print Working Directory
-
-Displays the absolute pathname of your current location in the file system.
-
-```sh
-pwd
-```
-```text
-/home/user1/documents
-```
-
-### `cd` — Change Directory
-
-Changes your current working directory. It accepts both absolute and relative paths.
-
-**Syntax:**
-```sh
-cd <path>
-```
-
-**Common Usage Patterns:**
-| Command | Action |
-|---------|--------|
-| `cd /etc` | Move to `/etc` (Absolute path). |
-| `cd documents` | Move to `documents` within the current directory (Relative path). |
-| `cd ..` | Move up one directory level. |
-| `cd ../..` | Move up two directory levels. |
-| `cd ~` or `cd` | Return immediately to your home directory. |
-| `cd -` | Return to the previous directory you were in. |
-
-***
-
-## Directory Management Commands
-
-### `mkdir` — Make Directory
-
-Creates one or more new directories.
-
-**Syntax:**
-```sh
-mkdir <directory_name>
-```
-
-**Examples:**
-```sh
-mkdir projects           # Creates 'projects' in the current directory
-mkdir /tmp/testdir       # Creates 'testdir' in /tmp using an absolute path
-```
-
-**Creating Nested Directories:**
-If you attempt to create a directory inside a parent that does not exist, `mkdir` will fail. Use the `-p` (parents) flag to create the entire path structure at once.
-
-```sh
-mkdir -p projects/python/scripts
-```
-This command ensures that `projects`, `python`, and `scripts` are all created without errors.
-
-### `rmdir` — Remove Directory
-
-Removes empty directories.
-
-**Syntax:**
-```sh
-rmdir <directory_name>
-```
-
-**Important Caveat:**
-`rmdir` will only succeed if the target directory contains absolutely no files or subdirectories. If the directory is not empty, you will receive an error:
-```text
-rmdir: failed to remove 'projects': Directory not empty
-```
-To remove a directory and all of its contents simultaneously, you must use the `rm` command with recursive flags (covered in the next section).
-
-***
-
-## Summary of Navigation Workflow
-
-1. Use `pwd` to confirm where you are.
-2. Use `cd` to move around the system.
-3. Use `mkdir` to create new organizational folders.
-4. Remember to use `.` and `..` to reference relative locations quickly without typing long absolute paths.
-
----
-# 3_UNIX_File_and_Directory_Management.md
----
-
-# 3. UNIX File and Directory Management
-
-***
-
-## File and Directory Deletion
-
-### `rm` — Remove Files and Directories
-
-The `rm` command deletes files permanently. Unlike modern graphical desktop environments, the UNIX terminal does not have a "Recycle Bin." Once a file is removed with `rm`, it is generally unrecoverable.
-
-**Syntax:**
-```sh
-rm <file_name>
-```
-
-**Common Flags:**
-
-| Flag | Description |
-|------|-------------|
-| `-i` | Interactive mode. Prompts for confirmation before deleting each file. |
-| `-r` or `-R` | Recursive mode. Required to delete directories and their contents. |
-| `-f` | Force mode. Ignores nonexistent files and never prompts for confirmation. Use with extreme caution. |
-
-**Examples:**
-
-```sh
-rm report.txt              # Deletes a single file silently
-rm -i important_data.csv   # Asks for confirmation before deletion
-```
-```text
-rm: remove regular file 'important_data.csv'? y
-```
-
-**Deleting Directories:**
-To delete a directory that contains files, you cannot use `rmdir`. You must use `rm -r`.
-
-```sh
-rm -r old_project/         # Deletes the directory and everything inside it
-rm -ri old_project/        # Deletes recursively, but asks for confirmation at each step
-```
-
-**Warning:** Running `rm -rf /` is catastrophically destructive as it attempts to forcefully delete the entire file system starting from the root directory. Never run this command.
-
-***
-
-## Copying Files and Directories
-
-### `cp` — Copy
-
-The `cp` command duplicates files or directories from a source to a destination.
-
-**Syntax:**
-```sh
-cp <source> <destination>
-```
-
-**Common Flags:**
-
-| Flag | Description |
-|------|-------------|
-| `-r` or `-R` | Recursive mode. Required when copying directories. |
-| `-i` | Interactive mode. Prompts before overwriting an existing file at the destination. |
-| `-v` | Verbose mode. Prints the name of each file as it is copied. |
-
-**Usage Scenarios:**
-
-1. **Copying a single file to a new name:**
-   ```sh
-   cp original.txt backup.txt
-   ```
-
-2. **Copying a file into another directory:**
-   ```sh
-   cp original.txt /tmp/
-   ```
-
-3. **Copying multiple files into a directory:**
-   ```sh
-   cp file1.txt file2.txt /backup_dir/
-   ```
-
-4. **Copying an entire directory:**
-   ```sh
-   cp -r project_source/ project_backup/
-   ```
-
-**Overwriting Files:**
-If a file with the target name already exists at the destination, `cp` will silently overwrite it by default. Using the `-i` flag prevents accidental data loss.
-
-***
-
-## Moving and Renaming
-
-### `mv` — Move / Rename
-
-The `mv` command is used for two distinct operations: moving files from one location to another, and renaming files. It does not require a recursive flag for directories.
-
-**Syntax:**
-```sh
-mv <source> <destination>
-```
-
-**Usage Scenarios:**
-
-1. **Renaming a file (moving it within the same directory):**
-   ```sh
-   mv old_name.txt new_name.txt
-   ```
-
-2. **Moving a file to another directory:**
-   ```sh
-   mv data.csv /home/user/archives/
-   ```
-
-3. **Moving and renaming simultaneously:**
-   ```sh
-   mv /tmp/download.zip /home/user/software_v2.zip
-   ```
-
-4. **Moving a directory:**
-   ```sh
-   mv my_project/ /var/www/html/
-   ```
-
-***
-
-## Listing Directory Contents
-
-### `ls` — List
-
-The `ls` command displays the contents of a directory. By default, it lists files in the current working directory in alphabetical order.
-
-**Syntax:**
-```sh
-ls [options] [directory]
-```
-
-**Common Flags:**
-
-| Flag | Description |
-|------|-------------|
-| `-l` | Long listing format. Displays permissions, ownership, size, and timestamps. |
-| `-a` | Show all files, including hidden files (those starting with a dot `.`). |
-| `-h` | Human-readable file sizes (e.g., 1K, 234M, 2G). Often used with `-l`. |
-| `-R` | Recursive listing. Lists the contents of all subdirectories. |
-| `-t` | Sort by modification time, newest first. |
-
-**Understanding `ls -l` Output:**
-
-Running `ls -l` produces a detailed output row for each file:
-
-```text
--rw-r--r-- 1 user group 1024 Oct 24 10:00 document.txt
-drwxr-xr-x 2 user group 4096 Oct 24 10:05 my_folder
-```
-
-**Field Breakdown:**
-1. **Type and Permissions:** The first 10 characters (e.g., `-rw-r--r--` or `drwxr-xr-x`). The first character indicates the file type (`-` for file, `d` for directory). The next 9 characters represent read, write, and execute permissions.
-2. **Hard Links:** The number of hard links pointing to the inode.
-3. **Owner:** The user who owns the file.
-4. **Group:** The group that owns the file.
-5. **Size:** The file size in bytes.
-6. **Modification Date:** The date and time the file was last modified.
-7. **Name:** The file or directory name.
-
-**Combining Flags:**
-Flags can be combined to form powerful commands.
-```sh
-ls -la       # Long listing, including hidden files
-ls -lh       # Long listing with human-readable file sizes
-ls -lt       # Long listing sorted by newest modification time
-```
-
----
-# 4_UNIX_Access_Permissions.md
----
-
-# 4. UNIX Access Permissions
-
-***
-
-## The Permission Model
-
-UNIX is a multi-user operating system. To maintain security and privacy, every file and directory is protected by a set of permissions that dictate who can read, modify, or execute them.
-
-Permissions are categorized into three ownership tiers:
-
-1. **User (Owner - `u`):** The account that owns the file (usually the creator).
-2. **Group (`g`):** A defined collection of users who share access rights to the file.
-3. **Other (`o`):** Everyone else on the system who is not the owner and not in the group.
-
-For each of these tiers, three types of permissions can be granted:
-
-| Permission | Symbol | Value | Meaning on a File | Meaning on a Directory |
-|------------|--------|-------|-------------------|------------------------|
-| **Read** | `r` | 4 | View file contents. | List the files inside the directory (`ls`). |
-| **Write** | `w` | 2 | Modify or delete file contents. | Create, delete, or rename files inside the directory. |
-| **Execute**| `x` | 1 | Run the file as a program or script. | Traverse the directory (access files within it). |
-
-***
-
-## Interpreting Permission Strings
-
-When you run `ls -l`, the first column displays a 10-character string representing the file type and permissions.
-
-```text
--rwxr-x--- 1 user1 staff  1024 Oct 24 file.txt
-drwxr-xr-x 2 user1 staff  4096 Oct 24 folder/
-```
-
-**Deconstructing `-rwxr-x---`:**
-- `[` `-` `]` Type: Regular file.
-- `[` `rwx` `]` User (Owner): Has Read, Write, and Execute permissions.
-- `[` `r-x` `]` Group: Has Read and Execute permissions, but cannot Write (modify).
-- `[` `---` `]` Other: Has no access whatsoever.
-
-***
-
-## Directories: The `Execute` Bit
-
-A common point of confusion is how permissions apply to directories.
-
-- To use `cd` to enter a directory, you **must** have Execute (`x`) permission on it.
-- To see the names of files inside a directory (using `ls`), you need Read (`r`) permission.
-- However, to read the attributes of the files inside (using `ls -l`), you need **both** Read and Execute permissions on the directory.
-- To create or delete a file inside a directory, you need Write (`w`) and Execute (`x`) permissions on the directory, regardless of the permissions of the file itself.
-
-***
-
-## Modifying Permissions: `chmod`
-
-The `chmod` (change mode) command is used to alter permissions. Only the file owner or the `root` user can change a file's permissions.
-
-There are two primary methods to use `chmod`: Numeric (Octal) and Symbolic.
-
-### Method 1: Numeric (Octal) Notation
-
-This method uses numbers to represent permission sets. You sum the values of the permissions you want to grant for each tier.
-- Read = 4
-- Write = 2
-- Execute = 1
-
-**Examples:**
-- `rwx` = 4 + 2 + 1 = **7**
-- `rw-` = 4 + 2 + 0 = **6**
-- `r-x` = 4 + 0 + 1 = **5**
-- `r--` = 4 + 0 + 0 = **4**
-
-You construct a 3-digit number representing User, Group, and Other:
-
-```sh
-chmod 755 script.sh
-```
-*Sets `rwxr-xr-x`. Owner can do everything; Group and Other can read and execute.*
-
-```sh
-chmod 644 document.txt
-```
-*Sets `rw-r--r--`. Owner can read/write; Group and Other can only read. (Standard file permission)*
-
-```sh
-chmod 700 private_folder/
-```
-*Sets `rwx------`. Only the owner has access. (Standard for private directories)*
-
-### Method 2: Symbolic Notation
-
-This method uses letters to selectively add or remove permissions without affecting others.
-
-**Syntax:** `chmod [who][operator][permission] file`
-
-- **Who:** `u` (user), `g` (group), `o` (other), `a` (all)
-- **Operator:** `+` (add), `-` (remove), `=` (set exactly)
-- **Permission:** `r`, `w`, `x`
-
-**Examples:**
-
-```sh
-chmod u+x script.sh         # Add execute permission for the owner
-chmod go-w file.txt         # Remove write permission for group and others
-chmod a+r public.txt        # Add read permission for everyone
-chmod g=rx shared_dir/      # Set group permission exactly to read and execute
-chmod u=rwx,g=rx,o=r file   # Set multiple permissions separated by commas
-```
-
-***
-
-## Ownership Commands
-
-### `chown` — Change Owner
-
-Changes the user ownership of a file or directory.
-
-```sh
-chown user2 report.txt              # Change owner to user2
-chown user2:finance report.txt      # Change owner to user2 and group to finance
-chown -R user2 project_dir/         # Recursively change ownership for a directory
-```
-
-### `chgrp` — Change Group
-
-Changes only the group ownership of a file or directory.
-
-```sh
-chgrp finance report.txt
-```
-
-*(Note: In most Linux systems, including JSLinux, changing ownership usually requires `root` privileges via `sudo` or logging in as root.)*
-
-***
-
-## Default Permissions: `umask`
-
-When you create a new file or directory, the system assigns default permissions based on the `umask` (user file-creation mode mask).
-
-The default maximum permissions are `666` for files and `777` for directories. The `umask` value is *subtracted* from these maximums.
-
-If your `umask` is `022`:
-- New files will have `666 - 022 = 644` (`rw-r--r--`).
-- New directories will have `777 - 022 = 755` (`rwxr-xr-x`).
-
-You can check or set your umask:
-```sh
-umask        # Displays current umask (e.g., 0022)
-umask 027    # Sets new umask, resulting in files (640) and dirs (750)
-```
-
----
-# 5_UNIX_File_Viewing_and_Linking.md
----
-
-# 5. UNIX File Viewing and Linking
-
-***
-
-## Viewing File Contents
-
-### `cat` — Concatenate and Print
-
-The `cat` command is primarily used to display the entire contents of a file on the terminal screen.
-
-**Syntax:**
-```sh
-cat <file_name>
-cat file1 file2       # Displays the contents of file1 followed immediately by file2
-```
-
-**Common Flags:**
-- `-n`: Numbers all output lines.
-- `-A`: Displays non-printable characters (e.g., ends of lines as `$`, tabs as `^I`).
-
-*(Note: `cat` is not ideal for very large files because it prints everything at once, causing the text to scroll by too quickly to read. For large files, pagers like `less` or `more` are preferred.)*
-
-### `less` and `more` — Pagers
-
-Pagers allow you to view the contents of a file one screen at a time.
-
-```sh
-less large_log.txt
-```
-**Navigation in `less`:**
-- `Spacebar` or `Page Down`: Scroll down one screen.
-- `b` or `Page Up`: Scroll up one screen.
-- `Down Arrow` / `Up Arrow`: Scroll line by line.
-- `q`: Quit and return to the prompt.
-- `/pattern`: Search forward for a specific word or pattern.
-
-### `head` — View the Beginning of a File
-
-Displays the first few lines of a file (default is 10 lines).
-
-**Syntax:**
-```sh
-head <file_name>
-head -n 20 <file_name>    # Displays the first 20 lines
-head -c 50 <file_name>    # Displays the first 50 bytes/characters
-```
-
-### `tail` — View the End of a File
-
-Displays the last few lines of a file (default is 10 lines).
-
-**Syntax:**
-```sh
-tail <file_name>
-tail -n 15 <file_name>    # Displays the last 15 lines
-```
-
-**Following a file:**
-The `-f` (follow) flag is incredibly useful for monitoring log files. It keeps the file open and displays new lines as they are appended in real-time.
-```sh
-tail -f /var/log/syslog
-```
-*(Press `Ctrl + C` to stop following the file.)*
-
-***
-
-## File Analysis Commands
-
-### `wc` — Word Count
-
-Counts the number of lines, words, and characters in a file.
-
-**Syntax:**
-```sh
-wc <file_name>
-```
-
-**Output example:**
-```text
-  45  130  850 report.txt
-```
-*(Represents 45 lines, 130 words, 850 characters)*
-
-**Common Flags:**
-- `-l`: Print only the line count.
-- `-w`: Print only the word count.
-- `-c`: Print only the byte/character count.
-
-### `sort` — Sort Lines of Text
-
-Sorts the contents of a text file line by line. By default, it sorts in lexicographical (alphabetical) ascending order.
-
-**Syntax:**
-```sh
-sort data.txt
-```
-
-**Common Flags:**
-- `-r`: Reverse the sorting order (descending).
-- `-n`: Sort numerically rather than alphabetically (e.g., treats "10" as greater than "2").
-- `-u`: Unique. Removes duplicate lines from the output.
-
-***
-
-## Linking Files
-
-UNIX allows you to create links to files. A link is essentially a pointer or an alias to an existing file. There are two types: Hard Links and Symbolic (Soft) Links.
-
-### Symbolic Links (Soft Links)
-
-A symbolic link is a special type of file that simply contains the path to another file. If you delete the original file, the symbolic link becomes "broken" or "dangling."
-
-**Creating a Symbolic Link:**
-```sh
-ln -s <target_file> <link_name>
-```
-
-**Examples:**
-```sh
-ln -s /etc/nginx/sites-available/myapp.conf /etc/nginx/sites-enabled/myapp.conf
-```
-*(Creates a symlink in `sites-enabled` pointing to the actual configuration file.)*
-
-When you run `ls -l`, symbolic links are indicated by an `l` in the permissions string and an arrow `->` pointing to the target:
-```text
-lrwxrwxrwx 1 user user 35 Oct 24 10:00 myapp.conf -> /etc/nginx/sites-available/myapp.conf
-```
-
-### Hard Links
-
-A hard link creates a direct pointer to the underlying data (inode) on the hard drive. The system treats a hard link identically to the original file. If you delete the original file, the data remains accessible via the hard link until all hard links to that data are deleted.
-
-**Creating a Hard Link:**
-```sh
-ln <target_file> <link_name>
-```
-
-**Differences between Hard and Soft Links:**
-- Hard links cannot cross different file systems or partitions; soft links can.
-- Hard links cannot point to directories; soft links can.
-- Soft links are far more common in everyday UNIX usage.
-
----
-# 6_UNIX_IO_Redirection_and_Pipes.md
----
-
-# 6. UNIX I/O Redirection and Pipes
-
-***
-
-## Standard I/O Streams
-
-In UNIX, every command-line program automatically opens three standard streams (files) when it runs:
-
-| Stream Name | File Descriptor | Default Device | Purpose |
-|-------------|-----------------|----------------|---------|
-| **Standard Input (`stdin`)** | 0 | Keyboard | Where the program reads input from. |
-| **Standard Output (`stdout`)**| 1 | Terminal Screen | Where the program sends its normal output. |
-| **Standard Error (`stderr`)** | 2 | Terminal Screen | Where the program sends error and diagnostic messages. |
-
-I/O Redirection allows you to detach these streams from their default devices and connect them to files or other programs.
-
-***
-
-## Output Redirection
-
-### Overwrite Output (`>`)
-
-Redirects `stdout` to a file. If the file does not exist, it is created. **If the file already exists, it is completely overwritten.**
-
-**Syntax:**
-```sh
-command > filename
-```
-
-**Examples:**
-```sh
-echo "Hello, World!" > greeting.txt
-ls -l > directory_listing.txt
-```
-*(The output is not printed to the screen; it goes directly into the file.)*
-
-### Append Output (`>>`)
-
-Redirects `stdout` to a file. **If the file exists, the new output is appended to the end of the file.** It does not overwrite the existing contents.
-
-**Syntax:**
-```sh
-command >> filename
-```
-
-**Example:**
-```sh
-echo "New line of text" >> greeting.txt
-```
-
-***
-
-## Error Redirection
-
-By default, error messages bypass standard output redirection and still print to the screen. To capture errors in a file, you must redirect `stderr` specifically.
-
-### Redirect `stderr` (`2>`)
-
-**Syntax:**
-```sh
-command 2> error_log.txt
-```
-
-**Example:**
-```sh
-ls /nonexistent_directory 2> errors.txt
-```
-
-### Redirect both `stdout` and `stderr`
-
-You can redirect both streams to the same file.
-
-**Syntax:**
-```sh
-command > output_and_errors.txt 2>&1
-```
-*(This tells the shell to send descriptor 2 to wherever descriptor 1 is currently pointing.)*
-
-Modern bash shells also support a shorthand for this:
-```sh
-command &> output_and_errors.txt
-```
-
-***
-
-## Input Redirection
-
-### Redirect `stdin` (`<`)
-
-Feeds the contents of a file into a command as if it were typed on the keyboard.
-
-**Syntax:**
-```sh
-command < input_file
-```
-
-**Example:**
-```sh
-wc -l < data.txt
-```
-*(Counts the lines in `data.txt`. Note: Unlike `wc -l data.txt`, using input redirection will only output the number, without printing the filename.)*
-
-***
-
-## Pipes (`|`)
-
-Pipes are one of the most powerful features in UNIX. A pipe connects the `stdout` of one command directly to the `stdin` of another command. This allows you to chain small programs together to perform complex tasks without creating temporary files.
-
-**Syntax:**
-```sh
-command1 | command2 | command3
-```
-
-**How it works:**
-The output of `command1` becomes the input for `command2`. The output of `command2` becomes the input for `command3`. Only the final output is printed to the screen.
-
-**Examples:**
-
-1. **Viewing long output:**
-   ```sh
-   ls -l /etc | less
-   ```
-   *(Passes the long directory listing into `less` for easier scrolling.)*
-
-2. **Counting files in a directory:**
-   ```sh
-   ls -1 | wc -l
-   ```
-   *(Lists files one per line, then passes that list to `wc -l` to count the lines.)*
-
-3. **Finding specific processes:**
-   ```sh
-   ps aux | grep "python"
-   ```
-   *(Lists all running processes, then filters that list to show only lines containing "python".)*
-
-4. **Complex chaining:**
-   ```sh
-   cat access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
-   ```
-   *(Reads a web server log, extracts IP addresses, sorts them, counts unique occurrences, sorts by highest count, and shows the top 10.)*
-
----
-# 7_UNIX_Wildcards_and_Glob_Patterns.md
----
-
-# 7. UNIX Wildcards and Glob Patterns
-
-***
-
-## What are Wildcards (Globbing)?
-
-Wildcards are special characters used in the terminal to match multiple filenames or directories simultaneously based on a pattern. The process of expanding these patterns into actual filenames is called "globbing," and it is performed by the shell *before* the command executes.
-
-Using wildcards makes file management highly efficient, saving you from typing long lists of files manually.
-
-***
-
-## The Primary Wildcards
-
-### The Asterisk (`*`) — Zero or More Characters
-
-The asterisk is the most common wildcard. It matches any sequence of characters, including an empty string (zero characters).
-
-**Examples:**
-
-| Command | Matches | Does Not Match |
-|---------|---------|----------------|
-| `ls *.txt` | All files ending in `.txt` (e.g., `report.txt`, `data.txt`). | `report.csv`, `script.sh` |
-| `rm doc*` | Any file starting with `doc` (e.g., `doc1`, `document.pdf`, `doc`). | `mydoc.txt` |
-| `cp *backup* /tmp/` | Any file containing the word `backup` anywhere in its name. | `back_up.zip` |
-| `ls *` | All visible files and directories in the current folder. | Hidden files (e.g., `.bashrc`) |
-
-### The Question Mark (`?`) — Exactly One Character
-
-The question mark matches exactly one character. It will not match zero characters or multiple characters.
-
-**Examples:**
-
-| Command | Matches | Does Not Match |
-|---------|---------|----------------|
-| `ls file?.txt` | `file1.txt`, `fileA.txt`, `file_.txt` | `file10.txt`, `file.txt` |
-| `rm ??-report` | `Q3-report`, `01-report` | `1-report`, `2024-report` |
-| `mv ??? archives/`| Any file with exactly 3 characters in its name. | `ab`, `abcd` |
-
-### Square Brackets (`[...]`) — Character Classes
-
-Square brackets define a set or range of characters. It matches exactly one character that is included within the brackets.
-
-**Examples:**
-
-| Command | Matches |
-|---------|---------|
-| `ls file[123].txt` | `file1.txt`, `file2.txt`, `file3.txt` |
-| `cat [a-z]*.log` | Any `.log` file starting with a lowercase letter. |
-| `rm [A-Z]*` | Any file starting with an uppercase letter. |
-| `mv [0-9][0-9]_data.csv /tmp/`| Files starting with exactly two digits (e.g., `14_data.csv`). |
-
-**Negation (`[!...]` or `[^...]`):**
-Placing an exclamation mark `!` (or a caret `^` in some shells) immediately inside the opening bracket negates the class, matching any character *except* those listed.
-
-```sh
-ls [!0-9]*
-```
-*(Matches any file that does **not** start with a number.)*
-
-***
-
-## Wildcard Exceptions and Gotchas
-
-### 1. Hidden Files
-By default, wildcards **do not** match hidden files (files starting with a dot `.`).
-
-If you run `rm *`, it deletes all visible files but leaves `.bashrc` and `.profile` intact. To match hidden files, you must explicitly include the dot in your pattern:
-```sh
-ls .*
-```
-
-### 2. Directory Separators
-Wildcards do not cross directory boundaries (the `/` character).
-The pattern `*/*.txt` matches `.txt` files located exactly one directory level down, but it will not match `.txt` files in the current directory or two levels down.
-
-***
-
-## Escaping Wildcards
-
-Sometimes you need to use a literal asterisk `*` or question mark `?` in a filename (though this is bad practice). To stop the shell from interpreting them as wildcards, you must escape or quote them.
-
-**Using a Backslash (`\`):**
-```sh
-rm file\*.txt
-```
-*(Deletes a file literally named `file*.txt`)*
-
-**Using Quotes:**
-```sh
-rm 'file*.txt'
-```
-*(Single quotes prevent all globbing and variable expansion.)*
-
-***
-
-## Practical Workflow Examples
-
-**1. Organizing a messy downloads folder:**
-```sh
-mv *.jpg *.png *.gif ~/Pictures/
-mv *.pdf *.doc *.docx ~/Documents/
-```
-
-**2. Cleaning up numbered logs, keeping only recent ones:**
-```sh
-rm log_file_2022_??.log
-```
-*(Deletes all monthly logs from 2022, e.g., `log_file_2022_01.log` to `log_file_2022_12.log`)*
-
-**3. Running a command on specific script versions:**
-```sh
-chmod +x script_v[2-5].sh
-```
-*(Makes versions 2, 3, 4, and 5 executable)*
-
----
 # OS_Lec01_NOTES.md
 ---
 
@@ -4805,4 +3701,1108 @@ If a quantum is larger than all burst times, RR = FCFS. Always check whether the
 
 **6. Exam pattern — comparative table questions:**
 Given a process set, you will almost always be asked to compute TAT and WT for 2–3 algorithms and compare their averages. Always draw the Gantt chart first; computing directly from tables is error-prone.
+
+---
+# 1_Introduction_to_UNIX.md
+---
+
+# 1. Introduction to UNIX and Linux Terminal Basics
+
+***
+
+## What is an Operating System?
+
+An Operating System (OS) is the foundational software layer that manages all hardware and software resources of a computer. Without an OS, computers are unusable by standard applications and end-users. It handles CPU scheduling, memory management, file systems, and peripheral devices.
+
+Common operating systems include Windows, macOS, UNIX, and Linux distributions.
+
+***
+
+## History and Philosophy of UNIX
+
+| Year | Event |
+|------|-------|
+| 1969 | Created by Kenneth Thompson at Bell Labs, written in PDP-7 assembly (initially single-user). |
+| 1971 | Rewritten in PDP-11 assembly. |
+| 1973 | Rewritten entirely in the C programming language by Dennis Ritchie at Bell Labs. This transition made it multi-user and highly portable. |
+| 1984 | Standardization efforts began to ensure portability across various hardware architectures. |
+
+**UNIX Philosophy Highlights:**
+- **Everything is a file:** From regular text files to directories, keyboards, and network connections, UNIX treats almost all resources as files.
+- **Do one thing and do it well:** Programs are designed to be small, modular, and focused on a single task.
+- **Chaining programs:** Complex tasks are accomplished by combining simple programs together.
+
+***
+
+## UNIX and Linux Distributions
+
+UNIX evolved into numerous commercial and open-source variants:
+- **Commercial UNIX:** Solaris (Sun Microsystems), AIX (IBM), HP/UX (Hewlett-Packard).
+- **Free/Open Source:** Linux (originally created by Linus Torvalds), FreeBSD.
+- **JSLinux / Lightweight Terminals:** Environments like JSLinux run a minimal Linux kernel (often using BusyBox) directly in a web browser, providing a lightweight sandbox for learning terminal basics without local installation.
+
+***
+
+## UNIX Core Features
+
+- **Multi-User / Time Sharing:** Multiple users can access the system simultaneously, sharing the CPU and memory.
+- **Multi-Tasking:** Each user can run multiple programs concurrently.
+- **User Accounts:** Every user has a dedicated account, ensuring security and isolation of file spaces.
+- **Networking:** Built from the ground up with networking in mind, allowing remote access and resource sharing.
+
+***
+
+## User Account Properties
+
+When you interact with a Linux terminal, you do so under a specific user account.
+
+| Property | Description |
+|----------|-------------|
+| `username` | The identifier used to log in. |
+| `password` | The secret authentication key (stored in encrypted format, usually in `/etc/shadow`). |
+| `userid` (UID) | A unique integer representing the user internally. Root is always `0`. |
+| `groupid` (GID) | An integer identifying the user's primary group, used for resource access control. |
+| `home directory` | The dedicated directory where the user stores personal files (e.g., `/home/username`). |
+| `shell` | The command-line interpreter that processes your commands (e.g., `/bin/bash`, `/bin/sh`). |
+
+***
+
+## The Filesystem Structure
+
+The UNIX filesystem is organized as a hierarchical tree. The absolute top of this tree is the **root directory**, represented by a single forward slash `/`.
+
+```text
+/
+├── bin/      (Essential command binaries)
+├── etc/      (System configuration files)
+├── home/     (User home directories)
+│   ├── fred/
+│   ├── sue/
+│   └── user1/
+├── root/     (Home directory for the root superuser)
+└── tmp/      (Temporary files)
+```
+
+***
+
+## Login, Logout, and the Shell
+
+### The Login Process
+
+When you connect to a UNIX system, you are prompted for your credentials.
+
+```sh
+login: user1
+Password: 
+```
+
+- Passwords are **case-sensitive** and are **never echoed** to the screen for security reasons.
+- Upon successful authentication, the system sets your current working directory to your home directory and launches your default **shell**.
+
+### The Shell Prompt
+
+The shell indicates it is ready to accept commands by displaying a prompt.
+- `$` usually denotes a standard user.
+- `#` usually denotes the root user (superuser).
+
+### Logout
+
+To terminate your session, use any of the following methods:
+
+```sh
+exit
+```
+```sh
+logout
+```
+Alternatively, press `Ctrl + D` (which sends an End-of-File signal to the shell).
+
+***
+
+## Basic Terminal Commands
+
+### `passwd` — Change Password
+
+Changes the password for the current user. Root users can change any user's password by supplying the username as an argument.
+
+```sh
+passwd
+```
+
+**Interactive Flow:**
+```text
+Changing password for user1.
+(current) UNIX password: 
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+```
+
+### `date` — Display Date and Time
+
+Outputs the current system date and time.
+
+```sh
+date
+```
+```text
+Thu Oct 24 10:00:00 UTC 2024
+```
+
+**Custom Formatting:**
+```sh
+date +"%Y-%m-%d %H:%M:%S"
+```
+
+### `cal` — Display Calendar
+
+Displays a formatted calendar.
+
+```sh
+cal               # Shows the current month
+cal 2024          # Shows the entire year 2024
+cal 5 2024        # Shows May 2024
+```
+
+### `who` and `whoami` — User Information
+
+Identify who is currently logged into the system.
+
+```sh
+who
+```
+Displays a list of all currently logged-in users, their terminal line, and login time.
+
+```sh
+whoami
+```
+Displays only the username associated with the current effective user ID.
+
+```sh
+who am i
+```
+Displays details specifically for the current terminal session.
+
+***
+
+## Lab Environment Note: QEMU / JSLinux
+
+If you are using a virtualized environment like QEMU or a browser-based emulator like JSLinux:
+- You are typically interacting with a minimal command-line interface.
+- You may start out automatically logged in as `root` or a generic user.
+- To shut down a virtual machine safely from the command line, use the `halt`, `poweroff`, or `shutdown -h now` commands (requires root privileges).
+
+---
+# 2_UNIX_File_System_Navigation.md
+---
+
+# 2. UNIX File System Navigation
+
+***
+
+## Understanding the File System
+
+The file system is the component of the operating system responsible for organizing, storing, and retrieving files. In UNIX and Linux, the file system is strictly hierarchical (tree-shaped), with all files and directories stemming from a single origin.
+
+***
+
+## Unix File Types
+
+While UNIX adheres to the philosophy that "everything is a file," it distinguishes between several file types:
+
+- **Regular Files (`-`):** Standard files containing data, text, or executable code.
+- **Directories (`d`):** Special files that contain lists of other files and directories.
+- **Symbolic Links (`l`):** Pointers to other files or directories.
+- **Special Files (`c` or `b`):** Represent hardware devices (e.g., terminals, hard drives) usually found in `/dev`.
+- **Pipes and Sockets (`p` or `s`):** Used for inter-process communication.
+
+***
+
+## The Hierarchy and Important Directories
+
+The top level of the hierarchy is the **root directory**, represented by `/`. 
+
+| Directory | Common Contents |
+|-----------|-----------------|
+| `/` | The absolute root of the file system. |
+| `/bin` | Essential executable commands (e.g., `ls`, `cp`, `mkdir`). |
+| `/dev` | Device files representing hardware. |
+| `/etc` | System-wide configuration files. |
+| `/home` | User home directories (e.g., `/home/username`). |
+| `/tmp` | Temporary files, often cleared when the system reboots. |
+| `/var` | Variable data files, such as logs and databases. |
+| `/usr` | Secondary hierarchy for user data and read-only applications. |
+
+***
+
+## Pathnames: Absolute vs. Relative
+
+A pathname is the string of characters used to identify a location in the directory tree. Understanding the difference between absolute and relative pathnames is critical for navigation.
+
+### Absolute Pathnames
+
+An absolute path always defines the location starting from the root directory (`/`). It is a complete path that will work regardless of your current working directory.
+
+**Characteristics:**
+- Always begins with a forward slash `/`.
+- Uniquely identifies a single file or directory.
+
+**Examples:**
+```sh
+/home/user1/documents/report.txt
+/etc/ssh/sshd_config
+/var/log/syslog
+```
+
+### Relative Pathnames
+
+A relative path defines the location starting from your **Current Working Directory (CWD)**. It is relative to where you currently are in the file system.
+
+**Characteristics:**
+- Never begins with a forward slash `/`.
+- Can be shorter and more convenient.
+
+**Special Navigational Symbols:**
+| Symbol | Meaning |
+|--------|---------|
+| `.` | The current directory. |
+| `..` | The parent directory (one level up). |
+| `~` | The current user's home directory. |
+
+**Examples (Assuming CWD is `/home/user1/`):**
+```sh
+documents/report.txt     # Refers to /home/user1/documents/report.txt
+./documents/report.txt   # Identical to the above
+../user2/file.txt        # Refers to /home/user2/file.txt
+../../etc/passwd         # Refers to /etc/passwd
+```
+
+***
+
+## Navigation Commands
+
+### `pwd` — Print Working Directory
+
+Displays the absolute pathname of your current location in the file system.
+
+```sh
+pwd
+```
+```text
+/home/user1/documents
+```
+
+### `cd` — Change Directory
+
+Changes your current working directory. It accepts both absolute and relative paths.
+
+**Syntax:**
+```sh
+cd <path>
+```
+
+**Common Usage Patterns:**
+| Command | Action |
+|---------|--------|
+| `cd /etc` | Move to `/etc` (Absolute path). |
+| `cd documents` | Move to `documents` within the current directory (Relative path). |
+| `cd ..` | Move up one directory level. |
+| `cd ../..` | Move up two directory levels. |
+| `cd ~` or `cd` | Return immediately to your home directory. |
+| `cd -` | Return to the previous directory you were in. |
+
+***
+
+## Directory Management Commands
+
+### `mkdir` — Make Directory
+
+Creates one or more new directories.
+
+**Syntax:**
+```sh
+mkdir <directory_name>
+```
+
+**Examples:**
+```sh
+mkdir projects           # Creates 'projects' in the current directory
+mkdir /tmp/testdir       # Creates 'testdir' in /tmp using an absolute path
+```
+
+**Creating Nested Directories:**
+If you attempt to create a directory inside a parent that does not exist, `mkdir` will fail. Use the `-p` (parents) flag to create the entire path structure at once.
+
+```sh
+mkdir -p projects/python/scripts
+```
+This command ensures that `projects`, `python`, and `scripts` are all created without errors.
+
+### `rmdir` — Remove Directory
+
+Removes empty directories.
+
+**Syntax:**
+```sh
+rmdir <directory_name>
+```
+
+**Important Caveat:**
+`rmdir` will only succeed if the target directory contains absolutely no files or subdirectories. If the directory is not empty, you will receive an error:
+```text
+rmdir: failed to remove 'projects': Directory not empty
+```
+To remove a directory and all of its contents simultaneously, you must use the `rm` command with recursive flags (covered in the next section).
+
+***
+
+## Summary of Navigation Workflow
+
+1. Use `pwd` to confirm where you are.
+2. Use `cd` to move around the system.
+3. Use `mkdir` to create new organizational folders.
+4. Remember to use `.` and `..` to reference relative locations quickly without typing long absolute paths.
+
+---
+# 3_UNIX_File_and_Directory_Management.md
+---
+
+# 3. UNIX File and Directory Management
+
+***
+
+## File and Directory Deletion
+
+### `rm` — Remove Files and Directories
+
+The `rm` command deletes files permanently. Unlike modern graphical desktop environments, the UNIX terminal does not have a "Recycle Bin." Once a file is removed with `rm`, it is generally unrecoverable.
+
+**Syntax:**
+```sh
+rm <file_name>
+```
+
+**Common Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `-i` | Interactive mode. Prompts for confirmation before deleting each file. |
+| `-r` or `-R` | Recursive mode. Required to delete directories and their contents. |
+| `-f` | Force mode. Ignores nonexistent files and never prompts for confirmation. Use with extreme caution. |
+
+**Examples:**
+
+```sh
+rm report.txt              # Deletes a single file silently
+rm -i important_data.csv   # Asks for confirmation before deletion
+```
+```text
+rm: remove regular file 'important_data.csv'? y
+```
+
+**Deleting Directories:**
+To delete a directory that contains files, you cannot use `rmdir`. You must use `rm -r`.
+
+```sh
+rm -r old_project/         # Deletes the directory and everything inside it
+rm -ri old_project/        # Deletes recursively, but asks for confirmation at each step
+```
+
+**Warning:** Running `rm -rf /` is catastrophically destructive as it attempts to forcefully delete the entire file system starting from the root directory. Never run this command.
+
+***
+
+## Copying Files and Directories
+
+### `cp` — Copy
+
+The `cp` command duplicates files or directories from a source to a destination.
+
+**Syntax:**
+```sh
+cp <source> <destination>
+```
+
+**Common Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `-r` or `-R` | Recursive mode. Required when copying directories. |
+| `-i` | Interactive mode. Prompts before overwriting an existing file at the destination. |
+| `-v` | Verbose mode. Prints the name of each file as it is copied. |
+
+**Usage Scenarios:**
+
+1. **Copying a single file to a new name:**
+   ```sh
+   cp original.txt backup.txt
+   ```
+
+2. **Copying a file into another directory:**
+   ```sh
+   cp original.txt /tmp/
+   ```
+
+3. **Copying multiple files into a directory:**
+   ```sh
+   cp file1.txt file2.txt /backup_dir/
+   ```
+
+4. **Copying an entire directory:**
+   ```sh
+   cp -r project_source/ project_backup/
+   ```
+
+**Overwriting Files:**
+If a file with the target name already exists at the destination, `cp` will silently overwrite it by default. Using the `-i` flag prevents accidental data loss.
+
+***
+
+## Moving and Renaming
+
+### `mv` — Move / Rename
+
+The `mv` command is used for two distinct operations: moving files from one location to another, and renaming files. It does not require a recursive flag for directories.
+
+**Syntax:**
+```sh
+mv <source> <destination>
+```
+
+**Usage Scenarios:**
+
+1. **Renaming a file (moving it within the same directory):**
+   ```sh
+   mv old_name.txt new_name.txt
+   ```
+
+2. **Moving a file to another directory:**
+   ```sh
+   mv data.csv /home/user/archives/
+   ```
+
+3. **Moving and renaming simultaneously:**
+   ```sh
+   mv /tmp/download.zip /home/user/software_v2.zip
+   ```
+
+4. **Moving a directory:**
+   ```sh
+   mv my_project/ /var/www/html/
+   ```
+
+***
+
+## Listing Directory Contents
+
+### `ls` — List
+
+The `ls` command displays the contents of a directory. By default, it lists files in the current working directory in alphabetical order.
+
+**Syntax:**
+```sh
+ls [options] [directory]
+```
+
+**Common Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `-l` | Long listing format. Displays permissions, ownership, size, and timestamps. |
+| `-a` | Show all files, including hidden files (those starting with a dot `.`). |
+| `-h` | Human-readable file sizes (e.g., 1K, 234M, 2G). Often used with `-l`. |
+| `-R` | Recursive listing. Lists the contents of all subdirectories. |
+| `-t` | Sort by modification time, newest first. |
+
+**Understanding `ls -l` Output:**
+
+Running `ls -l` produces a detailed output row for each file:
+
+```text
+-rw-r--r-- 1 user group 1024 Oct 24 10:00 document.txt
+drwxr-xr-x 2 user group 4096 Oct 24 10:05 my_folder
+```
+
+**Field Breakdown:**
+1. **Type and Permissions:** The first 10 characters (e.g., `-rw-r--r--` or `drwxr-xr-x`). The first character indicates the file type (`-` for file, `d` for directory). The next 9 characters represent read, write, and execute permissions.
+2. **Hard Links:** The number of hard links pointing to the inode.
+3. **Owner:** The user who owns the file.
+4. **Group:** The group that owns the file.
+5. **Size:** The file size in bytes.
+6. **Modification Date:** The date and time the file was last modified.
+7. **Name:** The file or directory name.
+
+**Combining Flags:**
+Flags can be combined to form powerful commands.
+```sh
+ls -la       # Long listing, including hidden files
+ls -lh       # Long listing with human-readable file sizes
+ls -lt       # Long listing sorted by newest modification time
+```
+
+---
+# 4_UNIX_Access_Permissions.md
+---
+
+# 4. UNIX Access Permissions
+
+***
+
+## The Permission Model
+
+UNIX is a multi-user operating system. To maintain security and privacy, every file and directory is protected by a set of permissions that dictate who can read, modify, or execute them.
+
+Permissions are categorized into three ownership tiers:
+
+1. **User (Owner - `u`):** The account that owns the file (usually the creator).
+2. **Group (`g`):** A defined collection of users who share access rights to the file.
+3. **Other (`o`):** Everyone else on the system who is not the owner and not in the group.
+
+For each of these tiers, three types of permissions can be granted:
+
+| Permission | Symbol | Value | Meaning on a File | Meaning on a Directory |
+|------------|--------|-------|-------------------|------------------------|
+| **Read** | `r` | 4 | View file contents. | List the files inside the directory (`ls`). |
+| **Write** | `w` | 2 | Modify or delete file contents. | Create, delete, or rename files inside the directory. |
+| **Execute**| `x` | 1 | Run the file as a program or script. | Traverse the directory (access files within it). |
+
+***
+
+## Interpreting Permission Strings
+
+When you run `ls -l`, the first column displays a 10-character string representing the file type and permissions.
+
+```text
+-rwxr-x--- 1 user1 staff  1024 Oct 24 file.txt
+drwxr-xr-x 2 user1 staff  4096 Oct 24 folder/
+```
+
+**Deconstructing `-rwxr-x---`:**
+- `[` `-` `]` Type: Regular file.
+- `[` `rwx` `]` User (Owner): Has Read, Write, and Execute permissions.
+- `[` `r-x` `]` Group: Has Read and Execute permissions, but cannot Write (modify).
+- `[` `---` `]` Other: Has no access whatsoever.
+
+***
+
+## Directories: The `Execute` Bit
+
+A common point of confusion is how permissions apply to directories.
+
+- To use `cd` to enter a directory, you **must** have Execute (`x`) permission on it.
+- To see the names of files inside a directory (using `ls`), you need Read (`r`) permission.
+- However, to read the attributes of the files inside (using `ls -l`), you need **both** Read and Execute permissions on the directory.
+- To create or delete a file inside a directory, you need Write (`w`) and Execute (`x`) permissions on the directory, regardless of the permissions of the file itself.
+
+***
+
+## Modifying Permissions: `chmod`
+
+The `chmod` (change mode) command is used to alter permissions. Only the file owner or the `root` user can change a file's permissions.
+
+There are two primary methods to use `chmod`: Numeric (Octal) and Symbolic.
+
+### Method 1: Numeric (Octal) Notation
+
+This method uses numbers to represent permission sets. You sum the values of the permissions you want to grant for each tier.
+- Read = 4
+- Write = 2
+- Execute = 1
+
+**Examples:**
+- `rwx` = 4 + 2 + 1 = **7**
+- `rw-` = 4 + 2 + 0 = **6**
+- `r-x` = 4 + 0 + 1 = **5**
+- `r--` = 4 + 0 + 0 = **4**
+
+You construct a 3-digit number representing User, Group, and Other:
+
+```sh
+chmod 755 script.sh
+```
+*Sets `rwxr-xr-x`. Owner can do everything; Group and Other can read and execute.*
+
+```sh
+chmod 644 document.txt
+```
+*Sets `rw-r--r--`. Owner can read/write; Group and Other can only read. (Standard file permission)*
+
+```sh
+chmod 700 private_folder/
+```
+*Sets `rwx------`. Only the owner has access. (Standard for private directories)*
+
+### Method 2: Symbolic Notation
+
+This method uses letters to selectively add or remove permissions without affecting others.
+
+**Syntax:** `chmod [who][operator][permission] file`
+
+- **Who:** `u` (user), `g` (group), `o` (other), `a` (all)
+- **Operator:** `+` (add), `-` (remove), `=` (set exactly)
+- **Permission:** `r`, `w`, `x`
+
+**Examples:**
+
+```sh
+chmod u+x script.sh         # Add execute permission for the owner
+chmod go-w file.txt         # Remove write permission for group and others
+chmod a+r public.txt        # Add read permission for everyone
+chmod g=rx shared_dir/      # Set group permission exactly to read and execute
+chmod u=rwx,g=rx,o=r file   # Set multiple permissions separated by commas
+```
+
+***
+
+## Ownership Commands
+
+### `chown` — Change Owner
+
+Changes the user ownership of a file or directory.
+
+```sh
+chown user2 report.txt              # Change owner to user2
+chown user2:finance report.txt      # Change owner to user2 and group to finance
+chown -R user2 project_dir/         # Recursively change ownership for a directory
+```
+
+### `chgrp` — Change Group
+
+Changes only the group ownership of a file or directory.
+
+```sh
+chgrp finance report.txt
+```
+
+*(Note: In most Linux systems, including JSLinux, changing ownership usually requires `root` privileges via `sudo` or logging in as root.)*
+
+***
+
+## Default Permissions: `umask`
+
+When you create a new file or directory, the system assigns default permissions based on the `umask` (user file-creation mode mask).
+
+The default maximum permissions are `666` for files and `777` for directories. The `umask` value is *subtracted* from these maximums.
+
+If your `umask` is `022`:
+- New files will have `666 - 022 = 644` (`rw-r--r--`).
+- New directories will have `777 - 022 = 755` (`rwxr-xr-x`).
+
+You can check or set your umask:
+```sh
+umask        # Displays current umask (e.g., 0022)
+umask 027    # Sets new umask, resulting in files (640) and dirs (750)
+```
+
+---
+# 5_UNIX_File_Viewing_and_Linking.md
+---
+
+# 5. UNIX File Viewing and Linking
+
+***
+
+## Viewing File Contents
+
+### `cat` — Concatenate and Print
+
+The `cat` command is primarily used to display the entire contents of a file on the terminal screen.
+
+**Syntax:**
+```sh
+cat <file_name>
+cat file1 file2       # Displays the contents of file1 followed immediately by file2
+```
+
+**Common Flags:**
+- `-n`: Numbers all output lines.
+- `-A`: Displays non-printable characters (e.g., ends of lines as `$`, tabs as `^I`).
+
+*(Note: `cat` is not ideal for very large files because it prints everything at once, causing the text to scroll by too quickly to read. For large files, pagers like `less` or `more` are preferred.)*
+
+### `less` and `more` — Pagers
+
+Pagers allow you to view the contents of a file one screen at a time.
+
+```sh
+less large_log.txt
+```
+**Navigation in `less`:**
+- `Spacebar` or `Page Down`: Scroll down one screen.
+- `b` or `Page Up`: Scroll up one screen.
+- `Down Arrow` / `Up Arrow`: Scroll line by line.
+- `q`: Quit and return to the prompt.
+- `/pattern`: Search forward for a specific word or pattern.
+
+### `head` — View the Beginning of a File
+
+Displays the first few lines of a file (default is 10 lines).
+
+**Syntax:**
+```sh
+head <file_name>
+head -n 20 <file_name>    # Displays the first 20 lines
+head -c 50 <file_name>    # Displays the first 50 bytes/characters
+```
+
+### `tail` — View the End of a File
+
+Displays the last few lines of a file (default is 10 lines).
+
+**Syntax:**
+```sh
+tail <file_name>
+tail -n 15 <file_name>    # Displays the last 15 lines
+```
+
+**Following a file:**
+The `-f` (follow) flag is incredibly useful for monitoring log files. It keeps the file open and displays new lines as they are appended in real-time.
+```sh
+tail -f /var/log/syslog
+```
+*(Press `Ctrl + C` to stop following the file.)*
+
+***
+
+## File Analysis Commands
+
+### `wc` — Word Count
+
+Counts the number of lines, words, and characters in a file.
+
+**Syntax:**
+```sh
+wc <file_name>
+```
+
+**Output example:**
+```text
+  45  130  850 report.txt
+```
+*(Represents 45 lines, 130 words, 850 characters)*
+
+**Common Flags:**
+- `-l`: Print only the line count.
+- `-w`: Print only the word count.
+- `-c`: Print only the byte/character count.
+
+### `sort` — Sort Lines of Text
+
+Sorts the contents of a text file line by line. By default, it sorts in lexicographical (alphabetical) ascending order.
+
+**Syntax:**
+```sh
+sort data.txt
+```
+
+**Common Flags:**
+- `-r`: Reverse the sorting order (descending).
+- `-n`: Sort numerically rather than alphabetically (e.g., treats "10" as greater than "2").
+- `-u`: Unique. Removes duplicate lines from the output.
+
+***
+
+## Linking Files
+
+UNIX allows you to create links to files. A link is essentially a pointer or an alias to an existing file. There are two types: Hard Links and Symbolic (Soft) Links.
+
+### Symbolic Links (Soft Links)
+
+A symbolic link is a special type of file that simply contains the path to another file. If you delete the original file, the symbolic link becomes "broken" or "dangling."
+
+**Creating a Symbolic Link:**
+```sh
+ln -s <target_file> <link_name>
+```
+
+**Examples:**
+```sh
+ln -s /etc/nginx/sites-available/myapp.conf /etc/nginx/sites-enabled/myapp.conf
+```
+*(Creates a symlink in `sites-enabled` pointing to the actual configuration file.)*
+
+When you run `ls -l`, symbolic links are indicated by an `l` in the permissions string and an arrow `->` pointing to the target:
+```text
+lrwxrwxrwx 1 user user 35 Oct 24 10:00 myapp.conf -> /etc/nginx/sites-available/myapp.conf
+```
+
+### Hard Links
+
+A hard link creates a direct pointer to the underlying data (inode) on the hard drive. The system treats a hard link identically to the original file. If you delete the original file, the data remains accessible via the hard link until all hard links to that data are deleted.
+
+**Creating a Hard Link:**
+```sh
+ln <target_file> <link_name>
+```
+
+**Differences between Hard and Soft Links:**
+- Hard links cannot cross different file systems or partitions; soft links can.
+- Hard links cannot point to directories; soft links can.
+- Soft links are far more common in everyday UNIX usage.
+
+---
+# 6_UNIX_IO_Redirection_and_Pipes.md
+---
+
+# 6. UNIX I/O Redirection and Pipes
+
+***
+
+## Standard I/O Streams
+
+In UNIX, every command-line program automatically opens three standard streams (files) when it runs:
+
+| Stream Name | File Descriptor | Default Device | Purpose |
+|-------------|-----------------|----------------|---------|
+| **Standard Input (`stdin`)** | 0 | Keyboard | Where the program reads input from. |
+| **Standard Output (`stdout`)**| 1 | Terminal Screen | Where the program sends its normal output. |
+| **Standard Error (`stderr`)** | 2 | Terminal Screen | Where the program sends error and diagnostic messages. |
+
+I/O Redirection allows you to detach these streams from their default devices and connect them to files or other programs.
+
+***
+
+## Output Redirection
+
+### Overwrite Output (`>`)
+
+Redirects `stdout` to a file. If the file does not exist, it is created. **If the file already exists, it is completely overwritten.**
+
+**Syntax:**
+```sh
+command > filename
+```
+
+**Examples:**
+```sh
+echo "Hello, World!" > greeting.txt
+ls -l > directory_listing.txt
+```
+*(The output is not printed to the screen; it goes directly into the file.)*
+
+### Append Output (`>>`)
+
+Redirects `stdout` to a file. **If the file exists, the new output is appended to the end of the file.** It does not overwrite the existing contents.
+
+**Syntax:**
+```sh
+command >> filename
+```
+
+**Example:**
+```sh
+echo "New line of text" >> greeting.txt
+```
+
+***
+
+## Error Redirection
+
+By default, error messages bypass standard output redirection and still print to the screen. To capture errors in a file, you must redirect `stderr` specifically.
+
+### Redirect `stderr` (`2>`)
+
+**Syntax:**
+```sh
+command 2> error_log.txt
+```
+
+**Example:**
+```sh
+ls /nonexistent_directory 2> errors.txt
+```
+
+### Redirect both `stdout` and `stderr`
+
+You can redirect both streams to the same file.
+
+**Syntax:**
+```sh
+command > output_and_errors.txt 2>&1
+```
+*(This tells the shell to send descriptor 2 to wherever descriptor 1 is currently pointing.)*
+
+Modern bash shells also support a shorthand for this:
+```sh
+command &> output_and_errors.txt
+```
+
+***
+
+## Input Redirection
+
+### Redirect `stdin` (`<`)
+
+Feeds the contents of a file into a command as if it were typed on the keyboard.
+
+**Syntax:**
+```sh
+command < input_file
+```
+
+**Example:**
+```sh
+wc -l < data.txt
+```
+*(Counts the lines in `data.txt`. Note: Unlike `wc -l data.txt`, using input redirection will only output the number, without printing the filename.)*
+
+***
+
+## Pipes (`|`)
+
+Pipes are one of the most powerful features in UNIX. A pipe connects the `stdout` of one command directly to the `stdin` of another command. This allows you to chain small programs together to perform complex tasks without creating temporary files.
+
+**Syntax:**
+```sh
+command1 | command2 | command3
+```
+
+**How it works:**
+The output of `command1` becomes the input for `command2`. The output of `command2` becomes the input for `command3`. Only the final output is printed to the screen.
+
+**Examples:**
+
+1. **Viewing long output:**
+   ```sh
+   ls -l /etc | less
+   ```
+   *(Passes the long directory listing into `less` for easier scrolling.)*
+
+2. **Counting files in a directory:**
+   ```sh
+   ls -1 | wc -l
+   ```
+   *(Lists files one per line, then passes that list to `wc -l` to count the lines.)*
+
+3. **Finding specific processes:**
+   ```sh
+   ps aux | grep "python"
+   ```
+   *(Lists all running processes, then filters that list to show only lines containing "python".)*
+
+4. **Complex chaining:**
+   ```sh
+   cat access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
+   ```
+   *(Reads a web server log, extracts IP addresses, sorts them, counts unique occurrences, sorts by highest count, and shows the top 10.)*
+
+---
+# 7_UNIX_Wildcards_and_Glob_Patterns.md
+---
+
+# 7. UNIX Wildcards and Glob Patterns
+
+***
+
+## What are Wildcards (Globbing)?
+
+Wildcards are special characters used in the terminal to match multiple filenames or directories simultaneously based on a pattern. The process of expanding these patterns into actual filenames is called "globbing," and it is performed by the shell *before* the command executes.
+
+Using wildcards makes file management highly efficient, saving you from typing long lists of files manually.
+
+***
+
+## The Primary Wildcards
+
+### The Asterisk (`*`) — Zero or More Characters
+
+The asterisk is the most common wildcard. It matches any sequence of characters, including an empty string (zero characters).
+
+**Examples:**
+
+| Command | Matches | Does Not Match |
+|---------|---------|----------------|
+| `ls *.txt` | All files ending in `.txt` (e.g., `report.txt`, `data.txt`). | `report.csv`, `script.sh` |
+| `rm doc*` | Any file starting with `doc` (e.g., `doc1`, `document.pdf`, `doc`). | `mydoc.txt` |
+| `cp *backup* /tmp/` | Any file containing the word `backup` anywhere in its name. | `back_up.zip` |
+| `ls *` | All visible files and directories in the current folder. | Hidden files (e.g., `.bashrc`) |
+
+### The Question Mark (`?`) — Exactly One Character
+
+The question mark matches exactly one character. It will not match zero characters or multiple characters.
+
+**Examples:**
+
+| Command | Matches | Does Not Match |
+|---------|---------|----------------|
+| `ls file?.txt` | `file1.txt`, `fileA.txt`, `file_.txt` | `file10.txt`, `file.txt` |
+| `rm ??-report` | `Q3-report`, `01-report` | `1-report`, `2024-report` |
+| `mv ??? archives/`| Any file with exactly 3 characters in its name. | `ab`, `abcd` |
+
+### Square Brackets (`[...]`) — Character Classes
+
+Square brackets define a set or range of characters. It matches exactly one character that is included within the brackets.
+
+**Examples:**
+
+| Command | Matches |
+|---------|---------|
+| `ls file[123].txt` | `file1.txt`, `file2.txt`, `file3.txt` |
+| `cat [a-z]*.log` | Any `.log` file starting with a lowercase letter. |
+| `rm [A-Z]*` | Any file starting with an uppercase letter. |
+| `mv [0-9][0-9]_data.csv /tmp/`| Files starting with exactly two digits (e.g., `14_data.csv`). |
+
+**Negation (`[!...]` or `[^...]`):**
+Placing an exclamation mark `!` (or a caret `^` in some shells) immediately inside the opening bracket negates the class, matching any character *except* those listed.
+
+```sh
+ls [!0-9]*
+```
+*(Matches any file that does **not** start with a number.)*
+
+***
+
+## Wildcard Exceptions and Gotchas
+
+### 1. Hidden Files
+By default, wildcards **do not** match hidden files (files starting with a dot `.`).
+
+If you run `rm *`, it deletes all visible files but leaves `.bashrc` and `.profile` intact. To match hidden files, you must explicitly include the dot in your pattern:
+```sh
+ls .*
+```
+
+### 2. Directory Separators
+Wildcards do not cross directory boundaries (the `/` character).
+The pattern `*/*.txt` matches `.txt` files located exactly one directory level down, but it will not match `.txt` files in the current directory or two levels down.
+
+***
+
+## Escaping Wildcards
+
+Sometimes you need to use a literal asterisk `*` or question mark `?` in a filename (though this is bad practice). To stop the shell from interpreting them as wildcards, you must escape or quote them.
+
+**Using a Backslash (`\`):**
+```sh
+rm file\*.txt
+```
+*(Deletes a file literally named `file*.txt`)*
+
+**Using Quotes:**
+```sh
+rm 'file*.txt'
+```
+*(Single quotes prevent all globbing and variable expansion.)*
+
+***
+
+## Practical Workflow Examples
+
+**1. Organizing a messy downloads folder:**
+```sh
+mv *.jpg *.png *.gif ~/Pictures/
+mv *.pdf *.doc *.docx ~/Documents/
+```
+
+**2. Cleaning up numbered logs, keeping only recent ones:**
+```sh
+rm log_file_2022_??.log
+```
+*(Deletes all monthly logs from 2022, e.g., `log_file_2022_01.log` to `log_file_2022_12.log`)*
+
+**3. Running a command on specific script versions:**
+```sh
+chmod +x script_v[2-5].sh
+```
+*(Makes versions 2, 3, 4, and 5 executable)*
 
