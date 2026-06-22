@@ -6,11 +6,11 @@
 
 In UNIX, every command-line program automatically opens three standard streams (files) when it runs:
 
-| Stream Name | File Descriptor | Default Device | Purpose |
-|-------------|-----------------|----------------|---------|
-| **Standard Input (`stdin`)** | 0 | Keyboard | Where the program reads input from. |
-| **Standard Output (`stdout`)**| 1 | Terminal Screen | Where the program sends its normal output. |
-| **Standard Error (`stderr`)** | 2 | Terminal Screen | Where the program sends error and diagnostic messages. |
+| Stream Name                    | File Descriptor | Default Device  | Purpose                                                |
+| ------------------------------ | --------------- | --------------- | ------------------------------------------------------ |
+| **Standard Input (`stdin`)**   | 0               | Keyboard        | Where the program reads input from.                    |
+| **Standard Output (`stdout`)** | 1               | Terminal Screen | Where the program sends its normal output.             |
+| **Standard Error (`stderr`)**  | 2               | Terminal Screen | Where the program sends error and diagnostic messages. |
 
 I/O Redirection allows you to detach these streams from their default devices and connect them to files or other programs.
 
