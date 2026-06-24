@@ -65,6 +65,8 @@ The repository is organized by academic year and semester. Each course directory
 - `Exercises/` - Homework assignments and solutions
 - `Examples/` - Code examples and practical implementations
 - `Quizzes/` - Self-assessment quizzes
+- `Resources/` - Additional resources
+- `Exams/` - Exam papers and solutions
 - `README.md` - Course-specific information
 
 ## Getting Started
