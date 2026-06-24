@@ -75,6 +75,57 @@
 > [https://www.youtube.com/watch?v=CHl6uxoiJPA](https://www.youtube.com/watch?v=CHl6uxoiJPA)
 
 ---
+* **C**
+* **Basics & Hardware Proximity**
+  * Procedural paradigm: functions + data separation
+  * Variables, scope, storage classes (`auto`, `static`, `extern`, `register`)
+  * Primitive types and their sizes (implementation-defined but predictable on most platforms)
+  * Control flow: `if/else`, `switch`, `for`, `while`, `do-while`, `goto` (use sparingly)
+  * Functions: declaration, definition, parameter passing (by value vs. pointer simulation of reference)
+  * Example: `void swap(int *a, int *b)` for in-place modification
+
+* **Pointers, Memory & Arrays**
+  * Pointers as first-class citizens: address arithmetic, dereferencing
+  * Arrays decay to pointers: `int arr[10]` → `int *`
+  * Multi-dimensional arrays as arrays of arrays (row-major layout)
+  * Dynamic memory: `malloc()`, `calloc()`, `realloc()`, `free()`
+  * Manual memory management pitfalls (leaks, double-free, use-after-free, dangling pointers)
+  * Strings as null-terminated `char` arrays + `<string.h>` functions
+  * `const` correctness and `volatile` for hardware registers
+
+* **Structs, Unions & Bit Manipulation**
+  * User-defined types: `struct` (data aggregation)
+  * `typedef` for cleaner syntax
+  * `union` for type punning / memory overlay
+  * Bit-fields and bitwise operations (`&`, `|`, `^`, `~`, shifts)
+  * Alignment and padding in structs (performance + ABI considerations)
+
+* **Preprocessor & Build Process**
+  * Macros (`#define`), conditional compilation (`#ifdef`, `#ifndef`)
+  * Header files (`.h`) vs implementation (`.c`)
+  * Separate compilation + linking model
+  * `make` / build systems introduction
+  * Inline functions and performance implications
+
+* **Standard Library & Systems Programming**
+  * `<stdio.h>`, `<stdlib.h>`, `<string.h>`, `<math.h>`
+  * File I/O: `fopen`, `fread`, `fwrite`, buffering
+  * Process control, signals, environment variables
+  * Relationship to C++: C is a strict subset; C++ adds RAII, templates, exceptions, OOP, etc.
+  * Portability vs. platform-specific code (POSIX, Win32)
+
+* **Performance & Low-Level Optimization**
+  * Direct hardware access (inline assembly when needed)
+  * Cache-friendly data structures and access patterns
+  * No runtime overhead (no GC, no hidden costs)
+  * Common idioms: manual unrolling, restrict keyword (`__restrict`)
+  * Connection to C++ performance model and Python’s C extensions (CPython internals)
+
+
+> [Beej's Guide to C Programming](https://beej.us/guide/bgc/)
+> [C Programming Language (K&R)](https://en.wikipedia.org/wiki/The_C_Programming_Language) — the classic
+
+---
 
 * **Haskell**
   * Basics of Pure Functions
