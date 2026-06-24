@@ -7,20 +7,12 @@
 ├── scripts
 │   ├── create_folders.sh
 │   ├── emoji_cleanup.py
-│   └── [+5 more file(s)]
+│   └── [+6 more file(s)]
 ├── Year_1
 │   ├── Semester_1
 │   │   ├── README.md
 │   │   ├── C_PROGRAMMING_I
 │   │   │   ├── README.md
-│   │   │   ├── Assignments
-│   │   │   │   ├── exercises.md
-│   │   │   │   └── Challenges
-│   │   │   │       ├── challenges.md
-│   │   │   │       └── Solutions
-│   │   │   │           ├── 01_stdio_challenge.c
-│   │   │   │           ├── 02_stdlib_challenge.c
-│   │   │   │           └── [+5 more file(s)]
 │   │   │   ├── Examples
 │   │   │   │   ├── 01_hello_world.c
 │   │   │   │   ├── 02_variables_and_data_types.c
@@ -30,14 +22,20 @@
 │   │   │   │       └── images
 │   │   │   │           ├── Exam_paper_2020_01_null.png
 │   │   │   │           └── Exam_paper_2022_12_null.png
-│   │   │   └── Lectures
-│   │   │       └── c-programming-guide.md
+│   │   │   ├── Exercises
+│   │   │   │   ├── exercises.md
+│   │   │   │   └── Challenges
+│   │   │   │       ├── challenges.md
+│   │   │   │       └── Solutions
+│   │   │   │           ├── 01_stdio_challenge.c
+│   │   │   │           ├── 02_stdlib_challenge.c
+│   │   │   │           └── [+5 more file(s)]
+│   │   │   ├── Lectures
+│   │   │   │   └── c-programming-guide.md
+│   │   │   ├── Quizzes
+│   │   │   └── Resources
 │   │   ├── ELECTRONICS
 │   │   │   ├── README.md
-│   │   │   ├── Assignments
-│   │   │   │   ├── 01-Exercises-Solutions.pdf
-│   │   │   │   ├── 02-Exercises-Solutions.pdf
-│   │   │   │   └── [+7 more file(s)]
 │   │   │   ├── Examples
 │   │   │   │   ├── electronics_exercises_part1.md
 │   │   │   │   └── electronics_exercises_part2.md
@@ -46,10 +44,15 @@
 │   │   │   │       └── images
 │   │   │   │           ├── Exam_paper_2021_01_25_part_1_Team_B.png
 │   │   │   │           └── Exam_paper_2021_01_25_part_2_Team_B.png
+│   │   │   ├── Exercises
+│   │   │   │   ├── 01-Exercises-Solutions.pdf
+│   │   │   │   ├── 02-Exercises-Solutions.pdf
+│   │   │   │   └── [+7 more file(s)]
 │   │   │   ├── Lectures
 │   │   │   │   ├── 01_Eisagwgh-Nomos_Ohm.pdf
 │   │   │   │   ├── 02_Methodoi_Epilysis_Kyklwmatwn.pdf
 │   │   │   │   └── [+8 more file(s)]
+│   │   │   ├── Quizzes
 │   │   │   └── Resources
 │   │   │       ├── Meta
 │   │   │       │   └── mindmap.md
@@ -59,16 +62,19 @@
 │   │   │           └── [+8 more file(s)]
 │   │   ├── LINEAR_ALGEBRA
 │   │   │   ├── README.md
-│   │   │   ├── Assignments
-│   │   │   │   └── exercises.md
 │   │   │   ├── Examples
 │   │   │   │   └── Matlab_Octave_Code
 │   │   │   │       ├── 01_vectors_and_matrices.m
 │   │   │   │       ├── 02_matrix_operations.m
 │   │   │   │       └── [+10 more file(s)]
+│   │   │   ├── Exams
+│   │   │   ├── Exercises
+│   │   │   │   └── exercises.md
 │   │   │   ├── Lectures
-│   │   │   │   └── Linear_Algebra_and_its_application.pdf
+│   │   │   ├── Quizzes
 │   │   │   └── Resources
+│   │   │       ├── Books
+│   │   │       │   └── Linear_Algebra_and_its_application.pdf
 │   │   │       ├── Meta
 │   │   │       │   └── mindmap.md
 │   │   │       └── Notes
@@ -77,10 +83,6 @@
 │   │   │           └── [+10 more file(s)]
 │   │   ├── LOGIC_DESIGN
 │   │   │   ├── README.md
-│   │   │   ├── Assignments
-│   │   │   │   ├── Exercises.md
-│   │   │   │   └── Nick_Λογική_Σχεδίαση_2η_Εργασία
-│   │   │   │       └── Nick_Λογική_Σχεδίαση_2η_Εργασία.md
 │   │   │   ├── Examples
 │   │   │   │   └── Assistance
 │   │   │   │       ├── 10_full_adder_mux_simulator.html
@@ -97,10 +99,15 @@
 │   │   │   │   └── Solutions
 │   │   │   │       ├── ΛΣ_ΘΕΜΑΤΑ_Α_Λύσεις_1_2025.pdf
 │   │   │   │       └── ΛΣ_ΘΕΜΑΤΑ_Β_Λύσεις_1_2025.pdf
+│   │   │   ├── Exercises
+│   │   │   │   ├── Exercises.md
+│   │   │   │   └── Nick_Λογική_Σχεδίαση_2η_Εργασία
+│   │   │   │       └── Nick_Λογική_Σχεδίαση_2η_Εργασία.md
 │   │   │   ├── Lectures
 │   │   │   │   ├── Κεφάλαιο_1_Ψηφιακά_Συστήματα_και _Δυαδικοί_Αριθμοί.pdf
 │   │   │   │   ├── κεφάλαιο_2_Boolean__Άλγεβρα_και_Λογικές_Πύλες.pdf
 │   │   │   │   └── [+3 more file(s)]
+│   │   │   ├── Quizzes
 │   │   │   └── Resources
 │   │   │       ├── Meta
 │   │   │       │   └── mindmap.md
@@ -110,10 +117,6 @@
 │   │   │           └── [+3 more file(s)]
 │   │   └── MATHEMATICAL_ANALYSIS
 │   │       ├── README.md
-│   │       ├── Assignments
-│   │       │   ├── 01_PrepTest.md
-│   │       │   ├── 2024_2025_Finals_Exam.md
-│   │       │   └── [+2 more file(s)]
 │   │       ├── Examples
 │   │       │   ├── calculus_exercises_part1.md
 │   │       │   └── calculus_exercises_part2.md
@@ -123,10 +126,15 @@
 │   │       │           ├── Exam_paper_2023_09_14_Team_A.png
 │   │       │           ├── Exam_paper_2025_01_29_Team_D.png
 │   │       │           └── [+4 more file(s)]
+│   │       ├── Exercises
+│   │       │   ├── 01_PrepTest.md
+│   │       │   ├── 2024_2025_Finals_Exam.md
+│   │       │   └── [+2 more file(s)]
 │   │       ├── Lectures
 │   │       │   ├── 01. ΣΥΝΑΡΤΗΣΕΙΣ (Μέρος Α).pdf
 │   │       │   ├── 02. ΣΥΝΑΡΤΗΣΕΙΣ (Μέρος Β).pdf
 │   │       │   └── [+13 more file(s)]
+│   │       ├── Quizzes
 │   │       └── Resources
 │   │           ├── Meta
 │   │           │   └── mindmap.md
@@ -138,7 +146,9 @@
 │       ├── README.md
 │       ├── C_PROGRAMMING_II
 │       │   ├── README.md
-│       │   ├── Assignments
+│       │   ├── Examples
+│       │   ├── Exams
+│       │   ├── Exercises
 │       │   │   ├── Ctype_LIB
 │       │   │   │   └── src
 │       │   │   │       └── Lib_Ctype_Exercise_1_TO_20.c
@@ -163,9 +173,11 @@
 │       │   │           ├── exercise_01_fundamental.c
 │       │   │           ├── exercise_02_fundamental.c
 │       │   │           └── [+21 more file(s)]
-│       │   └── Lectures
-│       │       ├── C-Complete-Guide.md
-│       │       └── DSA-Guide-in-C.md
+│       │   ├── Lectures
+│       │   │   ├── C-Complete-Guide.md
+│       │   │   └── DSA-Guide-in-C.md
+│       │   ├── Quizzes
+│       │   └── Resources
 │       ├── DIGITAL_ELECTRONICS
 │       │   ├── README.md
 │       │   ├── Examples
@@ -176,17 +188,16 @@
 │       │   │   └── VHDL_CODE_EXEC
 │       │   │       ├── .gitignore
 │       │   │       ├── app.py
-│       │   │       ├── __pycache__
-│       │   │       │   ├── database_manager.cpython-312.pyc
-│       │   │       │   ├── schema_generator.cpython-312.pyc
-│       │   │       │   └── [+2 more file(s)]
 │       │   │       ├── default_codes
 │       │   │       │   ├── d_flipflop.vhd
 │       │   │       │   ├── jk_flipflop.vhd
 │       │   │       │   └── [+1 more file(s)]
 │       │   │       ├── [+10 more file(s)]
+│       │   ├── Exams
+│       │   ├── Exercises
 │       │   ├── Lectures
 │       │   │   └── README.md
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       ├── Meta
 │       │       │   └── mindmap.md
@@ -194,12 +205,8 @@
 │       │           ├── 01_systhmata_arithmwn_dyadikh_arithmhtikh.md
 │       │           ├── 02_algebra_boole_logikes_pyles.md
 │       │           └── [+10 more file(s)]
-│       ├── DISCREET_MATHEMATICS
+│       ├── DISCRETE_MATHEMATICS
 │       │   ├── README.md
-│       │   ├── Assignments
-│       │   │   ├── 1_From_0_and_5_up_to_7.md
-│       │   │   ├── 2_Εξέταση Προόδου 2025 Ομάδα Α.pdf
-│       │   │   └── [+8 more file(s)]
 │       │   ├── Examples
 │       │   │   └── discrete_math_exercises.md
 │       │   ├── Exams
@@ -207,10 +214,15 @@
 │       │   │       └── images
 │       │   │           ├──  Finals.jpg
 │       │   │           └── Finals(pisw selida).jpg
+│       │   ├── Exercises
+│       │   │   ├── 1_From_0_and_5_up_to_7.md
+│       │   │   ├── 2_Εξέταση Προόδου 2025 Ομάδα Α.pdf
+│       │   │   └── [+8 more file(s)]
 │       │   ├── Lectures
 │       │   │   ├── 0 Μαθηματική Επαγωγή.pdf
 │       │   │   ├── 1 Μαθηματική Λογική.pdf
 │       │   │   └── [+7 more file(s)]
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       └── Notes
 │       │           ├── 1_Discrete Mathematics.md
@@ -218,36 +230,39 @@
 │       │           └── [+5 more file(s)]
 │       ├── ELECTROMAGNETICS
 │       │   ├── README.md
-│       │   ├── Assignments
-│       │   │   ├── 01_test.md
-│       │   │   ├── 02_test.md
-│       │   │   └── [+2 more file(s)]
 │       │   ├── Examples
 │       │   │   └── math.ipynb
 │       │   ├── Exams
 │       │   │   └── Papers
 │       │   │       └── images
 │       │   │           └── 20240923_095118.jpg
+│       │   ├── Exercises
+│       │   │   ├── 01_test.md
+│       │   │   ├── 02_test.md
+│       │   │   └── [+2 more file(s)]
 │       │   ├── Lectures
 │       │   │   ├── 01_ΗΜ.pdf
 │       │   │   ├── 02_ΗΜ.pdf
 │       │   │   └── [+7 more file(s)]
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       ├── Meta
 │       │       └── Notes
 │       └── NETWORKING
 │           ├── README.md
-│           ├── Assignments
-│           │   ├── alice.txt
-│           │   ├── Exercise 1+2 Packet Sniffing!.md
-│           │   └── [+12 more file(s)]
 │           ├── Examples
 │           │   ├── networking_exercises_part1.md
 │           │   └── networking_exercises_part2.md
+│           ├── Exams
+│           ├── Exercises
+│           │   ├── alice.txt
+│           │   ├── Exercise 1+2 Packet Sniffing!.md
+│           │   └── [+12 more file(s)]
 │           ├── Lectures
 │           │   ├── ComputerNetworks.pdf
 │           │   ├── Network Lecture_Notes.pdf
 │           │   └── [+1 more file(s)]
+│           ├── Quizzes
 │           └── Resources
 │               └── Notes
 │                   ├── 1. Βασικά Στοιχεία Επικοινωνίας Υπολογιστών.md
@@ -258,23 +273,25 @@
 │   │   ├── README.md
 │   │   ├── COMPUTER_ARCHITECTURE
 │   │   │   ├── README.md
-│   │   │   ├── Arduino
-│   │   │   │   ├── README.md
-│   │   │   │   ├── Program_1
-│   │   │   │   │   ├── Program_1.ino
-│   │   │   │   │   └── README.md
-│   │   │   │   ├── Program_2
-│   │   │   │   │   ├── Program_2.ino
-│   │   │   │   │   └── README.md
-│   │   │   │   ├── Program_3
-│   │   │   │   │   ├── Program_3.ino
-│   │   │   │   │   ├── README.md
-│   │   │   │   │   └── [+1 more file(s)]
-│   │   │   │   └── Program_4
-│   │   │   │       ├── main_execute.py
-│   │   │   │       ├── Program_4.ino
-│   │   │   │       └── [+1 more file(s)]
-│   │   │   ├── Assignments
+│   │   │   ├── Examples
+│   │   │   │   └── Arduino
+│   │   │   │       ├── README.md
+│   │   │   │       ├── Program_1
+│   │   │   │       │   ├── Program_1.ino
+│   │   │   │       │   └── README.md
+│   │   │   │       ├── Program_2
+│   │   │   │       │   ├── Program_2.ino
+│   │   │   │       │   └── README.md
+│   │   │   │       ├── Program_3
+│   │   │   │       │   ├── Program_3.ino
+│   │   │   │       │   ├── README.md
+│   │   │   │       │   └── [+1 more file(s)]
+│   │   │   │       └── Program_4
+│   │   │   │           ├── main_execute.py
+│   │   │   │           ├── Program_4.ino
+│   │   │   │           └── [+1 more file(s)]
+│   │   │   ├── Exams
+│   │   │   ├── Exercises
 │   │   │   │   ├── 1η Εργασία.pdf
 │   │   │   │   ├── 2η Εργασία.pdf
 │   │   │   │   ├── Complete_Exercise_1
@@ -288,6 +305,8 @@
 │   │   │   │   ├── Complete_Exercise_3
 │   │   │   │   │   └── PanagopoulosNikolaos_03323_Ergasia_3.pdf
 │   │   │   │   ├── [+1 more file(s)]
+│   │   │   ├── Lectures
+│   │   │   ├── Quizzes
 │   │   │   └── Resources
 │   │   │       └── Notes
 │   │   │           ├── Multicore-Processors-Notes-11.md
@@ -295,19 +314,6 @@
 │   │   │           └── [+3 more file(s)]
 │   │   ├── DSA_DATA_STRUCTURES_ALGORITHMS
 │   │   │   ├── README.md
-│   │   │   ├── Assignments
-│   │   │   │   ├── Exercise_1
-│   │   │   │   │   ├── Exercise_1_Soution.md
-│   │   │   │   │   └── ΕΡΓΑΣΙΑ 1.pdf
-│   │   │   │   ├── Exercise_2
-│   │   │   │   │   ├── Exercise_2_Soution.md
-│   │   │   │   │   └── ΕΡΓΑΣΙΑ 2.pdf
-│   │   │   │   ├── Exercise_3
-│   │   │   │   │   ├── Exercise_3_Soution.md
-│   │   │   │   │   └── ΕΡΓΑΣΙΑ 3.pdf
-│   │   │   │   └── Exercise_4
-│   │   │   │       ├── Exercise_4_Solution.md
-│   │   │   │       └── ΕΡΓΑΣΙΑ 4.pdf
 │   │   │   ├── Examples
 │   │   │   │   ├── DSA_CPP
 │   │   │   │   │   ├── main.cpp
@@ -337,15 +343,32 @@
 │   │   │   │       ├── Exam_paper_2025_6_null.png
 │   │   │   │       ├── Exam_paper_2025_6_null_Part_2.png
 │   │   │   │       └── [+3 more file(s)]
+│   │   │   ├── Exercises
+│   │   │   │   ├── Exercise_1
+│   │   │   │   │   ├── Exercise_1_Soution.md
+│   │   │   │   │   └── ΕΡΓΑΣΙΑ 1.pdf
+│   │   │   │   ├── Exercise_2
+│   │   │   │   │   ├── Exercise_2_Soution.md
+│   │   │   │   │   └── ΕΡΓΑΣΙΑ 2.pdf
+│   │   │   │   ├── Exercise_3
+│   │   │   │   │   ├── Exercise_3_Soution.md
+│   │   │   │   │   └── ΕΡΓΑΣΙΑ 3.pdf
+│   │   │   │   └── Exercise_4
+│   │   │   │       ├── Exercise_4_Solution.md
+│   │   │   │       └── ΕΡΓΑΣΙΑ 4.pdf
 │   │   │   ├── Lectures
-│   │   │   │   └── Data Structures, Algorithms And Applications In C++ - PDF Room.pdf
+│   │   │   ├── Quizzes
 │   │   │   └── Resources
 │   │   │       ├── AVL_Trees.md
 │   │   │       ├── Binary_Trees.md
-│   │   │       └── [+4 more file(s)]
+│   │   │       ├── Books
+│   │   │       │   └── Data Structures, Algorithms And Applications In C++ - PDF Room.pdf
+│   │   │       ├── [+4 more file(s)]
 │   │   ├── OBJECT_ORIENTED_PROGRAMMING
 │   │   │   ├── README.md
-│   │   │   ├── Assignments
+│   │   │   ├── Examples
+│   │   │   ├── Exams
+│   │   │   ├── Exercises
 │   │   │   │   ├── Basics
 │   │   │   │   │   ├── 001_exercise.cpp
 │   │   │   │   │   ├── 002_exercise.cpp
@@ -353,14 +376,22 @@
 │   │   │   │   └── Exercise_1
 │   │   │   │       ├── 2025f_oop_prj.pdf
 │   │   │   │       └── CompleteExercise.md
-│   │   │   └── Lectures
-│   │   │       ├── C++ Crash Course A Fast-Paced Introduction by Josh Lospinoso.pdf
-│   │   │       └── Hands-On Machine Learning with C++ by Kirill Kolodiazhnyi (z-lib.org).pdf
+│   │   │   ├── Lectures
+│   │   │   ├── Quizzes
+│   │   │   └── Resources
+│   │   │       └── Books
+│   │   │           ├── C++ Crash Course A Fast-Paced Introduction by Josh Lospinoso.pdf
+│   │   │           └── Hands-On Machine Learning with C++ by Kirill Kolodiazhnyi (z-lib.org).pdf
 │   │   ├── SIGNAL_PROPAGATION
 │   │   │   ├── README.md
+│   │   │   ├── Examples
+│   │   │   ├── Exams
+│   │   │   ├── Exercises
 │   │   │   ├── Lectures
-│   │   │   │   └── Antenna Theory Analysis and Design 3rd ed.pdf
+│   │   │   ├── Quizzes
 │   │   │   └── Resources
+│   │   │       ├── Books
+│   │   │       │   └── Antenna Theory Analysis and Design 3rd ed.pdf
 │   │   │       ├── Meta
 │   │   │       │   └── mindmap.md
 │   │   │       └── Notes
@@ -369,29 +400,45 @@
 │   │   │           └── [+15 more file(s)]
 │   │   └── SIGNALS_AND_SYSTEMS
 │   │       ├── README.md
-│   │       ├── Assignments
-│   │       │   └── README.md
 │   │       ├── Examples
 │   │       │   ├── 01_InteractiveLEarning.html
 │   │       │   ├── 02_InteractiveLearning.html
 │   │       │   └── [+3 more file(s)]
+│   │       ├── Exams
+│   │       ├── Exercises
+│   │       │   └── README.md
 │   │       ├── Lectures
-│   │       │   ├── _OceanofPDF.com_Signals_and_Systems_-_Fatos_Tunay_Yarman_Vural.pdf
-│   │       │   ├── Think DSP.pdf
-│   │       │   └── [+6 more file(s)]
+│   │       │   ├── Διάλεξη 01 - Εισαγωγή και Οργανόγραμμα_.pdf
+│   │       │   ├── Διάλεξη 02 - Βασικές έννοιες σημάτων.pdf
+│   │       │   └── [+4 more file(s)]
+│   │       ├── Quizzes
 │   │       └── Resources
+│   │           ├── Books
+│   │           │   ├── _OceanofPDF.com_Signals_and_Systems_-_Fatos_Tunay_Yarman_Vural.pdf
+│   │           │   └── Think DSP.pdf
 │   │           ├── Meta
 │   │           │   └── mindmap.md
-│   │           └── Resources
-│   │               └── Notes
-│   │                   ├── lecture_01_introduction_and_course_organization.md
-│   │                   ├── lecture_02_basic_signal_concepts.md
-│   │                   └── [+4 more file(s)]
+│   │           └── Notes
+│   │               ├── lecture_01_introduction_and_course_organization.md
+│   │               ├── lecture_02_basic_signal_concepts.md
+│   │               └── [+4 more file(s)]
 │   └── Semester_4
 │       ├── README.md
 │       ├── COMPUTER_NETWORKS
 │       │   ├── README.md
-│       │   ├── Assignments
+│       │   ├── Examples
+│       │   │   ├── Lect-Ασκ-solutions.md
+│       │   │   ├── Lect-Ασκ.md
+│       │   │   └── [+1 more file(s)]
+│       │   ├── Exams
+│       │   │   ├── exam_paper_2023_2024.md
+│       │   │   ├── exam_paper_null.md
+│       │   │   ├── images
+│       │   │   │   ├── Exam_paper_null_null_null_Part_1.png
+│       │   │   │   ├── Exam_paper_null_null_null_Part_2.png
+│       │   │   │   └── [+1 more file(s)]
+│       │   │   ├── [+5 more file(s)]
+│       │   ├── Exercises
 │       │   │   ├── HW1.pdf
 │       │   │   ├── HW2.pdf
 │       │   │   ├── Exercise_1
@@ -436,19 +483,8 @@
 │       │   │   │   │   └── Networking_Lab_5_RIP.pkt
 │       │   │   │   ├── [+1 more file(s)]
 │       │   │   ├── [+4 more file(s)]
-│       │   ├── Examples
-│       │   │   ├── Lect-Ασκ-solutions.md
-│       │   │   ├── Lect-Ασκ.md
-│       │   │   └── [+1 more file(s)]
-│       │   ├── Exams
-│       │   │   ├── exam_paper_2023_2024.md
-│       │   │   ├── exam_paper_null.md
-│       │   │   ├── images
-│       │   │   │   ├── Exam_paper_null_null_null_Part_1.png
-│       │   │   │   ├── Exam_paper_null_null_null_Part_2.png
-│       │   │   │   └── [+1 more file(s)]
-│       │   │   ├── [+5 more file(s)]
 │       │   ├── Lectures
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       ├── Meta
 │       │       │   ├── agent_instructions.md
@@ -467,6 +503,7 @@
 │       │           └── [+7 more file(s)]
 │       ├── DATABASES
 │       │   ├── README.md
+│       │   ├── Examples
 │       │   ├── Exams
 │       │   │   ├── all_exams.md
 │       │   │   ├── combine_notes.py
@@ -474,25 +511,24 @@
 │       │   │   │   ├── Exam_paper_null_null_null.png
 │       │   │   │   └── hospital-er-diagram-1.png
 │       │   │   ├── [+9 more file(s)]
+│       │   ├── Exercises
 │       │   ├── Lectures
 │       │   │   ├── Διάλεξη 1 - Βάσεις δεδομένων.pdf
 │       │   │   ├── Διάλεξη 2 - Βάσεις δεδομένων.pdf
 │       │   │   └── [+10 more file(s)]
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       ├── Meta
 │       │       │   ├── agent_instructions.md
 │       │       │   ├── mindmap.md
 │       │       │   └── [+1 more file(s)]
-│       │       ├── Notes
-│       │       │   ├── all_notes.md
-│       │       │   ├── combine_notes.py
-│       │       │   └── [+8 more file(s)]
-│       │       └── notes.old
-│       │           ├── Lab 1 notes.md
-│       │           ├── Lab 2 notes.md
-│       │           └── [+10 more file(s)]
+│       │       └── Notes
+│       │           ├── all_notes.md
+│       │           ├── combine_notes.py
+│       │           └── [+8 more file(s)]
 │       ├── OPERATING_SYSTEMS
 │       │   ├── README.md
+│       │   ├── Examples
 │       │   ├── Exams
 │       │   │   ├── README.md
 │       │   │   ├── Combined_Past_Exam_2023
@@ -519,10 +555,12 @@
 │       │   │       └── Practice
 │       │   │           ├── Exam_7_OS_Theory_Processes.md
 │       │   │           └── Exam_8_OS_Theory_Memory.md
+│       │   ├── Exercises
 │       │   ├── Lectures
 │       │   │   ├── 1_UNIX_intro.pdf
 │       │   │   ├── 2_UNIX_file_system.pdf
 │       │   │   └── [+16 more file(s)]
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       ├── Exercises
 │       │       │   ├── 1_Introduction_to_UNIX_Exercises.md
@@ -536,9 +574,10 @@
 │       │           └── [+17 more file(s)]
 │       ├── PROBABILITY_STATISTICS
 │       │   ├── README.md
+│       │   ├── Examples
 │       │   ├── Exams
 │       │   │   └── Papers
-│       │   │       ├── difficluty.md
+│       │   │       ├── difficulty.md
 │       │   │       ├── Exam_paper_2023_06_12_Team_null.md
 │       │   │       ├── images
 │       │   │       │   ├── Exam_paper_2023_06_12_Team_null.png
@@ -549,14 +588,16 @@
 │       │   │       │   ├── Solution_Exam_paper_2024_06_14_Team_B.md
 │       │   │       │   └── [+8 more file(s)]
 │       │   │       ├── [+9 more file(s)]
+│       │   ├── Exercises
 │       │   ├── Lectures
 │       │   │   ├── math_functions_in_R.md
 │       │   │   ├── StatisticsNotes.md
 │       │   │   └── [+1 more file(s)]
+│       │   ├── Quizzes
 │       │   └── Resources
 │       │       ├── Meta
 │       │       │   ├── agent_instructions.md
-│       │       │   └── minedmap.md
+│       │       │   └── mindmap.md
 │       │       ├── Phase_Notes
 │       │       │   ├── Phase_1_Descriptive_Statistics
 │       │       │   │   ├── phase_1_1_data_organization.md
@@ -599,10 +640,7 @@
 │       │           └── [+6 more file(s)]
 │       └── PROGRAMMING_LANGUAGES_PRINCIPLES
 │           ├── README.md
-│           ├── Assignments
-│           │   ├── E1A1_sol.py
-│           │   ├── E1A2_sol.py
-│           │   └── [+55 more file(s)]
+│           ├── Examples
 │           ├── Exams
 │           │   ├── exam.md
 │           │   ├── Exam_Paper_16_9_2024.md
@@ -611,10 +649,15 @@
 │           │   │   ├── exam_page2.png
 │           │   │   └── [+6 more file(s)]
 │           │   ├── [+2 more file(s)]
+│           ├── Exercises
+│           │   ├── E1A1_sol.py
+│           │   ├── E1A2_sol.py
+│           │   └── [+55 more file(s)]
 │           ├── Lectures
 │           │   ├── recitation_2025_2026_CH12_CH14.pdf
 │           │   ├── recitation_2025_2026_CH15.pdf
 │           │   └── [+2 more file(s)]
+│           ├── Quizzes
 │           └── Resources
 │               ├── Meta
 │               │   └── mindmap.md
