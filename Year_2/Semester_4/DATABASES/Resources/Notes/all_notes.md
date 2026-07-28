@@ -1,5 +1,5 @@
 ---
-# topic_1_eisagogi_kai_vasikes_ennoies.md
+# topic_1_introduction_and_basic_concepts.md
 ---
 
 # Εισαγωγή & Βασικές Έννοιες
@@ -388,7 +388,7 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
 - Τα DBMS χρησιμοποιούνται σε κρίσιμα συστήματα (τράπεζες, νοσοκομεία, e-commerce) ακριβώς επειδή παρέχουν εγγυήσεις **ακεραιότητας, ασφαλείας και αξιοπιστίας** που τα απλά συστήματα αρχείων δεν μπορούν να προσφέρουν.
 
 ---
-# topic_2_kyklos_zois_kai_schediasmos_vasis_dedomenon.md
+# topic_2_database_lifecycle_and_design.md
 ---
 
 # Κύκλος Ζωής & Σχεδιασμός Βάσης Δεδομένων
@@ -852,7 +852,7 @@ CREATE INDEX idx_dilosi_etos ON Dilosi(etosvathmos, am);
 - **Key Distinction:** Η εννοιολογική σχεδίαση αφορά το **τι** αποθηκεύεται, η λογική σχεδίαση το **πώς** οργανώνεται, και η φυσική σχεδίαση το **πού** και **με ποια απόδοση** αποθηκεύεται.
 
 ---
-# topic_3_montelo_ontotiton_sychetiseon_er.md
+# topic_3_entity_relationship_model.md
 ---
 
 # Μοντέλο Οντοτήτων-Συσχετίσεων (E-R)
@@ -1405,7 +1405,7 @@ CREATE TABLE enrollments (
 - Η σωστή αναγνώριση τύπων οντοτήτων, γνωρισμάτων και πληθικότητας στο E-R διάγραμμα **καθορίζει άμεσα** την ορθότητα του σχεσιακού σχήματος και της τελικής SQL υλοποίησης.
 
 ---
-# topic_4_schesiako_montelo_kai_schesiaki_algevra.md
+# topic_4_relational_model_and_relational_algebra.md
 ---
 
 # Σχεσιακό Μοντέλο & Σχεσιακή Άλγεβρα
@@ -2081,7 +2081,7 @@ WHERE    d.dept_name = 'ΙΤ'
 - Η **σωστή χρήση κλειδιών** (PK, FK, Candidate Keys) και η τήρηση των κανόνων ακεραιότητας είναι η βάση για μια αξιόπιστη, συνεπή βάση δεδομένων χωρίς ορφανές ή αντιφατικές εγγραφές.
 
 ---
-# topic_5_glossa_sql_ddl.md
+# topic_5_sql_data_definition_language_ddl.md
 ---
 
 # Γλώσσα SQL: Ορισμός Δεδομένων (DDL — Data Definition Language)
@@ -2818,7 +2818,7 @@ ALTER TABLE Foititis
 - Κατά τη χρήση `MODIFY` ή `CHANGE`, εάν **παραληφθεί υπάρχων constraint** (π.χ. `NOT NULL`) στον νέο ορισμό, αυτός **αφαιρείται αυτόματα** — είναι συχνό λάθος.
 
 ---
-# topic_6_glossa_sql_dml_kai_dql.md
+# topic_6_sql_data_manipulation_and_query_language_dml_dql.md
 ---
 
 # Γλώσσα SQL: Χειρισμός & Ερωτήματα (DML & DQL)
@@ -3668,7 +3668,7 @@ WHERE  email IS NULL;
 - **Exam Note:** Η `SELECT` (DQL) είναι η **μόνη εντολή που δεν τροποποιεί** τα δεδομένα — είναι αμιγώς αναγνωστική. Κάθε `INSERT`, `UPDATE` και `DELETE` τροποποιεί τον πίνακα και αφήνει μόνιμο αποτύπωμα (εκτός `ROLLBACK`).
 
 ---
-# topic_7_praktiki_efarmogi_kai_perivallonta_anaptyxis.md
+# topic_7_practical_application_and_dev_environments.md
 ---
 
 # Πρακτική Εφαρμογή & Περιβάλλοντα Ανάπτυξης
@@ -4305,7 +4305,7 @@ VALUES (10001, 1);
 - Η MySQL απαιτεί **InnoDB** storage engine (όχι MyISAM) για την υποστήριξη Foreign Keys· ο έλεγχος γίνεται με `SHOW CREATE TABLE table_name;`.
 
 ---
-# topic_8_9_schesiaki_algevra_joins_politikes_asfaleias.md
+# topic_8_9_relational_algebra_joins_and_security_policies.md
 ---
 
 # Σχεσιακή Άλγεβρα, JOINs & Πολιτικές Ασφάλειας
