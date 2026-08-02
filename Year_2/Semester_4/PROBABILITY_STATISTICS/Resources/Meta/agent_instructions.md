@@ -43,6 +43,7 @@ Every phase file inside `Resources/Phases/` must follow this standard markdown s
 - [Section N.1: Topic Title](#section-n1-topic-title)
 - [Section N.2: Topic Title](#section-n2-topic-title)
 - ...
+- [Exam Preparation Guide](#exam-preparation-guide)
 - [Phase Summary](#phase-summary)
 
 ---
@@ -64,9 +65,9 @@ Every phase file inside `Resources/Phases/` must follow this standard markdown s
 **Problem:** [Clear, complete problem statement]
 
 **Solution:**
-- **Step 1:** [Initial setup and parameter mapping]
-- **Step 2:** [Work-in-Progress state showing calculations/intermediate steps]
-- **Step 3:** [Final calculation and answer]
+1. **Step 1:** [Initial setup and parameter mapping]
+2. **Step 2:** [Work-in-Progress state showing calculations/intermediate steps]
+3. **Step 3:** [Final calculation and answer]
 
 #### Exercise 2: [Descriptive Title]
 ...
@@ -76,6 +77,28 @@ Every phase file inside `Resources/Phases/` must follow this standard markdown s
 # Descriptive comment explaining the R snippet
 # ... R code ...
 ```
+
+---
+
+## Exam Preparation Guide
+
+### Formula Quick-Reference
+[A condensed table of every formula a student must know for this phase, matching the style of the exam formula sheet (typologio). Include only formulas that are exam-relevant.]
+
+### Exam Checklist
+| Category | Items |
+|----------|-------|
+| Must Memorize | [Formulas and definitions that must be recalled without reference] |
+| Must Understand | [Concepts where the student must apply reasoning, not just recall] |
+| Book-Only (Professor May Test) | [Topics in the textbook but rarely/never taught in lectures -- the professor has a history of testing these] |
+
+### Common Exam Traps
+- [Specific pitfalls observed in past exams or based on professor behavior patterns]
+
+### Exam Paper Cross-References
+| Exam Paper | Relevant Questions | Difficulty |
+|------------|-------------------|------------|
+| [Exam filename] | [Which questions map to this phase] | [1-5] |
 
 ---
 
@@ -97,23 +120,92 @@ Every phase file inside `Resources/Phases/` must follow this standard markdown s
 
 ### 3.2 Theoretical Depth & Practical Context
 - **No Skipping Theory:** Provide mathematical foundations (PDFs, PMFs, CDFs, expectations, variances) before introducing examples.
-- **Time-Domain & Systems Context:** Highlight how concepts apply to physical/system metrics (e.g., execution durations, server latencies, timestamps, queueing delays).
+- **Dual-Domain Coverage:** Every phase must cover both non-time-domain (classic) and time-domain (systems/latency) contexts with equal weight. Neither domain should displace the other.
 - **Gotchas & Exam Tips:** Use callout blockquotes (`> **Note:** ...`) to highlight common pitfalls, degrees of freedom mistakes, parameterization traps (e.g., R `sd` vs variance), or shortcut techniques.
 
 ### 3.3 Worked Exercises & WIP States
-- **Quantity:** Every phase file must contain a minimum of **30** comprehensive solved exercises.
-- **Progressive Difficulty:** Include basic calculations, real-world application problems, edge cases, and R code verification.
-- **Work-in-Progress (WIP) States:** Step-by-step solutions must show intermediate steps, unsimplified expressions, or partial tables before displaying the final numerical answer.
+
+#### Quantity and Split
+- **Total:** Every phase file must contain a minimum of **30** comprehensive solved exercises.
+- **Split:** Exercises must be evenly divided between two domains:
+  - **15 Non-Time-Domain Exercises:** Classic probability and statistics contexts that mirror actual university exam question styles. Examples: dice rolls, card hands, manufacturing defect rates, newspaper survey data, salary tables, medical diagnostic tests, student grades, coin flips, balls in urns, license plates, demographic data.
+  - **15 Time-Domain Exercises:** Systems, latency, and performance-engineering contexts that cover book material the professor may test without having taught in lectures. Examples: response times, server uptime, execution durations, SLA percentiles (p50/p90/p95/p99), network delays, queueing delays, throughput, timestamp handling, cyclic time, unit conversions (ns/ms/s).
+- **Labeling:** Each exercise title must indicate its domain:
+  - Non-time-domain: `#### Exercise 5: Grouped Mean from Salary Data`
+  - Time-domain: `#### Exercise 6: Grouped Mean from Latency Data (Time-Domain)`
+
+#### Progressive Difficulty
+- Include basic calculations, real-world application problems, edge cases, and R code verification.
+- Exercises should progress from simple formula application to multi-step exam-style problems.
+
+#### Work-in-Progress (WIP) States
+- Step-by-step solutions must show intermediate steps, unsimplified expressions, or partial tables before displaying the final numerical answer.
+- Multi-part exercises (mirroring exam structure) should label sub-questions as a, b, c, etc.
+
+#### Exam-Style Multi-Part Exercises
+- At least 5 of the 30 exercises per phase must be multi-part (3+ sub-questions) mirroring real exam structure.
+- At least 3 of the 30 exercises per phase must include an R command sub-question (e.g., "What R command computes the probability in part a?").
 
 ---
 
-## 4. Master Document Compilation Workflow
+## 4. Exam Preparation Guide Requirements
+
+Every phase file must include an `## Exam Preparation Guide` section before the `## Phase Summary`. This section must contain:
+
+### 4.1 Formula Quick-Reference
+- A condensed table or list of every exam-relevant formula in the phase.
+- Must match the notation and style of the official exam formula sheet (typologio).
+- Exclude formulas that are book-only and never appear on exams unless explicitly noted.
+
+### 4.2 Exam Checklist
+- A three-category table: "Must Memorize," "Must Understand," and "Book-Only (Professor May Test)."
+- The "Book-Only" category is critical: the professor has a documented history of testing material from the textbook that was never covered in lectures. Students must be warned about these topics explicitly.
+
+### 4.3 Common Exam Traps
+- List specific pitfalls observed in past exam papers or based on known professor behavior.
+- Include warnings about book-only content appearing on exams.
+- Include warnings about common calculation errors (e.g., using $n$ instead of $n-1$ for sample variance, confusing `sd` with variance in R).
+
+### 4.4 Exam Paper Cross-References
+- A table linking the phase's topics to specific exam papers in `Exams/Papers/`.
+- Include the exam filename, which questions map to this phase, and the difficulty rating from `Exams/Papers/difficulty.md`.
+
+---
+
+## 5. Master Document Compilation Workflow
 
 When phase notes are updated or added in `Resources/Phases/`:
 
-1. Verify phase file compliance (H1 heading, Table of Contents, Phase Summary, LaTeX syntax, no emojis).
+1. Verify phase file compliance (H1 heading, Table of Contents, Exam Preparation Guide, Phase Summary, LaTeX syntax, no emojis).
 2. Run the build script using the workspace Python environment:
    ```bash
    conda run -n py14 python Resources/Scripts/build_master.py
    ```
 3. Confirm that `Resources/Probability_and_Statistics_Master.md` updates cleanly with all 8 phases included.
+
+---
+
+## 6. Validation Criteria
+
+### Per-Phase Validation
+| Criterion | Requirement |
+|-----------|-------------|
+| H1 heading | Exactly one: `# Phase N: [Name]` |
+| Table of Contents | Must include all section links + Exam Preparation Guide + Phase Summary |
+| Exercise count | Minimum 30 total |
+| Exercise split | Approximately 15 non-time-domain + 15 time-domain |
+| Multi-part exercises | At least 5 per phase |
+| R command exercises | At least 3 per phase |
+| Exam Preparation Guide | Must include all 4 subsections (Formula Quick-Reference, Exam Checklist, Common Exam Traps, Exam Paper Cross-References) |
+| Phase Summary | Concise summary at the end |
+| Emojis | Zero tolerance |
+| LaTeX delimiters | `$...$` and `$$...$$` only; no `\(`, `\)`, `\[`, `\]` |
+| Code blocks | Must specify language tag |
+
+### Full Repository Validation
+| Criterion | Requirement |
+|-----------|-------------|
+| Phase files | Exactly 8 in `Resources/Phases/` |
+| Total exercises | Minimum 240 (30 × 8) |
+| Master file | `Resources/Probability_and_Statistics_Master.md` exists and is non-empty |
+| Archive | `Resources/Archive/Phase_Notes/` contains all original 68 `.md` files |
