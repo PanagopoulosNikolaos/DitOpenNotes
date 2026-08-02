@@ -4,12 +4,14 @@
 
 Update a single phase file in `Resources/Phases/` to meet the current quality standards defined in `Resources/Meta/agent_instructions.md`. Each agent instance handles **one phase file only**.
 
+The **primary source of truth** for content is `Resources/Meta/mindmap.md`. The mindmap defines the complete scope of every phase, including both general statistics and time-domain concepts. Use the mindmap to determine what to cover, then supplement with your own knowledge and web searches to fill in all formulas, derivations, and worked examples.
+
 ---
 
 ## Target Agent Runtime & Model Configuration
 
 - **Agent Platform:** Antigravity IDE Chat Interface (`agy`)
-- **Execution Capability:** Full terminal access, file system read/write, Conda Python environment (`py14`).
+- **Execution Capability:** Full terminal access, file system read/write, Conda Python environment (`py14`), web search.
 - **Working Directory (absolute):**
   `/home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS`
 
@@ -21,18 +23,22 @@ Update a single phase file in `Resources/Phases/` to meet the current quality st
 
 ## Step 0: Identify Your Phase
 
-Before doing anything else, identify which phase you are updating. The user will tell you (e.g., "Update Phase 3"). Find your phase in the table below:
+Before doing anything else, identify which phase you are updating. The user will tell you (e.g., "Update Phase 3"). Find your phase in the table below. The phase list follows the structure defined in `Resources/Meta/mindmap.md`:
 
-| Phase | Output File | Source Archive Directory | Source File Count |
-|-------|------------|--------------------------|-------------------|
-| 1 | `Resources/Phases/Phase_1_Descriptive_Statistics.md` | `Resources/Archive/Phase_Notes/Phase_1_Descriptive_Statistics/` | 10 files (5 pairs) |
-| 2 | `Resources/Phases/Phase_2_Probability_Theory.md` | `Resources/Archive/Phase_Notes/Phase_2_Probability_Theory/` | 8 files (4 pairs) |
-| 3 | `Resources/Phases/Phase_3_Conditional_Probability_Independence.md` | `Resources/Archive/Phase_Notes/Phase_3_Conditional_Probability_Independence/` | 6 files (3 pairs) |
-| 4 | `Resources/Phases/Phase_4_Discrete_Random_Variables.md` | `Resources/Archive/Phase_Notes/Phase_4_Discrete_Random_Variables/` | 10 files (5 pairs) |
-| 5 | `Resources/Phases/Phase_5_Continuous_Random_Variables_Distributions.md` | `Resources/Archive/Phase_Notes/Phase_5_Continuous_Random_Variables_Distributions/` | 10 files (5 pairs) |
-| 5B | `Resources/Phases/Phase_5B_Multivariate_Random_Variables.md` | `Resources/Archive/Phase_Notes/Phase_5B_Multivariate_Random_Variables/` | 6 files (3 pairs) |
-| 6 | `Resources/Phases/Phase_6_Inferential_Statistics.md` | `Resources/Archive/Phase_Notes/Phase_6_Inferential_Statistics/` | 10 files (5 pairs) |
-| 7 | `Resources/Phases/Phase_7_R_Programming_Commands.md` | `Resources/Archive/Phase_Notes/Phase_7_R_Programming_Commands/` | 8 files (4 pairs) |
+| Phase | Output File | Mindmap Coverage |
+|-------|------------|------------------|
+| 1 | `Resources/Phases/Phase_1_Descriptive_Statistics.md` | Data organization, central tendency (incl. circular mean), position metrics (quartiles/deciles/percentiles), dispersion (incl. $c^2$ rule) |
+| 2 | `Resources/Phases/Phase_2_Probability_Theory.md` | Set theory, Venn diagrams, axioms & rules (incl. 3-event inclusion-exclusion), combinatorics (incl. circular permutations, combinations with replacement) |
+| 3 | `Resources/Phases/Phase_3_Conditional_Probability_Independence.md` | Conditional probability (incl. survival probability, right-censoring), independence, total probability & Bayes |
+| 4 | `Resources/Phases/Phase_4_Discrete_Random_Variables.md` | PMF, expectation, variance, Binomial, Poisson (rate scaling), Geometric (memoryless), Hypergeometric, MGF/characteristic functions |
+| 5 | `Resources/Phases/Phase_5_Continuous_Random_Variables_Distributions.md` | Normal, Empirical rule, Uniform, Exponential, Gamma, Erlang, Weibull, transformations |
+| 5B | `Resources/Phases/Phase_5B_Multivariate_Random_Variables.md` | Joint distributions, covariance/correlation, Adam's/Eve's laws, convolution, order statistics |
+| 6 | `Resources/Phases/Phase_6_Inferential_Statistics.md` | CLT, confidence intervals (mean/proportion/variance), hypothesis testing (incl. power), sampling distributions, inequalities, LLN |
+| 7 | `Resources/Phases/Phase_7_Time_Domain_Data_Clock_Statistics.md` | Time series metrics (TIE, MTIE, fractional frequency offset), Allan/Hadamard variances, hardware timing & noise |
+| 8 | `Resources/Phases/Phase_8_Probability_Network_Clock_Delays.md` | PTP/IEEE 1588, path delay, delay distribution modeling, multi-clock delay probabilities, Markov chains |
+| 9 | `Resources/Phases/Phase_9_R_Programming_Commands.md` | Descriptive stats, distribution prefixes, distribution set, sampling gotchas, lower.tail, sd vs var |
+
+> **Note:** Phases 7, 8, and 9 are defined in the mindmap but may not have existing archive files. For these, build the phase file entirely from the mindmap scope plus your own knowledge and web research.
 
 ---
 
@@ -40,12 +46,18 @@ Before doing anything else, identify which phase you are updating. The user will
 
 Read the following files before writing anything:
 
-1. **`Resources/Meta/agent_instructions.md`** -- the current quality standards (template, exercise rules, exam prep requirements).
-2. **Your current phase file** -- the file you will be rewriting (from `Resources/Phases/`).
-3. **All source archive files for your phase** -- every `.md` file in your phase's archive directory (listed above). These contain the original granular notes (both standard and time-variant versions). Read them all.
-4. **At least 2 exam papers** from `Exams/Papers/` that are relevant to your phase (see the Exam Relevance Table in Step 3).
-5. **At least 1 exam solution** from `Exams/Papers/solutions/` to understand the expected solution format.
-6. **`Exams/Papers/difficulty.md`** -- to understand difficulty ratings for the cross-reference table.
+1. **`Resources/Meta/agent_instructions.md`** -- the current quality standards (template, exercise rules, formatting requirements).
+2. **`Resources/Meta/mindmap.md`** -- the **primary source of truth**. This defines the complete scope of your phase, including all general statistics and time-domain concepts. Read the entire mindmap, not just your phase's section, so you understand how your phase connects to the others.
+3. **Your current phase file** -- the file you will be rewriting (from `Resources/Phases/`). If it does not exist (e.g., for Phases 7, 8, 9), create it.
+4. **`Resources/Probability_and_Statistics_Master.md`** -- the consolidated master notes. Use this as a secondary reference for formulas, derivations, and worked examples that already exist in the project.
+
+### Supplementing with Web Search and Own Knowledge
+
+The mindmap is a high-level outline, not a complete reference. You **must** supplement it:
+
+- **Web search** for any formula, definition, or concept in your phase that is not fully specified in the mindmap or master notes. Verify formulas against authoritative sources (textbooks, university course notes, official documentation).
+- **Use your own knowledge** to fill in standard formulas, derivations, and worked examples that are well-established in statistics and probability.
+- **Do not invent formulas.** Every formula you write must be either (a) present in the mindmap/master notes, or (b) verified via web search or your own reliable knowledge.
 
 ---
 
@@ -54,78 +66,72 @@ Read the following files before writing anything:
 Before writing the output file, perform the following analysis internally:
 
 ### 2a. Section Inventory
-List every unique `##` and `###` heading across all source archive files. Determine the logical section structure for the consolidated file.
+List every topic and sub-topic in your phase's section of the mindmap. Determine the logical section structure for the consolidated file. Every bullet in the mindmap must be addressed somewhere in your phase file.
 
 ### 2b. Formula Audit
-Catalogue all distinct formulas from the source files. Flag notation inconsistencies (e.g., $\bar{x}$ vs $\mu$, $s^2$ vs $\sigma^2$ for sample vs population). Resolve them using the notation from the exam formula sheet (see Step 4).
+Catalogue **all** formulas relevant to your phase. For each formula:
+- Write the general (non-time-domain) form.
+- Determine whether the formula changes or needs adaptation for time-domain data (see Step 4 for the time-domain adaptation rules).
+- Flag notation conventions (e.g., $\bar{x}$ vs $\mu$, $s^2$ vs $\sigma^2$ for sample vs population) and resolve them consistently.
 
 ### 2c. Exercise Inventory
-Number every worked exercise found across all source files. Classify each as:
-- **Non-time-domain:** Uses classic contexts (dice, cards, manufacturing, surveys, salaries, medical tests, grades, coins, urns, license plates, demographics).
-- **Time-domain:** Uses systems/latency contexts (response times, server uptime, execution durations, SLA percentiles, network delays, queueing, throughput, timestamps, unit conversions).
-- **Duplicate:** Same mathematical structure as another exercise, just a different context skin.
+Plan the exercise set. You must produce **30 exercises total**:
+- **15 general statistics exercises** using classic contexts (dice, cards, manufacturing, surveys, salaries, medical tests, grades, coins, urns, license plates, demographics).
+- **15 time-domain exercises** using systems/latency contexts (response times, server uptime, execution durations, SLA percentiles, network delays, queueing, throughput, timestamps, unit conversions).
+- The **last 4 exercises** (exercises 27-30) must be **combined exercises** that integrate all formulas and concepts from your phase into a single multi-part problem each. These must **increase in difficulty** from exercise 27 to exercise 30. The **final exercise (30) must contain a "gotcha moment"** -- a deliberate trap or subtle pitfall that tests whether the reader catches a common mistake.
 
 ### 2d. Gotcha Extraction
-List every callout, warning, "Common Mistake," or gotcha block from all source files. Deduplicate and organize by topic.
+List every callout, warning, "Common Mistake," or gotcha relevant to your phase. Include both general statistics gotchas and time-domain gotchas (e.g., unit conversion errors, circular time, right-censoring, memoryless assumptions, variance scaling). Deduplicate and organize by topic.
 
 ### 2e. R Code Audit
-List every unique ` ```r ` block from all source files. Flag duplicates.
-
-### 2f. Exam Mapping
-Identify which exam paper questions map to your phase. Note the exam structure (multi-part questions, R command sub-questions, formula sheet usage).
+List every R command relevant to your phase. For each, note the correct usage and any time-domain-specific gotchas (e.g., `sd` vs `var` parameters, `lower.tail = FALSE`, geometric counting failures).
 
 ---
 
-## Step 3: Exam Relevance Table
+## Step 3: Knowledge Expansion
 
-The table below maps each phase to the exam papers that contain relevant questions. Use this to populate the Exam Paper Cross-References section and to model your exercise style.
+The mindmap is the scope, but you must expand it into complete, self-contained content. For each topic in your phase:
 
-| Phase | Exam Papers with Relevant Questions | Typical Exam Question Structure |
-|-------|-------------------------------------|--------------------------------|
-| 1 | All papers (Thema 4 in most); 2026_06_09_Team_B (Thema 1) | Grouped frequency table: compute mean, quartiles, SD, mode, percentage, R commands, Empirical Rule interval |
-| 2 | All papers (Thema 2 in most); 2026_06_09_Team_B (Thema 2) | Set probability: P(A or B), P(neither), P(only A), P(A given B) with 2-3 events |
-| 3 | Intermediate_1, Intermediate_2, Hard_1, Hard_2 | Bayes' theorem with 3 machines/tests; conditional probability proofs; independence testing |
-| 4 | All papers (Thema 1 in most); 2026_06_09_Team_B (Thema 3) | Binomial: P(exactly k defective), P(2 or more), P(at most k), expected value, R command, justify distribution choice |
-| 5 | All papers (Thema 3 in most); 2026_06_09_Team_B (Thema 4) | Normal: P(X > x), P(a < X < b) with given Phi values, R command, empirical rule |
-| 5B | Rarely on exams (book-only) | Joint PDFs, covariance, order statistics -- warn students this is book-only |
-| 6 | Rarely on exams (book-only) | CLT, confidence intervals, hypothesis testing -- warn students this is book-only |
-| 7 | All papers (sub-questions within Thema 1, 3, 4); 2026_06_09_Team_B (Thema 1iv, 3e, 4iii) | R commands: `dbinom`, `pnorm`, `names(which.max(table()))`, `sd()`, `pbinom()`, `pnorm()` etc. |
+1. **Write the complete theory** -- definitions, intuition, and context. Do not assume the reader has the mindmap open; the phase file must stand alone.
+2. **Write every formula** in LaTeX, including the time-domain adapted versions where applicable.
+3. **Provide proper worked examples** -- at least one fully worked example per major formula, showing intermediate steps (WIP states), not just the final answer.
+4. **Include R implementation** where relevant, with correct syntax and comments.
 
-### Exam Difficulty Ratings (from `Exams/Papers/difficulty.md`)
-
-| Rating | Exam Papers |
-|--------|------------|
-| 1/5 (Easy) | `Exam_paper_Easy.md`, `Exam_paper_2024_09_06_Team_A.md` |
-| 2/5 (Lower-Intermediate) | `Exam_paper_Intermediate_1.md`, `Exam_paper_2023_06_12_Team_null.md`, `Exam_paper_2024_06_14_Team_B.md`, `Exam_paper_2024_06_14_Team_C.md`, `Exam_paper_2025_06_03_Team_A.md`, `Exam_paper_2026_06_09_Team_A.md`, `Exam_paper_2026_06_09_Team_B.md` |
-| 3/5 (Upper-Intermediate) | `Exam_paper_Intermediate_2.md` |
-| 4/5 (Hard) | `Exam_paper_Hard_1.md` |
-| 5/5 (Very Hard) | `Exam_paper_Hard_2.md` |
+Use web search to verify any formula or concept you are not 100% certain about. Cite the source of any non-standard or specialized content (e.g., Allan variance, PTP delay calculations) in a comment or footnote.
 
 ---
 
-## Step 4: Official Exam Formula Sheet (Typologio)
+## Step 4: Formula Requirements (Including Time-Domain Adaptations)
 
-The exam provides a formula sheet. Your Formula Quick-Reference section must match this style and cover these formulas (only those relevant to your phase):
+### 4a. All Formulas Must Be Present
 
-**Descriptive Statistics:**
-- Mean (ungrouped): $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$
-- Mean (grouped): $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
-- Variance (ungrouped): $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$
-- Variance (grouped): $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
-- Coefficient of Variation: $CV = s / \bar{x}$
-- Median (grouped): $M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
-- Quartiles (grouped): $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
-- Mode (grouped): $M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+Your phase file must include **every formula** relevant to your phase. Do not omit formulas because they seem "obvious" or "standard." The Formula Quick-Reference section (in the Exam Preparation Guide) must list all of them in the exam typologio style.
 
-**Probability:**
-- Classical definition: $P(A) = \frac{N(A)}{N(\Omega)}$
-- Complement: $P(A') = 1 - P(A)$
-- Addition rule: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
-- Conditional probability: $P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
-- Multiplication rule: $P(A \cap B) = P(A \mid B)P(B)$
-- Independence: $P(A \cap B) = P(A)P(B)$
-- Total probability: $P(B) = \sum_{i=1}^n P(B \cap A_i)$
-- Bayes' theorem: $P(A_i \mid B) = \frac{P(B \mid A_i)P(A_i)}{\sum_{k=1}^n P(B \mid A_k)P(A_k)}$
+### 4b. Time-Domain Formula Adaptations
+
+When a formula is applied to time-domain data, it may need adaptation. You **must** explicitly write the adapted formula and **use it** in the time-domain exercises. Key adaptations include:
+
+- **Mode (grouped data):** The general formula is
+  $$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$$
+  When the dataset is full of time data (e.g., seconds), write the adapted formula with time units explicitly:
+  $$M_o = L_{[s]} + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w_{[s]}$$
+  where $L_{[s]}$ is the lower boundary of the modal class in seconds and $w_{[s]}$ is the class width in seconds. State that the formula structure is identical but all quantities carry time units, and the result is reported in the same time unit.
+
+- **Mean (grouped data):** $\bar{x} = \frac{\sum f_i \cdot x_i}{n}$ -- the class marks $x_i$ carry time units; the result is in time units.
+
+- **Variance / Standard deviation:** When converting time units, apply the $c^2$ rule: if every value is multiplied by $c$, then $s^2$ scales by $c^2$ and $s$ scales by $c$. Write this explicitly for time conversions (e.g., seconds to milliseconds: $c = 1000$, so $s^2$ scales by $10^6$).
+
+- **Circular mean (cyclic clock times):** For clock times (e.g., 23:00, 01:00), the naive arithmetic mean is invalid. Use the circular mean:
+  $$\bar{\theta} = \text{atan2}\left( \sum \sin\theta_i, \sum \cos\theta_i \right), \quad \bar{t} = \frac{24 \cdot \bar{\theta}}{2\pi}$$
+  where $\theta_i = \frac{2\pi \cdot t_i}{24}$.
+
+- **Poisson rate scaling:** When the time window changes, scale $\lambda$ proportionally: $\lambda_t = \lambda \cdot t$.
+
+- **Conditional survival probability:** $P(T > t+s \mid T > t) = \frac{P(T > t+s)}{P(T > t)}$ -- only equals $P(T > s)$ for memoryless distributions (Exponential/Geometric).
+
+- **Percentiles/quantiles:** The percentile value scales with the time unit, but the percentile rank does not. Write this explicitly.
+
+**Rule:** For every formula in your phase that has a time-domain variant, you must (1) present the general formula, (2) present the time-domain adapted formula with units, and (3) use the adapted formula in at least one time-domain exercise.
 
 ---
 
@@ -143,25 +149,39 @@ Write the output to the exact path specified in the Phase Table (Step 0). Follow
 
 #### Exercise Count and Split
 - **30 exercises minimum** per phase file
-- **15 non-time-domain** exercises using classic exam-style contexts
-- **15 time-domain** exercises using systems/latency contexts
+- **15 general statistics exercises** using classic exam-style contexts
+- **15 time-domain exercises** using systems/latency contexts
 - Label each exercise title with its domain (time-domain exercises get `(Time-Domain)` suffix)
-- At least **5 multi-part exercises** (3+ sub-questions, mirroring exam structure)
+- At least **5 multi-part exercises** (3+ sub-questions)
 - At least **3 exercises with R command sub-questions**
 
+#### Combined Exercises (Exercises 27-30)
+The **last 4 exercises** must be **combined exercises** that integrate all formulas and concepts from your phase into a single multi-part problem each. Requirements:
+
+- **Exercise 27 (Combined, Moderate):** Integrates the core formulas of your phase into one realistic scenario. Should be solvable by a student who has mastered the individual topics.
+- **Exercise 28 (Combined, Harder):** Integrates more concepts, requires multiple steps, and may require the student to choose the correct formula from several options.
+- **Exercise 29 (Combined, Hard):** Integrates nearly all concepts in the phase, requires careful setup, and may involve time-domain adaptations of multiple formulas.
+- **Exercise 30 (Combined, Hardest + Gotcha):** Integrates all concepts, is the most difficult, and **must contain a deliberate "gotcha moment"** -- a subtle trap that tests whether the reader catches a common mistake (e.g., using variance instead of standard deviation, forgetting to scale $\lambda$, using naive mean on circular time, forgetting the $c^2$ rule, misapplying memorylessness, confusing sample vs population variance, etc.). The solution must explicitly call out the gotcha and explain how to avoid it.
+
+Each combined exercise must:
+- Be a single scenario with multiple sub-questions (a, b, c, d, ...)
+- Require the use of **multiple distinct formulas** from your phase
+- Show WIP states (intermediate steps, unsimplified expressions, partial tables)
+- Include the final answer in bold or boxed format
+- For Exercise 30, explicitly label the gotcha in the solution (e.g., "**Gotcha:** ...")
+
 #### Exercise Style
-- Model non-time-domain exercises on actual exam question styles (read the exam papers)
-- Model time-domain exercises on the source archive's time-variant files
 - Show WIP states (intermediate steps, unsimplified expressions, partial tables)
 - For multi-part exercises, label sub-questions as a, b, c, etc.
 - Include the final answer in bold or boxed format
+- For time-domain exercises, always use the time-domain adapted formulas (Step 4b)
 
 #### Exam Preparation Guide
 Must include all 4 subsections:
-1. **Formula Quick-Reference** -- matching the typologio style (Step 4)
+1. **Formula Quick-Reference** -- matching the typologio style, including time-domain adapted formulas
 2. **Exam Checklist** -- three-category table (Must Memorize / Must Understand / Book-Only)
-3. **Common Exam Traps** -- specific pitfalls, book-only warnings, calculation errors
-4. **Exam Paper Cross-References** -- table linking to relevant exam files with difficulty ratings
+3. **Common Exam Traps** -- specific pitfalls, book-only warnings, calculation errors, time-domain gotchas
+4. **Exam Paper Cross-References** -- if exam papers exist for your phase, link to them with difficulty ratings. If no exam papers exist (e.g., Phases 7, 8), note this and instead reference the relevant mindmap sections.
 
 #### Formatting
 - No emojis (zero tolerance)
@@ -236,6 +256,20 @@ for subsection in ['Formula Quick-Reference', 'Exam Checklist', 'Common Exam Tra
     if subsection not in content:
         errors.append(f'Missing Exam Preparation Guide subsection: {subsection}')
 
+# Rule 11: At least 15 time-domain exercises (check for Time-Domain suffix).
+time_domain = len(re.findall(r'\(Time-Domain\)', content))
+if time_domain < 15:
+    errors.append(f'Insufficient time-domain exercises: {time_domain} (minimum 15 required).')
+
+# Rule 12: Last 4 exercises are combined (check for Combined label in exercises 27-30).
+combined = len(re.findall(r'\(Combined', content))
+if combined < 4:
+    errors.append(f'Insufficient combined exercises: {combined} (minimum 4 required).')
+
+# Rule 13: Exercise 30 has a gotcha moment.
+if 'Gotcha' not in content:
+    errors.append('Missing gotcha moment (required in Exercise 30).')
+
 if errors:
     print('PHASE VALIDATION FAILED:')
     for e in errors:
@@ -245,6 +279,8 @@ else:
     print(f'Phase validation passed. Exercises found: {ex_count}')
     print(f'  Multi-part exercises: {multi_part}')
     print(f'  R command references: {r_exercises}')
+    print(f'  Time-domain exercises: {time_domain}')
+    print(f'  Combined exercises: {combined}')
 "
 ```
 
@@ -269,6 +305,7 @@ Confirm:
 - The file ends with the Phase Summary
 - The Table of Contents links match the actual section headings
 - No content was accidentally truncated
+- Every topic from the mindmap's phase section is addressed somewhere in the file
 
 ---
 
@@ -279,14 +316,20 @@ Before declaring your work complete, verify:
 - [ ] Phase file has exactly one H1 heading
 - [ ] Table of Contents includes all sections + Exam Preparation Guide + Phase Summary
 - [ ] Each section follows the 4-part structure (Theory, Formulas, Exercises, R Implementation)
-- [ ] 30+ exercises total (approximately 15 non-time-domain + 15 time-domain)
+- [ ] 30+ exercises total (15 general statistics + 15 time-domain)
 - [ ] At least 5 multi-part exercises
 - [ ] At least 3 exercises with R command sub-questions
+- [ ] Last 4 exercises (27-30) are combined exercises integrating all phase concepts
+- [ ] Combined exercises increase in difficulty (27 < 28 < 29 < 30)
+- [ ] Exercise 30 contains a deliberate gotcha moment, explicitly labeled in the solution
+- [ ] All formulas from the mindmap phase section are present
+- [ ] Time-domain adapted formulas are written explicitly (with units) and used in time-domain exercises
+- [ ] Mode formula for time data is written with time units and used
 - [ ] Exam Preparation Guide has all 4 subsections
-- [ ] Formula Quick-Reference matches the exam typologio style
+- [ ] Formula Quick-Reference matches the exam typologio style and includes time-domain variants
 - [ ] Exam Checklist includes "Book-Only (Professor May Test)" category
-- [ ] Common Exam Traps includes warning about book-only content on exams
-- [ ] Exam Paper Cross-References table links to actual exam files with difficulty ratings
+- [ ] Common Exam Traps includes time-domain gotchas (unit conversion, circular time, memorylessness, $c^2$ rule)
+- [ ] Exam Paper Cross-References table links to actual exam files with difficulty ratings (or notes absence for Phases 7, 8)
 - [ ] Zero emojis
 - [ ] No legacy LaTeX delimiters
 - [ ] All code blocks have language tags
