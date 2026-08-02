@@ -1,41 +1,119 @@
-# Agent Instructions: Study Guide Material Generation
+# Agent Instructions: Study Notes & Phase Material Generation
 
-Your objective is to read the `Lectures/study_guide.md` file and generate comprehensive, high-quality study notes for each topic covered in the guide. You are strongly encouraged to use your web search capabilities to gather additional information, clarify complex theoretical concepts, or find insightful real-world examples.
+This document defines the architectural guidelines, file path structures, formatting requirements, and quality criteria for creating or maintaining study notes and phase reference materials within the Probability & Statistics repository.
 
-## Output Structure
+---
 
-For each Phase in the study guide, you must:
-1. **Target Directory**: All folders and files generated must be saved inside the `Lectures/` directory. If the specific phase directory does not exist, you must create it explicitly.
-2. **Phase Directories**: Create a directory inside `Lectures/` named after the phase (e.g., `Lectures/Phase_1_Descriptive_Statistics`).
-3. **Markdown Files**: Create individual Markdown files inside the corresponding phase directory for every individual bullet point and sub-bullet point.
-4. **File Naming**: Name the files using the format: `phase_<n>_<bullet_num>_<concept_covered>.md` (e.g., `phase_1_1_frequency_tables.md`). Keep the names concise, descriptive, and use underscores for spaces.
+## 1. Output Directory Structure
 
-## Content & Formatting Guidelines
+All generated or consolidated study materials must strictly adhere to the following directory layout under `Resources/`:
 
-When generating the content for each file, strictly adhere to the following rules:
+```
+Resources/
+├── Probability_and_Statistics_Master.md    # Generated master document compiling all 8 phase files
+├── Phases/                                 # 8 consolidated phase files
+│   ├── Phase_1_Descriptive_Statistics.md
+│   ├── Phase_2_Probability_Theory.md
+│   ├── Phase_3_Conditional_Probability_Independence.md
+│   ├── Phase_4_Discrete_Random_Variables.md
+│   ├── Phase_5_Continuous_Random_Variables_Distributions.md
+│   ├── Phase_5B_Multivariate_Random_Variables.md
+│   ├── Phase_6_Inferential_Statistics.md
+│   └── Phase_7_R_Programming_Commands.md
+├── Archive/Phase_Notes/                    # Historical granular source files backup (68 files)
+├── Scripts/                                # Build and verification scripts (e.g., build_master.py)
+└── Meta/                                   # Metadata, mindmaps, and agent instruction prompts
+```
 
-### 1. Markdown & LaTeX Styling
-- Use standard, clean Markdown structure (Headings, lists, bold text for emphasis).
-- Use LaTeX for all mathematical notation:
-  - **Inline math:** Use single dollar signs `$ equation $` (no indentation).
-  - **Block math:** Use double dollar signs `$$ equation $$` to center and indent equations on their own line.
+### Key Path Rules:
+- **Consolidated Phase Files:** Saved in `Resources/Phases/` using `Phase_<N>_<Phase_Name>.md`.
+- **Master Compilation File:** Saved at `Resources/Probability_and_Statistics_Master.md`. It is built by running `python Resources/Scripts/build_master.py`.
+- **Source Archive:** Original granular notes are maintained read-only in `Resources/Archive/Phase_Notes/`.
 
-### 2. Clarity & Flow
-- Follow a clear, logical progression from top to bottom.
-- Explain concepts concisely but **do not leave out any important information or edge cases**. 
-- Always highlight the easiest and most practical way of solving problems.
-- If there is a pattern, shortcut, or specific technique that can save a lot of time during exams, make sure to explicitly mention and emphasize it.
+---
 
-### 3. Theoretical Depth & Web Search
-- **Do not skip theory.** You must provide the mathematical foundation before jumping into examples.
-- For example, when explaining frequency tables for ungrouped and grouped data, you must clearly dictate the exact formula and logic used to calculate *each* specific column (absolute, relative, cumulative).
-- **Use Web Search:** Use web search whenever necessary to research and confirm facts, supplement your theoretical explanations, or find better analogies and examples for the concepts.
+## 2. Document Structure Specification
 
-### 4. Interactive & Progressive Examples
-- Provide detailed, step-by-step examples. **You must include at least (8 to 15) solved examples or exercises in every file you generate.**
-- When demonstrating a computational process (like filling out a frequency table or applying a formula), do not just provide the final answer.
-- **Provide "Work-in-Progress" states:** Show a half-finished column or equation, explicitly explain the calculation required to find the next value, and *then* display the fully completed table or solved equation.
+Every phase file inside `Resources/Phases/` must follow this standard markdown structure:
 
-## General Rules
-- Emojis are not allowed and may not be used in any way.
-- If you spot any emojis you are to ask if these are needed if the response is no you may remove them.
+```markdown
+# Phase N: [Phase Name]
+
+## Table of Contents
+- [Section N.1: Topic Title](#section-n1-topic-title)
+- [Section N.2: Topic Title](#section-n2-topic-title)
+- ...
+- [Phase Summary](#phase-summary)
+
+---
+
+## Section N.1: [Topic Title]
+
+### Core Theory & Definitions
+[Theoretical foundation, mathematical definitions, concepts, and conceptual intuition.]
+
+### Mathematical Formulas & Derivations
+[All relevant mathematical formulas with consistent notation.]
+
+> **Practical / Time-Domain Note:**
+> [Real-world domain applications, system latency considerations, unit conversions, or practical gotchas.]
+
+### Worked Exercises
+
+#### Exercise 1: [Descriptive Title]
+**Problem:** [Clear, complete problem statement]
+
+**Solution:**
+- **Step 1:** [Initial setup and parameter mapping]
+- **Step 2:** [Work-in-Progress state showing calculations/intermediate steps]
+- **Step 3:** [Final calculation and answer]
+
+#### Exercise 2: [Descriptive Title]
+...
+
+### R Implementation
+```r
+# Descriptive comment explaining the R snippet
+# ... R code ...
+```
+
+---
+
+## Phase Summary
+[Concise summary covering core concepts, key formulas, major distinctions, and exam/practical gotchas.]
+```
+
+---
+
+## 3. Content & Formatting Guidelines
+
+### 3.1 Markdown & LaTeX Standards
+- **Inline Math:** Must use single dollar signs `$ equation $` (e.g., $E[X] = \mu$). Never use legacy `\(` or `\)`.
+- **Block Math:** Must use double dollar signs centered on their own lines:
+  $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+  Never use legacy `\[` or `\]`.
+- **Code Blocks:** Must always specify the language syntax tag (` ```r `, ` ```python `, ` ```bash `).
+- **No Emojis:** Emojis are strictly prohibited throughout all notes, headers, and code comments.
+
+### 3.2 Theoretical Depth & Practical Context
+- **No Skipping Theory:** Provide mathematical foundations (PDFs, PMFs, CDFs, expectations, variances) before introducing examples.
+- **Time-Domain & Systems Context:** Highlight how concepts apply to physical/system metrics (e.g., execution durations, server latencies, timestamps, queueing delays).
+- **Gotchas & Exam Tips:** Use callout blockquotes (`> **Note:** ...`) to highlight common pitfalls, degrees of freedom mistakes, parameterization traps (e.g., R `sd` vs variance), or shortcut techniques.
+
+### 3.3 Worked Exercises & WIP States
+- **Quantity:** Every phase file must contain a minimum of **30** comprehensive solved exercises.
+- **Progressive Difficulty:** Include basic calculations, real-world application problems, edge cases, and R code verification.
+- **Work-in-Progress (WIP) States:** Step-by-step solutions must show intermediate steps, unsimplified expressions, or partial tables before displaying the final numerical answer.
+
+---
+
+## 4. Master Document Compilation Workflow
+
+When phase notes are updated or added in `Resources/Phases/`:
+
+1. Verify phase file compliance (H1 heading, Table of Contents, Phase Summary, LaTeX syntax, no emojis).
+2. Run the build script using the workspace Python environment:
+   ```bash
+   conda run -n py14 python Resources/Scripts/build_master.py
+   ```
+3. Confirm that `Resources/Probability_and_Statistics_Master.md` updates cleanly with all 8 phases included.
