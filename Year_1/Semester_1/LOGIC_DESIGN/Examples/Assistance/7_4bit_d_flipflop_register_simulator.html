@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4-bit D Flip-Flop Register Waveform Simulator</title>
+    <title>Προσομοιωτής Κυματομορφών Καταχωρητή 4-bit D Flip-Flop</title>
     <style>
         * {
             margin: 0;
@@ -350,12 +350,12 @@
 </head>
 <body>
     <div class="main-container">
-        <h1>4-bit D Flip-Flop Register Simulator</h1>
+        <h1>Προσομοιωτής Καταχωρητή 4-bit D Flip-Flop</h1>
         <p class="subtitle">Καταχωρητής 4-bit με D Flip-Flops - Προσομοίωση Κυματομορφών</p>
 
         <!-- Circuit Visualization -->
         <div class="circuit-container">
-            <h2>Circuit Diagram - Διάγραμμα Κυκλώματος</h2>
+            <h2>Διάγραμμα Κυκλώματος</h2>
             <div class="info-box">
                 <p><strong>Περιγραφή:</strong> Το κύκλωμα αποτελείται από 4 D Flip-Flops με κοινή είσοδο ρολογιού (CLK) και μηδενισμού (R). 
                 Τα δεδομένα από τις εισόδους I₀-I₃ μεταφέρονται στις εξόδους A₀-A₃ κατά την άνοδο του παλμού του ρολογιού.</p>
@@ -398,10 +398,10 @@
 
         <!-- Control Panel -->
         <div class="control-panel">
-            <h2>Control Panel - Πίνακας Ελέγχου</h2>
+            <h2>Πίνακας Ελέγχου</h2>
             
             <div class="control-section">
-                <h3>Data Inputs - Είσοδοι Δεδομένων (I₀-I₃)</h3>
+                <h3>Είσοδοι Δεδομένων (I₀-I₃)</h3>
                 <div class="input-controls">
                     <div class="input-toggle" id="input3" onclick="toggleInput(3)">I₃ = 0</div>
                     <div class="input-toggle" id="input2" onclick="toggleInput(2)">I₂ = 0</div>
@@ -411,29 +411,29 @@
             </div>
 
             <div class="control-section">
-                <h3>Clock & Reset Controls - Έλεγχος Ρολογιού & Μηδενισμού</h3>
+                <h3>Έλεγχος Ρολογιού & Μηδενισμού</h3>
                 <div class="clock-control">
-                    <button onclick="pulseClockManual()">Manual Clock Pulse</button>
+                    <button onclick="pulseClockManual()">Χειροκίνητος Παλμός Ρολογιού</button>
                     <div class="clock-display" id="clockDisplay">LOW</div>
-                    <button onclick="toggleReset()" id="resetButton">Reset (R=1)</button>
+                    <button onclick="toggleReset()" id="resetButton">Μηδενισμός (R=1)</button>
                 </div>
             </div>
 
             <div class="control-section">
-                <h3>Simulation Controls - Έλεγχος Προσομοίωσης</h3>
+                <h3>Έλεγχος Προσομοίωσης</h3>
                 <div class="simulation-controls">
-                    <button onclick="startSimulation()" id="startBtn">Start Auto Clock</button>
-                    <button onclick="stopSimulation()" id="stopBtn" disabled>Stop</button>
-                    <button onclick="clearWaveform()">Clear Waveform</button>
+                    <button onclick="startSimulation()" id="startBtn">Έναρξη Αυτόματου Ρολογιού</button>
+                    <button onclick="stopSimulation()" id="stopBtn" disabled>Διακοπή</button>
+                    <button onclick="clearWaveform()">Καθαρισμός Κυματομορφής</button>
                     <div class="speed-control">
-                        <label>Speed:</label>
+                        <label>Ταχύτητα:</label>
                         <input type="range" id="speedSlider" min="500" max="3000" value="1500">
                         <span id="speedValue">1500ms</span>
                     </div>
                 </div>
                 <div class="pattern-control">
                     <input type="checkbox" id="autoPattern" class="pattern-checkbox" checked>
-                    <label for="autoPattern">Auto-generate input patterns</label>
+                    <label for="autoPattern">Αυτόματη παραγωγή μοτίβων εισόδου</label>
                     <select id="patternType">
                         <option value="count">Counter (0-15)</option>
                         <option value="random">Random</option>
@@ -445,19 +445,19 @@
 
             <div class="state-display">
                 <div class="state-item">
-                    <div>Input Binary</div>
+                    <div>Δυαδική Είσοδος</div>
                     <div class="state-value" id="inputBinary">0000</div>
                 </div>
                 <div class="state-item">
-                    <div>Input Decimal</div>
+                    <div>Δεκαδική Είσοδος</div>
                     <div class="state-value" id="inputDecimal">0</div>
                 </div>
                 <div class="state-item">
-                    <div>Output Binary</div>
+                    <div>Δυαδική Έξοδος</div>
                     <div class="state-value" id="outputBinary">0000</div>
                 </div>
                 <div class="state-item">
-                    <div>Output Decimal</div>
+                    <div>Δεκαδική Έξοδος</div>
                     <div class="state-value" id="outputDecimal">0</div>
                 </div>
             </div>
@@ -465,7 +465,7 @@
 
         <!-- Waveform Display -->
         <div class="waveform-section">
-            <h2>Waveform Display - Απεικόνιση Κυματομορφών</h2>
+            <h2>Απεικόνιση Κυματομορφών</h2>
             <div class="legend">
                 <div class="legend-item">
                     <div class="legend-color" style="background: #ff6b6b;"></div>

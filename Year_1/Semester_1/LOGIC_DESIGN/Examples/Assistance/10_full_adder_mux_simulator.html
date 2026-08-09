@@ -105,7 +105,7 @@
         </div>
         <div class="explain" id="explain">Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.</div>
         <div class="select-info">
-          Select: S1=a, S0=b → <span id="select-info">ab=00 → D0</span>
+          Επιλογή: S1=a, S0=b → <span id="select-info">ab=00 → D0</span>
         </div>
       </div>
 
@@ -114,7 +114,7 @@
           <thead>
             <tr>
               <th>a</th><th>b</th><th>cin</th>
-              <th>Select</th><th>Sum MUX</th><th>Carry MUX</th>
+              <th>Επιλογή</th><th>Sum MUX</th><th>Carry MUX</th>
               <th>S</th><th>C</th>
             </tr>
           </thead>
@@ -124,8 +124,8 @@
 
       <div class="panel">
         <div class="eq">
-          Sum MUX: D0=cin, D1=cin′, D2=cin′, D3=cin<br>
-          Carry MUX: D0=0, D1=cin, D2=cin, D3=1
+          MUX Αθροίσματος: D0=cin, D1=cin′, D2=cin′, D3=cin<br>
+          MUX Κρατουμένου: D0=0, D1=cin, D2=cin, D3=1
         </div>
         <div class="kpi">
           <span class="tag">S = a ⊕ b ⊕ cin</span>
@@ -264,10 +264,10 @@
       {a:1, b:1, cin:0, S:0, C:1}, {a:1, b:1, cin:1, S:1, C:1}
     ];
     
-    const stages = ["Επιλογή Εισόδων", "MUX Selection", "Υπολογισμός Εξόδων"];
+    const stages = ["Επιλογή Εισόδων", "MUX Επιλογήion", "Υπολογισμός Εξόδων"];
     
     // --- DOM ELEMENTS ---
-    const ttBody = document.querySelector('#tt tbody');
+    const ttBody = document.queryΕπιλογήor('#tt tbody');
     const aVal = document.getElementById('a-val');
     const bVal = document.getElementById('b-val');
     const cinVal = document.getElementById('cin-val');
@@ -279,7 +279,7 @@
     const btnPause = document.getElementById('pause');
     const btnStep = document.getElementById('step');
     const btnReset = document.getElementById('reset');
-    const speedBtns = document.querySelectorAll('.speed');
+    const speedBtns = document.queryΕπιλογήorAll('.speed');
     const toggleBtn = document.getElementById('toggle-view-btn');
     
     const simPage = document.getElementById('simulation-page');
@@ -297,7 +297,7 @@
       return {sumInputs, carryInputs};
     }
     
-    function getSelectedInput(a, b) {
+    function getΕπιλογήedInput(a, b) {
       return (a << 1) | b;  // S1=a, S0=b
     }
     
@@ -307,7 +307,7 @@
       truthTable.forEach((row, i) => {
         const tr = document.createElement('tr');
         tr.dataset.row = i;
-        const select = getSelectedInput(row.a, row.b);
+        const select = getΕπιλογήedInput(row.a, row.b);
         const {sumInputs, carryInputs} = getMuxInputs(row.a, row.b, row.cin);
         tr.innerHTML = `
           <td class="${row.a ? 'bit1' : 'bit0'}">${row.a}</td>
@@ -327,9 +327,9 @@
       let html = '<h3>Αρχή Λειτουργίας</h3>';
       html += '<p>Ο πλήρης αθροιστής υλοποιείται με δύο 4:1 πολυπλέκτες:</p>';
       html += '<ul>';
-      html += '<li><b>Επιλογές (Select):</b> S1=a, S0=b</li>';
-      html += '<li><b>Sum MUX:</b> D0=cin, D1=cin′, D2=cin′, D3=cin</li>';
-      html += '<li><b>Carry MUX:</b> D0=0, D1=cin, D2=cin, D3=1</li>';
+      html += '<li><b>Επιλογές (Επιλογή):</b> S1=a, S0=b</li>';
+      html += '<li><b>MUX Αθροίσματος:</b> D0=cin, D1=cin′, D2=cin′, D3=cin</li>';
+      html += '<li><b>MUX Κρατουμένου:</b> D0=0, D1=cin, D2=cin, D3=1</li>';
       html += '</ul>';
       
       html += '<h3>Ανάλυση για κάθε περίπτωση ab:</h3>';
@@ -358,9 +358,9 @@
     
     // --- SIMULATION LOGIC ---
     function clearHighlights() {
-      document.querySelectorAll('#tt tr, #tt td').forEach(el => 
+      document.queryΕπιλογήorAll('#tt tr, #tt td').forEach(el => 
         el.classList.remove('row-hl', 'cell-hl'));
-      document.querySelectorAll('.wire, .dnode, .outbox').forEach(el => 
+      document.queryΕπιλογήorAll('.wire, .dnode, .outbox').forEach(el => 
         el.classList.remove('active', 'on'));
     }
     
@@ -371,7 +371,7 @@
       }
       
       const row = truthTable[curRow];
-      const select = getSelectedInput(row.a, row.b);
+      const select = getΕπιλογήedInput(row.a, row.b);
       const {sumInputs, carryInputs} = getMuxInputs(row.a, row.b, row.cin);
       
       aVal.textContent = row.a;
@@ -382,7 +382,7 @@
       clearHighlights();
       
       // Highlight current row
-      const tr = ttBody.querySelector(`tr[data-row="${curRow}"]`);
+      const tr = ttBody.queryΕπιλογήor(`tr[data-row="${curRow}"]`);
       tr.classList.add('row-hl');
       
       // Update select info
@@ -396,7 +396,7 @@
       if (stage === 0) {
         explainEl.textContent = `Εισόδους: a=${row.a}, b=${row.b}, cin=${row.cin}`;
       } else if (stage === 1) {
-        explainEl.textContent = `Select ab=${row.a}${row.b} επιλέγει D${select} από κάθε MUX`;
+        explainEl.textContent = `Επιλογή ab=${row.a}${row.b} επιλέγει D${select} από κάθε MUX`;
         
         // Highlight selected D inputs
         document.getElementById(`sum-d${select}`).classList.add('active');

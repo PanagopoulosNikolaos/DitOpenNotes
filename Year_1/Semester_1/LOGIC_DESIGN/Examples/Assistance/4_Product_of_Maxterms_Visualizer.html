@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Product of Maxterms Visualizer: f(x,y,z) = xy + y'z' + xy'z'</title>
+<title>Οπτικοποιητής Γινομένου Μεγιστόρων: f(x,y,z) = xy + y'z' + xy'z'</title>
 <style>
   :root { 
     --bg:#0a0314; --panel:#1a0b2e; --ink:#f1f5f9; --muted:#a78bfa; 
@@ -158,7 +158,7 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Product of Maxterms Visualizer</h1>
+    <h1>Οπτικοποιητής Γινομένου Μεγιστόρων</h1>
     <div class="subtitle">
       Function: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span> → Finding rows where <strong>f = 0</strong>
     </div>
@@ -175,7 +175,7 @@
               <option value="1200">Very Slow</option>
               <option value="800" selected>Slow</option>
               <option value="500">Normal</option>
-              <option value="250">Fast</option>
+              <option value="250">Γρήγορη</option>
             </select>
           </label>
           <div class="status" id="status">Ready to scan for f=0 rows</div>
@@ -183,31 +183,31 @@
 
         <table id="tt">
           <thead>
-            <tr><th>x</th><th>y</th><th>z</th><th>f(x,y,z)</th><th>index</th></tr>
+            <tr><th>x</th><th>y</th><th>z</th><th>f(x,y,z)</th><th>δείκτης</th></tr>
           </thead>
           <tbody id="tt-body"></tbody>
         </table>
 
         <div class="legend">
-          <span class="chip"><span class="dot dot-scan"></span> currently scanning</span>
-          <span class="chip"><span class="dot dot-max"></span> f=0 row (maxterm)</span>
+          <span class="chip"><span class="dot dot-scan"></span> τρέχουσα σάρωση</span>
+          <span class="chip"><span class="dot dot-max"></span> γραμμή f=0 (μεγιστόρος)</span>
         </div>
       </div>
 
       <div class="card flexcol">
         <div>
-          <div class="big">Discovered 0-maxterms</div>
-          <div class="muted">Added when a scanned row has f=0</div>
+          <div class="big">Εντοπισμένοι 0-μεγιστόροι</div>
+          <div class="muted">Προστίθεται όταν μια σαρωμένη γραμμή έχει f=0</div>
           <ol id="maxterm-list" class="list"></ol>
         </div>
 
         <div>
-          <div class="big">Pi notation</div>
+          <div class="big">Συμβολισμός Πι</div>
           <div id="pi" class="mono pill">f(x,y,z) = ∏( )</div>
         </div>
 
         <div>
-          <div class="big">Canonical Product of Maxterms (expanded)</div>
+          <div class="big">Κανονικό Γινόμενο Μεγιστόρων (αναπτυγμένο)</div>
           <div id="expanded" class="code">f(x,y,z) = </div>
           <div class="muted">Canonical PoS lists all 0-maxterms; it is not simplified.</div>
         </div>
@@ -221,7 +221,7 @@
   function f(x,y,z){
     return (x && y) || ((!y) && (!z)) || (x && (!y) && (!z));
   }
-  // Decimal index with x as MSB: index = 4x + 2y + z
+  // Decimal δείκτης with x as MSB: δείκτης = 4x + 2y + z
   function idx(x,y,z){ return (x<<2) | (y<<1) | z; }
   // Maxterm string like (x + y + z')
   function maxtermStr(x,y,z){
@@ -241,21 +241,21 @@
         rows.push({
           x,y,z,
           f: val,
-          index: idx(x,y,z),
+          δείκτης: idx(x,y,z),
           term: maxtermStr(x,y,z)
         });
       }
     }
   }
-  // Sort by index to show 000..111
-  rows.sort((a,b)=>a.index-b.index);
+  // Sort by δείκτης to show 000..111
+  rows.sort((a,b)=>a.δείκτης-b.δείκτης);
 
   // Render truth table
   const tbody = document.getElementById("tt-body");
   rows.forEach((r,i)=>{
     const tr = document.createElement("tr");
     tr.id = "row-"+i;
-    tr.innerHTML = `<td>${r.x}</td><td>${r.y}</td><td>${r.z}</td><td>${r.f}</td><td>${r.index}</td>`;
+    tr.innerHTML = `<td>${r.x}</td><td>${r.y}</td><td>${r.z}</td><td>${r.f}</td><td>${r.δείκτης}</td>`;
     tbody.appendChild(tr);
   });
 
@@ -321,13 +321,13 @@
     if (r.f === 0){
       // mark maxterm
       rowEl.classList.add("maxterm");
-      if (!foundIdx.includes(r.index)){
-        foundIdx.push(r.index);
+      if (!foundIdx.includes(r.δείκτης)){
+        foundIdx.push(r.δείκτης);
         foundTerms.push(r.term);
         // Append to list
         const li = document.createElement("li");
         li.className = "mono";
-        li.textContent = `M${r.index} = ${r.term}`;
+        li.textContent = `M${r.δείκτης} = ${r.term}`;
         list.appendChild(li);
         updatePi();
         updateExpanded();

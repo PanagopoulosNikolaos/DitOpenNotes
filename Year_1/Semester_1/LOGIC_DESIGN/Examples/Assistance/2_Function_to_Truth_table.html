@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Advanced Truth Table Generator (1–10 variables)</title>
+<title>Προηγμένη Γεννήτρια Πίνακα Αληθείας (1–10 μεταβλητές)</title>
 <style>
   :root{
     --bg1:#0b1021; --bg2:#1a0a2e; --panel:#0f172a; --ink:#e6f1ff; --muted:#94a3b8;
@@ -53,28 +53,28 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Advanced Truth Table Generator</h1>
-    <p class="sub">Enter a Boolean function, specify intermediate steps, and generate a detailed truth table with simplified minterm and maxterm forms.</p>
+    <h1>Προηγμένη Γεννήτρια Πίνακα Αληθείας</h1>
+    <p class="sub">Εισαγάγετε μια συνάρτηση Boolean, ορίστε ενδιάμεσα βήματα και δημιουργήστε έναν λεπτομερή πίνακα αληθείας.</p>
 
     <div class="grid">
       <div class="card">
-        <label for="expr">Boolean function (infix, supports +, adjacency/·/* for AND, postfix ' or ’ for NOT, parentheses)</label>
+        <label for="expr">Συνάρτηση Boolean (υποστηρίζει +, ·/* για AND, ' ή ’ για NOT, παρενθέσεις)</label>
         <textarea id="expr" spellcheck="false">g(a, b, c, d) = (cd + b'c + bd')(b + d)</textarea>
 
-        <label for="intermediates">Intermediate expressions (optional, comma-separated)</label>
+        <label for="intermediates">Ενδιάμεσες εκφράσεις (προαιρετικό, χωρισμένες με κόμμα)</label>
         <input id="intermediates" type="text" placeholder="e.g., cd, b'c, b+d" />
 
         <div class="grid2">
           <div>
-            <label for="vars">Variable order (optional, comma-separated)</label>
+            <label for="vars">Σειρά μεταβλητών (προαιρετικό, χωρισμένες με κόμμα)</label>
             <input id="vars" type="text" placeholder="e.g., a,b,c,d" />
-            <div class="hint">Detected variables are sorted alphabetically if left empty.</div>
+            <div class="hint">Οι μεταβλητές ταξινομούνται αλφαβητικά αν αφεθεί κενό.</div>
           </div>
           <div>
-            <label>Options</label>
+            <label>Επιλογές</label>
             <div class="row">
-              <label><input type="checkbox" id="showSigma" checked /> Show Σ (minterm indices)</label>
-              <label><input type="checkbox" id="showPi" checked /> Show Π (maxterm indices)</label>
+              <label><input type="checkbox" id="showSigma" checked /> Εμφάνιση Σ (δείκτες ελαχιστόρων)</label>
+              <label><input type="checkbox" id="showPi" checked /> Εμφάνιση Π (δείκτες μεγιστόρων)</label>
             </div>
           </div>
         </div>
@@ -465,7 +465,7 @@ const QuineMcCluskey = {
 
       tableWrap.appendChild(buildTable(varList, intermediateExprs, rows));
       const total = rows.length;
-      metaEl.innerHTML = `<div class="badge">Variables: <span class="caps">${varList.join(', ')}</span></div>
+      metaEl.innerHTML = `<div class="badge">Μεταβλητές: <span class="caps">${varList.join(', ')}</span></div>
                           <div class="badge">Rows: ${total}</div>
                           <div class="badge ok">Ones: ${ones}</div>
                           <div class="badge warn">Zeros: ${total-ones}</div>`;
@@ -479,16 +479,16 @@ const QuineMcCluskey = {
       const mintermRows = rows.filter(r => r.val === 1);
       const detailedSOP = mintermRows.map(r => generateTermString(varList, r.env, true)).join(' + ') || '0';
       const simplifiedSOP = QuineMcCluskey.simplify(mintermIndices, varList.length);
-      mintermInfoEl.innerHTML = `<h3>Sum of Minterms (SOP)</h3>
-                                 <b>Detailed:</b> <div class="expression-box">${detailedSOP}</div>
-                                 <b>Simplified:</b> <div class="expression-box">${simplifiedSOP}</div>`;
+      mintermInfoEl.innerHTML = `<h3>Άθροισμα Ελαχιστόρων (SOP)</h3>
+                                 <b>Λεπτομερής:</b> <div class="expression-box">${detailedSOP}</div>
+                                 <b>Απλοποιημένη:</b> <div class="expression-box">${simplifiedSOP}</div>`;
       
       const maxtermRows = rows.filter(r => r.val === 0);
       const detailedPOS = maxtermRows.map(r => generateTermString(varList, r.env, false)).join(' ') || '1';
       const simplifiedPOS = QuineMcCluskey.simplify(maxtermIndices, varList.length, true); // POS simplification
-      maxtermInfoEl.innerHTML = `<h3>Product of Maxterms (POS)</h3>
-                                 <b>Detailed:</b> <div class="expression-box">${detailedPOS}</div>
-                                 <b>Simplified:</b> <div class="expression-box">${simplifiedPOS}</div>`;
+      maxtermInfoEl.innerHTML = `<h3>Γινόμενο Μεγιστόρων (POS)</h3>
+                                 <b>Λεπτομερής:</b> <div class="expression-box">${detailedPOS}</div>
+                                 <b>Απλοποιημένη:</b> <div class="expression-box">${simplifiedPOS}</div>`;
 
       const csvContent = toCSV(varList, intermediateExprs, rows);
       const blob = new Blob([csvContent], {type:'text/csv'});

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>K-Map Simplifier with Step-by-Step Derivation</title>
+<title>Απλοποιητής Χάρτη Karnaugh με Βήμα-Βήμα Παραγωγή</title>
 <style>
   :root{
     --bg:#06051a; --panel:#0d0a2a; --ink:#f8fafc; --muted:#a5b4fc;
@@ -78,8 +78,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>K‑Map Simplifier with Step‑by‑Step Term Derivation</h1>
-  <div class="sub">Groups 1‑cells on a Gray‑ordered K‑map, then derives each product term by keeping variables that remain constant across the group and assembling the minimal SOP expression[13][14].</div>
+  <h1>Απλοποιητής Χάρτη Karnaugh με Βήμα-Βήμα Παραγωγή Όρων</h1>
+  <div class="sub">Ομαδοποιεί τα 1-τετράγωνα σε έναν Χάρτη Karnaugh με κώδικα Gray, και παράγει κάθε όρο γινομένου διατηρώντας τις μεταβλητές που παραμένουν σταθερές.[13][14].</div>
 
   <div class="grid">
     <div class="card">
@@ -100,32 +100,32 @@
         </label>
         <label>Examples
           <select id="example">
-            <option value="custom" selected>Custom (click cells)</option>
+            <option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα τετράγωνα)</option>
           </select>
         </label>
         <button id="fill" class="ghost">Fill example</button>
-        <button id="clear">Clear</button>
+        <button id="clear">Καθαρισμός</button>
         <button id="group" class="primary">Group</button>
-        <button id="derive">Derive Terms</button>
-        <button id="auto" class="primary">Auto Derive</button>
+        <button id="derive">Παραγωγή Όρων</button>
+        <button id="auto" class="primary">Αυτόματη Παραγωγή</button>
         <label>Speed
           <select id="speed">
             <option value="1200" selected>Very slow</option>
             <option value="800">Slow</option>
             <option value="500">Normal</option>
-            <option value="250">Fast</option>
+            <option value="250">Γρήγορη</option>
           </select>
         </label>
-        <button id="reset" class="danger">Reset</button>
+        <button id="reset" class="danger">Επαναφορά</button>
         <div class="status" id="status">Ready</div>
       </div>
 
       <div id="kmap" class="kmap"></div>
 
       <div class="legend">
-        <span class="chip"><span class="dot d1"></span> 1‑cells (SOP)</span>
+        <span class="chip"><span class="dot d1"></span> 1-τετράγωνα (SOP)</span>
         <span class="chip"><span class="dot d2"></span> grouping overlay</span>
-        <span class="chip"><span class="dot d3"></span> Gray‑code axes</span>
+        <span class="chip"><span class="dot d3"></span> Άξονες κώδικα Gray</span>
         <span class="chip"><span class="dot d4"></span> animated scan</span>
       </div>
     </div>
@@ -140,18 +140,18 @@
         <div class="expr mono" id="sig">Σ( )</div>
       </div>
       <div class="row">
-        <div>Minimal SOP:</div>
+        <div>Ελάχιστο SOP:</div>
         <div class="expr mono" id="sop">F = </div>
       </div>
 
       <div class="derive">
         <div class="step">
-          <h3>Active Group</h3>
+          <h3>Ενεργή Ομάδα</h3>
           <div class="expr mono" id="ginfo">None</div>
         </div>
 
         <div class="step">
-          <h3>Compare Variables Across Group</h3>
+          <h3>Σύγκριση Μεταβλητών στην Ομάδα</h3>
           <table class="tbl" id="varTbl">
             <thead><tr><th>Variable</th><th>Values across cells</th><th>Constant?</th><th>Literal</th></tr></thead>
             <tbody></tbody>
@@ -163,7 +163,7 @@
           <div class="expr mono" id="termOut">Term: —</div>
         </div>
         <div class="step">
-          <h3>Expression Builder</h3>
+          <h3>Κατασκευαστής Έκφρασης</h3>
           <div class="expr mono" id="builder">F = </div>
           <div class="sub">Terms are added as groups are processed, keeping only variables that remain constant within each group[14][13].</div>
         </div>
@@ -233,7 +233,7 @@
 
   function refreshExamples(){
     const list=examples[nvars]||[];
-    el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+
+    el.example.innerHTML=`<option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα τετράγωνα)</option>`+
       list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
   }
 
@@ -503,7 +503,7 @@
   // Events
   el.varCount.addEventListener('change', ()=>{ nvars=parseInt(el.varCount.value,10); refreshExamples(); initGrid(); });
   el.fill.addEventListener('click', loadExample);
-  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Cleared'; });
+  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Καθαρισμόςed'; });
   el.group.addEventListener('click', groupOnes);
   el.derive.addEventListener('click', deriveStep);
   el.auto.addEventListener('click', autoDerive);
@@ -521,7 +521,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>K-Map Simplifier with Step-by-Step Derivation</title>
+<title>Απλοποιητής Χάρτη Karnaugh με Βήμα-Βήμα Παραγωγή</title>
 <style>
   :root{
     --bg:#06051a; --panel:#0d0a2a; --ink:#f8fafc; --muted:#a5b4fc;
@@ -596,8 +596,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>K‑Map Simplifier with Step‑by‑Step Term Derivation</h1>
-  <div class="sub">Groups 1‑cells on a Gray‑ordered K‑map, then derives each product term by keeping variables that remain constant across the group and assembling the minimal SOP expression[13][14].</div>
+  <h1>Απλοποιητής Χάρτη Karnaugh με Βήμα-Βήμα Παραγωγή Όρων</h1>
+  <div class="sub">Ομαδοποιεί τα 1-τετράγωνα σε έναν Χάρτη Karnaugh με κώδικα Gray, και παράγει κάθε όρο γινομένου διατηρώντας τις μεταβλητές που παραμένουν σταθερές.[13][14].</div>
 
   <div class="grid">
     <div class="card">
@@ -612,32 +612,32 @@
         </label>
         <label>Examples
           <select id="example">
-            <option value="custom" selected>Custom (click cells)</option>
+            <option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα τετράγωνα)</option>
           </select>
         </label>
         <button id="fill" class="ghost">Fill example</button>
-        <button id="clear">Clear</button>
+        <button id="clear">Καθαρισμός</button>
         <button id="group" class="primary">Group</button>
-        <button id="derive">Derive Terms</button>
-        <button id="auto" class="primary">Auto Derive</button>
+        <button id="derive">Παραγωγή Όρων</button>
+        <button id="auto" class="primary">Αυτόματη Παραγωγή</button>
         <label>Speed
           <select id="speed">
             <option value="1200" selected>Very slow</option>
             <option value="800">Slow</option>
             <option value="500">Normal</option>
-            <option value="250">Fast</option>
+            <option value="250">Γρήγορη</option>
           </select>
         </label>
-        <button id="reset" class="danger">Reset</button>
+        <button id="reset" class="danger">Επαναφορά</button>
         <div class="status" id="status">Ready</div>
       </div>
 
       <div id="kmap" class="kmap"></div>
 
       <div class="legend">
-        <span class="chip"><span class="dot d1"></span> 1‑cells (SOP)</span>
+        <span class="chip"><span class="dot d1"></span> 1-τετράγωνα (SOP)</span>
         <span class="chip"><span class="dot d2"></span> grouping overlay</span>
-        <span class="chip"><span class="dot d3"></span> Gray‑code axes</span>
+        <span class="chip"><span class="dot d3"></span> Άξονες κώδικα Gray</span>
         <span class="chip"><span class="dot d4"></span> animated scan</span>
       </div>
     </div>
@@ -652,18 +652,18 @@
         <div class="expr mono" id="sig">Σ( )</div>
       </div>
       <div class="row">
-        <div>Minimal SOP:</div>
+        <div>Ελάχιστο SOP:</div>
         <div class="expr mono" id="sop">F = </div>
       </div>
 
       <div class="derive">
         <div class="step">
-          <h3>Active Group</h3>
+          <h3>Ενεργή Ομάδα</h3>
           <div class="expr mono" id="ginfo">None</div>
         </div>
 
         <div class="step">
-          <h3>Compare Variables Across Group</h3>
+          <h3>Σύγκριση Μεταβλητών στην Ομάδα</h3>
           <table class="tbl" id="varTbl">
             <thead><tr><th>Variable</th><th>Values across cells</th><th>Constant?</th><th>Literal</th></tr></thead>
             <tbody></tbody>
@@ -675,7 +675,7 @@
           <div class="expr mono" id="termOut">Term: —</div>
         </div>
         <div class="step">
-          <h3>Expression Builder</h3>
+          <h3>Κατασκευαστής Έκφρασης</h3>
           <div class="expr mono" id="builder">F = </div>
           <div class="sub">Terms are added as groups are processed, keeping only variables that remain constant within each group[14][13].</div>
         </div>
@@ -739,7 +739,7 @@
 
   function refreshExamples(){
     const list=examples[nvars]||[];
-    el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+
+    el.example.innerHTML=`<option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα τετράγωνα)</option>`+
       list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
   }
 
@@ -964,14 +964,14 @@
   // Events
   el.varCount.addEventListener('change', ()=>{ nvars=parseInt(el.varCount.value,10); refreshExamples(); initGrid(); });
   el.fill.addEventListener('click', loadExample);
-  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Cleared'; });
+  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Καθαρισμόςed'; });
   el.group.addEventListener('click', groupOnes);
   el.derive.addEventListener('click', deriveStep);
   el.auto.addEventListener('click', autoDerive);
   el.reset.addEventListener('click', ()=>{ if(animTimer){clearInterval(animTimer);animTimer=null;} initGrid(); });
 
   // Boot
-  function refreshExamples(){ const list=examples[nvars]||[]; el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join(''); }
+  function refreshExamples(){ const list=examples[nvars]||[]; el.example.innerHTML=`<option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα τετράγωνα)</option>`+list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join(''); }
   refreshExamples(); initGrid();
 })();
 </script>

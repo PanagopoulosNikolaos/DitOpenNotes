@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive State Table to Diagram Converter</title>
+    <title>Διαδραστικός Μετατροπέας Πίνακα Καταστάσεων σε Διάγραμμα</title>
     <style>
         * {
             margin: 0;
@@ -231,9 +231,9 @@
         <h1>🔄 Μετατροπή Πίνακα Καταστάσεων σε Διάγραμμα Καταστάσεων</h1>
         
         <div class="controls">
-            <button onclick="startTutorial()">📚 Tutorial Mode</button>
-            <button onclick="animateAllTransitions()">▶️ Animate All</button>
-            <button onclick="clearHighlights()">🔄 Clear</button>
+            <button onclick="startTutorial()">📚 Λειτουργία Σεμιναρίου</button>
+            <button onclick="animateAllTransitions()">▶️ Κίνηση Όλων</button>
+            <button onclick="clearHighlights()">🔄 Καθαρισμός</button>
             <button onclick="toggleAutoMode()" id="autoModeBtn">🤖 Auto Mode: OFF</button>
         </div>
 
@@ -340,7 +340,7 @@
                     <!-- Initial state arrow -->
                     <path d="M 50 200 L 105 200" stroke="#333" stroke-width="2" 
                           marker-end="url(#arrowhead)" fill="none"/>
-                    <text x="30" y="195" font-size="12">Start</text>
+                    <text x="30" y="195" font-size="12">Έναρξη</text>
                 </svg>
             </div>
         </div>
@@ -348,10 +348,10 @@
         <!-- Tutorial Overlay -->
         <div class="tutorial-overlay" id="tutorialOverlay">
             <div class="tutorial-box" id="tutorialBox">
-                <h3 id="tutorialTitle">Welcome to the Tutorial!</h3>
-                <p id="tutorialText">Let's learn how to convert a state table to a state diagram.</p>
-                <button onclick="nextTutorialStep()">Next →</button>
-                <button onclick="endTutorial()">Skip</button>
+                <h3 id="tutorialTitle">Καλώς ήρθατε στο Σεμινάριο!</h3>
+                <p id="tutorialText">Ας μάθουμε πώς μετατρέπεται ένας πίνακας καταστάσεων σε διάγραμμα καταστάσεων.</p>
+                <button onclick="nextTutorialStep()">Επόμενο →</button>
+                <button onclick="endTutorial()">Παράλειψη</button>
             </div>
         </div>
     </div>
@@ -617,7 +617,7 @@
             }
         }
 
-        // Start auto mode
+        // Έναρξη auto mode
         function startAutoMode() {
             currentAutoIndex = 0;
             autoModeInterval = setInterval(() => {

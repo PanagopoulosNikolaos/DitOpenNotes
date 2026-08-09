@@ -1,23 +1,23 @@
-# Logic Design
+# Λογική Σχεδίαση
 
-## Course Overview
-This course introduces the fundamental concepts of digital logic design, including Boolean algebra, logic gates, combinational and sequential circuits.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα εισάγει τις βασικές έννοιες της σχεδίασης ψηφιακής λογικής, συμπεριλαμβανομένων της άλγεβρας Boole, των λογικών πυλών, καθώς και των συνδυαστικών και ακολουθιακών κυκλωμάτων.
 
-## Course Code
+## Κωδικός Μαθήματος
 104 (ΛΟΓΙΚΗ ΣΧΕΔΙΑΣΗ)
 
-## Prerequisites
-None
+## Προαπαιτούμενα
+Κανένα
 
-This directory contains materials for the Logic Design course.
+Αυτός ο κατάλογος περιέχει υλικό για το μάθημα της Λογικής Σχεδίασης.
 
-## Folder Structure
+## Δομή Φακέλων
 
-*   `Lectures/`: Contains PDF presentations for each lecture.
-*   `Assistance/`: Contains interactive HTML simulators for various logic circuits.
-*   `Exercises/`: Contains solved exercises and past exams.
-*   `QuizGames/`: Contains interactive HTML-based quiz games to test your knowledge.
+*   `Lectures/`: Περιέχει τις παρουσιάσεις σε μορφή PDF για κάθε διάλεξη.
+*   `Assistance/`: Περιέχει διαδραστικούς προσομοιωτές HTML για διάφορα λογικά κυκλώματα.
+*   `Exercises/`: Περιέχει λυμένες ασκήσεις και θέματα παλαιότερων εξετάσεων.
+*   `QuizGames/`: Περιέχει διαδραστικά παιχνίδια διαγωνισμάτων σε HTML για τον έλεγχο των γνώσεών σας.
 
-## How to Use
+## Τρόπος Χρήσης
 
-It is recommended to first go through the lecture PDFs, then use the simulators to understand the concepts visually, then work through the exercises, and finally use the quiz games to test your understanding.
+Συνιστάται αρχικά να μελετήσετε τα PDF των διαλέξεων, στη συνέχεια να χρησιμοποιήσετε τους προσομοιωτές για την οπτική κατανόηση των εννοιών, έπειτα να εργαστείτε πάνω στις ασκήσεις και τέλος να χρησιμοποιήσετε τα παιχνίδια διαγωνισμάτων για να αξιολογήσετε την κατανόησή σας.

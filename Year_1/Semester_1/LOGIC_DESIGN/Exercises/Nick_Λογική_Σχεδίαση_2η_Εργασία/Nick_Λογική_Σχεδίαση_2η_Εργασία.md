@@ -31,7 +31,7 @@
 
 |   |   |   |   |   |
 |---|---|---|---|---|
-|Decimal|G3|G2|G1|G0|
+|Δεκαδικός|G3|G2|G1|G0|
 |0|0|0|0|0|
 |1|0|0|0|1|
 |2|0|0|1|1|
@@ -174,7 +174,7 @@ $C = 9 - D$
 
 |   |   |   |
 |---|---|---|
-|**D3 D2 D1 D0 (D)**|**C3 C2 C1 C0 (C)**|**Error**|
+|**D3 D2 D1 D0 (D)**|**C3 C2 C1 C0 (C)**|**Σφάλμα**|
 |0000 (0)|1001 (9)|0|
 |0001 (1)|1000 (8)|0|
 |0010 (2)|0111 (7)|0|
@@ -272,7 +272,7 @@ $Error = D3 \cdot (D2 + D1 + D0)$
 - $C_2: \texttt{1100110011001100} = \texttt{CCCC}$
 - $C_3: \texttt{1001100110011001} = \texttt{9999}$
 
-### Error:
+### Σφάλμα:
 
 $\texttt{Error: } =\texttt{00FF}$
 
@@ -282,35 +282,35 @@ $\texttt{Error: } =\texttt{00FF}$
 
 ```Mermaid
 graph TD
-    subgraph "Input Sequences"
-        D0[D0 Sequence]
-        D1[D1 Sequence]
-        D2[D2 Sequence]
-        D3[D3 Sequence]
+    subgraph "Ακολουθίες Εισόδου"
+        D0[Ακολουθία D0]
+        D1[Ακολουθία D1]
+        D2[Ακολουθία D2]
+        D3[Ακολουθία D3]
     end
 
-    subgraph "Logic Gates"
+    subgraph "Λογικές Πύλες"
         direction LR
-        D0 --> OR1[OR Gate 1]
+        D0 --> OR1[Πύλη OR 1]
         D1 --> OR1
-        D2 --> OR2[OR Gate 2]
+        D2 --> OR2[Πύλη OR 2]
         OR1 --> OR2
         
-        D3 --> AND1[AND Gate 1]
+        D3 --> AND1[Πύλη AND 1]
         OR2 --> AND1
 
-        D0 --> COMP[Complement Logic]
+        D0 --> COMP[Λογική Συμπληρώματος]
         D1 --> COMP
         D2 --> COMP
         D3 --> COMP
     end
 
-    subgraph "Output Lights"
-        COMP --> C0[C0 Output]
-        COMP --> C1[C1 Output]
-        COMP --> C2[C2 Output]
-        COMP --> C3[C3 Output]
-        AND1 --> ERR[Error Light]
+    subgraph "Λυχνίες Εξόδου"
+        COMP --> C0[Έξοδος C0]
+        COMP --> C1[Έξοδος C1]
+        COMP --> C2[Έξοδος C2]
+        COMP --> C3[Έξοδος C3]
+        AND1 --> ERR[Λυχνία Σφάλματος]
     end
 
     classDef sequence fill:\#e1f5fe,stroke:\#01579b,stroke-width:2px;

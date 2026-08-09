@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sum of Minterms Visualizer: f(x,y,z) = xy + y'z' + xy'z'</title>
+<title>Οπτικοποιητής Αθροίσματος Ελαχιστόρων: f(x,y,z) = xy + y'z' + xy'z'</title>
 <style>
   :root { --bg:#0f172a; --panel:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22d3ee; --hi:#fde68a; --good:#a7f3d0; --scan:#60a5fa; }
   body { margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--ink); }
@@ -44,7 +44,7 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Sum of Minterms Visualizer</h1>
+    <h1>Οπτικοποιητής Αθροίσματος Ελαχιστόρων</h1>
     <div class="subtitle">
       Function: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span>
     </div>
@@ -60,7 +60,7 @@
             <select id="speed">
               <option value="900">Slow</option>
               <option value="550" selected>Normal</option>
-              <option value="250">Fast</option>
+              <option value="250">Γρήγορη</option>
             </select>
           </label>
           <div class="status" id="status">Ready</div>
@@ -68,31 +68,31 @@
 
         <table id="tt">
           <thead>
-            <tr><th>x</th><th>y</th><th>z</th><th>f(x,y,z)</th><th>index</th></tr>
+            <tr><th>x</th><th>y</th><th>z</th><th>f(x,y,z)</th><th>δείκτης</th></tr>
           </thead>
           <tbody id="tt-body"></tbody>
         </table>
 
         <div class="legend">
-          <span class="chip"><span class="dot dot-scan"></span> currently scanning</span>
-          <span class="chip"><span class="dot dot-min"></span> f=1 row (minterm)</span>
+          <span class="chip"><span class="dot dot-scan"></span> τρέχουσα σάρωση</span>
+          <span class="chip"><span class="dot dot-min"></span> γραμμή f=1 (ελαχιστόρος)</span>
         </div>
       </div>
 
       <div class="card flexcol">
         <div>
-          <div class="big">Discovered 1-minterms</div>
-          <div class="muted">Added when a scanned row has f=1</div>
+          <div class="big">Εντοπισμένοι 1-ελαχιστόροι</div>
+          <div class="muted">Προστίθεται όταν μια σαρωμένη γραμμή έχει f=1</div>
           <ol id="minterm-list" class="list"></ol>
         </div>
 
         <div>
-          <div class="big">Sigma notation</div>
+          <div class="big">Συμβολισμός Σίγμα</div>
           <div id="sigma" class="mono pill">f(x,y,z) = Σ( )</div>
         </div>
 
         <div>
-          <div class="big">Canonical Sum of Minterms (expanded)</div>
+          <div class="big">Κανονικό Άθροισμα Ελαχιστόρων (αναπτυγμένο)</div>
           <div id="expanded" class="code">f(x,y,z) = </div>
           <div class="muted">Canonical SoP lists all 1-minterms; it is not simplified.</div>
         </div>
@@ -106,7 +106,7 @@
   function f(x,y,z){
     return (x && y) || ((!y) && (!z)) || (x && (!y) && (!z));
   }
-  // Decimal index with x as MSB: index = 4x + 2y + z
+  // Decimal δείκτης with x as MSB: δείκτης = 4x + 2y + z
   function idx(x,y,z){ return (x<<2) | (y<<1) | z; }
   // Minterm string like x'y'z'
   function mintermStr(x,y,z){
@@ -125,21 +125,21 @@
         rows.push({
           x,y,z,
           f: val,
-          index: idx(x,y,z),
+          δείκτης: idx(x,y,z),
           term: mintermStr(x,y,z)
         });
       }
     }
   }
-  // Sort by index to show 000..111
-  rows.sort((a,b)=>a.index-b.index);
+  // Sort by δείκτης to show 000..111
+  rows.sort((a,b)=>a.δείκτης-b.δείκτης);
 
   // Render truth table
   const tbody = document.getElementById("tt-body");
   rows.forEach((r,i)=>{
     const tr = document.createElement("tr");
     tr.id = "row-"+i;
-    tr.innerHTML = `<td>${r.x}</td><td>${r.y}</td><td>${r.z}</td><td>${r.f}</td><td>${r.index}</td>`;
+    tr.innerHTML = `<td>${r.x}</td><td>${r.y}</td><td>${r.z}</td><td>${r.f}</td><td>${r.δείκτης}</td>`;
     tbody.appendChild(tr);
   });
 
@@ -205,13 +205,13 @@
     if (r.f === 1){
       // mark minterm
       rowEl.classList.add("minterm");
-      if (!foundIdx.includes(r.index)){
-        foundIdx.push(r.index);
+      if (!foundIdx.includes(r.δείκτης)){
+        foundIdx.push(r.δείκτης);
         foundTerms.push(r.term);
         // Append to list
         const li = document.createElement("li");
         li.className = "mono";
-        li.textContent = `m${r.index} = ${r.term}`;
+        li.textContent = `m${r.δείκτης} = ${r.term}`;
         list.appendChild(li);
         updateSigma();
         updateExpanded();
