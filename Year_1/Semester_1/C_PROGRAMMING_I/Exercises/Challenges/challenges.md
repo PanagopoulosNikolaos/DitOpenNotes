@@ -2,28 +2,28 @@
 
 ## 1. Stdio Challenge
 
-Write a program that asks the user for their name and their favorite number. Then, print a message to the console that says "Hello, [name]! Your favorite number is [number]."
+Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει το όνομά του και τον προτιμώμενο του αριθμό. Στη συνέχεια, εκτυπώστε ένα μήνυμα στην κονσόλα που λέει "Hello, [name]! Your favorite number is [number]."
 
 ## 2. Stdlib Challenge
 
-Write a program that generates a random number between 1 and 100. The program should then ask the user to guess the number. If the user's guess is too high, the program should print "Too high!". If the user's guess is too low, the program should print "Too low!". If the user guesses the number correctly, the program should print "You got it!".
+Γράψτε ένα πρόγραμμα που γεννάει έναν τυχαίο αριθμό μεταξύ 1 και 100. Το πρόγραμμα στη συνέχεια ζητά από τον χρήστη να μαντέψει τον αριθμό. Εάν ο χρήστης ζαγγίζει υψηλότερο από τον αριθμό, το πρόγραμμα θα εκτυπώσει "Too high!". Εάν ο χρήστης ζαγγίζει χαμηλότερο από τον αριθμό, το πρόγραμμα θα εκτυπώσει "Too low!". Εάν ο χρήστης μαντέψει τον αριθμό σωστά, το πρόγραμμα θα εκτυπώσει "You got it!".
 
 ## 3. Math Challenge
 
-Write a program that asks the user to enter a number. The program should then print the square root of the number. The program should also ask the user to enter a float number and the program should round the float number and print it.
+Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει έναν αριθμό. Το πρόγραμμα στη συνέχεια εκτυπώνει την τετραγωνική ρίζα του αριθμού. Το πρόγραμμα πρέπει επίσης να ζητά από τον χρήστη να εισάγει έναν αριθμό float και το πρόγραμμα πρέπει να ξερόντρεψει τον αριθμό float και να εκτυπώσει τον.
 
 ## 4. File Handling Challenge
 
-Write a program that asks the user to enter a sentence. The program should then write the sentence to a file called "sentence.txt". After writing to the file, the program should read the sentence from the file and print it to the console.
+Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει μια πρόταση. Το πρόγραμμα στη συνέχεια γράφει την πρόταση σε ένα αρχείο με όνομα "sentence.txt". Μετά την επισυναρμοσή του αρχείου, το πρόγραμμα διαβάζει την πρόταση από το αρχείο και εκτυπώνει την στην κονσόλα.
 
 ## 5. Binary Challenge
 
-Write a program that asks the user to enter a decimal number. The program should then convert the decimal number to binary and print the binary representation.
+Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει έναν δεκαδικό αριθμό. Το πρόγραμμα στη συνέχεια μετατρέπει τον δεκαδικό αριθμό σε δυαδικό και εκτυπώνει την αναπαράσταση του δυαδικού.
 
 ## 6. Encryption Challenge
 
-Write a program that asks the user to enter a message and a key. The program should then encrypt the message using the Caesar cipher algorithm. The Caesar cipher is a simple substitution cipher where each letter in the plaintext is shifted a certain number of places down or up the alphabet.
+Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει ένα μήνυμα και ένα κλειδί. Το πρόγραμμα στη συνέχεια κρυπτογραφεί το μήνυμα χρησιμοποιώντας τον αλγόριθμο Caesar cipher. Το Caesar cipher είναι ένα απλό υποσυνθέση ciphertext όπου κάθε γράμμα στο plaintext μεταφέρεται κατά έναν καθορισμένο αριθμό θέσεις κάτω ή πάνω στο αλφάβητο.
 
 ## 7. Decryption Challenge
 
-Write a program that asks the user to enter a message and a key. The program should then decrypt the message using the Caesar cipher algorithm.
+Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει ένα μήνυμα και ένα κλειδί. Το πρόγραμμα στη συνέχεια αποκρυπτογραφεί το μήνυμα χρησιμοποιώντας τον αλγόριθμο Caesar cipher.

@@ -1,13 +1,13 @@
 # Complete C Programming Guide
 
-## 1. Getting Started with C
+## 1. Ξεκινώντας με την C
 
 ### Installation
-- **Text editor**: Notepad or any code editor
-- **Compiler**: GCC (GNU Compiler Collection)
-- **IDE**: Code::Blocks (recommended for beginners)
+- **Κειμενογράφο**: Notepad ή οποιοδήποτε κειμενογράφος κώδικα
+- **Συντάξιμο**: GCC (GNU Compiler Collection)
+- **IDE**: Code::Blocks (συνισταμένο για αρχάριους)
 
-### First Program
+### Πρώνο Πρόγραμμα
 ```c
 #include <stdio.h>
 

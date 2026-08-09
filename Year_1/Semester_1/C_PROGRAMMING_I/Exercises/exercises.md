@@ -2,17 +2,17 @@
 
 ## Variables and Data Types
 
-1.  Write a program that declares an integer variable, a float variable, and a character variable. Initialize them with some values and print them to the console.
-2.  Write a program that asks the user to enter two integers, and then prints their sum, difference, product, and quotient.
+1.  Γράψτε ένα πρόγραμμα που δηλώνει ένα ακεραίου μεταβλητό, ένα float μεταβλητό, και ένα χαρακτήρα μεταβλητό. Αρχικοποιήστε τα με μερικές τιμές και εκτυπώστε τα στην κονσόλα.
+2.  Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει δύο ακέραιους, και στη συνέχεια εκτυπώνει το άθροισμα, τη διαφορά, το γινόμενο, και το quotient τους.
 
 ## Control Flow
 
-1.  Write a program that asks the user to enter an integer, and then tells them if it is even or odd.
-2.  Write a program that asks the user to enter a number between 1 and 7, and then prints the corresponding day of the week.
-3.  Write a program that prints the numbers from 1 to 100. For multiples of 3, print "Fizz" instead of the number. For multiples of 5, print "Buzz". For multiples of both 3 and 5, print "FizzBuzz".
+1.  Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει ένα ακεραίο, και στη συνέχεια του λέει αν είναι άρτιος ή περιττός.
+2.  Γράψτε ένα πρόγραμμα που ζητά από τον χρήστη να εισάγει έναν αριθμό μεταξύ 1 και 7, και στη συνέχεια εκτυπώνει τον αντίστοιχο ημέρα της εβδομάδας.
+3.  Γράψτε ένα πρόγραμμα που εκτυπώνει τους αριθμούς από 1 έως 100. Για πολλαπλάσια του 3, εκτυπώστε "Fizz" αντί για τον αριθμό. Για πολλαπλάσια του 5, εκτυπώστε "Buzz". Για πολλαπλάσια και του 3 και του 5, εκτυπώστε "FizzBuzz".
 
 ## Functions
 
-1.  Write a function that takes two integers as input and returns their sum.
-2.  Write a function that takes an integer as input and returns its factorial.
-3.  Write a function that takes an array of integers as input and returns the largest element.
+1.  Γράψτε μια συνάρτηση που παίρνει δύο ακέραιους ως είσοδο και επιστρέφει το άθροισμα τους.
+2.  Γράψτε μια συνάρτηση που παίρνει έναν ακεραίο ως είσοδο και επιστρέφει το φακτόρια του.
+3.  Γράψτε μια συνάρτηση που παίρνει έναν πίνακα ακερέων ως είσοδο και επιστρέφει το μεγαλύτερο στοιχείο.

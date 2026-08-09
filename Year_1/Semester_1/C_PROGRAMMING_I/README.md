@@ -1,7 +1,7 @@
 # C Programming I
 
 ## Course Overview
-This course provides an introduction to the C programming language, covering fundamental concepts such as variables, data types, control flow, functions, and arrays. It is designed for beginners with no prior programming experience.
+Αυτό το μάθημα παρέχει μια εισαγωγική επαφή στην προγραμματιστική γλώσσα C, καλύπτοντας βασικές έννοιες όπως μεταβλητές, τύποι δεδομένων, έλεγχος ροής, συναρτήσεις και πίνακες. Έχει σχεδιαστεί για αρχάριους χωρίς προηγούμενη εμπειρία προγραμματισμού.
 
 ## Course Code
 103 (ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ I)
@@ -9,42 +9,42 @@ This course provides an introduction to the C programming language, covering fun
 ## Prerequisites
 None
 
-This directory contains a series of C programs that demonstrate fundamental programming concepts. Each file is a standalone program that can be compiled and run to see the concept in action.
+Αυτός ο κατάλογος περιέχει ένα σειρά προγραμμάτων C που δείχνουν βασικές προγραμματιστικές έννοιες. Κάθε αρχείο είναι ένα αυτόνομο πρόγραμμα που μπορεί να συντεθεί και να εκτεθεί για να δείξει την έννοια σε ένεργη λειτουργία.
 
 ## Files
 
-The files are numbered in a suggested learning order:
+Τα αρχεία έχουν αριθμοποιηθεί σε προτεινόμενη σειρά μάθησης:
 
-1.  `01_hello_world.c`: A simple "Hello, World!" program to get you started.
-2.  `02_variables_and_data_types.c`: Demonstrates how to declare and use variables of different data types.
-3.  `03_basic_input_output.c`: Shows how to get input from the user and print output to the console.
-4.  `04_arithmetic_operators.c`: Covers the basic arithmetic operators in C.
-5.  `05_control_flow_if_else.c`: Demonstrates how to use `if` and `else` statements to control the flow of your program.
-6.  `06_control_flow_switch.c`: Shows how to use `switch` statements for multi-way branching.
-7.  `07_loops_for.c`: Covers `for` loops for iterating a specific number of times.
-8.  `08_loops_while.c`: Demonstrates `while` loops for iterating as long as a condition is true.
-9.  `09_loops_do_while.c`: Shows how to use `do-while` loops, which always execute at least once.
-10. `10_functions.c`: Covers how to define and call functions.
-11. `11_arrays.c`: Demonstrates how to declare, initialize, and use arrays.
-12. `12_strings.c`: Shows how to work with strings in C.
-13. `13_pointers.c`: Covers the basics of pointers.
-14. `14_functions_and_pointers.c`: Demonstrates how to use pointers with functions.
-15. `15_structures.c`: Shows how to create and use structures to group related data.
-16. `16_unions.c`: Covers unions, which allow you to store different data types in the same memory location.
-17. `17_file_handling_write.c`: Demonstrates how to write to a file.
-18. `18_file_handling_read.c`: Shows how to read from a file.
-19. `19_preprocessor_directives.c`: Covers preprocessor directives like `#include` and `#define`.
-20. `20_ctype_library.c`: Demonstrates how to use the `ctype` library for character manipulation.
+1.  `01_hello_world.c`: Ένα απλό πρόγραμμα "Γειά σου, Κόσμε!" για να ξεκινήσετε.
+2.  `02_variables_and_data_types.c`: Δείχνει πώς να δηλωθείτε και να χρησιμοποιείτε μεταβλητές διαφορετικών τύπων δεδομένων.
+3.  `03_basic_input_output.c`: Δείχνει πώς να λάβετε εισόδους από τον χρήστη και να εκτυπώνετε απόδοση στην κονσόλα.
+4.  `04_arithmetic_operators.c`: Καλύπτει τους βασικούς αριθμητικούς τελεστές στην C.
+5.  `05_control_flow_if_else.c`: Δείχνει πώς να χρησιμοποιείτε τις εντολές `if` και `else` για να ελέγξετε τη ροή του προγράμματος.
+6.  `06_control_flow_switch.c`: Δείχνει πώς να χρησιμοποιείτε τις εντολές `switch` για πολυπλοκευμένη διακχείριση.
+7.  `07_loops_for.c`: Καλύπτει τις βρόχους `for` για επανάληψη μιας συγκεκριμένης αριθμό φορών.
+8.  `08_loops_while.c`: Δείχνει τους βρόχους `while` για επανάληψη όσο η συνθήκη είναι αληθής.
+9.  `09_loops_do_while.c`: Δείχνει πώς να χρησιμοποιείτε τους βρόχους `do-while`, που περνάνε τουλάχιστον μια φορά.
+10. `10_functions.c`: Καλύπτει πώς να ορίζετε και να καλείτε συναρτήσεις.
+11. `11_arrays.c`: Δείχνει πώς να δηλωθείτε, αρχικοποιείτε και να χρησιμοποιείτε πίνακες.
+12. `12_strings.c`: Δείχνει πώς να εργάζεστε με συμβολοσειρές στην C.
+13. `13_pointers.c`: Καλύπτει τα βασικά της δεικτών.
+14. `14_functions_and_pointers.c`: Δείχνει πώς να χρησιμοποιείτε δείκτες με συναρτήσεις.
+15. `15_structures.c`: Δείχνει πώς να δημιουργείτε και να χρησιμοποιείτε δομές για να ομαδοποιηθούν σχετικά δεδομένα.
+16. `16_unions.c`: Καλύπτει τις μονάδες, που επιτρέπουν την αποθήκευση διαφορετικών τύπων δεδομένων στην ίδια θέση μνήμης.
+17. `17_file_handling_write.c`: Δείχνει πώς να γράφετε σε ένα αρχείο.
+18. `18_file_handling_read.c`: Δείχνει πώς να διαβάζετε από ένα αρχείο.
+19. `19_preprocessor_directives.c`: Καλύπτει τις δηλώσεις προεπεξεργαστή όπως `#include` και `#define`.
+20. `20_ctype_library.c`: Δείχνει πώς να χρησιμοποιείτε τη βιβλία `ctype` για χειρισμό χαρακτήρων.
 
 ## How to Compile and Run
 
-To compile and run these programs, you will need a C compiler like GCC. You can compile a program from the terminal like this:
+Για να συντάξετε και να εκτελέσετε αυτά τα προγράμματα, θα χρειαστείτε έναν συντάξιμο C όπως το GCC. Μπορείτε να συντάξετε ένα πρόγραμμα από την τερματική με την εξής μορφή:
 
 ```bash
 gcc 01_hello_world.c -o hello_world
 ```
 
-This will create an executable file named `hello_world`. You can then run the program like this:
+Αυτό θα δημιουργήσει ένα εκτελέσιμο αρχείο με όνομα `hello_world`. Μπορείτε στη συνέχεια να εκτελέσετε το πρόγραμμα με την εξής μορφή:
 
 ```bash
 ./hello_world
