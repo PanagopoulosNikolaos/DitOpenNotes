@@ -1,620 +1,613 @@
-# Statistics Notes - Full Compilation
+# Σημειώσεις στατιστικών - Πλήρης συλλογή
 
-Generated from individual lecture phases.
+Δημιουργήθηκε από μεμονωμένες φάσεις διάλεξης.
 
 ---
 
-<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_1_data_organization.md -->
-# Phase 1.1: Data Organization
+<!-- Πηγή: ../Resources/Phase_1_Descriptive_Statistics/phase_1_1_data_organization.md -->
+# Φάση 1.1: Οργάνωση δεδομένων
 
-Data organization is the first step in descriptive statistics. It involves transforming raw data into a structured format, primarily through **Frequency Tables**. This allows us to see patterns, distributions, and summary characteristics of the dataset.
+Η οργάνωση δεδομένων είναι το πρώτο βήμα στην περιγραφική στατιστική. Περιλαμβάνει τη μετατροπή ακατέργαστων δεδομένων σε δομημένη μορφή, κυρίως μέσω **Πίνακες Συχνότητας**. Αυτό μας επιτρέπει να δούμε μοτίβα, κατανομές και συνοπτικά χαρακτηριστικά του συνόλου δεδομένων.
 
-## 1. Core Concepts and Notation
+## 1. Βασικές έννοιες και σημειογραφία
 
-Before building a table, we must understand the four types of frequencies:
+Πριν δημιουργήσουμε έναν πίνακα, πρέπει να κατανοήσουμε τους τέσσερις τύπους συχνοτήτων:
 
-*   **Absolute Frequency ($f_i$):** The number of times a specific value or interval occurs. The sum of all absolute frequencies equals the total number of observations ($n$):
+* **Απόλυτη συχνότητα ($f_i$):** Ο αριθμός των φορών που εμφανίζεται μια συγκεκριμένη τιμή ή διάστημα. Το άθροισμα όλων των απόλυτων συχνοτήτων ισούται με τον συνολικό αριθμό των παρατηρήσεων ($n$):
     $$\sum_{i=1}^{k} f_i = n$$
-*   **Relative Frequency ($h_i$):** The proportion or percentage of the total data that a value represents:
+* **Σχετική συχνότητα ($h_i$):** Η αναλογία ή το ποσοστό των συνολικών δεδομένων που αντιπροσωπεύει μια τιμή:
     $$h_i = \frac{f_i}{n}$$
-    The sum of all relative frequencies must always equal 1 (or 100%): $\sum h_i = 1$.
-*   **Cumulative Absolute Frequency ($F_i$):** The running total of absolute frequencies up to a certain point:
+    Το άθροισμα όλων των σχετικών συχνοτήτων πρέπει πάντα να ισούται με 1 (ή 100%): $\sum h_i = 1$.
+* **Σωρευτική Απόλυτη Συχνότητα ($F_i$):** Το τρέχον σύνολο απόλυτων συχνοτήτων μέχρι ένα ορισμένο σημείο:
     $$F_i = f_1 + f_2 + \dots + f_i$$
-*   **Cumulative Relative Frequency ($H_i$):** The running total of relative frequencies:
+* **Σωρευτική σχετική συχνότητα ($H_i$):** Το τρέχον σύνολο των σχετικών συχνοτήτων:
     $$H_i = h_1 + h_2 + \dots + h_i \quad \text{or} \quad H_i = \frac{F_i}{n}$$
 
 ---
 
-## 2. Essential Formulas for Grouping Data
-When datasets are large or continuous, we group them into **Class Intervals**.
+## 2. Βασικοί τύποι για την ομαδοποίηση δεδομένων
+Όταν τα σύνολα δεδομένων είναι μεγάλα ή συνεχόμενα, τα ομαδοποιούμε σε **Διαστήματα Κατηγορίας**.
 
-1.  **Range ($R$):** $R = x_{max} - x_{min}$
-2.  **Number of Classes ($k$):** (Sturges' Rule) $k = 1 + 3.322 \cdot \log_{10}(n)$
-3.  **Class Width ($w$):** $w = \frac{R}{k}$ (Always round up for convenience in manual tables).
-4.  **Class Mark ($x_i$):** Midpoint of the interval: $x_i = \frac{\text{Lower} + \text{Upper}}{2}$
+1. **Εύρος ($R$):** $R = x_{max} - x_{min}$
+2. **Αριθμός Τάξεων ($k$):** (Κανόνας Sturges) $k = 1 + 3.322 \cdot \log_{10}(n)$
+3. **Πλάτος τάξης ($w$):** $w = \frac{R}{k}$ (Στρογγυλοποιήστε πάντα προς τα πάνω για ευκολία σε μη αυτόματους πίνακες).
+4. **Βαθμός τάξης ($x_i$):** Μέσο του διαστήματος: $x_i = \frac{\text{Lower} + \text{Upper}}{2}$
 
 ---
 
-## 3. Solved Exercises (8 Examples)
+## 3. Λυμένες Ασκήσεις (8 Παραδείγματα)
 
-### Exercise 1: Categorical Data (Qualitative)
-**Problem:** A survey of 15 people asked for their favorite color among: Red (R), Blue (B), and Green (G). The results: `R, B, B, G, R, B, G, G, B, B, R, G, B, B, R`. Create a frequency table.
+### Άσκηση 1: Κατηγορικά δεδομένα (Ποιοτικά)
+**Πρόβλημα:** Μια έρευνα 15 ατόμων ζήτησε το αγαπημένο τους χρώμα μεταξύ: Κόκκινο (R), Μπλε (Β) και Πράσινο (G). Τα αποτελέσματα: `R, B, B, G, R, B, G, G, B, B, R, G, B, B, R`. Δημιουργήστε έναν πίνακα συχνοτήτων.
 
-**Solution:**
-1.  **Count:** Red (4), Blue (7), Green (4). Total $n=15$.
-2.  **Relative Frequency:** $h_{Red} = 4/15 \approx 0.267$.
+**Λύση:**
+1. **Αριθμός:** Κόκκινο (4), Μπλε (7), Πράσινο (4). Σύνολο $n=15$.
+2. **Σχετική Συχνότητα:** $h_{Red} = 4/15 \approx 0.267$.
 
-| Color | $f_i$ | $h_i$ | $F_i$ | $H_i$ |
+| Χρώμα | $f_i$ | $h_i$ | $F_i$ | $H_i$ |
 | :--- | :--- | :--- | :--- | :--- |
-| Red | 4 | 0.267 | 4 | 0.267 |
-| Blue | 7 | 0.467 | 11 | 0.734 |
-| Green | 4 | 0.267 | 15 | 1.001 |
+| Κόκκινο | 4 | 0,267 | 4 | 0,267 |
+| Μπλε | 7 | 0,467 | 11 | 0,734 |
+| Πράσινο | 4 | 0,267 | 15 | 1.001 |
 
-*(Note: The $H_i$ column sums to 1.001 due to rounding each $h_i$ to 3 decimal places. This is a standard rounding artifact — see the Exam Tip at the end of this file.)*
+*(Σημείωση: Η στήλη $H_i$ αθροίζεται σε 1.001 λόγω στρογγυλοποίησης κάθε $h_i$ σε 3 δεκαδικά ψηφία. Αυτό είναι ένα τυπικό τεχνούργημα στρογγυλοποίησης — δείτε τη Συμβουλή εξέτασης στο τέλος αυτού του αρχείου.)*
 
 ---
 
-### Exercise 2: Discrete Data (Ungrouped)
-**Problem:** Number of siblings for 10 students: `0, 1, 2, 1, 0, 3, 2, 1, 1, 2`.
+### Άσκηση 2: Διακριτικά δεδομένα (Μη ομαδοποιημένα)
+**Πρόβλημα:** Αριθμός αδελφών για 10 μαθητές: `0, 1, 2, 1, 0, 3, 2, 1, 1, 2`.
 
-**Solution:**
-Identify unique values: 0, 1, 2, 3.
+**Λύση:**
+Προσδιορίστε μοναδικές τιμές: 0, 1, 2, 3.
 
-| Siblings ($x_i$) | $f_i$ | $h_i$ | $F_i$ |
+| Αδέρφια ($x_i$) | $f_i$ | $h_i$ | $F_i$ |
 | :--- | :--- | :--- | :--- |
-| 0 | 2 | 0.2 | 2 |
-| 1 | 4 | 0.4 | 6 |
-| 2 | 3 | 0.3 | 9 |
-| 3 | 1 | 0.1 | 10 |
+| 0 | 2 | 0,2 | 2 |
+| 1 | 4 | 0,4 | 6 |
+| 2 | 3 | 0,3 | 9 |
+| 3 | 1 | 0,1 | 10 |
 
 ---
 
-### Exercise 3: Finding Missing Frequencies
-**Problem:** A table has $n=20$. Given $f_1=5, f_2=?, f_3=8, f_4=2$. Find $f_2$ and $h_2$.
+### Άσκηση 3: Εύρεση συχνοτήτων που λείπουν
+**Πρόβλημα:** Ένας πίνακας έχει $n=20$. Δίνεται $f_1=5, f_2=?, f_3=8, f_4=2$. Βρείτε $f_2$ και $h_2$.
 
-**Solution:**
-1.  Sum condition: $5 + f_2 + 8 + 2 = 20$
-2.  $15 + f_2 = 20 \Rightarrow f_2 = 5$
-3.  $h_2 = 5/20 = 0.25$.
+**Λύση:**
+1. Συνθήκη αθροίσματος: $5 + f_2 + 8 + 2 = 20$
+2. $15 + f_2 = 20 \Rightarrow f_2 = 5$
+3. $h_2 = 5/20 = 0.25$.
 
 ---
 
-### Exercise 4: Grouping Continuous Data (Manual Range)
-**Problem:** Group these 10 heights (cm) into 2 classes starting at 150: `152, 158, 161, 164, 165, 168, 172, 175, 177, 180`. Class width $w=15$.
+### Άσκηση 4: Ομαδοποίηση συνεχών δεδομένων (χειροκίνητο εύρος)
+**Πρόβλημα:** Ομαδοποιήστε αυτά τα 10 ύψη (cm) σε 2 τάξεις ξεκινώντας από το 150: `152, 158, 161, 164, 165, 168, 172, 175, 177, 180`. Πλάτος κλάσης $w=15$.
 
-**Solution:**
-Intervals: `[150, 165)` and `[165, 180]`.
-*   `[150, 165)`: 152, 158, 161, 164 (4 values)
-*   `[165, 180]`: 165, 168, 172, 175, 177, 180 (6 values)
+**Λύση:**
+Διαστήματα: `[150, 165)` και `[165, 180]`.
+* `[150, 165)`: 152, 158, 161, 164 (4 τιμές)* `[165, 180]`: 165, 168, 172, 175, 177, 180 (6 τιμές)
 
-| Interval | $x_i$ | $f_i$ | $F_i$ |
+| Διάστημα | $x_i$ | $f_i$ | $F_i$ |
 | :--- | :--- | :--- | :--- |
-| [150, 165) | 157.5 | 4 | 4 |
-| [165, 180] | 172.5 | 6 | 10 |
+| [150, 165) | 157,5 | 4 | 4 |
+| [165, 180] | 172,5 | 6 | 10 |
 
 ---
 
-### Exercise 5: Applying Sturges' Rule
-**Problem:** For $n=40$ observations, find the ideal number of classes $k$.
+### Άσκηση 5: Εφαρμογή του κανόνα Sturges
+**Πρόβλημα:** Για παρατηρήσεις $n=40$, βρείτε τον ιδανικό αριθμό τάξεων $k$.
 
-**Solution:**
+**Λύση:**
 $$k = 1 + 3.322 \cdot \log_{10}(40)$$
 $$k = 1 + 3.322 \cdot (1.602) \approx 1 + 5.32 = 6.32$$
-Rounding up (as per the convention stated above), we use **7 classes**.
+Στρογγυλοποιώντας προς τα πάνω (σύμφωνα με τη σύμβαση που αναφέρεται παραπάνω), χρησιμοποιούμε **7 κλάσεις**.
 
 ---
 
-### Exercise 6: Interpreting Cumulative Frequency
-**Problem:** In a table, $F_3 = 18$ and $F_2 = 12$. What is $f_3$?
+### Άσκηση 6: Ερμηνεύοντας Αθροιστική Συχνότητα
+**Πρόβλημα:** Σε έναν πίνακα, $F_3 = 18$ και $F_2 = 12$. Τι είναι το $f_3$;
 
-**Solution:**
-Since $F_3 = f_1 + f_2 + f_3$ and $F_2 = f_1 + f_2$:
+**Λύση:**
+Από $F_3 = f_1 + f_2 + f_3$ και $F_2 = f_1 + f_2$:
 $$f_3 = F_3 - F_2 = 18 - 12 = 6$$
 
 ---
 
-### Exercise 7: Percentage Distribution
-**Problem:** Convert relative frequencies $h_i = [0.15, 0.35, 0.50]$ into a percentage frequency table.
+### Άσκηση 7: Κατανομή ποσοστών
+**Πρόβλημα:** Μετατρέψτε τις σχετικές συχνότητες $h_i = [0.15, 0.35, 0.50]$ σε έναν πίνακα ποσοστιαίων συχνοτήτων.
 
-**Solution:**
-Multiply $h_i$ by 100.
+**Λύση:**
+Πολλαπλασιάστε $h_i$ επί 100.
 
-| Value | $h_i$ | Frequency % |
+| Αξία | $h_i$ | Συχνότητα % |
 | :--- | :--- | :--- |
-| A | 0.15 | 15% |
-| B | 0.35 | 35% |
-| C | 0.50 | 50% |
+| A | 0,15 | 15% |
+| Β | 0,35 | 35% |
+| C | 0,50 | 50% |
 
 ---
 
-### Exercise 8: Full Table Construction (Work-in-Progress style)
-**Problem:** Data: `10, 12, 15, 18, 20, 22, 25, 28, 30, 35`. Group into 3 classes with $w=10$, starting at 10.
+### Άσκηση 8: Κατασκευή πλήρους τραπεζιού (στυλ εργασίας σε εξέλιξη)
+**Πρόβλημα:** Δεδομένα: `10, 12, 15, 18, 20, 22, 25, 28, 30, 35`. Ομαδοποιήστε σε 3 τάξεις με $w=10$, ξεκινώντας στις 10.
 
-**Step 1: Identify Intervals**
+**Βήμα 1: Προσδιορισμός διαστημάτων**
 `[10, 20), [20, 30), [30, 40]`
 
-**Step 2: Calculate Midpoints ($x_i$)**
+**Βήμα 2: Υπολογισμός μεσαίων σημείων ($x_i$)**
 $x_1 = (10+20)/2 = 15$
 
-**Step 3: Tally Frequencies**
-*   `[10, 20)`: 10, 12, 15, 18 $\Rightarrow f_1 = 4$
-*   `[20, 30)`: 20, 22, 25, 28 $\Rightarrow f_2 = 4$
-*   `[30, 40]`: 30, 35 $\Rightarrow f_3 = 2$
+**Βήμα 3: Συχνότητες καταμέτρησης**
+* `[10, 20)`: 10, 12, 15, 18 $\Rightarrow f_1 = 4$
+* `[20, 30)`: 20, 22, 25, 28 $\Rightarrow f_2 = 4$
+* `[30, 40]`: 30, 35 $\Rightarrow f_3 = 2$
 
-**Final Table:**
+**Τελικό τραπέζι:**
 
-| Interval | $x_i$ | $f_i$ | $h_i$ | $F_i$ |
+| Διάστημα | $x_i$ | $f_i$ | $h_i$ | $F_i$ |
 | :--- | :--- | :--- | :--- | :--- |
-| [10, 20) | 15 | 4 | 0.4 | 4 |
-| [20, 30) | 25 | 4 | 0.4 | 8 |
-| [30, 40] | 35 | 2 | 0.2 | 10 |
+| [10, 20) | 15 | 4 | 0,4 | 4 |
+| [20, 30) | 25 | 4 | 0,4 | 8 |
+| [30, 40] | 35 | 2 | 0,2 | 10 |
 
 ---
 
-## Exam Tip: The "Sum to One" Rule
-If your relative frequencies ($h_i$) sum to 0.99 or 1.01 due to rounding, usually it is acceptable in exams, but try to use more decimal places (3 is standard) to get as close to **1.000** as possible.
+## Συμβουλή εξέτασης: Ο κανόνας "Άθροισμα σε ένα".
+Εάν οι σχετικές συχνότητές σας ($h_i$) αθροίζονται σε 0,99 ή 1,01 λόγω στρογγυλοποίησης, συνήθως είναι αποδεκτό στις εξετάσεις, αλλά προσπαθήστε να χρησιμοποιήσετε περισσότερα δεκαδικά ψηφία (το 3 είναι τυπικό) για να πλησιάσετε όσο το δυνατόν περισσότερο το **1.000**.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_2_measures_central_tendency.md -->
-# Phase 1.2: Measures of Central Tendency
+<!-- Πηγή: ../Resources/Phase_1_Descriptive_Statistics/phase_1_2_measures_central_tendency.md -->
+# Φάση 1.2: Μέτρα Κεντρικής Τάσης
 
-Measures of central tendency are statistical values that represent the "center" or "typical" value of a dataset. The three most common measures are the **Mean**, **Median**, and **Mode**.
-
----
-
-## 1. Core Formulas
-
-### Mean ($\bar{x}$)
-*   **Ungrouped:** $\bar{x} = \frac{\sum x_i}{n}$
-*   **Grouped:** $\bar{x} = \frac{\sum f_i \cdot x_i}{n}$
-
-### Median ($M_e$)
-*   **Ungrouped:** Middle value (or average of two middle values) in an ordered list.
-*   **Grouped (Interpolation):** $M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
-
-### Mode ($M_o$)
-*   **Ungrouped:** Most frequent value.
-*   **Grouped (Interpolation):** $M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+Τα μέτρα κεντρικής τάσης είναι στατιστικές τιμές που αντιπροσωπεύουν την "κεντρική" ή "τυπική" τιμή ενός συνόλου δεδομένων. Οι τρεις πιο κοινές μετρήσεις είναι η **Μέση**, **Μέση** και η **Λειτουργία**.
 
 ---
 
-## 2. Solved Exercises (8 Examples)
+## 1. Βασικοί τύποι
 
-### Exercise 1: Simple Mean with Missing Value
-**Problem:** The mean of five numbers is 10. Four of the numbers are 8, 12, 7, and 11. Find the fifth number.
+### Μέσος όρος ($\bar{x}$)
+* **Μη ομαδοποιημένη:** $\bar{x} = \frac{\sum x_i}{n}$
+* **Ομαδοποιημένα:** $\bar{x} = \frac{\sum f_i \cdot x_i}{n}$
 
-**Solution:**
-1.  Sum of 5 numbers = $5 \cdot 10 = 50$.
-2.  Sum of 4 known numbers = $8 + 12 + 7 + 11 = 38$.
-3.  Fifth number = $50 - 38 = 12$.
+### Διάμεσος ($M_e$)
+* **Μη ομαδοποιημένη:** Μέση τιμή (ή μέσος όρος δύο μεσαίων τιμών) σε μια ταξινομημένη λίστα.
+* **Ομαδοποιημένα (Παρεμβολή):** $M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
 
----
-
-### Exercise 2: Median for Odd vs. Even $n$
-**Problem:** Find the median for:
-A) `3, 10, 2, 8, 5`
-B) `3, 10, 2, 8, 5, 12`
-
-**Solution:**
-A) Order: `2, 3, 5, 8, 10`. $n=5$ (odd). Median is the 3rd value: **5**.
-B) Order: `2, 3, 5, 8, 10, 12`. $n=6$ (even). Median is average of 3rd and 4th: $(5+8)/2 = \mathbf{6.5}$.
+### Λειτουργία ($M_o$)
+* **Μη ομαδοποιημένη:** Η πιο συχνή τιμή.
+* **Ομαδοποιημένα (Παρεμβολή):** $M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
 
 ---
 
-### Exercise 3: Multimodal Data
-**Problem:** Find the mode of: `1, 2, 2, 3, 4, 4, 5`.
+## 2. Λυμένες Ασκήσεις (8 Παραδείγματα)
 
-**Solution:**
-Values 2 and 4 both appear twice. This dataset is **bimodal**. Modes are **2 and 4**.
+### Άσκηση 1: Απλή μέση τιμή χωρίς τιμή
+**Πρόβλημα:** Ο μέσος όρος πέντε αριθμών είναι 10. Τέσσερις από τους αριθμούς είναι 8, 12, 7 και 11. Βρείτε τον πέμπτο αριθμό.
+
+**Λύση:**
+1. Άθροισμα 5 αριθμών = $5 \cdot 10 = 50$.
+2. Άθροισμα 4 γνωστών αριθμών = $8 + 12 + 7 + 11 = 38$.
+3. Πέμπτος αριθμός = $50 - 38 = 12$.
 
 ---
 
-### Exercise 4: Grouped Mean (Weighted Average)
-**Problem:** Calculate the mean from this table:
+### Άσκηση 2: Διάμεσος για Μονά εναντίον Ζυγών $n$
+**Πρόβλημα:** Βρείτε τη διάμεσο για:
+Α) `3, 10, 2, 8, 5`
+Β) `3, 10, 2, 8, 5, 12`
 
-| $x_i$ (Midpoint) | $f_i$ |
+**Λύση:**
+Α) Παραγγελία: `2, 3, 5, 8, 10`. $n=5$ (μονός). Η διάμεσος είναι η 3η τιμή: **5**.
+Β) Παραγγελία: `2, 3, 5, 8, 10, 12`. $n=6$ (ακόμη). Η διάμεσος είναι ο μέσος όρος της 3ης και της 4ης: $(5+8)/2 = \mathbf{6.5}$.
+
+---
+
+### Άσκηση 3: Πολυτροπικά δεδομένα**Πρόβλημα:** Βρείτε τη λειτουργία του: `1, 2, 2, 3, 4, 4, 5`.
+
+**Λύση:**
+Οι τιμές 2 και 4 εμφανίζονται δύο φορές. Αυτό το σύνολο δεδομένων είναι **διτροπικό**. Οι λειτουργίες είναι **2 και 4**.
+
+---
+
+### Άσκηση 4: Ομαδοποιημένος μέσος όρος (σταθμισμένος μέσος όρος)
+**Πρόβλημα:** Υπολογίστε τη μέση τιμή από αυτόν τον πίνακα:
+
+| $x_i$ (Μέσο) | $f_i$ |
 | :--- | :--- |
 | 10 | 2 |
 | 20 | 5 |
 | 30 | 3 |
 
-**Solution:**
-1.  $\sum f_i \cdot x_i = (10 \cdot 2) + (20 \cdot 5) + (30 \cdot 3) = 20 + 100 + 90 = 210$.
-2.  $n = 2 + 5 + 3 = 10$.
-3.  $\bar{x} = 210 / 10 = \mathbf{21}$.
+**Λύση:**
+1. $\sum f_i \cdot x_i = (10 \cdot 2) + (20 \cdot 5) + (30 \cdot 3) = 20 + 100 + 90 = 210$.
+2. $n = 2 + 5 + 3 = 10$.
+3. $\bar{x} = 210 / 10 = \mathbf{21}$.
 
 ---
 
-### Exercise 5: Grouped Median (Interpolation)
-**Problem:** Find $M_e$ for $n=40, w=10, L=20, f_i=12, F_{i-1}=8$.
+### Άσκηση 5: Ομαδοποιημένη διάμεσος (παρεμβολή)
+**Πρόβλημα:** Βρείτε $M_e$ για $n=40, w=10, L=20, f_i=12, F_{i-1}=8$.
 
-**Solution:**
-1.  $n/2 = 20$.
-2.  $M_e = 20 + \left( \frac{20 - 8}{12} \right) \cdot 10 = 20 + (1) \cdot 10 = \mathbf{30}$.
+**Λύση:**
+1. $n/2 = 20$.
+2. $M_e = 20 + \left( \frac{20 - 8}{12} \right) \cdot 10 = 20 + (1) \cdot 10 = \mathbf{30}$.
 
 ---
 
-### Exercise 6: Grouped Mode (Interpolation)
-**Problem:** Modal class is [30, 40). $L=30, w=10, f_i=20, f_{i-1}=12, f_{i+1}=10$.
+### Άσκηση 6: Ομαδοποιημένη λειτουργία (Παρεμβολή)
+**Πρόβλημα:** Η κατηγορία Modal είναι [30, 40). $L=30, w=10, f_i=20, f_{i-1}=12, f_{i+1}=10$.
 
-**Solution:**
+**Λύση:**
 $$M_o = 30 + \left( \frac{20 - 12}{(20-12) + (20-10)} \right) \cdot 10$$
 $$M_o = 30 + \left( \frac{8}{8 + 10} \right) \cdot 10 = 30 + 4.44 = \mathbf{34.44}$$
 
 ---
 
-### Exercise 7: Effect of Outliers
-**Problem:** Data: `10, 10, 11, 12, 100`. Compare Mean and Median.
+### Άσκηση 7: Επίδραση ακραίων τιμών
+**Πρόβλημα:** Δεδομένα: `10, 10, 11, 12, 100`. Συγκρίνετε το μέσο και το διάμεσο.
 
-**Solution:**
-1.  Mean = $(10+10+11+12+100)/5 = 28.6$.
-2.  Median = Order: `10, 10, 11, 12, 100` $\Rightarrow$ **11**.
-**Observation:** The outlier (100) pulled the mean far from the central cluster, while the median remained representative.
+**Λύση:**
+1. Μέσος όρος = $(10+10+11+12+100)/5 = 28.6$.
+2. Διάμεσος = Παραγγελία: `10, 10, 11, 12, 100` $\Rightarrow$ **11**.
+**Παρατήρηση:** Η ακραία τιμή (100) τράβηξε τον μέσο όρο μακριά από το κεντρικό σύμπλεγμα, ενώ η διάμεσος παρέμεινε αντιπροσωπευτική.
 
 ---
 
-### Exercise 8: Finding Mean from Relative Frequencies
-**Problem:** Given values $x_i = [1, 2, 3]$ and relative frequencies $h_i = [0.2, 0.5, 0.3]$. Find $\bar{x}$.
+### Άσκηση 8: Εύρεση μέσου όρου από σχετικές συχνότητες
+**Πρόβλημα:** Δεδομένες τιμές $x_i = [1, 2, 3]$ και σχετικές συχνότητες $h_i = [0.2, 0.5, 0.3]$. Βρείτε $\bar{x}$.
 
-**Solution:**
-For relative frequencies, the mean formula is $\bar{x} = \sum x_i \cdot h_i$.
+**Λύση:**
+Για σχετικές συχνότητες, ο μέσος τύπος είναι $\bar{x} = \sum x_i \cdot h_i$.
 $$\bar{x} = (1 \cdot 0.2) + (2 \cdot 0.5) + (3 \cdot 0.3)$$
 $$\bar{x} = 0.2 + 1.0 + 0.9 = \mathbf{2.1}$$
 
 ---
 
-## Exam Tip: Choosing the Best Measure
-*   **Mean:** Best for symmetrical data without outliers.
-*   **Median:** Best for skewed data or data with extreme outliers.
-*   **Mode:** Best for categorical (qualitative) data.
+## Συμβουλή εξέτασης: Επιλέγοντας το καλύτερο μέτρο
+* **Μέση:** Καλύτερο για συμμετρικά δεδομένα χωρίς ακραίες τιμές.
+* **Διάμεσος:** Καλύτερο για λοξά δεδομένα ή δεδομένα με ακραίες ακραίες τιμές.
+* **Λειτουργία:** Καλύτερη για κατηγορικά (ποιοτικά) δεδομένα.
 
-### Skewness Relationship
-| Condition | Distribution Shape |
+### Σχέση Skewness
+| Κατάσταση | Σχήμα διανομής |
 | :--- | :--- |
-| **Mean > Median** | **Positively Skewed** (right tail is longer) |
-| **Mean < Median** | **Negatively Skewed** (left tail is longer) |
-| **Mean = Median** | **Symmetric** (e.g., Normal distribution) |
+| **Μέση > Διάμεσος** | **Θετικά λοξή** (η δεξιά ουρά είναι μεγαλύτερη) |
+| **Μέση < Διάμεσος** | **Αρνητικά λοξή** (η αριστερή ουρά είναι μεγαλύτερη) |
+| **Μέση = Διάμεσος** | **Συμμετρική** (π.χ. Κανονική κατανομή) |
 
 
 ---
 
-<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_3_measures_position.md -->
-# Phase 1.3: Measures of Position
+<!-- Πηγή: ../Resources/Phase_1_Descriptive_Statistics/phase_1_3_measures_position.md -->
+# Φάση 1.3: Μέτρα Θέσης
 
-Measures of position (or quantiles) are values that divide a sorted dataset into equal parts. The most common are **Quartiles** (divided into 4 parts) and **Percentiles** (divided into 100 parts).
+Οι μετρήσεις θέσης (ή ποσοστά) είναι τιμές που διαιρούν ένα ταξινομημένο σύνολο δεδομένων σε ίσα μέρη. Τα πιο συνηθισμένα είναι τα **τεταρτημόρια** (διαιρούνται σε 4 μέρη) και **εκατοστήματα** (διαιρούνται σε 100 μέρη).
 
 ---
 
-## 1. Core Formulas
+## 1. Βασικοί τύποι
 
-### Quantile Position (Ungrouped)
+### Ποσοστιαία θέση (Μη ομαδοποιημένη)
 $$P = \frac{k(n+1)}{N_{parts}}$$
-*   $k$: Quantile number (e.g., 1, 2, 3 for quartiles).
-*   $n$: Total number of observations.
-*   $N_{parts}$: 4 for quartiles, 100 for percentiles.
+* $k$: Ποσοστιαία αριθμός (π.χ. 1, 2, 3 για τεταρτημόρια).
+* $n$: Συνολικός αριθμός παρατηρήσεων.
+* $N_{parts}$: 4 για τεταρτημόρια, 100 για εκατοστημόρια.
 
-### Quantile Formula (Grouped Data)
+### Ποσοστιαία Τύπος (Ομαδοποιημένα Δεδομένα)
 $$Q = L + \left( \frac{\text{Position} - F_{i-1}}{f_i} \right) \cdot w$$
-Where:
-*   **Position** = $\frac{k \cdot n}{4}$ for quartiles or $\frac{k \cdot n}{100}$ for percentiles.
+Πού:
+* **Θέση** = $\frac{k \cdot n}{4}$ για τεταρτημόρια ή $\frac{k \cdot n}{100}$ για εκατοστημόρια.
 
 ---
 
-## 2. Solved Exercises (8 Examples)
+## 2. Λυμένες Ασκήσεις (8 Παραδείγματα)
 
-### Exercise 1: Quartiles for Small $n$ (Ungrouped)
-**Problem:** Find $Q_1, Q_2, Q_3$ for: `5, 8, 4, 10, 15, 21, 2`.
+### Άσκηση 1: τεταρτημόρια για μικρά $n$ (Μη ομαδοποιημένα)
+**Πρόβλημα:** Βρείτε $Q_1, Q_2, Q_3$ για: `5, 8, 4, 10, 15, 21, 2`.
 
-**Solution:**
-1.  Order: `2, 4, 5, 8, 10, 15, 21`. $n=7$.
-2.  $Q_2$ (Median): 4th value = **8**.
-3.  $Q_1$: Median of lower half (`2, 4, 5`) = **4**.
-4.  $Q_3$: Median of upper half (`10, 15, 21`) = **15**.
+**Λύση:**
+1. Παραγγελία: `2, 4, 5, 8, 10, 15, 21`. $n=7$.
+2. $Q_2$ (Διάμεσος): 4η τιμή = **8**.
+3. $Q_1$: Διάμεσος κάτω μισού (`2, 4, 5`) = **4**.
+4. $Q_3$: Διάμεσος του άνω μισού (`10, 15, 21`) = **15**.
 
 ---
 
-### Exercise 2: Percentile for Small $n$ (Ungrouped)
-**Problem:** Find $P_{80}$ for: `10, 20, 30, 40, 50`.
+### Άσκηση 2: εκατοστημόριο για Small $n$ (Μη ομαδοποιημένη)
+**Πρόβλημα:** Βρείτε $P_{80}$ για: `10, 20, 30, 40, 50`.
 
-**Solution:**
-1.  Order: `10, 20, 30, 40, 50`. $n=5$.
-2.  Position $P = \frac{80(5+1)}{100} = 4.8$.
-3.  Interpolate between 4th (40) and 5th (50):
+**Λύση:**
+1. Παραγγελία: `10, 20, 30, 40, 50`. $n=5$.
+2. Θέση $P = \frac{80(5+1)}{100} = 4.8$.
+3. Παρεμβολή μεταξύ 4ου (40) και 5ου (50):
 $$P_{80} = 40 + 0.8 \cdot (50 - 40) = 40 + 8 = \mathbf{48}$$
 
 ---
 
-### Exercise 3: Grouped $Q_1$ (Interpolation)
-**Problem:** $n=60, L=10, w=10, f_i=12, F_{i-1}=8$.
+### Άσκηση 3: Ομαδοποιημένη $Q_1$ (Παρεμβολή)
+**Πρόβλημα:** $n=60, L=10, w=10, f_i=12, F_{i-1}=8$.
 
-**Solution:**
-1.  Position = $60/4 = 15$.
-2.  $Q_1 = 10 + \left( \frac{15 - 8}{12} \right) \cdot 10 = 10 + \frac{70}{12} \approx \mathbf{15.83}$.
-
----
-
-### Exercise 4: Grouped $Q_3$ (Interpolation)
-**Problem:** $n=60, L=30, w=10, f_i=15, F_{i-1}=40$.
-
-**Solution:**
-1.  Position = $(3 \cdot 60)/4 = 45$.
-2.  $Q_3 = 30 + \left( \frac{45 - 40}{15} \right) \cdot 10 = 30 + \frac{50}{15} \approx \mathbf{33.33}$.
+**Διάλυμα:**1. Θέση = $60/4 = 15$.
+2. $Q_1 = 10 + \left( \frac{15 - 8}{12} \right) \cdot 10 = 10 + \frac{70}{12} \approx \mathbf{15.83}$.
 
 ---
 
-### Exercise 5: Interquartile Range ($IQR$)
-**Problem:** Using results from Ex 3 and 4 ($Q_1=15.83, Q_3=33.33$), find the $IQR$.
+### Άσκηση 4: Ομαδοποιημένη $Q_3$ (Παρεμβολή)
+**Πρόβλημα:** $n=60, L=30, w=10, f_i=15, F_{i-1}=40$.
 
-**Solution:**
+**Λύση:**
+1. Θέση = $(3 \cdot 60)/4 = 45$.
+2. $Q_3 = 30 + \left( \frac{45 - 40}{15} \right) \cdot 10 = 30 + \frac{50}{15} \approx \mathbf{33.33}$.
+
+---
+
+### Άσκηση 5: Διατεταρτημόριο ($IQR$)
+**Πρόβλημα:** Χρησιμοποιώντας τα αποτελέσματα από το Παράδειγμα 3 και 4 ($Q_1=15.83, Q_3=33.33$), βρείτε το $IQR$.
+
+**Λύση:**
 $$IQR = Q_3 - Q_1 = 33.33 - 15.83 = \mathbf{17.50}$$
 
 ---
 
-### Exercise 6: Percentile Rank (Grouped)
-**Problem:** In a distribution, find the 10th percentile ($P_{10}$) if $n=100$, and the first class is [0, 20) with $f_i=15$.
+### Άσκηση 6: Κατάταξη εκατοστημόνων (Ομαδοποιημένη)
+**Πρόβλημα:** Σε μια κατανομή, βρείτε το 10ο εκατοστημόριο ($P_{10}$) εάν $n=100$, και η πρώτη τάξη είναι [0, 20) με $f_i=15$.
 
-**Solution:**
-1.  Position = $(10 \cdot 100)/100 = 10$.
-2.  $P_{10}$ class is [0, 20) since $15 \ge 10$.
-3.  $L=0, w=20, f_i=15, F_{i-1}=0$.
+**Λύση:**
+1. Θέση = $(10 \cdot 100)/100 = 10$.
+2. Η τάξη $P_{10}$ είναι [0, 20) από $15 \ge 10$.
+3. $L=0, w=20, f_i=15, F_{i-1}=0$.
 $$P_{10} = 0 + \left( \frac{10 - 0}{15} \right) \cdot 20 = \frac{200}{15} \approx \mathbf{13.33}$$
 
 ---
 
-### Exercise 7: Deciles ($D_k$)
-**Problem:** Find the 7th decile ($D_7$) for $n=50, L=40, w=10, f_i=8, F_{i-1}=30$.
+### Άσκηση 7: Δεκατιανοί ($D_k$)
+**Πρόβλημα:** Βρείτε την 7η δεκαδική ($D_7$) για $n=50, L=40, w=10, f_i=8, F_{i-1}=30$.
 
-**Solution:**
-Deciles divide into 10 parts. $D_7 = P_{70}$.
-1.  Position = $(70 \cdot 50)/100 = 35$.
-2.  $D_7 = 40 + \left( \frac{35 - 30}{8} \right) \cdot 10 = 40 + 6.25 = \mathbf{46.25}$.
+**Λύση:**
+Τα δεκατιανά χωρίζονται σε 10 μέρη. $D_7 = P_{70}$.
+1. Θέση = $(70 \cdot 50)/100 = 35$.
+2. $D_7 = 40 + \left( \frac{35 - 30}{8} \right) \cdot 10 = 40 + 6.25 = \mathbf{46.25}$.
 
 ---
 
-### Exercise 8: Reverse Problem (Finding the Percentile)
-**Problem:** A score of 45 falls in class [40, 50) where $f_i=10, F_{i-1}=30, n=50, w=10$. What percentile is this score?
+### Άσκηση 8: Αντίστροφο πρόβλημα (Εύρεση της εκατοστιαίας τιμής)
+**Πρόβλημα:** Μια βαθμολογία 45 πέφτει στην τάξη [40, 50) όπου $f_i=10, F_{i-1}=30, n=50, w=10$. Τι εκατοστημόριο είναι αυτή η βαθμολογία;
 
-**Solution:**
-Set $P_k = 45$ and solve for $k$:
+**Λύση:**
+Ορίστε $P_k = 45$ και λύστε για $k$:
 $$45 = 40 + \left( \frac{\frac{k \cdot 50}{100} - 30}{10} \right) \cdot 10$$
 $$5 = 0.5k - 30 \Rightarrow 0.5k = 35 \Rightarrow k = 70$$
-The score 45 is at the **70th percentile** ($P_{70}$).
+Η βαθμολογία 45 βρίσκεται στο **70ο εκατοστημόριο** ($P_{70}$).
 
 ---
 
-## Exam Tip: The Five-Number Summary
-Many exams ask for this summary to describe a dataset:
-1.  Minimum
-2.  $Q_1$
-3.  Median ($Q_2$)
-4.  $Q_3$
-5.  Maximum
-These are also the components used to draw a **Boxplot**.
+## Συμβουλή για τις εξετάσεις: Η σύνοψη των πέντε αριθμών
+Πολλές εξετάσεις ζητούν αυτή τη σύνοψη για να περιγράψουν ένα σύνολο δεδομένων:
+1. Ελάχιστο
+2. $Q_1$
+3. Διάμεσος ($Q_2$)
+4. $Q_3$
+5. Μέγιστο
+Αυτά είναι επίσης τα στοιχεία που χρησιμοποιούνται για τη σχεδίαση ενός **Boxplot**.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_4_measures_dispersion.md -->
-# Phase 1.4: Measures of Dispersion
+<!-- Πηγή: ../Resources/Phase_1_Descriptive_Statistics/phase_1_4_measures_dispersion.md -->
+# Φάση 1.4: Μέτρα διασποράς
 
-Measures of dispersion (or variability) describe how "spread out" the values in a dataset are. While central tendency tells us where the center is, dispersion tells us how much the data deviates from that center.
+Οι μετρήσεις της διασποράς (ή της μεταβλητότητας) περιγράφουν πόσο "διασκορπισμένες" είναι οι τιμές σε ένα σύνολο δεδομένων. Ενώ η κεντρική τάση μας λέει πού βρίσκεται το κέντρο, η διασπορά μας λέει πόσο αποκλίνουν τα δεδομένα από αυτό το κέντρο.
 
 ---
 
-## 1. Core Formulas
+## 1. Βασικοί τύποι
 
-### Sample Variance ($s^2$)
+### Δείγμα διακύμανσης ($s^2$)
 $$s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1} \quad \text{or} \quad s^2 = \frac{\sum f_i(x_i - \bar{x})^2}{n - 1}$$
 
-### Shortcut Variance Formula (Grouped)
+### Τύπος διακύμανσης συντόμευσης (ομαδοποιημένη)
 $$s^2 = \frac{\sum f_i \cdot x_i^2 - \frac{(\sum f_i \cdot x_i)^2}{n}}{n - 1}$$
 
-### Coefficient of Variation ($CV$)
+### Συντελεστής Μεταβολής ($CV$)
 $$CV = \frac{s}{\bar{x}} \cdot 100\%$$
-*(Used to compare dispersion between datasets with different units or means.)*
+*(Χρησιμοποιείται για τη σύγκριση της διασποράς μεταξύ συνόλων δεδομένων με διαφορετικές μονάδες ή μέσα.)*
 
 ---
 
-## 2. Solved Exercises (8 Examples)
+## 2. Λυμένες Ασκήσεις (8 Παραδείγματα)
 
-### Exercise 1: Range for Discrete Data
-**Problem:** Find the range of: `10, 2, 35, 12, 18, 5`.
+### Άσκηση 1: Εύρος διακριτών δεδομένων
+**Πρόβλημα:** Βρείτε το εύρος των: `10, 2, 35, 12, 18, 5`.
 
-**Solution:**
-1.  Max = 35, Min = 2.
-2.  Range = $35 - 2 = \mathbf{33}$.
-
----
-
-### Exercise 2: Sample Variance (Ungrouped)
-**Problem:** Find $s^2$ for: `2, 4, 6`.
-
-**Solution:**
-1.  Mean $\bar{x} = (2+4+6)/3 = 4$.
-2.  Deviations: $(2-4)=-2, (4-4)=0, (6-4)=2$.
-3.  Squared: $4, 0, 4$. Sum = 8.
-4.  $s^2 = 8 / (3-1) = \mathbf{4}$.
+**Λύση:**
+1. Μέγιστο = 35, Ελάχ. = 2.
+2. Εύρος = $35 - 2 = \mathbf{33}$.
 
 ---
 
-### Exercise 3: Population Standard Deviation ($\sigma$)
-**Problem:** Data: `1, 3, 5`. Assume this is the *entire population*. Find $\sigma$.
+### Άσκηση 2: Δείγμα διακύμανσης (Μη ομαδοποιημένη)
+**Πρόβλημα:** Βρείτε $s^2$ για: `2, 4, 6`.
 
-**Solution:**
-1.  $\mu = 3$.
-2.  Squared deviations: $(1-3)^2=4, (3-3)^2=0, (5-3)^2=4$. Sum = 8.
-3.  Population Variance $\sigma^2 = 8 / 3 \approx 2.67$.
-4.  $\sigma = \sqrt{2.67} \approx \mathbf{1.63}$.
+**Λύση:**
+1. Μέσος όρος $\bar{x} = (2+4+6)/3 = 4$.
+2. Αποκλίσεις: $(2-4)=-2, (4-4)=0, (6-4)=2$.
+3. Τετράγωνο: $4, 0, 4$. Άθροισμα = 8.
+4. $s^2 = 8 / (3-1) = \mathbf{4}$.
 
 ---
 
-### Exercise 4: Grouped Variance (Standard Method)
-**Problem:** $\sum f_i(x_i - \bar{x})^2 = 610, n=10$. Find sample variance.
+### Άσκηση 3: Τυπική απόκλιση πληθυσμού ($\sigma$)
+**Πρόβλημα:** Δεδομένα: `1, 3, 5`. Ας υποθέσουμε ότι αυτός είναι ο *όλος ο πληθυσμός*. Βρείτε $\sigma$.
 
-**Solution:**
+**Λύση:**
+1. $\mu = 3$.
+2. Τετράγωνες αποκλίσεις: $(1-3)^2=4, (3-3)^2=0, (5-3)^2=4$. Άθροισμα = 8.
+3. Διακύμανση πληθυσμού $\sigma^2 = 8 / 3 \approx 2.67$.
+4. $\sigma = \sqrt{2.67} \approx \mathbf{1.63}$.
+
+---
+
+### Άσκηση 4: Ομαδοποιημένη διακύμανση (Τυπική μέθοδος)
+**Πρόβλημα:** $\sum f_i(x_i - \bar{x})^2 = 610, n=10$. Βρείτε τη διακύμανση του δείγματος.
+
+**Λύση:**
 $$s^2 = 610 / (10 - 1) = 610 / 9 \approx \mathbf{67.78}$$
 
 ---
 
-### Exercise 5: Grouped Variance (Shortcut Method)
-**Problem:** $\sum f_i x_i = 100, \sum f_i x_i^2 = 2500, n=5$. Find $s^2$.
+### Άσκηση 5: Ομαδοποιημένη διακύμανση (Μέθοδος συντόμευσης)
+**Πρόβλημα:** $\sum f_i x_i = 100, \sum f_i x_i^2 = 2500, n=5$. Βρείτε $s^2$.
 
-**Solution:**
+**Λύση:**
 $$s^2 = \frac{2500 - \frac{100^2}{5}}{5 - 1} = \frac{2500 - 2000}{4} = \frac{500}{4} = \mathbf{125}$$
 
 ---
 
-### Exercise 6: Coefficient of Variation ($CV$)
-**Problem:** Group A: $\bar{x}=50, s=10$. Group B: $\bar{x}=100, s=15$. Which group is more dispersed relative to its mean?
-
-**Solution:**
-1.  $CV_A = (10/50) \cdot 100 = 20\%$.
-2.  $CV_B = (15/100) \cdot 100 = 15\%$.
-**Group A** is more dispersed.
+### Άσκηση 6: Συντελεστής Μεταβολής ($CV$)
+**Πρόβλημα:** Ομάδα Α: $\bar{x}=50, s=10$. Ομάδα Β: $\bar{x}=100, s=15$. Ποια ομάδα είναι πιο διασκορπισμένη σε σχέση με τον μέσο όρο της;**Λύση:**
+1. $CV_A = (10/50) \cdot 100 = 20\%$.
+2. $CV_B = (15/100) \cdot 100 = 15\%$.
+**Η ομάδα Α** είναι πιο διασκορπισμένη.
 
 ---
 
-### Exercise 7: Identifying Outliers (The 1.5 IQR Rule)
-**Problem:** $Q_1=10, Q_3=20$. Is the value 40 an outlier?
+### Άσκηση 7: Προσδιορισμός ακραίων τιμών (ο κανόνας 1.5 IQR)
+**Πρόβλημα:** $Q_1=10, Q_3=20$. Είναι η τιμή 40 ακραία τιμή;
 
-**Solution:**
-1.  $IQR = 20 - 10 = 10$.
-2.  Upper Fence = $Q_3 + 1.5 \cdot IQR = 20 + 15 = 35$.
-3.  Since $40 > 35$, the value 40 is an **outlier**.
-
----
-
-### Exercise 8: Effect of Transformation
-**Problem:** Dataset $X$ has $s=5$. If every value is multiplied by 3 and then 10 is added ($Y = 3X + 10$), what is the new standard deviation?
-
-**Solution:**
-1.  Adding a constant (10) does **not** change dispersion.
-2.  Multiplying by a constant (3) multiplies the standard deviation by that constant.
-3.  $s_{new} = 3 \cdot 5 = \mathbf{15}$.
+**Λύση:**
+1. $IQR = 20 - 10 = 10$.
+2. Επάνω Φράχτη = $Q_3 + 1.5 \cdot IQR = 20 + 15 = 35$.
+3. Εφόσον $40 > 35$, η τιμή 40 είναι **ακραίο**.
 
 ---
 
-## Exam Tip: When to use CV
-If a professor asks "Which stock is riskier?" or "Which machine is more consistent?", they usually want you to calculate the **Coefficient of Variation**, as it allows for a fair comparison between different scales.
+### Άσκηση 8: Επίδραση Μετασχηματισμού
+**Πρόβλημα:** Το σύνολο δεδομένων $X$ έχει $s=5$. Αν κάθε τιμή πολλαπλασιαστεί με 3 και στη συνέχεια προστεθεί 10 ($Y = 3X + 10$), ποια είναι η νέα τυπική απόκλιση;
+
+**Λύση:**
+1. Η προσθήκη σταθεράς (10) **δεν** αλλάζει τη διασπορά.
+2. Πολλαπλασιάζοντας με μια σταθερά (3) πολλαπλασιάζει την τυπική απόκλιση με αυτή τη σταθερά.
+3. $s_{new} = 3 \cdot 5 = \mathbf{15}$.
+
+---
+
+## Συμβουλή εξέτασης: Πότε να χρησιμοποιήσετε το βιογραφικό
+Εάν ένας καθηγητής ρωτήσει "Ποια μετοχή είναι πιο επικίνδυνη;" ή "Ποιο μηχάνημα είναι πιο συνεπές;", συνήθως θέλουν να υπολογίσετε τον **Συντελεστή Μεταβολής**, καθώς επιτρέπει μια δίκαιη σύγκριση μεταξύ διαφορετικών κλιμάκων.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_1_Descriptive_Statistics/phase_1_5_core_formulas_summary.md -->
-# Phase 1.5: Core Formulas Summary (Grouped Data)
+<!-- Πηγή: ../Resources/Phase_1_Descriptive_Statistics/phase_1_5_core_formulas_summary.md -->
+# Φάση 1.5: Σύνοψη βασικών τύπων (ομαδοποιημένα δεδομένα)
 
-This file serves as a quick-reference guide for the mathematical foundation of Descriptive Statistics when dealing with **Grouped Data**.
+Αυτό το αρχείο χρησιμεύει ως οδηγός γρήγορης αναφοράς για τη μαθηματική βάση της Περιγραφικής Στατιστικής όταν ασχολείται με **Ομαδοποιημένα Δεδομένα**.
 
 ---
 
-## 1. Data Organization
+## 1. Οργάνωση δεδομένων
 
-*   **Class Mark ($x_i$):**
+* **Σήμανση τάξης ($x_i$):**
     $$x_i = \frac{L_{inf} + L_{sup}}{2}$$
-*   **Relative Frequency ($h_i$):**
+* **Σχετική συχνότητα ($h_i$):**
     $$h_i = \frac{f_i}{n}$$
-*   **Sturges' Rule (Number of Classes $k$):**
+* **Κανόνας Sturges (Αριθμός Τάξεων $k$):**
     $$k = 1 + 3.322 \cdot \log_{10}(n)$$
 
 ---
 
-## 2. Measures of Central Tendency
+## 2. Μέτρα Κεντρικής Τάσης
 
-*   **Mean ($\bar{x}$):**
+* **Μέσος όρος ($\bar{x}$):**
     $$\bar{x} = \frac{\sum f_i \cdot x_i}{n}$$
-*   **Median ($M_e$):**
+* **Διάμεσος ($M_e$):**
     $$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$$
-*   **Mode ($M_o$):**
+* **Λειτουργία ($M_o$):**
     $$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$$
 
 ---
 
-## 3. Measures of Position (Quantiles)
+## 3. Μέτρα Θέσης (Ποσοστά)
 
-*   **General Percentile ($P_k$):**
+* **Γενικό εκατοστημόριο ($P_k$):**
     $$P_k = L + \left( \frac{\frac{k \cdot n}{100} - F_{i-1}}{f_i} \right) \cdot w$$
-*   **Quartiles:** Use $k=25$ for $Q_1$, $k=50$ for $Q_2$, and $k=75$ for $Q_3$.
+* **Τεταρτημόρια:** Χρησιμοποιήστε $k=25$ για $Q_1$, $k=50$ για $Q_2$ και $k=75$ για $Q_3$.
 
 ---
 
-## 4. Measures of Dispersion
+## 4. Μέτρα διασποράς
 
-*   **Sample Variance ($s^2$):**
+* **Δείγμα διακύμανσης ($s^2$):**
     $$s^2 = \frac{\sum f_i \cdot (x_i - \bar{x})^2}{n - 1}$$
-*   **Shortcut Variance Formula:**
+* **Τύπος διακύμανσης συντόμευσης:**
     $$s^2 = \frac{\sum f_i \cdot x_i^2 - \frac{(\sum f_i \cdot x_i)^2}{n}}{n - 1}$$
-*   **Sample Standard Deviation ($s$):**
+* **Δείγμα τυπικής απόκλισης ($s$):**
     $$s = \sqrt{s^2}$$
-*   **Range ($R$):**
+* **Εύρος ($R$):**
     $$R = x_{max} - x_{min}$$
 
 ---
 
-## Exam Tip: Unit Consistency
-Always remember that **Variance** is in squared units (e.g., $kg^2$), while **Mean**, **Median**, **Mode**, and **Standard Deviation** are in the original units (e.g., $kg$). If an exam asks for a "measure of spread in the original units," they are asking for the Standard Deviation or Range.
+## Συμβουλή εξέτασης: Συνέπεια μονάδας
+Να θυμάστε πάντα ότι η **Variance** είναι σε τετράγωνες μονάδες (π.χ., $kg^2$), ενώ η **Mean**, **Median**, **Mode** και **Standard Deviation** είναι στις αρχικές μονάδες (π.χ., $kg$). Εάν μια εξέταση ζητά ένα "μέτρο διασποράς στις αρχικές μονάδες", ζητούν την Τυπική Απόκλιση ή Εύρος.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_1_set_theory_fundamentals.md -->
-# Phase 2.1: Set Theory Fundamentals
+<!-- Πηγή: ../Resources/Phase_2_Probability_Theory/phase_2_1_set_theory_fundamentals.md -->
+# Φάση 2.1: Βασικές αρχές της θεωρίας συνόλων
 
-Set Theory provides the mathematical language used to define and manipulate probability. Every probability problem is, at its core, a question about sets. Understanding the formal notation and operations is the foundation upon which all probability rules are built.
+Η Θεωρία Συνόλων παρέχει τη μαθηματική γλώσσα που χρησιμοποιείται για τον ορισμό και τον χειρισμό της πιθανότητας. Κάθε πρόβλημα πιθανότητας είναι, στον πυρήνα του, μια ερώτηση σχετικά με σύνολα. Η κατανόηση της επίσημης σημειογραφίας και των πράξεων είναι το θεμέλιο πάνω στο οποίο χτίζονται όλοι οι κανόνες πιθανοτήτων.
 
 ---
 
-## 1. Core Definitions
+## 1. Βασικοί ορισμοί
 
-### Sample Space ($\Omega$)
+### Χώρος δειγμάτων ($\Omega$)
 
-The **Sample Space** $\Omega$ (also written $S$) is the set of **all possible outcomes** of a random experiment. Every outcome that could conceivably occur must be listed exactly once.
+Ο **Δειγματικός Χώρος** $\Omega$ (επίσης γράφεται $S$) είναι το σύνολο **όλα τα πιθανά αποτελέσματα** ενός τυχαίου πειράματος. Κάθε αποτέλεσμα που θα μπορούσε να συμβεί πρέπει να αναφέρεται ακριβώς μία φορά.
 
 $$\Omega = \{ \text{all possible outcomes} \}$$
 
-**Key rule:** The sample space is always exhaustive (covers everything) and mutually exclusive (no outcome appears twice).
+**Βασικός κανόνας:** Ο χώρος του δείγματος είναι πάντα εξαντλητικός (καλύπτει τα πάντα) και αλληλοαποκλείεται (κανένα αποτέλεσμα δεν εμφανίζεται δύο φορές).
 
-### Event
-
-An **Event** is any subset of the sample space. It is a collection of one or more outcomes. We typically label events with capital letters $A$, $B$, $C$, etc.
+### ΕκδήλωσηΈνα **Συμβάν** είναι οποιοδήποτε υποσύνολο του δείγματος χώρου. Είναι μια συλλογή από ένα ή περισσότερα αποτελέσματα. Συνήθως επισημαίνουμε τα συμβάντα με κεφαλαία γράμματα $A$, $B$, $C$, κ.λπ.
 
 $$A \subseteq \Omega$$
 
-*   **Elementary event:** A single outcome, e.g., $\{3\}$ when rolling a die.
-*   **Compound event:** A collection of outcomes, e.g., $\{2, 4, 6\}$ (rolling an even number).
-*   **Impossible event ($\emptyset$):** The empty set. An event with no outcomes that can never occur.
-*   **Certain event ($\Omega$):** The entire sample space. This event always occurs.
+* **Στοιχειώδες συμβάν:** Ένα μεμονωμένο αποτέλεσμα, π.χ., $\{3\}$ κατά την κύλιση ενός ζαριού.
+* **Συνθετικό συμβάν:** Μια συλλογή αποτελεσμάτων, π.χ., $\{2, 4, 6\}$ (κύλιση ζυγού αριθμού).
+* **Αδύνατο συμβάν ($\emptyset$):** Το κενό σύνολο. Ένα γεγονός χωρίς αποτελέσματα που δεν μπορεί ποτέ να συμβεί.
+* **Σε συγκεκριμένη εκδήλωση ($\Omega$):** Ολόκληρος ο χώρος του δείγματος. Αυτό το γεγονός συμβαίνει πάντα.
 
 ---
 
-## 2. Set Operations
+## 2. Ορισμός Λειτουργιών
 
-These three operations are the building blocks of all probability expressions.
+Αυτές οι τρεις πράξεις είναι τα δομικά στοιχεία όλων των εκφράσεων πιθανότητας.
 
-### Union ($\cup$)
+### Ένωση ($\cup$)
 
-The union $A \cup B$ is the event that **at least one** of $A$ or $B$ occurs. It contains every outcome in $A$, every outcome in $B$, or both.
+Η ένωση $A \cup B$ είναι το γεγονός που εμφανίζεται **τουλάχιστον ένα** από $A$ ή $B$. Περιέχει κάθε αποτέλεσμα στο $A$, κάθε αποτέλεσμα στο $B$ ή και τα δύο.
 
 $$A \cup B = \{ \omega \in \Omega : \omega \in A \text{ or } \omega \in B \}$$
 
-> Think of $\cup$ as the logical **OR**.
+> Σκεφτείτε το $\cup$ ως το λογικό **OR**.
 
-### Intersection ($\cap$)
+### Διασταύρωση ($\cap$)
 
-The intersection $A \cap B$ is the event that **both** $A$ and $B$ occur simultaneously. It contains only outcomes that are in $A$ AND in $B$.
+Η διασταύρωση $A \cap B$ είναι το συμβάν που **συμβαίνουν ταυτόχρονα και τα δύο** $A$ και $B$. Περιέχει μόνο αποτελέσματα που είναι σε $A$ ΚΑΙ σε $B$.
 
 $$A \cap B = \{ \omega \in \Omega : \omega \in A \text{ and } \omega \in B \}$$
 
-> Think of $\cap$ as the logical **AND**.
+> Σκεφτείτε το $\cap$ ως το λογικό **AND**.
 
-### Complement ($A'$ or $A^c$)
+### Συμπλήρωμα ($A'$ ή $A^c$)
 
-The complement $A'$ is the event that $A$ does **not** occur. It contains all outcomes in $\Omega$ that are not in $A$.
+Το συμπλήρωμα $A'$ είναι το συμβάν που $A$ **δεν** εμφανίζεται. Περιέχει όλα τα αποτελέσματα στο $\Omega$ που δεν είναι στο $A$.
 
 $$A' = \{ \omega \in \Omega : \omega \notin A \}$$
 
-A fundamental identity:
+Μια θεμελιώδης ταυτότητα:
 
 $$A \cup A' = \Omega \quad \text{and} \quad A \cap A' = \emptyset$$
 
@@ -622,39 +615,39 @@ $$P(A') = 1 - P(A)$$
 
 ---
 
-## 3. Mutual Exclusivity (Disjoint Events)
+## 3. Αμοιβαία αποκλειστικότητα (Disjoint Events)
 
-Two events $A$ and $B$ are **mutually exclusive** (or disjoint) if they cannot both occur at the same time:
+Δύο συμβάντα $A$ και $B$ είναι **αμοιβαία αποκλειόμενα** (ή διαχωρισμένα) εάν δεν μπορούν να συμβούν και τα δύο ταυτόχρονα:
 
 $$A \cap B = \emptyset$$
 
-This is a crucial property. When $A$ and $B$ are mutually exclusive, the addition rule simplifies significantly:
+Αυτό είναι ένα κρίσιμο ακίνητο. Όταν τα $A$ και $B$ αλληλοαποκλείονται, ο κανόνας προσθήκης απλοποιεί σημαντικά:
 
 $$P(A \cup B) = P(A) + P(B) \quad \text{(only when } A \cap B = \emptyset \text{)}$$
 
 ---
 
-## 4. Summary of Notation
+## 4. Περίληψη Σημειογραφίας
 
-| Notation | Read as | Meaning |
+| Σημείωση | Διαβάστε ως | Σημασία |
 | :--- | :--- | :--- |
-| $\Omega$ | Sample space | All possible outcomes |
-| $\emptyset$ | Empty set | Impossible event |
-| $A \cup B$ | A union B | A or B (at least one) |
-| $A \cap B$ | A intersect B | A and B (both) |
-| $A'$ | A complement | Not A |
-| $A \subseteq B$ | A is a subset of B | Every outcome in A is also in B |
-| $A \cap B = \emptyset$ | A and B are disjoint | A and B cannot both occur |
+| $\Omega$ | Χώρος δειγμάτων | Όλα τα πιθανά αποτελέσματα |
+| $\emptyset$ | Άδειο σετ | Αδύνατον γεγονός |
+| $A \cup B$ | Μια ένωση Β | Α ή Β (τουλάχιστον ένα) |
+| $A \cap B$ | Το Α τέμνει το Β | Α και Β (και τα δύο) |
+| $A'$ | Ένα συμπλήρωμα | Όχι Α |
+| $A \subseteq B$ | Το A είναι υποσύνολο του B | Κάθε αποτέλεσμα στο Α βρίσκεται επίσης στο Β |
+| $A \cap B = \emptyset$ | Τα Α και Β είναι ασύνδετα | Το Α και το Β δεν μπορούν να συμβούν και τα δύο |
 
 ---
 
-## 5. Solved Exercises
+## 5. Λυμένες Ασκήσεις
 
-### Exercise 1: Identifying the Sample Space (Die Roll)
+### Άσκηση 1: Προσδιορισμός του χώρου δειγμάτων (Die Roll)
 
-**Problem:** A fair six-sided die is rolled once. Define the sample space and the event $A$ = "rolling a number greater than 4".
+**Πρόβλημα:** Μια δίκαιη μήτρα έξι όψεων τυλίγεται μία φορά. Καθορίστε τον χώρο δείγματος και το συμβάν $A$ = "κύλιση ενός αριθμού μεγαλύτερου από 4".
 
-**Solution:**
+**Λύση:**
 
 $$\Omega = \{1, 2, 3, 4, 5, 6\}$$
 
@@ -664,11 +657,11 @@ $$A' = \{1, 2, 3, 4\} \quad \text{(not rolling greater than 4)}$$
 
 ---
 
-### Exercise 2: Identifying the Sample Space (Two Coin Tosses)
+### Άσκηση 2: Προσδιορισμός του χώρου δειγμάτων (Δύο πετάξεις νομισμάτων)
 
-**Problem:** Two coins are tossed. Write out $\Omega$ using ordered pairs where H = Heads, T = Tails. Define event $B$ = "at least one Head".
+**Πρόβλημα:** Πετάχτηκαν δύο νομίσματα. Γράψτε $\Omega$ χρησιμοποιώντας διατεταγμένα ζεύγη όπου H = Κεφάλια, T = Ουρές. Ορισμός συμβάντος $B$ = "τουλάχιστον ένα κεφάλι".
 
-**Solution:**
+**Λύση:**
 
 $$\Omega = \{(H,H), (H,T), (T,H), (T,T)\}$$
 
@@ -678,31 +671,29 @@ $$B' = \{(T,T)\} \quad \text{(no heads, i.e., both tails)}$$
 
 ---
 
-### Exercise 3: Computing Union and Intersection
+### Άσκηση 3: Υπολογιστική Ένωση και Τομή
 
-**Problem:** From the die-roll sample space $\Omega = \{1,2,3,4,5,6\}$, let:
-- $A$ = "even number" = $\{2, 4, 6\}$
-- $B$ = "number greater than 3" = $\{4, 5, 6\}$
+**Πρόβλημα:** Από το χώρο δειγμάτων die-roll $\Omega = \{1,2,3,4,5,6\}$, ας:
+- $A$ = "ζυγός αριθμός" = $\{2, 4, 6\}$
+- $B$ = "αριθμός μεγαλύτερος από 3" = $\{4, 5, 6\}$
 
-Find $A \cup B$ and $A \cap B$.
+Βρείτε $A \cup B$ και $A \cap B$.
 
-**Solution:**
+**Λύση:**
 
 $$A \cup B = \{2, 4, 5, 6\} \quad \text{(all outcomes in either A or B)}$$
 
 $$A \cap B = \{4, 6\} \quad \text{(outcomes in both: even AND greater than 3)}$$
 
----
+---### Άσκηση 4: Υπολογισμός του Συμπληρώματος
 
-### Exercise 4: Computing the Complement
+**Πρόβλημα:** Χρησιμοποιώντας $A = \{2, 4, 6\}$ από την Άσκηση 3, βρείτε $A'$ και επαληθεύστε τη θεμελιώδη ταυτότητα.
 
-**Problem:** Using $A = \{2, 4, 6\}$ from Exercise 3, find $A'$ and verify the fundamental identity.
-
-**Solution:**
+**Λύση:**
 
 $$A' = \{1, 3, 5\}$$
 
-**Verification:**
+**Επαλήθευση:**
 
 $$A \cup A' = \{2,4,6\} \cup \{1,3,5\} = \{1,2,3,4,5,6\} = \Omega \checkmark$$
 
@@ -710,90 +701,88 @@ $$A \cap A' = \{2,4,6\} \cap \{1,3,5\} = \emptyset \checkmark$$
 
 ---
 
-### Exercise 5: Mutually Exclusive Check
+### Άσκηση 5: Αμοιβαία Αποκλειστικός Έλεγχος
 
-**Problem:** From the die-roll experiment, are $A$ = "rolling 1 or 2" and $B$ = "rolling 5 or 6" mutually exclusive?
+**Πρόβλημα:** Από το πείραμα die-roll, το $A$ = "rolling 1 or 2" και το $B$ = "rolling 5 or 6" αποκλείονται αμοιβαία;
 
-**Solution:**
+**Λύση:**
 
 $$A = \{1, 2\}, \quad B = \{5, 6\}$$
 
 $$A \cap B = \emptyset$$
 
-Yes, $A$ and $B$ are mutually exclusive. Rolling a 1 or 2 and simultaneously rolling a 5 or 6 is impossible in a single roll.
+Ναι, οι $A$ και $B$ αποκλείονται αμοιβαία. Η κύλιση ενός 1 ή 2 και ταυτόχρονα ενός 5 ή 6 είναι αδύνατη σε ένα μόνο ρολό.
 
 ---
 
-### Exercise 6: Three Events - Union and Intersection
+### Άσκηση 6: Τρία Γεγονότα - Ένωση και Διασταύρωση
 
-**Problem:** A card is drawn from a standard 52-card deck. Define:
-- $A$ = "card is a Heart"
-- $B$ = "card is a King"
-- $C$ = "card is red"
+**Πρόβλημα:** Ένα φύλλο τραβιέται από μια τυπική τράπουλα 52 φύλλων. Ορίστε:
+- $A$ = "η κάρτα είναι μια καρδιά"
+- $B$ = "η κάρτα είναι βασιλιάς"
+- $C$ = "η κάρτα είναι κόκκινη"
 
-Describe $A \cap B$, $A \cup B$, and $B \cap C'$.
+Περιγράψτε τα $A \cap B$, $A \cup B$ και $B \cap C'$.
 
-**Solution:**
+**Λύση:**
 
-*   $A \cap B$ = "Heart AND King" = $\{K\heartsuit\}$ — exactly 1 card.
-*   $A \cup B$ = "Heart OR King" = all 13 Hearts plus the 3 remaining Kings (of Clubs, Diamonds, Spades) = 16 cards.
-*   $B \cap C'$ = "King AND NOT red" = King of black suits = $\{K\clubsuit, K\spadesuit\}$ — 2 cards.
-
----
-
-### Exercise 7: Subset Relationship
-
-**Problem:** A number is picked from $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. Let:
-- $A$ = "multiple of 4" = $\{4, 8\}$
-- $B$ = "even number" = $\{2, 4, 6, 8, 10\}$
-
-Is $A$ a subset of $B$? What does this imply?
-
-**Solution:**
-
-Every element of $A$ ($4$ and $8$) is also in $B$, so $A \subseteq B$.
-
-This means: if event $A$ occurs, then event $B$ must also occur. Knowing a number is a multiple of 4 guarantees it is also even. Formally: $A \subseteq B \Rightarrow A \cap B = A$.
+* $A \cap B$ = "Heart AND King" = $\{K\heartsuit\}$ — ακριβώς 1 κάρτα.
+* $A \cup B$ = "Καρδιά Ή Βασιλιάς" = και οι 13 Καρδιές συν τους 3 εναπομείναντες Βασιλιάδες (από Κλαμπ, Διαμάντια, Μπαστούνια) = 16 κάρτες.
+* $B \cap C'$ = "Βασιλιάς ΚΑΙ ΟΧΙ κόκκινο" = Βασιλιάς των μαύρων κοστουμιών = $\{K\clubsuit, K\spadesuit\}$ — 2 κάρτες.
 
 ---
 
-### Exercise 8: Complement of a Compound Event
+### Άσκηση 7: Σχέση υποσυνόλου
 
-**Problem:** Continuing from Exercise 7, find $(A \cup B)'$.
+**Πρόβλημα:** Επιλέχθηκε ένας αριθμός από $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. Αφήστε:
+- $A$ = "πολλαπλά από 4" = $\{4, 8\}$
+- $B$ = "ζυγός αριθμός" = $\{2, 4, 6, 8, 10\}$
 
-**Solution:**
+Είναι το $A$ υποσύνολο του $B$; Τι σημαίνει αυτό;
 
-First, compute the union:
+**Λύση:**
+
+Κάθε στοιχείο του $A$ ($4$ και $8$) βρίσκεται επίσης στο $B$, επομένως $A \subseteq B$.
+
+Αυτό σημαίνει: εάν συμβεί το συμβάν $A$, τότε το συμβάν $B$ πρέπει επίσης να συμβεί. Το να γνωρίζετε ότι ένας αριθμός είναι πολλαπλάσιο του 4 εγγυάται ότι είναι επίσης ζυγός. Επίσημα: $A \subseteq B \Rightarrow A \cap B = A$.
+
+---
+
+### Άσκηση 8: Συμπλήρωμα ενός σύνθετου γεγονότος
+
+**Πρόβλημα:** Συνεχίζοντας από την Άσκηση 7, βρείτε $(A \cup B)'$.
+
+**Λύση:**
+
+Αρχικά, υπολογίστε την ένωση:
 
 $$A \cup B = \{2, 4, 6, 8, 10\} = B \quad \text{(since } A \subseteq B \text{)}$$
 
-The full sample space is $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
+Ο πλήρης χώρος δείγματος είναι $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
 
 $$(A \cup B)' = B' = \{1, 3, 5, 7, 9\} \quad \text{(all odd numbers)}$$
 
-This is the set of outcomes where neither event A nor event B occurs. This outcome connects directly to De Morgan's Law: $(A \cup B)' = A' \cap B'$, which will be covered in Phase 2.3.
+Αυτό είναι το σύνολο των αποτελεσμάτων όπου δεν συμβαίνει ούτε το γεγονός Α ούτε το γεγονός Β. Αυτό το αποτέλεσμα συνδέεται απευθείας με τον νόμο του De Morgan: $(A \cup B)' = A' \cap B'$, ο οποίος θα καλυφθεί στη Φάση 2.3.
 
 ---
 
-## Exam Tip: Listing vs. Describing Events
+## Συμβουλή εξέτασης: Καταχώριση έναντι περιγραφής συμβάντων
 
-In exam problems, you may be asked to either **list** the outcomes of an event (e.g., $A = \{2, 4, 6\}$) or **describe** it in words. Practise translating freely between both forms. The most common error is forgetting to account for overlapping outcomes when computing unions — always check whether an element appears in both sets before listing it.
+Σε προβλήματα εξετάσεων, μπορεί να σας ζητηθεί είτε να **παραθέσετε** τα αποτελέσματα ενός συμβάντος (π.χ. $A = \{2, 4, 6\}$) είτε να το **περιγράψετε** με λέξεις. Εξασκηθείτε στην ελεύθερη μετάφραση μεταξύ των δύο μορφών. Το πιο συνηθισμένο σφάλμα είναι να ξεχάσετε να λάβετε υπόψη τα επικαλυπτόμενα αποτελέσματα κατά τον υπολογισμό των ενώσεων — ελέγχετε πάντα εάν ένα στοιχείο εμφανίζεται και στα δύο σύνολα πριν το καταχωρίσετε.
 
-
----
-
-<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_2_venn_diagrams.md -->
-# Phase 2.2: Venn Diagrams & Translating Worded Problems
-
-Venn Diagrams are a visual tool that maps relationships between events onto overlapping circles. Their primary purpose in probability is to **translate English language problem descriptions into precise set notation**, which can then be evaluated using formulas. Mastering this translation is one of the highest-leverage skills for exams.
 
 ---
 
-## 1. Standard Venn Diagram Layout
+<!-- Πηγή: ../Resources/Phase_2_Probability_Theory/phase_2_2_venn_diagrams.md -->
+# Φάση 2.2: Διαγράμματα Venn & Μετάφραση Διατυπωμένων Προβλημάτων
 
-For two events $A$ and $B$ within a sample space $\Omega$, the diagram divides the space into four mutually exclusive regions:
+Τα διαγράμματα Venn είναι ένα οπτικό εργαλείο που χαρτογραφεί τις σχέσεις μεταξύ γεγονότων σε επικαλυπτόμενους κύκλους. Ο πρωταρχικός σκοπός τους στην πιθανότητα είναι να **μεταφράσουν τις περιγραφές προβλημάτων της αγγλικής γλώσσας σε ακριβή σημειογραφία συνόλου**, η οποία στη συνέχεια μπορεί να αξιολογηθεί χρησιμοποιώντας τύπους. Η γνώση αυτής της μετάφρασης είναι μία από τις δεξιότητες με την υψηλότερη μόχλευση για εξετάσεις.
 
-```
+---
+
+## 1. Τυπική διάταξη διαγράμματος Venn
+
+Για δύο συμβάντα $A$ και $B$ εντός ενός δείγματος χώρου $\Omega$, το διάγραμμα διαιρεί τον χώρο σε τέσσερις αμοιβαία αποκλειστικές περιοχές:```
  ___________________________________
 |              Omega                |
 |   ___________   ___________       |
@@ -804,97 +793,95 @@ For two events $A$ and $B$ within a sample space $\Omega$, the diagram divides t
 |                                   |
 |         (A∪B)' = A'∩B'            |
 |___________________________________|
-```
-
-| Region | Set Notation | Meaning |
+```| Περιφέρεια | Ορισμός σημειογραφίας | Σημασία |
 | :--- | :--- | :--- |
-| Left circle only | $A \cap B'$ | A occurs, B does not |
-| Overlapping center | $A \cap B$ | Both A and B occur |
-| Right circle only | $A' \cap B$ | B occurs, A does not |
-| Outside both circles | $A' \cap B'$ | Neither A nor B occurs |
+| Μόνο αριστερός κύκλος | $A \cap B'$ | Το Α συμβαίνει, το Β όχι |
+| Επικαλυπτόμενο κέντρο | $A \cap B$ | Συμβαίνουν και το Α και το Β |
+| Μόνο δεξιός κύκλος | $A' \cap B$ | Το Β εμφανίζεται, το Α όχι |
+| Έξω και από τους δύο κύκλους | $A' \cap B'$ | Ούτε το Α ούτε το Β συμβαίνει |
 
-The **fundamental partition rule**: the four regions are mutually exclusive and collectively exhaustive. Their probabilities sum to 1.
+Ο **θεμελιώδης κανόνας κατάτμησης**: οι τέσσερις περιοχές είναι αμοιβαία αποκλειστικές και συλλογικά εξαντλητικές. Οι πιθανότητες τους αθροίζονται σε 1.
 
 $$P(A \cap B') + P(A \cap B) + P(A' \cap B) + P(A' \cap B') = 1$$
 
 ---
 
-## 2. Translating Key Phrases into Set Notation
+## 2. Μετάφραση βασικών φράσεων σε σημειογραφία συνόλου
 
-This table is the most important reference in this file. Memorise these translations.
+Αυτός ο πίνακας είναι η πιο σημαντική αναφορά σε αυτό το αρχείο. Απομνημονεύστε αυτές τις μεταφράσεις.
 
-| English Phrase | Set Notation | Notes |
+| Αγγλική φράση | Ορισμός σημειογραφίας | Σημειώσεις |
 | :--- | :--- | :--- |
-| "A occurs" | $A$ | Direct |
-| "A does not occur" | $A'$ | Complement |
-| "Both A and B occur" | $A \cap B$ | Intersection |
-| "At least one of A, B occurs" | $A \cup B$ | Union (includes both) |
-| "Exactly one of A, B occurs" | $(A \cap B') \cup (A' \cap B)$ | Union minus the overlap |
-| "Only A occurs" | $A \cap B'$ | A but not B |
-| "Only B occurs" | $A' \cap B$ | B but not A |
-| "Neither A nor B occurs" | $A' \cap B'$ = $(A \cup B)'$ | Outside both circles |
-| "A but not B" | $A \cap B'$ | Same as "only A" |
-| "At most one of A, B" | $(A \cap B)'$ = $A' \cup B'$ | Not both simultaneously |
+| «Α συμβαίνει» | $A$ | Απευθείας |
+| «Α δεν συμβαίνει» | $A'$ | Συμπλήρωμα |
+| «Και το Α και το Β συμβαίνουν» | $A \cap B$ | Διασταύρωση |
+| "Συμβαίνει τουλάχιστον ένα από τα Α, Β" | $A \cup B$ | Ένωση (περιλαμβάνει και τα δύο) |
+| «Συμβαίνει ακριβώς ένα από τα Α, Β» | $(A \cap B') \cup (A' \cap B)$ | Ένωση μείον την επικάλυψη |
+| «Μόνο το Α συμβαίνει» | $A \cap B'$ | Α αλλά όχι Β |
+| «Μόνο το Β συμβαίνει» | $A' \cap B$ | Β αλλά όχι Α |
+| «Ούτε το Α ούτε το Β συμβαίνει» | $A' \cap B'$ = $(A \cup B)'$ | Έξω και από τους δύο κύκλους |
+| «Α αλλά όχι Β» | $A \cap B'$ | Ίδιο με το "μόνο Α" |
+| «Το πολύ ένα από τα Α, Β» | $(A \cap B)'$ = $A' \cup B'$ | Όχι και τα δύο ταυτόχρονα |
 
-> **Critical insight:** "At least one" means $A \cup B$. "Exactly one" means $A \cup B$ minus the case where both occur, i.e., $(A \cup B) \setminus (A \cap B)$.
+> **Κρίσιμη γνώση:** "Τουλάχιστον ένα" σημαίνει $A \cup B$. "Ακριβώς ένα" σημαίνει $A \cup B$ μείον την περίπτωση όπου συμβαίνουν και τα δύο, δηλαδή $(A \cup B) \setminus (A \cap B)$.
 
 ---
 
-## 3. Extending to Three Events
+## 3. Επέκταση σε τρία συμβάντα
 
-For three events $A$, $B$, $C$, the Venn Diagram has **8 mutually exclusive regions**. Key phrases extend naturally:
+Για τρία συμβάντα $A$, $B$, $C$, το Διάγραμμα Venn έχει **8 αμοιβαία αποκλειστικές περιοχές**. Οι φράσεις κλειδιά εκτείνονται φυσικά:
 
-| Phrase | Set Notation |
+| Φράση | Ορισμός σημειογραφίας |
 | :--- | :--- |
-| "All three occur" | $A \cap B \cap C$ |
-| "At least one occurs" | $A \cup B \cup C$ |
-| "None occur" | $A' \cap B' \cap C'$ = $(A \cup B \cup C)'$ |
-| "Exactly one occurs" | $(A \cap B' \cap C') \cup (A' \cap B \cap C') \cup (A' \cap B' \cap C)$ |
-| "At least two occur" | $(A \cap B \cap C') \cup (A \cap B' \cap C) \cup (A' \cap B \cap C) \cup (A \cap B \cap C)$ |
+| «Και τα τρία συμβαίνουν» | $A \cap B \cap C$ |
+| «Τουλάχιστον ένα συμβαίνει» | $A \cup B \cup C$ |
+| «Δεν συμβαίνει κανένα» | $A' \cap B' \cap C'$ = $(A \cup B \cup C)'$ |
+| «Ένα ακριβώς συμβαίνει» | $(A \cap B' \cap C') \cup (A' \cap B \cap C') \cup (A' \cap B' \cap C)$ |
+| «Συμβαίνουν τουλάχιστον δύο» | $(A \cap B \cap C') \cup (A \cap B' \cap C) \cup (A' \cap B \cap C) \cup (A \cap B \cap C)$ |
 
 ---
 
-## 4. Reading Probabilities from a Filled Venn Diagram
+## 4. Πιθανότητες ανάγνωσης από ένα γεμάτο διάγραμμα Venn
 
-When a Venn Diagram is given with numerical values already filled in, the values represent the probabilities (or counts) of each region. The key skill is to identify which regions belong to the event you are asked about, then sum them.
+Όταν δίνεται ένα Διάγραμμα Venn με αριθμητικές τιμές ήδη συμπληρωμένες, οι τιμές αντιπροσωπεύουν τις πιθανότητες (ή τις μετρήσεις) κάθε περιοχής. Η βασική δεξιότητα είναι να προσδιορίσετε ποιες περιοχές ανήκουν στο συμβάν για το οποίο σας ζητείται και, στη συνέχεια, να τις αθροίσετε.
 
-**Reading strategy:**
-1. Identify all regions that satisfy the event description.
-2. Sum the values in those regions.
+**Στρατηγική ανάγνωσης:**
+1. Προσδιορίστε όλες τις περιοχές που ικανοποιούν την περιγραφή του συμβάντος.
+2. Αθροίστε τις τιμές σε αυτές τις περιοχές.
 
 ---
 
-## 5. Solved Exercises
+## 5. Λυμένες Ασκήσεις
 
-### Exercise 1: Building a Venn Diagram from Counts
+### Άσκηση 1: Δημιουργία διαγράμματος Venn από το Counts
 
-**Problem:** In a class of 50 students, 30 study Mathematics ($M$), 25 study Physics ($P$), and 15 study both. Find the number of students who study only Mathematics, only Physics, and neither subject.
+**Πρόβλημα:** Σε μια τάξη 50 μαθητών, 30 σπουδάζουν Μαθηματικά ($M$), 25 σπουδάζουν Φυσική ($P$) και 15 σπουδάζουν και τα δύο. Βρείτε τον αριθμό των μαθητών που σπουδάζουν μόνο Μαθηματικά, μόνο Φυσική και κανένα μάθημα.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Find the overlap region first.
+**Βήμα 1:** Βρείτε πρώτα την περιοχή επικάλυψης.
 $$|M \cap P| = 15$$
 
-**Step 2:** Find "only Mathematics":
+**Βήμα 2:** Βρείτε "μόνο Μαθηματικά":
 $$|M \cap P'| = |M| - |M \cap P| = 30 - 15 = 15$$
 
-**Step 3:** Find "only Physics":
+**Βήμα 3:** Βρείτε "μόνο Φυσική":
 $$|M' \cap P| = |P| - |M \cap P| = 25 - 15 = 10$$
 
-**Step 4:** Find "neither":
+**Βήμα 4:** Βρείτε το "κανένα":
 $$|M' \cap P'| = 50 - 15 - 15 - 10 = 10$$
 
-**Filled Diagram regions:** Only M = 15, Both = 15, Only P = 10, Neither = 10. Total = 50. Verified.
+**Περιοχές διαγραμμάτων:** Μόνο M = 15, Και τα δύο = 15, Μόνο P = 10, Κανένα = 10. Σύνολο = 50. Επαληθεύτηκε.
 
 ---
 
-### Exercise 2: Translating "At Least One"
+### Άσκηση 2: Μετάφραση "Τουλάχιστον ένα"
 
-**Problem:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Find the probability that at least one of $A$ or $B$ occurs.
+**Πρόβλημα:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Βρείτε την πιθανότητα να συμβεί τουλάχιστον ένα από τα $A$ ή $B$.
 
-**Solution:**
+**Λύση:**
 
-"At least one" translates to $A \cup B$.
+Το "Τουλάχιστον ένα" μεταφράζεται σε $A \cup B$.
 
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
@@ -902,109 +889,107 @@ $$P(A \cup B) = 0.5 + 0.4 - 0.2 = 0.7$$
 
 ---
 
-### Exercise 3: Translating "Neither"
+### Άσκηση 3: Μετάφραση "Ούτε"**Πρόβλημα:** Χρησιμοποιώντας τις τιμές από την Άσκηση 2, βρείτε την πιθανότητα να μην εμφανίζεται ούτε $A$ ούτε $B$.
 
-**Problem:** Using the values from Exercise 2, find the probability that neither $A$ nor $B$ occurs.
+**Λύση:**
 
-**Solution:**
-
-"Neither" translates to $A' \cap B' = (A \cup B)'$.
+Το "ούτε" μεταφράζεται σε $A' \cap B' = (A \cup B)'$.
 
 $$P((A \cup B)') = 1 - P(A \cup B) = 1 - 0.7 = 0.3$$
 
 ---
 
-### Exercise 4: Translating "Exactly One"
+### Άσκηση 4: Μετάφραση "Ακριβώς ένα"
 
-**Problem:** Using the values from Exercise 2, find the probability that exactly one of $A$ or $B$ occurs.
+**Πρόβλημα:** Χρησιμοποιώντας τις τιμές από την Άσκηση 2, βρείτε την πιθανότητα να συμβεί ακριβώς ένα από τα $A$ ή $B$.
 
-**Solution:**
+**Λύση:**
 
-"Exactly one" = $(A \cap B') \cup (A' \cap B)$
+"Ακριβώς ένα" = $(A \cap B') \cup (A' \cap B)$
 
-**Method:** Total in at least one minus the overlap (where both occur):
+**Μέθοδος:** Σύνολο σε τουλάχιστον ένα μείον την επικάλυψη (όπου συμβαίνουν και τα δύο):
 
 $$P(\text{exactly one}) = P(A \cup B) - P(A \cap B)$$
 
 $$P(\text{exactly one}) = 0.7 - 0.2 = 0.5$$
 
-**Alternative breakdown:**
-*   $P(A \cap B') = P(A) - P(A \cap B) = 0.5 - 0.2 = 0.3$
-*   $P(A' \cap B) = P(B) - P(A \cap B) = 0.4 - 0.2 = 0.2$
-*   $P(\text{exactly one}) = 0.3 + 0.2 = 0.5$ (same result)
+**Εναλλακτική ανάλυση:**
+* $P(A \cap B') = P(A) - P(A \cap B) = 0.5 - 0.2 = 0.3$
+* $P(A' \cap B) = P(B) - P(A \cap B) = 0.4 - 0.2 = 0.2$
+* $P(\text{exactly one}) = 0.3 + 0.2 = 0.5$ (ίδιο αποτέλεσμα)
 
 ---
 
-### Exercise 5: Translating "Only A"
+### Άσκηση 5: Μετάφραση "Μόνο Α"
 
-**Problem:** A survey shows $P(A) = 0.6$, $P(B) = 0.5$, $P(A \cup B) = 0.8$. Find $P(\text{only } A)$.
+**Πρόβλημα:** Μια έρευνα δείχνει $P(A) = 0.6$, $P(B) = 0.5$, $P(A \cup B) = 0.8$. Βρείτε $P(\text{only } A)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Find $P(A \cap B)$ using the addition rule:
+**Βήμα 1:** Βρείτε $P(A \cap B)$ χρησιμοποιώντας τον κανόνα πρόσθεσης:
 
 $$P(A \cap B) = P(A) + P(B) - P(A \cup B) = 0.6 + 0.5 - 0.8 = 0.3$$
 
-**Step 2:** "Only A" = $A \cap B'$:
+**Βήμα 2:** "Μόνο Α" = $A \cap B'$:
 
 $$P(A \cap B') = P(A) - P(A \cap B) = 0.6 - 0.3 = 0.3$$
 
 ---
 
-### Exercise 6: Reading a Filled Venn Diagram
+### Άσκηση 6: Διαβάζοντας ένα γεμάτο διάγραμμα Venn
 
-**Problem:** The regions of a Venn Diagram for events $A$ and $B$ are filled with the following probabilities:
+**Πρόβλημα:** Οι περιοχές ενός διαγράμματος Venn για συμβάντα $A$ και $B$ είναι γεμάτες με τις ακόλουθες πιθανότητες:
 
-| Region | Probability |
+| Περιφέρεια | Πιθανότητα |
 | :--- | :--- |
-| Only $A$ ($A \cap B'$) | 0.25 |
-| Both ($A \cap B$) | 0.15 |
-| Only $B$ ($A' \cap B$) | 0.30 |
-| Neither ($A' \cap B'$) | 0.30 |
+| Μόνο $A$ ($A \cap B'$) | 0,25 |
+| Και τα δύο ($A \cap B$) | 0,15 |
+| Μόνο $B$ ($A' \cap B$) | 0,30 |
+| Ούτε ($A' \cap B'$) | 0,30 |
 
-Find: (a) $P(A)$, (b) $P(B)$, (c) $P(A \cup B)$, (d) $P(\text{exactly one})$.
+Βρείτε: (α) $P(A)$, (β) $P(B)$, (γ) $P(A \cup B)$, (δ) $P(\text{exactly one})$.
 
-**Solution:**
+**Λύση:**
 
-(a) $P(A) = P(A \cap B') + P(A \cap B) = 0.25 + 0.15 = 0.40$
+(α) $P(A) = P(A \cap B') + P(A \cap B) = 0.25 + 0.15 = 0.40$
 
-(b) $P(B) = P(A' \cap B) + P(A \cap B) = 0.30 + 0.15 = 0.45$
+(β) $P(B) = P(A' \cap B) + P(A \cap B) = 0.30 + 0.15 = 0.45$
 
-(c) $P(A \cup B) = 0.25 + 0.15 + 0.30 = 0.70$
+(γ) $P(A \cup B) = 0.25 + 0.15 + 0.30 = 0.70$
 
-(d) $P(\text{exactly one}) = P(A \cap B') + P(A' \cap B) = 0.25 + 0.30 = 0.55$
+(δ) $P(\text{exactly one}) = P(A \cap B') + P(A' \cap B) = 0.25 + 0.30 = 0.55$
 
-**Verification:** $0.25 + 0.15 + 0.30 + 0.30 = 1.00$ (all regions sum to 1).
+**Επαλήθευση:** $0.25 + 0.15 + 0.30 + 0.30 = 1.00$ (όλες οι περιοχές αθροίζονται σε 1).
 
 ---
 
-### Exercise 7: Three Events - "None"
+### Άσκηση 7: Τρία συμβάντα - "Κανένα"
 
-**Problem:** $P(A \cup B \cup C) = 0.85$. Find the probability that none of the three events occur.
+**Πρόβλημα:** $P(A \cup B \cup C) = 0.85$. Βρείτε την πιθανότητα να μην συμβεί κανένα από τα τρία γεγονότα.
 
-**Solution:**
+**Λύση:**
 
-"None occur" = $(A \cup B \cup C)'$
+"Δεν εμφανίζεται κανένα" = $(A \cup B \cup C)'$
 
 $$P(A' \cap B' \cap C') = 1 - P(A \cup B \cup C) = 1 - 0.85 = 0.15$$
 
 ---
 
-### Exercise 8: Backward Problem - Finding an Unknown
+### Άσκηση 8: Προβλήματα προς τα πίσω - Εύρεση αγνώστου
 
-**Problem:** Given $P(A) = 0.45$, $P(B) = 0.30$, and $P(\text{exactly one of } A, B) = 0.55$. Find $P(A \cap B)$.
+**Πρόβλημα:** Δόθηκαν $P(A) = 0.45$, $P(B) = 0.30$ και $P(\text{exactly one of } A, B) = 0.55$. Βρείτε $P(A \cap B)$.
 
-**Solution:**
+**Λύση:**
 
-"Exactly one" can be written as:
+Το "ακριβώς ένα" μπορεί να γραφτεί ως:
 
 $$P(\text{exactly one}) = P(A) + P(B) - 2 \cdot P(A \cap B)$$
 
-This is derived from:
+Αυτό προέρχεται από:
 
 $$P(\text{exactly one}) = [P(A) - P(A \cap B)] + [P(B) - P(A \cap B)]$$
 
-Substituting known values:
+Αντικατάσταση γνωστών τιμών:
 
 $$0.55 = 0.45 + 0.30 - 2 \cdot P(A \cap B)$$
 
@@ -1014,143 +999,141 @@ $$P(A \cap B) = \frac{0.75 - 0.55}{2} = \frac{0.20}{2} = 0.10$$
 
 ---
 
-## Exam Tip: The Four-Region Decomposition
+## Συμβουλή για τις εξετάσεις: Η αποσύνθεση των τεσσάρων περιοχών
 
-**Always decompose** a Venn Diagram into its four mutually exclusive regions at the start of a problem:
+**Να αποσυνθέτετε πάντα** ένα Διάγραμμα Venn στις τέσσερις αμοιβαία αποκλειστικές περιοχές του στην αρχή ενός προβλήματος:
 
 $$P(A \cap B'), \quad P(A \cap B), \quad P(A' \cap B), \quad P(A' \cap B')$$
 
-Once these four values are known, **any probability expression** involving $A$ and $B$ can be computed by summing the appropriate regions. This method is infallible and prevents double-counting errors.
+Μόλις γίνουν γνωστές αυτές οι τέσσερις τιμές, **οποιαδήποτε έκφραση πιθανότητας** που περιλαμβάνει $A$ και $B$ μπορεί να υπολογιστεί αθροίζοντας τις κατάλληλες περιοχές. Αυτή η μέθοδος είναι αλάνθαστη και αποτρέπει σφάλματα διπλής καταμέτρησης.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_3_probability_axioms_rules.md -->
-# Phase 2.3: Probability Axioms & Rules
+<!-- Πηγή: ../Resources/Phase_2_Probability_Theory/phase_2_3_probability_axioms_rules.md -->
+# Φάση 2.3: Αξιώματα και κανόνες πιθανοτήτων
 
-The **Probability Axioms** (Kolmogorov's Axioms) are the three foundational rules from which all of probability theory is derived. The **Addition Rule** and **De Morgan's Laws** are the most practically important tools built on top of these axioms for computing probabilities in exam problems.
+Τα **Αξιώματα Πιθανοτήτων** (Αξιώματα Kolmogorov) είναι οι τρεις θεμελιώδεις κανόνες από τους οποίους προκύπτει όλη η θεωρία πιθανοτήτων. Ο **Κανόνας Προσθήκης** και οι **Νόμοι του Ντε Μόργκαν** είναι τα πιο πρακτικά σημαντικά εργαλεία που βασίζονται σε αυτά τα αξιώματα για τον υπολογισμό των πιθανοτήτων στα προβλήματα των εξετάσεων.
 
 ---
 
-## 1. Kolmogorov's Axioms
+## 1. Αξιώματα Κολμογκόροφ
 
-For any event $A$ in a sample space $\Omega$, probability $P$ is a function that satisfies three axioms:
+Για οποιοδήποτε συμβάν $A$ σε ένα δείγμα χώρου $\Omega$, η πιθανότητα $P$ είναι μια συνάρτηση που ικανοποιεί τρία αξιώματα:
 
-**Axiom 1 (Non-negativity):**
+**Αξίωμα 1 (Μη αρνητικό):**
 
 $$P(A) \geq 0$$
 
-The probability of any event is always a non-negative real number.
+Η πιθανότητα οποιουδήποτε γεγονότος είναι πάντα ένας μη αρνητικός πραγματικός αριθμός.
 
-**Axiom 2 (Normalization):**
+**Αξίωμα 2 (κανονικοποίηση):**
 
 $$P(\Omega) = 1$$
 
-The probability of the certain event (something must happen) is exactly 1.
+Η πιθανότητα του συγκεκριμένου γεγονότος (κάτι πρέπει να συμβεί) είναι ακριβώς 1.
 
-**Axiom 3 (Countable Additivity):**
-
-If $A$ and $B$ are mutually exclusive ($A \cap B = \emptyset$):
+**Αξίωμα 3 (μετρήσιμη προσθετικότητα):**Εάν οι $A$ και $B$ αποκλείονται αμοιβαία ($A \cap B = \emptyset$):
 
 $$P(A \cup B) = P(A) + P(B)$$
 
-More generally, for any finite collection of mutually exclusive events $A_1, A_2, \ldots, A_n$:
+Γενικότερα, για οποιαδήποτε πεπερασμένη συλλογή αμοιβαία αποκλειστικών συμβάντων $A_1, A_2, \ldots, A_n$:
 
 $$P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i)$$
 
 ---
 
-## 2. Derived Properties (Consequences of the Axioms)
+## 2. Παράγωγες ιδιότητες (Συνέπειες των αξιωμάτων)
 
-These results follow directly from the three axioms:
+Αυτά τα αποτελέσματα προκύπτουν άμεσα από τα τρία αξιώματα:
 
-| Property | Formula | Derivation |
+| Ακίνητα | Φόρμουλα | Παραγωγή |
 | :--- | :--- | :--- |
-| Complement Rule | $P(A') = 1 - P(A)$ | From $P(A) + P(A') = P(\Omega) = 1$ |
-| Impossible event | $P(\emptyset) = 0$ | From $\emptyset = \Omega'$ |
-| Probability bounds | $0 \leq P(A) \leq 1$ | From Axioms 1 and 2 |
-| Monotonicity | If $A \subseteq B$, then $P(A) \leq P(B)$ | B covers A plus more outcomes |
+| Συμπληρωματικός κανόνας | $P(A') = 1 - P(A)$ | Από $P(A) + P(A') = P(\Omega) = 1$ |
+| Αδύνατον γεγονός | $P(\emptyset) = 0$ | Από $\emptyset = \Omega'$ |
+| Όρια πιθανότητας | $0 \leq P(A) \leq 1$ | Από τα αξιώματα 1 και 2 |
+| Μονοτονία | Αν $A \subseteq B$, τότε $P(A) \leq P(B)$ | Το Β καλύπτει το Α συν περισσότερα αποτελέσματα |
 
 ---
 
-## 3. The Addition Rule (General)
+## 3. Ο κανόνας προσθήκης (Γενικός)
 
-For any two events $A$ and $B$ (not necessarily mutually exclusive):
+Για οποιαδήποτε δύο συμβάντα $A$ και $B$ (όχι απαραίτητα αμοιβαία αποκλειόμενα):
 
 $$\boxed{P(A \cup B) = P(A) + P(B) - P(A \cap B)}$$
 
-**Why subtract?** When computing $P(A) + P(B)$, the overlap region $A \cap B$ is counted twice (once in $P(A)$ and once in $P(B)$). Subtracting $P(A \cap B)$ corrects for this double-counting.
+**Γιατί να αφαιρέσετε;** Κατά τον υπολογισμό του $P(A) + P(B)$, η περιοχή επικάλυψης $A \cap B$ μετράται δύο φορές (μία στο $P(A)$ και μία στο $P(B)$). Αφαιρώντας $P(A \cap B)$ διορθώνεται αυτή η διπλή μέτρηση.
 
-**Special case — Mutually Exclusive:** When $A \cap B = \emptyset$:
+**Ειδική περίπτωση — Αμοιβαία Αποκλειστική:** Όταν $A \cap B = \emptyset$:
 
 $$P(A \cup B) = P(A) + P(B) - 0 = P(A) + P(B)$$
 
-**Extension to three events:**
+**Επέκταση σε τρία συμβάντα:**
 
 $$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$$
 
-This pattern is called the **Inclusion-Exclusion Principle**.
+Αυτό το μοτίβο ονομάζεται **Αρχή Συμπερίληψης-Εξαίρεσης**.
 
 ---
 
-## 4. De Morgan's Laws
+## 4. Νόμοι του De Morgan
 
-De Morgan's Laws describe the complement of a union or intersection. They are one of the most tested identities in probability exams.
+Οι νόμοι του De Morgan περιγράφουν το συμπλήρωμα μιας ένωσης ή τομής. Είναι μια από τις πιο δοκιμασμένες ταυτότητες σε εξετάσεις πιθανοτήτων.
 
-**First Law:**
+**Πρώτος νόμος:**
 
 $$\boxed{(A \cup B)' = A' \cap B'}$$
 
-In probability:
+Κατά πάσα πιθανότητα:
 
 $$P((A \cup B)') = P(A' \cap B')$$
 
-Reading: "NOT (A or B)" is the same as "(NOT A) AND (NOT B)". Neither event occurs.
+Διαβάζοντας: "ΟΧΙ (Α ή Β)" είναι το ίδιο με το "(ΟΧΙ Α) ΚΑΙ (ΟΧΙ Β)". Κανένα συμβάν δεν συμβαίνει.
 
-**Second Law:**
+** Δεύτερος Νόμος:**
 
 $$\boxed{(A \cap B)' = A' \cup B'}$$
 
-In probability:
+Κατά πάσα πιθανότητα:
 
 $$P((A \cap B)') = P(A' \cup B')$$
 
-Reading: "NOT (A and B)" is the same as "(NOT A) OR (NOT B)". At least one event fails to occur.
+Διαβάζοντας: "ΟΧΙ (Α και Β)" είναι το ίδιο με το "(ΟΧΙ Α) Ή (ΟΧΙ Β)". Τουλάχιστον ένα συμβάν αποτυγχάνει να συμβεί.
 
-**Intuition:** De Morgan's Laws "push the complement inside" while swapping the operator between $\cup$ and $\cap$.
+**Διαίσθηση:** Οι νόμοι του De Morgan "σπρώχνουν το συμπλήρωμα προς τα μέσα" ενώ ανταλλάσσουν τον τελεστή μεταξύ $\cup$ και $\cap$.
 
-| Operation | After applying De Morgan | Operator swap |
+| Λειτουργία | Μετά την εφαρμογή του De Morgan | Ανταλλαγή χειριστή |
 | :--- | :--- | :--- |
 | $(A \cup B)'$ | $A' \cap B'$ | $\cup \to \cap$ |
 | $(A \cap B)'$ | $A' \cup B'$ | $\cap \to \cup$ |
 
 ---
 
-## 5. Computing $P(A' \cap B')$ and $P(A' \cup B')$
+## 5. Υπολογισμός $P(A' \cap B')$ και $P(A' \cup B')$
 
-These are the two most common forms asked in problems:
+Αυτές είναι οι δύο πιο συνηθισμένες μορφές που τίθενται σε προβλήματα:
 
-**Computing "neither" $P(A' \cap B')$:**
+**Υπολογισμός "ούτε" $P(A' \cap B')$:**
 
-Apply De Morgan's First Law, then use the complement rule:
+Εφαρμόστε τον Πρώτο Νόμο του De Morgan και, στη συνέχεια, χρησιμοποιήστε τον κανόνα του συμπληρώματος:
 
 $$P(A' \cap B') = P((A \cup B)') = 1 - P(A \cup B)$$
 
-**Computing "not both" $P(A' \cup B')$:**
+**Υπολογισμός "όχι και των δύο" $P(A' \cup B')$:**
 
-Apply De Morgan's Second Law, then use the complement rule:
+Εφαρμόστε τον δεύτερο νόμο του De Morgan και, στη συνέχεια, χρησιμοποιήστε τον κανόνα του συμπληρώματος:
 
 $$P(A' \cup B') = P((A \cap B)') = 1 - P(A \cap B)$$
 
 ---
 
-## 6. Solved Exercises
+## 6. Λυμένες Ασκήσεις
 
-### Exercise 1: Direct Application of Addition Rule
+### Άσκηση 1: Άμεση Εφαρμογή Κανόνας Πρόσθεσης
 
-**Problem:** $P(A) = 0.6$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Find $P(A \cup B)$.
+**Πρόβλημα:** $P(A) = 0.6$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Βρείτε $P(A \cup B)$.
 
-**Solution:**
+**Λύση:**
 
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
@@ -1158,13 +1141,13 @@ $$P(A \cup B) = 0.6 + 0.4 - 0.2 = 0.8$$
 
 ---
 
-### Exercise 2: Finding $P(A \cap B)$ from the Addition Rule
+### Άσκηση 2: Εύρεση $P(A \cap B)$ από τον κανόνα πρόσθεσης
 
-**Problem:** $P(A) = 0.5$, $P(B) = 0.45$, $P(A \cup B) = 0.7$. Find $P(A \cap B)$.
+**Πρόβλημα:** $P(A) = 0.5$, $P(B) = 0.45$, $P(A \cup B) = 0.7$. Βρείτε $P(A \cap B)$.
 
-**Solution:**
+**Λύση:**
 
-Rearrange the addition rule to solve for the intersection:
+Αναδιάταξη του κανόνα πρόσθεσης προς επίλυση για την τομή:
 
 $$P(A \cap B) = P(A) + P(B) - P(A \cup B)$$
 
@@ -1172,85 +1155,83 @@ $$P(A \cap B) = 0.5 + 0.45 - 0.7 = 0.25$$
 
 ---
 
-### Exercise 3: Applying De Morgan's First Law
+### Άσκηση 3: Εφαρμογή του Πρώτου Νόμου του De Morgan
 
-**Problem:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Find $P(A' \cap B')$.
+**Πρόβλημα:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Βρείτε $P(A' \cap B')$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Apply De Morgan's First Law:
+**Βήμα 1:** Εφαρμόστε τον Πρώτο Νόμο του De Morgan:
 
 $$P(A' \cap B') = P((A \cup B)')$$
 
-**Step 2:** Compute $P(A \cup B)$ using the addition rule:
+**Βήμα 2:** Υπολογίστε $P(A \cup B)$ χρησιμοποιώντας τον κανόνα πρόσθεσης:
 
 $$P(A \cup B) = 0.5 + 0.4 - 0.2 = 0.7$$
 
-**Step 3:** Apply the complement rule:
+**Βήμα 3:** Εφαρμόστε τον κανόνα συμπλήρωσης:
 
 $$P((A \cup B)') = 1 - 0.7 = 0.3$$
 
-Therefore $P(A' \cap B') = 0.3$.
+Επομένως $P(A' \cap B') = 0.3$.
 
 ---
 
-### Exercise 4: Applying De Morgan's Second Law
+### Άσκηση 4: Εφαρμογή του δεύτερου νόμου του De Morgan
 
-**Problem:** Using the same values as Exercise 3, find $P(A' \cup B')$.
+**Πρόβλημα:** Χρησιμοποιώντας τις ίδιες τιμές με την Άσκηση 3, βρείτε $P(A' \cup B')$.
 
-**Solution:**
-
-**Step 1:** Apply De Morgan's Second Law:
+**Διάλυμα:****Βήμα 1:** Εφαρμογή του δεύτερου νόμου του De Morgan:
 
 $$P(A' \cup B') = P((A \cap B)')$$
 
-**Step 2:** Apply the complement rule:
+**Βήμα 2:** Εφαρμόστε τον κανόνα συμπλήρωσης:
 
 $$P((A \cap B)') = 1 - P(A \cap B) = 1 - 0.2 = 0.8$$
 
-Therefore $P(A' \cup B') = 0.8$.
+Επομένως $P(A' \cup B') = 0.8$.
 
 ---
 
-### Exercise 5: Mutually Exclusive Events
+### Άσκηση 5: Αμοιβαία Αποκλειστικά Γεγονότα
 
-**Problem:** Two events $A$ and $B$ are mutually exclusive. $P(A) = 0.35$, $P(B) = 0.25$. Find: (a) $P(A \cup B)$, (b) $P(A' \cap B')$.
+**Πρόβλημα:** Δύο συμβάντα $A$ και $B$ αλληλοαποκλείονται. $P(A) = 0.35$, $P(B) = 0.25$. Βρείτε: (α) $P(A \cup B)$, (β) $P(A' \cap B')$.
 
-**Solution:**
+**Λύση:**
 
-Since $A \cap B = \emptyset$, we have $P(A \cap B) = 0$.
+Από $A \cap B = \emptyset$, έχουμε $P(A \cap B) = 0$.
 
-(a) $P(A \cup B) = P(A) + P(B) = 0.35 + 0.25 = 0.60$
+(α) $P(A \cup B) = P(A) + P(B) = 0.35 + 0.25 = 0.60$
 
-(b) $P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.60 = 0.40$
+(β) $P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.60 = 0.40$
 
 ---
 
-### Exercise 6: Checking Axiom Compliance
+### Άσκηση 6: Έλεγχος Συμμόρφωσης με το Αξίωμα
 
-**Problem:** A student claims: $P(A) = 0.7$, $P(B) = 0.6$, $P(A \cup B) = 0.8$. Is this consistent with the probability axioms?
+**Πρόβλημα:** Ένας μαθητής ισχυρίζεται: $P(A) = 0.7$, $P(B) = 0.6$, $P(A \cup B) = 0.8$. Είναι αυτό συνεπές με τα αξιώματα πιθανοτήτων;
 
-**Solution:**
+**Λύση:**
 
-Compute $P(A \cap B)$ from the addition rule:
+Υπολογίστε $P(A \cap B)$ από τον κανόνα πρόσθεσης:
 
 $$P(A \cap B) = 0.7 + 0.6 - 0.8 = 0.5$$
 
-**Check 1:** Is $P(A \cap B) \geq 0$? Yes, $0.5 \geq 0$.
+**Έλεγχος 1:** Είναι $P(A \cap B) \geq 0$; Ναι, $0.5 \geq 0$.
 
-**Check 2:** Is $P(A \cap B) \leq P(A)$ and $P(A \cap B) \leq P(B)$? Yes, $0.5 \leq 0.7$ and $0.5 \leq 0.6$.
+**Έλεγχος 2:** Είναι $P(A \cap B) \leq P(A)$ και $P(A \cap B) \leq P(B)$; Ναι, $0.5 \leq 0.7$ και $0.5 \leq 0.6$.
 
-**Check 3:** Is $P(A \cup B) \leq 1$? Yes, $0.8 \leq 1$.
+**Έλεγχος 3:** Είναι $P(A \cup B) \leq 1$; Ναι, $0.8 \leq 1$.
 
-All axiom requirements are satisfied. The assignment is **consistent**.
+Όλες οι απαιτήσεις αξιώματος ικανοποιούνται. Η εργασία είναι **συνεπής**.
 
 ---
 
-### Exercise 7: Three-Event Inclusion-Exclusion
+### Άσκηση 7: Ένταξη-Αποκλεισμός Τριών Συμβάντων
 
-**Problem:** $P(A) = 0.4$, $P(B) = 0.3$, $P(C) = 0.5$, $P(A \cap B) = 0.1$, $P(A \cap C) = 0.15$, $P(B \cap C) = 0.1$, $P(A \cap B \cap C) = 0.05$. Find $P(A \cup B \cup C)$.
+**Πρόβλημα:** $P(A) = 0.4$, $P(B) = 0.3$, $P(C) = 0.5$, $P(A \cap B) = 0.1$, $P(A \cap C) = 0.15$, $P(B \cap C) = 0.1$, $P(A \cap B \cap C) = 0.05$. Βρείτε $P(A \cup B \cup C)$.
 
-**Solution:**
+**Λύση:**
 
 $$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$$
 
@@ -1260,1004 +1241,989 @@ $$= 1.2 - 0.35 + 0.05 = 0.90$$
 
 ---
 
-### Exercise 8: Full Multi-Step Problem
+### Άσκηση 8: Πλήρες πρόβλημα πολλαπλών βημάτων
 
-**Problem:** In a group of 100 people, 60 own a car ($C$), 45 own a motorbike ($M$), and 20 own neither. Find: (a) the number who own both, (b) $P(C' \cap M')$, (c) $P(C' \cup M')$.
+**Πρόβλημα:** Σε μια ομάδα 100 ατόμων, 60 είναι κάτοχοι αυτοκινήτου ($C$), 45 κάτοχοι μοτοσικλέτας ($M$) και 20 δεν έχουν κανένα από τα δύο. Βρείτε: (α) τον αριθμό στον οποίο ανήκουν και τα δύο, (β) $P(C' \cap M')$, (γ) $P(C' \cup M')$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Number owning at least one = $100 - 20 = 80$, so $P(C \cup M) = 0.80$.
+**Βήμα 1:** Αριθμός που κατέχει τουλάχιστον έναν = $100 - 20 = 80$, άρα $P(C \cup M) = 0.80$.
 
-**Step 2:** Apply the addition rule to find $P(C \cap M)$:
+**Βήμα 2:** Εφαρμόστε τον κανόνα πρόσθεσης για να βρείτε $P(C \cap M)$:
 
 $$P(C \cap M) = P(C) + P(M) - P(C \cup M)$$
 
 $$P(C \cap M) = 0.60 + 0.45 - 0.80 = 0.25$$
 
-Number owning both = $0.25 \times 100 = \mathbf{25}$.
+Αριθμός που κατέχει και τα δύο = $0.25 \times 100 = \mathbf{25}$.
 
-**Step 3:** (b) "Neither" using De Morgan's First Law:
+**Βήμα 3:** (β) "Ούτε" χρησιμοποιώντας τον Πρώτο Νόμο του De Morgan:
 
 $$P(C' \cap M') = 1 - P(C \cup M) = 1 - 0.80 = 0.20$$
 
-**Step 4:** (c) "Not both" using De Morgan's Second Law:
+**Βήμα 4:** (γ) "Όχι και τα δύο" χρησιμοποιώντας τον Δεύτερο Νόμο του De Morgan:
 
 $$P(C' \cup M') = 1 - P(C \cap M) = 1 - 0.25 = 0.75$$
 
 ---
 
-## 7. Core Formulas Summary
+## 7. Σύνοψη βασικών τύπων
 
-| Formula | Name | When to Use |
+| Φόρμουλα | Όνομα | Πότε να χρησιμοποιήσετε |
 | :--- | :--- | :--- |
-| $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ | Addition Rule | Finding union of any two events |
-| $P(A') = 1 - P(A)$ | Complement Rule | Finding probability of "not A" |
-| $(A \cup B)' = A' \cap B'$ | De Morgan's First Law | "Neither" problems |
-| $(A \cap B)' = A' \cup B'$ | De Morgan's Second Law | "Not both" problems |
-| $P(A' \cap B') = 1 - P(A \cup B)$ | Neither (derived) | Quickest path to "neither" |
-| $P(A' \cup B') = 1 - P(A \cap B)$ | Not both (derived) | Quickest path to "not both" |
+| $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ | Κανόνας προσθήκης | Εύρεση ένωσης οποιωνδήποτε δύο γεγονότων |
+| $P(A') = 1 - P(A)$ | Συμπληρωματικός κανόνας | Εύρεση πιθανότητας "όχι Α" |
+| $(A \cup B)' = A' \cap B'$ | Ο πρώτος νόμος του De Morgan | Προβλήματα «ούτε» |
+| $(A \cap B)' = A' \cup B'$ | Ο δεύτερος νόμος του De Morgan | Προβλήματα «Όχι και τα δύο» |
+| $P(A' \cap B') = 1 - P(A \cup B)$ | Ούτε (παράγεται) | Ο πιο γρήγορος δρόμος προς το "κανένα" |
+| $P(A' \cup B') = 1 - P(A \cap B)$ | Όχι και τα δύο (προερχόμενα) | Ο πιο γρήγορος δρόμος προς το "όχι και τα δύο" |
 
 ---
 
-## Exam Tip: The De Morgan Shortcut
+## Συμβουλή εξέτασης: Η συντόμευση De Morgan
 
-Whenever you see $P(A' \cap B')$ or $P(A' \cup B')$ in an exam, do not attempt to compute complements directly. Instead, apply De Morgan's Law immediately:
+Κάθε φορά που βλέπετε $P(A' \cap B')$ ή $P(A' \cup B')$ σε μια εξέταση, μην επιχειρήσετε να υπολογίσετε απευθείας συμπληρώματα. Αντίθετα, εφαρμόστε αμέσως τον νόμο του De Morgan:
 
-*   $P(A' \cap B') \xrightarrow{\text{De Morgan}} 1 - P(A \cup B)$: compute the union first, then subtract from 1.
-*   $P(A' \cup B') \xrightarrow{\text{De Morgan}} 1 - P(A \cap B)$: compute the intersection first, then subtract from 1.
+* $P(A' \cap B') \xrightarrow{\text{De Morgan}} 1 - P(A \cup B)$: υπολογίστε πρώτα την ένωση και μετά αφαιρέστε από το 1.
+* $P(A' \cup B') \xrightarrow{\text{De Morgan}} 1 - P(A \cap B)$: υπολογίστε πρώτα την τομή και μετά αφαιρέστε από το 1.
 
-This two-step method is the fastest and most reliable approach and reduces complex complement expressions to standard addition rule problems.
+Αυτή η μέθοδος δύο βημάτων είναι η ταχύτερη και πιο αξιόπιστη προσέγγιση και μειώνει τις σύνθετες εκφράσεις συμπληρώματος σε τυπικά προβλήματα κανόνων προσθήκης.
 
-
----
-
-<!-- Source: ../Resources/Phase_2_Probability_Theory/phase_2_4_combinatorics_counting_methods.md -->
-# Phase 2.4: Combinatorics and Counting Methods
-
-Combinatorial analysis provides the mathematical techniques for counting the number of elements in a set without listing them individually. In probability theory, when outcomes in a sample space $\Omega$ are equally likely, the probability of an event $A$ is:
-
-$$P(A) = \frac{|A|}{|\Omega|} = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}$$
-
-Determining $|A|$ and $|\Omega|$ often requires the counting methods detailed below.
 
 ---
 
-## 1. Fundamental Principles of Counting
+<!-- Πηγή: ../Resources/Phase_2_Probability_Theory/phase_2_4_combinatorics_counting_methods.md -->
+# Φάση 2.4: Συνδυαστική και Μέθοδοι Καταμέτρησης
 
-### 1.1 The Multiplication Rule (Product Rule)
-If an operation can be performed in $n_1$ ways, and for each of these a second operation can be performed in $n_2$ ways, and for each of these a third operation can be performed in $n_3$ ways, and so on, then the sequence of $k$ operations can be performed in:
+Η συνδυαστική ανάλυση παρέχει τις μαθηματικές τεχνικές για την καταμέτρηση του αριθμού των στοιχείων σε ένα σύνολο χωρίς να τα απαριθμεί μεμονωμένα. Στη θεωρία πιθανοτήτων, όταν τα αποτελέσματα σε ένα χώρο δείγματος $\Omega$ είναι εξίσου πιθανά, η πιθανότητα ενός συμβάντος $A$ είναι:
+
+$$P(A) = \frac{|A|}{|\Omega|} = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}$$Ο προσδιορισμός των $|A|$ και $|\Omega|$ απαιτεί συχνά τις μεθόδους μέτρησης που περιγράφονται παρακάτω.
+
+---
+
+## 1. Θεμελιώδεις Αρχές Καταμέτρησης
+
+### 1.1 Ο κανόνας πολλαπλασιασμού (Κανόνας προϊόντος)
+Εάν μια λειτουργία μπορεί να εκτελεστεί με $n_1$ τρόπους και για καθέναν από αυτούς μια δεύτερη λειτουργία μπορεί να εκτελεστεί με $n_2$ τρόπους και για καθέναν από αυτούς μια τρίτη λειτουργία μπορεί να εκτελεστεί με $n_3$ τρόπους και ούτω καθεξής, τότε η ακολουθία των πράξεων $k$ μπορεί να εκτελεστεί με:
 
 $$N = n_1 \cdot n_2 \cdot \dots \cdot n_k \text{ ways}$$
 
-### 1.2 The Addition Rule (Sum Rule)
-If an operation can be performed in $n_1$ ways, and a second disjoint operation can be performed in $n_2$ ways, then the total number of ways to perform either the first or the second operation is:
+### 1.2 Ο κανόνας πρόσθεσης (Κανόνας αθροίσματος)
+Εάν μια λειτουργία μπορεί να εκτελεστεί με $n_1$ τρόπους και μια δεύτερη αποσυνδεόμενη λειτουργία με $n_2$ τρόπους, τότε ο συνολικός αριθμός τρόπων εκτέλεσης είτε της πρώτης είτε της δεύτερης πράξης είναι:
 
 $$N = n_1 + n_2 \text{ ways}$$
 
 ---
 
-## 2. Permutations
+## 2. Μεταθέσεις
 
-A permutation is an ordered arrangement of all or part of a set of objects. The order of selection matters.
+Μια μετάθεση είναι μια διατεταγμένη διάταξη του συνόλου ή μέρους ενός συνόλου αντικειμένων. Σημασία έχει η σειρά επιλογής.
 
-### 2.1 Permutations of Distinct Objects
-The number of permutations of $n$ distinct objects taken all at a time is:
+### 2.1 Μεταθέσεις Διακεκριμένων Αντικειμένων
+Ο αριθμός των μεταθέσεων $n$ διακριτών αντικειμένων που λαμβάνονται όλα κάθε φορά είναι:
 
 $$P(n, n) = n!$$
 
-The number of permutations of $n$ distinct objects taken $r$ at a time (where $0 \le r \le n$) is:
+Ο αριθμός των μεταθέσεων $n$ διακριτών αντικειμένων που λαμβάνονται $r$ κάθε φορά (όπου $0 \le r \le n$) είναι:
 
 $$P(n, r) = \frac{n!}{(n-r)!}$$
 
-### 2.2 Permutations with Repetition (Identical Objects)
-The number of distinct permutations of $n$ objects of which $n_1$ are of one type, $n_2$ are of a second type, $\dots$, and $n_k$ are of a $k$-th type (such that $n_1 + n_2 + \dots + n_k = n$) is:
+### 2.2 Μεταθέσεις με επανάληψη (πανομοιότυπα αντικείμενα)
+Ο αριθμός των διακριτών μεταθέσεων των $n$ αντικειμένων από τα οποία $n_1$ είναι ενός τύπου, $n_2$ είναι δεύτερου τύπου, $\dots$ και $n_k$ είναι $n_k$ τύπου __MATHINLINE792_9:
 
 $$P(n; n_1, n_2, \dots, n_k) = \frac{n!}{n_1! \cdot n_2! \dots n_k!}$$
 
 ---
 
-## 3. Combinations
+## 3. Συνδυασμοί
 
-A combination is a selection of all or part of a set of objects without regard to order. The order of selection does not matter.
+Ένας συνδυασμός είναι μια επιλογή του συνόλου ή μέρους ενός συνόλου αντικειμένων χωρίς να λαμβάνεται υπόψη η σειρά. Η σειρά επιλογής δεν έχει σημασία.
 
-### 3.1 Combinations of Distinct Objects (Without Replacement)
-The number of combinations of $n$ distinct objects taken $r$ at a time (where $0 \le r \le n$) is given by the binomial coefficient:
+### 3.1 Συνδυασμοί διακριτών αντικειμένων (χωρίς αντικατάσταση)
+Ο αριθμός των συνδυασμών $n$ διακριτών αντικειμένων που λαμβάνονται $r$ κάθε φορά (όπου $0 \le r \le n$) δίνεται από τον διωνυμικό συντελεστή:
 
 $$C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
 
-### 3.2 Combinations with Replacement
-The number of ways to choose $r$ objects from a set of $n$ distinct objects when repetition is allowed (and order does not matter) is:
+### 3.2 Συνδυασμοί με αντικατάσταση
+Ο αριθμός των τρόπων επιλογής $r$ αντικειμένων από ένα σύνολο $n$ διακριτών αντικειμένων όταν επιτρέπεται η επανάληψη (και η σειρά δεν έχει σημασία) είναι:
 
 $$C^{R}(n, r) = \binom{n + r - 1}{r} = \frac{(n + r - 1)!}{r!(n - 1)!}$$
 
 ---
 
-## 4. Partitions & Multinomial Coefficients
+## 4. Κατατμήσεις & Πολυωνυμικοί Συντελεστές
 
-The number of ways of partitioning a set of $n$ distinct objects into $k$ cells with $r_1$ objects in the first cell, $r_2$ objects in the second cell, and so on, where $r_1 + r_2 + \dots + r_k = n$, is:
+Ο αριθμός των τρόπων διαμερισμού ενός συνόλου $n$ διακριτών αντικειμένων σε $k$ κελιά με $r_1$ αντικείμενα στο πρώτο κελί, $r_2$ αντικείμενα στο δεύτερο κελί και ούτω καθεξής, όπου $r_1 + r_2 + \dots + r_k = n$, είναι:
 
 $$\binom{n}{r_1, r_2, \dots, r_k} = \frac{n!}{r_1! \cdot r_2! \dots r_k!}$$
 
 ---
 
-## 5. Solved Exercises (10 Examples)
+## 5. Λυμένες Ασκήσεις (10 Παραδείγματα)
 
-### Exercise 1: License Plate Codes (Multiplication Rule)
-**Problem:** A license plate contains 3 letters followed by 3 digits. Letters cannot be repeated, but digits can. How many distinct license plates can be formed if there are 26 letters in the alphabet?
+### Άσκηση 1: Κωδικοί πινακίδων κυκλοφορίας (Κανόνας πολλαπλασιασμού)
+**Πρόβλημα:** Μια πινακίδα περιέχει 3 γράμματα ακολουθούμενα από 3 ψηφία. Τα γράμματα δεν μπορούν να επαναληφθούν, αλλά τα ψηφία μπορούν. Πόσες διακριτές πινακίδες μπορούν να σχηματιστούν αν υπάρχουν 26 γράμματα στο αλφάβητο;
 
-**Solution:**
-- **Step 1: Define operations.**
-  We have 6 slots to fill. Let $n_i$ represent the number of choices for slot $i$.
-- **Step 2: WIP State.**
-  For letters (no repetition):
-  - Slot 1: 26 choices
-  - Slot 2: 25 choices
-  - Slot 3: 24 choices
-  For digits (repetition allowed):
-  - Slot 4: 10 choices (0-9)
-  - Slot 5: 10 choices
-  - Slot 6: ? choices
-- **Step 3: Final Calculation.**
-  - Slot 6 has 10 choices.
-  - Total plates $= 26 \cdot 25 \cdot 24 \cdot 10 \cdot 10 \cdot 10 = 15,600 \cdot 1,000 = 15,600,000$.
-
----
-
-### Exercise 2: Selecting a Committee (Combinations)
-**Problem:** From a group of 8 men and 6 women, a committee of 5 people must be formed. How many committees are possible if it must contain exactly 3 men and 2 women?
-
-**Solution:**
-- **Step 1: Split the selections.**
-  We select men and women independently, then multiply the results.
-- **Step 2: WIP State.**
-  - Selection of men: $\binom{8}{3} = \frac{8!}{3! \cdot 5!} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} = 56$.
-  - Selection of women: $\binom{6}{2} = \frac{6!}{2! \cdot 4!} = \frac{6 \cdot 5}{?} = 15$.
-- **Step 3: Final Calculation.**
-  Total committees $= 56 \cdot 15 = 840$.
+**Λύση:**
+- **Βήμα 1: Ορισμός λειτουργιών.**
+  Έχουμε 6 θέσεις να γεμίσουμε. Έστω $n_i$ αντιπροσωπεύει τον αριθμό των επιλογών για την υποδοχή $i$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Για γράμματα (χωρίς επανάληψη):
+  - Υποδοχή 1: 26 επιλογές
+  - Υποδοχή 2: 25 επιλογές
+  - Υποδοχή 3: 24 επιλογές
+  Για ψηφία (επιτρέπεται η επανάληψη):
+  - Θέση 4: 10 επιλογές (0-9)
+  - Υποδοχή 5: 10 επιλογές
+  - Υποδοχή 6: ? επιλογές
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Η υποδοχή 6 έχει 10 επιλογές.
+  - Σύνολο πινακίδων $= 26 \cdot 25 \cdot 24 \cdot 10 \cdot 10 \cdot 10 = 15,600 \cdot 1,000 = 15,600,000$.
 
 ---
 
-### Exercise 3: Arranging Books on a Shelf (Permutations)
-**Problem:** There are 4 Math books, 3 Physics books, and 2 Chemistry books. In how many ways can they be arranged on a shelf if books of the same subject must be kept together?
+### Άσκηση 2: Επιλογή Επιτροπής (Συνδυασμοί)**Πρόβλημα:** Από μια ομάδα 8 ανδρών και 6 γυναικών πρέπει να σχηματιστεί μια επιτροπή 5 ατόμων. Πόσες επιτροπές είναι δυνατές εάν πρέπει να περιλαμβάνει ακριβώς 3 άνδρες και 2 γυναίκες;
 
-**Solution:**
-- **Step 1: Treat groups as units.**
-  We arrange the 3 subjects (Math, Physics, Chemistry) first: $3!$ ways.
-- **Step 2: WIP State.**
-  Within each subject group:
-  - Math books can be arranged in $4!$ ways.
-  - Physics books can be arranged in $3!$ ways.
-  - Chemistry books can be arranged in ? ways.
-- **Step 3: Final Calculation.**
-  - Chemistry arrangements $= 2! = 2$ ways.
-  - Total arrangements $= 3! \cdot (4! \cdot 3! \cdot 2!) = 6 \cdot (24 \cdot 6 \cdot 2) = 6 \cdot 288 = 1728$.
+**Λύση:**
+- **Βήμα 1: Διαχωρίστε τις επιλογές.**
+  Επιλέγουμε άνδρες και γυναίκες ανεξάρτητα και στη συνέχεια πολλαπλασιάζουμε τα αποτελέσματα.
+- **Βήμα 2: Κατάσταση WIP.**
+  - Επιλογή ανδρών: $\binom{8}{3} = \frac{8!}{3! \cdot 5!} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} = 56$.
+  - Επιλογή γυναικών: $\binom{6}{2} = \frac{6!}{2! \cdot 4!} = \frac{6 \cdot 5}{?} = 15$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Σύνολο επιτροπών $= 56 \cdot 15 = 840$.
 
 ---
 
-### Exercise 4: Distributing Toys (Multinomial Coefficient)
-**Problem:** In how many ways can 10 distinct toys be distributed among 3 children if the eldest receives 5 toys, the middle child receives 3 toys, and the youngest receives 2 toys?
+### Άσκηση 3: Τακτοποίηση βιβλίων σε ράφι (μεταθέσεις)
+**Πρόβλημα:** Υπάρχουν 4 βιβλία μαθηματικών, 3 βιβλία φυσικής και 2 βιβλία χημείας. Με πόσους τρόπους μπορούν να τακτοποιηθούν σε ένα ράφι εάν πρέπει να φυλάσσονται μαζί βιβλία του ίδιου θέματος;
 
-**Solution:**
-- **Step 1: Set up the partition.**
-  This is a partition of $n=10$ objects into cells of sizes $r_1=5, r_2=3, r_3=2$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Αντιμετωπίστε τις ομάδες ως μονάδες.**
+  Τακτοποιούμε πρώτα τα 3 μαθήματα (Μαθηματικά, Φυσική, Χημεία): $3!$ τρόπους.
+- **Βήμα 2: Κατάσταση WIP.**
+  Σε κάθε θεματική ομάδα:
+  - Τα βιβλία μαθηματικών μπορούν να τακτοποιηθούν με $4!$ τρόπους.
+  - Τα βιβλία φυσικής μπορούν να τακτοποιηθούν με $3!$ τρόπους.
+  - Τα βιβλία χημείας μπορούν να τακτοποιηθούν σε ; τρόπους.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Χημικές ρυθμίσεις $= 2! = 2$ τρόπους.
+  - Συνολικές ρυθμίσεις $= 3! \cdot (4! \cdot 3! \cdot 2!) = 6 \cdot (24 \cdot 6 \cdot 2) = 6 \cdot 288 = 1728$.
+
+---
+
+### Άσκηση 4: Διανομή παιχνιδιών (Πολυωνυμικός Συντελεστής)
+**Πρόβλημα:** Με πόσους τρόπους μπορούν να διανεμηθούν 10 διαφορετικά παιχνίδια σε 3 παιδιά εάν το μεγαλύτερο λαμβάνει 5 παιχνίδια, το μεσαίο παιδί λάβει 3 παιχνίδια και το μικρότερο λαμβάνει 2 παιχνίδια;
+
+**Λύση:**
+- **Βήμα 1: Ρύθμιση του διαμερίσματος.**
+  Αυτό είναι ένα διαμέρισμα $n=10$ αντικειμένων σε κελιά μεγεθών $r_1=5, r_2=3, r_3=2$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$\binom{10}{5, 3, 2} = \frac{10!}{5! \cdot 3! \cdot 2!} = \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5!}{5! \cdot (3 \cdot 2 \cdot 1) \cdot (2 \cdot 1)} = \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = 6 \cdot 2 = 12$$
   $$\text{Numerator} = 30240$$
   $$\text{Total ways} = \frac{30240}{12} = 2520 \text{ ways}.$$
 
 ---
 
-### Exercise 5: Word Permutations with Repetition
-**Problem:** How many distinct words (including nonsense words) can be formed by rearranging the letters of the word "PROBABILITY"?
+### Άσκηση 5: Μεταθέσεις λέξεων με επανάληψη
+**Πρόβλημα:** Πόσες διακριτές λέξεις (συμπεριλαμβανομένων των ανοησίων λέξεων) μπορούν να σχηματιστούν με την αναδιάταξη των γραμμάτων της λέξης "ΠΙΘΑΝΟΤΗΤΑ";
 
-**Solution:**
-- **Step 1: Count letter frequencies.**
-  Total letters $n = 11$.
-  Frequencies: P (1), R (1), O (1), B (2), A (1), I (2), L (1), T (1), Y (1).
-- **Step 2: WIP State.**
-  We apply the permutation of identical objects formula:
+**Λύση:**
+- **Βήμα 1: Μετρήστε τις συχνότητες των γραμμάτων.**
+  Σύνολο γραμμάτων $n = 11$.
+  Συχνότητες: P (1), R (1), O (1), B (2), A (1), I (2), L (1), T (1), Y (1).
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόζουμε τον τύπο μετάθεσης πανομοιότυπων αντικειμένων:
   $$\text{Total permutations} = \frac{11!}{1! \cdot 1! \cdot 1! \cdot 2! \cdot 1! \cdot 2! \cdot 1! \cdot 1! \cdot 1!} = \frac{11!}{2! \cdot 2!} = \frac{39,916,800}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Total permutations} = \frac{39,916,800}{4} = 9,979,200 \text{ words}.$$
 
 ---
 
-### Exercise 6: Seating Arrangements at a Round Table
-**Problem:** In how many ways can 6 people be seated at a round table? (Note: Two arrangements are considered identical if each person has the same left and right neighbors).
+### Άσκηση 6: Διατάξεις καθισμάτων σε στρογγυλό τραπέζι
+**Πρόβλημα:** Με πόσους τρόπους μπορούν να καθίσουν 6 άτομα σε ένα στρογγυλό τραπέζι; (Σημείωση: Δύο ρυθμίσεις θεωρούνται ίδιες εάν κάθε άτομο έχει τον ίδιο αριστερό και δεξιό γείτονα).
 
-**Solution:**
-- **Step 1: Identify circular permutation.**
-  For circular permutations of $n$ distinct objects, we fix one person's position to eliminate rotational equivalence, leaving $(n-1)!$ arrangements.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την κυκλική μετάθεση.**
+  Για κυκλικές μεταθέσεις $n$ διακριτών αντικειμένων, καθορίζουμε τη θέση ενός ατόμου για να εξαλείψουμε την περιστροφική ισοδυναμία, αφήνοντας τις ρυθμίσεις $(n-1)!$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$\text{Arrangements} = (6 - 1)! = ?!$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120 \text{ ways}.$$
 
 ---
 
-### Exercise 7: Choosing Donuts (Combinations with Replacement)
-**Problem:** A bakery sells 4 varieties of donuts. In how many ways can a customer select 6 donuts?
+### Άσκηση 7: Επιλογή ντόνατς (συνδυασμοί με αντικατάσταση)
+**Πρόβλημα:** Ένας φούρνος πουλάει 4 ποικιλίες ντόνατς. Με πόσους τρόπους μπορεί ένας πελάτης να επιλέξει 6 ντόνατς;
 
-**Solution:**
-- **Step 1: Identify model parameters.**
-  We are selecting $r = 6$ donuts from $n = 4$ types, where order does not matter and repetition is allowed.
-- **Step 2: WIP State.**
-  Use the combination with replacement formula:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τις παραμέτρους του μοντέλου.**
+  Επιλέγουμε $r = 6$ ντόνατς από τους τύπους $n = 4$, όπου η σειρά δεν έχει σημασία και επιτρέπεται η επανάληψη.
+- **Βήμα 2: Κατάσταση WIP.**
+  Χρησιμοποιήστε τον συνδυασμό με τον τύπο αντικατάστασης:
   $$\binom{n + r - 1}{r} = \binom{4 + 6 - 1}{6} = \binom{9}{6} = \frac{9!}{6! \cdot 3!} = \frac{9 \cdot 8 \cdot 7}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = 3 \cdot 2 \cdot 1 = 6$$
   $$\text{Total ways} = \frac{504}{6} = 84 \text{ ways}.$$
 
 ---
 
-### Exercise 8: Pathfinding on a Grid
-**Problem:** A grid has coordinates from $(0,0)$ to $(5,4)$. A path moves only step-by-step to the right or up. How many paths exist from $(0,0)$ to $(5,4)$?
+### Άσκηση 8: Εύρεση μονοπατιού σε πλέγμα**Πρόβλημα:** Ένα πλέγμα έχει συντεταγμένες από $(0,0)$ έως $(5,4)$. Ένα μονοπάτι κινείται μόνο βήμα-βήμα προς τα δεξιά ή προς τα πάνω. Πόσα μονοπάτια υπάρχουν από $(0,0)$ έως $(5,4)$;
 
-**Solution:**
-- **Step 1: Translate to symbols.**
-  Any path requires exactly 5 Right (R) moves and 4 Up (U) moves, totaling $n = 9$ moves.
-- **Step 2: WIP State.**
-  We need to choose which 5 of the 9 moves are R (the rest will be U):
+**Λύση:**
+- **Βήμα 1: Μετάφραση σε σύμβολα.**
+  Οποιοδήποτε μονοπάτι απαιτεί ακριβώς 5 κινήσεις προς τα δεξιά (R) και 4 προς τα επάνω (U) κινήσεις, συνολικού ύψους $n = 9$ κινήσεων.
+- **Βήμα 2: Κατάσταση WIP.**
+  Πρέπει να επιλέξουμε ποιες 5 από τις 9 κινήσεις είναι R (οι υπόλοιπες θα είναι U):
   $$\text{Paths} = \binom{9}{5} = \frac{9!}{5! \cdot 4!} = \frac{9 \cdot 8 \cdot 7 \cdot 6}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = 4 \cdot 3 \cdot 2 \cdot 1 = 24$$
   $$\text{Total paths} = \frac{3024}{24} = 126 \text{ paths}.$$
 
 ---
 
-### Exercise 9: Sum of Dice (Combinatorics for Probability)
-**Problem:** Three fair six-sided dice are rolled. What is the probability that the sum of the numbers shown is exactly 5?
+### Άσκηση 9: Άθροισμα ζαριών (Συνδυαστική για πιθανότητες)
+**Πρόβλημα:** Τρία ζάρια έξι όψεων ρίχνονται. Ποια είναι η πιθανότητα το άθροισμα των αριθμών που εμφανίζονται να είναι ακριβώς 5;
 
-**Solution:**
-- **Step 1: Calculate the size of the sample space $|\Omega|$.**
-  Each die has 6 outcomes. For 3 dice: $|\Omega| = 6^3 = 216$.
-- **Step 2: WIP State.**
-  We count the combinations of $(x_1, x_2, x_3)$ such that $x_1 + x_2 + x_3 = 5$, where $1 \le x_i \le 6$.
-  Possible partitions of 5 into 3 positive integers:
-  - $\{3, 1, 1\}$ (order matters): can occur as $(3,1,1)$, $(1,3,1)$, or $(1,1,3)$ $\Rightarrow$ 3 ways.
-  - $\{2, 2, 1\}$ (order matters): can occur as $(2,2,1)$, $(2,1,2)$, or $(1,2,2)$ $\Rightarrow$ ? ways.
-- **Step 3: Final Calculation.**
-  - There are 3 ways for $\{2, 2, 1\}$.
-  - Total favorable outcomes $|A| = 3 + 3 = 6$.
-  - Probability $= \frac{|A|}{|\Omega|} = \frac{6}{216} = \frac{1}{36} \approx 0.0278$.
+**Λύση:**
+- **Βήμα 1: Υπολογίστε το μέγεθος του δείγματος χώρου $|\Omega|$.**
+  Κάθε ζάρι έχει 6 αποτελέσματα. Για 3 ζάρια: $|\Omega| = 6^3 = 216$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Μετράμε τους συνδυασμούς του $(x_1, x_2, x_3)$ έτσι ώστε $x_1 + x_2 + x_3 = 5$, όπου $1 \le x_i \le 6$.
+  Πιθανές κατατμήσεις 5 σε 3 θετικούς ακέραιους:
+  - $\{3, 1, 1\}$ (η παραγγελία έχει σημασία): μπορεί να εμφανιστεί ως $(3,1,1)$, $(1,3,1)$ ή $(1,1,3)$ $\Rightarrow$ με 3 τρόπους.
+  - $\{2, 2, 1\}$ (η παραγγελία έχει σημασία): μπορεί να εμφανιστεί ως $(2,2,1)$, $(2,1,2)$ ή $(1,2,2)$ $\Rightarrow$ ; τρόπους.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Υπάρχουν 3 τρόποι για $\{2, 2, 1\}$.
+  - Συνολικά ευνοϊκά αποτελέσματα $|A| = 3 + 3 = 6$.
+  - Πιθανότητα $= \frac{|A|}{|\Omega|} = \frac{6}{216} = \frac{1}{36} \approx 0.0278$.
 
 ---
 
-### Exercise 10: Standard Poker Hands (Combination)
-**Problem:** A standard poker deck has 52 cards. What is the probability of being dealt a "Four of a Kind" (4 cards of one rank, and 1 card of another rank) in a 5-card hand?
+### Άσκηση 10: Τυπικά χέρια πόκερ (Συνδυασμός)
+**Πρόβλημα:** Μια τυπική τράπουλα πόκερ έχει 52 φύλλα. Ποια είναι η πιθανότητα να σας μοιραστούν ένα "Four of a Kind" (4 φύλλα μιας κατάταξης και 1 φύλλο μιας άλλης κατάταξης) σε ένα χέρι 5 φύλλων;
 
-**Solution:**
-- **Step 1: Compute total hands.**
+**Λύση:**
+- **Βήμα 1: Υπολογίστε συνολικά χέρια.**
   $$|\Omega| = \binom{52}{5} = 2,598,960$$
-- **Step 2: WIP State.**
-  To get a Four of a Kind:
-  1. Choose the rank of the four cards: $\binom{13}{1} = 13$ ways.
-  2. Select all 4 cards of that rank: $\binom{4}{4} = 1$ way.
-  3. Choose the remaining card from the remaining cards: $\binom{48}{1} = ?$ ways.
-- **Step 3: Final Calculation.**
-  - $\binom{48}{1} = 48$ ways.
-  - Total favorable hands $|A| = 13 \cdot 1 \cdot 48 = 624$.
-  - Probability $= \frac{624}{2,598,960} \approx 0.00024$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Για να αποκτήσετε ένα Four of a Kind:
+  1. Επιλέξτε την κατάταξη των τεσσάρων φύλλων: $\binom{13}{1} = 13$ τρόπους.
+  2. Επιλέξτε και τα 4 φύλλα αυτής της κατάταξης: $\binom{4}{4} = 1$ τρόπο.
+  3. Επιλέξτε την κάρτα που απομένει από τις υπόλοιπες κάρτες: $\binom{48}{1} = ?$ τρόπους.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - $\binom{48}{1} = 48$ τρόπους.
+  - Σύνολο ευνοϊκών χεριών $|A| = 13 \cdot 1 \cdot 48 = 624$.
+  - Πιθανότητα $= \frac{624}{2,598,960} \approx 0.00024$.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_1_conditional_probability.md -->
-# Phase 3.1: Conditional Probability
+<!-- Πηγή: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_1_conditional_probability.md -->
+# Φάση 3.1: Πιθανότητα υπό όρους
 
-Conditional probability is a fundamental concept in statistics that measures the likelihood of an event occurring, given that another event has already taken place. This "given" information effectively restricts the sample space to a specific subset.
+Η υπό όρους πιθανότητα είναι μια θεμελιώδης έννοια στις στατιστικές που μετρά την πιθανότητα να συμβεί ένα γεγονός, δεδομένου ότι ένα άλλο γεγονός έχει ήδη λάβει χώρα. Αυτές οι "δομένες" πληροφορίες περιορίζουν αποτελεσματικά το χώρο του δείγματος σε ένα συγκεκριμένο υποσύνολο.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-### Definition
-The conditional probability of an event $A$ given that event $B$ has occurred is the probability that $A$ happens within the restricted sample space defined by $B$.
+### Ορισμός
+Η υπό όρους πιθανότητα ενός συμβάντος $A$ δεδομένου ότι έχει συμβεί το συμβάν $B$ είναι η πιθανότητα το $A$ να συμβεί εντός του περιορισμένου χώρου δείγματος που ορίζεται από $B$.
 
-### The Fundamental Formula
-If $P(B) > 0$, the conditional probability of $A$ given $B$ is defined as:
+### Η Θεμελιώδης Φόρμουλα
+Εάν $P(B) > 0$, η υπό όρους πιθανότητα του $A$ δεδομένου $B$ ορίζεται ως:
 
 $$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
 
-Where:
-*   $P(A|B)$: Probability of $A$ occurring given $B$ has occurred.
-*   $P(A \cap B)$: Probability that both $A$ and $B$ occur (Intersection).
-*   $P(B)$: Probability of the conditioning event $B$.
+Πού:
+* $P(A|B)$: Η πιθανότητα να συμβεί $A$ δεδομένου ότι έχει συμβεί $B$.
+* $P(A \cap B)$: Πιθανότητα να εμφανιστούν και τα $A$ και $B$ (Τομή).
+* $P(B)$: Πιθανότητα του συμβάντος κλιματισμού $B$.
 
-### Intuitive Understanding: Reducing the Sample Space
-Imagine a sample space $S$. When we say "given $B$", we are throwing away any part of $S$ that is not $B$. The new sample space becomes $B$. We then look for the portion of $A$ that survived this "filtering" process, which is exactly $A \cap B$.
+### Διαισθητική κατανόηση: Μείωση του χώρου δειγμάτωνΦανταστείτε ένα δείγμα χώρου $S$. Όταν λέμε "δίνεται $B$", πετάμε οποιοδήποτε μέρος του $S$ που δεν είναι $B$. Ο νέος χώρος δείγματος γίνεται $B$. Στη συνέχεια, αναζητούμε το τμήμα του $A$ που επέζησε αυτής της διαδικασίας "φιλτραρίσματος", το οποίο είναι ακριβώς $A \cap B$.
 
-### The Multiplication Rule
-By rearranging the formula, we get the Multiplication Rule, which is used to find the probability of an intersection:
+### Ο κανόνας του πολλαπλασιασμού
+Με την αναδιάταξη του τύπου, παίρνουμε τον κανόνα πολλαπλασιασμού, ο οποίος χρησιμοποιείται για την εύρεση της πιθανότητας τομής:
 
 $$P(A \cap B) = P(B) \cdot P(A|B)$$
 $$P(A \cap B) = P(A) \cdot P(B|A)$$
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Drawing Balls from an Urn
-An urn contains 6 Red balls and 4 Blue balls. Two balls are drawn sequentially without replacement. What is the probability that the second ball is Red, given that the first ball was Blue?
+### Παράδειγμα 1: Σχεδίαση μπάλων από μια τεφροδόχο
+Ένα δοχείο περιέχει 6 κόκκινες μπάλες και 4 μπλε μπάλες. Δύο μπάλες σχεδιάζονται διαδοχικά χωρίς αντικατάσταση. Ποια είναι η πιθανότητα η δεύτερη μπάλα να είναι Κόκκινη, δεδομένου ότι η πρώτη μπάλα ήταν Μπλε;
 
-**Step 1: Define the events.**
-*   $B_1$: First ball is Blue.
-*   $R_2$: Second ball is Red.
+**Βήμα 1: Ορίστε τα συμβάντα.**
+* $B_1$: Η πρώτη μπάλα είναι Μπλε.
+* $R_2$: Η δεύτερη μπάλα είναι Κόκκινη.
 
-**Step 2: Analyze the initial state.**
-Total balls = 10 (6R, 4B).
+**Βήμα 2: Αναλύστε την αρχική κατάσταση.**
+Σύνολο μπάλες = 10 (6R, 4B).
 $P(B_1) = \frac{4}{10}$.
 
-**Step 3: Work-in-Progress (WIP) State.**
-If the first ball drawn is Blue ($B_1$ occurs), we must update the contents of the urn:
-*   Total balls remaining: $10 - 1 = 9$
-*   Red balls remaining: ?
-*   Blue balls remaining: $4 - 1 = 3$
+**Βήμα 3: Κατάσταση εργασιών σε εξέλιξη (WIP).**
+Εάν η πρώτη μπάλα που κληρώθηκε είναι Μπλε (συμβαίνει $B_1$), πρέπει να ενημερώσουμε τα περιεχόμενα της λάρνας:
+* Συνολικές μπάλες που απομένουν: $10 - 1 = 9$
+* Απομένουν κόκκινες μπάλες: ?
+* Μπλε μπάλες που απομένουν: $4 - 1 = 3$
 
-**Step 4: Final Calculation.**
-Since we drew a Blue ball, the number of Red balls remains 6.
+**Βήμα 4: Τελικός Υπολογισμός.**
+Εφόσον τραβήξαμε μια Μπλε μπάλα, ο αριθμός των Κόκκινων Μπαλών παραμένει 6.
 $$P(R_2|B_1) = \frac{\text{Red balls remaining}}{\text{Total balls remaining}} = \frac{6}{9} = \frac{2}{3}$$
 $P(R_2|B_1) \approx 0.6667$.
 
 ---
 
-### Example 2: Two-Way Frequency Table
-A survey of 100 students asked about their preferred study environment.
+### Παράδειγμα 2: Πίνακας συχνοτήτων διπλής κατεύθυνσης
+Μια έρευνα 100 φοιτητών ρώτησε για το περιβάλλον σπουδών που προτιμούν.
 
-| Gender | Library | Coffee Shop | Total |
+| Φύλο | Βιβλιοθήκη | Καφενείο | Σύνολο |
 | :--- | :---: | :---: | :---: |
-| Male | 30 | 20 | 50 |
-| Female | 25 | 25 | 50 |
-| **Total** | **55** | **45** | **100** |
+| Αρσενικό | 30 | 20 | 50 |
+| Θηλυκό | 25 | 25 | 50 |
+| **Σύνολο** | **55** | **45** | **100** |
 
-Find the probability that a student prefers the Library, given they are Female.
+Βρείτε την πιθανότητα ένας μαθητής να προτιμά τη Βιβλιοθήκη, δεδομένου ότι είναι Γυναίκα.
 
-**Step 1: Define events.**
-*   $L$: Prefers Library.
-*   $F$: Is Female.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $L$: Προτιμά τη Βιβλιοθήκη.
+* $F$: Είναι Γυναίκα.
 
-**Step 2: Identify values from the table.**
-*   $n(F) = 50$
-*   $n(L \cap F) = 25$
+**Βήμα 2: Προσδιορίστε τιμές από τον πίνακα.**
+* $n(F) = 50$
+* $n(L \cap F) = 25$
 
-**Step 3: WIP State.**
-We are calculating $P(L|F)$.
+**Βήμα 3: Κατάσταση WIP.**
+Υπολογίζουμε $P(L|F)$.
 $$P(L|F) = \frac{n(L \cap F)}{n(F)} = \frac{25}{?}$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(L|F) = \frac{25}{50} = 0.5$$
 
 ---
 
-### Example 3: Rolling Two Dice
-Two fair dice are rolled. What is the probability that the sum is 8, given that the first die shows a 5?
+### Παράδειγμα 3: Ρίχνοντας δύο ζάρια
+Ρίχνονται δύο δίκαια ζάρια. Ποια είναι η πιθανότητα το άθροισμα να είναι 8, δεδομένου ότι η πρώτη μήτρα δείχνει 5;
 
-**Step 1: Define events.**
-*   $S_8$: Sum is 8.
-*   $D_5$: First die is 5.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $S_8$: Το άθροισμα είναι 8.
+* $D_5$: Ο πρώτος θάνατος είναι 5.
 
-**Step 2: Identify the reduced sample space (Event $D_5$).**
-If the first die is 5, the possible outcomes are:
+**Βήμα 2: Προσδιορίστε τον μειωμένο χώρο δείγματος (Συμβάν $D_5$).**
+Εάν το πρώτο ζάρι είναι 5, τα πιθανά αποτελέσματα είναι:
 $(5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6)$.
-Total outcomes in $D_5 = 6$.
+Συνολικά αποτελέσματα σε $D_5 = 6$.
 
-**Step 3: WIP State.**
-Which of these outcomes result in a sum of 8?
-*   $5 + ? = 8 \implies ? = 3$
-Outcome: $(5, 3)$.
+**Βήμα 3: Κατάσταση WIP.**
+Ποιο από αυτά τα αποτελέσματα καταλήγει σε άθροισμα 8;
+* $5 + ? = 8 \implies ? = 3$
+Αποτέλεσμα: $(5, 3)$.
 
-**Step 4: Final Calculation.**
-There is only 1 favorable outcome in the reduced sample space of 6.
+**Βήμα 4: Τελικός Υπολογισμός.**
+Υπάρχει μόνο 1 ευνοϊκό αποτέλεσμα στον μειωμένο χώρο δειγμάτων των 6.
 $$P(S_8|D_5) = \frac{1}{6} \approx 0.1667$$
 
 ---
 
-### Example 4: Card Drawing
-A card is drawn from a standard deck of 52 cards. What is the probability it is an Ace, given that it is a Spade?
+### Παράδειγμα 4: Σχέδιο καρτών
+Ένα φύλλο τραβιέται από μια τυπική τράπουλα 52 φύλλων. Ποια είναι η πιθανότητα να είναι Άσος, δεδομένου ότι είναι Μπαστούνι;
 
-**Step 1: Define events.**
-*   $A$: Card is an Ace.
-*   $S$: Card is a Spade.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $A$: Το φύλλο είναι Άσος.
+* $S$: Η κάρτα είναι μπαστούνι.
 
-**Step 2: Identify counts.**
-*   $n(S) = 13$ (Spades in a deck)
-*   $n(A \cap S) = 1$ (The Ace of Spades)
+**Βήμα 2: Προσδιορισμός μετρήσεων.**
+* $n(S) = 13$ (Τα μπαστούνια σε ένα κατάστρωμα)
+* $n(A \cap S) = 1$ (The Ace of Spades)
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(A|S) = \frac{P(A \cap S)}{P(S)} = \frac{1/52}{?/52}$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(A|S) = \frac{1}{13} \approx 0.0769$$
 
 ---
 
-### Example 5: Family with Two Children
-A family has two children. Given that at least one is a girl, what is the probability that both are girls? (Assume $P(G) = P(B) = 0.5$).
+### Παράδειγμα 5: Οικογένεια με δύο παιδιά
+Μια οικογένεια έχει δύο παιδιά. Δεδομένου ότι τουλάχιστον το ένα είναι κορίτσι, ποια είναι η πιθανότητα να είναι και τα δύο κορίτσια; (Υποθέστε $P(G) = P(B) = 0.5$).
 
-**Step 1: Define the sample space $S$.**
-$S = \{BB, BG, GB, GG\}$ where $B$ is Boy and $G$ is Girl.
-
-**Step 2: Define the conditioning event $E$.**
-$E$: At least one girl.
+**Βήμα 1: Καθορίστε το δείγμα χώρου $S$.**
+$S = \{BB, BG, GB, GG\}$ όπου $B$ είναι αγόρι και $G$ είναι κορίτσι.**Βήμα 2: Ορίστε το συμβάν κλιματισμού $E$.**
+$E$: Τουλάχιστον ένα κορίτσι.
 $E = \{BG, GB, GG\}$.
 $n(E) = 3$.
 
-**Step 3: WIP State.**
-We want the probability of $GG$ given $E$.
-The favorable outcome is $\{GG\}$.
+**Βήμα 3: Κατάσταση WIP.**
+Θέλουμε την πιθανότητα $GG$ δεδομένου $E$.
+Το ευνοϊκό αποτέλεσμα είναι $\{GG\}$.
 $n(GG \cap E) = 1$.
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(GG|E) = \frac{1}{3} \approx 0.3333$$
 
 ---
 
-### Example 6: Weather and Traffic
-The probability that it rains is 0.3. The probability of heavy traffic is 0.4. The probability that it rains and there is heavy traffic is 0.2. What is the probability of heavy traffic given that it is raining?
+### Παράδειγμα 6: Καιρός και κυκλοφορία
+Η πιθανότητα να βρέχει είναι 0,3. Η πιθανότητα βαριάς κυκλοφορίας είναι 0,4. Η πιθανότητα να βρέχει και να υπάρχει μεγάλη κίνηση είναι 0,2. Ποια είναι η πιθανότητα έντονης κυκλοφορίας δεδομένου ότι βρέχει;
 
-**Step 1: Define events.**
-*   $R$: It rains. $P(R) = 0.3$.
-*   $T$: Heavy traffic. $P(T) = 0.4$.
-*   $P(R \cap T) = 0.2$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $R$: Βρέχει. $P(R) = 0.3$.
+* $T$: Μεγάλη κίνηση. $P(T) = 0.4$.
+* $P(R \cap T) = 0.2$.
 
-**Step 2: Apply the formula.**
+**Βήμα 2: Εφαρμόστε τον τύπο.**
 $$P(T|R) = \frac{P(T \cap R)}{P(R)}$$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(T|R) = \frac{0.2}{?}$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(T|R) = \frac{0.2}{0.3} = \frac{2}{3} \approx 0.6667$$
 
 ---
 
-### Example 7: Students Passing Exams
-In a class, 70% of students passed Math, and 60% passed Physics. 50% passed both. If a student is chosen at random and we know they passed Math, what is the probability they also passed Physics?
+### Παράδειγμα 7: Μαθητές που περνούν τις εξετάσεις
+Σε μια τάξη, το 70% των μαθητών πέρασε Μαθηματικά και το 60% πέρασε Φυσική. Το 50% πέρασε και τα δύο. Αν ένας μαθητής επιλεγεί τυχαία και γνωρίζουμε ότι πέρασε στα Μαθηματικά, ποια είναι η πιθανότητα να πέρασε και Φυσική;
 
-**Step 1: Define events.**
-*   $M$: Passed Math. $P(M) = 0.70$.
-*   $Ph$: Passed Physics. $P(Ph) = 0.60$.
-*   $P(M \cap Ph) = 0.50$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $M$: Πέρασε τα Μαθηματικά. $P(M) = 0.70$.
+* $Ph$: Πέρασε Φυσική. $P(Ph) = 0.60$.
+* $P(M \cap Ph) = 0.50$.
 
-**Step 2: Apply formula.**
+**Βήμα 2: Εφαρμόστε τον τύπο.**
 $$P(Ph|M) = \frac{P(Ph \cap M)}{P(M)}$$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(Ph|M) = \frac{0.50}{0.70} = ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(Ph|M) = \frac{5}{7} \approx 0.7143$$
 
 ---
 
-### Example 8: Assembly Line Defects
-A factory has two assembly lines, A and B. Line A produces 60% of the products and Line B produces 40%. Line A has a 5% defect rate. A product is chosen from Line A. What is the probability it is defective?
+### Παράδειγμα 8: Βλάβες γραμμής συναρμολόγησης
+Ένα εργοστάσιο έχει δύο γραμμές συναρμολόγησης, την Α και τη Β. Η γραμμή Α παράγει το 60% των προϊόντων και η γραμμή Β παράγει το 40%. Η γραμμή Α έχει ποσοστό ελαττώματος 5%. Ένα προϊόν επιλέγεται από τη γραμμή Α. Ποια είναι η πιθανότητα να είναι ελαττωματικό;
 
-**Step 1: Identify the given information.**
-*   $P(A) = 0.60$
-*   $P(B) = 0.40$
-*   $P(D|A) = 0.05$ (This is already a conditional probability!)
+**Βήμα 1: Προσδιορίστε τις πληροφορίες που δίνονται.**
+* $P(A) = 0.60$
+* $P(B) = 0.40$
+* $P(D|A) = 0.05$ (Αυτή είναι ήδη μια υπό όρους πιθανότητα!)
 
-**Step 2: Rephrase the question.**
-The question asks for the probability that a product is defective *given* it came from Line A.
+**Βήμα 2: Αναδιατυπώστε την ερώτηση.**
+Η ερώτηση ζητά την πιθανότητα ένα προϊόν να είναι ελαττωματικό *δεδομένου* ότι προήλθε από τη γραμμή Α.
 
-**Step 3: WIP State.**
-The value is directly provided in the problem description as the "defect rate of Line A".
+**Βήμα 3: Κατάσταση WIP.**
+Η τιμή παρέχεται απευθείας στην περιγραφή του προβλήματος ως "ποσοστό ελαττωμάτων της γραμμής Α".
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(D|A) = 0.05$$
 
-*Note: This example illustrates that in many word problems, the conditional probability is the "starting point" or "rate" provided for a specific subgroup.*
+*Σημείωση: Αυτό το παράδειγμα δείχνει ότι σε πολλά προβλήματα λέξεων, η υπό όρους πιθανότητα είναι το "σημείο εκκίνησης" ή το "ποσοστό" που παρέχεται για μια συγκεκριμένη υποομάδα.*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_2_independence.md -->
-# Phase 3.2: Independence
+<!-- Πηγή: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_2_independence.md -->
+# Φάση 3.2: Ανεξαρτησία
 
-Independence is a statistical property where the occurrence of one event does not affect the probability of another event occurring. Understanding independence is crucial for simplifying complex probability calculations.
+Η ανεξαρτησία είναι μια στατιστική ιδιότητα όπου η εμφάνιση ενός γεγονότος δεν επηρεάζει την πιθανότητα να συμβεί ένα άλλο συμβάν. Η κατανόηση της ανεξαρτησίας είναι ζωτικής σημασίας για την απλούστευση των πολύπλοκων υπολογισμών πιθανοτήτων.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-### Definition
-Two events $A$ and $B$ are **independent** if the knowledge that $B$ has occurred does not change the probability of $A$ occurring.
+### Ορισμός
+Δύο συμβάντα $A$ και $B$ είναι **ανεξάρτητα** εάν η γνώση ότι το $B$ έχει συμβεί δεν αλλάζει την πιθανότητα να συμβεί $A$.
 
-### Mathematical Condition
-The most common way to test for independence is the **Product Rule**:
-Two events $A$ and $B$ are independent if and only if:
+### Μαθηματική Συνθήκη
+Ο πιο συνηθισμένος τρόπος δοκιμής ανεξαρτησίας είναι ο **Κανόνας προϊόντος**:
+Δύο συμβάντα $A$ και $B$ είναι ανεξάρτητα εάν και μόνο εάν:
 $$P(A \cap B) = P(A) \cdot P(B)$$
 
-Alternatively, using conditional probability, $A$ and $B$ are independent if:
+Εναλλακτικά, χρησιμοποιώντας πιθανότητες υπό όρους, τα $A$ και $B$ είναι ανεξάρτητα εάν:
 1. $P(A|B) = P(A)$
 2. $P(B|A) = P(B)$
 
-### Independence vs. Mutually Exclusive
-It is a common mistake to confuse these two concepts:
-*   **Mutually Exclusive (Disjoint):** Events *cannot* happen at the same time ($P(A \cap B) = 0$). If $A$ happens, $B$ definitely cannot happen.
-*   **Independent:** Events *can* happen at the same time, but they don't influence each other.
+### Ανεξαρτησία εναντίον Αμοιβαίας Αποκλειστικότητας
+Είναι συνηθισμένο λάθος να συγχέουμε αυτές τις δύο έννοιες:
+* **Αμοιβαία Αποκλειστική (Disjoint):** Τα γεγονότα *δεν* μπορούν* να συμβαίνουν ταυτόχρονα ($P(A \cap B) = 0$). Εάν συμβεί $A$, το $B$ σίγουρα δεν μπορεί να συμβεί.* **Ανεξάρτητα:** Τα γεγονότα *μπορούν* να συμβούν ταυτόχρονα, αλλά δεν επηρεάζουν το ένα το άλλο.
 
-> **Shortcut:** If $A$ and $B$ have non-zero probabilities and are mutually exclusive, they **cannot** be independent.
+> **Συντόμευση:** Εάν οι $A$ και $B$ έχουν μη μηδενικές πιθανότητες και είναι αμοιβαία αποκλειόμενες, **δεν** μπορούν να είναι ανεξάρτητες.
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Flipping Two Coins
-If you flip a fair coin twice, what is the probability of getting two Heads?
+### Παράδειγμα 1: Αναστροφή δύο νομισμάτων
+Αν γυρίσετε ένα νόμισμα δύο φορές, ποια είναι η πιθανότητα να πάρετε δύο κεφάλια;
 
-**Step 1: Define events.**
-*   $H_1$: Head on the first flip. $P(H_1) = 0.5$.
-*   $H_2$: Head on the second flip. $P(H_2) = 0.5$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H_1$: Προχωρήστε στο πρώτο γύρισμα. $P(H_1) = 0.5$.
+* $H_2$: Προχωρήστε στο δεύτερο γύρισμα. $P(H_2) = 0.5$.
 
-**Step 2: Determine if they are independent.**
-The outcome of the first flip does not affect the second. They are independent.
+**Βήμα 2: Προσδιορίστε εάν είναι ανεξάρτητα.**
+Το αποτέλεσμα της πρώτης ανατροπής δεν επηρεάζει τη δεύτερη. Είναι ανεξάρτητοι.
 
-**Step 3: WIP State.**
-Apply the product rule:
+**Βήμα 3: Κατάσταση WIP.**
+Εφαρμόστε τον κανόνα του προϊόντος:
 $$P(H_1 \cap H_2) = P(H_1) \cdot P(H_2) = 0.5 \cdot ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(H_1 \cap H_2) = 0.5 \cdot 0.5 = 0.25$$
 
 ---
 
-### Example 2: Drawing Cards with Replacement
-You draw a card from a 52-card deck, look at it, put it back, shuffle, and draw again. What is the probability that both cards are Hearts?
+### Παράδειγμα 2: Σχεδίαση καρτών με αντικατάσταση
+Τραβάτε ένα φύλλο από μια τράπουλα 52 φύλλων, το κοιτάτε, το βάζετε πίσω, το ανακατεύετε και τραβάτε ξανά. Ποια είναι η πιθανότητα και τα δύο φύλλα να είναι Καρδιές;
 
-**Step 1: Define events.**
-*   $H_1$: First card is Heart. $P(H_1) = 13/52 = 0.25$.
-*   $H_2$: Second card is Heart. $P(H_2) = 13/52 = 0.25$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H_1$: Το πρώτο φύλλο είναι η Καρδιά. $P(H_1) = 13/52 = 0.25$.
+* $H_2$: Το δεύτερο φύλλο είναι η Καρδιά. $P(H_2) = 13/52 = 0.25$.
 
-**Step 2: Analyze independence.**
-Because of "replacement", the state of the deck is the same for both draws. The events are independent.
+**Βήμα 2: Αναλύστε την ανεξαρτησία.**
+Λόγω "αντικατάστασης", η κατάσταση της τράπουλας είναι ίδια και για τις δύο ισοπαλίες. Οι εκδηλώσεις είναι ανεξάρτητες.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(H_1 \cap H_2) = 0.25 \cdot ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(H_1 \cap H_2) = 0.0625$$
 
 ---
 
-### Example 3: Shooting at a Target
-Two archers, Alice and Bob, shoot at a target. Alice hits the target with probability 0.7, and Bob hits it with probability 0.4. If they both shoot, what is the probability they both hit?
+### Παράδειγμα 3: Σκοποβολή σε στόχο
+Δύο τοξότες, η Αλίκη και ο Μπομπ, πυροβολούν έναν στόχο. Η Αλίκη χτυπά τον στόχο με πιθανότητα 0,7 και ο Μπομπ τον χτυπά με πιθανότητα 0,4. Αν πυροβολήσουν και οι δύο, ποια είναι η πιθανότητα να χτυπήσουν και οι δύο;
 
-**Step 1: Define events.**
-*   $A$: Alice hits. $P(A) = 0.7$.
-*   $B$: Bob hits. $P(B) = 0.4$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $A$: Η Αλίκη χτυπάει. $P(A) = 0.7$.
+* $B$: Ο Μπομπ χτυπάει. $P(B) = 0.4$.
 
-**Step 2: Assume independence.**
-Usually, in such problems, the performance of one person is independent of the other.
+**Βήμα 2: Υποθέστε την ανεξαρτησία.**
+Συνήθως, σε τέτοια προβλήματα, η απόδοση ενός ατόμου είναι ανεξάρτητη από το άλλο.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(A \cap B) = P(A) \cdot P(B) = 0.7 \cdot 0.4 = ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(A \cap B) = 0.28$$
 
 ---
 
-### Example 4: Testing for Independence (Dice)
-A fair six-sided die is rolled. Let $A = \{1, 2, 3\}$ and $B = \{2, 4, 6\}$. Are $A$ and $B$ independent?
+### Παράδειγμα 4: Δοκιμή ανεξαρτησίας (Ζάρια)
+Τυλίγεται μια δίκαιη μήτρα έξι όψεων. Έστω $A = \{1, 2, 3\}$ και $B = \{2, 4, 6\}$. Είναι τα $A$ και $B$ ανεξάρτητα;
 
-**Step 1: Calculate individual probabilities.**
-*   $P(A) = 3/6 = 0.5$
-*   $P(B) = 3/6 = 0.5$
+**Βήμα 1: Υπολογίστε μεμονωμένες πιθανότητες.**
+* $P(A) = 3/6 = 0.5$
+* $P(B) = 3/6 = 0.5$
 
-**Step 2: Identify the intersection.**
+**Βήμα 2: Προσδιορίστε τη διασταύρωση.**
 $A \cap B = \{2\}$.
 $P(A \cap B) = 1/6 \approx 0.1667$.
 
-**Step 3: WIP State.**
-Check the product: $P(A) \cdot P(B) = 0.5 \cdot 0.5 = 0.25$.
-Does $P(A \cap B) = P(A) \cdot P(B)$?
+**Βήμα 3: Κατάσταση WIP.**
+Ελέγξτε το προϊόν: $P(A) \cdot P(B) = 0.5 \cdot 0.5 = 0.25$.
+Μήπως $P(A \cap B) = P(A) \cdot P(B)$;
 $? = ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $0.1667 \neq 0.25$.
-Therefore, events $A$ and $B$ are **not independent** (they are dependent).
+Επομένως, τα συμβάντα $A$ και $B$ **δεν είναι ανεξάρτητα** (εξαρτώνται).
 
 ---
 
-### Example 5: Weather in Two Cities
-The probability of rain in London is 0.4. The probability of rain in Tokyo is 0.3. Assuming these are independent, what is the probability it rains in at least one city?
+### Παράδειγμα 5: Καιρός σε δύο πόλεις
+Η πιθανότητα βροχής στο Λονδίνο είναι 0,4. Η πιθανότητα βροχής στο Τόκιο είναι 0,3. Αν υποθέσουμε ότι αυτά είναι ανεξάρτητα, ποια είναι η πιθανότητα να βρέχει σε τουλάχιστον μία πόλη;
 
-**Step 1: Define events.**
-*   $L$: Rain in London. $P(L) = 0.4$.
-*   $T$: Rain in Tokyo. $P(T) = 0.3$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $L$: Βροχή στο Λονδίνο. $P(L) = 0.4$.
+* $T$: Βροχή στο Τόκιο. $P(T) = 0.3$.
 
-**Step 2: Identify the method.**
-"At least one" is best solved using the complement: $1 - P(\text{None})$.
+**Βήμα 2: Προσδιορίστε τη μέθοδο.**
+Το "τουλάχιστον ένα" λύνεται καλύτερα χρησιμοποιώντας το συμπλήρωμα: $1 - P(\text{None})$.
 $P(L^c) = 0.6$, $P(T^c) = 0.7$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(\text{Neither rains}) = P(L^c \cap T^c) = 0.6 \cdot ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(L^c \cap T^c) = 0.6 \cdot 0.7 = 0.42$.
 $P(\text{At least one}) = 1 - 0.42 = 0.58$.
 
 ---
 
-### Example 6: Three Independent Events
-Three different light bulbs have probabilities 0.1, 0.2, and 0.05 of failing in the first year. What is the probability all three fail?
+### Παράδειγμα 6: Τρία ανεξάρτητα συμβάντα
+Τρεις διαφορετικοί λαμπτήρες έχουν πιθανότητες 0,1, 0,2 και 0,05 να χαλάσουν τον πρώτο χρόνο. Ποια είναι η πιθανότητα να αποτύχουν και τα τρία;
 
-**Step 1: Define events.**
-$F_1, F_2, F_3$ with $P(F_1)=0.1, P(F_2)=0.2, P(F_3)=0.05$.
+**Βήμα 1: Ορισμός συμβάντων.**
+$F_1, F_2, F_3$ με $P(F_1)=0.1, P(F_2)=0.2, P(F_3)=0.05$.
 
-**Step 2: Extend the product rule.**
-For independent events, $P(A \cap B \cap C) = P(A) \cdot P(B) \cdot P(C)$.
-
-**Step 3: WIP State.**
+**Βήμα 2: Επεκτείνετε τον κανόνα του προϊόντος.**
+Για ανεξάρτητες εκδηλώσεις, $P(A \cap B \cap C) = P(A) \cdot P(B) \cdot P(C)$.**Βήμα 3: Κατάσταση WIP.**
 $P(F_1 \cap F_2 \cap F_3) = 0.1 \cdot 0.2 \cdot ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(F_1 \cap F_2 \cap F_3) = 0.001$.
 
 ---
 
-### Example 7: System Reliability (Parallel)
-A system consists of two independent components in parallel. The system works if at least one component works. $P(C_1 \text{ works}) = 0.95$ and $P(C_2 \text{ works}) = 0.90$. Find the probability the system works.
+### Παράδειγμα 7: Αξιοπιστία συστήματος (παράλληλο)
+Ένα σύστημα αποτελείται από δύο ανεξάρτητα στοιχεία παράλληλα. Το σύστημα λειτουργεί εάν λειτουργεί τουλάχιστον ένα εξάρτημα. $P(C_1 \text{ works}) = 0.95$ και $P(C_2 \text{ works}) = 0.90$. Βρείτε την πιθανότητα να λειτουργεί το σύστημα.
 
-**Step 1: Find failure probabilities.**
+**Βήμα 1: Βρείτε τις πιθανότητες αποτυχίας.**
 $P(C_1^c) = 0.05$.
 $P(C_2^c) = 0.10$.
 
-**Step 2: Calculate probability both fail.**
+**Βήμα 2: Υπολογίστε την πιθανότητα να αποτύχουν και τα δύο.**
 $P(\text{Both fail}) = 0.05 \cdot 0.10 = 0.005$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(\text{System works}) = 1 - P(\text{Both fail}) = 1 - ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(\text{System works}) = 0.995$.
 
 ---
 
-### Example 8: Probability of Exactly One
-Given two independent events $A$ and $B$ with $P(A)=0.6$ and $P(B)=0.4$. What is the probability that **exactly one** of them occurs?
+### Παράδειγμα 8: Πιθανότητα Ακριβώς Ένα
+Δίνονται δύο ανεξάρτητα συμβάντα $A$ και $B$ με $P(A)=0.6$ και $P(B)=0.4$. Ποια είναι η πιθανότητα **ακριβώς ένα** να συμβεί;
 
-**Step 1: Identify the two scenarios.**
-1. $A$ occurs and $B$ does not: $P(A \cap B^c)$.
-2. $B$ occurs and $A$ does not: $P(B \cap A^c)$.
+**Βήμα 1: Προσδιορίστε τα δύο σενάρια.**
+1. Το $A$ εμφανίζεται και το $B$ όχι: $P(A \cap B^c)$.
+2. Το $B$ εμφανίζεται και το $A$ όχι: $P(B \cap A^c)$.
 
-**Step 2: Calculate each using independence.**
+**Βήμα 2: Υπολογίστε το καθένα χρησιμοποιώντας την ανεξαρτησία.**
 $P(A \cap B^c) = 0.6 \cdot (1 - 0.4) = 0.6 \cdot 0.6 = 0.36$.
 $P(B \cap A^c) = 0.4 \cdot (1 - 0.6) = 0.4 \cdot 0.4 = 0.16$.
 
-**Step 3: WIP State.**
-Add the two probabilities (since they are mutually exclusive):
+**Βήμα 3: Κατάσταση WIP.**
+Προσθέστε τις δύο πιθανότητες (καθώς είναι αμοιβαία αποκλειόμενες):
 $P(\text{Exactly one}) = 0.36 + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(\text{Exactly one}) = 0.52$.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_3_total_probability_bayes_theorem.md -->
-# Phase 3.3: Law of Total Probability & Bayes' Theorem
+<!-- Πηγή: ../Resources/Phase_3_Conditional_Probability_Independence/phase_3_3_total_probability_bayes_theorem.md -->
+# Φάση 3.3: Νόμος της ολικής πιθανότητας & θεώρημα Bayes
 
-These two theorems are the most powerful tools in probability for handling multi-stage processes and updating beliefs based on new evidence.
+Αυτά τα δύο θεωρήματα είναι τα πιο ισχυρά εργαλεία στην πιθανότητα για τον χειρισμό διαδικασιών πολλαπλών σταδίων και την ενημέρωση των πεποιθήσεων με βάση νέα στοιχεία.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-### Law of Total Probability
-If we have a set of events $B_1, B_2, \dots, B_n$ that **partition** the sample space (meaning they are mutually exclusive and their union is the whole space), then for any event $A$:
+### Νόμος Συνολικών Πιθανοτήτων
+Εάν έχουμε ένα σύνολο συμβάντων $B_1, B_2, \dots, B_n$ που **διαμερίζουν** το δείγμα του χώρου (που σημαίνει ότι είναι αμοιβαία αποκλειόμενα και η ένωσή τους είναι ολόκληρος ο χώρος), τότε για οποιοδήποτε συμβάν $A$:
 
 $$P(A) = P(A|B_1)P(B_1) + P(A|B_2)P(B_2) + \dots + P(A|B_n)P(B_n)$$
 
-**Intuition:** To find the total probability of $A$, you sum up the probability of $A$ occurring under each possible "branch" of the sample space.
+**Διαίσθηση:** Για να βρείτε τη συνολική πιθανότητα του $A$, αθροίζετε την πιθανότητα να εμφανιστεί $A$ κάτω από κάθε πιθανό "κλάδο" του δείγματος χώρου.
 
-### Bayes' Theorem
-Bayes' Theorem allows us to "reverse" conditional probabilities. If we know $P(A|B)$, we can find $P(B|A)$.
+### Θεώρημα Bayes
+Το θεώρημα του Bayes μας επιτρέπει να «αντιστρέφουμε» πιθανότητες υπό όρους. Αν γνωρίζουμε $P(A|B)$, μπορούμε να βρούμε $P(B|A)$.
 
 $$P(B_i|A) = \frac{P(A|B_i)P(B_i)}{P(A)}$$
 
-By substituting the Law of Total Probability for the denominator $P(A)$, we get the expanded form:
+Αντικαθιστώντας τον Νόμο της Συνολικής Πιθανότητας με τον παρονομαστή $P(A)$, παίρνουμε τη διευρυμένη μορφή:
 
 $$P(B_i|A) = \frac{P(A|B_i)P(B_i)}{\sum_{j=1}^{n} P(A|B_j)P(B_j)}$$
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Factory Production (Total Probability)
-A factory uses three machines. $M_1$ produces 50%, $M_2$ produces 30%, and $M_3$ produces 20% of the total output. The defect rates are 1%, 2%, and 5% respectively. What is the probability a random product is defective?
+### Παράδειγμα 1: Εργοστασιακή παραγωγή (Συνολική πιθανότητα)
+Ένα εργοστάσιο χρησιμοποιεί τρία μηχανήματα. Το $M_1$ παράγει το 50%, το $M_2$ παράγει το 30% και το $M_3$ παράγει το 20% της συνολικής παραγωγής. Τα ποσοστά ελαττωμάτων είναι 1%, 2% και 5% αντίστοιχα. Ποια είναι η πιθανότητα ένα τυχαίο προϊόν να είναι ελαττωματικό;
 
-**Step 1: Define events.**
-*   $M_i$: Product from machine $i$.
-*   $D$: Product is defective.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $M_i$: Προϊόν από το μηχάνημα $i$.
+* $D$: Το προϊόν είναι ελαττωματικό.
 
-**Step 2: List given probabilities.**
-*   $P(M_1)=0.5, P(D|M_1)=0.01$
-*   $P(M_2)=0.3, P(D|M_2)=0.02$
-*   $P(M_3)=0.2, P(D|M_3)=0.05$
+**Βήμα 2: Καταγράψτε τις δεδομένες πιθανότητες.**
+* $P(M_1)=0.5, P(D|M_1)=0.01$
+* $P(M_2)=0.3, P(D|M_2)=0.02$
+* $P(M_3)=0.2, P(D|M_3)=0.05$
 
-**Step 3: WIP State.**
-Apply Law of Total Probability:
+**Βήμα 3: Κατάσταση WIP.**
+Εφαρμόστε το νόμο της συνολικής πιθανότητας:
 $P(D) = (0.5 \cdot 0.01) + (0.3 \cdot 0.02) + (0.2 \cdot ?)$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(D) = 0.005 + 0.006 + 0.010 = 0.021$.
-The probability is **2.1%**.
+Η πιθανότητα είναι **2,1%**.
 
 ---
 
-### Example 2: Medical Diagnostic Test (Bayes)
-A disease affects 1% of the population. A test is 95% accurate for those with the disease (sensitivity) and 90% accurate for those without (specificity). If a person tests positive, what is the probability they have the disease?
+### Παράδειγμα 2: Ιατρική διαγνωστική εξέταση (Bayes)
+Μια ασθένεια επηρεάζει το 1% του πληθυσμού. Μια εξέταση είναι 95% ακριβής για όσους πάσχουν από τη νόσο (ευαισθησία) και 90% ακριβής για όσους δεν έχουν (ειδικότητα). Εάν ένα άτομο βγει θετικό, ποια είναι η πιθανότητα να έχει τη νόσο;
 
-**Step 1: Define events.**
-*   $H$: Has disease. $P(H) = 0.01$.
-*   $H^c$: Healthy. $P(H^c) = 0.99$.
-*   $Pos$: Tests positive.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H$: Έχει ασθένεια. $P(H) = 0.01$.
+* $H^c$: Υγιείς. $P(H^c) = 0.99$.* $Pos$: Είναι θετικό.
 
-**Step 2: List conditionals.**
-*   $P(Pos|H) = 0.95$
-*   $P(Pos|H^c) = 1 - 0.90 = 0.10$ (False Positive)
+**Βήμα 2: Καταχωρίστε τις προϋποθέσεις.**
+* $P(Pos|H) = 0.95$
+* $P(Pos|H^c) = 1 - 0.90 = 0.10$ (Λάθος θετικό)
 
-**Step 3: WIP State.**
-Calculate total probability of testing positive $P(Pos)$:
+**Βήμα 3: Κατάσταση WIP.**
+Υπολογίστε τη συνολική πιθανότητα θετικού τεστ $P(Pos)$:
 $P(Pos) = (0.95 \cdot 0.01) + (0.10 \cdot 0.99) = 0.0095 + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(Pos) = 0.1085$.
 $P(H|Pos) = \frac{P(Pos|H)P(H)}{P(Pos)} = \frac{0.0095}{0.1085} \approx 0.0876$.
-The probability is only **8.76%**.
+Η πιθανότητα είναι μόνο **8,76%**.
 
 ---
 
-### Example 3: Two Urns (Multi-stage)
-Urn A has 2 Red and 3 Blue balls. Urn B has 4 Red and 1 Blue ball. A fair coin is flipped; if Heads, a ball is drawn from Urn A. If Tails, from Urn B. What is the probability a Red ball is drawn?
+### Παράδειγμα 3: Δύο δοχεία (πολλαπλών σταδίων)
+Το Urn A έχει 2 κόκκινες και 3 μπλε μπάλες. Το Urn B έχει 4 κόκκινες και 1 μπλε μπάλα. Ένα ωραίο νόμισμα αναποδογυρίζεται. αν Κεφαλιά, τραβιέται μια μπάλα από την κερκίδα Α. Αν ουρές, από την κερκίδα Β. Ποια είναι η πιθανότητα να τραβηχτεί μια κόκκινη μπάλα;
 
-**Step 1: Define events.**
-*   $H$: Heads (Urn A). $P(H) = 0.5$.
-*   $T$: Tails (Urn B). $P(T) = 0.5$.
-*   $R$: Red ball.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H$: Κεφαλές (Urn A). $P(H) = 0.5$.
+* $T$: Ουρές (Urn B). $P(T) = 0.5$.
+* $R$: Κόκκινη μπάλα.
 
-**Step 2: Find conditionals.**
-*   $P(R|H) = 2/5 = 0.4$
-*   $P(R|T) = 4/5 = 0.8$
+**Βήμα 2: Βρείτε προϋποθέσεις.**
+* $P(R|H) = 2/5 = 0.4$
+* $P(R|T) = 4/5 = 0.8$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(R) = P(R|H)P(H) + P(R|T)P(T) = (0.4 \cdot 0.5) + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(R) = 0.2 + 0.4 = 0.6$.
 
 ---
 
-### Example 4: Identifying the Urn (Bayes)
-Using the setup from Example 3: If a Red ball was drawn, what is the probability it came from Urn B?
+### Παράδειγμα 4: Αναγνώριση της ουράς (Bayes)
+Χρησιμοποιώντας τη ρύθμιση από το Παράδειγμα 3: Αν μια κόκκινη μπάλα είχε τραβηχτεί, ποια είναι η πιθανότητα να προήλθε από το Urn B;
 
-**Step 1: Use previous results.**
-*   $P(R) = 0.6$
-*   $P(R|T)P(T) = 0.4$
+**Βήμα 1: Χρησιμοποιήστε προηγούμενα αποτελέσματα.**
+* $P(R) = 0.6$
+* $P(R|T)P(T) = 0.4$
 
-**Step 2: Apply Bayes' Theorem.**
+**Βήμα 2: Εφαρμογή του Θεωρήματος Bayes.**
 $P(T|R) = \frac{P(R|T)P(T)}{P(R)}$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(T|R) = \frac{0.4}{?}$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(T|R) = \frac{0.4}{0.6} = \frac{2}{3} \approx 0.6667$.
 
 ---
 
-### Example 5: Spam Filter
-A spam filter finds that 90% of spam emails contain the word "Offer", while only 5% of non-spam emails contain it. 20% of all emails are spam. If an email contains "Offer", what is the probability it is spam?
+### Παράδειγμα 5: Φίλτρο ανεπιθύμητης αλληλογραφίας
+Ένα φίλτρο ανεπιθύμητης αλληλογραφίας διαπιστώνει ότι το 90% των ανεπιθύμητων μηνυμάτων ηλεκτρονικού ταχυδρομείου περιέχει τη λέξη "Προσφορά", ενώ μόνο το 5% των μη ανεπιθύμητων μηνυμάτων ηλεκτρονικού ταχυδρομείου την περιέχει. Το 20% όλων των email είναι ανεπιθύμητα. Εάν ένα email περιέχει "Προσφορά", ποια είναι η πιθανότητα να είναι ανεπιθύμητο;
 
-**Step 1: Define events.**
-*   $S$: Spam. $P(S) = 0.2$.
-*   $O$: Contains "Offer".
-*   $P(O|S) = 0.9, P(O|S^c) = 0.05$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $S$: Ανεπιθύμητη αλληλογραφία. $P(S) = 0.2$.
+* $O$: Περιέχει "Προσφορά".
+* $P(O|S) = 0.9, P(O|S^c) = 0.05$.
 
-**Step 2: Total probability of "Offer".**
+**Βήμα 2: Συνολική πιθανότητα "Προσφοράς".**
 $P(O) = (0.9 \cdot 0.2) + (0.05 \cdot 0.8) = 0.18 + 0.04 = 0.22$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(S|O) = \frac{0.18}{?}$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(S|O) = \frac{0.18}{0.22} \approx 0.8182$.
 
 ---
 
-### Example 6: Witness Reliability
-A taxi was involved in a hit-and-run accident at night. Two companies, Green and Blue, operate in the city. 85% of taxis are Green and 15% are Blue. A witness identifies the taxi as Blue. The court tests the witness and finds they correctly identify the color 80% of the time. What is the probability the taxi was actually Blue?
+### Παράδειγμα 6: Αξιοπιστία Μάρτυρα
+Ένα ταξί ενεπλάκη σε τροχαίο ατύχημα τη νύχτα. Στην πόλη λειτουργούν δύο εταιρείες, η Green και η Blue. Το 85% των ταξί είναι πράσινο και το 15% είναι μπλε. Ένας μάρτυρας αναγνωρίζει το ταξί ως Μπλε. Το δικαστήριο εξετάζει τον μάρτυρα και διαπιστώνει ότι προσδιορίζει σωστά το χρώμα στο 80% των περιπτώσεων. Ποια είναι η πιθανότητα το ταξί να ήταν στην πραγματικότητα Μπλε;
 
-**Step 1: Define events.**
-*   $B$: Taxi was Blue. $P(B) = 0.15$.
-*   $G$: Taxi was Green. $P(G) = 0.85$.
-*   $W_B$: Witness says "Blue".
+**Βήμα 1: Ορισμός συμβάντων.**
+* $B$: Το ταξί ήταν Μπλε. $P(B) = 0.15$.
+* $G$: Το ταξί ήταν πράσινο. $P(G) = 0.85$.
+* $W_B$: Ο μάρτυρας λέει "Μπλε".
 
-**Step 2: Conditionals.**
-*   $P(W_B|B) = 0.80$ (Correct)
-*   $P(W_B|G) = 0.20$ (Incorrect - says Blue when it's Green)
+**Βήμα 2: Προϋποθέσεις.**
+* $P(W_B|B) = 0.80$ (Σωστό)
+* $P(W_B|G) = 0.20$ (Λάθος - λέει Μπλε όταν είναι πράσινο)
 
-**Step 3: WIP State.**
-Total probability witness says Blue:
+**Βήμα 3: Κατάσταση WIP.**
+Ο μάρτυρας συνολικών πιθανοτήτων λέει ο Μπλου:
 $P(W_B) = (0.80 \cdot 0.15) + (0.20 \cdot 0.85) = 0.12 + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(W_B) = 0.12 + 0.17 = 0.29$.
 $P(B|W_B) = \frac{0.12}{0.29} \approx 0.4138$.
-Despite the witness, it's more likely the taxi was Green (58.62%)!
+Παρά τον μάρτυρα, το πιο πιθανό είναι ότι το ταξί ήταν πράσινο (58,62%)!
 
 ---
 
-### Example 7: Flight Delays
-The probability that it is a holiday is 0.1. During holidays, the probability of a flight delay is 0.6. On non-holidays, the probability of delay is 0.2. What is the probability a flight is delayed?
+### Παράδειγμα 7: Καθυστερήσεις πτήσεων
+Η πιθανότητα να είναι αργία είναι 0,1. Κατά τη διάρκεια των διακοπών, η πιθανότητα καθυστέρησης πτήσης είναι 0,6. Σε μη αργίες, η πιθανότητα καθυστέρησης είναι 0,2. Ποια είναι η πιθανότητα καθυστέρησης μιας πτήσης;
 
-**Step 1: Define events.**
-*   $H$: Holiday. $P(H) = 0.1$.
-*   $D$: Delayed.
-*   $P(D|H) = 0.6, P(D|H^c) = 0.2$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H$: Διακοπές. $P(H) = 0.1$.
+* $D$: Καθυστέρησε.
+* $P(D|H) = 0.6, P(D|H^c) = 0.2$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $P(D) = (0.6 \cdot 0.1) + (0.2 \cdot ?)$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $P(D) = 0.06 + 0.18 = 0.24$.
 
 ---
 
-### Example 8: Supplier Quality
-A company buys chips from two suppliers, X (70%) and Y (30%). 2% of X's chips are defective, and 1% of Y's are defective. A chip is found to be defective. What is the probability it came from supplier X?
-
-**Step 1: Total Defect Probability.**
+### Παράδειγμα 8: Ποιότητα προμηθευτή
+Μια εταιρεία αγοράζει μάρκες από δύο προμηθευτές, τον Χ (70%) και τον Υ (30%). Το 2% των τσιπ του Χ είναι ελαττωματικά και το 1% των Υ είναι ελαττωματικά. Διαπιστώθηκε ότι ένα τσιπ είναι ελαττωματικό. Ποια είναι η πιθανότητα να προήλθε από τον προμηθευτή Χ;**Βήμα 1: Συνολική πιθανότητα ελαττώματος.**
 $P(D) = (0.02 \cdot 0.7) + (0.01 \cdot 0.3) = 0.014 + 0.003 = 0.017$.
 
-**Step 2: Apply Bayes.**
+**Βήμα 2: Εφαρμόστε το Bayes.**
 $P(X|D) = \frac{P(D|X)P(X)}{P(D)}$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(X|D) = \frac{0.014}{?}$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(X|D) = \frac{0.014}{0.017} \approx 0.8235$.
-There is an 82.35% chance it came from Supplier X.
+Υπάρχει 82,35% πιθανότητα να προήλθε από τον Προμηθευτή X.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_1_discrete_rv_fundamentals.md -->
-# Phase 4.1: Discrete Random Variables — Fundamentals
+<!-- Πηγή: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_1_discrete_rv_fundamentals.md -->
+# Φάση 4.1: Διακριτές Τυχαίες Μεταβλητές — Βασικές αρχές
 
-A **Random Variable** maps each outcome of a random experiment to a number. A **Discrete Random Variable** takes on a finite or countably infinite set of values. The three pillars of this topic — the PMF, the Expected Value, and the Variance — completely characterise the distribution's shape, centre, and spread.
+Μια **Τυχαία Μεταβλητή** αντιστοιχίζει κάθε αποτέλεσμα ενός τυχαίου πειράματος σε έναν αριθμό. Μια **Διακεκριμένη Τυχαία Μεταβλητή** παίρνει ένα πεπερασμένο ή μετρήσιμα άπειρο σύνολο τιμών. Οι τρεις πυλώνες αυτού του θέματος - το PMF, η αναμενόμενη τιμή και η διακύμανση - χαρακτηρίζουν πλήρως το σχήμα, το κέντρο και την εξάπλωση της διανομής.
 
 ---
 
-## 1. Probability Mass Function (PMF)
+## 1. Συνάρτηση μάζας πιθανότητας (PMF)
 
-The **PMF** of a discrete random variable $X$ is a function $p(x)$ that assigns a probability to each possible value $x$:
+Το **PMF** μιας διακριτής τυχαίας μεταβλητής $X$ είναι μια συνάρτηση $p(x)$ που εκχωρεί μια πιθανότητα σε κάθε πιθανή τιμή $x$:
 
 $$p(x) = P(X = x)$$
 
-### Validity Conditions
+### Προϋποθέσεις εγκυρότητας
 
-Any function claiming to be a PMF must satisfy two conditions simultaneously:
+Κάθε συνάρτηση που ισχυρίζεται ότι είναι PMF πρέπει να πληροί δύο προϋποθέσεις ταυτόχρονα:
 
-**Condition 1 (Non-negativity):**
+**Συνθήκη 1 (Μη αρνητικό):**
 
 $$p(x) \geq 0 \quad \text{for all } x$$
 
-**Condition 2 (Normalisation):**
+**Συνθήκη 2 (κανονικοποίηση):**
 
 $$\sum_{\text{all } x} p(x) = 1$$
 
-If either condition fails, the function is not a valid PMF. These conditions are directly analogous to Kolmogorov's Axioms from Phase 2.
+Εάν κάποια από τις συνθήκες αποτύχει, η συνάρτηση δεν είναι έγκυρη PMF. Αυτές οι συνθήκες είναι άμεσα ανάλογες με τα Αξιώματα του Kolmogorov από τη Φάση 2.
 
-### Standard PMF Table Format
+### Τυπική μορφή πίνακα PMF
 
-A PMF is most clearly presented as a table:
+Ένα PMF παρουσιάζεται πιο ξεκάθαρα ως πίνακας:
 
 | $x$ | $x_1$ | $x_2$ | $\cdots$ | $x_k$ |
 | :--- | :--- | :--- | :--- | :--- |
 | $P(X=x)$ | $p_1$ | $p_2$ | $\cdots$ | $p_k$ |
 
-The bottom row must sum to 1.
+Η κάτω σειρά πρέπει να αθροίζεται σε 1.
 
 ---
 
-## 2. Expected Value $E[X]$
+## 2. Αναμενόμενη τιμή $E[X]$
 
-The **Expected Value** (also called the **mean** or **expectation**) is the probability-weighted average of all values $X$ can take. It represents the long-run average outcome over many repetitions of the experiment.
+Η **Αναμενόμενη τιμή** (ονομάζεται επίσης **μέση** ή **προσδοκία**) είναι ο σταθμισμένος κατά πιθανότητα μέσος όρος όλων των τιμών που μπορεί να λάβει το $X$. Αντιπροσωπεύει το μακροπρόθεσμο μέσο αποτέλεσμα σε πολλές επαναλήψεις του πειράματος.
 
 $$\boxed{E[X] = \mu = \sum_{\text{all } x} x \cdot p(x)}$$
 
-### Key Properties of Expectation
+### Βασικές ιδιότητες της προσδοκίας
 
-These properties hold without any condition on the distribution:
+Αυτές οι ιδιότητες διατηρούνται χωρίς καμία προϋπόθεση για τη διανομή:
 
-| Property | Formula |
+| Ακίνητα | Φόρμουλα |
 | :--- | :--- |
-| Linearity | $E[aX + b] = a \cdot E[X] + b$ |
-| Constant | $E[c] = c$ |
-| Sum of variables | $E[X + Y] = E[X] + E[Y]$ |
+| Γραμμικότητα | $E[aX + b] = a \cdot E[X] + b$ |
+| Σταθερά | $E[c] = c$ |
+| Άθροισμα μεταβλητών | $E[X + Y] = E[X] + E[Y]$ |
 
 ---
 
-## 3. Variance $V(X)$
+## 3. Διακύμανση $V(X)$
 
-The **Variance** measures the average squared deviation of $X$ from its mean. A higher variance means the distribution is more spread out.
+Η **Variance** μετρά τη μέση τετραγωνική απόκλιση του $X$ από τον μέσο όρο του. Μια υψηλότερη διακύμανση σημαίνει ότι η κατανομή είναι πιο κατανεμημένη.
 
-**Definition formula:**
+**Τύπος ορισμού:**
 
 $$V(X) = E\left[(X - \mu)^2\right] = \sum_{\text{all } x} (x - \mu)^2 \cdot p(x)$$
 
-**Computational shortcut formula** (always use this in practice — it avoids working with $\mu$ repeatedly):
+**Τύπος υπολογιστικής συντόμευσης** (να χρησιμοποιείται πάντα στην πράξη — αποφεύγεται η επανειλημμένη εργασία με $\mu$):
 
 $$\boxed{V(X) = E[X^2] - (E[X])^2}$$
 
-where $E[X^2] = \sum_{\text{all } x} x^2 \cdot p(x)$.
+όπου $E[X^2] = \sum_{\text{all } x} x^2 \cdot p(x)$.
 
-**Standard Deviation:**
+**Τυπική απόκλιση:**
 
 $$\sigma = SD(X) = \sqrt{V(X)}$$
 
-### Key Properties of Variance
+### Βασικές ιδιότητες της διακύμανσης
 
-| Property | Formula | Note |
+| Ακίνητα | Φόρμουλα | Σημείωση |
 | :--- | :--- | :--- |
-| Scaling | $V(aX) = a^2 \cdot V(X)$ | The square of $a$ appears |
-| Shift | $V(X + b) = V(X)$ | Constants do not affect spread |
-| Combined | $V(aX + b) = a^2 \cdot V(X)$ | $b$ disappears entirely |
+| Κλιμάκωση | $V(aX) = a^2 \cdot V(X)$ | Εμφανίζεται το τετράγωνο του $a$ |
+| Βάρδια | $V(X + b) = V(X)$ | Οι σταθερές δεν επηρεάζουν την εξάπλωση |
+| Συνδυασμένο | $V(aX + b) = a^2 \cdot V(X)$ | Το $b$ εξαφανίζεται εντελώς |
 
-> **Critical rule:** $V(aX + b) = a^2 \cdot V(X)$. The constant $b$ has **zero effect** on variance. This is the most common source of errors on exams.
+> **Κρίσιμος κανόνας:** $V(aX + b) = a^2 \cdot V(X)$. Η σταθερά $b$ έχει **μηδενική επίδραση** στη διακύμανση. Αυτή είναι η πιο κοινή πηγή σφαλμάτων στις εξετάσεις.
 
 ---
 
-## 4. Solved Exercises
+## 4. Λυμένες Ασκήσεις
 
-### Exercise 1: Verifying a PMF
+### Άσκηση 1: Επαλήθευση PMF
 
-**Problem:** Determine whether the following is a valid PMF for $X \in \{1, 2, 3, 4\}$:
+**Πρόβλημα:** Προσδιορίστε εάν τα ακόλουθα είναι έγκυρα PMF για $X \in \{1, 2, 3, 4\}$:
 
 | $x$ | 1 | 2 | 3 | 4 |
 | :--- | :--- | :--- | :--- | :--- |
-| $P(X=x)$ | 0.1 | 0.3 | 0.4 | 0.2 |
+| $P(X=x)$ | 0,1 | 0,3 | 0,4 | 0,2 |
 
-**Solution:**
+**Λύση:**
 
-**Check 1 (Non-negativity):** All values are $\geq 0$. Passed.
+**Έλεγχος 1 (Μη αρνητικό):** Όλες οι τιμές είναι $\geq 0$. Πέρασε.**Έλεγχος 2 (Κανονοποίηση):** $0.1 + 0.3 + 0.4 + 0.2 = 1.0$. Πέρασε.
 
-**Check 2 (Normalisation):** $0.1 + 0.3 + 0.4 + 0.2 = 1.0$. Passed.
-
-This is a valid PMF.
+Αυτό είναι ένα έγκυρο PMF.
 
 ---
 
-### Exercise 2: Finding a Missing Probability
+### Άσκηση 2: Εύρεση πιθανότητας που λείπει
 
-**Problem:** The PMF of $X$ is given below. Find the value of $c$.
+**Πρόβλημα:** Το PMF του $X$ δίνεται παρακάτω. Βρείτε την τιμή του $c$.
 
 | $x$ | 0 | 1 | 2 | 3 |
 | :--- | :--- | :--- | :--- | :--- |
 | $P(X=x)$ | $c$ | $2c$ | $3c$ | $4c$ |
 
-**Solution:**
+**Λύση:**
 
-Apply the normalisation condition:
+Εφαρμόστε την συνθήκη κανονικοποίησης:
 
 $$c + 2c + 3c + 4c = 1$$
 
 $$10c = 1 \implies c = 0.1$$
 
-The completed PMF:
+Το ολοκληρωμένο PMF:
 
 | $x$ | 0 | 1 | 2 | 3 |
 | :--- | :--- | :--- | :--- | :--- |
-| $P(X=x)$ | 0.1 | 0.2 | 0.3 | 0.4 |
+| $P(X=x)$ | 0,1 | 0,2 | 0,3 | 0,4 |
 
 ---
 
-### Exercise 3: Computing $E[X]$
+### Άσκηση 3: Υπολογισμός $E[X]$
 
-**Problem:** Using the PMF from Exercise 2, compute $E[X]$.
+**Πρόβλημα:** Χρησιμοποιώντας το PMF από την Άσκηση 2, υπολογίστε $E[X]$.
 
-**Solution:**
+**Λύση:**
 
 $$E[X] = \sum x \cdot p(x) = 0(0.1) + 1(0.2) + 2(0.3) + 3(0.4)$$
 
@@ -2265,19 +2231,19 @@ $$E[X] = 0 + 0.2 + 0.6 + 1.2 = 2.0$$
 
 ---
 
-### Exercise 4: Computing $V(X)$ using the Shortcut
+### Άσκηση 4: Υπολογισμός $V(X)$ χρησιμοποιώντας τη συντόμευση
 
-**Problem:** Using the PMF from Exercise 2 and $E[X] = 2.0$, compute $V(X)$ and $SD(X)$.
+**Πρόβλημα:** Χρησιμοποιώντας το PMF από την Άσκηση 2 και $E[X] = 2.0$, υπολογίστε $V(X)$ και $SD(X)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Compute $E[X^2]$:
+**Βήμα 1:** Υπολογίστε $E[X^2]$:
 
 $$E[X^2] = 0^2(0.1) + 1^2(0.2) + 2^2(0.3) + 3^2(0.4)$$
 
 $$E[X^2] = 0 + 0.2 + 1.2 + 3.6 = 5.0$$
 
-**Step 2:** Apply the shortcut formula:
+**Βήμα 2:** Εφαρμόστε τον τύπο συντόμευσης:
 
 $$V(X) = E[X^2] - (E[X])^2 = 5.0 - (2.0)^2 = 5.0 - 4.0 = 1.0$$
 
@@ -2285,25 +2251,25 @@ $$SD(X) = \sqrt{1.0} = 1.0$$
 
 ---
 
-### Exercise 5: Applying Linearity of Expectation
+### Άσκηση 5: Εφαρμογή γραμμικότητας προσδοκιών
 
-**Problem:** A random variable $X$ has $E[X] = 3$ and $V(X) = 4$. Find $E[2X + 5]$ and $V(2X + 5)$.
+**Πρόβλημα:** Μια τυχαία μεταβλητή $X$ έχει $E[X] = 3$ και $V(X) = 4$. Βρείτε $E[2X + 5]$ και $V(2X + 5)$.
 
-**Solution:**
+**Λύση:**
 
 $$E[2X + 5] = 2 \cdot E[X] + 5 = 2(3) + 5 = 11$$
 
 $$V(2X + 5) = 2^2 \cdot V(X) = 4 \cdot 4 = 16$$
 
-Note that the constant $+5$ contributes nothing to the variance.
+Σημειώστε ότι η σταθερά $+5$ δεν συνεισφέρει τίποτα στη διακύμανση.
 
 ---
 
-### Exercise 6: Computing a Probability from the PMF
+### Άσκηση 6: Υπολογισμός πιθανότητας από το PMF
 
-**Problem:** Using the PMF from Exercise 2, find $P(X \geq 2)$ and $P(1 \leq X \leq 3)$.
+**Πρόβλημα:** Χρησιμοποιώντας το PMF από την Άσκηση 2, βρείτε $P(X \geq 2)$ και $P(1 \leq X \leq 3)$.
 
-**Solution:**
+**Λύση:**
 
 $$P(X \geq 2) = P(X=2) + P(X=3) = 0.3 + 0.4 = 0.7$$
 
@@ -2311,13 +2277,13 @@ $$P(1 \leq X \leq 3) = P(X=1) + P(X=2) + P(X=3) = 0.2 + 0.3 + 0.4 = 0.9$$
 
 ---
 
-### Exercise 7: Building a PMF from a Word Problem
+### Άσκηση 7: Δημιουργία PMF από πρόβλημα Word
 
-**Problem:** A fair die is rolled. Let $X$ = the number of dots showing. Build the PMF table and compute $E[X]$ and $V(X)$.
+**Πρόβλημα:** Έγινε μια δίκαιη μήτρα. Έστω $X$ = ο αριθμός των κουκκίδων που εμφανίζεται. Δημιουργήστε τον πίνακα PMF και υπολογίστε $E[X]$ και $V(X)$.
 
-**Solution:**
+**Λύση:**
 
-Each face has probability $\frac{1}{6}$.
+Κάθε πρόσωπο έχει πιθανότητα $\frac{1}{6}$.
 
 | $x$ | 1 | 2 | 3 | 4 | 5 | 6 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -2331,79 +2297,77 @@ $$V(X) = E[X^2] - (E[X])^2 = \frac{91}{6} - (3.5)^2 = \frac{91}{6} - \frac{49}{4
 
 ---
 
-### Exercise 8: The Gotcha — Variance of a Difference
+### Άσκηση 8: The Gotcha — Variance of a Difference
 
-**Problem:** Two independent random variables $X$ and $Y$ have $E[X] = 4$, $V(X) = 3$, $E[Y] = 2$, $V(Y) = 5$. A student computes $V(X - Y)$ and writes:
+**Πρόβλημα:** Δύο ανεξάρτητες τυχαίες μεταβλητές $X$ και $Y$ έχουν $E[X] = 4$, $V(X) = 3$, $E[Y] = 2$, $V(Y) = 5$. Ένας μαθητής υπολογίζει $V(X - Y)$ και γράφει:
 
 $$V(X - Y) = V(X) - V(Y) = 3 - 5 = -2$$
 
-Find the error and compute the correct answer.
+Βρείτε το σφάλμα και υπολογίστε τη σωστή απάντηση.
 
-**Solution:**
+**Λύση:**
 
-**The error:** The student subtracted the variances. Variance **cannot be subtracted** — it is always additive for independent variables, regardless of whether the operation on $X$ and $Y$ is addition or subtraction.
+**Το σφάλμα:** Ο μαθητής αφαίρεσε τις διακυμάνσεις. Η διακύμανση **δεν μπορεί να αφαιρεθεί** — είναι πάντα αθροιστική για ανεξάρτητες μεταβλητές, ανεξάρτητα από το αν η πράξη στα $X$ και $Y$ είναι πρόσθεση ή αφαίρεση.
 
-The correct rule for independent $X$ and $Y$:
+Ο σωστός κανόνας για τα ανεξάρτητα $X$ και $Y$:
 
 $$V(X - Y) = V(X) + (-1)^2 \cdot V(Y) = V(X) + V(Y)$$
 
-This follows from the scaling property $V(aY) = a^2 V(Y)$ with $a = -1$:
+Αυτό προκύπτει από την ιδιότητα κλιμάκωσης $V(aY) = a^2 V(Y)$ με $a = -1$:
 
 $$V(X - Y) = V(X) + V(-Y) = V(X) + (-1)^2 V(Y) = 3 + 5 = 8$$
 
-**The general rule:**
+**Ο γενικός κανόνας:**
 
 $$V(aX + bY) = a^2 V(X) + b^2 V(Y) \quad \text{(for independent } X, Y\text{)}$$
 
-A negative sign on a variable **always becomes a positive** in the variance calculation because it is squared.
+Ένα αρνητικό πρόσημο σε μια μεταβλητή **γίνεται πάντα θετικό** στον υπολογισμό της διακύμανσης επειδή είναι τετράγωνο.
 
 ---
 
-## Exam Tip: The Shortcut Formula is Non-Negotiable
-
-Always use $V(X) = E[X^2] - (E[X])^2$ rather than the definition formula $\sum (x-\mu)^2 p(x)$. The definition requires computing $\mu$, then subtracting it from each value, squaring, and multiplying — every step is a potential arithmetic error. The shortcut reduces this to two sums that can be computed in a single pass through the table.
+## Συμβουλή εξέτασης: Η φόρμουλα συντόμευσης δεν είναι διαπραγματεύσιμηΧρησιμοποιείτε πάντα $V(X) = E[X^2] - (E[X])^2$ αντί για τον τύπο ορισμού $\sum (x-\mu)^2 p(x)$. Ο ορισμός απαιτεί τον υπολογισμό του $\mu$ και, στη συνέχεια, την αφαίρεση του από κάθε τιμή, τον τετραγωνισμό και τον πολλαπλασιασμό — κάθε βήμα είναι ένα πιθανό αριθμητικό σφάλμα. Η συντόμευση μειώνει αυτό σε δύο αθροίσματα που μπορούν να υπολογιστούν με ένα μόνο πέρασμα στον πίνακα.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_2_binomial_distribution.md -->
-# Phase 4.2: Binomial Distribution
+<!-- Πηγή: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_2_binomial_distribution.md -->
+# Φάση 4.2: Διωνυμική κατανομή
 
-The Binomial Distribution models the number of **successes** in a fixed sequence of independent trials where each trial has exactly two possible outcomes (success or failure) and the probability of success is constant. It is the most frequently examined discrete distribution at the university level.
-
----
-
-## 1. The Four Conditions (FINS)
-
-A random variable $X$ follows a Binomial Distribution **only if all four conditions hold**:
-
-1. **F**ixed number of trials: $n$ is known and constant.
-2. **I**ndependence: each trial's outcome does not affect any other.
-3. **N**o more than two outcomes: each trial is either "success" or "failure".
-4. **S**ame probability: $p$ (probability of success) is constant across all trials.
-
-If any single condition fails, the Binomial model is invalid and a different distribution must be used.
+Η Διωνυμική Κατανομή μοντελοποιεί τον αριθμό των **επιτυχιών** σε μια σταθερή ακολουθία ανεξάρτητων δοκιμών όπου κάθε δοκιμή έχει ακριβώς δύο πιθανά αποτελέσματα (επιτυχία ή αποτυχία) και η πιθανότητα επιτυχίας είναι σταθερή. Είναι η πιο συχνά εξεταζόμενη διακριτή κατανομή σε πανεπιστημιακό επίπεδο.
 
 ---
 
-## 2. The PMF Formula
+## 1. Οι τέσσερις συνθήκες (FINS)
 
-If $X \sim B(n, p)$, then the probability of exactly $k$ successes in $n$ trials is:
+Μια τυχαία μεταβλητή $X$ ακολουθεί μια διωνυμική κατανομή **μόνο εάν ισχύουν και οι τέσσερις συνθήκες**:
+
+1. **ΣΤ**αριθμός δοκιμών: Το $n$ είναι γνωστό και σταθερό.
+2. **Ι**εξάρτηση: το αποτέλεσμα κάθε δοκιμής δεν επηρεάζει καμία άλλη.
+3. **Οχι**o περισσότερα από δύο αποτελέσματα: κάθε δοκιμή είναι είτε "επιτυχία" ή "αποτυχία".
+4. **S**ame πιθανότητα: $p$ (πιθανότητα επιτυχίας) είναι σταθερή σε όλες τις δοκιμές.
+
+Εάν κάποια μεμονωμένη συνθήκη αποτύχει, το μοντέλο Binomial δεν είναι έγκυρο και πρέπει να χρησιμοποιηθεί διαφορετική κατανομή.
+
+---
+
+## 2. Η φόρμουλα PMF
+
+Εάν $X \sim B(n, p)$, τότε η πιθανότητα ακριβώς $k$ επιτυχιών σε δοκιμές $n$ είναι:
 
 $$\boxed{P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, 2, \ldots, n}$$
 
-Where:
-- $n$ = total number of trials
-- $k$ = number of successes (the value you are computing for)
-- $p$ = probability of success on a single trial
-- $1-p = q$ = probability of failure on a single trial
-- $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ = the binomial coefficient (number of ways to choose $k$ from $n$)
+Πού:
+- $n$ = συνολικός αριθμός δοκιμών
+- $k$ = αριθμός επιτυχιών (η τιμή για την οποία υπολογίζετε)
+- $p$ = πιθανότητα επιτυχίας σε μία μόνο δοκιμή
+- $1-p = q$ = πιθανότητα αποτυχίας σε μία μόνο δοκιμή
+- $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ = ο διωνυμικός συντελεστής (αριθμός τρόπων επιλογής $k$ από $n$)
 
 ---
 
-## 3. Mean and Variance
+## 3. Μέσος όρος και Διακύμανση
 
-For $X \sim B(n, p)$, the mean and variance have elegant closed-form expressions derived from the general definitions:
+Για $X \sim B(n, p)$, ο μέσος όρος και η διακύμανση έχουν κομψές εκφράσεις κλειστής μορφής που προέρχονται από τους γενικούς ορισμούς:
 
 $$\boxed{E[X] = n \cdot p}$$
 
@@ -2411,34 +2375,34 @@ $$\boxed{V(X) = n \cdot p \cdot (1-p)}$$
 
 $$SD(X) = \sqrt{n \cdot p \cdot (1-p)}$$
 
-These formulas must be memorised. Deriving them from the PMF during an exam wastes significant time.
+Αυτοί οι τύποι πρέπει να απομνημονεύονται. Η εξαγωγή τους από το PMF κατά τη διάρκεια μιας εξέτασης σπαταλά σημαντικό χρόνο.
 
 ---
 
-## 4. Cumulative Probability
+## 4. Αθροιστική πιθανότητα
 
-For "at most $k$" or "at least $k$" questions, sum the individual PMF values:
+Για ερωτήσεις "το πολύ $k$" ή "τουλάχιστον $k$", αθροίστε τις μεμονωμένες τιμές PMF:
 
 $$P(X \leq k) = \sum_{i=0}^{k} \binom{n}{i} p^i (1-p)^{n-i}$$
 
 $$P(X \geq k) = 1 - P(X \leq k-1)$$
 
-The complement rule $P(X \geq k) = 1 - P(X \leq k-1)$ is almost always faster than summing many terms directly.
+Ο κανόνας του συμπληρώματος $P(X \geq k) = 1 - P(X \leq k-1)$ είναι σχεδόν πάντα πιο γρήγορος από το να αθροίζει κανείς απευθείας πολλούς όρους.
 
 ---
 
-## 5. Solved Exercises
+## 5. Λυμένες Ασκήσεις
 
-### Exercise 1: Identifying Parameters
+### Άσκηση 1: Προσδιορισμός παραμέτρων
 
-**Problem:** A fair coin is tossed 8 times. Let $X$ be the number of Heads. Identify the distribution, state all parameters, and verify the four conditions.
+**Πρόβλημα:** Ένα ωραίο κέρμα πετιέται 8 φορές. Έστω $X$ ο αριθμός των Κεφαλών. Προσδιορίστε την κατανομή, δηλώστε όλες τις παραμέτρους και επαληθεύστε τις τέσσερις συνθήκες.
 
-**Solution:**
+**Λύση:**
 
-- **Fixed $n$:** 8 tosses — fixed. Passed.
-- **Independence:** Each toss is independent. Passed.
-- **Two outcomes:** Head (success) or Tail (failure). Passed.
-- **Constant $p$:** $p = 0.5$ for every toss. Passed.
+- ** Διορθώθηκε $n$:** 8 ρίψεις — διορθώθηκαν. Πέρασε.
+- **Ανεξαρτησία:** Κάθε εκτίναξη είναι ανεξάρτητη. Πέρασε.
+- **Δύο αποτελέσματα:** Κεφάλι (επιτυχία) ή Ουρά (αποτυχία). Πέρασε.
+- **Σταθερά $p$:** $p = 0.5$ για κάθε εκτίναξη. Πέρασε.
 
 $$X \sim B(8, 0.5)$$
 
@@ -2446,11 +2410,11 @@ $$E[X] = 8 \times 0.5 = 4, \quad V(X) = 8 \times 0.5 \times 0.5 = 2$$
 
 ---
 
-### Exercise 2: Computing a Single PMF Value
+### Άσκηση 2: Υπολογισμός μεμονωμένης τιμής PMF
 
-**Problem:** A factory produces items where 20% are defective. A quality inspector picks 5 items at random. Find the probability that exactly 2 are defective.
+**Πρόβλημα:** Ένα εργοστάσιο παράγει είδη όπου το 20% είναι ελαττωματικά. Ένας επιθεωρητής ποιότητας επιλέγει 5 αντικείμενα τυχαία. Βρείτε την πιθανότητα ότι ακριβώς 2 είναι ελαττωματικά.
 
-**Solution:**
+**Λύση:**
 
 $$X \sim B(5, 0.2), \quad P(X = 2) = \binom{5}{2}(0.2)^2(0.8)^3$$
 
@@ -2460,49 +2424,47 @@ $$P(X=2) = 10 \times 0.04 \times 0.512 = 10 \times 0.02048 = 0.2048$$
 
 ---
 
-### Exercise 3: Computing $P(X = 0)$ — The "None" Case
+### Άσκηση 3: Υπολογισμός $P(X = 0)$ — Η υπόθεση "Κανένας"**Πρόβλημα:** Χρησιμοποιώντας την ίδια εργοστασιακή ρύθμιση ($n=5$, $p=0.2$), βρείτε την πιθανότητα να μην είναι ελαττωματικά στοιχεία.
 
-**Problem:** Using the same factory setting ($n=5$, $p=0.2$), find the probability that no items are defective.
-
-**Solution:**
+**Λύση:**
 
 $$P(X=0) = \binom{5}{0}(0.2)^0(0.8)^5 = 1 \times 1 \times 0.32768 = 0.3277$$
 
-> **Note:** $(0.2)^0 = 1$ and $\binom{5}{0} = 1$. Students often hesitate here — both are always exactly 1.
+> **Σημείωση:** $(0.2)^0 = 1$ και $\binom{5}{0} = 1$. Οι μαθητές συχνά διστάζουν εδώ - και οι δύο είναι πάντα ακριβώς 1.
 
 ---
 
-### Exercise 4: Computing $P(X = n)$ — The "All" Case
+### Άσκηση 4: Υπολογισμός $P(X = n)$ — Η υπόθεση "Όλα"
 
-**Problem:** Find the probability that all 5 items are defective ($n=5$, $p=0.2$).
+**Πρόβλημα:** Βρείτε την πιθανότητα και τα 5 στοιχεία να είναι ελαττωματικά ($n=5$, $p=0.2$).
 
-**Solution:**
+**Λύση:**
 
 $$P(X=5) = \binom{5}{5}(0.2)^5(0.8)^0 = 1 \times 0.00032 \times 1 = 0.00032$$
 
-This confirms that all 5 being defective at a 20% rate is extremely unlikely.
+Αυτό επιβεβαιώνει ότι και τα 5 είναι ελαττωματικά με ποσοστό 20% είναι εξαιρετικά απίθανο.
 
 ---
 
-### Exercise 5: "At Least One" Using the Complement
+### Άσκηση 5: «Τουλάχιστον ένα» χρησιμοποιώντας το συμπλήρωμα
 
-**Problem:** From the factory example ($n=5$, $p=0.2$), find the probability of **at least one** defective item.
+**Πρόβλημα:** Από το εργοστασιακό παράδειγμα ($n=5$, $p=0.2$), βρείτε την πιθανότητα **τουλάχιστον ενός** ελαττωματικού στοιχείου.
 
-**Solution:**
+**Λύση:**
 
-Direct computation would require summing $P(X=1)$ through $P(X=5)$. The complement is far faster:
+Ο άμεσος υπολογισμός θα απαιτούσε την άθροιση $P(X=1)$ έως $P(X=5)$. Το συμπλήρωμα είναι πολύ πιο γρήγορο:
 
 $$P(X \geq 1) = 1 - P(X = 0) = 1 - 0.3277 = 0.6723$$
 
-> **Exam shortcut:** "At least one" always equals $1 - P(X=0)$. Compute $P(X=0)$ and subtract from 1. Never sum the remaining terms.
+> **Συντόμευση εξέτασης:** "Τουλάχιστον ένα" ισούται πάντα με $1 - P(X=0)$. Υπολογίστε $P(X=0)$ και αφαιρέστε από το 1. Ποτέ μην αθροίζετε τους υπόλοιπους όρους.
 
 ---
 
-### Exercise 6: "At Most" Cumulative Probability
+### Άσκηση 6: «Το πολύ» Αθροιστική πιθανότητα
 
-**Problem:** For $X \sim B(6, 0.3)$, find $P(X \leq 2)$.
+**Πρόβλημα:** Για $X \sim B(6, 0.3)$, βρείτε $P(X \leq 2)$.
 
-**Solution:**
+**Λύση:**
 
 $$P(X=0) = \binom{6}{0}(0.3)^0(0.7)^6 = 0.117649$$
 
@@ -2514,11 +2476,11 @@ $$P(X \leq 2) = 0.117649 + 0.302526 + 0.324135 = 0.7443$$
 
 ---
 
-### Exercise 7: Working Backwards — Finding $n$
+### Άσκηση 7: Εργασία προς τα πίσω — Εύρεση $n$
 
-**Problem:** A multiple-choice test has 4 options per question, only one of which is correct. A student guesses randomly. If $E[X] = 5$, how many questions are on the test?
+**Πρόβλημα:** Ένα τεστ πολλαπλής επιλογής έχει 4 επιλογές ανά ερώτηση, μόνο μία από τις οποίες είναι σωστή. Ένας μαθητής μαντεύει τυχαία. Εάν $E[X] = 5$, πόσες ερωτήσεις υπάρχουν στο τεστ;
 
-**Solution:**
+**Λύση:**
 
 $$p = \frac{1}{4} = 0.25, \quad E[X] = n \cdot p = 5$$
 
@@ -2528,116 +2490,114 @@ $$V(X) = 20 \times 0.25 \times 0.75 = 3.75$$
 
 ---
 
-### Exercise 8: Full Distribution Table Construction
+### Άσκηση 8: Κατασκευή πίνακα πλήρους διανομής
 
-**Problem:** For $X \sim B(4, 0.5)$, construct the full PMF table and verify that it sums to 1.
+**Πρόβλημα:** Για $X \sim B(4, 0.5)$, δημιουργήστε τον πλήρη πίνακα PMF και επαληθεύστε ότι το άθροισμα είναι 1.
 
-**Solution:**
+**Λύση:**
 
 | $k$ | $\binom{4}{k}$ | $(0.5)^k$ | $(0.5)^{4-k}$ | $P(X=k)$ |
 | :--- | :--- | :--- | :--- | :--- |
-| 0 | 1 | 1 | 0.0625 | 0.0625 |
-| 1 | 4 | 0.5 | 0.125 | 0.2500 |
-| 2 | 6 | 0.25 | 0.25 | 0.3750 |
-| 3 | 4 | 0.125 | 0.5 | 0.2500 |
-| 4 | 1 | 0.0625 | 1 | 0.0625 |
+| 0 | 1 | 1 | 0,0625 | 0,0625 |
+| 1 | 4 | 0,5 | 0,125 | 0,2500 |
+| 2 | 6 | 0,25 | 0,25 | 0,3750 |
+| 3 | 4 | 0,125 | 0,5 | 0,2500 |
+| 4 | 1 | 0,0625 | 1 | 0,0625 |
 
-**Sum:** $0.0625 + 0.2500 + 0.3750 + 0.2500 + 0.0625 = 1.0000$. Verified.
+**Άθροισμα:** $0.0625 + 0.2500 + 0.3750 + 0.2500 + 0.0625 = 1.0000$. Επαληθεύτηκε.
 
 ---
 
-### Exercise 9: The Gotcha — "At Least" Requires Careful Indexing
+### Άσκηση 9: The Gotcha — Το "Τουλάχιστον" απαιτεί προσεκτική ευρετηρίαση
 
-**Problem:** A call centre receives calls independently. The probability that any given call results in a sale is 0.3. In a batch of 10 calls, find the probability that **more than 8 calls** result in a sale.
+**Πρόβλημα:** Ένα τηλεφωνικό κέντρο λαμβάνει κλήσεις ανεξάρτητα. Η πιθανότητα ότι μια δεδομένη κλήση οδηγεί σε πώληση είναι 0,3. Σε μια παρτίδα 10 κλήσεων, βρείτε την πιθανότητα **περισσότερες από 8 κλήσεις** να οδηγήσουν σε πώληση.
 
-A student sets up the calculation as:
+Ένας μαθητής ορίζει τον υπολογισμό ως εξής:
 
 $$P(X \geq 8) = 1 - P(X \leq 8)$$
 
-Identify the error and compute the correct answer.
+Εντοπίστε το σφάλμα και υπολογίστε τη σωστή απάντηση.
 
-**Solution:**
+**Λύση:**
 
-**The error:** The phrase "more than 8" translates to $X > 8$, which is equivalent to $X \geq 9$.
+**Το σφάλμα:** Η φράση "περισσότερο από 8" μεταφράζεται σε $X > 8$, που ισοδυναμεί με $X \geq 9$.
 
-The student wrote $P(X \geq 8) = 1 - P(X \leq 8)$. There are **two simultaneous errors** here:
-- **Label error:** The event should be labelled $P(X \geq 9)$, not $P(X \geq 8)$.
-- **Formula error for the label used:** If the student truly wanted $P(X \geq 8)$, the correct complement would be $1 - P(X \leq 7)$, not $1 - P(X \leq 8)$.
+Ο μαθητής έγραψε $P(X \geq 8) = 1 - P(X \leq 8)$. Υπάρχουν **δύο ταυτόχρονα σφάλματα** εδώ:
+- **Σφάλμα ετικέτας:** Το συμβάν θα πρέπει να φέρει την ετικέτα $P(X \geq 9)$, όχι $P(X \geq 8)$.
+- **Σφάλμα τύπου για την ετικέτα που χρησιμοποιείται:** Εάν ο μαθητής ήθελε πραγματικά $P(X \geq 8)$, το σωστό συμπλήρωμα θα ήταν $1 - P(X \leq 7)$, όχι $1 - P(X \leq 8)$.
 
-By coincidence, the formula $1 - P(X \leq 8)$ happens to give the numerically correct answer for the original question ($P(X > 8)$), but the reasoning is wrong because the student is conflating "more than 8" with "at least 8." The correct, unambiguous setup is:
+Κατά σύμπτωση, ο τύπος $1 - P(X \leq 8)$ τυχαίνει να δίνει την αριθμητικά σωστή απάντηση για την αρχική ερώτηση ($P(X > 8)$), αλλά ο συλλογισμός είναι λανθασμένος επειδή ο μαθητής συνδυάζει το "περισσότερο από 8" με το "τουλάχιστον 8". Η σωστή, ξεκάθαρη ρύθμιση είναι:
 
 $$P(X > 8) = P(X \geq 9) = 1 - P(X \leq 8)$$
 
-**Correct computation** for $P(X > 8)$ with $X \sim B(10, 0.3)$:
+**Σωστός υπολογισμός** για $P(X > 8)$ με $X \sim B(10, 0.3)$:
 
 $$P(X = 9) = \binom{10}{9}(0.3)^9(0.7)^1 = 10 \times 0.000019683 \times 0.7 = 0.0001378$$
 
 $$P(X = 10) = \binom{10}{10}(0.3)^{10}(0.7)^0 = 1 \times 0.0000059049 \times 1 = 0.0000059$$
 
-$$P(X > 8) = P(X=9) + P(X=10) \approx 0.0001378 + 0.0000059 = 0.0001437$$
+$$P(X > 8) = P(X=9) + P(X=10) \approx 0.0001378 + 0.0000059 = 0.0001437$$Αυτή είναι μια εξαιρετικά μικρή πιθανότητα, η οποία έχει διαισθητική λογική: η επίτευξη 9 ή 10 πωλήσεων όταν η πιθανότητα επιτυχίας είναι μόνο 0,3 είναι πολύ απίθανη σε 10 κλήσεις.
 
-This is an extremely small probability, which makes intuitive sense: achieving 9 or 10 sales when the success probability is only 0.3 is very unlikely over 10 calls.
+**Βασικό μάθημα:** Να μεταφράζετε πάντα την αγγλική φράση σε μαθηματική ανισότητα **πριν** γράψετε μια συμπληρωματική έκφραση:
 
-**Key lesson:** Always translate the English phrase to a mathematical inequality **before** writing a complement expression:
-
-| Phrase | Inequality | Complement Setup |
+| Φράση | Ανισότητα | Ρύθμιση συμπληρώματος |
 | :--- | :--- | :--- |
-| "more than $k$" | $X > k$ | $1 - P(X \leq k)$ |
-| "at least $k$" | $X \geq k$ | $1 - P(X \leq k-1)$ |
-| "fewer than $k$" | $X < k$ | $P(X \leq k-1)$ |
-| "at most $k$" | $X \leq k$ | Direct sum or table |
+| "περισσότερο από $k$" | $X > k$ | $1 - P(X \leq k)$ |
+| "τουλάχιστον $k$" | $X \geq k$ | $1 - P(X \leq k-1)$ |
+| "λιγότερο από $k$" | $X < k$ | $P(X \leq k-1)$ |
+| "το πολύ $k$" | $X \leq k$ | Άμεσο άθροισμα ή πίνακας |
 
 ---
 
-## Exam Tip: Recognising the Binomial Setup
+## Συμβουλή εξέτασης: Αναγνώριση της διωνυμικής ρύθμισης
 
-The words "independent", "fixed number of trials", "probability of success", and "how many" in a problem are strong signals for the Binomial model. The moment you confirm all four FINS conditions, write $X \sim B(n, p)$ explicitly and use $E[X] = np$ and $V(X) = np(1-p)$ without re-deriving them.
+Οι λέξεις "ανεξάρτητο", "σταθερός αριθμός δοκιμών", "πιθανότητα επιτυχίας" και "πόσες" σε ένα πρόβλημα είναι ισχυρά σήματα για το μοντέλο Διωνυμίας. Τη στιγμή που θα επιβεβαιώσετε και τις τέσσερις συνθήκες FINS, γράψτε $X \sim B(n, p)$ ρητά και χρησιμοποιήστε τις $E[X] = np$ και $V(X) = np(1-p)$ χωρίς να τις επαναλάβετε.
 
-
----
-
-<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_3_poisson_distribution.md -->
-# Phase 4.3: Poisson Distribution
-
-The Poisson Distribution models the number of times a **rare event** occurs within a fixed interval of time, space, or volume, given a known average rate. It fills the gap in the discrete distribution toolkit: where the Binomial requires a fixed, finite $n$, the Poisson handles situations where the number of "trials" is very large (or effectively infinite) and the individual probability of each event is very small.
 
 ---
 
-## 1. When to Use the Poisson Distribution
+<!-- Πηγή: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_3_poisson_distribution.md -->
+# Φάση 4.3: Κατανομή Poisson
 
-Apply the Poisson model when the problem describes:
-
-- A **count** of events (not a proportion or ratio) over a continuous interval.
-- A known **average rate** $\lambda$ (lambda) per unit interval.
-- Events occur **independently** of each other.
-- Events occur **one at a time** (two events cannot happen at the exact same instant).
-
-**Common real-world contexts:**
-- Number of phone calls arriving at a switchboard per hour.
-- Number of defects per metre of fabric.
-- Number of accidents at an intersection per month.
-- Number of radioactive particle emissions per second.
+Η Κατανομή Poisson μοντελοποιεί τον αριθμό των φορών που εμφανίζεται ένα **σπάνιο συμβάν** μέσα σε ένα σταθερό διάστημα χρόνου, χώρου ή όγκου, δεδομένου ενός γνωστού μέσου ρυθμού. Καλύπτει το κενό στην εργαλειοθήκη διακριτής διανομής: όπου το Διώνυμο απαιτεί ένα σταθερό, πεπερασμένο $n$, το Poisson χειρίζεται καταστάσεις όπου ο αριθμός των "δοκιμών" είναι πολύ μεγάλος (ή ουσιαστικά άπειρος) και η μεμονωμένη πιθανότητα κάθε συμβάντος είναι πολύ μικρή.
 
 ---
 
-## 2. The PMF Formula
+## 1. Πότε να χρησιμοποιήσετε το Poisson Distribution
 
-If $X \sim Po(\lambda)$, the probability of exactly $k$ events is:
+Εφαρμόστε το μοντέλο Poisson όταν το πρόβλημα περιγράφει:
+
+- Ένας **πλήθος** γεγονότων (όχι αναλογία ή αναλογία) σε συνεχές διάστημα.
+- Γνωστό **μέσο ποσοστό** $\lambda$ (λάμδα) ανά διάστημα μονάδας.
+- Τα γεγονότα συμβαίνουν **ανεξάρτητα** το ένα από το άλλο.
+- Συμβάντα συμβαίνουν **ένα κάθε φορά** (δύο συμβάντα δεν μπορούν να συμβούν την ίδια ακριβώς στιγμή).
+
+**Κοινά περιβάλλοντα πραγματικού κόσμου:**
+- Αριθμός τηλεφωνικών κλήσεων που φτάνουν σε πίνακα διανομής ανά ώρα.
+- Αριθμός ελαττωμάτων ανά μέτρο υφάσματος.
+- Αριθμός ατυχημάτων σε διασταύρωση ανά μήνα.
+- Αριθμός εκπομπών ραδιενεργών σωματιδίων ανά δευτερόλεπτο.
+
+---
+
+## 2. Η φόρμουλα PMF
+
+Εάν $X \sim Po(\lambda)$, η πιθανότητα ακριβώς $k$ συμβάντων είναι:
 
 $$\boxed{P(X = k) = \frac{\lambda^k \cdot e^{-\lambda}}{k!}, \quad k = 0, 1, 2, 3, \ldots}$$
 
-Where:
-- $\lambda > 0$ is the average rate (mean number of events per interval)
-- $e \approx 2.71828$ is Euler's number
-- $k!$ is the factorial of $k$
+Πού:
+- $\lambda > 0$ είναι ο μέσος ρυθμός (μέσος αριθμός συμβάντων ανά διάστημα)
+- Ο $e \approx 2.71828$ είναι ο αριθμός του Euler
+- Το $k!$ είναι το παραγοντικό του $k$
 
-The Poisson distribution has **no upper bound** on $k$ — theoretically, any non-negative integer is possible.
+Η κατανομή Poisson δεν έχει **ανώτατο όριο** στο $k$ — θεωρητικά, οποιοσδήποτε μη αρνητικός ακέραιος είναι δυνατός.
 
 ---
 
-## 3. Mean and Variance
+## 3. Μέσος όρος και Διακύμανση
 
-A defining and elegant property of the Poisson distribution is that **the mean and variance are equal**:
+Μια καθοριστική και κομψή ιδιότητα της κατανομής Poisson είναι ότι **ο μέσος όρος και η διακύμανση είναι ίσες**:
 
 $$\boxed{E[X] = \lambda}$$
 
@@ -2645,41 +2605,39 @@ $$\boxed{V(X) = \lambda}$$
 
 $$SD(X) = \sqrt{\lambda}$$
 
-If a problem gives you only one value and calls it the "average rate" or "expected number of events", that single value is $\lambda$, and it serves as both the mean and the variance.
+Εάν ένα πρόβλημα σας δίνει μόνο μία τιμή και την ονομάζει "μέσος ρυθμός" ή "αναμενόμενος αριθμός συμβάντων", αυτή η μοναδική τιμή είναι $\lambda$ και χρησιμεύει τόσο ως μέσος όρος όσο και ως διακύμανση.
 
 ---
 
-## 4. Scaling the Rate to a Different Interval
+## 4. Κλιμάκωση του ρυθμού σε διαφορετικό διάστημα
 
-This is one of the most important practical skills for the Poisson distribution. If the rate is given for one interval length but the question asks about a different interval length, scale $\lambda$ proportionally.
+Αυτή είναι μια από τις πιο σημαντικές πρακτικές δεξιότητες για τη διανομή Poisson. Εάν ο ρυθμός δίνεται για ένα μήκος διαστήματος αλλά η ερώτηση αφορά διαφορετικό μήκος διαστήματος, κλιμακώστε $\lambda$ αναλογικά.
 
-**Rule:** If $\lambda$ is the rate per unit time and you want the rate over $t$ units of time:
+**Κανόνας:** Εάν $\lambda$ είναι η τιμή ανά μονάδα χρόνου και θέλετε η τιμή να υπερβαίνει τις $t$ μονάδες χρόνου:
 
 $$\lambda_t = \lambda \cdot t$$
 
-Then $X_t \sim Po(\lambda \cdot t)$.
-
-**Example:** If calls arrive at 3 per hour ($\lambda = 3$), then over 2 hours the rate is $\lambda_{2h} = 3 \times 2 = 6$.
+Στη συνέχεια $X_t \sim Po(\lambda \cdot t)$.**Παράδειγμα:** Εάν οι κλήσεις φτάνουν με 3 την ώρα ($\lambda = 3$), τότε για περισσότερες από 2 ώρες η χρέωση είναι $\lambda_{2h} = 3 \times 2 = 6$.
 
 ---
 
-## 5. Poisson as an Approximation to Binomial
+## 5. Το Poisson ως προσέγγιση στο διώνυμο
 
-When $n$ is large and $p$ is small (rule of thumb: $n \geq 20$ and $p \leq 0.05$), the Binomial distribution $B(n,p)$ is well approximated by $Po(\lambda)$ where:
+Όταν το $n$ είναι μεγάλο και το $p$ είναι μικρό (εμπειρικός κανόνας: $n \geq 20$ και $p \leq 0.05$), η διωνυμική κατανομή $B(n,p)$ προσεγγίζεται καλά με __MATHIN_LINE:129
 
 $$\lambda = n \cdot p$$
 
-This approximation avoids computing large binomial coefficients.
+Αυτή η προσέγγιση αποφεύγει τον υπολογισμό μεγάλων διωνυμικών συντελεστών.
 
 ---
 
-## 6. Solved Exercises
+## 6. Λυμένες Ασκήσεις
 
-### Exercise 1: Basic PMF Calculation
+### Άσκηση 1: Βασικός Υπολογισμός PMF
 
-**Problem:** Customers arrive at a bank at an average rate of 4 per hour. Find the probability that exactly 3 customers arrive in a given hour.
+**Πρόβλημα:** Οι πελάτες φτάνουν σε μια τράπεζα με μέσο επιτόκιο 4 ανά ώρα. Βρείτε την πιθανότητα να φτάσουν ακριβώς 3 πελάτες σε μια δεδομένη ώρα.
 
-**Solution:**
+**Λύση:**
 
 $$X \sim Po(4), \quad P(X=3) = \frac{4^3 \cdot e^{-4}}{3!}$$
 
@@ -2687,25 +2645,25 @@ $$= \frac{64 \times 0.018316}{6} = \frac{1.17222}{6} \approx 0.1954$$
 
 ---
 
-### Exercise 2: Computing $P(X = 0)$
+### Άσκηση 2: Υπολογισμός $P(X = 0)$
 
-**Problem:** Using the same bank setting ($\lambda = 4$), find the probability that no customers arrive in a given hour.
+**Πρόβλημα:** Χρησιμοποιώντας την ίδια τραπεζική ρύθμιση ($\lambda = 4$), βρείτε την πιθανότητα να μην φθάσουν πελάτες σε μια δεδομένη ώρα.
 
-**Solution:**
+**Λύση:**
 
 $$P(X=0) = \frac{4^0 \cdot e^{-4}}{0!} = \frac{1 \times 0.018316}{1} = 0.0183$$
 
-There is approximately a 1.83% chance of a completely quiet hour.
+Υπάρχει περίπου 1,83% πιθανότητα για μια εντελώς ήσυχη ώρα.
 
-> **Recall:** $4^0 = 1$ and $0! = 1$. So $P(X=0) = e^{-\lambda}$ always.
+> **Ανάκληση:** $4^0 = 1$ και $0! = 1$. Έτσι $P(X=0) = e^{-\lambda}$ πάντα.
 
 ---
 
-### Exercise 3: "At Least One" Using the Complement
+### Άσκηση 3: «Τουλάχιστον ένα» χρησιμοποιώντας το συμπλήρωμα
 
-**Problem:** A Geiger counter detects on average 2 radioactive particles per second. Find the probability of detecting at least one particle in a given second.
+**Πρόβλημα:** Ένας μετρητής Geiger ανιχνεύει κατά μέσο όρο 2 ραδιενεργά σωματίδια ανά δευτερόλεπτο. Βρείτε την πιθανότητα ανίχνευσης τουλάχιστον ενός σωματιδίου σε ένα δεδομένο δευτερόλεπτο.
 
-**Solution:**
+**Λύση:**
 
 $$X \sim Po(2), \quad P(X \geq 1) = 1 - P(X=0) = 1 - e^{-2}$$
 
@@ -2713,31 +2671,31 @@ $$P(X \geq 1) = 1 - 0.1353 = 0.8647$$
 
 ---
 
-### Exercise 4: Scaling the Interval
+### Άσκηση 4: Κλιμάκωση του διαστήματος
 
-**Problem:** A call centre receives calls at an average rate of 5 per hour. Find the probability of receiving exactly 2 calls in a 30-minute window.
+**Πρόβλημα:** Ένα τηλεφωνικό κέντρο λαμβάνει κλήσεις με μέσο ρυθμό 5 ανά ώρα. Βρείτε την πιθανότητα να λάβετε ακριβώς 2 κλήσεις σε ένα παράθυρο 30 λεπτών.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Convert the rate to the interval of interest.
+**Βήμα 1:** Μετατρέψτε το επιτόκιο στο διάστημα ενδιαφέροντος.
 
-30 minutes = 0.5 hours, so:
+30 λεπτά = 0,5 ώρες, άρα:
 
 $$\lambda_{30\min} = 5 \times 0.5 = 2.5$$
 
-**Step 2:** Apply the Poisson PMF with $\lambda = 2.5$:
+**Βήμα 2:** Εφαρμόστε το Poisson PMF με $\lambda = 2.5$:
 
 $$P(X=2) = \frac{2.5^2 \cdot e^{-2.5}}{2!} = \frac{6.25 \times 0.082085}{2} = \frac{0.513}{2} \approx 0.2565$$
 
 ---
 
-### Exercise 5: Cumulative Probability — "Fewer Than"
+### Άσκηση 5: Αθροιστική πιθανότητα — "Λιγότερο από"
 
-**Problem:** For $X \sim Po(3)$, find $P(X < 3)$.
+**Πρόβλημα:** Για $X \sim Po(3)$, βρείτε $P(X < 3)$.
 
-**Solution:**
+**Λύση:**
 
-"Fewer than 3" means $X \leq 2$:
+"Λιγότερο από 3" σημαίνει $X \leq 2$:
 
 $$P(X=0) = \frac{3^0 e^{-3}}{0!} = e^{-3} \approx 0.049787$$
 
@@ -2749,13 +2707,13 @@ $$P(X < 3) = 0.049787 + 0.149361 + 0.224042 = 0.4232$$
 
 ---
 
-### Exercise 6: Using Poisson to Approximate Binomial
+### Άσκηση 6: Χρήση Poisson για Προσέγγιση Διωνύμου
 
-**Problem:** A manufacturing process produces bolts where the probability of a defect is $p = 0.02$. A batch of 200 bolts is inspected. Approximate the probability of exactly 3 defective bolts using the Poisson distribution.
+**Πρόβλημα:** Μια διαδικασία κατασκευής παράγει μπουλόνια όπου η πιθανότητα ελαττώματος είναι $p = 0.02$. Επιθεωρείται μια παρτίδα 200 μπουλονιών. Προσεγγίστε την πιθανότητα ακριβώς 3 ελαττωματικών μπουλονιών χρησιμοποιώντας την κατανομή Poisson.
 
-**Solution:**
+**Λύση:**
 
-**Check conditions:** $n = 200 \geq 20$ and $p = 0.02 \leq 0.05$. Approximation is valid.
+**Ελέγξτε τις συνθήκες:** $n = 200 \geq 20$ και $p = 0.02 \leq 0.05$. Η προσέγγιση είναι έγκυρη.
 
 $$\lambda = n \cdot p = 200 \times 0.02 = 4$$
 
@@ -2763,13 +2721,13 @@ $$P(X=3) \approx \frac{4^3 e^{-4}}{3!} = \frac{64 \times 0.018316}{6} \approx 0.
 
 ---
 
-### Exercise 7: Finding $\lambda$ from Given Information
+### Άσκηση 7: Εύρεση $\lambda$ από δεδομένες πληροφορίες
 
-**Problem:** A Poisson random variable $X$ has $V(X) = 6.25$. Find $E[X]$, $P(X=0)$, and $P(X \geq 2)$.
+**Πρόβλημα:** Μια τυχαία μεταβλητή Poisson $X$ έχει $V(X) = 6.25$. Βρείτε τα $E[X]$, $P(X=0)$ και $P(X \geq 2)$.
 
-**Solution:**
+**Λύση:**
 
-Since $V(X) = \lambda$ for a Poisson distribution:
+Από $V(X) = \lambda$ για μια διανομή Poisson:
 
 $$\lambda = 6.25, \quad E[X] = 6.25$$
 
@@ -2781,45 +2739,43 @@ $$P(X \geq 2) = 1 - P(X=0) - P(X=1) = 1 - 0.001930 - 0.012063 = 0.986007$$
 
 ---
 
-### Exercise 8: Full Distribution — Comparing Two Intervals
+### Άσκηση 8: Πλήρης κατανομή — Σύγκριση δύο διαστημάτων
 
-**Problem:** Accidents at a busy intersection follow a Poisson distribution with an average of 6 per month. Management claims that in any given week, the probability of zero accidents is over 20%. Verify this claim.
+**Πρόβλημα:** Τα ατυχήματα σε μια πολυσύχναστη διασταύρωση ακολουθούν μια κατανομή Poisson με μέσο όρο 6 ανά μήνα. Η διοίκηση ισχυρίζεται ότι σε κάθε εβδομάδα, η πιθανότητα μηδενικών ατυχημάτων είναι πάνω από 20%. Επαληθεύστε αυτήν την αξίωση.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Convert the rate from monthly to weekly.
+**Βήμα 1:** Μετατρέψτε την τιμή από μηνιαία σε εβδομαδιαία.
 
-Assuming a month has approximately 4 weeks:
+Υποθέτοντας ότι ένας μήνας έχει περίπου 4 εβδομάδες:
 
 $$\lambda_{\text{week}} = \frac{6}{4} = 1.5$$
 
-**Step 2:** Compute $P(X=0)$ for a weekly window:
+**Βήμα 2:** Υπολογίστε $P(X=0)$ για ένα εβδομαδιαίο παράθυρο:
 
 $$P(X=0) = e^{-1.5} \approx 0.2231$$
 
-**Conclusion:** $P(X=0) \approx 22.31\% > 20\%$. The management's claim is **verified**.
+**Συμπέρασμα:** $P(X=0) \approx 22.31\% > 20\%$. Ο ισχυρισμός της διοίκησης **επαληθεύεται**.
 
 ---
 
-### Exercise 9: The Gotcha — Rate Change Disguised as a Different Problem
+### Άσκηση 9: The Gotcha — Αλλαγή βαθμολόγησης μεταμφιεσμένη ως διαφορετικό πρόβλημα**Πρόβλημα:** Τα τυπογραφικά λάθη σε ένα χειρόγραφο ακολουθούν μια διανομή Poisson με ρυθμό 2 ανά σελίδα. Ένας συντάκτης εξετάζει ένα **απόσπασμα μισής σελίδας** και στη συνέχεια μια **πλήρη ενότητα 3 σελίδων** την ίδια ημέρα.
 
-**Problem:** Typos in a manuscript follow a Poisson distribution at a rate of 2 per page. An editor reviews a **half-page excerpt** and then a **full 3-page section** on the same day.
+(α) Να βρείτε την πιθανότητα ακριβώς 1 τυπογραφικού λάθους στο απόσπασμα της μισής σελίδας.
 
-(a) Find the probability of exactly 1 typo in the half-page excerpt.
+(β) Βρείτε την πιθανότητα **το πολύ 2** τυπογραφικών σφαλμάτων στην ενότητα 3 σελίδων.
 
-(b) Find the probability of **at most 2** typos in the 3-page section.
+(γ) Ένας μαθητής υποστηρίζει: "Εφόσον γνωρίζουμε ήδη ότι υπήρχε 1 τυπογραφικό λάθος στη μισή σελίδα, ο αναμενόμενος αριθμός τυπογραφικών σφαλμάτων στις υπόλοιπες 2,5 σελίδες της ενότητας των 3 σελίδων είναι $2 \times 2.5 - 1 = 4$." Προσδιορίστε το σφάλμα σε αυτό το σκεπτικό.
 
-(c) A student argues: "Since we already know there was 1 typo in the half-page, the expected number of typos in the remaining 2.5 pages of the 3-page section is $2 \times 2.5 - 1 = 4$." Identify the error in this reasoning.
+**Λύση:**
 
-**Solution:**
-
-**Part (a): Half-page**
+**Μέρος (α): Μισή σελίδα**
 
 $$\lambda_{0.5} = 2 \times 0.5 = 1$$
 
 $$P(X=1) = \frac{1^1 e^{-1}}{1!} = e^{-1} \approx 0.3679$$
 
-**Part (b): 3-page section**
+**Μέρος (β): ενότητα 3 σελίδων**
 
 $$\lambda_3 = 2 \times 3 = 6$$
 
@@ -2831,3189 +2787,3144 @@ $$P(X=2) = \frac{36 e^{-6}}{2} \approx 0.044618$$
 
 $$P(X \leq 2) = 0.002479 + 0.014873 + 0.044618 = 0.0620$$
 
-**Part (c): The error**
+**Μέρος (γ): Το σφάλμα**
 
-The student committed two mistakes in one step:
+Ο μαθητής έκανε δύο λάθη σε ένα βήμα:
 
-**Mistake 1 — Conditioning on a past outcome:** The Poisson distribution assumes events are **independent**. The outcome in the half-page excerpt has absolutely no effect on the expected count in the remaining pages. You cannot "subtract" a count from one sub-interval when computing the rate for another. Each interval is modelled independently with its own $\lambda$.
+**Λάθος 1 — Προϋπόθεση για ένα προηγούμενο αποτέλεσμα:** Η κατανομή Poisson προϋποθέτει ότι τα γεγονότα είναι **ανεξάρτητα**. Το αποτέλεσμα στο απόσπασμα της μισής σελίδας δεν έχει καμία απολύτως επίδραση στην αναμενόμενη μέτρηση στις υπόλοιπες σελίδες. Δεν μπορείτε να "αφαιρέσετε" μια μέτρηση από ένα υποδιάστημα κατά τον υπολογισμό του ρυθμού για ένα άλλο. Κάθε διάστημα μοντελοποιείται ανεξάρτητα με το δικό του $\lambda$.
 
-**Mistake 2 — Subtracting observed counts from expected rates:** Even if conditioning were valid, subtracting a realised count (1 typo) from an expected rate ($2 \times 2.5 = 5$) confuses two different quantities. The expected number of typos in the remaining 2.5 pages is simply $\lambda_{2.5} = 2 \times 2.5 = 5$, regardless of what was observed anywhere else.
+**Λάθος 2 — Αφαίρεση παρατηρούμενων μετρήσεων από τους αναμενόμενους ρυθμούς:** Ακόμα κι αν η ρύθμιση ήταν έγκυρη, η αφαίρεση μιας πραγματοποιηθείσας μέτρησης (1 τυπογραφικό λάθος) από έναν αναμενόμενο ρυθμό ($2 \times 2.5 = 5$) συγχέει δύο διαφορετικές ποσότητες. Ο αναμενόμενος αριθμός τυπογραφικών σφαλμάτων στις υπόλοιπες 2,5 σελίδες είναι απλώς $\lambda_{2.5} = 2 \times 2.5 = 5$, ανεξάρτητα από το τι παρατηρήθηκε οπουδήποτε αλλού.
 
-The correct approach treats each interval as an independent Poisson random variable with its own scaled rate. The half-page result is irrelevant to the 3-page section calculation.
+Η σωστή προσέγγιση αντιμετωπίζει κάθε διάστημα ως μια ανεξάρτητη τυχαία μεταβλητή Poisson με το δικό της κλιμακωτό ρυθμό. Το αποτέλεσμα της μισής σελίδας είναι άσχετο με τον υπολογισμό της ενότητας 3 σελίδων.
 
 ---
 
-## 7. Core Formulas Summary
+## 7. Σύνοψη βασικών τύπων
 
-| Formula | Description |
+| Φόρμουλα | Περιγραφή |
 | :--- | :--- |
 | $P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}$ | Poisson PMF |
-| $E[X] = \lambda$ | Mean equals rate |
-| $V(X) = \lambda$ | Variance equals rate |
-| $P(X=0) = e^{-\lambda}$ | Probability of zero events (simplification) |
-| $P(X \geq 1) = 1 - e^{-\lambda}$ | At least one event (complement shortcut) |
-| $\lambda_t = \lambda \cdot t$ | Rate scaling to a different interval of length $t$ |
-| $\lambda \approx n \cdot p$ | Binomial-to-Poisson approximation |
+| $E[X] = \lambda$ | Ο μέσος όρος ισούται με το ποσοστό |
+| $V(X) = \lambda$ | Η διακύμανση ισούται με το ποσοστό |
+| $P(X=0) = e^{-\lambda}$ | Πιθανότητα μηδενικών γεγονότων (απλούστευση) |
+| $P(X \geq 1) = 1 - e^{-\lambda}$ | Τουλάχιστον ένα συμβάν (συντόμευση συμπληρώματος) |
+| $\lambda_t = \lambda \cdot t$ | Βαθμολογήστε την κλιμάκωση σε διαφορετικό διάστημα μήκους $t$ |
+| $\lambda \approx n \cdot p$ | Προσέγγιση διωνύμου σε Poisson |
 
 ---
 
-## Exam Tip: Always Scale $\lambda$ Before Substituting
+## Συμβουλή εξέτασης: Πάντα να κλιμακώνετε $\lambda$ πριν από την αντικατάσταση
 
-The most common Poisson exam error is substituting the wrong rate into the formula. Before writing down the PMF, always ask: "Is the rate given for the same interval length as the question asks about?" If not, scale first. Label your scaled rate explicitly (e.g., $\lambda_{2h} = 6$) to avoid confusion during multi-part problems.
+Το πιο συνηθισμένο σφάλμα εξέτασης Poisson είναι η αντικατάσταση του λανθασμένου ποσοστού στον τύπο. Πριν γράψετε το PMF, ρωτάτε πάντα: "Είναι ο ρυθμός που δίνεται για το ίδιο διάστημα με το οποίο τίθεται η ερώτηση;" Εάν όχι, ζυγαρώστε πρώτα. Επισημάνετε ρητά την κλιμακούμενη τιμή σας (π.χ. $\lambda_{2h} = 6$) για να αποφύγετε τη σύγχυση κατά τη διάρκεια προβλημάτων πολλαπλών τμημάτων.
 
-
----
-
-<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_4_geometric_hypergeometric_distributions.md -->
-# Phase 4.4: Geometric and Hypergeometric Distributions
-
-This file covers two important discrete distributions: the **Geometric Distribution** (which models the number of trials until the first success) and the **Hypergeometric Distribution** (which models sampling without replacement).
 
 ---
 
-## 1. Geometric Distribution ($X \sim Geo(p)$)
+<!-- Πηγή: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_4_geometric_hypergeometric_distributions.md -->
+# Φάση 4.4: Γεωμετρικές και Υπεργεωμετρικές Κατανομές
 
-The Geometric distribution models the number of independent Bernoulli trials required to obtain the first success. 
-
-> **Critical Exam Gotcha:** There are two common definitions of the Geometric distribution used in university syllabi. Confusing them will lead to wrong formulas for the PMF and expected value. Always check which definition your professor uses.
-
-### Definition A: Counting the Number of Trials ($k = 1, 2, 3, \dots$)
-Here, $X$ is the trial number of the first success.
-*   **PMF:** $P(X = k) = (1-p)^{k-1} p$
-*   **Mean (Expected Value):** $E[X] = \frac{1}{p}$
-*   **Variance:** $Var(X) = \frac{1-p}{p^2}$
-*   **CDF:** $P(X \le k) = 1 - (1-p)^k$
-
-### Definition B: Counting the Number of Failures Before the First Success ($k = 0, 1, 2, \dots$)
-Here, $Y$ is the number of failures before the first success occurs. Note that $Y = X - 1$.
-*   **PMF:** $P(Y = k) = (1-p)^k p$
-*   **Mean (Expected Value):** $E[Y] = \frac{1-p}{p}$
-*   **Variance:** $Var(Y) = \frac{1-p}{p^2}$
-*   **CDF:** $P(Y \le k) = 1 - (1-p)^{k+1}$
+Αυτό το αρχείο καλύπτει δύο σημαντικές διακριτές κατανομές: τη **Γεωμετρική Κατανομή** (η οποία μοντελοποιεί τον αριθμό των δοκιμών μέχρι την πρώτη επιτυχία) και την **Υπεργεωμετρική Κατανομή** (που μοντελοποιεί τη δειγματοληψία χωρίς αντικατάσταση).
 
 ---
 
-## 2. Hypergeometric Distribution ($X \sim HG(N, K, n)$)
+## 1. Γεωμετρική κατανομή ($X \sim Geo(p)$)
 
-The Hypergeometric distribution models the number of successes in a sample of size $n$ drawn from a finite population of size $N$ containing exactly $K$ successes, **without replacement**.
+Η γεωμετρική κατανομή μοντελοποιεί τον αριθμό των ανεξάρτητων δοκιμών Bernoulli που απαιτούνται για να επιτευχθεί η πρώτη επιτυχία. 
 
-Unlike the Binomial distribution, the trials are **not independent** because the probability of success changes with each draw.
+> **Κρίσιμη εξέταση Gotcha:** Υπάρχουν δύο κοινοί ορισμοί της Γεωμετρικής κατανομής που χρησιμοποιούνται στα αναλυτικά προγράμματα του πανεπιστημίου. Η σύγχυσή τους θα οδηγήσει σε λάθος τύπους για το PMF και την αναμενόμενη τιμή. Ελέγχετε πάντα ποιον ορισμό χρησιμοποιεί ο καθηγητής σας.### Ορισμός Α: Μέτρηση του αριθμού δοκιμών ($k = 1, 2, 3, \dots$)
+Εδώ, $X$ είναι ο αριθμός δοκιμής της πρώτης επιτυχίας.
+* **PMF:** $P(X = k) = (1-p)^{k-1} p$
+* **Μέση τιμή (Αναμενόμενη τιμή):** $E[X] = \frac{1}{p}$
+* **Διακύμανση:** $Var(X) = \frac{1-p}{p^2}$
+* **CDF:** $P(X \le k) = 1 - (1-p)^k$
 
-*   **Parameters:**
-    *   $N$: Total population size
-    *   $K$: Number of success items in the population
-    *   $n$: Number of items drawn (sample size)
-    *   $k$: Number of success items in the sample
-*   **PMF:**
+### Ορισμός Β: Μέτρηση του αριθμού των αποτυχιών πριν από την πρώτη επιτυχία ($k = 0, 1, 2, \dots$)
+Εδώ, $Y$ είναι ο αριθμός των αποτυχιών πριν από την πρώτη επιτυχία. Σημειώστε ότι $Y = X - 1$.
+* **PMF:** $P(Y = k) = (1-p)^k p$
+* **Μέση τιμή (Αναμενόμενη τιμή):** $E[Y] = \frac{1-p}{p}$
+* **Διακύμανση:** $Var(Y) = \frac{1-p}{p^2}$
+* **CDF:** $P(Y \le k) = 1 - (1-p)^{k+1}$
+
+---
+
+## 2. Υπεργεωμετρική κατανομή ($X \sim HG(N, K, n)$)
+
+Η υπεργεωμετρική κατανομή μοντελοποιεί τον αριθμό των επιτυχιών σε ένα δείγμα μεγέθους $n$ που προέρχεται από έναν πεπερασμένο πληθυσμό μεγέθους $N$ που περιέχει ακριβώς $K$ επιτυχίες, **χωρίς αντικατάσταση**.
+
+Σε αντίθεση με τη Διωνυμική κατανομή, οι δοκιμές **δεν είναι ανεξάρτητες** επειδή η πιθανότητα επιτυχίας αλλάζει με κάθε κλήρωση.
+
+* **Παράμετροι:**
+    * $N$: Συνολικό μέγεθος πληθυσμού
+    * $K$: Αριθμός στοιχείων επιτυχίας στον πληθυσμό
+    * $n$: Αριθμός στοιχείων που κληρώθηκαν (μέγεθος δείγματος)
+    * $k$: Αριθμός στοιχείων επιτυχίας στο δείγμα
+* **PMF:**
     $$P(X = k) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}, \quad \max(0, n - (N - K)) \le k \le \min(n, K)$$
-*   **Expected Value:** $E[X] = n \cdot \frac{K}{N}$
-*   **Variance:**
+* **Αναμενόμενη τιμή:** $E[X] = n \cdot \frac{K}{N}$
+* **Διακύμανση:**
     $$Var(X) = n \cdot \frac{K}{N} \cdot \left(1 - \frac{K}{N}\right) \cdot \left(\frac{N - n}{N - 1}\right)$$
-    The term $\frac{N-n}{N-1}$ is known as the **finite population correction factor**.
+    Ο όρος $\frac{N-n}{N-1}$ είναι γνωστός ως **ο συντελεστής διόρθωσης πεπερασμένου πληθυσμού**.
 
 ---
 
-## 3. Solved Exercises (10 Examples)
+## 3. Λυμένες Ασκήσεις (10 Παραδείγματα)
 
-### Exercise 1: Finding first success on a specific trial (Geometric)
-**Problem:** A basketball player makes a free throw with probability $p = 0.7$. Find the probability that they make their first successful free throw on their 4th attempt.
+### Άσκηση 1: Εύρεση της πρώτης επιτυχίας σε μια συγκεκριμένη δοκιμή (Γεωμετρική)
+**Πρόβλημα:** Ένας μπασκετμπολίστας κάνει ελεύθερη βολή με πιθανότητα $p = 0.7$. Βρείτε την πιθανότητα να κάνουν την πρώτη τους επιτυχημένη ελεύθερη βολή στην 4η προσπάθειά τους.
 
-**Solution:**
-- **Step 1: Identify distribution and parameters.**
-  We count the trials, so we use Definition A ($X \sim Geo(0.7)$). We want to find $P(X = 4)$.
-- **Step 2: WIP State.**
-  Formula: $P(X=4) = (1-p)^{4-1} p = (0.3)^3 \cdot ?$
-- **Step 3: Final Calculation.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την κατανομή και τις παραμέτρους.**
+  Μετράμε τις δοκιμές, επομένως χρησιμοποιούμε τον Ορισμό Α ($X \sim Geo(0.7)$). Θέλουμε να βρούμε $P(X = 4)$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Τύπος: $P(X=4) = (1-p)^{4-1} p = (0.3)^3 \cdot ?$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(X=4) = (0.3)^3 \cdot 0.7 = 0.027 \cdot 0.7 = 0.0189.$$
 
 ---
 
-### Exercise 2: Rolling a Die (Geometric)
-**Problem:** A fair six-sided die is rolled repeatedly. What is the expected number of rolls needed to get the first 6?
+### Άσκηση 2: Rolling a Die (Γεωμετρική)
+**Πρόβλημα:** Μια καλή μήτρα έξι όψεων τυλίγεται επανειλημμένα. Ποιος είναι ο αναμενόμενος αριθμός κυλίνδρων που χρειάζονται για να ληφθούν τα πρώτα 6;
 
-**Solution:**
-- **Step 1: Identify parameter.**
-  Success is rolling a 6, so $p = 1/6$. We are counting the number of rolls (trials), so we use Definition A.
-- **Step 2: WIP State.**
-  Expected value $E[X] = \frac{1}{?}$
-- **Step 3: Final Calculation.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την παράμετρο.**
+  Η επιτυχία είναι 6, οπότε $p = 1/6$. Μετράμε τον αριθμό των κυλίνδρων (δοκιμές), επομένως χρησιμοποιούμε τον ορισμό Α.
+- **Βήμα 2: Κατάσταση WIP.**
+  Αναμενόμενη τιμή $E[X] = \frac{1}{?}$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$E[X] = \frac{1}{1/6} = 6 \text{ rolls}.$$
 
 ---
 
-### Exercise 3: Cumulative Geometric Probability ("At Most")
-**Problem:** A computer system has a 5% chance of crash during a boot sequence. What is the probability that the first crash occurs within the first 3 boots?
+### Άσκηση 3: Αθροιστική Γεωμετρική Πιθανότητα ("Το πολύ")
+**Πρόβλημα:** Ένα σύστημα υπολογιστή έχει 5% πιθανότητα να διακοπεί κατά τη διάρκεια μιας ακολουθίας εκκίνησης. Ποια είναι η πιθανότητα να συμβεί το πρώτο τρακάρισμα μέσα στις 3 πρώτες μπότες;
 
-**Solution:**
-- **Step 1: Define variables.**
-  Let $X$ be the boot sequence number of the first crash. $X \sim Geo(0.05)$. We want $P(X \le 3)$.
-- **Step 2: WIP State.**
-  Use the CDF formula: $P(X \le 3) = 1 - (1-p)^3 = 1 - (0.95)^3 = 1 - ?$
-- **Step 3: Final Calculation.**
+**Λύση:**
+- **Βήμα 1: Ορισμός μεταβλητών.**
+  Έστω $X$ ο αριθμός σειράς εκκίνησης του πρώτου σφάλματος. $X \sim Geo(0.05)$. Θέλουμε $P(X \le 3)$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Χρησιμοποιήστε τον τύπο CDF: $P(X \le 3) = 1 - (1-p)^3 = 1 - (0.95)^3 = 1 - ?$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$(0.95)^3 = 0.857375$$
   $$P(X \le 3) = 1 - 0.857375 = 0.142625 \approx 0.1426.$$
 
 ---
 
-### Exercise 4: Geometric Complement Rule ("More Than")
-**Problem:** A salesman makes a sale with a probability of 0.2 on any call. What is the probability that he needs more than 5 calls to make his first sale?
+### Άσκηση 4: Κανόνας Γεωμετρικού Συμπληρώματος ("Περισσότερο από")
+**Πρόβλημα:** Ένας πωλητής πραγματοποιεί μια πώληση με πιθανότητα 0,2 σε οποιαδήποτε κλήση. Ποια είναι η πιθανότητα να χρειαστεί περισσότερες από 5 κλήσεις για να πραγματοποιήσει την πρώτη του πώληση;
 
-**Solution:**
-- **Step 1: Define target probability.**
-  We want $P(X > 5)$, where $X \sim Geo(0.2)$.
-- **Step 2: WIP State.**
-  The complement rule for "more than $k$ trials" is:
+**Λύση:**
+- **Βήμα 1: Ορίστε την πιθανότητα στόχου.**
+  Θέλουμε $P(X > 5)$, όπου $X \sim Geo(0.2)$.
+- **Βήμα 2: Κατάσταση WIP.**Ο κανόνας συμπληρώματος για "περισσότερες από $k$ δοκιμές" είναι:
   $$P(X > k) = (1-p)^k$$
-  So, $P(X > 5) = (1 - 0.2)^5 = (0.8)^5 = ?$
-- **Step 3: Final Calculation.**
+  Λοιπόν, $P(X > 5) = (1 - 0.2)^5 = (0.8)^5 = ?$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(X > 5) = 0.32768 \approx 0.3277.$$
-  *(Exam shortcut: "More than $k$" simply means the first $k$ trials were all failures. So the probability is just $(1-p)^k$. Never sum terms or use the CDF if you can avoid it!)*
+  *(Συντόμευση εξέτασης: "Περισσότερα από $k$" σημαίνει απλώς ότι οι πρώτες δοκιμές $k$ ήταν όλες αποτυχίες. Επομένως, η πιθανότητα είναι απλώς $(1-p)^k$. Ποτέ μην αθροίζετε όρους και μην χρησιμοποιείτε το CDF εάν μπορείτε να το αποφύγετε!)*
 
 ---
 
-### Exercise 5: Memoryless Property of Geometric Distribution
-**Problem:** A tester is testing chips until a defective one is found. The probability of finding a defect on any chip is $p = 0.1$. If the first 5 chips tested were good, what is the probability that the first defective chip is found on the 8th test?
+### Άσκηση 5: Ιδιότητα γεωμετρικής κατανομής χωρίς μνήμη
+**Πρόβλημα:** Ένας ελεγκτής δοκιμάζει μάρκες μέχρι να βρεθεί ελαττωματικό. Η πιθανότητα εύρεσης ελαττώματος σε οποιοδήποτε τσιπ είναι $p = 0.1$. Εάν οι πρώτες 5 μάρκες που δοκιμάστηκαν ήταν καλές, ποια είναι η πιθανότητα να βρεθεί το πρώτο ελαττωματικό τσιπ στην 8η δοκιμή;
 
-**Solution:**
-- **Step 1: Understand the setup.**
-  We want the conditional probability $P(X = 8 | X > 5)$.
-- **Step 2: WIP State.**
-  By the memoryless property of the Geometric distribution, the fact that 5 trials failed does not affect future trials. Thus, finding the first defect on the 8th trial (which is 3 additional trials) is equivalent to finding the first defect on the 3rd trial starting from scratch:
+**Λύση:**
+- **Βήμα 1: Κατανοήστε τη ρύθμιση.**
+  Θέλουμε την υπό όρους πιθανότητα $P(X = 8 | X > 5)$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Με την ιδιότητα χωρίς μνήμη της Γεωμετρικής κατανομής, το γεγονός ότι 5 δοκιμές απέτυχαν δεν επηρεάζει τις μελλοντικές δοκιμές. Έτσι, η εύρεση του πρώτου ελαττώματος στην 8η δοκιμή (που είναι 3 επιπλέον δοκιμές) ισοδυναμεί με την εύρεση του πρώτου ελαττώματος στην 3η δοκιμή ξεκινώντας από την αρχή:
   $$P(X = 8 | X > 5) = P(X = 3) = (0.9)^2 \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(X=3) = 0.81 \cdot 0.1 = 0.081.$$
 
 ---
 
-### Exercise 6: Card Selection (Hypergeometric)
-**Problem:** A hand of 5 cards is dealt from a standard deck of 52 cards. What is the probability that the hand contains exactly 3 Aces?
+### Άσκηση 6: Επιλογή κάρτας (Υπεργεωμετρική)
+**Πρόβλημα:** Ένα χέρι 5 φύλλων μοιράζεται από μια τυπική τράπουλα 52 φύλλων. Ποια είναι η πιθανότητα το χέρι να περιέχει ακριβώς 3 Άσσους;
 
-**Solution:**
-- **Step 1: Identify population and sample parameters.**
-  - Total population $N = 52$
-  - Successes in population $K = 4$ (Aces)
-  - Sample size $n = 5$
-  - Successes in sample $k = 3$
-- **Step 2: WIP State.**
-  We apply the Hypergeometric PMF:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε παραμέτρους πληθυσμού και δείγματος.**
+  - Συνολικός πληθυσμός $N = 52$
+  - Επιτυχίες στον πληθυσμό $K = 4$ (Άσσοι)
+  - Μέγεθος δείγματος $n = 5$
+  - Επιτυχίες στο δείγμα $k = 3$
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόζουμε το Υπεργεωμετρικό PMF:
   $$P(X = 3) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}} = \frac{\binom{4}{3} \binom{48}{2}}{\binom{52}{5}}$$
   - $\binom{4}{3} = 4$
   - $\binom{48}{2} = \frac{48 \cdot 47}{2} = 1128$
   - $\binom{52}{5} = ?$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $\binom{52}{5} = 2,598,960$
   - $P(X=3) = \frac{4 \cdot 1128}{2,598,960} = \frac{4512}{2,598,960} \approx 0.001736$.
 
 ---
 
-### Exercise 7: Quality Control (Hypergeometric)
-**Problem:** A box contains 20 components, of which 4 are defective. An engineer randomly selects 5 components without replacement. Find the probability that no defective components are in the sample.
+### Άσκηση 7: Ποιοτικός έλεγχος (Υπεργεωμετρικός)
+**Πρόβλημα:** Ένα κουτί περιέχει 20 εξαρτήματα, εκ των οποίων τα 4 είναι ελαττωματικά. Ένας μηχανικός επιλέγει τυχαία 5 εξαρτήματα χωρίς αντικατάσταση. Βρείτε την πιθανότητα να μην υπάρχουν ελαττωματικά εξαρτήματα στο δείγμα.
 
-**Solution:**
-- **Step 1: Map parameters.**
-  - Population $N = 20$, Defectives (successes) $K = 4$, Sample size $n = 5$.
-  - We want $P(X = 0)$ successes in the sample.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Παράμετροι χάρτη.**
+  - Πληθυσμός $N = 20$, Ελαττώματα (επιτυχίες) $K = 4$, Μέγεθος δείγματος $n = 5$.
+  - Θέλουμε $P(X = 0)$ επιτυχίες στο δείγμα.
+- **Βήμα 2: Κατάσταση WIP.**
   $$P(X = 0) = \frac{\binom{4}{0} \binom{16}{5}}{\binom{20}{5}} = \frac{1 \cdot \frac{16!}{5! \cdot 11!}}{\frac{20!}{5! \cdot 15!}} = \frac{4368}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $\binom{20}{5} = 15,504$
   - $P(X = 0) = \frac{4368}{15,504} \approx 0.2817$.
 
 ---
 
-### Exercise 8: Expected Value & Variance of Hypergeometric
-**Problem:** Using the same quality control setup from Exercise 7 ($N=20, K=4, n=5$), calculate the expected number of defective components in the sample and the variance.
+### Άσκηση 8: Αναμενόμενη Τιμή & Διακύμανση Υπεργεωμετρικού
+**Πρόβλημα:** Χρησιμοποιώντας την ίδια ρύθμιση ποιοτικού ελέγχου από την Άσκηση 7 ($N=20, K=4, n=5$), υπολογίστε τον αναμενόμενο αριθμό ελαττωματικών εξαρτημάτων στο δείγμα και τη διακύμανση.
 
-**Solution:**
-- **Step 1: Calculate Mean.**
+**Λύση:**
+- **Βήμα 1: Υπολογισμός μέσου όρου.**
   $$E[X] = n \cdot \frac{K}{N} = 5 \cdot \frac{4}{20} = 1$$
-- **Step 2: WIP State for Variance.**
+- **Βήμα 2: Κατάσταση WIP για διακύμανση.**
   $$Var(X) = n \cdot \frac{K}{N} \cdot \left(1 - \frac{K}{N}\right) \cdot \left(\frac{N - n}{N - 1}\right)$$
   $$Var(X) = 5 \cdot \frac{4}{20} \cdot \left(1 - \frac{4}{20}\right) \cdot \left(\frac{20 - 5}{20 - 1}\right) = 1 \cdot 0.8 \cdot \frac{15}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$Var(X) = 0.8 \cdot \frac{15}{19} = \frac{12}{19} \approx 0.6316.$$
 
 ---
 
-### Exercise 9: Hypergeometric vs. Binomial Approximation
-**Problem:** A batch of 1000 items contains 100 defective items. If a sample of 10 items is selected without replacement, find the exact probability of getting exactly 1 defective item using the Hypergeometric distribution, and compare it to the Binomial approximation.
+### Άσκηση 9: Υπεργεωμετρική έναντι διωνυμικής προσέγγισης
+**Πρόβλημα:** Μια παρτίδα 1000 ειδών περιέχει 100 ελαττωματικά είδη. Εάν επιλεγεί ένα δείγμα 10 στοιχείων χωρίς αντικατάσταση, βρείτε την ακριβή πιθανότητα να λάβετε ακριβώς 1 ελαττωματικό αντικείμενο χρησιμοποιώντας την Υπεργεωμετρική κατανομή και συγκρίνετε το με τη διωνυμική προσέγγιση.
 
-**Solution:**
-- **Step 1: Exact Hypergeometric calculation.**
+**Λύση:**
+- **Βήμα 1: Ακριβής Υπεργεωμετρικός Υπολογισμός.**
   $N = 1000, K = 100, n = 10, k = 1$.
   $$P(X = 1) = \frac{\binom{100}{1} \binom{900}{9}}{\binom{1000}{10}} \approx 0.3899$$
-- **Step 2: WIP State for Binomial approximation.**
-  Since the population $N$ is very large compared to the sample size $n$ ($n/N = 10/1000 = 0.01 \le 0.05$), we can approximate this using a Binomial model with $p = K/N = 0.1$.
+- **Βήμα 2: Κατάσταση WIP για διωνυμική προσέγγιση.**Δεδομένου ότι ο πληθυσμός $N$ είναι πολύ μεγάλος σε σύγκριση με το μέγεθος του δείγματος $n$ ($n/N = 10/1000 = 0.01 \le 0.05$), μπορούμε να το προσεγγίσουμε χρησιμοποιώντας ένα Διωνυμικό μοντέλο με $p = K/N = 0.1$.
   $$Y \sim B(10, 0.1)$$
   $$P(Y = 1) = \binom{10}{1} (0.1)^1 (0.9)^9 = 10 \cdot 0.1 \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$(0.9)^9 = 0.38742$$
   $$P(Y=1) = 1 \cdot 0.38742 = 0.3874$$
-  **Comparison:** The difference is very small ($0.3899 - 0.3874 = 0.0025$). This illustrates why the Binomial approximation is highly accurate when the sample is less than 5% of the population.
+  **Σύγκριση:** Η διαφορά είναι πολύ μικρή ($0.3899 - 0.3874 = 0.0025$). Αυτό δείχνει γιατί η διωνυμική προσέγγιση είναι πολύ ακριβής όταν το δείγμα είναι λιγότερο από το 5% του πληθυσμού.
 
 ---
 
-### Exercise 10: Cumulative Hypergeometric ("At Least")
-**Problem:** A bag contains 6 red marbles and 4 blue marbles. A child draws 3 marbles at random without replacement. Find the probability of getting at least 2 red marbles.
+### Άσκηση 10: Αθροιστική Υπεργεωμετρική ("Τουλάχιστον")
+**Πρόβλημα:** Μια τσάντα περιέχει 6 κόκκινα μάρμαρα και 4 μπλε μάρμαρα. Ένα παιδί ζωγραφίζει 3 μάρμαρα τυχαία χωρίς αντικατάσταση. Βρείτε την πιθανότητα να πάρετε τουλάχιστον 2 κόκκινα μάρμαρα.
 
-**Solution:**
-- **Step 1: Map variables.**
-  - Population $N = 10$, Red Marbles $K = 6$, Sample size $n = 3$.
-  - We want $P(X \ge 2) = P(X = 2) + P(X = 3)$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Μεταβλητές χάρτη.**
+  - Πληθυσμός $N = 10$, Red Marbles $K = 6$, Μέγεθος δείγματος $n = 3$.
+  - Θέλουμε $P(X \ge 2) = P(X = 2) + P(X = 3)$.
+- **Βήμα 2: Κατάσταση WIP.**
   - $P(X=2) = \frac{\binom{6}{2} \binom{4}{1}}{\binom{10}{3}} = \frac{15 \cdot 4}{120} = \frac{60}{120} = 0.5$
   - $P(X=3) = \frac{\binom{6}{3} \binom{4}{0}}{\binom{10}{3}} = \frac{20 \cdot 1}{?}$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $P(X=3) = \frac{20}{120} \approx 0.1667$.
   - $P(X \ge 2) = 0.5 + 0.1667 = 0.6667$.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_5_moment_generating_functions.md -->
-# Phase 4.5: Moment Generating Functions and Characteristic Functions
+<!-- Πηγή: ../Resources/Phase_4_Discrete_Random_Variables/phase_4_5_moment_generating_functions.md -->
+# Φάση 4.5: Λειτουργίες δημιουργίας στιγμής και χαρακτηριστικές συναρτήσεις
 
-This file introduces **Moment Generating Functions (MGFs)** and **Characteristic Functions**, which are powerful tools for finding moments (mean, variance, etc.) and identifying the distributions of sums of independent random variables.
+Αυτό το αρχείο παρουσιάζει τις **Συναρτήσεις Δημιουργίας Στιγμών (MGF)** και **Χαρακτηριστικές Συναρτήσεις**, οι οποίες είναι ισχυρά εργαλεία για την εύρεση ροπών (μέσος όρος, διακύμανση, κ.λπ.) και τον προσδιορισμό των κατανομών των αθροισμάτων ανεξάρτητων τυχαίων μεταβλητών.
 
 ---
 
-## 1. Moment Generating Function (MGF)
+## 1. Λειτουργία δημιουργίας στιγμής (MGF)
 
-### 1.1 Definition
-The Moment Generating Function $M_X(t)$ of a random variable $X$ is defined for all real values of $t$ for which the expected value exists in an open interval around $t = 0$:
+### 1.1 Ορισμός
+Η συνάρτηση δημιουργίας ροπής $M_X(t)$ μιας τυχαίας μεταβλητής $X$ ορίζεται για όλες τις πραγματικές τιμές του $t$ για τις οποίες η αναμενόμενη τιμή υπάρχει σε ένα ανοιχτό διάστημα γύρω στο $t = 0$:
 
 $$M_X(t) = E\left[e^{tX}\right]$$
 
-*   **Discrete RV:** $M_X(t) = \sum_{x} e^{tx} \cdot P(X = x)$
-*   **Continuous RV:** $M_X(t) = \int_{-\infty}^{\infty} e^{tx} \cdot f(x) \, dx$
+* **Διακριτή RV:** $M_X(t) = \sum_{x} e^{tx} \cdot P(X = x)$
+* **Συνεχής RV:** $M_X(t) = \int_{-\infty}^{\infty} e^{tx} \cdot f(x) \, dx$
 
-### 1.2 Finding Moments via Differentiation
-The term "moment generating" comes from the fact that we can generate any $n$-th raw moment $E[X^n]$ by taking the $n$-th derivative of $M_X(t)$ with respect to $t$ and evaluating it at $t = 0$:
+### 1.2 Εύρεση Στιγμών μέσω Διαφοροποίησης
+Ο όρος "δημιουργία στιγμής" προέρχεται από το γεγονός ότι μπορούμε να δημιουργήσουμε οποιαδήποτε $n$-η ακατέργαστη ροπή $E[X^n]$ λαμβάνοντας την $n$_η παράγωγο του $M_X(t)$ σε σχέση με __MATHINLINE1368uTHIN_LINE στο e3:
 
 $$E[X^n] = \left. \frac{d^n}{dt^n} M_X(t) \right|_{t=0} = M_X^{(n)}(0)$$
 
-Specifically:
-*   **Mean:** $E[X] = M'_X(0)$
-*   **Variance:** $Var(X) = E[X^2] - (E[X])^2 = M''_X(0) - (M'_X(0))^2$
+Συγκεκριμένα:
+* **Μέσος όρος: ** $E[X] = M'_X(0)$
+* **Διακύμανση:** $Var(X) = E[X^2] - (E[X])^2 = M''_X(0) - (M'_X(0))^2$
 
-### 1.3 Key Properties
-1.  **Linear Transformation:** If $Y = aX + b$, then:
+### 1.3 Ιδιότητες κλειδιών
+1. **Γραμμικός μετασχηματισμός:** Εάν $Y = aX + b$, τότε:
     $$M_Y(t) = M_{aX+b}(t) = e^{bt} \cdot M_X(at)$$
-2.  **Sum of Independent RVs:** If $X$ and $Y$ are independent random variables, the MGF of their sum is the product of their individual MGFs:
+2. **Άθροισμα ανεξάρτητων RV:** Εάν οι $X$ και $Y$ είναι ανεξάρτητες τυχαίες μεταβλητές, το MGF του αθροίσματος τους είναι το γινόμενο των επιμέρους MGF τους:
     $$M_{X+Y}(t) = M_X(t) \cdot M_Y(t)$$
-3.  **Uniqueness Theorem:** If two random variables have the same MGF in an interval containing 0, they have the exact same probability distribution.
+3. **Θεώρημα μοναδικότητας:** Εάν δύο τυχαίες μεταβλητές έχουν το ίδιο MGF σε ένα διάστημα που περιέχει 0, έχουν την ίδια ακριβώς κατανομή πιθανότητας.
 
 ---
 
-## 2. Common MGFs
+## 2. Κοινά MGF
 
-| Distribution | parameters | MGF $M_X(t)$ |
+| Διανομή | παράμετροι | MGF $M_X(t)$ |
 | :--- | :--- | :--- |
-| **Bernoulli** | $p$ | $q + p e^t \quad (\text{where } q = 1-p)$ |
-| **Binomial** | $n, p$ | $(q + p e^t)^n$ |
+| **Μπερνούλι** | $p$ | $q + p e^t \quad (\text{where } q = 1-p)$ |
+| **Διωνυμικό** | $n, p$ | $(q + p e^t)^n$ |
 | **Poisson** | $\lambda$ | $e^{\lambda (e^t - 1)}$ |
-| **Geometric** (Definition A) | $p$ | $\frac{p e^t}{1 - q e^t} \quad (\text{for } t < -\ln q)$ |
-| **Exponential** | $\lambda$ | $\frac{\lambda}{\lambda - t} \quad (\text{for } t < \lambda)$ |
-| **Normal** | $\mu, \sigma^2$ | $e^{\mu t + \frac{1}{2}\sigma^2 t^2}$ |
+| **Γεωμετρική** (Ορισμός Α) | $p$ | $\frac{p e^t}{1 - q e^t} \quad (\text{for } t < -\ln q)$ |
+| **Εκθετικό** | $\lambda$ | $\frac{\lambda}{\lambda - t} \quad (\text{for } t < \lambda)$ |
+| **Κανονικό** | $\mu, \sigma^2$ | $e^{\mu t + \frac{1}{2}\sigma^2 t^2}$ |
 
 ---
 
-## 3. Characteristic Function ($\phi_X(t)$)
+## 3. Χαρακτηριστική συνάρτηση ($\phi_X(t)$)
 
-The MGF of a random variable might not exist if the integral or sum does not converge for $t \neq 0$ (e.g., Cauchy distribution). To guarantee existence, we define the **Characteristic Function** using complex numbers:
+Το MGF μιας τυχαίας μεταβλητής μπορεί να μην υπάρχει εάν το ολοκλήρωμα ή το άθροισμα δεν συγκλίνει για $t \neq 0$ (π.χ. κατανομή Cauchy). Για να εγγυηθούμε την ύπαρξη, ορίζουμε τη **Χαρακτηριστική Συνάρτηση** χρησιμοποιώντας μιγαδικούς αριθμούς:$$\phi_X(t) = E\left[e^{itX}\right] = E[\cos(tX)] + i \cdot E[\sin(tX)]$$
 
-$$\phi_X(t) = E\left[e^{itX}\right] = E[\cos(tX)] + i \cdot E[\sin(tX)]$$
-
-Since $|e^{itX}| = 1$ for all real $t$ and $X$, the expectation $\phi_X(t)$ is **guaranteed to exist** for all random variables. The properties of characteristic functions are identical to MGFs, replacing $t$ with $it$.
+Εφόσον $|e^{itX}| = 1$ για όλες τις πραγματικές $t$ και $X$, η προσδοκία $\phi_X(t)$ είναι **εγγυημένη ότι υπάρχει** για όλες τις τυχαίες μεταβλητές. Οι ιδιότητες των χαρακτηριστικών συναρτήσεων είναι πανομοιότυπες με τις MGF, αντικαθιστώντας το $t$ με το $it$.
 
 ---
 
-## 4. Solved Exercises (9 Examples)
+## 4. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Finding moments from an MGF
-**Problem:** The MGF of a random variable $X$ is $M_X(t) = \frac{1}{1 - 2t}$ for $t < 0.5$. Find the mean and variance of $X$.
+### Άσκηση 1: Εύρεση στιγμών από ένα MGF
+**Πρόβλημα:** Το MGF μιας τυχαίας μεταβλητής $X$ είναι $M_X(t) = \frac{1}{1 - 2t}$ για $t < 0.5$. Βρείτε τον μέσο όρο και τη διακύμανση του $X$.
 
-**Solution:**
-- **Step 1: Compute the first derivative.**
+**Λύση:**
+- **Βήμα 1: Υπολογίστε την πρώτη παράγωγο.**
   $$M_X(t) = (1 - 2t)^{-1}$$
   $$M'_X(t) = -1 \cdot (1 - 2t)^{-2} \cdot (-2) = 2 \cdot (1 - 2t)^{-2}$$
-- **Step 2: WIP State for mean.**
-  Evaluate at $t=0$:
+- **Βήμα 2: Κατάσταση WIP για τη μέση.**
+  Αξιολογήστε στο $t=0$:
   $$E[X] = M'_X(0) = 2 \cdot (1 - 0)^{-2} = ?$$
-- **Step 3: Compute the second derivative and variance.**
-  - Mean $E[X] = 2$.
-  - Second derivative:
+- **Βήμα 3: Υπολογίστε τη δεύτερη παράγωγο και τη διακύμανση.**
+  - Μέσος όρος $E[X] = 2$.
+  - Δεύτερη παράγωγος:
     $$M''_X(t) = 2 \cdot (-2) \cdot (1 - 2t)^{-3} \cdot (-2) = 8 \cdot (1 - 2t)^{-3}$$
-  - Evaluate at $t=0$: $E[X^2] = M''_X(0) = 8 \cdot (1)^{-3} = 8$.
-  - Variance:
+  - Αξιολογήστε στο $t=0$: $E[X^2] = M''_X(0) = 8 \cdot (1)^{-3} = 8$.
+  - Διακύμανση:
     $$Var(X) = E[X^2] - (E[X])^2 = 8 - 2^2 = 8 - 4 = 4.$$
 
 ---
 
-### Exercise 2: Deriving the MGF of a Bernoulli Distribution
-**Problem:** Derive the MGF of a Bernoulli random variable $X$ with success probability $p$.
+### Άσκηση 2: Εξαγωγή του MGF μιας κατανομής Bernoulli
+**Πρόβλημα:** Εξάγετε το MGF μιας τυχαίας μεταβλητής Bernoulli $X$ με πιθανότητα επιτυχίας $p$.
 
-**Solution:**
-- **Step 1: Set up the sum.**
-  A Bernoulli variable takes value 1 with probability $p$ and 0 with probability $q = 1-p$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε το άθροισμα.**
+  Μια μεταβλητή Bernoulli παίρνει τιμή 1 με πιθανότητα $p$ και 0 με πιθανότητα $q = 1-p$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$M_X(t) = E\left[e^{tX}\right] = e^{t(0)} \cdot P(X=0) + e^{t(1)} \cdot P(X=1) = 1 \cdot q + ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M_X(t) = q + p e^t.$$
 
 ---
 
-### Exercise 3: Sum of Independent Poissons
-**Problem:** Let $X \sim Po(\lambda_1)$ and $Y \sim Po(\lambda_2)$ be independent random variables. Find the distribution of $W = X + Y$.
+### Άσκηση 3: Άθροισμα Ανεξάρτητων Poisson
+**Πρόβλημα:** Έστω οι $X \sim Po(\lambda_1)$ και $Y \sim Po(\lambda_2)$ ανεξάρτητες τυχαίες μεταβλητές. Βρείτε την κατανομή του $W = X + Y$.
 
-**Solution:**
-- **Step 1: Set up the MGF multiplication.**
-  Since $X$ and $Y$ are independent, $M_W(t) = M_X(t) \cdot M_Y(t)$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε τον πολλαπλασιασμό MGF.**
+  Εφόσον τα $X$ και $Y$ είναι ανεξάρτητα, $M_W(t) = M_X(t) \cdot M_Y(t)$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$M_X(t) = e^{\lambda_1 (e^t - 1)}, \quad M_Y(t) = e^{\lambda_2 (e^t - 1)}$$
   $$M_W(t) = e^{\lambda_1 (e^t - 1)} \cdot e^{\lambda_2 (e^t - 1)} = e^{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M_W(t) = e^{(\lambda_1 + \lambda_2)(e^t - 1)}$$
-  By the uniqueness theorem, this is the MGF of a Poisson distribution with parameter $\lambda_1 + \lambda_2$.
-  Thus, $W \sim Po(\lambda_1 + \lambda_2)$.
+  Σύμφωνα με το θεώρημα της μοναδικότητας, αυτό είναι το MGF μιας κατανομής Poisson με παράμετρο $\lambda_1 + \lambda_2$.
+  Έτσι, $W \sim Po(\lambda_1 + \lambda_2)$.
 
 ---
 
-### Exercise 4: MGF Linear Transformation
-**Problem:** If $X$ has MGF $M_X(t) = e^{2t + 8t^2}$, find the MGF of $Y = 3X - 5$.
+### Άσκηση 4: Γραμμικός μετασχηματισμός MGF
+**Πρόβλημα:** Εάν το $X$ έχει MGF $M_X(t) = e^{2t + 8t^2}$, βρείτε το MGF του $Y = 3X - 5$.
 
-**Solution:**
-- **Step 1: Use the linear transformation formula.**
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε τον τύπο γραμμικού μετασχηματισμού.**
   $$M_Y(t) = e^{-5t} \cdot M_X(3t)$$
-- **Step 2: WIP State.**
-  Substitute $3t$ for $t$ in $M_X(t)$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Αντικαταστήστε το $3t$ για το $t$ στο $M_X(t)$:
   $$M_X(3t) = e^{2(3t) + 8(3t)^2} = e^{6t + 8(9t^2)} = e^{6t + ?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M_X(3t) = e^{6t + 72t^2}$$
   $$M_Y(t) = e^{-5t} \cdot e^{6t + 72t^2} = e^{(-5t + 6t + 72t^2)} = e^{t + 72t^2}$$
-  *(Exam note: Since the MGF of a normal variable is $e^{\mu t + \frac{1}{2}\sigma^2 t^2}$, this proves $Y \sim N(1, 144)$ because $\mu = 1$ and $\frac{1}{2}\sigma^2 = 72 \Rightarrow \sigma^2 = 144$.)*
+  *(Σημείωση εξέτασης: Εφόσον το MGF μιας κανονικής μεταβλητής είναι $e^{\mu t + \frac{1}{2}\sigma^2 t^2}$, αυτό αποδεικνύει $Y \sim N(1, 144)$ επειδή $\mu = 1$ και $\frac{1}{2}\sigma^2 = 72 \Rightarrow \sigma^2 = 144$.)*
 
 ---
 
-### Exercise 5: Expected value from discrete probability generating MGF
-**Problem:** A discrete random variable $X$ has PMF $P(X=1) = 0.2$, $P(X=2) = 0.5$, $P(X=3) = 0.3$. Write its MGF and compute the mean.
+### Άσκηση 5: Αναμενόμενη τιμή από διακριτή πιθανότητα που δημιουργεί MGF
+**Πρόβλημα:** Μια διακριτή τυχαία μεταβλητή $X$ έχει PMF $P(X=1) = 0.2$, $P(X=2) = 0.5$, $P(X=3) = 0.3$. Γράψτε το MGF του και υπολογίστε το μέσο όρο.
 
-**Solution:**
-- **Step 1: Write the MGF expression.**
+**Λύση:**
+- **Βήμα 1: Γράψτε την έκφραση MGF.**
   $$M_X(t) = \sum e^{tx} P(X=x) = 0.2 e^t + 0.5 e^{2t} + 0.3 e^{3t}$$
-- **Step 2: WIP State for derivative.**
+- **Βήμα 2: Κατάσταση WIP για παράγωγο.**
   $$M'_X(t) = \frac{d}{dt}\left(0.2 e^t + 0.5 e^{2t} + 0.3 e^{3t}\right) = 0.2 e^t + 1.0 e^{2t} + ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M'_X(t) = 0.2 e^t + 1.0 e^{2t} + 0.9 e^{3t}$$
-  Evaluate at $t=0$:
+  Αξιολογήστε στο $t=0$:
   $$E[X] = M'_X(0) = 0.2 + 1.0 + 0.9 = 2.1.$$
 
 ---
 
-### Exercise 6: Sum of Independent Binomials
-**Problem:** Let $X \sim B(n, p)$ and $Y \sim B(m, p)$ be independent random variables. Find the distribution of $W = X + Y$.
+### Άσκηση 6: Άθροισμα ανεξάρτητων διωνύμων
+**Πρόβλημα:** Έστω οι $X \sim B(n, p)$ και $Y \sim B(m, p)$ ανεξάρτητες τυχαίες μεταβλητές. Βρείτε την κατανομή του $W = X + Y$.
 
-**Solution:**
-- **Step 1: Recall MGF formulas.**
+**Λύση:**
+- **Βήμα 1: Ανάκληση τύπων MGF.**
   $$M_X(t) = (q + p e^t)^n, \quad M_Y(t) = (q + p e^t)^m$$
-- **Step 2: WIP State.**
+- **Βήμα 2: Κατάσταση WIP.**
   $$M_W(t) = M_X(t) \cdot M_Y(t) = (q + p e^t)^n \cdot (q + p e^t)^m = (q + p e^t)^{?}$$
-- **Step 3: Final Calculation.**
-  $$M_W(t) = (q + p e^t)^{n+m}$$
-  By the uniqueness theorem, this matches the MGF of a Binomial distribution with parameters $n+m$ and $p$.
-  Thus, $W \sim B(n + m, p)$.
-  *(Warning: This property ONLY holds if the success probability $p$ is identical for both variables!)*
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  $$M_W(t) = (q + p e^t)^{n+m}$$Με το θεώρημα της μοναδικότητας, αυτό ταιριάζει με το MGF μιας διωνυμικής κατανομής με τις παραμέτρους $n+m$ και $p$.
+  Έτσι, $W \sim B(n + m, p)$.
+  *(Προειδοποίηση: Αυτή η ιδιότητα ισχύει ΜΟΝΟ εάν η πιθανότητα επιτυχίας $p$ είναι ίδια και για τις δύο μεταβλητές!)*
 
 ---
 
-### Exercise 7: Deriving Exponential MGF
-**Problem:** Derive the MGF of $X \sim Exp(\lambda)$.
+### Άσκηση 7: Παραγωγή Εκθετικού MGF
+**Πρόβλημα:** Εξάγετε το MGF του $X \sim Exp(\lambda)$.
 
-**Solution:**
-- **Step 1: Set up the integral.**
-  The PDF is $f(x) = \lambda e^{-\lambda x}$ for $x \ge 0$.
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε το ολοκλήρωμα.**
+  Το PDF είναι $f(x) = \lambda e^{-\lambda x}$ για $x \ge 0$.
   $$M_X(t) = \int_{0}^{\infty} e^{tx} \cdot \lambda e^{-\lambda x} \, dx = \lambda \int_{0}^{\infty} e^{(t - \lambda)x} \, dx$$
-- **Step 2: WIP State.**
-  Evaluate the integral (assuming $t < \lambda$ for convergence):
+- **Βήμα 2: Κατάσταση WIP.**
+  Αξιολογήστε το ολοκλήρωμα (υποθέτοντας $t < \lambda$ για σύγκλιση):
   $$\int_{0}^{\infty} e^{(t - \lambda)x} \, dx = \left[ \frac{e^{(t - \lambda)x}}{t - \lambda} \right]_{0}^{\infty} = 0 - \frac{1}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = t - \lambda$$
   $$M_X(t) = \lambda \cdot \left( \frac{-1}{t - \lambda} \right) = \frac{\lambda}{\lambda - t} \quad (\text{for } t < \lambda).$$
 
 ---
 
-### Exercise 8: Expansion of MGF to find moments
-**Problem:** If the MGF of $X$ is $M_X(t) = e^{t^2/2}$, find $E[X^4]$ using Taylor expansion.
+### Άσκηση 8: Επέκταση του MGF για εύρεση στιγμών
+**Πρόβλημα:** Εάν το MGF του $X$ είναι $M_X(t) = e^{t^2/2}$, βρείτε το $E[X^4]$ χρησιμοποιώντας την επέκταση Taylor.
 
-**Solution:**
-- **Step 1: Recall the Taylor series for $e^u$.**
+**Λύση:**
+- **Βήμα 1: Ανάκληση της σειράς Taylor για $e^u$.**
   $$e^u = 1 + u + \frac{u^2}{2!} + \frac{u^3}{3!} + \dots$$
-- **Step 2: WIP State.**
-  Substitute $u = t^2/2$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Αντικαταστάτης $u = t^2/2$:
   $$M_X(t) = 1 + \left(\frac{t^2}{2}\right) + \frac{\left(\frac{t^2}{2}\right)^2}{2!} + \frac{\left(\frac{t^2}{2}\right)^3}{3!} + \dots$$
   $$M_X(t) = 1 + \frac{t^2}{2} + \frac{t^4}{8} + \dots$$
-  Recall the general definition of MGF as a power series of moments:
+  Θυμηθείτε τον γενικό ορισμό του MGF ως μια σειρά ισχύος ροπών:
   $$M_X(t) = \sum_{k=0}^{\infty} \frac{E[X^k]}{k!} t^k = 1 + E[X]t + \frac{E[X^2]}{2!} t^2 + \frac{E[X^3]}{3!} t^3 + \frac{E[X^4]}{4!} t^4 + \dots$$
-- **Step 3: Final Calculation.**
-  Compare coefficients of $t^4$:
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Συγκρίνετε συντελεστές $t^4$:
   $$\frac{E[X^4]}{4!} = \frac{1}{8} \implies E[X^4] = \frac{4!}{8} = \frac{24}{8} = 3.$$
 
 ---
 
-### Exercise 9: Characteristic function of a symmetric distribution
-**Problem:** Show that if a random variable $X$ is symmetric about 0 (i.e. $X$ and $-X$ have the same distribution), then its characteristic function $\phi_X(t)$ is purely real.
+### Άσκηση 9: Χαρακτηριστική συνάρτηση συμμετρικής κατανομής
+**Πρόβλημα:** Δείξτε ότι αν μια τυχαία μεταβλητή $X$ είναι συμμετρική περίπου 0 (δηλαδή οι $X$ και $-X$ έχουν την ίδια κατανομή), τότε η χαρακτηριστική της συνάρτηση $\phi_X(t)$ είναι καθαρά πραγματική.
 
-**Solution:**
-- **Step 1: Relate $\phi_X(t)$ to $\phi_{-X}(t)$.**
+**Λύση:**
+- **Βήμα 1: Συσχετίστε το $\phi_X(t)$ με το $\phi_{-X}(t)$.**
   $$\phi_{-X}(t) = E\left[e^{it(-X)}\right] = \phi_X(-t)$$
-- **Step 2: WIP State.**
-  Since $X$ is symmetric, $X \sim -X$, meaning their characteristic functions must be identical:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφόσον το $X$ είναι συμμετρικό, $X \sim -X$, που σημαίνει ότι οι χαρακτηριστικές συναρτήσεις τους πρέπει να είναι ίδιες:
   $$\phi_X(t) = \phi_{-X}(t) \implies \phi_X(t) = \phi_X(-t)$$
-  Also, recall that the complex conjugate is:
+  Επίσης, θυμηθείτε ότι το σύνθετο συζυγές είναι:
   $$\overline{\phi_X(t)} = \overline{E[\cos(tX) + i\sin(tX)]} = E[\cos(tX)] - i E[\sin(tX)] = \phi_X(-t)$$
-- **Step 3: Final Calculation.**
-  Combining these yields:
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Συνδυάζοντας αυτές τις αποδόσεις:
   $$\overline{\phi_X(t)} = \phi_X(t)$$
-  Any complex number equal to its own conjugate must be purely real. Thus, $\phi_X(t)$ is purely real (and specifically, $E[\sin(tX)] = 0$).
+  Κάθε μιγαδικός αριθμός ίσος με το δικό του συζυγές πρέπει να είναι καθαρά πραγματικός. Επομένως, το $\phi_X(t)$ είναι καθαρά πραγματικό (και συγκεκριμένα, $E[\sin(tX)] = 0$).
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_1_normal_distribution.md -->
-# Phase 5.1: Normal Distribution
+<!-- Πηγή: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_1_normal_distribution.md -->
+# Φάση 5.1: Κανονική κατανομή
 
-The Normal Distribution ($X \sim N(\mu, \sigma^2)$) is the most important continuous distribution in statistics. It is characterized by its symmetric, bell-shaped curve, where the mean, median, and mode are all equal and located at the center.
+Η Κανονική Κατανομή ($X \sim N(\mu, \sigma^2)$) είναι η πιο σημαντική συνεχής κατανομή στα στατιστικά. Χαρακτηρίζεται από τη συμμετρική καμπύλη σε σχήμα καμπάνας, όπου ο μέσος όρος, η διάμεσος και ο τρόπος είναι όλα ίσα και βρίσκονται στο κέντρο.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-### The Standardization Process
-Since there are infinitely many normal distributions (different $\mu$ and $\sigma$), we use the **Standard Normal Distribution** ($Z \sim N(0, 1)$) as a universal reference. We transform any value $x$ into a $Z$-score using the formula:
+### Η Διαδικασία Τυποποίησης
+Εφόσον υπάρχουν άπειρες κανονικές κατανομές (διαφορετικές $\mu$ και $\sigma$), χρησιμοποιούμε την **Τυπική Κανονική Κατανομή** ($Z \sim N(0, 1)$) ως καθολική αναφορά. Μετατρέπουμε οποιαδήποτε τιμή $x$ σε $Z$-βαθμολογία χρησιμοποιώντας τον τύπο:
 
 $$Z = \frac{X - \mu}{\sigma}$$
 
-*   **$Z$**: The number of standard deviations a value is from the mean.
-*   **$\mu$**: The population mean.
-*   **$\sigma$**: The population standard deviation (**Note:** If given variance $\sigma^2$, you must take the square root!).
+* **$Z$**: Ο αριθμός των τυπικών αποκλίσεων μια τιμή είναι από τη μέση τιμή.
+* **$\mu$**: Ο μέσος όρος πληθυσμού.
+* **$\sigma$**: Η τυπική απόκλιση πληθυσμού (**Σημείωση:** Εάν δίνεται διακύμανση $\sigma^2$, πρέπει να πάρετε την τετραγωνική ρίζα!).
 
-### Reading the Z-Table
-Z-tables typically provide the "area to the left" of a given $z$, denoted as $P(Z \le z)$ or $\Phi(z)$.
+### Διαβάζοντας το Z-Table
+Οι πίνακες Z παρέχουν συνήθως την "περιοχή στα αριστερά" ενός δεδομένου $z$, που δηλώνεται ως $P(Z \le z)$ ή $\Phi(z)$.
 
-### Symmetry & Complement Rules
-Because the curve is perfectly symmetric:
-1.  **Lower Tail:** $P(Z \le -z) = 1 - P(Z \le z)$.
-2.  **Upper Tail:** $P(Z \ge z) = 1 - P(Z \le z)$.
-3.  **Intervals:** $P(a \le Z \le b) = P(Z \le b) - P(Z \le a)$.
-4.  **Equality:** For any continuous distribution, $P(X = x) = 0$. Therefore, $P(X < x)$ is the same as $P(X \le x)$.
+### Κανόνες συμμετρίας & συμπληρώματος
+Επειδή η καμπύλη είναι απόλυτα συμμετρική:
+1. **Κάτω ουρά:** $P(Z \le -z) = 1 - P(Z \le z)$.
+2. **Upper Tail:** $P(Z \ge z) = 1 - P(Z \le z)$.
+3. **Διαστήματα:** $P(a \le Z \le b) = P(Z \le b) - P(Z \le a)$.4. **Ισότητα:** Για οποιαδήποτε συνεχή κατανομή, $P(X = x) = 0$. Επομένως, το $P(X < x)$ είναι το ίδιο με το $P(X \le x)$.
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Basic Standardization
-A variable $X$ follows $N(100, 25)$. Find the $Z$-score for $x = 110$.
+### Παράδειγμα 1: Βασική Τυποποίηση
+Μια μεταβλητή $X$ ακολουθεί την $N(100, 25)$. Βρείτε τη βαθμολογία $Z$ για $x = 110$.
 
-**Step 1: Identify parameters.**
-*   $\mu = 100$
-*   $\sigma^2 = 25 \implies \sigma = \sqrt{25} = 5$.
+**Βήμα 1: Προσδιορισμός παραμέτρων.**
+* $\mu = 100$
+* $\sigma^2 = 25 \implies \sigma = \sqrt{25} = 5$.
 
-**Step 2: WIP State.**
-Apply the formula:
+**Βήμα 2: Κατάσταση WIP.**
+Εφαρμόστε τον τύπο:
 $$Z = \frac{110 - 100}{?}$$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $$Z = \frac{10}{5} = 2.0$$
-The value 110 is **2 standard deviations** above the mean.
+Η τιμή 110 είναι **2 τυπικές αποκλίσεις** πάνω από τη μέση τιμή.
 
 ---
 
-### Example 2: Finding Probability (Less Than)
-Given $X \sim N(50, 100)$, find $P(X < 45)$.
+### Παράδειγμα 2: Εύρεση πιθανότητας (λιγότερο από)
+Δεδομένου $X \sim N(50, 100)$, βρείτε $P(X < 45)$.
 
-**Step 1: Standardize.**
-*   $\mu = 50, \sigma = 10$.
-*   $z = \frac{45 - 50}{10} = -0.5$.
+**Βήμα 1: Τυποποίηση.**
+* $\mu = 50, \sigma = 10$.
+* $z = \frac{45 - 50}{10} = -0.5$.
 
-**Step 2: WIP State.**
-We need $P(Z < -0.5)$. Using symmetry:
+**Βήμα 2: Κατάσταση WIP.**
+Χρειαζόμαστε $P(Z < -0.5)$. Χρησιμοποιώντας συμμετρία:
 $$P(Z < -0.5) = 1 - P(Z < 0.5)$$
 
-**Step 3: Final Calculation.**
-Look up $z = 0.5$ in the table: $\Phi(0.5) = 0.6915$.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Αναζητήστε $z = 0.5$ στον πίνακα: $\Phi(0.5) = 0.6915$.
 $$P(Z < -0.5) = 1 - 0.6915 = 0.3085$$
 
 ---
 
-### Example 3: Finding Probability (Greater Than)
-In a population with $N(170, 64)$, find the probability a value is greater than 182.
+### Παράδειγμα 3: Εύρεση Πιθανοτήτων (Μεγαλύτερη από)
+Σε έναν πληθυσμό με $N(170, 64)$, βρείτε την πιθανότητα μια τιμή να είναι μεγαλύτερη από 182.
 
-**Step 1: Standardize.**
-*   $\mu = 170, \sigma = 8$.
-*   $z = \frac{182 - 170}{8} = \frac{12}{8} = 1.5$.
+**Βήμα 1: Τυποποίηση.**
+* $\mu = 170, \sigma = 8$.
+* $z = \frac{182 - 170}{8} = \frac{12}{8} = 1.5$.
 
-**Step 2: WIP State.**
-We want $P(Z > 1.5)$.
+**Βήμα 2: Κατάσταση WIP.**
+Θέλουμε $P(Z > 1.5)$.
 $$P(Z > 1.5) = 1 - P(Z \le 1.5)$$
 
-**Step 3: Final Calculation.**
-Look up $z = 1.5$: $\Phi(1.5) = 0.9332$.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Αναζητήστε $z = 1.5$: $\Phi(1.5) = 0.9332$.
 $$1 - 0.9332 = 0.0668$$
 
 ---
 
-### Example 4: Interval Probability
-Weights of apples follow $N(150, 400)$. Find $P(140 < X < 170)$.
+### Παράδειγμα 4: Πιθανότητα διαστήματος
+Τα βάρη των μήλων ακολουθούν $N(150, 400)$. Βρείτε $P(140 < X < 170)$.
 
-**Step 1: Standardize both bounds.**
-*   $\mu = 150, \sigma = 20$.
-*   $z_1 = \frac{140 - 150}{20} = -0.5$.
-*   $z_2 = \frac{170 - 150}{20} = 1.0$.
+**Βήμα 1: Τυποποιήστε και τα δύο όρια.**
+* $\mu = 150, \sigma = 20$.
+* $z_1 = \frac{140 - 150}{20} = -0.5$.
+* $z_2 = \frac{170 - 150}{20} = 1.0$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $$P(-0.5 < Z < 1.0) = \Phi(1.0) - \Phi(-0.5)$$
 $$0.8413 - (1 - \Phi(0.5))$$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $0.8413 - (1 - 0.6915) = 0.8413 - 0.3085 = 0.5328$.
 
 ---
 
-### Example 5: Finding the 95th Percentile
-For $X \sim N(200, 100)$, find the value $x$ such that only 5% of values are larger.
+### Παράδειγμα 5: Εύρεση του 95ου εκατοστημόριου
+Για $X \sim N(200, 100)$, βρείτε την τιμή $x$ έτσι ώστε μόνο το 5% των τιμών να είναι μεγαλύτερες.
 
-**Step 1: Determine the target probability.**
-If 5% are larger, then 95% are smaller. $P(Z < z) = 0.95$.
+**Βήμα 1: Προσδιορίστε την πιθανότητα στόχου.**
+Εάν το 5% είναι μεγαλύτερο, τότε το 95% είναι μικρότερο. $P(Z < z) = 0.95$.
 
-**Step 2: WIP State.**
-Look up $0.9500$ in the Z-table. It lies between $z=1.64$ and $z=1.65$. Usually, we use $z = 1.645$.
+**Βήμα 2: Κατάσταση WIP.**
+Αναζητήστε $0.9500$ στον πίνακα Z. Βρίσκεται μεταξύ $z=1.64$ και $z=1.65$. Συνήθως, χρησιμοποιούμε $z = 1.645$.
 $$x = \mu + (z \cdot \sigma) = 200 + (1.645 \cdot 10)$$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $$x = 200 + (1.645 \cdot 10) = 200 + 16.45 = 216.45$$
 
 ---
 
-### Example 6: Finding the Middle 50%
-Find the range $(a, b)$ symmetric about the mean for $N(0, 1)$ that contains 50% of the data.
+### Παράδειγμα 6: Εύρεση του μεσαίου 50%
+Βρείτε το εύρος $(a, b)$ συμμετρικό ως προς το μέσο όρο για $N(0, 1)$ που περιέχει το 50% των δεδομένων.
 
-**Step 1: Analyze the tails.**
-If the middle is 50%, each tail contains $(100\% - 50\%) / 2 = 25\%$.
-We need $P(Z < z) = 0.75$.
+**Βήμα 1: Αναλύστε τις ουρές.**
+Εάν η μέση είναι 50%, κάθε ουρά περιέχει $(100\% - 50\%) / 2 = 25\%$.
+Χρειαζόμαστε $P(Z < z) = 0.75$.
 
-**Step 2: WIP State.**
-Look up $0.7500$ in the table. $z \approx 0.67$.
+**Βήμα 2: Κατάσταση WIP.**
+Αναζητήστε $0.7500$ στον πίνακα. $z \approx 0.67$.
 
-**Step 3: Final Calculation.**
-The range is $(-0.67, 0.67)$.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Το εύρος είναι $(-0.67, 0.67)$.
 
 ---
 
-### Example 7: IQ Scores
-IQ scores are $N(100, 225)$. What is the probability a person has an IQ between 85 and 115?
+### Παράδειγμα 7: Βαθμολογίες IQ
+Οι βαθμολογίες IQ είναι $N(100, 225)$. Ποια είναι η πιθανότητα ένα άτομο να έχει IQ μεταξύ 85 και 115;
 
-**Step 1: Standardize.**
-*   $\mu = 100, \sigma = 15$.
-*   $z_1 = \frac{85 - 100}{15} = -1.0$.
-*   $z_2 = \frac{115 - 100}{15} = 1.0$.
+**Βήμα 1: Τυποποίηση.**
+* $\mu = 100, \sigma = 15$.
+* $z_1 = \frac{85 - 100}{15} = -1.0$.
+* $z_2 = \frac{115 - 100}{15} = 1.0$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $$P(-1 < Z < 1) = \Phi(1) - \Phi(-1)$$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $0.8413 - (1 - 0.8413) = 0.8413 - 0.1587 = 0.6826$.
-(This matches the Empirical Rule!)
+(Αυτό ταιριάζει με τον Εμπειρικό Κανόνα!)
 
 ---
 
-### Example 8: Reverse Lookup for Variance
-In a normal distribution with $\mu = 50$, we know that $P(X < 60) = 0.9772$. Find the standard deviation.
+### Παράδειγμα 8: Αντίστροφη αναζήτηση για διακύμανση
+Σε μια κανονική κατανομή με $\mu = 50$, γνωρίζουμε ότι $P(X < 60) = 0.9772$. Βρείτε την τυπική απόκλιση.
 
-**Step 1: Find the Z-score.**
-Look up $0.9772$ in the Z-table. It corresponds exactly to $z = 2.0$.
+**Βήμα 1: Βρείτε τη βαθμολογία Z.**
+Αναζητήστε $0.9772$ στον πίνακα Z. Αντιστοιχεί ακριβώς στο $z = 2.0$.
 
-**Step 2: WIP State.**
-Substitute into the formula:
+**Βήμα 2: Κατάσταση WIP.**
+Αντικαταστήστε στον τύπο:
 $$2.0 = \frac{60 - 50}{\sigma}$$
 $$2.0 = \frac{10}{?}$$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $2.0 \cdot \sigma = 10 \implies \sigma = 5$.
-The standard deviation is **5**.
+Η τυπική απόκλιση είναι **5**.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_2_empirical_rule.md -->
-# Phase 5.2: The Empirical Rule (68-95-99.7 Rule)
+<!-- Πηγή: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_2_empirical_rule.md --># Φάση 5.2: Ο εμπειρικός κανόνας (κανόνας 68-95-99.7)
 
-The Empirical Rule is a quick way to estimate probabilities for any normal distribution without needing a Z-table. It describes the percentage of data that falls within specific standard deviation intervals from the mean.
+Ο Εμπειρικός Κανόνας είναι ένας γρήγορος τρόπος για να εκτιμήσετε τις πιθανότητες για οποιαδήποτε κανονική κατανομή χωρίς να χρειάζεστε έναν πίνακα Z. Περιγράφει το ποσοστό των δεδομένων που εμπίπτει σε συγκεκριμένα διαστήματα τυπικής απόκλισης από τη μέση τιμή.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-For any normal distribution $X \sim N(\mu, \sigma^2)$:
-1.  **68%** of the data falls within **1 standard deviation** $(\mu \pm 1\sigma)$.
-2.  **95%** of the data falls within **2 standard deviations** $(\mu \pm 2\sigma)$.
-3.  **99.7%** of the data falls within **3 standard deviations** $(\mu \pm 3\sigma)$.
+Για οποιαδήποτε κανονική κατανομή $X \sim N(\mu, \sigma^2)$:
+1. **68%** των δεδομένων εμπίπτει σε **1 τυπική απόκλιση** $(\mu \pm 1\sigma)$.
+2. Το **95%** των δεδομένων εμπίπτει σε **2 τυπικές αποκλίσεις** $(\mu \pm 2\sigma)$.
+3. Το **99,7%** των δεδομένων εμπίπτει σε **3 τυπικές αποκλίσεις** $(\mu \pm 3\sigma)$.
 
-### Breakdown of Areas
-Since the normal curve is symmetric, we can split these intervals:
-*   $\mu$ to $\mu + 1\sigma$: **34%**
-*   $\mu + 1\sigma$ to $\mu + 2\sigma$: **13.5%** ($ (95 - 68) / 2 $)
-*   $\mu + 2\sigma$ to $\mu + 3\sigma$: **2.35%** ($ (99.7 - 95) / 2 $)
-*   Beyond $\mu + 3\sigma$: **0.15%**
+### Ανάλυση Περιοχών
+Δεδομένου ότι η κανονική καμπύλη είναι συμμετρική, μπορούμε να χωρίσουμε αυτά τα διαστήματα:
+* $\mu$ έως $\mu + 1\sigma$: **34%**
+* $\mu + 1\sigma$ έως $\mu + 2\sigma$: **13,5%** ($ (95 - 68) / 2 $)
+* $\mu + 2\sigma$ έως $\mu + 3\sigma$: **2,35%** ($ (99.7 - 95) / 2 $)
+* Πέρα από $\mu + 3\sigma$: **0,15%**
 
-> **Shortcut:** Use the Empirical Rule for "clean" multiples of $\sigma$. If the value is not exactly 1, 2, or 3 standard deviations away, you **must** use the Z-table.
-
----
-
-## 2. Solved Examples
-
-### Example 1: Basic Application
-Heights of students are $N(170, 25)$. What percentage of students are between 165 cm and 175 cm?
-
-**Step 1: Identify $\mu$ and $\sigma$.**
-*   $\mu = 170, \sigma = 5$.
-
-**Step 2: WIP State.**
-Check the distances from the mean:
-*   $175 = \mu + 1\sigma$
-*   $165 = \mu - ?$
-
-**Step 3: Final Calculation.**
-The interval is exactly $\mu \pm 1\sigma$.
-According to the Empirical Rule, this covers **68%** of the data.
+> **Συντόμευση:** Χρησιμοποιήστε τον Εμπειρικό κανόνα για "καθαρά" πολλαπλάσια του $\sigma$. Εάν η τιμή δεν απέχει ακριβώς 1, 2 ή 3 τυπικές αποκλίσεις, **πρέπει** να χρησιμοποιήσετε τον πίνακα Z.
 
 ---
 
-### Example 2: The 95% Range
-The lifespan of a battery is $N(50, 4)$ months. Between what two values do 95% of battery lifespans fall?
+## 2. Λυμένα Παραδείγματα
 
-**Step 1: Identify parameters.**
+### Παράδειγμα 1: Βασική εφαρμογή
+Τα ύψη των μαθητών είναι $N(170, 25)$. Τι ποσοστό των μαθητών είναι μεταξύ 165 cm και 175 cm;
+
+**Βήμα 1: Προσδιορίστε $\mu$ και $\sigma$.**
+* $\mu = 170, \sigma = 5$.
+
+**Βήμα 2: Κατάσταση WIP.**
+Ελέγξτε τις αποστάσεις από τη μέση:
+* $175 = \mu + 1\sigma$
+* $165 = \mu - ?$
+
+**Βήμα 3: Τελικός Υπολογισμός.**
+Το διάστημα είναι ακριβώς $\mu \pm 1\sigma$.
+Σύμφωνα με τον Εμπειρικό Κανόνα, αυτό καλύπτει το **68%** των δεδομένων.
+
+---
+
+### Παράδειγμα 2: Το εύρος 95%.
+Η διάρκεια ζωής μιας μπαταρίας είναι $N(50, 4)$ μήνες. Ανάμεσα σε ποιες δύο τιμές πέφτει το 95% της διάρκειας ζωής της μπαταρίας;
+
+**Βήμα 1: Προσδιορισμός παραμέτρων.**
 $\mu = 50, \sigma = 2$.
 
-**Step 2: WIP State.**
-95% corresponds to $\mu \pm 2\sigma$.
-*   Lower bound: $50 - 2(2) = ?$
-*   Upper bound: $50 + 2(2) = ?$
+**Βήμα 2: Κατάσταση WIP.**
+Το 95% αντιστοιχεί στο $\mu \pm 2\sigma$.
+* Κάτω όριο: $50 - 2(2) = ?$
+* Ανώτερο όριο: $50 + 2(2) = ?$
 
-**Step 3: Final Calculation.**
-The range is **46 to 54 months**.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Το εύρος είναι **46 έως 54 μήνες**.
 
 ---
 
-### Example 3: Tail Probability (Greater Than)
-A test has $N(70, 100)$. What percentage of students scored above 90?
+### Παράδειγμα 3: Πιθανότητα ουράς (Μεγαλύτερη από)
+Μια δοκιμή έχει $N(70, 100)$. Τι ποσοστό μαθητών σημείωσε πάνω από 90;
 
-**Step 1: Find the number of standard deviations.**
+**Βήμα 1: Βρείτε τον αριθμό των τυπικών αποκλίσεων.**
 $\mu = 70, \sigma = 10$.
-$90 = 70 + 2(10)$. So, 90 is at $\mu + 2\sigma$.
+$90 = 70 + 2(10)$. Άρα, το 90 είναι στο $\mu + 2\sigma$.
 
-**Step 2: WIP State.**
-We know 95% is within $\mu \pm 2\sigma$.
-This leaves 5% in the two tails combined ($x < 50$ and $x > 90$).
+**Βήμα 2: Κατάσταση WIP.**
+Γνωρίζουμε ότι το 95% βρίσκεται εντός $\mu \pm 2\sigma$.
+Αυτό αφήνει 5% στις δύο ουρές μαζί ($x < 50$ και $x > 90$).
 
-**Step 3: Final Calculation.**
-By symmetry, the upper tail ($x > 90$) contains $5\% / 2 = 2.5\%$.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Κατά συμμετρία, η επάνω ουρά ($x > 90$) περιέχει $5\% / 2 = 2.5\%$.
 
 ---
 
-### Example 4: Half-Interval
-If $X \sim N(10, 4)$, what is $P(10 < X < 16)$?
+### Παράδειγμα 4: Μισό διάστημα
+Αν $X \sim N(10, 4)$, τι είναι $P(10 < X < 16)$;
 
-**Step 1: Identify parameters.**
+**Βήμα 1: Προσδιορισμός παραμέτρων.**
 $\mu = 10, \sigma = 2$.
 
-**Step 2: WIP State.**
-16 is $\mu + 3\sigma$.
-The interval $\mu \pm 3\sigma$ covers 99.7%.
-The interval from $\mu$ to $\mu + 3\sigma$ covers half of that.
+**Βήμα 2: Κατάσταση WIP.**
+Το 16 είναι $\mu + 3\sigma$.
+Το διάστημα $\mu \pm 3\sigma$ καλύπτει το 99,7%.
+Το διάστημα από $\mu$ έως $\mu + 3\sigma$ καλύπτει το μισό από αυτό.
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $99.7\% / 2 = 49.85\%$.
 
 ---
 
-### Example 5: Combining Segments
-For $N(100, 100)$, find $P(90 < X < 120)$.
+### Παράδειγμα 5: Συνδυασμός τμημάτων
+Για $N(100, 100)$, βρείτε $P(90 < X < 120)$.
 
-**Step 1: Identify bounds.**
+**Βήμα 1: Προσδιορίστε τα όρια.**
 $\mu = 100, \sigma = 10$.
-*   $90 = \mu - 1\sigma$
-*   $120 = \mu + 2\sigma$
+* $90 = \mu - 1\sigma$
+* $120 = \mu + 2\sigma$
 
-**Step 2: WIP State.**
-*   Area from $\mu - 1\sigma$ to $\mu$: 34%
-*   Area from $\mu$ to $\mu + 2\sigma$: ?%
+**Βήμα 2: Κατάσταση WIP.**
+* Περιοχή από $\mu - 1\sigma$ έως $\mu$: 34%
+* Περιοχή από $\mu$ έως $\mu + 2\sigma$: ?%
 
-**Step 3: Final Calculation.**
-Area from $\mu$ to $\mu + 2\sigma$ is $95\% / 2 = 47.5\%$.
-Total: $34\% + 47.5\% = 81.5\%$.
-
----
-
-### Example 6: Sample Size Estimation
-In a town of 10,000 people, the weight is $N(70, 100)$. How many people weigh more than 100 kg?
-
-**Step 1: Identify standard deviations.**
-$100 = 70 + 3(10)$. This is $\mu + 3\sigma$.
-
-**Step 2: WIP State.**
-The area above $\mu + 3\sigma$ is $0.15\%$.
-Calculate: $10,000 \times 0.0015 = ?$
-
-**Step 3: Final Calculation.**
-$10,000 \times 0.0015 = 15$ people.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Η περιοχή από $\mu$ έως $\mu + 2\sigma$ είναι $95\% / 2 = 47.5\%$.
+Σύνολο: $34\% + 47.5\% = 81.5\%$.
 
 ---
 
-### Example 7: Defect Detection
-A bolt diameter is $N(10, 0.0001)$. A bolt is defective if its diameter is outside $[9.98, 10.02]$. What is the defect rate?
+### Παράδειγμα 6: Εκτίμηση μεγέθους δείγματοςΣε μια πόλη 10.000 κατοίκων, το βάρος είναι $N(70, 100)$. Πόσα άτομα ζυγίζουν πάνω από 100 κιλά;
 
-**Step 1: Check the bounds.**
+**Βήμα 1: Προσδιορίστε τυπικές αποκλίσεις.**
+$100 = 70 + 3(10)$. Αυτό είναι $\mu + 3\sigma$.
+
+**Βήμα 2: Κατάσταση WIP.**
+Η περιοχή πάνω από $\mu + 3\sigma$ είναι $0.15\%$.
+Υπολογίστε: $10,000 \times 0.0015 = ?$
+
+**Βήμα 3: Τελικός Υπολογισμός.**
+$10,000 \times 0.0015 = 15$ άτομα.
+
+---
+
+### Παράδειγμα 7: Ανίχνευση ελαττώματος
+Η διάμετρος ενός μπουλονιού είναι $N(10, 0.0001)$. Ένα μπουλόνι είναι ελαττωματικό εάν η διάμετρός του είναι εκτός $[9.98, 10.02]$. Ποιο είναι το ποσοστό ελαττωμάτων;
+
+**Βήμα 1: Ελέγξτε τα όρια.**
 $\mu = 10, \sigma = \sqrt{0.0001} = 0.01$.
-Range is $\mu \pm 2\sigma = 10 \pm 2(0.01) = [9.98, 10.02]$.
+Το εύρος είναι $\mu \pm 2\sigma = 10 \pm 2(0.01) = [9.98, 10.02]$.
 
-**Step 2: WIP State.**
-The percentage of "good" bolts is 95%.
+**Βήμα 2: Κατάσταση WIP.**
+Το ποσοστό των «καλών» μπουλονιών είναι 95%.
 
-**Step 3: Final Calculation.**
-Defect rate = $100\% - 95\% = 5\%$.
+**Βήμα 3: Τελικός Υπολογισμός.**
+Ποσοστό ελαττωμάτων = $100\% - 95\% = 5\%$.
 
 ---
 
-### Example 8: Comparing Groups
-Group A is $N(50, 25)$ and Group B is $N(60, 4)$. Which group has a higher percentage of values above 65?
+### Παράδειγμα 8: Σύγκριση ομάδων
+Η ομάδα Α είναι $N(50, 25)$ και η ομάδα Β είναι $N(60, 4)$. Ποια ομάδα έχει υψηλότερο ποσοστό τιμών πάνω από 65;
 
-**Step 1: Check Group A.**
+**Βήμα 1: Ελέγξτε την ομάδα Α.**
 $\sigma_A = \sqrt{25} = 5$.
 $65 = 50 + 3(5) \implies \mu_A + 3\sigma_A$.
-Percentage $> 65 = 0.15\%$.
+Ποσοστό $> 65 = 0.15\%$.
 
-**Step 2: WIP State.**
-Check Group B:
+**Βήμα 2: Κατάσταση WIP.**
+Ελέγξτε την ομάδα Β:
 $\sigma_B = \sqrt{4} = 2$.
 $65 = 60 + 2.5(2) \implies \mu_B + 2.5\sigma_B$.
 
-**Step 3: Final Calculation.**
-Since 2.5 is less than 3, the value 65 is "closer" to the mean in Group B than in Group A.
-Being closer to the mean (in standard deviation units) means a **larger upper tail**. Therefore, Group B has a higher percentage of values above 65.
-*(Note: We would need a Z-table for the exact value of Group B, but the comparison is clear via the Empirical Rule logic.)*
+**Βήμα 3: Τελικός Υπολογισμός.**
+Εφόσον το 2,5 είναι μικρότερο από το 3, η τιμή 65 είναι "πιο κοντά" στον μέσο όρο της Ομάδας Β από ό,τι στην Ομάδα Α.
+Το να είσαι πιο κοντά στη μέση (σε μονάδες τυπικής απόκλισης) σημαίνει **μεγαλύτερη άνω ουρά**. Επομένως, η ομάδα Β έχει υψηλότερο ποσοστό τιμών πάνω από 65.
+*(Σημείωση: Θα χρειαζόμασταν έναν πίνακα Z για την ακριβή τιμή της ομάδας Β, αλλά η σύγκριση είναι σαφής μέσω της λογικής του εμπειρικού κανόνα.)*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_3_other_continuous_distributions.md -->
-# Phase 5.3: Other Continuous Distributions
+<!-- Πηγή: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_3_other_continuous_distributions.md -->
+# Φάση 5.3: Άλλες συνεχείς διανομές
 
-While the Normal distribution is the most famous, other continuous distributions like the **Uniform** and **Exponential** are essential for modeling specific real-world phenomena like wait times and equally likely outcomes over an interval.
+Ενώ η Κανονική κατανομή είναι η πιο διάσημη, άλλες συνεχείς κατανομές όπως η **Ομοιόμορφη** και η **Εκθετική** είναι απαραίτητες για τη μοντελοποίηση συγκεκριμένων φαινομένων του πραγματικού κόσμου όπως οι χρόνοι αναμονής και τα εξίσου πιθανά αποτελέσματα σε ένα διάστημα.
 
-## 1. Uniform Distribution ($X \sim U(a, b)$)
-A distribution where all intervals of the same length are equally likely.
+## 1. Ομοιόμορφη διανομή ($X \sim U(a, b)$)
+Μια κατανομή όπου όλα τα διαστήματα του ίδιου μήκους είναι εξίσου πιθανά.
 
-*   **PDF:** $f(x) = \frac{1}{b - a}$ for $a \le x \le b$.
-*   **Mean:** $E[X] = \frac{a + b}{2}$
-*   **Variance:** $Var(X) = \frac{(b - a)^2}{12}$
-*   **Probability:** $P(x_1 < X < x_2) = \frac{x_2 - x_1}{b - a}$
+* **PDF:** $f(x) = \frac{1}{b - a}$ για $a \le x \le b$.
+* **Μέσος όρος: ** $E[X] = \frac{a + b}{2}$
+* **Διακύμανση:** $Var(X) = \frac{(b - a)^2}{12}$
+* **Πιθανότητα:** $P(x_1 < X < x_2) = \frac{x_2 - x_1}{b - a}$
 
-## 2. Exponential Distribution ($X \sim Exp(\lambda)$)
-Used to model the time between events in a Poisson process.
+## 2. Εκθετική κατανομή ($X \sim Exp(\lambda)$)
+Χρησιμοποιείται για τη μοντελοποίηση του χρόνου μεταξύ γεγονότων σε μια διαδικασία Poisson.
 
-*   **PDF:** $f(x) = \lambda e^{-\lambda x}$ for $x \ge 0$.
-*   **CDF:** $P(X \le x) = 1 - e^{-\lambda x}$
-*   **Mean:** $E[X] = \frac{1}{\lambda}$
-*   **Variance:** $Var(X) = \frac{1}{\lambda^2}$
-*   **Complement Rule:** $P(X > x) = e^{-\lambda x}$ (very useful for "wait time longer than" problems).
+* **PDF:** $f(x) = \lambda e^{-\lambda x}$ για $x \ge 0$.
+* **CDF:** $P(X \le x) = 1 - e^{-\lambda x}$
+* **Μέσος όρος: ** $E[X] = \frac{1}{\lambda}$
+* **Διακύμανση:** $Var(X) = \frac{1}{\lambda^2}$
+* **Κανόνας συμπληρώματος:** $P(X > x) = e^{-\lambda x}$ (πολύ χρήσιμο για προβλήματα "χρόνος αναμονής περισσότερο από").
 
 ---
 
-## 3. Solved Examples
+## 3. Λυμένα παραδείγματα
 
-### Example 1: Uniform Probability
-A bus arrives at a stop every 20 minutes. A person's wait time $X$ is $U(0, 20)$. What is the probability they wait more than 15 minutes?
+### Παράδειγμα 1: Ομοιόμορφη πιθανότητα
+Ένα λεωφορείο φτάνει σε μια στάση κάθε 20 λεπτά. Ο χρόνος αναμονής ενός ατόμου $X$ είναι $U(0, 20)$. Ποια είναι η πιθανότητα να περιμένουν πάνω από 15 λεπτά;
 
-**Step 1: Identify bounds.**
+**Βήμα 1: Προσδιορίστε τα όρια.**
 $a = 0, b = 20$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $P(X > 15) = \frac{b - 15}{b - a} = \frac{20 - 15}{?}$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $P(X > 15) = \frac{5}{20} = 0.25$.
 
 ---
 
-### Example 2: Uniform Mean and Variance
-For $X \sim U(5, 15)$, find the expected value and variance.
+### Παράδειγμα 2: Ομοιόμορφος μέσος όρος και διακύμανση
+Για $X \sim U(5, 15)$, βρείτε την αναμενόμενη τιμή και διακύμανση.
 
-**Step 1: Apply Mean formula.**
+**Βήμα 1: Εφαρμόστε τον τύπο μέσου όρου.**
 $E[X] = (5 + 15) / 2 = 10$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $Var(X) = \frac{(15 - 5)^2}{12} = \frac{10^2}{?}$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $Var(X) = 100 / 12 = 8.3333$.
 
 ---
 
-### Example 3: Exponential Wait Time
-The time between arrivals at a bank follows an exponential distribution with $\lambda = 2$ arrivals per hour. What is the probability that the next arrival occurs within 30 minutes?
+### Παράδειγμα 3: Εκθετικός χρόνος αναμονής
+Ο χρόνος μεταξύ των αφίξεων σε μια τράπεζα ακολουθεί μια εκθετική κατανομή με $\lambda = 2$ αφίξεις ανά ώρα. Ποια είναι η πιθανότητα η επόμενη άφιξη να γίνει μέσα σε 30 λεπτά;
 
-**Step 1: Convert units.**
-$\lambda = 2$ per hour. 30 minutes is $0.5$ hours.
+**Βήμα 1: Μετατροπή μονάδων.**$\lambda = 2$ ανά ώρα. Τα 30 λεπτά είναι $0.5$ ώρες.
 
-**Step 2: WIP State.**
-Use the CDF: $P(X \le 0.5) = 1 - e^{-2(0.5)}$
+**Βήμα 2: Κατάσταση WIP.**
+Χρησιμοποιήστε το CDF: $P(X \le 0.5) = 1 - e^{-2(0.5)}$
 $P(X \le 0.5) = 1 - e^{-?}$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $1 - e^{-1} \approx 1 - 0.3679 = 0.6321$.
 
 ---
 
-### Example 4: Exponential - Longer Than
-If the average lifespan of a lightbulb is 1000 hours (exponentially distributed), what is the probability it lasts more than 1500 hours?
+### Παράδειγμα 4: Εκθετικό - Μακρύτερο από
+Εάν η μέση διάρκεια ζωής ενός λαμπτήρα είναι 1000 ώρες (εκθετικά κατανεμημένη), ποια είναι η πιθανότητα να διαρκέσει περισσότερες από 1500 ώρες;
 
-**Step 1: Find $\lambda$.**
-Mean $E[X] = 1/\lambda = 1000 \implies \lambda = 0.001$.
+**Βήμα 1: Βρείτε $\lambda$.**
+Μέσος όρος $E[X] = 1/\lambda = 1000 \implies \lambda = 0.001$.
 
-**Step 2: WIP State.**
-Use the complement rule: $P(X > 1500) = e^{-0.001(1500)}$
+**Βήμα 2: Κατάσταση WIP.**
+Χρησιμοποιήστε τον κανόνα του συμπληρώματος: $P(X > 1500) = e^{-0.001(1500)}$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $e^{-1.5} \approx 0.2231$.
 
 ---
 
-### Example 5: Median of Exponential
-Find the median time for the lightbulb in Example 4.
+### Παράδειγμα 5: Διάμεσος Εκθετικής
+Βρείτε τον διάμεσο χρόνο για τη λάμπα στο Παράδειγμα 4.
 
-**Step 1: Set CDF to 0.5.**
+**Βήμα 1: Ορίστε το CDF σε 0,5.**
 $1 - e^{-\lambda x} = 0.5 \implies e^{-\lambda x} = 0.5$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $-\lambda x = \ln(0.5)$
 $x = \frac{-\ln(0.5)}{0.001} = \frac{\ln(2)}{?}$
 
-**Step 3: Final Calculation.**
-$x = 0.693 / 0.001 = 693$ hours.
-*(Note: The median is less than the mean in an exponential distribution!)*
+**Βήμα 3: Τελικός Υπολογισμός.**
+$x = 0.693 / 0.001 = 693$ ώρες.
+*(Σημείωση: Η διάμεσος είναι μικρότερη από τη μέση σε μια εκθετική κατανομή!)*
 
 ---
 
-### Example 6: Uniform Interval
-$X \sim U(-5, 5)$. Find $P(|X| < 2)$.
+### Παράδειγμα 6: Ομοιόμορφο διάστημα
+$X \sim U(-5, 5)$. Βρείτε $P(|X| < 2)$.
 
-**Step 1: Rewrite the inequality.**
+**Βήμα 1: Ξαναγράψτε την ανισότητα.**
 $-2 < X < 2$.
 
-**Step 2: WIP State.**
-Length of interval $= 2 - (-2) = 4$.
-Length of total range $= 5 - (-5) = ?$.
+**Βήμα 2: Κατάσταση WIP.**
+Μήκος διαστήματος $= 2 - (-2) = 4$.
+Μήκος συνολικού εύρους $= 5 - (-5) = ?$.
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $P = 4 / 10 = 0.4$.
 
 ---
 
-### Example 7: Combined Probability
-If $X \sim U(0, 10)$, find $P(X > 2 | X < 8)$.
+### Παράδειγμα 7: Συνδυασμένη πιθανότητα
+Εάν $X \sim U(0, 10)$, βρείτε $P(X > 2 | X < 8)$.
 
-**Step 1: Use the conditional probability formula.**
+**Βήμα 1: Χρησιμοποιήστε τον τύπο πιθανοτήτων υπό όρους.**
 $P(A|B) = \frac{P(A \cap B)}{P(B)}$
 $P(X > 2 \cap X < 8) = P(2 < X < 8) = \frac{8 - 2}{10} = 0.6$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $P(X < 8) = \frac{8 - 0}{10} = 0.8$.
 $P = 0.6 / ?$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $P = 0.6 / 0.8 = 0.75$.
 
 ---
 
-## 4. The "Gotcha" Section (Hard Example)
+## 4. Η ενότητα "Gotcha" (Σκληρό Παράδειγμα)
 
-### Example 8: The Memoryless Property Trap
-The time $X$ you spend waiting for a server to respond is exponentially distributed with a mean of 5 seconds. You have already waited 10 seconds. What is the probability you will have to wait at least another 5 seconds?
+### Παράδειγμα 8: Η παγίδα ιδιοτήτων χωρίς μνήμη
+Ο χρόνος $X$ που ξοδεύετε περιμένοντας να απαντήσει ένας διακομιστής κατανέμεται εκθετικά με μέσο όρο 5 δευτερόλεπτα. Έχετε ήδη περιμένει 10 δευτερόλεπτα. Ποια είναι η πιθανότητα να χρειαστεί να περιμένετε τουλάχιστον άλλα 5 δευτερόλεπτα;
 
-**The "Gotcha":**
-Many students try to calculate $P(X > 15 | X > 10)$ using complex integrals or the conditional probability formula. They think that since they have already waited a long time, the event "must happen soon."
+**Η "Gotcha":**
+Πολλοί μαθητές προσπαθούν να υπολογίσουν $P(X > 15 | X > 10)$ χρησιμοποιώντας μιγαδικά ολοκληρώματα ή τον τύπο πιθανοτήτων υπό όρους. Νομίζουν ότι αφού περίμεναν ήδη πολύ καιρό, το γεγονός «πρέπει να γίνει σύντομα».
 
 **The Reality (The Memoryless Property):**
-The Exponential distribution is **memoryless**. This means:
+Η εκθετική κατανομή είναι **χωρίς μνήμη**. Αυτό σημαίνει:
 $$P(X > s + t | X > s) = P(X > t)$$
-The fact that you waited 10 seconds ($s$) is completely irrelevant to the *additional* time ($t$) you will wait.
+Το γεγονός ότι περιμένατε 10 δευτερόλεπτα ($s$) είναι εντελώς άσχετο με τον *πρόσθετο* χρόνο ($t$) που θα περιμένετε.
 
-**Step 1: Identify the additional wait time.**
-We want the probability of waiting *at least another* 5 seconds. So $t = 5$.
+**Βήμα 1: Προσδιορίστε τον επιπλέον χρόνο αναμονής.**
+Θέλουμε την πιθανότητα να περιμένουμε *τουλάχιστον άλλα* 5 δευτερόλεπτα. Έτσι $t = 5$.
 
-**Step 2: WIP State.**
-The probability is simply $P(X > 5)$.
-Mean = 5, so $\lambda = 1/5 = 0.2$.
+**Βήμα 2: Κατάσταση WIP.**
+Η πιθανότητα είναι απλώς $P(X > 5)$.
+Μέσος όρος = 5, άρα $\lambda = 1/5 = 0.2$.
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $$P(X > 5) = e^{-0.2(5)} = e^{-1} \approx 0.3679$$
 
-**Result:** The probability is **0.3679**, exactly the same as if you had just started waiting! This is counter-intuitive but a key property of the Exponential distribution.
-*(Warning: This property ONLY applies to the Exponential distribution in the continuous world!)*
+**Αποτέλεσμα:** Η πιθανότητα είναι **0,3679**, ακριβώς η ίδια σαν να είχατε μόλις αρχίσει να περιμένετε! Αυτό είναι αντι-διαισθητικό, αλλά μια βασική ιδιότητα της Εκθετικής κατανομής.
+*(Προειδοποίηση: Αυτή η ιδιότητα ισχύει ΜΟΝΟ για την Εκθετική κατανομή στον συνεχή κόσμο!)*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_4_gamma_distribution.md -->
-# Phase 5.4: Gamma Distribution
+<!-- Πηγή: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_4_gamma_distribution.md -->
+# Φάση 5.4: Κατανομή γάμμα
 
-The Gamma Distribution is a continuous probability distribution that generalizes the Exponential distribution. It is widely used to model wait times for multiple independent events to occur.
+Η κατανομή γάμμα είναι μια συνεχής κατανομή πιθανοτήτων που γενικεύει την Εκθετική κατανομή. Χρησιμοποιείται ευρέως για τη μοντελοποίηση των χρόνων αναμονής για να συμβούν πολλαπλά ανεξάρτητα συμβάντα.
 
 ---
 
-## 1. The Gamma Function ($\Gamma(\alpha)$)
+## 1. Η συνάρτηση γάμμα ($\Gamma(\alpha)$)
 
-Before defining the Gamma distribution, we must define the **Gamma Function**, which acts as a continuous generalization of the factorial function:
+Πριν ορίσουμε την κατανομή γάμμα, πρέπει να ορίσουμε τη **Γάμμα Συνάρτηση**, η οποία λειτουργεί ως συνεχής γενίκευση της παραγοντικής συνάρτησης:
 
 $$\Gamma(\alpha) = \int_{0}^{\infty} y^{\alpha-1} e^{-y} \, dy \quad \text{for } \alpha > 0$$
 
-### Key Properties of the Gamma Function
-1.  **Recursive Relation:** $\Gamma(\alpha + 1) = \alpha \cdot \Gamma(\alpha)$
-2.  **Factorial Relation:** For any positive integer $n$:
+### Βασικές ιδιότητες της συνάρτησης γάμμα1. **Αναδρομική σχέση:** $\Gamma(\alpha + 1) = \alpha \cdot \Gamma(\alpha)$
+2. **Σχέση παραγόντων:** Για κάθε θετικό ακέραιο $n$:
     $$\Gamma(n) = (n-1)!$$
-3.  **Special Value:** $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$
-4.  **Base Case:** $\Gamma(1) = 0! = 1$
+3. **Ειδική αξία:** $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$
+4. **Βασική θήκη:** $\Gamma(1) = 0! = 1$
 
 ---
 
-## 2. The Gamma Distribution
+## 2. Η κατανομή γάμμα
 
-There are two common parameterisations of the Gamma distribution. Confusing them in an exam is a common mistake.
+Υπάρχουν δύο κοινές παραμετροποιήσεις της κατανομής γάμμα. Η σύγχυση τους σε μια εξέταση είναι ένα συνηθισμένο λάθος.
 
-### 2.1 Rate Parameterisation (Standard in most syllabus structures)
-If $X \sim Gamma(\alpha, \beta)$, where $\alpha > 0$ is the **shape parameter** and $\beta > 0$ is the **rate parameter**:
+### 2.1 Παραμετροποίηση βαθμού (Πρότυπο στις περισσότερες δομές αναλυτικών προγραμμάτων)
+Εάν $X \sim Gamma(\alpha, \beta)$, όπου $\alpha > 0$ είναι η **παράμετρος σχήματος** και $\beta > 0$ είναι η **παράμετρος ρυθμού**:
 
-*   **PDF:**
+* **PDF:**
     $$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}, \quad x > 0$$
-*   **Mean:** $E[X] = \frac{\alpha}{\beta}$
-*   **Variance:** $Var(X) = \frac{\alpha}{\beta^2}$
-*   **MGF:** $M_X(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha} \quad (\text{for } t < \beta)$
+* **Μέσος όρος: ** $E[X] = \frac{\alpha}{\beta}$
+* **Διακύμανση:** $Var(X) = \frac{\alpha}{\beta^2}$
+* **MGF:** $M_X(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha} \quad (\text{for } t < \beta)$
 
-### 2.2 Scale Parameterisation (Alternative)
-Using the **scale parameter** $\theta = \frac{1}{\beta}$:
-*   **PDF:** $f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}$
-*   **Mean:** $E[X] = \alpha\theta$
-*   **Variance:** $Var(X) = \alpha\theta^2$
+### 2.2 Παραμετροποίηση κλίμακας (Εναλλακτική)
+Χρησιμοποιώντας την **παράμετρο κλίμακας** $\theta = \frac{1}{\beta}$:
+* **PDF:** $f(x) = \frac{1}{\Gamma(\alpha)\theta^\alpha} x^{\alpha-1} e^{-x/\theta}$
+* **Μέσος όρος: ** $E[X] = \alpha\theta$
+* **Διακύμανση:** $Var(X) = \alpha\theta^2$
 
 ---
 
-## 3. Relationships to Other Distributions
+## 3. Σχέσεις με άλλες διανομές
 
-1.  **Exponential Distribution:** A Gamma distribution with shape $\alpha = 1$ is exactly the Exponential distribution:
+1. **Εκθετική Κατανομή:** Μια κατανομή γάμμα με σχήμα $\alpha = 1$ είναι ακριβώς η Εκθετική κατανομή:
     $$Gamma(1, \beta) \equiv Exp(\beta)$$
-2.  **Sum of Independent Exponentials:** If $X_1, X_2, \dots, X_n$ are independent, identically distributed random variables with $X_i \sim Exp(\beta)$, then their sum follows a Gamma distribution (sometimes called the Erlang distribution):
+2. **Άθροισμα ανεξάρτητων εκθετικών:** Εάν η $X_1, X_2, \dots, X_n$ είναι ανεξάρτητες, πανομοιότυπα κατανεμημένες τυχαίες μεταβλητές με $X_i \sim Exp(\beta)$, τότε το άθροισμά τους ακολουθεί μια κατανομή γάμμα (μερικές φορές ονομάζεται κατανομή Erlang):
     $$\sum_{i=1}^{n} X_i \sim Gamma(n, \beta)$$
-3.  **Chi-Square Distribution:** The Chi-square distribution with $\nu$ degrees of freedom is a special case of the Gamma distribution:
+3. **Κατανομή Chi-Square:** Η κατανομή Chi-square με $\nu$ βαθμούς ελευθερίας είναι μια ειδική περίπτωση της κατανομής Gamma:
     $$\chi^2_\nu \equiv Gamma\left(\frac{\nu}{2}, \frac{1}{2}\right)$$
 
 ---
 
-## 4. Solved Exercises (9 Examples)
+## 4. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Evaluating the Gamma Function
-**Problem:** Calculate the exact value of $\Gamma\left(\frac{5}{2}\right)$.
+### Άσκηση 1: Αξιολόγηση της συνάρτησης γάμμα
+**Πρόβλημα:** Υπολογίστε την ακριβή τιμή του $\Gamma\left(\frac{5}{2}\right)$.
 
-**Solution:**
-- **Step 1: Apply the recursive formula $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$.**
+**Λύση:**
+- **Βήμα 1: Εφαρμόστε τον αναδρομικό τύπο $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha)$.**
   $$\Gamma\left(\frac{5}{2}\right) = \Gamma\left(\frac{3}{2} + 1\right) = \frac{3}{2} \cdot \Gamma\left(\frac{3}{2}\right)$$
-- **Step 2: WIP State.**
-  Apply the recursive formula again:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε ξανά τον αναδρομικό τύπο:
   $$\Gamma\left(\frac{3}{2}\right) = \Gamma\left(\frac{1}{2} + 1\right) = \frac{1}{2} \cdot \Gamma\left(\frac{1}{2}\right)$$
-  Recall that $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$.
-  So, $\Gamma\left(\frac{5}{2}\right) = \frac{3}{2} \cdot \left(\frac{1}{2} \cdot ?\right)$
-- **Step 3: Final Calculation.**
+  Θυμηθείτε ότι $\Gamma\left(\frac{1}{2}\right) = \sqrt{\pi}$.
+  Λοιπόν, $\Gamma\left(\frac{5}{2}\right) = \frac{3}{2} \cdot \left(\frac{1}{2} \cdot ?\right)$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\Gamma\left(\frac{5}{2}\right) = \frac{3}{2} \cdot \frac{1}{2} \cdot \sqrt{\pi} = \frac{3}{4}\sqrt{\pi}.$$
 
 ---
 
-### Exercise 2: Identifying Shape and Rate
-**Problem:** A wait time $X$ has PDF $f(x) = 4 x e^{-2x}$ for $x > 0$. Identify the distribution and calculate its mean and variance.
+### Άσκηση 2: Προσδιορισμός Σχήματος και Ρυθμού
+**Πρόβλημα:** Ο χρόνος αναμονής $X$ έχει PDF $f(x) = 4 x e^{-2x}$ για $x > 0$. Προσδιορίστε την κατανομή και υπολογίστε τον μέσο όρο και τη διακύμανσή της.
 
-**Solution:**
-- **Step 1: Match the PDF structure with the Gamma PDF.**
+**Λύση:**
+- **Βήμα 1: Αντιστοιχίστε τη δομή PDF με το Gamma PDF.**
   $$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$$
-  Looking at $e^{-2x}$, we get $\beta = 2$.
-  Looking at $x = x^1$, we get $\alpha - 1 = 1 \implies \alpha = 2$.
-- **Step 2: WIP State.**
-  Verify the constant coefficient:
+  Κοιτάζοντας το $e^{-2x}$, παίρνουμε $\beta = 2$.
+  Κοιτάζοντας το $x = x^1$, παίρνουμε $\alpha - 1 = 1 \implies \alpha = 2$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Επαληθεύστε τον σταθερό συντελεστή:
   $$\frac{\beta^\alpha}{\Gamma(\alpha)} = \frac{2^2}{\Gamma(2)} = \frac{4}{1!} = 4$$
-  This matches the coefficient in the problem.
-  Therefore, $X \sim Gamma(\alpha = 2, \beta = 2)$.
-  Mean: $E[X] = \frac{\alpha}{\beta} = \frac{2}{2} = 1$.
-  Variance: $Var(X) = \frac{\alpha}{\beta^2} = \frac{2}{?}$
-- **Step 3: Final Calculation.**
+  Αυτό ταιριάζει με τον συντελεστή στο πρόβλημα.
+  Επομένως, $X \sim Gamma(\alpha = 2, \beta = 2)$.
+  Μέσος όρος: $E[X] = \frac{\alpha}{\beta} = \frac{2}{2} = 1$.
+  Διακύμανση: $Var(X) = \frac{\alpha}{\beta^2} = \frac{2}{?}$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$Var(X) = \frac{2}{4} = 0.5.$$
 
 ---
 
-### Exercise 3: Sum of Wait Times
-**Problem:** The time (in hours) to repair a server is exponentially distributed with a mean of 0.5 hours. If a technician has 4 independent server repairs scheduled, find the probability distribution of the total repair time $Y$. What is the expected total repair time and its variance?
+### Άσκηση 3: Άθροισμα χρόνων αναμονής
+**Πρόβλημα:** Ο χρόνος (σε ώρες) για την επιδιόρθωση ενός διακομιστή κατανέμεται εκθετικά με μέσο όρο 0,5 ώρες. Εάν ένας τεχνικός έχει προγραμματίσει 4 ανεξάρτητες επισκευές διακομιστή, βρείτε την κατανομή πιθανότητας του συνολικού χρόνου επισκευής $Y$. Ποιος είναι ο αναμενόμενος συνολικός χρόνος επισκευής και η διακύμανσή του;
 
-**Solution:**
-- **Step 1: Identify individual parameters.**
-  Each repair $X_i \sim Exp(\lambda)$.
-  Since the mean is $0.5$, $\frac{1}{\lambda} = 0.5 \implies \lambda = 2$.
-- **Step 2: WIP State.**
-  Since $Y = \sum_{i=1}^{4} X_i$ is a sum of $n=4$ independent exponential variables, it follows a Gamma distribution:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε μεμονωμένες παραμέτρους.**
+  Κάθε επισκευή $X_i \sim Exp(\lambda)$.
+  Εφόσον ο μέσος όρος είναι $0.5$, $\frac{1}{\lambda} = 0.5 \implies \lambda = 2$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφόσον το $Y = \sum_{i=1}^{4} X_i$ είναι ένα άθροισμα ανεξάρτητων εκθετικών μεταβλητών $n=4$, ακολουθεί μια κατανομή γάμμα:
   $$Y \sim Gamma(\alpha = 4, \beta = 2)$$
-  Expected total repair time: $E[Y] = \frac{\alpha}{\beta} = \frac{4}{2} = 2$ hours.
-  Variance: $Var(Y) = \frac{4}{?}$
-- **Step 3: Final Calculation.**
+  Αναμενόμενος συνολικός χρόνος επισκευής: $E[Y] = \frac{\alpha}{\beta} = \frac{4}{2} = 2$ ώρες.
+  Διακύμανση: $Var(Y) = \frac{4}{?}$
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$Var(Y) = \frac{4}{2^2} = \frac{4}{4} = 1.$$
 
----
+---### Άσκηση 4: Ενσωμάτωση Gamma PDF για εύρεση σταθερών
+**Πρόβλημα:** Βρείτε την τιμή της σταθεράς $c$ έτσι ώστε το $f(x) = c x^2 e^{-3x}$ για $x > 0$ να είναι έγκυρο PDF.
 
-### Exercise 4: Integrating a Gamma PDF to Find Constants
-**Problem:** Find the value of the constant $c$ such that $f(x) = c x^2 e^{-3x}$ for $x > 0$ is a valid PDF.
-
-**Solution:**
-- **Step 1: Identify parameters.**
-  This matches a Gamma PDF with $\alpha - 1 = 2 \implies \alpha = 3$ and $\beta = 3$.
-- **Step 2: WIP State.**
-  The normalisation constant for a Gamma distribution requires that the total area equals 1:
+**Λύση:**
+- **Βήμα 1: Προσδιορισμός παραμέτρων.**
+  Αυτό ταιριάζει με ένα Gamma PDF με $\alpha - 1 = 2 \implies \alpha = 3$ και $\beta = 3$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Η σταθερά κανονικοποίησης για μια κατανομή Γάμμα απαιτεί το συνολικό εμβαδόν να είναι ίσο με 1:
   $$c = \frac{\beta^\alpha}{\Gamma(\alpha)} = \frac{3^3}{\Gamma(3)} = \frac{27}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\Gamma(3) = 2! = 2$$
   $$c = \frac{27}{2} = 13.5.$$
 
 ---
 
-### Exercise 5: Deriving Mean using MGF
-**Problem:** Find the expected value of $X \sim Gamma(\alpha, \beta)$ by differentiating its MGF.
+### Άσκηση 5: Εξαγωγή μέσου όρου με χρήση MGF
+**Πρόβλημα:** Βρείτε την αναμενόμενη τιμή του $X \sim Gamma(\alpha, \beta)$ διαφοροποιώντας το MGF του.
 
-**Solution:**
-- **Step 1: Set up the derivative.**
+**Λύση:**
+- **Βήμα 1: Ρύθμιση του παραγώγου.**
   $$M_X(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha}$$
-  Use the chain rule:
+  Χρησιμοποιήστε τον κανόνα της αλυσίδας:
   $$M'_X(t) = -\alpha \left(1 - \frac{t}{\beta}\right)^{-\alpha-1} \cdot \left(-\frac{1}{\beta}\right)$$
-- **Step 2: WIP State.**
-  Simplify the derivative:
+- **Βήμα 2: Κατάσταση WIP.**
+  Απλοποιήστε την παράγωγο:
   $$M'_X(t) = \frac{\alpha}{\beta} \left(1 - \frac{t}{\beta}\right)^{-\alpha-1}$$
-  Evaluate at $t=0$:
+  Αξιολογήστε στο $t=0$:
   $$E[X] = M'_X(0) = \frac{\alpha}{\beta} (1 - 0)^{-( \alpha + 1 )} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$E[X] = \frac{\alpha}{\beta}.$$
 
 ---
 
-### Exercise 6: Sum of Independent Gammas
-**Problem:** Let $X \sim Gamma(2, 5)$ and $Y \sim Gamma(3, 5)$ be independent random variables. Find the distribution of $W = X + Y$.
+### Άσκηση 6: Άθροισμα Ανεξάρτητων Γάμας
+**Πρόβλημα:** Έστω οι $X \sim Gamma(2, 5)$ και $Y \sim Gamma(3, 5)$ ανεξάρτητες τυχαίες μεταβλητές. Βρείτε την κατανομή του $W = X + Y$.
 
-**Solution:**
-- **Step 1: Recall MGF of Gamma.**
+**Λύση:**
+- **Βήμα 1: Ανάκληση του MGF του Gamma.**
   $$M_X(t) = \left(1 - \frac{t}{5}\right)^{-2}, \quad M_Y(t) = \left(1 - \frac{t}{5}\right)^{-3}$$
-- **Step 2: WIP State.**
-  Since they are independent:
+- **Βήμα 2: Κατάσταση WIP.**
+  Δεδομένου ότι είναι ανεξάρτητοι:
   $$M_W(t) = M_X(t) \cdot M_Y(t) = \left(1 - \frac{t}{5}\right)^{-2} \cdot \left(1 - \frac{t}{5}\right)^{-3} = \left(1 - \frac{t}{5}\right)^{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M_W(t) = \left(1 - \frac{t}{5}\right)^{-5}$$
-  By uniqueness of the MGF, $W \sim Gamma(5, 5)$.
-  *(Exam note: You can add independent Gamma variables ONLY if they share the same rate parameter $\beta$!)*
+  Από τη μοναδικότητα του MGF, $W \sim Gamma(5, 5)$.
+  *(Σημείωση εξέτασης: Μπορείτε να προσθέσετε ανεξάρτητες μεταβλητές Gamma ΜΟΝΟ εάν μοιράζονται την ίδια παράμετρο ρυθμού $\beta$!)*
 
 ---
 
-### Exercise 7: Connection to Chi-Square
-**Problem:** Show that the Chi-square distribution with $\nu$ degrees of freedom is a special case of the Gamma distribution by comparing their MGFs. Recall that the MGF of a Chi-square variable is $M_{\chi^2}(t) = (1 - 2t)^{-\nu/2}$.
+### Άσκηση 7: Σύνδεση με Τετράγωνο Τσι
+**Πρόβλημα:** Δείξτε ότι η κατανομή Chi-square με $\nu$ βαθμούς ελευθερίας είναι μια ειδική περίπτωση της κατανομής γάμμα συγκρίνοντας τα MGF τους. Θυμηθείτε ότι το MGF μιας μεταβλητής Chi-square είναι $M_{\chi^2}(t) = (1 - 2t)^{-\nu/2}$.
 
-**Solution:**
-- **Step 1: Look at the Gamma MGF.**
+**Λύση:**
+- **Βήμα 1: Δείτε το Gamma MGF.**
   $$M_{Gamma}(t) = \left(1 - \frac{t}{\beta}\right)^{-\alpha}$$
-- **Step 2: WIP State.**
-  We want to set:
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε να ορίσουμε:
   $$\left(1 - \frac{t}{\beta}\right)^{-\alpha} = (1 - 2t)^{-\nu/2}$$
-  Matching the terms:
-  - Exponent: $-\alpha = -\frac{\nu}{2} \implies \alpha = \frac{\nu}{2}$.
-  - Fraction: $\frac{t}{\beta} = 2t \implies \beta = ?$.
-- **Step 3: Final Calculation.**
+  Αντιστοίχιση των όρων:
+  - Εκθέτης: $-\alpha = -\frac{\nu}{2} \implies \alpha = \frac{\nu}{2}$.
+  - Κλάσμα: $\frac{t}{\beta} = 2t \implies \beta = ?$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\beta = \frac{1}{2}$$
-  Thus, a Chi-square distribution with $\nu$ degrees of freedom is exactly equivalent to $Gamma\left(\alpha = \frac{\nu}{2}, \beta = \frac{1}{2}\right)$.
+  Έτσι, μια κατανομή Χ-τετράγωνο με $\nu$ βαθμούς ελευθερίας είναι ακριβώς ισοδύναμη με $Gamma\left(\alpha = \frac{\nu}{2}, \beta = \frac{1}{2}\right)$.
 
 ---
 
-### Exercise 8: Expected Value of a Reciprocal
-**Problem:** Let $X \sim Gamma(\alpha, \beta)$ with $\alpha > 1$. Find the expected value of the reciprocal of $X$, $E\left[\frac{1}{X}\right]$.
+### Άσκηση 8: Αναμενόμενη αξία ενός ανταποδοτικού
+**Πρόβλημα:** Αφήστε $X \sim Gamma(\alpha, \beta)$ με $\alpha > 1$. Βρείτε την αναμενόμενη τιμή του αντίστροφου των $X$, $E\left[\frac{1}{X}\right]$.
 
-**Solution:**
-- **Step 1: Set up the integral.**
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε το ολοκλήρωμα.**
   $$E\left[\frac{1}{X}\right] = \int_{0}^{\infty} \frac{1}{x} \cdot f(x) \, dx = \int_{0}^{\infty} \frac{1}{x} \cdot \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x} \, dx$$
-- **Step 2: WIP State.**
-  Simplify the integrand:
+- **Βήμα 2: Κατάσταση WIP.**
+  Απλοποιήστε το integrand:
   $$E\left[\frac{1}{X}\right] = \frac{\beta^\alpha}{\Gamma(\alpha)} \int_{0}^{\infty} x^{\alpha-2} e^{-\beta x} \, dx$$
-  Notice that the integral is almost the integral of a Gamma PDF with shape parameter $\alpha' = \alpha - 1$ and rate parameter $\beta' = \beta$.
+  Παρατηρήστε ότι το ολοκλήρωμα είναι σχεδόν το ολοκλήρωμα ενός Gamma PDF με παράμετρο σχήματος $\alpha' = \alpha - 1$ και παράμετρο ρυθμού $\beta' = \beta$.
   $$\int_{0}^{\infty} x^{(\alpha-1)-1} e^{-\beta x} \, dx = \frac{\Gamma(\alpha-1)}{\beta^{\alpha-1}}$$
-  Substituting this back:
+  Αντικατάσταση αυτού:
   $$E\left[\frac{1}{X}\right] = \frac{\beta^\alpha}{\Gamma(\alpha)} \cdot \frac{\Gamma(\alpha-1)}{\beta^{\alpha-1}} = \beta \cdot \frac{\Gamma(\alpha-1)}{?}$$
-- **Step 3: Final Calculation.**
-  Recall that $\Gamma(\alpha) = (\alpha - 1) \cdot \Gamma(\alpha - 1)$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Θυμηθείτε ότι $\Gamma(\alpha) = (\alpha - 1) \cdot \Gamma(\alpha - 1)$.
   $$E\left[\frac{1}{X}\right] = \beta \cdot \frac{\Gamma(\alpha-1)}{(\alpha-1)\Gamma(\alpha-1)} = \frac{\beta}{\alpha - 1}.$$
 
 ---
 
-### Exercise 9: Linear Transformation (Gotcha Moment)
-**Problem:** If $X \sim Gamma(\alpha, \beta)$, does $Y = cX$ (where $c > 0$) follow a Gamma distribution? If so, what are its parameters?
+### Άσκηση 9: Γραμμικός μετασχηματισμός (Gotcha Moment)
+**Πρόβλημα:** Εάν $X \sim Gamma(\alpha, \beta)$, το $Y = cX$ (όπου $c > 0$) ακολουθεί μια κατανομή γάμμα; Αν ναι, ποιες είναι οι παράμετροι του;
 
-**Solution:**
-- **Step 1: Use the MGF method.**
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε τη μέθοδο MGF.**
   $$M_Y(t) = M_{cX}(t) = M_X(ct)$$
-- **Step 2: WIP State.**
-  Substitute $ct$ into the MGF of $X$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Αντικαταστήστε το $ct$ στο MGF του $X$:
   $$M_Y(t) = \left(1 - \frac{ct}{\beta}\right)^{-\alpha} = \left(1 - \frac{t}{\beta/c}\right)^{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M_Y(t) = \left(1 - \frac{t}{\beta/c}\right)^{-\alpha}$$
-  By uniqueness of the MGF, this represents a Gamma distribution:
-  $$Y \sim Gamma\left(\alpha, \frac{\beta}{c}\right)$$
-  *(Gotcha check: Scaling a Gamma variable changes its rate parameter to $\beta/c$ while keeping the shape parameter $\alpha$ unchanged. If you scale by 2, the rate is cut in half, which makes physical sense as the variable becomes twice as spread out!)*
+  Λόγω της μοναδικότητας του MGF, αυτό αντιπροσωπεύει μια κατανομή Γάμμα:
+  $$Y \sim Gamma\left(\alpha, \frac{\beta}{c}\right)$$*(Έλεγχος Gotcha: Η κλιμάκωση μιας μεταβλητής Gamma αλλάζει την παράμετρο ρυθμού της σε $\beta/c$ ενώ διατηρεί την παράμετρο σχήματος $\alpha$ αμετάβλητη. Εάν κλιμακωθείτε κατά 2, ο ρυθμός μειώνεται στο μισό, πράγμα που έχει φυσικό νόημα καθώς η μεταβλητή γίνεται διπλάσια!)*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_5_transformations_of_random_variables.md -->
-# Phase 5.5: Transformations of Random Variables
+<!-- Πηγή: ../Resources/Phase_5_Continuous_Random_Variables_Distributions/phase_5_5_transformations_of_random_variables.md -->
+# Φάση 5.5: Μετασχηματισμοί τυχαίων μεταβλητών
 
-In probability theory, we often need to find the probability distribution of a new random variable $Y$ that is a function of an existing random variable $X$, written as $Y = g(X)$. This process is called a **transformation**.
+Στη θεωρία πιθανοτήτων, συχνά χρειάζεται να βρούμε την κατανομή πιθανότητας μιας νέας τυχαίας μεταβλητής $Y$ που είναι συνάρτηση μιας υπάρχουσας τυχαίας μεταβλητής $X$, γραμμένης ως $Y = g(X)$. Αυτή η διαδικασία ονομάζεται **μετασχηματισμός**.
 
 ---
 
-## 1. Discrete Random Variables
+## 1. Διακριτές Τυχαίες Μεταβλητές
 
-For a discrete random variable $X$ with probability mass function $p_X(x)$, the PMF of $Y = g(X)$ is obtained by summing the probabilities of all $x$ values that map to $y$:
+Για μια διακριτή τυχαία μεταβλητή $X$ με συνάρτηση μάζας πιθανότητας $p_X(x)$, το PMF του $Y = g(X)$ προκύπτει αθροίζοντας τις πιθανότητες όλων των τιμών $x$ που αντιστοιχίζονται σε __MATHIN_LINE17
 
 $$p_Y(y) = P(Y = y) = \sum_{x : g(x) = y} p_X(x)$$
 
 ---
 
-## 2. Continuous Random Variables
+## 2. Συνεχείς Τυχαίες Μεταβλητές
 
-There are two primary methods for finding the PDF of $Y = g(X)$ when $X$ is continuous.
+Υπάρχουν δύο κύριες μέθοδοι για την εύρεση του PDF του $Y = g(X)$ όταν το $X$ είναι συνεχές.
 
-### 2.1 The CDF Method (First Principles)
-This is the most robust method and works for both monotonic and non-monotonic functions (like $Y = X^2$).
+### 2.1 Η μέθοδος CDF (Πρώτες Αρχές)
+Αυτή είναι η πιο στιβαρή μέθοδος και λειτουργεί τόσο για μονοτονικές όσο και για μη μονότονες συναρτήσεις (όπως $Y = X^2$).
 
-1.  Write the cumulative distribution function (CDF) of $Y$:
+1. Γράψτε τη συνάρτηση αθροιστικής κατανομής (CDF) του $Y$:
     $$F_Y(y) = P(Y \le y) = P(g(X) \le y)$$
-2.  Rewrite the inequality in terms of $X$.
-3.  Express $F_Y(y)$ in terms of the CDF of $X$, $F_X(x)$.
-4.  Differentiate $F_Y(y)$ with respect to $y$ to get the PDF $f_Y(y)$:
+2. Ξαναγράψτε την ανισότητα ως $X$.
+3. Εκφράστε $F_Y(y)$ ως προς το CDF των $X$, $F_X(x)$.
+4. Διαφοροποιήστε $F_Y(y)$ σε σχέση με $y$ για να λάβετε το PDF $f_Y(y)$:
     $$f_Y(y) = \frac{d}{dy} F_Y(y)$$
 
-### 2.2 The Change of Variables Formula (Jacobian Method)
-If $g(x)$ is **strictly monotonic** (either strictly increasing or strictly decreasing) and differentiable, the PDF of $Y$ can be computed directly using:
+### 2.2 Ο τύπος της αλλαγής των μεταβλητών (Ιακωβική μέθοδος)
+Εάν το $g(x)$ είναι **αυστηρά μονότονο** (είτε αυστηρά αυξανόμενο είτε αυστηρά φθίνον) και διαφοροποιήσιμο, το PDF του $Y$ μπορεί να υπολογιστεί απευθείας χρησιμοποιώντας:
 
 $$f_Y(y) = f_X(x) \cdot \left| \frac{dx}{dy} \right| \quad \text{where } x = g^{-1}(y)$$
 
-Or written equivalently as:
+Ή γράφεται ισοδύναμα ως:
 
 $$f_Y(y) = f_X(g^{-1}(y)) \cdot \left| \frac{d}{dy} g^{-1}(y) \right|$$
 
-> **Exam Warning:** Always specify the **domain (range of validity)** of the new PDF $f_Y(y)$ by mapping the original boundaries of $X$ through the function $g(x)$. Leaving out the domain is a guaranteed way to lose marks.
+> **Προειδοποίηση εξέτασης:** Καθορίζετε πάντα τον **τομέα (εύρος εγκυρότητας)** του νέου PDF $f_Y(y)$ αντιστοιχίζοντας τα αρχικά όρια του $X$ μέσω της συνάρτησης $g(x)$. Η έξοδος από τον τομέα είναι ένας εγγυημένος τρόπος για να χάσετε βαθμούς.
 
 ---
 
-## 3. Solved Exercises (9 Examples)
+## 3. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Discrete Transformation
-**Problem:** Let $X$ have PMF:
-*   $P(X = -1) = 0.2$
-*   $P(X = 0) = 0.3$
-*   $P(X = 1) = 0.4$
-*   $P(X = 2) = 0.1$
+### Άσκηση 1: Διακριτικός Μετασχηματισμός
+**Πρόβλημα:** Αφήστε το $X$ να έχει PMF:
+* $P(X = -1) = 0.2$
+* $P(X = 0) = 0.3$
+* $P(X = 1) = 0.4$
+* $P(X = 2) = 0.1$
 
-Find the PMF of $Y = X^2$.
+Βρείτε το PMF του $Y = X^2$.
 
-**Solution:**
-- **Step 1: Map the values of $X$ to $Y$.**
-  - If $x = -1 \implies y = (-1)^2 = 1$
-  - If $x = 0 \implies y = 0^2 = 0$
-  - If $x = 1 \implies y = 1^2 = 1$
-  - If $x = 2 \implies y = 2^2 = 4$
-  The possible values for $Y$ are $\{0, 1, 4\}$.
-- **Step 2: WIP State.**
-  Sum probabilities for each unique $y$:
+**Λύση:**
+- **Βήμα 1: Αντιστοιχίστε τις τιμές του $X$ σε $Y$.**
+  - Εάν $x = -1 \implies y = (-1)^2 = 1$
+  - Εάν $x = 0 \implies y = 0^2 = 0$
+  - Εάν $x = 1 \implies y = 1^2 = 1$
+  - Εάν $x = 2 \implies y = 2^2 = 4$
+  Οι πιθανές τιμές για $Y$ είναι $\{0, 1, 4\}$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Πιθανότητες αθροίσματος για κάθε μοναδικό $y$:
   - $P(Y = 0) = P(X = 0) = 0.3$
   - $P(Y = 1) = P(X = -1) + P(X = 1) = 0.2 + 0.4 = 0.6$
   - $P(Y = 4) = P(X = ?) = ?$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $P(Y = 4) = P(X = 2) = 0.1$.
-  - PMF Table:
+  - Πίνακας PMF:
     | $y$ | 0 | 1 | 4 |
     | :--- | :--- | :--- | :--- |
-    | $P(Y = y)$ | 0.3 | 0.6 | 0.1 |
-  Check sum: $0.3 + 0.6 + 0.1 = 1.0$.
+    | $P(Y = y)$ | 0,3 | 0,6 | 0,1 |
+  Άθροισμα ελέγχου: $0.3 + 0.6 + 0.1 = 1.0$.
 
 ---
 
-### Exercise 2: Monotonic Linear Transformation (Continuous)
-**Problem:** Let $X$ be a continuous random variable with PDF $f_X(x) = 2x$ for $0 < x < 1$. Find the PDF of $Y = 3X + 2$.
+### Άσκηση 2: Μονοτονικός Γραμμικός Μετασχηματισμός (Συνεχής)
+**Πρόβλημα:** Έστω $X$ μια συνεχής τυχαία μεταβλητή με PDF $f_X(x) = 2x$ για $0 < x < 1$. Βρείτε το PDF του $Y = 3X + 2$.
 
-**Solution:**
-- **Step 1: Find the inverse function and its derivative.**
-  Let $y = 3x + 2 \implies x = \frac{y - 2}{3}$.
-  $$\frac{dx}{dy} = \frac{1}{3}$$
-- **Step 2: WIP State.**
-  Find the new domain for $Y$:
-  - When $x = 0 \implies y = 3(0) + 2 = 2$.
-  - When $x = 1 \implies y = 3(1) + 2 = 5$.
-  So the domain of $Y$ is $2 < y < 5$.
-  Apply the Change of Variables formula:
+**Λύση:**
+- **Βήμα 1: Βρείτε την αντίστροφη συνάρτηση και την παράγωγό της.**
+  Αφήστε $y = 3x + 2 \implies x = \frac{y - 2}{3}$.$$\frac{dx}{dy} = \frac{1}{3}$$
+- **Βήμα 2: Κατάσταση WIP.**
+  Βρείτε τον νέο τομέα για $Y$:
+  - Όταν $x = 0 \implies y = 3(0) + 2 = 2$.
+  - Όταν $x = 1 \implies y = 3(1) + 2 = 5$.
+  Άρα ο τομέας του $Y$ είναι $2 < y < 5$.
+  Εφαρμόστε τον τύπο αλλαγής μεταβλητών:
   $$f_Y(y) = f_X(x) \cdot \left| \frac{dx}{dy} \right| = 2 \cdot \left(\frac{y-2}{3}\right) \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = 2 \cdot \left(\frac{y - 2}{3}\right) \cdot \frac{1}{3} = \frac{2(y - 2)}{9}$$
-  So, the final PDF is:
+  Έτσι, το τελικό PDF είναι:
   $$f_Y(y) = \frac{2(y - 2)}{9}, \quad 2 < y < 5$$
 
 ---
 
-### Exercise 3: Non-Monotonic Transformation ($Y = X^2$)
-**Problem:** Let $X \sim U(-1, 2)$. Find the PDF of $Y = X^2$.
+### Άσκηση 3: Μη Μονοτονικός Μετασχηματισμός ($Y = X^2$)
+**Πρόβλημα:** Αφήστε $X \sim U(-1, 2)$. Βρείτε το PDF του $Y = X^2$.
 
-**Solution:**
-- **Step 1: Write original PDF and find domain.**
+**Λύση:**
+- **Βήμα 1: Γράψτε το αρχικό PDF και βρείτε τον τομέα.**
   $$f_X(x) = \frac{1}{2 - (-1)} = \frac{1}{3}, \quad -1 < x < 2$$
-  Since $Y = X^2$, the range of $Y$ is $[0, 4]$.
-- **Step 2: WIP State (Apply CDF method).**
-  For $0 < y < 1$, the values of $X$ that satisfy $X^2 \le y$ are $-\sqrt{y} \le X \le \sqrt{y}$.
+  Από $Y = X^2$, το εύρος $Y$ είναι $[0, 4]$.
+- **Βήμα 2: Κατάσταση WIP (Εφαρμογή μεθόδου CDF).**
+  Για $0 < y < 1$, οι τιμές του $X$ που ικανοποιούν $X^2 \le y$ είναι $-\sqrt{y} \le X \le \sqrt{y}$.
   $$F_Y(y) = P(X^2 \le y) = P(-\sqrt{y} \le X \le \sqrt{y}) = F_X(\sqrt{y}) - F_X(-\sqrt{y})$$
-  Differentiating:
+  Διαφοροποίηση:
   $$f_Y(y) = \frac{d}{dy}\left(F_X(\sqrt{y}) - F_X(-\sqrt{y})\right) = f_X(\sqrt{y}) \cdot \frac{1}{2\sqrt{y}} - f_X(-\sqrt{y}) \cdot \left(-\frac{1}{2\sqrt{y}}\right)$$
   $$f_Y(y) = \frac{1}{2\sqrt{y}} \left( f_X(\sqrt{y}) + f_X(-\sqrt{y}) \right)$$
-  For $1 \le y < 4$, $X$ can only be positive because the lower boundary of $X$ is $-1$ (which squares to $1$). Thus, $X^2 \le y$ implies $-1 < X \le \sqrt{y}$.
+  Για $1 \le y < 4$, το $X$ μπορεί να είναι μόνο θετικό επειδή το κάτω όριο του $X$ είναι $-1$ (το οποίο είναι τετράγωνο σε $1$). Επομένως, $X^2 \le y$ υποδηλώνει $-1 < X \le \sqrt{y}$.
   $$F_Y(y) = P(-1 < X \le \sqrt{y}) = F_X(\sqrt{y}) - F_X(-1)$$
-  Differentiating:
+  Διαφοροποίηση:
   $$f_Y(y) = f_X(\sqrt{y}) \cdot \frac{1}{2\sqrt{y}} = \frac{1}{3} \cdot \frac{1}{2\sqrt{y}} = ?$$
-- **Step 3: Final Calculation.**
-  - For $0 < y < 1$: Both $\sqrt{y}$ and $-\sqrt{y}$ lie in the domain of $X$ ($-1 < x < 2$).
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Για $0 < y < 1$: Τόσο το $\sqrt{y}$ όσο και το $-\sqrt{y}$ βρίσκονται στον τομέα $X$ ($-1 < x < 2$).
     $$f_Y(y) = \frac{1}{2\sqrt{y}} \left( \frac{1}{3} + \frac{1}{3} \right) = \frac{1}{3\sqrt{y}}$$
-  - For $1 \le y < 4$: Only $\sqrt{y}$ lies in the domain of $X$.
+  - Για $1 \le y < 4$: Μόνο το $\sqrt{y}$ βρίσκεται στον τομέα $X$.
     $$f_Y(y) = \frac{1}{6\sqrt{y}}$$
-  Final piecewise PDF:
+  Τελικό τμηματικά PDF:
   $$f_Y(y) = \begin{cases} \frac{1}{3\sqrt{y}}, & 0 < y < 1 \\ \frac{1}{6\sqrt{y}}, & 1 \le y < 4 \\ 0, & \text{otherwise} \end{cases}$$
 
 ---
 
-### Exercise 4: Exponential from Uniform
-**Problem:** Let $X \sim U(0, 1)$. Find the PDF of $Y = -\ln(X)$.
+### Άσκηση 4: Εκθετική από Ομοιόμορφη
+**Πρόβλημα:** Αφήστε $X \sim U(0, 1)$. Βρείτε το PDF του $Y = -\ln(X)$.
 
-**Solution:**
-- **Step 1: Inverse function and derivative.**
-  Let $y = -\ln(x) \implies -y = \ln(x) \implies x = e^{-y}$.
+**Λύση:**
+- **Βήμα 1: Αντίστροφη συνάρτηση και παράγωγος.**
+  Αφήστε $y = -\ln(x) \implies -y = \ln(x) \implies x = e^{-y}$.
   $$\frac{dx}{dy} = -e^{-y} \implies \left| \frac{dx}{dy} \right| = e^{-y}$$
-- **Step 2: WIP State.**
-  Domain mapping:
-  - As $x \to 0^+ \implies y \to \infty$.
-  - As $x \to 1^- \implies y \to 0$.
-  So the domain of $Y$ is $y > 0$.
-  Apply formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Χαρτογράφηση τομέα:
+  - Ως $x \to 0^+ \implies y \to \infty$.
+  - Ως $x \to 1^- \implies y \to 0$.
+  Άρα ο τομέας $Y$ είναι $y > 0$.
+  Εφαρμόστε τον τύπο:
   $$f_Y(y) = f_X(x) \cdot \left| \frac{dx}{dy} \right|$$
-  Since $X \sim U(0, 1)$, $f_X(x) = 1$ on $(0, 1)$.
+  Από $X \sim U(0, 1)$, $f_X(x) = 1$ στις $(0, 1)$.
   $$f_Y(y) = 1 \cdot e^{-y} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = e^{-y}, \quad y > 0$$
-  *(Note: This is exactly the PDF of an Exponential distribution with parameter $\lambda = 1$. This is the basis of the Inverse Transform Method for generating random variables!)*
+  *(Σημείωση: Αυτό είναι ακριβώς το PDF μιας Εκθετικής κατανομής με παράμετρο $\lambda = 1$. Αυτή είναι η βάση της μεθόδου αντίστροφου μετασχηματισμού για τη δημιουργία τυχαίων μεταβλητών!)*
 
 ---
 
-### Exercise 5: Transformation of a Normal Variable to Log-Normal
-**Problem:** Let $X \sim N(\mu, \sigma^2)$. Find the PDF of $Y = e^X$.
+### Άσκηση 5: Μετατροπή κανονικής μεταβλητής σε λογαριθμική-κανονική
+**Πρόβλημα:** Αφήστε $X \sim N(\mu, \sigma^2)$. Βρείτε το PDF του $Y = e^X$.
 
-**Solution:**
-- **Step 1: Inverse and derivative.**
-  Let $y = e^x \implies x = \ln(y)$ (for $y > 0$).
+**Λύση:**
+- **Βήμα 1: Αντίστροφο και παράγωγο.**
+  Αφήστε $y = e^x \implies x = \ln(y)$ (για $y > 0$).
   $$\frac{dx}{dy} = \frac{1}{y}$$
-- **Step 2: WIP State.**
-  Domain: Since $x \in (-\infty, \infty)$, $y = e^x \in (0, \infty)$.
-  Recall the Normal PDF:
+- **Βήμα 2: Κατάσταση WIP.**
+  Τομέας: Από $x \in (-\infty, \infty)$, $y = e^x \in (0, \infty)$.
+  Θυμηθείτε το Κανονικό PDF:
   $$f_X(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
-  Apply Change of Variables formula:
+  Εφαρμογή του τύπου αλλαγής μεταβλητών:
   $$f_Y(y) = f_X(\ln(y)) \cdot \left| \frac{dx}{dy} \right| = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(\ln(y) - \mu)^2}{2\sigma^2}} \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = \frac{1}{y \sigma \sqrt{2\pi}} e^{-\frac{(\ln(y) - \mu)^2}{2\sigma^2}}, \quad y > 0$$
-  This is the PDF of the **Log-Normal distribution**.
+  Αυτό είναι το PDF της **Κανονικής διανομής Καταγραφής**.
 
 ---
 
-### Exercise 6: CDF Method for a Square Root Function
-**Problem:** Let $X \sim Exp(\lambda)$. Find the PDF of $Y = \sqrt{X}$.
+### Άσκηση 6: Μέθοδος CDF για συνάρτηση τετραγωνικής ρίζας
+**Πρόβλημα:** Αφήστε $X \sim Exp(\lambda)$. Βρείτε το PDF του $Y = \sqrt{X}$.
 
-**Solution:**
-- **Step 1: Use the CDF method.**
-  For $y > 0$:
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε τη μέθοδο CDF.**
+  Για $y > 0$:
   $$F_Y(y) = P(Y \le y) = P(\sqrt{X} \le y) = P(X \le y^2) = F_X(y^2)$$
-- **Step 2: WIP State.**
-  Since $X \sim Exp(\lambda)$, its CDF is $F_X(x) = 1 - e^{-\lambda x}$ for $x > 0$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Από $X \sim Exp(\lambda)$, το CDF του είναι $F_X(x) = 1 - e^{-\lambda x}$ για $x > 0$.
   $$F_Y(y) = 1 - e^{-\lambda y^2}$$
-  Differentiate with respect to $y$ using the chain rule:
+  Διαφοροποιήστε ως προς το $y$ χρησιμοποιώντας τον κανόνα της αλυσίδας:
   $$f_Y(y) = \frac{d}{dy}\left(1 - e^{-\lambda y^2}\right) = -e^{-\lambda y^2} \cdot (-2\lambda y) = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = 2\lambda y e^{-\lambda y^2}, \quad y > 0$$
-  *(Note: This is the Weibull distribution with shape parameter 2).*
+  *(Σημείωση: Αυτή είναι η κατανομή Weibull με παράμετρο σχήματος 2).*
 
 ---
 
-### Exercise 7: Monotonic Decreasing Transformation
-**Problem:** Let $X$ have PDF $f_X(x) = 3x^2$ for $0 < x < 1$. Find the PDF of $Y = \frac{1}{X}$.
+### Άσκηση 7: Μονοτονικός φθίνων μετασχηματισμός**Πρόβλημα:** Αφήστε το $X$ να έχει PDF $f_X(x) = 3x^2$ για $0 < x < 1$. Βρείτε το PDF του $Y = \frac{1}{X}$.
 
-**Solution:**
-- **Step 1: Find inverse and derivative.**
-  Let $y = 1/x \implies x = 1/y$.
+**Λύση:**
+- **Βήμα 1: Βρείτε την αντίστροφη και την παράγωγο.**
+  Αφήστε $y = 1/x \implies x = 1/y$.
   $$\frac{dx}{dy} = -\frac{1}{y^2} \implies \left| \frac{dx}{dy} \right| = \frac{1}{y^2}$$
-- **Step 2: WIP State.**
-  Domain mapping:
-  - When $x = 0^+ \implies y \to \infty$.
-  - When $x = 1 \implies y = 1$.
-  So the domain of $Y$ is $y > 1$.
-  Apply formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Χαρτογράφηση τομέα:
+  - Όταν $x = 0^+ \implies y \to \infty$.
+  - Όταν $x = 1 \implies y = 1$.
+  Άρα ο τομέας του $Y$ είναι $y > 1$.
+  Εφαρμόστε τον τύπο:
   $$f_Y(y) = f_X\left(\frac{1}{y}\right) \cdot \left| \frac{dx}{dy} \right| = 3\left(\frac{1}{y}\right)^2 \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = \frac{3}{y^2} \cdot \frac{1}{y^2} = \frac{3}{y^4}, \quad y > 1$$
 
 ---
 
-### Exercise 8: The Linear Scaling Gotcha
-**Problem:** Let $X$ follow a distribution with PDF $f_X(x)$. If $Y = aX$, write the PDF $f_Y(y)$ using $f_X$.
+### Άσκηση 8: The Linear Scaling Gotcha
+**Πρόβλημα:** Αφήστε $X$ να ακολουθήσει μια διανομή με PDF $f_X(x)$. Εάν $Y = aX$, γράψτε το PDF $f_Y(y)$ χρησιμοποιώντας $f_X$.
 
-**Solution:**
-- **Step 1: Find inverse and derivative.**
-  Let $y = ax \implies x = y/a$.
+**Λύση:**
+- **Βήμα 1: Βρείτε την αντίστροφη και την παράγωγο.**
+  Αφήστε $y = ax \implies x = y/a$.
   $$\frac{dx}{dy} = \frac{1}{a} \implies \left| \frac{dx}{dy} \right| = \frac{1}{|a|}$$
-- **Step 2: WIP State.**
-  Apply formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε τον τύπο:
   $$f_Y(y) = f_X\left(\frac{y}{a}\right) \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = \frac{1}{|a|} f_X\left(\frac{y}{a}\right)$$
-  *(Gotcha check: Students frequently write $f_Y(y) = f_X(y/a)$ and forget the division by $|a|$. This constant factor is mathematically required so that the PDF integrates to 1).*
+  *(Έλεγχος Gotcha: Οι μαθητές γράφουν συχνά $f_Y(y) = f_X(y/a)$ και ξεχνούν τη διαίρεση με $|a|$. Αυτός ο σταθερός παράγοντας απαιτείται μαθηματικά έτσι ώστε το PDF να ενσωματωθεί στο 1).*
 
 ---
 
-### Exercise 9: Cauchy from Uniform (The tangent transformation)
-**Problem:** Let $X \sim U\left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$. Find the PDF of $Y = \tan(X)$.
+### Άσκηση 9: Cauchy from Uniform (Ο εφαπτομενικός μετασχηματισμός)
+**Πρόβλημα:** Αφήστε $X \sim U\left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$. Βρείτε το PDF του $Y = \tan(X)$.
 
-**Solution:**
-- **Step 1: Inverse function and derivative.**
-  Let $y = \tan(x) \implies x = \arctan(y)$.
+**Λύση:**
+- **Βήμα 1: Αντίστροφη συνάρτηση και παράγωγος.**
+  Αφήστε $y = \tan(x) \implies x = \arctan(y)$.
   $$\frac{dx}{dy} = \frac{1}{1 + y^2}$$
-- **Step 2: WIP State.**
-  Domain mapping:
-  - When $x \to -\frac{\pi}{2}^+ \implies y \to -\infty$.
-  - When $x \to \frac{\pi}{2}^- \implies y \to \infty$.
-  So the domain of $Y$ is $-\infty < y < \infty$.
-  The PDF of $X$ is $f_X(x) = \frac{1}{\frac{\pi}{2} - (-\frac{\pi}{2})} = \frac{1}{\pi}$ on its interval.
-  Apply formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Χαρτογράφηση τομέα:
+  - Όταν $x \to -\frac{\pi}{2}^+ \implies y \to -\infty$.
+  - Όταν $x \to \frac{\pi}{2}^- \implies y \to \infty$.
+  Άρα ο τομέας του $Y$ είναι $-\infty < y < \infty$.
+  Το PDF του $X$ είναι $f_X(x) = \frac{1}{\frac{\pi}{2} - (-\frac{\pi}{2})} = \frac{1}{\pi}$ στο μεσοδιάστημά του.
+  Εφαρμόστε τον τύπο:
   $$f_Y(y) = f_X(\arctan(y)) \cdot \left| \frac{dx}{dy} \right| = \frac{1}{\pi} \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = \frac{1}{\pi(1 + y^2)}, \quad -\infty < y < \infty$$
-  This is the PDF of the standard **Cauchy distribution**.
+  Αυτό είναι το PDF της τυπικής **διανομής Cauchy**.
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_6_multivariate_rv_fundamentals.md -->
-# Phase 5.6: Multivariate Random Variables - Fundamentals
+<!-- Πηγή: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_6_multivariate_rv_fundamentals.md -->
+# Φάση 5.6: Πολυμεταβλητές Τυχαίες Μεταβλητές - Θεμελιώδεις
 
-Multivariate random variables model scenarios where multiple outcomes are observed simultaneously from the same random experiment. We study joint, marginal, and conditional distributions for both discrete and continuous cases.
+Πολυμεταβλητές τυχαίες μεταβλητές μοντελοποιούν σενάρια όπου παρατηρούνται πολλαπλά αποτελέσματα ταυτόχρονα από το ίδιο τυχαίο πείραμα. Μελετάμε κοινές, οριακές και υπό όρους κατανομές τόσο για διακριτές όσο και για συνεχείς περιπτώσεις.
 
 ---
 
-## 1. Joint and Marginal Distributions
+## 1. Κοινές και Οριακές Διανομές
 
-### 1.1 Discrete Random Variables
-Let $X$ and $Y$ be discrete random variables defined on the same sample space.
+### 1.1 Διακριτές Τυχαίες Μεταβλητές
+Έστω $X$ και $Y$ διακριτές τυχαίες μεταβλητές που ορίζονται στον ίδιο χώρο δείγματος.
 
-*   **Joint Probability Mass Function (Joint PMF):**
+* **Συνάρτηση μάζας κοινής πιθανότητας (Joint PMF):**
     $$p_{X,Y}(x, y) = P(X = x, Y = y)$$
-    Subject to:
+    Με την επιφύλαξη:
     $$\sum_{x} \sum_{y} p_{X,Y}(x, y) = 1$$
-*   **Marginal PMFs:** To find the probability distribution of one variable alone, sum out the other variable:
+* **Οριακά PMF:** Για να βρείτε την κατανομή πιθανότητας μόνο μιας μεταβλητής, αθροίστε την άλλη μεταβλητή:
     $$p_X(x) = \sum_{y} p_{X,Y}(x, y) \quad \text{and} \quad p_Y(y) = \sum_{x} p_{X,Y}(x, y)$$
 
-### 1.2 Continuous Random Variables
-Let $X$ and $Y$ be continuous random variables.
+### 1.2 Συνεχείς Τυχαίες Μεταβλητές
+Έστω οι $X$ και $Y$ συνεχείς τυχαίες μεταβλητές.
 
-*   **Joint Probability Density Function (Joint PDF):**
-    A function $f(x, y)$ such that:
+* **Συνάρτηση πυκνότητας κοινής πιθανότητας (Joint PDF):**
+    Μια συνάρτηση $f(x, y)$ τέτοια ώστε:
     $$P((X, Y) \in A) = \iint_A f(x, y) \, dx \, dy$$
-    Subject to:
+    Με την επιφύλαξη:
     $$\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1 \quad \text{and} \quad f(x,y) \ge 0$$
-*   **Marginal PDFs:** Integrate out the other variable:
+* **Οθιακά PDF:** Ενσωματώστε την άλλη μεταβλητή:
     $$f_X(x) = \int_{-\infty}^{\infty} f(x, y) \, dy \quad \text{and} \quad f_Y(y) = \int_{-\infty}^{\infty} f(x, y) \, dx$$
 
 ---
 
-## 2. Conditional Distributions
+## 2. Διανομές υπό όρους
 
-Conditional distributions describe the behavior of one random variable when the value of the other is known.
+Οι κατανομές υπό όρους περιγράφουν τη συμπεριφορά μιας τυχαίας μεταβλητής όταν είναι γνωστή η τιμή της άλλης.
 
-*   **Discrete Case:**
+* **Διακεκριμένη θήκη:**
     $$p_{X|Y}(x | y) = P(X = x | Y = y) = \frac{p_{X,Y}(x, y)}{p_Y(y)} \quad (\text{provided } p_Y(y) > 0)$$
-*   **Continuous Case:**
+* **Συνεχής περίπτωση:**
     $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)} \quad (\text{provided } f_Y(y) > 0)$$
 
 ---
 
-## 3. Independence of Random Variables
+## 3. Ανεξαρτησία τυχαίων μεταβλητών
 
-Two random variables $X$ and $Y$ are independent if their joint distribution is the product of their marginal distributions for all values of $x$ and $y$.
+Δύο τυχαίες μεταβλητές $X$ και $Y$ είναι ανεξάρτητες εάν η κοινή κατανομή τους είναι το γινόμενο των οριακών κατανομών τους για όλες τις τιμές των $x$ και $y$.
 
-*   **Discrete:** $p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y)$
-*   **Continuous:** $f(x, y) = f_X(x) \cdot f_Y(y)$
+* **Διακριτή: ** $p_{X,Y}(x, y) = p_X(x) \cdot p_Y(y)$* **Συνεχές:** $f(x, y) = f_X(x) \cdot f_Y(y)$
 
-If this product relation fails for even a single coordinate in the domain, the variables are dependent.
+Εάν αυτή η σχέση προϊόντος αποτύχει έστω και για μία μόνο συντεταγμένη στον τομέα, οι μεταβλητές εξαρτώνται.
 
 ---
 
-## 4. Solved Exercises (9 Examples)
+## 4. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Discrete Joint PMF Table
-**Problem:** The joint PMF of $X$ and $Y$ is given by the table below. Find the marginal PMF of $X$ and $Y$, and compute $P(X \le 1, Y \ge 1)$.
+### Άσκηση 1: Πίνακας διακριτών αρμών PMF
+**Πρόβλημα:** Το κοινό PMF των $X$ και $Y$ δίνεται από τον παρακάτω πίνακα. Βρείτε το οριακό PMF των $X$ και $Y$ και υπολογίστε $P(X \le 1, Y \ge 1)$.
 
 | $X \setminus Y$ | 0 | 1 | 2 |
 | :--- | :--- | :--- | :--- |
-| **0** | 0.1 | 0.2 | 0.05 |
-| **1** | 0.15 | 0.1 | 0.15 |
-| **2** | 0.05 | 0.1 | 0.1 |
+| **0** | 0,1 | 0,2 | 0,05 |
+| **1** | 0,15 | 0,1 | 0,15 |
+| **2** | 0,05 | 0,1 | 0,1 |
 
-**Solution:**
-- **Step 1: Calculate marginals by summing rows and columns.**
-  - Row sums (Marginal PMF of $X$):
+**Λύση:**
+- **Βήμα 1: Υπολογίστε τα περιθώρια αθροίζοντας σειρές και στήλες.**
+  - Αθροίσματα σειρών (οριακό PMF του $X$):
     - $P(X=0) = 0.1 + 0.2 + 0.05 = 0.35$
     - $P(X=1) = 0.15 + 0.1 + 0.15 = 0.40$
     - $P(X=2) = 0.05 + 0.1 + 0.1 = ?$
-- **Step 2: WIP State.**
+- **Βήμα 2: Κατάσταση WIP.**
   - $P(X=2) = 0.25$.
-  - Column sums (Marginal PMF of $Y$):
+  - Ποσά στηλών (οριακό PMF του $Y$):
     - $P(Y=0) = 0.1 + 0.15 + 0.05 = 0.30$
     - $P(Y=1) = 0.2 + 0.1 + 0.1 = 0.40$
     - $P(Y=2) = 0.05 + 0.15 + 0.1 = ?$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $P(Y=2) = 0.30$.
-  - To find $P(X \le 1, Y \ge 1)$, sum cells where $X \in \{0, 1\}$ and $Y \in \{1, 2\}$:
+  - Για να βρείτε $P(X \le 1, Y \ge 1)$, αθροίστε τα κελιά όπου $X \in \{0, 1\}$ και $Y \in \{1, 2\}$:
     $$P(X \le 1, Y \ge 1) = p(0,1) + p(0,2) + p(1,1) + p(1,2)$$
     $$P(X \le 1, Y \ge 1) = 0.2 + 0.05 + 0.1 + 0.15 = 0.50.$$
 
 ---
 
-### Exercise 2: Discrete Independence Check
-**Problem:** Using the joint PMF table from Exercise 1, determine if $X$ and $Y$ are independent.
+### Άσκηση 2: Διακριτικός Έλεγχος Ανεξαρτησίας
+**Πρόβλημα:** Χρησιμοποιώντας τον κοινό πίνακα PMF από την Άσκηση 1, προσδιορίστε εάν τα $X$ και $Y$ είναι ανεξάρτητα.
 
-**Solution:**
-- **Step 1: Check the independence condition $P(X=x, Y=y) = P(X=x)P(Y=y)$ for a specific cell.**
-  Let's check the cell $(0,0)$.
-  From the table: $P(X=0, Y=0) = 0.1$.
-- **Step 2: WIP State.**
-  From Exercise 1: $P(X=0) = 0.35$ and $P(Y=0) = 0.30$.
+**Λύση:**
+- **Βήμα 1: Ελέγξτε την συνθήκη ανεξαρτησίας $P(X=x, Y=y) = P(X=x)P(Y=y)$ για ένα συγκεκριμένο κελί.**
+  Ας ελέγξουμε το κελί $(0,0)$.
+  Από τον πίνακα: $P(X=0, Y=0) = 0.1$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Από την Άσκηση 1: $P(X=0) = 0.35$ και $P(Y=0) = 0.30$.
   $$P(X=0) \cdot P(Y=0) = 0.35 \cdot 0.30 = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(X=0) \cdot P(Y=0) = 0.105$$
-  Since $0.1 \ne 0.105$, the independence condition fails.
-  Therefore, $X$ and $Y$ are **dependent**.
+  Από $0.1 \ne 0.105$, η συνθήκη ανεξαρτησίας αποτυγχάνει.
+  Επομένως, τα $X$ και $Y$ **εξαρτώνται**.
 
 ---
 
-### Exercise 3: Continuous Normalising Constant
-**Problem:** Find the constant $c$ such that $f(x, y) = c(x + 2y)$ is a valid PDF on $0 < x < 1, 0 < y < 1$.
+### Άσκηση 3: Συνεχής κανονικοποίηση σταθερά
+**Πρόβλημα:** Βρείτε τη σταθερά $c$ έτσι ώστε το $f(x, y) = c(x + 2y)$ να είναι έγκυρο PDF στο $0 < x < 1, 0 < y < 1$.
 
-**Solution:**
-- **Step 1: Set up the double integral equal to 1.**
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε το διπλό ολοκλήρωμα ίσο με 1.**
   $$\int_{0}^{1} \int_{0}^{1} c(x + 2y) \, dy \, dx = 1$$
-- **Step 2: WIP State.**
-  Integrate with respect to $y$ first:
+- **Βήμα 2: Κατάσταση WIP.**
+  Ενσωματώστε πρώτα σε σχέση με $y$:
   $$\int_{0}^{1} \left[ c\left(xy + y^2\right) \right]_{0}^{1} \, dx = c \int_{0}^{1} (x + 1) \, dx$$
-  Now integrate with respect to $x$:
+  Τώρα ενσωματώστε σε σχέση με το $x$:
   $$c \left[ \frac{x^2}{2} + x \right]_{0}^{1} = c \left( \frac{1}{2} + 1 \right) = c \cdot \frac{3}{2}$$
-  Set this equal to 1:
+  Ορίστε αυτό ίσο με 1:
   $$c \cdot \frac{3}{2} = 1 \implies c = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$c = \frac{2}{3}.$$
 
 ---
 
-### Exercise 4: Continuous Marginal PDFs
-**Problem:** For the joint PDF $f(x, y) = \frac{2}{3}(x + 2y)$ on $0 < x < 1, 0 < y < 1$, find the marginal PDFs of $X$ and $Y$.
+### Άσκηση 4: Συνεχή οριακά PDF
+**Πρόβλημα:** Για το κοινό PDF $f(x, y) = \frac{2}{3}(x + 2y)$ στο $0 < x < 1, 0 < y < 1$, βρείτε τα οριακά PDF των $X$ και $Y$.
 
-**Solution:**
-- **Step 1: Integrate out $y$ to find $f_X(x)$.**
+**Λύση:**
+- **Βήμα 1: Ενσωματώστε το $y$ για να βρείτε $f_X(x)$.**
   $$f_X(x) = \int_{0}^{1} \frac{2}{3}(x + 2y) \, dy = \frac{2}{3} \left[ xy + y^2 \right]_{0}^{1} = \frac{2}{3}(x + 1), \quad 0 < x < 1$$
-- **Step 2: WIP State for $f_Y(y)$.**
-  Integrate out $x$ to find $f_Y(y)$:
+- **Βήμα 2: Κατάσταση WIP για $f_Y(y)$.**
+  Ενσωματώστε το $x$ για να βρείτε $f_Y(y)$:
   $$f_Y(y) = \int_{0}^{1} \frac{2}{3}(x + 2y) \, dx = \frac{2}{3} \left[ \frac{x^2}{2} + 2xy \right]_{0}^{1} = \frac{2}{3}\left( \frac{1}{2} + ? \right)$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = \frac{2}{3}\left( \frac{1}{2} + 2y \right) = \frac{1}{3} + \frac{4}{3}y, \quad 0 < y < 1.$$
 
 ---
 
-### Exercise 5: Continuous Conditional PDF
-**Problem:** Using the joint PDF from Exercise 4, find the conditional PDF of $X$ given $Y = y$, $f_{X|Y}(x | y)$.
+### Άσκηση 5: Συνεχές υπό όρους PDF
+**Πρόβλημα:** Χρησιμοποιώντας το κοινό PDF από την Άσκηση 4, βρείτε το υπό όρους PDF του $X$ που δόθηκε $Y = y$, $f_{X|Y}(x | y)$.
 
-**Solution:**
-- **Step 1: Recall the conditional PDF formula.**
+**Λύση:**
+- **Βήμα 1: Ανακαλέστε τον τύπο PDF υπό όρους.**
   $$f_{X|Y}(x | y) = \frac{f(x, y)}{f_Y(y)}$$
-- **Step 2: WIP State.**
-  From Exercise 4, $f_Y(y) = \frac{1 + 4y}{3}$ and $f(x, y) = \frac{2(x + 2y)}{3}$.
-  Substitute these into the formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Από την Άσκηση 4, $f_Y(y) = \frac{1 + 4y}{3}$ και $f(x, y) = \frac{2(x + 2y)}{3}$.
+  Αντικαταστήστε τα στον τύπο:
   $$f_{X|Y}(x | y) = \frac{\frac{2(x + 2y)}{3}}{\frac{1 + 4y}{3}} = \frac{2(x + 2y)}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_{X|Y}(x | y) = \frac{2(x + 2y)}{1 + 4y}, \quad 0 < x < 1$$
-  *(Note: For any fixed value of $y$, this is a valid 1D PDF for $X$ on $0 < x < 1$).*
+  *(Σημείωση: Για οποιαδήποτε σταθερή τιμή $y$, αυτό είναι ένα έγκυρο PDF 1D για $X$ στις $0 < x < 1$).*
 
 ---
 
-### Exercise 6: Continuous Independence Check
-**Problem:** Determine if $X$ and $Y$ with joint PDF $f(x, y) = 4xy$ for $0 < x < 1, 0 < y < 1$ are independent.
+### Άσκηση 6: Συνεχής Έλεγχος Ανεξαρτησίας**Πρόβλημα:** Προσδιορίστε εάν τα $X$ και $Y$ με κοινό PDF $f(x, y) = 4xy$ για $0 < x < 1, 0 < y < 1$ είναι ανεξάρτητα.
 
-**Solution:**
-- **Step 1: Find marginal PDFs.**
+**Λύση:**
+- **Βήμα 1: Βρείτε οριακά αρχεία PDF.**
   $$f_X(x) = \int_{0}^{1} 4xy \, dy = \left[ 2xy^2 \right]_{0}^{1} = 2x, \quad 0 < x < 1$$
-- **Step 2: WIP State.**
+- **Βήμα 2: Κατάσταση WIP.**
   $$f_Y(y) = \int_{0}^{1} 4xy \, dx = \left[ 2x^2y \right]_{0}^{1} = 2y, \quad 0 < y < 1$$
-  Check if $f_X(x) \cdot f_Y(y) = f(x, y)$:
+  Ελέγξτε εάν $f_X(x) \cdot f_Y(y) = f(x, y)$:
   $$f_X(x) \cdot f_Y(y) = 2x \cdot 2y = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$2x \cdot 2y = 4xy = f(x, y)$$
-  Since the product of the marginals equals the joint PDF over the entire domain, $X$ and $Y$ are **independent**.
-  *(Exam tip: If the joint PDF can be written as $g(x)h(y)$ and the domain is rectangular, the variables are always independent!).*
+  Εφόσον το γινόμενο των περιθωρίων ισούται με το κοινό PDF σε ολόκληρο τον τομέα, τα $X$ και $Y$ είναι **ανεξάρτητα**.
+  *(Συμβουλή για την εξέταση: Εάν το κοινό PDF μπορεί να γραφτεί ως $g(x)h(y)$ και ο τομέας είναι ορθογώνιος, οι μεταβλητές είναι πάντα ανεξάρτητες!).*
 
 ---
 
-### Exercise 7: Non-Rectangular Domain (Gotcha Moment)
-**Problem:** Let $f(x, y) = 8xy$ on the domain $0 < x < y < 1$. Are $X$ and $Y$ independent?
+### Άσκηση 7: Μη Ορθογώνιος Τομέας (Gotcha Moment)
+**Πρόβλημα:** Αφήστε $f(x, y) = 8xy$ στον τομέα $0 < x < y < 1$. Είναι τα $X$ και $Y$ ανεξάρτητα;
 
-**Solution:**
-- **Step 1: Analyze the domain boundary.**
-  The domain is a triangle ($0 < x < y < 1$). The bounds of $x$ depend directly on $y$.
-- **Step 2: WIP State.**
-  Calculate the marginal of $X$ (integrate over $y$ from $x$ to 1):
+**Λύση:**
+- **Βήμα 1: Αναλύστε το όριο του τομέα.**
+  Ο τομέας είναι ένα τρίγωνο ($0 < x < y < 1$). Τα όρια του $x$ εξαρτώνται άμεσα από $y$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Υπολογίστε το περιθώριο του $X$ (ενσωμάτωση πάνω από $y$ από $x$ σε 1):
   $$f_X(x) = \int_{x}^{1} 8xy \, dy = \left[ 4xy^2 \right]_{x}^{1} = 4x(1 - x^2), \quad 0 < x < 1$$
-  Calculate the marginal of $Y$ (integrate over $x$ from 0 to $y$):
+  Υπολογίστε το περιθώριο του $Y$ (ενσωμάτωση πάνω από $x$ από 0 έως $y$):
   $$f_Y(y) = \int_{0}^{y} 8xy \, dx = \left[ 4x^2y \right]_{0}^{y} = 4y^3, \quad 0 < y < 1$$
-  Check product:
+  Ελέγξτε το προϊόν:
   $$f_X(x) \cdot f_Y(y) = 4x(1-x^2) \cdot 4y^3 = 16xy^3(1-x^2) \neq 8xy$$
-- **Step 3: Final Calculation.**
-  The variables are **dependent**.
-  **Gotcha Rule:** If the domain is non-rectangular (e.g., $x < y$), the random variables are **always dependent**, regardless of the PDF formula, because the range of one variable is restricted by the value of the other.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Οι μεταβλητές είναι **εξαρτώμενες**.
+  **Κανόνας Gotcha:** Εάν ο τομέας είναι μη ορθογώνιος (π.χ. $x < y$), οι τυχαίες μεταβλητές **εξαρτώνται πάντα**, ανεξάρτητα από τον τύπο PDF, επειδή το εύρος της μιας μεταβλητής περιορίζεται από την τιμή της άλλης.
 
 ---
 
-### Exercise 8: Joint CDF to PDF
-**Problem:** The joint CDF of $X$ and $Y$ is $F(x, y) = (1 - e^{-x})(1 - e^{-2y})$ for $x > 0, y > 0$. Find the joint PDF $f(x, y)$.
+### Άσκηση 8: Κοινό CDF σε PDF
+**Πρόβλημα:** Το κοινό CDF των $X$ και $Y$ είναι $F(x, y) = (1 - e^{-x})(1 - e^{-2y})$ για $x > 0, y > 0$. Βρείτε το κοινό PDF $f(x, y)$.
 
-**Solution:**
-- **Step 1: Set up the partial derivatives.**
+**Λύση:**
+- **Βήμα 1: Ρύθμιση των μερικών παραγώγων.**
   $$f(x, y) = \frac{\partial^2}{\partial x \partial y} F(x, y)$$
-- **Step 2: WIP State.**
-  Differentiate with respect to $x$ first:
+- **Βήμα 2: Κατάσταση WIP.**
+  Διαφοροποιήστε πρώτα σε σχέση με $x$:
   $$\frac{\partial}{\partial x} F(x, y) = e^{-x} (1 - e^{-2y})$$
-  Now, differentiate this result with respect to $y$:
+  Τώρα, διαφοροποιήστε αυτό το αποτέλεσμα σε σχέση με $y$:
   $$\frac{\partial}{\partial y} \left( e^{-x} (1 - e^{-2y}) \right) = e^{-x} \cdot (2e^{-2y}) = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f(x, y) = 2 e^{-x - 2y}, \quad x > 0, y > 0.$$
 
 ---
 
-### Exercise 9: Probability on a Region
-**Problem:** Let $X$ and $Y$ have joint PDF $f(x, y) = x + y$ on $0 < x < 1, 0 < y < 1$. Find $P(X + Y < 1)$.
+### Άσκηση 9: Πιθανότητα σε μια περιοχή
+**Πρόβλημα:** Αφήστε τα $X$ και $Y$ να έχουν κοινό PDF $f(x, y) = x + y$ στο $0 < x < 1, 0 < y < 1$. Βρείτε $P(X + Y < 1)$.
 
-**Solution:**
-- **Step 1: Set up the bounds for integration.**
-  The condition $x + y < 1$ translates to $y < 1 - x$.
-  Thus, $x$ ranges from 0 to 1, and for a fixed $x$, $y$ ranges from 0 to $1 - x$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Ορίστε τα όρια για την ενσωμάτωση.**
+  Η συνθήκη $x + y < 1$ μεταφράζεται σε $y < 1 - x$.
+  Έτσι, το $x$ κυμαίνεται από 0 έως 1 και για ένα σταθερό $x$, $y$ κυμαίνεται από 0 έως $1 - x$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$P(X + Y < 1) = \int_{0}^{1} \int_{0}^{1-x} (x + y) \, dy \, dx$$
-  Integrate with respect to $y$:
+  Ενσωμάτωση σε σχέση με $y$:
   $$\int_{0}^{1-x} (x + y) \, dy = \left[ xy + \frac{y^2}{2} \right]_{0}^{1-x} = x(1-x) + \frac{(1-x)^2}{2} = x - x^2 + \frac{1 - 2x + x^2}{2} = \frac{1 - x^2}{2}$$
-  Now integrate with respect to $x$:
+  Τώρα ενσωματώστε σε σχέση με το $x$:
   $$\int_{0}^{1} \frac{1 - x^2}{2} \, dx = \left[ \frac{x}{2} - \frac{x^3}{6} \right]_{0}^{1} = \frac{1}{2} - ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Fraction} = \frac{1}{6}$$
   $$P(X + Y < 1) = \frac{1}{2} - \frac{1}{6} = \frac{1}{3} \approx 0.3333.$$
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_7_multivariate_moments.md -->
-# Phase 5.7: Multivariate Random Variables - Moments and Joint Expectations
+<!-- Πηγή: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_7_multivariate_moments.md -->
+# Φάση 5.7: Πολυμεταβλητές τυχαίες μεταβλητές - Στιγμές και κοινές προσδοκίες
 
-This file covers moments of joint distributions, including joint expectation, covariance, correlation, conditional expectation, and the properties of variances of sums of random variables.
+Αυτό το αρχείο καλύπτει στιγμές κοινών κατανομών, συμπεριλαμβανομένης της κοινής προσδοκίας, της συνδιακύμανσης, της συσχέτισης, της υπό όρους προσδοκίας και των ιδιοτήτων των διακυμάνσεων των αθροισμάτων των τυχαίων μεταβλητών.
 
 ---
 
-## 1. Joint Expectations
+## 1. Κοινές Προσδοκίες
 
-The expected value of a function of two random variables, $g(X, Y)$, is defined as:
+Η αναμενόμενη τιμή μιας συνάρτησης δύο τυχαίων μεταβλητών, $g(X, Y)$, ορίζεται ως:
 
-*   **Discrete Case:**
+* **Διακεκριμένη θήκη:**
     $$E[g(X, Y)] = \sum_{x} \sum_{y} g(x, y) \cdot p_{X,Y}(x, y)$$
-*   **Continuous Case:**
+* **Συνεχής περίπτωση:**
     $$E[g(X, Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) \cdot f(x, y) \, dx \, dy$$
 
-### Linearity of Expectation
-Expectation is always linear, regardless of whether $X$ and $Y$ are independent:
+### Γραμμικότητα προσδοκίαςΗ προσδοκία είναι πάντα γραμμική, ανεξάρτητα από το αν οι $X$ και $Y$ είναι ανεξάρτητες:
 
 $$E[aX + bY + c] = aE[X] + bE[Y] + c$$
 
 ---
 
-## 2. Covariance and Correlation
+## 2. Συνδιακύμανση και συσχέτιση
 
-### 2.1 Covariance ($Cov(X, Y)$)
-Covariance measures the strength of the linear relationship between two random variables.
+### 2.1 Συνδιακύμανση ($Cov(X, Y)$)
+Η συνδιακύμανση μετρά την ισχύ της γραμμικής σχέσης μεταξύ δύο τυχαίων μεταβλητών.
 
-*   **Definition:**
+* **Ορισμός:**
     $$Cov(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]$$
-*   **Key Properties:**
-    1.  $Cov(X, X) = Var(X)$
-    2.  $Cov(X, Y) = Cov(Y, X)$
-    3.  $Cov(aX + b, cY + d) = ac \cdot Cov(X, Y)$
-    4.  **Independence:** If $X$ and $Y$ are independent, then $E[XY] = E[X]E[Y]$, which implies:
+* **Βασικές ιδιότητες:**
+    1. $Cov(X, X) = Var(X)$
+    2. $Cov(X, Y) = Cov(Y, X)$
+    3. $Cov(aX + b, cY + d) = ac \cdot Cov(X, Y)$
+    4. **Ανεξαρτησία:** Εάν τα $X$ και $Y$ είναι ανεξάρτητα, τότε $E[XY] = E[X]E[Y]$, που σημαίνει:
         $$Cov(X, Y) = 0$$
 
-> **Exam Warning (True/False Gotcha):** If $Cov(X, Y) = 0$, $X$ and $Y$ are **not necessarily independent**. They are only uncorrelated. There can still be non-linear relationships.
+> **Προειδοποίηση Εξετάσεων (Σωστό/Λάθος Gotcha):** Εάν τα $Cov(X, Y) = 0$, $X$ και $Y$ **δεν είναι απαραίτητα ανεξάρτητα**. Είναι μόνο ασύνδετα. Μπορεί ακόμα να υπάρχουν μη γραμμικές σχέσεις.
 
-### 2.2 Correlation Coefficient ($\rho_{X,Y}$)
-Correlation scale-normalizes covariance to a value between $-1$ and $+1$.
+### 2.2 Συντελεστής συσχέτισης ($\rho_{X,Y}$)
+Κλίμακα συσχέτισης - κανονικοποιεί τη συνδιακύμανση σε μια τιμή μεταξύ $-1$ και $+1$.
 
 $$\rho_{X,Y} = \frac{Cov(X, Y)}{\sigma_X \sigma_Y} = \frac{Cov(X, Y)}{\sqrt{Var(X) Var(Y)}}$$
 
-*   $\rho = 1$: Perfect positive linear relationship.
-*   $\rho = -1$: Perfect negative linear relationship.
-*   $\rho = 0$: No linear relationship (uncorrelated).
+* $\rho = 1$: Τέλεια θετική γραμμική σχέση.
+* $\rho = -1$: Τέλεια αρνητική γραμμική σχέση.
+* $\rho = 0$: Καμία γραμμική σχέση (μη συσχετισμένη).
 
 ---
 
-## 3. Variance of a Linear Combination
+## 3. Διακύμανση γραμμικού συνδυασμού
 
-For any random variables $X$ and $Y$:
+Για τυχόν τυχαίες μεταβλητές $X$ και $Y$:
 
 $$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y) + 2ab \cdot Cov(X, Y)$$
 
-If $X$ and $Y$ are **independent** (or simply uncorrelated):
+Εάν οι $X$ και $Y$ είναι **ανεξάρτητες** (ή απλά ασυσχετισμένες):
 
 $$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y)$$
 
-Specifically, $Var(X - Y) = Var(X) + Var(Y)$ for independent variables. A very common exam mistake is writing $Var(X - Y) = Var(X) - Var(Y)$.
+Συγκεκριμένα, $Var(X - Y) = Var(X) + Var(Y)$ για ανεξάρτητες μεταβλητές. Ένα πολύ συνηθισμένο λάθος στις εξετάσεις είναι να γράψετε $Var(X - Y) = Var(X) - Var(Y)$.
 
 ---
 
-## 4. Conditional Expectation and Variance
+## 4. Προσδοκία υπό όρους και διακύμανση
 
-### 4.1 Conditional Expectation ($E[X | Y]$)
-*   **Discrete:** $E[X | Y = y] = \sum_{x} x \cdot p_{X|Y}(x | y)$
-*   **Continuous:** $E[X | Y = y] = \int_{-\infty}^{\infty} x \cdot f_{X|Y}(x | y) \, dx$
+### 4.1 Προσδοκία υπό όρους ($E[X | Y]$)
+* **Διακριτή: ** $E[X | Y = y] = \sum_{x} x \cdot p_{X|Y}(x | y)$
+* **Συνεχές:** $E[X | Y = y] = \int_{-\infty}^{\infty} x \cdot f_{X|Y}(x | y) \, dx$
 
-### 4.2 Law of Total Expectation (Adam's Law)
-The overall expected value of $X$ can be found by taking the expected value of the conditional expectation:
+### 4.2 Νόμος της συνολικής προσδοκίας (Νόμος του Αδάμ)
+Η συνολική αναμενόμενη τιμή του $X$ μπορεί να βρεθεί λαμβάνοντας την αναμενόμενη τιμή της υπό όρους προσδοκίας:
 
 $$E[E[X|Y]] = E[X]$$
 
-### 4.3 Law of Total Variance (Eve's Law)
-The overall variance of $X$ is divided into the expectation of conditional variance and the variance of conditional expectation:
+### 4.3 Νόμος της Ολικής Διακύμανσης (Νόμος της Εύας)
+Η συνολική διακύμανση του $X$ χωρίζεται στην προσδοκία της υπό όρους διακύμανσης και στη διακύμανση της υπό όρους προσδοκίας:
 
 $$Var(X) = E[Var(X|Y)] + Var(E[X|Y])$$
 
 ---
 
-## 5. Solved Exercises (9 Examples)
+## 5. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Discrete Covariance
-**Problem:** Calculate $Cov(X, Y)$ using the joint PMF table from Phase 5.6 Exercise 1:
+### Άσκηση 1: Διακριτή Συνδιακύμανση
+**Πρόβλημα:** Υπολογίστε $Cov(X, Y)$ χρησιμοποιώντας τον κοινό πίνακα PMF από τη Φάση 5.6 Άσκηση 1:
 
 | $X \setminus Y$ | 0 | 1 | 2 |
 | :--- | :--- | :--- | :--- |
-| **0** | 0.1 | 0.2 | 0.05 |
-| **1** | 0.15 | 0.1 | 0.15 |
-| **2** | 0.05 | 0.1 | 0.1 |
+| **0** | 0,1 | 0,2 | 0,05 |
+| **1** | 0,15 | 0,1 | 0,15 |
+| **2** | 0,05 | 0,1 | 0,1 |
 
-Recall from marginals: $E[X] = 0.9$ and $E[Y] = 1.0$.
+Ανάκληση από τα περιθωριακά: $E[X] = 0.9$ και $E[Y] = 1.0$.
 
-**Solution:**
-- **Step 1: Calculate $E[XY]$.**
+**Λύση:**
+- **Βήμα 1: Υπολογίστε $E[XY]$.**
   $$E[XY] = \sum_x \sum_y x y \cdot p(x, y)$$
-  Terms with 0 can be ignored:
+  Οι όροι με 0 μπορούν να αγνοηθούν:
   $$E[XY] = (1)(1)(0.1) + (1)(2)(0.15) + (2)(1)(0.1) + (2)(2)(0.1) = 0.1 + 0.3 + 0.2 + ?$$
-- **Step 2: WIP State.**
-  - Last term $= 0.4$.
+- **Βήμα 2: Κατάσταση WIP.**
+  - Τελευταία περίοδος $= 0.4$.
   - $E[XY] = 0.1 + 0.3 + 0.2 + 0.4 = 1.0$.
-  Apply the covariance shortcut formula:
+  Εφαρμόστε τον τύπο συντόμευσης συνδιακύμανσης:
   $$Cov(X, Y) = E[XY] - E[X]E[Y] = 1.0 - (0.9)(1.0) = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$Cov(X, Y) = 1.0 - 0.9 = 0.1.$$
 
 ---
 
-### Exercise 2: Continuous Expectation $E[XY]$
-**Problem:** Let $X$ and $Y$ have joint PDF $f(x, y) = x + y$ on $0 < x < 1, 0 < y < 1$. Find $E[XY]$.
+### Άσκηση 2: Συνεχής προσδοκία $E[XY]$
+**Πρόβλημα:** Αφήστε τα $X$ και $Y$ να έχουν κοινό PDF $f(x, y) = x + y$ στο $0 < x < 1, 0 < y < 1$. Βρείτε $E[XY]$.
 
-**Solution:**
-- **Step 1: Set up the double integral.**
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε το διπλό ολοκλήρωμα.**
   $$E[XY] = \int_{0}^{1} \int_{0}^{1} xy(x + y) \, dy \, dx = \int_{0}^{1} \int_{0}^{1} \left( x^2 y + x y^2 \right) \, dy \, dx$$
-- **Step 2: WIP State.**
-  Integrate with respect to $y$ first:
+- **Βήμα 2: Κατάσταση WIP.**
+  Ενσωματώστε πρώτα σε σχέση με το $y$:
   $$\int_{0}^{1} \left( x^2 y + x y^2 \right) \, dy = \left[ x^2 \frac{y^2}{2} + x \frac{y^3}{3} \right]_{0}^{1} = \frac{x^2}{2} + \frac{x}{3}$$
-  Now integrate with respect to $x$:
+  Τώρα ενσωματώστε σε σχέση με το $x$:
   $$\int_{0}^{1} \left( \frac{x^2}{2} + \frac{x}{3} \right) \, dx = \left[ \frac{x^3}{6} + \frac{x^2}{6} \right]_{0}^{1} = \frac{1}{6} + ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Second term} = \frac{1}{6}$$
   $$E[XY] = \frac{1}{6} + \frac{1}{6} = \frac{1}{3} \approx 0.3333.$$
 
 ---
 
-### Exercise 3: Correlation Calculation
-**Problem:** For the setup in Exercise 2, given that $E[X] = E[Y] = \frac{7}{12}$ and $Var(X) = Var(Y) = \frac{11}{144}$, find the correlation coefficient $\rho_{X,Y}$.
+### Άσκηση 3: Υπολογισμός συσχέτισης**Πρόβλημα:** Για τη ρύθμιση στην Άσκηση 2, δεδομένου ότι $E[X] = E[Y] = \frac{7}{12}$ και $Var(X) = Var(Y) = \frac{11}{144}$, βρείτε τον συντελεστή συσχέτισης $\rho_{X,Y}$.
 
-**Solution:**
-- **Step 1: Find covariance first.**
+**Λύση:**
+- **Βήμα 1: Βρείτε πρώτα τη συνδιακύμανση.**
   $$Cov(X, Y) = E[XY] - E[X]E[Y] = \frac{1}{3} - \left(\frac{7}{12}\right)^2 = \frac{1}{3} - \frac{49}{144}$$
-- **Step 2: WIP State.**
-  - Common denominator for covariance: $\frac{1}{3} = \frac{48}{144}$.
+- **Βήμα 2: Κατάσταση WIP.**
+  - Κοινός παρονομαστής για συνδιακύμανση: $\frac{1}{3} = \frac{48}{144}$.
   - $Cov(X, Y) = \frac{48}{144} - \frac{49}{144} = -\frac{1}{144}$.
-  Now apply the correlation formula:
+  Τώρα εφαρμόστε τον τύπο συσχέτισης:
   $$\rho_{X,Y} = \frac{Cov(X, Y)}{\sqrt{Var(X) Var(Y)}} = \frac{-\frac{1}{144}}{\sqrt{\frac{11}{144} \cdot \frac{11}{144}}} = \frac{-\frac{1}{144}}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = \frac{11}{144}$$
   $$\rho_{X,Y} = \frac{-1/144}{11/144} = -\frac{1}{11} \approx -0.0909.$$
 
 ---
 
-### Exercise 4: Uncorrelated but Dependent (Classic Exam Question)
-**Problem:** Let $X \sim U(-1, 1)$ and $Y = X^2$. Show that $Cov(X, Y) = 0$, even though $X$ and $Y$ are completely dependent.
+### Άσκηση 4: Μη συσχετισμένη αλλά εξαρτημένη (Ερώτηση κλασικής εξέτασης)
+**Πρόβλημα:** Αφήστε $X \sim U(-1, 1)$ και $Y = X^2$. Δείξτε ότι $Cov(X, Y) = 0$, παρόλο που οι $X$ και $Y$ εξαρτώνται πλήρως.
 
-**Solution:**
-- **Step 1: Find $E[X]$ and $E[XY]$.**
-  Since $X \sim U(-1, 1)$, $E[X] = 0$.
+**Λύση:**
+- **Βήμα 1: Βρείτε $E[X]$ και $E[XY]$.**
+  Από $X \sim U(-1, 1)$, $E[X] = 0$.
   $$E[XY] = E[X \cdot X^2] = E[X^3]$$
-- **Step 2: WIP State.**
-  For any symmetric distribution around 0, odd moments are 0.
+- **Βήμα 2: Κατάσταση WIP.**
+  Για οποιαδήποτε συμμετρική κατανομή γύρω στο 0, οι περιττές ροπές είναι 0.
   $$E[X^3] = \int_{-1}^{1} x^3 \cdot \frac{1}{2} \, dx = \left[ \frac{x^4}{8} \right]_{-1}^{1} = \frac{1}{8} - ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Second term} = \frac{1}{8}$$
   $$E[X^3] = 0$$
   $$Cov(X, Y) = E[XY] - E[X]E[Y] = 0 - (0)E[Y] = 0$$
-  This proves they are uncorrelated, yet they are functionally dependent since $Y = X^2$.
+  Αυτό αποδεικνύει ότι δεν συσχετίζονται, ωστόσο εξαρτώνται λειτουργικά από $Y = X^2$.
 
 ---
 
-### Exercise 5: Variance of a Sum
-**Problem:** Let $X$ and $Y$ be random variables with $Var(X) = 9$, $Var(Y) = 16$, and $\rho_{X,Y} = 0.5$. Find $Var(2X - 3Y)$.
+### Άσκηση 5: Διακύμανση αθροίσματος
+**Πρόβλημα:** Έστω $X$ και $Y$ τυχαίες μεταβλητές με $Var(X) = 9$, $Var(Y) = 16$ και $\rho_{X,Y} = 0.5$. Βρείτε $Var(2X - 3Y)$.
 
-**Solution:**
-- **Step 1: Compute standard deviations and covariance.**
+**Λύση:**
+- **Βήμα 1: Υπολογίστε τυπικές αποκλίσεις και συνδιακύμανση.**
   - $\sigma_X = \sqrt{9} = 3$
   - $\sigma_Y = \sqrt{16} = 4$
   - $Cov(X, Y) = \rho_{X,Y} \cdot \sigma_X \sigma_Y = 0.5 \cdot 3 \cdot 4 = 6$.
-- **Step 2: WIP State.**
-  Apply the variance formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε τον τύπο διακύμανσης:
   $$Var(2X - 3Y) = (2)^2 Var(X) + (-3)^2 Var(Y) + 2(2)(-3) \cdot Cov(X, Y)$$
   $$Var(2X - 3Y) = 4(9) + 9(16) - 12(6) = 36 + 144 - ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $12 \cdot 6 = 72$.
   - $Var(2X - 3Y) = 180 - 72 = 108$.
 
 ---
 
-### Exercise 6: Conditional Expectation (Continuous)
-**Problem:** Let $f(x, y) = \frac{2}{3}(x + 2y)$ on $0 < x < 1, 0 < y < 1$. Find $E[X | Y = y]$.
+### Άσκηση 6: Προσδοκία υπό όρους (Συνεχής)
+**Πρόβλημα:** Αφήστε $f(x, y) = \frac{2}{3}(x + 2y)$ στο $0 < x < 1, 0 < y < 1$. Βρείτε $E[X | Y = y]$.
 
-**Solution:**
-- **Step 1: Write down the conditional PDF.**
-  From Phase 5.6 Exercise 5, we have:
+**Λύση:**
+- **Βήμα 1: Καταγράψτε το υπό όρους PDF.**
+  Από τη Φάση 5.6 Άσκηση 5, έχουμε:
   $$f_{X|Y}(x | y) = \frac{2(x + 2y)}{1 + 4y}, \quad 0 < x < 1$$
-- **Step 2: WIP State.**
-  Integrate $x \cdot f_{X|Y}(x | y)$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Ενσωμάτωση $x \cdot f_{X|Y}(x | y)$:
   $$E[X | Y = y] = \int_{0}^{1} x \cdot \frac{2(x + 2y)}{1 + 4y} \, dx = \frac{2}{1 + 4y} \int_{0}^{1} (x^2 + 2xy) \, dx$$
-  Evaluate the integral:
+  Αξιολογήστε το ολοκλήρωμα:
   $$\int_{0}^{1} (x^2 + 2xy) \, dx = \left[ \frac{x^3}{3} + x^2 y \right]_{0}^{1} = \frac{1}{3} + ?$$
-- **Step 3: Final Calculation.**
-  - Integral value $= \frac{1}{3} + y = \frac{1 + 3y}{3}$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Ολοκληρωτική τιμή $= \frac{1}{3} + y = \frac{1 + 3y}{3}$.
   - $E[X | Y = y] = \frac{2}{1 + 4y} \cdot \frac{1 + 3y}{3} = \frac{2(1 + 3y)}{3(1 + 4y)}$.
 
 ---
 
-### Exercise 7: Applying Adam's Law (Law of Total Expectation)
-**Problem:** A hen lays $N$ eggs, where $N \sim Po(\lambda)$. Each egg hatches with probability $p$ independently. Let $X$ be the number of hatched chicks. Find $E[X]$.
+### Άσκηση 7: Εφαρμογή του νόμου του Αδάμ (Νόμος της συνολικής προσδοκίας)
+**Πρόβλημα:** Μια κότα γεννά $N$ αυγά, όπου $N \sim Po(\lambda)$. Κάθε αυγό εκκολάπτεται με πιθανότητα $p$ ανεξάρτητα. Έστω $X$ ο αριθμός των εκκολαφθέντων νεοσσών. Βρείτε $E[X]$.
 
-**Solution:**
-- **Step 1: Identify conditional distribution.**
-  Given $N = n$ eggs, the number of hatched chicks $X$ follows a Binomial distribution:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την υπό όρους κατανομή.**
+  Λαμβάνοντας υπόψη τα $N = n$ αυγά, ο αριθμός των εκκολαφθέντων νεοσσών $X$ ακολουθεί μια διωνυμική κατανομή:
   $$X | N = n \sim B(n, p)$$
-  Therefore, $E[X | N] = Np$.
-- **Step 2: WIP State.**
-  Apply Adam's Law:
+  Επομένως, $E[X | N] = Np$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε τον Νόμο του Αδάμ:
   $$E[X] = E[E[X | N]] = E[Np] = p \cdot E[?]$$
-- **Step 3: Final Calculation.**
-  - Since $N \sim Po(\lambda)$, $E[N] = \lambda$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Από $N \sim Po(\lambda)$, $E[N] = \lambda$.
   - $E[X] = p\lambda$.
 
 ---
 
-### Exercise 8: Applying Eve's Law (Law of Total Variance)
-**Problem:** For the egg hatching problem in Exercise 7, find the variance $Var(X)$.
+### Άσκηση 8: Εφαρμογή του νόμου της Εύας (Νόμος της Ολικής Διακύμανσης)
+**Πρόβλημα:** Για το πρόβλημα εκκόλαψης αυγών στην Άσκηση 7, βρείτε τη διακύμανση $Var(X)$.
 
-**Solution:**
-- **Step 1: Identify conditional moments.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τις υπό όρους στιγμές.**
   - $E[X | N] = Np$
   - $Var(X | N) = Np(1-p)$
-- **Step 2: WIP State.**
-  Apply Eve's Law:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε τον νόμο της Εύας:
   $$Var(X) = E[Var(X|N)] + Var(E[X|N])$$
   $$Var(X) = E[Np(1-p)] + Var(Np) = p(1-p)E[N] + p^2 Var(N)$$
-  Recall that for $N \sim Po(\lambda)$, $E[N] = Var(N) = \lambda$.
+  Θυμηθείτε ότι για $N \sim Po(\lambda)$, $E[N] = Var(N) = \lambda$.
   $$Var(X) = p(1-p)\lambda + p^2 \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $Var(N) = \lambda$.
-  - $Var(X) = p\lambda - p^2\lambda + p^2\lambda = p\lambda$.
-  *(Interesting result: Both $E[X]$ and $Var(X)$ equal $p\lambda$, suggesting $X$ itself is Poisson distributed, which is indeed true!).*
+  - $Var(X) = p\lambda - p^2\lambda + p^2\lambda = p\lambda$.*(Ενδιαφέρον αποτέλεσμα: Τόσο το $E[X]$ όσο και το $Var(X)$ ισοδυναμούν με $p\lambda$, υποδηλώνοντας ότι η ίδια η $X$ κατανέμεται Poisson, πράγμα που είναι πράγματι αλήθεια!).*
 
 ---
 
-### Exercise 9: Covariance of Sums (General Property)
-**Problem:** Prove that for any random variables $X, Y, Z$ and constants $a, b$:
+### Άσκηση 9: Συνδιακύμανση αθροισμάτων (Γενική ιδιότητα)
+**Πρόβλημα:** Αποδείξτε ότι για τυχόν τυχαίες μεταβλητές $X, Y, Z$ και σταθερές $a, b$:
 $$Cov(aX + bY, Z) = a \cdot Cov(X, Z) + b \cdot Cov(Y, Z)$$
 
-**Solution:**
-- **Step 1: Use the covariance definition.**
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε τον ορισμό της συνδιακύμανσης.**
   $$Cov(aX + bY, Z) = E[(aX + bY)Z] - E[aX + bY]E[Z]$$
-- **Step 2: WIP State.**
-  Distribute and apply linearity of expectation:
+- **Βήμα 2: Κατάσταση WIP.**
+  Διανείμετε και εφαρμόστε τη γραμμικότητα των προσδοκιών:
   $$E[aXZ + bYZ] - (aE[X] + bE[Y])E[Z] = aE[XZ] + bE[YZ] - aE[X]E[Z] - bE[Y]E[Z]$$
-  Group the terms by constants $a$ and $b$:
+  Ομαδοποιήστε τους όρους κατά σταθερές $a$ και $b$:
   $$a \left( E[XZ] - E[X]E[Z] \right) + b \left( ? \right)$$
-- **Step 3: Final Calculation.**
-  - The second grouped term is $E[YZ] - E[Y]E[Z]$.
-  - Rewrite using covariance definition:
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Ο δεύτερος ομαδοποιημένος όρος είναι $E[YZ] - E[Y]E[Z]$.
+  - Ξαναγράψτε χρησιμοποιώντας τον ορισμό της συνδιακύμανσης:
     $$Cov(aX + bY, Z) = a \cdot Cov(X, Z) + b \cdot Cov(Y, Z).$$
 
 
 ---
 
-<!-- Source: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_8_functions_of_multiple_rvs.md -->
-# Phase 5.8: Distributions of Functions of Multiple Random Variables
+<!-- Πηγή: ../Resources/Phase_5B_Multivariate_Random_Variables/phase_5_8_functions_of_multiple_rvs.md -->
+# Φάση 5.8: Κατανομές συναρτήσεων πολλαπλών τυχαίων μεταβλητών
 
-This file details the techniques for finding the probability distribution of a new random variable $Z$ which is defined as a function of multiple random variables, $Z = g(X, Y)$.
+Αυτό το αρχείο περιγράφει λεπτομερώς τις τεχνικές για την εύρεση της κατανομής πιθανότητας μιας νέας τυχαίας μεταβλητής $Z$, η οποία ορίζεται ως συνάρτηση πολλαπλών τυχαίων μεταβλητών, $Z = g(X, Y)$.
 
 ---
 
-## 1. The CDF Method (First Principles)
+## 1. Η μέθοδος CDF (Πρώτες Αρχές)
 
-Like the single-variable case, the CDF method is highly reliable and works by finding the region of the joint PDF that satisfies the inequality $g(X, Y) \le z$.
+Όπως η περίπτωση μιας μεταβλητής, η μέθοδος CDF είναι εξαιρετικά αξιόπιστη και λειτουργεί βρίσκοντας την περιοχή του κοινού PDF που ικανοποιεί την ανισότητα $g(X, Y) \le z$.
 
 $$F_Z(z) = P(g(X, Y) \le z) = \iint_{g(x,y) \le z} f(x, y) \, dx \, dy$$
 
-Once $F_Z(z)$ is found, the PDF is obtained by differentiating: $f_Z(z) = F'_Z(z)$.
+Μόλις βρεθεί $F_Z(z)$, το PDF λαμβάνεται διαφοροποιώντας: $f_Z(z) = F'_Z(z)$.
 
 ---
 
-## 2. Convolution (Sum of Independent Variables)
+## 2. Συνέλιξη (Άθροισμα ανεξάρτητων μεταβλητών)
 
-If $X$ and $Y$ are independent, the distribution of their sum $Z = X + Y$ is called the **convolution** of their individual distributions.
+Εάν οι $X$ και $Y$ είναι ανεξάρτητες, η κατανομή του αθροίσματος $Z = X + Y$ ονομάζεται **συνέλιξη** των μεμονωμένων κατανομών τους.
 
-*   **Discrete Case:**
+* **Διακεκριμένη θήκη:**
     $$p_Z(z) = P(X + Y = z) = \sum_{x} p_X(x) \cdot p_Y(z - x)$$
-*   **Continuous Case:**
+* **Συνεχής περίπτωση:**
     $$f_Z(z) = \int_{-\infty}^{\infty} f_X(x) \cdot f_Y(z - x) \, dx$$
 
 ---
 
-## 3. The bivariate Change of Variables (Jacobian Method)
+## 3. Η διμεταβλητή αλλαγή μεταβλητών (Ιακωβική μέθοδος)
 
-If we have two random variables $X_1, X_2$ with joint PDF $f_{X_1, X_2}(x_1, x_2)$, and we define two new variables:
+Αν έχουμε δύο τυχαίες μεταβλητές $X_1, X_2$ με κοινό PDF $f_{X_1, X_2}(x_1, x_2)$, και ορίζουμε δύο νέες μεταβλητές:
 $$Y_1 = g_1(X_1, X_2) \quad \text{and} \quad Y_2 = g_2(X_1, X_2)$$
 
-If this transformation is a one-to-one (bijective) mapping, we can solve for $X_1$ and $X_2$ in terms of $Y_1, Y_2$:
+Εάν αυτός ο μετασχηματισμός είναι μια αντιστοίχιση ένα προς ένα (bijective), μπορούμε να λύσουμε για $X_1$ και $X_2$ με όρους $Y_1, Y_2$:
 $$X_1 = h_1(Y_1, Y_2) \quad \text{and} \quad X_2 = h_2(Y_1, Y_2)$$
 
-The joint PDF of $Y_1$ and $Y_2$ is:
+Το κοινό PDF των $Y_1$ και $Y_2$ είναι:
 $$f_{Y_1, Y_2}(y_1, y_2) = f_{X_1, X_2}(h_1(y_1, y_2), h_2(y_1, y_2)) \cdot |J|$$
 
-where $J$ is the Jacobian determinant of the inverse transformation:
+όπου $J$ είναι η Jacobian ορίζουσα του αντίστροφου μετασχηματισμού:
 $$J = \det \begin{pmatrix} \frac{\partial x_1}{\partial y_1} & \frac{\partial x_1}{\partial y_2} \\ \frac{\partial x_2}{\partial y_1} & \frac{\partial x_2}{\partial y_2} \end{pmatrix} = \frac{\partial x_1}{\partial y_1} \frac{\partial x_2}{\partial y_2} - \frac{\partial x_1}{\partial y_2} \frac{\partial x_2}{\partial y_1}$$
 
-> **Exam Shortcut:** If you only want the distribution of a single function $Y_1 = g_1(X_1, X_2)$, you can define a dummy variable (e.g., $Y_2 = X_1$ or $Y_2 = X_2$), apply the 2D Jacobian method to find $f_{Y_1, Y_2}(y_1, y_2)$, and then integrate out $Y_2$ to find the marginal PDF $f_{Y_1}(y_1)$.
+> **Συντόμευση εξέτασης:** Εάν θέλετε μόνο την κατανομή μιας μεμονωμένης συνάρτησης $Y_1 = g_1(X_1, X_2)$, μπορείτε να ορίσετε μια εικονική μεταβλητή (π.χ. $Y_2 = X_1$ ή $Y_2 = X_2$), να εφαρμόσετε τη μέθοδο 2D Jacobian για να βρείτε την __MATHIN_LINE20 $Y_2$ για να βρείτε το οριακό PDF $f_{Y_1}(y_1)$.
 
 ---
 
-## 4. Order Statistics: Min and Max of Independent Variables
+## 4. Στατιστικά παραγγελιών: Ελάχιστο και μέγιστο ανεξάρτητων μεταβλητών
 
-Let $X_1, X_2, \dots, X_n$ be independent, identically distributed (i.i.d.) random variables with CDF $F_X(x)$ and PDF $f_X(x)$.
+Έστω $X_1, X_2, \dots, X_n$ ανεξάρτητες, πανομοιότυπα κατανεμημένες (i.d.) τυχαίες μεταβλητές με CDF $F_X(x)$ και PDF $f_X(x)$.
 
-### 4.1 Distribution of the Maximum ($Y_{max} = \max(X_1, \dots, X_n)$)
-For the maximum to be less than $y$, **all** individual variables must be less than $y$:
+### 4.1 Κατανομή του μέγιστου ($Y_{max} = \max(X_1, \dots, X_n)$)
+Για να είναι το μέγιστο μικρότερο από $y$, **όλες** οι μεμονωμένες μεταβλητές πρέπει να είναι μικρότερες από $y$:
 $$F_{Y_{max}}(y) = P(X_1 \le y, \dots, X_n \le y) = [F_X(y)]^n$$
-Differentiating gives the PDF:
+Η διαφοροποίηση δίνει το PDF:
 $$f_{Y_{max}}(y) = n \cdot [F_X(y)]^{n-1} \cdot f_X(y)$$
 
-### 4.2 Distribution of the Minimum ($Y_{min} = \min(X_1, \dots, X_n)$)
-For the minimum to be greater than $y$, **all** individual variables must be greater than $y$:
+### 4.2 Κατανομή του ελάχιστου ($Y_{min} = \min(X_1, \dots, X_n)$)
+Για να είναι το ελάχιστο μεγαλύτερο από $y$, **όλες** μεμονωμένες μεταβλητές πρέπει να είναι μεγαλύτερες από $y$:
 $$P(Y_{min} > y) = P(X_1 > y, \dots, X_n > y) = [1 - F_X(y)]^n$$
 $$F_{Y_{min}}(y) = 1 - [1 - F_X(y)]^n$$
-Differentiating gives the PDF:
+Η διαφοροποίηση δίνει το PDF:
 $$f_{Y_{min}}(y) = n \cdot [1 - F_X(y)]^{n-1} \cdot f_X(y)$$
 
 ---
 
-## 5. Solved Exercises (9 Examples)
+## 5. Λυμένες Ασκήσεις (9 Παραδείγματα)### Άσκηση 1: Άθροισμα δύο ανεξάρτητων ομοιόμορφων μεταβλητών (Συνέλιξη)
+**Πρόβλημα:** Αφήστε τα $X \sim U(0, 1)$ και $Y \sim U(0, 1)$ να είναι ανεξάρτητα. Βρείτε το PDF του $Z = X + Y$.
 
-### Exercise 1: Sum of Two Independent Uniform Variables (Convolution)
-**Problem:** Let $X \sim U(0, 1)$ and $Y \sim U(0, 1)$ be independent. Find the PDF of $Z = X + Y$.
-
-**Solution:**
-- **Step 1: Set up the convolution integral.**
-  The PDFs are $f_X(x) = 1$ for $0 < x < 1$ and $f_Y(y) = 1$ for $0 < y < 1$.
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε το ολοκλήρωμα συνέλιξης.**
+  Τα PDF είναι $f_X(x) = 1$ για $0 < x < 1$ και $f_Y(y) = 1$ για $0 < y < 1$.
   $$f_Z(z) = \int_{-\infty}^{\infty} f_X(x) f_Y(z-x) \, dx = \int_{0}^{1} 1 \cdot f_Y(z-x) \, dx$$
-- **Step 2: WIP State.**
-  The term $f_Y(z-x)$ is 1 only when $0 < z - x < 1 \implies z - 1 < x < z$.
-  We split the analysis into two cases based on the value of $z \in (0, 2)$:
-  - **Case 1: $0 < z \le 1$.**
-    Here, the overlap region is $0 < x < z$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Ο όρος $f_Y(z-x)$ είναι 1 μόνο όταν $0 < z - x < 1 \implies z - 1 < x < z$.
+  Χωρίσαμε την ανάλυση σε δύο περιπτώσεις με βάση την τιμή $z \in (0, 2)$:
+  - **Περίπτωση 1: $0 < z \le 1$.**
+    Εδώ, η περιοχή επικάλυψης είναι $0 < x < z$.
     $$f_Z(z) = \int_{0}^{z} 1 \, dx = z$$
-  - **Case 2: $1 < z < 2$.**
-    Here, the overlap region is $z - 1 < x < 1$.
+  - **Περίπτωση 2: $1 < z < 2$.**
+    Εδώ, η περιοχή επικάλυψης είναι $z - 1 < x < 1$.
     $$f_Z(z) = \int_{z-1}^{1} 1 \, dx = 1 - (z-1) = ?$$
-- **Step 3: Final Calculation.**
-  - Case 2 value $= 2 - z$.
-  - This results in a triangular PDF:
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Περίπτωση 2 τιμή $= 2 - z$.
+  - Αυτό έχει ως αποτέλεσμα ένα τριγωνικό PDF:
     $$f_Z(z) = \begin{cases} z, & 0 < z \le 1 \\ 2 - z, & 1 < z < 2 \\ 0, & \text{otherwise} \end{cases}$$
 
 ---
 
-### Exercise 2: Ratio of Two Independent Exponentials (CDF Method)
-**Problem:** Let $X \sim Exp(1)$ and $Y \sim Exp(1)$ be independent. Find the PDF of $Z = \frac{Y}{X}$.
+### Άσκηση 2: Αναλογία δύο ανεξάρτητων εκθετικών (μέθοδος CDF)
+**Πρόβλημα:** Αφήστε τα $X \sim Exp(1)$ και $Y \sim Exp(1)$ να είναι ανεξάρτητα. Βρείτε το PDF του $Z = \frac{Y}{X}$.
 
-**Solution:**
-- **Step 1: Write down the CDF of $Z$ for $z > 0$.**
+**Λύση:**
+- **Βήμα 1: Καταγράψτε το CDF του $Z$ για $z > 0$.**
   $$F_Z(z) = P\left(\frac{Y}{X} \le z\right) = P(Y \le zX)$$
-- **Step 2: WIP State.**
-  Integrate over the region $y \le zx$ in the first quadrant:
+- **Βήμα 2: Κατάσταση WIP.**
+  Ενσωματώστε στην περιοχή $y \le zx$ στο πρώτο τεταρτημόριο:
   $$F_Z(z) = \int_{0}^{\infty} \int_{0}^{zx} e^{-x} e^{-y} \, dy \, dx = \int_{0}^{\infty} e^{-x} \left( 1 - e^{-zx} \right) \, dx$$
   $$F_Z(z) = \int_{0}^{\infty} \left( e^{-x} - e^{-(1+z)x} \right) \, dx = 1 - \frac{1}{?}$$
-- **Step 3: Final Calculation.**
-  - Integral of $e^{-(1+z)x}$ is $\frac{1}{1+z}$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Το ολοκλήρωμα του $e^{-(1+z)x}$ είναι $\frac{1}{1+z}$.
   - $F_Z(z) = 1 - \frac{1}{1+z} = \frac{z}{1+z}$.
-  Differentiating with respect to $z$:
+  Διαφοροποίηση σε σχέση με $z$:
   $$f_Z(z) = \frac{d}{dz}\left(1 - (1+z)^{-1}\right) = (1+z)^{-2} = \frac{1}{(1+z)^2}, \quad z > 0.$$
 
 ---
 
-### Exercise 3: Dummy Variable and 2D Jacobian Method
-**Problem:** Let $X_1, X_2$ be independent random variables with joint PDF $f(x_1, x_2) = e^{-x_1 - x_2}$ for $x_1 > 0, x_2 > 0$. Find the joint PDF of $Y_1 = X_1 + X_2$ and $Y_2 = \frac{X_1}{X_2}$.
+### Άσκηση 3: Dummy Variable και 2D Jacobian Method
+**Πρόβλημα:** Έστω $X_1, X_2$ ανεξάρτητες τυχαίες μεταβλητές με κοινό PDF $f(x_1, x_2) = e^{-x_1 - x_2}$ για $x_1 > 0, x_2 > 0$. Βρείτε το κοινό PDF των $Y_1 = X_1 + X_2$ και $Y_2 = \frac{X_1}{X_2}$.
 
-**Solution:**
-- **Step 1: Solve for the inverse transformation.**
-  We have:
+**Λύση:**
+- **Βήμα 1: Λύση για τον αντίστροφο μετασχηματισμό.**
+  Έχουμε:
   - $y_1 = x_1 + x_2$
   - $y_2 = \frac{x_1}{x_2} \implies x_1 = y_2 x_2$
-  Substitute $x_1$ into $y_1$:
+  Αντικαταστήστε το $x_1$ σε $y_1$:
   $y_1 = y_2 x_2 + x_2 = x_2(1 + y_2) \implies x_2 = \frac{y_1}{1 + y_2}$.
-  Then:
+  Τότε:
   $x_1 = \frac{y_1 y_2}{1 + y_2}$.
-- **Step 2: WIP State for the Jacobian.**
-  Compute partial derivatives:
+- **Βήμα 2: Κατάσταση WIP για το Jacobian.**
+  Υπολογισμός μερικών παραγώγων:
   - $\frac{\partial x_1}{\partial y_1} = \frac{y_2}{1+y_2}$, $\frac{\partial x_1}{\partial y_2} = \frac{y_1(1+y_2) - y_1 y_2}{(1+y_2)^2} = \frac{y_1}{(1+y_2)^2}$
   - $\frac{\partial x_2}{\partial y_1} = \frac{1}{1+y_2}$, $\frac{\partial x_2}{\partial y_2} = -\frac{y_1}{(1+y_2)^2}$
-  Determinant:
+  Καθοριστική:
   $$J = \det \begin{pmatrix} \frac{y_2}{1+y_2} & \frac{y_1}{(1+y_2)^2} \\ \frac{1}{1+y_2} & -\frac{y_1}{(1+y_2)^2} \end{pmatrix} = \left(\frac{y_2}{1+y_2}\right)\left(-\frac{y_1}{(1+y_2)^2}\right) - \left(\frac{y_1}{(1+y_2)^2}\right)\left(\frac{1}{1+y_2}\right)$$
   $$J = \frac{-y_1 y_2 - y_1}{(1+y_2)^3} = \frac{-y_1(y_2 + 1)}{(1+y_2)^3} = -\frac{y_1}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= (1 + y_2)^2$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= (1 + y_2)^2$.
   - $|J| = \frac{y_1}{(1+y_2)^2}$.
-  Apply the transformation formula:
+  Εφαρμόστε τον τύπο μετασχηματισμού:
   $$f_{Y_1, Y_2}(y_1, y_2) = e^{-(x_1 + x_2)} \cdot |J| = e^{-y_1} \cdot \frac{y_1}{(1 + y_2)^2}, \quad y_1 > 0, y_2 > 0.$$
 
 ---
 
-### Exercise 4: Marginal PDF from Joint Jacobian Result
-**Problem:** Using the joint PDF of $Y_1, Y_2$ found in Exercise 3, find the marginal PDF of $Y_1$ and $Y_2$ to show they are independent.
+### Άσκηση 4: Οριακό PDF από Joint Jacobian Result
+**Πρόβλημα:** Χρησιμοποιώντας το κοινό PDF του $Y_1, Y_2$ που βρίσκεται στην Άσκηση 3, βρείτε το οριακό PDF των $Y_1$ και $Y_2$ για να δείξετε ότι είναι ανεξάρτητα.
 
-**Solution:**
-- **Step 1: Integrate out $y_2$ to find the marginal of $Y_1$.**
+**Λύση:**
+- **Βήμα 1: Ενσωματώστε το $y_2$ για να βρείτε το περιθώριο του $Y_1$.**
   $$f_{Y_1}(y_1) = \int_{0}^{\infty} y_1 e^{-y_1} \frac{1}{(1 + y_2)^2} \, dy_2 = y_1 e^{-y_1} \left[ -\frac{1}{1 + y_2} \right]_{0}^{\infty} = y_1 e^{-y_1}, \quad y_1 > 0$$
-- **Step 2: WIP State.**
-  Integrate out $y_1$ to find the marginal of $Y_2$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Ενσωματώστε το $y_1$ για να βρείτε το περιθώριο του $Y_2$:
   $$f_{Y_2}(y_2) = \int_{0}^{\infty} \frac{1}{(1 + y_2)^2} y_1 e^{-y_1} \, dy_1 = \frac{1}{(1 + y_2)^2} \int_{0}^{\infty} y_1 e^{-y_1} \, dy_1$$
-  Notice that $\int_{0}^{\infty} y_1 e^{-y_1} \, dy_1$ is $\Gamma(2) = 1! = 1$.
-  So $f_{Y_2}(y_2) = \frac{1}{(1 + y_2)^2}$ for $y_2 > 0$.
-  Check product:
+  Παρατηρήστε ότι το $\int_{0}^{\infty} y_1 e^{-y_1} \, dy_1$ είναι $\Gamma(2) = 1! = 1$.
+  Έτσι $f_{Y_2}(y_2) = \frac{1}{(1 + y_2)^2}$ για $y_2 > 0$.
+  Ελέγξτε το προϊόν:
   $$f_{Y_1}(y_1) f_{Y_2}(y_2) = y_1 e^{-y_1} \cdot \frac{1}{(1+y_2)^2} = ?$$
-- **Step 3: Final Calculation.**
-  - Product $= f_{Y_1, Y_2}(y_1, y_2)$.
-  Thus, $Y_1$ and $Y_2$ are independent random variables.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Προϊόν $= f_{Y_1, Y_2}(y_1, y_2)$.
+  Έτσι, οι $Y_1$ και $Y_2$ είναι ανεξάρτητες τυχαίες μεταβλητές.
 
 ---
 
-### Exercise 5: Minimum of Independent Exponentials
-**Problem:** Let $X_1, X_2, \dots, X_n$ be i.i.d. random variables with $X_i \sim Exp(\lambda)$. Find the distribution of $W = \min(X_1, \dots, X_n)$.
+### Άσκηση 5: Ελάχιστο ανεξάρτητων εκθετικών
+**Πρόβλημα:** Έστω $X_1, X_2, \dots, X_n$ i.i.d. τυχαίες μεταβλητές με $X_i \sim Exp(\lambda)$. Βρείτε την κατανομή του $W = \min(X_1, \dots, X_n)$.
 
-**Solution:**
-- **Step 1: Recall the continuous minimum CDF formula.**
+**Λύση:**
+- **Βήμα 1: Θυμηθείτε τον τύπο συνεχούς ελάχιστου CDF.**
   $$F_W(w) = 1 - [1 - F_X(w)]^n$$
-- **Step 2: WIP State.**
-  For $X_i \sim Exp(\lambda)$, the CDF is $F_X(w) = 1 - e^{-\lambda w}$.
-  Substitute this into the formula:
+- **Βήμα 2: Κατάσταση WIP.**
+  Για $X_i \sim Exp(\lambda)$, το CDF είναι $F_X(w) = 1 - e^{-\lambda w}$.Αντικαταστήστε το στον τύπο:
   $$F_W(w) = 1 - \left[1 - \left(1 - e^{-\lambda w}\right)\right]^n = 1 - \left[e^{-\lambda w}\right]^n = 1 - e^{-?}$$
-- **Step 3: Final Calculation.**
-  - Exponent $= n\lambda w$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Εκθέτης $= n\lambda w$.
   - $F_W(w) = 1 - e^{-n\lambda w}$.
-  This is the CDF of an Exponential distribution with rate parameter $n\lambda$.
-  Thus, $\min(X_1, \dots, X_n) \sim Exp(n\lambda)$.
-  *(Exam shortcut: The minimum of $n$ independent Exponentials is always Exponential, and its rate is simply the sum of the individual rates!).*
+  Αυτό είναι το CDF μιας εκθετικής κατανομής με παράμετρο ρυθμού $n\lambda$.
+  Έτσι, $\min(X_1, \dots, X_n) \sim Exp(n\lambda)$.
+  *(Συντόμευση εξέτασης: Το ελάχιστο $n$ ανεξάρτητων Εκθετικών είναι πάντα Εκθετικό και το ποσοστό του είναι απλώς το άθροισμα των επιμέρους ποσοστών!).*
 
 ---
 
-### Exercise 6: Maximum of Independent Uniforms
-**Problem:** Let $X_1, X_2, \dots, X_n$ be i.i.d. $U(0, 1)$ random variables. Find the PDF of $Y = \max(X_1, \dots, X_n)$.
+### Άσκηση 6: Μέγιστο ανεξάρτητων στολών
+**Πρόβλημα:** Έστω $X_1, X_2, \dots, X_n$ i.i.d. $U(0, 1)$ τυχαίες μεταβλητές. Βρείτε το PDF του $Y = \max(X_1, \dots, X_n)$.
 
-**Solution:**
-- **Step 1: Write down the CDF of $U(0, 1)$.**
-  $F_X(x) = x$ for $0 < x < 1$.
-- **Step 2: WIP State.**
-  Apply maximum CDF formula:
+**Λύση:**
+- **Βήμα 1: Καταγράψτε το CDF του $U(0, 1)$.**
+  $F_X(x) = x$ για $0 < x < 1$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε τον μέγιστο τύπο CDF:
   $$F_Y(y) = [F_X(y)]^n = y^n, \quad 0 < y < 1$$
-  Differentiate to obtain PDF:
+  Διαφοροποιήστε για να αποκτήσετε PDF:
   $$f_Y(y) = \frac{d}{dy}\left(y^n\right) = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Y(y) = n y^{n-1}, \quad 0 < y < 1.$$
 
 ---
 
-### Exercise 7: Distribution of a Product (Continuous)
-**Problem:** Let $X$ and $Y$ be independent random variables, both distributed as $U(0, 1)$. Find the PDF of their product $Z = XY$.
+### Άσκηση 7: Διανομή προϊόντος (Συνεχής)
+**Πρόβλημα:** Έστω οι $X$ και $Y$ ανεξάρτητες τυχαίες μεταβλητές, και οι δύο κατανεμημένες ως $U(0, 1)$. Βρείτε το PDF του προϊόντος τους $Z = XY$.
 
-**Solution:**
-- **Step 1: Set up the CDF equation for $0 < z < 1$.**
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε την εξίσωση CDF για $0 < z < 1$.**
   $$F_Z(z) = P(XY \le z) = \iint_{xy \le z} 1 \, dx \, dy$$
-- **Step 2: WIP State.**
-  Split the unit square region:
-  - If $x \le z$, then $y$ can take any value in $[0, 1]$.
-  - If $x > z$, then $y$ must be $\le z/x$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Διαχωρίστε την τετραγωνική περιοχή μονάδας:
+  - Εάν $x \le z$, τότε το $y$ μπορεί να λάβει οποιαδήποτε τιμή στο $[0, 1]$.
+  - Εάν $x > z$, τότε το $y$ πρέπει να είναι $\le z/x$.
   $$F_Z(z) = \int_{0}^{z} \left( \int_{0}^{1} 1 \, dy \right) \, dx + \int_{z}^{1} \left( \int_{0}^{z/x} 1 \, dy \right) \, dx$$
   $$F_Z(z) = \int_{0}^{z} 1 \, dx + \int_{z}^{1} \frac{z}{x} \, dx = z + z \left[ \ln(x) \right]_{z}^{1} = z + z(0 - \ln(z)) = z - z\ln(z)$$
-  Now, differentiate with respect to $z$:
+  Τώρα, διαφοροποιήστε σε σχέση με $z$:
   $$f_Z(z) = \frac{d}{dz}\left(z - z\ln(z)\right) = 1 - \left( 1 \cdot \ln(z) + z \cdot \frac{1}{z} \right) = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_Z(z) = 1 - \ln(z) - 1 = -\ln(z), \quad 0 < z < 1.$$
 
 ---
 
-### Exercise 8: Sum of Independent Normal Variables (MGF Method)
-**Problem:** Let $X \sim N(\mu_1, \sigma_1^2)$ and $Y \sim N(\mu_2, \sigma_2^2)$ be independent. Prove that $W = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$ using MGFs.
+### Άσκηση 8: Άθροισμα ανεξάρτητων κανονικών μεταβλητών (Μέθοδος MGF)
+**Πρόβλημα:** Αφήστε τα $X \sim N(\mu_1, \sigma_1^2)$ και $Y \sim N(\mu_2, \sigma_2^2)$ να είναι ανεξάρτητα. Αποδείξτε ότι $W = X + Y \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$ χρησιμοποιώντας MGF.
 
-**Solution:**
-- **Step 1: Set up MGF product.**
+**Λύση:**
+- **Βήμα 1: Ρύθμιση προϊόντος MGF.**
   $$M_W(t) = M_X(t) \cdot M_Y(t)$$
-- **Step 2: WIP State.**
+- **Βήμα 2: Κατάσταση WIP.**
   $$M_X(t) = e^{\mu_1 t + \frac{1}{2}\sigma_1^2 t^2}, \quad M_Y(t) = e^{\mu_2 t + \frac{1}{2}\sigma_2^2 t^2}$$
   $$M_W(t) = e^{\mu_1 t + \frac{1}{2}\sigma_1^2 t^2} \cdot e^{\mu_2 t + \frac{1}{2}\sigma_2^2 t^2} = e^{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$M_W(t) = e^{(\mu_1 + \mu_2)t + \frac{1}{2}(\sigma_1^2 + \sigma_2^2)t^2}$$
-  By uniqueness of the MGF, this represents a Normal distribution:
+  Από τη μοναδικότητα του MGF, αυτό αντιπροσωπεύει μια Κανονική κατανομή:
   $$W \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2).$$
 
 ---
 
-### Exercise 9: Box-Muller Transform (Advanced Jacobian)
-**Problem:** Let $U_1, U_2$ be independent $U(0, 1)$ variables. Define:
+### Άσκηση 9: Μετασχηματισμός Box-Muller (Advanced Jacobian)
+**Πρόβλημα:** Έστω $U_1, U_2$ ανεξάρτητες μεταβλητές $U(0, 1)$. Ορίστε:
 $$Z_0 = \sqrt{-2\ln U_1} \cos(2\pi U_2) \quad \text{and} \quad Z_1 = \sqrt{-2\ln U_1} \sin(2\pi U_2)$$
-Find the joint PDF of $Z_0$ and $Z_1$.
+Βρείτε το κοινό PDF των $Z_0$ και $Z_1$.
 
-**Solution:**
-- **Step 1: Solve for $U_1, U_2$.**
-  Squaring and adding:
+**Λύση:**
+- **Βήμα 1: Επίλυση για $U_1, U_2$.**
+  Τετράγωνο και προσθήκη:
   $$Z_0^2 + Z_1^2 = -2\ln U_1 \implies U_1 = e^{-\frac{Z_0^2 + Z_1^2}{2}}$$
-  Dividing:
+  Διαίρεση:
   $$\frac{Z_1}{Z_0} = \tan(2\pi U_2) \implies U_2 = \frac{1}{2\pi} \arctan\left(\frac{Z_1}{Z_0}\right)$$
-- **Step 2: WIP State for the Jacobian.**
-  Compute the Jacobian $J$ of the transformation from $(Z_0, Z_1)$ to $(U_1, U_2)$:
+- **Βήμα 2: Κατάσταση WIP για το Jacobian.**
+  Υπολογίστε το Jacobian $J$ του μετασχηματισμού από $(Z_0, Z_1)$ σε $(U_1, U_2)$:
   $$J = \det \begin{pmatrix} \frac{\partial u_1}{\partial z_0} & \frac{\partial u_1}{\partial z_1} \\ \frac{\partial u_2}{\partial z_0} & \frac{\partial u_2}{\partial z_1} \end{pmatrix}$$
-  After differentiation and simplification:
+  Μετά από διαφοροποίηση και απλοποίηση:
   $$|J| = \frac{1}{2\pi} e^{-\frac{z_0^2 + z_1^2}{2}}$$
-  Since $U_1, U_2$ are independent $U(0, 1)$, their joint PDF is $f(u_1, u_2) = 1$.
-  Apply transformation:
+  Εφόσον το $U_1, U_2$ είναι ανεξάρτητο $U(0, 1)$, το κοινό PDF τους είναι $f(u_1, u_2) = 1$.
+  Εφαρμογή μετασχηματισμού:
   $$f_{Z_0, Z_1}(z_0, z_1) = 1 \cdot |J| = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$f_{Z_0, Z_1}(z_0, z_1) = \left( \frac{1}{\sqrt{2\pi}} e^{-z_0^2/2} \right) \cdot \left( \frac{1}{\sqrt{2\pi}} e^{-z_1^2/2} \right)$$
-  This factors into the product of two standard normal PDFs, proving that $Z_0$ and $Z_1$ are independent standard normal variables!
+  Αυτό επηρεάζει το γινόμενο δύο τυπικών κανονικών PDF, αποδεικνύοντας ότι οι $Z_0$ και $Z_1$ είναι ανεξάρτητες τυπικές κανονικές μεταβλητές!
 
 
 ---
 
-<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_1_central_limit_theorem.md -->
-# Phase 6: Inferential Statistics - Central Limit Theorem (CLT)
+<!-- Πηγή: ../Resources/Phase_6_Inferential_Statistics/phase_6_1_central_limit_theorem.md -->
+# Φάση 6: Στατιστικά συμπερασμάτων - Κεντρικό οριακό θεώρημα (CLT)
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιοΤο Κεντρικό Οριακό Θεώρημα (CLT) είναι μια από τις πιο θεμελιώδεις έννοιες στις πιθανότητες και τη στατιστική. Δηλώνει ότι, υπό ορισμένες συνθήκες, η δειγματοληπτική κατανομή του μέσου όρου του δείγματος θα προσεγγίσει μια κανονική κατανομή καθώς το μέγεθος του δείγματος μεγαλώνει, ανεξάρτητα από το σχήμα της κατανομής του πληθυσμού.
 
-The Central Limit Theorem (CLT) is one of the most fundamental concepts in probability and statistics. It states that, given certain conditions, the sampling distribution of the sample mean will approach a normal distribution as the sample size gets larger, regardless of the shape of the population distribution.
+### 1.1 Βασική ιδέα
 
-### 1.1 Core Concept
+Έστω $X_1, X_2, \dots, X_n$ ένα τυχαίο δείγμα μεγέθους $n$ που προέρχεται από έναν πληθυσμό με συνολικό μέσο όρο $\mu$ και πεπερασμένη διακύμανση $\sigma^2$. Έστω $\bar{X}$ ο μέσος όρος του δείγματος.
 
-Let $X_1, X_2, \dots, X_n$ be a random sample of size $n$ drawn from a population with an overall mean $\mu$ and a finite variance $\sigma^2$. Let $\bar{X}$ be the sample mean.
-
-According to the CLT, if $n$ is sufficiently large (typically $n \ge 30$), the distribution of the sample mean $\bar{X}$ is approximately normal:
+Σύμφωνα με το CLT, εάν το $n$ είναι αρκετά μεγάλο (συνήθως $n \ge 30$), η κατανομή του μέσου όρου του δείγματος $\bar{X}$ είναι περίπου φυσιολογική:
 
 $$ \bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right) $$
 
-**Key parameters of the sampling distribution:**
-*   **Mean of the sample means:** $\mu_{\bar{X}} = \mu$
-*   **Variance of the sample means:** $\sigma_{\bar{X}}^2 = \frac{\sigma^2}{n}$
-*   **Standard Error (Standard deviation of the sample means):** $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$
+**Βασικές παράμετροι της δειγματοληπτικής κατανομής:**
+* **Μέσος όρος του δείγματος σημαίνει:** $\mu_{\bar{X}} = \mu$
+* **Η διακύμανση του δείγματος σημαίνει:** $\sigma_{\bar{X}}^2 = \frac{\sigma^2}{n}$
+* **Τυπικό σφάλμα (Τυπική απόκλιση του δείγματος σημαίνει):** $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$
 
-### 1.2 The Standard Normal Transformation (Z-Score)
+### 1.2 Ο τυπικός κανονικός μετασχηματισμός (Z-Score)
 
-To calculate probabilities involving $\bar{X}$, we standardize it to the standard normal distribution $Z \sim N(0, 1)$ using the formula:
+Για να υπολογίσουμε τις πιθανότητες που περιλαμβάνουν $\bar{X}$, το τυποποιούμε στην τυπική κανονική κατανομή $Z \sim N(0, 1)$ χρησιμοποιώντας τον τύπο:
 
 $$ Z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} $$
 
-### 1.3 Sum of Random Variables
+### 1.3 Άθροισμα τυχαίων μεταβλητών
 
-The CLT also applies to the sum of the sample observations, $S_n = X_1 + X_2 + \dots + X_n$. As $n$ increases, the distribution of $S_n$ approaches a normal distribution:
+Το CLT ισχύει επίσης για το άθροισμα των δειγμάτων παρατηρήσεων, $S_n = X_1 + X_2 + \dots + X_n$. Καθώς το $n$ αυξάνεται, η κατανομή του $S_n$ προσεγγίζει μια κανονική κατανομή:
 
 $$ S_n \sim N(n\mu, n\sigma^2) $$
 
-Standardizing the sum gives:
+Η τυποποίηση του αθροίσματος δίνει:
 
 $$ Z = \frac{S_n - n\mu}{\sigma\sqrt{n}} $$
 
-### 1.4 Important Caveats and Rules of Thumb
-*   **Sample Size:** A general rule of thumb is that $n \ge 30$ is "sufficiently large" for the CLT to apply, even if the underlying population is highly skewed.
-*   **Normal Population:** If the underlying population is *already* normally distributed, then the sample mean $\bar{X}$ is exactly normally distributed for *any* sample size $n$.
-*   **Independence:** The sampled observations must be independent.
+### 1.4 Σημαντικές προειδοποιήσεις και εμπειρικοί κανόνες
+* **Μέγεθος δείγματος:** Ένας γενικός εμπειρικός κανόνας είναι ότι το $n \ge 30$ είναι "αρκετά μεγάλο" για να εφαρμοστεί το CLT, ακόμα κι αν ο υποκείμενος πληθυσμός είναι πολύ λοξός.
+* **Κανονικός πληθυσμός:** Εάν ο υποκείμενος πληθυσμός είναι *ήδη* κανονικά κατανεμημένος, τότε ο μέσος όρος του δείγματος $\bar{X}$ κατανέμεται ακριβώς κανονικά για *οποιοδήποτε* μέγεθος δείγματος $n$.
+* **Ανεξαρτησία:** Οι παρατηρήσεις του δείγματος πρέπει να είναι ανεξάρτητες.
 
 ---
 
-## 2. Step-by-Step Examples
+## 2. Παραδείγματα βήμα προς βήμα
 
-### Example 1: Basic Application of CLT
-Suppose the average weight of a certain species of fish is $\mu = 40$ kg with a standard deviation of $\sigma = 8$ kg. A sample of $n = 35$ fish is caught. What is the probability that the average weight of the sample is strictly less than $42$ kg?
+### Παράδειγμα 1: Βασική εφαρμογή του CLT
+Ας υποθέσουμε ότι το μέσο βάρος ενός συγκεκριμένου είδους ψαριού είναι $\mu = 40$ kg με τυπική απόκλιση $\sigma = 8$ kg. Ένα δείγμα ψαριού $n = 35$ αλιεύεται. Ποια είναι η πιθανότητα το μέσο βάρος του δείγματος να είναι αυστηρά μικρότερο από $42$ kg;
 
-**Step 1: Identify given information**
-*   $\mu = 40$
-*   $\sigma = 8$
-*   $n = 35$
+**Βήμα 1: Προσδιορίστε τις δεδομένες πληροφορίες**
+* $\mu = 40$
+* $\sigma = 8$
+* $n = 35$
 
-**Step 2: Calculate Standard Error**
+**Βήμα 2: Υπολογισμός τυπικού σφάλματος**
 $$ \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{8}{\sqrt{35}} \approx 1.352 $$
 
-**Step 3: Calculate Z-score**
-We want $P(\bar{X} < 42)$. Let's standardize $42$:
+**Βήμα 3: Υπολογίστε τη βαθμολογία Z**
+Θέλουμε $P(\bar{X} < 42)$. Ας τυποποιήσουμε το $42$:
 $$ Z = \frac{42 - 40}{1.352} = \frac{2}{1.352} \approx 1.48 $$
 
-**Step 4: Find the probability**
+**Βήμα 4: Βρείτε την πιθανότητα**
 $$ P(\bar{X} < 42) = P(Z < 1.48) = 0.9306 $$
 
-### Example 2: Probability Between Two Values
-An elevator has a maximum weight limit. The weights of people using the elevator have a mean $\mu = 75$ kg and a standard deviation $\sigma = 15$ kg. If 40 people enter the elevator, what is the probability that their average weight is between $70$ kg and $78$ kg?
+### Παράδειγμα 2: Πιθανότητα μεταξύ δύο τιμών
+Ένας ανελκυστήρας έχει μέγιστο όριο βάρους. Τα βάρη των ατόμων που χρησιμοποιούν το ασανσέρ έχουν μέση τιμή $\mu = 75$ kg και τυπική απόκλιση $\sigma = 15$ kg. Εάν μπουν 40 άτομα στο ασανσέρ, ποια είναι η πιθανότητα το μέσο βάρος τους να είναι μεταξύ $70$ kg και $78$ kg;
 
-**Step 1: Standard Error**
+**Βήμα 1: Τυπικό σφάλμα**
 $$ \sigma_{\bar{X}} = \frac{15}{\sqrt{40}} \approx 2.37 $$
 
-**Step 2: Z-scores for boundaries**
-For $70$: $Z_1 = \frac{70 - 75}{2.37} = -2.11$
-For $78$: $Z_2 = \frac{78 - 75}{2.37} = 1.27$
+**Βήμα 2: βαθμολογίες Z για τα όρια**
+Για $70$: $Z_1 = \frac{70 - 75}{2.37} = -2.11$
+Για $78$: $Z_2 = \frac{78 - 75}{2.37} = 1.27$
 
-**Step 3: Compute Probability**
+**Βήμα 3: Υπολογισμός πιθανότητας**
 $$ P(70 < \bar{X} < 78) = P(-2.11 < Z < 1.27) = P(Z < 1.27) - P(Z < -2.11) $$
 $$ = 0.8980 - 0.0174 = 0.8806 $$
 
-### Example 3: Finding a Threshold Value (Inverse Normal)
-The mean time to complete a test is 50 minutes with a standard deviation of 10 minutes. For a class of 36 students, what is the average time $x$ such that there is only a 5% chance the class mean exceeds $x$?
+### Παράδειγμα 3: Εύρεση τιμής κατωφλίου (αντίστροφη κανονική)Ο μέσος χρόνος για την ολοκλήρωση μιας δοκιμής είναι 50 λεπτά με τυπική απόκλιση 10 λεπτών. Για μια τάξη 36 μαθητών, ποιος είναι ο μέσος χρόνος $x$ έτσι ώστε υπάρχει μόνο 5% πιθανότητα ο μέσος όρος της τάξης να υπερβαίνει το $x$;
 
-**Step 1: Set up the problem**
-We want $P(\bar{X} > x) = 0.05$. This implies $P(\bar{X} < x) = 0.95$.
+**Βήμα 1: Ρύθμιση του προβλήματος**
+Θέλουμε $P(\bar{X} > x) = 0.05$. Αυτό σημαίνει $P(\bar{X} < x) = 0.95$.
 
-**Step 2: Find corresponding Z-score**
-Using a standard normal table, the Z-score for an area of $0.95$ is approximately $1.645$.
+**Βήμα 2: Βρείτε την αντίστοιχη βαθμολογία Z**
+Χρησιμοποιώντας έναν τυπικό κανονικό πίνακα, η βαθμολογία Z για μια περιοχή $0.95$ είναι περίπου $1.645$.
 
-**Step 3: Solve for $x$**
+**Βήμα 3: Επίλυση για $x$**
 $$ 1.645 = \frac{x - 50}{\frac{10}{\sqrt{36}}} $$
 $$ 1.645 = \frac{x - 50}{1.667} $$
 $$ x - 50 = 2.74 $$
 $$ x = 52.74 \text{ minutes} $$
 
-### Example 4: Applying CLT to a Sum
-A shipping company loads 50 boxes onto a truck. The weight of each box has a mean of 20 kg and a standard deviation of 4 kg. What is the probability that the total weight of the boxes exceeds 1050 kg?
+### Παράδειγμα 4: Εφαρμογή CLT σε ένα άθροισμα
+Μια ναυτιλιακή εταιρεία φορτώνει 50 κιβώτια σε ένα φορτηγό. Το βάρος κάθε κουτιού έχει μέσο όρο 20 κιλά και τυπική απόκλιση 4 κιλά. Ποια είναι η πιθανότητα το συνολικό βάρος των κουτιών να ξεπεράσει τα 1050 κιλά;
 
-**Step 1: Identify Sum parameters**
-*   $n = 50$, $\mu = 20$, $\sigma = 4$
-*   Mean of sum: $n\mu = 50 \times 20 = 1000$
-*   Standard deviation of sum: $\sigma\sqrt{n} = 4\sqrt{50} \approx 28.28$
+**Βήμα 1: Προσδιορισμός παραμέτρων αθροίσματος**
+* $n = 50$, $\mu = 20$, $\sigma = 4$
+* Μέσος όρος αθροίσματος: $n\mu = 50 \times 20 = 1000$
+* Τυπική απόκλιση αθροίσματος: $\sigma\sqrt{n} = 4\sqrt{50} \approx 28.28$
 
-**Step 2: Calculate Z-score**
-We want $P(S_n > 1050)$.
+**Βήμα 2: Υπολογίστε τη βαθμολογία Z**
+Θέλουμε $P(S_n > 1050)$.
 $$ Z = \frac{1050 - 1000}{28.28} = \frac{50}{28.28} \approx 1.77 $$
 
-**Step 3: Compute Probability**
+**Βήμα 3: Υπολογισμός πιθανότητας**
 $$ P(S_n > 1050) = P(Z > 1.77) = 1 - P(Z \le 1.77) = 1 - 0.9616 = 0.0384 $$
 
-### Example 5: CLT with Unknown Underlying Distribution (Uniform)
-A random variable $X$ follows a continuous uniform distribution between 0 and 10. A sample of $n = 45$ is drawn. Find the probability that the sample mean is less than 4.5.
+### Παράδειγμα 5: CLT με Άγνωστη Υποκείμενη Κατανομή (Ομοιόμορφη)
+Μια τυχαία μεταβλητή $X$ ακολουθεί μια συνεχή ομοιόμορφη κατανομή μεταξύ 0 και 10. Σχηματίζεται ένα δείγμα $n = 45$. Βρείτε την πιθανότητα ο μέσος όρος του δείγματος να είναι μικρότερος από 4,5.
 
-**Step 1: Find Population Mean and Variance**
-For a uniform distribution $U(a,b)$:
+**Βήμα 1: Βρείτε μέσο όρο πληθυσμού και διακύμανση**
+Για ομοιόμορφη κατανομή $U(a,b)$:
 $$ \mu = \frac{a+b}{2} = \frac{0+10}{2} = 5 $$
 $$ \sigma^2 = \frac{(b-a)^2}{12} = \frac{100}{12} = 8.33 $$
 $$ \sigma = \sqrt{8.33} \approx 2.89 $$
 
-**Step 2: Calculate Standard Error**
+**Βήμα 2: Υπολογισμός τυπικού σφάλματος**
 $$ \sigma_{\bar{X}} = \frac{2.89}{\sqrt{45}} \approx 0.43 $$
 
-**Step 3: Z-score and Probability**
+**Βήμα 3: βαθμολογία Z και Πιθανότητες**
 $$ Z = \frac{4.5 - 5}{0.43} = -1.16 $$
 $$ P(\bar{X} < 4.5) = P(Z < -1.16) = 0.1230 $$
 
-### Example 6: Determining Minimum Sample Size
-A lightbulb manufacturer knows that the lifespan of its bulbs has a standard deviation of $\sigma = 50$ hours. How large of a sample is needed to ensure that there is at least a 99% probability that the sample mean is within 15 hours of the true population mean?
+### Παράδειγμα 6: Προσδιορισμός ελάχιστου μεγέθους δείγματος
+Ένας κατασκευαστής λαμπτήρων γνωρίζει ότι η διάρκεια ζωής των λαμπτήρων του έχει τυπική απόκλιση $\sigma = 50$ ωρών. Πόσο μεγάλο δείγμα χρειάζεται για να διασφαλιστεί ότι υπάρχει τουλάχιστον 99% πιθανότητα ο μέσος όρος του δείγματος να βρίσκεται εντός 15 ωρών από τον πραγματικό μέσο πληθυσμό;
 
-**Step 1: Set up the probability statement**
-We want $P(|\bar{X} - \mu| \le 15) \ge 0.99$.
-This is equivalent to $P(-15 \le \bar{X} - \mu \le 15) \ge 0.99$.
+**Βήμα 1: Ρύθμιση της δήλωσης πιθανότητας**
+Θέλουμε $P(|\bar{X} - \mu| \le 15) \ge 0.99$.
+Αυτό ισοδυναμεί με $P(-15 \le \bar{X} - \mu \le 15) \ge 0.99$.
 
-**Step 2: Convert to Z-scores**
-Divide the inequality by $\sigma_{\bar{X}} = \frac{50}{\sqrt{n}}$:
+**Βήμα 2: Μετατροπή σε βαθμολογίες Z**
+Διαιρέστε την ανισότητα με $\sigma_{\bar{X}} = \frac{50}{\sqrt{n}}$:
 $$ P\left(\frac{-15}{50/\sqrt{n}} \le Z \le \frac{15}{50/\sqrt{n}}\right) \ge 0.99 $$
-Let $Z_c = \frac{15\sqrt{n}}{50}$. We want the area between $-Z_c$ and $Z_c$ to be 0.99.
+Αφήστε $Z_c = \frac{15\sqrt{n}}{50}$. Θέλουμε το εμβαδόν μεταξύ $-Z_c$ και $Z_c$ να είναι 0,99.
 
-**Step 3: Find critical Z-value**
-For a central area of 0.99, the tails have $0.005$ each. The $Z$-score for an area of $0.995$ to the left is approximately $2.576$.
-So, $Z_c = 2.576$.
+**Βήμα 3: Βρείτε την κρίσιμη τιμή Z**
+Για μια κεντρική περιοχή 0,99, οι ουρές έχουν $0.005$ η καθεμία. Η βαθμολογία $Z$ για μια περιοχή $0.995$ στα αριστερά είναι περίπου $2.576$.
+Λοιπόν, $Z_c = 2.576$.
 
-**Step 4: Solve for $n$**
+**Βήμα 4: Επίλυση για $n$**
 $$ \frac{15\sqrt{n}}{50} \ge 2.576 $$
 $$ \sqrt{n} \ge \frac{50 \times 2.576}{15} \approx 8.587 $$
 $$ n \ge (8.587)^2 \approx 73.7 $$
-Since sample size must be an integer, we round up to $n = 74$.
+Εφόσον το μέγεθος του δείγματος πρέπει να είναι ακέραιος, στρογγυλοποιούμε στο $n = 74$.
 
 ---
 
-### Example 7: The "Single Observation vs. Sample Mean" Trap (Gotcha Moment)
-The resting heart rate of adults is normally distributed with a mean of 72 beats per minute (bpm) and a standard deviation of 8 bpm. 
-**Part A:** What is the probability that a *randomly selected individual* has a heart rate above 75 bpm?
-**Part B:** What is the probability that a *random sample of 16 adults* has a sample mean heart rate above 75 bpm?
+### Παράδειγμα 7: Η παγίδα "Μοναδική παρατήρηση εναντίον μέσου όρου δείγματος" (Gotcha Moment)
+Ο καρδιακός ρυθμός ηρεμίας των ενηλίκων κατανέμεται κανονικά με μέσο όρο 72 παλμούς ανά λεπτό (bpm) και τυπική απόκλιση 8 bpm. 
+**Μέρος Α:** Ποια είναι η πιθανότητα ένα *τυχαία επιλεγμένο άτομο* να έχει καρδιακό ρυθμό πάνω από 75 bpm;
+**Μέρος Β:** Ποια είναι η πιθανότητα ένα *τυχαίο δείγμα 16 ενηλίκων* να έχει μέσο καρδιακό ρυθμό δείγματος πάνω από 75 bpm;
 
-#### Gotcha Section Analysis
-A very common mistake in exams is confusing the distribution of the population with the distribution of the sample mean. If the question asks about ONE individual, you do not use the CLT adjustment ($\sqrt{n}$). If it asks about a SAMPLE, you must divide the standard deviation by $\sqrt{n}$. Furthermore, $n=16$ is less than 30, but because the underlying population is explicitly stated to be *normally distributed*, the sampling distribution of the mean is exactly normal regardless of sample size.
+#### Ανάλυση ενότητας GotchaΈνα πολύ συνηθισμένο λάθος στις εξετάσεις είναι η σύγχυση της κατανομής του πληθυσμού με την κατανομή του μέσου όρου του δείγματος. Εάν η ερώτηση αφορά ΕΝΑ άτομο, δεν χρησιμοποιείτε την προσαρμογή CLT ($\sqrt{n}$). Εάν ρωτά για ένα ΔΕΙΓΜΑ, πρέπει να διαιρέσετε την τυπική απόκλιση με $\sqrt{n}$. Επιπλέον, το $n=16$ είναι μικρότερο από 30, αλλά επειδή ο υποκείμενος πληθυσμός αναφέρεται ρητά ότι είναι *κανονικά κατανεμημένος*, η δειγματοληπτική κατανομή του μέσου όρου είναι ακριβώς κανονική ανεξάρτητα από το μέγεθος του δείγματος.
 
-**Solution Part A (Single Individual):**
-We are looking for $P(X > 75)$. We use the population standard deviation $\sigma = 8$.
+**Λύση Μέρος Α (Μοναδικό άτομο):**
+Ψάχνουμε για $P(X > 75)$. Χρησιμοποιούμε την τυπική απόκλιση πληθυσμού $\sigma = 8$.
 $$ Z = \frac{75 - 72}{8} = 0.375 $$
 $$ P(X > 75) = P(Z > 0.375) = 1 - P(Z \le 0.375) = 1 - 0.6462 = 0.3538 $$
 
-**Solution Part B (Sample Mean):**
-We are looking for $P(\bar{X} > 75)$. We use the standard error $\sigma_{\bar{X}} = \frac{8}{\sqrt{16}} = \frac{8}{4} = 2$.
+**Λύση Μέρος Β (Δείγμα μέσος όρος):**
+Ψάχνουμε για $P(\bar{X} > 75)$. Χρησιμοποιούμε το τυπικό σφάλμα $\sigma_{\bar{X}} = \frac{8}{\sqrt{16}} = \frac{8}{4} = 2$.
 $$ Z = \frac{75 - 72}{2} = 1.5 $$
 $$ P(\bar{X} > 75) = P(Z > 1.5) = 1 - P(Z \le 1.5) = 1 - 0.9332 = 0.0668 $$
 
-Notice how drastically different the probabilities are. It is much harder for a group average to deviate from the true mean than it is for a single individual.
+Παρατηρήστε πόσο δραστικά διαφορετικές είναι οι πιθανότητες. Είναι πολύ πιο δύσκολο για έναν ομαδικό μέσο όρο να αποκλίνει από τον πραγματικό μέσο όρο από ό,τι για ένα μεμονωμένο άτομο.
 
 ---
 
-### Example 8: Sum vs. Mean Trap combined with Proportions (Gotcha Moment)
-A biased coin has a probability $p = 0.6$ of landing heads. You flip the coin 400 times. What is the probability that the number of heads obtained is exactly 240? What is the probability that the *proportion* of heads is greater than 0.65?
+### Παράδειγμα 8: Άθροισμα έναντι Μέσης Παγίδας σε συνδυασμό με Αναλογίες (Στιγμή Gotcha)
+Ένα προκατειλημμένο νόμισμα έχει πιθανότητα $p = 0.6$ κεφαλών προσγείωσης. Γυρίζεις το κέρμα 400 φορές. Ποια είναι η πιθανότητα ο αριθμός των κεφαλών που λαμβάνονται να είναι ακριβώς 240; Ποια είναι η πιθανότητα η *αναλογία* των κεφαλών να είναι μεγαλύτερη από 0,65;
 
-#### Gotcha Section Analysis
-There are two distinct traps here:
-1. **Continuity Correction:** When using the CLT to approximate a discrete distribution (like the Binomial distribution) with a continuous Normal distribution, you MUST apply the continuity correction if you are asking for an exact value or specific bounds.
-2. **Proportion vs Sum:** A binomial variable $X$ is a sum of Bernoulli trials. The sample proportion $\hat{p}$ is the sample mean of Bernoulli trials ($\hat{p} = \frac{X}{n}$). You must use the correct parameters for each.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχουν δύο διαφορετικές παγίδες εδώ:
+1. **Διόρθωση συνέχειας:** Όταν χρησιμοποιείτε το CLT για να προσεγγίσετε μια διακριτή κατανομή (όπως η Διωνυμική κατανομή) με μια συνεχή Κανονική κατανομή, ΠΡΕΠΕΙ να εφαρμόσετε τη διόρθωση συνέχειας εάν ζητάτε μια ακριβή τιμή ή συγκεκριμένα όρια.
+2. **Αναλογία vs Sum:** Μια διωνυμική μεταβλητή $X$ είναι ένα άθροισμα δοκιμών Bernoulli. Η αναλογία δείγματος $\hat{p}$ είναι η μέση τιμή δείγματος των δοκιμών Bernoulli ($\hat{p} = \frac{X}{n}$). Πρέπει να χρησιμοποιήσετε τις σωστές παραμέτρους για καθεμία.
 
-**Solution Part A (Exact Value using Continuity Correction):**
-The number of heads $X \sim Binomial(n=400, p=0.6)$.
-Using normal approximation:
-*   Mean: $\mu = np = 400(0.6) = 240$
-*   Standard Deviation: $\sigma = \sqrt{np(1-p)} = \sqrt{400(0.6)(0.4)} = \sqrt{96} \approx 9.798$
+**Λύση Μέρος Α (Ακριβής Τιμή με χρήση Διόρθωσης Συνέχειας):**
+Ο αριθμός των κεφαλιών $X \sim Binomial(n=400, p=0.6)$.
+Χρησιμοποιώντας κανονική προσέγγιση:
+* Μέσος όρος: $\mu = np = 400(0.6) = 240$
+* Τυπική απόκλιση: $\sigma = \sqrt{np(1-p)} = \sqrt{400(0.6)(0.4)} = \sqrt{96} \approx 9.798$
 
-To find $P(X = 240)$, we must use the interval $(239.5, 240.5)$ because $X$ is discrete.
+Για να βρούμε $P(X = 240)$, πρέπει να χρησιμοποιήσουμε το διάστημα $(239.5, 240.5)$ επειδή το $X$ είναι διακριτό.
 $$ Z_1 = \frac{239.5 - 240}{9.798} \approx -0.05 $$
 $$ Z_2 = \frac{240.5 - 240}{9.798} \approx 0.05 $$
 $$ P(X = 240) \approx P(-0.05 < Z < 0.05) = 0.5199 - 0.4801 = 0.0398 $$
-*(Without continuity correction, the probability of an exact value in a continuous distribution is 0, which is a fatal error!)*
+*(Χωρίς διόρθωση συνέχειας, η πιθανότητα μιας ακριβούς τιμής σε μια συνεχή κατανομή είναι 0, το οποίο είναι μοιραίο σφάλμα!)*
 
-**Solution Part B (Proportions):**
-We want the probability that the sample proportion $\hat{p} > 0.65$.
-According to the CLT for proportions, $\hat{p} \sim N\left(p, \frac{p(1-p)}{n}\right)$.
-*   Mean: $\mu_{\hat{p}} = p = 0.6$
-*   Standard Error: $\sigma_{\hat{p}} = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.6(0.4)}{400}} = \sqrt{\frac{0.24}{400}} = 0.0245$
+**Λύση Μέρος Β (Αναλογίες):**
+Θέλουμε την πιθανότητα η αναλογία δείγματος $\hat{p} > 0.65$.
+Σύμφωνα με το CLT για τις αναλογίες, $\hat{p} \sim N\left(p, \frac{p(1-p)}{n}\right)$.
+* Μέσος όρος: $\mu_{\hat{p}} = p = 0.6$
+* Τυπικό σφάλμα: $\sigma_{\hat{p}} = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.6(0.4)}{400}} = \sqrt{\frac{0.24}{400}} = 0.0245$
 
-Without correction (commonly accepted for very large $n$ in proportion tests):
+Χωρίς διόρθωση (κοινώς αποδεκτό για πολύ μεγάλες δοκιμές $n$ σε αναλογία):
 $$ Z = \frac{0.65 - 0.6}{0.0245} \approx 2.04 $$
 $$ P(\hat{p} > 0.65) = P(Z > 2.04) = 1 - 0.9793 = 0.0207 $$
-*(Always check if your professor requires continuity correction for proportions!)*
+*(Ελέγχετε πάντα αν ο καθηγητής σας χρειάζεται διόρθωση συνέχειας για τις αναλογίες!)*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_2_confidence_intervals.md -->
-# Phase 6: Inferential Statistics - Confidence Intervals
+<!-- Πηγή: ../Resources/Phase_6_Inferential_Statistics/phase_6_2_ trust_intervals.md -->
+# Φάση 6: Συμπερασματικά στατιστικά - Διαστήματα εμπιστοσύνης
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-A **Confidence Interval (CI)** provides a range of plausible values for an unknown population parameter (like the mean $\mu$ or proportion $p$). Instead of a single point estimate (like $\bar{X}$ or $\hat{p}$), a confidence interval gives a margin of error around the point estimate, along with a specified level of confidence that the true parameter lies within that interval.
+Ένα **διάστημα εμπιστοσύνης (CI)** παρέχει ένα εύρος εύλογων τιμών για μια άγνωστη παράμετρο πληθυσμού (όπως ο μέσος όρος $\mu$ ή η αναλογία $p$). Αντί για μια εκτίμηση ενός σημείου (όπως $\bar{X}$ ή $\hat{p}$), ένα διάστημα εμπιστοσύνης δίνει ένα περιθώριο σφάλματος γύρω από την εκτίμηση σημείου, μαζί με ένα καθορισμένο επίπεδο εμπιστοσύνης ότι η πραγματική παράμετρος βρίσκεται μέσα σε αυτό το διάστημα.
 
-### 1.1 Core Concept
-
-The general formula for a confidence interval is:
+### 1.1 Βασική ιδέαΟ γενικός τύπος για ένα διάστημα εμπιστοσύνης είναι:
 $$ \text{Point Estimate} \pm \text{Margin of Error} $$
 $$ \text{Point Estimate} \pm (\text{Critical Value}) \times (\text{Standard Error}) $$
 
-The **Confidence Level** is denoted by $(1 - \alpha) \times 100\%$, where $\alpha$ is the significance level. For example, a 95% confidence level means $\alpha = 0.05$. The critical value separates the tail area $\alpha/2$ from the central area.
+Το **Επίπεδο εμπιστοσύνης** συμβολίζεται με $(1 - \alpha) \times 100\%$, όπου $\alpha$ είναι το επίπεδο σημασίας. Για παράδειγμα, ένα επίπεδο εμπιστοσύνης 95% σημαίνει $\alpha = 0.05$. Η κρίσιμη τιμή διαχωρίζει την περιοχή της ουράς $\alpha/2$ από την κεντρική περιοχή.
 
-### 1.2 Confidence Interval for Population Mean ($\mu$)
+### 1.2 Διάστημα εμπιστοσύνης για τον μέσο πληθυσμό ($\mu$)
 
-#### Case A: Population Standard Deviation ($\sigma$) is KNOWN
-When $\sigma$ is known and either the population is normal or $n \ge 30$, we use the Standard Normal (Z) distribution.
+#### Περίπτωση Α: Η τυπική απόκλιση πληθυσμού ($\sigma$) είναι ΓΝΩΣΤΗ
+Όταν το $\sigma$ είναι γνωστό και είτε ο πληθυσμός είναι κανονικός είτε $n \ge 30$, χρησιμοποιούμε την τυπική κανονική (Z) κατανομή.
 $$ CI = \bar{X} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) $$
-*   $\bar{X}$ = Sample mean
-*   $Z_{\alpha/2}$ = Z critical value (e.g., 1.96 for 95% confidence)
-*   $\frac{\sigma}{\sqrt{n}}$ = Standard Error
+* $\bar{X}$ = Δείγμα μέσου όρου
+* $Z_{\alpha/2}$ = Z κρίσιμη τιμή (π.χ. 1,96 για 95% εμπιστοσύνη)
+* $\frac{\sigma}{\sqrt{n}}$ = Τυπικό σφάλμα
 
-#### Case B: Population Standard Deviation ($\sigma$) is UNKNOWN
-When $\sigma$ is unknown, we estimate it using the sample standard deviation $s$. We must use the Student's t-distribution with $n - 1$ degrees of freedom ($df$).
+#### Περίπτωση Β: Η τυπική απόκλιση πληθυσμού ($\sigma$) είναι ΑΓΝΩΣΤΗ
+Όταν το $\sigma$ είναι άγνωστο, το υπολογίζουμε χρησιμοποιώντας το δείγμα τυπικής απόκλισης $s$. Πρέπει να χρησιμοποιήσουμε την κατανομή t του Student με $n - 1$ βαθμούς ελευθερίας ($df$).
 $$ CI = \bar{X} \pm t_{\alpha/2, n-1} \left( \frac{s}{\sqrt{n}} \right) $$
-*   $s$ = Sample standard deviation
-*   $t_{\alpha/2, n-1}$ = t critical value with $df = n - 1$
+* $s$ = Δείγμα τυπικής απόκλισης
+* $t_{\alpha/2, n-1}$ = t κρίσιμη τιμή με $df = n - 1$
 
-### 1.3 Confidence Interval for Population Proportion ($p$)
+### 1.3 Διάστημα εμπιστοσύνης για την αναλογία πληθυσμού ($p$)
 
-When dealing with proportions (e.g., "what percentage of voters favor candidate A?"), we use the sample proportion $\hat{p} = \frac{x}{n}$ (where $x$ is the number of successes).
-Assuming large sample sizes ($n\hat{p} \ge 10$ and $n(1-\hat{p}) \ge 10$), we use the Z-distribution:
+Όταν ασχολούμαστε με τις αναλογίες (π.χ. "ποιο ποσοστό ψηφοφόρων υπέρ του υποψηφίου Α;"), χρησιμοποιούμε την αναλογία δείγματος $\hat{p} = \frac{x}{n}$ (όπου $x$ είναι ο αριθμός των επιτυχιών).
+Υποθέτοντας μεγάλα μεγέθη δείγματος ($n\hat{p} \ge 10$ και $n(1-\hat{p}) \ge 10$), χρησιμοποιούμε την κατανομή Z:
 $$ CI = \hat{p} \pm Z_{\alpha/2} \sqrt{ \frac{\hat{p}(1-\hat{p})}{n} } $$
 
-### 1.4 Sample Size Determination
-To achieve a specific Margin of Error ($E$) at a given confidence level:
-**For Mean:**
+### 1.4 Προσδιορισμός μεγέθους δείγματος
+Για να επιτύχετε ένα συγκεκριμένο Περιθώριο Σφάλματος ($E$) σε ένα δεδομένο επίπεδο εμπιστοσύνης:
+**Για μέσο όρο:**
 $$ n = \left( \frac{Z_{\alpha/2} \cdot \sigma}{E} \right)^2 $$
-**For Proportion:**
+**Για αναλογία:**
 $$ n = \hat{p}(1-\hat{p}) \left( \frac{Z_{\alpha/2}}{E} \right)^2 $$
-*(If $\hat{p}$ is completely unknown, use $\hat{p} = 0.5$ for the most conservative (largest) sample size).*
+*(Εάν το $\hat{p}$ είναι εντελώς άγνωστο, χρησιμοποιήστε το $\hat{p} = 0.5$ για το πιο συντηρητικό (μεγαλύτερο) μέγεθος δείγματος).*
 
 ---
 
-## 2. Step-by-Step Examples
+## 2. Παραδείγματα βήμα προς βήμα
 
-### Example 1: CI for Mean ($\sigma$ known)
-A random sample of 50 apples has a mean weight of 150g. The population standard deviation is known to be 10g. Construct a 95% confidence interval for the true mean weight of all apples.
+### Παράδειγμα 1: CI για το μέσο όρο ($\sigma$ γνωστό)
+Ένα τυχαίο δείγμα 50 μήλων έχει μέσο βάρος 150 g. Η τυπική απόκλιση πληθυσμού είναι γνωστό ότι είναι 10 g. Κατασκευάστε ένα διάστημα εμπιστοσύνης 95% για το πραγματικό μέσο βάρος όλων των μήλων.
 
-**Step 1: Identify Given Information**
-*   $n = 50$, $\bar{X} = 150$, $\sigma = 10$
-*   Confidence level = 95%, so $\alpha = 0.05$ and $\alpha/2 = 0.025$
+**Βήμα 1: Προσδιορισμός δεδομένων πληροφοριών**
+* $n = 50$, $\bar{X} = 150$, $\sigma = 10$
+* Επίπεδο εμπιστοσύνης = 95%, άρα $\alpha = 0.05$ και $\alpha/2 = 0.025$
 
-**Step 2: Find Critical Value**
-For a 95% CI, $Z_{0.025} = 1.96$ (from standard normal table).
+**Βήμα 2: Εύρεση κρίσιμης αξίας**
+Για CI 95%, $Z_{0.025} = 1.96$ (από τον τυπικό κανονικό πίνακα).
 
-**Step 3: Calculate Margin of Error (E)**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος (E)**
 $$ E = Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) = 1.96 \left( \frac{10}{\sqrt{50}} \right) = 1.96 \times 1.414 \approx 2.77 $$
 
-**Step 4: Construct Interval**
+**Βήμα 4: Κατασκευάστε το διάστημα**
 $$ CI = 150 \pm 2.77 = [147.23, 152.77] $$
 
-### Example 2: CI for Mean ($\sigma$ unknown)
-A sample of 16 laptop batteries has a mean life of 4.5 hours with a sample standard deviation of 0.8 hours. Assume the population is normally distributed. Find a 99% CI for the true mean battery life.
+### Παράδειγμα 2: CI για το μέσο όρο ($\sigma$ άγνωστο)
+Ένα δείγμα 16 μπαταριών φορητού υπολογιστή έχει μέση διάρκεια ζωής 4,5 ώρες με τυπική απόκλιση δείγματος 0,8 ώρες. Ας υποθέσουμε ότι ο πληθυσμός κατανέμεται κανονικά. Βρείτε 99% CI για την πραγματική μέση διάρκεια ζωής της μπαταρίας.
 
-**Step 1: Identify Given Information**
-*   $n = 16$, $\bar{X} = 4.5$, $s = 0.8$
-*   Since $\sigma$ is unknown, use t-distribution. $df = n - 1 = 15$.
-*   Confidence level = 99%, $\alpha = 0.01$, $\alpha/2 = 0.005$.
+**Βήμα 1: Προσδιορισμός δεδομένων πληροφοριών**
+* $n = 16$, $\bar{X} = 4.5$, $s = 0.8$
+* Επειδή το $\sigma$ είναι άγνωστο, χρησιμοποιήστε την κατανομή t. $df = n - 1 = 15$.
+* Επίπεδο εμπιστοσύνης = 99%, $\alpha = 0.01$, $\alpha/2 = 0.005$.
 
-**Step 2: Find Critical Value**
-From t-table for $df=15$ and tail area 0.005: $t_{0.005, 15} = 2.947$.
+**Βήμα 2: Εύρεση κρίσιμης αξίας**
+Από t-table για $df=15$ και περιοχή ουράς 0,005: $t_{0.005, 15} = 2.947$.
 
-**Step 3: Calculate Margin of Error (E)**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος (E)**
 $$ E = 2.947 \left( \frac{0.8}{\sqrt{16}} \right) = 2.947 \times 0.2 = 0.5894 $$
 
-**Step 4: Construct Interval**
+**Βήμα 4: Κατασκευάστε το διάστημα**
 $$ CI = 4.5 \pm 0.5894 = [3.91, 5.09] $$
 
-### Example 3: CI for Proportion
-In a survey of 400 randomly selected adults, 250 said they drink coffee daily. Construct a 90% confidence interval for the true proportion of adults who drink coffee daily.
+### Παράδειγμα 3: CI για αναλογίαΣε μια έρευνα με 400 τυχαία επιλεγμένους ενήλικες, 250 είπαν ότι πίνουν καφέ καθημερινά. Δημιουργήστε ένα διάστημα εμπιστοσύνης 90% για το πραγματικό ποσοστό των ενηλίκων που πίνουν καφέ καθημερινά.
 
-**Step 1: Calculate Sample Proportion**
+**Βήμα 1: Υπολογισμός αναλογίας δείγματος**
 $$ \hat{p} = \frac{x}{n} = \frac{250}{400} = 0.625 $$
 
-**Step 2: Find Critical Value**
-For 90% confidence, $\alpha = 0.10$, $\alpha/2 = 0.05$. $Z_{0.05} = 1.645$.
+**Βήμα 2: Εύρεση κρίσιμης αξίας**
+Για 90% εμπιστοσύνη, $\alpha = 0.10$, $\alpha/2 = 0.05$. $Z_{0.05} = 1.645$.
 
-**Step 3: Calculate Margin of Error (E)**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος (E)**
 $$ E = 1.645 \sqrt{ \frac{0.625(1-0.625)}{400} } = 1.645 \sqrt{\frac{0.234375}{400}} \approx 1.645 \times 0.0242 \approx 0.0398 $$
 
-**Step 4: Construct Interval**
+**Βήμα 4: Κατασκευάστε το διάστημα**
 $$ CI = 0.625 \pm 0.0398 = [0.5852, 0.6648] $$
 
-### Example 4: Finding Required Sample Size (Mean)
-We want to estimate the mean height of students in a university to within 2 cm with 95% confidence. The population standard deviation is estimated to be 8 cm. How large of a sample is required?
+### Παράδειγμα 4: Εύρεση του απαιτούμενου μεγέθους δείγματος (μέσος όρος)
+Θέλουμε να υπολογίσουμε το μέσο ύψος των φοιτητών σε ένα πανεπιστήμιο εντός 2 cm με 95% εμπιστοσύνη. Η τυπική απόκλιση πληθυσμού εκτιμάται ότι είναι 8 cm. Πόσο μεγάλο δείγμα απαιτείται;
 
-**Step 1: Identify Given Information**
-*   $E = 2$ (Margin of error)
-*   $\sigma = 8$
-*   $Z_{\alpha/2}$ for 95% is $1.96$
+**Βήμα 1: Προσδιορισμός δεδομένων πληροφοριών**
+* $E = 2$ (Περιθώριο σφάλματος)
+* $\sigma = 8$
+* $Z_{\alpha/2}$ για το 95% είναι $1.96$
 
-**Step 2: Apply Sample Size Formula**
+**Βήμα 2: Εφαρμόστε τον τύπο μεγέθους δείγματος**
 $$ n = \left( \frac{1.96 \times 8}{2} \right)^2 = (1.96 \times 4)^2 = (7.84)^2 = 61.4656 $$
 
-**Step 3: Round Up**
-Always round sample size *up* to the next whole number. $n = 62$.
+**Βήμα 3: Στρογγυλοποίηση**
+Στρογγυλοποιείτε πάντα το μέγεθος δείγματος *μέχρι* στον επόμενο ακέραιο αριθμό. $n = 62$.
 
-### Example 5: Changing Confidence Levels
-Using the data from Example 1 ($n=50, \bar{X}=150, \sigma=10$), what happens to the confidence interval if we increase the confidence level to 99%?
+### Παράδειγμα 5: Αλλαγή των επιπέδων εμπιστοσύνης
+Χρησιμοποιώντας τα δεδομένα από το Παράδειγμα 1 ($n=50, \bar{X}=150, \sigma=10$), τι συμβαίνει με το διάστημα εμπιστοσύνης εάν αυξήσουμε το επίπεδο εμπιστοσύνης στο 99%;
 
-**Step 1: New Critical Value**
-For 99%, $Z_{0.005} = 2.576$.
+**Βήμα 1: Νέα κρίσιμη αξία**
+Για το 99%, $Z_{0.005} = 2.576$.
 
-**Step 2: New Margin of Error**
+**Βήμα 2: Νέο περιθώριο σφάλματος**
 $$ E = 2.576 \left( \frac{10}{\sqrt{50}} \right) \approx 3.64 $$
 
-**Step 3: New Interval**
+**Βήμα 3: Νέο διάστημα**
 $$ CI = 150 \pm 3.64 = [146.36, 153.64] $$
-*Observation: Higher confidence requires a wider interval.*
+*Παρατήρηση: Η υψηλότερη εμπιστοσύνη απαιτεί μεγαλύτερο διάστημα.*
 
-### Example 6: Extracting Information from an Interval
-A 95% confidence interval for a population mean is given as $[45, 55]$. What was the sample mean and the margin of error?
+### Παράδειγμα 6: Εξαγωγή πληροφοριών από ένα διάστημα
+Ένα διάστημα εμπιστοσύνης 95% για έναν μέσο πληθυσμό δίνεται ως $[45, 55]$. Ποιος ήταν ο μέσος όρος του δείγματος και το περιθώριο σφάλματος;
 
-**Step 1: Find the Sample Mean**
-The sample mean is exactly in the middle of the interval.
+**Βήμα 1: Βρείτε τη μέση τιμή δείγματος**
+Ο μέσος όρος του δείγματος βρίσκεται ακριβώς στη μέση του διαστήματος.
 $$ \bar{X} = \frac{\text{Upper} + \text{Lower}}{2} = \frac{55 + 45}{2} = 50 $$
 
-**Step 2: Find the Margin of Error**
-The margin of error is half the width of the interval.
+**Βήμα 2: Βρείτε το Περιθώριο Σφάλματος**
+Το περιθώριο σφάλματος είναι το μισό του πλάτους του διαστήματος.
 $$ E = \frac{\text{Upper} - \text{Lower}}{2} = \frac{55 - 45}{2} = 5 $$
 
 ---
 
-### Example 7: The "Z vs. t" Trap and Degrees of Freedom (Gotcha Moment)
-A researcher measures the lifespan of 25 fruit flies. The sample mean is 14 days and the *sample variance* is 16 days squared. Construct a 95% confidence interval for the population mean lifespan.
+### Παράδειγμα 7: Η παγίδα "Z εναντίον t" και οι βαθμοί ελευθερίας (Gotcha Moment)
+Ένας ερευνητής μετρά τη διάρκεια ζωής 25 μυγών φρούτων. Ο μέσος όρος του δείγματος είναι 14 ημέρες και η *διακύμανση δείγματος* είναι 16 ημέρες στο τετράγωνο. Κατασκευάστε ένα διάστημα εμπιστοσύνης 95% για τη μέση διάρκεια ζωής του πληθυσμού.
 
-#### Gotcha Section Analysis
-There are three common traps here:
-1. **Variance vs. Standard Deviation:** The problem gives the sample *variance* ($s^2 = 16$), not standard deviation. You must take the square root ($s = 4$).
-2. **t vs Z:** Many students automatically use $Z=1.96$ because it is a 95% interval. However, because we only have the *sample* variance (and $n < 30$), we MUST use the t-distribution.
-3. **Degrees of Freedom:** For $n=25$, degrees of freedom is $df = 24$, not 25.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχουν τρεις κοινές παγίδες εδώ:
+1. **Διακύμανση έναντι τυπικής απόκλισης:** Το πρόβλημα δίνει στο δείγμα *διακύμανση* ($s^2 = 16$), όχι τυπική απόκλιση. Πρέπει να πάρετε την τετραγωνική ρίζα ($s = 4$).
+2. **t vs Z:** Πολλοί μαθητές χρησιμοποιούν αυτόματα $Z=1.96$ επειδή είναι ένα διάστημα 95%. Ωστόσο, επειδή έχουμε μόνο τη διακύμανση *sample* (και $n < 30$), ΠΡΕΠΕΙ να χρησιμοποιήσουμε την κατανομή t.
+3. **Βαθμοί ελευθερίας:** Για $n=25$, οι βαθμοί ελευθερίας είναι $df = 24$, όχι 25.
 
-**Step 1: Extract Correct Values**
-*   $n = 25 \implies df = 24$
-*   $\bar{X} = 14$
-*   $s^2 = 16 \implies s = 4$
+**Βήμα 1: Εξαγωγή σωστών τιμών**
+* $n = 25 \implies df = 24$
+* $\bar{X} = 14$
+* $s^2 = 16 \implies s = 4$
 
-**Step 2: Find the correct Critical Value (t-distribution)**
-For 95% confidence ($\alpha = 0.05, \alpha/2 = 0.025$) and $df = 24$:
-$t_{0.025, 24} = 2.064$ (NOT 1.96!)
+**Βήμα 2: Βρείτε τη σωστή κρίσιμη τιμή (t-κατανομή)**
+Για 95% εμπιστοσύνη ($\alpha = 0.05, \alpha/2 = 0.025$) και $df = 24$:
+$t_{0.025, 24} = 2.064$ (ΟΧΙ 1,96!)
 
-**Step 3: Calculate Margin of Error and CI**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος και CI**
 $$ E = 2.064 \left( \frac{4}{\sqrt{25}} \right) = 2.064 \left( \frac{4}{5} \right) = 2.064 \times 0.8 = 1.6512 $$
 $$ CI = 14 \pm 1.6512 = [12.3488, 15.6512] $$
 
 ---
 
-### Example 8: Worst-Case Proportion Sample Size Trap (Gotcha Moment)
-You are planning a survey to estimate the proportion of students who prefer online exams. You want the estimate to be accurate within 4 percentage points with 95% confidence. Previous studies suggest the proportion is somewhere between 20% and 30%. What sample size should you use?
+### Παράδειγμα 8: Παγίδα μεγέθους δείγματος αναλογίας χειρότερης περίπτωσης (Στιγμή Gotcha)
+Σχεδιάζετε μια έρευνα για να υπολογίσετε το ποσοστό των μαθητών που προτιμούν τις διαδικτυακές εξετάσεις. Θέλετε η εκτίμηση να είναι ακριβής εντός 4 ποσοστιαίων μονάδων με 95% εμπιστοσύνη. Προηγούμενες μελέτες δείχνουν ότι το ποσοστό είναι κάπου μεταξύ 20% και 30%. Τι μέγεθος δείγματος πρέπει να χρησιμοποιήσετε;
 
-#### Gotcha Section Analysis
-There are two traps here:
-1. **"Within 4 percentage points":** This means the Margin of Error $E = 0.04$. Do not use $E=4$.
-2. **Which $\hat{p}$ to use?** The sample size formula for proportions is $n = \hat{p}(1-\hat{p}) \left( \frac{Z}{E} \right)^2$. If no proportion is known, you use $\hat{p} = 0.5$ because it maximizes $\hat{p}(1-\hat{p})$ to $0.25$, yielding the safest (largest) sample size. However, here you are given a *range* (20% to 30%). You must pick the value in the range that is *closest to 50%* because that will maximize the variance and ensure your sample is large enough.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχουν δύο παγίδες εδώ:1. **"Μέσα σε 4 ποσοστιαίες μονάδες":** Αυτό σημαίνει το Περιθώριο Σφάλματος $E = 0.04$. Μην χρησιμοποιείτε $E=4$.
+2. **Ποιο $\hat{p}$ να χρησιμοποιήσετε;** Ο τύπος μεγέθους δείγματος για τις αναλογίες είναι $n = \hat{p}(1-\hat{p}) \left( \frac{Z}{E} \right)^2$. Εάν δεν είναι γνωστή η αναλογία, χρησιμοποιείτε $\hat{p} = 0.5$ επειδή μεγιστοποιεί το $\hat{p}(1-\hat{p})$ σε $0.25$, αποδίδοντας το ασφαλέστερο (μεγαλύτερο) μέγεθος δείγματος. Ωστόσο, εδώ σας δίνεται ένα *εύρος* (20% έως 30%). Πρέπει να επιλέξετε την τιμή στο εύρος που είναι *πλησιέστερα στο 50%* γιατί αυτό θα μεγιστοποιήσει τη διακύμανση και θα εξασφαλίσει ότι το δείγμα σας είναι αρκετά μεγάλο.
 
-**Step 1: Determine the conservative $\hat{p}$**
-The range is $0.20$ to $0.30$. The value closest to $0.50$ is $0.30$.
-Let's check the product $\hat{p}(1-\hat{p})$:
-*   If $p=0.20 \implies 0.20 \times 0.80 = 0.16$
-*   If $p=0.30 \implies 0.30 \times 0.70 = 0.21$
-Since $0.21 > 0.16$, using $p=0.30$ guarantees a large enough sample.
+**Βήμα 1: Προσδιορίστε τη συντηρητική $\hat{p}$**
+Το εύρος είναι $0.20$ έως $0.30$. Η τιμή που βρίσκεται πλησιέστερα στο $0.50$ είναι $0.30$.
+Ας ελέγξουμε το προϊόν $\hat{p}(1-\hat{p})$:
+* Εάν $p=0.20 \implies 0.20 \times 0.80 = 0.16$
+* Εάν $p=0.30 \implies 0.30 \times 0.70 = 0.21$
+Από $0.21 > 0.16$, η χρήση $p=0.30$ εγγυάται ένα αρκετά μεγάλο δείγμα.
 
-**Step 2: Calculate Sample Size**
-*   $Z_{0.025} = 1.96$
-*   $E = 0.04$
-*   $\hat{p} = 0.30$
+**Βήμα 2: Υπολογισμός μεγέθους δείγματος**
+* $Z_{0.025} = 1.96$
+* $E = 0.04$
+* $\hat{p} = 0.30$
 
 $$ n = 0.30(1 - 0.30) \left( \frac{1.96}{0.04} \right)^2 $$
 $$ n = 0.30(0.70) \left( 49 \right)^2 $$
 $$ n = 0.21 \times 2401 = 504.21 $$
 
-**Step 3: Round Up**
-You must always round *up* to the nearest integer to ensure the margin of error is *strictly within* 4%.
+**Βήμα 3: Στρογγυλοποίηση**
+Πρέπει πάντα να στρογγυλοποιείτε το *επάνω* στον πλησιέστερο ακέραιο για να διασφαλίσετε ότι το περιθώριο σφάλματος είναι *αυστηρά εντός* 4%.
 $n = 505$.
-*(If you used $p=0.5$ blindly without looking at the known range, you would get $n=601$, meaning you would waste time and money surveying 96 extra people unnecessarily!)*
+*(Εάν χρησιμοποιούσατε το $p=0.5$ στα τυφλά χωρίς να κοιτάξετε το γνωστό εύρος, θα λάβατε $n=601$, που σημαίνει ότι θα χάνατε χρόνο και χρήμα ερευνώντας 96 επιπλέον άτομα χωρίς λόγο!)*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_3_hypothesis_testing.md -->
-# Phase 6: Inferential Statistics - Hypothesis Testing
+<!-- Πηγή: ../Resources/Phase_6_Inferential_Statistics/phase_6_3_hypothesis_testing.md -->
+# Φάση 6: Συμπερασματικές στατιστικές - Έλεγχος υποθέσεων
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-Hypothesis testing is a formal procedure used to evaluate a claim about a population parameter based on sample data. We compare two competing hypotheses and determine if there is enough statistical evidence to reject the default assumption.
+Ο έλεγχος υποθέσεων είναι μια επίσημη διαδικασία που χρησιμοποιείται για την αξιολόγηση ενός ισχυρισμού σχετικά με μια παράμετρο πληθυσμού που βασίζεται σε δεδομένα δείγματος. Συγκρίνουμε δύο ανταγωνιστικές υποθέσεις και προσδιορίζουμε εάν υπάρχουν αρκετά στατιστικά στοιχεία για να απορρίψουμε την υπόθεση προεπιλογής.
 
-### 1.1 The Hypotheses
-*   **Null Hypothesis ($H_0$):** The default assumption, representing "no effect," "no difference," or "status quo." It always contains an equality sign ($=, \le, \ge$).
-*   **Alternative Hypothesis ($H_1$ or $H_A$):** The claim we are trying to prove. It contains an inequality sign ($\ne, <, >$). The direction of the inequality determines the type of test:
-    *   $\ne$ : Two-tailed test
-    *   $<$ : Left-tailed test
-    *   $>$ : Right-tailed test
+### 1.1 Οι Υποθέσεις
+* **Μηδενική υπόθεση ($H_0$):** Η προεπιλεγμένη υπόθεση, που αντιπροσωπεύει "καμία επίδραση", "καμία διαφορά" ή "status quo". Περιέχει πάντα ένα σύμβολο ισότητας ($=, \le, \ge$).
+* **Εναλλακτική υπόθεση ($H_1$ ή $H_A$):** Ο ισχυρισμός που προσπαθούμε να αποδείξουμε. Περιέχει ένα σύμβολο ανισότητας ($\ne, <, >$). Η κατεύθυνση της ανισότητας καθορίζει τον τύπο του τεστ:
+    * $\ne$ : Δοκιμή δύο ουρών
+    * $<$ : Δοκιμή αριστερής ουράς
+    * $>$ : Δεξιά ουρά δοκιμή
 
-### 1.2 Errors in Hypothesis Testing
-*   **Type I Error ($\alpha$):** Rejecting $H_0$ when it is actually true (False Positive). $\alpha$ is the significance level of the test.
-*   **Type II Error ($\beta$):** Failing to reject $H_0$ when $H_1$ is actually true (False Negative).
-*   **Power of the Test ($1 - \beta$):** The probability of correctly rejecting a false $H_0$.
+### 1.2 Σφάλματα στον έλεγχο υποθέσεων
+* **Σφάλμα τύπου I ($\alpha$):** Απόρριψη $H_0$ όταν είναι πραγματικά αληθές (Λάθος θετικό). Το $\alpha$ είναι το επίπεδο σημαντικότητας του τεστ.
+* **Σφάλμα τύπου II ($\beta$):** Αποτυχία απόρριψης του $H_0$ όταν το $H_1$ είναι πραγματικά αληθές (Ψευδές αρνητικό).
+* **Δύναμη του τεστ ($1 - \beta$):** Η πιθανότητα να απορριφθεί σωστά μια ψευδής $H_0$.
 
-### 1.3 Test Statistics
+### 1.3 Στατιστικά τεστ
 
-The test statistic measures how far our sample statistic is from the hypothesized population parameter, standardized by the standard error.
+Η στατιστική δοκιμής μετρά πόσο απέχει το στατιστικό δείγμα μας από την υποτιθέμενη παράμετρο πληθυσμού, τυποποιημένη από το τυπικό σφάλμα.
 
-**1. Test for Mean ($\mu$) with KNOWN Population Variance ($\sigma^2$):**
+**1. Δοκιμή για μέσο όρο ($\mu$) με ΓΝΩΣΤΗ Διακύμανση Πληθυσμού ($\sigma^2$):**
 $$ Z_{stat} = \frac{\bar{X} - \mu_0}{\frac{\sigma}{\sqrt{n}}} $$
 
-**2. Test for Mean ($\mu$) with UNKNOWN Population Variance — Large Sample ($n \ge 30$):**
-By the CLT, the sample standard deviation $s$ is a reliable estimate of $\sigma$, so $s$ is substituted into the Z-formula:
-$$ Z_{stat} = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}} $$
-> **Note:** Most courses accept using the t-statistic here as well (with $df = n-1$). Because $t_{n-1} \approx Z$ for large $n$, both approaches give virtually identical results. Confirm which convention your course prefers.
+**2. Δοκιμή για μέσο όρο ($\mu$) με ΑΓΝΩΣΤΗ διακύμανση πληθυσμού — Μεγάλο δείγμα ($n \ge 30$):**
+Με το CLT, η τυπική απόκλιση δείγματος $s$ είναι μια αξιόπιστη εκτίμηση του $\sigma$, επομένως η $s$ αντικαθίσταται στον τύπο Ζ:
+$$ Z_{stat} = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}} $$> **Σημείωση:** Τα περισσότερα μαθήματα δέχονται τη χρήση της στατιστικής t και εδώ (με $df = n-1$). Επειδή $t_{n-1} \approx Z$ για μεγάλα $n$, και οι δύο προσεγγίσεις δίνουν σχεδόν πανομοιότυπα αποτελέσματα. Επιβεβαιώστε ποια σύμβαση προτιμά το μάθημά σας.
 
-**3. Test for Mean ($\mu$) with UNKNOWN Population Variance — Small Sample ($n < 30$):**
-Must use the t-distribution with $df = n - 1$ degrees of freedom:
+**3. Δοκιμή για τη μέση τιμή ($\mu$) με ΑΓΝΩΣΤΗ διακύμανση πληθυσμού — Μικρό δείγμα ($n < 30$):**
+Πρέπει να χρησιμοποιήσει την κατανομή t με $df = n - 1$ βαθμούς ελευθερίας:
 $$ t_{stat} = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}} $$
-*(This requires the population to be approximately normally distributed.)*
+*(Αυτό απαιτεί ο πληθυσμός να είναι περίπου κανονικά κατανεμημένος.)*
 
-**4. Test for Proportion ($p$):**
+**4. Δοκιμή αναλογίας ($p$):**
 $$ Z_{stat} = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} $$
 
-### 1.4 Decision Rules
+### 1.4 Κανόνες απόφασης
 
-There are two equivalent ways to make a decision:
+Υπάρχουν δύο ισοδύναμοι τρόποι για να λάβετε μια απόφαση:
 
-**1. Critical Value Approach:**
-*   Determine the critical value(s) ($Z_{crit}$ or $t_{crit}$) based on $\alpha$ and the tail(s) of the test.
-*   If the test statistic falls into the **rejection region** (beyond the critical value), reject $H_0$.
+**1. Προσέγγιση κρίσιμης αξίας:**
+* Προσδιορίστε τις κρίσιμες τιμές ($Z_{crit}$ ή $t_{crit}$) με βάση το $\alpha$ και τις ουρές της δοκιμής.
+* Εάν το στατιστικό στοιχείο δοκιμής εμπίπτει στην **περιοχή απόρριψης** (πέρα από την κρίσιμη τιμή), απορρίψτε το $H_0$.
 
-**2. P-Value Approach:**
-*   The **p-value** is the probability of observing a test statistic as extreme as, or more extreme than, the one calculated, assuming $H_0$ is true.
-*   **Rule:** If $p\text{-value} \le \alpha$, reject $H_0$. If $p\text{-value} > \alpha$, fail to reject $H_0$.
+**2. Προσέγγιση P-Value:**
+* Η **p-value** είναι η πιθανότητα να παρατηρήσουμε μια στατιστική δοκιμής τόσο ακραία όσο ή πιο ακραία από αυτή που υπολογίστηκε, υποθέτοντας ότι το $H_0$ είναι αληθές.
+* **Κανόνας:** Εάν $p\text{-value} \le \alpha$, απορρίψτε το $H_0$. Εάν $p\text{-value} > \alpha$, αποτύχετε να απορρίψετε το $H_0$.
 
 ---
 
-## 2. Step-by-Step Examples
+## 2. Παραδείγματα βήμα προς βήμα
 
-### Example 1: Right-Tailed Z-Test for Mean ($\sigma$ known)
-A company claims that its new light bulbs last *more than* 1000 hours on average. A sample of 40 bulbs has an average lifespan of 1020 hours. The population standard deviation is known to be 80 hours. Test the claim at a 5% significance level.
+### Παράδειγμα 1: Δοκιμή Z με δεξιά ουρά για μέσο όρο ($\sigma$ γνωστό)
+Μια εταιρεία ισχυρίζεται ότι οι νέοι λαμπτήρες της διαρκούν *περισσότερες από* 1000 ώρες κατά μέσο όρο. Ένα δείγμα 40 λαμπτήρων έχει μέση διάρκεια ζωής 1020 ώρες. Η τυπική απόκλιση πληθυσμού είναι γνωστό ότι είναι 80 ώρες. Ελέγξτε τον ισχυρισμό σε επίπεδο σημαντικότητας 5%.
 
-**Step 1: State Hypotheses**
-*   $H_0: \mu \le 1000$ (Status quo)
-*   $H_1: \mu > 1000$ (Claim, right-tailed)
+**Βήμα 1: Κρατήστε υποθέσεις**
+* $H_0: \mu \le 1000$ (Κατάσταση)
+* $H_1: \mu > 1000$ (Αξίωση, δεξιά)
 
-**Step 2: Calculate Test Statistic**
-*   $n = 40, \bar{X} = 1020, \mu_0 = 1000, \sigma = 80$
+**Βήμα 2: Υπολογισμός στατιστικών δοκιμών**
+* $n = 40, \bar{X} = 1020, \mu_0 = 1000, \sigma = 80$
 $$ Z_{stat} = \frac{1020 - 1000}{\frac{80}{\sqrt{40}}} = \frac{20}{12.65} \approx 1.58 $$
 
-**Step 3: Determine Critical Value & Decision**
-*   $\alpha = 0.05$, right-tailed. $Z_{crit} = 1.645$.
-*   Since $1.58 < 1.645$, the statistic is NOT in the rejection region.
-*   **Conclusion:** Fail to reject $H_0$. There is not enough evidence to support the claim that the bulbs last more than 1000 hours.
+**Βήμα 3: Προσδιορισμός κρίσιμης αξίας και απόφασης**
+* $\alpha = 0.05$, δεξιά. $Z_{crit} = 1.645$.
+* Από $1.58 < 1.645$, το στατιστικό ΔΕΝ βρίσκεται στην περιοχή απόρριψης.
+* **Συμπέρασμα:** Αποτυχία απόρριψης $H_0$. Δεν υπάρχουν αρκετά στοιχεία που να υποστηρίζουν τον ισχυρισμό ότι οι λαμπτήρες διαρκούν περισσότερες από 1000 ώρες.
 
-### Example 2: Two-Tailed t-Test for Mean ($\sigma$ unknown)
-A machine is supposed to fill bottles with exactly 500ml of water. A random sample of 15 bottles shows a mean of 496ml and a standard deviation of 8ml. Test if the machine is out of calibration at the $\alpha = 0.01$ level.
+### Παράδειγμα 2: Δοκιμή t δύο ουρών για τη μέση τιμή ($\sigma$ άγνωστο)
+Μια μηχανή υποτίθεται ότι γεμίζει μπουκάλια με ακριβώς 500 ml νερό. Ένα τυχαίο δείγμα 15 φιαλών δείχνει μέσο όρο 496 ml και τυπική απόκλιση 8 ml. Ελέγξτε εάν το μηχάνημα είναι εκτός βαθμονόμησης στο επίπεδο $\alpha = 0.01$.
 
-**Step 1: State Hypotheses**
-*   $H_0: \mu = 500$
-*   $H_1: \mu \ne 500$ (Two-tailed)
+**Βήμα 1: Κρατήστε υποθέσεις**
+* $H_0: \mu = 500$
+* $H_1: \mu \ne 500$ (με δύο ουρές)
 
-**Step 2: Calculate Test Statistic**
-*   $n = 15, \bar{X} = 496, \mu_0 = 500, s = 8$. Use t-test ($df = 14$).
+**Βήμα 2: Υπολογισμός στατιστικών δοκιμών**
+* $n = 15, \bar{X} = 496, \mu_0 = 500, s = 8$. Χρησιμοποιήστε το t-test ($df = 14$).
 $$ t_{stat} = \frac{496 - 500}{\frac{8}{\sqrt{15}}} = \frac{-4}{2.066} \approx -1.94 $$
 
-**Step 3: Determine Critical Value & Decision**
-*   $\alpha = 0.01$, two-tailed. $\alpha/2 = 0.005$.
-*   From t-table, $df=14, t_{crit} = \pm 2.977$.
-*   Since $-2.977 < -1.94 < 2.977$, it does not fall in the rejection regions.
-*   **Conclusion:** Fail to reject $H_0$. No significant evidence the machine is out of calibration.
+**Βήμα 3: Προσδιορισμός κρίσιμης αξίας και απόφασης**
+* $\alpha = 0.01$, με δύο ουρές. $\alpha/2 = 0.005$.
+* Από t-table, $df=14, t_{crit} = \pm 2.977$.
+* Από $-2.977 < -1.94 < 2.977$, δεν εμπίπτει στις περιοχές απόρριψης.
+* **Συμπέρασμα:** Αποτυχία απόρριψης $H_0$. Δεν υπάρχουν σημαντικές ενδείξεις ότι το μηχάνημα είναι εκτός βαθμονόμησης.
 
-### Example 3: Left-Tailed Z-Test for Proportion
-A politician claims that *less than* 30% of the population opposes a new policy. In a sample of 500 people, 135 oppose the policy. Test the claim at $\alpha = 0.05$.
+### Παράδειγμα 3: Δοκιμή Z-αριστερής ουράς για αναλογία
+Ένας πολιτικός ισχυρίζεται ότι *λιγότερο από* το 30% του πληθυσμού αντιτίθεται σε μια νέα πολιτική. Σε ένα δείγμα 500 ατόμων, 135 αντιτίθενται στην πολιτική. Δοκιμάστε την αξίωση στο $\alpha = 0.05$.
 
-**Step 1: State Hypotheses**
-*   $H_0: p \ge 0.30$
-*   $H_1: p < 0.30$ (Claim, left-tailed)
+**Βήμα 1: Κρατήστε υποθέσεις**
+* $H_0: p \ge 0.30$
+* $H_1: p < 0.30$ (Αξίωση, αριστερά)
 
-**Step 2: Calculate Test Statistic**
-*   $\hat{p} = \frac{135}{500} = 0.27, p_0 = 0.30, n = 500$
+**Βήμα 2: Υπολογισμός στατιστικών δοκιμών**
+* $\hat{p} = \frac{135}{500} = 0.27, p_0 = 0.30, n = 500$
 $$ Z_{stat} = \frac{0.27 - 0.30}{\sqrt{\frac{0.30(0.70)}{500}}} = \frac{-0.03}{\sqrt{0.00042}} = \frac{-0.03}{0.0205} \approx -1.46 $$
 
-**Step 3: P-Value Approach & Decision**
-*   $p\text{-value} = P(Z < -1.46) = 0.0721$
-*   Since $0.0721 > 0.05 (\alpha)$, we **Fail to reject $H_0$**.
-*   **Conclusion:** Not enough evidence to say less than 30% oppose it.
+**Βήμα 3: Προσέγγιση και απόφαση P-Value**
+* $p\text{-value} = P(Z < -1.46) = 0.0721$
+* Από $0.0721 > 0.05 (\alpha)$, **Αποτυγχάνουμε να απορρίψουμε το $H_0$**.* **Συμπέρασμα: ** Δεν υπάρχουν αρκετά στοιχεία για να πούμε ότι λιγότερο από το 30% αντιτίθεται σε αυτό.
 
-### Example 4: Calculating Type I Error ($\alpha$)
-Given a test where $H_0: \mu = 50$ and we reject $H_0$ if our sample mean $\bar{X} > 52$. We have $n=36, \sigma = 6$. What is the probability of a Type I error?
+### Παράδειγμα 4: Υπολογισμός σφάλματος τύπου I ($\alpha$)
+Δίνεται μια δοκιμή όπου $H_0: \mu = 50$ και απορρίπτουμε $H_0$ εάν το δείγμα μας σημαίνει $\bar{X} > 52$. Έχουμε $n=36, \sigma = 6$. Ποια είναι η πιθανότητα σφάλματος τύπου Ι;
 
-**Step 1: Define Type I Error**
-Type I Error = Rejecting $H_0$ given $H_0$ is true.
+**Βήμα 1: Ορισμός σφάλματος τύπου I **
+Σφάλμα τύπου I = Η απόρριψη $H_0$ δεδομένου $H_0$ είναι αληθής.
 $\alpha = P(\bar{X} > 52 \mid \mu = 50)$
 
-**Step 2: Standardize to Z**
+**Βήμα 2: Τυποποίηση σε Z**
 $$ Z = \frac{52 - 50}{\frac{6}{\sqrt{36}}} = \frac{2}{1} = 2.0 $$
 
-**Step 3: Find Probability**
+**Βήμα 3: Εύρεση πιθανότητας**
 $$ \alpha = P(Z > 2.0) = 1 - 0.9772 = 0.0228 $$
 
-### Example 5: Calculating Type II Error ($\beta$)
-Following Example 4, what is the probability of a Type II error ($\beta$) if the *true* population mean is actually $\mu_A = 53$?
+### Παράδειγμα 5: Υπολογισμός σφάλματος τύπου II ($\beta$)
+Ακολουθώντας το Παράδειγμα 4, ποια είναι η πιθανότητα σφάλματος Τύπου II ($\beta$) εάν ο *αληθινός* μέσος όρος πληθυσμού είναι στην πραγματικότητα $\mu_A = 53$;
 
-**Step 1: Define Type II Error**
-Type II Error = Failing to reject $H_0$ given $H_1$ is true.
-We fail to reject if $\bar{X} \le 52$.
+**Βήμα 1: Ορισμός σφάλματος τύπου II**
+Σφάλμα τύπου II = Η αποτυχία απόρριψης του $H_0$ δεδομένου του $H_1$ είναι αληθές.
+Δεν μπορούμε να απορρίψουμε εάν $\bar{X} \le 52$.
 $\beta = P(\bar{X} \le 52 \mid \mu = 53)$
 
-**Step 2: Standardize using the TRUE mean ($\mu_A = 53$)**
+**Βήμα 2: Τυποποίηση χρησιμοποιώντας τον TRUE μέσο όρο ($\mu_A = 53$)**
 $$ Z = \frac{52 - 53}{\frac{6}{\sqrt{36}}} = \frac{-1}{1} = -1.0 $$
 
-**Step 3: Find Probability**
+**Βήμα 3: Εύρεση πιθανότητας**
 $$ \beta = P(Z \le -1.0) = 0.1587 $$
-*(The Power of the test against $\mu_A = 53$ is $1 - \beta = 0.8413$)*
+*(Η ισχύς της δοκιμής έναντι του $\mu_A = 53$ είναι $1 - \beta = 0.8413$)*
 
-### Example 6: The Connection between CI and Two-Tailed Tests
-You have a 95% confidence interval for $\mu$ given as $[12.5, 18.2]$. If you run a two-tailed hypothesis test $H_0: \mu = 19$ vs $H_1: \mu \ne 19$ at $\alpha = 0.05$, what will the conclusion be?
+### Παράδειγμα 6: Η σύνδεση μεταξύ δοκιμών CI και Two-Tailed
+Έχετε ένα διάστημα εμπιστοσύνης 95% για $\mu$ που δίνεται ως $[12.5, 18.2]$. Εάν εκτελέσετε μια δοκιμή υποθέσεων δύο ουρών $H_0: \mu = 19$ έναντι $H_1: \mu \ne 19$ στο $\alpha = 0.05$, ποιο θα είναι το συμπέρασμα;
 
-**Step 1: Analyze the Rule**
-A two-tailed hypothesis test at significance level $\alpha$ will reject $H_0$ if the hypothesized value $\mu_0$ is *outside* the corresponding $(1-\alpha)\times 100\%$ confidence interval.
+**Βήμα 1: Αναλύστε τον κανόνα**
+Ένας έλεγχος υπόθεσης δύο ουρών σε επίπεδο σημαντικότητας $\alpha$ θα απορρίψει $H_0$ εάν η υποθετική τιμή $\mu_0$ είναι *εκτός* του αντίστοιχου διαστήματος εμπιστοσύνης $(1-\alpha)\times 100\%$.
 
-**Step 2: Check the Value**
-Is 19 inside the interval $[12.5, 18.2]$? No.
+**Βήμα 2: Ελέγξτε την τιμή**
+Είναι το 19 μέσα στο διάστημα $[12.5, 18.2]$; Όχι.
 
-**Step 3: Conclusion**
-Since 19 is outside the 95% confidence interval, we will **Reject $H_0$** at the 5% significance level.
+**Βήμα 3: Συμπέρασμα**
+Επειδή το 19 είναι εκτός του διαστήματος εμπιστοσύνης 95%, θα **Απορρίψουμε $H_0$** στο επίπεδο σημαντικότητας 5%.
 
 ---
 
-### Example 7: The "P-value Doubling" Trap in Two-Tailed Tests (Gotcha Moment)
-A researcher wants to test if a new tutoring method changes exam scores (previously known mean $\mu = 70$, $\sigma = 12$). A sample of 36 students scores an average of 73.5. Calculate the p-value for this test. Is it significant at $\alpha = 0.05$?
+### Παράδειγμα 7: Η παγίδα "Διπλασιασμός τιμής P" σε δοκιμές με δύο ουρές (Gotcha Moment)
+Ένας ερευνητής θέλει να ελέγξει εάν μια νέα μέθοδος διδασκαλίας αλλάζει τις βαθμολογίες των εξετάσεων (προηγουμένως γνωστός μέσος όρος $\mu = 70$, $\sigma = 12$). Ένα δείγμα 36 μαθητών βαθμολογείται κατά μέσο όρο 73,5. Υπολογίστε την τιμή p για αυτήν τη δοκιμή. Είναι σημαντικό στο $\alpha = 0.05$;
 
-#### Gotcha Section Analysis
-The key word here is **changes** (not "increases" or "decreases"). This means it is a **two-tailed test** ($H_0: \mu = 70$, $H_1: \mu \ne 70$). A very common mistake is calculating the area in just *one* tail and calling it the p-value. For a two-tailed test, the p-value is the area in BOTH tails combined!
+#### Ανάλυση ενότητας Gotcha
+Η λέξη κλειδί εδώ είναι **αλλάζει** (όχι "αυξάνεται" ή "μειώνεται"). Αυτό σημαίνει ότι πρόκειται για **τεστ με δύο ουρές** ($H_0: \mu = 70$, $H_1: \mu \ne 70$). Ένα πολύ συνηθισμένο λάθος είναι ο υπολογισμός της περιοχής μόνο σε *μία* ουρά και η αποκαλούμενη τιμή p. Για μια δοκιμή δύο ουρών, η τιμή p είναι η περιοχή και στις ΔΥΟ ουρές μαζί!
 
-**Step 1: Calculate the Test Statistic**
+**Βήμα 1: Υπολογίστε τα στατιστικά στοιχεία δοκιμής**
 $$ Z_{stat} = \frac{73.5 - 70}{\frac{12}{\sqrt{36}}} = \frac{3.5}{2} = 1.75 $$
 
-**Step 2: Calculate the Area in One Tail**
-Since $Z = 1.75$ is positive, we look at the right tail.
+**Βήμα 2: Υπολογίστε την περιοχή σε μια ουρά**
+Επειδή το $Z = 1.75$ είναι θετικό, κοιτάμε τη σωστή ουρά.
 $P(Z > 1.75) = 1 - P(Z \le 1.75) = 1 - 0.9599 = 0.0401$
 
-**Step 3: Calculate the TRUE P-value (The Gotcha)**
-Because it is a two-tailed test, we must account for the possibility of extreme results in the other direction.
+**Βήμα 3: Υπολογίστε την TRUE P-value (The Gotcha)**
+Επειδή είναι ένα τεστ δύο ουρών, πρέπει να λάβουμε υπόψη την πιθανότητα ακραίων αποτελεσμάτων προς την άλλη κατεύθυνση.
 $$ p\text{-value} = 2 \times P(Z > |Z_{stat}|) $$
 $$ p\text{-value} = 2 \times 0.0401 = 0.0802 $$
 
-**Step 4: Decision**
-If a student forgot to multiply by 2, they would compare $0.0401 < 0.05$ and incorrectly Reject $H_0$.
-Correct comparison: $0.0802 > 0.05$. Therefore, we **Fail to reject $H_0$**. The change is not statistically significant.
+**Βήμα 4: Απόφαση**
+Εάν ένας μαθητής ξέχασε να πολλαπλασιάσει με το 2, θα συγκρίνει $0.0401 < 0.05$ και θα απέρριπτε λανθασμένα $H_0$.
+Σωστή σύγκριση: $0.0802 > 0.05$. Επομένως, **Αποτυγχάνουμε να απορρίψουμε $H_0$**. Η αλλαγή δεν είναι στατιστικά σημαντική.
 
 ---
 
-### Example 8: $H_0$ Phrasing and the Status Quo Trap (Gotcha Moment)
-An environmental agency asserts that a local river is polluted, claiming that the average concentration of a toxin is *greater than* the safe limit of 5 ppm. To test this, you take 50 water samples, find a mean of 5.2 ppm, and standard deviation of 0.8 ppm. Formulate the hypotheses and explain what a Type I error means in this specific physical context.
+### Παράδειγμα 8: $H_0$ Φράσεις και παγίδα Status Quo (Gotcha Moment)Μια περιβαλλοντική υπηρεσία υποστηρίζει ότι ένα τοπικό ποτάμι είναι μολυσμένο, υποστηρίζοντας ότι η μέση συγκέντρωση μιας τοξίνης είναι *μεγαλύτερη* από το ασφαλές όριο των 5 ppm. Για να το ελέγξετε, παίρνετε 50 δείγματα νερού, βρίσκετε μέση τιμή 5,2 ppm και τυπική απόκλιση 0,8 ppm. Διατυπώστε τις υποθέσεις και εξηγήστε τι σημαίνει ένα σφάλμα τύπου Ι σε αυτό το συγκεκριμένο φυσικό πλαίσιο.
 
-#### Gotcha Section Analysis
-There is a massive trap in how the claim is presented. Students often mistakenly put the *researcher's claim* into $H_0$.
-**Rule:** $H_0$ MUST contain the equality ($=$ or $\le$ or $\ge$). $H_1$ contains the strictly greater than or less than sign ($>$ or $<$). If the claim is "greater than", the claim itself is $H_1$.
-Another trap is contextualizing the error. It's not enough to say "rejecting $H_0$ when true"; you must map it to the physical reality of the river.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχει μια τεράστια παγίδα στο πώς παρουσιάζεται ο ισχυρισμός. Οι μαθητές συχνά τοποθετούν κατά λάθος τον *αξίωση του ερευνητή* στο $H_0$.
+**Κανόνας:** $H_0$ ΠΡΕΠΕΙ να περιέχει την ισότητα ($=$ ή $\le$ ή $\ge$). Το $H_1$ περιέχει το σύμβολο αυστηρά μεγαλύτερο από ή μικρότερο από ($>$ ή $<$). Εάν η αξίωση είναι "μεγαλύτερη από", η ίδια η αξίωση είναι $H_1$.
+Μια άλλη παγίδα είναι η δημιουργία συμφραζομένων του σφάλματος. Δεν αρκεί να πούμε "απόρριψη $H_0$ όταν είναι αλήθεια". πρέπει να το αντιστοιχίσετε στη φυσική πραγματικότητα του ποταμού.
 
-**Step 1: Formulate Hypotheses**
-*   The claim is $\mu > 5$. This does not contain equality, so it is $H_1$.
-*   $H_0: \mu \le 5$ (The river is safe / status quo)
-*   $H_1: \mu > 5$ (The river is polluted / agency's claim)
+**Βήμα 1: Διατύπωση υποθέσεων**
+* Η αξίωση είναι $\mu > 5$. Αυτό δεν περιέχει ισότητα, επομένως είναι $H_1$.
+* $H_0: \mu \le 5$ (Το ποτάμι είναι ασφαλές / status quo)
+* $H_1: \mu > 5$ (Το ποτάμι είναι μολυσμένο / ισχυρισμός της υπηρεσίας)
 
-**Step 2: Define Type I Error in Context**
-*   **Statistical Definition:** Rejecting $H_0$ when $H_0$ is true.
-*   **Physical Translation:** We conclude that $H_1$ is true (the river is polluted) when in reality $H_0$ is true (the river is perfectly safe).
-*   **Consequence:** The town might spend millions of dollars cleaning up a river that is not actually polluted, causing a massive waste of resources.
+**Βήμα 2: Ορισμός σφάλματος τύπου I στο πλαίσιο**
+* **Στατιστικός ορισμός:** Απόρριψη $H_0$ όταν το $H_0$ είναι αληθές.
+* **Φυσική Μετάφραση:** Συμπεραίνουμε ότι το $H_1$ είναι αλήθεια (το ποτάμι είναι μολυσμένο) όταν στην πραγματικότητα το $H_0$ είναι αλήθεια (το ποτάμι είναι απολύτως ασφαλές).
+* **Συνέπεια:** Η πόλη μπορεί να ξοδέψει εκατομμύρια δολάρια για να καθαρίσει ένα ποτάμι που στην πραγματικότητα δεν είναι μολυσμένο, προκαλώντας τεράστια σπατάλη πόρων.
 
-**Step 3: Define Type II Error in Context (Bonus Analysis)**
-*   **Statistical Definition:** Failing to reject $H_0$ when $H_1$ is true.
-*   **Physical Translation:** We conclude the river is safe ($H_0$), when in reality it IS polluted ($H_1$).
-*   **Consequence:** People drink poisoned water, causing a massive public health crisis.
-*(In this scenario, a Type II error is far more dangerous to human life than a Type I error, which is why the agency might push for a higher $\alpha$ level to reduce $\beta$!)*
+**Βήμα 3: Ορισμός σφάλματος τύπου II στο πλαίσιο (Ανάλυση μπόνους)**
+* **Στατιστικός ορισμός:** Αποτυχία απόρριψης του $H_0$ όταν το $H_1$ είναι αληθές.
+* **Φυσική μετάφραση:** Συμπεραίνουμε ότι ο ποταμός είναι ασφαλής ($H_0$), ενώ στην πραγματικότητα είναι μολυσμένος ($H_1$).
+* **Συνέπεια:** Οι άνθρωποι πίνουν δηλητηριασμένο νερό, προκαλώντας τεράστια κρίση στη δημόσια υγεία.
+*(Σε αυτό το σενάριο, ένα σφάλμα τύπου II είναι πολύ πιο επικίνδυνο για την ανθρώπινη ζωή από ένα σφάλμα τύπου Ι, γι' αυτό η εταιρεία μπορεί να πιέσει για υψηλότερο επίπεδο $\alpha$ για να μειώσει το $\beta$!)*
 
-
----
-
-<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_4_sampling_distributions_chi_square_f.md -->
-# Phase 6.4: Sampling Distributions, Chi-Square, t, and F Distributions
-
-In inferential statistics, we use sample statistics (like the sample mean $\bar{X}$ or sample variance $S^2$) to estimate population parameters (like $\mu$ or $\sigma^2$). The probability distributions of these statistics are called **sampling distributions**.
 
 ---
 
-## 1. Distribution of the Sample Variance ($S^2$)
+<!-- Πηγή: ../Resources/Phase_6_Inferential_Statistics/phase_6_4_sampling_distributions_chi_square_f.md -->
+# Φάση 6.4: Κατανομές δειγματοληψίας, κατανομές Chi-Square, t και F
 
-Let $X_1, X_2, \dots, X_n$ be a random sample of size $n$ from a **Normal population** $N(\mu, \sigma^2)$. The sample variance is defined as:
+Στις στατιστικές συμπερασμάτων, χρησιμοποιούμε στατιστικά δείγματα (όπως η μέση τιμή δείγματος $\bar{X}$ ή η διακύμανση δείγματος $S^2$) για να εκτιμήσουμε παραμέτρους πληθυσμού (όπως $\mu$ ή $\sigma^2$). Οι κατανομές πιθανοτήτων αυτών των στατιστικών ονομάζονται **κατανομές δειγματοληψίας**.
+
+---
+
+## 1. Κατανομή της διακύμανσης δείγματος ($S^2$)
+
+Έστω $X_1, X_2, \dots, X_n$ ένα τυχαίο δείγμα μεγέθους $n$ από έναν **Κανονικό πληθυσμό** $N(\mu, \sigma^2)$. Η διακύμανση του δείγματος ορίζεται ως:
 
 $$S^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - \bar{X})^2$$
 
-A fundamental theorem in statistics states that:
+Ένα θεμελιώδες θεώρημα στη στατιστική λέει ότι:
 
 $$\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$$
 
-This means that the scaled sample variance follows a Chi-square distribution with $\nu = n-1$ degrees of freedom. Furthermore, $\bar{X}$ and $S^2$ are independent random variables when sampling from a normal population.
+Αυτό σημαίνει ότι η κλιμακούμενη διακύμανση του δείγματος ακολουθεί μια κατανομή Chi-square με $\nu = n-1$ βαθμούς ελευθερίας. Επιπλέον, οι $\bar{X}$ και $S^2$ είναι ανεξάρτητες τυχαίες μεταβλητές κατά τη δειγματοληψία από έναν κανονικό πληθυσμό.
 
 ---
 
-## 2. The Chi-Square ($\chi^2$) Distribution
-
-The Chi-square distribution with $\nu$ degrees of freedom is the distribution of the sum of squares of $\nu$ independent standard normal variables:
+## 2. The Chi-Square ($\chi^2$) DistributionΗ κατανομή Chi-square με $\nu$ βαθμούς ελευθερίας είναι η κατανομή του αθροίσματος των τετραγώνων των ανεξάρτητων τυπικών μεταβλητών $\nu$:
 
 $$\chi^2_\nu = \sum_{i=1}^{\nu} Z_i^2, \quad \text{where } Z_i \sim N(0, 1) \text{ i.i.d.}$$
 
-### Properties
-*   **Domain:** $x \ge 0$
-*   **Mean:** $E[\chi^2_\nu] = \nu$
-*   **Variance:** $Var(\chi^2_\nu) = 2\nu$
-*   **Additivity:** If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are independent, then:
+### Ιδιότητες
+* **Τομέας:** $x \ge 0$
+* **Μέσος όρος: ** $E[\chi^2_\nu] = \nu$
+* **Διακύμανση:** $Var(\chi^2_\nu) = 2\nu$
+* **Προσθετικότητα:** Εάν τα $U \sim \chi^2_{\nu_1}$ και $V \sim \chi^2_{\nu_2}$ είναι ανεξάρτητα, τότε:
     $$U + V \sim \chi^2_{\nu_1 + \nu_2}$$
 
 ---
 
 ## 3. Student's t-Distribution
 
-The t-distribution arises when estimating the mean of a normally distributed population when the sample size is small ($n < 30$) and the population standard deviation $\sigma$ is unknown.
+Η κατανομή t προκύπτει κατά την εκτίμηση του μέσου όρου ενός κανονικά κατανεμημένου πληθυσμού όταν το μέγεθος του δείγματος είναι μικρό ($n < 30$) και η τυπική απόκλιση πληθυσμού $\sigma$ είναι άγνωστη.
 
-### Definition
-If $Z \sim N(0, 1)$ and $W \sim \chi^2_\nu$ are independent, then the random variable:
+### Ορισμός
+Εάν οι $Z \sim N(0, 1)$ και $W \sim \chi^2_\nu$ είναι ανεξάρτητες, τότε η τυχαία μεταβλητή:
 
 $$T = \frac{Z}{\sqrt{W / \nu}} \sim t_\nu$$
 
-follows Student's t-distribution with $\nu$ degrees of freedom.
+ακολουθεί την κατανομή t του Student με $\nu$ βαθμούς ελευθερίας.
 
-### Properties
-*   Symmetric and bell-shaped around 0 (like the standard normal, but with heavier tails).
-*   As $\nu \to \infty$, the t-distribution converges to the standard normal distribution $N(0, 1)$.
+### Ιδιότητες
+* Συμμετρικό και σε σχήμα καμπάνας γύρω στο 0 (όπως το τυπικό κανονικό, αλλά με πιο βαριές ουρές).
+* Ως $\nu \to \infty$, η κατανομή t συγκλίνει στην τυπική κανονική κατανομή $N(0, 1)$.
 
 ---
 
 ## 4. Fisher-Snedecor F-Distribution
 
-The F-distribution is used to compare the variances of two independent normal populations (e.g., in ANOVA or two-sample variance tests).
+Η κατανομή F χρησιμοποιείται για τη σύγκριση των διακυμάνσεων δύο ανεξάρτητων φυσιολογικών πληθυσμών (π.χ. σε δοκιμές διακύμανσης ANOVA ή δύο δειγμάτων).
 
-### Definition
-If $U \sim \chi^2_{d_1}$ and $V \sim \chi^2_{d_2}$ are independent, then the ratio of their scaled variables:
+### Ορισμός
+Εάν οι $U \sim \chi^2_{d_1}$ και $V \sim \chi^2_{d_2}$ είναι ανεξάρτητες, τότε ο λόγος των κλιμακούμενων μεταβλητών τους:
 
 $$F = \frac{U / d_1}{V / d_2} \sim F_{d_1, d_2}$$
 
-follows the F-distribution with $d_1$ (numerator) and $d_2$ (denominator) degrees of freedom.
+ακολουθεί την κατανομή F με $d_1$ (αριθμητής) και $d_2$ (παρονομαστής) βαθμούς ελευθερίας.
 
-### Properties
-*   **Domain:** $x > 0$
-*   **Reciprocal Property:** If $F \sim F_{d_1, d_2}$, then:
+### Ιδιότητες
+* **Τομέας:** $x > 0$
+* **Αμοιβαία ιδιότητα:** Εάν $F \sim F_{d_1, d_2}$, τότε:
     $$\frac{1}{F} \sim F_{d_2, d_1}$$
 
 ---
 
-## 5. Solved Exercises (9 Examples)
+## 5. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Probability of Sample Variance
-**Problem:** A random sample of size $n = 10$ is taken from a normal population with variance $\sigma^2 = 4$. Find the probability that the sample variance $S^2$ is less than 5.25. (Use the Chi-square table values: $P(\chi^2_9 \le 11.81) = 0.77$, $P(\chi^2_9 \le 16.92) = 0.95$).
+### Άσκηση 1: Πιθανότητα Δειγματικής Διακύμανσης
+**Πρόβλημα:** Ένα τυχαίο δείγμα μεγέθους $n = 10$ λαμβάνεται από έναν κανονικό πληθυσμό με διακύμανση $\sigma^2 = 4$. Βρείτε την πιθανότητα η διακύμανση του δείγματος $S^2$ να είναι μικρότερη από 5,25. (Χρησιμοποιήστε τις τιμές του πίνακα Chi-square: $P(\chi^2_9 \le 11.81) = 0.77$, $P(\chi^2_9 \le 16.92) = 0.95$).
 
-**Solution:**
-- **Step 1: Set up the Chi-square transformation.**
-  We know that $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
-  Substitute $n = 10$ and $\sigma^2 = 4$:
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε τον μετασχηματισμό Τετράγωνο Χ.**
+  Γνωρίζουμε ότι $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+  Αντικατάσταση $n = 10$ και $\sigma^2 = 4$:
   $$\frac{9 S^2}{4} \sim \chi^2_9$$
-- **Step 2: WIP State.**
-  We want to find $P(S^2 < 5.25)$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε να βρούμε $P(S^2 < 5.25)$:
   $$P(S^2 < 5.25) = P\left(\frac{9 S^2}{4} < \frac{9 \cdot 5.25}{4}\right) = P\left(\chi^2_9 < \frac{47.25}{4}\right)$$
-  Compute the fraction:
+  Υπολογίστε το κλάσμα:
   $$\frac{47.25}{4} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $\frac{47.25}{4} = 11.8125 \approx 11.81$.
   - $P(S^2 < 5.25) \approx P(\chi^2_9 < 11.81) = 0.77$.
 
 ---
 
-### Exercise 2: Expected Value and Variance of Sample Variance
-**Problem:** A sample of size $n = 25$ is drawn from a normal population with variance $\sigma^2 = 8$. Find the mean and variance of the sample variance $S^2$.
+### Άσκηση 2: Αναμενόμενη τιμή και διακύμανση της διακύμανσης δείγματος
+**Πρόβλημα:** Ένα δείγμα μεγέθους $n = 25$ λαμβάνεται από έναν κανονικό πληθυσμό με διακύμανση $\sigma^2 = 8$. Βρείτε τον μέσο όρο και τη διακύμανση του δείγματος διακύμανσης $S^2$.
 
-**Solution:**
-- **Step 1: Express $S^2$ in terms of a Chi-square variable.**
-  Let $Y = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
-  So, $S^2 = \frac{\sigma^2}{n-1} Y$.
-- **Step 2: WIP State.**
-  Compute the mean:
+**Λύση:**
+- **Βήμα 1: Εκφράστε $S^2$ ως προς μια μεταβλητή Τετράγωνο Χ.**
+  Αφήστε $Y = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+  Λοιπόν, $S^2 = \frac{\sigma^2}{n-1} Y$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Υπολογίστε τον μέσο όρο:
   $$E[S^2] = E\left[ \frac{\sigma^2}{n-1} Y \right] = \frac{\sigma^2}{n-1} E[Y]$$
-  Since $Y \sim \chi^2_{n-1}$, $E[Y] = n-1 = 24$.
+  Από $Y \sim \chi^2_{n-1}$, $E[Y] = n-1 = 24$.
   $$E[S^2] = \frac{8}{24} \cdot 24 = 8$$
-  Compute the variance:
+  Υπολογίστε τη διακύμανση:
   $$Var(S^2) = Var\left( \frac{\sigma^2}{n-1} Y \right) = \left( \frac{\sigma^2}{n-1} \right)^2 Var(Y)$$
-  Since $Y \sim \chi^2_{n-1}$, $Var(Y) = 2(n-1) = 48$.
+  Από $Y \sim \chi^2_{n-1}$, $Var(Y) = 2(n-1) = 48$.
   $$Var(S^2) = \left(\frac{8}{24}\right)^2 \cdot 48 = \left(\frac{1}{3}\right)^2 \cdot 48 = \frac{48}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= 9$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= 9$.
   - $Var(S^2) = \frac{48}{9} = \frac{16}{3} \approx 5.3333$.
-  *(Important check: Notice that $E[S^2] = \sigma^2$, which proves that the sample variance is an unbiased estimator of the population variance!).*
+  *(Σημαντικός έλεγχος: Παρατηρήστε ότι $E[S^2] = \sigma^2$, το οποίο αποδεικνύει ότι η διακύμανση του δείγματος είναι ένας αμερόληπτος εκτιμητής της διακύμανσης του πληθυσμού!).*
 
 ---
 
-### Exercise 3: Sum of Independent Chi-Squares
-**Problem:** Let $U \sim \chi^2_{10}$ and $V \sim \chi^2_{15}$ be independent. What is the distribution of $W = U + V$? Find $E[W]$ and $Var(W)$.
+### Άσκηση 3: Άθροισμα Ανεξάρτητων Τετράγωνων Χ**Πρόβλημα:** Αφήστε τα $U \sim \chi^2_{10}$ και $V \sim \chi^2_{15}$ να είναι ανεξάρτητα. Ποια είναι η κατανομή του $W = U + V$; Βρείτε $E[W]$ και $Var(W)$.
 
-**Solution:**
-- **Step 1: Identify the distribution of the sum.**
-  By the additivity property of independent Chi-square variables:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την κατανομή του αθροίσματος.**
+  Με την ιδιότητα προσθετικότητας των ανεξάρτητων μεταβλητών Χ-τετράγωνο:
   $$W = U + V \sim \chi^2_{10 + 15} \implies W \sim \chi^2_{25}$$
-- **Step 2: WIP State.**
-  For a Chi-square variable with $\nu = 25$ degrees of freedom:
+- **Βήμα 2: Κατάσταση WIP.**
+  Για μια μεταβλητή Chi-square με $\nu = 25$ βαθμούς ελευθερίας:
   - $E[W] = \nu = 25$.
   - $Var(W) = 2\nu = 2 \cdot ?$.
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $Var(W) = 50$.
 
 ---
 
-### Exercise 4: Constructing a t-Statistic (Gotcha Moment)
-**Problem:** Let $Z \sim N(0, 1)$ and $U \sim \chi^2_9$ be independent. Does $T = \frac{Z}{\sqrt{U}}$ follow a t-distribution? If not, modify it so it does.
+### Άσκηση 4: Κατασκευή t-Statistic (Στιγμή Gotcha)
+**Πρόβλημα:** Αφήστε τα $Z \sim N(0, 1)$ και $U \sim \chi^2_9$ να είναι ανεξάρτητα. Το $T = \frac{Z}{\sqrt{U}}$ ακολουθεί μια κατανομή t; Εάν όχι, τροποποιήστε το έτσι ώστε να γίνει.
 
-**Solution:**
-- **Step 1: Match the t-distribution definition.**
-  The definition of a t-variable is:
+**Λύση:**
+- **Βήμα 1: Αντιστοιχίστε τον ορισμό της κατανομής t.**
+  Ο ορισμός της μεταβλητής t είναι:
   $$T = \frac{Z}{\sqrt{W / \nu}}$$
-- **Step 2: WIP State.**
-  Looking at $T = \frac{Z}{\sqrt{U}}$, the Chi-square variable $U$ (which has $\nu = 9$) is not divided by its degrees of freedom.
-  Therefore, $T$ does **not** follow a t-distribution.
-- **Step 3: Final Calculation.**
-  To correct it, we must divide $U$ by 9 under the square root:
+- **Βήμα 2: Κατάσταση WIP.**
+  Κοιτάζοντας το $T = \frac{Z}{\sqrt{U}}$, η μεταβλητή Χ-τετράγωνο $U$ (η οποία έχει $\nu = 9$) δεν διαιρείται με τους βαθμούς ελευθερίας της.
+  Επομένως, το $T$ **δεν** ακολουθεί μια κατανομή t.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Για να το διορθώσουμε, πρέπει να διαιρέσουμε το $U$ με το 9 κάτω από την τετραγωνική ρίζα:
   $$T_{correct} = \frac{Z}{\sqrt{U / 9}} \sim t_9.$$
 
 ---
 
-### Exercise 5: F-Distribution Bounds Transformation
-**Problem:** Let $F \sim F_{5, 8}$. Find the value of $c$ such that $P(F > c) = 0.05$, given that for a variable $Y \sim F_{8, 5}$, we have $P(Y \le 4.82) = 0.95$.
+### Άσκηση 5: Μετασχηματισμός ορίων κατανομής F
+**Πρόβλημα:** Αφήστε $F \sim F_{5, 8}$. Βρείτε την τιμή του $c$ έτσι ώστε $P(F > c) = 0.05$, δεδομένου ότι για μια μεταβλητή $Y \sim F_{8, 5}$, έχουμε $P(Y \le 4.82) = 0.95$.
 
-**Solution:**
-- **Step 1: Use the reciprocal property of the F-distribution.**
-  If $F \sim F_{5, 8}$, then $\frac{1}{F} \sim F_{8, 5}$.
-- **Step 2: WIP State.**
-  We write the probability statement:
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε την αμοιβαία ιδιότητα της κατανομής F.**
+  Αν $F \sim F_{5, 8}$, τότε $\frac{1}{F} \sim F_{8, 5}$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Γράφουμε τη δήλωση πιθανότητας:
   $$P(F > c) = 0.05 \implies P\left(\frac{1}{F} < \frac{1}{c}\right) = 0.05$$
-  Since $\frac{1}{F} \sim F_{8, 5}$, this is equivalent to:
+  Από $\frac{1}{F} \sim F_{8, 5}$, αυτό ισοδυναμεί με:
   $$P\left(Y < \frac{1}{c}\right) = 0.05 \implies P\left(Y \ge \frac{1}{c}\right) = 0.95$$
-  Wait, the problem states $P(Y \le 4.82) = 0.95 \implies P(Y > 4.82) = 0.05$.
-  Let's reformulate:
+  Περιμένετε, το πρόβλημα δηλώνει $P(Y \le 4.82) = 0.95 \implies P(Y > 4.82) = 0.05$.
+  Ας επαναδιατυπώσουμε:
   $$P(F > c) = 0.05 \implies P\left(\frac{1}{F} < \frac{1}{c}\right) = 0.05$$
-  This means the left-tail probability of $Y = 1/F$ is 0.05.
-  We know that for $Y \sim F_{8, 5}$, $P(Y > 4.82) = 0.05 \implies P(Y \le 4.82) = 0.95$.
-  By reciprocal properties of critical values:
+  Αυτό σημαίνει ότι η πιθανότητα της αριστερής ουράς του $Y = 1/F$ είναι 0,05.
+  Γνωρίζουμε ότι για $Y \sim F_{8, 5}$, $P(Y > 4.82) = 0.05 \implies P(Y \le 4.82) = 0.95$.
+  Με αμοιβαίες ιδιότητες κρίσιμων τιμών:
   $$c = F_{0.05}(5, 8) = \frac{1}{F_{0.95}(8, 5)} = \frac{1}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $F_{0.95}(8, 5) = 4.82$.
   - $c = \frac{1}{4.82} \approx 0.2075$.
 
 ---
 
-### Exercise 6: Normal Approximation of Chi-Square
-**Problem:** For a Chi-square variable $X \sim \chi^2_{100}$, use the Central Limit Theorem to approximate $P(X \le 120)$. (Recall $\Phi(2) = 0.9772$).
+### Άσκηση 6: Κανονική προσέγγιση του Τετράγωνου Χ
+**Πρόβλημα:** Για μια μεταβλητή Chi-square $X \sim \chi^2_{100}$, χρησιμοποιήστε το Θεώρημα Κεντρικού ορίου για να προσεγγίσετε $P(X \le 120)$. (Ανάκληση $\Phi(2) = 0.9772$).
 
-**Solution:**
-- **Step 1: Find the mean and variance of $X$.**
+**Λύση:**
+- **Βήμα 1: Βρείτε τη μέση τιμή και τη διακύμανση του $X$.**
   - $\mu = \nu = 100$
   - $\sigma^2 = 2\nu = 200 \implies \sigma = \sqrt{200} \approx 14.14$.
-- **Step 2: WIP State.**
-  Standardize the variable:
+- **Βήμα 2: Κατάσταση WIP.**
+  Τυποποιήστε τη μεταβλητή:
   $$P(X \le 120) = P\left(\frac{X - 100}{14.14} \le \frac{120 - 100}{14.14}\right) \approx P\left(Z \le \frac{20}{14.14}\right)$$
-  Compute the fraction:
+  Υπολογίστε το κλάσμα:
   $$\frac{20}{14.14} = ?$$
-- **Step 3: Final Calculation.**
-  - $\frac{20}{14.14} \approx 1.414$ (which is exactly $\sqrt{2}$).
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - $\frac{20}{14.14} \approx 1.414$ (που είναι ακριβώς $\sqrt{2}$).
   - $P(Z \le 1.41) = \Phi(1.41) \approx 0.9207$.
 
 ---
 
-### Exercise 7: Mean of F-Distribution
-**Problem:** Calculate the expected value of $F \sim F_{d_1, d_2}$ where $d_2 > 2$. Use the fact that if $V \sim \chi^2_{d_2}$, then $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
+### Άσκηση 7: Μέσος όρος Κατανομής F
+**Πρόβλημα:** Υπολογίστε την αναμενόμενη τιμή του $F \sim F_{d_1, d_2}$ όπου $d_2 > 2$. Χρησιμοποιήστε το γεγονός ότι αν $V \sim \chi^2_{d_2}$, τότε $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
 
-**Solution:**
-- **Step 1: Write $F$ in terms of $U$ and $V$.**
+**Λύση:**
+- **Βήμα 1: Γράψτε $F$ με όρους $U$ και $V$.**
   $$F = \frac{U / d_1}{V / d_2} = \frac{d_2}{d_1} \cdot U \cdot \frac{1}{V}$$
-- **Step 2: WIP State.**
-  Since $U \sim \chi^2_{d_1}$ and $V \sim \chi^2_{d_2}$ are independent:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφόσον τα $U \sim \chi^2_{d_1}$ και $V \sim \chi^2_{d_2}$ είναι ανεξάρτητα:
   $$E[F] = \frac{d_2}{d_1} \cdot E[U] \cdot E\left[\frac{1}{V}\right]$$
-  We know $E[U] = d_1$ and $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
+  Γνωρίζουμε $E[U] = d_1$ και $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
   $$E[F] = \frac{d_2}{d_1} \cdot d_1 \cdot \frac{1}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= d_2 - 2$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= d_2 - 2$.
   - $E[F] = \frac{d_2}{d_2 - 2}$.
-  *(Note: The mean of an F-distribution depends solely on the denominator degrees of freedom $d_2$!).*
+  *(Σημείωση: Ο μέσος όρος μιας κατανομής F εξαρτάται αποκλειστικά από τους παρονομαστές βαθμούς ελευθερίας $d_2$!).*
 
 ---
 
-### Exercise 8: Sample Variance Ratio (ANOVA Precursor)
-**Problem:** We draw a sample of size $n_1 = 6$ from population 1 ($N(\mu_1, \sigma^2)$) and a sample of size $n_2 = 11$ from population 2 ($N(\mu_2, \sigma^2)$). Find the distribution of the ratio of their sample variances, $\frac{S_1^2}{S_2^2}$.
+### Άσκηση 8: Δειγματικός λόγος διακύμανσης (πρόδρομος ANOVA)**Πρόβλημα:** Σχεδιάζουμε ένα δείγμα μεγέθους $n_1 = 6$ από τον πληθυσμό 1 ($N(\mu_1, \sigma^2)$) και ένα δείγμα μεγέθους $n_2 = 11$ από τον πληθυσμό 2 ($N(\mu_2, \sigma^2)$). Βρείτε την κατανομή του λόγου των δειγματοληπτικών αποκλίσεων τους, $\frac{S_1^2}{S_2^2}$.
 
-**Solution:**
-- **Step 2: WIP State.**
-  We know that:
+**Λύση:**
+- **Βήμα 2: Κατάσταση WIP.**
+  Γνωρίζουμε ότι:
   - $U = \frac{(n_1 - 1)S_1^2}{\sigma^2} \sim \chi^2_{n_1 - 1} \implies U \sim \chi^2_5$
   - $V = \frac{(n_2 - 1)S_2^2}{\sigma^2} \sim \chi^2_{n_2 - 1} \implies V \sim \chi^2_{10}$
-  By the definition of the F-distribution:
+  Σύμφωνα με τον ορισμό της κατανομής F:
   $$\frac{U / 5}{V / 10} \sim F_{5, 10}$$
-  Substitute the expressions for $U$ and $V$:
+  Αντικαταστήστε τις εκφράσεις για $U$ και $V$:
   $$\frac{\frac{(n_1 - 1)S_1^2}{\sigma^2} \cdot \frac{1}{n_1 - 1}}{\frac{(n_2 - 1)S_2^2}{\sigma^2} \cdot \frac{1}{n_2 - 1}} = \frac{\frac{S_1^2}{\sigma^2}}{\frac{S_2^2}{\sigma^2}} = ?$$
-- **Step 3: Final Calculation.**
-  - The ratio simplifies to $\frac{S_1^2}{S_2^2}$.
-  - Thus, $\frac{S_1^2}{S_2^2} \sim F_{5, 10}$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Η αναλογία απλοποιείται σε $\frac{S_1^2}{S_2^2}$.
+  - Έτσι, $\frac{S_1^2}{S_2^2} \sim F_{5, 10}$.
 
 ---
 
-### Exercise 9: Probability Bounds for t-Distribution
-**Problem:** Let $T \sim t_{15}$. If $P(T > 2.131) = 0.025$, find $P(-2.131 < T < 2.131)$.
+### Άσκηση 9: Όρια πιθανότητας για t-Distribution
+**Πρόβλημα:** Αφήστε $T \sim t_{15}$. Εάν $P(T > 2.131) = 0.025$, βρείτε $P(-2.131 < T < 2.131)$.
 
-**Solution:**
-- **Step 1: Use symmetry of the t-distribution.**
-  Since the t-distribution is symmetric about 0:
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε τη συμμετρία της κατανομής t.**
+  Δεδομένου ότι η κατανομή t είναι συμμετρική περίπου 0:
   $$P(T < -2.131) = P(T > 2.131) = 0.025$$
-- **Step 2: WIP State.**
-  The total area under the PDF is 1. The two tails combined contain:
+- **Βήμα 2: Κατάσταση WIP.**
+  Η συνολική επιφάνεια κάτω από το PDF είναι 1. Οι δύο ουρές μαζί περιέχουν:
   $$P(T \le -2.131) + P(T \ge 2.131) = 0.025 + 0.025 = 0.05$$
-  The area in the middle is the complement:
+  Η περιοχή στη μέση είναι το συμπλήρωμα:
   $$P(-2.131 < T < 2.131) = 1 - 0.05 = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(-2.131 < T < 2.131) = 0.95.$$
 
 
 ---
 
-<!-- Source: ../Resources/Phase_6_Inferential_Statistics/phase_6_5_inequalities_laws_large_numbers.md -->
-# Phase 6.5: Probability Inequalities and Laws of Large Numbers
+<!-- Πηγή: ../Resources/Phase_6_Inferential_Statistics/phase_6_5_inequalities_laws_large_numbers.md -->
+# Φάση 6.5: Ανισώσεις πιθανοτήτων και νόμοι μεγάλων αριθμών
 
-This file covers fundamental probability bounds (**Markov's Inequality** and **Chebyshev's Inequality**) and the asymptotic behaviors of sample averages (**Weak and Strong Laws of Large Numbers**).
+Αυτό το αρχείο καλύπτει τα θεμελιώδη όρια πιθανότητας (**Ανισότητα του Markov** και **Ανισότητα του Chebyshev**) και τις ασυμπτωτικές συμπεριφορές των μέσων όρων του δείγματος (**Αδύναμοι και ισχυροί νόμοι μεγάλων αριθμών**).
 
 ---
 
-## 1. Probability Inequalities
+## 1. Ανισώσεις πιθανοτήτων
 
-Probability inequalities allow us to bound the probability of tail events when the exact distribution of a random variable is unknown or complex, requiring only its moments (like mean and variance).
+Οι ανισότητες πιθανοτήτων μας επιτρέπουν να δεσμεύσουμε την πιθανότητα γεγονότων ουράς όταν η ακριβής κατανομή μιας τυχαίας μεταβλητής είναι άγνωστη ή σύνθετη, απαιτώντας μόνο τις ροπές της (όπως ο μέσος όρος και η διακύμανση).
 
-### 1.1 Markov's Inequality
-Let $X$ be a **non-negative** random variable ($X \ge 0$). For any constant $a > 0$:
+### 1.1 Η ανισότητα του Markov
+Έστω $X$ μια **μη αρνητική** τυχαία μεταβλητή ($X \ge 0$). Για οποιαδήποτε σταθερά $a > 0$:
 
 $$P(X \ge a) \le \frac{E[X]}{a}$$
 
-### 1.2 Chebyshev's Inequality
-Let $X$ be any random variable with mean $\mu$ and variance $\sigma^2 > 0$. For any constant $\epsilon > 0$:
+### 1.2 Η ανισότητα του Chebyshev
+Έστω $X$ οποιαδήποτε τυχαία μεταβλητή με μέσο όρο $\mu$ και διακύμανση $\sigma^2 > 0$. Για οποιαδήποτε σταθερά $\epsilon > 0$:
 
 $$P(|X - \mu| \ge \epsilon) \le \frac{Var(X)}{\epsilon^2}$$
 
-Alternatively, setting $\epsilon = k\sigma$ (where $k > 0$ is the number of standard deviations from the mean):
+Εναλλακτικά, ορίζοντας $\epsilon = k\sigma$ (όπου $k > 0$ είναι ο αριθμός των τυπικών αποκλίσεων από τον μέσο όρο):
 
 $$P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}$$
 
-This states that the probability of any random variable falling more than $k$ standard deviations away from its mean is at most $1/k^2$. E.g., for $k=2$, at least $75\%$ of the data must lie within 2 standard deviations of the mean.
+Αυτό δηλώνει ότι η πιθανότητα οποιαδήποτε τυχαία μεταβλητή να πέσει περισσότερο από $k$ τυπικές αποκλίσεις μακριά από τον μέσο όρο της είναι το πολύ $1/k^2$. Για παράδειγμα, για $k=2$, τουλάχιστον $75\%$ από τα δεδομένα πρέπει να βρίσκονται εντός 2 τυπικών αποκλίσεων από τον μέσο όρο.
 
 ---
 
-## 2. Laws of Large Numbers (LLN)
+## 2. Νόμοι των μεγάλων αριθμών (LLN)
 
-Let $X_1, X_2, \dots$ be a sequence of independent and identically distributed (i.i.d.) random variables, each with mean $E[X_i] = \mu$ and variance $Var(X_i) = \sigma^2$. The sample mean is:
+Έστω $X_1, X_2, \dots$ μια ακολουθία ανεξάρτητων και πανομοιότυπα κατανεμημένων (i.d.) τυχαίων μεταβλητών, η καθεμία με μέσο όρο $E[X_i] = \mu$ και διακύμανση $Var(X_i) = \sigma^2$. Ο μέσος όρος του δείγματος είναι:
 
 $$\bar{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i$$
 
-### 2.1 The Weak Law of Large Numbers (WLLN)
-As the sample size $n$ approaches infinity, the sample mean converges in **probability** to the population mean $\mu$. That is, for any $\epsilon > 0$:
+### 2.1 Ο αδύναμος νόμος των μεγάλων αριθμών (WLLN)
+Καθώς το μέγεθος του δείγματος $n$ πλησιάζει το άπειρο, ο μέσος όρος του δείγματος συγκλίνει κατά **πιθανότητα** στον μέσο πληθυσμό $\mu$. Δηλαδή, για οποιοδήποτε $\epsilon > 0$:
 
 $$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) = 0$$
 
-### 2.2 The Strong Law of Large Numbers (SLLN)
-As the sample size $n$ approaches infinity, the sample mean converges **almost surely** (with probability 1) to the population mean $\mu$:
+### 2.2 Ο ισχυρός νόμος των μεγάλων αριθμών (SLLN)
+Καθώς το μέγεθος του δείγματος $n$ πλησιάζει το άπειρο, ο μέσος όρος του δείγματος συγκλίνει **σχεδόν σίγουρα** (με πιθανότητα 1) στον μέσο πληθυσμό $\mu$:
 
 $$P\left( \lim_{n \to \infty} \bar{X}_n = \mu \right) = 1$$
 
 ---
 
-## 3. Solved Exercises (9 Examples)
+## 3. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Basic Markov's Inequality
-**Problem:** A post office handles an average of 10,000 letters per day. What is the maximum probability that it will handle at least 15,000 letters tomorrow?
+### Άσκηση 1: Βασική ανισότητα Markov**Πρόβλημα:** Ένα ταχυδρομείο χειρίζεται κατά μέσο όρο 10.000 επιστολές την ημέρα. Ποια είναι η μέγιστη πιθανότητα να χειριστεί τουλάχιστον 15.000 γράμματα αύριο;
 
-**Solution:**
-- **Step 1: Check conditions and identify parameters.**
-  The number of letters $X \ge 0$, and we are given $E[X] = 10,000$.
-- **Step 2: WIP State.**
-  Apply Markov's Inequality with $a = 15,000$:
+**Λύση:**
+- **Βήμα 1: Ελέγξτε τις συνθήκες και προσδιορίστε τις παραμέτρους.**
+  Ο αριθμός των γραμμάτων $X \ge 0$, και μας δίνεται $E[X] = 10,000$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Markov με $a = 15,000$:
   $$P(X \ge 15,000) \le \frac{E[X]}{15,000} = \frac{10,000}{15,000} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(X \ge 15,000) \le \frac{2}{3} \approx 0.6667.$$
 
 ---
 
-### Exercise 2: Basic Chebyshev's Inequality
-**Problem:** The height of adults in a city has a mean of 170 cm and a standard deviation of 8 cm. Find the upper bound for the probability that a randomly chosen adult has a height outside the range $(154 \text{ cm}, 186 \text{ cm})$.
+### Άσκηση 2: Βασική ανισότητα του Chebyshev
+**Πρόβλημα:** Το ύψος των ενηλίκων σε μια πόλη έχει μέσο όρο 170 cm και τυπική απόκλιση 8 cm. Βρείτε το άνω όριο για την πιθανότητα ένας τυχαία επιλεγμένος ενήλικας να έχει ύψος εκτός του εύρους $(154 \text{ cm}, 186 \text{ cm})$.
 
-**Solution:**
-- **Step 1: Map the range to the inequality format $|X - \mu| \ge \epsilon$.**
+**Λύση:**
+- **Βήμα 1: Αντιστοιχίστε το εύρος στη μορφή ανισότητας $|X - \mu| \ge \epsilon$.**
   - $\mu = 170$
   - $\sigma = 8 \implies Var(X) = 64$.
-  - The range $(154, 186)$ is $(170 - 16, 170 + 16)$, which corresponds to $\epsilon = 16$.
-- **Step 2: WIP State.**
-  Apply Chebyshev's Inequality:
+  - Το εύρος $(154, 186)$ είναι $(170 - 16, 170 + 16)$, το οποίο αντιστοιχεί σε $\epsilon = 16$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Chebyshev:
   $$P(|X - 170| \ge 16) \le \frac{Var(X)}{16^2} = \frac{64}{256} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(|X - 170| \ge 16) \le \frac{1}{4} = 0.25.$$
 
 ---
 
-### Exercise 3: Chebyshev's Inequality vs. Normal Distribution
-**Problem:** For the height data in Exercise 2 (assuming height is normally distributed), find the exact probability of being outside $(154 \text{ cm}, 186 \text{ cm})$, and compare it to Chebyshev's bound. (Recall $\Phi(2) = 0.9772$).
+### Άσκηση 3: Η ανισότητα του Chebyshev έναντι της κανονικής κατανομής
+**Πρόβλημα:** Για τα δεδομένα ύψους στην Άσκηση 2 (υποθέτοντας ότι το ύψος είναι κανονικά κατανεμημένο), βρείτε την ακριβή πιθανότητα να βρίσκεστε εκτός $(154 \text{ cm}, 186 \text{ cm})$ και συγκρίνετε το με το όριο του Chebyshev. (Ανάκληση $\Phi(2) = 0.9772$).
 
-**Solution:**
-- **Step 1: Convert the range to Z-scores.**
-  - Lower bound Z-score: $z_1 = \frac{154 - 170}{8} = -2$
-  - Upper bound Z-score: $z_2 = \frac{186 - 170}{8} = 2$
-- **Step 2: WIP State.**
-  Calculate the exact probability:
+**Λύση:**
+- **Βήμα 1: Μετατρέψτε το εύρος σε βαθμολογίες Z.**
+  - Κατώτερο όριο Z-score: $z_1 = \frac{154 - 170}{8} = -2$
+  - Πάνω όριο Z-score: $z_2 = \frac{186 - 170}{8} = 2$
+- **Βήμα 2: Κατάσταση WIP.**
+  Υπολογίστε την ακριβή πιθανότητα:
   $$P(|Z| \ge 2) = 2 \cdot P(Z < -2) = 2(1 - \Phi(2)) = 2(1 - 0.9772) = 2 \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $2 \cdot 0.0228 = 0.0456$.
-  **Comparison:** Chebyshev's bound is $0.25$, which is much wider than the exact probability $0.0456$. This illustrates that while Chebyshev's inequality is guaranteed to hold for *any* distribution, it can be very conservative for specific distributions like the normal distribution.
+  **Σύγκριση:** Το όριο του Chebyshev είναι $0.25$, το οποίο είναι πολύ μεγαλύτερο από την ακριβή πιθανότητα $0.0456$. Αυτό δείχνει ότι ενώ η ανισότητα του Chebyshev είναι εγγυημένη ότι ισχύει για *οποιαδήποτε* κατανομή, μπορεί να είναι πολύ συντηρητική για συγκεκριμένες κατανομές όπως η κανονική κατανομή.
 
 ---
 
-### Exercise 4: Sample Size Determination using Chebyshev
-**Problem:** A coin is flipped $n$ times. We want to estimate the probability of heads $p$ using the sample proportion $\hat{p}_n$. Use Chebyshev's inequality to find the minimum number of flips $n$ required to be at least $95\%$ confident that $\hat{p}_n$ is within $0.05$ of the true probability $p$.
+### Άσκηση 4: Προσδιορισμός μεγέθους δείγματος χρησιμοποιώντας Chebyshev
+**Πρόβλημα:** Ένα νόμισμα αναποδογυρίστηκε $n$ φορές. Θέλουμε να υπολογίσουμε την πιθανότητα των κεφαλών $p$ χρησιμοποιώντας την αναλογία δείγματος $\hat{p}_n$. Χρησιμοποιήστε την ανισότητα του Chebyshev για να βρείτε τον ελάχιστο αριθμό αναστροφών $n$ που απαιτούνται για να είστε τουλάχιστον $95\%$ σίγουροι ότι $\hat{p}_n$ είναι εντός $0.05$ της πραγματικής πιθανότητας $p$.
 
-**Solution:**
-- **Step 1: Identify mean and variance of $\hat{p}_n$.**
-  Let $X_i \sim Bernoulli(p)$ for $i=1,\dots,n$.
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τη μέση τιμή και τη διακύμανση του $\hat{p}_n$.**
+  Αφήστε $X_i \sim Bernoulli(p)$ για $i=1,\dots,n$.
   - $E[\hat{p}_n] = p$
   - $Var(\hat{p}_n) = \frac{p(1-p)}{n}$.
-- **Step 2: WIP State.**
-  We want to find $n$ such that:
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε να βρούμε $n$ έτσι ώστε:
   $$P(|\hat{p}_n - p| < 0.05) \ge 0.95 \implies P(|\hat{p}_n - p| \ge 0.05) \le 0.05$$
-  Apply Chebyshev's Inequality:
+  Εφαρμόστε την ανισότητα του Chebyshev:
   $$P(|\hat{p}_n - p| \ge 0.05) \le \frac{Var(\hat{p}_n)}{0.05^2} = \frac{p(1-p)}{n \cdot 0.0025}$$
-  Since we don't know $p$, we use the worst-case variance value, which occurs at $p = 0.5 \implies p(1-p) = 0.25$.
+  Εφόσον δεν γνωρίζουμε $p$, χρησιμοποιούμε τη χειρότερη τιμή διακύμανσης, η οποία εμφανίζεται στο $p = 0.5 \implies p(1-p) = 0.25$.
   $$P(|\hat{p}_n - p| \ge 0.05) \le \frac{0.25}{n \cdot 0.0025} = \frac{100}{n}$$
-  We set this upper bound $\le 0.05$:
+  Ορίσαμε αυτό το άνω όριο $\le 0.05$:
   $$\frac{100}{n} \le 0.05 \implies n \ge ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$n \ge \frac{100}{0.05} = 2000 \text{ flips}.$$
 
 ---
 
-### Exercise 5: Bound for Exponential Variable (Markov vs Chebyshev)
-**Problem:** Let $X \sim Exp(1)$. Compare the upper bounds of $P(X \ge 3)$ given by Markov's and Chebyshev's inequalities with the exact probability.
+### Άσκηση 5: Δεσμευμένη για εκθετική μεταβλητή (Markov vs Chebyshev)
+**Πρόβλημα:** Αφήστε $X \sim Exp(1)$. Συγκρίνετε τα άνω όρια του $P(X \ge 3)$ που δίνονται από τις ανισότητες του Markov και του Chebyshev με την ακριβή πιθανότητα.
 
-**Solution:**
-- **Step 1: Identify moments and exact value.**
-  - Mean $E[X] = 1$, Variance $Var(X) = 1$.
-  - Exact probability: $P(X \ge 3) = e^{-3} \approx 0.0498$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τις στιγμές και την ακριβή αξία.**
+  - Μέση τιμή $E[X] = 1$, Διακύμανση $Var(X) = 1$.
+  - Ακριβής πιθανότητα: $P(X \ge 3) = e^{-3} \approx 0.0498$.
+- **Βήμα 2: Κατάσταση WIP.**
   - **Markov's Bound:**
-    $$P(X \ge 3) \le \frac{E[X]}{3} = \frac{1}{3} \approx 0.3333$$
-  - **Chebyshev's Bound:**
-    Note that $P(X \ge 3) = P(X - 1 \ge 2)$. Since $X \ge 0$:
+    $$P(X \ge 3) \le \frac{E[X]}{3} = \frac{1}{3} \approx 0.3333$$- **Δεσμοί του Chebyshev:**
+    Σημειώστε ότι $P(X \ge 3) = P(X - 1 \ge 2)$. Από $X \ge 0$:
     $$P(X \ge 3) \le P(|X - 1| \ge 2) \le \frac{Var(X)}{2^2} = \frac{1}{4} = ?$$
-- **Step 3: Final Calculation.**
-  - Chebyshev's bound $= 0.25$.
-  - **Comparison:** The exact value is $0.0498$. Chebyshev's bound ($0.25$) is tighter than Markov's bound ($0.3333$), but both are much larger than the true value.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Ο Chebyshev δεσμεύεται $= 0.25$.
+  - **Σύγκριση:** Η ακριβής τιμή είναι $0.0498$. Το όριο του Chebyshev ($0.25$) είναι πιο σφιχτό από το όριο του Markov ($0.3333$), αλλά και τα δύο είναι πολύ μεγαλύτερα από την πραγματική τιμή.
 
 ---
 
-### Exercise 6: One-Sided Chebyshev Inequality (Cantelli's Inequality)
-**Problem:** Let $X$ have mean $\mu$ and variance $\sigma^2$. Cantelli's inequality states that for any $a > 0$:
+### Άσκηση 6: Μονόπλευρη ανισότητα Chebyshev (Η ανισότητα του Cantelli)
+**Πρόβλημα:** Έστω $X$ σημαίνει $\mu$ και διακύμανση $\sigma^2$. Η ανισότητα του Cantelli δηλώνει ότι για οποιοδήποτε $a > 0$:
 $$P(X - \mu \ge a) \le \frac{\sigma^2}{\sigma^2 + a^2}$$
-If the test scores have a mean of 70 and variance of 25, find the upper bound for the probability that a student scores at least 85.
+Εάν οι βαθμολογίες του τεστ έχουν μέσο όρο 70 και διακύμανση 25, βρείτε το ανώτερο όριο για την πιθανότητα ένας μαθητής να βαθμολογήσει τουλάχιστον 85.
 
-**Solution:**
-- **Step 1: Map variables.**
+**Λύση:**
+- **Βήμα 1: Μεταβλητές χάρτη.**
   - $\mu = 70$
   - $\sigma^2 = 25$
-  - We want $P(X \ge 85) = P(X - 70 \ge 15)$, so $a = 15$.
-- **Step 2: WIP State.**
-  Apply Cantelli's inequality:
+  - Θέλουμε $P(X \ge 85) = P(X - 70 \ge 15)$, άρα $a = 15$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Cantelli:
   $$P(X - 70 \ge 15) \le \frac{25}{25 + 15^2} = \frac{25}{25 + 225} = \frac{25}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= 250$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= 250$.
   - $P(X - 70 \ge 15) \le \frac{25}{250} = 0.1$.
 
 ---
 
-### Exercise 7: Applying WLLN to Sample Variance
-**Problem:** Let $X_1, X_2, \dots$ be i.i.d. random variables with mean $\mu$ and finite 4th moment ($E[X^4] < \infty$). Show that the sample variance $S_n^2$ converges in probability to the population variance $\sigma^2$ as $n \to \infty$.
+### Άσκηση 7: Εφαρμογή του WLLN στη Διακύμανση Δείγματος
+**Πρόβλημα:** Έστω $X_1, X_2, \dots$ i.i.d. τυχαίες μεταβλητές με μέσο όρο $\mu$ και πεπερασμένη 4η στιγμή ($E[X^4] < \infty$). Δείξτε ότι η διακύμανση του δείγματος $S_n^2$ συγκλίνει κατά πιθανότητα στη διακύμανση πληθυσμού $\sigma^2$ ως $n \to \infty$.
 
-**Solution:**
-- **Step 1: Write the expansion of $S_n^2$.**
+**Λύση:**
+- **Βήμα 1: Γράψτε την επέκταση του $S_n^2$.**
   $$S_n^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X}_n)^2 = \frac{n}{n-1} \left( \frac{1}{n}\sum_{i=1}^{n} X_i^2 - \bar{X}_n^2 \right)$$
-- **Step 2: WIP State.**
-  - As $n \to \infty$, $\frac{n}{n-1} \to 1$.
-  - Let $Y_i = X_i^2$. Since $X_i$ are i.i.d., $Y_i$ are also i.i.d. with mean $E[Y_i] = E[X_i^2]$. By WLLN:
+- **Βήμα 2: Κατάσταση WIP.**
+  - Ως $n \to \infty$, $\frac{n}{n-1} \to 1$.
+  - Αφήστε $Y_i = X_i^2$. Εφόσον τα $X_i$ είναι i.i.d., τα $Y_i$ είναι επίσης i.i.d. με μέσο όρο $E[Y_i] = E[X_i^2]$. Από WLLN:
     $$\frac{1}{n}\sum_{i=1}^{n} X_i^2 \xrightarrow{P} E[X^2]$$
-  - By WLLN, $\bar{X}_n \xrightarrow{P} \mu$. Since the square function is continuous, $\bar{X}_n^2 \xrightarrow{P} \mu^2$.
-- **Step 3: Final Calculation.**
-  Using the properties of convergence in probability:
+  - Από WLLN, $\bar{X}_n \xrightarrow{P} \mu$. Εφόσον η συνάρτηση τετραγώνου είναι συνεχής, $\bar{X}_n^2 \xrightarrow{P} \mu^2$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Χρησιμοποιώντας τις ιδιότητες της σύγκλισης στην πιθανότητα:
   $$S_n^2 \xrightarrow{P} 1 \cdot \left( E[X^2] - \mu^2 \right) = \sigma^2.$$
 
 ---
 
-### Exercise 8: Chebyshev Bound for Sample Mean
-**Problem:** Let $X_1, \dots, X_n$ be i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Show that for any $\epsilon > 0$, WLLN holds by using Chebyshev's inequality on the sample mean $\bar{X}_n$.
+### Άσκηση 8: Ο Chebyshev δεσμεύεται για το μέσο όρο δείγματος
+**Πρόβλημα:** Έστω $X_1, \dots, X_n$ i.i.d. τυχαίες μεταβλητές με μέσο όρο $\mu$ και διακύμανση $\sigma^2$. Δείξτε ότι για οποιοδήποτε $\epsilon > 0$, το WLLN ισχύει χρησιμοποιώντας την ανισότητα του Chebyshev στη μέση τιμή του δείγματος $\bar{X}_n$.
 
-**Solution:**
-- **Step 1: Find properties of $\bar{X}_n$.**
+**Λύση:**
+- **Βήμα 1: Βρείτε ιδιότητες του $\bar{X}_n$.**
   - $E[\bar{X}_n] = \mu$
   - $Var(\bar{X}_n) = \frac{\sigma^2}{n}$
-- **Step 2: WIP State.**
-  Apply Chebyshev's Inequality:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Chebyshev:
   $$P(|\bar{X}_n - \mu| \ge \epsilon) \le \frac{Var(\bar{X}_n)}{\epsilon^2} = \frac{\sigma^2}{n\epsilon^2}$$
-- **Step 3: Final Calculation.**
-  Take the limit as $n \to \infty$:
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Πάρτε το όριο ως $n \to \infty$:
   $$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) \le \lim_{n \to \infty} \frac{\sigma^2}{n\epsilon^2} = 0$$
-  Since probability is non-negative, the limit must be exactly 0, proving WLLN.
+  Εφόσον η πιθανότητα είναι μη αρνητική, το όριο πρέπει να είναι ακριβώς 0, αποδεικνύοντας το WLLN.
 
 ---
 
-### Exercise 9: Monte Carlo Integration (LLN Application)
-**Problem:** Explain how the Law of Large Numbers justifies using random numbers to estimate the value of the integral $I = \int_{0}^{1} g(x) \, dx$.
+### Άσκηση 9: Ένταξη Monte Carlo (Εφαρμογή LLN)
+**Πρόβλημα:** Εξηγήστε πώς ο νόμος των μεγάλων αριθμών δικαιολογεί τη χρήση τυχαίων αριθμών για την εκτίμηση της τιμής του ολοκληρώματος $I = \int_{0}^{1} g(x) \, dx$.
 
-**Solution:**
-- **Step 1: Relate the integral to an expectation.**
-  Let $U \sim U(0, 1)$. The expected value of $g(U)$ is:
+**Λύση:**
+- **Βήμα 1: Συσχετίστε το ολοκλήρωμα με μια προσδοκία.**
+  Αφήστε $U \sim U(0, 1)$. Η αναμενόμενη τιμή του $g(U)$ είναι:
   $$E[g(U)] = \int_{0}^{1} g(x) \cdot f_U(x) \, dx = \int_{0}^{1} g(x) \cdot 1 \, dx = I$$
-- **Step 2: WIP State.**
-  Generate $n$ independent random variables $U_1, U_2, \dots, U_n$ from $U(0, 1)$.
-  Let $Y_i = g(U_i)$. The variables $Y_i$ are i.i.d. with mean $E[Y_i] = I$.
-- **Step 3: Final Calculation.**
-  By the Law of Large Numbers, the sample mean converges to the expected value:
+- **Βήμα 2: Κατάσταση WIP.**
+  Δημιουργήστε $n$ ανεξάρτητες τυχαίες μεταβλητές $U_1, U_2, \dots, U_n$ από $U(0, 1)$.
+  Αφήστε $Y_i = g(U_i)$. Οι μεταβλητές $Y_i$ είναι i.i.d. με μέσο όρο $E[Y_i] = I$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Σύμφωνα με τον νόμο των μεγάλων αριθμών, ο μέσος όρος του δείγματος συγκλίνει στην αναμενόμενη τιμή:
   $$\frac{1}{n} \sum_{i=1}^{n} g(U_i) \xrightarrow{a.s.} E[g(U)] = I$$
-  This justifies approximating the integral by the average value of the function evaluated at random points.
+  Αυτό δικαιολογεί την προσέγγιση του ολοκληρώματος με τη μέση τιμή της συνάρτησης που αξιολογείται σε τυχαία σημεία.
 
 
----
+---<!-- Πηγή: ../Resources/Phase_7_R_Programming_Commands/phase_7_1_descriptive_stats.md -->
+# Φάση 7: Εντολές προγραμματισμού R - Περιγραφικά στατιστικά
 
-<!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_1_descriptive_stats.md -->
-# Phase 7: R Programming Commands - Descriptive Stats
+## 1. Θεωρητικό θεμέλιο
 
-## 1. Theoretical Foundation
+Το R παρέχει μια ισχυρή και βελτιωμένη σειρά συναρτήσεων για τον υπολογισμό περιγραφικών στατιστικών απευθείας από διανύσματα δεδομένων. Η κατανόηση του τρόπου χρήσης αυτών των βασικών συναρτήσεων R είναι κρίσιμη για τη γρήγορη ανάλυση συνόλων δεδομένων χωρίς μη αυτόματο υπολογισμό.
 
-R provides a powerful and streamlined suite of functions to calculate descriptive statistics directly from data vectors. Understanding how to use these base R functions is critical for quickly analyzing datasets without manual calculation.
+### 1.1 Κεντρική τάση και διασπορά
 
-### 1.1 Central Tendency and Dispersion
+Με δεδομένο ένα αριθμητικό διάνυσμα `x`, μπορείτε να υπολογίσετε τα θεμελιώδη περιγραφικά στατιστικά του χρησιμοποιώντας τις ακόλουθες ενσωματωμένες συναρτήσεις:
 
-Given a numeric vector `x`, you can calculate its fundamental descriptive statistics using the following built-in functions:
-
-*   **Mean:** Calculates the arithmetic average ($\bar{X}$).
+* **Μέσος όρος:** Υπολογίζει τον αριθμητικό μέσο όρο ($\bar{X}$).
     `mean(x)`
-*   **Median:** Finds the middle value when the data is ordered.
+* **Διάμεσος:** Βρίσκει τη μεσαία τιμή κατά την παραγγελία των δεδομένων.
     `median(x)`
-*   **Variance:** Calculates the **sample** variance ($s^2$).
+* **Variance:** Υπολογίζει τη **δειγματική** διακύμανση ($s^2$).
     `var(x)`
-*   **Standard Deviation:** Calculates the **sample** standard deviation ($s$).
+* **Τυπική απόκλιση:** Υπολογίζει την **δείγμα** τυπική απόκλιση ($s$).
     `sd(x)`
 
-### 1.2 Quantiles and Percentiles
+### 1.2 Ποσοστιαίες και εκατοστιαίες μονάδες
 
-To find specific percentiles or quartiles, R uses the `quantile()` function. It takes the data vector and a vector of probabilities `probs` indicating the desired percentiles.
+Για να βρει συγκεκριμένα εκατοστημόρια ή τεταρτημόρια, το R χρησιμοποιεί τη συνάρτηση `quantile()`. Παίρνει το διάνυσμα δεδομένων και ένα διάνυσμα πιθανοτήτων `probs` που υποδεικνύει τα επιθυμητά εκατοστημόρια.
 
-*   **Syntax:** `quantile(x, probs = c(...))`
-*   **Example for Quartiles:** To find $Q_1, Q_2$ (Median), and $Q_3$, use `probs = c(0.25, 0.5, 0.75)`.
+* **Σύνταξη:** `quantile(x, probs = c(...))`
+* **Παράδειγμα για τεταρτημόρια:** Για να βρείτε $Q_1, Q_2$ (διάμεσος) και $Q_3$, χρησιμοποιήστε `probs = c(0.25, 0.5, 0.75)`.
 
-### 1.3 Mode in R
+### 1.3 Λειτουργία στο R
 
-Unlike the mean and median, R does **not** have a built-in function to find the mode (the most frequently occurring value). A common implementation requires combining the `table()` function (which creates a frequency count) and the `max()` function.
+Σε αντίθεση με τη μέση και τη διάμεσο, το R **δεν ** έχει μια ενσωματωμένη λειτουργία για την εύρεση της λειτουργίας (η πιο συχνά εμφανιζόμενη τιμή). Μια κοινή υλοποίηση απαιτεί συνδυασμό της συνάρτησης `table()` (η οποία δημιουργεί έναν αριθμό συχνοτήτων) και της συνάρτησης `max()`.
 
-*   **Implementation pattern:**
-    ```R
+* **Μοτίβο υλοποίησης:**```R
     get_mode <- function(v) {
       uniqv <- unique(v)
       uniqv[which.max(tabulate(match(v, uniqv)))]
@@ -6034,40 +5945,34 @@ Calculate the mean and median for the dataset: 12, 15, 18, 20, 22, 25.
 
 **Step 1: Create the vector in R**
 ```R
-data_vec <- c(12, 15, 18, 20, 22, 25)
-```
+data_vec <- c(12, 15, 18, 20, 22, 25)```
 
 **Step 2: Calculate Mean**
 ```R
 avg_val <- mean(data_vec)
-# Result: 18.66667
-```
+# Αποτέλεσμα: 18,66667```
 
 **Step 3: Calculate Median**
 ```R
-med_val <- median(data_vec)
-# Result: 19
-```
+med_val <- διάμεσος(data_vec)
+# Αποτέλεσμα: 19```
 
 ### Example 2: Variance and Standard Deviation
 Find the sample variance and standard deviation for: 4, 8, 6, 5, 3, 2, 8, 9, 2, 5.
 
 **Step 1: Create the vector**
 ```R
-x <- c(4, 8, 6, 5, 3, 2, 8, 9, 2, 5)
-```
+x <- c(4, 8, 6, 5, 3, 2, 8, 9, 2, 5)```
 
 **Step 2: Calculate Variance ($s^2$)**
 ```R
 variance_val <- var(x)
-# Result: 6.4
-```
+# Αποτέλεσμα: 6.4```
 
 **Step 3: Calculate Standard Deviation ($s$)**
 ```R
 sd_val <- sd(x)
-# Result: 2.529822
-```
+# Αποτέλεσμα: 2,529822```
 *(Notice that `sd(x)` is precisely equal to `sqrt(var(x))`)*.
 
 ### Example 3: Extracting Specific Quartiles
@@ -6076,20 +5981,17 @@ From a random sample of 100 observations generated from a normal distribution, e
 **Step 1: Generate Data**
 ```R
 set.seed(123)
-obs <- rnorm(100, mean = 50, sd = 10)
-```
+obs <- rnorm(100, μέσος όρος = 50, sd = 10)```
 
 **Step 2: Use quantile function**
 ```R
-target_probs <- c(0.25, 0.5, 0.75)
-quartiles <- quantile(obs, probs = target_probs)
-print(quartiles)
-```
+target_probs <- c(0,25, 0,5, 0,75)
+τεταρτημόρια <- quantile(obs, probs = target_probs)
+εκτύπωση (τεταρτημόρια)```
 **Output:**
 ```R
-      25%       50%       75% 
-45.06014  50.61868  56.55173 
-```
+      25% 50% 75% 
+45.06014 50.61868 56.55173```
 
 ### Example 4: Finding the Interquartile Range (IQR)
 Using the `quantile()` function, compute the IQR for `x <- c(10, 20, 30, 40, 50, 60, 70, 80, 90)`.
@@ -6097,58 +5999,51 @@ Using the `quantile()` function, compute the IQR for `x <- c(10, 20, 30, 40, 50,
 **Step 1: Calculate $Q_1$ and $Q_3$**
 ```R
 x <- c(10, 20, 30, 40, 50, 60, 70, 80, 90)
-q_vals <- quantile(x, probs = c(0.25, 0.75))
-```
+q_vals <- quantile(x, probs = c(0,25, 0,75))```
 
 **Step 2: Subtract $Q_1$ from $Q_3$**
 ```R
 iqr_val <- q_vals[2] - q_vals[1]
-# Note: R also has a built-in IQR() function that does exactly this: IQR(x)
-```
+# Σημείωση: Το R έχει επίσης μια ενσωματωμένη συνάρτηση IQR() που κάνει ακριβώς αυτό: IQR(x)```
 
 ### Example 5: Creating a Mode Function
 You are given a categorical numeric vector `votes <- c(1, 2, 2, 3, 1, 2, 4, 5, 2, 1)`. Find the mode.
 
 **Step 1: Create frequency table**
 ```R
-votes <- c(1, 2, 2, 3, 1, 2, 4, 5, 2, 1)
-freq <- table(votes)
-print(freq)
-# votes
+ψήφοι <- γ(1, 2, 2, 3, 1, 2, 4, 5, 2, 1)
+συχνότητα <- πίνακας(ψήφοι)
+εκτύπωση (συχνότητα)
+# ψήφοι
 # 1 2 3 4 5 
-# 3 4 1 1 1 
-```
+# 3 4 1 1 1```
 
 **Step 2: Extract the mode**
 ```R
-# Find the maximum frequency
+# Βρείτε τη μέγιστη συχνότητα
 max_freq <- max(freq)
 
-# Identify the name (the actual value) that corresponds to max frequency
+# Προσδιορίστε το όνομα (την πραγματική τιμή) που αντιστοιχεί στη μέγιστη συχνότητα
 mode_val <- names(freq)[freq == max_freq]
-print(mode_val) 
-# Result: "2"
-```
+εκτύπωση (mode_val) 
+# Αποτέλεσμα: "2"```
 
 ### Example 6: Coefficient of Variation (CV)
 Calculate the Coefficient of Variation ($CV = \frac{SD}{Mean}$) for a given sample `y <- c(100, 110, 95, 105, 120, 90)`.
 
 **Step 1: Assign variable**
 ```R
-y <- c(100, 110, 95, 105, 120, 90)
-```
+y <- c(100, 110, 95, 105, 120, 90)```
 
 **Step 2: Calculate Mean and SD**
 ```R
 m_y <- mean(y)
-sd_y <- sd(y)
-```
+sd_y <- sd(y)```
 
 **Step 3: Compute CV**
 ```R
 cv_y <- sd_y / m_y
-# Result: 0.1045261 (or roughly 10.45%)
-```
+# Αποτέλεσμα: 0,1045261 (ή περίπου 10,45%)```
 
 ---
 
@@ -6160,17 +6055,15 @@ A very common trap in R is forgetting how statistical functions handle missing v
 
 **Step 1: The Incorrect Approach**
 ```R
-scores <- c(85, 90, 78, NA, 92, 88)
-mean(scores)
-# Result: NA
-```
+βαθμολογίες <- c(85, 90, 78, NA, 92, 88)
+μέσος όρος (βαθμολογίες)
+# Αποτέλεσμα: ΝΑ```
 
 **Step 2: The Correct Approach (Using na.rm)**
 You must explicitly tell R to remove the `NA` values before performing the calculation by using the `na.rm = TRUE` argument.
 ```R
-mean(scores, na.rm = TRUE)
-# Result: 86.6
-```
+μέσος όρος (βαθμολογίες, na.rm = TRUE)
+# Αποτέλεσμα: 86,6```
 *(Always check your datasets for NAs or preemptively use `na.rm = TRUE` during exploratory analysis!)*
 
 ---
@@ -6184,28 +6077,25 @@ The R `var()` and `sd()` functions are strictly designed for **sample** statisti
 **Step 1: The Incorrect Approach (Sample Variance)**
 ```R
 pop_ages <- c(25, 30, 35, 40, 45)
-var(pop_ages)
-# R computes: sum((x - mean)^2) / 4
-# Result: 62.5
-```
+var (pop_ages)
+# R υπολογίζει: άθροισμα ((x - μέσος όρος)^2) / 4
+# Αποτέλεσμα: 62,5```
 
 **Step 2: The Correct Approach (Manual Adjustment)**
 To get the population variance, you must either calculate it manually, or multiply the sample variance by $\frac{n-1}{n}$.
 
 *Manual Calculation:*
 ```R
-n <- length(pop_ages)
+n <- μήκος (pop_ages)
 mu <- mean(pop_ages)
 pop_var_manual <- sum((pop_ages - mu)^2) / n
-# Result: 50
-```
+# Αποτέλεσμα: 50```
 
 *Adjustment Method:*
 ```R
-n <- length(pop_ages)
+n <- μήκος (pop_ages)
 pop_var_adjusted <- var(pop_ages) * ((n - 1) / n)
-# Result: 62.5 * (4 / 5) = 50
-```
+# Αποτέλεσμα: 62,5 * (4 / 5) = 50```
 *(Whenever a question specifies "Population Variance" or "Population Standard Deviation", never use `var()` or `sd()` directly without making this adjustment!)*
 
 
@@ -6253,9 +6143,8 @@ A biased coin has a 60% chance of landing on Heads. If you flip it 10 times, wha
 
 **Step 2: Use `dbinom`**
 ```R
-ans <- dbinom(x = 7, size = 10, prob = 0.6)
-# Result: 0.2149908
-```
+ans <- dbinom(x = 7, μέγεθος = 10, prob = 0,6)
+# Αποτέλεσμα: 0,2149908```
 
 ### Example 2: Cumulative Probability ($P(X \le k)$)
 Using the same coin ($n=10, p=0.6$), what is the probability of getting 4 or fewer Heads?
@@ -6265,9 +6154,8 @@ We want $P(X \le 4)$.
 
 **Step 2: Use `pbinom`**
 ```R
-ans <- pbinom(q = 4, size = 10, prob = 0.6)
-# Result: 0.1662386
-```
+ans <- pbinom(q = 4, μέγεθος = 10, prob = 0,6)
+# Αποτέλεσμα: 0,1662386```
 
 ### Example 3: Probability of a Range ($P(a \le X \le b)$)
 A pharmaceutical drug has an 80% success rate. If given to 20 patients, what is the probability that between 12 and 16 patients (inclusive) recover?
@@ -6278,11 +6166,10 @@ Mathematically, this is $P(X \le 16) - P(X \le 11)$. *(Notice we subtract $P(X \
 
 **Step 2: Use `pbinom` difference**
 ```R
-upper_bound <- pbinom(16, size = 20, prob = 0.8)
-lower_bound <- pbinom(11, size = 20, prob = 0.8)
-ans <- upper_bound - lower_bound
-# Result: 0.5785692
-```
+upper_bound <- pbinom(16, μέγεθος = 20, prob = 0,8)
+χαμηλότερο_όριο <- pbinom(11, μέγεθος = 20, prob = 0,8)
+και <- upper_bound - down_bound
+# Αποτέλεσμα: 0,5785692```
 
 ### Example 4: Range Probability (Alternative method)
 Solve Example 3 using `dbinom` and `sum`.
@@ -6290,15 +6177,13 @@ Solve Example 3 using `dbinom` and `sum`.
 **Step 1: Generate a vector of target successes**
 We want exactly 12, 13, 14, 15, and 16 successes.
 ```R
-targets <- 12:16
-```
+στόχοι <- 12:16```
 
 **Step 2: Calculate all exact probabilities and sum them**
 ```R
-probs <- dbinom(targets, size = 20, prob = 0.8)
-ans <- sum(probs)
-# Result: 0.5785692
-```
+probs <- dbinom(στόχοι, μέγεθος = 20, prob = 0,8)
+ans <- sum (probs)
+# Αποτέλεσμα: 0,5785692```
 *(This is often easier to read and less prone to the "off-by-one" error seen in cumulative subtraction).*
 
 ### Example 5: Generating Random Binomial Variables
@@ -6309,8 +6194,7 @@ Simulate flipping a fair coin 5 times, and record the number of heads. Repeat th
 *   `size = 5` (Trials per experiment)
 *   `prob = 0.5`
 ```R
-simulations <- rbinom(n = 100, size = 5, prob = 0.5)
-```
+προσομοιώσεις <- rbinom(n = 100, μέγεθος = 5, prob = 0,5)```
 *(This will output a vector of 100 numbers, where each number is between 0 and 5, representing the number of heads in that specific experiment).*
 
 ---
@@ -6324,17 +6208,15 @@ A quality control manager uses $X \sim B(20, 0.15)$ to model the number of defec
 **Step 2: Use `qbinom`**
 `qbinom()` is the inverse of `pbinom`. Given a cumulative probability, it returns the smallest integer $k$ satisfying $P(X \leq k) \geq p$.
 ```R
-threshold <- qbinom(p = 0.90, size = 20, prob = 0.15)
-# Result: 5
-```
+όριο <- qbinom(p = 0,90, μέγεθος = 20, prob = 0,15)
+# Αποτέλεσμα: 5```
 
 **Step 3: Verify the result**
 ```R
-pbinom(4, size = 20, prob = 0.15)  # P(X <= 4)
-# Result: 0.8298 (less than 0.90, so k=4 is insufficient)
-pbinom(5, size = 20, prob = 0.15)  # P(X <= 5)
-# Result: 0.9327 (>= 0.90, so k=5 is the answer)
-```
+pbinom(4, μέγεθος = 20, prob = 0,15) # P(X <= 4)
+# Αποτέλεσμα: 0,8298 (λιγότερο από 0,90, άρα το k=4 είναι ανεπαρκές)
+pbinom(5, μέγεθος = 20, prob = 0,15) # P(X <= 5)
+# Αποτέλεσμα: 0,9327 (>= 0,90, άρα k=5 είναι η απάντηση)```
 The manager can be 90% confident that no more than **5** units in a batch of 20 will be defective.
 
 ---
@@ -6347,16 +6229,14 @@ Students often see "less than 15" and instinctively type `pbinom(15, size=50, pr
 
 **Step 1: The Incorrect Approach**
 ```R
-wrong_ans <- pbinom(15, size = 50, prob = 0.25)
-# This calculates P(X <= 15)
-```
+wrong_ans <- pbinom(15, μέγεθος = 50, prob = 0,25)
+# Αυτό υπολογίζει το P(X <= 15)```
 
 **Step 2: The Correct Approach**
 Adjust the quantile down by 1.
 ```R
-correct_ans <- pbinom(14, size = 50, prob = 0.25)
-# This calculates P(X <= 14), which is P(X < 15).
-```
+correct_ans <- pbinom(14, μέγεθος = 50, prob = 0,25)
+# Αυτό υπολογίζει το P(X <= 14), το οποίο είναι P(X < 15).```
 
 ---
 
@@ -6372,14 +6252,12 @@ There are two common traps here:
 **Step 1: Formulate the correct Complement**
 $P(X \ge 15) = 1 - P(X \le 14)$.
 ```R
-ans_complement <- 1 - pbinom(14, size = 200, prob = 0.05)
-```
+ans_complement <- 1 - pbinom(14, μέγεθος = 200, prob = 0,05)```
 
 **Step 2: The `lower.tail` Method**
 If you want to use the built-in R feature to avoid subtracting from 1, you must pass 14 as the quantile, because `lower.tail = FALSE` computes $P(X > q)$. So, $P(X > 14)$ is equivalent to $P(X \ge 15)$.
 ```R
-ans_lower_tail <- pbinom(14, size = 200, prob = 0.05, lower.tail = FALSE)
-```
+ans_lower_tail <- pbinom(14, μέγεθος = 200, prob = 0,05, low.tail = FALSE)```
 *(Both `ans_complement` and `ans_lower_tail` will yield the correct result. Never pass 15 into `pbinom` for an "at least 15" question!)*
 
 
@@ -6426,9 +6304,8 @@ Human heights are normally distributed with $\mu = 170$ cm and $\sigma = 10$ cm.
 
 **Step 2: Use `pnorm`**
 ```R
-ans <- pnorm(q = 185, mean = 170, sd = 10)
-# Result: 0.9331928
-```
+ans <- pnorm(q = 185, μέσος όρος = 170, sd = 10)
+# Αποτέλεσμα: 0,9331928```
 
 ### Example 2: Right-Tail Probability ($P(X > x)$)
 Using the same height distribution ($\mu = 170, \sigma = 10$), what is the probability a person is taller than 190 cm?
@@ -6439,13 +6316,12 @@ We want $P(X > 190)$.
 **Step 2: Calculate in R**
 You can use the complement rule or `lower.tail = FALSE`.
 ```R
-# Method 1 (Complement)
-ans_comp <- 1 - pnorm(190, mean = 170, sd = 10)
+# Μέθοδος 1 (Συμπλήρωμα)
+ans_comp <- 1 - pnorm(190, μέσος όρος = 170, sd = 10)
 
-# Method 2 (lower.tail)
-ans_tail <- pnorm(190, mean = 170, sd = 10, lower.tail = FALSE)
-# Result: 0.02275013
-```
+# Μέθοδος 2 (lower.tail)
+ans_tail <- pnorm(190, μέσος όρος = 170, sd = 10, χαμηλότερος. ουρά = FALSE)
+# Αποτέλεσμα: 0,02275013```
 
 ### Example 3: Probability Between Two Values ($P(a < X < b)$)
 What is the probability a person's height is between 160 cm and 180 cm?
@@ -6455,9 +6331,8 @@ $P(160 < X < 180) = P(X < 180) - P(X < 160)$.
 
 **Step 2: Use `pnorm` subtraction**
 ```R
-ans <- pnorm(180, mean = 170, sd = 10) - pnorm(160, mean = 170, sd = 10)
-# Result: 0.6826895
-```
+ans <- pnorm(180, μέσος όρος = 170, sd = 10) - pnorm(160, μέσος όρος = 170, sd = 10)
+# Αποτέλεσμα: 0,6826895```
 *(Notice this matches the empirical rule: approximately 68% of data falls within 1 standard deviation of the mean).*
 
 ### Example 4: Using the Standard Normal Distribution (Z)
@@ -6469,8 +6344,7 @@ For the standard normal distribution, $\mu = 0$ and $\sigma = 1$. R uses these a
 **Step 2: Use `pnorm`**
 ```R
 ans <- pnorm(1.96)
-# Result: 0.9750021
-```
+# Αποτέλεσμα: 0,9750021```
 
 ### Example 5: Finding a Percentile with `qnorm()`
 Scores on a test are normally distributed with $\mu = 500$ and $\sigma = 100$. What score marks the 90th percentile?
@@ -6480,17 +6354,15 @@ Scores on a test are normally distributed with $\mu = 500$ and $\sigma = 100$. W
 
 **Step 2: Use `qnorm`**
 ```R
-ans <- qnorm(p = 0.90, mean = 500, sd = 100)
-# Result: 628.1552
-```
+ans <- qnorm(p = 0,90, μέσος όρος = 500, sd = 100)
+# Αποτέλεσμα: 628,1552```
 
 ### Example 6: Generating Random Data
 Simulate the grades of a classroom of 30 students, where the class average is 75 with a standard deviation of 8.
 
 **Step 1: Use `rnorm`**
 ```R
-grades <- rnorm(n = 30, mean = 75, sd = 8)
-```
+βαθμοί <- rnorm(n = 30, μέσος όρος = 75, sd = 8)```
 *(This returns a vector of 30 randomized grades based on the distribution).*
 
 ---
@@ -6503,17 +6375,15 @@ The standard mathematical notation for a normal distribution is $X \sim N(\mu, \
 
 **Step 1: The Incorrect Approach**
 ```R
-wrong_ans <- pnorm(55, mean = 50, sd = 16)
-# This calculates based on standard deviation = 16.
-```
+wrong_ans <- pnorm(55, μέσος όρος = 50, sd = 16)
+# Αυτό υπολογίζει με βάση την τυπική απόκλιση = 16.```
 
 **Step 2: The Correct Approach**
 You must extract the standard deviation by taking the square root of the variance given in the problem statement.
 $\sigma = \sqrt{16} = 4$.
 ```R
-correct_ans <- pnorm(55, mean = 50, sd = 4)
-# Result: 0.8943502
-```
+correct_ans <- pnorm(55, μέσος όρος = 50, sd = 4)
+# Αποτέλεσμα: 0,8943502```
 
 ---
 
@@ -6525,229 +6395,224 @@ The phrase "top 5%" naturally leads students to type `qnorm(0.05, ...)`. However
 
 **Step 1: The Incorrect Approach**
 ```R
-wrong_score <- qnorm(0.05, mean = 100, sd = 15)
-# Result: 75.32 (This is a terrible score!)
-```
+λάθος_βαθμολογία <- qnorm(0,05, μέσος όρος = 100, sd = 15)
+# Αποτέλεσμα: 75.32 (Αυτό είναι τρομερό σκορ!)```
 
 **Step 2: The Correct Approach (Using Complement Probability)**
 If you are in the top 5%, you scored higher than 95% of people. Therefore, the area to the left is 0.95.
 ```R
-correct_score_1 <- qnorm(0.95, mean = 100, sd = 15)
-# Result: 124.6728
-```
+correct_score_1 <- qnorm(0,95, μέσος όρος = 100, sd = 15)
+# Αποτέλεσμα: 124.6728```
 
 **Step 3: The Alternative Correct Approach (Using lower.tail)**
 You can use the `lower.tail = FALSE` argument to tell `qnorm` you are providing the upper area.
 ```R
-correct_score_2 <- qnorm(0.05, mean = 100, sd = 15, lower.tail = FALSE)
-# Result: 124.6728
+correct_score_2 <- qnorm(0,05, μέσος όρος = 100, sd = 15, χαμηλότερος. ουρά = FALSE)
+# Αποτέλεσμα: 124.6728
 ```
-*(Always draw a quick sketch of the bell curve to visually verify if the answer makes logical sense!)*
+*(Σχεδιάζετε πάντα ένα γρήγορο σκίτσο της καμπύλης του κουδουνιού για να επαληθεύσετε οπτικά εάν η απάντηση έχει λογική λογική!)*
 
 
 ---
 
-<!-- Source: ../Resources/Phase_7_R_Programming_Commands/phase_7_4_additional_distributions_r.md -->
-# Phase 7.4: R Programming Commands - Additional Distributions and Statistical Functions
+<!-- Πηγή: ../Resources/Phase_7_R_Programming_Commands/phase_7_4_additional_distributions_r.md -->
+# Φάση 7.4: Εντολές προγραμματισμού R - Πρόσθετες κατανομές και στατιστικές συναρτήσεις
 
-This file provides the R syntax, parameters, and exam gotchas for the remaining discrete and continuous probability distributions (Geometric, Hypergeometric, Exponential, Uniform, Gamma, Chi-Square, Student's t, and Fisher's F).
-
----
-
-## 1. Geometric Distribution (`*geom`)
-
-R functions: `dgeom()`, `pgeom()`, `qgeom()`, `rgeom()`.
-
-> **CRITICAL EXAM GOTCHA:** R's geometric functions strictly model **Definition B** (the number of failures *before* the first success). 
-> If a problem asks for the probability that the first success is on the 4th trial, this means there were exactly 3 failures. In R, you must use `x = 3`, not `4`!
-> *   $P(X = 4 \text{ trials}) = \text{`dgeom(3, prob)`}$
-> *   $P(X \le 4 \text{ trials}) = P(\text{failures} \le 3) = \text{`pgeom(3, prob)`}$
+Αυτό το αρχείο παρέχει τη σύνταξη R, τις παραμέτρους και τις γκοτσαδόρους εξέτασης για τις υπόλοιπες διακριτές και συνεχείς κατανομές πιθανοτήτων (Γεωμετρική, Υπεργεωμετρική, Εκθετική, Ομοιόμορφη, Γάμμα, Τετράγωνο Χ, Student's t και Fisher's F).
 
 ---
 
-## 2. Hypergeometric Distribution (`*hyper`)
+## 1. Γεωμετρική κατανομή (`*geom`)
 
-R functions: `dhyper()`, `phyper()`, `qhyper()`, `rhyper()`.
+Συναρτήσεις R: `dgeom()`, `pgeom()`, `qgeom()`, `rgeom()`.
 
-> **CRITICAL EXAM GOTCHA:** R's naming convention for hypergeometric parameters is completely different from standard textbook notation ($N, K, n$).
-> *   R syntax: `dhyper(x, m, n, k)`
-> *   Parameter Mapping:
->     *   `x`: Number of successes in the sample ($k$).
->     *   `m`: Number of success items in the population ($K$).
->     *   `n`: Number of **failure** items in the population ($N - K$). *(Do not pass the total population $N$ here!)*
->     *   `k`: The sample size ($n$).
+> **ΚΡΙΤΙΚΕΣ ΕΞΕΤΑΣΕΙΣ GOTCHA:** Οι γεωμετρικές συναρτήσεις του R μοντελοποιούν αυστηρά **Ορισμός B** (ο αριθμός των αποτυχιών *πριν* την πρώτη επιτυχία). 
+> Εάν ένα πρόβλημα ζητά την πιθανότητα ότι η πρώτη επιτυχία είναι στην 4η δοκιμή, αυτό σημαίνει ότι υπήρξαν ακριβώς 3 αποτυχίες. Στο R, πρέπει να χρησιμοποιήσετε `x = 3`, όχι `4`!
+> * $P(X = 4 \text{ trials}) = \text{`dgeom(3, prob)`}$
+> * $P(X \le 4 \text{ trials}) = P(\text{failures} \le 3) = \text{`pgeom(3, prob)`}$
 
 ---
 
-## 3. Other Continuous Distributions (`*exp`, `*unif`, `*gamma`)
+## 2. Υπεργεωμετρική κατανομή (`*hyper`)
 
-### 3.1 Exponential: `dexp(x, rate)`, `pexp(q, rate)`
-*   `rate` is $\lambda$ (where mean $= 1/\lambda$).
+Συναρτήσεις R: `dhyper()`, `phyper()`, `qhyper()`, `rhyper()`.
 
-### 3.2 Uniform: `dunif(x, min, max)`, `punif(q, min, max)`
-*   `min` and `max` are the lower ($a$) and upper ($b$) boundaries.
-
-### 3.3 Gamma: `dgamma(x, shape, rate, scale = 1/rate)`
-*   R accepts both the rate parameter $\beta$ (`rate`) and scale parameter $\theta$ (`scale`). 
-*   **Safety Tip:** Always explicitly name the parameter in the function call to avoid using the wrong parameterization: e.g., `dgamma(x, shape = 3, rate = 2)`.
-
----
-
-## 4. Sampling Distributions (`*chisq`, `*t`, `*f`)
-
-These functions are primarily used to find critical values (using `q*`) and p-values (using `p*`) for hypothesis testing.
-
-*   **Chi-Square:** `pchisq(q, df)`, `qchisq(p, df)`
-*   **Student's t:** `pt(q, df)`, `qt(p, df)`
-*   **Fisher's F:** `pf(q, df1, df2)`, `qf(p, df1, df2)`
+> **ΚΡΙΤΙΚΕΣ ΕΞΕΤΑΣΕΙΣ GOTCHA:** Η σύμβαση ονομασίας του R για τις υπεργεωμετρικές παραμέτρους είναι εντελώς διαφορετική από την τυπική σημειογραφία του σχολικού βιβλίου ($N, K, n$).
+> * Σύνταξη R: `dhyper(x, m, n, k)`
+> * Αντιστοίχιση παραμέτρων:
+> * `x`: Αριθμός επιτυχιών στο δείγμα ($k$).
+> * `m`: Αριθμός στοιχείων επιτυχίας στον πληθυσμό ($K$).
+> * `n`: Αριθμός στοιχείων **αποτυχίας** στον πληθυσμό ($N - K$). *(Μην περάσετε τον συνολικό πληθυσμό $N$ εδώ!)*
+> * `k`: Το μέγεθος του δείγματος ($n$).
 
 ---
 
-## 5. Solved Exercises (9 Examples)
+## 3. Άλλες συνεχείς διανομές (`*exp`, `*unif`, `*gamma`)
 
-### Example 1: Geometric Probability (Trials vs. Failures)
-**Problem:** A machine produces defective parts with probability $p = 0.08$. Write the R command to calculate the probability that the first defective part is found on the 5th test.
+### 3.1 Εκθετική: `dexp(x, rate)`, `pexp(q, rate)`
+* Το `rate` είναι $\lambda$ (όπου σημαίνει $= 1/\lambda$).
 
-**Solution:**
-- **Step 1: Translate trials to failures.**
-  Finding the first success on the 5th test means the first 4 tests were failures.
-- **Step 2: WIP State.**
-  We want 4 failures before the first success.
-  R function call:
+### 3.2 Στολή: `dunif(x, min, max)`, `punif(q, min, max)`
+* Τα `min` και `max` είναι τα κατώτερα ($a$) και τα ανώτερα όρια ($b$).
+
+### 3.3 Γάμμα: `dgamma(x, shape, rate, scale = 1/rate)`
+* Το R δέχεται και την παράμετρο ρυθμού $\beta$ (`rate`) και την παράμετρο κλίμακας $\theta$ (`scale`). 
+* **Συμβουλή για την ασφάλεια:** Να ονομάζετε πάντα ρητά την παράμετρο στην κλήση συνάρτησης για να αποφύγετε τη χρήση λανθασμένης παραμετροποίησης: π.χ. `dgamma(x, shape = 3, rate = 2)`.
+
+---
+
+## 4. Κατανομές δειγματοληψίας (`*chisq`, `*t`, `*f`)
+
+Αυτές οι συναρτήσεις χρησιμοποιούνται κυρίως για την εύρεση κρίσιμων τιμών (χρησιμοποιώντας `q*`) και τιμές p (χρησιμοποιώντας `p*`) για τον έλεγχο υποθέσεων.
+
+* **Chi-Square:** `pchisq(q, df)`, `qchisq(p, df)`
+* **Μαθητής t:** `pt(q, df)`, `qt(p, df)`
+* **Fisher's F:** `pf(q, df1, df2)`, `qf(p, df1, df2)`
+
+---
+
+## 5. Λυμένες Ασκήσεις (9 Παραδείγματα)
+
+### Παράδειγμα 1: Γεωμετρική πιθανότητα (δοκιμές έναντι αποτυχιών)
+**Πρόβλημα:** Ένα μηχάνημα παράγει ελαττωματικά εξαρτήματα με πιθανότητα $p = 0.08$. Γράψτε την εντολή R για να υπολογίσετε την πιθανότητα να βρεθεί το πρώτο ελαττωματικό εξάρτημα στην 5η δοκιμή.
+
+**Λύση:**
+- **Βήμα 1: Μετατροπή δοκιμών σε αποτυχίες.**
+  Η εύρεση της πρώτης επιτυχίας στο 5ο τεστ σημαίνει ότι οι πρώτες 4 δοκιμές ήταν αποτυχίες.
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε 4 αποτυχίες πριν την πρώτη επιτυχία.Κλήση συνάρτησης R:
   `dgeom(x = 4, prob = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `dgeom(x = 4, prob = 0.08)`
-  *(Result: 0.0573)*
+  *(Αποτέλεσμα: 0,0573)*
 
 ---
 
-### Example 2: Hypergeometric Probability Mapping
-**Problem:** A deck of 52 cards contains 4 Aces. If we draw 5 cards without replacement, write the R command to find the probability of getting exactly 2 Aces.
+### Παράδειγμα 2: Αντιστοίχιση Υπεργεωμετρικών Πιθανοτήτων
+**Πρόβλημα:** Μια τράπουλα 52 φύλλων περιέχει 4 Άσσους. Αν τραβήξουμε 5 φύλλα χωρίς αντικατάσταση, γράψτε την εντολή R για να βρείτε την πιθανότητα να πάρετε ακριβώς 2 Άσσους.
 
-**Solution:**
-- **Step 1: Map standard parameters to R parameters.**
-  - Successes in sample $x = 2$
-  - Successes in population $m = 4$
-  - Failures in population $n = 52 - 4 = 48$ *(not 52!)*
-  - Sample size $k = 5$
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Αντιστοίχιση τυπικών παραμέτρων σε παραμέτρους R.**
+  - Επιτυχίες στο δείγμα $x = 2$
+  - Επιτυχίες στον πληθυσμό $m = 4$
+  - Αποτυχίες στον πληθυσμό $n = 52 - 4 = 48$ *(όχι 52!)*
+  - Μέγεθος δείγματος $k = 5$
+- **Βήμα 2: Κατάσταση WIP.**
   `dhyper(x = 2, m = 4, n = 48, k = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `dhyper(x = 2, m = 4, n = 48, k = 5)`
-  *(Result: 0.0399)*
+  *(Αποτέλεσμα: 0,0399)*
 
 ---
 
-### Example 3: Uniform Distribution Wait Time
-**Problem:** A bus arrives randomly between 10:00 and 10:30. Write the R command to find the probability that a passenger waiting since 10:00 waits more than 20 minutes.
+### Παράδειγμα 3: Χρόνος αναμονής ομοιόμορφης διανομής
+**Πρόβλημα:** Ένα λεωφορείο φτάνει τυχαία μεταξύ 10:00 και 10:30. Γράψτε την εντολή R για να βρείτε την πιθανότητα ένας επιβάτης που περιμένει από τις 10:00 να περιμένει περισσότερο από 20 λεπτά.
 
-**Solution:**
-- **Step 1: Identify bounds.**
-  Let time $X \sim U(0, 30)$. We want $P(X > 20) = 1 - P(X \le 20)$.
-- **Step 2: WIP State.**
-  Using `punif`:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τα όρια.**
+  Αφήστε το χρόνο $X \sim U(0, 30)$. Θέλουμε $P(X > 20) = 1 - P(X \le 20)$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Χρησιμοποιώντας `punif`:
   `1 - punif(q = 20, min = 0, max = 30)`
-  Alternatively, using `lower.tail = FALSE`:
+  Εναλλακτικά, χρησιμοποιώντας `lower.tail = FALSE`:
   `punif(q = 20, min = 0, max = 30, lower.tail = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `punif(q = 20, min = 0, max = 30, lower.tail = FALSE)`
-  *(Result: 0.3333)*
+  *(Αποτέλεσμα: 0,3333)*
 
 ---
 
-### Example 4: Exponential Wait Time
-**Problem:** The lifetime of a light bulb is exponentially distributed with a mean of 1000 hours. Write the R command to find the probability that a bulb lasts less than 800 hours.
+### Παράδειγμα 4: Εκθετικός χρόνος αναμονής
+**Πρόβλημα:** Η διάρκεια ζωής ενός λαμπτήρα κατανέμεται εκθετικά με μέσο όρο 1000 ώρες. Γράψτε την εντολή R για να βρείτε την πιθανότητα ένας λαμπτήρας να διαρκεί λιγότερο από 800 ώρες.
 
-**Solution:**
-- **Step 1: Calculate rate parameter.**
-  Mean $= 1000 \implies \lambda = 1/1000 = 0.001$.
-- **Step 2: WIP State.**
-  We want $P(X < 800)$.
+**Λύση:**
+- **Βήμα 1: Υπολογισμός παραμέτρου ποσοστού.**
+  Μέσος όρος $= 1000 \implies \lambda = 1/1000 = 0.001$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε $P(X < 800)$.
   `pexp(q = 800, rate = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `pexp(q = 800, rate = 0.001)`
-  *(Result: 0.5507)*
+  *(Αποτέλεσμα: 0,5507)*
 
 ---
 
-### Example 5: Gamma Wait Time
-**Problem:** A service center receives calls where the wait time between calls is exponentially distributed with a mean of 2 minutes. Write the R command to find the probability that it takes more than 15 minutes to receive 5 calls.
+### Παράδειγμα 5: Χρόνος αναμονής γάμμα
+**Πρόβλημα:** Ένα κέντρο εξυπηρέτησης λαμβάνει κλήσεις όπου ο χρόνος αναμονής μεταξύ των κλήσεων κατανέμεται εκθετικά με μέσο όρο 2 λεπτών. Γράψτε την εντολή R για να βρείτε την πιθανότητα ότι χρειάζονται περισσότερα από 15 λεπτά για να λάβετε 5 κλήσεις.
 
-**Solution:**
-- **Step 1: Map to Gamma parameters.**
-  The sum of 5 independent $Exp(0.5)$ variables follows $Gamma(\alpha = 5, \beta = 0.5)$.
+**Λύση:**
+- **Βήμα 1: Αντιστοίχιση παραμέτρων Gamma.**
+  Το άθροισμα 5 ανεξάρτητων μεταβλητών $Exp(0.5)$ ακολουθεί $Gamma(\alpha = 5, \beta = 0.5)$.
   - `shape` $= 5$
   - `rate` $= 1/2 = 0.5$
-- **Step 2: WIP State.**
-  We want $P(X > 15)$, so we use `lower.tail = FALSE`:
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε $P(X > 15)$, επομένως χρησιμοποιούμε `lower.tail = FALSE`:
   `pgamma(q = 15, shape = 5, rate = 0.5, lower.tail = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `pgamma(q = 15, shape = 5, rate = 0.5, lower.tail = FALSE)`
-  *(Result: 0.1334)*
+  *(Αποτέλεσμα: 0,1334)*
 
 ---
 
-### Example 6: Finding Chi-Square Critical Values
-**Problem:** Find the critical value $\chi^2_{\alpha}$ such that the area in the right tail is $0.05$ for a Chi-square distribution with 14 degrees of freedom.
+### Παράδειγμα 6: Εύρεση κρίσιμων τιμών Chi-Square
+**Πρόβλημα:** Βρείτε την κρίσιμη τιμή $\chi^2_{\alpha}$ έτσι ώστε η περιοχή στη δεξιά ουρά να είναι $0.05$ για κατανομή Τετράγωνο Χ με 14 βαθμούς ελευθερίας.
 
-**Solution:**
-- **Step 1: Identify quantile function and area.**
-  An upper-tail area of $0.05$ means the cumulative area from the left is $0.95$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τη συνάρτηση και την περιοχή ποσοτήτων.**
+  Μια περιοχή άνω ουράς $0.05$ σημαίνει ότι η αθροιστική περιοχή από τα αριστερά είναι $0.95$.
+- **Βήμα 2: Κατάσταση WIP.**
   `qchisq(p = 0.95, df = 14)`
-  Or, using the upper tail:
+  Ή, χρησιμοποιώντας την επάνω ουρά:
   `qchisq(p = 0.05, df = 14, lower.tail = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `qchisq(p = 0.05, df = 14, lower.tail = FALSE)`
-  *(Result: 23.68)*
+  *(Αποτέλεσμα: 23,68)*
 
 ---
 
-### Example 7: Student's t Hypothesis p-value
-**Problem:** A researcher computes a t-statistic of $t = -2.15$ with $df = 18$ for a two-tailed test. Write the R command to calculate the p-value.
+### Παράδειγμα 7: Υπόθεση t του μαθητή p-value
+**Πρόβλημα:** Ένας ερευνητής υπολογίζει μια στατιστική t του $t = -2.15$ με $df = 18$ για μια δοκιμή δύο ουρών. Γράψτε την εντολή R για να υπολογίσετε την τιμή p.
 
-**Solution:**
-- **Step 1: Recall two-tailed p-value formula.**
+**Λύση:**
+- **Βήμα 1: Ανάκληση του τύπου p-value με δύο ουρές.**
   $$\text{p-value} = 2 \cdot P(T \le -|t|)$$
-- **Step 2: WIP State.**
-  Since $t = -2.15$ is negative, the left tail probability is `pt(-2.15, df = 18)`.
-  Multiply this by 2 to get both tails:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφόσον το $t = -2.15$ είναι αρνητικό, η πιθανότητα αριστερής ουράς είναι `pt(-2.15, df = 18)`.
+  Πολλαπλασιάστε το επί 2 για να λάβετε και τις δύο ουρές:
   `2 * pt(q = -2.15, df = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `2 * pt(q = -2.15, df = 18)`
-  *(Result: 0.0454)*
+  *(Αποτέλεσμα: 0,0454)*
 
 ---
 
-### Example 8: F-Distribution Quantiles for ANOVA
-**Problem:** In an ANOVA test, the numerator degrees of freedom is 3 and the denominator degrees of freedom is 20. Find the critical F-value for a significance level of $\alpha = 0.01$.
+### Παράδειγμα 8: F-Distribution Quantiles για ANOVA**Πρόβλημα:** Σε μια δοκιμή ANOVA, οι βαθμοί ελευθερίας του αριθμητή είναι 3 και οι βαθμοί ελευθερίας του παρονομαστή είναι 20. Βρείτε την κρίσιμη τιμή F για ένα επίπεδο σημασίας $\alpha = 0.01$.
 
-**Solution:**
-- **Step 1: Map parameters.**
-  We want the 99th percentile of $F_{3, 20}$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Παράμετροι χάρτη.**
+  Θέλουμε το 99ο εκατοστημόριο του $F_{3, 20}$.
+- **Βήμα 2: Κατάσταση WIP.**
   `qf(p = 0.99, df1 = 3, df2 = 20)`
-  Or, using the upper tail:
+  Ή, χρησιμοποιώντας την επάνω ουρά:
   `qf(p = 0.01, df1 = 3, df2 = 20, lower.tail = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `qf(p = 0.01, df1 = 3, df2 = 20, lower.tail = FALSE)`
-  *(Result: 4.938)*
+  *(Αποτέλεσμα: 4.938)*
 
 ---
 
-### Example 9: Sample Variance Probability Calculation
-**Problem:** For a sample of size $n = 16$ from a normal population with $\sigma^2 = 25$, write the R command to find the probability that the sample variance $S^2$ exceeds 35.
+### Παράδειγμα 9: Υπολογισμός πιθανότητας διακύμανσης δείγματος
+**Πρόβλημα:** Για ένα δείγμα μεγέθους $n = 16$ από έναν κανονικό πληθυσμό με $\sigma^2 = 25$, γράψτε την εντολή R για να βρείτε την πιθανότητα η απόκλιση δείγματος $S^2$ να υπερβαίνει το 35.
 
-**Solution:**
-- **Step 1: Relate $S^2$ to the Chi-square distribution.**
+**Λύση:**
+- **Βήμα 1: Συσχετίστε το $S^2$ με τη διανομή Chi-square.**
   $$P(S^2 > 35) = P\left(\frac{15 S^2}{25} > \frac{15 \cdot 35}{25}\right) = P\left(\chi^2_{15} > 21\right)$$
-- **Step 2: WIP State.**
-  Compute the right tail of $\chi^2_{15}$ at 21:
+- **Βήμα 2: Κατάσταση WIP.**
+  Υπολογίστε τη δεξιά ουρά του $\chi^2_{15}$ στο 21:
   `pchisq(q = 21, df = 15, lower.tail = ?)`
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   `pchisq(q = 21, df = 15, lower.tail = FALSE)`
-  *(Result: 0.1369)*
+  *(Αποτέλεσμα: 0,1369)*
 
 
 ---
-

@@ -1,39 +1,39 @@
-# Python — Object-Oriented Programming
+# Python — Αντικειμενοστρεφής Προγραμματισμός
 
-*Prerequisite: python_1_basics.md — Functions, scope, and the heap-bound object model.*
-*Prerequisite: python_2_intermediate.md — Decorators and first-class functions.*
+*Προαπαιτούμενο: python_1_basics.md — Συναρτήσεις, εμβέλεια και το μοντέλο μνήμης αντικειμένων δεσμευμένο στο heap.*
+*Προαπαιτούμενο: python_2_intermediate.md — Διακοσμητές (decorators) και συναρτήσεις πρώτης τάξης.*
 
-Python's object-oriented programming (OOP) system provides classes as the primary mechanism for encapsulating state and behavior into reusable abstractions. This file covers class and instance construction, the role of `self`, magic (dunder) methods, inheritance and the Method Resolution Order (MRO), name encapsulation conventions, the `@property` descriptor, static and class methods, and the structural patterns of composition and aggregation.
+Το σύστημα αντικειμενοστρεφούς προγραμματισμού (OOP) της Python παρέχει τις κλάσεις ως τον κύριο μηχανισμό για τη θυλάκωση (encapsulation) κατάστασης και συμπεριφοράς σε επαναχρησιμοποιήσιμες αφαιρέσεις. Αυτό το αρχείο καλύπτει την κατασκευή κλάσεων και αντικειμένων, τον ρόλο του `self`, τις μαγικές μεθόδους (dunder methods), την κληρονομικότητα και τη Σειρά Επίλυσης Μεθόδων (MRO), τις συμβάσεις θυλάκωσης ονομάτων, τον διακοσμητή `@property`, τις στατικές μεθόδους και τις μεθόδους κλάσης, καθώς και τα δομικά μοτίβα της σύνθεσης (composition) και της συγκέντρωσης (aggregation).
 
 ---
 
-## 1. Classes, Objects, and Instance Attributes
+## 1. Κλάσεις, Αντικείμενα και Ιδιότητες Στιγμιοτύπων
 
-### 1.1 Class Definition
+### 1.1 Ορισμός Κλάσης
 
-A **class** is a blueprint that describes the state (attributes) and behavior (methods) of a family of objects. An **object** (instance) is a concrete realization of a class.
+Μια **κλάση (class)** είναι ένα προσχέδιο (blueprint) που περιγράφει την κατάσταση (ιδιότητες) και τη συμπεριφορά (μεθόδους) μιας οικογένειας αντικειμένων. Ένα **αντικείμενο (object / instance)** είναι μια συγκεκριμένη πραγμάτωση μιας κλάσης.
 
-**Abstract syntax:**
+**Αφαιρετική σύνταξη:**
 
 ```
 class <ClassName>:
     <class_body>
 ```
 
-By convention, class names use `PascalCase`.
+Κατά σύμβαση, τα ονόματα των κλάσεων χρησιμοποιούν `PascalCase`.
 
 ```python
 class Point:
-    """Represents a two-dimensional Cartesian point."""
+    """Αναπαριστά ένα διδιάστατο καρτεσιανό σημείο."""
 
     def __init__(self, x, y):
-        """Initializes the Point with x and y coordinates.
+        """Αρχικοποιεί το Point με συντεταγμένες x και y.
 
         Args:
-            x (float): The horizontal coordinate.
-            y (float): The vertical coordinate.
+            x (float): Η οριζόντια συντεταγμένη.
+            y (float): Η κατακόρυφη συντεταγμένη.
         """
-        self.x = x   # Instance attribute bound to this object.
+        self.x = x   # Ιδιότητα στιγμιοτύπου συνδεδεμένη με αυτό το αντικείμενο.
         self.y = y
 
 p = Point(3.0, 4.0)
@@ -44,27 +44,27 @@ print(p.x, p.y)
 3.0 4.0
 ```
 
-### 1.2 The Role of `self`
+### 1.2 Ο Ρόλος του `self`
 
-`self` is the first parameter of every instance method. When a method is called on an object `obj.method(arg)`, Python automatically passes `obj` as `self`. It is a reference to the **current object** — the specific instance on which the method was invoked.
+Το `self` είναι η πρώτη παράμετρος κάθε μεθόδου στιγμιοτύπου. Όταν καλείται μια μέθοδος σε ένα αντικείμενο `obj.method(arg)`, η Python περνά αυτόματα το `obj` ως `self`. Είναι μια αναφορά στο **τρέχον αντικείμενο** — το συγκεκριμένο στιγμιότυπο στο οποίο εκτελέστηκε η μέθοδος.
 
-`self` is a naming convention, not a keyword. However, deviating from it is strongly discouraged as it breaks all standard tools and conventions.
+Το `self` είναι μια σύμβαση ονοματοδοσίας, και όχι λέξη-κλειδί. Ωστόσο, η παρέκκλιση από αυτό αποθαρρύνεται εντόνως καθώς σπάει όλα τα πρότυπα εργαλεία και συμβάσεις.
 
-**Attribute access via `self`:**
+**Προσπέλαση ιδιοτήτων μέσω του `self`:**
 
 ```python
 class Counter:
-    """Maintains an integer count, incrementing on demand."""
+    """Διατηρεί έναν ακέραιο μετρητή, αυξανόμενο κατόπιν απαιτήσεως."""
 
     def __init__(self):
-        self.count = 0   # Each instance gets its own `count` attribute.
+        self.count = 0   # Κάθε στιγμιότυπο λαμβάνει τη δική του ιδιότητα `count`.
 
     def increment(self):
-        """Increments the counter by one."""
+        """Αυξάνει τον μετρητή κατά ένα."""
         self.count += 1
 
     def reset(self):
-        """Resets the counter to zero."""
+        """Επαναφέρει τον μετρητή στο μηδέν."""
         self.count = 0
 
 c1 = Counter()
@@ -72,7 +72,7 @@ c2 = Counter()
 c1.increment()
 c1.increment()
 print(c1.count)   # 2
-print(c2.count)   # 0 — c2 is a separate object with its own `count`.
+print(c2.count)   # 0 — το c2 είναι ξεχωριστό αντικείμενο με τη δική του ιδιότητα `count`.
 ```
 
 ```text
@@ -80,27 +80,27 @@ print(c2.count)   # 0 — c2 is a separate object with its own `count`.
 0
 ```
 
-### 1.3 Class Attributes vs. Instance Attributes
+### 1.3 Ιδιότητες Κλάσης έναντι Ιδιοτήτων Στιγμιοτύπου
 
-A **class attribute** is defined in the class body and is shared by all instances. An **instance attribute** is defined via `self` in a method and belongs exclusively to one instance.
+Μια **ιδιότητα κλάσης (class attribute)** ορίζεται στο σώμα της κλάσης και είναι κοινόχρηστη από όλα τα στιγμιότυπα. Μια **ιδιότητα στιγμιοτύπου (instance attribute)** ορίζεται μέσω του `self` σε μια μέθοδο και ανήκει αποκλειστικά σε ένα στιγμιότυπο.
 
 ```python
 class Dog:
-    """Models a dog with a species-level and individual-level attribute."""
+    """Μοντελοποιεί ένα σκύλο με ιδιότητα επιπέδου είδους και ατομικού επιπέδου."""
 
-    species = "Canis lupus familiaris"   # Class attribute; shared by all Dog instances.
+    species = "Canis lupus familiaris"   # Ιδιότητα κλάσης· κοινόχρηστη σε όλα τα στιγμιότυπα Dog.
 
     def __init__(self, name, breed):
-        self.name = name     # Instance attribute; unique to this Dog.
+        self.name = name     # Ιδιότητα στιγμιοτύπου· μοναδική για αυτόν τον Dog.
         self.breed = breed
 
 d1 = Dog("Rex", "Labrador")
 d2 = Dog("Bella", "Poodle")
 
-print(Dog.species)    # Accessed through the class.
-print(d1.species)     # Accessed through an instance (read from class attribute).
-print(d1.name)        # Instance attribute.
-print(d2.name)        # Different instance, different value.
+print(Dog.species)    # Προσπέλαση μέσω της κλάσης.
+print(d1.species)     # Προσπέλαση μέσω στιγμιοτύπου (ανάγνωση από την ιδιότητα κλάσης).
+print(d1.name)        # Ιδιότητα στιγμιοτύπου.
+print(d2.name)        # Διαφορετικό στιγμιότυπο, διαφορετική τιμή.
 ```
 
 ```text
@@ -110,41 +110,41 @@ Rex
 Bella
 ```
 
-> **[Key Insight]** When an instance attribute and a class attribute share the same name, the instance attribute **shadows** the class attribute for that specific instance only. Assigning `d1.species = "Wolf"` creates a new instance attribute on `d1` and does not modify the class attribute.
+> **[Βασική Παρατήρηση]** Όταν μια ιδιότητα στιγμιοτύπου και μια ιδιότητα κλάσης μοιράζονται το ίδιο όνομα, η ιδιότητα στιγμιοτύπου **επισκιάζει (shadows)** την ιδιότητα κλάσης μόνο για το συγκεκριμένο στιγμιότυπο. Η ανάθεση `d1.species = "Wolf"` δημιουργεί μια νέα ιδιότητα στιγμιοτύπου στο `d1` και δεν τροποποιεί την ιδιότητα της κλάσης.
 
 ---
 
-## 2. Magic (Dunder) Methods
+## 2. Μαγικές Μέθοδοι (Magic / Dunder Methods)
 
-### 2.1 Definition
+### 2.1 Ορισμός
 
-**Magic methods** (also called **dunder methods** for their double-underscore prefix and suffix) are special methods that Python calls implicitly in response to specific operations or built-in function calls. They integrate user-defined objects into Python's operator and protocol system.
+Οι **μαγικές μέθοδοι** (ονομάζονται επίσης **dunder methods** λόγω του προθέματος και επιθήματος διπλής κάτω παύλας) είναι ειδικές μέθοδοι τις οποίες η Python καλεί σιωπηρά σε απόκριση σε συγκεκριμένες πράξεις ή κλήσεις ενσωματωμένων συναρτήσεων. Ενσωματώνουν τα οριζόμενα από τον χρήστη αντικείμενα στο σύστημα τελεστών και πρωτοκόλλων της Python.
 
-| Dunder Method | Invoked By | Purpose |
+| Μέθοδος Dunder | Καλείται Από | Σκοπός |
 | :--- | :--- | :--- |
-| `__init__(self, ...)` | `ClassName(...)` | Initializes a new instance |
-| `__repr__(self)` | `repr(obj)`, REPL display | Unambiguous string representation |
-| `__str__(self)` | `str(obj)`, `print(obj)` | Human-readable string representation |
-| `__len__(self)` | `len(obj)` | Returns integer length |
-| `__getitem__(self, key)` | `obj[key]` | Index / subscript access |
-| `__setitem__(self, key, value)` | `obj[key] = value` | Index assignment |
-| `__contains__(self, item)` | `item in obj` | Membership test |
-| `__iter__(self)` | `for x in obj`, `iter(obj)` | Returns an iterator |
-| `__next__(self)` | `next(obj)` | Yields the next element |
-| `__eq__(self, other)` | `obj == other` | Equality comparison |
-| `__lt__(self, other)` | `obj < other` | Less-than comparison |
-| `__add__(self, other)` | `obj + other` | Addition operator |
-| `__call__(self, ...)` | `obj(...)` | Makes an instance callable |
+| `__init__(self, ...)` | `ClassName(...)` | Αρχικοποιεί ένα νέο στιγμιότυπο |
+| `__repr__(self)` | `repr(obj)`, εμφάνιση REPL | Μη διφορούμενη αναπαράσταση συμβολοσειράς |
+| `__str__(self)` | `str(obj)`, `print(obj)` | Φιλική προς τον άνθρωπο αναπαράσταση |
+| `__len__(self)` | `len(obj)` | Επιστρέφει το ακέραιο μήκος |
+| `__getitem__(self, key)` | `obj[key]` | Προσπέλαση δείκτη / υποσυμβόλου |
+| `__setitem__(self, key, value)` | `obj[key] = value` | Ανάθεση σε δείκτη |
+| `__contains__(self, item)` | `item in obj` | Έλεγχος συμμετοχής |
+| `__iter__(self)` | `for x in obj`, `iter(obj)` | Επιστρέφει έναν επαναλήπτη |
+| `__next__(self)` | `next(obj)` | Παράγει το επόμενο στοιχείο |
+| `__eq__(self, other)` | `obj == other` | Σύγκριση ισότητας |
+| `__lt__(self, other)` | `obj < other` | Σύγκριση μικρότερου από |
+| `__add__(self, other)` | `obj + other` | Τελεστής πρόσθεσης |
+| `__call__(self, ...)` | `obj(...)` | Καθιστά ένα στιγμιότυπο καλέσιμο |
 
-### 2.2 `__repr__` vs. `__str__`
+### 2.2 `__repr__` έναντι `__str__`
 
-- `__repr__` should return a string that, when passed to `eval()`, ideally recreates the object. It is the developer-facing representation, used in the REPL and in `repr()`.
-- `__str__` should return a human-readable description. Used by `print()` and `str()`.
-- If only `__repr__` is defined, `str()` falls back to it.
+- Η `__repr__` πρέπει να επιστρέφει μια συμβολοσειρά η οποία, όταν περαστεί στην `eval()`, ιδανικά ανακατασκευάζει το αντικείμενο. Είναι η αναπαράσταση για τον προγραμματιστή, η οποία χρησιμοποιείται στο REPL και στην `repr()`.
+- Η `__str__` πρέπει να επιστρέφει μια περιγραφή αναγνώσιμη από τον άνθρωπο. Χρησιμοποιείται από την `print()` και τη `str()`.
+- Εάν οριστεί μόνο η `__repr__`, η `str()` καταφεύγει σε αυτήν.
 
 ```python
 class Vector:
-    """Represents a 2D mathematical vector."""
+    """Αναπαριστά ένα 2D μαθηματικό διάνυσμα."""
 
     def __init__(self, x, y):
         self.x = x
@@ -157,20 +157,20 @@ class Vector:
         return f"({self.x}, {self.y})"
 
     def __add__(self, other):
-        """Implements vector addition via the + operator."""
+        """Υλοποιεί την πρόσθεση διανυσμάτων μέσω του τελεστή +."""
         return Vector(self.x + other.x, self.y + other.y)
 
     def __len__(self):
-        """Returns the integer length for compatibility; vectors have 2 components."""
+        """Επιστρέφει το ακέραιο μήκος για συμβατότητα· τα διανύσματα έχουν 2 συνιστώσες."""
         return 2
 
 v1 = Vector(1, 2)
 v2 = Vector(3, 4)
 v3 = v1 + v2
 
-print(repr(v1))    # Developer representation.
-print(str(v1))     # Human-readable.
-print(v3)          # __str__ via print.
+print(repr(v1))    # Αναπαράσταση προγραμματιστή.
+print(str(v1))     # Αναγνώσιμη από άνθρωπο.
+print(v3)          # __str__ μέσω της print.
 print(len(v1))
 ```
 
@@ -183,13 +183,13 @@ Vector(1, 2)
 
 ---
 
-## 3. Inheritance and the Method Resolution Order (MRO)
+## 3. Κληρονομικότητα και η Σειρά Επίλυσης Μεθόδων (MRO)
 
-### 3.1 Single Inheritance
+### 3.1 Απλή Κληρονομικότητα
 
-**Inheritance** allows a class (**subclass**) to acquire the attributes and methods of another class (**superclass**), extending or overriding them as needed.
+Η **κληρονομικότητα (inheritance)** επιτρέπει σε μια κλάση (**υποκλάση**) να αποκτά τις ιδιότητες και τις μεθόδους μιας άλλης κλάσης (**υπερκλάση**), επεκτείνοντας ή αντικαθιστώντας (overriding) τις ανάλογα με τις ανάγκες.
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 class SubClass(SuperClass):
@@ -198,23 +198,23 @@ class SubClass(SuperClass):
 
 ```python
 class Animal:
-    """Base class representing a generic animal."""
+    """Βασική κλάση που αναπαριστά ένα γενικό ζώο."""
 
     def __init__(self, name):
         self.name = name
 
     def speak(self):
-        """Returns the animal's vocalization (to be overridden)."""
+        """Επιστρέφει τη φωνή του ζώου (προς αντικατάσταση)."""
         return "..."
 
 class Dog(Animal):
-    """Subclass representing a dog; overrides speak()."""
+    """Υποκλάση που αναπαριστά σκύλο· αντικαθιστά τη speak()."""
 
     def speak(self):
         return f"{self.name} says: Woof!"
 
 class Cat(Animal):
-    """Subclass representing a cat; overrides speak()."""
+    """Υποκλάση που αναπαριστά γάτα· αντικαθιστά τη speak()."""
 
     def speak(self):
         return f"{self.name} says: Meow!"
@@ -230,24 +230,24 @@ Whiskers says: Meow!
 Buddy says: Woof!
 ```
 
-### 3.2 `super()` — Delegating to the Parent
+### 3.2 `super()` — Εκχώρηση στον Γονέα
 
-`super()` returns a proxy object that delegates method calls to the parent class in the MRO. Its primary use is to call the parent's `__init__` when the subclass extends it.
+Η `super()` επιστρέφει ένα αντικείμενο πληρεξουσίου (proxy) που εκχωρεί κλήσεις μεθόδων στη γονική κλάση στο MRO. Η κύρια χρήση της είναι η κλήση της `__init__` του γονέα όταν η υποκλάση την επεκτείνει.
 
 ```python
 class Employee(Animal):
-    """Extends Animal with an employee ID."""
+    """Επεκτείνει την Animal με αναγνωριστικό υπαλλήλου."""
 
     def __init__(self, name, employee_id):
-        super().__init__(name)          # Delegates to Animal.__init__.
-        self.employee_id = employee_id  # Additional attribute specific to Employee.
+        super().__init__(name)          # Εκχωρεί στην Animal.__init__.
+        self.employee_id = employee_id  # Επιπλέον ιδιότητα ειδική για τον Employee.
 
     def speak(self):
         return f"Employee {self.employee_id} ({self.name}) says: Hello."
 
 e = Employee("Alice", "E-001")
 print(e.speak())
-print(e.name)         # Inherited from Animal.__init__ via super().
+print(e.name)         # Κληρονομημένο από την Animal.__init__ μέσω super().
 print(e.employee_id)
 ```
 
@@ -257,19 +257,19 @@ Alice
 E-001
 ```
 
-### 3.3 Multiple Inheritance and the MRO
+### 3.3 Πολλαπλή Κληρονομικότητα και το MRO
 
-Python supports **multiple inheritance**: a class may inherit from more than one parent. To resolve ambiguity in method lookup, Python uses the **C3 Linearization** algorithm to produce the **Method Resolution Order (MRO)** — a deterministic, linearized sequence of classes to search.
+Η Python υποστηρίζει **πολλαπλή κληρονομικότητα (multiple inheritance)**: μια κλάση μπορεί να κληρονομεί από περισσότερους από έναν γονείς. Για την επίλυση αμφισημιών στην αναζήτηση μεθόδων, η Python χρησιμοποιεί τον αλγόριθμο **C3 Linearization** για την παραγωγή της **Σειράς Επίλυσης Μεθόδων (Method Resolution Order - MRO)** — μια ντετερμινιστική, γραμμικοποιημένη ακολουθία κλάσεων προς αναζήτηση.
 
 ```
 class C(A, B):
     ...
 ```
 
-The MRO is computed such that:
-1. A class always precedes its parents.
-2. The order of parents in the class definition is preserved.
-3. No class appears before all classes that inherit from it.
+Το MRO υπολογίζεται έτσι ώστε:
+1. Μια κλάση να προηγείται πάντα των γονέων της.
+2. Η σειρά των γονέων στη δήλωση της κλάσης να διατηρείται.
+3. Καμία κλάση να μην εμφανίζεται πριν από όλες τις κλάσεις που κληρονομούν από αυτήν.
 
 ```python
 class X:
@@ -284,8 +284,8 @@ class Z(X, Y):
     pass
 
 z = Z()
-print(z.hello())        # Resolves to X.hello because X precedes Y in MRO.
-print(Z.__mro__)        # Displays the full MRO.
+print(z.hello())        # Επιλύεται σε X.hello επειδή η X προηγείται της Y στο MRO.
+print(Z.__mro__)        # Εμφανίζει το πλήρες MRO.
 ```
 
 ```text
@@ -293,47 +293,47 @@ X.hello
 (<class '__main__.Z'>, <class '__main__.X'>, <class '__main__.Y'>, <class 'object'>)
 ```
 
-> **[Key Insight]** All Python classes implicitly inherit from `object`, which is always the last entry in the MRO. `object` provides default implementations of `__repr__`, `__str__`, `__eq__`, and other fundamental dunder methods.
+> **[Βασική Παρατήρηση]** Όλες οι κλάσεις της Python κληρονομούν σιωπηρά από την `object`, η οποία είναι πάντα η τελευταία καταχώριση στο MRO. Η `object` παρέχει προεπιλεγμένες υλοποιήσεις των `__repr__`, `__str__`, `__eq__` και άλλων θεμελιωδών dunder μεθόδων.
 
 ---
 
-## 4. Encapsulation
+## 4. Θυλάκωση (Encapsulation)
 
-### 4.1 Access Control Conventions
+### 4.1 Συμβάσεις Ελέγχου Προσπέλασης
 
-Python does not enforce access control at the language level (there are no `private` or `protected` keywords). Instead, it uses naming conventions:
+Η Python δεν επιβάλλει έλεγχο προσπέλασης στο επίπεδο της γλώσσας (δεν υπάρχουν λέξεις-κλειδιά `private` ή `protected`). Αντίθετα, χρησιμοποιεί συμβάσεις ονοματοδοσίας:
 
-| Convention | Syntax | Meaning |
+| Σύμβαση | Σύνταξη | Σημασία |
 | :--- | :--- | :--- |
-| Public | `attr` | No restriction; freely accessible |
-| Protected | `_attr` | By convention, internal use; not enforced by the interpreter |
-| Name-mangled | `__attr` | Interpreter rewrites to `_ClassName__attr`; accidental external access is prevented |
+| Δημόσιο (Public) | `attr` | Χωρίς περιορισμό· ελεύθερα προσπελάσιμο |
+| Προστατευμένο (Protected) | `_attr` | Κατά σύμβαση, εσωτερική χρήση· δεν επιβάλλεται από τον διερμηνέα |
+| Παραμορφωμένο (Name-mangled) | `__attr` | Ο διερμηνέας ξαναγράφει το όνομα σε `_ClassName__attr` |
 
-### 4.2 Name Mangling
+### 4.2 Παραμόρφωση Ονομάτων (Name Mangling)
 
-Any identifier with two leading underscores and at most one trailing underscore inside a class body is subject to **name mangling**: the interpreter prepends `_ClassName` to the name.
+Οποιοδήποτε αναγνωριστικό με δύο αρχικές κάτω παύλες και το πολύ μία τελική κάτω παύλα εντός του σώματος μιας κλάσης υπόκειται σε **παραμόρφωση ονόματος (name mangling)**: ο διερμηνέας προτάσσει το `_ClassName` στο όνομα.
 
 ```python
 class BankAccount:
-    """Models a bank account with a private balance."""
+    """Μοντελοποιεί έναν τραπεζικό λογαριασμό με ιδιωτικό υπόλοιπο."""
 
     def __init__(self, initial_balance):
-        self.__balance = initial_balance   # Mangled to _BankAccount__balance.
+        self.__balance = initial_balance   # Παραμορφώνεται σε _BankAccount__balance.
 
     def deposit(self, amount):
-        """Adds `amount` to the balance."""
+        """Προσθέτει το `amount` στο υπόλοιπο."""
         if amount > 0:
             self.__balance += amount
 
     def get_balance(self):
-        """Returns the current balance."""
+        """Επιστρέφει το τρέχον υπόλοιπο."""
         return self.__balance
 
 account = BankAccount(1000)
 account.deposit(500)
-print(account.get_balance())       # 1500 — accessed via public method.
+print(account.get_balance())       # 1500 — προσπέλαση μέσω δημόσιας μεθόδου.
 
-# Direct access using the mangled name (possible, but strongly discouraged).
+# Άμεση προσπέλαση χρησιμοποιώντας το παραμορφωμένο όνομα (δυνατή, αλλά αποθαρρύνεται έντονα).
 print(account._BankAccount__balance)
 ```
 
@@ -342,41 +342,41 @@ print(account._BankAccount__balance)
 1500
 ```
 
-### 4.3 The `@property` Decorator
+### 4.3 Ο Διακοσμητής `@property`
 
-`@property` converts a method into a **managed attribute** (a descriptor). It exposes a clean attribute-style interface while executing arbitrary logic on access. This is the standard Python alternative to explicit getter/setter methods.
+Ο `@property` μετατρέπει μια μέθοδο σε **διαχειριζόμενη ιδιότητα (managed attribute)** (έναν descriptor). Εκθέτει μια καθαρή διασύνδεση σε στιλ ιδιότητας ενώ εκτελεί αυθαίρετη λογική κατά την προσπέλαση. Αυτή είναι η τυπική εναλλακτική της Python έναντι των ρητών μεθόδων getter/setter.
 
-**Three components:**
+**Τρία στοιχεία:**
 
-| Decorator | Role |
+| Διακοσμητής | Ρόλος |
 | :--- | :--- |
-| `@property` | Defines the getter (read access) |
-| `@<attr>.setter` | Defines the setter (write access) |
-| `@<attr>.deleter` | Defines the deleter (`del obj.attr`) |
+| `@property` | Ορίζει τον getter (προσπέλαση ανάγνωσης) |
+| `@<attr>.setter` | Ορίζει τον setter (προσπέλαση εγγραφής) |
+| `@<attr>.deleter` | Ορίζει τον deleter (`del obj.attr`) |
 
 ```python
 class Temperature:
-    """Stores temperature in Celsius; exposes a validated Celsius property."""
+    """Αποθηκεύει θερμοκρασία σε Κελσίου· εκθέτει μια επικυρωμένη ιδιότητα celsius."""
 
     def __init__(self, celsius):
-        self._celsius = None      # Private storage attribute.
-        self.celsius = celsius    # Triggers the setter for validation.
+        self._celsius = None      # Ιδιωτική ιδιότητα αποθήκευσης.
+        self.celsius = celsius    # Ενεργοποιεί τον setter για επικύρωση.
 
     @property
     def celsius(self):
-        """Returns the current temperature in Celsius."""
+        """Επιστρέφει την τρέχουσα θερμοκρασία σε Κελσίου."""
         return self._celsius
 
     @celsius.setter
     def celsius(self, value):
-        """Sets the temperature, raising ValueError for physically impossible values."""
+        """Ορίζει τη θερμοκρασία, προκαλώντας ValueError για φυσικά αδύνατες τιμές."""
         if value < -273.15:
             raise ValueError(f"Temperature {value} is below absolute zero.")
         self._celsius = value
 
     @property
     def fahrenheit(self):
-        """Computes and returns the equivalent temperature in Fahrenheit (read-only)."""
+        """Υπολογίζει και επιστρέφει την ισοδύναμη θερμοκρασία σε Φαρενάιτ (μόνο για ανάγνωση)."""
         return self._celsius * 9 / 5 + 32
 
 t = Temperature(100)
@@ -394,55 +394,55 @@ print(t.celsius)      # 37
 
 ---
 
-## 5. Static and Class Methods
+## 5. Στατικές Μέθοδοι και Μέθοδοι Κλάσης
 
-### 5.1 Instance Methods, Class Methods, and Static Methods
+### 5.1 Μέθοδοι Στιγμιοτύπου, Μέθοδοι Κλάσης και Στατικές Μέθοδοι
 
-| Decorator | First Parameter | Access to | Use Case |
+| Διακοσμητής | Πρώτη Παράμετρος | Προσπέλαση σε | Περίπτωση Χρήσης |
 | :--- | :--- | :--- | :--- |
-| None (default) | `self` (instance) | Instance attributes and class | Normal instance operations |
-| `@classmethod` | `cls` (class itself) | Class attributes only | Alternative constructors, factory methods |
-| `@staticmethod` | None | Neither instance nor class implicitly | Utility functions logically grouped with the class |
+| Κανένας (προεπιλογή) | `self` (στιγμιότυπο) | Ιδιότητες στιγμιοτύπου και κλάση | Κανονικές πράξεις στιγμιοτύπου |
+| `@classmethod` | `cls` (η ίδια η κλάση) | Ιδιότητες κλάσης μόνο | Εναλλακτικοί κατασκευαστές, μέθοδοι εργοστασίου |
+| `@staticmethod` | Καμία | Ούτε στιγμιότυπο ούτε κλάση σιωπηρά | Βοηθητικές συναρτήσεις λογικά ομαδοποιημένες με την κλάση |
 
 ```python
 class Circle:
-    """Represents a circle, with factory and utility methods."""
+    """Αναπαριστά κύκλο, με εργοστασιακές και βοηθητικές μεθόδους."""
 
-    PI = 3.141592653589793   # Class attribute.
+    PI = 3.141592653589793   # Ιδιότητα κλάσης.
 
     def __init__(self, radius):
         self.radius = radius
 
     def area(self):
-        """Computes the area of this circle instance."""
+        """Υπολογίζει το εμβαδόν αυτού του στιγμιοτύπου κύκλου."""
         return Circle.PI * self.radius ** 2
 
     @classmethod
     def from_diameter(cls, diameter):
-        """Alternative constructor; creates a Circle from a diameter value.
+        """Εναλλακτικός κατασκευαστής· δημιουργεί Circle από τιμή διαμέτρου.
 
         Args:
-            diameter (float): The diameter of the circle.
+            diameter (float): Η διάμετρος του κύκλου.
 
         Returns:
-            Circle: A new Circle instance with radius = diameter / 2.
+            Circle: Ένα νέο στιγμιότυπο Circle με ακτίνα = διάμετρος / 2.
         """
-        return cls(diameter / 2)   # cls refers to Circle (or any subclass).
+        return cls(diameter / 2)   # Το cls αναφέρεται στην Circle (ή οποιαδήποτε υποκλάση).
 
     @staticmethod
     def is_valid_radius(value):
-        """Validates that a radius value is positive.
+        """Επαληθεύει ότι μια τιμή ακτίνας είναι θετική.
 
         Args:
-            value (float): The candidate radius.
+            value (float): Η υποψήφια ακτίνα.
 
         Returns:
-            bool: True if `value` is strictly positive, False otherwise.
+            bool: True εάν το `value` είναι αυστηρά θετικό, False διαφορετικά.
         """
         return value > 0
 
 c1 = Circle(5)
-c2 = Circle.from_diameter(10)   # Creates Circle with radius 5.
+c2 = Circle.from_diameter(10)   # Δημιουργεί Circle με ακτίνα 5.
 
 print(c1.area())
 print(c2.radius)
@@ -457,38 +457,38 @@ False
 
 ---
 
-## 6. Composition and Aggregation
+## 6. Σύνθεση και Συγκέντρωση
 
-### 6.1 Composition vs. Inheritance
+### 6.1 Σύνθεση έναντι Κληρονομικότητας
 
-**Inheritance** models an **is-a** relationship: `Dog` is an `Animal`.
-**Composition** models a **has-a** relationship: `Car` has an `Engine`.
+Η **κληρονομικότητα (inheritance)** μοντελοποιεί μια σχέση τύπου **είναι-ένα (is-a)**: ο `Dog` είναι ένα `Animal`.
+Η **σύνθεση (composition)** μοντελοποιεί μια σχέση τύπου **έχει-ένα (has-a)**: το `Car` έχει μια `Engine`.
 
-Composition is often preferred over deep inheritance hierarchies because it produces more modular, testable, and maintainable code.
+Η σύνθεση προτιμάται συχνά έναντι των βαθιών ιεραρχιών κληρονομικότητας επειδή παράγει πιο αρθρωτό, δοκιμάσιμο και συντηρήσιμο κώδικα.
 
-### 6.2 Composition Example: Engine → Car
+### 6.2 Παράδειγμα Σύνθεσης: Engine → Car
 
 ```python
 class Engine:
-    """Represents a combustion engine with a defined horsepower rating."""
+    """Αναπαριστά μηχανή εσωτερικής καύσης με καθορισμένη ισχύ ίππων."""
 
     def __init__(self, horsepower):
         self.horsepower = horsepower
 
     def start(self):
-        """Simulates starting the engine."""
+        """Προσομοιώνει την εκκίνηση της μηχανής."""
         return f"Engine ({self.horsepower} hp) started."
 
 class Car:
-    """Represents a car composed of an Engine and additional attributes."""
+    """Αναπαριστά αυτοκίνητο που συντίθεται από μια Engine και επιπλέον ιδιότητες."""
 
     def __init__(self, make, model, horsepower):
         self.make = make
         self.model = model
-        self._engine = Engine(horsepower)   # The Car owns its Engine.
+        self._engine = Engine(horsepower)   # Το Car κατέχει την Engine του.
 
     def start(self):
-        """Starts the car by delegating to the internal engine."""
+        """Εκκινεί το αυτοκίνητο εκχωρώντας στην εσωτερική μηχανή."""
         return f"{self.make} {self.model}: {self._engine.start()}"
 
 car = Car("Toyota", "Supra", 340)
@@ -499,46 +499,46 @@ print(car.start())
 Toyota Supra: Engine (340 hp) started.
 ```
 
-### 6.3 Aggregation Example: Book → Library
+### 6.3 Παράδειγμα Συγκέντρωσης: Book → Library
 
-**Aggregation** is a weaker form of composition: the contained objects can exist independently of the container.
+Η **συγκέντρωση (aggregation)** είναι μια ασθενέστερη μορφή σύνθεσης: τα περιεχόμενα αντικείμενα μπορούν να υπάρχουν ανεξάρτητα από τον περιέκτη.
 
 ```python
 class Book:
-    """Represents a book with a title and price."""
+    """Αναπαριστά ένα βιβλίο με τίτλο και τιμή."""
 
     def __init__(self, title, price):
         self.title = title
         self.price = price
 
 class Library:
-    """Aggregates a collection of Book objects."""
+    """Συγκεντρώνει μια συλλογή αντικειμένων Book."""
 
     def __init__(self, name):
         self.name = name
-        self.books = []   # The Library aggregates existing Book objects.
+        self.books = []   # Η Library συγκεντρώνει υπάρχοντα αντικείμενα Book.
 
     def add_book(self, book):
-        """Adds a Book to the library's collection.
+        """Προσθέτει ένα Book στη συλλογή της βιβλιοθήκης.
 
         Args:
-            book (Book): The book to add.
+            book (Book): Το βιβλίο προς προσθήκη.
         """
         self.books.append(book)
 
     def total_value(self):
-        """Computes the total price of all books using a generator expression.
+        """Υπολογίζει τη συνολική τιμή όλων των βιβλίων χρησιμοποιώντας έκφραση γεννήτριας.
 
         Returns:
-            float: The sum of all book prices.
+            float: Το άθροισμα όλων των τιμών βιβλίων.
         """
-        return sum(book.price for book in self.books)  # Generator expression avoids intermediate list.
+        return sum(book.price for book in self.books)  # Η έκφραση γεννήτριας αποφεύγει την ενδιάμεση λίστα.
 
     def catalog(self):
-        """Returns a formatted string listing all books and their prices.
+        """Επιστρέφει μια μορφοποιημένη συμβολοσειρά που εμφανίζει όλα τα βιβλία και τις τιμές τους.
 
         Returns:
-            str: Newline-separated catalog of book entries.
+            str: Κατάλογος καταχωρίσεων βιβλίων διαχωρισμένος με νέες γραμμές.
         """
         return "\n".join(f"  {book.title}: ${book.price:.2f}" for book in self.books)
 
@@ -562,39 +562,39 @@ print(f"Total value: ${lib.total_value():.2f}")
 Total value: $132.00
 ```
 
-> **[Key Insight]** The expression `sum(book.price for book in self.books)` uses a **generator expression** (parentheses, not square brackets) rather than a list comprehension. It yields each `book.price` one at a time without constructing an intermediate list in memory — important when `self.books` may be very large. `sum()` accepts any iterable, including generators.
+> **[Βασική Παρατήρηση]** Η έκφραση `sum(book.price for book in self.books)` χρησιμοποιεί μια **έκφραση γεννήτριας (generator expression)** (παρενθέσεις, όχι αγκύλες) αντί για κατασκευή λίστας. Παράγει κάθε `book.price` ένα προς ένα χωρίς την κατασκευή ενδιάμεσης λίστας στη μνήμη — σημαντικό όταν η `self.books` είναι πολύ μεγάλη. Η `sum()` δέχεται οποιοδήποτε προσπελάσιμο αντικείμενο, συμπεριλαμβανομένων των γεννητριών.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Basic Class Construction
+### Άσκηση 1: Βασική Κατασκευή Κλάσης
 
-**Problem:** Implement a class `Rectangle` with attributes `width` and `height`, methods `area()` and `perimeter()`, and a `__repr__` method.
+**Πρόβλημα:** Υλοποιήστε μια κλάση `Rectangle` με ιδιότητες `width` και `height`, μεθόδους `area()` και `perimeter()`, και μια μέθοδο `__repr__`.
 
-**Solution:**
+**Λύση:**
 
 ```python
 class Rectangle:
-    """Represents an axis-aligned rectangle defined by width and height."""
+    """Αναπαριστά ορθογώνιο ορισμένο από πλάτος και ύψος."""
 
     def __init__(self, width, height):
         self.width = width
         self.height = height
 
     def area(self):
-        """Computes the rectangle's area.
+        """Υπολογίζει το εμβαδόν του ορθογωνίου.
 
         Returns:
-            float: Product of width and height.
+            float: Γινόμενο πλάτους και ύψους.
         """
         return self.width * self.height
 
     def perimeter(self):
-        """Computes the rectangle's perimeter.
+        """Υπολογίζει την περίμετρο του ορθογωνίου.
 
         Returns:
-            float: Twice the sum of width and height.
+            float: Το διπλάσιο του αθροίσματος πλάτους και ύψους.
         """
         return 2 * (self.width + self.height)
 
@@ -615,9 +615,9 @@ Rectangle(width=4, height=7)
 
 ---
 
-### Exercise 2: Class Attributes and Instance Shadowing
+### Άσκηση 2: Ιδιότητες Κλάσης και Επισκίαση Στιγμιοτύπου
 
-**Problem:** Predict the output of the following code.
+**Πρόβλημα:** Προβλέψτε την έξοδο του παρακάτω κώδικα.
 
 ```python
 class Config:
@@ -627,14 +627,14 @@ class Config:
 c1 = Config()
 c2 = Config()
 
-c1.debug = True    # Creates an instance attribute on c1; does NOT modify the class attribute.
+c1.debug = True    # Δημιουργεί ιδιότητα στιγμιοτύπου στο c1· ΔΕΝ τροποποιεί την ιδιότητα της κλάσης.
 
 print(Config.debug)
 print(c1.debug)
 print(c2.debug)
 ```
 
-**Solution:**
+**Λύση:**
 
 ```text
 False
@@ -642,19 +642,19 @@ True
 False
 ```
 
-`c1.debug = True` creates a new instance attribute `debug` on `c1`. The class attribute `Config.debug` remains `False`. `c2.debug` reads the class attribute (there is no instance attribute on `c2`), so it returns `False`.
+Η εντολή `c1.debug = True` δημιουργεί μια νέα ιδιότητα στιγμιοτύπου `debug` στο `c1`. Η ιδιότητα κλάσης `Config.debug` παραμένει `False`. Το `c2.debug` διαβάζει την ιδιότητα κλάσης (δεν υπάρχει ιδιότητα στιγμιοτύπου στο `c2`), οπότε επιστρέφει `False`.
 
 ---
 
-### Exercise 3: `__eq__` and `__lt__` for Custom Comparison
+### Άσκηση 3: `__eq__` και `__lt__` για Προσαρμοσμένη Σύγκριση
 
-**Problem:** Implement a class `Student` with attributes `name` and `gpa`. Implement `__eq__` (equality by `name` and `gpa`) and `__lt__` (ordering by `gpa`). Then sort a list of students.
+**Πρόβλημα:** Υλοποιήστε μια κλάση `Student` με ιδιότητες `name` και `gpa`. Υλοποιήστε τις `__eq__` (ισότητα βάσει `name` και `gpa`) και `__lt__` (διάταξη βάσει `gpa`). Στη συνέχεια ταξινομήστε μια λίστα φοιτητών.
 
-**Solution:**
+**Λύση:**
 
 ```python
 class Student:
-    """Represents a student; supports equality and ordering by GPA."""
+    """Αναπαριστά φοιτητή· υποστηρίζει ισότητα και διάταξη βάσει GPA."""
 
     def __init__(self, name, gpa):
         self.name = name
@@ -664,17 +664,17 @@ class Student:
         return f"Student({self.name!r}, gpa={self.gpa})"
 
     def __eq__(self, other):
-        """Compares students by both name and GPA."""
+        """Συγκρίνει φοιτητές βάσει ονόματος και GPA."""
         if not isinstance(other, Student):
             return NotImplemented
         return self.name == other.name and self.gpa == other.gpa
 
     def __lt__(self, other):
-        """Orders students by GPA in ascending order."""
+        """Διατάσσει φοιτητές βάσει GPA σε αύξουσα σειρά."""
         return self.gpa < other.gpa
 
 students = [Student("Alice", 3.7), Student("Bob", 3.2), Student("Carol", 3.9)]
-students.sort()   # Uses __lt__ via Timsort.
+students.sort()   # Χρησιμοποιεί την __lt__ μέσω του Timsort.
 print(students)
 ```
 
@@ -684,22 +684,22 @@ print(students)
 
 ---
 
-### Exercise 4: Inheritance and Method Override
+### Άσκηση 4: Κληρονομικότητα και Αντικατάσταση Μεθόδου
 
-**Problem:** Create a class hierarchy: `Shape` (base) → `Circle` and `Square` (subclasses). `Shape` has an abstract `area()` method. Demonstrate polymorphic dispatch.
+**Πρόβλημα:** Δημιουργήστε μια ιεραρχία κλάσεων: `Shape` (βασική) → `Circle` και `Square` (υποκλάσεις). Η `Shape` διαθέτει αφαιρετική μέθοδο `area()`. Επιδείξτε πολυμορφική κλήση.
 
-**Solution:**
+**Λύση:**
 
 ```python
 class Shape:
-    """Base class for geometric shapes; subclasses must implement area()."""
+    """Βασική κλάση για γεωμετρικά σχήματα· οι υποκλάσεις πρέπει να υλοποιήσουν την area()."""
 
     def area(self):
-        """Returns the area of the shape (override in subclasses)."""
+        """Επιστρέφει το εμβαδόν του σχήματος (αντικατάσταση στις υποκλάσεις)."""
         raise NotImplementedError(f"{type(self).__name__} must implement area()")
 
 class Circle(Shape):
-    """A circle defined by its radius."""
+    """Κύκλος ορισμένος από την ακτίνα του."""
 
     PI = 3.141592653589793
 
@@ -710,7 +710,7 @@ class Circle(Shape):
         return Circle.PI * self.radius ** 2
 
 class Square(Shape):
-    """A square defined by its side length."""
+    """Τετράγωνο ορισμένο από το μήκος της πλευράς του."""
 
     def __init__(self, side):
         self.side = side
@@ -732,9 +732,9 @@ Square: area = 49.0000
 
 ---
 
-### Exercise 5: `super()` in Multiple Inheritance
+### Άσκηση 5: `super()` σε Πολλαπλή Κληρονομικότητα
 
-**Problem:** Trace the call to `super().__init__()` through the following MRO and predict the output.
+**Πρόβλημα:** Ιχνηλατήστε την κλήση στην `super().__init__()` μέσω του παρακάτω MRO και προβλέψτε την έξοδο.
 
 ```python
 class A:
@@ -761,9 +761,9 @@ d = D()
 print(D.__mro__)
 ```
 
-**Solution:**
+**Λύση:**
 
-The MRO of `D` is `[D, B, C, A, object]`. Each `super().__init__()` call follows this linear chain:
+Το MRO της `D` είναι `[D, B, C, A, object]`. Κάθε κλήση `super().__init__()` ακολουθεί αυτή τη γραμμική αλυσίδα:
 
 ```text
 D.__init__
@@ -773,31 +773,31 @@ A.__init__
 (<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)
 ```
 
-`super()` in `B.__init__` does not call `A.__init__` directly — it calls the next class in `D`'s MRO, which is `C`. This is the cooperative multiple inheritance mechanism that prevents `A.__init__` from being called twice.
+Η `super()` στην `B.__init__` δεν καλεί την `A.__init__` άμεσα — καλεί την επόμενη κλάση στο MRO της `D`, η οποία είναι η `C`. Αυτός είναι ο μηχανισμός συνεργατικής πολλαπλής κληρονομικότητας που αποτρέπει την κλήση της `A.__init__` δύο φορές.
 
 ---
 
-### Exercise 6: `@property` with Validation
+### Άσκηση 6: `@property` με Επικύρωση
 
-**Problem:** Implement a class `PositiveCounter` whose `value` property only accepts positive integers, raising `ValueError` otherwise.
+**Πρόβλημα:** Υλοποιήστε μια κλάση `PositiveCounter` της οποίας η ιδιότητα `value` δέχεται μόνο θετικούς ακεραίους, προκαλώντας `ValueError` διαφορετικά.
 
-**Solution:**
+**Λύση:**
 
 ```python
 class PositiveCounter:
-    """A counter that enforces a strictly positive integer value."""
+    """Ένας μετρητής που επιβάλλει μια αυστηρά θετική ακέραια τιμή."""
 
     def __init__(self, initial):
-        self.value = initial   # Uses the setter for validation.
+        self.value = initial   # Χρησιμοποιεί τον setter για επικύρωση.
 
     @property
     def value(self):
-        """Returns the current counter value."""
+        """Επιστρέφει την τρέχουσα τιμή του μετρητή."""
         return self._value
 
     @value.setter
     def value(self, v):
-        """Sets the counter value, raising ValueError if v is not a positive integer."""
+        """Ορίζει την τιμή του μετρητή, προκαλώντας ValueError εάν το v δεν είναι θετικός ακέραιος."""
         if not isinstance(v, int) or v <= 0:
             raise ValueError(f"Value must be a positive integer, got {v!r}.")
         self._value = v
@@ -821,55 +821,55 @@ Value must be a positive integer, got -3.
 
 ---
 
-### Exercise 7: Composition — Stack Using a List
+### Άσκηση 7: Σύνθεση — Στοιβάδα (Stack) με Χρήση Λίστας
 
-**Problem:** Implement a `Stack` class using composition (an internal `list`) rather than inheriting from `list`. Implement `push()`, `pop()`, `peek()`, `is_empty()`, and `__len__`.
+**Πρόβλημα:** Υλοποιήστε μια κλάση `Stack` χρησιμοποιώντας σύνθεση (μια εσωτερική `list`) αντί να κληρονομείτε από τη `list`. Υλοποιήστε τις `push()`, `pop()`, `peek()`, `is_empty()` και `__len__`.
 
-**Solution:**
+**Λύση:**
 
 ```python
 class Stack:
-    """A LIFO data structure implemented via composition with a Python list."""
+    """Δομή δεδομένων LIFO υλοποιημένη μέσω σύνθεσης με μια λίστα Python."""
 
     def __init__(self):
-        self._data = []   # Internal list; not exposed directly.
+        self._data = []   # Εσωτερική λίστα· δεν εκτίθεται άμεσα.
 
     def push(self, item):
-        """Pushes an item onto the top of the stack.
+        """Ωθεί ένα στοιχείο στην κορυφή της στοιβάδας.
 
         Args:
-            item: The item to push.
+            item: Το στοιχείο προς ώθηση.
         """
         self._data.append(item)
 
     def pop(self):
-        """Removes and returns the top item.
+        """Αφαιρεί και επιστρέφει το κορυφαίο στοιχείο.
 
         Returns:
-            The top item.
+            Το κορυφαίο στοιχείο.
 
         Raises:
-            IndexError: If the stack is empty.
+            IndexError: Εάν η στοιβάδα είναι άδεια.
         """
         if self.is_empty():
             raise IndexError("pop from empty stack")
         return self._data.pop()
 
     def peek(self):
-        """Returns the top item without removing it.
+        """Επιστρέφει το κορυφαίο στοιχείο χωρίς να το αφαιρέσει.
 
         Returns:
-            The top item.
+            Το κορυφαίο στοιχείο.
 
         Raises:
-            IndexError: If the stack is empty.
+            IndexError: Εάν η στοιβάδα είναι άδεια.
         """
         if self.is_empty():
             raise IndexError("peek at empty stack")
         return self._data[-1]
 
     def is_empty(self):
-        """Returns True if the stack contains no elements."""
+        """Επιστρέφει True εάν η στοιβάδα δεν περιέχει στοιχεία."""
         return len(self._data) == 0
 
     def __len__(self):
@@ -897,11 +897,11 @@ Stack([1, 2, 3])
 
 ---
 
-### Exercise 8: Aggregation with Generator Expressions
+### Άσκηση 8: Συγκέντρωση με Εκφράσεις Γεννήτριας
 
-**Problem:** Extend the `Library` / `Book` model. Given a list of books, compute: the total value, the average price, the most expensive book, and a list of all books priced above $40.
+**Πρόβλημα:** Επεκτείνετε το μοντέλο `Library` / `Book`. Δοθείσης μιας λίστας βιβλίων, υπολογίστε: τη συνολική τιμή, τη μέση τιμή, το ακριβότερο βιβλίο και μια λίστα με όλα τα βιβλία που κοστίζουν πάνω από $40.
 
-**Solution:**
+**Λύση:**
 
 ```python
 class Book:
@@ -913,7 +913,7 @@ class Book:
 
 class Library:
     def __init__(self, books):
-        self.books = books   # Aggregates independently existing Book objects.
+        self.books = books   # Συγκεντρώνει ανεξάρτητα υπάρχοντα αντικείμενα Book.
 
     def total_value(self):
         return sum(b.price for b in self.books)
@@ -951,12 +951,12 @@ Above $40: [Book('SICP', $55.00), Book('CLRS', $75.00), Book('Fluent Python', $4
 
 ---
 
-## Exam Tip: MRO, `super()`, and Name Mangling
+## Συμβουλή Εξετάσεων: MRO, `super()` και Παραμόρφωση Ονομάτων
 
-**MRO exam pattern:** Given a class hierarchy with multiple inheritance, to determine method resolution order, apply the C3 linearization rule: start from the most derived class, and always prefer the leftmost parent. `ClassName.__mro__` displays the full sequence.
+**Μοτίβο εξετάσεων MRO:** Δοθείσης μιας ιεραρχίας κλάσεων με πολλαπλή κληρονομικότητα, για τον προσδιορισμό της σειράς επίλυσης μεθόδων, εφαρμόστε τον κανόνα C3 linearization: ξεκινήστε από την πλέον παραγόμενη κλάση, και προτιμάτε πάντα τον αριστερότερο γονέα. Η ιδιότητα `ClassName.__mro__` εμφανίζει την πλήρη ακολουθία.
 
-**`super()` in single inheritance:** `super().__init__(args)` must be called explicitly in the subclass `__init__` if the parent `__init__` sets attributes that the subclass depends on. Forgetting this call is the most common inheritance bug.
+**`super()` σε απλή κληρονομικότητα:** Η `super().__init__(args)` πρέπει να καλείται ρητά στην `__init__` της υποκλάσης εάν η `__init__` του γονέα ορίζει ιδιότητες από τις οποίες εξαρτάται η υποκλάση. Η παράλειψη αυτής της κλήσης αποτελεί το συχνότερο σφάλμα κληρονομικότητας.
 
-**Name mangling disambiguation:** `__attr` (two leading underscores, at most one trailing) is mangled. `__attr__` (two leading and two trailing underscores — dunder) is **not** mangled; it is a magic method slot. The difference is the trailing underscores.
+**Διακριτότητα παραμόρφωσης ονομάτων:** Το `__attr` (δύο αρχικές κάτω παύλες, το πολύ μία τελική) υφίσταται παραμόρφωση. Το `__attr__` (δύο αρχικές και δύο τελικές κάτω παύλες — dunder) **δεν** παραμορφώνεται· είναι θέση μαγικής μεθόδου. Η διαφορά έγκειται στις τελικές κάτω παύλες.
 
-**`@property` vs. direct attribute:** Defining `@property` does not prevent direct access to the underlying storage attribute (e.g., `self._celsius`). The convention of a single leading underscore signals that direct access is discouraged, but the interpreter does not enforce it.
+**`@property` έναντι άμεσης ιδιότητας:** Ο ορισμός της `@property` δεν εμποδίζει την άμεση προσπέλαση στην υποκείμενη ιδιότητα αποθήκευσης (π.χ. `self._celsius`). Η σύμβαση μιας μεμονωμένης αρχικής κάτω παύλας σηματοδοτεί ότι η άμεση προσπέλαση αποθαρρύνεται, αλλά ο διερμηνέας δεν την επιβάλλει.

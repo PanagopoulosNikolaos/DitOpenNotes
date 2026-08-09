@@ -1,21 +1,21 @@
-# C++ — Standard Template Library (STL)
+# C++ — Πρότυπη Βιβλιοθήκη Προτύπων (STL)
 
-*Prerequisite: cpp_1_basics_and_hardware.md — Pass-by-reference and `const` correctness.*
-*Prerequisite: cpp_3_oop_resource_management.md — RAII, iterators as abstraction over pointers.*
+*Προαπαιτούμενο: cpp_1_basics_and_hardware.md — Μεταβίβαση κατά αναφορά και ορθότητα `const`.*
+*Προαπαιτούμενο: cpp_3_oop_resource_management.md — RAII, επαναλήπτες ως αφαιρετικότητα πάνω από δείκτες.*
 
-The C++ Standard Template Library provides generic containers, iterators, and algorithms that compose into efficient, type-safe data-processing pipelines. This file covers `std::vector` as a dynamic array, the iterator abstraction (`begin()`/`end()`), `std::unordered_map` as a hash table with $O(1)$ average-case operations, the `<algorithm>` header (`count`, `count_if`, lambdas), and the sort, transform, and search primitives.
+Η Πρότυπη Βιβλιοθήκη Προτύπων (Standard Template Library - STL) της C++ παρέχει γενικευμένους περιέκτες (containers), επαναλήπτες (iterators) και αλγορίθμους που συντίθενται σε αποδοτικές, ασφαλείς ως προς τους τύπους διοχετεύσεις επεξεργασίας δεδομένων. Αυτό το αρχείο καλύπτει τον `std::vector` ως δυναμικό πίνακα, την αφαιρετικότητα των επαναληπτών (`begin()`/`end()`), τον `std::unordered_map` ως πίνακα κατακερματισμού (hash table) με μέση χρονική επιπλοκή $O(1)$, την επικεφαλίδα `<algorithm>` (`count`, `count_if`, εκφράσεις lambda), καθώς και τις πρωτογενείς εντολές ταξινόμησης, μετασχηματισμού και αναζήτησης.
 
 ---
 
-## 1. `std::vector` — Dynamic Array
+## 1. `std::vector` — Δυναμικός Πίνακας
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-`std::vector<T>` is a sequence container that stores elements in a contiguous heap-allocated buffer. It provides amortized $O(1)$ append via `push_back()`, $O(1)$ random access via `operator[]`, and automatic resizing when capacity is exceeded.
+Ο `std::vector<T>` είναι ένας περιέκτης ακολουθίας που αποθηκεύει στοιχεία σε έναν συνεχόμενο ενταμιευτή δεσμευμένο στο heap. Παρέχει αποσβεσμένο (amortized) χρόνο $O(1)$ για προσάρτηση στο τέλος μέσω της `push_back()`, τυχαία προσπέλαση $O(1)$ μέσω του `operator[]` και αυτόματη αλλαγή μεγέθους όταν εξαντλείται η χωρητικότητα.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
-**Declaration:**
+**Δήλωση:**
 
 ```
 std::vector<<type>> <name>;
@@ -23,7 +23,7 @@ std::vector<<type>> <name>(<count>, <value>);
 std::vector<<type>> <name>{<elem1>, <elem2>, ...};
 ```
 
-**Core operations:**
+**Βασικές πράξεις:**
 
 ```
 <name>.push_back(<value>)
@@ -31,20 +31,20 @@ std::vector<<type>> <name>{<elem1>, <elem2>, ...};
 <name>.size()
 <name>.capacity()
 <name>[<index>]
-<name>.at(<index>)    // bounds-checked
+<name>.at(<index>)    // με έλεγχο ορίων
 ```
 
-### 1.3 Core Operations Reference Table
+### 1.3 Πίνακας Αναφοράς Βασικών Πράξεων
 
-| Operation | Syntax | Time Complexity | Notes |
+| Πράξη | Σύνταξη | Χρονική Επιπλοκή | Σημειώσεις |
 | :--- | :--- | :--- | :--- |
-| Append | `v.push_back(x)` | $O(1)$ amortized | Reallocates occasionally |
-| Remove last | `v.pop_back()` | $O(1)$ | Does not reduce capacity |
-| Random access | `v[i]`, `v.at(i)` | $O(1)$ | `at` throws on out-of-range |
-| Size | `v.size()` | $O(1)$ | Number of elements |
-| Capacity | `v.capacity()` | $O(1)$ | Allocated slots |
-| Insert at position | `v.insert(it, x)` | $O(n)$ | Shifts elements |
-| Erase | `v.erase(it)` | $O(n)$ | Shifts elements |
+| Προσάρτηση | `v.push_back(x)` | $O(1)$ αποσβεσμένο | Εκτελεί ανακατανομή περιστασιακά |
+| Αφαίρεση τελευταίου | `v.pop_back()` | $O(1)$ | Δεν μειώνει τη χωρητικότητα |
+| Τυχαία προσπέλαση | `v[i]`, `v.at(i)` | $O(1)$ | Η `at` προκαλεί εξαίρεση σε εκτός ορίων |
+| Μέγεθος | `v.size()` | $O(1)$ | Αριθμός στοιχείων |
+| Χωρητικότητα | `v.capacity()` | $O(1)$ | Δεσμευμένες θέσεις |
+| Εισαγωγή σε θέση | `v.insert(it, x)` | $O(n)$ | Μετατοπίζει στοιχεία |
+| Διαγραφή | `v.erase(it)` | $O(n)$ | Μετατοπίζει στοιχεία |
 
 ```cpp
 #include <iostream>
@@ -71,40 +71,40 @@ size=3 capacity=3
 after pop_back: size=2
 ```
 
-### 1.4 Internal Growth Strategy
+### 1.4 Εσωτερική Στρατηγική Αύξησης
 
-When `size() == capacity()` and `push_back` is called, the vector allocates a larger buffer (typically growth factor $\approx 2$), moves/copies all elements, and frees the old buffer. Amortized analysis yields $O(1)$ per `push_back` over a sequence of appends.
+Όταν `size() == capacity()` και καλείται η `push_back`, ο vector δεσμεύει έναν μεγαλύτερο ενταμιευτή (τυπικά με παράγοντα αύξησης $\approx 2$), μετακινεί/αντιγράφει όλα τα στοιχεία και αποδεσμεύει τον παλαιό ενταμιευτή. Η αποσβεσμένη ανάλυση δίνει $O(1)$ ανά `push_back` σε μια ακολουθία προσαρτήσεων.
 
 ---
 
-## 2. Iterators — `begin()` and `end()`
+## 2. Επαναλήπτες (Iterators) — `begin()` και `end()`
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-An **iterator** is a generalized pointer abstraction that traverses container elements. `begin()` returns an iterator to the first element; `end()` returns a **past-the-end** sentinel (not dereferenceable). The half-open range $[\texttt{begin()}, \texttt{end()})$ contains all elements.
+Ένας **επαναλήπτης (iterator)** είναι μια γενικευμένη αφαιρετικότητα δείκτη που διασχίζει τα στοιχεία ενός περιέκτη. Η `begin()` επιστρέφει έναν επαναλήπτη στο πρώτο στοιχείο· η `end()` επιστρέφει έναν σκοπό **πέραν του τέλους (past-the-end)** (μη αποσυμβολίσιμο). Το ημι-ανοικτό διάστημα $[\texttt{begin()}, \texttt{end()})$ περιέχει όλα τα στοιχεία.
 
-### 2.2 Syntax Reference
+### 2.2 Αναφορά Σύνταξης
 
 ```
 auto <it> = <container>.begin();
 auto <it> = <container>.end();
-auto <it> = <container>.cbegin();   // const iterator
-*<it>                                  // dereference
-++<it>                                 // advance
-<it1> != <it2>                         // inequality (end sentinel)
+auto <it> = <container>.cbegin();   // επαναλήπτης const
+*<it>                                  // αποσυμβολισμός
+++<it>                                 // προώθηση
+<it1> != <it2>                         // ανισότητα (σκοπός τέλους)
 ```
 
-### 2.3 Iterator Category for `vector`
+### 2.3 Κατηγορίες Επαναληπτών για το `vector`
 
-| Iterator Type | Declaration | Can Write? |
+| Τύπος Επαναλήπτη | Δήλωση | Δυνατότητα Εγγραφής; |
 | :--- | :--- | :--- |
-| `iterator` | `vector<T>::iterator` | Yes |
-| `const_iterator` | `vector<T>::const_iterator` | No |
-| Reverse | `vector<T>::reverse_iterator` | Yes (via `rbegin`) |
+| `iterator` | `vector<T>::iterator` | Ναι |
+| `const_iterator` | `vector<T>::const_iterator` | Όχι |
+| Αντίστροφος (Reverse) | `vector<T>::reverse_iterator` | Ναι (μέσω `rbegin`) |
 
-### 2.4 Pointer Arithmetic Abstraction
+### 2.4 Αφαιρετικότητα Αριθμητικής Δεικτών
 
-For `std::vector`, iterators behave like pointers: incrementing an iterator moves to the next contiguous element.
+Για τον `std::vector`, οι επαναλήπτες συμπεριφέρονται όπως οι δείκτες: η αύξηση ενός επαναλήπτη μετακινεί στο επόμενο διαδοχικό στοιχείο.
 
 ```cpp
 #include <iostream>
@@ -113,13 +113,13 @@ For `std::vector`, iterators behave like pointers: incrementing an iterator move
 int main() {
     std::vector<int> v = {10, 20, 30, 40, 50};
 
-    // Iterator traversal.
+    // Διάσχιση με επαναλήπτη.
     for (auto it = v.begin(); it != v.end(); ++it) {
         std::cout << *it << " ";
     }
     std::cout << "\n";
 
-    // Range-based for (desugars to begin/end).
+    // Βρόχος for βασισμένος σε εύρος (αποσυντίθεται σε begin/end).
     for (int x : v) {
         std::cout << x << " ";
     }
@@ -133,44 +133,44 @@ int main() {
 10 20 30 40 50
 ```
 
-### 2.5 Half-Open Range Convention
+### 2.5 Σύμβαση Ημι-Ανοικτού Διαστήματος
 
 ```
-Elements:  [ v[0], v[1], v[2], ..., v[n-1] ]
-Iterators:   ^                        ^   ^
-           begin()                  end()-1  end() (sentinel)
+Στοιχεία:    [ v[0], v[1], v[2], ..., v[n-1] ]
+Επαναλήπτες:   ^                        ^   ^
+             begin()                  end()-1  end() (σκοπός)
 ```
 
-> **[Key Insight]** Algorithms in `<algorithm>` operate on half-open ranges `[first, last)`. The iterator `last` is never dereferenced. This convention unifies insertion, erasure, and search across all STL containers.
+> **[Βασική Παρατήρηση]** Οι αλγόριθμοι στην επικεφαλίδα `<algorithm>` λειτουργούν σε ημι-ανοικτά διαστήματα `[first, last)`. Ο επαναλήπτης `last` δεν αποσυμβολίζεται ποτέ. Αυτή η σύμβαση ενοποιεί την εισαγωγή, τη διαγραφή και την αναζήτηση σε όλους τους περιέκτες της STL.
 
 ---
 
-## 3. `std::unordered_map` — Hash Table
+## 3. `std::unordered_map` — Πίνακας Κατακερματισμού
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-`std::unordered_map<Key, Value>` implements an associative container as a **hash table** with average-case $O(1)$ insert, lookup, and delete. Keys must be hashable (have `std::hash` specialization and `operator==`). Iteration order is undefined.
+Ο `std::unordered_map<Key, Value>` υλοποιεί έναν συσχετιστικό περιέκτη ως **πίνακα κατακερματισμού (hash table)** με μέση χρονική επιπλοκή $O(1)$ για εισαγωγή, αναζήτηση και διαγραφή. Τα κλειδιά πρέπει να είναι κατακερματίσιμα (να διαθέτουν εξειδίκευση `std::hash` και `operator==`). Η σειρά επανάληψης είναι ακαθόριστη.
 
-### 3.2 Syntax Reference
+### 3.2 Αναφορά Σύνταξης
 
 ```
 std::unordered_map<<Key>, <Value>> <name>;
-<name>[<key>]              // insert or update
-<name>.at(<key>)           // access with exception on missing key
-<name>.find(<key>)         // returns iterator
-<name>.count(<key>)        // 0 or 1
+<name>[<key>]              // εισαγωγή ή ενημέρωση
+<name>.at(<key>)           // προσπέλαση με εξαίρεση σε μη υπάρχον κλειδί
+<name>.find(<key>)         // επιστρέφει επαναλήπτη
+<name>.count(<key>)        // 0 ή 1
 <name>.erase(<key>)
 ```
 
-### 3.3 Operations Reference Table
+### 3.3 Πίνακας Αναφοράς Πράξεων
 
-| Operation | Syntax | Average Time | Worst Case |
+| Πράξη | Σύνταξη | Μέσος Χρόνος | Χειρότερη Περίπτωση |
 | :--- | :--- | :--- | :--- |
-| Insert / update | `m[k] = v` | $O(1)$ | $O(n)$ |
-| Lookup | `m.at(k)`, `m.find(k)` | $O(1)$ | $O(n)$ |
-| Delete | `m.erase(k)` | $O(1)$ | $O(n)$ |
-| Membership | `m.count(k)` | $O(1)$ | $O(n)$ |
-| Iterate | `for (auto &p : m)` | $O(n)$ | $O(n)$ |
+| Εισαγωγή / ενημέρωση | `m[k] = v` | $O(1)$ | $O(n)$ |
+| Αναζήτηση | `m.at(k)`, `m.find(k)` | $O(1)$ | $O(n)$ |
+| Διαγραφή | `m.erase(k)` | $O(1)$ | $O(n)$ |
+| Συμμετοχή | `m.count(k)` | $O(1)$ | $O(n)$ |
+| Διάσχιση | `for (auto &p : m)` | $O(n)$ | $O(n)$ |
 
 ```cpp
 #include <iostream>
@@ -184,7 +184,7 @@ int main() {
     grades["Carol"] = 92;
 
     std::cout << grades["Alice"] << "\n";
-    std::cout << grades.count("Dave") << "\n";   // 0 — not found.
+    std::cout << grades.count("Dave") << "\n";   // 0 — δεν βρέθηκε.
 
     for (const auto &pair : grades) {
         std::cout << pair.first << ": " << pair.second << "\n";
@@ -201,36 +201,36 @@ Bob: 87
 Alice: 95
 ```
 
-### 3.4 Comparison: `unordered_map` vs. `map`
+### 3.4 Σύγκριση: `unordered_map` έναντι `map`
 
-| Property | `unordered_map` | `map` |
+| Ιδιότητα | `unordered_map` | `map` |
 | :--- | :--- | :--- |
-| Underlying structure | Hash table | Red-black tree |
-| Average insert/lookup | $O(1)$ | $O(\log n)$ |
-| Key ordering | None | Sorted by key |
-| Iterator stability | Rehash may invalidate | Stable except erased |
+| Υποκείμενη δομή | Πίνακας κατακερματισμού | Κοκκινόμαυρο δέντρο (Red-black tree) |
+| Μέση εισαγωγή/αναζήτηση | $O(1)$ | $O(\log n)$ |
+| Διάταξη κλειδιών | Καμία | Ταξινομημένα κατά κλειδί |
+| Σταθερότητα επαναληπτών | Η ανακατανομή μπορεί να ακυρώσει | Σταθεροί εκτός αν διαγραφούν |
 
 ---
 
-## 4. The `<algorithm>` Header
+## 4. Η Επικεφαλίδα `<algorithm>`
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-`<algorithm>` provides function templates that operate on iterator ranges. They are generic: the same `std::sort` works on `vector`, raw arrays (via pointers), and other random-access containers.
+Η επικεφαλίδα `<algorithm>` παρέχει πρότυπα συναρτήσεων που λειτουργούν σε διαστήματα επαναληπτών. Είναι γενικευμένα: η ίδια `std::sort` λειτουργεί σε `vector`, ακατέργαστους πίνακες (μέσω δεικτών) και άλλους περιέκτες τυχαίας προσπέλασης.
 
-### 4.2 `count` and `count_if`
+### 4.2 `count` και `count_if`
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 std::count(<first>, <last>, <value>)
 std::count_if(<first>, <last>, <predicate>)
 ```
 
-| Function | Returns | Predicate |
+| Συνάρτηση | Επιστρέφει | Κατηγόρημα (Predicate) |
 | :--- | :--- | :--- |
-| `count` | Number of elements equal to `value` | None (equality) |
-| `count_if` | Number of elements satisfying predicate | Unary function / lambda returning `bool` |
+| `count` | Αριθμό στοιχείων ίσων με το `value` | Κανένα (ισότητα) |
+| `count_if` | Αριθμό στοιχείων που ικανοποιούν το κατηγόρημα | Μοναδιαία συνάρτηση / lambda που επιστρέφει `bool` |
 
 ```cpp
 #include <algorithm>
@@ -254,40 +254,40 @@ int main() {
 evens: 4, fours: 2
 ```
 
-### 4.3 Lambda Expressions
+### 4.3 Εκφράσεις Lambda
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 [<capture>](<params>) -> <return_type> { <body> }
 ```
 
-| Capture | Meaning |
+| Capture | Σημασία |
 | :--- | :--- |
-| `[]` | No capture |
-| `[=]` | Capture all by value |
-| `[&]` | Capture all by reference |
-| `[x]` | Capture `x` by value |
-| `[&x]` | Capture `x` by reference |
+| `[]` | Καμία σύλληψη (no capture) |
+| `[=]` | Σύλληψη όλων κατ' τιμήν |
+| `[&]` | Σύλληψη όλων κατά αναφορά |
+| `[x]` | Σύλληψη του `x` κατ' τιμήν |
+| `[&x]` | Σύλληψη του `x` κατά αναφορά |
 
-Lambdas are the standard way to pass inline predicates to `count_if`, `sort` comparators, and `transform` functions.
+Οι εκφράσεις lambda είναι ο τυπικός τρόπος μεταβίβασης ενσωματωμένων κατηγορημάτων σε συγκριτές της `count_if`, της `sort` και της `transform`.
 
 ---
 
-## 5. Sort, Transform, and Search Primitives
+## 5. Πρωτογενείς Εντολές Ταξινόμησης, Μετασχηματισμού και Αναζήτησης
 
 ### 5.1 `std::sort`
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 std::sort(<first>, <last>)
 std::sort(<first>, <last>, <comparator>)
 ```
 
-- Requires random-access iterators.
-- Average complexity: $O(n \log n)$ (introsort).
-- Not stable — equal elements may be reordered. Use `std::stable_sort` for stability.
+- Απαιτεί επαναλήπτες τυχαίας προσπέλασης (random-access iterators).
+- Μέση επιπλοκή: $O(n \log n)$ (introsort).
+- Μη σταθερή — ίσα στοιχεία μπορεί να αναδιαταχθούν. Χρησιμοποιήστε την `std::stable_sort` για σταθερότητα.
 
 ```cpp
 #include <algorithm>
@@ -300,7 +300,7 @@ int main() {
     for (int x : v) std::cout << x << " ";
     std::cout << "\n";
 
-    // Descending with lambda comparator.
+    // Φθίνουσα ταξινόμηση με συγκριτή lambda.
     std::sort(v.begin(), v.end(), [](int a, int b) { return a > b; });
     for (int x : v) std::cout << x << " ";
     std::cout << "\n";
@@ -315,14 +315,14 @@ int main() {
 
 ### 5.2 `std::transform`
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 std::transform(<first1>, <last1>, <result>, <unary_op>)
 std::transform(<first1>, <last1>, <first2>, <result>, <binary_op>)
 ```
 
-Applies a function to each element and writes the result to the output range starting at `result`. The output container must be large enough.
+Εφαρμόζει μια συνάρτηση σε κάθε στοιχείο και γράφει το αποτέλεσμα στο εύρος εξόδου που ξεκινά από το `result`. Ο περιέκτης εξόδου πρέπει να έχει αρκούντως μεγάλο μέγεθος.
 
 ```cpp
 #include <algorithm>
@@ -346,14 +346,14 @@ int main() {
 1 4 9 16 25
 ```
 
-### 5.3 Search Primitives
+### 5.3 Πρωτογενείς Εντολές Αναζήτησης
 
-| Function | Syntax | Returns |
+| Συνάρτηση | Σύνταξη | Επιστρέφει |
 | :--- | :--- | :--- |
-| `find` | `find(first, last, value)` | Iterator to first match, or `last` |
-| `find_if` | `find_if(first, last, pred)` | Iterator to first satisfying predicate |
-| `binary_search` | `binary_search(first, last, value)` | `bool` — requires sorted range |
-| `lower_bound` | `lower_bound(first, last, value)` | Iterator to first element $\geq$ value |
+| `find` | `find(first, last, value)` | Επαναλήπτη στο πρώτο ταίριασμα, ή `last` |
+| `find_if` | `find_if(first, last, pred)` | Επαναλήπτη στο πρώτο στοιχείο που ικανοποιεί το κατηγόρημα |
+| `binary_search` | `binary_search(first, last, value)` | `bool` — απαιτεί ταξινομημένο εύρος |
+| `lower_bound` | `lower_bound(first, last, value)` | Επαναλήπτη στο πρώτο στοιχείο $\geq$ value |
 
 ```cpp
 #include <algorithm>
@@ -381,12 +381,12 @@ found at index 2
 first > 35: 40
 ```
 
-### 5.4 Algorithm Composition Pipeline
+### 5.4 Διοχέτευση Σύνθεσης Αλγορίθμων
 
-A typical STL pipeline chains containers, iterators, and algorithms:
+Μια τυπική διοχέτευση (pipeline) της STL συνδέει περιέκτες, επαναλήπτες και αλγορίθμους:
 
 ```
-vector (data) → sort (mutate) → count_if (query) → transform (map) → output
+vector (δεδομένα) → sort (τροποποίηση) → count_if (ερώτημα) → transform (απεικόνιση) → έξοδος
 ```
 
 ```cpp
@@ -398,8 +398,7 @@ int main() {
     std::vector<int> data = {3, 1, 4, 1, 5, 9, 2, 6};
     std::sort(data.begin(), data.end());
 
-    int duplicates = data.size() - std::unique(data.begin(), data.end()) + data.begin() - data.begin();
-    // After sort, count elements > 4:
+    // Μετά την ταξινόμηση, καταμέτρηση στοιχείων > 4:
     int gt4 = std::count_if(data.begin(), data.end(),
         [](int x) { return x > 4; });
 
@@ -417,37 +416,37 @@ sorted, count > 4: 3
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Dereferencing `end()`
+### Σφάλμα 1: Αποσυμβολισμός του `end()`
 
-**Cause:** `*v.end()` is undefined behavior; `end()` is a past-the-end sentinel.
+**Αιτία:** Η έκφραση `*v.end()` αποτελεί μη ορισμένη συμπεριφορά· η `end()` επιστρέφει σκοπό πέραν του τέλους.
 
-**Resolution:** Dereference only iterators known to be within `[begin(), end())`.
+**Επίλυση:** Αποσυμβολίζετε μόνο επαναλήπτες που είναι γνωστό ότι βρίσκονται εντός του `[begin(), end())`.
 
-### Error 2: Iterator Invalidation on `vector` Reallocation
+### Σφάλμα 2: Ακύρωση Επαναληπτών κατά την Ανακατανομή του `vector`
 
-**Cause:** After `push_back` causes reallocation, all iterators, pointers, and references to elements are invalidated.
+**Αιτία:** Αφού η `push_back` προκαλέσει ανακατανομή (reallocation), όλοι οι επαναλήπτες, οι δείκτες και οι αναφορές στα στοιχεία ακυρώνονται.
 
-**Resolution:** Re-acquire `begin()` after modifications, or `reserve()` upfront to prevent reallocation.
+**Επίλυση:** Λαμβάνετε εκ νέου τη `begin()` μετά από τροποποιήσεις, ή καλείτε την `reserve()` εκ των προτέρων για την αποτροπή ανακατανομής.
 
-### Error 3: `operator[]` Inserts into `unordered_map`
+### Σφάλμα 3: Ο `operator[]` Εισάγει Στοιχεία στον `unordered_map`
 
-**Cause:** `m["missing_key"]` default-constructs and inserts the key if absent — unintended mutation.
+**Αιτία:** Η έκφραση `m["missing_key"]` κατασκευάζει προεπιλεγμένα και εισάγει το κλειδί αν απουσιάζει — ανεπιθύμητη τροποποίηση.
 
-**Resolution:** Use `m.find(k) != m.end()` or `m.at(k)` (throws `std::out_of_range`) for read-only lookup.
+**Επίλυση:** Χρησιμοποιείτε τη συνθήκη `m.find(k) != m.end()` ή την `m.at(k)` (προκαλεί εξαίρεση `std::out_of_range`) για αναζήτηση μόνο για ανάγνωση.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Vector Growth
+### Άσκηση 1: Αύξηση Χωρητικότητας Vector
 
-**Problem:** Start with an empty `vector<int>`. After pushing 5 elements, if capacity starts at 0 and doubles on each reallocation, what is the capacity after the 5th `push_back`?
+**Πρόβλημα:** Ξεκινώντας με έναν άδειο `vector<int>`. Μετά την προσάρτηση 5 στοιχείων, εάν η χωρητικότητα ξεκινά από το 0 και διπλασιάζεται σε κάθε ανακατανομή, ποια είναι η χωρητικότητα μετά την 5η κλήση της `push_back`;
 
-**Solution:**
+**Λύση:**
 
-| Push # | Size | Capacity (doubling) |
+| Προσάρτηση # | Μέγεθος (Size) | Χωρητικότητα (Capacity - Διπλασιασμός) |
 | :--- | :--- | :--- |
 | 1 | 1 | 1 |
 | 2 | 2 | 2 |
@@ -455,52 +454,52 @@ sorted, count > 4: 3
 | 4 | 4 | 4 |
 | 5 | 5 | 8 |
 
-Capacity after 5th push: **8**.
+Χωρητικότητα μετά την 5η προσάρτηση: **8**.
 
 ---
 
-### Exercise 2: Iterator Distance
+### Άσκηση 2: Απόσταση Επαναληπτών
 
-**Problem:** For `vector<int> v = {10, 20, 30}`, what is `v.end() - v.begin()`?
+**Πρόβλημα:** Για τον `vector<int> v = {10, 20, 30}`, ποιο είναι το αποτέλεσμα της έκφρασης `v.end() - v.begin()`;
 
-**Solution:**
+**Λύση:**
 
-1. The half-open range contains 3 elements.
-2. Iterator difference (random-access): `end() - begin() = 3`.
+1. Το ημι-ανοικτό διάστημα περιέχει 3 στοιχεία.
+2. Διαφορά επαναληπτών (τυχαίας προσπέλασης): `end() - begin() = 3`.
 
 ---
 
-### Exercise 3: `count_if` Predicate
+### Άσκηση 3: Κατηγόρημα `count_if`
 
-**Problem:** Count elements divisible by 3 in `{9, 4, 6, 2, 3, 11}`.
+**Πρόβλημα:** Καταμετρήστε τα στοιχεία που διαιρούνται με το 3 στο σύνολο `{9, 4, 6, 2, 3, 11}`.
 
-**Solution:**
+**Λύση:**
 
 ```cpp
 std::count_if(v.begin(), v.end(), [](int x) { return x % 3 == 0; })
 ```
 
-Elements divisible by 3: 9, 6, 3 → count = **3**.
+Στοιχεία διαιρετά με το 3: 9, 6, 3 → πλήθος = **3**.
 
 ---
 
-### Exercise 4: `unordered_map` Lookup Safety
+### Άσκηση 4: Ασφάλεια Αναζήτησης στον `unordered_map`
 
-**Problem:** Distinguish the behavior of `grades["Dave"]` vs. `grades.at("Dave")` when Dave is absent.
+**Πρόβλημα:** Διακρίνετε τη συμπεριφορά των `grades["Dave"]` και `grades.at("Dave")` όταν το κλειδί Dave απουσιάζει.
 
-**Solution:**
+**Λύση:**
 
-1. `grades["Dave"]` — inserts `{"Dave", 0}` (value-initialized `int`) and returns 0.
-2. `grades.at("Dave")` — throws `std::out_of_range`.
-3. For read-only test: use `grades.count("Dave")` (returns 0) or `find`.
+1. `grades["Dave"]` — εισάγει το `{"Dave", 0}` (αρχικοποιημένο `int`) και επιστρέφει 0.
+2. `grades.at("Dave")` — προκαλεί εξαίρεση `std::out_of_range`.
+3. Για έλεγχο μόνο για ανάγνωση: χρησιμοποιήστε τη `grades.count("Dave")` (επιστρέφει 0) ή τη `find`.
 
 ---
 
-### Exercise 5: Custom Sort Comparator
+### Άσκηση 5: Προσαρμοσμένος Συγκριτής Ταξινόμησης
 
-**Problem:** Sort strings `{"pear", "apple", "fig"}` by length ascending using `std::sort`.
+**Πρόβλημα:** Ταξινομήστε τις συμβολοσειρές `{"pear", "apple", "fig"}` κατά αύξον μήκος χρησιμοποιώντας την `std::sort`.
 
-**Solution:**
+**Λύση:**
 
 ```cpp
 std::sort(words.begin(), words.end(),
@@ -509,63 +508,63 @@ std::sort(words.begin(), words.end(),
     });
 ```
 
-Result: `{"fig", "pear", "apple"}` (lengths 3, 4, 5).
+Αποτέλεσμα: `{"fig", "pear", "apple"}` (μήκη 3, 4, 5).
 
 ---
 
-### Exercise 6: `transform` Output Sizing
+### Άσκηση 6: Καθορισμός Μεγέθους Εξόδου της `transform`
 
-**Problem:** `src` has 4 elements. `dst` is default-constructed (size 0). What happens?
+**Πρόβλημα:** Το `src` έχει 4 στοιχεία. Το `dst` είναι προεπιλεγμένα κατασκευασμένο (μέγεθος 0). Τι συμβαίνει;
 
 ```cpp
 std::vector<int> dst;
 std::transform(src.begin(), src.end(), dst.begin(), [](int x){ return x * 2; });
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `dst.begin()` on an empty vector is not a valid output range.
-2. **Undefined behavior** — writes past the end of zero capacity.
-3. **Fix:** `dst.resize(src.size());` or construct `dst` with sufficient size before `transform`.
-
----
-
-### Exercise 7: `find` Return Value
-
-**Problem:** `find` does not locate the value in `{1, 3, 5, 7}`. What does it return?
-
-**Solution:**
-
-1. `find` returns the `last` argument (i.e., `v.end()`) when no match is found.
-2. Check: `if (it != v.end())` before dereferencing.
+1. Το `dst.begin()` σε έναν άδειο vector δεν αποτελεί έγκυρο εύρος εξόδου.
+2. **Μη ορισμένη συμπεριφορά** — εγγραφή πέραν του τέλους μηδενικής χωρητικότητας.
+3. **Διόρθωση:** `dst.resize(src.size());` ή κατασκευή του `dst` με επαρκές μέγεθος πριν από την `transform`.
 
 ---
 
-### Exercise 8: Algorithm Complexity Pipeline
+### Άσκηση 7: Τιμή Επιστροφής της `find`
 
-**Problem:** A `vector` of $n$ elements is sorted, then `count_if` scans the result. State the total time complexity.
+**Πρόβλημα:** Η `find` δεν εντοπίζει την τιμή στο `{1, 3, 5, 7}`. Τι επιστρέφει;
 
-**Solution:**
+**Λύση:**
+
+1. Η `find` επιστρέφει το όρισμα `last` (δηλαδή το `v.end()`) όταν δεν βρεθεί ταίριασμα.
+2. Έλεγχος: `if (it != v.end())` πριν από τον αποσυμβολισμό.
+
+---
+
+### Άσκηση 8: Επιπλοκή Διοχέτευσης Αλγορίθμων
+
+**Πρόβλημα:** Ένας `vector` $n$ στοιχείων ταξινομείται, και στη συνέχεια η `count_if` σαρώνει το αποτέλεσμα. Δηλώστε τη συνολική χρονική επιπλοκή.
+
+**Λύση:**
 
 1. `std::sort`: $O(n \log n)$.
 2. `std::count_if`: $O(n)$.
-3. Total: $O(n \log n)$ — dominated by sort.
+3. Συνολικά: $O(n \log n)$ — κυριαρχείται από την ταξινόμηση.
 
 ---
 
-## Exam Tip: Half-Open Ranges and `operator[]` Side Effects
+## Συμβουλή Εξετάσεων: Ημι-Ανοικτά Διαστήματα και Παρενέργειες του `operator[]`
 
-**Half-open range invariant:** Every STL algorithm taking `[first, last)` treats `last` as **one past the final element**. If a container has $n$ elements, `end() - begin() == n$. Off-by-one errors on paper usually come from treating `end()` as the last valid index.
+**Αμετάβλητη συνθήκη ημι-ανοικτού διαστήματος:** Κάθε αλγόριθμος της STL που δέχεται `[first, last)` αντιμετωπίζει το `last` ως **ένα στοιχείο πέραν του τελευταίου**. Εάν ένας περιέκτης έχει $n$ στοιχεία, ισχύει `end() - begin() == n`. Τα σφάλματα παρά ένα (off-by-one) στις εξετάσεις προκύπτουν συνήθως από την αντιμετώπιση του `end()` ως του τελευταίου έγκυρου δείκτη.
 
-**`unordered_map::operator[]` trap:** This operator **inserts** a default-constructed value for missing keys. On exams, `m["key"]` when `key` is absent both returns 0 (for `int` values) **and** increases `m.size()` by 1. Use `count` or `find` when the question asks for a lookup without modification.
+**Παγίδα του `unordered_map::operator[]`:** Αυτός ο τελεστής **εισάγει** μια προεπιλεγμένα κατασκευασμένη τιμή για τα κλειδιά που απουσιάζουν. Στις εξετάσεις, η έκφραση `m["key"]` όταν το `key` απουσιάζει τόσο επιστρέφει 0 (για τιμές `int`) **όσο και** αυξάνει το `m.size()` κατά 1. Χρησιμοποιείτε `count` ή `find` όταν η ερώτηση ζητά αναζήτηση χωρίς τροποποίηση.
 
-**Iterator invalidation summary for `vector`:**
+**Σύνοψη ακύρωσης επαναληπτών για το `vector`:**
 
-| Operation | Iterators Invalidated? |
+| Πράξη | Ακυρώνονται οι Επαναλήπτες; |
 | :--- | :--- |
-| `push_back` (no reallocation) | No |
-| `push_back` (reallocation) | All |
-| `insert` / `erase` | At and after insertion/erasure point |
-| `clear` | All |
+| `push_back` (χωρίς ανακατανομή) | Όχι |
+| `push_back` (με ανακατανομή) | Όλοι |
+| `insert` / `erase` | Στο σημείο και μετά το σημείο εισαγωγής/διαγραφής |
+| `clear` | Όλοι |
 
-**Lambda capture exam pattern:** `[=]` captures a copy; modifications inside the lambda to a captured `int x` do not affect the outer `x`. `[&]` captures by reference; modifications are visible outside.
+**Μοτίβο εξετάσεων για το capture των Lambda:** Το `[=]` συλλαμβάνει αντίγραφο· οι τροποποιήσεις εντός της lambda σε ένα αιχμαλωτισμένο `int x` δεν επηρεάζουν το εξωτερικό `x`. Το `[&]` συλλαμβάνει κατά αναφορά· οι τροποποιήσεις είναι ορατές έξω.

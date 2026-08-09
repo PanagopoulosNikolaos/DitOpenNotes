@@ -1,59 +1,59 @@
-# C — Structs, Unions, and Bit Manipulation
+# C — Δομές, Ενώσεις και Δυαδικός Χειρισμός
 
-Structures and unions allow C programmers to construct user-defined types, grouping data fields together or overlaying them in the same memory location. By exposing details such as struct member alignment, memory padding, and bitwise manipulation, C provides a direct interface to hardware registers, network packets, and binary formats. This file covers structures, unions, type definitions, compiler padding mechanics, and bitwise operations.
+Οι δομές (structs) και οι ενώσεις (unions) επιτρέπουν στους προγραμματιστές της C να κατασκευάζουν τύπους οριζόμενους από τον χρήστη, ομαδοποιώντας πεδία δεδομένων ή επικαλύπτοντάς τα στην ίδια θέση μνήμης. Εκθέτοντας λεπτομέρειες όπως η ευθυγράμμιση μελών δομής, η συμπλήρωση μνήμης (padding) και ο δυαδικός χειρισμός (bitwise manipulation), η C παρέχει μια άμεση διασύνδεση με καταχωρητές υλικού, πακέτα δικτύου και δυαδικές μορφές δεδομένων. Αυτό το αρχείο καλύπτει τις δομές, τις ενώσεις, τους ορισμούς τύπων (`typedef`), τη μηχανική συμπλήρωσης μνήμης του μεταγλωττιστή και τις δυαδικές πράξεις.
 
 ---
 
-## 1. Structures and `typedef`
+## 1. Δομές και `typedef`
 
-A **structure** (`struct`) is a user-defined aggregate type that groups variables of different types under a single name.
+Μια **δομή** (`struct`) είναι ένας σύνθετος τύπος οριζόμενος από τον χρήστη που ομαδοποιεί μεταβλητές διαφορετικών τύπων υπό ένα κοινό όνομα.
 
-### 1.1 Declarations and Member Access
+### 1.1 Δηλώσεις και Προσπέλαση Μελών
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
-/* Struct Declaration */
+/* Δήλωση Δομής */
 struct <tag_name> {
     <type1> <member1>;
     <type2> <member2>;
     ...
 };
 
-/* Instantiation and Initialization */
+/* Στιγμιοτύπηση και Αρχικοποίηση */
 struct <tag_name> <variable_name> = { .member1 = <val1>, .member2 = <val2> };
 ```
 
-Members are accessed using:
-- The dot operator (`.`) for direct structure variables.
-- The arrow operator (`->`) for pointers to structures.
+Η προσπέλαση των μελών γίνεται με χρήση:
+- Του τελεστή τελείας (`.`) για άμεσες μεταβλητές δομής.
+- Του τελεστή βέλους (`->`) για δείκτες σε δομές.
 
 ---
 
-### 1.2 The `typedef` Keyword
+### 1.2 Η Λέξη-Κλειδί `typedef`
 
-`typedef` creates an alias for an existing type, simplifying declarations.
+Η `typedef` δημιουργεί ένα ψευδώνυμο (alias) για έναν υπάρχοντα τύπο, απλοποιώντας τις δηλώσεις.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 typedef struct <tag_name> {
     <type> <member>;
 } <alias_name>;
 
-/* Instantiation using alias */
+/* Στιγμιοτύπηση με χρήση ψευδωνύμου */
 <alias_name> <variable_name>;
 ```
 
 ---
 
-## 2. Unions and Memory Overlay
+## 2. Ενώσεις και Επικάλυψη Μνήμης (Memory Overlay)
 
-A **union** is a user-defined type where all members share the same memory location. The size of a union is equal to the size of its largest member.
+Μια **ένωση** (`union`) είναι ένας τύπος οριζόμενος από τον χρήστη όπου όλα τα μέλη μοιράζονται την ίδια θέση μνήμης. Το μέγεθος μιας ένωσης είναι ίσο με το μέγεθος του μεγαλύτερου μέλους της.
 
-### 2.1 Declarations and Type Punning
+### 2.1 Δηλώσεις και Type Punning
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 union <tag_name> {
@@ -62,9 +62,9 @@ union <tag_name> {
 };
 ```
 
-Unions are commonly used for:
-1. **Memory efficiency:** Storing mutually exclusive data fields.
-2. **Type punning:** Accessing the underlying byte representation of a type.
+Οι ενώσεις χρησιμοποιούνται συνήθως για:
+1. **Αποδοτικότητα μνήμης:** Αποθήκευση αμοιβαία αποκλειόμενων πεδίων δεδομένων.
+2. **Type punning:** Προσπέλαση της υποκείμενης αναπαράστασης bytes ενός τύπου.
 
 ```c
 #include <stdio.h>
@@ -84,50 +84,50 @@ void print_bytes(float value) {
 
 ---
 
-## 3. Structural Alignment and Padding
+## 3. Δομική Ευθυγράμμιση και Συμπλήρωση Μνήμης (Structural Alignment and Padding)
 
-Computers access memory in words (e.g. 4-byte or 8-byte boundaries). To optimize memory read/write cycles, compilers automatically align variables to memory addresses that are multiples of their size.
+Οι υπολογιστές προσπελαύνουν τη μνήμη σε λέξεις (words, π.χ. όρια 4-byte ή 8-byte). Για τη βελτιστοποίηση των κύκλων ανάγνωσης/εγγραφής μνήμης, οι μεταγλωττιστές ευθυγραμμίζουν αυτόματα τις μεταβλητές σε διευθύνσεις μνήμης που είναι πολλαπλάσια του μεγέθους τους.
 
-### 3.1 Alignment Rules
+### 3.1 Κανόνες Ευθυγράμμισης
 
-- An $n$-byte primitive type must reside at a memory address that is a multiple of $n$.
-- Compilers insert unused **padding bytes** inside structs to satisfy these alignment restrictions.
-- The overall size of a struct is padded to make it a multiple of its largest member's alignment requirement.
+- Ένας πρωτογενής τύπος $n$-byte πρέπει να βρίσκεται σε διεύθυνση μνήμης που είναι πολλαπλάσιο του $n$.
+- Οι μεταγλωττιστές εισάγουν αχρησιμοποίητα **bytes συμπλήρωσης (padding bytes)** εντός των δομών για την ικανοποίηση αυτών των περιορισμών ευθυγράμμισης.
+- Το συνολικό μέγεθος μιας δομής συμπληρώνεται ώστε να αποτελεί πολλαπλάσιο της απαίτησης ευθυγράμμισης του μεγαλύτερου μέλους της.
 
 ```
-Example Struct:
+Παράδειγμα Δομής:
 struct data {
     char a;      // 1 byte
-    // 3 bytes padding
+    // 3 bytes συμπλήρωσης (padding)
     int b;       // 4 bytes
 };
-Total Size = 8 bytes
+Συνολικό Μέγεθος = 8 bytes
 ```
 
 ---
 
-## 4. Bitwise Operators and Bit-fields
+## 4. Δυαδικοί Τελεστές και Πεδία Bit (Bit-fields)
 
-C provides bitwise operators to manipulate individual bits within integer variables.
+Η C παρέχει δυαδικούς τελεστές (bitwise operators) για τον χειρισμό μεμονωμένων bits εντός μεταβλητών ακεραίων.
 
-### 4.1 Bitwise Operators Reference Table
+### 4.1 Πίνακας Αναφοράς Δυαδικών Τελεστών
 
-| Operator | Name | Syntax | Behavior | Example (8-bit) |
+| Τελεστής | Όνομα | Σύνταξη | Συμπεριφορά | Παράδειγμα (8-bit) |
 | :--- | :--- | :--- | :--- | :--- |
-| `&` | Bitwise AND | `a & b` | Sets bit to $1$ if both corresponding bits are $1$ | `0b1100 & 0b1010 = 0b1000` |
-| `\|` | Bitwise OR | `a \| b` | Sets bit to $1$ if at least one bit is $1$ | `0b1100 \| 0b1010 = 0b1110` |
-| `^` | Bitwise XOR | `a ^ b` | Sets bit to $1$ if corresponding bits differ | `0b1100 ^ 0b1010 = 0b0110` |
-| `~` | Bitwise NOT | `~a` | Inverts all bits (one's complement) | `~0b1100 = 0b...0011` |
-| `<<` | Left Shift | `a << n` | Shifts bits left by `n` places, filling with $0$ | `0b0011 << 2 = 0b1100` |
-| `>>` | Right Shift | `a >> n` | Shifts bits right by `n` places | `0b1100 >> 2 = 0b0011` |
+| `&` | Δυαδικό AND | `a & b` | Θέτει το bit σε $1$ αν και τα δύο αντίστοιχα bits είναι $1$ | `0b1100 & 0b1010 = 0b1000` |
+| `\|` | Δυαδικό OR | `a \| b` | Θέτει το bit σε $1$ αν τουλάχιστον ένα bit είναι $1$ | `0b1100 \| 0b1010 = 0b1110` |
+| `^` | Δυαδικό XOR | `a ^ b` | Θέτει το bit σε $1$ αν τα αντίστοιχα bits διαφέρουν | `0b1100 ^ 0b1010 = 0b0110` |
+| `~` | Δυαδικό NOT | `~a` | Αντιστρέφει όλα τα bits (συμπλήρωμα ως προς ένα) | `~0b1100 = 0b...0011` |
+| `<<` | Αριστερή Μετατόπιση | `a << n` | Μετατοπίζει τα bits αριστερά κατά `n` θέσεις, συμπληρώνοντας με $0$ | `0b0011 << 2 = 0b1100` |
+| `>>` | Δεξιά Μετατόπιση | `a >> n` | Μετατοπίζει τα bits δεξιά κατά `n` θέσεις | `0b1100 >> 2 = 0b0011` |
 
 ---
 
-### 4.2 Bit-fields
+### 4.2 Πεδία Bit (Bit-fields)
 
-Bit-fields allow specifying the exact number of bits allocated to struct members, which is useful for packing flags or matching hardware protocols.
+Τα πεδία bit επιτρέπουν τον καθορισμό του ακριβούς αριθμού bits που εκχωρούνται σε μέλη δομής, κάτι που είναι χρήσιμο για τη συμπίεση σημαιών (flags) ή την αντιστοίχιση πρωτοκόλλων υλικού.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 struct <tag_name> {
@@ -137,13 +137,13 @@ struct <tag_name> {
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Struct Allocation and Member Access
+### Άσκηση 1: Δέσμευση Δομής και Προσπέλαση Μελών
 
-**Problem:** Implement a struct representing a 2D Point. Write a function `double distance(const Point *p1, const Point *p2)` and demonstrate arrow operator syntax.
+**Πρόβλημα:** Υλοποιήστε μια δομή που να αναπαριστά ένα 2D Σημείο (Point). Γράψτε μια συνάρτηση `double distance(const Point *p1, const Point *p2)` και επιδείξτε τη σύνταξη του τελεστή βέλους.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -155,7 +155,7 @@ typedef struct {
 } Point;
 
 double distance(const Point *p1, const Point *p2) {
-    // Access members via the arrow operator
+    // Προσπέλαση μελών μέσω του τελεστή βέλους
     double dx = p1->x - p2->x;
     double dy = p1->y - p2->y;
     return sqrt(dx * dx + dy * dy);
@@ -175,9 +175,9 @@ Distance = 5.00
 
 ---
 
-### Exercise 2: Union Memory Footprint
+### Άσκηση 2: Ίχνος Μνήμης Ένωσης (Union Memory Footprint)
 
-**Problem:** Predict the size of the following union and explain the value printed.
+**Πρόβλημα:** Προβλέψτε το μέγεθος της παρακάτω ένωσης και εξηγήστε την τιμή που εκτυπώνεται.
 
 ```c
 #include <stdio.h>
@@ -197,12 +197,12 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. The union members are: `c` (1 byte), `s` (2 bytes), and `i` (4 bytes).
-2. The size of the union is the size of its largest member: $4$ bytes.
-3. Since all members share the same memory location, assigning `n.i = 0x12345678` overwrites the shared memory block.
-4. On a little-endian platform (most modern targets), the bytes of `n.i` are laid out in memory starting with the least significant byte: `78 56 34 12`.
-5. Accessing `n.c` reads the first byte of the memory block, which is `0x78`.
+**Λύση:**
+1. Τα μέλη της ένωσης είναι: `c` (1 byte), `s` (2 bytes) και `i` (4 bytes).
+2. Το μέγεθος της ένωσης είναι το μέγεθος του μεγαλύτερου μέλους της: $4$ bytes.
+3. Εφόσον όλα τα μέλη μοιράζονται την ίδια θέση μνήμης, η ανάθεση `n.i = 0x12345678` υπεργράφει το κοινό μπλοκ μνήμης.
+4. Σε πλατφόρμα little-endian (οι περισσότεροι σύγχρονοι επεξεργαστές), τα bytes του `n.i` διατάσσονται στη μνήμη ξεκινώντας από το λιγότερο σημαντικό byte: `78 56 34 12`.
+5. Η προσπέλαση του `n.c` διαβάζει το πρώτο byte του μπλοκ μνήμης, το οποίο είναι το `0x78`.
 
 ```text
 c = 0x78
@@ -211,9 +211,9 @@ Size = 4
 
 ---
 
-### Exercise 3: Struct Padding and Alignment Calculation
+### Άσκηση 3: Υπολογισμός Συμπλήρωσης και Ευθυγράμμισης Δομής
 
-**Problem:** Calculate the total size of `struct A` and `struct B` assuming standard alignment rules.
+**Πρόβλημα:** Υπολογίστε το συνολικό μέγεθος της `struct A` και της `struct B` υποθέτοντας τους τυπικούς κανόνες ευθυγράμμισης.
 
 ```c
 struct A {
@@ -229,27 +229,27 @@ struct B {
 };
 ```
 
-**Solution:**
-1. **For `struct A`:**
-   - `x` (type `char`, size 1) is placed at offset $0$.
-   - `y` (type `int`, size 4) requires a 4-byte boundary. The next free address is offset $1$. The compiler adds $3$ bytes of padding, placing `y` at offset $4$.
-   - `z` (type `char`, size 1) is placed at offset $8$.
-   - The largest member alignment requirement is $4$ bytes. The current struct size is $9$ bytes. The compiler adds $3$ bytes of padding at the end to make the total size a multiple of $4$.
-   - Total Size of `struct A` = $12$ bytes.
-2. **For `struct B`:**
-   - `y` (type `int`, size 4) is placed at offset $0$.
-   - `x` (type `char`, size 1) is placed at offset $4$.
-   - `z` (type `char`, size 1) is placed at offset $5$.
-   - The largest member alignment requirement is $4$ bytes. The current size is $6$ bytes. The compiler adds $2$ bytes of padding at the end.
-   - Total Size of `struct B` = $8$ bytes.
+**Λύση:**
+1. **Για τη `struct A`:**
+   - Το `x` (τύπος `char`, μέγεθος 1) τοποθετείται στη μετατόπιση $0$.
+   - Το `y` (τύπος `int`, μέγεθος 4) απαιτεί όριο 4-byte. Η επόμενη ελεύθερη διεύθυνση είναι η μετατόπιση $1$. Ο μεταγλωττιστής προσθέτει $3$ bytes συμπλήρωσης, τοποθετώντας το `y` στη μετατόπιση $4$.
+   - Το `z` (τύπος `char`, μέγεθος 1) τοποθετείται στη μετατόπιση $8$.
+   - Η μεγαλύτερη απαίτηση ευθυγράμμισης μέλους είναι $4$ bytes. Το τρέχον μέγεθος της δομής είναι $9$ bytes. Ο μεταγλωττιστής προσθέτει $3$ bytes συμπλήρωσης στο τέλος για να καταστήσει το συνολικό μέγεθος πολλαπλάσιο του $4$.
+   - Συνολικό Μέγεθος της `struct A` = $12$ bytes.
+2. **Για τη `struct B`:**
+   - Το `y` (τύπος `int`, μέγεθος 4) τοποθετείται στη μετατόπιση $0$.
+   - Το `x` (τύπος `char`, μέγεθος 1) τοποθετείται στη μετατόπιση $4$.
+   - Το `z` (τύπος `char`, μέγεθος 1) τοποθετείται στη μετατόπιση $5$.
+   - Η μεγαλύτερη απαίτηση ευθυγράμμισης μέλους είναι $4$ bytes. Το τρέχον μέγεθος είναι $6$ bytes. Ο μεταγλωττιστής προσθέτει $2$ bytes συμπλήρωσης στο τέλος.
+   - Συνολικό Μέγεθος της `struct B` = $8$ bytes.
 
 ---
 
-### Exercise 4: Struct Size Optimization Verification
+### Άσκηση 4: Επαλήθευση Βελτιστοποίησης Μεγέθους Δομής
 
-**Problem:** Write a C program to print and verify the alignment calculations of `struct A` and `struct B` from Exercise 3.
+**Πρόβλημα:** Γράψτε ένα πρόγραμμα C για να εκτυπώσετε και να επαληθεύσετε τους υπολογισμούς ευθυγράμμισης της `struct A` και της `struct B` από την Άσκηση 3.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -288,19 +288,19 @@ struct B size = 8
 
 ---
 
-### Exercise 5: Bitwise Masking Operations
+### Άσκηση 5: Δυαδικές Πράξεις Μάσκας (Bitwise Masking)
 
-**Problem:** Given an 8-bit unsigned char `flags`, write code blocks to:
-1. Set the 3rd bit (counting from 0, value 8).
-2. Clear the 3rd bit.
-3. Toggle the 3rd bit.
-4. Check if the 3rd bit is set.
+**Πρόβλημα:** Δοθέντος ενός 8-bit μη προσημασμένου χαρακτήρα `unsigned char flags`, γράψτε μπλοκ κώδικα για να:
+1. Θέσετε (set) το 3ο bit (μετρώντας από το 0, τιμή 8).
+2. Εκκαθαρίσετε (clear) το 3ο bit.
+3. Εναλλάξετε (toggle) το 3ο bit.
+4. Ελέγξετε αν το 3ο bit είναι τεθειμένο.
 
-**Solution:**
-1. **Set bit:** Use bitwise OR (`|`) with a mask: `flags |= (1 << 3);`
-2. **Clear bit:** Use bitwise AND (`&`) with the one's complement of the mask: `flags &= ~(1 << 3);`
-3. **Toggle bit:** Use bitwise XOR (`^`) with the mask: `flags ^= (1 << 3);`
-4. **Check bit:** Use bitwise AND and test for non-zero: `if (flags & (1 << 3)) { ... }`
+**Λύση:**
+1. **Θέση bit (Set):** Χρησιμοποιήστε δυαδικό OR (`|`) με μάσκα: `flags |= (1 << 3);`
+2. **Εκκαθάριση bit (Clear):** Χρησιμοποιήστε δυαδικό AND (`&`) με το συμπλήρωμα ως προς ένα της μάσκας: `flags &= ~(1 << 3);`
+3. **Εναλλαγή bit (Toggle):** Χρησιμοποιήστε δυαδικό XOR (`^`) με τη μάσκα: `flags ^= (1 << 3);`
+4. **Έλεγχος bit (Check):** Χρησιμοποιήστε δυαδικό AND και ελέγξτε αν το αποτέλεσμα είναι μη μηδενικό: `if (flags & (1 << 3)) { ... }`
 
 ```c
 #include <stdio.h>
@@ -323,13 +323,13 @@ After toggle: 0
 
 ---
 
-### Exercise 6: Struct Packing with Pragmas
+### Άσκηση 6: Συμπίεση Δομών με Pragmas (Struct Packing)
 
-**Problem:** How do you force the compiler to eliminate padding bytes inside a struct? Write an example code snippet.
+**Πρόβλημα:** Πώς αναγκάζετε τον μεταγλωττιστή να εξαλείψει τα bytes συμπλήρωσης (padding) εντός μιας δομής; Γράψτε ένα παράδειγμα κώδικα.
 
-**Solution:**
-1. Standard packing behaves according to target platform ABIs.
-2. Compilers (GCC/Clang) support `#pragma pack(push, 1)` or `__attribute__((packed))` to disable padding, forcing a 1-byte alignment.
+**Λύση:**
+1. Η τυπική συμπλήρωση συμπεριφέρεται σύμφωνα με το ABI της πλατφόρμας στόχου.
+2. Οι μεταγλωττιστές (GCC/Clang) υποστηρίζουν την οδηγία `#pragma pack(push, 1)` ή το συντακτικό `__attribute__((packed))` για την απενεργοποίηση της συμπλήρωσης, επιβάλλοντας ευθυγράμμιση 1-byte.
 
 ```c
 #include <stdio.h>
@@ -354,11 +354,11 @@ Packed size = 6
 
 ---
 
-### Exercise 7: Bit-fields Layout
+### Άσκηση 7: Διάταξη Πεδίων Bit (Bit-fields Layout)
 
-**Problem:** Define a struct representing a network packet header with a 4-bit version field, a 4-bit header length field, and an 8-bit service type. What is its size?
+**Πρόβλημα:** Ορίστε μια δομή που να αναπαριστά μια επικεφαλίδα πακέτου δικτύου με ένα πεδίο έκδοσης (version) 4-bit, ένα πεδίο μήκους επικεφαλίδας (ihl) 4-bit και ένα πεδίο τύπου υπηρεσίας (tos) 8-bit. Ποιο είναι το μέγεθός της;
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -379,22 +379,22 @@ int main(void) {
 Size = 2
 ```
 
-1. The first two members (`version` and `ihl`) occupy $4$ bits each, totaling $8$ bits ($1$ byte).
-2. The third member (`tos`) occupies $8$ bits ($1$ byte).
-3. The fields fit into two bytes. The total size is $2$ bytes.
+1. Τα πρώτα δύο μέλη (`version` και `ihl`) καταλαμβάνουν από $4$ bits το καθένα, συνολικά $8$ bits ($1$ byte).
+2. Το τρίτο μέλος (`tos`) καταλαμβάνει $8$ bits ($1$ byte).
+3. Τα πεδία χωρούν σε δύο bytes. Το συνολικό μέγεθος είναι $2$ bytes.
 
 ---
 
-### Exercise 8: Swap Variables with Bitwise XOR
+### Άσκηση 8: Εναλλαγή Μεταβλητών με Δυαδικό XOR
 
-**Problem:** Implement an in-place swap function using the bitwise XOR operator without using auxiliary temporary variables.
+**Πρόβλημα:** Υλοποιήστε μια συνάρτηση εναλλαγής επί τόπου (in-place swap) χρησιμοποιώντας τον δυαδικό τελεστή XOR χωρίς τη χρήση βοηθητικών προσωρινών μεταβλητών.
 
-**Solution:**
-1. The XOR operation has the mathematical properties:
+**Λύση:**
+1. Η πράξη XOR έχει τις ακόλουθες μαθηματικές ιδιότητες:
    - $a \wedge a = 0$
    - $a \wedge 0 = a$
    - $a \wedge b = b \wedge a$
-2. Applying XOR three times swaps the values:
+2. Η εφαρμογή του XOR τρεις φορές ανταλλάσσει τις τιμές:
    - $a_{\text{new}} = a \wedge b$
    - $b_{\text{new}} = b \wedge a_{\text{new}} = b \wedge (a \wedge b) = a$
    - $a_{\text{final}} = a_{\text{new}} \wedge b_{\text{new}} = (a \wedge b) \wedge a = b$
@@ -403,7 +403,7 @@ Size = 2
 #include <stdio.h>
 
 void xor_swap(int *x, int *y) {
-    if (x != y) { // Check to prevent self-erasure if pointing to the same address
+    if (x != y) { // Έλεγχος αποτροπής αυτό-διαγραφής αν δείχνουν στην ίδια διεύθυνση
         *x = *x ^ *y;
         *y = *x ^ *y;
         *x = *x ^ *y;
@@ -424,36 +424,36 @@ a=20 b=10
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### 1. Struct Member Offset Assumptions
-* **Cause:** Hardcoding struct member offsets assuming no padding (e.g. assuming the second member is at address `base + 1` for a `char` first member). This causes crashes and data corruption on platforms that align variables differently.
-* **Resolution:** Always use the `offsetof` macro from `<stddef.h>` to retrieve the compile-time calculated offsets of struct fields.
+### 1. Υποθέσεις Μετατόπισης Μελών Δομής
+* **Αιτία:** Σκληρογραφημένος υπολογισμός μετατοπίσεων μελών υποθέτοντας απουσία συμπλήρωσης μνήμης (padding, π.χ. υποθέτοντας ότι το δεύτερο μέλος βρίσκεται στη διεύθυνση `base + 1` όταν το πρώτο είναι `char`). Αυτό προκαλεί καταρρεύσεις και αλλοίωση δεδομένων σε πλατφόρμες με διαφορετική ευθυγράμμιση.
+* **Επίλυση:** Χρησιμοποιείτε πάντα τη μακροεντολή `offsetof` από το `<stddef.h>` για τη λήψη των μετατοπίσεων πεδίων δομής κατά το χρόνο μεταγλώττισης.
 
-### 2. XOR Swap with Same Pointer (Self-Erasure)
-* **Cause:** Invoking `xor_swap(&x, &x)` on the same memory address. The first operation computes `*x = *x ^ *x = 0`. The subsequent steps propagate this zero, erasing the variable.
-* **Resolution:** Check if the memory addresses are identical before performing the bitwise swap operations: `if (x != y)`.
+### 2. XOR Swap στον Ίδιο Δείκτη (Αυτο-Διαγραφή)
+* **Αιτία:** Κλήση της `xor_swap(&x, &x)` στην ίδια διεύθυνση μνήμης. Η πρώτη πράξη υπολογίζει `*x = *x ^ *x = 0`. Τα επόμενα βήματα διαδίδουν αυτό το μηδέν, διαγράφοντας τη μεταβλητή.
+* **Επίλυση:** Ελέγχετε αν οι διευθύνσεις μνήμης είναι ταυτόσημες πριν εκτελέσετε τις δυαδικές πράξεις εναλλαγής: `if (x != y)`.
 
-### 3. Bitwise Shift Overflow (Signed Right Shifts)
-* **Cause:** Right-shifting a negative signed integer value (e.g., `val >> 2` where `val` is signed). The C standard allows the compiler to perform either an arithmetic shift (filling with the sign bit) or a logical shift (filling with zeroes), leading to non-portable behavior.
-* **Resolution:** Always cast variables to `unsigned` types before performing shift operations if predictable logical shifts are expected.
+### 3. Υπερχείλιση Δυαδικής Μετατόπισης (Προσημασμένες Δεξιές Μετατοπίσεις)
+* **Αιτία:** Δεξιά μετατόπιση αρνητικής προσημασμένης ακέραιας τιμής (π.χ. `val >> 2` όπου το `val` είναι προσημασμένο). Το πρότυπο της C επιτρέπει στον μεταγλωττιστή να εκτελέσει είτε αριθμητική μετατόπιση (συμπλήρωση με το bit προσήμου) είτε λογική μετατόπιση (συμπλήρωση με μηδενικά), οδηγώντας σε μη φορητή συμπεριφορά.
+* **Επίλυση:** Μετατρέπετε (cast) πάντα τις μεταβλητές σε τύπους `unsigned` πριν από τις πράξεις μετατόπισης εάν αναμένονται προβλέψιμες λογικές μετατοπίσεις.
 
 ---
 
-## Exam Tip: Struct Padding Calculation Traps
+## Συμβουλή Εξετάσεων: Παγίδες Υπολογισμού Συμπλήρωσης Δομών
 
-**Struct Reordering for Size Optimization:**
-Exams frequently ask students to calculate struct sizes or rearrange their fields to minimize memory usage.
-- **Rule of thumb:** Place members in decreasing order of their alignment size (largest first, e.g. `double` or `long`, then `int`, then `short`, then `char`).
-- **Example:**
+**Αναδιάταξη Δομών για Βελτιστοποίηση Μεγέθους:**
+Στις εξετάσεις ζητείται συχνά από τους φοιτητές να υπολογίσουν μεγέθη δομών ή να αναδιατάξουν τα πεδία τους για την ελαχιστοποίηση της χρήσης μνήμης.
+- **Πρακτικός κανόνας:** Τοποθετείτε τα μέλη σε φθίνουσα σειρά μεγέθους ευθυγράμμισης (τα μεγαλύτερα πρώτα, π.χ. `double` ή `long`, στη συνέχεια `int`, μετά `short`, μετά `char`).
+- **Παράδειγμα:**
   ```c
-  // Bad Layout: Size = 24 bytes
+  // Κακή Διάταξη: Μέγεθος = 24 bytes
   struct Bad { char c1; double d; char c2; int i; };
   
-  // Optimized Layout: Size = 16 bytes
+  // Βελτιστοποιημένη Διάταξη: Μέγεθος = 16 bytes
   struct Good { double d; int i; char c1; char c2; };
   ```
 
-**Struct Returning Mechanics:**
-- Remember that C functions can return structures directly. Under the hood, this is implemented by passing a pointer to a temporary space on the caller's stack frame, where the return value is copied.
-- You **cannot** return a union or structure containing a pointer to a local stack variable, as the pointer becomes dangling immediately after the function return.
+**Μηχανισμός Επιστροφής Δομών:**
+- Θυμηθείτε ότι οι συναρτήσεις της C μπορούν να επιστρέψουν δομές απευθείας. Παρασκηνιακά, αυτό υλοποιείται μεταβιβάζοντας έναν δείκτη σε έναν προσωρινό χώρο στο πλαίσιο στοιβάδας του καλούντος, όπου αντιγράφεται η τιμή επιστροφής.
+- **Δεν μπορείτε** να επιστρέψετε μια ένωση ή δομή που περιέχει δείκτη σε τοπική μεταβλητή στοιβάδας, καθώς ο δείκτης καθίσταται μετέωρος (dangling) αμέσως μετά την επιστροφή της συνάρτησης.

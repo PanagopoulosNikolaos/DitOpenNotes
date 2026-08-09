@@ -1,55 +1,55 @@
-# C++ — Basics and Hardware Semantics
+# C++ — Βασικές Έννοιες και Σημασιολογία Υλικού
 
-C++ is a statically typed, compiled language whose semantics are tightly coupled to the underlying machine model: stack frames, heap allocation, and direct memory addresses. This file covers the three principal parameter-passing mechanisms — pass-by-value, pass-by-reference, and pass-by-pointer — and the use of `const` references for efficient read-only access to large objects. Understanding these mechanisms is prerequisite to reasoning about copy cost, aliasing, and cache-friendly program design in subsequent C++ topics.
+Η C++ είναι μια στατικά τυποποιημένη, μεταγλωττιζόμενη γλώσσα της οποίας η σημασιολογία είναι ισχυρά συνδεδεμένη με το υποκείμενο μοντέλο μηχανής: πλαίσια στοιβάδας (stack frames), δέσμευση μνήμης στο heap και άμεσες διευθύνσεις μνήμης. Αυτό το αρχείο καλύπτει τους τρεις κύριους μηχανισμούς μεταβίβασης παραμέτρων — μεταβίβαση κατ' τιμήν (pass-by-value), μεταβίβαση κατά αναφορά (pass-by-reference) και μεταβίβαση μέσω δείκτη (pass-by-pointer) — καθώς και τη χρήση αναφορών `const` για αποδοτική πρόσβαση μόνο για ανάγνωση σε μεγάλα αντικείμενα. Η κατανόηση αυτών των μηχανισμών είναι προαπαιτούμενο για την αιτιολόγηση του κόστους αντιγραφής, της ψευδωνυμίας (aliasing) και του φιλικού προς την κρυφή μνήμη σχεδιασμού προγραμμάτων στα επόμενα θέματα της C++.
 
 ---
 
-## 1. Pass-by-Value
+## 1. Μεταβίβαση Κατ' Τιμήν (Pass-by-Value)
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-**Pass-by-value** copies the argument into the function's stack frame. The callee receives an independent copy; mutations inside the function do not affect the caller's original variable. For small primitive types (`int`, `double`, `bool`), the copy cost is negligible. For large objects (e.g., `std::vector`, custom classes), pass-by-value incurs a full copy onto the stack or heap, which can dominate runtime cost.
+Η **μεταβίβαση κατ' τιμήν (pass-by-value)** αντιγράφει το όρισμα στο πλαίσιο στοιβάδας (stack frame) της καλούμενης συνάρτησης. Η καλούμενη συνάρτηση λαμβάνει ένα ανεξάρτητο αντίγραφο· οι τροποποιήσεις εντός της συνάρτησης δεν επηρεάζουν την αρχική μεταβλητή του καλούντος. Για μικρούς πρωτογενείς τύπους (`int`, `double`, `bool`), το κόστος αντιγραφής είναι αμελητέο. Για μεγάλα αντικείμενα (π.χ. `std::vector`, προσαρμοσμένες κλάσεις), η μεταβίβαση κατ' τιμήν επιφέρει πλήρη αντιγραφή στη στοιβάδα ή στο heap, κάτι που μπορεί να κυριαρχήσει στο κόστος χρόνου εκτέλεσης.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
 ```
 void <function_name>(<type> <param_name>)
 ```
 
-The parameter type is specified without `&` or `*`. The caller passes an expression whose value is copied into the parameter.
+Ο τύπος της παραμέτρου καθορίζεται χωρίς `&` ή `*`. Ο καλέσας μεταβιβάζει μια έκφραση της οποίας η τιμή αντιγράφεται στην παράμετρο.
 
-### 1.3 Behavioral Description
+### 1.3 Περιγραφή Συμπεριφοράς
 
-When a function is invoked with pass-by-value:
+Όταν μια συνάρτηση καλείται με μεταβίβαση κατ' τιμήν:
 
-1. The argument expression is evaluated.
-2. A new object of the parameter type is created in the callee's activation record.
-3. The argument's value is copied into this new object (via copy constructor for class types).
-4. The function body operates on the copy.
-5. On return, the copy is destroyed.
+1. Αξιολογείται η έκφραση του ορίσματος.
+2. Δημιουργείται ένα νέο αντικείμενο του τύπου της παραμέτρου στο πλαίσιο ενεργοποίησης της καλούμενης συνάρτησης.
+3. Η τιμή του ορίσματος αντιγράφεται σε αυτό το νέο αντικείμενο (μέσω του κατασκευαστή αντιγραφής / copy constructor για τύπους κλάσεων).
+4. Το σώμα της συνάρτησης εκτελείται πάνω στο αντίγραφο.
+5. Κατά την επιστροφή, το αντίγραφο καταστρέφεται.
 
-For class types, the copy may allocate heap memory (e.g., copying a `std::string` duplicates its internal character buffer).
+Για τύπους κλάσεων, η αντιγραφή μπορεί να δεσμεύσει μνήμη στο heap (π.χ. η αντιγραφή μιας `std::string` διπλασιάζει τον εσωτερικό της ενταμιευτή χαρακτήρων).
 
-### 1.4 Parameter Reference
+### 1.4 Αναφορά Παραμέτρων
 
-| Mechanism | Syntax | Copy Cost | Caller Modified? | Typical Use |
+| Μηχανισμός | Σύνταξη | Κόστος Αντιγραφής | Τροποποιείται ο Καλέσας; | Τυπική Χρήση |
 | :--- | :--- | :--- | :--- | :--- |
-| Pass-by-value | `void f(int x)` | Full copy | No | Small primitives, immutability guarantee |
-| Pass-by-reference | `void f(int &x)` | None (alias) | Yes | In-out parameters, large objects to mutate |
-| Pass-by-pointer | `void f(int *x)` | Pointer copy (8 bytes) | Yes (via dereference) | Optional parameters, C-style APIs |
-| Const reference | `void f(const T &x)` | None (alias) | No | Read-only access to large objects |
+| Μεταβίβαση κατ' τιμήν | `void f(int x)` | Πλήρης αντιγραφή | Όχι | Μικροί πρωτογενείς τύποι, εγγύηση αμεταβλητότητας |
+| Μεταβίβαση κατά αναφορά | `void f(int &x)` | Κανένα (ψευδώνυμο) | Ναι | Παράμετροι εισόδου-εξόδου, μεγάλα αντικείμενα προς τροποποίηση |
+| Μεταβίβαση μέσω δείκτη | `void f(int *x)` | Αντιγραφή δείκτη (8 bytes) | Ναι (μέσω αποσυμβολισμού) | Προαιρετικές παράμετροι, APIs στιλ C |
+| Αναφορά Const | `void f(const T &x)` | Κανένα (ψευδώνυμο) | Όχι | Πρόσβαση μόνο για ανάγνωση σε μεγάλα αντικείμενα |
 
 ```cpp
 #include <iostream>
 
 void increment_by_value(int x) {
-    x += 10;   // Modifies the local copy only.
+    x += 10;   // Τροποποιεί μόνο το τοπικό αντίγραφο.
 }
 
 int main() {
     int a = 5;
     increment_by_value(a);
-    std::cout << a << "\n";   // Caller unchanged.
+    std::cout << a << "\n";   // Ο καλέσας παραμένει αμετάβλητος.
     return 0;
 }
 ```
@@ -60,44 +60,44 @@ int main() {
 
 ---
 
-## 2. Pass-by-Reference
+## 2. Μεταβίβαση Κατά Αναφορά (Pass-by-Reference)
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-**Pass-by-reference** binds the parameter name as an alias to the caller's object. No copy is made; the parameter and the argument refer to the same memory location. This achieves zero-copy semantics and allows the callee to modify the caller's state.
+Η **μεταβίβαση κατά αναφορά (pass-by-reference)** συνδέει το όνομα της παραμέτρου ως ψευδώνυμο (alias) στο αντικείμενο του καλούντος. Δεν πραγματοποιείται αντιγραφή· η παράμετρος και το όρισμα αναφέρονται στην ίδια θέση μνήμης. Αυτό επιτυγχάνει σημασιολογία μηδενικής αντιγραφής (zero-copy semantics) και επιτρέπει στην καλούμενη συνάρτηση να τροποποιήσει την κατάσταση του καλούντος.
 
-### 2.2 Syntax Reference
+### 2.2 Αναφορά Σύνταξης
 
 ```
 void <function_name>(<type> &<param_name>)
 ```
 
-The `&` immediately follows the type (or the parameter name in trailing-return style). For `const` references:
+Το `&` ακολουθεί αμέσως μετά τον τύπο. Για αναφορές `const`:
 
 ```
 void <function_name>(const <type> &<param_name>)
 ```
 
-### 2.3 Behavioral Description
+### 2.3 Περιγραφή Συμπεριφοράς
 
-A reference is not a separate object; it is an alternative name for an existing object. At the machine level, references are typically implemented as pointers, but the language guarantees that a reference must be initialized to a valid object and cannot be rebound.
+Μια αναφορά δεν είναι ξεχωριστό αντικείμενο· είναι ένα εναλλακτικό όνομα για ένα υπάρχον αντικείμενο. Σε επίπεδο μηχανής, οι αναφορές υλοποιούνται τυπικά ως δείκτες, αλλά η γλώσσα εγγυάται ότι μια αναφορά πρέπει να αρχικοποιείται σε ένα έγκυρο αντικείμενο και δεν μπορεί να επανασυνδεθεί (rebound).
 
-**Abstract model:**
+**Αφαιρετικό μοντέλο:**
 
 ```
-caller variable (address A)  ←── alias ──→  reference parameter (same address A)
+μεταβλητή καλούντος (διεύθυνση A)  ←── ψευδώνυμο ──→  παράμετρος αναφοράς (ίδια διεύθυνση A)
 ```
 
-### 2.4 Worked Example: `update(int &x, int y)`
+### 2.4 Λυμένο Παράδειγμα: `update(int &x, int y)`
 
-The mindmap example `void update(int &x, int y)` demonstrates mixed passing: `x` is modified in place; `y` is a local copy.
+Το παράδειγμα του mindmap `void update(int &x, int y)` επιδεικνύει μικτή μεταβίβαση: το `x` τροποποιείται επί τόπου· το `y` είναι τοπικό αντίγραφο.
 
 ```cpp
 #include <iostream>
 
 void update(int &x, int y) {
-    x = x + y;   // `x` aliases the caller's variable; mutation is visible outside.
-    y = y * 2;   // `y` is a local copy; this has no effect on the caller.
+    x = x + y;   // Το `x` αποτελεί ψευδώνυμο της μεταβλητής του καλούντος· η τροποποίηση είναι ορατή έξω.
+    y = y * 2;   // Το `y` είναι τοπικό αντίγραφο· δεν έχει καμία επίδραση στον καλούντα.
 }
 
 int main() {
@@ -113,32 +113,32 @@ int main() {
 a = 13, b = 3
 ```
 
-| Variable | Before | After `update(a, b)` | Reason |
+| Μεταβλητή | Πριν | Μετά την `update(a, b)` | Αιτιολογία |
 | :--- | :--- | :--- | :--- |
-| `a` | 10 | 13 | Passed by reference; `x = x + y` writes to `a` |
-| `b` | 3 | 3 | Passed by value; `y = y * 2` affects only the copy |
+| `a` | 10 | 13 | Μεταβίβαση κατά αναφορά· η `x = x + y` γράφει στο `a` |
+| `b` | 3 | 3 | Μεταβίβαση κατ' τιμήν· η `y = y * 2` επηρεάζει μόνο το αντίγραφο |
 
 ---
 
-## 3. Pass-by-Pointer
+## 3. Μεταβίβαση Μέσω Δείκτη (Pass-by-Pointer)
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-**Pass-by-pointer** passes the memory address of an object. The callee must explicitly dereference the pointer with `*` to access or modify the pointed-to value. Unlike references, pointers can be `nullptr`, can be reassigned to point elsewhere, and support pointer arithmetic.
+Η **μεταβίβαση μέσω δείκτη (pass-by-pointer)** μεταβιβάζει τη διεύθυνση μνήμης ενός αντικειμένου. Η καλούμενη συνάρτηση πρέπει να αποσυμβολίσει ρητά τον δείκτη με το `*` για να προσπελάσει ή να τροποποιήσει την τιμή στην οποία δείχνει. Αντίθετα με τις αναφορές, οι δείκτες μπορούν να είναι `nullptr`, μπορούν να επανατεθούν ώστε να δείχνουν αλλού και υποστηρίζουν αριθμητική δεικτών.
 
-### 3.2 Syntax Reference
+### 3.2 Αναφορά Σύνταξης
 
 ```
 void <function_name>(<type> *<param_name>)
 ```
 
-Dereference operator: `*<pointer_name>`
+Τελεστής αποσυμβολισμού (Dereference operator): `*<pointer_name>`
 
-Address-of operator: `&<variable_name>`
+Τελεστής διεύθυνσης (Address-of operator): `&<variable_name>`
 
-### 3.3 Behavioral Description
+### 3.3 Περιγραφή Συμπεριφοράς
 
-The pointer itself is passed by value — a copy of the address is made on the stack. However, dereferencing the pointer accesses the original object at that address. This is the mechanism used in C and in C++ APIs that require optional or nullable parameters.
+Ο ίδιος ο δείκτης μεταβιβάζεται κατ' τιμήν — ένα αντίγραφο της διεύθυνσης δημιουργείται στη στοιβάδα. Ωστόσο, ο αποσυμβολισμός του δείκτη προσπελαύνει το αρχικό αντικείμενο σε αυτή τη διεύθυνση. Αυτός είναι ο μηχανισμός που χρησιμοποιείται στη C και σε APIs της C++ που απαιτούν προαιρετικές ή δεκτικές σε null παραμέτρους.
 
 ```cpp
 #include <iostream>
@@ -151,7 +151,7 @@ void swap(int *p, int *q) {
 
 int main() {
     int a = 1, b = 2;
-    swap(&a, &b);   // Pass addresses of a and b.
+    swap(&a, &b);   // Πέρασμα διευθύνσεων των a και b.
     std::cout << "a = " << a << ", b = " << b << "\n";
     return 0;
 }
@@ -161,46 +161,46 @@ int main() {
 a = 2, b = 1
 ```
 
-### 3.4 Reference vs. Pointer Comparison
+### 3.4 Σύγκριση Αναφοράς και Δείκτη
 
-| Property | Reference (`T &`) | Pointer (`T *`) |
+| Ιδιότητα | Αναφορά (`T &`) | Δείκτης (`T *`) |
 | :--- | :--- | :--- |
-| Must be initialized | Yes | No (can be `nullptr`) |
-| Can be rebound | No | Yes |
-| Syntax for access | Direct (`x`) | Requires `*x` |
-| Arithmetic | Not allowed | Allowed |
-| Null state | Not possible | `nullptr` represents absence |
-| Typical era | Modern C++ style | C interoperability, optional args |
+| Υποχρεωτική αρχικοποίηση | Ναι | Όχι (μπορεί να είναι `nullptr`) |
+| Δυνατότητα επανασύνδεσης (rebound) | Όχι | Ναι |
+| Σύνταξη προσπέλασης | Άμεση (`x`) | Απαιτεί `*x` |
+| Αριθμητική | Δεν επιτρέπεται | Επιτρέπεται |
+| Κατάσταση Null | Μη εφικτή | Το `nullptr` αντιπροσωπεύει απουσία |
+| Τυπική εποχή/χρήση | Στιλ σύγχρονης C++ | Διαλειτουργικότητα C, προαιρετικά ορίσματα |
 
 ---
 
-## 4. Const References for Read-Only Large Objects
+## 4. Αναφορές Const για Μεγάλα Αντικείμενα Μόνο για Ανάγνωση
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-A **`const` reference** (`const T &`) provides zero-copy read-only access to an object. The callee cannot modify the object through the reference, but avoids the cost of copying large structures. This is the standard idiom for passing `std::string`, `std::vector`, and user-defined classes to functions that only read data.
+Μια **αναφορά `const`** (`const T &`) παρέχει πρόσβαση μηδενικής αντιγραφής (zero-copy) μόνο για ανάγνωση σε ένα αντικείμενο. Η καλούμενη συνάρτηση δεν μπορεί να τροποποιήσει το αντικείμενο μέσω της αναφοράς, αλλά αποφεύγει το κόστος αντιγραφής μεγάλων δομών. Αυτό είναι το τυπικό ιδίωμα για το πέρασμα `std::string`, `std::vector` και οριζόμενων από τον χρήστη κλάσεων σε συναρτήσεις που διαβάζουν μόνο δεδομένα.
 
-### 4.2 Syntax Reference
+### 4.2 Αναφορά Σύνταξης
 
 ```
 void <function_name>(const <type> &<param_name>)
 ```
 
-The `const` qualifier applies to the referenced object, not to the reference binding itself.
+Ο προσδιοριστής `const` εφαρμόζεται στο αναφερόμενο αντικείμενο, και όχι στην ίδια τη σύνδεση της αναφοράς.
 
-### 4.3 Behavioral Description
+### 4.3 Περιγραφή Συμπεριφοράς
 
-- No copy is performed.
-- The function cannot call non-`const` member functions on the object.
-- The function cannot assign to the object or its members.
-- A `const T &` can bind to a temporary (rvalue), extending the temporary's lifetime for the duration of the call.
+- Δεν εκτελείται καμία αντιγραφή.
+- Η συνάρτηση δεν μπορεί να καλέσει μη-`const` συναρτήσεις μέλη στο αντικείμενο.
+- Η συνάρτηση δεν μπορεί να αναθέσει τιμή στο αντικείμενο ή στα μέλη του.
+- Μια αναφορά `const T &` μπορεί να συνδεθεί σε ένα προσωρινό αντικείμενο (rvalue), επεκτείνοντας τη διάρκεια ζωής του προσωρινού αντικειμένου για τη διάρκεια της κλήσης.
 
 ```cpp
 #include <iostream>
 #include <string>
 #include <vector>
 
-// Accepts a large string by const reference — no copy.
+// Δέχεται μια μεγάλη συμβολοσειρά μέσω αναφοράς const — χωρίς αντιγραφή.
 int count_vowels(const std::string &text) {
     int count = 0;
     for (char c : text) {
@@ -213,7 +213,7 @@ int count_vowels(const std::string &text) {
 int main() {
     std::string sentence = "programming languages principles";
     std::cout << count_vowels(sentence) << "\n";
-    // Temporary binding: const ref extends lifetime of the literal's temporary.
+    // Προσωρινή σύνδεση: η αναφορά const επεκτείνει τη διάρκεια ζωής του προσωρινού αντικειμένου.
     std::cout << count_vowels("hello world") << "\n";
     return 0;
 }
@@ -224,102 +224,102 @@ int main() {
 3
 ```
 
-### 4.4 When to Use Each Mechanism
+### 4.4 Πότε να Χρησιμοποιείτε Κάθε Μηχανισμό
 
-| Scenario | Recommended Mechanism |
+| Σενάριο | Συνιστώμενος Μηχανισμός |
 | :--- | :--- |
-| Small primitive (`int`, `char`, `bool`) | Pass-by-value |
-| Large object, read-only | `const T &` |
-| Large object, must modify | `T &` |
-| Optional / nullable parameter | `T *` (check for `nullptr`) |
-| Output parameter (legacy style) | `T *` or `T &` |
-| Transfer ownership | `T &&` (move semantics; see cpp_3_oop_resource_management.md) |
+| Μικρός πρωτογενής τύπος (`int`, `char`, `bool`) | Μεταβίβαση κατ' τιμήν |
+| Μεγάλο αντικείμενο, μόνο για ανάγνωση | `const T &` |
+| Μεγάλο αντικείμενο, πρέπει να τροποποιηθεί | `T &` |
+| Προαιρετική / δεκτική σε null παράμετρος | `T *` (με έλεγχο για `nullptr`) |
+| Παράμετρος εξόδου (παλαιό στιλ) | `T *` ή `T &` |
+| Μεταβίβαση ιδιοκτησίας | `T &&` (σημασιολογία μετακίνησης / move semantics· βλ. cpp_3_oop_resource_management.md) |
 
-> **[Key Insight]** For function parameters of class type, the default rule in modern C++ is: pass by `const T &` for read-only, pass by `T &` for in-out, and pass by value (or `T &&`) only when ownership transfer or a local copy is genuinely needed. Blind pass-by-value on `std::vector` or `std::string` is a common performance bug.
-
----
-
-## 5. Stack vs. Heap Cost Model
-
-### 5.1 Activation Records
-
-Function-local variables and pass-by-value copies of small types reside on the **stack**. Stack allocation is $O(1)$: the compiler adjusts the stack pointer by a fixed offset at function entry.
-
-Objects created with `new` (or whose copies allocate internal buffers) reside on the **heap**. Heap allocation involves allocator bookkeeping and is orders of magnitude slower than stack allocation.
-
-```
-Stack frame of caller          Stack frame of callee (pass-by-value int)
-┌──────────────┐               ┌──────────────┐
-│  a = 5       │               │  x = 5       │  ← independent copy
-└──────────────┘               └──────────────┘
-
-Stack frame of caller          Stack frame of callee (pass-by-reference)
-┌──────────────┐               ┌──────────────┐
-│  a = 5  ◄────┼───────────────┼── x (alias)  │  ← same memory
-└──────────────┘               └──────────────┘
-```
-
-### 5.2 Copy Cost for Class Types
-
-When a `std::vector<int>` is passed by value, the entire dynamic array is duplicated:
-
-1. Allocate a new heap buffer of equal capacity.
-2. Copy all elements.
-3. On function return, destroy the copy (deallocate buffer).
-
-Passing the same vector by `const std::vector<int> &` avoids both allocation and element copy.
+> **[Βασική Παρατήρηση]** Για παραμέτρους συναρτήσεων τύπου κλάσης, ο προεπιλεγμένος κανόνας στη σύγχρονη C++ είναι: μεταβίβαση με `const T &` για πρόσβαση μόνο για ανάγνωση, μεταβίβαση με `T &` για είσοδο-έξοδο, και μεταβίβαση κατ' τιμήν (ή `T &&`) μόνο όταν απαιτείται πραγματικά μεταβίβαση ιδιοκτησίας ή τοπικό αντίγραφο. Η τυφλή μεταβίβαση κατ' τιμήν σε `std::vector` ή `std::string` αποτελεί συνηθισμένο σφάλμα απόδοσης.
 
 ---
 
-## Common Errors and Gotchas
+## 5. Μοντέλο Κόστους Στοιβάδας έναντι Heap
 
-### Error 1: Returning a Reference to a Local Variable
+### 5.1 Εγγραφές Ενεργοποίησης (Activation Records)
 
-**Cause:** A function returns `T &` pointing to a stack-local object that is destroyed when the function returns.
+Οι τοπικές μεταβλητές συναρτήσεων και τα αντίγραφα κατ' τιμήν μικρών τύπων βρίσκονται στη **στοιβάδα (stack)**. Η δέσμευση στη στοιβάδα είναι $O(1)$: ο μεταγλωττιστής προσαρμόζει τον δείκτη στοιβάδας κατά μια σταθερή μετατόπιση κατά την είσοδο στη συνάρτηση.
+
+Τα αντικείμενα που δημιουργούνται με το `new` (ή των οποίων τα αντίγραφα δεσμεύουν εσωτερικούς ενταμιευτές) βρίσκονται στο **heap**. Η δέσμευση στο heap περιλαμβάνει τήρηση λογιστικών στοιχείων κατανεμητή και είναι τάξεις μεγέθους βραδύτερη από τη δέσμευση στη στοιβάδα.
+
+```
+Πλαίσιο στοιβάδας καλούντος              Πλαίσιο στοιβάδας καλούμενης (κατ' τιμήν int)
+┌──────────────┐                       ┌──────────────┐
+│  a = 5       │                       │  x = 5       │  ← ανεξάρτητο αντίγραφο
+└──────────────┘                       └──────────────┘
+
+Πλαίσιο στοιβάδας καλούντος              Πλαίσιο στοιβάδας καλούμενης (κατά αναφορά)
+┌──────────────┐                       ┌──────────────┐
+│  a = 5  ◄────┼───────────────────────┼── x (alias)  │  ← ίδια μνήμη
+└──────────────┘                       └──────────────┘
+```
+
+### 5.2 Κόστος Αντιγραφής για Τύπους Κλάσεων
+
+Όταν ένας `std::vector<int>` μεταβιβάζεται κατ' τιμήν, ολόκληρος ο δυναμικός πίνακας διπλασιάζεται:
+
+1. Δεσμεύεται ένας νέος ενταμιευτής heap ίσης χωρητικότητας.
+2. Αντιγράφονται όλα τα στοιχεία.
+3. Κατά την επιστροφή της συνάρτησης, το αντίγραφο καταστρέφεται (αποδέσμευση ενταμιευτή).
+
+Η μεταβίβαση του ίδιου vector με `const std::vector<int> &` αποφεύγει τόσο τη δέσμευση όσο και την αντιγραφή στοιχείων.
+
+---
+
+## Κοινά Σφάλματα και Παγίδες
+
+### Σφάλμα 1: Επιστροφή Αναφοράς σε Τοπική Μεταβλητή
+
+**Αιτία:** Μια συνάρτηση επιστρέφει `T &` που δείχνει σε ένα τοπικό αντικείμενο στοιβάδας το οποίο καταστρέφεται όταν η συνάρτηση επιστρέφει.
 
 ```cpp
 int &bad() {
     int x = 42;
-    return x;   // Undefined behavior: x is destroyed at return.
+    return x;   // Μη ορισμένη συμπεριφορά: το x καταστρέφεται στην επιστροφή.
 }
 ```
 
-**Resolution:** Return by value for locals, or return a reference/pointer only to objects that outlive the function (e.g., member variables, static storage, or heap objects whose ownership is documented).
+**Επίλυση:** Επιστρέφετε κατ' τιμήν για τοπικές μεταβλητές, ή επιστρέφετε αναφορά/δείκτη μόνο σε αντικείμενα που επιζούν της συνάρτησης (π.χ. μεταβλητές μέλη, static αποθήκευση ή αντικείμενα heap των οποίων η ιδιοκτησία είναι τεκμηριωμένη).
 
-### Error 2: Dereferencing a Null Pointer
+### Σφάλμα 2: Αποσυμβολισμός Δείκτη Null
 
-**Cause:** A pointer parameter is not checked for `nullptr` before use.
+**Αιτία:** Μια παράμετρος δείκτη δεν ελέγχεται για `nullptr` πριν από τη χρήση.
 
 ```cpp
 void print(int *p) {
-    std::cout << *p;   // Crashes if p == nullptr.
+    std::cout << *p;   // Καταρρέει αν p == nullptr.
 }
 ```
 
-**Resolution:** Guard with `if (p != nullptr)` or use references when null is not a valid state.
+**Επίλυση:** Προστατεύστε με `if (p != nullptr)` ή χρησιμοποιήστε αναφορές όταν η τιμή null δεν αποτελεί έγκυρη κατάσταση.
 
-### Error 3: Confusing `const T &` with `T &` Overload Resolution
+### Σφάλμα 3: Σύγχυση `const T &` με `T &` στην Επίλυση Υπερφόρτωσης
 
-**Cause:** Calling a non-`const` member function on an object passed as `const T &` produces a compile error.
+**Αιτία:** Η κλήση μιας μη-`const` συνάρτησης μέλους σε ένα αντικείμενο που μεταβιβάστηκε ως `const T &` παράγει σφάλμα μεταγλώττισης.
 
 ```cpp
 void append_char(std::string &s) { s += '!'; }
 
 int main() {
     const std::string msg = "hello";
-    // append_char(msg);   // Error: cannot bind const object to non-const ref.
+    // append_char(msg);   // Σφάλμα: αδυναμία σύνδεσης αντικειμένου const σε μη-const αναφορά.
 }
 ```
 
-**Resolution:** Provide a `const`-correct overload, or remove `const` only when mutation is intended and safe.
+**Επίλυση:** Παράσχετε μια ορθή ως προς το `const` υπερφόρτωση, ή αφαιρέστε το `const` μόνο όταν η τροποποίηση είναι εσκεμμένη και ασφαλής.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Trace Pass-by-Value
+### Άσκηση 1: Ιχνηλάτηση Μεταβίβασης Κατ' Τιμήν
 
-**Problem:** Predict the output without running the code.
+**Πρόβλημα:** Προβλέψτε την έξοδο χωρίς να εκτελέσετε τον κώδικα.
 
 ```cpp
 void add_five(int n) {
@@ -333,11 +333,11 @@ int main() {
 }
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `x` is initialized to 10 in `main`.
-2. `add_five(x)` copies `x` into local `n`; `n` becomes 15.
-3. The copy is destroyed; `x` in `main` remains 10.
+1. Το `x` αρχικοποιείται σε 10 στη `main`.
+2. Η `add_five(x)` αντιγράφει το `x` στο τοπικό `n`· το `n` γίνεται 15.
+3. Το αντίγραφο καταστρέφεται· το `x` στη `main` παραμένει 10.
 
 ```text
 10
@@ -345,9 +345,9 @@ int main() {
 
 ---
 
-### Exercise 2: Trace Pass-by-Reference
+### Άσκηση 2: Ιχνηλάτηση Μεταβίβασης Κατά Αναφορά
 
-**Problem:** Predict the output.
+**Πρόβλημα:** Προβλέψτε την έξοδο.
 
 ```cpp
 void add_five(int &n) {
@@ -361,10 +361,10 @@ int main() {
 }
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `n` is an alias for `x`.
-2. `n += 5` writes 15 directly to `x`.
+1. Το `n` αποτελεί ψευδώνυμο για το `x`.
+2. Η εντολή `n += 5` γράφει το 15 απευθείας στο `x`.
 
 ```text
 15
@@ -372,9 +372,9 @@ int main() {
 
 ---
 
-### Exercise 3: Mixed `update(int &x, int y)`
+### Άσκηση 3: Μικτή Μεταβίβαση `update(int &x, int y)`
 
-**Problem:** Trace the values of `a` and `b` after the call.
+**Πρόβλημα:** Ιχνηλατήστε τις τιμές των `a` και `b` μετά την κλήση.
 
 ```cpp
 void update(int &x, int y) {
@@ -389,10 +389,10 @@ int main() {
 }
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `x` aliases `a`: `a = 4 * 2 = 8`.
-2. `y` is a copy of `b`: local `y = 8`, but `b` stays 7.
+1. Το `x` αποτελεί ψευδώνυμο του `a`: `a = 4 * 2 = 8`.
+2. Το `y` είναι αντίγραφο του `b`: το τοπικό `y = 8`, αλλά το `b` παραμένει 7.
 
 ```text
 8 7
@@ -400,11 +400,11 @@ int main() {
 
 ---
 
-### Exercise 4: Pointer Swap
+### Άσκηση 4: Εναλλαγή με Δείκτες (Pointer Swap)
 
-**Problem:** Implement and trace `swap(int *a, int *b)` that exchanges the values at the two addresses. Initial state: `x = 100`, `y = 200`.
+**Πρόβλημα:** Υλοποιήστε και ιχνηλατήστε τη συνάρτηση `swap(int *a, int *b)` που ανταλλάσσει τις τιμές στις δύο διευθύνσεις. Αρχική κατάσταση: `x = 100`, `y = 200`.
 
-**Solution:**
+**Λύση:**
 
 ```cpp
 void swap(int *a, int *b) {
@@ -415,9 +415,9 @@ void swap(int *a, int *b) {
 // swap(&x, &y);
 ```
 
-| Step | `*a` (x) | `*b` (y) | `tmp` |
+| Βήμα | `*a` (x) | `*b` (y) | `tmp` |
 | :--- | :--- | :--- | :--- |
-| Initial | 100 | 200 | — |
+| Αρχικό | 100 | 200 | — |
 | `tmp = *a` | 100 | 200 | 100 |
 | `*a = *b` | 200 | 200 | 100 |
 | `*b = tmp` | 200 | 100 | 100 |
@@ -428,9 +428,9 @@ x = 200, y = 100
 
 ---
 
-### Exercise 5: Const Reference Binding to Temporary
+### Άσκηση 5: Σύνδεση Αναφοράς Const σε Προσωρινό Αντικείμενο
 
-**Problem:** Explain why this compiles and what value is printed.
+**Πρόβλημα:** Εξηγήστε γιατί ο παρακάτω κώδικας μεταγλωττίζεται και ποια τιμή εκτυπώνεται.
 
 ```cpp
 int length(const std::string &s) {
@@ -442,12 +442,12 @@ int main() {
 }
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `"abc"` is a string literal of type `const char[4]`.
-2. A temporary `std::string` is constructed for the call.
-3. `const std::string &` binds to the temporary; its lifetime extends through the full expression.
-4. `s.size()` returns 3.
+1. Το `"abc"` είναι μια σταθερά συμβολοσειράς τύπου `const char[4]`.
+2. Δημιουργείται ένα προσωρινό αντικείμενο `std::string` για την κλήση.
+3. Η `const std::string &` συνδέεται στο προσωρινό αντικείμενο· η διάρκεια ζωής του επεκτείνεται καθ' όλη τη διάρκεια της έκφρασης.
+4. Η `s.size()` επιστρέφει 3.
 
 ```text
 3
@@ -455,27 +455,27 @@ int main() {
 
 ---
 
-### Exercise 6: Choosing the Right Parameter Type
+### Άσκηση 6: Επιλογή του Σωστού Τύπου Παραμέτρου
 
-**Problem:** For each function signature below, state whether it should use value, `const &`, `&`, or `*`.
+**Πρόβλημα:** Για κάθε υπογραφή συνάρτησης παρακάτω, δηλώστε αν πρέπει να χρησιμοποιήσει μεταβίβαση κατ' τιμήν, `const &`, `&` ή `*`.
 
 1. `void print_bool(bool flag)`
 2. `void sort_vector(std::vector<int> &data)`
 3. `void display(const std::vector<int> &data)`
 4. `void find(int *result, bool *found)`
 
-**Solution:**
+**Λύση:**
 
-1. **Pass-by-value** — `bool` is a single byte; copying is cheaper than indirection.
-2. **Non-const reference** — `sort_vector` must reorder the caller's vector in place.
-3. **Const reference** — `display` only reads; avoids copying the entire vector.
-4. **Pointers** — two optional output slots; allows caller to pass `nullptr` if an output is not needed.
+1. **Μεταβίβαση κατ' τιμήν** — το `bool` έχει μέγεθος 1 byte· η αντιγραφή είναι φθηνότερη από την έμμεση προσπέλαση.
+2. **Μη-const αναφορά** — η `sort_vector` πρέπει να ταξινομήσει τον vector του καλούντος επί τόπου.
+3. **Const αναφορά** — η `display` διαβάζει μόνο· αποφεύγει την αντιγραφή ολόκληρου του vector.
+4. **Δείκτες** — δύο προαιρετικές θέσεις εξόδου· επιτρέπει στον καλούντα να μεταβιβάσει `nullptr` αν μια έξοδος δεν απαιτείται.
 
 ---
 
-### Exercise 7: Reference Cannot Be Rebound
+### Άσκηση 7: Η Αναφορά Δεν Μπορεί να Επανασυνδεθεί
 
-**Problem:** Explain why the following does not rebind reference `r` from `a` to `b`.
+**Πρόβλημα:** Εξηγήστε γιατί το παρακάτω δεν επανασυνδέει την αναφορά `r` από το `a` στο `b`.
 
 ```cpp
 int a = 1, b = 2;
@@ -484,11 +484,11 @@ r = b;
 std::cout << a << " " << r;
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `int &r = a` binds `r` to `a` permanently.
-2. `r = b` is an **assignment** to the object `a`, not a rebinding of `r`.
-3. Both `a` and `r` (same object) become 2.
+1. Η εντολή `int &r = a` συνδέει την `r` στο `a` μόνιμα.
+2. Η εντολή `r = b` είναι **ανάθεση** στο αντικείμενο `a`, και όχι επανασύνδεση της `r`.
+3. Τόσο το `a` όσο και το `r` (το ίδιο αντικείμενο) αποκτούν την τιμή 2.
 
 ```text
 2 2
@@ -496,25 +496,25 @@ std::cout << a << " " << r;
 
 ---
 
-### Exercise 8: Copy Cost Analysis
+### Άσκηση 8: Ανάλυση Κόστους Αντιγραφής
 
-**Problem:** A function `void process(std::vector<int> data)` receives a vector of $10^6$ integers. The caller's vector occupies 4 MB. Estimate the extra memory allocated inside the call due to pass-by-value, and state the fix.
+**Πρόβλημα:** Μια συνάρτηση `void process(std::vector<int> data)` λαμβάνει ένα vector με $10^6$ ακεραίους. Ο vector του καλούντος καταλαμβάνει 4 MB. Εκτιμήστε την πρόσθετη μνήμη που δεσμεύεται εντός της κλήσης λόγω μεταβίβασης κατ' τιμήν και προτείνετε τη διόρθωση.
 
-**Solution:**
+**Λύση:**
 
-1. Pass-by-value invokes the copy constructor of `std::vector<int>`.
-2. A second heap buffer of $\approx 4 \times 10^6$ bytes is allocated; all $10^6$ integers are copied.
-3. Extra memory: approximately 4 MB for the duration of the call.
-4. **Fix:** Change the signature to `void process(const std::vector<int> &data)` for read-only access, eliminating the copy entirely.
+1. Η μεταβίβαση κατ' τιμήν καλεί τον κατασκευαστή αντιγραφής του `std::vector<int>`.
+2. Δεσμεύεται ένας δεύτερος ενταμιευτής heap μέγεθους $\approx 4 \times 10^6$ bytes· και οι $10^6$ ακέραιοι αντιγράφονται.
+3. Πρόσθετη μνήμη: περίπου 4 MB για τη διάρκεια της κλήσης.
+4. **Διόρθωση:** Αλλάξτε την υπογραφή σε `void process(const std::vector<int> &data)` για πρόσβαση μόνο για ανάγνωση, εξαλείφοντας πλήρως την αντιγραφή.
 
 ---
 
-## Exam Tip: Parameter Passing on Paper Traces
+## Συμβουλή Εξετάσεων: Μεταβίβαση Παραμέτρων σε Ιχνηλάτηση Χαρτιού
 
-**The three-question checklist** for any C++ parameter-passing trace question:
+**Η λίστα ελέγχου τριών ερωτήσεων** για κάθε ερώτηση ιχνηλάτησης παραμέτρων στη C++:
 
-1. **Is the parameter a value, reference, or pointer?** Value → local copy; reference → alias; pointer → copy of address, shared object via `*`.
-2. **Is `const` present?** `const T &` forbids modification through that parameter.
-3. **Does the function body assign to the parameter name itself (rebinding) or to `*param` / through the reference?** Assignment to a pointer variable changes the address stored locally, not the caller's object. Assignment through `*p` or via `&` reference changes the caller's object.
+1. **Είναι η παράμετρος τιμή, αναφορά ή δείκτης;** Τιμή → τοπικό αντίγραφο· αναφορά → ψευδώνυμο· δείκτης → αντίγραφο διεύθυνσης, κοινό αντικείμενο μέσω `*`.
+2. **Υπάρχει το `const`;** Η `const T &` απαγορεύει την τροποποίηση μέσω αυτής της παραμέτρου.
+3. **Αναθέτει το σώμα της συνάρτησης στο ίδιο το όνομα της παραμέτρου (επανασύνδεση) ή στο `*param` / μέσω της αναφοράς;** Η ανάθεση σε μια μεταβλητή δείκτη αλλάζει την τοπικά αποθηκευμένη διεύθυνση, όχι το αντικείμενο του καλούντος. Η ανάθεση μέσω του `*p` ή μέσω της αναφοράς `&` αλλάζει το αντικείμενο του καλούντος.
 
-**Most common exam trap:** Given `void f(int *p) { p = nullptr; }`, students claim the caller's pointer was set to null. In fact, only the local copy of the address was changed. To affect the caller's pointer, the signature must be `int **p` (pointer to pointer) or a reference `int *&p`.
+**Συχνότερη εξεταστική παγίδα:** Δοθέντος του `void f(int *p) { p = nullptr; }`, οι φοιτητές ισχυρίζονται ότι ο δείκτης του καλούντος τέθηκε σε null. Στην πραγματικότητα, άλλαξε μόνο το τοπικό αντίγραφο της διεύθυνσης. Για να επηρεαστεί ο δείκτης του καλούντος, η υπογραφή πρέπει να είναι `int **p` (δείκτης σε δείκτη) ή αναφορά `int *&p`.

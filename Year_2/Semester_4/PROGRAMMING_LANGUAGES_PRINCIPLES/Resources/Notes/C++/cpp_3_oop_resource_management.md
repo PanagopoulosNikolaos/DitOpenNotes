@@ -1,52 +1,52 @@
-# C++ — OOP and Resource Management
+# C++ — Αντικειμενοστρεφής Προγραμματισμός και Διαχείριση Πόρων
 
-*Prerequisite: cpp_1_basics_and_hardware.md — Stack/heap semantics and pass-by-reference.*
-*Prerequisite: cpp_2_memory_layout.md — Contiguous memory and allocation cost.*
+*Προαπαιτούμενο: cpp_1_basics_and_hardware.md — Σημασιολογία στοιβάδας/heap και μεταβίβαση κατά αναφορά.*
+*Προαπαιτούμενο: cpp_2_memory_layout.md — Συνεχόμενη μνήμη και κόστος δέσμευσης.*
 
-C++ couples object-oriented abstraction with deterministic resource management through constructors, destructors, and RAII (Resource Acquisition Is Initialization). This file covers the three standard constructor forms, destructor semantics, the Rule of Three and Rule of Five, manual `new`/`delete`, smart pointers as RAII wrappers, and operator overloading for user-defined types.
+Η C++ συνδέει την αντικειμενοστρεφή αφαιρετικότητα με τη ντετερμινιστική διαχείριση πόρων μέσω κατασκευαστών (constructors), καταστροφέων (destructors) και του προτύπου RAII (Resource Acquisition Is Initialization). Αυτό το αρχείο καλύπτει τις τρεις τυπικές μορφές κατασκευαστών, τη σημασιολογία των καταστροφέων, τον Κανόνα των Τριών και τον Κανόνα των Πέντε, τη χειροκίνητη χρήση των `new`/`delete`, τους έξυπνους δείκτες ως περιβλήματα RAII και την υπερφόρτωση τελεστών για τύπους οριζόμενους από τον χρήστη.
 
 ---
 
-## 1. Constructors
+## 1. Κατασκευαστές (Constructors)
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-A **constructor** is a special member function invoked automatically when an object is created. Its role is to establish invariants and acquire resources. C++ provides three compiler-synthesized or user-defined forms relevant to this course: default, parameterized, and copy.
+Ένας **κατασκευαστής** είναι μια ειδική συνάρτηση μέλος που καλείται αυτόματα όταν δημιουργείται ένα αντικείμενο. Ο ρόλος του είναι να εγκαθιδρύει αμετάβλητες συνθήκες (invariants) και να αποκτά πόρους. Η C++ παρέχει τρεις συντεθειμένες από τον μεταγλωττιστή ή οριζόμενες από τον χρήστη μορφές σχετικές με αυτό το μάθημα: προεπιλεγμένο, με παραμέτρους και αντιγραφής.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
-**Default constructor:**
+**Προεπιλεγμένος κατασκευαστής (Default constructor):**
 
 ```
 <ClassName>()
 ```
 
-**Parameterized constructor:**
+**Κατασκευαστής με παραμέτρους (Parameterized constructor):**
 
 ```
 <ClassName>(<param_list>)
 ```
 
-**Copy constructor:**
+**Κατασκευαστής αντιγραφής (Copy constructor):**
 
 ```
 <ClassName>(const <ClassName> &<other>)
 ```
 
-**Member initializer list (preferred for initialization):**
+**Λίστα αρχικοποίησης μελών (προτιμάται για την αρχικοποίηση):**
 
 ```
 <ClassName>(<params>) : <member1>(<init1>), <member2>(<init2>) { <body> }
 ```
 
-### 1.3 Constructor Forms Reference
+### 1.3 Αναφορά Μορφών Κατασκευαστών
 
-| Constructor | Signature | When Invoked |
+| Κατασκευαστής | Υπογραφή | Πότε Καλείται |
 | :--- | :--- | :--- |
-| Default | `T()` or `T{}` | `T obj;` or `T obj{}` |
-| Parameterized | `T(args...)` | `T obj(args...)` |
-| Copy | `T(const T &other)` | `T obj2 = obj1;`, pass-by-value, return-by-value |
-| Move (C++11) | `T(T &&other)` | `T obj2 = std::move(obj1);` |
+| Προεπιλεγμένος | `T()` ή `T{}` | `T obj;` ή `T obj{}` |
+| Με παραμέτρους | `T(args...)` | `T obj(args...)` |
+| Αντιγραφής | `T(const T &other)` | `T obj2 = obj1;`, μεταβίβαση κατ' τιμήν, επιστροφή κατ' τιμήν |
+| Μετακίνησης (C++11) | `T(T &&other)` | `T obj2 = std::move(obj1);` |
 
 ```cpp
 #include <iostream>
@@ -57,22 +57,22 @@ public:
     std::string name;
     int grade;
 
-    // Default constructor.
+    // Προεπιλεγμένος κατασκευαστής.
     Student() : name("unknown"), grade(0) {}
 
-    // Parameterized constructor.
+    // Κατασκευαστής με παραμέτρους.
     Student(const std::string &n, int g) : name(n), grade(g) {}
 
-    // Copy constructor.
+    // Κατασκευαστής αντιγραφής.
     Student(const Student &other) : name(other.name), grade(other.grade) {
         std::cout << "Copy constructed: " << name << "\n";
     }
 };
 
 int main() {
-    Student a;                        // Default.
-    Student b("Alice", 95);           // Parameterized.
-    Student c = b;                    // Copy.
+    Student a;                        // Προεπιλεγμένος.
+    Student b("Alice", 95);           // Με παραμέτρους.
+    Student c = b;                    // Αντιγραφής.
     std::cout << c.name << " " << c.grade << "\n";
     return 0;
 }
@@ -85,25 +85,25 @@ Alice 95
 
 ---
 
-## 2. Destructors
+## 2. Καταστροφείς (Destructors)
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-A **destructor** is invoked automatically when an object goes out of scope or is `delete`d. It releases resources acquired by the object. The destructor name is the class name prefixed with `~`.
+Ένας **καταστροφέας** καλείται αυτόματα όταν ένα αντικείμενο βγαίνει εκτός εμβέλειας ή αποδεσμεύεται με `delete`. Αποδεσμεύει τους πόρους που αποκτήθηκαν από το αντικείμενο. Το όνομα του καταστροφέα είναι το όνομα της κλάσης με το σύμβολο `~` ως πρόθεμα.
 
-### 2.2 Syntax Reference
+### 2.2 Αναφορά Σύνταξης
 
 ```
 ~<ClassName>()
 ```
 
-### 2.3 Behavioral Description
+### 2.3 Περιγραφή Συμπεριφοράς
 
-- Exactly one destructor per class.
-- No parameters, no return type.
-- Called in reverse order of construction for member subobjects.
-- For stack objects, called when the enclosing scope ends.
-- For heap objects, called when `delete` is invoked.
+- Ακριβώς ένας καταστροφέας ανά κλάση.
+- Χωρίς παραμέτρους, χωρίς τύπο επιστροφής.
+- Καλείται με την αντίστροφη σειρά κατασκευής για τα υπο-αντικείμενα μέλη.
+- Για αντικείμενα στοιβάδας, καλείται όταν τελειώνει η εμβέλεια που τα περιβάλλει.
+- Για αντικείμενα heap, καλείται όταν εκτελείται η εντολή `delete`.
 
 ```cpp
 #include <iostream>
@@ -124,9 +124,9 @@ int main() {
     ScopeDemo a("outer");
     {
         ScopeDemo b("inner");
-    }   // b destroyed here.
+    }   // Το b καταστρέφεται εδώ.
     return 0;
-}       // a destroyed here.
+}       // Το a καταστρέφεται εδώ.
 ```
 
 ```text
@@ -140,32 +140,32 @@ Destruct:  outer
 
 ## 3. RAII — Resource Acquisition Is Initialization
 
-### 3.1 Formal Definition
+### 3.1 Τυπικός Ορισμός
 
-**RAII** binds the lifetime of a resource (heap memory, file handle, mutex lock, network socket) to the lifetime of a stack-allocated object. The resource is acquired in the constructor and released in the destructor. Scope exit — whether by normal return or exception — guarantees cleanup.
+Το πρότυπο **RAII (Resource Acquisition Is Initialization - Η Απόκτηση Πόρου Είναι Αρχικοποίηση)** συνδέει τη διάρκεια ζωής ενός πόρου (μνήμη heap, περιγραφέας αρχείου, κλείδωμα mutex, socket δικτύου) με τη διάρκεια ζωής ενός αντικειμένου δεσμευμένου στη στοιβάδα. Ο πόρος αποκτάται στον κατασκευαστή και αποδεσμεύεται στον καταστροφέα. Η έξοδος από την εμβέλεια — είτε με κανονική επιστροφή είτε μέσω εξαιρεσης — εγγυάται τον καθαρισμό.
 
-**RAII invariant:**
+**Αμετάβλητη συνθήκη RAII:**
 
 $$
-\text{resource acquired in constructor} \implies \text{resource released in destructor at scope end}
+\text{απόκτηση πόρου στον κατασκευαστή} \implies \text{αποδέσμευση πόρου στον καταστροφέα στο τέλος της εμβέλειας}
 $$
 
-### 3.2 RAII vs. Manual Cleanup
+### 3.2 RAII έναντι Χειροκίνητου Καθαρισμού
 
-| Approach | Cleanup Guarantee | Exception-Safe? |
+| Προσέγγιση | Εγγύηση Καθαρισμού | Ασφάλεια Εξαιρέσεων; |
 | :--- | :--- | :--- |
-| Manual `malloc`/`free` or `new`/`delete` | Programmer must call `free`/`delete` | No — early return or throw leaks |
-| RAII wrapper (destructor calls `delete`) | Automatic at scope exit | Yes |
+| Χειροκίνητη `malloc`/`free` ή `new`/`delete` | Ο προγραμματιστής πρέπει να καλέσει `free`/`delete` | Όχι — η πρόωρη επιστροφή ή εξαίρεση προκαλεί διαρροή |
+| Περίβλημα RAII (ο καταστροφέας καλεί `delete`) | Αυτόματος στο τέλος της εμβέλειας | Ναι |
 
 ```cpp
 #include <iostream>
 #include <memory>
 
 void raii_example() {
-    // Resource (heap int) bound to unique_ptr's lifetime.
+    // Πόρος (heap int) συνδεδεμένος με τη διάρκεια ζωής του unique_ptr.
     std::unique_ptr<int> p = std::make_unique<int>(42);
     std::cout << *p << "\n";
-    // No explicit delete — destructor of unique_ptr calls delete.
+    // Χωρίς ρητό delete — ο καταστροφέας του unique_ptr καλεί το delete.
 }
 
 int main() {
@@ -178,42 +178,42 @@ int main() {
 42
 ```
 
-> **[Key Insight]** RAII is the central design principle that distinguishes C++ resource management from C. The destructor is the cleanup hook; the compiler guarantees it runs. Smart pointers are RAII wrappers for heap memory.
+> **[Βασική Παρατήρηση]** Το RAII είναι η κεντρική αρχή σχεδιασμού που διαφοροποιεί τη διαχείριση πόρων της C++ από τη C. Ο καταστροφέας είναι το σημείο καθαρισμού· ο μεταγλωττιστής εγγυάται την εκτέλεσή του. Οι έξυπνοι δείκτες είναι περιβλήματα RAII για τη μνήμη heap.
 
 ---
 
-## 4. Rule of Three and Rule of Five
+## 4. Κανόνας των Τριών και Κανόνας των Πέντε
 
-### 4.1 Rule of Three (C++98)
+### 4.1 Κανόνας των Τριών (Rule of Three - C++98)
 
-If a class defines **any one** of the following, it should explicitly define **all three**:
+Εάν μια κλάση ορίζει **οποιοδήποτε** από τα ακόλουθα τρία, θα πρέπει να ορίζει ρητά και τα **τρία**:
 
-1. **Destructor** (`~T()`)
-2. **Copy constructor** (`T(const T &)`)
-3. **Copy assignment operator** (`T &operator=(const T &)`)
+1. **Καταστροφέα** (`~T()`)
+2. **Κατασκευαστή αντιγραφής** (`T(const T &)`)
+3. **Τελεστή ανάθεσης αντιγραφής** (`T &operator=(const T &)`)
 
-**Reason:** If the default destructor is insufficient (the class manages a raw resource), the default copy operations perform member-wise shallow copy, producing double-free or dangling-pointer bugs.
+**Αιτιολογία:** Εάν ο προεπιλεγμένος καταστροφέας είναι ανεπαρκής (η κλάση διαχειρίζεται έναν ακατέργαστο πόρο), οι προεπιλεγμένες πράξεις αντιγραφής εκτελούν ρηχή αντιγραφή ανά μέλος, παράγοντας σφάλματα διπλής αποδέσμευσης (double-free) ή μετέωρων δεικτών (dangling pointers).
 
-### 4.2 Rule of Five (C++11)
+### 4.2 Κανόνας των Πέντε (Rule of Five - C++11)
 
-Extend the Rule of Three with:
+Επεκτείνει τον Κανόνα των Τριών προσθέτοντας:
 
-4. **Move constructor** (`T(T &&)`)
-5. **Move assignment operator** (`T &operator=(T &&)`)
+4. **Κατασκευαστή μετακίνησης** (`T(T &&)`)
+5. **Τελεστή ανάθεσης μετακίνησης** (`T &operator=(T &&)`)
 
-If move operations are not defined, the compiler falls back to copying — expensive for large resources.
+Εάν οι πράξεις μετακίνησης δεν οριστούν, ο μεταγλωττιστής καταφεύγει στην αντιγραφή — κάτι που είναι δαπανηρό για μεγάλους πόρους.
 
-### 4.3 Rule Summary Table
+### 4.3 Πίνακας Σύνοψης Κανόνων
 
-| Special Member | Purpose | Omit When |
+| Ειδικό Μέλος | Σκοπός | Παράλειψη Όταν |
 | :--- | :--- | :--- |
-| Destructor | Release owned resource | Class owns no raw resource |
-| Copy constructor | Deep copy of owned resource | Type is non-copyable by design |
-| Copy assignment | Deep copy; handle self-assignment | Same |
-| Move constructor | Transfer ownership; leave source empty | Same |
-| Move assignment | Transfer ownership; release old resource | Same |
+| Καταστροφέας | Αποδέσμευση ιδιόκτητου πόρου | Η κλάση δεν κατέχει ακατέργαστο πόρο |
+| Κατασκευαστής αντιγραφής | Βαθιά αντιγραφή ιδιόκτητου πόρου | Ο τύπος είναι μη αντιγράψιμος εκ σχεδιασμού |
+| Ανάθεση αντιγραφής | Βαθιά αντιγραφή· έλεγχος αυτο-ανάθεσης | Όπως παραπάνω |
+| Κατασκευαστής μετακίνησης | Μεταβίβαση ιδιοκτησίας· άδειασμα πηγής | Όπως παραπάνω |
+| Ανάθεση μετακίνησης | Μεταβίβαση ιδιοκτησίας· αποδέσμευση παλαιού πόρου | Όπως παραπάνω |
 
-### 4.4 Worked Example: Dynamic Buffer Class
+### 4.4 Λυμένο Παράδειγμα: Κλάση Δυναμικού Ενταμιευτή
 
 ```cpp
 #include <iostream>
@@ -227,13 +227,13 @@ public:
 
     ~Buffer() { delete[] data_; }
 
-    // Copy constructor — deep copy.
+    // Κατασκευαστής αντιγραφής — βαθιά αντιγραφή.
     Buffer(const Buffer &other)
         : size_(other.size_), data_(new char[other.size_]) {
         std::memcpy(data_, other.data_, size_);
     }
 
-    // Copy assignment — deep copy with self-assignment check.
+    // Ανάθεση αντιγραφής — βαθιά αντιγραφή με έλεγχο αυτο-ανάθεσης.
     Buffer &operator=(const Buffer &other) {
         if (this != &other) {
             delete[] data_;
@@ -244,14 +244,14 @@ public:
         return *this;
     }
 
-    // Move constructor — transfer ownership.
+    // Κατασκευαστής μετακίνησης — μεταβίβαση ιδιοκτησίας.
     Buffer(Buffer &&other) noexcept
         : size_(other.size_), data_(other.data_) {
         other.data_ = nullptr;
         other.size_ = 0;
     }
 
-    // Move assignment.
+    // Ανάθεση μετακίνησης.
     Buffer &operator=(Buffer &&other) noexcept {
         if (this != &other) {
             delete[] data_;
@@ -272,8 +272,8 @@ private:
 
 int main() {
     Buffer a(100);
-    Buffer b = a;           // Copy.
-    Buffer c = std::move(a); // Move; a.data_ is now nullptr.
+    Buffer b = a;           // Αντιγραφή.
+    Buffer c = std::move(a); // Μετακίνηση· το a.data_ είναι τώρα nullptr.
     std::cout << b.size() << " " << c.size() << "\n";
     return 0;
 }
@@ -285,22 +285,22 @@ int main() {
 
 ---
 
-## 5. Dynamic Memory: `new` and `delete`
+## 5. Δυναμική Μνήμη: `new` και `delete`
 
-### 5.1 Syntax Reference
+### 5.1 Αναφορά Σύνταξης
 
-| Operation | Syntax | Deallocation |
+| Πράξη | Σύνταξη | Αποδέσμευση |
 | :--- | :--- | :--- |
-| Single object | `T *p = new T(args);` | `delete p;` |
-| Array | `T *p = new T[n];` | `delete[] p;` |
-| Zero-initialized | `T *p = new T();` | `delete p;` |
+| Μεμονωμένο αντικείμενο | `T *p = new T(args);` | `delete p;` |
+| Πίνακας | `T *p = new T[n];` | `delete[] p;` |
+| Αρχικοποιημένο στο μηδέν | `T *p = new T();` | `delete p;` |
 
-### 5.2 Behavioral Description
+### 5.2 Περιγραφή Συμπεριφοράς
 
-- `new` allocates on the heap and invokes the constructor.
-- `delete` invokes the destructor and deallocates.
-- `new[]` / `delete[]` must be paired; mixing `new` with `delete[]` (or vice versa) is undefined behavior.
-- Failed allocation throws `std::bad_alloc` (unless `nothrow` variant is used).
+- Η `new` δεσμεύει μνήμη στο heap και καλεί τον κατασκευαστή.
+- Η `delete` καλεί τον καταστροφέα και αποδεσμεύει τη μνήμη.
+- Οι `new[]` / `delete[]` πρέπει να αντιστοιχίζονται ως ζεύγος· η ανάμειξη της `new` με τη `delete[]` (ή το αντίστροφο) αποτελεί μη ορισμένη συμπεριφορά.
+- Η αποτυχία δέσμευσης προκαλεί εξαίρεση `std::bad_alloc` (εκτός αν χρησιμοποιηθεί η παραλλαγή `nothrow`).
 
 ```cpp
 #include <iostream>
@@ -321,34 +321,34 @@ int main() {
 42 3
 ```
 
-### 5.3 Ownership Hazards
+### 5.3 Κίνδυνοι Ιδιοκτησίας Μνήμης
 
-| Hazard | Cause | Consequence |
+| Κίνδυνος | Αιτία | Συνέπεια |
 | :--- | :--- | :--- |
-| Memory leak | `new` without matching `delete` | Heap grows unboundedly |
-| Double free | Two `delete` on same pointer | Undefined behavior |
-| Dangling pointer | Use after `delete` | Undefined behavior |
-| Mismatched deallocator | `new` with `delete[]` | Undefined behavior |
+| Διαρροή μνήμης (Memory leak) | `new` χωρίς αντίστοιχο `delete` | Το heap μεγαλώνει ανεξέλεγκτα |
+| Διπλή αποδέσμευση (Double free) | Δύο κλήσεις `delete` στον ίδιο δείκτη | Μη ορισμένη συμπεριφορά |
+| Μετέωρος δείκτης (Dangling pointer) | Χρήση μετά το `delete` | Μη ορισμένη συμπεριφορά |
+| Ασυμφωνία αποδεσμευτή | `new` με `delete[]` | Μη ορισμένη συμπεριφορά |
 
 ---
 
-## 6. Smart Pointers (RAII Wrappers)
+## 6. Έξυπνοι Δείκτες (Περιβλήματα RAII)
 
-### 6.1 Concept Overview
+### 6.1 Επισκόπηση Έννοιας
 
-Smart pointers are class templates that wrap a raw pointer and enforce RAII. They invoke `delete` (or a custom deleter) in their destructor.
+Οι έξυπνοι δείκτες (smart pointers) είναι πρότυπα κλάσεων που περιβάλλουν έναν ακατέργαστο δείκτη και επιβάλλουν το RAII. Καλούν τη `delete` (ή έναν προσαρμοσμένο καταστροφέα) στον καταστροφέα τους.
 
-### 6.2 Smart Pointer Reference Table
+### 6.2 Πίνακας Αναφοράς Έξυπνων Δεικτών
 
-| Type | Header | Ownership Model | Copyable? |
+| Τύπος | Επικεφαλίδα | Μοντέλο Ιδιοκτησίας | Αντιγράψιμος; |
 | :--- | :--- | :--- | :--- |
-| `std::unique_ptr<T>` | `<memory>` | Exclusive | No (move only) |
-| `std::shared_ptr<T>` | `<memory>` | Shared (reference counted) | Yes |
-| `std::weak_ptr<T>` | `<memory>` | Non-owning observer of `shared_ptr` | Yes |
+| `std::unique_ptr<T>` | `<memory>` | Αποκλειστική | Όχι (μόνο μετακίνηση) |
+| `std::shared_ptr<T>` | `<memory>` | Κοινόχρηστη (με καταμέτρηση αναφορών) | Ναι |
+| `std::weak_ptr<T>` | `<memory>` | Μη-ιδιόκτητος παρατηρητής του `shared_ptr` | Ναι |
 
 ### 6.3 `std::unique_ptr`
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 std::unique_ptr<<type>> <name> = std::make_unique<<type>>(<args>);
@@ -362,10 +362,10 @@ int main() {
     auto p = std::make_unique<int>(99);
     std::cout << *p << "\n";
 
-    // Transfer ownership.
+    // Μεταβίβαση ιδιοκτησίας.
     auto q = std::move(p);
     std::cout << *q << "\n";
-    // p is now nullptr.
+    // Το p είναι τώρα nullptr.
     std::cout << (p == nullptr) << "\n";
     return 0;
 }
@@ -385,53 +385,53 @@ int main() {
 
 int main() {
     std::shared_ptr<int> a = std::make_shared<int>(10);
-    std::shared_ptr<int> b = a;   // Refcount = 2.
+    std::shared_ptr<int> b = a;   // Καταμετρητής αναφορών (Refcount) = 2.
     std::cout << *a << " use_count=" << a.use_count() << "\n";
     return 0;
-}   // Refcount reaches 0; memory freed.
+}   // Ο καταμετρητής φτάνει στο 0· η μνήμη αποδεσμεύεται.
 ```
 
 ```text
 10 use_count=2
 ```
 
-> **[Key Insight]** Prefer `std::make_unique` and `std::make_shared` over raw `new`. They are exception-safe (allocation and wrapper construction are a single step) and eliminate manual `delete`.
+> **[Βασική Παρατήρηση]** Προτιμάτε τις `std::make_unique` και `std::make_shared` έναντι του ακατέργαστου `new`. Παρέχουν ασφάλεια εξαιρέσεων (η δέσμευση και η κατασκευή του περιβλήματος γίνονται σε ένα βήμα) και εξαλείφουν τη χειροκίνητη `delete`.
 
 ---
 
-## 7. Operator Overloading
+## 7. Υπερφόρτωση Τελεστών (Operator Overloading)
 
-### 7.1 Concept Overview
+### 7.1 Επισκόπηση Έννοιας
 
-C++ allows redefining operators for user-defined types, enabling syntax such as `a + b` for custom classes. Overloaded operators are functions with the `operator` keyword.
+Η C++ επιτρέπει τον ανακαθορισμό τελεστών για τύπους οριζόμενους από τον χρήστη, επιτρέποντας σύνταξη όπως `a + b` για προσαρμοσμένες κλάσεις. Οι υπερφορτωμένοι τελεστές είναι συναρτήσεις με τη λέξη-κλειδί `operator`.
 
-### 7.2 Syntax Reference
+### 7.2 Αναφορά Σύνταξης
 
-**Member function form:**
+**Μορφή συνάρτησης μέλους:**
 
 ```
 <return_type> operator<op>(<params>) { ... }
 ```
 
-**Non-member (free function) form:**
+**Μορφή ελεύθερης συνάρτησης (μη μέλους):**
 
 ```
 <return_type> operator<op>(const <Class> &a, const <Class> &b) { ... }
 ```
 
-### 7.3 Overloadable Operators Table
+### 7.3 Πίνακας Υπερφορτώσιμων Τελεστών
 
-| Category | Operators | Notes |
+| Κατηγορία | Τελεστές | Σημειώσεις |
 | :--- | :--- | :--- |
-| Arithmetic | `+`, `-`, `*`, `/`, `%` | Typically non-member for symmetry |
-| Comparison | `==`, `!=`, `<`, `>`, `<=`, `>=` | C++20: `<=>` (spaceship) |
-| Assignment | `=` | Must be member; returns `*this` |
-| Subscript | `[]` | Must be member |
-| Dereference | `*`, `->` | Must be member |
-| Stream | `<<`, `>>` | Must be non-member |
-| Cannot overload | `::`, `.*`, `.`, `?:`, `sizeof` | Language restriction |
+| Αριθμητικοί | `+`, `-`, `*`, `/`, `%` | Τυπικά μη μέλη για συμμετρία |
+| Σύγκρισης | `==`, `!=`, `<`, `>`, `<=`, `>=` | C++20: `<=>` (διαστημόπλοιο/spaceship) |
+| Ανάθεσης | `=` | Πρέπει να είναι μέλος· επιστρέφει `*this` |
+| Δείκτη θέσης | `[]` | Πρέπει να είναι μέλος |
+| Αποσυμβολισμού | `*`, `->` | Πρέπει να είναι μέλος |
+| Ροής | `<<`, `>>` | Πρέπει να είναι μη μέλη |
+| Δεν υπερφορτώνονται | `::`, `.*`, `.`, `?:`, `sizeof` | Περιορισμός γλώσσας |
 
-### 7.4 Worked Example: `Vector2D` Addition and Stream Output
+### 7.4 Λυμένο Παράδειγμα: Πρόσθεση `Vector2D` και Έξοδος Ροής
 
 ```cpp
 #include <iostream>
@@ -465,33 +465,33 @@ int main() {
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Shallow Copy of Raw Pointer (Rule of Three Violation)
+### Σφάλμα 1: Ρηχή Αντιγραφή Ακατέργαστου Δείκτη (Παραβίαση Κανόνα των Τριών)
 
-**Cause:** Class holds `int *data` but uses compiler-generated copy constructor. Two objects share the same buffer; both destructors call `delete[]` on it.
+**Αιτία:** Η κλάση κατέχει έναν `int *data` αλλά χρησιμοποιεί τον κατασκευαστή αντιγραφής που παράγεται από τον μεταγλωττιστή. Δύο αντικείμενα μοιράζονται τον ίδιο ενταμιευτή· και οι δύο καταστροφείς καλούν τη `delete[]` σε αυτόν.
 
-**Resolution:** Implement copy constructor and copy assignment with deep copy, or delete copy operations and use `unique_ptr`.
+**Επίλυση:** Υλοποιήστε κατασκευαστή αντιγραφής και ανάθεση αντιγραφής με βαθιά αντιγραφή, ή διαγράψτε τις πράξεις αντιγραφής και χρησιμοποιήστε `unique_ptr`.
 
-### Error 2: `delete` vs. `delete[]` Mismatch
+### Σφάλμα 2: Ασυμφωνία `delete` και `delete[]`
 
-**Cause:** `int *p = new int[10]; delete p;` — undefined behavior.
+**Αιτία:** `int *p = new int[10]; delete p;` — μη ορισμένη συμπεριφορά.
 
-**Resolution:** Always pair `new[]` with `delete[]`.
+**Επίλυση:** Αντιστοιχίζετε πάντα τη `new[]` με τη `delete[]`.
 
-### Error 3: Dangling Reference from `std::move`d Object
+### Σφάλμα 3: Μετέωρη Αναφορά από Αντικείμενο που Υπέστη `std::move`
 
-**Cause:** Using a moved-from `std::string` or `std::vector` as if it still holds valid data.
+**Αιτία:** Χρήση μιας `std::string` ή ενός `std::vector` από το οποίο μετακινήθηκαν δεδομένα σαν να περιέχει ακόμη έγκυρα δεδομένα.
 
-**Resolution:** After `std::move(x)`, treat `x` as empty; only assign a new value or destroy it.
+**Επίλυση:** Μετά τη χρήση της `std::move(x)`, αντιμετωπίζετε το `x` ως άδειο· εκτελείτε μόνο νέα ανάθεση τιμής ή καταστροφή.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Constructor Invocation Order
+### Άσκηση 1: Σειρά Κλήσης Κατασκευαστών
 
-**Problem:** Predict the output.
+**Πρόβλημα:** Προβλέψτε την έξοδο.
 
 ```cpp
 struct A { A() { std::cout << "A "; } };
@@ -503,11 +503,11 @@ struct C : A {
 int main() { C obj; }
 ```
 
-**Solution:**
+**Λύση:**
 
-1. Base class `A` constructed first.
-2. Member `B` constructed.
-3. `C` body executes.
+1. Πρώτα κατασκευάζεται η βασική κλάση `A`.
+2. Στη συνέχεια κατασκευάζεται το μέλος `B`.
+3. Εκτελείται το σώμα της `C`.
 
 ```text
 A B C
@@ -515,9 +515,9 @@ A B C
 
 ---
 
-### Exercise 2: Destructor Call Count
+### Άσκηση 2: Καταμέτρηση Κλήσεων Καταστροφέα
 
-**Problem:** How many times is `~Student()` called?
+**Πρόβλημα:** Πόσες φορές καλείται ο `~Student()`;
 
 ```cpp
 Student arr[3];
@@ -525,41 +525,41 @@ Student *heap = new Student();
 delete heap;
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `arr[3]` — 3 stack objects destroyed at scope end.
-2. `heap` — 1 heap object destroyed by `delete`.
-3. Total: **4** destructor calls.
-
----
-
-### Exercise 3: Copy vs. Move After `std::move`
-
-**Problem:** After `Buffer b = std::move(a);` in the `Buffer` class above, what are `a.data_` and `b.data_`?
-
-**Solution:**
-
-1. Move constructor transfers `a.data_` to `b.data_`.
-2. `a.data_` is set to `nullptr`; `a.size_` is 0.
-3. `b.data_` points to the original buffer; `b.size_` is unchanged.
+1. `arr[3]` — 3 αντικείμενα στοιβάδας καταστρέφονται στο τέλος της εμβέλειας.
+2. `heap` — 1 αντικείμενο heap καταστρέφεται από τη `delete`.
+3. Συνολικά: **4** κλήσεις καταστροφέα.
 
 ---
 
-### Exercise 4: Self-Assignment in Copy Assignment
+### Άσκηση 3: Αντιγραφή έναντι Μετακίνησης Μετά από `std::move`
 
-**Problem:** Why is `if (this != &other)` necessary in `operator=`?
+**Πρόβλημα:** Μετά την εντολή `Buffer b = std::move(a);` στην κλάση `Buffer` παραπάνω, ποια είναι τα `a.data_` και `b.data_`;
 
-**Solution:**
+**Λύση:**
 
-1. Self-assignment (`a = a`) would `delete[] data_` before copying from `other` (same object).
-2. After deletion, `other.data_` is also invalid — reading it is undefined behavior.
-3. The guard skips deletion and reallocation when source and destination are the same object.
+1. Ο κατασκευαστής μετακίνησης μεταφέρει το `a.data_` στο `b.data_`.
+2. Το `a.data_` τίθεται σε `nullptr`· το `a.size_` γίνεται 0.
+3. Το `b.data_` δείχνει στον αρχικό ενταμιευτή· το `b.size_` παραμένει αμετάβλητο.
 
 ---
 
-### Exercise 5: `unique_ptr` Ownership Transfer
+### Άσκηση 4: Αυτο-Ανάθεση στην Ανάθεση Αντιγραφής
 
-**Problem:** Trace `use_count` and ownership after:
+**Πρόβλημα:** Γιατί είναι απαραίτητος ο έλεγχος `if (this != &other)` στην `operator=`;
+
+**Λύση:**
+
+1. Η αυτο-ανάθεση (`a = a`) θα εκτελούσε `delete[] data_` πριν από την αντιγραφή από το `other` (το ίδιο αντικείμενο).
+2. Μετά τη διαγραφή, το `other.data_` καθίσταται επίσης άκυρο — η ανάγνωσή του συνιστά μη ορισμένη συμπεριφορά.
+3. Ο έλεγχος παραλείπει τη διαγραφή και την επαναδέσμευση όταν η πηγή και ο προορισμός είναι το ίδιο αντικείμενο.
+
+---
+
+### Άσκηση 5: Μεταβίβαση Ιδιοκτησίας `unique_ptr`
+
+**Πρόβλημα:** Ιχνηλατήστε τον καταμετρητή `use_count` και την ιδιοκτησία μετά από:
 
 ```cpp
 auto a = std::make_shared<int>(5);
@@ -567,21 +567,21 @@ auto b = a;
 auto c = std::move(b);
 ```
 
-**Solution:**
+**Λύση:**
 
-1. After `auto b = a`: `a.use_count() == 2`.
-2. After `auto c = std::move(b)`: `c` shares with `a`; `a.use_count() == 2`; `b` is empty (moved-from `shared_ptr` has count 0, does not hold resource).
+1. Μετά το `auto b = a`: `a.use_count() == 2`.
+2. Μετά το `auto c = std::move(b)`: το `c` μοιράζεται τον πόρο με το `a`· `a.use_count() == 2`· το `b` είναι άδειο (ένας `shared_ptr` από τον οποίο μετακινήθηκαν δεδομένα έχει καταμετρητή 0 και δεν κατέχει πόρο).
 
 ---
 
-### Exercise 6: Operator Overload Evaluation
+### Άσκηση 6: Αξιολόγηση Υπερφόρτωσης Τελεστή
 
-**Problem:** Evaluate `a + b` for `Vector2D a(1, 2)` and `Vector2D b(-1, 5)`.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `a + b` για `Vector2D a(1, 2)` και `Vector2D b(-1, 5)`.
 
-**Solution:**
+**Λύση:**
 
-1. `operator+` returns `Vector2D(1 + (-1), 2 + 5) = Vector2D(0, 7)`.
-2. Stream output: `(0, 7)`.
+1. Η `operator+` επιστρέφει `Vector2D(1 + (-1), 2 + 5) = Vector2D(0, 7)`.
+2. Έξοδος ροής: `(0, 7)`.
 
 ```text
 (0, 7)
@@ -589,54 +589,54 @@ auto c = std::move(b);
 
 ---
 
-### Exercise 7: RAII and Exception Safety
+### Άσκηση 7: RAII και Ασφάλεια Εξαιρέσεων
 
-**Problem:** Explain why this leaks, and how RAII fixes it.
+**Πρόβλημα:** Εξηγήστε γιατί αυτή η συνάρτηση προκαλεί διαρροή και πώς το RAII τη διορθώνει.
 
 ```cpp
 void leaky() {
     int *p = new int[1000];
-    process();   // May throw.
+    process();   // Ενδέχεται να προκαλέσει εξαίρεση.
     delete[] p;
 }
 ```
 
-**Solution:**
+**Λύση:**
 
-1. If `process()` throws, `delete[] p` is never reached — leak of 1000 integers.
-2. **RAII fix:** `std::vector<int> v(1000);` or `std::unique_ptr<int[]> p(new int[1000]);` — destructor runs during stack unwinding when the exception propagates.
-
----
-
-### Exercise 8: Rule of Five Decision
-
-**Problem:** Class `Logger` holds only `std::string message` and `std::ofstream file`. Must `Logger` define the Rule of Five explicitly?
-
-**Solution:**
-
-1. `std::string` and `std::ofstream` manage their own resources internally.
-2. Compiler-generated copy/move/destructor delegate to members correctly.
-3. **No** — the Rule of Five is not triggered. Define special members only when the class directly owns a raw pointer or OS handle that members do not manage.
+1. Εάν η `process()` προκαλέσει εξαίρεση, η εντολή `delete[] p` δεν προσπελαύνεται ποτέ — διαρροή 1000 ακεραίων.
+2. **Διόρθωση με RAII:** `std::vector<int> v(1000);` ή `std::unique_ptr<int[]> p(new int[1000]);` — ο καταστροφέας εκτελείται κατά την εκτύλιξη της στοιβάδας (stack unwinding) καθώς η εξαίρεση διαδίδεται.
 
 ---
 
-## Exam Tip: Rule of Three Triggers and `delete[]` Pairing
+### Άσκηση 8: Απόφαση για τον Κανόνα των Πέντε
 
-**Rule of Three trigger question pattern:** "A class contains `int *arr;` allocated in the constructor. Which special members must be user-defined?"
+**Πρόβλημα:** Η κλάση `Logger` περιέχει μόνο τα `std::string message` και `std::ofstream file`. Πρέπει η `Logger` να ορίσει ρητά τον Κανόνα των Πέντε;
 
-Answer: **destructor** (to `delete[] arr`), **copy constructor** (deep copy), **copy assignment** (deep copy with self-assignment guard). In C++11+, add **move constructor** and **move assignment** (Rule of Five).
+**Λύση:**
 
-**`new`/`delete[]` pairing trap:**
+1. Τα `std::string` και `std::ofstream` διαχειρίζονται τους δικούς τους πόρους εσωτερικά.
+2. Ο κατασκευαστής αντιγραφής/μετακίνησης/καταστροφέας που παράγονται από τον μεταγλωττιστή εκχωρούν τις πράξεις στα μέλη ορθά.
+3. **Όχι** — ο Κανένας των Πέντε δεν ενεργοποιείται. Ορίζετε ειδικά μέλη μόνο όταν η κλάση κατέχει άμεσα έναν ακατέργαστο δείκτη ή λαβή OS που δεν διαχειρίζονται τα μέλη της.
 
-| Allocation | Correct Deallocation |
+---
+
+## Συμβουλή Εξετάσεων: Ενεργοποιητές του Κανόνα των Τριών και Ζεύγη `delete[]`
+
+**Μοτίβο ερώτησης ενεργοποίησης του Κανόνα των Τριών:** "Μια κλάση περιέχει `int *arr;` δεσμευμένο στον κατασκευαστή. Ποια ειδικά μέλη πρέπει να οριστούν από τον χρήστη;"
+
+Απάντηση: **καταστροφέας** (για `delete[] arr`), **κατασκευαστής αντιγραφής** (βαθιά αντιγραφή), **ανάθεση αντιγραφής** (βαθιά αντιγραφή με προστασία αυτο-ανάθεσης). Στη C++11+, προσθέστε **κατασκευαστή μετακίνησης** και **ανάθεση μετακίνησης** (Κανόνας των Πέντε).
+
+**Παγίδα αντιστοίχισης `new`/`delete[]`:**
+
+| Δέσμευση | Σωστή Αποδέσμευση |
 | :--- | :--- |
 | `new T` | `delete p` |
 | `new T[n]` | `delete[] p` |
 
-Using `delete` on an array allocated with `new[]` is undefined behavior — a favorite exam distinction question.
+Η χρήση της `delete` σε έναν πίνακα που δεσμεύτηκε με `new[]` αποτελεί μη ορισμένη συμπεριφορά — ένα πολύ συνηθισμένο θέμα διακριτότητας στις εξετάσεις.
 
-**Smart pointer selection:**
+**Επιλογή έξυπνου δείκτη:**
 
-- Exclusive ownership → `unique_ptr`
-- Shared ownership with unknown lifetime → `shared_ptr`
-- Break `shared_ptr` cycles → `weak_ptr`
+- Αποκλειστική ιδιοκτησία → `unique_ptr`
+- Κοινόχρηστη ιδιοκτησία με άγνωστη διάρκεια ζωής → `shared_ptr`
+- Θραύση κύκλων `shared_ptr` → `weak_ptr`

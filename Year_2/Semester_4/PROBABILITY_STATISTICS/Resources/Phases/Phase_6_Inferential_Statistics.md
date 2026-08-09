@@ -1,182 +1,177 @@
-# Phase 6: Inferential Statistics
+# Φάση 6: Συμπερασματικές στατιστικές
 
-## Table of Contents
-1. [Probability Inequalities and Laws of Large Numbers](#1-probability-inequalities-and-laws-of-large-numbers)
-2. [Sampling Distributions](#2-sampling-distributions)
+## Πίνακας περιεχομένων
+1. [Ανισώσεις πιθανοτήτων και νόμοι μεγάλων αριθμών](#1-ανισώσεις-πιθανότητες-και-νόμοι-μεγάλων-αριθμών)
+2. [Διανομές δειγματοληψίας](#2-sampling-distributions)
 3. [Central Limit Theorem (CLT)](#3-central-limit-theorem-clt)
-4. [Confidence Intervals](#4-confidence-intervals)
-5. [Hypothesis Testing](#5-hypothesis-testing)
-6. [Time-Specific Gotchas](#6-time-specific-gotchas)
-7. [Solved Exercises](#7-solved-exercises)
-8. [Phase Summary](#phase-summary)
+4. [Διαστήματα εμπιστοσύνης] (#4-διαστήματα εμπιστοσύνης)
+5. [Δοκιμή υποθέσεων](#5-δοκιμή υποθέσεων)
+6. [Τιμές-συγκεκριμένες γκότσες](#6-συγκεκριμένες-γκότσες)
+7. [Λυμένες Ασκήσεις](#7-λυμένες-ασκήσεις)
+8. [Σύνοψη φάσης](#phase-summary)
 
 ---
 
-## 1. Probability Inequalities and Laws of Large Numbers
+## 1. Ανισώσεις πιθανοτήτων και νόμοι μεγάλων αριθμών
 
-When detailed probability density functions $f_T(t)$ are unknown, mathematical inequalities provide guaranteed non-parametric upper bounds on latency tail probabilities.
+Όταν οι λεπτομερείς συναρτήσεις πυκνότητας πιθανότητας $f_T(t)$ είναι άγνωστες, οι μαθηματικές ανισότητες παρέχουν εγγυημένα μη παραμετρικά άνω όρια στις πιθανότητες ουράς λανθάνουσας κατάστασης.
 
-### Markov's Inequality
-For a non-negative continuous time random variable $T \ge 0$, and constant $a > 0$:
+### Η ανισότητα του Markov
+Για μια μη αρνητική συνεχή χρόνο τυχαία μεταβλητή $T \ge 0$ και σταθερά $a > 0$:
 $$P(T \ge a) \le \frac{E[T]}{a}$$
 
-### Chebyshev's Inequality
-For any random variable $T$ with finite mean $\mu_T$ and finite variance $\sigma_T^2$, the probability of deviating from the mean by $k$ standard deviations ($k > 0$) is bounded:
+### Η ανισότητα του Chebyshev
+Για οποιαδήποτε τυχαία μεταβλητή $T$ με πεπερασμένη μέση $\mu_T$ και πεπερασμένη διακύμανση $\sigma_T^2$, η πιθανότητα απόκλισης από τον μέσο όρο κατά $k$ τυπικές αποκλίσεις ($k > 0$) περιορίζεται:
 $$P(|T - \mu_T| \ge k \sigma_T) \le \frac{1}{k^2}$$
 
-### Laws of Large Numbers (LLN)
-Let $T_1, T_2, \dots, T_n$ be i.i.d. execution time measurements with mean $\mu_T$. The sample mean duration $\bar{T}_n = \frac{1}{n} \sum_{i=1}^n T_i$ converges in probability (Weak Law) and almost surely (Strong Law) to true population mean $\mu_T$ as $n \to \infty$.
+### Νόμοι των μεγάλων αριθμών (LLN)
+Έστω $T_1, T_2, \dots, T_n$ i.i.d. μετρήσεις χρόνου εκτέλεσης με μέσο όρο $\mu_T$. Η μέση διάρκεια του δείγματος $\bar{T}_n = \frac{1}{n} \sum_{i=1}^n T_i$ συγκλίνει σε πιθανότητα (Αδύναμος νόμος) και σχεδόν σίγουρα (Ισχυρός νόμος) στον πραγματικό μέσο πληθυσμό $\mu_T$ ως $n \to \infty$.
 
 ---
 
-## 2. Sampling Distributions
+## 2. Διανομές δειγματοληψίας
 
-Sample statistics are random variables with their own probability distributions.
+Τα δείγματα στατιστικών είναι τυχαίες μεταβλητές με τις δικές τους κατανομές πιθανοτήτων.
 
-### Distribution of the Sample Variance ($S^2$)
-For a random sample from a Normal population $N(\mu, \sigma^2)$, the scaled sample variance follows a Chi-square ($\chi^2$) distribution with $\nu = n-1$ degrees of freedom:
+### Κατανομή της διακύμανσης δείγματος ($S^2$)
+Για ένα τυχαίο δείγμα από έναν Κανονικό πληθυσμό $N(\mu, \sigma^2)$, η κλιμακούμενη διακύμανση του δείγματος ακολουθεί μια κατανομή Χ-τετράγωνο ($\chi^2$) με $\nu = n-1$ βαθμούς ελευθερίας:
 $$\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$$
 
-### Student's t-Distribution
-Arises when estimating the mean of a normally distributed population when $n < 30$ and $\sigma$ is unknown, replacing $\sigma$ with sample standard deviation $s$.
+### Κατανομή t-μαθητή
+Προκύπτει κατά την εκτίμηση του μέσου όρου ενός κανονικά κατανεμημένου πληθυσμού όταν τα $n < 30$ και $\sigma$ είναι άγνωστα, αντικαθιστώντας το $\sigma$ με την τυπική απόκλιση δείγματος $s$.
 
 ### Fisher-Snedecor F-Distribution
-Models the ratio of scaled variances from two independent normal populations. Under $H_0: \sigma_1^2 = \sigma_2^2$, the test statistic $F = s_1^2 / s_2^2$ follows $F_{n_1-1, n_2-1}$.
+Μοντελοποιεί την αναλογία κλιμακούμενων διακυμάνσεων από δύο ανεξάρτητους κανονικούς πληθυσμούς. Στο $H_0: \sigma_1^2 = \sigma_2^2$, το στατιστικό στοιχείο δοκιμής $F = s_1^2 / s_2^2$ ακολουθεί $F_{n_1-1, n_2-1}$.
 
 ---
 
-## 3. Central Limit Theorem (CLT)
+## 3. Κεντρικό οριακό θεώρημα (CLT)
 
-The CLT states that the sample mean $\bar{T}$ of $n$ independent and identically distributed random time metrics approaches a Normal distribution as sample size $n$ grows large ($n \ge 30$), regardless of the underlying latency distribution.
+Το CLT δηλώνει ότι ο μέσος όρος του δείγματος $\bar{T}$ των $n$ ανεξάρτητων και πανομοιότυπα κατανεμημένων τυχαίων μετρήσεων χρόνου προσεγγίζει μια Κανονική κατανομή καθώς το μέγεθος του δείγματος $n$ μεγαλώνει ($n \ge 30$), ανεξάρτητα από την υποκείμενη κατανομή λανθάνοντος χρόνου.
 
 $$\bar{T} \xrightarrow{d} N\left(\mu_T, \frac{\sigma_T^2}{n}\right)$$
 
-### Standardized Z-Score for Sample Means
+### Τυποποιημένη βαθμολογία Z για δείγματα μέσων
 $$Z = \frac{\bar{T} - \mu_T}{\sigma_T / \sqrt{n}} \sim N(0, 1)$$
 
 ---
 
-## 4. Confidence Intervals
+## 4. Διαστήματα εμπιστοσύνης
 
-A Confidence Interval (CI) provides a range of plausible values for an unknown population parameter with a specified confidence level $1 - \alpha$.
+Ένα διάστημα εμπιστοσύνης (CI) παρέχει ένα εύρος εύλογων τιμών για μια παράμετρο άγνωστου πληθυσμού με καθορισμένο επίπεδο εμπιστοσύνης $1 - \alpha$.
 
-### Confidence Interval for Population Mean ($\mu_T$)
-* **Known $\sigma_T$ (or $n \ge 30$):** $CI = \bar{T} \pm z_{\alpha/2} \frac{\sigma_T}{\sqrt{n}}$
-* **Unknown $\sigma_T$ ($n < 30$):** $CI = \bar{T} \pm t_{\alpha/2, n-1} \frac{s_T}{\sqrt{n}}$
+### Διάστημα εμπιστοσύνης για τον μέσο πληθυσμό ($\mu_T$)
+* **Γνωστό $\sigma_T$ (ή $n \ge 30$):** $CI = \bar{T} \pm z_{\alpha/2} \frac{\sigma_T}{\sqrt{n}}$
+* **Άγνωστο $\sigma_T$ ($n < 30$):** $CI = \bar{T} \pm t_{\alpha/2, n-1} \frac{s_T}{\sqrt{n}}$
 
-### Confidence Interval for Population Variance ($\sigma_T^2$)
+### Διάστημα εμπιστοσύνης για διακύμανση πληθυσμού ($\sigma_T^2$)
 $$CI = \left[ \frac{(n - 1) s_T^2}{\chi_{\alpha/2, n-1}^2}, \, \frac{(n - 1) s_T^2}{\chi_{1 - \alpha/2, n-1}^2} \right]$$
 
 ---
 
-## 5. Hypothesis Testing
+## 5. Έλεγχος υποθέσεων
 
-Hypothesis testing evaluates empirical evidence against a default status quo assertion ($H_0$).
+Ο έλεγχος υποθέσεων αξιολογεί τα εμπειρικά στοιχεία έναντι ενός προεπιλεγμένου ισχυρισμού του status quo ($H_0$).
 
-*   **Null Hypothesis ($H_0$):** Status quo assertion (e.g., $\mu \le \mu_0$).
-*   **Alternative Hypothesis ($H_1$):** Research hypothesis (e.g., $\mu > \mu_0$).
-*   **Type I Error ($\alpha$):** Rejecting $H_0$ when it is true (False Alarm).
-*   **Type II Error ($\beta$):** Failing to reject $H_0$ when $H_1$ is true (Missed Detection).
-*   **Power of the Test ($1 - \beta$):** Probability of correctly rejecting a false $H_0$.
+* **Μηδενική υπόθεση ($H_0$):** Ισχυρισμός κατάστασης (π.χ. $\mu \le \mu_0$).
+* **Εναλλακτική υπόθεση ($H_1$):** Ερευνητική υπόθεση (π.χ. $\mu > \mu_0$).* **Σφάλμα τύπου I ($\alpha$):** Απόρριψη $H_0$ όταν είναι αληθές (Εσφαλμένος συναγερμός).
+* **Σφάλμα τύπου II ($\beta$):** Αποτυχία απόρριψης του $H_0$ όταν το $H_1$ είναι αληθές (Αναπάντητη ανίχνευση).
+* **Δύναμη του τεστ ($1 - \beta$):** Πιθανότητα σωστής απόρριψης ενός ψευδούς $H_0$.
 
-### Decision Rules
-* **Critical Value Approach:** Reject $H_0$ if the test statistic falls into the rejection region (determined by $z_{\alpha}$, $t_{\alpha}$, etc.).
-* **p-Value Approach:** Reject $H_0$ if $p\text{-value} \le \alpha$.
-
----
-
-## 6. Time-Specific Gotchas
-
-1. **Confusing Population SD ($\sigma_T$) with Standard Error ($\sigma_{\bar{T}}$):** The variability of the *average* time is $\sigma_{\bar{T}} = \sigma_T / \sqrt{n}$, not $\sigma_T$.
-2. **Applying CLT to Small Samples ($n < 30$) from Skewed Distributions:** For skewed metrics like latency, $\bar{T}$ remains skewed for small $n$. Wait for $n \ge 30$.
-3. **Misinterpreting the $95\%$ Confidence Level:** It does not mean a $95\%$ chance that true mean $\mu_T$ lies in the calculated interval. It means the *method* works $95\%$ of the time.
-4. **Confounding Practical vs Statistical Significance:** A $0.001\text{ ms}$ latency drop can be statistically significant with large $n$, but practically meaningless.
-5. **Sensitivity of $\chi^2$ and $F$ Tests:** Unlike $t$-tests, variance tests are extremely sensitive to non-normality. Do not blindly use them on right-skewed latency data.
+### Κανόνες απόφασης
+* **Προσέγγιση κρίσιμης αξίας:** Απόρριψη $H_0$ εάν το στατιστικό στοιχείο δοκιμής εμπίπτει στην περιοχή απόρριψης (καθορίζεται από $z_{\alpha}$, $t_{\alpha}$, κ.λπ.).
+* Προσέγγιση **p-Value:** Απόρριψη $H_0$ εάν $p\text{-value} \le \alpha$.
 
 ---
 
-## 7. Solved Exercises
+## 6. Χρόνος-Specific Gotchas
 
-#### Exercise 1: Standard Error of Mean Latency
-**Problem:** DB query duration has population mean $\mu_T = 150\text{ ms}$ and standard deviation $\sigma_T = 40\text{ ms}$. Calculate standard error of the mean for $n = 16$.
-**Solution:**
+1. **Σύγχυση του πληθυσμού SD ($\sigma_T$) με το τυπικό σφάλμα ($\sigma_{\bar{T}}$):** Η μεταβλητότητα του *μέσου* χρόνου είναι $\sigma_{\bar{T}} = \sigma_T / \sqrt{n}$, όχι $\sigma_T$.
+2. **Εφαρμογή CLT σε μικρά δείγματα ($n < 30$) από λοξές διανομές:** Για λοξές μετρήσεις όπως η καθυστέρηση, το $\bar{T}$ παραμένει λοξό για μικρά $n$. Περιμένετε για $n \ge 30$.
+3. **Παρερμηνεία του επιπέδου εμπιστοσύνης $95\%$:** Δεν σημαίνει ότι υπάρχει πιθανότητα $95\%$ ότι η πραγματική μέση $\mu_T$ βρίσκεται στο υπολογιζόμενο διάστημα. Σημαίνει ότι η *μέθοδος* λειτουργεί $95\%$ της εποχής.
+4. ** Συγχυτική Πρακτική έναντι Στατιστικής Σημασίας:** Μια πτώση λανθάνοντος χρόνου $0.001\text{ ms}$ μπορεί να είναι στατιστικά σημαντική με μεγάλο $n$, αλλά πρακτικά χωρίς νόημα.
+5. **Ευαισθησία των τεστ $\chi^2$ και $F$:** Σε αντίθεση με τα τεστ $t$, τα τεστ διακύμανσης είναι εξαιρετικά ευαίσθητα στη μη κανονικότητα. Μην τα χρησιμοποιείτε τυφλά σε δεδομένα λανθάνοντος χρόνου με δεξιά λοξή.
+
+---
+
+## 7. Λυμένες Ασκήσεις
+
+#### Άσκηση 1: Τυπικό σφάλμα μέσης καθυστέρησης
+**Πρόβλημα:** Η διάρκεια του ερωτήματος DB έχει μέσο πληθυσμό $\mu_T = 150\text{ ms}$ και τυπική απόκλιση $\sigma_T = 40\text{ ms}$. Υπολογίστε το τυπικό σφάλμα του μέσου όρου για $n = 16$.
+**Λύση:**
 $$\sigma_{\bar{T}} = \frac{40}{\sqrt{16}} = \frac{40}{4} = 10\text{ ms}$$
 
-#### Exercise 2: Sample Size Determination for Targeted Latency Margin
-**Problem:** Individual network delay has $\sigma_T = 30\text{ ms}$. How many sample pings $n$ are needed so that the sample mean $\bar{T}$ lies within $\pm 3\text{ ms}$ of true mean $\mu_T$ with $95\%$ probability?
-**Solution:**
+#### Άσκηση 2: Προσδιορισμός μεγέθους δείγματος για στοχευμένο περιθώριο καθυστέρησης
+**Πρόβλημα:** Η μεμονωμένη καθυστέρηση δικτύου έχει $\sigma_T = 30\text{ ms}$. Πόσα δείγματα ping $n$ χρειάζονται, ώστε η μέση τιμή του δείγματος $\bar{T}$ να βρίσκεται εντός $\pm 3\text{ ms}$ του πραγματικού μέσου όρου $\mu_T$ με πιθανότητα $95\%$;
+**Λύση:**
 $$n = \left( \frac{z_{0.025} \cdot \sigma_T}{E} \right)^2 = \left( \frac{1.96 \cdot 30}{3} \right)^2 = (19.6)^2 = 384.16$$
-Round up to $n = 385$ pings.
+Στρογγυλοποίηση προς $n = 385$ ping.
 
-#### Exercise 3: Comparing Individual vs Sample Mean Tail Probabilities
-**Problem:** Latency $T \sim N(100, 400)$ ($\mu_T = 100, \sigma_T = 20$). Compare $P(T > 110)$ for a single request vs $P(\bar{T} > 110)$ for $n = 25$ requests.
-**Solution:**
-Single request: $z = \frac{110 - 100}{20} = 0.50 \implies P(T > 110) = 1 - \Phi(0.50) = 0.3085 \text{ (30.85\%)}$.
-Sample mean ($n=25$): $\sigma_{\bar{T}} = \frac{20}{5} = 4$. $z = \frac{110 - 100}{4} = 2.50 \implies P(\bar{T} > 110) = 1 - \Phi(2.50) = 0.0062 \text{ (0.62\%)}$.
+#### Άσκηση 3: Σύγκριση Ατομικών και Δείγματος πιθανοτήτων μέσης ουράς
+**Πρόβλημα:** Καθυστέρηση $T \sim N(100, 400)$ ($\mu_T = 100, \sigma_T = 20$). Συγκρίνετε $P(T > 110)$ για ένα μόνο αίτημα έναντι $P(\bar{T} > 110)$ για $n = 25$ αιτήματα.
+**Λύση:**
+Μονό αίτημα: $z = \frac{110 - 100}{20} = 0.50 \implies P(T > 110) = 1 - \Phi(0.50) = 0.3085 \text{ (30.85\%)}$.
+Μέσος όρος δείγματος ($n=25$): $\sigma_{\bar{T}} = \frac{20}{5} = 4$. $z = \frac{110 - 100}{4} = 2.50 \implies P(\bar{T} > 110) = 1 - \Phi(2.50) = 0.0062 \text{ (0.62\%)}$.
 
-#### Exercise 4: 95% t-Confidence Interval (Small Sample $n = 16$)
-**Problem:** Benchmark of $n = 16$ microservice executions yields $\bar{T} = 5.4\text{ s}$ and $s_T = 0.8\text{ s}$. Construct a $95\%$ CI for $\mu_T$.
-**Solution:**
+#### Άσκηση 4: 95% διάστημα t-εμπιστοσύνης (Μικρό δείγμα $n = 16$)
+**Πρόβλημα:** Το σημείο αναφοράς των εκτελέσεων microservice $n = 16$ αποδίδει $\bar{T} = 5.4\text{ s}$ και $s_T = 0.8\text{ s}$. Κατασκευάστε ένα $95\%$ CI για $\mu_T$.
+**Λύση:**
 $t_{0.025, 15} = 2.131$. $\text{SE} = \frac{0.8}{\sqrt{16}} = 0.2\text{ s}$.
-Margin of Error $E = 2.131 \times 0.2 = 0.4262\text{ s}$.
+Περιθώριο σφάλματος $E = 2.131 \times 0.2 = 0.4262\text{ s}$.
 $\text{CI} = [5.4 - 0.4262, 5.4 + 0.4262] = [4.9738\text{ s}, 5.8262\text{ s}]$.
 
-#### Exercise 5: Difference in Mean Execution Times Confidence Interval
-**Problem:** System A ($n_1 = 40, \bar{T}_1 = 120\text{ ms}, s_1 = 16\text{ ms}$) and System B ($n_2 = 50, \bar{T}_2 = 135\text{ ms}, s_2 = 20\text{ ms}$). Construct a $95\%$ CI for $\mu_2 - \mu_1$.
-**Solution:**
-Estimate $= 135 - 120 = 15\text{ ms}$.
+#### Άσκηση 5: Διαφορά στους μέσους χρόνους εκτέλεσης Διάστημα εμπιστοσύνης
+**Πρόβλημα:** Σύστημα Α ($n_1 = 40, \bar{T}_1 = 120\text{ ms}, s_1 = 16\text{ ms}$) και Σύστημα Β ($n_2 = 50, \bar{T}_2 = 135\text{ ms}, s_2 = 20\text{ ms}$). Κατασκευάστε ένα $95\%$ CI για $\mu_2 - \mu_1$.
+**Λύση:**
+Υπολογίστε $= 135 - 120 = 15\text{ ms}$.
 $\text{SE}_{\text{diff}} = \sqrt{\frac{16^2}{40} + \frac{20^2}{50}} = \sqrt{6.4 + 8.0} = \sqrt{14.4} \approx 3.7947\text{ ms}$.
 $E = 1.96 \times 3.7947 = 7.4376\text{ ms}$.
 $\text{CI} = [15 - 7.4376, 15 + 7.4376] = [7.5624\text{ ms}, 22.4376\text{ ms}]$.
 
-#### Exercise 6: One-Sample Z-Test for Latency SLA Benchmark
-**Problem:** SLA mandates mean response time $\mu_T \le 100\text{ ms}$. A sample of $n = 64$ requests has $\bar{T} = 105\text{ ms}$ with known $\sigma_T = 16\text{ ms}$. Test at $\alpha = 0.05$ whether SLA is violated ($H_1: \mu_T > 100$).
-**Solution:**
+#### Άσκηση 6: Δοκιμή Z ενός δείγματος για Συγκριτική αξιολόγηση SLA Latency**Πρόβλημα:** Οι εντολές SLA σημαίνουν χρόνο απόκρισης $\mu_T \le 100\text{ ms}$. Ένα δείγμα αιτημάτων $n = 64$ έχει $\bar{T} = 105\text{ ms}$ με γνωστό $\sigma_T = 16\text{ ms}$. Ελέγξτε στο $\alpha = 0.05$ εάν το SLA παραβιάζεται ($H_1: \mu_T > 100$).
+**Λύση:**
 $\text{SE} = \frac{16}{\sqrt{64}} = 2\text{ ms}$. $Z = \frac{105 - 100}{2} = 2.50$.
-Critical value $z_{0.05} = 1.645$. Since $Z = 2.50 > 1.645$, reject $H_0$. Strong evidence SLA is violated.
+Κρίσιμη τιμή $z_{0.05} = 1.645$. Από $Z = 2.50 > 1.645$, απορρίψτε το $H_0$. Ισχυρές αποδείξεις Η SLA παραβιάζεται.
 
-#### Exercise 7: Two-Sample Welch's t-Test Comparing Cloud Regions
-**Problem:** Region A ($n_1 = 36, \bar{T}_1 = 82, s_1 = 12$) and Region B ($n_2 = 36, \bar{T}_2 = 90, s_2 = 15$). Test at $\alpha = 0.05$ whether mean latencies differ ($H_1: \mu_1 \neq \mu_2$).
-**Solution:**
+#### Άσκηση 7: Δοκιμή t-Test Welch με δύο δείγματα σύγκριση περιοχών νέφους
+**Πρόβλημα:** Περιοχή Α ($n_1 = 36, \bar{T}_1 = 82, s_1 = 12$) και Περιοχή Β ($n_2 = 36, \bar{T}_2 = 90, s_2 = 15$). Ελέγξτε στο $\alpha = 0.05$ εάν οι μέσες καθυστερήσεις διαφέρουν ($H_1: \mu_1 \neq \mu_2$).
+**Λύση:**
 $\text{SE}_{\text{diff}} = \sqrt{\frac{144}{36} + \frac{225}{36}} = \sqrt{10.25} \approx 3.2016$.
 $t = \frac{82 - 90}{3.2016} \approx -2.50$.
-Critical value $z_{0.025} = 1.96$ ($df \approx 66$). Since $|t| = 2.50 > 1.96$, reject $H_0$.
+Κρίσιμη τιμή $z_{0.025} = 1.96$ ($df \approx 66$). Από $|t| = 2.50 > 1.96$, απορρίψτε το $H_0$.
 
-#### Exercise 8: Statistical Power ($1 - \beta$) Calculation for Latency
-**Problem:** Testing $H_0: \mu_T = 100\text{ ms}$ vs $H_1: \mu_T = 90\text{ ms}$ with $\sigma_T = 20\text{ ms}, n = 25, \alpha = 0.05$ (left-tailed). Calculate test power.
-**Solution:**
-$\text{SE} = 4\text{ ms}$. Rejection cutoff $\bar{T}_{\text{crit}} = 100 - 1.645(4) = 93.42\text{ ms}$.
-Under $H_1: \mu_T = 90$, $z = \frac{93.42 - 90}{4} = 0.855 \approx 0.86$.
-Power $= \Phi(0.86) = 0.8051$ (approx $80.51\%$).
+#### Άσκηση 8: Στατιστική ισχύς ($1 - \beta$) Υπολογισμός για καθυστέρηση
+**Πρόβλημα:** Δοκιμή $H_0: \mu_T = 100\text{ ms}$ έναντι $H_1: \mu_T = 90\text{ ms}$ με $\sigma_T = 20\text{ ms}, n = 25, \alpha = 0.05$ (αριστερή ουρά). Υπολογίστε την ισχύ δοκιμής.
+**Λύση:**
+$\text{SE} = 4\text{ ms}$. Περικοπή απόρριψης $\bar{T}_{\text{crit}} = 100 - 1.645(4) = 93.42\text{ ms}$.
+Κάτω από $H_1: \mu_T = 90$, $z = \frac{93.42 - 90}{4} = 0.855 \approx 0.86$.
+Τροφοδοσία $= \Phi(0.86) = 0.8051$ (περίπου $80.51\%$).
 
-#### Exercise 9: 95% Confidence Interval for Population Variance $\sigma_T^2$
-**Problem:** $n = 25$ measurements yield $s_T^2 = 16\text{ ms}^2$. Construct $95\%$ CI for $\sigma_T^2$.
-**Solution:**
+#### Άσκηση 9: Διάστημα εμπιστοσύνης 95% για διακύμανση πληθυσμού $\sigma_T^2$
+**Πρόβλημα:** Οι μετρήσεις $n = 25$ αποδίδουν $s_T^2 = 16\text{ ms}^2$. Κατασκευάστε $95\%$ CI για $\sigma_T^2$.
+**Λύση:**
 $df = 24$. $\chi_{0.025, 24}^2 = 39.36, \chi_{0.975, 24}^2 = 12.40$.
-Lower $= \frac{24 \times 16}{39.36} \approx 9.756$. Upper $= \frac{24 \times 16}{12.40} \approx 30.968$.
+Κάτω $= \frac{24 \times 16}{39.36} \approx 9.756$. Άνω $= \frac{24 \times 16}{12.40} \approx 30.968$.
 $\text{CI} = [9.76\text{ ms}^2, 30.97\text{ ms}^2]$.
 
-#### Exercise 10: Markov's Inequality Upper Bound on Severe Latency
-**Problem:** API mean latency is $E[T] = 50\text{ ms}$. Find an upper bound on $P(T \ge 200\text{ ms})$.
-**Solution:**
-By Markov: $P(T \ge 200) \le \frac{50}{200} = 0.25 \text{ (25\%)}$.
+#### Άσκηση 10: Ανώτερο όριο ανισότητας Markov σε σοβαρή καθυστέρηση
+**Πρόβλημα:** Η μέση καθυστέρηση του API είναι $E[T] = 50\text{ ms}$. Βρείτε ένα άνω όριο στο $P(T \ge 200\text{ ms})$.
+**Λύση:**
+Από τον Markov: $P(T \ge 200) \le \frac{50}{200} = 0.25 \text{ (25\%)}$.
 
-#### Exercise 11: Chebyshev Bound for 3-Sigma Latency Outliers
-**Problem:** Latency $T$ has $\mu_T = 120\text{ ms}$ and $\sigma_T = 15\text{ ms}$. Find upper bound on $P(|T - 120| \ge 45)$.
-**Solution:**
-$45 = 3\sigma_T$. By Chebyshev: $P(|T - 120| \ge 3\sigma_T) \le \frac{1}{3^2} = \frac{1}{9} \approx 0.1111 \text{ (11.11\%)}$.
+#### Άσκηση 11: Ο Chebyshev δεσμεύεται για 3-Sigma Latency Outliers
+**Πρόβλημα:** Η καθυστέρηση $T$ έχει $\mu_T = 120\text{ ms}$ και $\sigma_T = 15\text{ ms}$. Βρείτε το άνω όριο στο $P(|T - 120| \ge 45)$.
+**Λύση:**
+$45 = 3\sigma_T$. Από τον Chebyshev: $P(|T - 120| \ge 3\sigma_T) \le \frac{1}{3^2} = \frac{1}{9} \approx 0.1111 \text{ (11.11\%)}$.
 
-#### Exercise 12: R Code Verification of WLLN Convergence
-**Problem:** Write R code demonstrating the convergence of sample mean execution time to true mean $\mu_T = 10$ as sample size grows to $10{,}000$.
-**Solution:**
-```r
+#### Άσκηση 12: Επαλήθευση κωδικού R της σύγκλισης WLLN
+**Πρόβλημα:** Γράψτε τον κώδικα R που να δείχνει τη σύγκλιση του μέσου χρόνου εκτέλεσης του δείγματος με τον πραγματικό μέσο όρο $\mu_T = 10$ καθώς το μέγεθος του δείγματος αυξάνεται σε $10{,}000$.
+**Διάλυμα:**```r
 set.seed(42)
 latencies <- rexp(10000, rate = 0.1) # mu = 10
 cum_means <- cumsum(latencies) / (1:10000)
 cat("Sample mean at n = 10000:", round(cum_means[10000], 3), "\n") # approaches 10.000
-```
+```---
 
----
-
-## Phase Summary
-Phase 6 pivots from pure probability to Inferential Statistics, forming the bridge between raw latency samples and definitive architectural conclusions. The theoretical engine driving this is the Central Limit Theorem (CLT), which proves that average latencies ($\bar{T}$) distribute normally even when individual execution times are wildly skewed. Laws of Large Numbers and Chebyshev’s Inequality guarantee that sample statistics aggressively converge to true parameters as $N$ scales. Practically, Confidence Intervals replace fragile single-point estimates with robust, statistically sound latency ranges. Hypothesis Testing formalizes A/B testing (e.g., did the new index *actually* reduce query times?), carefully balancing Type I Errors (false optimization claims) against Type II Errors (missed speedups) and incorporating the $t$, $\chi^2$, and $F$-distributions to accurately assess means and variances from limited operational data.
+## Περίληψη Φάσης
+Η Φάση 6 περιστρέφεται από την καθαρή πιθανότητα στην επαγωγική στατιστική, σχηματίζοντας τη γέφυρα μεταξύ των ακατέργαστων δειγμάτων λανθάνοντος χρόνου και των οριστικών αρχιτεκτονικών συμπερασμάτων. Ο θεωρητικός κινητήρας που οδηγεί σε αυτό είναι το Κεντρικό Οριακό Θεώρημα (CLT), το οποίο αποδεικνύει ότι οι μέσες καθυστερήσεις ($\bar{T}$) κατανέμονται κανονικά ακόμη και όταν οι μεμονωμένοι χρόνοι εκτέλεσης είναι πολύ λοξοί. Οι νόμοι των μεγάλων αριθμών και η ανισότητα του Chebyshev εγγυώνται ότι τα στατιστικά του δείγματος συγκλίνουν επιθετικά σε πραγματικές παραμέτρους ως κλίμακες $N$. Πρακτικά, τα Διαστήματα Εμπιστοσύνης αντικαθιστούν τις εύθραυστες εκτιμήσεις ενός σημείου με ισχυρά, στατιστικά εύρη εύρη λανθάνοντος χρόνου. Η δοκιμή υποθέσεων επισημοποιεί τις δοκιμές A/B (π.χ., το νέο ευρετήριο *πράγματι* μείωσε τους χρόνους των ερωτημάτων;), εξισορροπώντας προσεκτικά τα Σφάλματα Τύπου Ι (ψευδείς αξιώσεις βελτιστοποίησης) έναντι Σφαλμάτων Τύπου ΙΙ (χαμένες επιταχύνσεις) και ενσωματώνοντας τα $t$, __MATHINLINE-3_MATHINLINE_διανομή3__Ακριβή και κατανομή_4, αποκλίσεις από περιορισμένα επιχειρησιακά δεδομένα.

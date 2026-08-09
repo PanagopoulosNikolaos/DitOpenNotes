@@ -1,178 +1,173 @@
-# Phase 5: Continuous Random Variables & Distributions
+# Φάση 5: Συνεχείς Τυχαίες Μεταβλητές & Κατανομές
 
-## Table of Contents
+## Πίνακας περιεχομένων
 - [Section 5.1: Normal Distribution](#section-51-normal-distribution)
-- [Section 5.2: The Empirical Rule](#section-52-the-empirical-rule)
+- [Ενότητα 5.2: Ο εμπειρικός κανόνας](#section-52-the-empirical-rule)
 - [Section 5.3: Continuous Uniform Distribution](#section-53-continuous-uniform-distribution)
-- [Section 5.4: Exponential Distribution](#section-54-exponential-distribution)
-- [Section 5.5: Gamma, Erlang, and Weibull Distributions](#section-55-gamma-erlang-and-weibull-distributions)
+- [Ενότητα 5.4: Εκθετική Κατανομή](#section-54-exponential-distribution)
+- [Ενότητα 5.5: Διανομές Gamma, Erlang και Weibull](#section-55-gamma-erlang-and-weibull-distributions)
 - [Section 5.6: Transformations of Continuous Random Variables](#section-56-transformations-of-continuous-random-variables)
-- [Exam Preparation Guide](#exam-preparation-guide)
-- [Phase Summary](#phase-summary)
+- [Οδηγός προετοιμασίας για εξετάσεις](#exam-preparation-guide)
+- [Σύνοψη φάσης](#phase-summary)
 
 ---
 
-## Section 5.1: Normal Distribution
+## Ενότητα 5.1: Κανονική κατανομή
 
-### Core Theory & Definitions
+### Θεωρία Πυρήνα & Ορισμοί
 
-The **Normal (Gaussian) Distribution** is the most important continuous probability distribution in statistics. A continuous random variable $X$ follows a Normal distribution with parameters $\mu$ (mean) and $\sigma^2$ (variance), written $X \sim N(\mu, \sigma^2)$, if its probability density function (PDF) has the symmetric, bell-shaped form shown below.
+Η **Κανονική (Γκαουσιανή) Κατανομή** είναι η πιο σημαντική συνεχής κατανομή πιθανοτήτων στις στατιστικές. Μια συνεχής τυχαία μεταβλητή $X$ ακολουθεί μια Κανονική κατανομή με παραμέτρους $\mu$ (μέσος όρος) και $\sigma^2$ (διακύμανση), γραμμένη $X \sim N(\mu, \sigma^2)$, εάν η συνάρτηση πυκνότητας πιθανότητας (PDF) έχει τη συμμετρική, σε σχήμα καμπάνας μορφή που φαίνεται παρακάτω.
 
-The Normal distribution is parameterized by:
-- $\mu \in (-\infty, +\infty)$: the **mean** (also the median and mode for a symmetric distribution)
-- $\sigma > 0$: the **standard deviation**; $\sigma^2$ is the variance
+Η κανονική κατανομή παραμετροποιείται από:
+- $\mu \in (-\infty, +\infty)$: ο **μέσος όρος** (επίσης η διάμεσος και ο τρόπος για μια συμμετρική κατανομή)
+- $\sigma > 0$: η **τυπική απόκλιση**; $\sigma^2$ είναι η διακύμανση
 
-The distribution is symmetric around $\mu$, meaning $P(X \le \mu - c) = P(X \ge \mu + c)$ for any $c > 0$.
+Η κατανομή είναι συμμετρική γύρω από $\mu$, που σημαίνει $P(X \le \mu - c) = P(X \ge \mu + c)$ για οποιοδήποτε $c > 0$.
 
-**Standard Normal Distribution:** The special case $Z \sim N(0, 1)$ (mean 0, variance 1) is called the **standard normal**. Any normal random variable can be converted to standard normal via the Z-score transformation. The CDF of $Z$ is denoted $\Phi(z) = P(Z \le z)$ and is tabulated in Z-tables.
+**Τυπική Κανονική Κατανομή:** Η ειδική περίπτωση $Z \sim N(0, 1)$ (μέσος όρος 0, διακύμανση 1) ονομάζεται **τυπική κανονική**. Οποιαδήποτε κανονική τυχαία μεταβλητή μπορεί να μετατραπεί σε τυπική κανονική μέσω του μετασχηματισμού Z-score. Το CDF του $Z$ συμβολίζεται με $\Phi(z) = P(Z \le z)$ και παρουσιάζεται σε πίνακες Z.
 
-**Support:** $x \in (-\infty, +\infty)$. The Normal domain is the entire real line, which creates practical issues when modeling strictly positive quantities (e.g., durations, weights). For such applications, truncation or log-normal models are preferred when $\mu < 3\sigma$.
+**Υποστήριξη:** $x \in (-\infty, +\infty)$. Ο Κανονικός τομέας είναι ολόκληρη η πραγματική γραμμή, η οποία δημιουργεί πρακτικά ζητήματα κατά τη μοντελοποίηση αυστηρά θετικών μεγεθών (π.χ. διάρκειες, βάρη). Για τέτοιες εφαρμογές, τα μοντέλα περικοπής ή κανονικής καταγραφής προτιμώνται όταν $\mu < 3\sigma$.
 
-> **Practical / Time-Domain Note:**
-> Response times, latencies, and system delays are strictly positive quantities. A Normal model $T \sim N(\mu_T, \sigma_T^2)$ assigns a small but nonzero probability to $T < 0$, which is physically impossible. This is acceptable as a working approximation when $\mu_T \gg \sigma_T$ (equivalently, when $\mu_T > 3\sigma_T$). When the coefficient of variation $\sigma_T / \mu_T$ is large (greater than roughly 0.3), prefer a Log-Normal, Gamma, or Exponential model for positive-valued latency data.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Οι χρόνοι απόκρισης, οι καθυστερήσεις και οι καθυστερήσεις συστήματος είναι αυστηρά θετικές ποσότητες. Ένα Κανονικό μοντέλο $T \sim N(\mu_T, \sigma_T^2)$ εκχωρεί μια μικρή αλλά μη μηδενική πιθανότητα στο $T < 0$, η οποία είναι φυσικά αδύνατο. Αυτό είναι αποδεκτό ως λειτουργική προσέγγιση όταν $\mu_T \gg \sigma_T$ (ισοδύναμα, όταν $\mu_T > 3\sigma_T$). Όταν ο συντελεστής διακύμανσης $\sigma_T / \mu_T$ είναι μεγάλος (μεγαλύτερος από περίπου 0,3), προτιμήστε ένα μοντέλο Log-Normal, Gamma ή Exponential για δεδομένα λανθάνοντος χρόνου θετικής αξίας.
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-**Probability Density Function (PDF):**
+**Συνάρτηση πυκνότητας πιθανότητας (PDF):**
 $$f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad x \in (-\infty, +\infty)$$
 
-**Cumulative Distribution Function (CDF):**
+**Σωρευτική Συνάρτηση Κατανομής (CDF):**
 $$F(x) = P(X \le x) = \Phi\left(\frac{x - \mu}{\sigma}\right)$$
 
-where $\Phi(\cdot)$ is the standard normal CDF, tabulated in Z-tables.
+όπου $\Phi(\cdot)$ είναι το τυπικό κανονικό CDF, σε πίνακα Z-πίνακες.
 
-**Z-Score (Standardization):**
+**Βαθμολογία Z (Τυποποίηση):**
 $$Z = \frac{X - \mu}{\sigma} \sim N(0, 1)$$
 
-This transformation converts any normal probability to a standard normal probability, enabling use of the Z-table.
+Αυτός ο μετασχηματισμός μετατρέπει οποιαδήποτε κανονική πιθανότητα σε τυπική κανονική πιθανότητα, επιτρέποντας τη χρήση του πίνακα Z.
 
-**Key Probability Calculations:**
+**Υπολογισμοί βασικών πιθανοτήτων:**
 $$P(X \le x) = \Phi\left(\frac{x - \mu}{\sigma}\right)$$
 $$P(X > x) = 1 - \Phi\left(\frac{x - \mu}{\sigma}\right)$$
 $$P(a \le X \le b) = \Phi\left(\frac{b - \mu}{\sigma}\right) - \Phi\left(\frac{a - \mu}{\sigma}\right)$$
 
-**Symmetry of the Standard Normal:**
+**Συμμετρία της τυπικής κανονικής:**
 $$\Phi(-z) = 1 - \Phi(z)$$
 
-This is used to convert negative Z-scores into positive ones available in standard tables.
+Αυτό χρησιμοποιείται για τη μετατροπή των αρνητικών βαθμολογιών Z σε θετικές που διατίθενται σε τυπικούς πίνακες.
 
-**Quantile / Inverse CDF (Percentile):**
+**Ποσοστό / Αντίστροφο CDF (Ποσοστό):**
 $$x_p = \mu + z_p \cdot \sigma$$
 
-where $z_p = \Phi^{-1}(p)$ is the $p$-th quantile of the standard normal (e.g., $z_{0.95} = 1.645$, $z_{0.99} = 2.326$).
+όπου $z_p = \Phi^{-1}(p)$ είναι το $p$-ο τεταρτημόριο του τυπικού κανονικού (π.χ. $z_{0.95} = 1.645$, $z_{0.99} = 2.326$).
 
-**Mean and Variance:**
-$$E[X] = \mu, \quad V(X) = \sigma^2$$
-
-**Sum of Independent Normals:** If $X_1 \sim N(\mu_1, \sigma_1^2)$ and $X_2 \sim N(\mu_2, \sigma_2^2)$ are independent, then:
+**Μέσος όρος και διακύμανση:**
+$$E[X] = \mu, \quad V(X) = \sigma^2$$**Άθροισμα Ανεξάρτητων Κανονικών:** Εάν τα $X_1 \sim N(\mu_1, \sigma_1^2)$ και $X_2 \sim N(\mu_2, \sigma_2^2)$ είναι ανεξάρτητα, τότε:
 $$X_1 + X_2 \sim N(\mu_1 + \mu_2,\ \sigma_1^2 + \sigma_2^2)$$
 
-**Time-Domain Adapted Formula (Latency Percentile SLA):**
+**Τύπος προσαρμοσμένος σε τομέα χρόνου (Ποσοστό λανθάνοντος χρόνου SLA):**
 
-When $T \sim N(\mu_T, \sigma_T^2)$ models a latency (in ms, s, etc.), the $p$-th percentile SLA threshold is:
+Όταν το $T \sim N(\mu_T, \sigma_T^2)$ μοντελοποιεί έναν λανθάνοντα χρόνο (σε ms, s, κ.λπ.), το όριο SLA $p$-ου εκατοστημόριου είναι:
 $$t_p = \mu_T + z_p \cdot \sigma_T \quad [\text{same time unit as } \mu_T]$$
 
-**Unit Conversion via the $c^2$ Rule:**
+**Μετατροπή μονάδας μέσω του κανόνα $c^2$:**
 
-If time measurements are converted from one unit to another by multiplying by $c$ (e.g., seconds to milliseconds: $c = 1000$), then:
+Εάν οι μετρήσεις χρόνου μετατρέπονται από μια μονάδα σε μια άλλη πολλαπλασιάζοντας με $c$ (π.χ. δευτερόλεπτα σε χιλιοστά του δευτερολέπτου: $c = 1000$), τότε:
 $$\mu_{new} = c \cdot \mu_{old}, \quad \sigma_{new} = c \cdot \sigma_{old}, \quad \sigma^2_{new} = c^2 \cdot \sigma^2_{old}$$
 
-The Z-score is unitless and unaffected by the conversion.
+Η βαθμολογία Z είναι χωρίς μονάδα και δεν επηρεάζεται από τη μετατροπή.
 
-> **Practical / Time-Domain Note:**
-> The $c^2$ rule is a frequent exam trap. If $T \sim N(50, 100)$ ms and you convert to seconds ($c = 1/1000$), the new distribution is $T \sim N(0.05, 0.0001)$ s. The variance scales by $c^2 = 10^{-6}$, NOT by $c$. Forgetting this is one of the most common unit-conversion mistakes.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Ο κανόνας $c^2$ είναι μια παγίδα συχνών εξετάσεων. Εάν $T \sim N(50, 100)$ ms και μετατρέψετε σε δευτερόλεπτα ($c = 1/1000$), η νέα διανομή είναι $T \sim N(0.05, 0.0001)$ s. Η διακύμανση κλιμακώνεται κατά $c^2 = 10^{-6}$, ΟΧΙ κατά $c$. Το να ξεχάσετε αυτό είναι ένα από τα πιο συνηθισμένα λάθη μετατροπής μονάδων.
 
-**Solving for Unknown Parameters from Percentiles:**
+**Επίλυση άγνωστων παραμέτρων από εκατοστιαίες μονάδες:**
 
-Given two percentile conditions (common in hard exam problems):
-- $P(X \le a) = p_1$ implies $\frac{a - \mu}{\sigma} = z_{p_1}$
-- $P(X \le b) = p_2$ implies $\frac{b - \mu}{\sigma} = z_{p_2}$
+Λαμβάνοντας υπόψη τις δύο εκατοστιαίες συνθήκες (συνήθεις σε προβλήματα σκληρών εξετάσεων):
+- $P(X \le a) = p_1$ υποδηλώνει $\frac{a - \mu}{\sigma} = z_{p_1}$
+- $P(X \le b) = p_2$ υποδηλώνει $\frac{b - \mu}{\sigma} = z_{p_2}$
 
-This gives a system of two linear equations in $\mu$ and $\sigma$:
+Αυτό δίνει ένα σύστημα δύο γραμμικών εξισώσεων σε $\mu$ και $\sigma$:
 $$a = \mu + z_{p_1} \cdot \sigma$$
 $$b = \mu + z_{p_2} \cdot \sigma$$
 
-Solve by subtraction to find $\sigma$, then substitute to find $\mu$.
+Λύστε με αφαίρεση για να βρείτε $\sigma$ και μετά αντικαταστήστε για να βρείτε $\mu$.
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 1: Normal Tail Probability for Apple Weight
-**Problem:** The weight of apples from a specific variety follows a Normal distribution with $\mu = 150$ g and $\sigma = 15$ g. Find:
-a) $P(X < 165)$
-b) $P(135 \le X \le 165)$
+#### Άσκηση 1: Κανονική πιθανότητα ουράς για το βάρος του μήλου
+**Πρόβλημα:** Το βάρος των μήλων από μια συγκεκριμένη ποικιλία ακολουθεί μια Κανονική κατανομή με $\mu = 150$ g και $\sigma = 15$ g. Εύρεση:
+α) $P(X < 165)$
+β) $P(135 \le X \le 165)$
 
-Given: $\Phi(1) = 0.8413$.
+Δόθηκε: $\Phi(1) = 0.8413$.
 
-**Solution:**
+**Λύση:**
 
-**a) Standardize $x = 165$:
+**α) Τυποποίηση $x = 165$:
 $$Z = \frac{165 - 150}{15} = \frac{15}{15} = 1.00$$
 $$P(X < 165) = \Phi(1.00) = \boxed{0.8413}$$
 
-**b) Standardize both bounds:
+**β) Τυποποιήστε και τα δύο όρια:
 $$z_1 = \frac{135 - 150}{15} = \frac{-15}{15} = -1.00, \quad z_2 = \frac{165 - 150}{15} = 1.00$$
-Use symmetry $\Phi(-1) = 1 - \Phi(1) = 1 - 0.8413 = 0.1587$:
+Χρησιμοποιήστε τη συμμετρία $\Phi(-1) = 1 - \Phi(1) = 1 - 0.8413 = 0.1587$:
 $$P(135 \le X \le 165) = \Phi(1.00) - \Phi(-1.00) = 0.8413 - 0.1587 = \boxed{0.6826}$$
 
-#### Exercise 2: Solving for Unknown Normal Parameters (Hard Exam Type)
-**Problem:** A machine fills bottles with a liquid. The volume $X$ follows a Normal distribution with unknown $\mu$ and $\sigma$. It is known that $P(X > 334.8) = 0.10$ and $P(X < 318.5) = 0.05$. Find $\mu$ and $\sigma$.
+#### Άσκηση 2: Επίλυση άγνωστων κανονικών παραμέτρων (Σκληρός τύπος εξέτασης)
+**Πρόβλημα:** Ένα μηχάνημα γεμίζει τα μπουκάλια με ένα υγρό. Ο τόμος $X$ ακολουθεί μια Κανονική κατανομή με άγνωστα $\mu$ και $\sigma$. Είναι γνωστό ότι $P(X > 334.8) = 0.10$ και $P(X < 318.5) = 0.05$. Βρείτε $\mu$ και $\sigma$.
 
-Given: $\Phi(1.282) = 0.90$, $\Phi(1.645) = 0.95$.
+Δόθηκαν: $\Phi(1.282) = 0.90$, $\Phi(1.645) = 0.95$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Translate the two conditions into Z-score equations.
+**Βήμα 1:** Μεταφράστε τις δύο συνθήκες σε εξισώσεις βαθμολογίας Z.
 
 $P(X > 334.8) = 0.10 \implies P(X \le 334.8) = 0.90 \implies \frac{334.8 - \mu}{\sigma} = 1.282$
 
-$P(X < 318.5) = 0.05 \implies \frac{318.5 - \mu}{\sigma} = -1.645$ (using symmetry: $\Phi^{-1}(0.05) = -1.645$)
+$P(X < 318.5) = 0.05 \implies \frac{318.5 - \mu}{\sigma} = -1.645$ (χρησιμοποιώντας συμμετρία: $\Phi^{-1}(0.05) = -1.645$)
 
-**Step 2:** Write the system of equations:
+**Βήμα 2:** Γράψτε το σύστημα εξισώσεων:
 $$334.8 = \mu + 1.282\sigma \quad (1)$$
 $$318.5 = \mu - 1.645\sigma \quad (2)$$
 
-**Step 3:** Subtract equation (2) from equation (1):
+**Βήμα 3:** Αφαιρέστε την εξίσωση (2) από την εξίσωση (1):
 $$334.8 - 318.5 = 1.282\sigma - (-1.645\sigma) = (1.282 + 1.645)\sigma$$
 $$16.3 = 2.927\sigma \implies \sigma = \frac{16.3}{2.927} \approx \mathbf{5.57 \text{ ml}}$$
 
-**Step 4:** Substitute into equation (1):
+**Βήμα 4:** Αντικαταστήστε στην εξίσωση (1):
 $$\mu = 334.8 - 1.282 \times 5.57 = 334.8 - 7.14 \approx \boxed{\mu \approx 327.66 \text{ ml}}$$
 
-#### Exercise 3: Sum of Independent Normal Delays (Time-Domain)
-**Problem:** A web request passes through two independent processing stages. Stage 1 latency: $T_1 \sim N(30, 9)$ ms. Stage 2 latency: $T_2 \sim N(50, 16)$ ms. Find $P(T_1 + T_2 \le 90)$.
+#### Άσκηση 3: Άθροισμα ανεξάρτητων κανονικών καθυστερήσεων (Time-Domain)
+**Πρόβλημα:** Ένα αίτημα Ιστού περνά από δύο ανεξάρτητα στάδια επεξεργασίας. Στάδιο 1 λανθάνον χρόνο: $T_1 \sim N(30, 9)$ ms. Στάδιο 2 λανθάνον χρόνο: $T_2 \sim N(50, 16)$ ms. Βρείτε $P(T_1 + T_2 \le 90)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Total latency distribution (sum of independent normals):
+**Βήμα 1:** Συνολική κατανομή λανθάνοντος χρόνου (άθροισμα ανεξάρτητων κανονικών):
 $$T_{total} = T_1 + T_2 \sim N(\mu_{total}, \sigma^2_{total})$$
 $$\mu_{total} = 30 + 50 = 80 \text{ ms}, \quad \sigma^2_{total} = 9 + 16 = 25 \implies \sigma_{total} = 5 \text{ ms}$$
 
-**Step 2:** Standardize:
+**Βήμα 2:** Τυποποίηση:
 $$Z = \frac{90 - 80}{5} = \frac{10}{5} = 2.00$$
 
-**Step 3:** Look up:
+**Βήμα 3:** Αναζητήστε:
 $$P(T_{total} \le 90) = \Phi(2.00) = \boxed{0.9772 \approx 97.72\%}$$
 
-#### Exercise 4: Finding the 99th Percentile SLA Threshold (Time-Domain)
-**Problem:** Microservice processing time $T \sim N(50, 100)$ ms ($\mu_T = 50$ ms, $\sigma_T = 10$ ms). Find the SLA threshold $t_{99}$ such that 99% of requests are served within that time.
+#### Άσκηση 4: Εύρεση του ορίου SLA της 99ης εκατοστιαίας μονάδας (Time-Domain)
+**Πρόβλημα:** Χρόνος επεξεργασίας μικροϋπηρεσιών $T \sim N(50, 100)$ ms ($\mu_T = 50$ ms, $\sigma_T = 10$ ms). Βρείτε το όριο SLA $t_{99}$ έτσι ώστε το 99% των αιτημάτων να εξυπηρετούνται εντός αυτού του χρονικού διαστήματος.
 
-**Solution:**
+**Λύση:**
 
-From Z-tables: $z_{0.99} = 2.326$.
+Από τους πίνακες Z: $z_{0.99} = 2.326$.
 
 $$t_{99} = \mu_T + z_{0.99} \cdot \sigma_T = 50 + (2.326)(10) = 50 + 23.26 = \boxed{73.26 \text{ ms}}$$
 
-#### Exercise 5: Probability of Timeout Failure (Time-Domain)
-**Problem:** Network ping latency $T \sim N(45, 25)$ ms ($\mu_T = 45$, $\sigma_T = 5$). A timeout occurs if $T > 60$ ms. Find the probability of a timeout.
+#### Άσκηση 5: Πιθανότητα αποτυχίας χρονικού ορίου (Time-Domain)**Πρόβλημα:** Καθυστέρηση ping δικτύου $T \sim N(45, 25)$ ms ($\mu_T = 45$, $\sigma_T = 5$). Παρουσιάζεται χρονικό όριο αν $T > 60$ ms. Βρείτε την πιθανότητα τάιμ άουτ.
 
-**Solution:**
+**Λύση:**
 
 $$Z = \frac{60 - 45}{5} = \frac{15}{5} = 3.00$$
 $$P(T > 60) = 1 - \Phi(3.00) = 1 - 0.99865 = \boxed{0.00135 \approx 0.135\%}$$
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # Normal distribution probability: P(X <= x)
 pnorm(q = 165, mean = 150, sd = 15)
 
@@ -194,87 +189,83 @@ dnorm(x = 150, mean = 150, sd = 15)
 # WARNING: pnorm() takes sd (standard deviation), NOT variance.
 # If X ~ N(50, 100) where 100 is variance, sigma = sqrt(100) = 10.
 pnorm(q = 73.26, mean = 50, sd = sqrt(100))
-```
+```---
 
----
+## Ενότητα 5.2: Ο Εμπειρικός Κανόνας
 
-## Section 5.2: The Empirical Rule
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
+Ο **Εμπειρικός Κανόνας** (ονομάζεται επίσης κανόνας 68-95-99.7) παρέχει μια γρήγορη προσέγγιση για τις πιθανότητες ουράς οποιασδήποτε περίπου συμμετρικής κατανομής σε σχήμα καμπάνας, συμπεριλαμβανομένης της Κανονικής κατανομής. Δηλώνει ότι σχεδόν όλες οι παρατηρήσεις εμπίπτουν σε τρεις τυπικές αποκλίσεις του μέσου όρου.
 
-The **Empirical Rule** (also called the 68-95-99.7 Rule) provides a quick approximation for tail probabilities of any approximately symmetric, bell-shaped distribution, including the Normal distribution. It states that nearly all observations fall within three standard deviations of the mean.
+Ο κανόνας είναι χρήσιμος για γρήγορη νοητική εκτίμηση χωρίς πίνακες Z και εμφανίζεται συχνά στις εξετάσεις ως εργαλείο συντόμευσης.
 
-The rule is useful for quick mental estimation without Z-tables, and it appears frequently on exams as a shortcut tool.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Ο Εμπειρικός Κανόνας είναι ένα γρήγορο διαγνωστικό για τη συμμόρφωση με το SLA. Εάν η μέση καθυστέρηση ενός συστήματος είναι $\mu_T$ ms με τυπική απόκλιση $\sigma_T$ ms, τότε περίπου το 99,7% των αιτημάτων ολοκληρώνεται εντός $\mu_T \pm 3\sigma_T$ ms. Οποιοδήποτε αίτημα υπερβαίνει το $\mu_T + 3\sigma_T$ αποτελεί στατιστικό ακραίο στοιχείο. Αυτή είναι η βάση του ποιοτικού ελέγχου "3-sigma" στην κατασκευή και τη μηχανική απόδοσης.
 
-> **Practical / Time-Domain Note:**
-> The Empirical Rule is a rapid diagnostic for SLA compliance. If a system's mean latency is $\mu_T$ ms with standard deviation $\sigma_T$ ms, then roughly 99.7% of requests complete within $\mu_T \pm 3\sigma_T$ ms. Any request exceeding $\mu_T + 3\sigma_T$ is a statistical outlier. This is the basis of "3-sigma" quality control in manufacturing and performance engineering.
+### Μαθηματικοί Τύποι & Παραγωγές
 
-### Mathematical Formulas & Derivations
+Για $X \sim N(\mu, \sigma^2)$ (ή οποιαδήποτε περίπου συμμετρική κατανομή):
 
-For $X \sim N(\mu, \sigma^2)$ (or any approximately symmetric distribution):
-
-**68% Rule:**
+**Κανόνας 68%:**
 $$P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.6827$$
 
-**95% Rule:**
+**Κανόνας 95%:**
 $$P(\mu - 2\sigma \le X \le \mu + 2\sigma) \approx 0.9545$$
 
-**99.7% Rule:**
+**Κανόνας 99,7%:**
 $$P(\mu - 3\sigma \le X \le \mu + 3\sigma) \approx 0.9973$$
 
-**Derived tail probabilities (symmetric about $\mu$):**
+**Πιθανότητες ουράς που προέρχονται (συμμετρικές για $\mu$):**
 
 $$P(X < \mu - \sigma) \approx \frac{1 - 0.6827}{2} = 0.1587 \quad \text{(left 16th percentile)}$$
 
 $$P(X > \mu + 2\sigma) \approx \frac{1 - 0.9545}{2} = 0.0228 \quad \text{(right 2.28th percentile)}$$
 
-**Asymmetric window (using half-rule):**
+**Ασύμμετρο παράθυρο (με χρήση μισού κανόνα):**
 
-For $P(\mu - k_1 \sigma \le X \le \mu + k_2 \sigma)$ with $k_1 \ne k_2$, combine half-rule contributions:
-- Area from $\mu - \sigma$ to $\mu$: $68.27\% / 2 = 34.135\%$
-- Area from $\mu$ to $\mu + 2\sigma$: $95.45\% / 2 = 47.725\%$
-- Total: $34.135\% + 47.725\% = 81.86\%$
+Για $P(\mu - k_1 \sigma \le X \le \mu + k_2 \sigma)$ με $k_1 \ne k_2$, συνδυάστε συνεισφορές μισού κανόνα:
+- Περιοχή από $\mu - \sigma$ έως $\mu$: $68.27\% / 2 = 34.135\%$
+- Περιοχή από $\mu$ έως $\mu + 2\sigma$: $95.45\% / 2 = 47.725\%$
+- Σύνολο: $34.135\% + 47.725\% = 81.86\%$
 
-> **Practical / Time-Domain Note:**
-> The Empirical Rule applies only when the underlying distribution is approximately symmetric and bell-shaped. Do NOT apply it to Exponential, Gamma, or Weibull distributions, which are right-skewed. Applying the 68% rule to skewed latency distributions (e.g., Gamma-distributed queueing delays) will significantly underestimate the probability of tail events.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Ο εμπειρικός κανόνας ισχύει μόνο όταν η υποκείμενη κατανομή είναι περίπου συμμετρική και σε σχήμα καμπάνας. ΜΗΝ το εφαρμόζετε σε κατανομές Εκθετικής, Γάμμα ή Weibull, οι οποίες είναι λοξές προς τα δεξιά. Η εφαρμογή του κανόνα του 68% σε λοξές κατανομές λανθάνοντος χρόνου (π.χ. καθυστερήσεις ουράς κατανεμημένες σε γάμμα) θα υποτιμήσει σημαντικά την πιθανότητα ουράς γεγονότων.
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 6: Number of Outlier Requests using the Empirical Rule (Time-Domain)
-**Problem:** Out of $10{,}000$ HTTP requests with processing time $T \sim N(2, 0.09)$ seconds ($\mu_T = 2$ s, $\sigma_T = 0.3$ s), how many requests fall outside the interval $[1.1, 2.9]$ seconds?
+#### Άσκηση 6: Αριθμός Αιτημάτων Outlier με χρήση του Εμπειρικού Κανόνα (Time-Domain)
+**Πρόβλημα:** Από $10{,}000$ αιτήματα HTTP με χρόνο επεξεργασίας $T \sim N(2, 0.09)$ δευτερόλεπτα ($\mu_T = 2$ s, $\sigma_T = 0.3$ s), πόσα αιτήματα βρίσκονται εκτός του διαστήματος $[1.1, 2.9]$ δευτερόλεπτα;
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Identify the interval in terms of standard deviations from the mean:
+**Βήμα 1:** Προσδιορίστε το διάστημα ως προς τις τυπικές αποκλίσεις από τον μέσο όρο:
 $$1.1 = 2 - 3(0.3) = \mu_T - 3\sigma_T, \quad 2.9 = 2 + 3(0.3) = \mu_T + 3\sigma_T$$
 
-**Step 2:** Apply the 99.7% rule:
+**Βήμα 2:** Εφαρμόστε τον κανόνα του 99,7%:
 $$P(1.1 \le T \le 2.9) \approx 0.9973$$
 
-**Step 3:** Compute the outside probability:
+**Βήμα 3:** Υπολογίστε την εξωτερική πιθανότητα:
 $$P(T < 1.1 \text{ or } T > 2.9) = 1 - 0.9973 = 0.0027$$
 
-**Step 4:** Expected count:
+**Βήμα 4:** Αναμενόμενο πλήθος:
 $$10{,}000 \times 0.0027 = \boxed{27 \text{ requests}}$$
 
-#### Exercise 7: Asymmetric Interval using the Empirical Half-Rule
-**Problem:** Batch processing time $T \sim N(12, 4)$ hours ($\sigma_T = 2$). Estimate $P(10 \le T \le 16)$.
+#### Άσκηση 7: Ασύμμετρο διάστημα χρησιμοποιώντας τον εμπειρικό μισό κανόνα
+**Πρόβλημα:** Χρόνος μαζικής επεξεργασίας $T \sim N(12, 4)$ ώρες ($\sigma_T = 2$). Υπολογίστε $P(10 \le T \le 16)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Express the bounds in terms of $\sigma_T$:
+**Βήμα 1:** Εκφράστε τα όρια ως $\sigma_T$:
 $$10 = 12 - 2 = \mu_T - 1\sigma_T, \quad 16 = 12 + 4 = \mu_T + 2\sigma_T$$
 
-**Step 2:** Apply the asymmetric half-rule:
-- From $\mu_T - 1\sigma_T$ to $\mu_T$: half the 68% area = $68.27\% / 2 = 34.135\%$
-- From $\mu_T$ to $\mu_T + 2\sigma_T$: half the 95% area = $95.45\% / 2 = 47.725\%$
+**Βήμα 2:** Εφαρμόστε τον ασύμμετρο μισό κανόνα:
+- Από $\mu_T - 1\sigma_T$ έως $\mu_T$: η μισή περιοχή του 68% = $68.27\% / 2 = 34.135\%$
+- Από $\mu_T$ έως $\mu_T + 2\sigma_T$: η μισή περιοχή του 95% = $95.45\% / 2 = 47.725\%$
 
-**Step 3:** Total:
+**Βήμα 3:** Σύνολο:
 $$P(10 \le T \le 16) \approx 34.135\% + 47.725\% = \boxed{81.86\%}$$
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # Verify 68-95-99.7 rule numerically
 mu <- 12; sigma <- 2
 
@@ -288,99 +279,95 @@ rule_99  # ~0.9973
 
 # Asymmetric interval example
 pnorm(16, mean = 12, sd = 2) - pnorm(10, mean = 12, sd = 2)  # ~0.8186
-```
+```---
 
----
+## Ενότητα 5.3: Συνεχής Ομοιόμορφη Κατανομή
 
-## Section 5.3: Continuous Uniform Distribution
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
+Μια συνεχής τυχαία μεταβλητή $X$ ακολουθεί μια **Συνεχής Ομοιόμορφη Κατανομή** στο διάστημα $[a, b]$, γραμμένη $X \sim U(a, b)$, εάν όλες οι τιμές στο διάστημα είναι εξίσου πιθανές. Το PDF είναι επίπεδο (σταθερό) πάνω από $[a, b]$ και μηδενικό έξω.
 
-A continuous random variable $X$ follows a **Continuous Uniform Distribution** on the interval $[a, b]$, written $X \sim U(a, b)$, if all values in the interval are equally likely. The PDF is flat (constant) over $[a, b]$ and zero outside.
+**Συνήθεις εφαρμογές:**
+- **Γενικά στατιστικά:** Σφάλματα στρογγυλοποίησης μοντελοποίησης, τυχαία επιλογή από μια περιοχή, είσοδοι προσομοίωσης Monte Carlo.
+- **Τομέας χρόνου:** Τυχαία διαστήματα υποχώρησης στην αποφυγή σύγκρουσης δικτύου (CSMA/CD), σφάλμα κβαντισμού σε μετατροπείς αναλογικού σε ψηφιακό, τρεμόπαιγμα προγραμματισμού, τυχαίες μετατοπίσεις χρονικών σφραγίδων.
 
-**Common applications:**
-- **General statistics:** Modeling rounding errors, random selection from a range, Monte Carlo simulation inputs.
-- **Time-domain:** Random backoff intervals in network collision avoidance (CSMA/CD), quantization error in analog-to-digital converters, scheduling jitter, random timestamp offsets.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Στα πρωτόκολλα δικτύου (π.χ. Ethernet CSMA/CD), όταν ανιχνεύεται σύγκρουση, κάθε σταθμός περιμένει έναν τυχαίο χρόνο υποχώρησης από $U(0, 2^k \cdot T_{slot})$ όπου $k$ είναι η προσπάθεια επανάληψης. Η Uniform κατανομή μοντελοποιεί τέλεια αυτό το backoff παράθυρο. Η βασική ιδιότητα για τα προβλήματα των εξετάσεων είναι ότι $P(X \in [c, d]) = (d - c)/(b - a)$ για οποιοδήποτε υποδιάστημα $[c, d] \subseteq [a, b]$.
 
-> **Practical / Time-Domain Note:**
-> In network protocols (e.g., Ethernet CSMA/CD), when a collision is detected, each station waits a random backoff time drawn from $U(0, 2^k \cdot T_{slot})$ where $k$ is the retry attempt. The Uniform distribution models this backoff window perfectly. The key property for exam problems is that $P(X \in [c, d]) = (d - c)/(b - a)$ for any sub-interval $[c, d] \subseteq [a, b]$.
+### Μαθηματικοί Τύποι & Παραγωγές
 
-### Mathematical Formulas & Derivations
-
-**Probability Density Function (PDF):**
+**Συνάρτηση πυκνότητας πιθανότητας (PDF):**
 $$f(x) = \frac{1}{b - a}, \quad a \le x \le b \quad (\text{zero otherwise})$$
 
-**Cumulative Distribution Function (CDF):**
+**Σωρευτική Συνάρτηση Κατανομής (CDF):**
 $$F(x) = P(X \le x) = \frac{x - a}{b - a}, \quad a \le x \le b$$
 
-**Interval Probability:**
+**Πιθανότητα διαστήματος:**
 $$P(c \le X \le d) = \frac{d - c}{b - a}, \quad a \le c \le d \le b$$
 
-**Mean (Expected Value):**
+**Μέση (Αναμενόμενη τιμή):**
 $$E[X] = \frac{a + b}{2}$$
 
-**Variance:**
+**Διακύμανση:**
 $$V(X) = \frac{(b - a)^2}{12}$$
 
-**Standard Deviation:**
+**Τυπική απόκλιση:**
 $$\sigma_X = \frac{b - a}{\sqrt{12}} = \frac{b - a}{2\sqrt{3}}$$
 
-**$p$-th Quantile (Inverse CDF):**
+**$p$-ο ποσοστό (Αντίστροφο CDF):**
 $$x_p = a + p \cdot (b - a)$$
 
-For example, the median is $x_{0.5} = (a + b)/2$, and the 75th percentile is $x_{0.75} = a + 0.75(b - a)$.
+Για παράδειγμα, η διάμεσος είναι $x_{0.5} = (a + b)/2$ και το 75ο εκατοστημόριο είναι $x_{0.75} = a + 0.75(b - a)$.
 
-**Time-Domain Adapted Formula (Backoff Interval):**
+**Προσαρμοσμένη φόρμουλα στον τομέα χρόνου (διάστημα επιστροφής):**
 
-For a backoff interval $T \sim U(a_{[ms]}, b_{[ms]})$ in milliseconds:
+Για ένα διάστημα υποχώρησης $T \sim U(a_{[ms]}, b_{[ms]})$ σε χιλιοστά του δευτερολέπτου:
 $$E[T] = \frac{a_{[ms]} + b_{[ms]}}{2} \quad [\text{ms}]$$
 $$V(T) = \frac{(b_{[ms]} - a_{[ms]})^2}{12} \quad [\text{ms}^2]$$
 
-If converted to seconds ($c = 1/1000$):
+Εάν μετατραπεί σε δευτερόλεπτα ($c = 1/1000$):
 $$E[T_{[s]}] = \frac{1}{1000} \cdot E[T_{[ms]}], \quad V(T_{[s]}) = \frac{1}{10^6} \cdot V(T_{[ms]})$$
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 8: Uniform Random Backoff Time (Time-Domain)
-**Problem:** A network interface uses random backoff $T \sim U(10, 50)$ ms.
-a) Find $P(T > 35)$.
-b) Find the mean and variance of $T$.
-c) Find the 90th percentile of the backoff time.
+#### Άσκηση 8: Ομοιόμορφος τυχαίος χρόνος επιστροφής (Time-Domain)
+**Πρόβλημα:** Μια διεπαφή δικτύου χρησιμοποιεί τυχαία backoff $T \sim U(10, 50)$ ms.
+α) Βρείτε $P(T > 35)$.
+β) Βρείτε τον μέσο όρο και τη διακύμανση του $T$.
+γ) Βρείτε το 90ο εκατοστημόριο του χρόνου υποχώρησης.
 
-**Solution:**
+**Λύση:**
 
-**a) Interval probability:
+**α) Πιθανότητα διαστήματος:
 $$P(T > 35) = \frac{50 - 35}{50 - 10} = \frac{15}{40} = \boxed{0.375}$$
 
-**b) Mean and variance:
+**β) Μέσος όρος και διακύμανση:
 $$E[T] = \frac{10 + 50}{2} = \frac{60}{2} = 30 \text{ ms}$$
 $$V(T) = \frac{(50 - 10)^2}{12} = \frac{1600}{12} \approx 133.33 \text{ ms}^2$$
 
-**c) 90th percentile:
+**γ) 90ο εκατοστημόριο:
 $$t_{0.90} = 10 + 0.90 \times (50 - 10) = 10 + 36 = \boxed{46 \text{ ms}}$$
 
-#### Exercise 9: Scheduling Jitter (Time-Domain)
-**Problem:** A task scheduler introduces jitter $J \sim U(-5, 5)$ ms. Find the probability that the absolute jitter $|J|$ exceeds 3 ms.
+#### Άσκηση 9: Προγραμματισμός Jitter (Time-Domain)
+**Πρόβλημα:** Ένας προγραμματιστής εργασιών εισάγει το jitter $J \sim U(-5, 5)$ ms. Βρείτε την πιθανότητα το απόλυτο jitter $|J|$ να υπερβαίνει τα 3 ms.
 
-**Solution:**
+**Λύση:**
 
-$|J| > 3$ corresponds to $J < -3$ or $J > 3$.
+Το $|J| > 3$ αντιστοιχεί σε $J < -3$ ή $J > 3$.
 
 $$P(J < -3) = \frac{-3 - (-5)}{5 - (-5)} = \frac{2}{10} = 0.20$$
 $$P(J > 3) = \frac{5 - 3}{10} = 0.20$$
 $$P(|J| > 3) = 0.20 + 0.20 = \boxed{0.40}$$
 
-#### Exercise 10: Quantization Error in ADC
-**Problem:** An analog-to-digital converter (ADC) introduces quantization error $E \sim U(-q/2, q/2)$ where $q = 0.01$ V. Find the variance and standard deviation of $E$.
+#### Άσκηση 10: Σφάλμα κβαντοποίησης στο ADC
+**Πρόβλημα:** Ένας μετατροπέας αναλογικού σε ψηφιακό (ADC) εισάγει το σφάλμα κβαντισμού $E \sim U(-q/2, q/2)$ όπου $q = 0.01$ V. Βρείτε τη διακύμανση και την τυπική απόκλιση του $E$.
 
-**Solution:**
+**Λύση:**
 
 $$V(E) = \frac{(q/2 - (-q/2))^2}{12} = \frac{q^2}{12} = \frac{(0.01)^2}{12} = \frac{0.0001}{12} \approx 8.33 \times 10^{-6} \text{ V}^2$$
 $$\sigma_E = \frac{q}{\sqrt{12}} = \frac{0.01}{2\sqrt{3}} \approx \boxed{2.89 \times 10^{-3} \text{ V}}$$
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # Continuous Uniform U(10, 50): P(T > 35) = 1 - F(35)
 punif(q = 35, min = 10, max = 50, lower.tail = FALSE)   # 0.375
 
@@ -398,117 +385,112 @@ qunif(p = 0.90, min = 10, max = 50)   # 46
 # Random sample from U(10, 50)
 set.seed(42)
 runif(n = 1000, min = 10, max = 50)
-```
+```---
 
----
+## Ενότητα 5.4: Εκθετική Κατανομή
 
-## Section 5.4: Exponential Distribution
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
+Η **Εκθετική Κατανομή** $X \sim Exp(\lambda)$ μοντελοποιεί τον χρόνο αναμονής μέχρι το πρώτο συμβάν σε μια διαδικασία Poisson με ρυθμό $\lambda$. Είναι η **μόνη συνεχής διανομή χωρίς μνήμη**, μια ιδιότητα με βαθιές συνέπειες για τη μοντελοποίηση της διάρκειας ζωής των εξαρτημάτων και των χρόνων κατά την άφιξη.
 
-The **Exponential Distribution** $X \sim Exp(\lambda)$ models the waiting time until the first event in a Poisson process with rate $\lambda$. It is the **only memoryless continuous distribution**, a property with profound implications for modeling component lifetimes and inter-arrival times.
-
-**Definition of the memoryless property:** A distribution is memoryless if:
+**Ορισμός της ιδιότητας χωρίς μνήμη:** Μια διανομή είναι χωρίς μνήμη εάν:
 $$P(X > s + t \mid X > s) = P(X > t) \quad \text{for all } s, t \ge 0$$
 
-Intuitively: given that a component has already survived $s$ units of time, the probability of surviving an additional $t$ units is the same as the probability of surviving $t$ units from the start. The component "has no memory" of its age.
+Διαισθητικά: δεδομένου ότι ένα στοιχείο έχει ήδη επιβιώσει $s$ μονάδες χρόνου, η πιθανότητα επιβίωσης επιπλέον $t$ μονάδων είναι ίδια με την πιθανότητα επιβίωσης $t$ μονάδων από την αρχή. Το συστατικό «δεν έχει μνήμη» από την ηλικία του.
 
-**Rate vs. Scale parameterization:** Some textbooks and software parameterize the Exponential by its mean (scale $\theta = 1/\lambda$) rather than its rate $\lambda$. R uses the rate parameterization by default. Always verify which parameterization is used before applying formulas.
+**Παραμετροποίηση συντελεστή έναντι κλίμακας:** Ορισμένα σχολικά βιβλία και λογισμικό παραμετροποιούν την Εκθετική με τον μέσο όρο της (κλίμακα $\theta = 1/\lambda$) αντί για το ρυθμό της $\lambda$. Το R χρησιμοποιεί την παραμετροποίηση ρυθμού από προεπιλογή. Ελέγχετε πάντα ποια παραμετροποίηση χρησιμοποιείται πριν από την εφαρμογή τύπων.
 
-**Relationship to Poisson:** If events occur as a Poisson process with rate $\lambda$ (events per unit time), then the inter-event time $X \sim Exp(\lambda)$.
+**Σχέση με το Poisson:** Εάν συμβάντα συμβαίνουν ως διεργασία Poisson με ρυθμό $\lambda$ (συμβάντα ανά μονάδα χρόνου), τότε ο χρόνος μεταξύ συμβάντων $X \sim Exp(\lambda)$.
 
-> **Practical / Time-Domain Note:**
-> The Exponential distribution is the default model for component failure times in reliability engineering (under the assumption of constant failure rate, i.e., no aging). However, most real hardware exhibits a bathtub-shaped hazard rate: high infant mortality (decreasing hazard, $k < 1$ Weibull), then a low flat rate (Exponential), then wear-out (increasing hazard, $k > 1$ Weibull). Blindly applying the Exponential model to aged hardware significantly underestimates failure probability.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Η εκθετική κατανομή είναι το προεπιλεγμένο μοντέλο για χρόνους αστοχίας εξαρτημάτων στη μηχανική αξιοπιστίας (υπό την παραδοχή του σταθερού ποσοστού αστοχίας, δηλ. χωρίς γήρανση). Ωστόσο, το μεγαλύτερο μέρος του πραγματικού υλικού εμφανίζει ποσοστό κινδύνου σε σχήμα μπανιέρας: υψηλή βρεφική θνησιμότητα (μειούμενος κίνδυνος, $k < 1$ Weibull), μετά χαμηλός σταθερός ρυθμός (Εκθετικός), μετά φθορά (αυξανόμενος κίνδυνος, $k > 1$ Weibull). Η τυφλή εφαρμογή του εκθετικού μοντέλου σε παλαιό υλικό υποτιμά σημαντικά την πιθανότητα αποτυχίας.
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-**Probability Density Function (PDF):**
+**Συνάρτηση πυκνότητας πιθανότητας (PDF):**
 $$f(x) = \lambda e^{-\lambda x}, \quad x \ge 0 \quad (\text{zero for } x < 0)$$
 
-**Cumulative Distribution Function (CDF):**
+**Σωρευτική Συνάρτηση Κατανομής (CDF):**
 $$F(x) = P(X \le x) = 1 - e^{-\lambda x}, \quad x \ge 0$$
 
-**Survival / Reliability Function:**
+**Λειτουργία επιβίωσης / αξιοπιστίας:**
 $$S(x) = P(X > x) = e^{-\lambda x}$$
 
-**Mean and Variance:**
+**Μέσος όρος και διακύμανση:**
 $$E[X] = \frac{1}{\lambda}, \quad V(X) = \frac{1}{\lambda^2}, \quad \sigma_X = \frac{1}{\lambda}$$
 
-Note: for the Exponential distribution, the mean equals the standard deviation.
+Σημείωση: για την Εκθετική κατανομή, ο μέσος όρος ισούται με την τυπική απόκλιση.
 
-**Memoryless Property:**
+**Ιδιότητα χωρίς μνήμη:**
 $$P(X > s + t \mid X > s) = \frac{P(X > s + t)}{P(X > s)} = \frac{e^{-\lambda(s+t)}}{e^{-\lambda s}} = e^{-\lambda t} = P(X > t)$$
 
-**Conditional Survival (Time-Domain Adapted):**
+**Επιβίωση υπό όρους (Προσαρμοσμένο σε τομέα χρόνου):**
 
-For a system component with lifetime $T \sim Exp(\lambda)$, the probability of surviving an additional $t$ hours given it has already survived $s$ hours:
+Για ένα στοιχείο συστήματος με διάρκεια ζωής $T \sim Exp(\lambda)$, η πιθανότητα επιβίωσης επιπλέον $t$ ωρών με δεδομένο ότι έχει ήδη επιβιώσει $s$ ώρες:
 $$P(T > s + t \mid T > s) = e^{-\lambda t} = P(T > t)$$
 
-This ONLY equals $P(T > t)$ because the Exponential is memoryless. For Gamma or Weibull ($k \ne 1$), the conditional survival probability depends on the current age $s$ and must be computed as $S(s+t)/S(s)$.
+Αυτό ισούται ΜΟΝΟ $P(T > t)$ επειδή το Exponential δεν έχει μνήμη. Για το Gamma ή το Weibull ($k \ne 1$), η υπό όρους πιθανότητα επιβίωσης εξαρτάται από την τρέχουσα ηλικία $s$ και πρέπει να υπολογιστεί ως $S(s+t)/S(s)$.
 
-**Minimum of Independent Exponentials:**
+**Ελάχιστο ανεξάρτητων εκθετικών:**
 
-If $X_1 \sim Exp(\lambda_1), X_2 \sim Exp(\lambda_2), \ldots, X_n \sim Exp(\lambda_n)$ are independent, then:
+Εάν το $X_1 \sim Exp(\lambda_1), X_2 \sim Exp(\lambda_2), \ldots, X_n \sim Exp(\lambda_n)$ είναι ανεξάρτητο, τότε:
 $$X_{min} = \min(X_1, \ldots, X_n) \sim Exp(\lambda_1 + \lambda_2 + \cdots + \lambda_n)$$
 
-**$p$-th Quantile:**
+**$p$-ο ποσοστό:**
 $$x_p = -\frac{\ln(1 - p)}{\lambda}$$
 
-For example, the median is $x_{0.5} = \ln(2)/\lambda$.
+Για παράδειγμα, η διάμεσος είναι $x_{0.5} = \ln(2)/\lambda$.
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 11: Hard Drive Survival Probability
-**Problem:** A hard drive has failure rate $\lambda = 0.0001$ h$^{-1}$ (mean lifetime of 10,000 hours). Find:
-a) The probability that the drive survives beyond 5,000 hours.
-b) The median lifetime of the drive.
+#### Άσκηση 11: Πιθανότητα επιβίωσης σκληρού δίσκου
+**Πρόβλημα:** Ένας σκληρός δίσκος έχει ποσοστό αποτυχίας $\lambda = 0.0001$ h$^{-1}$ (μέση διάρκεια ζωής 10.000 ώρες). Εύρεση:
+α) Η πιθανότητα η κίνηση να επιβιώσει πέρα από 5.000 ώρες.
+β) Η διάμεση διάρκεια ζωής της μονάδας.
 
-**Solution:**
+**Λύση:**
 
-**a) Survival function:
+**α) Συνάρτηση επιβίωσης:
 $$P(T > 5000) = e^{-\lambda \cdot 5000} = e^{-(0.0001)(5000)} = e^{-0.5} \approx \boxed{0.6065}$$
 
-**b) Median lifetime $t_{0.5} = \ln(2) / \lambda$:
+**β) Μέση διάρκεια ζωής $t_{0.5} = \ln(2) / \lambda$:
 $$t_{0.5} = \frac{\ln 2}{0.0001} = \frac{0.6931}{0.0001} \approx \boxed{6{,}931 \text{ hours}}$$
 
-#### Exercise 12: Minimum of Independent Failure Times (Time-Domain)
-**Problem:** A system has two critical components: $T_1 \sim Exp(0.02)$ h$^{-1}$ and $T_2 \sim Exp(0.03)$ h$^{-1}$. The system fails when the FIRST component fails. Find:
-a) The distribution and mean of $T_{sys} = \min(T_1, T_2)$.
-b) $P(T_{sys} > 10)$.
+#### Άσκηση 12: Ελάχιστοι ανεξάρτητοι χρόνοι αποτυχίας (Time-Domain)
+**Πρόβλημα:** Ένα σύστημα έχει δύο κρίσιμα στοιχεία: $T_1 \sim Exp(0.02)$ h$^{-1}$ και $T_2 \sim Exp(0.03)$ h$^{-1}$. Το σύστημα αποτυγχάνει όταν αποτυγχάνει το ΠΡΩΤΟ στοιχείο. Εύρεση:
+α) Η κατανομή και ο μέσος όρος του $T_{sys} = \min(T_1, T_2)$.β) $P(T_{sys} > 10)$.
 
-**Solution:**
+**Λύση:**
 
-**a) Minimum of independent Exponentials:
+**α) Ελάχιστο ανεξάρτητων Εκθετικών:
 $$T_{sys} \sim Exp(\lambda_1 + \lambda_2) = Exp(0.02 + 0.03) = Exp(0.05)$$
 $$E[T_{sys}] = \frac{1}{0.05} = \boxed{20 \text{ hours}}$$
 
-**b) Survival probability:
+**β) Πιθανότητα επιβίωσης:
 $$P(T_{sys} > 10) = e^{-0.05 \times 10} = e^{-0.5} \approx \boxed{0.6065}$$
 
-#### Exercise 13: Memoryless Property in a Network Router (Time-Domain)
-**Problem:** A network router's time between packet drops $T \sim Exp(0.1)$ minutes. Given no packet has been dropped in the last 5 minutes, find the probability of surviving another 3 minutes without a drop.
+#### Άσκηση 13: Ιδιότητα χωρίς μνήμη σε δρομολογητή δικτύου (Time-Domain)
+**Πρόβλημα:** Ο χρόνος ενός δρομολογητή δικτύου μεταξύ των πακέτων πέφτει $T \sim Exp(0.1)$ λεπτά. Δεδομένου ότι κανένα πακέτο δεν έχει απορριφθεί τα τελευταία 5 λεπτά, βρείτε την πιθανότητα να επιβιώσετε άλλα 3 λεπτά χωρίς πτώση.
 
-**Solution:**
+**Λύση:**
 
-By the memoryless property:
+Με την ιδιότητα χωρίς μνήμη:
 $$P(T > 5 + 3 \mid T > 5) = P(T > 3) = e^{-0.1 \times 3} = e^{-0.3} \approx \boxed{0.7408}$$
 
-The 5 minutes of observed uptime are irrelevant due to the memoryless property.
+Τα 5 λεπτά του παρατηρούμενου χρόνου λειτουργίας είναι άσχετα λόγω της ιδιότητας χωρίς μνήμη.
 
-#### Exercise 14: Conditional Survival for a Non-Memoryless Component (Time-Domain)
-**Problem:** A pump's lifetime $T$ has survival function $S(t) = e^{-(t/1000)^2}$ (Weibull with $k=2$). Given the pump has survived 800 hours, find $P(T > 1000 \mid T > 800)$.
+#### Άσκηση 14: Επιβίωση υπό όρους για ένα στοιχείο χωρίς μνήμη (Time-Domain)
+**Πρόβλημα:** Η διάρκεια ζωής μιας αντλίας $T$ έχει συνάρτηση επιβίωσης $S(t) = e^{-(t/1000)^2}$ (Weibull με $k=2$). Δεδομένου ότι η αντλία έχει επιβιώσει 800 ώρες, βρείτε $P(T > 1000 \mid T > 800)$.
 
-**Solution:**
+**Λύση:**
 
-This is NOT memoryless (Weibull with $k = 2 \ne 1$):
+Αυτό ΔΕΝ είναι χωρίς μνήμη (Weibull με $k = 2 \ne 1$):
 
 $$P(T > 1000 \mid T > 800) = \frac{S(1000)}{S(800)} = \frac{e^{-(1000/1000)^2}}{e^{-(800/1000)^2}} = \frac{e^{-1}}{e^{-0.64}} = e^{-0.36} \approx \boxed{0.6977}$$
 
-> **Gotcha:** If the memoryless property were incorrectly applied here (valid only for Exponential), one would compute $P(T > 200) = e^{-(200/1000)^2} = e^{-0.04} \approx 0.9608$, which is dramatically wrong.
+> **Gotcha:** Εάν η ιδιότητα χωρίς μνήμη είχε εφαρμοστεί εσφαλμένα εδώ (ισχύει μόνο για την Εκθετική), θα υπολόγιζε κανείς $P(T > 200) = e^{-(200/1000)^2} = e^{-0.04} \approx 0.9608$, κάτι που είναι δραματικά λάθος.
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # Exponential distribution: P(T <= t), rate = lambda
 pexp(q = 5000, rate = 0.0001)            # P(T <= 5000)
 pexp(q = 5000, rate = 0.0001, lower.tail = FALSE)  # P(T > 5000) = survival
@@ -526,127 +508,122 @@ dexp(x = 1000, rate = 0.0001)
 set.seed(42)
 lifetimes <- rexp(n = 500, rate = 0.0001)
 mean(lifetimes)   # Should be approximately 1/lambda = 10000
-```
+```---
 
----
+## Ενότητα 5.5: Διανομές Gamma, Erlang και Weibull
 
-## Section 5.5: Gamma, Erlang, and Weibull Distributions
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
+**Κατανομή γάμμα:** Η κατανομή γάμμα γενικεύει την Εκθετική. Μοντελοποιεί το χρόνο μέχρι το $\alpha$-ο συμβάν σε μια διαδικασία Poisson, ή ισοδύναμα, το άθροισμα των $\alpha$ ανεξάρτητων $Exp(\beta)$ τυχαίων μεταβλητών. Η παράμετρος σχήματος $\alpha > 0$ και η παράμετρος ρυθμού $\beta > 0$ (ή κλίμακα $\theta = 1/\beta > 0$).
 
-**Gamma Distribution:** The Gamma distribution generalizes the Exponential. It models the time until the $\alpha$-th event in a Poisson process, or equivalently, the sum of $\alpha$ independent $Exp(\beta)$ random variables. The shape parameter $\alpha > 0$ and rate parameter $\beta > 0$ (or scale $\theta = 1/\beta > 0$).
+**Κατανομή Erlang:** Μια ειδική περίπτωση της κατανομής γάμμα όπου $\alpha = k$ είναι θετικός ακέραιος. Χρησιμοποιείται στη θεωρία ουρών για τη μοντελοποίηση διαδικασιών πολλαπλών σταδίων (π.χ. χρόνος για ολοκλήρωση υπηρεσίας $k$).
 
-**Erlang Distribution:** A special case of the Gamma distribution where $\alpha = k$ is a positive integer. It is used in queueing theory to model multi-stage processes (e.g., time for $k$ service completions).
-
-**Gamma Function:** The generalization of the factorial to non-integer values:
+**Συνάρτηση γάμμα:** Η γενίκευση των παραγοντικών σε μη ακέραιες τιμές:
 $$\Gamma(\alpha) = \int_0^\infty t^{\alpha-1} e^{-t} \, dt$$
 
-Key properties: $\Gamma(1) = 1$, $\Gamma(1/2) = \sqrt{\pi}$, $\Gamma(\alpha + 1) = \alpha \cdot \Gamma(\alpha)$, and for positive integers: $\Gamma(n) = (n-1)!$.
+Βασικές ιδιότητες: $\Gamma(1) = 1$, $\Gamma(1/2) = \sqrt{\pi}$, $\Gamma(\alpha + 1) = \alpha \cdot \Gamma(\alpha)$ και για θετικούς ακέραιους: $\Gamma(n) = (n-1)!$.
 
-**Weibull Distribution:** Models time-to-failure with a non-constant hazard rate. Parameterized by shape $k > 0$ and scale $\lambda > 0$. The Exponential is a special case ($k = 1$). The hazard rate is monotonically increasing for $k > 1$ (wear-out), constant for $k = 1$ (memoryless), and decreasing for $k < 1$ (infant mortality).
+**Διανομή Weibull:** Μοντέλα από το χρόνο έως την αποτυχία με μη σταθερό ποσοστό κινδύνου. Παραμετροποιείται κατά σχήμα $k > 0$ και κλίμακα $\lambda > 0$. Το Εκθετικό είναι μια ειδική περίπτωση ($k = 1$). Το ποσοστό κινδύνου αυξάνεται μονοτονικά για $k > 1$ (φθορά), σταθερό για $k = 1$ (χωρίς μνήμη) και μειώνεται για $k < 1$ (βρεφική θνησιμότητα).
 
-**Chi-Square Relationship:** $\chi^2(\nu) = Gamma(\nu/2, 1/2)$, i.e., the Chi-Square distribution with $\nu$ degrees of freedom is a Gamma distribution with shape $\alpha = \nu/2$ and rate $\beta = 1/2$.
+**Σχέση Chi-Square:** $\chi^2(\nu) = Gamma(\nu/2, 1/2)$, δηλαδή, η κατανομή Chi-Square με $\nu$ βαθμούς ελευθερίας είναι μια κατανομή γάμμα με σχήμα $\alpha = \nu/2$ και ποσοστό $\beta = 1/2$.
 
-> **Practical / Time-Domain Note:**
-> The Gamma and Weibull distributions are essential for modeling real-world system reliability. The Erlang distribution arises naturally in queueing systems: the service time for a customer requiring $k$ sequential service stages (each exponentially distributed with rate $\beta$) follows $Erlang(k, \beta)$. The Weibull distribution is the standard model for hardware lifetime analysis because its flexible hazard rate captures the three phases of the bathtub curve.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Οι διανομές Gamma και Weibull είναι απαραίτητες για τη μοντελοποίηση της αξιοπιστίας του συστήματος στον πραγματικό κόσμο. Η κατανομή Erlang προκύπτει φυσικά σε συστήματα ουράς: ο χρόνος εξυπηρέτησης για έναν πελάτη που απαιτεί $k$ διαδοχικά στάδια εξυπηρέτησης (κάθε ένα εκθετικά κατανεμημένο με ρυθμό $\beta$) ακολουθεί $Erlang(k, \beta)$. Η κατανομή Weibull είναι το τυπικό μοντέλο για την ανάλυση της διάρκειας ζωής του υλικού, επειδή ο ευέλικτος ρυθμός κινδύνου καταγράφει τις τρεις φάσεις της καμπύλης της μπανιέρας.
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-**Gamma Distribution $Gamma(\alpha, \beta)$ (rate parameterization):**
+**Κατανομή γάμμα $Gamma(\alpha, \beta)$ (παραμετροποίηση ρυθμού):**
 
 $$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}, \quad x > 0$$
 
 $$E[X] = \frac{\alpha}{\beta}, \quad V(X) = \frac{\alpha}{\beta^2}$$
 
-**Erlang Distribution $Erlang(k, \beta)$:**
+** Erlang Distribution $Erlang(k, \beta)$:**
 
-Same as $Gamma(k, \beta)$ where $k$ is a positive integer. It is the sum of $k$ independent $Exp(\beta)$ random variables:
+Το ίδιο με $Gamma(k, \beta)$ όπου $k$ είναι θετικός ακέραιος. Είναι το άθροισμα των $k$ ανεξάρτητων $Exp(\beta)$ τυχαίων μεταβλητών:
 $$T = X_1 + X_2 + \cdots + X_k, \quad X_i \stackrel{iid}{\sim} Exp(\beta) \implies T \sim Erlang(k, \beta)$$
 
-**Erlang Sum Property (Critical Requirement):** The $k$ Exponential components must have the EXACT same rate $\beta$. If rates differ, the sum is NOT Erlang.
+**Ιδιότητα αθροίσματος Erlang (Κρίσιμη Απαίτηση):** Τα εκθετικά στοιχεία $k$ πρέπει να έχουν ΑΚΡΙΒΩΣ τον ίδιο ρυθμό $\beta$. Εάν οι τιμές διαφέρουν, το άθροισμα ΔΕΝ είναι Erlang.
 
 $$E[T] = \frac{k}{\beta}, \quad V(T) = \frac{k}{\beta^2}$$
 
-**Weibull Distribution $Weibull(k, \lambda)$:**
+**Διανομή Weibull $Weibull(k, \lambda)$:**
 
 $$f(t) = \frac{k}{\lambda} \left(\frac{t}{\lambda}\right)^{k-1} e^{-(t/\lambda)^k}, \quad t \ge 0$$
 
-**Survival (Reliability) Function:**
+**Λειτουργία Survival (Αξιοπιστία):**
 $$S(t) = P(T > t) = e^{-(t/\lambda)^k}$$
 
 **CDF:**
 $$F(t) = P(T \le t) = 1 - e^{-(t/\lambda)^k}$$
 
-**Hazard Rate:**
+**Ποσοστό κινδύνου:**
 $$h(t) = \frac{f(t)}{S(t)} = \frac{k}{\lambda}\left(\frac{t}{\lambda}\right)^{k-1}$$
 
-- $k < 1$: Decreasing hazard (infant mortality / early failures)
-- $k = 1$: Constant hazard (reduces to $Exp(1/\lambda)$, memoryless)
-- $k > 1$: Increasing hazard (wear-out / aging failures)
+- $k < 1$: Μειούμενος κίνδυνος (βρεφική θνησιμότητα / πρώιμες αποτυχίες)
+- $k = 1$: Σταθερός κίνδυνος (μειώνεται σε $Exp(1/\lambda)$, χωρίς μνήμη)
+- $k > 1$: Αυξανόμενος κίνδυνος (αστοχίες φθοράς / γήρανσης)
 
-**Weibull Mean and Variance:**
+**Μέσος όρος και διακύμανση Weibull:**
 $$E[T] = \lambda \cdot \Gamma\left(1 + \frac{1}{k}\right)$$
 $$V(T) = \lambda^2 \left[ \Gamma\left(1 + \frac{2}{k}\right) - \left(\Gamma\left(1 + \frac{1}{k}\right)\right)^2 \right]$$
 
-**Rate vs. Scale Parameterization Alert:**
+**Ειδοποίηση παραμετροποίησης ποσοστού έναντι κλίμακας:**
 
-R's `pgamma()` uses the rate parameterization by default: $\beta$ = rate. Some textbooks use the scale $\theta = 1/\beta$. Always verify:
-- Rate parameterization: `pgamma(x, shape = alpha, rate = beta)`
-- Scale parameterization: `pgamma(x, shape = alpha, scale = theta)` where `theta = 1/rate`
+Το `pgamma()` του R χρησιμοποιεί την παραμετροποίηση ρυθμού από προεπιλογή: $\beta$ = ρυθμός. Ορισμένα σχολικά βιβλία χρησιμοποιούν την κλίμακα $\theta = 1/\beta$. Επαληθεύστε πάντα:
+- Παραμετροποίηση ρυθμού: `pgamma(x, shape = alpha, rate = beta)`
+- Παραμετροποίηση κλίμακας: `pgamma(x, shape = alpha, scale = theta)` όπου `theta = 1/rate`
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 15: Waiting Time for 3rd API Request (Erlang)
-**Problem:** Requests arrive as a Poisson process at rate $\beta = 2$ requests/second. Find the mean, variance, and $P(T \le 2)$ for the waiting time $T$ until the 3rd request.
+#### Άσκηση 15: Χρόνος αναμονής για 3ο αίτημα API (Erlang)**Πρόβλημα:** Τα αιτήματα φτάνουν ως διαδικασία Poisson με ρυθμό $\beta = 2$ αιτήματα/δευτερόλεπτο. Βρείτε τον μέσο όρο, τη διακύμανση και $P(T \le 2)$ για το χρόνο αναμονής $T$ μέχρι το 3ο αίτημα.
 
-**Solution:**
+**Λύση:**
 
-$T \sim Erlang(k=3, \beta=2)$, equivalently $Gamma(3, 2)$.
+$T \sim Erlang(k=3, \beta=2)$, ισοδύναμα $Gamma(3, 2)$.
 
-**Mean and variance:**
+**Μέσος όρος και διακύμανση:**
 $$E[T] = \frac{k}{\beta} = \frac{3}{2} = 1.5 \text{ s}$$
 $$V(T) = \frac{k}{\beta^2} = \frac{3}{4} = 0.75 \text{ s}^2$$
 
-**CDF:** Using R: `pgamma(2, shape = 3, rate = 2)` $\approx \boxed{0.7619}$.
+**CDF:** Χρήση R: `pgamma(2, shape = 3, rate = 2)` $\approx \boxed{0.7619}$.
 
-#### Exercise 16: Weibull Survival Probability with Wear-Out
-**Problem:** A pump's failure time $T \sim Weibull(k=2, \lambda=1000 \text{ h})$. Find:
-a) $P(T > 1500)$.
-b) The median lifetime.
+#### Άσκηση 16: Πιθανότητα επιβίωσης Weibull με φθορά
+**Πρόβλημα:** Χρόνος αστοχίας μιας αντλίας $T \sim Weibull(k=2, \lambda=1000 \text{ h})$. Εύρεση:
+α) $P(T > 1500)$.
+β) Η διάμεση διάρκεια ζωής.
 
-**Solution:**
+**Λύση:**
 
-**a) Survival function:
+**α) Συνάρτηση επιβίωσης:
 $$P(T > 1500) = e^{-(1500/1000)^2} = e^{-(1.5)^2} = e^{-2.25} \approx \boxed{0.1054}$$
 
-**b) Set $S(t_{0.5}) = 0.5$:
+**β) Ορίστε $S(t_{0.5}) = 0.5$:
 $$e^{-(t_{0.5}/1000)^2} = 0.5 \implies \left(\frac{t_{0.5}}{1000}\right)^2 = \ln 2 \implies t_{0.5} = 1000\sqrt{\ln 2} \approx \boxed{832.6 \text{ h}}$$
 
-#### Exercise 17: Sum of Independent Exponential Stage Times (Time-Domain)
-**Problem:** A process has 4 sequential stages, each independently $Exp(0.5)$ s$^{-1}$ (mean 2 s per stage). Find the distribution and mean of the total time $T$.
+#### Άσκηση 17: Άθροισμα ανεξάρτητων εκθετικών χρόνων σταδίου (Χρόνος-Τομέας)
+**Πρόβλημα:** Μια διαδικασία έχει 4 διαδοχικά στάδια, το καθένα ανεξάρτητα $Exp(0.5)$ s$^{-1}$ (μέσος όρος 2 δευτ. ανά στάδιο). Βρείτε την κατανομή και τον μέσο όρο του συνολικού χρόνου $T$.
 
-**Solution:**
+**Λύση:**
 
-Since all 4 stages have the **same rate** $\beta = 0.5$:
+Δεδομένου ότι και τα 4 στάδια έχουν το **το ίδιο ποσοστό** $\beta = 0.5$:
 $$T = X_1 + X_2 + X_3 + X_4 \sim Gamma(4, 0.5) = Erlang(4, 0.5)$$
 $$E[T] = \frac{4}{0.5} = 8 \text{ s}, \quad V(T) = \frac{4}{0.25} = 16 \text{ s}^2$$
 
-> If the stages had different rates, the sum would NOT be an Erlang/Gamma distribution and would require convolution to find exactly.
+> Εάν τα στάδια είχαν διαφορετικούς ρυθμούς, το άθροισμα ΔΕΝ θα ήταν κατανομή Erlang/Gamma και θα απαιτούσε συνέλιξη για να βρεθεί ακριβώς.
 
-#### Exercise 18: Chi-Square as a Special Gamma (Time-Domain)
-**Problem:** The squared normalized timing error $Z^2$ where $Z \sim N(0,1)$ follows a Chi-Square distribution $\chi^2(1)$. Express this as a Gamma distribution and find its mean and variance.
+#### Άσκηση 18: Chi-Square ως ειδικό γάμμα (Time-Domain)
+**Πρόβλημα:** Το τετράγωνο κανονικοποιημένο σφάλμα χρονισμού $Z^2$ όπου το $Z \sim N(0,1)$ ακολουθεί μια κατανομή Chi-Square $\chi^2(1)$. Εκφράστε το ως κατανομή Γάμμα και βρείτε τον μέσο όρο και τη διακύμανσή του.
 
-**Solution:**
+**Λύση:**
 
 $$\chi^2(1) = Gamma\left(\frac{1}{2}, \frac{1}{2}\right)$$
 
 $$E[\chi^2(1)] = \frac{\alpha}{\beta} = \frac{1/2}{1/2} = 1, \quad V(\chi^2(1)) = \frac{\alpha}{\beta^2} = \frac{1/2}{1/4} = 2$$
 
-This matches the known result: $E[\chi^2(\nu)] = \nu$, $V(\chi^2(\nu)) = 2\nu$ with $\nu = 1$. $\boxed{E = 1, V = 2}$.
+Αυτό ταιριάζει με το γνωστό αποτέλεσμα: $E[\chi^2(\nu)] = \nu$, $V(\chi^2(\nu)) = 2\nu$ με $\nu = 1$. $\boxed{E = 1, V = 2}$.
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # Gamma distribution (rate parameterization)
 # P(T <= 2) for T ~ Gamma(alpha=3, beta=2)
 pgamma(q = 2, shape = 3, rate = 2)       # ~0.7619
@@ -667,133 +644,127 @@ pchisq(q = 3.84, df = 1)               # These should be identical
 # WARNING: R's pgamma uses rate by default.
 # If your textbook uses scale (theta = 1/rate), use:
 pgamma(q = 2, shape = 3, scale = 0.5)  # scale = 1/rate = 1/2
-```
+```---
 
----
+## Ενότητα 5.6: Μετασχηματισμοί συνεχών τυχαίων μεταβλητών
 
-## Section 5.6: Transformations of Continuous Random Variables
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
+Όταν μια συνεχής τυχαία μεταβλητή $X$ διέρχεται από μια ντετερμινιστική συνάρτηση $Y = g(X)$, η προκύπτουσα $Y$ είναι επίσης μια τυχαία μεταβλητή. Ο στόχος είναι να βρείτε το PDF του $Y$ από το PDF του $X$. Χρησιμοποιούνται δύο βασικές μέθοδοι:
 
-When a continuous random variable $X$ is passed through a deterministic function $Y = g(X)$, the resulting $Y$ is also a random variable. The goal is to find the PDF of $Y$ from the PDF of $X$. Two main methods are used:
+1. **Μέθοδος CDF (Change-of-Variable μέσω CDF):** Βρείτε $F_Y(y) = P(Y \le y)$ απευθείας από $F_X$ και, στη συνέχεια, διαφοροποιήστε: $f_Y(y) = dF_Y(y)/dy$.
 
-1. **CDF Method (Change-of-Variable via CDF):** Find $F_Y(y) = P(Y \le y)$ directly from $F_X$, then differentiate: $f_Y(y) = dF_Y(y)/dy$.
-
-2. **Jacobian Method (Change-of-Variable via PDF):** Valid for strictly monotonic $g$. Use the formula:
+2. **Jacobian Method (Change-of-Variable μέσω PDF):** Ισχύει για αυστηρά μονότονες $g$. Χρησιμοποιήστε τον τύπο:
 $$f_Y(y) = f_X\left(g^{-1}(y)\right) \cdot \left|\frac{d}{dy} g^{-1}(y)\right|$$
 
-where $|d g^{-1}(y)/dy|$ is the absolute value of the Jacobian (derivative of the inverse transformation).
+όπου $|d g^{-1}(y)/dy|$ είναι η απόλυτη τιμή του Jacobian (παράγωγο του αντίστροφου μετασχηματισμού).
 
-**Common Time-Domain Transformations:**
-- $Y = 1/X$: Converts inter-arrival time $X$ to throughput $Y$ (requests per second).
-- $Y = cX$: Unit conversion (e.g., seconds to milliseconds, $c = 1000$).
-- $Y = \ln X$: Log-Normal transformation; if $Y \sim N(\mu, \sigma^2)$, then $X = e^Y$ is Log-Normal.
+**Κοινοί μετασχηματισμοί τομέων χρόνου:**
+- $Y = 1/X$: Μετατρέπει την ώρα μεταξύ άφιξης $X$ σε απόδοση $Y$ (αιτήματα ανά δευτερόλεπτο).
+- $Y = cX$: Μετατροπή μονάδας (π.χ. δευτερόλεπτα σε χιλιοστά του δευτερολέπτου, $c = 1000$).
+- $Y = \ln X$: Καταγραφή-Κανονικός μετασχηματισμός. αν $Y \sim N(\mu, \sigma^2)$, τότε το $X = e^Y$ είναι Log-Normal.
 
-> **Practical / Time-Domain Note:**
-> **Jensen's Inequality and the Throughput Fallacy:** For a convex function $g$ and a random variable $X$, $E[g(X)] \ge g(E[X])$. In particular, since $g(x) = 1/x$ is convex for $x > 0$:
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> **Η ανισότητα του Jensen και η πλάνη απόδοσης:** Για μια κυρτή συνάρτηση $g$ και μια τυχαία μεταβλητή $X$, $E[g(X)] \ge g(E[X])$. Συγκεκριμένα, δεδομένου ότι το $g(x) = 1/x$ είναι κυρτό για $x > 0$:
 > $$E\left[\frac{1}{T}\right] \ge \frac{1}{E[T]}$$
-> This means the **average throughput** (average of $1/T$) is strictly greater than the reciprocal of the average processing time. Average throughput cannot be estimated as $1/\bar{T}$.
+> Αυτό σημαίνει ότι η **μέση απόδοση** (μέσος όρος $1/T$) είναι αυστηρά μεγαλύτερη από το αντίστροφο του μέσου χρόνου επεξεργασίας. Η μέση απόδοση δεν μπορεί να εκτιμηθεί ως $1/\bar{T}$.
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-**Linear Transformation $Y = aX + b$:**
+** Γραμμικός μετασχηματισμός $Y = aX + b$:**
 $$f_Y(y) = \frac{1}{|a|} f_X\left(\frac{y - b}{a}\right)$$
 $$E[Y] = a \cdot E[X] + b, \quad V(Y) = a^2 \cdot V(X)$$
 
-**Monotonic Non-Linear Transformation (Jacobian Method):**
+**Μονοτονικός μη-γραμμικός μετασχηματισμός (Ιακωβική μέθοδος):**
 $$f_Y(y) = f_X\left(g^{-1}(y)\right) \cdot \left|\frac{dg^{-1}}{dy}\right|$$
 
-**Non-Monotonic Transformation (CDF Method required):**
+**Μη μονοτονικός μετασχηματισμός (απαιτείται μέθοδος CDF):**
 
-For $Y = X^2$ with $X \sim N(0, \sigma^2)$ (which is symmetric about 0, so $g$ is not monotonic):
+Για $Y = X^2$ με $X \sim N(0, \sigma^2)$ (που είναι συμμετρικό περίπου 0, επομένως το $g$ δεν είναι μονότονο):
 $$F_Y(y) = P(X^2 \le y) = P(-\sqrt{y} \le X \le \sqrt{y}) = F_X(\sqrt{y}) - F_X(-\sqrt{y})$$
-Differentiating:
+Διαφοροποίηση:
 $$f_Y(y) = \frac{1}{2\sqrt{y}} f_X(\sqrt{y}) + \frac{1}{2\sqrt{y}} f_X(-\sqrt{y}) = \frac{1}{\sqrt{y}} f_X(\sqrt{y})$$
 
-Substituting the Normal PDF:
+Αντικατάσταση του Κανονικού PDF:
 $$f_Y(y) = \frac{1}{\sigma\sqrt{2\pi y}} e^{-y/(2\sigma^2)}, \quad y > 0$$
 
-This is a $Gamma(1/2, 1/(2\sigma^2))$ distribution, equivalent to $\chi^2(1)$ when $\sigma = 1$.
+Αυτή είναι μια κατανομή $Gamma(1/2, 1/(2\sigma^2))$, ισοδύναμη με $\chi^2(1)$ όταν $\sigma = 1$.
 
-**Log-Normal Distribution:**
+**Καταγραφή-κανονική διανομή:**
 
-If $X \sim N(\mu, \sigma^2)$ and $Y = e^X$, then $Y$ is **Log-Normal** with:
+Εάν $X \sim N(\mu, \sigma^2)$ και $Y = e^X$, τότε το $Y$ είναι **Κανονικό καταγραφής** με:
 $$E[Y] = e^{\mu + \sigma^2/2}, \quad V(Y) = e^{2\mu + \sigma^2}(e^{\sigma^2} - 1)$$
 
-Conversely, if $Y$ is Log-Normal such that $\ln Y \sim N(\mu, \sigma^2)$, then:
+Αντίθετα, εάν το $Y$ είναι κανονικό καταγραφής έτσι ώστε $\ln Y \sim N(\mu, \sigma^2)$, τότε:
 $$P(Y \le y) = \Phi\left(\frac{\ln y - \mu}{\sigma}\right)$$
 
-**Reciprocal Transformation $Y = 1/X$ for $X \sim U(a, b)$ with $0 < a < b$:**
+**Αμοιβαία μετατροπή $Y = 1/X$ για $X \sim U(a, b)$ με $0 < a < b$:**
 
-$g(x) = 1/x$ is monotonically decreasing on $(a, b)$. Inverse: $x = 1/y$, Jacobian: $|dx/dy| = 1/y^2$.
+Το $g(x) = 1/x$ μειώνεται μονότονα στις $(a, b)$. Αντίστροφη: $x = 1/y$, Jacobian: $|dx/dy| = 1/y^2$.
 $$f_Y(y) = f_X\left(\frac{1}{y}\right) \cdot \frac{1}{y^2} = \frac{1}{b-a} \cdot \frac{1}{y^2}, \quad \frac{1}{b} \le y \le \frac{1}{a}$$
 
-**Time-Domain Adapted Formula (Unit Conversion):**
+**Τύπος προσαρμοσμένος σε τομέα χρόνου (Μετατροπή μονάδας):**
 
-Converting time units from seconds to milliseconds ($c = 1000$): if $T \sim N(\mu_{[s]}, \sigma^2_{[s]})$, then $T_{ms} = 1000 \cdot T \sim N(1000\mu_{[s]}, 10^6 \sigma^2_{[s]})$.
+Μετατροπή μονάδων χρόνου από δευτερόλεπτα σε χιλιοστά του δευτερολέπτου ($c = 1000$): εάν $T \sim N(\mu_{[s]}, \sigma^2_{[s]})$, τότε $T_{ms} = 1000 \cdot T \sim N(1000\mu_{[s]}, 10^6 \sigma^2_{[s]})$.
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 19: Reciprocal Transformation for Throughput (Time-Domain)
-**Problem:** Service time $T \sim U(0.5, 2.0)$ seconds per request. Find the PDF of throughput $Y = 1/T$ (requests per second).
+#### Άσκηση 19: Αμοιβαίος μετασχηματισμός για απόδοση (Time-Domain)
+**Πρόβλημα:** Χρόνος εξυπηρέτησης $T \sim U(0.5, 2.0)$ δευτερόλεπτα ανά αίτημα. Βρείτε το PDF της απόδοσης $Y = 1/T$ (αιτήματα ανά δευτερόλεπτο).
 
-**Solution:**
+**Λύση:**
 
-$g(t) = 1/t$ is monotonically decreasing on $(0.5, 2.0)$.
+Το $g(t) = 1/t$ μειώνεται μονότονα στις $(0.5, 2.0)$.
 
-**Step 1:** Inverse transformation: $t = 1/y$, Jacobian: $|dt/dy| = 1/y^2$.
+**Βήμα 1:** Αντίστροφος μετασχηματισμός: $t = 1/y$, Jacobian: $|dt/dy| = 1/y^2$.
 
-**Step 2:** Range of $Y$: when $t = 2.0$, $y = 0.5$; when $t = 0.5$, $y = 2.0$. So $y \in [0.5, 2.0]$.
+**Βήμα 2:** Εύρος $Y$: όταν $t = 2.0$, $y = 0.5$; όταν $t = 0.5$, $y = 2.0$. Έτσι $y \in [0.5, 2.0]$.
 
-**Step 3:** $f_T(t) = 1/(2.0 - 0.5) = 2/3$ for $t \in [0.5, 2.0]$.
+**Βήμα 3:** $f_T(t) = 1/(2.0 - 0.5) = 2/3$ για $t \in [0.5, 2.0]$.
 
-**Step 4:** Apply the Jacobian formula:
+**Βήμα 4:** Εφαρμόστε τον τύπο Jacobian:
 $$f_Y(y) = f_T\left(\frac{1}{y}\right) \cdot \frac{1}{y^2} = \frac{2}{3} \cdot \frac{1}{y^2} = \frac{2}{3y^2}, \quad 0.5 \le y \le 2.0$$
 
-**Step 5:** Verify Jensen's inequality for $E[Y]$:
-$$E[Y] = \int_{0.5}^{2.0} y \cdot \frac{2}{3y^2} \, dy = \frac{2}{3} \ln\left(\frac{2.0}{0.5}\right) = \frac{2}{3} \ln 4 \approx 0.924$$
+**Βήμα 5:** Επαληθεύστε την ανισότητα του Jensen για $E[Y]$:
+$$E[Y] = \int_{0.5}^{2.0} y \cdot \frac{2}{3y^2} \, dy = \frac{2}{3} \ln\left(\frac{2.0}{0.5}\right) = \frac{2}{3} \ln 4 \approx 0.924$$Πράγματι $E[Y] \approx 0.924 > 1/E[T] = 1/1.25 = 0.8$, επιβεβαιώνοντας την ανισότητα του Jensen. $\boxed{f_Y(y) = 2/(3y^2),\ y \in [0.5, 2.0]}$
 
-Indeed $E[Y] \approx 0.924 > 1/E[T] = 1/1.25 = 0.8$, confirming Jensen's inequality. $\boxed{f_Y(y) = 2/(3y^2),\ y \in [0.5, 2.0]}$
+#### Άσκηση 20: Καταγραφή-Κανονικός μέσος όρος για δεδομένα μισθού
+**Πρόβλημα:** Οι ημερολόγιο-μισθοί ακολουθούν $Y = \ln(X) \sim N(10, 0.25)$ (σε ln-δολάρια). Βρείτε τον αναμενόμενο μισθό $E[X]$.
 
-#### Exercise 20: Log-Normal Mean for Salary Data
-**Problem:** Log-salaries follow $Y = \ln(X) \sim N(10, 0.25)$ (in ln-dollars). Find the expected salary $E[X]$.
+**Λύση:**
 
-**Solution:**
-
-$X = e^Y$ where $Y \sim N(\mu = 10, \sigma^2 = 0.25)$.
+$X = e^Y$ όπου $Y \sim N(\mu = 10, \sigma^2 = 0.25)$.
 
 $$E[X] = e^{\mu + \sigma^2/2} = e^{10 + 0.125} = e^{10.125} \approx \boxed{24{,}905 \text{ dollars}}$$
 
-#### Exercise 21: Non-Monotonic Transformation -- Squared Latency Error (Time-Domain)
-**Problem:** A timing error $T \sim N(0, \sigma^2)$ with $\sigma = 5$ ms. Find the PDF of the squared error $Y = T^2$.
+#### Άσκηση 21: Μη μονότονος μετασχηματισμός -- Τετράγωνο σφάλμα καθυστέρησης (Time-Domain)
+**Πρόβλημα:** Σφάλμα χρονισμού $T \sim N(0, \sigma^2)$ με $\sigma = 5$ ms. Βρείτε το PDF του τετραγώνου σφάλματος $Y = T^2$.
 
-**Solution:**
+**Λύση:**
 
-Since $T$ is symmetric about 0, $g(t) = t^2$ is not monotonic. Use the CDF method:
+Εφόσον το $T$ είναι συμμετρικό περίπου 0, το $g(t) = t^2$ δεν είναι μονότονο. Χρησιμοποιήστε τη μέθοδο CDF:
 
 $$F_Y(y) = P(T^2 \le y) = P(-\sqrt{y} \le T \le \sqrt{y}) = \Phi\left(\frac{\sqrt{y}}{\sigma}\right) - \Phi\left(\frac{-\sqrt{y}}{\sigma}\right)$$
 
-Differentiating with respect to $y$:
+Διαφοροποίηση σε σχέση με $y$:
 $$f_Y(y) = \frac{1}{\sigma\sqrt{2\pi y}} e^{-y/(2\sigma^2)} = \frac{1}{5\sqrt{2\pi y}} e^{-y/50}, \quad y > 0$$
 
-This is a $Gamma(1/2, 1/50)$ distribution. $\boxed{f_Y(y) = \frac{1}{5\sqrt{2\pi y}} e^{-y/50}}$
+Αυτή είναι μια διανομή $Gamma(1/2, 1/50)$. $\boxed{f_Y(y) = \frac{1}{5\sqrt{2\pi y}} e^{-y/50}}$
 
-#### Exercise 22: Unit Conversion with the $c^2$ Rule (Time-Domain)
-**Problem:** Network round-trip time $T \sim N(50, 100)$ ms. Convert to seconds and state the distribution of $T_{[s]} = T/1000$.
+#### Άσκηση 22: Μετατροπή μονάδων με τον κανόνα $c^2$ (Time-Domain)
+**Πρόβλημα:** Χρόνος μετ' επιστροφής δικτύου $T \sim N(50, 100)$ ms. Μετατρέψτε σε δευτερόλεπτα και δηλώστε την κατανομή του $T_{[s]} = T/1000$.
 
-**Solution:**
+**Λύση:**
 
-Using the linear transformation with $c = 1/1000$:
+Χρησιμοποιώντας τον γραμμικό μετασχηματισμό με $c = 1/1000$:
 $$\mu_{[s]} = \frac{50}{1000} = 0.05 \text{ s}$$
 $$\sigma^2_{[s]} = \left(\frac{1}{1000}\right)^2 \times 100 = \frac{100}{10^6} = 10^{-4} \text{ s}^2$$
 
 $$T_{[s]} \sim N(0.05,\ 10^{-4}) \quad \text{i.e., } N(0.05, \sigma = 0.01) \text{ seconds}$$
 
-> **Critical:** The variance scaled by $c^2 = 10^{-6}$, not by $c = 10^{-3}$. A common error is to report $\sigma^2_{[s]} = 100/1000 = 0.1$, which is wrong by a factor of 1000. $\boxed{T_{[s]} \sim N(0.05,\, 10^{-4})}$
+> **Κρίσιμη:** Η διακύμανση με κλίμακα $c^2 = 10^{-6}$, όχι κατά $c = 10^{-3}$. Ένα συνηθισμένο σφάλμα είναι να αναφέρετε $\sigma^2_{[s]} = 100/1000 = 0.1$, το οποίο είναι λάθος κατά συντελεστή 1000. $\boxed{T_{[s]} \sim N(0.05,\, 10^{-4})}$
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # Log-Normal: mean of X = exp(Y) where Y ~ N(mu, sigma^2)
 mu_y <- 10; sigma_y <- 0.5
 E_X <- exp(mu_y + sigma_y^2 / 2)
@@ -814,155 +785,150 @@ sd_s   <- sqrt(var_s)          # 0.01 s
 
 # R code does not change for the distribution, just the parameters
 pnorm(q = 0.06, mean = mean_s, sd = sd_s)  # P(T_s <= 0.06 s) = P(T <= 60 ms)
-```
+```---
 
----
+## Οδηγός προετοιμασίας για τις εξετάσεις
 
-## Exam Preparation Guide
+### Γρήγορη αναφορά τύπου
 
-### Formula Quick-Reference
-
-| Distribution | PDF $f(x)$ | Mean $E[X]$ | Variance $V(X)$ | Survival $P(X > x)$ |
+| Διανομή | PDF $f(x)$ | Μέσος όρος $E[X]$ | Διακύμανση $V(X)$ | Επιβίωση $P(X > x)$ |
 |---|---|---|---|---|
 | $N(\mu, \sigma^2)$ | $\frac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}$ | $\mu$ | $\sigma^2$ | $1 - \Phi\!\left(\frac{x-\mu}{\sigma}\right)$ |
-| $U(a,b)$ | $\frac{1}{b-a}$ for $x \in [a,b]$ | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$ | $\frac{b-x}{b-a}$ |
-| $Exp(\lambda)$ | $\lambda e^{-\lambda x}$ for $x \ge 0$ | $\frac{1}{\lambda}$ | $\frac{1}{\lambda^2}$ | $e^{-\lambda x}$ |
-| $Gamma(\alpha,\beta)$ | $\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$ | $\frac{\alpha}{\beta}$ | $\frac{\alpha}{\beta^2}$ | (no closed form) |
-| $Weibull(k,\lambda)$ | $\frac{k}{\lambda}(\frac{x}{\lambda})^{k-1}e^{-(x/\lambda)^k}$ | $\lambda\,\Gamma(1+\frac{1}{k})$ | (complex) | $e^{-(x/\lambda)^k}$ |
+| $U(a,b)$ | $\frac{1}{b-a}$ για $x \in [a,b]$ | $\frac{a+b}{2}$ | $\frac{(b-a)^2}{12}$ | $\frac{b-x}{b-a}$ |
+| $Exp(\lambda)$ | $\lambda e^{-\lambda x}$ για $x \ge 0$ | $\frac{1}{\lambda}$ | $\frac{1}{\lambda^2}$ | $e^{-\lambda x}$ |
+| $Gamma(\alpha,\beta)$ | $\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} e^{-\beta x}$ | $\frac{\alpha}{\beta}$ | $\frac{\alpha}{\beta^2}$ | (χωρίς κλειστή μορφή) |
+| $Weibull(k,\lambda)$ | $\frac{k}{\lambda}(\frac{x}{\lambda})^{k-1}e^{-(x/\lambda)^k}$ | $\lambda\,\Gamma(1+\frac{1}{k})$ | (σύνθετο) | $e^{-(x/\lambda)^k}$ |
 
-**Standardization (Z-score):**
+**Τυποποίηση (Z-score):**
 $$Z = \frac{X - \mu}{\sigma} \sim N(0,1)$$
 
-**Percentile / Quantile (Normal):**
+**Ποσοστό / Ποσοστό (Κανονικό):**
 $$x_p = \mu + z_p \cdot \sigma$$
 
-**System of equations for unknown $\mu, \sigma$ (from two percentiles):**
+**Σύστημα εξισώσεων για άγνωστο $\mu, \sigma$ (από δύο εκατοστημόρια):**
 $$a = \mu + z_{p_1} \sigma, \quad b = \mu + z_{p_2} \sigma \implies \sigma = \frac{a - b}{z_{p_1} - z_{p_2}}$$
 
-**Uniform quantile:**
+**Ομοιόμορφο ποσοστό:**
 $$x_p = a + p(b-a)$$
 
-**Exponential memoryless property:**
+**Εκθετική ιδιότητα χωρίς μνήμη:**
 $$P(X > s+t \mid X > s) = e^{-\lambda t} = P(X > t)$$
 
-**Minimum of independent Exponentials:**
+**Ελάχιστο ανεξάρτητων εκθετικών:**
 $$\min(X_1,\ldots,X_n) \sim Exp(\lambda_1 + \cdots + \lambda_n)$$
 
-**Erlang (sum of identical Exponentials, $k$ integer):**
+**Erlang (άθροισμα πανομοιότυπων εκθετικών, $k$ ακέραιος):**
 $$X_1 + \cdots + X_k \sim Erlang(k,\beta) = Gamma(k,\beta), \quad E = k/\beta, \quad V = k/\beta^2$$
 
-**Weibull survival:**
+**Επιβίωση Weibull:**
 $$S(t) = e^{-(t/\lambda)^k}$$
 
-**Jacobian transformation (monotonic $g$):**
+**Ιακωβικός μετασχηματισμός (μονότονος $g$):**
 $$f_Y(y) = f_X(g^{-1}(y)) \cdot \left|\frac{dg^{-1}}{dy}\right|$$
 
-**Log-Normal mean:**
+**Ημερολόγιο-Κανονικός μέσος όρος:**
 $$E[e^X] = e^{\mu + \sigma^2/2} \quad \text{where } X \sim N(\mu,\sigma^2)$$
 
-**$c^2$ rule (unit conversion):**
+**$c^2$ κανόνας (μετατροπή μονάδας):**
 $$Y = cX \implies E[Y] = c\,E[X], \quad V(Y) = c^2\,V(X)$$
 
-**Jensen's inequality (convex $g$, e.g., $g(x)=1/x$):**
+**Η ανισότητα του Jensen (κυρτή $g$, π.χ., $g(x)=1/x$):**
 $$E[g(X)] \ge g(E[X]) \implies E[1/T] \ge 1/E[T]$$
 
-**Symmetry of standard normal:**
+**Συμμετρία τυπικού κανονικού:**
 $$\Phi(-z) = 1 - \Phi(z)$$
 
-**Sum of independent normals:**
+**Άθροισμα ανεξάρτητων κανονικών:**
 $$X_1 + X_2 \sim N(\mu_1+\mu_2,\; \sigma_1^2 + \sigma_2^2)$$
 
-**Empirical Rule:**
+**Εμπειρικός κανόνας:**
 $$P(\mu \pm \sigma) \approx 68.27\%, \quad P(\mu \pm 2\sigma) \approx 95.45\%, \quad P(\mu \pm 3\sigma) \approx 99.73\%$$
 
 ---
 
-### Exam Checklist
+### Λίστα ελέγχου εξετάσεων
 
-| Category | Items |
+| Κατηγορία | Είδη |
 |----------|-------|
-| **Must Memorize** | Normal PDF and CDF; Z-score formula $Z = (X-\mu)/\sigma$; Z-table symmetry $\Phi(-z) = 1 - \Phi(z)$; Empirical 68-95-99.7 rule; Exponential PDF, CDF, survival, and mean; Memoryless property of Exponential; Uniform mean and variance; $c^2$ rule for unit conversions; Weibull survival function $e^{-(t/\lambda)^k}$; Erlang = Gamma with integer shape |
-| **Must Understand** | Why the Normal domain $(-\infty, +\infty)$ is problematic for strictly positive quantities; System of two equations to solve for unknown $\mu$ and $\sigma$ from two percentiles; When memoryless property applies vs. not (Exponential only); How to identify the correct distribution for a given scenario; Why $E[1/T] \ne 1/E[T]$ (Jensen's inequality); CDF method vs. Jacobian method for transformations; Why Erlang requires identical rates; Weibull hazard interpretation ($k < 1$, $k = 1$, $k > 1$) |
-| **Book-Only (Professor May Test)** | Log-Normal distribution and its mean formula $e^{\mu + \sigma^2/2}$; Chi-square as a special Gamma ($\chi^2(\nu) = Gamma(\nu/2, 1/2)$); Non-monotonic transformations via the CDF method (e.g., $Y = X^2$); Gamma function properties: $\Gamma(1) = 1$, $\Gamma(1/2) = \sqrt{\pi}$, $\Gamma(n) = (n-1)!$; Weibull mean formula using the Gamma function; Minimum of independent Exponentials distribution; Quantization error as Uniform; Full derivation of Jacobian for reciprocal transformation |
+| **Πρέπει να απομνημονεύσετε** | Κανονικό PDF και CDF. Τύπος βαθμολογίας Z $Z = (X-\mu)/\sigma$; Συμμετρία πίνακα Z $\Phi(-z) = 1 - \Phi(z)$; Εμπειρικός κανόνας 68-95-99.7. Εκθετικό PDF, CDF, επιβίωση και μέσος όρος. Ιδιότητα χωρίς μνήμη του Exponential; Ομοιόμορφος μέσος όρος και διακύμανση. $c^2$ κανόνας για μετατροπές μονάδων. Συνάρτηση επιβίωσης Weibull $e^{-(t/\lambda)^k}$; Erlang = Γάμμα με ακέραιο σχήμα |
+| **Πρέπει να καταλάβω** | Γιατί ο Κανονικός τομέας $(-\infty, +\infty)$ είναι προβληματικός για αυστηρά θετικές ποσότητες. Σύστημα δύο εξισώσεων προς επίλυση άγνωστων $\mu$ και $\sigma$ από δύο εκατοστημόρια. Όταν ισχύει η ιδιότητα χωρίς μνήμη έναντι μη (μόνο εκθετική). Πώς να προσδιορίσετε τη σωστή κατανομή για ένα δεδομένο σενάριο. Γιατί $E[1/T] \ne 1/E[T]$ (η ανισότητα του Jensen); Μέθοδος CDF έναντι μεθόδου Jacobian για μετασχηματισμούς. Γιατί η Erlang απαιτεί ίδιες τιμές; Ερμηνεία κινδύνου Weibull ($k < 1$, $k = 1$, $k > 1$) |
+| **Μόνο Βιβλίο (Δοκιμή για τον Καθηγητή)** | Κατανομή Log-Normal και ο μέσος τύπος της $e^{\mu + \sigma^2/2}$; Τετράγωνο Χ ως ειδικό γάμμα ($\chi^2(\nu) = Gamma(\nu/2, 1/2)$); Μη μονοτονικοί μετασχηματισμοί μέσω της μεθόδου CDF (π.χ. $Y = X^2$). Ιδιότητες συνάρτησης γάμμα: $\Gamma(1) = 1$, $\Gamma(1/2) = \sqrt{\pi}$, $\Gamma(n) = (n-1)!$; Weibull σημαίνει τύπος χρησιμοποιώντας τη συνάρτηση Gamma. Ελάχιστο ανεξάρτητη κατανομή Εκθετικών. Σφάλμα κβαντισμού ως Ομοιόμορφο. Πλήρης παραγωγή του Jacobian για αμοιβαίο μετασχηματισμό |
 
 ---
 
-### Common Exam Traps
+### Κοινές Εξεταστικές Παγίδες
 
-1. **Variance vs. Standard Deviation in R:** `pnorm()` requires `sd` (standard deviation), not variance. If $X \sim N(50, 100)$ where 100 is the variance, use `sd = sqrt(100) = 10`, not `sd = 100`. This mistake produces wildly wrong results.
+1. **Διακύμανση έναντι τυπικής απόκλισης στο R:** `pnorm()` απαιτεί `sd` (τυπική απόκλιση), όχι διακύμανση. Εάν $X \sim N(50, 100)$ όπου 100 είναι η διακύμανση, χρησιμοποιήστε `sd = sqrt(100) = 10`, όχι `sd = 100`. Αυτό το λάθος παράγει εξαιρετικά λανθασμένα αποτελέσματα.2. **Σφάλμα σύμβολο του πίνακα Z παλαιού τύπου:** $\Phi(-z)$ για αρνητικές βαθμολογίες Z δεν υπάρχει σε όλους τους πίνακες. Χρησιμοποιείτε πάντα $\Phi(-z) = 1 - \Phi(z)$ για να μετατρέψετε σε θετική βαθμολογία Z προτού αναζητήσετε.
 
-2. **Legacy Z-table sign error:** $\Phi(-z)$ for negative Z-scores is not in all tables. Always use $\Phi(-z) = 1 - \Phi(z)$ to convert to a positive Z-score before looking up.
+3. Παράβαση κανόνα **$c^2$ (μετατροπή μονάδας):** Κατά τη μετατροπή του $T$ από ms σε s με $c = 1/1000$, η διακύμανση κλιμακώνεται κατά $c^2 = 10^{-6}$, όχι κατά $c = 10^{-3}$. Η τυπική απόκλιση κλιμακώνεται κατά $c = 10^{-3}$. Αυτό είναι το πιο συνηθισμένο αριθμητικό σφάλμα σε προβλήματα τομέα χρόνου.
 
-3. **$c^2$ rule violation (unit conversion):** When converting $T$ from ms to s with $c = 1/1000$, the variance scales by $c^2 = 10^{-6}$, not $c = 10^{-3}$. The standard deviation scales by $c = 10^{-3}$. This is the single most common arithmetic error in time-domain problems.
+4. **Εφαρμογή της ιδιότητας χωρίς μνήμη σε Weibull ή Gamma:** Μόνο η εκθετική κατανομή ($k=1$ Weibull) είναι χωρίς μνήμη. Για $Weibull(k=2, \lambda)$, η υπό όρους επιβίωση $P(T > s+t \mid T > s) = S(s+t)/S(s) \ne P(T > t)$ και εξαρτάται από την τρέχουσα ηλικία $s$.
 
-4. **Applying memoryless property to Weibull or Gamma:** Only the Exponential distribution ($k=1$ Weibull) is memoryless. For $Weibull(k=2, \lambda)$, the conditional survival $P(T > s+t \mid T > s) = S(s+t)/S(s) \ne P(T > t)$ and depends on the current age $s$.
+5. **Το Erlang απαιτεί πανομοιότυπες τιμές:** Το άθροισμα $X_1 + \cdots + X_k$ είναι Erlang μόνο εάν όλα τα $X_i$ έχουν την ίδια τιμή $\beta$. Εάν οι τιμές διαφέρουν, το άθροισμα δεν κατανέμεται σε Gamma.
 
-5. **Erlang requires identical rates:** The sum $X_1 + \cdots + X_k$ is Erlang only if all $X_i$ have the same rate $\beta$. If rates differ, the sum is not Gamma-distributed.
+6. **Πλάθος απόδοσης (Jensen):** $E[1/T] \ne 1/E[T]$. Η μέση απόδοση είναι αυστηρά μεγαλύτερη από το αντίστροφο του μέσου χρόνου εξυπηρέτησης. Μην αντικαταστήσετε το $1/\bar{T}$ με το $\overline{1/T}$.
 
-6. **Throughput fallacy (Jensen):** $E[1/T] \ne 1/E[T]$. The average throughput is strictly greater than the reciprocal of the average service time. Do not substitute $1/\bar{T}$ for $\overline{1/T}$.
+7. **Κανονικό μοντέλο με αρνητικές τιμές:** $N(\mu, \sigma^2)$ εκχωρεί πιθανότητα στο $(-\infty, 0)$. Εάν $\mu < 3\sigma$, αυτή η πιθανότητα δεν είναι αμελητέα και το Κανονικό μοντέλο μπορεί να είναι ακατάλληλο για αυστηρά θετικά δεδομένα.
 
-7. **Normal model with negative values:** $N(\mu, \sigma^2)$ assigns probability to $(-\infty, 0)$. If $\mu < 3\sigma$, this probability is non-negligible and the Normal model may be inappropriate for strictly positive data.
+8. **Ποσοστό έναντι παραμετροποίησης κλίμακας:** R's `pgamma(x, shape, rate)` έναντι σχολικού βιβλίου $Gamma(\alpha, \theta)$ όπου $\theta = 1/\text{rate}$. Επιβεβαιώνετε πάντα ποια παραμετροποίηση χρησιμοποιείται πριν συνδέσετε αριθμούς.
 
-8. **Rate vs. scale parameterization:** R's `pgamma(x, shape, rate)` vs. textbook $Gamma(\alpha, \theta)$ where $\theta = 1/\text{rate}$. Always confirm which parameterization is in use before plugging numbers.
+9. **Ερμηνεία κινδύνου Weibull:** Η ερώτηση "το ποσοστό αποτυχίας αυξάνεται ή μειώνεται;" απαντάται απευθείας από $k$: $k < 1$ σημαίνει φθίνουσα (πρώιμες αποτυχίες), $k > 1$ σημαίνει αύξηση (γήρανση), $k = 1$ σημαίνει σταθερή (Εκθετική).
 
-9. **Weibull hazard interpretation:** The question "is failure rate increasing or decreasing?" is answered directly from $k$: $k < 1$ means decreasing (early failures), $k > 1$ means increasing (aging), $k = 1$ means constant (Exponential).
-
-10. **Empirical rule misapplied to skewed distributions:** The 68-95-99.7 rule applies to approximately symmetric, bell-shaped distributions. Never apply it to Exponential, Gamma ($\alpha < 4$), or Weibull distributions without verifying approximate symmetry.
+10. **Εμπειρικός κανόνας που εφαρμόζεται εσφαλμένα σε λοξές κατανομές:** Ο κανόνας 68-95-99.7 ισχύει για περίπου συμμετρικές, σε σχήμα καμπάνας κατανομές. Μην το εφαρμόζετε ποτέ σε κατανομές Εκθετικής, Γάμμα ($\alpha < 4$) ή Weibull χωρίς να επαληθεύσετε κατά προσέγγιση συμμετρία.
 
 ---
 
-### Exam Paper Cross-References
+### Διασταυρωμένες Αναφορές Εξεταστικού Έγγραφου
 
-| Exam Paper | Relevant Questions | Phase 5 Topics Tested | Difficulty |
+| Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δοκιμασμένα θέματα Φάσης 5 | Δυσκολία |
 |---|---|---|---|
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | ΘΕΜΑ 4 (parts i, ii, iii) | Normal distribution, Z-score, $P(X < x)$, $P(a \le X \le b)$, R `pnorm()` | 1/5 |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | ΘΕΜΑ 4 | Normal distribution probability, Z-score standardization | 1/5 |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_1.md) | ΘΕΜΑ 4 | Normal distribution, interval probability, R command | 2/5 |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | ΘΕΜΑ 3 | Normal distribution, standardization, Z-table | 2/5 |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | ΘΕΜΑ 4 | Normal probability calculations | 2/5 |
-| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | ΘΕΜΑ 1 | Normal distribution, Z-score, one-tail probability | 2/5 |
-| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | ΘΕΜΑ 4 | Normal distribution, R `pnorm()` | 2/5 |
-| [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | ΘΕΜΑ 4 | Normal distribution, probability, R `pnorm()` | 2/5 |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | ΘΕΜΑ 4 | Normal distribution probability, standardization | 2/5 |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_1.md) | ΘΕΜΑ 4 | Normal distribution with one unknown parameter (solve for $\sigma$ from percentile) | 4/5 |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_2.md) | ΘΕΜΑ 4 | Normal with two unknown parameters (solve system of equations for $\mu$ and $\sigma$) | 5/5 |
+| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | ΘΕΜΑ 4 (parts i, ii, iii) | Κανονική κατανομή, βαθμολογία Z, $P(X < x)$, $P(a \le X \le b)$, R `pnorm()` | 1/5 |
+| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση βαθμολογίας Z | 1/5 |
+| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα διαστήματος, εντολή R | 2/5 |
+| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | ΘΕΜΑ 3 | Κανονική κατανομή, τυποποίηση, πίνακας Z | 2/5 || [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | ΘΕΜΑ 4 | Υπολογισμοί κανονικών πιθανοτήτων | 2/5 |
+| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | ΘΕΜΑ 1 | Κανονική κατανομή, βαθμολογία Z, πιθανότητα μιας ουράς | 2/5 |
+| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, R `pnorm()` | 2/5 |
+| [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα, R `pnorm()` | 2/5 |
+| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση | 2/5 |
+| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) ΘΕΜΑ 4 | Κανονική κατανομή με μία άγνωστη παράμετρο (επίλυση για $\sigma$ από εκατοστημόριο) | 4/5 |
+| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) ΘΕΜΑ 4 | Κανονική με δύο άγνωστες παραμέτρους (λύστε σύστημα εξισώσεων για $\mu$ και $\sigma$) | 5/5 |
 
 ---
 
-## Combined Exercises
+## Συνδυασμένες Ασκήσεις
 
-#### Exercise 23: Normal Distribution and Empirical Rule -- Grade Analysis
-**Problem:** Final exam scores $X \sim N(65, 225)$ (mean 65, $\sigma = 15$).
-a) Find $P(X > 80)$.
-b) Find the 90th percentile score.
-c) Using the Empirical Rule, estimate the proportion of students scoring between 50 and 95.
-d) How many students out of 1,000 score below 35?
+#### Άσκηση 23: Κανονική Κατανομή και Εμπειρικός Κανόνας -- Ανάλυση Βαθμού
+**Πρόβλημα:** Βαθμολογίες τελικών εξετάσεων $X \sim N(65, 225)$ (μέσος όρος 65, $\sigma = 15$).
+α) Βρείτε $P(X > 80)$.
+β) Βρείτε τη βαθμολογία του 90ου εκατοστημόριου.
+γ) Χρησιμοποιώντας τον Εμπειρικό Κανόνα, υπολογίστε την αναλογία των μαθητών που βαθμολογούνται μεταξύ 50 και 95.
+δ) Πόσοι μαθητές στους 1.000 βαθμολογούν κάτω από 35;
 
-**Solution:**
+**Λύση:**
 
-**a) $Z = (80 - 65)/15 = 1.00 \implies P(X > 80) = 1 - \Phi(1) = 1 - 0.8413 = \boxed{0.1587}$
+**α) $Z = (80 - 65)/15 = 1.00 \implies P(X > 80) = 1 - \Phi(1) = 1 - 0.8413 = \boxed{0.1587}$
 
-**b) $z_{0.90} = 1.282 \implies x_{0.90} = 65 + 1.282 \times 15 = 65 + 19.23 = \boxed{84.23}$
+**β) $z_{0.90} = 1.282 \implies x_{0.90} = 65 + 1.282 \times 15 = 65 + 19.23 = \boxed{84.23}$
 
-**c) $50 = 65 - 1\sigma$, $95 = 65 + 2\sigma$. Asymmetric interval:
+**γ) $50 = 65 - 1\sigma$, $95 = 65 + 2\sigma$. Ασύμμετρο διάστημα:
 $P(50 \le X \le 95) = 68.27\%/2 + 95.45\%/2 = 34.135\% + 47.725\% = \boxed{81.86\%}$
 
-**d) $Z = (35 - 65)/15 = -2.00 \implies P(X < 35) = \Phi(-2) = 1 - \Phi(2) = 0.0228$
+**δ) $Z = (35 - 65)/15 = -2.00 \implies P(X < 35) = \Phi(-2) = 1 - \Phi(2) = 0.0228$
 $1000 \times 0.0228 = \boxed{23 \text{ students}}$
 
-#### Exercise 24: Multi-Distribution Reliability Analysis (Time-Domain)
-**Problem:** A server has three independent subsystems:
-- Power supply: $T_1 \sim Exp(\lambda_1 = 0.001 \text{ h}^{-1})$
+#### Άσκηση 24: Ανάλυση αξιοπιστίας πολλαπλής διανομής (Time-Domain)
+**Πρόβλημα:** Ένας διακομιστής έχει τρία ανεξάρτητα υποσυστήματα:
+- Τροφοδοτικό: $T_1 \sim Exp(\lambda_1 = 0.001 \text{ h}^{-1})$
 - CPU: $T_2 \sim Exp(\lambda_2 = 0.002 \text{ h}^{-1})$
-- Storage: $T_3 \sim Weibull(k=2, \lambda=500 \text{ h})$
+- Αποθήκευση: $T_3 \sim Weibull(k=2, \lambda=500 \text{ h})$
 
-a) Find the probability that all three subsystems survive beyond 100 hours.
-b) Find $E[T_1]$.
-c) Given the CPU has been running 200 hours without failure, find $P(T_2 > 300 \mid T_2 > 200)$.
+α) Να βρείτε την πιθανότητα να επιβιώσουν και τα τρία υποσυστήματα πέραν των 100 ωρών.
+β) Βρείτε $E[T_1]$.
+γ) Δεδομένου ότι η CPU λειτουργεί 200 ώρες χωρίς αποτυχία, βρείτε $P(T_2 > 300 \mid T_2 > 200)$.
 
-**Solution:**
+**Λύση:**
 
-**a) By independence, the joint survival is the product:
+**α) Με την ανεξαρτησία, η κοινή επιβίωση είναι το προϊόν:
 
 $P(T_1 > 100) = e^{-0.001 \times 100} = e^{-0.1} \approx 0.9048$
 
@@ -972,139 +938,129 @@ $P(T_3 > 100) = e^{-(100/500)^2} = e^{-0.04} \approx 0.9608$
 
 $$P(\text{all survive}) = 0.9048 \times 0.8187 \times 0.9608 \approx \boxed{0.7120}$$
 
-**b) $E[T_1] = 1/\lambda_1 = 1/0.001 = \boxed{1{,}000 \text{ hours}}$
+**β) $E[T_1] = 1/\lambda_1 = 1/0.001 = \boxed{1{,}000 \text{ hours}}$
 
-**c) CPU follows $Exp(0.002)$, which is memoryless:
+**γ) Η CPU ακολουθεί το $Exp(0.002)$, το οποίο είναι χωρίς μνήμη:
 $$P(T_2 > 300 \mid T_2 > 200) = P(T_2 > 100) = e^{-0.002 \times 100} = e^{-0.2} \approx \boxed{0.8187}$$
 
-#### Exercise 25: Transformation and SLA Analysis (Time-Domain)
-**Problem:** An API gateway processes requests with inter-arrival time $T \sim Exp(2 \text{ s}^{-1})$. After processing, each request generates a response of size $Y = 5T$ MB. Find:
-a) The distribution and mean of the response size $Y$.
-b) $P(Y > 3)$.
-c) The 95th percentile of the response size.
+#### Άσκηση 25: Μετασχηματισμός και ανάλυση SLA (Time-Domain)
+**Πρόβλημα:** Μια πύλη API επεξεργάζεται αιτήματα με χρόνο μεταξύ άφιξης $T \sim Exp(2 \text{ s}^{-1})$. Μετά την επεξεργασία, κάθε αίτημα δημιουργεί μια απάντηση μεγέθους $Y = 5T$ MB. Εύρεση:
+α) Η κατανομή και ο μέσος όρος του μεγέθους απόκρισης $Y$.
+β) $P(Y > 3)$.
+γ) Το 95ο εκατοστημόριο του μεγέθους απόκρισης.
 
-**Solution:**
+**Διάλυμα:****α) $Y = 5T$ όπου $T \sim Exp(2)$. Γραμμικός μετασχηματισμός της Εκθετικής:
 
-**a) $Y = 5T$ where $T \sim Exp(2)$. Linear transformation of Exponential:
-
-If $T \sim Exp(\lambda)$, then $cT \sim Exp(\lambda/c)$. So $Y = 5T \sim Exp(2/5) = Exp(0.4)$.
+Αν $T \sim Exp(\lambda)$, τότε $cT \sim Exp(\lambda/c)$. Άρα $Y = 5T \sim Exp(2/5) = Exp(0.4)$.
 
 $E[Y] = 1/0.4 = \boxed{2.5 \text{ MB}}$
 
-**b) Using the Exponential survival:
+**β) Χρησιμοποιώντας την Εκθετική επιβίωση:
 $$P(Y > 3) = e^{-0.4 \times 3} = e^{-1.2} \approx \boxed{0.3012}$$
 
-**c) 95th percentile: $y_{0.95} = -\ln(1 - 0.95)/0.4 = -\ln(0.05)/0.4 = 2.996/0.4 \approx \boxed{7.49 \text{ MB}}$
+**γ) 95ο εκατοστημόριο: $y_{0.95} = -\ln(1 - 0.95)/0.4 = -\ln(0.05)/0.4 = 2.996/0.4 \approx \boxed{7.49 \text{ MB}}$
 
-#### Exercise 26: Erlang Queueing Analysis (Time-Domain)
-**Problem:** A database server processes queries sequentially. Individual query times $X_i \sim Exp(\mu = 0.5 \text{ s}^{-1})$ (rate 0.5, mean 2 s each). A complex transaction requires 5 sequential queries. Find:
-a) The distribution, mean, and variance of the total transaction time $T$.
-b) The probability that the transaction completes within 15 seconds.
-c) An R command to compute the probability in part b.
+#### Άσκηση 26: Ανάλυση ουράς Erlang (Time-Domain)
+**Πρόβλημα:** Ένας διακομιστής βάσης δεδομένων επεξεργάζεται ερωτήματα διαδοχικά. Χρόνοι μεμονωμένων ερωτημάτων $X_i \sim Exp(\mu = 0.5 \text{ s}^{-1})$ (ποσοστό 0,5, μέσος όρος 2 δευτερόλεπτα το καθένα). Μια σύνθετη συναλλαγή απαιτεί 5 διαδοχικά ερωτήματα. Εύρεση:
+α) Η κατανομή, ο μέσος όρος και η διακύμανση του συνολικού χρόνου συναλλαγής $T$.
+β) Η πιθανότητα να ολοκληρωθεί η συναλλαγή εντός 15 δευτερολέπτων.
+γ) Μια εντολή R για τον υπολογισμό της πιθανότητας στο μέρος β.
 
-**Solution:**
+**Λύση:**
 
-**a) Sum of 5 i.i.d. $Exp(0.5)$ variables:
+**α) Άθροισμα 5 i.i.d. $Exp(0.5)$ μεταβλητές:
 $$T \sim Erlang(k=5, \beta=0.5) = Gamma(5, 0.5)$$
 $$E[T] = \frac{5}{0.5} = \boxed{10 \text{ s}}, \quad V(T) = \frac{5}{0.25} = \boxed{20 \text{ s}^2}$$
 
-**b) CDF of $Gamma(5, 0.5)$ at $t = 15$:
+**β) CDF του $Gamma(5, 0.5)$ στο $t = 15$:
 
-Using R: `pgamma(15, shape = 5, rate = 0.5)` $\approx \boxed{0.7350}$
+Χρήση R: `pgamma(15, shape = 5, rate = 0.5)` $\approx \boxed{0.7350}$
 
-**c) R command:
-```r
+**γ) Εντολή R:```r
 pgamma(q = 15, shape = 5, rate = 0.5)   # Probability transaction completes within 15 s
-```
+```---
 
----
+## Συνδυασμένες Ασκήσεις (Ασκήσεις 27-30)
 
-## Combined Exercises (Exercises 27-30)
+#### Άσκηση 27: Ανάλυση συμμόρφωσης SLA πολλαπλής διανομής (Συνδυασμένη, Μέτρια, Τομέας χρόνου)
+**Πρόβλημα:** Μια συνάρτηση cloud λαμβάνει αιτήματα. Χρόνος επεξεργασίας ανά αίτημα $T \sim Exp(\lambda = 0.1 \text{ ms}^{-1})$ (ρυθμός 0,1, μέσος όρος 10 ms). Για πολύπλοκα αιτήματα, ο συνολικός χρόνος επεξεργασίας είναι το άθροισμα 3 ανεξάρτητων πανομοιότυπων σταδίων: $T_{complex} = T_1 + T_2 + T_3$, κάθε $\sim Exp(0.1)$.
 
-#### Exercise 27: Multi-Distribution SLA Compliance Analysis (Combined, Moderate, Time-Domain)
-**Problem:** A cloud function receives requests. Processing time per request $T \sim Exp(\lambda = 0.1 \text{ ms}^{-1})$ (rate 0.1, mean 10 ms). For complex requests, the total processing time is the sum of 3 independent identical stages: $T_{complex} = T_1 + T_2 + T_3$, each $\sim Exp(0.1)$.
+α) Βρείτε την κατανομή, τον μέσο όρο και τη διακύμανση του $T_{complex}$.
+β) Βρείτε $P(T_{complex} > 40 \text{ ms})$.
+γ) Βρείτε το 95ο εκατοστημόριο $t_{SLA}$ χρησιμοποιώντας μια εντολή R.
+δ) Εάν η καθυστέρηση μετριέται σε δευτερόλεπτα (όχι ms), δηλώστε την κατανομή του $T_{complex,[s]}$ χρησιμοποιώντας τον κανόνα $c^2$.
 
-a) Find the distribution, mean, and variance of $T_{complex}$.
-b) Find $P(T_{complex} > 40 \text{ ms})$.
-c) Find the 95th percentile $t_{SLA}$ using an R command.
-d) If latency is measured in seconds (not ms), state the distribution of $T_{complex,[s]}$ using the $c^2$ rule.
+**Λύση:**
 
-**Solution:**
-
-**a) Sum of 3 i.i.d. $Exp(0.1)$:
+**α) Άθροισμα 3 i.i.d. $Exp(0.1)$:
 $$T_{complex} \sim Gamma(3, 0.1) = Erlang(3, 0.1)$$
 $$E[T_{complex}] = \frac{3}{0.1} = 30 \text{ ms}, \quad V(T_{complex}) = \frac{3}{0.01} = 300 \text{ ms}^2$$
 
-**b) Survival function for Gamma:
+**β) Συνάρτηση επιβίωσης για Gamma:
 $$P(T_{complex} > 40) = 1 - P(T_{complex} \le 40)$$
 
-Using the Gamma CDF: `1 - pgamma(40, shape = 3, rate = 0.1)` $\approx 1 - 0.7619 = \boxed{0.2381}$
+Χρήση του CDF Gamma: `1 - pgamma(40, shape = 3, rate = 0.1)` $\approx 1 - 0.7619 = \boxed{0.2381}$
 
-**c) 95th percentile:
-```r
+**γ) 95ο εκατοστημόριο:```r
 qgamma(p = 0.95, shape = 3, rate = 0.1)  # Approximately 56.4 ms
-```
-$$t_{SLA} \approx \boxed{56.4 \text{ ms}}$$
+```$$t_{SLA} \approx \boxed{56.4 \text{ ms}}$$
 
-**d) Converting to seconds with $c = 1/1000$:
+**δ) Μετατροπή σε δευτερόλεπτα με $c = 1/1000$:
 $$\mu_{[s]} = 30/1000 = 0.03 \text{ s}, \quad \sigma^2_{[s]} = 300/10^6 = 3 \times 10^{-4} \text{ s}^2$$
 
-The distribution remains $Gamma(3, \beta_{[s]})$ where the rate in s$^{-1}$ is $\beta_{[s]} = 0.1 \times 1000 = 100$.
+Η κατανομή παραμένει $Gamma(3, \beta_{[s]})$ όπου η τιμή στο s$^{-1}$ είναι $\beta_{[s]} = 0.1 \times 1000 = 100$.
 
 $$T_{complex,[s]} \sim Gamma(3, 100) \text{ s}$$
 
-#### Exercise 28: Normal and Exponential Joint System Analysis (Combined, Harder, Time-Domain)
-**Problem:** A monitoring system tracks two independent metrics:
-- CPU temperature $C \sim N(\mu_C = 60, \sigma^2_C = 25)$ degrees Celsius.
-- Uptime between crashes $U \sim Exp(\lambda_U = 0.005 \text{ h}^{-1})$.
+#### Άσκηση 28: Ανάλυση κανονικού και εκθετικού κοινού συστήματος (Συνδυασμένη, σκληρότερη, Τομέας χρόνου)
+**Πρόβλημα:** Ένα σύστημα παρακολούθησης παρακολουθεί δύο ανεξάρτητες μετρήσεις:
+- Θερμοκρασία CPU $C \sim N(\mu_C = 60, \sigma^2_C = 25)$ βαθμοί Κελσίου.
+- Χρόνος λειτουργίας μεταξύ σφαλμάτων $U \sim Exp(\lambda_U = 0.005 \text{ h}^{-1})$.
 
-a) Find $P(C > 70)$ (thermal throttling threshold).
-b) Find the 99th percentile of the CPU temperature.
-c) Find $P(U < 24)$ (crashes within first 24 hours).
-d) Given the server has been running for 100 hours, find $P(U > 124 \mid U > 100)$.
-e) Find $P(C > 70 \text{ and } U < 24)$, assuming independence.
-f) Provide the R commands for parts a and c.
+α) Βρείτε $P(C > 70)$ (κατώφλι θερμικού στραγγαλισμού).
+β) Βρείτε το 99ο εκατοστημόριο της θερμοκρασίας της CPU.
+γ) Βρείτε $P(U < 24)$ (κολλάει μέσα στις πρώτες 24 ώρες).
+δ) Δεδομένου ότι ο διακομιστής λειτουργεί για 100 ώρες, βρείτε $P(U > 124 \mid U > 100)$.
+ε) Βρείτε $P(C > 70 \text{ and } U < 24)$, υποθέτοντας ανεξαρτησία.
+στ) Δώστε τις εντολές R για τα μέρη α και γ.
 
-**Solution:**
+**Λύση:**
 
-**a) $Z = (70 - 60)/5 = 2.00 \implies P(C > 70) = 1 - \Phi(2) = 1 - 0.9772 = \boxed{0.0228}$
+**α) $Z = (70 - 60)/5 = 2.00 \implies P(C > 70) = 1 - \Phi(2) = 1 - 0.9772 = \boxed{0.0228}$
 
-**b) $z_{0.99} = 2.326 \implies c_{0.99} = 60 + 2.326 \times 5 = 60 + 11.63 = \boxed{71.63\text{°C}}$
+**β) $z_{0.99} = 2.326 \implies c_{0.99} = 60 + 2.326 \times 5 = 60 + 11.63 = \boxed{71.63\text{°C}}$
 
-**c) $P(U < 24) = 1 - e^{-0.005 \times 24} = 1 - e^{-0.12} \approx 1 - 0.8869 = \boxed{0.1131}$
+**γ) $P(U < 24) = 1 - e^{-0.005 \times 24} = 1 - e^{-0.12} \approx 1 - 0.8869 = \boxed{0.1131}$
 
-**d) By the memoryless property of the Exponential:
+**δ) Με την ιδιότητα χωρίς μνήμη του Εκθετικού:
 $$P(U > 124 \mid U > 100) = P(U > 24) = e^{-0.12} \approx \boxed{0.8869}$$
 
-**e) By independence:
+**ε) Από ανεξαρτησία:
 $$P(C > 70 \text{ and } U < 24) = 0.0228 \times 0.1131 \approx \boxed{0.00258}$$
 
-**f) R commands:
-```r
+**στ) Εντολές R:```r
 # Part a: P(C > 70) where C ~ N(60, sigma=5)
 pnorm(q = 70, mean = 60, sd = 5, lower.tail = FALSE)   # 0.0228
 
 # Part c: P(U < 24) where U ~ Exp(rate = 0.005)
 pexp(q = 24, rate = 0.005)                              # 0.1131
-```
+```#### Άσκηση 29: Σύστημα πολλαπλών σταδίων με μετασχηματισμούς (Συνδυασμένος, Σκληρός, Τομέας χρόνου)
+**Πρόβλημα:** Ένας κατανεμημένος αγωγός υπολογισμού έχει τρεις ανεξάρτητες φάσεις:
+- Φάση Α: Χρόνος ολοκλήρωσης $T_A \sim N(100, 400)$ ms ($\sigma_A = 20$ ms).
+- Φάση Β: Χρόνος ολοκλήρωσης $T_B \sim Exp(0.02 \text{ ms}^{-1})$ (μέσος όρος 50 ms).
+- Φάση Γ: Χρόνος ολοκλήρωσης $T_C \sim U(20, 80)$ ms.
 
-#### Exercise 29: Multi-Stage System with Transformations (Combined, Hard, Time-Domain)
-**Problem:** A distributed computation pipeline has three independent phases:
-- Phase A: Completion time $T_A \sim N(100, 400)$ ms ($\sigma_A = 20$ ms).
-- Phase B: Completion time $T_B \sim Exp(0.02 \text{ ms}^{-1})$ (mean 50 ms).
-- Phase C: Completion time $T_C \sim U(20, 80)$ ms.
+Οι φάσεις εκτελούνται διαδοχικά. Συνολικός χρόνος $T_{total} = T_A + T_B + T_C$.
 
-Phases run sequentially. Total time $T_{total} = T_A + T_B + T_C$.
+α) Βρείτε $E[T_{total}]$ και $V(T_{total})$.
+β) Κατά προσέγγιση $P(T_{total} > 220)$ χρησιμοποιώντας την Κανονική προσέγγιση.
+γ) Να αναφέρετε την κατεύθυνση της ανισότητας που σχετίζεται με $E[1000/T_{total}]$ και $1000/E[T_{total}]$.
+δ) Βρείτε $V(T_{total,[s]})$ μετά τη μετατροπή σε δευτερόλεπτα.
+ε) Βρείτε $P(T_C > 60 \mid T_C > 50)$.
 
-a) Find $E[T_{total}]$ and $V(T_{total})$.
-b) Approximate $P(T_{total} > 220)$ using the Normal approximation.
-c) State the direction of the inequality relating $E[1000/T_{total}]$ and $1000/E[T_{total}]$.
-d) Find $V(T_{total,[s]})$ after converting to seconds.
-e) Find $P(T_C > 60 \mid T_C > 50)$.
+**Λύση:**
 
-**Solution:**
-
-**a) By linearity of expectation and independence:
+**α) Με γραμμικότητα προσδοκίας και ανεξαρτησίας:
 
 $E[T_A] = 100$ ms, $V(T_A) = 400$ ms$^2$
 
@@ -1115,108 +1071,106 @@ $E[T_C] = (20+80)/2 = 50$ ms, $V(T_C) = (80-20)^2/12 = 300$ ms$^2$
 $$E[T_{total}] = 100 + 50 + 50 = \boxed{200 \text{ ms}}$$
 $$V(T_{total}) = 400 + 2500 + 300 = \boxed{3200 \text{ ms}^2}, \quad \sigma_{total} \approx 56.57 \text{ ms}$$
 
-**b) Approximating $T_{total} \approx N(200, 3200)$:
+**β) Κατά προσέγγιση $T_{total} \approx N(200, 3200)$:
 
 $$Z = \frac{220 - 200}{56.57} \approx 0.354 \implies P(T_{total} > 220) \approx 1 - \Phi(0.354) \approx 1 - 0.6384 \approx \boxed{0.3616}$$
 
-**c) Since $g(t) = 1000/t$ is convex for $t > 0$, by Jensen's inequality:
+**γ) Επειδή το $g(t) = 1000/t$ είναι κυρτό για $t > 0$, από την ανισότητα του Jensen:
 
 $$E\!\left[\frac{1000}{T_{total}}\right] \ge \frac{1000}{E[T_{total}]} = 5 \text{ req/s}$$
 
-The true average throughput is **strictly greater than** 5 requests per second.
+Η πραγματική μέση απόδοση είναι **αυστηρά μεγαλύτερη από** 5 αιτήματα ανά δευτερόλεπτο.
 
-**d) Converting to seconds with $c = 1/1000$:
+**δ) Μετατροπή σε δευτερόλεπτα με $c = 1/1000$:
 
 $$V(T_{total,[s]}) = \left(\frac{1}{1000}\right)^2 \times 3200 = \frac{3200}{10^6} = \boxed{3.2 \times 10^{-3} \text{ s}^2}$$
 
-**e) Conditional probability for Uniform (NOT memoryless):
+**ε) Πιθανότητα υπό όρους για Ομοιόμορφο (ΟΧΙ χωρίς μνήμη):
 $$P(T_C > 60 \mid T_C > 50) = \frac{P(T_C > 60)}{P(T_C > 50)} = \frac{(80-60)/60}{(80-50)/60} = \frac{20}{30} = \boxed{\frac{2}{3} \approx 0.6667}$$
 
-The Uniform distribution is NOT memoryless, so $P(T_C > 60 \mid T_C > 50) \ne P(T_C > 10) = 10/60$.
+Η ομοιόμορφη κατανομή ΔΕΝ είναι χωρίς μνήμη, επομένως $P(T_C > 60 \mid T_C > 50) \ne P(T_C > 10) = 10/60$.
 
-#### Exercise 30: Full Phase Integration with Gotcha (Combined, Hardest + Gotcha, Time-Domain)
-**Problem:** A network monitoring system records round-trip times (RTT) for packets. Historical data shows:
+#### Άσκηση 30: Ολοκλήρωση πλήρους φάσης με Gotcha (Συνδυασμένη, πιο σκληρή + Gotcha, Time-Domain)
+**Πρόβλημα:** Ένα σύστημα παρακολούθησης δικτύου καταγράφει χρόνους μετ' επιστροφής (RTT) για πακέτα. Τα ιστορικά στοιχεία δείχνουν:
 
-- RTT follows $T \sim N(\mu, \sigma^2)$.
-- From percentile data: 10% of packets have RTT exceeding 75 ms, and 5% have RTT below 45 ms.
-- The system samples 3 independent RTT measurements and records the total $S = T_1 + T_2 + T_3$.
-- A junior engineer converts RTT to seconds and reports the variance as $\sigma^2 / 1000$.
+- Το RTT ακολουθεί $T \sim N(\mu, \sigma^2)$.
+- Από εκατοστιαία δεδομένα: 10% των πακέτων έχουν RTT άνω των 75 ms και 5% έχουν RTT κάτω από 45 ms.
+- Το σύστημα λαμβάνει δείγματα 3 ανεξάρτητων μετρήσεων RTT και καταγράφει το σύνολο $S = T_1 + T_2 + T_3$.
+- Ένας κατώτερος μηχανικός μετατρέπει το RTT σε δευτερόλεπτα και αναφέρει τη διακύμανση ως $\sigma^2 / 1000$.
 
-Answer the following:
+Απαντήστε στα εξής:
 
-a) Solve for $\mu$ and $\sigma$ of the RTT distribution.
-b) Find $P(60 \le T \le 75)$.
-c) Find the distribution, mean, and variance of $S = T_1 + T_2 + T_3$.
-d) Find $P(S > 200)$.
-e) Find the 99th percentile of $S$ (for SLA planning).
-f) Identify the junior engineer's error in reporting the variance after unit conversion, and provide the correct variance.
+α) Επίλυση για $\mu$ και $\sigma$ της διανομής RTT.
+β) Βρείτε $P(60 \le T \le 75)$.
+γ) Βρείτε την κατανομή, τον μέσο όρο και τη διακύμανση του $S = T_1 + T_2 + T_3$.
+δ) Βρείτε $P(S > 200)$.
+ε) Βρείτε το 99ο εκατοστημόριο του $S$ (για σχεδιασμό SLA).
+στ) Προσδιορίστε το σφάλμα του κατώτερου μηχανικού στην αναφορά της διακύμανσης μετά τη μετατροπή της μονάδας και παρέχετε τη σωστή διακύμανση.
 
-Given: $\Phi(1.282) = 0.90$, $\Phi(1.645) = 0.95$, $\Phi(2.326) = 0.99$.
+Δόθηκαν: $\Phi(1.282) = 0.90$, $\Phi(1.645) = 0.95$, $\Phi(2.326) = 0.99$.
 
-**Solution:**
+**Λύση:**
 
-**a) Setting up the system of equations from the percentile conditions:
+**α) Ρύθμιση του συστήματος εξισώσεων από τις εκατοστιαίες συνθήκες:
 
 $P(T > 75) = 0.10 \implies P(T \le 75) = 0.90 \implies \frac{75 - \mu}{\sigma} = z_{0.90} = 1.282$
 
 $P(T < 45) = 0.05 \implies \frac{45 - \mu}{\sigma} = z_{0.05} = -1.645$
 
-System of equations:
+Σύστημα εξισώσεων:
 $$75 = \mu + 1.282\sigma \quad (1)$$
 $$45 = \mu - 1.645\sigma \quad (2)$$
 
-Subtracting (2) from (1):
+Αφαιρώντας το (2) από το (1):
 $$30 = (1.282 + 1.645)\sigma = 2.927\sigma \implies \sigma = \frac{30}{2.927} \approx \boxed{10.25 \text{ ms}}$$
 
-Substituting into (1):
+Αντικατάσταση σε (1):
 $$\mu = 75 - 1.282 \times 10.25 = 75 - 13.14 \approx \boxed{61.86 \text{ ms}}$$
 
-**b) Standardize both bounds:
+**β) Τυποποιήστε και τα δύο όρια:
 $$z_1 = \frac{60 - 61.86}{10.25} \approx -0.181, \quad z_2 = \frac{75 - 61.86}{10.25} \approx 1.282$$
 
 $$P(60 \le T \le 75) = \Phi(1.282) - \Phi(-0.181) = 0.90 - (1 - \Phi(0.181)) \approx 0.90 - (1 - 0.5719) = \boxed{0.4719}$$
 
-**c) Sum of 3 independent normals:
+**γ) Άθροισμα 3 ανεξάρτητων κανονικών:
 $$S = T_1 + T_2 + T_3 \sim N(3\mu, 3\sigma^2)$$
 $$E[S] = 3 \times 61.86 = \boxed{185.58 \text{ ms}}$$
 $$V(S) = 3 \times (10.25)^2 = 3 \times 105.06 = \boxed{315.18 \text{ ms}^2}, \quad \sigma_S \approx 17.75 \text{ ms}$$
 
-**d) $P(S > 200)$:
+**δ) $P(S > 200)$:
 $$Z = \frac{200 - 185.58}{17.75} \approx 0.812$$
 $$P(S > 200) = 1 - \Phi(0.812) \approx 1 - 0.7917 = \boxed{0.2083}$$
 
-**e) 99th percentile of $S$:
+**ε) 99ο εκατοστημόριο του $S$:
 $$s_{0.99} = E[S] + z_{0.99} \times \sigma_S = 185.58 + 2.326 \times 17.75 = 185.58 + 41.29 \approx \boxed{226.87 \text{ ms}}$$
 
-**f) Gotcha: The junior engineer's error in unit conversion of variance.**
+**στ) Gotcha: Το σφάλμα του κατώτερου μηχανικού στη μετατροπή μονάδας της διακύμανσης.**
 
-The engineer reported the variance in seconds as $\sigma^2 / 1000$. This is **wrong**.
+Ο μηχανικός ανέφερε τη διακύμανση σε δευτερόλεπτα ως $\sigma^2 / 1000$. Αυτό είναι **λάθος**.
 
-When converting from milliseconds to seconds with $c = 1/1000$, the $c^2$ rule states:
+Κατά τη μετατροπή από χιλιοστά του δευτερολέπτου σε δευτερόλεπτα με $c = 1/1000$, ο κανόνας $c^2$ αναφέρει:
 $$V(T_{[s]}) = c^2 \cdot V(T_{[ms]}) = \left(\frac{1}{1000}\right)^2 \cdot \sigma^2 = \frac{\sigma^2}{10^6} = \frac{\sigma^2}{1{,}000{,}000}$$
 
-The engineer divided by $1000$ (i.e., applied $c$ scaling to the variance) instead of dividing by $10^6 = 1000^2$ (i.e., applying $c^2$ scaling). The reported variance is off by a factor of 1000.
+Ο μηχανικός διαιρείται με $1000$ (δηλαδή, εφάρμοσε την κλίμακα $c$ στη διακύμανση) αντί να διαιρέσει με $10^6 = 1000^2$ (δηλαδή, εφαρμόζοντας κλίμακα $c^2$). Η αναφερόμενη διακύμανση είναι μειωμένη κατά έναν παράγοντα 1000.
 
-**Correct variance in seconds:**
-$$V(T_{[s]}) = \frac{(10.25)^2}{10^6} = \frac{105.06}{10^6} \approx 1.05 \times 10^{-4} \text{ s}^2$$
-
-**Correct standard deviation in seconds:**
+**Σωστή διακύμανση σε δευτερόλεπτα:**
+$$V(T_{[s]}) = \frac{(10.25)^2}{10^6} = \frac{105.06}{10^6} \approx 1.05 \times 10^{-4} \text{ s}^2$$**Σωστή τυπική απόκλιση σε δευτερόλεπτα:**
 $$\sigma_{T_{[s]}} = \frac{10.25}{1000} = 0.01025 \text{ s}$$
 
-**Gotcha:** The $c^2$ rule applies to variance (a quadratic quantity). The engineer incorrectly treated variance as a linear quantity by dividing by $c = 1000$ rather than $c^2 = 10^6$. This error propagates to all downstream calculations using the variance (confidence intervals, SLA thresholds, hypothesis tests). The standard deviation scales linearly by $c$, but the variance scales by $c^2$.
+**Gotcha:** Ο κανόνας $c^2$ ισχύει για τη διακύμανση (μια τετραγωνική ποσότητα). Ο μηχανικός αντιμετώπισε εσφαλμένα τη διακύμανση ως γραμμικό μέγεθος διαιρώντας με $c = 1000$ αντί για $c^2 = 10^6$. Αυτό το σφάλμα διαδίδεται σε όλους τους μεταγενέστερους υπολογισμούς χρησιμοποιώντας τη διακύμανση (διαστήματα εμπιστοσύνης, κατώφλια SLA, δοκιμές υποθέσεων). Η τυπική απόκλιση κλιμακώνεται γραμμικά κατά $c$, αλλά η διακύμανση κλιμακώνεται κατά $c^2$.
 
-> **How to avoid this trap:** Always ask "is this a variance or a standard deviation?" before applying a unit conversion factor. Standard deviations scale linearly ($\sigma_{new} = c \cdot \sigma_{old}$), while variances scale quadratically ($\sigma^2_{new} = c^2 \cdot \sigma^2_{old}$). A mnemonic: variance is in squared units, so the conversion factor is also squared.
+> **Πώς να αποφύγετε αυτήν την παγίδα:** Να ρωτάτε πάντα "είναι αυτή μια απόκλιση ή μια τυπική απόκλιση;" πριν από την εφαρμογή συντελεστή μετατροπής μονάδας. Οι τυπικές αποκλίσεις κλιμακώνονται γραμμικά ($\sigma_{new} = c \cdot \sigma_{old}$), ενώ οι αποκλίσεις κλιμακώνονται τετραγωνικά ($\sigma^2_{new} = c^2 \cdot \sigma^2_{old}$). Ένα μνημονικό: η διακύμανση είναι σε τετράγωνες μονάδες, επομένως ο συντελεστής μετατροπής είναι επίσης στο τετράγωνο.
 
 ---
 
-## Phase Summary
+## Περίληψη Φάσης
 
-Phase 5 develops the complete toolkit for continuous probability distributions and random variable transformations. The **Normal distribution** $N(\mu, \sigma^2)$ is the foundation: the Z-score $Z = (X-\mu)/\sigma$ converts any normal probability to a standard normal lookup, and two percentile conditions yield a linear system that uniquely determines unknown parameters $\mu$ and $\sigma$. The **Empirical Rule** (68-95-99.7%) provides rapid tail probability estimates for symmetric distributions, but must never be applied to skewed distributions.
+Η Φάση 5 αναπτύσσει την πλήρη εργαλειοθήκη για συνεχείς κατανομές πιθανοτήτων και τυχαίους μετασχηματισμούς μεταβλητών. Η **Κανονική κατανομή** $N(\mu, \sigma^2)$ είναι η βάση: το Z-score $Z = (X-\mu)/\sigma$ μετατρέπει οποιαδήποτε κανονική πιθανότητα σε τυπική κανονική αναζήτηση και δύο εκατοστιαίες συνθήκες δίνουν ένα γραμμικό σύστημα που καθορίζει μοναδικά άγνωστες παραμέτρους $\mu$ και $\sigma$. Ο **Εμπειρικός Κανόνας** (68-95-99,7%) παρέχει γρήγορες εκτιμήσεις πιθανοτήτων ουράς για συμμετρικές κατανομές, αλλά δεν πρέπει ποτέ να εφαρμόζεται σε λοξές κατανομές.
 
-The **Continuous Uniform** $U(a,b)$ models equal-probability selection over an interval, with exact interval probabilities $(d-c)/(b-a)$. The **Exponential distribution** $Exp(\lambda)$ is the unique memoryless continuous distribution, modeling inter-arrival times in Poisson processes. Its memoryless property -- $P(T > s+t \mid T > s) = P(T > t)$ -- makes conditional survival calculations trivial, but it is a property exclusive to the Exponential (not Gamma, not Weibull with $k \ne 1$). The minimum of $n$ independent Exponentials is itself Exponential with summed rates.
+Η **Συνεχής Ομοιόμορφη** $U(a,b)$ μοντελοποιεί την επιλογή ίσων πιθανοτήτων σε ένα διάστημα, με ακριβείς πιθανότητες διαστήματος $(d-c)/(b-a)$. Η **Εκθετική κατανομή** $Exp(\lambda)$ είναι η μοναδική συνεχής διανομή χωρίς μνήμη, που μοντελοποιεί τους χρόνους μεταξύ των αφίξεων στις διαδικασίες Poisson. Η ιδιότητά του χωρίς μνήμη -- $P(T > s+t \mid T > s) = P(T > t)$ -- κάνει τους υπολογισμούς επιβίωσης υπό όρους ασήμαντους, αλλά είναι μια ιδιότητα αποκλειστική για το Εκθετικό (όχι Γάμα, όχι Weibull με $k \ne 1$). Το ελάχιστο των $n$ ανεξάρτητων Εκθετικών είναι από μόνο του Εκθετικό με αθροιστικούς ρυθμούς.
 
-The **Gamma/Erlang** family extends the Exponential to model the time until the $k$-th event. The Erlang requires identical rates across stages; mixing different rates breaks the Gamma structure. The **Weibull** distribution models non-constant failure hazard rates: $k < 1$ (infant mortality), $k = 1$ (memoryless Exponential), $k > 1$ (aging wear-out). The Weibull survival function $e^{-(t/\lambda)^k}$ is closed-form and exam-ready.
+Η οικογένεια **Gamma/Erlang** επεκτείνει την Εκθετική για να μοντελοποιήσει το χρόνο μέχρι το $k$-ο συμβάν. Το Erlang απαιτεί πανομοιότυπους ρυθμούς στα στάδια. Η ανάμειξη διαφορετικών ρυθμών σπάει τη δομή Γάμμα. Τα μοντέλα διανομής **Weibull** διαμορφώνουν μη σταθερά ποσοστά κινδύνου αστοχίας: $k < 1$ (βρεφική θνησιμότητα), $k = 1$ (εκθετική χωρίς μνήμη), $k > 1$ (φθορά λόγω γήρανσης). Η συνάρτηση επιβίωσης Weibull $e^{-(t/\lambda)^k}$ είναι κλειστής μορφής και έτοιμη για εξετάσεις.
 
-**Transformations** are handled by the Jacobian method for monotonic $g$ and the CDF method for non-monotonic $g$. The critical practical gotcha is **Jensen's inequality**: $E[1/T] > 1/E[T]$, so average throughput cannot be estimated as the reciprocal of average service time.
+**Οι μετασχηματισμοί** αντιμετωπίζονται με τη μέθοδο Jacobian για το μονοτονικό $g$ και τη μέθοδο CDF για το μη μονοτονικό $g$. Ο κρίσιμος πρακτικός στόχος είναι **η ανισότητα του Jensen**: $E[1/T] > 1/E[T]$, επομένως η μέση απόδοση δεν μπορεί να εκτιμηθεί ως το αντίστροφο του μέσου χρόνου εξυπηρέτησης.
 
-Four key exam traps pervade Phase 5: (1) the **$c^2$ rule** -- variance scales by $c^2$ on unit conversion, not by $c$; (2) the **memoryless exclusivity** -- only Exponential is memoryless; (3) the **R `pnorm()` trap** -- requires `sd`, not variance; and (4) the **Erlang rate requirement** -- all stages must share the same rate $\beta$.
+Τέσσερις βασικές παγίδες εξετάσεων διαπερνούν τη Φάση 5: (1) ο **$c^2$ κανόνας** -- κλίμακες διακύμανσης κατά $c^2$ στη μετατροπή μονάδων, όχι κατά $c$. (2) η **αποκλειστικότητα χωρίς μνήμη** -- μόνο το Exponential είναι χωρίς μνήμη. (3) η παγίδα **R `pnorm()`** -- απαιτεί `sd`, όχι διακύμανση. και (4) την **απαίτηση ποσοστού Erlang** -- όλα τα στάδια πρέπει να μοιράζονται την ίδια τιμή $\beta$.

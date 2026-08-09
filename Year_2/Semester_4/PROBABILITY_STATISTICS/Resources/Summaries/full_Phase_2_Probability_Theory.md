@@ -1,59 +1,59 @@
-# Phase 2.1: Set Theory Fundamentals
+# Φάση 2.1: Βασικές αρχές της θεωρίας συνόλων
 
-Set Theory provides the mathematical language used to define and manipulate probability. Every probability problem is, at its core, a question about sets. Understanding the formal notation and operations is the foundation upon which all probability rules are built.
+Η Θεωρία Συνόλων παρέχει τη μαθηματική γλώσσα που χρησιμοποιείται για τον ορισμό και τον χειρισμό της πιθανότητας. Κάθε πρόβλημα πιθανότητας είναι, στον πυρήνα του, μια ερώτηση σχετικά με σύνολα. Η κατανόηση της επίσημης σημειογραφίας και των πράξεων είναι το θεμέλιο πάνω στο οποίο χτίζονται όλοι οι κανόνες πιθανοτήτων.
 
 ---
 
-## 1. Core Definitions
+## 1. Βασικοί ορισμοί
 
-### Sample Space ($\Omega$)
+### Χώρος δείγματος ($\Omega$)
 
-The **Sample Space** $\Omega$ (also written $S$) is the set of **all possible outcomes** of a random experiment. Every outcome that could conceivably occur must be listed exactly once.
+Ο **Δειγματικός Χώρος** $\Omega$ (επίσης γράφεται $S$) είναι το σύνολο **όλα τα πιθανά αποτελέσματα** ενός τυχαίου πειράματος. Κάθε αποτέλεσμα που θα μπορούσε να συμβεί πρέπει να αναφέρεται ακριβώς μία φορά.
 
 $$\Omega = \{ \text{all possible outcomes} \}$$
 
-**Key rule:** The sample space is always exhaustive (covers everything) and mutually exclusive (no outcome appears twice).
+**Βασικός κανόνας:** Ο χώρος του δείγματος είναι πάντα εξαντλητικός (καλύπτει τα πάντα) και αλληλοαποκλείεται (κανένα αποτέλεσμα δεν εμφανίζεται δύο φορές).
 
-### Event
+### Εκδήλωση
 
-An **Event** is any subset of the sample space. It is a collection of one or more outcomes. We typically label events with capital letters $A$, $B$, $C$, etc.
+Ένα **Συμβάν** είναι οποιοδήποτε υποσύνολο του δείγματος χώρου. Είναι μια συλλογή από ένα ή περισσότερα αποτελέσματα. Συνήθως επισημαίνουμε τα συμβάντα με κεφαλαία γράμματα $A$, $B$, $C$, κ.λπ.
 
 $$A \subseteq \Omega$$
 
-*   **Elementary event:** A single outcome, e.g., $\{3\}$ when rolling a die.
-*   **Compound event:** A collection of outcomes, e.g., $\{2, 4, 6\}$ (rolling an even number).
-*   **Impossible event ($\emptyset$):** The empty set. An event with no outcomes that can never occur.
-*   **Certain event ($\Omega$):** The entire sample space. This event always occurs.
+* **Στοιχειώδες συμβάν:** Ένα μεμονωμένο αποτέλεσμα, π.χ., $\{3\}$ κατά την κύλιση ενός ζαριού.
+* **Συνθετικό συμβάν:** Μια συλλογή αποτελεσμάτων, π.χ., $\{2, 4, 6\}$ (κύλιση ζυγού αριθμού).
+* **Αδύνατο συμβάν ($\emptyset$):** Το κενό σύνολο. Ένα γεγονός χωρίς αποτελέσματα που δεν μπορεί ποτέ να συμβεί.
+* **Σε συγκεκριμένη εκδήλωση ($\Omega$):** Ολόκληρος ο χώρος του δείγματος. Αυτό το γεγονός συμβαίνει πάντα.
 
 ---
 
-## 2. Set Operations
+## 2. Ορισμός Λειτουργιών
 
-These three operations are the building blocks of all probability expressions.
+Αυτές οι τρεις πράξεις είναι τα δομικά στοιχεία όλων των εκφράσεων πιθανότητας.
 
-### Union ($\cup$)
+### Ένωση ($\cup$)
 
-The union $A \cup B$ is the event that **at least one** of $A$ or $B$ occurs. It contains every outcome in $A$, every outcome in $B$, or both.
+Η ένωση $A \cup B$ είναι το γεγονός που εμφανίζεται **τουλάχιστον ένα** από τα $A$ ή $B$. Περιέχει κάθε αποτέλεσμα στο $A$, κάθε αποτέλεσμα στο $B$ ή και τα δύο.
 
 $$A \cup B = \{ \omega \in \Omega : \omega \in A \text{ or } \omega \in B \}$$
 
-> Think of $\cup$ as the logical **OR**.
+> Σκεφτείτε το $\cup$ ως το λογικό **OR**.
 
-### Intersection ($\cap$)
+### Διασταύρωση ($\cap$)
 
-The intersection $A \cap B$ is the event that **both** $A$ and $B$ occur simultaneously. It contains only outcomes that are in $A$ AND in $B$.
+Η διασταύρωση $A \cap B$ είναι το γεγονός που **συμβαίνουν ταυτόχρονα **** $A$ και $B$. Περιέχει μόνο αποτελέσματα που είναι σε $A$ ΚΑΙ σε $B$.
 
 $$A \cap B = \{ \omega \in \Omega : \omega \in A \text{ and } \omega \in B \}$$
 
-> Think of $\cap$ as the logical **AND**.
+> Σκεφτείτε το $\cap$ ως το λογικό **AND**.
 
-### Complement ($A'$ or $A^c$)
+### Συμπλήρωμα ($A'$ ή $A^c$)
 
-The complement $A'$ is the event that $A$ does **not** occur. It contains all outcomes in $\Omega$ that are not in $A$.
+Το συμπλήρωμα $A'$ είναι το συμβάν που $A$ **δεν** συμβαίνει. Περιέχει όλα τα αποτελέσματα στο $\Omega$ που δεν είναι στο $A$.
 
 $$A' = \{ \omega \in \Omega : \omega \notin A \}$$
 
-A fundamental identity:
+Μια θεμελιώδης ταυτότητα:
 
 $$A \cup A' = \Omega \quad \text{and} \quad A \cap A' = \emptyset$$
 
@@ -61,39 +61,39 @@ $$P(A') = 1 - P(A)$$
 
 ---
 
-## 3. Mutual Exclusivity (Disjoint Events)
+## 3. Αμοιβαία αποκλειστικότητα (Disjoint Events)
 
-Two events $A$ and $B$ are **mutually exclusive** (or disjoint) if they cannot both occur at the same time:
+Δύο συμβάντα $A$ και $B$ είναι **αμοιβαία αποκλειόμενα** (ή διαχωρισμένα) εάν δεν μπορούν να συμβούν και τα δύο ταυτόχρονα:
 
 $$A \cap B = \emptyset$$
 
-This is a crucial property. When $A$ and $B$ are mutually exclusive, the addition rule simplifies significantly:
+Αυτό είναι ένα κρίσιμο ακίνητο. Όταν τα $A$ και $B$ αλληλοαποκλείονται, ο κανόνας προσθήκης απλοποιεί σημαντικά:
 
 $$P(A \cup B) = P(A) + P(B) \quad \text{(only when } A \cap B = \emptyset \text{)}$$
 
 ---
 
-## 4. Summary of Notation
+## 4. Περίληψη Σημειογραφίας
 
-| Notation | Read as | Meaning |
+| Σημείωση | Διαβάστε ως | Σημασία |
 | :--- | :--- | :--- |
-| $\Omega$ | Sample space | All possible outcomes |
-| $\emptyset$ | Empty set | Impossible event |
-| $A \cup B$ | A union B | A or B (at least one) |
-| $A \cap B$ | A intersect B | A and B (both) |
-| $A'$ | A complement | Not A |
-| $A \subseteq B$ | A is a subset of B | Every outcome in A is also in B |
-| $A \cap B = \emptyset$ | A and B are disjoint | A and B cannot both occur |
+| $\Omega$ | Χώρος δειγμάτων | Όλα τα πιθανά αποτελέσματα |
+| $\emptyset$ | Άδειο σετ | Αδύνατον γεγονός |
+| $A \cup B$ | Μια ένωση Β | Α ή Β (τουλάχιστον ένα) |
+| $A \cap B$ | Το Α τέμνει το Β | Α και Β (και τα δύο) |
+| $A'$ | Ένα συμπλήρωμα | Όχι Α |
+| $A \subseteq B$ | Το A είναι υποσύνολο του B | Κάθε αποτέλεσμα στο Α βρίσκεται επίσης στο Β |
+| $A \cap B = \emptyset$ | Τα Α και Β είναι ασύνδετα | Το Α και το Β δεν μπορούν να συμβούν και τα δύο |
 
 ---
 
-## 5. Solved Exercises
+## 5. Λυμένες Ασκήσεις
 
-### Exercise 1: Identifying the Sample Space (Die Roll)
+### Άσκηση 1: Προσδιορισμός του χώρου δειγμάτων (Die Roll)
 
-**Problem:** A fair six-sided die is rolled once. Define the sample space and the event $A$ = "rolling a number greater than 4".
+**Πρόβλημα:** Μια δίκαιη μήτρα έξι όψεων τυλίγεται μία φορά. Καθορίστε τον χώρο δείγματος και το συμβάν $A$ = "κύλιση ενός αριθμού μεγαλύτερου από 4".
 
-**Solution:**
+**Λύση:**
 
 $$\Omega = \{1, 2, 3, 4, 5, 6\}$$
 
@@ -101,13 +101,11 @@ $$A = \{5, 6\}$$
 
 $$A' = \{1, 2, 3, 4\} \quad \text{(not rolling greater than 4)}$$
 
----
+---### Άσκηση 2: Προσδιορισμός του χώρου δειγμάτων (Δύο πετάξεις νομισμάτων)
 
-### Exercise 2: Identifying the Sample Space (Two Coin Tosses)
+**Πρόβλημα:** Πετάχτηκαν δύο νομίσματα. Γράψτε $\Omega$ χρησιμοποιώντας διατεταγμένα ζεύγη όπου H = Κεφάλια, T = Ουρές. Ορισμός συμβάντος $B$ = "τουλάχιστον ένα κεφάλι".
 
-**Problem:** Two coins are tossed. Write out $\Omega$ using ordered pairs where H = Heads, T = Tails. Define event $B$ = "at least one Head".
-
-**Solution:**
+**Λύση:**
 
 $$\Omega = \{(H,H), (H,T), (T,H), (T,T)\}$$
 
@@ -117,15 +115,15 @@ $$B' = \{(T,T)\} \quad \text{(no heads, i.e., both tails)}$$
 
 ---
 
-### Exercise 3: Computing Union and Intersection
+### Άσκηση 3: Υπολογιστική Ένωση και Τομή
 
-**Problem:** From the die-roll sample space $\Omega = \{1,2,3,4,5,6\}$, let:
-- $A$ = "even number" = $\{2, 4, 6\}$
-- $B$ = "number greater than 3" = $\{4, 5, 6\}$
+**Πρόβλημα:** Από το χώρο δειγμάτων die-roll $\Omega = \{1,2,3,4,5,6\}$, ας:
+- $A$ = "ζυγός αριθμός" = $\{2, 4, 6\}$
+- $B$ = "αριθμός μεγαλύτερος από 3" = $\{4, 5, 6\}$
 
-Find $A \cup B$ and $A \cap B$.
+Βρείτε $A \cup B$ και $A \cap B$.
 
-**Solution:**
+**Λύση:**
 
 $$A \cup B = \{2, 4, 5, 6\} \quad \text{(all outcomes in either A or B)}$$
 
@@ -133,15 +131,15 @@ $$A \cap B = \{4, 6\} \quad \text{(outcomes in both: even AND greater than 3)}$$
 
 ---
 
-### Exercise 4: Computing the Complement
+### Άσκηση 4: Υπολογισμός του Συμπληρώματος
 
-**Problem:** Using $A = \{2, 4, 6\}$ from Exercise 3, find $A'$ and verify the fundamental identity.
+**Πρόβλημα:** Χρησιμοποιώντας $A = \{2, 4, 6\}$ από την Άσκηση 3, βρείτε $A'$ και επαληθεύστε τη θεμελιώδη ταυτότητα.
 
-**Solution:**
+**Λύση:**
 
 $$A' = \{1, 3, 5\}$$
 
-**Verification:**
+**Επαλήθευση:**
 
 $$A \cup A' = \{2,4,6\} \cup \{1,3,5\} = \{1,2,3,4,5,6\} = \Omega \checkmark$$
 
@@ -149,87 +147,83 @@ $$A \cap A' = \{2,4,6\} \cap \{1,3,5\} = \emptyset \checkmark$$
 
 ---
 
-### Exercise 5: Mutually Exclusive Check
+### Άσκηση 5: Αμοιβαία Αποκλειστικός Έλεγχος
 
-**Problem:** From the die-roll experiment, are $A$ = "rolling 1 or 2" and $B$ = "rolling 5 or 6" mutually exclusive?
+**Πρόβλημα:** Από το πείραμα die-roll, το $A$ = "rolling 1 or 2" και το $B$ = "rolling 5 or 6" αποκλείονται αμοιβαία;
 
-**Solution:**
+**Λύση:**
 
 $$A = \{1, 2\}, \quad B = \{5, 6\}$$
 
 $$A \cap B = \emptyset$$
 
-Yes, $A$ and $B$ are mutually exclusive. Rolling a 1 or 2 and simultaneously rolling a 5 or 6 is impossible in a single roll.
+Ναι, οι $A$ και $B$ αποκλείονται αμοιβαία. Η κύλιση ενός 1 ή 2 και ταυτόχρονα ενός 5 ή 6 είναι αδύνατη σε ένα μόνο ρολό.
 
 ---
 
-### Exercise 6: Three Events - Union and Intersection
+### Άσκηση 6: Τρία Γεγονότα - Ένωση και Διασταύρωση
 
-**Problem:** A card is drawn from a standard 52-card deck. Define:
-- $A$ = "card is a Heart"
-- $B$ = "card is a King"
-- $C$ = "card is red"
+**Πρόβλημα:** Ένα φύλλο τραβιέται από μια τυπική τράπουλα 52 φύλλων. Ορίστε:
+- $A$ = "η κάρτα είναι μια καρδιά"
+- $B$ = "η κάρτα είναι βασιλιάς"
+- $C$ = "η κάρτα είναι κόκκινη"
 
-Describe $A \cap B$, $A \cup B$, and $B \cap C'$.
+Περιγράψτε τα $A \cap B$, $A \cup B$ και $B \cap C'$.
 
-**Solution:**
+**Λύση:**
 
-*   $A \cap B$ = "Heart AND King" = $\{K\heartsuit\}$ — exactly 1 card.
-*   $A \cup B$ = "Heart OR King" = all 13 Hearts plus the 3 remaining Kings (of Clubs, Diamonds, Spades) = 16 cards.
-*   $B \cap C'$ = "King AND NOT red" = King of black suits = $\{K\clubsuit, K\spadesuit\}$ — 2 cards.
-
----
-
-### Exercise 7: Subset Relationship
-
-**Problem:** A number is picked from $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. Let:
-- $A$ = "multiple of 4" = $\{4, 8\}$
-- $B$ = "even number" = $\{2, 4, 6, 8, 10\}$
-
-Is $A$ a subset of $B$? What does this imply?
-
-**Solution:**
-
-Every element of $A$ ($4$ and $8$) is also in $B$, so $A \subseteq B$.
-
-This means: if event $A$ occurs, then event $B$ must also occur. Knowing a number is a multiple of 4 guarantees it is also even. Formally: $A \subseteq B \Rightarrow A \cap B = A$.
+* $A \cap B$ = "Heart AND King" = $\{K\heartsuit\}$ — ακριβώς 1 κάρτα.
+* $A \cup B$ = "Καρδιά Ή Βασιλιάς" = και οι 13 Καρδιές συν τους 3 εναπομείναντες Βασιλιάδες (από Κλαμπ, Διαμάντια, Μπαστούνια) = 16 φύλλα.
+* $B \cap C'$ = "Βασιλιάς ΚΑΙ ΟΧΙ κόκκινο" = Βασιλιάς των μαύρων κοστουμιών = $\{K\clubsuit, K\spadesuit\}$ — 2 κάρτες.
 
 ---
 
-### Exercise 8: Complement of a Compound Event
+### Άσκηση 7: Σχέση υποσυνόλου
 
-**Problem:** Continuing from Exercise 7, find $(A \cup B)'$.
+**Πρόβλημα:** Επιλέγεται ένας αριθμός από $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$. Αφήστε:
+- $A$ = "πολλαπλά από 4" = $\{4, 8\}$
+- $B$ = "ζυγός αριθμός" = $\{2, 4, 6, 8, 10\}$
 
-**Solution:**
+Είναι το $A$ υποσύνολο του $B$; Τι σημαίνει αυτό;
 
-First, compute the union:
+**Λύση:**
+
+Κάθε στοιχείο του $A$ ($4$ και $8$) βρίσκεται επίσης στο $B$, επομένως $A \subseteq B$.
+
+Αυτό σημαίνει: εάν συμβεί το συμβάν $A$, τότε το συμβάν $B$ πρέπει επίσης να συμβεί. Το να γνωρίζετε ότι ένας αριθμός είναι πολλαπλάσιο του 4 εγγυάται ότι είναι επίσης ζυγός. Επίσημα: $A \subseteq B \Rightarrow A \cap B = A$.
+
+---
+
+### Άσκηση 8: Συμπλήρωμα ενός σύνθετου γεγονότος
+
+**Πρόβλημα:** Συνεχίζοντας από την Άσκηση 7, βρείτε $(A \cup B)'$.
+
+**Λύση:**
+
+Αρχικά, υπολογίστε την ένωση:
 
 $$A \cup B = \{2, 4, 6, 8, 10\} = B \quad \text{(since } A \subseteq B \text{)}$$
 
-The full sample space is $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
+Ο πλήρης χώρος δείγματος είναι $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
 
 $$(A \cup B)' = B' = \{1, 3, 5, 7, 9\} \quad \text{(all odd numbers)}$$
 
-This is the set of outcomes where neither event A nor event B occurs. This outcome connects directly to De Morgan's Law: $(A \cup B)' = A' \cap B'$, which will be covered in Phase 2.3.
+Αυτό είναι το σύνολο των αποτελεσμάτων όπου δεν συμβαίνει ούτε το γεγονός Α ούτε το γεγονός Β. Αυτό το αποτέλεσμα συνδέεται απευθείας με τον νόμο του De Morgan: $(A \cup B)' = A' \cap B'$, ο οποίος θα καλυφθεί στη Φάση 2.3.
 
 ---
 
-## Exam Tip: Listing vs. Describing Events
+## Συμβουλή εξέτασης: Καταχώριση έναντι περιγραφής συμβάντων
 
-In exam problems, you may be asked to either **list** the outcomes of an event (e.g., $A = \{2, 4, 6\}$) or **describe** it in words. Practise translating freely between both forms. The most common error is forgetting to account for overlapping outcomes when computing unions — always check whether an element appears in both sets before listing it.
+Σε προβλήματα εξετάσεων, μπορεί να σας ζητηθεί είτε να **παραθέσετε** τα αποτελέσματα ενός συμβάντος (π.χ. $A = \{2, 4, 6\}$) είτε να το **περιγράψετε** με λέξεις. Εξασκηθείτε στην ελεύθερη μετάφραση μεταξύ των δύο μορφών. Το πιο συνηθισμένο σφάλμα είναι να ξεχάσετε να λάβετε υπόψη τα επικαλυπτόμενα αποτελέσματα κατά τον υπολογισμό των ενώσεων — ελέγχετε πάντα εάν ένα στοιχείο εμφανίζεται και στα δύο σύνολα πριν το καταχωρίσετε.
 
 
-# Phase 2.2: Venn Diagrams & Translating Worded Problems
-
-Venn Diagrams are a visual tool that maps relationships between events onto overlapping circles. Their primary purpose in probability is to **translate English language problem descriptions into precise set notation**, which can then be evaluated using formulas. Mastering this translation is one of the highest-leverage skills for exams.
+# Φάση 2.2: Διαγράμματα Venn & Μετάφραση Διατυπωμένων ΠροβλημάτωνΤα διαγράμματα Venn είναι ένα οπτικό εργαλείο που χαρτογραφεί τις σχέσεις μεταξύ γεγονότων σε επικαλυπτόμενους κύκλους. Ο πρωταρχικός σκοπός τους στην πιθανότητα είναι να **μεταφράσουν τις περιγραφές προβλημάτων της αγγλικής γλώσσας σε ακριβή σημειογραφία συνόλου**, η οποία στη συνέχεια μπορεί να αξιολογηθεί χρησιμοποιώντας τύπους. Η γνώση αυτής της μετάφρασης είναι μία από τις δεξιότητες με την υψηλότερη μόχλευση για εξετάσεις.
 
 ---
 
-## 1. Standard Venn Diagram Layout
+## 1. Τυπική διάταξη διαγράμματος Venn
 
-For two events $A$ and $B$ within a sample space $\Omega$, the diagram divides the space into four mutually exclusive regions:
-
-```
+Για δύο συμβάντα $A$ και $B$ εντός ενός δείγματος χώρου $\Omega$, το διάγραμμα διαιρεί τον χώρο σε τέσσερις αμοιβαία αποκλειστικές περιοχές:```
  ___________________________________
 |              Omega                |
 |   ___________   ___________       |
@@ -240,97 +234,95 @@ For two events $A$ and $B$ within a sample space $\Omega$, the diagram divides t
 |                                   |
 |         (A∪B)' = A'∩B'            |
 |___________________________________|
-```
-
-| Region | Set Notation | Meaning |
+```| Περιφέρεια | Ορισμός σημειογραφίας | Σημασία |
 | :--- | :--- | :--- |
-| Left circle only | $A \cap B'$ | A occurs, B does not |
-| Overlapping center | $A \cap B$ | Both A and B occur |
-| Right circle only | $A' \cap B$ | B occurs, A does not |
-| Outside both circles | $A' \cap B'$ | Neither A nor B occurs |
+| Μόνο αριστερός κύκλος | $A \cap B'$ | Το Α συμβαίνει, το Β όχι |
+| Επικαλυπτόμενο κέντρο | $A \cap B$ | Συμβαίνουν και το Α και το Β |
+| Μόνο δεξιός κύκλος | $A' \cap B$ | Το Β εμφανίζεται, το Α όχι |
+| Έξω και από τους δύο κύκλους | $A' \cap B'$ | Ούτε το Α ούτε το Β συμβαίνει |
 
-The **fundamental partition rule**: the four regions are mutually exclusive and collectively exhaustive. Their probabilities sum to 1.
+Ο **θεμελιώδης κανόνας κατάτμησης**: οι τέσσερις περιοχές είναι αμοιβαία αποκλειστικές και συλλογικά εξαντλητικές. Οι πιθανότητες τους αθροίζονται σε 1.
 
 $$P(A \cap B') + P(A \cap B) + P(A' \cap B) + P(A' \cap B') = 1$$
 
 ---
 
-## 2. Translating Key Phrases into Set Notation
+## 2. Μετάφραση βασικών φράσεων σε σημειογραφία συνόλου
 
-This table is the most important reference in this file. Memorise these translations.
+Αυτός ο πίνακας είναι η πιο σημαντική αναφορά σε αυτό το αρχείο. Απομνημονεύστε αυτές τις μεταφράσεις.
 
-| English Phrase | Set Notation | Notes |
+| Αγγλική φράση | Ορισμός σημειογραφίας | Σημειώσεις |
 | :--- | :--- | :--- |
-| "A occurs" | $A$ | Direct |
-| "A does not occur" | $A'$ | Complement |
-| "Both A and B occur" | $A \cap B$ | Intersection |
-| "At least one of A, B occurs" | $A \cup B$ | Union (includes both) |
-| "Exactly one of A, B occurs" | $(A \cap B') \cup (A' \cap B)$ | Union minus the overlap |
-| "Only A occurs" | $A \cap B'$ | A but not B |
-| "Only B occurs" | $A' \cap B$ | B but not A |
-| "Neither A nor B occurs" | $A' \cap B'$ = $(A \cup B)'$ | Outside both circles |
-| "A but not B" | $A \cap B'$ | Same as "only A" |
-| "At most one of A, B" | $(A \cap B)'$ = $A' \cup B'$ | Not both simultaneously |
+| «Α συμβαίνει» | $A$ | Απευθείας |
+| «Α δεν συμβαίνει» | $A'$ | Συμπλήρωμα |
+| «Και το Α και το Β συμβαίνουν» | $A \cap B$ | Διασταύρωση |
+| "Συμβαίνει τουλάχιστον ένα από τα Α, Β" | $A \cup B$ | Ένωση (περιλαμβάνει και τα δύο) |
+| «Συμβαίνει ακριβώς ένα από τα Α, Β» | $(A \cap B') \cup (A' \cap B)$ | Ένωση μείον την επικάλυψη |
+| «Μόνο το Α συμβαίνει» | $A \cap B'$ | Α αλλά όχι Β |
+| «Μόνο το Β συμβαίνει» | $A' \cap B$ | Β αλλά όχι Α |
+| «Ούτε το Α ούτε το Β συμβαίνει» | $A' \cap B'$ = $(A \cup B)'$ | Έξω και από τους δύο κύκλους |
+| «Α αλλά όχι Β» | $A \cap B'$ | Ίδιο με το "μόνο Α" |
+| «Το πολύ ένα από τα Α, Β» | $(A \cap B)'$ = $A' \cup B'$ | Όχι και τα δύο ταυτόχρονα |
 
-> **Critical insight:** "At least one" means $A \cup B$. "Exactly one" means $A \cup B$ minus the case where both occur, i.e., $(A \cup B) \setminus (A \cap B)$.
+> **Κρίσιμη διορατικότητα:** "Τουλάχιστον ένα" σημαίνει $A \cup B$. "Ακριβώς ένα" σημαίνει $A \cup B$ μείον την περίπτωση όπου συμβαίνουν και τα δύο, δηλαδή $(A \cup B) \setminus (A \cap B)$.
 
 ---
 
-## 3. Extending to Three Events
+## 3. Επέκταση σε τρία συμβάντα
 
-For three events $A$, $B$, $C$, the Venn Diagram has **8 mutually exclusive regions**. Key phrases extend naturally:
+Για τρία συμβάντα $A$, $B$, $C$, το Διάγραμμα Venn έχει **8 αμοιβαία αποκλειστικές περιοχές**. Οι φράσεις κλειδιά εκτείνονται φυσικά:
 
-| Phrase | Set Notation |
+| Φράση | Ορισμός σημειογραφίας |
 | :--- | :--- |
-| "All three occur" | $A \cap B \cap C$ |
-| "At least one occurs" | $A \cup B \cup C$ |
-| "None occur" | $A' \cap B' \cap C'$ = $(A \cup B \cup C)'$ |
-| "Exactly one occurs" | $(A \cap B' \cap C') \cup (A' \cap B \cap C') \cup (A' \cap B' \cap C)$ |
-| "At least two occur" | $(A \cap B \cap C') \cup (A \cap B' \cap C) \cup (A' \cap B \cap C) \cup (A \cap B \cap C)$ |
+| «Και τα τρία συμβαίνουν» | $A \cap B \cap C$ |
+| «Τουλάχιστον ένα συμβαίνει» | $A \cup B \cup C$ |
+| «Δεν συμβαίνει κανένα» | $A' \cap B' \cap C'$ = $(A \cup B \cup C)'$ |
+| «Ένα ακριβώς συμβαίνει» | $(A \cap B' \cap C') \cup (A' \cap B \cap C') \cup (A' \cap B' \cap C)$ |
+| «Συμβαίνουν τουλάχιστον δύο» | $(A \cap B \cap C') \cup (A \cap B' \cap C) \cup (A' \cap B \cap C) \cup (A \cap B \cap C)$ |
 
 ---
 
-## 4. Reading Probabilities from a Filled Venn Diagram
+## 4. Πιθανότητες ανάγνωσης από ένα γεμάτο διάγραμμα Venn
 
-When a Venn Diagram is given with numerical values already filled in, the values represent the probabilities (or counts) of each region. The key skill is to identify which regions belong to the event you are asked about, then sum them.
+Όταν δίνεται ένα Διάγραμμα Venn με αριθμητικές τιμές ήδη συμπληρωμένες, οι τιμές αντιπροσωπεύουν τις πιθανότητες (ή τις μετρήσεις) κάθε περιοχής. Η βασική δεξιότητα είναι να προσδιορίσετε ποιες περιοχές ανήκουν στο συμβάν για το οποίο σας ζητείται και, στη συνέχεια, να τις αθροίσετε.
 
-**Reading strategy:**
-1. Identify all regions that satisfy the event description.
-2. Sum the values in those regions.
+**Στρατηγική ανάγνωσης:**
+1. Προσδιορίστε όλες τις περιοχές που ικανοποιούν την περιγραφή του συμβάντος.
+2. Αθροίστε τις τιμές σε αυτές τις περιοχές.
 
 ---
 
-## 5. Solved Exercises
+## 5. Λυμένες Ασκήσεις
 
-### Exercise 1: Building a Venn Diagram from Counts
+### Άσκηση 1: Δημιουργία διαγράμματος Venn από το Counts
 
-**Problem:** In a class of 50 students, 30 study Mathematics ($M$), 25 study Physics ($P$), and 15 study both. Find the number of students who study only Mathematics, only Physics, and neither subject.
+**Πρόβλημα:** Σε μια τάξη 50 μαθητών, 30 σπουδάζουν Μαθηματικά ($M$), 25 σπουδάζουν Φυσική ($P$) και 15 σπουδάζουν και τα δύο. Βρείτε τον αριθμό των μαθητών που σπουδάζουν μόνο Μαθηματικά, μόνο Φυσική και κανένα μάθημα.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Find the overlap region first.
+**Βήμα 1:** Βρείτε πρώτα την περιοχή επικάλυψης.
 $$|M \cap P| = 15$$
 
-**Step 2:** Find "only Mathematics":
+**Βήμα 2:** Βρείτε "μόνο Μαθηματικά":
 $$|M \cap P'| = |M| - |M \cap P| = 30 - 15 = 15$$
 
-**Step 3:** Find "only Physics":
+**Βήμα 3:** Βρείτε "μόνο Φυσική":
 $$|M' \cap P| = |P| - |M \cap P| = 25 - 15 = 10$$
 
-**Step 4:** Find "neither":
+**Βήμα 4:** Βρείτε το "κανένα":
 $$|M' \cap P'| = 50 - 15 - 15 - 10 = 10$$
 
-**Filled Diagram regions:** Only M = 15, Both = 15, Only P = 10, Neither = 10. Total = 50. Verified.
+**Περιοχές διαγραμμάτων:** Μόνο M = 15, Και τα δύο = 15, Μόνο P = 10, Κανένα = 10. Σύνολο = 50. Επαληθεύτηκε.
 
 ---
 
-### Exercise 2: Translating "At Least One"
+### Άσκηση 2: Μετάφραση "Τουλάχιστον ένα"
 
-**Problem:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Find the probability that at least one of $A$ or $B$ occurs.
+**Πρόβλημα:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Βρείτε την πιθανότητα να συμβεί τουλάχιστον ένα από τα $A$ ή $B$.
 
-**Solution:**
+**Λύση:**
 
-"At least one" translates to $A \cup B$.
+Το "Τουλάχιστον ένα" μεταφράζεται σε $A \cup B$.
 
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
@@ -338,109 +330,107 @@ $$P(A \cup B) = 0.5 + 0.4 - 0.2 = 0.7$$
 
 ---
 
-### Exercise 3: Translating "Neither"
+### Άσκηση 3: Μετάφραση "Ούτε"
 
-**Problem:** Using the values from Exercise 2, find the probability that neither $A$ nor $B$ occurs.
+**Πρόβλημα:** Χρησιμοποιώντας τις τιμές από την Άσκηση 2, βρείτε την πιθανότητα να μην εμφανίζεται ούτε $A$ ούτε $B$.**Λύση:**
 
-**Solution:**
-
-"Neither" translates to $A' \cap B' = (A \cup B)'$.
+Το "ούτε" μεταφράζεται σε $A' \cap B' = (A \cup B)'$.
 
 $$P((A \cup B)') = 1 - P(A \cup B) = 1 - 0.7 = 0.3$$
 
 ---
 
-### Exercise 4: Translating "Exactly One"
+### Άσκηση 4: Μετάφραση "Ακριβώς ένα"
 
-**Problem:** Using the values from Exercise 2, find the probability that exactly one of $A$ or $B$ occurs.
+**Πρόβλημα:** Χρησιμοποιώντας τις τιμές από την Άσκηση 2, βρείτε την πιθανότητα να συμβεί ακριβώς ένα από τα $A$ ή $B$.
 
-**Solution:**
+**Λύση:**
 
-"Exactly one" = $(A \cap B') \cup (A' \cap B)$
+"Ακριβώς ένα" = $(A \cap B') \cup (A' \cap B)$
 
-**Method:** Total in at least one minus the overlap (where both occur):
+**Μέθοδος:** Σύνολο σε τουλάχιστον ένα μείον την επικάλυψη (όπου συμβαίνουν και τα δύο):
 
 $$P(\text{exactly one}) = P(A \cup B) - P(A \cap B)$$
 
 $$P(\text{exactly one}) = 0.7 - 0.2 = 0.5$$
 
-**Alternative breakdown:**
-*   $P(A \cap B') = P(A) - P(A \cap B) = 0.5 - 0.2 = 0.3$
-*   $P(A' \cap B) = P(B) - P(A \cap B) = 0.4 - 0.2 = 0.2$
-*   $P(\text{exactly one}) = 0.3 + 0.2 = 0.5$ (same result)
+**Εναλλακτική ανάλυση:**
+* $P(A \cap B') = P(A) - P(A \cap B) = 0.5 - 0.2 = 0.3$
+* $P(A' \cap B) = P(B) - P(A \cap B) = 0.4 - 0.2 = 0.2$
+* $P(\text{exactly one}) = 0.3 + 0.2 = 0.5$ (ίδιο αποτέλεσμα)
 
 ---
 
-### Exercise 5: Translating "Only A"
+### Άσκηση 5: Μετάφραση "Μόνο Α"
 
-**Problem:** A survey shows $P(A) = 0.6$, $P(B) = 0.5$, $P(A \cup B) = 0.8$. Find $P(\text{only } A)$.
+**Πρόβλημα:** Μια έρευνα δείχνει $P(A) = 0.6$, $P(B) = 0.5$, $P(A \cup B) = 0.8$. Βρείτε $P(\text{only } A)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Find $P(A \cap B)$ using the addition rule:
+**Βήμα 1:** Βρείτε $P(A \cap B)$ χρησιμοποιώντας τον κανόνα πρόσθεσης:
 
 $$P(A \cap B) = P(A) + P(B) - P(A \cup B) = 0.6 + 0.5 - 0.8 = 0.3$$
 
-**Step 2:** "Only A" = $A \cap B'$:
+**Βήμα 2:** "Μόνο Α" = $A \cap B'$:
 
 $$P(A \cap B') = P(A) - P(A \cap B) = 0.6 - 0.3 = 0.3$$
 
 ---
 
-### Exercise 6: Reading a Filled Venn Diagram
+### Άσκηση 6: Διαβάζοντας ένα γεμάτο διάγραμμα Venn
 
-**Problem:** The regions of a Venn Diagram for events $A$ and $B$ are filled with the following probabilities:
+**Πρόβλημα:** Οι περιοχές ενός διαγράμματος Venn για συμβάντα $A$ και $B$ είναι γεμάτες με τις ακόλουθες πιθανότητες:
 
-| Region | Probability |
+| Περιφέρεια | Πιθανότητα |
 | :--- | :--- |
-| Only $A$ ($A \cap B'$) | 0.25 |
-| Both ($A \cap B$) | 0.15 |
-| Only $B$ ($A' \cap B$) | 0.30 |
-| Neither ($A' \cap B'$) | 0.30 |
+| Μόνο $A$ ($A \cap B'$) | 0,25 |
+| Και τα δύο ($A \cap B$) | 0,15 |
+| Μόνο $B$ ($A' \cap B$) | 0,30 |
+| Ούτε ($A' \cap B'$) | 0,30 |
 
-Find: (a) $P(A)$, (b) $P(B)$, (c) $P(A \cup B)$, (d) $P(\text{exactly one})$.
+Βρείτε: (α) $P(A)$, (β) $P(B)$, (γ) $P(A \cup B)$, (δ) $P(\text{exactly one})$.
 
-**Solution:**
+**Λύση:**
 
-(a) $P(A) = P(A \cap B') + P(A \cap B) = 0.25 + 0.15 = 0.40$
+(α) $P(A) = P(A \cap B') + P(A \cap B) = 0.25 + 0.15 = 0.40$
 
-(b) $P(B) = P(A' \cap B) + P(A \cap B) = 0.30 + 0.15 = 0.45$
+(β) $P(B) = P(A' \cap B) + P(A \cap B) = 0.30 + 0.15 = 0.45$
 
-(c) $P(A \cup B) = 0.25 + 0.15 + 0.30 = 0.70$
+(γ) $P(A \cup B) = 0.25 + 0.15 + 0.30 = 0.70$
 
-(d) $P(\text{exactly one}) = P(A \cap B') + P(A' \cap B) = 0.25 + 0.30 = 0.55$
+(δ) $P(\text{exactly one}) = P(A \cap B') + P(A' \cap B) = 0.25 + 0.30 = 0.55$
 
-**Verification:** $0.25 + 0.15 + 0.30 + 0.30 = 1.00$ (all regions sum to 1).
+**Επαλήθευση:** $0.25 + 0.15 + 0.30 + 0.30 = 1.00$ (όλες οι περιοχές αθροίζονται σε 1).
 
 ---
 
-### Exercise 7: Three Events - "None"
+### Άσκηση 7: Τρία συμβάντα - "Κανένα"
 
-**Problem:** $P(A \cup B \cup C) = 0.85$. Find the probability that none of the three events occur.
+**Πρόβλημα:** $P(A \cup B \cup C) = 0.85$. Βρείτε την πιθανότητα να μην συμβεί κανένα από τα τρία γεγονότα.
 
-**Solution:**
+**Λύση:**
 
-"None occur" = $(A \cup B \cup C)'$
+"Δεν εμφανίζεται κανένα" = $(A \cup B \cup C)'$
 
 $$P(A' \cap B' \cap C') = 1 - P(A \cup B \cup C) = 1 - 0.85 = 0.15$$
 
 ---
 
-### Exercise 8: Backward Problem - Finding an Unknown
+### Άσκηση 8: Προβλήματα προς τα πίσω - Εύρεση αγνώστου
 
-**Problem:** Given $P(A) = 0.45$, $P(B) = 0.30$, and $P(\text{exactly one of } A, B) = 0.55$. Find $P(A \cap B)$.
+**Πρόβλημα:** Δόθηκαν $P(A) = 0.45$, $P(B) = 0.30$ και $P(\text{exactly one of } A, B) = 0.55$. Βρείτε $P(A \cap B)$.
 
-**Solution:**
+**Λύση:**
 
-"Exactly one" can be written as:
+Το "ακριβώς ένα" μπορεί να γραφτεί ως:
 
 $$P(\text{exactly one}) = P(A) + P(B) - 2 \cdot P(A \cap B)$$
 
-This is derived from:
+Αυτό προέρχεται από:
 
 $$P(\text{exactly one}) = [P(A) - P(A \cap B)] + [P(B) - P(A \cap B)]$$
 
-Substituting known values:
+Αντικατάσταση γνωστών τιμών:
 
 $$0.55 = 0.45 + 0.30 - 2 \cdot P(A \cap B)$$
 
@@ -450,140 +440,138 @@ $$P(A \cap B) = \frac{0.75 - 0.55}{2} = \frac{0.20}{2} = 0.10$$
 
 ---
 
-## Exam Tip: The Four-Region Decomposition
+## Συμβουλή για τις εξετάσεις: Η αποσύνθεση των τεσσάρων περιοχών
 
-**Always decompose** a Venn Diagram into its four mutually exclusive regions at the start of a problem:
+**Να αποσυνθέτετε πάντα** ένα Διάγραμμα Venn στις τέσσερις αμοιβαία αποκλειστικές περιοχές του στην αρχή ενός προβλήματος:
 
 $$P(A \cap B'), \quad P(A \cap B), \quad P(A' \cap B), \quad P(A' \cap B')$$
 
-Once these four values are known, **any probability expression** involving $A$ and $B$ can be computed by summing the appropriate regions. This method is infallible and prevents double-counting errors.
+Μόλις γίνουν γνωστές αυτές οι τέσσερις τιμές, **οποιαδήποτε έκφραση πιθανότητας** που περιλαμβάνει $A$ και $B$ μπορεί να υπολογιστεί αθροίζοντας τις κατάλληλες περιοχές. Αυτή η μέθοδος είναι αλάνθαστη και αποτρέπει σφάλματα διπλής καταμέτρησης.
 
 
-# Phase 2.3: Probability Axioms & Rules
+# Φάση 2.3: Αξιώματα και κανόνες πιθανοτήτων
 
-The **Probability Axioms** (Kolmogorov's Axioms) are the three foundational rules from which all of probability theory is derived. The **Addition Rule** and **De Morgan's Laws** are the most practically important tools built on top of these axioms for computing probabilities in exam problems.
+Τα **Αξιώματα Πιθανοτήτων** (Αξιώματα Kolmogorov) είναι οι τρεις θεμελιώδεις κανόνες από τους οποίους προκύπτει όλη η θεωρία πιθανοτήτων. Ο **Κανόνας Προσθήκης** και οι **Νόμοι του Ντε Μόργκαν** είναι τα πιο πρακτικά σημαντικά εργαλεία που βασίζονται σε αυτά τα αξιώματα για τον υπολογισμό των πιθανοτήτων στα προβλήματα των εξετάσεων.
 
 ---
 
-## 1. Kolmogorov's Axioms
+## 1. Αξιώματα Κολμογκόροφ
 
-For any event $A$ in a sample space $\Omega$, probability $P$ is a function that satisfies three axioms:
+Για οποιοδήποτε συμβάν $A$ σε ένα δείγμα χώρου $\Omega$, η πιθανότητα $P$ είναι μια συνάρτηση που ικανοποιεί τρία αξιώματα:
 
-**Axiom 1 (Non-negativity):**
+**Αξίωμα 1 (Μη αρνητικό):**
 
 $$P(A) \geq 0$$
 
-The probability of any event is always a non-negative real number.
+Η πιθανότητα οποιουδήποτε γεγονότος είναι πάντα ένας μη αρνητικός πραγματικός αριθμός.
 
-**Axiom 2 (Normalization):**
+**Αξίωμα 2 (κανονικοποίηση):**
 
 $$P(\Omega) = 1$$
 
-The probability of the certain event (something must happen) is exactly 1.
+Η πιθανότητα του συγκεκριμένου γεγονότος (κάτι πρέπει να συμβεί) είναι ακριβώς 1.
 
-**Axiom 3 (Countable Additivity):**
+**Αξίωμα 3 (μετρήσιμη προσθετικότητα):**
 
-If $A$ and $B$ are mutually exclusive ($A \cap B = \emptyset$):
+Εάν οι $A$ και $B$ αποκλείονται αμοιβαία ($A \cap B = \emptyset$):
 
 $$P(A \cup B) = P(A) + P(B)$$
 
-More generally, for any finite collection of mutually exclusive events $A_1, A_2, \ldots, A_n$:
+Γενικότερα, για οποιαδήποτε πεπερασμένη συλλογή αμοιβαία αποκλειστικών συμβάντων $A_1, A_2, \ldots, A_n$:
 
 $$P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i)$$
 
----
+---## 2. Παράγωγες ιδιότητες (Συνέπειες των αξιωμάτων)
 
-## 2. Derived Properties (Consequences of the Axioms)
+Αυτά τα αποτελέσματα προκύπτουν άμεσα από τα τρία αξιώματα:
 
-These results follow directly from the three axioms:
-
-| Property | Formula | Derivation |
+| Ακίνητα | Φόρμουλα | Παραγωγή |
 | :--- | :--- | :--- |
-| Complement Rule | $P(A') = 1 - P(A)$ | From $P(A) + P(A') = P(\Omega) = 1$ |
-| Impossible event | $P(\emptyset) = 0$ | From $\emptyset = \Omega'$ |
-| Probability bounds | $0 \leq P(A) \leq 1$ | From Axioms 1 and 2 |
-| Monotonicity | If $A \subseteq B$, then $P(A) \leq P(B)$ | B covers A plus more outcomes |
+| Συμπληρωματικός κανόνας | $P(A') = 1 - P(A)$ | Από $P(A) + P(A') = P(\Omega) = 1$ |
+| Αδύνατον γεγονός | $P(\emptyset) = 0$ | Από $\emptyset = \Omega'$ |
+| Όρια πιθανότητας | $0 \leq P(A) \leq 1$ | Από τα αξιώματα 1 και 2 |
+| Μονοτονία | Αν $A \subseteq B$, τότε $P(A) \leq P(B)$ | Το Β καλύπτει το Α συν περισσότερα αποτελέσματα |
 
 ---
 
-## 3. The Addition Rule (General)
+## 3. Ο κανόνας προσθήκης (Γενικός)
 
-For any two events $A$ and $B$ (not necessarily mutually exclusive):
+Για οποιαδήποτε δύο συμβάντα $A$ και $B$ (όχι απαραίτητα αμοιβαία αποκλειόμενα):
 
 $$\boxed{P(A \cup B) = P(A) + P(B) - P(A \cap B)}$$
 
-**Why subtract?** When computing $P(A) + P(B)$, the overlap region $A \cap B$ is counted twice (once in $P(A)$ and once in $P(B)$). Subtracting $P(A \cap B)$ corrects for this double-counting.
+**Γιατί να αφαιρέσετε;** Κατά τον υπολογισμό του $P(A) + P(B)$, η περιοχή επικάλυψης $A \cap B$ μετράται δύο φορές (μία στο $P(A)$ και μία στο $P(B)$). Αφαιρώντας $P(A \cap B)$ διορθώνεται αυτή η διπλή μέτρηση.
 
-**Special case — Mutually Exclusive:** When $A \cap B = \emptyset$:
+**Ειδική περίπτωση — Αμοιβαία αποκλειστική:** Όταν $A \cap B = \emptyset$:
 
 $$P(A \cup B) = P(A) + P(B) - 0 = P(A) + P(B)$$
 
-**Extension to three events:**
+**Επέκταση σε τρία συμβάντα:**
 
 $$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$$
 
-This pattern is called the **Inclusion-Exclusion Principle**.
+Αυτό το μοτίβο ονομάζεται **Αρχή Συμπερίληψης-Εξαίρεσης**.
 
 ---
 
-## 4. De Morgan's Laws
+## 4. Νόμοι του De Morgan
 
-De Morgan's Laws describe the complement of a union or intersection. They are one of the most tested identities in probability exams.
+Οι νόμοι του De Morgan περιγράφουν το συμπλήρωμα μιας ένωσης ή τομής. Είναι μια από τις πιο δοκιμασμένες ταυτότητες σε εξετάσεις πιθανοτήτων.
 
-**First Law:**
+**Πρώτος νόμος:**
 
 $$\boxed{(A \cup B)' = A' \cap B'}$$
 
-In probability:
+Κατά πάσα πιθανότητα:
 
 $$P((A \cup B)') = P(A' \cap B')$$
 
-Reading: "NOT (A or B)" is the same as "(NOT A) AND (NOT B)". Neither event occurs.
+Διαβάζοντας: "ΟΧΙ (Α ή Β)" είναι το ίδιο με το "(ΟΧΙ Α) ΚΑΙ (ΟΧΙ Β)". Κανένα συμβάν δεν συμβαίνει.
 
-**Second Law:**
+** Δεύτερος Νόμος:**
 
 $$\boxed{(A \cap B)' = A' \cup B'}$$
 
-In probability:
+Κατά πάσα πιθανότητα:
 
 $$P((A \cap B)') = P(A' \cup B')$$
 
-Reading: "NOT (A and B)" is the same as "(NOT A) OR (NOT B)". At least one event fails to occur.
+Διαβάζοντας: "ΟΧΙ (Α και Β)" είναι το ίδιο με το "(ΟΧΙ Α) Ή (ΟΧΙ Β)". Τουλάχιστον ένα συμβάν αποτυγχάνει να συμβεί.
 
-**Intuition:** De Morgan's Laws "push the complement inside" while swapping the operator between $\cup$ and $\cap$.
+**Διαίσθηση:** Οι νόμοι του De Morgan "σπρώχνουν το συμπλήρωμα προς τα μέσα" ενώ ανταλλάσσουν τον τελεστή μεταξύ $\cup$ και $\cap$.
 
-| Operation | After applying De Morgan | Operator swap |
+| Λειτουργία | Μετά την εφαρμογή του De Morgan | Ανταλλαγή χειριστή |
 | :--- | :--- | :--- |
 | $(A \cup B)'$ | $A' \cap B'$ | $\cup \to \cap$ |
 | $(A \cap B)'$ | $A' \cup B'$ | $\cap \to \cup$ |
 
 ---
 
-## 5. Computing $P(A' \cap B')$ and $P(A' \cup B')$
+## 5. Υπολογισμός $P(A' \cap B')$ και $P(A' \cup B')$
 
-These are the two most common forms asked in problems:
+Αυτές είναι οι δύο πιο συνηθισμένες μορφές που τίθενται σε προβλήματα:
 
-**Computing "neither" $P(A' \cap B')$:**
+**Υπολογισμός "ούτε" $P(A' \cap B')$:**
 
-Apply De Morgan's First Law, then use the complement rule:
+Εφαρμόστε τον Πρώτο Νόμο του De Morgan και, στη συνέχεια, χρησιμοποιήστε τον κανόνα του συμπληρώματος:
 
 $$P(A' \cap B') = P((A \cup B)') = 1 - P(A \cup B)$$
 
-**Computing "not both" $P(A' \cup B')$:**
+**Υπολογισμός "όχι και των δύο" $P(A' \cup B')$:**
 
-Apply De Morgan's Second Law, then use the complement rule:
+Εφαρμόστε τον δεύτερο νόμο του De Morgan και, στη συνέχεια, χρησιμοποιήστε τον κανόνα του συμπληρώματος:
 
 $$P(A' \cup B') = P((A \cap B)') = 1 - P(A \cap B)$$
 
 ---
 
-## 6. Solved Exercises
+## 6. Λυμένες Ασκήσεις
 
-### Exercise 1: Direct Application of Addition Rule
+### Άσκηση 1: Άμεση Εφαρμογή Κανόνας Πρόσθεσης
 
-**Problem:** $P(A) = 0.6$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Find $P(A \cup B)$.
+**Πρόβλημα:** $P(A) = 0.6$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Βρείτε $P(A \cup B)$.
 
-**Solution:**
+**Λύση:**
 
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
@@ -591,13 +579,13 @@ $$P(A \cup B) = 0.6 + 0.4 - 0.2 = 0.8$$
 
 ---
 
-### Exercise 2: Finding $P(A \cap B)$ from the Addition Rule
+### Άσκηση 2: Εύρεση $P(A \cap B)$ από τον κανόνα πρόσθεσης
 
-**Problem:** $P(A) = 0.5$, $P(B) = 0.45$, $P(A \cup B) = 0.7$. Find $P(A \cap B)$.
+**Πρόβλημα:** $P(A) = 0.5$, $P(B) = 0.45$, $P(A \cup B) = 0.7$. Βρείτε $P(A \cap B)$.
 
-**Solution:**
+**Λύση:**
 
-Rearrange the addition rule to solve for the intersection:
+Αναδιάταξη του κανόνα πρόσθεσης προς επίλυση για την τομή:
 
 $$P(A \cap B) = P(A) + P(B) - P(A \cup B)$$
 
@@ -605,85 +593,83 @@ $$P(A \cap B) = 0.5 + 0.45 - 0.7 = 0.25$$
 
 ---
 
-### Exercise 3: Applying De Morgan's First Law
+### Άσκηση 3: Εφαρμογή του Πρώτου Νόμου του De Morgan
 
-**Problem:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Find $P(A' \cap B')$.
+**Πρόβλημα:** $P(A) = 0.5$, $P(B) = 0.4$, $P(A \cap B) = 0.2$. Βρείτε $P(A' \cap B')$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Apply De Morgan's First Law:
+**Βήμα 1:** Εφαρμόστε τον Πρώτο Νόμο του De Morgan:
 
 $$P(A' \cap B') = P((A \cup B)')$$
 
-**Step 2:** Compute $P(A \cup B)$ using the addition rule:
+**Βήμα 2:** Υπολογίστε $P(A \cup B)$ χρησιμοποιώντας τον κανόνα πρόσθεσης:
 
 $$P(A \cup B) = 0.5 + 0.4 - 0.2 = 0.7$$
 
-**Step 3:** Apply the complement rule:
+**Βήμα 3:** Εφαρμόστε τον κανόνα συμπλήρωσης:
 
 $$P((A \cup B)') = 1 - 0.7 = 0.3$$
 
-Therefore $P(A' \cap B') = 0.3$.
+Επομένως $P(A' \cap B') = 0.3$.
 
 ---
 
-### Exercise 4: Applying De Morgan's Second Law
+### Άσκηση 4: Εφαρμογή του δεύτερου νόμου του De Morgan
 
-**Problem:** Using the same values as Exercise 3, find $P(A' \cup B')$.
+**Πρόβλημα:** Χρησιμοποιώντας τις ίδιες τιμές με την Άσκηση 3, βρείτε $P(A' \cup B')$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Apply De Morgan's Second Law:
+**Βήμα 1:** Εφαρμογή του δεύτερου νόμου του De Morgan:
 
 $$P(A' \cup B') = P((A \cap B)')$$
 
-**Step 2:** Apply the complement rule:
+**Βήμα 2:** Εφαρμόστε τον κανόνα συμπλήρωσης:
 
 $$P((A \cap B)') = 1 - P(A \cap B) = 1 - 0.2 = 0.8$$
 
-Therefore $P(A' \cup B') = 0.8$.
+Επομένως $P(A' \cup B') = 0.8$.
 
 ---
 
-### Exercise 5: Mutually Exclusive Events
+### Άσκηση 5: Αμοιβαία Αποκλειστικά Γεγονότα**Πρόβλημα:** Δύο συμβάντα $A$ και $B$ αποκλείονται αμοιβαία. $P(A) = 0.35$, $P(B) = 0.25$. Βρείτε: (α) $P(A \cup B)$, (β) $P(A' \cap B')$.
 
-**Problem:** Two events $A$ and $B$ are mutually exclusive. $P(A) = 0.35$, $P(B) = 0.25$. Find: (a) $P(A \cup B)$, (b) $P(A' \cap B')$.
+**Λύση:**
 
-**Solution:**
+Από $A \cap B = \emptyset$, έχουμε $P(A \cap B) = 0$.
 
-Since $A \cap B = \emptyset$, we have $P(A \cap B) = 0$.
+(α) $P(A \cup B) = P(A) + P(B) = 0.35 + 0.25 = 0.60$
 
-(a) $P(A \cup B) = P(A) + P(B) = 0.35 + 0.25 = 0.60$
-
-(b) $P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.60 = 0.40$
+(β) $P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.60 = 0.40$
 
 ---
 
-### Exercise 6: Checking Axiom Compliance
+### Άσκηση 6: Έλεγχος Συμμόρφωσης με το Αξίωμα
 
-**Problem:** A student claims: $P(A) = 0.7$, $P(B) = 0.6$, $P(A \cup B) = 0.8$. Is this consistent with the probability axioms?
+**Πρόβλημα:** Ένας μαθητής ισχυρίζεται: $P(A) = 0.7$, $P(B) = 0.6$, $P(A \cup B) = 0.8$. Είναι αυτό συνεπές με τα αξιώματα πιθανοτήτων;
 
-**Solution:**
+**Λύση:**
 
-Compute $P(A \cap B)$ from the addition rule:
+Υπολογίστε $P(A \cap B)$ από τον κανόνα πρόσθεσης:
 
 $$P(A \cap B) = 0.7 + 0.6 - 0.8 = 0.5$$
 
-**Check 1:** Is $P(A \cap B) \geq 0$? Yes, $0.5 \geq 0$.
+**Έλεγχος 1:** Είναι $P(A \cap B) \geq 0$; Ναι, $0.5 \geq 0$.
 
-**Check 2:** Is $P(A \cap B) \leq P(A)$ and $P(A \cap B) \leq P(B)$? Yes, $0.5 \leq 0.7$ and $0.5 \leq 0.6$.
+**Έλεγχος 2:** Είναι $P(A \cap B) \leq P(A)$ και $P(A \cap B) \leq P(B)$; Ναι, $0.5 \leq 0.7$ και $0.5 \leq 0.6$.
 
-**Check 3:** Is $P(A \cup B) \leq 1$? Yes, $0.8 \leq 1$.
+**Έλεγχος 3:** Είναι $P(A \cup B) \leq 1$; Ναι, $0.8 \leq 1$.
 
-All axiom requirements are satisfied. The assignment is **consistent**.
+Όλες οι απαιτήσεις αξιώματος ικανοποιούνται. Η εργασία είναι **συνεπής**.
 
 ---
 
-### Exercise 7: Three-Event Inclusion-Exclusion
+### Άσκηση 7: Ένταξη-Αποκλεισμός Τριών Συμβάντων
 
-**Problem:** $P(A) = 0.4$, $P(B) = 0.3$, $P(C) = 0.5$, $P(A \cap B) = 0.1$, $P(A \cap C) = 0.15$, $P(B \cap C) = 0.1$, $P(A \cap B \cap C) = 0.05$. Find $P(A \cup B \cup C)$.
+**Πρόβλημα:** $P(A) = 0.4$, $P(B) = 0.3$, $P(C) = 0.5$, $P(A \cap B) = 0.1$, $P(A \cap C) = 0.15$, $P(B \cap C) = 0.1$, $P(A \cap B \cap C) = 0.05$. Βρείτε $P(A \cup B \cup C)$.
 
-**Solution:**
+**Λύση:**
 
 $$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$$
 
@@ -693,280 +679,277 @@ $$= 1.2 - 0.35 + 0.05 = 0.90$$
 
 ---
 
-### Exercise 8: Full Multi-Step Problem
+### Άσκηση 8: Πλήρες πρόβλημα πολλαπλών βημάτων
 
-**Problem:** In a group of 100 people, 60 own a car ($C$), 45 own a motorbike ($M$), and 20 own neither. Find: (a) the number who own both, (b) $P(C' \cap M')$, (c) $P(C' \cup M')$.
+**Πρόβλημα:** Σε μια ομάδα 100 ατόμων, 60 είναι κάτοχοι αυτοκινήτου ($C$), 45 κάτοχοι μοτοσικλέτας ($M$) και 20 δεν έχουν κανένα από τα δύο. Βρείτε: (α) τον αριθμό στον οποίο ανήκουν και τα δύο, (β) $P(C' \cap M')$, (γ) $P(C' \cup M')$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Number owning at least one = $100 - 20 = 80$, so $P(C \cup M) = 0.80$.
+**Βήμα 1:** Αριθμός που κατέχει τουλάχιστον έναν = $100 - 20 = 80$, άρα $P(C \cup M) = 0.80$.
 
-**Step 2:** Apply the addition rule to find $P(C \cap M)$:
+**Βήμα 2:** Εφαρμόστε τον κανόνα πρόσθεσης για να βρείτε $P(C \cap M)$:
 
 $$P(C \cap M) = P(C) + P(M) - P(C \cup M)$$
 
 $$P(C \cap M) = 0.60 + 0.45 - 0.80 = 0.25$$
 
-Number owning both = $0.25 \times 100 = \mathbf{25}$.
+Αριθμός που κατέχει και τα δύο = $0.25 \times 100 = \mathbf{25}$.
 
-**Step 3:** (b) "Neither" using De Morgan's First Law:
+**Βήμα 3:** (β) "Ούτε" χρησιμοποιώντας τον Πρώτο Νόμο του De Morgan:
 
 $$P(C' \cap M') = 1 - P(C \cup M) = 1 - 0.80 = 0.20$$
 
-**Step 4:** (c) "Not both" using De Morgan's Second Law:
+**Βήμα 4:** (γ) "Όχι και τα δύο" χρησιμοποιώντας τον Δεύτερο Νόμο του De Morgan:
 
 $$P(C' \cup M') = 1 - P(C \cap M) = 1 - 0.25 = 0.75$$
 
 ---
 
-## 7. Core Formulas Summary
+## 7. Σύνοψη βασικών τύπων
 
-| Formula | Name | When to Use |
+| Φόρμουλα | Όνομα | Πότε να χρησιμοποιήσετε |
 | :--- | :--- | :--- |
-| $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ | Addition Rule | Finding union of any two events |
-| $P(A') = 1 - P(A)$ | Complement Rule | Finding probability of "not A" |
-| $(A \cup B)' = A' \cap B'$ | De Morgan's First Law | "Neither" problems |
-| $(A \cap B)' = A' \cup B'$ | De Morgan's Second Law | "Not both" problems |
-| $P(A' \cap B') = 1 - P(A \cup B)$ | Neither (derived) | Quickest path to "neither" |
-| $P(A' \cup B') = 1 - P(A \cap B)$ | Not both (derived) | Quickest path to "not both" |
+| $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ | Κανόνας προσθήκης | Εύρεση ένωσης οποιωνδήποτε δύο γεγονότων |
+| $P(A') = 1 - P(A)$ | Συμπληρωματικός κανόνας | Εύρεση πιθανότητας "όχι Α" |
+| $(A \cup B)' = A' \cap B'$ | Ο πρώτος νόμος του De Morgan | Προβλήματα «ούτε» |
+| $(A \cap B)' = A' \cup B'$ | Ο δεύτερος νόμος του De Morgan | Προβλήματα «Όχι και τα δύο» |
+| $P(A' \cap B') = 1 - P(A \cup B)$ | Ούτε (παράγεται) | Ο πιο γρήγορος δρόμος προς το "κανένα" |
+| $P(A' \cup B') = 1 - P(A \cap B)$ | Όχι και τα δύο (προερχόμενα) | Ο πιο γρήγορος δρόμος προς το "όχι και τα δύο" |
 
 ---
 
-## Exam Tip: The De Morgan Shortcut
+## Συμβουλή εξέτασης: Η συντόμευση De Morgan
 
-Whenever you see $P(A' \cap B')$ or $P(A' \cup B')$ in an exam, do not attempt to compute complements directly. Instead, apply De Morgan's Law immediately:
+Κάθε φορά που βλέπετε $P(A' \cap B')$ ή $P(A' \cup B')$ σε μια εξέταση, μην επιχειρήσετε να υπολογίσετε απευθείας συμπληρώματα. Αντίθετα, εφαρμόστε αμέσως τον νόμο του De Morgan:
 
-*   $P(A' \cap B') \xrightarrow{\text{De Morgan}} 1 - P(A \cup B)$: compute the union first, then subtract from 1.
-*   $P(A' \cup B') \xrightarrow{\text{De Morgan}} 1 - P(A \cap B)$: compute the intersection first, then subtract from 1.
+* $P(A' \cap B') \xrightarrow{\text{De Morgan}} 1 - P(A \cup B)$: υπολογίστε πρώτα την ένωση και μετά αφαιρέστε από το 1.
+* $P(A' \cup B') \xrightarrow{\text{De Morgan}} 1 - P(A \cap B)$: υπολογίστε πρώτα την τομή και μετά αφαιρέστε από το 1.
 
-This two-step method is the fastest and most reliable approach and reduces complex complement expressions to standard addition rule problems.
+Αυτή η μέθοδος δύο βημάτων είναι η ταχύτερη και πιο αξιόπιστη προσέγγιση και μειώνει τις σύνθετες εκφράσεις συμπληρώματος σε τυπικά προβλήματα κανόνων προσθήκης.
 
 
-# Phase 2.4: Combinatorics and Counting Methods
+# Φάση 2.4: Συνδυαστική και Μέθοδοι Καταμέτρησης
 
-Combinatorial analysis provides the mathematical techniques for counting the number of elements in a set without listing them individually. In probability theory, when outcomes in a sample space $\Omega$ are equally likely, the probability of an event $A$ is:
+Η συνδυαστική ανάλυση παρέχει τις μαθηματικές τεχνικές για την καταμέτρηση του αριθμού των στοιχείων σε ένα σύνολο χωρίς να τα απαριθμεί μεμονωμένα. Στη θεωρία πιθανοτήτων, όταν τα αποτελέσματα σε ένα χώρο δείγματος $\Omega$ είναι εξίσου πιθανά, η πιθανότητα ενός συμβάντος $A$ είναι:
 
 $$P(A) = \frac{|A|}{|\Omega|} = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}$$
 
-Determining $|A|$ and $|\Omega|$ often requires the counting methods detailed below.
+Ο προσδιορισμός των $|A|$ και $|\Omega|$ απαιτεί συχνά τις μεθόδους μέτρησης που περιγράφονται παρακάτω.
 
 ---
 
-## 1. Fundamental Principles of Counting
+## 1. Θεμελιώδεις Αρχές Καταμέτρησης
 
-### 1.1 The Multiplication Rule (Product Rule)
-If an operation can be performed in $n_1$ ways, and for each of these a second operation can be performed in $n_2$ ways, and for each of these a third operation can be performed in $n_3$ ways, and so on, then the sequence of $k$ operations can be performed in:
+### 1.1 Ο κανόνας πολλαπλασιασμού (Κανόνας προϊόντος)Εάν μια λειτουργία μπορεί να εκτελεστεί με $n_1$ τρόπους και για καθέναν από αυτούς μια δεύτερη λειτουργία μπορεί να εκτελεστεί με $n_2$ τρόπους και για καθένα από αυτούς μια τρίτη λειτουργία μπορεί να εκτελεστεί με $n_3$ τρόπους και ούτω καθεξής, τότε η ακολουθία των πράξεων $k$ μπορεί να εκτελεστεί με:
 
 $$N = n_1 \cdot n_2 \cdot \dots \cdot n_k \text{ ways}$$
 
-### 1.2 The Addition Rule (Sum Rule)
-If an operation can be performed in $n_1$ ways, and a second disjoint operation can be performed in $n_2$ ways, then the total number of ways to perform either the first or the second operation is:
+### 1.2 Ο κανόνας πρόσθεσης (Κανόνας αθροίσματος)
+Εάν μια λειτουργία μπορεί να εκτελεστεί με $n_1$ τρόπους και μια δεύτερη αποσύνδεση με $n_2$ τρόπους, τότε ο συνολικός αριθμός τρόπων εκτέλεσης είτε της πρώτης είτε της δεύτερης πράξης είναι:
 
 $$N = n_1 + n_2 \text{ ways}$$
 
 ---
 
-## 2. Permutations
+## 2. Μεταθέσεις
 
-A permutation is an ordered arrangement of all or part of a set of objects. The order of selection matters.
+Μια μετάθεση είναι μια διατεταγμένη διάταξη του συνόλου ή μέρους ενός συνόλου αντικειμένων. Σημασία έχει η σειρά επιλογής.
 
-### 2.1 Permutations of Distinct Objects
-The number of permutations of $n$ distinct objects taken all at a time is:
+### 2.1 Μεταθέσεις Διακεκριμένων Αντικειμένων
+Ο αριθμός των μεταθέσεων $n$ διακριτών αντικειμένων που λαμβάνονται όλα κάθε φορά είναι:
 
 $$P(n, n) = n!$$
 
-The number of permutations of $n$ distinct objects taken $r$ at a time (where $0 \le r \le n$) is:
+Ο αριθμός των μεταθέσεων $n$ διακριτών αντικειμένων που λαμβάνονται $r$ κάθε φορά (όπου $0 \le r \le n$) είναι:
 
 $$P(n, r) = \frac{n!}{(n-r)!}$$
 
-### 2.2 Permutations with Repetition (Identical Objects)
-The number of distinct permutations of $n$ objects of which $n_1$ are of one type, $n_2$ are of a second type, $\dots$, and $n_k$ are of a $k$-th type (such that $n_1 + n_2 + \dots + n_k = n$) is:
+### 2.2 Μεταθέσεις με επανάληψη (πανομοιότυπα αντικείμενα)
+Ο αριθμός των διακριτών μεταθέσεων των $n$ αντικειμένων από τα οποία $n_1$ είναι ενός τύπου, $n_2$ είναι δεύτερου τύπου, $\dots$ και $n_k$ είναι $n_k$ τύπου __MATHINLINE267_6:
 
 $$P(n; n_1, n_2, \dots, n_k) = \frac{n!}{n_1! \cdot n_2! \dots n_k!}$$
 
 ---
 
-## 3. Combinations
+## 3. Συνδυασμοί
 
-A combination is a selection of all or part of a set of objects without regard to order. The order of selection does not matter.
+Ένας συνδυασμός είναι μια επιλογή του συνόλου ή μέρους ενός συνόλου αντικειμένων χωρίς να λαμβάνεται υπόψη η σειρά. Η σειρά επιλογής δεν έχει σημασία.
 
-### 3.1 Combinations of Distinct Objects (Without Replacement)
-The number of combinations of $n$ distinct objects taken $r$ at a time (where $0 \le r \le n$) is given by the binomial coefficient:
+### 3.1 Συνδυασμοί διακριτών αντικειμένων (χωρίς αντικατάσταση)
+Ο αριθμός των συνδυασμών $n$ διακριτών αντικειμένων που λαμβάνονται $r$ κάθε φορά (όπου $0 \le r \le n$) δίνεται από τον διωνυμικό συντελεστή:
 
 $$C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
 
-### 3.2 Combinations with Replacement
-The number of ways to choose $r$ objects from a set of $n$ distinct objects when repetition is allowed (and order does not matter) is:
+### 3.2 Συνδυασμοί με αντικατάσταση
+Ο αριθμός των τρόπων επιλογής $r$ αντικειμένων από ένα σύνολο $n$ διακριτών αντικειμένων όταν επιτρέπεται η επανάληψη (και η σειρά δεν έχει σημασία) είναι:
 
 $$C^{R}(n, r) = \binom{n + r - 1}{r} = \frac{(n + r - 1)!}{r!(n - 1)!}$$
 
 ---
 
-## 4. Partitions & Multinomial Coefficients
+## 4. Κατατμήσεις & Πολυωνυμικοί Συντελεστές
 
-The number of ways of partitioning a set of $n$ distinct objects into $k$ cells with $r_1$ objects in the first cell, $r_2$ objects in the second cell, and so on, where $r_1 + r_2 + \dots + r_k = n$, is:
+Ο αριθμός των τρόπων χωρισμού ενός συνόλου $n$ διακριτών αντικειμένων σε $k$ κελιά με $r_1$ αντικείμενα στο πρώτο κελί, $r_2$ αντικείμενα στο δεύτερο κελί και ούτω καθεξής, όπου $r_1 + r_2 + \dots + r_k = n$, είναι:
 
 $$\binom{n}{r_1, r_2, \dots, r_k} = \frac{n!}{r_1! \cdot r_2! \dots r_k!}$$
 
 ---
 
-## 5. Solved Exercises (10 Examples)
+## 5. Λυμένες Ασκήσεις (10 Παραδείγματα)
 
-### Exercise 1: License Plate Codes (Multiplication Rule)
-**Problem:** A license plate contains 3 letters followed by 3 digits. Letters cannot be repeated, but digits can. How many distinct license plates can be formed if there are 26 letters in the alphabet?
+### Άσκηση 1: Κωδικοί πινακίδων κυκλοφορίας (Κανόνας πολλαπλασιασμού)
+**Πρόβλημα:** Μια πινακίδα περιέχει 3 γράμματα ακολουθούμενα από 3 ψηφία. Τα γράμματα δεν μπορούν να επαναληφθούν, αλλά τα ψηφία μπορούν. Πόσες διακριτές πινακίδες μπορούν να σχηματιστούν αν υπάρχουν 26 γράμματα στο αλφάβητο;
 
-**Solution:**
-- **Step 1: Define operations.**
-  We have 6 slots to fill. Let $n_i$ represent the number of choices for slot $i$.
-- **Step 2: WIP State.**
-  For letters (no repetition):
-  - Slot 1: 26 choices
-  - Slot 2: 25 choices
-  - Slot 3: 24 choices
-  For digits (repetition allowed):
-  - Slot 4: 10 choices (0-9)
-  - Slot 5: 10 choices
-  - Slot 6: ? choices
-- **Step 3: Final Calculation.**
-  - Slot 6 has 10 choices.
-  - Total plates $= 26 \cdot 25 \cdot 24 \cdot 10 \cdot 10 \cdot 10 = 15,600 \cdot 1,000 = 15,600,000$.
-
----
-
-### Exercise 2: Selecting a Committee (Combinations)
-**Problem:** From a group of 8 men and 6 women, a committee of 5 people must be formed. How many committees are possible if it must contain exactly 3 men and 2 women?
-
-**Solution:**
-- **Step 1: Split the selections.**
-  We select men and women independently, then multiply the results.
-- **Step 2: WIP State.**
-  - Selection of men: $\binom{8}{3} = \frac{8!}{3! \cdot 5!} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} = 56$.
-  - Selection of women: $\binom{6}{2} = \frac{6!}{2! \cdot 4!} = \frac{6 \cdot 5}{?} = 15$.
-- **Step 3: Final Calculation.**
-  Total committees $= 56 \cdot 15 = 840$.
+**Λύση:**
+- **Βήμα 1: Ορισμός λειτουργιών.**
+  Έχουμε 6 θέσεις να γεμίσουμε. Έστω $n_i$ αντιπροσωπεύει τον αριθμό των επιλογών για την υποδοχή $i$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Για γράμματα (χωρίς επανάληψη):
+  - Υποδοχή 1: 26 επιλογές
+  - Υποδοχή 2: 25 επιλογές
+  - Υποδοχή 3: 24 επιλογές
+  Για ψηφία (επιτρέπεται η επανάληψη):
+  - Θέση 4: 10 επιλογές (0-9)
+  - Υποδοχή 5: 10 επιλογές
+  - Υποδοχή 6: ? επιλογές
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Η υποδοχή 6 έχει 10 επιλογές.
+  - Σύνολο πινακίδων $= 26 \cdot 25 \cdot 24 \cdot 10 \cdot 10 \cdot 10 = 15,600 \cdot 1,000 = 15,600,000$.
 
 ---
 
-### Exercise 3: Arranging Books on a Shelf (Permutations)
-**Problem:** There are 4 Math books, 3 Physics books, and 2 Chemistry books. In how many ways can they be arranged on a shelf if books of the same subject must be kept together?
+### Άσκηση 2: Επιλογή Επιτροπής (Συνδυασμοί)
+**Πρόβλημα:** Από μια ομάδα 8 ανδρών και 6 γυναικών πρέπει να σχηματιστεί μια επιτροπή 5 ατόμων. Πόσες επιτροπές είναι δυνατές εάν πρέπει να περιλαμβάνει ακριβώς 3 άνδρες και 2 γυναίκες;
 
-**Solution:**
-- **Step 1: Treat groups as units.**
-  We arrange the 3 subjects (Math, Physics, Chemistry) first: $3!$ ways.
-- **Step 2: WIP State.**
-  Within each subject group:
-  - Math books can be arranged in $4!$ ways.
-  - Physics books can be arranged in $3!$ ways.
-  - Chemistry books can be arranged in ? ways.
-- **Step 3: Final Calculation.**
-  - Chemistry arrangements $= 2! = 2$ ways.
-  - Total arrangements $= 3! \cdot (4! \cdot 3! \cdot 2!) = 6 \cdot (24 \cdot 6 \cdot 2) = 6 \cdot 288 = 1728$.
+**Λύση:**
+- **Βήμα 1: Διαχωρίστε τις επιλογές.**
+  Επιλέγουμε άνδρες και γυναίκες ανεξάρτητα και στη συνέχεια πολλαπλασιάζουμε τα αποτελέσματα.
+- **Βήμα 2: Κατάσταση WIP.**
+  - Επιλογή ανδρών: $\binom{8}{3} = \frac{8!}{3! \cdot 5!} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} = 56$.- Επιλογή γυναικών: $\binom{6}{2} = \frac{6!}{2! \cdot 4!} = \frac{6 \cdot 5}{?} = 15$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Σύνολο επιτροπών $= 56 \cdot 15 = 840$.
 
 ---
 
-### Exercise 4: Distributing Toys (Multinomial Coefficient)
-**Problem:** In how many ways can 10 distinct toys be distributed among 3 children if the eldest receives 5 toys, the middle child receives 3 toys, and the youngest receives 2 toys?
+### Άσκηση 3: Τακτοποίηση βιβλίων σε ράφι (μεταθέσεις)
+**Πρόβλημα:** Υπάρχουν 4 βιβλία μαθηματικών, 3 βιβλία φυσικής και 2 βιβλία χημείας. Με πόσους τρόπους μπορούν να τακτοποιηθούν σε ένα ράφι εάν πρέπει να φυλάσσονται μαζί βιβλία του ίδιου θέματος;
 
-**Solution:**
-- **Step 1: Set up the partition.**
-  This is a partition of $n=10$ objects into cells of sizes $r_1=5, r_2=3, r_3=2$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Αντιμετωπίστε τις ομάδες ως μονάδες.**
+  Τακτοποιούμε πρώτα τα 3 μαθήματα (Μαθηματικά, Φυσική, Χημεία): $3!$ τρόπους.
+- **Βήμα 2: Κατάσταση WIP.**
+  Σε κάθε θεματική ομάδα:
+  - Τα βιβλία μαθηματικών μπορούν να τακτοποιηθούν με $4!$ τρόπους.
+  - Τα βιβλία φυσικής μπορούν να τακτοποιηθούν με $3!$ τρόπους.
+  - Τα βιβλία χημείας μπορούν να τακτοποιηθούν σε ; τρόπους.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Χημικές ρυθμίσεις $= 2! = 2$ τρόπους.
+  - Συνολικές ρυθμίσεις $= 3! \cdot (4! \cdot 3! \cdot 2!) = 6 \cdot (24 \cdot 6 \cdot 2) = 6 \cdot 288 = 1728$.
+
+---
+
+### Άσκηση 4: Διανομή παιχνιδιών (Πολυωνυμικός Συντελεστής)
+**Πρόβλημα:** Με πόσους τρόπους μπορούν να διανεμηθούν 10 διαφορετικά παιχνίδια σε 3 παιδιά εάν το μεγαλύτερο λαμβάνει 5 παιχνίδια, το μεσαίο παιδί λάβει 3 παιχνίδια και το μικρότερο λαμβάνει 2 παιχνίδια;
+
+**Λύση:**
+- **Βήμα 1: Ρύθμιση του διαμερίσματος.**
+  Αυτό είναι ένα διαμέρισμα $n=10$ αντικειμένων σε κελιά μεγεθών $r_1=5, r_2=3, r_3=2$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$\binom{10}{5, 3, 2} = \frac{10!}{5! \cdot 3! \cdot 2!} = \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot 5!}{5! \cdot (3 \cdot 2 \cdot 1) \cdot (2 \cdot 1)} = \frac{10 \cdot 9 \cdot 8 \cdot 7 \cdot 6}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = 6 \cdot 2 = 12$$
   $$\text{Numerator} = 30240$$
   $$\text{Total ways} = \frac{30240}{12} = 2520 \text{ ways}.$$
 
 ---
 
-### Exercise 5: Word Permutations with Repetition
-**Problem:** How many distinct words (including nonsense words) can be formed by rearranging the letters of the word "PROBABILITY"?
+### Άσκηση 5: Μεταθέσεις λέξεων με επανάληψη
+**Πρόβλημα:** Πόσες διακριτές λέξεις (συμπεριλαμβανομένων των ανοησίων λέξεων) μπορούν να σχηματιστούν με την αναδιάταξη των γραμμάτων της λέξης "ΠΙΘΑΝΟΤΗΤΑ";
 
-**Solution:**
-- **Step 1: Count letter frequencies.**
-  Total letters $n = 11$.
-  Frequencies: P (1), R (1), O (1), B (2), A (1), I (2), L (1), T (1), Y (1).
-- **Step 2: WIP State.**
-  We apply the permutation of identical objects formula:
+**Λύση:**
+- **Βήμα 1: Μετρήστε τις συχνότητες των γραμμάτων.**
+  Σύνολο γραμμάτων $n = 11$.
+  Συχνότητες: P (1), R (1), O (1), B (2), A (1), I (2), L (1), T (1), Y (1).
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόζουμε τον τύπο μετάθεσης πανομοιότυπων αντικειμένων:
   $$\text{Total permutations} = \frac{11!}{1! \cdot 1! \cdot 1! \cdot 2! \cdot 1! \cdot 2! \cdot 1! \cdot 1! \cdot 1!} = \frac{11!}{2! \cdot 2!} = \frac{39,916,800}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Total permutations} = \frac{39,916,800}{4} = 9,979,200 \text{ words}.$$
 
 ---
 
-### Exercise 6: Seating Arrangements at a Round Table
-**Problem:** In how many ways can 6 people be seated at a round table? (Note: Two arrangements are considered identical if each person has the same left and right neighbors).
+### Άσκηση 6: Διατάξεις καθισμάτων σε στρογγυλό τραπέζι
+**Πρόβλημα:** Με πόσους τρόπους μπορούν να καθίσουν 6 άτομα σε ένα στρογγυλό τραπέζι; (Σημείωση: Δύο ρυθμίσεις θεωρούνται ίδιες εάν κάθε άτομο έχει τον ίδιο αριστερό και δεξιό γείτονα).
 
-**Solution:**
-- **Step 1: Identify circular permutation.**
-  For circular permutations of $n$ distinct objects, we fix one person's position to eliminate rotational equivalence, leaving $(n-1)!$ arrangements.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την κυκλική μετάθεση.**
+  Για κυκλικές μεταθέσεις $n$ διακριτών αντικειμένων, καθορίζουμε τη θέση ενός ατόμου για να εξαλείψουμε την περιστροφική ισοδυναμία, αφήνοντας τις ρυθμίσεις $(n-1)!$.
+- **Βήμα 2: Κατάσταση WIP.**
   $$\text{Arrangements} = (6 - 1)! = ?!$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 = 120 \text{ ways}.$$
 
 ---
 
-### Exercise 7: Choosing Donuts (Combinations with Replacement)
-**Problem:** A bakery sells 4 varieties of donuts. In how many ways can a customer select 6 donuts?
+### Άσκηση 7: Επιλογή ντόνατς (συνδυασμοί με αντικατάσταση)
+**Πρόβλημα:** Ένας φούρνος πουλάει 4 ποικιλίες ντόνατς. Με πόσους τρόπους μπορεί ένας πελάτης να επιλέξει 6 ντόνατς;
 
-**Solution:**
-- **Step 1: Identify model parameters.**
-  We are selecting $r = 6$ donuts from $n = 4$ types, where order does not matter and repetition is allowed.
-- **Step 2: WIP State.**
-  Use the combination with replacement formula:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τις παραμέτρους του μοντέλου.**
+  Επιλέγουμε $r = 6$ ντόνατς από $n = 4$ τύπους, όπου η σειρά δεν έχει σημασία και επιτρέπεται η επανάληψη.
+- **Βήμα 2: Κατάσταση WIP.**
+  Χρησιμοποιήστε τον συνδυασμό με τον τύπο αντικατάστασης:
   $$\binom{n + r - 1}{r} = \binom{4 + 6 - 1}{6} = \binom{9}{6} = \frac{9!}{6! \cdot 3!} = \frac{9 \cdot 8 \cdot 7}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$\text{Denominator} = 3 \cdot 2 \cdot 1 = 6$$
   $$\text{Total ways} = \frac{504}{6} = 84 \text{ ways}.$$
 
 ---
 
-### Exercise 8: Pathfinding on a Grid
-**Problem:** A grid has coordinates from $(0,0)$ to $(5,4)$. A path moves only step-by-step to the right or up. How many paths exist from $(0,0)$ to $(5,4)$?
+### Άσκηση 8: Εύρεση μονοπατιού σε πλέγμα
+**Πρόβλημα:** Ένα πλέγμα έχει συντεταγμένες από $(0,0)$ έως $(5,4)$. Ένα μονοπάτι κινείται μόνο βήμα-βήμα προς τα δεξιά ή προς τα πάνω. Πόσα μονοπάτια υπάρχουν από $(0,0)$ έως $(5,4)$;
 
-**Solution:**
-- **Step 1: Translate to symbols.**
-  Any path requires exactly 5 Right (R) moves and 4 Up (U) moves, totaling $n = 9$ moves.
-- **Step 2: WIP State.**
-  We need to choose which 5 of the 9 moves are R (the rest will be U):
+**Λύση:**
+- **Βήμα 1: Μετάφραση σε σύμβολα.**
+  Οποιοδήποτε μονοπάτι απαιτεί ακριβώς 5 κινήσεις προς τα δεξιά (R) και 4 προς τα επάνω (U) κινήσεις, συνολικού ύψους $n = 9$ κινήσεων.
+- **Βήμα 2: Κατάσταση WIP.**
+  Πρέπει να επιλέξουμε ποιες 5 από τις 9 κινήσεις είναι R (οι υπόλοιπες θα είναι U):
   $$\text{Paths} = \binom{9}{5} = \frac{9!}{5! \cdot 4!} = \frac{9 \cdot 8 \cdot 7 \cdot 6}{?}$$
-- **Step 3: Final Calculation.**
-  $$\text{Denominator} = 4 \cdot 3 \cdot 2 \cdot 1 = 24$$
+- **Βήμα 3: Τελικός Υπολογισμός.**$$\text{Denominator} = 4 \cdot 3 \cdot 2 \cdot 1 = 24$$
   $$\text{Total paths} = \frac{3024}{24} = 126 \text{ paths}.$$
 
 ---
 
-### Exercise 9: Sum of Dice (Combinatorics for Probability)
-**Problem:** Three fair six-sided dice are rolled. What is the probability that the sum of the numbers shown is exactly 5?
+### Άσκηση 9: Άθροισμα ζαριών (Συνδυαστική για πιθανότητες)
+**Πρόβλημα:** Τρία ζάρια έξι όψεων ρίχνονται. Ποια είναι η πιθανότητα το άθροισμα των αριθμών που εμφανίζονται να είναι ακριβώς 5;
 
-**Solution:**
-- **Step 1: Calculate the size of the sample space $|\Omega|$.**
-  Each die has 6 outcomes. For 3 dice: $|\Omega| = 6^3 = 216$.
-- **Step 2: WIP State.**
-  We count the combinations of $(x_1, x_2, x_3)$ such that $x_1 + x_2 + x_3 = 5$, where $1 \le x_i \le 6$.
-  Possible partitions of 5 into 3 positive integers:
-  - $\{3, 1, 1\}$ (order matters): can occur as $(3,1,1)$, $(1,3,1)$, or $(1,1,3)$ $\Rightarrow$ 3 ways.
-  - $\{2, 2, 1\}$ (order matters): can occur as $(2,2,1)$, $(2,1,2)$, or $(1,2,2)$ $\Rightarrow$ ? ways.
-- **Step 3: Final Calculation.**
-  - There are 3 ways for $\{2, 2, 1\}$.
-  - Total favorable outcomes $|A| = 3 + 3 = 6$.
-  - Probability $= \frac{|A|}{|\Omega|} = \frac{6}{216} = \frac{1}{36} \approx 0.0278$.
+**Λύση:**
+- **Βήμα 1: Υπολογίστε το μέγεθος του δείγματος χώρου $|\Omega|$.**
+  Κάθε ζάρι έχει 6 αποτελέσματα. Για 3 ζάρια: $|\Omega| = 6^3 = 216$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Μετράμε τους συνδυασμούς του $(x_1, x_2, x_3)$ έτσι ώστε $x_1 + x_2 + x_3 = 5$, όπου $1 \le x_i \le 6$.
+  Πιθανές κατατμήσεις 5 σε 3 θετικούς ακέραιους:
+  - $\{3, 1, 1\}$ (η παραγγελία έχει σημασία): μπορεί να εμφανιστεί ως $(3,1,1)$, $(1,3,1)$ ή $(1,1,3)$ $\Rightarrow$ με 3 τρόπους.
+  - $\{2, 2, 1\}$ (η παραγγελία έχει σημασία): μπορεί να εμφανιστεί ως $(2,2,1)$, $(2,1,2)$ ή $(1,2,2)$ $\Rightarrow$ ; τρόπους.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Υπάρχουν 3 τρόποι για $\{2, 2, 1\}$.
+  - Συνολικά ευνοϊκά αποτελέσματα $|A| = 3 + 3 = 6$.
+  - Πιθανότητα $= \frac{|A|}{|\Omega|} = \frac{6}{216} = \frac{1}{36} \approx 0.0278$.
 
 ---
 
-### Exercise 10: Standard Poker Hands (Combination)
-**Problem:** A standard poker deck has 52 cards. What is the probability of being dealt a "Four of a Kind" (4 cards of one rank, and 1 card of another rank) in a 5-card hand?
+### Άσκηση 10: Τυπικά χέρια πόκερ (Συνδυασμός)
+**Πρόβλημα:** Μια τυπική τράπουλα πόκερ έχει 52 φύλλα. Ποια είναι η πιθανότητα να σας μοιραστούν ένα "Four of a Kind" (4 φύλλα μιας κατάταξης και 1 φύλλο μιας άλλης κατάταξης) σε ένα χέρι 5 φύλλων;
 
-**Solution:**
-- **Step 1: Compute total hands.**
+**Λύση:**
+- **Βήμα 1: Υπολογίστε συνολικά χέρια.**
   $$|\Omega| = \binom{52}{5} = 2,598,960$$
-- **Step 2: WIP State.**
-  To get a Four of a Kind:
-  1. Choose the rank of the four cards: $\binom{13}{1} = 13$ ways.
-  2. Select all 4 cards of that rank: $\binom{4}{4} = 1$ way.
-  3. Choose the remaining card from the remaining cards: $\binom{48}{1} = ?$ ways.
-- **Step 3: Final Calculation.**
-  - $\binom{48}{1} = 48$ ways.
-  - Total favorable hands $|A| = 13 \cdot 1 \cdot 48 = 624$.
-  - Probability $= \frac{624}{2,598,960} \approx 0.00024$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Για να αποκτήσετε ένα Four of a Kind:
+  1. Επιλέξτε την κατάταξη των τεσσάρων καρτών: $\binom{13}{1} = 13$ τρόπους.
+  2. Επιλέξτε και τα 4 φύλλα αυτής της κατάταξης: $\binom{4}{4} = 1$ τρόπο.
+  3. Επιλέξτε την κάρτα που απομένει από τις υπόλοιπες κάρτες: $\binom{48}{1} = ?$ τρόπους.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - $\binom{48}{1} = 48$ τρόπους.
+  - Σύνολο ευνοϊκών χεριών $|A| = 13 \cdot 1 \cdot 48 = 624$.
+  - Πιθανότητα $= \frac{624}{2,598,960} \approx 0.00024$.

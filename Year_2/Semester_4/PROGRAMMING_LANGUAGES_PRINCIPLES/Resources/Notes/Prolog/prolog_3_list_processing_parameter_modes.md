@@ -1,33 +1,33 @@
-# Prolog — List Processing and Parameter Modes
+# Prolog — Επεξεργασία Λιστών και Λειτουργίες Παραμέτρων
 
-Prolog lists are homogeneous recursive structures built from the cons functor `[Head|Tail]` with base case `[]`. Unlike functions in imperative languages, Prolog predicates are **relation-oriented**: the same predicate can run in multiple **modes** depending on which arguments are bound (input) and which are free (output). This file covers `append/3`, structural recursion, list reversal, and multidirectional execution.
+Οι λίστες στην Prolog είναι ομοιογενείς αναδρομικές δομές κατασκευασμένες από τον συναρτήτη cons `[Head|Tail]` με βασική περίπτωση την άδεια λίστα `[]`. Σε αντίθεση με τις συναρτήσεις στις προστακτικές γλώσσες, τα κατηγορήματα της Prolog **προσανατολίζονται στις σχέσεις (relation-oriented)**: το ίδιο κατηγόρημα μπορεί να εκτελεστεί σε πολλαπλές **λειτουργίες (modes)** ανάλογα με το ποια ορίσματα είναι συνδεδεμένα (είσοδος) και ποια είναι ελεύθερα (έξοδος). Αυτό το αρχείο καλύπτει το κατηγόρημα `append/3`, τη δομική αναδρομή, την αντιστροφή λιστών και τη πολυκατευθυντική εκτέλεση.
 
-*Prerequisite: `prolog_2_execution_mechanisms.md` — unification, backtracking, recursion.*
+*Προαπαιτούμενο: `prolog_2_execution_mechanisms.md` — ενοποίηση, οπισθοδρόμηση, αναδρομή.*
 
 ---
 
-## 1. Prolog Lists
+## 1. Λίστες στην Prolog
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-A Prolog **list** is either the empty list `[]` or a cons cell `[H|T]` where `H` is the head (element) and `T` is the tail (another list). The shorthand `[a, b, c]` expands to `[a|[b|[c|[]]]]`.
+Μια **λίστα (list)** στην Prolog είναι είτε η άδεια λίστα `[]` είτε ένα κελί cons `[H|T]` όπου το `H` είναι η κεφαλή (στοιχείο) και το `T` είναι η ουρά (μια άλλη λίστα). Η συντομογραφία `[a, b, c]` αναπτύσσεται σε `[a|[b|[c|[]]]]`.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
 ```
 <list>       ::= [] | [ <term> | <list> ] | [ <term>, ..., <term> ]
 <list_pattern> ::= [] | [ <var> | <var> ] | [ <term>, ..., <term> ]
 ```
 
-### 1.3 Behavioral Description
+### 1.3 Περιγραφή Συμπεριφοράς
 
-| Notation | Internal Form | Elements |
+| Συμβολισμός | Εσωτερική Μορφή | Στοιχεία |
 | :--- | :--- | :--- |
-| `[]` | Empty list | 0 |
+| `[]` | Άδεια λίστα | 0 |
 | `[a]` | `[a|[]]` | 1 |
 | `[a, b, c]` | `[a|[b|[c|[]]]]` | 3 |
-| `[H|T]` | Cons decomposition | Head + tail |
-| `[X, Y|Rest]` | Partial decomposition | First two + remainder |
+| `[H|T]` | Αποσύνθεση Cons | Κεφαλή + ουρά |
+| `[X, Y|Rest]` | Μερική αποσύνθεση | Πρώτα δύο + υπόλοιπο |
 
 ```prolog
 ?- [1, 2, 3] = [H|T], T = [T1|T2].
@@ -42,85 +42,85 @@ T2 = [3].
 
 ---
 
-## 2. Parameter Modes
+## 2. Λειτουργίες Παραμέτρων (Parameter Modes)
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-Each argument of a predicate has a **mode** at call time:
+Κάθε όρισμα ενός κατηγορήματος έχει μια **λειτουργία (mode)** κατά τον χρόνο κλήσης:
 
-- **Bound (input):** Ground or partially instantiated term; acts as given data.
-- **Unbound (output):** Free variable; the engine instantiates it upon success.
+- **Συνδεδεμένο / Input (εισόδου):** Θεμελιωμένος (ground) ή μερικώς αποτιμημένος όρος· λειτουργεί ως δεδομένο.
+- **Ασύνδετο / Output (εξόδου):** Ελεύθερη μεταβλητή· η μηχανή την αποτιμά κατά την επιτυχία.
 
-The same predicate definition supports multiple modes — this is **multidirectional execution**.
+Ο ίδιος ορισμός κατηγορήματος υποστηρίζει πολλαπλές λειτουργίες — αυτό ορίζεται ως **πολυκατευθυντική εκτέλεση (multidirectional execution)**.
 
-### 2.2 Mode Annotation Convention
+### 2.2 Σύμβαση Σημειογραφίας Λειτουργιών
 
-| Annotation | Meaning |
+| Σημειογραφία | Σημασία |
 | :--- | :--- |
-| `+` | Bound on entry (input) |
-| `-` | Unbound on entry (output) |
-| `?` | Either bound or unbound |
+| `+` | Συνδεδεμένο κατά την είσοδο (Input) |
+| `-` | Ασύνδετο κατά την είσοδο (Output) |
+| `?` | Είτε συνδεδεμένο είτε ασύνδετο |
 
-### 2.3 Mode Behavior Table
+### 2.3 Πίνακας Συμπεριφοράς Λειτουργιών
 
-| Call Pattern | Mode | Role |
+| Μοτίβο Κλήσης | Λειτουργία | Ρόλος |
 | :--- | :--- | :--- |
-| `append([1,2], [3], R)` | `++, -` | Forward: concatenate known lists |
-| `append(A, B, [1,2,3])` | `-,-,+` | Reverse: split into all valid pairs |
-| `append([1], B, [1,2,3])` | `+,?,+` | Mixed: find B given partial info |
-| `append(L, [], L)` | `?,-,?` | Identity: any list appended with [] |
+| `append([1,2], [3], R)` | `++, -` | Ευθεία: συνένωση γνωστών λιστών |
+| `append(A, B, [1,2,3])` | `-,-,+` | Αντίστροφη: διάσπαση σε όλα τα έγκυρα ζεύγη |
+| `append([1], B, [1,2,3])` | `+,?,+` | Μικτή: εύρεση B βάσει μερικών πληροφοριών |
+| `append(L, [], L)` | `?,-,?` | Ταυτότητα: προσάρτηση οποιασδήποτε λίστας με την [] |
 
-> **[Key Insight]** In Prolog, there is no separate "function return value." The last argument (or any argument) can serve as output purely by being unbound at call time and unified with a result term on success.
+> **[Βασική Παρατήρηση]** Στην Prolog, δεν υπάρχει ξεχωριστή "τιμή επιστροφής συνάρτησης." Το τελευταίο όρισμα (ή οποιοδήποτε όρισμα) μπορεί να χρησιμεύσει ως έξοδος απλά και μόνο επειδή είναι ασύνδετο κατά τον χρόνο κλήσης και ενοποιείται με έναν όρο αποτελέσματος κατά την επιτυχία.
 
 ---
 
-## 3. append/3 — The Canonical Multimode Predicate
+## 3. append/3 — Το Κανονικό Κατηγόρημα Πολλαπλών Λειτουργιών
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-`append(A, B, C)` means "C is the concatenation of A and B." The same definition serves forward concatenation, list splitting, and constraint solving.
+Η `append(A, B, C)` σημαίνει "το C είναι η συνένωση των A και B." Ο ίδιος ορισμός εξυπηρετεί την ευθεία συνένωση, τη διάσπαση λιστών και την επίλυση περιορισμών.
 
-### 3.2 Syntax Reference
+### 3.2 Αναφορά Σύνταξης
 
 ```
-append(+, +, -)   % forward mode
-append(-, -, +)   % reverse mode
+append(+, +, -)   % ευθεία λειτουργία
+append(-, -, +)   % αντίστροφη λειτουργία
 ```
 
-### 3.3 Definition (Structural Recursion)
+### 3.3 Ορισμός (Δομική Αναδρομή)
 
 ```prolog
-% Base case: appending empty list to A yields A.
+% Βασική περίπτωση: η συνένωση της άδειας λίστας με το A παράγει A.
 append([], A, A).
 
-% Recursive case: append tail of first list, then cons head onto result.
+% Αναδρομική περίπτωση: προσάρτηση της ουράς της πρώτης λίστας, μετά cons της κεφαλής στο αποτέλεσμα.
 append([H|T], B, [H|R]) :- append(T, B, R).
 ```
 
-### 3.4 Behavioral Description — Forward Mode (`++, -`)
+### 3.4 Περιγραφή Συμπεριφοράς — Ευθεία Λειτουργία (`++, -`)
 
 ```prolog
 ?- append([1, 2], [3, 4], R).
 ```
 
-**Trace:**
+**Ιχνηλάτηση:**
 
-1. `append([1,2], [3,4], R)` → `H=1`, recurse `append([2], [3,4], R1)` → `R = [1|R1]`
-2. `append([2], [3,4], R1)` → `H=2`, recurse `append([], [3,4], R2)` → `R1 = [2|R2]`
-3. `append([], [3,4], R2)` → base case → `R2 = [3,4]`
-4. Unwind: `R1 = [2,3,4]`, `R = [1,2,3,4]`
+1. `append([1,2], [3,4], R)` → `H=1`, αναδρομή `append([2], [3,4], R1)` → `R = [1|R1]`
+2. `append([2], [3,4], R1)` → `H=2`, αναδρομή `append([], [3,4], R2)` → `R1 = [2|R2]`
+3. `append([], [3,4], R2)` → βασική περίπτωση → `R2 = [3,4]`
+4. Επιστροφή: `R1 = [2,3,4]`, `R = [1,2,3,4]`
 
 ```text
 R = [1, 2, 3, 4].
 ```
 
-### 3.5 Behavioral Description — Reverse Mode (`-,-,+`)
+### 3.5 Περιγραφή Συμπεριφοράς — Αντίστροφη Λειτουργία (`-,-,+`)
 
 ```prolog
 ?- append(A, B, [1, 2, 3]).
 ```
 
-**Solutions (all splits):**
+**Λύσεις (όλες οι διασπάσεις):**
 
 ```text
 A = [], B = [1, 2, 3] ;
@@ -129,28 +129,28 @@ A = [1, 2], B = [3] ;
 A = [1, 2, 3], B = [].
 ```
 
-Each solution is a valid partition of the list into prefix `A` and suffix `B`.
+Κάθε λύση είναι μια έγκυρη κατάτμηση της λίστας σε πρόθεμα `A` και επίθημα `B`.
 
-### 3.6 Parameter Reference — append/3
+### 3.6 Αναφορά Παραμέτρων — append/3
 
-| Argument | Forward Mode | Reverse Mode | Description |
+| Όρισμα | Ευθεία Λειτουργία | Αντίστροφη Λειτουργία | Περιγραφή |
 | :--- | :--- | :--- | :--- |
-| `A` | Input (bound list) | Output (variable) | Left operand list |
-| `B` | Input (bound list) | Output (variable) | Right operand list |
-| `C` | Output (variable) | Input (bound list) | Concatenation result |
+| `A` | Είσοδος (συνδεδεμένη λίστα) | Έξοδος (μεταβλητή) | Αριστερή λίστα τελεστή |
+| `B` | Είσοδος (συνδεδεμένη λίστα) | Έξοδος (μεταβλητή) | Δεξιά λίστα τελεστή |
+| `C` | Έξοδος (μεταβλητή) | Είσοδος (συνδεδεμένη λίστα) | Αποτέλεσμα συνένωσης |
 
 ---
 
-## 4. Structural Recursion on Head/Tail
+## 4. Δομική Αναδρομή σε Κεφαλή/Ουρά
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-List predicates follow a standard recursion template:
+Τα κατηγορήματα λιστών ακολουθούν ένα τυπικό πρότυπο αναδρομής:
 
-1. **Base case** — handle `[]`.
-2. **Recursive case** — decompose `[H|T]`, process `T`, combine with `H`.
+1. **Βασική περίπτωση** — διαχείριση της `[]`.
+2. **Αναδρομική περίπτωση** — αποσύνθεση `[H|T]`, επεξεργασία `T`, συνδυασμός με το `H`.
 
-### 4.2 General Template
+### 4.2 Γενικό Πρότυπο
 
 ```prolog
 predicate([], <base_value>).
@@ -199,17 +199,17 @@ X = b ;
 X = c.
 ```
 
-`member/2` in output mode enumerates all list elements.
+Η `member/2` σε λειτουργία εξόδου απαριθμεί όλα τα στοιχεία της λίστας.
 
 ---
 
-## 5. List Reversal
+## 5. Αντιστροφή Λίστας
 
-### 5.1 Concept Overview
+### 5.1 Επισκόπηση Έννοιας
 
-List reversal can be defined recursively or via `append/3`. The recursive definition builds reversed order during unwinding; the accumulator-based definition is tail-recursive and efficient.
+Η αντιστροφή λίστας μπορεί να οριστεί αναδρομικά ή μέσω της `append/3`. Ο αναδρομικός ορισμός κατασκευάζει την αντίστροφη σειρά κατά την επιστροφή· ο ορισμός με συσσωρευτή (accumulator) είναι άμεσα αναδρομικός (tail-recursive) και αποδοτικός.
 
-### 5.2 Naive Reverse (Structural Recursion)
+### 5.2 Απλός Αντιστροφέας (Δομική Αναδρομή)
 
 ```prolog
 reverse([], []).
@@ -222,19 +222,19 @@ reverse([H|T], R) :-
 ?- reverse([1, 2, 3], R).
 ```
 
-**Trace (intermediate state after reversing tail):**
+**Ιχνηλάτηση (ενδιάμεση κατάσταση μετά την αντιστροφή της ουράς):**
 
-1. `reverse([2,3], RT)` → in progress
+1. `reverse([2,3], RT)` → σε εξέλιξη
 2. `reverse([3], RT2)` → `RT2 = [3]`
-3. `reverse([], [])` → base
-4. Unwind: `reverse([3], [3])`, `append([3],[2], RT)` → `RT = [3,2]`
-5. Unwind: `reverse([2,3], [3,2])`, `append([3,2],[1], R)` → `R = [3,2,1]`
+3. `reverse([], [])` → βάση
+4. Επιστροφή: `reverse([3], [3])`, `append([3],[2], RT)` → `RT = [3,2]`
+5. Επιστροφή: `reverse([2,3], [3,2])`, `append([3,2],[1], R)` → `R = [3,2,1]`
 
 ```text
 R = [3, 2, 1].
 ```
 
-### 5.3 Accumulator-Based Reverse
+### 5.3 Αντιστροφέας με Συσσωρευτή (Accumulator-Based)
 
 ```prolog
 reverse(L, R) :- reverse_acc(L, [], R).
@@ -243,15 +243,15 @@ reverse_acc([], Acc, Acc).
 reverse_acc([H|T], Acc, R) :- reverse_acc(T, [H|Acc], R).
 ```
 
-| Step | Call | Accumulator |
+| Βήμα | Κλήση | Συσσωρευτής |
 | :--- | :--- | :--- |
 | 1 | `reverse_acc([1,2,3], [], R)` | `[]` |
 | 2 | `reverse_acc([2,3], [1], R)` | `[1]` |
 | 3 | `reverse_acc([3], [2,1], R)` | `[2,1]` |
 | 4 | `reverse_acc([], [3,2,1], R)` | `[3,2,1]` |
-| Result | `R = [3,2,1]` | — |
+| Αποτέλεσμα | `R = [3,2,1]` | — |
 
-### 5.4 Reverse in Output Mode
+### 5.4 Αντιστροφή σε Λειτουργία Εξόδου
 
 ```prolog
 ?- reverse(X, [1, 2, 3]).
@@ -261,17 +261,17 @@ reverse_acc([H|T], Acc, R) :- reverse_acc(T, [H|Acc], R).
 X = [3, 2, 1].
 ```
 
-A single solution — reversal is a bijection for lists.
+Μεμονωμένη λύση — η αντιστροφή είναι αμφιμονοσήμαντη αντιστοίχιση (bijection) για τις λίστες.
 
 ---
 
-## 6. List Traversal Without Explicit Return Type
+## 6. Διάσχιση Λίστας Χωρίς Ρητό Τύπο Επιστροφής
 
-### 6.1 Concept Overview
+### 6.1 Επισκόπηση Έννοιας
 
-Prolog predicates need not declare return types. A traversal predicate can succeed with side-effect output (e.g., printing) or bind an output argument. The relation itself encodes the computation.
+Τα κατηγορήματα της Prolog δεν χρειάζεται να δηλώνουν τύπους επιστροφής. Ένα κατηγόρημα διάσχισης μπορεί να επιτύχει με έξοδο παρενεργειών (π.χ. εκτύπωση) ή να συνδέσει ένα όρισμα εξόδου. Η ίδια η σχέση κωδικοποιεί τον υπολογισμό.
 
-### 6.2 sumlist/2 — Accumulating Values
+### 6.2 sumlist/2 — Συσσώρευση Τιμών
 
 ```prolog
 sumlist([], 0).
@@ -286,7 +286,7 @@ sumlist([H|T], S) :- sumlist(T, S1), S is H + S1.
 S = 10.
 ```
 
-### 6.3 all_prefixes/2 — Generate All Prefixes
+### 6.3 all_prefixes/2 — Παραγωγή Όλων των Προθεμάτων
 
 ```prolog
 all_prefixes(L, P) :- append(P, _, L).
@@ -303,52 +303,52 @@ P = [a, b] ;
 P = [a, b, c].
 ```
 
-Uses `append/3` in reverse mode: `P` is prefix, `_` is unconstrained suffix.
+Χρησιμοποιεί την `append/3` σε αντίστροφη λειτουργία: το `P` είναι το πρόθεμα, το `_` είναι το μη περιορισμένο επίθημα.
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Using `=` for List Construction with Arithmetic
+### Σφάλμα 1: Χρήση του `=` για Κατασκευή Λίστας με Αριθμητικές Πράξεις
 
-**Cause:** `Result = [H|R]` is unification; arithmetic in list position needs `is`.
+**Αιτία:** Η έκφραση `Result = [H|R]` είναι ενοποίηση· οι αριθμητικοί υπολογισμοί σε θέση λίστας απαιτούν `is`.
 
 ```prolog
-% Wrong:
+% Λάθος:
 sumlist([H|T], S) :- sumlist(T, S1), S = H + S1.
 
-% Correct:
+% Σωστό:
 sumlist([H|T], S) :- sumlist(T, S1), S is H + S1.
 ```
 
-**Resolution:** Use `is` for evaluated expressions on the right; use `=` for structural unification.
+**Επίλυση:** Χρησιμοποιείτε το `is` για υπολογισμένες εκφράσεις στα δεξιά· χρησιμοποιείτε το `=` για δομική ενοποίηση.
 
-### Error 2: Non-Termination in Reverse Mode with Unbalanced append
+### Σφάλμα 2: Μη Τερματισμός σε Αντίστροφη Λειτουργία με Μη Ισορροπημένη append
 
-**Cause:** Query `append(A, B, L)` with partially bound `A` and infinite backtracking if constraints are inconsistent.
+**Αιτία:** Το ερώτημα `append(A, B, L)` με μερικώς συνδεδεμένο `A` προκαλεί άπειρη οπισθοδρόμηση εάν οι περιορισμοί είναι μη συνεπείς.
 
-**Resolution:** Bind at least one of `A`, `B`, or `C` sufficiently to limit search space.
+**Επίλυση:** Συνδέετε τουλάχιστον ένα από τα `A`, `B` ή `C` επαρκώς ώστε να περιορίσετε τον χώρο αναζήτησης.
 
-### Error 3: Assuming Single Direction
+### Σφάλμα 3: Υπόθεση Μοναδικής Κατεύθυνσης
 
-**Cause:** Defining predicates only tested in forward mode may accidentally work in reverse but produce unexpected multiple solutions or inefficiency.
+**Αιτία:** Ο ορισμός κατηγορημάτων που δοκιμάζονται μόνο σε ευθεία λειτουργία ενδέχεται να λειτουργεί τυχαία στην αντίστροφη αλλά να παράγει ανεπιθύμητες πολλαπλές λύσεις ή αναποτελεσματικότητα.
 
 ```prolog
-% Inefficient reverse mode due to append at each step.
+% Αναποτελεσματική αντίστροφη λειτουργία λόγω append σε κάθε βήμα.
 reverse([H|T], R) :- reverse(T, RT), append(RT, [H], R).
 ```
 
-**Resolution:** Use accumulator style for production code; understand which modes your predicates support.
+**Επίλυση:** Χρησιμοποιείτε το στιλ συσσωρευτή για παραγωγικό κώδικα· κατανοήστε ποιες λειτουργίες υποστηρίζουν τα κατηγορήματά σας.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: List Decomposition
+### Άσκηση 1: Αποσύνθεση Λίστας
 
-**Problem:** Unify `[a, b, c, d]` with `[X, Y|Rest]` and state bindings.
+**Πρόβλημα:** Ενοποιήστε τη `[a, b, c, d]` με τη `[X, Y|Rest]` και δηλώστε τις συνδέσεις.
 
-**Solution:**
+**Λύση:**
 
 1. `X = a`
 2. `Y = b`
@@ -356,107 +356,107 @@ reverse([H|T], R) :- reverse(T, RT), append(RT, [H], R).
 
 ---
 
-### Exercise 2: append Forward
+### Άσκηση 2: Ευθεία append
 
-**Problem:** Evaluate `?- append([x, y], [z], R).`
+**Πρόβλημα:** Αξιολογήστε το `?- append([x, y], [z], R).`
 
-**Solution:**
+**Λύση:**
 
-1. `H = x`, recurse on `[y]` and `[z]`
-2. `H = y`, recurse on `[]` and `[z]`
-3. Base: `append([], [z], [z])`
-4. Unwind: `R = [y, z]`, then `R = [x, y, z]`
-5. **Answer:** `R = [x, y, z].`
+1. `H = x`, αναδρομή σε `[y]` και `[z]`
+2. `H = y`, αναδρομή σε `[]` και `[z]`
+3. Βάση: `append([], [z], [z])`
+4. Επιστροφή: `R = [y, z]`, μετά `R = [x, y, z]`
+5. **Απάντηση:** `R = [x, y, z].`
 
 ---
 
-### Exercise 3: append Reverse — Count Splits
+### Άσκηση 3: Αντίστροφη append — Καταμέτρηση Διασπάσεων
 
-**Problem:** How many solutions does `?- append(A, B, [1, 2]).` produce?
+**Πρόβλημα:** Πόσες λύσεις παράγει το `?- append(A, B, [1, 2]).`;
 
-**Solution:**
+**Λύση:**
 
 1. `A=[], B=[1,2]`
 2. `A=[1], B=[2]`
 3. `A=[1,2], B=[]`
-4. **Answer:** 3 solutions.
+4. **Απάντηση:** 3 λύσεις.
 
 ---
 
-### Exercise 4: length Trace
+### Άσκηση 4: Ιχνηλάτηση length
 
-**Problem:** Trace `?- length([p, q], N).`
+**Πρόβλημα:** Ιχνηλατήστε το `?- length([p, q], N).`
 
-**Solution:**
+**Λύση:**
 
 1. `length([p,q], N)` → `length([q], N1)`, `N is N1 + 1`
 2. `length([q], N1)` → `length([], N2)`, `N1 is N2 + 1`
 3. `length([], N2)` → `N2 = 0`
-4. Unwind: `N1 = 1`, `N = 2`
-5. **Answer:** `N = 2.`
+4. Επιστροφή: `N1 = 1`, `N = 2`
+5. **Απάντηση:** `N = 2.`
 
 ---
 
-### Exercise 5: member Output Mode
+### Άσκηση 5: member σε Λειτουργία Εξόδου
 
-**Problem:** List solutions to `?- member(X, [red, green, blue]), X \= green.`
+**Πρόβλημα:** Εμφανίστε τις λύσεις του `?- member(X, [red, green, blue]), X \= green.`
 
-**Solution:**
+**Λύση:**
 
-1. `X = red` — `red \= green` succeeds
-2. Backtrack: `X = green` — fails inequality
-3. Backtrack: `X = blue` — succeeds
-4. **Answer:** `X = red ; X = blue.`
+1. `X = red` — `red \= green` επιτυγχάνει
+2. Οπισθοδρόμηση: `X = green` — αποτυγχάνει η ανισότητα
+3. Οπισθοδρόμηση: `X = blue` — επιτυγχάνει
+4. **Απάντηση:** `X = red ; X = blue.`
 
 ---
 
-### Exercise 6: Reverse Accumulator Trace
+### Άσκηση 6: Ιχνηλάτηση Συσσωρευτή Αντιστροφής
 
-**Problem:** Trace accumulator states for `reverse_acc([1, 2], [], R).`
+**Πρόβλημα:** Ιχνηλατήστε τις καταστάσεις συσσωρευτή για το `reverse_acc([1, 2], [], R).`
 
-**Solution:**
+**Λύση:**
 
-| Step | Remaining | Accumulator |
+| Βήμα | Υπόλοιπο | Συσσωρευτής |
 | :--- | :--- | :--- |
 | 1 | `[1,2]` | `[]` |
 | 2 | `[2]` | `[1]` |
 | 3 | `[]` | `[2,1]` |
-| Result | — | `R = [2,1]` |
+| Αποτέλεσμα | — | `R = [2,1]` |
 
 ---
 
-### Exercise 7: Prefix Generation
+### Άσκηση 7: Παραγωγή Προθεμάτων
 
-**Problem:** Evaluate `?- append(P, [c], [a, b, c]).`
+**Πρόβλημα:** Αξιολογήστε το `?- append(P, [c], [a, b, c]).`
 
-**Solution:**
+**Λύση:**
 
-1. `P = [a,b]` — `append([a,b], [c], [a,b,c])` succeeds
-2. No other split yields suffix exactly `[c]`
-3. **Answer:** `P = [a, b].`
-
----
-
-### Exercise 8: sumlist and Mode Reversal
-
-**Problem:** Can `?- sumlist(L, 6).` find a list summing to 6? Explain briefly.
-
-**Solution:**
-
-1. `sumlist/2` uses `is` with bound `S` and recursive structure on `L`.
-2. With `S = 6` bound, Prolog can search for lists — e.g., `L = [1,2,3]` or `L = [6]`.
-3. Multiple lists sum to 6; engine returns solutions via backtracking if additional constraints are added.
-4. **Answer:** Yes, though infinitely many lists exist (e.g., `[6]`, `[1,5]`, `[1,1,4]`, ...). Practical use requires length bounds or additional constraints.
+1. `P = [a,b]` — το `append([a,b], [c], [a,b,c])` επιτυγχάνει
+2. Καμία άλλη διάσπαση δεν παράγει επίθημα ακριβώς `[c]`
+3. **Απάντηση:** `P = [a, b].`
 
 ---
 
-## Exam Tip: Identify the Mode Before Tracing
+### Άσκηση 8: sumlist και Αντιστροφή Λειτουργίας
 
-For any list predicate question:
+**Πρόβλημα:** Μπορεί το `?- sumlist(L, 6).` να βρει μια λίστα που αθροίζει στο 6; Εξηγήστε σύντομα.
 
-1. **Label each argument** `+` or `-` at the call site.
-2. **Forward (`++, -`)** — recurse down the first list, build output on unwind or via accumulator.
-3. **Reverse (`-,-,+`)** — expect multiple solutions from `append/3`-style splitting; count solutions by enumerating prefix lengths $0 \ldots n$ for a list of length $n$.
-4. **Accumulator predicates** — track the accumulator column separately; the final accumulator value is the answer.
+**Λύση:**
 
-**Most common exam trap:** Writing `append(A, B, C)` as if it were a function `append(A, B) → C`. In reverse mode, `C` is input and both `A` and `B` are outputs — the query generates all partitions, not a single "split point."
+1. Η `sumlist/2` χρησιμοποιεί το `is` με συνδεδεμένο το `S` και αναδρομική δομή στο `L`.
+2. Με το `S = 6` συνδεδεμένο, η Prolog μπορεί να αναζητήσει λίστες — π.χ. `L = [1,2,3]` ή `L = [6]`.
+3. Πολλαπλές λίστες αθροίζουν στο 6· η μηχανή επιστρέφει λύσεις μέσω οπισθοδρόμησης εάν προστεθούν περαιτέρω περιορισμοί.
+4. **Απάντηση:** Ναι, αν και υπάρχουν άπειρες λίστες (π.χ. `[6]`, `[1,5]`, `[1,1,4]`, ...). Η πρακτική χρήση απαιτεί όρια μήκους ή πρόσθετους περιορισμούς.
+
+---
+
+## Συμβουλή Εξετάσεων: Ταυτοποίηση Λειτουργίας πριν από την Ιχνηλάτηση
+
+Για κάθε ερώτηση κατηγορήματος λιστών:
+
+1. **Σημειώστε κάθε όρισμα** με `+` ή `-` στο σημείο κλήσης.
+2. **Ευθεία (`++, -`)** — εκτελέστε αναδρομή στην πρώτη λίστα, κατασκευάστε την έξοδο κατά την επιστροφή ή μέσω συσσωρευτή.
+3. **Αντίστροφη (`-,-,+`)** — αναμένετε πολλαπλές λύσεις από διάσπαση τύπου `append/3`· μετρήστε τις λύσεις απαριθμώντας τα μήκη προθεμάτων $0 \ldots n$ για μια λίστα μήκους $n$.
+4. **Κατηγορήματα συσσωρευτή** — παρακολουθείτε τη στήλη του συσσωρευτή ξεχωριστά· η τελική τιμή του συσσωρευτή είναι η απάντηση.
+
+**Συχνότερη εξεταστική παγίδα:** Η εγγραφή της `append(A, B, C)` σαν να ήταν συνάρτηση `append(A, B) → C`. Στην αντίστροφη λειτουργία, το `C` είναι είσοδος και τα `A` και `B` είναι έξοδοι — το ερώτημα παράγει όλες τις κατατμήσεις, και όχι ένα μεμονωμένο "σημείο διάσπασης."

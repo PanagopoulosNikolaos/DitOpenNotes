@@ -1,140 +1,140 @@
-# C — Pointers, Memory, and Arrays
+# C — Δείκτες, Μνήμη και Πίνακες
 
-Pointers and arrays are fundamental to C, offering direct control over memory layout and hardware access. By allowing developers to store and manipulate memory addresses, C enables efficient dynamic allocation, zero-copy data passing, and custom memory layout management. This file covers pointer mechanics, array decay, multi-dimensional array mapping, dynamic memory API functions, string handling, and qualifiers like `const` and `volatile`.
+Οι δείκτες και οι πίνακες είναι θεμελιώδεις στη C, προσφέροντας άμεσο έλεγχο στη διάταξη μνήμης και την προσπέλαση στο υλικό. Επιτρέποντας στους προγραμματιστές να αποθηκεύουν και να χειρίζονται διευθύνσεις μνήμης, η C καθιστά εφικτή την αποδοτική δυναμική δέσμευση, το πέρασμα δεδομένων μηδενικής αντιγραφής (zero-copy data passing) και τη διαχείριση προσαρμοσμένων διατάξεων μνήμης. Αυτό το αρχείο καλύπτει τη μηχανική των δεικτών, τον εκφυλισμό πινάκων (array decay), την αντιστοίχιση πολυδιάστατων πινάκων, τις συναρτήσεις του API δυναμικής μνήμης, τον χειρισμό συμβολοσειρών και qualifiers όπως `const` και `volatile`.
 
 ---
 
-## 1. Pointers and Address Arithmetic
+## 1. Δείκτες και Αριθμητική Διευθύνσεων
 
-A **pointer** is a variable whose value is the memory address of another variable. Pointers are strongly typed; the type of the pointer specifies the layout of the memory block it references.
+Ένας **δείκτης (pointer)** είναι μια μεταβλητή της οποίας η τιμή είναι η διεύθυνση μνήμης μιας άλλης μεταβλητής. Οι δείκτες είναι αυστηρά τυποποιημένοι· ο τύπος του δείκτη καθορίζει τη διάταξη του μπλοκ μνήμης στο οποίο αναφέρεται.
 
-### 1.1 Core Operators
+### 1.1 Βασικοί Τελεστές
 
-- `&` (Address-of operator): Retrieves the memory address of a variable.
-- `*` (Dereference operator): Accesses the value stored at the memory address held by the pointer.
+- `&` (Τελεστής διεύθυνσης / Address-of operator): Επιστρέφει τη διεύθυνση μνήμης μιας μεταβλητής.
+- `*` (Τελεστής αποσυμβολισμού / Dereference operator): Προσπελαύνει την τιμή που είναι αποθηκευμένη στη διεύθυνση μνήμης που κρατά ο δείκτης.
 
-### 1.2 Address Arithmetic
+### 1.2 Αριθμητική Διευθύνσεων (Address Arithmetic)
 
-Pointer arithmetic operates on memory blocks scaling by the size of the pointer's referenced type.
+Η αριθμητική δεικτών εκτελεί πράξεις σε μπλοκ μνήμης με κλιμάκωση ανάλογη του μεγέθους του τύπου στον οποίο αναφέρεται ο δείκτης.
 
-Let `p` be a pointer of type `T*` pointing to address $A$. The operation `p + n` calculates the target address as:
+Έστω `p` ένας δείκτης τύπου `T*` που δείχνει στη διεύθυνση $A$. Η πράξη `p + n` υπολογίζει τη διεύθυνση στόχο ως εξής:
 
 $$
 \text{addr}(p + n) = A + n \times \text{sizeof}(T)
 $$
 
-Subtracting two pointers of the same type yields the distance between them measured in elements of type `T`, returned as a signed integer type `ptrdiff_t`.
+Η αφαίρεση δύο δεικτών του ίδιου τύπου επιστρέφει την απόσταση μεταξύ τους μετρούμενη σε στοιχεία τύπου `T`, ως προσημασμένο ακέραιο τύπο `ptrdiff_t`.
 
 ---
 
-## 2. Arrays and Decay Behavior
+## 2. Πίνακες και Συμπεριφορά Εκφυλισμού (Array Decay)
 
-An array is a contiguous block of memory holding elements of the same type. In most contexts, the identifier of an array **decays** into a pointer to its first element:
+Ένας πίνακας είναι ένα συνεχόμενο μπλοκ μνήμης που περιέχει στοιχεία του ίδιου τύπου. Στις περισσότερες περιπτώσεις, το αναγνωριστικό (όνομα) ενός πίνακα **εκφυλίζεται (decays)** σε δείκτη προς το πρώτο του στοιχείο:
 
 ```text
-Type arr[N]; // arr decays to Type* pointing to &arr[0]
+Type arr[N]; // το arr εκφυλίζεται σε Type* που δείχνει στο &arr[0]
 ```
 
-### 2.1 Exceptions to Decay
+### 2.1 Εξαιρέσεις στον Εκφυλισμό
 
-An array identifier does **not** decay to a pointer in the following three cases:
+Το αναγνωριστικό ενός πίνακα **δεν** εκφυλίζεται σε δείκτη στις ακόλουθες τρεις περιπτώσεις:
 
-1. As the operand of the `sizeof` operator: `sizeof(arr)` returns the total size in bytes of the array ($N \times \text{sizeof(Type)}$), not the size of a pointer.
-2. As the operand of the unary `&` (address-of) operator: `&arr` returns a pointer to the entire array of type `Type (*)[N]`, not a pointer to a pointer.
-3. As a string literal initializer: `char str[] = "hello";`.
+1. Ως τελεστέος του τελεστή `sizeof`: Η έκφραση `sizeof(arr)` επιστρέφει το συνολικό μέγεθος του πίνακα σε bytes ($N \times \text{sizeof(Type)}$), και όχι το μέγεθος ενός δείκτη.
+2. Ως τελεστέος του μοναδιαίου τελεστή `&` (διεύθυνση): Η έκφραση `&arr` επιστρέφει δείκτη προς ολόκληρο τον πίνακα τύπου `Type (*)[N]`, και όχι δείκτη σε δείκτη.
+3. Ως αρχικοποιητής συμβολοσειράς: `char str[] = "hello";`.
 
 ---
 
-## 3. Multi-dimensional Arrays and Row-Major Memory Layout
+## 3. Πολυδιάστατοι Πίνακες και Διάταξη Μνήμης Κατά Γραμμές (Row-Major Layout)
 
-Multi-dimensional arrays are represented as arrays of arrays. They are stored in contiguous memory using **row-major order**, where the rightmost index varies fastest.
+Οι πολυδιάστατοι πίνακες αναπαρίστανται ως πίνακες πινάκων. Αποθηκεύονται σε συνεχόμενη μνήμη χρησιμοποιώντας **διάταξη κατά γραμμές (row-major order)**, όπου ο δεξιότερος δείκτης μεταβάλλεται ταχύτερα.
 
 ```
-For a 2D array: arr[Rows][Cols]
-Memory Layout: [Row 0, Col 0] [Row 0, Col 1] ... [Row 1, Col 0] ...
+Για 2D πίνακα: arr[Rows][Cols]
+Διάταξη Μνήμης: [Γραμμή 0, Στήλη 0] [Γραμμή 0, Στήλη 1] ... [Γραμμή 1, Στήλη 0] ...
 ```
 
-### 3.1 2D Array Offset Calculation
+### 3.1 Υπολογισμός Μετατόπισης 2D Πίνακα
 
-For an array declared as `Type arr[R][C]`, the flat byte offset of element `arr[i][j]` from the base address is:
+Για έναν πίνακα που δηλώνεται ως `Type arr[R][C]`, η επιπεδοποιημένη μετατόπιση σε bytes (flat byte offset) του στοιχείου `arr[i][j]` από την αρχική διεύθυνση είναι:
 
 $$
 \text{offset}(i, j) = (i \times C + j) \times \text{sizeof}(\text{Type})
 $$
 
-### 3.2 Parameter Declarations for Multi-dimensional Arrays
+### 3.2 Δηλώσεις Παραμέτρων για Πολυδιάστατους Πίνακες
 
-Because the compiler needs to know the sizes of the dimensions to compute offsets, passing a multi-dimensional array to a function requires specifying all dimensions except the first:
+Επειδή ο μεταγλωττιστής πρέπει να γνωρίζει τα μεγέθη των διαστάσεων για να υπολογίσει τις μετατοπίσεις, το πέρασμα ενός πολυδιάστατου πίνακα σε μια συνάρτηση απαιτεί τον καθορισμό όλων των διαστάσεων εκτός από την πρώτη:
 
 ```c
-void process_grid(int grid[][10], int rows); // Second dimension is mandatory
+void process_grid(int grid[][10], int rows); // Η δεύτερη διάσταση είναι υποχρεωτική
 ```
 
 ---
 
-## 4. Dynamic Memory Allocation
+## 4. Δυναμική Δέσμευση Μνήμης
 
-Dynamic memory is allocated on the **heap** at runtime. The standard library provides allocation functions in `<stdlib.h>`.
+Η δυναμική μνήμη δεσμεύεται στην περιοχή **heap** κατά τον χρόνο εκτέλεσης. Η πρότυπη βιβλιοθήκη παρέχει συναρτήσεις δέσμευσης στο `<stdlib.h>`.
 
-### 4.1 Memory Management API Reference
+### 4.1 Αναφορά API Διαχείρισης Μνήμης
 
-| Function | Signature | Return Type | Purpose | Description of Parameters |
+| Συνάρτηση | Υπογραφή | Τύπος Επιστροφής | Σκοπός | Περιγραφή Παραμέτρων |
 | :--- | :--- | :--- | :--- | :--- |
-| `malloc` | `void* malloc(size_t size)` | `void*` | Allocates uninitialized memory block | `size`: Number of bytes to allocate |
-| `calloc` | `void* calloc(size_t num, size_t size)` | `void*` | Allocates zero-initialized memory | `num`: Number of elements, `size`: Size of each element |
-| `realloc` | `void* realloc(void* ptr, size_t new_size)` | `void*` | Resizes existing allocated block | `ptr`: Block pointer, `new_size`: New size in bytes |
-| `free` | `void free(void* ptr)` | `void` | Deallocates heap memory | `ptr`: Memory address to release |
+| `malloc` | `void* malloc(size_t size)` | `void*` | Δεσμεύει μη αρχικοποιημένο μπλοκ μνήμης | `size`: Αριθμός bytes προς δέσμευση |
+| `calloc` | `void* calloc(size_t num, size_t size)` | `void*` | Δεσμεύει μνήμη αρχικοποιημένη στο μηδέν | `num`: Αριθμός στοιχείων, `size`: Μέγεθος κάθε στοιχείου |
+| `realloc` | `void* realloc(void* ptr, size_t new_size)` | `void*` | Αλλάζει το μέγεθος υπάρχοντος δεσμευμένου μπλοκ | `ptr`: Δείκτης μπλοκ, `new_size`: Νέο μέγεθος σε bytes |
+| `free` | `void free(void* ptr)` | `void` | Αποδεσμεύει μνήμη από το heap | `ptr`: Διεύθυνση μνήμης προς αποδέσμευση |
 
-> **[Key Insight]** `realloc` may move the memory block to a new location if the current block cannot be expanded in-place. If `realloc` fails, it returns `NULL` and the original block remains allocated. Therefore, never write `ptr = realloc(ptr, size);` directly because a allocation failure will cause a memory leak.
+> **[Βασική Παρατήρηση]** Η `realloc` ενδέχεται να μετακινήσει το μπλοκ μνήμης σε νέα θέση εάν το υπάρχον μπλοκ δεν μπορεί να επεκταθεί επί τόπου. Εάν η `realloc` αποτύχει, επιστρέφει `NULL` και το αρχικό μπλοκ παραμένει δεσμευμένο. Επομένως, μην γράφετε ποτέ απευθείας `ptr = realloc(ptr, size);` επειδή τυχόν αποτυχία δέσμευσης θα προκαλέσει διαρροή μνήμης (memory leak).
 
 ---
 
-## 5. Strings and String Processing
+## 5. Συμβολοσειρές και Επεξεργασία Συμβολοσειρών
 
-A string in C is a contiguous sequence of characters terminated by a null character (`'\0'`). C has no built-in string type; strings are manipulated using pointers to `char` arrays.
+Μια συμβολοσειρά (string) στη C είναι μια συνεχόμενη ακολουθία χαρακτήρων που τερματίζεται από τον χαρακτήρα null (`'\0'`). Η C δεν διαθέτει ενσωματωμένο τύπο συμβολοσειράς· οι συμβολοσειρές χειρίζονται με χρήση δεικτών σε πίνακες `char`.
 
-### 5.1 Common String Functions (`<string.h>`)
+### 5.1 Κοινές Συναρτήσεις Συμβολοσειρών (`<string.h>`)
 
-| Function | Parameters | Behavior |
+| Συνάρτηση | Παράμετροι | Συμπεριφορά |
 | :--- | :--- | :--- |
-| `strlen` | `const char *s` | Returns the number of characters in `s` excluding `'\0'`. |
-| `strcpy` | `char *dest, const char *src` | Copies `src` to `dest` including `'\0'`. Dangerous if `dest` overflows. |
-| `strncpy` | `char *dest, const char *src, size_t n` | Copies up to `n` bytes. Does not guarantee null-termination if `strlen(src) >= n`. |
-| `strcmp` | `const char *s1, const char *s2` | Compares lexicographically. Returns `< 0`, `0`, or `> 0`. |
+| `strlen` | `const char *s` | Επιστρέφει τον αριθμό των χαρακτήρων στο `s` εξαιρουμένου του `'\0'`. |
+| `strcpy` | `char *dest, const char *src` | Αντιγράφει το `src` στο `dest` συμπεριλαμβανομένου του `'\0'`. Επικίνδυνη αν το `dest` υπερχειλίσει. |
+| `strncpy` | `char *dest, const char *src, size_t n` | Αντιγράφει έως `n` bytes. Δεν εγγυάται τερματισμό με null αν `strlen(src) >= n`. |
+| `strcmp` | `const char *s1, const char *s2` | Συγκρίνει λεξικογραφικά. Επιστρέφει `< 0`, `0` ή `> 0`. |
 
 ---
 
-## 6. Const Correctness and Volatile Qualifier
+## 6. Ορθότητα Const (Const Correctness) και Qualifier Volatile
 
-Qualifiers modify how the compiler treats memory access.
+Οι qualifiers τροποποιούν τον τρόπο με τον οποίο ο μεταγλωττιστής αντιμετωπίζει την προσπέλαση στη μνήμη.
 
-### 6.1 `const` Pointer Declarations
+### 6.1 Δηλώσεις Δεικτών `const`
 
-The position of the `const` keyword relative to the asterisk (`*`) determines whether the pointer or the pointed-to data is immutable:
+Η θέση της λέξης-κλειδιού `const` σε σχέση με τον αστερίσκο (`*`) καθορίζει εάν είναι αμετάβλητος ο δείκτης ή τα δεδομένα στα οποία δείχνει:
 
-1. **Pointer to Constant:** `const int *p` (or `int const *p`)
-   - The data at the address cannot be modified via `p`: `*p = 5; // Error`.
-   - The pointer `p` can be changed to point elsewhere: `p = &x; // OK`.
-2. **Constant Pointer:** `int * const p`
-   - The pointer `p` is immutable: `p = &x; // Error`.
-   - The data at the address can be modified: `*p = 5; // OK`.
+1. **Δείκτης σε Σταθερά (Pointer to Constant):** `const int *p` (ή `int const *p`)
+   - Τα δεδομένα στη διεύθυνση δεν μπορούν να τροποποιηθούν μέσω του `p`: `*p = 5; // Σφάλμα`.
+   - Ο δείκτης `p` μπορεί να αλλάξει ώστε να δείχνει αλλού: `p = &x; // OK`.
+2. **Σταθερός Δείκτης (Constant Pointer):** `int * const p`
+   - Ο δείκτης `p` είναι αμετάβλητος: `p = &x; // Σφάλμα`.
+   - Τα δεδομένα στη διεύθυνση μπορούν να τροποποιηθούν: `*p = 5; // OK`.
 
-### 6.2 The `volatile` Qualifier
+### 6.2 Ο Qualifier `volatile`
 
-The `volatile` qualifier informs the compiler that a memory location can be modified by hardware, interrupts, or concurrent threads outside of the program's control. It prevents the compiler from optimizing away reads or writes to that address.
+Ο qualifier `volatile` ενημερώνει τον μεταγλωττιστή ότι μια θέση μνήμης μπορεί να τροποποιηθεί από το υλικό, διακοπές (interrupts) ή παράλληλα νήματα εκτός του ελέγχου του προγράμματος. Εμποδίζει τον μεταγλωττιστή από το να παραλείψει ανάγκες ανάγνωσης ή εγγραφής σε αυτή τη διεύθυνση λόγω βελτιστοποίησης.
 
 ```c
 volatile int *status_reg = (volatile int *)0x40001000;
-while (*status_reg == 0); // Compiler will not cache status_reg in a register
+while (*status_reg == 0); // Ο μεταγλωττιστής δεν θα αποθηκεύσει το status_reg σε καταχωρητή
 ```
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Pointer Arithmetic
+### Άσκηση 1: Αριθμητική Δεικτών
 
-**Problem:** What is the output of the following program? Explain how pointers are modified.
+**Πρόβλημα:** Ποια είναι η έξοδος του παρακάτω προγράμματος; Εξηγήστε πώς τροποποιούνται οι δείκτες.
 
 ```c
 #include <stdio.h>
@@ -150,10 +150,10 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. `p` starts pointing to `arr[0]` ($10$).
-2. `p++` increments the pointer to point to the next element `arr[1]` ($20$).
-3. `p = p + 2` adds $2 \times \text{sizeof}(int)$ to `p`, moving it to point to `arr[3]` ($40$).
+**Λύση:**
+1. Ο `p` ξεκινά δείχνοντας στο `arr[0]` ($10$).
+2. Η αύξηση `p++` μετατοπίζει τον δείκτη στο επόμενο στοιχείο `arr[1]` ($20$).
+3. Η πράξη `p = p + 2` προσθέτει $2 \times \text{sizeof}(int)$ στον `p`, μετακινώντας τον στο στοιχείο `arr[3]` ($40$).
 
 ```text
 *p = 20
@@ -162,9 +162,9 @@ int main(void) {
 
 ---
 
-### Exercise 2: `sizeof` Array vs. Pointer Decay
+### Άσκηση 2: `sizeof` Πίνακα έναντι Εκφυλισμού σε Δείκτη
 
-**Problem:** What does this code print on a 64-bit platform where pointers are 8 bytes and `int` is 4 bytes?
+**Πρόβλημα:** Τι εκτυπώνει αυτός ο κώδικας σε μια πλατφόρμα 64-bit όπου οι δείκτες έχουν μέγεθος 8 bytes και ο `int` έχει μέγεθος 4 bytes;
 
 ```c
 #include <stdio.h>
@@ -181,10 +181,10 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. In `main`, `arr` is a declared array of $100$ integers. `sizeof(arr)` returns $100 \times \text{sizeof}(int) = 100 \times 4 = 400$ bytes.
-2. When passed as a function argument, the array parameter decays to a pointer of its base type (`int *`), regardless of the size declared in the parameter list.
-3. Therefore, inside `printSize`, `sizeof(a)` returns the size of `int *`, which is $8$ bytes on a 64-bit target.
+**Λύση:**
+1. Στη `main`, το `arr` είναι ένας δηλωμένος πίνακας $100$ ακεραίων. Η έκφραση `sizeof(arr)` επιστρέφει $100 \times \text{sizeof}(int) = 100 \times 4 = 400$ bytes.
+2. Όταν μεταβιβάζεται ως όρισμα συνάρτησης, η παράμετρος πίνακα εκφυλίζεται σε δείκτη του βασικού της τύπου (`int *`), ανεξάρτητα από το μέγεθος που δηλώνεται στη λίστα παραμέτρων.
+3. Επομένως, εντός της `printSize`, η έκφραση `sizeof(a)` επιστρέφει το μέγεθος του `int *`, το οποίο είναι $8$ bytes σε σύστημα 64-bit.
 
 ```text
 main size = 400
@@ -193,22 +193,22 @@ func size = 8
 
 ---
 
-### Exercise 3: 2D Array Flat Offset Calculation
+### Άσκηση 3: Υπολογισμός Μετατόπισης 2D Πίνακα
 
-**Problem:** Consider the declaration `short matrix[4][5]`. Assuming the base address of `matrix` is `0x1000`, calculate the memory address of `matrix[2][3]` if `sizeof(short)` is $2$ bytes.
+**Πρόβλημα:** Θεωρήστε τη δήλωση `short matrix[4][5]`. Υποθέτοντας ότι η αρχική διεύθυνση του `matrix` είναι `0x1000`, υπολογίστε τη διεύθυνση μνήμης του `matrix[2][3]` αν ο `sizeof(short)` είναι $2$ bytes.
 
-**Solution:**
-1. The array dimensions are: $R = 4$, $C = 5$.
-2. To access element `matrix[2][3]`, the index is $i = 2$ and $j = 3$.
-3. Using the row-major offset formula:
+**Λύση:**
+1. Οι διαστάσεις του πίνακα είναι: $R = 4$, $C = 5$.
+2. Για την προσπέλαση του στοιχείου `matrix[2][3]`, οι δείκτες είναι $i = 2$ και $j = 3$.
+3. Χρησιμοποιώντας τον τύπο μετατόπισης row-major:
    $$
    \text{offset}(2, 3) = (i \times C + j) \times \text{sizeof}(\text{short})
    $$
    $$
    \text{offset}(2, 3) = (2 \times 5 + 3) \times 2 = (10 + 3) \times 2 = 13 \times 2 = 26 \text{ bytes}
    $$
-4. Convert $26$ to hexadecimal: $26 = 16 \times 1 + 10 = 0x1A$.
-5. The memory address is:
+4. Μετατρέπουμε το $26$ σε δεκαεξαδικό: $26 = 16 \times 1 + 10 = 0x1A$.
+5. Η διεύθυνση μνήμης είναι:
    $$
    \text{address} = 0x1000 + 0x1A = 0x101A
    $$
@@ -219,9 +219,9 @@ Address of matrix[2][3] = 0x101a
 
 ---
 
-### Exercise 4: Memory Leak Detection
+### Άσκηση 4: Εντοπισμός Διαρροής Μνήμης (Memory Leak)
 
-**Problem:** Explain what is wrong with this function and rewrite it to fix the issue.
+**Πρόβλημα:** Εξηγήστε τι σφάλμα υπάρχει σε αυτή τη συνάρτηση και ξαναγράψτε την για να διορθώσετε το ζήτημα.
 
 ```c
 #include <stdlib.h>
@@ -235,10 +235,10 @@ void leak_example(int n) {
 }
 ```
 
-**Solution:**
-1. If the function argument `n` is greater than $100$, execution enters the conditional block and returns immediately.
-2. The dynamic memory allocated via `malloc` and stored in local pointer variable `arr` is never freed, creating a memory leak on this execution path.
-3. **Fix:** Free the memory block before returning, or defer allocation until checking the condition.
+**Λύση:**
+1. Εάν το όρισμα `n` της συνάρτησης είναι μεγαλύτερο από $100$, η εκτέλεση εισέρχεται στο μπλοκ συνθήκης και επιστρέφει αμέσως.
+2. Η δυναμική μνήμη που δεσμεύτηκε μέσω της `malloc` και αποθηκεύτηκε στην τοπική μεταβλητή δείκτη `arr` δεν αποδεσμεύεται ποτέ, δημιουργώντας διαρροή μνήμης σε αυτό το μονοπάτι εκτέλεσης.
+3. **Διόρθωση:** Αποδεσμεύστε το μπλοκ μνήμης πριν από την επιστροφή ή καθυστερήστε τη δέσμευση μέχρι τον έλεγχο της συνθήκης.
 
 ```c
 void leak_example(int n) {
@@ -247,7 +247,7 @@ void leak_example(int n) {
     }
     int *arr = (int *)malloc(n * sizeof(int));
     if (arr != NULL) {
-        // use arr...
+        // χρήση του arr...
         free(arr);
     }
 }
@@ -255,9 +255,9 @@ void leak_example(int n) {
 
 ---
 
-### Exercise 5: String Functions and Null-Termination Gotchas
+### Άσκηση 5: Συναρτήσεις Συμβολοσειρών και Παγίδες Τερματισμού Null
 
-**Problem:** Predict the output of this code. Explain the behavior of `strncpy`.
+**Πρόβλημα:** Προβλέψτε την έξοδο αυτού του κώδικα. Εξηγήστε τη συμπεριφορά της `strncpy`.
 
 ```c
 #include <stdio.h>
@@ -273,12 +273,12 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. `dest` is initialized with $5$ 'x' characters and a null terminator: `{'x', 'x', 'x', 'x', 'x', '\0'}`.
-2. `strncpy(dest, src, 3)` copies exactly $3$ characters from `src` (`'h'`, `'e'`, `'l'`) to the beginning of `dest`.
-3. `strncpy` does **not** append a null terminator if the length of `src` is greater than or equal to the limit $n$.
-4. The contents of `dest` become: `{'h', 'e', 'l', 'x', 'x', '\0'}`.
-5. The string printed is `"helxx"`.
+**Λύση:**
+1. Το `dest` αρχικοποιείται με $5$ χαρακτήρες 'x' και έναν χαρακτήρα τερματισμού null: `{'x', 'x', 'x', 'x', 'x', '\0'}`.
+2. Η `strncpy(dest, src, 3)` αντιγράφει ακριβώς $3$ χαρακτήρες από το `src` (`'h'`, `'e'`, `'l'`) στην αρχή του `dest`.
+3. Η `strncpy` **δεν** προσαρτά χαρακτήρα τερματισμού null εάν το μήκος του `src` είναι μεγαλύτερο ή ίσο με το όριο $n$.
+4. Τα περιεχόμενα του `dest` γίνονται: `{'h', 'e', 'l', 'x', 'x', '\0'}`.
+5. Η συμβολοσειρά που εκτυπώνεται είναι `"helxx"`.
 
 ```text
 dest = helxx
@@ -286,9 +286,9 @@ dest = helxx
 
 ---
 
-### Exercise 6: Pointer-to-Pointer Dereferencing
+### Άσκηση 6: Αποσυμβολισμός Δείκτη σε Δείκτη
 
-**Problem:** Determine the output of the following code.
+**Πρόβλημα:** Προσδιορίστε την έξοδο του παρακάτω κώδικα.
 
 ```c
 #include <stdio.h>
@@ -305,12 +305,12 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. `p1` contains the address of `x`.
-2. `p2` contains the address of `p1`.
-3. `*p2` dereferences once to obtain `p1` (address of `x`).
-4. `**p2` dereferences again to access `x` ($42$).
-5. Modifying `**p2` to $100$ modifies the value of `x` directly.
+**Λύση:**
+1. Ο `p1` περιέχει τη διεύθυνση του `x`.
+2. Ο `p2` περιέχει τη διεύθυνση του `p1`.
+3. Η έκφραση `*p2` αποσυμβολίζει μία φορά για να λάβει τον `p1` (διεύθυνση του `x`).
+4. Η έκφραση `**p2` αποσυμβολίζει εκ νέου για προσπέλαση του `x` ($42$).
+5. Η τροποποίηση του `**p2` σε $100$ τροποποιεί την τιμή του `x` απευθείας.
 
 ```text
 **p2 = 42
@@ -319,13 +319,13 @@ x = 100
 
 ---
 
-### Exercise 7: Realloc Safe Pointer Reassignment
+### Άσκηση 7: Ασφαλής Επαναθέτηση Δείκτη με Realloc
 
-**Problem:** Write a safe routine using `realloc` to resize a dynamically allocated array.
+**Πρόβλημα:** Γράψτε μια ασφαλή ρουτίνα με χρήση της `realloc` για την αλλαγή μεγέθους ενός δυναμικά δεσμευμένου πίνακα.
 
-**Solution:**
-1. Never assign the return value of `realloc` directly to the original pointer. If `realloc` returns `NULL`, the reference to the original block is overwritten and leaked.
-2. Use a temporary pointer to store the result of `realloc` first, check if it is not `NULL`, and assign it to the target pointer.
+**Λύση:**
+1. Μην αναθέτετε ποτέ την τιμή επιστροφής της `realloc` απευθείας στον αρχικό δείκτη. Εάν η `realloc` επιστρέψει `NULL`, η αναφορά στο αρχικό μπλοκ υπεργράφεται και χάνεται (διαρροή).
+2. Χρησιμοποιήστε έναν προσωρινό δείκτη για την αποθήκευση του αποτελέσματος της `realloc` πρώτα, ελέγξτε αν δεν είναι `NULL` και στη συνέχεια αναθέστε τον στον δείκτη στόχο.
 
 ```c
 #include <stdio.h>
@@ -335,14 +335,14 @@ int main(void) {
     int *arr = malloc(5 * sizeof(int));
     if (arr == NULL) return 1;
     
-    // Resize array safely
+    // Ασφαλής αλλαγή μεγέθους πίνακα
     int *temp = realloc(arr, 10 * sizeof(int));
     if (temp == NULL) {
-        // Allocation failed; original arr remains valid.
+        // Η δέσμευση απέτυχε· το αρχικό arr παραμένει έγκυρο.
         free(arr);
         return 1;
     }
-    arr = temp; // Safe to reassign
+    arr = temp; // Ασφαλής επαναθέτηση
     free(arr);
     return 0;
 }
@@ -350,9 +350,9 @@ int main(void) {
 
 ---
 
-### Exercise 8: `const` Pointer Parsing
+### Άσκηση 8: Ανάλυση Δεικτών `const`
 
-**Problem:** Identify which operations are valid and which generate compiler warnings/errors.
+**Πρόβλημα:** Προσδιορίστε ποιες πράξεις είναι έγκυρες και ποιες παράγουν προειδοποιήσεις/σφάλματα μεταγλώττισης.
 
 ```c
 int main(void) {
@@ -362,57 +362,57 @@ int main(void) {
     const int *ptr1 = &val1;
     int * const ptr2 = &val1;
     
-    ptr1 = &val2; // Op A
-    *ptr1 = 30;   // Op B
+    ptr1 = &val2; // Πράξη A
+    *ptr1 = 30;   // Πράξη B
     
-    ptr2 = &val2; // Op C
-    *ptr2 = 30;   // Op D
+    ptr2 = &val2; // Πράξη C
+    *ptr2 = 30;   // Πράξη D
     
     return 0;
 }
 ```
 
-**Solution:**
-1. `ptr1` is a pointer to constant data (`const int *`).
-   - Op A (`ptr1 = &val2`) is **valid**. The pointer itself is mutable.
-   - Op B (`*ptr1 = 30`) is **invalid** (compiler error). The referenced data is const.
-2. `ptr2` is a constant pointer to dynamic integer data (`int * const`).
-   - Op C (`ptr2 = &val2`) is **invalid** (compiler error). The pointer itself is constant.
-   - Op D (`*ptr2 = 30`) is **valid**. The target integer data is mutable.
+**Λύση:**
+1. Ο `ptr1` είναι δείκτης σε σταθερά δεδομένα (`const int *`).
+   - Η Πράξη A (`ptr1 = &val2`) είναι **έγκυρη**. Ο ίδιος ο δείκτης είναι μεταβλητός.
+   - Η Πράξη B (`*ptr1 = 30`) είναι **άκυρη** (σφάλμα μεταγλώττισης). Τα δεδομένα στα οποία αναφέρεται είναι const.
+2. Ο `ptr2` είναι σταθερός δείκτης σε δυναμικά ακέραια δεδομένα (`int * const`).
+   - Η Πράξη C (`ptr2 = &val2`) είναι **άκυρη** (σφάλμα μεταγλώττισης). Ο ίδιος ο δείκτης είναι σταθερός.
+   - Η Πράξη D (`*ptr2 = 30`) είναι **έγκυρη**. Τα δεδομένα ακεραίου στόχου είναι μεταβλητά.
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### 1. Dangling Pointers
-* **Cause:** Accessing a pointer after the memory block it references has been deallocated with `free()` or when a local variable goes out of scope.
-* **Resolution:** Set pointers to `NULL` immediately after calling `free()` to prevent subsequent read/write attempts.
+### 1. Μετέωροι Δείκτες (Dangling Pointers)
+* **Αιτία:** Προσπέλαση δείκτη αφού το μπλοκ μνήμης στο οποίο αναφέρεται έχει αποδεσμευτεί με την `free()` ή όταν μια τοπική μεταβλητή βγαίνει εκτός εμβέλειας.
+* **Επίλυση:** Θέτετε τους δείκτες σε `NULL` αμέσως μετά την κλήση της `free()` για την αποτροπή μεταγενέστερων προσπαθειών ανάγνωσης/εγγραφής.
 
-### 2. Double-Free Errors
-* **Cause:** Calling `free()` twice on the same memory block address without an intervening allocation. This corrupts heap structures and triggers allocator crashes.
-* **Resolution:** Ensure ownership of pointers is clear. Setting pointers to `NULL` after freeing them is safe, because `free(NULL)` is defined as a no-op by the C standard.
+### 2. Σφάλματα Διπλής Αποδέσμευσης (Double-Free Errors)
+* **Αιτία:** Κλήση της `free()` δύο φορές στην ίδια διεύθυνση μπλοκ μνήμης χωρίς ενδιάμεση δέσμευση. Αυτό καταστρέφει τις δομές του heap και προκαλεί καταρρεύσεις του κατανεμητή (allocator).
+* **Επίλυση:** Εξασφαλίστε σαφή ιδιοκτησία των δεικτών. Η θέση των δεικτών σε `NULL` μετά την αποδέσμευση είναι ασφαλής, καθώς η `free(NULL)` είναι ορισμένη ως αδρανής πράξη (no-op) από το πρότυπο της C.
 
-### 3. Out-of-Bounds Memory Corruption
-* **Cause:** Accessing indices outside the allocated boundaries of an array (e.g. `arr[size]`). Because C does not perform bound checks, this accesses neighboring stack or heap memory.
-* **Resolution:** Validate boundary indexes in loops. Use utility parameters to keep track of array sizes.
+### 3. Αλλοίωση Μνήμης Εκτός Ορίων (Out-of-Bounds Memory Corruption)
+* **Αιτία:** Προσπέλαση δεικτών εκτός των δεσμευμένων ορίων ενός πίνακα (π.χ. `arr[size]`). Επειδή η C δεν εκτελεί ελέγχους ορίων, αυτό προσπελαύνει γειτονική μνήμη στοιβάδας ή heap.
+* **Επίλυση:** Ελέγχετε τους δείκτες ορίων στους βρόχους. Χρησιμοποιείτε βοηθητικές παραμέτρους για την παρακολούθηση του μεγέθους των πινάκων.
 
 ---
 
-## Exam Tip: Array Decay and Parameter Size Equivalences
+## Συμβουλή Εξετάσεων: Εκφυλισμός Πινάκων και Ισοδυναμία Μεγέθους Παραμέτρων
 
-**Array Decay as Parameter Trap:**
-When a function parameter is declared as an array, the compiler silently rewrites it as a pointer. For example, the following signatures are identical to the compiler:
+**Ο Εκφυλισμός Πίνακα ως Παγίδα Παραμέτρου:**
+Όταν μια παράμετρος συνάρτησης δηλώνεται ως πίνακας, ο μεταγλωττιστής τη μεταγράφει σιωπηλά ως δείκτη. Για παράδειγμα, οι ακόλουθες υπογραφές είναι απόλυτα ισοδύναμες για τον μεταγλωττιστή:
 ```c
 void process(int arr[]);
 void process(int arr[100]);
 void process(int *arr);
 ```
-**Exam consequence:** Inside `process`, `sizeof(arr)` will **always** evaluate to the size of a pointer (usually 8 bytes on modern platforms), not the size of the array! Students often make the mistake of using `sizeof(arr) / sizeof(arr[0])` to find the length of a parameter array. This only works in the scope where the array was declared.
+**Εξεταστική συνέπεια:** Εντός της `process`, η έκφραση `sizeof(arr)` θα αξιολογείται **πάντα** στο μέγεθος ενός δείκτη (συνήθως 8 bytes σε σύγχρονες πλατφόρμες), και όχι στο μέγεθος του πίνακα! Οι φοιτητές συχνά κάνουν το λάθος να χρησιμοποιούν το `sizeof(arr) / sizeof(arr[0])` για να βρουν το μήκος ενός πίνακα παραμέτρου. Αυτό λειτουργεί μόνο στην εμβέλεια όπου δηλώθηκε ο πίνακας.
 
-**Dynamic Array Returns:**
-Functions cannot return array types directly. To return a list from a function:
-1. Return a pointer to a dynamically allocated block (e.g. `malloc`), requiring the caller to explicitly release the resource:
+**Επιστροφή Δυναμικών Πινάκων:**
+Οι συναρτήσεις δεν μπορούν να επιστρέψουν τύπους πινάκων απευθείας. Για να επιστρέψετε μια λίστα από μια συνάρτηση:
+1. Επιστρέψτε έναν δείκτη σε ένα δυναμικά δεσμευμένο μπλοκ (π.χ. `malloc`), απαιτώντας από τον καλούντα να αποδεσμεύσει ρητά τον πόρο:
    ```c
    int* create_array(int size) { return malloc(size * sizeof(int)); }
    ```
-2. Pass a destination array pointer as a parameter and copy values into it.
+2. Μεταβιβάστε έναν δείκτη πίνακα προορισμού ως παράμετρο και αντιγράψτε τις τιμές σε αυτόν.

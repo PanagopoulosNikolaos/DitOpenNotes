@@ -1,21 +1,21 @@
-# Prolog — Basics of Logic Programming
+# Prolog — Βασικές Έννοιες Λογικού Προγραμματισμού
 
-Prolog is a declarative logic programming language whose programs are **knowledge bases** composed of facts and rules. Execution is query-driven: the programmer states *what* is true (relations and constraints) and asks questions; a built-in **logical inference engine** attempts to prove the query by deriving consequences from the knowledge base. Unlike imperative languages, control flow is not explicitly coded — it emerges from resolution, unification, and backtracking (covered in `prolog_2_execution_mechanisms.md`).
+Η Prolog είναι μια δηλωτική γλώσσα λογικού προγραμματισμού της οποίας τα προγράμματα είναι **βάσεις γνώσης (knowledge bases)** που αποτελούνται από γεγονότα (facts) και κανόνες (rules). Η εκτέλεση κατευθύνεται από ερωτήματα (queries): ο προγραμματιστής δηλώνει *τι* είναι αληθές (σχέσεις και περιορισμούς) και υποβάλλει ερωτήσεις· μια ενσωματωμένη **μηχανή λογικού συμπερασμού (inference engine)** προσπαθεί να αποδείξει το ερώτημα παράγοντας συνέπειες από τη βάση γνώσης. Σε αντίθεση με τις προστακτικές γλώσσες, η ροή ελέγχου δεν προγραμματίζεται ρητά — προκύπτει από την αναγωγή (resolution), την ενοποίηση (unification) και την οπισθοδρόμηση (backtracking) (καλύπτονται στο `prolog_2_execution_mechanisms.md`).
 
 ---
 
-## 1. Knowledge Base Structure
+## 1. Δομή Βάσης Γνώσης
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-A Prolog program is a collection of **clauses** stored in a knowledge base (KB). Clauses fall into two categories:
+Ένα πρόγραμμα Prolog είναι μια συλλογή από **προτάσεις (clauses)** αποθηκευμένες σε μια βάση γνώσης (KB). Οι προτάσεις εμπίπτουν σε δύο κατηγορίες:
 
-1. **Facts** — unconditional assertions about ground or partially ground relations.
-2. **Rules** — conditional assertions (Horn clauses) that hold when their body goals succeed.
+1. **Γεγονότα (Facts)** — ανευ όρων διαβεβαιώσεις σχετικά με θεμελιωμένες (ground) ή μερικώς θεμελιωμένες σχέσεις.
+2. **Κανόνες (Rules)** — υπό όρους διαβεβαιώσεις (προτάσεις Horn) που ισχύουν όταν οι στόχοι του σώματός τους επιτυγχάνουν.
 
-The KB is passive data until a **query** activates the inference engine.
+Η βάση γνώσης είναι παθητικά δεδομένα μέχρι ένα **ερώτημα (query)** να ενεργοποιήσει τη μηχανή συμπερασμού.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
 ```
 <fact>       ::= <atom>(<term>, ..., <term>) .
@@ -25,55 +25,55 @@ The KB is passive data until a **query** activates the inference engine.
 <goal>       ::= <atom>(<term>, ..., <term>)
 <query>      ::= ?- <goal> { , <goal> } .
 <term>       ::= <atom> | <variable> | <number> | <list> | <compound>
-<variable>   ::= <UppercaseLetter><alphanumeric>*   % e.g., X, Parent, _Result
+<variable>   ::= <UppercaseLetter><alphanumeric>*   % π.χ. X, Parent, _Result
 <atom>       ::= <lowercase_identifier> | 'quoted atom'
 ```
 
-- `.` terminates every fact and rule.
-- `:-` (if) separates rule head from body; read as "is true if".
-- `,` (and) conjoins goals in a body or query.
-- `;` (or) disjoins alternative goals (introduced in later sections).
+- Η τελεία `.` τερματίζει κάθε γεγονός και κανόνα.
+- Το `:-` (εάν) διαχωρίζει την κεφαλή του κανόνα από το σώμα· διαβάζεται ως "είναι αληθές εάν".
+- Το κόμμα `,` (και) συνδέει στόχους σε ένα σώμα ή ερώτημα (σύζευξη).
+- Το ελληνικό ερωτηματικό / semicolon `;` (ή) διαζεύγνει εναλλακτικούς στόχους (διάζευξη).
 
-### 1.3 Behavioral Description
+### 1.3 Περιγραφή Συμπεριφοράς
 
-| Construct | Role | Evaluation |
+| Κατασκευή | Ρόλος | Αξιολόγηση |
 | :--- | :--- | :--- |
-| Fact | Asserts a relation unconditionally | Succeeds when unified with matching query |
-| Rule | Defines derived relations | Succeeds when all body goals succeed |
-| Query | Question posed to the KB | Engine searches for proofs; may bind variables |
-| Variable | Placeholder for unknown term | Bound by unification during proof search |
-| Atom | Constant symbol (predicate or functor name) | Must match exactly (case-sensitive) |
+| Γεγονός (Fact) | Δηλώνει μια σχέση άνευ όρων | Επιτυγχάνει όταν ενοποιηθεί με ταυτοποιημένο ερώτημα |
+| Κανόνας (Rule) | Ορίζει παραγόμενες σχέσεις | Επιτυγχάνει όταν όλοι οι στόχοι του σώματος επιτύχουν |
+| Ερώτημα (Query) | Ερώτηση προς τη βάση γνώσης | Η μηχανή αναζητά αποδείξεις· ενδέχεται να συνδέσει μεταβλητές |
+| Μεταβλητή (Variable) | Θέση υποδοχής για άγνωστο όρο | Συνδέεται μέσω ενοποίησης κατά την αναζήτηση απόδειξης |
+| Άτομο (Atom) | Σταθερό σύμβολο (όνομα κατηγορήματος ή συναρτητή) | Πρέπει να ταιριάζει ακριβώς (με διάκριση πεζών/κεφαλαίων) |
 
-### 1.4 Parameter Reference — Clause Components
+### 1.4 Αναφορά Παραμέτρων — Στοιχεία Προτάσεων
 
-| Name | Type/Values | Required | Default | Description |
+| Όνομα | Τύπος/Τιμές | Απαιτείται | Προεπιλογή | Περιγραφή |
 | :--- | :--- | :--- | :--- | :--- |
-| Predicate name | atom | Yes | — | Identifies the relation (e.g., `parent`, `likes`) |
-| Arity | non-negative integer | Yes | — | Number of arguments; `parent/2` has arity 2 |
-| Arguments (terms) | atom, variable, number, compound | Per clause | — | Positional relation components |
-| Rule body goals | comma-separated goals | For rules | — | Conditions that must all succeed |
-| Query variables | uppercase identifiers | Optional | unbound | Receive bindings when proof succeeds |
+| Όνομα κατηγορήματος | άτομο (atom) | Ναι | — | Ταυτοποιεί τη σχέση (π.χ. `parent`, `likes`) |
+| Πληθικότητα (Arity) | μη αρνητικός ακέραιος | Ναι | — | Αριθμός ορισμάτων· το `parent/2` έχει πληθικότητα 2 |
+| Ορίσματα (όροι) | άτομο, μεταβλητή, αριθμός, σύνθετος όρος | Ανά πρόταση | — | Θεσιακά στοιχεία σχέσης |
+| Στόχοι σώματος κανόνα | στόχοι διαχωρισμένοι με κόμμα | Για κανόνες | — | Συνθήκες που πρέπει να επιτύχουν όλες |
+| Μεταβλητές ερωτήματος | αναγνωριστικά με κεφαλαίο | Προαιρετικά | ασύνδετες | Λαμβάνουν συνδέσεις όταν επιτύχει η απόδειξη |
 
 ---
 
-## 2. Facts
+## 2. Γεγονότα (Facts)
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-A **fact** is a clause with no body — a direct assertion that a relation holds between specific terms. Facts form the ground truth of the KB.
+Ένα **γεγονός (fact)** είναι μια πρόταση χωρίς σώμα — μια άμεση διαβεβαίωση ότι μια σχέση ισχύει μεταξύ συγκεκριμένων όρων. Τα γεγονότα αποτελούν τη θεμελιώδη αλήθεια της βάσης γνώσης.
 
-### 2.2 Syntax Reference
+### 2.2 Αναφορά Σύνταξης
 
 ```
 <predicate>(<arg1>, <arg2>, ..., <argN>) .
 ```
 
-### 2.3 Behavioral Description
+### 2.3 Περιγραφή Συμπεριφοράς
 
-Facts are always true within the KB. When a query unifies with a fact, the engine reports success. If the query contains variables, the engine reports the bindings that make the unification succeed.
+Τα γεγονότα είναι πάντα αληθή εντός της βάσης γνώσης. Όταν ένα ερώτημα ενοποιείται με ένα γεγονός, η μηχανή αναφέρει επιτυχία. Εάν το ερώτημα περιέχει μεταβλητές, η μηχανή αναφέρει τις συνδέσεις που καθιστούν την ενοποίηση επιτυχή.
 
 ```prolog
-% Family relations knowledge base.
+% Βάση γνώσης οικογενειακών σχέσεων.
 parent(alice, bob).
 parent(alice, carol).
 parent(bob, dave).
@@ -103,33 +103,33 @@ X = bob ;
 X = carol.
 ```
 
-> **[Key Insight]** A single fact can answer multiple query shapes depending on which arguments are variables. `parent(alice, X)` asks "who are Alice's children?"; `parent(X, bob)` asks "who is Bob's parent?"
+> **[Βασική Παρατήρηση]** Ένα μεμονωμένο γεγονός μπορεί να απαντήσει σε πολλαπλές μορφές ερωτημάτων ανάλογα με το ποια ορίσματα είναι μεταβλητές. Το ερώτημα `parent(alice, X)` ρωτά "ποια είναι τα παιδιά της Alice;"· το `parent(X, bob)` ρωτά "ποιος είναι ο γονέας του Bob;"
 
 ---
 
-## 3. Rules (Horn Clauses)
+## 3. Κανόνες (Προτάσεις Horn)
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-A **rule** defines a relation in terms of other relations. Structurally, it is a **Horn clause**: exactly one positive literal (the head) and zero or more positive literals in the body (no negated disjunction in standard Prolog).
+Ένας **κανόνας (rule)** ορίζει μια σχέση συναρτήσει άλλων σχέσεων. Δομικά, είναι μια **πρόταση Horn (Horn clause)**: ακριβώς ένα θετικό κατηγόρημα (η κεφαλή) και μηδέν ή περισσότερα θετικά κατηγορήματα στο σώμα (χωρίς αρνητική διάζευξη στην πρότυπη Prolog).
 
-**Logical reading:**
+**Λογική ανάγνωση:**
 
 $$
 \text{head}(X_1, \ldots, X_n) \leftarrow \text{goal}_1 \land \text{goal}_2 \land \cdots \land \text{goal}_m
 $$
 
-In Prolog syntax: `head(...) :- goal1, goal2, ..., goalm.`
+Στη σύνταξη της Prolog: `head(...) :- goal1, goal2, ..., goalm.`
 
-### 3.2 Syntax Reference
+### 3.2 Αναφορά Σύνταξης
 
 ```
 <head>(<terms>) :- <goal1>, <goal2>, ..., <goalN> .
 ```
 
-### 3.3 Behavioral Description
+### 3.3 Περιγραφή Συμπεριφοράς
 
-A rule succeeds when **every** goal in its body succeeds in sequence (conjunction). The head is considered proven with the variable bindings accumulated from the body.
+Ένας κανόνας επιτυγχάνει όταν **κάθε** στόχος στο σώμα του επιτυγχάνει διαδοχικά (σύζευξη). Η κεφαλή θεωρείται αποδεδειγμένη με τις συνδέσεις μεταβλητών που συσσωρεύτηκαν από το σώμα.
 
 ```prolog
 likes(alice, pizza).
@@ -137,7 +137,7 @@ likes(bob, sushi).
 likes(carol, pizza).
 likes(dave, sushi).
 
-% Mutual liking: both must like each other.
+% Αμοιβαία συμπάθεια: πρέπει και οι δύο να συμπαθούν ο ένας τον άλλο.
 dating(X, Y) :- likes(X, Y), likes(Y, X).
 ```
 
@@ -166,43 +166,43 @@ X = bob, Y = dave ;
 X = dave, Y = bob.
 ```
 
-### 3.4 Horn Clause Structure Table
+### 3.4 Πίνακας Δομής Προτάσεων Horn
 
-| Component | Prolog Syntax | Logical Meaning |
+| Στοιχείο | Σύνταξη Prolog | Λογική Σημασία |
 | :--- | :--- | :--- |
-| Head | `dating(X, Y)` | Conclusion to prove |
-| Body goal 1 | `likes(X, Y)` | Premise: X likes Y |
-| Body goal 2 | `likes(Y, X)` | Premise: Y likes X |
-| Conjunction | `,` | All premises required |
+| Κεφαλή | `dating(X, Y)` | Συμπέρασμα προς απόδειξη |
+| Στόχος σώματος 1 | `likes(X, Y)` | Προκείμενη: Ο X συμπαθεί τον Y |
+| Στόχος σώματος 2 | `likes(Y, X)` | Προκείμενη: Ο Y συμπαθεί τον X |
+| Σύζευξη | `,` | Απαιτούνται όλες οι προκείμενες |
 
 ---
 
-## 4. Queries and the Inference Engine
+## 4. Ερωτήματα και η Μηχανική Συμπερασμού
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-A **query** asks the inference engine whether a goal can be derived from the KB. Outcomes fall into three categories:
+Ένα **ερώτημα (query)** ρωτά τη μηχανή συμπερασμού εάν ένας στόχος μπορεί να παραχθεί από τη βάση γνώσης. Τα αποτελέσματα εμπίπτουν σε τρεις κατηγορίες:
 
-1. **Ground success** — query with no variables; answer is `true.` or `false.`
-2. **Variable instantiation** — query with variables; answer is bindings for variables, possibly multiple solutions separated by `;`
-3. **Failure** — no proof exists; answer is `false.`
+1. **Θεμελιωμένη επιτυχία (Ground success)** — ερώτημα χωρίς μεταβλητές· η απάντηση είναι `true.` ή `false.`
+2. **Αποτίμηση μεταβλητών (Variable instantiation)** — ερώτημα με μεταβλητές· η απάντηση είναι συνδέσεις για τις μεταβλητές, ενδεχομένως πολλαπλές λύσεις διαχωρισμένες με `;`
+3. **Αποτυχία (Failure)** — δεν υπάρχει απόδειξη· η απάντηση είναι `false.`
 
-### 4.2 Syntax Reference
+### 4.2 Αναφορά Σύνταξης
 
 ```
 ?- <goal> .
 ?- <goal1>, <goal2> .
 ```
 
-### 4.3 Behavioral Description
+### 4.3 Περιγραφή Συμπεριφοράς
 
-| Query Type | Example | Typical Response |
+| Τύπος Ερωτήματος | Παράδειγμα | Τυπική Απάντηση |
 | :--- | :--- | :--- |
-| Existence (ground) | `?- parent(alice, bob).` | `true.` |
-| Single-variable | `?- parent(alice, Child).` | `Child = bob ; Child = carol.` |
-| Multi-variable | `?- parent(Parent, Child).` | All `(Parent, Child)` pairs from facts |
-| Conjunctive | `?- parent(P, C), female(C).` | Parents of female children |
-| No solution | `?- parent(alice, dave).` | `false.` |
+| Ύπαρξης (θεμελιωμένο) | `?- parent(alice, bob).` | `true.` |
+| Μεμονωμένης μεταβλητής | `?- parent(alice, Child).` | `Child = bob ; Child = carol.` |
+| Πολλαπλών μεταβλητών | `?- parent(Parent, Child).` | Όλα τα ζεύγη `(Parent, Child)` από τα γεγονότα |
+| Συζευκτικό | `?- parent(P, C), female(C).` | Γονείς θηλυκών παιδιών |
+| Χωρίς λύση | `?- parent(alice, dave).` | `false.` |
 
 ```prolog
 ?- parent(P, C), female(C).
@@ -220,85 +220,85 @@ P = alice, C = carol.
 false.
 ```
 
-### 4.4 Inference Engine Responsibilities
+### 4.4 Αρμοδιότητες Μηχανής Συμπερασμού
 
-The engine performs three core operations (detailed in `prolog_2_execution_mechanisms.md`):
+Η μηχανή εκτελεί τρεις βασικές πράξεις (λεπτομερώς στο `prolog_2_execution_mechanisms.md`):
 
-1. **Unification** — match query terms with fact/rule heads, binding variables.
-2. **Resolution** — apply rules via backward chaining to reduce goals to provable subgoals.
-3. **Backtracking** — on failure, undo bindings and try alternative clauses.
+1. **Ενοποίηση (Unification)** — ταίριασμα όρων ερωτήματος με κεφαλές γεγονότων/κανόνων, συνδέοντας μεταβλητές.
+2. **Αναγωγή (Resolution)** — εφαρμογή κανόνων μέσω οπισθοδρομικής αλυσίδωσης (backward chaining) για την αναγωγή στόχων σε αποδείξιμους υποστόχους.
+3. **Οπισθοδρόμηση (Backtracking)** — σε περίπτωση αποτυχίας, ακύρωση συνδέσεων και δοκιμή εναλλακτικών προτάσεων.
 
 ---
 
-## 5. Declarative vs. Imperative Reading
+## 5. Δηλωτική έναντι Προστακτικής Ανάγνωσης
 
-### 5.1 Concept Overview
+### 5.1 Επισκόπηση Έννοιας
 
-Prolog programs are read **declaratively** (what is true) and executed **procedurally** (how the engine searches). Both readings must be understood for exam questions.
+Τα προγράμματα Prolog διαβάζονται **δηλωτικά (declaratively)** (τι είναι αληθές) και εκτελούνται **διαδικαστικά (procedurally)** (πώς αναζητά η μηχανή). Και οι δύο αναγνώσεις πρέπει να είναι κατανοητές για τις ερωτήσεις των εξετάσεων.
 
-### 5.2 Comparative Analysis
+### 5.2 Συγκριτική Ανάλυση
 
-| Aspect | Imperative (Python, C++) | Prolog |
+| Όψη | Προστακτικός (Python, C++) | Prolog |
 | :--- | :--- | :--- |
-| Program structure | Sequence of commands | Collection of facts and rules |
-| Control flow | Explicit (`if`, `for`, `while`) | Implicit (engine search order) |
-| State | Mutable variables | Logical bindings during search |
-| Output | Return values, side effects | Success/failure + variable bindings |
-| Problem style | How to compute | What relations hold |
+| Δομή προγράμματος | Ακολουθία εντολών | Συλλογή γεγονότων και κανόνων |
+| Ροή ελέγχου | Ρητή (`if`, `for`, `while`) | Σιωπηρή (σειρά αναζήτησης μηχανής) |
+| Κατάσταση | Μεταβλητές μεταβλητές | Λογικές συνδέσεις κατά την αναζήτηση |
+| Έξοδος | Τιμές επιστροφής, παρενέργειες | Επιτυχία/αποτυχία + συνδέσεις μεταβλητών |
+| Στιλ προβλήματος | Πώς υπολογίζεται | Ποιες σχέσεις ισχύουν |
 
-### 5.3 Dual Reading Example
+### 5.3 Παράδειγμα Διπλής Ανάγνωσης
 
 ```prolog
 sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
 ```
 
-| Reading | Interpretation |
+| Ανάγνωση | Ερμηνεία |
 | :--- | :--- |
-| Declarative | "X and Y are siblings if some parent P has both X and Y as children, and X is not Y." |
-| Procedural | "To prove `sibling(X,Y)`, find P such that `parent(P,X)` succeeds, then `parent(P,Y)`, then verify X and Y differ." |
+| Δηλωτική | "Τα X και Y είναι αδέλφια εάν κάποιος γονέας P έχει και το X και το Y ως παιδιά, και το X διαφέρει από το Y." |
+| Διαδικαστική | "Για να αποδειχθεί το `sibling(X,Y)`, βρες P τέτοιο ώστε το `parent(P,X)` να επιτύχει, μετά το `parent(P,Y)`, και μετά επαλήθευσε ότι τα X και Y διαφέρουν." |
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Missing Period Terminator
+### Σφάλμα 1: Παράλειψη Τελείας Τερματισμού
 
-**Cause:** Facts and rules must end with `.` A missing period causes a syntax error or causes the next clause to be parsed as part of the current one.
+**Αιτία:** Τα γεγονότα και οι κανόνες πρέπει να τελειώνουν με `.`. Η παράλειψη μιας τελείας προκαλεί συντακτικό σφάλμα ή αναγκάζει την επόμενη πρόταση να αναλυθεί ως μέρος της τρέχουσας.
 
 ```prolog
-% Wrong:
+% Λάθος:
 parent(alice, bob)
 
-% Correct:
+% Σωστό:
 parent(alice, bob).
 ```
 
-**Resolution:** Every fact and rule ends with `.` on its own logical line.
+**Επίλυση:** Κάθε γεγονός και κανόνας τελειώνει με `.` στη δική του λογική γραμμή.
 
-### Error 2: Variable vs. Atom Casing
+### Σφάλμα 2: Πεζά/Κεφαλαία σε Μεταβλητές και Άτομα
 
-**Cause:** `Parent` (variable) and `parent` (atom/predicate) are distinct. Lowercase identifiers are atoms; uppercase starts a variable.
+**Αιτία:** Το `Parent` (μεταβλητή) και το `parent` (άτομο/κατηγόρημα) είναι διαφορετικά. Τα αναγνωριστικά με πεζά είναι άτομα· τα κεφαλαία ξεκινάνε μεταβλητή.
 
 ```prolog
-?- Parent(alice, bob).   % Calls predicate named Parent/2 — likely undefined.
-?- parent(alice, bob).   % Correct: queries fact parent/2.
+?- Parent(alice, bob).   % Καλεί κατηγόρημα με όνομα Parent/2 — πιθανώς μη ορισμένο.
+?- parent(alice, bob).   % Σωστό: ερωτά το γεγονός parent/2.
 ```
 
-**Resolution:** Predicate names and constant atoms are lowercase; use uppercase only for variables.
+**Επίλυση:** Τα ονόματα κατηγορημάτων και οι σταθερές είναι πεζά· χρησιμοποιείτε κεφαλαία αρχικά μόνο για μεταβλητές.
 
-### Error 3: Treating Rules as Sequential Assignment
+### Σφάλμα 3: Αντιμετώπιση Κανόνων ως Ακολουθιακής Ανάθεσης
 
-**Cause:** Reading `dating(X,Y) :- likes(X,Y), likes(Y,X).` as "first assign X, then assign Y" misses that the engine searches for bindings satisfying **both** goals simultaneously.
+**Αιτία:** Η ανάγνωση του `dating(X,Y) :- likes(X,Y), likes(Y,X).` ως "πρώτα ανάθεσε το X, μετά το Y" παραβλέπει ότι η μηχανή αναζητά συνδέσεις που ικανοποιούν **και τους δύο** στόχους ταυτόχρονα.
 
-**Resolution:** Think in terms of constraint satisfaction: find values of `X` and `Y` such that all body goals succeed.
+**Επίλυση:** Σκέφτεστε με όρους ικανοποίησης περιορισμών: βρείτε τιμές των `X` και `Y` τέτοιες ώστε όλοι οι στόχοι του σώματος να επιτυγχάνουν.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Identify Clause Type
+### Άσκηση 1: Αναγνώριση Τύπου Πρότασης
 
-**Problem:** Classify each clause as fact or rule.
+**Πρόβλημα:** Ταξινομήστε κάθε πρόταση ως γεγονός ή κανόνα.
 
 ```prolog
 color(red).
@@ -306,17 +306,17 @@ color(blue).
 warm(X) :- color(X), X = red.
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `color(red).` — **fact** (no `:-` body).
-2. `color(blue).` — **fact**.
-3. `warm(X) :- color(X), X = red.` — **rule** (has `:-` with two body goals).
+1. `color(red).` — **γεγονός (fact)** (χωρίς σώμα `:-`).
+2. `color(blue).` — **γεγονός (fact)**.
+3. `warm(X) :- color(X), X = red.` — **κανόνας (rule)** (έχει `:-` με δύο στόχους σώματος).
 
 ---
 
-### Exercise 2: Ground Query Evaluation
+### Άσκηση 2: Αξιολόγηση Θεμελιωμένου Ερωτήματος
 
-**Problem:** Given the KB below, evaluate `?- teaches(prof_smith, cs101).`
+**Πρόβλημα:** Δοθείσης της παρακάτω βάσης γνώσης, αξιολογήστε το ερώτημα `?- teaches(prof_smith, cs101).`
 
 ```prolog
 teaches(prof_smith, cs101).
@@ -324,52 +324,52 @@ teaches(prof_jones, cs102).
 enrolled(alice, cs101).
 ```
 
-**Solution:**
+**Λύση:**
 
-1. Query goal `teaches(prof_smith, cs101)` unifies with fact `teaches(prof_smith, cs101).`
-2. Unification succeeds with no variables to bind.
-3. **Answer:** `true.`
-
----
-
-### Exercise 3: Variable Instantiation
-
-**Problem:** List all answers to `?- teaches(Prof, cs101).` using the KB from Exercise 2.
-
-**Solution:**
-
-1. Scan KB for `teaches/2` facts where second argument unifies with `cs101`.
-2. `teaches(prof_smith, cs101)` matches with `Prof = prof_smith`.
-3. `teaches(prof_jones, cs102)` does not match `cs101`.
-4. **Answer:** `Prof = prof_smith.`
+1. Ο στόχος ερωτήματος `teaches(prof_smith, cs101)` ενοποιείται με το γεγονός `teaches(prof_smith, cs101).`
+2. Η ενοποίηση επιτυγχάνει χωρίς μεταβλητές προς σύνδεση.
+3. **Απάντηση:** `true.`
 
 ---
 
-### Exercise 4: Rule Body Conjunction
+### Άσκηση 3: Αποτίμηση Μεταβλητής
 
-**Problem:** Define `enrolled_in_cs(Student) :- enrolled(Student, Course), teaches(_, Course), sub_string(Course, 0, 2, _, 'cs').` and evaluate `?- enrolled_in_cs(alice).` with the KB from Exercise 2 plus `sub_string/5` built-in behavior for prefix `cs`.
+**Πρόβλημα:** Εμφανίστε όλες τις απαντήσεις για το `?- teaches(Prof, cs101).` χρησιμοποιώντας τη βάση γνώσης της Άσκησης 2.
 
-**Solution:**
+**Λύση:**
 
-1. `enrolled(alice, cs101)` succeeds → `Course = cs101`.
-2. `teaches(_, cs101)` succeeds (prof_smith teaches it).
-3. `sub_string(cs101, 0, 2, _, 'cs')` succeeds (`cs` is prefix).
-4. All body goals succeed → head proven.
-5. **Answer:** `true.`
+1. Σάρωση της KB για γεγονότα `teaches/2` όπου το δεύτερο όρισμα ενοποιείται με το `cs101`.
+2. Το `teaches(prof_smith, cs101)` ταιριάζει με `Prof = prof_smith`.
+3. Το `teaches(prof_jones, cs102)` δεν ταιριάζει με το `cs101`.
+4. **Απάντηση:** `Prof = prof_smith.`
 
 ---
 
-### Exercise 5: Horn Clause Logical Form
+### Άσκηση 4: Σύζευξη Σώματος Κανόνα
 
-**Problem:** Write the logical formula for `dating(X, Y) :- likes(X, Y), likes(Y, X).`
+**Πρόβλημα:** Ορίστε τον κανόνα `enrolled_in_cs(Student) :- enrolled(Student, Course), teaches(_, Course), sub_string(Course, 0, 2, _, 'cs').` και αξιολογήστε το `?- enrolled_in_cs(alice).` με τη βάση γνώσης της Άσκησης 2 και την ενσωματωμένη συμπεριφορά της `sub_string/5` για το πρόθεμα `cs`.
 
-**Solution:**
+**Λύση:**
+
+1. Το `enrolled(alice, cs101)` επιτυγχάνει → `Course = cs101`.
+2. Το `teaches(_, cs101)` επιτυγχάνει (ο prof_smith το διδάσκει).
+3. Το `sub_string(cs101, 0, 2, _, 'cs')` επιτυγχάνει (το `cs` είναι πρόθεμα).
+4. Όλοι οι στόχοι του σώματος επιτυγχάνουν → η κεφαλή αποδείχθηκε.
+5. **Απάντηση:** `true.`
+
+---
+
+### Άσκηση 5: Λογική Μορφή Πρότασης Horn
+
+**Πρόβλημα:** Γράψτε τον μαθηματικό τύπο λογικής για τη πρόταση `dating(X, Y) :- likes(X, Y), likes(Y, X).`
+
+**Λύση:**
 
 $$
 \forall X, Y \; \big( \text{likes}(X, Y) \land \text{likes}(Y, X) \rightarrow \text{dating}(X, Y) \big)
 $$
 
-Equivalently as a Horn clause:
+Ισοδύναμα ως πρόταση Horn:
 
 $$
 \text{dating}(X, Y) \leftarrow \text{likes}(X, Y) \land \text{likes}(Y, X)
@@ -377,9 +377,9 @@ $$
 
 ---
 
-### Exercise 6: Failed Query Analysis
+### Άσκηση 6: Ανάλυση Αποτυχημένου Ερωτήματος
 
-**Problem:** Why does `?- dating(alice, bob).` fail given only:
+**Πρόβλημα:** Γιατί αποτυγχάνει το `?- dating(alice, bob).` αν δίνεται μόνο:
 
 ```prolog
 likes(alice, pizza).
@@ -387,49 +387,49 @@ likes(bob, sushi).
 dating(X, Y) :- likes(X, Y), likes(Y, X).
 ```
 
-**Solution:**
+**Λύση:**
 
-1. To prove `dating(alice, bob)`, body requires `likes(alice, bob)` and `likes(bob, alice)`.
-2. `likes(alice, bob)` — no matching fact; fails.
-3. Even if the first goal could succeed, `likes(bob, alice)` also has no matching fact.
-4. **Answer:** `false.` — mutual liking is not established.
+1. Για να αποδειχθεί το `dating(alice, bob)`, το σώμα απαιτεί `likes(alice, bob)` και `likes(bob, alice)`.
+2. `likes(alice, bob)` — δεν υπάρχει αντίστοιχο γεγονός· αποτυγχάνει.
+3. Ακόμη κι αν ο πρώτος στόχος μπορούσε να επιτύχει, το `likes(bob, alice)` επίσης δεν έχει αντίστοιχο γεγονός.
+4. **Απάντηση:** `false.` — η αμοιβαία συμπάθεια δεν τεκμηριώνεται.
 
 ---
 
-### Exercise 7: Multi-Solution Query
+### Άσκηση 7: Ερώτημα Πολλαπλών Λύσεων
 
-**Problem:** How many solutions does `?- parent(P, C).` produce with the family KB from Section 2?
+**Πρόβλημα:** Πόσες λύσεις παράγει το `?- parent(P, C).` με τη βάση γνώσης οικογένειας της Ενότητας 2;
 
-**Solution:**
+**Λύση:**
 
 1. `parent(alice, bob).` → `P=alice, C=bob`
 2. `parent(alice, carol).` → `P=alice, C=carol`
 3. `parent(bob, dave).` → `P=bob, C=dave`
 4. `parent(bob, eve).` → `P=bob, C=eve`
-5. **Answer:** 4 solutions.
+5. **Απάντηση:** 4 λύσεις.
 
 ---
 
-### Exercise 8: Conjunctive Query Filtering
+### Άσκηση 8: Φιλτράρισμα Συζευκτικού Ερωτήματος
 
-**Problem:** Evaluate `?- parent(P, C), male(C).` with the Section 2 KB.
+**Πρόβλημα:** Αξιολογήστε το `?- parent(P, C), male(C).` με τη KB της Ενότητας 2.
 
-**Solution:**
+**Λύση:**
 
-1. Try `P=alice, C=bob`: `male(bob)` succeeds.
-2. Try `P=alice, C=carol`: `male(carol)` fails — backtrack.
-3. Try `P=bob, C=dave`: `male(dave)` succeeds.
-4. Try `P=bob, C=eve`: `male(eve)` fails.
-5. **Answer:** `P = alice, C = bob ; P = bob, C = dave.`
+1. Δοκιμή `P=alice, C=bob`: το `male(bob)` επιτυγχάνει.
+2. Δοκιμή `P=alice, C=carol`: το `male(carol)` αποτυγχάνει — οπισθοδρόμηση.
+3. Δοκιμή `P=bob, C=dave`: το `male(dave)` επιτυγχάνει.
+4. Δοκιμή `P=bob, C=eve`: το `male(eve)` αποτυγχάνει.
+5. **Απάντηση:** `P = alice, C = bob ; P = bob, C = dave.`
 
 ---
 
-## Exam Tip: Fact vs. Rule vs. Query Recognition
+## Συμβουλή Εξετάσεων: Αναγνώριση Γεγονότος, Κανόνα και Ερωτήματος
 
-On exam questions, apply this three-step identification:
+Στις ερωτήσεις των εξετάσεων, εφαρμόστε αυτή τη διαδικασία αναγνώρισης τριών βημάτων:
 
-1. **Contains `:-`?** Yes → rule. No → fact (if it ends with `.` in the program) or query (if prefixed with `?-`).
-2. **Has variables?** Facts can contain variables (unusual but valid); queries with variables expect bindings as answers.
-3. **Read declaratively first:** State the logical meaning in plain English before tracing procedural execution. The declarative reading is almost always sufficient for "what does this program mean?" questions; procedural tracing is required for "what is the output order?" questions.
+1. **Περιέχει `:-`;** Ναι → κανόνας. Όχι → γεγονός (εάν τελειώνει με `.` στο πρόγραμμα) ή ερώτημα (εάν έχει πρόθεμα `?-`).
+2. **Έχει μεταβλητές;** Τα γεγονότα μπορούν να περιέχουν μεταβλητές (ασυνήθιστο αλλά έγκυρο)· τα ερωτήματα με μεταβλητές αναμένουν συνδέσεις ως απαντήσεις.
+3. **Διαβάστε δηλωτικά πρώτα:** Δηλώστε τη λογική σημασία σε απλά ελληνικά πριν ιχνηλατήσετε τη διαδικαστική εκτέλεση. Η δηλωτική ανάγνωση είναι σχεδόν πάντα επαρκής για ερωτήσεις τύπου "τι σημαίνει αυτό το πρόγραμμα;"· η διαδικαστική ιχνηλάτηση απαιτείται για ερωτήσεις τύπου "ποια είναι η σειρά εξόδου;".
 
-**Most common exam trap:** Confusing the direction of a relation. `parent(alice, bob)` means "alice is parent of bob", not the reverse. Relation arity and argument order are part of the predicate's meaning and are not commutative.
+**Συχνότερη εξεταστική παγίδα:** Σύγχυση της κατεύθυνσης μιας σχέσης. Η `parent(alice, bob)` σημαίνει "η alice είναι γονέας του bob", και όχι το αντίστροφο. Η πληθικότητα της σχέσης και η σειρά των ορισμάτων αποτελούν μέρος της σημασίας του κατηγορήματος και δεν είναι μεταθετικά.

@@ -1,85 +1,85 @@
-# Python — Basics
+# Python — Βασικές Έννοιες
 
-Python is a dynamically typed, interpreted programming language that compiles source code to bytecode executed by the CPython virtual machine. This file covers the foundational constructs: variable binding, arithmetic expressions, the heap-bound object memory model, control flow via `for` and `while` loops, function definitions, and the performance costs introduced by bytecode evaluation.
+Η Python είναι μια δυναμικά τυποποιημένη, διερμηνευόμενη γλώσσα προγραμματισμού που μεταγλωττίζει τον πηγαίο κώδικα σε bytecode, το οποίο στη συνέχεια εκτελείται από την εικονική μηχανή της CPython. Αυτό το αρχείο καλύπτει τις θεμελιώδεις κατασκευές: σύνδεση μεταβλητών (variable binding), αριθμητικές εκφράσεις, το μοντέλο μνήμης αντικειμένων δεσμευμένων στο heap, τη ροή ελέγχου μέσω βρόχων `for` και `while`, τους ορισμούς συναρτήσεων, καθώς και το κόστος απόδοσης που εισάγεται από την αξιολόγηση του bytecode.
 
 ---
 
-## 1. Variables and Dynamic Typing
+## 1. Μεταβλητές και Δυναμική Τυποποίηση
 
-### 1.1 Variable Binding
+### 1.1 Σύνδεση Μεταβλητών (Variable Binding)
 
-In Python, a **variable** is not a memory location that holds a value directly; it is a **name** that is bound to an object residing on the heap. The statement `x = 5` creates an integer object with value `5` on the heap and binds the name `x` to it.
+Στην Python, μια **μεταβλητή** δεν είναι μια θέση μνήμης που διακρατά μια τιμή άμεσα· είναι ένα **όνομα** που συνδέεται (bound) με ένα αντικείμενο το οποίο βρίσκεται στο heap. Η εντολή `x = 5` δημιουργεί ένα αντικείμενο ακεραίου με τιμή `5` στο heap και συνδέει το όνομα `x` με αυτό.
 
-**Formal model:**
+**Τυπικό μοντέλο:**
 
 ```
-name → reference → object (type, value, reference count)
+όνομα → αναφορά → αντικείμενο (τύπος, τιμή, καταμετρητής αναφορών)
 ```
 
-The built-in function `id()` returns the memory address of the object a name is currently bound to. The built-in function `type()` returns the type of the object.
+Η ενσωματωμένη συνάρτηση `id()` επιστρέφει τη διεύθυνση μνήμης του αντικειμένου στο οποίο είναι συνδεδεμένο ένα όνομα. Η ενσωματωμένη συνάρτηση `type()` επιστρέφει τον τύπο του αντικειμένου.
 
 ```python
 x = 42
-print(id(x))    # Address of the integer object 42 on the heap.
+print(id(x))    # Διεύθυνση του αντικειμένου ακεραίου 42 στο heap.
 print(type(x))  # <class 'int'>
 ```
 
 ```text
-<some integer address>
+<κάποια διεύθυνση ακεραίου>
 <class 'int'>
 ```
 
-### 1.2 Dynamic Typing
+### 1.2 Δυναμική Τυποποίηση
 
-Python uses **dynamic typing**: type information is attached to the object itself, not to the variable name. The same name can be rebound to objects of different types at any point in execution.
+Η Python χρησιμοποιεί **δυναμική τυποποίηση (dynamic typing)**: οι πληροφορίες τύπου είναι προσαρτημένες στο ίδιο το αντικείμενο, και όχι στο όνομα της μεταβλητής. Το ίδιο όνομα μπορεί να επανασυνδεθεί με αντικείμενα διαφορετικών τύπων σε οποιοδήποτε σημείο της εκτέλεσης.
 
 ```python
-x = 10       # x references an int object.
-x = "hello"  # x now references a str object; the int object may be garbage-collected.
-x = [1, 2]   # x now references a list object.
+x = 10       # Το x αναφέρεται σε αντικείμενο int.
+x = "hello"  # Το x τώρα αναφέρεται σε αντικείμενο str· το αντικείμενο int μπορεί να συλλεχθεί από τον garbage collector.
+x = [1, 2]   # Το x τώρα αναφέρεται σε αντικείμενο list.
 ```
 
-The interpreter does **not** check types at parse or compile time. Type errors are discovered only at the moment the incompatible operation is attempted at runtime.
+Ο διερμηνέας **δεν** ελέγχει τους τύπους κατά τον χρόνο ανάλυσης (parsing) ή μεταγλώττισης. Τα σφάλματα τύπων ανακαλύπτονται μόνο τη στιγμή που επιχειρείται η μη συμβατή πράξη κατά τον χρόνο εκτέλεσης.
 
-**Contrast with static typing (e.g., C):**
+**Σύγκριση με τη στατική τυποποίηση (π.χ. C):**
 
-| Property | Python (dynamic) | C (static) |
+| Ιδιότητα | Python (δυναμική) | C (στατική) |
 | :--- | :--- | :--- |
-| Type bound to | Object | Variable declaration |
-| Type check time | Runtime | Compile time |
-| Rebinding to different type | Allowed | Not allowed |
-| Type annotation required | No (optional via PEP 484) | Yes |
+| Ο τύπος συνδέεται με | Αντικείμενο | Δήλωση μεταβλητής |
+| Χρόνος ελέγχου τύπου | Χρόνος εκτέλεσης | Χρόνος μεταγλώττισης |
+| Επανασύνδεση σε διαφορετικό τύπο | Επιτρέπεται | Δεν επιτρέπεται |
+| Απαίτηση σχολιασμού τύπου | Όχι (προαιρετική μέσω PEP 484) | Ναι |
 
-### 1.3 Arithmetic Expressions
+### 1.3 Αριθμητικές Εκφράσεις
 
-Python supports all standard arithmetic operators. Integer division behavior is a common source of errors.
+Η Python υποστηρίζει όλους τους πρότυπους αριθμητικούς τελεστές. Η συμπεριφορά της διαίρεσης ακεραίων αποτελεί συνηθισμένη πηγή σφαλμάτων.
 
-| Operator | Symbol | Example | Result |
+| Τελεστής | Σύμβολο | Παράδειγμα | Αποτέλεσμα |
 | :--- | :--- | :--- | :--- |
-| Addition | `+` | `3 + 2` | `5` |
-| Subtraction | `-` | `7 - 4` | `3` |
-| Multiplication | `*` | `3 * 4` | `12` |
-| True division | `/` | `7 / 2` | `3.5` (always `float`) |
-| Floor division | `//` | `7 // 2` | `3` (rounds toward negative infinity) |
-| Modulo | `%` | `7 % 3` | `1` |
-| Exponentiation | `**` | `2 ** 10` | `1024` |
+| Πρόσθεση | `+` | `3 + 2` | `5` |
+| Αφαίρεση | `-` | `7 - 4` | `3` |
+| Πολλαπλασιασμός | `*` | `3 * 4` | `12` |
+| Πραγματική διαίρεση | `/` | `7 / 2` | `3.5` (πάντα `float`) |
+| Ακέραια διαίρεση (Floor division) | `//` | `7 // 2` | `3` (στρογγυλοποίηση προς το αρνητικό άπειρο) |
+| Υπόλοιπο | `%` | `7 % 3` | `1` |
+| Ύψωση σε δύναμη | `**` | `2 ** 10` | `1024` |
 
-> **[Key Insight]** The `/` operator **always** returns a `float` in Python 3, even when both operands are integers. Use `//` explicitly when integer division is required.
+> **[Βασική Παρατήρηση]** Ο τελεστής `/` επιστρέφει **πάντα** έναν `float` στην Python 3, ακόμη και όταν και οι δύο τελεστές είναι ακέραιοι. Χρησιμοποιείτε τον `//` ρητά όταν απαιτείται ακέραια διαίρεση.
 
 ---
 
-## 2. Dynamically Typed Memory Model (Heap-Bound Objects)
+## 2. Δυναμικά Τυποποιημένο Μοντέλο Μνήμης (Heap-Bound Objects)
 
-### 2.1 The Object Model
+### 2.1 Το Μοντέλο Αντικειμένων
 
-Every value in Python — integers, strings, lists, functions, classes — is an object on the heap. Each object carries three pieces of internal metadata:
+Κάθε τιμή στην Python — ακέραιοι, συμβολοσειρές, λίστες, συναρτήσεις, κλάσεις — είναι ένα αντικείμενο στο heap. Κάθε αντικείμενο φέρει τρία στοιχεία εσωτερικών μεταδεδομένων:
 
-1. **Type pointer:** a reference to the class object that describes the object's type.
-2. **Reference count:** the number of names or containers currently referencing the object.
-3. **Value:** the actual data the object holds.
+1. **Δείκτη τύπου (Type pointer):** μια αναφορά στο αντικείμενο κλάσης που περιγράφει τον τύπο του αντικειμένου.
+2. **Καταμετρητή αναφορών (Reference count):** τον αριθμό των ονομάτων ή περιεκτών που αναφέρονται επί του παρόντος στο αντικείμενο.
+3. **Τιμή (Value):** τα πραγματικά δεδομένα που διακρατά το αντικείμενο.
 
 ```
-Stack frame (local names)        Heap
+Στοιβάδα (τοπικά ονόματα)            Heap
 ┌────────────┐               ┌──────────────────────┐
 │  x  ───────┼──────────────►│ type: int            │
 │  y  ───────┼──────┐        │ refcount: 1          │
@@ -92,33 +92,33 @@ Stack frame (local names)        Heap
                              └──────────────────────┘
 ```
 
-### 2.2 Reference Counting and Garbage Collection
+### 2.2 Καταμέτρηση Αναφορών και Συλλογή Απορριμμάτων (Garbage Collection)
 
-CPython manages memory primarily through **reference counting**. When the reference count of an object drops to zero, the memory is deallocated immediately. To handle **reference cycles** (objects that reference each other forming a cycle, preventing counts from reaching zero), CPython includes a cyclic garbage collector that runs periodically.
+Η CPython διαχειρίζεται τη μνήμη πρωτίστως μέσω **καταμέτρησης αναφορών (reference counting)**. Όταν ο καταμετρητής αναφορών ενός αντικειμένου πέσει στο μηδέν, η μνήμη αποδεσμεύεται αμέσως. Για τη διαχείριση **κυκλικών αναφορών (reference cycles)** (αντικείμενα που αναφέρονται το ένα στο άλλο σχηματίζοντας κύκλο, εμποδίζοντας την επίτευξη του μηδενός), η CPython περιλαμβάνει έναν περιοδικό συλλέκτη κυκλικών απορριμμάτων.
 
 ```python
 import sys
 a = [1, 2, 3]
-b = a           # Both a and b reference the same list object.
-print(sys.getrefcount(a))  # Reports refcount + 1 (the argument itself adds one ref).
+b = a           # Και το a και το b αναφέρονται στο ίδιο αντικείμενο λίστας.
+print(sys.getrefcount(a))  # Αναφέρει refcount + 1 (το ίδιο το όρισμα προσθέτει μία αναφορά).
 ```
 
 ```text
 3
 ```
 
-### 2.3 Identity vs. Equality
+### 2.3 Ταυτότητα (Identity) έναντι Ισότητας (Equality)
 
-- `is` tests **identity**: whether two names refer to the **same object** (same `id()`).
-- `==` tests **equality**: whether the objects have the **same value** (invokes `__eq__`).
+- Ο τελεστής `is` ελέγχει την **ταυτότητα**: εάν δύο ονόματα αναφέρονται στο **ίδιο αντικείμενο** (ίδιο `id()`).
+- Ο τελεστής `==` ελέγχει την **ισότητα**: εάν τα αντικείμενα έχουν την **ίδια τιμή** (καλεί τη μέθοδο `__eq__`).
 
 ```python
 x = [1, 2, 3]
 y = [1, 2, 3]
-print(x == y)   # True  — same value.
-print(x is y)   # False — different objects on the heap.
+print(x == y)   # True  — ίδια τιμή.
+print(x is y)   # False — διαφορετικά αντικείμενα στο heap.
 z = x
-print(x is z)   # True  — z and x reference the same object.
+print(x is z)   # True  — τα z και x αναφέρονται στο ίδιο αντικείμενο.
 ```
 
 ```text
@@ -127,17 +127,17 @@ False
 True
 ```
 
-> **[Key Insight]** CPython caches small integers (typically $-5$ to $256$) and interned short strings, so `is` may return `True` for small integer literals. This is an implementation detail and must never be relied upon for equality testing.
+> **[Βασική Παρατήρηση]** Η CPython αποθηκεύει στην κρυφή μνήμη (interning/caching) μικρούς ακεραίους (τυπικά από $-5$ έως $256$) και μικρές συμβολοσειρές, οπότε ο τελεστής `is` μπορεί να επιστρέψει `True` για σταθερές μικρών ακεραίων. Αυτό αποτελεί λεπτομέρεια υλοποίησης και δεν πρέπει να χρησιμοποιείται ποτέ για έλεγχο ισότητας τιμών.
 
 ---
 
-## 3. Control Flow
+## 3. Ροή Ελέγχου
 
-### 3.1 The `for` Loop
+### 3.1 Ο Βρόχος `for`
 
-The `for` loop in Python iterates over any **iterable** object. An iterable is any object that implements the `__iter__` protocol, returning an **iterator** that yields successive elements.
+Ο βρόχος `for` στην Python εκτελεί επανάληψη πάνω σε οποιοδήποτε **προσπελάσιμο (iterable)** αντικείμενο. Ένα προσπελάσιμο αντικείμενο υλοποιεί το πρωτόκολλο `__iter__`, επιστρέφοντας έναν **επαναλήπτη (iterator)** που παράγει διαδοχικά στοιχεία.
 
-**Abstract syntax:**
+**Αφαιρετική σύνταξη:**
 
 ```
 for <target> in <iterable>:
@@ -146,10 +146,10 @@ for <target> in <iterable>:
     <else_body>]
 ```
 
-The optional `else` clause executes if the loop completes normally (i.e., it was not terminated by a `break` statement).
+Η προαιρετική πρόταση `else` εκτελείται εάν ο βρόχος ολοκληρωθεί κανονικά (δηλαδή, δεν διακόπηκε από εντολή `break`).
 
 ```python
-# Iterates over a list, binding each element to the name `item`.
+# Εκτελεί επανάληψη σε μια λίστα, συνδέοντας κάθε στοιχείο στο όνομα `item`.
 for item in [10, 20, 30]:
     print(item)
 ```
@@ -160,15 +160,15 @@ for item in [10, 20, 30]:
 30
 ```
 
-**`range()` function:**
+**Συνάρτηση `range()`:**
 
-`range(start, stop, step)` generates an arithmetic sequence without materializing all values in memory.
+Η `range(start, stop, step)` παράγει μια αριθμητική ακολουθία χωρίς να δεσμεύει μνήμη για όλα τα στοιχεία ταυτόχρονα.
 
-| Form | Equivalent sequence |
+| Μορφή | Ισοδύναμη ακολουθία |
 | :--- | :--- |
 | `range(n)` | $0, 1, 2, \ldots, n-1$ |
 | `range(a, b)` | $a, a+1, \ldots, b-1$ |
-| `range(a, b, s)` | $a, a+s, a+2s, \ldots$ while $< b$ |
+| `range(a, b, s)` | $a, a+s, a+2s, \ldots$ εφόσον $< b$ |
 
 ```python
 for i in range(0, 10, 2):
@@ -179,11 +179,11 @@ for i in range(0, 10, 2):
 0 2 4 6 8
 ```
 
-### 3.2 The `while` Loop
+### 3.2 Ο Βρόχος `while`
 
-The `while` loop repeats its body as long as a Boolean condition evaluates to `True`.
+Ο βρόχος `while` επαναλαμβάνει το σώμα του όσο μια συνθήκη Boolean αξιολογείται σε `True`.
 
-**Abstract syntax:**
+**Αφαιρετική σύνταξη:**
 
 ```
 while <condition>:
@@ -207,17 +207,17 @@ while n <= 5:
 5
 ```
 
-### 3.3 `break` and `continue`
+### 3.3 `break` και `continue`
 
-- `break`: immediately exits the innermost enclosing loop.
-- `continue`: skips the remainder of the current iteration and proceeds to the next condition check.
+- `break`: πραγματοποιεί ακαριαία έξοδο από τον εσωτερικότερο περιβάλλοντα βρόχο.
+- `continue`: παραλείπει το υπόλοιπο της τρέχουσας επανάληψης και προχωρά στον επόμενο έλεγχο συνθήκης.
 
 ```python
 for i in range(10):
     if i == 3:
-        continue   # Skips printing 3.
+        continue   # Παραλείπει την εκτύπωση του 3.
     if i == 6:
-        break      # Exits the loop at 6.
+        break      # Πραγματοποιεί έξοδο από τον βρόχο στο 6.
     print(i, end=" ")
 ```
 
@@ -227,11 +227,11 @@ for i in range(10):
 
 ---
 
-## 4. Functions
+## 4. Συναρτήσεις
 
-### 4.1 Definition and Call
+### 4.1 Ορισμός και Κλήση
 
-**Abstract syntax:**
+**Αφαιρετική σύνταξη:**
 
 ```
 def <function_name>(<parameters>):
@@ -239,11 +239,11 @@ def <function_name>(<parameters>):
     [return <expression>]
 ```
 
-A function without an explicit `return` statement returns `None` implicitly.
+Μια συνάρτηση χωρίς ρητή εντολή `return` επιστρέφει σιωπηρά την τιμή `None`.
 
 ```python
 def add(a, b):
-    """Computes the sum of two values."""
+    """Υπολογίζει το άθροισμα δύο τιμών."""
     return a + b
 
 result = add(3, 7)
@@ -254,15 +254,15 @@ print(result)
 10
 ```
 
-### 4.2 Parameter Kinds
+### 4.2 Είδη Παραμέτρων
 
-| Kind | Syntax | Behavior |
+| Είδος | Σύνταξη | Συμπεριφορά |
 | :--- | :--- | :--- |
-| Positional | `def f(a, b)` | Matched left-to-right by position |
-| Keyword | `f(a=1, b=2)` | Matched by name; order-independent |
-| Default value | `def f(a, b=10)` | `b` uses `10` if not supplied |
-| Variadic positional | `def f(*args)` | Collects extra positional args into a tuple |
-| Variadic keyword | `def f(**kwargs)` | Collects extra keyword args into a dict |
+| Θεσιακή (Positional) | `def f(a, b)` | Αντιστοίχιση αριστερά-προς-δεξιά βάσει θέσης |
+| Ονομαστική (Keyword) | `f(a=1, b=2)` | Αντιστοίχιση βάσει ονόματος· ανεξάρτητα από τη σειρά |
+| Προεπιλεγμένη τιμή | `def f(a, b=10)` | Το `b` λαμβάνει την τιμή `10` αν δεν δοθεί |
+| Μεταβλητού πλήθους θεσιακές | `def f(*args)` | Συλλέγει επιπλέον θεσιακά ορίσματα σε πλειάδα |
+| Μεταβλητού πλήθους ονομαστικές | `def f(**kwargs)` | Συλλέγει επιπλέον ονομαστικά ορίσματα σε λεξικό |
 
 ```python
 def describe(name, age=0, *hobbies, **extra):
@@ -279,14 +279,14 @@ Hobbies: ('chess', 'hiking')
 Extra: {'city': 'Athens'}
 ```
 
-### 4.3 Scope: LEGB Rule
+### 4.3 Εμβέλεια: Ο Κανόνας LEGB
 
-Python resolves names using the **LEGB** rule, searching four scopes in order:
+Η Python επιλύει τα ονόματα χρησιμοποιώντας τον κανόνα **LEGB**, αναζητώντας σε τέσσερις εμβέλειες με τη σειρά:
 
-1. **L**ocal — names defined inside the current function.
-2. **E**nclosing — names in any enclosing function scopes (for nested functions).
-3. **G**lobal — names defined at module level.
-4. **B**uilt-in — names in Python's built-in namespace (`print`, `len`, etc.).
+1. **L**ocal (Τοπική) — ονόματα ορισμένα εντός της τρέχουσας συνάρτησης.
+2. **E**nclosing (Περιβάλλουσα) — ονόματα σε περιβάλλουσες συναρτήσεις (για εμφωλευμένες συναρτήσεις).
+3. **G**lobal (Καθολική) — ονόματα ορισμένα στο επίπεδο της ενότητας (module).
+4. **B**uilt-in (Ενσωματωμένη) — ονόματα στον ενσωματωμένο χώρο ονομάτων της Python (`print`, `len`, κ.λπ.).
 
 ```python
 x = "global"
@@ -294,7 +294,7 @@ x = "global"
 def outer():
     x = "enclosing"
     def inner():
-        print(x)   # Resolves to "enclosing" via the E scope.
+        print(x)   # Επιλύεται σε "enclosing" μέσω της εμβέλειας E.
     inner()
 
 outer()
@@ -306,34 +306,34 @@ enclosing
 
 ---
 
-## 5. Bytecode Evaluation Costs
+## 5. Κόστος Αξιολόγησης Bytecode
 
-### 5.1 CPython Execution Pipeline
+### 5.1 Η Διοχέτευση Εκτέλεσης της CPython
 
-CPython processes Python source in four stages:
+Η CPython επεξεργάζεται τον πηγαίο κώδικα σε τέσσερα στάδια:
 
-1. **Lexing:** Tokenizes source text into a stream of tokens.
-2. **Parsing:** Constructs an Abstract Syntax Tree (AST) from tokens.
-3. **Compilation:** Translates the AST into platform-independent **bytecode** (`.pyc` files).
-4. **Interpretation:** The CPython virtual machine (PVM) executes bytecode instructions one by one via an evaluation loop.
+1. **Λεκτική ανάλυση (Lexing):** Μετατρέπει τον κώδικα σε ροή λεκτικών μονάδων (tokens).
+2. **Συντακτική ανάλυση (Parsing):** Κατασκευάζει ένα Αφαιρετικό Συντακτικό Δέντρο (AST) από τα tokens.
+3. **Μεταγλώττιση (Compilation):** Μεταφράζει το AST σε ανεξάρτητο πλατφόρμας **bytecode** (αρχεία `.pyc`).
+4. **Διερμηνεία (Interpretation):** Η εικονική μηχανή της CPython (PVM) εκτελεί τις εντολές bytecode μία προς μία μέσω ενός βρόχου αξιολόγησης.
 
-This model distinguishes Python from fully compiled languages (C, C++) where stage 4 does not exist — machine code executes directly on the CPU.
+Αυτό το μοντέλο διαφοροποιεί την Python από τις πλήρως μεταγλωττιζόμενες γλώσσες (C, C++) στις οποίες το στάδιο 4 δεν υπάρχει — ο κώδικας μηχανής εκτελείται άμεσα στη CPU.
 
-### 5.2 The Overhead of Dynamic Dispatch
+### 5.2 Το Επιπλέον Κόστος της Δυναμικής Δρομολόγησης (Dynamic Dispatch)
 
-Because every object carries its type at runtime, **every operation in Python requires a type lookup**. A simple integer addition `a + b` does not map to a single CPU instruction. Instead, the interpreter must:
+Επειδή κάθε αντικείμενο φέρει τον τύπο του κατά τον χρόνο εκτέλεσης, **κάθε πράξη στην Python απαιτεί αναζήτηση τύπου**. Μια απλή πρόσθεση ακεραίων `a + b` δεν αντιστοιχίζεται σε μία μεμονωμένη εντολή CPU. Αντίθετα, ο διερμηνέας πρέπει να:
 
-1. Fetch the object referenced by `a`.
-2. Read its type pointer to find the `int` type object.
-3. Look up the `__add__` method in the type's method table.
-4. Call `__add__` with `b` as the argument.
-5. Allocate a new integer object on the heap for the result.
+1. Ανακτήσει το αντικείμενο στο οποίο αναφέρεται το `a`.
+2. Διαβάσει τον δείκτη τύπου για να βρει το αντικείμενο τύπου `int`.
+3. Αναζητήσει τη μέθοδο `__add__` στον πίνακα μεθόδων του τύπου.
+4. Καλέσει την `__add__` με όρισμα το `b`.
+5. Δεσμεύσει ένα νέο αντικείμενο ακεραίου στο heap για το αποτέλεσμα.
 
-This dispatch sequence costs orders of magnitude more than a native `ADD` instruction.
+Αυτή η ακολουθία δρομολόγησης κοστίζει τάξεις μεγέθους περισσότερο από μια αυτόχθονη εντολή `ADD`.
 
-### 5.3 Bytecode Inspection
+### 5.3 Επιθεώρηση Bytecode
 
-The `dis` module exposes the bytecode of any Python function.
+Η ενότητα `dis` αποκαλύπτει το bytecode οποιασδήποτε συνάρτησης Python.
 
 ```python
 import dis
@@ -353,17 +353,17 @@ dis.dis(square)
              10 RETURN_VALUE
 ```
 
-Each line represents one **opcode**. The interpreter processes these opcodes sequentially. Even this trivial function requires multiple opcodes, each of which involves Python-level object protocol overhead.
+Κάθε γραμμή αναπαριστά ένα **opcode**. Ο διερμηνέας επεξεργάζεται αυτά τα opcodes διαδοχικά. Ακόμη και αυτή η απλή συνάρτηση απαιτεί πολλαπλά opcodes, καθένα από τα οποία επιφέρει επιβάρυνση πρωτοκόλλου αντικειμένων επιπέδου Python.
 
-> **[Key Insight]** The primary implication of bytecode evaluation cost is that tight loops over large datasets written in pure Python are significantly slower than equivalent operations delegated to libraries such as NumPy, which execute native C loops. Minimizing the number of Python-level operations inside hot loops is a key optimization strategy.
+> **[Βασική Παρατήρηση]** Η κύρια συνέπεια του κόστους αξιολόγησης bytecode είναι ότι οι κλειστοί βρόχοι πάνω σε μεγάλα σύνολα δεδομένων γραμμένοι σε αμιγή Python είναι σημαντικά βραδύτεροι από τις ισοδύναμες πράξεις που εκτελούνται από βιβλιοθήκες όπως η NumPy, οι οποίες εκτελούν αυτόχθονες βρόχους C. Η ελαχιστοποίηση των πράξεων επιπέδου Python εντός κρίσιμων βρόχων αποτελεί βασική στρατηγική βελτιστοποίησης.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Type Identification at Runtime
+### Άσκηση 1: Ταυτοποίηση Τύπων κατά τον Χρόνο Εκτέλεσης
 
-**Problem:** Given the assignments below, predict the output of each `type()` call without running the code.
+**Πρόβλημα:** Δοθεισών των παρακάτω αναθέσεων, προβλέψτε την έξοδο κάθε κλήσης `type()` χωρίς να εκτελέσετε τον κώδικα.
 
 ```python
 a = 7
@@ -373,19 +373,19 @@ d = "7"
 e = True
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `type(a)` → `<class 'int'>` — integer literal.
-2. `type(b)` → `<class 'float'>` — decimal literal.
-3. `type(c)` → `<class 'complex'>` — complex literal.
-4. `type(d)` → `<class 'str'>` — string literal.
-5. `type(e)` → `<class 'bool'>` — `bool` is a subclass of `int` in Python; `True` has integer value `1`.
+1. `type(a)` → `<class 'int'>` — ακέραια σταθερά.
+2. `type(b)` → `<class 'float'>` — δεκαδική σταθερά.
+3. `type(c)` → `<class 'complex'>` — μιγαδική σταθερά.
+4. `type(d)` → `<class 'str'>` — σταθερά συμβολοσειράς.
+5. `type(e)` → `<class 'bool'>` — η `bool` είναι υποκλάση της `int` στην Python· το `True` έχει ακέραια τιμή `1`.
 
 ---
 
-### Exercise 2: Integer vs. Float Division
+### Άσκηση 2: Ακέραια έναντι Πραγματικής Διαίρεσης
 
-**Problem:** Evaluate the following expressions and explain each result.
+**Πρόβλημα:** Αξιολογήστε τις παρακάτω εκφράσεις και εξηγήστε κάθε αποτέλεσμα.
 
 ```
 7 / 2
@@ -395,45 +395,45 @@ e = True
 7.0 // 2
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `7 / 2` → `3.5` — true division always returns `float`.
-2. `7 // 2` → `3` — floor division truncates toward negative infinity; $\lfloor 3.5 \rfloor = 3$.
-3. `-7 // 2` → `-4` — floor of $-3.5$ is $-4$ (rounds toward negative infinity, not toward zero).
-4. `7 % 2` → `1` — remainder; $7 = 3 \times 2 + 1$.
-5. `7.0 // 2` → `3.0` — floor division with a `float` operand returns `float`.
+1. `7 / 2` → `3.5` — η πραγματική διαίρεση επιστρέφει πάντα `float`.
+2. `7 // 2` → `3` — η ακέραια διαίρεση στρογγυλοποιεί προς το αρνητικό άπειρο· $\lfloor 3.5 \rfloor = 3$.
+3. `-7 // 2` → `-4` — το floor του $-3.5$ είναι $-4$ (στρογγυλοποίηση προς το αρνητικό άπειρο, όχι προς το μηδέν).
+4. `7 % 2` → `1` — υπόλοιπο· $7 = 3 \times 2 + 1$.
+5. `7.0 // 2` → `3.0` — η ακέραια διαίρεση με τελεστή `float` επιστρέφει `float`.
 
 ---
 
-### Exercise 3: Reference Counting
+### Άσκηση 3: Καταμέτρηση Αναφορών
 
-**Problem:** Trace the reference count of the list object `[1, 2, 3]` through the following sequence.
+**Πρόβλημα:** Ιχνηλατήστε τον καταμετρητή αναφορών του αντικειμένου λίστας `[1, 2, 3]` κατά την παρακάτω ακολουθία.
 
 ```python
-a = [1, 2, 3]   # Step 1
-b = a            # Step 2
-c = [a, a]       # Step 3
-del a            # Step 4
-b = None         # Step 5
+a = [1, 2, 3]   # Βήμα 1
+b = a            # Βήμα 2
+c = [a, a]       # Βήμα 3
+del a            # Βήμα 4
+b = None         # Βήμα 5
 ```
 
-**Solution:**
+**Λύση:**
 
-| Step | Operation | Ref count of `[1,2,3]` | Reason |
+| Βήμα | Πράξη | Καταμετρητής αναφορών του `[1,2,3]` | Αιτιολογία |
 | :--- | :--- | :--- | :--- |
-| 1 | `a = [1,2,3]` | 1 | `a` references it |
-| 2 | `b = a` | 2 | `b` also references it |
-| 3 | `c = [a, a]` | 4 | `c[0]` and `c[1]` each add one reference |
-| 4 | `del a` | 3 | `a` binding is removed |
-| 5 | `b = None` | 2 | `b` no longer references the list; `c[0]` and `c[1]` remain |
+| 1 | `a = [1,2,3]` | 1 | Το `a` αναφέρεται σε αυτό |
+| 2 | `b = a` | 2 | Και το `b` αναφέρεται σε αυτό |
+| 3 | `c = [a, a]` | 4 | Τα `c[0]` και `c[1]` προσθέτουν από μία αναφορά |
+| 4 | `del a` | 3 | Η σύνδεση του `a` αφαιρείται |
+| 5 | `b = None` | 2 | Το `b` δεν αναφέρεται πλέον στη λίστα· τα `c[0]` και `c[1]` παραμένουν |
 
-The list is not garbage-collected at step 5 because `c` still holds two references to it.
+Η λίστα δεν συλλέγεται από τον garbage collector στο βήμα 5 επειδή το `c` διακρατεί ακόμη δύο αναφορές σε αυτήν.
 
 ---
 
-### Exercise 4: Identity vs. Equality with Lists
+### Άσκηση 4: Ταυτότητα έναντι Ισότητας σε Λίστες
 
-**Problem:** Predict the output of the following code.
+**Πρόβλημα:** Προβλέψτε την έξοδο του παρακάτω κώδικα.
 
 ```python
 x = [1, 2, 3]
@@ -446,7 +446,7 @@ print(x is z)
 print(id(x) == id(z))
 ```
 
-**Solution:**
+**Λύση:**
 
 ```text
 True
@@ -455,16 +455,16 @@ True
 True
 ```
 
-- `x == y`: Both lists contain the same elements, so `__eq__` returns `True`.
-- `x is y`: These are two distinct list objects on the heap, so `False`.
-- `x is z`: `z = x` copies the reference, not the object; both names point to the same heap object, so `True`.
-- `id(x) == id(z)`: Confirms the above; same object, same address.
+- `x == y`: Και οι δύο λίστες περιέχουν τα ίδια στοιχεία, οπότε η `__eq__` επιστρέφει `True`.
+- `x is y`: Πρόκειται για δύο διαφορετικά αντικείμενα λίστας στο heap, οπότε `False`.
+- `x is z`: Η `z = x` αντιγράφει την αναφορά, όχι το αντικείμενο· και τα δύο ονόματα δείχνουν στο ίδιο αντικείμενο heap, οπότε `True`.
+- `id(x) == id(z)`: Επιβεβαιώνει τα παραπάνω· ίδιο αντικείμενο, ίδια διεύθυνση.
 
 ---
 
-### Exercise 5: LEGB Scope Resolution
+### Άσκηση 5: Επίλυση Εμβέλειας LEGB
 
-**Problem:** Determine what is printed by this code without running it.
+**Πρόβλημα:** Προσδιορίστε τι εκτυπώνεται από αυτόν τον κώδικα χωρίς να τον εκτελέσετε.
 
 ```python
 value = 100
@@ -481,11 +481,11 @@ outer()
 print(value)
 ```
 
-**Solution:**
+**Λύση:**
 
-1. Inside `inner()`: the local scope defines `value = 300`. LEGB finds it in **L**. Prints `300`.
-2. After `inner()` returns, back in `outer()`: the enclosing scope defines `value = 200`. Prints `200`.
-3. After `outer()` returns, at module level: global `value = 100`. Prints `100`.
+1. Εντός της `inner()`: η τοπική εμβέλεια ορίζει `value = 300`. Ο κανόνας LEGB το βρίσκει στην **L**. Εκτυπώνει `300`.
+2. Μετά την επιστροφή της `inner()`, πίσω στην `outer()`: η περιβάλλουσα εμβέλεια ορίζει `value = 200`. Εκτυπώνει `200`.
+3. Μετά την επιστροφή της `outer()`, στο επίπεδο της ενότητας: καθολικό `value = 100`. Εκτυπώνει `100`.
 
 ```text
 300
@@ -495,22 +495,22 @@ print(value)
 
 ---
 
-### Exercise 6: `range()` Behavior
+### Άσκηση 6: Συμπεριφορά της `range()`
 
-**Problem:** Without running the code, list all values printed by the following loop.
+**Πρόβλημα:** Χωρίς να εκτελέσετε τον κώδικα, εμφανίστε όλες τις τιμές που εκτυπώνονται από τον παρακάτω βρόχο.
 
 ```python
 for i in range(2, 20, 3):
     print(i)
 ```
 
-**Solution:**
+**Λύση:**
 
-The sequence starts at $2$, increments by $3$, and stops before $20$:
+Η ακολουθία ξεκινά στο $2$, αυξάνεται κατά $3$, και σταματά πριν το $20$:
 
 $$2, \ 5, \ 8, \ 11, \ 14, \ 17$$
 
-At the next step, $17 + 3 = 20$, which is not strictly less than $20$, so iteration stops.
+Στο επόμενο βήμα, $17 + 3 = 20$, το οποίο δεν είναι αυστηρά μικρότερο από το $20$, οπότε η επανάληψη σταματά.
 
 ```text
 2
@@ -523,9 +523,9 @@ At the next step, $17 + 3 = 20$, which is not strictly less than $20$, so iterat
 
 ---
 
-### Exercise 7: `for`-`else` Clause
+### Άσκηση 7: Πρόταση `for`-`else`
 
-**Problem:** Explain the behavior of the `else` clause and predict the output.
+**Πρόβλημα:** Εξηγήστε τη συμπεριφορά της πρότασης `else` και προβλέψτε την έξοδο.
 
 ```python
 def find_prime(numbers):
@@ -541,9 +541,9 @@ def find_prime(numbers):
 find_prime([2, 3, 4, 9, 11])
 ```
 
-**Solution:**
+**Λύση:**
 
-The inner `else` executes only when the inner `for` loop completes **without** hitting a `break`. This happens exactly when no divisor is found — i.e., when `n` is prime.
+Η εσωτερική πρόταση `else` εκτελείται μόνο όταν ο εσωτερικός βρόχος `for` ολοκληρωθεί **χωρίς** να συναντήσει εντολή `break`. Αυτό συμβαίνει ακριβώς όταν δεν βρεθεί διαιρέτης — δηλαδή όταν ο `n` είναι πρώτος.
 
 ```text
 2 is prime
@@ -555,11 +555,11 @@ The inner `else` executes only when the inner `for` loop completes **without** h
 
 ---
 
-### Exercise 8: Variadic Arguments and Bytecode Overhead
+### Άσκηση 8: Ορίσματα Μεταβλητού Πλήθους και Επιβάρυνση Bytecode
 
-**Problem:** Write a function `stats(label, *values)` that prints the label, the count of values, and their sum. Then use `dis` to inspect how many bytecode instructions the function body generates (conceptually — list the key operations).
+**Πρόβλημα:** Γράψτε μια συνάρτηση `stats(label, *values)` που εκτυπώνει την ετικέτα, το πλήθος των τιμών και το άθροισμά τους. Στη συνέχεια, χρησιμοποιήστε τη `dis` για να επιθεωρήσετε πόσες εντολές bytecode παράγει το σώμα της συνάρτησης (εννοιολογικά — αναφέρετε τις κύριες πράξεις).
 
-**Solution:**
+**Λύση:**
 
 ```python
 import dis
@@ -577,25 +577,25 @@ dis.dis(stats)
 scores: count=4, sum=100
 ```
 
-Key bytecode operations (simplified):
+Κύριες πράξεις bytecode (απλοποιημένες):
 
-- `LOAD_GLOBAL` to fetch `len` and `sum` from the global/built-in scope.
-- `LOAD_FAST` to load the local names `values`, `count`, `total`, `label`.
-- `CALL_FUNCTION` for each call to `len`, `sum`, and `print`.
-- `LOAD_CONST` to load the f-string template components.
+- `LOAD_GLOBAL` για ανάκτηση των `len` και `sum` από την καθολική/ενσωματωμένη εμβέλεια.
+- `LOAD_FAST` για φόρτωση των τοπικών ονομάτων `values`, `count`, `total`, `label`.
+- `CALL_FUNCTION` για κάθε κλήση στις `len`, `sum` και `print`.
+- `LOAD_CONST` για φόρτωση των δομικών στοιχείων του f-string.
 
-Each `LOAD_GLOBAL` incurs a dictionary lookup in the module's `__dict__`, which is more expensive than `LOAD_FAST` (which is a direct index into the local variable array). Assigning frequently-used global names to local variables inside performance-critical functions is a standard micro-optimization.
+Κάθε `LOAD_GLOBAL` επιφέρει αναζήτηση λεξικού στο `__dict__` της ενότητας, η οποία είναι πιο δαπανηρή από τη `LOAD_FAST` (η οποία είναι άμεσος δείκτης στον πίνακα τοπικών μεταβλητών). Η ανάθεση συχνά χρησιμοποιούμενων καθολικών ονομάτων σε τοπικές μεταβλητές εντός συναρτήσεων κρίσιμης απόδοσης αποτελεί τυπική μικρο-βελτιστοποίηση.
 
 ---
 
-## Exam Tip: Dynamic Typing and Floor Division Edge Cases
+## Συμβουλή Εξετάσεων: Δυναμική Τυποποίηση και Οριακές Περιπτώσεις Ακέραιας Διαίρεσης
 
-**Floor division toward negative infinity** is the most commonly tested edge case. The floor function $\lfloor x \rfloor$ rounds toward $-\infty$, not toward zero. Therefore:
+**Η ακέραια διαίρεση προς το αρνητικό άπειρο (floor division)** είναι η συχνότερα εξεταζόμενη οριακή περίπτωση. Η συνάρτηση floor $\lfloor x \rfloor$ στρογγυλοποιεί προς το $-\infty$, και όχι προς το μηδέν. Επομένως:
 
-$$-7 // 2 = -4 \quad \text{not} \quad -3$$
+$$-7 // 2 = -4 \quad \text{και όχι} \quad -3$$
 
-because $\lfloor -3.5 \rfloor = -4$.
+επειδή $\lfloor -3.5 \rfloor = -4$.
 
-**Common exam pattern:** Given a fragment like `x = -9 // 4`, students often answer `-2` (truncation toward zero). The correct answer is `-3` because $-9 / 4 = -2.25$ and $\lfloor -2.25 \rfloor = -3$.
+**Συνηθισμένο εξεταστικό μοτίβο:** Δοθέντος ενός αποσπάσματος όπως `x = -9 // 4`, οι φοιτητές απαντούν συχνά `-2` (αποκοπή προς το μηδέν). Η σωστή απάντηση είναι `-3` επειδή $-9 / 4 = -2.25$ και $\lfloor -2.25 \rfloor = -3$.
 
-**Reference counting trap:** When tracing reference counts, remember that passing an object as a function argument temporarily increments its reference count for the duration of the call. `sys.getrefcount(x)` always reports one more than the "actual" count because the function call itself holds a reference.
+**Παγίδα καταμέτρησης αναφορών:** Κατά την ιχνηλάτηση των καταμετρητών αναφορών, θυμηθείτε ότι η μεταβίβαση ενός αντικειμένου ως όρισμα συνάρτησης αυξάνει προσωρινά τον καταμετρητή αναφορών του για τη διάρκεια της κλήσης. Η συνάρτηση `sys.getrefcount(x)` αναφέρει πάντα μία παραπάνω αναφορά από την "πραγματική" επειδή η ίδια η κλήση της συνάρτησης διακρατεί μια αναφορά.

@@ -1,245 +1,241 @@
-# Statistics and Time Domain Analysis Mindmap
+# Χάρτης Εννοιών Στατιστικής και Ανάλυσης Πεδίου Χρόνου
 
-* **Statistics and Time Domain Analysis**
-* **Phase 1: Descriptive Statistics**
-* Data Organization & Tables
-* Frequency ($f_i$) and Relative frequency ($h_i$)
-* Cumulative absolute ($F_i$) and relative frequency ($H_i$)
-* Range ($R$), Number of classes ($k$), and Class width ($w$)
-* Data points ($x_i$)
+* **Στατιστική και Ανάλυση Πεδίου Χρόνου**
+* **Φάση 1: Περιγραφική Στατιστική**
+* Οργάνωση Δεδομένων & Πίνακες
+* Συχνότητα ($f_i$) και Σχετική συχνότητα ($h_i$)
+* Αθροιστική απόλυτη ($F_i$) και σχετική συχνότητα ($H_i$)
+* Εύρος ($R$), Πλήθος κλάσεων ($k$), και Πλάτος κλάσης ($w$)
+* Σημεία δεδομένων ($x_i$)
 
 
-* Central Tendency
-* Arithmetic mean ($\bar{x}$), Median ($M_e$), and Mode ($M_o$)
-* Circular mean for cyclic clock times (invalid naive arithmetic mean)
-* Skewness — distribution asymmetry measure
+* Μέτρα Κεντρικής Τάσης
+* Αριθμητικός μέσος ($\bar{x}$), Διάμεσος ($M_e$), και Κορυφή/Επικρατούσα τιμή ($M_o$)
+* Κυκλικός μέσος για περιοδικούς χρόνους ρολογιού (ακυρότητα απλού αριθμητικού μέσου)
+* Ασυμμετρία (Skewness) — μέτρο ασυμμετρίας κατανομής
 
 
-* Position Metrics
-* Quartiles ($Q_1, Q_2, Q_3$), Deciles ($D_k$), and Percentiles ($P_k$)
-* Interquartile Range (IQR) and 5-number summary
-* Boxplot construction
+* Μέτρα Θέσης
+* Τεταρτημόρια ($Q_1, Q_2, Q_3$), Δεκατημόρια ($D_k$), και Εκατοστημόρια ($P_k$)
+* Ενδοτεταρτημοριακό Εύρος (IQR) και σύνοψη 5 αριθμών
+* Κατασκευή Θηκογράμματος (Boxplot)
 
 
-* Dispersion
-* Variance ($s^2$) and Standard deviation ($s$)
-* Coefficient of variation (CV)
-* 1.5 IQR rule for outliers
-* Data transformations
-* The $c^2$ rule — variance scales by $c^2$, SD by $c$ on unit conversion
+* Μέτρα Διασποράς
+* Διακύμανση ($s^2$) και Τυπική απόκλιση ($s$)
+* Συντελεστής μεταβλητότητας (CV)
+* Κανόνας 1.5 IQR για ακραίες τιμές (outliers)
+* Μετασχηματισμοί δεδομένων
+* Ο κανόνας $c^2$ — η διακύμανση κλιμακώνεται κατά $c^2$, η τυπική απόκλιση κατά $c$ σε μετατροπές μονάδων
 
 
 
 
-* **Phase 2: Probability Theory**
-* Set Theory
-* Sample space ($\Omega$)
-* Union ($\cup$), Intersection ($\cap$), Complement ($A'$)
-* Disjoint sets
+* **Φάση 2: Θεωρία Πιθανοτήτων**
+* Θεωρία Συνόλων
+* Δειγματικός χώρος ($\Omega$)
+* Ένωση ($\cup$), Τομή ($\cap$), Συμπλήρωμα ($A'$)
+* Ξένα σύνολα (αμοιβαίως αποκλειόμενα)
 
 
-* Venn Diagrams
-* Layout and 4-region decomposition
-* Phrase translation (e.g., "at least one", "exactly two")
+* Διαγράμματα Venn
+* Διάταξη και αποσύνθεση 4 περιοχών
+* Μετάφραση εκφράσεων (π.χ. "τουλάχιστον ένα", "ακριβώς δύο")
 
 
-* Axioms & Rules
-* Kolmogorov axioms
-* Addition rule and De Morgan’s laws
-* Inclusion-exclusion principle for three events
+* Αξιώματα & Κανόνες
+* Αξιώματα Kolmogorov
+* Κανόνας πρόσθεσης και νόμοι De Morgan
+* Αρχή εγκλεισμού-αποκλεισμού για τρία ενδεχόμενα
 
 
-* Combinatorics
-* Product/sum rules
-* Permutations ($n!$) and Combinations ($nCr$)
-* Circular permutations ($(n-1)!$) and combinations with replacement
-* Multinomial coefficients
+* Συνδυαστική
+* Κανόνες πολλαπλασιασμού/πρόσθεσης
+* Μεταθέσεις ($n!$) και Συνδυασμοί ($nCr$)
+* Κυκλικές μεταθέσεις ($(n-1)!$) και συνδυασμοί με επανάληψη
+* Πολυωνυμικοί συντελεστές
 
 
 
 
-* **Phase 3: Conditional Probability**
-* Core Concepts
-* Definition: $P(A\vert{}B) = P(A \cap B) / P(B)$
-* Multiplication rule
-* Reduced sample space concept
-* Conditional survival probability $P(T > t+s \vert{} T > t)$
-* Right-censored observation windows
+* **Φάση 3: Δεσμευμένη Πιθανότητα**
+* Βασικές Έννοιες
+* Ορισμός: $P(A\vert{}B) = P(A \cap B) / P(B)$
+* Πολλαπλασιαστικός κανόνας
+* Έννοια μειωμένου δειγματικού χώρου
+* Δεσμευμένη πιθανότητα επιβίωσης $P(T > t+s \vert{} T > t)$
+* Παράθυρα παρατήρησης με δεξιά λογοκρισία (right-censored)
 
 
-* Independence
-* Definition: $P(A \cap B) = P(A)P(B)$
-* Distinction from mutual exclusivity
-* System reliability (series/parallel components)
+* Ανεξαρτησία
+* Ορισμός: $P(A \cap B) = P(A)P(B)$
+* Διαφορά από τα αμοιβαίως αποκλειόμενα ενδεχόμενα
+* Αξιοπιστία συστημάτων (εξαρτήματα σε σειρά/παράλληλα)
 
 
-* Partitions & Bayes
-* Law of total probability
-* Bayes' theorem for posterior probability
+* Διαμερίσεις & Bayes
+* Θεώρημα ολικής πιθανότητας
+* Θεώρημα Bayes για εκ των υστέρων (posterior) πιθανότητα
 
 
 
 
-* **Phase 4: Discrete Random Variables**
-* Fundamentals
-* Probability Mass Function (PMF) validity conditions
-* Expected value $E[X]$
-* Variance $Var(X) = E[X^2] - (E[X])^2$
-* Linearity of expectation
+* **Φάση 4: Διακριτές Τυχαίες Μεταβλητές**
+* Θεμελιώδη
+* Συνθήκες εγκυρότητας Συνάρτησης Πιθανότητας (PMF)
+* Αναμενόμενη τιμή $E[X]$
+* Διακύμανση $Var(X) = E[X^2] - (E[X])^2$
+* Γραμμικότητα της αναμενόμενης τιμής
 
 
-* Common Distributions
-* Binomial $Bin(n,p)$ — number of successes in fixed trials
-* Poisson $Poisson(\lambda)$ — event count over continuous interval
-* Rate scaling and Poisson approximation of Binomial
-* Geometric $Geo(p)$ (trials vs. failures variants) — memoryless property
-* Hypergeometric $HG(N,K,n)$ — sampling without replacement
+* Κοινές Κατανομές
+* Διωνυμική $Bin(n,p)$ — πλήθος επιτυχιών σε σταθερές δοκιμές
+* Poisson $Poisson(\lambda)$ — πλήθος γεγονότων σε συνεχή χρόνο/χώρο
+* Κλιμάκωση ρυθμού και προσέγγιση Poisson της Διωνυμικής
+* Γεωμετρική $Geo(p)$ (παραλλαγές δοκιμών vs. αποτυχιών) — ιδιότητα έλλειψης μνήμης
+* Υπεργεωμετρική $HG(N,K,n)$ — δειγματοληψία χωρίς επαναθέτηση
 
 
-* Moment Generating & Characteristic Functions
-* Moment Generating Functions $M_X(t) = E[e^{tX}]$
-* Deriving moments via differentiation
-* Characteristic functions $\phi(t)$
+* Ροπογεννήτριες & Χαρακτηριστικές Συναρτήσεις
+* Ροπογεννήτριες Συναρτήσεις $M_X(t) = E[e^{tX}]$
+* Παραγωγή ροπών μέσω παραγώγισης
+* Χαρακτηριστικές συναρτήσεις $\phi(t)$
 
 
 
 
-* **Phase 5: Continuous Random Variables**
-* Normal Distribution
-* Z-score transformation: $(X-\mu)/\sigma$
-* Z-table lookup and symmetry properties
-* Empirical 68-95-99.7% rule
+* **Φάση 5: Συνεχείς Τυχαίες Μεταβλητές**
+* Κανονική Κατανομή
+* Μετασχηματισμός Z-score: $(X-\mu)/\sigma$
+* Αναζήτηση σε πίνακες Z και ιδιότητες συμμετρίας
+* Εμπειρικός κανόνας 68-95-99.7%
 
 
-* Other Core Distributions
-* Uniform distribution $U(a,b)$
-* Exponential distribution $Exp(\lambda)$ — memoryless property
+* Άλλες Βασικές Κατανομές
+* Ομοιόμορφη κατανομή $U(a,b)$
+* Εκθετική κατανομή $Exp(\lambda)$ — ιδιότητα έλλειψης μνήμης
 
 
-* Advanced Distributions
-* Gamma Distribution — Gamma function ($\Gamma(\alpha)$)
-* Erlang — Gamma with integer shape (sum of identical Exponentials)
-* Weibull — time-to-failure with changing hazard rates
-* Rate vs. scale parameterization
-* Chi-square relationship
+* Προηγμένες Κατανομές
+* Κατανομή Γάμμα — Συνάρτηση Γάμμα ($\Gamma(\alpha)$)
+* Erlang — Γάμμα με ακέραια παράμετρο μορφής (άθροισμα ανεξάρτητων Εκθετικών)
+* Weibull — χρόνος μέχρι την αποτυχία με μεταβαλλόμενο ρυθμό διακινδύνευσης
+* Παραμετροποίηση ρυθμού (rate) vs. κλίμακας (scale)
+* Σχέση με την κατανομή Χίο-τετράγωνο ($\chi^2$)
 
 
-* Transformations
-* Cumulative Distribution Function (CDF) method
-* Jacobian change of variables
+* Μετασχηματισμοί
+* Μέθοδος Αθροιστικής Συνάρτησης Κατανομής (CDF)
+* Αλλαγή μεταβλητών μέσω Ιακωβιανής (Jacobian)
 
 
 
 
-* **Phase 5B: Multivariate Random Variables**
-* Joint Distributions
-* Joint PMF/PDF and Marginal distributions
-* Joint CDF and Conditional PMF/PDF
+* **Φάση 5B: Πολυδιάστατες Τυχαίες Μεταβλητές**
+* Από Κοινού Κατανομές
+* Από κοινού PMF/PDF και Περιθώριες κατανομές
+* Από κοινού CDF και Δεσμευμένη PMF/PDF
 
 
-* Expectation & Moments
-* Joint expectation $E[g(X,Y)]$
-* Covariance and Correlation coefficient ($\rho$)
+* Αναμενόμενη Τιμή & Ροπές
+* Από κοινού αναμενόμενη τιμή $E[g(X,Y)]$
+* Συνδιακύμανση (Covariance) και Συντελεστής συσχέτισης ($\rho$)
 
 
-* Combinations & Total Rules
-* Variance of linear combinations: $V(aX+bY)$
-* Adam’s Law (law of total expectation)
-* Eve’s Law (law of total variance)
+* Συνδυασμοί & Ολικοί Κανόνες
+* Διακύμανση γραμμικών συνδυασμών: $V(aX+bY)$
+* Νόμος του Αδάμ (νόμος ολικής αναμενόμενης τιμής)
+* Νόμος της Εύας (νόμος ολικής διακύμανσης)
 
 
-* Functions of Multiple RVs
-* Bivariate Jacobian matrices
-* Convolution of sums (PDF of $T_1 + T_2$)
-* Order statistics (minimum and maximum distributions)
+* Συναρτήσεις Πολλαπλών Τυχαίων Μεταβλητών
+* Διμεταβλητοί μητρώοι Ιακωβιανής
+* Συνέλιξη αθροισμάτων (PDF του $T_1 + T_2$)
+* Στατιστικές τάξης (κατανομές ελαχίστου και μεγίστου)
 
 
 
 
-* **Phase 6: Inferential Statistics**
-* Central Limit Theorem (CLT)
-* Sample mean: $\bar{X} \sim N(\mu, \sigma^2/n)$
-* Sample sum: $S_n \sim N(n\mu, n\sigma^2)$
-* Sample size requirements ($n \ge 30$)
+* **Φάση 6: Στατιστική Συμπερασματολογία**
+* Κεντρικό Οριακό Θεώρημα (CLT)
+* Δειγματικός μέσος: $\bar{X} \sim N(\mu, \sigma^2/n)$
+* Δειγματικό άθροισμα: $S_n \sim N(n\mu, n\sigma^2)$
+* Απαιτήσεις μεγέθους δείγματος ($n \ge 30$)
 
 
-* Estimation & Hypothesis Testing
-* Confidence intervals (CI) for mean/proportion and variance ($\chi^2$-based)
-* Z-test vs. t-test decision criteria
-* Type I ($\alpha$) and Type II ($\beta$) errors, P-values
-* Statistical power ($1 - \beta$)
+* Εκτίμηση & Έλεγχος Υποθέσεων
+* Διαστήματα εμπιστοσύνης (CI) για μέση τιμή/αναλογία και διακύμανση (βάσει $\chi^2$)
+* Κριτήρια απόφασης Z-test vs. t-test
+* Σφάλματα Τύπου Ι ($\alpha$) και Τύπου ΙΙ ($\beta$), P-values
+* Στατιστική ισχύς ($1 - \beta$)
 
 
-* Sampling Distributions
-* Variance distribution: $(n-1)S^2/\sigma^2 \sim \chi^2$
-* Chi-square, Student’s t, and Fisher’s F distributions
+* Κατανομές Δειγματοληψίας
+* Κατανομή διακύμανσης: $(n-1)S^2/\sigma^2 \sim \chi^2$
+* Κατανομές Χίο-τετράγωνο ($\chi^2$), t του Student, και F του Fisher
 
 
-* Inequalities & Limits
-* Markov’s and Chebyshev’s inequalities
-* Cantelli’s inequality
-* Weak/Strong Law of Large Numbers (LLN)
+* Ανισότητες & Όρια
+* Ανισότητες Markov και Chebyshev
+* Ανισότητα Cantelli
+* Ασθενής/Ισχυρός Νόμος των Μεγάλων Αριθμών (LLN)
 
 
 
 
-* **Phase 7: Time Domain Data & Clock Statistics**
-* Time Series Metrics & Fundamental Variations
-* Fractional frequency offset ($\Delta f/f$) — dimensionless measure of frequency deviation
-* Time Interval Error (TIE) — cumulative phase difference between ideal and actual clock times
-* Maximum Time Interval Error (MTIE) — peak-to-peak observation of delay variations
-* Distinguishing population statistics vs. sampling statistics for infinite time series
+* **Φάση 7: Δεδομένα Πεδίου Χρόνου & Στατιστική Ρολογιών**
+* Μετρικές Χρονοσειρών & Θεμελιώδεις Διακυμάνσεις
+* Κλασματική μετατόπιση συχνότητας ($\Delta f/f$) — αδιάστατο μέτρο απόκλισης συχνότητας
+* Σφάλμα Χρονικού Διαστήματος (TIE) — αθροιστική διαφορά φάσης μεταξύ ιδανικού και πραγματικού χρόνου
+* Μέγιστο Σφάλμα Χρονικού Διαστήματος (MTIE) — παρατήρηση διακυμάνσεων καθυστέρησης από κορυφή σε κορυφή
+* Διακρίσεις πληθυσμιακών στατιστικών vs. δειγματικών στατιστικών για άπειρες χρονοσειρές
 
 
-* Frequency Stability Analysis (Variances)
-* Allan Variance (AVAR) — two-sample variance replacing standard variance to handle frequency drift
-* Allan Deviation (ADEV) — square root of AVAR, standard metric for timekeeping stability
-* Overlapping Allan Deviation (OADEV) — multi-sample technique for maximum confidence estimation
-* Modified Allan Variance (MVAR) — incorporates phase averaging to distinguish white vs. flicker PM noise
-* Time Variance (TVAR) and Time Deviation (TDEV) — estimators for absolute clock time error
-* Hadamard Variance (HVAR) — three-sample variance based on 2nd differences, immune to linear frequency drift
+* Ανάλυση Σταθερότητας Συχνότητας (Διακυμάνσεις)
+* Διακύμανση Allan (AVAR) — διακύμανση δύο δειγμάτων που αντικαθιστά την τυπική διακύμανση για διαχείριση ολίσθησης συχνότητας
+* Τυπική Απόκλιση Allan (ADEV) — τετραγωνική ρίζα της AVAR, βασική μετρική σταθερότητας χρονομέτρησης
+* Επικαλυπτόμενη Απόκλιση Allan (OADEV) — τεχνική πολλαπλών δειγμάτων για εκτίμηση μέγιστης εμπιστοσύνης
+* Τροποποιημένη Διακύμανση Allan (MVAR) — ενσωματώνει μέσο όρο φάσης για διαχωρισμό λευκού vs. flicker θορύβου PM
+* Διακύμανση Χρόνου (TVAR) και Απόκλιση Χρόνου (TDEV) — εκτιμητές απόλυτου σφάλματος χρόνου ρολογιού
+* Διακύμανση Hadamard (HVAR) — διακύμανση τριών δειγμάτων βασισμένη σε 2ες διαφορές, με ανοσία σε γραμμική ολίσθηση συχνότητας
 
 
-* Hardware-Level Timing & Noise Properties
-* Stochastic noise modeling — White Phase/Frequency Modulation, Flicker Phase/Frequency Modulation
-* Clock-to-Q delay ($T_{clk\to q}$) — hardware propagation delay after a clock trigger
-* Clock Skew — latency differences across locations; positive skew aids setup, negative aids hold
-* Deep metastability — calculating Mean Time Between Failures (MTBF) when resolving sub-picosecond overlaps
+* Χρονισμός Επιπέδου Υλικού & Ιδιότητες Θορύβου
+* Στοχαστική μοντελοποίηση θορύβου — Λευκή/Flicker Διαμόρφωση Φάσης/Συχνότητας (PM/FM)
+* Καθυστέρηση Clock-to-Q ($T_{clk\to q}$) — καθυστέρηση διάδοσης υλικού μετά από έναυσμα ρολογιού
+* Λοξότητα Ρολογιού (Clock Skew) — διαφορές καθυστέρησης μεταξύ θέσεων. η θετική λοξότητα βοηθά το setup, η αρνητική βοηθά το hold
+* Βαθιά μετασταθεία — υπολογισμός Μέσου Χρόνου Μεταξύ Αποτυχιών (MTBF) κατά την επίλυση επικαλύψεων υπο-picosecond
 
 
 
 
-* **Phase 8: Probability of Network & Clock Delays**
-* Protocol-Specific Synchronization Models
-* Precision Time Protocol (PTP / IEEE 1588) — targeting sub-microsecond synchronization networks
-* Grandmaster vs. Boundary vs. Ordinary clocks — hierarchy of clock reliability and source origins
-* Path delay calculations — compensating for round-trip time (RTT) and detecting asymmetric routing
-* Absolute clock drift — measured difference formulas $(RX_{ts} - TX_{ts}) - path\_delay$
+* **Φάση 8: Πιθανότητα Καθυστερήσεων Δικτύου & Ρολογιών**
+* Μοντέλα Συγχρονισμού Ειδικά για Πρωτόκολλα
+* Πρωτόκολλο Χρονισμού Ακριβείας (PTP / IEEE 1588) — στόχευση δικτύων συγχρονισμού υπο-microsecond
+* Ρολόγια Grandmaster vs. Boundary vs. Ordinary — ιεραρχία αξιοπιστίας και πηγών ρολογιού
+* Υπολογισμοί καθυστέρησης διαδρομής — αποζημίωση για χρόνο μετ' επιστροφής (RTT) και ανίχνευση ασύμμετρης δρομολόγησης
+* Απόλυτη ολίσθηση ρολογιού — τύποι μετρούμενης διαφοράς $(RX_{ts} - TX_{ts}) - path\_delay$
 
 
-* Delay Distribution Modeling
-* Queuing and forwarding jitter — modeling switch/router delays via Weibull or Gamma continuous distributions
-* Quantization error probability — discrete error bounds based on timestamp resolution limits
+* Μοντελοποίηση Κατανομής Καθυστερήσεων
+* Jitter αναμονής και προώθησης — μοντελοποίηση καθυστερήσεων μεταγωγέων/δρομολογητών μέσω συνεχών κατανομών Weibull ή Γάμμα
+* Πιθανότητα σφάλματος κβαντισμού — διακριτά όρια σφάλματος βάσει ορίων διακριτικής ικανότητας χρονοσημάνσεων
 
 
-* Multi-Clock Delay Probabilities
-* Joint delay probability — calculating $P(\Delta t_1 > x \cap \Delta t_2 > x \cap \Delta t_3 > x)$ for redundant systems
-* Modeling cascaded microsecond loss — convolution of individual link delay probability density functions
-* Tail probability estimation — evaluating worst-case jitter beyond acceptable tolerances ($P(delay > \mu s_{max})$)
-* Markov chain modeling for probabilistic clock state deviations over sequential periods
+* Πιθανότητες Καθυστέρησης Πολλαπλών Ρολογιών
+* Από κοινού πιθανότητα καθυστέρησης — υπολογισμός $P(\Delta t_1 > x \cap \Delta t_2 > x \cap \Delta t_3 > x)$ για εφεδρικά συστήματα
+* Μοντελοποίηση κλιμακωτής απώλειας microsecond — συνέλιξη επιμέρους συναρτήσεων πυκνότητας πιθανότητας καθυστέρησης ζεύξης
+* Εκτίμηση πιθανότητας ουράς (tail probability) — αξιολόγηση χειρότερης περίπτωσης jitter πέραν των αποδεκτών ανοχών ($P(delay > \mu s_{max})$)
+* Μοντελοποίηση αλυσίδων Markov για πιθανοτικές αποκλίσεις κατάστασης ρολογιού σε διαδοχικές περιόδους
 
 
 
 
-* **Phase 9: R Programming Commands**
-* Descriptive Stats: `mean()`, `median()`, `var()`, `sd()`, `IQR()`, `quantile()`, handling `na.rm` and `trim`
-* Distribution Prefixes: `d-` (PMF/PDF), `p-` (CDF), `q-` (Quantiles), `r-` (Random sampling)
-* Distribution Set: `*binom`, `*norm`, `*geom`, `*hyper`, `*exp`, `*unif`, `*gamma`, `*weibull`
-* Sampling & Gotchas: `*chisq`, `*t`, `*f`
-* Interpretation issues — $P(X < k)$ vs $P(X \le k)$
-* Lower tail toggling — `lower.tail = FALSE`
-* Input distinctions — providing standard deviation (`sd`) versus variance (`var`) parameters
-
-
-
-
+* **Φάση 9: Εντολές Προγραμματισμού R**
+* Περιγραφική Στατιστική: `mean()`, `median()`, `var()`, `sd()`, `IQR()`, `quantile()`, διαχείριση `na.rm` και `trim`
+* Προθέματα Κατανομών: `d-` (PMF/PDF), `p-` (CDF), `q-` (Quantiles), `r-` (Τυχαία δειγματοληψία)
+* Σύνολο Κατανομών: `*binom`, `*norm`, `*geom`, `*hyper`, `*exp`, `*unif`, `*gamma`, `*weibull`
+* Δειγματοληψία & Σημεία Προσοχής: `*chisq`, `*t`, `*f`
+* Θέματα ερμηνείας — $P(X < k)$ vs $P(X \le k)$
+* Εναλλαγή κάτω ουράς — `lower.tail = FALSE`
+* Διακρίσεις εισόδου — παροχή παραμέτρων τυπικής απόκλισης (`sd`) έναντι διακύμανσης (`var`)

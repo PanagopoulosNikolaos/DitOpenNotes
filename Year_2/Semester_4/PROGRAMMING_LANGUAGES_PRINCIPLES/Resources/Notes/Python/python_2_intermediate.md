@@ -1,33 +1,33 @@
-# Python — Intermediate Constructs
+# Python — Ενδιάμεσες Κατασκευές
 
-*Prerequisite: python_1_basics.md — Variables, dynamic typing, and heap-bound memory model.*
+*Προαπαιτούμενο: python_1_basics.md — Μεταβλητές, δυναμική τυποποίηση και μοντέλο μνήμης δεσμευμένο στο heap.*
 
-Python's intermediate constructs build on the fundamental object model to provide high-level, expressive data structures and syntax. This file covers the three principal built-in collection types (`list`, `dict`, `set`), their internal implementation and algorithmic complexity, list comprehensions derived from set-builder notation, and the decorator mechanism for higher-order function transformation.
+Οι ενδιάμεσες κατασκευές της Python βασίζονται στο θεμελιώδες μοντέλο αντικειμένων για να παράσχουν εκφραστικές δομές δεδομένων και σύνταξη υψηλού επιπέδου. Αυτό το αρχείο καλύπτει τους τρεις κύριους ενσωματωμένους τύπους συλλογών (`list`, `dict`, `set`), την εσωτερική τους υλοποίηση και αλγοριθμική επιπλοκή, τις κατασκευές λιστών (list comprehensions) που προέρχονται από τη μαθηματική σημειογραφία κατασκευής συνόλων, καθώς και τον μηχανισμό των διακοσμητών (decorators) για μετασχηματισμό συναρτήσεων ανώτερης τάξης.
 
 ---
 
-## 1. Lists
+## 1. Λίστες (Lists)
 
-### 1.1 Internal Representation
+### 1.1 Εσωτερική Αναπαράσταση
 
-A Python `list` is a **dynamic array of object references**. Internally, CPython maintains a contiguous block of pointers to heap objects, plus a capacity field and a length field. When the capacity is exhausted, the array is reallocated at a larger size (the growth factor is approximately $1.125$, i.e., roughly $12.5\%$ amortized growth).
+Μια `list` στην Python είναι ένας **δυναμικός πίνακας αναφορών αντικειμένων**. Εσωτερικά, η CPython διατηρεί ένα συνεχόμενο μπλοκ δεικτών σε αντικείμενα του heap, συν ένα πεδίο χωρητικότητας και ένα πεδίο μήκους. Όταν η χωρητικότητα εξαντλείται, ο πίνακας επαναδεσμεύεται σε μεγαλύτερο μέγεθος (ο παράγοντας αύξησης είναι περίπου $1.125$, δηλαδή περίπου $12.5\%$ αποσβεσμένη αύξηση).
 
-Because the list stores references (pointers) rather than values directly, a list can contain objects of heterogeneous types, and appending to a list does not require copying the objects themselves.
+Επειδή η λίστα αποθηκεύει αναφορές (δείκτες) αντί για τιμές άμεσα, μια λίστα μπορεί να περιέχει αντικείμενα ετερογενών τύπων, και η προσάρτηση σε μια λίστα δεν απαιτεί την αντιγραφή των ίδιων των αντικειμένων.
 
-### 1.2 Core Operations and Complexity
+### 1.2 Βασικές Πράξεις και Επιπλοκή
 
-| Operation | Syntax | Average Time Complexity | Notes |
+| Πράξη | Σύνταξη | Μέση Χρονική Επιπλοκή | Σημειώσεις |
 | :--- | :--- | :--- | :--- |
-| Index access | `lst[i]` | $O(1)$ | Direct pointer arithmetic |
-| Append | `lst.append(x)` | $O(1)$ amortized | Occasional $O(n)$ resize |
-| Insert at position | `lst.insert(i, x)` | $O(n)$ | Shifts elements right |
-| Delete by index | `del lst[i]` | $O(n)$ | Shifts elements left |
-| Delete by value | `lst.remove(x)` | $O(n)$ | Linear scan + shift |
-| Membership test | `x in lst` | $O(n)$ | Linear scan |
-| Length | `len(lst)` | $O(1)$ | Stored as a field |
-| Slice | `lst[a:b]` | $O(b-a)$ | Allocates a new list |
-| Sort (in-place) | `lst.sort()` | $O(n \log n)$ | Timsort; stable |
-| Reverse (in-place) | `lst.reverse()` | $O(n)$ | Pointer swap |
+| Προσπέλαση δείκτη | `lst[i]` | $O(1)$ | Άμεση αριθμητική δεικτών |
+| Προσάρτηση | `lst.append(x)` | $O(1)$ αποσβεσμένο | Περιστασιακή αλλαγή μεγέθους $O(n)$ |
+| Εισαγωγή σε θέση | `lst.insert(i, x)` | $O(n)$ | Μετατοπίζει στοιχεία δεξιά |
+| Διαγραφή βάσει δείκτη | `del lst[i]` | $O(n)$ | Μετατοπίζει στοιχεία αριστερά |
+| Διαγραφή βάσει τιμής | `lst.remove(x)` | $O(n)$ | Γραμμική σάρωση + μετατόπιση |
+| Έλεγχος συμμετοχής | `x in lst` | $O(n)$ | Γραμμική σάρωση |
+| Μήκος | `len(lst)` | $O(1)$ | Αποθηκευμένο ως πεδίο |
+| Τομή (Slice) | `lst[a:b]` | $O(b-a)$ | Δεσμεύει νέα λίστα |
+| Ταξινόμηση (επί τόπου) | `lst.sort()` | $O(n \log n)$ | Timsort· σταθερή |
+| Αντιστροφή (επί τόπου) | `lst.reverse()` | $O(n)$ | Εναλλαγή δεικτών |
 
 ```python
 numbers = [5, 1, 4, 2, 8]
@@ -37,7 +37,7 @@ print(numbers)
 numbers.append(10)
 print(numbers)
 
-print(numbers[2:5])  # Slice from index 2 (inclusive) to 5 (exclusive).
+print(numbers[2:5])  # Τομή από το δείκτη 2 (συμπεριληπτικά) έως 5 (αποκλειστικά).
 ```
 
 ```text
@@ -46,9 +46,9 @@ print(numbers[2:5])  # Slice from index 2 (inclusive) to 5 (exclusive).
 [4, 5, 8]
 ```
 
-### 1.3 Negative Indexing
+### 1.3 Αρνητική Δείκτευση (Negative Indexing)
 
-Python supports negative indices, which count from the end of the list. Index $-1$ refers to the last element, $-2$ to the second-to-last, and so on. For a list of length $n$, index $i$ is equivalent to index $n + i$ for negative $i$.
+Η Python υποστηρίζει αρνητικούς δείκτες, οι οποίοι μετρούν από το τέλος της λίστας. Ο δείκτης `-1` αναφέρεται στο τελευταίο στοιχείο, ο `-2` στο προτελευταίο, και ούτω καθεξής. Για μια λίστα μήκους $n$, ο δείκτης $i$ είναι ισοδύναμος με τον δείκτη $n + i$ για αρνητικό $i$.
 
 ```python
 lst = [10, 20, 30, 40, 50]
@@ -63,42 +63,42 @@ print(lst[-3])   # 30
 
 ---
 
-## 2. Dictionaries
+## 2. Λεξικά (Dictionaries)
 
-### 2.1 Internal Implementation: Hash Tables
+### 2.1 Εσωτερική Υλοποίηση: Πίνακες Κατακερματισμού (Hash Tables)
 
-A Python `dict` is implemented as a **hash table** with open addressing. The underlying data structure is essentially a C-struct array, where each slot stores a triple: `(hash, key, value)`.
+Ένα `dict` στην Python υλοποιείται ως **πίνακας κατακερματισμού (hash table)** με ανοικτή διευθυνσιοδότηση (open addressing). Η υποκείμενη δομή δεδομένων είναι ένας πίνακας structs C, όπου κάθε θέση αποθηκεύει μια τριάδα: `(hash, key, value)`.
 
-**Insertion and lookup algorithm (simplified):**
+### Αλγόριθμος εισαγωγής και αναζήτησης (απλοποιημένος):
 
-1. Compute `hash(key)` — an integer hash value.
-2. Compute the slot index: `slot = hash(key) % table_size`.
-3. If the slot is empty, place the entry there.
-4. If the slot is occupied by a different key (a **collision**), probe the next slot according to the probing sequence until an empty slot is found.
+1. Υπολογισμός `hash(key)` — ένας ακέραιος κατακερματισμού.
+2. Υπολογισμός δείκτη θέσης: `slot = hash(key) % table_size`.
+3. Εάν η θέση είναι άδεια, τοποθετείται η καταχώριση εκεί.
+4. Εάν η θέση καταλαμβάνεται από διαφορετικό κλειδί (**σύγκρουση/collision**), εκτελείται διερεύνηση (probing) στην επόμενη θέση σύμφωνα με την ακολουθία διερεύνησης μέχρι να βρεθεί άδεια θέση.
 
-This yields **average-case** $O(1)$ insert and lookup, and **worst-case** $O(n)$ when all keys hash to the same slot (rare with good hash functions).
+Αυτό δίνει **μέση χρονική επιπλοκή** $O(1)$ για εισαγωγή και αναζήτηση, και **χειρότερη περίπτωση** $O(n)$ όταν όλα τα κλειδιά κατακερματίζονται στην ίδια θέση (σπάνιο με καλές συναρτήσεις κατακερματισμού).
 
-> **[Key Insight]** Only **hashable** objects may be used as dictionary keys. An object is hashable if it implements `__hash__` and `__eq__`. Immutable built-in types (`int`, `float`, `str`, `tuple` of hashables) are hashable. Mutable types (`list`, `dict`, `set`) are not and raise `TypeError` if used as keys.
+> **[Βασική Παρατήρηση]** Μόνο **κατακερματίσιμα (hashable)** αντικείμενα μπορούν να χρησιμοποιηθούν ως κλειδιά λεξικού. Ένα αντικείμενο είναι κατακερματίσιμο εάν υλοποιεί τις μεθόδους `__hash__` και `__eq__`. Οι αμετάβλητοι ενσωματωμένοι τύποι (`int`, `float`, `str`, `tuple` κατακερματίσιμων) είναι κατακερματίσιμοι. Οι μεταβλητοί τύποι (`list`, `dict`, `set`) δεν είναι και προκαλούν `TypeError` αν χρησιμοποιηθούν ως κλειδιά.
 
-### 2.2 Core Operations and Complexity
+### 2.2 Βασικές Πράξεις και Επιπλοκή
 
-| Operation | Syntax | Average Time | Worst Case |
+| Πράξη | Σύνταξη | Μέσος Χρόνος | Χειρότερη Περίπτωση |
 | :--- | :--- | :--- | :--- |
-| Insert / update | `d[k] = v` | $O(1)$ | $O(n)$ |
-| Lookup | `d[k]` | $O(1)$ | $O(n)$ |
-| Delete | `del d[k]` | $O(1)$ | $O(n)$ |
-| Membership test | `k in d` | $O(1)$ | $O(n)$ |
-| Iteration | `for k in d` | $O(n)$ | $O(n)$ |
-| Length | `len(d)` | $O(1)$ | — |
+| Εισαγωγή / ενημέρωση | `d[k] = v` | $O(1)$ | $O(n)$ |
+| Αναζήτηση | `d[k]` | $O(1)$ | $O(n)$ |
+| Διαγραφή | `del d[k]` | $O(1)$ | $O(n)$ |
+| Έλεγχος συμμετοχής | `k in d` | $O(1)$ | $O(n)$ |
+| Διάσχιση | `for k in d` | $O(n)$ | $O(n)$ |
+| Μήκος | `len(d)` | $O(1)$ | — |
 
 ```python
-# Dictionary creation and common operations.
+# Δημιουργία λεξικού και κοινές πράξεις.
 student = {"name": "Alice", "grade": 90}
-student["email"] = "alice@example.com"   # Insert new key.
-student["grade"] = 95                    # Update existing key.
+student["email"] = "alice@example.com"   # Εισαγωγή νέου κλειδιού.
+student["grade"] = 95                    # Ενημέρωση υπάρχοντος κλειδιού.
 
-print(student.get("phone", "N/A"))       # Safe access with default.
-print("name" in student)                 # Membership test on keys.
+print(student.get("phone", "N/A"))       # Ασφαλής προσπέλαση με προεπιλογή.
+print("name" in student)                 # Έλεγχος συμμετοχής στα κλειδιά.
 
 for key, value in student.items():
     print(f"{key}: {value}")
@@ -112,15 +112,15 @@ grade: 95
 email: alice@example.com
 ```
 
-### 2.3 Dictionary Views
+### 2.3 Προβολές Λεξικού (Dictionary Views)
 
-`dict.keys()`, `dict.values()`, and `dict.items()` return **view objects** — dynamic, read-only windows into the dictionary's current state. They reflect changes made to the dictionary after the view was created.
+Οι μέθοδοι `dict.keys()`, `dict.values()` και `dict.items()` επιστρέφουν **αντικείμενα προβολής (view objects)** — δυναμικά παράθυρα μόνο για ανάγνωση στην τρέχουσα κατάσταση του λεξικού. Αντικατοπτρίζουν τις αλλαγές που γίνονται στο λεξικό μετά τη δημιουργία της προβολής.
 
 ```python
 d = {"a": 1, "b": 2}
 keys_view = d.keys()
 d["c"] = 3
-print(keys_view)   # Includes "c" because views are dynamic.
+print(keys_view)   # Περιλαμβάνει το "c" επειδή οι προβολές είναι δυναμικές.
 ```
 
 ```text
@@ -129,33 +129,33 @@ dict_keys(['a', 'b', 'c'])
 
 ---
 
-## 3. Sets
+## 3. Σύνολα (Sets)
 
-### 3.1 Internal Implementation
+### 3.1 Εσωτερική Υλοποίηση
 
-A Python `set` is implemented as a **hash table of keys with no values** — effectively a dictionary that stores only the keys. This gives `set` the same $O(1)$ average-case membership test as `dict`, making it the appropriate data structure when the only concern is membership.
+Ένα `set` στην Python υλοποιείται ως **πίνακας κατακερματισμού κλειδιών χωρίς τιμές** — ουσιαστικά ένα λεξικό που αποθηκεύει μόνο τα κλειδιά. Αυτό δίνει στο `set` τον ίδιο μέσο χρόνο ελέγχου συμμετοχής $O(1)$ με το `dict`, καθιστώντας το την κατάλληλη δομή δεδομένων όταν το μοναδικό ζητούμενο είναι η συμμετοχή.
 
-### 3.2 Core Operations and Complexity
+### 3.2 Βασικές Πράξεις και Επιπλοκή
 
-| Operation | Syntax / Method | Average Time |
+| Πράξη | Σύνταξη / Μέθοδος | Μέσος Χρονός |
 | :--- | :--- | :--- |
-| Add element | `s.add(x)` | $O(1)$ |
-| Remove element | `s.remove(x)` | $O(1)$; raises `KeyError` if absent |
-| Remove if present | `s.discard(x)` | $O(1)$; no exception |
-| Membership test | `x in s` | $O(1)$ |
-| Union | `s1 \| s2` or `s1.union(s2)` | $O(\|s1\| + \|s2\|)$ |
-| Intersection | `s1 & s2` | $O(\min(\|s1\|, \|s2\|))$ |
-| Difference | `s1 - s2` | $O(\|s1\|)$ |
-| Symmetric diff. | `s1 ^ s2` | $O(\|s1\| + \|s2\|)$ |
+| Προσθήκη στοιχείου | `s.add(x)` | $O(1)$ |
+| Αφαίρεση στοιχείου | `s.remove(x)` | $O(1)$· προκαλεί `KeyError` αν απουσιάζει |
+| Αφαίρεση αν υπάρχει | `s.discard(x)` | $O(1)$· χωρίς εξαίρεση |
+| Έλεγχος συμμετοχής | `x in s` | $O(1)$ |
+| Ένωση | `s1 \| s2` ή `s1.union(s2)` | $O(\|s1\| + \|s2\|)$ |
+| Τομή | `s1 & s2` | $O(\min(\|s1\|, \|s2\|))$ |
+| Διαφορά | `s1 - s2` | $O(\|s1\|)$ |
+| Συμμετρική διαφορά | `s1 ^ s2` | $O(\|s1\| + \|s2\|)$ |
 
 ```python
 a = {1, 2, 3, 4}
 b = {3, 4, 5, 6}
 
-print(a | b)   # Union.
-print(a & b)   # Intersection.
-print(a - b)   # Elements in a but not in b.
-print(a ^ b)   # Elements in exactly one of the two sets.
+print(a | b)   # Ένωση.
+print(a & b)   # Τομή.
+print(a - b)   # Στοιχεία στο a αλλά όχι στο b.
+print(a ^ b)   # Στοιχεία σε ακριβώς ένα από τα δύο σύνολα.
 ```
 
 ```text
@@ -165,60 +165,60 @@ print(a ^ b)   # Elements in exactly one of the two sets.
 {1, 2, 5, 6}
 ```
 
-### 3.3 Comparison: `list`, `dict`, `set`
+### 3.3 Σύγκριση: `list`, `dict`, `set`
 
-| Property | `list` | `dict` | `set` |
+| Ιδιότητα | `list` | `dict` | `set` |
 | :--- | :--- | :--- | :--- |
-| Ordered | Yes (insertion order) | Yes (since Python 3.7) | No |
-| Duplicates allowed | Yes | Keys: No; Values: Yes | No |
-| Membership test | $O(n)$ | $O(1)$ on keys | $O(1)$ |
-| Mutable | Yes | Yes | Yes |
-| Key/index access | By integer index | By arbitrary hashable key | No direct access |
-| Hashable elements required | No | Keys only | Yes |
+| Διατεταγμένο | Ναι (σειρά εισαγωγής) | Ναι (από Python 3.7) | Όχι |
+| Επιτρέπονται διπλότυπα | Ναι | Κλειδιά: Όχι· Τιμές: Ναι | Όχι |
+| Έλεγχος συμμετοχής | $O(n)$ | $O(1)$ στα κλειδιά | $O(1)$ |
+| Μεταβλητό | Ναι | Ναι | Ναι |
+| Προσπέλαση κλειδιού/δείκτη | Βάσει ακεραίου δείκτη | Βάσει αυθαίρετου κατακερματίσιμου κλειδιού | Χωρίς άμεση προσπέλαση |
+| Απαιτούνται κατακερματίσιμα στοιχεία | Όχι | Μόνο τα κλειδιά | Ναι |
 
 ---
 
-## 4. List Comprehensions
+## 4. Κατασκευές Λιστών (List Comprehensions)
 
-### 4.1 Set-Builder Notation
+### 4.1 Σημειογραφία Κατασκευής Συνόλων
 
-List comprehensions are Python's syntactic expression of **set-builder notation** from mathematics. In mathematics, a set is described as:
+Οι κατασκευές λιστών είναι η συντακτική έκφραση της **σημειογραφίας κατασκευής συνόλων (set-builder notation)** των μαθηματικών στην Python. Στα μαθηματικά, ένα σύνολο περιγράφεται ως:
 
 $$S = \{ f(x) \mid x \in D,\ P(x) \}$$
 
-where $f(x)$ is the output expression, $D$ is the domain (input set), and $P(x)$ is a predicate (filter condition).
+όπου $f(x)$ είναι η έκφραση εξόδου, $D$ είναι το πεδίο ορισμού (σύνολο εισόδου), και $P(x)$ είναι ένα κατηγόρημα (συνθήκη φιλτραρίσματος).
 
-Python's list comprehension mirrors this directly:
+Η κατασκευή λίστας της Python αντικατοπτρίζει αυτό άμεσα:
 
 ```
 [<output_expression> for <variable> in <iterable> if <predicate>]
 ```
 
-The `if` clause is optional. Multiple `for` clauses may be combined to form Cartesian products.
+Η πρόταση `if` είναι προαιρετική. Πολλαπλές προτάσεις `for` μπορούν να συνδυαστούν για το σχηματισμό καρτεσιανών γινομένων.
 
-### 4.2 Syntax Reference
+### 4.2 Αναφορά Σύνταξης
 
-**Single-variable with filter:**
+**Μεμονωμένη μεταβλητή με φίλτρο:**
 
 ```
 [f(x) for x in iterable if predicate(x)]
 ```
 
-**Multiple variables (Cartesian product):**
+**Πολλαπλές μεταβλητές (Καρτεσιανό γινόμενο):**
 
 ```
 [f(x, y) for x in iterable_1 for y in iterable_2]
 ```
 
-**Nested comprehension (matrix construction):**
+**Εμφωλευμένη κατασκευή (κατασκευή πίνακα):**
 
 ```
 [[f(i, j) for j in range(cols)] for i in range(rows)]
 ```
 
-### 4.3 Common Patterns
+### 4.3 Κοινά Μοτίβα
 
-**Squares of integers from 1 to 10:**
+**Τετράγωνα ακεραίων από το 1 έως το 10:**
 
 ```python
 squares = [x**2 for x in range(1, 11)]
@@ -229,7 +229,7 @@ print(squares)
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 ```
 
-**Even numbers from 1 to 20:**
+**Άρτιοι αριθμοί από το 1 έως το 20:**
 
 ```python
 evens = [x for x in range(1, 21) if x % 2 == 0]
@@ -240,7 +240,7 @@ print(evens)
 [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 ```
 
-**Cartesian product of two ranges:**
+**Καρτεσιανό γινόμενο δύο ευρών:**
 
 ```python
 pairs = [(x, y) for x in range(1, 4) for y in range(1, 4)]
@@ -251,7 +251,7 @@ print(pairs)
 [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
 ```
 
-**String processing — extract uppercase letters:**
+**Επεξεργασία συμβολοσειράς — εξαγωγή κεφαλαίων γραμμάτων:**
 
 ```python
 text = "Hello, World!"
@@ -263,16 +263,16 @@ print(uppers)
 ['H', 'W']
 ```
 
-### 4.4 Dictionary and Set Comprehensions
+### 4.4 Κατασκευές Λεξικών και Συνόλων
 
-The same pattern extends to `dict` and `set` comprehensions:
+Το ίδιο μοτίβο επεκτείνεται σε κατασκευές `dict` και `set`:
 
 ```python
-# Square mapping: {x: x^2} for x in 1..5.
+# Απεικόνιση τετραγώνων: {x: x^2} για x στο 1..5.
 square_map = {x: x**2 for x in range(1, 6)}
 print(square_map)
 
-# Set of unique first characters from a list of words.
+# Σύνολο μοναδικών πρώτων χαρακτήρων από μια λίστα λέξεων.
 words = ["apple", "avocado", "banana", "blueberry", "cherry"]
 first_chars = {word[0] for word in words}
 print(first_chars)
@@ -283,23 +283,23 @@ print(first_chars)
 {'a', 'b', 'c'}
 ```
 
-> **[Key Insight]** A list comprehension `[expr for x in iterable]` is semantically equivalent to a `for` loop that appends to a list, but is substantially faster in CPython because the entire iteration is handled internally as a single optimized bytecode sequence (`LIST_APPEND`), avoiding the overhead of repeatedly calling `list.append`.
+> **[Βασική Παρατήρηση]** Η κατασκευή λίστας `[expr for x in iterable]` είναι σημασιολογικά ισοδύναμη με έναν βρόχο `for` που προσαρτά στοιχεία σε μια λίστα, αλλά είναι σημαντικά ταχύτερη στην CPython επειδή ολόκληρη η επανάληψη εκτελείται εσωτερικά ως μια μεμονωμένη βελτιστοποιημένη ακολουθία bytecode (`LIST_APPEND`), αποφεύγοντας την επιβάρυνση των επανειλημμένων κλήσεων της `list.append`.
 
 ---
 
-## 5. Decorators
+## 5. Διακοσμητές (Decorators)
 
-### 5.1 Functions as First-Class Objects
+### 5.1 Οι Συναρτήσεις ως Αντικείμενα Πρώτης Τάξης
 
-In Python, functions are objects. They can be assigned to variables, stored in data structures, passed as arguments, and returned from other functions.
+Στην Python, οι συναρτήσεις είναι αντικείμενα. Μπορούν να ανατεθούν σε μεταβλητές, να αποθηκευτούν σε δομές δεδομένων, να μεταβιβαστούν ως ορίσματα και να επιστραφούν από άλλες συναρτήσεις.
 
 ```python
 def greet():
     return "Hello"
 
-alias = greet           # `alias` now references the same function object.
-print(alias())          # Calls the function through the alias.
-print(type(greet))      # Confirms functions are objects.
+alias = greet           # Το `alias` τώρα αναφέρεται στο ίδιο αντικείμενο συνάρτησης.
+print(alias())          # Καλεί τη συνάρτηση μέσω του alias.
+print(type(greet))      # Επιβεβαιώνει ότι οι συναρτήσεις είναι αντικείμενα.
 ```
 
 ```text
@@ -307,15 +307,15 @@ Hello
 <class 'function'>
 ```
 
-### 5.2 Higher-Order Functions and Closures
+### 5.2 Συναρτήσεις Ανώτερης Τάξης και Closures
 
-A **higher-order function** accepts another function as an argument or returns a function. A **closure** is a function that captures variables from its enclosing scope even after the enclosing function has returned.
+Μια **συνάρτηση ανώτερης τάξης** δέχεται μια άλλη συνάρτηση ως όρισμα ή επιστρέφει μια συνάρτηση. Ένα **closure** είναι μια συνάρτηση που αιχμαλωτίζει μεταβλητές από την περιβάλλουσα εμβέλεια της ακόμη και αφού η περιβάλλουσα συνάρτηση έχει επιστρέψει.
 
 ```python
 def make_multiplier(factor):
-    """Returns a closure that multiplies its argument by `factor`."""
+    """Επιστρέφει ένα closure που πολλαπλασιάζει το όρισμά του με το `factor`."""
     def multiplier(x):
-        return x * factor   # `factor` is captured from the enclosing scope.
+        return x * factor   # Το `factor` αιχμαλωτίζεται από την περιβάλλουσα εμβέλεια.
     return multiplier
 
 double = make_multiplier(2)
@@ -329,9 +329,9 @@ print(triple(5))   # 15
 15
 ```
 
-### 5.3 Decorator Syntax and Semantics
+### 5.3 Σύνταξη και Σημασιολογία Διακοσμητών
 
-A **decorator** is syntactic sugar for wrapping a function with a higher-order function. The syntax:
+Ένας **διακοσμητής (decorator)** είναι συντακτική ζάχαρη για το περίβλημα μιας συνάρτησης με μια συνάρτηση ανώτερης τάξης. Η σύνταξη:
 
 ```python
 @decorator
@@ -339,7 +339,7 @@ def target():
     ...
 ```
 
-is exactly equivalent to:
+είναι ακριβώς ισοδύναμη με:
 
 ```python
 def target():
@@ -347,30 +347,30 @@ def target():
 target = decorator(target)
 ```
 
-The decorator receives the original function object, wraps it in a new function (the **wrapper**), and returns the wrapper. From that point on, the name `target` refers to the wrapper.
+Ο διακοσμητής λαμβάνει το αρχικό αντικείμενο συνάρτησης, το περιβάλλει σε μια νέα συνάρτηση (το **wrapper**), και επιστρέφει το wrapper. Από εκείνο το σημείο και μετά, το όνομα `target` αναφέρεται στο wrapper.
 
-**Minimal decorator template:**
+**Ελάχιστο πρότυπο διακοσμητή:**
 
 ```python
 import functools
 
 def my_decorator(func):
-    @functools.wraps(func)   # Preserves the original function's metadata.
+    @functools.wraps(func)   # Διατηρεί τα μεταδεδομένα της αρχικής συνάρτησης.
     def wrapper(*args, **kwargs):
-        # Pre-call logic.
+        # Λογική πριν την κλήση.
         result = func(*args, **kwargs)
-        # Post-call logic.
+        # Λογική μετά την κλήση.
         return result
     return wrapper
 ```
 
-`@functools.wraps(func)` copies the `__name__`, `__doc__`, and `__module__` attributes from `func` to `wrapper`, which is essential for correct introspection.
+Η `@functools.wraps(func)` αντιγράφει τα ιδιοκτήματα `__name__`, `__doc__` και `__module__` από τη `func` στο `wrapper`, κάτι που είναι απαραίτητο για ορθή επιθεώρηση (introspection).
 
-### 5.4 Parameterized Decorators
+### 5.4 Διακοσμητές με Παραμέτρους
 
-A decorator factory is a function that returns a decorator, enabling the decorator to accept configuration arguments.
+Ένα εργοστάσιο διακοσμητών (decorator factory) είναι μια συνάρτηση που επιστρέφει έναν διακοσμητή, επιτρέποντας στον διακοσμητή να δέχεται ορίσματα ρυθμίσεων.
 
-**Abstract syntax:**
+**Αφαιρετική σύνταξη:**
 
 ```
 def decorator_factory(<params>):
@@ -386,15 +386,15 @@ def target():
     ...
 ```
 
-This is equivalent to `target = decorator_factory(<args>)(target)`.
+Αυτό είναι ισοδύναμο με `target = decorator_factory(<args>)(target)`.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: List Slicing and Negative Indexing
+### Άσκηση 1: Τομή Λίστας (Slicing) και Αρνητική Δείκτευση
 
-**Problem:** Given `lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`, evaluate each expression.
+**Πρόβλημα:** Δοθέντος του `lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`, αξιολογήστε κάθε έκφραση.
 
 ```python
 lst[2:7]
@@ -406,41 +406,41 @@ lst[-3:]
 lst[1:8:3]
 ```
 
-**Solution:**
+**Λύση:**
 
-| Expression | Result | Explanation |
+| Έκφραση | Αποτέλεσμα | Εξήγηση |
 | :--- | :--- | :--- |
-| `lst[2:7]` | `[2, 3, 4, 5, 6]` | Indices 2 through 6 |
-| `lst[:4]` | `[0, 1, 2, 3]` | From start through index 3 |
-| `lst[6:]` | `[6, 7, 8, 9]` | From index 6 through end |
-| `lst[::2]` | `[0, 2, 4, 6, 8]` | Every second element |
-| `lst[::-1]` | `[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]` | Reversed; step $-1$ |
-| `lst[-3:]` | `[7, 8, 9]` | Last three elements |
-| `lst[1:8:3]` | `[1, 4, 7]` | Indices 1, 4, 7 |
+| `lst[2:7]` | `[2, 3, 4, 5, 6]` | Δείκτες 2 έως 6 |
+| `lst[:4]` | `[0, 1, 2, 3]` | Από την αρχή έως το δείκτη 3 |
+| `lst[6:]` | `[6, 7, 8, 9]` | Από το δείκτη 6 έως το τέλος |
+| `lst[::2]` | `[0, 2, 4, 6, 8]` | Κάθε δεύτερο στοιχείο |
+| `lst[::-1]` | `[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]` | Αντίστροφα· βήμα $-1$ |
+| `lst[-3:]` | `[7, 8, 9]` | Τελευταία τρία στοιχεία |
+| `lst[1:8:3]` | `[1, 4, 7]` | Δείκτες 1, 4, 7 |
 
 ---
 
-### Exercise 2: Dictionary Safe Access Patterns
+### Άσκηση 2: Μοτίβα Ασφαλούς Προσπέλασης Λεξικού
 
-**Problem:** Given the following dictionary, write code that prints the value for `"phone"` if it exists, and `"Not found"` otherwise — in three different ways.
+**Πρόβλημα:** Δοθέντος του παρακάτω λεξικού, γράψτε κώδικα που εκτυπώνει την τιμή για το `"phone"` αν υπάρχει, και `"Not found"` διαφορετικά — με τρεις διαφορετικούς τρόπους.
 
 ```python
 contact = {"name": "Bob", "email": "bob@example.com"}
 ```
 
-**Solution:**
+**Λύση:**
 
 ```python
-# Method 1: dict.get() with a default.
+# Μέθοδος 1: dict.get() με προεπιλογή.
 print(contact.get("phone", "Not found"))
 
-# Method 2: Conditional membership test.
+# Μέθοδος 2: Έλεγχος συμμετοχής με συνθήκη.
 if "phone" in contact:
     print(contact["phone"])
 else:
     print("Not found")
 
-# Method 3: try/except KeyError.
+# Μέθοδος 3: try/except KeyError.
 try:
     print(contact["phone"])
 except KeyError:
@@ -453,23 +453,23 @@ Not found
 Not found
 ```
 
-All three produce the same result. `dict.get()` is the most idiomatic for simple defaults.
+Και οι τρεις παράγουν το ίδιο αποτέλεσμα. Η `dict.get()` είναι η πλέον ιδιωματική για απλές προεπιλογές.
 
 ---
 
-### Exercise 3: Set Operations for Deduplication
+### Άσκηση 3: Πράξεις Συνόλων για Απαλοιφή Διπλοτύπων
 
-**Problem:** Given two lists with overlapping elements, find:
-1. All unique elements across both lists.
-2. Elements that appear in both lists.
-3. Elements that appear in the first list but not the second.
+**Πρόβλημα:** Δοθεισών δύο λιστών με επικαλυπτόμενα στοιχεία, βρείτε:
+1. Όλα τα μοναδικά στοιχεία και στις δύο λίστες.
+2. Τα στοιχεία που εμφανίζονται και στις δύο λίστες.
+3. Τα στοιχεία που εμφανίζονται στην πρώτη λίστα αλλά όχι στη δεύτερη.
 
 ```python
 a = [1, 2, 3, 4, 2, 3]
 b = [3, 4, 5, 6, 4]
 ```
 
-**Solution:**
+**Λύση:**
 
 ```python
 set_a = set(a)   # {1, 2, 3, 4}
@@ -486,17 +486,17 @@ Intersection: {3, 4}
 Difference (a - b): {1, 2}
 ```
 
-Converting lists to sets both deduplicates and enables $O(1)$ membership tests.
+Η μετατροπή των λιστών σε σύνολα τόσο εξαλείφει τα διπλότυπα όσο και επιτρέπει ελέγχους συμμετοχής $O(1)$.
 
 ---
 
-### Exercise 4: List Comprehension — Squares of Evens
+### Άσκηση 4: Κατασκευή Λίστας — Τετράγωνα Άρτιων
 
-**Problem:** Using a single list comprehension, produce a list of the squares of all even numbers from 1 to 20.
+**Πρόβλημα:** Χρησιμοποιώντας μια μεμονωμένη κατασκευή λίστας, παράγετε μια λίστα με τα τετράγωνα όλων των άρτιων αριθμών από το 1 έως το 20.
 
-**Solution:**
+**Λύση:**
 
-The mathematical set-builder form is:
+Η μαθηματική μορφή κατασκευής συνόλου είναι:
 $$S = \{ x^2 \mid x \in \{1, \ldots, 20\},\ x \equiv 0 \pmod{2} \}$$
 
 ```python
@@ -510,11 +510,11 @@ print(result)
 
 ---
 
-### Exercise 5: Cartesian Product via Comprehension
+### Άσκηση 5: Καρτεσιανό Γινόμενο μέσω Κατασκευής
 
-**Problem:** Generate all pairs $(x, y)$ where $x \in \{1, 2, 3\}$ and $y \in \{a, b\}$ using a list comprehension.
+**Πρόβλημα:** Δημιουργήστε όλα τα ζεύγη $(x, y)$ όπου $x \in \{1, 2, 3\}$ και $y \in \{a, b\}$ χρησιμοποιώντας κατασκευή λίστας.
 
-**Solution:**
+**Λύση:**
 
 $$S = \{ (x, y) \mid x \in \{1, 2, 3\},\ y \in \{"a", "b"\} \}$$
 
@@ -527,25 +527,25 @@ print(pairs)
 [(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b'), (3, 'a'), (3, 'b')]
 ```
 
-The first `for` clause is the outer loop; the second is the inner loop. The total number of pairs is $|A| \times |B| = 3 \times 2 = 6$.
+Η πρώτη πρόταση `for` είναι ο εξωτερικός βρόχος· η δεύτερη είναι ο εσωτερικός βρόχος. Το συνολικό πλήθος των ζευγών είναι $|A| \times |B| = 3 \times 2 = 6$.
 
 ---
 
-### Exercise 6: Timing Decorator
+### Άσκηση 6: Διακοσμητής Χρονομέτρησης
 
-**Problem:** Implement a decorator `@timer` that prints the execution time of any decorated function. Apply it to a function that computes the sum of squares of the first $n$ integers.
+**Πρόβλημα:** Υλοποιήστε έναν διακοσμητή `@timer` που εκτυπώνει τον χρόνο εκτέλεσης οποιασδήποτε διακοσμημένης συνάρτησης. Εφαρμόστε τον σε μια συνάρτηση που υπολογίζει το άθροισμα των τετραγώνων των πρώτων $n$ ακεραίων.
 
-**Solution:**
+**Λύση:**
 
 ```python
 import functools
 import time
 
 def timer(func):
-    """Wraps `func` to print its wall-clock execution time."""
+    """Περιβάλλει τη `func` για να εκτυπώσει τον χρόνο εκτέλεσής της."""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        start = time.perf_counter()          # High-resolution timer start.
+        start = time.perf_counter()          # Έναρξη χρονόμετρου υψηλής ανάλυσης.
         result = func(*args, **kwargs)
         elapsed = time.perf_counter() - start
         print(f"{func.__name__} took {elapsed:.6f} seconds")
@@ -554,7 +554,7 @@ def timer(func):
 
 @timer
 def sum_of_squares(n):
-    """Computes the sum of squares from 1 to n."""
+    """Υπολογίζει το άθροισμα τετραγώνων από το 1 έως το n."""
     return sum(x**2 for x in range(1, n + 1))
 
 print(sum_of_squares(1_000_000))
@@ -565,32 +565,32 @@ sum_of_squares took 0.083412 seconds
 333333833333500000
 ```
 
-`time.perf_counter()` is preferred over `time.time()` for measuring short durations because it has higher resolution and is not affected by system clock adjustments.
+Η `time.perf_counter()` προτιμάται από την `time.time()` για μέτρηση μικρών διαστημάτων επειδή διαθέτει υψηλότερη ανάλυση και δεν επηρεάζεται από ρυθμίσεις του ρολογιού συστήματος.
 
 ---
 
-### Exercise 7: Memoization Decorator
+### Άσκηση 7: Διακοσμητής Απομνημόνευσης (Memoization)
 
-**Problem:** Implement a `@memoize` decorator that caches the return value of a function for previously seen argument tuples, and apply it to a recursive Fibonacci function to demonstrate performance improvement.
+**Πρόβλημα:** Υλοποιήστε έναν διακοσμητή `@memoize` που αποθηκεύει στην κρυφή μνήμη την τιμή επιστροφής μιας συνάρτησης για πλειάδες ορισμάτων που έχουν ήδη εμφανιστεί, και εφαρμόστε τον σε μια αναδρομική συνάρτηση Fibonacci για να επιδείξετε τη βελτίωση της απόδοσης.
 
-**Solution:**
+**Λύση:**
 
 ```python
 import functools
 
 def memoize(func):
-    """Caches results of `func` keyed by its argument tuple."""
-    cache = {}   # Maps argument tuple to return value.
+    """Αποθηκεύει τα αποτελέσματα της `func` με κλειδί την πλειάδα ορισμάτων της."""
+    cache = {}   # Αντιστοιχίζει την πλειάδα ορισμάτων στην τιμή επιστροφής.
     @functools.wraps(func)
     def wrapper(*args):
         if args not in cache:
-            cache[args] = func(*args)   # Computes and stores only on first call.
+            cache[args] = func(*args)   # Υπολογίζει και αποθηκεύει μόνο στην πρώτη κλήση.
         return cache[args]
     return wrapper
 
 @memoize
 def fib(n):
-    """Computes the n-th Fibonacci number recursively."""
+    """Υπολογίζει τον n-οστό αριθμό Fibonacci αναδρομικά."""
     if n <= 1:
         return n
     return fib(n - 1) + fib(n - 2)
@@ -602,24 +602,24 @@ print([fib(i) for i in range(10)])
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 ```
 
-Without memoization, the naive recursive Fibonacci has time complexity $O(2^n)$. With memoization, each unique argument is computed exactly once, reducing complexity to $O(n)$.
+Χωρίς απομνημόνευση, η απλή αναδρομική συνάρτηση Fibonacci έχει χρονική επιπλοκή $O(2^n)$. Με απομνημόνευση, κάθε μοναδικό όρισμα υπολογίζεται ακριβώς μία φορά, μειώνοντας την επιπλοκή σε $O(n)$.
 
-> **[Supplementary]**
-> Python's standard library provides `functools.lru_cache` as a built-in memoization decorator with an optional bound on cache size. `@functools.lru_cache(maxsize=None)` is equivalent to the manual `@memoize` above but is implemented in C and is therefore faster.
+> **[Συμπληρωματικό]**
+> Η πρότυπη βιβλιοθήκη της Python παρέχει τον `functools.lru_cache` ως ενσωματωμένο διακοσμητή απομνημόνευσης με προαιρετικό όριο στο μέγεθος της κρυφής μνήμης. Ο `@functools.lru_cache(maxsize=None)` είναι ισοδύναμος με τον χειροκίνητο `@memoize` παραπάνω αλλά είναι υλοποιημένος σε C και επομένως ταχύτερος.
 
 ---
 
-### Exercise 8: Nested Comprehension — Transposing a Matrix
+### Άσκηση 8: Εμφωλευμένη Κατασκευή — Αναστροφή Πίνακα (Transpose)
 
-**Problem:** Given a $3 \times 4$ matrix represented as a list of lists, produce its $4 \times 3$ transpose using a nested list comprehension.
+**Πρόβλημα:** Δοθέντος ενός πίνακα $3 \times 4$ αναπαριστώμενου ως λίστα λιστών, παράγετε τον αναστραμμένο του πίνακα $4 \times 3$ χρησιμοποιώντας μια εμφωλευμένη κατασκευή λίστας.
 
-**Solution:**
+**Λύση:**
 
-Let $M$ be the matrix:
+Έστω $M$ ο πίνακας:
 
 $$M = \begin{pmatrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \end{pmatrix}$$
 
-The transpose $M^T$ swaps rows and columns: $M^T_{ij} = M_{ji}$.
+Ο αναστραμμένος πίνακας $M^T$ εναλλάσσει γραμμές και στήλες: $M^T_{ij} = M_{ji}$.
 
 ```python
 M = [
@@ -644,13 +644,13 @@ for row in M_T:
 [4, 8, 12]
 ```
 
-The outer comprehension iterates over column indices `c`; the inner comprehension iterates over row indices `r`, collecting `M[r][c]` — the element at row `r`, column `c` of the original matrix.
+Η εξωτερική κατασκευή εκτελεί επανάληψη στους δείκτες στηλών `c`· η εσωτερική κατασκευή εκτελεί επανάληψη στους δείκτες γραμμών `r`, συλλέγοντας το `M[r][c]` — το στοιχείο στη γραμμή `r`, στήλη `c` του αρχικού πίνακα.
 
 ---
 
-## Exam Tip: Comprehension Evaluation Order and Decorator Identity
+## Συμβουλή Εξετάσεων: Σειρά Αξιολόγησης Κατασκευών και Ταυτότητα Διακοσμητών
 
-**Comprehension clause order:** In a multi-`for` comprehension, the leftmost `for` clause corresponds to the **outermost** loop. The expression `[(x, y) for x in A for y in B]` is equivalent to:
+**Σειρά προτάσεων στις κατασκευές:** Σε μια κατασκευή με πολλαπλά `for`, η αριστερότερη πρόταση `for` αντιστοιχεί στον **εξωτερικότερο** βρόχο. Η έκφραση `[(x, y) for x in A for y in B]` είναι ισοδύναμη με:
 
 ```python
 result = []
@@ -659,8 +659,8 @@ for x in A:
         result.append((x, y))
 ```
 
-Reversing the order of `for` clauses changes which variable changes most slowly (outermost) vs. most rapidly (innermost).
+Η αντιστροφή της σειράς των προτάσεων `for` αλλάζει το ποια μεταβλητή μεταβάλλεται βραδύτερα (εξωτερική) έναντι της ταχύτερης (εσωτερική).
 
-**Decorator identity test:** In an exam scenario, given `@dec` applied to `f`, if `dec` does not use `@functools.wraps`, then `f.__name__` after decoration will be `"wrapper"` (or whatever the wrapper function is named), not `"f"`. This is a common source of test questions on decorators.
+**Έλεγχος ταυτότητας διακοσμητή:** Στις εξετάσεις, όταν ο `@dec` εφαρμόζεται στη `f`, εάν ο `dec` δεν χρησιμοποιεί τον `@functools.wraps`, τότε το `f.__name__` μετά τη διακόσμηση θα είναι `"wrapper"` (ή όπως ονομάζεται η συνάρτηση wrapper), και όχι `"f"`. Αυτό είναι πολύ συνηθισμένο θέμα εξετάσεων.
 
-**`set` vs. `dict` comprehension disambiguation:** `{}` alone creates an empty `dict`, not an empty `set`. An empty `set` must be created with `set()`. The comprehension `{x for x in iterable}` is a set comprehension; `{k: v for k, v in iterable}` is a dict comprehension.
+**Διακριτότητα κατασκευών `set` και `dict`:** Το σύμβολο `{}` μόνο του δημιουργεί ένα άδειο `dict`, και όχι ένα άδειο `set`. Ένα άδειο `set` πρέπει να δημιουργηθεί με τη `set()`. Η κατασκευή `{x for x in iterable}` είναι κατασκευή συνόλου· η `{k: v for k, v in iterable}` είναι κατασκευή λεξικού.

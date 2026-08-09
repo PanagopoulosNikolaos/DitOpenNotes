@@ -1,45 +1,45 @@
-# Haskell — Advanced Abstractions
+# Haskell — Προηγμένες Αφαιρέσεις
 
-*Prerequisite: haskell_3_higher_order_functions_type_system.md — Typeclasses, ADTs, `Maybe`; haskell_1_basics_pure_functions.md — Referential transparency and equational reasoning.*
+*Προαπαιτούμενο: haskell_3_higher_order_functions_type_system.md — Κλάσεις τύπων, ADTs, `Maybe`· haskell_1_basics_pure_functions.md — Αναφορική διαφάνεια και αναφορική ισότητα.*
 
-Beyond its core type system, Haskell provides a hierarchy of abstractions — Functor, Applicative, Monad, Monoid — that capture common patterns of computation over wrapped values and composable operations. This file defines each abstraction formally, relates them in the typeclass hierarchy, introduces the Zipper data structure for efficient navigation in immutable trees, and covers equational reasoning and structural induction as proof techniques for program correctness.
+Πέρα από το θεμελιώδες σύστημα τύπων της, η Haskell παρέχει μια ιεραρχία αφαιρέσεων — Functor, Applicative, Monad, Monoid — που αποτυπώνουν κοινά μοτίβα υπολογισμού πάνω σε περιβεβλημένες τιμές και συνθέσιμες πράξεις. Αυτό το αρχείο ορίζει κάθε αφαίρεση τυπικά, τις συσχετίζει στην ιεραρχία των κλάσεων τύπων, εισάγει τη δομή δεδομένων Zipper για αποδοτική πλοήγηση σε αμετάβλητα δέντρα, και καλύπτει την αναφορική ισότητα (equational reasoning) και τη δομική επαγωγή ως τεχνικές απόδειξης για την ορθότητα προγραμμάτων.
 
 ---
 
-## 1. Functor
+## 1. Functor (Συναρτητής)
 
-### 1.1 Definition and Scope
+### 1.1 Ορισμός και Πεδίο Εφαρμογής
 
-A **Functor** is a type constructor $F$ equipped with a mapping operation `fmap` that lifts a function $a \to b$ to a function $F a \to F b$ while preserving structure.
+Ένας **Functor (Συναρτητής)** είναι ένας κατασκευαστής τύπου $F$ εξοπλισμένος με μια πράξη απεικόνισης `fmap` που ανυψώνει μια συνάρτηση $a \to b$ σε μια συνάρτηση $F a \to F b$, διατηρώντας παράλληλα τη δομή.
 
-**Typeclass:**
+**Κλάση Τύπου:**
 
 ```
 class Functor f where
   fmap :: (a -> b) -> f a -> f b
 ```
 
-### 1.2 Functor Laws
+### 1.2 Νόμοι των Functors
 
-For all valid instances, `fmap` must satisfy:
+Για όλα τα έγκυρα στιγμιότυπα, η `fmap` πρέπει να ικανοποιεί:
 
-1. **Identity:** $\text{fmap id} = \text{id}$
-2. **Composition:** $\text{fmap (f . g)} = \text{fmap f . fmap g}$
+1. **Ταυτότητα:** $\text{fmap id} = \text{id}$
+2. **Σύνθεση:** $\text{fmap (f . g)} = \text{fmap f . fmap g}$
 
-### 1.3 Standard Instances
+### 1.3 Πρότυπα Στιγμιότυπα
 
-| Functor | Type | `fmap` Behavior |
+| Functor | Τύπος | Συμπεριφορά `fmap` |
 | :--- | :--- | :--- |
-| `[]` | `[a]` | `map` — apply to each element |
-| `Maybe` | `Maybe a` | `Nothing` stays `Nothing`; `Just x` → `Just (f x)` |
-| `(->) r` | `r -> a` | Pre-compose: `fmap f g = f . g` |
-| `(a,)` | `(a, b)` | Map over second component |
+| `[]` | `[a]` | `map` — εφαρμογή σε κάθε στοιχείο |
+| `Maybe` | `Maybe a` | Το `Nothing` παραμένει `Nothing`· `Just x` → `Just (f x)` |
+| `(->) r` | `r -> a` | Προ-σύνθεση: `fmap f g = f . g` |
+| `(a,)` | `(a, b)` | Απεικόνιση στο δεύτερο στοιχείο |
 
 ```haskell
--- fmap over a list.
+-- fmap σε λίστα.
 main = print (fmap (*2) [1, 2, 3])
 
--- fmap over Maybe.
+-- fmap σε Maybe.
 main2 = print (fmap (*2) (Just 5), fmap (*2) Nothing)
 ```
 
@@ -48,9 +48,9 @@ main2 = print (fmap (*2) (Just 5), fmap (*2) Nothing)
 (Just 10,Nothing)
 ```
 
-### 1.4 Infix Operator
+### 1.4 Ένθετος Τελεστής
 
-`fmap` is also written as `<$>`:
+Η `fmap` γράφεται επίσης ως `<$>`:
 
 ```haskell
 (*2) <$> [1, 2, 3]    -- [2, 4, 6]
@@ -59,13 +59,13 @@ main2 = print (fmap (*2) (Just 5), fmap (*2) Nothing)
 
 ---
 
-## 2. Applicative Functor
+## 2. Applicative Functor (Εφαρμοστικός Συναρτητής)
 
-### 2.1 Definition and Scope
+### 2.1 Ορισμός και Πεδίο Εφαρμογής
 
-An **Applicative Functor** extends `Functor` with application of wrapped functions to wrapped values. It captures **independent** effectful computations (no dependency between successive results).
+Ένας **Applicative Functor** επεκτείνει τον `Functor` με την εφαρμογή περιβεβλημένων συναρτήσεων σε περιβεβλημένες τιμές. Αποτυπώνει **ανεξάρτητους** υπολογισμούς με παρενέργειες (χωρίς εξάρτηση μεταξύ διαδοχικών αποτελεσμάτων).
 
-**Typeclass:**
+**Κλάση Τύπου:**
 
 ```
 class Functor f => Applicative f where
@@ -73,24 +73,24 @@ class Functor f => Applicative f where
   (<*>) :: f (a -> b) -> f a -> f b
 ```
 
-### 2.2 Applicative Laws
+### 2.2 Νόμοι των Applicatives
 
-1. **Identity:** `pure id <*> v = v`
-2. **Homomorphism:** `pure f <*> pure x = pure (f x)`
-3. **Interchange:** `u <*> pure y = pure ($ y) <*> u`
-4. **Composition:** `pure (.) <*> u <*> v <*> w = u <*> (v <*> w)`
+1. **Ταυτότητα:** `pure id <*> v = v`
+2. **Ομομορφισμός:** `pure f <*> pure x = pure (f x)`
+3. **Εναλλαγή:** `u <*> pure y = pure ($ y) <*> u`
+4. **Σύνθεση:** `pure (.) <*> u <*> v <*> w = u <*> (v <*> w)`
 
-### 2.3 Behavioral Description
+### 2.3 Περιγραφή Συμπεριφοράς
 
-| Expression | Meaning |
+| Έκφραση | Σημασία |
 | :--- | :--- |
-| `pure x` | Lift a pure value into the applicative context |
-| `f <*> x` | Apply wrapped function `f` to wrapped value `x` |
-| `(+)` `<$>`` `Just 3` `<*>`` `Just 5` | `Just 8` — both present |
-| `(+)` `<$>`` `Just 3` `<*>`` `Nothing` | `Nothing` — either missing yields `Nothing` |
+| `pure x` | Ανύψωση αμιγούς τιμής στο εφαρμοστικό πλαίσιο |
+| `f <*> x` | Εφαρμογή περιβεβλημένης συνάρτησης `f` σε περιβεβλημένη τιμή `x` |
+| `(+)` `<$>`` `Just 3` `<*>`` `Just 5` | `Just 8` — και τα δύο παρόντα |
+| `(+)` `<$>`` `Just 3` `<*>`` `Nothing` | `Nothing` — αν κάποιο απουσιάζει παράγει `Nothing` |
 
 ```haskell
--- Combining two Maybe values independently.
+-- Συνδυασμός δύο τιμών Maybe ανεξάρτητα.
 addMay :: Maybe Int -> Maybe Int -> Maybe Int
 addMay mx my = (+) <$> mx <*> my
 
@@ -104,9 +104,9 @@ Just 8
 Nothing
 ```
 
-### 2.4 List Applicative — Cartesian Application
+### 2.4 Applicative Λίστας — Καρτεσιανή Εφαρμογή
 
-For lists, `<*>` distributes: every function in the left list is applied to every value in the right list:
+Για τις λίστες, ο τελεστής `<*>` κατανέμει: κάθε συνάρτηση στην αριστερή λίστα εφαρμόζεται σε κάθε τιμή στη δεξιά λίστα:
 
 ```haskell
 main = print ((+) <$> [1, 2] <*> [10, 20])
@@ -116,46 +116,46 @@ main = print ((+) <$> [1, 2] <*> [10, 20])
 [11,21,12,22]
 ```
 
-This is equivalent to `[(+1), (+2)]` applied to `[10, 20]` producing $2 \times 2 = 4$ results.
+Αυτό είναι ισοδύναμο με τις `[(+1), (+2)]` εφαρμοζόμενες στη `[10, 20]`, παράγοντας $2 \times 2 = 4$ αποτελέσματα.
 
 ---
 
-## 3. Monad
+## 3. Monad (Μονάδα)
 
-### 3.1 Definition and Scope
+### 3.1 Ορισμός και Πεδίο Εφαρμογής
 
-A **Monad** extends `Applicative` with `>>=` (bind), enabling **sequential** computations where later steps depend on earlier results. Monads isolate side effects (notably I/O) within a typed context.
+Μια **Monad (Μονάδα)** επεκτείνει τον `Applicative` με τον τελεστή σύνδεσης `>>=` (bind), επιτρέποντας **ακολουθιακούς (sequential)** υπολογισμούς όπου τα μεταγενέστερα βήματα εξαρτώνται από προηγούμενα αποτελέσματα. Οι Monads απομονώνουν τις παρενέργειες (ειδικά την Είσοδο/Έξοδο) εντός ενός τυποποιημένου πλαισίου.
 
-**Typeclass:**
+**Κλάση Τύπου:**
 
 ```
 class Applicative m => Monad m where
-  return :: a -> m a          -- same as pure
+  return :: a -> m a          -- ίδιο με το pure
   (>>=)  :: m a -> (a -> m b) -> m b
 ```
 
-### 3.2 Monad Laws
+### 3.2 Νόμοι των Monads
 
-1. **Left identity:** `return x >>= f = f x`
-2. **Right identity:** `m >>= return = m`
-3. **Associativity:** `(m >>= f) >>= g = m >>= (\x -> f x >>= g)`
+1. **Αριστερή ταυτότητα:** `return x >>= f = f x`
+2. **Δεξιά ταυτότητα:** `m >>= return = m`
+3. **Προσεταιριστικότητα:** `(m >>= f) >>= g = m >>= (\x -> f x >>= g)`
 
-### 3.3 `Maybe` Monad — Chained Dependent Steps
+### 3.3 Monad `Maybe` — Ακολουθιακά Εξαρτώμενα Βήματα
 
 ```haskell
 safeComputation :: Int -> Int -> Maybe Int
 safeComputation x y = do
-  a <- safeDiv 10 x      -- Nothing if x == 0
-  b <- safeDiv a y       -- Nothing if y == 0
+  a <- safeDiv 10 x      -- Nothing αν x == 0
+  b <- safeDiv a y       -- Nothing αν y == 0
   return (b + 1)
 
--- where safeDiv _ 0 = Nothing; safeDiv a b = Just (a / b)
+-- όπου safeDiv _ 0 = Nothing; safeDiv a b = Just (a / b)
 ```
 
-| Input | Step 1 | Step 2 | Result |
+| Είσοδος | Βήμα 1 | Βήμα 2 | Αποτέλεσμα |
 | :--- | :--- | :--- | :--- |
 | `x=2, y=5` | `Just 5.0` | `Just 1.0` | `Just 2.0` |
-| `x=0, y=5` | `Nothing` | (skipped) | `Nothing` |
+| `x=0, y=5` | `Nothing` | (παραλείπεται) | `Nothing` |
 | `x=2, y=0` | `Just 5.0` | `Nothing` | `Nothing` |
 
 ```haskell
@@ -166,9 +166,9 @@ main = print (safeComputation 2 5)
 Just 2.0
 ```
 
-### 3.4 `IO` Monad — Side Effect Isolation
+### 3.4 Monad `IO` — Απομόνωση Παρενεργειών
 
-I/O actions have type `IO a`. The `IO` monad sequences effectful operations while keeping pure code referentially transparent:
+Οι πράξεις Ε/Ε έχουν τύπο `IO a`. Η monad `IO` εκτελεί ακολουθιακά πράξεις με παρενέργειες διατηρώντας παράλληλα τον αμιγή κώδικα αναφορικά διαφανή:
 
 ```haskell
 main :: IO ()
@@ -178,34 +178,34 @@ main = do
   putStrLn ("You entered: " ++ line)
 ```
 
-Pure functions cannot call `getLine` directly. The type system enforces that side effects occur only within `IO`.
+Οι αμιγείς συναρτήσεις δεν μπορούν να καλέσουν τη `getLine` άμεσα. Το σύστημα τύπων επιβάλλει ότι οι παρενέργειες συμβαίνουν μόνο εντός της `IO`.
 
-### 3.5 Functor / Applicative / Monad Hierarchy
+### 3.5 Ιεραρχία Functor / Applicative / Monad
 
 ```
 Functor          fmap    :: (a -> b) -> f a -> f b
     |
 Applicative    pure    :: a -> f a
-               (<*>)  :: f (a -> b) -> f a -> f b
+                (<*>)  :: f (a -> b) -> f a -> f b
     |
 Monad          (>>=)   :: m a -> (a -> m b) -> m b
 ```
 
-| Abstraction | Dependency Between Steps | Typical Use |
+| Αφαίρεση | Εξάρτηση μεταξύ Βημάτων | Τυπική Χρήση |
 | :--- | :--- | :--- |
-| Functor | N/A (single `fmap`) | Transform wrapped value |
-| Applicative | Independent | Combine parallel results |
-| Monad | Dependent (later needs earlier) | Sequential pipelines, I/O |
+| Functor | N/A (μεμονωμένη `fmap`) | Μετασχηματισμός περιβεβλημένης τιμής |
+| Applicative | Ανεξάρτητα | Συνδυασμός παράλληλων αποτελεσμάτων |
+| Monad | Εξαρτώμενα (τα μεταγενέστερα χρειάζονται τα προηγούμενα) | Ακολουθιακές διοχετεύσεις, Ε/Ε |
 
-> **[Key Insight]** Every monad is an applicative (when `(<*>)` is defined as `mf <*> mx = mf >>= \f -> mx >>= \x -> return (f x)`), but not every applicative arises from a monad. The exam focus is recognizing **when** `>>=` is needed: whenever the next action depends on the unwrapped value of the previous one.
+> **[Βασική Παρατήρηση]** Κάθε monad είναι applicative (όταν ο `<*>` ορίζεται ως `mf <*> mx = mf >>= \f -> mx >>= \x -> return (f x)`), αλλά κάθε applicative δεν προέρχεται από monad. Η εστίαση των εξετάσεων είναι η αναγνώριση του **πότε** απαιτείται ο τελεστής `>>=`: όποτε η επόμενη ενέργεια εξαρτάται από την αποπεριβεβλημένη τιμή της προηγούμενης.
 
 ---
 
-## 4. Monoid
+## 4. Monoid (Μονοειδές)
 
-### 4.1 Definition and Scope
+### 4.1 Ορισμός και Πεδίο Εφαρμογής
 
-A **Monoid** is a set $M$ with an associative binary operation $\oplus$ and an identity element $e$:
+Ένα **Monoid (Μονοειδές)** είναι ένα σύνολο $M$ με μια προσεταιριστική διμελή πράξη $\oplus$ και ένα ουδέτερο στοιχείο ταυτότητας $e$:
 
 $$
 \forall a, b, c \in M: \quad (a \oplus b) \oplus c = a \oplus (b \oplus c)
@@ -215,21 +215,21 @@ $$
 \forall a \in M: \quad e \oplus a = a \oplus e = a
 $$
 
-**Typeclass:**
+**Κλάση Τύπου:**
 
 ```
 class Monoid a where
   mempty  :: a
-  mappend :: a -> a -> a    -- written as `<>`
+  mappend :: a -> a -> a    -- γράφεται ως `<>`
 ```
 
-### 4.2 Standard Instances
+### 4.2 Πρότυπα Στιγμιότυπα
 
 | Monoid | `mempty` | `mappend` (`<>`) |
 | :--- | :--- | :--- |
-| `[a]` (lists) | `[]` | `++` (concatenation) |
-| `Sum` (wrapper) | `Sum 0` | `Sum (a + b)` |
-| `Product` (wrapper) | `Product 1` | `Product (a * b)` |
+| `[a]` (λίστες) | `[]` | `++` (συνένωση) |
+| `Sum` (περίβλημα) | `Sum 0` | `Sum (a + b)` |
+| `Product` (περίβλημα) | `Product 1` | `Product (a * b)` |
 | `String` | `""` | `++` |
 
 ```haskell
@@ -247,51 +247,51 @@ main = do
 15
 ```
 
-### 4.3 `fold` and Monoid
+### 4.3 `fold` και Monoid
 
-`mconcat` folds a list of monoid values:
+Η `mconcat` εκτελεί συσσωρευτική δίπλωση σε μια λίστα τιμών μονοειδούς:
 
 ```haskell
 mconcat ["ab", "cd", "ef"]   -- "abcdef"
-mconcat [Sum 1, Sum 2, Sum 3] -- Sum 6 (with getSum)
+mconcat [Sum 1, Sum 2, Sum 3] -- Sum 6 (με getSum)
 ```
 
 ---
 
 ## 5. Zipper
 
-### 5.1 Definition and Scope
+### 5.1 Ορισμός και Πεδίο Εφαρμογής
 
-A **Zipper** is a data structure enabling efficient navigation and local modification in an immutable tree (or list) by maintaining a **focus** — the current position — together with a **context** (the path from the root, with "holes" marking where subtrees were removed).
+Ένα **Zipper** είναι μια δομή δεδομένων που επιτρέπει αποδοτική πλοήγηση και τοπική τροποποίηση σε ένα αμετάβλητο δέντρο (ή λίστα) διατηρώντας μια **εστίαση (focus)** — την τρέχουσα θέση — μαζί με ένα **πλαίσιο (context)** (τη διαδρομή από τη ρίζα, με "οπές" που σημειώνουν πού αφαιρέθηκαν τα υποδέντρα).
 
-### 5.2 List Zipper Model
+### 5.2 Μοντέλο Zipper Λίστας
 
-For a list, a zipper consists of:
+Για μια λίστα, ένα zipper αποτελείται από:
 
-- **`focus`:** the element at the current position.
-- **`left`:** elements to the left of focus (reversed).
-- **`right`:** elements to the right of focus.
+- **`focus`:** το στοιχείο στην τρέχουσα θέση.
+- **`left`:** στοιχεία στα αριστερά της εστίασης (αντίστροφα).
+- **`right`:** στοιχεία στα δεξιά της εστίασης.
 
 ```
-List: [1, 2, 3, 4, 5]
+Λίστα: [1, 2, 3, 4, 5]
               ^
            focus = 3
-left = [2, 1]  (reversed)
+left = [2, 1]  (αντίστροφα)
 right = [4, 5]
 ```
 
-### 5.3 Navigation Operations
+### 5.3 Πράξεις Πλοήγησης
 
-| Operation | Effect |
+| Πράξη | Αποτέλεσμα |
 | :--- | :--- |
-| `goRight` | Move focus one position right; push old focus onto `left` |
-| `goLeft` | Move focus one position left; pop from `left` |
-| `update` | Replace focus value; original list unchanged elsewhere |
-| `toList` | Reconstruct full list from zipper state |
+| `goRight` | Μετακίνηση εστίασης μία θέση δεξιά· ώθηση παλαιάς εστίασης στο `left` |
+| `goLeft` | Μετακίνηση εστίασης μία θέση αριστερά· αφαίρεση από το `left` |
+| `update` | Αντικατάσταση τιμής εστίασης· η αρχική λίστα παραμένει αμετάβλητη αλλού |
+| `toList` | Ανακατασκευή πλήρους λίστας από την κατάσταση του zipper |
 
 ```haskell
 data ListZipper a = ListZipper [a] a [a]
-  --                   reversed-left  focus  right
+  --                   αντίστροφο-left  focus  right
 
 fromList :: [a] -> Maybe (ListZipper a)
 fromList []    = Nothing
@@ -305,54 +305,54 @@ toList :: ListZipper a -> [a]
 toList (ListZipper ls f rs) = reverse ls ++ [f] ++ rs
 ```
 
-### 5.4 Trace: Navigate and Update
+### 5.4 Ιχνηλάτηση: Πλοήγηση και Ενημέρωση
 
-Starting from `[10, 20, 30, 40]`:
+Ξεκινώντας από τη `[10, 20, 30, 40]`:
 
-| Step | Operation | Focus | Full List |
+| Βήμα | Πράξη | Εστίαση (Focus) | Πλήρης Λίστα |
 | :--- | :--- | :--- | :--- |
-| Init | `fromList` | `10` | `[10,20,30,40]` |
+| Αρχικοποίηση | `fromList` | `10` | `[10,20,30,40]` |
 | 1 | `goRight` | `20` | `[10,20,30,40]` |
 | 2 | `goRight` | `30` | `[10,20,30,40]` |
-| 3 | update focus to `35` | `35` | `[10,20,35,40]` |
+| 3 | ενημέρωση εστίασης σε `35` | `35` | `[10,20,35,40]` |
 
-> **[Key Insight]** Zippers achieve $O(1)$ local navigation in immutable structures by storing the "one-hole context" explicitly. Without a zipper, updating element $i$ in an immutable list requires $O(n)$ copying.
+> **[Βασική Παρατήρηση]** Τα Zippers επιτυγχάνουν τοπική πλοήγηση $O(1)$ σε αμετάβλητες δομές αποθηκεύοντας ρητά το "πλαίσιο μίας οπής". Χωρίς zipper, η ενημέρωση του στοιχείου $i$ σε μια αμετάβλητη λίστα απαιτεί αντιγραφή $O(n)$.
 
 ---
 
-## 6. Equational Reasoning
+## 6. Αναφορική Ισότητα (Equational Reasoning)
 
-### 6.1 Concept Overview
+### 6.1 Επισκόπηση Έννοιας
 
-**Equational reasoning** is a proof technique for Haskell programs based on referential transparency: any occurrence of an expression may be replaced by an equal expression without changing program behavior.
+Η **αναφορική ισότητα (equational reasoning)** είναι μια τεχνική απόδειξης για προγράμματα Haskell που βασίζεται στην αναφορική διαφάνεια: οποιαδήποτε εμφάνιση μιας έκφρασης μπορεί να αντικατασταθεί από μια ίση έκφραση χωρίς να αλλάξει η συμπεριφορά του προγράμματος.
 
-### 6.2 Proof by Reduction
+### 6.2 Απόδειξη μέσω Αναγωγής
 
-Given:
+Δοθέντος:
 
 ```haskell
 double x = x + x
 ```
 
-Prove that `double (double 3) = 12`:
+Αποδείξτε ότι `double (double 3) = 12`:
 
 $$
 \begin{aligned}
 \text{double (double 3)}
-  &= \text{double (3 + 3)}       & \text{(def. of double)} \\
-  &= \text{double 6}             & \text{(arithmetic)} \\
-  &= 6 + 6                       & \text{(def. of double)} \\
-  &= 12                          & \text{(arithmetic)}
+  &= \text{double (3 + 3)}       & \text{(ορισμός της double)} \\
+  &= \text{double 6}             & \text{(αριθμητική)} \\
+  &= 6 + 6                       & \text{(ορισμός της double)} \\
+  &= 12                          & \text{(αριθμητική)}
 \end{aligned}
 $$
 
-### 6.3 Using Functor Laws
+### 6.3 Χρήση των Νόμων των Functors
 
-Prove `fmap id xs = xs` for lists by structural induction (see Section 7):
+Αποδείξτε ότι `fmap id xs = xs` για λίστες με δομική επαγωγή (βλέπε Ενότητα 7):
 
-**Base case:** `fmap id [] = []` by definition of `fmap` on `[]`.
+**Βασική περίπτωση:** `fmap id [] = []` βάσει ορισμού της `fmap` στην `[]`.
 
-**Inductive case:** Assume `fmap id xs = xs`. Then:
+**Επαγωγικό βήμα:** Υποθέστε ότι `fmap id xs = xs`. Τότε:
 
 $$
 \text{fmap id (x : xs)} = \text{id x} : \text{fmap id xs} = x : xs
@@ -360,106 +360,106 @@ $$
 
 ---
 
-## 7. Mathematical Induction on Data Structures
+## 7. Μαθηματική Επαγωγή σε Δομές Δεδομένων
 
-### 7.1 Structural Induction Principle
+### 7.1 Αρχή Δομικής Επαγωγής
 
-To prove property $P$ for all finite lists:
+Για την απόδειξη της ιδιότητας $P$ για όλες τις πεπερασμένες λίστες:
 
-1. **Base case:** Prove $P([])$.
-2. **Inductive step:** Assume $P(xs)$ (induction hypothesis); prove $P(x : xs)$.
+1. **Βασική περίπτωση:** Αποδείξτε το $P([])$.
+2. **Επαγωγικό βήμα:** Υποθέστε το $P(xs)$ (υπόθεση επαγωγής)· αποδείξτε το $P(x : xs)$.
 
-If both hold, $P$ holds for all finite lists.
+Εάν ισχύουν και τα δύο, το $P$ ισχύει για όλες τις πεπερασμένες λίστες.
 
-### 7.2 Example: Sum of `map f` Equals `f` Applied to Sum
+### 7.2 Παράδειγμα: Το Άθροισμα της `map f` Ισούται με την `f` Εφαρμοσμένη στο Άθροισμα
 
-**Claim:** For all finite lists `xs` of `Int`, `sum (map f xs) = f (sum xs)` when $f$ distributes over $+$ (e.g., `f x = x * 2`).
+**Ισχυρισμός:** Για όλες τις πεπερασμένες λίστες `xs` ακεραίων `Int`, ισχύει `sum (map f xs) = f (sum xs)` όταν η $f$ κατανέμεται πάνω στην πρόσθεση $+$ (π.χ. `f x = x * 2`).
 
-**Proof:**
+**Απόδειξη:**
 
-**Base:** `sum (map f []) = sum [] = 0`. `f (sum []) = f 0`. For `f x = 2*x`, `f 0 = 0`. Holds.
+**Βάση:** `sum (map f []) = sum [] = 0`. `f (sum []) = f 0`. Για `f x = 2*x`, `f 0 = 0`. Ισχύει.
 
-**Step:** Assume `sum (map f xs) = f (sum xs)`.
+**Βήμα:** Υποθέστε ότι `sum (map f xs) = f (sum xs)`.
 
 $$
 \begin{aligned}
 \text{sum (map f (x : xs))}
   &= \text{sum (f x : map f xs)} \\
-  &= f x + \text{sum (map f xs)} & \text{(def. sum)} \\
-  &= f x + f(\text{sum xs})       & \text{(IH)} \\
-  &= f(x + \text{sum xs})         & \text{(distributivity)} \\
-  &= f(\text{sum (x : xs)})       & \text{(def. sum)}
+  &= f x + \text{sum (map f xs)} & \text{(ορισμός sum)} \\
+  &= f x + f(\text{sum xs})       & \text{(Υπόθεση Επαγωγής)} \\
+  &= f(x + \text{sum xs})         & \text{(επιμεριστικότητα)} \\
+  &= f(\text{sum (x : xs)})       & \text{(ορισμός sum)}
 \end{aligned}
 $$
 
-### 7.3 Induction on Natural Numbers
+### 7.3 Επαγωγή στους Φυσικούς Αριθμούς
 
-For recursive functions over `Nat` (defined as `Zero | Succ Nat`):
+Για αναδρομικές συναρτήσεις πάνω στους φυσικούς `Nat` (ορισμένους ως `Zero | Succ Nat`):
 
-1. Prove $P(\text{Zero})$.
-2. Prove $P(\text{Succ } n)$ assuming $P(n)$.
+1. Αποδείξτε το $P(\text{Zero})$.
+2. Αποδείξτε το $P(\text{Succ } n)$ υποθέτοντας το $P(n)$.
 
-This mirrors induction on list length when the recursion is structural.
+Αυτό αντικατοπτρίζει την επαγωγή στο μήκος λίστας όταν η αναδρομή είναι δομική.
 
 ---
 
-## 8. Abstraction Hierarchy Summary
+## 8. Σύνοψη Ιεραρχίας Αφαιρέσεων
 
-| Abstraction | Core Operation | Laws | Example Instance |
+| Αφαίρεση | Κύρια Πράξη | Νόμοι | Παράδειγμα Στιγμιοτύπου |
 | :--- | :--- | :--- | :--- |
-| Functor | `fmap` | Identity, Composition | `[]`, `Maybe` |
-| Applicative | `pure`, `<*>` | Identity, Homomorphism, Interchange, Composition | `Maybe`, `[]` |
-| Monad | `>>=` | Left/right identity, Associativity | `Maybe`, `IO`, `[]` |
-| Monoid | `mempty`, `<>` | Associativity, Identity | `[a]`, `Sum`, `String` |
-| Zipper | `goLeft`, `goRight`, `update` | Reconstruction invariant | `ListZipper`, tree zippers |
+| Functor | `fmap` | Ταυτότητα, Σύνθεση | `[]`, `Maybe` |
+| Applicative | `pure`, `<*>` | Ταυτότητα, Ομομορφισμός, Εναλλαγή, Σύνθεση | `Maybe`, `[]` |
+| Monad | `>>=` | Αριστερή/Δεξιά ταυτότητα, Προσεταιριστικότητα | `Maybe`, `IO`, `[]` |
+| Monoid | `mempty`, `<>` | Προσεταιριστικότητα, Ταυτότητα | `[a]`, `Sum`, `String` |
+| Zipper | `goLeft`, `goRight`, `update` | Αμετάβλητη συνθήκη ανακατασκευής | `ListZipper`, zippers δέντρων |
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Using `<*>` When `>>=` Is Required
+### Σφάλμα 1: Χρήση του `<*>` Όταν Απαιτείται ο `>>=`
 
-**Cause:** Trying to chain dependent `Maybe` computations with `<$>` and `<*>`.
-
-```haskell
--- Cannot express: "divide 10 by x, then divide result by y" with pure Applicative
--- if y depends on the unwrapped result of the first division.
-```
-
-**Resolution:** Use `>>=` or `do` notation when later steps depend on earlier unwrapped values.
-
-### Error 2: Confusing `return` with "return from function"
-
-**Cause:** `return` in Haskell means `pure` — lift a value into a monad. It does not exit a function.
+**Αιτία:** Απόπειρα αλυσίδωσης εξαρτώμενων υπολογισμών `Maybe` με `<$>` και `<*>`.
 
 ```haskell
-f x = return (x + 1)   -- In Maybe: Just (x+1). In IO: produces an IO action.
+-- Δεν μπορεί να εκφραστεί το: "διαίρεσε το 10 με το x, μετά διαίρεσε το αποτέλεσμα με το y" με αμιγή Applicative
+-- εάν το y εξαρτάται από το αποπεριβεβλημένο αποτέλεσμα της πρώτης διαίρεσης.
 ```
 
-**Resolution:** `return` = `pure`. Function exit is implicit (last expression) or via explicit pattern match.
+**Επίλυση:** Χρησιμοποιείτε τον `>>=` ή τη σύνταξη `do` όταν τα μεταγενέστερα βήματα εξαρτώνται από προηγούμενες αποπεριβεβλημένες τιμές.
 
-### Error 3: Violating Monoid Laws
+### Σφάλμα 2: Σύγχυση της `return` με την "επιστροφή από συνάρτηση"
 
-**Cause:** Defining a custom `Monoid` instance where `mappend` is not associative or `mempty` is not an identity.
+**Αιτία:** Η `return` στη Haskell σημαίνει `pure` — ανύψωση τιμής σε monad. Δεν πραγματοποιεί έξοδο από συνάρτηση.
 
 ```haskell
--- Invalid: "subtraction monoid" — not associative: (5-3)-2 /= 5-(3-2)
+f x = return (x + 1)   -- Στο Maybe: Just (x+1). Στο IO: παράγει μια πράξη IO.
 ```
 
-**Resolution:** Verify associativity and identity laws before declaring an instance.
+**Επίλυση:** `return` = `pure`. Η έξοδος από τη συνάρτηση είναι σιωπηρή (τελευταία έκφραση) ή μέσω ρητού ταιριάσματος μοτίβου.
+
+### Σφάλμα 3: Παραβίαση των Νόμων των Μονοειδών
+
+**Αιτία:** Ορισμός προσαρμοσμένου στιγμιοτύπου `Monoid` όπου η `mappend` δεν είναι προσεταιριστική ή το `mempty` δεν είναι ουδέτερο στοιχείο.
+
+```haskell
+-- Άκυρο: "μονοειδές αφαίρεσης" — μη προσεταιριστικό: (5-3)-2 /= 5-(3-2)
+```
+
+**Επίλυση:** Επαληθεύετε τους νόμους προσεταιριστικότητας και ταυτότητας πριν από τη δήλωση μιας κλάσης.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Functor — `fmap` on Lists
+### Άσκηση 1: Functor — `fmap` σε Λίστες
 
-**Problem:** Evaluate `fmap (+1) (fmap (*2) [1, 2, 3])` using the composition law.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `fmap (+1) (fmap (*2) [1, 2, 3])` χρησιμοποιώντας τον νόμο της σύνθεσης.
 
-**Solution:**
+**Λύση:**
 
-1. By composition law: `fmap (+1) . fmap (*2) = fmap ((+1) . (*2))`.
-2. `(+1) . (*2)` applied to `x` gives `2*x + 1`.
+1. Βάσει του νόμου σύνθεσης: `fmap (+1) . fmap (*2) = fmap ((+1) . (*2))`.
+2. Η `(+1) . (*2)` εφαρμοσμένη στο `x` δίνει `2*x + 1`.
 3. `fmap (\x -> 2*x + 1) [1,2,3]` = `[3, 5, 7]`.
 
 ```text
@@ -468,14 +468,14 @@ f x = return (x + 1)   -- In Maybe: Just (x+1). In IO: produces an IO action.
 
 ---
 
-### Exercise 2: Applicative — Combining Maybes
+### Άσκηση 2: Applicative — Συνδυασμός Maybes
 
-**Problem:** Evaluate `(*) <$> Just 4 <*> Just 5` and `(*) <$> Just 4 <*> Nothing`.
+**Πρόβλημα:** Αξιολογήστε τις εκφράσεις `(*) <$> Just 4 <*> Just 5` και `(*) <$> Just 4 <*> Nothing`.
 
-**Solution:**
+**Λύση:**
 
-1. `Just 4` and `Just 5` both present: `Just (4 * 5) = Just 20`.
-2. `Nothing` in second position: short-circuits to `Nothing`.
+1. Τα `Just 4` και `Just 5` είναι και τα δύο παρόντα: `Just (4 * 5) = Just 20`.
+2. Το `Nothing` στη δεύτερη θέση: βραχυκυκλώνει σε `Nothing`.
 
 ```text
 Just 20
@@ -484,15 +484,15 @@ Nothing
 
 ---
 
-### Exercise 3: List Applicative — Cartesian Product
+### Άσκηση 3: Applicative Λίστας — Καρτεσιανό Γινόμενο
 
-**Problem:** Evaluate `[(*2), (+10)] <*> [1, 2]`.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `[(*2), (+10)] <*> [1, 2]`.
 
-**Solution:**
+**Λύση:**
 
-1. Apply `(*2)` to each: `[2, 4]`.
-2. Apply `(+10)` to each: `[11, 12]`.
-3. Result: `[2, 4, 11, 12]`.
+1. Εφαρμογή της `(*2)` σε κάθε ένα: `[2, 4]`.
+2. Εφαρμογή της `(+10)` σε κάθε ένα: `[11, 12]`.
+3. Αποτέλεσμα: `[2, 4, 11, 12]`.
 
 ```text
 [2,4,11,12]
@@ -500,11 +500,11 @@ Nothing
 
 ---
 
-### Exercise 4: Monad Bind — Chained Division
+### Άσκηση 4: Monad Bind — Αλυσιδωτή Διαίρεση
 
-**Problem:** Trace `Just 10 >>= (\x -> safeDiv x 2) >>= (\y -> safeDiv y 5)` where `safeDiv a 0 = Nothing`.
+**Πρόβλημα:** Ιχνηλατήστε την έκφραση `Just 10 >>= (\x -> safeDiv x 2) >>= (\y -> safeDiv y 5)` όπου `safeDiv a 0 = Nothing`.
 
-**Solution:**
+**Λύση:**
 
 1. `Just 10 >>= (\x -> safeDiv x 2)` → `safeDiv 10 2` → `Just 5.0`.
 2. `Just 5.0 >>= (\y -> safeDiv y 5)` → `safeDiv 5.0 5` → `Just 1.0`.
@@ -515,11 +515,11 @@ Just 1.0
 
 ---
 
-### Exercise 5: Monoid — List Concatenation
+### Άσκηση 5: Monoid — Συνένωση Λιστών
 
-**Problem:** Evaluate `mconcat [["a"], ["b", "c"], []]`.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `mconcat [["a"], ["b", "c"], []]`.
 
-**Solution:**
+**Λύση:**
 
 1. `["a"] <> ["b", "c"]` = `["a", "b", "c"]`.
 2. `["a", "b", "c"] <> []` = `["a", "b", "c"]`.
@@ -530,28 +530,28 @@ Just 1.0
 
 ---
 
-### Exercise 6: Zipper Navigation
+### Άσκηση 6: Πλοήγηση Zipper
 
-**Problem:** Starting from `[1, 2, 3]`, perform `goRight` twice and state the focus and `toList` result.
+**Πρόβλημα:** Ξεκινώντας από τη `[1, 2, 3]`, εκτελέστε `goRight` δύο φορές και δηλώστε την εστίαση και το αποτέλεσμα της `toList`.
 
-**Solution:**
+**Λύση:**
 
-1. `fromList [1,2,3]` → focus `1`, right `[2,3]`.
-2. `goRight` → focus `2`, left `[1]`, right `[3]`.
-3. `goRight` → focus `3`, left `[2,1]`, right `[]`.
+1. `fromList [1,2,3]` → εστίαση `1`, δεξιά `[2,3]`.
+2. `goRight` → εστίαση `2`, αριστερά `[1]`, δεξιά `[3]`.
+3. `goRight` → εστίαση `3`, αριστερά `[2,1]`, δεξιά `[]`.
 4. `toList` = `reverse [2,1] ++ [3] ++ []` = `[1,2,3]`.
 
-Focus after two `goRight` calls: `3`.
+Εστίαση μετά από δύο κλήσεις `goRight`: `3`.
 
 ---
 
-### Exercise 7: Equational Reasoning — `map`
+### Άσκηση 7: Αναφορική Ισότητα — `map`
 
-**Problem:** Prove `map f (xs ++ ys) = map f xs ++ map f ys` for the base case `xs = []`.
+**Πρόβλημα:** Αποδείξτε ότι `map f (xs ++ ys) = map f xs ++ map f ys` για τη βασική περίπτωση `xs = []`.
 
-**Solution:**
+**Λύση:**
 
-**Base case** (`xs = []`):
+**Βασική περίπτωση** (`xs = []`):
 
 $$
 \text{map f ([] ++ ys)} = \text{map f ys}
@@ -561,39 +561,39 @@ $$
 \text{map f [] ++ map f ys} = [] ++ \text{map f ys} = \text{map f ys}
 $$
 
-Both sides equal. Base case holds.
+Και οι δύο πλευρές είναι ίσες. Η βασική περίπτωση ισχύει.
 
 ---
 
-### Exercise 8: Structural Induction — Length of Reverse
+### Άσκηση 8: Δομική Επαγωγή — Μήκος της Reverse
 
-**Problem:** State the base case and inductive step for proving `length (reverse xs) = length xs`.
+**Πρόβλημα:** Δηλώστε τη βασική περίπτωση και το επαγωγικό βήμα για την απόδειξη της ισότητας `length (reverse xs) = length xs`.
 
-**Solution:**
+**Λύση:**
 
-**Base case:** `xs = []`.
+**Βασική περίπτωση:** `xs = []`.
 
-- LHS: `length (reverse []) = length [] = 0`.
-- RHS: `length [] = 0`. Equal.
+- Αριστερό Μέλος: `length (reverse []) = length [] = 0`.
+- Δεξί Μέλος: `length [] = 0`. Ίσα.
 
-**Inductive step:** Assume `length (reverse xs) = length xs` for some `xs`. Prove for `x : xs`:
+**Επαγωγικό βήμα:** Υποθέστε ότι `length (reverse xs) = length xs` για κάποια `xs`. Αποδείξτε για την `x : xs`:
 
 $$
 \text{length (reverse (x : xs))} = \text{length (reverse xs ++ [x])} = \text{length (reverse xs)} + 1 = \text{length xs} + 1 = \text{length (x : xs)}
 $$
 
-The inductive step uses `length (as ++ bs) = length as + length bs`.
+Το επαγωγικό βήμα χρησιμοποιεί την ιδιότητα `length (as ++ bs) = length as + length bs`.
 
 ---
 
-## Exam Tip: Choosing Functor vs. Applicative vs. Monad
+## Συμβουλή Εξετάσεων: Επιλογή μεταξύ Functor, Applicative και Monad
 
-**Decision flowchart for exam questions:**
+**Διάγραμμα ροής αποφάσεων για ερωτήσεις εξετάσεων:**
 
-1. **Single transformation inside a context?** → **Functor** (`fmap` / `<$>`).
-2. **Multiple independent values in a context, combine with a function?** → **Applicative** (`pure` + `<*>`).
-3. **Later step depends on unwrapped result of earlier step?** → **Monad** (`>>=` / `do`).
-4. **Folding a collection with an associative operation and identity?** → **Monoid** (`mempty`, `<>`).
-5. **Local edit in an immutable structure without full copy?** → **Zipper**.
+1. **Μεμονωμένος μετασχηματισμός εντός πλαισίου;** → **Functor** (`fmap` / `<$>`).
+2. **Πολλαπλές ανεξάρτητες τιμές σε ένα πλαίσιο, συνδυασμένες με μια συνάρτηση;** → **Applicative** (`pure` + `<*>`).
+3. **Μεταγενέστερο βήμα που εξαρτάται από το αποπεριβεβλημένο αποτέλεσμα προηγούμενου βήματος;** → **Monad** (`>>=` / `do`).
+4. **Συσσώρευση συλλογής με προσεταιριστική πράξη και ουδέτερο στοιχείο;** → **Monoid** (`mempty`, `<>`).
+5. **Τοπική τροποποίηση σε αμετάβλητη δομή χωρίς πλήρη αντιγραφή;** → **Zipper**.
 
-**Proof questions:** Always state the **base case** and **inductive hypothesis** explicitly. Reference function definitions by name ("by def. of `map`"). One missing base case invalidates the entire inductive proof.
+**Ερωτήσεις αποδείξεων:** Δηλώνετε πάντα τη **βασική περίπτωση** και την **υπόθεση επαγωγής** ρητά. Αναφέρετε τους ορισμούς συναρτήσεων με το όνομά τους ("βάσει ορισμού της `map`"). Μία παράλειψη βασικής περίπτωσης ακυρώνει ολόκληρη την επαγωγική απόδειξη.

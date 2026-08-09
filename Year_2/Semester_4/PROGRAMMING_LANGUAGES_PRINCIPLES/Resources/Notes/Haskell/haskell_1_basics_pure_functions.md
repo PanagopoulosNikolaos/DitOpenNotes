@@ -1,39 +1,39 @@
-# Haskell — Basics of Pure Functions
+# Haskell — Βασικές Έννοιες Αμιγών Συναρτήσεων
 
-Haskell is a statically typed, purely functional programming language whose evaluation model is built on immutable data, referential transparency, and lazy (non-strict) evaluation. This file covers the foundational semantic properties that distinguish Haskell from imperative languages: no variable reassignment, substitution-based reasoning, thunk-based deferred computation, and iteration expressed exclusively through recursion and higher-order functions rather than mutable loops.
+Η Haskell είναι μια στατικά τυποποιημένη, αμιγώς συναρτησιακή γλώσσα προγραμματισμού της οποίας το μοντέλο αξιολόγησης είναι δομημένο πάνω σε αμετάβλητα δεδομένα, αναφορική διαφάνεια (referential transparency) και οκνηρή (μη αυστηρή) αξιολόγηση (lazy/non-strict evaluation). Αυτό το αρχείο καλύπτει τις θεμελιώδεις σημασιολογικές ιδιότητες που διαφοροποιούν τη Haskell από τις προστακτικές γλώσσες: απουσία επαναθέτησης μεταβλητών, αιτιολόγηση βάσει αντικατάστασης, αναβαλλόμενο υπολογισμό βάσει thunks και επανάληψη που εκφράζεται αποκλειστικά μέσω αναδρομής και συναρτήσεων ανώτερης τάξης αντί για μεταβλητούς βρόχους.
 
 ---
 
-## 1. Immutable State
+## 1. Αμετάβλητη Κατάσταση (Immutable State)
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-In Haskell, a **binding** associates a name with a value for the duration of a scope. Once a name is bound, it cannot be reassigned. There is no `x = x + 1` semantics. "Changing state" means creating a **new value** derived from the old one, leaving the original intact.
+Στη Haskell, μια **σύνδεση (binding)** συσχετίζει ένα όνομα με μια τιμή για τη διάρκεια μιας εμβέλειας. Από τη στιγμή που ένα όνομα συνδεθεί, δεν μπορεί να επανατεθεί. Δεν υπάρχει σημασιολογία του τύπου `x = x + 1`. Η "αλλαγή κατάστασης" σημαίνει τη δημιουργία μιας **νέας τιμής** που παραγεται από την παλαιά, αφήνοντας την αρχική ανέπαφη.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
 ```
 <name> = <expression>
 ```
 
-Bindings appear at the top level or inside a `let` / `where` clause. Function parameters are also immutable bindings within the function body.
+Οι συνδέσεις εμφανίζονται στο ανώτατο επίπεδο (top level) ή εντός μιας πρότασης `let` / `where`. Οι παράμετροι συναρτήσεων είναι επίσης αμετάβλητες συνδέσεις εντός του σώματος της συνάρτησης.
 
-### 1.3 Behavioral Description
+### 1.3 Περιγραφή Συμπεριφοράς
 
-| Property | Haskell | Imperative (e.g., C, Python) |
+| Ιδιότητα | Haskell | Προστακτικές (π.χ. C, Python) |
 | :--- | :--- | :--- |
-| Reassignment | Not permitted | `x = x + 1` is valid |
-| Mutation of data structure | New structure created; old preserved | In-place update possible |
-| Reasoning model | Value substitution | Sequential state changes |
-| Concurrency safety | No shared mutable state by default | Requires explicit synchronization |
+| Επαναθέτηση | Δεν επιτρέπεται | Η `x = x + 1` είναι έγκυρη |
+| Τροποποίηση δομής δεδομένων | Δημιουργείται νέα δομή· η παλαιά διατηρείται | Δυνατότητα ενημέρωσης επί τόπου (in-place) |
+| Μοντέλο αιτιολόγησης | Αντικατάσταση τιμών | Ακολουθιακές αλλαγές κατάστασης |
+| Ασφάλεια ταυτοχρονισμού | Χωρίς κοινόχρηστη μεταβλητή κατάσταση εκ προεπιλογής | Απαιτεί ρητό συγχρονισμό |
 
 ```haskell
--- A binding is permanent within its scope.
+-- Μια σύνδεση είναι μόνιμη εντός της εμβέλειάς της.
 x = 5
 y = x + 3
--- x = 10   -- Compile error: cannot rebind x.
+-- x = 10   -- Σφάλμα μεταγλώττισης: αδυναμία επανασύνδεσης του x.
 
--- "Increment" returns a new value; x is unchanged.
+-- Η συνάρτηση αυξητικού υπολογισμού επιστρέφει νέα τιμή· το x παραμένει αμετάβλητο.
 increment n = n + 1
 
 main = print (increment x, x)
@@ -43,9 +43,9 @@ main = print (increment x, x)
 (8,5)
 ```
 
-### 1.4 Data Structure Immutability
+### 1.4 Αμεταβλητότητα Δομών Δεδομένων
 
-Lists, tuples, and user-defined algebraic data types are immutable. Appending to a list constructs a new list; the original list's memory is never modified.
+Οι λίστες, οι πλειάδες (tuples) και οι οριζόμενοι από τον χρήστη αλγεβρικοί τύποι δεδομένων είναι αμετάβλητοι. Η προσάρτηση σε μια λίστα κατασκευάζει μια νέα λίστα· η μνήμη της αρχικής λίστας δεν τροποποιείται ποτέ.
 
 ```haskell
 original = [1, 2, 3]
@@ -61,88 +61,88 @@ main = do
 [1,2,3,4]
 ```
 
-> **[Key Insight]** Immutability eliminates an entire class of bugs involving aliasing and unexpected side effects. When function `f` receives a list, the caller's list cannot be silently modified by `f`.
+> **[Βασική Παρατήρηση]** Η αμεταβλητότητα εξαλείφει μια ολόκληρη κατηγορία σφαλμάτων που σχετίζονται με την ψευδωνυμία (aliasing) και τις ανεπιθύμητες παρενέργειες. Όταν μια συνάρτηση `f` λαμβάνει μια λίστα, η λίστα του καλούντος δεν μπορεί να τροποποιηθεί σιωπηρά από την `f`.
 
 ---
 
-## 2. Referential Transparency
+## 2. Αναφορική Διαφάνεια (Referential Transparency)
 
-### 2.1 Formal Definition
+### 2.1 Τυπικός Ορισμός
 
-An expression is **referentially transparent** if it can be replaced by its value without changing the program's observable behavior. In a pure Haskell function, the return value depends **only** on its arguments — no hidden reads of mutable global state, no I/O, no random number generation (outside the `IO` monad).
+Μια έκφραση είναι **αναφορικά διαφανής (referentially transparent)** εάν μπορεί να αντικατασταθεί από την τιμή της χωρίς να αλλάξει η παρατηρήσιμη συμπεριφορά του προγράμματος. Σε μια αμιγή συνάρτηση της Haskell, η τιμή επιστροφής εξαρτάται **μόνο** από τα ορίσματά της — χωρίς κρυφές αναγνώσεις μεταβλητής καθολικής κατάστασης, χωρίς Είσοδο/Έξοδο (I/O) και χωρίς παραγωγή τυχαίων αριθμών (εκτός της μονάδας `IO`).
 
-**Substitution principle:**
+**Αρχή αντικατάστασης:**
 
-If $f : A \to B$ is pure and $x : A$, then the expression $f(x)$ may be replaced by its computed result $y$ everywhere in the program, and behavior is unchanged.
+Εάν η $f : A \to B$ είναι αμιγής και $x : A$, τότε η έκφραση $f(x)$ μπορεί να αντικατασταθεί από το υπολογισμένο της αποτέλεσμα $y$ παντού στο πρόγραμμα, χωρίς να μεταβληθεί η συμπεριφορά.
 
-### 2.2 Behavioral Description
+### 2.2 Περιγραφή Συμπεριφοράς
 
-| Expression Type | Referentially Transparent? | Reason |
+| Τύπος Έκφρασης | Αναφορικά Διαφανής; | Αιτιολογία |
 | :--- | :--- | :--- |
-| `2 + 3` | Yes | Always evaluates to `5` |
-| `length [1,2,3]` | Yes | Always `3` |
-| `readFile "data.txt"` | No | Result depends on external file state |
-| `randomR (1,6)` in `IO` | No | Nondeterministic side effect |
+| `2 + 3` | Ναι | Αξιολογείται πάντα σε `5` |
+| `length [1,2,3]` | Ναι | Αξιολογείται πάντα σε `3` |
+| `readFile "data.txt"` | Όχι | Το αποτέλεσμα εξαρτάται από την εξωτερική κατάσταση του αρχείου |
+| `randomR (1,6)` στο `IO` | Όχι | Μη ντετερμινιστική παρενέργεια |
 
 ```haskell
--- Pure: same inputs always yield same outputs.
+-- Αμιγής: τα ίδια ορίσματα παράγουν πάντα την ίδια έξοδο.
 double x = x * 2
 
 main = print (double 7 + double 7)
--- Equivalent to: print (14 + 14) by referential transparency.
+-- Ισοδύναμο με: print (14 + 14) λόγω αναφορικής διαφάνειας.
 ```
 
 ```text
 28
 ```
 
-### 2.3 Equational Reasoning Preview
+### 2.3 Προεπισκόπηση Αναφορικής Ισότητας (Equational Reasoning)
 
-Because of referential transparency, function definitions can be manipulated algebraically:
+Λόγω της αναφορικής διαφάνειας, οι ορισμοί συναρτήσεων μπορούν να υποστούν αλγεβρικό χειρισμό:
 
 $$
 \text{double}(x) = x \times 2
 $$
 
-Therefore:
+Επομένως:
 
 $$
 \text{double}(3) + \text{double}(3) = (3 \times 2) + (3 \times 2) = 12
 $$
 
-This property is the foundation for correctness proofs covered in `haskell_4_advanced_abstractions.md`.
+Αυτή η ιδιότητα αποτελεί τη θεμελίωση για τις αποδείξεις ορθότητας που καλύπτονται στο `haskell_4_advanced_abstractions.md`.
 
 ---
 
-## 3. Lazy Evaluation and Thunks
+## 3. Οκνηρή Αξιολόγηση και Thunks
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-Haskell uses **lazy evaluation** (also called **non-strict** evaluation): an expression is not computed until its value is **demanded** by a consumer (e.g., pattern matching, printing, arithmetic). Before demand, the runtime stores a **thunk** — a suspended computation recording the expression and its environment.
+Η Haskell χρησιμοποιεί **οκνηρή αξιολόγηση (lazy evaluation)** (αναφέρεται και ως **μη αυστηρή / non-strict** αξιολόγηση): μια έκφραση δεν υπολογίζεται μέχρι η τιμή της να **απαιτηθεί** από έναν καταναλωτή (π.χ. ταίριασμα μοτίβων, εκτύπωση, αριθμητική πράξη). Πριν από την απαίτηση, το σύστημα εκτέλεσης αποθηκεύει ένα **thunk** — έναν ανασταλμένο υπολογισμό που καταγράφει την έκφραση και το περιβάλλον της.
 
-### 3.2 Evaluation Model
+### 3.2 Μοντέλο Αξιολόγησης
 
 ```
-Expression written          Thunk created (unevaluated)       Forced (evaluated)
+Γραμμένη έκφραση           Δημιουργία Thunk (ανυπολόγιστο)    Επιβολή / Forced (αξιολογημένο)
 ──────────────────          ─────────────────────────         ──────────────────
-f (g x)          →    [suspended: apply f to (g x)]   →    concrete value
-[1..]            →    [suspended: enumerate from 1]   →    1 : [suspended tail]
+f (g x)          →    [αναστολή: εφαρμογή f στο (g x)] →    συγκεκριμένη τιμή
+[1..]            →    [αναστολή: απαρίθμηση από το 1] →    1 : [ανασταλμένη ουρά]
 ```
 
-### 3.3 Behavioral Description
+### 3.3 Περιγραφή Συμπεριφοράς
 
-| Construct | Strict? | Behavior |
+| Κατασκευή | Αυστηρή; | Συμπεριφορά |
 | :--- | :--- | :--- |
-| `let x = expensive in x + x` | Lazy | `expensive` computed at most once (sharing) |
-| `fst (a, expensive)` | Lazy | `expensive` never computed |
-| `take 3 [1..]` | Lazy | Only first 3 elements of infinite list forced |
-| Pattern match on `undefined` | — | Diverges (bottom $\bot$) when forced |
+| `let x = expensive in x + x` | Οκνηρή | Το `expensive` υπολογίζεται το πολύ μία φορά (διαμοιρασμός) |
+| `fst (a, expensive)` | Οκνηρή | Το `expensive` δεν υπολογίζεται ποτέ |
+| `take 3 [1..]` | Οκνηρή | Μόνο τα 3 πρώτα στοιχεία της άπειρης λίστας υπολογίζονται |
+| Ταίριασμα μοτίβου στο `undefined` | — | Αποκλίνει (πυθμένας $\bot$) όταν επιβληθεί |
 
 ```haskell
--- Infinite list: the tail is a thunk until demanded.
+-- Άπειρη λίστα: η ουρά είναι thunk μέχρι να απαιτηθεί.
 naturals = [1..]
 
--- Only three elements are ever computed.
+-- Μόνο τρία στοιχεία υπολογίζονται τελικά.
 firstThree = take 3 naturals
 
 main = print firstThree
@@ -152,51 +152,51 @@ main = print firstThree
 [1,2,3]
 ```
 
-### 3.4 Thunk Sharing
+### 3.4 Διαμοιρασμός Thunks (Thunk Sharing)
 
-When the same thunk is referenced multiple times, GHC evaluates it once and shares the result:
+Όταν το ίδιο thunk αναφέρεται πολλαπλές φορές, ο μεταγλωττιστής GHC το αξιολογεί μία φορά και διαμοιράζει το αποτέλεσμα:
 
 ```haskell
 slow = sum [1..1000000]
 
 main = print (slow + slow)
--- `slow` is computed once, not twice.
+-- Το `slow` υπολογίζεται μία φορά, όχι δύο.
 ```
 
-> **[Key Insight]** Lazy evaluation enables working with infinite data structures (`[1..]`, Fibonacci streams) safely, provided extraction is bounded (`take`, `head`, `foldr` with finite input). The exam pattern is: identify which sub-expressions are never forced and therefore incur zero cost.
+> **[Βασική Παρατήρηση]** Η οκνηρή αξιολόγηση επιτρέπει την ασφαλή εργασία με άπειρες δομές δεδομένων (`[1..]`, ροές Fibonacci), υπό την προϋπόθεση ότι η εξαγωγή είναι οριοθετημένη (`take`, `head`, `foldr` με πεπερασμένη είσοδο). Το μοτίβο των εξετάσεων είναι: ταυτοποιήστε ποιες υπο-εκφράσεις δεν επιβάλλονται ποτέ και επομένως έχουν μηδενικό κόστος.
 
 ---
 
-## 4. No Loops — Recursion and Higher-Order Functions
+## 4. Απουσία Βρόχων — Αναδρομή και Συναρτήσεις Ανώτερης Τάξης
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-Haskell has no `for`, `while`, or `do-while` loop constructs for pure computation. Iteration is expressed through:
+Η Haskell δεν διαθέτει κατασκευές βρόχων `for`, `while` ή `do-while` για αμιγείς υπολογισμούς. Η επανάληψη εκφράζεται μέσω:
 
-1. **Structural recursion** on data (lists, naturals).
-2. **Higher-order functions** (`map`, `filter`, `foldr`, `foldl`) that abstract common recursion patterns.
+1. **Δομικής αναδρομής (structural recursion)** στα δεδομένα (λίστες, φυσικοί αριθμοί).
+2. **Συναρτήσεων ανώτερης τάξης (higher-order functions)** (`map`, `filter`, `foldr`, `foldl`) που αφαιρούν τα κοινά μοτίβα αναδρομής.
 
-### 4.2 Recursion Syntax Reference
+### 4.2 Αναφορά Σύνταξης Αναδρομής
 
 ```
 <function_name> <pattern> = <base_case>
 <function_name> <pattern> = <recursive_case>
 ```
 
-### 4.3 Factorial via Recursion
+### 4.3 Παραγοντικό μέσω Αναδρομής
 
 ```haskell
 factorial 0 = 1
 factorial n = n * factorial (n - 1)
 ```
 
-| Call | Expansion | Result |
+| Κλήση | Ανάπτυξη | Αποτέλεσμα |
 | :--- | :--- | :--- |
 | `factorial 3` | `3 * factorial 2` | — |
 | `factorial 2` | `2 * factorial 1` | — |
 | `factorial 1` | `1 * factorial 0` | — |
 | `factorial 0` | `1` | `1` |
-| Back-substitute | `3 * 2 * 1 * 1` | `6` |
+| Αντικατάσταση | `3 * 2 * 1 * 1` | `6` |
 
 ```haskell
 main = print (factorial 5)
@@ -206,19 +206,19 @@ main = print (factorial 5)
 120
 ```
 
-### 4.4 Higher-Order Function Reference
+### 4.4 Αναφορά Συναρτήσεων Ανώτερης Τάξης
 
-| Function | Type (simplified) | Purpose |
+| Συνάρτηση | Τύπος (απλοποιημένος) | Σκοπός |
 | :--- | :--- | :--- |
-| `map` | `(a -> b) -> [a] -> [b]` | Apply function to each element |
-| `filter` | `(a -> Bool) -> [a] -> [a]` | Keep elements satisfying predicate |
-| `foldr` | `(a -> b -> b) -> b -> [a] -> b` | Right-associative accumulation |
-| `foldl` | `(b -> a -> b) -> b -> [a] -> b` | Left-associative accumulation |
-| `(.)` | `(b -> c) -> (a -> b) -> a -> c` | Function composition |
-| `($)` | `(a -> b) -> a -> b` | Low-precedence application |
+| `map` | `(a -> b) -> [a] -> [b]` | Εφαρμογή συνάρτησης σε κάθε στοιχείο |
+| `filter` | `(a -> Bool) -> [a] -> [a]` | Διατήρηση στοιχείων που ικανοποιούν το κατηγόρημα |
+| `foldr` | `(a -> b -> b) -> b -> [a] -> b` | Δεξιόστροφη προσεταιριστική συσσώρευση |
+| `foldl` | `(b -> a -> b) -> b -> [a] -> b` | Αριστερόστροφη προσεταιριστική συσσώρευση |
+| `(.)` | `(b -> c) -> (a -> b) -> a -> c` | Σύνθεση συναρτήσεων |
+| `($)` | `(a -> b) -> a -> b` | Εφαρμογή χαμηλής προτεραιότητας |
 
 ```haskell
--- Sum of squares of evens from 1 to 10, without explicit recursion.
+-- Άθροισμα τετραγώνων των άρτιων αριθμών από 1 έως 10, χωρίς ρητή αναδρομή.
 result = sum (map (^2) (filter even [1..10]))
   where even x = x `mod` 2 == 0
 
@@ -229,9 +229,9 @@ main = print result
 220
 ```
 
-### 4.5 `foldr` vs. `foldl`
+### 4.5 `foldr` έναντι `foldl`
 
-For a list $[a_1, a_2, \ldots, a_n]$ and operator $\oplus$:
+Για μια λίστα $[a_1, a_2, \ldots, a_n]$ και έναν τελεστή $\oplus$:
 
 $$
 \text{foldr } \oplus \ z \ [a_1, \ldots, a_n] = a_1 \oplus (a_2 \oplus (\cdots \oplus (a_n \oplus z) \cdots))
@@ -252,7 +252,7 @@ main = do
 6
 ```
 
-For non-associative operations, `foldr` and `foldl` produce different results:
+Για μη προσεταιριστικές πράξεις, οι `foldr` και `foldl` παράγουν διαφορετικά αποτελέσματα:
 
 ```haskell
 main = do
@@ -267,47 +267,47 @@ main = do
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Attempting Variable Reassignment
+### Σφάλμα 1: Απόπειρα Επαναθέτησης Μεταβλητής
 
-**Cause:** Treating `=` as assignment rather than binding.
+**Αιτία:** Αντιμετώπιση του `=` ως ανάθεσης τιμής αντί για σύνδεση.
 
 ```haskell
 count = 0
--- count = count + 1   -- Compile error.
+-- count = count + 1   -- Σφάλμα μεταγλώττισης.
 ```
 
-**Resolution:** Use recursion or `fold` to accumulate. For monadic state (I/O counters), use `IORef` or the `State` monad — but pure code never rebinds.
+**Επίλυση:** Χρησιμοποιείτε αναδρομή ή `fold` για συσσώρευση. Για μοναδιαία κατάσταση (μονάδα `IO` / μετρητές), χρησιμοποιείτε `IORef` ή τη μοναδική κλάση `State` — αλλά ο αμιγής κώδικας δεν επανασυνδέει μεταβλητές ποτέ.
 
-### Error 2: Non-Terminating Lazy Expression
+### Σφάλμα 2: Μη Τερματιζόμενη Οκνηρή Έκφραση
 
-**Cause:** Demanding an infinite structure without bounding extraction.
+**Αιτία:** Απαίτηση μιας άπειρης δομής χωρίς οριοθέτηση της εξαγωγής.
 
 ```haskell
--- print (sum [1..])   -- Never terminates: sum forces every element.
+-- print (sum [1..])   -- Δεν τερματίζει ποτέ: η sum επιβάλλει κάθε στοιχείο.
 ```
 
-**Resolution:** Use `take n` before aggregation, or define a finite input list.
+**Επίλυση:** Χρησιμοποιείτε τη `take n` πριν από τη συγκέντρωση, ή ορίζετε μια πεπερασμένη λίστα εισόδου.
 
-### Error 3: Space Leak from `foldl`
+### Σφάλμα 3: Διαρροή Χώρου (Space Leak) από την `foldl`
 
-**Cause:** `foldl` accumulates unevaluated thunks when the combining function is lazy in its first argument.
+**Αιτία:** Η `foldl` συσσωρεύει ανυπολόγιστα thunks όταν η συνάρτηση συνδυασμού είναι οκνηρή στο πρώτο της όρισμα.
 
 ```haskell
--- foldl (+) 0 [1..1000000] may use O(n) memory.
--- foldl' (+) 0 [1..1000000] forces strictly; O(1) memory.
+-- Η foldl (+) 0 [1..1000000] μπορεί να χρησιμοποιήσει μνήμη O(n).
+-- Η foldl' (+) 0 [1..1000000] επιβάλλει αυστηρά τον υπολογισμό· μνήμη O(1).
 ```
 
-**Resolution:** Use the strict variant `foldl'` from `Data.List` for large numeric accumulations.
+**Επίλυση:** Χρησιμοποιείτε την αυστηρή παραλλαγή `foldl'` από τη μονάδα `Data.List` για μεγάλες αριθμητικές συσσωρεύσεις.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Trace Immutable Binding
+### Άσκηση 1: Ιχνηλάτηση Αμετάβλητης Σύνδεσης
 
-**Problem:** Predict the output of the following program.
+**Πρόβλημα:** Προβλέψτε την έξοδο του παρακάτω προγράμματος.
 
 ```haskell
 x = 10
@@ -315,11 +315,11 @@ f y = y + x
 main = print (f 5, x)
 ```
 
-**Solution:**
+**Λύση:**
 
-1. `x` is bound to `10` permanently.
-2. `f 5` computes `5 + 10 = 15`.
-3. `x` remains `10`.
+1. Το `x` είναι συνδεδεμένο στο `10` μόνιμα.
+2. Η `f 5` υπολογίζει `5 + 10 = 15`.
+3. Το `x` παραμένει `10`.
 
 ```text
 (15,10)
@@ -327,58 +327,58 @@ main = print (f 5, x)
 
 ---
 
-### Exercise 2: Referential Transparency Substitution
+### Άσκηση 2: Αντικατάσταση Αναφορικής Διαφάνειας
 
-**Problem:** Rewrite `g 3 + g 3` using referential transparency, given `g x = x * x`.
+**Πρόβλημα:** Ξαναγράψτε την έκφραση `g 3 + g 3` χρησιμοποιώντας την αναφορική διαφάνεια, δοθέντος ότι `g x = x * x`.
 
-**Solution:**
+**Λύση:**
 
 1. `g 3 = 3 * 3 = 9`.
-2. Substitute: `g 3 + g 3` becomes `9 + 9`.
-3. Result: `18`.
+2. Αντικατάσταση: η έκφραση `g 3 + g 3` γίνεται `9 + 9`.
+3. Αποτέλεσμα: `18`.
 
 ---
 
-### Exercise 3: Lazy — What Gets Evaluated?
+### Άσκηση 3: Οκνηρή Αξιολόγηση — Τι Αξιολογείται;
 
-**Problem:** How many elements of `[1..]` does `length (take 5 [1..])` force?
+**Πρόβλημα:** Πόσα στοιχεία της λίστας `[1..]` επιβάλλει η έκφραση `length (take 5 [1..])`;
 
-**Solution:**
+**Λύση:**
 
-1. `take 5` demands exactly 5 elements from the infinite list.
-2. `length` on a finite list of 5 elements forces all 5 cons cells.
-3. Elements beyond the 5th remain as unforced thunks.
+1. Η `take 5` απαιτεί ακριβώς 5 στοιχεία από την άπειρη λίστα.
+2. Η `length` σε μια πεπερασμένη λίστα 5 στοιχείων επιβάλλει και τα 5 κελιά cons.
+3. Τα στοιχεία πέραν του 5ου παραμένουν ως ανυπολόγιστα thunks.
 
-**Answer:** 5 elements.
+**Απάντηση:** 5 στοιχεία.
 
 ---
 
-### Exercise 4: Recursive Length
+### Άσκηση 4: Αναδρομικό Μήκος
 
-**Problem:** Define `myLength` recursively and evaluate `myLength [10, 20, 30]`.
+**Πρόβλημα:** Ορίστε τη συνάρτηση `myLength` αναδρομικά και αξιολογήστε την έκφραση `myLength [10, 20, 30]`.
 
 ```haskell
 myLength []     = 0
 myLength (_:xs) = 1 + myLength xs
 ```
 
-**Solution:**
+**Λύση:**
 
-| Step | Call | Result |
+| Βήμα | Κλήση | Αποτέλεσμα |
 | :--- | :--- | :--- |
 | 1 | `myLength [10,20,30]` | `1 + myLength [20,30]` |
 | 2 | `myLength [20,30]` | `1 + myLength [30]` |
 | 3 | `myLength [30]` | `1 + myLength []` |
 | 4 | `myLength []` | `0` |
-| Back-sub | `1 + 1 + 1 + 0` | `3` |
+| Αντικατάσταση | `1 + 1 + 1 + 0` | `3` |
 
 ---
 
-### Exercise 5: `map` and `filter` Composition
+### Άσκηση 5: Σύνθεση `map` και `filter`
 
-**Problem:** Evaluate `sum (map (*2) (filter (>3) [1,2,3,4,5,6]))`.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `sum (map (*2) (filter (>3) [1,2,3,4,5,6]))`.
 
-**Solution:**
+**Λύση:**
 
 1. `filter (>3) [1,2,3,4,5,6]` → `[4,5,6]`.
 2. `map (*2) [4,5,6]` → `[8,10,12]`.
@@ -390,11 +390,11 @@ myLength (_:xs) = 1 + myLength xs
 
 ---
 
-### Exercise 6: `foldr` Expansion
+### Άσκηση 6: Ανάπτυξη της `foldr`
 
-**Problem:** Expand `foldr (:) [] [1, 2, 3]` step by step.
+**Πρόβλημα:** Αναπτύξτε την έκφραση `foldr (:) [] [1, 2, 3]` βήμα προς βήμα.
 
-**Solution:**
+**Λύση:**
 
 1. `foldr (:) [] [1,2,3]` = `1 : (foldr (:) [] [2,3])`.
 2. `= 1 : (2 : (foldr (:) [] [3]))`.
@@ -403,20 +403,20 @@ myLength (_:xs) = 1 + myLength xs
 
 ---
 
-### Exercise 7: Recursive vs. `foldr` — Sum
+### Άσκηση 7: Αναδρομή έναντι `foldr` — Άθροισμα
 
-**Problem:** Show that `sumList xs = foldr (+) 0 xs` for `xs = [3, 1, 4]`.
+**Πρόβλημα:** Δείξτε ότι `sumList xs = foldr (+) 0 xs` για `xs = [3, 1, 4]`.
 
-**Solution:**
+**Λύση:**
 
-Recursive definition:
+Αναδρομικός ορισμός:
 
 ```haskell
 sumList []     = 0
 sumList (x:xs) = x + sumList xs
 ```
 
-Trace:
+Ιχνηλάτηση:
 
 1. `sumList [3,1,4]` = `3 + sumList [1,4]` = `3 + (1 + sumList [4])` = `3 + (1 + (4 + 0))` = `8`.
 
@@ -424,25 +424,25 @@ Trace:
 
 ---
 
-### Exercise 8: Thunk Sharing Cost
+### Άσκηση 8: Κόστος Διαμοιρασμού Thunks
 
-**Problem:** A function `expensive = product [1..100]`. If `main = print (expensive + expensive)`, how many times is `product [1..100]` computed under lazy evaluation with sharing?
+**Πρόβλημα:** Μια συνάρτηση `expensive = product [1..100]`. Εάν `main = print (expensive + expensive)`, πόσες φορές υπολογίζεται το `product [1..100]` υπό οκνηρή αξιολόγηση με διαμοιρασμό;
 
-**Solution:**
+**Λύση:**
 
-1. First reference to `expensive` creates a thunk for `product [1..100]`.
-2. Second reference reuses the same thunk.
-3. When `+` demands the value, the thunk is forced once; the result is shared.
-4. **Answer:** Computed once.
+1. Η πρώτη αναφορά στο `expensive` δημιουργεί ένα thunk για το `product [1..100]`.
+2. Η δεύτερη αναφορά επαναχρησιμοποιεί το ίδιο thunk.
+3. Όταν ο τελεστής `+` απαιτήσει την τιμή, το thunk επιβάλλεται μία φορά· το αποτέλεσμα διαμοιράζεται.
+4. **Απάντηση:** Υπολογίζεται μία φορά.
 
 ---
 
-## Exam Tip: Pure Function Property Checklist
+## Συμβουλή Εξετάσεων: Λίστα Ελέγχου Ιδιοτήτων Αμιγών Συναρτήσεων
 
-When analyzing a Haskell function on paper, apply this three-point checklist:
+Όταν αναλύετε μια συνάρτηση Haskell στο χαρτί, εφαρμόστε αυτή τη λίστα ελέγχου τριών σημείων:
 
-1. **Immutability:** Are all bindings constant? Any attempted reassignment is a compile error, not a runtime surprise.
-2. **Referential transparency:** Does the function's result depend only on its arguments? If it uses `IO`, `unsafePerformIO`, or reads mutable state, it is not referentially transparent.
-3. **Laziness:** Which sub-expressions are forced? Trace demand from the outermost consumer inward. `take n` bounds infinite lists; `fst` ignores the second component entirely.
+1. **Αμεταβλητότητα:** Είναι όλες οι συνδέσεις σταθερές; Κάθε απόπειρα επαναθέτησης αποτελεί σφάλμα μεταγλώττισης, και όχι εκπληξη χρόνου εκτέλεσης.
+2. **Αναφορική διαφάνεια:** Εξαρτάται το αποτέλεσμα της συνάρτησης μόνο από τα ορίσματά της; Εάν χρησιμοποιεί `IO`, `unsafePerformIO` ή διαβάζει μεταβλητή κατάσταση, δεν είναι αναφορικά διαφανής.
+3. **Οκνηρία:** Ποιες υπο-εκφράσεις επιβάλλονται; Ιχνηλατήστε την απαίτηση από τον εξωτερικότερο καταναλωτή προς τα μέσα. Η `take n` οριοθετεί άπειρες λίστες· η `fst` αγνοεί το δεύτερο στοιχείο πλήρως.
 
-**Most common exam trap:** Students assume `foldl` and `foldr` are interchangeable. For non-associative operators (e.g., `/`, `(:)`), they produce structurally different — and often different-valued — results. Always expand one level of the fold before computing.
+**Συχνότερη εξεταστική παγίδα:** Οι φοιτητές υποθέτουν ότι οι `foldl` και `foldr` είναι εναλλάξιμες. Για μη προσεταιριστικούς τελεστές (π.χ. `/`, `(:)`), παράγουν δομικά διαφορετικά — και συχνά με διαφορετική τιμή — αποτελέσματα. Αναπτύσσετε πάντα ένα επίπεδο της fold πριν από τον υπολογισμό.

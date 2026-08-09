@@ -1,18 +1,18 @@
-# C — Performance and Low-Level Optimization
+# C — Απόδοση και Low-Level Βελτιστοποίηση
 
-C's design matches compilation directly to physical CPU architectures, enabling execution with zero hidden costs, garbage collection delays, or dynamic dispatch penalties. Through hardware access and memory alignment optimization, developers can write cache-aware and pipeline-efficient algorithms. This file covers inline assembly, cache-locality optimization, manual loop unrolling, the `restrict` compiler keyword, and building native C extensions for Python.
+Ο σχεδιασμός της C αντιστοιχεί τη μεταγλώττιση άμεσα στις φυσικές αρχιτεκτονικές CPU, επιτρέποντας την εκτέλεση με μηδενικά κρυφά κόστος, καθυστερήσεις συλλογής απορριμμάτων (garbage collection) ή επιβαρύνσεις δυναμικής δρομολόγησης (dynamic dispatch). Μέσω της προσπέλασης στο υλικό και της βελτιστοποίησης ευθυγράμμισης μνήμης, οι προγραμματιστές μπορούν να γράφουν αλγορίθμους ενήμερους για την κρυφή μνήμη (cache-aware) και αποδοτικούς για τη διοχέτευση εντολών (pipeline-efficient). Αυτό το αρχείο καλύπτει την ενσωματωμένη συμβολική γλώσσα (inline assembly), τη βελτιστοποίηση εντοπιότητας κρυφής μνήμης (cache locality), το χειροκίνητο ξεδίπλωμα βρόχων (manual loop unrolling), τη λέξη-κλειδί `restrict` του μεταγλωττιστή και τη δημιουργία αυτόχθονων επεκτάσεων C για την Python.
 
 ---
 
-## 1. Direct Hardware Access and Inline Assembly
+## 1. Άμεση Προσπέλαση Υλικού και Ενσωματωμένη Συμβολική Γλώσσα (Inline Assembly)
 
-For hardware-level interfaces, developers can write inline assembly to access specialized CPU registers or instructions that are not exposed by standard C keywords.
+Για διασυνδέσεις σε επίπεδο υλικού, οι προγραμματιστές μπορούν να γράψουν ενσωματωμένη συμβολική γλώσσα (inline assembly) για να προσπελάσουν εξειδικευμένους καταχωρητές CPU ή εντολές που δεν εκτίθενται από τις τυπικές λέξεις-κλειδιά της C.
 
-### 1.1 Assembly Syntax Reference
+### 1.1 Αναφορά Σύνταξης Συμβολικής Γλώσσας
 
-On GCC/Clang compilers, inline assembly uses the `__asm__` keyword.
+Στους μεταγλωττιστές GCC/Clang, η ενσωματωμένη συμβολική γλώσσα χρησιμοποιεί τη λέξη-κλειδί `__asm__`.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 __asm__ [volatile] (
@@ -23,49 +23,49 @@ __asm__ [volatile] (
 );
 ```
 
-The `clobbered_registers` list tells the compiler which registers will be modified by the assembly code, preventing the compiler from caching variables in those registers.
+Η λίστα `clobbered_registers` ενημερώνει τον μεταγλωττιστή για το ποιοι καταχωρητές θα τροποποιηθούν από τον κώδικα συμβολικής γλώσσας, αποτρέποντας τον μεταγλωττιστή από το να αποθηκεύσει μεταβλητές σε αυτούς τους καταχωρητές.
 
 ---
 
-## 2. Cache-Friendly Design and Cache Misses
+## 2. Σχεδιασμός Φιλικός προς την Κρυφή Μνήμη και Αποτυχίες Κρυφής Μνήμης (Cache Misses)
 
-Modern CPU architectures rely on cache hierarchies (L1, L2, L3) to bridge the speed gap between CPU cores and main RAM memory.
+Οι σύγχρονες αρχιτεκτονικές CPU βασίζονται σε ιεραρχίες κρυφής μνήμης (L1, L2, L3) για τη γεφύρωση του χάσματος ταχύτητας μεταξύ των πυρήνων της CPU και της κύριας μνήμης RAM.
 
-### 2.1 Cache Lines and Locality
+### 2.1 Γραμμές Κρυφής Μνήμης και Εντοπιότητα (Cache Lines and Locality)
 
-Memory is transferred from RAM to CPU caches in chunks called **cache lines** (typically $64$ bytes).
-- **Temporal Locality:** Accessing the same memory location repeatedly within a short window.
-- **Spatial Locality:** Accessing memory locations that reside near each other (such as contiguous array elements).
+Η μνήμη μεταφέρεται από τη RAM στις κρυφές μνήμες της CPU σε τμήματα που ονομάζονται **γραμμές κρυφής μνήμης (cache lines)** (τυπικά $64$ bytes).
+- **Χρονική Εντοπιότητα (Temporal Locality):** Επανειλημμένη προσπέλαση της ίδιας θέσης μνήμης εντός μικρού χρονικού παραθύρου.
+- **Χωρική Εντοπιότητα (Spatial Locality):** Προσπέλαση θέσεων μνήμης που βρίσκονται κοντά η μία στην άλλη (όπως τα συνεχόμενα στοιχεία ενός πίνακα).
 
-### 2.2 Row-Major vs. Column-Major Traversal
+### 2.2 Διάσχιση Κατά Γραμμές έναντι Κατά Στήλες (Row-Major vs. Column-Major Traversal)
 
-Because C arrays are laid out in row-major order, iterating through a 2D array row-by-row utilizes spatial locality, loading multiple contiguous elements in a single cache line. In contrast, iterating column-by-column jumps across rows, triggering a **cache miss** for every single access and degrading memory bandwidth performance.
+Επειδή οι πίνακες στη C διατάσσονται κατά γραμμές (row-major order), η επανάληψη σε έναν 2D πίνακα γραμμή προς γραμμή αξιοποιεί τη χωρική εντοπιότητα, φορτώνοντας πολλαπλά συνεχόμενα στοιχεία σε μία μόνο γραμμή κρυφής μνήμης. Αντίθετα, η επανάληψη στήλη προς στήλη κάνει άλματα μεταξύ των γραμμών, προκαλώντας μια **αποτυχία κρυφής μνήμης (cache miss)** σε κάθε μεμονωμένη προσπέλαση και υποβαθμίζοντας την απόδοση του εύρους ζώνης μνήμης.
 
 ```
-Row-major loop (Fast):  matrix[i][j] where outer loop is i, inner loop is j
-Column-major loop (Slow): matrix[i][j] where outer loop is j, inner loop is i
+Βρόχος κατά γραμμές (Ταχύς):    matrix[i][j] όπου ο εξωτερικός βρόχος είναι το i, ο εσωτερικός το j
+Βρόχος κατά στήλες (Αργός):     matrix[i][j] όπου ο εξωτερικός βρόχος είναι το j, ο εσωτερικός το i
 ```
 
 ---
 
-## 3. Zero Runtime Overhead Model
+## 3. Μοντέλο Μηδενικού Πρόσθετου Κόστους Εκτέλεσης (Zero Runtime Overhead Model)
 
-C uses a zero-overhead performance model:
-1. **No Garbage Collection:** Memory allocations (`malloc`, `free`) map directly to OS memory allocation APIs. The programmer has total control over when memory is released.
-2. **No Dynamic Dispatch:** Function calls compile to static jumps (`CALL` instruction). There is no runtime class method lookup table (like C++ `vtable` or Python object type dict lookup), unless function pointers are used explicitly.
-3. **Implicit Type Conversions:** Types are evaluated at compile time; runtime execution contains no type annotations or runtime checks.
+Η C χρησιμοποιεί ένα μοντέλο απόδοσης μηδενικού πρόσθετου κόστους:
+1. **Χωρίς Συλλογή Απορριμμάτων (No Garbage Collection):** Οι δεσμεύσεις μνήμης (`malloc`, `free`) αντιστοιχίζονται άμεσα στα APIs δέσμευσης μνήμης του λειτουργικού συστήματος. Ο προγραμματιστής έχει τον πλήρη έλεγχο για το πότε αποδεσμεύεται η μνήμη.
+2. **Χωρίς Δυναμική Δρομολόγηση (No Dynamic Dispatch):** Οι κλήσεις συναρτήσεων μεταγλωττίζονται σε στατικά άλματα (εντολή `CALL`). Δεν υπάρχει πίνακας αναζήτησης μεθόδων κλάσης κατά τον χρόνο εκτέλεσης (όπως το `vtable` της C++ ή το λεξικό τύπων αντικειμένων της Python), εκτός αν χρησιμοποιούνται ρητά δείκτες συναρτήσεων.
+3. **Έμμεσες Μετατροπές Τύπων:** Οι τύποι αξιολογούνται κατά τον χρόνο μεταγλώττισης· η εκτέλεση στον χρόνο εκτέλεσης δεν περιέχει σχολιασμούς τύπων ή ελέγχους τύπων.
 
 ---
 
-## 4. Optimization Idioms and the `restrict` Keyword
+## 4. Ιδιώματα Βελτιστοποίησης και η Λέξη-Κλειδί `restrict`
 
-The C99 standard introduced the `restrict` pointer qualifier to assist compilers in generating auto-vectorized code.
+Το πρότυπο C99 εισήγαγε τον qualifier δείκτη `restrict` για να βοηθήσει τους μεταγλωττιστές στη δημιουργία αυτόματα διανυσματικοποιημένου κώδικα (auto-vectorized code).
 
-### 4.1 The `restrict` Keyword
+### 4.1 Η Λέξη-Κλειδί `restrict`
 
-By marking a pointer as `restrict`, the programmer promises the compiler that the pointer is the only reference to the underlying memory block for its scope. This guarantees that writes through this pointer will not alter memory referenced by other pointers, allowing the compiler to cache values in registers and generate parallel SIMD instructions.
+Σημαίνοντας έναν δείκτη ως `restrict`, ο προγραμματιστής υποσχέται στον μεταγλωττιστή ότι ο δείκτης είναι η μοναδική αναφορά στο υποκείμενο μπλοκ μνήμης για την εμβέλεια του. Αυτό εγγυάται ότι οι εγγραφές μέσω αυτού του δείκτη δεν θα μεταβάλουν τη μνήμη στην οποία αναφέρονται άλλοι δείκτες, επιτρέποντας στον μεταγλωττιστή να αποθηκεύσει τιμές σε καταχωρητές και να παράγει παράλληλες εντολές SIMD.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 void process_data(int * restrict dest, const int * restrict src, int size);
@@ -73,17 +73,17 @@ void process_data(int * restrict dest, const int * restrict src, int size);
 
 ---
 
-### 4.2 Loop Unrolling
+### 4.2 Ξεδίπλωμα Βρόχων (Loop Unrolling)
 
-Loop unrolling decreases loop control overhead (incrementing indices, testing conditions, branching) by executing multiple iterations inside a single loop step.
+Το ξεδίπλωμα βρόχων (loop unrolling) μειώνει την επιβάρυνση ελέγχου του βρόχου (αύξηση δεικτών, έλεγχος συνθηκών, διακλαδώσεις) εκτελώντας πολλαπλές επαναλήψεις εντός ενός μόνο βήματος βρόχου.
 
 ```c
-// Normal Loop
+// Κανονικός Βρόχος
 for (int i = 0; i < 4; i++) {
     sum += arr[i];
 }
 
-// Unrolled Loop
+// Ξεδιπλωμένος Βρόχος
 sum += arr[0];
 sum += arr[1];
 sum += arr[2];
@@ -92,39 +92,39 @@ sum += arr[3];
 
 ---
 
-## 5. C Extensions and CPython Integration
+## 5. Επεκτάσεις C και Ενσωμάτωση στο CPython
 
-To optimize bottlenecks, Python programs can import compiled C libraries using the CPython extension API (`<Python.h>`).
+Για τη βελτιστοποίηση των σημείων συμφόρησης (bottlenecks), τα προγράμματα Python μπορούν να εισάγουν μεταγλωττισμένες βιβλιοθήκες C χρησιμοποιώντας το API επεκτάσεων CPython (`<Python.h>`).
 
-### 5.1 CPython Extension Types Reference Table
+### 5.1 Πίνακας Αναφοράς Τύπων Επεκτάσεων CPython
 
-| CPython Type / Function | Purpose | Header |
+| Τύπος CPython / Συνάρτηση | Σκοπός | Επικεφαλίδα |
 | :--- | :--- | :--- |
-| `PyObject*` | Unified wrapper pointer representing any Python object | `<Python.h>` |
-| `PyArg_ParseTuple` | Parses Python positional arguments into C variable types | `<Python.h>` |
-| `Py_BuildValue` | Converts C primitive types into Python objects | `<Python.h>` |
-| `PyMethodDef` | Table of functions exported by the module | `<Python.h>` |
+| `PyObject*` | Ενιαίος δείκτης περιβλήματος που αναπαριστά οποιοδήποτε αντικείμενο Python | `<Python.h>` |
+| `PyArg_ParseTuple` | Αναλύει τα ορίσματα θέσης της Python σε τύπους μεταβλητών C | `<Python.h>` |
+| `Py_BuildValue` | Μετατρέπει πρωτογενείς τύπους C σε αντικείμενα Python | `<Python.h>` |
+| `PyMethodDef` | Πίνακας συναρτήσεων που εξάγονται από τη μονάδα | `<Python.h>` |
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Inline Assembly Addition
+### Άσκηση 1: Πρόσθεση σε Ενσωματωμένη Συμβολική Γλώσσα
 
-**Problem:** Implement a function that adds two integers using inline assembly.
+**Πρόβλημα:** Υλοποιήστε μια συνάρτηση που προσθέτει δύο ακεραίους χρησιμοποιώντας ενσωματωμένη συμβολική γλώσσα (inline assembly).
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
 
 int asm_add(int a, int b) {
     int result;
-    // GCC basic input/output constraint syntax
+    // Βασική σύνταξη περιορισμών εισόδου/εξόδου GCC
     __asm__ (
         "add %2, %0"
-        : "=r" (result) // %0 output
-        : "0" (a), "r" (b) // %1 (same as %0), %2 input
+        : "=r" (result) // %0 έξοδος
+        : "0" (a), "r" (b) // %1 (ίδιο με %0), %2 είσοδος
     );
     return result;
 }
@@ -141,9 +141,9 @@ int main(void) {
 
 ---
 
-### Exercise 2: Cache-Miss Traversal Analysis
+### Άσκηση 2: Ανάλυση Διάσχισης Αποτυχίας Κρυφής Μνήμης
 
-**Problem:** Explain the difference in execution performance between `traverse_rows` and `traverse_cols` for a matrix size of $10{,}000 \times 10{,}000$.
+**Πρόβλημα:** Εξηγήστε τη διαφορά στην απόδοση εκτέλεσης μεταξύ των συναρτήσεων `traverse_rows` και `traverse_cols` για μέγεθος πίνακα $10{,}000 \times 10{,}000$.
 
 ```c
 #define SIZE 10000
@@ -168,18 +168,18 @@ void traverse_cols(void) {
 }
 ```
 
-**Solution:**
-1. In `traverse_rows`, the inner loop iterates over `j`. Elements `matrix[i][0]`, `matrix[i][1]`, etc., are contiguous in memory.
-2. Loading `matrix[i][0]` pulls a $64$-byte cache line into the L1 cache, which contains $16$ contiguous integers (if `sizeof(int)` is $4$ bytes). The subsequent $15$ iterations are resolved directly from the L1 cache, causing only $1$ cache miss per $16$ accesses.
-3. In `traverse_cols`, the inner loop iterates over `i`. Elements `matrix[0][j]`, `matrix[1][j]`, etc., are separated in memory by $10{,}000 \times 4$ bytes ($40$ KB).
-4. Each access jumps past the active cache line size, forcing the CPU to fetch a new cache line from RAM.
-5. `traverse_cols` generates a cache miss on almost every memory read, resulting in a performance slowdown of up to $10\times$ depending on architecture.
+**Λύση:**
+1. Στη συνάρτηση `traverse_rows`, ο εσωτερικός βρόχος εκτελεί επανάληψη στο `j`. Τα στοιχεία `matrix[i][0]`, `matrix[i][1]`, κ.λπ., είναι συνεχόμενα στη μνήμη.
+2. Η φόρτωση του `matrix[i][0]` φέρνει μια γραμμή κρυφής μνήμης $64$-byte στην L1 cache, η οποία περιέχει $16$ συνεχόμενους ακεραίους (αν ο `sizeof(int)` είναι $4$ bytes). Οι επόμενες $15$ επαναλήψεις επιλύονται άμεσα από την L1 cache, προκαλώντας μόνο $1$ αποτυχία κρυφής μνήμης ανά $16$ προσπελάσεις.
+3. Στη συνάρτηση `traverse_cols`, ο εσωτερικός βρόχος εκτελεί επανάληψη στο `i`. Τα στοιχεία `matrix[0][j]`, `matrix[1][j]`, κ.λπ., χωρίζονται στη μνήμη κατά $10{,}000 \times 4$ bytes ($40$ KB).
+4. Κάθε προσπέλαση πραγματοποιεί άλμα πέρα από το μέγεθος της ενεργού γραμμής κρυφής μνήμης, αναγκάζοντας την CPU να προσκομίσει μια νέα γραμμή κρυφής μνήμης από τη RAM.
+5. Η `traverse_cols` παράγει μια αποτυχία κρυφής μνήμης σε σχεδόν κάθε ανάγνωση μνήμης, επιφέροντας επιβράδυνση της απόδοσης έως και $10\times$ ανάλογα με την αρχιτεκτονική.
 
 ---
 
-### Exercise 3: Pointer Aliasing and Restrict Optimization
+### Άσκηση 3: Ψευδωνυμία Δεικτών (Pointer Aliasing) και Βελτιστοποίηση Restrict
 
-**Problem:** Explain how the `restrict` keyword changes compile-time optimizations for the function below.
+**Πρόβλημα:** Εξηγήστε πώς η λέξη-κλειδί `restrict` αλλάζει τις βελτιστοποιήσεις χρόνου μεταγλώττισης για την παρακάτω συνάρτηση.
 
 ```c
 void add_arrays(int *a, int *b, int *val) {
@@ -188,24 +188,24 @@ void add_arrays(int *a, int *b, int *val) {
 }
 ```
 
-**Solution:**
-1. Without `restrict`, the compiler must assume that pointers `a`, `b`, and `val` can point to overlapping memory (pointer aliasing).
-2. For instance, if `b` and `val` point to the same location, modifying `*b` changes the value of `*val`.
-3. Consequently, the compiler is forced to reload the value of `*val` from memory after modifying `*a`, generating multiple read instructions:
-   - Load `*val` into register.
-   - Load `*a`, add, write back to `*a`.
-   - Reload `*val` from memory (in case `a` pointed to `val`).
-   - Load `*b`, add, write back to `*b`.
-4. Marking the pointers `int * restrict a`, `int * restrict b`, `const int * restrict val` informs the compiler that their memory blocks do not overlap.
-5. The compiler can cache `*val` in a register and reuse it for both operations without reloading from RAM.
+**Λύση:**
+1. Χωρίς το `restrict`, ο μεταγλωττιστής πρέπει να υποθέσει ότι οι δείκτες `a`, `b` και `val` μπορούν να δείχνουν σε επικαλυπτόμενες περιοχές μνήμης (pointer aliasing).
+2. Για παράδειγμα, αν οι `b` και `val` δείχνουν στην ίδια θέση, η τροποποίηση του `*b` αλλάζει την τιμή του `*val`.
+3. Ως εκ τούτου, ο μεταγλωττιστής αναγκάζεται να επαναφορτώσει την τιμή του `*val` από τη μνήμη μετά την τροποποίηση του `*a`, παράγοντας πολλαπλές εντολές ανάγνωσης:
+   - Φόρτωση του `*val` σε καταχωρητή.
+   - Φόρτωση του `*a`, πρόσθεση, εγγραφή πίσω στο `*a`.
+   - Επαναφόρτωση του `*val` από τη μνήμη (σε περίπτωση που το `a` έδειχνε στο `val`).
+   - Φόρτωση του `*b`, πρόσθεση, εγγραφή πίσω στο `*b`.
+4. Η σήμανση των δεικτών ως `int * restrict a`, `int * restrict b`, `const int * restrict val` ενημερώνει τον μεταγλωττιστή ότι τα μπλοκ μνήμης τους δεν επικαλύπτονται.
+5. Ο μεταγλωττιστής μπορεί να αποθηκεύσει το `*val` σε έναν καταχωρητή και να το επαναχρησιμοποιήσει και για τις δύο πράξεις χωρίς επαναφόρτωση από τη RAM.
 
 ---
 
-### Exercise 4: Manual Loop Unrolling by 4
+### Άσκηση 4: Χειροκίνητο Ξεδίπλωμα Βρόχου κατά 4
 
-**Problem:** Write a loop unrolled by a factor of $4$ to compute the sum of an array. Handle remainder elements safely.
+**Πρόβλημα:** Γράψτε έναν βρόχο ξεδιπλωμένο κατά παράγοντα $4$ για τον υπολογισμό του αθροίσματος ενός πίνακα. Διαχειριστείτε τα εναπομείναντα στοιχεία με ασφάλεια.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -215,7 +215,7 @@ int unrolled_sum(const int *arr, int size) {
     int i = 0;
     int limit = size - (size % 4);
     
-    // Unroll in blocks of 4
+    // Ξεδίπλωμα σε ομάδες των 4
     for (; i < limit; i += 4) {
         sum += arr[i];
         sum += arr[i+1];
@@ -223,7 +223,7 @@ int unrolled_sum(const int *arr, int size) {
         sum += arr[i+3];
     }
     
-    // Handle remaining elements
+    // Διαχείριση εναπομεινάντων στοιχείων
     for (; i < size; i++) {
         sum += arr[i];
     }
@@ -243,45 +243,45 @@ Sum = 28
 
 ---
 
-### Exercise 5: Compile Assembly Output Generation
+### Άσκηση 5: Παραγωγή Εξόδου Συμβολικής Γλώσσας Μεταγλώττισης
 
-**Problem:** Use `gcc` options to output assembly code and verify compilation optimizations.
+**Πρόβλημα:** Χρησιμοποιήστε επιλογές του `gcc` για να εξαγάγετε κώδικα συμβολικής γλώσσας και να επαληθεύσετε τις βελτιστοποιήσεις μεταγλώττισης.
 
-**Solution:**
-1. To generate assembly representation from `main.c`, use the `-S` flag:
+**Λύση:**
+1. Για την παραγωγή αναπαράστασης συμβολικής γλώσσας από το `main.c`, χρησιμοποιήστε τη σημαία `-S`:
    ```sh
    gcc -S -O2 main.c -o main.s
    ```
-2. The compiler outputs a `main.s` file containing AT&T assembly instructions.
-3. Using the `-O2` flag enables compiler optimizations (such as instruction scheduling, register allocation, and loop unrolling), which simplifies code compared to unoptimized compilation (`-O0`).
+2. Ο μεταγλωττιστής παράγει ένα αρχείο `main.s` που περιέχει εντολές συμβολικής γλώσσας AT&T.
+3. Η χρήση της σημαίας `-O2` ενεργοποιεί τις βελτιστοποιήσεις μεταγλωττιστή (όπως χρονοπρογραμματισμό εντολών, κατανομή καταχωρητών και ξεδίπλωμα βρόχων), οι οποίες απλοποιούν τον κώδικα σε σύγκριση με τη μη βελτιστοποιημένη μεταγλώττιση (`-O0`).
 
 ---
 
-### Exercise 6: Basic Python C Extension Module
+### Άσκηση 6: Βασική Μονάδα Επέκτασης C για Python
 
-**Problem:** Sketch a minimal C source file utilizing `<Python.h>` that exports a function `add(a, b)` returning their sum to Python.
+**Πρόβλημα:** Σχεδιάστε ένα ελάχιστο πηγαίο αρχείο C χρησιμοποιώντας το `<Python.h>` που εξάγει μια συνάρτηση `add(a, b)` η οποία επιστρέφει το άθροισμά τους στην Python.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <Python.h>
 
-// Function definition
+// Ορισμός συνάρτησης
 static PyObject* method_add(PyObject* self, PyObject* args) {
     int a, b;
     if (!PyArg_ParseTuple(args, "ii", &a, &b)) {
-        return NULL; // Raises TypeError in Python
+        return NULL; // Προκαλεί TypeError στην Python
     }
     return Py_BuildValue("i", a + b);
 }
 
-// Module method table
+// Πίνακας μεθόδων μονάδας
 static PyMethodDef AddMethods[] = {
     {"add", method_add, METH_VARARGS, "Adds two integers."},
     {NULL, NULL, 0, NULL}
 };
 
-// Module definition structure
+// Δομή ορισμού μονάδας
 static struct PyModuleDef addmodule = {
     PyModuleDef_HEAD_INIT,
     "my_adder",
@@ -290,7 +290,7 @@ static struct PyModuleDef addmodule = {
     AddMethods
 };
 
-// Initialization function
+// Συνάρτηση αρχικοποίησης
 PyMODINIT_FUNC PyInit_my_adder(void) {
     return PyModule_Create(&addmodule);
 }
@@ -298,32 +298,32 @@ PyMODINIT_FUNC PyInit_my_adder(void) {
 
 ---
 
-### Exercise 7: Cache Alignment Padding
+### Άσκηση 7: Συμπλήρωση Ευθυγράμμισης Κρυφής Μνήμης
 
-**Problem:** Explain what cache line bouncing (false sharing) is and how structure padding prevents it.
+**Πρόβλημα:** Εξηγήστε τι είναι η αναπήδηση γραμμής κρυφής μνήμης (false sharing) και πώς η συμπλήρωση δομής την αποτρέπει.
 
-**Solution:**
-1. False sharing occurs in multi-threaded programs when two threads on different CPU cores modify independent variables that reside within the same $64$-byte cache line.
-2. When Core 1 writes to variable `A`, it invalidates the entire cache line in Core 2's cache, forcing Core 2 to reload its variable `B` from RAM even though `B` was not modified.
-3. **Fix:** Use compiler alignment specifications to ensure variables reside on separate cache boundaries:
+**Λύση:**
+1. Η ψευδής κοινή χρήση (false sharing) συμβαίνει σε πολυνηματικά προγράμματα όταν δύο νήματα σε διαφορετικούς πυρήνες CPU τροποποιούν ανεξάρτητες μεταβλητές που βρίσκονται εντός της ίδιας γραμμής κρυφής μνήμης $64$-byte.
+2. Όταν ο Πυρήνας 1 γράφει στη μεταβλητή `A`, ακυρώνει ολόκληρη τη γραμμή κρυφής μνήμης στην cache του Πυρήνα 2, αναγκάζοντας τον Πυρήνα 2 να επαναφορτώσει τη δική του μεταβλητή `B` από τη RAM παρόλο που η `B` δεν τροποποιήθηκε.
+3. **Διόρθωση:** Χρησιμοποιήστε προδιαγραφές ευθυγράμμισης μεταγλωττιστή για να εξασφαλίσετε ότι οι μεταβλητές βρίσκονται σε ξεχωριστά όρια κρυφής μνήμης:
    ```c
    struct ThreadData {
        int thread_a_var;
-       char padding[60]; // Pad to 64 bytes
+       char padding[60]; // Συμπλήρωση έως τα 64 bytes
        int thread_b_var;
    };
-   // Or align explicitly:
+   // Ή ευθυγραμμίστε ρητά:
    alignas(64) int thread_a_var;
    alignas(64) int thread_b_var;
    ```
 
 ---
 
-### Exercise 8: C vs. Python Execution Speed
+### Άσκηση 8: Ταχύτητα Εκτέλεσης C έναντι Python
 
-**Problem:** Implement a loop calculating the sum of squares up to $1{,}000{,}000$ in C and explain why it runs faster than Python.
+**Πρόβλημα:** Υλοποιήστε έναν βρόχο υπολογισμού αθροίσματος τετραγώνων έως το $1{,}000{,}000$ στη C και εξηγήστε γιατί εκτελείται ταχύτερα από την Python.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -338,42 +338,42 @@ int main(void) {
 }
 ```
 
-1. **C Performance:** Compiles directly to register instructions. The loop body requires only a few CPU cycles (integer multiply and add).
-2. **Python Performance:** Inside CPython, every loop iteration executes multiple bytecode instructions.
-3. Every integer in Python is an object on the heap, requiring reference counting increments and dynamic type dispatch lookups for every multiplication and addition step.
+1. **Απόδοση C:** Μεταγλωττίζεται άμεσα σε εντολές καταχωρητών. Το σώμα του βρόχου απαιτεί μόνο ελάχιστους κύκλους CPU (πολλαπλασιασμό ακεραίων και πρόσθεση).
+2. **Απόδοση Python:** Εντός του CPython, κάθε επανάληψη βρόχου εκτελεί πολλαπλές εντολές ενδιάμεσου κώδικα (bytecode).
+3. Κάθε ακέραιος στην Python είναι ένα αντικείμενο στο heap, που απαιτεί αυξήσεις καταμετρητή αναφορών (reference counting) και αναζητήσεις δυναμικής δρομολόγησης τύπων για κάθε βήμα πολλαπλασιασμού και πρόσθεσης.
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### 1. Column-Major Indexing Slowdown
-* **Cause:** Accessing matrices in column-major patterns causes the processor to skip cache pages on every lookup, degrading memory performance.
-* **Resolution:** Always nest loops so that the innermost loop index matches the rightmost dimension of the array: `matrix[row][col]`.
+### 1. Επιβράδυνση λόγω Δείκτη Κατά Στήλες
+* **Αιτία:** Η προσπέλαση μητρών με μοτίβα κατά στήλες προκαλεί παράκαμψη σελίδων κρυφής μνήμης από τον επεξεργαστή σε κάθε αναζήτηση, υποβαθμίζοντας την απόδοση μνήμης.
+* **Επίλυση:** Εμφωλεύετε πάντα τους βρόχους έτσι ώστε ο δείκτης του εσωτερικότερου βρόχου να αντιστοιχεί στη δεξιότερη διάσταση του πίνακα: `matrix[row][col]`.
 
-### 2. Violating `restrict` Promises (Undefined Behavior)
-* **Cause:** Marking parameters with `restrict` and passing pointers that point to overlapping regions. The compiler optimizes assuming no aliasing occurs, which results in corrupted outputs.
-* **Resolution:** Only use `restrict` when the caller is guaranteed to pass non-overlapping memory blocks. Use helper tools like `memmove` if overlap is possible.
+### 2. Παραβίαση Υποσχέσεων `restrict` (Μη Ορισμένη Συμπεριφορά)
+* **Αιτία:** Σήμανση παραμέτρων με `restrict` και πέρασμα δεικτών που δείχνουν σε επικαλυπτόμενες περιοχές. Ο μεταγλωττιστής βελτιστοποιεί υποθέτοντας ότι δεν υπάρχει ψευδωνυμία (aliasing), γεγονός που προκαλεί αλλοιωμένες εξόδους.
+* **Επίλυση:** Χρησιμοποιείτε το `restrict` μόνο όταν είναι εγγυημένο ότι ο καλέσας μεταβιβάζει μη επικαλυπτόμενα μπλοκ μνήμης. Χρησιμοποιείτε βοηθητικά εργαλεία όπως η `memmove` εάν η επικάλυψη είναι πιθανή.
 
-### 3. Missing Python GIL release in C Extensions
-* **Cause:** Running long-running computational loops inside C extensions without releasing the Python Global Interpreter Lock (GIL). This prevents other Python threads from executing.
-* **Resolution:** Wrap performance-critical C blocks in GIL release macros:
+### 3. Παράλειψη Αποδέσμευσης του Python GIL σε Επεκτάσεις C
+* **Αιτία:** Εκτέλεση μακροσκελών υπολογιστικών βρόχων εντός επεκτάσεων C χωρίς την αποδέσμευση του Python Global Interpreter Lock (GIL). Αυτό εμποδίζει την εκτέλεση άλλων νημάτων της Python.
+* **Επίλυση:** Περιβάλλετε τα μπλοκ C κρίσιμης απόδοσης σε μακροεντολές αποδέσμευσης GIL:
    ```c
    Py_BEGIN_ALLOW_THREADS
-   // long execution block
+   // μπλοκ εκτέλεσης μεγάλης διάρκειας
    Py_END_ALLOW_THREADS
    ```
 
 ---
 
-## Exam Tip: Cache Locality and Array Traversal Loops
+## Συμβουλή Εξετάσεων: Εντοπιότητα Κρυφής Μνήμης και Βρόχοι Διάσχισης Πινάκων
 
-**Identifying Cache Optimization Patterns:**
-Exams often test matrix traversal order or query why a specific loop ordering runs faster.
-- **Rule of thumb:** Trace index ordering. Compare the index that changes fastest in the loop structure (the innermost loop index) with the array layout. If the innermost loop variable matches the rightmost array index, it has high spatial locality.
-- **Example exam question:** Given:
+**Αναγνώριση Μοτίβων Βελτιστοποίησης Κρυφής Μνήμης:**
+Στις εξετάσεις δοκιμάζεται συχνά η σειρά διάσχισης πίνακα ή ζητείται η αιτιολόγηση του γιατί μια συγκεκριμένη διάταξη βρόχων εκτελείται ταχύτερα.
+- **Πρακτικός κανόνας:** Ιχνηλατήστε τη σειρά των δεικτών. Συγκρίνετε τον δείκτη που μεταβάλλεται ταχύτερα στη δομή του βρόχου (τον δείκτη του εσωτερικότερου βρόχου) με τη διάταξη του πίνακα. Εάν η μεταβλητή του εσωτερικότερου βρόχου αντιστοιχεί στον δεξιότερο δείκτη του πίνακα, εμφανίζει υψηλή χωρική εντοπιότητα.
+- **Παράδειγμα εξεταστικής ερώτησης:** Δοθέντος:
   ```c
   for(int i=0; i<N; i++)
       for(int j=0; j<N; j++)
           arr[j][i] = 0;
   ```
-  Is this loop cache-optimized? **No.** The innermost loop variable is `j`, but `j` is the leftmost index of `arr[j][i]`. The memory accesses jump by $N$ elements on every iteration. Swap the loop headers or the index access locations (`arr[i][j]`) to optimize.
+  Είναι αυτός ο βρόχος βελτιστοποιημένος για την κρυφή μνήμη; **Όχι.** Η μεταβλητή του εσωτερικότερου βρόχου είναι το `j`, αλλά το `j` είναι ο αριστερότερος δείκτης του `arr[j][i]`. Οι προσπελάσεις μνήμης πραγματοποιούν άλματα κατά $N$ στοιχεία σε κάθε επανάληψη. Εναλλάξτε τις επικεφαλίδες των βρόχων ή τις θέσεις προσπέλασης των δεικτών (`arr[i][j]`) για βελτιστοποίηση.

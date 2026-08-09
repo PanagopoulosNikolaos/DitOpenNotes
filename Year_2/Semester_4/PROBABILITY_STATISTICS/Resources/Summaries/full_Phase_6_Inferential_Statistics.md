@@ -1,1025 +1,1010 @@
-# Phase 6: Inferential Statistics - Central Limit Theorem (CLT)
+# Φάση 6: Στατιστικά συμπερασμάτων - Κεντρικό οριακό θεώρημα (CLT)
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-The Central Limit Theorem (CLT) is one of the most fundamental concepts in probability and statistics. It states that, given certain conditions, the sampling distribution of the sample mean will approach a normal distribution as the sample size gets larger, regardless of the shape of the population distribution.
+Το Κεντρικό Οριακό Θεώρημα (CLT) είναι μια από τις πιο θεμελιώδεις έννοιες στις πιθανότητες και τη στατιστική. Δηλώνει ότι, υπό ορισμένες συνθήκες, η δειγματοληπτική κατανομή του μέσου όρου του δείγματος θα προσεγγίσει μια κανονική κατανομή καθώς το μέγεθος του δείγματος μεγαλώνει, ανεξάρτητα από το σχήμα της κατανομής του πληθυσμού.
 
-### 1.1 Core Concept
+### 1.1 Βασική ιδέα
 
-Let $X_1, X_2, \dots, X_n$ be a random sample of size $n$ drawn from a population with an overall mean $\mu$ and a finite variance $\sigma^2$. Let $\bar{X}$ be the sample mean.
+Έστω $X_1, X_2, \dots, X_n$ ένα τυχαίο δείγμα μεγέθους $n$ που προέρχεται από έναν πληθυσμό με συνολικό μέσο όρο $\mu$ και πεπερασμένη διακύμανση $\sigma^2$. Έστω $\bar{X}$ ο μέσος όρος του δείγματος.
 
-According to the CLT, if $n$ is sufficiently large (typically $n \ge 30$), the distribution of the sample mean $\bar{X}$ is approximately normal:
+Σύμφωνα με το CLT, εάν το $n$ είναι αρκετά μεγάλο (συνήθως $n \ge 30$), η κατανομή του μέσου όρου του δείγματος $\bar{X}$ είναι περίπου φυσιολογική:
 
 $$ \bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right) $$
 
-**Key parameters of the sampling distribution:**
-*   **Mean of the sample means:** $\mu_{\bar{X}} = \mu$
-*   **Variance of the sample means:** $\sigma_{\bar{X}}^2 = \frac{\sigma^2}{n}$
-*   **Standard Error (Standard deviation of the sample means):** $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$
+**Βασικές παράμετροι της δειγματοληπτικής κατανομής:**
+* **Μέσος όρος του δείγματος σημαίνει:** $\mu_{\bar{X}} = \mu$
+* **Η διακύμανση του δείγματος σημαίνει:** $\sigma_{\bar{X}}^2 = \frac{\sigma^2}{n}$
+* **Τυπικό σφάλμα (Τυπική απόκλιση του δείγματος σημαίνει):** $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$
 
-### 1.2 The Standard Normal Transformation (Z-Score)
+### 1.2 Ο τυπικός κανονικός μετασχηματισμός (Z-Score)
 
-To calculate probabilities involving $\bar{X}$, we standardize it to the standard normal distribution $Z \sim N(0, 1)$ using the formula:
+Για να υπολογίσουμε τις πιθανότητες που περιλαμβάνουν $\bar{X}$, το τυποποιούμε στην τυπική κανονική κατανομή $Z \sim N(0, 1)$ χρησιμοποιώντας τον τύπο:
 
 $$ Z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} $$
 
-### 1.3 Sum of Random Variables
+### 1.3 Άθροισμα τυχαίων μεταβλητών
 
-The CLT also applies to the sum of the sample observations, $S_n = X_1 + X_2 + \dots + X_n$. As $n$ increases, the distribution of $S_n$ approaches a normal distribution:
+Το CLT ισχύει επίσης για το άθροισμα των δειγμάτων παρατηρήσεων, $S_n = X_1 + X_2 + \dots + X_n$. Καθώς το $n$ αυξάνεται, η κατανομή του $S_n$ προσεγγίζει μια κανονική κατανομή:
 
 $$ S_n \sim N(n\mu, n\sigma^2) $$
 
-Standardizing the sum gives:
+Η τυποποίηση του αθροίσματος δίνει:
 
 $$ Z = \frac{S_n - n\mu}{\sigma\sqrt{n}} $$
 
-### 1.4 Important Caveats and Rules of Thumb
-*   **Sample Size:** A general rule of thumb is that $n \ge 30$ is "sufficiently large" for the CLT to apply, even if the underlying population is highly skewed.
-*   **Normal Population:** If the underlying population is *already* normally distributed, then the sample mean $\bar{X}$ is exactly normally distributed for *any* sample size $n$.
-*   **Independence:** The sampled observations must be independent.
+### 1.4 Σημαντικές προειδοποιήσεις και εμπειρικοί κανόνες
+* **Μέγεθος δείγματος:** Ένας γενικός εμπειρικός κανόνας είναι ότι το $n \ge 30$ είναι "αρκετά μεγάλο" για να εφαρμοστεί το CLT, ακόμα κι αν ο υποκείμενος πληθυσμός είναι πολύ λοξός.
+* **Κανονικός πληθυσμός:** Εάν ο υποκείμενος πληθυσμός είναι *ήδη* κανονικά κατανεμημένος, τότε ο μέσος όρος του δείγματος $\bar{X}$ κατανέμεται ακριβώς κανονικά για *οποιοδήποτε* μέγεθος δείγματος $n$.
+* **Ανεξαρτησία:** Οι παρατηρήσεις του δείγματος πρέπει να είναι ανεξάρτητες.
 
 ---
 
-## 2. Step-by-Step Examples
+## 2. Παραδείγματα βήμα προς βήμα
 
-### Example 1: Basic Application of CLT
-Suppose the average weight of a certain species of fish is $\mu = 40$ kg with a standard deviation of $\sigma = 8$ kg. A sample of $n = 35$ fish is caught. What is the probability that the average weight of the sample is strictly less than $42$ kg?
+### Παράδειγμα 1: Βασική εφαρμογή του CLT
+Ας υποθέσουμε ότι το μέσο βάρος ενός συγκεκριμένου είδους ψαριού είναι $\mu = 40$ kg με τυπική απόκλιση $\sigma = 8$ kg. Ένα δείγμα ψαριού $n = 35$ αλιεύεται. Ποια είναι η πιθανότητα το μέσο βάρος του δείγματος να είναι αυστηρά μικρότερο από $42$ kg;
 
-**Step 1: Identify given information**
-*   $\mu = 40$
-*   $\sigma = 8$
-*   $n = 35$
+**Βήμα 1: Προσδιορίστε τις δεδομένες πληροφορίες**
+* $\mu = 40$
+* $\sigma = 8$
+* $n = 35$
 
-**Step 2: Calculate Standard Error**
+**Βήμα 2: Υπολογισμός τυπικού σφάλματος**
 $$ \sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}} = \frac{8}{\sqrt{35}} \approx 1.352 $$
 
-**Step 3: Calculate Z-score**
-We want $P(\bar{X} < 42)$. Let's standardize $42$:
+**Βήμα 3: Υπολογίστε τη βαθμολογία Z**
+Θέλουμε $P(\bar{X} < 42)$. Ας τυποποιήσουμε το $42$:
 $$ Z = \frac{42 - 40}{1.352} = \frac{2}{1.352} \approx 1.48 $$
 
-**Step 4: Find the probability**
+**Βήμα 4: Βρείτε την πιθανότητα**
 $$ P(\bar{X} < 42) = P(Z < 1.48) = 0.9306 $$
 
-### Example 2: Probability Between Two Values
-An elevator has a maximum weight limit. The weights of people using the elevator have a mean $\mu = 75$ kg and a standard deviation $\sigma = 15$ kg. If 40 people enter the elevator, what is the probability that their average weight is between $70$ kg and $78$ kg?
+### Παράδειγμα 2: Πιθανότητα μεταξύ δύο τιμών
+Ένας ανελκυστήρας έχει μέγιστο όριο βάρους. Τα βάρη των ατόμων που χρησιμοποιούν το ασανσέρ έχουν μέση $\mu = 75$ kg και τυπική απόκλιση $\sigma = 15$ kg. Εάν μπουν 40 άτομα στο ασανσέρ, ποια είναι η πιθανότητα το μέσο βάρος τους να είναι μεταξύ $70$ kg και $78$ kg;
 
-**Step 1: Standard Error**
+**Βήμα 1: Τυπικό σφάλμα**
 $$ \sigma_{\bar{X}} = \frac{15}{\sqrt{40}} \approx 2.37 $$
 
-**Step 2: Z-scores for boundaries**
-For $70$: $Z_1 = \frac{70 - 75}{2.37} = -2.11$
-For $78$: $Z_2 = \frac{78 - 75}{2.37} = 1.27$
+**Βήμα 2: βαθμολογίες Z για τα όρια**
+Για $70$: $Z_1 = \frac{70 - 75}{2.37} = -2.11$
+Για $78$: $Z_2 = \frac{78 - 75}{2.37} = 1.27$
 
-**Step 3: Compute Probability**
+**Βήμα 3: Υπολογισμός πιθανότητας**
 $$ P(70 < \bar{X} < 78) = P(-2.11 < Z < 1.27) = P(Z < 1.27) - P(Z < -2.11) $$
 $$ = 0.8980 - 0.0174 = 0.8806 $$
 
-### Example 3: Finding a Threshold Value (Inverse Normal)
-The mean time to complete a test is 50 minutes with a standard deviation of 10 minutes. For a class of 36 students, what is the average time $x$ such that there is only a 5% chance the class mean exceeds $x$?
+### Παράδειγμα 3: Εύρεση τιμής κατωφλίου (αντίστροφη κανονική)Ο μέσος χρόνος για την ολοκλήρωση μιας δοκιμής είναι 50 λεπτά με τυπική απόκλιση 10 λεπτών. Για μια τάξη 36 μαθητών, ποιος είναι ο μέσος χρόνος $x$ έτσι ώστε υπάρχει μόνο 5% πιθανότητα ο μέσος όρος της τάξης να υπερβαίνει το $x$;
 
-**Step 1: Set up the problem**
-We want $P(\bar{X} > x) = 0.05$. This implies $P(\bar{X} < x) = 0.95$.
+**Βήμα 1: Ρύθμιση του προβλήματος**
+Θέλουμε $P(\bar{X} > x) = 0.05$. Αυτό σημαίνει $P(\bar{X} < x) = 0.95$.
 
-**Step 2: Find corresponding Z-score**
-Using a standard normal table, the Z-score for an area of $0.95$ is approximately $1.645$.
+**Βήμα 2: Βρείτε την αντίστοιχη βαθμολογία Z**
+Χρησιμοποιώντας έναν τυπικό κανονικό πίνακα, η βαθμολογία Z για μια περιοχή $0.95$ είναι περίπου $1.645$.
 
-**Step 3: Solve for $x$**
+**Βήμα 3: Επίλυση για $x$**
 $$ 1.645 = \frac{x - 50}{\frac{10}{\sqrt{36}}} $$
 $$ 1.645 = \frac{x - 50}{1.667} $$
 $$ x - 50 = 2.74 $$
 $$ x = 52.74 \text{ minutes} $$
 
-### Example 4: Applying CLT to a Sum
-A shipping company loads 50 boxes onto a truck. The weight of each box has a mean of 20 kg and a standard deviation of 4 kg. What is the probability that the total weight of the boxes exceeds 1050 kg?
+### Παράδειγμα 4: Εφαρμογή CLT σε ένα άθροισμα
+Μια ναυτιλιακή εταιρεία φορτώνει 50 κιβώτια σε ένα φορτηγό. Το βάρος κάθε κουτιού έχει μέσο όρο 20 κιλά και τυπική απόκλιση 4 κιλά. Ποια είναι η πιθανότητα το συνολικό βάρος των κουτιών να ξεπεράσει τα 1050 κιλά;
 
-**Step 1: Identify Sum parameters**
-*   $n = 50$, $\mu = 20$, $\sigma = 4$
-*   Mean of sum: $n\mu = 50 \times 20 = 1000$
-*   Standard deviation of sum: $\sigma\sqrt{n} = 4\sqrt{50} \approx 28.28$
+**Βήμα 1: Προσδιορισμός παραμέτρων αθροίσματος**
+* $n = 50$, $\mu = 20$, $\sigma = 4$
+* Μέσος όρος αθροίσματος: $n\mu = 50 \times 20 = 1000$
+* Τυπική απόκλιση αθροίσματος: $\sigma\sqrt{n} = 4\sqrt{50} \approx 28.28$
 
-**Step 2: Calculate Z-score**
-We want $P(S_n > 1050)$.
+**Βήμα 2: Υπολογίστε τη βαθμολογία Z**
+Θέλουμε $P(S_n > 1050)$.
 $$ Z = \frac{1050 - 1000}{28.28} = \frac{50}{28.28} \approx 1.77 $$
 
-**Step 3: Compute Probability**
+**Βήμα 3: Υπολογισμός πιθανότητας**
 $$ P(S_n > 1050) = P(Z > 1.77) = 1 - P(Z \le 1.77) = 1 - 0.9616 = 0.0384 $$
 
-### Example 5: CLT with Unknown Underlying Distribution (Uniform)
-A random variable $X$ follows a continuous uniform distribution between 0 and 10. A sample of $n = 45$ is drawn. Find the probability that the sample mean is less than 4.5.
+### Παράδειγμα 5: CLT με Άγνωστη Υποκείμενη Κατανομή (Ομοιόμορφη)
+Μια τυχαία μεταβλητή $X$ ακολουθεί μια συνεχή ομοιόμορφη κατανομή μεταξύ 0 και 10. Σχηματίζεται ένα δείγμα $n = 45$. Βρείτε την πιθανότητα ο μέσος όρος του δείγματος να είναι μικρότερος από 4,5.
 
-**Step 1: Find Population Mean and Variance**
-For a uniform distribution $U(a,b)$:
+**Βήμα 1: Βρείτε μέσο όρο πληθυσμού και διακύμανση**
+Για ομοιόμορφη κατανομή $U(a,b)$:
 $$ \mu = \frac{a+b}{2} = \frac{0+10}{2} = 5 $$
 $$ \sigma^2 = \frac{(b-a)^2}{12} = \frac{100}{12} = 8.33 $$
 $$ \sigma = \sqrt{8.33} \approx 2.89 $$
 
-**Step 2: Calculate Standard Error**
+**Βήμα 2: Υπολογισμός τυπικού σφάλματος**
 $$ \sigma_{\bar{X}} = \frac{2.89}{\sqrt{45}} \approx 0.43 $$
 
-**Step 3: Z-score and Probability**
+**Βήμα 3: βαθμολογία Z και Πιθανότητες**
 $$ Z = \frac{4.5 - 5}{0.43} = -1.16 $$
 $$ P(\bar{X} < 4.5) = P(Z < -1.16) = 0.1230 $$
 
-### Example 6: Determining Minimum Sample Size
-A lightbulb manufacturer knows that the lifespan of its bulbs has a standard deviation of $\sigma = 50$ hours. How large of a sample is needed to ensure that there is at least a 99% probability that the sample mean is within 15 hours of the true population mean?
+### Παράδειγμα 6: Προσδιορισμός ελάχιστου μεγέθους δείγματος
+Ένας κατασκευαστής λαμπτήρων γνωρίζει ότι η διάρκεια ζωής των λαμπτήρων του έχει τυπική απόκλιση $\sigma = 50$ ωρών. Πόσο μεγάλο δείγμα χρειάζεται για να διασφαλιστεί ότι υπάρχει τουλάχιστον 99% πιθανότητα ο μέσος όρος του δείγματος να βρίσκεται εντός 15 ωρών από τον πραγματικό μέσο πληθυσμό;
 
-**Step 1: Set up the probability statement**
-We want $P(|\bar{X} - \mu| \le 15) \ge 0.99$.
-This is equivalent to $P(-15 \le \bar{X} - \mu \le 15) \ge 0.99$.
+**Βήμα 1: Ρύθμιση της δήλωσης πιθανότητας**
+Θέλουμε $P(|\bar{X} - \mu| \le 15) \ge 0.99$.
+Αυτό ισοδυναμεί με $P(-15 \le \bar{X} - \mu \le 15) \ge 0.99$.
 
-**Step 2: Convert to Z-scores**
-Divide the inequality by $\sigma_{\bar{X}} = \frac{50}{\sqrt{n}}$:
+**Βήμα 2: Μετατροπή σε βαθμολογίες Z**
+Διαιρέστε την ανισότητα με $\sigma_{\bar{X}} = \frac{50}{\sqrt{n}}$:
 $$ P\left(\frac{-15}{50/\sqrt{n}} \le Z \le \frac{15}{50/\sqrt{n}}\right) \ge 0.99 $$
-Let $Z_c = \frac{15\sqrt{n}}{50}$. We want the area between $-Z_c$ and $Z_c$ to be 0.99.
+Αφήστε $Z_c = \frac{15\sqrt{n}}{50}$. Θέλουμε το εμβαδόν μεταξύ $-Z_c$ και $Z_c$ να είναι 0,99.
 
-**Step 3: Find critical Z-value**
-For a central area of 0.99, the tails have $0.005$ each. The $Z$-score for an area of $0.995$ to the left is approximately $2.576$.
-So, $Z_c = 2.576$.
+**Βήμα 3: Βρείτε την κρίσιμη τιμή Z**
+Για μια κεντρική περιοχή 0,99, οι ουρές έχουν $0.005$ η καθεμία. Η βαθμολογία $Z$ για μια περιοχή $0.995$ στα αριστερά είναι περίπου $2.576$.
+Λοιπόν, $Z_c = 2.576$.
 
-**Step 4: Solve for $n$**
+**Βήμα 4: Επίλυση για $n$**
 $$ \frac{15\sqrt{n}}{50} \ge 2.576 $$
 $$ \sqrt{n} \ge \frac{50 \times 2.576}{15} \approx 8.587 $$
 $$ n \ge (8.587)^2 \approx 73.7 $$
-Since sample size must be an integer, we round up to $n = 74$.
+Εφόσον το μέγεθος του δείγματος πρέπει να είναι ακέραιος, στρογγυλοποιούμε στο $n = 74$.
 
 ---
 
-### Example 7: The "Single Observation vs. Sample Mean" Trap (Gotcha Moment)
-The resting heart rate of adults is normally distributed with a mean of 72 beats per minute (bpm) and a standard deviation of 8 bpm. 
-**Part A:** What is the probability that a *randomly selected individual* has a heart rate above 75 bpm?
-**Part B:** What is the probability that a *random sample of 16 adults* has a sample mean heart rate above 75 bpm?
+### Παράδειγμα 7: Η παγίδα "Μοναδική παρατήρηση εναντίον μέσου όρου δείγματος" (Gotcha Moment)
+Ο καρδιακός ρυθμός ηρεμίας των ενηλίκων κατανέμεται κανονικά με μέσο όρο 72 παλμούς ανά λεπτό (bpm) και τυπική απόκλιση 8 bpm. 
+**Μέρος Α:** Ποια είναι η πιθανότητα ένα *τυχαία επιλεγμένο άτομο* να έχει καρδιακό ρυθμό πάνω από 75 bpm;
+**Μέρος Β:** Ποια είναι η πιθανότητα ένα *τυχαίο δείγμα 16 ενηλίκων* να έχει μέσο καρδιακό ρυθμό δείγματος πάνω από 75 bpm;
 
-#### Gotcha Section Analysis
-A very common mistake in exams is confusing the distribution of the population with the distribution of the sample mean. If the question asks about ONE individual, you do not use the CLT adjustment ($\sqrt{n}$). If it asks about a SAMPLE, you must divide the standard deviation by $\sqrt{n}$. Furthermore, $n=16$ is less than 30, but because the underlying population is explicitly stated to be *normally distributed*, the sampling distribution of the mean is exactly normal regardless of sample size.
+#### Ανάλυση ενότητας GotchaΈνα πολύ συνηθισμένο λάθος στις εξετάσεις είναι η σύγχυση της κατανομής του πληθυσμού με την κατανομή του μέσου όρου του δείγματος. Εάν η ερώτηση αφορά ΕΝΑ άτομο, δεν χρησιμοποιείτε την προσαρμογή CLT ($\sqrt{n}$). Εάν ρωτά για ένα ΔΕΙΓΜΑ, πρέπει να διαιρέσετε την τυπική απόκλιση με $\sqrt{n}$. Επιπλέον, το $n=16$ είναι μικρότερο από 30, αλλά επειδή ο υποκείμενος πληθυσμός αναφέρεται ρητά ότι είναι *κανονικά κατανεμημένος*, η δειγματοληπτική κατανομή του μέσου όρου είναι ακριβώς κανονική ανεξάρτητα από το μέγεθος του δείγματος.
 
-**Solution Part A (Single Individual):**
-We are looking for $P(X > 75)$. We use the population standard deviation $\sigma = 8$.
+**Λύση Μέρος Α (Μοναδικό άτομο):**
+Ψάχνουμε για $P(X > 75)$. Χρησιμοποιούμε την τυπική απόκλιση πληθυσμού $\sigma = 8$.
 $$ Z = \frac{75 - 72}{8} = 0.375 $$
 $$ P(X > 75) = P(Z > 0.375) = 1 - P(Z \le 0.375) = 1 - 0.6462 = 0.3538 $$
 
-**Solution Part B (Sample Mean):**
-We are looking for $P(\bar{X} > 75)$. We use the standard error $\sigma_{\bar{X}} = \frac{8}{\sqrt{16}} = \frac{8}{4} = 2$.
+**Λύση Μέρος Β (Δείγμα μέσος όρος):**
+Ψάχνουμε για $P(\bar{X} > 75)$. Χρησιμοποιούμε το τυπικό σφάλμα $\sigma_{\bar{X}} = \frac{8}{\sqrt{16}} = \frac{8}{4} = 2$.
 $$ Z = \frac{75 - 72}{2} = 1.5 $$
 $$ P(\bar{X} > 75) = P(Z > 1.5) = 1 - P(Z \le 1.5) = 1 - 0.9332 = 0.0668 $$
 
-Notice how drastically different the probabilities are. It is much harder for a group average to deviate from the true mean than it is for a single individual.
+Παρατηρήστε πόσο δραστικά διαφορετικές είναι οι πιθανότητες. Είναι πολύ πιο δύσκολο για έναν ομαδικό μέσο όρο να αποκλίνει από τον πραγματικό μέσο όρο από ό,τι για ένα μεμονωμένο άτομο.
 
 ---
 
-### Example 8: Sum vs. Mean Trap combined with Proportions (Gotcha Moment)
-A biased coin has a probability $p = 0.6$ of landing heads. You flip the coin 400 times. What is the probability that the number of heads obtained is exactly 240? What is the probability that the *proportion* of heads is greater than 0.65?
+### Παράδειγμα 8: Άθροισμα έναντι Μέσης Παγίδας σε συνδυασμό με Αναλογίες (Στιγμή Gotcha)
+Ένα προκατειλημμένο νόμισμα έχει πιθανότητα $p = 0.6$ κεφαλών προσγείωσης. Γυρίζεις το κέρμα 400 φορές. Ποια είναι η πιθανότητα ο αριθμός των κεφαλών που λαμβάνονται να είναι ακριβώς 240; Ποια είναι η πιθανότητα η *αναλογία* των κεφαλών να είναι μεγαλύτερη από 0,65;
 
-#### Gotcha Section Analysis
-There are two distinct traps here:
-1. **Continuity Correction:** When using the CLT to approximate a discrete distribution (like the Binomial distribution) with a continuous Normal distribution, you MUST apply the continuity correction if you are asking for an exact value or specific bounds.
-2. **Proportion vs Sum:** A binomial variable $X$ is a sum of Bernoulli trials. The sample proportion $\hat{p}$ is the sample mean of Bernoulli trials ($\hat{p} = \frac{X}{n}$). You must use the correct parameters for each.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχουν δύο διαφορετικές παγίδες εδώ:
+1. **Διόρθωση συνέχειας:** Όταν χρησιμοποιείτε το CLT για να προσεγγίσετε μια διακριτή κατανομή (όπως η Διωνυμική κατανομή) με μια συνεχή Κανονική κατανομή, ΠΡΕΠΕΙ να εφαρμόσετε τη διόρθωση συνέχειας εάν ζητάτε μια ακριβή τιμή ή συγκεκριμένα όρια.
+2. **Αναλογία vs Sum:** Μια διωνυμική μεταβλητή $X$ είναι ένα άθροισμα δοκιμών Bernoulli. Η αναλογία δείγματος $\hat{p}$ είναι η μέση τιμή δείγματος των δοκιμών Bernoulli ($\hat{p} = \frac{X}{n}$). Πρέπει να χρησιμοποιήσετε τις σωστές παραμέτρους για καθεμία.
 
-**Solution Part A (Exact Value using Continuity Correction):**
-The number of heads $X \sim Binomial(n=400, p=0.6)$.
-Using normal approximation:
-*   Mean: $\mu = np = 400(0.6) = 240$
-*   Standard Deviation: $\sigma = \sqrt{np(1-p)} = \sqrt{400(0.6)(0.4)} = \sqrt{96} \approx 9.798$
+**Λύση Μέρος Α (Ακριβής Τιμή με χρήση Διόρθωσης Συνέχειας):**
+Ο αριθμός των κεφαλιών $X \sim Binomial(n=400, p=0.6)$.
+Χρησιμοποιώντας κανονική προσέγγιση:
+* Μέσος όρος: $\mu = np = 400(0.6) = 240$
+* Τυπική απόκλιση: $\sigma = \sqrt{np(1-p)} = \sqrt{400(0.6)(0.4)} = \sqrt{96} \approx 9.798$
 
-To find $P(X = 240)$, we must use the interval $(239.5, 240.5)$ because $X$ is discrete.
+Για να βρούμε $P(X = 240)$, πρέπει να χρησιμοποιήσουμε το διάστημα $(239.5, 240.5)$ επειδή το $X$ είναι διακριτό.
 $$ Z_1 = \frac{239.5 - 240}{9.798} \approx -0.05 $$
 $$ Z_2 = \frac{240.5 - 240}{9.798} \approx 0.05 $$
 $$ P(X = 240) \approx P(-0.05 < Z < 0.05) = 0.5199 - 0.4801 = 0.0398 $$
-*(Without continuity correction, the probability of an exact value in a continuous distribution is 0, which is a fatal error!)*
+*(Χωρίς διόρθωση συνέχειας, η πιθανότητα μιας ακριβούς τιμής σε μια συνεχή κατανομή είναι 0, το οποίο είναι μοιραίο σφάλμα!)*
 
-**Solution Part B (Proportions):**
-We want the probability that the sample proportion $\hat{p} > 0.65$.
-According to the CLT for proportions, $\hat{p} \sim N\left(p, \frac{p(1-p)}{n}\right)$.
-*   Mean: $\mu_{\hat{p}} = p = 0.6$
-*   Standard Error: $\sigma_{\hat{p}} = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.6(0.4)}{400}} = \sqrt{\frac{0.24}{400}} = 0.0245$
+**Λύση Μέρος Β (Αναλογίες):**
+Θέλουμε την πιθανότητα η αναλογία δείγματος $\hat{p} > 0.65$.
+Σύμφωνα με το CLT για τις αναλογίες, $\hat{p} \sim N\left(p, \frac{p(1-p)}{n}\right)$.
+* Μέσος όρος: $\mu_{\hat{p}} = p = 0.6$
+* Τυπικό σφάλμα: $\sigma_{\hat{p}} = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.6(0.4)}{400}} = \sqrt{\frac{0.24}{400}} = 0.0245$
 
-Without correction (commonly accepted for very large $n$ in proportion tests):
+Χωρίς διόρθωση (κοινώς αποδεκτό για πολύ μεγάλες δοκιμές $n$ σε αναλογία):
 $$ Z = \frac{0.65 - 0.6}{0.0245} \approx 2.04 $$
 $$ P(\hat{p} > 0.65) = P(Z > 2.04) = 1 - 0.9793 = 0.0207 $$
-*(Always check if your professor requires continuity correction for proportions!)*
+*(Ελέγχετε πάντα αν ο καθηγητής σας χρειάζεται διόρθωση συνέχειας για τις αναλογίες!)*
 
 
-# Phase 6: Inferential Statistics - Confidence Intervals
+# Φάση 6: Συμπερασματικά στατιστικά - Διαστήματα εμπιστοσύνης
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-A **Confidence Interval (CI)** provides a range of plausible values for an unknown population parameter (like the mean $\mu$ or proportion $p$). Instead of a single point estimate (like $\bar{X}$ or $\hat{p}$), a confidence interval gives a margin of error around the point estimate, along with a specified level of confidence that the true parameter lies within that interval.
+Ένα **διάστημα εμπιστοσύνης (CI)** παρέχει ένα εύρος εύλογων τιμών για μια παράμετρο άγνωστου πληθυσμού (όπως ο μέσος όρος $\mu$ ή η αναλογία $p$). Αντί για μια εκτίμηση ενός σημείου (όπως $\bar{X}$ ή $\hat{p}$), ένα διάστημα εμπιστοσύνης δίνει ένα περιθώριο σφάλματος γύρω από την εκτίμηση σημείου, μαζί με ένα καθορισμένο επίπεδο εμπιστοσύνης ότι η πραγματική παράμετρος βρίσκεται μέσα σε αυτό το διάστημα.
 
-### 1.1 Core Concept
+### 1.1 Βασική ιδέα
 
-The general formula for a confidence interval is:
+Ο γενικός τύπος για ένα διάστημα εμπιστοσύνης είναι:
 $$ \text{Point Estimate} \pm \text{Margin of Error} $$
-$$ \text{Point Estimate} \pm (\text{Critical Value}) \times (\text{Standard Error}) $$
+$$ \text{Point Estimate} \pm (\text{Critical Value}) \times (\text{Standard Error}) $$Το **Επίπεδο εμπιστοσύνης** συμβολίζεται με $(1 - \alpha) \times 100\%$, όπου $\alpha$ είναι το επίπεδο σημασίας. Για παράδειγμα, ένα επίπεδο εμπιστοσύνης 95% σημαίνει $\alpha = 0.05$. Η κρίσιμη τιμή διαχωρίζει την περιοχή της ουράς $\alpha/2$ από την κεντρική περιοχή.
 
-The **Confidence Level** is denoted by $(1 - \alpha) \times 100\%$, where $\alpha$ is the significance level. For example, a 95% confidence level means $\alpha = 0.05$. The critical value separates the tail area $\alpha/2$ from the central area.
+### 1.2 Διάστημα εμπιστοσύνης για τον μέσο πληθυσμό ($\mu$)
 
-### 1.2 Confidence Interval for Population Mean ($\mu$)
-
-#### Case A: Population Standard Deviation ($\sigma$) is KNOWN
-When $\sigma$ is known and either the population is normal or $n \ge 30$, we use the Standard Normal (Z) distribution.
+#### Περίπτωση Α: Η τυπική απόκλιση πληθυσμού ($\sigma$) είναι ΓΝΩΣΤΗ
+Όταν το $\sigma$ είναι γνωστό και είτε ο πληθυσμός είναι κανονικός είτε $n \ge 30$, χρησιμοποιούμε την τυπική κανονική (Z) κατανομή.
 $$ CI = \bar{X} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) $$
-*   $\bar{X}$ = Sample mean
-*   $Z_{\alpha/2}$ = Z critical value (e.g., 1.96 for 95% confidence)
-*   $\frac{\sigma}{\sqrt{n}}$ = Standard Error
+* $\bar{X}$ = Δείγμα μέσου όρου
+* $Z_{\alpha/2}$ = Z κρίσιμη τιμή (π.χ. 1,96 για 95% εμπιστοσύνη)
+* $\frac{\sigma}{\sqrt{n}}$ = Τυπικό σφάλμα
 
-#### Case B: Population Standard Deviation ($\sigma$) is UNKNOWN
-When $\sigma$ is unknown, we estimate it using the sample standard deviation $s$. We must use the Student's t-distribution with $n - 1$ degrees of freedom ($df$).
+#### Περίπτωση Β: Η τυπική απόκλιση πληθυσμού ($\sigma$) είναι ΑΓΝΩΣΤΗ
+Όταν το $\sigma$ είναι άγνωστο, το υπολογίζουμε χρησιμοποιώντας το δείγμα τυπικής απόκλισης $s$. Πρέπει να χρησιμοποιήσουμε την κατανομή t του Student με $n - 1$ βαθμούς ελευθερίας ($df$).
 $$ CI = \bar{X} \pm t_{\alpha/2, n-1} \left( \frac{s}{\sqrt{n}} \right) $$
-*   $s$ = Sample standard deviation
-*   $t_{\alpha/2, n-1}$ = t critical value with $df = n - 1$
+* $s$ = Δείγμα τυπικής απόκλισης
+* $t_{\alpha/2, n-1}$ = t κρίσιμη τιμή με $df = n - 1$
 
-### 1.3 Confidence Interval for Population Proportion ($p$)
+### 1.3 Διάστημα εμπιστοσύνης για την αναλογία πληθυσμού ($p$)
 
-When dealing with proportions (e.g., "what percentage of voters favor candidate A?"), we use the sample proportion $\hat{p} = \frac{x}{n}$ (where $x$ is the number of successes).
-Assuming large sample sizes ($n\hat{p} \ge 10$ and $n(1-\hat{p}) \ge 10$), we use the Z-distribution:
+Όταν ασχολούμαστε με τις αναλογίες (π.χ. "ποιο ποσοστό ψηφοφόρων υπέρ του υποψηφίου Α;"), χρησιμοποιούμε το δείγμα αναλογίας $\hat{p} = \frac{x}{n}$ (όπου $x$ είναι ο αριθμός των επιτυχιών).
+Υποθέτοντας μεγάλα μεγέθη δείγματος ($n\hat{p} \ge 10$ και $n(1-\hat{p}) \ge 10$), χρησιμοποιούμε την κατανομή Z:
 $$ CI = \hat{p} \pm Z_{\alpha/2} \sqrt{ \frac{\hat{p}(1-\hat{p})}{n} } $$
 
-### 1.4 Sample Size Determination
-To achieve a specific Margin of Error ($E$) at a given confidence level:
-**For Mean:**
+### 1.4 Προσδιορισμός μεγέθους δείγματος
+Για να επιτύχετε ένα συγκεκριμένο Περιθώριο Σφάλματος ($E$) σε ένα δεδομένο επίπεδο εμπιστοσύνης:
+**Για μέσο όρο:**
 $$ n = \left( \frac{Z_{\alpha/2} \cdot \sigma}{E} \right)^2 $$
-**For Proportion:**
+**Για αναλογία:**
 $$ n = \hat{p}(1-\hat{p}) \left( \frac{Z_{\alpha/2}}{E} \right)^2 $$
-*(If $\hat{p}$ is completely unknown, use $\hat{p} = 0.5$ for the most conservative (largest) sample size).*
+*(Εάν το $\hat{p}$ είναι εντελώς άγνωστο, χρησιμοποιήστε το $\hat{p} = 0.5$ για το πιο συντηρητικό (μεγαλύτερο) μέγεθος δείγματος).*
 
 ---
 
-## 2. Step-by-Step Examples
+## 2. Παραδείγματα βήμα προς βήμα
 
-### Example 1: CI for Mean ($\sigma$ known)
-A random sample of 50 apples has a mean weight of 150g. The population standard deviation is known to be 10g. Construct a 95% confidence interval for the true mean weight of all apples.
+### Παράδειγμα 1: CI για το μέσο όρο ($\sigma$ γνωστό)
+Ένα τυχαίο δείγμα 50 μήλων έχει μέσο βάρος 150 g. Η τυπική απόκλιση πληθυσμού είναι γνωστό ότι είναι 10 g. Κατασκευάστε ένα διάστημα εμπιστοσύνης 95% για το πραγματικό μέσο βάρος όλων των μήλων.
 
-**Step 1: Identify Given Information**
-*   $n = 50$, $\bar{X} = 150$, $\sigma = 10$
-*   Confidence level = 95%, so $\alpha = 0.05$ and $\alpha/2 = 0.025$
+**Βήμα 1: Προσδιορισμός δεδομένων πληροφοριών**
+* $n = 50$, $\bar{X} = 150$, $\sigma = 10$
+* Επίπεδο εμπιστοσύνης = 95%, άρα $\alpha = 0.05$ και $\alpha/2 = 0.025$
 
-**Step 2: Find Critical Value**
-For a 95% CI, $Z_{0.025} = 1.96$ (from standard normal table).
+**Βήμα 2: Εύρεση κρίσιμης αξίας**
+Για 95% CI, $Z_{0.025} = 1.96$ (από τον τυπικό κανονικό πίνακα).
 
-**Step 3: Calculate Margin of Error (E)**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος (E)**
 $$ E = Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) = 1.96 \left( \frac{10}{\sqrt{50}} \right) = 1.96 \times 1.414 \approx 2.77 $$
 
-**Step 4: Construct Interval**
+**Βήμα 4: Κατασκευάστε το διάστημα**
 $$ CI = 150 \pm 2.77 = [147.23, 152.77] $$
 
-### Example 2: CI for Mean ($\sigma$ unknown)
-A sample of 16 laptop batteries has a mean life of 4.5 hours with a sample standard deviation of 0.8 hours. Assume the population is normally distributed. Find a 99% CI for the true mean battery life.
+### Παράδειγμα 2: CI για το μέσο όρο ($\sigma$ άγνωστο)
+Ένα δείγμα 16 μπαταριών φορητού υπολογιστή έχει μέση διάρκεια ζωής 4,5 ώρες με τυπική απόκλιση δείγματος 0,8 ώρες. Ας υποθέσουμε ότι ο πληθυσμός κατανέμεται κανονικά. Βρείτε 99% CI για την πραγματική μέση διάρκεια ζωής της μπαταρίας.
 
-**Step 1: Identify Given Information**
-*   $n = 16$, $\bar{X} = 4.5$, $s = 0.8$
-*   Since $\sigma$ is unknown, use t-distribution. $df = n - 1 = 15$.
-*   Confidence level = 99%, $\alpha = 0.01$, $\alpha/2 = 0.005$.
+**Βήμα 1: Προσδιορισμός δεδομένων πληροφοριών**
+* $n = 16$, $\bar{X} = 4.5$, $s = 0.8$
+* Επειδή το $\sigma$ είναι άγνωστο, χρησιμοποιήστε την κατανομή t. $df = n - 1 = 15$.
+* Επίπεδο εμπιστοσύνης = 99%, $\alpha = 0.01$, $\alpha/2 = 0.005$.
 
-**Step 2: Find Critical Value**
-From t-table for $df=15$ and tail area 0.005: $t_{0.005, 15} = 2.947$.
+**Βήμα 2: Εύρεση κρίσιμης αξίας**
+Από t-table για $df=15$ και περιοχή ουράς 0,005: $t_{0.005, 15} = 2.947$.
 
-**Step 3: Calculate Margin of Error (E)**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος (E)**
 $$ E = 2.947 \left( \frac{0.8}{\sqrt{16}} \right) = 2.947 \times 0.2 = 0.5894 $$
 
-**Step 4: Construct Interval**
+**Βήμα 4: Κατασκευάστε το διάστημα**
 $$ CI = 4.5 \pm 0.5894 = [3.91, 5.09] $$
 
-### Example 3: CI for Proportion
-In a survey of 400 randomly selected adults, 250 said they drink coffee daily. Construct a 90% confidence interval for the true proportion of adults who drink coffee daily.
+### Παράδειγμα 3: CI για αναλογία
+Σε μια έρευνα με 400 τυχαία επιλεγμένους ενήλικες, 250 είπαν ότι πίνουν καφέ καθημερινά. Δημιουργήστε ένα διάστημα εμπιστοσύνης 90% για το πραγματικό ποσοστό των ενηλίκων που πίνουν καφέ καθημερινά.
 
-**Step 1: Calculate Sample Proportion**
+**Βήμα 1: Υπολογισμός αναλογίας δείγματος**
 $$ \hat{p} = \frac{x}{n} = \frac{250}{400} = 0.625 $$
 
-**Step 2: Find Critical Value**
-For 90% confidence, $\alpha = 0.10$, $\alpha/2 = 0.05$. $Z_{0.05} = 1.645$.
+**Βήμα 2: Εύρεση κρίσιμης αξίας**Για 90% εμπιστοσύνη, $\alpha = 0.10$, $\alpha/2 = 0.05$. $Z_{0.05} = 1.645$.
 
-**Step 3: Calculate Margin of Error (E)**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος (E)**
 $$ E = 1.645 \sqrt{ \frac{0.625(1-0.625)}{400} } = 1.645 \sqrt{\frac{0.234375}{400}} \approx 1.645 \times 0.0242 \approx 0.0398 $$
 
-**Step 4: Construct Interval**
+**Βήμα 4: Κατασκευάστε το διάστημα**
 $$ CI = 0.625 \pm 0.0398 = [0.5852, 0.6648] $$
 
-### Example 4: Finding Required Sample Size (Mean)
-We want to estimate the mean height of students in a university to within 2 cm with 95% confidence. The population standard deviation is estimated to be 8 cm. How large of a sample is required?
+### Παράδειγμα 4: Εύρεση του απαιτούμενου μεγέθους δείγματος (μέσος όρος)
+Θέλουμε να υπολογίσουμε το μέσο ύψος των φοιτητών σε ένα πανεπιστήμιο εντός 2 cm με 95% εμπιστοσύνη. Η τυπική απόκλιση πληθυσμού εκτιμάται ότι είναι 8 cm. Πόσο μεγάλο δείγμα απαιτείται;
 
-**Step 1: Identify Given Information**
-*   $E = 2$ (Margin of error)
-*   $\sigma = 8$
-*   $Z_{\alpha/2}$ for 95% is $1.96$
+**Βήμα 1: Προσδιορισμός δεδομένων πληροφοριών**
+* $E = 2$ (Περιθώριο σφάλματος)
+* $\sigma = 8$
+* $Z_{\alpha/2}$ για το 95% είναι $1.96$
 
-**Step 2: Apply Sample Size Formula**
+**Βήμα 2: Εφαρμόστε τον τύπο μεγέθους δείγματος**
 $$ n = \left( \frac{1.96 \times 8}{2} \right)^2 = (1.96 \times 4)^2 = (7.84)^2 = 61.4656 $$
 
-**Step 3: Round Up**
-Always round sample size *up* to the next whole number. $n = 62$.
+**Βήμα 3: Στρογγυλοποίηση**
+Στρογγυλοποιείτε πάντα το μέγεθος δείγματος *μέχρι* στον επόμενο ακέραιο αριθμό. $n = 62$.
 
-### Example 5: Changing Confidence Levels
-Using the data from Example 1 ($n=50, \bar{X}=150, \sigma=10$), what happens to the confidence interval if we increase the confidence level to 99%?
+### Παράδειγμα 5: Αλλαγή των επιπέδων εμπιστοσύνης
+Χρησιμοποιώντας τα δεδομένα από το Παράδειγμα 1 ($n=50, \bar{X}=150, \sigma=10$), τι συμβαίνει με το διάστημα εμπιστοσύνης εάν αυξήσουμε το επίπεδο εμπιστοσύνης στο 99%;
 
-**Step 1: New Critical Value**
-For 99%, $Z_{0.005} = 2.576$.
+**Βήμα 1: Νέα κρίσιμη αξία**
+Για το 99%, $Z_{0.005} = 2.576$.
 
-**Step 2: New Margin of Error**
+**Βήμα 2: Νέο περιθώριο σφάλματος**
 $$ E = 2.576 \left( \frac{10}{\sqrt{50}} \right) \approx 3.64 $$
 
-**Step 3: New Interval**
+**Βήμα 3: Νέο διάστημα**
 $$ CI = 150 \pm 3.64 = [146.36, 153.64] $$
-*Observation: Higher confidence requires a wider interval.*
+*Παρατήρηση: Η υψηλότερη εμπιστοσύνη απαιτεί μεγαλύτερο διάστημα.*
 
-### Example 6: Extracting Information from an Interval
-A 95% confidence interval for a population mean is given as $[45, 55]$. What was the sample mean and the margin of error?
+### Παράδειγμα 6: Εξαγωγή πληροφοριών από ένα διάστημα
+Ένα διάστημα εμπιστοσύνης 95% για έναν μέσο πληθυσμό δίνεται ως $[45, 55]$. Ποιος ήταν ο μέσος όρος του δείγματος και το περιθώριο σφάλματος;
 
-**Step 1: Find the Sample Mean**
-The sample mean is exactly in the middle of the interval.
+**Βήμα 1: Βρείτε τη μέση τιμή δείγματος**
+Ο μέσος όρος του δείγματος βρίσκεται ακριβώς στη μέση του διαστήματος.
 $$ \bar{X} = \frac{\text{Upper} + \text{Lower}}{2} = \frac{55 + 45}{2} = 50 $$
 
-**Step 2: Find the Margin of Error**
-The margin of error is half the width of the interval.
+**Βήμα 2: Βρείτε το Περιθώριο Σφάλματος**
+Το περιθώριο σφάλματος είναι το μισό του πλάτους του διαστήματος.
 $$ E = \frac{\text{Upper} - \text{Lower}}{2} = \frac{55 - 45}{2} = 5 $$
 
 ---
 
-### Example 7: The "Z vs. t" Trap and Degrees of Freedom (Gotcha Moment)
-A researcher measures the lifespan of 25 fruit flies. The sample mean is 14 days and the *sample variance* is 16 days squared. Construct a 95% confidence interval for the population mean lifespan.
+### Παράδειγμα 7: Η παγίδα "Z εναντίον t" και οι βαθμοί ελευθερίας (Gotcha Moment)
+Ένας ερευνητής μετρά τη διάρκεια ζωής 25 μυγών φρούτων. Ο μέσος όρος του δείγματος είναι 14 ημέρες και η *διακύμανση δείγματος* είναι 16 ημέρες στο τετράγωνο. Κατασκευάστε ένα διάστημα εμπιστοσύνης 95% για τη μέση διάρκεια ζωής του πληθυσμού.
 
-#### Gotcha Section Analysis
-There are three common traps here:
-1. **Variance vs. Standard Deviation:** The problem gives the sample *variance* ($s^2 = 16$), not standard deviation. You must take the square root ($s = 4$).
-2. **t vs Z:** Many students automatically use $Z=1.96$ because it is a 95% interval. However, because we only have the *sample* variance (and $n < 30$), we MUST use the t-distribution.
-3. **Degrees of Freedom:** For $n=25$, degrees of freedom is $df = 24$, not 25.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχουν τρεις κοινές παγίδες εδώ:
+1. **Διακύμανση έναντι τυπικής απόκλισης:** Το πρόβλημα δίνει στο δείγμα *διακύμανση* ($s^2 = 16$), όχι τυπική απόκλιση. Πρέπει να πάρετε την τετραγωνική ρίζα ($s = 4$).
+2. **t vs Z:** Πολλοί μαθητές χρησιμοποιούν αυτόματα $Z=1.96$ επειδή είναι ένα διάστημα 95%. Ωστόσο, επειδή έχουμε μόνο τη διακύμανση *sample* (και $n < 30$), ΠΡΕΠΕΙ να χρησιμοποιήσουμε την κατανομή t.
+3. **Βαθμοί ελευθερίας:** Για $n=25$, οι βαθμοί ελευθερίας είναι $df = 24$, όχι 25.
 
-**Step 1: Extract Correct Values**
-*   $n = 25 \implies df = 24$
-*   $\bar{X} = 14$
-*   $s^2 = 16 \implies s = 4$
+**Βήμα 1: Εξαγωγή σωστών τιμών**
+* $n = 25 \implies df = 24$
+* $\bar{X} = 14$
+* $s^2 = 16 \implies s = 4$
 
-**Step 2: Find the correct Critical Value (t-distribution)**
-For 95% confidence ($\alpha = 0.05, \alpha/2 = 0.025$) and $df = 24$:
-$t_{0.025, 24} = 2.064$ (NOT 1.96!)
+**Βήμα 2: Βρείτε τη σωστή κρίσιμη τιμή (t-κατανομή)**
+Για 95% εμπιστοσύνη ($\alpha = 0.05, \alpha/2 = 0.025$) και $df = 24$:
+$t_{0.025, 24} = 2.064$ (ΟΧΙ 1,96!)
 
-**Step 3: Calculate Margin of Error and CI**
+**Βήμα 3: Υπολογισμός Περιθωρίου Σφάλματος και CI**
 $$ E = 2.064 \left( \frac{4}{\sqrt{25}} \right) = 2.064 \left( \frac{4}{5} \right) = 2.064 \times 0.8 = 1.6512 $$
 $$ CI = 14 \pm 1.6512 = [12.3488, 15.6512] $$
 
 ---
 
-### Example 8: Worst-Case Proportion Sample Size Trap (Gotcha Moment)
-You are planning a survey to estimate the proportion of students who prefer online exams. You want the estimate to be accurate within 4 percentage points with 95% confidence. Previous studies suggest the proportion is somewhere between 20% and 30%. What sample size should you use?
+### Παράδειγμα 8: Παγίδα μεγέθους δείγματος αναλογίας χειρότερης περίπτωσης (Στιγμή Gotcha)
+Σχεδιάζετε μια έρευνα για να υπολογίσετε το ποσοστό των μαθητών που προτιμούν τις διαδικτυακές εξετάσεις. Θέλετε η εκτίμηση να είναι ακριβής εντός 4 ποσοστιαίων μονάδων με 95% εμπιστοσύνη. Προηγούμενες μελέτες δείχνουν ότι το ποσοστό είναι κάπου μεταξύ 20% και 30%. Τι μέγεθος δείγματος πρέπει να χρησιμοποιήσετε;
 
-#### Gotcha Section Analysis
-There are two traps here:
-1. **"Within 4 percentage points":** This means the Margin of Error $E = 0.04$. Do not use $E=4$.
-2. **Which $\hat{p}$ to use?** The sample size formula for proportions is $n = \hat{p}(1-\hat{p}) \left( \frac{Z}{E} \right)^2$. If no proportion is known, you use $\hat{p} = 0.5$ because it maximizes $\hat{p}(1-\hat{p})$ to $0.25$, yielding the safest (largest) sample size. However, here you are given a *range* (20% to 30%). You must pick the value in the range that is *closest to 50%* because that will maximize the variance and ensure your sample is large enough.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχουν δύο παγίδες εδώ:
+1. **"Μέσα σε 4 ποσοστιαίες μονάδες":** Αυτό σημαίνει το Περιθώριο Σφάλματος $E = 0.04$. Μην χρησιμοποιείτε $E=4$.2. **Ποιο $\hat{p}$ να χρησιμοποιήσετε;** Ο τύπος μεγέθους δείγματος για τις αναλογίες είναι $n = \hat{p}(1-\hat{p}) \left( \frac{Z}{E} \right)^2$. Εάν δεν είναι γνωστή η αναλογία, χρησιμοποιείτε $\hat{p} = 0.5$ επειδή μεγιστοποιεί το $\hat{p}(1-\hat{p})$ σε $0.25$, αποδίδοντας το ασφαλέστερο (μεγαλύτερο) μέγεθος δείγματος. Ωστόσο, εδώ σας δίνεται ένα *εύρος* (20% έως 30%). Πρέπει να επιλέξετε την τιμή στο εύρος που είναι *πλησιέστερα στο 50%* γιατί αυτό θα μεγιστοποιήσει τη διακύμανση και θα εξασφαλίσει ότι το δείγμα σας είναι αρκετά μεγάλο.
 
-**Step 1: Determine the conservative $\hat{p}$**
-The range is $0.20$ to $0.30$. The value closest to $0.50$ is $0.30$.
-Let's check the product $\hat{p}(1-\hat{p})$:
-*   If $p=0.20 \implies 0.20 \times 0.80 = 0.16$
-*   If $p=0.30 \implies 0.30 \times 0.70 = 0.21$
-Since $0.21 > 0.16$, using $p=0.30$ guarantees a large enough sample.
+**Βήμα 1: Προσδιορίστε τη συντηρητική $\hat{p}$**
+Το εύρος είναι $0.20$ έως $0.30$. Η τιμή που βρίσκεται πλησιέστερα στο $0.50$ είναι $0.30$.
+Ας ελέγξουμε το προϊόν $\hat{p}(1-\hat{p})$:
+* Εάν $p=0.20 \implies 0.20 \times 0.80 = 0.16$
+* Εάν $p=0.30 \implies 0.30 \times 0.70 = 0.21$
+Από $0.21 > 0.16$, η χρήση $p=0.30$ εγγυάται ένα αρκετά μεγάλο δείγμα.
 
-**Step 2: Calculate Sample Size**
-*   $Z_{0.025} = 1.96$
-*   $E = 0.04$
-*   $\hat{p} = 0.30$
+**Βήμα 2: Υπολογισμός μεγέθους δείγματος**
+* $Z_{0.025} = 1.96$
+* $E = 0.04$
+* $\hat{p} = 0.30$
 
 $$ n = 0.30(1 - 0.30) \left( \frac{1.96}{0.04} \right)^2 $$
 $$ n = 0.30(0.70) \left( 49 \right)^2 $$
 $$ n = 0.21 \times 2401 = 504.21 $$
 
-**Step 3: Round Up**
-You must always round *up* to the nearest integer to ensure the margin of error is *strictly within* 4%.
+**Βήμα 3: Στρογγυλοποίηση**
+Πρέπει πάντα να στρογγυλοποιείτε το *επάνω* στον πλησιέστερο ακέραιο για να διασφαλίσετε ότι το περιθώριο σφάλματος είναι *αυστηρά εντός* 4%.
 $n = 505$.
-*(If you used $p=0.5$ blindly without looking at the known range, you would get $n=601$, meaning you would waste time and money surveying 96 extra people unnecessarily!)*
+*(Εάν χρησιμοποιούσατε το $p=0.5$ στα τυφλά χωρίς να κοιτάξετε το γνωστό εύρος, θα λάβατε $n=601$, που σημαίνει ότι θα χάνατε χρόνο και χρήμα ερευνώντας άσκοπα 96 επιπλέον άτομα!)*
 
 
-# Phase 6: Inferential Statistics - Hypothesis Testing
+# Φάση 6: Συμπερασματικές στατιστικές - Έλεγχος υποθέσεων
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-Hypothesis testing is a formal procedure used to evaluate a claim about a population parameter based on sample data. We compare two competing hypotheses and determine if there is enough statistical evidence to reject the default assumption.
+Ο έλεγχος υποθέσεων είναι μια επίσημη διαδικασία που χρησιμοποιείται για την αξιολόγηση ενός ισχυρισμού σχετικά με μια παράμετρο πληθυσμού που βασίζεται σε δεδομένα δείγματος. Συγκρίνουμε δύο ανταγωνιστικές υποθέσεις και προσδιορίζουμε εάν υπάρχουν αρκετά στατιστικά στοιχεία για να απορρίψουμε την υπόθεση προεπιλογής.
 
-### 1.1 The Hypotheses
-*   **Null Hypothesis ($H_0$):** The default assumption, representing "no effect," "no difference," or "status quo." It always contains an equality sign ($=, \le, \ge$).
-*   **Alternative Hypothesis ($H_1$ or $H_A$):** The claim we are trying to prove. It contains an inequality sign ($\ne, <, >$). The direction of the inequality determines the type of test:
-    *   $\ne$ : Two-tailed test
-    *   $<$ : Left-tailed test
-    *   $>$ : Right-tailed test
+### 1.1 Οι Υποθέσεις
+* **Μηδενική υπόθεση ($H_0$):** Η προεπιλεγμένη υπόθεση, που αντιπροσωπεύει "καμία επίδραση", "καμία διαφορά" ή "status quo". Περιέχει πάντα ένα σύμβολο ισότητας ($=, \le, \ge$).
+* **Εναλλακτική υπόθεση ($H_1$ ή $H_A$):** Ο ισχυρισμός που προσπαθούμε να αποδείξουμε. Περιέχει ένα σύμβολο ανισότητας ($\ne, <, >$). Η κατεύθυνση της ανισότητας καθορίζει τον τύπο του τεστ:
+    * $\ne$ : Δοκιμή δύο ουρών
+    * $<$ : Δοκιμή αριστερής ουράς
+    * $>$ : Δοκιμή με δεξιά ουρά
 
-### 1.2 Errors in Hypothesis Testing
-*   **Type I Error ($\alpha$):** Rejecting $H_0$ when it is actually true (False Positive). $\alpha$ is the significance level of the test.
-*   **Type II Error ($\beta$):** Failing to reject $H_0$ when $H_1$ is actually true (False Negative).
-*   **Power of the Test ($1 - \beta$):** The probability of correctly rejecting a false $H_0$.
+### 1.2 Σφάλματα στον έλεγχο υποθέσεων
+* **Σφάλμα τύπου I ($\alpha$):** Απόρριψη $H_0$ όταν είναι πραγματικά αληθές (Λάθος θετικό). Το $\alpha$ είναι το επίπεδο σημαντικότητας του τεστ.
+* **Σφάλμα τύπου II ($\beta$):** Αποτυχία απόρριψης του $H_0$ όταν το $H_1$ είναι όντως αληθές (False Negative).
+* **Δύναμη του τεστ ($1 - \beta$):** Η πιθανότητα να απορριφθεί σωστά ένα ψευδές $H_0$.
 
-### 1.3 Test Statistics
+### 1.3 Στατιστικά τεστ
 
-The test statistic measures how far our sample statistic is from the hypothesized population parameter, standardized by the standard error.
+Η στατιστική δοκιμής μετρά πόσο απέχει το στατιστικό δείγμα μας από την υποτιθέμενη παράμετρο πληθυσμού, τυποποιημένη από το τυπικό σφάλμα.
 
-**1. Test for Mean ($\mu$) with KNOWN Population Variance ($\sigma^2$):**
+**1. Δοκιμή για μέσο όρο ($\mu$) με ΓΝΩΣΤΗ Διακύμανση Πληθυσμού ($\sigma^2$):**
 $$ Z_{stat} = \frac{\bar{X} - \mu_0}{\frac{\sigma}{\sqrt{n}}} $$
 
-**2. Test for Mean ($\mu$) with UNKNOWN Population Variance — Large Sample ($n \ge 30$):**
-By the CLT, the sample standard deviation $s$ is a reliable estimate of $\sigma$, so $s$ is substituted into the Z-formula:
+**2. Δοκιμή για τη μέση τιμή ($\mu$) με ΑΓΝΩΣΤΗ διακύμανση πληθυσμού — Μεγάλο δείγμα ($n \ge 30$):**
+Με το CLT, η τυπική απόκλιση του δείγματος $s$ είναι μια αξιόπιστη εκτίμηση του $\sigma$, επομένως το $s$ αντικαθίσταται στον τύπο Z:
 $$ Z_{stat} = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}} $$
-> **Note:** Most courses accept using the t-statistic here as well (with $df = n-1$). Because $t_{n-1} \approx Z$ for large $n$, both approaches give virtually identical results. Confirm which convention your course prefers.
-
-**3. Test for Mean ($\mu$) with UNKNOWN Population Variance — Small Sample ($n < 30$):**
-Must use the t-distribution with $df = n - 1$ degrees of freedom:
+> **Σημείωση:** Τα περισσότερα μαθήματα δέχονται τη χρήση της στατιστικής t και εδώ (με $df = n-1$). Επειδή $t_{n-1} \approx Z$ για μεγάλα $n$, και οι δύο προσεγγίσεις δίνουν σχεδόν πανομοιότυπα αποτελέσματα. Επιβεβαιώστε ποια σύμβαση προτιμά το μάθημά σας.**3. Δοκιμή για τη μέση τιμή ($\mu$) με ΑΓΝΩΣΤΗ διακύμανση πληθυσμού — Μικρό δείγμα ($n < 30$):**
+Πρέπει να χρησιμοποιήσετε την κατανομή t με $df = n - 1$ βαθμούς ελευθερίας:
 $$ t_{stat} = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}} $$
-*(This requires the population to be approximately normally distributed.)*
+*(Αυτό απαιτεί ο πληθυσμός να είναι περίπου κανονικά κατανεμημένος.)*
 
-**4. Test for Proportion ($p$):**
+**4. Δοκιμή αναλογίας ($p$):**
 $$ Z_{stat} = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} $$
 
-### 1.4 Decision Rules
+### 1.4 Κανόνες απόφασης
 
-There are two equivalent ways to make a decision:
+Υπάρχουν δύο ισοδύναμοι τρόποι για να λάβετε μια απόφαση:
 
-**1. Critical Value Approach:**
-*   Determine the critical value(s) ($Z_{crit}$ or $t_{crit}$) based on $\alpha$ and the tail(s) of the test.
-*   If the test statistic falls into the **rejection region** (beyond the critical value), reject $H_0$.
+**1. Προσέγγιση κρίσιμης αξίας:**
+* Προσδιορίστε τις κρίσιμες τιμές ($Z_{crit}$ ή $t_{crit}$) με βάση το $\alpha$ και τις ουρές της δοκιμής.
+* Εάν το στατιστικό στοιχείο δοκιμής εμπίπτει στην **περιοχή απόρριψης** (πέρα από την κρίσιμη τιμή), απορρίψτε το $H_0$.
 
-**2. P-Value Approach:**
-*   The **p-value** is the probability of observing a test statistic as extreme as, or more extreme than, the one calculated, assuming $H_0$ is true.
-*   **Rule:** If $p\text{-value} \le \alpha$, reject $H_0$. If $p\text{-value} > \alpha$, fail to reject $H_0$.
+**2. Προσέγγιση P-Value:**
+* Η **p-value** είναι η πιθανότητα να παρατηρήσουμε μια στατιστική δοκιμής τόσο ακραία όσο ή πιο ακραία από αυτή που υπολογίστηκε, υποθέτοντας ότι το $H_0$ είναι αληθές.
+* **Κανόνας:** Εάν $p\text{-value} \le \alpha$, απορρίψτε το $H_0$. Εάν $p\text{-value} > \alpha$, αποτύχετε να απορρίψετε το $H_0$.
 
 ---
 
-## 2. Step-by-Step Examples
+## 2. Παραδείγματα βήμα προς βήμα
 
-### Example 1: Right-Tailed Z-Test for Mean ($\sigma$ known)
-A company claims that its new light bulbs last *more than* 1000 hours on average. A sample of 40 bulbs has an average lifespan of 1020 hours. The population standard deviation is known to be 80 hours. Test the claim at a 5% significance level.
+### Παράδειγμα 1: Δοκιμή Z με δεξιά ουρά για μέσο όρο ($\sigma$ γνωστό)
+Μια εταιρεία ισχυρίζεται ότι οι νέοι λαμπτήρες της διαρκούν *περισσότερες από* 1000 ώρες κατά μέσο όρο. Ένα δείγμα 40 λαμπτήρων έχει μέση διάρκεια ζωής 1020 ώρες. Η τυπική απόκλιση πληθυσμού είναι γνωστό ότι είναι 80 ώρες. Ελέγξτε τον ισχυρισμό σε επίπεδο σημαντικότητας 5%.
 
-**Step 1: State Hypotheses**
-*   $H_0: \mu \le 1000$ (Status quo)
-*   $H_1: \mu > 1000$ (Claim, right-tailed)
+**Βήμα 1: Κρατήστε υποθέσεις**
+* $H_0: \mu \le 1000$ (Κατάσταση)
+* $H_1: \mu > 1000$ (Αξίωση, δεξιά)
 
-**Step 2: Calculate Test Statistic**
-*   $n = 40, \bar{X} = 1020, \mu_0 = 1000, \sigma = 80$
+**Βήμα 2: Υπολογισμός στατιστικών δοκιμών**
+* $n = 40, \bar{X} = 1020, \mu_0 = 1000, \sigma = 80$
 $$ Z_{stat} = \frac{1020 - 1000}{\frac{80}{\sqrt{40}}} = \frac{20}{12.65} \approx 1.58 $$
 
-**Step 3: Determine Critical Value & Decision**
-*   $\alpha = 0.05$, right-tailed. $Z_{crit} = 1.645$.
-*   Since $1.58 < 1.645$, the statistic is NOT in the rejection region.
-*   **Conclusion:** Fail to reject $H_0$. There is not enough evidence to support the claim that the bulbs last more than 1000 hours.
+**Βήμα 3: Προσδιορισμός κρίσιμης αξίας και απόφασης**
+* $\alpha = 0.05$, δεξιά. $Z_{crit} = 1.645$.
+* Από $1.58 < 1.645$, το στατιστικό ΔΕΝ βρίσκεται στην περιοχή απόρριψης.
+* **Συμπέρασμα:** Αποτυχία απόρριψης $H_0$. Δεν υπάρχουν αρκετά στοιχεία που να υποστηρίζουν τον ισχυρισμό ότι οι λαμπτήρες διαρκούν περισσότερες από 1000 ώρες.
 
-### Example 2: Two-Tailed t-Test for Mean ($\sigma$ unknown)
-A machine is supposed to fill bottles with exactly 500ml of water. A random sample of 15 bottles shows a mean of 496ml and a standard deviation of 8ml. Test if the machine is out of calibration at the $\alpha = 0.01$ level.
+### Παράδειγμα 2: Δοκιμή t-Test δύο ουρών για το μέσο όρο ($\sigma$ άγνωστο)
+Μια μηχανή υποτίθεται ότι γεμίζει μπουκάλια με ακριβώς 500 ml νερό. Ένα τυχαίο δείγμα 15 φιαλών δείχνει μέσο όρο 496 ml και τυπική απόκλιση 8 ml. Ελέγξτε εάν το μηχάνημα είναι εκτός βαθμονόμησης στο επίπεδο $\alpha = 0.01$.
 
-**Step 1: State Hypotheses**
-*   $H_0: \mu = 500$
-*   $H_1: \mu \ne 500$ (Two-tailed)
+**Βήμα 1: Κρατήστε υποθέσεις**
+* $H_0: \mu = 500$
+* $H_1: \mu \ne 500$ (με δύο ουρές)
 
-**Step 2: Calculate Test Statistic**
-*   $n = 15, \bar{X} = 496, \mu_0 = 500, s = 8$. Use t-test ($df = 14$).
+**Βήμα 2: Υπολογισμός στατιστικών δοκιμών**
+* $n = 15, \bar{X} = 496, \mu_0 = 500, s = 8$. Χρησιμοποιήστε το t-test ($df = 14$).
 $$ t_{stat} = \frac{496 - 500}{\frac{8}{\sqrt{15}}} = \frac{-4}{2.066} \approx -1.94 $$
 
-**Step 3: Determine Critical Value & Decision**
-*   $\alpha = 0.01$, two-tailed. $\alpha/2 = 0.005$.
-*   From t-table, $df=14, t_{crit} = \pm 2.977$.
-*   Since $-2.977 < -1.94 < 2.977$, it does not fall in the rejection regions.
-*   **Conclusion:** Fail to reject $H_0$. No significant evidence the machine is out of calibration.
+**Βήμα 3: Προσδιορισμός κρίσιμης αξίας και απόφασης**
+* $\alpha = 0.01$, με δύο ουρές. $\alpha/2 = 0.005$.
+* Από t-table, $df=14, t_{crit} = \pm 2.977$.
+* Από $-2.977 < -1.94 < 2.977$, δεν εμπίπτει στις περιοχές απόρριψης.
+* **Συμπέρασμα:** Αποτυχία απόρριψης $H_0$. Δεν υπάρχουν σημαντικές ενδείξεις ότι το μηχάνημα είναι εκτός βαθμονόμησης.
 
-### Example 3: Left-Tailed Z-Test for Proportion
-A politician claims that *less than* 30% of the population opposes a new policy. In a sample of 500 people, 135 oppose the policy. Test the claim at $\alpha = 0.05$.
+### Παράδειγμα 3: Δοκιμή Z-αριστερής ουράς για αναλογία
+Ένας πολιτικός ισχυρίζεται ότι *λιγότερο από* το 30% του πληθυσμού αντιτίθεται σε μια νέα πολιτική. Σε ένα δείγμα 500 ατόμων, 135 αντιτίθενται στην πολιτική. Δοκιμάστε την αξίωση στο $\alpha = 0.05$.
 
-**Step 1: State Hypotheses**
-*   $H_0: p \ge 0.30$
-*   $H_1: p < 0.30$ (Claim, left-tailed)
+**Βήμα 1: Κρατήστε υποθέσεις**
+* $H_0: p \ge 0.30$
+* $H_1: p < 0.30$ (Αξίωση, αριστερά)
 
-**Step 2: Calculate Test Statistic**
-*   $\hat{p} = \frac{135}{500} = 0.27, p_0 = 0.30, n = 500$
+**Βήμα 2: Υπολογισμός στατιστικών δοκιμών**
+* $\hat{p} = \frac{135}{500} = 0.27, p_0 = 0.30, n = 500$
 $$ Z_{stat} = \frac{0.27 - 0.30}{\sqrt{\frac{0.30(0.70)}{500}}} = \frac{-0.03}{\sqrt{0.00042}} = \frac{-0.03}{0.0205} \approx -1.46 $$
 
-**Step 3: P-Value Approach & Decision**
-*   $p\text{-value} = P(Z < -1.46) = 0.0721$
-*   Since $0.0721 > 0.05 (\alpha)$, we **Fail to reject $H_0$**.
-*   **Conclusion:** Not enough evidence to say less than 30% oppose it.
+**Βήμα 3: Προσέγγιση και απόφαση P-Value**
+* $p\text{-value} = P(Z < -1.46) = 0.0721$
+* Από $0.0721 > 0.05 (\alpha)$, **Αποτυγχάνουμε να απορρίψουμε το $H_0$**.
+* **Συμπέρασμα: ** Δεν υπάρχουν αρκετά στοιχεία για να πούμε ότι λιγότερο από το 30% αντιτίθεται σε αυτό.
 
-### Example 4: Calculating Type I Error ($\alpha$)
-Given a test where $H_0: \mu = 50$ and we reject $H_0$ if our sample mean $\bar{X} > 52$. We have $n=36, \sigma = 6$. What is the probability of a Type I error?
+### Παράδειγμα 4: Υπολογισμός σφάλματος τύπου I ($\alpha$)Δίνεται μια δοκιμή όπου $H_0: \mu = 50$ και απορρίπτουμε $H_0$ εάν το δείγμα μας σημαίνει $\bar{X} > 52$. Έχουμε $n=36, \sigma = 6$. Ποια είναι η πιθανότητα σφάλματος τύπου Ι;
 
-**Step 1: Define Type I Error**
-Type I Error = Rejecting $H_0$ given $H_0$ is true.
+**Βήμα 1: Ορισμός σφάλματος τύπου I **
+Σφάλμα τύπου I = Η απόρριψη $H_0$ δεδομένου $H_0$ είναι αληθής.
 $\alpha = P(\bar{X} > 52 \mid \mu = 50)$
 
-**Step 2: Standardize to Z**
+**Βήμα 2: Τυποποίηση σε Z**
 $$ Z = \frac{52 - 50}{\frac{6}{\sqrt{36}}} = \frac{2}{1} = 2.0 $$
 
-**Step 3: Find Probability**
+**Βήμα 3: Εύρεση πιθανότητας**
 $$ \alpha = P(Z > 2.0) = 1 - 0.9772 = 0.0228 $$
 
-### Example 5: Calculating Type II Error ($\beta$)
-Following Example 4, what is the probability of a Type II error ($\beta$) if the *true* population mean is actually $\mu_A = 53$?
+### Παράδειγμα 5: Υπολογισμός σφάλματος τύπου II ($\beta$)
+Ακολουθώντας το Παράδειγμα 4, ποια είναι η πιθανότητα σφάλματος Τύπου II ($\beta$) εάν ο *αληθινός* μέσος όρος πληθυσμού είναι στην πραγματικότητα $\mu_A = 53$;
 
-**Step 1: Define Type II Error**
-Type II Error = Failing to reject $H_0$ given $H_1$ is true.
-We fail to reject if $\bar{X} \le 52$.
+**Βήμα 1: Ορισμός σφάλματος τύπου II**
+Σφάλμα τύπου II = Η αποτυχία απόρριψης του $H_0$ δεδομένου του $H_1$ είναι αληθές.
+Δεν μπορούμε να απορρίψουμε εάν $\bar{X} \le 52$.
 $\beta = P(\bar{X} \le 52 \mid \mu = 53)$
 
-**Step 2: Standardize using the TRUE mean ($\mu_A = 53$)**
+**Βήμα 2: Τυποποίηση χρησιμοποιώντας τον TRUE μέσο όρο ($\mu_A = 53$)**
 $$ Z = \frac{52 - 53}{\frac{6}{\sqrt{36}}} = \frac{-1}{1} = -1.0 $$
 
-**Step 3: Find Probability**
+**Βήμα 3: Εύρεση πιθανότητας**
 $$ \beta = P(Z \le -1.0) = 0.1587 $$
-*(The Power of the test against $\mu_A = 53$ is $1 - \beta = 0.8413$)*
+*(Η ισχύς της δοκιμής έναντι του $\mu_A = 53$ είναι $1 - \beta = 0.8413$)*
 
-### Example 6: The Connection between CI and Two-Tailed Tests
-You have a 95% confidence interval for $\mu$ given as $[12.5, 18.2]$. If you run a two-tailed hypothesis test $H_0: \mu = 19$ vs $H_1: \mu \ne 19$ at $\alpha = 0.05$, what will the conclusion be?
+### Παράδειγμα 6: Η σύνδεση μεταξύ δοκιμών CI και Two-Tailed
+Έχετε ένα διάστημα εμπιστοσύνης 95% για $\mu$ που δίνεται ως $[12.5, 18.2]$. Εάν εκτελέσετε μια δοκιμή υποθέσεων με δύο ουρές $H_0: \mu = 19$ έναντι $H_1: \mu \ne 19$ στο $\alpha = 0.05$, ποιο θα είναι το συμπέρασμα;
 
-**Step 1: Analyze the Rule**
-A two-tailed hypothesis test at significance level $\alpha$ will reject $H_0$ if the hypothesized value $\mu_0$ is *outside* the corresponding $(1-\alpha)\times 100\%$ confidence interval.
+**Βήμα 1: Αναλύστε τον κανόνα**
+Μια δοκιμή υπόθεσης δύο ουρών σε επίπεδο σημαντικότητας $\alpha$ θα απορρίψει $H_0$ εάν η υποθετική τιμή $\mu_0$ είναι *εκτός* του αντίστοιχου διαστήματος εμπιστοσύνης $(1-\alpha)\times 100\%$.
 
-**Step 2: Check the Value**
-Is 19 inside the interval $[12.5, 18.2]$? No.
+**Βήμα 2: Ελέγξτε την τιμή**
+Είναι το 19 μέσα στο διάστημα $[12.5, 18.2]$; Όχι.
 
-**Step 3: Conclusion**
-Since 19 is outside the 95% confidence interval, we will **Reject $H_0$** at the 5% significance level.
+**Βήμα 3: Συμπέρασμα**
+Επειδή το 19 είναι εκτός του διαστήματος εμπιστοσύνης 95%, θα **Απορρίψουμε $H_0$** στο επίπεδο σημαντικότητας 5%.
 
 ---
 
-### Example 7: The "P-value Doubling" Trap in Two-Tailed Tests (Gotcha Moment)
-A researcher wants to test if a new tutoring method changes exam scores (previously known mean $\mu = 70$, $\sigma = 12$). A sample of 36 students scores an average of 73.5. Calculate the p-value for this test. Is it significant at $\alpha = 0.05$?
+### Παράδειγμα 7: Η παγίδα "Διπλασιασμός τιμής P" σε δοκιμές με δύο ουρές (Gotcha Moment)
+Ένας ερευνητής θέλει να ελέγξει εάν μια νέα μέθοδος διδασκαλίας αλλάζει τις βαθμολογίες των εξετάσεων (προηγουμένως γνωστός μέσος όρος $\mu = 70$, $\sigma = 12$). Ένα δείγμα 36 μαθητών βαθμολογείται κατά μέσο όρο 73,5. Υπολογίστε την τιμή p για αυτήν τη δοκιμή. Είναι σημαντικό στο $\alpha = 0.05$;
 
-#### Gotcha Section Analysis
-The key word here is **changes** (not "increases" or "decreases"). This means it is a **two-tailed test** ($H_0: \mu = 70$, $H_1: \mu \ne 70$). A very common mistake is calculating the area in just *one* tail and calling it the p-value. For a two-tailed test, the p-value is the area in BOTH tails combined!
+#### Ανάλυση ενότητας Gotcha
+Η λέξη κλειδί εδώ είναι **αλλάζει** (όχι "αυξάνεται" ή "μειώνεται"). Αυτό σημαίνει ότι είναι ένα **τεστ με δύο ουρές** ($H_0: \mu = 70$, $H_1: \mu \ne 70$). Ένα πολύ συνηθισμένο λάθος είναι ο υπολογισμός της περιοχής μόνο σε *μία* ουρά και η αποκαλούμενη τιμή p. Για μια δοκιμή δύο ουρών, η τιμή p είναι η περιοχή και στις ΔΥΟ ουρές μαζί!
 
-**Step 1: Calculate the Test Statistic**
+**Βήμα 1: Υπολογίστε τα στατιστικά στοιχεία δοκιμής**
 $$ Z_{stat} = \frac{73.5 - 70}{\frac{12}{\sqrt{36}}} = \frac{3.5}{2} = 1.75 $$
 
-**Step 2: Calculate the Area in One Tail**
-Since $Z = 1.75$ is positive, we look at the right tail.
+**Βήμα 2: Υπολογίστε την περιοχή σε μια ουρά**
+Επειδή το $Z = 1.75$ είναι θετικό, κοιτάμε τη σωστή ουρά.
 $P(Z > 1.75) = 1 - P(Z \le 1.75) = 1 - 0.9599 = 0.0401$
 
-**Step 3: Calculate the TRUE P-value (The Gotcha)**
-Because it is a two-tailed test, we must account for the possibility of extreme results in the other direction.
+**Βήμα 3: Υπολογίστε την TRUE P-value (The Gotcha)**
+Επειδή είναι ένα τεστ δύο ουρών, πρέπει να λάβουμε υπόψη την πιθανότητα ακραίων αποτελεσμάτων προς την άλλη κατεύθυνση.
 $$ p\text{-value} = 2 \times P(Z > |Z_{stat}|) $$
 $$ p\text{-value} = 2 \times 0.0401 = 0.0802 $$
 
-**Step 4: Decision**
-If a student forgot to multiply by 2, they would compare $0.0401 < 0.05$ and incorrectly Reject $H_0$.
-Correct comparison: $0.0802 > 0.05$. Therefore, we **Fail to reject $H_0$**. The change is not statistically significant.
+**Βήμα 4: Απόφαση**
+Εάν ένας μαθητής ξέχασε να πολλαπλασιάσει με το 2, θα συγκρίνει $0.0401 < 0.05$ και θα απέρριπτε λανθασμένα $H_0$.
+Σωστή σύγκριση: $0.0802 > 0.05$. Επομένως, **Αποτυγχάνουμε να απορρίψουμε $H_0$**. Η αλλαγή δεν είναι στατιστικά σημαντική.
 
 ---
 
-### Example 8: $H_0$ Phrasing and the Status Quo Trap (Gotcha Moment)
-An environmental agency asserts that a local river is polluted, claiming that the average concentration of a toxin is *greater than* the safe limit of 5 ppm. To test this, you take 50 water samples, find a mean of 5.2 ppm, and standard deviation of 0.8 ppm. Formulate the hypotheses and explain what a Type I error means in this specific physical context.
+### Παράδειγμα 8: $H_0$ Φράσεις και παγίδα Status Quo (Gotcha Moment)Μια περιβαλλοντική υπηρεσία υποστηρίζει ότι ένα τοπικό ποτάμι είναι μολυσμένο, υποστηρίζοντας ότι η μέση συγκέντρωση μιας τοξίνης είναι *μεγαλύτερη* από το ασφαλές όριο των 5 ppm. Για να το ελέγξετε, παίρνετε 50 δείγματα νερού, βρίσκετε μέση τιμή 5,2 ppm και τυπική απόκλιση 0,8 ppm. Διατυπώστε τις υποθέσεις και εξηγήστε τι σημαίνει ένα σφάλμα τύπου Ι σε αυτό το συγκεκριμένο φυσικό πλαίσιο.
 
-#### Gotcha Section Analysis
-There is a massive trap in how the claim is presented. Students often mistakenly put the *researcher's claim* into $H_0$.
-**Rule:** $H_0$ MUST contain the equality ($=$ or $\le$ or $\ge$). $H_1$ contains the strictly greater than or less than sign ($>$ or $<$). If the claim is "greater than", the claim itself is $H_1$.
-Another trap is contextualizing the error. It's not enough to say "rejecting $H_0$ when true"; you must map it to the physical reality of the river.
+#### Ανάλυση ενότητας Gotcha
+Υπάρχει μια τεράστια παγίδα στο πώς παρουσιάζεται ο ισχυρισμός. Οι μαθητές συχνά τοποθετούν κατά λάθος τον *αξίωση του ερευνητή* στο $H_0$.
+**Κανόνας:** $H_0$ ΠΡΕΠΕΙ να περιέχει την ισότητα ($=$ ή $\le$ ή $\ge$). Το $H_1$ περιέχει το σύμβολο αυστηρά μεγαλύτερο ή μικρότερο από ($>$ ή $<$). Εάν η αξίωση είναι "μεγαλύτερη από", η ίδια η αξίωση είναι $H_1$.
+Μια άλλη παγίδα είναι η δημιουργία συμφραζομένων του σφάλματος. Δεν αρκεί να πούμε "απόρριψη $H_0$ όταν είναι αλήθεια". πρέπει να το αντιστοιχίσετε στη φυσική πραγματικότητα του ποταμού.
 
-**Step 1: Formulate Hypotheses**
-*   The claim is $\mu > 5$. This does not contain equality, so it is $H_1$.
-*   $H_0: \mu \le 5$ (The river is safe / status quo)
-*   $H_1: \mu > 5$ (The river is polluted / agency's claim)
+**Βήμα 1: Διατύπωση υποθέσεων**
+* Η αξίωση είναι $\mu > 5$. Αυτό δεν περιέχει ισότητα, επομένως είναι $H_1$.
+* $H_0: \mu \le 5$ (Το ποτάμι είναι ασφαλές / status quo)
+* $H_1: \mu > 5$ (Το ποτάμι είναι μολυσμένο / ισχυρισμός της υπηρεσίας)
 
-**Step 2: Define Type I Error in Context**
-*   **Statistical Definition:** Rejecting $H_0$ when $H_0$ is true.
-*   **Physical Translation:** We conclude that $H_1$ is true (the river is polluted) when in reality $H_0$ is true (the river is perfectly safe).
-*   **Consequence:** The town might spend millions of dollars cleaning up a river that is not actually polluted, causing a massive waste of resources.
+**Βήμα 2: Ορισμός σφάλματος τύπου I στο πλαίσιο**
+* **Στατιστικός ορισμός:** Απόρριψη $H_0$ όταν το $H_0$ είναι αληθές.
+* **Φυσική μετάφραση:** Συμπεραίνουμε ότι το $H_1$ είναι αλήθεια (το ποτάμι είναι μολυσμένο) ενώ στην πραγματικότητα το $H_0$ είναι αληθινό (το ποτάμι είναι απολύτως ασφαλές).
+* **Συνέπεια:** Η πόλη μπορεί να ξοδέψει εκατομμύρια δολάρια για να καθαρίσει ένα ποτάμι που στην πραγματικότητα δεν είναι μολυσμένο, προκαλώντας τεράστια σπατάλη πόρων.
 
-**Step 3: Define Type II Error in Context (Bonus Analysis)**
-*   **Statistical Definition:** Failing to reject $H_0$ when $H_1$ is true.
-*   **Physical Translation:** We conclude the river is safe ($H_0$), when in reality it IS polluted ($H_1$).
-*   **Consequence:** People drink poisoned water, causing a massive public health crisis.
-*(In this scenario, a Type II error is far more dangerous to human life than a Type I error, which is why the agency might push for a higher $\alpha$ level to reduce $\beta$!)*
+**Βήμα 3: Ορισμός σφάλματος τύπου II στο πλαίσιο (Ανάλυση μπόνους)**
+* **Στατιστικός ορισμός:** Αποτυχία απόρριψης του $H_0$ όταν το $H_1$ είναι αληθές.
+* **Φυσική μετάφραση:** Συμπεραίνουμε ότι ο ποταμός είναι ασφαλής ($H_0$), ενώ στην πραγματικότητα είναι μολυσμένος ($H_1$).
+* **Συνέπεια:** Οι άνθρωποι πίνουν δηλητηριασμένο νερό, προκαλώντας τεράστια κρίση στη δημόσια υγεία.
+*(Σε αυτό το σενάριο, ένα σφάλμα τύπου II είναι πολύ πιο επικίνδυνο για την ανθρώπινη ζωή από ένα σφάλμα τύπου Ι, γι' αυτό ο οργανισμός μπορεί να πιέσει για υψηλότερο επίπεδο $\alpha$ για να μειώσει το $\beta$!)*
 
 
-# Phase 6.4: Sampling Distributions, Chi-Square, t, and F Distributions
+# Φάση 6.4: Κατανομές δειγματοληψίας, κατανομές Chi-Square, t και F
 
-In inferential statistics, we use sample statistics (like the sample mean $\bar{X}$ or sample variance $S^2$) to estimate population parameters (like $\mu$ or $\sigma^2$). The probability distributions of these statistics are called **sampling distributions**.
+Στα στατιστικά συμπερασμάτων, χρησιμοποιούμε στατιστικά δείγματα (όπως η μέση τιμή δείγματος $\bar{X}$ ή η διακύμανση δείγματος $S^2$) για να εκτιμήσουμε παραμέτρους πληθυσμού (όπως $\mu$ ή $\sigma^2$). Οι κατανομές πιθανοτήτων αυτών των στατιστικών ονομάζονται **κατανομές δειγματοληψίας**.
 
 ---
 
-## 1. Distribution of the Sample Variance ($S^2$)
+## 1. Κατανομή της διακύμανσης δείγματος ($S^2$)
 
-Let $X_1, X_2, \dots, X_n$ be a random sample of size $n$ from a **Normal population** $N(\mu, \sigma^2)$. The sample variance is defined as:
+Έστω $X_1, X_2, \dots, X_n$ ένα τυχαίο δείγμα μεγέθους $n$ από έναν **Κανονικό πληθυσμό** $N(\mu, \sigma^2)$. Η διακύμανση του δείγματος ορίζεται ως:
 
 $$S^2 = \frac{1}{n - 1} \sum_{i=1}^{n} (X_i - \bar{X})^2$$
 
-A fundamental theorem in statistics states that:
+Ένα θεμελιώδες θεώρημα στη στατιστική λέει ότι:
 
 $$\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$$
 
-This means that the scaled sample variance follows a Chi-square distribution with $\nu = n-1$ degrees of freedom. Furthermore, $\bar{X}$ and $S^2$ are independent random variables when sampling from a normal population.
+Αυτό σημαίνει ότι η κλιμακούμενη διακύμανση του δείγματος ακολουθεί μια κατανομή Chi-square με $\nu = n-1$ βαθμούς ελευθερίας. Επιπλέον, οι $\bar{X}$ και $S^2$ είναι ανεξάρτητες τυχαίες μεταβλητές κατά τη δειγματοληψία από έναν κανονικό πληθυσμό.
 
 ---
 
-## 2. The Chi-Square ($\chi^2$) Distribution
+## 2. Διανομή Chi-Square ($\chi^2$)
 
-The Chi-square distribution with $\nu$ degrees of freedom is the distribution of the sum of squares of $\nu$ independent standard normal variables:
+Η κατανομή του Τετράγωνου Χ με $\nu$ βαθμούς ελευθερίας είναι η κατανομή του αθροίσματος των τετραγώνων των ανεξάρτητων τυπικών μεταβλητών $\nu$:
 
 $$\chi^2_\nu = \sum_{i=1}^{\nu} Z_i^2, \quad \text{where } Z_i \sim N(0, 1) \text{ i.i.d.}$$
 
-### Properties
-*   **Domain:** $x \ge 0$
-*   **Mean:** $E[\chi^2_\nu] = \nu$
-*   **Variance:** $Var(\chi^2_\nu) = 2\nu$
-*   **Additivity:** If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are independent, then:
+### Ιδιότητες
+* **Τομέας:** $x \ge 0$* **Μέσος όρος: ** $E[\chi^2_\nu] = \nu$
+* **Διακύμανση:** $Var(\chi^2_\nu) = 2\nu$
+* **Προσθετικότητα:** Εάν τα $U \sim \chi^2_{\nu_1}$ και $V \sim \chi^2_{\nu_2}$ είναι ανεξάρτητα, τότε:
     $$U + V \sim \chi^2_{\nu_1 + \nu_2}$$
 
 ---
 
 ## 3. Student's t-Distribution
 
-The t-distribution arises when estimating the mean of a normally distributed population when the sample size is small ($n < 30$) and the population standard deviation $\sigma$ is unknown.
+Η κατανομή t προκύπτει κατά την εκτίμηση του μέσου όρου ενός κανονικά κατανεμημένου πληθυσμού όταν το μέγεθος του δείγματος είναι μικρό ($n < 30$) και η τυπική απόκλιση πληθυσμού $\sigma$ είναι άγνωστη.
 
-### Definition
-If $Z \sim N(0, 1)$ and $W \sim \chi^2_\nu$ are independent, then the random variable:
+### Ορισμός
+Εάν οι $Z \sim N(0, 1)$ και $W \sim \chi^2_\nu$ είναι ανεξάρτητες, τότε η τυχαία μεταβλητή:
 
 $$T = \frac{Z}{\sqrt{W / \nu}} \sim t_\nu$$
 
-follows Student's t-distribution with $\nu$ degrees of freedom.
+ακολουθεί την κατανομή t του Student με $\nu$ βαθμούς ελευθερίας.
 
-### Properties
-*   Symmetric and bell-shaped around 0 (like the standard normal, but with heavier tails).
-*   As $\nu \to \infty$, the t-distribution converges to the standard normal distribution $N(0, 1)$.
+### Ιδιότητες
+* Συμμετρικό και σε σχήμα καμπάνας γύρω στο 0 (όπως το τυπικό κανονικό, αλλά με πιο βαριές ουρές).
+* Ως $\nu \to \infty$, η κατανομή t συγκλίνει στην τυπική κανονική κατανομή $N(0, 1)$.
 
 ---
 
 ## 4. Fisher-Snedecor F-Distribution
 
-The F-distribution is used to compare the variances of two independent normal populations (e.g., in ANOVA or two-sample variance tests).
+Η κατανομή F χρησιμοποιείται για τη σύγκριση των διακυμάνσεων δύο ανεξάρτητων φυσιολογικών πληθυσμών (π.χ. σε δοκιμές διακύμανσης ANOVA ή δύο δειγμάτων).
 
-### Definition
-If $U \sim \chi^2_{d_1}$ and $V \sim \chi^2_{d_2}$ are independent, then the ratio of their scaled variables:
+### Ορισμός
+Εάν οι $U \sim \chi^2_{d_1}$ και $V \sim \chi^2_{d_2}$ είναι ανεξάρτητες, τότε ο λόγος των κλιμακούμενων μεταβλητών τους:
 
 $$F = \frac{U / d_1}{V / d_2} \sim F_{d_1, d_2}$$
 
-follows the F-distribution with $d_1$ (numerator) and $d_2$ (denominator) degrees of freedom.
+ακολουθεί την κατανομή F με $d_1$ (αριθμητής) και $d_2$ (παρονομαστής) βαθμούς ελευθερίας.
 
-### Properties
-*   **Domain:** $x > 0$
-*   **Reciprocal Property:** If $F \sim F_{d_1, d_2}$, then:
+### Ιδιότητες
+* **Τομέας:** $x > 0$
+* **Αμοιβαία ιδιότητα:** Εάν $F \sim F_{d_1, d_2}$, τότε:
     $$\frac{1}{F} \sim F_{d_2, d_1}$$
 
 ---
 
-## 5. Solved Exercises (9 Examples)
+## 5. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Probability of Sample Variance
-**Problem:** A random sample of size $n = 10$ is taken from a normal population with variance $\sigma^2 = 4$. Find the probability that the sample variance $S^2$ is less than 5.25. (Use the Chi-square table values: $P(\chi^2_9 \le 11.81) = 0.77$, $P(\chi^2_9 \le 16.92) = 0.95$).
+### Άσκηση 1: Πιθανότητα Δειγματικής Διακύμανσης
+**Πρόβλημα:** Ένα τυχαίο δείγμα μεγέθους $n = 10$ λαμβάνεται από έναν κανονικό πληθυσμό με διακύμανση $\sigma^2 = 4$. Βρείτε την πιθανότητα η διακύμανση του δείγματος $S^2$ να είναι μικρότερη από 5,25. (Χρησιμοποιήστε τις τιμές του πίνακα Chi-square: $P(\chi^2_9 \le 11.81) = 0.77$, $P(\chi^2_9 \le 16.92) = 0.95$).
 
-**Solution:**
-- **Step 1: Set up the Chi-square transformation.**
-  We know that $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
-  Substitute $n = 10$ and $\sigma^2 = 4$:
+**Λύση:**
+- **Βήμα 1: Ρυθμίστε τον μετασχηματισμό Τετράγωνο Χ.**
+  Γνωρίζουμε ότι $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+  Αντικαταστήστε $n = 10$ και $\sigma^2 = 4$:
   $$\frac{9 S^2}{4} \sim \chi^2_9$$
-- **Step 2: WIP State.**
-  We want to find $P(S^2 < 5.25)$:
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε να βρούμε $P(S^2 < 5.25)$:
   $$P(S^2 < 5.25) = P\left(\frac{9 S^2}{4} < \frac{9 \cdot 5.25}{4}\right) = P\left(\chi^2_9 < \frac{47.25}{4}\right)$$
-  Compute the fraction:
+  Υπολογίστε το κλάσμα:
   $$\frac{47.25}{4} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $\frac{47.25}{4} = 11.8125 \approx 11.81$.
   - $P(S^2 < 5.25) \approx P(\chi^2_9 < 11.81) = 0.77$.
 
 ---
 
-### Exercise 2: Expected Value and Variance of Sample Variance
-**Problem:** A sample of size $n = 25$ is drawn from a normal population with variance $\sigma^2 = 8$. Find the mean and variance of the sample variance $S^2$.
+### Άσκηση 2: Αναμενόμενη τιμή και διακύμανση της διακύμανσης δείγματος
+**Πρόβλημα:** Ένα δείγμα μεγέθους $n = 25$ λαμβάνεται από έναν κανονικό πληθυσμό με διακύμανση $\sigma^2 = 8$. Βρείτε τον μέσο όρο και τη διακύμανση της διακύμανσης του δείγματος $S^2$.
 
-**Solution:**
-- **Step 1: Express $S^2$ in terms of a Chi-square variable.**
-  Let $Y = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
-  So, $S^2 = \frac{\sigma^2}{n-1} Y$.
-- **Step 2: WIP State.**
-  Compute the mean:
+**Λύση:**
+- **Βήμα 1: Εκφράστε $S^2$ ως μεταβλητή Τετράγωνο Χ.**
+  Αφήστε $Y = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$.
+  Λοιπόν, $S^2 = \frac{\sigma^2}{n-1} Y$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Υπολογίστε τον μέσο όρο:
   $$E[S^2] = E\left[ \frac{\sigma^2}{n-1} Y \right] = \frac{\sigma^2}{n-1} E[Y]$$
-  Since $Y \sim \chi^2_{n-1}$, $E[Y] = n-1 = 24$.
+  Από $Y \sim \chi^2_{n-1}$, $E[Y] = n-1 = 24$.
   $$E[S^2] = \frac{8}{24} \cdot 24 = 8$$
-  Compute the variance:
+  Υπολογίστε τη διακύμανση:
   $$Var(S^2) = Var\left( \frac{\sigma^2}{n-1} Y \right) = \left( \frac{\sigma^2}{n-1} \right)^2 Var(Y)$$
-  Since $Y \sim \chi^2_{n-1}$, $Var(Y) = 2(n-1) = 48$.
+  Από $Y \sim \chi^2_{n-1}$, $Var(Y) = 2(n-1) = 48$.
   $$Var(S^2) = \left(\frac{8}{24}\right)^2 \cdot 48 = \left(\frac{1}{3}\right)^2 \cdot 48 = \frac{48}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= 9$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= 9$.
   - $Var(S^2) = \frac{48}{9} = \frac{16}{3} \approx 5.3333$.
-  *(Important check: Notice that $E[S^2] = \sigma^2$, which proves that the sample variance is an unbiased estimator of the population variance!).*
+  *(Σημαντικός έλεγχος: Παρατηρήστε ότι $E[S^2] = \sigma^2$, το οποίο αποδεικνύει ότι η διακύμανση του δείγματος είναι ένας αμερόληπτος εκτιμητής της διακύμανσης του πληθυσμού!).*
 
 ---
 
-### Exercise 3: Sum of Independent Chi-Squares
-**Problem:** Let $U \sim \chi^2_{10}$ and $V \sim \chi^2_{15}$ be independent. What is the distribution of $W = U + V$? Find $E[W]$ and $Var(W)$.
+### Άσκηση 3: Άθροισμα Ανεξάρτητων Τετράγωνων Χ
+**Πρόβλημα:** Αφήστε τα $U \sim \chi^2_{10}$ και $V \sim \chi^2_{15}$ να είναι ανεξάρτητα. Ποια είναι η κατανομή του $W = U + V$; Βρείτε $E[W]$ και $Var(W)$.
 
-**Solution:**
-- **Step 1: Identify the distribution of the sum.**
-  By the additivity property of independent Chi-square variables:
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε την κατανομή του αθροίσματος.**
+  Με την ιδιότητα προσθετικότητας των ανεξάρτητων μεταβλητών Χ-τετράγωνο:
   $$W = U + V \sim \chi^2_{10 + 15} \implies W \sim \chi^2_{25}$$
-- **Step 2: WIP State.**
-  For a Chi-square variable with $\nu = 25$ degrees of freedom:
-  - $E[W] = \nu = 25$.
-  - $Var(W) = 2\nu = 2 \cdot ?$.
-- **Step 3: Final Calculation.**
+- **Βήμα 2: Κατάσταση WIP.**
+  Για μια μεταβλητή Chi-square με $\nu = 25$ βαθμούς ελευθερίας:
+  - $E[W] = \nu = 25$.- $Var(W) = 2\nu = 2 \cdot ?$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $Var(W) = 50$.
 
 ---
 
-### Exercise 4: Constructing a t-Statistic (Gotcha Moment)
-**Problem:** Let $Z \sim N(0, 1)$ and $U \sim \chi^2_9$ be independent. Does $T = \frac{Z}{\sqrt{U}}$ follow a t-distribution? If not, modify it so it does.
+### Άσκηση 4: Κατασκευή t-Statistic (Στιγμή Gotcha)
+**Πρόβλημα:** Αφήστε τα $Z \sim N(0, 1)$ και $U \sim \chi^2_9$ να είναι ανεξάρτητα. Η $T = \frac{Z}{\sqrt{U}}$ ακολουθεί μια κατανομή t; Εάν όχι, τροποποιήστε το έτσι ώστε να γίνει.
 
-**Solution:**
-- **Step 1: Match the t-distribution definition.**
-  The definition of a t-variable is:
+**Λύση:**
+- **Βήμα 1: Αντιστοιχίστε τον ορισμό της κατανομής t.**
+  Ο ορισμός της μεταβλητής t είναι:
   $$T = \frac{Z}{\sqrt{W / \nu}}$$
-- **Step 2: WIP State.**
-  Looking at $T = \frac{Z}{\sqrt{U}}$, the Chi-square variable $U$ (which has $\nu = 9$) is not divided by its degrees of freedom.
-  Therefore, $T$ does **not** follow a t-distribution.
-- **Step 3: Final Calculation.**
-  To correct it, we must divide $U$ by 9 under the square root:
+- **Βήμα 2: Κατάσταση WIP.**
+  Κοιτάζοντας το $T = \frac{Z}{\sqrt{U}}$, η μεταβλητή Χ-τετράγωνο $U$ (η οποία έχει $\nu = 9$) δεν διαιρείται με τους βαθμούς ελευθερίας της.
+  Επομένως, το $T$ **δεν** ακολουθεί μια κατανομή t.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Για να το διορθώσουμε, πρέπει να διαιρέσουμε το $U$ με το 9 κάτω από την τετραγωνική ρίζα:
   $$T_{correct} = \frac{Z}{\sqrt{U / 9}} \sim t_9.$$
 
 ---
 
-### Exercise 5: F-Distribution Bounds Transformation
-**Problem:** Let $F \sim F_{5, 8}$. Find the value of $c$ such that $P(F > c) = 0.05$, given that for a variable $Y \sim F_{8, 5}$, we have $P(Y \le 4.82) = 0.95$.
+### Άσκηση 5: Μετασχηματισμός ορίων κατανομής F
+**Πρόβλημα:** Αφήστε $F \sim F_{5, 8}$. Βρείτε την τιμή του $c$ έτσι ώστε $P(F > c) = 0.05$, δεδομένου ότι για μια μεταβλητή $Y \sim F_{8, 5}$, έχουμε $P(Y \le 4.82) = 0.95$.
 
-**Solution:**
-- **Step 1: Use the reciprocal property of the F-distribution.**
-  If $F \sim F_{5, 8}$, then $\frac{1}{F} \sim F_{8, 5}$.
-- **Step 2: WIP State.**
-  We write the probability statement:
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε την αμοιβαία ιδιότητα της κατανομής F.**
+  Αν $F \sim F_{5, 8}$, τότε $\frac{1}{F} \sim F_{8, 5}$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Γράφουμε τη δήλωση πιθανότητας:
   $$P(F > c) = 0.05 \implies P\left(\frac{1}{F} < \frac{1}{c}\right) = 0.05$$
-  Since $\frac{1}{F} \sim F_{8, 5}$, this is equivalent to:
+  Από $\frac{1}{F} \sim F_{8, 5}$, αυτό ισοδυναμεί με:
   $$P\left(Y < \frac{1}{c}\right) = 0.05 \implies P\left(Y \ge \frac{1}{c}\right) = 0.95$$
-  Wait, the problem states $P(Y \le 4.82) = 0.95 \implies P(Y > 4.82) = 0.05$.
-  Let's reformulate:
+  Περιμένετε, το πρόβλημα δηλώνει $P(Y \le 4.82) = 0.95 \implies P(Y > 4.82) = 0.05$.
+  Ας επαναδιατυπώσουμε:
   $$P(F > c) = 0.05 \implies P\left(\frac{1}{F} < \frac{1}{c}\right) = 0.05$$
-  This means the left-tail probability of $Y = 1/F$ is 0.05.
-  We know that for $Y \sim F_{8, 5}$, $P(Y > 4.82) = 0.05 \implies P(Y \le 4.82) = 0.95$.
-  By reciprocal properties of critical values:
+  Αυτό σημαίνει ότι η πιθανότητα της αριστερής ουράς του $Y = 1/F$ είναι 0,05.
+  Γνωρίζουμε ότι για $Y \sim F_{8, 5}$, $P(Y > 4.82) = 0.05 \implies P(Y \le 4.82) = 0.95$.
+  Με αμοιβαίες ιδιότητες κρίσιμων τιμών:
   $$c = F_{0.05}(5, 8) = \frac{1}{F_{0.95}(8, 5)} = \frac{1}{?}$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $F_{0.95}(8, 5) = 4.82$.
   - $c = \frac{1}{4.82} \approx 0.2075$.
 
 ---
 
-### Exercise 6: Normal Approximation of Chi-Square
-**Problem:** For a Chi-square variable $X \sim \chi^2_{100}$, use the Central Limit Theorem to approximate $P(X \le 120)$. (Recall $\Phi(2) = 0.9772$).
+### Άσκηση 6: Κανονική προσέγγιση του Τετράγωνου Χ
+**Πρόβλημα:** Για μια μεταβλητή Chi-square $X \sim \chi^2_{100}$, χρησιμοποιήστε το Θεώρημα Κεντρικού ορίου για να προσεγγίσετε το $P(X \le 120)$. (Ανάκληση $\Phi(2) = 0.9772$).
 
-**Solution:**
-- **Step 1: Find the mean and variance of $X$.**
+**Λύση:**
+- **Βήμα 1: Βρείτε τη μέση τιμή και τη διακύμανση του $X$.**
   - $\mu = \nu = 100$
   - $\sigma^2 = 2\nu = 200 \implies \sigma = \sqrt{200} \approx 14.14$.
-- **Step 2: WIP State.**
-  Standardize the variable:
+- **Βήμα 2: Κατάσταση WIP.**
+  Τυποποιήστε τη μεταβλητή:
   $$P(X \le 120) = P\left(\frac{X - 100}{14.14} \le \frac{120 - 100}{14.14}\right) \approx P\left(Z \le \frac{20}{14.14}\right)$$
-  Compute the fraction:
+  Υπολογίστε το κλάσμα:
   $$\frac{20}{14.14} = ?$$
-- **Step 3: Final Calculation.**
-  - $\frac{20}{14.14} \approx 1.414$ (which is exactly $\sqrt{2}$).
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - $\frac{20}{14.14} \approx 1.414$ (που είναι ακριβώς $\sqrt{2}$).
   - $P(Z \le 1.41) = \Phi(1.41) \approx 0.9207$.
 
 ---
 
-### Exercise 7: Mean of F-Distribution
-**Problem:** Calculate the expected value of $F \sim F_{d_1, d_2}$ where $d_2 > 2$. Use the fact that if $V \sim \chi^2_{d_2}$, then $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
+### Άσκηση 7: Μέσος όρος Κατανομής F
+**Πρόβλημα:** Υπολογίστε την αναμενόμενη τιμή του $F \sim F_{d_1, d_2}$ όπου $d_2 > 2$. Χρησιμοποιήστε το γεγονός ότι αν $V \sim \chi^2_{d_2}$, τότε $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
 
-**Solution:**
-- **Step 1: Write $F$ in terms of $U$ and $V$.**
+**Λύση:**
+- **Βήμα 1: Γράψτε $F$ με όρους $U$ και $V$.**
   $$F = \frac{U / d_1}{V / d_2} = \frac{d_2}{d_1} \cdot U \cdot \frac{1}{V}$$
-- **Step 2: WIP State.**
-  Since $U \sim \chi^2_{d_1}$ and $V \sim \chi^2_{d_2}$ are independent:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφόσον τα $U \sim \chi^2_{d_1}$ και $V \sim \chi^2_{d_2}$ είναι ανεξάρτητα:
   $$E[F] = \frac{d_2}{d_1} \cdot E[U] \cdot E\left[\frac{1}{V}\right]$$
-  We know $E[U] = d_1$ and $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
+  Γνωρίζουμε $E[U] = d_1$ και $E\left[\frac{1}{V}\right] = \frac{1}{d_2 - 2}$.
   $$E[F] = \frac{d_2}{d_1} \cdot d_1 \cdot \frac{1}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= d_2 - 2$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= d_2 - 2$.
   - $E[F] = \frac{d_2}{d_2 - 2}$.
-  *(Note: The mean of an F-distribution depends solely on the denominator degrees of freedom $d_2$!).*
+  *(Σημείωση: Ο μέσος όρος μιας κατανομής F εξαρτάται αποκλειστικά από τους παρονομαστές βαθμούς ελευθερίας $d_2$!).*
 
 ---
 
-### Exercise 8: Sample Variance Ratio (ANOVA Precursor)
-**Problem:** We draw a sample of size $n_1 = 6$ from population 1 ($N(\mu_1, \sigma^2)$) and a sample of size $n_2 = 11$ from population 2 ($N(\mu_2, \sigma^2)$). Find the distribution of the ratio of their sample variances, $\frac{S_1^2}{S_2^2}$.
+### Άσκηση 8: Δειγματικός λόγος διακύμανσης (πρόδρομος ANOVA)
+**Πρόβλημα:** Σχεδιάζουμε ένα δείγμα μεγέθους $n_1 = 6$ από τον πληθυσμό 1 ($N(\mu_1, \sigma^2)$) και ένα δείγμα μεγέθους $n_2 = 11$ από τον πληθυσμό 2 ($N(\mu_2, \sigma^2)$). Βρείτε την κατανομή του λόγου των δειγματοληπτικών αποκλίσεων τους, $\frac{S_1^2}{S_2^2}$.
 
-**Solution:**
-- **Step 2: WIP State.**
-  We know that:
+**Λύση:**
+- **Βήμα 2: Κατάσταση WIP.**
+  Γνωρίζουμε ότι:
   - $U = \frac{(n_1 - 1)S_1^2}{\sigma^2} \sim \chi^2_{n_1 - 1} \implies U \sim \chi^2_5$
   - $V = \frac{(n_2 - 1)S_2^2}{\sigma^2} \sim \chi^2_{n_2 - 1} \implies V \sim \chi^2_{10}$
-  By the definition of the F-distribution:
+  Σύμφωνα με τον ορισμό της κατανομής F:
   $$\frac{U / 5}{V / 10} \sim F_{5, 10}$$
-  Substitute the expressions for $U$ and $V$:
-  $$\frac{\frac{(n_1 - 1)S_1^2}{\sigma^2} \cdot \frac{1}{n_1 - 1}}{\frac{(n_2 - 1)S_2^2}{\sigma^2} \cdot \frac{1}{n_2 - 1}} = \frac{\frac{S_1^2}{\sigma^2}}{\frac{S_2^2}{\sigma^2}} = ?$$
-- **Step 3: Final Calculation.**
-  - The ratio simplifies to $\frac{S_1^2}{S_2^2}$.
-  - Thus, $\frac{S_1^2}{S_2^2} \sim F_{5, 10}$.
+  Αντικαταστήστε τις εκφράσεις για $U$ και $V$:
+  $$\frac{\frac{(n_1 - 1)S_1^2}{\sigma^2} \cdot \frac{1}{n_1 - 1}}{\frac{(n_2 - 1)S_2^2}{\sigma^2} \cdot \frac{1}{n_2 - 1}} = \frac{\frac{S_1^2}{\sigma^2}}{\frac{S_2^2}{\sigma^2}} = ?$$- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Η αναλογία απλοποιείται σε $\frac{S_1^2}{S_2^2}$.
+  - Έτσι, $\frac{S_1^2}{S_2^2} \sim F_{5, 10}$.
 
 ---
 
-### Exercise 9: Probability Bounds for t-Distribution
-**Problem:** Let $T \sim t_{15}$. If $P(T > 2.131) = 0.025$, find $P(-2.131 < T < 2.131)$.
+### Άσκηση 9: Όρια πιθανότητας για t-Distribution
+**Πρόβλημα:** Αφήστε $T \sim t_{15}$. Εάν $P(T > 2.131) = 0.025$, βρείτε $P(-2.131 < T < 2.131)$.
 
-**Solution:**
-- **Step 1: Use symmetry of the t-distribution.**
-  Since the t-distribution is symmetric about 0:
+**Λύση:**
+- **Βήμα 1: Χρησιμοποιήστε τη συμμετρία της κατανομής t.**
+  Δεδομένου ότι η κατανομή t είναι συμμετρική περίπου 0:
   $$P(T < -2.131) = P(T > 2.131) = 0.025$$
-- **Step 2: WIP State.**
-  The total area under the PDF is 1. The two tails combined contain:
+- **Βήμα 2: Κατάσταση WIP.**
+  Η συνολική επιφάνεια κάτω από το PDF είναι 1. Οι δύο ουρές μαζί περιέχουν:
   $$P(T \le -2.131) + P(T \ge 2.131) = 0.025 + 0.025 = 0.05$$
-  The area in the middle is the complement:
+  Η περιοχή στη μέση είναι το συμπλήρωμα:
   $$P(-2.131 < T < 2.131) = 1 - 0.05 = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(-2.131 < T < 2.131) = 0.95.$$
 
 
-# Phase 6.5: Probability Inequalities and Laws of Large Numbers
+# Φάση 6.5: Ανισώσεις πιθανοτήτων και νόμοι μεγάλων αριθμών
 
-This file covers fundamental probability bounds (**Markov's Inequality** and **Chebyshev's Inequality**) and the asymptotic behaviors of sample averages (**Weak and Strong Laws of Large Numbers**).
+Αυτό το αρχείο καλύπτει τα θεμελιώδη όρια πιθανότητας (**Ανισότητα του Markov** και **Ανισότητα του Chebyshev**) και τις ασυμπτωτικές συμπεριφορές των μέσων όρων του δείγματος (**Αδύναμοι και ισχυροί νόμοι μεγάλων αριθμών**).
 
 ---
 
-## 1. Probability Inequalities
+## 1. Ανισώσεις πιθανοτήτων
 
-Probability inequalities allow us to bound the probability of tail events when the exact distribution of a random variable is unknown or complex, requiring only its moments (like mean and variance).
+Οι ανισότητες πιθανοτήτων μας επιτρέπουν να δεσμεύσουμε την πιθανότητα γεγονότων ουράς όταν η ακριβής κατανομή μιας τυχαίας μεταβλητής είναι άγνωστη ή σύνθετη, απαιτώντας μόνο τις ροπές της (όπως ο μέσος όρος και η διακύμανση).
 
-### 1.1 Markov's Inequality
-Let $X$ be a **non-negative** random variable ($X \ge 0$). For any constant $a > 0$:
+### 1.1 Η ανισότητα του Markov
+Έστω $X$ μια **μη αρνητική** τυχαία μεταβλητή ($X \ge 0$). Για οποιαδήποτε σταθερά $a > 0$:
 
 $$P(X \ge a) \le \frac{E[X]}{a}$$
 
-### 1.2 Chebyshev's Inequality
-Let $X$ be any random variable with mean $\mu$ and variance $\sigma^2 > 0$. For any constant $\epsilon > 0$:
+### 1.2 Η ανισότητα του Chebyshev
+Έστω $X$ οποιαδήποτε τυχαία μεταβλητή με μέσο όρο $\mu$ και διακύμανση $\sigma^2 > 0$. Για οποιαδήποτε σταθερά $\epsilon > 0$:
 
 $$P(|X - \mu| \ge \epsilon) \le \frac{Var(X)}{\epsilon^2}$$
 
-Alternatively, setting $\epsilon = k\sigma$ (where $k > 0$ is the number of standard deviations from the mean):
+Εναλλακτικά, ορίζοντας $\epsilon = k\sigma$ (όπου $k > 0$ είναι ο αριθμός των τυπικών αποκλίσεων από τον μέσο όρο):
 
 $$P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}$$
 
-This states that the probability of any random variable falling more than $k$ standard deviations away from its mean is at most $1/k^2$. E.g., for $k=2$, at least $75\%$ of the data must lie within 2 standard deviations of the mean.
+Αυτό δηλώνει ότι η πιθανότητα οποιαδήποτε τυχαία μεταβλητή να πέσει περισσότερο από $k$ τυπικές αποκλίσεις μακριά από τον μέσο όρο της είναι το πολύ $1/k^2$. Για παράδειγμα, για $k=2$, τουλάχιστον $75\%$ από τα δεδομένα πρέπει να βρίσκονται εντός 2 τυπικών αποκλίσεων από τον μέσο όρο.
 
 ---
 
-## 2. Laws of Large Numbers (LLN)
+## 2. Νόμοι των μεγάλων αριθμών (LLN)
 
-Let $X_1, X_2, \dots$ be a sequence of independent and identically distributed (i.i.d.) random variables, each with mean $E[X_i] = \mu$ and variance $Var(X_i) = \sigma^2$. The sample mean is:
+Έστω $X_1, X_2, \dots$ μια ακολουθία ανεξάρτητων και πανομοιότυπα κατανεμημένων (i.i.d.) τυχαίων μεταβλητών, η καθεμία με μέσο όρο $E[X_i] = \mu$ και διακύμανση $Var(X_i) = \sigma^2$. Ο μέσος όρος του δείγματος είναι:
 
 $$\bar{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i$$
 
-### 2.1 The Weak Law of Large Numbers (WLLN)
-As the sample size $n$ approaches infinity, the sample mean converges in **probability** to the population mean $\mu$. That is, for any $\epsilon > 0$:
+### 2.1 Ο αδύναμος νόμος των μεγάλων αριθμών (WLLN)
+Καθώς το μέγεθος του δείγματος $n$ πλησιάζει το άπειρο, ο μέσος όρος του δείγματος συγκλίνει κατά **πιθανότητα** στον μέσο πληθυσμό $\mu$. Δηλαδή, για οποιοδήποτε $\epsilon > 0$:
 
 $$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) = 0$$
 
-### 2.2 The Strong Law of Large Numbers (SLLN)
-As the sample size $n$ approaches infinity, the sample mean converges **almost surely** (with probability 1) to the population mean $\mu$:
+### 2.2 Ο ισχυρός νόμος των μεγάλων αριθμών (SLLN)
+Καθώς το μέγεθος του δείγματος $n$ πλησιάζει το άπειρο, ο μέσος όρος του δείγματος συγκλίνει **σχεδόν σίγουρα** (με πιθανότητα 1) στον μέσο πληθυσμό $\mu$:
 
 $$P\left( \lim_{n \to \infty} \bar{X}_n = \mu \right) = 1$$
 
 ---
 
-## 3. Solved Exercises (9 Examples)
+## 3. Λυμένες Ασκήσεις (9 Παραδείγματα)
 
-### Exercise 1: Basic Markov's Inequality
-**Problem:** A post office handles an average of 10,000 letters per day. What is the maximum probability that it will handle at least 15,000 letters tomorrow?
+### Άσκηση 1: Βασική ανισότητα Markov
+**Πρόβλημα:** Ένα ταχυδρομείο χειρίζεται κατά μέσο όρο 10.000 επιστολές την ημέρα. Ποια είναι η μέγιστη πιθανότητα να χειριστεί τουλάχιστον 15.000 γράμματα αύριο;
 
-**Solution:**
-- **Step 1: Check conditions and identify parameters.**
-  The number of letters $X \ge 0$, and we are given $E[X] = 10,000$.
-- **Step 2: WIP State.**
-  Apply Markov's Inequality with $a = 15,000$:
+**Λύση:**
+- **Βήμα 1: Ελέγξτε τις συνθήκες και προσδιορίστε τις παραμέτρους.**
+  Ο αριθμός των γραμμάτων $X \ge 0$, και μας δίνεται $E[X] = 10,000$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανίσωση του Markov με $a = 15,000$:
   $$P(X \ge 15,000) \le \frac{E[X]}{15,000} = \frac{10,000}{15,000} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(X \ge 15,000) \le \frac{2}{3} \approx 0.6667.$$
 
 ---
 
-### Exercise 2: Basic Chebyshev's Inequality
-**Problem:** The height of adults in a city has a mean of 170 cm and a standard deviation of 8 cm. Find the upper bound for the probability that a randomly chosen adult has a height outside the range $(154 \text{ cm}, 186 \text{ cm})$.
+### Άσκηση 2: Βασική ανισότητα του Chebyshev
+**Πρόβλημα:** Το ύψος των ενηλίκων σε μια πόλη έχει μέσο όρο 170 cm και τυπική απόκλιση 8 cm. Βρείτε το άνω όριο για την πιθανότητα ένας τυχαία επιλεγμένος ενήλικας να έχει ύψος εκτός του εύρους $(154 \text{ cm}, 186 \text{ cm})$.
 
-**Solution:**
-- **Step 1: Map the range to the inequality format $|X - \mu| \ge \epsilon$.**
+**Διάλυμα:**- **Βήμα 1: Αντιστοιχίστε το εύρος στη μορφή ανισότητας $|X - \mu| \ge \epsilon$.**
   - $\mu = 170$
   - $\sigma = 8 \implies Var(X) = 64$.
-  - The range $(154, 186)$ is $(170 - 16, 170 + 16)$, which corresponds to $\epsilon = 16$.
-- **Step 2: WIP State.**
-  Apply Chebyshev's Inequality:
+  - Το εύρος $(154, 186)$ είναι $(170 - 16, 170 + 16)$, το οποίο αντιστοιχεί σε $\epsilon = 16$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Chebyshev:
   $$P(|X - 170| \ge 16) \le \frac{Var(X)}{16^2} = \frac{64}{256} = ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$P(|X - 170| \ge 16) \le \frac{1}{4} = 0.25.$$
 
 ---
 
-### Exercise 3: Chebyshev's Inequality vs. Normal Distribution
-**Problem:** For the height data in Exercise 2 (assuming height is normally distributed), find the exact probability of being outside $(154 \text{ cm}, 186 \text{ cm})$, and compare it to Chebyshev's bound. (Recall $\Phi(2) = 0.9772$).
+### Άσκηση 3: Η ανισότητα του Chebyshev έναντι της κανονικής κατανομής
+**Πρόβλημα:** Για τα δεδομένα ύψους στην Άσκηση 2 (υποθέτοντας ότι το ύψος κατανέμεται κανονικά), βρείτε την ακριβή πιθανότητα να βρίσκεστε εκτός $(154 \text{ cm}, 186 \text{ cm})$ και συγκρίνετε το με το όριο του Chebyshev. (Ανάκληση $\Phi(2) = 0.9772$).
 
-**Solution:**
-- **Step 1: Convert the range to Z-scores.**
-  - Lower bound Z-score: $z_1 = \frac{154 - 170}{8} = -2$
-  - Upper bound Z-score: $z_2 = \frac{186 - 170}{8} = 2$
-- **Step 2: WIP State.**
-  Calculate the exact probability:
+**Λύση:**
+- **Βήμα 1: Μετατρέψτε το εύρος σε βαθμολογίες Z.**
+  - Κατώτερο όριο Z-score: $z_1 = \frac{154 - 170}{8} = -2$
+  - Πάνω όριο Z-score: $z_2 = \frac{186 - 170}{8} = 2$
+- **Βήμα 2: Κατάσταση WIP.**
+  Υπολογίστε την ακριβή πιθανότητα:
   $$P(|Z| \ge 2) = 2 \cdot P(Z < -2) = 2(1 - \Phi(2)) = 2(1 - 0.9772) = 2 \cdot ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   - $2 \cdot 0.0228 = 0.0456$.
-  **Comparison:** Chebyshev's bound is $0.25$, which is much wider than the exact probability $0.0456$. This illustrates that while Chebyshev's inequality is guaranteed to hold for *any* distribution, it can be very conservative for specific distributions like the normal distribution.
+  **Σύγκριση:** Το όριο του Chebyshev είναι $0.25$, το οποίο είναι πολύ μεγαλύτερο από την ακριβή πιθανότητα $0.0456$. Αυτό δείχνει ότι ενώ η ανισότητα του Chebyshev είναι εγγυημένη ότι ισχύει για *οποιαδήποτε* κατανομή, μπορεί να είναι πολύ συντηρητική για συγκεκριμένες κατανομές όπως η κανονική κατανομή.
 
 ---
 
-### Exercise 4: Sample Size Determination using Chebyshev
-**Problem:** A coin is flipped $n$ times. We want to estimate the probability of heads $p$ using the sample proportion $\hat{p}_n$. Use Chebyshev's inequality to find the minimum number of flips $n$ required to be at least $95\%$ confident that $\hat{p}_n$ is within $0.05$ of the true probability $p$.
+### Άσκηση 4: Προσδιορισμός μεγέθους δείγματος χρησιμοποιώντας Chebyshev
+**Πρόβλημα:** Ένα νόμισμα αναποδογυρίστηκε $n$ φορές. Θέλουμε να υπολογίσουμε την πιθανότητα των κεφαλών $p$ χρησιμοποιώντας την αναλογία δείγματος $\hat{p}_n$. Χρησιμοποιήστε την ανισότητα του Chebyshev για να βρείτε τον ελάχιστο αριθμό αναστροφών $n$ που απαιτούνται για να είστε τουλάχιστον $95\%$ σίγουροι ότι το $\hat{p}_n$ είναι εντός $0.05$ της πραγματικής πιθανότητας $p$.
 
-**Solution:**
-- **Step 1: Identify mean and variance of $\hat{p}_n$.**
-  Let $X_i \sim Bernoulli(p)$ for $i=1,\dots,n$.
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τη μέση τιμή και τη διακύμανση του $\hat{p}_n$.**
+  Αφήστε $X_i \sim Bernoulli(p)$ για $i=1,\dots,n$.
   - $E[\hat{p}_n] = p$
   - $Var(\hat{p}_n) = \frac{p(1-p)}{n}$.
-- **Step 2: WIP State.**
-  We want to find $n$ such that:
+- **Βήμα 2: Κατάσταση WIP.**
+  Θέλουμε να βρούμε το $n$ έτσι ώστε:
   $$P(|\hat{p}_n - p| < 0.05) \ge 0.95 \implies P(|\hat{p}_n - p| \ge 0.05) \le 0.05$$
-  Apply Chebyshev's Inequality:
+  Εφαρμόστε την ανισότητα του Chebyshev:
   $$P(|\hat{p}_n - p| \ge 0.05) \le \frac{Var(\hat{p}_n)}{0.05^2} = \frac{p(1-p)}{n \cdot 0.0025}$$
-  Since we don't know $p$, we use the worst-case variance value, which occurs at $p = 0.5 \implies p(1-p) = 0.25$.
+  Εφόσον δεν γνωρίζουμε το $p$, χρησιμοποιούμε την τιμή διακύμανσης στη χειρότερη περίπτωση, η οποία εμφανίζεται στο $p = 0.5 \implies p(1-p) = 0.25$.
   $$P(|\hat{p}_n - p| \ge 0.05) \le \frac{0.25}{n \cdot 0.0025} = \frac{100}{n}$$
-  We set this upper bound $\le 0.05$:
+  Ορίσαμε αυτό το άνω όριο $\le 0.05$:
   $$\frac{100}{n} \le 0.05 \implies n \ge ?$$
-- **Step 3: Final Calculation.**
+- **Βήμα 3: Τελικός Υπολογισμός.**
   $$n \ge \frac{100}{0.05} = 2000 \text{ flips}.$$
 
 ---
 
-### Exercise 5: Bound for Exponential Variable (Markov vs Chebyshev)
-**Problem:** Let $X \sim Exp(1)$. Compare the upper bounds of $P(X \ge 3)$ given by Markov's and Chebyshev's inequalities with the exact probability.
+### Άσκηση 5: Δεσμευμένη για εκθετική μεταβλητή (Markov vs Chebyshev)
+**Πρόβλημα:** Αφήστε $X \sim Exp(1)$. Συγκρίνετε τα άνω όρια του $P(X \ge 3)$ που δίνονται από τις ανισότητες του Markov και του Chebyshev με την ακριβή πιθανότητα.
 
-**Solution:**
-- **Step 1: Identify moments and exact value.**
-  - Mean $E[X] = 1$, Variance $Var(X) = 1$.
-  - Exact probability: $P(X \ge 3) = e^{-3} \approx 0.0498$.
-- **Step 2: WIP State.**
+**Λύση:**
+- **Βήμα 1: Προσδιορίστε τις στιγμές και την ακριβή αξία.**
+  - Μέση τιμή $E[X] = 1$, Διακύμανση $Var(X) = 1$.
+  - Ακριβής πιθανότητα: $P(X \ge 3) = e^{-3} \approx 0.0498$.
+- **Βήμα 2: Κατάσταση WIP.**
   - **Markov's Bound:**
     $$P(X \ge 3) \le \frac{E[X]}{3} = \frac{1}{3} \approx 0.3333$$
-  - **Chebyshev's Bound:**
-    Note that $P(X \ge 3) = P(X - 1 \ge 2)$. Since $X \ge 0$:
+  - **Δεσμοί του Chebyshev:**
+    Σημειώστε ότι $P(X \ge 3) = P(X - 1 \ge 2)$. Από $X \ge 0$:
     $$P(X \ge 3) \le P(|X - 1| \ge 2) \le \frac{Var(X)}{2^2} = \frac{1}{4} = ?$$
-- **Step 3: Final Calculation.**
-  - Chebyshev's bound $= 0.25$.
-  - **Comparison:** The exact value is $0.0498$. Chebyshev's bound ($0.25$) is tighter than Markov's bound ($0.3333$), but both are much larger than the true value.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Ο Chebyshev δεσμεύεται $= 0.25$.
+  - **Σύγκριση:** Η ακριβής τιμή είναι $0.0498$. Το όριο του Chebyshev ($0.25$) είναι πιο σφιχτό από το όριο του Markov ($0.3333$), αλλά και τα δύο είναι πολύ μεγαλύτερα από την πραγματική τιμή.
 
 ---
 
-### Exercise 6: One-Sided Chebyshev Inequality (Cantelli's Inequality)
-**Problem:** Let $X$ have mean $\mu$ and variance $\sigma^2$. Cantelli's inequality states that for any $a > 0$:
+### Άσκηση 6: Μονόπλευρη ανισότητα Chebyshev (Η ανισότητα του Cantelli)
+**Πρόβλημα:** Έστω $X$ σημαίνει $\mu$ και διακύμανση $\sigma^2$. Η ανισότητα του Cantelli δηλώνει ότι για οποιοδήποτε $a > 0$:
 $$P(X - \mu \ge a) \le \frac{\sigma^2}{\sigma^2 + a^2}$$
-If the test scores have a mean of 70 and variance of 25, find the upper bound for the probability that a student scores at least 85.
+Εάν οι βαθμολογίες του τεστ έχουν μέσο όρο 70 και διακύμανση 25, βρείτε το ανώτερο όριο για την πιθανότητα ένας μαθητής να βαθμολογήσει τουλάχιστον 85.
 
-**Solution:**
-- **Step 1: Map variables.**
-  - $\mu = 70$
+**Λύση:**
+- **Βήμα 1: Μεταβλητές χάρτη.**- $\mu = 70$
   - $\sigma^2 = 25$
-  - We want $P(X \ge 85) = P(X - 70 \ge 15)$, so $a = 15$.
-- **Step 2: WIP State.**
-  Apply Cantelli's inequality:
+  - Θέλουμε $P(X \ge 85) = P(X - 70 \ge 15)$, άρα $a = 15$.
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Cantelli:
   $$P(X - 70 \ge 15) \le \frac{25}{25 + 15^2} = \frac{25}{25 + 225} = \frac{25}{?}$$
-- **Step 3: Final Calculation.**
-  - Denominator $= 250$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  - Παρονομαστής $= 250$.
   - $P(X - 70 \ge 15) \le \frac{25}{250} = 0.1$.
 
 ---
 
-### Exercise 7: Applying WLLN to Sample Variance
-**Problem:** Let $X_1, X_2, \dots$ be i.i.d. random variables with mean $\mu$ and finite 4th moment ($E[X^4] < \infty$). Show that the sample variance $S_n^2$ converges in probability to the population variance $\sigma^2$ as $n \to \infty$.
+### Άσκηση 7: Εφαρμογή του WLLN στη Διακύμανση Δείγματος
+**Πρόβλημα:** Έστω $X_1, X_2, \dots$ i.i.d. τυχαίες μεταβλητές με μέσο όρο $\mu$ και πεπερασμένη 4η στιγμή ($E[X^4] < \infty$). Δείξτε ότι η διακύμανση του δείγματος $S_n^2$ συγκλίνει κατά πιθανότητα στη διακύμανση του πληθυσμού $\sigma^2$ ως $n \to \infty$.
 
-**Solution:**
-- **Step 1: Write the expansion of $S_n^2$.**
+**Λύση:**
+- **Βήμα 1: Γράψτε την επέκταση του $S_n^2$.**
   $$S_n^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X}_n)^2 = \frac{n}{n-1} \left( \frac{1}{n}\sum_{i=1}^{n} X_i^2 - \bar{X}_n^2 \right)$$
-- **Step 2: WIP State.**
-  - As $n \to \infty$, $\frac{n}{n-1} \to 1$.
-  - Let $Y_i = X_i^2$. Since $X_i$ are i.i.d., $Y_i$ are also i.i.d. with mean $E[Y_i] = E[X_i^2]$. By WLLN:
+- **Βήμα 2: Κατάσταση WIP.**
+  - Ως $n \to \infty$, $\frac{n}{n-1} \to 1$.
+  - Αφήστε $Y_i = X_i^2$. Εφόσον τα $X_i$ είναι i.i.d., τα $Y_i$ είναι επίσης i.i.d. με μέσο όρο $E[Y_i] = E[X_i^2]$. Από WLLN:
     $$\frac{1}{n}\sum_{i=1}^{n} X_i^2 \xrightarrow{P} E[X^2]$$
-  - By WLLN, $\bar{X}_n \xrightarrow{P} \mu$. Since the square function is continuous, $\bar{X}_n^2 \xrightarrow{P} \mu^2$.
-- **Step 3: Final Calculation.**
-  Using the properties of convergence in probability:
+  - Από WLLN, $\bar{X}_n \xrightarrow{P} \mu$. Εφόσον η συνάρτηση τετραγώνου είναι συνεχής, $\bar{X}_n^2 \xrightarrow{P} \mu^2$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Χρησιμοποιώντας τις ιδιότητες της σύγκλισης στην πιθανότητα:
   $$S_n^2 \xrightarrow{P} 1 \cdot \left( E[X^2] - \mu^2 \right) = \sigma^2.$$
 
 ---
 
-### Exercise 8: Chebyshev Bound for Sample Mean
-**Problem:** Let $X_1, \dots, X_n$ be i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Show that for any $\epsilon > 0$, WLLN holds by using Chebyshev's inequality on the sample mean $\bar{X}_n$.
+### Άσκηση 8: Ο Chebyshev δεσμεύεται για το μέσο όρο δείγματος
+**Πρόβλημα:** Έστω $X_1, \dots, X_n$ i.i.d. τυχαίες μεταβλητές με μέσο όρο $\mu$ και διακύμανση $\sigma^2$. Δείξτε ότι για οποιοδήποτε $\epsilon > 0$, το WLLN ισχύει χρησιμοποιώντας την ανισότητα του Chebyshev στη μέση τιμή του δείγματος $\bar{X}_n$.
 
-**Solution:**
-- **Step 1: Find properties of $\bar{X}_n$.**
+**Λύση:**
+- **Βήμα 1: Βρείτε ιδιότητες του $\bar{X}_n$.**
   - $E[\bar{X}_n] = \mu$
   - $Var(\bar{X}_n) = \frac{\sigma^2}{n}$
-- **Step 2: WIP State.**
-  Apply Chebyshev's Inequality:
+- **Βήμα 2: Κατάσταση WIP.**
+  Εφαρμόστε την ανισότητα του Chebyshev:
   $$P(|\bar{X}_n - \mu| \ge \epsilon) \le \frac{Var(\bar{X}_n)}{\epsilon^2} = \frac{\sigma^2}{n\epsilon^2}$$
-- **Step 3: Final Calculation.**
-  Take the limit as $n \to \infty$:
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Πάρτε το όριο ως $n \to \infty$:
   $$\lim_{n \to \infty} P(|\bar{X}_n - \mu| \ge \epsilon) \le \lim_{n \to \infty} \frac{\sigma^2}{n\epsilon^2} = 0$$
-  Since probability is non-negative, the limit must be exactly 0, proving WLLN.
+  Εφόσον η πιθανότητα είναι μη αρνητική, το όριο πρέπει να είναι ακριβώς 0, αποδεικνύοντας το WLLN.
 
 ---
 
-### Exercise 9: Monte Carlo Integration (LLN Application)
-**Problem:** Explain how the Law of Large Numbers justifies using random numbers to estimate the value of the integral $I = \int_{0}^{1} g(x) \, dx$.
+### Άσκηση 9: Ένταξη Monte Carlo (Εφαρμογή LLN)
+**Πρόβλημα:** Εξηγήστε πώς ο νόμος των μεγάλων αριθμών δικαιολογεί τη χρήση τυχαίων αριθμών για την εκτίμηση της τιμής του ολοκληρώματος $I = \int_{0}^{1} g(x) \, dx$.
 
-**Solution:**
-- **Step 1: Relate the integral to an expectation.**
-  Let $U \sim U(0, 1)$. The expected value of $g(U)$ is:
+**Λύση:**
+- **Βήμα 1: Συσχετίστε το ολοκλήρωμα με μια προσδοκία.**
+  Αφήστε $U \sim U(0, 1)$. Η αναμενόμενη τιμή του $g(U)$ είναι:
   $$E[g(U)] = \int_{0}^{1} g(x) \cdot f_U(x) \, dx = \int_{0}^{1} g(x) \cdot 1 \, dx = I$$
-- **Step 2: WIP State.**
-  Generate $n$ independent random variables $U_1, U_2, \dots, U_n$ from $U(0, 1)$.
-  Let $Y_i = g(U_i)$. The variables $Y_i$ are i.i.d. with mean $E[Y_i] = I$.
-- **Step 3: Final Calculation.**
-  By the Law of Large Numbers, the sample mean converges to the expected value:
+- **Βήμα 2: Κατάσταση WIP.**
+  Δημιουργήστε $n$ ανεξάρτητες τυχαίες μεταβλητές $U_1, U_2, \dots, U_n$ από $U(0, 1)$.
+  Αφήστε $Y_i = g(U_i)$. Οι μεταβλητές $Y_i$ είναι i.i.d. με μέσο όρο $E[Y_i] = I$.
+- **Βήμα 3: Τελικός Υπολογισμός.**
+  Σύμφωνα με τον νόμο των μεγάλων αριθμών, ο μέσος όρος του δείγματος συγκλίνει στην αναμενόμενη τιμή:
   $$\frac{1}{n} \sum_{i=1}^{n} g(U_i) \xrightarrow{a.s.} E[g(U)] = I$$
-  This justifies approximating the integral by the average value of the function evaluated at random points.
+  Αυτό δικαιολογεί την προσέγγιση του ολοκληρώματος με τη μέση τιμή της συνάρτησης που αξιολογείται σε τυχαία σημεία.

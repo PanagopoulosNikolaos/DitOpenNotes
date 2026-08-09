@@ -1,25 +1,25 @@
-# Haskell — Higher-Order Functions and Type System
+# Haskell — Συναρτήσεις Ανώτερης Τάξης και Σύστημα Τύπων
 
-*Prerequisite: haskell_1_basics_pure_functions.md — Recursion, `map`, `filter`, `foldr`; haskell_2_list_comprehensions_pattern_matching.md — Pattern matching and guards.*
+*Προαπαιτούμενο: haskell_1_basics_pure_functions.md — Αναδρομή, `map`, `filter`, `foldr`· haskell_2_list_comprehensions_pattern_matching.md — Ταίριασμα μοτίβων και φύλακες.*
 
-Haskell treats functions as first-class values: they can be passed as arguments, stored in data structures, and returned from other functions. Combined with automatic currying and Hindley-Milner type inference, this yields a concise higher-order programming style. This file covers currying, partial application, the static type system, typeclasses (`Show`, `Read`, `Bounded`), algebraic data types, and the `Maybe` type for null-safe computation.
+Η Haskell αντιμετωπίζει τις συναρτήσεις ως τιμές πρώτης τάξης: μπορούν να μεταβιβαστούν ως ορίσματα, να αποθηκευτούν σε δομές δεδομένων και να επιστραφούν από άλλες συναρτήσεις. Σε συνδυασμό με την αυτόματη διαδικασία currying και την εξαγωγή τύπων κατά Hindley-Milner, αυτό παράγει ένα συνοπτικό προγραμματιστικό στιλ ανώτερης τάξης. Αυτό το αρχείο καλύπτει το currying, τη μερική εφαρμογή (partial application), το στατικό σύστημα τύπων, τις κλάσεις τύπων (typeclasses: `Show`, `Read`, `Bounded`), τους αλγεβρικούς τύπους δεδομένων (ADTs) και τον τύπο `Maybe` για υπολογισμούς ασφαλείς από τιμές null.
 
 ---
 
-## 1. First-Class Functions
+## 1. Συναρτήσεις Πρώτης Τάξης (First-Class Functions)
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-A **first-class function** is a function that enjoys the same privileges as any other value: it can be bound to a name, passed as an argument, returned from a function, and stored in a data structure.
+Μια **συνάρτηση πρώτης τάξης** είναι μια συνάρτηση που απολαμβάνει τα ίδια προνόμια με οποιαδήποτε άλλη τιμή: μπορεί να συνδεθεί με ένα όνομα, να μεταβιβαστεί ως όρισμα, να επιστραφεί από μια συνάρτηση και να αποθηκευτεί σε μια δομή δεδομένων.
 
-### 1.2 Behavioral Description
+### 1.2 Περιγραφή Συμπεριφοράς
 
-| Capability | Example |
+| Δυνατότητα | Παράδειγμα |
 | :--- | :--- |
-| Bind to name | `f = (+1)` |
-| Pass as argument | `map (*2) [1,2,3]` |
-| Return from function | `mkAdder n = \x -> n + x` |
-| Store in list | `[(+1), (*2), (^2)]` |
+| Σύνδεση με όνομα | `f = (+1)` |
+| Μεταβίβαση ως όρισμα | `map (*2) [1,2,3]` |
+| Επιστροφή από συνάρτηση | `mkAdder n = \x -> n + x` |
+| Αποθήκευση σε λίστα | `[(+1), (*2), (^2)]` |
 
 ```haskell
 applyTwice :: (a -> a) -> a -> a
@@ -32,56 +32,56 @@ main = print (applyTwice (*2) 3)
 12
 ```
 
-### 1.3 Function Type Notation
+### 1.3 Συμβολισμός Τύπου Συνάρτησης
 
-The type `a -> b -> c` is right-associative:
+Ο τύπος `a -> b -> c` είναι δεξιόστροφα προσεταιριστικός:
 
 $$
-(a \to b) \to c \quad \text{is written} \quad a \to b \to c
+(a \to b) \to c \quad \text{γράφεται ως} \quad a \to b \to c
 $$
 
-meaning a function taking `a`, returning a function `b -> c` (curried form).
+που σημαίνει μια συνάρτηση που δέχεται `a` και επιστρέφει μια συνάρτηση `b -> c` (μορφή curried).
 
 ---
 
 ## 2. Currying
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-In Haskell, **every function takes exactly one argument** and returns either a value or another function. A multi-argument function is syntactic sugar for a chain of single-argument functions.
+Στη Haskell, **κάθε συνάρτηση δέχεται ακριβώς ένα όρισμα** και επιστρέφει είτε μια τιμή είτε μια άλλη συνάρτηση. Μια συνάρτηση πολλαπλών ορισμάτων είναι συντακτική ζάχαρη (syntactic sugar) για μια αλυσίδα συναρτήσεων μεμβονωμένου ορίσματος.
 
-### 2.2 Formal Model
+### 2.2 Τυπικό Μοντέλο
 
-A function of two arguments:
+Μια συνάρτηση δύο ορισμάτων:
 
 $$
 f : A \times B \to C
 $$
 
-is represented as:
+αναπαρίσταται ως:
 
 $$
 f : A \to (B \to C)
 $$
 
-Application is left-associative: `f x y` means `(f x) y`.
+Η εφαρμογή είναι αριστερόστροφα προσεταιριστική: η έκφραση `f x y` σημαίνει `(f x) y`.
 
-### 2.3 Uncurrying Equivalence
+### 2.3 Ισοδυναμία Uncurrying
 
 ```haskell
--- These are equivalent:
+-- Αυτά είναι ισοδύναμα:
 add :: Int -> Int -> Int
 add x y = x + y
 
--- Desugared (explicit lambda):
+-- Αποσυντεθειμένο (ρητή lambda):
 add' :: Int -> Int -> Int
 add' = \x -> \y -> x + y
 ```
 
-| Expression | Type after step | Result |
+| Έκφραση | Τύπος μετά το βήμα | Αποτέλεσμα |
 | :--- | :--- | :--- |
-| `add` | `Int -> Int -> Int` | Function awaiting first `Int` |
-| `add 3` | `Int -> Int` | Function awaiting second `Int` |
+| `add` | `Int -> Int -> Int` | Συνάρτηση που αναμένει το πρώτο `Int` |
+| `add 3` | `Int -> Int` | Συνάρτηση που αναμένει το δεύτερο `Int` |
 | `add 3 5` | `Int` | `8` |
 
 ```haskell
@@ -95,36 +95,36 @@ main = do
 8
 ```
 
-> **[Key Insight]** Currying enables **partial application** without any special syntax. `add 3` is a valid function of type `Int -> Int` that adds 3 to its argument.
+> **[Βασική Παρατήρηση]** Το currying επιτρέπει τη **μερική εφαρμογή (partial application)** χωρίς ειδική σύνταξη. Η `add 3` είναι μια έγκυρη συνάρτηση τύπου `Int -> Int` που προσθέτει 3 στο όρισμά της.
 
 ---
 
-## 3. Partial Application
+## 3. Μερική Εφαρμογή (Partial Application)
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-**Partial application** supplies fewer arguments than the function arity, producing a new function that awaits the remaining arguments.
+Η **μερική εφαρμογή (partial application)** παρέχει λιγότερα ορίσματα από τον αριθμό ορισμάτων της συνάρτησης, παράγοντας μια νέα συνάρτηση που αναμένει τα εναπομείναντα ορίσματα.
 
-### 3.2 Syntax Reference
+### 3.2 Αναφορά Σύνταξης
 
 ```
-<function> <arg_1> ... <arg_k>    -- where k < arity, yields a new function
+<function> <arg_1> ... <arg_k>    -- όπου k < arity, παράγει νέα συνάρτηση
 ```
 
-### 3.3 Examples
+### 3.3 Παραδείγματα
 
 ```haskell
 add :: Int -> Int -> Int
 add x y = x + y
 
 addFive :: Int -> Int
-addFive = add 5          -- Partially applied: awaits one more Int.
+addFive = add 5          -- Μερικώς εφαρμοσμένη: αναμένει ένα ακόμα Int.
 
 mult :: Int -> Int -> Int -> Int
 mult x y z = x * y * z
 
 double :: Int -> Int
-double = mult 2          -- Awaits y and z: mult 2 y z.
+double = mult 2          -- Αναμένει τα y και z: mult 2 y z.
 
 main = do
   print (addFive 10)     -- 15
@@ -136,11 +136,11 @@ main = do
 24
 ```
 
-### 3.4 Partial Application with Operators
+### 3.4 Μερική Εφαρμογή με Τελεστές
 
-Infix operators can be partially applied using **sections**:
+Οι ενθέτες τελεστές (infix operators) μπορούν να εφαρμοστούν μερικώς χρησιμοποιώντας **τομές (sections)**:
 
-| Section | Meaning | Example |
+| Τομή (Section) | Σημασία | Παράδειγμα |
 | :--- | :--- | :--- |
 | `(+1)` | `\x -> x + 1` | `map (+1) [1,2,3]` |
 | `(2*)` | `\x -> 2 * x` | `map (2*) [1,2,3]` |
@@ -156,29 +156,29 @@ main = print (map (+1) [10, 20, 30])
 
 ---
 
-## 4. Static Type Inference
+## 4. Στατική Εξαγωγή Τύπων (Static Type Inference)
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-Haskell uses **Hindley-Milner type inference**: the compiler deduces the most general type of every expression without requiring explicit annotations (though annotations are permitted and sometimes necessary). Type checking occurs at **compile time**; well-typed programs cannot fail with type errors at runtime.
+Η Haskell χρησιμοποιεί το **σύστημα εξαγωγής τύπων Hindley-Milner**: ο μεταγλωττιστής συνάγει τον πλέον γενικό τύπο κάθε έκφρασης χωρίς να απαιτεί ρητούς σχολιασμούς (αν και οι σχολιασμοί επιτρέπονται και είναι ορισμένες φορές απαραίτητοι). Ο έλεγχος τύπων εκτελείται κατά τον **χρόνο μεταγλώττισης**· τα ορθώς τυποποιημένα προγράμματα δεν μπορούν να αποτύχουν με σφάλματα τύπων κατά τον χρόνο εκτέλεσης.
 
-### 4.2 Type Inference Rules (Simplified)
+### 4.2 Κανόνες Εξαγωγής Τύπων (Απλοποιημένοι)
 
-| Expression | Inferred Type | Reason |
+| Έκφραση | Συνεγόμενος Τύπος | Αιτιολογία |
 | :--- | :--- | :--- |
-| `5` | `Num a => a` | Polymorphic numeric literal |
-| `[1,2,3]` | `[Integer]` | Default numeric type |
-| `['a','b']` | `[Char]` | Homogeneous list |
-| `\x -> x + 1` | `Num a => a -> a` | `+` requires `Num` |
-| `\x -> not x` | `Bool -> Bool` | `not` is `Bool -> Bool` |
+| `5` | `Num a => a` | Πολυμορφική αριθμητική σταθερά |
+| `[1,2,3]` | `[Integer]` | Προεπιλεγμένος αριθμητικός τύπος |
+| `['a','b']` | `[Char]` | Ομοιογενής λίστα |
+| `\x -> x + 1` | `Num a => a -> a` | Το `+` απαιτεί `Num` |
+| `\x -> not x` | `Bool -> Bool` | Η `not` είναι `Bool -> Bool` |
 
 ```haskell
--- Type annotation (optional but documents intent).
+-- Σχολιασμός τύπου (προαιρετικός αλλά τεκμηριώνει την πρόθεση).
 double :: Int -> Int
 double x = x * 2
 
--- Polymorphic identity.
-id' x = x          -- Type: a -> a
+-- Πολυμορφική ταυτότητα.
+id' x = x          -- Τύπος: a -> a
 
 main = print (double 5)
 ```
@@ -187,39 +187,39 @@ main = print (double 5)
 10
 ```
 
-### 4.3 Polymorphism
+### 4.3 Πολυμορφισμός
 
-A **polymorphic** type contains type variables (written in lowercase: `a`, `b`):
+Ένας **πολυμορφικός** τύπος περιέχει μεταβλητές τύπων (γραμμένες με πεζά στοιχεία: `a`, `b`):
 
 ```haskell
--- length works on any list, regardless of element type.
+-- Η length λειτουργεί σε οποιαδήποτε λίστα, ανεξάρτητα από τον τύπο στοιχείων.
 -- length :: [a] -> Int
 ```
 
-| Function | Type | Polymorphic? |
+| Συνάρτηση | Τύπος | Πολυμορφική; |
 | :--- | :--- | :--- |
-| `length` | `[a] -> Int` | Yes (over element type) |
-| `id` | `a -> a` | Yes (fully polymorphic) |
-| `(+)` | `Num a => a -> a -> a` | Constrained polymorphism |
-| `tail` | `[a] -> [a]` | Yes |
+| `length` | `[a] -> Int` | Ναι (ως προς τον τύπο στοιχείου) |
+| `id` | `a -> a` | Ναι (πλήρως πολυμορφική) |
+| `(+)` | `Num a => a -> a -> a` | Περιορισμένος πολυμορφισμός |
+| `tail` | `[a] -> [a]` | Ναι |
 
-### 4.4 Type Error Example
+### 4.4 Παράδειγμα Σφάλματος Τύπου
 
 ```haskell
--- broken = 'a' + 1   -- Compile error: Char is not Num.
+-- broken = 'a' + 1   -- Σφάλμα μεταγλώττισης: το Char δεν είναι Num.
 ```
 
-The compiler rejects programs where no valid type assignment exists.
+Ο μεταγλωττιστής απορρίπτει προγράμματα στα οποία δεν υπάρχει έγκυρη ανάθεση τύπων.
 
 ---
 
-## 5. Typeclasses
+## 5. Κλάσεις Τύπων (Typeclasses)
 
-### 5.1 Concept Overview
+### 5.1 Επισκόπηση Έννοιας
 
-A **typeclass** is an interface specifying a set of operations that types may support. A **type instance** declares that a particular type implements the interface. Typeclasses enable ad-hoc polymorphism: one function name (`show`, `read`, etc.) with type-specific implementations.
+Μια **κλάση τύπων (typeclass)** είναι μια διασύνδεση (interface) που καθορίζει ένα σύνολο πράξεων τις οποίες μπορούν να υποστηρίζουν οι τύποι. Στη συνέχεια, ένα **στιγμιότυπο τύπου (instance)** δηλώνει ότι ένας συγκεκριμένος τύπος υλοποιεί τη διασύνδεση. Οι κλάσεις τύπων επιτρέπουν τον ad-hoc πολυμορφισμό: ένα όνομα συνάρτησης (`show`, `read`, κ.λπ.) με υλοποιήσεις ειδικές για κάθε τύπο.
 
-**Syntax:**
+**Σύνταξη:**
 
 ```
 class <ClassName> <vars> where
@@ -229,18 +229,18 @@ instance <ClassName> <ConcreteType> where
   <method> = <implementation>
 ```
 
-### 5.2 `Show` — Convert to String
+### 5.2 `Show` — Μετατροπή σε Συμβολοσειρά
 
-| Property | Value |
+| Ιδιότητα | Τιμή |
 | :--- | :--- |
-| Method | `show :: a -> String` |
-| Purpose | Serialize a value to a `String` for display |
-| Constraint | `Show a =>` in type signatures |
+| Μέθοδος | `show :: a -> String` |
+| Σκοπός | Σειριοποίηση μιας τιμής σε `String` για εμφάνιση |
+| Περιορισμός | `Show a =>` στις υπογραφές τύπων |
 
 ```haskell
 main = do
-  print (show 42)        -- Uses Show instance for Int.
-  print (show [1,2,3])   -- Uses Show instance for [Int].
+  print (show 42)        -- Χρησιμοποιεί το στιγμιότυπο Show για τον Int.
+  print (show [1,2,3])   -- Χρησιμοποιεί το στιγμιότυπο Show για τον [Int].
 ```
 
 ```text
@@ -248,15 +248,15 @@ main = do
 "[1,2,3]"
 ```
 
-`print` is defined as `putStrLn . show` and requires a `Show` constraint.
+Η `print` είναι ορισμένη ως `putStrLn . show` και απαιτεί περιορισμό `Show`.
 
-### 5.3 `Read` — Parse from String
+### 5.3 `Read` — Ανάλυση από Συμβολοσειρά
 
-| Property | Value |
+| Ιδιότητα | Τιμή |
 | :--- | :--- |
-| Method | `read :: Read a => String -> a` |
-| Purpose | Parse a `String` into a typed value |
-| Risk | Fails at runtime on malformed input |
+| Μέθοδος | `read :: Read a => String -> a` |
+| Σκοπός | Ανάλυση (parse) μιας `String` σε τυποποιημένη τιμή |
+| Κίνδυνος | Αποτυγχάνει κατά τον χρόνο εκτέλεσης σε κακοσχηματισμένη είσοδο |
 
 ```haskell
 main = do
@@ -269,13 +269,13 @@ main = do
 [1,2,3]
 ```
 
-### 5.4 `Bounded` — Min/Max Values
+### 5.4 `Bounded` — Ελάχιστες/Μέγιστες Τιμές
 
-| Property | Value |
+| Ιδιότητα | Τιμή |
 | :--- | :--- |
-| Methods | `minBound :: a`, `maxBound :: a` |
-| Purpose | Provide minimum and maximum representable values |
-| Applicable types | `Int`, `Char`, `Bool`, tuples of bounded types |
+| Μέθοδοι | `minBound :: a`, `maxBound :: a` |
+| Σκοπός | Παροχή ελάχιστων και μέγιστων αναπαραστάσιμων τιμών |
+| Εφαρμόσιμοι τύποι | `Int`, `Char`, `Bool`, πλειάδες οριοθετημένων τύπων |
 
 ```haskell
 main = do
@@ -290,27 +290,27 @@ main = do
 False
 ```
 
-### 5.5 Typeclass Summary Table
+### 5.5 Πίνακας Σύνοψης Κλάσεων Τύπων
 
-| Typeclass | Key Method(s) | Constraint Meaning |
+| Κλάση Τύπου | Κύριες Μέθοδοι | Σημασία Περιορισμού |
 | :--- | :--- | :--- |
-| `Eq` | `(==)`, `(/=)` | Values can be compared for equality |
-| `Ord` | `(<)`, `(>)`, `compare` | Values can be totally ordered |
-| `Show` | `show` | Values can be rendered as strings |
-| `Read` | `read` | Values can be parsed from strings |
-| `Bounded` | `minBound`, `maxBound` | Type has finite extrema |
-| `Enum` | `toEnum`, `fromEnum` | Type can be enumerated |
-| `Num` | `(+)`, `(*)`, `negate` | Numeric operations |
+| `Eq` | `(==)`, `(/=)` | Οι τιμές μπορούν να συγκριθούν ως προς την ισότητα |
+| `Ord` | `(<)`, `(>)`, `compare` | Οι τιμές μπορούν να διαταχθούν πλήρως |
+| `Show` | `show` | Οι τιμές μπορούν να αποδοθούν ως συμβολοσειρές |
+| `Read` | `read` | Οι τιμές μπορούν να αναλυθούν από συμβολοσειρές |
+| `Bounded` | `minBound`, `maxBound` | Ο τύπος έχει πεπερασμένα άκρα |
+| `Enum` | `toEnum`, `fromEnum` | Ο τύπος μπορεί να απαριθμηθεί |
+| `Num` | `(+)`, `(*)`, `negate` | Αριθμητικές πράξεις |
 
 ---
 
-## 6. Algebraic Data Types
+## 6. Αλγεβρικοί Τύποι Δεδομένων (ADTs)
 
-### 6.1 Concept Overview
+### 6.1 Επισκόπηση Έννοιας
 
-An **algebraic data type (ADT)** is a composite type defined by listing its possible **constructors**. Each constructor carries zero or more typed fields. ADTs generalize enums, structs, and tagged unions from imperative languages.
+Ένας **αλγεβρικός τύπος δεδομένων (Algebraic Data Type - ADT)** είναι ένας σύνθετος τύπος που ορίζεται απαριθμώντας τους πιθανούς **κατασκευαστές** του. Κάθε κατασκευαστής φέρει μηδέν ή περισσότερα τυποποιημένα πεδία. Οι ADTs γενικεύουν τα enums, τα structs και τις σημασμένες ενώσεις (tagged unions) των προστακτικών γλωσσών.
 
-### 6.2 Syntax Reference
+### 6.2 Αναφορά Σύνταξης
 
 ```
 data <TypeName> <type_params> = <Constructor1> <field_types>
@@ -318,25 +318,25 @@ data <TypeName> <type_params> = <Constructor1> <field_types>
                               | ...
 ```
 
-### 6.3 Product and Sum Types
+### 6.3 Τύποι Γινομένου και Αθροίσματος
 
-**Product type** (one constructor, multiple fields — like a struct):
+**Τύπος Γινομένου (Product type)** (ένας κατασκευαστής, πολλαπλά πεδία — όπως ένα struct):
 
 ```haskell
-data Point = Point Int Int   -- Product: Point requires Int and Int.
+data Point = Point Int Int   -- Γινόμενο: το Point απαιτεί Int και Int.
 ```
 
-**Sum type** (multiple constructors — like a tagged union):
+**Τύπος Αθροίσματος (Sum type)** (πολλαπλοί κατασκευαστές — όπως μια σημασμένη ένωση):
 
 ```haskell
 data Shape = Circle Double
            | Rectangle Double Double
 ```
 
-| Constructor | Fields | Meaning |
+| Κατασκευαστής | Πεδία | Σημασία |
 | :--- | :--- | :--- |
-| `Circle` | `Double` (radius) | A circle |
-| `Rectangle` | `Double`, `Double` (w, h) | A rectangle |
+| `Circle` | `Double` (ακτίνα) | Κύκλος |
+| `Rectangle` | `Double`, `Double` (πλάτος, ύψος) | Ορθογώνιο |
 
 ```haskell
 area :: Shape -> Double
@@ -350,38 +350,38 @@ main = print (area (Circle 2), area (Rectangle 3 4))
 (12.566370614359172,12.0)
 ```
 
-### 6.4 Recursive ADTs
+### 6.4 Αναδρομικοί ADTs
 
 ```haskell
 data List a = Nil | Cons a (List a)
 ```
 
-This mirrors the built-in list type: `[]` is `Nil`, `(:)` is `Cons`.
+Αυτό αντικατοπτρίζει τον ενσωματωμένο τύπο λίστας: το `[]` είναι `Nil`, το `(:)` είναι `Cons`.
 
 ---
 
-## 7. The `Maybe` Type
+## 7. Ο Τύπος `Maybe`
 
-### 7.1 Concept Overview
+### 7.1 Επισκόπηση Έννοιας
 
-`Maybe a` is a sum type representing an optional value of type `a`. It replaces null pointers with an explicit, type-safe construction:
+Ο `Maybe a` είναι ένας τύπος αθροίσματος που αναπαριστά μια προαιρετική τιμή τύπου `a`. Αντικαθιστά τους δείκτες null με μια ρητή κατασκευή ασφαλή ως προς τους τύπους:
 
 $$
 \text{Maybe } a = \text{Nothing} \mid \text{Just } a
 $$
 
-### 7.2 Definition and Type
+### 7.2 Ορισμός και Τύπος
 
 ```haskell
 data Maybe a = Nothing | Just a
 ```
 
-| Constructor | Meaning | Example |
+| Κατασκευαστής | Σημασία | Παράδειγμα |
 | :--- | :--- | :--- |
-| `Nothing` | Absence of value | Failed lookup |
-| `Just x` | Presence of value `x` | Successful lookup |
+| `Nothing` | Απουσία τιμής | Αποτυχημένη αναζήτηση |
+| `Just x` | Παρουσία τιμής `x` | Επιτυχής αναζήτηση |
 
-### 7.3 Safe Division
+### 7.3 Ασφαλής Διαίρεση
 
 ```haskell
 safeDiv :: Double -> Double -> Maybe Double
@@ -398,7 +398,7 @@ Just 5.0
 Nothing
 ```
 
-### 7.4 Pattern Matching on `Maybe`
+### 7.4 Ταίριασμα Μοτίβου στον `Maybe`
 
 ```haskell
 fromMaybe :: a -> Maybe a -> a
@@ -412,65 +412,65 @@ main = print (fromMaybe 0 Nothing, fromMaybe 0 (Just 42))
 (0,42)
 ```
 
-### 7.5 `Maybe` vs. Null in Imperative Languages
+### 7.5 `Maybe` έναντι Null σε Προστακτικές Γλώσσες
 
-| Property | `Maybe a` (Haskell) | `null` (Java, C) |
+| Ιδιότητα | `Maybe a` (Haskell) | `null` (Java, C) |
 | :--- | :--- | :--- |
-| Type safety | `Nothing` is not `Just a` | Any reference can be null |
-| Compiler enforcement | Must pattern-match or handle | NullPointerException at runtime |
-| Composition | Functor/Monad instances | Manual null checks |
+| Ασφάλεια τύπων | Το `Nothing` δεν είναι `Just a` | Οποιαδήποτε αναφορά μπορεί να είναι null |
+| Επιβολή μεταγλωττιστή | Υποχρεωτικό ταίριασμα μοτίβου | NullPointerException κατά τον χρόνο εκτέλεσης |
+| Σύνθεση | Στιγμιότυπα Functor/Monad | Χειροκίνητοι έλεγχοι null |
 
-> **[Key Insight]** Functions that can fail should return `Maybe a` (or `Either e a` for error details) rather than using sentinel values like `-1` or `null`. The type system forces callers to handle both cases.
+> **[Βασική Παρατήρηση]** Οι συναρτήσεις που μπορούν να αποτύχουν πρέπει να επιστρέφουν `Maybe a` (ή `Either e a` για λεπτομέρειες σφάλματος) αντί να χρησιμοποιούν τιμές σκοπού όπως `-1` ή `null`. Το σύστημα τύπων υποχρεώνει τους καλούντες να διαχειριστούν και τις δύο περιπτώσεις.
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Confusing `($)` with `($)` Application and Composition
+### Σφάλμα 1: Σύγχυση της Εφαρμογής `($)` με τη Σύνθεση `(.)`
 
-**Cause:** Mixing up `f $ x` (apply with low precedence) and `f . g` (compose).
+**Αιτία:** Ανάμειξη της `f $ x` (εφαρμογή με χαμηλή προτεραιότητα) και της `f . g` (σύνθεση).
 
 ```haskell
--- ($)  :: (a -> b) -> a -> b       -- application
--- (.)  :: (b -> c) -> (a -> b) -> a -> c  -- composition
+-- ($)  :: (a -> b) -> a -> b       -- εφαρμογή
+-- (.)  :: (b -> c) -> (a -> b) -> a -> c  -- σύνθεση
 
 -- sum . map (*2) $ [1,2,3]  -- sum (map (*2) [1,2,3]) = 12
 ```
 
-**Resolution:** `f . g` builds a new function; `f $ x` applies `f` to `x` with minimal precedence.
+**Επίλυση:** Η `f . g` κατασκευάζει μια νέα συνάρτηση· η `f $ x` εφαρμόζει την `f` στο `x` με ελάχιστη προτεραιότητα.
 
-### Error 2: Monomorphism Restriction
+### Σφάλμα 2: Περιορισμός Μονομορφισμού (Monomorphism Restriction)
 
-**Cause:** A top-level binding without explicit type annotation may be monomorphized to a default type.
+**Αιτία:** Μια σύνδεση ανώτατου επιπέδου χωρίς ρητό σχολιασμό τύπου ενδέχεται να μονομορφηθεί σε έναν προεπιλεγμένο τύπο.
 
 ```haskell
--- defaultNum = 5       -- May default to Integer, not polymorphic Num a.
+-- defaultNum = 5       -- Ενδέχεται να λάβει προεπιλεγμένο τύπο Integer, όχι πολυμορφικό Num a.
 -- defaultNum :: Num a => a
 -- defaultNum = 5
 ```
 
-**Resolution:** Add explicit type signature when polymorphism is needed at the top level.
+**Επίλυση:** Προσθέτετε ρητή υπογραφή τύπου όταν απαιτείται πολυμορφισμός στο ανώτατο επίπεδο.
 
-### Error 3: `Read` Without Type Annotation
+### Σφάλμα 3: `Read` Χωρίς Σχολιασμό Τύπου
 
-**Cause:** `read "42"` has type `Read a => a`; the compiler cannot infer which `a`.
+**Αιτία:** Η έκφραση `read "42"` έχει τύπο `Read a => a`· ο μεταγλωττιστής δεν μπορεί να συνάγει ποιο `a` απαιτείται.
 
 ```haskell
--- n = read "42"   -- Ambiguous type.
+-- n = read "42"   -- Διφορούμενος τύπος.
 n = read "42" :: Int
 ```
 
-**Resolution:** Always annotate the expected type: `read "42" :: Int`.
+**Επίλυση:** Σχολιάζετε πάντα τον αναμενόμενο τύπο: `read "42" :: Int`.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Currying Trace
+### Άσκηση 1: Ιχνηλάτηση Currying
 
-**Problem:** Trace the types at each step of `mult 2 3 4` where `mult x y z = x * y * z`.
+**Πρόβλημα:** Ιχνηλατήστε τους τύπους σε κάθε βήμα της έκφρασης `mult 2 3 4` όπου `mult x y z = x * y * z`.
 
-**Solution:**
+**Λύση:**
 
 1. `mult :: Int -> Int -> Int -> Int`.
 2. `mult 2 :: Int -> Int -> Int`.
@@ -483,13 +483,13 @@ n = read "42" :: Int
 
 ---
 
-### Exercise 2: Partial Application
+### Άσκηση 2: Μερική Εφαρμογή
 
-**Problem:** Given `power x y = x ^ y`, evaluate `map (power 2) [1,2,3,4]`.
+**Πρόβλημα:** Δοθέντος του `power x y = x ^ y`, αξιολογήστε την έκφραση `map (power 2) [1,2,3,4]`.
 
-**Solution:**
+**Λύση:**
 
-1. `power 2 :: Int -> Int` — raises 2 to a given exponent.
+1. `power 2 :: Int -> Int` — υψώνει το 2 σε έναν δοθέντα εκθέτη.
 2. `power 2 1 = 2`, `power 2 2 = 4`, `power 2 3 = 8`, `power 2 4 = 16`.
 
 ```text
@@ -498,23 +498,23 @@ n = read "42" :: Int
 
 ---
 
-### Exercise 3: Type Inference
+### Άσκηση 3: Εξαγωγή Τύπων
 
-**Problem:** Infer the type of `f g x = g (g x)`.
+**Πρόβλημα:** Συνάγετε τον τύπο της συνάρτησης `f g x = g (g x)`.
 
-**Solution:**
+**Λύση:**
 
-1. `g` is applied to `x`, so `g :: a -> a` for some `a`.
-2. `g (g x)` applies `g` again, so the output type matches: `g :: a -> a`.
-3. `f` takes `g` and `x`: `f :: (a -> a) -> a -> a`.
+1. Η `g` εφαρμόζεται στο `x`, άρα `g :: a -> a` για κάποιο `a`.
+2. Η `g (g x)` εφαρμόζει την `g` εκ νέου, άρα ο τύπος εξόδου ταιριάζει: `g :: a -> a`.
+3. Η `f` δέχεται τα `g` και `x`: `f :: (a -> a) -> a -> a`.
 
 ---
 
-### Exercise 4: `Show` and `Read` Round-Trip
+### Άσκηση 4: Κύκλος `Show` και `Read`
 
-**Problem:** Evaluate `read (show [True, False]) :: [Bool]`.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `read (show [True, False]) :: [Bool]`.
 
-**Solution:**
+**Λύση:**
 
 1. `show [True, False]` → `"[True,False]"`.
 2. `read "[True,False]" :: [Bool]` → `[True, False]`.
@@ -525,23 +525,23 @@ n = read "42" :: Int
 
 ---
 
-### Exercise 5: `Bounded` Values
+### Άσκηση 5: Οριοθετημένες Τιμές `Bounded`
 
-**Problem:** What are `minBound :: Word` and `maxBound :: Word`? (Word is unsigned.)
+**Πρόβλημα:** Ποιες είναι οι τιμές των `minBound :: Word` και `maxBound :: Word`; (Το Word είναι μη προσημασμένο).
 
-**Solution:**
+**Λύση:**
 
-1. `Word` is an unsigned machine word.
+1. Το `Word` είναι ένας μη προσημασμένος ακέραιος μηχανής.
 2. `minBound :: Word` = `0`.
-3. `maxBound :: Word` = $2^{64} - 1$ on 64-bit systems (or platform-dependent).
+3. `maxBound :: Word` = $2^{64} - 1$ σε συστήματα 64-bit (ή εξαρτώμενο από την πλατφόρμα).
 
 ---
 
-### Exercise 6: ADT Pattern Match
+### Άσκηση 6: Ταίριασμα Μοτίβου σε ADT
 
-**Problem:** Define `isCircle :: Shape -> Bool` and evaluate for `Circle 5` and `Rectangle 1 2`.
+**Πρόβλημα:** Ορίστε τη συνάρτηση `isCircle :: Shape -> Bool` και αξιολογήστε την για τα `Circle 5` και `Rectangle 1 2`.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 isCircle (Circle _) = True
@@ -553,11 +553,11 @@ isCircle _          = False
 
 ---
 
-### Exercise 7: `Maybe` Chaining
+### Άσκηση 7: Αλυσίδα `Maybe`
 
-**Problem:** Implement `safeHead :: [a] -> Maybe a` and evaluate `safeHead []` and `safeHead [7,8,9]`.
+**Πρόβλημα:** Υλοποιήστε τη συνάρτηση `safeHead :: [a] -> Maybe a` και αξιολογήστε τις εκφράσεις `safeHead []` και `safeHead [7,8,9]`.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 safeHead []    = Nothing
@@ -569,11 +569,11 @@ safeHead (x:_) = Just x
 
 ---
 
-### Exercise 8: Higher-Order Composition
+### Άσκηση 8: Σύνθεση Ανώτερης Τάξης
 
-**Problem:** Evaluate `(map (*3) . filter even) [1..8]` step by step.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `(map (*3) . filter even) [1..8]` βήμα προς βήμα.
 
-**Solution:**
+**Λύση:**
 
 1. `filter even [1..8]` → `[2,4,6,8]`.
 2. `map (*3) [2,4,6,8]` → `[6,12,18,24]`.
@@ -584,13 +584,13 @@ safeHead (x:_) = Just x
 
 ---
 
-## Exam Tip: Reading Haskell Types
+## Συμβουλή Εξετάσεων: Ανάγνωση Τύπων Haskell
 
-**The currying decode procedure** for any type signature:
+**Η διαδικασία αποκωδικοποίησης Currying** για κάθε υπογραφή τύπου:
 
-1. **Count the arrows** right-to-left: `a -> b -> c -> d` is a 3-argument curried function.
-2. **Identify constraints** before `=>`: `Eq a => a -> [a] -> Bool` requires `a` to support equality.
-3. **Parenthesize mentally:** `a -> b -> c` means `a -> (b -> c)`, not `(a -> b) -> c`.
-4. **Partial application arity:** For `f :: a -> b -> c -> d`, `f x` has type `b -> c -> d`; `f x y` has type `c -> d`.
+1. **Μετρήστε τα βέλη** από δεξιά προς τα αριστερά: η `a -> b -> c -> d` είναι μια curried συνάρτηση 3 ορισμάτων.
+2. **Ταυτοποιήστε τους περιορισμούς** πριν το `=>`: η `Eq a => a -> [a] -> Bool` απαιτεί το `a` να υποστηρίζει ισότητα.
+3. **Βάλτε παρενθέσεις νοητά:** η `a -> b -> c` σημαίνει `a -> (b -> c)`, και όχι `(a -> b) -> c`.
+4. **Αριθμός ορισμάτων μερικής εφαρμογής:** Για την `f :: a -> b -> c -> d`, η `f x` έχει τύπο `b -> c -> d`· η `f x y` έχει τύπο `c -> d`.
 
-**Most common exam trap:** Students read `Int -> Int -> Int` as "takes a tuple `(Int, Int)`". It does not — it takes one `Int` and returns `Int -> Int`. The uncurried form would be written with a tuple: `Int -> (Int -> Int)` vs. `(Int, Int) -> Int` (which requires `uncurry`).
+**Συχνότερη εξεταστική παγίδα:** Οι φοιτητές διαβάζουν την `Int -> Int -> Int` ως "δέχεται μια πλειάδα `(Int, Int)`". Αυτό δεν ισχύει — δέχεται ένα `Int` και επιστρέφει `Int -> Int`. Η μη-curried μορφή θα γραφόταν με πλειάδα: `(Int, Int) -> Int` (η οποία απαιτεί τη συνάρτηση `uncurry`).

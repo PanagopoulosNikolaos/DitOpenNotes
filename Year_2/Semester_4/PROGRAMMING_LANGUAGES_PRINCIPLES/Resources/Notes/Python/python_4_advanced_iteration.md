@@ -1,40 +1,40 @@
-# Python — Advanced Iteration and Memory Efficiency
+# Python — Προηγμένη Επανάληψη και Αποδοτικότητα Μνήμης
 
-*Prerequisite: python_1_basics.md — Functions, the heap-bound object model, and bytecode evaluation costs.*
-*Prerequisite: python_2_intermediate.md — List comprehensions and the iterator protocol.*
+*Προαπαιτούμενο: python_1_basics.md — Συναρτήσεις, το μοντέλο μνήμης δεσμευμένο στο heap και το κόστος αξιολόγησης bytecode.*
+*Προαπαιτούμενο: python_2_intermediate.md — Κατασκευές λιστών και το πρωτόκολλο επαναλήπτη.*
 
-Python's iteration system is built on a two-protocol model — the **iterable** and **iterator** protocols — that enables lazy, memory-efficient data processing. This file covers generators and lazy evaluation as a mechanism for reducing heap allocation, the `itertools` module's infinite, combinatoric, and terminating iterators, and the performance rationale for delegating tight loops to native C-level implementations.
+Το σύστημα επανάληψης της Python βασίζεται σε ένα μοντέλο δύο πρωτοκόλλων — τα πρωτόκολλα **προσπελάσιμου (iterable)** και **επαναλήπτη (iterator)** — το οποίο επιτρέπει οκνηρή, αποδοτική ως προς τη μνήμη επεξεργασία δεδομένων. Αυτό το αρχείο καλύπτει τις γεννήτριες (generators) και την οκνηρή αξιολόγηση (lazy evaluation) ως μηχανισμό μείωσης των δεσμεύσεων στο heap, την ενότητα `itertools` με τους άπειρους, συνδυαστικούς και τερματιζόμενους επαναλήπτες της, καθώς και την αιτιολογία απόδοσης για την εκχώρηση κλειστών βρόχων σε αυτόχθονες υλοποιήσεις επιπέδου C.
 
 ---
 
-## 1. The Iterator Protocol
+## 1. Το Πρωτόκολλο Επαναλήπτη (Iterator Protocol)
 
-### 1.1 Iterable vs. Iterator
+### 1.1 Προσπελάσιμο (Iterable) έναντι Επαναλήπτη (Iterator)
 
-Two distinct concepts underlie Python's `for` loop:
+Δύο διακριτές έννοιες υποστηρίζουν τον βρόχο `for` της Python:
 
-| Concept | Required Method | Description |
+| Έννοια | Απαιτούμενη Μέθοδος | Περιγραφή |
 | :--- | :--- | :--- |
-| **Iterable** | `__iter__()` | An object that can produce an iterator; may be traversed multiple times |
-| **Iterator** | `__iter__()` + `__next__()` | An object that tracks traversal state; raises `StopIteration` when exhausted |
+| **Προσπελάσιμο (Iterable)** | `__iter__()` | Ένα αντικείμενο που μπορεί να παράγει έναν επαναλήπτη· μπορεί να διασχιστεί πολλαπλές φορές |
+| **Επαναλήπτης (Iterator)** | `__iter__()` + `__next__()` | Ένα αντικείμενο που παρακολουθεί την κατάσταση διάσχισης· προκαλεί `StopIteration` όταν εξαντληθεί |
 
-An **iterator** is also an **iterable** (it returns `self` from `__iter__`), but an iterable is not necessarily an iterator.
+Ένας **επαναλήπτης** είναι επίσης **προσπελάσιμο αντικείμενο** (επιστρέφει το `self` από την `__iter__`), αλλά ένα προσπελάσιμο αντικείμενο δεν είναι απαραίτητα επαναλήπτης.
 
-**Protocol equivalences:**
+**Ισοδυναμίες πρωτοκόλλων:**
 
-| Syntax | Underlying Call |
+| Σύνταξη | Υποκείμενη Κλήση |
 | :--- | :--- |
 | `iter(obj)` | `obj.__iter__()` |
 | `next(it)` | `it.__next__()` |
-| `for x in obj: ...` | `it = iter(obj)` then repeated `next(it)` until `StopIteration` |
+| `for x in obj: ...` | `it = iter(obj)` και μετά επαναλαμβανόμενη `next(it)` μέχρι τη `StopIteration` |
 
 ```python
 lst = [10, 20, 30]
-it = iter(lst)            # Creates a list_iterator object.
-print(next(it))           # 10 — advances the iterator.
+it = iter(lst)            # Δημιουργεί ένα αντικείμενο list_iterator.
+print(next(it))           # 10 — προωθεί τον επαναλήπτη.
 print(next(it))           # 20
 print(next(it))           # 30
-# next(it)               # Would raise StopIteration here.
+# next(it)               # Θα προκαλούσε StopIteration εδώ.
 ```
 
 ```text
@@ -43,29 +43,29 @@ print(next(it))           # 30
 30
 ```
 
-### 1.2 Custom Iterator Class
+### 1.2 Προσαρμοσμένη Κλάση Επαναλήπτη
 
 ```python
 class Countdown:
-    """An iterator that counts down from a starting value to zero."""
+    """Ένας επαναλήπτης που μετρά αντίστροφα από μια αρχική τιμή έως το μηδέν."""
 
     def __init__(self, start):
         self.current = start
 
     def __iter__(self):
-        """Returns self; the iterator is its own iterable."""
+        """Επιστρέφει το self· ο επαναλήπτης είναι το δικό του προσπελάσιμο αντικείμενο."""
         return self
 
     def __next__(self):
-        """Returns the next value in the countdown.
+        """Επιστρέφει την επόμενη τιμή στην αντίστροφη μέτρηση.
 
         Raises:
-            StopIteration: When the countdown reaches below zero.
+            StopIteration: Όταν η αντίστροφη μέτρηση φτάσει κάτω από το μηδέν.
         """
         if self.current < 0:
             raise StopIteration
         value = self.current
-        self.current -= 1   # Advances internal state.
+        self.current -= 1   # Προωθεί την εσωτερική κατάσταση.
         return value
 
 for n in Countdown(5):
@@ -78,31 +78,31 @@ for n in Countdown(5):
 
 ---
 
-## 2. Generators and Lazy Evaluation
+## 2. Γεννήτριες (Generators) και Οκνηρή Αξιολόγηση
 
-### 2.1 Generator Functions
+### 2.1 Συναρτήσεις Γεννήτριες
 
-A **generator function** is a function that contains at least one `yield` statement. When called, it does not execute its body immediately; instead, it returns a **generator object** (which is both an iterable and an iterator).
+Μια **συνάρτηση γεννήτρια (generator function)** είναι μια συνάρτηση που περιέχει τουλάχιστον μία εντολή `yield`. Όταν καλείται, δεν εκτελεί το σώμα της αμέσως· αντίθετα, επιστρέφει ένα **αντικείμενο γεννήτρια (generator object)** (το οποίο είναι τόσο προσπελάσιμο όσο και επαναλήπτης).
 
-**Execution model:**
+**Μοντέλο εκτέλεσης:**
 
-1. The generator body executes up to the first `yield` and **suspends** — the local variable state is preserved on a dedicated frame object on the heap.
-2. Each call to `next()` on the generator resumes execution from the suspension point, runs until the next `yield`, and suspends again.
-3. When the function body returns (or falls off the end), `StopIteration` is raised automatically.
+1. Το σώμα της γεννήτριας εκτελείται έως το πρώτο `yield` και **αναστέλλεται (suspends)** — η κατάσταση των τοπικών μεταβλητών διατηρείται σε ένα εξειδικευμένο αντικείμενο πλαισίου (frame object) στο heap.
+2. Κάθε κλήση της `next()` στη γεννήτρια συνεχίζει την εκτέλεση από το σημείο αναστολής, εκτελείται έως το επόμενο `yield`, και αναστέλλεται εκ νέου.
+3. Όταν το σώμα της συνάρτησης επιστρέψει (ή φτάσει στο τέλος), προκαλείται αυτόματα `StopIteration`.
 
 ```python
 def count_up(limit):
-    """Yields integers from 0 up to limit (inclusive), one at a time."""
+    """Παράγει ακεραίους από το 0 έως το limit (συμπεριληπτικά), έναν κάθε φορά."""
     n = 0
     while n <= limit:
-        yield n     # Suspends here; n and limit are preserved in the frame.
+        yield n     # Αναστέλλεται εδώ· τα n και limit διατηρούνται στο πλαίσιο.
         n += 1
 
 gen = count_up(4)
 print(type(gen))    # <class 'generator'>
 print(next(gen))    # 0
 print(next(gen))    # 1
-print(list(gen))    # Materializes the remaining values: [2, 3, 4]
+print(list(gen))    # Υλοποιεί τις εναπομείνασες τιμές: [2, 3, 4]
 ```
 
 ```text
@@ -112,20 +112,20 @@ print(list(gen))    # Materializes the remaining values: [2, 3, 4]
 [2, 3, 4]
 ```
 
-### 2.2 Lazy Evaluation and Memory Efficiency
+### 2.2 Οκνηρή Αξιολόγηση και Αποδοτικότητα Μνήμης
 
-The critical property of generators is **lazy evaluation**: values are produced **one at a time, on demand**, rather than all at once. This means a generator that would logically produce a million integers does not allocate a list of a million integers — it allocates a single frame object regardless of the sequence length.
+Η κρίσιμη ιδιότητα των γεννητριών είναι η **οκνηρή αξιολόγηση (lazy evaluation)**: οι τιμές παράγονται **μία κάθε φορά, κατόπιν απαιτήσεως**, και όχι όλες ταυτόχρονα. Αυτό σημαίνει ότι μια γεννήτρια που θα παρήγε λογικά ένα εκατομμύριο ακεραίους δεν δεσμεύει μια λίστα ενός εκατομμυρίου ακεραίων — δεσμεύει ένα μεμονωμένο αντικείμενο πλαισίου ανεξάρτητα από το μήκος της ακολουθίας.
 
-**Comparison — list vs. generator:**
+**Σύγκριση — λίστα έναντι γεννήτριας:**
 
 ```python
 import sys
 
-# Eager evaluation: all 1,000,000 integers are computed and stored immediately.
+# Άμεση αξιολόγηση: και τα 1.000.000 τετράγωνα υπολογίζονται και αποθηκεύονται αμέσως.
 eager = [x**2 for x in range(1_000_000)]
 
-# Lazy evaluation: no computation occurs until values are consumed.
-lazy = (x**2 for x in range(1_000_000))   # Generator expression (parentheses).
+# Οκνηρή αξιολόγηση: κανένας υπολογισμός δεν συμβαίνει μέχρι να καταναλωθούν οι τιμές.
+lazy = (x**2 for x in range(1_000_000))   # Έκφραση γεννήτριας (παρενθέσεις).
 
 print(f"List size:      {sys.getsizeof(eager):>12} bytes")
 print(f"Generator size: {sys.getsizeof(lazy):>12} bytes")
@@ -136,18 +136,18 @@ List size:       8448728 bytes
 Generator size:       112 bytes
 ```
 
-> **[Key Insight]** The generator object itself has a constant memory footprint (the frame object and a small amount of overhead) regardless of how many values it will produce. The list must hold a reference to every computed object simultaneously.
+> **[Βασική Παρατήρηση]** Το ίδιο το αντικείμενο γεννήτριας έχει σταθερό ίχνος μνήμης (το αντικείμενο πλαισίου και ένα μικρό επιπλέον κόστος) ανεξάρτητα από το πόσες τιμές θα παράγει. Η λίστα πρέπει να διακρατεί μια αναφορά σε κάθε υπολογισμένο αντικείμενο ταυτόχρονα.
 
-### 2.3 Generator Expressions
+### 2.3 Εκφράσεις Γεννήτριες (Generator Expressions)
 
-A **generator expression** has the same syntax as a list comprehension but uses parentheses instead of square brackets. It produces a generator object rather than a list.
+Μια **έκφραση γεννήτρια (generator expression)** έχει την ίδια σύνταξη με μια κατασκευή λίστας αλλά χρησιμοποιεί παρενθέσεις αντί για αγκύλες. Παράγει ένα αντικείμενο γεννήτριας αντί για λίστα.
 
 ```
 (<output_expression> for <variable> in <iterable> [if <predicate>])
 ```
 
 ```python
-total = sum(x**2 for x in range(1, 1001))   # No intermediate list is created.
+total = sum(x**2 for x in range(1, 1001))   # Δεν δημιουργείται ενδιάμεση λίστα.
 print(total)
 ```
 
@@ -157,13 +157,13 @@ print(total)
 
 ### 2.4 `yield from`
 
-`yield from <iterable>` delegates iteration to a sub-iterable, yielding all of its values in turn. It is equivalent to a `for` loop with `yield` inside, but is more efficient and properly forwards `send()`, `throw()`, and `close()` to the sub-generator.
+Η εντολή `yield from <iterable>` εκχωρεί την επανάληψη σε ένα υπο-προσπελάσιμο αντικείμενο, παράγοντας όλες τις τιμές του διαδοχικά. Είναι ισοδύναμη με έναν βρόχο `for` με `yield` στο εσωτερικό του, αλλά είναι πιο αποδοτική και προωθεί ορθά τις `send()`, `throw()` και `close()` στην υπο-γεννήτρια.
 
 ```python
 def chain_sequences(*iterables):
-    """Yields all elements from each iterable in sequence."""
+    """Παράγει όλα τα στοιχεία από κάθε προσπελάσιμο αντικείμενο στη σειρά."""
     for it in iterables:
-        yield from it   # Delegates to each sub-iterable.
+        yield from it   # Εκχωρεί σε κάθε υπο-προσπελάσιμο.
 
 for value in chain_sequences([1, 2], [3, 4], [5]):
     print(value, end=" ")
@@ -175,22 +175,22 @@ for value in chain_sequences([1, 2], [3, 4], [5]):
 
 ---
 
-## 3. The `itertools` Module
+## 3. Η Ενότητα `itertools`
 
-The `itertools` module provides a collection of fast, memory-efficient iterators implemented in C. These iterators process elements lazily and compose with each other and with standard Python iterators.
+Η ενότητα `itertools` παρέχει μια συλλογή από γρήγορους, αποδοτικούς ως προς τη μνήμη επαναλήπτες υλοποιημένους σε C. Αυτοί οι επαναλήπτες επεξεργάζονται τα στοιχεία οκνηρά και συντίθενται μεταξύ τους καθώς και με πρότυπους επαναλήπτες της Python.
 
-> **[Supplementary]**
-> All `itertools` iterators are **lazy**: they compute the next value only when `next()` is called. They are designed to be composed as building blocks — this is often called **iterator algebra**.
+> **[Συμπληρωματικό]**
+> Όλοι οι επαναλήπτες της `itertools` είναι **οκνηροί**: υπολογίζουν την επόμενη τιμή μόνο όταν καλείται η `next()`. Είναι σχεδιασμένοι για να συντίθενται ως δομικά στοιχεία — αυτό αναφέρεται συχνά ως **άλγεβρα επαναληπτών (iterator algebra)**.
 
-### 3.1 Infinite Iterators
+### 3.1 Άπειροι Επαναλήπτες
 
-Infinite iterators produce an unbounded sequence. They must always be paired with a termination mechanism (e.g., `islice`, `takewhile`, `break`).
+Οι άπειροι επαναλήπτες παράγουν μια μη οριοθετημένη ακολουθία. Πρέπει πάντα να συνδυάζονται με έναν μηχανισμό τερματισμού (π.χ. `islice`, `takewhile`, `break`).
 
 #### `itertools.count(start=0, step=1)`
 
-Produces an arithmetic sequence starting at `start`, incrementing by `step`, without end.
+Παράγει μια αριθμητική ακολουθία ξεκινώντας από το `start`, αυξανόμενη κατά `step`, χωρίς τέλος.
 
-**Signature:**
+**Υπογραφή:**
 ```
 count(start=0, step=1) → count object
 ```
@@ -198,7 +198,7 @@ count(start=0, step=1) → count object
 ```python
 import itertools
 
-counter = itertools.count(10, 5)   # Starts at 10, increments by 5.
+counter = itertools.count(10, 5)   # Ξεκινά στο 10, αυξάνεται κατά 5.
 print([next(counter) for _ in range(5)])
 ```
 
@@ -208,7 +208,7 @@ print([next(counter) for _ in range(5)])
 
 #### `itertools.cycle(iterable)`
 
-Cycles through the elements of `iterable` indefinitely.
+Εκτελεί κυκλική επανάληψη στα στοιχεία του `iterable` επ' άπειρον.
 
 ```python
 cycler = itertools.cycle(["A", "B", "C"])
@@ -221,7 +221,7 @@ print([next(cycler) for _ in range(7)])
 
 #### `itertools.repeat(object, times=None)`
 
-Yields `object` either `times` times (if specified) or indefinitely.
+Παράγει το `object` είτε `times` φορές (αν καθοριστεί) είτε επ' άπειρον.
 
 ```python
 print(list(itertools.repeat(0, 5)))   # [0, 0, 0, 0, 0]
@@ -231,23 +231,23 @@ print(list(itertools.repeat(0, 5)))   # [0, 0, 0, 0, 0]
 [0, 0, 0, 0, 0]
 ```
 
-**Infinite iterator summary:**
+**Σύνοψη άπειρων επαναληπτών:**
 
-| Function | Output Pattern | Stops When |
+| Συνάρτηση | Μοτίβο Εξόδου | Σταματά Όταν |
 | :--- | :--- | :--- |
-| `count(n, s)` | $n,\ n+s,\ n+2s,\ \ldots$ | Never (must terminate externally) |
-| `cycle(it)` | Repeats `it` cyclically | Never |
-| `repeat(obj, n)` | $obj$ repeated $n$ times | After $n$ iterations (or never) |
+| `count(n, s)` | $n,\ n+s,\ n+2s,\ \ldots$ | Ποτέ (πρέπει να τερματιστεί εξωτερικά) |
+| `cycle(it)` | Επαναλαμβάνει το `it` κυκλικά | Ποτέ |
+| `repeat(obj, n)` | Το $obj$ επαναλαμβάνεται $n$ φορές | Μετά από $n$ επαναλήψεις (ή ποτέ) |
 
 ---
 
-### 3.2 Combinatoric Iterators
+### 3.2 Συνδυαστικοί Επαναλήπτες
 
-Combinatoric iterators produce tuples of elements drawn from a pool according to combinatoric rules (product, permutations, combinations).
+Οι συνδυαστικοί επαναλήπτες παράγουν πλειάδες στοιχείων που λαμβάνονται από ένα σύνολο σύμφωνα με συνδυαστικούς κανόνες (πολλαπλασιασμό, μεταθέσεις, συνδυασμούς).
 
 #### `itertools.product(*iterables, repeat=1)`
 
-Computes the Cartesian product of input iterables. Equivalent to nested `for` loops.
+Υπολογίζει το Καρτεσιανό γινόμενο των προσπελάσιμων εισόδου. Ισοδύναμο με εμφωλευμένους βρόχους `for`.
 
 $$\text{product}(A, B) = \{ (a, b) \mid a \in A,\ b \in B \}$$
 
@@ -260,10 +260,10 @@ print(result)
 [(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')]
 ```
 
-The `repeat` keyword argument specifies the number of times the input is repeated for the product:
+Το όρισμα `repeat` καθορίζει πόσες φορές επαναλαμβάνεται η είσοδος για το γινόμενο:
 
 ```python
-# Equivalent to product([0,1], [0,1]) — all 2-bit binary patterns.
+# Ισοδύναμο με product([0,1], [0,1]) — όλα τα μοτίβα δυαδικών 2-bit.
 print(list(itertools.product([0, 1], repeat=2)))
 ```
 
@@ -273,7 +273,7 @@ print(list(itertools.product([0, 1], repeat=2)))
 
 #### `itertools.permutations(iterable, r=None)`
 
-Produces all ordered arrangements of `r` elements from the iterable. If `r` is omitted, uses all elements.
+Παράγει όλες τις διατεταγμένες διατάξεις (μεταθέσεις) `r` στοιχείων από το προσπελάσιμο. Εάν το `r` παραλειφθεί, χρησιμοποιεί όλα τα στοιχεία.
 
 $$P(n, r) = \frac{n!}{(n-r)!}$$
 
@@ -290,7 +290,7 @@ Count: 6
 
 #### `itertools.combinations(iterable, r)`
 
-Produces all unordered selections of `r` elements from the iterable (no repetition). Order within a tuple is not significant; each subset appears exactly once.
+Παράγει όλους τους μη διατεταγμένους συνδυασμούς `r` στοιχείων από το προσπελάσιμο (χωρίς επανάληψη).
 
 $$C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
 
@@ -307,7 +307,7 @@ Count: 6
 
 #### `itertools.combinations_with_replacement(iterable, r)`
 
-Same as `combinations` but elements may be repeated.
+Όπως οι `combinations` αλλά τα στοιχεία μπορούν να επαναλαμβάνονται.
 
 $$C_R(n, r) = \binom{n+r-1}{r}$$
 
@@ -320,32 +320,32 @@ print(result)
 [(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
 ```
 
-**Combinatoric iterator summary:**
+**Σύνοψη συνδυαστικών επαναληπτών:**
 
-| Function | Description | Count formula |
+| Συνάρτηση | Περιγραφή | Τύπος πλήθους |
 | :--- | :--- | :--- |
-| `product(A, r=n)` | Cartesian product, with repetition | $\|A\|^n$ |
-| `permutations(A, r)` | Ordered selections, no repetition | $P(\|A\|, r)$ |
-| `combinations(A, r)` | Unordered selections, no repetition | $C(\|A\|, r)$ |
-| `combinations_with_replacement(A, r)` | Unordered selections, with repetition | $C_R(\|A\|, r)$ |
+| `product(A, r=n)` | Καρτεσιανό γινόμενο, με επανάληψη | $\|A\|^n$ |
+| `permutations(A, r)` | Διατεταγμένες επιλογές, χωρίς επανάληψη | $P(\|A\|, r)$ |
+| `combinations(A, r)` | Μη διατεταγμένες επιλογές, χωρίς επανάληψη | $C(\|A\|, r)$ |
+| `combinations_with_replacement(A, r)` | Μη διατεταγμένες επιλογές, με επανάληψη | $C_R(\|A\|, r)$ |
 
 ---
 
-### 3.3 Terminating Iterators
+### 3.3 Τερματιζόμενοι Επαναλήπτες
 
-Terminating iterators process finite input sequences, applying transformations, filters, or aggregations.
+Οι τερματιζόμενοι επαναλήπτες επεξεργάζονται πεπερασμένες ακολουθίες εισόδου, εφαρμόζοντας μετασχηματισμούς, φίλτρα ή συσσωρεύσεις.
 
 #### `itertools.accumulate(iterable, func=operator.add, *, initial=None)`
 
-Produces cumulative results of applying `func`. Default `func` is addition, producing running sums.
+Παράγει συσσωρευτικά αποτελέσματα εφαρμογής της `func`. Προεπιλεγμένη `func` είναι η πρόσθεση, παράγοντας τρέχοντα αθροίσματα.
 
 ```python
 import operator
 
 data = [1, 2, 3, 4, 5]
-print(list(itertools.accumulate(data)))                            # Running sum.
-print(list(itertools.accumulate(data, operator.mul)))              # Running product.
-print(list(itertools.accumulate(data, initial=0)))                 # With initial value.
+print(list(itertools.accumulate(data)))                            # Τρέχον άθροισμα.
+print(list(itertools.accumulate(data, operator.mul)))              # Τρέχον γινόμενο.
+print(list(itertools.accumulate(data, initial=0)))                 # Με αρχική τιμή.
 ```
 
 ```text
@@ -356,7 +356,7 @@ print(list(itertools.accumulate(data, initial=0)))                 # With initia
 
 #### `itertools.chain(*iterables)`
 
-Chains multiple iterables together, yielding elements from each in sequence. Does not materialize a new list.
+Συνδέει πολλαπλά προσπελάσιμα αντικείμενα μαζί, παράγοντας στοιχεία από το καθένα στη σειρά. Δεν δεσμεύει νέα λίστα στη μνήμη.
 
 ```python
 result = list(itertools.chain([1, 2], [3, 4], [5, 6]))
@@ -369,14 +369,14 @@ print(result)
 
 #### `itertools.islice(iterable, stop)` / `islice(iterable, start, stop[, step])`
 
-Yields a slice of an iterator without materializing the preceding elements. This is the standard way to safely consume a prefix of an infinite iterator.
+Παράγει μια τομή (slice) ενός επαναλήπτη χωρίς να δεσμεύει μνήμη για τα προηγούμενα στοιχεία. Αυτός είναι ο πρότυπος τρόπος για την ασφαλή κατανάλωση ενός προθέματος ενός άπειρου επαναλήπτη.
 
 ```python
-# Takes the first 5 values from an infinite counter.
+# Λαμβάνει τις πρώτες 5 τιμές από έναν άπειρο μετρητή.
 result = list(itertools.islice(itertools.count(0), 5))
 print(result)
 
-# Takes every other element from index 2 to 10.
+# Λαμβάνει κάθε δεύτερο στοιχείο από το δείκτη 2 έως το 10.
 result = list(itertools.islice(range(20), 2, 10, 2))
 print(result)
 ```
@@ -388,7 +388,7 @@ print(result)
 
 #### `itertools.groupby(iterable, key=None)`
 
-Groups consecutive elements with the same key value. The input must be **sorted** by the key for correct grouping.
+Ομαδοποιεί διαδοχικά στοιχεία με την ίδια τιμή κλειδιού. Η είσοδος πρέπει να είναι **ταξινομημένη** βάσει του κλειδιού για ορθή ομαδοποίηση.
 
 ```python
 data = [("A", 1), ("A", 2), ("B", 3), ("B", 4), ("C", 5)]
@@ -403,40 +403,40 @@ B [('B', 3), ('B', 4)]
 C [('C', 5)]
 ```
 
-**Terminating iterator summary:**
+**Σύνοψη τερματιζόμενων επαναληπτών:**
 
-| Function | Effect |
+| Συνάρτηση | Αποτέλεσμα |
 | :--- | :--- |
-| `accumulate(it, f)` | Running application of `f`; default is cumulative sum |
-| `chain(*its)` | Concatenates iterables without copying |
-| `islice(it, start, stop, step)` | Slices an iterator (works on infinite iterators) |
-| `groupby(it, key)` | Groups consecutive equal-key elements |
-| `filterfalse(pred, it)` | Yields elements for which `pred` is `False` |
-| `dropwhile(pred, it)` | Drops elements while `pred` is `True`, then yields all remaining |
-| `takewhile(pred, it)` | Yields elements while `pred` is `True`, then stops |
-| `starmap(func, it)` | Applies `func(*args)` for each tuple in `it` |
-| `zip_longest(*its, fillvalue)` | Zips iterables, filling shorter ones with `fillvalue` |
+| `accumulate(it, f)` | Σταδιακή εφαρμογή της `f`· προεπιλογή είναι το αθροιστικό άθροισμα |
+| `chain(*its)` | Συνενώνει προσπελάσιμα αντικείμενα χωρίς αντιγραφή |
+| `islice(it, start, stop, step)` | Εκτελεί τομή σε επαναλήπτη (λειτουργεί και σε άπειρους) |
+| `groupby(it, key)` | Ομαδοποιεί διαδοχικά στοιχεία με ίσα κλειδιά |
+| `filterfalse(pred, it)` | Παράγει στοιχεία για τα οποία το `pred` είναι `False` |
+| `dropwhile(pred, it)` | Απορρίπτει στοιχεία όσο το `pred` είναι `True`, μετά παράγει όλα τα υπόλοιπα |
+| `takewhile(pred, it)` | Παράγει στοιχεία όσο το `pred` είναι `True`, μετά σταματά |
+| `starmap(func, it)` | Εφαρμόζει τη `func(*args)` για κάθε πλειάδα στο `it` |
+| `zip_longest(*its, fillvalue)` | Συνενώνει προσπελάσιμα, συμπληρώνοντας τα μικρότερα με `fillvalue` |
 
 ---
 
-## 4. Shifting Execution to Native C Loops
+## 4. Μετατόπιση Εκτέλεσης σε Αυτόχθονες Βρόχους C
 
-### 4.1 The Performance Gap
+### 4.1 Το Χάσμα Απόδοσης
 
-The bytecode evaluation overhead described in `python_1_basics.md` is most visible in tight loops. Each Python-level iteration involves:
+Η επιβάρυνση αξιολόγησης bytecode που περιγράφηκε στο `python_1_basics.md` είναι περισσότερο εμφανής στους κλειστούς βρόχους. Κάθε επανάληψη επιπέδου Python περιλαμβάνει:
 
-- Fetching the iterator object.
-- Calling `__next__` (a method dispatch through the object protocol).
-- Performing the operation (type lookup, dispatch, allocation).
-- Storing the result.
+- Ανάκτηση του αντικειμένου επαναλήπτη.
+- Κλήση της `__next__` (δρομολόγηση μεθόδου μέσω του πρωτοκόλλου αντικειμένων).
+- Εκτέλεση της πράξης (αναζήτηση τύπου, δρομολόγηση, δέσμευση).
+- Αποθήκευση του αποτελέσματος.
 
-When these steps are repeated millions of times, the cumulative overhead dominates execution time.
+Όταν αυτά τα βήματα επαναλαμβάνονται εκατομμύρια φορές, η συσσωρευμένη επιβάρυνση κυριαρχεί στον χρόνο εκτέλεσης.
 
-**The resolution:** Replace Python-level iteration with operations that execute their inner loop entirely in native C code. `itertools` functions are the primary built-in mechanism for this; NumPy provides the same benefit for numerical computation.
+**Η επίλυση:** Αντικατάσταση της επανάληψης επιπέδου Python με πράξεις που εκτελούν τον εσωτερικό τους βρόχο εξολοκλήρου σε αυτόχθονα κώδικα C. Οι συναρτήσεις της `itertools` αποτελούν τον κύριο ενσωματωμένο μηχανισμό για αυτό· η NumPy παρέχει το ίδιο όφελος για αριθμητικούς υπολογισμούς.
 
-### 4.2 Why `itertools` Functions Are Fast
+### 4.2 Γιατί οι Συναρτήσεις `itertools` Είναι Γρήγορες
 
-Each `itertools` function is a C extension type. Its `tp_iternext` slot — the C-level equivalent of `__next__` — executes directly in the CPython interpreter without re-entering the Python evaluation loop for each element. The overhead per element is therefore comparable to a C `for` loop iteration, not a Python bytecode iteration sequence.
+Κάθε συνάρτηση της `itertools` είναι ένας τύπος επέκτασης C. Η θέση `tp_iternext` — το ισοδύναμο της `__next__` σε επίπεδο C — εκτελείται άμεσα στον διερμηνέα CPython χωρίς να εισέρχεται εκ νέου στον βρόχο αξιολόγησης της Python για κάθε στοιχείο. Η επιβάρυνση ανά στοιχείο είναι επομένως συγκρίσιμη με έναν βρόχο `for` της C, και όχι με μια ακολουθία bytecode της Python.
 
 ```python
 import time
@@ -444,18 +444,18 @@ import itertools
 
 N = 10_000_000
 
-# Python-level loop: accumulates a running sum via Python bytecode.
+# Βρόχος επιπέδου Python: συσσωρεύει τρέχον άθροισμα μέσω bytecode Python.
 start = time.perf_counter()
 total = 0
 for i in range(N):
     total += i
 python_time = time.perf_counter() - start
 
-# C-level loop via itertools.accumulate: the summation runs inside C.
+# Βρόχος επιπέδου C μέσω itertools.accumulate: η άθροιση εκτελείται εντός της C.
 start = time.perf_counter()
 result = None
 for result in itertools.accumulate(range(N)):
-    pass   # The accumulation itself occurs in C.
+    pass   # Η ίδια η συσσώρευση συμβαίνει στη C.
 c_time = time.perf_counter() - start
 
 print(f"Python loop:  {python_time:.3f}s")
@@ -467,26 +467,26 @@ Python loop:  0.412s
 itertools:    0.218s
 ```
 
-> **[Key Insight]** The `sum()` built-in function is the canonical example of a C-level loop. `sum(range(N))` is significantly faster than a Python `for` loop accumulating into a variable, because `sum` iterates in C. Similarly, `max()`, `min()`, `sorted()`, `map()`, `filter()`, and all `itertools` functions push their hot path into C.
+> **[Βασική Παρατήρηση]** Η ενσωματωμένη συνάρτηση `sum()` είναι το κανονικό παράδειγμα βρόχου επιπέδου C. Η `sum(range(N))` είναι σημαντικά ταχύτερη από έναν βρόχο `for` της Python που συσσωρεύει σε μια μεταβλητή, επειδή η `sum` εκτελεί επανάληψη στη C. Παρόμοια, οι `max()`, `min()`, `sorted()`, `map()`, `filter()` και όλες οι συναρτήσεις της `itertools` μετατοπίζουν την εκτέλεσή τους στη C.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Manual Iterator Implementation
+### Άσκηση 1: Χειροκίνητη Υλοποίηση Επαναλήπτη
 
-**Problem:** Implement a class `FibonacciIterator` that yields the Fibonacci sequence indefinitely. Consume the first 10 values using `itertools.islice`.
+**Πρόβλημα:** Υλοποιήστε μια κλάση `FibonacciIterator` που παράγει την ακολουθία Fibonacci επ' άπειρον. Καταναλώστε τις πρώτες 10 τιμές χρησιμοποιώντας την `itertools.islice`.
 
-**Solution:**
+**Λύση:**
 
-The Fibonacci sequence is defined by the recurrence:
-$$F_0 = 0,\quad F_1 = 1,\quad F_n = F_{n-1} + F_{n-2} \quad \text{for } n \geq 2$$
+Η ακολουθία Fibonacci ορίζεται από τη σχέση:
+$$F_0 = 0,\quad F_1 = 1,\quad F_n = F_{n-1} + F_{n-2} \quad \text{για } n \geq 2$$
 
 ```python
 import itertools
 
 class FibonacciIterator:
-    """An infinite iterator yielding Fibonacci numbers in sequence."""
+    """Ένας άπειρος επαναλήπτης που παράγει αριθμούς Fibonacci στη σειρά."""
 
     def __init__(self):
         self._a = 0   # F_{n-1}
@@ -496,9 +496,9 @@ class FibonacciIterator:
         return self
 
     def __next__(self):
-        """Yields the next Fibonacci number and advances internal state."""
+        """Παράγει τον επόμενο αριθμό Fibonacci και προωθεί την εσωτερική κατάσταση."""
         value = self._a
-        self._a, self._b = self._b, self._a + self._b   # Simultaneous update.
+        self._a, self._b = self._b, self._a + self._b   # Ταυτόχρονη ενημέρωση.
         return value
 
 fib = FibonacciIterator()
@@ -511,19 +511,19 @@ print(list(itertools.islice(fib, 10)))
 
 ---
 
-### Exercise 2: Generator Function for Fibonacci
+### Άσκηση 2: Συνάρτηση Γεννήτρια για Fibonacci
 
-**Problem:** Re-implement the Fibonacci sequence as a generator function. Show that the generator expression form is equivalent.
+**Πρόβλημα:** Επανυλοποιήστε την ακολουθία Fibonacci ως συνάρτηση γεννήτρια.
 
-**Solution:**
+**Λύση:**
 
 ```python
 def fibonacci():
-    """Generates the Fibonacci sequence lazily."""
+    """Παράγει την ακολουθία Fibonacci οκνηρά."""
     a, b = 0, 1
     while True:
         yield a
-        a, b = b, a + b   # Simultaneous update avoids a temporary variable.
+        a, b = b, a + b   # Η ταυτόχρονη ενημέρωση αποφεύγει προσωρινή μεταβλητή.
 
 import itertools
 print(list(itertools.islice(fibonacci(), 10)))
@@ -533,15 +533,15 @@ print(list(itertools.islice(fibonacci(), 10)))
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 ```
 
-The generator function is more readable than the class-based iterator and produces identical results. The `while True` loop with `yield` is the standard pattern for infinite generators.
+Η συνάρτηση γεννήτρια είναι πιο αναγνώσιμη από τον επαναλήπτη βάσει κλάσης και παράγει πανομοιότυπα αποτελέσματα. Ο βρόχος `while True` με `yield` είναι το πρότυπο μοτίβο για άπειρες γεννήτριες.
 
 ---
 
-### Exercise 3: Memory Comparison — List vs. Generator
+### Άσκηση 3: Σύγκριση Μνήμης — Λίστα έναντι Γεννήτριας
 
-**Problem:** Measure the memory footprint of computing the sum of squares of the first $10^6$ integers using a list comprehension vs. a generator expression.
+**Πρόβλημα:** Μετρήστε το ίχνος μνήμης για τον υπολογισμό του αθροίσματος τετραγώνων των πρώτων $10^6$ ακεραίων χρησιμοποιώντας κατασκευή λίστας έναντι έκφρασης γεννήτριας.
 
-**Solution:**
+**Λύση:**
 
 ```python
 import sys
@@ -549,14 +549,14 @@ import time
 
 N = 1_000_000
 
-# Approach 1: List comprehension — materializes all values.
+# Προσέγγιση 1: Κατασκευή λίστας — υλοποιεί όλες τις τιμές.
 start = time.perf_counter()
 squares_list = [x**2 for x in range(N)]
 total_list = sum(squares_list)
 t1 = time.perf_counter() - start
 mem1 = sys.getsizeof(squares_list)
 
-# Approach 2: Generator expression — computes values on demand.
+# Προσέγγιση 2: Έκφραση γεννήτριας — υπολογίζει τιμές κατόπιν απαιτήσεως.
 start = time.perf_counter()
 total_gen = sum(x**2 for x in range(N))
 t2 = time.perf_counter() - start
@@ -570,17 +570,17 @@ List:      total=333332833333500000, time=0.184s, memory=8,448,728 bytes
 Generator: total=333332833333500000, time=0.102s, memory=O(1)
 ```
 
-The generator produces the same result with constant memory and lower time (no intermediate list allocation).
+Η γεννήτρια παράγει το ίδιο αποτέλεσμα με σταθερή μνήμη και χαμηλότερο χρόνο (χωρίς δέσμευση ενδιάμεσης λίστας).
 
 ---
 
-### Exercise 4: `itertools.product` for Brute Force Search
+### Άσκηση 4: `itertools.product` για Αναζήτηση Εξάντλησης
 
-**Problem:** Use `itertools.product` to find all combinations of digits $(d_1, d_2, d_3)$ where $d_i \in \{0, \ldots, 9\}$ and $d_1 + d_2 + d_3 = 15$.
+**Πρόβλημα:** Χρησιμοποιήστε την `itertools.product` για την εύρεση όλων των συνδυασμών ψηφίων $(d_1, d_2, d_3)$ όπου $d_i \in \{0, \ldots, 9\}$ και $d_1 + d_2 + d_3 = 15$.
 
-**Solution:**
+**Λύση:**
 
-The search space is $10^3 = 1000$ combinations.
+Ο χώρος αναζήτησης είναι $10^3 = 1000$ συνδυασμοί.
 
 ```python
 digits = range(10)
@@ -600,11 +600,11 @@ First 5: [(0, 6, 9), (0, 7, 8), (0, 8, 7), (0, 9, 6), (1, 5, 9)]
 
 ---
 
-### Exercise 5: `itertools.accumulate` for Running Statistics
+### Άσκηση 5: `itertools.accumulate` για Τρέχουσες Στατιστικές
 
-**Problem:** Given a stream of measurements, compute the running maximum and the running cumulative sum.
+**Πρόβλημα:** Δοθείσης μιας ροής μετρήσεων, υπολογίστε το τρέχον μέγιστο και το τρέχον αθροιστικό άθροισμα.
 
-**Solution:**
+**Λύση:**
 
 ```python
 import operator
@@ -627,19 +627,17 @@ Running max:   [3, 3, 4, 4, 5, 9, 9, 9, 9, 9]
 
 ---
 
-### Exercise 6: `itertools.chain` for Flat Iteration
+### Άσκηση 6: `itertools.chain` για Επίπεδη Επανάληψη
 
-**Problem:** Given a list of lists (a 2D structure), iterate over all elements in row-major order without constructing a flat list. Compute the total count and sum.
+**Πρόβλημα:** Δοθείσης μιας λίστας λιστών (2D δομή), εκτελέστε επανάληψη σε όλα τα στοιχεία σε σειρά κατά γραμμές (row-major) χωρίς την κατασκευή επίπεδης λίστας. Υπολογίστε το συνολικό πλήθος και το άθροισμα.
 
-**Solution:**
+**Λύση:**
 
 ```python
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
-flat = itertools.chain.from_iterable(matrix)   # chain.from_iterable accepts a single iterable of iterables.
-# Equivalent to: itertools.chain(*matrix), but works when matrix is itself a generator.
+flat = itertools.chain.from_iterable(matrix)   # Η chain.from_iterable δέχεται ένα προσπελάσιμο προσπελάσιμων.
 
-# Since flat is a generator, it can only be consumed once.
 flat_list = list(flat)
 print(f"Elements: {flat_list}")
 print(f"Count: {len(flat_list)}, Sum: {sum(flat_list)}")
@@ -652,17 +650,17 @@ Count: 9, Sum: 45
 
 ---
 
-### Exercise 7: `itertools.groupby` for Frequency Counting
+### Άσκηση 7: `itertools.groupby` για Καταμέτρηση Συχνότητας
 
-**Problem:** Given a sorted list of strings, use `itertools.groupby` to count the frequency of each unique string.
+**Πρόβλημα:** Δοθείσης μιας ταξινομημένης λίστας συμβολοσειρών, χρησιμοποιήστε την `itertools.groupby` για την καταμέτρηση της συχνότητας κάθε μοναδικής συμβολοσειράς.
 
-**Solution:**
+**Λύση:**
 
 ```python
 words = sorted(["apple", "banana", "apple", "cherry", "banana", "apple"])
 
 for word, group in itertools.groupby(words):
-    count = sum(1 for _ in group)   # Exhausts the group iterator to count elements.
+    count = sum(1 for _ in group)   # Εξαντλεί τον επαναλήπτη ομάδας για την καταμέτρηση στοιχείων.
     print(f"{word}: {count}")
 ```
 
@@ -672,35 +670,35 @@ banana: 2
 cherry: 1
 ```
 
-> **[Key Insight]** `groupby` groups only **consecutive** equal elements. If the input is not sorted, elements with the same key may appear in multiple separate groups. Always sort by the grouping key before calling `groupby`.
+> **[Βασική Παρατήρηση]** Η `groupby` ομαδοποιεί μόνο **διαδοχικά** ίσα στοιχεία. Εάν η είσοδος δεν είναι ταξινομημένη, στοιχεία με το ίδιο κλειδί μπορεί να εμφανιστούν σε πολλαπλές ξεχωριστές ομάδες. Ταξινομείτε πάντα βάσει του κλειδιού ομαδοποίησης πριν καλέσετε τη `groupby`.
 
 ---
 
-### Exercise 8: Combining `itertools` Primitives — Sliding Window
+### Άσκηση 8: Συνδυασμός Πρωτογενών `itertools` — Ολισθαίνον Παράθυρο (Sliding Window)
 
-**Problem:** Implement a `sliding_window(iterable, n)` generator that yields all consecutive windows of size `n` from the input, using only `itertools` primitives.
+**Πρόβλημα:** Υλοποιήστε μια γεννήτρια `sliding_window(iterable, n)` που παράγει όλα τα διαδοχικά παράθυρα μεγέθους `n` από την είσοδο, χρησιμοποιώντας μόνο δομικά στοιχεία της `itertools`.
 
-**Solution:**
+**Λύση:**
 
 ```python
 from collections import deque
 
 def sliding_window(iterable, n):
-    """Yields consecutive overlapping tuples of length n from iterable.
+    """Παράγει διαδοχικές επικαλυπτόμενες πλειάδες μήκους n από το προσπελάσιμο.
 
     Args:
-        iterable: Any iterable input sequence.
-        n (int): The window size.
+        iterable: Οποιαδήποτε ακολουθία εισόδου.
+        n (int): Το μέγεθος παραθύρου.
 
     Yields:
-        tuple: Each consecutive window of n elements.
+        tuple: Κάθε διαδοχικό παράθυρο n στοιχείων.
     """
     it = iter(iterable)
-    window = deque(itertools.islice(it, n), maxlen=n)   # Fill the initial window.
+    window = deque(itertools.islice(it, n), maxlen=n)   # Συμπληρώνει το αρχικό παράθυρο.
     if len(window) == n:
         yield tuple(window)
     for element in it:
-        window.append(element)   # deque with maxlen automatically drops the oldest element.
+        window.append(element)   # Η deque με maxlen απορρίπτει αυτόματα το παλαιότερο στοιχείο.
         yield tuple(window)
 
 data = [1, 2, 3, 4, 5, 6, 7]
@@ -711,32 +709,29 @@ print(list(sliding_window(data, 3)))
 [(1, 2, 3), (2, 3, 4), (3, 4, 5), (4, 5, 6), (5, 6, 7)]
 ```
 
-This pattern is a standard idiom for stream processing and is available as `itertools.pairwise` (for $n=2$) in Python 3.10+. The general form requires manual composition as shown above.
-
-> **[Supplementary]**
-> Python 3.10 introduced `itertools.pairwise(iterable)`, which is equivalent to `sliding_window(iterable, 2)` implemented in C. For window sizes greater than 2, the `collections.deque`-based pattern above remains the standard approach.
+Αυτό το μοτίβο είναι τυπικό ιδίωμα για επεξεργασία ροών και είναι διαθέσιμο ως `itertools.pairwise` (για $n=2$) στην Python 3.10+.
 
 ---
 
-## Exam Tip: Generator Exhaustion and `itertools.groupby` Pre-Sort
+## Συμβουλή Εξετάσεων: Εξάντληση Γεννητριών και Προ-Ταξινόμηση στη `groupby`
 
-**Generator exhaustion:** A generator object can be iterated only **once**. After raising `StopIteration`, subsequent calls to `next()` continue to raise `StopIteration` — the generator does not reset. Converting a generator to a `list` exhausts it. Any code that attempts to iterate a generator a second time will silently see an empty sequence.
+**Εξάντληση γεννήτριας (Generator exhaustion):** Ένα αντικείμενο γεννήτριας μπορεί να διασχιστεί μόνο **μία** φορά. Αφού προκαλέσει `StopIteration`, οι μεταγενέστερες κλήσεις της `next()` συνεχίζουν να προκαλούν `StopIteration` — η γεννήτρια δεν επαναφέρεται. Η μετατροπή μιας γεννήτριας σε `list` την εξαντλεί.
 
 ```python
 gen = (x for x in range(5))
 print(list(gen))   # [0, 1, 2, 3, 4]
-print(list(gen))   # [] — generator is exhausted.
+print(list(gen))   # [] — η γεννήτρια έχει εξαντληθεί.
 ```
 
-**`groupby` pre-sort requirement:** The most common exam and practical mistake with `groupby` is omitting the sort step. `groupby` is a streaming operator; it sees only the current element and the previous element. If identical keys appear non-consecutively, they produce multiple groups:
+**Απαίτηση προ-ταξινόμησης στη `groupby`:** Το συχνότερο σφάλμα με τη `groupby` είναι η παράλειψη του βήματος ταξινόμησης. Η `groupby` είναι τελεστής ροής· βλέπει μόνο το τρέχον στοιχείο και το προηγούμενο. Εάν πανομοιότυπα κλειδιά εμφανιστούν μη διαδοχικά, παράγουν πολλαπλές ομάδες:
 
 ```python
-data = ["a", "b", "a"]   # Not sorted.
+data = ["a", "b", "a"]   # Μη ταξινομημένο.
 for k, g in itertools.groupby(data):
     print(k, list(g))
-# Output: a ['a'], b ['b'], a ['a']  — "a" appears in two groups.
+# Έξοδος: a ['a'], b ['b'], a ['a']  — το "a" εμφανίζεται σε δύο ομάδες.
 ```
 
-To obtain one group per unique key, always call `sorted(data, key=key_func)` before `groupby(data, key=key_func)`.
+Για τη λήψη μίας ομάδας ανά μοναδικό κλειδί, καλείτε πάντα τη `sorted(data, key=key_func)` πριν από τη `groupby(data, key=key_func)`.
 
-**`islice` for infinite iterators:** `islice` is the correct way to take a finite prefix from an infinite iterator. Never use `list()` directly on an infinite iterator — it will consume memory until the process terminates.
+**`islice` για άπειρους επαναλήπτες:** Η `islice` είναι ο ορθός τρόπος λήψης πεπερασμένου προθέματος από άπειρο επαναλήπτη. Μην χρησιμοποιείτε ποτέ τη `list()` άμεσα σε άπειρο επαναλήπτη — θα καταναλώσει μνήμη μέχρι να τερματιστεί η διεργασία.

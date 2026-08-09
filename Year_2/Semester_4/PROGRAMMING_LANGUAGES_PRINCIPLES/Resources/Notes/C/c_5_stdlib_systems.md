@@ -1,40 +1,40 @@
-# C — Standard Library and Systems Programming
+# C — Πρότυπη Βιβλιοθήκη και Προγραμματισμός Συστημάτων
 
-The C standard library provides core functionality for file access, memory management, mathematical computation, and system calls. Through these libraries, C programs interact directly with operating system abstractions such as files, processes, signals, and environment variables. This file covers standard headers, stream-based file I/O, process management, signal handling, and differences in execution models between C and C++.
+Η πρότυπη βιβλιοθήκη της C παρέχει βασικές λειτουργίες για πρόσβαση σε αρχεία, διαχείριση μνήμης, μαθηματικούς υπολογισμούς και κλήσεις συστήματος (system calls). Μέσω αυτών των βιβλιοθηκών, τα προγράμματα C αλληλεπιδρούν άμεσα με τις αφαιρέσεις του λειτουργικού συστήματος, όπως αρχεία, διεργασίες, σήματα (signals) και μεταβλητές περιβάλλοντος. Αυτό το αρχείο καλύπτει τις πρότυπες επικεφαλίδες (standard headers), την Είσοδο/Έξοδο αρχείων με βάση ροές (stream-based file I/O), τη διαχείριση διεργασιών, τον χειρισμό σημάτων και τις διαφορές στα μοντέλα εκτέλεσης μεταξύ C και C++.
 
 ---
 
-## 1. Standard Library Headers Reference
+## 1. Αναφορά Επικεφαλίδων Πρότυπης Βιβλιοθήκης
 
-C separates platform-independent functionality into dedicated headers.
+Η C διαχωρίζει τις ανεξάρτητες από την πλατφόρμα λειτουργίες σε εξειδικευμένες επικεφαλίδες.
 
-| Header | Primary Purpose | Common Symbols |
+| Επικεφαλίδα | Κύριος Σκοπός | Κοινά Σύμβολα |
 | :--- | :--- | :--- |
-| `<stdio.h>` | Input/Output Streams | `printf`, `scanf`, `fopen`, `fread`, `fwrite`, `FILE` |
-| `<stdlib.h>` | General Utilities, Memory | `malloc`, `free`, `exit`, `getenv`, `system` |
-| `<string.h>` | Byte/String Manipulation | `strlen`, `strcpy`, `memset`, `memcpy` |
-| `<math.h>` | Mathematical Computations | `sin`, `cos`, `sqrt`, `pow` (requires linking `-lm`) |
+| `<stdio.h>` | Ροές Εισόδου/Εξόδου | `printf`, `scanf`, `fopen`, `fread`, `fwrite`, `FILE` |
+| `<stdlib.h>` | Γενικές Βοηθητικές Συναρτήσεις, Μνήμη | `malloc`, `free`, `exit`, `getenv`, `system` |
+| `<string.h>` | Χειρισμός Bytes/Συμβολοσειρών | `strlen`, `strcpy`, `memset`, `memcpy` |
+| `<math.h>` | Μαθηματικοί Υπολογισμοί | `sin`, `cos`, `sqrt`, `pow` (απαιτεί σύνδεση `-lm`) |
 
 ---
 
-## 2. File Input/Output and Buffering
+## 2. Είσοδος/Έξοδος Αρχείων και Ενταμιευτής (Buffering)
 
-File operations in C utilize the `FILE` structure, which wraps raw file descriptors with buffering.
+Οι πράξεις αρχείων στη C χρησιμοποιούν τη δομή `FILE`, η οποία περιβάλλει τους ακατέργαστους περιγραφείς αρχείων (file descriptors) με ενταμιευτή (buffer).
 
-### 2.1 File Open Modes Reference Table
+### 2.1 Πίνακας Αναφοράς Καταστάσεων Ανοίγματος Αρχείων
 
-| Mode | Operations Allowed | File Exists Behavior | File Missing Behavior |
+| Κατάσταση | Επιτρεπόμενες Πράξεις | Συμπεριφορά αν το Αρχείο Υπάρχει | Συμπεριφορά αν το Αρχείο Λείπει |
 | :--- | :--- | :--- | :--- |
-| `"r"` | Read | Opens at beginning | Returns `NULL` (Error) |
-| `"w"` | Write | Truncates to 0 length | Creates file |
-| `"a"` | Append | Writes only at end | Creates file |
-| `"r+"` | Read and Write | Opens at beginning | Returns `NULL` (Error) |
-| `"w+"` | Read and Write | Truncates to 0 length | Creates file |
-| `"a+"` | Read and Write | Writes only at end | Creates file |
+| `"r"` | Ανάγνωση | Ανοίγει στην αρχή | Επιστρέφει `NULL` (Σφάλμα) |
+| `"w"` | Εγγραφή | Αποκόπτει σε μήκος 0 | Δημιουργεί το αρχείο |
+| `"a"` | Προσάρτηση | Γράφει μόνο στο τέλος | Δημιουργεί το αρχείο |
+| `"r+"` | Ανάγνωση και Εγγραφή | Ανοίγει στην αρχή | Επιστρέφει `NULL` (Σφάλμα) |
+| `"w+"` | Ανάγνωση και Εγγραφή | Αποκόπτει σε μήκος 0 | Δημιουργεί το αρχείο |
+| `"a+"` | Ανάγνωση και Εγγραφή | Γράφει μόνο στο τέλος | Δημιουργεί το αρχείο |
 
 ---
 
-### 2.2 API Reference: Stream File Operations
+### 2.2 Αναφορά API: Πράξεις Αρχείων Ροής
 
 ```text
 FILE *fopen(const char *filename, const char *mode);
@@ -44,52 +44,52 @@ int fflush(FILE *stream);
 int fclose(FILE *stream);
 ```
 
-### 2.3 I/O Buffering
+### 2.3 Ενταμίευση Ε/Ε (I/O Buffering)
 
-C streams are buffered to reduce the overhead of system calls.
-- **Fully Buffered:** Accumulates data until the buffer is full before executing a write system call (default for files).
-- **Line Buffered:** Flushes output whenever a newline character (`'\n'`) is encountered (default for `stdout`).
-- **Unbuffered:** Writes immediately to the output device (default for `stderr`).
+Οι ροές της C χρησιμοποιούν ενταμιευτή για τη μείωση της επιβάρυνσης των κλήσεων συστήματος.
+- **Πλήρως Ενταμιευμένη (Fully Buffered):** Συσσωρεύει δεδομένα μέχρι να γεμίσει ο ενταμιευτής πριν εκτελέσει κλήση συστήματος εγγραφής (προεπιλογή για αρχεία).
+- **Ενταμιευμένη κατά Γραμμή (Line Buffered):** Εκκαθαρίζει (flushes) την έξοδο κάθε φορά που συναντά χαρακτήρα νέας γραμμής (`'\n'`) (προεπιλογή για το `stdout`).
+- **Χωρίς Ενταμιευτή (Unbuffered):** Γράφει αμέσως συσκευή εξόδου (προεπιλογή για το `stderr`).
 
 ---
 
-## 3. Process Control, Signals, and Environment
+## 3. Έλεγχος Διεργασιών, Σήματα και Περιβάλλον
 
-For POSIX-compliant systems programming, C exposes process and signal structures.
+Για τον προγραμματισμό συστημάτων συμβατό με POSIX, η C εκθέτει δομές διεργασιών και σημάτων.
 
-### 3.1 Process and Signal Reference Table
+### 3.1 Πίνακας Αναφοράς Διεργασιών και Σημάτων
 
-| API | Header | Purpose | Return Value / Behavior |
+| API | Επικεφαλίδα | Σκοπός | Τιμή Επιστροφής / Συμπεριφορά |
 | :--- | :--- | :--- | :--- |
-| `fork` | `<unistd.h>` | Creates a clone child process | Child returns $0$; parent returns child PID |
-| `execve` | `<unistd.h>` | Replaces process image with new program | Does not return on success; $-1$ on failure |
-| `wait` | `<sys/wait.h>` | Suspends process until a child terminates | Returns PID of terminated child |
-| `signal` | `<signal.h>` | Registers a handler function for a signal | Returns previous handler, or `SIG_ERR` |
-| `getenv` | `<stdlib.h>` | Retrieves environment variable value | Pointer to string value, or `NULL` |
+| `fork` | `<unistd.h>` | Δημιουργεί μια θυγατρική διεργασία κλώνο | Η θυγατρική επιστρέφει $0$· η γονική επιστρέφει το PID της θυγατρικής |
+| `execve` | `<unistd.h>` | Αντικαθιστά την εικόνα διεργασίας με νέο πρόγραμμα | Δεν επιστρέφει σε επιτυχία· $-1$ σε αποτυχία |
+| `wait` | `<sys/wait.h>` | Αναστέλλει τη διεργασία μέχρι να τερματίσει μια θυγατρική | Επιστρέφει το PID της τερματισμένης θυγατρικής |
+| `signal` | `<signal.h>` | Εγγράφει μια συνάρτηση χειριστή (handler) για ένα σήμα | Επιστρέφει τον προηγούμενο χειριστή ή `SIG_ERR` |
+| `getenv` | `<stdlib.h>` | Ανακτά την τιμή μιας μεταβλητής περιβάλλοντος | Δείκτης σε συμβολοσειρά τιμής ή `NULL` |
 
 ---
 
-## 4. C vs. C++ Language Differences
+## 4. Διαφορές Γλωσσών C και C++
 
-Although C++ began as a superset of C, the two languages have diverged. C++ introduces features such as object-oriented structures and RAII that change execution semantics.
+Αν και η C++ ξεκίνησε ως υπερσύνολο της C, οι δύο γλώσσες έχουν αποκλίνει. Η C++ εισάγει χαρακτηριστικά όπως αντικειμενοστρεφείς δομές και RAII που αλλάζουν τη σημασιολογία εκτέλεσης.
 
-| Property | C | C++ |
+| Ιδιότητα | C | C++ |
 | :--- | :--- | :--- |
-| **Paradigm** | Procedural (Functions + Data) | Multi-paradigm (OOP, Templates, RAII) |
-| **Resource Management** | Manual (`malloc`/`free`) | Resource Acquisition Is Initialization (RAII) |
-| **Implicit `void*` cast** | Allowed (`int* p = malloc(...)`) | Forbidden (Requires explicit cast) |
-| **Exceptions** | Error codes, `setjmp`/`longjmp` | Try/Catch blocks |
-| **Function Overloading** | Not supported | Supported (Requires name mangling) |
+| **Παράδειγμα** | Διαδικαστικό (Συναρτήσεις + Δεδομένα) | Πολυπαραδειγματικό (OOP, Πρότυπα, RAII) |
+| **Διαχείριση Πόρων** | Χειροκίνητη (`malloc`/`free`) | RAII (Resource Acquisition Is Initialization) |
+| **Έμμεση μετατροπή `void*`** | Επιτρέπεται (`int* p = malloc(...)`) | Απαγορεύεται (Απαιτεί ρητή μετατροπή) |
+| **Εξαιρέσεις** | Κωδικοί σφάλματος, `setjmp`/`longjmp` | Μπλοκ Try/Catch |
+| **Υπερφόρτωση Συναρτήσεων** | Δεν υποστηρίζεται | Υποστηρίζεται (Απαιτεί name mangling) |
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Copy File in Blocks
+### Άσκηση 1: Αντιγραφή Αρχείου σε Μπλοκ
 
-**Problem:** Implement a program using `fopen`, `fread`, `fwrite`, and `fclose` that copies a binary file in chunks of $512$ bytes.
+**Πρόβλημα:** Υλοποιήστε ένα πρόγραμμα χρησιμοποιώντας τις `fopen`, `fread`, `fwrite` και `fclose` που να αντιγράφει ένα δυαδικό αρχείο σε τμήματα των $512$ bytes.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -128,9 +128,9 @@ int main(void) {
 
 ---
 
-### Exercise 2: stdout vs. stderr Buffering
+### Άσκηση 2: Ενταμίευση stdout έναντι stderr
 
-**Problem:** Determine what is printed first by this program and explain why.
+**Πρόβλημα:** Προσδιορίστε τι εκτυπώνεται πρώτο από αυτό το πρόγραμμα και εξηγήστε το γιατί.
 
 ```c
 #include <stdio.h>
@@ -145,12 +145,12 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. `printf("Hello ")` writes to `stdout`. Because `stdout` is line-buffered, and no newline (`'\n'`) is present, `"Hello "` is buffered in memory.
-2. `fprintf(stderr, "World")` writes to `stderr`. Since `stderr` is unbuffered, `"World"` is written to the terminal immediately.
-3. The program sleeps for 1 second.
-4. `printf("\n")` encounters a newline. The buffer of `stdout` is flushed, printing `"Hello \n"`.
-5. **Output sequence:** `"World"` is printed immediately, followed by a 1-second pause, and then `"Hello "` is printed.
+**Λύση:**
+1. Η `printf("Hello ")` γράφει στο `stdout`. Επειδή το `stdout` είναι ενταμιευμένο κατά γραμμή και δεν υπάρχει χαρακτήρας νέας γραμμής (`'\n'`), το `"Hello "` παραμένει ενταμιευμένο στη μνήμη.
+2. Η `fprintf(stderr, "World")` γράφει στο `stderr`. Καθώς το `stderr` δεν διαθέτει ενταμιευτή (unbuffered), το `"World"` γράφεται αμέσως στο τερματικό.
+3. Το πρόγραμμα αναστέλλεται για 1 δευτερόλεπτο (`sleep(1)`).
+4. Η `printf("\n")` συναντά χαρακτήρα νέας γραμμής. Ο ενταμιευτής του `stdout` εκκαθαρίζεται, εκτυπώνοντας το `"Hello \n"`.
+5. **Ακολουθία εξόδου:** Το `"World"` εκτυπώνεται αμέσως, ακολουθεί παύση 1 δευτερολέπτου και στη συνέχεια εκτυπώνεται το `"Hello "`.
 
 ```text
 WorldHello 
@@ -158,9 +158,9 @@ WorldHello
 
 ---
 
-### Exercise 3: POSIX Fork Execution Paths
+### Άσκηση 3: Μονοπάτια Εκτέλεσης POSIX Fork
 
-**Problem:** Predict the total number of lines printed and trace the execution paths of this code.
+**Πρόβλημα:** Προβλέψτε τον συνολικό αριθμό γραμμών που εκτυπώνονται και ιχνηλατήστε τα μονοπάτια εκτέλεσης αυτού του κώδικα.
 
 ```c
 #include <stdio.h>
@@ -174,15 +174,15 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. Let the initial parent process be $P_0$.
-2. The first `fork()` spawns child $P_1$. Now $2$ active processes exist ($P_0$ and $P_1$).
-3. The second `fork()` is reached by both $P_0$ and $P_1$.
-   - $P_0$ spawns grandchild $P_2$.
-   - $P_1$ spawns grandchild $P_3$.
-4. Now $4$ processes run concurrently ($P_0$, $P_1$, $P_2$, $P_3$).
-5. Each process executes the next statement `printf("Process\n")` independently.
-6. The terminal prints $4$ lines containing `"Process"`.
+**Λύση:**
+1. Έστω $P_0$ η αρχική γονική διεργασία.
+2. Η πρώτη κλήση `fork()` δημιουργεί τη θυγατρική διεργασία $P_1$. Τώρα υπάρχουν $2$ ενεργές διεργασίες ($P_0$ και $P_1$).
+3. Η δεύτερη κλήση `fork()` εκτελείται και από τις δύο διεργασίες $P_0$ και $P_1$.
+   - Η $P_0$ δημιουργεί τη διεργασία εγγονό $P_2$.
+   - Η $P_1$ δημιουργεί τη διεργασία εγγονό $P_3$.
+4. Τώρα εκτελούνται παράλληλα $4$ διεργασίες ($P_0$, $P_1$, $P_2$, $P_3$).
+5. Κάθε διεργασία εκτελεί την επόμενη εντολή `printf("Process\n")` ανεξάρτητα.
+6. Το τερματικό εκτυπώνει $4$ γραμμές με τη λέξη `"Process"`.
 
 ```text
 Process
@@ -193,11 +193,11 @@ Process
 
 ---
 
-### Exercise 4: Safe Signal Registration
+### Άσκηση 4: Ασφαλής Εγγραφή Σήματος
 
-**Problem:** Write a program that registers a handler for `SIGINT` (Ctrl+C) to print a message and exit cleanly.
+**Πρόβλημα:** Γράψτε ένα πρόγραμμα που εγγράφει έναν χειριστή (handler) για το σήμα `SIGINT` (Ctrl+C) ώστε να εκτυπώνει ένα μήνυμα και να πραγματοποιεί καθαρό τερματισμό.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -205,9 +205,9 @@ Process
 #include <signal.h>
 
 void sigint_handler(int sig_num) {
-    // Note: Calling printf in a signal handler is technically unsafe 
-    // because printf is not async-signal-safe. We use it here for demonstration.
-    (void)sig_num; // Suppress unused parameter warning
+    // Σημείωση: Η κλήση της printf σε έναν χειριστή σήματος είναι τεχνικά μη ασφαλής
+    // επειδή η printf δεν είναι async-signal-safe. Χρησιμοποιείται εδώ για επίδειξη.
+    (void)sig_num; // Καταστολή προειδοποίησης μη χρησιμοποιούμενης παραμέτρου
     printf("\nReceived SIGINT. Cleaning up.\n");
     exit(0);
 }
@@ -220,7 +220,7 @@ int main(void) {
     
     printf("Waiting for Ctrl+C...\n");
     while (1) {
-        // Busy loop simulating program execution
+        // Ατέρμων βρόχος προσομοίωσης εκτέλεσης προγράμματος
     }
     return 0;
 }
@@ -228,11 +228,11 @@ int main(void) {
 
 ---
 
-### Exercise 5: Environment Variable Modification
+### Άσκηση 5: Ανάγνωση Μεταβλητής Περιβάλλοντος
 
-**Problem:** Write a program that reads the `PATH` variable, prints it, and exits.
+**Πρόβλημα:** Γράψτε ένα πρόγραμμα που διαβάζει τη μεταβλητή `PATH`, την εκτυπώνει και εξέρχεται.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -251,12 +251,12 @@ int main(void) {
 
 ---
 
-### Exercise 6: Math Library Compilation Linkage
+### Άσκηση 6: Σύνδεση Μεταγλώττισης Μαθηματικής Βιβλιοθήκης
 
-**Problem:** Compile a math program using `<math.h>` and explain why compilation fails if the linker flag is omitted.
+**Πρόβλημα:** Μεταγλωττίστε ένα μαθηματικό πρόγραμμα χρησιμοποιώντας το `<math.h>` και εξηγήστε γιατί η μεταγλώττιση αποτυγχάνει εάν παραλειφθεί η σημαία του συνδέτη.
 
-**Solution:**
-1. File `math_test.c`:
+**Λύση:**
+1. Αρχείο `math_test.c`:
    ```c
    #include <stdio.h>
    #include <math.h>
@@ -266,50 +266,50 @@ int main(void) {
        return 0;
    }
    ```
-2. Running `gcc math_test.c -o test` fails during linking with:
+2. Η εκτέλεση της εντολής `gcc math_test.c -o test` αποτυγχάνει κατά τη σύνδεση με το σφάλμα:
    `undefined reference to 'sqrt'`.
-3. **Reason:** The math function symbols are defined in the separate shared math library `libm`.
-4. **Fix:** Link the math library explicitly using the `-lm` flag: `gcc math_test.c -lm -o test`.
+3. **Αιτία:** Τα σύμβολα των μαθηματικών συναρτήσεων ορίζονται στην ξεχωριστή κοινόχρηστη μαθηματική βιβλιοθήκη `libm`.
+4. **Διόρθωση:** Συνδέστε ρητά τη μαθηματική βιβλιοθήκη χρησιμοποιώντας τη σημαία `-lm`: `gcc math_test.c -lm -o test`.
 
 ---
 
-### Exercise 7: Implicit void* Cast differences between C and C++
+### Άσκηση 7: Διαφορές Έμμεσης Μετατροπής void* μεταξύ C και C++
 
-**Problem:** Explain why this line compiles in C but fails in C++.
+**Πρόβλημα:** Εξηγήστε γιατί αυτή η γραμμή μεταγλωττίζεται στη C αλλά αποτυγχάνει στη C++.
 
 ```c
 int *arr = malloc(10 * sizeof(int));
 ```
 
-**Solution:**
-1. `malloc` returns a pointer of type `void*`.
-2. In C, `void*` is implicitly converted to any other pointer type, making this assignment valid.
-3. In C++, implicit conversions from `void*` to typed pointers are prohibited. This ensures type safety but breaks compatibility.
-4. **Fix for C++:** Cast the returned pointer explicitly, or use `new`:
+**Λύση:**
+1. Η `malloc` επιστρέφει έναν δείκτη τύπου `void*`.
+2. Στη C, ο `void*` μετατρέπεται εμμέσως σε οποιονδήποτε άλλο τύπο δείκτη, καθιστώντας αυτή την ανάθεση έγκυρη.
+3. Στη C++, οι έμμεσες μετατροπές από `void*` σε τυποποιημένους δείκτες απαγορεύονται. Αυτό εξασφαλίζει ασφάλεια τύπων αλλά σπάει τη συμβατότητα.
+4. **Διόρθωση για τη C++:** Μετατρέψτε ρητά τον επιστρεφόμενο δείκτη (cast) ή χρησιμοποιήστε τον τελεστή `new`:
    ```cpp
    int *arr = (int*)malloc(10 * sizeof(int));
-   // Or standard C++ allocation:
+   // Ή η τυπική δέσμευση C++:
    int *arr2 = new int[10];
    ```
 
 ---
 
-### Exercise 8: File End-of-File Detection Gotcha
+### Άσκηση 8: Παγίδα Ελέγχου Τέλους Αρχείου (EOF)
 
-**Problem:** Explain why using `while (!feof(file))` to read data from a stream leads to printing the last line twice.
+**Πρόβλημα:** Εξηγήστε γιατί η χρήση της `while (!feof(file))` για την ανάγνωση δεδομένων από μια ροή οδηγεί στην εκτύπωση της τελευταίας γραμμής δύο φορές.
 
-**Solution:**
-1. The `feof()` function returns true only **after** a read operation attempts to read past the end of the file.
-2. If a file contains one character `"A"`, and the loop is:
+**Λύση:**
+1. Η συνάρτηση `feof()` επιστρέφει αληθές μόνο **αφού** μια πράξη ανάγνωσης επιχειρήσει να διαβάσει πέρα από το τέλος του αρχείου.
+2. Εάν ένα αρχείο περιέχει έναν χαρακτήρα `"A"` και ο βρόχος είναι:
    ```c
    while (!feof(file)) {
        char c = fgetc(file);
        printf("%c", c);
    }
    ```
-3. First iteration: `fgetc` reads `'A'`. `feof` is still false.
-4. Second iteration: `fgetc` tries to read. It hits EOF and returns constant `-1` (`EOF`). `feof` flag is set to true. However, the loop continues and prints `EOF` (rendered as garbage or duplicate value).
-5. **Fix:** Check the return value of the read function directly.
+3. 1η επανάληψη: Η `fgetc` διαβάζει το `'A'`. Η `feof` παραμένει ψευδής.
+4. 2η επανάληψη: Η `fgetc` επιχειρεί να διαβάσει. Συναντά το EOF και επιστρέφει τη σταθερά `-1` (`EOF`). Η σημαία `feof` τίθεται σε αληθής. Ωστόσο, ο βρόχος συνεχίζει και εκτυπώνει τη σταθερά `EOF` (που εμφανίζεται ως σκουπίδι ή διπλότυπη τιμή).
+5. **Διόρθωση:** Ελέγχετε την τιμή επιστροφής της συνάρτησης ανάγνωσης απευθείας.
 
 ```c
 int c;
@@ -320,28 +320,28 @@ while ((c = fgetc(file)) != EOF) {
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### 1. Missing Binary Mode Flag on Windows
-* **Cause:** Opening binary files with `"w"` or `"r"` instead of `"wb"` or `"rb"`. On Windows platforms, text mode converts LF (`\n`) to CRLF (`\r\n`) in the stream, corrupting binary files.
-* **Resolution:** Always use the `"b"` suffix modifier when opening non-text files.
+### 1. Παράλειψη Σημαίας Δυαδικής Λειτουργίας σε Windows
+* **Αιτία:** Άνοιγμα δυαδικών αρχείων με `"w"` ή `"r"` αντί για `"wb"` ή `"rb"`. Στις πλατφόρμες Windows, η λειτουργία κειμένου μετατρέπει το LF (`\n`) σε CRLF (`\r\n`) στη ροή, αλλοιώνοντας τα δυαδικά αρχεία.
+* **Επίλυση:** Χρησιμοποιείτε πάντα τον τροποποιητή `"b"` κατά το άνοιγμα μη κειμενικών αρχείων.
 
-### 2. Leaking File Descriptors
-* **Cause:** Forgetting to call `fclose` on a file pointer. Operating systems limit the number of open file descriptors per process; running out causes subsequent `fopen` calls to fail.
-* **Resolution:** Close every file descriptor on all exit paths, including error blocks.
+### 2. Διαρροή Περιγραφέων Αρχείων (Leaking File Descriptors)
+* **Αιτία:** Παράλειψη κλήσης της `fclose` σε έναν δείκτη αρχείου. Τα λειτουργικά συστήματα περιορίζουν τον αριθμό των ανοικτών περιγραφέων αρχείων ανά διεργασία· η εξάντλησή τους προκαλεί αποτυχία στις μεταγενέστερες κλήσεις `fopen`.
+* **Επίλυση:** Κλείνετε κάθε περιγραφέα αρχείου σε όλα τα μονοπάτια εξόδου, συμπεριλαμβανομένων των μπλοκ σφαλμάτων.
 
-### 3. Mixing Line Buffering and Direct Writing
-* **Cause:** Using `printf("Loading...")` without a newline or `fflush` before running a long computation. The user sees no output until the program terminates or buffers flush.
-* **Resolution:** Call `fflush(stdout);` explicitly to force writing when no newline is present.
+### 3. Ανάμειξη Ενταμίευσης Γραμμής και Άμεσης Εγγραφής
+* **Αιτία:** Χρήση της `printf("Loading...")` χωρίς χαρακτήρα νέας γραμμής ή `fflush` πριν από την εκτέλεση ενός μακροσκελούς υπολογισμού. Ο χρήστης δεν βλέπει έξοδο μέχρι να τερματίσει το πρόγραμμα ή να εκκαθαριστεί ο ενταμιευτής.
+* **Επίλυση:** Καλείτε ρητά την `fflush(stdout);` για την επιβολή εγγραφής όταν δεν υπάρχει χαρακτήρας νέας γραμμής.
 
 ---
 
-## Exam Tip: C vs. C++ Linkage Compatibility
+## Συμβουλή Εξετάσεων: Συμβατότητα Σύνδεσης C και C++
 
-**Linkage Traps:**
-When compiling C code within a C++ project, function calls fail at link time due to C++ name mangling.
-- **Mangled Names:** C++ encodes function arguments into the symbol name to support function overloading (e.g. `foo(int)` becomes `_Z3fooi`). C compiles symbols without mangling (`foo` remains `foo`).
-- **Resolution:** Wrap C declarations in C++ headers with `extern "C"` to disable name mangling:
+**Παγίδες Σύνδεσης (Linkage Traps):**
+Όταν μεταγλωττίζεται κώδικας C εντός ενός έργου C++, οι κλήσεις συναρτήσεων αποτυγχάνουν κατά τη σύνδεση λόγω του name mangling της C++.
+- **Μανταλωμένα Ονόματα (Mangled Names):** Η C++ κωδικοποιεί τα ορίσματα συναρτήσεων στο όνομα του συμβόλου για την υποστήριξη υπερφόρτωσης (π.χ. η `foo(int)` γίνεται `_Z3fooi`). Η C μεταγλωττίζει τα σύμβολα χωρίς μετατροπές (η `foo` παραμένει `foo`).
+- **Επίλυση:** Περιβάλλετε τις δηλώσεις C στις επικεφαλίδες C++ με το μπλοκ `extern "C"` για την απενεργοποίηση του name mangling:
   ```cpp
   #ifdef __cplusplus
   extern "C" {

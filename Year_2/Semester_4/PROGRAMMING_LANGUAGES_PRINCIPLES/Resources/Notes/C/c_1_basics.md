@@ -1,86 +1,86 @@
-# C — Basics and Hardware Proximity
+# C — Βασικές Έννοιες και Εγγύτητα στο Υλικό
 
-C is a statically typed, procedural programming language designed for systems programming and hardware-proximate development. It features a low-level memory mapping model, minimal runtime abstraction, and a direct mapping to machine instructions, which provides developers with precise control over system resources. This file covers program structure, primitive data types, storage classes, control flow constructs, and function execution.
-
----
-
-## 1. The Procedural Paradigm
-
-The procedural programming paradigm centers on the separation of data structures from the functions that manipulate them. Unlike object-oriented paradigms where state and behavior are encapsulated within classes, C represents data using primitive variables or aggregate structures (`struct`) and modifies that data using standalone procedures (functions).
-
-```
-[Data Structures] ────► [State Passed to Functions] ────► [Functions / Procedures]
-```
-
-C source code is compiled directly to machine code. There is no virtual machine, runtime interpreter, or garbage collector. Consequently, execution speed and memory footprints are minimized, making C the foundational language for operating system kernels and embedded firmware.
+Η C είναι μια στατικά τυποποιημένη, διαδικαστική γλώσσα προγραμματισμού σχεδιασμένη για προγραμματισμό συστημάτων και ανάπτυξη λογισμικού σε εγγύτητα με το υλικό (hardware-proximate development). Διαθέτει χαμηλού επιπέδου μοντέλο αντιστοίχισης μνήμης, ελάχιστη αφαιρετικότητα κατά τον χρόνο εκτέλεσης (runtime abstraction) και άμεση αντιστοίχιση σε εντολές μηχανής, παρέχοντας στους προγραμματιστές ακριβή έλεγχο των πόρων του συστήματος. Αυτό το αρχείο καλύπτει τη δομή προγράμματος, τους πρωτογενείς τύπους δεδομένων, τις κλάσεις αποθήκευσης, τις δομές ροής ελέγχου και την εκτέλεση συναρτήσεων.
 
 ---
 
-## 2. Primitive Types, Representation, and Sizes
+## 1. Το Διαδικαστικό Παράδειγμα (The Procedural Paradigm)
 
-C defines several basic types for representing integer and floating-point values. The exact size and memory representation of these types are implementation-defined (governed by the platform's Application Binary Interface, or ABI), but the C standard guarantees minimum width requirements.
+Το διαδικαστικό παράδειγμα προγραμματισμού επικεντρώνεται στον διαχωρισμό των δομών δεδομένων από τις συναρτήσεις που τις χειρίζονται. Αντίθετα με τα αντικειμενοστρεφή παραδείγματα όπου η κατάσταση (state) και η συμπεριφορά (behavior) είναι θυλακωμένες εντός κλάσεων, η C αναπαριστά τα δεδομένα χρησιμοποιώντας πρωτογενείς μεταβλητές ή σύνθετες δομές (`struct`) και τροποποιεί αυτά τα δεδομένα χρησιμοποιώντας αυτόνομες διαδικασίες (συναρτήσεις).
 
-### 2.1 Integer and Floating-Point Types
+```
+[Δομές Δεδομένων] ────► [Κατάσταση που Μεταβιβάζεται σε Συναρτήσεις] ────► [Συναρτήσεις / Διαδικασίες]
+```
 
-| Type | Minimum Size (Bits) | Typical Size (LP64 ABI) | Range (LP64 ABI) | Format Specifier |
+Ο πηγαίος κώδικας της C μεταγλωττίζεται άμεσα σε κώδικα μηχανής. Δεν υπάρχει εικονική μηχανή (virtual machine), διερμηνέας χρόνου εκτέλεσης (runtime interpreter) ή συλλέκτης απορριμμάτων (garbage collector). Ως εκ τούτου, η ταχύτητα εκτέλεσης και το ίχνος μνήμης (memory footprint) ελαχιστοποιούνται, καθιστώντας τη C τη θεμελιώδη γλώσσα για τους πυρήνες λειτουργικών συστημάτων (OS kernels) και το ενσωματωμένο λογισμικό (embedded firmware).
+
+---
+
+## 2. Πρωτογενείς Τύποι, Αναπαράσταση και Μεγέθη
+
+Η C ορίζει αρκετούς βασικούς τύπους για την αναπαράσταση ακεραίων τιμών και τιμών κινητής υποδιαστολής. Το ακριβές μέγεθος και η αναπαράσταση μνήμης αυτών των τύπων εξαρτώνται από την υλοποίηση (καθορίζονται από τη Διασύνδεση Δυαδικών Εφαρμογών του συστήματος, δηλαδή το Application Binary Interface / ABI), αλλά το πρότυπο της C εγγυάται ελάχιστες απαιτήσεις εύρους.
+
+### 2.1 Τύποι Ακεραίων και Κινητής Υποδιαστολής
+
+| Τύπος | Ελάχιστο Μέγεθος (Bits) | Τυπικό Μέγεθος (LP64 ABI) | Εύρος (LP64 ABI) | Προσδιοριστής Μορφοποίησης |
 | :--- | :--- | :--- | :--- | :--- |
-| `char` | $8$ | $8$ bits ($1$ byte) | $-128$ to $127$ (or $0$ to $255$) | `%c` or `%d` |
-| `short` | $16$ | $16$ bits ($2$ bytes) | $-32{,}768$ to $32{,}767$ | `%hd` |
-| `int` | $16$ | $32$ bits ($4$ bytes) | $-2^{31}$ to $2^{31} - 1$ | `%d` or `%i` |
-| `long` | $32$ | $64$ bits ($8$ bytes) | $-2^{63}$ to $2^{63} - 1$ | `%ld` |
-| `long long` | $64$ | $64$ bits ($8$ bytes) | $-2^{63}$ to $2^{63} - 1$ | `%lld` |
+| `char` | $8$ | $8$ bits ($1$ byte) | $-128$ έως $127$ (ή $0$ έως $255$) | `%c` ή `%d` |
+| `short` | $16$ | $16$ bits ($2$ bytes) | $-32{,}768$ έως $32{,}767$ | `%hd` |
+| `int` | $16$ | $32$ bits ($4$ bytes) | $-2^{31}$ έως $2^{31} - 1$ | `%d` ή `%i` |
+| `long` | $32$ | $64$ bits ($8$ bytes) | $-2^{63}$ έως $2^{63} - 1$ | `%ld` |
+| `long long` | $64$ | $64$ bits ($8$ bytes) | $-2^{63}$ έως $2^{63} - 1$ | `%lld` |
 | `float` | $32$ | $32$ bits ($4$ bytes) | IEEE-754 Single Precision | `%f` |
 | `double` | $64$ | $64$ bits ($8$ bytes) | IEEE-754 Double Precision | `%lf` |
 
-The `unsigned` modifier shifts the representation range by utilizing the sign bit as part of the value magnitude. For example, an `unsigned int` on a 32-bit width maps to a range of $0$ to $2^{32} - 1$.
+Ο τροποποιητής `unsigned` μετατοπίζει το εύρος αναπαράστασης χρησιμοποιώντας το bit προσήμου ως μέρος του μεγέθους της τιμής. Για παράδειγμα, ένας `unsigned int` με εύρος 32 bit αντιστοιχεί σε εύρος από $0$ έως $2^{32} - 1$.
 
-### 2.2 Integer Overflow and Signedness
+### 2.2 Υπερχείλιση Ακεραίων και Πρόσημο (Integer Overflow and Signedness)
 
-Signed integers use two's complement representation. Integer overflow on signed types is classified as **undefined behavior** by the C standard, permitting compilers to optimize away overflow checks. In contrast, unsigned integer overflow is defined to wrap around using modulo arithmetic:
+Οι προσημασμένοι ακέραιοι χρησιμοποιούν αναπαράσταση συμπληρώματος ως προς δύο (two's complement). Η υπερχείλιση ακεραίου σε προσημασμένους τύπους κατατάσσεται ως **μη ορισμένη συμπεριφορά (undefined behavior)** από το πρότυπο της C, επιτρέποντας στους μεταγλωττιστές να παραλείπουν τους ελέγχους υπερχείλισης για λόγους βελτιστοποίησης. Αντίθετα, η υπερχείλιση μη προσημασμένων ακεραίων είναι ορισμένη έτσι ώστε να κάνει ανακύκλωση (wrap around) χρησιμοποιώντας αριθμητική υπολοίπου (modulo arithmetic):
 
 $$
 \text{val}_{\text{new}} = \text{val}_{\text{old}} \pmod{2^W}
 $$
 
-where $W$ represents the width of the unsigned type in bits.
+όπου $W$ αντιπροσωπεύει το εύρος του μη προσημασμένου τύπου σε bits.
 
 ---
 
-## 3. Variables, Scope, and Storage Classes
+## 3. Μεταβλητές, Εμβέλεια και Κλάσεις Αποθήκευσης
 
-A variable in C represents a named memory location. Variable behavior is determined by its scope (where the variable is visible) and its storage duration (how long the variable exists in memory).
+Μια μεταβλητή στη C αντιπροσωπεύει μια ονοματισμένη θέση μνήμης. Η συμπεριφορά μιας μεταβλητής καθορίζεται από την εμβέλεια της (scope - πού είναι ορατή η μεταβλητή) και τη διάρκεια αποθήκευσής της (storage duration - πόσο χρόνο υπάρχει η μεταβλητή στη μνήμη).
 
-### 3.1 Scope
+### 3.1 Εμβέλεια (Scope)
 
-- **Block Scope:** Variables declared inside a block (bounded by `{ }`) are visible only within that block.
-- **File Scope:** Variables declared outside of any function are visible from their point of declaration to the end of the source file.
+- **Εμβέλεια Μπλοκ (Block Scope):** Οι μεταβλητές που δηλώνονται εντός ενός μπλοκ (που ορίζεται από τα άγκιστρα `{ }`) είναι ορατές μόνο εντός αυτού του μπλοκ.
+- **Εμβέλεια Αρχείου (File Scope):** Οι μεταβλητές που δηλώνονται εκτός οποιασδήποτε συνάρτησης είναι ορατές από το σημείο δήλωσής τους έως το τέλος του αρχείου πηγαίου κώδικα.
 
-### 3.2 Storage Classes
+### 3.2 Κλάσεις Αποθήκευσης (Storage Classes)
 
-C storage classes specify the storage duration and linkage of variables.
+Οι κλάσεις αποθήκευσης στη C καθορίζουν τη διάρκεια αποθήκευσης και τη συνδεσιμότητα (linkage) των μεταβλητών.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 <storage_class> <type> <variable_name> [= <initializer>];
 ```
 
-#### Behavioral Description
+#### Περιγραφή Συμπεριφοράς
 
-1. `auto`: The default storage class for local variables. Memory is allocated on the stack frame when the block is entered and deallocated when the block is exited.
-2. `register`: Advises the compiler to store the variable in a CPU register instead of RAM to accelerate access. You cannot take the address of a `register` variable using the `&` operator, even if the compiler decides to store it in memory.
+1. `auto`: Η προεπιλεγμένη κλάση αποθήκευσης για τοπικές μεταβλητές. Η μνήμη δεσμεύεται στο πλαίσιο στοιβάδας (stack frame) κατά την είσοδο στο μπλοκ και αποδεσμεύεται κατά την έξοδο.
+2. `register`: Συμβουλεύει τον μεταγλωττιστή να αποθηκεύσει τη μεταβλητή σε έναν καταχωρητή της CPU αντί για τη RAM για επιτάχυνση της προσπέλασης. Δεν μπορείτε να πάρετε τη διεύθυνση μιας μεταβλητής `register` με τον τελεστή `&`, ακόμη και αν ο μεταγλωττιστής αποφασίσει να την αποθηκεύσει στη μνήμη.
 3. `static`:
-   - **Local static variables:** Retain their value between function calls. Memory is allocated in the data segment (initialized) or BSS segment (uninitialized) at program startup and persists for the duration of the program.
-   - **Global static variables:** Restrict visibility to the file in which they are declared (internal linkage), preventing symbol collision during linking.
-4. `extern`: Declares a variable that is defined in another translation unit. It tells the compiler that the actual storage allocation is handled elsewhere.
+   - **Τοπικές static μεταβλητές:** Διατηρούν την τιμή τους μεταξύ των κλήσεων της συνάρτησης. Η μνήμη δεσμεύεται στο τμήμα δεδομένων (data segment - αν είναι αρχικοποιημένες) ή στο τμήμα BSS (αν είναι μη αρχικοποιημένες) κατά την εκκίνηση του προγράμματος και διατηρείται για όλη τη διάρκεια του προγράμματος.
+   - **Καθολικές static μεταβλητές:** Περιορίζουν την ορατότητα στο αρχείο στο οποίο δηλώνονται (εσωτερική σύνδεση / internal linkage), αποτρέποντας συγκρούσεις συμβόλων κατά τη σύνδεση (linking).
+4. `extern`: Δηλώνει μια μεταβλητή που ορίζεται σε άλλη μονάδα μετάφρασης (translation unit). Ενημερώνει τον μεταγλωττιστή ότι η πραγματική δέσμευση μνήμης πραγματοποιείται αλλού.
 
 ```c
 #include <stdio.h>
 
-static int file_var = 10; // Visible only to this file
+static int file_var = 10; // Ορατή μόνο σε αυτό το αρχείο
 
 void counter(void) {
-    static int count = 0; // Initialized once; persists across calls
+    static int count = 0; // Αρχικοποιείται μία φορά· διατηρείται μεταξύ των κλήσεων
     count++;
     printf("Count: %d\n", count);
 }
@@ -88,13 +88,13 @@ void counter(void) {
 
 ---
 
-## 4. Control Flow Mechanisms
+## 4. Μηχανισμοί Ροής Ελέγχου
 
-C provides structural control flow statements. Execution transfers are implemented using conditional branches and jumps at the machine level.
+Η C παρέχει δομημένες εντολές ροής ελέγχου. Οι μεταβιβάσεις εκτέλεσης υλοποιούνται με χρήση αλμάτων και διακλαδώσεων υπό συνθήκη σε επίπεδο μηχανής.
 
-### 4.1 Conditionals: `if`/`else` and `switch`
+### 4.1 Εντολές Υπό Συνθήκη: `if`/`else` και `switch`
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 if (<expression>) {
@@ -116,16 +116,16 @@ switch (<integer_expression>) {
 }
 ```
 
-#### Behavioral Description
+#### Περιγραφή Συμπεριφοράς
 
-- **`if`/`else`:** The conditional expression is evaluated. Any non-zero value represents truth; zero represents falsehood.
-- **`switch`:** Computes the value of `<integer_expression>` and jumps to the matching `case` label. If no `break` is present, execution "falls through" to subsequent cases. This is a common source of bugs but can be used intentionally for duff's devices or shared logic blocks.
+- **`if`/`else`:** Αξιολογείται η έκφραση συνθήκης. Οποιαδήποτε μη μηδενική τιμή αντιπροσωπεύει την αλήθεια (true), ενώ το μηδέν αντιπροσωπεύει το ψεύδος (false).
+- **`switch`:** Υπολογίζει την τιμή της έκφρασης `<integer_expression>` και μεταβαίνει στην αντίστοιχη ετικέτα `case`. Εάν δεν υπάρχει εντολή `break`, η εκτέλεση "ρέει προς τα κάτω" (fall-through) στις επόμενες περιπτώσεις. Αυτό αποτελεί συχνή πηγή σφαλμάτων, αλλά μπορεί να χρησιμοποιηθεί εσκεμμένα για μηχανισμούς όπως το Duff's Device.
 
 ---
 
-### 4.2 Loops: `while`, `do-while`, and `for`
+### 4.2 Βρόχοι: `while`, `do-while` και `for`
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 while (<condition>) {
@@ -145,19 +145,19 @@ for ([<initialization>]; [<condition>]; [<loop_expression>]) {
 }
 ```
 
-#### Behavioral Description
+#### Περιγραφή Συμπεριφοράς
 
-- **`while`:** Checks the condition before executing the body.
-- **`do-while`:** Executes the body once before checking the condition, ensuring at least one iteration.
-- **`for`:** Executes `<initialization>` once. Then, while `<condition>` is true, executes `<body>`, and evaluates `<loop_expression>` after each iteration.
+- **`while`:** Ελέγχει τη συνθήκη πριν από την εκτέλεση του σώματος.
+- **`do-while`:** Εκτελεί το σώμα μία φορά πριν ελέγξει τη συνθήκη, εξασφαλίζοντας τουλάχιστον μία επανάληψη.
+- **`for`:** Εκτελεί την αρχικοποίηση `<initialization>` μία φορά. Στη συνέχεια, όσο η συνθήκη `<condition>` είναι αληθής, εκτελεί το σώμα `<body>` και αξιολογεί την έκφραση `<loop_expression>` μετά από κάθε επανάληψη.
 
 ---
 
-### 4.3 Jump Statements: `goto`
+### 4.3 Εντολές Άλματος: `goto`
 
-The `goto` statement jumps execution to a labeled statement within the same function.
+Η εντολή `goto` μεταφέρει την εκτέλεση σε μια σημασμένη εντολή (labeled statement) εντός της ίδιας συνάρτησης.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 goto <label_name>;
@@ -166,26 +166,26 @@ goto <label_name>;
     <statement>
 ```
 
-> **[Key Insight]** `goto` should be used sparingly. Its primary legitimate use in systems programming is for cleanup blocks at the end of functions to release resources in reverse order of allocation, preventing deeply nested structures.
+> **[Βασική Παρατήρηση]** Η `goto` πρέπει να χρησιμοποιείται με φειδώ. Η κύρια θεμιτή χρήση της στον προγραμματισμό συστημάτων είναι για μπλοκ καθαρισμού (cleanup blocks) στο τέλος των συναρτήσεων, ώστε να αποδεσμεύονται οι πόροι με την αντίστροφη σειρά δέσμευσης, αποτρέποντας βαθιά εμφωλευμένες δομές.
 
 ---
 
-## 5. Functions and Parameter Passing
+## 5. Συναρτήσεις και Μεταβίβαση Παραμέτρων
 
-A function in C is a self-contained block of code that performs a specific task. C functions must be declared before they are called.
+Μια συνάρτηση στη C είναι ένα αυτοτελές μπλοκ κώδικα που εκτελεί μια συγκεκριμένη εργασία. Οι συναρτήσεις στη C πρέπει να δηλώνονται πριν από την κλήση τους.
 
-### 5.1 Declarations vs. Definitions
+### 5.1 Δηλώσεις έναντι Ορισμών (Declarations vs. Definitions)
 
-- **Declaration (Prototype):** Specifies the function name, return type, and parameters. This informs the compiler of the function signature.
-- **Definition:** Contains the actual implementation block.
+- **Δήλωση (Πρωτότυπο / Declaration):** Καθορίζει το όνομα της συνάρτησης, τον τύπο επιστροφής και τις παραμέτρους. Ενημερώνει τον μεταγλωττιστή για την υπογραφή της συνάρτησης.
+- **Ορισμός (Definition):** Περιέχει το πραγματικό μπλοκ υλοποίησης.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
-/* Function Prototype / Declaration */
+/* Πρωτότυπο / Δήλωση Συνάρτησης */
 <return_type> <function_name>(<parameter_list>);
 
-/* Function Definition */
+/* Ορισμός Συνάρτησης */
 <return_type> <function_name>(<parameter_list>) {
     <body>
     [return <value>];
@@ -194,21 +194,21 @@ A function in C is a self-contained block of code that performs a specific task.
 
 ---
 
-### 5.2 Parameter Passing Mechanisms
+### 5.2 Μηχανισμοί Μεταβίβασης Παραμέτρων
 
-C supports only **pass-by-value**. When a variable is passed to a function, the compiler creates a copy of the argument value and places it on the function's stack frame. Modifications to the parameter inside the function do not affect the original variable.
+Η C υποστηρίζει **μόνο μεταβίβαση κατ' τιμήν (pass-by-value)**. Όταν μια μεταβλητή μεταβιβάζεται σε μια συνάρτηση, ο μεταγλωττιστής δημιουργεί ένα αντίγραφο της τιμής του ορίσματος και το τοποθετεί στο πλαίσιο στοιβάδας της συνάρτησης. Οι τροποποιήσεις στην παράμετρο εντός της συνάρτησης δεν επηρεάζουν την αρχική μεταβλητή.
 
-To simulate **pass-by-reference**, a pointer referencing the original variable's memory address is passed by value. The function dereferences the pointer to read or modify the value stored at that address.
+Για την προσομοίωση **μεταβίβασης κατά αναφορά (pass-by-reference)**, ένας δείκτης που αναφέρεται στη διεύθυνση μνήμης της αρχικής μεταβλητής μεταβιβάζεται κατ' τιμήν. Η συνάρτηση αποσυμβολίζει (dereferences) τον δείκτη για να αναγνώσει ή να τροποποιήσει την τιμή που είναι αποθηκευμένη σε αυτή τη διεύθυνση.
 
 ```c
 #include <stdio.h>
 
-/* Pass-by-value: modifies only the copy on the stack frame */
+/* Μεταβίβαση κατ' τιμήν: τροποποιεί μόνο το αντίγραφο στο πλαίσιο στοιβάδας */
 void modifyVal(int x) {
     x = 42;
 }
 
-/* Simulating pass-by-reference: modifies memory location directly */
+/* Προσομοίωση μεταβίβασης κατά αναφορά: τροποποιεί απευθείας τη θέση μνήμης */
 void modifyRef(int *x) {
     *x = 42;
 }
@@ -216,11 +216,11 @@ void modifyRef(int *x) {
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Storage Class Lifetime and State
+### Άσκηση 1: Διάρκεια Ζωής και Κατάσταση Κλάσης Αποθήκευσης
 
-**Problem:** Determine the exact terminal output of the following program.
+**Πρόβλημα:** Προσδιορίστε την ακριβή έξοδο τερματικού του παρακάτω προγράμματος.
 
 ```c
 #include <stdio.h>
@@ -242,19 +242,19 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. **First invocation of `increment()`:**
-   - `local_var` is initialized to $10$ on the stack frame. It increments to $11$.
-   - `static_var` is initialized to $10$ in the data segment. It increments to $11$.
-   - Prints: `local=11 static=11`
-2. **Second invocation of `increment()`:**
-   - `local_var` is re-initialized to $10$ on the stack frame. It increments to $11$.
-   - `static_var` retains its state ($11$) from the previous execution. It increments to $12$.
-   - Prints: `local=11 static=12`
-3. **Third invocation of `increment()`:**
-   - `local_var` is re-initialized to $10$ on the stack frame. It increments to $11$.
-   - `static_var` retains its state ($12$). It increments to $13$.
-   - Prints: `local=11 static=13`
+**Λύση:**
+1. **1η κλήση της `increment()`:**
+   - Η `local_var` αρχικοποιείται σε $10$ στο πλαίσιο στοιβάδας. Αυξάνεται σε $11$.
+   - Η `static_var` αρχικοποιείται σε $10$ στο τμήμα δεδομένων. Αυξάνεται σε $11$.
+   - Εκτυπώνει: `local=11 static=11`
+2. **2η κλήση της `increment()`:**
+   - Η `local_var` αρχικοποιείται εκ νέου σε $10$ στο πλαίσιο στοιβάδας. Αυξάνεται σε $11$.
+   - Η `static_var` διατηρεί την κατάστασή της ($11$) από την προηγούμενη εκτέλεση. Αυξάνεται σε $12$.
+   - Εκτυπώνει: `local=11 static=12`
+3. **3η κλήση της `increment()`:**
+   - Η `local_var` αρχικοποιείται εκ νέου σε $10$ στο πλαίσιο στοιβάδας. Αυξάνεται σε $11$.
+   - Η `static_var` διατηρεί την κατάστασή της ($12$). Αυξάνεται σε $13$.
+   - Εκτυπώνει: `local=11 static=13`
 
 ```text
 local=11 static=11
@@ -264,13 +264,13 @@ local=11 static=13
 
 ---
 
-### Exercise 2: Simulating Pass-by-Reference
+### Άσκηση 2: Προσομοίωση Μεταβίβασης Κατά Αναφορά
 
-**Problem:** Implement a swap function `void swap(int *a, int *b)` that exchanges the integer values of two variables in-place. Provide a `main` function showing before and after states.
+**Πρόβλημα:** Υλοποιήστε μια συνάρτηση εναλλαγής `void swap(int *a, int *b)` που ανταλλάσσει τις ακέραιες τιμές δύο μεταβλητών επί τόπου (in-place). Παράσχετε μια συνάρτηση `main` που να δείχνει τις καταστάσεις πριν και μετά.
 
-**Solution:**
-1. The swap function must receive the memory addresses of the two variables.
-2. It uses a temporary local variable to hold the value of the first pointer location, copies the value of the second pointer location to the first, and writes the temporary value to the second.
+**Λύση:**
+1. Η συνάρτηση εναλλαγής πρέπει να λάβει τις διευθύνσεις μνήμης των δύο μεταβλητών.
+2. Χρησιμοποιεί μια προσωρινή τοπική μεταβλητή για να κρατήσει την τιμή της πρώτης θέσης του δείκτη, αντιγράφει την τιμή της δεύτερης θέσης στην πρώτη και γράφει την προσωρινή τιμή στη δεύτερη.
 
 ```c
 #include <stdio.h>
@@ -300,9 +300,9 @@ After: x=10 y=5
 
 ---
 
-### Exercise 3: Signed vs. Unsigned Conversions
+### Άσκηση 3: Μετατροπές Προσημασμένων και Μη Προσημασμένων
 
-**Problem:** Explain what the following code prints and explain why using signed/unsigned comparisons.
+**Πρόβλημα:** Εξηγήστε τι εκτυπώνει ο παρακάτω κώδικας και αιτιολογήστε τη συμπεριφορά χρησιμοποιώντας τις συγκρίσεις προσημασμένων/μη προσημασμένων.
 
 ```c
 #include <stdio.h>
@@ -320,11 +320,11 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. C performs **usual arithmetic conversions** when evaluating binary operators on differing types.
-2. When comparing a signed `int` and an `unsigned int` of the same width, the signed value (`a = -5`) is implicitly converted to an `unsigned int`.
-3. In two's complement representation, $-5$ is represented as `0xFFFFFFFB` on 32-bit platforms. Converted to unsigned, this value is $4{,}294{,}967{,}291$.
-4. Since $4{,}294{,}967{,}291 > 3$, the expression `a < b` evaluates to false ($0$).
+**Λύση:**
+1. Η C εκτελεί **συνήθεις αριθμητικές μετατροπές (usual arithmetic conversions)** κατά την αξιολόγηση διμελών τελεστών σε διαφορετικούς τύπους.
+2. Κατά τη σύγκριση ενός προσημασμένου `int` και ενός μη προσημασμένου `unsigned int` ίδιου εύρους, η προσημασμένη τιμή (`a = -5`) μετατρέπεται εμμέσως σε `unsigned int`.
+3. Στην αναπαράσταση συμπληρώματος ως προς δύο, το $-5$ αναπαρίσταται ως `0xFFFFFFFB` σε πλατφόρμες 32 bit. Μετατρεπόμενο σε μη προσημασμένο, η τιμή αυτή είναι $4{,}294{,}967{,}291$.
+4. Εφόσον $4{,}294{,}967{,}291 > 3$, η έκφραση `a < b` αξιολογείται ως ψευδής ($0$).
 
 ```text
 a is greater than or equal to b
@@ -332,9 +332,9 @@ a is greater than or equal to b
 
 ---
 
-### Exercise 4: Switch-Case Fall-Through
+### Άσκηση 4: Ροή Προς τα Κάτω στο Switch-Case (Fall-Through)
 
-**Problem:** Predict the output of the following code snippet.
+**Πρόβλημα:** Προβλέψτε την έξοδο του παρακάτω τμήματος κώδικα.
 
 ```c
 #include <stdio.h>
@@ -357,12 +357,12 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. `val` evaluates to $2$. The execution jump goes to the label `case 2:`.
-2. Prints `"Two "`.
-3. Because there is no `break` at the end of the `case 2` statements, execution falls through to `case 3:`.
-4. Prints `"Three "`.
-5. The `break` statement at the end of `case 3` halts execution and exits the switch block.
+**Λύση:**
+1. Η μεταβλητή `val` αξιολογείται σε $2$. Το άλμα εκτέλεσης πηγαίνει στην ετικέτα `case 2:`.
+2. Εκτυπώνει `"Two "`.
+3. Επειδή δεν υπάρχει `break` στο τέλος των εντολών του `case 2`, η εκτέλεση "ρέει προς τα κάτω" (falls through) στο `case 3:`.
+4. Εκτυπώνει `"Three "`.
+5. Η εντολή `break` στο τέλος του `case 3` σταματά την εκτέλεση και εξέρχεται από το μπλοκ switch.
 
 ```text
 Two Three 
@@ -370,21 +370,21 @@ Two Three
 
 ---
 
-### Exercise 5: Modulo and Integer Division with Negatives
+### Άσκηση 5: Υπόλοιπο και Ακέραια Διαίρεση με Αρνητικούς Αριθμούς
 
-**Problem:** Calculate the mathematical result of $(-17) / 5$ and $(-17) \% 5$ in C99.
+**Πρόβλημα:** Υπολογίστε το μαθηματικό αποτέλεσμα των $(-17) / 5$ και $(-17) \% 5$ κατά το πρότυπο C99.
 
-**Solution:**
-1. In C99 and later, integer division truncates toward zero (algebraic truncation).
-2. For $-17 / 5$:
+**Λύση:**
+1. Στο πρότυπο C99 και μεταγενέστερα, η ακέραια διαίρεση αποκόπτει τα δεκαδικά προς το μηδέν (αλγεβρική αποκοπή / truncation).
+2. Για το $-17 / 5$:
    $$
-   -17 / 5 = -3.4 \xrightarrow{\text{truncate}} -3
+   -17 / 5 = -3.4 \xrightarrow{\text{αποκοπή}} -3
    $$
-3. The modulo operator must satisfy the identity:
+3. Ο τελεστής υπολοίπου πρέπει να ικανοποιεί την ταυτότητα:
    $$
    (a / b) \times b + a \% b = a
    $$
-4. Substituting the values:
+4. Αντικαθιστώντας τις τιμές:
    $$
    (-3) \times 5 + (-17) \% 5 = -17 \implies -15 + (-17) \% 5 = -17 \implies (-17) \% 5 = -2
    $$
@@ -404,13 +404,13 @@ div=-3 mod=-2
 
 ---
 
-### Exercise 6: Duff's Device Concept for Loop Unrolling
+### Άσκηση 6: Έννοια Duff's Device για Ξεδίπλωμα Βρόχων (Loop Unrolling)
 
-**Problem:** Write a loop structure that uses a `switch` and `do-while` block to unroll a loop copying elements in groups of $4$. This is a simplified concept of Duff's device.
+**Πρόβλημα:** Γράψτε μια δομή βρόχου που χρησιμοποιεί ένα μπλοκ `switch` και `do-while` για να ξεδιπλώσει έναν βρόχο που αντιγράφει στοιχεία σε ομάδες των $4$. Πρόκειται για μια απλοποιημένη μορφή του μηχανισμού Duff's device.
 
-**Solution:**
-1. Loop unrolling reduces overhead by executing multiple operations per loop index test.
-2. Duff's device combines a `switch` fall-through and a `do-while` loop to handle arbitrary count sizes that are not multiples of the unrolling factor.
+**Λύση:**
+1. Το ξεδίπλωμα βρόχων μειώνει την επιβάρυνση εκτέλεσης εκτελώντας πολλαπλές πράξεις ανά έλεγχο δείκτη βρόχου.
+2. Το Duff's device συνδυάζει τη ροή προς τα κάτω του `switch` και έναν βρόχο `do-while` για να διαχειριστεί αυθαίρετα μεγέθη πλήθους που δεν είναι πολλαπλάσια του παράγοντα ξεδιπλώματος.
 
 ```c
 #include <stdio.h>
@@ -444,15 +444,15 @@ int main(void) {
 
 ---
 
-### Exercise 7: Global Static Linkage
+### Άσκηση 7: Καθολική Σύνδεση Static (Global Static Linkage)
 
-**Problem:** Explain what happens when a variable is declared `static` at file scope and another file attempts to access it using `extern`.
+**Πρόβλημα:** Εξηγήστε τι συμβαίνει όταν μια μεταβλητή δηλώνεται ως `static` σε εμβέλεια αρχείου και ένα άλλο αρχείο επιχειρεί να την προσπελάσει χρησιμοποιώντας την `extern`.
 
-**Solution:**
-1. A global variable marked `static` has internal linkage. Its symbol is not exported to the global symbol table by the assembler.
-2. File A: `static int secret = 42;`
-3. File B: `extern int secret;`
-4. During the linking phase, the linker tries to resolve `secret` in File B. Because File A's `secret` is not in the global symbol table, a linker error occurs: `undefined reference to 'secret'`.
+**Λύση:**
+1. Μια καθολική μεταβλητή που έχει σημανθεί ως `static` έχει εσωτερική σύνδεση (internal linkage). Το σύμβολό της δεν εξάγεται στον καθολικό πίνακα συμβόλων από τον συμβολομεταφραστή (assembler).
+2. Αρχείο A: `static int secret = 42;`
+3. Αρχείο B: `extern int secret;`
+4. Κατά τη φάση της σύνδεσης (linking), ο συνδέτης (linker) προσπαθεί να επιλύσει το σύμβολο `secret` στο Αρχείο B. Επειδή το `secret` του Αρχείου Α δεν βρίσκεται στον καθολικό πίνακα συμβόλων, προκαλείται σφάλμα σύνδεσης: `undefined reference to 'secret'`.
 
 ```text
 linker error: undefined reference to 'secret'
@@ -460,11 +460,11 @@ linker error: undefined reference to 'secret'
 
 ---
 
-### Exercise 8: Recursive Stack Behavior
+### Άσκηση 8: Συμπεριφορά Στοιβάδας σε Αναδρομή
 
-**Problem:** Write a recursive implementation of the Fibonacci sequence and explain how local variables behave on the call stack for an input $n = 3$.
+**Πρόβλημα:** Γράψτε μια αναδρομική υλοποίηση της ακολουθίας Fibonacci και εξηγήστε τη συμπεριφορά των τοπικών μεταβλητών στη στοιβάδα κλήσεων (call stack) για είσοδο $n = 3$.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -484,52 +484,52 @@ int main(void) {
 fib(3)=2
 ```
 
-1. **Call Stack tracing:**
-   - `fib(3)` is pushed onto the stack. Space is allocated for parameter `n = 3`.
-   - `fib(3)` evaluates `n <= 1` (false), then invokes `fib(2)`.
-   - `fib(2)` is pushed onto the stack. Space is allocated for `n = 2`.
-   - `fib(2)` invokes `fib(1)`.
-   - `fib(1)` is pushed. `n = 1` is true; returns $1$ and is popped from stack.
-   - `fib(2)` resumes and calls `fib(0)`.
-   - `fib(0)` is pushed. `n = 0` is true; returns $0$ and is popped from stack.
-   - `fib(2)` sums $1 + 0 = 1$, returns $1$ and is popped from stack.
-   - `fib(3)` resumes, holds $1$ from `fib(2)` branch, and calls `fib(1)`.
-   - `fib(1)` is pushed, returns $1$ and is popped.
-   - `fib(3)` sums $1 + 1 = 2$, returns $2$ to `main`.
+1. **Ιχνηλάτηση Στοιβάδας Κλήσεων (Call Stack tracing):**
+   - Η `fib(3)` εισάγεται (pushed) στη στοιβάδα. Δεσμεύεται χώρος για την παράμετρο `n = 3`.
+   - Η `fib(3)` αξιολογεί τη συνθήκη `n <= 1` (ψευδής) και στη συνέχεια καλεί την `fib(2)`.
+   - Η `fib(2)` εισάγεται στη στοιβάδα. Δεσμεύεται χώρος για το `n = 2`.
+   - Η `fib(2)` καλεί την `fib(1)`.
+   - Η `fib(1)` εισάγεται. Η συνθήκη `n = 1` είναι αληθής· επιστρέφει $1$ και εξάγεται (popped) από τη στοιβάδα.
+   - Η `fib(2)` συνεχίζει και καλεί την `fib(0)`.
+   - Η `fib(0)` εισάγεται. Η συνθήκη `n = 0` είναι αληθής· επιστρέφει $0$ και εξάγεται από τη στοιβάδα.
+   - Η `fib(2)` αθροίζει $1 + 0 = 1$, επιστρέφει $1$ και εξάγεται από τη στοιβάδα.
+   - Η `fib(3)` συνεχίζει, κρατά την τιμή $1$ από τον κλάδο της `fib(2)` και καλεί την `fib(1)`.
+   - Η `fib(1)` εισάγεται, επιστρέφει $1$ και εξάγεται.
+   - Η `fib(3)` αθροίζει $1 + 1 = 2$, επιστρέφει $2$ στη `main`.
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### 1. Missing Switch Break (Fall-Through Bug)
-* **Cause:** Omitting `break` at the end of a `case` block causes the compiler to continue executing subsequent statements in the next `case` block.
-* **Resolution:** Ensure every case ends with a `break;` statement unless fall-through behavior is explicitly desired and documented.
+### 1. Παράλειψη του Switch Break (Σφάλμα Fall-Through)
+* **Αιτία:** Η παράλειψη της εντολής `break` στο τέλος ενός μπλοκ `case` προκαλεί τη συνέχιση της εκτέλεσης των επόμενων εντολών στο επόμενο μπλοκ `case`.
+* **Επίλυση:** Βεβαιωθείτε ότι κάθε περίπτωση τελειώνει με εντολή `break;` εκτός αν η συμπεριφορά ροής προς τα κάτω είναι επιθυμητή και τεκμηριωμένη.
 
-### 2. Confusing Assignment (`=`) with Equality (`==`)
-* **Cause:** Using `if (x = 5)` instead of `if (x == 5)`. The single `=` assigns $5$ to `x`. The overall expression evaluates to the assigned value ($5$, which is non-zero, making the condition evaluate to true).
-* **Resolution:** Enable compiler warnings (`-Wparentheses` or `-Wall`). Alternatively, write comparisons with literals on the left-hand side (e.g., `if (5 == x)`), which triggers a compilation error if an assignment is written accidentally.
+### 2. Σύγχυση της Ανάθεσης (`=`) με την Ισότητα (`==`)
+* **Αιτία:** Χρήση της `if (x = 5)` αντί της `if (x == 5)`. Το απλό `=` αναθέτει την τιμή $5$ στο `x`. Η συνολική έκφραση αξιολογείται στην ανατεθείσα τιμή ($5$, η οποία είναι μη μηδενική, καθιστώντας τη συνθήκη αληθή).
+* **Επίλυση:** Ενεργοποιήστε τις προειδοποιήσεις μεταγλωττιστή (`-Wparentheses` ή `-Wall`). Εναλλακτικά, γράψτε τις συγκρίσεις με σταθερές στα αριστερά (π.χ. `if (5 == x)`), γεγονός που προκαλεί σφάλμα μεταγλώττισης εάν γραφτεί κατά λάθος ανάθεση.
 
-### 3. Accessing Uninitialized Stack Variables
-* **Cause:** Automatic storage class variables (`auto`) have indeterminate contents upon allocation. Reading them before writing a value yields garbage data, which represents undefined behavior.
-* **Resolution:** Always initialize variables upon declaration: `int value = 0;`.
+### 3. Προσπέλαση Μη Αρχικοποιημένων Μεταβλητών Στοιβάδας
+* **Αιτία:** Οι μεταβλητές αυτόματης κλάσης αποθήκευσης (`auto`) έχουν ακαθόριστα περιεχόμενα κατά τη δέσμευση. Η ανάγνωσή τους πριν από την εγγραφή τιμής επιστρέφει τυχαία δεδομένα (garbage data), αποτελώντας μη ορισμένη συμπεριφορά.
+* **Επίλυση:** Αρχικοποιείτε πάντα τις μεταβλητές κατά τη δήλωση: `int value = 0;`.
 
 ---
 
-## Exam Tip: Simulating Reference Semantics and Orthogonality
+## Συμβουλή Εξετάσεων: Προσομοίωση Σημασιολογίας Αναφοράς και Ορθογωνικότητα
 
-**Simulating Reference Semantics:**
-Because C only supports pass-by-value, you cannot pass a variable directly to modify its state. You must pass its address.
-- **Common exam mistake:** Writing a swap function without pointers or passing arguments without the address-of (`&`) operator.
+**Προσομοίωση Σημασιολογίας Αναφοράς:**
+Επειδή η C υποστηρίζει μόνο μεταβίβαση κατ' τιμήν, δεν μπορείτε να μεταβιβάσετε μια μεταβλητή απευθείας για να τροποποιήσετε την κατάστασή της. Πρέπει να μεταβιβάσετε τη διεύθυνσή της.
+- **Συχνό εξεταστικό λάθος:** Γραφή συνάρτησης εναλλαγής (swap) χωρίς δείκτες ή μεταβίβαση ορισμάτων χωρίς τον τελεστή διεύθυνσης (`&`).
   ```c
   void bad_swap(int a, int b) { int temp = a; a = b; b = temp; }
-  // Calling bad_swap(x, y) has no effect on x and y.
+  // Η κλήση bad_swap(x, y) δεν έχει καμία επίδραση στα x και y.
   ```
 
-**Language Orthogonality Trap:**
-Orthogonality refers to the ability to combine a small set of primitive constructs in any combination. C exhibits poor orthogonality in several areas:
-1. **Returning Structures vs. Arrays:**
-   - A function can return a `struct` by value (it copies the entire struct).
-   - A function **cannot** return an array by value (it decays to a pointer, or you must wrap it in a struct).
-2. **Operations on Structures vs. Arrays:**
-   - You can assign one `struct` to another of the same type: `structA = structB;`.
-   - You **cannot** assign one array directly to another: `arrayA = arrayB;` is a compilation error.
+**Παγίδα Ορθογωνικότητας Γλώσσας:**
+Η ορθογωνικότητα αναφέρεται στη δυνατότητα συνδυασμού ενός μικρού συνόλου πρωτογενών κατασκευών σε οποιονδήποτε συνδυασμό. Η C εμφανίζει κακή ορθογωνικότητα σε αρκετούς τομείς:
+1. **Επιστροφή Δομών έναντι Πινάκων:**
+   - Μια συνάρτηση μπορεί να επιστρέψει ένα `struct` κατ' τιμήν (αντιγράφει ολόκληρη τη δομή).
+   - Μια συνάρτηση **δεν μπορεί** να επιστρέψει έναν πίνακα κατ' τιμήν (εκφυλίζεται σε δείκτη ή πρέπει να περιβληθεί σε struct).
+2. **Πράξεις σε Δομές έναντι Πινάκων:**
+   - Μπορείτε να αναθέσετε ένα `struct` σε ένα άλλο ίδιου τύπου: `structA = structB;`.
+   - **Δεν μπορείτε** να αναθέσετε έναν πίνακα απευθείας σε έναν άλλο: η πρόταση `arrayA = arrayB;` αποτελεί σφάλμα μεταγλώττισης.

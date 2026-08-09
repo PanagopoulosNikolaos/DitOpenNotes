@@ -1,101 +1,101 @@
-# C — Preprocessor and Build Process
+# C — Προεπεξεργαστής και Διαδικασία Μεταγλώττισης
 
-The C compilation pipeline separates preprocessing, translation, assembly, and linking into distinct stages. Using preprocessor directives, developers can define macros, manage conditional compilation, and include header files. This file covers macro expansion mechanisms, header guards, separate compilation models, build systems like `make`, and the performance implications of inline functions.
+Η διοχέτευση μεταγλώττισης (compilation pipeline) της C διαχωρίζει την προεπεξεργασία, τη μετάφραση, τη συμβολομεταφορά (assembly) και τη σύνδεση (linking) σε διακριτά στάδια. Χρησιμοποιώντας οδηγίες προεπεξεργαστή, οι προγραμματιστές μπορούν να ορίζουν μακροεντολές (macros), να διαχειρίζονται τη μεταγλώττιση υπό συνθήκη και να εισάγουν αρχεία επικεφαλίδας (headers). Αυτό το αρχείο καλύπτει τους μηχανισμούς αντικατάστασης μακροεντολών (macro expansion), τα προστατευτικά επικεφαλίδων (header guards), τα μοντέλα ξεχωριστής μεταγλώττισης, τα συστήματα δομής λογισμικού όπως το `make` και τις επιπτώσεις των ενσωματωμένων συναρτήσεων (inline functions) στην απόδοση.
 
 ---
 
-## 1. The Preprocessor and Macro Expansion
+## 1. Ο Προεπεξεργαστής και η Αντικατάσταση Μακροεντολών
 
-The preprocessor is a text-substitution tool that runs before compilation. Directives begin with `#` and are processed top-down.
+Ο προεπεξεργαστής (preprocessor) είναι ένα εργαλείο αντικατάστασης κειμένου που εκτελείται πριν από τη μεταγλώττιση. Οι οδηγίες (directives) ξεκινάνε με `#` και επεξεργάζονται από πάνω προς τα κάτω.
 
-### 1.1 Object-like and Function-like Macros
+### 1.1 Μακροεντολές Τύπου Αντικειμένου και Συναρτήσεων
 
-- **Object-like macros:** Substitute a symbolic token with a replacement text block.
-- **Function-like macros:** Accept arguments and substitute them within the replacement text.
+- **Μακροεντολές τύπου αντικειμένου (Object-like macros):** Αντικαθιστούν ένα συμβολικό αναγνωριστικό με ένα μπλοκ κειμένου αντικατάστασης.
+- **Μακροεντολές τύπου συνάρτησης (Function-like macros):** Δέχονται ορίσματα και τα αντικαθιστούν εντός του κειμένου αντικατάστασης.
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 #define <MACRO_NAME> <replacement_text>
 #define <MACRO_NAME>(<param1>, <param2>) (<replacement_text_using_params>)
 ```
 
-#### Preprocessor Directive Reference Table
+#### Πίνακας Αναφοράς Οδηγιών Προεπεξεργαστή
 
-| Directive | Parameters | Purpose | Example |
+| Οδηγία | Παράμετροι | Σκοπός | Παράδειγμα |
 | :--- | :--- | :--- | :--- |
-| `#define` | `NAME value` | Defines macro substitution | `#define PI 3.14159` |
-| `#undef` | `NAME` | Cancels macro definition | `#undef PI` |
-| `#include` | `<header.h>` or `"header.h"` | Copies contents of header file | `#include <stdio.h>` |
-| `#ifdef` | `NAME` | Compiles block if macro is defined | `#ifdef DEBUG` |
-| `#ifndef` | `NAME` | Compiles block if macro is not defined | `#ifndef HEADER_H` |
+| `#define` | `NAME value` | Ορίζει αντικατάσταση μακροεντολής | `#define PI 3.14159` |
+| `#undef` | `NAME` | Ακυρώνει τον ορισμό μακροεντολής | `#undef PI` |
+| `#include` | `<header.h>` ή `"header.h"` | Αντιγράφει τα περιεχόμενα αρχείου επικεφαλίδας | `#include <stdio.h>` |
+| `#ifdef` | `NAME` | Μεταγλωττίζει το μπλοκ αν η μακροεντολή είναι ορισμένη | `#ifdef DEBUG` |
+| `#ifndef` | `NAME` | Μεταγλωττίζει το μπλοκ αν η μακροεντολή δεν είναι ορισμένη | `#ifndef HEADER_H` |
 
 ---
 
-## 2. Conditional Compilation and Header Guards
+## 2. Μεταγλώττιση Υπό Συνθήκη και Προστατευτικά Επικεφαλίδων (Header Guards)
 
-To prevent double inclusion errors when headers import other headers, **header guards** or `#pragma once` are used to restrict parsing to a single occurrence.
+Για την αποτροπή σφαλμάτων διπλής συμπερίληψης όταν τα αρχεία επικεφαλίδας εισάγουν άλλα αρχεία επικεφαλίδας, χρησιμοποιούνται **προστατευτικά επικεφαλίδων (header guards)** ή η οδηγία `#pragma once` για τον περιορισμό της ανάλυσης σε μία μόνο εμφάνιση.
 
-### 2.1 Header Guard Syntax Reference
+### 2.1 Αναφορά Σύνταξης Header Guard
 
 ```c
 #ifndef UNIQUE_HEADER_NAME_H
 #define UNIQUE_HEADER_NAME_H
 
-// Declarations, types, prototypes
+// Δηλώσεις, τύποι, πρωτότυπα
 
 #endif /* UNIQUE_HEADER_NAME_H */
 ```
 
-### 2.2 Compilation Flags Reference Table
+### 2.2 Πίνακας Αναφοράς Σημαίων Μεταγλώττισης (Compilation Flags)
 
-| Flag | Purpose | Stage | Example |
+| Σημαία | Σκοπός | Στάδιο | Παράδειγμα |
 | :--- | :--- | :--- | :--- |
-| `-E` | Stop after preprocessing | Preprocessing | `gcc -E main.c` |
-| `-c` | Compile to object file without linking | Compilation/Assembly | `gcc -c main.c` (generates `main.o`) |
-| `-o` | Specify output filename | Linking | `gcc main.o utils.o -o program` |
-| `-I` | Add directory to include search path | Preprocessing | `gcc -I./include main.c` |
-| `-D` | Define a macro from the command line | Preprocessing | `gcc -DDEBUG=1 main.c` |
+| `-E` | Διακοπή μετά την προεπεξεργασία | Προεπεξεργασία | `gcc -E main.c` |
+| `-c` | Μεταγλώττιση σε αρχείο αντικειμένου χωρίς σύνδεση | Μεταγλώττιση/Συμβολομεταφορά | `gcc -c main.c` (παράγει το `main.o`) |
+| `-o` | Καθορισμός ονόματος αρχείου εξόδου | Σύνδεση (Linking) | `gcc main.o utils.o -o program` |
+| `-I` | Προσθήκη καταλόγου στη διαδρομή αναζήτησης συμπερίληψης | Προεπεξεργασία | `gcc -I./include main.c` |
+| `-D` | Ορισμός μακροεντολής από τη γραμμή εντολών | Προεπεξεργασία | `gcc -DDEBUG=1 main.c` |
 
 ---
 
-## 3. Separate Compilation and Linking Model
+## 3. Μοντέλο Ξεχωριστής Μεταγλώττισης και Σύνδεσης
 
-A C program can be split across multiple source files (`.c`), which are compiled independently into object files (`.o`) and combined by the linker.
+Ένα πρόγραμμα C μπορεί να διασπαστεί σε πολλαπλά αρχεία πηγαίου κώδικα (`.c`), τα οποία μεταγλωττίζονται ανεξάρτητα σε αρχεία αντικειμένου (`.o`) και συνδυάζονται από τον συνδέτη (linker).
 
 ```
-Source Files (.c) ──► Compiler ──► Object Files (.o) ──┐
-Header Files (.h) ──┘                                   ├──► Linker ──► Executable
-Libraries (.a/.so) ─────────────────────────────────────┘
+Πηγαία Αρχεία (.c) ──► Μεταγλωττιστής ──► Αρχεία Αντικειμένου (.o) ──┐
+Αρχεία Επικεφαλίδας (.h) ──┘                                           ├──► Συνδέτης (Linker) ──► Εκτελέσιμο
+Βιβλιοθήκες (.a/.so) ──────────────────────────────────────────────────┘
 ```
 
-- **Compilation stage:** Compiles `.c` files individually. The compiler only needs declarations (from `.h` files) to verify signatures and layout sizes.
-- **Linking stage:** Combines object files and resolves external references (functions or variables defined in other files).
+- **Στάδιο μεταγλώττισης:** Μεταγλωττίζει τα αρχεία `.c` μεμονωμένα. Ο μεταγλωττιστής χρειάζεται μόνο τις δηλώσεις (από τα αρχεία `.h`) για την επαλήθευση των υπογραφών και των μεγεθών διάταξης.
+- **Στάδιο σύνδεσης (Linking):** Συνδυάζει τα αρχεία αντικειμένου και επιλύει τις εξωτερικές αναφορές (συναρτήσεις ή μεταβλητές που ορίζονται σε άλλα αρχεία).
 
 ---
 
-## 4. Build Automation with Make
+## 4. Αυτοματοποίηση Δομής Λογισμικού με το Make
 
-`make` uses a file named `Makefile` containing dependency rules to recompile only the files that have changed, saving build time.
+Το `make` χρησιμοποιεί ένα αρχείο με όνομα `Makefile` που περιέχει κανόνες εξαρτήσεων για να μεταγλωττίζει εκ νέου μόνο τα αρχεία που έχουν αλλάξει, εξοικονομώντας χρόνο μεταγλώττισης.
 
-### 4.1 Makefile Rule Syntax Reference
+### 4.1 Αναφορά Σύνταξης Κανόνων Makefile
 
 ```text
 target: dependencies
 <tab>command
 ```
 
-> **[Key Insight]** The command line in a Makefile rule **must** be indented with a literal tab character, not spaces. Using spaces triggers a syntax error from `make`.
+> **[Βασική Παρατήρηση]** Η γραμμή εντολών σε έναν κανόνα Makefile **πρέπει** να έχει εσοχή με πραγματικό χαρακτήρα στηλοθέτη (tab), και όχι με διαστήματα (spaces). Η χρήση διαστημάτων προκαλεί συντακτικό σφάλμα από το `make`.
 
 ---
 
-## 5. Inline Functions
+## 5. Ενσωματωμένες Συναρτήσεις (Inline Functions)
 
-Inline functions advise the compiler to expand the function body at the call site, eliminating call overhead (such as stack frame setup and register saving).
+Οι ενσωματωμένες συναρτήσεις (inline functions) συμβουλεύουν τον μεταγλωττιστή να αναπτύξει το σώμα της συνάρτησης στο σημείο κλήσης, εξαλείφοντας την επιβάρυνση κλήσης (όπως η προετοιμασία πλαισίου στοιβάδας και η αποθήκευση καταχωρητών).
 
-### 5.1 Inline Declarations
+### 5.1 Δηλώσεις Inline
 
-#### Syntax Reference
+#### Αναφορά Σύνταξης
 
 ```text
 inline <return_type> <function_name>(<parameters>) {
@@ -103,32 +103,32 @@ inline <return_type> <function_name>(<parameters>) {
 }
 ```
 
-Unlike macros, inline functions are type-safe, evaluate arguments exactly once, and respect block scope.
+Αντίθετα με τις μακροεντολές, οι ενσωματωμένες συναρτήσεις παρέχουν ασφάλεια τύπων, αξιολογούν τα ορίσματα ακριβώς μία φορά και σέβονται την εμβέλεια μπλοκ.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Macro Operator Precedence Bug
+### Άσκηση 1: Σφάλμα Προτεραιότητας Τελεστών σε Μακροεντολή
 
-**Problem:** Find the issue with this macro definition and fix it. Show what `SQUARE(x + 1)` expands to under the bad definition.
+**Πρόβλημα:** Βρείτε το πρόβλημα με τον παρακάτω ορισμό μακροεντολής και διορθώστε το. Δείξτε σε τι αναπτύσσεται η έκφραση `SQUARE(x + 1)` με τον λανθασμένο ορισμό.
 
 ```c
 #define SQUARE(x) x * x
 ```
 
-**Solution:**
-1. The preprocessor performs literal text substitution without respecting algebraic operator precedence.
-2. The expression `SQUARE(x + 1)` expands to:
+**Λύση:**
+1. Ο προεπεξεργαστής εκτελεί λεκτική αντικατάσταση κειμένου χωρίς να σέβεται την αλγεβρική προτεραιότητα τελεστών.
+2. Η έκφραση `SQUARE(x + 1)` αναπτύσσεται σε:
    ```text
    x + 1 * x + 1
    ```
-3. Due to multiplication taking precedence over addition, this is evaluated as:
+3. Λόγω του ότι ο πολλαπλασιασμός έχει προτεραιότητα έναντι της πρόσθεσης, η έκφραση αξιολογείται ως:
    $$
    x + (1 \times x) + 1 = 2x + 1
    $$
-   instead of the expected $(x + 1)^2 = x^2 + 2x + 1$.
-4. **Fix:** Wrap parameters and the entire macro expression in parentheses.
+   αντί για το αναμενόμενο $(x + 1)^2 = x^2 + 2x + 1$.
+4. **Διόρθωση:** Περιβάλλετε τις παραμέτρους και ολόκληρη την έκφραση της μακροεντολής σε παρενθέσεις.
 
 ```c
 #define SQUARE(x) ((x) * (x))
@@ -136,9 +136,9 @@ Unlike macros, inline functions are type-safe, evaluate arguments exactly once, 
 
 ---
 
-### Exercise 2: Macro Argument Side Effects
+### Άσκηση 2: Παρενέργειες Ορισμάτων Μακροεντολής
 
-**Problem:** Explain what happens when this code is executed.
+**Πρόβλημα:** Εξηγήστε τι συμβαίνει όταν εκτελείται ο παρακάτω κώδικας.
 
 ```c
 #include <stdio.h>
@@ -153,16 +153,16 @@ int main(void) {
 }
 ```
 
-**Solution:**
-1. The macro call expands to:
+**Λύση:**
+1. Η κλήση της μακροεντολής αναπτύσσεται σε:
    ```c
    int result = ((x++) > (y++) ? (x++) : (y++));
    ```
-2. The condition evaluates `x++ > y++` ($5 > 10$, which is false). Both variables are incremented once during evaluation: `x` becomes $6$, and `y` becomes $11$.
-3. Because the condition was false, the ternary operator evaluates the second branch: `(y++)`.
-4. The value of `y++` (which is current value $11$) is assigned to `result`. `y` is then incremented a second time, becoming $12$.
-5. The printed state is: `result=11 x=6 y=12`.
-6. **Gotcha:** Never pass expressions with side effects (like `++` or `--` or function calls) to macros.
+2. Η συνθήκη αξιολογεί `x++ > y++` ($5 > 10$, που είναι ψευδές). Και οι δύο μεταβλητές αυξάνονται μία φορά κατά την αξιολόγηση: το `x` γίνεται $6$ και το `y` γίνεται $11$.
+3. Επειδή η συνθήκη ήταν ψευδής, ο τριμελής τελεστής αξιολογεί τον δεύτερο κλάδο: `(y++)`.
+4. Η τιμή του `y++` (που είναι η τρέχουσα τιμή $11$) ανατίθεται στο `result`. Στη συνέχεια το `y` αυξάνεται για δεύτερη φορά, αποκτώντας την τιμή $12$.
+5. Η εκτυπωμένη κατάσταση είναι: `result=11 x=6 y=12`.
+6. **Παγίδα:** Μην μεταβιβάζετε ποτέ εκφράσεις με παρενέργειες (όπως `++`, `--` ή κλήσεις συναρτήσεων) σε μακροεντολές.
 
 ```text
 result=11 x=6 y=12
@@ -170,27 +170,27 @@ result=11 x=6 y=12
 
 ---
 
-### Exercise 3: Header Guards Prevention of Re-declaration
+### Άσκηση 3: Αποτροπή Επαναδήλωσης με Header Guards
 
-**Problem:** Show what compiler error occurs when a struct is defined in a header without guards and included twice in a translation unit.
+**Πρόβλημα:** Δείξτε ποιο σφάλμα μεταγλώττισης προκύπτει όταν μια δομή ορίζεται σε ένα αρχείο επικεφαλίδας χωρίς προστατευτικά (guards) και περιλαμβάνεται δύο φορές σε μια μονάδα μετάφρασης.
 
-**Solution:**
-1. Let `data.h` contain:
+**Λύση:**
+1. Έστω ότι το `data.h` περιέχει:
    ```c
    struct Point { int x; int y; };
    ```
-2. Let `main.c` contain:
+2. Έστω ότι το `main.c` περιέχει:
    ```c
    #include "data.h"
    #include "data.h"
    ```
-3. Preprocessing replaces the directives, yielding:
+3. Η προεπεξεργασία αντικαθιστά τις οδηγίες, παράγοντας:
    ```c
    struct Point { int x; int y; };
    struct Point { int x; int y; };
    ```
-4. The compiler parses the duplicate definitions and fails with a re-declaration error.
-5. **Fix:** Wrap the header contents in guards.
+4. Ο μεταγλωττιστής αναλύει τους διπλότυπους ορισμούς και αποτυγχάνει με σφάλμα επαναδήλωσης.
+5. **Διόρθωση:** Περιβάλλετε τα περιεχόμενα της επικεφαλίδας σε προστατευτικά guards.
 
 ```text
 compiler error: redefinition of 'struct Point'
@@ -198,13 +198,13 @@ compiler error: redefinition of 'struct Point'
 
 ---
 
-### Exercise 4: Macro Stringification and Token Pasting
+### Άσκηση 4: Μετατροπή σε Συμβολοσειρά και Συνένωση Tokens
 
-**Problem:** Write a macro using `#` (stringification) and `##` (token pasting) to print variable names and values, and to declare dynamic variable names.
+**Πρόβλημα:** Γράψτε μια μακροεντολή που χρησιμοποιεί το `#` (stringification) και το `##` (token pasting) για την εκτύπωση ονομάτων και τιμών μεταβλητών, καθώς και για τη δήλωση δυναμικών ονομάτων μεταβλητών.
 
-**Solution:**
-1. `#` converts a macro parameter into a string literal.
-2. `##` concatenates two tokens into a single token.
+**Λύση:**
+1. Το `#` μετατρέπει μια παράμετρο μακροεντολής σε συμβολοσειρά (string literal).
+2. Το `##` συνενώνει δύο tokens σε ένα ενιαίο token.
 
 ```c
 #include <stdio.h>
@@ -214,9 +214,9 @@ compiler error: redefinition of 'struct Point'
 
 int main(void) {
     int value = 99;
-    PRINT_INT(value); // Expands to: printf("value" " = %d\n", value);
+    PRINT_INT(value); // Αναπτύσσεται σε: printf("value" " = %d\n", value);
     
-    DECLARE_VAR(count, num); // Expands to: int count_num = 42;
+    DECLARE_VAR(count, num); // Αναπτύσσεται σε: int count_num = 42;
     printf("count_num = %d\n", count_num);
     return 0;
 }
@@ -229,31 +229,31 @@ count_num = 42
 
 ---
 
-### Exercise 5: Separate Compilation Steps
+### Άσκηση 5: Βήματα Ξεχωριστής Μεταγλώττισης
 
-**Problem:** Write the exact sequence of `gcc` commands to compile `main.c` and `helper.c` (which references `helper.h`) separately and link them together.
+**Πρόβλημα:** Γράψτε την ακριβή ακολουθία εντολών `gcc` για τη ξεχωριστή μεταγλώττιση των `main.c` και `helper.c` (το οποίο αναφέρεται στο `helper.h`) και τη σύνδεσή τους.
 
-**Solution:**
-1. Compile `main.c` to object file `main.o`:
+**Λύση:**
+1. Μεταγλώττιση του `main.c` σε αρχείο αντικειμένου `main.o`:
    ```sh
    gcc -c main.c -o main.o
    ```
-2. Compile `helper.c` to object file `helper.o`:
+2. Μεταγλώττιση του `helper.c` σε αρχείο αντικειμένου `helper.o`:
    ```sh
    gcc -c helper.c -o helper.o
    ```
-3. Link both object files to produce the executable `program`:
+3. Σύνδεση και των δύο αρχείων αντικειμένου για την παραγωγή του εκτελέσιμου `program`:
    ```sh
    gcc main.o helper.o -o program
    ```
 
 ---
 
-### Exercise 6: Basic Makefile Construction
+### Άσκηση 6: Βασική Κατασκευή Makefile
 
-**Problem:** Write a Makefile that compiles `main.c` and `helper.c` using the separate compilation model. Ensure clean targets are included.
+**Πρόβλημα:** Γράψτε ένα Makefile που μεταγλωττίζει τα `main.c` και `helper.c` χρησιμοποιώντας το μοντέλο ξεχωριστής μεταγλώττισης. Βεβαιωθείτε ότι περιλαμβάνονται στόχοι καθαρισμού (clean targets).
 
-**Solution:**
+**Λύση:**
 
 ```make
 CC = gcc
@@ -274,11 +274,11 @@ clean:
 
 ---
 
-### Exercise 7: Macro Conditional Compile Guards
+### Άσκηση 7: Προστατευτικά Μεταγλώττισης Μακροεντολών Υπό Συνθήκη
 
-**Problem:** Write a code block that compiles debug logging statements only when the macro `DEBUG` is defined.
+**Πρόβλημα:** Γράψτε ένα μπλοκ κώδικα που μεταγλωττίζει εντολές καταγραφής σφαλμάτων (debug logging) μόνο όταν η μακροεντολή `DEBUG` είναι ορισμένη.
 
-**Solution:**
+**Λύση:**
 
 ```c
 #include <stdio.h>
@@ -286,7 +286,7 @@ clean:
 #ifdef DEBUG
     #define LOG(msg) printf("[LOG] %s\n", msg)
 #else
-    #define LOG(msg) ((void)0) /* Evaluates to no-op */
+    #define LOG(msg) ((void)0) /* Αξιολογείται σε αδρανή πράξη (no-op) */
 #endif
 
 int main(void) {
@@ -295,45 +295,45 @@ int main(void) {
 }
 ```
 
-If compiled with `gcc -DDEBUG main.c`, the program prints:
+Εάν μεταγλωττιστεί με την εντολή `gcc -DDEBUG main.c`, το πρόγραμμα εκτυπώνει:
 ```text
 [LOG] Program started
 ```
-If compiled without the flag, it generates no terminal output.
+Εάν μεταγλωττιστεί χωρίς τη σημασία, δεν παράγει καμία έξοδο στο τερματικό.
 
 ---
 
-### Exercise 8: Inline Function vs. Macro Compilation
+### Άσκηση 8: Ενσωματωμένη Συνάρτηση έναντι Μεταγλώττισης Μακροεντολής
 
-**Problem:** State two distinct advantages of inline functions over function-like macros.
+**Πρόβλημα:** Αναφέρετε δύο διακριτά πλεονεκτήματα των ενσωματωμένων συναρτήσεων (inline functions) έναντι των μακροεντολών τύπου συνάρτησης.
 
-**Solution:**
-1. **Type Checking:** Inline functions are checked by the compiler for argument type compatibility, preventing hard-to-detect runtime bugs caused by passing invalid types to macros.
-2. **Evaluation of Arguments:** Inline functions evaluate parameters exactly once when called, avoiding multiple-evaluation bugs (such as those seen with `MAX(x++, y++)`).
-
----
-
-## Common Errors and Gotchas
-
-### 1. Makefile Space Indentation Error
-* **Cause:** Indenting make commands with spaces instead of a tab character.
-* **Resolution:** Configure the text editor to preserve tabs in files named `Makefile`.
-
-### 2. Missing Macro Parentheses
-* **Cause:** Defining macros like `#define ADD(a, b) a + b`. An expression like `ADD(2, 3) * 5` expands to `2 + 3 * 5` (which evaluates to $17$, not the expected $25$).
-* **Resolution:** Always wrap parameters and the final expression in parentheses: `#define ADD(a, b) ((a) + (b))`.
-
-### 3. Multiple Definition Errors at Link Time
-* **Cause:** Defining variables or function bodies inside header files (e.g. `int global_val = 10;` in `helper.h`). When `helper.h` is included in multiple `.c` files, the linker complains about duplicate symbol definitions.
-* **Resolution:** Place declarations in headers (`extern int global_val;`) and the actual storage definitions in corresponding `.c` implementation files.
+**Λύση:**
+1. **Έλεγχος Τύπων (Type Checking):** Οι ενσωματωμένες συναρτήσεις ελέγχονται από τον μεταγλωττιστή για τη συμβατότητα τύπων των ορισμάτων, αποτρέποντας δυσδιάκριτα σφάλματα χρόνου εκτέλεσης που προκαλούνται από το πέρασμα μη έγκυρων τύπων σε μακροεντολές.
+2. **Αξιολόγηση Ορισμάτων:** Οι ενσωματωμένες συναρτήσεις αξιολογούν τις παραμέτρους ακριβώς μία φορά κατά την κλήση, αποφεύγοντας σφάλματα πολλαπλής αξιολόγησης (όπως αυτά που παρατηρούνται με τη μακροεντολή `MAX(x++, y++)`).
 
 ---
 
-## Exam Tip: Preprocessor Tracing and Parentheses
+## Κοινά Σφάλματα και Παγίδες
 
-**Tracing Macro Transformations:**
-Exams often test preprocessor macro substitutions by including operations with mixed precedence or operators with side effects.
-- **Strategy:** Perform the textual substitution exactly as written. Do not simplify expressions during substitution. Write out the expanded string first, apply normal C operator precedence rules, and calculate the final result.
+### 1. Σφάλμα Εσοχής με Διαστήματα στο Makefile
+* **Αιτία:** Δημιουργία εσοχής στις εντολές make με διαστήματα αντί για χαρακτήρα στηλοθέτη (tab).
+* **Επίλυση:** Ρυθμίστε τον επεξεργαστή κειμένου ώστε να διατηρεί τα tabs στα αρχεία με όνομα `Makefile`.
 
-**Header Guard Importance:**
-- Remember that header guards do **not** prevent a header from being processed; they prevent the *contents* from being compiled more than once in a single compilation unit. The preprocessor still opens the file, but the conditional compilation skip ensures the compiler sees only the first copy of the declarations.
+### 2. Παράλειψη Παρενθέσεων σε Μακροεντολές
+* **Αιτία:** Ορισμός μακροεντολών όπως `#define ADD(a, b) a + b`. Μια έκφραση όπως η `ADD(2, 3) * 5` αναπτύσσεται σε `2 + 3 * 5` (που αξιολογείται σε $17$, αντί για το αναμενόμενο $25$).
+* **Επίλυση:** Περιβάλλετε πάντα τις παραμέτρους και την τελική έκφραση σε παρενθέσεις: `#define ADD(a, b) ((a) + (b))`.
+
+### 3. Σφάλματα Πολλαπλών Ορισμών κατά τη Σύνδεση
+* **Αιτία:** Ορισμός μεταβλητών ή σωμάτων συναρτήσεων εντός αρχείων επικεφαλίδας (π.χ. `int global_val = 10;` στο `helper.h`). Όταν το `helper.h` περιλαμβάνεται σε πολλαπλά αρχεία `.c`, ο συνδέτης αποτυγχάνει αναφέροντας διπλότυπα σύμβολα.
+* **Επίλυση:** Τοποθετείτε δηλώσεις στις επικεφαλίδες (`extern int global_val;`) και τους πραγματικούς ορισμούς δέσμευσης στα αντίστοιχα αρχεία υλοποίησης `.c`.
+
+---
+
+## Συμβουλή Εξετάσεων: Ιχνηλάτηση Προεπεξεργαστή και Παρενθέσεις
+
+**Ιχνηλάτηση Μετασχηματισμών Μακροεντολών:**
+Στις εξετάσεις δοκιμάζονται συχνά οι αντικαταστάσεις μακροεντολών προεπεξεργαστή περιλαμβάνοντας πράξεις με μικτή προτεραιότητα ή τελεστές με παρενέργειες.
+- **Στρατηγική:** Εκτελέστε τη λεκτική αντικατάσταση ακριβώς όπως είναι γραμμένη. Μην απλοποιείτε εκφράσεις κατά την αντικατάσταση. Γράψτε πρώτα την πλήρη αναπτυγμένη συμβολοσειρά, εφαρμόστε τους κανονικούς κανόνες προτεραιότητας της C και υπολογίστε το τελικό αποτέλεσμα.
+
+**Σημασία των Header Guards:**
+- Θυμηθείτε ότι τα προστατευτικά header guards **δεν** εμποδίζουν την επεξεργασία μιας επικεφαλίδας· εμποδίζουν τα *περιεχόμενα* από το να μεταγλωττιστούν περισσότερες από μία φορές σε μια μεμονωμένη μονάδα μετάφρασης. Ο προεπεξεργαστής ανοίγει ξανά το αρχείο, αλλά η παράλειψη λόγω της συνθήκης εξασφαλίζει ότι ο μεταγλωττιστής βλέπει μόνο το πρώτο αντίγραφο των δηλώσεων.

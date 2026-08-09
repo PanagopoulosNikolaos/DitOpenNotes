@@ -1,49 +1,49 @@
-# Prolog — Execution Mechanisms
+# Prolog — Μηχανισμοί Εκτέλεσης
 
-Prolog execution is driven by **backward chaining** over Horn clauses: a query goal is matched against clause heads, and rule bodies become new subgoals to prove. When a subgoal fails, the engine **backtracks** to the most recent choice point and tries the next alternative clause or binding. This file covers resolution, backtracking, recursive rule definitions, variable unification, and the academic database pattern from the course mindmap.
+Η εκτέλεση στην Prolog κατευθύνεται από την **οπισθοδρομική αλυσίδωση (backward chaining)** πάνω σε προτάσεις Horn: ένας στόχος ερωτήματος ταιριάζει με κεφαλές προτάσεων, και τα σώματα των κανόνων γίνονται νέοι υποστόχοι προς απόδειξη. Όταν ένας υποστόχος αποτυγχάνει, η μηχανή εκτελεί **οπισθοδρόμηση (backtracking)** στο πιο πρόσφατο σημείο επιλογής (choice point) και δοκιμάζει την επόμενη εναλλακτική πρόταση ή σύνδεση. Αυτό το αρχείο καλύπτει την αναγωγή (resolution), την οπισθοδρόμηση, τους ορισμούς αναδρομικών κανόνων, την ενοποίηση μεταβλητών (unification) και το μοτίβο ακαδημαϊκής βάσης δεδομένων από το mindmap του μαθήματος.
 
-*Prerequisite: `prolog_1_basics_logic_programming.md` — facts, rules, queries, Horn clauses.*
+*Προαπαιτούμενο: `prolog_1_basics_logic_programming.md` — γεγονότα, κανόνες, ερωτήματα, προτάσεις Horn.*
 
 ---
 
-## 1. Resolution and Backward Chaining
+## 1. Αναγωγή και Οπισθοδρομική Αλυσίδωση
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-**Resolution** is the inference rule that Prolog uses to derive answers. Given a goal $G$ and a clause $H \leftarrow B_1 \land \cdots \land B_n$, if $G$ unifies with $H$, then proving $G$ reduces to proving $B_1, \ldots, B_n$.
+Η **αναγωγή (resolution)** είναι ο κανόνας συμπερασμού που χρησιμοποιεί η Prolog για την παραγωγή απαντήσεων. Δοθέντος ενός στόχου $G$ και μιας πρότασης $H \leftarrow B_1 \land \cdots \land B_n$, εάν ο $G$ ενοποιείται με την $H$, τότε η απόδειξη του $G$ ανάγεται στην απόδειξη των $B_1, \ldots, B_n$.
 
-**Backward chaining** starts from the query (the theorem to prove) and works backward toward known facts.
+Η **οπισθοδρομική αλυσίδωση (backward chaining)** ξεκινά από το ερώτημα (το θεώρημα προς απόδειξη) και εργάζεται προς τα πίσω προς τα γνωστά γεγονότα.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
-Resolution is implicit — no user syntax. The engine applies it when matching:
+Η αναγωγή είναι σιωπηρή — δεν υπάρχει σύνταξη χρήστη. Η μηχανή την εφαρμόζει κατά το ταίριασμα:
 
 ```
 ?- <goal> .
 ```
 
-against clauses of the form:
+έναντι προτάσεων της μορφής:
 
 ```
 <head> :- <body1>, <body2>, ...
 ```
 
-or facts:
+ή γεγονότων:
 
 ```
 <head> .
 ```
 
-### 1.3 Behavioral Description
+### 1.3 Περιγραφή Συμπεριφοράς
 
-| Step | Action | Outcome |
+| Βήμα | Ενέργεια | Αποτέλεσμα |
 | :--- | :--- | :--- |
-| 1 | Select leftmost unproven goal | Current subgoal to resolve |
-| 2 | Search KB top-to-bottom for matching clause | First unifiable clause chosen |
-| 3 | Unify goal with clause head | Variable bindings recorded |
-| 4 | Replace goal with clause body goals | New subgoals pushed (left-to-right order) |
-| 5 | All subgoals empty | Query succeeds; bindings reported |
-| 6 | Subgoal fails | Backtrack to last choice point |
+| 1 | Επιλογή του αριστερότερου μη αποδεδειγμένου στόχου | Τρέχων υποστόχος προς αναγωγή |
+| 2 | Σάρωση της KB από πάνω προς τα κάτω για ταιριαστή πρόταση | Επιλέγεται η πρώτη ενοποιήσιμη πρόταση |
+| 3 | Ενοποίηση στόχου με την κεφαλή της πρότασης | Καταγράφονται οι συνδέσεις μεταβλητών |
+| 4 | Αντικατάσταση στόχου από τους στόχους του σώματος της πρότασης | Νέοι υποστόχοι εισάγονται (σειρά αριστερά-προς-δεξιά) |
+| 5 | Όλοι οι υποστόχοι είναι άδειοι | Το ερώτημα επιτυγχάνει· αναφέρονται οι συνδέσεις |
+| 6 | Ο υποστόχος αποτυγχάνει | Οπισθοδρόμηση στο τελευταίο σημείο επιλογής |
 
 ```prolog
 parent(alice, bob).
@@ -54,37 +54,37 @@ grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
 ?- grandparent(alice, carol).
 ```
 
-**Resolution trace:**
+**Ιχνηλάτηση αναγωγής:**
 
-1. Goal: `grandparent(alice, carol)`
-2. Unify with rule head → subgoals: `parent(alice, Y)`, `parent(Y, carol)`
+1. Στόχος: `grandparent(alice, carol)`
+2. Ενοποίηση με κεφαλή κανόνα → υποστόχοι: `parent(alice, Y)`, `parent(Y, carol)`
 3. `parent(alice, Y)` → `Y = bob`
-4. `parent(bob, carol)` → succeeds
-5. All goals proven → `true.`
+4. `parent(bob, carol)` → επιτυγχάνει
+5. Όλοι οι στόχοι αποδείχθηκαν → `true.`
 
 ```text
 true.
 ```
 
-> **[Key Insight]** Prolog uses **depth-first** search with **left-to-right** goal ordering. The order of clauses in the KB and goals in a body affects both performance and whether all solutions are found.
+> **[Βασική Παρατήρηση]** Η Prolog χρησιμοποιεί αναζήτηση **πρώτα σε βάθος (depth-first)** με σειρά στόχων **αριστερά-προς-δεξιά**. Η σειρά των προτάσεων στη βάση γνώσης και των στόχων στο σώμα επηρεάζει τόσο την απόδοση όσο και το αν θα βρεθούν όλες οι λύσεις.
 
 ---
 
-## 2. Backtracking
+## 2. Οπισθοδρόμηση (Backtracking)
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-**Backtracking** occurs when the engine cannot prove a subgoal. It unwinds to the most recent **choice point** — a place where an alternative clause or binding could be tried — and continues search.
+Η **οπισθοδρόμηση (backtracking)** συμβαίνει όταν η μηχανή δεν μπορεί να αποδείξει έναν υποστόχο. Ακυρώνει τις συνδέσεις και επιστρέφει στο πιο πρόσφατο **σημείο επιλογής (choice point)** — ένα σημείο όπου θα μπορούσε να δοκιμαστεί μια εναλλακτική πρόταση ή σύνδεση — και συνεχίζει την αναζήτηση.
 
-### 2.2 Behavioral Description
+### 2.2 Περιγραφή Συμπεριφοράς
 
-| Event | Engine Response |
+| Συμβάν | Απόκριση Μηχανής |
 | :--- | :--- |
-| Goal unifies with multiple clauses | Choice point created; first tried |
-| Goal unifies with fact/rule producing variable bindings | Choice point if more clauses exist |
-| Subgoal fails | Undo bindings since choice point; try next alternative |
-| No alternatives remain | Fail to previous choice point |
-| User presses `;` at prompt | Force backtracking for next solution |
+| Ο στόχος ενοποιείται με πολλαπλές προτάσεις | Δημιουργείται σημείο επιλογής· δοκιμάζεται η πρώτη |
+| Ο στόχος ενοποιείται με γεγονός/κανόνα παράγοντας συνδέσεις | Σημείο επιλογής αν υπάρχουν περισσότερες προτάσεις |
+| Ο υποστόχος αποτυγχάνει | Ακύρωση συνδέσεων από το σημείο επιλογής· δοκιμή επόμενης |
+| Δεν απομένουν εναλλακτικές | Αποτυχία στο προηγούμενο σημείο επιλογής |
+| Ο χρήστης πατά `;` στην προτροπή | Επιβολή οπισθοδρόμησης για την επόμενη λύση |
 
 ```prolog
 likes(alice, pizza).
@@ -101,57 +101,57 @@ Food = pizza ;
 Food = sushi.
 ```
 
-**Trace for second solution:**
+**Ιχνηλάτηση για τη δεύτερη λύση:**
 
-1. First solution: `Food = pizza` (first matching fact).
-2. User types `;` → backtrack.
-3. Engine tries next `likes(alice, _)` fact → `Food = sushi`.
-4. No more facts → return to prompt.
+1. Πρώτη λύση: `Food = pizza` (πρώτο ταιριαστό γεγονός).
+2. Ο χρήστης πληκτρολογεί `;` → οπισθοδρόμηση.
+3. Η μηχανή δοκιμάζει το επόμενο γεγονός `likes(alice, _)` → `Food = sushi`.
+4. Δεν υπάρχουν άλλα γεγονότα → επιστροφή στην προτροπή.
 
-### 2.3 Choice Point Diagram
+### 2.3 Διάγραμμα Σημείου Επιλογής
 
 ```
-Query: favorite_food(alice, Food)
-         |
-    [choice: likes(alice, ?)]
-       /         \
-  Food=pizza   Food=sushi
-  (1st fact)  (2nd fact, after ;)
+Ερώτημα: favorite_food(alice, Food)
+            |
+       [επιλογή: likes(alice, ?)]
+          /         \
+     Food=pizza   Food=sushi
+    (1ο γεγονός)  (2ο γεγονός, μετά από ;)
 ```
 
 ---
 
-## 3. Unification
+## 3. Ενοποίηση (Unification)
 
-### 3.1 Formal Definition
+### 3.1 Τυπικός Ορισμός
 
-**Unification** finds a substitution $\theta$ such that two terms become syntactically identical. If such $\theta$ exists, the terms are **unifiable**.
+Η **ενοποίηση (unification)** βρισκει μια αντικατάσταση $\theta$ τέτοια ώστε δύο όροι να γίνουν συντακτικά πανομοιότυποι. Εάν υπάρχει τέτοια $\theta$, οι όροι είναι **ενοποιήσιμοι (unifiable)**.
 
-For terms $t_1$ and $t_2$, a substitution $\theta$ is a unifier iff $t_1\theta = t_2\theta$.
+Για όρους $t_1$ και $t_2$, μια αντικατάσταση $\theta$ είναι ενοποιητής αν και μόνο αν $t_1\theta = t_2\theta$.
 
-### 3.2 Unification Rules
+### 3.2 Κανόνες Ενοποίησης
 
-| Pattern | Result |
+| Μοτίβο | Αποτέλεσμα |
 | :--- | :--- |
-| Variable $V$ vs. term $T$ (occur check passes) | Bind $V = T$ |
-| Atom vs. same atom | Succeed |
-| Atom vs. different atom | Fail |
-| Compound $f(s_1,\ldots,s_n)$ vs. $f(t_1,\ldots,t_n)$ | Unify each argument pair |
-| Number vs. same number | Succeed |
-| Number vs. different number | Fail |
-| List $[H|T]$ vs. list $[H'|T']$ | Unify heads, then tails |
+| Μεταβλητή $V$ έναντι όρου $T$ (επιτυχία occur check) | Σύνδεση $V = T$ |
+| Άτομο έναντι ίδιου ατόμου | Επιτυχία |
+| Άτομο έναντι διαφορετικού ατόμου | Αποτυχία |
+| Σύνθετος $f(s_1,\ldots,s_n)$ έναντι $f(t_1,\ldots,t_n)$ | Ενοποίηση κάθε ζεύγους ορισμάτων |
+| Αριθμός έναντι ίδιου αριθμού | Επιτυχία |
+| Αριθμός έναντι διαφορετικού αριθμού | Αποτυχία |
+| Λίστα $[H|T]$ έναντι λίστας $[H'|T']$ | Ενοποίηση κεφαλών, μετά ουρών |
 
-**Occur check:** A variable cannot unify with a term containing that variable (prevents infinite structures).
+**Έλεγχος εμφάνισης (Occur check):** Μια μεταβλητή δεν μπορεί να ενοποιηθεί με έναν όρο που περιέχει την ίδια τη μεταβλητή (αποτρέπει άπειρες δομές).
 
-### 3.3 Worked Unification Examples
+### 3.3 Λυμένα Παραδείγματα Ενοποίησης
 
-| $t_1$ | $t_2$ | Result |
+| $t_1$ | $t_2$ | Αποτέλεσμα |
 | :--- | :--- | :--- |
 | `X` | `bob` | `X = bob` |
 | `parent(X, bob)` | `parent(alice, Y)` | `X = alice, Y = bob` |
-| `f(X, X)` | `f(a, b)` | Fail |
+| `f(X, X)` | `f(a, b)` | Αποτυχία |
 | `[H|T]` | `[1, 2, 3]` | `H = 1, T = [2, 3]` |
-| `X` | `f(X)` | Fail (occur check) |
+| `X` | `f(X)` | Αποτυχία (occur check) |
 
 ```prolog
 ?- parent(X, bob) = parent(alice, Y).
@@ -164,13 +164,13 @@ Y = bob.
 
 ---
 
-## 4. Recursive Relationships
+## 4. Αναδρομικές Σχέσεις
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-Recursion in Prolog is expressed through rules that refer to the same predicate in the body. Every recursive predicate requires at least one **base case** (direct fact or non-recursive rule) and one **recursive case**.
+Η αναδρομή στην Prolog εκφράζεται μέσω κανόνων που αναφέρονται στο ίδιο κατηγόρημα στο σώμα τους. Κάθε αναδρομικό κατηγόρημα απαιτεί τουλάχιστον μία **βασική περίπτωση (base case)** (άμεσο γεγονός ή μη αναδρομικό κανόνα) και μία **αναδρομική περίπτωση (recursive case)**.
 
-### 4.2 Syntax Reference
+### 4.2 Αναφορά Σύνταξης
 
 ```
 <base_predicate>(<base_args>) .
@@ -180,22 +180,22 @@ Recursion in Prolog is expressed through rules that refer to the same predicate 
 <recursive_predicate>(<args>) :- <recursive_condition>, <recursive_predicate>(<smaller_args>) .
 ```
 
-### 4.3 Ancestor Relation
+### 4.3 Σχέση Προγόνου (Ancestor)
 
-The mindmap defines `ancestor/2` with:
+Το mindmap ορίζει το `ancestor/2` με:
 
-- **Base case:** $X$ is a direct parent of $Y$.
-- **Recursive case:** $X$ is an ancestor of $Z$, and $Z$ is a parent of $Y$.
+- **Βασική περίπτωση:** Ο $X$ είναι άμεσος γονέας του $Y$.
+- **Αναδρομική περίπτωση:** Ο $X$ είναι πρόγονος του $Z$, και ο $Z$ είναι γονέας του $Y$.
 
 ```prolog
 parent(alice, bob).
 parent(bob, carol).
 parent(carol, dave).
 
-% Base case: direct parent is an ancestor.
+% Βασική περίπτωση: ο άμεσος γονέας είναι πρόγονος.
 ancestor(X, Y) :- parent(X, Y).
 
-% Recursive case: parent's ancestor is also an ancestor.
+% Αναδρομική περίπτωση: ο πρόγονος του γονέα είναι επίσης πρόγονος.
 ancestor(X, Y) :- ancestor(X, Z), parent(Z, Y).
 ```
 
@@ -203,14 +203,14 @@ ancestor(X, Y) :- ancestor(X, Z), parent(Z, Y).
 ?- ancestor(alice, dave).
 ```
 
-**Trace:**
+**Ιχνηλάτηση:**
 
-1. `ancestor(alice, dave)` → recursive case → `ancestor(alice, Z)`, `parent(Z, dave)`
+1. `ancestor(alice, dave)` → αναδρομική περίπτωση → `ancestor(alice, Z)`, `parent(Z, dave)`
 2. `parent(Z, dave)` → `Z = carol`
-3. `ancestor(alice, carol)` → recursive case → `ancestor(alice, Z2)`, `parent(Z2, carol)`
+3. `ancestor(alice, carol)` → αναδρομική περίπτωση → `ancestor(alice, Z2)`, `parent(Z2, carol)`
 4. `parent(Z2, carol)` → `Z2 = bob`
-5. `ancestor(alice, bob)` → base case → `parent(alice, bob)` succeeds
-6. All subgoals succeed
+5. `ancestor(alice, bob)` → βασική περίπτωση → το `parent(alice, bob)` επιτυγχάνει
+6. Όλοι οι υποστόχοι επιτυγχάνουν
 
 ```text
 true.
@@ -226,33 +226,33 @@ A = bob ;
 A = alice.
 ```
 
-### 4.4 Recursion Trace Table
+### 4.4 Πίνακας Ιχνηλάτησης Αναδρομής
 
-| Step | Goal | Result |
+| Βήμα | Στόχος | Αποτέλεσμα |
 | :--- | :--- | :--- |
-| 1 | `ancestor(alice, dave)` | Expand recursive rule |
-| 2 | `ancestor(alice, carol)` | Expand recursive rule |
-| 3 | `ancestor(alice, bob)` | Base case succeeds |
-| 4 | Unwind | `ancestor(alice, carol)` succeeds |
-| 5 | Unwind | `ancestor(alice, dave)` succeeds |
+| 1 | `ancestor(alice, dave)` | Ανάπτυξη αναδρομικού κανόνα |
+| 2 | `ancestor(alice, carol)` | Ανάπτυξη αναδρομικού κανόνα |
+| 3 | `ancestor(alice, bob)` | Η βασική περίπτωση επιτυγχάνει |
+| 4 | Επιστροφή | Το `ancestor(alice, carol)` επιτυγχάνει |
+| 5 | Επιστροφή | Το `ancestor(alice, dave)` επιτυγχάνει |
 
 ---
 
-## 5. Academic Database Example
+## 5. Παράδειγμα Ακαδημαϊκής Βάσης Δεδομένων
 
-### 5.1 Concept Overview
+### 5.1 Επισκόπηση Έννοιας
 
-Prolog naturally models relational data. The mindmap uses predicates `passed/3` and `enrolled/2` to represent student records, enabling queries that join relations through shared variables.
+Η Prolog μοντελοποιεί φυσικά τα συσχετιστικά δεδομένα. Το mindmap χρησιμοποιεί τα κατηγορήματα `passed/3` και `enrolled/2` για την αναπαράσταση φοιτητικών εγγραφών, επιτρέποντας ερωτήματα που συνδέουν σχέσεις μέσω κοινών μεταβλητών.
 
-### 5.2 Schema
+### 5.2 Σχήμα (Schema)
 
-| Predicate | Arity | Meaning |
+| Κατηγόρημα | Πληθικότητα (Arity) | Σημασία |
 | :--- | :--- | :--- |
-| `enrolled(Student, Course)` | 2 | Student is enrolled in Course |
-| `passed(Student, Course, Grade)` | 3 | Student passed Course with Grade |
-| `pass_grade(Grade)` | 1 | Grade is a passing grade (helper) |
+| `enrolled(Student, Course)` | 2 | Ο φοιτητής Student είναι εγγεγραμμένος στο μάθημα Course |
+| `passed(Student, Course, Grade)` | 3 | Ο φοιτητής Student πέρασε το Course με βαθμό Grade |
+| `pass_grade(Grade)` | 1 | Ο βαθμός Grade είναι προβιβάσιμος (βοηθητικό) |
 
-### 5.3 Knowledge Base
+### 5.3 Βάση Γνώσης
 
 ```prolog
 enrolled(alice, cs101).
@@ -268,15 +268,15 @@ passed(carol, phys101, 90).
 pass_grade(G) :- G >= 60.
 ```
 
-### 5.4 Derived Rules
+### 5.4 Παράγωγοι Κανόνες
 
 ```prolog
-% Student passed a course with a passing grade.
+% Ο φοιτητής πέρασε το μάθημα με προβιβάσιμο βαθμό.
 passed_course(Student, Course) :-
     passed(Student, Course, Grade),
     pass_grade(Grade).
 
-% Enrolled and passed.
+% Εγγεγραμμένος και προβιβασμένος.
 completed(Student, Course) :-
     enrolled(Student, Course),
     passed_course(Student, Course).
@@ -298,7 +298,7 @@ Student = alice.
 false.
 ```
 
-(Bob's grade 55 fails `pass_grade`.)
+(Ο βαθμός 55 του Bob αποτυγχάνει στην `pass_grade`.)
 
 ```prolog
 ?- passed_course(S, C), enrolled(S, C).
@@ -310,9 +310,9 @@ S = alice, C = math201 ;
 S = carol, C = phys101.
 ```
 
-### 5.5 Variable Unification Across Relations
+### 5.5 Ενοποίηση Μεταβλητών σε Σχέσεις
 
-Shared variables in conjunctive queries act as **join keys**:
+Οι κοινές μεταβλητές σε συζευκτικά ερωτήματα λειτουργούν ως **κλειδιά σύνδεσης (join keys)**:
 
 ```prolog
 ?- enrolled(Student, Course), passed(Student, Course, Grade), Grade >= 80.
@@ -323,71 +323,71 @@ Student = alice, Course = cs101, Grade = 85 ;
 Student = carol, Course = phys101, Grade = 90.
 ```
 
-The variable `Student` and `Course` link the two relations — the same binding must satisfy both predicates.
+Οι μεταβλητές `Student` και `Course` συνδέουν τις δύο σχέσεις — η ίδια σύνδεση πρέπει να ικανοποιεί και τα δύο κατηγορήματα.
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Non-Terminating Recursion
+### Σφάλμα 1: Μη Τερματιζόμενη Αναδρομή
 
-**Cause:** Missing or unreachable base case causes infinite expansion.
+**Αιτία:** Η παράλειψη ή η μη προσπελάσιμη βασική περίπτωση προκαλεί άπειρη ανάπτυξη.
 
 ```prolog
-% Wrong: no base case.
+% Λάθος: χωρίς βασική περίπτωση.
 bad_ancestor(X, Y) :- bad_ancestor(X, Z), parent(Z, Y).
 ```
 
-**Resolution:** Always include at least one clause that does not call itself (direct `parent/2` fact or non-recursive rule).
+**Επίλυση:** Περιλαμβάνετε πάντα τουλάχιστον μία πρόταση που δεν καλεί τον εαυτό της (άμεσο γεγονός `parent/2` ή μη αναδρομικό κανόνα).
 
-### Error 2: Wrong Clause Order (Incomplete Solutions)
+### Σφάλμα 2: Λανθασμένη Σειρά Προτάσεων (Ατελείς Λύσεις)
 
-**Cause:** With a single recursive rule and no base case placed first, some ground queries may loop.
+**Αιτία:** Με την αναδρομική πρόταση να τοποθετείται πρώτη χωρίς τη βασική περίπτωση προηγουμένως, ορισμένα θεμελιωμένα ερωτήματα ενδέχεται να εισέλθουν σε άπειρο βρόχο.
 
 ```prolog
-% Risky: recursive clause first.
+% Επικίνδυνο: η αναδρομική πρόταση είναι πρώτη.
 ancestor(X, Y) :- ancestor(X, Z), parent(Z, Y).
 ancestor(X, Y) :- parent(X, Y).
 ```
 
-**Resolution:** Place base cases before recursive cases. Prolog tries clauses top-to-bottom.
+**Επίλυση:** Τοποθετείτε τις βασικές περιπτώσεις πριν από τις αναδρομικές. Η Prolog δοκιμάζει τις προτάσεις από πάνω προς τα κάτω.
 
-### Error 3: Confusing `=` with `==` or `is`
+### Σφάλμα 3: Σύγχυση του `=` με το `==` ή το `is`
 
-**Cause:** `=` is unification; `==` is term equality without binding; `is` evaluates arithmetic.
+**Αιτία:** Το `=` είναι ενοποίηση· το `==` είναι ισότητα όρων χωρίς σύνδεση· το `is` αξιολογεί αριθμητικές εκφράσεις.
 
 ```prolog
-?- X = 2 + 3.      % X = 2+3 (compound term)
-?- X is 2 + 3.     % X = 5 (arithmetic)
-?- 2 + 3 == 5.     % false (structures differ)
+?- X = 2 + 3.      % X = 2+3 (σύνθετος όρος)
+?- X is 2 + 3.     % X = 5 (αριθμητικός υπολογισμός)
+?- 2 + 3 == 5.     % false (οι δομές διαφέρουν)
 ```
 
-**Resolution:** Use `is` for arithmetic evaluation; use `=` for unification; use `=:=` for arithmetic comparison.
+**Επίλυση:** Χρησιμοποιείτε το `is` για αριθμητική αξιολόγηση· χρησιμοποιείτε το `=` για ενοποίηση· χρησιμοποιείτε το `=:=` για αριθμητική σύγκριση.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Resolution Step Expansion
+### Άσκηση 1: Ανάπτυξη Βήματος Αναγωγής
 
-**Problem:** Expand the first resolution step for `?- grandparent(alice, carol).` using:
+**Πρόβλημα:** Αναπτύξτε το πρώτο βήμα αναγωγής για το `?- grandparent(alice, carol).` χρησιμοποιώντας:
 
 ```prolog
 grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
 ```
 
-**Solution:**
+**Λύση:**
 
-1. Goal: `grandparent(alice, carol)`
-2. Unify with head: `X = alice, Z = carol`
-3. New subgoals: `parent(alice, Y)`, `parent(Y, carol)`
-4. **Answer:** Two subgoals remain; next step resolves `parent(alice, Y)`.
+1. Στόχος: `grandparent(alice, carol)`
+2. Ενοποίηση με την κεφαλή: `X = alice, Z = carol`
+3. Νέοι υποστόχοι: `parent(alice, Y)`, `parent(Y, carol)`
+4. **Απάντηση:** Απομένουν δύο υποστόχοι· το επόμενο βήμα αναγάγει το `parent(alice, Y)`.
 
 ---
 
-### Exercise 2: Backtracking Count
+### Άσκηση 2: Καταμέτρηση Οπισθοδρομήσεων
 
-**Problem:** How many solutions does `?- parent(X, bob).` produce with four parent facts where two list `bob` as child?
+**Πρόβλημα:** Πόσες λύσεις παράγει το `?- parent(X, bob).` με τέσσερα γεγονότα parent όπου δύο εμφανίζουν τον `bob` ως παιδί;
 
 ```prolog
 parent(alice, bob).
@@ -395,103 +395,103 @@ parent(tom, bob).
 parent(bob, carol).
 ```
 
-**Solution:**
+**Λύση:**
 
 1. `parent(alice, bob)` → `X = alice`
-2. Backtrack → `parent(tom, bob)` → `X = tom`
-3. `parent(bob, carol)` — second arg does not unify with `bob`
-4. **Answer:** 2 solutions.
+2. Οπισθοδρόμηση → `parent(tom, bob)` → `X = tom`
+3. `parent(bob, carol)` — το 2ο όρισμα δεν ενοποιείται με το `bob`
+4. **Απάντηση:** 2 λύσεις.
 
 ---
 
-### Exercise 3: Unification Result
+### Άσκηση 3: Αποτέλεσμα Ενοποίησης
 
-**Problem:** Determine if `f(X, a) = f(b, Y)` unifies and state the binding.
+**Πρόβλημα:** Προσδιορίστε εάν η έκφραση `f(X, a) = f(b, Y)` ενοποιείται και δηλώστε τη σύνδεση.
 
-**Solution:**
+**Λύση:**
 
-1. Functors match: `f/2`
-2. Unify `X` with `b` → `X = b`
-3. Unify `a` with `Y` → `Y = a`
-4. **Answer:** Succeeds with `X = b, Y = a`.
-
----
-
-### Exercise 4: Ancestor Trace
-
-**Problem:** Trace `?- ancestor(bob, dave).` with the Section 4.3 KB.
-
-**Solution:**
-
-1. `ancestor(bob, dave)` → recursive → `ancestor(bob, Z)`, `parent(Z, dave)` → `Z = carol`
-2. `ancestor(bob, carol)` → base → `parent(bob, carol)` succeeds
-3. Unwind: `ancestor(bob, dave)` succeeds
-4. **Answer:** `true.`
+1. Οι συναρτητές ταιριάζουν: `f/2`
+2. Ενοποίηση του `X` με το `b` → `X = b`
+3. Ενοποίηση του `a` με το `Y` → `Y = a`
+4. **Απάντηση:** Επιτυγχάνει με `X = b, Y = a`.
 
 ---
 
-### Exercise 5: Ancestor Query — All Ancestors
+### Άσκηση 4: Ιχνηλάτηση Πρόγονου
 
-**Problem:** List all `A` such that `ancestor(A, dave)` using Section 4.3 KB.
+**Πρόβλημα:** Ιχνηλατήστε το ερώτημα `?- ancestor(bob, dave).` με τη KB της Ενότητας 4.3.
 
-**Solution:**
+**Λύση:**
 
-1. `A = carol` (direct parent)
-2. Backtrack → `A = bob` (parent of carol)
-3. Backtrack → `A = alice` (parent of bob)
-4. **Answer:** `A = carol ; A = bob ; A = alice.`
-
----
-
-### Exercise 6: Academic DB — Who Failed?
-
-**Problem:** Which enrolled students did **not** complete `cs101`? Use Section 5 KB.
-
-**Solution:**
-
-1. Enrolled in cs101: alice, bob.
-2. `completed(alice, cs101)` → true (grade 85).
-3. `completed(bob, cs101)` → false (grade 55).
-4. **Answer:** bob.
+1. `ancestor(bob, dave)` → αναδρομική → `ancestor(bob, Z)`, `parent(Z, dave)` → `Z = carol`
+2. `ancestor(bob, carol)` → βασική → το `parent(bob, carol)` επιτυγχάνει
+3. Επιστροφή: το `ancestor(bob, dave)` επιτυγχάνει
+4. **Απάντηση:** `true.`
 
 ---
 
-### Exercise 7: Join via Shared Variable
+### Άσκηση 5: Ερώτημα Προγόνου — Όλοι οι Πρόγονοι
 
-**Problem:** Write a query to find all courses where alice has grade above 70.
+**Πρόβλημα:** Εμφανίστε όλα τα `A` τέτοια ώστε `ancestor(A, dave)` χρησιμοποιώντας τη KB της Ενότητας 4.3.
 
-**Solution:**
+**Λύση:**
+
+1. `A = carol` (άμεσος γονέας)
+2. Οπισθοδρόμηση → `A = bob` (γονέας της carol)
+3. Οπισθοδρόμηση → `A = alice` (γονέας του bob)
+4. **Απάντηση:** `A = carol ; A = bob ; A = alice.`
+
+---
+
+### Άσκηση 6: Ακαδημαϊκή KB — Ποιος Απέτυχε;
+
+**Πρόβλημα:** Ποιοι εγγεγραμμένοι φοιτητές **δεν** ολοκλήρωσαν το `cs101`; Χρησιμοποιήστε τη KB της Ενότητας 5.
+
+**Λύση:**
+
+1. Εγγεγραμμένοι στο cs101: alice, bob.
+2. `completed(alice, cs101)` → true (βαθμός 85).
+3. `completed(bob, cs101)` → false (βαθμός 55).
+4. **Απάντηση:** bob.
+
+---
+
+### Άσκηση 7: Σύνδεση μέσω Κοινής Μεταβλητής
+
+**Πρόβλημα:** Γράψτε ένα ερώτημα για την εύρεση όλων των μαθημάτων στα οποία η alice έχει βαθμό πάνω από 70.
+
+**Λύση:**
 
 ```prolog
 ?- passed(alice, Course, Grade), Grade > 70.
 ```
 
-1. `passed(alice, cs101, 85)` → 85 > 70 succeeds
-2. `passed(alice, math201, 72)` → 72 > 70 succeeds
-3. **Answer:** `Course = cs101, Grade = 85 ; Course = math201, Grade = 72.`
+1. `passed(alice, cs101, 85)` → 85 > 70 επιτυγχάνει
+2. `passed(alice, math201, 72)` → 72 > 70 επιτυγχάνει
+3. **Απάντηση:** `Course = cs101, Grade = 85 ; Course = math201, Grade = 72.`
 
 ---
 
-### Exercise 8: Recursive vs. Base Clause Selection
+### Άσκηση 8: Επιλογή Αναδρομικής έναντι Βασικής Πρότασης
 
-**Problem:** For `ancestor(alice, bob)`, which clause fires first in the correctly ordered KB (base before recursive)?
+**Πρόβλημα:** Για το `ancestor(alice, bob)`, ποια πρόταση εκτελείται πρώτη σε μια ορθώς διατεταγμένη KB (βασική πριν από αναδρομική);
 
-**Solution:**
+**Λύση:**
 
-1. Base case: `ancestor(X, Y) :- parent(X, Y).`
-2. `parent(alice, bob)` is a fact → base case succeeds immediately
-3. Recursive clause is never reached
-4. **Answer:** Base clause; result `true.` without recursion.
+1. Βασική περίπτωση: `ancestor(X, Y) :- parent(X, Y).`
+2. Το `parent(alice, bob)` είναι γεγονός → η βασική περίπτωση επιτυγχάνει αμέσως
+3. Η αναδρομική πρόταση δεν προσπελαύνεται ποτέ
+4. **Απάντηση:** Βασική πρόταση· αποτέλεσμα `true.` χωρίς αναδρομή.
 
 ---
 
-## Exam Tip: Trace Backward Chaining on Paper
+## Συμβουλή Εξετάσεων: Ιχνηλάτηση Οπισθοδρομικής Αλυσίδωσης στο Χαρτί
 
-For execution-mechanism exam questions, use this template:
+Για τις ερωτήσεις εξετάσεων μηχανισμών εκτέλεσης, χρησιμοποιήστε αυτό το πρότυπο:
 
-1. **Write the goal stack** — leftmost goal is current.
-2. **Mark choice points** with a $\checkmark$ whenever multiple clauses or facts can match.
-3. **Record bindings** in a column; strike through on backtrack.
-4. **Base case first** — when tracing recursion, confirm the base clause terminates the descent before unwinding.
+1. **Γράψτε τη στοιβάδα στόχων** — ο αριστερότερος στόχος είναι ο τρέχων.
+2. **Σημειώστε τα σημεία επιλογής** με ένα $\checkmark$ όποτε πολλαπλές προτάσεις ή γεγονότα μπορούν να ταιριάξουν.
+3. **Καταγράψτε τις συνδέσεις** σε μια στήλη· διαγράψτε τις κατά την οπισθοδρόμηση.
+4. **Βασική περίπτωση πρώτα** — κατά την ιχνηλάτηση αναδρομής, επιβεβαιώστε ότι η βασική πρόταση τερματίζει την κατάβαση πριν από την επιστροφή.
 
-**Most common exam trap:** Assuming Prolog searches all solutions automatically. It returns the first solution and waits; further solutions require explicit backtracking (`;` interactively, or `findall/3` in programs). Order of facts and rules directly determines which solution appears first.
+**Συχνότερη εξεταστική παγίδα:** Η υπόθεση ότι η Prolog αναζητά όλες τις λύσεις αυτόματα. Επιστρέφει την πρώτη λύση και αναμένει· οι περαιτέρω λύσεις απαιτούν ρητή οπισθοδρόμηση (διαδραστικά με `;`, ή με την `findall/3` στα προγράμματα). Η σειρά των γεγονότων και κανόνων καθορίζει άμεσα ποια λύση εμφανίζεται πρώτη.

@@ -1,47 +1,47 @@
-# Haskell — List Comprehensions and Pattern Matching
+# Haskell — Κατασκευές Λιστών και Ταίριασμα Μοτίβων
 
-*Prerequisite: haskell_1_basics_pure_functions.md — Immutability, lazy evaluation, and recursion.*
+*Προαπαιτούμενο: haskell_1_basics_pure_functions.md — Αμεταβλητότητα, οκνηρή αξιολόγηση και αναδρομή.*
 
-Haskell provides declarative syntax for constructing lists from existing lists, closely analogous to mathematical set-builder notation. This file covers list comprehension syntax (generators, predicates, dependent generators), safe extraction from infinite lists, classic algorithms (Sieve of Eratosthenes, Fibonacci), and pattern matching with guard clauses as the primary control-flow mechanism replacing `if`/`else`.
+Η Haskell παρέχει δηλωτική σύνταξη για την κατασκευή νέων λιστών από υπάρχουσες λίστες, η οποία αναλογεί στενά στον μαθηματικό συμβολισμό κατασκευής συνόλων (set-builder notation). Αυτό το αρχείο καλύπτει τη σύνταξη κατασκευών λιστών (list comprehensions: γεννήτριες, κατηγορήματα, εξαρτώμενες γεννήτριες), την ασφαλή εξαγωγή από άπειρες λίστες, κλασικούς αλγορίθμους (Κόσκινο του Ερατοσθένη, ακολουθία Fibonacci), καθώς και το ταίριασμα μοτίβων (pattern matching) με προτάσεις φυλάκων (guards) ως τον κύριο μηχανισμό ροής ελέγχου που αντικαθιστά τις εντολές `if`/`else`.
 
 ---
 
-## 1. List Comprehension Syntax
+## 1. Σύνταξη Κατασκευών Λιστών (List Comprehensions)
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-A **list comprehension** builds a new list by iterating over one or more source lists, optionally filtering elements with predicates, and mapping each binding to an output expression. Because Haskell is lazy, comprehensions over infinite sources are well-defined when the result is consumed finitely.
+Μια **κατασκευή λίστας (list comprehension)** δημιουργεί μια νέα λίστα εκτελώντας επανάληψη σε μία ή περισσότερες λίστες πηγής, φιλτράροντας προαιρετικά στοιχεία με κατηγορήματα (predicates) και απεικονίζοντας κάθε σύνδεση σε μια έκφραση εξόδου. Επειδή η Haskell είναι οκνηρή, οι κατασκευές πάνω σε άπειρες πηγές είναι καλά ορισμένες όταν το αποτέλεσμα καταναλώνεται πεπερασμένα.
 
-### 1.2 Syntax Reference
+### 1.2 Αναφορά Σύνταξης
 
 ```
 [ <output_expr> | <qualifier_1>, <qualifier_2>, ... , <qualifier_n> ]
 ```
 
-Where each **qualifier** is either:
+Όπου κάθε **προσδιοριστής (qualifier)** είναι είτε:
 
-- A **generator:** `<pattern> <- <list_expr>`
-- A **predicate (guard):** `<bool_expr>`
+- Μια **γεννήτρια (generator):** `<pattern> <- <list_expr>`
+- Ένα **κατηγόρημα / φύλακας (predicate/guard):** `<bool_expr>`
 
-### 1.3 Qualifier Reference Table
+### 1.3 Πίνακας Αναφοράς Προσδιοριστών
 
-| Qualifier Type | Syntax | Role | Evaluated When |
+| Τύπος Προσδιοριστή | Σύνταξη | Ρόλος | Πότε Αξιολογείται |
 | :--- | :--- | :--- | :--- |
-| Generator | `x <- [1..10]` | Bind `x` to each element | Lazy, on demand |
-| Predicate | `even x` | Filter: keep binding if `True` | After generator produces candidate |
-| Dependent generator | `y <- [1..x]` | `y` range depends on prior `x` | Nested, inner per outer |
-| Multiple generators | `x <- xs, y <- ys` | Cartesian product | All pairs enumerated |
+| Γεννήτρια | `x <- [1..10]` | Σύνδεση του `x` σε κάθε στοιχείο | Οκνηρά, κατόπιν απαιτήσεως |
+| Κατηγόρημα | `even x` | Φίλτρο: διατήρηση σύνδεσης αν `True` | Αφού η γεννήτρια παράγει υποψήφιο |
+| Εξαρτώμενη γεννήτρια | `y <- [1..x]` | Το εύρος του `y` εξαρτάται από το προηγούμενο `x` | Εμφωλευμένα, εσωτερικό ανά εξωτερικό |
+| Πολλαπλές γεννήτριες | `x <- xs, y <- ys` | Καρτεσιανό γινόμενο | Απαρίθμηση όλων των ζευγών |
 
-### 1.4 Basic Examples
+### 1.4 Βασικά Παραδείγματα
 
 ```haskell
--- Squares of 1 through 10.
+-- Τετράγωνα των αριθμών από 1 έως 10.
 squares = [x^2 | x <- [1..10]]
 
--- Evens from 1 through 20.
+-- Άρτιοι από το 1 έως το 20.
 evens = [x | x <- [1..20], x `mod` 2 == 0]
 
--- Cartesian product (pairs).
+-- Καρτεσιανό γινόμενο (ζεύγη).
 pairs = [(x, y) | x <- [1..3], y <- [1..3]]
 ```
 
@@ -53,14 +53,14 @@ pairs = [(x, y) | x <- [1..3], y <- [1..3]]
 
 ---
 
-## 2. Generators and Predicates
+## 2. Γεννήτριες και Κατηγορήματα
 
-### 2.1 Generators
+### 2.1 Γεννήτριες
 
-A generator `x <- list` introduces a pattern variable `x` drawn from each element of `list`. The pattern may destructure tuples or lists:
+Μια γεννήτρια `x <- list` εισάγει μια μεταβλητή μοτίβου `x` που λαμβάνεται από κάθε στοιχείο της `list`. Το μοτίβο μπορεί να αποδομεί πλειάδες (tuples) ή λίστες:
 
 ```haskell
--- Extract first component of each pair.
+-- Εξαγωγή πρώτου συνιστώσης κάθε ζεύγους.
 firsts = [a | (a, b) <- [(1, 'x'), (2, 'y'), (3, 'z')]]
 ```
 
@@ -68,12 +68,12 @@ firsts = [a | (a, b) <- [(1, 'x'), (2, 'y'), (3, 'z')]]
 [1,2,3]
 ```
 
-### 2.2 Predicates as Filters
+### 2.2 Κατηγορήματα ως Φίλτρα
 
-Predicates appear after generators and act as filters. Multiple predicates are combined with logical **and** (all must hold):
+Τα κατηγορήματα εμφανίζονται μετά τις γεννήτριες και λειτουργούν ως φίλτρα. Πολλαπλά κατηγορήματα συνδυάζονται με λογικό **AND** (πρέπει να ισχύουν όλα):
 
 ```haskell
--- Pythagorean triples with sides <= 10.
+-- Πυθαγόρειες τριάδες με πλευρές <= 10.
 triples = [(a, b, c)
           | a <- [1..10]
           , b <- [a..10]
@@ -85,18 +85,18 @@ triples = [(a, b, c)
 [(3,4,5),(6,8,10)]
 ```
 
-### 2.3 Multiple and Dependent Generators
+### 2.3 Πολλαπλές και Εξαρτώμενες Γεννήτριες
 
-**Multiple generators** (comma-separated) produce a Cartesian product:
+Οι **πολλαπλές γεννήτριες** (διαχωρισμένες με κόμμα) παράγουν καρτεσιανό γινόμενο:
 
 $$
 \{(x, y) \mid x \in \{1,2,3\},\ y \in \{1,2,3\}\}
 $$
 
-**Dependent generators** constrain the inner range based on the outer binding:
+Οι **εξαρτώμενες γεννήτριες** περιορίζουν το εσωτερικό εύρος με βάση την εξωτερική σύνδεση:
 
 ```haskell
--- Pairs where y <= x.
+-- Ζεύγη όπου y <= x.
 dependent = [(x, y) | x <- [1..4], y <- [1..x]]
 ```
 
@@ -106,29 +106,29 @@ dependent = [(x, y) | x <- [1..4], y <- [1..x]]
 
 ---
 
-## 3. Infinite Lists and `take`
+## 3. Άπειρες Λίστες και η Συνάρτηση `take`
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-The range syntax `[n..]` and `[n, n+step..]` produce **infinite lists**. Combined with lazy evaluation, these are first-class values. Extraction must be bounded with `take`, `drop`, `head`, or a terminating `fold`.
+Η σύνταξη εύρους `[n..]` και `[n, n+step..]` παράγει **άπειρες λίστες**. Σε συνδυασμό με την οκνηρή αξιολόγηση, αποτελούν στοιχεία πρώτης τάξης. Η εξαγωγή πρέπει να οριοθετείται με τις συναρτήσεις `take`, `drop`, `head` ή με μια `fold` που τερματίζεται.
 
-### 3.2 Syntax Reference
+### 3.2 Αναφορά Σύνταξης
 
 ```
 take <n> <list>
 drop <n> <list>
-[n..]           -- infinite naturals from n
-[n, n+d..]      -- infinite arithmetic sequence with step d
+[n..]           -- άπειροι φυσικοί από το n
+[n, n+d..]      -- άπειρη αριθμητική πρόοδος με βήμα d
 ```
 
-### 3.3 Behavioral Description
+### 3.3 Περιγραφή Συμπεριφοράς
 
-| Expression | Finite? | Safe Usage |
+| Έκφραση | Πεπερασμένη; | Ασφαλής Χρήση |
 | :--- | :--- | :--- |
-| `[1..]` | No | `take n [1..]` |
-| `[0,2..]` | No | `take 5 [0,2..]` → `[0,2,4,6,8]` |
-| `iterate f x` | No | `take n (iterate f x)` |
-| `repeat x` | No | `take n (repeat x)` |
+| `[1..]` | Όχι | `take n [1..]` |
+| `[0,2..]` | Όχι | `take 5 [0,2..]` → `[0,2,4,6,8]` |
+| `iterate f x` | Όχι | `take n (iterate f x)` |
+| `repeat x` | Όχι | `take n (repeat x)` |
 
 ```haskell
 firstTenNats = take 10 [1..]
@@ -144,22 +144,22 @@ main = do
 [0,2,4,6,8]
 ```
 
-> **[Key Insight]** `take n` forces exactly $n$ elements from the front of a list. All remaining thunks are discarded. This is the standard idiom for making infinite structures usable.
+> **[Βασική Παρατήρηση]** Η `take n` επιβάλλει την αξιολόγηση ακριβώς $n$ στοιχείων από την αρχή μιας λίστας. Όλα τα υπόλοιπα thunks απορρίπτονται. Αυτό είναι το τυπικό ιδίωμα για τη χρήση άπειρων δομών.
 
 ---
 
-## 4. Sieve of Eratosthenes
+## 4. Κόσκινο του Ερατοσθένη
 
-### 4.1 Algorithm
+### 4.1 Αλγόριθμος
 
-The **Sieve of Eratosthenes** generates primes by recursively filtering composites from an integer stream:
+Το **Κόσκινο του Ερατοσθένη** παράγει πρώτους αριθμούς φιλτράροντας αναδρομικά τους σύνθετους αριθμούς από μια ροή ακεραίων:
 
-1. Start with `[2..]`.
-2. The head $p$ is prime.
-3. The tail removes all multiples of $p$: `filter (\n -> n `mod` p /= 0) rest`.
-4. Repeat on the filtered tail.
+1. Ξεκινά με τη λίστα `[2..]`.
+2. Η κεφαλή $p$ είναι πρώτος αριθμός.
+3. Η ουρά αφαιρεί όλα τα πολλαπλάσια του $p$: `filter (\n -> n `mod` p /= 0) rest`.
+4. Επανάληψη στη φιλτραρισμένη ουρά.
 
-### 4.2 Implementation
+### 4.2 Υλοποίηση
 
 ```haskell
 sieve (p : xs) = p : sieve [x | x <- xs, x `mod` p /= 0]
@@ -172,29 +172,29 @@ main = print (take 10 primes)
 [2,3,5,7,11,13,17,19,23,29]
 ```
 
-### 4.3 Trace of First Three Primes
+### 4.3 Ιχνηλάτηση Πρώτων Τριών Πρώτων Αριθμών
 
-| Step | List Head | Filter Condition | New Prime |
+| Βήμα | Κεφαλή Λίστας | Συνθήκη Φίλτρου | Νέος Πρώτος |
 | :--- | :--- | :--- | :--- |
 | 1 | `2 : [3,4,5,...]` | — | `2` |
 | 2 | `3 : [4,5,6,...]` | `x mod 2 /= 0` | `3` |
 | 3 | `5 : [6,7,8,...]` | `x mod 3 /= 0` | `5` |
 
-After filtering multiples of 2: `[3,5,7,9,...]`. After filtering multiples of 3: `[5,7,11,13,...]`.
+Μετά το φιλτράρισμα πολλαπλασίων του 2: `[3,5,7,9,...]`. Μετά το φιλτράρισμα πολλαπλασίων του 3: `[5,7,11,13,...]`.
 
 ---
 
-## 5. Fibonacci Sequence
+## 5. Ακολουθία Fibonacci
 
-### 5.1 Recursive Definition
+### 5.1 Αναδρομικός Ορισμός
 
-The Fibonacci sequence is defined by:
+Η ακολουθία Fibonacci ορίζεται από:
 
 $$
-F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2} \quad \text{for } n \geq 2
+F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2} \quad \text{για } n \geq 2
 $$
 
-### 5.2 Infinite List Definition
+### 5.2 Ορισμός Άπειρης Λίστας
 
 ```haskell
 fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
@@ -206,11 +206,11 @@ main = print (take 10 fibs)
 [0,1,1,2,3,5,8,13,21,34]
 ```
 
-`zipWith (+) fibs (tail fibs)` aligns $F_n + F_{n+1}$ to produce $F_{n+2}$ at each step.
+Η `zipWith (+) fibs (tail fibs)` ευθυγραμμίζει τα $F_n + F_{n+1}$ για την παραγωγή του $F_{n+2}$ σε κάθε βήμα.
 
-### 5.3 Golden Ratio Connection
+### 5.3 Σύνδεση με τη Χρυσή Τομή
 
-The ratio of consecutive Fibonacci numbers converges to the **golden ratio** $\phi$:
+Ο λόγος διαδοχικών αριθμών Fibonacci συγκλίνει στη **χρυσή τομή** $\phi$:
 
 $$
 \phi = \frac{1 + \sqrt{5}}{2} \approx 1.618
@@ -226,25 +226,25 @@ $$
 | 10 | 55 | $89/55 \approx 1.618$ |
 | 20 | 6765 | $\approx 1.618034$ |
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> Binet's closed-form formula expresses the $n$-th Fibonacci number directly:
+> Ο κλειστός τύπος του Binet εκφράζει τον $n$-οστό αριθμό Fibonacci άμεσα:
 >
 > $$
 > F_n = \frac{\phi^n - \psi^n}{\sqrt{5}}, \quad \psi = \frac{1 - \sqrt{5}}{2}
 > $$
 >
-> This formula is primarily of theoretical interest; the recursive or `zipWith` list definition is the standard Haskell idiom.
+> Ο τύπος αυτός έχει κυρίως θεωρητικό ενδιαφέρον· ο αναδρομικός ορισμός λίστας με `zipWith` είναι το τυπικό ιδίωμα της Haskell.
 
 ---
 
-## 6. Pattern Matching
+## 6. Ταίριασμα Μοτίβων (Pattern Matching)
 
-### 6.1 Concept Overview
+### 6.1 Επισκόπηση Έννοιας
 
-**Pattern matching** deconstructs data by shape at the point of binding. It replaces conditional chains with equations over patterns. Patterns appear in function heads, `case` expressions, `let`, `where`, and list comprehensions.
+Το **ταίριασμα μοτίβων (pattern matching)** αποδομεί δεδομένα βάσει σχήματος στο σημείο της σύνδεσης. Αντικαθιστά αλυσίδες συνθηκών με εξισώσεις πάνω σε μοτίβα. Τα μοτίβα εμφανίζονται σε επικεφαλίδες συναρτήσεων, εκφράσεις `case`, `let`, `where` και κατασκευές λιστών.
 
-### 6.2 Syntax Reference
+### 6.2 Αναφορά Σύνταξης
 
 ```
 <function> <pattern_1> = <expr_1>
@@ -255,19 +255,19 @@ case <expr> of
   <pattern_2> -> <expr_2>
 ```
 
-### 6.3 Common Patterns
+### 6.3 Κοινά Μοτίβα
 
-| Pattern | Matches | Binds |
+| Μοτίβο | Ταιριάζει με | Συνδέει |
 | :--- | :--- | :--- |
-| `[]` | Empty list | Nothing |
-| `(x:xs)` | Non-empty list | Head `x`, tail `xs` |
-| `(a, b)` | 2-tuple | Both components |
-| `0` | Exact value 0 | — |
-| `_` | Anything (wildcard) | Discarded |
-| `n` | Any value | `n` |
+| `[]` | Άδεια λίστα | Τίποτα |
+| `(x:xs)` | Μη άδεια λίστα | Κεφαλή `x`, ουρά `xs` |
+| `(a, b)` | 2-πλειάδα (tuple) | Και τα δύο στοιχεία |
+| `0` | Ακριβή τιμή 0 | — |
+| `_` | Οτιδήποτε (μπαλαντέρ / wildcard) | Απορρίπτεται |
+| `n` | Οποιαδήποτε τιμή | `n` |
 
 ```haskell
--- Pattern matching on lists.
+-- Ταίριασμα μοτίβων σε λίστες.
 head' (x:_)   = x
 tail' (_:xs)  = xs
 sum' []       = 0
@@ -280,26 +280,26 @@ main = print (head' [10,20,30], sum' [1,2,3])
 (10,6)
 ```
 
-### 6.4 Non-Exhaustive Patterns
+### 6.4 Μη Εξαντλητικά Μοτίβα
 
-If no pattern matches, the program raises a runtime exception. The compiler warns about non-exhaustive patterns when possible.
+Εάν κανένα μοτίβο δεν ταιριάζει, το πρόγραμμα προκαλεί εξαίρεση χρόνου εκτέλεσης. Ο μεταγλωττιστής προειδοποιεί για μη εξαντλητικά μοτίβα όταν είναι δυνατόν.
 
 ```haskell
--- Only handles non-empty lists; [] causes runtime error.
+-- Διαχειρίζεται μόνο μη άδειες λίστες· η [] προκαλεί σφάλμα χρόνου εκτέλεσης.
 badHead (x:_) = x
 ```
 
-**Resolution:** Add a base case for `[]` or use `Maybe` to represent absence safely.
+**Επίλυση:** Προσθέστε μια βασική περίπτωση για την `[]` ή χρησιμοποιήστε τον τύπο `Maybe` για ασφαλή αναπαράσταση απουσίας.
 
 ---
 
-## 7. Guard Clauses
+## 7. Προτάσεις Φυλάκων (Guard Clauses)
 
-### 7.1 Concept Overview
+### 7.1 Επισκόπηση Έννοιας
 
-**Guards** are Boolean conditions attached to function equations. They generalize `if-then-else` chains and are evaluated top-to-bottom; the first guard that evaluates to `True` selects its right-hand side.
+Οι **φύλακες (guards)** είναι Boolean συνθήκες προσαρτημένες σε εξισώσεις συναρτήσεων. Γενικεύουν τις αλυσίδες `if-then-else` και αξιολογούνται από πάνω προς τα κάτω· ο πρώτος φύλακας που αξιολογείται σε `True` επιλέγει τη δεξιά του πλευρά.
 
-### 7.2 Syntax Reference
+### 7.2 Αναφορά Σύνταξης
 
 ```
 <name> <pattern>
@@ -308,9 +308,9 @@ badHead (x:_) = x
   | otherwise = <expr_default>
 ```
 
-`otherwise` is defined as `True` and serves as the default case.
+Το `otherwise` είναι ορισμένο ως `True` και χρησιμεύει ως η προεπιλεγμένη περίπτωση.
 
-### 7.3 Example: Sign Classification
+### 7.3 Παράδειγμα: Ταξινόμηση Προσήμου
 
 ```haskell
 sign x
@@ -325,17 +325,17 @@ main = print (map sign [-3, 0, 5])
 [-1,0,1]
 ```
 
-### 7.4 Guards vs. `if-then-else`
+### 7.4 Φύλακες έναντι `if-then-else`
 
-| Feature | Guards | `if-then-else` |
+| Χαρακτηριστικό | Φύλακες (Guards) | `if-then-else` |
 | :--- | :--- | :--- |
-| Multiple conditions | Natural (`\|`) | Nested expressions |
-| Pattern + condition | Combined in one equation | Requires `case` or pattern in `if` |
-| Readability for $\geq 3$ branches | Preferred | Degrades quickly |
-| Lazy | Yes | Yes |
+| Πολλαπλές συνθήκες | Φυσική σύνταξη (`\|`) | Εμφωλευμένες εκφράσεις |
+| Μοτίβο + συνθήκη | Συνδυασμένα σε μία εξίσωση | Απαιτεί `case` ή μοτίβο στο `if` |
+| Αναγνωσιμότητα για $\geq 3$ κλάδους | Προτιμάται | Υποβαθμίζεται ταχέως |
+| Οκνηρία | Ναι | Ναι |
 
 ```haskell
--- Grade classification with guards.
+-- Ταξινόμηση βαθμολογίας με φύλακες.
 grade n
   | n >= 90   = 'A'
   | n >= 80   = 'B'
@@ -345,35 +345,35 @@ grade n
 
 ---
 
-## 8. Comparison with Python
+## 8. Σύγκριση με την Python
 
-### 8.1 Side-by-Side Syntax
+### 8.1 Σύνταξη Δίπλα-Δίπλα
 
-| Task | Python | Haskell |
+| Εργασία | Python | Haskell |
 | :--- | :--- | :--- |
-| Squares 1–10 | `[x**2 for x in range(1, 11)]` | `[x^2 \| x <- [1..10]]` |
-| Evens 1–20 | `[x for x in range(1, 21) if x % 2 == 0]` | `[x \| x <- [1..20], x \`mod\` 2 == 0]` |
-| Pairs (Cartesian) | `[(x,y) for x in range(1,4) for y in range(1,4)]` | `[(x,y) \| x <- [1..3], y <- [1..3]]` |
-| Infinite stream | Generator: `(x for x in count())` | `[1..]` with `take` |
+| Τετράγωνα 1–10 | `[x**2 for x in range(1, 11)]` | `[x^2 \| x <- [1..10]]` |
+| Άρτιοι 1–20 | `[x for x in range(1, 21) if x % 2 == 0]` | `[x \| x <- [1..20], x \`mod\` 2 == 0]` |
+| Ζεύγη (Καρτεσιανό) | `[(x,y) for x in range(1,4) for y in range(1,4)]` | `[(x,y) \| x <- [1..3], y <- [1..3]]` |
+| Άπειρη ροή | Γεννήτρια: `(x for x in count())` | `[1..]` με `take` |
 
-### 8.2 Semantic Differences
+### 8.2 Σημασιολογικές Διαφορές
 
-| Property | Python Comprehension | Haskell Comprehension |
+| Ιδιότητα | Κατασκευή Python | Κατασκευή Haskell |
 | :--- | :--- | :--- |
-| Evaluation | Eager (list) or lazy (generator) | Always lazy |
-| Type | Homogeneous list (typed objects) | Homogeneous static type |
-| Infinite source | Generator required | Native `[n..]` syntax |
-| Output | `[...]` or `(...)` generator | Always list (or monad generalization) |
+| Αξιολόγηση | Άμεση (λίστα) ή οκνηρή (γεννήτρια) | Πάντα οκνηρή |
+| Τύπος | Ομοιογενής λίστα (τυποποιημένα αντικείμενα) | Ομοιογενής στατικός τύπος |
+| Άπειρη πηγή | Απαιτείται γεννήτρια | Αυτόχθων σύνταξη `[n..]` |
+| Έξοδος | `[...]` ή `(...)` γεννήτρια | Πάντα λίστα (ή γενίκευση monad) |
 
 ```python
-# Python: eager list comprehension.
+# Python: άμεση κατασκευή λίστας.
 squares = [x**2 for x in range(1, 11)]
 evens = [x for x in range(1, 21) if x % 2 == 0]
 pairs = [(x, y) for x in range(1, 4) for y in range(1, 4)]
 ```
 
 ```haskell
--- Haskell equivalents.
+-- Ισοδύναμα στη Haskell.
 squares = [x^2 | x <- [1..10]]
 evens   = [x | x <- [1..20], x `mod` 2 == 0]
 pairs   = [(x, y) | x <- [1..3], y <- [1..3]]
@@ -381,56 +381,56 @@ pairs   = [(x, y) | x <- [1..3], y <- [1..3]]
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Forgetting to Bound Infinite Lists
+### Σφάλμα 1: Παράλειψη Οριοθέτησης Άπειρων Λιστών
 
-**Cause:** Passing an infinite list to a function that demands all elements (`sum`, `length`, `reverse`).
+**Αιτία:** Πέρασμα άπειρης λίστας σε συνάρτηση που απαιτεί όλα τα στοιχεία (`sum`, `length`, `reverse`).
 
 ```haskell
--- sum [1..]   -- Diverges.
+-- sum [1..]   -- Αποκλίνει (δεν τερματίζει).
 ```
 
-**Resolution:** Apply `take n` first: `sum (take 100 [1..])`.
+**Επίλυση:** Εφαρμόζετε τη `take n` πρώτα: `sum (take 100 [1..])`.
 
-### Error 2: Off-by-One in Range Syntax
+### Σφάλμα 2: Σφάλμα Παρά Ένα στη Σύνταξη Εύρους
 
-**Cause:** `[1..10]` is inclusive on both ends (10 elements), unlike Python's `range(1, 10)` which excludes 10.
+**Αιτία:** Η `[1..10]` περιλαμβάνει και τα δύο άκρα (10 στοιχεία), σε αντίθεση με την `range(1, 10)` της Python που αποκλείει το 10.
 
-| Haskell | Python Equivalent | Elements |
+| Haskell | Ισοδύναμο Python | Στοιχεία |
 | :--- | :--- | :--- |
-| `[1..10]` | `range(1, 11)` | 1 through 10 |
-| `[1..10)` | — | Invalid Haskell syntax |
+| `[1..10]` | `range(1, 11)` | 1 έως 10 |
+| `[1..10)` | — | Άκυρη σύνταξη στη Haskell |
 
-**Resolution:** Remember Haskell ranges are **inclusive** at both endpoints.
+**Επίλυση:** Θυμηθείτε ότι τα εύρη στη Haskell είναι **συμπεριληπτικά** και στα δύο άκρα.
 
-### Error 3: Non-Exhaustive Pattern Match
+### Σφάλμα 3: Μη Εξαντλητικό Ταίριασμα Μοτίβου
 
-**Cause:** Function defined only for non-empty lists but called with `[]`.
+**Αιτία:** Συνάρτηση ορισμένη μόνο για μη άδειες λίστες αλλά καλούμενη με `[]`.
 
 ```haskell
 second (x:y:_) = y
--- second []   -- Runtime error: Non-exhaustive patterns.
+-- second []   -- Σφάλμα χρόνου εκτέλεσης: Non-exhaustive patterns.
 ```
 
-**Resolution:** Add a guard equation for `[]` or return `Maybe b`.
+**Επίλυση:** Προσθέστε μια εξίσωση φύλακα για την `[]` ή επιστρέψτε `Maybe b`.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Basic Squares Comprehension
+### Άσκηση 1: Βασική Κατασκευή Τετραγώνων
 
-**Problem:** Write a comprehension for squares of integers from 1 to 10 and list the result.
+**Πρόβλημα:** Γράψτε μια κατασκευή λίστας για τα τετράγωνα των ακεραίων από το 1 έως το 10 και εκτυπώστε το αποτέλεσμα.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 [x^2 | x <- [1..10]]
 ```
 
-1. Generator binds `x` to each value 1 through 10.
-2. Output: $1, 4, 9, \ldots, 100$.
+1. Η γεννήτρια συνδέει το `x` σε κάθε τιμή 1 έως 10.
+2. Έξοδος: $1, 4, 9, \ldots, 100$.
 
 ```text
 [1,4,9,16,25,36,49,64,81,100]
@@ -438,18 +438,18 @@ second (x:y:_) = y
 
 ---
 
-### Exercise 2: Filtered Evens
+### Άσκηση 2: Φιλτραρισμένοι Άρτιοι
 
-**Problem:** Produce all even numbers between 1 and 20 using a predicate.
+**Πρόβλημα:** Παράγετε όλους τους άρτιους αριθμούς μεταξύ 1 και 20 χρησιμοποιώντας κατηγόρημα.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 [x | x <- [1..20], x `mod` 2 == 0]
 ```
 
-1. Generator produces candidates 1–20.
-2. Predicate `x mod 2 == 0` retains only even values.
+1. Η γεννήτρια παράγει υποψηφίους 1–20.
+2. Το κατηγόρημα `x mod 2 == 0` διατηρεί μόνο τις άρτιες τιμές.
 
 ```text
 [2,4,6,8,10,12,14,16,18,20]
@@ -457,19 +457,19 @@ second (x:y:_) = y
 
 ---
 
-### Exercise 3: Cartesian Pairs
+### Άσκηση 3: Καρτεσιανά Ζεύγη
 
-**Problem:** List all pairs $(x, y)$ where $x, y \in \{1, 2, 3\}$.
+**Πρόβλημα:** Εμφανίστε όλα τα ζεύγη $(x, y)$ όπου $x, y \in \{1, 2, 3\}$.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 [(x, y) | x <- [1..3], y <- [1..3]]
 ```
 
-1. Outer generator: 3 values for `x`.
-2. Inner generator: 3 values for `y` per `x`.
-3. Total: $3 \times 3 = 9$ pairs.
+1. Εξωτερική γεννήτρια: 3 τιμές για το `x`.
+2. Εσωτερική γεννήτρια: 3 τιμές για το `y` ανά `x`.
+3. Συνολικά: $3 \times 3 = 9$ ζεύγη.
 
 ```text
 [(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)]
@@ -477,17 +477,17 @@ second (x:y:_) = y
 
 ---
 
-### Exercise 4: Dependent Generator
+### Άσκηση 4: Εξαρτώμενη Γεννήτρια
 
-**Problem:** Generate list `[(1,1), (2,1), (2,2), (3,1), (3,2), (3,3)]` using a comprehension.
+**Πρόβλημα:** Παράγετε τη λίστα `[(1,1), (2,1), (2,2), (3,1), (3,2), (3,3)]` χρησιμοποιώντας κατασκευή λίστας.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 [(x, y) | x <- [1..3], y <- [1..x]]
 ```
 
-| `x` | `y` range | Pairs |
+| `x` | Εύρος `y` | Ζεύγη |
 | :--- | :--- | :--- |
 | 1 | `[1..1]` | `(1,1)` |
 | 2 | `[1..2]` | `(2,1), (2,2)` |
@@ -495,16 +495,16 @@ second (x:y:_) = y
 
 ---
 
-### Exercise 5: First Eight Primes via Sieve
+### Άσκηση 5: Πρώτοι Οκτώ Πρώτοι Αριθμοί μέσω Κοσκίνου
 
-**Problem:** Trace `take 8 (sieve [2..])` through the first three filtering steps.
+**Πρόβλημα:** Ιχνηλατήστε την έκφραση `take 8 (sieve [2..])` στα πρώτα τρία βήματα φιλτραρίσματος.
 
-**Solution:**
+**Λύση:**
 
 1. `sieve [2..]` → `2 : sieve (filter mod 2) [3,4,5,...]` → `[3,5,7,9,...]`.
-2. Next head: `3`; filter multiples of 3 → `[5,7,11,13,...]`.
-3. Next head: `5`; filter multiples of 5 → `[7,11,13,17,...]`.
-4. Continuing: primes 7, 11, 13, 17, ...
+2. Επόμενη κεφαλή: `3`· φιλτράρισμα πολλαπλασίων του 3 → `[5,7,11,13,...]`.
+3. Επόμενη κεφαλή: `5`· φιλτράρισμα πολλαπλασίων του 5 → `[7,11,13,17,...]`.
+4. Συνέχεια: πρώτοι 7, 11, 13, 17, ...
 
 ```text
 [2,3,5,7,11,13,17,19]
@@ -512,11 +512,11 @@ second (x:y:_) = y
 
 ---
 
-### Exercise 6: Fibonacci via `zipWith`
+### Άσκηση 6: Fibonacci μέσω `zipWith`
 
-**Problem:** Evaluate `take 7 (0 : 1 : zipWith (+) fibs (tail fibs))` where `fibs` is the infinite list being defined.
+**Πρόβλημα:** Αξιολογήστε την έκφραση `take 7 (0 : 1 : zipWith (+) fibs (tail fibs))` όπου `fibs` είναι η άπειρη λίστα που ορίζεται.
 
-**Solution:**
+**Λύση:**
 
 1. `fibs = 0 : 1 : ...`
 2. `tail fibs = 1 : ...`
@@ -529,16 +529,16 @@ second (x:y:_) = y
 
 ---
 
-### Exercise 7: Pattern Match — `length`
+### Άσκηση 7: Ταίριασμα Μοτίβου — `length`
 
-**Problem:** Trace `len [5, 10, 15]` for:
+**Πρόβλημα:** Ιχνηλατήστε τη συνάρτηση `len [5, 10, 15]` για τον ορισμό:
 
 ```haskell
 len []     = 0
 len (_:xs) = 1 + len xs
 ```
 
-**Solution:**
+**Λύση:**
 
 1. `len [5,10,15]` = `1 + len [10,15]`.
 2. `= 1 + 1 + len [15]`.
@@ -547,11 +547,11 @@ len (_:xs) = 1 + len xs
 
 ---
 
-### Exercise 8: Guards — Absolute Value
+### Άσκηση 8: Φύλακες — Απόλυτη Τιμή
 
-**Problem:** Define `abs' n` using guards and evaluate `abs' (-7)` and `abs' 0`.
+**Πρόβλημα:** Ορίστε τη συνάρτηση `abs' n` χρησιμοποιώντας φύλακες και αξιολογήστε τις εκφράσεις `abs' (-7)` και `abs' 0`.
 
-**Solution:**
+**Λύση:**
 
 ```haskell
 abs' n
@@ -559,8 +559,8 @@ abs' n
   | otherwise = n
 ```
 
-1. `abs' (-7)`: guard `n < 0` is `True` → `-(-7) = 7`.
-2. `abs' 0`: first guard `False`; `otherwise` → `0`.
+1. `abs' (-7)`: ο φύλακας `n < 0` είναι `True` → `-(-7) = 7`.
+2. `abs' 0`: ο πρώτος φύλακας `False`· `otherwise` → `0`.
 
 ```text
 7
@@ -569,17 +569,17 @@ abs' n
 
 ---
 
-## Exam Tip: Comprehension and Pattern Desugaring
+## Συμβουλή Εξετάσεων: Αποσύνθεση Κατασκευών και Μοτίβων
 
-**List comprehensions desugar to `do` notation** (and ultimately to `map`/`concat`/`filter`):
+**Οι κατασκευές λιστών αποσυντίθενται σε συμβολισμό `do`** (και τελικά σε `map`/`concat`/`filter`):
 
 ```haskell
 [e | x <- xs, p x]  --  concat (map (\x -> if p x then [e] else []) xs)
 ```
 
-For exam questions:
+Για τις ερωτήσεις εξετάσεων:
 
-1. **Count elements:** A comprehension with generators `x <- [1..m], y <- [1..n]` produces $m \times n$ elements (before predicates).
-2. **Predicate effect:** Each predicate roughly halves or reduces proportionally — trace with a small example rather than guessing.
-3. **Pattern match order:** Equations are tried top-to-bottom; guards within one equation are also top-to-bottom. First match wins.
-4. **Range inclusivity:** `[a..b]` includes both endpoints. Step syntax `[a, a+d..b]` stops at the largest value $\leq b$ in the arithmetic sequence.
+1. **Καταμέτρηση στοιχείων:** Μια κατασκευή με γεννήτριες `x <- [1..m], y <- [1..n]` παράγει $m \times n$ στοιχεία (πριν από τα κατηγορήματα).
+2. **Επίδραση κατηγορήματος:** Κάθε κατηγόρημα μειώνει αναλογικά τα στοιχεία — ιχνηλατήστε με ένα μικρό παράδειγμα παρά με υποθέσεις.
+3. **Σειρά ταιριάσματος μοτίβων:** Οι εξισώσεις δοκιμάζονται από πάνω προς τα κάτω· οι φύλακες εντός μιας εξίσωσης επίσης δοκιμάζονται από πάνω προς τα κάτω. Το πρώτο ταίριασμα επικρατεί.
+4. **Συμπεριληπτικότητα εύρους:** Η `[a..b]` περιλαμβάνει και τα δύο άκρα. Η σύνταξη βήματος `[a, a+d..b]` σταματά στη μεγαλύτερη τιμή $\leq b$ στην αριθμητική ακολουθία.

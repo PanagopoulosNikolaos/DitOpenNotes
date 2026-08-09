@@ -1,51 +1,51 @@
-# Prolog — Advanced Applications
+# Prolog — Προηγμένες Εφαρμογές
 
-Beyond relational querying, Prolog excels at **constraint satisfaction problems (CSPs)**: the developer declares variables, domains, and constraints; the engine searches the state space for assignments that satisfy all constraints simultaneously. This file covers CSP formulation, scheduling and resource allocation, Sudoku as a canonical grid CSP, game AI knowledge systems, and linguistics applications referenced in the course mindmap.
+Πέρα από τα ερωτήματα σε συσχετιστικές βάσεις δεδομένων, η Prolog διακρίνεται στα **προβλήματα ικανοποίησης περιορισμών (Constraint Satisfaction Problems - CSPs)**: ο προγραμματιστής δηλώνει μεταβλητές, πεδία τιμών (domains) και περιορισμούς· η μηχανή αναζητά στον χώρο καταστάσεων αναθέσεις τιμών που ικανοποιούν όλους τους περιορισμούς ταυτόχρονα. Αυτό το αρχείο καλύπτει τη διατύπωση προβλημάτων CSP, τον χρονοπρογραμματισμό και την κατανομή πόρων, το Sudoku ως κανονικό πλεγματικό CSP, τα συστήματα γνώσης τεχνητής νοημοσύνης για παιχνίδια (Game AI) και τις γλωσσολογικές εφαρμογές που αναφέρονται στο mindmap του μαθήματος.
 
-*Prerequisite: `prolog_3_list_processing_parameter_modes.md` — lists, modes, structural recursion.*
+*Προαπαιτούμενο: `prolog_3_list_processing_parameter_modes.md` — λίστες, λειτουργίες παραμέτρων, δομική αναδρομή.*
 
 ---
 
-## 1. Constraint Satisfaction Problems (CSP)
+## 1. Προβλήματα Ικανοποίησης Περιορισμών (CSP)
 
-### 1.1 Concept Overview
+### 1.1 Επισκόπηση Έννοιας
 
-A **CSP** is a triple $(X, D, C)$ where:
+Ένα **CSP** είναι μια τριάδα $(X, D, C)$ όπου:
 
-- $X = \{X_1, \ldots, X_n\}$ — set of decision variables
-- $D = \{D_1, \ldots, D_n\}$ — domains (allowed values per variable)
-- $C = \{C_1, \ldots, C_m\}$ — constraints relating subsets of variables
+- $X = \{X_1, \ldots, X_n\}$ — σύνολο μεταβλητών απόφασης
+- $D = \{D_1, \ldots, D_n\}$ — πεδία τιμών (επιτρεπόμενες τιμές ανά μεταβλητή)
+- $C = \{C_1, \ldots, C_m\}$ — περιορισμοί που συνδέουν υποσύνολα μεταβλητών
 
-The **solution** is an assignment $\theta : X_i \mapsto v_i$ with $v_i \in D_i$ such that every constraint in $C$ is satisfied.
+Η **λύση** είναι μια ανάθεση $\theta : X_i \mapsto v_i$ με $v_i \in D_i$ τέτοια ώστε κάθε περιορισμός στο $C$ να ικανοποιείται.
 
-In Prolog, variables are logical, constraints are relations, and the engine performs **generate-and-test** or **constraint propagation** search.
+Στην Prolog, οι μεταβλητές είναι λογικές, οι περιορισμοί είναι σχέσεις, και η μηχανή εκτελεί αναζήτηση με το μοτίβο **παραγωγής-και-ελέγχου (generate-and-test)** ή **διάδοσης περιορισμών (constraint propagation)**.
 
-### 1.2 Syntax Reference — CSP Encoding Pattern
+### 1.2 Αναφορά Σύνταξης — Μοτίβο Κωδικοποίησης CSP
 
 ```
-% Domain membership
+% Συμμετοχή στο πεδίο τιμών
 domain(<var>, <min>, <max>).
 domain(<var>, [<value>, ...]).
 
-% Constraints as Prolog relations
+% Περιορισμοί ως σχέσεις Prolog
 constraint(<vars>) :- <goals that must hold> .
 
-% Solve: instantiate variables satisfying all constraints
+% Επίλυση: αποτίμηση μεταβλητών που ικανοποιούν όλους τους περιορισμούς
 solve(<vars>) :- <domain declarations>, <constraint goals>.
 ```
 
-### 1.3 Behavioral Description
+### 1.3 Περιγραφή Συμπεριφοράς
 
-| Phase | Prolog Mechanism | Role |
+| Φάση | Μηχανισμός Prolog | Ρόλος |
 | :--- | :--- | :--- |
-| Variable declaration | Unbound logical variables | Decision points |
-| Domain specification | `between/3`, `member/2`, `ins/2` (CLP) | Limit candidate values |
-| Constraint posting | Goal conjunction in rule body | Prune invalid assignments |
-| Search | Backtracking over choices | Explore state space |
-| Solution | Successful binding of all variables | Answer substitution |
+| Δήλωση μεταβλητών | Ασύνδετες λογικές μεταβλητές | Σημεία απόφασης |
+| Καθορισμός πεδίου τιμών | `between/3`, `member/2`, `ins/2` (CLP) | Περιορισμός υποψήφιων τιμών |
+| Δήλωση περιορισμών | Σύζευξη στόχων στο σώμα κανόνα | Κλάδεμα άκυρων αναθέσεων |
+| Αναζήτηση | Οπισθοδρόμηση πάνω σε επιλογές | Εξερεύνηση χώρου καταστάσεων |
+| Λύση | Επιτυχής σύνδεση όλων των μεταβλητών | Αντικατάσταση απάντησης |
 
 ```prolog
-% Map coloring: adjacent regions must differ.
+% Χρωματισμός χάρτη: γειτονικές περιοχές πρέπει να διαφέρουν.
 color(A) :- member(A, [red, green, blue]).
 
 diff_neighbor(A, B, C) :-
@@ -53,20 +53,20 @@ diff_neighbor(A, B, C) :-
     A \= B, B \= C, A \= C.
 ```
 
-> **[Key Insight]** The developer defines **what** constitutes a valid solution; Prolog determines **how** to search. This inversion is the central advantage of logic programming for combinatorial problems.
+> **[Βασική Παρατήρηση]** Ο προγραμματιστής ορίζει **τι** συνιστά έγκυρη λύση· η Prolog καθορίζει το **πώς** θα εκτελεστεί η αναζήτηση. Αυτή η αντιστροφή αποτελεί το κεντρικό πλεονέκτημα του λογικού προγραμματισμού για συνδυαστικά προβλήματα.
 
 ---
 
-## 2. Generate-and-Test Pattern
+## 2. Μοτίβο Παραγωγής-και-Ελέγχου (Generate-and-Test)
 
-### 2.1 Concept Overview
+### 2.1 Επισκόπηση Έννοιας
 
-The simplest CSP strategy in standard Prolog:
+Η απλούστερη στρατηγική CSP στην πρότυπη Prolog:
 
-1. **Generate** — bind variables to candidate values (via `member/2`, `between/3`, or permutations).
-2. **Test** — check constraints; on failure, backtrack to next candidate.
+1. **Παραγωγή (Generate)** — σύνδεση μεταβλητών σε υποψήφιες τιμές (μέσω `member/2`, `between/3` ή μεταθέσεων).
+2. **Έλεγχος (Test)** — έλεγχος περιορισμών· σε περίπτωση αποτυχίας, οπισθοδρόμηση στον επόμενο υποψήφιο.
 
-### 2.2 Syntax Reference
+### 2.2 Αναφορά Σύνταξης
 
 ```
 solve(Vars) :-
@@ -74,16 +74,16 @@ solve(Vars) :-
     test_constraints(Vars).
 ```
 
-### 2.3 N-Queens (Classic CSP)
+### 2.3 Πρόβλημα Ν-Βασιλισσών (N-Queens - Κλασικό CSP)
 
-Place $n$ queens on an $n \times n$ board so no two share a row, column, or diagonal.
+Τοποθέτηση $n$ βασιλισσών σε μια σκακιέρα $n \times n$ έτσι ώστε καμία δύο να μην μοιράζονται την ίδια γραμμή, στήλη ή διαγώνιο.
 
 ```prolog
 queens(N, Queens) :-
     length(Queens, N),
     queens(N, Queens, 0, 1, 2).
 
-% queens(N, Qs, RowDiff, ColDiff, DiagDiff) — constraint parameters.
+% queens(N, Qs, RowDiff, ColDiff, DiagDiff) — παράμετροι περιορισμού.
 queens(_, [], _, _, _).
 queens(N, [Q|Qs], Row, Col, Diag) :-
     between(1, N, Q),
@@ -108,37 +108,37 @@ Q = [2, 4, 1, 3] ;
 Q = [3, 1, 4, 2].
 ```
 
-### 2.4 Generate-and-Test Parameter Table
+### 2.4 Πίνακας Παραμέτρων Παραγωγής-και-Ελέγχου
 
-| Component | Predicate | Purpose |
+| Στοιχείο | Κατηγόρημα | Σκοπός |
 | :--- | :--- | :--- |
-| Board representation | List of column positions | `Queens[i]` = row of queen in column $i$ |
-| Domain | `between(1, N, Q)` | Row choices $1 \ldots n$ |
-| Row constraint | Implicit (one queen per list position) | Each column has exactly one queen |
-| Column constraint | `Q =\= Q1` | No two queens in same row |
-| Diagonal constraint | `abs(Q - Q1) =\= Row` etc. | No diagonal attacks |
+| Αναπαράσταση σκακιέρας | Λίστα θέσεων στηλών | `Queens[i]` = γραμμή βασίλισσας στη στήλη $i$ |
+| Πεδίο τιμών | `between(1, N, Q)` | Επιλογές γραμμών $1 \ldots n$ |
+| Περιορισμός γραμμής | Σιωπηρός (μία βασίλισσα ανά θέση λίστας) | Κάθε στήλη έχει ακριβώς μία βασίλισσα |
+| Περιορισμός στήλης | `Q =\= Q1` | Καμία δύο βασίλισσες στην ίδια γραμμή |
+| Περιορισμός διαγωνίου | `abs(Q - Q1) =\= Row` κ.λπ. | Καμία επίθεση σε διαγώνιο |
 
 ---
 
-## 3. Scheduling and Resource Optimization
+## 3. Χρονοπρογραμματισμός και Βελτιστοποίηση Πόρων
 
-### 3.1 Concept Overview
+### 3.1 Επισκόπηση Έννοιας
 
-Scheduling assigns tasks to time slots and resources subject to precedence, capacity, and exclusivity constraints. Prolog expresses these as relations over task variables.
+Ο χρονοπρογραμματισμός αναθέτει εργασίες σε χρονικές θυρίδες και πόρους υποκείμενος σε περιορισμούς προτεραιότητας, χωρητικότητας και αποκλειστικότητας. Η Prolog εκφράζει αυτούς τους περιορισμούς ως σχέσεις πάνω σε μεταβλητές εργασιών.
 
-### 3.2 Formal Model
+### 3.2 Τυπικό Μοντέλο
 
-For tasks $T = \{t_1, \ldots, t_n\}$:
+Για εργασίες $T = \{t_1, \ldots, t_n\}$:
 
-- $start(t_i) \in \mathbb{Z}_{\geq 0}$ — start time
-- $duration(t_i) \in \mathbb{Z}_{> 0}$ — fixed duration
-- $resource(t_i) \in R$ — required resource
+- $start(t_i) \in \mathbb{Z}_{\geq 0}$ — χρόνος έναρξης
+- $duration(t_i) \in \mathbb{Z}_{> 0}$ — σταθερή διάρκεια
+- $resource(t_i) \in R$ — απαιτούμενος πόρος
 
-**Precedence constraint:** $start(t_j) \geq start(t_i) + duration(t_i)$ if $t_i$ must precede $t_j$.
+**Περιορισμός προτεραιότητας:** $start(t_j) \geq start(t_i) + duration(t_i)$ εάν η $t_i$ πρέπει να προηγηθεί της $t_j$.
 
-**Resource constraint:** No two tasks sharing a resource may overlap in time.
+**Περιορισμός πόρων:** Καμία δύο εργασίες που μοιράζονται τον ίδιο πόρο δεν μπορούν να επικαλύπτονται χρονικά.
 
-### 3.3 Example KB
+### 3.3 Παράδειγμα Βάσης Γνώσης
 
 ```prolog
 task(a, 2, printer).   % task(Name, Duration, Resource)
@@ -146,14 +146,14 @@ task(b, 3, printer).
 task(c, 1, cpu).
 task(d, 2, cpu).
 
-precedes(a, b).        % a must finish before b starts.
+precedes(a, b).        % Η a πρέπει να τελειώσει πριν ξεκινήσει η b.
 precedes(c, d).
 
-% Start time domain
+% Πεδίο τιμών χρόνου έναρξης
 slot(T, S) :- task(T, _, _), between(0, 10, S).
 ```
 
-### 3.4 Scheduling Rule
+### 3.4 Κανόνας Χρονοπρογραμματισμού
 
 ```prolog
 schedule(Assignments) :-
@@ -179,48 +179,48 @@ respect_precedence(Assignments) :-
 ?- schedule(A), member(a-Sa, A), member(b-Sb, A).
 ```
 
-The engine searches start times satisfying precedence and (with `no_overlap/1`) resource constraints.
+Η μηχανή αναζητά χρόνους έναρξης που ικανοποιούν την προτεραιότητα και (με το `no_overlap/1`) τους περιορισμούς πόρων.
 
-### 3.5 Scheduling Constraint Summary
+### 3.5 Σύνοψη Περιορισμών Χρονοπρογραμματισμού
 
-| Constraint Type | Prolog Encoding | Effect |
+| Τύπος Περιορισμού | Κωδικοποίηση Prolog | Αποτέλεσμα |
 | :--- | :--- | :--- |
-| Precedence | `Sb >= Sa + Duration` | Ordering of dependent tasks |
-| Resource exclusivity | `no_overlap/1` on same resource | Mutual exclusion in time |
-| Domain | `between(0, Max, Start)` | Bounded time window |
-| Optimization | `findall` + `min_member/2` | Select minimum-cost schedule |
+| Προτεραιότητα | `Sb >= Sa + Duration` | Διάταξη εξαρτώμενων εργασιών |
+| Αποκλειστικότητα πόρων | `no_overlap/1` στον ίδιο πόρο | Αμοιβαίος αποκλεισμός στον χρόνο |
+| Πεδίο τιμών | `between(0, Max, Start)` | Οριοθετημένο χρονικό παράθυρο |
+| Βελτιστοποίηση | `findall` + `min_member/2` | Επιλογή χρονοπρογράμματος ελάχιστου κόστους |
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> Industrial scheduling often uses **CLP(FD)** (Constraint Logic Programming over Finite Domains) via libraries such as SWI-Prolog's `library(clpfd)`. The `ins/2` and `#=/2` operators provide propagation that prunes search far more efficiently than pure generate-and-test. The declarative structure remains identical; only the constraint engine changes.
+> Ο βιομηχανικός χρονοπρογραμματισμός χρησιμοποιεί συχνά **CLP(FD)** (Constraint Logic Programming over Finite Domains) μέσω βιβλιοθηκών όπως η `library(clpfd)` της SWI-Prolog. Οι τελεστές `ins/2` και `#=/2` παρέχουν διάδοση περιορισμών που κλαδεύει την αναζήτηση πολύ πιο αποδοτικά από το απλό generate-and-test. Η δηλωτική δομή παραμένει πανομοιότυπη· αλλάζει μόνο η μηχανή περιορισμών.
 
 ---
 
-## 4. Sudoku as Grid CSP
+## 4. Το Sudoku ως Πλεγματικό CSP
 
-### 4.1 Concept Overview
+### 4.1 Επισκόπηση Έννοιας
 
-Sudoku is a $9 \times 9$ grid CSP: fill digits $1$–$9$ so each row, column, and $3 \times 3$ box contains all digits exactly once.
+Το Sudoku είναι ένα πλεγματικό CSP $9 \times 9$: συμπληρώστε ψηφία $1$–$9$ έτσι ώστε κάθε γραμμή, στήλη και κουτί $3 \times 3$ να περιέχει όλα τα ψηφία ακριβώς μία φορά.
 
-### 4.2 Variable and Domain Model
+### 4.2 Μοντέλο Μεταβλητών και Πεδίου Τιμών
 
-- **Variables:** 81 cells $C_{r,c}$ for $r, c \in \{1,\ldots,9\}$
-- **Domain:** $\{1,2,3,4,5,6,7,8,9\}$ for empty cells; singleton for givens
-- **Constraints:** `alldifferent` over each row, column, and box
+- **Μεταβλητές:** 81 κελιά $C_{r,c}$ για $r, c \in \{1,\ldots,9\}$
+- **Πεδίο τιμών:** $\{1,2,3,4,5,6,7,8,9\}$ για τα άδεια κελιά· μονοσύνολο για τα δεδομένα
+- **Περιορισμοί:** `alldifferent` σε κάθε γραμμή, στήλη και κουτί
 
-### 4.3 Implementation Sketch
+### 4.3 Προσχέδιο Υλοποίησης
 
 ```prolog
 sudoku(Rows) :-
     length(Rows, 9),
-    maplist(same_length(Rows), Rows),   % 9x9 grid
+    maplist(same_length(Rows), Rows),   % πλέγμα 9x9
     append(Rows, Cells),
-    Cells ins 1..9,                      % CLP(FD) domain
-    maplist(all_distinct, Rows),         % row constraints
+    Cells ins 1..9,                      % πεδίο τιμών CLP(FD)
+    maplist(all_distinct, Rows),         % περιορισμοί γραμμών
     transpose(Rows, Cols),
-    maplist(all_distinct, Cols),         % column constraints
+    maplist(all_distinct, Cols),         % περιορισμοί στηλών
     boxes(Rows, Boxes),
-    maplist(all_distinct, Boxes).        % box constraints
+    maplist(all_distinct, Boxes).        % περιορισμοί κουτιών
 
 boxes([], []).
 boxes([A,B,C|T], [B1|Rest]) :-
@@ -232,7 +232,7 @@ box([H1,H2,H3|T1], [H4,H5,H6|T2], [H7,H8,H9|T3], [H1,H2,H3,H4,H5,H6,H7,H8,H9|T])
     box(T1, T2, T3, T).
 ```
 
-### 4.4 Puzzle Query
+### 4.4 Ερώτημα Γρίφου
 
 ```prolog
 ?- sudoku([
@@ -248,29 +248,29 @@ box([H1,H2,H3|T1], [H4,H5,H6|T2], [H7,H8,H9|T3], [H1,H2,H3,H4,H5,H6,H7,H8,H9|T])
 ]).
 ```
 
-The engine binds `_` variables to digits satisfying all `all_distinct` constraints.
+Η μηχανή συνδέει τις μεταβλητές `_` με ψηφία που ικανοποιούν όλους τους περιορισμούς `all_distinct`.
 
-### 4.5 Sudoku Constraint Table
+### 4.5 Πίνακας Περιορισμών Sudoku
 
-| Group | Size | Constraint |
+| Ομάδα | Μέγεθος | Περιορισμός |
 | :--- | :--- | :--- |
-| Rows | 9 | All 9 values distinct |
-| Columns | 9 | All 9 values distinct |
-| $3 \times 3$ boxes | 9 | All 9 values distinct |
-| Givens | Variable | Pre-bound cells reduce search space |
+| Γραμμές | 9 | Και τις 9 τιμές διακριτές |
+| Στήλες | 9 | Και τις 9 τιμές διακριτές |
+| Κουτιά $3 \times 3$ | 9 | Και τις 9 τιμές διακριτές |
+| Δεδομένα | Μεταβλητό | Τα προ-συνδεδεμένα κελιά μειώνουν τον χώρο αναζήτησης |
 
 ---
 
-## 5. Game AI — Decision Trees and Knowledge Systems
+## 5. Τεχνητή Νοημοσύνη Παιχνιδιών (Game AI) — Δέντρα Αποφάσεων και Συστήματα Γνώσης
 
-### 5.1 Concept Overview
+### 5.1 Επισκόπηση Έννοιας
 
-Prolog models game NPC behavior as a **knowledge base** of facts (world state) and rules (decision policies). The engine evaluates which action rules fire given the current state — a form of backward-chaining decision tree.
+Η Prolog μοντελοποιεί τη συμπεριφορά των χαρακτήρων NPC ως **βάση γνώσης** γεγονότων (κατάσταση κόσμου) και κανόνων (πολιτικές αποφάσεων). Η μηχανή αξιολογεί ποιοι κανόνες ενεργειών ενεργοποιούνται δοθείσης της τρέχουσας κατάστασης — μια μορφή δέντρου αποφάσεων με οπισθοδρομική αλυσίδωση.
 
-### 5.2 World State Representation
+### 5.2 Αναπαράσταση Κατάστασης Κόσμου
 
 ```prolog
-% Dynamic facts (assert/retract) or static scenario facts.
+% Δυναμικά γεγονότα (assert/retract) ή στατικά γεγονότα σεναρίου.
 at(player, room_hall).
 at(goblin, room_cave).
 health(player, 80).
@@ -279,7 +279,7 @@ has_item(player, sword).
 can_reach(room_hall, room_cave).
 ```
 
-### 5.3 Decision Rules
+### 5.3 Κανόνες Αποφάσεων
 
 ```prolog
 action(attack) :-
@@ -306,9 +306,9 @@ A = attack ;
 A = explore.
 ```
 
-### 5.4 Dialogue / Knowledge Systems
+### 5.4 Διάλογος / Συστήματα Γνώσης
 
-NPC dialogue is a rule set over player utterance patterns:
+Ο διάλογος NPC είναι ένα σύνολο κανόνων πάνω σε μοτίβα εκφράσεων του παίκτη:
 
 ```prolog
 intent(greeting, hello).
@@ -332,25 +332,25 @@ reply(PlayerInput, NPCResponse) :-
 R = 'The goblin in the cave stole my amulet.'.
 ```
 
-### 5.5 Game AI Architecture
+### 5.5 Αρχιτεκτονική Game AI
 
-| Layer | Prolog Representation | Function |
+| Επίπεδο | Αναπαράσταση Prolog | Λειτουργία |
 | :--- | :--- | :--- |
-| World model | Facts (`at/2`, `health/2`) | Current game state |
-| Perception | Queries over world facts | What the NPC "knows" |
-| Policy | Rules (`action/1`) | Decision selection |
-| Dialogue | Intent/response rules | Natural language interaction |
-| Search | Path-finding via `can_reach/2` + recursion | Movement planning |
+| Μοντέλο κόσμου | Γεγονότα (`at/2`, `health/2`) | Τρέχουσα κατάσταση παιχνιδιού |
+| Αντίληψη | Ερωτήματα πάνω σε γεγονότα κόσμου | Τι "γνωρίζει" ο NPC |
+| Πολιτική | Κανόνες (`action/1`) | Επιλογή απόφασης |
+| Διάλογος | Κανόνες πρόθεσης/απόκρισης | Αλληλεπίδραση φυσικής γλώσσας |
+| Αναζήτηση | Εύρεση διαδρομής μέσω `can_reach/2` + αναδρομή | Σχεδιασμός κίνησης |
 
 ---
 
-## 6. Linguistics and Cognitive Science
+## 6. Γλωσσολογία και Γνωσιακή Επιστήμη
 
-### 6.1 Concept Overview
+### 6.1 Επισκόπηση Έννοιας
 
-Prolog originated from logic and was adopted for **computational linguistics**: parsing sentences, encoding grammars, and modeling cognitive rule systems. **Definite Clause Grammars (DCGs)** extend Prolog with grammar rules that compile to difference-list parsers.
+Η Prolog προήλθε από τη λογική και υιοθετήθηκε στη **υπολογιστική γλωσσολογία**: συντακτική ανάλυση (parsing) προτάσεων, κωδικοποίηση γραμματικών και μοντελοποίηση γνωσιακών συστημάτων κανόνων. Οι **Γραμματικές Οριστικών Προτάσεων (Definite Clause Grammars - DCGs)** επεκτείνουν την Prolog με κανόνες γραμματικής που μεταγλωττίζονται σε αναλυτές διαφορικών λιστών (difference-list parsers).
 
-### 6.2 Context-Free Grammar as Rules
+### 6.2 Γραμματική Ελεύθερη Πλαισίου ως Κανόνες
 
 ```prolog
 % sentence --> noun_phrase, verb_phrase.
@@ -368,7 +368,7 @@ verb_phrase(eats, fish).
 Subject = the_cat, Verb = eats, Object = fish.
 ```
 
-### 6.3 DCG Syntax Reference
+### 6.3 Αναφορά Σύνταξης DCG
 
 ```
 <nonterminal> --> <terminal>, <nonterminal>.
@@ -376,9 +376,9 @@ Subject = the_cat, Verb = eats, Object = fish.
 <nonterminal> --> [ <terminal> ].
 ```
 
-DCG rules translate to Prolog clauses with hidden difference-list arguments for efficient parsing.
+Οι κανόνες DCG μεταφράζονται σε προτάσεις Prolog με κρυφά ορίσματα διαφορικών λιστών για αποδοτική συντακτική ανάλυση.
 
-### 6.4 Simple DCG Example
+### 6.4 Απλό Παράδειγμα DCG
 
 ```prolog
 sentence --> noun_phrase, verb_phrase.
@@ -408,173 +408,173 @@ S = [the, cat, eats, the, dog] ;
 ...
 ```
 
-### 6.5 Linguistics Application Summary
+### 6.5 Σύνοψη Γλωσσολογικών Εφαρμογών
 
-| Application | Prolog Feature | Example |
+| Εφαρμογή | Χαρακτηριστικό Prolog | Παράδειγμα |
 | :--- | :--- | :--- |
-| Parsing | DCGs | `phrase(sentence, Tokens)` |
-| Morphology | Rule-based affixation | `plural(cat, cats)` |
-| Semantic networks | Relation facts | `is_a(cat, mammal)` |
-| Cognitive models | Production rules | `if perception(X) then action(Y)` |
+| Συντακτική ανάλυση | DCGs | `phrase(sentence, Tokens)` |
+| Μορφολογία | Παραγωγή κλίσεων βάσει κανόνων | `plural(cat, cats)` |
+| Σημασιολογικά δίκτυα | Γεγονότα σχέσεων | `is_a(cat, mammal)` |
+| Γνωσιακά μοντέλα | Κανόνες παραγωγής | `if perception(X) then action(Y)` |
 
 ---
 
-## Common Errors and Gotchas
+## Κοινά Σφάλματα και Παγίδες
 
-### Error 1: Unbounded Generate-and-Test
+### Σφάλμα 1: Μη Οριοθετημένο Generate-and-Test
 
-**Cause:** Generating permutations or integers without domain bounds causes infinite search.
+**Αιτία:** Η παραγωγή μεταθέσεων ή ακεραίων χωρίς όρια πεδίου τιμών προκαλεί άπειρη αναζήτηση.
 
 ```prolog
-% Dangerous: infinite integers.
+% Επικίνδυνο: άπειροι ακέραιοι.
 solve(X) :- X > 5, X < 100.
 ```
 
-**Resolution:** Use `between/3` or CLP(FD) `ins` for finite domains.
+**Επίλυση:** Χρησιμοποιείτε τη `between/3` ή το `ins` της CLP(FD) για πεπερασμένα πεδία τιμών.
 
-### Error 2: Constraint Order Sensitivity
+### Σφάλμα 2: Ευαισθησία στη Σειρά Περιορισμών
 
-**Cause:** In pure Prolog, constraints tested after generation may explore many doomed branches.
+**Αιτία:** Στην αμιγή Prolog, οι περιορισμοί που ελέγχονται μετά την παραγωγή ενδέχεται να εξερευνήσουν πολλούς καταδικασμένους κλάδους.
 
 ```prolog
-% Inefficient: generate first, check later.
+% Αναποτελεσματικό: πρώτα παραγωγή, μετά έλεγχος.
 coloring(A, B, C) :- color(A), color(B), color(C), A \= B, B \= C.
 ```
 
-**Resolution:** Place tightest constraints earliest, or use CLP(FD) for propagation.
+**Επίλυση:** Τοποθετείτε τους αυστηρότερους περιορισμούς νωρίτερα, ή χρησιμοποιείτε CLP(FD) για διάδοση.
 
-### Error 3: Confusing DCG Terminals with Predicates
+### Σφάλμα 3: Σύγχυση Τερματικών Στοιχειων DCG με Κατηγορήματα
 
-**Cause:** `[the]` in a DCG is a terminal (word); `the` without brackets is a nonterminal or predicate call.
+**Αιτία:** Το `[the]` σε μια DCG είναι τερματικό (λέξη)· το `the` χωρίς αγκύλες είναι μη τερματικό ή κλήση κατηγορήματος.
 
 ```prolog
-% DCG terminal:
+% Τερματικό DCG:
 noun_phrase --> [the], noun.
 
-% NOT the same as:
-noun_phrase --> the, noun.  % Calls predicate the/2 — likely wrong.
+% ΔΕΝ είναι το ίδιο με:
+noun_phrase --> the, noun.  % Καλεί το κατηγόρημα the/2 — πιθανώς λάθος.
 ```
 
-**Resolution:** Terminals are always in square brackets in DCG notation.
+**Επίλυση:** Τα τερματικά στοιχεία βρίσκονται πάντα εντός αγκυλών στη σημειογραφία DCG.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: CSP Formalization
+### Άσκηση 1: Διατύπωση CSP
 
-**Problem:** Formalize map coloring for 3 regions (A, B, C) where A borders B and B borders C (A and C do not border).
+**Πρόβλημα:** Διατυπώστε τον χρωματισμό χάρτη για 3 περιοχές (A, B, C) όπου η A συνορεύει με τη B και η B συνορεύει με τη C (οι A και C δεν συνορεύουν).
 
-**Solution:**
+**Λύση:**
 
-1. Variables: $X = \{A, B, C\}$
-2. Domains: $D_i = \{\text{red}, \text{green}, \text{blue}\}$
-3. Constraints: $A \neq B$, $B \neq C$
+1. Μεταβλητές: $X = \{A, B, C\}$
+2. Πεδία τιμών: $D_i = \{\text{red}, \text{green}, \text{blue}\}$
+3. Περιορισμοί: $A \neq B$, $B \neq C$
 4. Prolog: `color(A), color(B), color(C), A \= B, B \= C.`
 
 ---
 
-### Exercise 2: N-Queens — Why [2,4,1,3]?
+### Άσκηση 2: Ν-Βασίλισσες — Γιατί [2,4,1,3];
 
-**Problem:** Verify that `Q = [2,4,1,3]` is a valid 4-queens solution (column $i$ has queen in row `Q[i]`).
+**Πρόβλημα:** Επαληθεύστε ότι το `Q = [2,4,1,3]` είναι έγκυρη λύση 4-βασιλισσών (η στήλη $i$ έχει βασίλισσα στη γραμμή `Q[i]`).
 
-**Solution:**
+**Λύση:**
 
-| Column | Row | Column check | Diagonal check |
+| Στήλη | Γραμμή | Έλεγχος Στήλης | Έλεγχος Διαγωνίου |
 | :--- | :--- | :--- | :--- |
-| 1 | 2 | Unique | — |
-| 2 | 4 | Unique | $|2-4| = 2 \neq 1$ (row diff) |
-| 3 | 1 | Unique | $|2-1| = 1 = 3-2$ row diff... check: $|4-1| = 3$, $|2-1| = 1$ |
-| 4 | 3 | Unique | All pairwise diagonal checks pass |
+| 1 | 2 | Μοναδική | — |
+| 2 | 4 | Μοναδική | $|2-4| = 2 \neq 1$ (διαφορά γραμμών) |
+| 3 | 1 | Μοναδική | $|2-1| = 1 = 3-2$ διαφορά γραμμών... έλεγχος: $|4-1| = 3$, $|2-1| = 1$ |
+| 4 | 3 | Μοναδική | Όλοι οι διαγώνιοι έλεγχοι ανά ζεύγη επιτυγχάνουν |
 
-No two queens share row, column, or diagonal. **Valid.**
+Καμία δύο βασίλισσες δεν μοιράζονται γραμμή, στήλη ή διαγώνιο. **Έγκυρη.**
 
 ---
 
-### Exercise 3: Scheduling Precedence
+### Άσκηση 3: Προτεραιότητα Χρονοπρογραμματισμού
 
-**Problem:** Tasks `a` (duration 2) precedes `b` (duration 3). If `a` starts at 4, what is the earliest start for `b`?
+**Πρόβλημα:** Η εργασία `a` (διάρκεια 2) προηγείται της `b` (διάρκεια 3). Εάν η `a` ξεκινά στο 4, ποια είναι η νωρίτερη έναρξη για τη `b`;
 
-**Solution:**
+**Λύση:**
 
 1. $end(a) = start(a) + duration(a) = 4 + 2 = 6$
-2. Precedence: $start(b) \geq end(a) = 6$
-3. **Answer:** Earliest $start(b) = 6$.
+2. Προτεραιότητα: $start(b) \geq end(a) = 6$
+3. **Απάντηση:** Νωρίτερο $start(b) = 6$.
 
 ---
 
-### Exercise 4: Sudoku Row Constraint
+### Άσκηση 4: Περιορισμός Γραμμής Sudoku
 
-**Problem:** Can row `[1, 2, 3, 4, 5, 6, 7, 8, 1]` be part of a valid Sudoku?
+**Πρόβλημα:** Μπορεί η γραμμή `[1, 2, 3, 4, 5, 6, 7, 8, 1]` να είναι μέρος ενός έγκυρου Sudoku;
 
-**Solution:**
+**Λύση:**
 
-1. Value `1` appears twice in the row.
-2. `all_distinct` constraint violated.
-3. **Answer:** No.
-
----
-
-### Exercise 5: Game AI Action Selection
-
-**Problem:** Given `health(player, 20)`, `health(goblin, 50)`, both `at/2` same location, which actions fire from Section 5.3 rules?
-
-**Solution:**
-
-1. `action(attack)` — enemy present with health > 0 → succeeds.
-2. `action(flee)` — `PH=20 < 30` and `EH=50 > PH` → succeeds.
-3. `action(heal)` — no potion → fails.
-4. **Answer:** `attack` and `flee`.
+1. Η τιμή `1` εμφανίζεται δύο φορές στη γραμμή.
+2. Ο περιορισμός `all_distinct` παραβιάζεται.
+3. **Απάντηση:** Όχι.
 
 ---
 
-### Exercise 6: Dialogue Intent Matching
+### Άσκηση 5: Επιλογή Ενέργειας Game AI
 
-**Problem:** Evaluate `?- reply(hello, R).`
+**Πρόβλημα:** Δοθέντων των `health(player, 20)`, `health(goblin, 50)`, και των δύο στην ίδια τοποθεσία `at/2`, ποιες ενέργειες ενεργοποιούνται από τους κανόνες της Ενότητας 5.3;
 
-**Solution:**
+**Λύση:**
 
-1. `intent(greeting, hello)` succeeds.
-2. `response(greeting, 'Greetings, traveler!')` succeeds.
-3. **Answer:** `R = 'Greetings, traveler!'.`
+1. `action(attack)` — εχθρός παρών με υγεία > 0 → επιτυγχάνει.
+2. `action(flee)` — `PH=20 < 30` και `EH=50 > PH` → επιτυγχάνει.
+3. `action(heal)` — χωρίς φίλτρο (potion) → αποτυγχάνει.
+4. **Απάντηση:** `attack` και `flee`.
 
 ---
 
-### Exercise 7: DCG Parse Success
+### Άσκηση 6: Ταίριασμα Πρόθεσης Διαλόγου
 
-**Problem:** Does `phrase(sentence, [the, dog, eats, the, cat])` succeed with Section 6.4 DCG?
+**Πρόβλημα:** Αξιολογήστε το `?- reply(hello, R).`
 
-**Solution:**
+**Λύση:**
+
+1. Το `intent(greeting, hello)` επιτυγχάνει.
+2. Το `response(greeting, 'Greetings, traveler!')` επιτυγχάνει.
+3. **Απάντηση:** `R = 'Greetings, traveler!'.`
+
+---
+
+### Άσκηση 7: Επιτυχία Συντακτικής Ανάλυσης DCG
+
+**Πρόβλημα:** Επιτυγχάνει η `phrase(sentence, [the, dog, eats, the, cat])` με τη DCG της Ενότητας 6.4;
+
+**Λύση:**
 
 1. `noun_phrase` → `[the, dog]`
 2. `verb_phrase` → `[eats, the, cat]`
-3. Full sentence consumed; no tokens remain.
-4. **Answer:** `true.`
+3. Πλήρης πρόταση καταναλώθηκε· δεν απομένουν tokens.
+4. **Απάντηση:** `true.`
 
 ---
 
-### Exercise 8: CSP Search Space Size
+### Άσκηση 8: Μέγεθος Χώρου Αναζήτησης CSP
 
-**Problem:** For map coloring with 3 regions and 3 colors (no adjacency constraints), how large is the raw search space before constraints?
+**Πρόβλημα:** Για τον χρωματισμό χάρτη 3 περιοχών με 3 χρώματα (χωρίς περιορισμούς γειτνίασης), πόσο μεγάλος είναι ο αρχικός χώρος αναζήτησης πριν από τους περιορισμούς;
 
-**Solution:**
+**Λύση:**
 
-1. Each of 3 regions independently chooses 3 colors.
-2. $|\text{search space}| = 3^3 = 27$
-3. With `A \= B, B \= C`, some assignments are pruned.
-4. **Answer:** 27 unconstrained assignments; fewer after constraints.
+1. Κάθε μία από τις 3 περιοχές επιλέγει ανεξάρτητα 3 χρώματα.
+2. $|\text{χώρος αναζήτησης}| = 3^3 = 27$
+3. Με τους περιορισμούς `A \= B, B \= C`, ορισμένες αναθέσεις κλαδεύονται.
+4. **Απάντηση:** 27 μη περιορισμένες αναθέσεις· λιγότερες μετά τους περιορισμούς.
 
 ---
 
-## Exam Tip: CSP Problem Decomposition
+## Συμβουλή Εξετάσεων: Αποσύνθεση Προβλήματος CSP
 
-When facing a Prolog application exam question, decompose in four steps:
+Όταν αντιμετωπίζετε μια ερώτηση εξετάσεων για εφαρμογές Prolog, αποσυνθέστε τη σε τέσσερα βήματα:
 
-1. **Identify variables** — what must be decided?
-2. **Define domains** — what values can each variable take?
-3. **List constraints** — what relations must hold among variables?
-4. **Choose search strategy** — generate-and-test (standard Prolog) or CLP(FD) (if available)?
+1. **Ταυτοποιήστε τις μεταβλητές** — τι πρέπει να αποφασιστεί;
+2. **Ορίστε τα πεδία τιμών** — ποιες τιμές μπορεί να λάβει κάθε μεταβλητή;
+3. **Καταγράψτε τους περιορισμούς** — ποιες σχέσεις πρέπει να ισχύουν μεταξύ των μεταβλητών;
+4. **Επιλέξτε στρατηγική αναζήτησης** — παραγωγή-και-έλεγχος (πρότυπη Prolog) ή CLP(FD) (εάν είναι διαθέσιμη);
 
-Write constraints as **relations**, not assignments. The engine assigns values by unification during search.
+Γράφετε τους περιορισμούς ως **σχέσεις**, και όχι ως αναθέσεις. Η μηχανή αναθέτει τιμές μέσω ενοποίησης κατά την αναζήτηση.
 
-**Most common exam trap:** Forgetting that Prolog CSP solutions are returned one at a time via backtracking. "Find all solutions" requires pressing `;` interactively or wrapping with `findall/3`. For counting solutions, `findall(X, solve(X), L), length(L, N)` is the standard idiom.
+**Συχνότερη εξεταστική παγίδα:** Παράβλεψη του γεγονότος ότι οι λύσεις CSP στην Prolog επιστρέφονται μία κάθε φορά μέσω οπισθοδρόμησης. Η "εύρεση όλων των λύσεων" απαιτεί πληκτρολόγηση `;` διαδραστικά ή εσωκλεισμό με τη συνάρτηση `findall/3`. Για την καταμέτρηση των λύσεων, η σύνταξη `findall(X, solve(X), L), length(L, N)` είναι το τυπικό ιδίωμα.

@@ -1,22 +1,20 @@
-# Phase 3: Conditional Probability & Independence
+# Φάση 3: Υπό όρους Πιθανότητα & Ανεξαρτησία
 
-## Table of Contents
+## Πίνακας περιεχομένων
 - [Section 3.1: Conditional Probability & Reduced Sample Space](#section-31-conditional-probability--reduced-sample-space)
 - [Section 3.2: Multiplication Rule & Sequential Processes](#section-32-multiplication-rule--sequential-processes)
-- [Section 3.3: Independence & System Reliability](#section-33-independence--system-reliability)
-- [Section 3.4: Law of Total Probability & Bayes' Theorem](#section-34-law-of-total-probability--bayes-theorem)
-- [Exam Preparation Guide](#exam-preparation-guide)
-- [Phase Summary](#phase-summary)
+- [Ενότητα 3.3: Ανεξαρτησία και αξιοπιστία συστήματος](#section-33-independence--system-reliability)
+- [Ενότητα 3.4: Νόμος της συνολικής πιθανότητας & θεώρημα Bayes](#section-34-law-of-total-probability--bayes-theorem)
+- [Οδηγός προετοιμασίας για εξετάσεις](#exam-preparation-guide)
+- [Σύνοψη φάσης](#phase-summary)
 
 ---
 
-## Section 3.1: Conditional Probability & Reduced Sample Space
+## Ενότητα 3.1: Πιθανότητα υπό όρους και μειωμένος χώρος δειγμάτων
 
-### Core Theory & Definitions
+### Θεωρία Πυρήνα & Ορισμοί
 
-Conditional probability evaluates the likelihood of an event $A$ occurring given that another event $B$ has already taken place ($P(B) > 0$). When we condition on $B$, the universal sample space $\Omega$ shrinks to $B$. Outcome elements outside $B$ become impossible and are discarded. The relevant subset of $A$ within this restricted universe is precisely the intersection $A \cap B$.
-
-```
+Η υπό όρους πιθανότητα αξιολογεί την πιθανότητα να συμβεί ένα συμβάν $A$ δεδομένου ότι ένα άλλο συμβάν $B$ έχει ήδη λάβει χώρα ($P(B) > 0$). Όταν ρυθμίζουμε σε $B$, ο καθολικός χώρος δείγματος $\Omega$ συρρικνώνεται σε $B$. Τα στοιχεία αποτελέσματος εκτός $B$ γίνονται αδύνατα και απορρίπτονται. Το σχετικό υποσύνολο του $A$ σε αυτό το περιορισμένο σύμπαν είναι ακριβώς η τομή $A \cap B$.```
 Universal Sample Space Ω:
 +------------------------------------+
 |  A only     | A ∩ B  |  B only     |
@@ -25,211 +23,200 @@ Universal Sample Space Ω:
                  ^^^^^^
          Conditioning on B shrinks
          the sample space from Ω to B.
-```
+```Μαθηματικά, η υπό όρους πιθανότητα συμπεριφέρεται ως αληθές μέτρο πιθανότητας στον περιορισμένο χώρο δείγματος $B$. Ικανοποιεί και τα τρία αξιώματα του Kolmogorov:
 
-Mathematically, conditional probability behaves as a true probability measure on the restricted sample space $B$. It satisfies all three Kolmogorov Axioms:
-
-1. **Non-negativity:** For any event $A \subseteq \Omega$, $0 \le P(A \mid B) \le 1$.
-2. **Normalization:** $P(\Omega \mid B) = \frac{P(\Omega \cap B)}{P(B)} = \frac{P(B)}{P(B)} = 1$, and similarly $P(B \mid B) = 1$.
-3. **Countable Additivity:** For any sequence of mutually disjoint events $A_1, A_2, A_3, \dots$ (where $A_i \cap A_j = \emptyset$ for $i \neq j$):
+1. **Μη αρνητικότητα:** Για οποιοδήποτε συμβάν $A \subseteq \Omega$, $0 \le P(A \mid B) \le 1$.
+2. **Κανονοποίηση:** $P(\Omega \mid B) = \frac{P(\Omega \cap B)}{P(B)} = \frac{P(B)}{P(B)} = 1$, και ομοίως $P(B \mid B) = 1$.
+3. **Μετρήσιμη προσθετικότητα:** Για οποιαδήποτε ακολουθία αμοιβαία ασύνδετων γεγονότων $A_1, A_2, A_3, \dots$ (όπου $A_i \cap A_j = \emptyset$ για $i \neq j$):
    $$P\left( \bigcup_{i=1}^{\infty} A_i \;\middle|\; B \right) = \sum_{i=1}^{\infty} P(A_i \mid B)$$
 
-#### Time-Domain Application: Survival Probability & Right-Censoring
+#### Εφαρμογή Χρονικού Τομέα: Πιθανότητες επιβίωσης & Δεξιά λογοκρισία
 
-In time-series analysis, performance engineering, and reliability testing, conditional probability frequently measures execution lifetimes and delay thresholds. Let $T \ge 0$ be a non-negative continuous random variable representing duration (e.g., latency, system uptime, job completion time in seconds or milliseconds).
+Στην ανάλυση χρονοσειρών, τη μηχανική απόδοσης και τη δοκιμή αξιοπιστίας, η υπό όρους πιθανότητα μετρά συχνά τις ζωές εκτέλεσης και τα κατώφλια καθυστέρησης. Έστω $T \ge 0$ μια μη αρνητική συνεχής τυχαία μεταβλητή που αντιπροσωπεύει τη διάρκεια (π.χ. καθυστέρηση, χρόνος λειτουργίας συστήματος, χρόνος ολοκλήρωσης εργασίας σε δευτερόλεπτα ή χιλιοστά του δευτερολέπτου).
 
-The **conditional survival probability** measures the probability that a system continues running for an additional duration $s$, given that it has already survived up to time $t$:
+Η **πιθανότητα επιβίωσης υπό όρους** μετρά την πιθανότητα ένα σύστημα να συνεχίσει να λειτουργεί για επιπλέον διάρκεια $s$, δεδομένου ότι έχει ήδη επιβιώσει μέχρι το χρόνο $t$:
 $$P(T > t + s \mid T > t) = \frac{P(T > t + s \cap T > t)}{P(T > t)} = \frac{P(T > t + s)}{P(T > t)}$$
 
-A critical practical challenge in time data analysis is **right-censored observation windows**. In continuous measurement systems, observation monitors stop recording at a maximum observation window $T_{\text{max}}$. If a request or job has not completed by $T_{\text{max}}$, its true duration is unknown—we only know $T > T_{\text{max}}$. If an analyst discards censored observations or treats $T_{\text{max}}$ as the actual completion time, conditional probabilities and tail latency estimates will be severely biased (underestimating long latencies).
+Μια κρίσιμη πρακτική πρόκληση στην ανάλυση δεδομένων χρόνου είναι τα **παράθυρα παρατήρησης με σωστή λογοκρισία**. Στα συστήματα συνεχούς μέτρησης, οι οθόνες παρατήρησης σταματούν την εγγραφή σε ένα μέγιστο παράθυρο παρατήρησης $T_{\text{max}}$. Εάν ένα αίτημα ή μια εργασία δεν έχει ολοκληρωθεί έως τις $T_{\text{max}}$, η πραγματική διάρκειά της είναι άγνωστη—γνωρίζουμε μόνο $T > T_{\text{max}}$. Εάν ένας αναλυτής απορρίψει τις λογοκριμένες παρατηρήσεις ή χειριστεί το $T_{\text{max}}$ ως τον πραγματικό χρόνο ολοκλήρωσης, οι πιθανότητες υπό όρους και οι εκτιμήσεις λανθάνουσας κατάστασης υπό όρους θα είναι σοβαρά μεροληπτικές (υποτιμώντας τις μεγάλες καθυστερήσεις).
 
 ---
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-#### Fundamental Conditional Probability Formula
-For any two events $A$ and $B$ in a sample space $\Omega$ with $P(B) > 0$:
+#### Θεμελιώδης τύπος πιθανοτήτων υπό όρους
+Για οποιαδήποτε δύο συμβάντα $A$ και $B$ σε ένα δείγμα χώρου $\Omega$ με $P(B) > 0$:
 $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
 
-Similarly, if $P(A) > 0$:
+Ομοίως, εάν $P(A) > 0$:
 $$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
 
-#### Conditional Complement Rule
+#### Κανόνας συμπληρώματος υπό όρους
 $$P(A^c \mid B) = 1 - P(A \mid B)$$
 
-*Proof:*
+*Απόδειξη:*
 $$P(A^c \mid B) = \frac{P(A^c \cap B)}{P(B)} = \frac{P(B) - P(A \cap B)}{P(B)} = 1 - \frac{P(A \cap B)}{P(B)} = 1 - P(A \mid B)$$
 
-#### Conditional Inclusion-Exclusion Principle
+#### Υπό όρους Συμπερίληψη-Αποκλεισμός Αρχή
 $$P(A_1 \cup A_2 \mid B) = P(A_1 \mid B) + P(A_2 \mid B) - P(A_1 \cap A_2 \mid B)$$
 
-#### Time-Domain Adapted Formulas (with Explicit Units)
+#### Προσαρμοσμένοι τύποι σε τομέα χρόνου (με ρητές μονάδες)
 
-When working with latency, duration, or time-series data, all duration parameters must explicitly state their time units (e.g., $[s]$, $[ms]$, $[\mu s]$).
+Όταν εργάζεστε με δεδομένα καθυστέρησης, διάρκειας ή χρονοσειράς, όλες οι παράμετροι διάρκειας πρέπει να αναφέρουν ρητά τις χρονικές τους μονάδες (π.χ. $[s]$, $[ms]$, $[\mu s]$).
 
-1. **Conditional Latency Threshold Formula:**
+1. **Τύπος ορίου καθυστέρησης υπό όρους:**
    $$P(T \le t_{2,[ms]} \mid T > t_{1,[ms]}) = \frac{P(t_{1,[ms]} < T \le t_{2,[ms]})}{P(T > t_{1,[ms]})} = \frac{F_T(t_{2,[ms]}) - F_T(t_{1,[ms]})}{1 - F_T(t_{1,[ms]})}$$
-   where $F_T(t) = P(T \le t)$ is the Cumulative Distribution Function (CDF).
+   όπου $F_T(t) = P(T \le t)$ είναι η Συνάρτηση Αθροιστικής Κατανομής (CDF).
 
-2. **Conditional Survival Function Formula:**
+2. **Τύπος συνάρτησης επιβίωσης υπό όρους:**
    $$S_T(s_{[s]} \mid t_{[s]}) = P(T > t_{[s]} + s_{[s]} \mid T > t_{[s]}) = \frac{S_T((t+s)_{[s]})}{S_T(t_{[s]})}$$
-   where $S_T(t) = P(T > t) = 1 - F_T(t)$ is the Survival Function.
+   όπου $S_T(t) = P(T > t) = 1 - F_T(t)$ είναι η συνάρτηση επιβίωσης.
 
-> **Practical / Time-Domain Note:**
-> Memoryless distributions (such as the Exponential distribution for continuous time or Geometric distribution for discrete steps) satisfy $P(T > t + s \mid T > t) = P(T > s)$. However, real-world hardware aging, memory leak accumulation, and queue buildup are **aging processes** where $P(T > t + s \mid T > t) < P(T > s)$. Never assume memorylessness without verifying distribution metrics.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Οι κατανομές χωρίς μνήμη (όπως η Εκθετική κατανομή για συνεχή χρόνο ή η Γεωμετρική κατανομή για διακριτά βήματα) ικανοποιούν το $P(T > t + s \mid T > t) = P(T > s)$. Ωστόσο, η γήρανση του υλικού του πραγματικού κόσμου, η συσσώρευση διαρροής μνήμης και η συσσώρευση ουρών είναι **διεργασίες γήρανσης** όπου $P(T > t + s \mid T > t) < P(T > s)$. Ποτέ μην υποθέτετε έλλειψη μνήμης χωρίς να επαληθεύσετε τις μετρήσεις διανομής.
 
 ---
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 1: Medical Diagnostic Contingency Table
-**Problem:** A clinical study evaluates 500 patient records for a respiratory condition. 120 patients tested positive ($Pos$), of which 90 actually had the condition ($D$). Out of 380 patients who tested negative ($Neg$), 20 had the condition.
-**a)** Calculate $P(D \mid Pos)$ (Positive Predictive Value).
-**b)** Calculate $P(D^c \mid Neg)$ (Negative Predictive Value).
+#### Άσκηση 1: Πίνακας έκτακτων ιατρικών διαγνωστικών
+**Πρόβλημα:** Μια κλινική μελέτη αξιολογεί 500 αρχεία ασθενών για μια αναπνευστική πάθηση. 120 ασθενείς βρέθηκαν θετικοί ($Pos$), εκ των οποίων οι 90 είχαν πραγματικά την πάθηση ($D$). Από τους 380 ασθενείς που βρέθηκαν αρνητικοί ($Neg$), οι 20 είχαν την πάθηση.
+**α)** Υπολογίστε $P(D \mid Pos)$ (Θετική προγνωστική τιμή).
+**β)** Υπολογίστε $P(D^c \mid Neg)$ (αρνητική προγνωστική τιμή).
 
-**Solution:**
-**Step 1:** Construct the complete 2x2 contingency table:
+**Διάλυμα:****Βήμα 1:** Κατασκευάστε τον πλήρη πίνακα έκτακτης ανάγκης 2x2:
 
-| Condition | Positive Test ($Pos$) | Negative Test ($Neg$) | Total |
+| Κατάσταση | Θετικό τεστ ($Pos$) | Αρνητικό τεστ ($Neg$) | Σύνολο |
 | :--- | :--- | :--- | :--- |
-| **Disease ($D$)** | 90 | 20 | 110 |
-| **No Disease ($D^c$)** | 30 | 360 | 390 |
-| **Total** | 120 | 380 | 500 |
+| **Ασθένεια ($D$)** | 90 | 20 | 110 |
+| **Καμία ασθένεια ($D^c$)** | 30 | 360 | 390 |
+| **Σύνολο** | 120 | 380 | 500 |
 
-**Step 2:** Compute $P(D \mid Pos)$ using the reduced sample space of $Pos$ (120 patients):
+**Βήμα 2:** Υπολογίστε $P(D \mid Pos)$ χρησιμοποιώντας τον μειωμένο χώρο δείγματος του $Pos$ (120 ασθενείς):
 $$P(D \mid Pos) = \frac{P(D \cap Pos)}{P(Pos)} = \frac{90 / 500}{120 / 500} = \frac{90}{120} = 0.75$$
 
-**Step 3:** Compute $P(D^c \mid Neg)$ using the reduced sample space of $Neg$ (380 patients):
+**Βήμα 3:** Υπολογίστε $P(D^c \mid Neg)$ χρησιμοποιώντας τον μειωμένο χώρο δείγματος του $Neg$ (380 ασθενείς):
 $$P(D^c \mid Neg) = \frac{P(D^c \cap Neg)}{P(Neg)} = \frac{360 / 500}{380 / 500} = \frac{360}{380} = \frac{18}{19} \approx 0.9474$$
 
-Final Answer: **a) 0.7500 (75.00%)**, **b) 0.9474 (94.74%)**
+Τελική απάντηση: **α) 0,7500 (75,00%)**, **β) 0,9474 (94,74%)**
 
 ---
 
-#### Exercise 2: Urn Ball Selection Without Replacement
-**Problem:** An urn contains 7 red balls and 5 blue balls. Two balls are drawn sequentially without replacement.
-**a)** What is the probability that the second ball drawn is blue, given that the first ball drawn was red?
-**b)** What is the joint probability that the first ball is red and the second ball is blue?
+#### Άσκηση 2: Επιλογή μπάλας ουράς χωρίς αντικατάσταση
+**Πρόβλημα:** Μια λάρνακα περιέχει 7 κόκκινες και 5 μπλε μπάλες. Δύο μπάλες σχεδιάζονται διαδοχικά χωρίς αντικατάσταση.
+**α)** Ποια είναι η πιθανότητα η δεύτερη μπάλα να είναι μπλε, δεδομένου ότι η πρώτη μπάλα που κληρώθηκε ήταν κόκκινη;
+**β)** Ποια είναι η κοινή πιθανότητα η πρώτη μπάλα να είναι κόκκινη και η δεύτερη να είναι μπλε;
 
-**Solution:**
-**a)** Step 1: Initial state has $7 + 5 = 12$ total balls.
-Step 2: Given the first ball drawn was red ($R_1$), the urn now contains 6 red balls and 5 blue balls ($6 + 5 = 11$ total remaining).
-Step 3: The conditional probability of drawing a blue ball on the second draw ($B_2$) is:
+**Λύση:**
+**α)** Βήμα 1: Η αρχική κατάσταση έχει $7 + 5 = 12$ συνολικά μπάλες.
+Βήμα 2: Δεδομένου ότι η πρώτη μπάλα που κληρώθηκε ήταν κόκκινη ($R_1$), η λάρνακα περιέχει τώρα 6 κόκκινες μπάλες και 5 μπλε μπάλες ($6 + 5 = 11$ απομένουν συνολικά).
+Βήμα 3: Η υπό όρους πιθανότητα να σχεδιάσετε μια μπλε μπάλα στη δεύτερη ισοπαλία ($B_2$) είναι:
 $$P(B_2 \mid R_1) = \frac{5}{11} \approx 0.4545$$
 
-**b)** Apply the multiplication rule:
+**β)** Εφαρμόστε τον κανόνα πολλαπλασιασμού:
 $$P(R_1 \cap B_2) = P(R_1) \cdot P(B_2 \mid R_1) = \left( \frac{7}{12} \right) \cdot \left( \frac{5}{11} \right) = \frac{35}{132} \approx 0.2652$$
 
-Final Answer: **a) 5/11 (0.4545)**, **b) 35/132 (0.2652)**
+Τελική απάντηση: **α) 5/11 (0,4545)**, **β) 35/132 (0,2652)**
 
 ---
 
-#### Exercise 3: Industrial Component Defect Probability
-**Problem:** In a factory manufacturing batch, 15% of components have surface scratches ($S$), 10% have electrical defects ($E$), and 4% have both defects.
-**a)** If a randomly chosen component has a surface scratch, what is the probability it also has an electrical defect?
-**b)** If a component has no electrical defect, what is the probability it has no surface scratch?
+#### Άσκηση 3: Πιθανότητα ελαττώματος βιομηχανικού στοιχείου
+**Πρόβλημα:** Σε μια παρτίδα εργοστασιακής κατασκευής, το 15% των εξαρτημάτων έχουν επιφανειακές γρατσουνιές ($S$), το 10% έχουν ηλεκτρικά ελαττώματα ($E$) και το 4% έχουν και τα δύο ελαττώματα.
+**α)** Εάν ένα τυχαία επιλεγμένο εξάρτημα έχει επιφανειακή γρατσουνιά, ποια είναι η πιθανότητα να έχει και ηλεκτρικό ελάττωμα;
+**β)** Εάν ένα εξάρτημα δεν έχει ηλεκτρικό ελάττωμα, ποια είναι η πιθανότητα να μην έχει επιφανειακή γρατσουνιά;
 
-**Solution:**
-**Step 1:** Given probabilities: $P(S) = 0.15$, $P(E) = 0.10$, $P(S \cap E) = 0.04$.
+**Λύση:**
+**Βήμα 1:** Δεδομένες πιθανότητες: $P(S) = 0.15$, $P(E) = 0.10$, $P(S \cap E) = 0.04$.
 
-**Step 2:** For part **a)**:
+**Βήμα 2:** Για το μέρος **α)**:
 $$P(E \mid S) = \frac{P(S \cap E)}{P(S)} = \frac{0.04}{0.15} = \frac{4}{15} \approx 0.2667$$
 
-**Step 3:** For part **b)**, we need $P(S^c \mid E^c) = \frac{P(S^c \cap E^c)}{P(E^c)}$.
-Using De Morgan's Law: $P(S^c \cap E^c) = 1 - P(S \cup E)$.
+**Βήμα 3:** Για το μέρος **β)**, χρειαζόμαστε $P(S^c \mid E^c) = \frac{P(S^c \cap E^c)}{P(E^c)}$.
+Χρήση του νόμου του De Morgan: $P(S^c \cap E^c) = 1 - P(S \cup E)$.
 $$P(S \cup E) = P(S) + P(E) - P(S \cap E) = 0.15 + 0.10 - 0.04 = 0.21$$
 $$P(S^c \cap E^c) = 1 - 0.21 = 0.79$$
 $$P(E^c) = 1 - P(E) = 1 - 0.10 = 0.90$$
 $$P(S^c \mid E^c) = \frac{0.79}{0.90} = \frac{79}{90} \approx 0.8778$$
 
-Final Answer: **a) 4/15 (0.2667)**, **b) 79/90 (0.8778)**
+Τελική απάντηση: **α) 4/15 (0,2667)**, **β) 79/90 (0,8778)**
 
 ---
 
-#### Exercise 4: Server SLA Response Time Threshold (Time-Domain)
-**Problem:** Latency logs for a database cluster show that 75% of queries finish within $100\,[ms]$ ($P(T \le 100) = 0.75$) and 95% of queries finish within $300\,[ms]$ ($P(T \le 300) = 0.95$).
-**a)** If a query has already exceeded $100\,[ms]$, what is the conditional probability that it finishes within $300\,[ms]$?
-**b)** What R command computes this conditional probability from an empirical vector `latencies_ms`?
+#### Άσκηση 4: Χρονικό όριο απόκρισης διακομιστή SLA (Time-Domain)
+**Πρόβλημα:** Τα αρχεία καταγραφής καθυστέρησης για ένα σύμπλεγμα βάσης δεδομένων δείχνουν ότι το 75% των ερωτημάτων ολοκληρώνεται εντός $100\,[ms]$ ($P(T \le 100) = 0.75$) και το 95% των ερωτημάτων ολοκληρώνεται εντός $300\,[ms]$ ($P(T \le 300) = 0.95$).
+**α)** Εάν ένα ερώτημα έχει ήδη υπερβεί το $100\,[ms]$, ποια είναι η υπό όρους πιθανότητα να τελειώσει εντός $300\,[ms]$;
+**β)** Ποια εντολή R υπολογίζει αυτήν την υπό όρους πιθανότητα από ένα εμπειρικό διάνυσμα `latencies_ms`;
 
-**Solution:**
-**Step 1:** Define the events:
+**Λύση:**
+**Βήμα 1:** Ορίστε τα συμβάντα:
 $A = \{T \le 300\,[ms]\}$, $B = \{T > 100\,[ms]\}$.
-The intersection $A \cap B = \{100\,[ms] < T \le 300\,[ms]\}$.
+Η διασταύρωση $A \cap B = \{100\,[ms] < T \le 300\,[ms]\}$.
 
-**Step 2:** Compute individual probabilities:
+**Βήμα 2:** Υπολογίστε μεμονωμένες πιθανότητες:
 $$P(B) = P(T > 100) = 1 - P(T \le 100) = 1 - 0.75 = 0.25$$
 $$P(A \cap B) = P(100 < T \le 300) = P(T \le 300) - P(T \le 100) = 0.95 - 0.75 = 0.20$$
 
-**Step 3:** Calculate conditional probability using the time-domain adapted formula:
+**Βήμα 3:** Υπολογίστε την υπό όρους πιθανότητα χρησιμοποιώντας τον τύπο προσαρμοσμένο στον τομέα χρόνου:
 $$P(T \le 300 \mid T > 100) = \frac{P(100 < T \le 300)}{P(T > 100)} = \frac{0.20}{0.25} = 0.8000$$
 
-**Step 4:** R implementation:
-```r
+**Βήμα 4:** Υλοποίηση R:```r
 # R snippet for empirical conditional latency calculation
 sub_vec <- latencies_ms[latencies_ms > 100]
 p_cond <- sum(sub_vec <= 300) / length(sub_vec)
-```
-
-Final Answer: **a) 0.8000 (80.00%)**, **b) R command provided above**
+```Τελική απάντηση: **α) 0,8000 (80,00%)**, **β) Εντολή R που παρέχεται παραπάνω**
 
 ---
 
-#### Exercise 5: Microservice Latency Survival & Right-Censoring (Time-Domain)
-**Problem:** Execution duration $T\,[s]$ of a distributed job has survival function $S_T(t) = \frac{1}{(1 + 0.1t)^2}$ for $t \ge 0$.
-**a)** Calculate the probability that a job runs for more than $20\,[s]$, given it has survived past $10\,[s]$.
-**b)** An analyst monitors jobs only up to $T_{\text{max}} = 10\,[s]$ and records all uncompleted jobs as exactly $10\,[s]$. Explain the effect of this right-censoring on conditional survival estimation.
+#### Άσκηση 5: Επιβίωση λανθάνοντος χρόνου υπηρεσίας και σωστή λογοκρισία (Time-Domain)
+**Πρόβλημα:** Η διάρκεια εκτέλεσης $T\,[s]$ μιας κατανεμημένης εργασίας έχει συνάρτηση επιβίωσης $S_T(t) = \frac{1}{(1 + 0.1t)^2}$ για $t \ge 0$.
+**α)** Υπολογίστε την πιθανότητα μια εργασία να εκτελείται για περισσότερο από $20\,[s]$, δεδομένου ότι έχει επιβιώσει μετά το $10\,[s]$.
+**β)** Ένας αναλυτής παρακολουθεί εργασίες μόνο έως $T_{\text{max}} = 10\,[s]$ και καταγράφει όλες τις μη ολοκληρωμένες εργασίες ως ακριβώς $10\,[s]$. Εξηγήστε την επίδραση αυτής της σωστής λογοκρισίας στην εκτίμηση της υπό όρους επιβίωσης.
 
-**Solution:**
-**a)** Step 1: Evaluate $S_T(10)$ and $S_T(20)$:
+**Λύση:**
+**α)** Βήμα 1: Αξιολογήστε $S_T(10)$ και $S_T(20)$:
 $$S_T(10) = P(T > 10) = \frac{1}{(1 + 0.1(10))^2} = \frac{1}{2^2} = \frac{1}{4} = 0.2500$$
 $$S_T(20) = P(T > 20) = \frac{1}{(1 + 0.1(20))^2} = \frac{1}{3^2} = \frac{1}{9} \approx 0.1111$$
 
-Step 2: Apply the conditional survival formula:
+Βήμα 2: Εφαρμόστε τον τύπο επιβίωσης υπό όρους:
 $$P(T > 20 \mid T > 10) = \frac{P(T > 20)}{P(T > 10)} = \frac{S_T(20)}{S_T(10)} = \frac{1/9}{1/4} = \frac{4}{9} \approx 0.4444$$
 
-**b)** Right-censoring at $T_{\text{max}} = 10\,[s]$ truncates the tail. If jobs running $> 10\,[s]$ are assumed to terminate at $10\,[s]$, $P(T > 20 \mid T > 10)$ would be estimated as $0$, severely underestimating system delay risks.
+**β)** Η δεξιά λογοκρισία στο $T_{\text{max}} = 10\,[s]$ περικόπτει την ουρά. Εάν οι εργασίες που εκτελούνται $> 10\,[s]$ υποτίθεται ότι τερματίζονται στις $10\,[s]$, το $P(T > 20 \mid T > 10)$ θα εκτιμηθεί ως $0$, υποτιμώντας σημαντικά τους κινδύνους καθυστέρησης του συστήματος.
 
-Final Answer: **a) 4/9 (0.4444)**, **b) Right-censoring truncates the tail and underestimates tail risk**
+Τελική απάντηση: **α) 4/9 (0,4444)**, **β) Η δεξιά λογοκρισία περικόπτει την ουρά και υποτιμά τον κίνδυνο ουράς**
 
 ---
 
-#### Exercise 6: Incident Resolution Times Across Server Clusters (Time-Domain)
-**Problem:** An IT ops team records incident resolution times across two shifts: Day Shift ($D$, 120 incidents) and Night Shift ($N$, 80 incidents). In Day Shift, 90 incidents resolved within $1\,[hr]$ ($\le 1$) and 30 took $> 1\,[hr]$. In Night Shift, 40 resolved within $1\,[hr]$ and 40 took $> 1\,[hr]$.
-**a)** Find $P(> 1\,[hr] \mid N)$.
-**b)** Find $P(N \mid > 1\,[hr])$.
-**c)** Write an R snippet using `prop.table()` to compute both conditional distributions.
+#### Άσκηση 6: Χρόνοι επίλυσης περιστατικών σε συμπλέγματα διακομιστών (Time-Domain)
+**Πρόβλημα:** Μια ομάδα λειτουργιών πληροφορικής καταγράφει χρόνους επίλυσης περιστατικών σε δύο βάρδιες: Ημερήσια βάρδια ($D$, 120 περιστατικά) και Νυχτερινή βάρδια ($N$, 80 περιστατικά). Στο Day Shift, επιλύθηκαν 90 περιστατικά εντός $1\,[hr]$ ($\le 1$) και 30 έλαβαν $> 1\,[hr]$. Στη Night Shift, 40 επιλύθηκαν εντός $1\,[hr]$ και 40 χρειάστηκαν $> 1\,[hr]$.
+**α)** Βρείτε $P(> 1\,[hr] \mid N)$.
+**β)** Βρείτε $P(N \mid > 1\,[hr])$.
+**γ)** Γράψτε ένα απόσπασμα R χρησιμοποιώντας `prop.table()` για να υπολογίσετε και τις δύο κατανομές υπό όρους.
 
-**Solution:**
-**Step 1:** Construct table of counts:
+**Λύση:**
+**Βήμα 1:** Δημιουργία πίνακα μετρήσεων:
 
-| Shift | $\le 1\,[hr]$ | $> 1\,[hr]$ | Total |
+| Βάρδια | $\le 1\,[hr]$ | $> 1\,[hr]$ | Σύνολο |
 | :--- | :--- | :--- | :--- |
-| **Day ($D$)** | 90 | 30 | 120 |
-| **Night ($N$)** | 40 | 40 | 80 |
-| **Total** | 130 | 70 | 200 |
+| **Ημέρα ($D$)** | 90 | 30 | 120 |
+| **Νύχτα ($N$)** | 40 | 40 | 80 |
+| **Σύνολο** | 130 | 70 | 200 |
 
-**Step 2:** Compute $P(> 1\,[hr] \mid N)$:
+**Βήμα 2:** Υπολογίστε $P(> 1\,[hr] \mid N)$:
 $$P(> 1\,[hr] \mid N) = \frac{40}{80} = 0.5000$$
 
-**Step 3:** Compute $P(N \mid > 1\,[hr])$:
+**Βήμα 3:** Υπολογίστε $P(N \mid > 1\,[hr])$:
 $$P(N \mid > 1\,[hr]) = \frac{40}{70} = \frac{4}{7} \approx 0.5714$$
 
-**Step 4:** R implementation:
-```r
+**Βήμα 4:** Υλοποίηση R:```r
 # R snippet for table conditioning
 counts <- matrix(c(90, 30, 40, 40), nrow = 2, byrow = TRUE,
                  dimnames = list(Shift = c("Day", "Night"), Time = c("<=1hr", ">1hr")))
 p_time_given_shift  <- prop.table(counts, margin = 1) # Row conditional
 p_shift_given_time  <- prop.table(counts, margin = 2) # Column conditional
-```
-
-Final Answer: **a) 0.5000 (50.00%)**, **b) 4/7 (0.5714)**, **c) R snippet provided above**
+```Τελική απάντηση: **α) 0,5000 (50,00%)**, **β) 4/7 (0,5714)**, **γ) Το απόσπασμα R παρέχεται παραπάνω**
 
 ---
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # R Implementation for Section 3.1: Conditional Probability & Filtering
 
 # 1. Contingency Table Conditional Probabilities
@@ -252,192 +239,178 @@ latencies_ms <- rgamma(10000, shape = 2, scale = 80) # Sample latencies
 denom_subset <- latencies_ms[latencies_ms > 100]
 p_cond_empirical <- sum(denom_subset <= 300) / length(denom_subset)
 cat("Empirical P(T <= 300 | T > 100):", round(p_cond_empirical, 4), "\n")
-```
+```---
 
----
+## Ενότητα 3.2: Κανόνας πολλαπλασιασμού & Διαδοχικές Διεργασίες
 
-## Section 3.2: Multiplication Rule & Sequential Processes
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
-
-The **Multiplication Rule** is derived directly by rearranging the conditional probability formula:
+Ο **Κανόνας πολλαπλασιασμού** προκύπτει απευθείας από την αναδιάταξη του τύπου πιθανοτήτων υπό όρους:
 $$P(A \cap B) = P(B) \cdot P(A \mid B) = P(A) \cdot P(B \mid A)$$
 
-This rule allows us to calculate the joint probability of multi-stage sequential processes by breaking them into a chain of conditional probabilities.
-
-```
+Αυτός ο κανόνας μας επιτρέπει να υπολογίσουμε την κοινή πιθανότητα διαδοχικών διεργασιών πολλαπλών σταδίων σπάζοντας τες σε μια αλυσίδα πιθανοτήτων υπό όρους.```
 Stage 1: P(A_1)
    |
    +---> Stage 2: P(A_2 | A_1)
             |
             +---> Stage 3: P(A_3 | A_1 ∩ A_2)
-```
+```#### Δειγματοληψία με vs Χωρίς αντικατάσταση
+- **Δειγματοληψία με αντικατάσταση:** Ο χώρος του δείγματος παραμένει πανομοιότυπος σε κάθε στάδιο. Τα αποτελέσματα είναι ανεξάρτητα: $P(A_2 \mid A_1) = P(A_2)$, άρα $P(A_1 \cap A_2) = P(A_1) \cdot P(A_2)$.
+- **Δειγματοληψία χωρίς αντικατάσταση:** Ο χώρος του δείγματος συρρικνώνεται και η σύνθεση αλλάζει μετά από κάθε κλήρωση. Τα αποτελέσματα εξαρτώνται από: $P(A_2 \mid A_1) \neq P(A_2)$.
 
-#### Sampling With vs Without Replacement
-- **Sampling With Replacement:** The sample space remains identical at each stage. Outcomes are independent: $P(A_2 \mid A_1) = P(A_2)$, so $P(A_1 \cap A_2) = P(A_1) \cdot P(A_2)$.
-- **Sampling Without Replacement:** The sample space shrinks and composition changes after each draw. Outcomes are dependent: $P(A_2 \mid A_1) \neq P(A_2)$.
+#### Εφαρμογή Time-Domain: Multi-Stage Pipelines & Cascades
 
-#### Time-Domain Application: Multi-Stage Pipelines & Cascades
-
-In distributed computer systems, network routing, and software execution pipelines, request execution progresses through sequential dependent stages (e.g., DNS resolution -> TLS handshake -> Auth Check -> DB Query -> Serialization). The probability of a request successfully completing the entire pipeline without timing out or failing is computed via the Chain Rule of conditional probability.
+Σε κατανεμημένα συστήματα υπολογιστών, δρομολόγηση δικτύου και αγωγούς εκτέλεσης λογισμικού, η εκτέλεση αιτημάτων προχωρά σε διαδοχικά εξαρτώμενα στάδια (π.χ. ανάλυση DNS -> χειραψία TLS -> Έλεγχος ταυτότητας -> Ερώτημα DB -> Σειριοποίηση). Η πιθανότητα ένα αίτημα να ολοκληρώσει επιτυχώς ολόκληρο τον αγωγό χωρίς χρονική λήξη ή αποτυχία υπολογίζεται μέσω του Κανόνα της Αλυσίδας της υπό όρους πιθανότητας.
 
 ---
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-#### General Chain Rule of Probability
-For any sequence of $n$ events $A_1, A_2, \dots, A_n$ where $P(A_1 \cap A_2 \cap \dots \cap A_{n-1}) > 0$:
+#### Γενικός Κανόνας Πιθανοτήτων Αλυσίδας
+Για οποιαδήποτε ακολουθία $n$ συμβάντων $A_1, A_2, \dots, A_n$ όπου $P(A_1 \cap A_2 \cap \dots \cap A_{n-1}) > 0$:
 $$P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3 \mid A_1 \cap A_2) \cdots P(A_n \mid A_1 \cap A_2 \cap \dots \cap A_{n-1})$$
 
-*Proof by Induction:*
-For $n = 2$: $P(A_1 \cap A_2) = P(A_1) \cdot P(A_2 \mid A_1)$.
-Assume true for $n = k$: $P(\bigcap_{i=1}^k A_i) = P(A_1) P(A_2 \mid A_1) \cdots P(A_k \mid \bigcap_{i=1}^{k-1} A_i)$.
-For $n = k + 1$, let $E = \bigcap_{i=1}^k A_i$. Then:
+*Απόδειξη επαγωγής:*
+Για $n = 2$: $P(A_1 \cap A_2) = P(A_1) \cdot P(A_2 \mid A_1)$.
+Υποθέστε αληθές για $n = k$: $P(\bigcap_{i=1}^k A_i) = P(A_1) P(A_2 \mid A_1) \cdots P(A_k \mid \bigcap_{i=1}^{k-1} A_i)$.
+Για $n = k + 1$, αφήστε $E = \bigcap_{i=1}^k A_i$. Τότε:
 $$P\left( \bigcap_{i=1}^{k+1} A_i \right) = P(E \cap A_{k+1}) = P(E) \cdot P(A_{k+1} \mid E) = \left[ \prod_{i=1}^k P\left(A_i \;\middle|\; \bigcap_{j=1}^{i-1} A_j\right) \right] \cdot P\left(A_{k+1} \;\middle|\; \bigcap_{j=1}^k A_j\right)$$
 
-#### Time-Domain Sequential Pipeline Success Formula
-For an $n$-stage processing pipeline where $S_i$ is the event that Stage $i$ completes within its allocation $t_{i,[ms]}$:
+#### Τύπος επιτυχίας διαδοχικών αγωγών στον τομέα χρόνου
+Για έναν αγωγό επεξεργασίας $n$ σταδίων όπου $S_i$ είναι το γεγονός που ολοκληρώνει το Στάδιο $i$ εντός της κατανομής του $t_{i,[ms]}$:
 $$P(\text{Pipeline Success}) = P(S_1) \cdot P(S_2 \mid S_1) \cdot P(S_3 \mid S_1 \cap S_2) \cdots P(S_n \mid S_1 \cap \dots \cap S_{n-1})$$
 
-> **Practical / Time-Domain Note:**
-> In microservice architectures, stage completion times are often **positively correlated** (e.g., high database load causes both DB query latency and serialization latency to spike). Assuming independence across stages ($P(S_2 \mid S_1) = P(S_2)$) underestimates the probability of cumulative tail latency violations.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Στις αρχιτεκτονικές μικροϋπηρεσιών, οι χρόνοι ολοκλήρωσης σταδίων συχνά **θετικά συσχετίζονται** (π.χ., ο υψηλός φόρτος βάσης δεδομένων προκαλεί αύξηση του λανθάνοντος χρόνου ερωτήματος DB και της καθυστέρησης σειριοποίησης). Η υπόθεση της ανεξαρτησίας σε όλα τα στάδια ($P(S_2 \mid S_1) = P(S_2)$) υποτιμά την πιθανότητα αθροιστικών παραβιάσεων του λανθάνοντος χρόνου.
 
 ---
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 7: Consecutive Card Selection Without Replacement
-**Problem:** A standard deck of 52 playing cards contains 4 Aces. Three cards are drawn sequentially without replacement.
-**a)** Calculate the probability of drawing three consecutive Aces.
-**b)** What R code evaluates this sequential cumulative probability?
+#### Άσκηση 7: Διαδοχική επιλογή κάρτας χωρίς αντικατάσταση
+**Πρόβλημα:** Μια τυπική τράπουλα με 52 τραπουλόχαρτα περιέχει 4 Άσσους. Τρία φύλλα τραβιούνται διαδοχικά χωρίς αντικατάσταση.
+**α)** Υπολογίστε την πιθανότητα να τραβήξετε τρεις διαδοχικούς Άσσους.
+**β)** Ποιος κώδικας R αξιολογεί αυτή τη διαδοχική αθροιστική πιθανότητα;
 
-**Solution:**
-**Step 1:** Define events: $A_1$ (first card Ace), $A_2$ (second card Ace), $A_3$ (third card Ace).
+**Λύση:**
+**Βήμα 1:** Ορίστε γεγονότα: $A_1$ (πρώτο φύλλο Άσος), $A_2$ (δεύτερο φύλλο Άσος), $A_3$ (τρίτο φύλλο Άσος).
 
-**Step 2:** Apply the multiplication chain rule:
+**Βήμα 2:** Εφαρμόστε τον κανόνα της αλυσίδας πολλαπλασιασμού:
 $$P(A_1) = \frac{4}{52}$$
 $$P(A_2 \mid A_1) = \frac{3}{51}$$
 $$P(A_3 \mid A_1 \cap A_2) = \frac{2}{50}$$
 
-**Step 3:** Calculate the joint probability:
+**Βήμα 3:** Υπολογίστε την κοινή πιθανότητα:
 $$P(A_1 \cap A_2 \cap A_3) = \left( \frac{4}{52} \right) \cdot \left( \frac{3}{51} \right) \cdot \left( \frac{2}{50} \right) = \frac{24}{132600} = \frac{1}{5525} \approx 0.0001810$$
 
-**Step 4:** R implementation:
-```r
+**Βήμα 4:** Υλοποίηση R:```r
 # R snippet for exact chain product
 probs <- c(4/52, 3/51, 2/50)
 p_three_aces <- prod(probs)
-```
-
-Final Answer: **a) 1/5525 (0.0001810)**, **b) R code provided above**
+```Τελική απάντηση: **α) 1/5525 (0.0001810)**, **β) Ο κωδικός R που παρέχεται παραπάνω**
 
 ---
 
-#### Exercise 8: Semiconductor Chip Defect Multi-Stage Inspection
-**Problem:** A manufacturing lot contains 20 microchips, of which 4 are defective. An inspector randomly selects 3 chips without replacement for quality testing.
-**a)** Find the probability that all 3 selected chips are non-defective.
-**b)** Find the probability that at least 1 of the 3 selected chips is defective.
+#### Άσκηση 8: Επιθεώρηση ελαττώματος τσιπ ημιαγωγών σε πολλαπλά στάδια
+**Πρόβλημα:** Μια παρτίδα κατασκευής περιέχει 20 μικροτσίπ, εκ των οποίων τα 4 είναι ελαττωματικά. Ένας επιθεωρητής επιλέγει τυχαία 3 μάρκες χωρίς αντικατάσταση για έλεγχο ποιότητας.
+**α)** Βρείτε την πιθανότητα και οι 3 επιλεγμένες μάρκες να είναι μη ελαττωματικές.
+**β)** Βρείτε την πιθανότητα τουλάχιστον 1 από τις 3 επιλεγμένες μάρκες να είναι ελαττωματική.
 
-**Solution:**
-**Step 1:** Non-defective chips count = $20 - 4 = 16$.
+**Λύση:**
+**Βήμα 1:** Πλήθος μη ελαττωματικών μαρκών = $20 - 4 = 16$.
 
-**Step 2:** For part **a)**, apply the chain rule for 3 non-defective draws ($G_1, G_2, G_3$):
+**Βήμα 2:** Για το μέρος **α)**, εφαρμόστε τον κανόνα της αλυσίδας για 3 μη ελαττωματικές κληρώσεις ($G_1, G_2, G_3$):
 $$P(G_1 \cap G_2 \cap G_3) = \left( \frac{16}{20} \right) \cdot \left( \frac{15}{19} \right) \cdot \left( \frac{14}{18} \right) = \frac{3360}{6840} = \frac{28}{57} \approx 0.4912$$
 
-**Step 3:** For part **b)**, use the complement rule:
+**Βήμα 3:** Για το μέρος **β)**, χρησιμοποιήστε τον κανόνα συμπληρώματος:
 $$P(\text{At least 1 defective}) = 1 - P(G_1 \cap G_2 \cap G_3) = 1 - \frac{28}{57} = \frac{29}{57} \approx 0.5088$$
 
-Final Answer: **a) 28/57 (0.4912)**, **b) 29/57 (0.5088)**
+Τελική απάντηση: **α) 28/57 (0,4912)**, **β) 29/57 (0,5088)**
 
 ---
 
-#### Exercise 9: Sequential Urn Ball Selection
-**Problem:** Urn A contains 3 red and 2 white balls. Urn B contains 2 red and 4 white balls. A ball is drawn at random from Urn A and transferred into Urn B. Then a ball is drawn from Urn B.
-**a)** Find the probability that the transferred ball was Red AND the ball drawn from Urn B is Red.
-**b)** Find the probability that the transferred ball was White AND the ball drawn from Urn B is Red.
+#### Άσκηση 9: Διαδοχική επιλογή σφαιρών ουράς
+**Πρόβλημα:** Το Urn A περιέχει 3 κόκκινες και 2 λευκές μπάλες. Το Urn B περιέχει 2 κόκκινες και 4 λευκές μπάλες. Μια μπάλα τραβιέται τυχαία από την τεφροδόχο Α και μεταφέρεται στην τεφροδόχο Β. Στη συνέχεια μια μπάλα τραβιέται από την τεφροδόχο Β.
+**α)** Βρείτε την πιθανότητα ότι η μπάλα που μεταφέρθηκε ήταν Κόκκινη ΚΑΙ η μπάλα που τραβήχτηκε από το Urn B είναι Κόκκινη.
+**β)** Βρείτε την πιθανότητα ότι η μπάλα που μεταφέρθηκε ήταν Λευκή ΚΑΙ η μπάλα που τραβήχτηκε από το Urn B είναι Κόκκινη.
 
-**Solution:**
-**Step 1:** Transferred ball events from Urn A: $P(R_A) = 3/5$, $P(W_A) = 2/5$.
+**Λύση:**
+**Βήμα 1:** Γεγονότα μεταφοράς μπάλας από το Urn A: $P(R_A) = 3/5$, $P(W_A) = 2/5$.
 
-**Step 2:** For part **a)**: If $R_A$ is transferred, Urn B now has $2 + 1 = 3$ red and 4 white ($3 + 4 = 7$ total).
+**Βήμα 2:** Για το μέρος **α)**: Εάν μεταφερθεί $R_A$, η Urn B έχει τώρα $2 + 1 = 3$ κόκκινο και 4 λευκά ($3 + 4 = 7$ σύνολο).
 $$P(R_B \mid R_A) = \frac{3}{7}$$
 $$P(R_A \cap R_B) = P(R_A) \cdot P(R_B \mid R_A) = \left( \frac{3}{5} \right) \cdot \left( \frac{3}{7} \right) = \frac{9}{35} \approx 0.2571$$
 
-**Step 3:** For part **b)**: If $W_A$ is transferred, Urn B now has 2 red and $4 + 1 = 5$ white ($2 + 5 = 7$ total).
+**Βήμα 3:** Για το μέρος **β)**: Εάν μεταφερθεί $W_A$, η Urn B έχει τώρα 2 κόκκινα και $4 + 1 = 5$ λευκό ($2 + 5 = 7$ σύνολο).
 $$P(R_B \mid W_A) = \frac{2}{7}$$
 $$P(W_A \cap R_B) = P(W_A) \cdot P(R_B \mid W_A) = \left( \frac{2}{5} \right) \cdot \left( \frac{2}{7} \right) = \frac{4}{35} \approx 0.1143$$
 
-Final Answer: **a) 9/35 (0.2571)**, **b) 4/35 (0.1143)**
+Τελική απάντηση: **α) 9/35 (0,2571)**, **β) 4/35 (0,1143)**
 
 ---
 
-#### Exercise 10: Multi-Hop Network Routing Success (Time-Domain)
-**Problem:** A network packet must traverse 3 sequential router hops ($H_1, H_2, H_3$). Hop survival probabilities under load are:
+#### Άσκηση 10: Επιτυχία δρομολόγησης δικτύου πολλαπλών λυμάτων (Time-Domain)
+**Πρόβλημα:** Ένα πακέτο δικτύου πρέπει να διασχίζει 3 διαδοχικά άλματα δρομολογητή ($H_1, H_2, H_3$). Οι πιθανότητες επιβίωσης λυκίσκου υπό φορτίο είναι:
 - $P(H_1 \text{ success}) = 0.98$
 - $P(H_2 \text{ success} \mid H_1 \text{ success}) = 0.95$
 - $P(H_3 \text{ success} \mid H_1 \cap H_2 \text{ success}) = 0.90$
-**a)** Calculate the overall end-to-end packet delivery success probability.
-**b)** What is the probability that the packet fails at Hop 3, given it successfully cleared Hop 1 and Hop 2?
+**α)** Υπολογίστε τη συνολική πιθανότητα επιτυχίας παράδοσης πακέτων από άκρο σε άκρο.
+**β)** Ποια είναι η πιθανότητα να αποτύχει το πακέτο στο Hop 3, δεδομένου ότι διαγράφηκε επιτυχώς το Hop 1 και το Hop 2;
 
-**Solution:**
-**a)** Apply the multiplication chain rule:
+**Λύση:**
+**α)** Εφαρμόστε τον κανόνα της αλυσίδας πολλαπλασιασμού:
 $$P(H_1 \cap H_2 \cap H_3) = P(H_1) \cdot P(H_2 \mid H_1) \cdot P(H_3 \mid H_1 \cap H_2) = 0.98 \cdot 0.95 \cdot 0.90 = 0.8379$$
 
-**b)** Using the conditional complement rule:
+**β)** Χρησιμοποιώντας τον κανόνα του συμπληρώματος υπό όρους:
 $$P(H_3^c \mid H_1 \cap H_2) = 1 - P(H_3 \mid H_1 \cap H_2) = 1 - 0.90 = 0.1000$$
 
-Final Answer: **a) 0.8379 (83.79%)**, **b) 0.1000 (10.00%)**
+Τελική απάντηση: **α) 0,8379 (83,79%)**, **β) 0,1000 (10,00%)**
 
 ---
 
-#### Exercise 11: Microservice Authentication and Data Fetch Pipeline (Time-Domain)
-**Problem:** An API request passes through three sequential microservices: Auth Gateway ($A$), Data Fetch ($D$), and Output Formatter ($F$). Time budget allocations are $t_A = 20\,[ms], t_D = 100\,[ms], t_F = 30\,[ms]$.
-From logs:
+#### Άσκηση 11: Έλεγχος ταυτότητας μικροϋπηρεσιών και αγωγός ανάκτησης δεδομένων (Time-Domain)
+**Πρόβλημα:** Ένα αίτημα API διέρχεται από τρεις διαδοχικές μικροϋπηρεσίες: Auth Gateway ($A$), Fetch Data ($D$) και Output Formatter ($F$). Οι κατανομές του προϋπολογισμού χρόνου είναι $t_A = 20\,[ms], t_D = 100\,[ms], t_F = 30\,[ms]$.
+Από αρχεία καταγραφής:
 - $P(T_A \le 20) = 0.96$
 - $P(T_D \le 100 \mid T_A \le 20) = 0.92$
 - $P(T_F \le 30 \mid T_A \le 20 \cap T_D \le 100) = 0.95$
-**a)** Calculate the overall pipeline success probability.
-**b)** Write an R command that computes cumulative path probabilities using `cumprod()`.
+**α)** Υπολογίστε τη συνολική πιθανότητα επιτυχίας του αγωγού.
+**β)** Γράψτε μια εντολή R που υπολογίζει τις αθροιστικές πιθανότητες διαδρομής χρησιμοποιώντας `cumprod()`.
 
-**Solution:**
-**Step 1:** Apply chain rule:
+**Λύση:**
+**Βήμα 1:** Εφαρμογή κανόνα αλυσίδας:
 $$P(\text{Success}) = 0.96 \cdot 0.92 \cdot 0.95 = 0.83884 \approx 0.8388$$
 
-**Step 2:** R code implementation:
-```r
+**Βήμα 2:** Υλοποίηση κώδικα R:```r
 # R snippet for cumulative pipeline probability
 stage_probs <- c(A = 0.96, D = 0.92, F = 0.95)
 cum_success <- cumprod(stage_probs)
 cat("Final Pipeline Probability:", cum_success["F"], "\n")
-```
-
-Final Answer: **a) 0.8388 (83.88%)**, **b) R command provided above**
+```Τελική απάντηση: **α) 0,8388 (83,88%)**, **β) εντολή R που παρέχεται παραπάνω**
 
 ---
 
-#### Exercise 12: CI/CD Deployment Pipeline Execution (Time-Domain)
-**Problem:** A DevOps deployment pipeline consists of 4 stages: Lint ($L$), Unit Test ($U$), Integration Test ($I$), and Deployment ($D$). The stage completion probabilities are:
+#### Άσκηση 12: Εκτέλεση αγωγού ανάπτυξης CI/CD (Time-Domain)
+**Πρόβλημα:** Ένας αγωγός ανάπτυξης DevOps αποτελείται από 4 στάδια: Lint ($L$), Δοκιμή μονάδας ($U$), Δοκιμή ενοποίησης ($I$) και Ανάπτυξη ($D$). Οι πιθανότητες ολοκλήρωσης του σταδίου είναι:
 - $P(L) = 0.99$
 - $P(U \mid L) = 0.90$
 - $P(I \mid L \cap U) = 0.85$
 - $P(D \mid L \cap U \cap I) = 0.98$
-**a)** Find the probability that the entire pipeline completes successfully.
-**b)** If 500 independent build triggers occur, expected number of fully successful deployments?
+**α)** Βρείτε την πιθανότητα να ολοκληρωθεί επιτυχώς ολόκληρος ο αγωγός.
+**β)** Εάν προκύψουν 500 ανεξάρτητες ενεργοποιήσεις κατασκευής, αναμενόμενος αριθμός πλήρως επιτυχημένων αναπτύξεων;
 
-**Solution:**
-**a)** Apply the chain rule:
+**Λύση:**
+**α)** Εφαρμόστε τον κανόνα της αλυσίδας:
 $$P(\text{Pipeline Success}) = 0.99 \cdot 0.90 \cdot 0.85 \cdot 0.98 = 0.7421547 \approx 0.7422$$
 
-**b)** Expected successful deployments:
+**β)** Αναμενόμενες επιτυχημένες αναπτύξεις:
 $$E[X] = N \cdot P(\text{Success}) = 500 \cdot 0.7421547 = 371.077 \approx 371 \text{ deployments}$$
 
-Final Answer: **a) 0.7422 (74.22%)**, **b) 371 deployments**
+Τελική απάντηση: **α) 0,7422 (74,22%)**, **β) 371 αναπτύξεις**
 
 ---
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # R Implementation for Section 3.2: Multiplication Rule & Sequential Chains
 
 # 1. Chain Rule Cumulative Calculation (Pipeline Stages)
@@ -462,214 +435,199 @@ simulate_draws <- function(red = 7, blue = 5, n_draws = 2) {
 set.seed(42)
 sim_results <- replicate(100000, simulate_draws())
 cat("Simulated P(Red1 & Blue2):", mean(sim_results), "\n")
-```
+```---
 
----
+## Ενότητα 3.3: Ανεξαρτησία & Αξιοπιστία Συστήματος
 
-## Section 3.3: Independence & System Reliability
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
-
-Two events $A$ and $B$ are **statistically independent** if the occurrence of $B$ does not alter the probability of $A$ occurring. Knowledge of $B$ conveys zero information about $A$.
+Δύο συμβάντα $A$ και $B$ είναι **στατιστικά ανεξάρτητα** εάν η εμφάνιση του $B$ δεν αλλάζει την πιθανότητα να συμβεί $A$. Η γνώση του $B$ μεταφέρει μηδενικές πληροφορίες για το $A$.
 
 #### Pairwise vs Mutual (Joint) Independence
-For three or more events $A_1, A_2, \dots, A_n$:
-- **Pairwise Independence:** $P(A_i \cap A_j) = P(A_i) \cdot P(A_j)$ for all $i \neq j$.
-- **Mutual (Joint) Independence:** $P(\bigcap_{i \in S} A_i) = \prod_{i \in S} P(A_i)$ for **every** subset $S \subseteq \{1, 2, \dots, n\}$.
+Για τρεις ή περισσότερες εκδηλώσεις $A_1, A_2, \dots, A_n$:
+- **Ανεξαρτησία κατά ζεύγη:** $P(A_i \cap A_j) = P(A_i) \cdot P(A_j)$ για όλους τους $i \neq j$.
+- **Αμοιβαία (κοινή) ανεξαρτησία:** $P(\bigcap_{i \in S} A_i) = \prod_{i \in S} P(A_i)$ για **κάθε** υποσύνολο $S \subseteq \{1, 2, \dots, n\}$.
 
-> **Crucial Warning:** Pairwise independence does **NOT** imply mutual independence! (Bernstein's classic counterexample demonstrates 3 events that are pairwise independent but not mutually independent).
+> **Κρίσιμη προειδοποίηση:** Η ανεξαρτησία κατά ζεύγη **ΔΕΝ** συνεπάγεται αμοιβαία ανεξαρτησία! (Το κλασικό αντιπαράδειγμα του Bernstein δείχνει 3 συμβάντα που είναι ανεξάρτητα κατά ζεύγη αλλά όχι αμοιβαία ανεξάρτητα).
 
-#### Mutually Exclusive vs Independent Events
-- **Mutually Exclusive (Disjoint):** $A \cap B = \emptyset \implies P(A \cap B) = 0$. If $A$ happens, $B$ cannot happen.
-- **Independent:** $P(A \cap B) = P(A) \cdot P(B)$.
-- **Theorem:** If $P(A) > 0$ and $P(B) > 0$, mutually exclusive events can **NEVER** be independent. Since $P(A \cap B) = 0 \neq P(A)P(B) > 0$, mutual exclusivity implies maximum dependency.
-
-```
+#### Αμοιβαία Αποκλειστικά εναντίον Ανεξάρτητων Εκδηλώσεων
+- **Αμοιβαία Αποκλειστική (Disjoint):** $A \cap B = \emptyset \implies P(A \cap B) = 0$. Εάν συμβεί $A$, δεν μπορεί να συμβεί $B$.
+- **Ανεξάρτητο:** $P(A \cap B) = P(A) \cdot P(B)$.
+- **Θεώρημα:** Εάν $P(A) > 0$ και $P(B) > 0$, τα συμβάντα που αποκλείονται αμοιβαία δεν μπορούν **ΠΟΤΕ** να είναι ανεξάρτητα. Από $P(A \cap B) = 0 \neq P(A)P(B) > 0$, η αμοιβαία αποκλειστικότητα συνεπάγεται μέγιστη εξάρτηση.```
 Mutually Exclusive:            Independent:
 +-------+ +-------+           +---------------+
 |   A   | |   B   |           |  A  |A∩B|  B  |
 +-------+ +-------+           +---------------+
  P(A ∩ B) = 0                  P(A ∩ B) = P(A)P(B)
-```
+```#### Αρχιτεκτονική αξιοπιστίας συστήματος με την πάροδο του χρόνου
+Στα συστήματα μηχανικής, η αξιοπιστία μοντελοποιείται αντιμετωπίζοντας τους χρόνους ζωής μεμονωμένων εξαρτημάτων $T_1, T_2, \dots, T_n$ ως ανεξάρτητες τυχαίες μεταβλητές:
 
-#### System Reliability Architecture over Time
-In engineering systems, reliability is modeled by treating individual component lifetimes $T_1, T_2, \dots, T_n$ as independent random variables:
-
-1. **Series System (Logical AND - Weakest Link):**
-   The system functions if and only if **all** $n$ components function.
+1. **Σύστημα σειράς (λογικό ΚΑΙ - Ασθενέστερος κρίκος):**
+   Το σύστημα λειτουργεί εάν και μόνο εάν λειτουργούν **όλα** $n$ στοιχεία.
    $$T_{\text{sys}} = \min(T_1, T_2, \dots, T_n)$$
    $$R_{\text{sys}}(t) = P(T_{\text{sys}} > t) = P(T_1 > t \cap T_2 > t \cap \dots \cap T_n > t) = \prod_{i=1}^{n} P(T_i > t)$$
 
-2. **Parallel System (Logical OR - Redundant Architecture):**
-   The system functions if **at least one** component functions. It fails only when all components fail.
+2. **Παράλληλο σύστημα (Λογικό Ή - Περιττή Αρχιτεκτονική):**
+   Το σύστημα λειτουργεί εάν **λειτουργεί τουλάχιστον ένα** στοιχείο. Αποτυγχάνει μόνο όταν αποτύχουν όλα τα στοιχεία.
    $$T_{\text{sys}} = \max(T_1, T_2, \dots, T_n)$$
    $$F_{\text{sys}}(t) = P(T_{\text{sys}} \le t) = \prod_{i=1}^{n} P(T_i \le t) \implies R_{\text{sys}}(t) = 1 - \prod_{i=1}^{n} \left(1 - P(T_i > t)\right)$$
 
 ---
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-#### Independence Conditions
-Events $A$ and $B$ are independent if and only if any of the following equivalent statements hold:
+#### Προϋποθέσεις ανεξαρτησίας
+Τα συμβάντα $A$ και $B$ είναι ανεξάρτητα εάν και μόνο εάν ισχύει κάποια από τις ακόλουθες ισοδύναμες προτάσεις:
 1. $P(A \cap B) = P(A) \cdot P(B)$
-2. $P(A \mid B) = P(A)$ (assuming $P(B) > 0$)
-3. $P(B \mid A) = P(B)$ (assuming $P(A) > 0$)
+2. $P(A \mid B) = P(A)$ (υποθέτοντας $P(B) > 0$)
+3. $P(B \mid A) = P(B)$ (υποθέτοντας $P(A) > 0$)
 
-#### Independence of Complemented Events
-*Theorem:* If $A$ and $B$ are independent, then $A^c$ and $B^c$ are also independent.
-*Proof:*
+#### Ανεξαρτησία συμπληρωμένων εκδηλώσεων
+*Θεώρημα:* Εάν τα $A$ και $B$ είναι ανεξάρτητα, τότε τα $A^c$ και $B^c$ είναι επίσης ανεξάρτητα.
+*Απόδειξη:*
 $$P(A^c \cap B^c) = P((A \cup B)^c) = 1 - P(A \cup B)$$
 $$= 1 - [P(A) + P(B) - P(A \cap B)]$$
 $$= 1 - P(A) - P(B) + P(A)P(B) = (1 - P(A))(1 - P(B)) = P(A^c) \cdot P(B^c)$$
 
-#### Series and Parallel Reliability Formulas
-- **Series Reliability:** $R_{\text{series}}(t) = \prod_{i=1}^{n} R_i(t)$
-- **Parallel Reliability:** $R_{\text{parallel}}(t) = 1 - \prod_{i=1}^{n} (1 - R_i(t))$
-- **$k$-out-of-$n$ System Reliability (Identical $R_i(t) = R(t)$):**
+#### Τύποι σειράς και παράλληλης αξιοπιστίας
+- **Αξιοπιστία σειράς:** $R_{\text{series}}(t) = \prod_{i=1}^{n} R_i(t)$
+- **Παράλληλη αξιοπιστία:** $R_{\text{parallel}}(t) = 1 - \prod_{i=1}^{n} (1 - R_i(t))$
+- **$k$-out-of-$n$ Αξιοπιστία συστήματος (Παρόμοιο $R_i(t) = R(t)$):**
   $$R_{k:n}(t) = \sum_{j=k}^{n} \binom{n}{j} [R(t)]^j [1 - R(t)]^{n-j}$$
 
-> **Practical / Time-Domain Note:**
-> In distributed infrastructure, timers or worker processes running on separate virtual machines may appear independent, but if they share underlying physical CPU cores, hypervisors, or power units, a resource spike violates independence. Always audit for **shared infrastructure contention**.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Σε κατανεμημένη υποδομή, οι χρονομετρητές ή οι διεργασίες εργασίας που εκτελούνται σε ξεχωριστές εικονικές μηχανές μπορεί να εμφανίζονται ανεξάρτητες, αλλά εάν μοιράζονται υποκείμενους φυσικούς πυρήνες CPU, υπερεπόπτες ή μονάδες ισχύος, μια ακίδα πόρων παραβιάζει την ανεξαρτησία. Πάντα να ελέγχετε για **διαμάχη κοινής υποδομής**.
 
 ---
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 13: Testing Independence from Survey Data
-**Problem:** A survey of 1,000 users categorizes them by Device ($M = \text{Mobile}$, $D = \text{Desktop}$) and Subscription ($S = \text{Subscribed}$, $U = \text{Unsubscribed}$).
-Data: 600 Mobile users, 400 Subscribed users, and 240 users who are both Mobile and Subscribed.
-**a)** Are Device type ($M$) and Subscription status ($S$) independent?
-**b)** Calculate $P(S \mid M)$ and compare it with $P(S)$.
+#### Άσκηση 13: Έλεγχος της ανεξαρτησίας από τα δεδομένα της έρευνας
+**Πρόβλημα:** Μια έρευνα 1.000 χρηστών τους κατηγοριοποιεί ανά Συσκευή ($M = \text{Mobile}$, $D = \text{Desktop}$) και Συνδρομή ($S = \text{Subscribed}$, $U = \text{Unsubscribed}$).
+Δεδομένα: 600 χρήστες κινητής τηλεφωνίας, 400 εγγεγραμμένοι χρήστες και 240 χρήστες που είναι και εγγεγραμμένοι και κινητοί.
+**α)** Ο τύπος συσκευής ($M$) και η κατάσταση συνδρομής ($S$) είναι ανεξάρτητοι;
+**β)** Υπολογίστε $P(S \mid M)$ και σύγκρινε με $P(S)$.
 
-**Solution:**
-**Step 1:** Compute marginal probabilities:
+**Λύση:**
+**Βήμα 1:** Υπολογίστε οριακές πιθανότητες:
 $$P(M) = \frac{600}{1000} = 0.60, \quad P(S) = \frac{400}{1000} = 0.40$$
 $$P(M \cap S) = \frac{240}{1000} = 0.24$$
 
-**Step 2:** Test product rule for independence:
+**Βήμα 2:** Κανόνας δοκιμής προϊόντος για ανεξαρτησία:
 $$P(M) \cdot P(S) = 0.60 \cdot 0.40 = 0.24$$
-Since $P(M \cap S) = P(M) \cdot P(S) = 0.24$, events $M$ and $S$ are **statistically independent**.
+Από $P(M \cap S) = P(M) \cdot P(S) = 0.24$, τα συμβάντα $M$ και $S$ είναι **στατιστικά ανεξάρτητα**.
 
-**Step 3:** Compute $P(S \mid M)$:
+**Βήμα 3:** Υπολογίστε $P(S \mid M)$:
 $$P(S \mid M) = \frac{P(M \cap S)}{P(M)} = \frac{0.24}{0.60} = 0.40 = P(S)$$
 
-Final Answer: **a) Yes, independent ($P(M \cap S) = P(M)P(S) = 0.24$)**, **b) $P(S \mid M) = P(S) = 0.40$**
+Τελική απάντηση: **α) Ναι, ανεξάρτητο ($P(M \cap S) = P(M)P(S) = 0.24$)**, **β) $P(S \mid M) = P(S) = 0.40$**
 
 ---
 
-#### Exercise 14: Independence vs Disjointness in Dice Outcomes
-**Problem:** A fair 6-sided die is rolled. Define events:
-- $A = \{1, 2\}$ (Roll is 1 or 2)
-- $B = \{2, 4, 6\}$ (Roll is even)
-- $C = \{3, 5\}$ (Roll is 3 or 5)
-**a)** Are $A$ and $B$ independent? Are they disjoint?
-**b)** Are $A$ and $C$ independent? Are they disjoint?
+#### Άσκηση 14: Ανεξαρτησία εναντίον ασυνέπειας στα αποτελέσματα των ζαριών
+**Πρόβλημα:** Τυλίγεται μια δίκαιη μήτρα 6 πλευρών. Ορισμός συμβάντων:
+- $A = \{1, 2\}$ (το ρολό είναι 1 ή 2)
+- $B = \{2, 4, 6\}$ (Το ρολό είναι ζυγό)
+- $C = \{3, 5\}$ (το ρολό είναι 3 ή 5)
+**α)** Είναι τα $A$ και $B$ ανεξάρτητα; Είναι ασύνδετα;
+**β)** Είναι τα $A$ και $C$ ανεξάρτητα; Είναι ασύνδετα;
 
-**Solution:**
-Sample space $\Omega = \{1, 2, 3, 4, 5, 6\}$, so $P(\text{each outcome}) = 1/6$.
+**Λύση:**
+Δείγμα χώρου $\Omega = \{1, 2, 3, 4, 5, 6\}$, άρα $P(\text{each outcome}) = 1/6$.
 $P(A) = 2/6 = 1/3$, $P(B) = 3/6 = 1/2$, $P(C) = 2/6 = 1/3$.
 
-**a)** $A \cap B = \{2\} \implies P(A \cap B) = 1/6$.
-Product test: $P(A) \cdot P(B) = (1/3) \cdot (1/2) = 1/6$.
-Since $P(A \cap B) = P(A)P(B)$, $A$ and $B$ are **independent**.
-Since $A \cap B \neq \emptyset$, they are **not disjoint**.
+**α)** $A \cap B = \{2\} \implies P(A \cap B) = 1/6$.
+Δοκιμή προϊόντος: $P(A) \cdot P(B) = (1/3) \cdot (1/2) = 1/6$.
+Από $P(A \cap B) = P(A)P(B)$, οι $A$ και $B$ είναι **ανεξάρτητες**.
+Από $A \cap B \neq \emptyset$, **δεν είναι ασυνεχείς**.
 
-**b)** $A \cap C = \emptyset \implies P(A \cap C) = 0$.
-Since $A \cap C = \emptyset$, $A$ and $C$ are **disjoint (mutually exclusive)**.
-Product test: $P(A) \cdot P(C) = (1/3) \cdot (1/3) = 1/9 \neq 0$.
-Since $P(A \cap C) \neq P(A)P(C)$, $A$ and $C$ are **not independent**.
+**β)** $A \cap C = \emptyset \implies P(A \cap C) = 0$.
+Εφόσον $A \cap C = \emptyset$, $A$ και $C$ είναι **ασυνεχή (αμοιβαία αποκλειόμενα)**.
+Δοκιμή προϊόντος: $P(A) \cdot P(C) = (1/3) \cdot (1/3) = 1/9 \neq 0$.Εφόσον $P(A \cap C) \neq P(A)P(C)$, $A$ και $C$ **δεν είναι ανεξάρτητα**.
 
-Final Answer: **a) Independent, Not Disjoint**, **b) Disjoint, Not Independent**
+Τελική απάντηση: **α) Ανεξάρτητο, Όχι Ασυνεχές**, **β) Ασυνεχές, Μη Ανεξάρτητο**
 
 ---
 
-#### Exercise 15: Probability of At Least One Success in Independent Trials
-**Problem:** The probability of a network transmission error in any given $1\,[min]$ interval is $p = 0.05$. Assuming independent intervals:
-**a)** What is the probability of experiencing at least one error across 10 consecutive minutes?
-**b)** What R command computes this probability?
+#### Άσκηση 15: Πιθανότητα τουλάχιστον μίας επιτυχίας σε ανεξάρτητες δοκιμές
+**Πρόβλημα:** Η πιθανότητα σφάλματος μετάδοσης δικτύου σε οποιοδήποτε δεδομένο διάστημα $1\,[min]$ είναι $p = 0.05$. Υποθέτοντας ανεξάρτητα διαστήματα:
+**α)** Ποια είναι η πιθανότητα να εμφανιστεί τουλάχιστον ένα σφάλμα σε 10 συνεχόμενα λεπτά;
+**β)** Ποια εντολή R υπολογίζει αυτή την πιθανότητα;
 
-**Solution:**
-**Step 1:** Probability of NO error in 1 minute = $1 - p = 0.95$.
-**Step 2:** By independence, probability of NO errors in 10 minutes:
+**Λύση:**
+**Βήμα 1:** Πιθανότητα ΟΧΙ σφάλματος σε 1 λεπτό = $1 - p = 0.95$.
+**Βήμα 2:** Με την ανεξαρτησία, πιθανότητα ΟΧΙ σφαλμάτων σε 10 λεπτά:
 $$P(\text{No Errors in 10 min}) = (0.95)^{10} \approx 0.5987$$
-**Step 3:** Use complement rule for "at least one":
+**Βήμα 3:** Χρήση κανόνα συμπληρώματος για "τουλάχιστον ένα":
 $$P(\text{At Least 1 Error}) = 1 - (0.95)^{10} = 1 - 0.59874 = 0.40126 \approx 0.4013$$
 
-**Step 4:** R command:
-```r
+**Βήμα 4:** Εντολή R:```r
 p_at_least_1 <- 1 - pbinom(0, size = 10, prob = 0.05) # or 1 - (0.95)^10
-```
-
-Final Answer: **a) 0.4013 (40.13%)**, **b) `1 - (0.95)^10` or `1 - pbinom(0, 10, 0.05)`**
+```Τελική απάντηση: **α) 0,4013 (40,13%)**, **β) `1 - (0.95)^10` ή `1 - pbinom(0, 10, 0.05)`**
 
 ---
 
-#### Exercise 16: Redundant Parallel Database Cluster Reliability (Time-Domain)
-**Problem:** A critical cloud storage layer uses 3 independent redundant database nodes in parallel. Each node has a 24-hour survival probability of $R_i(24\,[hr]) = 0.90$.
-**a)** Calculate the overall 24-hour reliability of the parallel database cluster.
-**b)** If the nodes were configured in series (all 3 required), what would be the 24-hour system reliability?
+#### Άσκηση 16: Πλεονάζουσα παράλληλη αξιοπιστία συμπλέγματος βάσεων δεδομένων (Time-Domain)
+**Πρόβλημα:** Ένα κρίσιμο επίπεδο αποθήκευσης cloud χρησιμοποιεί 3 ανεξάρτητους περιττούς κόμβους βάσης δεδομένων παράλληλα. Κάθε κόμβος έχει 24ωρη πιθανότητα επιβίωσης $R_i(24\,[hr]) = 0.90$.
+**α)** Υπολογίστε τη συνολική 24ωρη αξιοπιστία του συμπλέγματος παράλληλων βάσεων δεδομένων.
+**β)** Εάν οι κόμβοι είχαν ρυθμιστεί σε σειρά (και οι 3 απαιτούνται), ποια θα ήταν η 24ωρη αξιοπιστία του συστήματος;
 
-**Solution:**
-**a) Parallel Architecture:**
-Failure probability of each node: $F_i = 1 - 0.90 = 0.10$.
-Cluster fails iff all 3 nodes fail:
+**Λύση:**
+**α) Παράλληλη Αρχιτεκτονική:**
+Πιθανότητα αποτυχίας κάθε κόμβου: $F_i = 1 - 0.90 = 0.10$.
+Το σύμπλεγμα αποτυγχάνει εάν αποτύχουν και οι 3 κόμβοι:
 $$F_{\text{cluster}} = (0.10)^3 = 0.0010$$
 $$R_{\text{parallel}}(24\,[hr]) = 1 - F_{\text{cluster}} = 1 - 0.0010 = 0.9990 \text{ (99.90\%)}$$
 
-**b) Series Architecture:**
+**β) Αρχιτεκτονική σειράς:**
 $$R_{\text{series}}(24\,[hr]) = (0.90)^3 = 0.7290 \text{ (72.90\%)}$$
 
-Final Answer: **a) 0.9990 (99.90%)**, **b) 0.7290 (72.90%)**
+Τελική απάντηση: **α) 0,9990 (99,90%)**, **β) 0,7290 (72,90%)**
 
 ---
 
-#### Exercise 17: Series Pipeline Hardware Latency & Clock Skew (Time-Domain)
-**Problem:** A digital clock distribution path has 4 sequential flip-flop stages in series. Stage survival within clock-to-Q timing window $T_{\text{clk}\to q} = 500\,[ps]$ are independent with $R_1 = 0.995, R_2 = 0.990, R_3 = 0.992, R_4 = 0.998$.
-**a)** Compute the end-to-end timing reliability $R_{\text{path}}$.
-**b)** If clock skew introduces coupling between stages 2 and 3 such that $P(\text{Stage 3 holds} \mid \text{Stage 2 holds}) = 0.980$ (instead of 0.992), calculate the revised path reliability.
+#### Άσκηση 17: Καθυστέρηση υλικού σειράς Pipeline & Clock Skew (Time-Domain)
+**Πρόβλημα:** Μια διαδρομή διανομής ψηφιακού ρολογιού έχει 4 διαδοχικά στάδια flip-flop σε σειρά. Η επιβίωση σταδίου εντός του χρονικού παραθύρου clock-to-Q $T_{\text{clk}\to q} = 500\,[ps]$ είναι ανεξάρτητη με $R_1 = 0.995, R_2 = 0.990, R_3 = 0.992, R_4 = 0.998$.
+**α)** Υπολογίστε την αξιοπιστία χρονισμού από άκρο σε άκρο $R_{\text{path}}$.
+**β)** Εάν η κλίση του ρολογιού εισάγει σύζευξη μεταξύ των σταδίων 2 και 3 έτσι ώστε $P(\text{Stage 3 holds} \mid \text{Stage 2 holds}) = 0.980$ (αντί για 0,992), υπολογίστε την αναθεωρημένη αξιοπιστία διαδρομής.
 
-**Solution:**
-**a) Independent Series Path:**
+**Λύση:**
+**α) Ανεξάρτητη διαδρομή σειράς:**
 $$R_{\text{path}} = R_1 \cdot R_2 \cdot R_3 \cdot R_4 = 0.995 \cdot 0.990 \cdot 0.992 \cdot 0.998 = 0.97517 \approx 0.9752$$
 
-**b) Coupled Path (Dependent Stages 2 & 3):**
+**β) Συζευγμένη διαδρομή (εξαρτώμενα στάδια 2 και 3):**
 $$R_{\text{revised}} = R_1 \cdot R_2 \cdot P(\text{Stage 3} \mid \text{Stage 2}) \cdot R_4 = 0.995 \cdot 0.990 \cdot 0.980 \cdot 0.998 = 0.96336 \approx 0.9634$$
 
-Final Answer: **a) 0.9752 (97.52%)**, **b) 0.9634 (96.34%)**
+Τελική απάντηση: **α) 0,9752 (97,52%)**, **β) 0,9634 (96,34%)**
 
 ---
 
-#### Exercise 18: Autocorrelation & Independence Test of Time Spikes (Time-Domain)
-**Problem:** Latency logs record execution spike events ($E_t = 1$ if latency $> 200\,[ms]$, else $0$) across consecutive minutes. Out of 1,000 minutes:
-- $E_t = 1$ occurred in 100 minutes ($P(E_t) = 0.10$).
-- $E_{t+1} = 1$ given $E_t = 1$ occurred in 35 minutes.
-**a)** Compute $P(E_t \cap E_{t+1})$ and test if consecutive latency spikes are independent.
-**b)** Write an R snippet using `cor.test()` to test for serial correlation.
+#### Άσκηση 18: Δοκιμή αυτοσυσχέτισης και ανεξαρτησίας αιχμών χρόνου (Time-Domain)
+**Πρόβλημα:** Τα αρχεία καταγραφής λανθάνοντος χρόνου καταγράφουν συμβάντα αιχμής εκτέλεσης ($E_t = 1$ εάν η καθυστέρηση $> 200\,[ms]$, διαφορετικά $0$) σε διαδοχικά λεπτά. Από 1.000 λεπτά:
+- $E_t = 1$ σημειώθηκε σε 100 λεπτά ($P(E_t) = 0.10$).
+- $E_{t+1} = 1$ δεδομένου ότι $E_t = 1$ σημειώθηκε σε 35 λεπτά.
+**α)** Υπολογίστε $P(E_t \cap E_{t+1})$ και ελέγξτε εάν οι διαδοχικές αιχμές καθυστέρησης είναι ανεξάρτητες.
+**β)** Γράψτε ένα απόσπασμα R χρησιμοποιώντας `cor.test()` για να ελέγξετε τη σειριακή συσχέτιση.
 
-**Solution:**
-**Step 1:** Compute joint probability:
+**Λύση:**
+**Βήμα 1:** Υπολογισμός κοινής πιθανότητας:
 $$P(E_t \cap E_{t+1}) = P(E_t) \cdot P(E_{t+1} \mid E_t) = 0.10 \cdot \frac{35}{100} = 0.0350$$
 
-**Step 2:** Independence test:
-If independent, $P(E_t) \cdot P(E_{t+1}) = 0.10 \cdot 0.10 = 0.0100$.
-Since $P(E_t \cap E_{t+1}) = 0.0350 \neq 0.0100$, consecutive latency spikes are **strongly dependent (autocorrelated)**.
+**Βήμα 2:** Δοκιμή ανεξαρτησίας:
+Εάν είναι ανεξάρτητο, $P(E_t) \cdot P(E_{t+1}) = 0.10 \cdot 0.10 = 0.0100$.
+Από $P(E_t \cap E_{t+1}) = 0.0350 \neq 0.0100$, οι διαδοχικές αιχμές λανθάνοντος χρόνου **εξαρτώνται έντονα (αυτοσυσχετίζονται)**.
 
-**Step 3:** R code:
-```r
+**Βήμα 3:** Κωδικός R:```r
 # R snippet testing autocorrelation between lag-1 spike vectors
 spikes_t   <- spike_vec[-length(spike_vec)]
 spikes_t1  <- spike_vec[-1]
 test_res   <- cor.test(spikes_t, spikes_t1)
 print(test_res$p.value)
-```
-
-Final Answer: **a) $P(E_t \cap E_{t+1}) = 0.0350 \neq 0.0100 \implies$ Dependent (Autocorrelated)**, **b) R code provided above**
+```Τελική απάντηση: **α) $P(E_t \cap E_{t+1}) = 0.0350 \neq 0.0100 \implies$ Εξαρτημένο (Αυτοσυσχετισμένο)**, **β) Ο κωδικός R που παρέχεται παραπάνω**
 
 ---
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # R Implementation for Section 3.3: Independence & System Reliability
 
 # 1. Contingency Independence Test (Chi-Square Test)
@@ -694,21 +652,17 @@ r_parallel_sim <- mean(pmax(t_comp1, t_comp2, t_comp3) > target_t)
 
 cat("Simulated Series Reliability:", r_series_sim, "\n")
 cat("Simulated Parallel Reliability:", r_parallel_sim, "\n")
-```
+```---
 
----
+## Ενότητα 3.4: Νόμος της ολικής πιθανότητας & θεώρημα Bayes
 
-## Section 3.4: Law of Total Probability & Bayes' Theorem
+### Θεωρία Πυρήνα & Ορισμοί
 
-### Core Theory & Definitions
-
-#### Partition of a Sample Space
-A collection of events $\{B_1, B_2, \dots, B_n\}$ forms a **partition** of the sample space $\Omega$ if:
-1. The events are mutually exclusive: $B_i \cap B_j = \emptyset$ for all $i \neq j$.
-2. The events are collectively exhaustive: $\bigcup_{i=1}^{n} B_i = \Omega$.
-3. $P(B_i) > 0$ for all $i = 1, \dots, n$.
-
-```
+#### Διαμέρισμα ενός Δειγματικού Χώρου
+Μια συλλογή συμβάντων $\{B_1, B_2, \dots, B_n\}$ σχηματίζει ένα **διαμέρισμα** του δείγματος χώρου $\Omega$ εάν:
+1. Οι εκδηλώσεις είναι αμοιβαία αποκλειόμενες: $B_i \cap B_j = \emptyset$ για όλους τους $i \neq j$.
+2. Οι εκδηλώσεις είναι συλλογικά εξαντλητικές: $\bigcup_{i=1}^{n} B_i = \Omega$.
+3. $P(B_i) > 0$ για όλα τα $i = 1, \dots, n$.```
 Partition of Ω into B_1, B_2, B_3, B_4:
 +------------------------------------+
 |  B_1   |   B_2   |   B_3  |  B_4   |
@@ -717,189 +671,182 @@ Partition of Ω into B_1, B_2, B_3, B_4:
 |     +--+---------+--------+--+     |
 +------------------------------------+
   Event A is composed of slices (A ∩ B_i) across each partition block.
-```
-
-#### Law of Total Probability
-The Law of Total Probability calculates the unconditional probability $P(A)$ of an event $A$ by summing its conditional probabilities across all partition components $B_i$, weighted by the prior probability of each component:
+```#### Νόμος της συνολικής πιθανότητας
+Ο νόμος της συνολικής πιθανότητας υπολογίζει την άνευ όρων πιθανότητα $P(A)$ ενός γεγονότος $A$ αθροίζοντας τις υπό όρους πιθανότητες σε όλα τα στοιχεία του διαμερίσματος $B_i$, σταθμισμένα με την προηγούμενη πιθανότητα κάθε στοιχείου:
 $$P(A) = \sum_{i=1}^{n} P(A \cap B_i) = \sum_{i=1}^{n} P(A \mid B_i) P(B_i)$$
 
-#### Bayes' Theorem
-Bayes' Theorem provides the mathematical framework for **updating probabilities in light of new evidence**. It converts a **prior probability** $P(B_k)$ (our baseline belief before observing evidence) into a **posterior probability** $P(B_k \mid A)$ (our updated belief after observing evidence $A$).
+#### Θεώρημα Bayes
+Το θεώρημα Bayes παρέχει το μαθηματικό πλαίσιο για **την ενημέρωση των πιθανοτήτων υπό το φως νέων στοιχείων**. Μετατρέπει μια **προηγούμενη πιθανότητα** $P(B_k)$ (η βασική μας πεποίθηση πριν από την παρατήρηση στοιχείων) σε **μεταγενέστερη πιθανότητα** $P(B_k \mid A)$ (η ενημερωμένη μας πεποίθηση μετά την παρατήρηση των αποδεικτικών στοιχείων $A$).
 
-The four key components of Bayes' Theorem are:
-1. **Prior Probability $P(B_k)$:** Baseline probability of hypothesis $B_k$.
-2. **Likelihood $P(A \mid B_k)$:** Probability of observing evidence $A$ given hypothesis $B_k$.
-3. **Marginal Likelihood $P(A)$:** Overall probability of observing evidence $A$ across all hypotheses (computed via Law of Total Probability).
-4. **Posterior Probability $P(B_k \mid A)$:** Updated probability of hypothesis $B_k$ given evidence $A$.
+Τα τέσσερα βασικά συστατικά του Θεωρήματος του Bayes είναι:
+1. **Προηγούμενη πιθανότητα $P(B_k)$:** Πιθανότητα βάσης της υπόθεσης $B_k$.
+2. **Πιθανότητα $P(A \mid B_k)$:** Πιθανότητα παρατήρησης στοιχείων $A$ δεδομένης υπόθεσης $B_k$.
+3. **Οριακή πιθανότητα $P(A)$:** Συνολική πιθανότητα παρατήρησης αποδεικτικών στοιχείων $A$ σε όλες τις υποθέσεις (υπολογισμένη μέσω του νόμου της συνολικής πιθανότητας).
+4. **Μεταγενέστερη πιθανότητα $P(B_k \mid A)$:** Ενημερωμένη πιθανότητα υπόθεσης $B_k$ δεδομένης απόδειξης $A$.
 
-#### Time-Domain Application: Anomaly Isolation & Root-Cause Diagnosis
-In system reliability and time-series monitoring, Bayes' Theorem isolates root causes of performance degradations. For example, if a high latency spike ($A$) is detected, Bayes' Theorem computes the posterior probability $P(B_k \mid A)$ that the root cause was a Database Lock ($B_1$), Network Congestion ($B_2$), or Garbage Collection Pause ($B_3$).
+#### Εφαρμογή Time-Domain: Απομόνωση ανωμαλιών & Διάγνωση ριζικής αιτίας
+Στην αξιοπιστία του συστήματος και στην παρακολούθηση χρονοσειρών, το θεώρημα του Bayes απομονώνει τις βασικές αιτίες υποβάθμισης της απόδοσης. Για παράδειγμα, εάν ανιχνευθεί μια αιχμή υψηλής καθυστέρησης ($A$), το θεώρημα του Bayes υπολογίζει την οπίσθια πιθανότητα $P(B_k \mid A)$ ότι η βασική αιτία ήταν ένα Κλείδωμα Βάσης Δεδομένων ($B_1$), Συμφόρηση δικτύου ($B_2$) ή Σκουπίδια (IN_LINE_0).
 
 ---
 
-### Mathematical Formulas & Derivations
+### Μαθηματικοί Τύποι & Παραγωγές
 
-#### Law of Total Probability Formula
+#### Τύπος του νόμου της συνολικής πιθανότητας
 $$P(A) = P(A \mid B_1)P(B_1) + P(A \mid B_2)P(B_2) + \dots + P(A \mid B_n)P(B_n) = \sum_{i=1}^{n} P(A \mid B_i)P(B_i)$$
 
-#### Bayes' Theorem Formula (General Partition Form)
-For a partition $\{B_1, B_2, \dots, B_n\}$ and an observed event $A$ with $P(A) > 0$:
+#### Τύπος Θεωρήματος Bayes (Γενική φόρμα κατανομής)
+Για ένα διαμέρισμα $\{B_1, B_2, \dots, B_n\}$ και ένα παρατηρούμενο συμβάν $A$ με $P(A) > 0$:
 $$P(B_k \mid A) = \frac{P(A \cap B_k)}{P(A)} = \frac{P(A \mid B_k) P(B_k)}{\sum_{j=1}^{n} P(A \mid B_j) P(B_j)}$$
 
-#### Binary Diagnostic / Screening Bayes Formula
-In medical screening or binary signal detection:
-- **Prevalence (Base Rate):** $p = P(D)$
-- **Sensitivity (True Positive Rate):** $\text{Sens} = P(Pos \mid D)$
-- **Specificity (True Negative Rate):** $\text{Spec} = P(Neg \mid D^c) \implies P(Pos \mid D^c) = 1 - \text{Spec}$
+#### Δυαδικός τύπος διάγνωσης / ελέγχου Bayes
+Σε ιατρικό έλεγχο ή ανίχνευση δυαδικού σήματος:
+- **Επιπολασμός (Βασικός ρυθμός):** $p = P(D)$
+- **Ευαισθησία (πραγματικό θετικό ποσοστό):** $\text{Sens} = P(Pos \mid D)$
+- **Ειδικότητα (πραγματικό αρνητικό ποσοστό):** $\text{Spec} = P(Neg \mid D^c) \implies P(Pos \mid D^c) = 1 - \text{Spec}$
 
 $$P(D \mid Pos) = \frac{\text{Sens} \cdot p}{\text{Sens} \cdot p + (1 - \text{Spec}) \cdot (1 - p)}$$
 
-> **Practical / Time-Domain Note:**
-> The **Base Rate Fallacy** occurs when an analyst ignores low prior probabilities $P(B_k)$. Even if a diagnostic test or anomaly alert has 99% accuracy ($P(A \mid B_k) = 0.99$), if the event $B_k$ is extremely rare ($P(B_k) = 0.001$), the majority of alerts will be false positives. Always evaluate the marginal denominator $P(A)$ explicitly.
+> **Πρακτικό / Σημείωση στον τομέα χρόνου:**
+> Η **Πλάθος βασικού ποσοστού** εμφανίζεται όταν ένας αναλυτής αγνοεί τις χαμηλές προηγούμενες πιθανότητες $P(B_k)$. Ακόμα κι αν μια διαγνωστική δοκιμή ή μια ειδοποίηση ανωμαλίας έχει ακρίβεια 99% ($P(A \mid B_k) = 0.99$), εάν το συμβάν $B_k$ είναι εξαιρετικά σπάνιο ($P(B_k) = 0.001$), η πλειονότητα των ειδοποιήσεων θα είναι ψευδώς θετικές. Να αξιολογείτε πάντα ρητά τον οριακό παρονομαστή $P(A)$.
 
 ---
 
-### Worked Exercises
+### Δουλευμένες Ασκήσεις
 
-#### Exercise 19: Three-Factory Defect Analysis (Classic Partition Bayes)
-**Problem:** A company buys components from 3 suppliers: Factory 1 ($B_1$, 50% of supply), Factory 2 ($B_2$, 30%), and Factory 3 ($B_3$, 20%). Defect rates are 1% for $B_1$, 2% for $B_2$, and 5% for $B_3$.
-**a)** Calculate the overall defect rate $P(D)$ across all incoming inventory.
-**b)** If a randomly inspected component is defective ($D$), what is the posterior probability that it originated from Factory 3 ($B_3$)?
+#### Άσκηση 19: Ανάλυση ελαττωμάτων τριών εργοστασίων (Classic Partition Bayes)
+**Πρόβλημα:** Μια εταιρεία αγοράζει εξαρτήματα από 3 προμηθευτές: Εργοστάσιο 1 ($B_1$, 50% της προμήθειας), Εργοστάσιο 2 ($B_2$, 30%) και Εργοστάσιο 3 ($B_3$, 20%). Τα ποσοστά ελαττωμάτων είναι 1% για $B_1$, 2% για $B_2$ και 5% για $B_3$.
+**α)** Υπολογίστε το συνολικό ποσοστό ελαττωμάτων $P(D)$ σε όλο το εισερχόμενο απόθεμα.
+**β)** Εάν ένα εξάρτημα που επιθεωρήθηκε τυχαία είναι ελαττωματικό ($D$), ποια είναι η μεταγενέστερη πιθανότητα να προέρχεται από το Factory 3 ($B_3$);
 
-**Solution:**
-**Step 1:** Identify priors and likelihoods:
-Priors: $P(B_1) = 0.50$, $P(B_2) = 0.30$, $P(B_3) = 0.20$.
-Likelihoods: $P(D \mid B_1) = 0.01$, $P(D \mid B_2) = 0.02$, $P(D \mid B_3) = 0.05$.
-
-**Step 2:** For part **a)**, apply the Law of Total Probability:
+**Λύση:**
+**Βήμα 1:** Προσδιορίστε προτεραιότητες και πιθανότητες:
+Προηγούμενες: $P(B_1) = 0.50$, $P(B_2) = 0.30$, $P(B_3) = 0.20$.
+Πιθανότητες: $P(D \mid B_1) = 0.01$, $P(D \mid B_2) = 0.02$, $P(D \mid B_3) = 0.05$.**Βήμα 2:** Για το μέρος **α)**, εφαρμόστε τον νόμο της συνολικής πιθανότητας:
 $$P(D) = P(D \mid B_1)P(B_1) + P(D \mid B_2)P(B_2) + P(D \mid B_3)P(B_3)$$
 $$P(D) = (0.01 \cdot 0.50) + (0.02 \cdot 0.30) + (0.05 \cdot 0.20) = 0.005 + 0.006 + 0.010 = 0.0210 \text{ (2.10\%)}$$
 
-**Step 3:** For part **b)**, apply Bayes' Theorem for $B_3$:
+**Βήμα 3:** Για το μέρος **β)**, εφαρμόστε το Θεώρημα Bayes για $B_3$:
 $$P(B_3 \mid D) = \frac{P(D \mid B_3)P(B_3)}{P(D)} = \frac{0.05 \cdot 0.20}{0.0210} = \frac{0.0100}{0.0210} = \frac{10}{21} \approx 0.4762$$
 
-Final Answer: **a) 0.0210 (2.10%)**, **b) 10/21 (0.4762)**
+Τελική απάντηση: **α) 0,0210 (2,10%)**, **β) 10/21 (0,4762)**
 
 ---
 
-#### Exercise 20: Medical Disease Screening Sensitivity/Specificity (Bayes Base-Rate)
-**Problem:** A rare disease affects 0.2% of the population ($P(D) = 0.002$). A diagnostic test has 98% sensitivity ($P(Pos \mid D) = 0.98$) and 95% specificity ($P(Neg \mid D^c) = 0.95$).
-**a)** Find the total probability that a randomly selected person tests positive ($P(Pos)$).
-**b)** If a patient tests positive, what is the posterior probability that they actually have the disease ($P(D \mid Pos)$)?
+#### Άσκηση 20: Ευαισθησία/Ειδικότητα προσυμπτωματικού ελέγχου ιατρικών ασθενειών (Βασικός ρυθμός Bayes)
+**Πρόβλημα:** Μια σπάνια ασθένεια επηρεάζει το 0,2% του πληθυσμού ($P(D) = 0.002$). Ένα διαγνωστικό τεστ έχει 98% ευαισθησία ($P(Pos \mid D) = 0.98$) και 95% ειδικότητα ($P(Neg \mid D^c) = 0.95$).
+**α)** Βρείτε τη συνολική πιθανότητα ένα τυχαία επιλεγμένο άτομο να βγει θετικό ($P(Pos)$).
+**β)** Εάν ένας ασθενής βγει θετικός στο τεστ, ποια είναι η μετέπειτα πιθανότητα να έχει πράγματι τη νόσο ($P(D \mid Pos)$);
 
-**Solution:**
-**Step 1:** Identify parameters:
+**Λύση:**
+**Βήμα 1:** Προσδιορισμός παραμέτρων:
 $P(D) = 0.002 \implies P(D^c) = 0.998$.
 $P(Pos \mid D) = 0.98$.
 $P(Pos \mid D^c) = 1 - P(Neg \mid D^c) = 1 - 0.95 = 0.05$.
 
-**Step 2:** For part **a)**, calculate $P(Pos)$ using Law of Total Probability:
+**Βήμα 2:** Για το μέρος **α)**, υπολογίστε $P(Pos)$ χρησιμοποιώντας τον νόμο της συνολικής πιθανότητας:
 $$P(Pos) = P(Pos \mid D)P(D) + P(Pos \mid D^c)P(D^c)$$
 $$P(Pos) = (0.98 \cdot 0.002) + (0.05 \cdot 0.998) = 0.00196 + 0.04990 = 0.05186 \approx 0.0519$$
 
-**Step 3:** For part **b)**, apply Bayes' Theorem:
+**Βήμα 3:** Για το μέρος **β)**, εφαρμόστε το θεώρημα Bayes:
 $$P(D \mid Pos) = \frac{P(Pos \mid D)P(D)}{P(Pos)} = \frac{0.00196}{0.05186} \approx 0.03779 \approx 0.0378$$
 
-> **Note:** Despite 98% test sensitivity, a positive result only carries a 3.78% probability of true disease due to the low base rate (0.2%).
+> **Σημείωση:** Παρά το 98% της ευαισθησίας του τεστ, ένα θετικό αποτέλεσμα έχει μόνο 3,78% πιθανότητα αληθινής νόσου λόγω του χαμηλού βασικού ποσοστού (0,2%).
 
-Final Answer: **a) 0.0519 (5.19%)**, **b) 0.0378 (3.78%)**
+Τελική απάντηση: **α) 0,0519 (5,19%)**, **β) 0,0378 (3,78%)**
 
 ---
 
-#### Exercise 21: Binary Symmetric Channel Transmission Error
-**Problem:** A binary communication channel transmits bits $X \in \{0, 1\}$ with prior probabilities $P(X=0) = 0.60$ and $P(X=1) = 0.40$. Due to noise, bit inversion error probability is $p_e = 0.05$ (i.e., $P(Y=1 \mid X=0) = 0.05$ and $P(Y=0 \mid X=1) = 0.05$).
-**a)** Calculate the overall probability that bit $Y=1$ is received.
-**b)** Given that $Y=1$ was received, what is the posterior probability that $X=1$ was transmitted?
+#### Άσκηση 21: Σφάλμα μετάδοσης δυαδικού συμμετρικού καναλιού
+**Πρόβλημα:** Ένα δυαδικό κανάλι επικοινωνίας μεταδίδει bits $X \in \{0, 1\}$ με προηγούμενες πιθανότητες $P(X=0) = 0.60$ και $P(X=1) = 0.40$. Λόγω θορύβου, η πιθανότητα σφάλματος αναστροφής bit είναι $p_e = 0.05$ (δηλαδή, $P(Y=1 \mid X=0) = 0.05$ και $P(Y=0 \mid X=1) = 0.05$).
+**α)** Υπολογίστε τη συνολική πιθανότητα να ληφθεί το bit $Y=1$.
+**β)** Δεδομένου ότι ελήφθη η $Y=1$, ποια είναι η μεταγενέστερη πιθανότητα να μεταδόθηκε η $X=1$;
 
-**Solution:**
-**Step 1:** Likelihoods:
+**Λύση:**
+**Βήμα 1:** Πιθανότητες:
 $P(Y=1 \mid X=1) = 0.95$, $P(Y=1 \mid X=0) = 0.05$.
 
-**Step 2:** For part **a)**, apply Law of Total Probability:
+**Βήμα 2:** Για το μέρος **α)**, εφαρμόστε τον νόμο της συνολικής πιθανότητας:
 $$P(Y=1) = P(Y=1 \mid X=1)P(X=1) + P(Y=1 \mid X=0)P(X=0)$$
 $$P(Y=1) = (0.95 \cdot 0.40) + (0.05 \cdot 0.60) = 0.380 + 0.030 = 0.4100$$
 
-**Step 3:** For part **b)**, apply Bayes' Theorem:
+**Βήμα 3:** Για το μέρος **β)**, εφαρμόστε το θεώρημα Bayes:
 $$P(X=1 \mid Y=1) = \frac{P(Y=1 \mid X=1)P(X=1)}{P(Y=1)} = \frac{0.380}{0.410} = \frac{38}{41} \approx 0.9268$$
 
-Final Answer: **a) 0.4100 (41.00%)**, **b) 38/41 (0.9268)**
+Τελική απάντηση: **α) 0,4100 (41,00%)**, **β) 38/41 (0,9268)**
 
 ---
 
-#### Exercise 22: Server Load Regime Isolation from Query Latency Spike (Time-Domain)
-**Problem:** A web server operates under 3 load regimes: Off-Peak ($B_1$, 50% of time), Normal ($B_2$, 40%), and Peak ($B_3$, 10%). The probability of a query latency spike ($S$, latency $> 500\,[ms]$) under each regime is:
+#### Άσκηση 22: Απομόνωση καθεστώτος φόρτωσης διακομιστή από ακίδα καθυστέρησης ερωτήματος (Time-Domain)
+**Πρόβλημα:** Ένας διακομιστής ιστού λειτουργεί υπό 3 καθεστώτα φόρτωσης: Εκτός αιχμής ($B_1$, 50% του χρόνου), Κανονική ($B_2$, 40%) και Αιχμή ($B_3$, 10%). Η πιθανότητα μιας αιχμής λανθάνοντος χρόνου ερωτήματος ($S$, καθυστέρηση $> 500\,[ms]$) σε κάθε καθεστώς είναι:
 $P(S \mid B_1) = 0.01$, $P(S \mid B_2) = 0.05$, $P(S \mid B_3) = 0.40$.
-**a)** Compute the total probability $P(S)$ of observing a query latency spike.
-**b)** If a monitoring alert detects a latency spike ($S$), what is the posterior probability that the server is in Peak load regime ($B_3$)?
+**α)** Υπολογίστε τη συνολική πιθανότητα $P(S)$ παρατήρησης μιας αιχμής καθυστέρησης ερωτήματος.
+**β)** Εάν μια ειδοποίηση παρακολούθησης ανιχνεύσει μια αιχμή λανθάνουσας κατάστασης ($S$), ποια είναι η μεταγενέστερη πιθανότητα ο διακομιστής να βρίσκεται σε καθεστώς αιχμής φορτίου ($B_3$);
 
-**Solution:**
-**Step 1:** Priors: $P(B_1) = 0.50$, $P(B_2) = 0.40$, $P(B_3) = 0.10$.
+**Λύση:**
+**Βήμα 1:** Προγενέστεροι: $P(B_1) = 0.50$, $P(B_2) = 0.40$, $P(B_3) = 0.10$.
 
-**Step 2:** For part **a)**:
+**Βήμα 2:** Για το μέρος **α)**:
 $$P(S) = (0.01 \cdot 0.50) + (0.05 \cdot 0.40) + (0.40 \cdot 0.10) = 0.005 + 0.020 + 0.040 = 0.0650 \text{ (6.50\%)}$$
 
-**Step 3:** For part **b)**:
+**Βήμα 3:** Για το μέρος **β)**:
 $$P(B_3 \mid S) = \frac{P(S \mid B_3)P(B_3)}{P(S)} = \frac{0.040}{0.0650} = \frac{40}{65} = \frac{8}{13} \approx 0.6154$$
 
-Final Answer: **a) 0.0650 (6.50%)**, **b) 8/13 (0.6154)**
+Τελική απάντηση: **α) 0,0650 (6,50%)**, **β) 8/13 (0,6154)**
 
 ---
 
-#### Exercise 23: Timestamp-Based Anomaly Filter Classification (Time-Domain)
-**Problem:** An automated network filter classifies packet arrivals as Normal ($N$, 95%) or Malicious ($M$, 5%). The filter flags an anomaly alert ($A$) based on timestamp jitter metrics. Likelihoods are $P(A \mid M) = 0.90$ and $P(A \mid N) = 0.02$.
-**a)** Compute $P(A)$ (total probability of an alert).
-**b)** Compute $P(M \mid A)$ (probability a flagged packet is actually malicious).
-
-**Solution:**
-**a)** Apply Law of Total Probability:
+#### Άσκηση 23: Ταξινόμηση φίλτρου ανωμαλίας βάσει χρονικής σφραγίδας (Time-Domain)
+**Πρόβλημα:** Ένα αυτοματοποιημένο φίλτρο δικτύου ταξινομεί τις αφίξεις πακέτων ως Κανονικές ($N$, 95%) ή Κακόβουλες ($M$, 5%). Το φίλτρο επισημαίνει μια ειδοποίηση ανωμαλίας ($A$) με βάση τις μετρήσεις jitter της χρονικής σήμανσης. Οι πιθανότητες είναι $P(A \mid M) = 0.90$ και $P(A \mid N) = 0.02$.
+**α)** Υπολογίστε $P(A)$ (συνολική πιθανότητα ειδοποίησης).
+**β)** Υπολογίστε $P(M \mid A)$ (πιθανότητα ένα πακέτο με σημαία να είναι στην πραγματικότητα κακόβουλο).**Λύση:**
+**α)** Εφαρμόστε τον νόμο της συνολικής πιθανότητας:
 $$P(A) = P(A \mid M)P(M) + P(A \mid N)P(N) = (0.90 \cdot 0.05) + (0.02 \cdot 0.95) = 0.045 + 0.019 = 0.0640$$
 
-**b)** Apply Bayes' Theorem:
+**β)** Εφαρμογή του θεωρήματος Bayes:
 $$P(M \mid A) = \frac{P(A \mid M)P(M)}{P(A)} = \frac{0.045}{0.0640} = \frac{45}{64} \approx 0.7031$$
 
-Final Answer: **a) 0.0640 (6.40%)**, **b) 45/64 (0.7031)**
+Τελική απάντηση: **α) 0,0640 (6,40%)**, **β) 45/64 (0,7031)**
 
 ---
 
-#### Exercise 24: Software Failure Root-Cause Diagnosis (Time-Domain)
-**Problem:** Software execution crashes ($C$) are caused by 3 bug categories: Memory Leak ($B_1$, prior 40%), Null Pointer ($B_2$, prior 35%), and Deadlock ($B_3$, prior 25%).
-Probability of execution crash taking $> 10\,[s]$ before failure:
+#### Άσκηση 24: Διάγνωση ριζικής αιτίας αποτυχίας λογισμικού (Time-Domain)
+**Πρόβλημα:** Τα σφάλματα εκτέλεσης λογισμικού ($C$) προκαλούνται από 3 κατηγορίες σφαλμάτων: Διαρροή μνήμης ($B_1$, πριν από 40%), Μηδενικός δείκτης ($B_2$, πριν από 35%) και Αδιέξοδος (__2_5%), προηγούμενα 1
+Πιθανότητα σφάλματος εκτέλεσης που λαμβάνει $> 10\,[s]$ πριν από την αποτυχία:
 $P(> 10\,[s] \mid B_1) = 0.80$, $P(> 10\,[s] \mid B_2) = 0.10$, $P(> 10\,[s] \mid B_3) = 0.60$.
-**a)** Compute total probability $P(> 10\,[s])$.
-**b)** Given a crash took $> 10\,[s]$, find posterior probability $P(B_1 \mid > 10\,[s])$.
+**α)** Υπολογίστε τη συνολική πιθανότητα $P(> 10\,[s])$.
+**β)** Δεδομένου ότι χρειάστηκε μια συντριβή $> 10\,[s]$, βρείτε την υστέρηση πιθανότητας $P(B_1 \mid > 10\,[s])$.
 
-**Solution:**
-**a)** $P(> 10\,[s]) = (0.80 \cdot 0.40) + (0.10 \cdot 0.35) + (0.60 \cdot 0.25) = 0.320 + 0.035 + 0.150 = 0.5050$.
+**Λύση:**
+**α)** $P(> 10\,[s]) = (0.80 \cdot 0.40) + (0.10 \cdot 0.35) + (0.60 \cdot 0.25) = 0.320 + 0.035 + 0.150 = 0.5050$.
 
-**b)** $P(B_1 \mid > 10\,[s]) = \frac{0.320}{0.5050} = \frac{320}{505} = \frac{64}{101} \approx 0.6337$.
+**β)** $P(B_1 \mid > 10\,[s]) = \frac{0.320}{0.5050} = \frac{320}{505} = \frac{64}{101} \approx 0.6337$.
 
-Final Answer: **a) 0.5050 (50.50%)**, **b) 64/101 (0.6337)**
+Τελική απάντηση: **α) 0,5050 (50,50%)**, **β) 64/101 (0,6337)**
 
 ---
 
-#### Exercise 25: Cloud Instance Reboot Mode Posterior Update (Time-Domain)
-**Problem:** Server reboots occur due to Hardware Fault ($H$, 10%), OS Kernel Panic ($K$, 30%), or Scheduled Maintenance ($M$, 60%). The reboot duration exceeds $5\,[min]$ ($D > 5$) with probabilities:
+#### Άσκηση 25: Εκ των υστέρων ενημέρωση λειτουργίας επανεκκίνησης παρουσίας σύννεφου (Time-Domain)
+**Πρόβλημα:** Οι επανεκκινήσεις διακομιστή συμβαίνουν λόγω σφάλματος υλικού ($H$, 10%), πανικού πυρήνα του λειτουργικού συστήματος ($K$, 30%) ή προγραμματισμένης συντήρησης ($M$, 60%). Η διάρκεια επανεκκίνησης υπερβαίνει το $5\,[min]$ ($D > 5$) με πιθανότητες:
 $P(D > 5 \mid H) = 0.90$, $P(D > 5 \mid K) = 0.50$, $P(D > 5 \mid M) = 0.05$.
-**a)** Compute total probability $P(D > 5)$.
-**b)** Given reboot took $> 5\,[min]$, calculate posteriors for all 3 causes.
+**α)** Υπολογίστε τη συνολική πιθανότητα $P(D > 5)$.
+**β)** Δεδομένης της επανεκκίνησης χρειάστηκε $> 5\,[min]$, υπολογίστε τις μεταγενέστερες αιτίες και για τις 3 αιτίες.
 
-**Solution:**
-**a)** $P(D > 5) = (0.90 \cdot 0.10) + (0.50 \cdot 0.30) + (0.05 \cdot 0.60) = 0.090 + 0.150 + 0.030 = 0.2700$.
+**Λύση:**
+**α)** $P(D > 5) = (0.90 \cdot 0.10) + (0.50 \cdot 0.30) + (0.05 \cdot 0.60) = 0.090 + 0.150 + 0.030 = 0.2700$.
 
-**b)** Posteriors:
+**β)** Οπίσθια:
 $$P(H \mid D > 5) = \frac{0.090}{0.2700} = \frac{1}{3} \approx 0.3333$$
 $$P(K \mid D > 5) = \frac{0.150}{0.2700} = \frac{5}{9} \approx 0.5556$$
 $$P(M \mid D > 5) = \frac{0.030}{0.2700} = \frac{1}{9} \approx 0.1111$$
 
-Final Answer: **a) 0.2700 (27.00%)**, **b) P(H|D>5) = 0.3333, P(K|D>5) = 0.5556, P(M|D>5) = 0.1111**
+Τελική απάντηση: **α) 0,2700 (27,00%)**, **β) P(H|D>5) = 0,3333, P(K|D>5) = 0,5556, P(M|D>5) = 0,1111**
 
 ---
 
-#### Exercise 26: R Function for Iterative Bayesian Log Updating (Time-Domain)
-**Problem:** Write a generic R function `bayes_update(priors, likelihoods)` that accepts a vector of prior probabilities and a vector of likelihoods, computes the total evidence probability, and returns the posterior probability vector.
+#### Άσκηση 26: Συνάρτηση R για Επαναληπτική Ενημέρωση Καταγραφής Μπεϋζιανών (Time-Domain)
+**Πρόβλημα:** Γράψτε μια γενική συνάρτηση R `bayes_update(priors, likelihoods)` που δέχεται ένα διάνυσμα προηγούμενων πιθανοτήτων και ένα διάνυσμα πιθανοτήτων, υπολογίζει τη συνολική πιθανότητα απόδειξης και επιστρέφει το οπίσθιο διάνυσμα πιθανότητας.
 
-**Solution:**
-```r
+**Διάλυμα:**```r
 # Generic R Function for Bayes Updating
 bayes_update <- function(priors, likelihoods) {
   stopifnot(length(priors) == length(likelihoods))
@@ -921,15 +868,11 @@ like   <- c(B1 = 0.01, B2 = 0.05, B3 = 0.40)
 res    <- bayes_update(priors, like)
 cat("Total Evidence P(S):", res$total_evidence, "\n")
 print(res$posteriors)
-```
-
-Final Answer: **R function provided above**
+```Τελική απάντηση: **Η συνάρτηση R παρέχεται παραπάνω**
 
 ---
 
-### R Implementation
-
-```r
+### R Υλοποίηση```r
 # R Implementation for Section 3.4: Law of Total Probability & Bayes' Theorem
 
 # 1. Automated Bayes Update Function
@@ -947,51 +890,48 @@ like_med   <- c(Disease = 0.98, Healthy = 0.05) # Sens = 0.98, 1 - Spec = 0.05
 med_result <- bayes_update(priors_med, like_med)
 cat("Total P(Positive Test):", round(med_result$evidence_prob, 5), "\n")
 cat("Posterior P(Disease | Positive):", round(med_result$posteriors["Disease"], 4), "\n")
-```
+```---
 
----
+## Συνδυασμένες Ασκήσεις (Ασκήσεις 27 - 30)
 
-## Combined Exercises (Exercises 27 - 30)
+#### Άσκηση 27: Ελαττώματα κατασκευής πολλαπλών σταδίων και Αγωγή αξίωσης εγγύησης (Συνδυασμένη, Μέτρια)
+**Πρόβλημα:** Ένα αυτοματοποιημένο εργοστάσιο συναρμολόγησης ηλεκτρονικών παράγει πλακέτες κυκλωμάτων χρησιμοποιώντας 3 γραμμές παραγωγής: Γραμμή Α ($L_A$, 50% της παραγωγής), Γραμμή Β ($L_B$, 30%) και Γραμμή Γ ($L_C$, 20%).
+Κατά την κατασκευή, κάθε πλακέτα υποβάλλεται σε δύο διαδοχικές δοκιμές ποιότητας: Ηλεκτρική δοκιμή ($T_1$) και Θερμική δοκιμή ($T_2$).
+Από ιστορικά αρχεία καταγραφής ελέγχου:
+- Ποσοστό ελαττωμάτων στο $T_1$: $P(D_1 \mid L_A) = 0.02$, $P(D_1 \mid L_B) = 0.04$, $P(D_1 \mid L_C) = 0.05$.
+- Ποσοστό ελαττωμάτων στο $T_2$ δεδομένου ότι πέρασε $T_1$: $P(D_2 \mid D_1^c \cap L_A) = 0.01$, $P(D_2 \mid D_1^c \cap L_B) = 0.02$, $P(D_2 \mid D_1^c \cap L_C) = 0.03$.
 
-#### Exercise 27: Multi-Stage Manufacturing Defect & Warranty Claim Pipeline (Combined, Moderate)
-**Problem:** An automated electronics assembly plant produces circuit boards using 3 production lines: Line A ($L_A$, 50% of output), Line B ($L_B$, 30%), and Line C ($L_C$, 20%).
-During manufacturing, each board undergoes two sequential quality tests: Electrical Test ($T_1$) and Thermal Test ($T_2$).
-From historical audit logs:
-- Defect rate at $T_1$: $P(D_1 \mid L_A) = 0.02$, $P(D_1 \mid L_B) = 0.04$, $P(D_1 \mid L_C) = 0.05$.
-- Defect rate at $T_2$ given it passed $T_1$: $P(D_2 \mid D_1^c \cap L_A) = 0.01$, $P(D_2 \mid D_1^c \cap L_B) = 0.02$, $P(D_2 \mid D_1^c \cap L_C) = 0.03$.
+**α)** Υπολογίστε την πιθανότητα ένας πίνακας από τη γραμμή Α να περάσει και τις δύο δοκιμές ($D_1^c \cap D_2^c$).
+**β)** Υπολογίστε τη συνολική πιθανότητα $P(\text{Pass Both})$ σε όλες τις συνδυασμένες εργοστασιακές γραμμές χρησιμοποιώντας τον νόμο της συνολικής πιθανότητας.
+**γ)** Εάν ένας τυχαία επιλεγμένος πίνακας αποτύχει σε τουλάχιστον μία δοκιμή, ποια είναι η μεταγενέστερη πιθανότητα ότι δημιουργήθηκε από τη γραμμή C ($L_C$);
+**δ)** Γράψτε ένα απόσπασμα R για να επαληθεύσετε αυτές τις πιθανότητες.
 
-**a)** Compute the probability that a board from Line A passes both tests ($D_1^c \cap D_2^c$).
-**b)** Compute the overall probability $P(\text{Pass Both})$ across all combined factory lines using the Law of Total Probability.
-**c)** If a randomly selected board fails at least one test, what is the posterior probability that it was produced by Line C ($L_C$)?
-**d)** Write an R snippet to verify these probabilities.
-
-**Solution:**
-**a)** For Line A:
+**Λύση:**
+**α)** Για τη γραμμή Α:
 $$P(D_1^c \mid L_A) = 1 - 0.02 = 0.98$$
 $$P(D_2^c \mid D_1^c \cap L_A) = 1 - 0.01 = 0.99$$
-By the multiplication rule:
+Με τον κανόνα του πολλαπλασιασμού:
 $$P(\text{Pass Both} \mid L_A) = P(D_1^c \cap D_2^c \mid L_A) = 0.98 \cdot 0.99 = 0.9702 \text{ (97.02\%)}$$
 
-**b)** Compute passing probabilities for Lines B and C:
-- For Line B: $P(D_1^c \mid L_B) = 1 - 0.04 = 0.96$; $P(D_2^c \mid D_1^c \cap L_B) = 1 - 0.02 = 0.98$.
+**β)** Υπολογίστε τις πιθανότητες επιτυχίας για τις Γραμμές Β και Γ:
+- Για τη γραμμή Β: $P(D_1^c \mid L_B) = 1 - 0.04 = 0.96$; $P(D_2^c \mid D_1^c \cap L_B) = 1 - 0.02 = 0.98$.
   $$P(\text{Pass Both} \mid L_B) = 0.96 \cdot 0.98 = 0.9408$$
-- For Line C: $P(D_1^c \mid L_C) = 1 - 0.05 = 0.95$; $P(D_2^c \mid D_1^c \cap L_C) = 1 - 0.03 = 0.97$.
+- Για τη γραμμή C: $P(D_1^c \mid L_C) = 1 - 0.05 = 0.95$; $P(D_2^c \mid D_1^c \cap L_C) = 1 - 0.03 = 0.97$.
   $$P(\text{Pass Both} \mid L_C) = 0.95 \cdot 0.97 = 0.9215$$
 
-Apply Law of Total Probability for overall passing rate:
+Εφαρμόστε τον νόμο της συνολικής πιθανότητας για το συνολικό ποσοστό επιτυχίας:
 $$P(\text{Pass Both}) = (0.9702 \cdot 0.50) + (0.9408 \cdot 0.30) + (0.9215 \cdot 0.20)$$
 $$P(\text{Pass Both}) = 0.48510 + 0.28224 + 0.18430 = 0.95164 \approx 0.9516 \text{ (95.16\%)}$$
 
-Overall failure probability $P(\text{Fail}) = 1 - 0.95164 = 0.04836 \approx 0.0484$.
+Συνολική πιθανότητα αποτυχίας $P(\text{Fail}) = 1 - 0.95164 = 0.04836 \approx 0.0484$.
 
-**c)** Failure rate for Line C:
+**γ)** Ποσοστό αποτυχίας για τη γραμμή C:
 $$P(\text{Fail} \mid L_C) = 1 - P(\text{Pass Both} \mid L_C) = 1 - 0.9215 = 0.0785$$
 
-Apply Bayes' Theorem for $P(L_C \mid \text{Fail})$:
+Εφαρμογή του Θεωρήματος Bayes για $P(L_C \mid \text{Fail})$:
 $$P(L_C \mid \text{Fail}) = \frac{P(\text{Fail} \mid L_C) P(L_C)}{P(\text{Fail})} = \frac{0.0785 \cdot 0.20}{0.04836} = \frac{0.01570}{0.04836} \approx 0.3246 \text{ (32.46\%)}$$
 
-**d)** R Code Verification:
-```r
+**δ)** Επαλήθευση κωδικού R:```r
 priors <- c(LA = 0.50, LB = 0.30, LC = 0.20)
 pass_given_line <- c(LA = 0.98*0.99, LB = 0.96*0.98, LC = 0.95*0.97)
 fail_given_line <- 1 - pass_given_line
@@ -1002,60 +942,53 @@ post_LC_fail <- (fail_given_line["LC"] * priors["LC"]) / p_fail_total
 
 cat("Total Pass Probability:", p_pass_total, "\n")
 cat("Posterior P(LC | Fail):", post_LC_fail, "\n")
-```
-
-Final Answer: **a) 0.9702 (97.02%)**, **b) 0.9516 (95.16%)**, **c) 0.3246 (32.46%)**, **d) R code provided above**
+```Τελική απάντηση: **α) 0,9702 (97,02%)**, **β) 0,9516 (95,16%)**, **γ) 0,3246 (32,46%)**, **δ) Ο κωδικός R που παρέχεται παραπάνω**
 
 ---
 
-#### Exercise 28: Microservice Architecture Reliability and Anomaly Bayes Root-Cause Analysis (Time-Domain) (Combined, Harder)
-**Problem:** A cloud API backend processes user checkouts through a hybrid microservice topology:
-- **Authentication:** Single Auth Gateway ($A$).
-- **Processing Layer:** 2 independent parallel payment microservices ($P_1, P_2$).
-- **Database Layer:** Single Primary Database ($DB$).
-
-```
+#### Άσκηση 28: Αρχιτεκτονική Microservice Αξιοπιστία και ανωμαλία Bayes Root-Cause Analysis (Time-Domain) (Συνδυασμένη, σκληρότερη)
+**Πρόβλημα:** Ένα backend API cloud επεξεργάζεται τα ταμεία των χρηστών μέσω μιας υβριδικής τοπολογίας microservice:
+- **Έλεγχος ταυτότητας:** Ενιαία πύλη ελέγχου ταυτότητας ($A$).
+- **Επίπεδο επεξεργασίας:** 2 ανεξάρτητες παράλληλες μικροϋπηρεσίες πληρωμών ($P_1, P_2$).
+- **Επίπεδο βάσης δεδομένων:** Ενιαία κύρια βάση δεδομένων ($DB$).```
                 +---> Payment P1 --->+
                 |                    |
 [Auth Gateway A]+                    +[Database DB]
                 |                    |
                 +---> Payment P2 --->+
-```
+```Το αίτημα είναι επιτυχές εάν το Auth ($A$) πετύχει, ΤΟΥΛΑΧΙΣΤΟΝ ΜΙΑ υπηρεσία πληρωμής ($P_1$ ή $P_2$) πετύχει και η βάση δεδομένων ($DB$).
 
-The request succeeds if Auth ($A$) succeeds, AT LEAST ONE Payment service ($P_1$ or $P_2$) succeeds, AND Database ($DB$) succeeds.
-
-From execution logs over a 30-day window ($t = 24\,[hr]$ period):
+Από αρχεία καταγραφής εκτέλεσης σε ένα παράθυρο 30 ημερών (περίοδος $t = 24\,[hr]$):
 - $P(A \text{ succeeds}) = 0.99$.
-- Individual payment service survival: $P(P_1 \text{ succeeds}) = 0.95$, $P(P_2 \text{ succeeds}) = 0.95$ (independent).
+- Επιβίωση μεμονωμένης υπηρεσίας πληρωμών: $P(P_1 \text{ succeeds}) = 0.95$, $P(P_2 \text{ succeeds}) = 0.95$ (ανεξάρτητη).
 - $P(DB \text{ succeeds}) = 0.98$.
-- Overall traffic load regimes: Low Load ($L_1$, 60% of time), High Load ($L_2$, 30%), Surge Load ($L_3$, 10%).
-- Conditional probability of a checkout timeout ($T > 2\,[s]$) given load regime:
+- Συνολικά καθεστώτα κυκλοφοριακού φόρτου: Χαμηλό φορτίο ($L_1$, 60% του χρόνου), Υψηλό φορτίο ($L_2$, 30%), Φορτίο υπέρτασης ($L_3$, 10%).
+- Υπό όρους πιθανότητα χρονικού ορίου ολοκλήρωσης αγοράς ($T > 2\,[s]$) δεδομένου συστήματος φόρτωσης:
   $P(T > 2 \mid L_1) = 0.01$, $P(T > 2 \mid L_2) = 0.08$, $P(T > 2 \mid L_3) = 0.50$.
 
-**a)** Calculate the reliability $R_{\text{pay}}$ of the parallel payment layer ($P_1 \parallel P_2$).
-**b)** Calculate the end-to-end system reliability $R_{\text{sys}}$ of the entire checkout pipeline.
-**c)** Compute the total probability $P(T > 2\,[s])$ of a checkout timeout across all load regimes.
-**d)** If a monitoring agent fires a timeout alert ($T > 2\,[s]$), compute the posterior probability $P(L_3 \mid T > 2\,[s])$ that the system was in Surge Load regime.
-**e)** Write an R script simulating this architecture and computing the posterior probabilities.
+**α)** Υπολογίστε την αξιοπιστία $R_{\text{pay}}$ του παράλληλου επιπέδου πληρωμής ($P_1 \parallel P_2$).
+**β)** Υπολογίστε την αξιοπιστία του συστήματος από άκρο σε άκρο $R_{\text{sys}}$ ολόκληρου του αγωγού ταμείου.
+**γ)** Υπολογίστε τη συνολική πιθανότητα $P(T > 2\,[s])$ χρονικού ορίου ολοκλήρωσης αγοράς σε όλα τα καθεστώτα φόρτωσης.
+**δ)** Εάν ένας παράγοντας παρακολούθησης εκπέμψει μια ειδοποίηση χρονικού ορίου ($T > 2\,[s]$), υπολογίστε την εκ των υστέρων πιθανότητα $P(L_3 \mid T > 2\,[s])$ ότι το σύστημα βρισκόταν σε καθεστώς υπερφόρτωσης.
+**ε)** Γράψτε ένα σενάριο R που προσομοιώνει αυτήν την αρχιτεκτονική και υπολογίζει τις οπίσθιες πιθανότητες.
 
-**Solution:**
-**a)** Payment layer uses parallel redundancy.
-Failure probability of single payment service: $F_P = 1 - 0.95 = 0.05$.
-Both payment services fail iff $F_{\text{pay\_layer}} = (0.05)^2 = 0.0025$.
+**Λύση:**
+**α)** Το επίπεδο πληρωμής χρησιμοποιεί παράλληλη απόλυση.
+Πιθανότητα αποτυχίας της υπηρεσίας μίας πληρωμής: $F_P = 1 - 0.95 = 0.05$.
+Και οι δύο υπηρεσίες πληρωμής αποτύχουν εάν $F_{\text{pay\_layer}} = (0.05)^2 = 0.0025$.
 $$R_{\text{pay}} = 1 - 0.0025 = 0.9975 \text{ (99.75\%)}$$
 
-**b)** End-to-end topology is in series across Auth ($A$), Payment Layer ($P_{\text{layer}}$), and Database ($DB$):
+**β)** Η τοπολογία από άκρο σε άκρο είναι σε σειρά μεταξύ του Auth ($A$), του επιπέδου πληρωμής ($P_{\text{layer}}$) και της βάσης δεδομένων ($DB$):
 $$R_{\text{sys}} = P(A) \cdot R_{\text{pay}} \cdot P(DB) = 0.99 \cdot 0.9975 \cdot 0.98 = 0.9677745 \approx 0.9678 \text{ (96.78\%)}$$
 
-**c)** Total probability of checkout timeout $P(T > 2\,[s])$ via Law of Total Probability:
+**γ)** Συνολική πιθανότητα λήξης χρονικού ορίου ολοκλήρωσης αγοράς $P(T > 2\,[s])$ μέσω του νόμου της συνολικής πιθανότητας:
 $$P(T > 2) = P(T > 2 \mid L_1)P(L_1) + P(T > 2 \mid L_2)P(L_2) + P(T > 2 \mid L_3)P(L_3)$$
 $$P(T > 2) = (0.01 \cdot 0.60) + (0.08 \cdot 0.30) + (0.50 \cdot 0.10) = 0.006 + 0.024 + 0.050 = 0.0800 \text{ (8.00\%)}$$
 
-**d)** Apply Bayes' Theorem for Surge Load $L_3$:
+**δ)** Εφαρμογή του Θεωρήματος Bayes για το φορτίο υπέρτασης $L_3$:
 $$P(L_3 \mid T > 2) = \frac{P(T > 2 \mid L_3)P(L_3)}{P(T > 2)} = \frac{0.050}{0.0800} = \frac{5}{8} = 0.6250 \text{ (62.50\%)}$$
 
-**e)** R Verification Script:
-```r
+**ε)** Σενάριο επαλήθευσης R:```r
 # Microservice Architecture Verification
 p_A <- 0.99
 p_P1 <- 0.95; p_P2 <- 0.95
@@ -1074,185 +1007,180 @@ cat("Payment Layer Reliability:", r_pay, "\n")
 cat("End-to-End System Reliability:", r_sys, "\n")
 cat("Total Timeout Probability:", p_timeout_total, "\n")
 cat("Posterior P(L3 | Timeout):", post_L3, "\n")
-```
-
-Final Answer: **a) 0.9975 (99.75%)**, **b) 0.9678 (96.78%)**, **c) 0.0800 (8.00%)**, **d) 0.6250 (62.50%)**, **e) R script provided above**
+```Τελική απάντηση: **α) 0,9975 (99,75%)**, **β) 0,9678 (96,78%)**, **γ) 0,0800 (8,00%)**, **δ) 0,6250 (62,50%)**, **ε) Σενάριο R που παρέχεται παραπάνω**
 
 ---
 
-#### Exercise 29: Telecommunications Channel Noise & Packet Delay Pipeline (Combined, Hard)
-**Problem:** A digital communications link transmits data packets over a wireless channel.
-The transmission involves two stochastic layers:
-1. **Physical Transmission Noise (Binary Symmetric Channel):** Bit error rate $p_e = 0.02$. Prior probability of transmitting bit '1' is $P(X=1) = 0.70$, and bit '0' is $P(X=0) = 0.30$.
-2. **Network Hop Latency Pipeline:** Packets pass through 3 sequential switches ($S_1, S_2, S_3$). Hop completion probabilities within frame time budget $t_{\text{frame}} = 10\,[ms]$ are:
+#### Άσκηση 29: Θόρυβος καναλιών τηλεπικοινωνιών και αγωγός καθυστέρησης πακέτων (Συνδυασμένος, Σκληρός)
+**Πρόβλημα:** Μια ψηφιακή σύνδεση επικοινωνίας μεταδίδει πακέτα δεδομένων μέσω ασύρματου καναλιού.
+Η μετάδοση περιλαμβάνει δύο στοχαστικά στρώματα:
+1. **Θόρυβος φυσικής μετάδοσης (Δυαδικό συμμετρικό κανάλι):** Ποσοστό σφάλματος bit $p_e = 0.02$. Η προηγούμενη πιθανότητα μετάδοσης bit '1' είναι $P(X=1) = 0.70$ και το bit '0' είναι $P(X=0) = 0.30$.
+2. **Network Hop Latency Pipeline:** Τα πακέτα διέρχονται από 3 διαδοχικούς διακόπτες ($S_1, S_2, S_3$). Οι πιθανότητες ολοκλήρωσης αναπήδησης εντός του προϋπολογισμού χρόνου πλαισίου $t_{\text{frame}} = 10\,[ms]$ είναι:
    - $P(S_1 \le 10) = 0.95$
    - $P(S_2 \le 10 \mid S_1 \le 10) = 0.90$
    - $P(S_3 \le 10 \mid S_1 \le 10 \cap S_2 \le 10) = 0.85$
 
-Furthermore, packet corruption ($C$) occurs independently of switch delays with probability $P(C) = 0.01$.
+Επιπλέον, η καταστροφή πακέτων ($C$) συμβαίνει ανεξάρτητα από τις καθυστερήσεις μεταγωγής με πιθανότητα $P(C) = 0.01$.
 
-**a)** Calculate $P(Y=1)$, the total probability of receiving bit '1'.
-**b)** Given that bit $Y=1$ was received, calculate the posterior probability $P(X=1 \mid Y=1)$.
-**c)** Calculate the joint probability that a packet completes all 3 switch hops within time budget AND is NOT corrupted.
-**d)** If 1,000 independent packets are sent, calculate the expected number of packets that arrive both on-time and uncorrupted.
+**α)** Υπολογίστε $P(Y=1)$, τη συνολική πιθανότητα λήψης bit '1'.
+**β)** Δεδομένου ότι λήφθηκε το bit $Y=1$, υπολογίστε την μεταγενέστερη πιθανότητα $P(X=1 \mid Y=1)$.
+**γ)** Υπολογίστε την κοινή πιθανότητα ότι ένα πακέτο ολοκληρώσει και τα 3 μεταπήδηση μεταγωγής εντός του χρονικού προϋπολογισμού ΚΑΙ ΔΕΝ έχει καταστραφεί.
+**δ)** Εάν αποστέλλονται 1.000 ανεξάρτητα πακέτα, υπολογίστε τον αναμενόμενο αριθμό πακέτων που φτάνουν έγκαιρα και χωρίς φθορές.
 
-**Solution:**
-**a)** Physical channel likelihoods:
+**Λύση:**
+**α)** Πιθανότητες φυσικού καναλιού:
 $P(Y=1 \mid X=1) = 1 - p_e = 0.98$.
 $P(Y=1 \mid X=0) = p_e = 0.02$.
 
-Apply Law of Total Probability for $P(Y=1)$:
+Εφαρμόστε το νόμο της συνολικής πιθανότητας για $P(Y=1)$:
 $$P(Y=1) = P(Y=1 \mid X=1)P(X=1) + P(Y=1 \mid X=0)P(X=0)$$
 $$P(Y=1) = (0.98 \cdot 0.70) + (0.02 \cdot 0.30) = 0.686 + 0.006 = 0.6920 \text{ (69.20\%)}$$
 
-**b)** Apply Bayes' Theorem for $P(X=1 \mid Y=1)$:
+**β)** Εφαρμογή του θεωρήματος Bayes για $P(X=1 \mid Y=1)$:
 $$P(X=1 \mid Y=1) = \frac{P(Y=1 \mid X=1)P(X=1)}{P(Y=1)} = \frac{0.686}{0.6920} = \frac{343}{346} \approx 0.99133 \approx 0.9913$$
 
-**c)** Hop pipeline success probability via chain rule:
+**γ)** Πιθανότητα επιτυχίας του αγωγού Hop μέσω κανόνα αλυσίδας:
 $$P(\text{On-Time}) = P(S_1 \le 10) \cdot P(S_2 \le 10 \mid S_1 \le 10) \cdot P(S_3 \le 10 \mid S_1 \cap S_2) = 0.95 \cdot 0.90 \cdot 0.85 = 0.72675$$
 
-Since corruption $C$ is independent of delay:
+Εφόσον η διαφθορά $C$ είναι ανεξάρτητη από καθυστέρηση:
 $$P(\text{Uncorrupted}) = P(C^c) = 1 - 0.01 = 0.99$$
 $$P(\text{On-Time} \cap \text{Uncorrupted}) = P(\text{On-Time}) \cdot P(C^c) = 0.72675 \cdot 0.99 = 0.7194825 \approx 0.7195$$
 
-**d)** Expected successful packets out of $N = 1000$:
+**δ)** Αναμενόμενα επιτυχημένα πακέτα από $N = 1000$:
 $$E[\text{Valid Packets}] = 1000 \cdot 0.7194825 = 719.48 \approx 719 \text{ packets}$$
 
-Final Answer: **a) 0.6920 (69.20%)**, **b) 0.9913 (99.13%)**, **c) 0.7195 (71.95%)**, **d) 719 packets**
+Τελική απάντηση: **α) 0,6920 (69,20%)**, **β) 0,9913 (99,13%)**, **γ) 0,7195 (71,95%)**, **δ) 719 πακέτα**
 
 ---
 
-#### Exercise 30: High-Frequency Trading Latency, Redundant Watchdogs & Unit-Scaling Gotcha (Time-Domain) (Combined, Hardest + Gotcha)
-**Problem:** A high-frequency trading (HFT) firm executes orders over an ultra-low-latency FPGA gateway.
-1. **Engine Latency Distribution:** Order execution lifetime $T$ (in microseconds, $[\mu s]$) has survival function $S_T(t) = \frac{1}{1 + 0.02 t}$ for $t \ge 0$.
-   - Evaluate $P(T > 100\,[\mu s] \mid T > 50\,[\mu s])$.
-2. **Watchdog Timers:** Order execution is monitored by 2 independent redundant FPGA watchdog hardware timers ($W_1, W_2$). Each watchdog has a failure probability of $p_f = 0.02$ over a trading session.
-   - Calculate the overall watchdog system reliability $R_{\text{watchdog}}$ (probability at least one watchdog functions).
-3. **Market Regime Diagnosis:** Market volatility operates under 3 regimes: Calm ($M_1$, 70%), Volatile ($M_2$, 20%), Extreme ($M_3$, 10%).
-   - Latency spike probabilities ($S = \{T > 100\,[\mu s]\}$):
+#### Άσκηση 30: Υψηλής συχνότητας Trading Latency, Redundant Watchdogs & Unit-Scaling Gotcha (Time-Domain) (Συνδυασμένος, Hardest + Gotcha)
+**Πρόβλημα:** Μια εταιρεία διαπραγμάτευσης υψηλής συχνότητας (HFT) εκτελεί εντολές μέσω μιας πύλης FPGA εξαιρετικά χαμηλής καθυστέρησης.
+1. **Κατανομή καθυστέρησης κινητήρα:** Διάρκεια ζωής εκτέλεσης παραγγελίας $T$ (σε μικροδευτερόλεπτα, $[\mu s]$) έχει συνάρτηση επιβίωσης $S_T(t) = \frac{1}{1 + 0.02 t}$ για $t \ge 0$.
+   - Αξιολογήστε $P(T > 100\,[\mu s] \mid T > 50\,[\mu s])$.
+2. **Watchdog Timers:** Η εκτέλεση της παραγγελίας παρακολουθείται από 2 ανεξάρτητους πλεονάζοντες χρονοδιακόπτες υλικού παρακολούθησης FPGA ($W_1, W_2$). Κάθε φύλακας έχει πιθανότητα αποτυχίας $p_f = 0.02$ κατά τη διάρκεια μιας συνεδρίας συναλλαγών.
+   - Υπολογίστε τη συνολική αξιοπιστία του συστήματος παρακολούθησης $R_{\text{watchdog}}$ (πιθανότητα τουλάχιστον μία συνάρτηση φύλακα).
+3. **Διάγνωση καθεστώτος αγοράς:** Η αστάθεια της αγοράς λειτουργεί σε 3 καθεστώτα: Ήρεμη ($M_1$, 70%), Ευμετάβλητη ($M_2$, 20%), Ακραία ($M_3$, 10%).
+   - Πιθανότητες αιχμής λανθάνοντος χρόνου ($S = \{T > 100\,[\mu s]\}$):
      $P(S \mid M_1) = 0.01$, $P(S \mid M_2) = 0.15$, $P(S \mid M_3) = 0.80$.
-   - Calculate $P(S)$ and posterior $P(M_3 \mid S)$.
-4. **Unit-Conversion & Variance Scaling Gotcha:** The firm measures latency variance in seconds squared $[s^2]$ as $\text{Var}(T) = 4.0 \times 10^{-8}\,[s^2]$. An analyst converts latency measurements from seconds to microseconds ($1\,[s] = 10^6\,[\mu s]$) and claims the variance in microseconds squared is $\text{Var}_{\mu s}(T) = 4.0 \times 10^{-2}\,[\mu s^2]$.
-   - Is the analyst's variance conversion correct? Calculate the exact variance in $[\mu s^2]$ and explain the gotcha.
+   - Υπολογίστε $P(S)$ και μετά $P(M_3 \mid S)$.
+4. **Μετατροπή μονάδας και κλιμάκωση διακύμανσης Gotcha:** Η εταιρεία μετρά τη διακύμανση λανθάνοντος χρόνου σε δευτερόλεπτα στο τετράγωνο $[s^2]$ ως $\text{Var}(T) = 4.0 \times 10^{-8}\,[s^2]$. Ένας αναλυτής μετατρέπει τις μετρήσεις καθυστέρησης από δευτερόλεπτα σε μικροδευτερόλεπτα ($1\,[s] = 10^6\,[\mu s]$) και ισχυρίζεται ότι η διακύμανση σε μικροδευτερόλεπτα στο τετράγωνο είναι $\text{Var}_{\mu s}(T) = 4.0 \times 10^{-2}\,[\mu s^2]$.- Είναι σωστή η μετατροπή διακύμανσης του αναλυτή; Υπολογίστε την ακριβή διακύμανση στο $[\mu s^2]$ και εξηγήστε το gotcha.
 
-**Solution:**
-**Part 1: Conditional Survival Probability**
+**Λύση:**
+**Μέρος 1: Πιθανότητα επιβίωσης υπό όρους**
 $$S_T(50) = P(T > 50) = \frac{1}{1 + 0.02(50)} = \frac{1}{1 + 1} = \frac{1}{2} = 0.5000$$
 $$S_T(100) = P(T > 100) = \frac{1}{1 + 0.02(100)} = \frac{1}{1 + 2} = \frac{1}{3} \approx 0.3333$$
 $$P(T > 100 \mid T > 50) = \frac{P(T > 100)}{P(T > 50)} = \frac{1/3}{1/2} = \frac{2}{3} \approx 0.6667 \text{ (66.67\%)}$$
 
-**Part 2: Watchdog System Reliability**
-Parallel redundancy:
+**Μέρος 2: Αξιοπιστία συστήματος Watchdog**
+Παράλληλος πλεονασμός:
 $$F_{\text{system}} = p_f^2 = (0.02)^2 = 0.0004$$
 $$R_{\text{watchdog}} = 1 - 0.0004 = 0.9996 \text{ (99.96\%)}$$
 
-**Part 3: Market Regime Diagnosis**
-Law of Total Probability for $P(S)$:
+**Μέρος 3: Διάγνωση καθεστώτος αγοράς**
+Νόμος της συνολικής πιθανότητας για $P(S)$:
 $$P(S) = (0.01 \cdot 0.70) + (0.15 \cdot 0.20) + (0.80 \cdot 0.10) = 0.007 + 0.030 + 0.080 = 0.1170 \text{ (11.70\%)}$$
 
-Posterior for Extreme Regime $M_3$:
+Μεταγενέστερο για το ακραίο καθεστώς $M_3$:
 $$P(M_3 \mid S) = \frac{P(S \mid M_3)P(M_3)}{P(S)} = \frac{0.080}{0.1170} = \frac{80}{117} \approx 0.6838 \text{ (68.38\%)}$$
 
-**Part 4: Unit-Conversion Variance Scaling Gotcha**
-**Gotcha:** When converting time units by scaling factor $c$, the random variable transforms as $X_{\text{new}} = c \cdot X$.
-By the properties of variance, $\text{Var}(c \cdot X) = c^2 \cdot \text{Var}(X)$ ($c^2$ rule).
+**Μέρος 4: Unit-Conversion Variance Scaling Gotcha**
+**Gotcha:** Κατά τη μετατροπή μονάδων χρόνου με τον παράγοντα κλιμάκωσης $c$, η τυχαία μεταβλητή μετατρέπεται σε $X_{\text{new}} = c \cdot X$.
+Από τις ιδιότητες της διακύμανσης, $\text{Var}(c \cdot X) = c^2 \cdot \text{Var}(X)$ (κανόνας $c^2$).
 
-Here, $c = 10^6\,[\mu s / s]$, so $c^2 = (10^6)^2 = 10^{12}$.
-The analyst incorrectly scaled variance by $c = 10^6$ instead of $c^2 = 10^{12}$!
+Εδώ, $c = 10^6\,[\mu s / s]$, άρα $c^2 = (10^6)^2 = 10^{12}$.
+Ο αναλυτής κλιμάκωσε εσφαλμένα τη διακύμανση κατά $c = 10^6$ αντί για $c^2 = 10^{12}$!
 
-Correct calculation:
+Σωστός υπολογισμός:
 $$\text{Var}_{\mu s}(T) = c^2 \cdot \text{Var}_s(T) = 10^{12} \cdot (4.0 \times 10^{-8}) = 4.0 \times 10^4 = 40,000\,[\mu s^2]$$
 
-Standard deviation scaling:
+Κλιμάκωση τυπικής απόκλισης:
 $$\sigma_s = \sqrt{4.0 \times 10^{-8}} = 2.0 \times 10^{-4}\,[s] = 0.2\,[ms] = 200\,[\mu s]$$
 $$\sigma_{\mu s} = 200\,[\mu s] \implies \text{Var}_{\mu s}(T) = (200)^2 = 40,000\,[\mu s^2]$$
 
-The analyst's figure of $4.0 \times 10^{-2}$ was off by a factor of one million ($10^6$) due to forgetting the $c^2$ rule!
+Το ποσοστό του αναλυτή για $4.0 \times 10^{-2}$ ήταν μειωμένο κατά ένα εκατομμύριο ($10^6$) λόγω της λήθης του κανόνα $c^2$!
 
-Final Answer:
-- **Part 1:** 2/3 (0.6667)
-- **Part 2:** 0.9996 (99.96%)
-- **Part 3:** P(S) = 0.1170 (11.70%), P(M3 | S) = 0.6838 (68.38%)
-- **Part 4 (Gotcha):** **Incorrect analyst claim.** Correct variance is **$40,000\,[\mu s^2]$** (scaled by $c^2 = 10^{12}$, not $c = 10^6$).
+Τελική απάντηση:
+- **Μέρος 1:** 2/3 (0,6667)
+- **Μέρος 2:** 0,9996 (99,96%)
+- **Μέρος 3:** P(S) = 0,1170 (11,70%), P(M3 | S) = 0,6838 (68,38%)
+- **Μέρος 4 (Gotcha):** **Λανθασμένος ισχυρισμός αναλυτή.** Η σωστή διακύμανση είναι **$40,000\,[\mu s^2]$** (κλιμακούμενη κατά $c^2 = 10^{12}$, όχι κατά $c = 10^6$).
 
 ---
 
-## Exam Preparation Guide
+## Οδηγός προετοιμασίας για τις εξετάσεις
 
-### Formula Quick-Reference
+### Γρήγορη αναφορά τύπου
 
-| Topic | Formula | Notes / Exam Typologio Format |
+| Θέμα | Φόρμουλα | Σημειώσεις / Μορφή Τυπολογίου Εξετάσεων |
 | :--- | :--- | :--- |
-| **Conditional Probability** | $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ | Requires $P(B) > 0$. Restricts sample space to $B$. |
-| **Conditional Complement** | $P(A^c \mid B) = 1 - P(A \mid B)$ | Holds for any fixed conditioning event $B$. |
-| **Two-Event Multiplication Rule** | $P(A \cap B) = P(A) \cdot P(B \mid A) = P(B) \cdot P(A \mid B)$ | Fundamental for multi-stage processes. |
-| **Multi-Event Chain Rule** | $P(\bigcap_{i=1}^n A_i) = P(A_1) \prod_{i=2}^n P(A_i \mid \bigcap_{j=1}^{i-1} A_j)$ | Sequential sampling without replacement. |
-| **Independence Test** | $P(A \cap B) = P(A) \cdot P(B) \iff P(A \mid B) = P(A)$ | Valid only when events do not affect each other. |
-| **Series System Reliability** | $R_{\text{sys}}(t) = \prod_{i=1}^n P(T_i > t)$ | Weakest-link architecture (Logical AND). |
-| **Parallel System Reliability** | $R_{\text{sys}}(t) = 1 - \prod_{i=1}^n (1 - P(T_i > t))$ | Redundant architecture (Logical OR). |
-| **Law of Total Probability** | $P(A) = \sum_{i=1}^n P(A \mid B_i) P(B_i)$ | $\{B_1, \dots, B_n\}$ must form a valid partition. |
-| **Bayes' Theorem** | $P(B_k \mid A) = \frac{P(A \mid B_k)P(B_k)}{\sum_{j=1}^n P(A \mid B_j)P(B_j)}$ | Updates prior $P(B_k)$ to posterior $P(B_k \mid A)$. |
-| **Conditional Survival (Time-Domain)** | $P(T > t_{[s]} + s_{[s]} \mid T > t_{[s]}) = \frac{P(T > (t+s)_{[s]})}{P(T > t_{[s]})}$ | Uses time-domain units; memoryless only for Exp/Geom. |
-| **Variance Unit Scaling ($c^2$ Rule)** | $\text{Var}(c \cdot X) = c^2 \cdot \text{Var}(X)$ | Scaling time units (e.g., $s \to ms$) scales Var by $c^2$. |
+| **Πιθανότητα υπό όρους** | $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ | Απαιτείται $P(B) > 0$. Περιορίζει το χώρο του δείγματος σε $B$. |
+| **Συμπλήρωμα υπό όρους** | $P(A^c \mid B) = 1 - P(A \mid B)$ | Ισχύει για οποιοδήποτε σταθερό συμβάν κλιματισμού $B$. |
+| **Κανόνας πολλαπλασιασμού δύο γεγονότων** | $P(A \cap B) = P(A) \cdot P(B \mid A) = P(B) \cdot P(A \mid B)$ | Θεμελιώδης για διαδικασίες πολλαπλών σταδίων. |
+| **Κανόνας αλυσίδας πολλών συμβάντων** | $P(\bigcap_{i=1}^n A_i) = P(A_1) \prod_{i=2}^n P(A_i \mid \bigcap_{j=1}^{i-1} A_j)$ | Διαδοχική δειγματοληψία χωρίς αντικατάσταση. |
+| **Τεστ Ανεξαρτησίας** | $P(A \cap B) = P(A) \cdot P(B) \iff P(A \mid B) = P(A)$ | Ισχύει μόνο όταν τα γεγονότα δεν επηρεάζουν το ένα το άλλο. |
+| **Αξιοπιστία συστήματος σειράς** | $R_{\text{sys}}(t) = \prod_{i=1}^n P(T_i > t)$ | Αρχιτεκτονική ασθενέστερου συνδέσμου (Λογική ΚΑΙ). |
+| **Αξιοπιστία παράλληλου συστήματος** | $R_{\text{sys}}(t) = 1 - \prod_{i=1}^n (1 - P(T_i > t))$ | Περιττή αρχιτεκτονική (Logical OR). |
+| **Νόμος Συνολικών Πιθανοτήτων** | $P(A) = \sum_{i=1}^n P(A \mid B_i) P(B_i)$ | Το $\{B_1, \dots, B_n\}$ πρέπει να σχηματίσει ένα έγκυρο διαμέρισμα. |
+| **Θεώρημα Bayes** | $P(B_k \mid A) = \frac{P(A \mid B_k)P(B_k)}{\sum_{j=1}^n P(A \mid B_j)P(B_j)}$ | Ενημερώσεις πριν από $P(B_k)$ στο μεταγενέστερο $P(B_k \mid A)$. |
+| **Επιβίωση υπό όρους (Time-Domain)** | $P(T > t_{[s]} + s_{[s]} \mid T > t_{[s]}) = \frac{P(T > (t+s)_{[s]})}{P(T > t_{[s]})}$ | Χρησιμοποιεί μονάδες τομέα χρόνου. χωρίς μνήμη μόνο για Exp/Geom. |
+| **Κλιμάκωση μονάδας διακύμανσης ($c^2$ κανόνας)** | $\text{Var}(c \cdot X) = c^2 \cdot \text{Var}(X)$ | Η κλιμάκωση των μονάδων χρόνου (π.χ. $s \to ms$) κλιμακώνει Var κατά $c^2$. |
 
 ---
 
-### Exam Checklist
+### Λίστα ελέγχου εξετάσεων
 
-| Category | Items |
+| Κατηγορία | Είδη |
 | :--- | :--- |
-| **Must Memorize** | - Conditional probability definition $P(A \mid B) = P(A \cap B)/P(B)$<br>- Multiplication chain rule<br>- Product rule for independence $P(A \cap B) = P(A)P(B)$<br>- Series ($R_{\text{series}} = \prod R_i$) and Parallel ($R_{\text{parallel}} = 1 - \prod (1-R_i)$) formulas<br>- Law of Total Probability formula<br>- Bayes' Theorem formula |
-| **Must Understand** | - Difference between mutually exclusive ($P(A \cap B) = 0$) and independent ($P(A \cap B) = P(A)P(B)$) events<br>- Reduced sample space geometric intuition<br>- Reversing conditional probabilities using Bayes' Theorem<br>- Base Rate Fallacy in diagnostic/anomaly detection<br>- Conditional survival function calculation |
-| **Book-Only (Professor May Test)** | - Pairwise vs Mutual Independence counterexamples ($n \ge 3$ events)<br>- Right-censored observation windows effect on conditional latency tail estimates<br>- Binary symmetric communication channel Bayes error rate derivations<br>- $k$-out-of-$n$ system reliability binomial expansion |
+| **Πρέπει να απομνημονεύσετε** | - Ορισμός πιθανοτήτων υπό όρους $P(A \mid B) = P(A \cap B)/P(B)$<br>- Κανόνας αλυσίδας πολλαπλασιασμού<br>- Κανόνας προϊόντος για ανεξαρτησία $P(A \cap B) = P(A)P(B)$<br>- Τύποι σειρών ($R_{\text{series}} = \prod R_i$) και παράλληλων ($R_{\text{parallel}} = 1 - \prod (1-R_i)$)<br>- Τύπος συνολικών πιθανοτήτων Bayes' Τύπος<br>- |
+| **Πρέπει να καταλάβω** | - Διαφορά μεταξύ αμοιβαία αποκλειστικών ($P(A \cap B) = 0$) και ανεξάρτητων ($P(A \cap B) = P(A)P(B)$) γεγονότων<br>- Μειωμένη γεωμετρική διαίσθηση του δειγματοληπτικού χώρου<br>- Αντιστροφή πιθανοτήτων υπό όρους χρησιμοποιώντας το θεώρημα του Bayes<br>- Πλάθος βασικού ρυθμού στη διαγνωστική/ανίχνευση ανωμαλίας συνάρτησης επιβίωσης<br> || **Μόνο Βιβλίο (Δοκιμή για τον Καθηγητή)** | - Αντιπαραδείγματα Pairwise vs Mutual Independence ($n \ge 3$ συμβάντα)<br>- Επίδραση παραθύρων παρατήρησης με σωστή λογοκρισία στις εκτιμήσεις ουράς λανθάνουσας κατάστασης υπό όρους<br>- Δυαδικό συμμετρικό κανάλι επικοινωνίας Παράγωγες ποσοστού σφάλματος Bayes<br>- __MATHINLINE101_li_200 επαναληπτικό σύστημα διωνυμική επέκταση |
 
 ---
 
-### Common Exam Traps
+### Κοινές Εξεταστικές Παγίδες
 
-1. **Conflating Mutually Exclusive with Independent Events:**
-   - *Trap:* Assuming that if two events are mutually exclusive ($A \cap B = \emptyset$), they must be independent.
-   - *Correction:* If $P(A) > 0$ and $P(B) > 0$, mutually exclusive events are **always dependent** because $P(A \cap B) = 0 \neq P(A)P(B)$.
+1. **Συνένωση αμοιβαίας αποκλειστικότητας με ανεξάρτητες εκδηλώσεις:**
+   - *Παγίδα:* Υποθέτοντας ότι εάν δύο συμβάντα αλληλοαποκλείονται ($A \cap B = \emptyset$), πρέπει να είναι ανεξάρτητα.
+   - *Διόρθωση:* Εάν $P(A) > 0$ και $P(B) > 0$, τα συμβάντα που αποκλείονται αμοιβαία **εξαρτώνται πάντα** επειδή $P(A \cap B) = 0 \neq P(A)P(B)$.
 
-2. **Misapplying the Memoryless Property:**
-   - *Trap:* Assuming $P(T > t + s \mid T > t) = P(T > s)$ for arbitrary time distributions.
-   - *Correction:* Memorylessness is **only** true for the Exponential (continuous) and Geometric (discrete) distributions. For all other distributions, you must compute $\frac{P(T > t+s)}{P(T > t)}$ explicitly.
+2. **Κακή εφαρμογή της ιδιότητας χωρίς μνήμη:**
+   - *Παγίδα:* Υποθέτοντας $P(T > t + s \mid T > t) = P(T > s)$ για αυθαίρετες κατανομές χρόνου.
+   - *Διόρθωση:* Η έλλειψη μνήμης ισχύει **μόνο** για τις Εκθετικές (συνεχείς) και Γεωμετρικές (διακριτές) κατανομές. Για όλες τις άλλες διανομές, πρέπει να υπολογίσετε ρητά $\frac{P(T > t+s)}{P(T > t)}$.
 
-3. **Ignoring the Base Rate in Bayes' Theorem (Base Rate Fallacy):**
-   - *Trap:* Conflating $P(A \mid B)$ with $P(B \mid A)$. For example, assuming a test with 99% accuracy means a positive result implies 99% chance of disease.
-   - *Correction:* Always calculate the marginal denominator $P(A)$ using the Law of Total Probability. If the prior $P(B)$ is small, $P(B \mid A)$ will be much lower than $P(A \mid B)$.
+3. **Παράβλεψη του βασικού ποσοστού στο θεώρημα Bayes (Πλάθος βασικού ποσοστού):**
+   - *Παγίδα:* Σύζευξη $P(A \mid B)$ με $P(B \mid A)$. Για παράδειγμα, αν υποθέσουμε ότι ένα τεστ με ακρίβεια 99% σημαίνει ότι ένα θετικό αποτέλεσμα συνεπάγεται 99% πιθανότητα ασθένειας.
+   - *Διόρθωση:* Υπολογίζετε πάντα τον οριακό παρονομαστή $P(A)$ χρησιμοποιώντας τον νόμο της ολικής πιθανότητας. Εάν το προηγούμενο $P(B)$ είναι μικρό, το $P(B \mid A)$ θα είναι πολύ χαμηλότερο από το $P(A \mid B)$.
 
-4. **Forgetting the $c^2$ Variance Scaling Rule in Time Conversion:**
-   - *Trap:* Converting time variance from seconds to milliseconds by multiplying by $1,000$.
-   - *Correction:* Since $1\,[s] = 1000\,[ms]$, $c = 1000$. Standard deviation scales by $c = 1000$, but variance scales by $c^2 = 1,000,000 = 10^6$!
+4. **Ξέχασα τον κανόνα $c^2$ Κλιμάκωσης διακύμανσης στη μετατροπή χρόνου:**
+   - *Παγίδα:* Μετατροπή χρονικής διακύμανσης από δευτερόλεπτα σε χιλιοστά του δευτερολέπτου πολλαπλασιάζοντας με $1,000$.
+   - *Διόρθωση:* Από $1\,[s] = 1000\,[ms]$, $c = 1000$. Κλίμακες τυπικής απόκλισης κατά $c = 1000$, αλλά κλίμακες διακύμανσης κατά $c^2 = 1,000,000 = 10^6$!
 
-5. **Assuming Pairwise Independence Implies Mutual Independence:**
-   - *Trap:* Proving $P(A \cap B) = P(A)P(B)$, $P(B \cap C) = P(B)P(C)$, and $P(A \cap C) = P(A)P(C)$ and concluding that $A, B, C$ are mutually independent.
-   - *Correction:* You must also explicitly verify the 3-way product condition $P(A \cap B \cap C) = P(A)P(B)P(C)$.
+5. **Η υπόθεση Pairwise Independence συνεπάγεται αμοιβαία ανεξαρτησία:**
+   - *Παγίδα:* Αποδεικνύοντας τα $P(A \cap B) = P(A)P(B)$, $P(B \cap C) = P(B)P(C)$ και $P(A \cap C) = P(A)P(C)$ και συμπέρασμα ότι τα $A, B, C$ είναι αμοιβαία ανεξάρτητα.
+   - *Διόρθωση:* Πρέπει επίσης να επαληθεύσετε ρητά την κατάσταση του προϊόντος 3 κατευθύνσεων $P(A \cap B \cap C) = P(A)P(B)P(C)$.
 
 ---
 
-### Exam Paper Cross-References
+### Διασταυρωμένες Αναφορές Εξεταστικού Έγγραφου
 
-| Exam Paper | Relevant Questions | Difficulty | Core Topics Covered |
+| Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία | Βασικά θέματα που καλύπτονται |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 2 | **1/5** | Basic set probability, independent vs disjoint events. |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 | **1/5** | Set relations, testing independence of basic events. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 3 | **2/5** | Set-based probability, conditional probability basics. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_1.md) | Question 3 | **2/5** | Law of Total Probability & Bayes' Theorem (3-factory problem). |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_2.md) | Question 3 | **3/5** | Conditional probability derivations, testing event independence. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_1.md) | Question 3 | **4/5** | Bayes' Theorem with sensitivity, specificity, and low base rate. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_2.md) | Question 3 | **5/5** | Binary symmetric communication channel Bayes modeling. |
+| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 2 | **1/5** | Πιθανότητα βασικού συνόλου, ανεξάρτητα vs ασύνδετα γεγονότα. |
+| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 | **1/5** | Ορίστε σχέσεις, δοκιμάζοντας την ανεξαρτησία βασικών γεγονότων. |
+| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 3 | **2/5** | Βασικές πιθανότητες βάσει συνόλου, βασικά στοιχεία πιθανοτήτων υπό όρους. |
+| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 3 | **2/5** | Νόμος Συνολικών Πιθανοτήτων & Θεώρημα Bayes (πρόβλημα 3 εργοστασίων). || [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 3 | **3/5** | Υπό όρους παραγωγές πιθανοτήτων, ανεξαρτησία γεγονότος δοκιμής. |
+| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 3 | **4/5** | Θεώρημα Bayes με ευαισθησία, ειδικότητα και χαμηλό βασικό ρυθμό. |
+| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 3 | **5/5** | Μοντελοποίηση δυαδικού συμμετρικού καναλιού επικοινωνίας Bayes. |
 
 ---
 
-## Phase Summary
+## Περίληψη Φάσης
 
-- **Conditional Probability $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$** quantifies the likelihood of event $A$ given that event $B$ has occurred. The conditioning event $B$ shrinks the universal sample space $\Omega$ to $B$.
-- **The Multiplication Chain Rule** $P(A_1 \cap \dots \cap A_n) = P(A_1) P(A_2 \mid A_1) \cdots P(A_n \mid A_1 \cap \dots \cap A_{n-1})$ decomposes complex multi-stage sequential processes (such as microservice pipeline hops or sampling without replacement) into sequential conditional steps.
-- **Statistical Independence** requires $P(A \cap B) = P(A) \cdot P(B)$. Independent events convey no information about each other. Mutually exclusive non-zero events ($P(A \cap B) = 0$) can **never** be independent.
-- **System Reliability Models** use independence to evaluate infrastructure uptime:
-  - **Series Systems (AND):** Require all components to function ($R_{\text{series}} = \prod R_i$).
-  - **Parallel Systems (OR):** Require at least one component to function ($R_{\text{parallel}} = 1 - \prod (1 - R_i)$).
-- **The Law of Total Probability** $P(A) = \sum P(A \mid B_i) P(B_i)$ reconstructs overall event probabilities across exhaustive sample space partitions.
-- **Bayes' Theorem** $P(B_k \mid A) = \frac{P(A \mid B_k)P(B_k)}{\sum P(A \mid B_j)P(B_j)}$ updates prior beliefs $P(B_k)$ to posterior probabilities $P(B_k \mid A)$ upon observing empirical evidence $A$ (such as anomaly alerts or diagnostic test outcomes).
-- **Time-Domain Applications** require explicit time units, careful evaluation of conditional survival functions $P(T > t+s \mid T > t)$, awareness of right-censoring bias, avoiding the base rate fallacy, and enforcing the $c^2$ variance scaling rule on unit conversions.
+- **Η υπό όρους Πιθανότητα $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$** ποσοτικοποιεί την πιθανότητα του συμβάντος $A$ δεδομένου ότι έχει συμβεί το συμβάν $B$. Το συμβάν κλιματισμού $B$ συρρικνώνει τον καθολικό χώρο δείγματος $\Omega$ σε $B$.
+- **Ο κανόνας της αλυσίδας πολλαπλασιασμού** $P(A_1 \cap \dots \cap A_n) = P(A_1) P(A_2 \mid A_1) \cdots P(A_n \mid A_1 \cap \dots \cap A_{n-1})$ αποσυνθέτει σύνθετες διαδοχικές διεργασίες πολλαπλών σταδίων (όπως άλματα αγωγών μικροϋπηρεσιών ή δειγματοληψία χωρίς αντικατάσταση) σε διαδοχικά βήματα υπό όρους.
+- Η **Στατιστική Ανεξαρτησία** απαιτεί $P(A \cap B) = P(A) \cdot P(B)$. Τα ανεξάρτητα γεγονότα δεν μεταφέρουν πληροφορίες το ένα για το άλλο. Αμοιβαία αποκλειόμενα μη μηδενικά συμβάντα ($P(A \cap B) = 0$) **ποτέ** δεν μπορούν να είναι ανεξάρτητα.
+- **Τα μοντέλα αξιοπιστίας συστήματος** χρησιμοποιούν ανεξαρτησία για την αξιολόγηση του χρόνου λειτουργίας της υποδομής:
+  - **Συστήματα σειράς (AND):** Απαιτούν τη λειτουργία όλων των στοιχείων ($R_{\text{series}} = \prod R_i$).
+  - **Παράλληλα συστήματα (OR):** Απαιτεί τουλάχιστον ένα στοιχείο για να λειτουργήσει ($R_{\text{parallel}} = 1 - \prod (1 - R_i)$).
+- **Ο νόμος της συνολικής πιθανότητας** $P(A) = \sum P(A \mid B_i) P(B_i)$ αναδομεί τις συνολικές πιθανότητες συμβάντων σε εξαντλητικά δείγματα διαμερισμάτων χώρου.
+- Το **Θεώρημα Bayes** $P(B_k \mid A) = \frac{P(A \mid B_k)P(B_k)}{\sum P(A \mid B_j)P(B_j)}$ ενημερώνει τις προηγούμενες πεποιθήσεις $P(B_k)$ σε μεταγενέστερες πιθανότητες $P(B_k \mid A)$ με την παρατήρηση εμπειρικών στοιχείων $A$ (όπως ειδοποιήσεις ανωμαλιών ή αποτελέσματα διαγνωστικών εξετάσεων).
+- **Οι εφαρμογές τομέα χρόνου** απαιτούν σαφείς χρονικές μονάδες, προσεκτική αξιολόγηση των συναρτήσεων επιβίωσης υπό όρους $P(T > t+s \mid T > t)$, επίγνωση της μεροληψίας λογοκρισίας δεξιά, αποφυγή της πλάνης βασικού ρυθμού και επιβολή του κανόνα κλιμάκωσης διακύμανσης $c^2$ στις μετατροπές μονάδων.

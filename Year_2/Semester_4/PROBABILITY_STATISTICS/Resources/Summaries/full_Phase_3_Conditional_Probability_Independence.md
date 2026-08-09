@@ -1,567 +1,560 @@
-# Phase 3.1: Conditional Probability
+# Φάση 3.1: Πιθανότητα υπό όρους
 
-Conditional probability is a fundamental concept in statistics that measures the likelihood of an event occurring, given that another event has already taken place. This "given" information effectively restricts the sample space to a specific subset.
+Η υπό όρους πιθανότητα είναι μια θεμελιώδης έννοια στις στατιστικές που μετρά την πιθανότητα να συμβεί ένα γεγονός, δεδομένου ότι ένα άλλο γεγονός έχει ήδη λάβει χώρα. Αυτές οι "δομένες" πληροφορίες περιορίζουν αποτελεσματικά το χώρο του δείγματος σε ένα συγκεκριμένο υποσύνολο.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-### Definition
-The conditional probability of an event $A$ given that event $B$ has occurred is the probability that $A$ happens within the restricted sample space defined by $B$.
+### Ορισμός
+Η υπό όρους πιθανότητα ενός συμβάντος $A$ δεδομένου ότι έχει συμβεί το συμβάν $B$ είναι η πιθανότητα να συμβεί $A$ εντός του περιορισμένου χώρου δείγματος που ορίζεται από $B$.
 
-### The Fundamental Formula
-If $P(B) > 0$, the conditional probability of $A$ given $B$ is defined as:
+### Η Θεμελιώδης Φόρμουλα
+Εάν $P(B) > 0$, η υπό όρους πιθανότητα του $A$ δεδομένου $B$ ορίζεται ως:
 
 $$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
 
-Where:
-*   $P(A|B)$: Probability of $A$ occurring given $B$ has occurred.
-*   $P(A \cap B)$: Probability that both $A$ and $B$ occur (Intersection).
-*   $P(B)$: Probability of the conditioning event $B$.
+Πού:
+* $P(A|B)$: Η πιθανότητα να συμβεί $A$, δεδομένου ότι έχει συμβεί $B$.
+* $P(A \cap B)$: Πιθανότητα να εμφανιστούν και τα $A$ και $B$ (Τομή).
+* $P(B)$: Πιθανότητα του συμβάντος κλιματισμού $B$.
 
-### Intuitive Understanding: Reducing the Sample Space
-Imagine a sample space $S$. When we say "given $B$", we are throwing away any part of $S$ that is not $B$. The new sample space becomes $B$. We then look for the portion of $A$ that survived this "filtering" process, which is exactly $A \cap B$.
+### Διαισθητική κατανόηση: Μείωση του χώρου δειγμάτων
+Φανταστείτε ένα δείγμα χώρου $S$. Όταν λέμε "δίνεται $B$", πετάμε οποιοδήποτε μέρος του $S$ που δεν είναι $B$. Ο νέος χώρος δείγματος γίνεται $B$. Στη συνέχεια, αναζητούμε το τμήμα του $A$ που επέζησε αυτής της διαδικασίας "φιλτραρίσματος", το οποίο είναι ακριβώς $A \cap B$.
 
-### The Multiplication Rule
-By rearranging the formula, we get the Multiplication Rule, which is used to find the probability of an intersection:
+### Ο κανόνας του πολλαπλασιασμού
+Με την αναδιάταξη του τύπου, παίρνουμε τον κανόνα πολλαπλασιασμού, ο οποίος χρησιμοποιείται για την εύρεση της πιθανότητας τομής:
 
 $$P(A \cap B) = P(B) \cdot P(A|B)$$
 $$P(A \cap B) = P(A) \cdot P(B|A)$$
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Drawing Balls from an Urn
-An urn contains 6 Red balls and 4 Blue balls. Two balls are drawn sequentially without replacement. What is the probability that the second ball is Red, given that the first ball was Blue?
+### Παράδειγμα 1: Σχεδίαση μπάλων από μια τεφροδόχο
+Ένα δοχείο περιέχει 6 κόκκινες μπάλες και 4 μπλε μπάλες. Δύο μπάλες σχεδιάζονται διαδοχικά χωρίς αντικατάσταση. Ποια είναι η πιθανότητα η δεύτερη μπάλα να είναι Κόκκινη, δεδομένου ότι η πρώτη μπάλα ήταν Μπλε;
 
-**Step 1: Define the events.**
-*   $B_1$: First ball is Blue.
-*   $R_2$: Second ball is Red.
+**Βήμα 1: Ορίστε τα συμβάντα.**
+* $B_1$: Η πρώτη μπάλα είναι Μπλε.
+* $R_2$: Η δεύτερη μπάλα είναι Κόκκινη.
 
-**Step 2: Analyze the initial state.**
-Total balls = 10 (6R, 4B).
+**Βήμα 2: Αναλύστε την αρχική κατάσταση.**
+Σύνολο μπάλες = 10 (6R, 4B).
 $P(B_1) = \frac{4}{10}$.
 
-**Step 3: Work-in-Progress (WIP) State.**
-If the first ball drawn is Blue ($B_1$ occurs), we must update the contents of the urn:
-*   Total balls remaining: $10 - 1 = 9$
-*   Red balls remaining: ?
-*   Blue balls remaining: $4 - 1 = 3$
+**Βήμα 3: Κατάσταση εργασιών σε εξέλιξη (WIP).**
+Εάν η πρώτη μπάλα που κληρώθηκε είναι Μπλε (συμβαίνει $B_1$), πρέπει να ενημερώσουμε τα περιεχόμενα της λάρνας:
+* Συνολικές μπάλες που απομένουν: $10 - 1 = 9$
+* Απομένουν κόκκινες μπάλες: ?
+* Μπλε μπάλες που απομένουν: $4 - 1 = 3$
 
-**Step 4: Final Calculation.**
-Since we drew a Blue ball, the number of Red balls remains 6.
+**Βήμα 4: Τελικός Υπολογισμός.**
+Εφόσον τραβήξαμε μια Μπλε μπάλα, ο αριθμός των Κόκκινων Μπαλών παραμένει 6.
 $$P(R_2|B_1) = \frac{\text{Red balls remaining}}{\text{Total balls remaining}} = \frac{6}{9} = \frac{2}{3}$$
 $P(R_2|B_1) \approx 0.6667$.
 
 ---
 
-### Example 2: Two-Way Frequency Table
-A survey of 100 students asked about their preferred study environment.
+### Παράδειγμα 2: Πίνακας συχνοτήτων διπλής κατεύθυνσης
+Μια έρευνα 100 φοιτητών ρώτησε για το περιβάλλον σπουδών που προτιμούν.
 
-| Gender | Library | Coffee Shop | Total |
+| Φύλο | Βιβλιοθήκη | Καφενείο | Σύνολο |
 | :--- | :---: | :---: | :---: |
-| Male | 30 | 20 | 50 |
-| Female | 25 | 25 | 50 |
-| **Total** | **55** | **45** | **100** |
+| Αρσενικό | 30 | 20 | 50 |
+| Θηλυκό | 25 | 25 | 50 |
+| **Σύνολο** | **55** | **45** | **100** |
 
-Find the probability that a student prefers the Library, given they are Female.
+Βρείτε την πιθανότητα ένας μαθητής να προτιμά τη Βιβλιοθήκη, δεδομένου ότι είναι Γυναίκα.
 
-**Step 1: Define events.**
-*   $L$: Prefers Library.
-*   $F$: Is Female.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $L$: Προτιμά τη Βιβλιοθήκη.
+* $F$: Είναι Γυναίκα.
 
-**Step 2: Identify values from the table.**
-*   $n(F) = 50$
-*   $n(L \cap F) = 25$
+**Βήμα 2: Προσδιορίστε τιμές από τον πίνακα.**
+* $n(F) = 50$
+* $n(L \cap F) = 25$
 
-**Step 3: WIP State.**
-We are calculating $P(L|F)$.
+**Βήμα 3: Κατάσταση WIP.**
+Υπολογίζουμε $P(L|F)$.
 $$P(L|F) = \frac{n(L \cap F)}{n(F)} = \frac{25}{?}$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(L|F) = \frac{25}{50} = 0.5$$
 
 ---
 
-### Example 3: Rolling Two Dice
-Two fair dice are rolled. What is the probability that the sum is 8, given that the first die shows a 5?
+### Παράδειγμα 3: Ρίχνοντας δύο ζάρια
+Ρίχνονται δύο δίκαια ζάρια. Ποια είναι η πιθανότητα το άθροισμα να είναι 8, δεδομένου ότι η πρώτη μήτρα δείχνει 5;
 
-**Step 1: Define events.**
-*   $S_8$: Sum is 8.
-*   $D_5$: First die is 5.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $S_8$: Το άθροισμα είναι 8.
+* $D_5$: Ο πρώτος θάνατος είναι 5.
 
-**Step 2: Identify the reduced sample space (Event $D_5$).**
-If the first die is 5, the possible outcomes are:
+**Βήμα 2: Προσδιορίστε τον μειωμένο χώρο δείγματος (Συμβάν $D_5$).**
+Εάν το πρώτο ζάρι είναι 5, τα πιθανά αποτελέσματα είναι:
 $(5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6)$.
-Total outcomes in $D_5 = 6$.
+Συνολικά αποτελέσματα σε $D_5 = 6$.**Βήμα 3: Κατάσταση WIP.**
+Ποιο από αυτά τα αποτελέσματα καταλήγει σε άθροισμα 8;
+* $5 + ? = 8 \implies ? = 3$
+Αποτέλεσμα: $(5, 3)$.
 
-**Step 3: WIP State.**
-Which of these outcomes result in a sum of 8?
-*   $5 + ? = 8 \implies ? = 3$
-Outcome: $(5, 3)$.
-
-**Step 4: Final Calculation.**
-There is only 1 favorable outcome in the reduced sample space of 6.
+**Βήμα 4: Τελικός Υπολογισμός.**
+Υπάρχει μόνο 1 ευνοϊκό αποτέλεσμα στον μειωμένο χώρο δειγμάτων των 6.
 $$P(S_8|D_5) = \frac{1}{6} \approx 0.1667$$
 
 ---
 
-### Example 4: Card Drawing
-A card is drawn from a standard deck of 52 cards. What is the probability it is an Ace, given that it is a Spade?
+### Παράδειγμα 4: Σχέδιο καρτών
+Ένα φύλλο τραβιέται από μια τυπική τράπουλα 52 φύλλων. Ποια είναι η πιθανότητα να είναι Άσος, δεδομένου ότι είναι Μπαστούνι;
 
-**Step 1: Define events.**
-*   $A$: Card is an Ace.
-*   $S$: Card is a Spade.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $A$: Το φύλλο είναι Άσος.
+* $S$: Η κάρτα είναι μπαστούνι.
 
-**Step 2: Identify counts.**
-*   $n(S) = 13$ (Spades in a deck)
-*   $n(A \cap S) = 1$ (The Ace of Spades)
+**Βήμα 2: Προσδιορισμός μετρήσεων.**
+* $n(S) = 13$ (Τα μπαστούνια σε ένα κατάστρωμα)
+* $n(A \cap S) = 1$ (The Ace of Spades)
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(A|S) = \frac{P(A \cap S)}{P(S)} = \frac{1/52}{?/52}$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(A|S) = \frac{1}{13} \approx 0.0769$$
 
 ---
 
-### Example 5: Family with Two Children
-A family has two children. Given that at least one is a girl, what is the probability that both are girls? (Assume $P(G) = P(B) = 0.5$).
+### Παράδειγμα 5: Οικογένεια με δύο παιδιά
+Μια οικογένεια έχει δύο παιδιά. Δεδομένου ότι τουλάχιστον το ένα είναι κορίτσι, ποια είναι η πιθανότητα να είναι και τα δύο κορίτσια; (Υποθέστε $P(G) = P(B) = 0.5$).
 
-**Step 1: Define the sample space $S$.**
-$S = \{BB, BG, GB, GG\}$ where $B$ is Boy and $G$ is Girl.
+**Βήμα 1: Ορισμός του δείγματος χώρου $S$.**
+$S = \{BB, BG, GB, GG\}$ όπου $B$ είναι αγόρι και $G$ είναι κορίτσι.
 
-**Step 2: Define the conditioning event $E$.**
-$E$: At least one girl.
+**Βήμα 2: Καθορίστε το συμβάν κλιματισμού $E$.**
+$E$: Τουλάχιστον ένα κορίτσι.
 $E = \{BG, GB, GG\}$.
 $n(E) = 3$.
 
-**Step 3: WIP State.**
-We want the probability of $GG$ given $E$.
-The favorable outcome is $\{GG\}$.
+**Βήμα 3: Κατάσταση WIP.**
+Θέλουμε την πιθανότητα $GG$ δεδομένου $E$.
+Το ευνοϊκό αποτέλεσμα είναι $\{GG\}$.
 $n(GG \cap E) = 1$.
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(GG|E) = \frac{1}{3} \approx 0.3333$$
 
 ---
 
-### Example 6: Weather and Traffic
-The probability that it rains is 0.3. The probability of heavy traffic is 0.4. The probability that it rains and there is heavy traffic is 0.2. What is the probability of heavy traffic given that it is raining?
+### Παράδειγμα 6: Καιρός και κυκλοφορία
+Η πιθανότητα να βρέχει είναι 0,3. Η πιθανότητα βαριάς κυκλοφορίας είναι 0,4. Η πιθανότητα να βρέχει και να υπάρχει μεγάλη κίνηση είναι 0,2. Ποια είναι η πιθανότητα έντονης κυκλοφορίας δεδομένου ότι βρέχει;
 
-**Step 1: Define events.**
-*   $R$: It rains. $P(R) = 0.3$.
-*   $T$: Heavy traffic. $P(T) = 0.4$.
-*   $P(R \cap T) = 0.2$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $R$: Βρέχει. $P(R) = 0.3$.
+* $T$: Μεγάλη κίνηση. $P(T) = 0.4$.
+* $P(R \cap T) = 0.2$.
 
-**Step 2: Apply the formula.**
+**Βήμα 2: Εφαρμόστε τον τύπο.**
 $$P(T|R) = \frac{P(T \cap R)}{P(R)}$$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(T|R) = \frac{0.2}{?}$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(T|R) = \frac{0.2}{0.3} = \frac{2}{3} \approx 0.6667$$
 
 ---
 
-### Example 7: Students Passing Exams
-In a class, 70% of students passed Math, and 60% passed Physics. 50% passed both. If a student is chosen at random and we know they passed Math, what is the probability they also passed Physics?
+### Παράδειγμα 7: Μαθητές που περνούν τις εξετάσεις
+Σε μια τάξη, το 70% των μαθητών πέρασε Μαθηματικά και το 60% πέρασε Φυσική. Το 50% πέρασε και τα δύο. Αν ένας μαθητής επιλεγεί τυχαία και γνωρίζουμε ότι πέρασε στα Μαθηματικά, ποια είναι η πιθανότητα να πέρασε και Φυσική;
 
-**Step 1: Define events.**
-*   $M$: Passed Math. $P(M) = 0.70$.
-*   $Ph$: Passed Physics. $P(Ph) = 0.60$.
-*   $P(M \cap Ph) = 0.50$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $M$: Πέρασε τα Μαθηματικά. $P(M) = 0.70$.
+* $Ph$: Πέρασε Φυσική. $P(Ph) = 0.60$.
+* $P(M \cap Ph) = 0.50$.
 
-**Step 2: Apply formula.**
+**Βήμα 2: Εφαρμόστε τον τύπο.**
 $$P(Ph|M) = \frac{P(Ph \cap M)}{P(M)}$$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(Ph|M) = \frac{0.50}{0.70} = ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(Ph|M) = \frac{5}{7} \approx 0.7143$$
 
 ---
 
-### Example 8: Assembly Line Defects
-A factory has two assembly lines, A and B. Line A produces 60% of the products and Line B produces 40%. Line A has a 5% defect rate. A product is chosen from Line A. What is the probability it is defective?
+### Παράδειγμα 8: Βλάβες γραμμής συναρμολόγησης
+Ένα εργοστάσιο έχει δύο γραμμές συναρμολόγησης, την Α και τη Β. Η γραμμή Α παράγει το 60% των προϊόντων και η γραμμή Β παράγει το 40%. Η γραμμή Α έχει ποσοστό ελαττώματος 5%. Ένα προϊόν επιλέγεται από τη γραμμή Α. Ποια είναι η πιθανότητα να είναι ελαττωματικό;
 
-**Step 1: Identify the given information.**
-*   $P(A) = 0.60$
-*   $P(B) = 0.40$
-*   $P(D|A) = 0.05$ (This is already a conditional probability!)
+**Βήμα 1: Προσδιορίστε τις πληροφορίες που δίνονται.**
+* $P(A) = 0.60$
+* $P(B) = 0.40$
+* $P(D|A) = 0.05$ (Αυτή είναι ήδη μια υπό όρους πιθανότητα!)
 
-**Step 2: Rephrase the question.**
-The question asks for the probability that a product is defective *given* it came from Line A.
+**Βήμα 2: Αναδιατυπώστε την ερώτηση.**
+Η ερώτηση ζητά την πιθανότητα ένα προϊόν να είναι ελαττωματικό *δεδομένου* ότι προήλθε από τη γραμμή Α.
 
-**Step 3: WIP State.**
-The value is directly provided in the problem description as the "defect rate of Line A".
+**Βήμα 3: Κατάσταση WIP.**
+Η τιμή παρέχεται απευθείας στην περιγραφή του προβλήματος ως "ποσοστό ελαττωμάτων της γραμμής Α".
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(D|A) = 0.05$$
 
-*Note: This example illustrates that in many word problems, the conditional probability is the "starting point" or "rate" provided for a specific subgroup.*
+*Σημείωση: Αυτό το παράδειγμα δείχνει ότι σε πολλά προβλήματα λέξεων, η υπό όρους πιθανότητα είναι το "σημείο εκκίνησης" ή το "ποσοστό" που παρέχεται για μια συγκεκριμένη υποομάδα.*
 
 
-# Phase 3.2: Independence
+# Φάση 3.2: ΑνεξαρτησίαΗ ανεξαρτησία είναι μια στατιστική ιδιότητα όπου η εμφάνιση ενός γεγονότος δεν επηρεάζει την πιθανότητα να συμβεί ένα άλλο συμβάν. Η κατανόηση της ανεξαρτησίας είναι ζωτικής σημασίας για την απλούστευση των πολύπλοκων υπολογισμών πιθανοτήτων.
 
-Independence is a statistical property where the occurrence of one event does not affect the probability of another event occurring. Understanding independence is crucial for simplifying complex probability calculations.
+## 1. Θεωρητικό θεμέλιο
 
-## 1. Theoretical Foundation
+### Ορισμός
+Δύο συμβάντα $A$ και $B$ είναι **ανεξάρτητα** εάν η γνώση ότι το $B$ έχει συμβεί δεν αλλάζει την πιθανότητα να συμβεί $A$.
 
-### Definition
-Two events $A$ and $B$ are **independent** if the knowledge that $B$ has occurred does not change the probability of $A$ occurring.
-
-### Mathematical Condition
-The most common way to test for independence is the **Product Rule**:
-Two events $A$ and $B$ are independent if and only if:
+### Μαθηματική Συνθήκη
+Ο πιο συνηθισμένος τρόπος δοκιμής ανεξαρτησίας είναι ο **Κανόνας προϊόντος**:
+Δύο συμβάντα $A$ και $B$ είναι ανεξάρτητα εάν και μόνο εάν:
 $$P(A \cap B) = P(A) \cdot P(B)$$
 
-Alternatively, using conditional probability, $A$ and $B$ are independent if:
+Εναλλακτικά, χρησιμοποιώντας πιθανότητες υπό όρους, οι $A$ και $B$ είναι ανεξάρτητες εάν:
 1. $P(A|B) = P(A)$
 2. $P(B|A) = P(B)$
 
-### Independence vs. Mutually Exclusive
-It is a common mistake to confuse these two concepts:
-*   **Mutually Exclusive (Disjoint):** Events *cannot* happen at the same time ($P(A \cap B) = 0$). If $A$ happens, $B$ definitely cannot happen.
-*   **Independent:** Events *can* happen at the same time, but they don't influence each other.
+### Ανεξαρτησία εναντίον Αμοιβαίας Αποκλειστικότητας
+Είναι συνηθισμένο λάθος να συγχέουμε αυτές τις δύο έννοιες:
+* **Αμοιβαία Αποκλειστική (Disjoint):** Τα γεγονότα *δεν* μπορούν* να συμβαίνουν ταυτόχρονα ($P(A \cap B) = 0$). Εάν συμβεί $A$, το $B$ σίγουρα δεν μπορεί να συμβεί.
+* **Ανεξάρτητα:** Τα γεγονότα *μπορούν* να συμβούν ταυτόχρονα, αλλά δεν επηρεάζουν το ένα το άλλο.
 
-> **Shortcut:** If $A$ and $B$ have non-zero probabilities and are mutually exclusive, they **cannot** be independent.
+> **Συντόμευση:** Εάν οι $A$ και $B$ έχουν μη μηδενικές πιθανότητες και είναι αμοιβαία αποκλειόμενες, **δεν** μπορούν να είναι ανεξάρτητες.
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Flipping Two Coins
-If you flip a fair coin twice, what is the probability of getting two Heads?
+### Παράδειγμα 1: Αναστροφή δύο νομισμάτων
+Αν γυρίσετε ένα νόμισμα δύο φορές, ποια είναι η πιθανότητα να πάρετε δύο κεφάλια;
 
-**Step 1: Define events.**
-*   $H_1$: Head on the first flip. $P(H_1) = 0.5$.
-*   $H_2$: Head on the second flip. $P(H_2) = 0.5$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H_1$: Προχωρήστε στο πρώτο γύρισμα. $P(H_1) = 0.5$.
+* $H_2$: Προχωρήστε στο δεύτερο γύρισμα. $P(H_2) = 0.5$.
 
-**Step 2: Determine if they are independent.**
-The outcome of the first flip does not affect the second. They are independent.
+**Βήμα 2: Προσδιορίστε εάν είναι ανεξάρτητα.**
+Το αποτέλεσμα της πρώτης ανατροπής δεν επηρεάζει τη δεύτερη. Είναι ανεξάρτητοι.
 
-**Step 3: WIP State.**
-Apply the product rule:
+**Βήμα 3: Κατάσταση WIP.**
+Εφαρμόστε τον κανόνα του προϊόντος:
 $$P(H_1 \cap H_2) = P(H_1) \cdot P(H_2) = 0.5 \cdot ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(H_1 \cap H_2) = 0.5 \cdot 0.5 = 0.25$$
 
 ---
 
-### Example 2: Drawing Cards with Replacement
-You draw a card from a 52-card deck, look at it, put it back, shuffle, and draw again. What is the probability that both cards are Hearts?
+### Παράδειγμα 2: Σχεδίαση καρτών με αντικατάσταση
+Τραβάτε ένα φύλλο από μια τράπουλα 52 φύλλων, το κοιτάτε, το βάζετε πίσω, το ανακατεύετε και τραβάτε ξανά. Ποια είναι η πιθανότητα και τα δύο φύλλα να είναι Καρδιές;
 
-**Step 1: Define events.**
-*   $H_1$: First card is Heart. $P(H_1) = 13/52 = 0.25$.
-*   $H_2$: Second card is Heart. $P(H_2) = 13/52 = 0.25$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H_1$: Το πρώτο φύλλο είναι η Καρδιά. $P(H_1) = 13/52 = 0.25$.
+* $H_2$: Το δεύτερο φύλλο είναι η Καρδιά. $P(H_2) = 13/52 = 0.25$.
 
-**Step 2: Analyze independence.**
-Because of "replacement", the state of the deck is the same for both draws. The events are independent.
+**Βήμα 2: Αναλύστε την ανεξαρτησία.**
+Λόγω "αντικατάστασης", η κατάσταση της τράπουλας είναι ίδια και για τις δύο ισοπαλίες. Οι εκδηλώσεις είναι ανεξάρτητες.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(H_1 \cap H_2) = 0.25 \cdot ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(H_1 \cap H_2) = 0.0625$$
 
 ---
 
-### Example 3: Shooting at a Target
-Two archers, Alice and Bob, shoot at a target. Alice hits the target with probability 0.7, and Bob hits it with probability 0.4. If they both shoot, what is the probability they both hit?
+### Παράδειγμα 3: Σκοποβολή σε στόχο
+Δύο τοξότες, η Αλίκη και ο Μπομπ, πυροβολούν έναν στόχο. Η Αλίκη χτυπά τον στόχο με πιθανότητα 0,7 και ο Μπομπ τον χτυπά με πιθανότητα 0,4. Αν πυροβολήσουν και οι δύο, ποια είναι η πιθανότητα να χτυπήσουν και οι δύο;
 
-**Step 1: Define events.**
-*   $A$: Alice hits. $P(A) = 0.7$.
-*   $B$: Bob hits. $P(B) = 0.4$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $A$: Η Αλίκη χτυπάει. $P(A) = 0.7$.
+* $B$: Ο Μπομπ χτυπάει. $P(B) = 0.4$.
 
-**Step 2: Assume independence.**
-Usually, in such problems, the performance of one person is independent of the other.
+**Βήμα 2: Υποθέστε την ανεξαρτησία.**
+Συνήθως, σε τέτοια προβλήματα, η απόδοση ενός ατόμου είναι ανεξάρτητη από το άλλο.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $$P(A \cap B) = P(A) \cdot P(B) = 0.7 \cdot 0.4 = ?$$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $$P(A \cap B) = 0.28$$
 
 ---
 
-### Example 4: Testing for Independence (Dice)
-A fair six-sided die is rolled. Let $A = \{1, 2, 3\}$ and $B = \{2, 4, 6\}$. Are $A$ and $B$ independent?
+### Παράδειγμα 4: Δοκιμή ανεξαρτησίας (Ζάρια)
+Τυλίγεται μια δίκαιη μήτρα έξι όψεων. Έστω $A = \{1, 2, 3\}$ και $B = \{2, 4, 6\}$. Είναι τα $A$ και $B$ ανεξάρτητα;
 
-**Step 1: Calculate individual probabilities.**
-*   $P(A) = 3/6 = 0.5$
-*   $P(B) = 3/6 = 0.5$
+**Βήμα 1: Υπολογίστε μεμονωμένες πιθανότητες.**
+* $P(A) = 3/6 = 0.5$
+* $P(B) = 3/6 = 0.5$
 
-**Step 2: Identify the intersection.**
+**Βήμα 2: Προσδιορίστε τη διασταύρωση.**
 $A \cap B = \{2\}$.
 $P(A \cap B) = 1/6 \approx 0.1667$.
 
-**Step 3: WIP State.**
-Check the product: $P(A) \cdot P(B) = 0.5 \cdot 0.5 = 0.25$.
-Does $P(A \cap B) = P(A) \cdot P(B)$?
+**Βήμα 3: Κατάσταση WIP.**
+Ελέγξτε το προϊόν: $P(A) \cdot P(B) = 0.5 \cdot 0.5 = 0.25$.
+Μήπως $P(A \cap B) = P(A) \cdot P(B)$;
 $? = ?$
 
-**Step 4: Final Calculation.**
-$0.1667 \neq 0.25$.
-Therefore, events $A$ and $B$ are **not independent** (they are dependent).
+**Βήμα 4: Τελικός Υπολογισμός.**$0.1667 \neq 0.25$.
+Επομένως, τα συμβάντα $A$ και $B$ **δεν είναι ανεξάρτητα** (εξαρτώνται).
 
 ---
 
-### Example 5: Weather in Two Cities
-The probability of rain in London is 0.4. The probability of rain in Tokyo is 0.3. Assuming these are independent, what is the probability it rains in at least one city?
+### Παράδειγμα 5: Καιρός σε δύο πόλεις
+Η πιθανότητα βροχής στο Λονδίνο είναι 0,4. Η πιθανότητα βροχής στο Τόκιο είναι 0,3. Αν υποθέσουμε ότι αυτά είναι ανεξάρτητα, ποια είναι η πιθανότητα να βρέχει σε τουλάχιστον μία πόλη;
 
-**Step 1: Define events.**
-*   $L$: Rain in London. $P(L) = 0.4$.
-*   $T$: Rain in Tokyo. $P(T) = 0.3$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $L$: Βροχή στο Λονδίνο. $P(L) = 0.4$.
+* $T$: Βροχή στο Τόκιο. $P(T) = 0.3$.
 
-**Step 2: Identify the method.**
-"At least one" is best solved using the complement: $1 - P(\text{None})$.
+**Βήμα 2: Προσδιορίστε τη μέθοδο.**
+Το "τουλάχιστον ένα" λύνεται καλύτερα χρησιμοποιώντας το συμπλήρωμα: $1 - P(\text{None})$.
 $P(L^c) = 0.6$, $P(T^c) = 0.7$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(\text{Neither rains}) = P(L^c \cap T^c) = 0.6 \cdot ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(L^c \cap T^c) = 0.6 \cdot 0.7 = 0.42$.
 $P(\text{At least one}) = 1 - 0.42 = 0.58$.
 
 ---
 
-### Example 6: Three Independent Events
-Three different light bulbs have probabilities 0.1, 0.2, and 0.05 of failing in the first year. What is the probability all three fail?
+### Παράδειγμα 6: Τρία ανεξάρτητα συμβάντα
+Τρεις διαφορετικοί λαμπτήρες έχουν πιθανότητες 0,1, 0,2 και 0,05 να χαλάσουν τον πρώτο χρόνο. Ποια είναι η πιθανότητα να αποτύχουν και τα τρία;
 
-**Step 1: Define events.**
-$F_1, F_2, F_3$ with $P(F_1)=0.1, P(F_2)=0.2, P(F_3)=0.05$.
+**Βήμα 1: Ορισμός συμβάντων.**
+$F_1, F_2, F_3$ με $P(F_1)=0.1, P(F_2)=0.2, P(F_3)=0.05$.
 
-**Step 2: Extend the product rule.**
-For independent events, $P(A \cap B \cap C) = P(A) \cdot P(B) \cdot P(C)$.
+**Βήμα 2: Επεκτείνετε τον κανόνα του προϊόντος.**
+Για ανεξάρτητες εκδηλώσεις, $P(A \cap B \cap C) = P(A) \cdot P(B) \cdot P(C)$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(F_1 \cap F_2 \cap F_3) = 0.1 \cdot 0.2 \cdot ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(F_1 \cap F_2 \cap F_3) = 0.001$.
 
 ---
 
-### Example 7: System Reliability (Parallel)
-A system consists of two independent components in parallel. The system works if at least one component works. $P(C_1 \text{ works}) = 0.95$ and $P(C_2 \text{ works}) = 0.90$. Find the probability the system works.
+### Παράδειγμα 7: Αξιοπιστία συστήματος (παράλληλο)
+Ένα σύστημα αποτελείται από δύο ανεξάρτητα στοιχεία παράλληλα. Το σύστημα λειτουργεί εάν λειτουργεί τουλάχιστον ένα εξάρτημα. $P(C_1 \text{ works}) = 0.95$ και $P(C_2 \text{ works}) = 0.90$. Βρείτε την πιθανότητα να λειτουργεί το σύστημα.
 
-**Step 1: Find failure probabilities.**
+**Βήμα 1: Βρείτε τις πιθανότητες αποτυχίας.**
 $P(C_1^c) = 0.05$.
 $P(C_2^c) = 0.10$.
 
-**Step 2: Calculate probability both fail.**
+**Βήμα 2: Υπολογίστε την πιθανότητα να αποτύχουν και τα δύο.**
 $P(\text{Both fail}) = 0.05 \cdot 0.10 = 0.005$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(\text{System works}) = 1 - P(\text{Both fail}) = 1 - ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(\text{System works}) = 0.995$.
 
 ---
 
-### Example 8: Probability of Exactly One
-Given two independent events $A$ and $B$ with $P(A)=0.6$ and $P(B)=0.4$. What is the probability that **exactly one** of them occurs?
+### Παράδειγμα 8: Πιθανότητα Ακριβώς Ένα
+Δίνονται δύο ανεξάρτητα συμβάντα $A$ και $B$ με $P(A)=0.6$ και $P(B)=0.4$. Ποια είναι η πιθανότητα **ακριβώς ένα** να συμβεί;
 
-**Step 1: Identify the two scenarios.**
-1. $A$ occurs and $B$ does not: $P(A \cap B^c)$.
-2. $B$ occurs and $A$ does not: $P(B \cap A^c)$.
+**Βήμα 1: Προσδιορίστε τα δύο σενάρια.**
+1. Η $A$ εμφανίζεται και η $B$ όχι: $P(A \cap B^c)$.
+2. Το $B$ εμφανίζεται και το $A$ όχι: $P(B \cap A^c)$.
 
-**Step 2: Calculate each using independence.**
+**Βήμα 2: Υπολογίστε το καθένα χρησιμοποιώντας την ανεξαρτησία.**
 $P(A \cap B^c) = 0.6 \cdot (1 - 0.4) = 0.6 \cdot 0.6 = 0.36$.
 $P(B \cap A^c) = 0.4 \cdot (1 - 0.6) = 0.4 \cdot 0.4 = 0.16$.
 
-**Step 3: WIP State.**
-Add the two probabilities (since they are mutually exclusive):
+**Βήμα 3: Κατάσταση WIP.**
+Προσθέστε τις δύο πιθανότητες (καθώς είναι αμοιβαία αποκλειόμενες):
 $P(\text{Exactly one}) = 0.36 + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(\text{Exactly one}) = 0.52$.
 
 
-# Phase 3.3: Law of Total Probability & Bayes' Theorem
+# Φάση 3.3: Νόμος της ολικής πιθανότητας & θεώρημα Bayes
 
-These two theorems are the most powerful tools in probability for handling multi-stage processes and updating beliefs based on new evidence.
+Αυτά τα δύο θεωρήματα είναι τα πιο ισχυρά εργαλεία στην πιθανότητα για τον χειρισμό διαδικασιών πολλαπλών σταδίων και την ενημέρωση των πεποιθήσεων με βάση νέα στοιχεία.
 
-## 1. Theoretical Foundation
+## 1. Θεωρητικό θεμέλιο
 
-### Law of Total Probability
-If we have a set of events $B_1, B_2, \dots, B_n$ that **partition** the sample space (meaning they are mutually exclusive and their union is the whole space), then for any event $A$:
+### Νόμος Συνολικών Πιθανοτήτων
+Εάν έχουμε ένα σύνολο συμβάντων $B_1, B_2, \dots, B_n$ που **διαιρούν** το δείγμα του χώρου (που σημαίνει ότι είναι αμοιβαία αποκλειόμενα και η ένωσή τους είναι ολόκληρος ο χώρος), τότε για οποιοδήποτε συμβάν $A$:
 
 $$P(A) = P(A|B_1)P(B_1) + P(A|B_2)P(B_2) + \dots + P(A|B_n)P(B_n)$$
 
-**Intuition:** To find the total probability of $A$, you sum up the probability of $A$ occurring under each possible "branch" of the sample space.
+**Διαίσθηση:** Για να βρείτε τη συνολική πιθανότητα του $A$, αθροίζετε την πιθανότητα να εμφανιστεί $A$ κάτω από κάθε πιθανό "κλάδο" του δείγματος χώρου.
 
-### Bayes' Theorem
-Bayes' Theorem allows us to "reverse" conditional probabilities. If we know $P(A|B)$, we can find $P(B|A)$.
+### Θεώρημα Bayes
+Το θεώρημα του Bayes μας επιτρέπει να «αντιστρέφουμε» πιθανότητες υπό όρους. Αν γνωρίζουμε $P(A|B)$, μπορούμε να βρούμε $P(B|A)$.
 
 $$P(B_i|A) = \frac{P(A|B_i)P(B_i)}{P(A)}$$
 
-By substituting the Law of Total Probability for the denominator $P(A)$, we get the expanded form:
+Αντικαθιστώντας τον νόμο της ολικής πιθανότητας με τον παρονομαστή $P(A)$, παίρνουμε τη διευρυμένη μορφή:
 
 $$P(B_i|A) = \frac{P(A|B_i)P(B_i)}{\sum_{j=1}^{n} P(A|B_j)P(B_j)}$$
 
 ---
 
-## 2. Solved Examples
+## 2. Λυμένα Παραδείγματα
 
-### Example 1: Factory Production (Total Probability)
-A factory uses three machines. $M_1$ produces 50%, $M_2$ produces 30%, and $M_3$ produces 20% of the total output. The defect rates are 1%, 2%, and 5% respectively. What is the probability a random product is defective?
+### Παράδειγμα 1: Εργοστασιακή παραγωγή (Συνολική πιθανότητα)Ένα εργοστάσιο χρησιμοποιεί τρία μηχανήματα. Το $M_1$ παράγει το 50%, το $M_2$ παράγει το 30% και το $M_3$ παράγει το 20% της συνολικής παραγωγής. Τα ποσοστά ελαττωμάτων είναι 1%, 2% και 5% αντίστοιχα. Ποια είναι η πιθανότητα ένα τυχαίο προϊόν να είναι ελαττωματικό;
 
-**Step 1: Define events.**
-*   $M_i$: Product from machine $i$.
-*   $D$: Product is defective.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $M_i$: Προϊόν από το μηχάνημα $i$.
+* $D$: Το προϊόν είναι ελαττωματικό.
 
-**Step 2: List given probabilities.**
-*   $P(M_1)=0.5, P(D|M_1)=0.01$
-*   $P(M_2)=0.3, P(D|M_2)=0.02$
-*   $P(M_3)=0.2, P(D|M_3)=0.05$
+**Βήμα 2: Καταγράψτε τις δεδομένες πιθανότητες.**
+* $P(M_1)=0.5, P(D|M_1)=0.01$
+* $P(M_2)=0.3, P(D|M_2)=0.02$
+* $P(M_3)=0.2, P(D|M_3)=0.05$
 
-**Step 3: WIP State.**
-Apply Law of Total Probability:
+**Βήμα 3: Κατάσταση WIP.**
+Εφαρμόστε το νόμο της συνολικής πιθανότητας:
 $P(D) = (0.5 \cdot 0.01) + (0.3 \cdot 0.02) + (0.2 \cdot ?)$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(D) = 0.005 + 0.006 + 0.010 = 0.021$.
-The probability is **2.1%**.
+Η πιθανότητα είναι **2,1%**.
 
 ---
 
-### Example 2: Medical Diagnostic Test (Bayes)
-A disease affects 1% of the population. A test is 95% accurate for those with the disease (sensitivity) and 90% accurate for those without (specificity). If a person tests positive, what is the probability they have the disease?
+### Παράδειγμα 2: Ιατρική διαγνωστική εξέταση (Bayes)
+Μια ασθένεια επηρεάζει το 1% του πληθυσμού. Μια εξέταση είναι 95% ακριβής για όσους πάσχουν από τη νόσο (ευαισθησία) και 90% ακριβής για όσους δεν έχουν (ειδικότητα). Εάν ένα άτομο βγει θετικό, ποια είναι η πιθανότητα να έχει τη νόσο;
 
-**Step 1: Define events.**
-*   $H$: Has disease. $P(H) = 0.01$.
-*   $H^c$: Healthy. $P(H^c) = 0.99$.
-*   $Pos$: Tests positive.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H$: Έχει ασθένεια. $P(H) = 0.01$.
+* $H^c$: Υγιείς. $P(H^c) = 0.99$.
+* $Pos$: Είναι θετικό.
 
-**Step 2: List conditionals.**
-*   $P(Pos|H) = 0.95$
-*   $P(Pos|H^c) = 1 - 0.90 = 0.10$ (False Positive)
+**Βήμα 2: Καταχωρίστε τις προϋποθέσεις.**
+* $P(Pos|H) = 0.95$
+* $P(Pos|H^c) = 1 - 0.90 = 0.10$ (Λάθος θετικό)
 
-**Step 3: WIP State.**
-Calculate total probability of testing positive $P(Pos)$:
+**Βήμα 3: Κατάσταση WIP.**
+Υπολογίστε τη συνολική πιθανότητα θετικού τεστ $P(Pos)$:
 $P(Pos) = (0.95 \cdot 0.01) + (0.10 \cdot 0.99) = 0.0095 + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(Pos) = 0.1085$.
 $P(H|Pos) = \frac{P(Pos|H)P(H)}{P(Pos)} = \frac{0.0095}{0.1085} \approx 0.0876$.
-The probability is only **8.76%**.
+Η πιθανότητα είναι μόνο **8,76%**.
 
 ---
 
-### Example 3: Two Urns (Multi-stage)
-Urn A has 2 Red and 3 Blue balls. Urn B has 4 Red and 1 Blue ball. A fair coin is flipped; if Heads, a ball is drawn from Urn A. If Tails, from Urn B. What is the probability a Red ball is drawn?
+### Παράδειγμα 3: Δύο δοχεία (πολλαπλών σταδίων)
+Το Urn A έχει 2 κόκκινες και 3 μπλε μπάλες. Το Urn B έχει 4 κόκκινες και 1 μπλε μπάλα. Ένα ωραίο νόμισμα αναποδογυρίζεται. αν Κεφαλιά, τραβιέται μια μπάλα από την κερκίδα Α. Αν ουρές, από την κερκίδα Β. Ποια είναι η πιθανότητα να τραβηχτεί μια κόκκινη μπάλα;
 
-**Step 1: Define events.**
-*   $H$: Heads (Urn A). $P(H) = 0.5$.
-*   $T$: Tails (Urn B). $P(T) = 0.5$.
-*   $R$: Red ball.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H$: Κεφαλές (Urn A). $P(H) = 0.5$.
+* $T$: Ουρές (Urn B). $P(T) = 0.5$.
+* $R$: Κόκκινη μπάλα.
 
-**Step 2: Find conditionals.**
-*   $P(R|H) = 2/5 = 0.4$
-*   $P(R|T) = 4/5 = 0.8$
+**Βήμα 2: Βρείτε προϋποθέσεις.**
+* $P(R|H) = 2/5 = 0.4$
+* $P(R|T) = 4/5 = 0.8$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(R) = P(R|H)P(H) + P(R|T)P(T) = (0.4 \cdot 0.5) + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(R) = 0.2 + 0.4 = 0.6$.
 
 ---
 
-### Example 4: Identifying the Urn (Bayes)
-Using the setup from Example 3: If a Red ball was drawn, what is the probability it came from Urn B?
+### Παράδειγμα 4: Αναγνώριση της ουράς (Bayes)
+Χρησιμοποιώντας τη ρύθμιση από το Παράδειγμα 3: Αν μια κόκκινη μπάλα είχε τραβηχτεί, ποια είναι η πιθανότητα να προήλθε από το Urn B;
 
-**Step 1: Use previous results.**
-*   $P(R) = 0.6$
-*   $P(R|T)P(T) = 0.4$
+**Βήμα 1: Χρησιμοποιήστε προηγούμενα αποτελέσματα.**
+* $P(R) = 0.6$
+* $P(R|T)P(T) = 0.4$
 
-**Step 2: Apply Bayes' Theorem.**
+**Βήμα 2: Εφαρμογή του Θεωρήματος Bayes.**
 $P(T|R) = \frac{P(R|T)P(T)}{P(R)}$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(T|R) = \frac{0.4}{?}$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(T|R) = \frac{0.4}{0.6} = \frac{2}{3} \approx 0.6667$.
 
 ---
 
-### Example 5: Spam Filter
-A spam filter finds that 90% of spam emails contain the word "Offer", while only 5% of non-spam emails contain it. 20% of all emails are spam. If an email contains "Offer", what is the probability it is spam?
+### Παράδειγμα 5: Φίλτρο ανεπιθύμητης αλληλογραφίας
+Ένα φίλτρο ανεπιθύμητης αλληλογραφίας διαπιστώνει ότι το 90% των ανεπιθύμητων μηνυμάτων ηλεκτρονικού ταχυδρομείου περιέχει τη λέξη "Προσφορά", ενώ μόνο το 5% των μη ανεπιθύμητων μηνυμάτων ηλεκτρονικού ταχυδρομείου την περιέχει. Το 20% όλων των email είναι ανεπιθύμητα. Εάν ένα email περιέχει "Προσφορά", ποια είναι η πιθανότητα να είναι ανεπιθύμητο;
 
-**Step 1: Define events.**
-*   $S$: Spam. $P(S) = 0.2$.
-*   $O$: Contains "Offer".
-*   $P(O|S) = 0.9, P(O|S^c) = 0.05$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $S$: Ανεπιθύμητη αλληλογραφία. $P(S) = 0.2$.
+* $O$: Περιέχει "Προσφορά".
+* $P(O|S) = 0.9, P(O|S^c) = 0.05$.
 
-**Step 2: Total probability of "Offer".**
+**Βήμα 2: Συνολική πιθανότητα "Προσφοράς".**
 $P(O) = (0.9 \cdot 0.2) + (0.05 \cdot 0.8) = 0.18 + 0.04 = 0.22$.
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(S|O) = \frac{0.18}{?}$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(S|O) = \frac{0.18}{0.22} \approx 0.8182$.
 
 ---
 
-### Example 6: Witness Reliability
-A taxi was involved in a hit-and-run accident at night. Two companies, Green and Blue, operate in the city. 85% of taxis are Green and 15% are Blue. A witness identifies the taxi as Blue. The court tests the witness and finds they correctly identify the color 80% of the time. What is the probability the taxi was actually Blue?
+### Παράδειγμα 6: Αξιοπιστία Μάρτυρα
+Ένα ταξί ενεπλάκη σε τροχαίο ατύχημα τη νύχτα. Στην πόλη λειτουργούν δύο εταιρείες, η Green και η Blue. Το 85% των ταξί είναι πράσινο και το 15% είναι μπλε. Ένας μάρτυρας αναγνωρίζει το ταξί ως Μπλε. Το δικαστήριο εξετάζει τον μάρτυρα και διαπιστώνει ότι προσδιορίζει σωστά το χρώμα στο 80% των περιπτώσεων. Ποια είναι η πιθανότητα το ταξί να ήταν στην πραγματικότητα Μπλε;
 
-**Step 1: Define events.**
-*   $B$: Taxi was Blue. $P(B) = 0.15$.
-*   $G$: Taxi was Green. $P(G) = 0.85$.
-*   $W_B$: Witness says "Blue".
+**Βήμα 1: Ορισμός συμβάντων.**
+* $B$: Το ταξί ήταν Μπλε. $P(B) = 0.15$.
+* $G$: Το ταξί ήταν πράσινο. $P(G) = 0.85$.
+* $W_B$: Ο μάρτυρας λέει "Μπλε".
 
-**Step 2: Conditionals.**
-*   $P(W_B|B) = 0.80$ (Correct)
-*   $P(W_B|G) = 0.20$ (Incorrect - says Blue when it's Green)
+**Βήμα 2: Προϋποθέσεις.*** $P(W_B|B) = 0.80$ (Σωστό)
+* $P(W_B|G) = 0.20$ (Λάθος - λέει Μπλε όταν είναι πράσινο)
 
-**Step 3: WIP State.**
-Total probability witness says Blue:
+**Βήμα 3: Κατάσταση WIP.**
+Ο μάρτυρας συνολικών πιθανοτήτων λέει ο Μπλου:
 $P(W_B) = (0.80 \cdot 0.15) + (0.20 \cdot 0.85) = 0.12 + ?$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(W_B) = 0.12 + 0.17 = 0.29$.
 $P(B|W_B) = \frac{0.12}{0.29} \approx 0.4138$.
-Despite the witness, it's more likely the taxi was Green (58.62%)!
+Παρά τον μάρτυρα, το πιο πιθανό είναι ότι το ταξί ήταν πράσινο (58,62%)!
 
 ---
 
-### Example 7: Flight Delays
-The probability that it is a holiday is 0.1. During holidays, the probability of a flight delay is 0.6. On non-holidays, the probability of delay is 0.2. What is the probability a flight is delayed?
+### Παράδειγμα 7: Καθυστερήσεις πτήσεων
+Η πιθανότητα να είναι αργία είναι 0,1. Κατά τη διάρκεια των διακοπών, η πιθανότητα καθυστέρησης πτήσης είναι 0,6. Σε μη αργίες, η πιθανότητα καθυστέρησης είναι 0,2. Ποια είναι η πιθανότητα καθυστέρησης μιας πτήσης;
 
-**Step 1: Define events.**
-*   $H$: Holiday. $P(H) = 0.1$.
-*   $D$: Delayed.
-*   $P(D|H) = 0.6, P(D|H^c) = 0.2$.
+**Βήμα 1: Ορισμός συμβάντων.**
+* $H$: Διακοπές. $P(H) = 0.1$.
+* $D$: Καθυστέρησε.
+* $P(D|H) = 0.6, P(D|H^c) = 0.2$.
 
-**Step 2: WIP State.**
+**Βήμα 2: Κατάσταση WIP.**
 $P(D) = (0.6 \cdot 0.1) + (0.2 \cdot ?)$
 
-**Step 3: Final Calculation.**
+**Βήμα 3: Τελικός Υπολογισμός.**
 $P(D) = 0.06 + 0.18 = 0.24$.
 
 ---
 
-### Example 8: Supplier Quality
-A company buys chips from two suppliers, X (70%) and Y (30%). 2% of X's chips are defective, and 1% of Y's are defective. A chip is found to be defective. What is the probability it came from supplier X?
+### Παράδειγμα 8: Ποιότητα προμηθευτή
+Μια εταιρεία αγοράζει μάρκες από δύο προμηθευτές, τον Χ (70%) και τον Υ (30%). Το 2% των τσιπ του Χ είναι ελαττωματικά και το 1% των Υ είναι ελαττωματικά. Διαπιστώθηκε ότι ένα τσιπ είναι ελαττωματικό. Ποια είναι η πιθανότητα να προήλθε από τον προμηθευτή Χ;
 
-**Step 1: Total Defect Probability.**
+**Βήμα 1: Συνολική πιθανότητα ελαττώματος.**
 $P(D) = (0.02 \cdot 0.7) + (0.01 \cdot 0.3) = 0.014 + 0.003 = 0.017$.
 
-**Step 2: Apply Bayes.**
+**Βήμα 2: Εφαρμόστε το Bayes.**
 $P(X|D) = \frac{P(D|X)P(X)}{P(D)}$
 
-**Step 3: WIP State.**
+**Βήμα 3: Κατάσταση WIP.**
 $P(X|D) = \frac{0.014}{?}$
 
-**Step 4: Final Calculation.**
+**Βήμα 4: Τελικός Υπολογισμός.**
 $P(X|D) = \frac{0.014}{0.017} \approx 0.8235$.
-There is an 82.35% chance it came from Supplier X.
+Υπάρχει 82,35% πιθανότητα να προήλθε από τον Προμηθευτή X.
