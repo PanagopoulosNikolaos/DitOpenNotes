@@ -1,14 +1,14 @@
 /*
- * Exercise 4: Student Grade Class
- * 
- * Create a StudentGrade class with:
- * - Private members: name (string), grade (double)
- * - Constructor initializing both
- * - Overload operator < to compare by grade (ascending order)
- * - Overload operator << to display name and grade
- * - Overload operator == to check if two students have the same grade
- * 
- * In main(), create a vector of 6 students, sort by grade, display in ascending order, and check if any two have the same grade.
+ * Άσκηση 4: Κλάση Βαθμού Μαθητή
+ *
+ * Δημιουργήστε μια κλάση StudentGrade με:
+ * - Ιδιωτικά μέλη: name (string), grade (double)
+ * - Κατασκευαστή που αρχικοποιεί και τα δύο μέλη
+ * - Υπερφόρτωση τελεστή < για σύγκριση κατά βαθμό (αύξουσα σειρά)
+ * - Υπερφόρτωση τελεστή << για εμφάνιση ονόματος και βαθμού
+ * - Υπερφόρτωση τελεστή == για έλεγχο αν δύο μαθητές έχουν τον ίδιο βαθμό
+ *
+ * Στο main(), δημιουργήστε ένα διάνυσμα 6 μαθητών, ταξινομήστε κατά βαθμό, εμφανίστε σε αύξουσα σειρά, και ελέγξτε αν οποιοσδήποτε δύο έχουν τον ίδιο βαθμό.
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

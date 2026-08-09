@@ -1,327 +1,327 @@
-# Lecture 05 - Linear Time-Invariant (LTI) Systems
+# Διάλεξη 05 - Γραμμικά Αμετάβλητα ως προς τον Χρόνο (LTI) Συστήματα
 
-Continuation of the system classification framework from Lecture 04, introducing the additional properties of memory, causality, and stability that characterize system behavior. This lecture defines the class of Linear Time-Invariant (LTI) systems and establishes the impulse response as a complete characterization of such systems. The convolution integral is derived as the mechanism for computing the output of an LTI system to any arbitrary input, forming the foundation for time-domain system analysis.
+Συνέχεια του πλαισίου ταξινόμησης συστημάτων από τη Διάλεξη 04, εισάγοντας τις πρόσθετες ιδιότητες της μνήμης, της αιτιατότητας και της ευστάθειας που χαρακτηρίζουν τη συμπεριφορά του συστήματος. Αυτή η διάλεξη ορίζει την κλάση των Γραμμικών Αμετάβλητων ως προς τον Χρόνο (LTI) συστημάτων και θεμελιώνει την κρουστική απόκριση ως πλήρη χαρακτηρισμό τέτοιων συστημάτων. Το ολοκλήρωμα συνέλιξης προκύπτει ως ο μηχανισμός υπολογισμού της εξόδου ενός LTI συστήματος για οποιαδήποτε αυθαίρετη είσοδο, σχηματίζοντας τη βάση για την ανάλυση συστημάτων στο πεδίο του χρόνου.
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Εννοιολογικό Θεμέλιο
 
-### 1.1 Static (Memoryless) vs. Dynamic Systems
+### 1.1 Στατικά (Χωρίς Μνήμη) έναντι Δυναμικών Συστημάτων
 
-A system is classified as **static** (or **memoryless**) if the output at any time $t$ depends only on the input at that same time $t$, and not on past or future values of the input. Conversely, a **dynamic** system (or system **with memory**) is one where the output depends on past (or future) values of the input.
+Ένα σύστημα ταξινομείται ως **στατικό** (ή **χωρίς μνήμη**) αν η έξοδος σε οποιαδήποτε στιγμή $t$ εξαρτάται μόνο από την είσοδο την ίδια στιγμή $t$, και όχι από παρελθοντικές ή μελλοντικές τιμές της εισόδου. Αντιστρόφως, ένα **δυναμικό** σύστημα (ή σύστημα **με μνήμη**) είναι εκείνο όπου η έξοδος εξαρτάται από παρελθοντικές (ή μελλοντικές) τιμές της εισόδου.
 
-#### Memoryless Systems
+#### Συστήματα χωρίς Μνήμη
 
-For a memoryless system, the input-output relationship at time $t$ is an instantaneous function:
+Για ένα σύστημα χωρίς μνήμη, η σχέση εισόδου-εξόδου τη στιγμή $t$ είναι μια στιγμιαία συνάρτηση:
 
 $$
 y(t) = f\big(x(t)\big)
 $$
 
-where $f$ is some function (possibly non-linear) that involves no integration, differentiation, or delay elements.
+όπου η $f$ είναι κάποια συνάρτηση (πιθανώς μη γραμμική) που δεν περιλαμβάνει στοιχεία ολοκλήρωσης, παραγώγισης ή καθυστέρησης.
 
-**Resistor example:** An ideal resistor obeys Ohm's law:
+**Παράδειγμα αντιστάτη:** Ένας ιδανικός αντιστάτης υπακούει στον νόμο του Ohm:
 
 $$
 v(t) = R \cdot i(t)
 $$
 
-At any instant $t$, the voltage depends only on the current at that same instant. There is no integration, no storage of energy, and no dependence on past values. The resistor is memoryless.
+Σε κάθε στιγμή $t$, η τάση εξαρτάται μόνο από το ρεύμα την ίδια ακριβώς στιγμή. Δεν υπάρχει ολοκλήρωση, ούτε αποθήκευση ενέργειας, ούτε εξάρτηση από παρελθοντικές τιμές. Ο αντιστάτης είναι χωρίς μνήμη.
 
-Other memoryless systems:
-- $y(t) = x^2(t)$ (instantaneous squaring)
-- $y(t) = \sin\big(x(t)\big)$ (instantaneous non-linear mapping)
-- $y(t) = 2x(t) + 3$ (affine mapping)
+Άλλα συστήματα χωρίς μνήμη:
+- $y(t) = x^2(t)$ (στιγμιαία τετραγωνισμός)
+- $y(t) = \sin\big(x(t)\big)$ (στιγμιαία μη γραμμική απεικόνιση)
+- $y(t) = 2x(t) + 3$ (αφινική απεικόνιση)
 
-#### Systems with Memory
+#### Συστήματα με Μνήμη
 
-For a system with memory, the output depends on values of the input at times other than the present. This dependence arises whenever the system stores energy (capacitors, inductors) or performs operations that span multiple time instants (integrators, differentiators, delays).
+Για ένα σύστημα με μνήμη, η έξοδος εξαρτάται από τιμές της εισόδου σε χρόνους διαφορετικούς του παρόντος. Αυτή η εξάρτηση προκύπτει όποτε το σύστημα αποθηκεύει ενέργεια (πυκνωτές, πηνία) ή εκτελεί πράξεις που εκτείνονται σε πολλαπλά χρονικά στιγμιότυπα (ολοκληρωτές, παραγωγίζουσες, καθυστερήσεις).
 
-**Capacitor integrator example:** An ideal capacitor obeys:
+**Παράδειγμα ολοκληρωτή πυκνωτή:** Ένας ιδανικός πυκνωτής υπακούει:
 
 $$
 v(t) = \frac{1}{C} \int_{-\infty}^{t} i(\tau) \, d\tau
 $$
 
-At time $t$, the voltage depends on the entire history of the current $i(\tau)$ for $\tau \le t$. The capacitor therefore has **infinite memory** — the output depends on all past inputs.
+Στη στιγμή $t$, η τάση εξαρτάται από ολόκληρη την ιστορία του ρεύματος $i(\tau)$ για $\tau \le t$. Ο πυκνωτής επομένως έχει **άπειρη μνήμη** — η έξοδος εξαρτάται από όλες τις παρελθοντικές εισόδους.
 
-**Differentiator example:**
+**Παράδειγμα παραγωγίζουσας:**
 
 $$
 y(t) = \frac{dx}{dt}
 $$
 
-Although a derivative is a local operation, it implicitly depends on values in an arbitrarily small neighborhood around $t$, making it a dynamic system.
+Αν και η παράγωγος είναι τοπική πράξη, εξαρτάται σιωπηρά από τιμές σε μια αυθαίρετα μικρή γειτονιά γύρω από το $t$, καθιστώντας την ένα δυναμικό σύστημα.
 
-#### Memory Length
+#### Μήκος Μνήμης
 
-| Memory Type | Description | Example |
+| Τύπος Μνήμης | Περιγραφή | Παράδειγμα |
 | :--- | :--- | :--- |
-| **Zero memory** (static) | Output depends only on current input | $y(t) = R \cdot x(t)$ |
-| **Finite memory** | Output depends on inputs over a finite window | $y(t) = \frac{1}{T} \int_{t-T}^{t} x(\tau) d\tau$ (moving average) |
-| **Infinite memory** | Output depends on all past inputs | $y(t) = \int_{-\infty}^{t} x(\tau) d\tau$ (ideal integrator) |
+| **Μηδενική μνήμη** (στατικό) | Η έξοδος εξαρτάται μόνο από την τρέχουσα είσοδο | $y(t) = R \cdot x(t)$ |
+| **Πεπερασμένη μνήμη** | Η έξοδος εξαρτάται από εισόδους σε ένα πεπερασμένο παράθυρο | $y(t) = \frac{1}{T} \int_{t-T}^{t} x(\tau) d\tau$ (κινητός μέσος όρος) |
+| **Άπειρη μνήμη** | Η έξοδος εξαρτάται από όλες τις παρελθοντικές εισόδους | $y(t) = \int_{-\infty}^{t} x(\tau) d\tau$ (ιδανικός ολοκληρωτής) |
 
 ---
 
-### 1.2 Causal vs. Non-causal Systems
+### 1.2 Αιτιατά έναντι Μη Αιτιατών Συστημάτων
 
-#### Definition of Causality
+#### Ορισμός της Αιτιατότητας
 
-A system is **causal** if the output at any time $t$ depends only on values of the input at the present time and past times ($\tau \le t$). A causal system cannot "look into the future" — there is no dependence on $x(\tau)$ for $\tau > t$.
+Ένα σύστημα είναι **αιτιατό** αν η έξοδος σε οποιαδήποτε στιγμή $t$ εξαρτάται μόνο από τιμές της εισόδου στο παρόν και στο παρελθόν ($\tau \le t$). Ένα αιτιατό σύστημα δεν μπορεί να «κοιτάξει στο μέλλον» — δεν υπάρχει εξάρτηση από το $x(\tau)$ για $\tau > t$.
 
-Formally, a system $S$ is causal if for any two inputs $x_1(t)$ and $x_2(t)$ that are identical for all $\tau \le t$:
+Τυπικά, ένα σύστημα $S$ είναι αιτιατό αν για οποιεσδήποτε δύο εισόδους $x_1(t)$ και $x_2(t)$ που είναι ταυτόσημες για όλα τα $\tau \le t$:
 
 $$
 x_1(\tau) = x_2(\tau), \quad \forall \tau \le t
 $$
 
-the corresponding outputs are also identical at time $t$:
+οι αντίστοιχες έξοδοι είναι επίσης ταυτόσημες τη στιγμή $t$:
 
 $$
 S\{x_1\}(t) = S\{x_2\}(t)
 $$
 
-**Causal physical real-time systems:** Every physical system that operates in real time must be causal. When you speak into a microphone, the electrical output cannot depend on words you have not yet spoken. A causal system processes the input as it arrives, without access to future values.
+**Αιτιατά φυσικά συστήματα πραγματικού χρόνου:** Κάθε φυσικό σύστημα που λειτουργεί σε πραγματικό χρόνο πρέπει να είναι αιτιατό. Όταν μιλάτε σε ένα μικρόφωνο, η ηλεκτρική έξοδος δεν μπορεί να εξαρτάται από λέξεις που δεν έχετε ακόμη προφέρει. Ένα αιτιατό σύστημα επεξεργάζεται την είσοδο καθώς φθάνει, χωρίς πρόσβαση σε μελλοντικές τιμές.
 
-**Non-causal systems in non-real-time processing:** A system that processes recorded data can be non-causal because the entire signal is available in memory. For example:
+**Μη αιτιατά συστήματα σε επεξεργασία μη πραγματικού χρόνου:** Ένα σύστημα που επεξεργάζεται καταγεγραμμένα δεδομένα μπορεί να είναι μη αιτιατό επειδή ολόκληρο το σήμα είναι διαθέσιμο στη μνήμη. Για παράδειγμα:
 
-- A smoothing filter that computes $y(t) = \frac{1}{3}\big(x(t-1) + x(t) + x(t+1)\big)$ is non-causal because $y(t)$ depends on $x(t+1)$, a future value.
-- Image processing (where the independent variable is spatial position, not time) routinely uses non-causal filters, since the entire image is available simultaneously.
+- Ένα φίλτρο εξομάλυνσης που υπολογίζει $y(t) = \frac{1}{3}\big(x(t-1) + x(t) + x(t+1)\big)$ είναι μη αιτιατό επειδή το $y(t)$ εξαρτάται από το $x(t+1)$, μια μελλοντική τιμή.
+- Η επεξεργασία εικόνας (όπου η ανεξάρτητη μεταβλητή είναι η χωρική θέση, όχι ο χρόνος) χρησιμοποιεί συχνά μη αιτιατά φίλτρα, καθώς ολόκληρη η εικόνα είναι ταυτόχρονα διαθέσιμη.
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> In digital signal processing, a non-causal filter can be made causal by introducing a sufficient delay. For the three-point moving average above, defining $y_{\text{causal}}(t) = y(t-1)$ yields a causal output that is simply a delayed version of the non-causal result. This approach is standard when processing pre-recorded data offline.
+> Στην ψηφιακή επεξεργασία σήματος, ένα μη αιτιατό φίλτρο μπορεί να καταστεί αιτιατό εισάγοντας μια επαρκή καθυστέρηση. Για τον τριών σημείων κινητό μέσο όρο παραπάνω, ο ορισμός $y_{\text{causal}}(t) = y(t-1)$ δίνει μια αιτιατή έξοδο που είναι απλώς μια καθυστερημένη εκδοχή του μη αιτιατού αποτελέσματος. Αυτή η προσέγγιση είναι συνηθισμένη κατά την επεξεργασία προ-καταγεγραμμένων δεδομένων εκτός σύνδεσης.
 
 ---
 
-### 1.3 System Stability — Bounded-Input Bounded-Output (BIBO) Stability
+### 1.3 Ευστάθεια Συστήματος — Ευστάθεια BIBO (Φραγμένη Είσοδος, Φραγμένη Έξοδος)
 
-A system is **BIBO stable** if every bounded input produces a bounded output. Formally:
+Ένα σύστημα είναι **BIBO ευσταθές** αν κάθε φραγμένη είσοδος παράγει φραγμένη έξοδο. Τυπικά:
 
 $$
 \forall x(t) \text{ such that } |x(t)| \le M_x < \infty \quad \Rightarrow \quad |y(t)| \le M_y < \infty
 $$
 
-for some finite constants $M_x$ and $M_y$ (which may differ).
+για κάποιες πεπερασμένες σταθερές $M_x$ και $M_y$ (που μπορεί να διαφέρουν).
 
-#### Physical Analogy
+#### Φυσική Αναλογία
 
-**Stable system (marble in a bowl):** A marble placed at the bottom of a bowl, when perturbed, rolls around but eventually settles back to the bottom. Perturbations produce bounded excursions. This is analogous to a stable system: a bounded input (the perturbation) produces a bounded output (the marble stays within the bowl).
+**Ευσταθές σύστημα (σφαίρα σε λεκάνη):** Μια σφαίρα τοποθετημένη στον πυθμένα μιας λεκάνης, όταν διαταραχθεί, κυλάει αλλά τελικά επιστρέφει στον πυθμένα. Οι διαταραχές παράγουν φραγμένες αποκλίσεις. Αυτό αναλογεί σε ένα ευσταθές σύστημα: μια φραγμένη είσοδος (η διαταραχή) παράγει φραγμένη έξοδο (η σφαίρα παραμένει εντός της λεκάνης).
 
-**Unstable system (marble on a dome):** A marble placed at the top of a dome, when perturbed, rolls away and never returns. The smallest perturbation produces an unbounded excursion. This is analogous to an unstable system: a bounded input can produce an output that grows without bound.
+**Ασταθές σύστημα (σφαίρα σε θόλο):** Μια σφαίρα τοποθετημένη στην κορυφή ενός θόλου, όταν διαταραχθεί, κυλάει μακριά και δεν επιστρέφει ποτέ. Η μικρότερη διαταραχή παράγει μια αφραγμένη απόκλιση. Αυτό αναλογεί σε ένα ασταθές σύστημα: μια φραγμένη είσοδος μπορεί να παράγει έξοδο που αυξάνεται απεριορίστως.
 
-#### Stability Proofs and Testing
+#### Αποδείξεις και Έλεγχος Ευστάθειας
 
-For LTI systems characterized by an impulse response $h(t)$, BIBO stability is equivalent to the **absolute integrability** of the impulse response:
+Για LTI συστήματα που χαρακτηρίζονται από μια κρουστική απόκριση $h(t)$, η BIBO ευστάθεια ισοδυναμεί με την **απόλυτη ολοκληρωσιμότητα** της κρουστικής απόκρισης:
 
 $$
 \int_{-\infty}^{\infty} |h(\tau)| \, d\tau < \infty
 $$
 
-This condition can be tested directly. For systems described by differential equations, stability can be assessed by examining the locations of the system's poles (the roots of the characteristic equation). If all poles have negative real parts, the system is stable.
+Αυτή η συνθήκη μπορεί να ελεγχθεί άμεσα. Για συστήματα που περιγράφονται από διαφορικές εξισώσεις, η ευστάθεια μπορεί να εκτιμηθεί εξετάζοντας τις θέσεις των πόλων του συστήματος (τις ρίζες της χαρακτηριστικής εξίσωσης). Αν όλοι οι πόλοι έχουν αρνητικά πραγματικά μέρη, το σύστημα είναι ευσταθές.
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> BIBO stability is an input-output property — it addresses whether the system's output remains bounded for all possible bounded inputs. A system that appears stable for a particular bounded input may still be BIBO unstable if there exists any bounded input that drives the output to infinity. The impulse response test (absolute integrability) is definitive for LTI systems.
+> Η BIBO ευστάθεια είναι μια ιδιότητα εισόδου-εξόδου — αντιμετωπίζει το αν η έξοδος του συστήματος παραμένει φραγμένη για όλες τις πιθανές φραγμένες εισόδους. Ένα σύστημα που φαίνεται ευσταθές για μια συγκεκριμένη φραγμένη είσοδο μπορεί ακόμη να είναι BIBO ασταθές αν υπάρχει οποιαδήποτε φραγμένη είσοδος που οδηγεί την έξοδο στο άπειρο. Ο έλεγχος της κρουστικής απόκρισης (απόλυτη ολοκληρωσιμότητα) είναι οριστικός για τα LTI συστήματα.
 
 ---
 
-### 1.4 Importance of Linear Time-Invariant (LTI) Systems
+### 1.4 Σημασία των Γραμμικών Αμετάβλητων ως προς τον Χρόνο (LTI) Συστημάτων
 
-LTI systems occupy a central position in signals and systems because they satisfy both **linearity** (superposition) and **time-invariance** (shift invariance). These two properties together produce the following powerful consequences:
+Τα LTI συστήματα κατέχουν κεντρική θέση στα σήματα και τα συστήματα επειδή ικανοποιούν τόσο τη **γραμμικότητα** (υπέρθεση) όσο και την **αμεταβλητότητα ως προς τον χρόνο** (αναλλοίωτο μετατόπισης). Αυτές οι δύο ιδιότητες από κοινού παράγουν τα ακόλουθα ισχυρά αποτελέσματα:
 
-1. **Complete characterization by impulse response:** The system's behavior is fully described by its response to a single test signal — the Dirac delta $\delta(t)$. No other system class has this property.
+1. **Πλήρης χαρακτηρισμός μέσω της κρουστικής απόκρισης:** Η συμπεριφορά του συστήματος περιγράφεται πλήρως από την απόκρισή του σε ένα μοναδικό δοκιμαστικό σήμα — τη συνάρτηση Dirac $\delta(t)$. Καμία άλλη κλάση συστημάτων δεν έχει αυτή την ιδιότητα.
 
-2. **Convolution integral:** The output for any input is given by $y(t) = x(t) * h(t)$. This is a closed-form, deterministic operation.
+2. **Ολοκλήρωμα συνέλιξης:** Η έξοδος για οποιαδήποτε είσοδο δίνεται από $y(t) = x(t) * h(t)$. Πρόκειται για μια κλειστής μορφής, ντετερμινιστική πράξη.
 
-3. **Eigenfunction property:** Complex exponentials $e^{st}$ are eigenfunctions of LTI systems. The output is $H(s)e^{st}$ where $H(s)$ is the (possibly complex) eigenvalue. This property is the foundation of Fourier and Laplace analysis.
+3. **Ιδιότητα ιδιοσυνάρτησης:** Οι μιγαδικές εκθετικές $e^{st}$ είναι ιδιοσυναρτήσεις των LTI συστημάτων. Η έξοδος είναι $H(s)e^{st}$ όπου η $H(s)$ είναι η (πιθανώς μιγαδική) ιδιοτιμή. Αυτή η ιδιότητα αποτελεί τη βάση της ανάλυσης Fourier και Laplace.
 
-4. **Frequency-domain analysis:** The frequency response $H(j\omega)$ (the Fourier transform of $h(t)$) describes the system's effect on sinusoidal inputs: amplitude scaling and phase shift as functions of frequency.
+4. **Ανάλυση στο πεδίο συχνοτήτων:** Η συχνοτική απόκριση $H(j\omega)$ (ο μετασχηματισμός Fourier της $h(t)$) περιγράφει την επίδραση του συστήματος σε ημιτονοειδείς εισόδους: την κλιμάκωση του πλάτους και τη μετατόπιση φάσης ως συναρτήσεις της συχνότητας.
 
-5. **Cascade and parallel combinations:** LTI systems in series have an overall impulse response $h_1(t) * h_2(t)$. In parallel, the overall impulse response is $h_1(t) + h_2(t)$. These simple combination rules do not hold for non-linear or time-varying systems.
+5. **Συνδυασμοί σε σειρά και παράλληλα:** Τα LTI συστήματα σε σειρά έχουν συνολική κρουστική απόκριση $h_1(t) * h_2(t)$. Σε παράλληλη σύνδεση, η συνολική κρουστική απόκριση είναι $h_1(t) + h_2(t)$. Αυτός ο απλός κανόνας συνδυασμού δεν ισχύει για μη γραμμικά ή χρονικά μεταβαλλόμενα συστήματα.
 
-6. **Predictable behavior:** The superposition principle means the system's response to complex inputs can be decomposed into responses to simpler components and recombined. This makes analysis, design, and optimization tractable.
+6. **Προβλέψιμη συμπεριφορά:** Η αρχή της υπέρθεσης σημαίνει ότι η απόκριση του συστήματος σε πολύπλοκες εισόδους μπορεί να αναλυθεί σε αποκρίσεις σε απλούστερα συστατικά και να επανασυνδυαστεί. Αυτό καθιστά την ανάλυση, το σχεδιασμό και τη βελτιστοποίηση εφικτή.
 
 ---
 
-## 2. Formal Definition or Model
+## 2. Τυπικός Ορισμός ή Μοντέλο
 
-### 2.1 Impulse Response
+### 2.1 Κρουστική Απόκριση
 
-#### Definition for LTI Systems
+#### Ορισμός για LTI Συστήματα
 
-For an LTI system $S$, the **impulse response** $h(t)$ is defined as the output when the input is the Dirac delta function $\delta(t)$, with the system initially at rest:
+Για ένα LTI σύστημα $S$, η **κρουστική απόκριση** $h(t)$ ορίζεται ως η έξοδος όταν η είσοδος είναι η συνάρτηση Dirac delta $\delta(t)$, με το σύστημα αρχικά σε ηρεμία:
 
 $$
 h(t) = S\{\delta(t)\}
 $$
 
-Because the system is time-invariant, the response to a shifted impulse $\delta(t - \tau)$ is the shifted impulse response:
+Επειδή το σύστημα είναι αμετάβλητο ως προς τον χρόνο, η απόκριση σε μια μετατοπισμένη κρουστική $\delta(t - \tau)$ είναι η μετατοπισμένη κρουστική απόκριση:
 
 $$
 S\{\delta(t - \tau)\} = h(t - \tau)
 $$
 
-Because the system is linear, the response to a weighted impulse $\alpha \delta(t - \tau)$ is:
+Επειδή το σύστημα είναι γραμμικό, η απόκριση σε μια σταθμισμένη κρουστική $\alpha \delta(t - \tau)$ είναι:
 
 $$
 S\{\alpha \delta(t - \tau)\} = \alpha h(t - \tau)
 $$
 
-The impulse response $h(t)$ completely characterizes the LTI system. Once $h(t)$ is known, the output to any input $x(t)$ can be computed via convolution.
+Η κρουστική απόκριση $h(t)$ χαρακτηρίζει πλήρως το LTI σύστημα. Μόλις η $h(t)$ είναι γνωστή, η έξοδος για οποιαδήποτε είσοδο $x(t)$ μπορεί να υπολογιστεί μέσω συνέλιξης.
 
-#### Definition for Linear Time-Varying (LTV) Systems
+#### Ορισμός για Γραμμικά Χρονικά Μεταβαλλόμενα (LTV) Συστήματα
 
-For a linear but **time-varying** system, the response to a shifted impulse depends on both the observation time $t$ and the impulse application time $\tau$. The impulse response is therefore a function of two variables:
+Για ένα γραμμικό αλλά **χρονικά μεταβαλλόμενο** σύστημα, η απόκριση σε μια μετατοπισμένη κρουστική εξαρτάται τόσο από τον χρόνο παρατήρησης $t$ όσο και από τον χρόνο εφαρμογής της κρουστικής $\tau$. Η κρουστική απόκριση επομένως είναι συνάρτηση δύο μεταβλητών:
 
 $$
 h(t, \tau) = S\{\delta(t - \tau)\}
 $$
 
-where $t$ is the time at which the output is observed, and $\tau$ is the time at which the impulse was applied. In this case, the output is:
+όπου το $t$ είναι η στιγμή κατά την οποία παρατηρείται η έξοδος, και το $\tau$ είναι η στιγμή κατά την οποία εφαρμόστηκε η κρουστική. Σε αυτή την περίπτωση, η έξοδος είναι:
 
 $$
 y(t) = \int_{-\infty}^{\infty} x(\tau) h(t, \tau) \, d\tau
 $$
 
-This is the **superposition integral** (also called the time-varying convolution). For time-invariant systems, $h(t, \tau)$ reduces to $h(t - \tau)$, a function of only one variable (the difference between observation time and impulse application time).
+Αυτό είναι το **ολοκλήρωμα υπέρθεσης** (ονομάζεται επίσης συνέλιξη μεταβαλλόμενου χρόνου). Για συστήματα αμετάβλητα ως προς τον χρόνο, το $h(t, \tau)$ ανάγεται σε $h(t - \tau)$, μια συνάρτηση μόνο μιας μεταβλητής (της διαφοράς μεταξύ χρόνου παρατήρησης και χρόνου εφαρμογής της κρουστικής).
 
 ---
 
-### 2.2 The Convolution Integral
+### 2.2 Το Ολοκλήρωμα Συνέλιξης
 
-#### Derivation and Formulation
+#### Παραγωγή και Διατύπωση
 
-The convolution integral is derived from the impulse response and the superposition of impulse responses. Starting from the sifting property:
+Το ολοκλήρωμα συνέλιξης προάγεται από την κρουστική απόκριση και την υπέρθεση των κρουστικών αποκρίσεων. Ξεκινώντας από την ιδιότητα διαλογής:
 
 $$
 x(t) = \int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \, d\tau
 $$
 
-Apply the system operator $S$ to both sides. If $S$ is **linear**, the operator passes through the integral:
+Εφαρμόζουμε τον τελεστή συστήματος $S$ και στα δύο μέλη. Αν το $S$ είναι **γραμμικό**, ο τελεστής περνάει μέσα από το ολοκλήρωμα:
 
 $$
 y(t) = S\{x(t)\} = S\left\{\int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \, d\tau\right\} = \int_{-\infty}^{\infty} x(\tau) \, S\{\delta(t - \tau)\} \, d\tau
 $$
 
-If $S$ is also **time-invariant**, then $S\{\delta(t - \tau)\} = h(t - \tau)$, giving:
+Αν το $S$ είναι επίσης **αμετάβλητο ως προς τον χρόνο**, τότε $S\{\delta(t - \tau)\} = h(t - \tau)$, οπότε:
 
 $$
 y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) \, d\tau
 $$
 
-This is the **convolution integral**, denoted by the convolution operator $*$:
+Αυτό είναι το **ολοκλήρωμα συνέλιξης**, που συμβολίζεται με τον τελεστή συνέλιξης $*$:
 
 $$
 y(t) = x(t) * h(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) \, d\tau
 $$
 
-An equivalent form (obtained by the change of variable $\sigma = t - \tau$) is:
+Μια ισοδύναμη μορφή (που προκύπτει από την αλλαγή μεταβλητής $\sigma = t - \tau$) είναι:
 
 $$
 y(t) = \int_{-\infty}^{\infty} x(t - \sigma) h(\sigma) \, d\sigma = h(t) * x(t)
 $$
 
-#### Output Representation for Causal LTI Systems
+#### Αναπαράσταση Εξόδου για Αιτιατά LTI Συστήματα
 
-For a **causal** LTI system, the impulse response satisfies $h(t) = 0$ for $t < 0$ (a causal system cannot respond before the impulse is applied). This modifies the convolution limits:
+Για ένα **αιτιατό** LTI σύστημα, η κρουστική απόκριση ικανοποιεί $h(t) = 0$ για $t < 0$ (ένα αιτιατό σύστημα δεν μπορεί να ανταποκριθεί πριν εφαρμοστεί η κρουστική). Αυτό τροποποιεί τα όρια της συνέλιξης:
 
 $$
 y(t) = \int_{-\infty}^{t} x(\tau) h(t - \tau) \, d\tau = \int_{0}^{\infty} x(t - \sigma) h(\sigma) \, d\sigma
 $$
 
-#### Output Representation for Causal Inputs
+#### Αναπαράσταση Εξόδου για Αιτιατές Εισόδους
 
-If the input is also causal ($x(t) = 0$ for $t < 0$), the lower limit of integration becomes $0$:
+Αν η είσοδος είναι επίσης αιτιατή ($x(t) = 0$ για $t < 0$), το κάτω όριο ολοκλήρωσης γίνεται $0$:
 
 $$
 y(t) = \int_{0}^{t} x(\tau) h(t - \tau) \, d\tau = \int_{0}^{t} h(\tau) x(t - \tau) \, d\tau
 $$
 
-This is the most common form encountered in practice: the convolution of two causal signals has finite, time-dependent limits from $0$ to $t$.
+Αυτή είναι η συνηθέστερη μορφή που συναντάται στην πράξη: η συνέλιξη δύο αιτιατών σημάτων έχει πεπερασμένα, εξαρτώμενα από τον χρόνο όρια από $0$ έως $t$.
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> The upper limit $t$ (rather than $\infty$) is the consequence of causality: the integrand $x(\tau)h(t - \tau)$ is zero for $\tau > t$ because $h(t - \tau) = 0$ when $t - \tau < 0$ (i.e., $\tau > t$). Similarly, the lower limit $0$ arises from the causal input: $x(\tau) = 0$ for $\tau < 0$.
+> Το άνω όριο $t$ (αντί του $\infty$) είναι συνέπεια της αιτιατότητας: ο πυρήνας ολοκλήρωσης $x(\tau)h(t - \tau)$ είναι μηδέν για $\tau > t$ επειδή $h(t - \tau) = 0$ όταν $t - \tau < 0$ (δηλαδή $\tau > t$). Ομοίως, το κάτω όριο $0$ προκύπτει από την αιτιατή είσοδο: $x(\tau) = 0$ για $\tau < 0$.
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-### 3.1 System Memory and Memory Length
+### 3.1 Μνήμη Συστήματος και Μήκος Μνήμης
 
-| Parameter | Description | Classification | Example |
+| Παράμετρος | Περιγραφή | Ταξινόμηση | Παράδειγμα |
 | :--- | :--- | :--- | :--- |
-| Memory type | Dependence on past input values | Static (memoryless) / Dynamic (with memory) | Resistor (static), Capacitor (dynamic) |
-| Memory length | Duration of input history affecting output | Zero / Finite / Infinite | Moving average (finite), Integrator (infinite) |
-| Memory indicator | Presence of energy-storage elements | Absence / Presence of $L$, $C$, integration, delay | No $C$ in circuit implies memoryless |
+| Τύπος μνήμης | Εξάρτηση από παρελθοντικές τιμές εισόδου | Στατικό (χωρίς μνήμη) / Δυναμικό (με μνήμη) | Αντιστάτης (στατικό), Πυκνωτής (δυναμικό) |
+| Μήκος μνήμης | Διάρκεια ιστορικού εισόδου που επηρεάζει την έξοδο | Μηδενική / Πεπερασμένη / Άπειρη | Κινητός μέσος όρος (πεπερασμένη), Ολοκληρωτής (άπειρη) |
+| Δείκτης μνήμης | Παρουσία στοιχείων αποθήκευσης ενέργειας | Απουσία / Παρουσία $L$, $C$, ολοκλήρωσης, καθυστέρησης | Χωρίς $C$ στο κύκλωμα συνεπάγεται χωρίς μνήμη |
 
-### 3.2 Causality
+### 3.2 Αιτιατότητα
 
-| Property | Description | Testing Method |
+| Ιδιότητα | Περιγραφή | Μέθοδος Ελέγχου |
 | :--- | :--- | :--- |
-| Causal system | Output depends only on present and past inputs | $h(t) = 0$ for $t < 0$ (for LTI systems) |
-| Anti-causal system | Output depends only on future inputs | $h(t) = 0$ for $t > 0$ |
-| Non-causal system | Output depends on both past and future inputs | $h(t) \neq 0$ for some $t < 0$ |
+| Αιτιατό σύστημα | Η έξοδος εξαρτάται μόνο από παρούσες και παρελθοντικές εισόδους | $h(t) = 0$ για $t < 0$ (για LTI συστήματα) |
+| Αντι-αιτιατό σύστημα | Η έξοδος εξαρτάται μόνο από μελλοντικές εισόδους | $h(t) = 0$ για $t > 0$ |
+| Μη αιτιατό σύστημα | Η έξοδος εξαρτάται τόσο από παρελθοντικές όσο και από μελλοντικές εισόδους | $h(t) \neq 0$ για κάποιο $t < 0$ |
 
-### 3.3 BIBO Stability Condition
+### 3.3 Συνθήκη BIBO Ευστάθειας
 
-| Property | Condition for LTI Systems | Implications |
+| Ιδιότητα | Συνθήκη για LTI Συστήματα | Συνέπειες |
 | :--- | :--- | :--- |
-| BIBO stable | $\int_{-\infty}^{\infty} \|h(t)\| dt < \infty$ | All poles have negative real parts (for rational systems) |
-| BIBO unstable | $\int_{-\infty}^{\infty} \|h(t)\| dt = \infty$ | At least one pole has non-negative real part |
-| Marginally stable | $\int_{-\infty}^{\infty} \|h(t)\| dt = \infty$ but output remains bounded for some inputs | Poles on imaginary axis (oscillator) |
+| BIBO ευσταθές | $\int_{-\infty}^{\infty} \|h(t)\| dt < \infty$ | Όλοι οι πόλοι έχουν αρνητικά πραγματικά μέρη (για ρητά συστήματα) |
+| BIBO ασταθές | $\int_{-\infty}^{\infty} \|h(t)\| dt = \infty$ | Τουλάχιστον ένας πόλος έχει μη αρνητικό πραγματικό μέρος |
+| Οριακά ευσταθές | $\int_{-\infty}^{\infty} \|h(t)\| dt = \infty$ αλλά η έξοδος παραμένει φραγμένη για ορισμένες εισόδους | Πόλοι στον φανταστικό άξονα (ταλαντωτής) |
 
-### 3.4 Convolution Parameters
+### 3.4 Παράμετροι Συνέλιξης
 
-| Parameter | Symbol | Role | Constraints |
+| Παράμετρος | Σύμβολο | Ρόλος | Περιορισμοί |
 | :--- | :--- | :--- | :--- |
-| Input signal | $x(t)$ | Signal to be processed | Must be integrable for convolution to be defined |
-| Impulse response | $h(t)$ | System characterization | Must be absolutely integrable for BIBO stability |
-| Convolution output | $y(t) = x(t) * h(t)$ | System response | Duration = $T_x + T_h$ (width property) |
-| Integration variable | $\tau$ | Dummy variable of integration | Real-valued |
+| Σήμα εισόδου | $x(t)$ | Σήμα προς επεξεργασία | Πρέπει να είναι ολοκληρώσιμο για να οριστεί η συνέλιξη |
+| Κρουστική απόκριση | $h(t)$ | Χαρακτηρισμός συστήματος | Πρέπει να είναι απόλυτα ολοκληρώσιμο για BIBO ευστάθεια |
+| Έξοδος συνέλιξης | $y(t) = x(t) * h(t)$ | Απόκριση συστήματος | Διάρκεια = $T_x + T_h$ (ιδιότητα πλάτους) |
+| Μεταβλητή ολοκλήρωσης | $\tau$ | Βοηθητική μεταβλητή ολοκλήρωσης | Πραγματικής τιμής |
 
 ---
 
-## 4. Step-by-Step Mechanisms
+## 4. Μηχανισμοί Βήμα προς Βήμα
 
-### 4.1 Procedure for Determining if a System is Memoryless
+### 4.1 Διαδικασία για τον Προσδιορισμό αν ένα Σύστημα είναι Χωρίς Μνήμη
 
-1. **Inspect the input-output relationship.** If the output $y(t)$ can be expressed as a function $f(x(t))$ involving only the instantaneous value $x(t)$ (no integrals, derivatives, differences, or delays), the system is memoryless.
-2. **Check for energy storage elements.** In circuit systems, check for the presence of capacitors ($C$) or inductors ($L$). Their presence indicates memory.
-3. **Check for integration or summation.** Any operation of the form $\int_{a}^{t} x(\tau) d\tau$ or $\sum_{k=-\infty}^{n} x[k]$ indicates memory.
-4. **Check for delay operations.** Any $x(t - t_0)$ with $t_0 \neq 0$ indicates memory (the output depends on a past value).
+1. **Επιθεωρήστε τη σχέση εισόδου-εξόδου.** Αν η έξοδος $y(t)$ μπορεί να εκφραστεί ως συνάρτηση $f(x(t))$ που περιλαμβάνει μόνο την τιμή $x(t)$ τη συγκεκριμένη στιγμή (χωρίς ολοκληρώματα, παραγώγους, διαφορές ή καθυστερήσεις), το σύστημα είναι χωρίς μνήμη.
+2. **Ελέγξτε για στοιχεία αποθήκευσης ενέργειας.** Σε κυκλωματικά συστήματα, ελέγξτε για την παρουσία πυκνωτών ($C$) ή πηνίων ($L$). Η παρουσία τους υποδηλώνει μνήμη.
+3. **Ελέγξτε για ολοκλήρωση ή άθροιση.** Οποιαδήποτε πράξη της μορφής $\int_{a}^{t} x(\tau) d\tau$ ή $\sum_{k=-\infty}^{n} x[k]$ υποδηλώνει μνήμη.
+4. **Ελέγξτε για πράξεις καθυστέρησης.** Οποιοδήποτε $x(t - t_0)$ με $t_0 \neq 0$ υποδηλώνει μνήμη (η έξοδος εξαρτάται από μια παρελθοντική τιμή).
 
-### 4.2 Procedure for Determining Causality
+### 4.2 Διαδικασία για τον Προσδιορισμό της Αιτιατότητας
 
-1. **Inspect the input-output relationship.** If the output $y(t)$ depends on $x(\tau)$ for $\tau > t$, the system is non-causal.
-2. **For LTI systems, examine $h(t)$.** If $h(t) \neq 0$ for any $t < 0$, the system is non-causal.
-3. **For systems defined by differential equations:** If the equation involves future values (advance operators), the system is non-causal.
-4. **Check the integration limits.** An integral with upper limit $t$ (e.g., $\int_{-\infty}^{t}$) is causal. An integral with upper limit $t+1$ (e.g., $\int_{t}^{t+1}$) is non-causal.
+1. **Επιθεωρήστε τη σχέση εισόδου-εξόδου.** Αν η έξοδος $y(t)$ εξαρτάται από $x(\tau)$ για $\tau > t$, το σύστημα είναι μη αιτιατό.
+2. **Για LTI συστήματα, εξετάστε την $h(t)$.** Αν $h(t) \neq 0$ για οποιοδήποτε $t < 0$, το σύστημα είναι μη αιτιατό.
+3. **Για συστήματα που ορίζονται από διαφορικές εξισώσεις:** Αν η εξίσωση περιλαμβάνει μελλοντικές τιμές (τελεστές πρόβλεψης), το σύστημα είναι μη αιτιατό.
+4. **Ελέγξτε τα όρια ολοκλήρωσης.** Ένα ολοκλήρωμα με άνω όριο $t$ (π.χ., $\int_{-\infty}^{t}$) είναι αιτιατό. Ένα ολοκλήρωμα με άνω όριο $t+1$ (π.χ., $\int_{t}^{t+1}$) είναι μη αιτιατό.
 
-### 4.3 Procedure for Testing BIBO Stability
+### 4.3 Διαδικασία για τον Έλεγχο BIBO Ευστάθειας
 
-1. **For LTI systems with known $h(t)$:** Compute $\int_{-\infty}^{\infty} |h(t)| dt$. If the integral is finite, the system is BIBO stable.
-2. **For systems described by differential equations:** Compute the system's poles (roots of the characteristic equation). If all poles have strictly negative real parts, the system is stable.
-3. **For feedback systems:** Check the closed-loop transfer function for any poles in the right-half plane (RHP) or on the imaginary axis (repeated poles).
-4. **For non-linear systems:** BIBO stability must be tested case-by-case. A common approach is to check whether the system function $f(x)$ is bounded for all bounded $x$.
+1. **Για LTI συστήματα με γνωστή $h(t)$:** Υπολογίστε $\int_{-\infty}^{\infty} |h(t)| dt$. Αν το ολοκλήρωμα είναι πεπερασμένο, το σύστημα είναι BIBO ευσταθές.
+2. **Για συστήματα που περιγράφονται από διαφορικές εξισώσεις:** Υπολογίστε τους πόλους του συστήματος (ρίζες της χαρακτηριστικής εξίσωσης). Αν όλοι οι πόλοι έχουν αυστηρά αρνητικά πραγματικά μέρη, το σύστημα είναι ευσταθές.
+3. **Για συστήματα ανάδρασης:** Ελέγξτε τη συνάρτηση μεταφοράς κλειστού βρόχου για οποιουσδήποτε πόλους στο δεξιό ημιεπίπεδο (RHP) ή στον φανταστικό άξονα (επαναλαμβανόμενοι πόλοι).
+4. **Για μη γραμμικά συστήματα:** Η BIBO ευστάθεια πρέπει να ελέγχεται περίπτωση προς περίπτωση. Μια συνηθισμένη προσέγγιση είναι να ελεγχθεί αν η συνάρτηση συστήματος $f(x)$ είναι φραγμένη για όλα τα φραγμένα $x$.
 
-### 4.4 Procedure for Computing Convolution of Two Functions
+### 4.4 Διαδικασία για τον Υπολογισμό της Συνέλιξης Δύο Συναρτήσεων
 
-1. **Express the convolution integral:** $y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau$.
-2. **Time-reverse $h(\tau)$:** Define $h_{\text{rev}}(\tau) = h(-\tau)$. Graphically, flip $h$ about the vertical axis.
-3. **Shift by $t$:** $h_{\text{rev}}(\tau - t) = h(t - \tau)$. Graphically, slide the reversed $h$ to position $t$.
-4. **Multiply:** Compute $x(\tau) \cdot h(t - \tau)$ for each $\tau$. This is the pointwise product of the two signals.
-5. **Integrate:** Compute the area under the product $x(\tau)h(t-\tau)$ with respect to $\tau$. This gives $y(t)$.
-6. **Repeat for all $t$:** The result is $y(t)$ defined piecewise over different intervals of $t$, depending on the overlap region.
+1. **Εκφράστε το ολοκλήρωμα συνέλιξης:** $y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau$.
+2. **Αντιστρέψτε την $h(\tau)$ ως προς τον χρόνο:** Ορίστε $h_{\text{rev}}(\tau) = h(-\tau)$. Γραφικά, αναποδογυρίστε την $h$ ως προς τον κατακόρυφο άξονα.
+3. **Μετατοπίστε κατά $t$:** $h_{\text{rev}}(\tau - t) = h(t - \tau)$. Γραφικά, μετακινήστε την αντεστραμμένη $h$ στη θέση $t$.
+4. **Πολλαπλασιάστε:** Υπολογίστε $x(\tau) \cdot h(t - \tau)$ για κάθε $\tau$. Αυτό είναι το σημειακό γινόμενο των δύο σημάτων.
+5. **Ολοκληρώστε:** Υπολογίστε το εμβαδόν κάτω από το γινόμενο $x(\tau)h(t-\tau)$ ως προς το $\tau$. Αυτό δίνει το $y(t)$.
+6. **Επαναλάβετε για όλα τα $t$:** Το αποτέλεσμα είναι το $y(t)$ ορισμένο τμηματικά σε διαφορετικά διαστήματα του $t$, ανάλογα με την περιοχή επικάλυψης.
 
 ---
 
-## 5. Solved Exercises
+## 5. Λυμένες Ασκήσεις
 
-### Exercise 1: Classifying Memory and Causality of a Simple System
+### Άσκηση 1: Ταξινόμηση Μνήμης και Αιτιατότητας ενός Απλού Συστήματος
 
-**Problem:** Classify each system as (i) memoryless or with memory, and (ii) causal or non-causal:
+**Πρόβλημα:** Ταξινομήστε κάθε σύστημα ως (i) χωρίς μνήμη ή με μνήμη, και (ii) αιτιατό ή μη αιτιατό:
 
 (a) $y(t) = 5x(t) + 2$
 
@@ -329,141 +329,141 @@ This is the most common form encountered in practice: the convolution of two cau
 
 (c) $y(t) = x(t-2) + x(t+2)$
 
-(d) $y(t) = \frac{1}{T} \int_{t-T}^{t} x(\tau) d\tau$ (moving average over window $T$)
+(d) $y(t) = \frac{1}{T} \int_{t-T}^{t} x(\tau) d\tau$ (κινητός μέσος όρος σε παράθυρο $T$)
 
 (e) $y(t) = \frac{dx}{dt}$
 
-**Solution:**
+**Λύση:**
 
 **(a)** $y(t) = 5x(t) + 2$
-- **Memoryless** — The output depends only on $x(t)$ at the same instant.
-- **Causal** — No dependence on future values.
+- **Χωρίς μνήμη** — Η έξοδος εξαρτάται μόνο από το $x(t)$ την ίδια στιγμή.
+- **Αιτιατό** — Καμία εξάρτηση από μελλοντικές τιμές.
 
 **(b)** $y(t) = \int_{0}^{t} x(\tau) d\tau$
-- **With memory** — The output depends on all values $x(\tau)$ from $0$ to $t$, which includes past inputs.
-- **Causal** — The upper limit is $t$ (present time), not beyond.
-- *Note:* If $t < 0$, the integral runs from $0$ to a negative $t$, which effectively goes backward. For $t < 0$, the integration limits would be reversed, introducing a non-causal dependency. Typically, the system is defined with $t \ge 0$ and $x(t) = 0$ for $t < 0$.
+- **Με μνήμη** — Η έξοδος εξαρτάται από όλες τις τιμές $x(\tau)$ από $0$ έως $t$, που περιλαμβάνουν παρελθοντικές εισόδους.
+- **Αιτιατό** — Το άνω όριο είναι το $t$ (παρόν), όχι πέραν αυτού.
+- *Σημείωση:* Αν $t < 0$, το ολοκλήρωμα τρέχει από $0$ σε αρνητικό $t$, κάτι που ουσιαστικά πηγαίνει προς τα πίσω. Για $t < 0$, τα όρια ολοκλήρωσης θα αντιστρέφονταν, εισάγοντας μια μη αιτιατή εξάρτηση. Συνήθως, το σύστημα ορίζεται με $t \ge 0$ και $x(t) = 0$ για $t < 0$.
 
 **(c)** $y(t) = x(t-2) + x(t+2)$
-- **With memory** — Depends on $x(t-2)$ (past) and $x(t+2)$ (future).
-- **Non-causal** — The term $x(t+2)$ depends on a future value.
+- **Με μνήμη** — Εξαρτάται από το $x(t-2)$ (παρελθόν) και το $x(t+2)$ (μέλλον).
+- **Μη αιτιατό** — Ο όρος $x(t+2)$ εξαρτάται από μια μελλοντική τιμή.
 
 **(d)** $y(t) = \frac{1}{T} \int_{t-T}^{t} x(\tau) d\tau$
-- **With memory (finite memory of length $T$)** — The output depends on inputs over the window $[t-T, t]$.
-- **Causal** — The integration upper limit is $t$, so it uses only past and present values.
+- **Με μνήμη (πεπερασμένη μνήμη μήκους $T$)** — Η έξοδος εξαρτάται από εισόδους στο παράθυρο $[t-T, t]$.
+- **Αιτιατό** — Το άνω όριο ολοκλήρωσης είναι το $t$, οπότε χρησιμοποιεί μόνο παρελθοντικές και παρούσες τιμές.
 
 **(e)** $y(t) = \frac{dx}{dt}$
-- **With memory** — The derivative depends on values in an arbitrarily small neighborhood around $t$, which includes information about the immediate past (and future in the mathematical sense). In practice, the derivative is treated as a system with infinitesimal memory.
-- **Causal** — If defined as a right-sided derivative, it depends only on past and present values. The symmetric derivative $dx/dt = \lim_{h \to 0} (x(t+h) - x(t-h))/(2h)$ is technically non-causal, but the standard causal definition uses a backward difference.
+- **Με μνήμη** — Η παράγωγος εξαρτάται από τιμές σε μια αυθαίρετα μικρή γειτονιά γύρω από το $t$, που περιλαμβάνει πληροφορία για το άμεσο παρελθόν (και το μέλλον με μαθηματική έννοια). Στην πράξη, η παράγωγος αντιμετωπίζεται ως σύστημα με απειροστημιαία μνήμη.
+- **Αιτιατό** — Αν οριστεί ως δεξιόστροφη παράγωγος, εξαρτάται μόνο από παρελθοντικές και παρούσες τιμές. Η συμμετρική παράγωγος $dx/dt = \lim_{h \to 0} (x(t+h) - x(t-h))/(2h)$ είναι τεχνικά μη αιτιατή, αλλά ο στάνταρ αιτιατός ορισμός χρησιμοποιεί μια οπίσθια διαφορά.
 
 ---
 
-### Exercise 2: Testing BIBO Stability of an Integrator
+### Άσκηση 2: Έλεγχος BIBO Ευστάθειας ενός Ολοκληρωτή
 
-**Problem:** Determine whether the ideal integrator $y(t) = \int_{-\infty}^{t} x(\tau) d\tau$ is BIBO stable.
+**Πρόβλημα:** Προσδιορίστε αν ο ιδανικός ολοκληρωτής $y(t) = \int_{-\infty}^{t} x(\tau) d\tau$ είναι BIBO ευσταθής.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Recall that for an LTI system, BIBO stability requires $\int_{-\infty}^{\infty} |h(t)| dt < \infty$. First, find the impulse response of the integrator.
+**Βήμα 1:** Θυμηθείτε ότι για ένα LTI σύστημα, η BIBO ευστάθεια απαιτεί $\int_{-\infty}^{\infty} |h(t)| dt < \infty$. Πρώτα, βρείτε την κρουστική απόκριση του ολοκληρωτή.
 
-**Step 2:** The impulse response is the output when $x(t) = \delta(t)$:
+**Βήμα 2:** Η κρουστική απόκριση είναι η έξοδος όταν $x(t) = \delta(t)$:
 $$
 h(t) = \int_{-\infty}^{t} \delta(\tau) d\tau = u(t)
 $$
 
-**Step 3:** Test the absolute integrability of $h(t)$:
+**Βήμα 3:** Ελέγξτε την απόλυτη ολοκληρωσιμότητα της $h(t)$:
 $$
 \int_{-\infty}^{\infty} |h(t)| dt = \int_{-\infty}^{\infty} |u(t)| dt = \int_{0}^{\infty} 1 \, dt = \infty
 $$
 
-**Step 4:** Since the integral diverges, the ideal integrator is **not BIBO stable**.
+**Βήμα 4:** Επειδή το ολοκλήρωμα αποκλίνει, ο ιδανικός ολοκληρωτής **δεν είναι BIBO ευσταθής**.
 
-*Verification with a specific bounded input:* Consider $x(t) = u(t)$, which is bounded ($|x(t)| \le 1$). The output is:
+*Επαλήθευση με μια συγκεκριμένη φραγμένη είσοδο:* Εξετάστε $x(t) = u(t)$, που είναι φραγμένη ($|x(t)| \le 1$). Η έξοδος είναι:
 $$
 y(t) = \int_{-\infty}^{t} u(\tau) d\tau = r(t) = t \cdot u(t)
 $$
-The output grows without bound as $t \to \infty$, confirming instability.
+Η έξοδος αυξάνεται απεριόριστα καθώς $t \to \infty$, επιβεβαιώνοντας την αστάθεια.
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> The ideal integrator is unstable because a constant bounded input produces a ramp output that tends to infinity. This is the defining characteristic of an unstable system: there exists at least one bounded input that drives the output to infinity.
+> Ο ιδανικός ολοκληρωτής είναι ασταθής επειδή μια σταθερή φραγμένη είσοδος παράγει μια εξοδική ράμπα που τείνει στο άπειρο. Αυτή είναι η οριστική χαρακτηριστική ενός ασταθούς συστήματος: υπάρχει τουλάχιστον μία φραγμένη είσοδος που οδηγεί την έξοδο στο άπειρο.
 
 ---
 
-### Exercise 3: Testing BIBO Stability of an Exponential Decay System
+### Άσκηση 3: Έλεγχος BIBO Ευστάθειας ενός Συστήματος Εκθετικής Αποσύνδεσης
 
-**Problem:** Determine whether the system $y(t) = \int_{-\infty}^{\infty} e^{-|\tau|} x(t - \tau) d\tau$ is BIBO stable.
+**Πρόβλημα:** Προσδιορίστε αν το σύστημα $y(t) = \int_{-\infty}^{\infty} e^{-|\tau|} x(t - \tau) d\tau$ είναι BIBO ευσταθές.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Identify the impulse response. The system is described by $y(t) = x(t) * h(t)$ with $h(t) = e^{-|t|}$.
+**Βήμα 1:** Αναγνωρίστε την κρουστική απόκριση. Το σύστημα περιγράφεται από $y(t) = x(t) * h(t)$ με $h(t) = e^{-|t|}$.
 
-**Step 2:** Test absolute integrability:
+**Βήμα 2:** Ελέγξτε την απόλυτη ολοκληρωσιμότητα:
 $$
 \int_{-\infty}^{\infty} |h(t)| dt = \int_{-\infty}^{\infty} e^{-|t|} dt
 $$
 
-**Step 3:** Split the integral at $t = 0$:
+**Βήμα 3:** Διασπάστε το ολοκλήρωμα στο $t = 0$:
 $$
 \int_{-\infty}^{0} e^{t} dt + \int_{0}^{\infty} e^{-t} dt = \left[e^{t}\right]_{-\infty}^{0} + \left[-e^{-t}\right]_{0}^{\infty}
 $$
 
-**Step 4:** Evaluate each part:
+**Βήμα 4:** Υπολογίστε κάθε μέρος:
 $$
 (1 - 0) + (0 - (-1)) = 1 + 1 = 2
 $$
 
-**Step 5:** The integral is finite ($2 < \infty$). The system is **BIBO stable**.
+**Βήμα 5:** Το ολοκλήρωμα είναι πεπερασμένο ($2 < \infty$). Το σύστημα είναι **BIBO ευσταθές**.
 
-*Physical interpretation:* The impulse response $e^{-|t|}$ decays rapidly as $|t| \to \infty$, meaning the system has finite "memory" of past and future inputs. Any bounded input produces a bounded output because the weighting function $e^{-|\tau|}$ "forgets" old inputs exponentially fast.
+*Φυσική ερμηνεία:* Η κρουστική απόκριση $e^{-|t|}$ αποσβέννυται ταχέως καθώς $|t| \to \infty$, που σημαίνει ότι το σύστημα έχει πεπερασμένη «μνήμη» των παρελθοντικών και μελλοντικών εισόδων. Οποιαδήποτε φραγμένη είσοδος παράγει φραγμένη έξοδο επειδή η συνάρτηση βάρους $e^{-|\tau|}$ «ξεχνά» τις παλιές εισόδους εκθετικά γρήγορα.
 
 ---
 
-### Exercise 4: Computing Impulse Response from a Differential Equation
+### Άσκηση 4: Υπολογισμός Κρουστικής Απόκρισης από μια Διαφορική Εξίσωση
 
-**Problem:** Find the impulse response $h(t)$ of the LTI system described by:
+**Πρόβλημα:** Βρείτε την κρουστική απόκριση $h(t)$ του LTI συστήματος που περιγράφεται από:
 $$
 \frac{dy}{dt} + 3y(t) = x(t)
 $$
-Assume the system is initially at rest.
+Υποθέστε ότι το σύστημα είναι αρχικά σε ηρεμία.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** For the impulse response, set $x(t) = \delta(t)$. The equation becomes:
+**Βήμα 1:** Για την κρουστική απόκριση, θέστε $x(t) = \delta(t)$. Η εξίσωση γίνεται:
 $$
 \frac{dh}{dt} + 3h(t) = \delta(t)
 $$
-with $h(0^-) = 0$ (initial rest).
+με $h(0^-) = 0$ (αρχική ηρεμία).
 
-**Step 2:** For $t > 0$, the input $\delta(t) = 0$, so the equation reduces to the homogeneous form:
+**Βήμα 2:** Για $t > 0$, η είσοδος $\delta(t) = 0$, οπότε η εξίσωση ανάγεται στην ομογενή μορφή:
 $$
 \frac{dh}{dt} + 3h(t) = 0, \quad t > 0
 $$
 
-**Step 3:** The solution for $t > 0$ is $h(t) = A e^{-3t} u(t)$.
+**Βήμα 3:** Η λύση για $t > 0$ είναι $h(t) = A e^{-3t} u(t)$.
 
-**Step 4:** Determine $A$ by integrating the differential equation from $t = 0^-$ to $t = 0^+$:
+**Βήμα 4:** Προσδιορίστε το $A$ ολοκληρώνοντας τη διαφορική εξίσωση από $t = 0^-$ έως $t = 0^+$:
 $$
 \int_{0^-}^{0^+} \frac{dh}{dt} dt + 3 \int_{0^-}^{0^+} h(t) dt = \int_{0^-}^{0^+} \delta(t) dt
 $$
 
-**Step 5:** The leftmost term is $h(0^+) - h(0^-) = h(0^+)$ (since $h(0^-) = 0$). The middle term integrates to zero because $h(t)$ is finite over an infinitesimal interval. The right side is $1$. Thus:
+**Βήμα 5:** Ο αριστερότερος όρος είναι $h(0^+) - h(0^-) = h(0^+)$ (αφού $h(0^-) = 0$). Ο μεσαίος όρος ολοκληρώνεται στο μηδέν επειδή το $h(t)$ είναι πεπερασμένο σε ένα απειροστικό διάστημα. Το δεξί μέλος είναι $1$. Επομένως:
 $$
 h(0^+) = 1
 $$
 
-**Step 6:** Using $h(0^+) = A e^{0} = A = 1$, we have:
+**Βήμα 6:** Χρησιμοποιώντας $h(0^+) = A e^{0} = A = 1$, έχουμε:
 $$
 h(t) = e^{-3t} u(t)
 $$
 
-*Verification:* The response to $\delta(t)$ is an exponential decay starting from $1$ at $t = 0^+$ and decaying to $0$ as $t \to \infty$.
+*Επαλήθευση:* Η απόκριση στο $\delta(t)$ είναι μια εκθετική αποσύνδεση που ξεκινά από $1$ στο $t = 0^+$ και αποσβέννυται στο $0$ καθώς $t \to \infty$.
 
 ---
 
-### Exercise 5: Convolution of Two Rectangular Pulses
+### Άσκηση 5: Συνέλιξη Δύο Ορθογώνιων Παλμών
 
-**Problem:** Compute $y(t) = x(t) * h(t)$ where:
+**Πρόβλημα:** Υπολογίστε $y(t) = x(t) * h(t)$ όπου:
 $$
 x(t) = 
 \begin{cases}
@@ -478,37 +478,37 @@ h(t) =
 \end{cases}
 $$
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Write the convolution integral:
+**Βήμα 1:** Γράψτε το ολοκλήρωμα συνέλιξης:
 $$
 y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau
 $$
 
-**Step 2:** Both signals are rectangular pulses. Convolution of two rectangles produces a trapezoidal (or triangular, when the pulses have equal width) output.
+**Βήμα 2:** Και τα δύο σήματα είναι ορθογώνιοι παλμοί. Η συνέλιξη δύο ορθογωνίων παράγει μια τραπεζοειδή (ή τριγωνική, όταν οι παλμοί έχουν ίσο πλάτος) έξοδο.
 
-**Step 3:** Determine the piecewise intervals by considering the overlap of $x(\tau)$ (supported on $[0, 2]$) and $h(t-\tau)$ (supported on $\tau \in [t-1, t]$).
+**Βήμα 3:** Προσδιορίστε τα τμηματικά διαστήματα εξετάζοντας την επικάλυψη της $x(\tau)$ (υποστηρίζεται στο $[0, 2]$) και της $h(t-\tau)$ (υποστηρίζεται στο $\tau \in [t-1, t]$).
 
-**Case 1:** $t < 0$ — No overlap. $y(t) = 0$.
+**Περίπτωση 1:** $t < 0$ — Καμία επικάλυψη. $y(t) = 0$.
 
-**Case 2:** $0 \le t < 1$ — Partial overlap entering. The overlap region is $\tau \in [0, t]$.
+**Περίπτωση 2:** $0 \le t < 1$ — Μερική επικάλυψη εισόδου. Η περιοχή επικάλυψης είναι $\tau \in [0, t]$.
 $$
 y(t) = \int_{0}^{t} 1 \cdot 1 \, d\tau = t
 $$
 
-**Case 3:** $1 \le t < 2$ — Full overlap. The overlap region is $\tau \in [t-1, t]$, entirely within $[0, 2]$.
+**Περίπτωση 3:** $1 \le t < 2$ — Πλήρης επικάλυψη. Η περιοχή επικάλυψης είναι $\tau \in [t-1, t]$, ολόκληρη εντός του $[0, 2]$.
 $$
 y(t) = \int_{t-1}^{t} 1 \cdot 1 \, d\tau = 1
 $$
 
-**Case 4:** $2 \le t < 3$ — Partial overlap exiting. The overlap region is $\tau \in [t-1, 2]$.
+**Περίπτωση 4:** $2 \le t < 3$ — Μερική επικάλυψη εξόδου. Η περιοχή επικάλυψης είναι $\tau \in [t-1, 2]$.
 $$
 y(t) = \int_{t-1}^{2} 1 \cdot 1 \, d\tau = 2 - (t - 1) = 3 - t
 $$
 
-**Case 5:** $t \ge 3$ — No overlap. $y(t) = 0$.
+**Περίπτωση 5:** $t \ge 3$ — Καμία επικάλυψη. $y(t) = 0$.
 
-**Step 4:** The complete result:
+**Βήμα 4:** Το πλήρες αποτέλεσμα:
 $$
 y(t) =
 \begin{cases}
@@ -520,38 +520,38 @@ t, & 0 \le t < 1 \\
 \end{cases}
 $$
 
-The convolution is a trapezoidal pulse with total duration $T_y = T_x + T_h = 2 + 1 = 3$, verifying the width property.
+Η συνέλιξη είναι ένας τραπεζοειδής παλμός με συνολική διάρκεια $T_y = T_x + T_h = 2 + 1 = 3$, επαληθεύοντας την ιδιότητα πλάτους.
 
 ---
 
-### Exercise 6: Convolution of a Rectangular Pulse and an Exponential
+### Άσκηση 6: Συνέλιξη Ορθογώνιου Παλμού και Εκθετικής
 
-**Problem:** Compute $y(t) = x(t) * h(t)$ where $x(t) = e^{-t} u(t)$ and $h(t) = u(t) - u(t - 2)$ (a rectangular pulse of width 2).
+**Πρόβλημα:** Υπολογίστε $y(t) = x(t) * h(t)$ όπου $x(t) = e^{-t} u(t)$ και $h(t) = u(t) - u(t - 2)$ (ένας ορθογώνιος παλμός πλάτους 2).
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Write the convolution integral. Since both signals are causal, use the causal limits:
+**Βήμα 1:** Γράψτε το ολοκλήρωμα συνέλιξης. Επειδή και τα δύο σήματα είναι αιτιατά, χρησιμοποιήστε τα αιτιατά όρια:
 $$
 y(t) = \int_{0}^{t} x(\tau) h(t - \tau) d\tau
 $$
 
-**Step 2:** The rectangular pulse $h(t)$ is $1$ for $0 \le t \le 2$ and $0$ otherwise. Therefore $h(t - \tau) = 1$ when $0 \le t - \tau \le 2$, i.e., $\tau \in [t-2, t]$.
+**Βήμα 2:** Ο ορθογώνιος παλμός $h(t)$ είναι $1$ για $0 \le t \le 2$ και $0$ αλλιώς. Επομένως $h(t - \tau) = 1$ όταν $0 \le t - \tau \le 2$, δηλαδή $\tau \in [t-2, t]$.
 
-**Step 3:** Determine piecewise intervals.
+**Βήμα 3:** Προσδιορίστε τα τμηματικά διαστήματα.
 
-**Case 1:** $t < 0$ — No overlap. $y(t) = 0$.
+**Περίπτωση 1:** $t < 0$ — Καμία επικάλυψη. $y(t) = 0$.
 
-**Case 2:** $0 \le t < 2$ — The $h(t-\tau)$ covers $\tau \in [0, t]$ (since $t-2 < 0$), and $x(\tau)$ is supported on $\tau \ge 0$.
+**Περίπτωση 2:** $0 \le t < 2$ — Η $h(t-\tau)$ καλύπτει $\tau \in [0, t]$ (αφού $t-2 < 0$), και η $x(\tau)$ υποστηρίζεται στο $\tau \ge 0$.
 $$
 y(t) = \int_{0}^{t} e^{-\tau} \cdot 1 \, d\tau = \left[-e^{-\tau}\right]_{0}^{t} = 1 - e^{-t}
 $$
 
-**Case 3:** $t \ge 2$ — The $h(t-\tau)$ covers $\tau \in [t-2, t]$, and since $t-2 \ge 0$, both limits are within $x(\tau)$'s support.
+**Περίπτωση 3:** $t \ge 2$ — Η $h(t-\tau)$ καλύπτει $\tau \in [t-2, t]$, και αφού $t-2 \ge 0$, και τα δύο όρια είναι εντός της περιοχής υποστήριξης της $x(\tau)$.
 $$
 y(t) = \int_{t-2}^{t} e^{-\tau} \cdot 1 \, d\tau = \left[-e^{-\tau}\right]_{t-2}^{t} = e^{-(t-2)} - e^{-t} = e^{-t}(e^{2} - 1)
 $$
 
-**Step 4:** The complete result:
+**Βήμα 4:** Το πλήρες αποτέλεσμα:
 $$
 y(t) =
 \begin{cases}
@@ -561,61 +561,61 @@ e^{-t}(e^{2} - 1), & t \ge 2
 \end{cases}
 $$
 
-*Verification:* At $t = 2$, both pieces give $y(2) = 1 - e^{-2} \approx 0.865$, confirming continuity.
+*Επαλήθευση:* Στο $t = 2$, και τα δύο τμήματα δίνουν $y(2) = 1 - e^{-2} \approx 0.865$, επιβεβαιώνοντας τη συνέχεια.
 
 ---
 
-### Exercise 7: Impulse Response of a Causal LTI System from System Equation
+### Άσκηση 7: Κρουστική Απόκριση ενός Αιτιατού LTI Συστήματος από την Εξίσωση Συστήματος
 
-**Problem:** A causal LTI system is described by:
+**Πρόβλημα:** Ένα αιτιατό LTI σύστημα περιγράφεται από:
 $$
 \frac{d^2y}{dt^2} + 4\frac{dy}{dt} + 3y(t) = \frac{dx}{dt} + 2x(t)
 $$
 
-Find the impulse response $h(t)$.
+Βρείτε την κρουστική απόκριση $h(t)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** For the impulse response, set $x(t) = \delta(t)$ and solve:
+**Βήμα 1:** Για την κρουστική απόκριση, θέστε $x(t) = \delta(t)$ και λύστε:
 $$
 \frac{d^2h}{dt^2} + 4\frac{dh}{dt} + 3h(t) = \delta'(t) + 2\delta(t)
 $$
 
-**Step 2:** The characteristic equation is $s^2 + 4s + 3 = 0$, with roots $s = -1$ and $s = -3$. The natural response for $t > 0$ is:
+**Βήμα 2:** Η χαρακτηριστική εξίσωση είναι $s^2 + 4s + 3 = 0$, με ρίζες $s = -1$ και $s = -3$. Η φυσική απόκριση για $t > 0$ είναι:
 $$
 h(t) = (A e^{-t} + B e^{-3t}) u(t)
 $$
 
-**Step 3:** Determine $A$ and $B$ using the initial conditions at $t = 0^+$. Integrate the equation from $t = 0^-$ to $t = 0^+$:
+**Βήμα 3:** Προσδιορίστε τα $A$ και $B$ χρησιμοποιώντας τις αρχικές συνθήκες στο $t = 0^+$. Ολοκληρώστε την εξίσωση από $t = 0^-$ έως $t = 0^+$:
 
-First integration (to capture the $\delta'(t)$ term):
+Πρώτη ολοκλήρωση (για να συλληφθεί ο όρος $\delta'(t)$):
 $$
 \int_{0^-}^{0^+} \frac{d^2h}{dt^2} dt + 4\int_{0^-}^{0^+} \frac{dh}{dt} dt + 3\int_{0^-}^{0^+} h(t) dt = \int_{0^-}^{0^+} \delta'(t) dt + 2\int_{0^-}^{0^+} \delta(t) dt
 $$
 
-The term $\int \delta'(t) dt = 0$ (area of derivative of delta is zero), and $\int \delta(t) dt = 1$. The integrals of $h$ and $dh/dt$ over the infinitesimal interval are zero if these functions are finite. Thus:
+Ο όρος $\int \delta'(t) dt = 0$ (το εμβαδόν της παραγώγου της δέλτα είναι μηδέν), και $\int \delta(t) dt = 1$. Τα ολοκληρώματα της $h$ και του $dh/dt$ πάνω στο απειροστικό διάστημα είναι μηδέν αν αυτές οι συναρτήσεις είναι πεπερασμένες. Επομένως:
 $$
 h'(0^+) - h'(0^-) = 2 \quad \Rightarrow \quad h'(0^+) = 2
 $$
 
-Second integration (to capture the jump in $h$):
+Δεύτερη ολοκλήρωση (για να συλληφθεί το άλμα στην $h$):
 $$
 \int_{0^-}^{0^+} \frac{dh}{dt} dt + 4\int_{0^-}^{0^+} h(t) dt + 3\int_{0^-}^{0^+} \left(\int h\right) dt = \int_{0^-}^{0^+} \delta(t) dt + 2\int_{0^-}^{0^+} u(t) dt
 $$
 
-The first term gives $h(0^+) - h(0^-) = h(0^+)$. The integral of $\delta(t)$ is $1$, and the integral of $u(t)$ over the infinitesimal interval is $0$. Thus:
+Ο πρώτος όρος δίνει $h(0^+) - h(0^-) = h(0^+)$. Το ολοκλήρωμα της $\delta(t)$ είναι $1$, και το ολοκλήρωμα της $u(t)$ πάνω στο απειροστικό διάστημα είναι $0$. Επομένως:
 $$
 h(0^+) = 1
 $$
 
-**Step 4:** Apply the initial conditions to $h(t) = (A e^{-t} + B e^{-3t}) u(t)$:
+**Βήμα 4:** Εφαρμόστε τις αρχικές συνθήκες στην $h(t) = (A e^{-t} + B e^{-3t}) u(t)$:
 
-At $t = 0^+$:
+Στο $t = 0^+$:
 $$
 h(0^+) = A + B = 1
 $$
 
-Derivative:
+Παράγωγος:
 $$
 h'(t) = (-A e^{-t} - 3B e^{-3t}) u(t)
 $$
@@ -623,7 +623,7 @@ $$
 h'(0^+) = -A - 3B = 2
 $$
 
-**Step 5:** Solve the system:
+**Βήμα 5:** Λύστε το σύστημα:
 $$
 A + B = 1
 $$
@@ -631,25 +631,25 @@ $$
 -A - 3B = 2
 $$
 
-From the first: $A = 1 - B$. Substitute into the second:
+Από τον πρώτο: $A = 1 - B$. Αντικαταστήστε στον δεύτερο:
 $$
 -(1 - B) - 3B = 2 \quad \Rightarrow \quad -1 + B - 3B = 2 \quad \Rightarrow \quad -1 - 2B = 2 \quad \Rightarrow \quad -2B = 3 \quad \Rightarrow \quad B = -\frac{3}{2}
 $$
 
-Then $A = 1 - (-3/2) = 5/2$.
+Έπειτα $A = 1 - (-3/2) = 5/2$.
 
-**Step 6:** The impulse response is:
+**Βήμα 6:** Η κρουστική απόκριση είναι:
 $$
 h(t) = \left(\frac{5}{2} e^{-t} - \frac{3}{2} e^{-3t}\right) u(t)
 $$
 
-*Verification:* The system is stable because both poles $p_1 = -1$ and $p_2 = -3$ have negative real parts.
+*Επαλήθευση:* Το σύστημα είναι ευσταθές επειδή και οι δύο πόλοι $p_1 = -1$ και $p_2 = -3$ έχουν αρνητικά πραγματικά μέρη.
 
 ---
 
-### Exercise 8: Convolution Using Graphical Method
+### Άσκηση 8: Συνέλιξη με Γραφική Μέθοδο
 
-**Problem:** Use the graphical convolution method to compute $y(t) = x(t) * h(t)$ where:
+**Πρόβλημα:** Χρησιμοποιήστε τη γραφική μέθοδο συνέλιξης για να υπολογίσετε $y(t) = x(t) * h(t)$ όπου:
 $$
 x(t) = 
 \begin{cases}
@@ -660,22 +660,22 @@ t, & 0 \le t \le 1 \\
 h(t) = e^{-t} u(t)
 $$
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Write $x(t)$ as a triangular-shaped pulse of duration 1, and $h(t)$ as an infinite-duration exponential.
+**Βήμα 1:** Γράψτε την $x(t)$ ως έναν τριγωνικού σχήματος παλμό διάρκειας 1, και την $h(t)$ ως μια εκθετική άπειρης διάρκειας.
 
-**Step 2:** For graphical convolution, we need to evaluate $y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau$ by considering the overlap as $t$ varies.
+**Βήμα 2:** Για τη γραφική συνέλιξη, πρέπει να αξιολογήσουμε $y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau$ εξετάζοντας την επικάλυψη καθώς μεταβάλλεται το $t$.
 
-**Step 3:** The function $h(t-\tau) = e^{-(t-\tau)} u(t-\tau)$ is zero for $\tau > t$. The function $x(\tau)$ is zero for $\tau < 0$ and $\tau > 1$. The overlap is therefore $\tau \in [0, \min(1, t)]$ for $t > 0$.
+**Βήμα 3:** Η συνάρτηση $h(t-\tau) = e^{-(t-\tau)} u(t-\tau)$ είναι μηδέν για $\tau > t$. Η συνάρτηση $x(\tau)$ είναι μηδέν για $\tau < 0$ και $\tau > 1$. Η επικάλυψη επομένως είναι $\tau \in [0, \min(1, t)]$ για $t > 0$.
 
-**Case 1:** $t < 0$ — $h(t-\tau) = 0$ for all $\tau \ge 0$ because $u(t-\tau) = 0$ when $\tau > t$. $y(t) = 0$.
+**Περίπτωση 1:** $t < 0$ — $h(t-\tau) = 0$ για όλα τα $\tau \ge 0$ επειδή $u(t-\tau) = 0$ όταν $\tau > t$. $y(t) = 0$.
 
-**Case 2:** $0 \le t < 1$ — The overlap region is $\tau \in [0, t]$.
+**Περίπτωση 2:** $0 \le t < 1$ — Η περιοχή επικάλυψης είναι $\tau \in [0, t]$.
 $$
 y(t) = \int_{0}^{t} \tau \cdot e^{-(t-\tau)} d\tau = e^{-t} \int_{0}^{t} \tau e^{\tau} d\tau
 $$
 
-Integrate $\int \tau e^{\tau} d\tau = e^{\tau}(\tau - 1)$ (integration by parts). Evaluate:
+Ολοκληρώστε $\int \tau e^{\tau} d\tau = e^{\tau}(\tau - 1)$ (ολοκλήρωση κατά παράγοντες). Αξιολογήστε:
 $$
 y(t) = e^{-t} \left[e^{\tau}(\tau - 1)\right]_{0}^{t} = e^{-t} \left[e^{t}(t - 1) - (-1)\right] = e^{-t} \left[e^{t}(t - 1) + 1\right]
 $$
@@ -683,22 +683,22 @@ $$
 y(t) = (t - 1) + e^{-t} = t - 1 + e^{-t}
 $$
 
-**Case 3:** $t \ge 1$ — The overlap region is $\tau \in [0, 1]$ (the finite support of $x(\tau)$), provided $t \ge 1$ so that $h(t-\tau) > 0$ over all $\tau \in [0, 1]$.
+**Περίπτωση 3:** $t \ge 1$ — Η περιοχή επικάλυψης είναι $\tau \in [0, 1]$ (η πεπερασμένη περιοχή υποστήριξης της $x(\tau)$), εφόσον $t \ge 1$ ώστε $h(t-\tau) > 0$ για όλα τα $\tau \in [0, 1]$.
 $$
 y(t) = \int_{0}^{1} \tau \cdot e^{-(t-\tau)} d\tau = e^{-t} \int_{0}^{1} \tau e^{\tau} d\tau
 $$
 
-The integral from $0$ to $1$:
+Το ολοκλήρωμα από $0$ έως $1$:
 $$
 \int_{0}^{1} \tau e^{\tau} d\tau = \left[e^{\tau}(\tau - 1)\right]_{0}^{1} = e^{1}(1 - 1) - (-1) = 1
 $$
 
-Thus:
+Επομένως:
 $$
 y(t) = e^{-t} \cdot 1 = e^{-t}, \quad t \ge 1
 $$
 
-**Step 4:** The complete result:
+**Βήμα 4:** Το πλήρες αποτέλεσμα:
 $$
 y(t) =
 \begin{cases}
@@ -708,70 +708,70 @@ e^{-t}, & t \ge 1
 \end{cases}
 $$
 
-*Verification:* At $t = 1$, both pieces give $y(1) = 1 - 1 + e^{-1} = e^{-1} \approx 0.368$, confirming continuity.
+*Επαλήθευση:* Στο $t = 1$, και τα δύο τμήματα δίνουν $y(1) = 1 - 1 + e^{-1} = e^{-1} \approx 0.368$, επιβεβαιώνοντας τη συνέχεια.
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> The convolution of a finite-duration signal with an infinite-duration exponential produces a response that transitions from a transient phase (during overlap) to an exponential decay that mirrors the impulse response. This is a common pattern: the system's "memory" of the input signal fades exponentially after the input ends.
+> Η συνέλιξη ενός σήματος πεπερασμένης διάρκειας με μια εκθετική άπειρης διάρκειας παράγει μια απόκριση που μεταβαίνει από μια μεταβατική φάση (κατά την επικάλυψη) σε μια εκθετική αποσύνδεση που κατοπτρίζει την κρουστική απόκριση. Αυτό είναι ένα συνηθισμένο μοτίβο: η «μνήμη» του συστήματος για το σήμα εισόδου ξεθωριάζει εκθετικά μετά το πέρας της εισόδου.
 
 ---
 
-### Exercise 9: Causality and Stability of a Second-Order System
+### Άσκηση 9: Αιτιατότητα και Ευστάθεια ενός Συστήματος Δεύτερης Τάξης
 
-**Problem:** Consider a system with impulse response $h(t) = e^{-2t} u(t) - e^{-4t} u(-t)$.
-(a) Is the system causal?
-(b) Is the system BIBO stable?
+**Πρόβλημα:** Εξετάστε ένα σύστημα με κρουστική απόκριση $h(t) = e^{-2t} u(t) - e^{-4t} u(-t)$.
+(a) Είναι το σύστημα αιτιατό;
+(b) Είναι το σύστημα BIBO ευσταθές;
 
-**Solution:**
+**Λύση:**
 
-**(a) Causality test:**
+**(a) Έλεγχος αιτιατότητας:**
 
-**Step 1:** A causal LTI system has $h(t) = 0$ for $t < 0$.
+**Βήμα 1:** Ένα αιτιατό LTI σύστημα έχει $h(t) = 0$ για $t < 0$.
 
-**Step 2:** Examine $h(t)$ for $t < 0$:
+**Βήμα 2:** Εξετάστε την $h(t)$ για $t < 0$:
 $$
 h(t) = e^{-2t} \cdot 0 - e^{-4t} \cdot 1 = -e^{-4t}, \quad t < 0
 $$
 
-**Step 3:** For $t < 0$, $-e^{-4t} \neq 0$ (in fact, it grows as $t \to -\infty$). Therefore $h(t) \neq 0$ for negative $t$, and the system is **non-causal**.
+**Βήμα 3:** Για $t < 0$, $-e^{-4t} \neq 0$ (στην πραγματικότητα, αυξάνεται καθώς $t \to -\infty$). Επομένως $h(t) \neq 0$ για αρνητικά $t$, και το σύστημα είναι **μη αιτιατό**.
 
-*Physical interpretation:* The term $h(t) = -e^{-4t} u(-t)$ represents the response to an impulse before the impulse is applied — a physical impossibility in real-time systems.
+*Φυσική ερμηνεία:* Ο όρος $h(t) = -e^{-4t} u(-t)$ αναπαριστά την απόκριση σε μια κρουστική πριν εφαρμοστεί η κρουστική — ένα φυσικό αδύνατο σε συστήματα πραγματικού χρόνου.
 
-**(b) BIBO stability test:**
+**(b) Έλεγχος BIBO ευστάθειας:**
 
-**Step 1:** Compute $\int_{-\infty}^{\infty} |h(t)| dt$:
+**Βήμα 1:** Υπολογίστε $\int_{-\infty}^{\infty} |h(t)| dt$:
 $$
 \int_{-\infty}^{\infty} |h(t)| dt = \int_{-\infty}^{0} |{-e^{-4t}}| dt + \int_{0}^{\infty} |e^{-2t}| dt
 $$
 
-**Step 2:** For $t < 0$, $e^{-4t} = e^{4|t|}$, which grows as $t \to -\infty$:
+**Βήμα 2:** Για $t < 0$, $e^{-4t} = e^{4|t|}$, που αυξάνεται καθώς $t \to -\infty$:
 $$
 \int_{-\infty}^{0} e^{-4t} dt = \int_{-\infty}^{0} e^{4|t|} dt = \int_{0}^{\infty} e^{-4u} du = \left[-\frac{e^{-4u}}{4}\right]_{0}^{\infty} = \frac{1}{4}
 $$
 
-**Step 3:** For $t > 0$:
+**Βήμα 3:** Για $t > 0$:
 $$
 \int_{0}^{\infty} e^{-2t} dt = \left[-\frac{e^{-2t}}{2}\right]_{0}^{\infty} = \frac{1}{2}
 $$
 
-**Step 4:** Total:
+**Βήμα 4:** Σύνολο:
 $$
 \int_{-\infty}^{\infty} |h(t)| dt = \frac{1}{4} + \frac{1}{2} = \frac{3}{4} < \infty
 $$
 
-The system is **BIBO stable**, despite being non-causal.
+Το σύστημα είναι **BIBO ευσταθές**, παρά το ότι είναι μη αιτιατό.
 
-*Summary:* This system is stable (the impulse response is absolutely integrable) but non-causal (response exists before the impulse is applied). This is characteristic of offline signal processing systems where the entire signal is known in advance.
+*Σύνοψη:* Αυτό το σύστημα είναι ευσταθές (η κρουστική απόκριση είναι απόλυτα ολοκληρώσιμη) αλλά μη αιτιατό (η απόκριση υπάρχει πριν εφαρμοστεί η κρουστική). Αυτό είναι χαρακτηριστικό των συστημάτων επεξεργασίας σήματος εκτός σύνδεσης όπου ολόκληρο το σήμα είναι γνωστό εκ των προτέρων.
 
 ---
 
-### Exercise 10: Convolution of Two Piecewise-Linear Functions
+### Άσκηση 10: Συνέλιξη Δύο Τμηματικά-Γραμμικών Συναρτήσεων
 
-**Problem:** Let $x(t) = 2[u(t) - u(t-3)]$ and $h(t) = t[u(t) - u(t-2)]$. Compute $y(t) = x(t) * h(t)$.
+**Πρόβλημα:** Έστω $x(t) = 2[u(t) - u(t-3)]$ και $h(t) = t[u(t) - u(t-2)]$. Υπολογίστε $y(t) = x(t) * h(t)$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Express $x(t)$ and $h(t)$:
+**Βήμα 1:** Εκφράστε την $x(t)$ και την $h(t)$:
 $$
 x(t) = 
 \begin{cases}
@@ -786,18 +786,18 @@ t, & 0 \le t \le 2 \\
 \end{cases}
 $$
 
-**Step 2:** Write the convolution integral:
+**Βήμα 2:** Γράψτε το ολοκλήρωμα συνέλιξης:
 $$
 y(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau
 $$
 
-The support of $x(\tau)$ is $[0, 3]$. The support of $h(t-\tau)$ in $\tau$ is $[t-2, t]$
+Η περιοχή υποστήριξης της $x(\tau)$ είναι $[0, 3]$. Η περιοχή υποστήριξης της $h(t-\tau)$ στο $\tau$ είναι $[t-2, t]$
 
-**Step 3:** Determine piecewise intervals based on overlap.
+**Βήμα 3:** Προσδιορίστε τα τμηματικά διαστήματα με βάση την επικάλυψη.
 
-**Case 1:** $t < 0$ — No overlap. $y(t) = 0$.
+**Περίπτωση 1:** $t < 0$ — Καμία επικάλυψη. $y(t) = 0$.
 
-**Case 2:** $0 \le t < 2$ — Overlap on $\tau \in [0, t]$.
+**Περίπτωση 2:** $0 \le t < 2$ — Επικάλυψη στο $\tau \in [0, t]$.
 $$
 y(t) = \int_{0}^{t} 2 \cdot (t - \tau) d\tau = 2 \int_{0}^{t} (t - \tau) d\tau = 2 \left[t\tau - \frac{\tau^2}{2}\right]_{0}^{t}
 $$
@@ -805,19 +805,19 @@ $$
 y(t) = 2\left[t^2 - \frac{t^2}{2}\right] = 2\left(\frac{t^2}{2}\right) = t^2
 $$
 
-**Case 3:** $2 \le t < 3$ — Full height of $h$ overlaps with $x$. Overlap on $\tau \in [t-2, t]$, and $[t-2, t]$ is fully within $[0, 3]$.
+**Περίπτωση 3:** $2 \le t < 3$ — Το πλήρες ύψος της $h$ επικαλύπτεται με την $x$. Επικάλυψη στο $\tau \in [t-2, t]$, και το $[t-2, t]$ είναι ολόκληρο εντός του $[0, 3]$.
 $$
 y(t) = \int_{t-2}^{t} 2 \cdot (t - \tau) d\tau = 2 \int_{t-2}^{t} (t - \tau) d\tau
 $$
 
-Let $u = t - \tau$, then $du = -d\tau$, and when $\tau = t-2$, $u = 2$; when $\tau = t$, $u = 0$:
+Θέστε $u = t - \tau$, τότε $du = -d\tau$, και όταν $\tau = t-2$, $u = 2$; όταν $\tau = t$, $u = 0$:
 $$
 y(t) = 2 \int_{2}^{0} u (-du) = 2 \int_{0}^{2} u \, du = 2 \left[\frac{u^2}{2}\right]_{0}^{2} = 2 \cdot 2 = 4
 $$
 
-Alternatively, directly: $\int_{t-2}^{t} (t-\tau) d\tau = \frac{(2)^2}{2} = 2$, and $2 \cdot 2 = 4$.
+Εναλλακτικά, απευθείας: $\int_{t-2}^{t} (t-\tau) d\tau = \frac{(2)^2}{2} = 2$, και $2 \cdot 2 = 4$.
 
-**Case 4:** $3 \le t < 5$ — Partial overlap as $x$ ends. Overlap on $\tau \in [t-2, 3]$.
+**Περίπτωση 4:** $3 \le t < 5$ — Μερική επικάλυψη καθώς η $x$ λήγει. Επικάλυψη στο $\tau \in [t-2, 3]$.
 $$
 y(t) = \int_{t-2}^{3} 2 \cdot (t - \tau) d\tau = 2 \int_{t-2}^{3} (t - \tau) d\tau
 $$
@@ -837,9 +837,9 @@ $$
 = 2 \left[-\frac{t^2}{2} + 3t - \frac{5}{2}\right] = -t^2 + 6t - 5
 $$
 
-**Case 5:** $t \ge 5$ — No overlap. $y(t) = 0$.
+**Περίπτωση 5:** $t \ge 5$ — Καμία επικάλυψη. $y(t) = 0$.
 
-**Step 4:** The complete result:
+**Βήμα 4:** Το πλήρες αποτέλεσμα:
 $$
 y(t) =
 \begin{cases}
@@ -851,27 +851,27 @@ t^2, & 0 \le t < 2 \\
 \end{cases}
 $$
 
-*Verification:* At $t = 2$, the first two pieces give $y(2) = 2^2 = 4$, matching the constant region. At $t = 3$, the second and third pieces give $y(3) = 4$ (from constant) and $y(3) = -(3)^2 + 6(3) - 5 = -9 + 18 - 5 = 4$, confirming continuity. Total duration $T_y = T_x + T_h = 3 + 2 = 5$, consistent with the width property.
+*Επαλήθευση:* Στο $t = 2$, τα δύο πρώτα τμήματα δίνουν $y(2) = 2^2 = 4$, ταιριάζοντας με την περιοχή σταθεράς. Στο $t = 3$, το δεύτερο και τρίτο τμήμα δίνουν $y(3) = 4$ (από σταθερά) και $y(3) = -(3)^2 + 6(3) - 5 = -9 + 18 - 5 = 4$, επιβεβαιώνοντας τη συνέχεια. Συνολική διάρκεια $T_y = T_x + T_h = 3 + 2 = 5$, συνεπής με την ιδιότητα πλάτους.
 
 ---
 
-### Exercise 11: Explicitly Computing the Convolution Integral for Causal LTI System
+### Άσκηση 11: Ρητός Υπολογισμός του Ολοκληρώματος Συνέλιξης για Αιτιατό LTI Σύστημα
 
-**Problem:** A causal LTI system has impulse response $h(t) = e^{-t} u(t)$. The input is $x(t) = \sin(t) u(t)$. Compute the output $y(t)$ for $t \ge 0$.
+**Πρόβλημα:** Ένα αιτιατό LTI σύστημα έχει κρουστική απόκριση $h(t) = e^{-t} u(t)$. Η είσοδος είναι $x(t) = \sin(t) u(t)$. Υπολογίστε την έξοδο $y(t)$ για $t \ge 0$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Both signals are causal, so the convolution limits are $0$ to $t$:
+**Βήμα 1:** Και τα δύο σήματα είναι αιτιατά, οπότε τα όρια συνέλιξης είναι από $0$ έως $t$:
 $$
 y(t) = \int_{0}^{t} \sin(\tau) e^{-(t-\tau)} d\tau = e^{-t} \int_{0}^{t} \sin(\tau) e^{\tau} d\tau
 $$
 
-**Step 2:** Evaluate $I = \int_{0}^{t} e^{\tau} \sin(\tau) d\tau$ using integration by parts or the standard formula:
+**Βήμα 2:** Αξιολογήστε $I = \int_{0}^{t} e^{\tau} \sin(\tau) d\tau$ χρησιμοποιώντας ολοκλήρωση κατά παράγοντες ή τον τυπικό τύπο:
 $$
 \int e^{a\tau} \sin(b\tau) d\tau = \frac{e^{a\tau}}{a^2 + b^2} \big(a \sin(b\tau) - b \cos(b\tau)\big)
 $$
 
-With $a = 1$, $b = 1$:
+Με $a = 1$, $b = 1$:
 $$
 I = \left[\frac{e^{\tau}}{2} \big(\sin(\tau) - \cos(\tau)\big)\right]_{0}^{t} = \frac{e^{t}}{2}\big(\sin(t) - \cos(t)\big) - \frac{1}{2}(0 - 1)
 $$
@@ -879,7 +879,7 @@ $$
 I = \frac{e^{t}}{2}\big(\sin(t) - \cos(t)\big) + \frac{1}{2}
 $$
 
-**Step 3:** Substitute back:
+**Βήμα 3:** Αντικαταστήστε πίσω:
 $$
 y(t) = e^{-t} \left[\frac{e^{t}}{2}\big(\sin(t) - \cos(t)\big) + \frac{1}{2}\right]
 $$
@@ -887,115 +887,115 @@ $$
 y(t) = \frac{1}{2}\big(\sin(t) - \cos(t)\big) + \frac{1}{2} e^{-t}, \quad t \ge 0
 $$
 
-**Step 4:** With the unit step:
+**Βήμα 4:** Με τον μοναδιαίο βηματισμό:
 $$
 y(t) = \left[\frac{1}{2}\big(\sin(t) - \cos(t)\big) + \frac{1}{2} e^{-t}\right] u(t)
 $$
 
-*Interpretation:* The output consists of:
-- A **steady-state** sinusoidal component $\frac{1}{2}(\sin(t) - \cos(t)) = \frac{1}{\sqrt{2}} \sin(t - \pi/4)$ — the system's response to the sinusoid after transients decay.
-- A **transient** exponential term $\frac{1}{2} e^{-t}$ that decays to zero as $t \to \infty$.
+*Ερμηνεία:* Η έξοδος αποτελείται από:
+- Μια **μόνιμη** ημιτονοειδή συνιστώσα $\frac{1}{2}(\sin(t) - \cos(t)) = \frac{1}{\sqrt{2}} \sin(t - \pi/4)$ — την απόκριση του συστήματος στο ημιτονοειδές μετά την απόσβεση των μεταβατικών.
+- Μια **μεταβατική** εκθετική συνιστώσα $\frac{1}{2} e^{-t}$ που αποσβέννυται στο μηδέν καθώς $t \to \infty$.
 
-This illustrates the eigenfunction property: for large $t$, the response to a sinusoidal input is a sinusoid of the same frequency, scaled and phase-shifted.
+Αυτό αναδεικνύει την ιδιότητα ιδιοσυνάρτησης: για μεγάλα $t$, η απόκριση σε μια ημιτονοειδή είσοδο είναι ένα ημιτονοειδές της ίδιας συχνότητας, κλιμακωμένο και μετατοπισμένο ως προς τη φάση.
 
 ---
 
-### Exercise 12: Determining System Properties from Impulse Response
+### Άσκηση 12: Προσδιορισμός Ιδιοτήτων Συστήματος από την Κρουστική Απόκριση
 
-**Problem:** For each impulse response, determine whether the LTI system is (i) causal, (ii) BIBO stable:
+**Πρόβλημα:** Για κάθε κρουστική απόκριση, προσδιορίστε αν το LTI σύστημα είναι (i) αιτιατό, (ii) BIBO ευσταθές:
 (a) $h(t) = e^{-5t} u(t)$
 (b) $h(t) = e^{2t} u(-t)$
 (c) $h(t) = u(t)$
 (d) $h(t) = \sin(10t) u(t)$
 
-**Solution:**
+**Λύση:**
 
 **(a)** $h(t) = e^{-5t} u(t)$
-- **Causality:** $h(t) = 0$ for $t < 0$. The system is **causal**.
-- **Stability:** $\int_{0}^{\infty} e^{-5t} dt = \frac{1}{5} < \infty$. The system is **BIBO stable**.
+- **Αιτιατότητα:** $h(t) = 0$ για $t < 0$. Το σύστημα είναι **αιτιατό**.
+- **Ευστάθεια:** $\int_{0}^{\infty} e^{-5t} dt = \frac{1}{5} < \infty$. Το σύστημα είναι **BIBO ευσταθές**.
 
 **(b)** $h(t) = e^{2t} u(-t)$
-- **Causality:** For $t < 0$, $u(-t) = 1$, so $h(t) = e^{2t} \neq 0$. The system is **non-causal** (response exists before the impulse).
-- **Stability:** $\int_{-\infty}^{0} e^{2t} dt = \int_{-\infty}^{0} e^{2t} dt = \left[\frac{e^{2t}}{2}\right]_{-\infty}^{0} = \frac{1}{2} - 0 = \frac{1}{2} < \infty$. The system is **BIBO stable** despite being non-causal.
+- **Αιτιατότητα:** Για $t < 0$, $u(-t) = 1$, οπότε $h(t) = e^{2t} \neq 0$. Το σύστημα είναι **μη αιτιατό** (η απόκριση υπάρχει πριν την κρουστική).
+- **Ευστάθεια:** $\int_{-\infty}^{0} e^{2t} dt = \int_{-\infty}^{0} e^{2t} dt = \left[\frac{e^{2t}}{2}\right]_{-\infty}^{0} = \frac{1}{2} - 0 = \frac{1}{2} < \infty$. Το σύστημα είναι **BIBO ευσταθές** παρά το ότι είναι μη αιτιατό.
 
 **(c)** $h(t) = u(t)$
-- **Causality:** $h(t) = 0$ for $t < 0$. The system is **causal**.
-- **Stability:** $\int_{0}^{\infty} 1 \, dt = \infty$. The system is **not BIBO stable** (this is the ideal integrator).
+- **Αιτιατότητα:** $h(t) = 0$ για $t < 0$. Το σύστημα είναι **αιτιατό**.
+- **Ευστάθεια:** $\int_{0}^{\infty} 1 \, dt = \infty$. Το σύστημα είναι **μη BIBO ευσταθές** (αυτός είναι ο ιδανικός ολοκληρωτής).
 
 **(d)** $h(t) = \sin(10t) u(t)$
-- **Causality:** $h(t) = 0$ for $t < 0$. The system is **causal**.
-- **Stability:** $\int_{0}^{\infty} |\sin(10t)| dt$. Since $|\sin(10t)|$ oscillates between $0$ and $1$ without decaying, the integral diverges. The system is **not BIBO stable**. This is a pure oscillator (undamped second-order system with poles on the imaginary axis).
+- **Αιτιατότητα:** $h(t) = 0$ για $t < 0$. Το σύστημα είναι **αιτιατό**.
+- **Ευστάθεια:** $\int_{0}^{\infty} |\sin(10t)| dt$. Επειδή η $|\sin(10t)|$ ταλαντώνεται μεταξύ $0$ και $1$ χωρίς να αποσβέννυται, το ολοκλήρωμα αποκλίνει. Το σύστημα είναι **μη BIBO ευσταθές**. Αυτός είναι ένας καθαρός ταλαντωτής (αμονωτικό σύστημα δεύτερης τάξης με πόλους στον φανταστικό άξονα).
 
 ---
 
-## 6. Connections and Cross-References
+## 6. Συνδέσεις και Διασταυρώσεις Αναφορών
 
-- **Lecture 04 (Continuous-Time Systems):** The linearity and time-invariance tests from Lecture 04 are prerequisites for determining whether a system qualifies as LTI. The systems classified in this lecture as LTI are the ones whose impulse response fully characterizes them.
-- **Lecture 03 (Continuous-Time Signals):** The Dirac delta function $\delta(t)$ is the test signal used to define the impulse response. The sifting property $x(t) = \int x(\tau) \delta(t-\tau) d\tau$ is the starting point for deriving the convolution integral.
-- **Lecture 06 (Convolution):** The convolution integral derived in this lecture is the subject of Lecture 06, which covers the step-by-step graphical convolution procedure, convolution tables, and algebraic properties (commutative, associative, distributive).
-- **Fourier Transform (upcoming):** The frequency response $H(j\omega) = \mathcal{F}\{h(t)\}$ is the Fourier transform of the impulse response. LTI system analysis in the frequency domain depends on the convolution property: $\mathcal{F}\{x(t) * h(t)\} = X(j\omega) H(j\omega)$.
-- **Laplace Transform (upcoming):** The transfer function $H(s) = \mathcal{L}\{h(t)\}$ is the Laplace transform of the impulse response. Pole locations in the $s$-plane determine stability: poles in the left-half plane (Re$(s) < 0$) indicate stable systems.
-- **Control Systems (future course):** BIBO stability, causality, and the impulse response are foundational to control theory. The Routh-Hurwitz criterion, Nyquist stability criterion, and state-space stability analysis all build on these concepts.
-- **Digital Signal Processing (future course):** The discrete-time counterparts of these concepts — the unit pulse response, discrete convolution $y[n] = x[n] * h[n]$, and the $z$-transform — parallel the continuous-time results introduced here.
+- **Διάλεξη 04 (Συστήματα Συνεχούς Χρόνου):** Οι έλεγχοι γραμμικότητας και αμεταβλητότητας ως προς τον χρόνο από τη Διάλεξη 04 είναι προαπαιτούμενα για να προσδιοριστεί αν ένα σύστημα πληροί τις προϋποθέσεις να θεωρηθεί LTI. Τα συστήματα που ταξινομούνται σε αυτή τη διάλεξη ως LTI είναι εκείνα των οποίων η κρουστική απόκριση τα χαρακτηρίζει πλήρως.
+- **Διάλεξη 03 (Σήματα Συνεχούς Χρόνου):** Η συνάρτηση Dirac delta $\delta(t)$ είναι το δοκιμαστικό σήμα που χρησιμοποιείται για τον ορισμό της κρουστικής απόκρισης. Η ιδιότητα διαλογής $x(t) = \int x(\tau) \delta(t-\tau) d\tau$ είναι το αφετηριακό σημείο για την παραγωγή του ολοκληρώματος συνέλιξης.
+- **Διάλεξη 06 (Συνέλιξη):** Το ολοκλήρωμα συνέλιξης που παράγεται σε αυτή τη διάλεξη αποτελεί το αντικείμενο της Διάλεξης 06, η οποία καλύπτει τη διαδικασία γραφικής συνέλιξης βήμα προς βήμα, τους πίνακες συνέλιξης και τις αλγεβρικές ιδιότητες (αντιμεταθετική, προσεταιριστική, επιμεριστική).
+- **Μετασχηματισμός Fourier (επερχόμενος):** Η συχνοτική απόκριση $H(j\omega) = \mathcal{F}\{h(t)\}$ είναι ο μετασχηματισμός Fourier της κρουστικής απόκρισης. Η ανάλυση LTI συστημάτων στο πεδίο συχνοτήτων εξαρτάται από την ιδιότητα συνέλιξης: $\mathcal{F}\{x(t) * h(t)\} = X(j\omega) H(j\omega)$.
+- **Μετασχηματισμός Laplace (επερχόμενος):** Η συνάρτηση μεταφοράς $H(s) = \mathcal{L}\{h(t)\}$ είναι ο μετασχηματισμός Laplace της κρουστικής απόκρισης. Οι θέσεις των πόλων στο επίπεδο $s$ καθορίζουν την ευστάθεια: οι πόλοι στο αριστερό ημιεπίπεδο (Re$(s) < 0$) υποδηλώνουν ευσταθή συστήματα.
+- **Συστήματα Ελέγχου (μελλοντικό μάθημα):** Η BIBO ευστάθεια, η αιτιατότητα και η κρουστική απόκριση είναι θεμελιώδεις για τη θεωρία ελέγχου. Το κριτήριο Routh-Hurwitz, το κριτήριο ευστάθειας Nyquist και η ανάλυση ευστάθειας χωρικών καταστάσεων βασίζονται όλα σε αυτές τις έννοιες.
+- **Ψηφιακή Επεξεργασία Σήματος (μελλοντικό μάθημα):** Τα αντίστοιχα διακριτού χρόνου αυτών των εννοιών — η απόκριση μοναδιαίας κρουστικής, η διακριτή συνέλιξη $y[n] = x[n] * h[n]$, και ο μετασχηματισμός $z$ — παραλληλίζουν τα αποτελέσματα συνεχούς χρόνου που εισάγονται εδώ.
 
 ---
 
-## 7. Exam Tip: Systematic Classification of System Properties
+## 7. Συμβουλή Εξέτασης: Συστηματική Ταξινόμηση Ιδιοτήτων Συστήματος
 
-### Property Testing Quick Reference
+### Γρήγορη Αναφορά Ελέγχου Ιδιοτήτων
 
-When given a system equation and asked to classify it, test the four properties in this order:
+Όταν σας δίνεται μια εξίσωση συστήματος και ζητείται να την ταξινομήσετε, ελέγξτε τις τέσσερις ιδιότητες με αυτή τη σειρά:
 
-| Step | Property | Key Test | Typical Failure Mode |
+| Βήμα | Ιδιότητα | Βασικός Έλεγχος | Τυπική Μορφή Αποτυχίας |
 | :--- | :--- | :--- | :--- |
-| 1 | Memory | Does $y(t)$ depend on $x(\tau)$ for $\tau \neq t$? | Confusing "with memory" with "non-causal" |
-| 2 | Causality | Does $y(t)$ depend on $x(\tau)$ for $\tau > t$? | Assuming all dynamic systems are causal |
-| 3 | Linearity | Is $T\{\alpha x_1 + \beta x_2\} = \alpha T\{x_1\} + \beta T\{x_2\}$? | Forgetting to check scaling and additivity separately |
-| 4 | Time-invariance | Is $T\{x(t-t_0)\} = y(t-t_0)$? | Confusing the function $t$ (time variable) with a constant |
+| 1 | Μνήμη | Εξαρτάται η $y(t)$ από $x(\tau)$ για $\tau \neq t$; | Σύγχυση του «με μνήμη» με το «μη αιτιατό» |
+| 2 | Αιτιατότητα | Εξαρτάται η $y(t)$ από $x(\tau)$ για $\tau > t$; | Υπόθεση ότι όλα τα δυναμικά συστήματα είναι αιτιατά |
+| 3 | Γραμμικότητα | Ισχύει $T\{\alpha x_1 + \beta x_2\} = \alpha T\{x_1\} + \beta T\{x_2\}$; | Λησμονιά του ξεχωριστού ελέγχου κλιμάκωσης και προσθετικότητας |
+| 4 | Αμεταβλητότητα ως προς τον χρόνο | Ισχύει $T\{x(t-t_0)\} = y(t-t_0)$; | Σύγχυση της συνάρτησης $t$ (μεταβλητή χρόνου) με μια σταθερά |
 
-### Common Exam Patterns for LTI Systems
+### Συνήθη Μοτίβα Εξέτασης για LTI Συστήματα
 
-**Pattern 1: Given a differential equation, find the impulse response.**
-- Procedure: Solve the ODE with $x(t) = \delta(t)$ and initial rest conditions.
-- Use the method of integrating factors or characteristic equation.
-- Jump conditions at $t=0$ must be computed by integrating the differential equation.
+**Μοτίβο 1: Δεδομένης διαφορικής εξίσωσης, βρείτε την κρουστική απόκριση.**
+- Διαδικασία: Λύστε την ΟΔΕ με $x(t) = \delta(t)$ και συνθήκες αρχικής ηρεμίας.
+- Χρησιμοποιήστε τη μέθοδο των συντελεστών ολοκλήρωσης ή την χαρακτηριστική εξίσωση.
+- Οι συνθήκες άλματος στο $t=0$ πρέπει να υπολογιστούν ολοκληρώνοντας τη διαφορική εξίσωση.
 
-**Pattern 2: Given $h(t)$ and $x(t)$, compute $y(t)$ via convolution.**
-- Sketch both signals to determine the piecewise intervals.
-- There are always $N+1$ cases where $N$ is the number of breakpoints in the combined support regions.
-- Verify continuity at interval boundaries.
+**Μοτίβο 2: Δεδομένων $h(t)$ και $x(t)$, υπολογίστε $y(t)$ μέσω συνέλιξης.**
+- Σκιαγραφήστε και τα δύο σήματα για να προσδιορίσετε τα τμηματικά διαστήματα.
+- Υπάρχουν πάντα $N+1$ περιπτώσεις όπου το $N$ είναι ο αριθμός των σημείων αλλαγής στις συνδυασμένες περιοχές υποστήριξης.
+- Επαληθεύστε τη συνέχεια στα όρια των διαστημάτων.
 
-**Pattern 3: Given a description of a system, determine if it is LTI.**
-- Test linearity first (faster to disprove).
-- Test time-invariance second.
-- Systems with explicit $t$ in the equation are always time-varying unless $t$ appears only in the $(t-\tau)$ combination.
+**Μοτίβο 3: Δεδομένης περιγραφής ενός συστήματος, προσδιορίστε αν είναι LTI.**
+- Ελέγξτε πρώτα τη γραμμικότητα (ταχύτερο να αποδειχθεί το αντίθετο).
+- Ελέγξτε δεύτερον την αμεταβλητότητα ως προς τον χρόνο.
+- Τα συστήματα με ρητό $t$ στην εξίσωση είναι πάντα χρονικά μεταβαλλόμενα εκτός αν το $t$ εμφανίζεται μόνο στον συνδυασμό $(t-\tau)$.
 
-**Pattern 4: Given $h(t)$, determine BIBO stability.**
-- Compute $\int_{-\infty}^{\infty} |h(t)| dt$. If finite, the system is BIBO stable.
-- Key functions and their integrability:
+**Μοτίβο 4: Δεδομένης $h(t)$, προσδιορίστε την BIBO ευστάθεια.**
+- Υπολογίστε $\int_{-\infty}^{\infty} |h(t)| dt$. Αν είναι πεπερασμένο, το σύστημα είναι BIBO ευσταθές.
+- Βασικές συναρτήσεις και η ολοκληρωσιμότητά τους:
 
-| $h(t)$ | $\int \|h\|$ | Stable? |
+| $h(t)$ | $\int \|h\|$ | Ευσταθές; |
 | :--- | :--- | :--- |
-| $e^{-at} u(t)$, $a > 0$ | $1/a$ | Yes |
-| $e^{-a\|t\|}$, $a > 0$ | $2/a$ | Yes |
-| $u(t)$ | $\infty$ | No |
-| $t^n u(t)$ | $\infty$ | No |
-| $\sin(\omega_0 t) u(t)$ | $\infty$ | No |
-| $\delta(t)$ | $1$ | Yes |
+| $e^{-at} u(t)$, $a > 0$ | $1/a$ | Ναι |
+| $e^{-a\|t\|}$, $a > 0$ | $2/a$ | Ναι |
+| $u(t)$ | $\infty$ | Όχι |
+| $t^n u(t)$ | $\infty$ | Όχι |
+| $\sin(\omega_0 t) u(t)$ | $\infty$ | Όχι |
+| $\delta(t)$ | $1$ | Ναι |
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> The most common exam error: declaring a system unstable because the impulse response does not decay to zero as $t \to \infty$. While $h(t) = u(t)$ (does not decay) is indeed unstable, $h(t) = 1$ (a constant for all $t$) is also unstable but for a different reason — the integral $\int_{-\infty}^{\infty} |1| dt$ diverges. In contrast, $h(t) = e^{-|t|}$ decays both forward and backward in time and is stable. Always use the absolute integrability test, not just the decay rate for $t \to \infty$.
+> Το συνηθέστερο σφάλμα εξέτασης: να κηρυχθεί ένα σύστημα ασταθές επειδή η κρουστική απόκριση δεν αποσβέννυται στο μηδέν καθώς $t \to \infty$. Ενώ η $h(t) = u(t)$ (δεν αποσβέννυται) είναι όντως ασταθής, η $h(t) = 1$ (μια σταθερά για όλα τα $t$) είναι επίσης ασταθής αλλά για διαφορετικό λόγο — το ολοκλήρωμα $\int_{-\infty}^{\infty} |1| dt$ αποκλίνει. Αντιθέτως, η $h(t) = e^{-|t|}$ αποσβέννυται τόσο προς τα εμπρός όσο και προς τα πίσω στον χρόνο και είναι ευσταθής. Χρησιμοποιείτε πάντα τον έλεγχο απόλυτης ολοκληρωσιμότητας, όχι μόνο τον ρυθμό απόσβεσης για $t \to \infty$.
 
-### Convolution Shortcut for Exam Problems
+### Συντομεύσεις Συνέλιξης για Θέματα Εξέτασης
 
-For piecewise-constant signals, convolution reduces to computing overlapping areas. The key steps:
-1. Identify the breakpoints of both signals.
-2. Sort the breakpoints to determine the piecewise intervals.
-3. For each interval, the overlap region is fixed, and integration is straightforward.
-4. The result $y(t)$ is a continuous function (even if the individual signals are discontinuous).
+Για τμηματικά-σταθερά σήματα, η συνέλιξη ανάγεται στον υπολογισμό επικαλυπτόμενων εμβαδών. Τα βασικά βήματα:
+1. Αναγνωρίστε τα σημεία αλλαγής και των δύο σημάτων.
+2. Ταξινομήστε τα σημεία αλλαγής για να προσδιορίσετε τα τμηματικά διαστήματα.
+3. Για κάθε διάστημα, η περιοχή επικάλυψης είναι σταθερή, και η ολοκλήρωση είναι απλή.
+4. Το αποτέλεσμα $y(t)$ είναι μια συνεχής συνάρτηση (ακόμη και αν τα επιμέρους σήματα είναι ασυνεχή).
 
-For causal exponential and sinusoidal signals, use the standard convolution table:
+Για αιτιατά εκθετικά και ημιτονοειδή σήματα, χρησιμοποιήστε τον τυπικό πίνακα συνέλιξης:
 
 | $x(t)$ | $h(t)$ | $x(t) * h(t)$ |
 | :--- | :--- | :--- |

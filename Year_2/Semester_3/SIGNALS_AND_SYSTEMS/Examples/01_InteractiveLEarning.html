@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecture 01: Intro to Signals & Systems</title>
+    <title>Διάλεξη 01: Εισαγωγή στα Σήματα & Συστήματα</title>
     
     <!-- Tailwind CSS for Dark Theme -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -233,29 +233,29 @@
     <!-- Sidebar -->
     <aside class="w-full md:w-72 bg-slate-800 border-r border-slate-700 flex-shrink-0 flex flex-col shadow-xl z-10">
         <div class="p-6 border-b border-slate-700">
-            <h1 class="text-2xl font-bold text-cyan-400">Lecture 01</h1>
-            <p class="text-sm text-slate-400 mt-1">Introduction & Organization</p>
+            <h1 class="text-2xl font-bold text-cyan-400">Διάλεξη 01</h1>
+            <p class="text-sm text-slate-400 mt-1">Εισαγωγή & Οργάνωση</p>
         </div>
         <nav class="flex-1 overflow-y-auto p-3 space-y-2">
             <button onclick="loadModule(1)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod1">
-                <div class="font-semibold">1. Definitions & Basics</div>
-                <div class="text-xs text-slate-400 mt-1">What is a Signal? How to plot?</div>
+                <div class="font-semibold">1. Ορισμοί & Βασικά</div>
+                <div class="text-xs text-slate-400 mt-1">Τι είναι Σήμα; Πώς να το σχεδιάσετε;</div>
             </button>
             <button onclick="loadModule(2)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod2">
-                <div class="font-semibold">2. Signal Dimensions</div>
-                <div class="text-xs text-slate-400 mt-1">1D (Audio), 2D (Image), 3D (Video)</div>
+                <div class="font-semibold">2. Διαστάσεις Σήματος</div>
+                <div class="text-xs text-slate-400 mt-1">1D (Ήχος), 2D (Εικόνα), 3D (Βίντεο)</div>
             </button>
             <button onclick="loadModule(3)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod3">
-                <div class="font-semibold">3. The System Concept</div>
-                <div class="text-xs text-slate-400 mt-1">Input $\to$ System $\to$ Output</div>
+                <div class="font-semibold">3. Η Έννοια του Συστήματος</div>
+                <div class="text-xs text-slate-400 mt-1">Είσοδος $\to$ Σύστημα $\to$ Έξοδος</div>
             </button>
             <button onclick="loadModule(4)" class="nav-btn w-full text-left px-4 py-3 rounded-lg hover:bg-slate-700 focus:bg-cyan-900 focus:text-cyan-200 transition duration-200" id="btn-mod4">
-                <div class="font-semibold">4. CT vs. DT Signals</div>
-                <div class="text-xs text-slate-400 mt-1">Continuous vs Discrete Time</div>
+                <div class="font-semibold">4. Συνεχής ως. Διακριτός Χρόνος</div>
+                <div class="text-xs text-slate-400 mt-1">Συνεχής ως. Διακριτός Χρόνος</div>
             </button>
         </nav>
         <div class="p-4 border-t border-slate-700 text-xs text-slate-500 text-center">
-            Based on "Διάλεξη 01.pdf"
+            Βασισμένο στο "Διάλεξη 01.pdf"
         </div>
     </aside>
 
@@ -275,7 +275,7 @@
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xl font-semibold text-cyan-400 flex items-center gap-2">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                        Visualizer
+                        Οπτικοποιητής
                     </h3>
                     <div id="formula-display" class="text-sm bg-slate-900 px-4 py-2 rounded-lg border border-slate-600 font-mono text-yellow-400 shadow-inner">
                         $$ x(t) = ... $$
@@ -306,42 +306,42 @@
                 title: "Definitions & Basics",
                 theory: `
                     <div class="space-y-4">
-                        <h2 class="text-3xl font-bold text-white">1. What is a Signal?</h2>
+                        <h2 class="text-3xl font-bold text-white">1. Τι είναι Σήμα;</h2>
                         <p class="text-lg text-slate-300 leading-relaxed">
-                            A <strong>Signal</strong> is a physical quantity that varies with respect to time, space, or other independent variables. Mathematically, it is a function containing information about the state of a system.
+                            Ένα <strong>Σήμα</strong> είναι μια φυσική ποσότητα που μεταβάλλεται ως προς τον χρόνο, τον χώρο ή άλλες ανεξάρτητες μεταβλητές. Μαθηματικά, είναι μια συνάρτηση που περιέχει πληροφορία για την κατάσταση ενός συστήματος.
                         </p>
                         <div class="bg-slate-800 p-4 rounded-lg border-l-4 border-cyan-500 my-4">
-                            <h3 class="font-semibold text-cyan-400 mb-2">Examples (from Page 3):</h3>
+                            <h3 class="font-semibold text-cyan-400 mb-2">Παραδείγματα (από τη Σελίδα 3):</h3>
                             <ul class="list-disc list-inside text-slate-300 space-y-1">
-                                <li>Voltage/Current in a circuit.</li>
-                                <li>Position/Velocity of an object.</li>
-                                <li>Stock market index.</li>
+                                <li>Τάση/Ρεύμα σε ένα κύκλωμα.</li>
+                                <li>Θέση/Ταχύτητα ενός αντικειμένου.</li>
+                                <li>Δείκτης χρηματιστηρίου.</li>
                             </ul>
                         </div>
                         <div class="mt-4 p-4 bg-slate-900 rounded border border-slate-700">
-                            <h4 class="font-bold text-yellow-400 mb-2">How to Plot a Signal?</h4>
+                            <h4 class="font-bold text-yellow-400 mb-2">Πώς να Σχεδιάσετε ένα Σήμα;</h4>
                             <p class="text-sm text-slate-400">
-                                1. Identify the <strong>Independent Variable</strong> (e.g., Time $t$) $\to$ X-Axis.<br>
-                                2. Identify the <strong>Dependent Variable</strong> (e.g., Voltage $v(t)$) $\to$ Y-Axis.<br>
-                                3. Map the function values for specific time instances.
+                                1. Προσδιορίστε την <strong>Ανεξάρτητη Μεταβλητή</strong> (π.χ., Χρόνος $t$) $\to$ Άξονας Χ.<br>
+                                2. Προσδιορίστε την <strong>Εξαρτημένη Μεταβλητή</strong> (π.χ., Τάση $v(t)$) $\to$ Άξονας Υ.<br>
+                                3. Απεικονίστε τις τιμές της συνάρτησης για συγκεκριμένες χρονικές στιγμές.
                             </p>
                         </div>
                     </div>
                 `,
                 controls: `
                     <div class="col-span-full">
-                        <p class="text-sm text-cyan-400 mb-4 font-medium uppercase tracking-wider">Generate a Simple Signal</p>
+                        <p class="text-sm text-cyan-400 mb-4 font-medium uppercase tracking-wider">Δημιουργήστε ένα Απλό Σήμα</p>
                         <div class="space-y-6">
                             <div>
-                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-2"> Signal Type </label>
+                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-2"> Τύπος Σήματος </label>
                                 <select id="m1-type" onchange="renderModule1()" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-cyan-500 outline-none transition">
-                                    <option value="voltage">Voltage $v(t) = A \sin(t)$</option>
-                                    <option value="stock">Stock Index (Random Walk)</option>
-                                    <option value="velocity">Velocity (Linear Ramp)</option>
+                                    <option value="voltage">Τάση $v(t) = A \sin(t)$</option>
+                                    <option value="stock">Δείκτης Χρηματιστηρίου (Τυχαία Περιπλάνηση)</option>
+                                    <option value="velocity">Ταχύτητα (Γραμμική Κλίση)</option>
                                 </select>
                             </div>
                             <div id="m1-slider-container">
-                                <label class="flex justify-between text-sm text-slate-400 mb-2"><span>Amplitude / Slope</span> <span id="m1-val">1.0</span></label>
+                                <label class="flex justify-between text-sm text-slate-400 mb-2"><span>Πλάτος / Κλίση</span> <span id="m1-val">1.0</span></label>
                                 <input type="range" id="m1-param" min="0.5" max="5" step="0.5" value="1" oninput="renderModule1()" class="w-full accent-cyan-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
                             </div>
                         </div>
@@ -353,83 +353,83 @@
                 title: "Signal Dimensions",
                 theory: `
                     <div class="space-y-4">
-                        <h2 class="text-3xl font-bold text-white">2. Signal Dimensions</h2>
+                        <h2 class="text-3xl font-bold text-white">2. Διαστάσεις Σήματος</h2>
                         <p class="text-lg text-slate-300">
-                            Signals are classified by the number of independent variables they depend on (Page 4).
+                            Τα σήματα ταξινομούνται με βάση τον αριθμό των ανεξάρτητων μεταβλητών από τις οποίες εξαρτώνται (Σελίδα 4).
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                             <div class="bg-slate-800 p-4 rounded border-t-4 border-blue-500">
-                                <h3 class="font-bold text-white">1-D Signal</h3>
-                                <p class="text-sm text-slate-400 mt-1">Depends on 1 variable (e.g., Time $t$). <br><em>Example: Speech, Audio.</em></p>
+                                <h3 class="font-bold text-white">Σήμα 1-Δ</h3>
+                                <p class="text-sm text-slate-400 mt-1">Εξαρτάται από 1 μεταβλητή (π.χ., Χρόνος $t$). <br><em>Παράδειγμα: Ομιλία, Ήχος.</em></p>
                             </div>
                             <div class="bg-slate-800 p-4 rounded border-t-4 border-green-500">
-                                <h3 class="font-bold text-white">2-D Signal</h3>
-                                <p class="text-sm text-slate-400 mt-1">Depends on 2 variables ($x, y$). <br><em>Example: Image (Photograph).</em></p>
+                                <h3 class="font-bold text-white">Σήμα 2-Δ</h3>
+                                <p class="text-sm text-slate-400 mt-1">Εξαρτάται από 2 μεταβλητές ($x, y$). <br><em>Παράδειγμα: Εικόνα (Φωτογραφία).</em></p>
                             </div>
                             <div class="bg-slate-800 p-4 rounded border-t-4 border-purple-500">
-                                <h3 class="font-bold text-white">3-D Signal</h3>
-                                <p class="text-sm text-slate-400 mt-1">Depends on 3 variables ($x, y, t$). <br><em>Example: Video (Image sequence over time).</em></p>
+                                <h3 class="font-bold text-white">Σήμα 3-Δ</h3>
+                                <p class="text-sm text-slate-400 mt-1">Εξαρτάται από 3 μεταβλητές ($x, y, t$). <br><em>Παράδειγμα: Βίντεο (ακολουθία εικόνων στον χρόνο).</em></p>
                             </div>
                         </div>
                         
                         <div class="mt-6 bg-slate-800 p-4 rounded-lg border border-slate-700">
-                            <h3 class="text-xl font-semibold text-cyan-400 mb-3">Audio Signal Properties</h3>
+                            <h3 class="text-xl font-semibold text-cyan-400 mb-3">Ιδιότητες Ηχητικού Σήματος</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <h4 class="font-bold text-yellow-400">Frequency</h4>
-                                    <p class="text-sm text-slate-300">The number of oscillations per second, measured in Hertz (Hz). Determines the pitch of the sound.</p>
+                                    <h4 class="font-bold text-yellow-400">Συχνότητα</h4>
+                                    <p class="text-sm text-slate-300">Ο αριθμός των ταλαντώσεων ανά δευτερόλεπτο, μετράται σε Χερτζ (Hz). Καθορίζει τον τόνο του ήχου.</p>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-yellow-400">Amplitude</h4>
-                                    <p class="text-sm text-slate-300">The maximum displacement from equilibrium. Determines the loudness of the sound.</p>
+                                    <h4 class="font-bold text-yellow-400">Πλάτος</h4>
+                                    <p class="text-sm text-slate-300">Η μέγιστη απόκλιση από την ισορροπία. Καθορίζει την ένταση του ήχου.</p>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-yellow-400">Wavelength</h4>
-                                    <p class="text-sm text-slate-300">The distance between successive peaks. Inversely related to frequency.</p>
+                                    <h4 class="font-bold text-yellow-400">Μήκος Κύματος</h4>
+                                    <p class="text-sm text-slate-300">Η απόσταση μεταξύ διαδοχικών κορυφών. Σε αντιστρόφως ανάλογη σχέση με τη συχνότητα.</p>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-yellow-400">Phase</h4>
-                                    <p class="text-sm text-slate-300">The position of a point in time on a waveform cycle. Important for understanding interference.</p>
+                                    <h4 class="font-bold text-yellow-400">Φάση</h4>
+                                    <p class="text-sm text-slate-300">Η θέση ενός σημείου στον χρόνο μέσα σε έναν κύκλο κυματομορφής. Σημαντική για την κατανόηση της παρεμβολής.</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="mt-4 bg-slate-900 p-4 rounded border border-slate-700">
-                            <h4 class="font-bold text-yellow-400 mb-2">Mathematical Representation</h4>
+                            <h4 class="font-bold text-yellow-400 mb-2">Μαθηματική Αναπαράσταση</h4>
                             <p class="text-sm text-slate-400">
-                                A 1-D audio signal can be represented as: $s(t) = A \sin(2\pi f t + \phi)$<br>
-                                Where: $A$ = Amplitude, $f$ = Frequency, $\phi$ = Phase, $t$ = Time
+                                Ένα ηχητικό σήμα 1-Δ μπορεί να αναπαρασταθεί ως: $s(t) = A \sin(2\pi f t + \phi)$<br>
+                                Όπου: $A$ = Πλάτος, $f$ = Συχνότητα, $\phi$ = Φάση, $t$ = Χρόνος
                             </p>
                         </div>
                     </div>
                 `,
                 controls: `
                     <div class="col-span-full">
-                        <label class="block text-sm font-medium text-slate-400 mb-3">Select Dimension to Visualize</label>
+                        <label class="block text-sm font-medium text-slate-400 mb-3">Επιλέξτε Διάσταση για Οπτικοποίηση</label>
                         <div class="flex gap-4">
-                            <button onclick="setDimMode('1d')" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-blue-500">1-D Audio</button>
-                            <button onclick="setDimMode('2d')" class="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-green-500">2-D Image</button>
-                            <button onclick="setDimMode('3d')" class="flex-1 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-purple-500">3-D Video</button>
+                            <button onclick="setDimMode('1d')" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-blue-500">1-Δ Ήχος</button>
+                            <button onclick="setDimMode('2d')" class="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-green-500">2-Δ Εικόνα</button>
+                            <button onclick="setDimMode('3d')" class="flex-1 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-medium transition shadow-lg ring-offset-2 ring-offset-slate-800 focus:ring-2 ring-purple-500">3-Δ Βίντεο</button>
                         </div>
-                        <p class="text-xs text-slate-500 mt-4 text-center italic" id="dim-desc">Click a button to load the visualization.</p>
+                        <p class="text-xs text-slate-500 mt-4 text-center italic" id="dim-desc">Πατήστε ένα κουμπί για να φορτώσετε την οπτικοποίηση.</p>
                         
                         <!-- Audio Controls for 1D -->
                         <div id="audio-controls" class="mt-4 space-y-3">
                             <div>
-                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-1">Frequency (Hz)</label>
+                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-1">Συχνότητα (Hz)</label>
                                 <input type="range" id="audio-freq" min="1" max="10" value="2" step="0.1" oninput="updateAudioParams()" class="w-full accent-cyan-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
                                 <div class="flex justify-between text-xs text-slate-400">
-                                    <span>Low</span>
+                                    <span>Χαμηλή</span>
                                     <span id="freq-value">2.0 Hz</span>
-                                    <span>High</span>
+                                    <span>Υψηλή</span>
                                 </div>
                             <div>
-                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-1">Amplitude</label>
+                                <label class="flex justify-between text-sm font-medium text-slate-300 mb-1">Πλάτος</label>
                                 <input type="range" id="audio-amp" min="0.1" max="1" value="0.5" step="0.1" oninput="updateAudioParams()" class="w-full accent-cyan-500 h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer">
                                 <div class="flex justify-between text-xs text-slate-400">
-                                    <span>Quiet</span>
+                                    <span>Χαμηλός</span>
                                     <span id="amp-value">0.5</span>
-                                    <span>Loud</span>
+                                    <span>Δυνατός</span>
                                 </div>
                             </div>
                         </div>
@@ -441,40 +441,40 @@
                 title: "The System Concept",
                 theory: `
                     <div class="space-y-4">
-                        <h2 class="text-3xl font-bold text-white">3. Signals & Systems</h2>
+                        <h2 class="text-3xl font-bold text-white">3. Σήματα & Συστήματα</h2>
                         <p class="text-lg text-slate-300">
-                            A <strong>System</strong> is an entity that takes an input signal $x(t)$, analyzes or modifies it, and produces an output signal $y(t)$ (Page 5).
+                            Ένα <strong>Σύστημα</strong> είναι μια οντότητα που λαμβάνει ένα σήμα εισόδου $x(t)$, το αναλύει ή το τροποποιεί και παράγει ένα σήμα εξόδου $y(t)$ (Σελίδα 5).
                         </p>
                         <div class="flex items-center justify-center gap-4 my-6 text-xl font-mono">
-                            <div class="bg-blue-900 text-blue-200 px-4 py-2 rounded border border-blue-500">Input $x(t)$</div>
+                            <div class="bg-blue-900 text-blue-200 px-4 py-2 rounded border border-blue-500">Είσοδος $x(t)$</div>
                             <div class="text-slate-500">$\longrightarrow$</div>
-                            <div class="bg-slate-700 text-white px-6 py-4 rounded border border-slate-500 shadow-lg transform hover:scale-105 transition">SYSTEM $S[\cdot]$</div>
+                            <div class="bg-slate-700 text-white px-6 py-4 rounded border border-slate-500 shadow-lg transform hover:scale-105 transition">ΣΥΣΤΗΜΑ $S[\cdot]$</div>
                             <div class="text-slate-500">$\longrightarrow$</div>
-                            <div class="bg-yellow-900 text-yellow-200 px-4 py-2 rounded border border-yellow-500">Output $y(t)$</div>
+                            <div class="bg-yellow-900 text-yellow-200 px-4 py-2 rounded border border-yellow-500">Έξοδος $y(t)$</div>
                         </div>
                         <p class="text-sm text-slate-400">
-                            <strong>Examples:</strong> An amplifier increases amplitude. A noise filter removes jagged edges.
+                            <strong>Παραδείγματα:</strong> Ένας ενισχυτής αυξάνει το πλάτος. Ένα φίλτρο θορύβου αφαιρεί τις ανώμαλες ακμές.
                         </p>
                     </div>
                 `,
                 controls: `
                     <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-2">Input Signal $x(t)$</label>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Σήμα Εισόδου $x(t)$</label>
                         <select id="sys-input" onchange="renderModule3()" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
-                            <option value="sine">Clean Sine Wave</option>
-                            <option value="noise">Noisy Signal</option>
+                            <option value="sine">Καθαρό Ημιτονοειδές Κύμα</option>
+                            <option value="noise">Θορυβώδες Σήμα</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-2">System Operation</label>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Λειτουργία Συστήματος</label>
                         <select id="sys-op" onchange="renderModule3()" class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
-                            <option value="amp">Amplifier (Gain x2)</option>
-                            <option value="rect">Rectifier (Absolute Value)</option>
-                            <option value="filter">Moving Average Filter (Smooth)</option>
+                            <option value="amp">Ενισχυτής (Κέρδος x2)</option>
+                            <option value="rect">Ανορθωτής (Απόλυτη Τιμή)</option>
+                            <option value="filter">Φίλτρο Κινούμενου Μέσου Όρου (Ομαλοποίηση)</option>
                         </select>
                     </div>
                     <div class="flex flex-col justify-center items-center">
-                         <div class="text-xs text-slate-500 mb-1">System Status</div>
+                         <div class="text-xs text-slate-500 mb-1">Κατάσταση Συστήματος</div>
                          <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
                     </div>
                 `,
@@ -484,28 +484,28 @@
                 title: "CT vs DT Signals",
                 theory: `
                     <div class="space-y-4">
-                        <h2 class="text-3xl font-bold text-white">4. Continuous vs Discrete</h2>
+                        <h2 class="text-3xl font-bold text-white">4. Συνεχής ως. Διακριτός</h2>
                         <p class="text-lg text-slate-300">
-                            Signals are classified based on the continuity of their independent variable (Time) (Page 8).
+                            Τα σήματα ταξινομούνται με βάση τη συνέχεια της ανεξάρτητης μεταβλητής τους (Χρόνος) (Σελίδα 8).
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                             <div class="bg-slate-800 p-4 rounded border-l-4 border-teal-500">
-                                <h3 class="font-bold text-white">Continuous Time (CT)</h3>
-                                <p class="text-sm text-slate-400 mt-2">Defined for all $t \in \mathbb{R}$. <br>Notation: $x(t)$.<br><em>e.g. Analog signals from nature.</em></p>
+                                <h3 class="font-bold text-white">Συνεχής Χρόνος (CT)</h3>
+                                <p class="text-sm text-slate-400 mt-2">Ορίζεται για κάθε $t \in \mathbb{R}$. <br>Συμβολισμός: $x(t)$.<br><em>π.χ. αναλογικά σήματα από τη φύση.</em></p>
                             </div>
                             <div class="bg-slate-800 p-4 rounded border-l-4 border-orange-500">
-                                <h3 class="font-bold text-white">Discrete Time (DT)</h3>
-                                <p class="text-sm text-slate-400 mt-2">Defined only at integers $n \in \mathbb{Z}$. <br>Notation: $x[n]$.<br><em>e.g. Digital signals in computers.</em></p>
+                                <h3 class="font-bold text-white">Διακριτός Χρόνος (DT)</h3>
+                                <p class="text-sm text-slate-400 mt-2">Ορίζεται μόνο σε ακέραιους $n \in \mathbb{Z}$. <br>Συμβολισμός: $x[n]$.<br><em>π.χ. ψηφιακά σήματα σε υπολογιστές.</em></p>
                             </div>
                         </div>
                     </div>
                 `,
                 controls: `
                     <div class="col-span-full">
-                        <label class="block text-sm font-medium text-slate-400 mb-3">Representation Mode</label>
+                        <label class="block text-sm font-medium text-slate-400 mb-3">Τρόπος Αναπαράστασης</label>
                         <div class="flex gap-4">
-                            <button onclick="setCTDT('ct')" class="flex-1 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded shadow transition">Continuous (Analog)</button>
-                            <button onclick="setCTDT('dt')" class="flex-1 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded shadow transition">Discrete (Digital)</button>
+                            <button onclick="setCTDT('ct')" class="flex-1 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded shadow transition">Συνεχής (Αναλογικό)</button>
+                            <button onclick="setCTDT('dt')" class="flex-1 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded shadow transition">Διακριτός (Ψηφιακό)</button>
                         </div>
                     </div>
                 `,
@@ -617,7 +617,7 @@
             const formula = document.getElementById('formula-display');
 
             if (mode === '1d') {
-                desc.innerText = "1-D Signal: Amplitude varies with time (Audio).";
+                desc.innerText = "Σήμα 1-Δ: Το πλάτος μεταβάλλεται με τον χρόνο (Ήχος).";
                 formula.innerHTML = "$$ f(t) $$";
                 
                 // Create animated speaker visualization for audio
@@ -645,7 +645,7 @@
                 // Draw audio waveform
                 drawAudioWaveform();
             } else if (mode === '2d') {
-                desc.innerText = "2-D Signal: Intensity varies with x and y (Image).";
+                desc.innerText = "Σήμα 2-Δ: Η ένταση μεταβάλλεται με το x και το y (Εικόνα).";
                 formula.innerHTML = "$$ f(x, y) $$";
                 
                 // Create Heatmap Grid
@@ -665,7 +665,7 @@
                 }
                 container.appendChild(grid);
             } else if (mode === '3d') {
-                desc.innerText = "3-D Signal: Intensity varies with x, y, and time (Video).";
+                desc.innerText = "Σήμα 3-Δ: Η ένταση μεταβάλλεται με το x, το y και τον χρόνο (Βίντεο).";
                 formula.innerHTML = "$$ f(x, y, t) $$";
                 
                 container.innerHTML = '';

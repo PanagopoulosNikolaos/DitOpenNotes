@@ -1,31 +1,31 @@
 /*
- * Exercise 14: Banking System with Transactions
- * 
- * Create a BankAccount base class with:
- * - Protected members: accountNumber (string), ownerName (string), balance (double)
- * - Constructor initializing all members
- * - Pure virtual methods: deposit(double amount), withdraw(double amount), calculateInterest()
- * - Virtual method getAccountInfo()
- * - Virtual destructor
- * 
- * Create two derived classes:
- * - SavingsAccount: additional member interestRate (double); 
- *   implement virtual methods with savings-specific behavior (interest calculated monthly)
- * - CheckingAccount: additional member transactionFee (double); 
- *   implement virtual methods with checking-specific behavior (fee applied to withdrawals)
- * 
- * Create a Bank class with:
- * - Private member: accounts (vector of BankAccount pointers)
- * - Method addAccount(BankAccount*) to add savings or checking accounts
- * - Method transfer(string fromAcc, string toAcc, double amount) between accounts
- * - Method displayAllAccounts() showing polymorphically
- * - Method findAccount(string accNum) returning account pointer or nullptr
- * - Destructor freeing all memory
- * 
- * In main(), create a bank with 3 savings and 2 checking accounts from user input, 
- * display all accounts, perform several transfers between accounts, 
- * calculate and apply interest to savings accounts, display updated balances, 
- * and ensure proper cleanup.
+ * Άσκηση 14: Τράπεζα με Συναλλαγές
+ *
+ * Δημιουργήστε μια βασική κλάση BankAccount με:
+ * - Προστατευόμενα μέλη: accountNumber (string), ownerName (string), balance (double)
+ * - Κατασκευαστή που αρχικοποιεί όλα τα μέλη
+ * - Καθαρά εικονικές μέθοδοι: deposit(double amount), withdraw(double amount), calculateInterest()
+ * - Εικονική μέθοδο getAccountInfo()
+ * - Εικονικό καταστροφέα
+ *
+ * Δημιουργήστε δύο παράγωγες κλάσεις:
+ * - SavingsAccount: επιπλέον μέλος interestRate (double);
+ *   υλοποιήστε τις εικονικές μεθόδους με συμπεριφορά ειδική για λογαριασμό ταμιευτηρίου (ο τόκος υπολογίζεται μηνιαία)
+ * - CheckingAccount: επιπλέον μέλος transactionFee (double);
+ *   υλοποιήστε τις εικονικές μεθόδους με συμπεριφορά ειδική για χρεωστικό λογαριασμό (το τέλος εφαρμόζεται στις αναλήψεις)
+ *
+ * Δημιουργήστε μια κλάση Bank με:
+ * - Ιδιωτικό μέλος: accounts (διάνυσμα δεικτών BankAccount)
+ * - Μέθοδο addAccount(BankAccount*) για προσθήκη ταμιευτικών ή χρεωστικών λογαριασμών
+ * - Μέθοδο transfer(string fromAcc, string toAcc, double amount) μεταξύ λογαριασμών
+ * - Μέθοδο displayAllAccounts() που εμφανίζει πολυμορφικά
+ * - Μέθοδο findAccount(string accNum) που επιστρέφει δείκτη λογαριασμού ή nullptr
+ * - Καταστροφέα που απελευθερώνει όλη τη μνήμη
+ *
+ * Στο main(), δημιουργήστε μια τράπεζα με 3 ταμιευτικούς και 2 χρεωστικούς λογαριασμούς από είσοδο χρήστη,
+ * εμφανίστε όλους τους λογαριασμούς, εκτελέστε αρκετές μεταφορές μεταξύ λογαριασμών,
+ * υπολογίστε και εφαρμόστε τόκους στους λογαριασμούς ταμιευτηρίου, εμφανίστε ενημερωμένα υπόλοιπα,
+ * και βεβαιωθείτε ότι η καθαριότητα γίνεται σωστά.
  */
 
 #include <iostream>
@@ -35,7 +35,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

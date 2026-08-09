@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signal Concepts Explorer</title>
+    <title>Εξερευνητής Εννοιών Σήματος</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
@@ -252,8 +252,8 @@
 </head>
 <body>
 
-    <h1 style="text-align:center; margin-bottom:30px; color:var(--accent);">📊 Signal Concepts Explorer</h1>
-    <p style="text-align:center; color:#94a3b8; margin-bottom:30px;">Interactive Tool for Understanding Basic Signal Theory (Lecture 02)</p>
+    <h1 style="text-align:center; margin-bottom:30px; color:var(--accent);">📊 Εξερευνητής Εννοιών Σήματος</h1>
+    <p style="text-align:center; color:#94a3b8; margin-bottom:30px;">Διαδραστικό Εργαλείο για την Κατανόηση της Βασικής Θεωρίας Σημάτων (Διάλεξη 02)</p>
 
     <div class="main-grid">
         
@@ -262,22 +262,22 @@
             <!-- Signal Classification & Selection -->
             <div class="card">
                 <div class="section-header">
-                    <h3>1. Signal Classification</h3>
+                    <h3>1. Ταξινόμηση Σήματος</h3>
                 </div>
 
                 <div class="tab-group">
-                    <button class="tab-btn active" onclick="switchClassTab('timedom', this)">Time Domain</button>
-                    <button class="tab-btn" onclick="switchClassTab('ampldom', this)">Amplitude Domain</button>
-                    <button class="tab-btn" onclick="switchClassTab('determin', this)">Determinism</button>
+                    <button class="tab-btn active" onclick="switchClassTab('timedom', this)">Πεδίο Χρόνου</button>
+                    <button class="tab-btn" onclick="switchClassTab('ampldom', this)">Πεδίο Πλάτους</button>
+                    <button class="tab-btn" onclick="switchClassTab('determin', this)">Ντετερμινισμός</button>
                 </div>
 
                 <!-- Time Domain Tab -->
                 <div id="tab-timedom" class="tab-content active">
                     <div class="control-group group-class">
-                        <label>Select Time Domain Type:</label>
+                        <label>Επιλογή Τύπου Πεδίου Χρόνου:</label>
                         <div class="btn-grid">
-                            <button onclick="setTimeClass('continuous')" id="btnContinuous" class="active">Continuous x(t)</button>
-                            <button onclick="setTimeClass('discrete')" id="btnDiscrete">Discrete x[n]</button>
+                            <button onclick="setTimeClass('continuous')" id="btnContinuous" class="active">Συνεχές x(t)</button>
+                            <button onclick="setTimeClass('discrete')" id="btnDiscrete">Διακριτό x[n]</button>
                         </div>
                     </div>
                     <div class="formula-box" id="formulaTimeClass"></div>
@@ -286,10 +286,10 @@
                 <!-- Amplitude Domain Tab -->
                 <div id="tab-ampldom" class="tab-content">
                     <div class="control-group group-class">
-                        <label>Select Amplitude Domain Type:</label>
+                        <label>Επιλογή Τύπου Πεδίου Πλάτους:</label>
                         <div class="btn-grid">
-                            <button onclick="setAmplClass('analog')" id="btnAnalog" class="active">Analog (Continuous Amplitude)</button>
-                            <button onclick="setAmplClass('digital')" id="btnDigital">Digital (Discrete Amplitude)</button>
+                            <button onclick="setAmplClass('analog')" id="btnAnalog" class="active">Αναλογικό (Συνεχές Πλάτος)</button>
+                            <button onclick="setAmplClass('digital')" id="btnDigital">Ψηφιακό (Διακριτό Πλάτος)</button>
                         </div>
                     </div>
                     <div class="formula-box" id="formulaAmplClass"></div>
@@ -298,10 +298,10 @@
                 <!-- Determinism Tab -->
                 <div id="tab-determin" class="tab-content">
                     <div class="control-group group-class">
-                        <label>Select Signal Type:</label>
+                        <label>Επιλογή Τύπου Σήματος:</label>
                         <div class="btn-grid">
-                            <button onclick="setDeterminism('deterministic')" id="btnDeterministic" class="active">Deterministic</button>
-                            <button onclick="setDeterminism('stochastic')" id="btnStochastic">Stochastic (Random)</button>
+                            <button onclick="setDeterminism('deterministic')" id="btnDeterministic" class="active">Ντετερμινιστικό</button>
+                            <button onclick="setDeterminism('stochastic')" id="btnStochastic">Στοχαστικό (Τυχαίο)</button>
                         </div>
                     </div>
                     <div class="formula-box" id="formulaDeterminism"></div>
@@ -311,16 +311,16 @@
             <!-- Visualization -->
             <div class="card">
                 <div class="section-header">
-                    <h3>2. Signal Visualization</h3>
+                    <h3>2. Οπτικοποίηση Σήματος</h3>
                 </div>
                 <div class="control-group group-signal">
-                    <label>Choose Base Signal:</label>
+                    <label>Επιλογή Βασικού Σήματος:</label>
                     <div class="btn-grid">
-                        <button onclick="setSignal('sine')" id="btnSine" class="active">Sine</button>
-                        <button onclick="setSignal('cosine')" id="btnCosine">Cosine</button>
-                        <button onclick="setSignal('pulse')" id="btnPulse">Pulse</button>
-                        <button onclick="setSignal('step')" id="btnStep">Step u(t)</button>
-                        <button onclick="setSignal('ramp')" id="btnRamp">Ramp r(t)</button>
+                        <button onclick="setSignal('sine')" id="btnSine" class="active">Ημίτονο</button>
+                        <button onclick="setSignal('cosine')" id="btnCosine">Συνημίτονο</button>
+                        <button onclick="setSignal('pulse')" id="btnPulse">Παλμός</button>
+                        <button onclick="setSignal('step')" id="btnStep">Βήμα u(t)</button>
+                        <button onclick="setSignal('ramp')" id="btnRamp">Κλίση r(t)</button>
                     </div>
                 </div>
 
@@ -332,38 +332,38 @@
             <!-- Transformations Card -->
             <div class="card">
                 <div class="section-header">
-                    <h3>3. Signal Transformations</h3>
-                    <button onclick="resetAllTransforms()" style="width:auto; padding: 5px 15px;">Reset</button>
+                    <h3>3. Μετασχηματισμοί Σήματος</h3>
+                    <button onclick="resetAllTransforms()" style="width:auto; padding: 5px 15px;">Επαναφορά</button>
                 </div>
 
                 <div class="info-grid">
                     <!-- Time Operations -->
                     <div class="control-group group-param">
-                        <h4 style="margin-top:0; color:#06b6d4;">⏱️ Time Operations</h4>
+                        <h4 style="margin-top:0; color:#06b6d4;">⏱️ Λειτουργίες Χρόνου</h4>
                         
-                        <label>Time Shift t₀ <span class="val-display" id="dispT0">0</span></label>
+                        <label>Μετατόπιση Χρόνου t₀ <span class="val-display" id="dispT0">0</span></label>
                         <input type="range" id="sliderT0" min="-3" max="3" step="0.1" value="0">
                         
-                        <label style="margin-top:10px;">Time Scale a <span class="val-display" id="dispA">1.0</span></label>
+                        <label style="margin-top:10px;">Κλίμακα Χρόνου a <span class="val-display" id="dispA">1.0</span></label>
                         <input type="range" id="sliderA" min="0.3" max="2.5" step="0.1" value="1">
                         
                         <label style="margin-top:10px;">
-                            <input type="checkbox" id="checkTimeRev" onchange="toggleTimeRev()"> Time Reversal
+                            <input type="checkbox" id="checkTimeRev" onchange="toggleTimeRev()"> Αναστροφή Χρόνου
                         </label>
                     </div>
 
                     <!-- Amplitude Operations -->
                     <div class="control-group group-param">
-                        <h4 style="margin-top:0; color:#10b981;">📊 Amplitude Operations</h4>
+                        <h4 style="margin-top:0; color:#10b981;">📊 Λειτουργίες Πλάτους</h4>
                         
-                        <label>Scale Factor β <span class="val-display" id="dispBeta">1.0</span></label>
+                        <label>Συντελεστής Κλίμακας β <span class="val-display" id="dispBeta">1.0</span></label>
                         <input type="range" id="sliderBeta" min="0.2" max="2.5" step="0.1" value="1">
                         
-                        <label style="margin-top:10px;">Shift x₀ <span class="val-display" id="dispX0">0</span></label>
+                        <label style="margin-top:10px;">Μετατόπιση x₀ <span class="val-display" id="dispX0">0</span></label>
                         <input type="range" id="sliderX0" min="-2" max="2" step="0.1" value="0">
                         
                         <label style="margin-top:10px;">
-                            <input type="checkbox" id="checkAmpRev" onchange="toggleAmpRev()"> Amplitude Reversal
+                            <input type="checkbox" id="checkAmpRev" onchange="toggleAmpRev()"> Αναστροφή Πλάτους
                         </label>
                     </div>
                 </div>
@@ -379,41 +379,41 @@
             <!-- Signal Properties -->
             <div class="card">
                 <div class="section-header">
-                    <h3>4. Signal Properties</h3>
+                    <h3>4. Ιδιότητες Σήματος</h3>
                 </div>
 
                 <div class="control-group group-signal">
-                    <label>Current Signal Properties:</label>
+                    <label>Τρέχουσες Ιδιότητες Σήματος:</label>
                     <div id="propertiesBadges" style="margin-bottom:15px;"></div>
                 </div>
 
                 <ul class="prop-list">
                     <li class="prop-item">
-                        <span>Classification</span>
+                        <span>Ταξινόμηση</span>
                         <span class="prop-val" id="propClass">Analog, Continuous</span>
                     </li>
                     <li class="prop-item">
-                        <span>Determinism</span>
+                        <span>Ντετερμινισμός</span>
                         <span class="prop-val" id="propDeterm">Deterministic</span>
                     </li>
                     <li class="prop-item">
-                        <span>Causality</span>
+                        <span>Αιτιότητα</span>
                         <span class="prop-val" id="propCausal">Non-Causal</span>
                     </li>
                     <li class="prop-item">
-                        <span>Periodicity</span>
+                        <span>Περιοδικότητα</span>
                         <span class="prop-val" id="propPeriodic">Periodic</span>
                     </li>
                     <li class="prop-item">
-                        <span>Period T₀</span>
+                        <span>Περίοδος T₀</span>
                         <span class="prop-val" id="propT0">2π</span>
                     </li>
                     <li class="prop-item">
-                        <span>Frequency f</span>
+                        <span>Συχνότητα f</span>
                         <span class="prop-val" id="propFreq">0.159 Hz</span>
                     </li>
                     <li class="prop-item">
-                        <span>Symmetry</span>
+                        <span>Συμμετρία</span>
                         <span class="prop-val" id="propSym">Odd</span>
                     </li>
                 </ul>
@@ -422,29 +422,29 @@
             <!-- Energy & Power Calculations -->
             <div class="card">
                 <div class="section-header">
-                    <h3>5. Energy & Power</h3>
+                    <h3>5. Ενέργεια & Ισχύς</h3>
                 </div>
 
                 <div class="control-group group-param">
-                    <label>Analysis Interval <span class="val-display" id="dispInterval">[-2π, 2π]</span></label>
+                    <label>Διάστημα Ανάλυσης <span class="val-display" id="dispInterval">[-2π, 2π]</span></label>
                     <div style="display:flex; gap:10px; margin-bottom:10px;">
                         <input type="number" id="inputTstart" value="-6.28" placeholder="t_start" style="width:50%;">
                         <input type="number" id="inputTend" value="6.28" placeholder="t_end" style="width:50%;">
                     </div>
-                    <button onclick="calculateEnergyPower()" style="width:100%; padding:8px; background:rgba(74,222,128,0.2); border-color:var(--success); color:var(--success);">Calculate</button>
+                    <button onclick="calculateEnergyPower()" style="width:100%; padding:8px; background:rgba(74,222,128,0.2); border-color:var(--success); color:var(--success);">Υπολογισμός</button>
                 </div>
 
                 <ul class="prop-list">
                     <li class="prop-item">
-                        <span>Energy E<sub>x</sub></span>
+                        <span>Ενέργεια E<sub>x</sub></span>
                         <span class="prop-val" id="calcEnergy">-</span>
                     </li>
                     <li class="prop-item">
-                        <span>Power P<sub>x</sub></span>
+                        <span>Ισχύς P<sub>x</sub></span>
                         <span class="prop-val" id="calcPower">-</span>
                     </li>
                     <li class="prop-item">
-                        <span>Classification</span>
+                        <span>Ταξινόμηση</span>
                         <span class="prop-val" id="calcClass">-</span>
                     </li>
                 </ul>
@@ -458,36 +458,36 @@
             <!-- Transformation Reference -->
             <div class="card">
                 <div class="section-header">
-                    <h3>6. Transformation Reference</h3>
+                    <h3>6. Αναφορά Μετασχηματισμών</h3>
                 </div>
 
                 <table class="comparison-table">
                     <tr>
-                        <th>Operation</th>
-                        <th>Formula</th>
+                        <th>Λειτουργία</th>
+                        <th>Τύπος</th>
                     </tr>
                     <tr>
-                        <td><strong>Time Shift</strong></td>
+                        <td><strong>Μετατόπιση Χρόνου</strong></td>
                         <td>\(y(t) = x(t-t_0)\)</td>
                     </tr>
                     <tr>
-                        <td><strong>Time Reversal</strong></td>
+                        <td><strong>Αναστροφή Χρόνου</strong></td>
                         <td>\(y(t) = x(-t)\)</td>
                     </tr>
                     <tr>
-                        <td><strong>Time Scale</strong></td>
+                        <td><strong>Κλίμακα Χρόνου</strong></td>
                         <td>\(y(t) = x(at)\)</td>
                     </tr>
                     <tr>
-                        <td><strong>Amp Scale</strong></td>
+                        <td><strong>Κλίμακα Πλάτους</strong></td>
                         <td>\(y(t) = \beta x(t)\)</td>
                     </tr>
                     <tr>
-                        <td><strong>Amp Shift</strong></td>
+                        <td><strong>Μετατόπιση Πλάτους</strong></td>
                         <td>\(y(t) = x(t) + x_0\)</td>
                     </tr>
                     <tr>
-                        <td><strong>Amp Reversal</strong></td>
+                        <td><strong>Αναστροφή Πλάτους</strong></td>
                         <td>\(y(t) = -x(t)\)</td>
                     </tr>
                 </table>

@@ -1,30 +1,30 @@
-# Signals and Systems
+# Σήματα και Συστήματα
 
-## Course Overview
-This course covers the analysis of continuous and discrete signals and systems, including time-domain and frequency-domain analysis techniques.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα καλύπτει την ανάλυση συνεχών και διακριτών σημάτων και συστημάτων, συμπεριλαμβανομένων των τεχνικών ανάλυσης στον χρόνο και στον κατακόρυφο τομέα συχνοτήτων.
 
-## Course Code
-303 (SIGNALS AND SYSTEMS)
+## Κωδικός Μαθήματος
+303 (ΣΗΜΑΤΑ ΚΑΙ ΣΥΣΤΗΜΑΤΑ)
 
-## Prerequisites
-- Mathematical Analysis (MAT 101)
-- Physics I
+## Προαπαιτούμενα
+- Μαθηματική Ανάλυση (ΜΑΘ 101)
+- Φυσική I
 
-## Topics Covered
-- Signal classification and properties
-- System properties and classification
-- Time-domain analysis
-- Convolution
-- Fourier series and transforms
-- Laplace transforms
-- Z-transforms
-- Sampling and reconstruction
-- Filter design basics
+## Θεματικές που Καλύπτονται
+- Ταξινόμηση σημάτων και ιδιότητες
+- Ιδιότητες και ταξινόμηση συστημάτων
+- Ανάλυση στον χρόνο
+- Συνέλιξη
+- Σειρές Fourier και μετασχηματισμοί
+- Μετασχηματισμοί Laplace
+- Μετασχηματισμοί Z
+- Δειγματοληψία και ανακατασκευή
+- Βασικές αρχές σχεδιασμού φίλτρων
 
-## Learning Objectives
-- Analyze continuous and discrete signals
-- Understand system properties
-- Apply transform techniques
-- Perform convolution operations
-- Design basic filters
-- Understand sampling theory
+## Στόχοι Μάθησης
+- Ανάλυση συνεχών και διακριτών σημάτων
+- Κατανόηση ιδιοτήτων συστημάτων
+- Εφαρμογή τεχνικών μετασχηματισμού
+- Εκτέλεση πράξεων συνέλιξης
+- Σχεδιασμός βασικών φίλτρων
+- Κατανόηση θεωρίας δειγματοληψίας

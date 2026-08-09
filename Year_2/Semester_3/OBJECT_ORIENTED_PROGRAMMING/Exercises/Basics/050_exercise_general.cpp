@@ -1,14 +1,14 @@
 /*
- * Exercise 5: Product Class with Discount
- * 
- * Create a Product class with:
- * - Private members: name (string), basePrice (double), quantity (int)
- * - Constructor initializing all members
- * - Method calculateTotal() returning basePrice × quantity
- * - Overload operator > to compare products by total price
- * - Overload operator << to display: "Product: X, Price: Y€, Qty: Z, Total: W€"
- * 
- * In main(), create 5 products from user input, sort by total price (descending), and display the most expensive and cheapest products.
+ * Άσκηση 5: Κλάση Προϊόντος με Έκπτωση
+ *
+ * Δημιουργήστε μια κλάση Product με:
+ * - Ιδιωτικά μέλη: name (string), basePrice (double), quantity (int)
+ * - Κατασκευαστή που αρχικοποιεί όλα τα μέλη
+ * - Μέθοδο calculateTotal() που επιστρέφει basePrice × quantity
+ * - Υπερφόρτωση τελεστή > για σύγκριση προϊόντων κατά συνολική τιμή
+ * - Υπερφόρτωση τελεστή << για εμφάνιση: "Product: X, Price: Y€, Qty: Z, Total: W€"
+ *
+ * Στο main(), δημιουργήστε 5 προϊόντα από είσοδο χρήστη, ταξινομήστε κατά συνολική τιμή (φθίνουσα), και εμφανίστε το ακριβότερο και το φθηνότερο προϊόν.
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

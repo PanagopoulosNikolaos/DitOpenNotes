@@ -1,258 +1,258 @@
-# Lecture 04 - Continuous-Time Systems
+# Διάλεξη 04 - Συστήματα Συνεχούς Χρόνου
 
-Foundations of continuous-time system analysis, covering the representation of signals as superpositions of shifted impulses, the definition and classification of systems, and the core concepts of linearity and time-invariance. This lecture establishes the theoretical groundwork for Linear Time-Invariant (LTI) system analysis, which is the central framework of signals and systems. System classification by input-output count, signal nature, and state behavior is introduced, followed by rigorous definitions and testing procedures for linearity and time-invariance.
+Θεμέλια της ανάλυσης συστημάτων συνεχούς χρόνου, καλύπτοντας την αναπαράσταση σημάτων ως υπερθέσεων μετατοπισμένων παλμών, τον ορισμό και την ταξινόμηση των συστημάτων, και τις βασικές έννοιες της γραμμικότητας και της αμεταβλητότητας ως προς τον χρόνο. Αυτή η διάλεξη θεμελιώνει το θεωρητικό υπόβαθρο για την ανάλυση Γραμμικών Αμεταβλητών ως προς τον Χρόνο (LTI) συστημάτων, το οποίο αποτελεί το κεντρικό πλαίσιο των σημάτων και συστημάτων. Εισάγεται η ταξινόμηση συστημάτων ως προς τον αριθμό εισόδων-εξόδων, τη φύση του σήματος και τη συμπεριφορά κατάστασης, ακολουθούμενη από αυστηρούς ορισμούς και διαδικασίες ελέγχου για τη γραμμικότητα και την αμεταβλητότητα ως προς τον χρόνο.
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Εννοιολογικά Θεμέλια
 
-### 1.1 Why System Classification Matters
+### 1.1 Γιατί έχει σημασία η Ταξινόμηση Συστημάτων
 
-Real-world systems — electronic circuits, communication channels, control systems, biological signal processors — can be modeled mathematically as mappings from input signals to output signals. The mathematical properties of this mapping determine which analytical tools can be applied. Linear Time-Invariant (LTI) systems, in particular, admit the powerful convolution integral representation and enable frequency-domain analysis via Fourier and Laplace transforms.
+Πραγματικά συστήματα — ηλεκτρονικά κυκλώματα, δίαυλοι επικοινωνίας, συστήματα ελέγχου, βιολογικοί επεξεργαστές σημάτων — μπορούν να μοντελοποιηθούν μαθηματικά ως απεικονίσεις από σήματα εισόδου σε σήματα εξόδου. Οι μαθηματικές ιδιότητες αυτής της απεικόνισης καθορίζουν ποια αναλυτικά εργαλεία μπορούν να εφαρμοστούν. Τα Γραμμικά Αμεταβλητα ως προς τον Χρόνο (LTI) συστήματα, ειδικότερα, επιδέχονται την ισχυρή αναπαράσταση ολοκληρώματος συνέλιξης και επιτρέπουν την ανάλυση στο πεδίο της συχνότητας μέσω των μετασχηματισμών Fourier και Laplace.
 
-Before applying these tools, one must determine whether a given system satisfies the properties of linearity and time-invariance. Misclassifying a non-linear or time-varying system as LTI leads to incorrect predictions. The classification framework introduced in this lecture provides the systematic testing procedures needed to make this determination.
+Πριν την εφαρμογή αυτών των εργαλείων, πρέπει κανείς να προσδιορίσει αν ένα δοθέν σύστημα ικανοποιεί τις ιδιότητες της γραμμικότητας και της αμεταβλητότητας ως προς τον χρόνο. Η εσφαλμένη ταξινόμηση ενός μη γραμμικού ή χρονομεταβλητού συστήματος ως LTI οδηγεί σε εσφαλμένες προβλέψεις. Το πλαίσιο ταξινόμησης που εισάγεται σε αυτή τη διάλεξη παρέχει τις συστηματικές διαδικασίες ελέγχου που απαιτούνται για αυτόν τον προσδιορισμό.
 
-### 1.2 Representing Arbitrary Signals as Integrals of Shifted Impulses
+### 1.2 Αναπαράσταση Αυθαίρετων Σημάτων ως Ολοκληρώματα Μετατοπισμένων Παλμών
 
-The Dirac delta function introduced in Lecture 03 enables a fundamental representation: any continuous-time signal $x(t)$ can be expressed as a superposition (integral) of weighted, shifted impulses. This is the **sifting property** expressed as a synthesis equation:
+Η συνάρτηση δέλτα του Dirac που εισήχθη στη Διάλεξη 03 επιτρέπει μια θεμελιώδη αναπαράσταση: οποιοδήποτε σήμα συνεχούς χρόνου $x(t)$ μπορεί να εκφραστεί ως υπέρθεση (ολοκλήρωμα) σταθμισμένων, μετατοπισμένων παλμών. Αυτή είναι η **ιδιότητα διαλογής** (sifting property) εκφρασμένη ως εξίσωση σύνθεσης:
 
 $$
 x(t) = \int_{-\infty}^{\infty} x(\tau) \delta(t - \tau) \, d\tau
 $$
 
-This identity states that the signal $x(t)$ at time $t$ is the sum of all impulse contributions $x(\tau)\delta(t - \tau)$ across all times $\tau$. While it appears tautological, this representation is the foundation for deriving the convolution integral: the output of a linear system to an arbitrary input can be computed by superimposing the system's responses to each individual impulse component.
+Αυτή η ταυτότητα δηλώνει ότι το σήμα $x(t)$ τη χρονική στιγμή $t$ είναι το άθροισμα όλων των συνεισφορών παλμών $x(\tau)\delta(t - \tau)$ για όλες τις χρονικές στιγμές $\tau$. Αν και φαίνεται ταυτολογική, αυτή η αναπαράσταση αποτελεί το θεμέλιο για την παραγωγή του ολοκληρώματος συνέλιξης: η έξοδος ενός γραμμικού συστήματος σε μια αυθαίρετη είσοδο μπορεί να υπολογιστεί υπερθέτοντας τις αποκρίσεις του συστήματος σε κάθε μεμονωμένο συνιστώμενο παλμό.
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> The expression $x(t) = \int x(\tau) \delta(t - \tau) d\tau$ is not a mathematical trick — it is the conceptual bridge between the impulse response of a system and its response to any arbitrary input. If a system is linear, its response to the weighted integral of impulses equals the weighted integral of its responses to each impulse.
+> Η έκφραση $x(t) = \int x(\tau) \delta(t - \tau) d\tau$ δεν είναι ένα μαθηματικό τέχνασμα — αποτελεί τη εννοιολογική γέφυρα μεταξύ της απόκρισης παλμού ενός συστήματος και της απόκρισής του σε οποιαδήποτε αυθαίρετη είσοδο. Αν ένα σύστημα είναι γραμμικό, η απόκρισή του στο σταθμισμένο ολοκλήρωμα παλμών ισούται με το σταθμισμένο ολοκλήρωμα των αποκρίσεών του σε κάθε παλμό.
 
 ---
 
-## 2. Formal Definition or Model
+## 2. Τυπικός Ορισμός ή Μοντέλο
 
-### 2.1 Definition of a System
+### 2.1 Ορισμός ενός Συστήματος
 
-A **system** is a mathematical abstraction that maps an input signal $x(t)$ to an output signal $y(t)$. This mapping is denoted by the operator $S$:
+Ένα **σύστημα** είναι μια μαθηματική αφαίρεση που απεικονίζει ένα σήμα εισόδου $x(t)$ σε ένα σήμα εξόδου $y(t)$. Αυτή η απεικόνιση συμβολίζεται με τον τελεστή $S$:
 
 $$
 y(t) = S\{x(t)\}
 $$
 
-A system may have multiple inputs and multiple outputs. The general representation for a system with $M$ inputs and $N$ outputs is:
+Ένα σύστημα μπορεί να έχει πολλαπλές εισόδους και πολλαπλές εξόδους. Η γενική αναπαράσταση για ένα σύστημα με $M$ εισόδους και $N$ εξόδους είναι:
 
 $$
 y_i(t) = S_i\{x_1(t), x_2(t), \ldots, x_M(t)\}, \quad i = 1, 2, \ldots, N
 $$
 
-### 2.2 Block Diagram Representation
+### 2.2 Αναπαράσταση με Διάγραμμα Ροής (Block Diagram)
 
-Systems are represented graphically using block diagrams. A basic block diagram for a Single-Input Single-Output (SISO) system:
+Τα συστήματα αναπαριστώνται γραφικά χρησιμοποιώντας διαγράμματα ροής. Ένα βασικό διάγραμμα ροής για ένα σύστημα Μοναδικής Εισόδου Μοναδικής Εξόδου (SISO):
 
 ```text
-        +---------+
-x(t) -->| System  |--> y(t)
-        |   S     |
-        +---------+
+         +---------+
+x(t) -->| Σύστημα |--> y(t)
+         |   S     |
+         +---------+
 ```
 
-For multi-variable systems, multiple input and output arrows are used:
+Για συστήματα πολλαπλών μεταβλητών, χρησιμοποιούνται πολλαπλά βέλη εισόδου και εξόδου:
 
 ```text
-                +---------+
+                 +---------+
 x1(t) -------->|         |--> y1(t)
-x2(t) -------->| System  |--> y2(t)
-                |   S     |
+x2(t) -------->| Σύστημα |--> y2(t)
+                 |   S     |
 xM(t) -------->|         |--> yN(t)
-                +---------+
+                 +---------+
 ```
 
-### 2.3 System Classification by Input-Output Count
+### 2.3 Ταξινόμηση Συστημάτων ως προς τον Αριθμό Εισόδων-Εξόδων
 
-| Classification | Inputs | Outputs | Example |
+| Ταξινόμηση | Είσοδοι | Έξοδοι | Παράδειγμα |
 | :--- | :--- | :--- | :--- |
-| **SISO** (Single-Input Single-Output) | 1 | 1 | A simple RC low-pass filter |
-| **MISO** (Multiple-Input Single-Output) | $M \ge 2$ | 1 | Audio mixer combining multiple channels |
-| **SIMO** (Single-Input Multiple-Output) | 1 | $N \ge 2$ | A filter with two outputs (e.g., low-pass and high-pass branches) |
-| **MIMO** (Multiple-Input Multiple-Output) | $M \ge 2$ | $N \ge 2$ | MIMO wireless communication channel, multi-variable control system |
+| **SISO** (Μοναδική Είσοδος Μοναδική Έξοδος) | 1 | 1 | Ένα απλό χαμηλοπερατό φίλτρο RC |
+| **MISO** (Πολλαπλές Είσοδοι Μοναδική Έξοδος) | $M \ge 2$ | 1 | Μίκτης ήχου που συνδυάζει πολλαπλά κανάλια |
+| **SIMO** (Μοναδική Είσοδος Πολλαπλές Έξοδοι) | 1 | $N \ge 2$ | Ένα φίλτρο με δύο εξόδους (π.χ., κλάδοι χαμηλοπερατός και υψιπερατός) |
+| **MIMO** (Πολλαπλές Είσοδοι Πολλαπλές Έξοδοι) | $M \ge 2$ | $N \ge 2$ | Δίαυλος ασύρματης επικοινωνίας MIMO, σύστημα ελέγχου πολλαπλών μεταβλητών |
 
-### 2.4 System Classification by Signal Nature
+### 2.4 Ταξινόμηση Συστημάτων ως προς τη Φύση του Σήματος
 
-| Classification | Input Signal | Output Signal |
+| Ταξινόμηση | Σήμα Εισόδου | Σήμα Εξόδου |
 | :--- | :--- | :--- |
-| **Continuous-Time System** | $x(t)$, continuous-time | $y(t)$, continuous-time |
-| **Discrete-Time System** | $x[n]$, discrete-time | $y[n]$, discrete-time |
-| **Deterministic System** | $x(t)$ is deterministic | $y(t)$ is deterministic |
-| **Stochastic System** | $x(t)$ is random | $y(t)$ is random |
+| **Σύστημα Συνεχούς Χρόνου** | $x(t)$, συνεχούς χρόνου | $y(t)$, συνεχούς χρόνου |
+| **Σύστημα Διακριτού Χρόνου** | $x[n]$, διακριτού χρόνου | $y[n]$, διακριτού χρόνου |
+| **Ντετερμινιστικό Σύστημα** | το $x(t)$ είναι ντετερμινιστικό | το $y(t)$ είναι ντετερμινιστικό |
+| **Στοχαστικό Σύστημα** | το $x(t)$ είναι τυχαίο | το $y(t)$ είναι τυχαίο |
 
-A continuous-time system processes signals defined on a continuum of time values $t \in \mathbb{R}$. A discrete-time system processes signals defined only at integer instants $n \in \mathbb{Z}$. The same physical plant may be modeled as either type depending on whether the input is analog or sampled.
+Ένα σύστημα συνεχούς χρόνου επεξεργάζεται σήματα ορισμένα σε ένα συνεχές τιμών χρόνου $t \in \mathbb{R}$. Ένα σύστημα διακριτού χρόνου επεξεργάζεται σήματα ορισμένα μόνο σε ακέραιες χρονικές στιγμές $n \in \mathbb{Z}$. Το ίδιο φυσικό σύστημα μπορεί να μοντελοποιηθεί ως οποιοσδήποτε τύπος ανάλογα με το αν η είσοδος είναι αναλογική ή δειγματοληπτημένη.
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> Systems can also be classified as **analog** or **digital** based on whether the amplitude values are continuous or quantized. An analog system processes signals with continuous amplitude; a digital system processes signals with quantized (discrete) amplitude. All four combinations are possible: a digital computer processing sampled sensor data is a discrete-time digital system; an analog filter processing a continuous voltage is a continuous-time analog system.
+> Τα συστήματα μπορούν επίσης να ταξινομηθούν ως **αναλογικά** ή **ψηφιακά** με βάση το αν οι τιμές πλάτους είναι συνεχείς ή κβαντισμένες. Ένα αναλογικό σύστημα επεξεργάζεται σήματα με συνεχές πλάτος· ένα ψηφιακό σύστημα επεξεργάζεται σήματα με κβαντισμένο (διακριτό) πλάτος. Είναι δυνατοί και οι τέσσερις συνδυασμοί: ένας ψηφιακός υπολογιστής που επεξεργάζεται δειγματοληπτημένα δεδομένα αισθητήρων είναι ένα ψηφιακό σύστημα διακριτού χρόνου· ένα αναλογικό φίλτρο που επεξεργάζεται μια συνεχή τάση είναι ένα αναλογικό σύστημα συνεχούς χρόνου.
 
-### 2.5 System State and State of Rest
+### 2.5 Κατάσταση Συστήματος και Κατάσταση Ηρεμίας
 
-The **state** of a system at time $t_0$ is a set of quantities that, together with the input for $t \ge t_0$, determines the output for $t \ge t_0$. The state encapsulates all past history of the system that is relevant to its future behavior.
+Η **κατάσταση** ενός συστήματος τη χρονική στιγμή $t_0$ είναι ένα σύνολο μεγεθών που, από κοινού με την είσοδο για $t \ge t_0$, καθορίζει την έξοδο για $t \ge t_0$. Η κατάσταση ενσωματώνει όλη την παρελθούσα ιστορία του συστήματος που είναι σχετική με τη μελλοντική του συμπεριφορά.
 
-A system is said to be at **state of rest** (or **initial rest**) at $t = t_0$ if the output for $t \ge t_0$ is zero when the input for $t \ge t_0$ is zero. In other words, no energy is stored in the system at $t = t_0$.
+Ένα σύστημα λέγεται ότι βρίσκεται σε **κατάσταση ηρεμίας** (ή **αρχική ηρεμία**) στο $t = t_0$ αν η έξοδος για $t \ge t_0$ είναι μηδέν όταν η είσοδος για $t \ge t_0$ είναι μηδέν. Με άλλα λόγια, δεν αποθηκεύεται ενέργεια στο σύστημα στο $t = t_0$.
 
-For LTI systems, the state of rest at $t = -\infty$ is typically assumed so that the system's response is entirely determined by the input — there is no initial stored energy. Under this assumption, the system is **causal** and **linear** with respect to the input applied for all time.
+Για LTI συστήματα, η κατάσταση ηρεμίας στο $t = -\infty$ θεωρείται συνήθως δεδομένη ώστε η απόκριση του συστήματος να καθορίζεται πλήρως από την είσοδο — δεν υπάρχει αρχικά αποθηκευμένη ενέργεια. Υπό αυτή την υπόθεση, το σύστημα είναι **αιτιατό** και **γραμμικό** ως προς την είσοδο που εφαρμόζεται για όλο τον χρόνο.
 
-### 2.6 Linear Systems
+### 2.6 Γραμμικά Συστήματα
 
-A system $S$ is **linear** if it satisfies the **superposition principle**: the response to a weighted sum of inputs equals the weighted sum of the responses to each individual input.
+Ένα σύστημα $S$ είναι **γραμμικό** αν ικανοποιεί την **αρχή της υπέρθεσης**: η απόκριση σε ένα σταθμισμένο άθροισμα εισόδων ισούται με το σταθμισμένο άθροισμα των αποκρίσεων σε κάθε μεμονωμένη είσοδο.
 
-Formally, a system is linear if for any two inputs $x_1(t)$ and $x_2(t)$ and any scalars $\alpha, \beta \in \mathbb{R}$ (or $\mathbb{C}$):
+Τυπικά, ένα σύστημα είναι γραμμικό αν για οποιεσδήποτε δύο εισόδους $x_1(t)$ και $x_2(t)$ και οποιουσδήποτε βαθμωτούς $\alpha, \beta \in \mathbb{R}$ (ή $\mathbb{C}$):
 
 $$
 S\{\alpha x_1(t) + \beta x_2(t)\} = \alpha S\{x_1(t)\} + \beta S\{x_2(t)\}
 $$
 
-Linearity comprises two sub-properties that must both hold:
+Η γραμμικότητα περιλαμβάνει δύο υπο-ιδιότητες που πρέπει να ισχύουν και οι δύο:
 
-#### Homogeneity (Scaling)
+#### Ομογένεια (Κλιμάκωση)
 
-If the input is scaled by a constant factor $\alpha$, the output is scaled by the same factor:
+Αν η είσοδος κλιμακωθεί κατά έναν σταθερό συντελεστή $\alpha$, η έξοδος κλιμακώνεται κατά τον ίδιο συντελεστή:
 
 $$
 S\{\alpha x(t)\} = \alpha S\{x(t)\}, \quad \forall \alpha \in \mathbb{R}
 $$
 
-#### Additivity
+#### Προσθετικότητα
 
-The response to the sum of two inputs equals the sum of the responses to each input individually:
+Η απόκριση στο άθροισμα δύο εισόδων ισούται με το άθροισμα των αποκρίσεων σε κάθε είσοδο ξεχωριστά:
 
 $$
 S\{x_1(t) + x_2(t)\} = S\{x_1(t)\} + S\{x_2(t)\}
 $$
 
-#### Superposition Principle
+#### Αρχή της Υπέρθεσης
 
-Combining homogeneity and additivity gives the full superposition principle as stated above. This is the single condition that must be tested.
+Ο συνδυασμός της ομογένειας και της προσθετικότητας δίνει την πλήρη αρχή της υπέρθεσης όπως διατυπώθηκε παραπάνω. Αυτή είναι η μοναδική συνθήκη που πρέπει να ελεγχθεί.
 
-#### Methods for Linearity Testing
+#### Μέθοδοι για τον Έλεγχο Γραμμικότητας
 
-To test whether a system defined by $y(t) = T\{x(t)\}$ is linear:
+Για να ελεγχθεί αν ένα σύστημα που ορίζεται από $y(t) = T\{x(t)\}$ είναι γραμμικό:
 
-1. Compute $y_1(t) = T\{x_1(t)\}$ and $y_2(t) = T\{x_2(t)\}$.
-2. Form the weighted combination: $y_{\text{sum}}(t) = T\{\alpha x_1(t) + \beta x_2(t)\}$.
-3. Form the weighted combination of individual responses: $y_{\text{expected}}(t) = \alpha y_1(t) + \beta y_2(t)$.
-4. If $y_{\text{sum}}(t) = y_{\text{expected}}(t)$ for all $t$, all $\alpha, \beta$, and all $x_1(t), x_2(t)$, the system is linear.
+1. Υπολόγισε $y_1(t) = T\{x_1(t)\}$ και $y_2(t) = T\{x_2(t)\}$.
+2. Σχημάτισε τον σταθμισμένο συνδυασμό: $y_{\text{sum}}(t) = T\{\alpha x_1(t) + \beta x_2(t)\}$.
+3. Σχημάτισε τον σταθμισμένο συνδυασμό των μεμονωμένων αποκρίσεων: $y_{\text{expected}}(t) = \alpha y_1(t) + \beta y_2(t)$.
+4. Αν $y_{\text{sum}}(t) = y_{\text{expected}}(t)$ για κάθε $t$, κάθε $\alpha, \beta$, και κάθε $x_1(t), x_2(t)$, το σύστημα είναι γραμμικό.
 
-If any single counter-example violates the equality, the system is **non-linear**.
+Αν οποιοδήποτε μοναδικό αντιπαράδειγμα παραβιάζει την ισότητα, το σύστημα είναι **μη γραμμικό**.
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> A common mistake is to check only additivity or only homogeneity. A system may satisfy one but not the other. For example, a system $y(t) = \sqrt{x(t)}$ is homogeneous for $\alpha \ge 0$ but not additive. Both conditions are required for full linearity.
+> Ένα συχνό λάθος είναι να ελεγχθεί μόνο η προσθετικότητα ή μόνο η ομογένεια. Ένα σύστημα μπορεί να ικανοποιεί τη μία αλλά όχι την άλλη. Για παράδειγμα, ένα σύστημα $y(t) = \sqrt{x(t)}$ είναι ομογενές για $\alpha \ge 0$ αλλά όχι προσθετικό. Απαιτούνται και οι δύο συνθήκες για πλήρη γραμμικότητα.
 
-### 2.7 Time-Invariant Systems
+### 2.7 Συστήματα Αμεταβλητα ως προς τον Χρόνο
 
-A system is **time-invariant** (or **shift-invariant**) if a time shift in the input produces an identical time shift in the output, with no change in the output's shape.
+Ένα σύστημα είναι **αμεταβλητο ως προς τον χρόνο** (ή **αμεταβλητο ως προς τη μετατόπιση**) αν μια χρονική μετατόπιση στην είσοδο παράγει μια πανομοιότυπη χρονική μετατόπιση στην έξοδο, χωρίς αλλαγή στο σχήμα της εξόδου.
 
-Formally, a system $S$ is time-invariant if for any input $x(t)$ and any time shift $t_0 \in \mathbb{R}$:
+Τυπικά, ένα σύστημα $S$ είναι αμεταβλητο ως προς τον χρόνο αν για κάθε είσοδο $x(t)$ και κάθε χρονική μετατόπιση $t_0 \in \mathbb{R}$:
 
 $$
 y(t - t_0) = S\{x(t - t_0)\}
 $$
 
-where $y(t) = S\{x(t)\}$.
+όπου $y(t) = S\{x(t)\}$.
 
-#### Methods for Time-Invariance Testing
+#### Μέθοδοι για τον Έλεγχο Αμεταβλητότητας ως προς τον Χρόνο
 
-To test whether a system is time-invariant:
+Για να ελεγχθεί αν ένα σύστημα είναι αμεταβλητο ως προς τον χρόνο:
 
-1. Compute the response to the original input: $y(t) = T\{x(t)\}$.
-2. Shift the input by $t_0$: $x_{\text{shifted}}(t) = x(t - t_0)$.
-3. Compute the response to the shifted input: $y_{\text{delayed}}(t) = T\{x(t - t_0)\}$.
-4. Compute the shifted version of the original output: $y(t - t_0)$.
-5. If $y_{\text{delayed}}(t) = y(t - t_0)$ for all $t$ and all $t_0$, the system is time-invariant.
+1. Υπολόγισε την απόκριση στην αρχική είσοδο: $y(t) = T\{x(t)\}$.
+2. Μετάθεσε την είσοδο κατά $t_0$: $x_{\text{shifted}}(t) = x(t - t_0)$.
+3. Υπολόγισε την απόκριση στη μετατοπισμένη είσοδο: $y_{\text{delayed}}(t) = T\{x(t - t_0)\}$.
+4. Υπολόγισε την μετατοπισμένη εκδοχή της αρχικής εξόδου: $y(t - t_0)$.
+5. Αν $y_{\text{delayed}}(t) = y(t - t_0)$ για κάθε $t$ και κάθε $t_0$, το σύστημα είναι αμεταβλητο ως προς τον χρόνο.
 
-If the system's behavior depends explicitly on time (e.g., the coefficients of a differential equation are functions of $t$), the system is **time-varying**.
+Αν η συμπεριφορά του συστήματος εξαρτάται ρητά από τον χρόνο (π.χ., οι συντελεστές μιας διαφορικής εξίσωσης είναι συναρτήσεις του $t$), το σύστημα είναι **χρονομεταβλητό**.
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-### 3.1 System Classification Parameters
+### 3.1 Παράμετροι Ταξινόμησης Συστήματος
 
-| Property | Description | Values | Impact |
+| Ιδιότητα | Περιγραφή | Τιμές | Επίπτωση |
 | :--- | :--- | :--- | :--- |
-| Input count $M$ | Number of input signals | $M \ge 1$, integer | Determines analysis complexity |
-| Output count $N$ | Number of output signals | $N \ge 1$, integer | Determines monitoring complexity |
-| Signal domain | Time variable type | Continuous ($t \in \mathbb{R}$) or Discrete ($n \in \mathbb{Z}$) | Determines analysis toolset |
-| Signal nature | Deterministic or stochastic | Deterministic / Stochastic | Determines statistical vs. exact analysis |
-| State | Initial energy storage at $t_0$ | State vector | Non-zero initial state produces zero-input response |
-| Linearity | Superposition validity | Linear / Non-linear | Determines applicability of convolution, Fourier, Laplace |
-| Time-invariance | Shift equivalence | Time-invariant / Time-varying | Determines whether impulse response is a function of one variable |
+| Αριθμός εισόδων $M$ | Αριθμός σημάτων εισόδου | $M \ge 1$, ακέραιος | Καθορίζει την πολυπλοκότητα της ανάλυσης |
+| Αριθμός εξόδων $N$ | Αριθμός σημάτων εξόδου | $N \ge 1$, ακέραιος | Καθορίζει την πολυπλοκότητα της παρακολούθησης |
+| Πεδίο σήματος | Τύπος μεταβλητής χρόνου | Συνεχές ($t \in \mathbb{R}$) ή Διακριτό ($n \in \mathbb{Z}$) | Καθορίζει το σύνολο αναλυτικών εργαλείων |
+| Φύση σήματος | Ντετερμινιστικό ή στοχαστικό | Ντετερμινιστικό / Στοχαστικό | Καθορίζει στατιστική έναντι ακριβούς ανάλυσης |
+| Κατάσταση | Αρχική αποθήκευση ενέργειας στο $t_0$ | Διάνυσμα κατάστασης | Μη μηδενική αρχική κατάσταση παράγει απόκριση μηδενικής εισόδου |
+| Γραμμικότητα | Ισχύς υπέρθεσης | Γραμμικό / Μη γραμμικό | Καθορίζει την εφαρμοσιμότητα συνέλιξης, Fourier, Laplace |
+| Αμεταβλητότητα ως προς τον χρόνο | Ισοδυναμία μετατόπισης | Αμεταβλητο / Χρονομεταβλητό | Καθορίζει αν η απόκριση παλμού είναι συνάρτηση μιας μεταβλητής |
 
-### 3.2 Constraints for Linear Time-Invariant Systems
+### 3.2 Περιορισμοί για Γραμμικά Αμεταβλητα ως προς τον Χρόνο Συστήματα
 
-For a system to be classified as LTI, both conditions must hold simultaneously. The combination of linearity and time-invariance produces uniquely powerful analytical properties:
+Για να ταξινομηθεί ένα σύστημα ως LTI, πρέπει να ισχύουν και οι δύο συνθήκες ταυτόχρονα. Ο συνδυασμός της γραμμικότητας και της αμεταβλητότητας ως προς τον χρόνο παράγει μοναδικά ισχυρές αναλυτικές ιδιότητες:
 
-| Property | LTI Consequence |
+| Ιδιότητα | Συνέπεια LTI |
 | :--- | :--- |
-| Impulse response | $h(t) = S\{\delta(t)\}$ fully characterizes the system |
-| Convolution | $y(t) = x(t) * h(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau$ |
-| Eigenfunctions | Complex exponentials $e^{st}$ are eigenfunctions: output is $H(s) e^{st}$ |
-| Frequency response | $H(j\omega) = \mathcal{F}\{h(t)\}$ describes steady-state sinusoidal behavior |
-| Stability | BIBO stability $\iff \int_{-\infty}^{\infty} \|h(t)\| dt < \infty$ |
+| Απόκριση παλμού | το $h(t) = S\{\delta(t)\}$ χαρακτηρίζει πλήρως το σύστημα |
+| Συνέλιξη | $y(t) = x(t) * h(t) = \int_{-\infty}^{\infty} x(\tau) h(t - \tau) d\tau$ |
+| Ιδιοσυναρτήσεις | Οι μιγαδικές εκθετικές $e^{st}$ είναι ιδιοσυναρτήσεις: η έξοδος είναι $H(s) e^{st}$ |
+| Απόκριση συχνότητας | το $H(j\omega) = \mathcal{F}\{h(t)\}$ περιγράφει τη μόνιμη ημιτονοειδή συμπεριφορά |
+| Ευστάθεια | BIBO ευστάθεια $\iff \int_{-\infty}^{\infty} \|h(t)\| dt < \infty$ |
 
 ---
 
-## 4. Step-by-Step Mechanisms
+## 4. Μηχανισμοί Βήμα προς Βήμα
 
-### 4.1 Procedure for Testing Linearity
+### 4.1 Διαδικασία Ελέγχου Γραμμικότητας
 
-**Algorithm:**
+**Αλγόριθμος:**
 
-1. **Select two test inputs** $x_1(t)$ and $x_2(t)$ that are linearly independent (e.g., $x_1(t) = 1$ and $x_2(t) = t$, or $x_1(t) = u(t)$ and $x_2(t) = \delta(t)$).
-2. **Compute individual responses:** $y_1(t) = T\{x_1(t)\}$ and $y_2(t) = T\{x_2(t)\}$.
-3. **Form a linear combination:** $x_{\text{test}}(t) = \alpha x_1(t) + \beta x_2(t)$.
-4. **Compute the response to the combination:** $y_{\text{test}}(t) = T\{x_{\text{test}}(t)\}$.
-5. **Form the combination of individual responses:** $y_{\text{comb}}(t) = \alpha y_1(t) + \beta y_2(t)$.
-6. **Compare for all $t$:** If $y_{\text{test}}(t) = y_{\text{comb}}(t)$ holds for all $t$, all $\alpha, \beta$, and all choices of $x_1, x_2$, the system is linear. Otherwise, it is non-linear.
+1. **Επίλεξε δύο δοκιμαστικές εισόδους** $x_1(t)$ και $x_2(t)$ που είναι γραμμικά ανεξάρτητες (π.χ., $x_1(t) = 1$ και $x_2(t) = t$, ή $x_1(t) = u(t)$ και $x_2(t) = \delta(t)$).
+2. **Υπολόγισε τις μεμονωμένες αποκρίσεις:** $y_1(t) = T\{x_1(t)\}$ και $y_2(t) = T\{x_2(t)\}$.
+3. **Σχημάτισε έναν γραμμικό συνδυασμό:** $x_{\text{test}}(t) = \alpha x_1(t) + \beta x_2(t)$.
+4. **Υπολόγισε την απόκριση στον συνδυασμό:** $y_{\text{test}}(t) = T\{x_{\text{test}}(t)\}$.
+5. **Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:** $y_{\text{comb}}(t) = \alpha y_1(t) + \beta y_2(t)$.
+6. **Σύγκρινε για κάθε $t$:** Αν $y_{\text{test}}(t) = y_{\text{comb}}(t)$ ισχύει για κάθε $t$, κάθε $\alpha, \beta$, και κάθε επιλογή $x_1, x_2$, το σύστημα είναι γραμμικό. Διαφορετικά, είναι μη γραμμικό.
 
-### 4.2 Procedure for Testing Time-Invariance
+### 4.2 Διαδικασία Ελέγχου Αμεταβλητότητας ως προς τον Χρόνο
 
-**Algorithm:**
+**Αλγόριθμος:**
 
-1. **Select a test input** $x(t)$ and **compute the response:** $y(t) = T\{x(t)\}$.
-2. **Choose a time shift** $t_0$ (e.g., $t_0 = 1$).
-3. **Compute the shifted input:** $x_{\text{shift}}(t) = x(t - t_0)$.
-4. **Compute the response to the shifted input:** $y_{\text{shift}}(t) = T\{x(t - t_0)\}$.
-5. **Shift the original output:** $y_{\text{delayed}}(t) = y(t - t_0)$.
-6. **Compare:** If $y_{\text{shift}}(t) = y_{\text{delayed}}(t)$ for all $t$ and all choices of $t_0$ and $x(t)$, the system is time-invariant.
+1. **Επίλεξε μια δοκιμαστική είσοδο** $x(t)$ και **υπολόγισε την απόκριση:** $y(t) = T\{x(t)\}$.
+2. **Επίλεξε μια χρονική μετατόπιση** $t_0$ (π.χ., $t_0 = 1$).
+3. **Υπολόγισε την μετατοπισμένη είσοδο:** $x_{\text{shift}}(t) = x(t - t_0)$.
+4. **Υπολόγισε την απόκριση στη μετατοπισμένη είσοδο:** $y_{\text{shift}}(t) = T\{x(t - t_0)\}$.
+5. **Μετάθεσε την αρχική έξοδο:** $y_{\text{delayed}}(t) = y(t - t_0)$.
+6. **Σύγκρινε:** Αν $y_{\text{shift}}(t) = y_{\text{delayed}}(t)$ για κάθε $t$ και κάθε επιλογή $t_0$ και $x(t)$, το σύστημα είναι αμεταβλητο ως προς τον χρόνο.
 
-### 4.3 Procedure for Identifying System Type by Input-Output Count
+### 4.3 Διαδικασία Προσδιορισμού του Τύπου Συστήματος ως προς τον Αριθμό Εισόδων-Εξόδων
 
-1. **Count distinct input signals** entering the system block.
-2. **Count distinct output signals** leaving the system block.
-3. **Classify using the table:**
+1. **Μέτρησε τα διακριτά σήματα εισόδου** που εισέρχονται στο τμήμα του συστήματος.
+2. **Μέτρησε τα διακριτά σήματα εξόδου** που εξέρχονται από το τμήμα του συστήματος.
+3. **Ταξινόμησε χρησιμοποιώντας τον πίνακα:**
    - (1, 1) $\to$ SISO
    - ($M \ge 2$, 1) $\to$ MISO
    - (1, $N \ge 2$) $\to$ SIMO
    - ($M \ge 2$, $N \ge 2$) $\to$ MIMO
 
-### 4.4 Procedure for Determining if a System is at State of Rest
+### 4.4 Διαδικασία Προσδιορισμού αν ένα Σύστημα βρίσκεται σε Κατάσταση Ηρεμίας
 
-1. **Set the input to zero** for $t \ge t_0$: $x(t) = 0$ for $t \ge t_0$.
-2. **Observe the output** $y(t)$ for $t \ge t_0$.
-3. **If $y(t) = 0$ for all $t \ge t_0$:** the system is at state of rest at $t = t_0$.
-4. **If $y(t) \neq 0$:** the system has non-zero initial energy storage and its output includes a **zero-input response** component.
+1. **Θέσε την είσοδο μηδέν** για $t \ge t_0$: $x(t) = 0$ για $t \ge t_0$.
+2. **Παρατήρησε την έξοδο** $y(t)$ για $t \ge t_0$.
+3. **Αν $y(t) = 0$ για κάθε $t \ge t_0$:** το σύστημα βρίσκεται σε κατάσταση ηρεμίας στο $t = t_0$.
+4. **Αν $y(t) \neq 0$:** το σύστημα έχει μη μηδενική αρχική αποθήκευση ενέργειας και η έξοδός του περιλαμβάνει μια συνιστώσα **απόκρισης μηδενικής εισόδου**.
 
 ---
 
-## 5. Worked Examples
+## 5. Λυμένα Παραδείγματα
 
-### Exercise 1: Testing Linearity of a Simple Algebraic System
+### Άσκηση 1: Έλεγχος Γραμμικότητας ενός Απλού Αλγεβρικού Συστήματος
 
-**Problem:** Determine whether the system $y(t) = 2x(t) + 3$ is linear.
+**Πρόβλημα:** Να προσδιοριστεί αν το σύστημα $y(t) = 2x(t) + 3$ είναι γραμμικό.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Select two test inputs. Let $x_1(t) = 1$ and $x_2(t) = t$.
+**Βήμα 1:** Επίλεξε δύο δοκιμαστικές εισόδους. Έστω $x_1(t) = 1$ και $x_2(t) = t$.
 
-**Step 2:** Compute individual responses:
+**Βήμα 2:** Υπολόγισε τις μεμονωμένες αποκρίσεις:
 $$
 y_1(t) = 2(1) + 3 = 5
 $$
@@ -260,44 +260,44 @@ $$
 y_2(t) = 2t + 3
 $$
 
-**Step 3:** Form a linear combination with $\alpha = 2$, $\beta = 3$:
+**Βήμα 3:** Σχημάτισε έναν γραμμικό συνδυασμό με $\alpha = 2$, $\beta = 3$:
 $$
 x_{\text{test}}(t) = 2 \cdot 1 + 3 \cdot t = 2 + 3t
 $$
 
-**Step 4:** Compute the response to the combination:
+**Βήμα 4:** Υπολόγισε την απόκριση στον συνδυασμό:
 $$
 y_{\text{test}}(t) = 2(2 + 3t) + 3 = 4 + 6t + 3 = 6t + 7
 $$
 
-**Step 5:** Form the combination of individual responses:
+**Βήμα 5:** Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:
 $$
 y_{\text{comb}}(t) = \alpha y_1(t) + \beta y_2(t) = 2 \cdot 5 + 3 \cdot (2t + 3) = 10 + 6t + 9 = 6t + 19
 $$
 
-**Step 6:** Compare:
+**Βήμα 6:** Σύγκρινε:
 $$
 y_{\text{test}}(t) = 6t + 7 \neq 6t + 19 = y_{\text{comb}}(t)
 $$
 
-The equality fails. The system is **non-linear**.
+Η ισότητα αποτυγχάνει. Το σύστημα είναι **μη γραμμικό**.
 
-*Verification with simpler counter-example:* The term $+3$ is a constant offset that violates homogeneity. For $\alpha = 2$ and $x(t) = 1$:
+*Επαλήθευση με απλούστερο αντιπαράδειγμα:* Ο όρος $+3$ είναι μια σταθερή απόκλιση που παραβιάζει την ομογένεια. Για $\alpha = 2$ και $x(t) = 1$:
 - $T\{\alpha x(t)\} = T\{2\} = 2(2) + 3 = 7$
 - $\alpha T\{x(t)\} = 2 \cdot (2(1) + 3) = 2 \cdot 5 = 10$
-Since $7 \neq 10$, homogeneity fails.
+Αφού $7 \neq 10$, η ομογένεια αποτυγχάνει.
 
 ---
 
-### Exercise 2: Testing Linearity of an Integrator
+### Άσκηση 2: Έλεγχος Γραμμικότητας ενός Ολοκληρωτή
 
-**Problem:** Determine whether the system $y(t) = \int_{-\infty}^{t} x(\tau) \, d\tau$ is linear.
+**Πρόβλημα:** Να προσδιοριστεί αν το σύστημα $y(t) = \int_{-\infty}^{t} x(\tau) \, d\tau$ είναι γραμμικό.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Select test inputs. Let $x_1(t) = u(t)$ (unit step) and $x_2(t) = \delta(t)$ (impulse).
+**Βήμα 1:** Επίλεξε δοκιμαστικές εισόδους. Έστω $x_1(t) = u(t)$ (μοναδιαίο βήμα) και $x_2(t) = \delta(t)$ (παλμός).
 
-**Step 2:** Compute individual responses:
+**Βήμα 2:** Υπολόγισε τις μεμονωμένες αποκρίσεις:
 $$
 y_1(t) = \int_{-\infty}^{t} u(\tau) \, d\tau = r(t) = t \cdot u(t)
 $$
@@ -305,63 +305,63 @@ $$
 y_2(t) = \int_{-\infty}^{t} \delta(\tau) \, d\tau = u(t)
 $$
 
-**Step 3:** Form a linear combination with arbitrary $\alpha, \beta$:
+**Βήμα 3:** Σχημάτισε έναν γραμμικό συνδυασμό με αυθαίρετα $\alpha, \beta$:
 $$
 x_{\text{test}}(t) = \alpha u(t) + \beta \delta(t)
 $$
 
-**Step 4:** Compute the response to the combination:
+**Βήμα 4:** Υπολόγισε την απόκριση στον συνδυασμό:
 $$
 y_{\text{test}}(t) = \int_{-\infty}^{t} [\alpha u(\tau) + \beta \delta(\tau)] \, d\tau = \alpha \int_{-\infty}^{t} u(\tau) d\tau + \beta \int_{-\infty}^{t} \delta(\tau) d\tau = \alpha r(t) + \beta u(t)
 $$
 
-**Step 5:** Form the combination of individual responses:
+**Βήμα 5:** Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:
 $$
 y_{\text{comb}}(t) = \alpha y_1(t) + \beta y_2(t) = \alpha r(t) + \beta u(t)
 $$
 
-**Step 6:** Compare:
+**Βήμα 6:** Σύγκρινε:
 $$
 y_{\text{test}}(t) = \alpha r(t) + \beta u(t) = y_{\text{comb}}(t)
 $$
 
-The equality holds for all $\alpha, \beta$, all $t$, and all inputs. The integrator is **linear**.
+Η ισότητα ισχύει για κάθε $\alpha, \beta$, κάθε $t$, και κάθε είσοδο. Ο ολοκληρωτής είναι **γραμμικός**.
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> The integrator is also linear when the lower limit is a finite constant: $y(t) = \int_{t_0}^{t} x(\tau) d\tau + y(t_0)$, provided the initial condition $y(t_0)$ is treated as part of the zero-input response. However, if $y(t_0)$ is non-zero, the system is only linear with respect to the input if the initial condition is considered separately.
+> Ο ολοκληρωτής είναι επίσης γραμμικός όταν το κάτω όριο είναι μια πεπερασμένη σταθερά: $y(t) = \int_{t_0}^{t} x(\tau) d\tau + y(t_0)$, υπό την προϋπόθεση η αρχική συνθήκη $y(t_0)$ να αντιμετωπίζεται ως μέρος της απόκρισης μηδενικής εισόδου. Ωστόσο, αν το $y(t_0)$ είναι μη μηδενικό, το σύστημα είναι γραμμικό ως προς την είσοδο μόνο αν η αρχική συνθήκη λαμβάνεται υπόψη ξεχωριστά.
 
 ---
 
-### Exercise 3: Testing Time-Invariance of a Modulator
+### Άσκηση 3: Έλεγχος Αμεταβλητότητας ως προς τον Χρόνο ενός Διαμορφωτή
 
-**Problem:** Determine whether the system $y(t) = \cos(\omega_0 t) \cdot x(t)$ (a sinusoidal modulator) is time-invariant.
+**Πρόβλημα:** Να προσδιοριστεί αν το σύστημα $y(t) = \cos(\omega_0 t) \cdot x(t)$ (ένας ημιτονοειδής διαμορφωτής) είναι αμεταβλητο ως προς τον χρόνο.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Select a test input. Let $x(t) = u(t)$.
+**Βήμα 1:** Επίλεξε μια δοκιμαστική είσοδο. Έστω $x(t) = u(t)$.
 
-**Step 2:** Compute the response to $x(t)$:
+**Βήμα 2:** Υπολόγισε την απόκριση στο $x(t)$:
 $$
 y(t) = \cos(\omega_0 t) \cdot u(t) = \cos(\omega_0 t) u(t)
 $$
 
-**Step 3:** Choose a time shift $t_0 = 1$ and compute the shifted input:
+**Βήμα 3:** Επίλεξε μια χρονική μετατόπιση $t_0 = 1$ και υπολόγισε την μετατοπισμένη είσοδο:
 $$
 x_{\text{shift}}(t) = x(t - 1) = u(t - 1)
 $$
 
-**Step 4:** Compute the response to the shifted input:
+**Βήμα 4:** Υπολόγισε την απόκριση στη μετατοπισμένη είσοδο:
 $$
 y_{\text{shift}}(t) = T\{u(t - 1)\} = \cos(\omega_0 t) \cdot u(t - 1)
 $$
 
-**Step 5:** Shift the original output:
+**Βήμα 5:** Μετάθεσε την αρχική έξοδο:
 $$
 y(t - 1) = \cos(\omega_0 (t - 1)) \cdot u(t - 1) = \cos(\omega_0 t - \omega_0) \cdot u(t - 1)
 $$
 
-**Step 6:** Compare for all $t$:
+**Βήμα 6:** Σύγκρινε για κάθε $t$:
 $$
 y_{\text{shift}}(t) = \cos(\omega_0 t) u(t - 1)
 $$
@@ -369,30 +369,30 @@ $$
 y(t - 1) = \cos(\omega_0 t - \omega_0) u(t - 1)
 $$
 
-For $t > 1$, $u(t - 1) = 1$, so the comparison reduces to:
+Για $t > 1$, $u(t - 1) = 1$, οπότε η σύγκριση ανάγεται σε:
 $$
 \cos(\omega_0 t) \stackrel{?}{=} \cos(\omega_0 t - \omega_0)
 $$
 
-These are equal only if $\omega_0 = 2\pi k$ for integer $k$ (i.e., if the modulation frequency is zero, making the system trivial). For a general non-zero $\omega_0$, the two expressions differ. The system is **time-varying**.
+Αυτές είναι ίσες μόνο αν $\omega_0 = 2\pi k$ για ακέραιο $k$ (δηλαδή, αν η συχνότητα διαμόρφωσης είναι μηδέν, καθιστώντας το σύστημα τετριμμένο). Για ένα γενικό μη μηδενικό $\omega_0$, οι δύο εκφράσεις διαφέρουν. Το σύστημα είναι **χρονομεταβλητό**.
 
-*Physical interpretation:* A modulator multiplies the input by a time-dependent function $\cos(\omega_0 t)$. Because the multiplying function itself depends on absolute time, a shift in the input produces an output that is not simply the shifted version of the original output.
+*Φυσική ερμηνεία:* Ένας διαμορφωτής πολλαπλασιάζει την είσοδο με μια συνάρτηση εξαρτώμενη από τον χρόνο $\cos(\omega_0 t)$. Επειδή η πολλαπλασιαστική συνάρτηση εξαρτάται η ίδια από τον απόλυτο χρόνο, μια μετατόπιση στην είσοδο παράγει μια έξοδο που δεν είναι απλά η μετατοπισμένη εκδοχή της αρχικής εξόδου.
 
 ---
 
-### Exercise 4: Combined Test for Linearity and Time-Invariance of a Differentiator
+### Άσκηση 4: Συνδυασμένος Έλεγχος Γραμμικότητας και Αμεταβλητότητας ως προς τον Χρόνο ενός Διαφορικού
 
-**Problem:** Determine whether the system $y(t) = \frac{dx}{dt}$ (the ideal differentiator) is:
-(a) Linear
-(b) Time-invariant
+**Πρόβλημα:** Να προσδιοριστεί αν το σύστημα $y(t) = \frac{dx}{dt}$ (ο ιδανικός διαφοριστής) είναι:
+(α) Γραμμικό
+(β) Αμεταβλητο ως προς τον χρόνο
 
-**Solution:**
+**Λύση:**
 
-**(a) Linearity test:**
+**(α) Έλεγχος γραμμικότητας:**
 
-**Step 1:** Select test inputs $x_1(t) = t^2$ and $x_2(t) = \sin(t)$.
+**Βήμα 1:** Επίλεξε δοκιμαστικές εισόδους $x_1(t) = t^2$ και $x_2(t) = \sin(t)$.
 
-**Step 2:** Compute individual responses:
+**Βήμα 2:** Υπολόγισε τις μεμονωμένες αποκρίσεις:
 $$
 y_1(t) = \frac{d}{dt}(t^2) = 2t
 $$
@@ -400,56 +400,56 @@ $$
 y_2(t) = \frac{d}{dt}(\sin(t)) = \cos(t)
 $$
 
-**Step 3:** Form a linear combination with arbitrary $\alpha, \beta$:
+**Βήμα 3:** Σχημάτισε έναν γραμμικό συνδυασμό με αυθαίρετα $\alpha, \beta$:
 $$
 x_{\text{test}}(t) = \alpha t^2 + \beta \sin(t)
 $$
 
-**Step 4:** Compute the response to the combination:
+**Βήμα 4:** Υπολόγισε την απόκριση στον συνδυασμό:
 $$
 y_{\text{test}}(t) = \frac{d}{dt}[\alpha t^2 + \beta \sin(t)] = \alpha \cdot 2t + \beta \cdot \cos(t)
 $$
 
-**Step 5:** Form the combination of individual responses:
+**Βήμα 5:** Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:
 $$
 y_{\text{comb}}(t) = \alpha \cdot 2t + \beta \cdot \cos(t)
 $$
 
-**Step 6:** $y_{\text{test}}(t) = y_{\text{comb}}(t)$ for all $t$, all $\alpha, \beta$, all inputs. The differentiator is **linear**.
+**Βήμα 6:** $y_{\text{test}}(t) = y_{\text{comb}}(t)$ για κάθε $t$, κάθε $\alpha, \beta$, κάθε είσοδο. Ο διαφοριστής είναι **γραμμικός**.
 
-**(b) Time-invariance test:**
+**(β) Έλεγχος αμεταβλητότητας ως προς τον χρόνο:**
 
-**Step 1:** Select test input $x(t) = t^2$.
+**Βήμα 1:** Επίλεξε δοκιμαστική είσοδο $x(t) = t^2$.
 
-**Step 2:** Compute the response: $y(t) = 2t$.
+**Βήμα 2:** Υπολόγισε την απόκριση: $y(t) = 2t$.
 
-**Step 3:** Choose $t_0 = 2$ and form $x_{\text{shift}}(t) = (t - 2)^2$.
+**Βήμα 3:** Επίλεξε $t_0 = 2$ και σχημάτισε $x_{\text{shift}}(t) = (t - 2)^2$.
 
-**Step 4:** Compute response to shifted input:
+**Βήμα 4:** Υπολόγισε την απόκριση στη μετατοπισμένη είσοδο:
 $$
-y_{\text{shift}}(t) = \frac{d}{dt}[(t - 2)^2] = 2(t - 2) = 2t - 4
+y_{\text{shift}}(t) = T\{(t - 2)^2\} = 2(t - 2) = 2t - 4
 $$
 
-**Step 5:** Shift the original output:
+**Βήμα 5:** Μετάθεσε την αρχική έξοδο:
 $$
 y(t - 2) = 2(t - 2) = 2t - 4
 $$
 
-**Step 6:** $y_{\text{shift}}(t) = 2t - 4 = y(t - 2)$ for all $t$. The differentiator is **time-invariant**.
+**Βήμα 6:** $y_{\text{shift}}(t) = 2t - 4 = y(t - 2)$ για κάθε $t$. Ο διαφοριστής είναι **αμεταβλητος ως προς τον χρόνο**.
 
-The ideal differentiator is **LTI** (Linear Time-Invariant).
+Ο ιδανικός διαφοριστής είναι **LTI** (Γραμμικός Αμεταβλητος ως προς τον Χρόνο).
 
 ---
 
-### Exercise 5: Testing Linearity of a Square-Law System
+### Άσκηση 5: Έλεγχος Γραμμικότητας ενός Συστήματος Τετραγωνικού Νόμου
 
-**Problem:** Determine whether the system $y(t) = x^2(t)$ is linear.
+**Πρόβλημα:** Να προσδιοριστεί αν το σύστημα $y(t) = x^2(t)$ είναι γραμμικό.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Select test inputs $x_1(t) = 1$ and $x_2(t) = t$.
+**Βήμα 1:** Επίλεξε δοκιμαστικές εισόδους $x_1(t) = 1$ και $x_2(t) = t$.
 
-**Step 2:** Compute individual responses:
+**Βήμα 2:** Υπολόγισε τις μεμονωμένες αποκρίσεις:
 $$
 y_1(t) = 1^2 = 1
 $$
@@ -457,84 +457,84 @@ $$
 y_2(t) = t^2
 $$
 
-**Step 3:** Form a linear combination with $\alpha = 2$, $\beta = 1$:
+**Βήμα 3:** Σχημάτισε έναν γραμμικό συνδυασμό με $\alpha = 2$, $\beta = 1$:
 $$
 x_{\text{test}}(t) = 2 \cdot 1 + 1 \cdot t = t + 2
 $$
 
-**Step 4:** Compute the response to the combination:
+**Βήμα 4:** Υπολόγισε την απόκριση στον συνδυασμό:
 $$
 y_{\text{test}}(t) = (t + 2)^2 = t^2 + 4t + 4
 $$
 
-**Step 5:** Form the combination of individual responses:
+**Βήμα 5:** Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:
 $$
 y_{\text{comb}}(t) = \alpha y_1(t) + \beta y_2(t) = 2 \cdot 1 + 1 \cdot t^2 = t^2 + 2
 $$
 
-**Step 6:** Compare:
+**Βήμα 6:** Σύγκρινε:
 $$
 y_{\text{test}}(t) = t^2 + 4t + 4 \neq t^2 + 2 = y_{\text{comb}}(t)
 $$
 
-The equality fails. The square-law system is **non-linear**.
+Η ισότητα αποτυγχάνει. Το σύστημα τετραγωνικού νόμου είναι **μη γραμμικό**.
 
-*Geometric interpretation:* The squaring operation produces cross-terms ($2\alpha\beta x_1 x_2$) when applied to a sum, which are absent from the sum of individual squares. This cross-term generation is characteristic of all non-linear systems.
+*Γεωμετρική ερμηνεία:* Η πράξη της ύψωσης στο τετράγωνο παράγει διασταυρούμενους όρους ($2\alpha\beta x_1 x_2$) όταν εφαρμόζεται σε ένα άθροισμα, οι οποίοι απουσιάζουν από το άθροισμα των μεμονωμένων τετραγώνων. Αυτή η χαρακτηριστική παραγωγή διασταυρούμενων όρων είναι γνώρισμα όλων των μη γραμμικών συστημάτων.
 
 ---
 
-### Exercise 6: Testing Time-Invariance of a System with Time-Dependent Coefficients
+### Άσκηση 6: Έλεγχος Αμεταβλητότητας ως προς τον Χρόνο ενός Συστήματος με Χρονοεξαρτώμενους Συντελεστές
 
-**Problem:** Determine whether the system $y(t) = t \cdot x(t)$ is time-invariant.
+**Πρόβλημα:** Να προσδιοριστεί αν το σύστημα $y(t) = t \cdot x(t)$ είναι αμεταβλητο ως προς τον χρόνο.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Select a test input. Let $x(t) = u(t)$.
+**Βήμα 1:** Επίλεξε μια δοκιμαστική είσοδο. Έστω $x(t) = u(t)$.
 
-**Step 2:** Compute the response:
+**Βήμα 2:** Υπολόγισε την απόκριση:
 $$
 y(t) = t \cdot u(t) = r(t)
 $$
 
-**Step 3:** Choose $t_0 = 3$ and form $x_{\text{shift}}(t) = u(t - 3)$.
+**Βήμα 3:** Επίλεξε $t_0 = 3$ και σχημάτισε $x_{\text{shift}}(t) = u(t - 3)$.
 
-**Step 4:** Compute response to shifted input:
+**Βήμα 4:** Υπολόγισε την απόκριση στη μετατοπισμένη είσοδο:
 $$
 y_{\text{shift}}(t) = t \cdot u(t - 3) = t \cdot u(t - 3)
 $$
 
-**Step 5:** Shift the original output:
+**Βήμα 5:** Μετάθεσε την αρχική έξοδο:
 $$
 y(t - 3) = (t - 3) \cdot u(t - 3)
 $$
 
-**Step 6:** Compare for $t > 3$ (where $u(t - 3) = 1$):
+**Βήμα 6:** Σύγκρινε για $t > 3$ (όπου $u(t - 3) = 1$):
 $$
 y_{\text{shift}}(t) = t, \quad y(t - 3) = t - 3
 $$
 
-Since $t \neq t - 3$, the system is **time-varying** (and also non-linear if amplitude scaling is applied to the input $t$, but time-variance is the dominant property here).
+Αφού $t \neq t - 3$, το σύστημα είναι **χρονομεταβλητό** (και επίσης μη γραμμικό αν εφαρμοστεί κλιμάκωση πλάτους στην είσοδο $t$, αλλά η χρονική μεταβλητότητα είναι η κυρίαρχη ιδιότητα εδώ).
 
-*Physical interpretation:* The system multiplies the input by the absolute time variable $t$. This is analogous to a potentiometer whose gain is mechanically linked to a clock — the system's behavior changes as time progresses, independent of the input.
+*Φυσική ερμηνεία:* Το σύστημα πολλαπλασιάζει την είσοδο με την απόλυτη μεταβλητή χρόνου $t$. Αυτό είναι ανάλογο με έναν ποτενσιόμετρο του οποίου το κέρδος συνδέεται μηχανικά με ένα ρολόι — η συμπεριφορά του συστήματος αλλάζει καθώς προχωρά ο χρόνος, ανεξάρτητα από την είσοδο.
 
 ---
 
-### Exercise 7: Testing Linearity of a System with Memory (RC Circuit)
+### Άσκηση 7: Έλεγχος Γραμμικότητας ενός Συστήματος με Μνήμη (Κύκλωμα RC)
 
-**Problem:** A system is described by the differential equation:
+**Πρόβλημα:** Ένα σύστημα περιγράφεται από τη διαφορική εξίσωση:
 $$
 \frac{dy}{dt} + 2y(t) = x(t)
 $$
-Assuming the system is initially at rest ($y(0) = 0$), determine whether it is linear.
+Υποθέτοντας ότι το σύστημα είναι αρχικά σε ηρεμία ($y(0) = 0$), να προσδιοριστεί αν είναι γραμμικό.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Solve the differential equation for a generic input. This is a first-order linear ODE with integrating factor $e^{2t}$:
+**Βήμα 1:** Λύσε τη διαφορική εξίσωση για μια γενική είσοδο. Αυτή είναι μια διαφορική εξίσωση πρώτης τάξης με παράγοντα ολοκλήρωσης $e^{2t}$:
 $$
 \frac{d}{dt}[e^{2t}y(t)] = e^{2t}x(t)
 $$
 
-Integrating from $0$ to $t$ (with $y(0) = 0$):
+Ολοκληρώνοντας από το $0$ στο $t$ (με $y(0) = 0$):
 $$
 e^{2t}y(t) = \int_{0}^{t} e^{2\tau} x(\tau) d\tau
 $$
@@ -543,9 +543,9 @@ $$
 y(t) = e^{-2t} \int_{0}^{t} e^{2\tau} x(\tau) d\tau
 $$
 
-**Step 2:** Select test inputs $x_1(t) = u(t)$ and $x_2(t) = 1$.
+**Βήμα 2:** Επίλεξε δοκιμαστικές εισόδους $x_1(t) = u(t)$ και $x_2(t) = 1$.
 
-**Step 3:** Compute individual responses:
+**Βήμα 3:** Υπολόγισε τις μεμονωμένες αποκρίσεις:
 $$
 y_1(t) = e^{-2t} \int_{0}^{t} e^{2\tau} \cdot 1 \, d\tau = e^{-2t} \left[\frac{e^{2\tau}}{2}\right]_{0}^{t} = e^{-2t} \cdot \frac{e^{2t} - 1}{2} = \frac{1}{2}(1 - e^{-2t}) u(t)
 $$
@@ -554,25 +554,25 @@ $$
 y_2(t) = e^{-2t} \int_{0}^{t} e^{2\tau} \cdot 1 \, d\tau = \frac{1}{2}(1 - e^{-2t}) u(t)
 $$
 
-**Step 4:** Form a linear combination $x_{\text{test}}(t) = \alpha u(t) + \beta \cdot 1 = (\alpha + \beta) u(t)$ (both are constants for $t > 0$):
+**Βήμα 4:** Σχημάτισε έναν γραμμικό συνδυασμό $x_{\text{test}}(t) = \alpha u(t) + \beta \cdot 1 = (\alpha + \beta) u(t)$ (και οι δύο είναι σταθερές για $t > 0$):
 $$
 y_{\text{test}}(t) = e^{-2t} \int_{0}^{t} e^{2\tau} (\alpha + \beta) \, d\tau = (\alpha + \beta) \cdot \frac{1}{2}(1 - e^{-2t}) u(t)
 $$
 
-**Step 5:** Form the combination of individual responses:
+**Βήμα 5:** Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:
 $$
 y_{\text{comb}}(t) = \alpha \cdot \frac{1}{2}(1 - e^{-2t}) u(t) + \beta \cdot \frac{1}{2}(1 - e^{-2t}) u(t) = (\alpha + \beta) \cdot \frac{1}{2}(1 - e^{-2t}) u(t)
 $$
 
-**Step 6:** $y_{\text{test}}(t) = y_{\text{comb}}(t)$ for all $t$, all $\alpha, \beta$, all inputs. The system (at initial rest) is **linear**.
+**Βήμα 6:** $y_{\text{test}}(t) = y_{\text{comb}}(t)$ για κάθε $t$, κάθε $\alpha, \beta$, κάθε είσοδο. Το σύστημα (σε αρχική ηρεμία) είναι **γραμμικό**.
 
-*Key point:* The initial condition $y(0) = 0$ is crucial. If $y(0) \neq 0$, the system would not be linear because the zero-input response would appear as an additive constant independent of the input, violating homogeneity.
+*Βασικό σημείο:* Η αρχική συνθήκη $y(0) = 0$ είναι καίριας σημασίας. Αν $y(0) \neq 0$, το σύστημα δεν θα ήταν γραμμικό επειδή η απόκριση μηδενικής εισόδου θα εμφανιζόταν ως μια προσθετική σταθερά ανεξάρτητη από την είσοδο, παραβιάζοντας την ομογένεια.
 
 ---
 
-### Exercise 8: Testing Both Properties on a System with a Threshold
+### Άσκηση 8: Έλεγχος Και των Δύο Ιδιοτήτων σε ένα Σύστημα με Κατώφλι
 
-**Problem:** A system is defined by:
+**Πρόβλημα:** Ένα σύστημα ορίζεται από:
 $$
 y(t) =
 \begin{cases}
@@ -580,41 +580,41 @@ y(t) =
 x(t), & x(t) \ge 0
 \end{cases}
 $$
-This is a **half-wave rectifier**. Determine whether it is (a) linear and (b) time-invariant.
+Αυτός είναι ένας **ανορθωτής μισού κύματος**. Να προσδιοριστεί αν είναι (α) γραμμικός και (β) αμεταβλητος ως προς τον χρόνο.
 
-**Solution:**
+**Λύση:**
 
-**(a) Linearity test:**
+**(α) Έλεγχος γραμμικότητας:**
 
-**Step 1:** Select test inputs $x_1(t) = -1$ (negative) and $x_2(t) = 2$ (positive).
+**Βήμα 1:** Επίλεξε δοκιμαστικές εισόδους $x_1(t) = -1$ (αρνητική) και $x_2(t) = 2$ (θετική).
 
-**Step 2:** Compute individual responses:
+**Βήμα 2:** Υπολόγισε τις μεμονωμένες αποκρίσεις:
 $$
-y_1(t) = 0 \quad (\text{since } x_1(t) = -1 < 0)
+y_1(t) = 0 \quad (\text{αφού } x_1(t) = -1 < 0)
 $$
 $$
-y_2(t) = 2 \quad (\text{since } x_2(t) = 2 \ge 0)
-$$
-
-**Step 3:** Form $x_{\text{test}}(t) = 1 \cdot x_1(t) + 1 \cdot x_2(t) = -1 + 2 = 1$.
-
-**Step 4:** Compute the response to the combination:
-$$
-y_{\text{test}}(t) = 1 \quad (\text{since } x_{\text{test}}(t) = 1 \ge 0)
+y_2(t) = 2 \quad (\text{αφού } x_2(t) = 2 \ge 0)
 $$
 
-**Step 5:** Form the combination of individual responses:
+**Βήμα 3:** Σχημάτισε $x_{\text{test}}(t) = 1 \cdot x_1(t) + 1 \cdot x_2(t) = -1 + 2 = 1$.
+
+**Βήμα 4:** Υπολόγισε την απόκριση στον συνδυασμό:
+$$
+y_{\text{test}}(t) = 1 \quad (\text{αφού } x_{\text{test}}(t) = 1 \ge 0)
+$$
+
+**Βήμα 5:** Σχημάτισε τον συνδυασμό των μεμονωμένων αποκρίσεων:
 $$
 y_{\text{comb}}(t) = 1 \cdot 0 + 1 \cdot 2 = 2
 $$
 
-**Step 6:** $y_{\text{test}}(t) = 1 \neq 2 = y_{\text{comb}}(t)$. The half-wave rectifier is **non-linear**.
+**Βήμα 6:** $y_{\text{test}}(t) = 1 \neq 2 = y_{\text{comb}}(t)$. Ο ανορθωτής μισού κύματος είναι **μη γραμμικός**.
 
-**(b) Time-invariance test:**
+**(β) Έλεγχος αμεταβλητότητας ως προς τον χρόνο:**
 
-**Step 1:** Select $x(t) = \sin(t)$ (which is positive on some intervals and negative on others).
+**Βήμα 1:** Επίλεξε $x(t) = \sin(t)$ (που είναι θετικό σε ορισμένα διαστήματα και αρνητικό σε άλλα).
 
-**Step 2:** Compute the response:
+**Βήμα 2:** Υπολόγισε την απόκριση:
 $$
 y(t) =
 \begin{cases}
@@ -623,9 +623,9 @@ y(t) =
 \end{cases}
 $$
 
-**Step 3:** Choose $t_0 = \pi/2$ and form $x_{\text{shift}}(t) = \sin(t - \pi/2) = -\cos(t)$.
+**Βήμα 3:** Επίλεξε $t_0 = \pi/2$ και σχημάτισε $x_{\text{shift}}(t) = \sin(t - \pi/2) = -\cos(t)$.
 
-**Step 4:** Compute response to shifted input:
+**Βήμα 4:** Υπολόγισε την απόκριση στη μετατοπισμένη είσοδο:
 $$
 y_{\text{shift}}(t) =
 \begin{cases}
@@ -634,7 +634,7 @@ y_{\text{shift}}(t) =
 \end{cases}
 $$
 
-**Step 5:** Shift the original output:
+**Βήμα 5:** Μετάθεσε την αρχική έξοδο:
 $$
 y(t - \pi/2) =
 \begin{cases}
@@ -642,123 +642,123 @@ y(t - \pi/2) =
 \sin(t - \pi/2), & \sin(t - \pi/2) \ge 0
 \end{cases}
 $$
-Since $\sin(t - \pi/2) = -\cos(t)$, this is identical to $y_{\text{shift}}(t)$.
+Αφού $\sin(t - \pi/2) = -\cos(t)$, αυτό είναι ταυτόσημο με το $y_{\text{shift}}(t)$.
 
-**Step 6:** The comparison holds for all $t$, all $t_0$, and all inputs. The half-wave rectifier is **time-invariant**.
+**Βήμα 6:** Η σύγκριση ισχύει για κάθε $t$, κάθε $t_0$, και κάθε είσοδο. Ο ανορθωτής μισού κύματος είναι **αμεταβλητος ως προς τον χρόνο**.
 
-*Summary:* The half-wave rectifier is non-linear but time-invariant — a common classification for many practical electronic systems.
-
----
-
-### Exercise 9: Classification by Input-Output Count
-
-**Problem:** Classify each of the following systems by its input-output configuration:
-(a) A two-channel audio amplifier with left and right inputs and left and right outputs.
-(b) A temperature controller with one heater input and one temperature sensor output.
-(c) A control system with three sensor inputs and one actuator output.
-(d) A robotic arm with four joint motor inputs and four joint angle sensor outputs.
-
-**Solution:**
-
-**(a)** Two inputs (left channel, right channel), two outputs (left speaker, right speaker). This is **MIMO** (specifically $2 \times 2$).
-
-**(b)** One input (heater power), one output (temperature reading). This is **SISO**.
-
-**(c)** Three inputs (sensor signals), one output (actuator command). This is **MISO**.
-
-**(d)** Four inputs (motor commands), four outputs (joint angle measurements). This is **MIMO** (specifically $4 \times 4$).
+*Σύνοψη:* Ο ανορθωτής μισού κύματος είναι μη γραμμικός αλλά αμεταβλητος ως προς τον χρόνο — μια συνήθης ταξινόμηση για πολλά πρακτικά ηλεκτρονικά συστήματα.
 
 ---
 
-### Exercise 10: State of Rest and Zero-Input Response
+### Άσκηση 9: Ταξινόμηση ως προς τον Αριθμό Εισόδων-Εξόδων
 
-**Problem:** A system is described by $y(t) = e^{-t} \int_{0}^{t} e^{\tau} x(\tau) d\tau + y(0)e^{-t}$. The system is initially at rest at $t = 0$ with $y(0) = 2$.
+**Πρόβλημα:** Ταξινόμησε καθένα από τα παρακάτω συστήματα με βάση τη διαμόρφωση εισόδου-εξόδου του:
+(α) Ένας ενισχυτής ήχου δύο καναλιών με αριστερή και δεξιά είσοδο και αριστερή και δεξιά έξοδο.
+(β) Ενας ελεγκτής θερμοκρασίας με μία είσοδο θερμαντήρα και μία έξοδο αισθητήρα θερμοκρασίας.
+(γ) Ένα σύστημα ελέγχου με τρεις εισόδους αισθητήρων και μία έξοδο ενεργοποιητή.
+(δ) Ένα ρομποτικό βραχίονα με τέσσερις εισόδους κινητήρων αρθρώσεων και τέσσερις εξόδους αισθητήρων γωνίας αρθρώσεων.
 
-(a) Is the system at state of rest at $t = 0$?
-(b) Compute the output for $x(t) = u(t)$.
-(c) Compute the zero-input response.
+**Λύση:**
 
-**Solution:**
+**(α)** Δύο είσοδοι (αριστερό κανάλι, δεξί κανάλι), δύο έξοδοι (αριστερό ηχείο, δεξί ηχείο). Αυτό είναι **MIMO** (συγκεκριμένα $2 \times 2$).
 
-**(a)** At $t = 0$, the initial condition $y(0) = 2 \neq 0$. The system is **not** at state of rest at $t = 0$ because there is stored energy. If the input were zero for $t \ge 0$, the output would be $y(t) = 2e^{-t} \neq 0$.
+**(β)** Μία είσοδος (ισχύς θερμαντήρα), μία έξοδος (ένδειξη θερμοκρασίας). Αυτό είναι **SISO**.
 
-**(b)** For $x(t) = u(t)$:
+**(γ)** Τρεις είσοδοι (σήματα αισθητήρων), μία έξοδος (εντολή ενεργοποιητή). Αυτό είναι **MISO**.
+
+**(δ)** Τέσσερις είσοδοι (εντολές κινητήρων), τέσσερις έξοδοι (μετρήσεις γωνίας αρθρώσεων). Αυτό είναι **MIMO** (συγκεκριμένα $4 \times 4$).
+
+---
+
+### Άσκηση 10: Κατάσταση Ηρεμίας και Απόκριση Μηδενικής Εισόδου
+
+**Πρόβλημα:** Ένα σύστημα περιγράφεται από $y(t) = e^{-t} \int_{0}^{t} e^{\tau} x(\tau) d\tau + y(0)e^{-t}$. Το σύστημα είναι αρχικά σε ηρεμία στο $t = 0$ με $y(0) = 2$.
+
+(α) Βρίσκεται το σύστημα σε κατάσταση ηρεμίας στο $t = 0$;
+(β) Υπολόγισε την έξοδο για $x(t) = u(t)$.
+(γ) Υπολόγισε την απόκριση μηδενικής εισόδου.
+
+**Λύση:**
+
+**(α)** Στο $t = 0$, η αρχική συνθήκη $y(0) = 2 \neq 0$. Το σύστημα **δεν** βρίσκεται σε κατάσταση ηρεμίας στο $t = 0$ επειδή υπάρχει αποθηκευμένη ενέργεια. Αν η είσοδος ήταν μηδέν για $t \ge 0$, η έξοδος θα ήταν $y(t) = 2e^{-t} \neq 0$.
+
+**(β)** Για $x(t) = u(t)$:
 $$
 y(t) = e^{-t} \int_{0}^{t} e^{\tau} \cdot 1 \, d\tau + 2e^{-t} = e^{-t} (e^{t} - 1) + 2e^{-t} = 1 - e^{-t} + 2e^{-t} = 1 + e^{-t}
 $$
 
-**(c)** The zero-input response is the output when $x(t) = 0$:
+**(γ)** Η απόκριση μηδενικής εισόδου είναι η έξοδος όταν $x(t) = 0$:
 $$
 y_{zi}(t) = e^{-t} \int_{0}^{t} 0 \, d\tau + 2e^{-t} = 2e^{-t}
 $$
 
-The output consists of the **zero-state response** $y_{zs}(t) = 1 - e^{-t}$ (due to the input only) plus the **zero-input response** $y_{zi}(t) = 2e^{-t}$ (due to the initial condition). The total output is $y(t) = y_{zs}(t) + y_{zi}(t) = 1 + e^{-t}$.
+Η έξοδος αποτελείται από την **απόκριση μηδενικής κατάστασης** $y_{zs}(t) = 1 - e^{-t}$ (λόγω μόνο της εισόδου) συν την **απόκριση μηδενικής εισόδου** $y_{zi}(t) = 2e^{-t}$ (λόγω της αρχικής συνθήκης). Η συνολική έξοδος είναι $y(t) = y_{zs}(t) + y_{zi}(t) = 1 + e^{-t}$.
 
 ---
 
-## 6. Connections and Cross-References
+## 6. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- **Lecture 03 (Continuous-Time Signals):** The Dirac delta function and the sifting property introduced in Lecture 03 are the foundation for representing arbitrary signals as integrals of shifted impulses ($x(t) = \int x(\tau) \delta(t - \tau) d\tau$). This representation is the starting point for Lecture 04's discussion of system classification, as the impulse response concept depends directly on it.
-- **Lecture 05 (LTI Systems):** The linearity and time-invariance properties tested in this lecture are the defining conditions for LTI systems. Systems that pass both tests become the subject of Lecture 05's discussion of convolution, impulse response, causality, and stability.
-- **Lecture 06 (Convolution):** The convolution integral $y(t) = x(t) * h(t)$ is derived from the superposition of impulse responses. The linearity property (additivity + homogeneity) enables the decomposition of the input into impulses, and time-invariance ensures that each shifted impulse produces a shifted impulse response.
-- **Fourier Series and Transform (upcoming):** Linearity ensures that the Fourier series/transform of a sum of signals equals the sum of their individual transforms. Time-invariance ensures that the frequency response $H(j\omega)$ fully characterizes the system's effect on sinusoidal inputs.
-- **Laplace Transform (upcoming):** For differential equation descriptions of systems, linearity enables term-by-term transformation using the linearity property of the Laplace transform. The initial conditions (system state) appear as separate terms.
-- **Control Systems (future course):** MIMO system analysis, state-space representations, and observability/controllability concepts all build on the definitions of system state and state of rest established here.
+- **Διάλεξη 03 (Σήματα):** Η συνάρτηση δέλτα του Dirac και η ιδιότητα διαλογής που εισήχθησαν στη Διάλεξη 03 αποτελούν το θεμέλιο για την αναπαράσταση αυθαίρετων σημάτων ως ολοκληρωμάτων μετατοπισμένων παλμών ($x(t) = \int x(\tau) \delta(t - \tau) d\tau$). Αυτή η αναπαράσταση είναι το αφετηριακό σημείο για τη συζήτηση της Διάλεξης 04 περί ταξινόμησης συστημάτων, καθώς η έννοια της απόκρισης παλμού εξαρτάται άμεσα από αυτήν.
+- **Διάλεξη 05 (LTI Συστήματα):** Οι ιδιότητες γραμμικότητας και αμεταβλητότητας ως προς τον χρόνο που ελέγχονται σε αυτή τη διάλεξη αποτελούν τις οριστικές συνθήκες για τα LTI συστήματα. Τα συστήματα που περνούν και τους δύο ελέγχους γίνονται αντικείμενο της συζήτησης της Διάλεξης 05 περί συνέλιξης, απόκρισης παλμού, αιτιατότητας και ευστάθειας.
+- **Διάλεξη 06 (Συνέλιξη):** Το ολοκλήρωμα συνέλιξης $y(t) = x(t) * h(t)$ προάγεται από την υπέρθεση των αποκρίσεων παλμού. Η ιδιότητα της γραμμικότητας (προσθετικότητα + ομογένεια) επιτρέπει την αποσύνθεση της εισόδου σε παλμούς, και η αμεταβλητότητα ως προς τον χρόνο εξασφαλίζει ότι κάθε μετατοπισμένος παλμός παράγει μια μετατοπισμένη απόκριση παλμού.
+- **Σειρά και Μετασχηματισμός Fourier (επερχόμενα):** Η γραμμικότητα εξασφαλίζει ότι η σειρά/μετασχηματισμός Fourier ενός αθροίσματος σημάτων ισούται με το άθροισμα των μεμονωμένων μετασχηματισμών τους. Η αμεταβλητότητα ως προς τον χρόνο εξασφαλίζει ότι η απόκριση συχνότητας $H(j\omega)$ χαρακτηρίζει πλήρως την επίδραση του συστήματος σε ημιτονοειδείς εισόδους.
+- **Μετασχηματισμός Laplace (επερχόμενος):** Για περιγραφές συστημάτων με διαφορικές εξισώσεις, η γραμμικότητα επιτρέπει τον μετασχηματισμό όρων ξεχωριστά χρησιμοποιώντας την ιδιότητα γραμμικότητας του μετασχηματισμού Laplace. Οι αρχικές συνθήκες (κατάσταση συστήματος) εμφανίζονται ως ξεχωριστοί όροι.
+- **Συστήματα Ελέγχου (μελλοντικό μάθημα):** Η ανάλυση MIMO συστημάτων, οι αναπαραστάσεις χώρου καταστάσεων, και οι έννοιες παρατηρησιμότητας/ελέγξιμότητας θεμελιώνονται όλες στους ορισμούς της κατάστασης συστήματος και της κατάστασης ηρεμίας που καθιερώνονται εδώ.
 
 ---
 
-## 7. Exam Tip: Systematic Linearity and Time-Invariance Testing
+## 7. Συμβουλή Εξετάσεων: Συστηματικός Έλεγχος Γραμμικότητας και Αμεταβλητότητας ως προς τον Χρόνο
 
-Exam problems frequently ask you to test whether a given input-output relationship defines a linear and/or time-invariant system. Use the following structured approach:
+Τα θέματα των εξετάσεων συχνά ζητούν να ελέγξεις αν μια δοθείσα σχέση εισόδου-εξόδου ορίζει ένα γραμμικό και/ή αμεταβλητο ως προς τον χρόνο σύστημα. Χρησιμοποίησε την ακόλουθη δομημένη προσέγγιση:
 
-### For Linearity Testing — The "Two-Input Check"
+### Για Έλεγχο Γραμμικότητας — Ο Έλεγχος «Δύο Εισόδων»
 
-1. Write the system equation $y(t) = T\{x(t)\}$.
-2. Compute $y_1 = T\{x_1\}$ and $y_2 = T\{x_2\}$ symbolically.
-3. Form $T\{\alpha x_1 + \beta x_2\}$ by substituting the sum into the system equation.
-4. Form $\alpha y_1 + \beta y_2$ by scaling and summing the individual responses.
-5. Compare term by term. Common failure patterns:
+1. Γράψε την εξίσωση του συστήματος $y(t) = T\{x(t)\}$.
+2. Υπολόγισε $y_1 = T\{x_1\}$ και $y_2 = T\{x_2\}$ συμβολικά.
+3. Σχημάτισε $T\{\alpha x_1 + \beta x_2\}$ αντικαθιστώντας το άθροισμα στην εξίσωση του συστήματος.
+4. Σχημάτισε $\alpha y_1 + \beta y_2$ κλιμακώνοντας και αθροίζοντας τις μεμονωμένες αποκρίσεις.
+5. Σύγκρινε όρο προς όρο. Συνήθη μοτίβα αποτυχίας:
 
-| Failure Pattern | Example System | Why It Fails |
+| Μοτίβο Αποτυχίας | Παράδειγμα Συστήματος | Γιατί Αποτυγχάνει |
 | :--- | :--- | :--- |
-| Constant offset | $y = x + 1$ | The $+1$ is not scaled by $\alpha, \beta$ |
-| Squaring | $y = x^2$ | Cross-term $2\alpha\beta x_1 x_2$ appears |
-| Absolute value | $y = \|x\|$ | Sign-dependent cancellation fails |
-| Product of input and output | $dy/dt + y^2 = x$ | $y^2$ generates cross-terms |
-| Threshold / clipping | $y = \max(0, x)$ | Negative inputs are zeroed |
+| Σταθερή απόκλιση | $y = x + 1$ | Το $+1$ δεν κλιμακώνεται από τα $\alpha, \beta$ |
+| Ύψωση στο τετράγωνο | $y = x^2$ | Εμφανίζεται ο διασταυρούμενος όρος $2\alpha\beta x_1 x_2$ |
+| Απόλυτη τιμή | $y = \|x\|$ | Αποτυγχάνει η εξάλειψη ανάλογα το πρόσημο |
+| Γινόμενο εισόδου και εξόδου | $dy/dt + y^2 = x$ | Το $y^2$ παράγει διασταυρούμενους όρους |
+| Κατώφλι / αποκοπή | $y = \max(0, x)$ | Οι αρνητικές είσοδοι μηδενίζονται |
 
-### For Time-Invariance Testing — The "Shift and Compare" Check
+### Για Έλεγχο Αμεταβλητότητας ως προς τον Χρόνο — Ο Έλεγχος «Μετάθεσε και Σύγκρινε»
 
-1. Compute the reference output $y(t) = T\{x(t)\}$.
-2. Shift the input: $x_{\text{shift}}(t) = x(t - t_0)$.
-3. Compute $T\{x(t - t_0)\}$ — this is the **response to the shifted input**.
-4. Form $y(t - t_0)$ by substituting $(t - t_0)$ into the expression for $y(t)$ — this is the **shifted output**.
-5. Compare. The system is time-varying if:
-   - The system equation explicitly contains $t$ (e.g., $y(t) = t x(t)$).
-   - The system equation uses $t$ in the limits or coefficients (e.g., $y(t) = \int_{0}^{t} e^{-(t-\tau)} \sin(\tau) x(\tau) d\tau$ is time-invariant because it depends only on $(t-\tau)$, but $y(t) = \int_{0}^{t} \tau x(\tau) d\tau$ is time-varying because $\tau$ appears without the $t-\tau$ shift structure).
+1. Υπολόγισε την αναφορική έξοδο $y(t) = T\{x(t)\}$.
+2. Μετάθεσε την είσοδο: $x_{\text{shift}}(t) = x(t - t_0)$.
+3. Υπολόγισε $T\{x(t - t_0)\}$ — αυτή είναι η **απόκριση στη μετατοπισμένη είσοδο**.
+4. Σχημάτισε $y(t - t_0)$ αντικαθιστώντας το $(t - t_0)$ στην έκφραση για το $y(t)$ — αυτή είναι η **μετατοπισμένη έξοδος**.
+5. Σύγκρινε. Το σύστημα είναι χρονομεταβλητό αν:
+   - Η εξίσωση του συστήματος περιέχει ρητά το $t$ (π.χ., $y(t) = t x(t)$).
+   - Η εξίσωση του συστήματος χρησιμοποιεί το $t$ στα όρια ή τους συντελεστές (π.χ., το $y(t) = \int_{0}^{t} e^{-(t-\tau)} \sin(\tau) x(\tau) d\tau$ είναι αμεταβλητο ως προς τον χρόνο επειδή εξαρτάται μόνο από το $(t-\tau)$, αλλά το $y(t) = \int_{0}^{t} \tau x(\tau) d\tau$ είναι χρονομεταβλητό επειδή το $\tau$ εμφανίζεται χωρίς τη δομή μετατόπισης $t-\tau$).
 
-### Common Mistake: Checking Linearity by Inspection Only
+### Συνήθες Λάθος: Έλεγχος Γραμμικότητας μόνο με Επισκόπηση
 
-Do not assume a system is linear just because it "looks" simple. Always test with specific numbers. The quickest counter-example is often:
-- Test homogeneity: $T\{2 \cdot x(t)\} \stackrel{?}{=} 2 \cdot T\{x(t)\}$ for a simple $x(t)$.
-- If homogeneity holds, test additivity: $T\{x_1 + x_2\} \stackrel{?}{=} T\{x_1\} + T\{x_2\}$.
+Μην υποθέτεις ότι ένα σύστημα είναι γραμμικό απλώς επειδή «φαίνεται» απλό. Έλεγξε πάντα με συγκεκριμένους αριθμούς. Το ταχύτερο αντιπαράδειγμα είναι συχνά:
+- Έλεγχος ομογένειας: $T\{2 \cdot x(t)\} \stackrel{?}{=} 2 \cdot T\{x(t)\}$ για ένα απλό $x(t)$.
+- Αν η ομογένεια ισχύει, έλεγχος προσθετικότητας: $T\{x_1 + x_2\} \stackrel{?}{=} T\{x_1\} + T\{x_2\}$.
 
-### Quick Reference: Common Systems and Their Classification
+### Γρήγορη Αναφορά: Συνήθη Συστήματα και η Ταξινόμησή τους
 
-| System Equation | Linear? | Time-Invariant? |
+| Εξίσωση Συστήματος | Γραμμικό; | Αμεταβλητο ως προς τον Χρόνο; |
 | :--- | :--- | :--- |
-| $y(t) = x(t)$ | Yes | Yes |
-| $y(t) = ax(t) + b$ ($b \neq 0$) | **No** | Yes |
-| $y(t) = x^2(t)$ | **No** | Yes |
-| $y(t) = \frac{dx}{dt}$ | Yes | Yes |
-| $y(t) = \int_{-\infty}^{t} x(\tau) d\tau$ | Yes | Yes |
-| $y(t) = \cos(\omega_0 t) x(t)$ | Yes | **No** |
-| $y(t) = t x(t)$ | Yes | **No** |
-| $y(t) = \max(0, x(t))$ | **No** | Yes |
-| $y(t) = x(t) + x(t-1)$ | Yes | Yes |
-| $\frac{dy}{dt} + 2y = x$ (initial rest) | Yes | Yes |
-| $y(t) = x(-t)$ | Yes | **No** (reversal changes with shift) |
+| $y(t) = x(t)$ | Ναι | Ναι |
+| $y(t) = ax(t) + b$ ($b \neq 0$) | **Όχι** | Ναι |
+| $y(t) = x^2(t)$ | **Όχι** | Ναι |
+| $y(t) = \frac{dx}{dt}$ | Ναι | Ναι |
+| $y(t) = \int_{-\infty}^{t} x(\tau) d\tau$ | Ναι | Ναι |
+| $y(t) = \cos(\omega_0 t) x(t)$ | Ναι | **Όχι** |
+| $y(t) = t x(t)$ | Ναι | **Όχι** |
+| $y(t) = \max(0, x(t))$ | **Όχι** | Ναι |
+| $y(t) = x(t) + x(t-1)$ | Ναι | Ναι |
+| $\frac{dy}{dt} + 2y = x$ (αρχική ηρεμία) | Ναι | Ναι |
+| $y(t) = x(-t)$ | Ναι | **Όχι** (η αναστροφή αλλάζει με τη μετάθεση) |
 
-> **[Key Insight]**
+> **[Βασική Επισήμανση]**
 >
-> The most common exam pitfall: $y(t) = x(at)$ (time scaling). This system is linear (easy to verify) but **time-varying** unless $a = \pm 1$. For example, if $y(t) = x(2t)$ (time compression), then shifting the input by $t_0$ gives $T\{x(t - t_0)\} = x(2t - t_0)$, but shifting the output gives $y(t - t_0) = x(2t - 2t_0)$. These differ, so the system is time-varying.
+> Το συνηθέστερο παγίδευμα των εξετάσεων: $y(t) = x(at)$ (κλιμάκωση χρόνου). Αυτό το σύστημα είναι γραμμικό (εύκολο να επαληθευτεί) αλλά **χρονομεταβλητό** εκτός αν $a = \pm 1$. Για παράδειγμα, αν $y(t) = x(2t)$ (συμπίεση χρόνου), τότε η μετάθεση της εισόδου κατά $t_0$ δίνει $T\{x(t - t_0)\} = x(2t - t_0)$, αλλά η μετάθεση της εξόδου δίνει $y(t - t_0) = x(2t - 2t_0)$. Αυτές διαφέρουν, άρα το σύστημα είναι χρονομεταβλητό.

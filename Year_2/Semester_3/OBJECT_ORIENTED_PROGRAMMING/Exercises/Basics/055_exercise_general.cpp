@@ -1,18 +1,18 @@
 /*
- * Exercise 10: Company & Employee System
- * 
- * Create a Department class with:
- * - Private members: name (string), budget (double)
- * - Constructor initializing both
- * - Getter for budget
- * 
- * Create an Employee class with:
- * - Private members: name (string), salary (double), department (pointer to Department)
- * - Constructor initializing all
- * - Method displayInfo() showing name, salary, and department name
- * 
- * In main(), create 3 departments, create 8 employees assigned to departments (2-3 per department), 
- * display all employees, calculate total salary per department, and identify the department with highest total salary.
+ * Άσκηση 10: Σύστημα Εταιρείας & Εργαζομένων
+ *
+ * Δημιουργήστε μια κλάση Department με:
+ * - Ιδιωτικά μέλη: name (string), budget (double)
+ * - Κατασκευαστή που αρχικοποιεί και τα δύο
+ * - Getter για τον προϋπολογισμό
+ *
+ * Δημιουργήστε μια κλάση Employee με:
+ * - Ιδιωτικά μέλη: name (string), salary (double), department (δείκτης σε Department)
+ * - Κατασκευαστή που αρχικοποιεί όλα
+ * - Μέθοδο displayInfo() που εμφανίζει όνομα, μισθό και όνομα τμήματος
+ *
+ * Στο main(), δημιουργήστε 3 τμήματα, δημιουργήστε 8 εργαζομένους που εκχωρούνται σε τμήματα (2-3 ανά τμήμα),
+ * εμφανίστε όλους τους εργαζομένους, υπολογίστε συνολικό μισθό ανά τμήμα, και εντοπίστε το τμήμα με τον υψηλότερο συνολικό μισθό.
  */
 
 #include <iostream>
@@ -22,7 +22,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

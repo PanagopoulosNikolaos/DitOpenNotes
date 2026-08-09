@@ -1,19 +1,19 @@
 /*
- * Exercise 7: Animal Hierarchy
- * 
- * Create an abstract base class Animal with:
- * - Protected member: name (string)
- * - Constructor initializing name
- * - Pure virtual method makeSound()
- * - Pure virtual method eat()
- * - Virtual method sleep() that displays "Animal is sleeping"
- * - Virtual destructor
- * 
- * Create two derived classes:
- * - Dog: implements makeSound() displaying "Woof!", and eat() displaying "Eating dog food"
- * - Cat: implements makeSound() displaying "Meow!", and eat() displaying "Eating cat food"
- * 
- * In main(), create a vector of Animal pointers containing 3 dogs and 2 cats, call all methods polymorphically, and ensure memory cleanup.
+ * Άσκηση 7: Ιεραρχία Ζώων
+ *
+ * Δημιουργήστε μια αφηρημένη βασική κλάση Animal με:
+ * - Προστατευόμενο μέλος: name (string)
+ * - Κατασκευαστή που αρχικοποιεί το όνομα
+ * - Καθαρά εικονική μέθοδο makeSound()
+ * - Καθαρά εικονική μέθοδο eat()
+ * - Εικονική μέθοδο sleep() που εμφανίζει "Animal is sleeping"
+ * - Εικονικό καταστροφέα
+ *
+ * Δημιουργήστε δύο παράγωγες κλάσεις:
+ * - Dog: υλοποιεί makeSound() εμφανίζοντας "Woof!", και eat() εμφανίζοντας "Eating dog food"
+ * - Cat: υλοποιεί makeSound() εμφανίζοντας "Meow!", και eat() εμφανίζοντας "Eating cat food"
+ *
+ * Στο main(), δημιουργήστε ένα διάνυσμα δεικτών Animal που περιέχει 3 σκύλους και 2 γάτους, καλέστε όλες τις μεθόδους πολυμορφικά, και βεβαιωθείτε ότι η μνήμη καθαρίζεται σωστά.
  */
 
 #include <iostream>
@@ -22,7 +22,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

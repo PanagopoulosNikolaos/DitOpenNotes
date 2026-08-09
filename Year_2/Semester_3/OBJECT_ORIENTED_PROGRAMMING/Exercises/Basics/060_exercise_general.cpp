@@ -1,34 +1,34 @@
 /*
- * Exercise 15: Inventory Management System
- * 
- * Create a base class Item with:
- * - Protected members: itemId (string), itemName (string), price (double), quantity (int)
- * - Constructor initializing all members
- * - Pure virtual methods: calculateTotalValue(), applyDiscount(double percent)
- * - Virtual method displayInfo()
- * - Virtual destructor
- * 
- * Create three derived classes:
- * - Electronics: additional members warrantyMonths (int), brand (string); 
- *   implement virtual methods with electronics-specific behavior
- * - Clothing: additional members size (string), material (string); 
- *   implement virtual methods with clothing-specific behavior
- * - Food: additional members expirationDate (string), isPerishable (bool); 
- *   implement virtual methods with food-specific behavior (discount for perishables near expiry)
- * 
- * Create an Inventory class with:
- * - Private member: items (vector of Item pointers)
- * - Method addItem(Item*) to add any type of item
- * - Method removeItem(string itemId) returning bool for success
- * - Method findItem(string itemId) returning Item pointer or nullptr
- * - Method calculateTotalInventoryValue() summing all items
- * - Method displayInventory() showing all items polymorphically
- * - Method applySeasonalDiscount(double percent) to all items
- * - Destructor freeing all memory
- * 
- * In main(), create an inventory with 2 of each item type from user input, 
- * display inventory, calculate total value, apply discounts to specific items, 
- * find and modify specific items, display updated inventory, and ensure proper cleanup.
+ * Άσκηση 15: Σύστημα Διαχείρισης Αποθέματος
+ *
+ * Δημιουργήστε μια βασική κλάση Item με:
+ * - Προστατευόμενα μέλη: itemId (string), itemName (string), price (double), quantity (int)
+ * - Κατασκευαστή που αρχικοποιεί όλα τα μέλη
+ * - Καθαρά εικονικές μέθοδοι: calculateTotalValue(), applyDiscount(double percent)
+ * - Εικονική μέθοδο displayInfo()
+ * - Εικονικό καταστροφέα
+ *
+ * Δημιουργήστε τρεις παράγωγες κλάσεις:
+ * - Electronics: επιπλέον μέλη warrantyMonths (int), brand (string);
+ *   υλοποιήστε τις εικονικές μεθόδους με συμπεριφορά ειδική για ηλεκτρονικά
+ * - Clothing: επιπλέον μέλη size (string), material (string);
+ *   υλοποιήστε τις εικονικές μεθόδους με συμπεριφορά ειδική για ένδυση
+ * - Food: επιπλέον μέλη expirationDate (string), isPerishable (bool);
+ *   υλοποιήστε τις εικονικές μεθόδους με συμπεριφορά ειδική για τρόφιμα (έκπτωση για εύφθαρτα κοντά στη λήξη)
+ *
+ * Δημιουργήστε μια κλάση Inventory με:
+ * - Ιδιωτικό μέλος: items (διάνυσμα δεικτών Item)
+ * - Μέθοδο addItem(Item*) για προσθήκη οποιουδήποτε τύπου αντικειμένου
+ * - Μέθοδο removeItem(string itemId) που επιστρέφει bool για επιτυχία
+ * - Μέθοδο findItem(string itemId) που επιστρέφει δείκτη Item ή nullptr
+ * - Μέθοδο calculateTotalInventoryValue() που αθροίζει όλα τα αντικείμενα
+ * - Μέθοδο displayInventory() που εμφανίζει όλα τα αντικείμενα πολυμορφικά
+ * - Μέθοδο applySeasonalDiscount(double percent) σε όλα τα αντικείμενα
+ * - Καταστροφέα που απελευθερώνει όλη τη μνήμη
+ *
+ * Στο main(), δημιουργήστε ένα απόθεμα με 2 αντικείμενα από κάθε τύπο από είσοδο χρήστη,
+ * εμφανίστε το απόθεμα, υπολογίστε συνολική αξία, εφαρμόστε εκπτώσεις σε συγκεκριμένα αντικείμενα,
+ * βρείτε και τροποποιήστε συγκεκριμένα αντικείμενα, εμφανίστε ενημερωμένο απόθεμα, και βεβαιωθείτε ότι η καθαριότητα γίνεται σωστά.
  */
 
 #include <iostream>
@@ -38,7 +38,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

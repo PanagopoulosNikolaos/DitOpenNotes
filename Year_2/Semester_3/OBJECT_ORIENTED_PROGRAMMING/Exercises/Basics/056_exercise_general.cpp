@@ -1,21 +1,21 @@
 /*
- * Exercise 11: Library System
- * 
- * Create a Book class with:
- * - Private members: isbn (string), title (string), author (string)
- * - Constructor initializing all
- * - Getters for all members
- * 
- * Create a Library class with:
- * - Private member: books (vector of Book pointers)
- * - Method addBook(Book*) to add books
- * - Method removeBook(string isbn) to remove by ISBN
- * - Method findBook(string isbn) returning pointer to book if found
- * - Method displayAllBooks() showing all books
- * - Destructor freeing all allocated memory
- * 
- * In main(), create a library, add 5 books from user input, display all, search for a book by ISBN, 
- * remove a book, and display remaining books.
+ * Άσκηση 11: Σύστημα Βιβλιοθήκης
+ *
+ * Δημιουργήστε μια κλάση Book με:
+ * - Ιδιωτικά μέλη: isbn (string), title (string), author (string)
+ * - Κατασκευαστή που αρχικοποιεί όλα
+ * - Getters για όλα τα μέλη
+ *
+ * Δημιουργήστε μια κλάση Library με:
+ * - Ιδιωτικό μέλος: books (διάνυσμα δεικτών Book)
+ * - Μέθοδο addBook(Book*) για προσθήκη βιβλίων
+ * - Μέθοδο removeBook(string isbn) για αφαίρεση κατά ISBN
+ * - Μέθοδο findBook(string isbn) που επιστρέφει δείκτη σε βιβλίο αν βρεθεί
+ * - Μέθοδο displayAllBooks() που εμφανίζει όλα τα βιβλία
+ * - Καταστροφέα που απελευθερώνει όλη τη δεσμευμένη μνήμη
+ *
+ * Στο main(), δημιουργήστε μια βιβλιοθήκη, προσθέστε 5 βιβλία από είσοδο χρήστη, εμφανίστε όλα, αναζητήστε ένα βιβλίο κατά ISBN,
+ * αφαιρέστε ένα βιβλίο, και εμφανίστε τα υπόλοιπα βιβλία.
  */
 
 #include <iostream>
@@ -24,7 +24,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

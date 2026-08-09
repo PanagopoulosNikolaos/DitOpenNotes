@@ -1,126 +1,126 @@
-# Signals and Systems - Lectures 01-06 Mindmap
+# Σήματα και Συστήματα - Χάρτης Διανοίας Μαθημάτων 01-06
 
-## Section 1: Lecture 01 - Introduction and Course Organization
-- a. Course Overview and Scope
-- b. Core Definitions and Examples of Signals
-- c. Applications and Fields of Engineering
-- d. Mathematical Properties of Signals
-- e. Continuous-Time (CT) vs. Discrete-Time (DT) Representation
-- f. Course Objectives and Key Concepts
-- g. Syllabus and Weekly Timeline
-- h. Grading Policy, Exams, and Textbook References
+## Ενότητα 1: Διάλεξη 01 - Εισαγωγή και Οργάνωση Μαθήματος
+- α. Επισκόπηση και πεδίο εφαρμογής του μαθήματος
+- β. Βασικοί ορισμοί και παραδείγματα σημάτων
+- γ. Εφαρμογές και τομείς της Μηχανικής
+- δ. Μαθηματικές ιδιότητες των σημάτων
+- ε. Αναπαράσταση Συνεχούς Χρόνου (CT) vs. Διακριτού Χρόνου (DT)
+- στ. Στόχοι μαθήματος και βασικές έννοιες
+- ζ. Πρόγραμμα και εβδομαδιακό χρονοδιάγραμμα
+- η. Πολιτική βαθμολόγησης, εξετάσεις και αναφορές σε σχολiazόμενα
 
-## Section 2: Lecture 02 - Basic Signal Concepts
-- a. Formal Definition of Signals and Systems
-- b. Signal Dimensionality (1D, 2D, 3D, Multidimensional)
-- c. Casing and Mathematical Representation of Sinusoidal Signals
-- d. Signal Classification and Categories
-  - i. Continuous-Time vs. Discrete-Time (x(t) vs. x[n])
-  - ii. Analog vs. Digital (Continuous vs. Discrete Amplitude)
-  - iii. Analog-to-Digital Conversion Process (Sampling, Quantization, Coding)
-- e. Signal Energy and Power Calculations
-  - i. Calculations over Finite Time Intervals
-  - ii. Calculations over Infinite Time Horizons
-  - iii. Energy Signals vs. Power Signals
-- f. Transformations of Independent and Dependent Variables
-  - i. Time-Domain Transformations (Time Shifting, Time Reversal, Time Scaling)
-  - ii. Combined Time Transformations (x(at+b))
-  - iii. Amplitude transformations (Amplitude Shifting, Amplitude Scaling)
-  - iv. Signal Arithmetic (Addition and Multiplication)
-- g. Characteristic Parameters of Continuous-Time Signals (Mean Value, RMS Value, Instantaneous Power)
-- h. Signal Properties
-  - i. Deterministic vs. Stochastic (Random) Signals
-  - ii. Causal vs. Non-causal Signals
-  - iii. Bounded Amplitude (Bounded Signals)
-  - iv. Finite vs. Infinite Duration
-  - v. Even and Odd Signals (Symmetry, Decompositions, and Multiplication Properties)
-  - vi. Periodic Signals (Period, Frequency, and Angular Frequency)
+## Ενότητα 2: Διάλεξη 02 - Βασικές έννοιες σημάτων
+- α. Επίσημος ορισμός σημάτων και συστημάτων
+- β. Διαστατικότητα σημάτων (1D, 2D, 3D, Πολλαπλή)
+- γ. Κλάση και μαθηματική αναπαράσταση ημιτονοειδών σημάτων
+- δ. Ταξινόμηση και κατηγορίες σημάτων
+  - i. Συνεχής Χρόνου vs. Διακριτός Χρόνος (x(t) vs. x[n])
+  - ii. Αναλογικό vs. Ψηφιακό (Συνεχής vs. Διακριτή πλάτη)
+  - iii. Διαδικασία μετατροπής Αναλογικού σε Ψηφιακό (Δειγματοληψία, Κβαντοποίηση, Κωδικοποίηση)
+- ε. Υπολογισμοί Ενέργειας και Ισχύος σημάτων
+  - i. Υπολογισμοί σε πεπερασμένα χρονικά διαστήματα
+  - ii. Υπολογισμοί σε απείρους χρονικούς ορίζοντες
+  - iii. Σήματα Ενέργειας vs. Σήματα Ισχύος
+- στ. Μετασχηματισμοί ανεξάρτητων και εξαρτημένων μεταβλητών
+  - i. Μετασχηματισμοί στον χρόνο (Μετατόπιση χρόνου, Αναστροφή χρόνου, Κλίμακα χρόνου)
+  - ii. Συνδυασμένοι μετασχηματισμοί χρόνου (x(at+b))
+  - iii. Μετασχηματισμοί πλάτους (Μετατόπιση πλάτους, Κλιμάκωση πλάτους)
+  - iv. Αριθμητική σημάτων (Πρόσθεση και Πολλαπλασιασμός)
+- ζ. Χαρακτηριστικές παράμετροι συνεχών χρόνου σημάτων (Μέση τιμή, Τιμή RMS, Στιγμιαία ισχύς)
+- η. Ιδιότητες σημάτων
+  - i. Καθοριστικά vs. Στοχατικά (Τυχαία) σήματα
+  - ii. Αιτιατά vs. Μη-αιτιατά σήματα
+  - iii. Πεπερασμένο πλάτος (Δεσμευμένα σήματα)
+  - iv. Πεπερασμένη vs. Άπειρη διάρκεια
+  - v. Άρτια και Μονά σήματα (Συμμετρία, Αποδομήσεις, και Ιδιότητες πολλαπλασιασμού)
+  - vi. Περιοδικά σήματα (Περίοδος, Συχνότητα, και Γωνιακή συχνότητα)
 
-## Section 3: Lecture 03 - Continuous-Time Signals (Basic & Elementary Signals)
-- a. Recap of Classifications, Transformations, and Symmetries
-- b. Conditions for Periodicity of the Sum of Periodic Signals
-- c. Unit Step Function (Heaviside Function)
-  - i. Definition and Discontinuity at t=0
-  - ii. Alternative Limit Definition
-  - iii. Amplitude Scaling and Shifting Properties
-- d. Signum Function (sgn(t))
-- e. Unit Impulse Function (Dirac Delta Function)
-  - i. Definition and Area Property
-  - ii. Graphical Representation
-  - iii. Amplitude Scaling and Time Shifting
-  - iv. Approximation Limits of Impulses
-- f. Mathematical Relations between Step and Impulse Functions
-- g. Fundamental Properties of the Dirac Delta Function
-  - i. Sifting Property
-  - ii. Time Scaling Property
-- h. Unit Ramp Function (r(t)) and its Derivative Relationships
-- i. Exponential Signals
-  - i. Real Exponentials (Decaying vs. Growing) and Time Constants
-  - ii. Euler's Formulas and Complex Exponentials Relationship
-  - iii. Complex Exponential Signals (Euler Identity, Sines/Cosines Representation)
-- j. Sinusoidal Signals and Phase Relationships
-- k. Damped Sinusoids
-- l. Rectangular Pulse Function and Unit Step Generation
-- m. Periodic Rectangular Pulses (Pulse Trains)
-- n. Triangular Pulse Function
-- o. Sampling Function (Sinc Function) and Integral Properties
-- p. Impulse Train (Comb Function)
+## Ενότητα 3: Διάλεξη 03 - Σήματα Συνεχούς χρόνου (Βασικά και Στοιχειακά σήματα)
+- α. Επανάληψη ταξινομήσεων, μετασχηματισμών και συμμετριών
+- β. Συνθήκες περιοδικότητας του αθροίσματος περιοδικών σημάτων
+- γ. Βαθμίδα μονάδας (Συνάρτηση Heaviside)
+  - i. Ορισμός και ασυνέχεια στο t=0
+  - ii. Εναλλακτικός ορισμός ορίου
+  - iii. Ιδιότητες κλιμάκωσης και μετατόπισης πλάτους
+- δ. Συνάρτηση σημείου (sgn(t))
+- ε. Δέλτα μονάδας (Συνάρτηση Dirac Delta)
+  - i. Ορισμός και ιδιότητα εμβέλειας
+  - ii. Γραφική αναπαράσταση
+  - iii. Κλιμάκωση πλάτους και μετατόπιση χρόνου
+  - iv. Όρια προσέγγισσης των κινήσεων
+- στ. Μαθηματικές σχέσεις μεταξύ βημάτων και κινήσεων
+- ζ. Θεμελιώδεις ιδιότητες της συνάρτησης Dirac Delta
+  - i. Ιδιότητα απομόνωσης (Sifting)
+  - ii. Ιδιότητα κλιμάκωσης χρόνου
+- η. Βαθμίδα ραφής (r(t)) και σχέσεις παραγώγων
+- θ. Εκθετικά σήματα
+  - i. Πραγματικά εκθετικά (Φθίνοντα vs. Αυξανόμενα) και χρονικές σταθερές
+  - ii. Τύποι Euler και σχέση με σύνθετα εκθετικά
+  - iii. Σύνθετα εκθετικά σήματα (Ταυτότητα Euler, Αναπαράσταση ημιτόνων/συνημιτόνων)
+- ι. Ημιτονοειδή σήματα και σχέσεις φάσης
+- ια. Αποφραχθέντα ημιτονοειδή
+- ιβ. Ορθογώνια παλμική συνάρτηση και δημιουργία βήματος μονάδας
+- ιγ. Περιοδικές ορθογώνιες παλμικές (Σειρές παλμών)
+- ιδ. Τριγωνική παλμική συνάρτηση
+- ιε. Συνάρτηση δειγματοληψίας (Συνάρτηση Sinc) και ιδιότητες ολοκληρώματος
+- ιστ. Σειρά κινήσεων (Συνάρτηση Comb)
 
-## Section 4: Lecture 04 - Continuous-Time Systems
-- a. Representing Arbitrary Signals as Integrals of Shifted Impulses
-- b. Definition and Block Diagram representation of Systems
-- c. System Classification by Input-Output Count (SISO, MISO, SIMO, MIMO)
-- d. System Classification by Signal Nature (Continuous-Time vs. Discrete-Time, Deterministic vs. Stochastic)
-- e. System State and State of Rest
-- f. Linear Systems
-  - i. Homogeneity (Scaling) Property
-  - ii. Additivity Property
-  - iii. Superposition Principle
-  - iv. Methods for Linearity Testing and Counter-examples
-- g. Time-Invariant Systems
-  - i. Definition of Time-Invariance
-  - ii. Methods for Time-Invariance Testing and Counter-examples
+## Ενότητα 4: Διάλεξη 04 - Συστήματα Συνεχούς χρόνου
+- α. Αναπαράσταση αυθαίρετων σημάτων ως ολοκληρωμάτων μετατοπισμένων κινήσεων
+- β. Ορισμός και αναπαράσταση διαγράμματος μπλοκ των συστημάτων
+- γ. Ταξινόμηση συστημάτων κατά αριθμό εισόδου-εξόδου (SISO, MISO, SIMO, MIMO)
+- δ. Ταξινόμηση συστημάτων κατά φύση σήματος (Συνεχής χρόνου vs. Διακριτός χρόνου, Καθοριστικά vs. Στοχατικά)
+- ε. Κατάσταση συστήματος και Κατάσταση ηρεμίας
+- στ. Γραμμικά συστήματα
+  - i. Ιδιότητα ομογένειας (Κλιμάκωση)
+  - ii. Ιδιότητα πρόσθεσης
+  - iii. Αρχή υπερθέσης
+  - iv. Μέθοδοι ελέγχου γραμμικότητας και αντιστοιχεία
+- ζ. Συστήματα αμετάβλητα στον χρόνο
+  - i. Ορισμός αμεταβλητότητας στον χρόνο
+  - ii. Μέθοδοι ελέγχου αμεταβλητότητας στον χρόνο και αντιστοιχεία
 
-## Section 5: Lecture 05 - Linear Time-Invariant (LTI) Systems
-- a. Recap of System Linearity and Time-Invariance
-- b. Static (Memoryless) vs. Dynamic Systems
-  - i. Memoryless Systems (Resistor Example)
-  - ii. Systems with Memory (Capacitor Integrator Example)
-  - iii. Memory Length (Finite vs. Infinite Memory)
-- c. Causal vs. Non-causal Systems
-  - i. Definition of Causality in Time
-  - ii. Causal Physical Real-Time Systems vs. Non-real-time recorded processing
-- d. System Stability (Bounded-Input Bounded-Output Stability - BIBO)
-  - i. Definition of BIBO Stability
-  - ii. Physical Analogy of Stability (Marble in a Bowl vs. on a Dome)
-  - iii. Stability Proofs and Testing Methods
-- e. Importance of Linear Time-Invariant (LTI) Systems
-- f. Impulse Response
-  - i. Definition for LTI Systems (h(t) = S[delta(t)])
-  - ii. Definition for Linear Time-Varying Systems (h(t, tau))
-- g. The Convolution Integral
-  - i. Derivation and Formulation
-  - ii. Output Representation for Causal LTI Systems
-  - iii. Output Representation for Causal Inputs
+## Ενότητα 5: Διάλεξη 05 - Γραμμικά και Χρονικά Αμετάβλητα Συστήματα (LTI)
+- α. Επανάληψη γραμμικότητας και αμεταβλητότητας στον χρόνο του συστήματος
+- β. Στατικά (Χωρίς μνήμη) vs. Δυναμικά συστήματα
+  - i. Συστήματα χωρίς μνήμη (Παράδειγμα αντιστάτη)
+  - ii. Συστήματα με μνήμη (Παράδειγμα ολοκληρωτή πυκνωτή)
+  - iii. Διάρκεια μνήμης (Πεπερασμένη vs. Άπειρη μνήμη)
+- γ. Αιτιατά vs. Μη-αιτιατά συστήματα
+  - i. Ορισμός αιτίας στον χρόνο
+  - ii. Φυσικά πραγματικού χρόνου αιτιατά συστήματα vs. επεξεργασία μη πραγματικού χρόνου
+- δ. Σταθερότητα συστήματος (Σταθερότητα Δεσμευμένης Εισόδου - Δεσμευμένης Εξόδου BIBO)
+  - i. Ορισμός σταθερότητας BIBO
+  - ii. Φυσική αναλογία σταθερότητας (Μάρμαρο σε μπόγια vs. σε θόλο)
+  - iii. Αποδείξεις σταθερότητας και μέθοδοι ελέγχου
+- ε. Σημασία Γραμμικών Χρονικά Αμετάβλητων (LTI) συστημάτων
+- στ. Απόκριση κινήσεων (Impulse Response)
+  - i. Ορισμός για LTI συστήματα (h(t) = S[δ(t)])
+  - ii. Ορισμός για Γραμμικά Χρονικά Μεταβαλλόμενα συστήματα (h(t, τ))
+- ζ. Το ολοκληρωτικό συνέλιξης
+  - i. Παράγωγος και διατύπωση
+  - ii. Αναπαράσταση εξόδου για αιτιατά LTI συστήματα
+  - iii. Αναπαράσταση εξόδου για αιτιατά σήματα εισόδου
 
-## Section 6: Lecture 06 - Convolution
-- a. Summary of Impulse Response and Convolution Integral Definition
-- b. Steps for Analytical and Graphical Convolution Computation
-  - i. Time Reversal (Reflection)
-  - ii. Time Shifting (Sliding)
-  - iii. Multiplication (Overlap Product)
-  - iv. Integration (Area Calculation)
-- c. Step-by-Step Walkthrough of Convolution Example
-  - i. Case 1: No Overlap (t < 0)
-  - ii. Case 2: Partial Overlap Entering (0 <= t < 1)
-  - iii. Case 3: Full Overlap (1 <= t < 2)
-  - iv. Case 4: Partial Overlap Exiting (2 <= t < 3)
-  - v. Case 5: No Overlap Exited (t >= 3)
-- d. Convolution Tables of Common Signal Pairs
-- e. Properties of Convolution
-  - i. Commutative Property
-  - ii. Associative Property
-  - iii. Distributive Property
-  - iv. Identity and Shifting Properties (Convolution with Delta Functions)
-  - v. Homogeneity Property
-  - vi. Width Property (Convolution Duration = Sum of Individual Durations)
+## Ενότητα 6: Διάλεξη 06 - Συνέλιξη
+- α. Περίληψη απόκρισης κινήσεων και ορισμός ολοκληρωτικού συνέλιξης
+- β. Βήματα για αναλυτική και γραφική υπολογισμό συνέλιξης
+  - i. Αναστροφή χρόνου (Αντανάκλαση)
+  - ii. Μετατόπιση χρόνου (Ολίσθηση)
+  - iii. Πολλαπλασιασμός (Γινόμενο επικαλύψεως)
+  - iv. Ολοκλήρωση (Υπολογισμός εμβέλειας)
+- γ. Βήμα προς βήμα μελέτη παραδείγματος συνέλιξης
+  - i. Περίπτωση 1: Χωρίς επικάλυψη (t < 0)
+  - ii. Περίπτωση 2: Μερική επικάλυψη εισόδου (0 <= t < 1)
+  - iii. Περίπτωση 3: Πλήρης επικάλυψη (1 <= t < 2)
+  - iv. Περίπτωση 4: Μερική επικάλυψη εξόδου (2 <= t < 3)
+  - v. Περίπτωση 5: Χωρίς επικάλυψη εξόδου (t >= 3)
+- δ. Πίνακες συνέλιξης κοινών ζευγών σημάτων
+- ε. Ιδιότητες συνέλιξης
+  - i. Αντιμεταθετική ιδιότητα
+  - ii. Συσσωρευτική ιδιότητα
+  - iii. Διανεμητική ιδιότητα
+  - iv. Ταυτότητα και ιδιότητες μετατόπισης (Συνέλιξη με συναρτήσεις Δέλτα)
+  - v. Ιδιότητα ομογένειας
+  - vi. Ιδιότητα πλάτους (Διάρκεια συνέλιξης = Άθροισμα ατομικών διαρκεών)

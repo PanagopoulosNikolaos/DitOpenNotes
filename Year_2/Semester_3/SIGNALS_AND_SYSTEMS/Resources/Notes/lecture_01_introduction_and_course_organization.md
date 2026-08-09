@@ -1,125 +1,125 @@
-# Lecture 01 - Introduction to Signals and Systems
+# Διάλεξη 01 - Εισαγωγή στα Σήματα και τα Συστήματα
 
-Course overview establishing the foundational concepts of signals and systems, their mathematical representations, and their role across electrical and computer engineering disciplines. This lecture introduces the formal definition of a signal, distinguishes continuous-time from discrete-time representations, surveys key application domains, and outlines the course structure and grading policy.
+Επισκόπηση μαθήματος που θεμελιώνει τις βασικές έννοιες των σημάτων και των συστημάτων, τις μαθηματικές τους αναπαραστάσεις και τον ρόλο τους στους κλάδους της ηλεκτρολογίας και της πληροφορικής. Η διάλεξη αυτή εισάγει τον τυπικό ορισμό του σήματος, διακρίνει την αναπαράσταση συνεχούς χρόνου από αυτή του διακριτού χρόνου, παρουσιάζει επιγραμματικά βασικούς τομείς εφαρμογών και περιγράφει τη δομή του μαθήματος και την πολιτική βαθμολόγησης.
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Εννοιολογικό Θεμέλιο
 
-### 1.1 What is a Signal?
+### 1.1 Τι είναι το Σήμα;
 
-A signal is a physical quantity that varies with one or more independent variables and conveys information about a phenomenon. In this course, the independent variable is almost always time, denoted $t$ (continuous) or $n$ (discrete integer index). The dependent variable — the signal amplitude — may represent voltage, current, pressure, temperature, displacement, or any other measurable quantity.
+Ένα σήμα είναι ένα φυσικό μέγεθος που μεταβάλλεται ως προς μία ή περισσότερες ανεξάρτητες μεταβλητές και μεταφέρει πληροφορία σχετικά με ένα φαινόμενο. Σε αυτό το μάθημα, η ανεξάρτητη μεταβλητή είναι σχεδόν πάντα ο χρόνος, συμβολιζόμενος με $t$ (συνεχής) ή $n$ (ακέραιος δείκτης διακριτού). Η εξαρτημένη μεταβλητή — το πλάτος του σήματος — μπορεί να αναπαριστά τάση, ρεύμα, πίεση, θερμοκρασία, μετατόπιση ή οποιοδήποτε άλλο μετρήσιμο μέγεθος.
 
-The fundamental operation of an engineering system is to process an input signal to produce an output signal that serves some purpose: extraction of information, modification of the signal form, control of a physical process, or communication over a channel.
+Η θεμελιώδης λειτουργία ενός τεχνολογικού συστήματος είναι η επεξεργασία ενός σήματος εισόδου ώστε να παραχθεί ένα σήμα εξόδου που εξυπηρετεί κάποιο σκοπό: εξαγωγή πληροφορίας, τροποποίηση της μορφής του σήματος, έλεγχο μιας φυσικής διαδικασίας ή επικοινωνία μέσω ενός καναλιού.
 
-### 1.2 What is a System?
+### 1.2 Τι είναι το Σύστημα;
 
-A system is any entity that takes one or more input signals and produces one or more output signals according to a well-defined rule or transformation. Systems are represented generically as:
+Ένα σύστημα είναι κάθε οντότητα που λαμβάνει ένα ή περισσότερα σήματα εισόδου και παράγει ένα ή περισσότερα σήματα εξόδου σύμφωνα με έναν καλώς ορισμένο κανόνα ή μετασχηματισμό. Τα συστήματα αναπαρίστανται γενικά ως:
 
 $$
 y(t) = T\{x(t)\}
 $$
 
-where $x(t)$ is the input signal, $y(t)$ is the output signal, and $T\{\cdot\}$ denotes the transformation operator applied by the system.
+όπου $x(t)$ είναι το σήμα εισόδου, $y(t)$ είναι το σήμα εξόδου και $T\{\cdot\}$ συμβολίζει τον τελεστή μετασχηματισμού που εφαρμόζει το σύστημα.
 
-### 1.3 Continuous-Time vs. Discrete-Time Representation
+### 1.3 Αναπαράσταση Συνεχούς Χρόνου έναντι Διακριτού Χρόνου
 
-| Aspect | Continuous-Time (CT) | Discrete-Time (DT) |
+| Πτυχή | Συνεχής Χρόνος (CT) | Διακριτός Χρόνος (DT) |
 | :--- | :--- | :--- |
-| Independent variable | Real time $t \in \mathbb{R}$ | Integer index $n \in \mathbb{Z}$ |
-| Notation | $x(t)$ | $x[n]$ |
-| Source | Naturally occurring physical signals | Sampled data, digital computation |
-| Amplitude | Continuous range | Continuous or quantized |
-| Processing technology | Analog circuits, operational amplifiers | Digital signal processors, software |
+| Ανεξάρτητη μεταβλητή | Πραγματικός χρόνος $t \in \mathbb{R}$ | Ακέραιος δείκτης $n \in \mathbb{Z}$ |
+| Συμβολισμός | $x(t)$ | $x[n]$ |
+| Πηγή | Φυσικά εμφανιζόμενα φυσικά σήματα | Δειγματοληπτημένα δεδομένα, ψηφιακός υπολογισμός |
+| Πλάτος | Συνεχές εύρος | Συνεχές ή κβαντισμένο |
+| Τεχνολογία επεξεργασίας | Αναλογικά κυκλώματα, τελεστικοί ενισχυτές | Επεξεργαστές ψηφιακών σημάτων, λογισμικό |
 
-### 1.4 Mathematical Properties of Signals
+### 1.4 Μαθηματικές Ιδιότητες των Σημάτων
 
-Signals are characterized by several mathematical properties that determine how they can be analyzed and processed:
+Τα σήματα χαρακτηρίζονται από διάφορες μαθηματικές ιδιότητες που καθορίζουν τον τρόπο με τον οποίο μπορούν να αναλυθούν και να επεξεργαστούν:
 
-- **Amplitude:** The magnitude of the signal at any instant.
-- **Duration:** The time interval over which the signal is non-zero (finite or infinite).
-- **Periodicity:** Whether the signal repeats exactly after a fixed period $T_0$.
-- **Symmetry:** Whether the signal is even ($x(t) = x(-t)$), odd ($x(t) = -x(-t)$), or neither.
-- **Boundedness:** Whether the signal amplitude remains within finite limits.
-- **Determinism:** Whether the signal is exactly predictable (deterministic) or random (stochastic).
+- **Πλάτος:** Το μέτρο του σήματος σε κάθε χρονική στιγμή.
+- **Διάρκεια:** Το χρονικό διάστημα κατά το οποίο το σήμα είναι μη μηδενικό (πεπερασμένο ή άπειρο).
+- **Περιοδικότητα:** Αν το σήμα επαναλαμβάνεται ακριβώς μετά από ένα σταθερό διάστημα $T_0$.
+- **Συμμετρία:** Αν το σήμα είναι άρτιο ($x(t) = x(-t)$), περιττό ($x(t) = -x(-t)$) ή ούτε ένα από τα δύο.
+- **Φραγμένοτητα:** Αν το πλάτος του σήματος παραμένει εντός πεπερασμένων ορίων.
+- **Ντετερμινισμός:** Αν το σήμα είναι ακριβώς προβλέψιμο (ντετερμινιστικό) ή τυχαίο (στοχαστικό).
 
-### 1.5 Applications and Fields of Engineering
+### 1.5 Εφαρμογές και Πεδία Μηχανικής
 
-Signals and systems theory underpins virtually every branch of electrical and computer engineering:
+Η θεωρία σημάτων και συστημάτων υποστηρίζει σχεδόν κάθε κλάδο της ηλεκτρολογίας και της πληροφορικής:
 
-| Application Area | Signal Type | System Function |
+| Τομέας Εφαρμογής | Τύπος Σήματος | Λειτουργία Συστήματος |
 | :--- | :--- | :--- |
-| Audio processing | Acoustic pressure waveform | Filtering, compression, equalization |
-| Image processing | 2D intensity function $I(x, y)$ | Edge detection, enhancement, encoding |
-| Communications | Modulated electromagnetic wave | Modulation, demodulation, channel equalization |
-| Control systems | Sensor voltage, actuator current | Stabilization, tracking, regulation |
-| Biomedical engineering | ECG, EEG voltage traces | Diagnosis, artifact removal, feature extraction |
-| Radar/sonar | Reflected pulse train | Target detection, ranging, Doppler estimation |
+| Επεξεργασία ήχου | Κυματομορφή ακουστικής πίεσης | Φιλτράρισμα, συμπίεση, εξίσωση |
+| Επεξεργασία εικόνας | Συνάρτηση έντασης 2Δ $I(x, y)$ | Ανίχνευση ακμών, βελτίωση, κωδικοποίηση |
+| Τηλεπικοινωνίες | Διαμορφωμένο ηλεκτρομαγνητικό κύμα | Διαμόρφωση, αποδιαμόρφωση, εξίσωση καναλιού |
+| Συστήματα ελέγχου | Τάση αισθητήρα, ρεύμα ενεργοποιητή | Σταθεροποίηση, παρακολούθηση, ρύθμιση |
+| Βιοϊατρική μηχανική | Ίχνη τάσης ΗΚΓ, ΗΕΓ | Διάγνωση, αφαίρεση αρτίφακτ, εξαγωγή χαρακτηριστικών |
+| Ραντάρ/σόναρ | Ακολουθία ανακλώμενων παλμών | Ανίχνευση στόχου, εύρεση απόστασης, εκτίμηση Doppler |
 
 ---
 
-## 2. Core Definitions and Signal Representation
+## 2. Βασικοί Ορισμοί και Αναπαράσταση Σήματος
 
-### 2.1 Formal Definition of a Signal
+### 2.1 Τυπικός Ορισμός του Σήματος
 
-> **[Supplementary]**
+> **[Συμπληρωματικό]**
 >
-> A signal is formally defined as a function that maps an independent variable (typically time) to a dependent variable (amplitude):
+> Ένα σήμα ορίζεται τυπικά ως μια συνάρτηση που απεικονίζει μια ανεξάρτητη μεταβλητή (συνήθως τον χρόνο) σε μια εξαρτημένη μεταβλητή (πλάτος):
 >
 > $$
-> x: \mathbb{R} \to \mathbb{R} \quad \text{(CT signal)}
+> x: \mathbb{R} \to \mathbb{R} \quad \text{(σήμα CT)}
 > $$
 > $$
-> x: \mathbb{Z} \to \mathbb{R} \quad \text{(DT signal)}
+> x: \mathbb{Z} \to \mathbb{R} \quad \text{(σήμα DT)}
 > $$
 >
-> The codomain may also be $\mathbb{C}$ for complex-valued signals.
+> Ο συν-πεδίο τιμών μπορεί επίσης να είναι το $\mathbb{C}$ για μιγαδικά σήματα.
 
-### 2.2 Sinusoidal Signals
+### 2.2 Ημιτονοειδή Σήματα
 
-The sinusoidal signal is the most important elementary signal in the course because it is an eigenfunction of linear time-invariant (LTI) systems.
+Το ημιτονοειδές σήμα είναι το σημαντικότερο στοιχειώδες σήμα στο μάθημα επειδή αποτελεί ιδιοσυνάρτηση των γραμμικών συστημάτων αμετάβλητων ως προς τον χρόνο (LTI).
 
 $$
 x(t) = A \cos(\omega_0 t + \phi)
 $$
 
-| Parameter | Symbol | Units | Description |
+| Παράμετρος | Σύμβολο | Μονάδες | Περιγραφή |
 | :--- | :--- | :--- | :--- |
-| Amplitude | $A$ | Same as signal | Peak deviation from zero |
-| Angular frequency | $\omega_0$ | rad/s | Rate of oscillation in radians per second |
-| Frequency | $f_0$ | Hz ($\text{s}^{-1}$) | Cycles per second: $\omega_0 = 2\pi f_0$ |
-| Period | $T_0$ | s | Time for one complete cycle: $T_0 = 1/f_0$ |
-| Phase | $\phi$ | rad | Horizontal shift relative to $t=0$ |
+| Πλάτος | $A$ | Όπως το σήμα | Μέγιστη απόκλιση από το μηδέν |
+| Γωνιακή συχνότητα | $\omega_0$ | rad/s | Ρυθμός ταλάντωσης σε ακτίνια ανά δευτερόλεπτο |
+| Συχνότητα | $f_0$ | Hz ($\text{s}^{-1}$) | Κύκλοι ανά δευτερόλεπτο: $\omega_0 = 2\pi f_0$ |
+| Περίοδος | $T_0$ | s | Χρόνος για έναν πλήρη κύκλο: $T_0 = 1/f_0$ |
+| Φάση | $\phi$ | rad | Οριζόντια μετατόπιση ως προς το $t=0$ |
 
-**Euler's formula** relates the sinusoid to complex exponentials:
+Ο **τύπος του Euler** συνδέει την ημιτονοειδή συνάρτηση με τα μιγαδικά εκθετικά:
 
 $$
 \cos(\theta) = \frac{e^{j\theta} + e^{-j\theta}}{2}, \qquad \sin(\theta) = \frac{e^{j\theta} - e^{-j\theta}}{2j}
 $$
 
-### 2.3 Complex Exponential Signals
+### 2.3 Μιγαδικά Εκθετικά Σήματα
 
-The complex exponential is the fundamental building block for representing and analyzing signals:
+Το μιγαδικό εκθετικό αποτελεί το θεμελιώδη δομικό στοιχείο για την αναπαράσταση και ανάλυση σημάτων:
 
 $$
 x(t) = C e^{st}
 $$
 
-where $C$ is a complex amplitude and $s = \sigma + j\omega$ is a complex frequency.
+όπου $C$ είναι ένα μιγαδικό πλάτος και $s = \sigma + j\omega$ είναι μια μιγαδική συχνότητα.
 
-**Special cases:**
+**Ειδικές περιπτώσεις:**
 
-| $s$ value | Signal type | Behavior |
+| Τιμή $s$ | Τύπος Σήματος | Συμπεριφορά |
 | :--- | :--- | :--- |
-| $s = 0$ | Constant | $x(t) = C$ |
-| $s = \sigma$ (real, $\sigma > 0$) | Growing real exponential | $x(t) = C e^{\sigma t}$ |
-| $s = \sigma$ (real, $\sigma < 0$) | Decaying real exponential | $x(t) = C e^{\sigma t}$ |
-| $s = j\omega$ (purely imaginary) | Complex sinusoid | $x(t) = C e^{j\omega t}$ |
-| $s = \sigma \pm j\omega$ | Damped sinusoid | $x(t) = C e^{\sigma t} e^{\pm j\omega t}$ |
+| $s = 0$ | Σταθερό | $x(t) = C$ |
+| $s = \sigma$ (πραγματικό, $\sigma > 0$) | Αυξανόμενο πραγματικό εκθετικό | $x(t) = C e^{\sigma t}$ |
+| $s = \sigma$ (πραγματικό, $\sigma < 0$) | Φθίνον πραγματικό εκθετικό | $x(t) = C e^{\sigma t}$ |
+| $s = j\omega$ (καθαρά φανταστικό) | Μιγαδικό ημιτονοειδές | $x(t) = C e^{j\omega t}$ |
+| $s = \sigma \pm j\omega$ | Αποσβεννύμενο ημιτονοειδές | $x(t) = C e^{\sigma t} e^{\pm j\omega t}$ |
 
-### 2.4 Unit Step Function
+### 2.4 Συνάρτηση Μονιαίου Βήματος
 
-Defined as:
+Ορίζεται ως:
 
 $$
 u(t) = \begin{cases}
@@ -128,130 +128,130 @@ u(t) = \begin{cases}
 \end{cases}
 $$
 
-The value at $t = 0$ is typically left undefined or set to $u(0) = 1/2$ depending on convention. The unit step is used to represent signals that turn on at a specific time.
+Η τιμή στο $t = 0$ συνήθως αφήνεται απροσδιόριστη ή τίθεται ίση με $u(0) = 1/2$ ανάλογα με τη σύμβαση. Το μονιαίο βήμα χρησιμοποιείται για την αναπαράσταση σημάτων που ενεργοποιούνται σε συγκεκριμένη χρονική στιγμή.
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-### 3.1 Signal Dimensionality
+### 3.1 Διαστατικότητα Σήματος
 
-Signals can be classified by the number of independent variables:
+Τα σήματα μπορούν να ταξινομηθούν με βάση τον αριθμό των ανεξάρτητων μεταβλητών:
 
-- **One-dimensional (1D):** $x(t)$ — time-domain signals (audio, voltage)
-- **Two-dimensional (2D):** $I(x, y)$ — images, spatial fields
-- **Three-dimensional (3D):** $V(x, y, z)$ — volumetric data, video
-- **Multidimensional:** $M$ independent variables
+- **Μονοδιάστατο (1Δ):** $x(t)$ — σήματα πεδίου χρόνου (ήχος, τάση)
+- **Δισδιάστατο (2Δ):** $I(x, y)$ — εικόνες, χωρικά πεδία
+- **Τρισδιάστατο (3Δ):** $V(x, y, z)$ — ογκομετρικά δεδομένα, βίντεο
+- **Πολυδιάστατο:** $M$ ανεξάρτητες μεταβλητές
 
-### 3.2 Analog vs. Digital Distinction
+### 3.2 Διάκριση Αναλογικού έναντι Ψηφιακού
 
-| Property | Analog Signal | Digital Signal |
+| Ιδιότητα | Αναλογικό Σήμα | Ψηφιακό Σήμα |
 | :--- | :--- | :--- |
-| Time variable | Continuous ($t$) | Discrete ($n$) |
-| Amplitude | Continuous range | Discrete (quantized) levels |
-| Notation | $x(t)$ | $x[n]$ with quantized values |
-| Example | Microphone voltage | PCM audio bitstream |
+| Μεταβλητή χρόνου | Συνεχής ($t$) | Διακριτή ($n$) |
+| Πλάτος | Συνεχές εύρος | Διακριτά (κβαντισμένα) επίπεδα |
+| Συμβολισμός | $x(t)$ | $x[n]$ με κβαντισμένες τιμές |
+| Παράδειγμα | Τάση μικροφώνου | Ροή bit PCM ήχου |
 
-### 3.3 Analog-to-Digital Conversion Chain
+### 3.3 Αλυσίδα Μετατροπής Αναλογικού σε Ψηφιακό
 
-The process of converting a real-world analog signal into a digital representation involves three steps:
+Η διαδικασία μετατροπής ενός πραγματικού αναλογικού σήματος σε μια ψηφιακή αναπαράσταση περιλαμβάνει τρία βήματα:
 
-1. **Sampling:** Continuous time $t$ is converted to discrete integer indices $n$ at a sampling rate $f_s$ samples/second.
-2. **Quantization:** The continuous amplitude is rounded to one of a finite set of discrete levels.
-3. **Coding:** Each quantized level is assigned a binary codeword.
-
----
-
-## 4. Step-by-Step Mechanism: Signal Analysis Procedure
-
-When analyzing any signal encountered in this course, follow this sequence:
-
-1. **Identify the domain:** Is the signal CT ($t$) or DT ($n$)?
-2. **Determine the amplitude range:** What are the minimum and maximum values?
-3. **Classify by duration:** Is the signal time-limited or infinite in extent?
-4. **Check periodicity:** Does there exist a $T_0 > 0$ such that $x(t + T_0) = x(t)$ for all $t$?
-5. **Examine symmetry:** Is the signal even, odd, or neither?
-6. **Identify elementary building blocks:** Can the signal be expressed in terms of steps, ramps, impulses, sinusoids, or exponentials?
-7. **Compute relevant metrics:** Energy, power, mean value, RMS value as appropriate.
+1. **Δειγματοληψία:** Ο συνεχής χρόνος $t$ μετατρέπεται σε διακριτούς ακέραιους δείκτες $n$ με ρυθμό δειγματοληψίας $f_s$ δείγματα/δευτερόλεπτο.
+2. **Κβαντισμός:** Το συνεχές πλάτος στρογγυλοποιείται σε ένα από ένα πεπερασμένο σύνολο διακριτών επιπέδων.
+3. **Κωδικοποίηση:** Κάθε κβαντισμένο επίπεδο αποδίδεται σε μια δυαδική λέξη κώδικα.
 
 ---
 
-## 5. Solved Exercises
+## 4. Βήμα προς Βήμα Μηχανισμός: Διαδικασία Ανάλυσης Σήματος
 
-### Exercise 1: Classifying a Given Signal
+Κατά την ανάλυση οποιουδήποτε σήματος συναντάται σε αυτό το μάθημα, ακολουθήστε την εξής σειρά:
 
-**Problem:** Determine whether the signal $x(t) = 5 \cos(100\pi t)$ is: (a) continuous-time or discrete-time, (b) analog or digital, (c) periodic or aperiodic. If periodic, find its period.
+1. **Προσδιορισμός πεδίου:** Είναι το σήμα CT ($t$) ή DT ($n$);
+2. **Καθορισμός εύρους πλάτους:** Ποιες είναι οι ελάχιστες και μέγιστες τιμές;
+3. **Ταξινόμηση κατά διάρκεια:** Το σήμα είναι πεπερασμένης έκτασης ως προς τον χρόνο ή άπειρο;
+4. **Έλεγχος περιοδικότητας:** Υπάρχει $T_0 > 0$ τέτοιο ώστε $x(t + T_0) = x(t)$ για κάθε $t$;
+5. **Εξέταση συμμετρίας:** Το σήμα είναι άρτιο, περιττό ή ούτε ένα από τα δύο;
+6. **Αναγνώριση στοιχειωδών δομικών στοιχείων:** Μπορεί το σήμα να εκφραστεί μέσω βημάτων, κλίσεων, παλμών, ημιτονοειδών ή εκθετικών;
+7. **Υπολογισμός σχετικών μετρικών:** Ενέργεια, ισχύς, μέση τιμή, τιμή RMS κατά περίπτωση.
 
-**Solution:**
+---
 
-1. The independent variable is $t \in \mathbb{R}$, so the signal is **continuous-time**.
-2. The amplitude $5 \cos(100\pi t)$ takes on a continuous range of values in $[-5, 5]$, so it is **analog**.
-3. A cosine is periodic: $x(t + T_0) = 5 \cos(100\pi (t + T_0))$. For equality, we need $100\pi T_0 = 2\pi k$ for some integer $k$. The fundamental period occurs at $k = 1$:
+## 5. Λυμένες Ασκήσεις
+
+### Άσκηση 1: Ταξινόμηση ενός Δεδομένου Σήματος
+
+**Πρόβλημα:** Να προσδιοριστεί αν το σήμα $x(t) = 5 \cos(100\pi t)$ είναι: (α) συνεχούς ή διακριτού χρόνου, (β) αναλογικό ή ψηφιακό, (γ) περιοδικό ή απερίοδικο. Αν είναι περιοδικό, να βρεθεί η περίοδός του.
+
+**Λύση:**
+
+1. Η ανεξάρτητη μεταβλητή είναι $t \in \mathbb{R}$, άρα το σήμα είναι **συνεχούς χρόνου**.
+2. Το πλάτος $5 \cos(100\pi t)$ λαμβάνει ένα συνεχές εύρος τιμών στο $[-5, 5]$, άρα είναι **αναλογικό**.
+3. Ένα ημίτονο είναι περιοδικό: $x(t + T_0) = 5 \cos(100\pi (t + T_0))$. Για ισότητα, απαιτείται $100\pi T_0 = 2\pi k$ για κάποιο ακέραιο $k$. Η θεμελιώδης περίοδος προκύπτει για $k = 1$:
    $$
    T_0 = \frac{2\pi}{100\pi} = \frac{1}{50} = 0.02 \text{ s}
    $$
 
-The signal is a CT analog periodic sinusoid with period $T_0 = 20$ ms.
+Το σήμα είναι ένα ημιτονοειδές CT αναλογικό περιοδικό με περίοδο $T_0 = 20$ ms.
 
 ---
 
-### Exercise 2: Identifying Domain and Notation
+### Άσκηση 2: Προσδιορισμός Πεδίου και Συμβολισμού
 
-**Problem:** A temperature sensor records a reading every 0.1 seconds. The recorded values are stored in a computer memory. Express the stored signal mathematically. Is it CT or DT?
+**Πρόβλημα:** Ένας αισθητήρας θερμοκρασίας καταγράφει μια μέτρηση κάθε 0,1 δευτερόλεπτα. Οι καταγεγραμμένες τιμές αποθηκεύονται στη μνήμη ενός υπολογιστή. Να εκφραστεί το αποθηκευμένο σήμα μαθηματικά. Είναι CT ή DT;
 
-**Solution:**
+**Λύση:**
 
-The sensor measures temperature $T(t)$ at discrete time instants $t = nT_s$, where $T_s = 0.1$ s is the sampling period and $n$ is an integer index. The stored signal is:
+Ο αισθητήρας μετρά τη θερμοκρασία $T(t)$ σε διακριτές χρονικές στιγμές $t = nT_s$, όπου $T_s = 0,1$ s είναι η περίοδος δειγματοληψίας και $n$ είναι ακέραιος δείκτης. Το αποθηκευμένο σήμα είναι:
 
 $$
 T[n] = T(nT_s), \quad n = 0, 1, 2, \ldots
 $$
 
-This is a **discrete-time** signal because the independent variable is the integer index $n$, not continuous time $t$. The square-bracket notation $T[n]$ indicates a DT signal.
+Αυτό είναι ένα σήμα **διακριτού χρόνου** επειδή η ανεξάρτητη μεταβλητή είναι ο ακέραιος δείκτης $n$, όχι ο συνεχής χρόνος $t$. Ο συμβολισμός με τετράγωνες αγκύλες $T[n]$ υποδηλώνει ένα σήμα DT.
 
 ---
 
-### Exercise 3: Signal Energy Calculation
+### Άσκηση 3: Υπολογισμός Ενέργειας Σήματος
 
-**Problem:** Compute the energy of the signal $x(t) = 2$ over the interval $0 \le t \le 5$.
+**Πρόβλημα:** Να υπολογιστεί η ενέργεια του σήματος $x(t) = 2$ στο διάστημα $0 \le t \le 5$.
 
-**Solution:**
+**Λύση:**
 
-The energy of a CT signal over a finite interval $[t_1, t_2]$ is:
+Η ενέργεια ενός σήματος CT σε ένα πεπερασμένο διάστημα $[t_1, t_2]$ είναι:
 
 $$
 E = \int_{t_1}^{t_2} |x(t)|^2 dt
 $$
 
-Substituting $x(t) = 2$:
+Αντικαθιστώντας το $x(t) = 2$:
 
 $$
 E = \int_{0}^{5} 2^2 dt = \int_{0}^{5} 4 dt = 4 \times (5 - 0) = 20
 $$
 
-The energy of the signal over the 5-second interval is 20 (energy units, typically Joules if the signal represents voltage across a $1 \Omega$ resistor).
+Η ενέργεια του σήματος στο διάστημα των 5 δευτερολέπτων είναι 20 (μονάδες ενέργειας, συνήθως Joule αν το σήμα αναπαριστά τάση σε αντίσταση $1 \Omega$).
 
 ---
 
-### Exercise 4: Average Power of a Periodic Signal
+### Άσκηση 4: Μέση Ισχύς Ενός Περιοδικού Σήματος
 
-**Problem:** Calculate the average power of $x(t) = A \cos(\omega_0 t + \phi)$ over one period.
+**Πρόβλημα:** Να υπολογιστεί η μέση ισχύς του $x(t) = A \cos(\omega_0 t + \phi)$ σε μία περίοδο.
 
-**Solution:**
+**Λύση:**
 
-The average power of a periodic signal with period $T_0$ is:
+Η μέση ισχύς ενός περιοδικού σήματος με περίοδο $T_0$ είναι:
 
 $$
 P = \frac{1}{T_0} \int_{0}^{T_0} |x(t)|^2 dt
 $$
 
-Substituting $x(t) = A \cos(\omega_0 t + \phi)$:
+Αντικαθιστώντας το $x(t) = A \cos(\omega_0 t + \phi)$:
 
 $$
 P = \frac{1}{T_0} \int_{0}^{T_0} A^2 \cos^2(\omega_0 t + \phi) dt
 $$
 
-Using the identity $\cos^2\theta = \frac{1 + \cos(2\theta)}{2}$:
+Χρησιμοποιώντας την ταυτότητα $\cos^2\theta = \frac{1 + \cos(2\theta)}{2}$:
 
 $$
 P = \frac{A^2}{T_0} \int_{0}^{T_0} \frac{1 + \cos(2\omega_0 t + 2\phi)}{2} dt
@@ -261,39 +261,39 @@ $$
 P = \frac{A^2}{2T_0} \left[ \int_{0}^{T_0} 1 dt + \int_{0}^{T_0} \cos(2\omega_0 t + 2\phi) dt \right]
 $$
 
-The second integral is zero because it integrates a cosine over an integer number of periods. Therefore:
+Το δεύτερο ολοκλήρωμα είναι μηδέν επειδή ολοκληρώνει ένα ημίτονο σε ακέραιο πλήθος περιόδων. Επομένως:
 
 $$
 P = \frac{A^2}{2T_0} \times T_0 = \frac{A^2}{2}
 $$
 
-The average power of a sinusoidal signal depends only on the amplitude, not on the frequency or phase.
+Η μέση ισχύς ενός ημιτονοειδούς σήματος εξαρτάται μόνο από το πλάτος, όχι από τη συχνότητα ή τη φάση.
 
 ---
 
-### Exercise 5: Signal Arithmetic — Addition
+### Άσκηση 5: Αριθμητική Σημάτων — Πρόσθεση
 
-**Problem:** Two signals are defined as $x_1(t) = 3 \cos(2\pi t)$ and $x_2(t) = 1$. Sketch the sum $y(t) = x_1(t) + x_2(t)$ over $0 \le t \le 2$ and describe its behavior.
+**Πρόβλημα:** Δύο σήματα ορίζονται ως $x_1(t) = 3 \cos(2\pi t)$ και $x_2(t) = 1$. Να σχεδιαστεί το άθροισμα $y(t) = x_1(t) + x_2(t)$ για $0 \le t \le 2$ και να περιγραφεί η συμπεριφορά του.
 
-**Solution:**
+**Λύση:**
 
-The sum is:
+Το άθροισμα είναι:
 
 $$
 y(t) = 3 \cos(2\pi t) + 1
 $$
 
-This is a sinusoid with amplitude 3, shifted vertically upward by 1 unit. Over $0 \le t \le 2$:
+Πρόκειται για ένα ημιτονοειδές με πλάτος 3, μετατοπισμένο κατακόρυφα προς τα πάνω κατά 1 μονάδα. Για $0 \le t \le 2$:
 
-- At $t = 0$: $y(0) = 3 \cos(0) + 1 = 3 + 1 = 4$
-- At $t = 0.5$: $y(0.5) = 3 \cos(\pi) + 1 = -3 + 1 = -2$
-- At $t = 1$: $y(1) = 3 \cos(2\pi) + 1 = 3 + 1 = 4$
-- At $t = 1.5$: $y(1.5) = 3 \cos(3\pi) + 1 = -3 + 1 = -2$
-- At $t = 2$: $y(2) = 3 \cos(4\pi) + 1 = 3 + 1 = 4$
+- Στο $t = 0$: $y(0) = 3 \cos(0) + 1 = 3 + 1 = 4$
+- Στο $t = 0,5$: $y(0,5) = 3 \cos(\pi) + 1 = -3 + 1 = -2$
+- Στο $t = 1$: $y(1) = 3 \cos(2\pi) + 1 = 3 + 1 = 4$
+- Στο $t = 1,5$: $y(1,5) = 3 \cos(3\pi) + 1 = -3 + 1 = -2$
+- Στο $t = 2$: $y(2) = 3 \cos(4\pi) + 1 = 3 + 1 = 4$
 
-The waveform oscillates between $-2$ and $4$, with a period of 1 second and a DC offset of 1.
+Η κυματομορφή ταλαντώνεται μεταξύ $-2$ και $4$, με περίοδο 1 δευτερόλεπτο και DC μετατόπιση 1.
 
-*Intermediate state before final sketch:*
+*Ενδιάμεση κατάσταση πριν το τελικό σχέδιο:*
 
 | $t$ | $x_1(t) = 3 \cos(2\pi t)$ | $x_2(t) = 1$ | $y(t)$ |
 | :--- | :--- | :--- | :--- |
@@ -309,137 +309,137 @@ The waveform oscillates between $-2$ and $4$, with a period of 1 second and a DC
 | 0.9 | 2.43 | 1 | 3.43 |
 | 1.0 | 3.00 | 1 | 4.00 |
 
-The result is a cosine wave vertically shifted upward by 1 unit.
+Το αποτέλεσμα είναι ένα ημιτονοειδές κύμα μετατοπισμένο κατακόρυφα προς τα πάνω κατά 1 μονάδα.
 
 ---
 
-### Exercise 6: Distinguishing Energy Signals from Power Signals
+### Άσκηση 6: Διάκριση Σημάτων Ενέργειας από Σήματα Ισχύος
 
-**Problem:** Classify each of the following signals as an energy signal, a power signal, or neither.
+**Πρόβλημα:** Να ταξινομηθεί κάθε ένα από τα παρακάτω σήματα ως σήμα ενέργειας, σήμα ισχύος ή ούτε ένα από τα δύο.
 
-(a) $x_a(t) = e^{-2t} u(t)$
-(b) $x_b(t) = 5 \cos(10t)$
-(c) $x_c(t) = 3$ (for all $t$)
+(α) $x_a(t) = e^{-2t} u(t)$
+(β) $x_b(t) = 5 \cos(10t)$
+(γ) $x_c(t) = 3$ (για κάθε $t$)
 
-**Solution:**
+**Λύση:**
 
-A signal is an **energy signal** if its total energy $E_\infty$ is finite ($0 < E_\infty < \infty$). A signal is a **power signal** if its average power $P_\infty$ is finite and non-zero ($0 < P_\infty < \infty$). A signal cannot be both because finite energy implies zero average power over infinite time.
+Ένα σήμα είναι **σήμα ενέργειας** αν η συνολική του ενέργεια $E_\infty$ είναι πεπερασμένη ($0 < E_\infty < \infty$). Ένα σήμα είναι **σήμα ισχύος** αν η μέση του ισχύς $P_\infty$ είναι πεπερασμένη και μη μηδενική ($0 < P_\infty < \infty$). Ένα σήμα δεν μπορεί να είναι και τα δύο, διότι η πεπερασμένη ενέργεια συνεπάγεται μηδενική μέση ισχύ στον άπειρο χρόνο.
 
-**(a)** $x_a(t) = e^{-2t} u(t)$:
+**(α)** $x_a(t) = e^{-2t} u(t)$:
 
 $$
 E_\infty = \int_{-\infty}^{\infty} |e^{-2t} u(t)|^2 dt = \int_{0}^{\infty} e^{-4t} dt = \left[ \frac{e^{-4t}}{-4} \right]_0^\infty = 0 - \left(-\frac{1}{4}\right) = \frac{1}{4}
 $$
 
-Energy is finite ($1/4$). Therefore $x_a(t)$ is an **energy signal**.
+Η ενέργεια είναι πεπερασμένη ($1/4$). Επομένως το $x_a(t)$ είναι **σήμα ενέργειας**.
 
-**(b)** $x_b(t) = 5 \cos(10t)$:
+**(β)** $x_b(t) = 5 \cos(10t)$:
 
-Using the result from Exercise 4, the average power over one period is $P = A^2/2 = 25/2 = 12.5$. Since the power is finite and non-zero, and the energy over infinite time is infinite, this is a **power signal**.
+Χρησιμοποιώντας το αποτέλεσμα της Άσκησης 4, η μέση ισχύς σε μία περίοδο είναι $P = A^2/2 = 25/2 = 12,5$. Επειδή η ισχύς είναι πεπερασμένη και μη μηδενική, και η ενέργεια στον άπειρο χρόνο είναι άπειρη, πρόκειται για **σήμα ισχύος**.
 
-**(c)** $x_c(t) = 3$:
+**(γ)** $x_c(t) = 3$:
 
 $$
 P_\infty = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} 3^2 dt = \lim_{T \to \infty} \frac{9 \cdot 2T}{2T} = 9
 $$
 
-Average power is $9$, finite and non-zero, so it is a **power signal**.
+Η μέση ισχύς είναι $9$, πεπερασμένη και μη μηδενική, άρα πρόκειται για **σήμα ισχύος**.
 
 ---
 
-### Exercise 7: Even and Odd Decomposition
+### Άσκηση 7: Άρτια και Περιττή Ανάλυση
 
-**Problem:** Decompose $x(t) = e^{-t} u(t)$ into its even part $x_e(t)$ and odd part $x_o(t)$.
+**Πρόβλημα:** Να αναλυθεί το $x(t) = e^{-t} u(t)$ στο άρτιο μέρος $x_e(t)$ και στο περιττό μέρος $x_o(t)$.
 
-**Solution:**
+**Λύση:**
 
-Any signal can be decomposed into even and odd components:
+Κάθε σήμα μπορεί να αναλυθεί σε άρτια και περιττά συστατικά:
 
 $$
 x_e(t) = \frac{x(t) + x(-t)}{2}, \qquad x_o(t) = \frac{x(t) - x(-t)}{2}
 $$
 
-First compute $x(-t)$:
+Πρώτα υπολογίζουμε το $x(-t)$:
 
 $$
 x(-t) = e^{-(-t)} u(-t) = e^{t} u(-t)
 $$
 
-Now compute the even part:
+Τώρα υπολογίζουμε το άρτιο μέρος:
 
 $$
 x_e(t) = \frac{e^{-t} u(t) + e^{t} u(-t)}{2}
 $$
 
-And the odd part:
+Και το περιττό μέρος:
 
 $$
 x_o(t) = \frac{e^{-t} u(t) - e^{t} u(-t)}{2}
 $$
 
-Verification that $x_e(t) = x_e(-t)$ and $x_o(-t) = -x_o(t)$:
+Επαλήθευση ότι $x_e(t) = x_e(-t)$ και $x_o(-t) = -x_o(t)$:
 
-- For $x_e(-t)$: $\frac{e^{t} u(-t) + e^{-t} u(t)}{2} = x_e(t)$ (even)
-- For $x_o(-t)$: $\frac{e^{t} u(-t) - e^{-t} u(t)}{2} = -x_o(t)$ (odd)
+- Για το $x_e(-t)$: $\frac{e^{t} u(-t) + e^{-t} u(t)}{2} = x_e(t)$ (άρτιο)
+- Για το $x_o(-t)$: $\frac{e^{t} u(-t) - e^{-t} u(t)}{2} = -x_o(t)$ (περιττό)
 
-And $x_e(t) + x_o(t) = \frac{e^{-t} u(t) + e^{t} u(-t) + e^{-t} u(t) - e^{t} u(-t)}{2} = \frac{2 e^{-t} u(t)}{2} = e^{-t} u(t) = x(t)$.
+Και $x_e(t) + x_o(t) = \frac{e^{-t} u(t) + e^{t} u(-t) + e^{-t} u(t) - e^{t} u(-t)}{2} = \frac{2 e^{-t} u(t)}{2} = e^{-t} u(t) = x(t)$.
 
 ---
 
-### Exercise 8: Periodicity of Sinusoidal Sums
+### Άσκηση 8: Περιοδικότητα Αθροισμάτων Ημιτονοειδών
 
-**Problem:** Determine whether the signal $x(t) = \cos(2\pi t) + \cos(3\pi t)$ is periodic. If so, find its fundamental period.
+**Πρόβλημα:** Να προσδιοριστεί αν το σήμα $x(t) = \cos(2\pi t) + \cos(3\pi t)$ είναι περιοδικό. Αν ναι, να βρεθεί η θεμελιώδης περίοδός του.
 
-**Solution:**
+**Λύση:**
 
-A sum of periodic signals is periodic if and only if the ratio of their periods is rational.
+Ένα άθροισμα περιοδικών σημάτων είναι περιοδικό αν και μόνο αν ο λόγος των περιόδων τους είναι ρητός.
 
-For $\cos(2\pi t)$: $\omega_1 = 2\pi$, so $T_1 = \frac{2\pi}{\omega_1} = 1$ s.
+Για το $\cos(2\pi t)$: $\omega_1 = 2\pi$, άρα $T_1 = \frac{2\pi}{\omega_1} = 1$ s.
 
-For $\cos(3\pi t)$: $\omega_2 = 3\pi$, so $T_2 = \frac{2\pi}{\omega_2} = \frac{2}{3}$ s.
+Για το $\cos(3\pi t)$: $\omega_2 = 3\pi$, άρα $T_2 = \frac{2\pi}{\omega_2} = \frac{2}{3}$ s.
 
-Check the ratio:
+Έλεγχος του λόγου:
 
 $$
 \frac{T_1}{T_2} = \frac{1}{2/3} = \frac{3}{2}
 $$
 
-The ratio $3/2$ is rational, so the sum is periodic. The fundamental period is the least common multiple of $T_1$ and $T_2$:
+Ο λόγος $3/2$ είναι ρητός, άρα το άθροισμα είναι περιοδικό. Η θεμελιώδης περίοδος είναι το ελάχιστο κοινό πολλαπλάσιο των $T_1$ και $T_2$:
 
 $$
 T_0 = \text{lcm}(1, 2/3) = \text{lcm}(1, 0.\overline{6})
 $$
 
-Convert to fractions with a common denominator: $T_1 = 1 = \frac{3}{3}$, $T_2 = \frac{2}{3}$.
+Μετατροπή σε κλάσματα με κοινό παρονομαστή: $T_1 = 1 = \frac{3}{3}$, $T_2 = \frac{2}{3}$.
 
-The fundamental period is the smallest $T_0$ such that $T_0 = m T_1 = n T_2$ for integers $m, n$:
+Η θεμελιώδης περίοδος είναι το μικρότερο $T_0$ τέτοιο ώστε $T_0 = m T_1 = n T_2$ για ακέραιους $m, n$:
 
-$T_0 = 2 \times 1 = 2$ s, and $T_0 = 3 \times \frac{2}{3} = 2$ s.
+$T_0 = 2 \times 1 = 2$ s, και $T_0 = 3 \times \frac{2}{3} = 2$ s.
 
-The signal is periodic with fundamental period $T_0 = 2$ seconds.
-
----
-
-## 6. Connections and Cross-References
-
-This introductory lecture establishes the language and notation used throughout the entire course:
-
-- **Lecture 02** extends the signal classification (energy/power, even/odd, periodic/aperiodic) and introduces time-domain transformations (shifting, scaling, reversal).
-- **Lecture 03** formally defines the elementary signals (unit step, impulse, ramp, exponential, sinusoid, sinc, impulse train) that serve as building blocks for all subsequent system analysis.
-- **Convolution (Lectures 05-06)** relies on representing signals as sums of shifted impulses — a concept introduced here through the CT/DT formalism.
-- **Fourier series and transforms** reuse the sinusoidal and complex exponential representations introduced in this lecture.
-- **Sampling theorem** is built on the analog-to-digital conversion concepts previewed here.
+Το σήμα είναι περιοδικό με θεμελιώδη περίοδο $T_0 = 2$ δευτερόλεπτα.
 
 ---
 
-## 7. Exam Tip: Understanding the Core Classification Framework
+## 6. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-The single most common exam mistake in this course is misidentifying whether a signal is CT or DT based on the notation. Two rules will protect you:
+Αυτή η εισαγωγική διάλεξη θεμελιώνει τη γλώσσα και τον συμβολισμό που χρησιμοποιούνται σε ολόκληρο το μάθημα:
 
-1. **Parentheses $x(t)$ mean continuous-time.** Round parentheses always imply a real-valued independent variable. If you see $x(2t)$ or $x(t-3)$, the argument is a real number — the signal is CT.
+- **Διάλεξη 02** επεκτείνει την ταξινόμηση σημάτων (ενέργεια/ισχύς, άρτιο/περιττό, περιοδικό/απερίοδικο) και εισάγει μετασχηματισμούς πεδίου χρόνου (μετατόπιση, κλιμάκωση, αναστροφή).
+- **Διάλεξη 03** ορίζει τυπικά τα στοιχειώδη σήματα (μονιαίο βήμα, παλμός, κλίση, εκθετικό, ημιτονοειδές, sinc, ακολουθία παλμών) που αποτελούν τα δομικά στοιχεία για κάθε επόμενη ανάλυση συστήματος.
+- **Συνέλιξη (Διαλέξεις 05-06)** βασίζεται στην αναπαράσταση σημάτων ως αθροισμάτων μετατοπισμένων παλμών — μια έννοια που εισάγεται εδώ μέσω του φορμαλισμού CT/DT.
+- **Σειρές και μετασχηματισμοί Fourier** επαναχρησιμοποιούν τις ημιτονοειδείς και μιγαδικές εκθετικές αναπαραστάσεις που εισάγονται σε αυτή τη διάλεξη.
+- **Θεώρημα δειγματοληψίας** οικοδομείται πάνω στις έννοιες μετατροπής αναλογικού σε ψηφιακό που προεξοφλούνται εδώ.
 
-2. **Square brackets $x[n]$ mean discrete-time.** Square brackets always imply an integer-valued independent variable. If you see $x[2n]$ or $x[n-3]$, $n$ is an integer — the signal is DT.
+---
 
-A second common error: confusing "analog" with "continuous-time" and "digital" with "discrete-time." A discrete-time signal can still be analog if its amplitude is continuous (e.g., a sampled but unquantized waveform). A signal becomes digital only after quantization. Always check both axes independently.
+## 7. Συμβουλή Εξέτασης: Κατανόηση του Βασικού Πλαισίου Ταξινόμησης
 
-On any exam, when asked to classify a signal, always provide the full four-part answer: (1) CT or DT, (2) analog or digital, (3) periodic or aperiodic (if applicable), (4) energy or power signal (if applicable). Each classification tests a distinct concept.
+Το πιο συνηθισμένο λάθος στις εξετάσεις αυτού του μαθήματος είναι η εσφαλμένη αναγνώριση του αν ένα σήμα είναι CT ή DT βάσει του συμβολισμού. Δύο κανόνες θα σας προστατεύσουν:
+
+1. **Οι παρενθέσεις $x(t)$ σημαίνουν συνεχή χρόνο.** Οι στρογγυλές παρενθέσεις υπονοούν πάντα μια πραγματική ανεξάρτητη μεταβλητή. Αν δείτε $x(2t)$ ή $x(t-3)$, το όρισμα είναι πραγματικός αριθμός — το σήμα είναι CT.
+
+2. **Οι τετράγωνες αγκύλες $x[n]$ σημαίνουν διακριτό χρόνο.** Οι τετράγωνες αγκύλες υπονοούν πάντα μια ακέραια ανεξάρτητη μεταβλητή. Αν δείτε $x[2n]$ ή $x[n-3]$, το $n$ είναι ακέραιος — το σήμα είναι DT.
+
+Ένα δεύτερο συνηθισμένο σφάλμα: η σύγχυση του «αναλογικού» με το «συνεχή χρόνο» και του «ψηφιακού» με το «διακριτό χρόνο». Ένα σήμα διακριτού χρόνου μπορεί να είναι ακόμη αναλογικό αν το πλάτος του είναι συνεχές (π.χ. μια δειγματοληπτημένη αλλά μη κβαντισμένη κυματομορφή). Ένα σήμα γίνεται ψηφιακό μόνο μετά τον κβαντισμό. Ελέγχετε πάντα και τους δύο άξονες ανεξάρτητα.
+
+Σε κάθε εξέταση, όταν σας ζητηθεί να ταξινομήσετε ένα σήμα, δίνετε πάντα την πλήρη τετραμερή απάντηση: (1) CT ή DT, (2) αναλογικό ή ψηφιακό, (3) περιοδικό ή απερίοδικο (αν ισχύει), (4) σήμα ενέργειας ή ισχύος (αν ισχύει). Κάθε ταξινόμηση ελέγχει μια διακριτή έννοια.

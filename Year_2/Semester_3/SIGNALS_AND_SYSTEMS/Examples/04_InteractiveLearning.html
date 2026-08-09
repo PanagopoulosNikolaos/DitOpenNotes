@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CT Systems Properties Dashboard</title>
+    <title>Πίνακας Ιδιοτήτων Συστημάτων ΣΧ</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
@@ -217,23 +217,23 @@
 </head>
 <body>
 
-    <h1 style="text-align:center; margin-bottom:10px;">CT Systems Properties Analysis Dashboard</h1>
-    <p style="text-align:center; color:#94a3b8; margin-bottom:30px;">Explore linearity, causality, time-invariance, and stability</p>
+    <h1 style="text-align:center; margin-bottom:10px;">Πίνακας Ανάλυσης Ιδιοτήτων Συστημάτων ΣΧ</h1>
+    <p style="text-align:center; color:#94a3b8; margin-bottom:30px;">Εξερευνήστε γραμμικότητα, αιτιότητα, αμεταβλητότητα στον χρόνο και ευστάθεια</p>
 
     <!-- Top: System Selection -->
     <div class="card" style="margin-bottom:20px;">
         <div class="section-header">
-            <h3>1. Select a System Model</h3>
+            <h3>1. Επιλέξτε ένα Μοντέλο Συστήματος</h3>
         </div>
         <div class="control-group group-ti">
             <div class="btn-grid">
-                <button onclick="selectSystem('amplifier')" id="btnAmp" class="active">Amplifier</button>
-                <button onclick="selectSystem('delay')" id="btnDelay">Delay</button>
-                <button onclick="selectSystem('derivative')" id="btnDeriv">Differentiator</button>
-                <button onclick="selectSystem('integral')" id="btnInteg">Integrator</button>
-                <button onclick="selectSystem('quadratic')" id="btnQuad">Quadratic (NL)</button>
-                <button onclick="selectSystem('future')" id="btnFuture">Future Ref (NC)</button>
-                <button onclick="selectSystem('timevar')" id="btnTimeVar">Time-Variant</button>
+                <button onclick="selectSystem('amplifier')" id="btnAmp" class="active">Ενισχυτής</button>
+                <button onclick="selectSystem('delay')" id="btnDelay">Καθυστέρηση</button>
+                <button onclick="selectSystem('derivative')" id="btnDeriv">Διαφοριστής</button>
+                <button onclick="selectSystem('integral')" id="btnInteg">Ολοκληρωτής</button>
+                <button onclick="selectSystem('quadratic')" id="btnQuad">Τετραγωνικό (ΜΓ)</button>
+                <button onclick="selectSystem('future')" id="btnFuture">Μελλοντική Αναφ. (ΜΑ)</button>
+                <button onclick="selectSystem('timevar')" id="btnTimeVar">Μεταβλητό στον Χρόνο</button>
             </div>
         </div>
     </div>
@@ -243,7 +243,7 @@
         <div>
             <div class="card">
                 <div class="section-header">
-                    <h3>Input Signal Visualization</h3>
+                    <h3>Οπτικοποίηση Σήματος Εισόδου</h3>
                 </div>
                 <div class="canvas-container">
                     <canvas id="mainCanvas"></canvas>
@@ -252,7 +252,7 @@
 
             <div class="card">
                 <div class="section-header">
-                    <h3>Output Signal</h3>
+                    <h3>Σήμα Εξόδου</h3>
                 </div>
                 <div class="canvas-container">
                     <canvas id="outputCanvas"></canvas>
@@ -265,11 +265,11 @@
             <!-- System Properties Panel -->
             <div class="card">
                 <div class="section-header">
-                    <h3>2. System Properties</h3>
+                    <h3>2. Ιδιότητες Συστήματος</h3>
                 </div>
 
                 <div class="control-group group-linearity">
-                    <label>Linearity</label>
+                    <label>Γραμμικότητα</label>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
                         <span class="status-badge" id="badgeLinear"></span>
                         <span id="propLinear" style="flex:1; color:#cbd5e1;"></span>
@@ -277,7 +277,7 @@
                 </div>
 
                 <div class="control-group group-causality">
-                    <label>Causality</label>
+                    <label>Αιτιότητα</label>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
                         <span class="status-badge" id="badgeCausal"></span>
                         <span id="propCausal" style="flex:1; color:#cbd5e1;"></span>
@@ -285,7 +285,7 @@
                 </div>
 
                 <div class="control-group group-ti">
-                    <label>Time-Invariance</label>
+                    <label>Αμεταβλητότητα στον Χρόνο</label>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
                         <span class="status-badge" id="badgeTI"></span>
                         <span id="propTI" style="flex:1; color:#cbd5e1;"></span>
@@ -293,7 +293,7 @@
                 </div>
 
                 <div class="control-group group-stability">
-                    <label>Stability</label>
+                    <label>Ευστάθεια</label>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
                         <span class="status-badge" id="badgeStable"></span>
                         <span id="propStable" style="flex:1; color:#cbd5e1;"></span>
@@ -304,36 +304,36 @@
             <!-- Formula & Definition -->
             <div class="card">
                 <div class="section-header">
-                    <h3>3. Mathematical Model</h3>
+                    <h3>3. Μαθηματικό Μοντέλο</h3>
                 </div>
                 <div class="formula-box" id="formulaBox">
                     $$y(t) = a \cdot x(t)$$
                 </div>
                 <p style="font-size:0.85em; color:#94a3b8;" id="descBox">
-                    Scaling system: output is the input scaled by constant factor.
+                    Σύστημα κλιμάκωσης: η έξοδος είναι η είσοδος κλιμακωμένη κατά σταθερό παράγοντα.
                 </p>
             </div>
 
             <!-- System Definition & Properties -->
             <div class="card">
                 <div class="section-header">
-                    <h3>4. Detailed Analysis</h3>
+                    <h3>4. Λεπτομερής Ανάλυση</h3>
                 </div>
                 <ul class="prop-list" id="detailsList">
                     <li class="prop-item">
-                        <span>Classification</span>
+                        <span>Ταξινόμηση</span>
                         <span class="prop-val" id="detClass">-</span>
                     </li>
                     <li class="prop-item">
-                        <span>Input-Output Type</span>
+                        <span>Τύπος Εισόδου-Εξόδου</span>
                         <span class="prop-val" id="detIO">-</span>
                     </li>
                     <li class="prop-item">
-                        <span>Memory</span>
+                        <span>Μνήμη</span>
                         <span class="prop-val" id="detMemory">-</span>
                     </li>
                     <li class="prop-item">
-                        <span>Application Domain</span>
+                        <span>Πεδίο Εφαρμογής</span>
                         <span class="prop-val" id="detApp">-</span>
                     </li>
                 </ul>
@@ -344,33 +344,33 @@
     <!-- Test Signals Section -->
     <div class="card">
         <div class="section-header">
-            <h3>5. Superposition Test (Linear Systems)</h3>
+            <h3>5. Έλεγχος Υπέρθεσης (Γραμμικά Συστήματα)</h3>
         </div>
         <div class="three-grid">
             <div class="control-group">
-                <label>Test Signal 1 Weight (a) <span class="val-display" id="dispA1">1.0</span></label>
+                <label>Βάρος Σήματος Δοκιμής 1 (a) <span class="val-display" id="dispA1">1.0</span></label>
                 <input type="range" id="sliderA1" min="0" max="2" step="0.1" value="1.0">
-                <small>Scaling coefficient for first input</small>
+                <small>Συντελεστής κλιμάκωσης για την πρώτη είσοδο</small>
             </div>
 
             <div class="control-group">
-                <label>Test Signal 2 Weight (b) <span class="val-display" id="dispA2">1.0</span></label>
+                <label>Βάρος Σήματος Δοκιμής 2 (b) <span class="val-display" id="dispA2">1.0</span></label>
                 <input type="range" id="sliderA2" min="0" max="2" step="0.1" value="1.0">
-                <small>Scaling coefficient for second input</small>
+                <small>Συντελεστής κλιμάκωσης για τη δεύτερη είσοδο</small>
             </div>
 
             <div class="control-group">
-                <label>Time Delay (t₀) <span class="val-display" id="dispDelay">0</span></label>
+                <label>Χρονική Καθυστέρηση (t₀) <span class="val-display" id="dispDelay">0</span></label>
                 <input type="range" id="sliderDelay" min="0" max="3" step="0.1" value="0">
-                <small>For testing time-invariance</small>
+                <small>Για τον έλεγχο αμεταβλητότητας στον χρόνο</small>
             </div>
         </div>
 
         <div class="test-input" style="margin-top:15px;">
-            <p style="margin:0; font-weight:600; color:var(--accent);">Superposition Result:</p>
+            <p style="margin:0; font-weight:600; color:var(--accent);">Αποτέλεσμα Υπέρθεσης:</p>
             <div id="supResult" style="margin:5px 0; color:#cbd5e1;"></div>
             <p style="margin:5px 0; font-size:0.85em; color:#64748b;">
-                Test: Does this equal $$S[a_1 \cdot x_1(t) + a_2 \cdot x_2(t)]$$?
+                Έλεγχος: Ισούται αυτό με $$S[a_1 \cdot x_1(t) + a_2 \cdot x_2(t)]$$;
             </p>
         </div>
     </div>
@@ -391,7 +391,7 @@
             'amplifier': {
                 name: 'Amplifier',
                 formula: 'y(t) = 2 \\cdot x(t)',
-                desc: 'Scaling system: amplifies input by factor of 2.',
+                desc: 'Σύστημα κλιμάκωσης: ενισχύει την είσοδο κατά παράγοντα 2.',
                 func: (t, x) => 2 * x,
                 linear: true, causal: true, ti: true, stable: true,
                 io: 'SISO', memory: 'Static', app: 'Signal amplification',
@@ -401,7 +401,7 @@
             'delay': {
                 name: 'Delay System',
                 formula: 'y(t) = x(t - 2)',
-                desc: 'Introduces fixed 2-unit time delay to input signal.',
+                desc: 'Εισάγει σταθερή καθυστέρηση 2 μονάδων στο σήμα εισόδου.',
                 func: (t, x, inputFunc) => inputFunc ? inputFunc(t - 2) : 0,
                 linear: true, causal: true, ti: true, stable: true,
                 io: 'SISO', memory: 'Dynamic', app: 'Signal transmission',
@@ -411,7 +411,7 @@
             'derivative': {
                 name: 'Differentiator',
                 formula: '\\frac{dy}{dt} = \\frac{dx}{dt}',
-                desc: 'Outputs the time derivative of input signal.',
+                desc: 'Εξάγει τον χρονικό παράγωγο του σήματος εισόδου.',
                 func: (t, x, inputFunc, h = 0.01) => inputFunc ? (inputFunc(t + h) - inputFunc(t - h)) / (2 * h) : 0,
                 linear: true, causal: true, ti: true, stable: false,
                 io: 'SISO', memory: 'Dynamic', app: 'Differentiation, edge detection',
@@ -421,7 +421,7 @@
             'integral': {
                 name: 'Integrator',
                 formula: 'y(t) = \\int_{-\\infty}^{t} x(\\tau)d\\tau',
-                desc: 'Integrates input signal from past to present.',
+                desc: 'Ολοκληρώνει το σήμα εισόδου από το παρελθόν έως το παρόν.',
                 func: (t, x) => x * 0.5,  // Approximation
                 linear: true, causal: true, ti: true, stable: false,
                 io: 'SISO', memory: 'Dynamic', app: 'Integration, accumulation',
@@ -431,7 +431,7 @@
             'quadratic': {
                 name: 'Quadratic (Nonlinear)',
                 formula: 'y(t) = x^2(t)',
-                desc: 'Nonlinear system: output is square of input.',
+                desc: 'Μη γραμμικό σύστημα: η έξοδος είναι το τετράγωνο της εισόδου.',
                 func: (t, x) => x * x,
                 linear: false, causal: true, ti: true, stable: true,
                 io: 'SISO', memory: 'Static', app: 'Envelope detection, modulation',
@@ -441,7 +441,7 @@
             'future': {
                 name: 'Future Reference',
                 formula: 'y(t) = x(t + 1)',
-                desc: 'Non-causal: output depends on future input value.',
+                desc: 'Μη αιτιατό: η έξοδος εξαρτάται από μελλοντική τιμή εισόδου.',
                 func: (t, x, inputFunc) => inputFunc ? inputFunc(t + 1) : 0,
                 linear: true, causal: false, ti: true, stable: true,
                 io: 'SISO', memory: 'Dynamic', app: 'Preview systems, offline processing',
@@ -451,7 +451,7 @@
             'timevar': {
                 name: 'Time-Variant',
                 formula: 'y(t) = t \\cdot x(t)',
-                desc: 'System output is scaled by time itself.',
+                desc: 'Η έξοδος του συστήματος κλιμακώνεται από τον ίδιο τον χρόνο.',
                 func: (t, x) => t * x,
                 linear: true, causal: true, ti: false, stable: true,
                 io: 'SISO', memory: 'Static', app: 'Amplitude modulation',
@@ -522,22 +522,22 @@
 
             // Update badges
             document.getElementById('badgeLinear').className = `status-badge ${sys.linear ? 'badge-linear' : 'badge-nonlinear'}`;
-            document.getElementById('badgeLinear').innerText = sys.linear ? 'Linear' : 'Nonlinear';
+            document.getElementById('badgeLinear').innerText = sys.linear ? 'Γραμμικό' : 'Μη γραμμικό';
 
             document.getElementById('badgeCausal').className = `status-badge ${sys.causal ? 'badge-causal' : 'badge-noncausal'}`;
-            document.getElementById('badgeCausal').innerText = sys.causal ? 'Causal' : 'Non-Causal';
+            document.getElementById('badgeCausal').innerText = sys.causal ? 'Αιτιατό' : 'Μη αιτιατό';
 
             document.getElementById('badgeTI').className = `status-badge ${sys.ti ? 'badge-ti' : 'badge-tv'}`;
-            document.getElementById('badgeTI').innerText = sys.ti ? 'Time-Inv.' : 'Time-Var.';
+            document.getElementById('badgeTI').innerText = sys.ti ? 'Αμετ. Χρόνου' : 'Μετ. Χρόνου';
 
             document.getElementById('badgeStable').className = `status-badge ${sys.stable ? 'badge-stable' : 'badge-unstable'}`;
-            document.getElementById('badgeStable').innerText = sys.stable ? 'Stable' : 'Unstable';
+            document.getElementById('badgeStable').innerText = sys.stable ? 'Ευσταθές' : 'Ασταθές';
 
             // Properties
-            document.getElementById('propLinear').innerText = sys.linear ? 'Satisfies superposition principle' : 'Violates superposition';
-            document.getElementById('propCausal').innerText = sys.causal ? 'Output depends only on past/present inputs' : 'Output depends on future inputs';
-            document.getElementById('propTI').innerText = sys.ti ? 'Time-shift in = Time-shift out' : 'Output changes with different input timing';
-            document.getElementById('propStable').innerText = sys.stable ? 'Bounded inputs → Bounded outputs' : 'Unbounded behavior possible';
+            document.getElementById('propLinear').innerText = sys.linear ? 'Ικανοποιεί την αρχή της υπέρθεσης' : 'Παραβιάζει την υπέρθεση';
+            document.getElementById('propCausal').innerText = sys.causal ? 'Η έξοδος εξαρτάται μόνο από εισόδους παρελθόντος/παρόντος' : 'Η έξοδος εξαρτάται από μελλοντικές εισόδους';
+            document.getElementById('propTI').innerText = sys.ti ? 'Χρονική μετατόπιση εισόδου = Χρονική μετατόπιση εξόδου' : 'Η έξοδος αλλάζει με διαφορετικό χρονισμό εισόδου';
+            document.getElementById('propStable').innerText = sys.stable ? 'Φραγμένες είσοδοι → Φραγμένες έξοδοι' : 'Πιθανή μη φραγμένη συμπεριφορά';
 
             // Details
             document.getElementById('detClass').innerText = sys.classification;

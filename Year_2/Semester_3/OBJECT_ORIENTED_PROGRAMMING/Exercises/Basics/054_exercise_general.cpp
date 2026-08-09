@@ -1,18 +1,18 @@
 /*
- * Exercise 9: Electronic Devices with Warranty
- * 
- * Create a base class Device with:
- * - Protected members: model (string), price (double)
- * - Constructor initializing members
- * - Pure virtual method calculateWarranty() returning double
- * 
- * Create three derived classes:
- * - Smartphone: warranty = 12% of price
- * - Laptop: warranty = 15% of price if price > 1000€, else 10%
- * - Tablet: warranty = 8% of price
- * 
- * In main(), create a vector of Device pointers with 2 of each type from user input, 
- * display each device with warranty cost, find device with highest warranty cost, and free memory.
+ * Άσκηση 9: Ηλεκτρονικές Συσκευές με Εγγύηση
+ *
+ * Δημιουργήστε μια βασική κλάση Device με:
+ * - Προστατευόμενα μέλη: model (string), price (double)
+ * - Κατασκευαστή που αρχικοποιεί τα μέλη
+ * - Καθαρά εικονική μέθοδο calculateWarranty() που επιστρέφει double
+ *
+ * Δημιουργήστε τρεις παράγωγες κλάσεις:
+ * - Smartphone: εγγύηση = 12% της τιμής
+ * - Laptop: εγγύηση = 15% της τιμής αν η τιμή > 1000€, αλλιώς 10%
+ * - Tablet: εγγύηση = 8% της τιμής
+ *
+ * Στο main(), δημιουργήστε ένα διάνυσμα δεικτών Device με 2 από κάθε τύπο από είσοδο χρήστη,
+ * εμφανίστε κάθε συσκευή με το κόστος εγγύησης, βρείτε τη συσκευή με το υψηλότερο κόστος εγγύησης, και απελευθερώστε τη μνήμη.
  */
 
 #include <iostream>
@@ -21,7 +21,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

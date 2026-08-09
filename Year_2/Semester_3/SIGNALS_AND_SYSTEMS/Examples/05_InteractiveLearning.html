@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LTI Systems & Properties Explorer</title>
+    <title>Εξερευνητής Συστημάτων LTI & Ιδιοτήτων</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
@@ -183,14 +183,14 @@
 </head>
 <body>
 
-    <h1 style="text-align:center; margin-bottom:30px;">🔬 LTI Systems & Properties Explorer</h1>
+    <h1 style="text-align:center; margin-bottom:30px;">🔬 Εξερευνητής Συστημάτων LTI & Ιδιοτήτων</h1>
 
     <div class="main-grid">
         
         <div>
             <div class="card">
                 <div class="section-header">
-                    <h3>System Response Visualization</h3>
+                    <h3>Οπτικοποίηση Απόκρισης Συστήματος</h3>
                     <small style="color:#94a3b8;">y(t) = System[x(t)]</small>
                 </div>
                 
@@ -201,7 +201,7 @@
 
             <div class="card">
                 <div class="section-header">
-                    <h3>1. Select System Type</h3>
+                    <h3>1. Επιλογή Τύπου Συστήματος</h3>
                 </div>
 
                 <div class="math-overlay" id="eqOverlay">
@@ -210,144 +210,144 @@
 
                 <div class="btn-grid">
                     <button onclick="setSystem('linear')" id="btnLinear" class="active">
-                        Linear<br><small style="opacity:0.7">y=ax+b</small>
+                        Γραμμικό<br><small style="opacity:0.7">y=ax+b</small>
                     </button>
                     <button onclick="setSystem('nonlinear')" id="btnNonlinear">
-                        Non-Linear<br><small style="opacity:0.7">y=x²</small>
+                        Μη Γραμμικό<br><small style="opacity:0.7">y=x²</small>
                     </button>
                     <button onclick="setSystem('timeinvariant')" id="btnTimeinvariant">
-                        Time Variant<br><small style="opacity:0.7">y=tx</small>
+                        Μεταβαλλόμενο στο Χρόνο<br><small style="opacity:0.7">y=tx</small>
                     </button>
                     <button onclick="setSystem('amplifier')" id="btnAmplifier">
-                        Amplifier<br><small style="opacity:0.7">y=A·sin</small>
+                        Ενισχυτής<br><small style="opacity:0.7">y=A·sin</small>
                     </button>
                 </div>
 
                 <div class="btn-grid" style="margin-top:10px;">
                     <button onclick="setSystem('dynamic')" id="btnDynamic">
-                        Dynamic<br><small style="opacity:0.7">Memory</small>
+                        Δυναμικό<br><small style="opacity:0.7">Memory</small>
                     </button>
                     <button onclick="setSystem('stable')" id="btnStable">
-                        Stable<br><small style="opacity:0.7">BIBO</small>
+                        Ευσταθές<br><small style="opacity:0.7">BIBO</small>
                     </button>
                     <button onclick="setSystem('causal')" id="btnCausal">
-                        Causal<br><small style="opacity:0.7">No Future</small>
+                        Αιτιατό<br><small style="opacity:0.7">No Future</small>
                     </button>
                     <button onclick="setSystem('unstable')" id="btnUnstable">
-                        Unstable<br><small style="opacity:0.7">Diverging</small>
+                        Ασταθές<br><small style="opacity:0.7">Diverging</small>
                     </button>
                 </div>
             </div>
 
             <div class="card">
                 <div class="section-header">
-                    <h3>2. Adjust Parameters</h3>
+                    <h3>2. Ρύθμιση Παραμέτρων</h3>
                 </div>
 
                 <div class="control-group">
-                    <label>Scaling Factor (A) <span class="val-display" id="dispA">2.0</span></label>
+                    <label>Συντελεστής Κλιμάκωσης (A) <span class="val-display" id="dispA">2.0</span></label>
                     <input type="range" id="sliderA" min="0.5" max="4" step="0.1" value="2">
                 </div>
 
                 <div class="control-group">
-                    <label>Time Delay (τ) <span class="val-display" id="dispDelay">0</span></label>
+                    <label>Χρονική Καθυστέρηση (τ) <span class="val-display" id="dispDelay">0</span></label>
                     <input type="range" id="sliderDelay" min="-3" max="3" step="0.1" value="0">
-                    <small style="color:#64748b;">Tests time-invariance (shifts t)</small>
+                    <small style="color:#64748b;">Ελέγχει τη χρονική αμεταβλητότητα (μετατοπίσεις t)</small>
                 </div>
 
                 <div class="control-group">
-                    <label>Amplitude Offset (b) <span class="val-display" id="dispOffset">0</span></label>
+                    <label>Απόκλιση Πλάτους (b) <span class="val-display" id="dispOffset">0</span></label>
                     <input type="range" id="sliderOffset" min="-2" max="2" step="0.1" value="0">
                 </div>
 
-                <button onclick="resetParams()" style="width:100%; margin-top:10px;">Reset Parameters</button>
+                <button onclick="resetParams()" style="width:100%; margin-top:10px;">Επαναφορά Παραμέτρων</button>
             </div>
         </div>
 
         <div>
             <div class="card">
                 <div class="section-header">
-                    <h3>3. System Properties</h3>
+                    <h3>3. Ιδιότητες Συστήματος</h3>
                 </div>
 
                 <ul class="prop-list">
                     <li class="prop-item">
-                        <span>Linearity</span>
-                        <span class="prop-val fail" id="propLinear">✗ Non-Linear</span>
+                        <span>Γραμμικότητα</span>
+                        <span class="prop-val fail" id="propLinear">✗ Μη Γραμμικό</span>
                     </li>
                     <li class="prop-item">
-                        <span>Time Invariance</span>
-                        <span class="prop-val fail" id="propTI">✗ Time-Variant</span>
+                        <span>Χρονική Αμεταβλητότητα</span>
+                        <span class="prop-val fail" id="propTI">✗ Μεταβαλλόμενο στο Χρόνο</span>
                     </li>
                     <li class="prop-item">
-                        <span>Causality</span>
-                        <span class="prop-val pass" id="propCausal">✓ Causal</span>
+                        <span>Αιτιατότητα</span>
+                        <span class="prop-val pass" id="propCausal">✓ Αιτιατό</span>
                     </li>
                     <li class="prop-item">
-                        <span>Memory</span>
-                        <span class="prop-val" id="propMemory">Static</span>
+                        <span>Μνήμη</span>
+                        <span class="prop-val" id="propMemory">Στατικό</span>
                     </li>
                     <li class="prop-item">
-                        <span>Stability (BIBO)</span>
-                        <span class="prop-val pass" id="propStable">✓ Stable</span>
+                        <span>Ευστάθεια (BIBO)</span>
+                        <span class="prop-val pass" id="propStable">✓ Ευσταθές</span>
                     </li>
                     <li class="prop-item">
-                        <span>Classification</span>
+                        <span>Ταξινόμηση</span>
                         <span class="prop-val" id="propClass">—</span>
                     </li>
                 </ul>
             </div>
 
             <div class="card" style="text-align:center; background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.2);">
-                <h4 style="margin:0; color: var(--success);">Is this System LTI?</h4>
-                <div style="font-size:2em; font-weight:bold; color: var(--danger); margin:10px 0;" id="ltiStatus">✗ NO</div>
+                <h4 style="margin:0; color: var(--success);">Είναι αυτό το Σύστημα LTI;</h4>
+                <div style="font-size:2em; font-weight:bold; color: var(--danger); margin:10px 0;" id="ltiStatus">✗ ΟΧΙ</div>
                 <small style="color:#94a3b8;">
-                    LTI requires: <strong>Linear</strong> AND <strong>Time-Invariant</strong>
+                    Το LTI απαιτεί: <strong>Γραμμικό</strong> ΚΑΙ <strong>Χρονικά Αμεταβλητό</strong>
                 </small>
             </div>
 
             <div class="card">
                 <div class="section-header">
-                    <h3>4. Verification Tests</h3>
+                    <h3>4. Δοκιμές Επαλήθευσης</h3>
                 </div>
 
                 <div style="margin-bottom:15px;">
-                    <button onclick="testLinearity()" style="width:100%; margin-bottom:5px;">Test Linearity</button>
+                    <button onclick="testLinearity()" style="width:100%; margin-bottom:5px;">Έλεγχος Γραμμικότητας</button>
                     <div id="linearityResult" style="display:none;"></div>
                 </div>
 
                 <div style="margin-bottom:15px;">
-                    <button onclick="testTimeInvariance()" style="width:100%; margin-bottom:5px;">Test Time Invariance</button>
+                    <button onclick="testTimeInvariance()" style="width:100%; margin-bottom:5px;">Έλεγχος Χρονικής Αμεταβλητότητας</button>
                     <div id="tiResult" style="display:none;"></div>
                 </div>
 
                 <div style="margin-bottom:15px;">
-                    <button onclick="testStability()" style="width:100%; margin-bottom:5px;">Test BIBO Stability</button>
+                    <button onclick="testStability()" style="width:100%; margin-bottom:5px;">Έλεγχος Ευστάθειας BIBO</button>
                     <div id="stabilityResult" style="display:none;"></div>
                 </div>
 
                 <div>
-                    <button onclick="testCausality()" style="width:100%; margin-bottom:5px;">Test Causality</button>
+                    <button onclick="testCausality()" style="width:100%; margin-bottom:5px;">Έλεγχος Αιτιατότητας</button>
                     <div id="causalityResult" style="display:none;"></div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="section-header">
-                    <h3>📚 Property Reference</h3>
+                    <h3>📚 Αναφορά Ιδιοτήτων</h3>
                 </div>
 
                 <div style="font-size:0.85em; color:#cbd5e1; line-height:1.6;">
-                    <strong style="color:var(--accent);">Linearity:</strong><br>
+                    <strong style="color:var(--accent);">Γραμμικότητα:</strong><br>
                     α·x₁(t) + β·x₂(t) → α·y₁(t) + β·y₂(t)<br><br>
 
-                    <strong style="color:var(--accent);">Time Invariance:</strong><br>
-                    x(t-t₀) → y(t-t₀) (shift in = shift out)<br><br>
+                    <strong style="color:var(--accent);">Χρονική Αμεταβλητότητα:</strong><br>
+                    x(t-t₀) → y(t-t₀) (μετατόπιση εισόδου = μετατόπιση εξόδου)<br><br>
 
-                    <strong style="color:var(--accent);">Causality:</strong><br>
+                    <strong style="color:var(--accent);">Αιτιατότητα:</strong><br>
                     y(t) depends only on x(τ), τ ≤ t<br><br>
 
-                    <strong style="color:var(--accent);">BIBO Stability:</strong><br>
+                    <strong style="color:var(--accent);">Ευστάθεια BIBO:</strong><br>
                     |x(t)| ≤ M → |y(t)| ≤ N
                 </div>
             </div>
@@ -520,23 +520,23 @@
         function updateUI() {
             const sys = systems[currentSystem];
             
-            document.getElementById('propLinear').textContent = sys.props.linear ? '✓ Linear' : '✗ Non-Linear';
+            document.getElementById('propLinear').textContent = sys.props.linear ? '✓ Γραμμικό' : '✗ Μη Γραμμικό';
             document.getElementById('propLinear').className = 'prop-val ' + (sys.props.linear ? 'pass' : 'fail');
             
-            document.getElementById('propTI').textContent = sys.props.ti ? '✓ Time-Invariant' : '✗ Time-Variant';
+            document.getElementById('propTI').textContent = sys.props.ti ? '✓ Χρονικά Αμεταβλητό' : '✗ Μεταβαλλόμενο στο Χρόνο';
             document.getElementById('propTI').className = 'prop-val ' + (sys.props.ti ? 'pass' : 'fail');
             
-            document.getElementById('propCausal').textContent = sys.props.causal ? '✓ Causal' : '✗ Non-Causal';
+            document.getElementById('propCausal').textContent = sys.props.causal ? '✓ Αιτιατό' : '✗ Μη Αιτιατό';
             document.getElementById('propCausal').className = 'prop-val ' + (sys.props.causal ? 'pass' : 'fail');
             
             document.getElementById('propMemory').textContent = sys.props.memory;
-            document.getElementById('propStable').textContent = sys.props.stable ? '✓ Stable (BIBO)' : '✗ Unstable';
+            document.getElementById('propStable').textContent = sys.props.stable ? '✓ Ευσταθές (BIBO)' : '✗ Ασταθές';
             document.getElementById('propStable').className = 'prop-val ' + (sys.props.stable ? 'pass' : 'fail');
             
             document.getElementById('propClass').textContent = sys.props.class;
 
             const isLTI = sys.props.linear && sys.props.ti;
-            document.getElementById('ltiStatus').textContent = isLTI ? '✓ YES - LTI' : '✗ NO';
+            document.getElementById('ltiStatus').textContent = isLTI ? '✓ ΝΑΙ - LTI' : '✗ ΟΧΙ';
             document.getElementById('ltiStatus').style.color = isLTI ? 'var(--success)' : 'var(--danger)';
 
             const eqStr = sys.eqDisplay(scaleFactor, timeDelay, ampOffset);
@@ -584,8 +584,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.linear ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.linear ? 
-                '✓ PASS: Superposition holds: f(ax+by) = a·f(x) + b·f(y)' :
-                '✗ FAIL: Superposition violated';
+                '✓ ΕΠΙΤΥΧΙΑ: Ισχύει η υπέρθεση: f(ax+by) = a·f(x) + b·f(y)' :
+                '✗ ΑΠΟΤΥΧΙΑ: Παραβιάζεται η υπέρθεση';
             result.style.display = 'block';
         }
 
@@ -594,8 +594,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.ti ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.ti ? 
-                '✓ PASS: Shifted input results in shifted output' :
-                '✗ FAIL: System depends on absolute time t';
+                '✓ ΕΠΙΤΥΧΙΑ: Η μετατοπισμένη είσοδος οδηγεί σε μετατοπισμένη έξοδο' :
+                '✗ ΑΠΟΤΥΧΙΑ: Το σύστημα εξαρτάται από τον απόλυτο χρόνο t';
             result.style.display = 'block';
         }
 
@@ -604,8 +604,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.stable ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.stable ? 
-                '✓ PASS: Bounded Input yields Bounded Output' :
-                '✗ FAIL: Output grows to infinity';
+                '✓ ΕΠΙΤΥΧΙΑ: Φραγμένη Είσοδος οδηγεί σε Φραγμένη Έξοδο' :
+                '✗ ΑΠΟΤΥΧΙΑ: Η έξοδος τείνει στο άπειρο';
             result.style.display = 'block';
         }
 
@@ -614,8 +614,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.causal ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.causal ? 
-                '✓ PASS: Output depends only on past/present' :
-                '✗ FAIL: Output depends on future values';
+                '✓ ΕΠΙΤΥΧΙΑ: Η έξοδος εξαρτάται μόνο από το παρελθόν/παρόν' :
+                '✗ ΑΠΟΤΥΧΙΑ: Η έξοδος εξαρτάται από μελλοντικές τιμές';
             result.style.display = 'block';
         }
 

@@ -1,19 +1,19 @@
 /*
- * Exercise 8: Vehicle Hierarchy with Pricing
- * 
- * Create an abstract base class Vehicle with:
- * - Protected members: brand (string), year (int), basePrice (double)
- * - Constructor initializing all members
- * - Pure virtual method calculateTax() returning tax based on price
- * - Virtual method display()
- * - Virtual destructor
- * 
- * Create two derived classes:
- * - Car: calculateTax() returns basePrice × 0.10
- * - Motorcycle: calculateTax() returns basePrice × 0.05
- * 
- * In main(), create a vector of Vehicle pointers with 2 cars and 3 motorcycles from user input, 
- * display all vehicles with their tax, calculate total tax, and clean up memory.
+ * Άσκηση 8: Ιεραρχία Οχημάτων με Τιμολόγηση
+ *
+ * Δημιουργήστε μια αφηρημένη βασική κλάση Vehicle με:
+ * - Προστατευόμενα μέλη: brand (string), year (int), basePrice (double)
+ * - Κατασκευαστή που αρχικοποιεί όλα τα μέλη
+ * - Καθαρά εικονική μέθοδο calculateTax() που επιστρέφει φόρο βάσει της τιμής
+ * - Εικονική μέθοδο display()
+ * - Εικονικό καταστροφέα
+ *
+ * Δημιουργήστε δύο παράγωγες κλάσεις:
+ * - Car: calculateTax() επιστρέφει basePrice × 0.10
+ * - Motorcycle: calculateTax() επιστρέφει basePrice × 0.05
+ *
+ * Στο main(), δημιουργήστε ένα διάνυσμα δεικτών Vehicle με 2 αυτοκίνητα και 3 μοτοσικλέτα από είσοδο χρήστη,
+ * εμφανίστε όλα τα οχήματα με τον φόρο τους, υπολογίστε συνολικό φόρο, και καθαρίστε τη μνήμη.
  */
 
 #include <iostream>
@@ -22,7 +22,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

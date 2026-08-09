@@ -1,14 +1,14 @@
 /*
- * Exercise 6: Coordinate Point Class
- * 
- * Create a Point class with:
- * - Private members: x (double), y (double)
- * - Constructor initializing coordinates
- * - Method distanceFromOrigin() returning √(x² + y²)
- * - Overload operator < to compare by distance from origin
- * - Overload operator << to display as "(x, y) - distance: D"
- * 
- * In main(), create 7 points, sort by distance from origin, display sorted list, and show the nearest and farthest points.
+ * Άσκηση 6: Κλάση Σημείου Συντεταγμένων
+ *
+ * Δημιουργήστε μια κλάση Point με:
+ * - Ιδιωτικά μέλη: x (double), y (double)
+ * - Κατασκευαστή που αρχικοποιεί τις συντεταγμένες
+ * - Μέθοδο distanceFromOrigin() που επιστρέφει √(x² + y²)
+ * - Υπερφόρτωση τελεστή < για σύγκριση κατά απόσταση από την αρχή
+ * - Υπερφόρτωση τελεστή << για εμφάνιση ως "(x, y) - distance: D"
+ *
+ * Στο main(), δημιουργήστε 7 σημεία, ταξινομήστε κατά απόσταση από την αρχή, εμφανίστε την ταξινομημένη λίστα, και δείξτε το πιο κοντινό και το πιο μακρινό σημείο.
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
-    
+    // Ο κώδικάς σας εδώ
+
     return 0;
 }

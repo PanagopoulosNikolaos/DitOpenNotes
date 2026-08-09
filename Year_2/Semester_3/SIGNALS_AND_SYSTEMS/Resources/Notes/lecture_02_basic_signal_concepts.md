@@ -1,391 +1,391 @@
-# Lecture 02 - Basic Signal Concepts
+# Διάλεξη 02 - Βασικές Έννοιες Σήματος
 
-Formal definitions and comprehensive classifications of signals and systems, including signal dimensionality, energy and power analysis, time-domain and amplitude transformations, and fundamental signal properties. This lecture establishes the mathematical framework for characterizing signals by their domain, duration, symmetry, periodicity, determinism, and causality, and introduces the critical distinction between energy signals and power signals.
+Τυπικοί ορισμοί και ολοκληρωμένες ταξινομήσεις σημάτων και συστημάτων, συμπεριλαμβανομένης της διαστατότητας σήματος, της ανάλυσης ενέργειας και ισχύος, των μετασχηματισμών στο πεδίο του χρόνου και του πλάτους, και των θεμελιωδών ιδιοτήτων σήματος. Αυτή η διάλεξη θεμελιώνει το μαθηματικό πλαίσιο για τον χαρακτηρισμό των σημάτων με βάση το πεδίο τους, τη διάρκεια, τη συμμετρία, την περιοδικότητα, τον ντετερμινισμό και την αιτιότητα, και εισάγει τη σημαντική διάκριση μεταξύ σημάτων ενέργειας και σημάτων ισχύος.
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Εννοιολογικό Θεμέλιο
 
-### 1.1 The Purpose of Signal Classification
+### 1.1 Ο Σκοπός της Ταξινόμησης Σημάτων
 
-Before any signal can be processed by a system, its fundamental nature must be understood. Classification answers essential questions: Is the signal defined at every instant or only at discrete points? Is its amplitude one of infinitely many values or a finite set? Does it repeat? Does it have finite or infinite energy? Each classification determines which mathematical tools — Fourier analysis, convolution, statistical methods — are applicable.
+Πριν ένα σήμα υποβληθεί σε επεξεργασία από ένα σύστημα, πρέπει να κατανοηθεί η θεμελιώδης φύση του. Η ταξινόμηση απαντά σε ουσιαστικά ερωτήματα: Είναι το σήμα ορισμένο σε κάθε χρονική στιγμή ή μόνο σε διακριτά σημεία; Είναι το πλάτος του ένα από άπειρες πολλές τιμές ή ένα πεπερασμένο σύνολο; Επαναλαμβάνεται; Έχει πεπερασμένη ή άπειρη ενέργεια; Κάθε ταξινόμηση καθορίζει ποια μαθηματικά εργαλεία — ανάλυση Fourier, συνέλιξη, στατιστικές μέθοδοι — είναι εφαρμόσιμα.
 
-### 1.2 Signal Dimensionality
+### 1.2 Διαστατότητα Σήματος
 
-A signal is defined by its number of independent variables:
+Ένα σήμα ορίζεται από τον αριθμό των ανεξάρτητων μεταβλητών του:
 
-| Dimensionality | Notation | Example | Domain |
+| Διαστατότητα | Συμβολισμός | Παράδειγμα | Πεδίο |
 | :--- | :--- | :--- | :--- |
-| One-dimensional (1D) | $x(t)$ or $x[n]$ | Audio voltage waveform | Time |
-| Two-dimensional (2D) | $I(x, y)$ | Grayscale image | Spatial coordinates |
-| Three-dimensional (3D) | $V(x, y, z)$ | Volumetric MRI scan | Spatial coordinates |
-| Multidimensional | $s(x_1, x_2, \ldots, x_M)$ | Video $I(x, y, t)$ | Space-time |
+| Μονοδιάστατο (1D) | $x(t)$ ή $x[n]$ | Κυματομορφή τάσης ήχου | Χρόνος |
+| Δισδιάστατο (2D) | $I(x, y)$ | Εικόνα κλίμακας του γκρι | Χωρικές συντεταγμένες |
+| Τρισδιάστατο (3D) | $V(x, y, z)$ | Ογκομετρική τομογραφία MRI | Χωρικές συντεταγμένες |
+| Πολυδιάστατο | $s(x_1, x_2, \ldots, x_M)$ | Βίντεο $I(x, y, t)$ | Χώρος-χρόνος |
 
-In this course, the emphasis is on **one-dimensional** signals where the independent variable is time.
+Σε αυτό το μάθημα, η έμφαση δίνεται στα **μονοδιάστατα** σήματα όπου η ανεξάρτητη μεταβλητή είναι ο χρόνος.
 
-### 1.3 Formal Definition of a Signal and System
+### 1.3 Τυπικός Ορισμός Σήματος και Συστήματος
 
-A **signal** is formally defined as a function that maps an independent variable (typically time) to a dependent variable (amplitude):
-
-$$
-x: \mathbb{R} \to \mathbb{R} \quad \text{(real-valued CT signal)}
-$$
+Ένα **σήμα** ορίζεται τυπικά ως μια συνάρτηση που αντιστοιχίζει μια ανεξάρτητη μεταβλητή (συνήθως τον χρόνο) σε μια εξαρτημένη μεταβλητή (πλάτος):
 
 $$
-x: \mathbb{Z} \to \mathbb{R} \quad \text{(real-valued DT signal)}
+x: \mathbb{R} \to \mathbb{R} \quad \text{(πραγματικό σήμα ΣΧ)}
 $$
 
-The codomain may also be $\mathbb{C}$ for complex-valued signals.
+$$
+x: \mathbb{Z} \to \mathbb{R} \quad \text{(πραγματικό σήμα ΔΧ)}
+$$
 
-A **system** is an operator $T\{\cdot\}$ that maps an input signal $x(t)$ to an output signal $y(t)$:
+Το σύνολο τιμών (codomain) μπορεί επίσης να είναι $\mathbb{C}$ για μιγαδικά σήματα.
+
+Ένα **σύστημα** είναι ένας τελεστής $T\{\cdot\}$ που αντιστοιχίζει ένα σήμα εισόδου $x(t)$ σε ένα σήμα εξόδου $y(t)$:
 
 $$
 y(t) = T\{x(t)\}
 $$
 
-The system is defined by the rule that determines $y(t)$ from $x(t)$.
+Το σύστημα ορίζεται από τον κανόνα που καθορίζει το $y(t)$ από το $x(t)$.
 
 ---
 
-## 2. Formal Definitions and Classification Models
+## 2. Τυπικοί Ορισμοί και Μοντέλα Ταξινόμησης
 
-### 2.1 Continuous-Time vs. Discrete-Time
+### 2.1 Συνεχούς Χρόνου έναντι Διακριτού Χρόνου
 
-| Aspect | Continuous-Time (CT) | Discrete-Time (DT) |
+| Πτυχή | Συνεχούς Χρόνου (ΣΧ) | Διακριτού Χρόνου (ΔΧ) |
 | :--- | :--- | :--- |
-| Independent variable | Real time $t \in \mathbb{R}$ | Integer index $n \in \mathbb{Z}$ |
-| Notation | $x(t)$ — parentheses | $x[n]$ — square brackets |
-| Signal value between samples | Defined for all $t$ | Not defined; only at integer $n$ |
-| Origin | Physical phenomena | Sampling of CT signals or computation |
+| Ανεξάρτητη μεταβλητή | Πραγματικός χρόνος $t \in \mathbb{R}$ | Ακέραιος δείκτης $n \in \mathbb{Z}$ |
+| Συμβολισμός | $x(t)$ — παρενθέσεις | $x[n]$ — τετράγωνες αγκύλες |
+| Τιμή σήματος μεταξύ δειγμάτων | Ορισμένη για κάθε $t$ | Δεν ορίζεται· μόνο σε ακέραιο $n$ |
+| Προέλευση | Φυσικά φαινόμενα | Δειγματοληψία σημάτων ΣΧ ή υπολογισμός |
 
-### 2.2 Analog vs. Digital
+### 2.2 Αναλογικό έναντι Ψηφιακού
 
-| Property | Analog Signal | Digital Signal |
+| Ιδιότητα | Αναλογικό Σήμα | Ψηφιακό Σήμα |
 | :--- | :--- | :--- |
-| Time variable | Continuous ($t$) or discrete ($n$) | Discrete ($n$) |
-| Amplitude | Continuous range | Finite set of quantized levels |
-| Notation | $x(t)$ or $x[n]$ (real-valued) | $x[n]$ with values from a codebook |
-| Noise susceptibility | High (continuous amplitude) | Low (discrete levels are distinguishable) |
+| Μεταβλητή χρόνου | Συνεχής ($t$) ή διακριτή ($n$) | Διακριτή ($n$) |
+| Πλάτος | Συνεχές εύρος | Πεπερασμένο σύνολο κβαντισμένων επιπέδων |
+| Συμβολισμός | $x(t)$ ή $x[n]$ (πραγματικής τιμής) | $x[n]$ με τιμές από έναν κώδικα |
+| Ευαισθησία σε θόρυβο | Υψηλή (συνεχές πλάτος) | Χαμηλή (τα διακριτά επίπεδα διακρίνονται) |
 
-> **[Key Insight]**
+> **[Βασική Διαπίστωση]**
 >
-> "Discrete-time" and "digital" are not synonyms. A **discrete-time analog** signal (e.g., sampled but unquantized voltage) has discrete time but continuous amplitude. A **digital** signal has both discrete time and discrete amplitude. Always check both axes independently.
+> Τα «διακριτού χρόνου» και «ψηφιακό» δεν είναι συνώνυμα. Ένα **αναλογικό σήμα διακριτού χρόνου** (π.χ., δειγματοληπτημένη αλλά μη κβαντισμένη τάση) έχει διακριτό χρόνο αλλά συνεχές πλάτος. Ένα **ψηφιακό** σήμα έχει τόσο διακριτό χρόνο όσο και διακριτό πλάτος. Ελέγχετε πάντα και τους δύο άξονες ανεξάρτητα.
 
-### 2.3 Analog-to-Digital Conversion Process
+### 2.3 Διαδικασία Μετατροπής Αναλογικού σε Ψηφιακό
 
-The conversion of a real-world analog signal to a digital representation proceeds through three sequential stages:
+Η μετατροπή ενός πραγματικού αναλογικού σήματος σε ψηφιακή αναπαράσταση προχωρά μέσω τριών διαδοχικών σταδίων:
 
-1. **Sampling:** The continuous-time signal $x(t)$ is measured at uniformly spaced time instants $t = nT_s$, where $T_s$ is the sampling period and $f_s = 1/T_s$ is the sampling frequency. The output is a discrete-time signal $x[n] = x(nT_s)$.
+1. **Δειγματοληψία:** Το σήμα συνεχούς χρόνου $x(t)$ μετράται σε ισαπέχουσες χρονικές στιγμές $t = nT_s$, όπου $T_s$ είναι η περίοδος δειγματοληψίας και $f_s = 1/T_s$ είναι η συχνότητα δειγματοληψίας. Η έξοδος είναι ένα σήμα διακριτού χρόνου $x[n] = x(nT_s)$.
 
-2. **Quantization:** Each sample $x[n]$ (which has continuous amplitude) is rounded to the nearest value from a finite set of $2^B$ discrete levels, where $B$ is the number of bits per sample. The error introduced is called **quantization error** or **quantization noise**.
+2. **Κβαντισμός:** Κάθε δείγμα $x[n]$ (που έχει συνεχές πλάτος) στρογγυλοποιείται στην πλησιέστερη τιμή από ένα πεπερασμένο σύνολο $2^B$ διακριτών επιπέδων, όπου $B$ είναι ο αριθμός των bits ανά δείγμα. Το σφάλμα που εισάγεται ονομάζεται **σφάλμα κβαντισμού** ή **θόρυβος κβαντισμού**.
 
-3. **Coding:** Each quantized level is assigned a unique binary codeword of $B$ bits. The resulting bitstream is the digital representation of the original analog signal.
+3. **Κωδικοποίηση:** Κάθε κβαντισμένο επίπεδο αντιστοιχίζεται σε μια μοναδική δυαδική λέξη των $B$ bits. Η προκύπτουσα ροή bits είναι η ψηφιακή αναπαράσταση του αρχικού αναλογικού σήματος.
 
-![ADC Block Diagram]
+![Διάγραμμα Block ADC]
 $$
 x(t) \xrightarrow{\text{Sampling}} x[n] \xrightarrow{\text{Quantization}} x_q[n] \xrightarrow{\text{Coding}} \text{Bitstream}
 $$
 
-### 2.4 Signal Energy and Power
+### 2.4 Ενέργεια και Ισχύς Σήματος
 
-#### Energy Over a Finite Interval
+#### Ενέργεια σε Πεπερασμένο Διάστημα
 
-The energy of a CT signal $x(t)$ over the interval $[t_1, t_2]$ is:
+Η ενέργεια ενός σήματος ΣΧ $x(t)$ στο διάστημα $[t_1, t_2]$ είναι:
 
 $$
 E_{[t_1,t_2]} = \int_{t_1}^{t_2} |x(t)|^2 dt
 $$
 
-For a DT signal $x[n]$ over $N_1 \le n \le N_2$:
+Για ένα σήμα ΔΧ $x[n]$ με $N_1 \le n \le N_2$:
 
 $$
 E_{[N_1,N_2]} = \sum_{n=N_1}^{N_2} |x[n]|^2
 $$
 
-#### Average Power Over a Finite Interval
+#### Μέση Ισχύς σε Πεπερασμένο Διάστημα
 
-The average power of a CT signal over $[t_1, t_2]$ is:
+Η μέση ισχύς ενός σήματος ΣΧ στο $[t_1, t_2]$ είναι:
 
 $$
 P_{[t_1,t_2]} = \frac{1}{t_2 - t_1} \int_{t_1}^{t_2} |x(t)|^2 dt
 $$
 
-For DT:
+Για ΔΧ:
 
 $$
 P_{[N_1,N_2]} = \frac{1}{N_2 - N_1 + 1} \sum_{n=N_1}^{N_2} |x[n]|^2
 $$
 
-#### Total Energy and Average Power Over Infinite Horizon
+#### Συνολική Ενέργεια και Μέση Ισχύς σε Άπειρο Ορίζοντα
 
-**Total energy:**
+**Συνολική ενέργεια:**
 
 $$
 E_\infty = \lim_{T \to \infty} \int_{-T}^{T} |x(t)|^2 dt = \int_{-\infty}^{\infty} |x(t)|^2 dt
 $$
 
-**Average power:**
+**Μέση ισχύς:**
 
 $$
 P_\infty = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
 $$
 
-#### Energy Signals vs. Power Signals
+#### Σήματα Ενέργειας έναντι Σημάτων Ισχύος
 
-| Signal Type | Condition | Example |
+| Τύπος Σήματος | Συνθήκη | Παράδειγμα |
 | :--- | :--- | :--- |
-| **Energy signal** | $0 < E_\infty < \infty$ (finite total energy) | $e^{-t}u(t)$ |
-| **Power signal** | $0 < P_\infty < \infty$ (finite non-zero average power) | $\cos(\omega_0 t)$ |
-| **Neither** | Both $E_\infty$ and $P_\infty$ are infinite | $e^{t}u(t)$ (growing exponential) |
+| **Σήμα ενέργειας** | $0 < E_\infty < \infty$ (πεπερασμένη συνολική ενέργεια) | $e^{-t}u(t)$ |
+| **Σήμα ισχύος** | $0 < P_\infty < \infty$ (πεπερασμένη μη μηδενική μέση ισχύς) | $\cos(\omega_0 t)$ |
+| **Ούτε το ένα** | Και τα $E_\infty$ και $P_\infty$ είναι άπειρα | $e^{t}u(t)$ (αυξανόμενος εκθετικός) |
 
-> **[Key Insight]**
+> **[Βασική Διαπίστωση]**
 >
-> A signal **cannot** be both an energy signal and a power signal. If total energy is finite, average power over infinite time is zero. If average power is finite and non-zero, total energy is infinite. However, a signal can be **neither** if neither quantity is finite (e.g., a growing exponential).
+> Ένα σήμα **δεν μπορεί** να είναι ταυτόχρονα σήμα ενέργειας και σήμα ισχύος. Αν η συνολική ενέργεια είναι πεπερασμένη, η μέση ισχύς στον άπειρο χρόνο είναι μηδέν. Αν η μέση ισχύς είναι πεπερασμένη και μη μηδενική, η συνολική ενέργεια είναι άπειρη. Ωστόσο, ένα σήμα μπορεί να είναι **ούτε το ένα** αν καμία από τις δύο ποσότητες δεν είναι πεπερασμένη (π.χ., ένας αυξανόμενος εκθετικός).
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-### 3.1 Characteristic Parameters of CT Signals
+### 3.1 Χαρακτηριστικές Παράμετροι Σημάτων ΣΧ
 
-| Parameter | Definition | Formula | Units |
+| Παράμετρος | Ορισμός | Τύπος | Μονάδες |
 | :--- | :--- | :--- | :--- |
-| Mean value (DC component) | Average value over a period or interval | $\bar{x} = \frac{1}{T} \int_0^T x(t) dt$ | Same as signal |
-| Mean square value | Average of squared amplitude | $\overline{x^2} = \frac{1}{T} \int_0^T x^2(t) dt$ | (Signal units)$^2$ |
-| RMS value | Root of mean square | $X_{\text{RMS}} = \sqrt{\overline{x^2}}$ | Same as signal |
-| Instantaneous power | Power at a single instant | $p(t) = x^2(t)$ (across $1\Omega$) | W |
-| Average power | Power averaged over time | $P = \overline{x^2}$ | W |
+| Μέση τιμή (συνιστώσα DC) | Μέση τιμή σε μια περίοδο ή διάστημα | $\bar{x} = \frac{1}{T} \int_0^T x(t) dt$ | Ίδια με το σήμα |
+| Τιμή μέσου τετραγώνου | Μέσος όρος του τετραγωνισμένου πλάτους | $\overline{x^2} = \frac{1}{T} \int_0^T x^2(t) dt$ | (Μονάδες σήματος)$^2$ |
+| Τιμή RMS | Ρίζα του μέσου τετραγώνου | $X_{\text{RMS}} = \sqrt{\overline{x^2}}$ | Ίδια με το σήμα |
+| Στιγμιαία ισχύς | Ισχύς σε μια μοναδική στιγμή | $p(t) = x^2(t)$ (σε $1\Omega$) | W |
+| Μέση ισχύς | Ισχύς μέσου όρου στον χρόνο | $P = \overline{x^2}$ | W |
 
-### 3.2 Signal Duration Classification
+### 3.2 Ταξινόμηση Διάρκειας Σήματος
 
-| Duration Type | Definition | Example |
+| Τύπος Διάρκειας | Ορισμός | Παράδειγμα |
 | :--- | :--- | :--- |
-| Finite duration (time-limited) | $x(t) = 0$ for $|t| > T_c$ for some finite $T_c$ | Rectangular pulse |
-| Infinite duration | $x(t) \neq 0$ for arbitrarily large $|t|$ | Sinusoid |
-| Right-sided | $x(t) = 0$ for $t < t_0$ | $e^{-t}u(t)$ |
-| Left-sided | $x(t) = 0$ for $t > t_0$ | $e^{t}u(-t)$ |
+| Πεπερασμένης διάρκειας (περιορισμένο στον χρόνο) | $x(t) = 0$ για $|t| > T_c$ για κάποιο πεπερασμένο $T_c$ | Ορθογώνιος παλμός |
+| Άπειρης διάρκειας | $x(t) \neq 0$ για αυθαίρετα μεγάλο $|t|$ | Ημιτονοειδές |
+| Δεξιά-πλευρικό | $x(t) = 0$ για $t < t_0$ | $e^{-t}u(t)$ |
+| Αριστερά-πλευρικό | $x(t) = 0$ για $t > t_0$ | $e^{t}u(-t)$ |
 
-### 3.3 Periodic Signal Parameters
+### 3.3 Παράμετροι Περιοδικού Σήματος
 
-For a periodic signal $x(t)$ with fundamental period $T_0$:
+Για ένα περιοδικό σήμα $x(t)$ με θεμελιώδη περίοδο $T_0$:
 
-| Parameter | Formula | Units |
+| Παράμετρος | Τύπος | Μονάδες |
 | :--- | :--- | :--- |
-| Fundamental period ($T_0$) | Smallest $T > 0$ such that $x(t+T) = x(t)$ | s |
-| Fundamental frequency ($f_0$) | $f_0 = 1/T_0$ | Hz |
-| Angular frequency ($\omega_0$) | $\omega_0 = 2\pi f_0 = 2\pi/T_0$ | rad/s |
+| Θεμελιώδης περίοδος ($T_0$) | Μικρότερο $T > 0$ τέτοιο ώστε $x(t+T) = x(t)$ | s |
+| Θεμελιώδης συχνότητα ($f_0$) | $f_0 = 1/T_0$ | Hz |
+| Γωνιακή συχνότητα ($\omega_0$) | $\omega_0 = 2\pi f_0 = 2\pi/T_0$ | rad/s |
 
 ---
 
-## 4. Step-by-Step Mechanisms
+## 4. Μηχανισμοί Βήμα προς Βήμα
 
-### 4.1 Time-Domain Transformations
+### 4.1 Μετασχηματισμοί στο Πεδίο του Χρόνου
 
-Time-domain transformations modify the independent variable $t$ and change the signal's temporal characteristics.
+Οι μετασχηματισμοί στο πεδίο του χρόνου τροποποιούν την ανεξάρτητη μεταβλητή $t$ και αλλάζουν τα χρονικά χαρακτηριστικά του σήματος.
 
-#### Time Shifting
+#### Χρονική Μετατόπιση
 
 $$
 y(t) = x(t - t_0)
 $$
 
-- If $t_0 > 0$: signal is **delayed** (shifted right)
-- If $t_0 < 0$: signal is **advanced** (shifted left)
+- Αν $t_0 > 0$: το σήμα **καθυστερεί** (μετατοπίζεται δεξιά)
+- Αν $t_0 < 0$: το σήμα **προηγείται** (μετατοπίζεται αριστερά)
 
-**Procedure:** Replace every occurrence of $t$ in $x(t)$ with $(t - t_0)$. The shape of the signal is unchanged; only its position on the time axis changes.
+**Διαδικασία:** Αντικαταστήστε κάθε εμφάνιση του $t$ στο $x(t)$ με $(t - t_0)$. Το σχήμα του σήματος παραμένει αμετάβλητο· μόνο η θέση του στον άξονα του χρόνου αλλάζει.
 
-#### Time Reversal (Reflection)
+#### Χρονική Αναστροφή (Ανάκλαση)
 
 $$
 y(t) = x(-t)
 $$
 
-**Procedure:** Replace every $t$ with $-t$. The signal is flipped about the vertical axis ($t = 0$). What happened at $t = 2$ now happens at $t = -2$.
+**Διαδικασία:** Αντικαταστήστε κάθε $t$ με $-t$. Το σήμα αναστρέφεται ως προς τον κατακόρυφο άξονα ($t = 0$). Αυτό που συνέβη στο $t = 2$ συμβαίνει τώρα στο $t = -2$.
 
-#### Time Scaling
+#### Χρονική Κλιμάκωση
 
 $$
 y(t) = x(at)
 $$
 
-- If $|a| > 1$: signal is **compressed** in time
-- If $0 < |a| < 1$: signal is **expanded** (stretched) in time
-- If $a < 0$: time reversal is combined with scaling
+- Αν $|a| > 1$: το σήμα **συμπιέζεται** στον χρόνο
+- Αν $0 < |a| < 1$: το σήμα **επεκτείνεται** (τεντώνεται) στον χρόνο
+- Αν $a < 0$: η χρονική αναστροφή συνδυάζεται με την κλιμάκωση
 
-**Procedure:** Replace every $t$ with $at$. The signal's duration is divided by $|a|$.
+**Διαδικασία:** Αντικαταστήστε κάθε $t$ με $at$. Η διάρκεια του σήματος διαιρείται με το $|a|$.
 
-#### Combined Transformation: $x(at + b)$
+#### Συνδυασμένος Μετασχηματισμός: $x(at + b)$
 
-The general linear transformation $x(at + b)$ should be applied in the correct order:
+Ο γενικός γραμμικός μετασχηματισμός $x(at + b)$ πρέπει να εφαρμόζεται με τη σωστή σειρά:
 
-1. **Rewrite** as $x\left(a\left(t + \frac{b}{a}\right)\right)$
-2. **Apply time shifting** first (shift by $-b/a$)
-3. **Apply time scaling/reversal** second (scale by $a$)
+1. **Επανεγγραφή** ως $x\left(a\left(t + \frac{b}{a}\right)\right)$
+2. **Εφαρμογή χρονικής μετατόπισης** πρώτα (μετατόπιση κατά $-b/a$)
+3. **Εφαρμογή χρονικής κλιμάκωσης/αναστροφής** δεύτερη (κλιμάκωση κατά $a$)
 
-Alternatively, use the direct substitution method: replace $t$ with $at + b$ in the original expression.
+Εναλλακτικά, χρησιμοποιήστε τη μέθοδο άμεσης αντικατάστασης: αντικαταστήστε το $t$ με $at + b$ στην αρχική έκφραση.
 
-### 4.2 Amplitude Transformations
+### 4.2 Μετασχηματισμοί Πλάτους
 
-Amplitude transformations modify the dependent variable (signal amplitude).
+Οι μετασχηματισμοί πλάτους τροποποιούν την εξαρτημένη μεταβλητή (πλάτος σήματος).
 
-#### Amplitude Scaling
+#### Κλιμάκωση Πλάτους
 
 $$
 y(t) = A \cdot x(t)
 $$
 
-Multiplies every amplitude value by $A$. If $A > 1$, the signal is amplified; if $0 < A < 1$, it is attenuated. If $A < 0$, the signal is also inverted.
+Πολλαπλασιάζει κάθε τιμή πλάτους με το $A$. Αν $A > 1$, το σήμα ενισχύεται· αν $0 < A < 1$, εξασθενεί. Αν $A < 0$, το σήμα επίσης αντιστρέφεται.
 
-#### Amplitude Shifting (DC Offset)
+#### Μετατόπιση Πλάτους (Μετατόπιση DC)
 
 $$
 y(t) = x(t) + C
 $$
 
-Adds a constant $C$ to every amplitude value, shifting the signal vertically. This is equivalent to adding a DC component.
+Προσθέτει μια σταθερά $C$ σε κάθε τιμή πλάτους, μετατοπίζοντας το σήμα κατακόρυφα. Αυτό ισοδυναμεί με την προσθήκη μιας συνιστώσας DC.
 
-### 4.3 Signal Arithmetic
+### 4.3 Αριθμητικά Σήματος
 
-#### Addition
+#### Πρόσθεση
 
 $$
 y(t) = x_1(t) + x_2(t)
 $$
 
-The amplitude of $y(t)$ at each time $t$ is the sum of the amplitudes of $x_1(t)$ and $x_2(t)$ at that same instant.
+Το πλάτος του $y(t)$ σε κάθε χρόνο $t$ είναι το άθροισμα των πλατών των $x_1(t)$ και $x_2(t)$ σε αυτή την ίδια στιγμή.
 
-#### Multiplication
+#### Πολλαπλασιασμός
 
 $$
 y(t) = x_1(t) \cdot x_2(t)
 $$
 
-The amplitude of $y(t)$ at each time $t$ is the product of the amplitudes. Multiplication is used extensively in modulation (amplitude modulation).
+Το πλάτος του $y(t)$ σε κάθε χρόνο $t$ είναι το γινόμενο των πλατών. Ο πολλαπλασιασμός χρησιμοποιείται εκτενώς στη διαμόρφωση (διαμόρφωση πλάτους).
 
-### 4.4 Procedure for Classifying a Signal
+### 4.4 Διαδικασία Ταξινόμησης ενός Σήματος
 
-When classifying any signal, follow this deterministic sequence:
+Κατά την ταξινόμηση οποιουδήποτε σήματος, ακολουθήστε αυτή τη ντετερμινιστική ακολουθία:
 
-1. **Domain:** Parentheses $x(t)$ $\to$ CT; square brackets $x[n]$ $\to$ DT.
-2. **Amplitude:** Continuous range $\to$ analog; finite set $\to$ digital.
-3. **Duration:** Non-zero only on finite interval $\to$ finite duration; otherwise infinite.
-4. **Periodicity:** Find smallest $T_0$ such that $x(t+T_0) = x(t)$ for all $t$. If none exists, signal is aperiodic.
-5. **Symmetry:** $x(t) = x(-t)$ $\to$ even; $x(t) = -x(-t)$ $\to$ odd; otherwise neither.
-6. **Determinism:** Exactly predictable $\to$ deterministic; random $\to$ stochastic.
-7. **Causality:** $x(t) = 0$ for $t < 0$ $\to$ causal; otherwise non-causal.
-8. **Boundedness:** $|x(t)| \le M$ for all $t$ and some finite $M$ $\to$ bounded.
-9. **Energy/Power:** Compute $E_\infty$ and $P_\infty$; classify accordingly.
+1. **Πεδίο:** Παρενθέσεις $x(t)$ $\to$ ΣΧ· τετράγωνες αγκύλες $x[n]$ $\to$ ΔΧ.
+2. **Πλάτος:** Συνεχές εύρος $\to$ αναλογικό· πεπερασμένο σύνολο $\to$ ψηφιακό.
+3. **Διάρκεια:** Μη μηδενικό μόνο σε πεπερασμένο διάστημα $\to$ πεπερασμένης διάρκειας· αλλιώς άπειρη.
+4. **Περιοδικότητα:** Βρείτε το μικρότερο $T_0$ τέτοιο ώστε $x(t+T_0) = x(t)$ για κάθε $t$. Αν δεν υπάρχει, το σήμα είναι απεριοδικό.
+5. **Συμμετρία:** $x(t) = x(-t)$ $\to$ άρτιο· $x(t) = -x(-t)$ $\to$ περιττό· αλλιώς ούτε το ένα.
+6. **Ντετερμινισμός:** Ακριβώς προβλέψιμο $\to$ ντετερμινιστικό· τυχαίο $\to$ στοχαστικό.
+7. **Αιτιότητα:** $x(t) = 0$ για $t < 0$ $\to$ αιτιατό· αλλιώς μη αιτιατό.
+8. **Φραγμένοτητα:** $|x(t)| \le M$ για κάθε $t$ και κάποιο πεπερασμένο $M$ $\to$ φραγμένο.
+9. **Ενέργεια/Ισχύς:** Υπολογίστε το $E_\infty$ και το $P_\infty$· ταξινομήστε αναλόγως.
 
 ---
 
-## 5. Signal Properties
+## 5. Ιδιότητες Σήματος
 
-### 5.1 Deterministic vs. Stochastic (Random) Signals
+### 5.1 Ντετερμινιστικά έναντι Στοχαστικών (Τυχαίων) Σημάτων
 
-| Property | Deterministic | Stochastic |
+| Ιδιότητα | Ντετερμινιστικό | Στοχαστικό |
 | :--- | :--- | :--- |
-| Definition | Exactly predictable; no uncertainty | Described by probability distributions |
-| Value at any $t$ | Known exactly | A random variable |
-| Analysis tools | Algebraic formulas, transforms | Correlation, spectral density, statistics |
-| Example | $x(t) = 5\cos(2\pi t)$ | Thermal noise voltage, speech |
+| Ορισμός | Ακριβώς προβλέψιμο· χωρίς αβεβαιότητα | Περιγράφεται από κατανομές πιθανότητας |
+| Τιμή σε οποιοδήποτε $t$ | Γνωστή ακριβώς | Μια τυχαία μεταβλητή |
+| Εργαλεία ανάλυσης | Αλγεβρικοί τύποι, μετασχηματισμοί | Συσχέτιση, φασματική πυκνότητα, στατιστική |
+| Παράδειγμα | $x(t) = 5\cos(2\pi t)$ | Τάση θερμικού θορύβου, ομιλία |
 
-### 5.2 Causal vs. Non-causal Signals
+### 5.2 Αιτιατά έναντι Μη Αιτιατών Σημάτων
 
-A signal is **causal** if $x(t) = 0$ for all $t < 0$. It is **anti-causal** if $x(t) = 0$ for all $t > 0$. It is **non-causal** if it has non-zero values for both $t < 0$ and $t > 0$.
+Ένα σήμα είναι **αιτιατό** αν $x(t) = 0$ για κάθε $t < 0$. Είναι **αντι-αιτιατό** αν $x(t) = 0$ για κάθε $t > 0$. Είναι **μη αιτιατό** αν έχει μη μηδενικές τιμές τόσο για $t < 0$ όσο και για $t > 0$.
 
-> **[Key Insight]**
+> **[Βασική Διαπίστωση]**
 >
-> In real-time physical systems, only causal signals exist — no system can respond to an input before it has been applied. However, in recorded (offline) processing, non-causal signals can be analyzed because the entire time history is available.
+> Σε πραγματικά συστήματα πραγματικού χρόνου, υπάρχουν μόνο αιτιατά σήματα — κανένα σύστημα δεν μπορεί να ανταποκριθεί σε μια είσοδο πριν αυτή εφαρμοστεί. Ωστόσο, στην καταγεγραμμένη (εκτός σύνδεσης) επεξεργασία, μπορούν να αναλυθούν μη αιτιατά σήματα επειδή είναι διαθέσιμο ολόκληρο το χρονικό ιστορικό.
 
-### 5.3 Bounded Signals
+### 5.3 Φραγμένα Σήματα
 
-A signal is **bounded** if its magnitude never exceeds some finite limit $M$:
+Ένα σήμα είναι **φραγμένο** αν το μέγεθός του δεν υπερβαίνει ποτέ κάποιο πεπερασμένο όριο $M$:
 
 $$
 |x(t)| \le M < \infty \quad \text{for all } t
 $$
 
-If no such $M$ exists, the signal is **unbounded** (e.g., $x(t) = t$).
+Αν δεν υπάρχει τέτοιο $M$, το σήμα είναι **μη φραγμένο** (π.χ., $x(t) = t$).
 
-### 5.4 Even and Odd Signals
+### 5.4 Άρτια και Περιττά Σήματα
 
-#### Definition
+#### Ορισμός
 
-A signal is **even** if $x(t) = x(-t)$ (symmetric about the vertical axis).
+Ένα σήμα είναι **άρτιο** αν $x(t) = x(-t)$ (συμμετρικό ως προς τον κατακόρυφο άξονα).
 
-A signal is **odd** if $x(t) = -x(-t)$ (anti-symmetric about the vertical axis).
+Ένα σήμα είναι **περιττό** αν $x(t) = -x(-t)$ (αντι-συμμετρικό ως προς τον κατακόρυφο άξονα).
 
-#### Even-Odd Decomposition
+#### Ανάλυση σε Άρτιο και Περιττό
 
-Any signal $x(t)$ can be uniquely decomposed into an even component $x_e(t)$ and an odd component $x_o(t)$:
+Οποιοδήποτε σήμα $x(t)$ μπορεί να αναλυθεί μοναδικά σε ένα άρτιο συνιστώσα $x_e(t)$ και ένα περιττό συνιστώσα $x_o(t)$:
 
 $$
 x_e(t) = \frac{x(t) + x(-t)}{2}, \qquad x_o(t) = \frac{x(t) - x(-t)}{2}
 $$
 
-Properties:
+Ιδιότητες:
 - $x_e(t) + x_o(t) = x(t)$
-- $x_e(t)$ is even: $x_e(-t) = x_e(t)$
-- $x_o(t)$ is odd: $x_o(-t) = -x_o(t)$
+- $x_e(t)$ είναι άρτιο: $x_e(-t) = x_e(t)$
+- $x_o(t)$ είναι περιττό: $x_o(-t) = -x_o(t)$
 
-#### Multiplication Properties
+#### Ιδιότητες Πολλαπλασιασμού
 
-| Signal 1 | Signal 2 | Product |
+| Σήμα 1 | Σήμα 2 | Γινόμενο |
 | :--- | :--- | :--- |
-| Even | Even | Even |
-| Odd | Odd | Even |
-| Even | Odd | Odd |
-| Odd | Even | Odd |
+| Άρτιο | Άρτιο | Άρτιο |
+| Περιττό | Περιττό | Άρτιο |
+| Άρτιο | Περιττό | Περιττό |
+| Περιττό | Άρτιο | Περιττό |
 
-### 5.5 Periodic Signals
+### 5.5 Περιοδικά Σήματα
 
-A CT signal $x(t)$ is **periodic** with period $T_0$ if:
+Ένα σήμα ΣΧ $x(t)$ είναι **περιοδικό** με περίοδο $T_0$ αν:
 
 $$
 x(t + T_0) = x(t) \quad \text{for all } t \in \mathbb{R}
 $$
 
-The **fundamental period** $T_0$ is the smallest positive value for which this holds.
+Η **θεμελιώδης περίοδος** $T_0$ είναι η μικρότερη θετική τιμή για την οποία ισχύει αυτό.
 
-For a DT signal $x[n]$, periodicity requires an integer period $N_0$:
+Για ένα σήμα ΔΧ $x[n]$, η περιοδικότητα απαιτεί ακέραια περίοδο $N_0$:
 
 $$
 x[n + N_0] = x[n] \quad \text{for all } n \in \mathbb{Z}
 $$
 
-> **[Key Insight]**
+> **[Βασική Διαπίστωση]**
 >
-> A DT sinusoid $\cos(\omega_0 n)$ is periodic **only if** $\omega_0 / 2\pi$ is a rational number. This is because $\cos(\omega_0 (n + N_0)) = \cos(\omega_0 n)$ requires $\omega_0 N_0 = 2\pi k$ for integers $k, N_0$.
+> Ένα ημιτονοειδές ΔΧ $\cos(\omega_0 n)$ είναι περιοδικό **μόνο αν** το $\omega_0 / 2\pi$ είναι ρητός αριθμός. Αυτό συμβαίνει επειδή το $\cos(\omega_0 (n + N_0)) = \cos(\omega_0 n)$ απαιτεί $\omega_0 N_0 = 2\pi k$ για ακέραιους $k, N_0$.
 
 ---
 
-## 6. Solved Exercises
+## 6. Λυμένες Ασκήσεις
 
-### Exercise 1: Classifying a Signal by All Criteria
+### Άσκηση 1: Ταξινόμηση ενός Σήματος με όλα τα Κριτήρια
 
-**Problem:** Fully classify the signal $x(t) = 3e^{-2t}u(t)$ according to all applicable criteria.
+**Πρόβλημα:** Ταξινομήστε πλήρως το σήμα $x(t) = 3e^{-2t}u(t)$ σύμφωνα με όλα τα εφαρμόσιμα κριτήρια.
 
-**Solution:**
+**Λύση:**
 
-1. **Domain:** Parentheses with $t$ → **continuous-time**.
-2. **Amplitude:** Continuous range $[0, 3]$ → **analog**.
-3. **Duration:** $u(t)$ makes the signal zero for $t < 0$; for $t \ge 0$, the signal decays but never exactly reaches zero. It is **right-sided** and has **infinite duration**.
-4. **Periodicity:** The exponential decays without repeating. It is **aperiodic**.
-5. **Symmetry:** $x(t) = 0$ for $t < 0$ and $x(t) = 3e^{-2t}$ for $t \ge 0$. Since $x(-t) \neq x(t)$ and $x(-t) \neq -x(t)$, it is **neither even nor odd**.
-6. **Determinism:** The signal is given by a precise formula. It is **deterministic**.
-7. **Causality:** $x(t) = 0$ for $t < 0$. It is **causal**.
-8. **Boundedness:** $|x(t)| \le 3$ for all $t$. It is **bounded**.
-9. **Energy/Power:** Compute total energy:
+1. **Πεδίο:** Παρενθέσεις με $t$ → **συνεχούς χρόνου**.
+2. **Πλάτος:** Συνεχές εύρος $[0, 3]$ → **αναλογικό**.
+3. **Διάρκεια:** Το $u(t)$ μηδενίζει το σήμα για $t < 0$· για $t \ge 0$, το σήμα φθίνει αλλά δεν φτάνει ποτέ ακριβώς στο μηδέν. Είναι **δεξιά-πλευρικό** και έχει **άπειρη διάρκεια**.
+4. **Περιοδικότητα:** Ο εκθετικός φθίνει χωρίς επανάληψη. Είναι **απεριοδικό**.
+5. **Συμμετρία:** $x(t) = 0$ για $t < 0$ και $x(t) = 3e^{-2t}$ για $t \ge 0$. Επειδή $x(-t) \neq x(t)$ και $x(-t) \neq -x(t)$, είναι **ούτε άρτιο ούτε περιττό**.
+6. **Ντετερμινισμός:** Το σήμα δίνεται από ακριβή τύπο. Είναι **ντετερμινιστικό**.
+7. **Αιτιότητα:** $x(t) = 0$ για $t < 0$. Είναι **αιτιατό**.
+8. **Φραγμένοτητα:** $|x(t)| \le 3$ για κάθε $t$. Είναι **φραγμένο**.
+9. **Ενέργεια/Ισχύς:** Υπολογίστε τη συνολική ενέργεια:
    $$
    E_\infty = \int_{-\infty}^{\infty} |3e^{-2t}u(t)|^2 dt = \int_0^\infty 9e^{-4t} dt = 9\left[\frac{e^{-4t}}{-4}\right]_0^\infty = 9 \times \frac{1}{4} = \frac{9}{4}
    $$
-   Finite energy → **energy signal**.
+   Πεπερασμένη ενέργεια → **σήμα ενέργειας**.
 
 ---
 
-### Exercise 2: Energy and Power of a Rectangular Pulse
+### Άσκηση 2: Ενέργεια και Ισχύς ενός Ορθογώνιου Παλμού
 
-**Problem:** Compute the total energy and average power of the rectangular pulse:
+**Πρόβλημα:** Υπολογίστε τη συνολική ενέργεια και τη μέση ισχύ του ορθογώνιου παλμού:
 
 $$
 x(t) = 
@@ -395,45 +395,45 @@ x(t) =
 \end{cases}
 $$
 
-**Solution:**
+**Λύση:**
 
-Since the signal is non-zero only on $[0, 4]$, the total energy is computed over this finite interval:
+Επειδή το σήμα είναι μη μηδενικό μόνο στο $[0, 4]$, η συνολική ενέργεια υπολογίζεται σε αυτό το πεπερασμένο διάστημα:
 
 $$
 E_\infty = \int_{0}^{4} 5^2 dt = \int_{0}^{4} 25 dt = 25 \times 4 = 100
 $$
 
-For the average power over infinite time:
+Για τη μέση ισχύ σε άπειρο χρόνο:
 
 $$
 P_\infty = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
 $$
 
-The integral over $[-T, T]$ for $T > 4$ includes the interval $[0, 4]$ where the signal is 25, and the rest where it is 0:
+Το ολοκλήρωμα στο $[-T, T]$ για $T > 4$ περιλαμβάνει το διάστημα $[0, 4]$ όπου το σήμα είναι 25, και το υπόλοιπο όπου είναι 0:
 
 $$
 P_\infty = \lim_{T \to \infty} \frac{1}{2T} \times 100 = 0
 $$
 
-The signal has finite energy ($E_\infty = 100$) and zero average power → **energy signal**.
+Το σήμα έχει πεπερασμένη ενέργεια ($E_\infty = 100$) και μηδενική μέση ισχύ → **σήμα ενέργειας**.
 
 ---
 
-### Exercise 3: Time Shifting and Time Scaling Combined
+### Άσκηση 3: Συνδυασμένη Χρονική Μετατόπιση και Χρονική Κλιμάκωση
 
-**Problem:** Given $x(t)$ as shown below (a triangular pulse from $t = -1$ to $t = 1$ with peak $1$ at $t = 0$), sketch $y(t) = x(2t + 1)$.
+**Πρόβλημα:** Δεδομένου $x(t)$ όπως φαίνεται παρακάτω (ένα τριγωνικό παλμός από $t = -1$ έως $t = 1$ με κορυφή $1$ στο $t = 0$), σχεδιάστε το $y(t) = x(2t + 1)$.
 
-**Solution:**
+**Λύση:**
 
-Rewrite the transformation to identify the shift and scale:
+Επανεγγράψτε τον μετασχηματισμό για να προσδιορίσετε τη μετατόπιση και την κλίμακα:
 
 $$
 x(2t + 1) = x\left(2\left(t + \frac{1}{2}\right)\right)
 $$
 
-Proceed in steps:
+Προχωρήστε βήμα προς βήμα:
 
-**Step 1:** Write the original signal mathematically:
+**Βήμα 1:** Γράψτε το αρχικό σήμα μαθηματικά:
 $$
 x(t) = 
 \begin{cases}
@@ -442,7 +442,7 @@ x(t) =
 \end{cases}
 $$
 
-**Step 2:** Apply the transformation directly by substituting $t \to 2t + 1$:
+**Βήμα 2:** Εφαρμόστε τον μετασχηματισμό άμεσα αντικαθιστώντας $t \to 2t + 1$:
 
 $$
 y(t) = x(2t + 1) = 
@@ -452,24 +452,24 @@ y(t) = x(2t + 1) =
 \end{cases}
 $$
 
-**Step 3:** Determine the support (where the signal is non-zero):
+**Βήμα 3:** Προσδιορίστε το υπόστρωμα (όπου το σήμα είναι μη μηδενικό):
 
 $$
 |2t + 1| \le 1 \implies -1 \le 2t + 1 \le 1 \implies -2 \le 2t \le 0 \implies -1 \le t \le 0
 $$
 
-**Step 4:** Write the explicit form on $[-1, 0]$:
+**Βήμα 4:** Γράψτε την ρητή μορφή στο $[-1, 0]$:
 
 $$
 y(t) = 1 - |2t + 1|, \quad -1 \le t \le 0
 $$
 
-For $t$ in $[-1, 0]$, $2t + 1$ goes from $-1$ to $1$. The absolute value makes this piecewise:
+Για $t$ στο $[-1, 0]$, το $2t + 1$ πηγαίνει από $-1$ σε $1$. Η απόλυτη τιμή το καθιστά τμηματικό:
 
-- For $t \in [-1, -0.5]$: $2t + 1 \le 0$, so $|2t + 1| = -(2t + 1) = -2t - 1$. Then $y(t) = 1 - (-2t - 1) = 2t + 2$.
-- For $t \in [-0.5, 0]$: $2t + 1 \ge 0$, so $|2t + 1| = 2t + 1$. Then $y(t) = 1 - (2t + 1) = -2t$.
+- Για $t \in [-1, -0.5]$: $2t + 1 \le 0$, οπότε $|2t + 1| = -(2t + 1) = -2t - 1$. Τότε $y(t) = 1 - (-2t - 1) = 2t + 2$.
+- Για $t \in [-0.5, 0]$: $2t + 1 \ge 0$, οπότε $|2t + 1| = 2t + 1$. Τότε $y(t) = 1 - (2t + 1) = -2t$.
 
-**Step 5:** Summarize:
+**Βήμα 5:** Συνοψίστε:
 
 $$
 y(t) = 
@@ -480,23 +480,23 @@ y(t) =
 \end{cases}
 $$
 
-*Intermediate state check:* At $t = -1$: $y(-1) = 2(-1) + 2 = 0$. At $t = -0.5$: $y(-0.5) = 2(-0.5) + 2 = 1$ (from first piece) and $y(-0.5) = -2(-0.5) = 1$ (from second piece) — continuous. At $t = 0$: $y(0) = 0$. The original triangle from $[-1, 1]$ has been compressed by factor 2 (duration halved from 2 to 1) and shifted left by 0.5 units.
+*Έλεγχος ενδιάμεσης κατάστασης:* Στο $t = -1$: $y(-1) = 2(-1) + 2 = 0$. Στο $t = -0.5$: $y(-0.5) = 2(-0.5) + 2 = 1$ (από το πρώτο τμήμα) και $y(-0.5) = -2(-0.5) = 1$ (από το δεύτερο τμήμα) — συνεχές. Στο $t = 0$: $y(0) = 0$. Το αρχικό τρίγωνο από $[-1, 1]$ έχει συμπιεστεί κατά παράγοντα 2 (η διάρκεια υποδιπλασιάστηκε από 2 σε 1) και μετατοπιστεί αριστερά κατά 0.5 μονάδες.
 
 ---
 
-### Exercise 4: Even-Odd Decomposition of a Sinusoid
+### Άσκηση 4: Ανάλυση σε Άρτιο και Περιττό Ημιτονοειδούς
 
-**Problem:** Decompose $x(t) = \cos(2t) + \sin(2t)$ into its even and odd components.
+**Πρόβλημα:** Αναλύστε το $x(t) = \cos(2t) + \sin(2t)$ στις άρτιες και περιττές συνιστώσες του.
 
-**Solution:**
+**Λύση:**
 
-Compute $x(-t)$:
+Υπολογίστε το $x(-t)$:
 
 $$
 x(-t) = \cos(-2t) + \sin(-2t) = \cos(2t) - \sin(2t)
 $$
 
-Using the even/odd formulas:
+Χρησιμοποιώντας τους τύπους άρτιου/περιττού:
 
 $$
 x_e(t) = \frac{x(t) + x(-t)}{2} = \frac{[\cos(2t) + \sin(2t)] + [\cos(2t) - \sin(2t)]}{2} = \frac{2\cos(2t)}{2} = \cos(2t)
@@ -506,200 +506,200 @@ $$
 x_o(t) = \frac{x(t) - x(-t)}{2} = \frac{[\cos(2t) + \sin(2t)] - [\cos(2t) - \sin(2t)]}{2} = \frac{2\sin(2t)}{2} = \sin(2t)
 $$
 
-Verification:
-- $x_e(-t) = \cos(-2t) = \cos(2t) = x_e(t)$ (even)
-- $x_o(-t) = \sin(-2t) = -\sin(2t) = -x_o(t)$ (odd)
+Επαλήθευση:
+- $x_e(-t) = \cos(-2t) = \cos(2t) = x_e(t)$ (άρτιο)
+- $x_o(-t) = \sin(-2t) = -\sin(2t) = -x_o(t)$ (περιττό)
 - $x_e(t) + x_o(t) = \cos(2t) + \sin(2t) = x(t)$
 
-The decomposition shows that $\cos(2t)$ is the even part and $\sin(2t)$ is the odd part of the combined signal.
+Η ανάλυση δείχνει ότι το $\cos(2t)$ είναι το άρτιο μέρος και το $\sin(2t)$ είναι το περιττό μέρος του συνδυασμένου σήματος.
 
 ---
 
-### Exercise 5: Periodicity of a Discrete-Time Sinusoid
+### Άσκηση 5: Περιοδικότητα Ημιτονοειδούς Διακριτού Χρόνου
 
-**Problem:** Determine whether $x[n] = \cos(0.3\pi n)$ is periodic. If so, find its fundamental period $N_0$.
+**Πρόβλημα:** Προσδιορίστε αν το $x[n] = \cos(0.3\pi n)$ είναι περιοδικό. Αν ναι, βρείτε τη θεμελιώδη περίοδο $N_0$.
 
-**Solution:**
+**Λύση:**
 
-A DT sinusoid $\cos(\omega_0 n)$ is periodic if $\omega_0/2\pi$ is rational, i.e., there exist integers $k$ and $N_0$ such that $\omega_0 N_0 = 2\pi k$.
+Ένα ημιτονοειδές ΔΧ $\cos(\omega_0 n)$ είναι περιοδικό αν το $\omega_0/2\pi$ είναι ρητό, δηλαδή αν υπάρχουν ακέραιοι $k$ και $N_0$ τέτοιοι ώστε $\omega_0 N_0 = 2\pi k$.
 
-Here $\omega_0 = 0.3\pi$.
+Εδώ $\omega_0 = 0.3\pi$.
 
 $$
 \frac{\omega_0}{2\pi} = \frac{0.3\pi}{2\pi} = \frac{0.3}{2} = \frac{3}{20}
 $$
 
-The fraction $3/20$ is rational. Therefore the signal is periodic.
+Το κλάσμα $3/20$ είναι ρητό. Επομένως το σήμα είναι περιοδικό.
 
-The fundamental period $N_0$ is the smallest integer such that $\omega_0 N_0$ is an integer multiple of $2\pi$:
+Η θεμελιώδης περίοδος $N_0$ είναι ο μικρότερος ακέραιος τέτοιος ώστε το $\omega_0 N_0$ να είναι ακέραιο πολλαπλάσιο του $2\pi$:
 
 $$
 \omega_0 N_0 = 0.3\pi N_0 = 2\pi k \implies N_0 = \frac{2k}{0.3} = \frac{20k}{3}
 $$
 
-For $k = 3$: $N_0 = 20$. Since $k = 3$ and $N_0 = 20$ are coprime, the fundamental period is:
+Για $k = 3$: $N_0 = 20$. Επειδή το $k = 3$ και το $N_0 = 20$ είναι πρώτα μεταξύ τους, η θεμελιώδης περίοδος είναι:
 
 $$
-N_0 = 20 \text{ samples}
+N_0 = 20 \text{ δείγματα}
 $$
 
 ---
 
-### Exercise 6: Energy of a Complex Exponential
+### Άσκηση 6: Ενέργεια Ενός Μιγαδικού Εκθετικού
 
-**Problem:** Compute the total energy and average power of $x(t) = e^{j\omega_0 t}$ over the interval $[0, T_0]$ where $T_0 = 2\pi/\omega_0$, and classify the signal.
+**Πρόβλημα:** Υπολογίστε τη συνολική ενέργεια και τη μέση ισχύ του $x(t) = e^{j\omega_0 t}$ στο διάστημα $[0, T_0]$ όπου $T_0 = 2\pi/\omega_0$, και ταξινομήστε το σήμα.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Compute the magnitude:
+**Βήμα 1:** Υπολογίστε το μέτρο:
 
 $$
 |x(t)| = |e^{j\omega_0 t}| = 1
 $$
 
-The complex exponential has constant magnitude 1.
+Ο μιγαδικός εκθετικός έχει σταθερό μέτρο 1.
 
-**Step 2:** Energy over one period:
+**Βήμα 2:** Ενέργεια σε μία περίοδο:
 
 $$
 E_{[0,T_0]} = \int_0^{T_0} |e^{j\omega_0 t}|^2 dt = \int_0^{T_0} 1^2 dt = T_0
 $$
 
-**Step 3:** Average power over one period:
+**Βήμα 3:** Μέση ισχύς σε μία περίοδο:
 
 $$
 P_{[0,T_0]} = \frac{1}{T_0} \int_0^{T_0} 1 dt = \frac{T_0}{T_0} = 1
 $$
 
-**Step 4:** Total energy over infinite horizon:
+**Βήμα 4:** Συνολική ενέργεια σε άπειρο ορίζοντα:
 
-Since $|x(t)|^2 = 1$ for all $t$, the integral diverges:
+Επειδή $|x(t)|^2 = 1$ για κάθε $t$, το ολοκλήρωμα αποκλίνει:
 
 $$
 E_\infty = \int_{-\infty}^{\infty} 1 dt = \infty
 $$
 
-**Step 5:** Average power over infinite horizon:
+**Βήμα 5:** Μέση ισχύς σε άπειρο ορίζοντα:
 
 $$
 P_\infty = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} 1 dt = \lim_{T \to \infty} \frac{2T}{2T} = 1
 $$
 
-**Classification:** Finite non-zero average power ($P_\infty = 1$), infinite total energy → **power signal**.
+**Ταξινόμηση:** Πεπερασμένη μη μηδενική μέση ισχύς ($P_\infty = 1$), άπειρη συνολική ενέργεια → **σήμα ισχύος**.
 
 ---
 
-### Exercise 7: Combined Amplitude and Time Transformations
+### Άσκηση 7: Συνδυασμένοι Μετασχηματισμοί Πλάτους και Χρόνου
 
-**Problem:** Given $x(t) = 2\cos(4\pi t)$, find and sketch $y(t) = -3x(2t - 1) + 2$.
+**Πρόβλημα:** Δεδομένου $x(t) = 2\cos(4\pi t)$, βρείτε και σχεδιάστε το $y(t) = -3x(2t - 1) + 2$.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Apply time transformation first: $x(2t - 1) = 2\cos(4\pi (2t - 1)) = 2\cos(8\pi t - 4\pi)$.
+**Βήμα 1:** Εφαρμόστε πρώτα τον μετασχηματισμό χρόνου: $x(2t - 1) = 2\cos(4\pi (2t - 1)) = 2\cos(8\pi t - 4\pi)$.
 
-**Step 2:** Since $\cos(\theta - 4\pi) = \cos(\theta)$ (cosine has period $2\pi$, and $4\pi = 2 \times 2\pi$):
+**Βήμα 2:** Επειδή $\cos(\theta - 4\pi) = \cos(\theta)$ (η συνημίτονο έχει περίοδο $2\pi$, και $4\pi = 2 \times 2\pi$):
 
 $$
 x(2t - 1) = 2\cos(8\pi t)
 $$
 
-**Step 3:** Apply amplitude scaling: $-3x(2t - 1) = -3 \times 2\cos(8\pi t) = -6\cos(8\pi t)$.
+**Βήμα 3:** Εφαρμόστε κλιμάκωση πλάτους: $-3x(2t - 1) = -3 \times 2\cos(8\pi t) = -6\cos(8\pi t)$.
 
-**Step 4:** Apply vertical shift: $y(t) = -6\cos(8\pi t) + 2$.
+**Βήμα 4:** Εφαρμόστε κατακόρυφη μετατόπιση: $y(t) = -6\cos(8\pi t) + 2$.
 
-**Step 5:** Determine the parameters of the resulting signal:
-- Amplitude: $6$ (signal oscillates between $-6 + 2 = -4$ and $6 + 2 = 8$)
-- Angular frequency: $\omega = 8\pi$ rad/s
-- Frequency: $f = \omega/(2\pi) = 4$ Hz
-- Period: $T = 1/f = 0.25$ s
-- DC offset: $2$
+**Βήμα 5:** Προσδιορίστε τις παραμέτρους του προκύπτοντος σήματος:
+- Πλάτος: $6$ (το σήμα ταλαντώνεται μεταξύ $-6 + 2 = -4$ και $6 + 2 = 8$)
+- Γωνιακή συχνότητα: $\omega = 8\pi$ rad/s
+- Συχνότητα: $f = \omega/(2\pi) = 4$ Hz
+- Περίοδος: $T = 1/f = 0.25$ s
+- Μετατόπιση DC: $2$
 
-*Intermediate state comparison:*
+*Σύγκριση ενδιάμεσης κατάστασης:*
 
-| Parameter | $x(t)$ | $y(t)$ |
+| Παράμετρος | $x(t)$ | $y(t)$ |
 | :--- | :--- | :--- |
-| Amplitude | $2$ | $6$ |
-| Frequency | $2$ Hz | $4$ Hz |
-| DC offset | $0$ | $2$ |
-| Phase | $0$ | $0$ |
+| Πλάτος | $2$ | $6$ |
+| Συχνότητα | $2$ Hz | $4$ Hz |
+| Μετατόπιση DC | $0$ | $2$ |
+| Φάση | $0$ | $0$ |
 
 ---
 
-### Exercise 8: Determining if a Signal is an Energy or Power Signal from a Composite
+### Άσκηση 8: Προσδιορισμός αν ένα Σήμα είναι Ενέργειας ή Ισχύος από Σύνθεση
 
-**Problem:** Classify $x(t) = e^{-t}\cos(10t)u(t)$ as an energy signal, power signal, or neither.
+**Πρόβλημα:** Ταξινομήστε το $x(t) = e^{-t}\cos(10t)u(t)$ ως σήμα ενέργειας, σήμα ισχύος, ή ούτε το ένα.
 
-**Solution:**
+**Λύση:**
 
-**Step 1:** Note that $u(t)$ makes the signal zero for $t < 0$.
+**Βήμα 1:** Σημειώστε ότι το $u(t)$ μηδενίζει το σήμα για $t < 0$.
 
-**Step 2:** Compute total energy:
+**Βήμα 2:** Υπολογίστε τη συνολική ενέργεια:
 
 $$
 E_\infty = \int_0^\infty \left|e^{-t}\cos(10t)\right|^2 dt = \int_0^\infty e^{-2t} \cos^2(10t) dt
 $$
 
-**Step 3:** Use the identity $\cos^2\theta = \frac{1 + \cos(2\theta)}{2}$:
+**Βήμα 3:** Χρησιμοποιήστε την ταυτότητα $\cos^2\theta = \frac{1 + \cos(2\theta)}{2}$:
 
 $$
 E_\infty = \int_0^\infty e^{-2t} \cdot \frac{1 + \cos(20t)}{2} dt = \frac{1}{2} \int_0^\infty e^{-2t} dt + \frac{1}{2} \int_0^\infty e^{-2t}\cos(20t) dt
 $$
 
-**Step 4:** Evaluate the first integral:
+**Βήμα 4:** Υπολογίστε το πρώτο ολοκλήρωμα:
 
 $$
 \frac{1}{2} \int_0^\infty e^{-2t} dt = \frac{1}{2} \left[ \frac{e^{-2t}}{-2} \right]_0^\infty = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4}
 $$
 
-**Step 5:** Evaluate the second integral using the standard form $\int e^{at}\cos(bt) dt$ or integration by parts. For $a = -2$, $b = 20$:
+**Βήμα 5:** Υπολογίστε το δεύτερο ολοκλήρωμα χρησιμοποιώντας την τυπική μορφή $\int e^{at}\cos(bt) dt$ ή την ολοκλήρωση κατά μέρη. Για $a = -2$, $b = 20$:
 
 $$
 \int_0^\infty e^{-2t}\cos(20t) dt = \left[ \frac{e^{-2t}(-2\cos(20t) + 20\sin(20t))}{(-2)^2 + 20^2} \right]_0^\infty
 $$
 
-At $t = \infty$: the term approaches $0$ due to $e^{-2t}$.
-At $t = 0$: $\frac{1(-2\cos(0) + 20\sin(0))}{404} = \frac{-2}{404} = -\frac{1}{202}$.
+Στο $t = \infty$: ο όρος τείνει στο $0$ λόγω του $e^{-2t}$.
+Στο $t = 0$: $\frac{1(-2\cos(0) + 20\sin(0))}{404} = \frac{-2}{404} = -\frac{1}{202}$.
 
-So the definite integral is $0 - (-\frac{1}{202}) = \frac{1}{202}$.
+Έτσι το ορισμένο ολοκλήρωμα είναι $0 - (-\frac{1}{202}) = \frac{1}{202}$.
 
-**Step 6:** Combine:
+**Βήμα 6:** Συνδυάστε:
 
 $$
 E_\infty = \frac{1}{4} + \frac{1}{2} \times \frac{1}{202} = \frac{1}{4} + \frac{1}{404} = \frac{101}{404} + \frac{1}{404} = \frac{102}{404} = \frac{51}{202} \approx 0.2525
 $$
 
-**Classification:** Total energy is finite ($E_\infty \approx 0.2525$) → **energy signal**.
+**Ταξινόμηση:** Η συνολική ενέργεια είναι πεπερασμένη ($E_\infty \approx 0.2525$) → **σήμα ενέργειας**.
 
-The decaying exponential envelope $e^{-t}$ ensures the signal decays to zero sufficiently fast for the energy integral to converge, despite the oscillatory $\cos(10t)$ factor.
-
----
-
-## 7. Connections and Cross-References
-
-This lecture builds directly on Lecture 01 and provides essential prerequisites for subsequent material:
-
-- **Lecture 01** introduced the sinusoidal signal representation and basic CT/DT distinction. This lecture expands classification to all categories.
-- **Lecture 03 (Elementary Signals)** uses the unit step $u(t)$ extensively for defining signals; the causal vs. non-causal distinction established here is essential for understanding when the step function is needed.
-- **Lectures 05-06 (Convolution)** rely on energy/power classifications to determine whether an LTI system's output has finite energy.
-- **Fourier series (Lecture 07+)** require periodicity analysis — the rational ratio test for sum periodicity is used repeatedly.
-- **Sampling theorem** builds on the A/D conversion concepts introduced here, specifically sampling and quantization.
+Το φθίνον εκθετικό περίβλημα $e^{-t}$ εξασφαλίζει ότι το σήμα φθίνει στο μηδέν αρκετά γρήγορα ώστε το ολοκλήρωμα ενέργειας να συγκλίνει, παρά τον ταλαντωτικό παράγοντα $\cos(10t)$.
 
 ---
 
-## 8. Exam Tip: The "Show Your Work" Checklist for Signal Classification
+## 7. Συνδέσεις και Διασταυρώσεις
 
-When an exam problem asks you to "classify the signal," examiners expect you to address **all** applicable categories. A partial answer (e.g., stating only CT/DT without energy/power) loses marks even if correct. Use this systematic checklist:
+Αυτή η διάλεξη βασίζεται άμεσα στη Διάλεξη 01 και παρέχει ουσιαστικές προϋποθέσεις για το επόμενο υλικό:
 
-1. **Domain:** CT or DT? (Check parentheses vs. brackets.)
-2. **Amplitude:** Analog or digital? (Continuous vs. discrete amplitude.)
-3. **Periodicity:** Find $T_0$ or $N_0$, or prove none exists.
-4. **Symmetry:** Even, odd, or neither? If decomposition is asked, show both $x_e(t)$ and $x_o(t)$.
-5. **Causality:** Zero for $t < 0$?
-6. **Boundedness:** Finite maximum magnitude?
-7. **Duration:** Finite or infinite? Right-sided, left-sided, or two-sided?
-8. **Determinism:** Predictable by formula?
-9. **Energy/Power:** Compute $E_\infty$, then $P_\infty$ if $E_\infty = \infty$.
+- Η **Διάλεξη 01** εισήγαγε την αναπαράσταση ημιτονοειδούς σήματος και τη βασική διάκριση ΣΧ/ΔΧ. Αυτή η διάλεξη επεκτείνει την ταξινόμηση σε όλες τις κατηγορίες.
+- Η **Διάλεξη 03 (Στοιχειώδη Σήματα)** χρησιμοποιεί το μοναδιαίο βήμα $u(t)$ εκτενώς για τον ορισμό σημάτων· η διάκριση αιτιατού έναντι μη αιτιατού που καθιερώθηκε εδώ είναι ουσιαστική για την κατανόηση του πότε απαιτείται η συνάρτηση βήματος.
+- Οι **Διαλέξεις 05-06 (Συνέλιξη)** βασίζονται σε ταξινομήσεις ενέργειας/ισχύος για να προσδιορίσουν αν η έξοδος ενός συστήματος LTI έχει πεπερασμένη ενέργεια.
+- Οι **Σειρές Fourier (Διάλεξη 07+)** απαιτούν ανάλυση περιοδικότητας — η δοκιμή ρητού λόγου για περιοδικότητα αθροίσματος χρησιμοποιείται επανειλημμένα.
+- Το **θεώρημα δειγματοληψίας** βασίζεται στις έννοιες μετατροπής A/D που εισήχθησαν εδώ, συγκεκριμένα στη δειγματοληψία και τον κβαντισμό.
 
-**Common mistake:** Applying the periodic sum condition incorrectly. For $x(t) = \cos(\omega_1 t) + \cos(\omega_2 t)$ to be periodic, $\omega_1/\omega_2$ must be rational — not $\omega_1/\omega_2 = 2\pi$. Always compute periods $T_1$ and $T_2$ first, then check $T_1/T_2$ for rationality.
+---
 
-**Memory aid for even/odd multiplication:** "Even times even = even" (like positive $\times$ positive), "odd times odd = even" (like negative $\times$ negative), "even times odd = odd" (like positive $\times$ negative). The symmetry of the product follows the sign rule.
+## 8. Συμβουλή Εξετάσεων: Η Λίστα Ελέγχου «Δείξε την Εργασία σου» για την Ταξινόμηση Σήματος
+
+Όταν ένα θέμα εξέτασης σας ζητά να «ταξινομήσετε το σήμα», οι εξεταστές αναμένουν να καλύψετε **όλες** τις εφαρμόσιμες κατηγορίες. Μια μερική απάντηση (π.χ., να δηλώνετε μόνο ΣΧ/ΔΧ χωρίς ενέργεια/ισχύ) χάνει μόρια ακόμα και αν είναι σωστή. Χρησιμοποιήστε αυτή τη συστηματική λίστα ελέγχου:
+
+1. **Πεδίο:** ΣΧ ή ΔΧ; (Ελέγξτε παρενθέσεις έναντι αγκυλών.)
+2. **Πλάτος:** Αναλογικό ή ψηφιακό; (Συνεχές έναντι διακριτού πλάτους.)
+3. **Περιοδικότητα:** Βρείτε $T_0$ ή $N_0$, ή αποδείξτε ότι δεν υπάρχει.
+4. **Συμμετρία:** Άρτιο, περιττό, ή ούτε το ένα; Αν ζητείται ανάλυση, δείξτε και τα $x_e(t)$ και $x_o(t)$.
+5. **Αιτιότητα:** Μηδέν για $t < 0$;
+6. **Φραγμένοτητα:** Πεπερασμένο μέγιστο μέγεθος;
+7. **Διάρκεια:** Πεπερασμένη ή άπειρη; Δεξιά-πλευρική, αριστερά-πλευρική, ή δίπλευρη;
+8. **Ντετερμινισμός:** Προβλέψιμο από τύπο;
+9. **Ενέργεια/Ισχύς:** Υπολογίστε το $E_\infty$, μετά το $P_\infty$ αν $E_\infty = \infty$.
+
+**Συνήθες λάθος:** Η λανθασμένη εφαρμογή της συνθήκης περιοδικού αθροίσματος. Για να είναι περιοδικό το $x(t) = \cos(\omega_1 t) + \cos(\omega_2 t)$, το $\omega_1/\omega_2$ πρέπει να είναι ρητό — όχι $\omega_1/\omega_2 = 2\pi$. Υπολογίστε πάντα πρώτα τις περιόδους $T_1$ και $T_2$, μετά ελέγξτε το $T_1/T_2$ για ρητότητα.
+
+**Βοήθημα μνήμης για τον πολλαπλασιασμό άρτιου/περιττού:** «Άρτιο επί άρτιο = άρτιο» (όπως θετικό $\times$ θετικό), «περιττό επί περιττό = άρτιο» (όπως αρνητικό $\times$ αρνητικό), «άρτιο επί περιττό = περιττό» (όπως θετικό $\times$ αρνητικό). Η συμμετρία του γινομένου ακολουθεί τον κανόνα του προσήμου.
