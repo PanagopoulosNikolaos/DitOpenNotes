@@ -1,28 +1,28 @@
-# Digital Electronics
+# Ψηφιακά Ηλεκτρονικά
 
-## Course Overview
-This course covers the fundamentals of digital electronics and digital system design, including logic gates, Boolean algebra, and sequential circuits.
+## Επισκόπηση Μαθήματος
+Το μάθημα αυτό καλύπτει τις θεμελιώδεις αρχές των ψηφιακών ηλεκτρονικών και του σχεδιασμού ψηφιακών συστημάτων, συμπεριλαμβανομένων των λογικών πυλών, της άλγεβρας Boole και των ακολουθιακών κυκλωμάτων.
 
-## Course Code
+## Κωδικός Μαθήματος
 205 (ΨΗΦΙΑΚΑ ΗΛΕΚΤΡΟΝΙΚΑ)
 
-## Prerequisites
-- Electronics (ECE 101)
+## Προϋποθέσεις
+- Ηλεκτρονική (ECE 101)
 
-## Topics Covered
-- Number systems and codes
-- Boolean algebra and logic gates
-- Combinational logic circuits
-- Sequential logic circuits
-- Flip-flops and registers
-- Counters and shift registers
-- Memory devices
-- Digital integrated circuits
-- Programmable logic devices
+## Θέματα που Καλύπτονται
+- Συστήματα αριθμών και κώδικες
+- Άλγεβρα Boole και λογικές πύλες
+- Συνδυαστικά κυκλώματα λογικής
+- Ακολουθιακά κυκλώματα λογικής
+- Flip-flops και καταχωρητές
+- Μετρητές και καταχωρητές ολίσθησης
+- Μονάδες μνήμης
+- Ψηφιακά ολοκληρωμένα κυκλώματα
+- Προγραμματιζόμενες συσκευές λογικής
 
-## Learning Objectives
-- Understand digital logic principles
-- Design and analyze digital circuits
-- Implement Boolean functions
-- Work with sequential and combinational circuits
-- Understand memory and storage devices
+## Μαθησιακοί Στόχοι
+- Κατανόηση των αρχών της ψηφιακής λογικής
+- Σχεδίαση και ανάλυση ψηφιακών κυκλωμάτων
+- Υλοποίηση συναρτήσεων Boole
+- Εργασία με ακολουθιακά και συνδυαστικά κυκλώματα
+- Κατανόηση μονάδων μνήμης και αποθήκευσης

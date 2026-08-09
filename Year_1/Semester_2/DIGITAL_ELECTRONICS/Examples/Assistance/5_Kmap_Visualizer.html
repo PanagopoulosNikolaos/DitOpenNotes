@@ -78,13 +78,13 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>K‑Map Simplifier with Step‑by‑Step Term Derivation</h1>
-  <div class="sub">Groups 1‑cells on a Gray‑ordered K‑map, then derives each product term by keeping variables that remain constant across the group and assembling the minimal SOP expression[13][14].</div>
+  <h1>Απλοποιητής K‑Map με Βήμα‑Προς‑Βήμα Παραγωγή Όρων</h1>
+  <div class="sub">Ομαδοποιεί τα 1‑κελιά σε μια K‑map με διάταξη Gray, στη συνέχεια παράγει κάθε όρο γινομένου διατηρώντας τις μεταβλητές που παραμένουν σταθερές σε ολόκληρη την ομάδα και συναρμολογώντας την ελάχιστη έκφραση SOP[13][14].</div>
 
   <div class="grid">
     <div class="card">
       <div class="controls">
-        <label>Variables
+        <label>Μεταβλητές
           <select id="varCount">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -98,74 +98,74 @@
             <option value="10">10</option>
           </select>
         </label>
-        <label>Examples
+        <label>Παραδείγματα
           <select id="example">
-            <option value="custom" selected>Custom (click cells)</option>
+            <option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα κελιά)</option>
           </select>
         </label>
-        <button id="fill" class="ghost">Fill example</button>
-        <button id="clear">Clear</button>
-        <button id="group" class="primary">Group</button>
-        <button id="derive">Derive Terms</button>
-        <button id="auto" class="primary">Auto Derive</button>
-        <label>Speed
+        <button id="fill" class="ghost">Γέμισμα παραδείγματος</button>
+        <button id="clear">Καθαρισμός</button>
+        <button id="group" class="primary">Ομαδοποίηση</button>
+        <button id="derive">Παραγωγή Όρων</button>
+        <button id="auto" class="primary">Αυτόματη Παραγωγή</button>
+        <label>Ταχύτητα
           <select id="speed">
-            <option value="1200" selected>Very slow</option>
-            <option value="800">Slow</option>
-            <option value="500">Normal</option>
-            <option value="250">Fast</option>
+            <option value="1200" selected>Πολύ αργά</option>
+            <option value="800">Αργά</option>
+            <option value="500">Κανονική</option>
+            <option value="250">Γρήγορη</option>
           </select>
         </label>
-        <button id="reset" class="danger">Reset</button>
-        <div class="status" id="status">Ready</div>
+        <button id="reset" class="danger">Επαναφορά</button>
+        <div class="status" id="status">Έτοιμο</div>
       </div>
 
       <div id="kmap" class="kmap"></div>
 
       <div class="legend">
-        <span class="chip"><span class="dot d1"></span> 1‑cells (SOP)</span>
-        <span class="chip"><span class="dot d2"></span> grouping overlay</span>
-        <span class="chip"><span class="dot d3"></span> Gray‑code axes</span>
-        <span class="chip"><span class="dot d4"></span> animated scan</span>
+        <span class="chip"><span class="dot d1"></span> 1‑κελιά (SOP)</span>
+        <span class="chip"><span class="dot d2"></span> επικάλυμμα ομαδοποίησης</span>
+        <span class="chip"><span class="dot d3"></span> άξονες Gray</span>
+        <span class="chip"><span class="dot d4"></span> ενεργοποιημένη σάρωση</span>
       </div>
     </div>
 
     <div class="card">
       <div class="row">
-        <div class="pill mono" id="varsLbl">Vars: A,B,C,D</div>
-        <div class="pill mono" id="shapeLbl">Shape: 4×4</div>
+        <div class="pill mono" id="varsLbl">Μετ: A,B,C,D</div>
+        <div class="pill mono" id="shapeLbl">Σχήμα: 4×4</div>
       </div>
       <div class="row">
-        <div>Σm indices:</div>
+        <div>Δείκτες Σm:</div>
         <div class="expr mono" id="sig">Σ( )</div>
       </div>
       <div class="row">
-        <div>Minimal SOP:</div>
+        <div>Ελάχιστο SOP:</div>
         <div class="expr mono" id="sop">F = </div>
       </div>
 
       <div class="derive">
         <div class="step">
-          <h3>Active Group</h3>
-          <div class="expr mono" id="ginfo">None</div>
+          <h3>Ενεργή Ομάδα</h3>
+          <div class="expr mono" id="ginfo">Καμία</div>
         </div>
 
         <div class="step">
-          <h3>Compare Variables Across Group</h3>
+          <h3>Σύγκριση Μεταβλητών στην Ομάδα</h3>
           <table class="tbl" id="varTbl">
-            <thead><tr><th>Variable</th><th>Values across cells</th><th>Constant?</th><th>Literal</th></tr></thead>
+            <thead><tr><th>Μεταβλητή</th><th>Τιμές στα κελιά</th><th>Σταθερή;</th><th>Λογικό</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
 
         <div class="step">
-          <h3>Derived Term</h3>
-          <div class="expr mono" id="termOut">Term: —</div>
+          <h3>Παραγμένος Όρος</h3>
+          <div class="expr mono" id="termOut">Όρος: —</div>
         </div>
         <div class="step">
-          <h3>Expression Builder</h3>
+          <h3>Κατασκευή Εκφράσεων</h3>
           <div class="expr mono" id="builder">F = </div>
-          <div class="sub">Terms are added as groups are processed, keeping only variables that remain constant within each group[14][13].</div>
+          <div class="sub">Οι όροι προστίθεται καθώς οι ομάδες υποβάλλονται σε επεξεργασία, διατηρώντας μόνο τις μεταβλητές που παραμένουν σταθερές σε κάθε ομάδα[14][13].</div>
         </div>
       </div>
     </div>
@@ -233,7 +233,7 @@
 
   function refreshExamples(){
     const list=examples[nvars]||[];
-    el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+
+    el.example.innerHTML=`<option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα κελιά)</option>`+
       list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
   }
 
@@ -293,9 +293,9 @@
     colsBits = tempRowsBits;
     
     updateIndices(); render();
-    el.varsLbl.textContent=`Vars: ${VARS.slice(0,nvars).join(',')}`;
-    el.shapeLbl.textContent=`Shape: ${R}×${C}`;
-    el.sig.textContent='Σ( )'; el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Ready';
+    el.varsLbl.textContent=`Μετ: ${VARS.slice(0,nvars).join(',')}`;
+    el.shapeLbl.textContent=`Σχήμα: ${R}×${C}`;
+    el.sig.textContent='Σ( )'; el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Έτοιμο';
   }
 
   function cellEl(r,c){ return el.kmap.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`); }
@@ -368,7 +368,7 @@
     for(let r=0;r<R;r++) for(let c=0;c<C;c++) if(cells[r][c] && !covered[r][c]){
       const arr=[[r,c]]; const term=termFromGroup(arr); groups.push({h:1,w:1,r0:r,c0:c,cells:arr, term});
     }
-    render(); showSOP(); el.status.textContent=`Found ${groups.length} group(s)`;
+    render(); showSOP(); el.status.textContent=`Βρέθηκαν ${groups.length} ομάδα(ες)`;
   }
 
   function termFromGroup(arr){
@@ -395,9 +395,9 @@
   }
 
   function clearDeriveUI(){
-    el.ginfo.textContent='None';
+    el.ginfo.textContent='Καμία';
     el.varTbl.innerHTML='';
-    el.termOut.textContent='Term: —';
+    el.termOut.textContent='Όρος: —';
     el.builder.textContent='F = ';
   }
 
@@ -414,41 +414,41 @@
     for(let r=0;r<R;r++) for(let c=0;c<C;c++){
       const idx=(gCols[c]<<tempRowsBits)|gRows[r]; if(mset.has(idx)) cells[r][c]=1;
     }
-    render(); updateSigma(); el.status.textContent=`Loaded ${mins.length} minterm(s)`;
+    render(); updateSigma(); el.status.textContent=`Φορτώθηκαν ${mins.length} minterm`;
   }
 
   // Derivation workflow
   let dIndex=0, dStage=0; // per-group stage
   function deriveStep(){
-    if(groups.length===0){ el.status.textContent='Group first'; return; }
-    if(dIndex>=groups.length){ el.status.textContent='All groups derived'; return; }
+    if(groups.length===0){ el.status.textContent='Ομαδοποιήστε πρώτα'; return; }
+    if(dIndex>=groups.length){ el.status.textContent='Όλες οι ομάδες παρήχθησαν'; return; }
     const g=groups[dIndex];
     // highlight active group
     highlightOnlyGroup(dIndex);
     // stages: 0=show group info, 1=compute table, 2=emit term, 3=append to builder, then advance group
     if(dStage===0){
         const tempRowsBits = colsBits;
-        el.ginfo.textContent=`Group ${dIndex+1} of ${groups.length}: size ${g.h}×${g.w}, cells=${g.cells.map(([r,c])=>((gCols[c]<<tempRowsBits)|gRows[r])).join(',')}`;
-        el.varTbl.innerHTML=''; el.termOut.textContent='Term: —'; el.status.textContent='Analyzing variables…';
+        el.ginfo.textContent=`Ομάδα ${dIndex+1} από ${groups.length}: μέγεθος ${g.h}×${g.w}, κελιά=${g.cells.map(([r,c])=>((gCols[c]<<tempRowsBits)|gRows[r])).join(',')}`;
+        el.varTbl.innerHTML=''; el.termOut.textContent='Όρος: —'; el.status.textContent='Ανάλυση μεταβλητών…';
         dStage=1; return;
     }
     if(dStage===1){
       buildVarTable(g);
-      el.status.textContent='Checking constants per variable…';
+      el.status.textContent='Έλεγχος σταθερών ανά μεταβλητή…';
       dStage=2; return;
     }
     if(dStage===2){
-      el.termOut.textContent=`Term: ${g.term || '1'}`;
-      el.status.textContent='Derived term from constants';
+      el.termOut.textContent=`Όρος: ${g.term || '1'}`;
+      el.status.textContent='Ο όρος παρήχθη από σταθερές';
       dStage=3; return;
     }
     if(dStage===3){
       const curr=el.builder.textContent.replace(/^F =\s*/,'').trim();
       el.builder.textContent = 'F = ' + ([...curr? [curr]:[], g.term||'1'].join(' + '));
-      el.status.textContent='Added term to expression';
+      el.status.textContent='Ο όρος προστέθηκε στην έκφραση';
       // next group
       dIndex++; dStage=0;
-      if(dIndex>=groups.length) { el.status.textContent='All groups derived'; }
+      if(dIndex>=groups.length) { el.status.textContent='Όλες οι ομάδες παρήχθησαν'; }
       return;
     }
   }
@@ -486,12 +486,12 @@
 
   function addVarRow(v, vals, cons, lit){
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="mono">${v}</td><td class="mono">${vals}</td><td class="${cons?'ok':'no'}">${cons?'Yes':'No'}</td><td class="lit mono">${lit}</td>`;
+    tr.innerHTML=`<td class="mono">${v}</td><td class="mono">${vals}</td><td class="${cons?'ok':'no'}">${cons?'Ναι':'Όχι'}</td><td class="lit mono">${lit}</td>`;
     el.varTbl.appendChild(tr);
   }
 
   function autoDerive(){
-    if(groups.length===0){ el.status.textContent='Group first'; return; }
+    if(groups.length===0){ el.status.textContent='Ομαδοποιήστε πρώτα'; return; }
     if(animTimer){ clearInterval(animTimer); animTimer=null; }
     dIndex=0; dStage=0; clearDeriveUI();
     animTimer=setInterval(()=>{
@@ -503,7 +503,7 @@
   // Events
   el.varCount.addEventListener('change', ()=>{ nvars=parseInt(el.varCount.value,10); refreshExamples(); initGrid(); });
   el.fill.addEventListener('click', loadExample);
-  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Cleared'; });
+  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Καθαρίστηκε'; });
   el.group.addEventListener('click', groupOnes);
   el.derive.addEventListener('click', deriveStep);
   el.auto.addEventListener('click', autoDerive);
@@ -596,13 +596,13 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>K‑Map Simplifier with Step‑by‑Step Term Derivation</h1>
-  <div class="sub">Groups 1‑cells on a Gray‑ordered K‑map, then derives each product term by keeping variables that remain constant across the group and assembling the minimal SOP expression[13][14].</div>
+  <h1>Απλοποιητής K‑Map με Βήμα‑Προς‑Βήμα Παραγωγή Όρων</h1>
+  <div class="sub">Ομαδοποιεί τα 1‑κελιά σε μια K‑map με διάταξη Gray, στη συνέχεια παράγει κάθε όρο γινομένου διατηρώντας τις μεταβλητές που παραμένουν σταθερές σε ολόκληρη την ομάδα και συναρμολογώντας την ελάχιστη έκφραση SOP[13][14].</div>
 
   <div class="grid">
     <div class="card">
       <div class="controls">
-        <label>Variables
+        <label>Μεταβλητές
           <select id="varCount">
             <option value="2">2</option>
             <option value="4" selected>4</option>
@@ -610,74 +610,74 @@
             <option value="8">8</option>
           </select>
         </label>
-        <label>Examples
+        <label>Παραδείγματα
           <select id="example">
-            <option value="custom" selected>Custom (click cells)</option>
+            <option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα κελιά)</option>
           </select>
         </label>
-        <button id="fill" class="ghost">Fill example</button>
-        <button id="clear">Clear</button>
-        <button id="group" class="primary">Group</button>
-        <button id="derive">Derive Terms</button>
-        <button id="auto" class="primary">Auto Derive</button>
-        <label>Speed
+        <button id="fill" class="ghost">Γέμισμα παραδείγματος</button>
+        <button id="clear">Καθαρισμός</button>
+        <button id="group" class="primary">Ομαδοποίηση</button>
+        <button id="derive">Παραγωγή Όρων</button>
+        <button id="auto" class="primary">Αυτόματη Παραγωγή</button>
+        <label>Ταχύτητα
           <select id="speed">
-            <option value="1200" selected>Very slow</option>
-            <option value="800">Slow</option>
-            <option value="500">Normal</option>
-            <option value="250">Fast</option>
+            <option value="1200" selected>Πολύ αργά</option>
+            <option value="800">Αργά</option>
+            <option value="500">Κανονική</option>
+            <option value="250">Γρήγορη</option>
           </select>
         </label>
-        <button id="reset" class="danger">Reset</button>
-        <div class="status" id="status">Ready</div>
+        <button id="reset" class="danger">Επαναφορά</button>
+        <div class="status" id="status">Έτοιμο</div>
       </div>
 
       <div id="kmap" class="kmap"></div>
 
       <div class="legend">
-        <span class="chip"><span class="dot d1"></span> 1‑cells (SOP)</span>
-        <span class="chip"><span class="dot d2"></span> grouping overlay</span>
-        <span class="chip"><span class="dot d3"></span> Gray‑code axes</span>
-        <span class="chip"><span class="dot d4"></span> animated scan</span>
+        <span class="chip"><span class="dot d1"></span> 1‑κελιά (SOP)</span>
+        <span class="chip"><span class="dot d2"></span> επικάλυμμα ομαδοποίησης</span>
+        <span class="chip"><span class="dot d3"></span> άξονες Gray</span>
+        <span class="chip"><span class="dot d4"></span> ενεργοποιημένη σάρωση</span>
       </div>
     </div>
 
     <div class="card">
       <div class="row">
-        <div class="pill mono" id="varsLbl">Vars: A,B,C,D</div>
-        <div class="pill mono" id="shapeLbl">Shape: 4×4</div>
+        <div class="pill mono" id="varsLbl">Μετ: A,B,C,D</div>
+        <div class="pill mono" id="shapeLbl">Σχήμα: 4×4</div>
       </div>
       <div class="row">
-        <div>Σm indices:</div>
+        <div>Δείκτες Σm:</div>
         <div class="expr mono" id="sig">Σ( )</div>
       </div>
       <div class="row">
-        <div>Minimal SOP:</div>
+        <div>Ελάχιστο SOP:</div>
         <div class="expr mono" id="sop">F = </div>
       </div>
 
       <div class="derive">
         <div class="step">
-          <h3>Active Group</h3>
-          <div class="expr mono" id="ginfo">None</div>
+          <h3>Ενεργή Ομάδα</h3>
+          <div class="expr mono" id="ginfo">Καμία</div>
         </div>
 
         <div class="step">
-          <h3>Compare Variables Across Group</h3>
+          <h3>Σύγκριση Μεταβλητών στην Ομάδα</h3>
           <table class="tbl" id="varTbl">
-            <thead><tr><th>Variable</th><th>Values across cells</th><th>Constant?</th><th>Literal</th></tr></thead>
+            <thead><tr><th>Μεταβλητή</th><th>Τιμές στα κελιά</th><th>Σταθερή;</th><th>Λογικό</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
 
         <div class="step">
-          <h3>Derived Term</h3>
-          <div class="expr mono" id="termOut">Term: —</div>
+          <h3>Παραγμένος Όρος</h3>
+          <div class="expr mono" id="termOut">Όρος: —</div>
         </div>
         <div class="step">
-          <h3>Expression Builder</h3>
+          <h3>Κατασκευή Εκφράσεων</h3>
           <div class="expr mono" id="builder">F = </div>
-          <div class="sub">Terms are added as groups are processed, keeping only variables that remain constant within each group[14][13].</div>
+          <div class="sub">Οι όροι προστίθεται καθώς οι ομάδες υποβάλλονται σε επεξεργασία, διατηρώντας μόνο τις μεταβλητές που παραμένουν σταθερές σε κάθε ομάδα[14][13].</div>
         </div>
       </div>
     </div>
@@ -739,7 +739,7 @@
 
   function refreshExamples(){
     const list=examples[nvars]||[];
-    el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+
+    el.example.innerHTML=`<option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα κελιά)</option>`+
       list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join('');
   }
 
@@ -765,9 +765,9 @@
       }
     }
     updateIndices(); render();
-    el.varsLbl.textContent=`Vars: ${VARS.slice(0,nvars).join(',')}`;
-    el.shapeLbl.textContent=`Shape: ${R}×${C}`;
-    el.sig.textContent='Σ( )'; el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Ready';
+    el.varsLbl.textContent=`Μετ: ${VARS.slice(0,nvars).join(',')}`;
+    el.shapeLbl.textContent=`Σχήμα: ${R}×${C}`;
+    el.sig.textContent='Σ( )'; el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Έτοιμο';
   }
 
   function cellEl(r,c){ return el.kmap.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`); }
@@ -837,7 +837,7 @@
     for(let r=0;r<R;r++) for(let c=0;c<C;c++) if(cells[r][c] && !covered[r][c]){
       const arr=[[r,c]]; const term=termFromGroup(arr); groups.push({h:1,w:1,r0:r,c0:c,cells:arr, term});
     }
-    render(); showSOP(); el.status.textContent=`Found ${groups.length} group(s)`;
+    render(); showSOP(); el.status.textContent=`Βρέθηκαν ${groups.length} ομάδα(ες)`;
   }
 
   function termFromGroup(arr){
@@ -861,9 +861,9 @@
   }
 
   function clearDeriveUI(){
-    el.ginfo.textContent='None';
+    el.ginfo.textContent='Καμία';
     el.varTbl.innerHTML='';
-    el.termOut.textContent='Term: —';
+    el.termOut.textContent='Όρος: —';
     el.builder.textContent='F = ';
   }
 
@@ -879,41 +879,41 @@
     for(let r=0;r<R;r++) for(let c=0;c<C;c++){
       const idx=(gRows[r]<<colsBits)|gCols[c]; if(mset.has(idx)) cells[r][c]=1;
     }
-    render(); updateSigma(); el.status.textContent=`Loaded ${mins.length} minterm(s)`;
+    render(); updateSigma(); el.status.textContent=`Φορτώθηκαν ${mins.length} minterm`;
   }
 
   // Derivation workflow
   let dIndex=0, dStage=0; // per-group stage
   function deriveStep(){
-    if(groups.length===0){ el.status.textContent='Group first'; return; }
-    if(dIndex>=groups.length){ el.status.textContent='All groups derived'; return; }
+    if(groups.length===0){ el.status.textContent='Ομαδοποιήστε πρώτα'; return; }
+    if(dIndex>=groups.length){ el.status.textContent='Όλες οι ομάδες παρήχθησαν'; return; }
     const g=groups[dIndex];
     // highlight active group
     highlightOnlyGroup(dIndex);
     // stages: 0=show group info, 1=compute table, 2=emit term, 3=append to builder, then advance group
     if(dStage===0){
-      el.ginfo.textContent=`Group ${dIndex+1} of ${groups.length}: size ${g.h}×${g.w}, cells=${g.cells.map(([r,c])=>((gRows[r]<<colsBits)|gCols[c])).join(',')}`;
-      el.varTbl.innerHTML=''; el.termOut.textContent='Term: —'; el.status.textContent='Analyzing variables…';
+      el.ginfo.textContent=`Ομάδα ${dIndex+1} από ${groups.length}: μέγεθος ${g.h}×${g.w}, κελιά=${g.cells.map(([r,c])=>((gRows[r]<<colsBits)|gCols[c])).join(',')}`;
+      el.varTbl.innerHTML=''; el.termOut.textContent='Όρος: —'; el.status.textContent='Ανάλυση μεταβλητών…';
       dStage=1; return;
     }
     if(dStage===1){
       // build rows for each variable
       buildVarTable(g);
-      el.status.textContent='Checking constants per variable…';
+      el.status.textContent='Έλεγχος σταθερών ανά μεταβλητή…';
       dStage=2; return;
     }
     if(dStage===2){
-      el.termOut.textContent=`Term: ${g.term || '1'}`;
-      el.status.textContent='Derived term from constants';
+      el.termOut.textContent=`Όρος: ${g.term || '1'}`;
+      el.status.textContent='Ο όρος παρήχθη από σταθερές';
       dStage=3; return;
     }
     if(dStage===3){
       const curr=el.builder.textContent.replace(/^F =\s*/,'').trim();
       el.builder.textContent = 'F = ' + ([...curr? [curr]:[], g.term||'1'].join(' + '));
-      el.status.textContent='Added term to expression';
+      el.status.textContent='Ο όρος προστέθηκε στην έκφραση';
       // next group
       dIndex++; dStage=0;
-      if(dIndex>=groups.length) { el.status.textContent='All groups derived'; }
+      if(dIndex>=groups.length) { el.status.textContent='Όλες οι ομάδες παρήχθησαν'; }
       return;
     }
   }
@@ -947,12 +947,12 @@
 
   function addVarRow(v, vals, cons, lit){
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="mono">${v}</td><td class="mono">${vals}</td><td class="${cons?'ok':'no'}">${cons?'Yes':'No'}</td><td class="lit mono">${lit}</td>`;
+    tr.innerHTML=`<td class="mono">${v}</td><td class="mono">${vals}</td><td class="${cons?'ok':'no'}">${cons?'Ναι':'Όχι'}</td><td class="lit mono">${lit}</td>`;
     el.varTbl.appendChild(tr);
   }
 
   function autoDerive(){
-    if(groups.length===0){ el.status.textContent='Group first'; return; }
+    if(groups.length===0){ el.status.textContent='Ομαδοποιήστε πρώτα'; return; }
     if(animTimer){ clearInterval(animTimer); animTimer=null; }
     dIndex=0; dStage=0; clearDeriveUI();
     animTimer=setInterval(()=>{
@@ -964,14 +964,14 @@
   // Events
   el.varCount.addEventListener('change', ()=>{ nvars=parseInt(el.varCount.value,10); refreshExamples(); initGrid(); });
   el.fill.addEventListener('click', loadExample);
-  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Cleared'; });
+  el.clear.addEventListener('click', ()=>{ for(let r=0;r<R;r++) for(let c=0;c<C;c++) cells[r][c]=0; groups=[]; derived=[]; render(); updateSigma(); clearDeriveUI(); el.sop.textContent='F = '; el.builder.textContent='F = '; el.status.textContent='Καθαρίστηκε'; });
   el.group.addEventListener('click', groupOnes);
   el.derive.addEventListener('click', deriveStep);
   el.auto.addEventListener('click', autoDerive);
   el.reset.addEventListener('click', ()=>{ if(animTimer){clearInterval(animTimer);animTimer=null;} initGrid(); });
 
   // Boot
-  function refreshExamples(){ const list=examples[nvars]||[]; el.example.innerHTML=`<option value="custom" selected>Custom (click cells)</option>`+list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join(''); }
+  function refreshExamples(){ const list=examples[nvars]||[]; el.example.innerHTML=`<option value="custom" selected>Προσαρμοσμένο (κάντε κλικ στα κελιά)</option>`+list.map((e,i)=>`<option value="${i}">${e.name}</option>`).join(''); }
   refreshExamples(); initGrid();
 })();
 </script>

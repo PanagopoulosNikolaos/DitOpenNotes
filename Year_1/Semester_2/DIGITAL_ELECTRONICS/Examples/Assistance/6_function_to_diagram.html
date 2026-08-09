@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Boolean to Logic Gates (1–10 vars)</title>
+<title>Boolean → Διάγραμμα Logic Gate (1–10 μεταβλητές)</title>
 <style>
   :root{
     --bg:#0b1020; --panel:#101735; --ink:#ecfeff; --muted:#a5b4fc;
@@ -62,31 +62,31 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Boolean → Logic Gate Diagram (up to 10 vars)</h1>
-  <div class="sub">Layered gates, orthogonal connections, and staged drawing: Inputs → Gates → Wires for readability and low crossing[Layered layout, orthogonal routing][6][7].</div>
+  <h1>Boolean → Διάγραμμα Logic Gate (μέχρι 10 μεταβλητές)</h1>
+  <div class="sub">Διατεταγμένες πύλες, ορθογώνιες συνδέσεις και σταδιακό σχεδίαση: Είσοδοι → Πύλες → Συνδέσεις για ευανάγνωστοτητα και χαμηλή τομή[Διατεταγμένη διάταξη, ορθογώνιος δρομολόγηση][6][7].</div>
   <div class="grid">
     <div class="card">
       <div class="row">
-        <label for="expr">Boolean expression</label>
-        <input id="expr" type="text" placeholder="e.g., xy + y'z' + xy'z'  or  (a+b')(c+d)" value="x y + y' z' + x y' z'">
+        <label for="expr">Boolean έκφραση</label>
+        <input id="expr" type="text" placeholder="π.χ., xy + y'z' + xy'z'  ή  (a+b')(c+d)" value="x y + y' z' + x y' z'">
       </div>
       <div class="row hint">
-        Notation: + is OR, adjacency is AND (xy), parentheses (), and postfix ' is NOT (y')—supports 1–10 variables[Parsing and notation][1][3].
+        Σημειογραφία: + είναι OR, γειτνίαση είναι AND (xy), παρενθέσεις (), και επίθημα ' είναι NOT (y')—υποστηρίζει 1–10 μεταβλητές[Ανάλυση και σημειογραφία][1][3].
       </div>
       <div class="row">
-        <label>Speed</label>
+        <label>Ταχύτητα</label>
         <select id="speed">
-          <option value="1200">Very Slow</option>
-          <option value="900" selected>Slow</option>
-          <option value="600">Normal</option>
-          <option value="300">Fast</option>
+          <option value="1200">Πολύ Αργό</option>
+          <option value="900" selected>Αργό</option>
+          <option value="600">Κανονικό</option>
+          <option value="300">Γρήγορο</option>
         </select>
-        <button id="render" class="btn primary">Render Diagram</button>
-        <button id="step" class="btn ghost">Step Phase</button>
-        <button id="zoom-in" class="btn ghost" title="Zoom In">+</button>
-        <button id="zoom-out" class="btn ghost" title="Zoom Out">−</button>
-        <button id="reset-zoom" class="btn ghost" title="Reset Zoom">Reset</button>
-        <span id="status" class="pill">Ready</span>
+        <button id="render" class="btn primary">Render διάγραμμα</button>
+        <button id="step" class="btn ghost">Βήμα φάσης</button>
+        <button id="zoom-in" class="btn ghost" title="Μεγέθυνση">+</button>
+        <button id="zoom-out" class="btn ghost" title="Σμίκρυνση">−</button>
+        <button id="reset-zoom" class="btn ghost" title="Επαναφορά Zoom">Επαναφορά</button>
+        <span id="status" class="pill">Έτοιμο</span>
       </div>
       <svg id="stage" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet">
         <g id="zoom-group">
@@ -98,7 +98,7 @@
       </svg>
       <div id="err" class="errbox" style="display:none;"></div>
       <div class="phase">
-        <span class="k io"></span> Inputs • <span class="k and"></span> AND • <span class="k or"></span> OR • <span class="k not"></span> NOT • Orthogonal wires with mid-way bends[Orthogonal polylines][7][10].
+        <span class="k io"></span> Είσοδοι • <span class="k and"></span> AND • <span class="k or"></span> OR • <span class="k not"></span> NOT • Ορθογώνιες συνδέσεις με καμπές στη μέση[Ορθογώνιες πολυγραμμές][7][10].
       </div>
     </div>
   </div>
@@ -395,7 +395,7 @@
         l1.textContent = g.type==='OUT' ? 'OUT' : g.type;
         const count = (g.inputs? g.inputs.length : 0);
         const l2 = el('text', {x:p.x, y:p.y+12, class:'sublabel'});
-        l2.textContent = count === 1 ? '1 input' : `${count} inputs`;
+        l2.textContent = count === 1 ? '1 είσοδος' : `${count} είσοδοι`;
         group.appendChild(l1); group.appendChild(l2);
         // FEATURE 2: Add tooltip to gate
         group.appendChild(el('title')).textContent = g.expression;
@@ -578,7 +578,7 @@
     try{
       errEl.style.display='none'; errEl.textContent='';
       const tokens = tokenize(exprEl.value);
-      if (tokens.length === 0) { resetPhases(); setStatus('Ready'); return; }
+      if (tokens.length === 0) { resetPhases(); setStatus('Έτοιμο'); return; }
       const rpn = toRPN(tokens);
       const ast = normalize(rpnToAST(rpn));
       const names = analyze(ast);
@@ -594,20 +594,20 @@
       sourceIds.forEach((id, i) => sourceColorMap.set(id, WIRE_COLORS[i % WIRE_COLORS.length]));
       
       resetPhases();
-      setStatus('Phase 1: Draw inputs');
+      setStatus('Φάση 1: Σχεδίαση εισόδων');
       phase = 1; drawNodes(svg, net, lay, phase);
       
       const delay = parseInt(speedSel.value,10);
       let step=2;
       timer = setInterval(()=>{
-        if (step===2){ setStatus('Phase 2: Draw gates'); drawNodes(svg, net, lay, 2); }
-        if (step===3){ setStatus('Phase 3: Route wires'); routeWires(svg, net, lay, sourceColorMap, 3); clearInterval(timer); timer=null; setStatus('Done'); }
+        if (step===2){ setStatus('Φάση 2: Σχεδίαση πυλών'); drawNodes(svg, net, lay, 2); }
+        if (step===3){ setStatus('Φάση 3: Δρομολόγηση συνδέσεων'); routeWires(svg, net, lay, sourceColorMap, 3); clearInterval(timer); timer=null; setStatus('Τέλος'); }
         step++;
       }, delay);
     }catch(ex){
       errEl.style.display='block';
-      errEl.textContent = 'Parse/layout error: ' + ex.message;
-      setStatus('Error');
+      errEl.textContent = 'Σφάλμα ανάλυσης/διάταξης: ' + ex.message;
+      setStatus('Σφάλμα');
     }
   }
   
@@ -616,7 +616,7 @@
         if (!net || !lay || phase === 0) {
             errEl.style.display='none';
             const tokens = tokenize(exprEl.value);
-            if (tokens.length === 0) { resetPhases(); setStatus('Ready'); return; }
+            if (tokens.length === 0) { resetPhases(); setStatus('Έτοιμο'); return; }
             const rpn = toRPN(tokens);
             const ast = normalize(rpnToAST(rpn));
             net = buildNetlist(ast);
@@ -630,14 +630,14 @@
             phase = 0;
         }
 
-        if (phase < 1){ phase=1; setStatus('Phase 1: Draw inputs'); drawNodes(svg, net, lay, 1); return; }
-        if (phase === 1){ phase=2; setStatus('Phase 2: Draw gates'); drawNodes(svg, net, lay, 2); return; }
-        if (phase === 2){ phase=3; setStatus('Phase 3: Route wires'); routeWires(svg, net, lay, sourceColorMap, 3); setStatus('Done'); return; }
-        if (phase >= 3){ setStatus('Done'); return; }
+        if (phase < 1){ phase=1; setStatus('Φάση 1: Σχεδίαση εισόδων'); drawNodes(svg, net, lay, 1); return; }
+        if (phase === 1){ phase=2; setStatus('Φάση 2: Σχεδίαση πυλών'); drawNodes(svg, net, lay, 2); return; }
+        if (phase === 2){ phase=3; setStatus('Φάση 3: Δρομολόγηση συνδέσεων'); routeWires(svg, net, lay, sourceColorMap, 3); setStatus('Τέλος'); return; }
+        if (phase >= 3){ setStatus('Τέλος'); return; }
     } catch(ex) {
         errEl.style.display='block';
-        errEl.textContent = 'Parse/layout error: ' + ex.message;
-        setStatus('Error');
+        errEl.textContent = 'Σφάλμα ανάλυσης/διάταξης: ' + ex.message;
+        setStatus('Σφάλμα');
         net=null; lay=null; phase=0;
     }
   }

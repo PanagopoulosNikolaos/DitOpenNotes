@@ -105,7 +105,7 @@
         </div>
         <div class="explain" id="explain">Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.</div>
         <div class="select-info">
-          Select: S1=a, S0=b → <span id="select-info">ab=00 → D0</span>
+          Επιλογή: S1=a, S0=b → <span id="select-info">ab=00 → D0</span>
         </div>
       </div>
 
@@ -114,7 +114,7 @@
           <thead>
             <tr>
               <th>a</th><th>b</th><th>cin</th>
-              <th>Select</th><th>Sum MUX</th><th>Carry MUX</th>
+              <th>Επιλογή</th><th>Sum MUX</th><th>Carry MUX</th>
               <th>S</th><th>C</th>
             </tr>
           </thead>
@@ -163,7 +163,7 @@
           <!-- Sum MUX -->
           <rect x="350" y="120" width="120" height="160" rx="8" class="mux"/>
           <text x="410" y="110" class="label big" text-anchor="middle">4:1 MUX</text>
-          <text x="410" y="140" class="label" text-anchor="middle">SUM</text>
+          <text x="410" y="140" class="label" text-anchor="middle">ΑΘΡΟΙΣΜΑ</text>
           
           <!-- Sum MUX inputs -->
           <text x="340" y="150" class="label small" text-anchor="end">D0</text>
@@ -200,7 +200,7 @@
           <!-- Carry MUX -->
           <rect x="350" y="380" width="120" height="160" rx="8" class="mux"/>
           <text x="410" y="370" class="label big" text-anchor="middle">4:1 MUX</text>
-          <text x="410" y="400" class="label" text-anchor="middle">CARRY</text>
+          <text x="410" y="400" class="label" text-anchor="middle">ΜΕΤΑΦΟΡΑ</text>
           
           <!-- Carry MUX inputs -->
           <text x="340" y="410" class="label small" text-anchor="end">D0</text>
@@ -264,7 +264,7 @@
       {a:1, b:1, cin:0, S:0, C:1}, {a:1, b:1, cin:1, S:1, C:1}
     ];
     
-    const stages = ["Επιλογή Εισόδων", "MUX Selection", "Υπολογισμός Εξόδων"];
+    const stages = ["Επιλογή Εισόδων", "Επιλογή MUX", "Υπολογισμός Εξόδων"];
     
     // --- DOM ELEMENTS ---
     const ttBody = document.querySelector('#tt tbody');
@@ -396,7 +396,7 @@
       if (stage === 0) {
         explainEl.textContent = `Εισόδους: a=${row.a}, b=${row.b}, cin=${row.cin}`;
       } else if (stage === 1) {
-        explainEl.textContent = `Select ab=${row.a}${row.b} επιλέγει D${select} από κάθε MUX`;
+        explainEl.textContent = `Επιλογή ab=${row.a}${row.b} επιλέγει D${select} από κάθε MUX`;
         
         // Highlight selected D inputs
         document.getElementById(`sum-d${select}`).classList.add('active');

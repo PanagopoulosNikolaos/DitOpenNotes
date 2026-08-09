@@ -1,3 +1,3 @@
-# VHDL Code Testing Program
-- Currently under development
-- May contain errors
+# Πρόγραμμα Δοκιμής Κώδικα VHDL
+- Υπό ανάπτυση
+- Ενδέχεται να περιέχει σφάλματα

@@ -1,27 +1,26 @@
-# C Programming II
+# Προγραμματισμός II
 
-## Course Overview
-This course continues from C Programming I and delves deeper into advanced programming concepts in C.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα συνεχίζει από τον Προγραμματισμό I και εμβαθύνει σε προχωρημένες έννοιες προγραμματισμού στη C.
 
-## Course Code
+## Κωδικός Μαθήματος
 204 (ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ II)
 
-## Prerequisites
-- C Programming I (CPE 101)
+## Προαπαιτούμενα
+- Προγραμματισμός I (CPE 101)
 
-## Topics Covered
-- Advanced data structures
-- Dynamic memory allocation
-- File handling and I/O operations
-- Pointers and pointer arithmetic
-- Advanced string manipulation
-- Recursion
-- Data structures implementation
+## Καλυπτόμενα Θέματα
+- Προχωρημένες δομές δεδομένων
+- Δυναμική διαχείριση μνήμης
+- Διαχείριση αρχείων και λειτουργίες εισόδου/εξόδου
+- Δείκτες και αριθμητική δεικτών
+- Προχωρημένος χειρισμός συμβολοσειρών
+- Αναδρομή
+- Υλοποίηση δομών δεδομένων
 
-## Learning Objectives
-- Master advanced C programming concepts
-- Implement complex data structures in C
-- Develop efficient algorithms
-- Understand memory management in C
-- Apply best practices for C programming
-
+## Μαθησιακοί Στόχοι
+- Κατακτήστε προχωρημένες έννοιες προγραμματισμού στη C
+- Υλοποιήστε σύνθετες δομές δεδομένων στη C
+- Αναπτύξτε αποδοτικούς αλγορίθμους
+- Κατανοήστε τη διαχείριση μνήμης στη C
+- Εφαρμόστε βέλτιστες πρακτικές για προγραμματισμό στη C

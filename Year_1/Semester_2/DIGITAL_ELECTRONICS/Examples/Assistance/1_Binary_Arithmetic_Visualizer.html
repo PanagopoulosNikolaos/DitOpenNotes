@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Binary Arithmetic Visualizer (+, −, ×, ÷)</title>
+<title>Οπτικοποιητής Δυαδικής Αριθμητικής (+, −, ×, ÷)</title>
 <style>
   :root{
     --bg:#0b1221; --panel:#0f1b33; --ink:#f8fafc; --muted:#93c5fd;
@@ -47,74 +47,74 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Binary Arithmetic Visualizer (+, −, ×, ÷)</h1>
-  <div class="subtitle">Step through carries, borrows, partial products, and long division with vibrant visuals and a slow default speed.</div>
+  <h1>Οπτικοποιητής Δυαδικής Αριθμητικής (+, −, ×, ÷)</h1>
+  <div class="subtitle">Βήμα-βήμα με carry, borrow, μερικά γινόμενα και μακριά διαίρεση με ζωντανά οπτικά εφέ και αργή προεπιλεγμένη ταχύτητα.</div>
 
   <div class="grid">
     <div class="card">
       <div class="row" style="margin-bottom:10px">
         <label>A: <input id="ain" type="text" value="101101" class="mono" /></label>
         <label>B: <input id="bin" type="text" value="001011" class="mono" /></label>
-        <label>Op:
+        <label>Λειτουργία:
           <select id="op">
-            <option value="+">Addition (+)</option>
-            <option value="-">Subtraction (−)</option>
-            <option value="*">Multiplication (×)</option>
-            <option value="/">Division (÷)</option>
+            <option value="+">Πρόσθεση (+)</option>
+            <option value="-">Αφαίρεση (−)</option>
+            <option value="*">Πολλαπλασιασμός (×)</option>
+            <option value="/">Διαίρεση (÷)</option>
           </select>
         </label>
-        <label>Speed:
+        <label>Ταχύτητα:
           <select id="speed">
-            <option value="1200" selected>Very Slow</option>
-            <option value="900">Slow</option>
-            <option value="600">Normal</option>
-            <option value="300">Fast</option>
+            <option value="1200" selected>Πολύ αργά</option>
+            <option value="900">Αργά</option>
+            <option value="600">Κανονικά</option>
+            <option value="300">Γρήγορα</option>
           </select>
         </label>
-        <button id="play">▶ Play</button>
-        <button id="pause" class="secondary">⏸ Pause</button>
-        <button id="reset" class="ghost">↺ Reset</button>
-        <div id="status" class="status">Ready</div>
+        <button id="play">▶ Αναπαραγωγή</button>
+        <button id="pause" class="secondary">⏸ Παύση</button>
+        <button id="reset" class="ghost">↺ Επαναφορά</button>
+        <div id="status" class="status">Έτοιμο</div>
       </div>
 
       <div class="legend">
-        <span class="pill">Scan = current bit(s)</span>
-        <span class="pill">Carry/Borrow row shown when relevant</span>
-        <span class="pill">Logs explain each step</span>
+        <span class="pill">Σάρωση = τρέχον(α) bit</span>
+        <span class="pill">Σειρά Carry/Borrow εμφανίζεται όταν απαιτείται</span>
+        <span class="pill">Τα αρχεία καταγραφής εξηγούν κάθε βήμα</span>
       </div>
 
       <div class="panel">
-        <div class="title">Aligned Bits</div>
+        <div class="title">Στοιχισμένα Bit</div>
         <div class="stack">
-          <div class="line"><span class="label">Carry</span><div id="carryRow" class="bits"></div><span class="tag">only for + / −</span></div>
+          <div class="line"><span class="label">Carry</span><div id="carryRow" class="bits"></div><span class="tag">μόνο για + / −</span></div>
           <div class="line"><span class="label">A</span><div id="aRow" class="bits"></div></div>
           <div class="line"><span class="label" id="bLabel">B</span><div id="bRow" class="bits"></div></div>
-          <div class="line"><span class="label">Result</span><div id="rRow" class="bits"></div></div>
+          <div class="line"><span class="label">Αποτέλεσμα</span><div id="rRow" class="bits"></div></div>
         </div>
       </div>
 
       <div class="grid2" style="margin-top:14px">
         <div class="panel">
-          <div class="title">Step Log</div>
+          <div class="title">Αρχείο Βημάτων</div>
           <div id="log" class="log mono"></div>
         </div>
         <div class="panel">
-          <div class="title">Summary</div>
+          <div class="title">Σύνοψη</div>
           <p class="mono" id="summaryA">A = 0 (dec)</p>
           <p class="mono" id="summaryB">B = 0 (dec)</p>
-          <p class="mono" id="summaryR">Result = </p>
+          <p class="mono" id="summaryR">Αποτέλεσμα = </p>
           <p class="mono" id="summaryExtra"></p>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="title">Notes</div>
+      <div class="title">Σημειώσεις</div>
       <ul>
-        <li>This visualizer pads inputs so both numbers have equal length; addition and subtraction compute from LSB to MSB, and multiplication uses shift-and-add partial products[1][3].</li>
-        <li>Subtraction uses 2’s complement: one’s complement, add 1, then add to A; a final carry means positive result, while no carry means a negative result whose magnitude is the 2’s complement of the sum[6][1].</li>
-        <li>Division uses a restoring long-division style approach by shifting in dividend bits, comparing against the divisor, subtracting when possible, and emitting quotient bits left-to-right[10][7].</li>
-        <li>Division shows quotient and remainder for unsigned inputs; invalid cases like division by zero are guarded with a warning[1][7].</li>
+        <li>Αυτός ο οπτικοποιητής συμπληρώνει τις εισόδους ώστε και οι δύο αριθμοί να έχουν ίσο μήκος· η πρόσθεση και η αφαίρεση υπολογίζουν από LSB προς MSB, και ο πολλαπλασιασμός χρησιμοποιεί μερικά γινόμενα με μετατόπιση και πρόσθεση[1][3].</li>
+        <li>Η αφαίρεση χρησιμοποιεί 2's complement: one's complement, πρόσθεση 1, στη συνέχεια πρόσθεση στο A· τελικό carry σημαίνει θετικό αποτέλεσμα, ενώ απουσία carry σημαίνει αρνητικό αποτέλεσμα του οποίου το μέγεθος είναι το 2's complement του αθροίσματος[6][1].</li>
+        <li>Η διαίρεση χρησιμοποιεί μία προσέγγιση ανασταλτικής μακράς διαίρεσης, μετατοπίζοντας bit διαιρέτη, συγκρίνοντας με τον διαιρέτη, αφαιρώντας όταν είναι δυνατόν, και εκπέμποντας bit πηλίκου αριστερά προς δεξιά[10][7].</li>
+        <li>Η διαίρεση εμφανίζει πηλίκο και υπόλοιπο για μη προσημασμένες εισόδους· μη έγκυρες περιπτώσεις όπως διαίρεση με το μηδέν προστατεύονται με προειδοποίηση[1][7].</li>
       </ul>
     </div>
   </div>
@@ -181,7 +181,7 @@
   function setSummary(A,B,R,extra=''){
     sumA.textContent = `A = ${A} (dec ${toDec(A)})`;
     sumB.textContent = `B = ${B} (dec ${toDec(B)})`;
-    sumR.textContent = `Result = ${R} (dec ${R ? parseInt(R.replace(/^-/,'')||'0',2)*(R==='-'?-1:1) : 0})`;
+    sumR.textContent = `Αποτέλεσμα = ${R} (dec ${R ? parseInt(R.replace(/^-/,'')||'0',2)*(R==='-'?-1:1) : 0})`;
     sumX.textContent = extra;
   }
 
@@ -193,7 +193,7 @@
   }
 
   function resetUI(){
-    status.textContent = 'Ready';
+    status.textContent = 'Έτοιμο';
     logEl.innerHTML = '';
     sumX.textContent = '';
     const A0 = sanitizeBinary(ain.value);
@@ -223,7 +223,7 @@
         A, B,
         carryRow: (Array(n).fill('0').map((_,k)=> k===i? String(carry): '0')).join(''),
         result: out.join(''),
-        info:`i=${i}: ${ai}+${bi}+carry(${carry}) → sum=${s}, carry_out=${cout}`
+        info:`i=${i}: ${ai}+${bi}+carry(${carry}) → άθροισμα=${s}, carry_out=${cout}`
       });
       carry = cout;
     }
@@ -233,7 +233,7 @@
         A, B,
         carryRow: (Array(n+1).fill('0').map((_,k)=> k===0? '1':'0')).join(''),
         result: ('1'+out.join('')),
-        info:`final carry_out=1 prepended to result`
+        info:`τελικό carry_out=1 προστίθεται στην αρχή του αποτελέσματος`
       });
     }
     return steps;
@@ -256,8 +256,8 @@
     })();
 
     const pre = [
-      {type:'note', A, B, carryRow:'', result:'', info:`one's complement of B = ${ones}`},
-      {type:'note', A, B, carryRow:'', result:'', info:`2's complement of B = ${twoComp}`}
+      {type:'note', A, B, carryRow:'', result:'', info:`one's complement του B = ${ones}`},
+      {type:'note', A, B, carryRow:'', result:'', info:`2's complement του B = ${twoComp}`}
     ];
 
     const addSteps = stepsAdd(A, twoComp);
@@ -278,7 +278,7 @@
     let extra='';
     let final = sumBits;
     if (positive){
-      extra = 'Carry out present → positive result';
+      extra = 'Υπάρχει carry out → θετικό αποτέλεσμα';
     } else {
       // negative: magnitude = 2's complement of sumBits
       const onesS = sumBits.split('').map(b=> b==='0'?'1':'0').join('');
@@ -291,7 +291,7 @@
         c = cout;
       }
       final = '-'+t.join('');
-      extra = `No carry out → negative; magnitude = 2's complement of ${sumBits} = ${t.join('')}`;
+      extra = `Δεν υπάρχει carry out → αρνητικό· μέγεθος = 2's complement του ${sumBits} = ${t.join('')}`;
     }
 
     return [...pre, ...addSteps, {type:'final', A, B, carryRow:'', result:final, info:extra}];
@@ -303,20 +303,20 @@
     const a = A.padStart(n,'0'), b = B.padStart(n,'0');
     let acc = Array(n*2).fill('0'); // room for growth
     const steps = [];
-    steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Initialize accumulator = ${acc.join('')}`});
+    steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Αρχικοποίηση αθροιστή = ${acc.join('')}`});
     for (let i=n-1;i>=0;i--){
       const bit = b[i];
       const shifted = (a + '0'.repeat((n-1-i))).padStart(n*2,'0');
       if (bit==='1'){
         // acc = acc + shifted
         const add = stepsAdd(acc.join(''), shifted);
-        steps.push({type:'note', A:a, B:b, carryRow:'', result:shifted, info:`Bit b[${i}]=1 → add shifted A: ${shifted}`});
+        steps.push({type:'note', A:a, B:b, carryRow:'', result:shifted, info:`Bit b[${i}]=1 → πρόσθεση μετατοπισμένου A: ${shifted}`});
         steps.push(...add.map(s => ({...s, A:acc.join(''), B:shifted})));
         acc = (add[add.length-1].result.length>n*2) ? add[add.length-1].result.slice(-n*2).split('') : add[add.length-1].result.split('');
       } else {
-        steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Bit b[${i}]=0 → add 0 (skip)`});
+        steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Bit b[${i}]=0 → πρόσθεση 0 (παράβλεψη)`});
       }
-      steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Accumulator now ${acc.join('')}`});
+      steps.push({type:'note', A:a, B:b, carryRow:'', result:acc.join(''), info:`Ο αθροιστής τώρα ${acc.join('')}`});
     }
     return steps;
   }
@@ -325,7 +325,7 @@
   function stepsDiv(A,B){
     // Guard
     if (B.replace(/^0+/,'')==='' ){ 
-      return [{type:'final', A, B, carryRow:'', result:'', info:'Division by zero'}]; 
+      return [{type:'final', A, B, carryRow:'', result:'', info:'Διαίρεση με το μηδέν'}]; 
     }
     const n = Math.max(A.length,B.length);
     const dividend = A.padStart(n,'0');
@@ -333,11 +333,11 @@
     let rem = '0'.repeat(n);
     let quot = Array(n).fill('0');
     const steps = [];
-    steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`Initialize remainder=${rem}, quotient=${quot.join('')}`});
+    steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`Αρχικοποίηση υπολοίπου=${rem}, πηλίκου=${quot.join('')}`});
     for (let i=0;i<n;i++){
       // Shift left rem and bring next dividend bit
       rem = (rem + dividend[i]).slice(1);
-      steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`Bring down dividend bit ${dividend[i]} → remainder=${rem}`});
+      steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`Μεταφορά bit διαιρέτη ${dividend[i]} → υπόλοιπο=${rem}`});
       // Compare rem >= divisor
       if (parseInt(rem,2) >= parseInt(divisor,2)){
         const diff = (function(){
@@ -353,13 +353,13 @@
         })();
         rem = diff;
         quot[i] = '1';
-        steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`remainder ≥ divisor → subtract: new remainder=${rem}, set quotient bit=1`});
+        steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`υπόλοιπο ≥ διαιρέτης → αφαίρεση: νέο υπόλοιπο=${rem}, θέση bit πηλίκου=1`});
       } else {
         quot[i] = '0';
-        steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`remainder < divisor → set quotient bit=0`});
+        steps.push({type:'note', A:dividend, B:divisor, carryRow:'', result:'', info:`υπόλοιπο < διαιρέτης → θέση bit πηλίκου=0`});
       }
     }
-    steps.push({type:'final', A:dividend, B:divisor, carryRow:'', result:quot.join(''), info:`Quotient=${quot.join('')}, Remainder=${rem}`});
+    steps.push({type:'final', A:dividend, B:divisor, carryRow:'', result:quot.join(''), info:`Πηλίκο=${quot.join('')}, Υπόλοιπο=${rem}`});
     return steps;
   }
 
@@ -392,7 +392,7 @@
     const A0 = sanitizeBinary(ain.value);
     const B0 = sanitizeBinary(bin.value);
     ain.value = A0; bin.value = B0;
-    status.textContent='Running…';
+    status.textContent='Εκτελείται…';
     bLabel.textContent = 'B';
     let A,B;
     if (opSel.value==='*' || opSel.value==='/'){
@@ -417,7 +417,7 @@
     idx=1;
     timer = setInterval(()=>{
       if (idx>=steps.length){
-        clearInterval(timer); timer=null; status.textContent='Done';
+        clearInterval(timer); timer=null; status.textContent='Ολοκληρώθηκε';
         // Summaries
         let Ashow = sanitizeBinary(ain.value), Bshow=sanitizeBinary(bin.value);
         let Rtxt = steps[steps.length-1].result||'';
@@ -429,7 +429,7 @@
   }
 
   function pause(){
-    if (timer){ clearInterval(timer); timer=null; status.textContent='Paused'; }
+    if (timer){ clearInterval(timer); timer=null; status.textContent='Σε παύση'; }
   }
 
   playBtn.addEventListener('click', start);

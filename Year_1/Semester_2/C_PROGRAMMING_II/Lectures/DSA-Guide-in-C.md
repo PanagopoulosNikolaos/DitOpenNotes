@@ -1,43 +1,43 @@
-# Complete DSA Guide in C
+# Πλήρης Οδηγός Δομών Δεδομένων και Αλγορίθμων στη C
 
-A comprehensive guide covering Data Structures and Algorithms in C with concept explanations, proper memory management, and practical code examples.
-
----
-
-## Table of Contents
-
-1. [Basics of C](#1-basics-of-c)
-2. [Logic Building](#2-logic-building)
-3. [Complexity Analysis](#3-complexity-analysis)
-4. [Arrays](#4-arrays)
-5. [Matrix](#5-matrix)
-6. [Pointers](#6-pointers)
-7. [Searching Algorithms](#7-searching-algorithms)
-8. [Sorting Algorithms](#8-sorting-algorithms)
-9. [Hashing](#9-hashing)
-10. [Two Pointer Technique](#10-two-pointer-technique)
-11. [Sliding Window Technique](#11-sliding-window-technique)
-12. [Prefix Sum Technique](#12-prefix-sum-technique)
-13. [Strings](#13-strings)
-14. [Recursion](#14-recursion)
-15. [Dynamic Memory Allocation](#15-dynamic-memory-allocation)
-16. [Stack](#16-stack)
-17. [Queue](#17-queue)
-18. [Linked List](#18-linked-list)
-19. [Tree](#19-tree)
-20. [Heap](#20-heap)
-21. [Graph](#21-graph)
-22. [Greedy Algorithm](#22-greedy-algorithm)
-23. [Dynamic Programming](#23-dynamic-programming)
-24. [Other Algorithms](#24-other-algorithms)
+Ένας περιεκτικός οδηγός που καλύπτει Δομές Δεδομένων και Αλγορίθμους στη C με επεξηγήσεις εννοιών, σωστή διαχείριση μνήμης και πρακτικά παραδείγματα κώδικα.
 
 ---
 
-## 1. Basics of C
+## Πίνακας Περιεχομένων
 
-### Variables and Data Types
+1. [Βασικά της C](#1-βασικά-της-c)
+2. [Ανάπτυξη Λογικής](#2-ανάπτυξη-λογικής)
+3. [Ανάλυση Πολυπλοκότητας](#3-ανάλυση-πολυπλοκότητας)
+4. [Πίνακες](#4-πίνακες)
+5. [Πίνακες (Matrix)](#5-πίνακες-matrix)
+6. [Δείκτες](#6-δείκτες)
+7. [Αλγόριθμοι Αναζήτησης](#7-αλγόριθμοι-αναζήτησης)
+8. [Αλγόριθμοι Ταξινόμησης](#8-αλγόριθμοι-ταξινόμησης)
+9. [Κατακερματισμός](#9-κατακερματισμός)
+10. [Τεχνική Δύο Δεικτών](#10-τεχνική-δύο-δεικτών)
+11. [Τεχνική Συρόμενου Παραθύρου](#11-τεχνική-συρόμενου-παραθύρου)
+12. [Τεχνική Αθροίσματος Προθεμάτων](#12-τεχνική-αθροίσματος-προθεμάτων)
+13. [Συμβολοσειρές](#13-συμβολοσειρές)
+14. [Αναδρομή](#14-αναδρομή)
+15. [Δυναμική Κατανομή Μνήμης](#15-δυναμική-κατανομή-μνήμης)
+16. [Στοίβα](#16-στοίβα)
+17. [Ουρά](#17-ουρά)
+18. [Συνδεδεμένη Λίστα](#18-συνδεδεμένη-λίστα)
+19. [Δέντρο](#19-δέντρο)
+20. [Σωρός](#20-σωρός)
+21. [Γράφος](#21-γράφος)
+22. [Άπληστος Αλγόριθμος](#22-άπληστος-αλγόριθμος)
+23. [Δυναμικός Προγραμματισμός](#23-δυναμικός-προγραμματισμός)
+24. [Άλλοι Αλγόριθμοι](#24-άλλοι-αλγόριθμοι)
 
-**Variables** are named storage locations that hold data. In C, you must declare variables before using them.
+---
+
+## 1. Βασικά της C
+
+### Μεταβλητές και Τύποι Δεδομένων
+
+**Μεταβλητές** είναι ονομασμένες θέσεις αποθήκευσης που περιέχουν δεδομένα. Στη C, πρέπει να δηλώνετε τις μεταβλητές πριν τις χρησιμοποιήσετε.
 
 ```c
 #include <stdio.h>
@@ -57,13 +57,13 @@ int main() {
 }
 ```
 
-**Key Data Types:**
-- `int`: 4 bytes (typically), stores integers
-- `float`: 4 bytes, stores decimals (6-7 digits precision)
-- `double`: 8 bytes, stores decimals (15 digits precision)
-- `char`: 1 byte, stores single character
+**Βασικοί Τύποι Δεδομένων:**
+- `int`: 4 bytes (συνήθως), αποθηκεύει ακεραίους
+- `float`: 4 bytes, αποθηκεύει δεκαδικούς (ακρίβεια 6-7 ψηφίων)
+- `double`: 8 bytes, αποθηκεύει δεκαδικούς (ακρίβεια 15 ψηφίων)
+- `char`: 1 byte, αποθηκεύει μεμονωμένο χαρακτήρα
 
-### Operators
+### Τελεστές
 
 ```c
 #include <stdio.h>
@@ -91,9 +91,9 @@ int main() {
 }
 ```
 
-### Control Flow
+### Έλεγχος Ροής
 
-**If-Else Statement:**
+**Δήλωση If-Else:**
 
 ```c
 #include <stdio.h>
@@ -113,7 +113,7 @@ int main() {
 }
 ```
 
-**Switch Statement:**
+**Δήλωση Switch:**
 
 ```c
 #include <stdio.h>
@@ -139,9 +139,9 @@ int main() {
 }
 ```
 
-### Loops
+### Βρόχοι
 
-**For Loop:**
+**Βρόχος For:**
 
 ```c
 #include <stdio.h>
@@ -155,7 +155,7 @@ int main() {
 }
 ```
 
-**While Loop:**
+**Βρόχος While:**
 
 ```c
 #include <stdio.h>
@@ -171,7 +171,7 @@ int main() {
 }
 ```
 
-**Do-While Loop:**
+**Βρόχος Do-While:**
 
 ```c
 #include <stdio.h>
@@ -187,7 +187,7 @@ int main() {
 }
 ```
 
-### Functions
+### Συναρτήσεις
 
 ```c
 #include <stdio.h>
@@ -215,11 +215,11 @@ void printMessage() {
 
 ---
 
-## 2. Logic Building
+## 2. Ανάπτυξη Λογικής
 
 Logic building strengthens problem-solving skills. Start with basic patterns and mathematical problems.
 
-### Example: Prime Number Check
+### Παράδειγμα: Έλεγχος Πρώτου Αριθμού
 
 ```c
 #include <stdio.h>
@@ -247,7 +247,7 @@ int main() {
 }
 ```
 
-### Example: Pattern Printing
+### Παράδειγμα: Εκτύπωση Μοτίβου
 
 ```c
 #include <stdio.h>
@@ -269,21 +269,21 @@ int main() {
 
 ---
 
-## 3. Complexity Analysis
+## 3. Ανάλυση Πολυπλοκότητας
 
-**Time Complexity** measures how execution time grows with input size.  
-**Space Complexity** measures memory usage growth with input size.
+**Χρονική Πολυπλοκότητα (Time Complexity)** μέτρα το πώς αυξάνεται ο χρόνος εκτέλεσης με το μέγεθος της εισόδου.  
+**Χωρική Πολυπλοκότητα (Space Complexity)** μέτρα την αύξηση της χρήσης μνήμης με το μέγεθος της εισόδου.
 
-### Big O Notation
+### Συμβολισμός Big O
 
-- **O(1)**: Constant time - accessing array element
-- **O(log n)**: Logarithmic - binary search
-- **O(n)**: Linear - traversing array
-- **O(n log n)**: Linearithmic - merge sort, quick sort
-- **O(n²)**: Quadratic - nested loops, bubble sort
-- **O(2ⁿ)**: Exponential - recursive Fibonacci
+- **O(1)**: Σταθερός χρόνος - πρόσβαση σε στοιχείο πίνακα
+- **O(log n)**: Λογαριθμικός - δυαδική αναζήτηση
+- **O(n)**: Γραμμικός - διάσχιση πίνακα
+- **O(n log n)**: Γραμμικο-λογαριθμικός - ταξινόμηση συγχώνευσης, ταχεία ταξινόμηση
+- **O(n²)**: Τετραγωνικός - εμφωλευμένοι βρόχοι, ταξινόμηση φυσαλίδας
+- **O(2ⁿ)**: Εκθετικός - αναδρομική ακολουθία Fibonacci
 
-### Example Analysis
+### Ανάλυση Παραδειγμάτων
 
 ```c
 // O(1) - Constant Time
@@ -325,11 +325,11 @@ int binarySearch(int arr[], int n, int target) {
 
 ---
 
-## 4. Arrays
+## 4. Πίνακες
 
-**Array** is a collection of elements of the same type stored in contiguous memory locations. Elements are accessed by index (0-based).
+**Πίνακας (Array)** είναι μια συλλογή στοιχείων του ίδιου τύπου που αποθηκεύονται σε συνεχόμενες θέσεις μνήμης. Η πρόσβαση στα στοιχεία γίνεται μέσω δείκτη (με βάση το 0).
 
-### Array Declaration and Initialization
+### Δήλωση και Αρχικοποίηση Πίνακα
 
 ```c
 #include <stdio.h>
@@ -356,7 +356,7 @@ int main() {
 }
 ```
 
-### Array Traversal
+### Διάσχιση Πίνακα
 
 ```c
 #include <stdio.h>
@@ -383,7 +383,7 @@ int main() {
 }
 ```
 
-### Common Array Operations
+### Κοινές Λειτουργίες Πινάκων
 
 ```c
 #include <stdio.h>
@@ -439,11 +439,11 @@ int main() {
 
 ---
 
-## 5. Matrix
+## 5. Πίνακες (Matrix)
 
-**Matrix** is a 2D array arranged as rows and columns.
+**Πίνακας (Matrix)** είναι ένας διδιάστατος (2D) πίνακας διατεταγμένος σε γραμμές και στήλες.
 
-### Matrix Declaration and Initialization
+### Δήλωση και Αρχικοποίηση Πίνακα (Matrix)
 
 ```c
 #include <stdio.h>
@@ -472,7 +472,7 @@ int main() {
 }
 ```
 
-### Matrix Operations
+### Λειτουργίες Πινάκων (Matrix)
 
 ```c
 #include <stdio.h>
@@ -535,9 +535,9 @@ int main() {
 
 ---
 
-## 6. Pointers
+## 6. Δείκτες
 
-**Pointer** is a variable that stores the memory address of another variable. They provide direct memory access and are crucial for dynamic memory management.
+**Δείκτης (Pointer)** είναι μια μεταβλητή που αποθηκεύει τη διεύθυνση μνήμης μιας άλλης μεταβλητής. Παρέχουν άμεση πρόσβαση στη μνήμη και είναι απαραίτητοι για τη δυναμική διαχείριση μνήμης.
 
 ### Pointer Basics
 
@@ -561,7 +561,7 @@ int main() {
 }
 ```
 
-### Pointer Arithmetic
+### Αριθμητική Δεικτών
 
 ```c
 #include <stdio.h>
@@ -584,7 +584,7 @@ int main() {
 }
 ```
 
-### Pointers and Arrays
+### Δείκτες και Πίνακες
 
 ```c
 #include <stdio.h>
@@ -613,7 +613,7 @@ int main() {
 }
 ```
 
-### Double Pointers
+### Διπλοί Δείκτες
 
 ```c
 #include <stdio.h>
@@ -631,7 +631,7 @@ int main() {
 }
 ```
 
-### Function Pointers
+### Δείκτες Συναρτήσεων
 
 ```c
 #include <stdio.h>
@@ -662,12 +662,12 @@ int main() {
 
 ---
 
-## 7. Searching Algorithms
+## 7. Αλγόριθμοι Αναζήτησης
 
-### Linear Search
+### Γραμμική Αναζήτηση
 
-**Time Complexity:** O(n)  
-**Space Complexity:** O(1)
+**Χρονική Πολυπλοκότητα:** O(n)  
+**Χωρική Πολυπλοκότητα:** O(1)
 
 ```c
 #include <stdio.h>
@@ -695,11 +695,11 @@ int main() {
 }
 ```
 
-### Binary Search
+### Δυαδική Αναζήτηση
 
-**Time Complexity:** O(log n)  
-**Space Complexity:** O(1)  
-**Prerequisite:** Array must be sorted
+**Χρονική Πολυπλοκότητα:** O(log n)  
+**Χωρική Πολυπλοκότητα:** O(1)  
+**Προαπαιτούμενο:** Ο πίνακας πρέπει να είναι ταξινομημένος
 
 ```c
 #include <stdio.h>
@@ -737,7 +737,7 @@ int main() {
 }
 ```
 
-### Recursive Binary Search
+### Αναδρομική Δυαδική Αναζήτηση
 
 ```c
 #include <stdio.h>
@@ -774,13 +774,13 @@ int main() {
 
 ---
 
-## 8. Sorting Algorithms
+## 8. Αλγόριθμοι Ταξινόμησης
 
-### Bubble Sort
+### Ταξινόμηση Φυσαλίδας (Bubble Sort)
 
-**Time Complexity:** O(n²) average and worst, O(n) best  
-**Space Complexity:** O(1)  
-**Stable:** Yes
+**Χρονική Πολυπλοκότητα:** O(n²) μέση και χειρότερη, O(n) καλύτερη  
+**Χωρική Πολυπλοκότητα:** O(1)  
+**Ευσταθής:** Ναι
 
 ```c
 #include <stdio.h>
@@ -821,11 +821,11 @@ int main() {
 }
 ```
 
-### Selection Sort
+### Ταξινόμηση Επιλογής (Selection Sort)
 
 **Time Complexity:** O(n²)  
-**Space Complexity:** O(1)  
-**Stable:** No
+**Χωρική Πολυπλοκότητα:** O(1)  
+**Ευσταθής:** Όχι
 
 ```c
 #include <stdio.h>
@@ -860,11 +860,11 @@ int main() {
 }
 ```
 
-### Insertion Sort
+### Ταξινόμηση Εισαγωγής (Insertion Sort)
 
-**Time Complexity:** O(n²) average and worst, O(n) best  
-**Space Complexity:** O(1)  
-**Stable:** Yes
+**Χρονική Πολυπλοκότητα:** O(n²) μέση και χειρότερη, O(n) καλύτερη  
+**Χωρική Πολυπλοκότητα:** O(1)  
+**Ευσταθής:** Ναι
 
 ```c
 #include <stdio.h>
@@ -897,11 +897,11 @@ int main() {
 }
 ```
 
-### Quick Sort
+### Ταχεία Ταξινόμηση (Quick Sort)
 
-**Time Complexity:** O(n log n) average, O(n²) worst  
-**Space Complexity:** O(log n) due to recursion  
-**Stable:** No
+**Χρονική Πολυπλοκότητα:** O(n log n) μέση, O(n²) χειρότερη  
+**Χωρική Πολυπλοκότητα:** O(log n) due to recursion  
+**Ευσταθής:** Όχι
 
 ```c
 #include <stdio.h>
@@ -948,11 +948,11 @@ int main() {
 }
 ```
 
-### Merge Sort
+### Ταξινόμηση Συγχώνευσης (Merge Sort)
 
 **Time Complexity:** O(n log n)  
-**Space Complexity:** O(n)  
-**Stable:** Yes
+**Χωρική Πολυπλοκότητα:** O(n)  
+**Ευσταθής:** Ναι
 
 ```c
 #include <stdio.h>
@@ -1027,7 +1027,7 @@ int main() {
 
 ---
 
-## 9. Hashing
+## 9. Κατακερματισμός (Hashing)
 
 **Hashing** maps data to fixed-size values using a hash function. It enables O(1) average-case insertion, deletion, and search.
 
@@ -1152,7 +1152,7 @@ int main() {
 
 ---
 
-## 10. Two Pointer Technique
+## 10. Τεχνική Δύο Δεικτών (Two Pointer Technique)
 
 **Two Pointer Technique** uses two pointers to iterate through data structure, often reducing time complexity from O(n²) to O(n).
 
@@ -1194,7 +1194,7 @@ int main() {
 }
 ```
 
-### Example: Remove Duplicates from Sorted Array
+### Παράδειγμα: Αφαίρεση Διπλότυπων από Ταξινομημένο Πίνακα
 
 ```c
 #include <stdio.h>
@@ -1231,7 +1231,7 @@ int main() {
 
 ---
 
-## 11. Sliding Window Technique
+## 11. Τεχνική Συρόμενου Παραθύρου (Sliding Window Technique)
 
 **Sliding Window** maintains a subset of elements (window) and slides it to process subarrays efficiently.
 
@@ -1272,7 +1272,7 @@ int main() {
 }
 ```
 
-### Example: Longest Substring Without Repeating Characters
+### Παράδειγμα: Μεγαλύτερη Υποσυμβολοσειρά Χωρίς Επαναλαμβανόμενους Χαρακτήρες
 
 ```c
 #include <stdio.h>
@@ -1313,9 +1313,9 @@ int main() {
 
 ---
 
-## 12. Prefix Sum Technique
+## 12. Τεχνική Αθροίσματος Προθεμάτων (Prefix Sum Technique)
 
-**Prefix Sum** precomputes cumulative sums to answer range sum queries in O(1) time.
+Το **Άθροισμα Προθεμάτων (Prefix Sum)** προϋπολογίζει αθροιστικά αθροίσματα για την απάντηση ερωτημάτων αθροίσματος περιοχής σε χρόνο O(1).
 
 ### Example: Range Sum Queries
 
@@ -1350,9 +1350,9 @@ int main() {
 
 ---
 
-## 13. Strings
+## 13. Συμβολοσειρές (Strings)
 
-**String** in C is an array of characters terminated by null character (`\0`).
+Μια **Συμβολοσειρά (String)** στη C είναι ένας πίνακας χαρακτήρων που τερματίζεται με τον μηδενικό χαρακτήρα (`\0`).
 
 ### String Declaration and Initialization
 
@@ -1377,7 +1377,7 @@ int main() {
 }
 ```
 
-### String Operations
+### Λειτουργίες Συμβολοσειρών
 
 ```c
 #include <stdio.h>
@@ -1406,7 +1406,7 @@ int main() {
 }
 ```
 
-### Custom String Functions
+### Προσαρμοσμένες Συναρτήσεις Συμβολοσειρών
 
 ```c
 #include <stdio.h>
@@ -1456,7 +1456,7 @@ int main() {
 
 ---
 
-## 14. Recursion
+## 14. Αναδρομή (Recursion)
 
 **Recursion** occurs when a function calls itself. It requires a base case to stop and a recursive case to continue.
 
@@ -1480,7 +1480,7 @@ int main() {
 }
 ```
 
-### Fibonacci
+### Ακολουθία Fibonacci
 
 ```c
 #include <stdio.h>
@@ -1504,7 +1504,7 @@ int main() {
 }
 ```
 
-### Tower of Hanoi
+### Πύργοι του Ανόι (Tower of Hanoi)
 
 ```c
 #include <stdio.h>
@@ -1529,7 +1529,7 @@ int main() {
 
 ---
 
-## 15. Dynamic Memory Allocation
+## 15. Δυναμική Κατανομή Μνήμης
 
 Dynamic memory allocation allows runtime memory management using heap memory.
 
@@ -1570,7 +1570,7 @@ int main() {
 }
 ```
 
-### calloc() - Contiguous Allocation
+### calloc() - Συνεχόμενη Κατανομή
 
 ```c
 #include <stdio.h>
@@ -1598,7 +1598,7 @@ int main() {
 }
 ```
 
-### realloc() - Memory Reallocation
+### realloc() - Επανακατανομή Μνήμης
 
 ```c
 #include <stdio.h>
@@ -1642,7 +1642,7 @@ int main() {
 }
 ```
 
-### Dynamic 2D Array
+### Δυναμικός Διδιάστατος (2D) Πίνακας
 
 ```c
 #include <stdio.h>
@@ -1688,7 +1688,7 @@ int main() {
 
 ---
 
-## 16. Stack
+## 16. Στοίβα (Stack)
 
 **Stack** is a LIFO (Last In First Out) data structure. Elements are added and removed from the same end (top).
 
@@ -1764,7 +1764,7 @@ int main() {
 }
 ```
 
-### Stack Applications: Balanced Parentheses
+### Εφαρμογές Στοίβας: Ισορροπημένες Παρενθέσεις
 
 ```c
 #include <stdio.h>
@@ -1841,9 +1841,9 @@ int main() {
 
 ---
 
-## 17. Queue
+## 17. Ουρά (Queue)
 
-**Queue** is a FIFO (First In First Out) data structure. Elements are added at the rear and removed from the front.
+Η **Ουρά (Queue)** είναι μια δομή δεδομένων FIFO (First In First Out). Τα στοιχεία προστίθενται στο πίσω μέρος (rear) και αφαιρούνται από το μπροστινό μέρος (front).
 
 ### Queue Implementation Using Array
 
@@ -1919,7 +1919,7 @@ int main() {
 }
 ```
 
-### Circular Queue
+### Κυκλική Ουρά (Circular Queue)
 
 ```c
 #include <stdio.h>
@@ -1994,7 +1994,7 @@ int main() {
 
 ---
 
-## 18. Linked List
+## 18. Συνδεδεμένη Λίστα (Linked List)
 
 **Linked List** is a linear data structure where elements (nodes) are connected via pointers. Unlike arrays, elements are not stored contiguously.
 
@@ -2122,7 +2122,7 @@ int main() {
 }
 ```
 
-### Doubly Linked List
+### Διπλά Συνδεδεμένη Λίστα (Doubly Linked List)
 
 ```c
 #include <stdio.h>
@@ -2202,11 +2202,11 @@ int main() {
 
 ---
 
-## 19. Tree
+## 19. Δέντρο (Tree)
 
-**Binary Tree** is a hierarchical data structure where each node has at most two children (left and right).
+Το **Δυαδικό Δέντρο (Binary Tree)** είναι μια ιεραρχική δομή δεδομένων όπου κάθε κόμβος έχει το πολύ δύο παιδιά (αριστερό και δεξί).
 
-### Binary Tree Implementation
+### Υλοποίηση Δυαδικού Δέντρου
 
 ```c
 #include <stdio.h>
@@ -2294,7 +2294,7 @@ int main() {
 }
 ```
 
-### Binary Search Tree (BST)
+### Δυαδική Αναζήτηση Tree (BST)
 
 ```c
 #include <stdio.h>
@@ -2413,11 +2413,11 @@ int main() {
 
 ---
 
-## 20. Heap
+## 20. Σωρός (Heap)
 
-**Heap** is a complete binary tree that satisfies the heap property. In a max heap, parent nodes are greater than children; in a min heap, parent nodes are smaller.
+Ο **Σωρός (Heap)** είναι ένα πλήρες δυαδικό δέντρο που ικανοποιεί την ιδιότητα του σωρού. Σε ένα max heap, οι γονικοί κόμβοι είναι μεγαλύτεροι από τα παιδιά· σε ένα min heap, οι γονικοί κόμβοι είναι μικρότεροι.
 
-### Min Heap Implementation
+### Υλοποίηση Min Heap
 
 ```c
 #include <stdio.h>
@@ -2539,11 +2539,11 @@ int main() {
 
 ---
 
-## 21. Graph
+## 21. Γράφος (Graph)
 
-**Graph** is a non-linear data structure consisting of vertices (nodes) connected by edges. Graphs can be directed or undirected, weighted or unweighted.
+Ο **Γράφος (Graph)** είναι μια μη γραμμική δομή δεδομένων που αποτελείται από κορυφές (κόμβους) που συνδέονται με ακμές. Οι γράφοι μπορεί να είναι κατευθυνόμενοι ή μη κατευθυνόμενοι, με βάρη ή χωρίς βάρη.
 
-### Graph Representation: Adjacency Matrix
+### Αναπαράσταση Γράφου: Πίνακας Γειτνίασης
 
 ```c
 #include <stdio.h>
@@ -2582,7 +2582,7 @@ int main() {
 }
 ```
 
-### Graph Representation: Adjacency List
+### Αναπαράσταση Γράφου: Λίστα Γειτνίασης
 
 ```c
 #include <stdio.h>
@@ -2657,7 +2657,7 @@ int main() {
 }
 ```
 
-### Breadth-First Search (BFS)
+### Αναζήτηση Πρώτα κατά Πλάτος (BFS)
 
 ```c
 #include <stdio.h>
@@ -2741,7 +2741,7 @@ int main() {
 }
 ```
 
-### Depth-First Search (DFS)
+### Αναζήτηση Πρώτα κατά Βάθος (DFS)
 
 ```c
 #include <stdio.h>
@@ -2787,11 +2787,11 @@ int main() {
 
 ---
 
-## 22. Greedy Algorithm
+## 22. Άπληστος Αλγόριθμος (Greedy Algorithm)
 
-**Greedy algorithms** build solutions by making locally optimal choices at each step, hoping to find a global optimum.
+Οι **Άπληστοι αλγόριθμοι (Greedy algorithms)** κατασκευάζουν λύσεις κάνοντας τοπικά βέλτιστες επιλογές σε κάθε βήμα, με την ελπίδα να βρουν ένα συνολικό (παγκόσμιο) βέλτιστο.
 
-### Activity Selection Problem
+### Πρόβλημα Επιλογής Δραστηριοτήτων (Activity Selection)
 
 ```c
 #include <stdio.h>
@@ -2844,7 +2844,7 @@ int main() {
 }
 ```
 
-### Fractional Knapsack
+### Κλασματικό Πρόβλημα Σακιδίου (Fractional Knapsack)
 
 ```c
 #include <stdio.h>
@@ -2902,11 +2902,11 @@ int main() {
 
 ---
 
-## 23. Dynamic Programming
+## 23. Δυναμικός Προγραμματισμός (Dynamic Programming)
 
-**Dynamic Programming** solves complex problems by breaking them into overlapping subproblems and storing results to avoid redundant calculations.
+Ο **Δυναμικός Προγραμματισμός (Dynamic Programming)** επιλύει σύνθετα προβλήματα διασπώντας τα σε επικαλυπτόμενα υποπροβλήματα και αποθηκεύοντας αποτελέσματα για την αποφυγή περιττών υπολογισμών.
 
-### Fibonacci with Memoization
+### Ακολουθία Fibonacci with Memoization
 
 ```c
 #include <stdio.h>
@@ -2936,7 +2936,7 @@ int main() {
 }
 ```
 
-### 0/1 Knapsack
+### Πρόβλημα Σακιδίου 0/1 (0/1 Knapsack)
 
 ```c
 #include <stdio.h>
@@ -2975,7 +2975,7 @@ int main() {
 }
 ```
 
-### Longest Common Subsequence
+### Μεγαλύτερη Κοινή Υποακολουθία (Longest Common Subsequence - LCS)
 
 ```c
 #include <stdio.h>
@@ -3017,9 +3017,9 @@ int main() {
 
 ---
 
-## 24. Other Algorithms
+## 24. Άλλοι Αλγόριθμοι
 
-### Backtracking: N-Queens Problem
+### Οπισθοδρόμηση (Backtracking): Πρόβλημα N-Βασιλισσών
 
 ```c
 #include <stdio.h>
@@ -3086,7 +3086,7 @@ int main() {
 }
 ```
 
-### Bitwise Operations
+### Πράξεις σε Επίπεδο Bit (Bitwise Operations)
 
 ```c
 #include <stdio.h>
@@ -3137,9 +3137,9 @@ int main() {
 
 ---
 
-## Memory Management Best Practices
+## Βέλτιστες Πρακτικές Διαχείρισης Μνήμης
 
-1. **Always free dynamically allocated memory**
+1. **Πάντα να απελευθερώνετε τη δυναμικά κατανεμημένη μνήμη**
    ```c
    int *ptr = (int*)malloc(sizeof(int) * 10);
    // Use ptr...
@@ -3147,7 +3147,7 @@ int main() {
    ptr = NULL;  // Avoid dangling pointer
    ```
 
-2. **Check for allocation failures**
+2. **Ελέγχετε για αποτυχίες κατανομής**
    ```c
    int *ptr = (int*)malloc(sizeof(int) * 10);
    if (ptr == NULL) {
@@ -3156,11 +3156,11 @@ int main() {
    }
    ```
 
-3. **Avoid memory leaks**
-   - Free all allocated memory before program exits
-   - Free memory in reverse order of allocation for nested structures
+3. **Αποφεύγετε τις διαρροές μνήμης (memory leaks)**
+   - Απελευθερώστε όλη τη κατανεμημένη μνήμη πριν την έξοδο του προγράμματος
+   - Απελευθερώστε τη μνήμη με αντίστροφη σειρά κατανομής για εμφωλευμένες δομές
 
-4. **Use valgrind on Linux to detect memory issues**
+4. **Χρησιμοποιείτε το valgrind στο Linux για τον εντοπισμό προβλημάτων μνήμης**
    ```bash
    gcc -g program.c -o program
    valgrind --leak-check=full ./program
@@ -3168,7 +3168,7 @@ int main() {
 
 ---
 
-## Complexity Cheat Sheet
+## Συγκεντρωτικός Πίνακας Πολυπλοκότητας
 
 | Algorithm | Time (Best) | Time (Avg) | Time (Worst) | Space |
 |-----------|-------------|------------|--------------|-------|
@@ -3185,13 +3185,13 @@ int main() {
 
 ---
 
-## Additional Resources
+## Πρόσθετοι Πόροι
 
-- Practice problems on platforms like LeetCode, HackerRank, Codeforces
-- Read "Introduction to Algorithms" by CLRS
-- Use online visualizers for data structures and algorithms
-- Join competitive programming communities
+- Πρακτική εξάσκηση σε πλατφόρμες όπως LeetCode, HackerRank, Codeforces
+- Μελέτη του βιβλίου "Introduction to Algorithms" των CLRS
+- Χρήση διαδικτυακών εργαλείων οπτικοποίησης (visualizers) για δομές δεδομένων και αλγορίθμους
+- Συμμετοχή σε κοινότητες ανταγωνιστικού προγραμματισμού
 
 ---
 
-**End of Guide**
+**Τέλος Οδηγού**

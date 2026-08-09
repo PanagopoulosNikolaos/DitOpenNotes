@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Product of Maxterms Visualizer: f(x,y,z) = xy + y'z' + xy'z'</title>
+<title>Οπτικοποιητής Γινομένου Μέγιστων Όρων: f(x,y,z) = xy + y'z' + xy'z'</title>
 <style>
   :root { 
     --bg:#0a0314; --panel:#1a0b2e; --ink:#f1f5f9; --muted:#a78bfa; 
@@ -158,27 +158,27 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Product of Maxterms Visualizer</h1>
+    <h1>Οπτικοποιητής Γινομένου Μέγιστων Όρων</h1>
     <div class="subtitle">
-      Function: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span> → Finding rows where <strong>f = 0</strong>
+      Συνάρτηση: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span> → Εύρεση γραμμών όπου <strong>f = 0</strong>
     </div>
 
     <div class="grid">
       <div class="card">
         <div class="controls">
-          <button id="play" class="primary">▶ Play</button>
-          <button id="pause">⏸ Pause</button>
-          <button id="reset">↺ Reset</button>
+          <button id="play" class="primary">▶ Εκτέλεση</button>
+          <button id="pause">⏸ Παύση</button>
+          <button id="reset">↺ Επαναφορά</button>
           <label class="muted">
-            Speed:
+            Ταχύτητα:
             <select id="speed">
-              <option value="1200">Very Slow</option>
-              <option value="800" selected>Slow</option>
-              <option value="500">Normal</option>
-              <option value="250">Fast</option>
+              <option value="1200">Πολύ Αργά</option>
+              <option value="800" selected>Αργά</option>
+              <option value="500">Κανονικά</option>
+              <option value="250">Γρήγορα</option>
             </select>
           </label>
-          <div class="status" id="status">Ready to scan for f=0 rows</div>
+          <div class="status" id="status">Έτοιμο για σάρωση γραμμών f=0</div>
         </div>
 
         <table id="tt">
@@ -189,27 +189,27 @@
         </table>
 
         <div class="legend">
-          <span class="chip"><span class="dot dot-scan"></span> currently scanning</span>
-          <span class="chip"><span class="dot dot-max"></span> f=0 row (maxterm)</span>
+          <span class="chip"><span class="dot dot-scan"></span> σε σάρωση</span>
+          <span class="chip"><span class="dot dot-max"></span> γραμμή f=0 (maxterm)</span>
         </div>
       </div>
 
       <div class="card flexcol">
         <div>
-          <div class="big">Discovered 0-maxterms</div>
-          <div class="muted">Added when a scanned row has f=0</div>
+          <div class="big">Ανακαλυμμένα 0-maxterms</div>
+          <div class="muted">Προστίθεται όταν μια σαρωμένη γραμμή έχει f=0</div>
           <ol id="maxterm-list" class="list"></ol>
         </div>
 
         <div>
-          <div class="big">Pi notation</div>
+          <div class="big">Σημειογραφία Πί</div>
           <div id="pi" class="mono pill">f(x,y,z) = ∏( )</div>
         </div>
 
         <div>
-          <div class="big">Canonical Product of Maxterms (expanded)</div>
+          <div class="big">Κανονική Εκφράση Γινομένου Μέγιστων Όρων (αναπτυγμένη)</div>
           <div id="expanded" class="code">f(x,y,z) = </div>
-          <div class="muted">Canonical PoS lists all 0-maxterms; it is not simplified.</div>
+          <div class="muted">Η κανονική PoS αναφέρει όλα τα 0-maxterms· δεν είναι απλοποιημένη.</div>
         </div>
       </div>
     </div>
@@ -303,21 +303,21 @@
     });
     updatePi();
     updateExpanded();
-    status.textContent = "Ready to scan for f=0 rows";
+    status.textContent = "Έτοιμο για σάρωση γραμμών f=0";
   }
 
   function step(){
     clearScanClasses();
     if (i >= rows.length){
       done = true;
-      status.textContent = "Done: canonical Product of Maxterms built";
+      status.textContent = "Ολοκληρώθηκε: η κανονική Εκφράση Γινομένου Μέγιστων Όρων δημιουργήθηκε";
       if (timer) { clearInterval(timer); timer = null; }
       return;
     }
     const r = rows[i];
     const rowEl = document.getElementById("row-"+i);
     rowEl.classList.add("scan");
-    status.textContent = `Scanning row ${i} (x=${r.x}, y=${r.y}, z=${r.z}) → f=${r.f}`;
+    status.textContent = `Σάρωση γραμμής ${i} (x=${r.x}, y=${r.y}, z=${r.z}) → f=${r.f}`;
     if (r.f === 0){
       // mark maxterm
       rowEl.classList.add("maxterm");
@@ -345,11 +345,11 @@
     if (done) return;
     if (timer) return;
     const delay = parseInt(speedSel.value,10);
-    status.textContent = "Playing…";
+    status.textContent = "Εκτέλεση…";
     timer = setInterval(step, delay);
   });
   pauseBtn.addEventListener("click", ()=>{
-    if (timer){ clearInterval(timer); timer = null; status.textContent = "Paused"; }
+    if (timer){ clearInterval(timer); timer = null; status.textContent = "Παύση"; }
   });
   resetBtn.addEventListener("click", resetUI);
 })();

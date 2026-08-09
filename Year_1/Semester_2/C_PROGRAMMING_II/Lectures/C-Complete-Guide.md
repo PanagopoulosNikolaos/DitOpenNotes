@@ -1,55 +1,55 @@
-# C Programming Complete Guide
+# Πλήρης Οδηγός Προγραμματισμού στη C
 
-## C Files
+## Αρχεία στη C
 
-### Creating Files
+### Δημιουργία Αρχείων
 
-**FILE Pointer**: Use `FILE*` pointer and `fopen()` function to work with files.
+**Δείκτης FILE**: Χρησιμοποιήστε δείκτη `FILE*` και τη συνάρτηση `fopen()` για να εργαστείτε με αρχεία.
 
 ```c
 FILE *fptr;
-fptr = fopen("filename.txt", "w");  // Creates file if doesn't exist
-fclose(fptr);  // Always close files
+fptr = fopen("filename.txt", "w");  // Δημιουργεί το αρχείο αν δεν υπάρχει
+fclose(fptr);  // Πάντα κλείνετε τα αρχεία
 ```
 
-**Modes**:
-- `w` - Write (creates file if doesn't exist)
-- `a` - Append (adds to end)
-- `r` - Read
+**Λειτουργίες**:
+- `w` - Εγγραφή (δημιουργεί το αρχείο αν δεν υπάρχει)
+- `a` - Προσθήκη (προσθέτει στο τέλος)
+- `r` - Ανάγνωση
 
-**Absolute Path** (Windows):
+**Απόλυτη Διαδρομή** (Windows):
 ```c
 fptr = fopen("C:\\directoryname\\filename.txt", "w");
 ```
 
-### Writing to Files
+### Εγγραφή σε Αρχεία
 
-**Write mode** (`w`) - Overwrites existing content:
+**Λειτουργία εγγραφής** (`w`) - Αντικαθιστά το υπάρχον περιεχόμενο:
 ```c
 FILE *fptr = fopen("filename.txt", "w");
 fprintf(fptr, "Some text");
 fclose(fptr);
 ```
 
-**Append mode** (`a`) - Adds to end without deleting:
+**Λειτουργία προσθήκης** (`a`) - Προσθέτει στο τέλος χωρίς διαγραφή:
 ```c
 FILE *fptr = fopen("filename.txt", "a");
 fprintf(fptr, "\nNew line");
 fclose(fptr);
 ```
 
-### Reading Files
+### Ανάγνωση Αρχείων
 
-**Basic read**:
+**Βασική ανάγνωση**:
 ```c
 FILE *fptr = fopen("filename.txt", "r");
 char myString[100];
-fgets(myString, 100, fptr);  // Reads first line
+fgets(myString, 100, fptr);  // Διαβάζει την πρώτη γραμμή
 printf("%s", myString);
 fclose(fptr);
 ```
 
-**Read all lines**:
+**Ανάγνωση όλων των γραμμών**:
 ```c
 FILE *fptr = fopen("filename.txt", "r");
 char myString[100];
@@ -59,24 +59,24 @@ while(fgets(myString, 100, fptr)) {
 fclose(fptr);
 ```
 
-**NULL check** (good practice):
+**Έλεγχος NULL** (καλή πρακτική):
 ```c
 FILE *fptr = fopen("filename.txt", "r");
 if(fptr == NULL) {
     printf("Not able to open the file.\n");
     return 1;
 }
-// Process file
+// Επεξεργασία αρχείου
 fclose(fptr);
 ```
 
 ---
 
-## C Structures
+## Δομές στη C
 
-### Basic Structure
+### Βασική Δομή
 
-**Declaration and usage**:
+**Δήλωση και χρήση**:
 ```c
 struct Car {
     char brand[30];
@@ -91,21 +91,21 @@ int main() {
 }
 ```
 
-**String assignment** - Use `strcpy()`:
+**Ανάθεση συμβολοσειράς** - Χρησιμοποιήστε `strcpy()`:
 ```c
 struct Car car1;
 strcpy(car1.brand, "Toyota");
 ```
 
-**Copy structures**:
+**Αντιγραφή δομών**:
 ```c
 struct Car s1 = {13, 'B', "Some text"};
-struct Car s2 = s1;  // Copy all values
+struct Car s2 = s1;  // Αντιγράφει όλες τις τιμές
 ```
 
-### Nested Structures
+### Ένθετες Δομές
 
-**Structure inside structure**:
+**Δομή μέσα σε δομή**:
 ```c
 struct Owner {
     char firstName[30];
@@ -115,7 +115,7 @@ struct Owner {
 struct Car {
     char brand[30];
     int year;
-    struct Owner owner;  // Nested
+    struct Owner owner;  // Ένθετη
 };
 
 int main() {
@@ -126,22 +126,22 @@ int main() {
 }
 ```
 
-### Structures with Pointers
+### Δομές με Δείκτες
 
-**Pointer to struct** - Use `->` operator:
+**Δείκτης σε δομή** - Χρησιμοποιήστε τον τελεστή `->`:
 ```c
 struct Car car = {"Toyota", 2020};
 struct Car *ptr = &car;
 
-// Access with ->
+// Πρόσβαση με ->
 printf("Brand: %s\n", ptr->brand);
 printf("Year: %d\n", ptr->year);
 ```
 
-**Pass to function**:
+**Πέρασμα σε συνάρτηση**:
 ```c
 void updateYear(struct Car *c) {
-    c->year = 2025;  // Modifies original
+    c->year = 2025;  // Τροποποιεί το πρωτότυπο
 }
 
 int main() {
@@ -152,14 +152,14 @@ int main() {
 }
 ```
 
-**Why use pointers?**
-- Avoid copying large data (faster, less memory)
-- Modify original values in functions
-- Dynamic allocation with `malloc()`
+**Γιατί να χρησιμοποιήσετε δείκτες;**
+- Αποφυγή αντιγραφής μεγάλων δεδομένων (ταχύτερο, λιγότερη μνήμη)
+- Τροποποίηση αρχικών τιμών σε συναρτήσεις
+- Δυναμική κατανομή με `malloc()`
 
-### Unions
+### Ενώσεις (Unions)
 
-**Shared memory** - All members share same space:
+**Κοινόχρηστη μνήμη** - Όλα τα μέλη μοιράζονται τον ίδιο χώρο:
 ```c
 union myUnion {
     int myNum;
@@ -169,40 +169,40 @@ union myUnion {
 
 int main() {
     union myUnion u1;
-    u1.myLetter = 'A';  // Only last value is valid
-    printf("%c\n", u1.myLetter);  // Prints 'A'
+    u1.myLetter = 'A';  // Μόνο η τελευταία τιμή είναι έγκυρη
+    printf("%c\n", u1.myLetter);  // Εκτυπώνει 'A'
     return 0;
 }
 ```
 
-**Size** - Equals largest member:
+**Μέγεθος** - Ισούται με το μεγαλύτερο μέλος:
 ```c
 union myUnion {
     int myNum;        // 4 bytes
     char myString[36]; // 36 bytes
 };
-// Size = 36 bytes (vs struct would be 40 bytes)
+// Μέγεθος = 36 bytes (ενώ η δομή θα ήταν 40 bytes)
 ```
 
-**When to use**: Store different types in same location, only one value at a time, save memory.
+**Πότε να χρησιμοποιείται**: Αποθήκευση διαφορετικών τύπων στην ίδια θέση, μόνο μία τιμή τη φορά, εξοικονόμηση μνήμης.
 
 ### typedef
 
-**Simplify declarations**:
+**Απλοποίηση δηλώσεων**:
 ```c
-// Without typedef
+// Χωρίς typedef
 struct Car car1 = {"BMW", 1999};
 
-// With typedef
+// Με typedef
 typedef struct {
     char brand[30];
     int year;
 } Car;
 
-Car car2 = {"Ford", 1969};  // Shorter!
+Car car2 = {"Ford", 1969};  // Πιο σύντομο!
 ```
 
-**Multiple nested structs**:
+**Πολλαπλές ένθετες δομές**:
 ```c
 typedef struct {
     char firstName[20];
@@ -221,48 +221,48 @@ typedef struct {
 } Dealership;
 ```
 
-### Struct Padding
+### Ευθυγράμμιση Δομών (Struct Padding)
 
-**Memory alignment** - Compiler adds padding bytes:
+**Ευθυγράμμιση μνήμης** - Ο μεταγλωττιστής προσθέτει bytes συμπλήρωσης:
 ```c
 struct Example {
     char a;  // 1 byte
     int b;   // 4 bytes
     char c;  // 1 byte
 };
-// Expected: 6 bytes, Actual: 12 bytes (with padding)
+// Αναμενόμενο: 6 bytes, Πραγματικό: 12 bytes (με συμπλήρωση)
 ```
 
-**Memory layout**:
-| Member | Bytes | Notes |
+**Διάταξη μνήμης**:
+| Μέλος | Bytes | Σημειώσεις |
 |--------|-------|-------|
-| a | 1 | Stored first |
-| padding | 3 | Align `b` to 4-byte boundary |
-| b | 4 | Aligned |
-| c | 1 | Stored |
-| padding | 3 | Total size multiple of 4 |
+| a | 1 | Αποθηκεύεται πρώτο |
+| συμπλήρωση | 3 | Ευθυγραμμίζει το `b` σε όριο 4 bytes |
+| b | 4 | Ευθυγραμμισμένο |
+| c | 1 | Αποθηκεύεται |
+| συμπλήρωση | 3 | Το συνολικό μέγεθος είναι πολλαπλάσιο του 4 |
 
-**Reduce padding** - Order by size:
+**Μείωση συμπλήρωσης** - Ταξινόμηση κατά μέγεθος:
 ```c
 struct Example {
     int b;   // 4 bytes
     char a;  // 1 byte
     char c;  // 1 byte
 };
-// Size = 8 bytes (less padding)
+// Μέγεθος = 8 bytes (λιγότερη συμπλήρωση)
 ```
 
-**Struct vs Union padding**:
-- **Struct**: Padding between members
-- **Union**: No padding between (share same memory), size = largest member
+**Συμπλήρωση Δομής έναντι Ένωσης**:
+- **Δομή**: Συμπλήρωση μεταξύ μελών
+- **Ένωση**: Καμία συμπλήρωση μεταξύ (μοιράζονται την ίδια μνήμη), μέγεθος = μεγαλύτερο μέλος
 
 ---
 
-## C Enums
+## Απαριθμήσεις στη C
 
-### Basic Enum
+### Βασική Απαρίθμηση
 
-**Declaration**:
+**Δήλωση**:
 ```c
 enum Level {
     LOW,     // 0
@@ -272,14 +272,14 @@ enum Level {
 
 int main() {
     enum Level myVar = MEDIUM;
-    printf("%d", myVar);  // Prints 1
+    printf("%d", myVar);  // Εκτυπώνει 1
     return 0;
 }
 ```
 
-### Custom Values
+### Προσαρμοσμένες Τιμές
 
-**Assign specific values**:
+**Ανάθεση συγκεκριμένων τιμών**:
 ```c
 enum Level {
     LOW = 25,
@@ -288,7 +288,7 @@ enum Level {
 };
 ```
 
-**Sequential values**:
+**Διαδοχικές τιμές**:
 ```c
 enum Level {
     LOW = 5,
@@ -297,7 +297,7 @@ enum Level {
 };
 ```
 
-### Enum in Switch
+### Απαρίθμηση σε Switch
 
 ```c
 enum Level {
@@ -317,122 +317,122 @@ int main() {
 }
 ```
 
-### typedef with Enum
+### typedef με Απαρίθμηση
 
-**Shorter syntax**:
+**Συντομότερη σύνταξη**:
 ```c
-// Without typedef
+// Χωρίς typedef
 enum Day {MON, TUE, WED, THU, FRI, SAT, SUN};
 enum Day today = WED;
 
-// With typedef
+// Με typedef
 typedef enum {MON, TUE, WED, THU, FRI, SAT, SUN} Day;
-Day today = WED;  // Cleaner!
+Day today = WED;  // Πιο καθαρό!
 ```
 
-**When to use**: Fixed constant values (days, months, colors, states).
+**Πότε να χρησιμοποιείται**: Σταθερές τιμές (ημέρες, μήνες, χρώματα, καταστάσεις).
 
 ---
 
-## C Memory Management
+## Διαχείριση Μνήμης στη C
 
-### Understanding Memory
+### Κατανόηση της Μνήμης
 
-**Memory sizes**:
+**Μεγέθη μνήμης**:
 ```c
 int myInt;      // 4 bytes
 float myFloat;  // 4 bytes
 double myDouble; // 8 bytes
 char myChar;    // 1 byte
 
-printf("%zu\n", sizeof(myInt));  // Prints 4
+printf("%zu\n", sizeof(myInt));  // Εκτυπώνει 4
 ```
 
-**Why important**: Manage memory to optimize performance, prevent leaks, avoid crashes.
+**Γιατί είναι σημαντικό**: Διαχειριστείτε τη μνήμη για βελτιστοποίηση απόδοσης, αποφυγή διαρροών και αποφυγή καταρρεύσεων.
 
-**Key points**:
-- Manual memory management (allocate, reallocate, free)
-- Use pointers to work with memory directly
-- Be careful with pointers (can damage data)
+**Βασικά σημεία**:
+- Χειροκίνητη διαχείριση μνήμης (κατανομή, επανακατανομή, απελευθέρωση)
+- Χρήση δεικτών για άμεση εργασία με τη μνήμη
+- Προσοχή με τους δείκτες (μπορούν να καταστρέψουν δεδομένα)
 
 ---
 
-## C Errors
+## Σφάλματα στη C
 
-### Compile-Time Errors
+### Σφάλματα Μεταγλώττισης
 
-**Missing semicolon**:
+**Λείπει ερωτηματικό**:
 ```c
-int x = 5  // Error: expected ';'
+int x = 5  // Σφάλμα: αναμενόταν ';'
 printf("%d", x);
 ```
 
-**Undeclared variable**:
+**Μη δηλωμένη μεταβλητή**:
 ```c
-printf("%d", myVar);  // Error: 'myVar' undeclared
+printf("%d", myVar);  // Σφάλμα: το 'myVar' δεν έχει δηλωθεί
 ```
 
-**Type mismatch**:
+**Αναντιστοιχία τύπου**:
 ```c
-int x = "Hello";  // Error: initialization makes integer from pointer
+int x = "Hello";  // Σφάλμα: η αρχικοποίηση μετατρέπει ακέραιο από δείκτη
 ```
 
-### Runtime Errors
+### Σφάλματα Χρόνου Εκτέλεσης
 
-**Division by zero**:
+**Διαίρεση με το μηδέν**:
 ```c
 int x = 10;
 int y = 0;
-int result = x / y;  // Runtime error
+int result = x / y;  // Σφάλμα χρόνου εκτέλεσης
 ```
 
-**Array out of bounds**:
+**Πίνακας εκτός ορίων**:
 ```c
 int numbers[3] = {1, 2, 3};
-printf("%d\n", numbers[8]);  // Undefined behavior
+printf("%d\n", numbers[8]);  // Απροσδιόριστη συμπεριφορά
 ```
 
-**Using freed memory**:
+**Χρήση απελευθερωμένης μνήμης**:
 ```c
 int* ptr = malloc(sizeof(int));
 *ptr = 10;
 free(ptr);
-printf("%d\n", *ptr);  // Undefined behavior
+printf("%d\n", *ptr);  // Απροσδιόριστη συμπεριφορά
 ```
 
-### Good Practices
+### Καλές Πρακτικές
 
-- Always initialize variables
-- Use meaningful names
-- Keep code clean and indented
-- Keep functions short
-- Check loops/conditions
-- Read error messages carefully
+- Πάντα αρχικοποιείτε τις μεταβλητές
+- Χρησιμοποιείτε ουσιαστικά ονόματα
+- Κρατήστε τον κώδικα καθαρό και με σωστή στοίχιση
+- Κρατήστε τις συναρτήσεις σύντομες
+- Ελέγχετε τους βρόχους/συνθήκες
+- Διαβάστε προσεκτικά τα μηνύματα σφαλμάτων
 
 ---
 
-## C Debugging
+## Αποσφαλμάτωση στη C
 
-### Print Debugging
+### Αποσφαλμάτωση με Εκτύπωση
 
-**Track execution**:
+**Παρακολούθηση εκτέλεσης**:
 ```c
 int x = 10, y = 0;
 printf("Before division\n");
-int z = x / y;  // Crashes here
-printf("After division\n");  // Never runs
+int z = x / y;  // Καταρρέει εδώ
+printf("After division\n");  // Ποτέ δεν εκτελείται
 ```
 
-### Check Values
+### Έλεγχος Τιμών
 
 ```c
 int result = x - y;
-printf("Result: %d\n", result);  // Check if expected
+printf("Result: %d\n", result);  // Έλεγχος αν είναι το αναμενόμενο
 ```
 
-### Safe Checks
+### Ασφαλείς Έλεγχοι
 
-**Prevent crashes**:
+**Πρόληψη καταρρεύσεων**:
 ```c
 int x = 10, y = 0;
 if (y != 0) {
@@ -443,7 +443,7 @@ if (y != 0) {
 }
 ```
 
-**Array bounds**:
+**Όρια πίνακα**:
 ```c
 int numbers[3] = {10, 20, 30};
 int index = 5;
@@ -454,20 +454,20 @@ if (index >= 0 && index < 3) {
 }
 ```
 
-### Debugger Tools
+### Εργαλεία Αποσφαλμάτωσης
 
-Use IDE debuggers (Visual Studio, VS Code, Code::Blocks) for:
-- Breakpoints (pause execution)
-- Step through code line-by-line
-- Watch variables change
+Χρησιμοποιήστε αποσφαλματωτές IDE (Visual Studio, VS Code, Code::Blocks) για:
+- Σημεία διακοπής (παύση εκτέλεσης)
+- Βήμα-βήμα εκτέλεση κώδικα
+- Παρακολούθηση αλλαγών μεταβλητών
 
 ---
 
-## C NULL
+## NULL στη C
 
-### NULL Pointer
+### Δείκτης NULL
 
-**Special value** - Points to nothing:
+**Ειδική τιμή** - Δείχνει στο τίποτα:
 ```c
 FILE *fptr = fopen("nothing.txt", "r");
 if (fptr == NULL) {
@@ -477,7 +477,7 @@ if (fptr == NULL) {
 fclose(fptr);
 ```
 
-**Memory allocation failure**:
+**Αποτυχία κατανομής μνήμης**:
 ```c
 int *numbers = (int*) malloc(100000000000000 * sizeof(int));
 if (numbers == NULL) {
@@ -485,21 +485,21 @@ if (numbers == NULL) {
     return 1;
 }
 free(numbers);
-numbers = NULL;  // Good practice after free
+numbers = NULL;  // Καλή πρακτική μετά το free
 ```
 
-**Key points**:
-- Always check pointers before use
-- Prevents crashes from invalid memory access
-- Functions return NULL on failure
+**Βασικά σημεία**:
+- Πάντα ελέγχετε τους δείκτες πριν τη χρήση
+- Προλαμβάνει καταρρεύσεις από μη έγκυρη πρόσβαση στη μνήμη
+- Οι συναρτήσεις επιστρέφουν NULL σε αποτυχία
 
 ---
 
-## C Error Handling
+## Διαχείριση Σφαλμάτων στη C
 
-### Return Values
+### Τιμές Επιστροφής
 
-**Check NULL**:
+**Έλεγχος NULL**:
 ```c
 FILE *fptr = fopen("nothing.txt", "r");
 if (fptr == NULL) {
@@ -511,7 +511,7 @@ fclose(fptr);
 
 ### perror()
 
-**Detailed error message**:
+**Λεπτομερές μήνυμα σφάλματος**:
 ```c
 FILE *f = fopen("nothing.txt", "r");
 if (f == NULL) {
@@ -519,12 +519,12 @@ if (f == NULL) {
     return 1;
 }
 fclose(f);
-// Output: Error opening file: No such file or directory
+// Έξοδος: Error opening file: No such file or directory
 ```
 
-### errno and strerror()
+### errno και strerror()
 
-**Error codes**:
+**Κωδικοί σφαλμάτων**:
 ```c
 #include <errno.h>
 #include <string.h>
@@ -536,15 +536,15 @@ if (f == NULL) {
 }
 ```
 
-**Common error codes**:
-| Code | Meaning |
+**Συνηθισμένοι κωδικοί σφαλμάτων**:
+| Κωδικός | Σημασία |
 |------|---------|
-| ENOENT | No such file or directory |
-| EACCES | Permission denied |
-| ENOMEM | Not enough memory |
-| EINVAL | Invalid argument |
+| ENOENT | Δεν υπάρχει τέτοιο αρχείο ή κατάλογος |
+| EACCES | Άρνηση πρόσβασης |
+| ENOMEM | Δεν υπάρχει αρκετή μνήμη |
+| EINVAL | Μη έγκυρο όρισμα |
 
-**Check specific error**:
+**Έλεγχος συγκεκριμένου σφάλματος**:
 ```c
 if (errno == ENOENT) {
     printf("The file was not found.\n");
@@ -553,38 +553,38 @@ if (errno == ENOENT) {
 
 ### exit()
 
-**Stop program immediately**:
+**Άμεση διακοπή προγράμματος**:
 ```c
 #include <stdlib.h>
 
 FILE *f = fopen("nothing.txt", "r");
 if (f == NULL) {
     printf("Failed to open file.\n");
-    exit(EXIT_FAILURE);  // or exit(1)
+    exit(EXIT_FAILURE);  // ή exit(1)
 }
 ```
 
-**Exit codes**:
-- 0 or `EXIT_SUCCESS` - Success
-- 1 or `EXIT_FAILURE` - Error
+**Κωδικοί εξόδου**:
+- 0 ή `EXIT_SUCCESS` - Επιτυχία
+- 1 ή `EXIT_FAILURE` - Σφάλμα
 
 ---
 
-## C Input Validation
+## Έλεγχος Εισόδου στη C
 
-### Validate Number Range
+### Έλεγχος Εύρους Αριθμού
 
 ```c
 int number;
 do {
     printf("Choose a number between 1 and 5: ");
     scanf("%d", &number);
-    while (getchar() != '\n');  // Clear buffer
+    while (getchar() != '\n');  // Καθαρισμός buffer
 } while (number < 1 || number > 5);
 printf("You chose: %d\n", number);
 ```
 
-### Validate Text Input
+### Έλεγχος Εισόδου Κειμένου
 
 ```c
 #include <string.h>
@@ -593,12 +593,12 @@ char name[100];
 do {
     printf("Enter your name: ");
     fgets(name, sizeof(name), stdin);
-    name[strcspn(name, "\n")] = 0;  // Remove newline
+    name[strcspn(name, "\n")] = 0;  // Αφαίρεση νέας γραμμής
 } while (strlen(name) == 0);
 printf("Hello, %s\n", name);
 ```
 
-### Validate Integer Input
+### Έλεγχος Ακέραιας Εισόδου
 
 ```c
 int number;
@@ -606,7 +606,7 @@ char input[100];
 printf("Enter a number: ");
 while (fgets(input, sizeof(input), stdin)) {
     if (sscanf(input, "%d", &number) == 1) {
-        break;  // Valid integer
+        break;  // Έγκυρος ακέραιος
     } else {
         printf("Invalid input. Try again: ");
     }
@@ -616,9 +616,9 @@ printf("You entered: %d\n", number);
 
 ---
 
-## C Date and Time
+## Ημερομηνία και Ώρα στη C
 
-### Current Time
+### Τρέχουσα Ώρα
 
 ```c
 #include <time.h>
@@ -628,22 +628,22 @@ time(&currentTime);
 printf("Current time: %s", ctime(&currentTime));
 ```
 
-### Break Down Time
+### Ανάλυση Ώρας
 
-**Access individual parts**:
+**Πρόσβαση σε επιμέρους μέρη**:
 ```c
 time_t now = time(NULL);
 struct tm *t = localtime(&now);
 
-printf("Year: %d\n", t->tm_year + 1900);  // Add 1900
-printf("Month: %d\n", t->tm_mon + 1);     // 0-11, add 1
+printf("Year: %d\n", t->tm_year + 1900);  // Προσθήκη 1900
+printf("Month: %d\n", t->tm_mon + 1);     // 0-11, προσθήκη 1
 printf("Day: %d\n", t->tm_mday);
 printf("Hour: %d\n", t->tm_hour);
 printf("Minute: %d\n", t->tm_min);
 printf("Second: %d\n", t->tm_sec);
 ```
 
-### Format Date/Time
+### Μορφοποίηση Ημερομηνίας/Ώρας
 
 ```c
 time_t now = time(NULL);
@@ -654,46 +654,46 @@ strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", t);
 printf("Formatted time: %s\n", buffer);
 ```
 
-**When to use**: Display time, log events, timestamps, measure duration, seed random numbers.
+**Πότε να χρησιμοποιείται**: Εμφάνιση ώρας, καταγραφή συμβάντων, χρονοσφραγίδες, μέτρηση διάρκειας, σπορά τυχαίων αριθμών.
 
 ---
 
-## C Random Numbers
+## Τυχαίοι Αριθμοί στη C
 
-### Basic Random
+### Βασικός Τυχαίος
 
 ```c
 #include <stdlib.h>
 
 int r = rand();
 printf("%d\n", r);
-// Note: Same sequence every run without seed
+// Σημείωση: Ίδια ακολουθία κάθε εκτέλεση χωρίς σπορά
 ```
 
-### Seeding
+### Σπορά
 
-**Use current time**:
+**Χρήση τρέχουσας ώρας**:
 ```c
 #include <time.h>
 
-srand(time(NULL));  // Seed once at start
+srand(time(NULL));  // Σπορά μία φορά στην αρχή
 printf("%d\n", rand());
 printf("%d\n", rand());
 ```
 
-### Random Range
+### Τυχαίο Εύρος
 
-**0 to 9**:
+**0 έως 9**:
 ```c
 int x = rand() % 10;
 ```
 
-**1 to 6 (dice)**:
+**1 έως 6 (ζάρια)**:
 ```c
 int dice = (rand() % 6) + 1;
 ```
 
-**Example - Roll two dice**:
+**Παράδειγμα - Ρίψη δύο ζαριών**:
 ```c
 srand(time(NULL));
 int dice1 = (rand() % 6) + 1;
@@ -703,19 +703,19 @@ printf("You rolled %d and %d (total = %d)\n", dice1, dice2, dice1 + dice2);
 
 ---
 
-## C Macros
+## Μακροεντολές στη C
 
 ### #include
 
-**Include files**:
+**Συμπερίληψη αρχείων**:
 ```c
-#include <stdio.h>     // Standard library
-#include "myfile.h"    // Your files
+#include <stdio.h>     // Τυπική βιβλιοθήκη
+#include "myfile.h"    // Δικά σας αρχεία
 ```
 
 ### #define
 
-**Simple macro**:
+**Απλή μακροεντολή**:
 ```c
 #define PI 3.14
 
@@ -725,7 +725,7 @@ int main() {
 }
 ```
 
-**Macro with parameters**:
+**Μακροεντολή με παραμέτρους**:
 ```c
 #define SQUARE(x) ((x) * (x))
 
@@ -735,7 +735,7 @@ int main() {
 }
 ```
 
-### Conditional Compilation
+### Υπό συνθήκη Μεταγλώττιση
 
 **#ifdef / #ifndef**:
 ```c
@@ -751,16 +751,16 @@ int main() {
 
 ---
 
-## C Code Organization
+## Οργάνωση Κώδικα στη C
 
-### Header Files
+### Αρχεία Κεφαλίδας
 
-**Why use**:
-- Declare functions from other files
-- Share variables, constants, macros
-- Organize into logical modules
+**Γιατί να χρησιμοποιούνται**:
+- Δήλωση συναρτήσεων από άλλα αρχεία
+- Κοινή χρήση μεταβλητών, σταθερών, μακροεντολών
+- Οργάνωση σε λογικές ενότητες
 
-### Create Header File
+### Δημιουργία Αρχείου Κεφαλίδας
 
 **calc.h**:
 ```c
@@ -773,9 +773,9 @@ int subtract(int x, int y);
 #endif
 ```
 
-**Include guard** (`#ifndef`, `#define`, `#endif`) prevents multiple inclusion.
+**Προστασία συμπερίληψης** (`#ifndef`, `#define`, `#endif`) αποτρέπει πολλαπλή συμπερίληψη.
 
-### Function Definitions
+### Ορισμοί Συναρτήσεων
 
 **calc.c**:
 ```c
@@ -790,7 +790,7 @@ int subtract(int x, int y) {
 }
 ```
 
-### Use in Main
+### Χρήση στο Main
 
 **main.c**:
 ```c
@@ -804,7 +804,7 @@ int main() {
 }
 ```
 
-### Compile Multiple Files
+### Μεταγλώττιση Πολλαπλών Αρχείων
 
 ```bash
 gcc main.c calc.c -o program
@@ -812,24 +812,24 @@ gcc main.c calc.c -o program
 
 ---
 
-## C Storage Classes
+## Κατηγορίες Αποθήκευσης στη C
 
 ### auto
 
-**Default for local variables**:
+**Προεπιλογή για τοπικές μεταβλητές**:
 ```c
 int main() {
-    auto int x = 50;  // Same as: int x = 50;
+    auto int x = 50;  // Ίδιο με: int x = 50;
     return 0;
 }
 ```
 
 ### static
 
-**Keeps value between calls**:
+**Διατηρεί την τιμή μεταξύ κλήσεων**:
 ```c
 void count() {
-    static int myNum = 0;  // Retains value
+    static int myNum = 0;  // Διατηρεί την τιμή
     myNum++;
     printf("num = %d\n", myNum);
 }
@@ -842,22 +842,22 @@ int main() {
 }
 ```
 
-**File scope** - Not visible outside file (for global vars/functions).
+**Εμβέλεια αρχείου** - Δεν είναι ορατό εκτός αρχείου (για καθολικές μεταβλητές/συναρτήσεις).
 
 ### register
 
-**Suggest CPU register** (mostly obsolete):
+**Πρόταση καταχωρητή CPU** (κυρίως παρωχημένο):
 ```c
 register int counter = 0;
 ```
 
 ### extern
 
-**Declare from another file**:
+**Δήλωση από άλλο αρχείο**:
 
 **main.c**:
 ```c
-extern int shared;  // Declared, defined elsewhere
+extern int shared;  // Δηλωμένο, ορισμένο αλλού
 
 int main() {
     printf("shared = %d\n", shared);
@@ -867,29 +867,29 @@ int main() {
 
 **data.c**:
 ```c
-int shared = 50;  // Definition
+int shared = 50;  // Ορισμός
 ```
 
-Compile: `gcc main.c data.c -o program`
+Μεταγλώττιση: `gcc main.c data.c -o program`
 
 ---
 
-## C Bitwise Operators
+## Τελεστές Bitwise στη C
 
-### Operators
+### Τελεστές
 
-| Operator | Name | Description |
+| Τελεστής | Όνομα | Περιγραφή |
 |----------|------|-------------|
-| & | AND | Both bits must be 1 |
-| \| | OR | Either bit can be 1 |
-| ^ | XOR | Only one bit is 1 |
-| ~ | NOT | Flips all bits |
-| << | Left Shift | Multiply by powers of 2 |
-| >> | Right Shift | Divide by powers of 2 |
+| & | AND | Και τα δύο bits πρέπει να είναι 1 |
+| \| | OR | Οποιοδήποτε bit μπορεί να είναι 1 |
+| ^ | XOR | Μόνο ένα bit είναι 1 |
+| ~ | NOT | Αντιστρέφει όλα τα bits |
+| << | Αριστερή Ολίσθηση | Πολλαπλασιασμός με δυνάμεις του 2 |
+| >> | Δεξιά Ολίσθηση | Διαίρεση με δυνάμεις του 2 |
 
-### Examples
+### Παραδείγματα
 
-**Setup**:
+**Ρύθμιση**:
 ```c
 int a = 6;  // 0110
 int b = 3;  // 0011
@@ -912,28 +912,28 @@ int result = a ^ b;  // 5 (0101)
 
 **NOT (~)**:
 ```c
-int result = ~a;  // -7 (inverts bits)
+int result = ~a;  // -7 (αντιστρέφει τα bits)
 ```
 
-**Left Shift (<<)**:
+**Αριστερή Ολίσθηση (<<)**:
 ```c
 int result = 3 << 2;  // 12 (3 * 2^2)
 ```
 
-**Right Shift (>>)**:
+**Δεξιά Ολίσθηση (>>)**:
 ```c
 int result = 12 >> 2;  // 3 (12 / 2^2)
 ```
 
-### Flags Example
+### Παράδειγμα Σημαιών
 
-**Permission flags**:
+**Σημαίες δικαιωμάτων**:
 ```c
 #define READ  1  // 0001
 #define WRITE 2  // 0010
 #define EXEC  4  // 0100
 
-int permissions = READ | WRITE;  // Can read and write
+int permissions = READ | WRITE;  // Μπορεί να διαβάσει και να γράψει
 
 if (permissions & READ) {
     printf("Read allowed\n");
@@ -948,26 +948,26 @@ if (permissions & EXEC) {
 
 ---
 
-## C Fixed-Width Integers
+## Ακέραιοι Σταθερού Πλάτους στη C
 
-### Types
+### Τύποι
 
-**Include** `<stdint.h>`:
+**Συμπερίληψη** `<stdint.h>`:
 
-| Type | Size | Range | Printf |
+| Τύπος | Μέγεθος | Εύρος | Printf |
 |------|------|-------|--------|
-| int8_t | 8 bits | -128 to 127 | %d |
-| uint8_t | 8 bits | 0 to 255 | %u |
-| int16_t | 16 bits | -32,768 to 32,767 | %d |
-| uint16_t | 16 bits | 0 to 65,535 | %u |
-| int32_t | 32 bits | -2,147,483,648 to 2,147,483,647 | %d |
-| uint32_t | 32 bits | 0 to 4,294,967,295 | %u |
-| int64_t | 64 bits | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 | %lld |
-| uint64_t | 64 bits | 0 to 18,446,744,073,709,551,615 | %llu |
+| int8_t | 8 bits | -128 έως 127 | %d |
+| uint8_t | 8 bits | 0 έως 255 | %u |
+| int16_t | 16 bits | -32,768 έως 32,767 | %d |
+| uint16_t | 16 bits | 0 έως 65,535 | %u |
+| int32_t | 32 bits | -2,147,483,648 έως 2,147,483,647 | %d |
+| uint32_t | 32 bits | 0 έως 4,294,967,295 | %u |
+| int64_t | 64 bits | -9,223,372,036,854,775,808 έως 9,223,372,036,854,775,807 | %lld |
+| uint64_t | 64 bits | 0 έως 18,446,744,073,709,551,615 | %llu |
 
-**u** = unsigned (non-negative only, double max positive value)
+**u** = unsigned (χωρίς πρόσημο, μόνο μη αρνητικές, διπλάσια μέγιστη θετική τιμή)
 
-### Usage
+### Χρήση
 
 ```c
 #include <stdint.h>
@@ -983,54 +983,54 @@ printf("%d\n", c);
 printf("%lld\n", d);
 ```
 
-### When to Use
+### Πότε να Χρησιμοποιείται
 
-**Essential for**:
-- Embedded systems
-- File formats (exact sizes matter)
-- Network communication (consistency across machines)
+**Απαραίτητο για**:
+- Ενσωματωμένα συστήματα
+- Μορφές αρχείων (τα ακριβή μεγέθη έχουν σημασία)
+- Επικοινωνία δικτύου (συνέπεια μεταξύ μηχανημάτων)
 
-**Example** - Battery level:
+**Παράδειγμα** - Επίπεδο μπαταρίας:
 ```c
-uint8_t battery = 87;  // 0-100, saves memory
+uint8_t battery = 87;  // 0-100, εξοικονομεί μνήμη
 printf("Battery level is %u out of 100\n", battery);
 ```
 
 ---
 
-## C Projects
+## Έργα στη C
 
-### Why Build Projects
+### Γιατί να Δημιουργείτε Έργα
 
-- Understand program structure
-- Practice combining concepts
-- Improve debugging skills
-- Prepare for interviews
+- Κατανόηση δομής προγράμματος
+- Εξάσκηση συνδυασμού εννοιών
+- Βελτίωση δεξιοτήτων αποσφαλμάτωσης
+- Προετοιμασία για συνεντεύξεις
 
-### Small Projects
+### Μικρά Έργα
 
-**Hello Name**:
-- Ask name and age
-- Print: "Hi <name>! You will turn <age+1> next year."
+**Γεια σου Όνομα**:
+- Ρωτήστε όνομα και ηλικία
+- Εκτυπώστε: "Γεια <όνομα>! Θα γίνεις <ηλικία+1> του χρόνου."
 
-**Shopping List**:
-- Store 5 items in array
-- Print list
-- Search for items
+**Λίστα Αγορών**:
+- Αποθήκευση 5 αντικειμένων σε πίνακα
+- Εκτύπωση λίστας
+- Αναζήτηση αντικειμένων
 
-### Medium Projects
+### Μεσαία Έργα
 
-- Guess a Number Game
-- Calculate Student Average
-- Simple Calculator
+- Παιχνίδι Μάντεψε τον Αριθμό
+- Υπολογισμός Μέσου Όρου Μαθητή
+- Απλή Αριθμομηχανή
 
-### Advanced Projects
+### Προχωρημένα Έργα
 
-- Address Book (structs + files)
-- To-Do List (file handling)
-- Quiz Game (functions + arrays)
+- Βιβλίο Διευθύνσεων (δομές + αρχεία)
+- Λίστα Εργασιών (διαχείριση αρχείων)
+- Παιχνίδι Κουίζ (συναρτήσεις + πίνακες)
 
-### Example - Student Average
+### Παράδειγμα - Μέσος Όρος Μαθητή
 
 ```c
 char gradeFunction(double avg) {
@@ -1069,86 +1069,86 @@ int main(void) {
 
 ---
 
-## C Keywords
+## Λέξεις-Κλειδιά στη C
 
-| Keyword | Description |
+| Λέξη-Κλειδί | Περιγραφή |
 |---------|-------------|
-| break | Break out of loop/switch |
-| case | Mark block in switch |
-| char | Single character type |
-| const | Unchangeable variable |
-| continue | Next loop iteration |
-| default | Default switch block |
-| do | Do-while loop |
-| double | 64-bit float |
-| else | Conditional else |
-| enum | Enumerated type |
-| float | 32-bit float |
-| for | For loop |
-| goto | Jump to label |
-| if | Conditional if |
-| int | Integer type |
-| long | At least 32-bit int |
-| return | Return from function |
-| short | 16-bit int |
-| signed | Positive/negative values |
-| sizeof | Memory size operator |
-| static | Persistent variable |
-| struct | Structure definition |
-| switch | Multi-case selection |
-| typedef | Custom type alias |
-| unsigned | Positive values only |
-| void | No return/generic pointer |
-| while | While loop |
+| break | Έξοδος από βρόχο/switch |
+| case | Σήμανση μπλοκ σε switch |
+| char | Τύπος μεμονωμένου χαρακτήρα |
+| const | Αμετάβλητη μεταβλητή |
+| continue | Επόμενη επανάληψη βρόχου |
+| default | Προεπιλεγμένο μπλοκ switch |
+| do | Βρόχος do-while |
+| double | Κινητής υποδιαστολής 64-bit |
+| else | Υπό συνθήκη else |
+| enum | Απαριθμημένος τύπος |
+| float | Κινητής υποδιαστολής 32-bit |
+| for | Βρόχος for |
+| goto | Μετάβαση σε ετικέτα |
+| if | Υπό συνθήκη if |
+| int | Ακέραιος τύπος |
+| long | Τουλάχιστον 32-bit ακέραιος |
+| return | Επιστροφή από συνάρτηση |
+| short | 16-bit ακέραιος |
+| signed | Θετικές/αρνητικές τιμές |
+| sizeof | Τελεστής μεγέθους μνήμης |
+| static | Μόνιμη μεταβλητή |
+| struct | Ορισμός δομής |
+| switch | Επιλογή πολλαπλών περιπτώσεων |
+| typedef | Ψευδώνυμο προσαρμοσμένου τύπου |
+| unsigned | Μόνο θετικές τιμές |
+| void | Καμία επιστροφή/γενικός δείκτης |
+| while | Βρόχος while |
 
 ---
 
-## Quick Reference - Standard Libraries
+## Γρήγορη Αναφορά - Τυπικές Βιβλιοθήκες
 
 ### <stdio.h>
-File I/O, input/output: `printf()`, `scanf()`, `fopen()`, `fclose()`, `fprintf()`, `fgets()`, `perror()`
+Είσοδος/έξοδος αρχείων: `printf()`, `scanf()`, `fopen()`, `fclose()`, `fprintf()`, `fgets()`, `perror()`
 
 ### <stdlib.h>
-Memory, utilities: `malloc()`, `free()`, `rand()`, `srand()`, `exit()`, `EXIT_SUCCESS`, `EXIT_FAILURE`
+Μνήμη, βοηθητικά: `malloc()`, `free()`, `rand()`, `srand()`, `exit()`, `EXIT_SUCCESS`, `EXIT_FAILURE`
 
 ### <string.h>
-String operations: `strcpy()`, `strlen()`, `strcmp()`, `strcat()`, `strcspn()`, `strerror()`
+Λειτουργίες συμβολοσειρών: `strcpy()`, `strlen()`, `strcmp()`, `strcat()`, `strcspn()`, `strerror()`
 
 ### <math.h>
-Mathematical functions: `sqrt()`, `pow()`, `sin()`, `cos()`, `abs()`
+Μαθηματικές συναρτήσεις: `sqrt()`, `pow()`, `sin()`, `cos()`, `abs()`
 
 ### <ctype.h>
-Character handling: `isalpha()`, `isdigit()`, `tolower()`, `toupper()`
+Χειρισμός χαρακτήρων: `isalpha()`, `isdigit()`, `tolower()`, `toupper()`
 
 ### <time.h>
-Date/time: `time()`, `localtime()`, `ctime()`, `strftime()`, `struct tm`
+Ημερομηνία/ώρα: `time()`, `localtime()`, `ctime()`, `strftime()`, `struct tm`
 
 ### <errno.h>
-Error codes: `errno`, `ENOENT`, `EACCES`, `ENOMEM`, `EINVAL`
+Κωδικοί σφαλμάτων: `errno`, `ENOENT`, `EACCES`, `ENOMEM`, `EINVAL`
 
 ### <stdint.h>
-Fixed-width integers: `int8_t`, `uint8_t`, `int16_t`, `uint16_t`, `int32_t`, `uint32_t`, `int64_t`, `uint64_t`
+Ακέραιοι σταθερού πλάτους: `int8_t`, `uint8_t`, `int16_t`, `uint16_t`, `int32_t`, `uint32_t`, `int64_t`, `uint64_t`
 
 ---
 
-## Best Practices Summary
+## Περίληψη Βέλτιστων Πρακτικών
 
-1. **Always initialize variables**
-2. **Check for NULL** after file operations and memory allocation
-3. **Close files** with `fclose()`
-4. **Free memory** with `free()` after `malloc()`
-5. **Use meaningful names** for variables and functions
-6. **Validate user input** before processing
-7. **Handle errors** with proper checks and messages
-8. **Keep functions short** and focused
-9. **Use comments** to explain complex logic
-10. **Test frequently** during development
-11. **Use `const`** for values that shouldn't change
-12. **Organize code** into multiple files for large projects
-13. **Use typedef** to simplify complex types
-14. **Check array bounds** before access
-15. **Seed random generator** once at program start
+1. **Πάντα αρχικοποιείτε τις μεταβλητές**
+2. **Ελέγχετε για NULL** μετά από λειτουργίες αρχείων και κατανομή μνήμης
+3. **Κλείνετε τα αρχεία** με `fclose()`
+4. **Απελευθερώνετε τη μνήμη** με `free()` μετά από `malloc()`
+5. **Χρησιμοποιείτε ουσιαστικά ονόματα** για μεταβλητές και συναρτήσεις
+6. **Επικυρώνετε την είσοδο χρήστη** πριν την επεξεργασία
+7. **Διαχειρίζεστε τα σφάλματα** με σωστούς ελέγχους και μηνύματα
+8. **Κρατήστε τις συναρτήσεις σύντομες** και εστιασμένες
+9. **Χρησιμοποιείτε σχόλια** για να εξηγείτε σύνθετη λογική
+10. **Δοκιμάζετε συχνά** κατά την ανάπτυξη
+11. **Χρησιμοποιείτε `const`** για τιμές που δεν πρέπει να αλλάξουν
+12. **Οργανώνετε τον κώδικα** σε πολλαπλά αρχεία για μεγάλα έργα
+13. **Χρησιμοποιείτε typedef** για να απλοποιείτε σύνθετους τύπους
+14. **Ελέγχετε τα όρια πινάκων** πριν την πρόσβαση
+15. **Σπέρνετε τη γεννήτρια τυχαίων** μία φορά στην αρχή του προγράμματος
 
 ---
 
-**End of Guide**
+**Τέλος Οδηγού**

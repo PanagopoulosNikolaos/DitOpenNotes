@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sum of Minterms Visualizer: f(x,y,z) = xy + y'z' + xy'z'</title>
+<title>Οπτικοποιητής Αθροίσματος Minterms: f(x,y,z) = xy + y'z' + xy'z'</title>
 <style>
   :root { --bg:#0f172a; --panel:#111827; --ink:#e5e7eb; --muted:#94a3b8; --accent:#22d3ee; --hi:#fde68a; --good:#a7f3d0; --scan:#60a5fa; }
   body { margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--ink); }
@@ -44,26 +44,26 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>Sum of Minterms Visualizer</h1>
+    <h1>Οπτικοποιητής Αθροίσματος Minterms</h1>
     <div class="subtitle">
-      Function: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span>
+      Συνάρτηση: <span class="code">f(x,y,z) = x·y + y'·z' + x·y'·z'</span>
     </div>
 
     <div class="grid">
       <div class="card">
         <div class="controls">
-          <button id="play" class="primary">▶ Play</button>
-          <button id="pause">⏸ Pause</button>
-          <button id="reset">↺ Reset</button>
+          <button id="play" class="primary">▶ Αναπαραγωγή</button>
+          <button id="pause">⏸ Παύση</button>
+          <button id="reset">↺ Επαναφορά</button>
           <label class="muted">
-            Speed:
+            Ταχύτητα:
             <select id="speed">
-              <option value="900">Slow</option>
-              <option value="550" selected>Normal</option>
-              <option value="250">Fast</option>
+              <option value="900">Αργή</option>
+              <option value="550" selected>Κανονική</option>
+              <option value="250">Γρήγορη</option>
             </select>
           </label>
-          <div class="status" id="status">Ready</div>
+          <div class="status" id="status">Έτοιμο</div>
         </div>
 
         <table id="tt">
@@ -74,27 +74,27 @@
         </table>
 
         <div class="legend">
-          <span class="chip"><span class="dot dot-scan"></span> currently scanning</span>
-          <span class="chip"><span class="dot dot-min"></span> f=1 row (minterm)</span>
+          <span class="chip"><span class="dot dot-scan"></span> τρέχουσα σάρωση</span>
+          <span class="chip"><span class="dot dot-min"></span> γραμμή f=1 (minterm)</span>
         </div>
       </div>
 
       <div class="card flexcol">
         <div>
-          <div class="big">Discovered 1-minterms</div>
-          <div class="muted">Added when a scanned row has f=1</div>
+          <div class="big">Ανακαλυμένα 1-minterms</div>
+          <div class="muted">Προστίθεται όταν μια σαρωμένη γραμμή έχει f=1</div>
           <ol id="minterm-list" class="list"></ol>
         </div>
 
         <div>
-          <div class="big">Sigma notation</div>
+          <div class="big">Σημειογραφία σίγμα</div>
           <div id="sigma" class="mono pill">f(x,y,z) = Σ( )</div>
         </div>
 
         <div>
-          <div class="big">Canonical Sum of Minterms (expanded)</div>
+          <div class="big">Κανονικό Άθροισμα Minterms (επεκτεταμένο)</div>
           <div id="expanded" class="code">f(x,y,z) = </div>
-          <div class="muted">Canonical SoP lists all 1-minterms; it is not simplified.</div>
+          <div class="muted">Το κανονικό SoP παραθέτει όλα τα 1-minterms· δεν είναι απλοποιημένο.</div>
         </div>
       </div>
     </div>
@@ -187,21 +187,21 @@
     });
     updateSigma();
     updateExpanded();
-    status.textContent = "Ready";
+    status.textContent = "Έτοιμο";
   }
 
   function step(){
     clearScanClasses();
     if (i >= rows.length){
       done = true;
-      status.textContent = "Done: canonical Sum of Minterms built";
+      status.textContent = "Ολοκληρώθηκε: κατασκευάστηκε το κανονικό άθροισμα minterms";
       if (timer) { clearInterval(timer); timer = null; }
       return;
     }
     const r = rows[i];
     const rowEl = document.getElementById("row-"+i);
     rowEl.classList.add("scan");
-    status.textContent = `Scanning row ${i} (x=${r.x}, y=${r.y}, z=${r.z})`;
+    status.textContent = `Σάρωση γραμμής ${i} (x=${r.x}, y=${r.y}, z=${r.z})`;
     if (r.f === 1){
       // mark minterm
       rowEl.classList.add("minterm");
@@ -229,11 +229,11 @@
     if (done) return;
     if (timer) return;
     const delay = parseInt(speedSel.value,10);
-    status.textContent = "Playing…";
+    status.textContent = "Αναπαραγωγή…";
     timer = setInterval(step, delay);
   });
   pauseBtn.addEventListener("click", ()=>{
-    if (timer){ clearInterval(timer); timer = null; status.textContent = "Paused"; }
+    if (timer){ clearInterval(timer); timer = null; status.textContent = "Παύση"; }
   });
   resetBtn.addEventListener("click", resetUI);
 })();

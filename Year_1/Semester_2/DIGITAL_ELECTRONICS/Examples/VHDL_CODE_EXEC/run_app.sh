@@ -1,32 +1,32 @@
 #!/bin/bash
 
-# Define the Streamlit URL
+# Ορισμός του URL του Streamlit
 STREAMLIT_URL="http://localhost:8501"
 
-echo "Starting Streamlit server in headless mode..."
-# Start Streamlit in headless mode in the background
+echo "Εκκίνηση του server Streamlit σε λειτουργία headless..."
+# Εκκίνηση του Streamlit σε λειτουργία headless στο παρασκήνιο
 streamlit run app.py --server.headless true &
 
-# Get the process ID of the Streamlit server
+# Λήψη του ID διεργασίας του server Streamlit
 STREAMLIT_PID=$!
 
-echo "Waiting for server to start..."
-# Wait a few seconds for the server to initialize
-# You might need to adjust this sleep duration based on your system speed
+echo "Αναμονή για την εκκίνηση του server..."
+# Αναμονή μερικών δευτερολέπτων για την αρχικοποίηση του server
+# Ενδέχεται να χρειαστεί να προσαρμόσετε αυτή τη διάρκεια ανάλογα με την ταχύτητα του συστήματος σας
 sleep 3
 
-echo "Opening $STREAMLIT_URL in Brave Browser..."
-# Attempt to open the URL in Brave
-# This assumes 'brave-browser' is the command to launch Brave on your system.
-# If Brave is running, it might open a new tab or reuse an existing window
-# depending on its settings.
+echo "Άνοιγμα του $STREAMLIT_URL στον περιηγητή Brave..."
+# Προσπάθεια ανοίγματος του URL στο Brave
+# Αυτό υποθέτει ότι το 'brave-browser' είναι η εντολή για την εκκίνηση του Brave στο σύστημά σας.
+# Αν το Brave εκτελείται ήδη, ενδέχεται να ανοίξει μια νέα καρτέλα ή να χρησιμοποιήσει υπάρχον παράθυρο
+# ανάλογα με τις ρυθμίσεις του.
 brave-browser "$STREAMLIT_URL"
 
 echo "--------------------------------------------------------------------"
-echo "Streamlit app is running. Access it at $STREAMLIT_URL"
-echo "The server process ID is $STREAMLIT_PID."
-echo "To stop the server, run 'kill $STREAMLIT_PID' or press Ctrl+C in the terminal if you run Streamlit directly."
+echo "Η εφαρμογή Streamlit εκτελείται. Πρόσβαση στο $STREAMLIT_PID"
+echo "Το ID διεργασίας του server είναι $STREAMLIT_PID."
+echo "Για να σταματήσετε το server, εκτελέστε 'kill $STREAMLIT_PID' ή πατήστε Ctrl+C στο τερματικό αν εκτελείτε το Streamlit απευθείας."
 echo "--------------------------------------------------------------------"
 
-# Optional: uncomment the line below if you want the script to wait until the Streamlit process ends
+# Προαιρετικό: αποσυμβιβάστε την παρακάτω γραμμή αν θέλετε το σενάριο να περιμένει μέχρι να τελειώσει η διεργασία Streamlit
 # wait $STREAMLIT_PID
