@@ -1,29 +1,29 @@
-# Computer Networks
+# Δίκτυα Υπολογιστών
 
-## Course Overview
-This course covers advanced concepts in computer networking, including network protocols, architectures, and performance analysis.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα καλύπτει προηγμένες έννοιες στα δίκτυα υπολογιστών, συμπεριλαμβανομένων των πρωτοκόλλων δικτύου, των αρχιτεκτονικών και της ανάλυσης απόδοσης.
 
-## Course Code
-403 (COMPUTER NETWORKS)
+## Κωδικός Μαθήματος
+403 (ΔΙΚΤΥΑ ΥΠΟΛΟΓΙΣΤΩΝ)
 
-## Prerequisites
-- Networking (CPE 103)
+## Προαπαιτούμενα
+- Δικτύωση (CPE 103)
 
-## Topics Covered
-- Network layer protocols (IP, ICMP)
-- Transport layer protocols (TCP, UDP)
-- Routing algorithms and protocols
-- Network security
-- Quality of service
-- Network performance analysis
-- Wireless networks
-- Network management
-- Emerging network technologies
+## Θεματικές Ενότητες
+- Πρωτόκολλα επιπέδου δικτύου (IP, ICMP)
+- Πρωτόκολλα επιπέδου μεταφοράς (TCP, UDP)
+- Αλγόριθμοι και πρωτόκολλα δρομολόγησης
+- Ασφάλεια δικτύων
+- Ποιότητα υπηρεσίας (Quality of Service - QoS)
+- Ανάλυση απόδοσης δικτύου
+- Ασύρματα δίκτυα
+- Διαχείριση δικτύων
+- Αναδυόμενες τεχνολογίες δικτύων
 
-## Learning Objectives
-- Design and analyze network protocols
-- Implement routing algorithms
-- Understand network security principles
-- Analyze network performance
-- Design network architectures
-- Apply networking concepts to real-world scenarios
+## Μαθησιακοί Στόχοι
+- Σχεδιασμός και ανάλυση πρωτοκόλλων δικτύου
+- Υλοποίηση αλγορίθμων δρομολόγησης
+- Κατανόηση των αρχών ασφάλειας δικτύων
+- Ανάλυση απόδοσης δικτύου
+- Σχεδιασμός αρχιτεκτονικών δικτύου
+- Εφαρμογή εννοιών δικτύωσης σε σενάρια του πραγματικού κόσμου
