@@ -1,13 +1,13 @@
 /*
- * Exercise 44: Advanced Memory Management (Heap vs. Stack, Smart Pointers)
+ * Άσκηση 44: Προχωρημένη Διαχείριση Μνήμης (Σωρός έναντι Στοίβας, Έξυπνοι Δείκτες)
  *
- * Instructions:
- * 1. Create a class called SafeArray that manages a dynamic array of integers
- * 2. Implement proper memory management with constructors, destructors, and assignment operators
- * 3. Use RAII (Resource Acquisition Is Initialization) principle to ensure proper cleanup
- * 4. Demonstrate the use of smart pointers (unique_ptr, shared_ptr, weak_ptr) for automatic memory management
- * 5. Create scenarios that show the advantages of smart pointers over raw pointers
- * 6. Implement bounds checking to prevent memory access violations
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται SafeArray που διαχειρίζεται έναν δυναμικό πίνακα ακεραίων
+ * 2. Υλοποιήστε σωστή διαχείριση μνήμης με κατασκευαστές, καταστροφείς και τελεστές ανάθεσης
+ * 3. Χρησιμοποιήστε την αρχή RAII (Απόκτηση Πόρων Είναι Αρχικοποίηση) για να διασφαλίσετε σωστό καθαρισμό
+ * 4. Επιδείξτε τη χρήση έξυπνων δεικτών (unique_ptr, shared_ptr, weak_ptr) για αυτόματη διαχείριση μνήμης
+ * 5. Δημιουργήστε σενάρια που δείχνουν τα πλεονεκτήματα των έξυπνων δεικτών έναντι των ανεπεξέργαστων δεικτών
+ * 6. Υλοποιήστε έλεγχο ορίων για την αποτροπή παραβιάσεων πρόσβασης στη μνήμη
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

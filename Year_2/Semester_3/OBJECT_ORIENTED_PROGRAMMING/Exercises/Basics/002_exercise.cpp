@@ -1,18 +1,18 @@
 /*
- * Exercise 2: Basic Printing (Output/Input)
+ * Άσκηση 2: Βασική Εκτύπωση (Έξοδος/Είσοδος)
  *
- * Instructions:
- * 1. Create a program that asks the user for their name and age, then prints a greeting message
- * 2. Ask the user to enter two numbers and print their sum
- * 3. Print a formatted message showing the user's name, age and the sum of their two numbers
- * 4. Use std::cin for input and std::cout for output
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που ζητά από τον χρήστη το όνομά του και την ηλικία του, και στη συνέχεια εκτυπώνει ένα μήνυμα χαιρετισμού
+ * 2. Ζητήστε από τον χρήστη να εισάγει δύο αριθμούς και εκτυπώστε το άθροισμά τους
+ * 3. Εκτυπώστε ένα μορφοποιημένο μήνυμα που δείχνει το όνομα, την ηλικία και το άθροισμα των δύο αριθμών του χρήστη
+ * 4. Χρησιμοποιήστε το std::cin για είσοδο και το std::cout για έξοδο
  */
 
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,12 +1,12 @@
 /*
- * Exercise 19: Pointers and References
+ * Άσκηση 19: Δείκτες και Αναφορές
  *
- * Instructions:
- * 1. Create a function that swaps two integers using pointers
- * 2. Create a program that dynamically allocates memory for an array of integers, fills it with values, and then deallocates it
- * 3. Create a function that finds the maximum value in an array using pointer arithmetic
- * 4. Create a function that reverses a string using references
- * 5. Demonstrate the difference between pointers and references with examples
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια συνάρτηση που ανταλλάσσει δύο ακεραίους χρησιμοποιώντας δείκτες
+ * 2. Δημιουργήστε ένα πρόγραμμα που δεσμεύει δυναμικά μνήμη για έναν πίνακα ακεραίων, τον γεμίζει με τιμές και στη συνέχεια την αποδεσμεύει
+ * 3. Δημιουργήστε μια συνάρτηση που βρίσκει τη μέγιστη τιμή σε έναν πίνακα χρησιμοποιώντας αριθμητική δεικτών
+ * 4. Δημιουργήστε μια συνάρτηση που αντιστρέφει μια συμβολοσειρά χρησιμοποιώντας αναφορές
+ * 5. Επιδείξτε τη διαφορά μεταξύ δεικτών και αναφορών με παραδείγματα
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

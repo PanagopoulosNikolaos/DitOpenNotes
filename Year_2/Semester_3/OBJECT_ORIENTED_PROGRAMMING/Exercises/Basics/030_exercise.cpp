@@ -1,12 +1,12 @@
 /*
- * Exercise 30: Classes and Objects (The Basics)
+ * Άσκηση 30: Κλάσεις και Αντικείμενα (Τα Βασικά)
  *
- * Instructions:
- * 1. Create a class called Student with private attributes for name, student ID, and an array/vector of grades
- * 2. Implement public methods to add grades, calculate average grade, and get the highest and lowest grades
- * 3. Implement methods to set and get student information
- * 4. Implement a method to determine the letter grade based on the average (A, B, C, D, F)
- * 5. Create multiple student objects and demonstrate calculating class averages and comparing student performance
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται Student με ιδιωτικά χαρακτηριστικά για όνομα, αριθμό μητρώου και έναν πίνακα/διάνυσμα βαθμών
+ * 2. Υλοποιήστε δημόσιες μεθόδους για προσθήκη βαθμών, υπολογισμό μέσου όρου και λήψη των υψηλότερων και χαμηλότερων βαθμών
+ * 3. Υλοποιήστε μεθόδους για ορισμό και λήψη πληροφοριών μαθητή
+ * 4. Υλοποιήστε μια μέθοδο για καθορισμό του βαθμού με γράμμα βάσει του μέσου όρου (A, B, C, D, F)
+ * 5. Δημιουργήστε πολλά αντικείμενα μαθητών και επιδείξτε τον υπολογισμό μέσων όρων τάξης και τη σύγκριση απόδοσης μαθητών
  */
 
 #include <iostream>
@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,11 +1,11 @@
 /*
- * Exercise 6: Variables and Data Types
+ * Άσκηση 6: Μεταβλητές και Τύποι Δεδομένων
  *
- * Instructions:
- * 1. Create a program that calculates the size of different data types using the sizeof operator
- * 2. Compare the sizes of int, short, long, and long long
- * 3. Compare the sizes of float, double, and long double
- * 4. Explain in comments why different data types have different sizes
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υπολογίζει το μέγεθος διαφορετικών τύπων δεδομένων χρησιμοποιώντας τον τελεστή sizeof
+ * 2. Συγκρίνετε τα μεγέθη των int, short, long και long long
+ * 3. Συγκρίνετε τα μεγέθη των float, double και long double
+ * 4. Εξηγήστε σε σχόλια γιατί οι διαφορετικοί τύποι δεδομένων έχουν διαφορετικά μεγέθη
  */
 
 #include <iostream>
@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

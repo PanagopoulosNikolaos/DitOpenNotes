@@ -1,11 +1,11 @@
 /*
- * Exercise 1: Basic Printing (Output/Input)
+ * Άσκηση 1: Βασική Εκτύπωση (Έξοδος/Είσοδος)
  *
- * Instructions:
- * 1. Create a program that prints "Hello, World!" to the console
- * 2. Print your name and age on separate lines
- * 3. Print a number (e.g., 42) and a decimal (e.g., 3.14) on the same line separated by a tab
- * 4. Use both std::cout and printf to print the same message
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που εκτυπώνει "Hello, World!" στην κονσόλα
+ * 2. Εκτυπώστε το όνομά σας και την ηλικία σας σε ξεχωριστές γραμμές
+ * 3. Εκτυπώστε έναν αριθμό (π.χ., 42) και ένα δεκαδικό (π.χ., 3.14) στην ίδια γραμμή διαχωρισμένα με στηλοθέτη (tab)
+ * 4. Χρησιμοποιήστε και το std::cout και το printf για να εκτυπώσετε το ίδιο μήνυμα
  */
 
 #include <iostream>
@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

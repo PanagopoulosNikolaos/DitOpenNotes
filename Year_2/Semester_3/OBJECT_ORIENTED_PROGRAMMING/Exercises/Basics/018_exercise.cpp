@@ -1,15 +1,15 @@
 /*
- * Exercise 18: Functions (Pass-by-value vs. Pass-by-reference)
+ * Άσκηση 18: Συναρτήσεις (Πέρασμα-κατά-τιμή έναντι Πέρασμα-κατά-αναφορά)
  *
- * Instructions:
- * 1. Create a function that converts Celsius to Fahrenheit (pass-by-value): F = C * 9/5 + 32
- * 2. Create a function that implements binary search on a sorted array (pass-by-reference/array)
- * 3. Create a function that calculates the dot product of two vectors (pass-by-reference/array)
- * 4. Create a function that finds the roots of a quadratic equation ax² + bx + c = 0 (pass-by-value)
- * 5. Implement a function template that works with different data types
- * 
- * Quadratic Formula: x = (-b ± √(b² - 4ac)) / 2a
- * Dot Product: For vectors [a1, a2, ..., an] and [b1, b2, ..., bn], dot product = a1*b1 + a2*b2 + ... + an*bn
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια συνάρτηση που μετατρέπει Κελσίου σε Φαρενάιτ (πέρασμα-κατά-τιμή): F = C * 9/5 + 32
+ * 2. Δημιουργήστε μια συνάρτηση που υλοποιεί δυαδική αναζήτηση σε ταξινομημένο πίνακα (πέρασμα-κατά-αναφορά/πίνακα)
+ * 3. Δημιουργήστε μια συνάρτηση που υπολογίζει το εσωτερικό γινόμενο δύο διανυσμάτων (πέρασμα-κατά-αναφορά/πίνακα)
+ * 4. Δημιουργήστε μια συνάρτηση που βρίσκει τις ρίζες μιας δευτεροβάθμιας εξίσωσης ax² + bx + c = 0 (πέρασμα-κατά-τιμή)
+ * 5. Υλοποιήστε ένα πρότυπο συνάρτησης (function template) που δουλεύει με διαφορετικούς τύπους δεδομένων
+ *
+ * Τύπος δευτεροβάθμιας εξίσωσης: x = (-b ± √(b² - 4ac)) / 2a
+ * Εσωτερικό γινόμενο: Για διανύσματα [a1, a2, ..., an] και [b1, b2, ..., bn], εσωτερικό γινόμενο = a1*b1 + a2*b2 + ... + an*bn
  */
 
 #include <iostream>
@@ -17,7 +17,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

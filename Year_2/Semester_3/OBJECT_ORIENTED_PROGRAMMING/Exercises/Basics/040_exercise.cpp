@@ -1,17 +1,17 @@
 /*
- * Exercise 40: Inheritance and Polymorphism
+ * Άσκηση 40: Κληρονομικότητα και Πολυμορφισμός
  *
- * Instructions:
- * 1. Create a base class called Shape with virtual methods for calculating area and perimeter
- * 2. Derive classes like Rectangle, Circle, and Triangle from the Shape base class
- * 3. Implement the virtual methods in each derived class
- * 4. Create a function that takes a Shape pointer/reference and calls the virtual methods
- * 5. Demonstrate polymorphism by storing different shape objects in a container and processing them uniformly
- * 
- * Formulas:
- * - Rectangle: area = length*width, perimeter = 2*(length+width)
- * - Circle: area = π*r², perimeter = 2*π*r
- * - Triangle: area = √(s*(s-a)*(s-b)*(s-c)) where s = (a+b+c)/2, perimeter = a+b+c
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια βασική κλάση που ονομάζεται Shape με εικονικές μεθόδους για υπολογισμό εμβαδού και περιμέτρου
+ * 2. Παράγετε κλάσεις όπως Rectangle, Circle και Triangle από τη βασική κλάση Shape
+ * 3. Υλοποιήστε τις εικονικές μεθόδους σε κάθε παράγωγη κλάση
+ * 4. Δημιουργήστε μια συνάρτηση που δέχεται έναν δείκτη/αναφορά Shape και καλεί τις εικονικές μεθόδους
+ * 5. Επιδείξτε πολυμορφισμό αποθηκεύοντας διαφορετικά αντικείμενα σχημάτων σε έναν περιέκτη και επεξεργαζόμενα τα ομοιόμορφα
+ *
+ * Τύποι:
+ * - Ορθογώνιο: εμβαδόν = μήκος*πλάτος, περίμετρος = 2*(μήκος+πλάτος)
+ * - Κύκλος: εμβαδόν = π*r², περίμετρος = 2*π*r
+ * - Τρίγωνο: εμβαδόν = √(s*(s-a)*(s-b)*(s-c)) όπου s = (a+b+c)/2, περίμετρος = a+b+c
  */
 
 #include <iostream>
@@ -20,7 +20,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

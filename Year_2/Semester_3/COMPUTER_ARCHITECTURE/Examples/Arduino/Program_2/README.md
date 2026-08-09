@@ -1,32 +1,32 @@
-# Program 2: External LED Blink with Counter
+# Πρόγραμμα 2: Αναβοσβήμα Εξωτερικού LED με Μετρητή
 
-Arduino program that blinks an external LED and counts up to 50 blinks.
+Πρόγραμμα Arduino που αναβοσβήνει ένα εξωτερικό LED και μετράει έως 50 αναβοσβήσματα.
 
-## Functionality
+## Λειτουργικότητα
 
-- Blinks external LED on pin 9 every second
-- Displays current count on serial monitor
-- Stops after reaching 50 blinks
+- Αναβοσβήνει εξωτερικό LED στην πόλωση 9 κάθε δευτερόλεπτο
+- Εμφανίζει τον τρέχοντα μετρητή στη σειριακή οθόνη παρακολούθησης
+- Σταματά μετά την επίτευξη 50 αναβοσβησμάτων
 
-## Upload Instructions
+## Οδηγίες Μεταφόρτωσης
 
 ```bash
 arduino-cli compile --fqbn arduino:avr:uno Program_2.ino
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Program_2.ino
 ```
 
-## Components Required
+## Απαιτούμενα Εξοπλίσματα
 
 - Arduino Uno
 - LED
-- 220Ω resistor
-- Jumper wires
-- Breadboard
+- Αντίσταση 220Ω
+- Ενωτικά καλώδια
+- Πινακοπλακίδιο (Breadboard)
 
-## Circuit
+## Κύκλωμα
 
-Connect LED to pin 9 with resistor to ground.
+Συνδέστε το LED στην πόλωση 9 με αντίσταση στη γη.
 
-## Serial Monitor
+## Σειριακή Οθόνη Παρακολούθησης
 
-Open serial monitor at 9600 baud to see LED status and count.
+Ανοίξτε τη σειριακή οθόνη παρακολούθησης σε 9600 baud για να δείτε την κατάσταση LED και τον μετρητή.

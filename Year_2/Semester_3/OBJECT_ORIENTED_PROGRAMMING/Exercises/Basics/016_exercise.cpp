@@ -1,12 +1,12 @@
 /*
- * Exercise 16: Functions (Pass-by-value vs. Pass-by-reference)
+ * Άσκηση 16: Συναρτήσεις (Πέρασμα-κατά-τιμή έναντι Πέρασμα-κατά-αναφορά)
  *
- * Instructions:
- * 1. Create a function that swaps two integers using pass-by-reference
- * 2. Create a function that calculates the factorial of a number using recursion (pass-by-value)
- * 3. Create a function that finds the maximum value in an array (pass-by-reference/array)
- * 4. Create a function that modifies a string by reversing it (pass-by-reference)
- * 5. Demonstrate the difference between pass-by-value and pass-by-reference with a simple example
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια συνάρτηση που ανταλλάσσει δύο ακεραίους χρησιμοποιώντας πέρασμα-κατά-αναφορά
+ * 2. Δημιουργήστε μια συνάρτηση που υπολογίζει το παραγοντικό ενός αριθμού χρησιμοποιώντας αναδρομή (πέρασμα-κατά-τιμή)
+ * 3. Δημιουργήστε μια συνάρτηση που βρίσκει τη μέγιστη τιμή σε έναν πίνακα (πέρασμα-κατά-αναφορά/πίνακα)
+ * 4. Δημιουργήστε μια συνάρτηση που τροποποιεί μια συμβολοσειρά αντιστρέφοντάς την (πέρασμα-κατά-αναφορά)
+ * 5. Επιδείξτε τη διαφορά μεταξύ πέρασμα-κατά-τιμή και πέρασμα-κατά-αναφορά με ένα απλό παράδειγμα
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

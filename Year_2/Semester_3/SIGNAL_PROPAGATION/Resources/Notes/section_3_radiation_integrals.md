@@ -1,33 +1,33 @@
-# Radiation Integrals and Auxiliary Potential Functions
+# Ολοκληρώματα Ακτινοβολίας και Βοηθητικές Συναρτήσεις Δυναμικού
 
-Radiation integrals provide the mathematical framework for computing the electromagnetic fields radiated by arbitrary current distributions. Rather than solving for the electric and magnetic fields directly from Maxwell's equations, the approach introduces auxiliary potential functions — the magnetic vector potential $\mathbf{A}$ and the electric vector potential $\mathbf{F}$ — which satisfy simpler wave equations. Once these potentials are obtained from the source currents via integral formulations, the radiated fields follow by differentiation. This section covers the definition of the vector potentials, the solution of their inhomogeneous wave equations, far-field approximations, and the duality and reciprocity theorems that relate solutions across different source configurations.
-
----
-
-## 1. Conceptual Foundation
-
-### 1.1 Why Auxiliary Potentials Are Needed
-
-Solving Maxwell's equations directly for the radiated fields $\mathbf{E}$ and $\mathbf{H}$ from an arbitrary current distribution $\mathbf{J}$ is mathematically cumbersome because it requires solving coupled vector partial differential equations. By introducing the magnetic vector potential $\mathbf{A}$, the problem is decomposed into two simpler steps:
-
-1. Compute $\mathbf{A}$ from the source $\mathbf{J}$ by solving a scalar Helmholtz equation per component.
-2. Derive $\mathbf{E}$ and $\mathbf{H}$ from $\mathbf{A}$ using straightforward differentiation.
-
-A parallel approach using the electric vector potential $\mathbf{F}$ handles magnetic current sources $\mathbf{M}$, which are mathematical fictions introduced by the equivalence principle to simplify aperture and surface radiation problems.
-
-### 1.2 System-Level Perspective
-
-In antenna engineering, the radiation integrals are applied whenever the current distribution on an antenna structure is known or approximated. For wire antennas, the current is approximated as a sinusoidal or triangular distribution along the wire, and the vector potential integral reduces to a one-dimensional line integral. For aperture antennas, the field equivalence principle replaces the aperture fields with equivalent surface currents, and the potentials are integrated over the aperture plane. The far-field forms of these integrals — the core of practical antenna pattern computation — are the foundation for computing radiation patterns, directivity, and polarization of virtually all antenna types.
-
-> **[Key Insight]** The auxiliary potential approach transforms a three-dimensional vector wave equation into a set of scalar wave equations, one per Cartesian component. The solution is then obtained by convolution of the source distribution with the free-space Green's function.
+Τα ολοκληρώματα ακτινοβολίας παρέχουν το μαθηματικό πλαίσιο για τον υπολογισμό των ηλεκτρομαγνητικών πεδίων που ακτινοβολούνται από αυθαίρετες κατανομές ρεύματος. Αντί για την απευθείας επίλυση των ηλεκτρικών και μαγνητικών πεδίων από τις εξισώσεις του Maxwell, η προσεγγιση αυτή εισάγει βοηθητικές συναρτήσεις δυναμικού — το μαγνητικό διανυσματικό δυναμικό $\mathbf{A}$ και το ηλεκτρικό διανυσματικό δυναμικό $\mathbf{F}$ — οι οποίες ικανοποιούν απλούστερες κυματικές εξισώσεις. Μόλις αυτά τα δυναμικά υπολογιστούν από τα ρεύματα πηγής μέσω ολοκληρωτικών διατυπώσεων, τα ακτινοβολούμενα πεδία προκύπτουν μέσω διαφοροποίησης (παραγώγισης). Αυτή η ενότητα καλύπτει τον ορισμό των διανυσματικών δυναμικών, την επίλυση των μη ομογενών κυματικών εξισώσεών τους, τις προσεγγίσεις μακρινού πεδίου, καθώς και τα θεωρήματα δυϊκότητας και αμοιβαιότητας που συνδέουν τις λύσεις σε διαφορετικές διαμορφώσεις πηγών.
 
 ---
 
-## 2. Formal Definitions and Models
+## 1. Εννοιολογικό Υπόβαθρο
 
-### 2.1 Maxwell's Equations in the Presence of Sources
+### 1.1 Γιατί Είναι Απαραίτητα τα Βοηθητικά Δυναμικά
 
-In a homogeneous, isotropic, linear medium with permittivity $\epsilon$, permeability $\mu$, and conductivity $\sigma = 0$ (lossless), the time-harmonic Maxwell's equations with electric current density $\mathbf{J}$ and magnetic current density $\mathbf{M}$ (fictitious) are:
+Η απευθείας επίλυση των εξισώσεων του Maxwell για τα ακτινοβολούμενα πεδία $\mathbf{E}$ και $\mathbf{H}$ από μια αυθαίρετη κατανομή ρεύματος $\mathbf{J}$ είναι μαθηματικά επίπονη, καθώς απαιτεί την επίλυση συζευγμένων διανυσματικών μερικών διαφορικών εξισώσεων. Με την εισαγωγή του μαγνητικού διανυσματικού δυναμικού $\mathbf{A}$, το πρόβλημα διασπάται σε δύο απλούστερα βήματα:
+
+1. Υπολογισμός του $\mathbf{A}$ από την πηγή $\mathbf{J}$ μέσω επίλυσης μιας βαθμωτής εξίσωσης Helmholtz ανά συνιστώσα.
+2. Παραγωγή των $\mathbf{E}$ και $\mathbf{H}$ από το $\mathbf{A}$ με χρήση άμεσης διαφοροποίησης (παραγώγισης).
+
+Μια παράλληλη προσέγγιση που χρησιμοποιεί το ηλεκτρικό διανυσματικό δυναμικό $\mathbf{F}$ διαχειρίζεται μαγνητικές πηγές ρεύματος $\mathbf{M}$, οι οποίες αποτελούν μαθηματικές επινοήσεις εισαγόμενες από την αρχή ισοδυναμίας για την απλοποίηση προβλημάτων ακτινοβολίας ανοιγμάτων και επιφανειών.
+
+### 1.2 Οπτική σε Επίπεδο Συστήματος
+
+Στη μηχανική των κεραιών, τα ολοκληρώματα ακτινοβολίας εφαρμόζονται κάθε φορά που η κατανομή ρεύματος σε μια δομή κεραίας είναι γνωστή ή προσεγγίζεται. Για συρμάτινες κεραίες, το ρεύμα προσεγγίζεται ως ημιτονοειδής ή τριγωνική κατανομή κατά μήκος του σύρματος, και το ολοκλήρωμα διανυσματικού δυναμικού αναάγεται σε ένα μονοδιάστατο γραμμικό ολοκλήρωμα. Για κεραίες ανοιγμάτων, η αρχή ισοδυναμίας πεδίων αντικαθιστά τα πεδία του ανοίγματος με ισοδύναμα επιφανειακά ρεύματα, και τα δυναμικά ολοκληρώνονται πάνω στο επίπεδο του ανοίγματος. Οι μορφές μακρινού πεδίου αυτών των ολοκληρωμάτων — ο πυρήνας του πρακτικού υπολογισμού διαγράμματος κεραιών — αποτελούν τη βάση για τον υπολογισμό των διαγραμμάτων ακτινοβολίας, της κατευθυντικότητας και της πόλωσης σχεδόν όλων των τύπων κεραιών.
+
+> **[Βασική Παρατήρηση]** Η προσέγγιση των βοηθητικών δυναμικών μετασχηματίζει μια τρισδιάστατη διανυσματική κυματική εξίσωση σε ένα σύνολο βαθμωτών κυματικών εξισώσεων, μία ανά καρτεσιανή συνιστώσα. Η λύση λαμβάνεται στη συνέχεια μέσω συνέλιξης της κατανομής πηγής με τη συνάρτηση Green του ελεύθερου χώρου.
+
+---
+
+## 2. Τυπικοί Ορισμοί και Μοντέλα
+
+### 2.1 Εξισώσεις του Maxwell Παρουσία Πηγών
+
+Σε ένα ομογενές, ισότροπο, γραμμικό μέσο με διηλεκτρική επιτρεπτότητα $\epsilon$, μαγνητική διαπερατότητα $\mu$ και αγωγιμότητα $\sigma = 0$ (χωρίς απώλειες), οι χρονικά αρμονικές εξισώσεις του Maxwell με πυκνότητα ηλεκτρικού ρεύματος $\mathbf{J}$ και πυκνότητα μαγνητικού ρεύματος $\mathbf{M}$ (πλασματική) είναι:
 
 $$
 \nabla \times \mathbf{E} = -j\omega \mu \mathbf{H} - \mathbf{M}
@@ -45,7 +45,7 @@ $$
 \nabla \cdot \mathbf{B} = \rho_m
 $$
 
-where $\rho_e$ and $\rho_m$ are the electric and (fictitious) magnetic charge densities, related to the current densities by the continuity equations:
+όπου $\rho_e$ και $\rho_m$ είναι οι πυκνότητες ηλεκτρικού και (πλασματικού) μαγνητικού φορτίου, οι οποίες συνδέονται με τις πυκνότητες ρεύματος μέσω των εξισώσεων συνέχειας:
 
 $$
 \nabla \cdot \mathbf{J} = -j\omega \rho_e
@@ -55,91 +55,91 @@ $$
 \nabla \cdot \mathbf{M} = -j\omega \rho_m
 $$
 
-An $e^{j\omega t}$ time dependence is assumed throughout and suppressed.
+Υποτίθεται και παραλείπεται παντού η χρονική εξάρτηση $e^{j\omega t}$.
 
-### 2.2 The Vector Potential $\mathbf{A}$ for an Electric Current Source $\mathbf{J}$
+### 2.2 Το Διανυσματικό Δυναμικό $\mathbf{A}$ για Πηγή Ηλεκτρικού Ρεύματος $\mathbf{J}$
 
-The magnetic vector potential $\mathbf{A}$ is defined such that the magnetic flux density $\mathbf{B}$ is solenoidal:
+Το μαγνητικό διανυσματικό δυναμικό $\mathbf{A}$ ορίζεται έτσι ώστε η πυκνότητα μαγνητικής ροής $\mathbf{B}$ να είναι σωληνοειδής (solenoidal):
 
 $$
 \mathbf{B} = \nabla \times \mathbf{A}
 $$
 
-Since $\mathbf{B} = \mu \mathbf{H}$, this gives $\mathbf{H} = \frac{1}{\mu} \nabla \times \mathbf{A}$. Substituting into the Maxwell-Faraday equation:
+Εφόσον $\mathbf{B} = \mu \mathbf{H}$, αυτό δίνει $\mathbf{H} = \frac{1}{\mu} \nabla \times \mathbf{A}$. Αντικαθιστώντας στην εξίσωση Maxwell-Faraday:
 
 $$
 \nabla \times \mathbf{E} = -j\omega \mu \mathbf{H} - \mathbf{M} = -j\omega (\nabla \times \mathbf{A}) - \mathbf{M}
 $$
 
-Rearranging:
+Αναδιατάσσοντας:
 
 $$
 \nabla \times (\mathbf{E} + j\omega \mathbf{A}) = -\mathbf{M}
 $$
 
-When $\mathbf{M} = 0$ (no magnetic currents), the curl of $(\mathbf{E} + j\omega \mathbf{A})$ is zero, so it can be expressed as the gradient of a scalar potential $\Phi_e$:
+Όταν $\mathbf{M} = 0$ (χωρίς μαγνητικά ρεύματα), ο στροβιλισμός του $(\mathbf{E} + j\omega \mathbf{A})$ είναι μηδέν, επομένως μπορεί να εκφραστεί ως η βαθμίδα ενός βαθμωτού δυναμικού $\Phi_e$:
 
 $$
 \mathbf{E} + j\omega \mathbf{A} = -\nabla \Phi_e
 $$
 
-Thus:
+Έτσι:
 
 $$
 \mathbf{E} = -j\omega \mathbf{A} - \nabla \Phi_e
 $$
 
-Applying the Lorentz gauge condition:
+Εφαρμόζοντας τη συνθήκη βαθμίδας Lorentz (Lorentz gauge condition):
 
 $$
 \nabla \cdot \mathbf{A} = -j\omega \mu \epsilon \Phi_e
 $$
 
-the electric field becomes:
+το ηλεκτρικό πεδίο γίνεται:
 
 $$
 \mathbf{E} = -j\omega \mathbf{A} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{A})
 $$
 
-The wave equation for $\mathbf{A}$ derives from the Ampere-Maxwell law:
+Η κυματική εξίσωση για το $\mathbf{A}$ προκύπτει από τον νόμο Ampere-Maxwell:
 
 $$
 \nabla \times \mathbf{H} = \nabla \times \left( \frac{1}{\mu} \nabla \times \mathbf{A} \right) = \frac{1}{\mu} (\nabla (\nabla \cdot \mathbf{A}) - \nabla^2 \mathbf{A}) = j\omega \epsilon \mathbf{E} + \mathbf{J}
 $$
 
-Substituting $\mathbf{E}$ and applying the Lorentz gauge gives the inhomogeneous vector Helmholtz equation:
+Αντικαθιστώντας το $\mathbf{E}$ και εφαρμόζοντας τη συνθήκη Lorentz προκύπτει η μη ομογενής διανυσματική εξίσωση Helmholtz:
 
 $$
 \nabla^2 \mathbf{A} + k^2 \mathbf{A} = -\mu \mathbf{J}
 $$
 
-where $k = \omega \sqrt{\mu \epsilon}$ is the wavenumber.
+όπου $k = \omega \sqrt{\mu \epsilon}$ είναι ο κυματαριθμός.
 
-### 2.3 The Vector Potential $\mathbf{F}$ for a Magnetic Current Source $\mathbf{M}$
+### 2.3 Το Διανυσματικό Δυναμικό $\mathbf{F}$ για Πηγή Μαγνητικού Ρεύματος $\mathbf{M}$
 
-By duality, the electric vector potential $\mathbf{F}$ is defined for magnetic current sources $\mathbf{M}$:
+Λόγω δυϊκότητας, το ηλεκτρικό διανυσματικό δυναμικό $\mathbf{F}$ ορίζεται για πηγές μαγνητικού ρεύματος $\mathbf{M}$:
 
 $$
 \mathbf{D} = -\nabla \times \mathbf{F}
 $$
 
-Since $\mathbf{D} = \epsilon \mathbf{E}$, this gives $\mathbf{E} = -\frac{1}{\epsilon} \nabla \times \mathbf{F}$. Following the same procedure as for $\mathbf{A}$, the fields are:
+Εφόσον $\mathbf{D} = \epsilon \mathbf{E}$, αυτό δίνει $\mathbf{E} = -\frac{1}{\epsilon} \nabla \times \mathbf{F}$. Ακολουθώντας την ίδια διαδικασία όπως για το $\mathbf{A}$, τα πεδία είναι:
 
 $$
 \mathbf{H} = -j\omega \mathbf{F} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{F})
 $$
 
-and $\mathbf{F}$ satisfies:
+και το $\mathbf{F}$ ικανοποιεί:
 
 $$
 \nabla^2 \mathbf{F} + k^2 \mathbf{F} = -\epsilon \mathbf{M}
 $$
 
-### 2.4 Total Fields from Combined Sources
+### 2.4 Συνολικά Πεδία από Συνδυασμένες Πηγές
 
-When both electric and magnetic current sources are present, the total fields are the superposition of the contributions from $\mathbf{A}$ and $\mathbf{F}$:
+Όταν παρουσιάζονται ταυτόχρονα πηγές ηλεκτρικού και μαγνητικού ρεύματος, τα συνολικά πεδία προκύπτουν από την επαλληλία (superposition) των συνεισφορών των $\mathbf{A}$ και $\mathbf{F}$:
 
-**From $\mathbf{A}$ only (electric sources $\mathbf{J}$):**
+**Μόνο από το $\mathbf{A}$ (ηλεκτρικές πηγές $\mathbf{J}$):**
 
 $$
 \mathbf{E}_A = -j\omega \mathbf{A} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{A})
@@ -149,7 +149,7 @@ $$
 \mathbf{H}_A = \frac{1}{\mu} \nabla \times \mathbf{A}
 $$
 
-**From $\mathbf{F}$ only (magnetic sources $\mathbf{M}$):**
+**Μόνο από το $\mathbf{F}$ (μαγνητικές πηγές $\mathbf{M}$):**
 
 $$
 \mathbf{H}_F = -j\omega \mathbf{F} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{F})
@@ -159,7 +159,7 @@ $$
 \mathbf{E}_F = -\frac{1}{\epsilon} \nabla \times \mathbf{F}
 $$
 
-**Total fields:**
+**Συνολικά πεδία:**
 
 $$
 \mathbf{E} = \mathbf{E}_A + \mathbf{E}_F = -j\omega \mathbf{A} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{A}) - \frac{1}{\epsilon} \nabla \times \mathbf{F}
@@ -169,39 +169,39 @@ $$
 \mathbf{H} = \mathbf{H}_A + \mathbf{H}_F = \frac{1}{\mu} \nabla \times \mathbf{A} - j\omega \mathbf{F} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{F})
 $$
 
-### 2.5 Solution of the Inhomogeneous Vector Potential Wave Equation
+### 2.5 Επίλυση της Μη Ομογενούς Κυματικής Εξίσωσης Διανυσματικού Δυναμικού
 
-The inhomogeneous Helmholtz equation:
+Η μη ομογενής εξίσωση Helmholtz:
 
 $$
 \nabla^2 \mathbf{A} + k^2 \mathbf{A} = -\mu \mathbf{J}
 $$
 
-is solved using the free-space Green's function $G(\mathbf{r}, \mathbf{r}')$, which satisfies:
+επιλύεται με χρήση της συνάρτησης Green του ελεύθερου χώρου $G(\mathbf{r}, \mathbf{r}')$, η οποία ικανοποιεί:
 
 $$
 \nabla^2 G + k^2 G = -\delta(\mathbf{r} - \mathbf{r}')
 $$
 
-The solution is:
+Η λύση είναι:
 
 $$
 G(\mathbf{r}, \mathbf{r}') = \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|}
 $$
 
-The vector potential $\mathbf{A}$ is obtained by convolution of the source $\mathbf{J}$ with the Green's function:
+Το διανυσματικό δυναμικό $\mathbf{A}$ λαμβάνεται μέσω συνέλιξης της πηγής $\mathbf{J}$ με τη συνάρτηση Green:
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu \iiint_V \mathbf{J}(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, dv'
 $$
 
-Similarly, for $\mathbf{F}$:
+Παρόμοια, για το $\mathbf{F}$:
 
 $$
 \mathbf{F}(\mathbf{r}) = \epsilon \iiint_V \mathbf{M}(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, dv'
 $$
 
-For surface currents $\mathbf{J}_s$ and $\mathbf{M}_s$, the volume integrals reduce to surface integrals:
+Για επιφανειακά ρεύματα $\mathbf{J}_s$ και $\mathbf{M}_s$, τα χωρικά ολοκληρώματα αναάγονται σε επιφανειακά ολοκληρώματα:
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu \iint_S \mathbf{J}_s(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, ds'
@@ -211,23 +211,23 @@ $$
 \mathbf{F}(\mathbf{r}) = \epsilon \iint_S \mathbf{M}_s(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, ds'
 $$
 
-### 2.6 Far-Field Radiation
+### 2.6 Ακτινοβολία Μακρινού Πεδίου
 
-In the far-field region, the distance from the source to the observation point is much larger than both the source dimensions and the wavelength ($r \gg 2D^2/\lambda$, where $D$ is the largest source dimension). The following approximations apply:
+Στη περιοχή μακρινού πεδίου (far-field region), η απόσταση από την πηγή έως το σημείο παρατήρησης είναι πολύ μεγαλύτερη τόσο από τις διαστάσεις της πηγής όσο και από το μήκος κύματος ($r \gg 2D^2/\lambda$, όπου $D$ είναι η μέγιστη διάσταση της πηγής). Ισχύουν οι ακόλουθες προσεγγίσεις:
 
-**Distance approximation in the phase term:**
+**Προσέγγιση απόστασης στον όρο φάσης:**
 
 $$
 |\mathbf{r} - \mathbf{r}'| \approx r - \mathbf{r}' \cdot \hat{\mathbf{r}} = r - (x' \sin\theta \cos\phi + y' \sin\theta \sin\phi + z' \cos\theta)
 $$
 
-**Distance approximation in the amplitude term:**
+**Προσέγγιση απόστασης στον όρο πλάτους:**
 
 $$
 \frac{1}{|\mathbf{r} - \mathbf{r}'|} \approx \frac{1}{r}
 $$
 
-The far-field vector potential becomes:
+Το διανυσματικό δυναμικό μακρινού πεδίου γίνεται:
 
 $$
 \mathbf{A}(\mathbf{r}) \approx \mu \frac{e^{-jkr}}{4\pi r} \iiint_V \mathbf{J}(\mathbf{r}') e^{jk \mathbf{r}' \cdot \hat{\mathbf{r}}} \, dv'
@@ -237,9 +237,9 @@ $$
 \mathbf{F}(\mathbf{r}) \approx \epsilon \frac{e^{-jkr}}{4\pi r} \iiint_V \mathbf{M}(\mathbf{r}') e^{jk \mathbf{r}' \cdot \hat{\mathbf{r}}} \, dv'
 $$
 
-**Far-field simplification of fields:**
+**Απλοποίηση πεδίων στο μακρινό πεδίο:**
 
-In the far-field, only the transverse (radial) components of the potentials contribute to the radiated fields. The fields simplify to:
+Στο μακρινό πεδίο, μόνο οι εγκάρσιες (transverse) συνιστώσες των δυναμικών συνεισφέρουν στα ακτινοβολούμενα πεδία. Τα πεδία απλοποιούνται σε:
 
 $$
 \mathbf{E}_A \approx -j\omega \mathbf{A}_\theta \hat{\boldsymbol{\theta}} - j\omega \mathbf{A}_\phi \hat{\boldsymbol{\phi}}
@@ -257,15 +257,15 @@ $$
 \mathbf{E}_F \approx -\eta \, \hat{\mathbf{r}} \times \mathbf{H}_F
 $$
 
-where $\eta = \sqrt{\mu/\epsilon}$ is the intrinsic impedance of the medium.
+όπου $\eta = \sqrt{\mu/\epsilon}$ είναι η χαρακτηριστική σύνθετη αντίσταση του μέσου.
 
-> **[Key Insight]** In the far-field, the radiated field is purely transverse (TEM) — there is no radial component of $\mathbf{E}$ or $\mathbf{H}$. The fields are related by the free-space impedance $\eta$, and the power density decays as $1/r^2$.
+> **[Βασική Παρατήρηση]** Στο μακρινό πεδίο, το ακτινοβολούμενο πεδίο είναι αμιγώς εγκάρσιο (TEM) — δεν υπάρχει ακτινική συνιστώσα των $\mathbf{E}$ ή $\mathbf{H}$. Τα πεδία συνδέονται μέσω της σύνθετης αντίστασης ελεύθερου χώρου $\eta$, και η πυκνότητα ισχύος μειώνεται ως $1/r^2$.
 
-### 2.7 Duality Theorem
+### 2.7 Θεώρημα Δυϊκότητας
 
-Duality states that if a set of field equations is solved for one type of source, the solution for the dual source is obtained by interchanging quantities according to the following mapping:
+Η δυϊκότητα ορίζει ότι εάν ένα σύνολο εξισώσεων πεδίου επιλυθεί για έναν τύπο πηγής, η λύση για τη δυϊκή πηγή λαμβάνεται με εναλλαγή των μεγεθών σύμφωνα με την ακόλουθη αντιστοίχιση:
 
-| Electric Quantity | Dual Magnetic Quantity |
+| Ηλεκτρικό Μέγεθος | Δυϊκό Μαγνητικό Μέγεθος |
 |:---|:---|
 | $\mathbf{E}$ | $\mathbf{H}$ |
 | $\mathbf{H}$ | $-\mathbf{E}$ |
@@ -277,93 +277,93 @@ Duality states that if a set of field equations is solved for one type of source
 | $\mathbf{A}$ | $\mathbf{F}$ |
 | $\mathbf{F}$ | $-\mathbf{A}$ |
 
-This theorem allows immediate translation of known solutions. For example, the far-field pattern of a magnetic dipole (small loop antenna) is the dual of the far-field pattern of an electric dipole (short dipole antenna).
+Αυτό το θεώρημα επιτρέπει την άμεση μετάφραση γνωστών λύσεων. Για παράδειγμα, το διάγραμμα μακρινού πεδίου ενός μαγνητικού διπόλου (μικρή κεραία βρόχου) είναι το δυϊκό του διαγράμματος μακρινού πεδίου ενός ηλεκτρικού διπόλου (βραχύ συρμάτινο δίπολο).
 
-### 2.8 Reciprocity and Reaction Theorems
+### 2.8 Θεωρήματα Αμοιβαιότητας και Αντίδρασης
 
-**Reciprocity Theorem (Lorentz form):**
+**Θεώρημα Αμοιβαιότητας (Μορφή Lorentz):**
 
-If $\mathbf{E}_1$, $\mathbf{H}_1$ are the fields produced by sources $\mathbf{J}_1$, $\mathbf{M}_1$ in a linear isotropic medium, and $\mathbf{E}_2$, $\mathbf{H}_2$ are the fields produced by $\mathbf{J}_2$, $\mathbf{M}_2$ in the same medium, then:
+Εάν τα $\mathbf{E}_1$, $\mathbf{H}_1$ είναι τα πεδία που παράγονται από τις πηγές $\mathbf{J}_1$, $\mathbf{M}_1$ σε ένα γραμμικό ισότροπο μέσο, και τα $\mathbf{E}_2$, $\mathbf{H}_2$ είναι τα πεδία που παράγονται από τις πηγές $\mathbf{J}_2$, $\mathbf{M}_2$ στο ίδιο μέσο, τότε:
 
 $$
 \iiint_V (\mathbf{J}_1 \cdot \mathbf{E}_2 - \mathbf{M}_1 \cdot \mathbf{H}_2) \, dv = \iiint_V (\mathbf{J}_2 \cdot \mathbf{E}_1 - \mathbf{M}_2 \cdot \mathbf{H}_1) \, dv
 $$
 
-A special case for two antennas: The receive pattern of an antenna is identical to its transmit pattern. Equivalently, the mutual impedance $Z_{12}$ between two antennas satisfies $Z_{12} = Z_{21}$.
+Ειδική περίπτωση για δύο κεραίες: Το διάγραμμα λήψης μιας κεραίας είναι ταυτόσημο με το διάγραμμα εκπομπής της. Ισοδύναμα, η αμοιβαία σύνθετη αντίσταση $Z_{12}$ μεταξύ δύο κεραιών ικανοποιεί $Z_{12} = Z_{21}$.
 
-**Reaction Theorem:**
+**Θεώρημα Αντίδρασης (Reaction Theorem):**
 
-The reaction of field $\mathbf{a}$ on source $\mathbf{b}$ is defined as:
+Η αντίδραση του πεδίου $\mathbf{a}$ στην πηγή $\mathbf{b}$ ορίζεται ως:
 
 $$
 \langle \mathbf{a}, \mathbf{b} \rangle = \iiint_V (\mathbf{E}_a \cdot \mathbf{J}_b - \mathbf{H}_a \cdot \mathbf{M}_b) \, dv
 $$
 
-Reciprocity then states $\langle 1, 2 \rangle = \langle 2, 1 \rangle$.
+Η αμοιβαιότητα εκφράζεται τότε ως $\langle 1, 2 \rangle = \langle 2, 1 \rangle$.
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-| Parameter | Symbol | Definition/Form | Units | Role |
+| Παράμετρος | Σύμβολο | Ορισμός/Μορφή | Μονάδες | Ρόλος |
 |:---|:---|:---|:---|:---|
-| Wavenumber | $k$ | $2\pi/\lambda$ | rad/m | Determines phase progression and oscillation scale |
-| Intrinsic impedance | $\eta$ | $\sqrt{\mu/\epsilon}$ | $\Omega$ | Ratio of transverse $\mathbf{E}$ to $\mathbf{H}$ in far-field |
-| Free-space Green's function | $G$ | $e^{-jkR}/(4\pi R)$ | m$^{-1}$ | Point-source response used in potential integrals |
-| Far-field distance | $R_{ff}$ | $2D^2/\lambda$ | m | Minimum distance for far-field approximations to hold |
-| Magnetic vector potential | $\mathbf{A}$ | $\mu \iiint \mathbf{J} G \, dv$ | Wb/m | Intermediate quantity from electric sources |
-| Electric vector potential | $\mathbf{F}$ | $\epsilon \iiint \mathbf{M} G \, dv$ | C/m | Intermediate quantity from magnetic sources |
+| Κυματαριθμός | $k$ | $2\pi/\lambda$ | rad/m | Καθορίζει την εξέλιξη φάσης και τη κλίμακα ταλάντωσης |
+| Χαρακτηριστική αντίσταση | $\eta$ | $\sqrt{\mu/\epsilon}$ | $\Omega$ | Λόγος εγκάρσιου $\mathbf{E}$ προς $\mathbf{H}$ στο μακρινό πεδίο |
+| Συνάρτηση Green ελεύθερου χώρου | $G$ | $e^{-jkR}/(4\pi R)$ | m$^{-1}$ | Απόκριση σημειακής πηγής στα ολοκληρώματα δυναμικού |
+| Απόσταση μακρινού πεδίου | $R_{ff}$ | $2D^2/\lambda$ | m | Ελάχιστη απόσταση για την ισχύ των προσεγγίσεων |
+| Μαγνητικό διανυσματικό δυναμικό | $\mathbf{A}$ | $\mu \iiint \mathbf{J} G \, dv$ | Wb/m | Ενδιάμεσο μέγεθος από ηλεκτρικές πηγές |
+| Ηλεκτρικό διανυσματικό δυναμικό | $\mathbf{F}$ | $\epsilon \iiint \mathbf{M} G \, dv$ | C/m | Ενδιάμεσο μέγεθος από μαγνητικές πηγές |
 
 ---
 
-## 4. Step-by-Step Mechanism: Computing Radiated Fields from a Known Current Distribution
+## 4. Μηχανισμός Βήμα-Βήμα: Υπολογισμός Ακτινοβολούμενων Πεδίων από Γνωστή Κατανομή Ρεύματος
 
-The following procedure is used to compute the radiated electric and magnetic fields from an arbitrary current distribution:
+Η ακόλουθη διαδικασία χρησιμοποιείται για τον υπολογισμό των ακτινοβολούμενων ηλεκτρικών και μαγνητικών πεδίων από μια αυθαίρετη κατανομή ρεύματος:
 
-1. **Identify the source currents:** Determine $\mathbf{J}(\mathbf{r}')$ and/or $\mathbf{M}(\mathbf{r}')$ over the source volume or surface.
-2. **Choose the observation point:** Define $\mathbf{r}$ in the region of interest (near-field, Fresnel, or far-field).
-3. **Compute the vector potentials:**
-   - Evaluate $\mathbf{A}(\mathbf{r}) = \mu \iiint \mathbf{J}(\mathbf{r}') G(\mathbf{r}, \mathbf{r}') \, dv'$
-   - Evaluate $\mathbf{F}(\mathbf{r}) = \epsilon \iiint \mathbf{M}(\mathbf{r}') G(\mathbf{r}, \mathbf{r}') \, dv'$
-4. **If far-field, apply approximations:**
-   - Phase: $|\mathbf{r} - \mathbf{r}'| \approx r - \mathbf{r}' \cdot \hat{\mathbf{r}}$
-   - Amplitude: $1/|\mathbf{r} - \mathbf{r}'| \approx 1/r$
-   - Extract the $\theta$ and $\phi$ components of the potentials.
-5. **Derive the fields:**
+1. **Προσδιορισμός ρευμάτων πηγής:** Καθορισμός των $\mathbf{J}(\mathbf{r}')$ ή/και $\mathbf{M}(\mathbf{r}')$ στον όγκο ή την επιφάνεια της πηγής.
+2. **Επιλογή σημείου παρατήρησης:** Ορισμός του $\mathbf{r}$ στη περιοχή ενδιαφέροντος (κοντινό πεδίο, Fresnel, ή μακρινό πεδίο).
+3. **Υπολογισμός διανυσματικών δυναμικών:**
+   - Υπολογισμός $\mathbf{A}(\mathbf{r}) = \mu \iiint \mathbf{J}(\mathbf{r}') G(\mathbf{r}, \mathbf{r}') \, dv'$
+   - Υπολογισμός $\mathbf{F}(\mathbf{r}) = \epsilon \iiint \mathbf{M}(\mathbf{r}') G(\mathbf{r}, \mathbf{r}') \, dv'$
+4. **Για μακρινό πεδίο, εφαρμογή προσεγγίσεων:**
+   - Φάση: $|\mathbf{r} - \mathbf{r}'| \approx r - \mathbf{r}' \cdot \hat{\mathbf{r}}$
+   - Πλάτος: $1/|\mathbf{r} - \mathbf{r}'| \approx 1/r$
+   - Εξαγωγή των συνιστωσών $\theta$ και $\phi$ των δυναμικών.
+5. **Παραγωγή των πεδίων:**
    - $\mathbf{E} = -j\omega \mathbf{A} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{A}) - \frac{1}{\epsilon} \nabla \times \mathbf{F}$
    - $\mathbf{H} = \frac{1}{\mu} \nabla \times \mathbf{A} - j\omega \mathbf{F} - \frac{j}{\omega \mu \epsilon} \nabla (\nabla \cdot \mathbf{F})$
-6. **Simplify in far-field:** Use the transverse approximations with $\mathbf{E} \perp \mathbf{H} \perp \hat{\mathbf{r}}$.
+6. **Απλοποίηση στο μακρινό πεδίο:** Χρήση των εγκάρσιων προσεγγίσεων με $\mathbf{E} \perp \mathbf{H} \perp \hat{\mathbf{r}}$.
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Παραπομπές
 
-- **Section 2 (Fundamental Parameters):** Directivity, gain, and radiation pattern are computed from the far-field $\mathbf{E}$ and $\mathbf{H}$ derived via the radiation integrals.
-- **Section 4 (Linear Wire Antennas):** The current distribution $\mathbf{J}$ on wire antennas is approximated, then integrated to obtain $\mathbf{A}$ and the radiated fields.
-- **Section 5 (Loop Antennas):** Loop antennas use the same $\mathbf{A}$ formulation with the current flowing along a closed path.
-- **Section 12 (Aperture Antennas):** The equivalence principle introduces equivalent $\mathbf{M}$ sources over the aperture, requiring the $\mathbf{F}$ potential.
-- **Section 8 (Integral Equations and Moment Method):** Numerical solutions use these integral formulations as the kernel of the method of moments.
+- **Ενότητα 2 (Θεμελιώδεις Παράμετροι):** Η κατευθυντικότητα, το κέρδος και το διάγραμμα ακτινοβολίας υπολογίζονται από τα πεδία $\mathbf{E}$ και $\mathbf{H}$ μακρινού πεδίου που παράγονται μέσω των ολοκληρωμάτων ακτινοβολίας.
+- **Ενότητα 4 (Γραμμικές Συρμάτινες Κεραίες):** Η κατανομή ρεύματος $\mathbf{J}$ σε συρμάτινες κεραίες προσεγγίζεται, στη συνέχεια ολοκληρώνεται για τη λήψη του $\mathbf{A}$ και των ακτινοβολούμενων πεδίων.
+- **Ενότητα 5 (Κεραίες Βρόχου):** Οι κεραίες βρόχου χρησιμοποιούν τη διατύπωση του $\mathbf{A}$ με το ρεύμα να ρέει κατά μήκος μιας κλειστής διαδρομής.
+- **Ενότητα 12 (Κεραίες Ανοιγμάτων):** Η αρχή ισοδυναμίας εισάγει ισοδύναμες πηγές $\mathbf{M}$ πάνω στο άνοιγμα, απαιτώντας το δυναμικό $\mathbf{F}$.
+- **Ενότητα 8 (Ολοκληρωτικές Εξισώσεις και Μέθοδος των Ροπών):** Οι αριθμητικές λύσεις χρησιμοποιούν αυτές τις ολοκληρωτικές διατυπώσεις ως πυρήνα της μεθόδου των ροπών (Method of Moments).
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Vector Potential of an Infinitesimal Electric Dipole at the Origin
+### Άσκηση 1: Διανυσματικό Δυναμικό Στοιχειώδους Ηλεκτρικού Διπόλου στην Αρχή των Συντεταγμένων
 
-**Problem:** An infinitesimal electric dipole of length $dl$ is located at the origin, oriented along the $z$-axis, carrying a constant current $I_0$. Compute the magnetic vector potential $\mathbf{A}$ everywhere in space.
+**Διατύπωση Προβλήματος:** Ένα στοιχειώδες ηλεκτρικό δίπολο (Hertzian dipole) μήκους $dl$ βρίσκεται στην αρχή των συντεταγμένων, προσανατολισμένο κατά μήκος του άξονα $z$, φέροντας σταθερό ρεύμα $I_0$. Υπολογίστε το μαγνητικό διανυσματικό δυναμικό $\mathbf{A}$ παντού στον χώρο.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Define the current density.
-The current density for a Hertzian dipole at the origin oriented along $z$ is:
+Βήμα 1: Ορισμός της πυκνότητας ρεύματος.
+Η πυκνότητα ρεύματος για ένα δίπολο Hertz στην αρχή των συντεταγμένων προσανατολισμένο κατά $z$ είναι:
 
 $$
 \mathbf{J}(\mathbf{r}') = I_0 \, dl \, \delta(\mathbf{r}') \, \hat{\mathbf{z}}
 $$
 
-where $\delta(\mathbf{r}')$ is the three-dimensional Dirac delta function.
+όπου $\delta(\mathbf{r}')$ είναι η τρισδιάστατη συνάρτηση δέλτα του Dirac.
 
-Step 2: Apply the volume integral for $\mathbf{A}$.
+Βήμα 2: Εφαρμογή του χωρικού ολοκληρώματος για το $\mathbf{A}$.
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu \iiint_{V'} \mathbf{J}(\mathbf{r}') G(\mathbf{r}, \mathbf{r}') \, dv'
@@ -373,20 +373,20 @@ $$
 \mathbf{A}(\mathbf{r}) = \mu \iiint_{V'} I_0 \, dl \, \delta(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, dv' \, \hat{\mathbf{z}}
 $$
 
-The delta function sifts out the value at $\mathbf{r}' = \mathbf{0}$:
+Η συνάρτηση δέλτα απομονώνει την τιμή στο $\mathbf{r}' = \mathbf{0}$:
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu I_0 \, dl \frac{e^{-jk|\mathbf{r}|}}{4\pi |\mathbf{r}|} \hat{\mathbf{z}}
 $$
 
-Since $|\mathbf{r}| = r$, the result is:
+Εφόσον $|\mathbf{r}| = r$, το αποτέλεσμα είναι:
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu I_0 \, dl \frac{e^{-jkr}}{4\pi r} \hat{\mathbf{z}}
 $$
 
-Step 3: Express in spherical components.
-In spherical coordinates, $\hat{\mathbf{z}} = \cos\theta \, \hat{\mathbf{r}} - \sin\theta \, \hat{\boldsymbol{\theta}}$. Therefore:
+Βήμα 3: Έκφραση σε σφαιρικές συνιστώσες.
+Σε σφαιρικές συντεταγμένες, $\hat{\mathbf{z}} = \cos\theta \, \hat{\mathbf{r}} - \sin\theta \, \hat{\boldsymbol{\theta}}$. Επομένως:
 
 $$
 A_r = A_z \cos\theta = \mu I_0 \, dl \frac{e^{-jkr}}{4\pi r} \cos\theta
@@ -400,26 +400,26 @@ $$
 A_\phi = 0
 $$
 
-The vector potential has both radial and $\theta$ components. In the far-field, only $A_\theta$ contributes to the radiated field.
+Το διανυσματικό δυναμικό έχει τόσο ακτινική συνιστώσα όσο και συνιστώσα $\theta$. Στο μακρινό πεδίο, μόνο το $A_\theta$ συνεισφέρει στο ακτινοβολούμενο πεδίο.
 
 ---
 
-### Exercise 2: Far-Field of an Infinitesimal Dipole from the Vector Potential
+### Άσκηση 2: Μακρινό Πεδίο Στοιχειώδους Διπόλου από το Διανυσματικό Δυναμικό
 
-**Problem:** Using the vector potential $\mathbf{A}$ from Exercise 1, compute the far-field $\mathbf{E}$ and $\mathbf{H}$ of the infinitesimal dipole.
+**Διατύπωση Προβλήματος:** Χρησιμοποιώντας το διανυσματικό δυναμικό $\mathbf{A}$ από την Άσκηση 1, υπολογίστε τα πεδία $\mathbf{E}$ και $\mathbf{H}$ μακρινού πεδίου του στοιχειώδους διπόλου.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Far-field simplification.
-In the far-field ($kr \gg 1$), the radial component $A_r$ does not contribute to the radiated power. The transverse component $A_\theta$ determines the fields:
+Βήμα 1: Απλοποίηση μακρινού πεδίου.
+Στο μακρινό πεδίο ($kr \gg 1$), η ακτινική συνιστώσα $A_r$ δεν συνεισφέρει στην ακτινοβολούμενη ισχύ. Η εγκάρσια συνιστώσα $A_\theta$ καθορίζει τα πεδία:
 
 $$
 \mathbf{E}_A \approx -j\omega \mathbf{A}_\perp
 $$
 
-where $\mathbf{A}_\perp = A_\theta \hat{\boldsymbol{\theta}} = -\mu I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}$.
+όπου $\mathbf{A}_\perp = A_\theta \hat{\boldsymbol{\theta}} = -\mu I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}$.
 
-Step 2: Compute the electric field.
+Βήμα 2: Υπολογισμός ηλεκτρικού πεδίου.
 
 $$
 \mathbf{E} = -j\omega \left( -\mu I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \right) \hat{\boldsymbol{\theta}}
@@ -429,51 +429,51 @@ $$
 \mathbf{E} = j\omega\mu I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}
 $$
 
-Since $k = \omega \sqrt{\mu\epsilon} = \omega \mu / \eta$ (because $\eta = \sqrt{\mu/\epsilon} = \mu / \sqrt{\mu\epsilon} = \mu\omega/k$), we have $\omega\mu = k\eta$:
+Εφόσον $k = \omega \sqrt{\mu\epsilon} = \omega \mu / \eta$ (καθώς $\eta = \sqrt{\mu/\epsilon} = \mu / \sqrt{\mu\epsilon} = \mu\omega/k$), έχουμε $\omega\mu = k\eta$:
 
 $$
 \mathbf{E} = j \eta k I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}
 $$
 
-Step 3: Compute the magnetic field.
-In the far-field, $\mathbf{H} = \frac{1}{\eta} \hat{\mathbf{r}} \times \mathbf{E}$:
+Βήμα 3: Υπολογισμός μαγνητικού πεδίου.
+Στο μακρινό πεδίο, $\mathbf{H} = \frac{1}{\eta} \hat{\mathbf{r}} \times \mathbf{E}$:
 
 $$
-\mathbf{H} = \frac{1}{\eta} (j \eta k I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta) (\hat{\mathbf{r}} \times \hat{\boldsymbol{\theta}})
+\mathbf{H} = \frac{1}{\eta} \left(j \eta k I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta\right) (\hat{\mathbf{r}} \times \hat{\boldsymbol{\theta}})
 $$
 
-Since $\hat{\mathbf{r}} \times \hat{\boldsymbol{\theta}} = \hat{\boldsymbol{\phi}}$:
+Εφόσον $\hat{\mathbf{r}} \times \hat{\boldsymbol{\theta}} = \hat{\boldsymbol{\phi}}$:
 
 $$
 \mathbf{H} = j k I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\phi}}
 $$
 
-The radiated fields are purely transverse, with $\mathbf{E}$ along $\hat{\boldsymbol{\theta}}$ and $\mathbf{H}$ along $\hat{\boldsymbol{\phi}}$, confirming the TEM nature of the far-field radiation.
+Τα ακτινοβολούμενα πεδία είναι αμιγώς εγκάρσια, με το $\mathbf{E}$ κατά μήκος του $\hat{\boldsymbol{\theta}}$ και το $\mathbf{H}$ κατά μήκος του $\hat{\boldsymbol{\phi}}$, επιβεβαιώνοντας τη φύση TEM της ακτινοβολίας μακρινού πεδίου.
 
 ---
 
-### Exercise 3: Verification of the Wave Equation for $\mathbf{A}$
+### Άσκηση 3: Επαλήθευση της Κυματικής Εξίσωσης για το $\mathbf{A}$
 
-**Problem:** Show that the expression $\mathbf{A}(\mathbf{r}) = \mu \iiint \mathbf{J}(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} dv'$ satisfies the inhomogeneous Helmholtz equation $\nabla^2 \mathbf{A} + k^2 \mathbf{A} = -\mu \mathbf{J}$.
+**Διατύπωση Προβλήματος:** Δείξτε ότι η έκφραση $\mathbf{A}(\mathbf{r}) = \mu \iiint \mathbf{J}(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} dv'$ ικανοποιεί τη μη ομογενή εξίσωση Helmholtz $\nabla^2 \mathbf{A} + k^2 \mathbf{A} = -\mu \mathbf{J}$.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Recognize that the operator $\nabla^2 + k^2$ acts only on the observation coordinate $\mathbf{r}$, not on $\mathbf{r}'$. Thus:
+Βήμα 1: Αναγνώριση ότι ο τελεστής $\nabla^2 + k^2$ δρα μόνο στη συντεταγμένη παρατήρησης $\mathbf{r}$ και όχι στο $\mathbf{r}'$. Επομένως:
 
 $$
 (\nabla^2 + k^2) \mathbf{A}(\mathbf{r}) = \mu \iiint \mathbf{J}(\mathbf{r}') (\nabla^2 + k^2) G(\mathbf{r}, \mathbf{r}') \, dv'
 $$
 
-where $G(\mathbf{r}, \mathbf{r}') = e^{-jkR} / (4\pi R)$ and $R = |\mathbf{r} - \mathbf{r}'|$.
+όπου $G(\mathbf{r}, \mathbf{r}') = e^{-jkR} / (4\pi R)$ και $R = |\mathbf{r} - \mathbf{r}'|$.
 
-Step 2: Use the property of the Green's function.
-The free-space Green's function satisfies:
+Βήμα 2: Χρήση της ιδιότητας της συνάρτησης Green.
+Η συνάρτηση Green ελεύθερου χώρου ικανοποιεί:
 
 $$
 (\nabla^2 + k^2) G(\mathbf{r}, \mathbf{r}') = -\delta(\mathbf{r} - \mathbf{r}')
 $$
 
-Step 3: Evaluate the integral.
+Βήμα 3: Υπολογισμός του ολοκληρώματος.
 
 $$
 (\nabla^2 + k^2) \mathbf{A}(\mathbf{r}) = \mu \iiint \mathbf{J}(\mathbf{r}') [-\delta(\mathbf{r} - \mathbf{r}')] \, dv'
@@ -483,37 +483,37 @@ $$
 (\nabla^2 + k^2) \mathbf{A}(\mathbf{r}) = -\mu \mathbf{J}(\mathbf{r})
 $$
 
-This verifies the inhomogeneous Helmholtz equation. The result holds for any point $\mathbf{r}$ inside the source region.
+Αυτό επαληθεύει τη μη ομογενή εξίσωση Helmholtz. Το αποτέλεσμα ισχύει για κάθε σημείο $\mathbf{r}$ εντός της περιοχής πηγής.
 
 ---
 
-### Exercise 4: Vector Potential of a Uniform Line Current
+### Άσκηση 4: Διανυσματικό Δυναμικό Ομοιόμορφου Γραμμικού Ρεύματος
 
-**Problem:** A uniform electric current $I_0$ flows along the $z$-axis from $z = -L/2$ to $z = L/2$. Find the far-field vector potential $\mathbf{A}$.
+**Διατύπωση Προβλήματος:** Ένα ομοιόμορφο ηλεκτρικό ρεύμα $I_0$ ρέει κατά μήκος του άξονα $z$ από $z = -L/2$ έως $z = L/2$. Βρείτε το διανυσματικό δυναμικό μακρινού πεδίου $\mathbf{A}$.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Define the current density.
-For a thin wire along the $z$-axis:
+Βήμα 1: Ορισμός της πυκνότητας ρεύματος.
+Για ένα λεπτό σύρμα κατά μήκος του άξονα $z$:
 
 $$
 \mathbf{J}(\mathbf{r}') = I_0 \delta(x') \delta(y') \hat{\mathbf{z}}, \quad -\frac{L}{2} \leq z' \leq \frac{L}{2}
 $$
 
-Step 2: Express the vector potential integral.
+Βήμα 2: Έκφραση του ολοκληρώματος διανυσματικού δυναμικού.
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu \iiint I_0 \delta(x') \delta(y') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, dx' dy' dz' \, \hat{\mathbf{z}}
 $$
 
-The delta functions reduce the volume integral to a line integral along $z'$:
+Οι συναρτήσεις δέλτα ανάγουν το χωρικό ολοκλήρωμα σε ένα γραμμικό ολοκλήρωμα κατά μήκος του $z'$:
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu I_0 \int_{-L/2}^{L/2} \frac{e^{-jk|\mathbf{r} - z'\hat{\mathbf{z}}|}}{4\pi |\mathbf{r} - z'\hat{\mathbf{z}}|} \, dz' \, \hat{\mathbf{z}}
 $$
 
-Step 3: Apply the far-field approximation.
-For $r \gg L$ and $r \gg \lambda$:
+Βήμα 3: Εφαρμογή της προσέγγισης μακρινού πεδίου.
+Για $r \gg L$ και $r \gg \lambda$:
 
 $$
 |\mathbf{r} - z'\hat{\mathbf{z}}| \approx r - z' \cos\theta
@@ -523,13 +523,13 @@ $$
 \frac{1}{|\mathbf{r} - z'\hat{\mathbf{z}}|} \approx \frac{1}{r}
 $$
 
-Thus:
+Έτσι:
 
 $$
 \mathbf{A}(\mathbf{r}) \approx \mu I_0 \frac{e^{-jkr}}{4\pi r} \int_{-L/2}^{L/2} e^{jkz' \cos\theta} \, dz' \, \hat{\mathbf{z}}
 $$
 
-Step 4: Evaluate the integral.
+Βήμα 4: Υπολογισμός του ολοκληρώματος.
 
 $$
 \int_{-L/2}^{L/2} e^{jkz' \cos\theta} \, dz' = \left[ \frac{e^{jkz' \cos\theta}}{jk\cos\theta} \right]_{-L/2}^{L/2}
@@ -543,33 +543,33 @@ $$
 = \frac{2}{k\cos\theta} \sin\left( \frac{kL}{2} \cos\theta \right) = L \frac{\sin\left( \frac{kL}{2} \cos\theta \right)}{\frac{kL}{2} \cos\theta}
 $$
 
-Using the sinc function, $\text{sinc}(x) = \sin(x)/x$:
+Χρησιμοποιώντας τη συνάρτηση sinc, $\text{sinc}(x) = \sin(x)/x$:
 
 $$
 \mathbf{A}(\mathbf{r}) = \mu I_0 L \frac{e^{-jkr}}{4\pi r} \, \text{sinc}\left( \frac{kL}{2} \cos\theta \right) \hat{\mathbf{z}}
 $$
 
-where the argument of sinc is $\frac{kL}{2} \cos\theta = \frac{\pi L}{\lambda} \cos\theta$.
+όπου το όρισμα της sinc είναι $\frac{kL}{2} \cos\theta = \frac{\pi L}{\lambda} \cos\theta$.
 
-Step 5: Extract the transverse component.
-In spherical coordinates, $A_\theta = -A_z \sin\theta$:
+Βήμα 5: Εξαγωγή της εγκάρσιας συνιστώσας.
+Σε σφαιρικές συντεταγμένες, $A_\theta = -A_z \sin\theta$:
 
 $$
 A_\theta = -\mu I_0 L \frac{e^{-jkr}}{4\pi r} \sin\theta \, \text{sinc}\left( \frac{\pi L}{\lambda} \cos\theta \right)
 $$
 
-This $A_\theta$ component, when multiplied by $-j\omega$, gives the far-field $\mathbf{E}_\theta$, showing that the radiation pattern is modulated by the sinc factor due to the finite wire length.
+Αυτή η συνιστώσα $A_\theta$, όταν πολλαπλασιαστεί με $-j\omega$, δίνει το $\mathbf{E}_\theta$ μακρινού πεδίου, δείχνοντας ότι το διάγραμμα ακτινοβολίας διαμορφώνεται από τον παράγοντα sinc λόγω του πεπερασμένου μήκους του σύρματος.
 
 ---
 
-### Exercise 5: Duality — Electric Dipole to Magnetic Dipole (Small Loop)
+### Άσκηση 5: Δυϊκότητα — Από Ηλεκτρικό Δίπολο σε Μαγνητικό Δίπολο (Μικρός Βρόχος)
 
-**Problem:** Use duality to find the far-field expressions for a small magnetic dipole (loop antenna) from the known far-field of an infinitesimal electric dipole.
+**Διατύπωση Προβλήματος:** Χρησιμοποιήστε τη δυϊκότητα για να βρείτε τις εκφράσεις μακρινού πεδίου για ένα μικρό μαγνητικό δίπολο (κεραία βρόχου) από το γνωστό μακρινό πεδίο ενός στοιχειώδους ηλεκτρικού διπόλου.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Recall the far-field of an infinitesimal electric dipole.
-From Exercise 2, for an electric dipole of moment $I_0 \, dl$:
+Βήμα 1: Υπενθύμιση του μακρινού πεδίου ενός στοιχειώδους ηλεκτρικού διπόλου.
+Από την Άσκηση 2, για ένα ηλεκτρικό δίπολο με ροπή $I_0 \, dl$:
 
 $$
 \mathbf{E}_e = j \eta k I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}
@@ -579,13 +579,13 @@ $$
 \mathbf{H}_e = j k I_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\phi}}
 $$
 
-Step 2: Apply duality mapping.
-The dual of an electric dipole is a magnetic dipole. The mapping exchanges:
+Βήμα 2: Εφαρμογή της αντιστοίχισης δυϊκότητας.
+Το δυϊκό ενός ηλεκτρικού διπόλου είναι ένα μαγνητικό δίπολο. Η αντιστοίχιση ανταλλάσσει:
 - $\mathbf{E} \to \mathbf{H}$
 - $\mathbf{H} \to -\mathbf{E}$
-- $I_0 \, dl$ (electric dipole moment) $\to M_0 \, dl$ (magnetic dipole moment)
+- $I_0 \, dl$ (ροπή ηλεκτρικού διπόλου) $\to M_0 \, dl$ (ροπή μαγνητικού διπόλου)
 
-Under duality:
+Υπό δυϊκότητα:
 
 $$
 \mathbf{H}_m = j \eta k M_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}
@@ -595,20 +595,20 @@ $$
 -\mathbf{E}_m = j k M_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\phi}}
 $$
 
-Step 3: Rearrange for $\mathbf{E}_m$.
+Βήμα 3: Αναδιάταξη για το $\mathbf{E}_m$.
 
 $$
 \mathbf{E}_m = -j k M_0 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\phi}}
 $$
 
-Step 4: Express the magnetic dipole moment in terms of loop parameters.
-For a small loop of area $S$ carrying current $I_0$, the magnetic dipole moment is:
+Βήμα 4: Έκφραση της ροπής μαγνητικού διπόλου ως προς τις παραμέτρους του βρόχου.
+Για έναν μικρό βρόχο επιφάνειας $S$ που φέρει ρεύμα $I_0$, η ισοδύναμη ροπή μαγνητικού διπόλου είναι:
 
 $$
-M_0 \, dl \longleftrightarrow I_0 S \quad \text{(by equivalence of dipole moments)}
+M_0 \, dl \longleftrightarrow I_0 S \quad \text{(λόγω ισοδυναμίας ροπών διπόλου)}
 $$
 
-But the duality mapping relates the electric and magnetic dipole moments. More precisely, the magnetic dipole moment $p_m$ relates to the electric dipole moment $p_e$ through $p_e \to p_m/\eta$. For a small loop of area $S$, the equivalent magnetic dipole strength is $I_0 S$, and $k I_0 S = \eta M_0 dl$ from the dual form. The final fields for a small loop are:
+Πιο ακριβώς, η μαγνητική διπολική ροπή σχετίζεται με την ηλεκτρική διπολική ροπή. Τα τελικά πεδία για έναν μικρό βρόχο είναι:
 
 $$
 \mathbf{E}_{\text{loop}} = \eta k^2 I_0 S \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\phi}}
@@ -618,37 +618,37 @@ $$
 \mathbf{H}_{\text{loop}} = -k^2 I_0 S \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}
 $$
 
-Notice that $\mathbf{E}$ is along $\hat{\boldsymbol{\phi}}$ (azimuthal polarization) for the loop, whereas it was along $\hat{\boldsymbol{\theta}}$ for the electric dipole — a direct consequence of duality.
+Παρατηρήστε ότι το $\mathbf{E}$ είναι κατά μήκος του $\hat{\boldsymbol{\phi}}$ (αζιμουθιακή πόλωση) για τον βρόχο, ενώ ήταν κατά μήκος του $\hat{\boldsymbol{\theta}}$ για το ηλεκτρικό δίπολο — άμεση συνέπεια της δυϊκότητας.
 
 ---
 
-### Exercise 6: Far-Field Approximation Error Analysis
+### Άσκηση 6: Ανάλυση Σφάλματος Προσέγγισης Μακρινού Πεδίου
 
-**Problem:** A $z$-directed infinitesimal dipole is at the origin. Compare the exact expression for $A_z$ with the far-field approximation at a distance $r = \lambda$ and angle $\theta = 45^\circ$. Compute the percentage error in the phase.
+**Διατύπωση Προβλήματος:** Ένα στοιχειώδες δίπολο προσανατολισμένο κατά $z$ βρίσκεται στην αρχή των συντεταγμένων. Συγκρίνετε την ακριβή έκφραση για το $A_z$ με την προσέγγιση μακρινού πεδίου σε απόσταση $r = \lambda$ και γωνία $\theta = 45^\circ$. Υπολογίστε το ποσοστιαίο σφάλμα στη φάση.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Exact expression.
-The exact vector potential at $(\lambda, 45^\circ, 0^\circ)$ for a dipole at the origin is:
+Βήμα 1: Ακριβής έκφραση.
+Το ακριβές διανυσματικό δυναμικό στο σημείο $(\lambda, 45^\circ, 0^\circ)$ για ένα δίπολο στην αρχή των συντεταγμένων είναι:
 
 $$
 A_z^{\text{exact}} = \mu I_0 \, dl \frac{e^{-jk\lambda}}{4\pi \lambda}
 $$
 
-Since $k\lambda = 2\pi$:
+Εφόσον $k\lambda = 2\pi$:
 
 $$
 A_z^{\text{exact}} = \mu I_0 \, dl \frac{e^{-j2\pi}}{4\pi \lambda} = \mu I_0 \, dl \frac{1}{4\pi \lambda}
 $$
 
-The phase is exactly $2\pi$ radians (or $0$ mod $2\pi$).
+Η φάση είναι ακριβώς $2\pi$ ακτίνια (ή $0 \bmod 2\pi$).
 
-Step 2: Far-field approximation.
-The far-field expression is identical because the dipole is a point source at the origin — there is no spatial extent, so the far-field approximation is exact for the infinitesimal dipole. To demonstrate the approximation, consider instead a dipole of finite length $L = \lambda/2$ centered at the origin along $z$, with observation point at $r = \lambda$, $\theta = 45^\circ$.
+Βήμα 2: Προσέγγιση μακρινού πεδίου.
+Η έκφραση μακρινού πεδίου είναι ταυτόσημη επειδή το δίπολο είναι σημειακή πηγή στην αρχή — δεν υπάρχει χωρική έκταση, επομένως η προσέγγιση μακρινού πεδίου είναι ακριβής για το στοιχειώδες δίπολο. Για την επίδειξη της προσέγγισης, θεωρήστε αντί αυτού ένα δίπολο πεπερασμένου μήκους $L = \lambda/2$ κεντραρισμένο στην αρχή κατά μήκος του $z$, με σημείο παρατήρησης στο $r = \lambda$, $\theta = 45^\circ$.
 
-For a finite dipole of length $L$, the exact phase is $k|\mathbf{r} - \mathbf{r}'|$, while the far-field approximates it as $kr - k\mathbf{r}' \cdot \hat{\mathbf{r}}$.
+Για δίπολο πεπερασμένου μήκους $L$, η ακριβής φάση είναι $k|\mathbf{r} - \mathbf{r}'|$, ενώ η προσέγγιση μακρινού πεδίου την εκτιμά ως $kr - k\mathbf{r}' \cdot \hat{\mathbf{r}}$.
 
-Exact phase at the dipole tip $z' = L/2 = \lambda/4$:
+Ακριβής φάση στο άκρο του διπόλου $z' = L/2 = \lambda/4$:
 
 $$
 R = |\mathbf{r} - (\lambda/4)\hat{\mathbf{z}}| = \sqrt{\lambda^2 + (\lambda/4)^2 - 2\lambda(\lambda/4)\cos45^\circ}
@@ -662,7 +662,7 @@ $$
 R = \lambda \sqrt{0.7089} = 0.842\lambda
 $$
 
-Phase error = $kR - kr + k\mathbf{r}' \cdot \hat{\mathbf{r}}$:
+Σφάλμα φάσης = $kR - kr + k\mathbf{r}' \cdot \hat{\mathbf{r}}$:
 
 $$
 kR = 2\pi \times 0.842 = 5.290 \text{ rad}
@@ -676,53 +676,53 @@ $$
 k\mathbf{r}' \cdot \hat{\mathbf{r}} = k \frac{\lambda}{4} \cos45^\circ = 2\pi \times \frac{1}{4} \times 0.707 = 1.111 \text{ rad}
 $$
 
-Far-field phase estimate: $kr - k\mathbf{r}' \cdot \hat{\mathbf{r}} = 6.283 - 1.111 = 5.172$ rad.
+Εκτίμηση φάσης μακρινού πεδίου: $kr - k\mathbf{r}' \cdot \hat{\mathbf{r}} = 6.283 - 1.111 = 5.172$ rad.
 
-Step 3: Compute the phase error.
+Βήμα 3: Υπολογισμός σφάλματος φάσης.
 
 $$
 \Delta\phi = |5.290 - 5.172| = 0.118 \text{ rad}
 $$
 
-Step 4: Interpret the result.
-The phase error is $0.118$ rad, which is $6.76^\circ$. The standard far-field criterion requires phase error $< \pi/8 = 0.393$ rad ($22.5^\circ$) across the source. At $r = \lambda$, the error of $0.118$ rad is well within this limit, confirming that $r = \lambda$ is sufficient for the far-field for a source of size $\lambda/2$. However, the formal far-field distance $2D^2/\lambda = 2(\lambda/2)^2/\lambda = \lambda/2$, so $r = \lambda$ satisfies $r \gg \lambda/2$, confirming the approximation is valid.
+Βήμα 4: Ερμηνεία του αποτελέσματος.
+Το σφάλμα φάσης είναι $0.118$ rad, που αντιστοιχεί σε $6.76^\circ$. Το τυπικό κριτήριο μακρινού πεδίου απαιτεί σφάλμα φάσης $< \pi/8 = 0.393$ rad ($22.5^\circ$) σε όλη την πηγή. Στο $r = \lambda$, το σφάλμα των $0.118$ rad είναι πολύ εντός αυτού του ορίου, επιβεβαιώνοντας ότι το $r = \lambda$ είναι επαρκές για το μακρινό πεδίο για μια πηγή μεγέθους $\lambda/2$. Ωστόσο, η τυπική απόσταση μακρινού πεδίου $2D^2/\lambda = 2(\lambda/2)^2/\lambda = \lambda/2$, οπότε το $r = \lambda$ ικανοποιεί $r \gg \lambda/2$.
 
-> **[Supplementary]** The standard far-field criterion of $r \geq 2D^2/\lambda$ ensures that the maximum phase error across the aperture is $\pi/8$ ($22.5^\circ$) or less. This is the accepted engineering threshold for pattern measurements.
+> **[Συμπληρωματικό]** Το τυπικό κριτήριο μακρινού πεδίου $r \geq 2D^2/\lambda$ εξασφαλίζει ότι το μέγιστο σφάλμα φάσης πάνω στο άνοιγμα είναι $\pi/8$ ($22.5^\circ$) ή λιγότερο. Αυτό είναι το αποδεκτό μηχανικό όριο για μετρήσεις διαγραμμάτων.
 
 ---
 
-### Exercise 7: Reciprocity — Mutual Impedance Between Two Dipoles
+### Άσκηση 7: Αμοιβαιότητα — Αμοιβαία Σύνθετη Αντίσταση Μεταξύ Δύο Διπόλων
 
-**Problem:** Two identical infinitesimal dipoles of length $dl$ are spaced $d = \lambda/4$ apart along the $x$-axis, both oriented along $z$. Use the reaction theorem to compute the mutual impedance $Z_{12}$.
+**Διατύπωση Προβλήματος:** Δύο ταυτόσημα στοιχειώδη δίπολα μήκους $dl$ απέχουν απόσταση $d = \lambda/4$ κατά μήκος του άξονα $x$, και τα δύο προσανατολισμένα κατά $z$. Χρησιμοποιήστε το θεώρημα αντίδρασης για να υπολογίσετε την αμοιβαία σύνθετη αντίσταση $Z_{12}$.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Set up the geometry.
-Dipole 1 is at $\mathbf{r}_1 = (0, 0, 0)$, Dipole 2 is at $\mathbf{r}_2 = (\lambda/4, 0, 0)$. Both are $z$-directed.
+Βήμα 1: Γεωμετρική διάταξη.
+Το δίπολο 1 βρίσκεται στο $\mathbf{r}_1 = (0, 0, 0)$, το δίπολο 2 βρίσκεται στο $\mathbf{r}_2 = (\lambda/4, 0, 0)$. Και τα δύο είναι κατευθυνόμενα κατά $z$.
 
-Step 2: Recall the reaction theorem definition.
-The mutual impedance between two antennas is:
+Βήμα 2: Υπενθύμιση του ορισμού του θεωρήματος αντίδρασης.
+Η αμοιβαία σύνθετη αντίσταση μεταξύ δύο κεραιών είναι:
 
 $$
 Z_{12} = -\frac{1}{I_1 I_2} \iiint_{V_2} \mathbf{J}_2 \cdot \mathbf{E}_1 \, dv
 $$
 
-where $\mathbf{E}_1$ is the field produced by antenna 1 at the location of antenna 2, and $I_1$, $I_2$ are the input currents.
+όπου $\mathbf{E}_1$ είναι το πεδίο που παράγεται από την κεραία 1 στη θέση της κεραίας 2, και $I_1$, $I_2$ είναι τα ρεύματα εισόδου.
 
-Step 3: Compute $\mathbf{E}_1$ at the location of dipole 2.
-From Exercise 2, the field of an infinitesimal dipole at the origin is:
+Βήμα 3: Υπολογισμός του $\mathbf{E}_1$ στη θέση του διπόλου 2.
+Από την Άσκηση 2, το πεδίο ενός στοιχειώδους διπόλου στην αρχή των συντεταγμένων είναι:
 
 $$
 \mathbf{E}_1 = j \eta k I_1 \, dl \frac{e^{-jkr}}{4\pi r} \sin\theta \, \hat{\boldsymbol{\theta}}
 $$
 
-At the location of dipole 2: $\mathbf{r}_2 = (\lambda/4, 0, 0)$, so $r = \lambda/4$, $\theta = 90^\circ$ (equatorial plane), $\phi = 0^\circ$.
+Στη θέση του διπόλου 2: $\mathbf{r}_2 = (\lambda/4, 0, 0)$, οπότε $r = \lambda/4$, $\theta = 90^\circ$ (ισημερινό επίπεδο), $\phi = 0^\circ$.
 
 $$
 \mathbf{E}_1(\mathbf{r}_2) = j \eta k I_1 \, dl \frac{e^{-jk(\lambda/4)}}{4\pi (\lambda/4)} \sin(90^\circ) \, \hat{\boldsymbol{\theta}}
 $$
 
-At $\phi = 0^\circ$ in the $x$-$z$ plane, $\hat{\boldsymbol{\theta}} = \hat{\mathbf{z}}$ for a point on the $x$-axis. Therefore:
+Στο $\phi = 0^\circ$ στο επίπεδο $x$-$z$, ισχύει $\hat{\boldsymbol{\theta}} = \hat{\mathbf{z}}$ για ένα σημείο στον άξονα $x$. Επομένως:
 
 $$
 \mathbf{E}_1(\mathbf{r}_2) = j \eta k I_1 \, dl \frac{e^{-j\pi/2}}{\pi \lambda} \hat{\mathbf{z}}
@@ -732,54 +732,54 @@ $$
 \mathbf{E}_1(\mathbf{r}_2) = j \eta k I_1 \, dl \frac{-j}{\pi \lambda} \hat{\mathbf{z}} = \eta k I_1 \, dl \frac{1}{\pi \lambda} \hat{\mathbf{z}}
 $$
 
-Since $k = 2\pi/\lambda$:
+Εφόσον $k = 2\pi/\lambda$:
 
 $$
 \mathbf{E}_1(\mathbf{r}_2) = \eta \frac{2\pi}{\lambda} I_1 \, dl \frac{1}{\pi \lambda} \hat{\mathbf{z}} = \frac{2\eta I_1 dl}{\lambda^2} \hat{\mathbf{z}}
 $$
 
-Step 4: Compute the mutual impedance.
-The current density of dipole 2 is $\mathbf{J}_2 = I_2 \delta(\mathbf{r} - \mathbf{r}_2) \hat{\mathbf{z}}$. The volume integral becomes:
+Βήμα 4: Υπολογισμός αμοιβαίας σύνθετης αντίστασης.
+Η πυκνότητα ρεύματος του διπόλου 2 είναι $\mathbf{J}_2 = I_2 \delta(\mathbf{r} - \mathbf{r}_2) \hat{\mathbf{z}}$. Το χωρικό ολοκλήρωμα γίνεται:
 
 $$
-\iiint_{V_2} \mathbf{J}_2 \cdot \mathbf{E}_1 \, dv = I_2 \int_{\text{dipole 2}} \mathbf{E}_1(\mathbf{r}_2) \cdot \hat{\mathbf{z}} \, dl = I_2 \frac{2\eta I_1 dl}{\lambda^2} \, dl
+\iiint_{V_2} \mathbf{J}_2 \cdot \mathbf{E}_1 \, dv = I_2 \int_{\text{δίπολο 2}} \mathbf{E}_1(\mathbf{r}_2) \cdot \hat{\mathbf{z}} \, dl = I_2 \frac{2\eta I_1 dl}{\lambda^2} \, dl
 $$
 
-Therefore:
+Επομένως:
 
 $$
 Z_{12} = -\frac{1}{I_1 I_2} \cdot I_2 \frac{2\eta I_1 (dl)^2}{\lambda^2} = -\frac{2\eta (dl)^2}{\lambda^2}
 $$
 
-The negative sign indicates that the induced voltage in antenna 2 due to antenna 1 has a specific phase relationship. For typical antennas, $Z_{12} = Z_{21}$ by reciprocity.
+Το αρνητικό πρόσημο υποδεικνύει ότι η επαγόμενη τάση στην κεραία 2 λόγω της κεραίας 1 έχει συγκεκριμένη συσχέτιση φάσης. Για τυπικές κεραίες, $Z_{12} = Z_{21}$ λόγω αμοιβαιότητας.
 
 ---
 
-### Exercise 8: Fictitious Magnetic Currents in the Equivalence Principle
+### Άσκηση 8: Πλασματικά Μαγνητικά Ρεύματα στην Αρχή Ισοδυναμίας
 
-**Problem:** An aperture in a perfectly conducting ground plane has a tangential electric field $\mathbf{E}_a = E_0 \hat{\mathbf{x}}$ over a rectangular region $0 \leq x \leq a$, $0 \leq y \leq b$. Use the equivalence principle to determine the equivalent magnetic current $\mathbf{M}_s$ on the aperture and set up the integral for the radiated fields.
+**Διατύπωση Προβλήματος:** Ένα άνοιγμα σε ένα τέλεια αγώγιμο επίπεδο γείωσης έχει εφαπτομενικό ηλεκτρικό πεδίο $\mathbf{E}_a = E_0 \hat{\mathbf{x}}$ πάνω σε μια ορθογώνια περιοχή $0 \leq x \leq a$, $0 \leq y \leq b$. Χρησιμοποιήστε την αρχή ισοδυναμίας για να προσδιορίσετε το ισοδύναμο μαγνητικό ρεύμα $\mathbf{M}_s$ στο άνοιγμα και να διατυπώσετε το ολοκλήρωμα για τα ακτινοβολούμενα πεδία.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Apply the equivalence principle.
-For an aperture in a perfect electric conductor (PEC), the tangential electric field in the aperture acts as an equivalent magnetic current:
+Βήμα 1: Εφαρμογή της αρχής ισοδυναμίας.
+Για ένα άνοιγμα σε έναν τέλειο ηλεκτρικό αγωγό (PEC), το εφαπτομενικό ηλεκτρικό πεδίο στο άνοιγμα δρα ως ισοδύναμο μαγνητικό ρεύμα:
 
 $$
 \mathbf{M}_s = -\hat{\mathbf{n}} \times \mathbf{E}_a
 $$
 
-where $\hat{\mathbf{n}}$ is the outward normal to the aperture. For the aperture in the $x$-$y$ plane radiating into the $z > 0$ half-space, $\hat{\mathbf{n}} = \hat{\mathbf{z}}$.
+όπου $\hat{\mathbf{n}}$ είναι το εξωτερικόθετον κάθετο διάνυσμα στο άνοιγμα. Για το άνοιγμα στο επίπεδο $x$-$y$ που ακτινοβολεί στον ημιχώρο $z > 0$, $\hat{\mathbf{n}} = \hat{\mathbf{z}}$.
 
-Step 2: Compute the equivalent magnetic current.
+Βήμα 2: Υπολογισμός ισοδύναμου μαγνητικού ρεύματος.
 
 $$
 \mathbf{M}_s = -\hat{\mathbf{z}} \times (E_0 \hat{\mathbf{x}}) = -E_0 (\hat{\mathbf{z}} \times \hat{\mathbf{x}}) = -E_0 \hat{\mathbf{y}}
 $$
 
-The equivalent magnetic current flows in the $-\hat{\mathbf{y}}$ direction across the aperture.
+Το ισοδύναμο μαγνητικό ρεύμα ρέει κατευθυνόμενο κατά $-\hat{\mathbf{y}}$ κατά μήκος του ανοίγματος.
 
-Step 3: Set up the electric vector potential.
-Since only magnetic sources exist (the PEC backplane eliminates the need for electric currents in the equivalence formulation for $z > 0$), the radiated fields come entirely from $\mathbf{F}$:
+Βήμα 3: Διατύπωση του ηλεκτρικού διανυσματικού δυναμικού.
+Εφόσον υπάρχουν μόνο μαγνητικές πηγές, τα ακτινοβολούμενα πεδία προέρχονται εξ ολοκλήρου από το $\mathbf{F}$:
 
 $$
 \mathbf{F}(\mathbf{r}) = \epsilon \iint_S \mathbf{M}_s(\mathbf{r}') \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, ds'
@@ -789,49 +789,49 @@ $$
 \mathbf{F}(\mathbf{r}) = \epsilon (-E_0 \hat{\mathbf{y}}) \int_{x'=0}^{a} \int_{y'=0}^{b} \frac{e^{-jk|\mathbf{r} - \mathbf{r}'|}}{4\pi |\mathbf{r} - \mathbf{r}'|} \, dx' dy'
 $$
 
-Step 4: Far-field form.
-In the far-field:
+Βήμα 4: Μορφή μακρινού πεδίου.
+Στο μακρινό πεδίο:
 
 $$
 \mathbf{F}(\mathbf{r}) \approx -\epsilon E_0 \frac{e^{-jkr}}{4\pi r} \iint_S e^{jk(x' \sin\theta \cos\phi + y' \sin\theta \sin\phi)} \, dx' dy' \, \hat{\mathbf{y}}
 $$
 
-Step 5: Express $\mathbf{F}$ in spherical components.
-$\hat{\mathbf{y}} = \sin\theta \sin\phi \, \hat{\mathbf{r}} + \cos\theta \sin\phi \, \hat{\boldsymbol{\theta}} + \cos\phi \, \hat{\boldsymbol{\phi}}$. For far-field, only $\theta$ and $\phi$ components matter:
+Βήμα 5: Έκφραση του $\mathbf{F}$ σε σφαιρικές συνιστώσες.
+$\hat{\mathbf{y}} = \sin\theta \sin\phi \, \hat{\mathbf{r}} + \cos\theta \sin\phi \, \hat{\boldsymbol{\theta}} + \cos\phi \, \hat{\boldsymbol{\phi}}$. Για το μακρινό πεδίο, μόνο οι συνιστώσες $\theta$ και $\phi$ έχουν σημασία:
 
 $$
-F_\theta = \mathbf{F} \cdot \hat{\boldsymbol{\theta}} = -\epsilon E_0 \frac{e^{-jkr}}{4\pi r} \cos\theta \sin\phi \times (\text{aperture integral})
+F_\theta = \mathbf{F} \cdot \hat{\boldsymbol{\theta}} = -\epsilon E_0 \frac{e^{-jkr}}{4\pi r} \cos\theta \sin\phi \times (\text{ολοκλήρωμα ανοίγματος})
 $$
 
 $$
-F_\phi = \mathbf{F} \cdot \hat{\boldsymbol{\phi}} = -\epsilon E_0 \frac{e^{-jkr}}{4\pi r} \cos\phi \times (\text{aperture integral})
+F_\phi = \mathbf{F} \cdot \hat{\boldsymbol{\phi}} = -\epsilon E_0 \frac{e^{-jkr}}{4\pi r} \cos\phi \times (\text{ολοκλήρωμα ανοίγματος})
 $$
 
-Step 6: Derive the far-field $\mathbf{E}$.
-From $\mathbf{E}_F = -\frac{1}{\epsilon} \nabla \times \mathbf{F}$, in the far-field:
+Βήμα 6: Παραγωγή του $\mathbf{E}$ μακρινού πεδίου.
+Από το $\mathbf{E}_F = -\frac{1}{\epsilon} \nabla \times \mathbf{F}$, στο μακρινό πεδίο:
 
 $$
 \mathbf{E} \approx \eta \, (\mathbf{F}_\theta \hat{\boldsymbol{\phi}} - \mathbf{F}_\phi \hat{\boldsymbol{\theta}})
 $$
 
-This provides the complete far-field pattern of the rectangular aperture antenna, establishing the connection between the aperture field distribution (Section 12) and the radiation integrals of Section 3.
+Αυτό παρέχει το πλήρες διάγραμμα μακρινού πεδίου της κεραίας ορθογώνιου ανοίγματος, θεμελιώνοντας τη σύνδεση μεταξύ της κατανομής πεδίου ανοίγματος (Ενότητα 12) και των ολοκληρωμάτων ακτινοβολίας της Ενότητας 3.
 
 ---
 
-## Exam Tip: The Far-Field Approximation and Its Validity
+## Συμβουλή Εξετάσεων: Η Προσέγγιση Μακρινού Πεδίου και η Εγκυρότητά της
 
-A frequent exam question asks you to justify or apply the far-field approximation. Memorize these three conditions and their consequences:
+Ένα συχνό ερώτημα εξετάσεων σας ζητά να δικαιολογήσετε ή να εφαρμόσετε την προσέγγιση μακρινού πεδίου. Απομνημονεύστε αυτές τις τρεις συνθήκες και τις συνέπειές τους:
 
-1. **Phase approximation:** $|\mathbf{r} - \mathbf{r}'| \approx r - \mathbf{r}' \cdot \hat{\mathbf{r}}$ is valid when $r \gg D$, where $D$ is the largest source dimension. The maximum phase error is $kD^2/(2r)$. Setting this to $\pi/8$ gives the Rayleigh distance $r_{ff} = 2D^2/\lambda$.
+1. **Προσέγγιση φάσης:** Η σχέση $|\mathbf{r} - \mathbf{r}'| \approx r - \mathbf{r}' \cdot \hat{\mathbf{r}}$ είναι έγκυρη όταν $r \gg D$, όπου $D$ είναι η μέγιστη διάσταση της πηγής. Το μέγιστο σφάλμα φάσης είναι $kD^2/(2r)$. Θέτοντας αυτό ίσο με $\pi/8$ προκύπτει η απόσταση Rayleigh $r_{ff} = 2D^2/\lambda$.
 
-2. **Amplitude approximation:** $1/|\mathbf{r} - \mathbf{r}'| \approx 1/r$ is valid when $r \gg D$. The amplitude error is typically negligible compared to the phase error.
+2. **Προσέγγιση πλάτους:** Η σχέση $1/|\mathbf{r} - \mathbf{r}'| \approx 1/r$ είναι έγκυρη όταν $r \gg D$. Το σφάλμα πλάτους είναι τυπικά αμελητέο σε σύγκριση με το σφάλμα φάσης.
 
-3. **Transverse field condition:** In the far-field, the $\hat{\mathbf{r}}$ component of the vector potential does not contribute. Only the $\theta$ and $\phi$ components matter, and $\mathbf{E} \perp \mathbf{H} \perp \hat{\mathbf{r}}$.
+3. **Συνθήκη εγκάρσιου πεδίου:** Στο μακρινό πεδίο, η συνιστώσα $\hat{\mathbf{r}}$ του διανυσματικού δυναμικού δεν συνεισφέρει. Μόνο οι συνιστώσες $\theta$ και $\phi$ έχουν σημασία, και $\mathbf{E} \perp \mathbf{H} \perp \hat{\mathbf{r}}$.
 
-**Common pitfalls:**
-- Forgetting that the Lorentz gauge condition $\nabla \cdot \mathbf{A} = -j\omega\mu\epsilon\Phi_e$ is needed to derive the wave equation. Exam solutions sometimes omit this step and lose marks.
-- Using the far-field form $e^{-jkr}/r$ without verifying that the observation point is indeed in the far-field zone. Always compute $2D^2/\lambda$ explicitly.
-- Confusing the radiated fields from $\mathbf{A}$ and $\mathbf{F}$: $\mathbf{A}$ gives $\mathbf{H} = \nabla \times \mathbf{A}/\mu$, while $\mathbf{F}$ gives $\mathbf{E} = -\nabla \times \mathbf{F}/\epsilon$. The signs and the $\mu$ vs. $\epsilon$ factors are critical.
-- Applying duality without adjusting the intrinsic impedance: when $\mathbf{E}$ and $\mathbf{H}$ are swapped, $\eta$ becomes $1/\eta$.
+**Συνηθισμένες παγίδες:**
+- Λήθη ότι η συνθήκη βαθμίδας Lorentz $\nabla \cdot \mathbf{A} = -j\omega\mu\epsilon\Phi_e$ απαιτείται για την παραγωγή της κυματικής εξίσωσης.
+- Χρήση της μορφής μακρινού πεδίου $e^{-jkr}/r$ χωρίς επαλήθευση ότι το σημείο παρατήρησης βρίσκεται πράγματι στη ζώνη μακρινού πεδίου. Υπολογίζετε πάντα ρητά το $2D^2/\lambda$.
+- Σύγχυση των ακτινοβολούμενων πεδίων από τα $\mathbf{A}$ και $\mathbf{F}$: Το $\mathbf{A}$ δίνει $\mathbf{H} = \nabla \times \mathbf{A}/\mu$, ενώ το $\mathbf{F}$ δίνει $\mathbf{E} = -\nabla \times \mathbf{F}/\epsilon$. Τα πρόσημα και οι παράγοντες $\mu$ έναντι $\epsilon$ είναι κρίσιμα.
+- Εφαρμογή δυϊκότητας χωρίς προσαρμογή της χαρακτηριστικής σύνθετης αντίστασης: όταν τα $\mathbf{E}$ και $\mathbf{H}$ εναλλάσσονται, το $\eta$ γίνεται $1/\eta$.
 
-**Pattern recognition shortcut:** If an exam problem gives you a current distribution on a wire or aperture and asks for the radiation pattern, follow the steps: current $\to$ vector potential integral $\to$ far-field approximation $\to$ transverse components $\to$ $\mathbf{E}$ via $-j\omega\mathbf{A}_\perp$. This mechanical procedure works for virtually all antenna types.
+**Σύντομος κανόνας αναγνώρισης:** Εάν ένα πρόβλημα εξετάσεων σας δίνει μια κατανομή ρεύματος σε σύρμα ή άνοιγμα και ζητά το διάγραμμα ακτινοβολίας, ακολουθήστε τα βήματα: ρεύμα $\to$ ολοκλήρωμα διανυσματικού δυναμικού $\to$ προσέγγιση μακρινού πεδίου $\to$ εγκάρσιες συνιστώσες $\to$ $\mathbf{E}$ μέσω $-j\omega\mathbf{A}_\perp$.

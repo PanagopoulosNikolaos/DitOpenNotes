@@ -1,25 +1,25 @@
-# Program 1: Built-in LED Blink
+# Πρόγραμμα 1: Αναβοσβήμα Ενσωματωμένου LED
 
-Basic Arduino program that blinks the built-in LED on and off every second.
+Βασικό πρόγραμμα Arduino που αναβοσβήνει το ενσωματωμένο LED ανοιχτό κλειστό κάθε δευτερόλεπτο.
 
-## Functionality
+## Λειτουργικότητα
 
-- Turns built-in LED ON for 1 second
-- Turns built-in LED OFF for 1 second
-- Sends status to serial monitor
+- Ανάβει το ενσωματωμένο LED για 1 δευτερόλεπτο
+- Σβήνει το ενσωματωμένο LED για 1 δευτερόλεπτο
+- Αποστέλλει κατάσταση στη σειριακή οθόνη παρακολούθησης
 
-## Upload Instructions
+## Οδηγίες Μεταφόρτωσης
 
 ```bash
 arduino-cli compile --fqbn arduino:avr:uno Program_1.ino
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Program_1.ino
 ```
 
-## Components Required
+## Απαιτούμενα Εξοπλίσματα
 
-- Arduino Uno (built-in LED on pin 13)
-- USB cable
+- Arduino Uno (ενσωματωμένο LED στην πόλωση 13)
+- Καλώδιο USB
 
-## Serial Monitor
+## Σειριακή Οθόνη Παρακολούθησης
 
-Open serial monitor at 9600 baud to see LED status messages.
+Ανοίξτε τη σειριακή οθόνη παρακολούθησης σε 9600 baud για να δείτε τα μηνύματα κατάστασης LED.

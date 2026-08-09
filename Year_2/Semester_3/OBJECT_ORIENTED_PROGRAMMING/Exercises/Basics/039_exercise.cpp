@@ -1,15 +1,15 @@
 /*
- * Exercise 39: Object-Oriented Programming Principles (Encapsulation, Abstraction)
+ * Άσκηση 39: Αρχές Αντικειμενοστραφούς Προγραμματισμού (Ενθυλάκωση, Αφαίρεση)
  *
- * Instructions:
- * 1. Create a class called PasswordManager that demonstrates encapsulation with private member variables
- * 2. Include attributes like username, encrypted password, last login date, and login attempts
- * 3. Provide public methods to verify password, update password, and check account status
- * 4. Implement abstraction by hiding complex operations like password encryption/decryption
- * 5. Create a secure interface that allows users to interact with the password manager without knowing internal details
- * 
- * Note: For this exercise, you can simulate encryption using simple character shifting
- * instead of implementing real cryptographic functions
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται PasswordManager που επιδεικνύει ενθυλάκωση με ιδιωτικές μεταβλητές μελών
+ * 2. Συμπεριλάβετε χαρακτηριστικά όπως όνομα χρήστη, κρυπτογραφημένος κωδικός, ημερομηνία τελευταίας σύνδεσης και προσπάθειες σύνδεσης
+ * 3. Παρέχετε δημόσιες μεθόδους για επαλήθευση κωδικού, ενημέρωση κωδικού και έλεγχο κατάστασης λογαριασμού
+ * 4. Υλοποιήστε αφαίρεση κρύβοντας σύνθετες λειτουργίες όπως κρυπτογράφηση/αποκρυπτογράφηση κωδικού
+ * 5. Δημιουργήστε μια ασφαλή διεπαφή που επιτρέπει στους χρήστες να αλληλεπιδρούν με τον διαχειριστή κωδικών χωρίς να γνωρίζουν εσωτερικές λεπτομέρειες
+ *
+ * Σημείωση: Για αυτή την άσκηση, μπορείτε να προσομοιώσετε την κρυπτογράφηση χρησιμοποιώντας απλή μετατόπιση χαρακτήρων
+ * αντί να υλοποιήσετε πραγματικές κρυπτογραφικές συναρτήσεις
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

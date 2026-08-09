@@ -1,16 +1,16 @@
 /*
- * Exercise 23: Vectors (Dynamic Arrays)
+ * Άσκηση 23: Διανύσματα (Δυναμικοί Πίνακες)
  *
- * Instructions:
- * 1. Create a program that implements a polynomial class using vectors to store coefficients
- * 2. Implement functions to add, subtract, and multiply polynomials
- * 3. Implement a function to evaluate the polynomial for a given value of x
- * 4. Implement a function to find the derivative of the polynomial
- * 5. Create a function to print the polynomial in a readable format
- * 
- * Polynomial representation: For ax^n + bx^(n-1) + ... + cx + d, store coefficients [a, b, ..., c, d]
- * Addition: Add corresponding coefficients
- * Derivative: For ax^n, derivative is n*ax^(n-1)
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί μια κλάση πολυωνύμου χρησιμοποιώντας διανύσματα για την αποθήκευση συντελεστών
+ * 2. Υλοποιήστε συναρτήσεις για πρόσθεση, αφαίρεση και πολλαπλασιασμό πολυωνύμων
+ * 3. Υλοποιήστε μια συνάρτηση για την αξιολόγηση του πολυωνύμου για μια δεδομένη τιμή του x
+ * 4. Υλοποιήστε μια συνάρτηση για την εύρεση της παραγώγου του πολυωνύμου
+ * 5. Δημιουργήστε μια συνάρτηση για την εκτύπωση του πολυωνύμου σε αναγνώσιμη μορφή
+ *
+ * Αναπαράσταση πολυωνύμου: Για ax^n + bx^(n-1) + ... + cx + d, αποθηκεύστε συντελεστές [a, b, ..., c, d]
+ * Πρόσθεση: Προσθέστε τους αντίστοιχους συντελεστές
+ * Παράγωγος: Για ax^n, η παράγωγος είναι n*ax^(n-1)
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

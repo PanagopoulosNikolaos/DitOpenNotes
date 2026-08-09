@@ -1,18 +1,18 @@
 /*
- * Exercise 41: Inheritance and Polymorphism
+ * Άσκηση 41: Κληρονομικότητα και Πολυμορφισμός
  *
- * Instructions:
- * 1. Create a base class called Employee with attributes like name, employee ID, and salary
- * 2. Derive classes like Manager, Developer, and Salesperson from the Employee base class
- * 3. Implement a virtual method called calculateSalary() that works differently in each derived class
- * 4. Create a function that accepts an Employee pointer/reference and calls the virtual method
- * 5. Demonstrate polymorphism by storing different employee objects in a container and processing them uniformly
- * 
- * Salary calculations:
- * - Base Employee: fixed salary
- * - Manager: base salary + bonus
- * - Developer: base salary + overtime pay
- * - Salesperson: base salary + commission based on sales
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια βασική κλάση που ονομάζεται Employee με χαρακτηριστικά όπως όνομα, αριθμό μητρώου εργαζομένου και μισθό
+ * 2. Παράγετε κλάσεις όπως Manager, Developer και Salesperson από τη βασική κλάση Employee
+ * 3. Υλοποιήστε μια εικονική μέθοδο που ονομάζεται calculateSalary() που λειτουργεί διαφορετικά σε κάθε παράγωγη κλάση
+ * 4. Δημιουργήστε μια συνάρτηση που δέχεται έναν δείκτη/αναφορά Employee και καλεί την εικονική μέθοδο
+ * 5. Επιδείξτε πολυμορφισμό αποθηκεύοντας διαφορετικά αντικείμενα εργαζομένων σε έναν περιέκτη και επεξεργαζόμενα τα ομοιόμορφα
+ *
+ * Υπολογισμοί μισθού:
+ * - Βασικός Υπάλληλος: σταθερός μισθός
+ * - Διευθυντής: βασικός μισθός + μπόνους
+ * - Προγραμματιστής: βασικός μισθός + αποζημίωση υπερωρίας
+ * - Πωλητής: βασικός μισθός + προμήθεια βάσει πωλήσεων
  */
 
 #include <iostream>
@@ -21,7 +21,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

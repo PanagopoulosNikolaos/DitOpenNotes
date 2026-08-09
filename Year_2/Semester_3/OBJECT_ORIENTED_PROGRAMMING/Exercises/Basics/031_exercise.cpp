@@ -1,12 +1,12 @@
 /*
- * Exercise 31: Constructors and Destructors
+ * Άσκηση 31: Κατασκευαστές και Καταστροφείς
  *
- * Instructions:
- * 1. Create a class called Book with attributes for title, author, ISBN, and page count
- * 2. Implement multiple constructors: default, parameterized, and copy constructor
- * 3. Implement a destructor that prints a message when a Book object is destroyed
- * 4. Demonstrate the use of all constructors and observe when destructors are called
- * 5. Create a function that takes a Book object by value to demonstrate copy constructor usage
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται Book με χαρακτηριστικά για τίτλο, συγγραφέα, ISBN και αριθμό σελίδων
+ * 2. Υλοποιήστε πολλαπλούς κατασκευαστές: προεπιλεγμένο, παραμετροποιημένο και κατασκευαστή αντιγραφής
+ * 3. Υλοποιήστε έναν καταστροφέα που εκτυπώνει ένα μήνυμα όταν καταστρέφεται ένα αντικείμενο Book
+ * 4. Επιδείξτε τη χρήση όλων των κατασκευαστών και παρατηρήστε πότε καλούνται οι καταστροφείς
+ * 5. Δημιουργήστε μια συνάρτηση που δέχεται ένα αντικείμενο Book κατά τιμή για να επιδείξετε τη χρήση του κατασκευαστή αντιγραφής
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,12 +1,12 @@
 /*
- * Exercise 27: Maps (Associative Containers)
+ * Άσκηση 27: Χάρτες (Συσχετιστικοί Περιέκτες)
  *
- * Instructions:
- * 1. Create a program that implements a word frequency counter using maps
- * 2. Read a text input and count how many times each word appears
- * 3. Store words as keys and their frequencies as values
- * 4. Implement functions to find the most frequent words and least frequent words
- * 5. Implement a function to calculate statistics like average word frequency
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί έναν μετρητή συχνότητας λέξεων χρησιμοποιώντας χάρτες
+ * 2. Διαβάστε μια κειμενική είσοδο και μετρήστε πόσες φορές εμφανίζεται κάθε λέξη
+ * 3. Αποθηκεύστε λέξεις ως κλειδιά και τις συχνότητές τους ως τιμές
+ * 4. Υλοποιήστε συναρτήσεις για εύρεση των πιο συχνών λέξεων και των λιγότερο συχνών λέξεων
+ * 5. Υλοποιήστε μια συνάρτηση για υπολογισμό στατιστικών όπως η μέση συχνότητα λέξης
  */
 
 #include <iostream>
@@ -17,7 +17,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

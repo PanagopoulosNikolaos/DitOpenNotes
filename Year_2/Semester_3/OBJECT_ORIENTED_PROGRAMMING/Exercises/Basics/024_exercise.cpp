@@ -1,12 +1,12 @@
 /*
- * Exercise 24: Vectors (Dynamic Arrays)
+ * Άσκηση 24: Διανύσματα (Δυναμικοί Πίνακες)
  *
- * Instructions:
- * 1. Create a program that implements a simple inventory management system using vectors
- * 2. Create a struct/class for items with properties like name, price, quantity, etc.
- * 3. Implement functions to add, remove, update, and search for items
- * 4. Implement functions to calculate total inventory value and find low-stock items
- * 5. Implement sorting functions to sort items by name, price, or quantity
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί ένα απλό σύστημα διαχείρισης αποθέματος χρησιμοποιώντας διανύσματα
+ * 2. Δημιουργήστε ένα struct/κλάση για αντικείμενα με ιδιότητες όπως όνομα, τιμή, ποσότητα κ.λπ.
+ * 3. Υλοποιήστε συναρτήσεις για προσθήκη, αφαίρεση, ενημέρωση και αναζήτηση αντικειμένων
+ * 4. Υλοποιήστε συναρτήσεις για τον υπολογισμό της συνολικής αξίας του αποθέματος και εύρεση αντικειμένων με χαμηλό απόθεμα
+ * 5. Υλοποιήστε συναρτήσεις ταξινόμησης για στοιχεία κατά όνομα, τιμή ή ποσότητα
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

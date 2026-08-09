@@ -1,35 +1,35 @@
-# Program 3: Temperature Controlled LED
+# Πρόγραμμα 3: LED με Ελεγχόμενη Θερμοκρασία
 
-This program reads a temperature value from the serial input and controls two LEDs based on the value:
-- If temperature ≤ 85°C: Green LED (pin 7) turns ON, Red LED (pin 8) turns OFF
-- If temperature > 85°C: Red LED (pin 8) turns ON, Green LED (pin 7) turns OFF
+Αυτό το πρόγραμμα διαβάζει μια τιμή θερμοκρασίας από τη σειριακή είσοδο και ελέγχει δύο LED βάσει της τιμής:
+- Αν θερμοκρασία ≤ 85°C: Το ΠΡΑΣΙΝΟ LED (πόλωση 7) ΑΝΑΒΕΙ, το ΚΟΚΚΙΝΟ LED (πόλωση 8) ΣΒΗΝΕΙ
+- Αν θερμοκρασία > 85°C: Το ΚΟΚΚΙΝΟ LED (πόλωση 8) ΑΝΑΒΕΙ, το ΠΡΑΣΙΝΟ LED (πόλωση 7) ΣΒΗΝΕΙ
 
-## How to Use
+## Τρόπος Χρήσης
 
-1. Upload the Program_3.ino to your Arduino:
+1. Μεταφορτώστε το Program_3.ino στο Arduino:
    ```bash
    arduino-cli compile --fqbn arduino:avr:uno Program_3.ino
    arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Program_3.ino
    ```
 
-2. Run the Python script to send temperature values:
+2. Εκτελέστε το συνηρημένο σενάριο Python για αποστολή τιμών θερμοκρασίας:
    ```bash
    python send_temp.py
    ```
 
-3. Follow the prompts to enter temperature values.
+3. Ακολουθήστε τις οδηγίες για εισαγωγή τιμών θερμοκρασίας.
 
-## Components Required
+## Απαιτούμενα Εξοπλίσματα
 
 - Arduino Uno
-- Green LED connected to pin 7
-- Red LED connected to pin 8
-- 220Ω resistors for each LED
-- Jumper wires
-- Breadboard
+- ΠΡΑΣΙΝΟ LED συνδεδεμένο στην πόλωση 7
+- ΚΟΚΚΙΝΟ LED συνδεδεμένο στην πόλωση 8
+- Αντιστάσεις 220Ω για κάθε LED
+- Ενωτικά καλώδια
+- Πινακοπλακίδιο (Breadboard)
 
-## Circuit Diagram
+## Διάγραμμα Κυκλώματος
 
-Connect as follows:
-- Green LED to pin 7 with resistor to ground
-- Red LED to pin 8 with resistor to ground
+Η σύνδεση γίνεται ως εξής:
+- ΠΡΑΣΙΝΟ LED στην πόλωση 7 με αντίσταση στη γη
+- ΚΟΚΚΙΝΟ LED στην πόλωση 8 με αντίσταση στη γη

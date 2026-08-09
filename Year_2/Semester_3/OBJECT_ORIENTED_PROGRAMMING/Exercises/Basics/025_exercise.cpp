@@ -1,12 +1,12 @@
 /*
- * Exercise 25: Maps (Associative Containers)
+ * Άσκηση 25: Χάρτες (Συσχετιστικοί Περιέκτες)
  *
- * Instructions:
- * 1. Create a program that implements a simple dictionary using maps
- * 2. Store words as keys and their definitions as values
- * 3. Implement functions to add, remove, update, and search for words
- * 4. Implement a function to find words with a specific prefix
- * 5. Implement a function to list all words in alphabetical order
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί ένα απλό λεξικό χρησιμοποιώντας χάρτες
+ * 2. Αποθηκεύστε λέξεις ως κλειδιά και τους ορισμούς τους ως τιμές
+ * 3. Υλοποιήστε συναρτήσεις για προσθήκη, αφαίρεση, ενημέρωση και αναζήτηση λέξεων
+ * 4. Υλοποιήστε μια συνάρτηση για εύρεση λέξεων με συγκεκριμένο πρόθεμα
+ * 5. Υλοποιήστε μια συνάρτηση για λίστα όλων των λέξεων σε αλφαβητική σειρά
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

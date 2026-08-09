@@ -1,97 +1,97 @@
-# Computer Architecture - Arduino Projects
+# Αρχιτεκτονική Υπολογιστών - Έργα Arduino
 
-## Program_1: LED Blink with Serial Output
+## Πρόγραμμα_1: Αναβοσβήμα LED με Σειριακή Εξαγωγή
 
-A simple Arduino sketch that blinks the built-in LED on an Arduino Uno while sending status messages to the serial monitor.
+Ένα απλό σχέδιο Arduino που αναβοσβήνει το ενσωματωμένο LED σε ένα Arduino Uno αποστέλνοντας μηνύματα κατάστασης στη σειριακή οθόνη παρακολούθησης.
 
-### Requirements
+### Απαιτήσεις
 
-- Arduino Uno microcontroller
-- USB cable (Type A to Type B)
-- Arduino CLI installed
-- Linux system with proper USB permissions
+- Μικροεπεξεργαστής Arduino Uno
+- Καλώδιο USB (Τύπου A σε Τύπου B)
+- Arduino CLI εγκατεστημένο
+- Σύστημα Linux με κατάλληλα δικαιώματα USB
 
-### Setup Instructions
+### Οδηγίες Ρύθμισης
 
-#### 1. Install Arduino CLI
+#### 1. Εγκατάσταση Arduino CLI
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
 
-Add the bin directory to your PATH:
+Προσθήκη του καταλόγου bin στο PATH:
 ```bash
 export PATH="$PATH:$HOME/Documents/University_Code/Semester_3/COMPUTER_ARCHITECTURE/bin"
 ```
 
-#### 2. Install Arduino AVR Platform
+#### 2. Εγκατάσταση Πλατφόρμας Arduino AVR
 
 ```bash
 sudo arduino-cli core install arduino:avr
 ```
 
-This installs the necessary compiler, tools, and libraries for Arduino Uno development.
+Αυτό εγκαθιστά τον απαραίτητο μεταγλωττιστή, τα εργαλεία και τις βιβλιοθήκες για την ανάπτυξη Arduino Uno.
 
-#### 3. Connect Your Arduino
+#### 3. Σύνδεση του Arduino
 
-Connect your Arduino Uno to your computer via USB cable. Verify the connection:
+Συνδέστε το Arduino Uno στον υπολογιστή σας μέσω καλωδίου USB. Επαληθεύστε τη σύνδεση:
 
 ```bash
 arduino-cli board list
 ```
 
-You should see output similar to:
+Θα πρέπει να δείτε έξοδο παρόμοια με:
 ```
 Port         Protocol Type              Board Name  FQBN            Core
 /dev/ttyACM0 serial   Serial Port (USB) Arduino Uno arduino:avr:uno arduino:avr
 ```
 
-### Building and Uploading
+### Μεταγλάττεση και Μεταφόρτωση
 
-#### Compile the Sketch
+#### Μεταγλάττεση του Σχεδίου
 
 ```bash
 cd Program_1
 arduino-cli compile --fqbn arduino:avr:uno Program_1.ino
 ```
 
-#### Upload to Arduino
+#### Μεταφόρτωση στο Arduino
 
 ```bash
 sudo arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Program_1.ino
 ```
 
-**Note:** `sudo` is required for USB serial port access. Alternatively, you can add your user to the `dialout` group:
+**Σημείωση:** Απαιτείται `sudo` για πρόσβαση στη σειριακή θύρα USB. Εναλλακτικά, μπορείτε να προσθέσετε τον χρήστη σας στην ομάδα `dialout`:
 ```bash
 sudo usermod -a -G dialout $USER
 ```
-Then log out and back in.
+Στη συνέχεια αποσυνδεθείτε και συνδεθείτε ξανά.
 
-### Program Behavior
+### Συμπεριφορά Προγράμματος
 
-- **LED**: Blinks every 2 seconds (1 second ON, 1 second OFF)
-- **Serial Output**: Prints "LED ON" and "LED OFF" messages at 9600 baud
+- **LED**: Αναβοσβήνει κάθε 2 δευτερόλεπτα (1 δευτερόλεπτο ΕΝΕΡΓΟ, 1 δευτερόλεπτο ΑΠΕΝΕΡΓΟ)
+- **Σειριακή Εξαγωγή**: Εκτυπώνει μηνύματα "LED ON" και "LED OFF" σε 9600 baud
 
-### Viewing Serial Output
+### Προβολή Σειριακής Εξαγωγής
 
-To see the serial messages in real-time:
+Για να δείτε τα σειριακά μηνύματα σε πραγματικό χρόνο:
 
 ```bash
 sudo arduino-cli monitor -p /dev/ttyACM0 --config baudrate=9600
 ```
 
-### Troubleshooting
+### Αντιμετώπιση Προβλημάτων
 
-**Error: "main file missing from sketch"**
-- Ensure the sketch folder name matches the `.ino` filename (e.g., `Program_1` folder contains `Program_1.ino`)
+**Σφάλμα: "main file missing from sketch"**
+- Βεβαιωθείτε ότι το όνομα του φακέλου του σχεδίου ταιριάζει με το όνομα αρχείου `.ino` (π.χ. ο φάκελος `Program_1` περιέχει το `Program_1.ino`)
 
-**Error: "Platform 'arduino:avr' not found"**
-- Run: `sudo arduino-cli core install arduino:avr`
+**Σφάλμα: "Platform 'arduino:avr' not found"**
+- Εκτελέστε: `sudo arduino-cli core install arduino:avr`
 
-**Error: "Permission denied" on `/dev/ttyACM0`**
-- Run upload command with `sudo`, or add your user to the `dialout` group as shown above
+**Σφάλμα: "Permission denied" στο `/dev/ttyACM0`**
+- Εκτελέστε την εντολή μεταφόρτωσης με `sudo`, ή προσθέστε τον χρήστη σας στην ομάδα `dialout` όπως περιγράφηκε παραπάνω
 
-**Arduino not detected**
-- Check USB cable connection
-- Try a different USB port
-- Run: `arduino-cli board list` to verify detection
+**Το Arduino δεν ανιχνεύεται**
+- Ελέγξτε τη σύνδεση καλωδίου USB
+- Δοκιμάστε μια διαφορετική θύρα USB
+- Εκτελέστε: `arduino-cli board list` για επαλήθευση ανίχνευσης

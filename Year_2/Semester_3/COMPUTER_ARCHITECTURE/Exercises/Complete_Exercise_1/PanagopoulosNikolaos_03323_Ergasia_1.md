@@ -1,8 +1,8 @@
-# Exercise 1 `Arduino`
+# Εργασία 1 `Arduino`
 
-- name: Nikolaos Panagopoulos
-- am: 3323
-- mail: int03323@uoi.gr
+- Όνομα: Nikolaos Panagopoulos
+- ΑΜ: 3323
+- Email: int03323@uoi.gr
 
 
 ![alt text](image.png)

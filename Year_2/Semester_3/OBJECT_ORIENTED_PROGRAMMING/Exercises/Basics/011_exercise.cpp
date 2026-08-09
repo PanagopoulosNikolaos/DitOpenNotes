@@ -1,14 +1,14 @@
 /*
- * Exercise 11: Loops (For, While)
+ * Άσκηση 11: Βρόχοι (For, While)
  *
- * Instructions:
- * 1. Create a program that finds and prints all prime numbers between 2 and 50 using nested loops
- * 2. Implement a guessing game where the user tries to guess a randomly generated number (1-100) using a while loop
- * 3. Use a for loop to calculate and print factorials of numbers from 1 to 10
- * 4. Create a pattern of stars using nested loops (e.g., right triangle, pyramid, diamond)
- * 
- * Formula for factorial: n! = n × (n-1) × (n-2) × ... × 1
- * Prime number: a natural number greater than 1 that is not a product of two smaller natural numbers
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που βρίσκει και εκτυπώνει όλους τους πρώτους αριθμούς μεταξύ 2 και 50 χρησιμοποιώντας ένθετους βρόχους
+ * 2. Υλοποιήστε ένα παιχνίδι εικασίας όπου ο χρήστης προσπαθεί να μαντέψει έναν τυχαία παραγόμενο αριθμό (1-100) χρησιμοποιώντας έναν βρόχο while
+ * 3. Χρησιμοποιήστε έναν βρόχο for για να υπολογίσετε και να εκτυπώσετε τα παραγοντικά αριθμών από 1 έως 10
+ * 4. Δημιουργήστε ένα σχήμα αστεριών χρησιμοποιώντας ένθετους βρόχους (π.χ., ορθογώνιο τρίγωνο, πυραμίδα, ρόμβος)
+ *
+ * Τύπος παραγοντικού: n! = n × (n-1) × (n-2) × ... × 1
+ * Πρώτος αριθμός: ένας φυσικός αριθμός μεγαλύτερος του 1 που δεν είναι γινόμενο δύο μικρότερων φυσικών αριθμών
  */
 
 #include <iostream>
@@ -17,7 +17,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

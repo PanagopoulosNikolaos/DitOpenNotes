@@ -1,22 +1,22 @@
 /*
- * Exercise 17: Functions (Pass-by-value vs. Pass-by-reference)
+ * Άσκηση 17: Συναρτήσεις (Πέρασμα-κατά-τιμή έναντι Πέρασμα-κατά-αναφορά)
  *
- * Instructions:
- * 1. Create a function that calculates compound interest (A = P(1+r/n)^nt) using pass-by-value
- * 2. Create a function that sorts an array using bubble sort (pass-by-reference/array)
- * 3. Create a function that removes duplicates from an array (pass-by-reference/array)
- * 4. Create a function that calculates the greatest common divisor (GCD) of two numbers using Euclid's algorithm (pass-by-value)
- * 5. Implement function overloading for a print function that handles different data types
- * 
- * Compound Interest Formula: A = P(1+r/n)^nt
- * GCD using Euclid's Algorithm: gcd(a, b) = gcd(b, a mod b) until b becomes 0
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια συνάρτηση που υπολογίζει τον σύνθετο τόκο (A = P(1+r/n)^nt) χρησιμοποιώντας πέρασμα-κατά-τιμή
+ * 2. Δημιουργήστε μια συνάρτηση που ταξινομεί έναν πίνακα χρησιμοποιώντας ταξινόμηση φυσαλίδας (πέρασμα-κατά-αναφορά/πίνακα)
+ * 3. Δημιουργήστε μια συνάρτηση που αφαιρεί τα διπλότυπα από έναν πίνακα (πέρασμα-κατά-αναφορά/πίνακα)
+ * 4. Δημιουργήστε μια συνάρτηση που υπολογίζει τον μέγιστο κοινό διαιρέτη (ΜΚΔ) δύο αριθμών χρησιμοποιώντας τον αλγόριθμο του Ευκλείδη (πέρασμα-κατά-τιμή)
+ * 5. Υλοποιήστε υπερφόρτωση συνάρτησης για μια συνάρτηση print που διαχειρίζεται διαφορετικούς τύπους δεδομένων
+ *
+ * Τύπος σύνθετου τόκου: A = P(1+r/n)^nt
+ * ΜΚΔ με τον αλγόριθμο του Ευκλείδη: gcd(a, b) = gcd(b, a mod b) μέχρι το b να γίνει 0
  */
 
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

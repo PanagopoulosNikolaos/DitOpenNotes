@@ -1,12 +1,12 @@
 /*
- * Exercise 35: The `this` Pointer
+ * Άσκηση 35: Ο Δείκτης `this`
  *
- * Instructions:
- * 1. Create a class called ShoppingCart with methods for adding items, removing items, and calculating total
- * 2. Use the `this` pointer to implement self-comparison methods (compare current cart with another)
- * 3. Implement method chaining for adding multiple items (addItem().addItem().addItem())
- * 4. Implement a self-assignment protection mechanism using `this` pointer
- * 5. Create a method that returns the current object to allow for complex method chaining
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται ShoppingCart με μεθόδους για προσθήκη αντικειμένων, αφαίρεση αντικειμένων και υπολογισμό συνόλου
+ * 2. Χρησιμοποιήστε τον δείκτη `this` για να υλοποιήσετε μεθόδους αυτο-σύγκρισης (σύγκριση τρέχοντος καλαθιού με άλλο)
+ * 3. Υλοποιήστε αλυσιδωτή κλήση μεθόδων για προσθήκη πολλαπλών αντικειμένων (addItem().addItem().addItem())
+ * 4. Υλοποιήστε έναν μηχανισμό προστασίας αυτο-ανάθεσης χρησιμοποιώντας τον δείκτη `this`
+ * 5. Δημιουργήστε μια μέθοδο που επιστρέφει το τρέχον αντικείμενο για να επιτρέπεται η σύνθετη αλυσιδωτή κλήση μεθόδων
  */
 
 #include <iostream>
@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

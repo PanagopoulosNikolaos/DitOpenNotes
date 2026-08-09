@@ -1,12 +1,12 @@
 /*
- * Exercise 38: Object-Oriented Programming Principles (Encapsulation, Abstraction)
+ * Άσκηση 38: Αρχές Αντικειμενοστραφούς Προγραμματισμού (Ενθυλάκωση, Αφαίρεση)
  *
- * Instructions:
- * 1. Create a class called LibraryBook that demonstrates encapsulation with private member variables
- * 2. Include attributes like title, author, ISBN, availability status, and checkout history
- * 3. Provide public methods to check out, return, and get information about the book
- * 4. Implement abstraction by hiding complex operations like updating checkout history
- * 5. Create a simple interface that allows users to interact with the book without knowing internal details
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται LibraryBook που επιδεικνύει ενθυλάκωση με ιδιωτικές μεταβλητές μελών
+ * 2. Συμπεριλάβετε χαρακτηριστικά όπως τίτλος, συγγραφέας, ISBN, κατάσταση διαθεσιμότητας και ιστορικό δανεισμού
+ * 3. Παρέχετε δημόσιες μεθόδους για δανεισμό, επιστροφή και λήψη πληροφοριών για το βιβλίο
+ * 4. Υλοποιήστε αφαίρεση κρύβοντας σύνθετες λειτουργίες όπως η ενημέρωση του ιστορικού δανεισμού
+ * 5. Δημιουργήστε μια απλή διεπαφή που επιτρέπει στους χρήστες να αλληλεπιδρούν με το βιβλίο χωρίς να γνωρίζουν εσωτερικές λεπτομέρειες
  */
 
 #include <iostream>
@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

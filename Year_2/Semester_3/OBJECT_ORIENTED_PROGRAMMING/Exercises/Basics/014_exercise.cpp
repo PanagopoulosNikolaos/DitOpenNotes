@@ -1,19 +1,19 @@
 /*
- * Exercise 14: Tables (Arrays)
+ * Άσκηση 14: Πίνακες (Arrays)
  *
- * Instructions:
- * 1. Create a program that implements a simple Tic-Tac-Toe game using a 3x3 character array
- * 2. Initialize the board with empty spaces
- * 3. Allow two players to take turns placing 'X' and 'O' on the board
- * 4. Implement a function to check if there's a winner (3 in a row horizontally, vertically, or diagonally)
- * 5. Display the board after each move
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί ένα απλό παιχνίδι Τρίλιζα (Tic-Tac-Toe) χρησιμοποιώντας έναν πίνακα χαρακτήρων 3x3
+ * 2. Αρχικοποιήστε τον πίνακα με κενά κελιά
+ * 3. Επιτρέψτε σε δύο παίκτες να παίζουν εναλλάξ τοποθετώντας 'X' και 'O' στον πίνακα
+ * 4. Υλοποιήστε μια συνάρτηση για να ελέγξετε αν υπάρχει νικητής (3 στη σειρά οριζόντια, κάθετα ή διαγώνια)
+ * 5. Εμφανίστε τον πίνακα μετά από κάθε κίνηση
  */
 
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

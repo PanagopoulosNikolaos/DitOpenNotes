@@ -1,13 +1,13 @@
 /*
- * Exercise 33: Constructors and Destructors
+ * Άσκηση 33: Κατασκευαστές και Καταστροφείς
  *
- * Instructions:
- * 1. Create a class called Logger that writes messages to a file
- * 2. Implement a constructor that opens the log file
- * 3. Implement a destructor that properly closes the log file
- * 4. Implement a method to write log messages with timestamps
- * 5. Demonstrate exception safety by ensuring the file is properly closed even if an exception occurs
- * 6. Implement move constructor and move assignment operator (Rule of Five)
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται Logger που γράφει μηνύματα σε ένα αρχείο
+ * 2. Υλοποιήστε έναν κατασκευαστή που ανοίγει το αρχείο καταγραφής
+ * 3. Υλοποιήστε έναν καταστροφέα που κλείνει σωστά το αρχείο καταγραφής
+ * 4. Υλοποιήστε μια μέθοδο για εγγραφή μηνυμάτων καταγραφής με χρονικές σημάνσεις
+ * 5. Επιδείξτε ασφάλεια εξαιρέσεων διασφαλίζοντας ότι το αρχείο κλείνει σωστά ακόμα και αν προκύψει εξαίρεση
+ * 6. Υλοποιήστε κατασκευαστή μετακίνησης και τελεστή ανάθεσης μετακίνησης (Κανόνας των Πέντε)
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

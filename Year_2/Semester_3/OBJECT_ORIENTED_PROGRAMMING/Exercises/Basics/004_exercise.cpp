@@ -1,11 +1,11 @@
 /*
- * Exercise 4: Variables and Data Types
+ * Άσκηση 4: Μεταβλητές και Τύποι Δεδομένων
  *
- * Instructions:
- * 1. Declare variables of different fundamental data types: int, short, long, long long, float, double, long double, char, bool
- * 2. Initialize each variable with an appropriate value
- * 3. Print each variable with a descriptive label
- * 4. Demonstrate the difference in precision between float, double, and long double by storing and printing the value of PI
+ * Οδηγίες:
+ * 1. Δηλώστε μεταβλητές διαφορετικών θεμελιωδών τύπων δεδομένων: int, short, long, long long, float, double, long double, char, bool
+ * 2. Αρχικοποιήστε κάθε μεταβλητή με μια κατάλληλη τιμή
+ * 3. Εκτυπώστε κάθε μεταβλητή με μια περιγραφική ετικέτα
+ * 4. Επιδείξτε τη διαφορά στην ακρίβεια μεταξύ float, double και long double αποθηκεύοντας και εκτυπώνοντας την τιμή του ΠΙ
  */
 
 #include <iostream>
@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

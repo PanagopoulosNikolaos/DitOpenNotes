@@ -1,12 +1,12 @@
 /*
- * Exercise 37: Object-Oriented Programming Principles (Encapsulation, Abstraction)
+ * Άσκηση 37: Αρχές Αντικειμενοστραφούς Προγραμματισμού (Ενθυλάκωση, Αφαίρεση)
  *
- * Instructions:
- * 1. Create a class called BankAccount that demonstrates encapsulation by keeping account balance private
- * 2. Provide public methods for deposit, withdrawal, and checking balance
- * 3. Implement validation in the public methods to ensure data integrity (no negative balances)
- * 4. Implement abstraction by hiding complex internal operations (like interest calculations)
- * 5. Create a simple interface that allows users to interact with the account without knowing internal details
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται BankAccount που επιδεικνύει ενθυλάκωση κρατώντας το υπόλοιπο του λογαριασμού ιδιωτικό
+ * 2. Παρέχετε δημόσιες μεθόδους για κατάθεση, ανάληψη και έλεγχο του υπολοίπου
+ * 3. Υλοποιήστε επικύρωση στις δημόσιες μεθόδους για να διασφαλίσετε την ακεραιότητα των δεδομένων (χωρίς αρνητικά υπόλοιπα)
+ * 4. Υλοποιήστε αφαίρεση κρύβοντας σύνθετες εσωτερικές λειτουργίες (όπως υπολογισμούς τόκων)
+ * 5. Δημιουργήστε μια απλή διεπαφή που επιτρέπει στους χρήστες να αλληλεπιδρούν με τον λογαριασμό χωρίς να γνωρίζουν εσωτερικές λεπτομέρειες
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

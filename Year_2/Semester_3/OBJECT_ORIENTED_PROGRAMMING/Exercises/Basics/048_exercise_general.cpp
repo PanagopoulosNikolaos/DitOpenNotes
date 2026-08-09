@@ -1,15 +1,15 @@
 /*
- * Exercise 3: Temperature Converter Class
- * 
- * Create a Temperature class with:
- * - Private member: celsius (double)
- * - Constructor that accepts celsius value
- * - Method toCelsius() returning the value in celsius
- * - Method toFahrenheit() returning (celsius × 9/5) + 32
- * - Method toKelvin() returning celsius + 273.15
- * - Overload operator << to display all three units
- * 
- * In main(), create a vector of 5 temperatures from user input and display each.
+ * Άσκηση 3: Κλάση Μετατροπέα Θερμοκρασίας
+ *
+ * Δημιουργήστε μια κλάση Temperature με:
+ * - Ιδιωτικό μέλος: κελσίου (celsius) (double)
+ * - Κατασκευαστή που δέχεται τιμή κελσίου
+ * - Μέθοδο toCelsius() που επιστρέφει την τιμή σε κελσίου
+ * - Μέθοδο toFahrenheit() που επιστρέφει (celsius × 9/5) + 32
+ * - Μέθοδο toKelvin() που επιστρέφει celsius + 273.15
+ * - Υπερφόρτωση τελεστή << για εμφάνιση και των τριών μονάδων
+ *
+ * Στο main(), δημιουργήστε ένα διάνυσμα 5 θερμοκρασιών από είσοδο χρήστη και εμφανίστε κάθε μία.
  */
 
 #include <iostream>
@@ -17,7 +17,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

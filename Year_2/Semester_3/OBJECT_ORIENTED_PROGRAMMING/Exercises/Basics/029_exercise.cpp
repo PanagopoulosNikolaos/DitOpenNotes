@@ -1,12 +1,12 @@
 /*
- * Exercise 29: Classes and Objects (The Basics)
+ * Άσκηση 29: Κλάσεις και Αντικείμενα (Τα Βασικά)
  *
- * Instructions:
- * 1. Create a class called BankAccount with private attributes for account number, balance, and owner name
- * 2. Implement public methods to deposit and withdraw money
- * 3. Implement a method to check the balance
- * 4. Implement methods to validate transactions (don't allow negative deposits or overdrafts)
- * 5. Create multiple bank account objects and demonstrate transferring money between accounts
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται BankAccount με ιδιωτικά χαρακτηριστικά για αριθμό λογαριασμού, υπόλοιπο και όνομα κατόχου
+ * 2. Υλοποιήστε δημόσιες μεθόδους για κατάθεση και ανάληψη χρημάτων
+ * 3. Υλοποιήστε μια μέθοδο για έλεγχο του υπολοίπου
+ * 4. Υλοποιήστε μεθόδους για επικύρωση συναλλαγών (μην επιτρέπετε αρνητικές καταθέσεις ή υπεραναλήψεις)
+ * 5. Δημιουργήστε πολλά αντικείμενα τραπεζικού λογαριασμού και επιδείξτε τη μεταφορά χρημάτων μεταξύ λογαριασμών
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

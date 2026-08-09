@@ -1,13 +1,13 @@
 /*
- * Exercise 43: Advanced Memory Management (Heap vs. Stack, Smart Pointers)
+ * Άσκηση 43: Προχωρημένη Διαχείριση Μνήμης (Σωρός έναντι Στοίβας, Έξυπνοι Δείκτες)
  *
- * Instructions:
- * 1. Create a class called ResourceManager that manages a dynamically allocated resource (like an array of integers)
- * 2. Implement proper memory management using the Rule of Three (constructor, copy constructor, destructor)
- * 3. Add move constructor and move assignment operator to implement the Rule of Five
- * 4. Demonstrate the difference between stack and heap allocation
- * 5. Use smart pointers (unique_ptr, shared_ptr) to manage resources automatically
- * 6. Create functions that demonstrate when objects are created on stack vs heap
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται ResourceManager που διαχειρίζεται έναν δυναμικά δεσμευμένο πόρο (όπως έναν πίνακα ακεραίων)
+ * 2. Υλοποιήστε σωστή διαχείριση μνήμης χρησιμοποιώντας τον Κανόνα των Τριών (κατασκευαστής, κατασκευαστής αντιγραφής, καταστροφέας)
+ * 3. Προσθέστε κατασκευαστή μετακίνησης και τελεστή ανάθεσης μετακίνησης για να υλοποιήσετε τον Κανόνα των Πέντε
+ * 4. Επιδείξτε τη διαφορά μεταξύ δέσμευσης σε στοίβα και σε σωρό
+ * 5. Χρησιμοποιήστε έξυπνους δείκτες (unique_ptr, shared_ptr) για να διαχειρίζεστε πόρους αυτόματα
+ * 6. Δημιουργήστε συναρτήσεις που επιδεικνύουν πότε τα αντικείμενα δημιουργούνται σε στοίβα έναντι σωρού
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

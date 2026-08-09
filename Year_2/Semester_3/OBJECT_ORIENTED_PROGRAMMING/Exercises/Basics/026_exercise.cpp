@@ -1,12 +1,12 @@
 /*
- * Exercise 26: Maps (Associative Containers)
+ * Άσκηση 26: Χάρτες (Συσχετιστικοί Περιέκτες)
  *
- * Instructions:
- * 1. Create a program that implements a phone book using maps
- * 2. Store names as keys and phone numbers as values
- * 3. Implement functions to add, remove, update, and search contacts
- * 4. Implement a function to find contacts by phone number (reverse lookup)
- * 5. Implement a function to count how many contacts have numbers from a specific area code
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί έναν τηλεφωνικό κατάλογο χρησιμοποιώντας χάρτες
+ * 2. Αποθηκεύστε ονόματα ως κλειδιά και τηλεφωνικούς αριθμούς ως τιμές
+ * 3. Υλοποιήστε συναρτήσεις για προσθήκη, αφαίρεση, ενημέρωση και αναζήτηση επαφών
+ * 4. Υλοποιήστε μια συνάρτηση για εύρεση επαφών με βάση τον τηλεφωνικό αριθμό (αντίστροφη αναζήτηση)
+ * 5. Υλοποιήστε μια συνάρτηση για μέτρηση πόσες επαφές έχουν αριθμούς από μια συγκεκριμένη περιοχή κωδικού
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

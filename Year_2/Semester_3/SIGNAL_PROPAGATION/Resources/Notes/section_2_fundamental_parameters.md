@@ -1,515 +1,515 @@
-# Fundamental Parameters of Antennas
+# Θεμελιώδεις Παράμετροι Κεραιών
 
-Antenna fundamental parameters are the set of metrics used to characterize the performance of any antenna in terms of its radiation properties, impedance behavior, polarization characteristics, and system-level interaction. These parameters enable quantitative comparison between different antenna designs and are essential for predicting link performance in wireless communication, radar, and sensing systems. This section defines each parameter formally, establishes the mathematical relationships between them, and provides worked examples demonstrating their computation and application.
-
----
-
-## 1. Conceptual Foundation
-
-### 1.1 Why Antenna Parameters Are Needed
-
-An antenna is the interface between a guided-wave circuit (transmission line) and free-space propagation. To predict how much power is transferred from the transmitter to the receiver, the following must be known:
-
-- How the antenna distributes power in space (radiation pattern, directivity, gain).
-- How efficiently it converts guided power to radiated power (efficiency).
-- Over what frequency range it operates effectively (bandwidth).
-- How its orientation and wave polarization affect coupling (polarization mismatch).
-- How the antenna interacts with the connected circuit (input impedance, VSWR).
-- How much noise the antenna contributes to the system (antenna temperature).
-
-These parameters are not independent: directivity, gain, efficiency, beamwidth, and effective area are related through fundamental electromagnetic relationships.
-
-### 1.2 System-Level Perspective
-
-In a communication link, the transmitter delivers power $P_t$ to its antenna, which radiates a fraction $e_{cd}$ (radiation efficiency) of that power. The radiated power is concentrated according to the directivity pattern. At the receiver, the antenna captures power according to its effective area and efficiency. The **Friis transmission equation** ties all these parameters together into a single link budget.
+Οι θεμελιώδεις παράμετροι των κεραιών αποτελούν το σύνολο των μεγεθών που χρησιμοποιούνται για τον χαρακτηρισμό της απόδοσης κάθε κεραίας ως προς τις ιδιότητες ακτινοβολίας, τη συμπεριφορά σύνθετης αντίστασης, τα χαρακτηριστικά πόλωσης και την αλληλεπίδραση σε επίπεδο συστήματος. Αυτές οι παράμετροι επιτρέπουν τη ποσοτική σύγκριση μεταξύ διαφορετικών σχεδιάσεων κεραιών και είναι απαραίτητες για την πρόβλεψη της απόδοσης της ζεύξης σε συστήματα ασύρματων επικοινωνιών, ραντάρ και τηλεπισκόπησης. Αυτή η ενότητα ορίζει τυπικά κάθε παράμετρο, εδραιώνει τις μαθηματικές σχέσεις μεταξύ τους και παρέχει λυμένες ασκήσεις που επιδεικνύουν τον υπολογισμό και την εφαρμογή τους.
 
 ---
 
-## 2. Formal Definitions and Models
+## 1. Εννοιολογικό Υπόβαθρο
 
-### 2.1 Radiation Pattern
+### 1.1 Γιατί Είναι Απαραίτητες οι Παράμετροι Κεραιών
 
-The **radiation pattern** (or antenna pattern) is a graphical or mathematical representation of the radiation properties of the antenna as a function of spatial coordinates (typically $\theta$ and $\phi$ in a spherical coordinate system).
+Μια κεραία αποτελεί τη διεπαφή μεταξύ ενός κυκλώματος καθοδηγούμενου κύματος (γραμμή μεταφοράς) και της διάδοσης στον ελεύθερο χώρο. Για να προβλεφθεί πόση ισχύς μεταφέρεται από τον πομπό στον δέκτη, πρέπει να είναι γνωστά τα εξής:
 
-**Normalized field pattern:**
+- Πώς κατανέμει η κεραία την ισχύ στον χώρο (διάγραμμα ακτινοβολίας, κατευθυντικότητα, κέρδος).
+- Πόσο αποτελεσματικά μετατρέπει την καθοδηγούμενη ισχύ σε ακτινοβολούμενη ισχύ (απόδοση).
+- Σε ποιο εύρος συχνοτήτων λειτουργεί αποτελεσματικά (εύρος ζώνης).
+- Πώς ο προσανατολισμός της και η πόλωση του κύματος επηρεάζουν τη σύζευξη (προσαρμογή πόλωσης).
+- Πώς αλληλεπιδρά η κεραία με το συνδεδεμένο κύκλωμα (σύνθετη αντίσταση εισόδου, VSWR).
+- Πόσο θόρυβο συνεισφέρει η κεραία στο σύστημα (θερμοκρασία κεραίας).
+
+Αυτές οι παράμετροι δεν είναι ανεξάρτητες: η κατευθυντικότητα, το κέρδος, η απόδοση, το εύρος δέσμης και η ενεργός επιφάνεια συνδέονται μέσω θεμελιωδών ηλεκτρομαγνητικών σχέσεων.
+
+### 1.2 Οπτική σε Επίπεδο Συστήματος
+
+Σε μια ζεύξη επικοινωνίας, ο πομπός παρέχει ισχύ $P_t$ στην κεραία του, η οποία ακτινοβολεί ένα κλάσμα $e_{cd}$ (απόδοση ακτινοβολίας) αυτής της ισχύος. Η ακτινοβολούμενη ισχύς συγκεντρώνεται σύμφωνα με το διάγραμμα κατευθυντικότητας. Στον δέκτη, η κεραία συλλαμβάνει ισχύ σύμφωνα με την ενεργό επιφάνεια και την απόδοσή της. Η **εξίσωση μετάδοσης Friis** συνδέει όλες αυτές τις παραμέτρους σε έναν ενιαίο υπολογισμό προϋπολογισμού ζεύξης (link budget).
+
+---
+
+## 2. Τυπικοί Ορισμοί και Μοντέλα
+
+### 2.1 Διάγραμμα Ακτινοβολίας
+
+Το **διάγραμμα ακτινοβολίας** (radiation pattern ή antenna pattern) είναι μια γραφική ή μαθηματική αναπαράσταση των ιδιοτήτων ακτινοβολίας της κεραίας ως συνάρτηση των χωρικών συντεταγμένων (συνήθως $\theta$ και $\phi$ σε ένα σφαιρικό σύστημα συντεταγμένων).
+
+**Κανονικοποιημένο διάγραμμα πεδίου (Normalized field pattern):**
 
 $$
 F(\theta, \phi) = \frac{|\mathbf{E}(\theta, \phi)|}{|\mathbf{E}_{\text{max}}|}
 $$
 
-**Normalized power pattern:**
+**Κανονικοποιημένο διάγραμμα ισχύος (Normalized power pattern):**
 
 $$
 P_n(\theta, \phi) = \frac{S(\theta, \phi)}{S_{\text{max}}} = |F(\theta, \phi)|^2
 $$
 
-where $S(\theta, \phi)$ is the power density at $(\theta, \phi)$.
+όπου $S(\theta, \phi)$ είναι η πυκνότητα ισχύος στο $(\theta, \phi)$.
 
-**Pattern lobes:**
-- **Main lobe:** The lobe containing the direction of maximum radiation.
-- **Side lobes:** All other lobes. The side lobe level (SLL) is typically expressed in dB relative to the main lobe peak.
-- **Back lobe:** The lobe opposite the main lobe ($180^\circ$).
+**Λοβοί διαγράμματος (Pattern lobes):**
+- **Κύριος λοβός (Main lobe):** Ο λοβός που περιέχει τη κατεύθυνση μέγιστης ακτινοβολίας.
+- **Πλευρικοί λοβοί (Side lobes):** Όλοι οι άλλοι λοβοί. Η στάθμη πλευρικών λοβών (Side Lobe Level - SLL) εκφράζεται συνήθως σε dB ως προς την κορυφή του κύριου λοβού.
+- **Οπίσθιος λοβός (Back lobe):** Ο λοβός απέναντι από τον κύριο λοβό ($180^\circ$).
 
-> **[Key Insight]** The radiation pattern is a far-field quantity. It is independent of distance $r$ in the far-field region ($r > 2D^2/\lambda$). Patterns measured at distances closer than this exhibit distance-dependent angular distributions and are not valid for system-level characterization.
+> **[Βασική Παρατήρηση]** Το διάγραμμα ακτινοβολίας είναι μέγεθος μακρινού πεδίου (far-field). Είναι ανεξάρτητο της απόστασης $r$ στη περιοχή μακρινού πεδίου ($r > 2D^2/\lambda$). Διαγράμματα που μετρώνται σε μικρότερες αποστάσεις εμφανίζουν γωνιακές κατανομές εξαρτώμενες από την απόσταση και δεν είναι έγκυρα για χαρακτηρισμό σε επίπεδο συστήματος.
 
-### 2.2 Radiation Power Density
+### 2.2 Πυκνότητα Ισχύος Ακτινοβολίας
 
-The **radiation power density** (or Poynting vector magnitude) at a point in space is the time-average power per unit area.
+Η **πυκνότητα ισχύος ακτινοβολίας** (ή μέγεθος του διανύσματος Poynting) σε ένα σημείο του χώρου είναι η μέση χρονικά ισχύς ανά μονάδα επιφάνειας.
 
-For the far-field region, where $\mathbf{E}$ and $\mathbf{H}$ are perpendicular and related by $\mathbf{H} = \frac{\hat{\mathbf{r}} \times \mathbf{E}}{\eta}$:
+Για τη περιοχή μακρινού πεδίου, όπου τα $\mathbf{E}$ και $\mathbf{H}$ είναι κάθετα και συνδέονται μέσω της σχέσης $\mathbf{H} = \frac{\hat{\mathbf{r}} \times \mathbf{E}}{\eta}$:
 
 $$
-S(\theta, \phi) = \frac{|\mathbf{E}(\theta, \phi)|^2}{2\eta} \quad \text{(W/m}^2\text{, peak formulation)}
+S(\theta, \phi) = \frac{|\mathbf{E}(\theta, \phi)|^2}{2\eta} \quad \text{(W/m}^2\text{, διατύπωση πλάτους κορυφής)}
 $$
 
-where $\eta = \sqrt{\mu/\epsilon} \approx 120\pi \;\Omega$ in free space.
+όπου $\eta = \sqrt{\mu/\epsilon} \approx 120\pi \;\Omega$ στον ελεύθερο χώρο.
 
-The total radiated power is the integral of the power density over a closed sphere:
+Η συνολική ακτινοβολούμενη ισχύς είναι το ολοκλήρωμα της πυκνότητας ισχύος πάνω σε μια κλειστή σφαίρα:
 
 $$
 P_{\text{rad}} = \oint_S S(\theta, \phi) \, dA = \int_0^{2\pi} \int_0^{\pi} S(\theta, \phi) r^2 \sin\theta \, d\theta \, d\phi
 $$
 
-### 2.3 Radiation Intensity
+### 2.3 Ένταση Ακτινοβολίας
 
-The **radiation intensity** $U(\theta, \phi)$ is the power radiated per unit solid angle (steradian):
+Η **ένταση ακτινοβολίας** (radiation intensity) $U(\theta, \phi)$ είναι η ισχύς που ακτινοβολείται ανά μονάδα στερεάς γωνίας (steradian):
 
 $$
 U(\theta, \phi) = r^2 S(\theta, \phi) \quad \text{(W/sr)}
 $$
 
-The key advantage of radiation intensity is that it is independent of distance $r$ in the far field.
+Το κύριο πλεονέκτημα της έντασης ακτινοβολίας είναι ότι είναι ανεξάρτητη της απόστασης $r$ στο μακρινό πεδίο.
 
-Total radiated power in terms of radiation intensity:
+Η συνολική ακτινοβολούμενη ισχύς ως προς την ένταση ακτινοβολίας:
 
 $$
 P_{\text{rad}} = \int_0^{2\pi} \int_0^{\pi} U(\theta, \phi) \sin\theta \, d\theta \, d\phi
 $$
 
-### 2.4 Beamwidth
+### 2.4 Εύρος Δέσμης
 
-Two beamwidth definitions are universally used:
+Δύο ορισμοί εύρους δέσμης (beamwidth) χρησιμοποιούνται παγκοσμίως:
 
-**Half-Power Beamwidth (HPBW):** The angular width of the main lobe measured between the points where the power pattern drops to one-half ($-3$ dB) of its maximum value.
+**Εύρος Δέσμης Ημισείας Ισχύος (Half-Power Beamwidth - HPBW):** Το γωνιακό εύρος του κύριου λοβού μετρούμενο μεταξύ των σημείων όπου το διάγραμμα ισχύος πέφτει στο μισό ($-3$ dB) της μέγιστης τιμής του.
 
-**First-Null Beamwidth (FNBW):** The angular width between the first nulls on either side of the main lobe.
+**Εύρος Δέσμης Πρώτων Μηδενικών (First-Null Beamwidth - FNBW):** Το γωνιακό εύρος μεταξύ των πρώτων μηδενισμών στις δύο πλευρές του κύριου λοβού.
 
-For a uniform line source of length $L$:
-
-$$
-\text{HPBW} \approx \frac{0.886\lambda}{L} \quad \text{(radians, large } L/\lambda \text{)}
-$$
+Για μια ομοιόμορφη γραμμική πηγή μήκους $L$:
 
 $$
-\text{FNBW} \approx \frac{2\lambda}{L} \quad \text{(radians)}
+\text{HPBW} \approx \frac{0.886\lambda}{L} \quad \text{(ακτίνια/radians, για μεγάλο } L/\lambda \text{)}
 $$
 
-> **[Key Insight]** There is a fundamental trade-off: higher directivity (narrower beam) requires a larger electrical aperture $D/\lambda$. This is the antenna equivalent of the Heisenberg uncertainty principle — you cannot simultaneously have a small antenna and a narrow beam.
+$$
+\text{FNBW} \approx \frac{2\lambda}{L} \quad \text{(ακτίνια/radians)}
+$$
 
-### 2.5 Directivity
+> **[Βασική Παρατήρηση]** Υπάρχει ένας θεμελιώδης συμβιβασμός: υψηλότερη κατευθυντικότητα (στενότερη δέσμη) απαιτεί μεγαλύτερο ηλεκτρικό άνοιγμα $D/\lambda$. Αυτό είναι το ισοδύναμο της αρχής αβεβαιότητας του Heisenberg στις κεραίες — δεν μπορείτε να έχετε ταυτόχρονα μικρή κεραία και στενή δέσμη.
 
-**Directivity** $D(\theta, \phi)$ is the ratio of the radiation intensity in a given direction to the radiation intensity averaged over all directions:
+### 2.5 Κατευθυντικότητα
+
+Η **κατευθυντικότητα** (directivity) $D(\theta, \phi)$ είναι ο λόγος της έντασης ακτινοβολίας σε μια δεδομένη κατεύθυνση προς την ένταση ακτινοβολίας εξομαλυμένη (μέση τιμή) σε όλες τις κατευθύνσεις:
 
 $$
 D(\theta, \phi) = \frac{U(\theta, \phi)}{U_0} = \frac{4\pi U(\theta, \phi)}{P_{\text{rad}}}
 $$
 
-where $U_0 = P_{\text{rad}} / (4\pi)$ is the radiation intensity of an isotropic source radiating the same total power.
+όπου $U_0 = P_{\text{rad}} / (4\pi)$ είναι η ένταση ακτινοβολίας μιας ισοτροπικής πηγής που ακτινοβολεί την ίδια συνολική ισχύ.
 
-**Maximum directivity** $D_0$ (usually simply called "directivity") is the directivity in the direction of maximum radiation:
+Η **μέγιστη κατευθυντικότητα** $D_0$ (συνήθως αναφερόμενη απλά ως "κατευθυντικότητα") είναι η κατευθυντικότητα στη κατεύθυνση της μέγιστης ακτινοβολίας:
 
 $$
 D_0 = \frac{4\pi U_{\text{max}}}{P_{\text{rad}}}
 $$
 
-For a rotationally symmetric pattern with a single main lobe, an approximate formula is:
+Για ένα περιστροφικά συμμετρικό διάγραμμα με έναν μόνο κύριο λοβό, ένας προσεγγιστικός τύπος είναι:
 
 $$
 D_0 \approx \frac{4\pi}{\Theta_{1r} \Theta_{2r}}
 $$
 
-where $\Theta_{1r}$ and $\Theta_{2r}$ are the HPBW in radians in two orthogonal planes.
+όπου $\Theta_{1r}$ και $\Theta_{2r}$ είναι τα HPBW σε ακτίνια (radians) σε δύο ορθογώνια επίπεδα.
 
-**Kraus' approximate formula:**
+**Προσεγγιστικός τύπος του Kraus:**
 
 $$
-D_0 \approx \frac{41,253}{\Theta_{1d} \Theta_{2d}}
+D_0 \approx \frac{41.253}{\Theta_{1d} \Theta_{2d}}
 $$
 
-where $\Theta_{1d}$ and $\Theta_{2d}$ are the HPBW in degrees.
+όπου $\Theta_{1d}$ και $\Theta_{2d}$ είναι τα HPBW σε μοίρες (degrees).
 
-> **[Key Insight]** Directivity is purely a function of the radiation pattern shape. It does not include ohmic losses in the antenna structure.
+> **[Βασική Παρατήρηση]** Η κατευθυντικότητα είναι αμιγώς συνάρτηση της μορφής του διαγράμματος ακτινοβολίας. Δεν περιλαμβάνει ωμικές απώλειες στη δομή της κεραίας.
 
-### 2.6 Numerical Techniques
+### 2.6 Αριθμητικές Τεχνικές
 
-When closed-form pattern integration is not possible, directivity and other parameters are computed numerically. For a pattern sampled at discrete angles $(\theta_i, \phi_j)$:
+Όταν η ολοκλήρωση του διαγράμματος σε κλειστή μορφή δεν είναι εφικτή, η κατευθυντικότητα και άλλες παράμετροι υπολογίζονται αριθμητικά. Για ένα διάγραμμα με δειγματοληψία σε διακριτές γωνίες $(\theta_i, \phi_j)$:
 
-1. Compute $U_{ij} = U(\theta_i, \phi_j)$.
-2. Compute the integral numerically:
+1. Υπολογισμός $U_{ij} = U(\theta_i, \phi_j)$.
+2. Αριθμητικός υπολογισμός του ολοκληρώματος:
 
    $$
    P_{\text{rad}} \approx \sum_{i} \sum_{j} U_{ij} \sin\theta_i \, \Delta\theta \, \Delta\phi
    $$
 
-3. Compute $D_0 = 4\pi U_{\text{max}} / P_{\text{rad}}$.
+3. Υπολογισμός $D_0 = 4\pi U_{\text{max}} / P_{\text{rad}}$.
 
-Common integration rules: Simpson's rule, trapezoidal rule, or Gauss-Legendre quadrature.
+Κοινοί κανόνες ολοκλήρωσης: κανόνας Simpson, τραπεζοειδής κανόνας ή τετραγωνισμός Gauss-Legendre.
 
-### 2.7 Antenna Efficiency
+### 2.7 Απόδοση Κεραίας
 
-The **total antenna efficiency** $e_0$ accounts for all losses in the antenna and its near environment:
+Η **συνολική απόδοση κεραίας** $e_0$ λαμβάνει υπόψη όλες τις απώλειες στην κεραία και το κοντινό της περιβάλλον:
 
 $$
 e_0 = e_r e_c e_d
 $$
 
-where:
-- $e_r$ = reflection (mismatch) efficiency = $1 - |\Gamma|^2$, where $\Gamma = (Z_{\text{in}} - Z_0)/(Z_{\text{in}} + Z_0)$.
-- $e_c$ = conduction efficiency (ohmic losses in conductors).
-- $e_d$ = dielectric efficiency (losses in dielectric materials surrounding or supporting the antenna).
+όπου:
+- $e_r$ = απόδοση ανάκλασης (προσαρμογής) = $1 - |\Gamma|^2$, όπου $\Gamma = (Z_{\text{in}} - Z_0)/(Z_{\text{in}} + Z_0)$.
+- $e_c$ = απόδοση αγωγιμότητας (ωμικές απώλειες στους αγωγούς).
+- $e_d$ = διηλεκτρική απόδοση (απώλειες στα διηλεκτρικά υλικά που περιβάλλουν ή υποστηρίζουν την κεραία).
 
-The product $e_{cd} = e_c e_d$ is the **radiation efficiency** (often denoted simply as $e$ or $\eta_{\text{rad}}$).
+Το γινόμενο $e_{cd} = e_c e_d$ είναι η **απόδοση ακτινοβολίας** (radiation efficiency, συχνά συμβολίζεται ως $e$ ή $\eta_{\text{rad}}$).
 
-> **[Key Insight]** For well-matched antennas ($\Gamma \approx 0$), $e_0 \approx e_{cd}$. Mismatch losses can dominate if the antenna is not properly matched to the feed line.
+> **[Βασική Παρατήρηση]** Για καλά προσαρμοσμένες κεραίες ($\Gamma \approx 0$), $e_0 \approx e_{cd}$. Οι απώλειες προσαρμογής μπορούν να κυριαρχήσουν εάν η κεραία δεν είναι σωστά προσαρμοσμένη στη γραμμή τροφοδοσίας.
 
-### 2.8 Gain
+### 2.8 Κέρδος
 
-**Gain** $G(\theta, \phi)$ is the ratio of the radiation intensity in a given direction to the radiation intensity that would be obtained if the power accepted by the antenna were radiated isotropically:
+Το **κέρδος** (Gain) $G(\theta, \phi)$ είναι ο λόγος της έντασης ακτινοβολίας σε μια δεδομένη κατεύθυνση προς την ένταση ακτινοβολίας που θα λαμβανόταν εάν η ισχύς που έγινε δεκτή από την κεραία ακτινοβολούνταν ισοτροπικά:
 
 $$
 G(\theta, \phi) = \frac{4\pi U(\theta, \phi)}{P_{\text{in}}}
 $$
 
-where $P_{\text{in}}$ is the power accepted by the antenna (input power minus reflected power).
+όπου $P_{\text{in}}$ είναι η ισχύς που έγινε δεκτή από την κεραία (εισαγόμενη ισχύς μείον την ανακλώμενη ισχύ).
 
-**Maximum gain** $G_0$ relates to directivity through efficiency:
+Το **μέγιστο κέρδος** $G_0$ σχετίζεται με την κατευθυντικότητα μέσω της απόδοσης:
 
 $$
 G_0 = e_{cd} D_0
 $$
 
-In decibels:
+Σε ντεσιμπέλ (decibels):
 
 $$
 G_0(\text{dBi}) = 10 \log_{10}(G_0)
 $$
 
-The unit "dBi" indicates gain relative to an isotropic radiator.
+Η μονάδα "dBi" δηλώνει κέρδος ως προς έναν ισοτροπικό ακτινοβολητή (isotropic radiator).
 
-**Absolute gain** (sometimes called "realized gain") includes all efficiencies including mismatch:
+Το **απόλυτο κέρδος** (Absolute gain / realized gain) περιλαμβάνει όλες τις αποδόσεις, συμπεριλαμβανομένης της προσαρμογής:
 
 $$
 G_{\text{abs}} = e_0 D_0
 $$
 
-### 2.9 Beam Efficiency
+### 2.9 Απόδοση Δέσμης
 
-**Beam efficiency** $\varepsilon_B$ is the ratio of the power radiated within the main lobe to the total radiated power:
+Η **απόδοση δέσμης** (beam efficiency) $\varepsilon_B$ είναι ο λόγος της ισχύος που ακτινοβολείται εντός του κύριου λοβού προς τη συνολική ακτινοβολούμενη ισχύ:
 
 $$
-\varepsilon_B = \frac{\int_{\text{main lobe}} U(\theta, \phi) \, d\Omega}{\int_{4\pi} U(\theta, \phi) \, d\Omega}
+\varepsilon_B = \frac{\int_{\text{κύριος λοβός}} U(\theta, \phi) \, d\Omega}{\int_{4\pi} U(\theta, \phi) \, d\Omega}
 $$
 
-Beam efficiency is a measure of how well the antenna concentrates power in the desired direction. A high beam efficiency implies low side lobe levels.
+Η απόδοση δέσμης αποτελεί μέτρο του πόσο καλά συγκεντρώνει η κεραία την ισχύ στην επιθυμητή κατεύθυνση. Υψηλή απόδοση δέσμης συνεπάγεται χαμηλά επίπεδα πλευρικών λοβών.
 
-### 2.10 Bandwidth
+### 2.10 Εύρος Ζώνης
 
-**Bandwidth** is the range of frequencies over which the antenna performance meets a specified standard with respect to some characteristic (impedance, pattern, gain, polarization, etc.).
+Το **εύρος ζώνης** (bandwidth) είναι το εύρος συχνοτήτων εντός του οποίου η απόδοση της κεραίας ικανοποιεί ένα καθορισμένο πρότυπο ως προς κάποιο χαρακτηριστικό (σύνθετη αντίσταση, διάγραμμα, κέρδος, πόλωση κ.λπ.).
 
-Common definitions:
-- **Impedance bandwidth:** Frequencies where VSWR $\leq$ 2:1 (or equivalently $|\Gamma| \leq 1/3$, return loss $\geq$ 9.54 dB).
-- **Pattern bandwidth:** Frequencies where the pattern shape (HPBW, SLL) remains within acceptable limits.
-- **Gain bandwidth:** Frequencies where gain remains within a specified variation (e.g., $\pm 1$ dB).
+Κοινοί ορισμοί:
+- **Εύρος ζώνης σύνθετης αντίστασης:** Συχνότητες όπου VSWR $\leq$ 2:1 (ή ισοδύναμα $|\Gamma| \leq 1/3$, απώλεια επιστροφής $\geq$ 9.54 dB).
+- **Εύρος ζώνης διαγράμματος:** Συχνότητες όπου η μορφή του διαγράμματος (HPBW, SLL) παραμένει εντός αποδεκτών ορίων.
+- **Εύρος ζώνης κέρδους:** Συχνότητες όπου το κέρδος παραμένει εντός καθορισμένης διακύμανσης (π.χ. $\pm 1$ dB).
 
-**Bandwidth classification:**
-- Narrowband: BW $<$ 10% of center frequency.
-- Broadband: BW $\geq$ 10%.
-- Frequency-independent: BW $\geq$ 10:1 ratio (decades).
+**Ταξινόμηση εύρους ζώνης:**
+- Στενού εύρους (Narrowband): BW $<$ 10% της κεντρικής συχνότητας.
+- Ευρέως εύρους (Broadband): BW $\geq$ 10%.
+- Ανεξάρτητο συχνότητας (Frequency-independent): BW $\geq$ λόγος 10:1 (δεκαετίες).
 
-### 2.11 Polarization
+### 2.11 Πόλωση
 
-**Polarization** of a radiated wave is defined by the locus traced by the tip of the electric field vector as a function of time, viewed along the direction of propagation.
+Η **πόλωση** (polarization) ενός ακτινοβολούμενου κύματος ορίζεται από τον γεωμετρικό τόπο που διαγράφει η κορυφή του διανύσματος του ηλεκτρικού πεδίου ως συνάρτηση του χρόνου, όπως παρατηρείται κατά μήκος της κατεύθυνσης διάδοσης.
 
-**Types:**
-- **Linear polarization:** The electric field oscillates along a fixed line.
-  - Vertical, horizontal, or slant ($\pm 45^\circ$).
-- **Circular polarization:** The electric field vector rotates at a constant magnitude.
-  - Right-hand circular (RHCP) or left-hand circular (LHCP), depending on rotation direction.
-- **Elliptical polarization:** The general case, where the field vector traces an ellipse.
+**Τύποι:**
+- **Γραμμική πόλωση (Linear polarization):** Το ηλεκτρικό πεδίο ταλαντώνεται κατά μήκος μιας σταθερής ευθείας.
+  - Κατακόρυφη (vertical), οριζόντια (horizontal) ή κεκλιμένη ($\pm 45^\circ$).
+- **Κυκλική πόλωση (Circular polarization):** Το δάνυσμα του ηλεκτρικού πεδίου περιστρέφεται με σταθερό μέτρο.
+  - Δεξιόστροφη κυκλική (RHCP) ή αριστερόστροφη κυκλική (LHCP), ανάλογα με τη κατεύθυνση περιστροφής.
+- **Ελλειπτική πόλωση (Elliptical polarization):** Η γενική περίπτωση, όπου το δάνυσμα πεδίου διαγράφει έλλειψη.
 
-**Polarization parameters:**
-- **Axial ratio (AR):** Ratio of major axis to minor axis of the polarization ellipse:
+**Παράμετροι πόλωσης:**
+- **Λόγος αξόνων (Axial Ratio - AR):** Ο λόγος του μεγάλου προς τον μικρό άξονα της έλλειψης πόλωσης:
   $$
   \text{AR} = \frac{E_{\text{max}}}{E_{\text{min}}}, \quad 1 \leq \text{AR} \leq \infty
   $$
-  For linear polarization, $\text{AR} \to \infty$; for circular, $\text{AR} = 1$ (0 dB).
-- **Tilt angle:** The orientation angle of the ellipse major axis.
-- **Sense:** Determined by the direction of rotation (RHCP or LHCP).
+  Για γραμμική πόλωση, $\text{AR} \to \infty$, για κυκλική, $\text{AR} = 1$ (0 dB).
+- **Γωνία κλίσης (Tilt angle):** Η γωνία προσανατολισμού του μεγάλου άξονα της έλλειψης.
+- **Φορά (Sense):** Καθορίζεται από τη κατεύθυνση περιστροφής (RHCP ή LHCP).
 
-**Polarization loss factor (PLF):**
+**Παράγοντας Απώλειας Πόλωσης (Polarization Loss Factor - PLF):**
 
-When a receiving antenna with polarization vector $\hat{\mathbf{p}}_r$ is illuminated by a wave with polarization vector $\hat{\mathbf{p}}_w$:
+Όταν μια κεραία λήψης με διάνυσμα πόλωσης $\hat{\mathbf{p}}_r$ φωτίζεται από ένα κύμα με διάνυσμα πόλωσης $\hat{\mathbf{p}}_w$:
 
 $$
 \text{PLF} = |\hat{\mathbf{p}}_w \cdot \hat{\mathbf{p}}_r|^2
 $$
 
-For perfectly matched polarizations, PLF = 1 (0 dB). For orthogonal polarizations (e.g., vertical Tx and horizontal Rx), PLF = 0 ($-\infty$ dB). For circular-to-linear, PLF = 0.5 ($-3$ dB).
+Για πλήρως προσαρμοσμένες πολώσεις, PLF = 1 (0 dB). Για ορθογώνιες πολώσεις (π.χ. κατακόρυφος Tx και οριζόντιος Rx), PLF = 0 ($-\infty$ dB). Για μετατροπή κυκλικής σε γραμμική, PLF = 0.5 ($-3$ dB).
 
-### 2.12 Input Impedance
+### 2.12 Σύνθετη Αντίσταση Εισόδου
 
-**Input impedance** $Z_{\text{in}}$ is the impedance presented by the antenna at its terminals:
+Η **σύνθετη αντίσταση εισόδου** (input impedance) $Z_{\text{in}}$ είναι η αντίσταση που παρουσιάζει η κεραία στους ακροδέκτες της:
 
 $$
 Z_{\text{in}} = R_{\text{in}} + jX_{\text{in}}
 $$
 
-where $R_{\text{in}}$ consists of:
-- **Radiation resistance** $R_r$: represents power radiated into space.
-- **Loss resistance** $R_L$: represents ohmic and dielectric losses.
+όπου το $R_{\text{in}}$ αποτελείται από:
+- **Αντίσταση ακτινοβολίας** $R_r$: αντιπροσωπεύει την ισχύ που ακτινοβολείται στον χώρο.
+- **Αντίσταση απωλειών** $R_L$: αντιπροσωπεύει τις ωμικές και διηλεκτρικές απώλειες.
 
 $$
 R_{\text{in}} = R_r + R_L
 $$
 
-The **Voltage Standing Wave Ratio (VSWR)** resulting from a mismatch between the antenna impedance $Z_{\text{in}}$ and the transmission line characteristic impedance $Z_0$ is:
+Ο **Λόγος Στασίμων Κυμάτων Τάσης (VSWR)** που προκύπτει από την ασυμφωνία προσαρμογής μεταξύ της σύνθετης αντίστασης της κεραίας $Z_{\text{in}}$ και της χαρακτηριστικής αντίστασης της γραμμής μεταφοράς $Z_0$ είναι:
 
 $$
 \text{VSWR} = \frac{1 + |\Gamma|}{1 - |\Gamma|}, \quad \Gamma = \frac{Z_{\text{in}} - Z_0}{Z_{\text{in}} + Z_0}
 $$
 
-### 2.13 Antenna Radiation Efficiency
+### 2.13 Απόδοση Ακτινοβολίας Κεραίας
 
-**Antenna radiation efficiency** $\eta_{\text{rad}}$ (also denoted $e_{cd}$) is the ratio of the power radiated by the antenna to the power accepted by the antenna:
+Η **απόδοση ακτινοβολίας κεραίας** $\eta_{\text{rad}}$ (επίσης συμβολιζόμενη ως $e_{cd}$) είναι ο λόγος της ισχύος που ακτινοβολείται από την κεραία προς την ισχύ που γίνεται δεκτή από την κεραία:
 
 $$
 \eta_{\text{rad}} = \frac{P_{\text{rad}}}{P_{\text{in}}} = \frac{R_r}{R_r + R_L}
 $$
 
-For a lossless antenna, $\eta_{\text{rad}} = 1$.
+Για μια κεραία χωρίς απώλειες, $\eta_{\text{rad}} = 1$.
 
-### 2.14 Antenna Vector Effective Length and Equivalent Areas
+### 2.14 Διανυσματικό Ενεργό Μήκος και Ισοδύναμες Επιφάνειες Κεραίας
 
-**Vector effective length** $\mathbf{h}_e$ characterizes the receiving properties of an antenna. For an incident plane wave with electric field $\mathbf{E}^i$, the open-circuit voltage at the antenna terminals is:
+Το **διανυσματικό ενεργό μήκος** $\mathbf{h}_e$ χαρακτηρίζει τις ιδιότητες λήψης μιας κεραίας. Για ένα προσπίπτον επίπεδο κύμα με ηλεκτρικό πεδίο $\mathbf{E}^i$, η τάση ανοικτοκύκλωσης στους ακροδέκτες της κεραίας είναι:
 
 $$
 V_{\text{oc}} = \mathbf{h}_e \cdot \mathbf{E}^i
 $$
 
-The vector effective length captures both the magnitude and polarization response of the antenna.
+Το διανυσματικό ενεργό μήκος αποτυπώνει τόσο το μέτρο όσο και την απόκριση πόλωσης της κεραίας.
 
-**Equivalent areas:**
+**Ισοδύναμες επιφάνειες:**
 
-- **Effective area** $A_e$ (also $A_{\text{eff}}$): The ratio of power delivered to the load $P_L$ to the incident power density $S$:
+- **Ενεργός επιφάνεια** $A_e$ (επίσης $A_{\text{eff}}$): Ο λόγος της ισχύος που παραδίδεται στο φορτίο $P_L$ προς την προσπίπτουσα πυκνότητα ισχύος $S$:
 
   $$
   A_e = \frac{P_L}{S} \quad \text{(m}^2\text{)}
   $$
 
-- **Scattering area** $A_s$: Power re-radiated (scattered) by the receiving antenna.
-- **Loss area** $A_L$: Power dissipated as heat in the antenna.
-- **Collecting area** $A_c$: Power collected by the antenna (sum of delivered, scattered, and lost).
+- **Επιφάνεια σκεδασμού** $A_s$: Ισχύς που επαν-ακτινοβολείται (σκεδάζεται) από την κεραία λήψης.
+- **Επιφάνεια απωλειών** $A_L$: Ισχύς που καταναλώνεται ως θερμότητα στην κεραία.
+- **Επιφάνεια συλλογής** $A_c$: Συνολική ισχύς που συλλέγεται από την κεραία (άθροισμα παραδιδόμενης, σκεδαζόμενης και απωλεσθείσας).
 
-The effective area relates to directivity:
+Η ενεργός επιφάνεια συνδέεται με την κατευθυντικότητα:
 
 $$
 A_e(\theta, \phi) = \frac{\lambda^2}{4\pi} D(\theta, \phi)
 $$
 
-This relationship holds for any lossless antenna ($\eta_{\text{rad}} = 1$). For lossy antennas:
+Αυτή η σχέση ισχύει για κάθε κεραία χωρίς απώλειες ($\eta_{\text{rad}} = 1$). Για κεραίες με απώλειες:
 
 $$
 A_e(\theta, \phi) = \frac{\lambda^2}{4\pi} G(\theta, \phi) = \frac{\lambda^2}{4\pi} \eta_{\text{rad}} D(\theta, \phi)
 $$
 
-### 2.15 Maximum Directivity and Maximum Effective Area
+### 2.15 Μέγιστη Κατευθυντικότητα και Μέγιστη Ενεργός Επιφάνεια
 
-The maximum effective area $A_{em}$ is related to maximum directivity $D_0$:
+Η μέγιστη ενεργός επιφάνεια $A_{em}$ σχετίζεται με τη μέγιστη κατευθυντικότητα $D_0$:
 
 $$
 A_{em} = \frac{\lambda^2}{4\pi} D_0
 $$
 
-This is a fundamental relationship establishing that a more directive antenna (narrower beam) has a larger effective area and therefore captures more power from an incident plane wave.
+Αυτή είναι μια θεμελιώδης σχέση που εδραιώνει ότι μια πιο κατευθυντική κεραία (στενότερη δέσμη) έχει μεγαλύτερη ενεργό επιφάνεια και επομένως συλλαμβάνει περισσότερη ισχύ από ένα προσπίπτον επίπεδο κύμα.
 
-### 2.16 Friis Transmission Equation
+### 2.16 Εξίσωση Μετάδοσης Friis
 
-The **Friis transmission equation** relates the power received $P_r$ to the power transmitted $P_t$ in a free-space communication link:
+Η **εξίσωση μετάδοσης Friis** συνδέει τη λαμβανόμενη ισχύ $P_r$ με τη μεταδιδόμενη ισχύ $P_t$ σε μια ζεύξη επικοινωνίας ελεύθερου χώρου:
 
 $$
 \frac{P_r}{P_t} = G_t G_r \left( \frac{\lambda}{4\pi R} \right)^2
 $$
 
-where:
-- $G_t$ = gain of the transmitting antenna.
-- $G_r$ = gain of the receiving antenna.
-- $R$ = distance between antennas.
-- $\lambda$ = wavelength.
+όπου:
+- $G_t$ = κέρδος της κεραίας εκπομπής.
+- $G_r$ = κέρδος της κεραίας λήψης.
+- $R$ = απόσταση μεταξύ των κεραιών.
+- $\lambda$ = μήκος κύματος.
 
-In decibel form:
+Σε μορφή ντεσιμπέλ:
 
 $$
 P_r(\text{dBm}) = P_t(\text{dBm}) + G_t(\text{dBi}) + G_r(\text{dBi}) - 20\log_{10}\left(\frac{4\pi R}{\lambda}\right)
 $$
 
-The term $20\log_{10}(4\pi R/\lambda)$ is the **free-space path loss** (FSPL).
+Ο όρος $20\log_{10}(4\pi R/\lambda)$ είναι η **απώλεια διαδρομής ελεύθερου χώρου** (Free-Space Path Loss - FSPL).
 
-**Radar Range Equation:**
+**Εξίσωση Εμβέλειας Ραντάρ (Radar Range Equation):**
 
-For a monostatic radar (same antenna for transmit and receive):
+Για μονοστατικό ραντάρ (ίδια κεραία για εκπομπή και λήψη):
 
 $$
 P_r = \frac{P_t G^2 \lambda^2 \sigma}{(4\pi)^3 R^4}
 $$
 
-where $\sigma$ is the radar cross-section (RCS) of the target.
+όπου $\sigma$ είναι η ενεργός διατομή ραντάρ (Radar Cross-Section - RCS) του στόχου.
 
-### 2.17 Antenna Temperature
+### 2.17 Θερμοκρασία Κεραίας
 
-**Antenna temperature** $T_A$ is the temperature of a resistor that would produce the same available noise power per unit bandwidth as the antenna:
+Η **θερμοκρασία κεραίας** $T_A$ είναι η θερμοκρασία μιας αντίστασης που θα παρήγαγε την ίδια διαθέσιμη ισχύ θορύβου ανά μονάδα εύρους ζώνης με την κεραία:
 
 $$
 T_A = \frac{1}{4\pi} \int_0^{2\pi} \int_0^{\pi} T_b(\theta, \phi) G(\theta, \phi) \sin\theta \, d\theta \, d\phi
 $$
 
-where $T_b(\theta, \phi)$ is the brightness temperature distribution of the environment (sky, ground, etc.) weighted by the antenna gain pattern.
+όπου $T_b(\theta, \phi)$ είναι η κατανομή θερμοκρασίας λαμπρότητας (brightness temperature) του περιβάλλοντος (ουρανός, έδαφος κ.λπ.) σταθμισμένη από το διάγραμμα κέρδους της κεραίας.
 
-The total system noise temperature $T_s$ is:
+Η συνολική θερμοκρασία θορύβου συστήματος $T_s$ είναι:
 
 $$
 T_s = T_A + T_{\text{feed}} + T_{\text{receiver}}
 $$
 
-where $T_{\text{feed}}$ accounts for ohmic losses in the feed line and $T_{\text{receiver}}$ is the receiver noise temperature.
+όπου $T_{\text{feed}}$ αντιπροσωπεύει τις ωμικές απώλειες στη γραμμή τροφοδοσίας και $T_{\text{receiver}}$ είναι η θερμοκρασία θορύβου του δέκτη.
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-| Parameter | Symbol | Units | Typical Range | Impact |
+| Παράμετρος | Σύμβολο | Μονάδες | Τυπικό Εύρος | Επίπτωση |
 | :--- | :--- | :--- | :--- | :--- |
-| Directivity | $D_0$ | dimensionless (dBi) | 1.5 dBi (short dipole) to 50+ dBi (large reflector) | Determines spatial power concentration |
-| Gain | $G_0$ | dBi | $D_0 - 3$ dB (lossy) to $D_0$ (lossless) | System-level link budget parameter |
-| Radiation efficiency | $\eta_{\text{rad}}$ | dimensionless | 20% (electrically small) to 99% (large well-designed) | Ohmic/conductor loss factor |
-| HPBW | $\Theta$ | degrees | $1^\circ$ (high gain) to $180^\circ$ (omnidirectional) | Angular coverage |
-| Input impedance | $Z_{\text{in}}$ | $\Omega$ | $10-700\;\Omega$ | Determines matching network requirement |
-| Bandwidth | BW | MHz or % | $<1\%$ (narrow patch) to $>100\%$ (spiral) | Frequency agility |
-| Axial ratio | AR | dB | 0 dB (perfect CP) to $\infty$ (linear) | Polarization quality |
-| Effective area | $A_e$ | m$^2$ | $\lambda^2/(4\pi)$ (isotropic) to large | Power capture ability |
-| Antenna temperature | $T_A$ | K | 3 K (space-looking) to 300 K (ground-looking) | System noise contribution |
-| VSWR | — | dimensionless | 1:1 (perfect match) to $\infty$ (open/short) | Impedance match quality |
+| Κατευθυντικότητα | $D_0$ | αδιάστατο (dBi) | 1.5 dBi (βραχύ δίπολο) έως 50+ dBi (μεγάλος ανακλαστήρας) | Καθορίζει τη χωρική συγκέντρωση ισχύος |
+| Κέρδος | $G_0$ | dBi | $D_0 - 3$ dB (με απώλειες) έως $D_0$ (χωρίς απώλειες) | Παράμετρος προϋπολογισμού ζεύξης σε επίπεδο συστήματος |
+| Απόδοση ακτινοβολίας | $\eta_{\text{rad}}$ | αδιάστατο | 20% (ηλεκτρικά μικρή) έως 99% (μεγάλη καλά σχεδιασμένη) | Παράγοντας ωμικών απωλειών/αγωγών |
+| HPBW | $\Theta$ | μοίρες | $1^\circ$ (υψηλό κέρδος) έως $180^\circ$ (πανκατευθυντική) | Γωνιακή κάλυψη |
+| Σύνθετη αντίσταση εισόδου | $Z_{\text{in}}$ | $\Omega$ | $10-700\;\Omega$ | Καθορίζει τις απαιτήσεις δικτύου προσαρμογής |
+| Εύρος ζώνης | BW | MHz ή % | $<1\%$ (στενό patch) έως $>100\%$ (σπειροειδής) | Ευελιξία συχνότητας |
+| Λόγος αξόνων | AR | dB | 0 dB (τέλεια CP) έως $\infty$ (γραμμική) | Ποιότητα πόλωσης |
+| Ενεργός επιφάνεια | $A_e$ | m$^2$ | $\lambda^2/(4\pi)$ (ισοτροπική) έως μεγάλη | Ικανότητα σύλληψης ισχύος |
+| Θερμοκρασία κεραίας | $T_A$ | K | 3 K (προσανατολισμός στον ουρανό) έως 300 K (στο έδαφος) | Συνεισφορά θορύβου συστήματος |
+| VSWR | — | αδιάστατο | 1:1 (τέλεια προσαρμογή) έως $\infty$ (ανοικτοκύκλωμα/βραχυκύκλωμα) | Ποιότητα προσαρμογής σύνθετης αντίστασης |
 
 ---
 
-## 4. Step-by-Step Mechanism: Computing Link Power Budget
+## 4. Μηχανισμός Βήμα-Βήμα: Υπολογισμός Προϋπολογισμού Ισχύος Ζεύξης
 
-### 4.1 Procedure for Link Analysis
+### 4.1 Διαδικασία για την Ανάλυση Ζεύξης
 
-To compute the power received in a communication link:
+Για τον υπολογισμό της λαμβανόμενης ισχύος σε μια ζεύξη επικοινωνίας:
 
-1. **Determine operating frequency** $f$ and compute wavelength $\lambda = c/f$.
-2. **Obtain antenna gains** $G_t$ and $G_r$ from datasheet or measurement.
-3. **Compute free-space path loss**:
+1. **Καθορισμός συχνότητας λειτουργίας** $f$ και υπολογισμός μήκους κύματος $\lambda = c/f$.
+2. **Λήψη κερδών κεραιών** $G_t$ και $G_r$ από το φύλλο δεδομένων ή από μέτρηση.
+3. **Υπολογισμός απώλειας διαδρομής ελεύθερου χώρου**:
    $$
    \text{FSPL} = \left( \frac{4\pi R}{\lambda} \right)^2
    $$
-4. **Apply Friis equation** (assuming polarization-matched, impedance-matched antennas):
+4. **Εφαρμογή της εξίσωσης Friis** (υποθέτοντας κεραίες προσαρμοσμένες σε πόλωση και σύνθετη αντίσταση):
    $$
    P_r = P_t G_t G_r \frac{\lambda^2}{(4\pi R)^2}
    $$
-5. **Apply polarization mismatch** if needed: multiply by PLF.
-6. **Apply impedance mismatch**: multiply by $(1 - |\Gamma_t|^2)(1 - |\Gamma_r|^2)$.
-7. **Express in dBm** for practical use.
+5. **Εφαρμογή ασυμφωνίας πόλωσης** εάν απαιτείται: πολλαπλασιασμός με PLF.
+6. **Εφαρμογή ασυμφωνίας σύνθετης αντίστασης**: πολλαπλασιασμός με $(1 - |\Gamma_t|^2)(1 - |\Gamma_r|^2)$.
+7. **Έκφραση σε dBm** για πρακτική χρήση.
 
-### 4.2 Procedure for Directivity Computation from Pattern
+### 4.2 Διαδικασία Υπολογισμού Κατευθυντικότητας από Διάγραμμα
 
-1. Obtain the normalized power pattern $P_n(\theta, \phi)$.
-2. Compute the beam solid angle:
+1. Λήψη του κανονικοποιημένου διαγράμματος ισχύος $P_n(\theta, \phi)$.
+2. Υπολογισμός της στερεάς γωνίας δέσμης:
    $$
    \Omega_A = \int_0^{2\pi} \int_0^{\pi} P_n(\theta, \phi) \sin\theta \, d\theta \, d\phi
    $$
-3. Compute directivity: $D_0 = 4\pi / \Omega_A$.
-4. For approximate directivity (single-lobe pattern): $D_0 \approx 4\pi / (\Theta_{1r} \Theta_{2r})$.
+3. Υπολογισμός κατευθυντικότητας: $D_0 = 4\pi / \Omega_A$.
+4. Για προσεγγιστική κατευθυντικότητα (διάγραμμα ενός λοβού): $D_0 \approx 4\pi / (\Theta_{1r} \Theta_{2r})$.
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Παραπομπές
 
-| Parameter | Related To | Relationship |
+| Παράμετρος | Σχετίζεται με | Σχέση |
 | :--- | :--- | :--- |
-| Directivity $D_0$ | HPBW $\Theta$ | $D_0 \approx 4\pi/(\Theta_1 \Theta_2)$ for a single main lobe |
-| Gain $G_0$ | Directivity $D_0$, Efficiency $\eta_{\text{rad}}$ | $G_0 = \eta_{\text{rad}} D_0$ |
-| Effective area $A_e$ | Directivity $D$ | $A_e = \lambda^2 D / (4\pi)$ |
-| Effective area $A_e$ | Gain $G$ | $A_e = \lambda^2 G / (4\pi)$ |
-| Received power $P_r$ | $G_t, G_r, R, \lambda$ | Friis equation |
-| Antenna temperature $T_A$ | Gain pattern $G(\theta,\phi)$, brightness $T_b$ | $T_A = \frac{1}{4\pi}\int T_b G \, d\Omega$ |
-| Input impedance $Z_{\text{in}}$ | VSWR, reflected power | $\Gamma = (Z_{\text{in}} - Z_0)/(Z_{\text{in}} + Z_0)$ |
-| Bandwidth | $Q$, impedance, pattern | Higher $Q$ implies narrower BW |
+| Κατευθυντικότητα $D_0$ | HPBW $\Theta$ | $D_0 \approx 4\pi/(\Theta_1 \Theta_2)$ για έναν κύριο λοβό |
+| Κέρδος $G_0$ | Κατευθυντικότητα $D_0$, Απόδοση $\eta_{\text{rad}}$ | $G_0 = \eta_{\text{rad}} D_0$ |
+| Ενεργός επιφάνεια $A_e$ | Κατευθυντικότητα $D$ | $A_e = \lambda^2 D / (4\pi)$ |
+| Ενεργός επιφάνεια $A_e$ | Κέρδος $G$ | $A_e = \lambda^2 G / (4\pi)$ |
+| Λαμβανόμενη ισχύς $P_r$ | $G_t, G_r, R, \lambda$ | Εξίσωση Friis |
+| Θερμοκρασία κεραίας $T_A$ | Διάγραμμα κέρδους $G(\theta,\phi)$, λαμπρότητα $T_b$ | $T_A = \frac{1}{4\pi}\int T_b G \, d\Omega$ |
+| Σύνθετη αντίσταση εισόδου $Z_{\text{in}}$ | VSWR, ανακλώμενη ισχύς | $\Gamma = (Z_{\text{in}} - Z_0)/(Z_{\text{in}} + Z_0)$ |
+| Εύρος ζώνης | $Q$, σύνθετη αντίσταση, διάγραμμα | Υψηλότερο $Q$ συνεπάγεται στενότερο BW |
 
-*Prerequisite: Section 1 (Antennas — Fundamentals).* The current distribution and radiation mechanism concepts from Section 1 are needed to understand how pattern shape determines directivity and beamwidth.
+*Προαπαιτούμενο: Ενότητα 1 (Κεραίες — Θεμελιώδεις Έννοιες).* Οι έννοιες της κατανομής ρεύματος και του μηχανισμού ακτινοβολίας από την Ενότητα 1 είναι απαραίτητες για την κατανόηση του πώς η μορφή του διαγράμματος καθορίζει την κατευθυντικότητα και το εύρος δέσμης.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Directivity from HPBW (Kraus Approximation)
+### Άσκηση 1: Κατευθυντικότητα από HPBW (Προσέγγιση Kraus)
 
-**Problem:** An antenna has an HPBW of $30^\circ$ in the E-plane and $40^\circ$ in the H-plane. Estimate the directivity using Kraus' approximate formula.
+**Διατύπωση Προβλήματος:** Μια κεραία έχει HPBW $30^\circ$ στο E-επίπεδο και $40^\circ$ στο H-επίπεδο. Εκτιμήστε την κατευθυντικότητα χρησιμοποιώντας τον προσεγγιστικό τύπο του Kraus.
 
-**Solution:**
+**Λύση:**
 
-Step 1: State Kraus' formula.
-
-$$
-D_0 \approx \frac{41,253}{\Theta_{1d} \Theta_{2d}}
-$$
-
-where $\Theta_{1d}$ and $\Theta_{2d}$ are the HPBW in degrees.
-
-Step 2: Substitute the given beamwidths.
+Βήμα 1: Διατύπωση του τύπου του Kraus.
 
 $$
-D_0 \approx \frac{41,253}{30^\circ \times 40^\circ} = \frac{41,253}{1200}
+D_0 \approx \frac{41.253}{\Theta_{1d} \Theta_{2d}}
 $$
 
-Step 3: Compute.
+όπου $\Theta_{1d}$ και $\Theta_{2d}$ είναι τα HPBW σε μοίρες.
+
+Βήμα 2: Αντικατάσταση των δεδομένων ευρών δέσμης.
 
 $$
-D_0 \approx 34.38 \quad \text{(dimensionless, ratio)}
+D_0 \approx \frac{41.253}{30^\circ \times 40^\circ} = \frac{41.253}{1200}
 $$
 
-Step 4: Convert to dBi.
+Βήμα 3: Υπολογισμός.
+
+$$
+D_0 \approx 34.38 \quad \text{(αδιάστατος λόγος)}
+$$
+
+Βήμα 4: Μετατροπή σε dBi.
 
 $$
 D_0(\text{dBi}) = 10 \log_{10}(34.38) = 10 \times 1.536 = 15.36 \text{ dBi}
 $$
 
-The estimated directivity is approximately 15.4 dBi.
+Η εκτιμώμενη κατευθυντικότητα είναι περίπου 15.4 dBi.
 
-**Note:** Kraus' formula is an approximation valid for patterns with a single narrow main lobe and low side lobes. For patterns with significant side lobes, the directivity will be lower than the Kraus estimate because power is spread into the side lobes.
+**Σημείωση:** Ο τύπος του Kraus είναι μια προσέγγιση έγκυρη για διαγράμματα με έναν μόνο στενό κύριο λοβό και χαμηλούς πλευρικούς λοβούς. Για διαγράμματα με σημαντικούς πλευρικούς λοβούς, η κατευθυντικότητα θα είναι χαμηλότερη από την εκτίμηση Kraus επειδή η ισχύς διασπείρεται στους πλευρικούς λοβούς.
 
 ---
 
-### Exercise 2: Gain and Efficiency from Measured Data
+### Άσκηση 2: Κέρδος και Απόδοση από Δεδομένα Μετρήσεων
 
-**Problem:** A transmitting antenna accepts 100 W from the feed line. The measured radiation intensity in the direction of maximum radiation is $U_{\text{max}} = 350$ W/sr. The total radiated power is measured as 85 W. Compute: (a) the radiation efficiency, (b) the directivity, (c) the gain.
+**Διατύπωση Προβλήματος:** Μια κεραία εκπομπής δέχεται 100 W από τη γραμμή τροφοδοσίας. Η μετρούμενη ένταση ακτινοβολίας στη κατεύθυνση της μέγιστης ακτινοβολίας είναι $U_{\text{max}} = 350$ W/sr. Η συνολική ακτινοβολούμενη ισχύς μετράται σε 85 W. Υπολογίστε: (α) την απόδοση ακτινοβολίας, (β) την κατευθυντικότητα, (γ) το κέρδος.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Given data.
-- $P_{\text{in}} = 100$ W (power accepted).
-- $P_{\text{rad}} = 85$ W (power radiated).
+Βήμα 1: Δεδομένα.
+- $P_{\text{in}} = 100$ W (ισχύς που έγινε δεκτή).
+- $P_{\text{rad}} = 85$ W (ακτινοβολούμενη ισχύς).
 - $U_{\text{max}} = 350$ W/sr.
 
-Step 2: Compute radiation efficiency $\eta_{\text{rad}}$.
+Βήμα 2: Υπολογισμός απόδοσης ακτινοβολίας $\eta_{\text{rad}}$.
 
 $$
 \eta_{\text{rad}} = \frac{P_{\text{rad}}}{P_{\text{in}}} = \frac{85}{100} = 0.85
 $$
 
-The radiation efficiency is 85%.
+Η απόδοση ακτινοβολίας είναι 85%.
 
-Step 3: Compute directivity $D_0$.
+Βήμα 3: Υπολογισμός κατευθυντικότητας $D_0$.
 
 $$
 D_0 = \frac{4\pi U_{\text{max}}}{P_{\text{rad}}} = \frac{4\pi \times 350}{85}
@@ -519,63 +519,63 @@ $$
 D_0 = \frac{4398.23}{85} = 51.74
 $$
 
-In dBi: $10 \log_{10}(51.74) = 17.14$ dBi.
+Σε dBi: $10 \log_{10}(51.74) = 17.14$ dBi.
 
-Step 4: Compute gain $G_0$.
+Βήμα 4: Υπολογισμός κέρδους $G_0$.
 
 $$
 G_0 = \eta_{\text{rad}} D_0 = 0.85 \times 51.74 = 43.98
 $$
 
-In dBi: $10 \log_{10}(43.98) = 16.43$ dBi.
+Σε dBi: $10 \log_{10}(43.98) = 16.43$ dBi.
 
-**Verification:** $G_0(\text{dBi}) = D_0(\text{dBi}) + 10\log_{10}(\eta) = 17.14 + 10\log_{10}(0.85) = 17.14 - 0.71 = 16.43$ dBi. Consistent.
+**Επαλήθευση:** $G_0(\text{dBi}) = D_0(\text{dBi}) + 10\log_{10}(\eta) = 17.14 + 10\log_{10}(0.85) = 17.14 - 0.71 = 16.43$ dBi. Συνεπές.
 
 ---
 
-### Exercise 3: Effective Area and Received Power
+### Άσκηση 3: Ενεργός Επιφάνεια και Λαμβανόμενη Ισχύς
 
-**Problem:** A geostationary satellite at $R = 36,000$ km transmits at $f = 12$ GHz with power $P_t = 20$ W and antenna gain $G_t = 30$ dBi. A ground station antenna has gain $G_r = 45$ dBi. Assume polarization-matched, lossless antennas. Compute: (a) the effective area of the receiving antenna, (b) the received power.
+**Διατύπωση Προβλήματος:** Ένας γεωστατικός δορυφόρος σε απόσταση $R = 36.000$ km εκπέμπει σε συχνότητα $f = 12$ GHz με ισχύ $P_t = 20$ W και κέρδος κεραίας $G_t = 30$ dBi. Η κεραία ενός επίγειου σταθμού έχει κέρδος $G_r = 45$ dBi. Υποθέστε κεραίες προσαρμοσμένες στην πόλωση και χωρίς απώλειες. Υπολογίστε: (α) την ενεργό επιφάνεια της κεραίας λήψης, (β) τη λαμβανόμενη ισχύ.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Compute wavelength.
+Βήμα 1: Υπολογισμός μήκους κύματος.
 
 $$
 \lambda = \frac{c}{f} = \frac{3 \times 10^8}{12 \times 10^9} = 0.025 \text{ m} = 2.5 \text{ cm}
 $$
 
-Step 2: Compute effective area of receiving antenna.
+Βήμα 2: Υπολογισμός ενεργού επιφάνειας της κεραίας λήψης.
 
-First, convert $G_r$ from dBi to linear: $G_r = 10^{45/10} = 10^{4.5} = 31,623$.
-
-$$
-A_{er} = \frac{\lambda^2}{4\pi} G_r = \frac{(0.025)^2}{4\pi} \times 31,623
-$$
+Πρώτα, μετατροπή του $G_r$ από dBi σε γραμμική κλίμακα: $G_r = 10^{45/10} = 10^{4.5} = 31.623$.
 
 $$
-A_{er} = \frac{0.000625}{12.566} \times 31,623 = 4.972 \times 10^{-5} \times 31,623
+A_{er} = \frac{\lambda^2}{4\pi} G_r = \frac{(0.025)^2}{4\pi} \times 31.623
+$$
+
+$$
+A_{er} = \frac{0.000625}{12.566} \times 31.623 = 4.972 \times 10^{-5} \times 31.623
 $$
 
 $$
 A_{er} = 1.573 \text{ m}^2
 $$
 
-The effective area of the receiving antenna is approximately 1.57 m$^2$.
+Η ενεργός επιφάνεια της κεραίας λήψης είναι περίπου 1.57 m$^2$.
 
-Step 3: Convert $G_t$ from dBi to linear: $G_t = 10^{30/10} = 1000$.
+Βήμα 3: Μετατροπή του $G_t$ από dBi σε γραμμική κλίμακα: $G_t = 10^{30/10} = 1000$.
 
-Step 4: Compute received power using Friis equation.
+Βήμα 4: Υπολογισμός λαμβανόμενης ισχύος με χρήση της εξίσωσης Friis.
 
 $$
 P_r = P_t G_t G_r \left( \frac{\lambda}{4\pi R} \right)^2
 $$
 
 $$
-P_r = 20 \times 1000 \times 31,623 \times \left( \frac{0.025}{4\pi \times 3.6 \times 10^7} \right)^2
+P_r = 20 \times 1000 \times 31.623 \times \left( \frac{0.025}{4\pi \times 3.6 \times 10^7} \right)^2
 $$
 
-Step 5: Compute the path loss term.
+Βήμα 5: Υπολογισμός του όρου απώλειας διαδρομής.
 
 $$
 \frac{\lambda}{4\pi R} = \frac{0.025}{4\pi \times 3.6 \times 10^7} = \frac{0.025}{4.524 \times 10^8}
@@ -585,49 +585,49 @@ $$
 \frac{\lambda}{4\pi R} = 5.527 \times 10^{-11}
 $$
 
-Square: $(5.527 \times 10^{-11})^2 = 3.055 \times 10^{-21}$.
+Υψώνουμε στο τετράγωνο: $(5.527 \times 10^{-11})^2 = 3.055 \times 10^{-21}$.
 
-Step 6: Multiply all terms.
-
-$$
-P_r = 20 \times 1000 \times 31,623 \times 3.055 \times 10^{-21}
-$$
+Βήμα 6: Πολλαπλασιασμός όλων των όρων.
 
 $$
-P_r = 20 \times 1000 = 20,000
+P_r = 20 \times 1000 \times 31.623 \times 3.055 \times 10^{-21}
 $$
 
 $$
-P_r = 20,000 \times 31,623 = 6.325 \times 10^8
+P_r = 20 \times 1000 = 20.000
+$$
+
+$$
+P_r = 20.000 \times 31.623 = 6.325 \times 10^8
 $$
 
 $$
 P_r = 6.325 \times 10^8 \times 3.055 \times 10^{-21} = 1.932 \times 10^{-12} \text{ W}
 $$
 
-Step 7: Express in dBm.
+Βήμα 7: Έκφραση σε dBm.
 
 $$
 P_r(\text{dBm}) = 10 \log_{10}(1.932 \times 10^{-12}) + 30 = -117.14 + 30 = -87.14 \text{ dBm}
 $$
 
-The received power is approximately $1.93 \times 10^{-12}$ W ($-87.1$ dBm).
+Η λαμβανόμενη ισχύς είναι περίπου $1.93 \times 10^{-12}$ W ($-87.1$ dBm).
 
 ---
 
-### Exercise 4: Polarization Mismatch Loss
+### Άσκηση 4: Απώλεια λόγω Ασυμφωνίας Πόλωσης
 
-**Problem:** A vertically polarized transmitting antenna radiates toward a receiving antenna that is linearly polarized at $45^\circ$ relative to vertical. Compute the polarization loss factor in dB.
+**Διατύπωση Προβλήματος:** Μια κατακόρυφα πολωμένη κεραία εκπομπής ακτινοβολεί προς μια κεραία λήψης η οποία είναι γραμμικά πολωμένη υπό γωνία $45^\circ$ ως προς τη κατακόρυφο. Υπολογίστε τον παράγοντα απώλειας πόλωσης σε dB.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Define the polarization vectors.
+Βήμα 1: Ορισμός των διανυσμάτων πόλωσης.
 
-Transmitting antenna: $\hat{\mathbf{p}}_t = \hat{\mathbf{v}}$ (vertical).
+Κεραία εκπομπής: $\hat{\mathbf{p}}_t = \hat{\mathbf{v}}$ (κατακόρυφη).
 
-Receiving antenna: $\hat{\mathbf{p}}_r = \frac{1}{\sqrt{2}}(\hat{\mathbf{v}} + \hat{\mathbf{h}})$ ($45^\circ$ slant).
+Κεραία λήψης: $\hat{\mathbf{p}}_r = \frac{1}{\sqrt{2}}(\hat{\mathbf{v}} + \hat{\mathbf{h}})$ (κεκλιμένη κατά $45^\circ$).
 
-Step 2: Compute the PLF.
+Βήμα 2: Υπολογισμός του PLF.
 
 $$
 \text{PLF} = |\hat{\mathbf{p}}_t \cdot \hat{\mathbf{p}}_r|^2
@@ -641,25 +641,25 @@ $$
 \text{PLF} = \left|\frac{1}{\sqrt{2}}\right|^2 = \frac{1}{2} = 0.5
 $$
 
-Step 3: Express in dB.
+Βήμα 3: Έκφραση σε dB.
 
 $$
 \text{PLF}_{\text{dB}} = 10 \log_{10}(0.5) = -3.01 \text{ dB}
 $$
 
-The polarization mismatch loss is approximately 3 dB. This means half the available power is lost due to polarization mismatch.
+Η απώλεια λόγω ασυμφωνίας πόλωσης είναι περίπου 3 dB. Αυτό σημαίνει ότι η μισή διαθέσιμη ισχύς χάνεται λόγω ασυμφωνίας πόλωσης.
 
-**Extension:** If the receiving antenna were horizontally polarized ($\hat{\mathbf{p}}_r = \hat{\mathbf{h}}$), PLF = 0 ($-\infty$ dB) — no power would be received.
+**Επέκταση:** Εάν η κεραία λήψης ήταν οριζόντια πολωμένη ($\hat{\mathbf{p}}_r = \hat{\mathbf{h}}$), τότε PLF = 0 ($-\infty$ dB) — δεν θα λαμβανόταν καθόλου ισχύς.
 
 ---
 
-### Exercise 5: Input Impedance and VSWR Calculation
+### Άσκηση 5: Υπολογισμός Σύνθετης Αντίστασης Εισόδου και VSWR
 
-**Problem:** A dipole antenna has an input impedance $Z_{\text{in}} = 73 + j42.5\;\Omega$ at its design frequency. The feed line has a characteristic impedance $Z_0 = 50\;\Omega$. Compute: (a) the reflection coefficient, (b) the VSWR, (c) the reflection (mismatch) efficiency, (d) the percentage of power reflected.
+**Διατύπωση Προβλήματος:** Μια κεραία διπόλου έχει σύνθετη αντίσταση εισόδου $Z_{\text{in}} = 73 + j42.5\;\Omega$ στη συχνότητα σχεδιασμού της. Η γραμμή τροφοδοσίας έχει χαρακτηριστική αντίσταση $Z_0 = 50\;\Omega$. Υπολογίστε: (α) τον συντελεστή ανάκλασης, (β) το VSWR, (γ) την απόδοση ανάκλασης (προσαρμογής), (δ) το ποσοστό της ανακλώμενης ισχύος.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Compute the reflection coefficient $\Gamma$.
+Βήμα 1: Υπολογισμός του συντελεστή ανάκλασης $\Gamma$.
 
 $$
 \Gamma = \frac{Z_{\text{in}} - Z_0}{Z_{\text{in}} + Z_0} = \frac{(73 + j42.5) - 50}{(73 + j42.5) + 50}
@@ -669,66 +669,66 @@ $$
 \Gamma = \frac{23 + j42.5}{123 + j42.5}
 $$
 
-Step 2: Compute magnitude.
+Βήμα 2: Υπολογισμός μέτρου.
 
-Numerator magnitude: $|23 + j42.5| = \sqrt{23^2 + 42.5^2} = \sqrt{529 + 1806.25} = \sqrt{2335.25} = 48.32$
+Μέτρο αριθμητή: $|23 + j42.5| = \sqrt{23^2 + 42.5^2} = \sqrt{529 + 1806.25} = \sqrt{2335.25} = 48.32$
 
-Denominator magnitude: $|123 + j42.5| = \sqrt{123^2 + 42.5^2} = \sqrt{15,129 + 1806.25} = \sqrt{16,935.25} = 130.14$
+Μέτρο παρανομαστή: $|123 + j42.5| = \sqrt{123^2 + 42.5^2} = \sqrt{15.129 + 1806.25} = \sqrt{16.935.25} = 130.14$
 
 $$
 |\Gamma| = \frac{48.32}{130.14} = 0.371
 $$
 
-Step 3: Compute VSWR.
+Βήμα 3: Υπολογισμός VSWR.
 
 $$
 \text{VSWR} = \frac{1 + |\Gamma|}{1 - |\Gamma|} = \frac{1 + 0.371}{1 - 0.371} = \frac{1.371}{0.629} = 2.18
 $$
 
-The VSWR is 2.18:1.
+Το VSWR είναι 2.18:1.
 
-Step 4: Compute the reflection (mismatch) efficiency $e_r$.
+Βήμα 4: Υπολογισμός της απόδοσης ανάκλασης (προσαρμογής) $e_r$.
 
 $$
 e_r = 1 - |\Gamma|^2 = 1 - (0.371)^2 = 1 - 0.138 = 0.862
 $$
 
-Step 5: Compute the percentage of power reflected.
+Βήμα 5: Υπολογισμός του ποσοστού ανακλώμενης ισχύος.
 
 $$
-\text{Reflected power} = |\Gamma|^2 \times 100\% = 0.138 \times 100\% = 13.8\%
+\text{Ανακλώμενη ισχύς} = |\Gamma|^2 \times 100\% = 0.138 \times 100\% = 13.8\%
 $$
 
-Approximately 13.8% of the incident power is reflected due to impedance mismatch. The remaining 86.2% is accepted by the antenna.
+Περίπου το 13.8% της προσπίπτουσας ισχύος ανακλάται λόγω ασυμφωνίας προσαρμογής. Το υπόλοιπο 86.2% γίνεται δεκτό από την κεραία.
 
 ---
 
-### Exercise 6: Beam Efficiency Computation
+### Άσκηση 6: Υπολογισμός Απόδοσης Δέσμης
 
-**Problem:** An antenna has a rotationally symmetric power pattern approximated by:
-- Main lobe: $P_n(\theta) = \cos^2(\theta)$ for $0 \leq \theta \leq \pi/3$, and $P_n(\theta) = 0$ for $\theta > \pi/3$.
-- Side lobes are negligible.
-- The pattern is uniform in $\phi$.
+**Διατύπωση Προβλήματος:** Μια κεραία έχει περιστροφικά συμμετρικό διάγραμμα ισχύος που προσεγγίζεται από:
+- Κύριος λοβός: $P_n(\theta) = \cos^2(\theta)$ για $0 \leq \theta \leq \pi/3$, και $P_n(\theta) = 0$ για $\theta > \pi/3$.
+- Οι πλευρικοί λοβοί είναι αμελητέοι.
+- Το διάγραμμα είναι ομοιόμορφο ως προς το $\phi$.
 
-Compute the beam efficiency.
+Υπολογίστε την απόδοση δέσμης.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Define the beam efficiency.
+Βήμα 1: Ορισμός της απόδοσης δέσμης.
 
 $$
-\varepsilon_B = \frac{\int_{\text{main lobe}} U(\theta, \phi) \, d\Omega}{\int_{4\pi} U(\theta, \phi) \, d\Omega}
+\varepsilon_B = \frac{\int_{\text{κύριος λοβός}} U(\theta, \phi) \, d\Omega}{\int_{4\pi} U(\theta, \phi) \, d\Omega}
 $$
 
-Since the pattern is defined as the power pattern, $U(\theta, \phi) = U_{\text{max}} P_n(\theta)$.
+Αφού το διάγραμμα ορίζεται ως διάγραμμα ισχύος, $U(\theta, \phi) = U_{\text{max}} P_n(\theta)$.
 
-Step 2: Compute the numerator (power in main lobe, which is the entire pattern for $\theta \leq \pi/3$).
+Βήμα 2: Υπολογισμός του αριθμητή (ισχύς στον κύριο λοβό, που είναι ολόκληρο το διάγραμμα για $\theta \leq \pi/3$).
 
 $$
 P_{\text{main}} = \int_0^{2\pi} \int_0^{\pi/3} U_{\text{max}} \cos^2(\theta) \sin\theta \, d\theta \, d\phi
 $$
 
-Separate integrals:
+Διαχωρισμός ολοκληρωμάτων:
 
 $$
 P_{\text{main}} = U_{\text{max}} \int_0^{2\pi} d\phi \int_0^{\pi/3} \cos^2(\theta) \sin\theta \, d\theta
@@ -738,9 +738,9 @@ $$
 P_{\text{main}} = U_{\text{max}} \times 2\pi \times \int_0^{\pi/3} \cos^2(\theta) \sin\theta \, d\theta
 $$
 
-Step 3: Evaluate the $\theta$ integral. Let $u = \cos\theta$, $du = -\sin\theta \, d\theta$.
+Βήμα 3: Υπολογισμός του ολοκληρώματος ως προς $\theta$. Έστω $u = \cos\theta$, $du = -\sin\theta \, d\theta$.
 
-When $\theta = 0$, $u = 1$. When $\theta = \pi/3$, $u = 0.5$.
+Όταν $\theta = 0$, $u = 1$. Όταν $\theta = \pi/3$, $u = 0.5$.
 
 $$
 \int_0^{\pi/3} \cos^2(\theta) \sin\theta \, d\theta = \int_1^{0.5} u^2 (-du) = \int_{0.5}^1 u^2 \, du
@@ -750,33 +750,33 @@ $$
 = \left[ \frac{u^3}{3} \right]_{0.5}^1 = \frac{1}{3} \left(1^3 - 0.5^3\right) = \frac{1}{3}\left(1 - 0.125\right) = \frac{0.875}{3} = 0.2917
 $$
 
-Step 4: Compute $P_{\text{main}}$.
+Βήμα 4: Υπολογισμός του $P_{\text{main}}$.
 
 $$
 P_{\text{main}} = U_{\text{max}} \times 2\pi \times 0.2917 = 0.5834\pi U_{\text{max}}
 $$
 
-Step 5: Compute the denominator (total radiated power, over all $4\pi$ sr). Since $P_n(\theta) = 0$ for $\theta > \pi/3$, the total power equals the main lobe power.
+Βήμα 5: Υπολογισμός του παρανομαστή (συνολική ακτινοβολούμενη ισχύς, σε όλα τα $4\pi$ sr). Εφόσον $P_n(\theta) = 0$ για $\theta > \pi/3$, η συνολική ισχύς ισούται με την ισχύ του κύριου λοβού.
 
-Therefore, the beam efficiency is:
+Επομένως, η απόδοση δέσμης είναι:
 
 $$
 \varepsilon_B = \frac{P_{\text{main}}}{P_{\text{total}}} = \frac{0.5834\pi U_{\text{max}}}{0.5834\pi U_{\text{max}}} = 1.0
 $$
 
-**Interpretation:** The beam efficiency is 100% because there are no side lobes — all radiated power is within the defined main lobe. In practical antennas with finite side lobes, $\varepsilon_B < 1$.
+**Ερμηνεία:** Η απόδοση δέσμης είναι 100% επειδή δεν υπάρχουν πλευρικοί λοβοί — όλη η ακτινοβολούμενη ισχύς βρίσκεται εντός του καθορισμένου κύριου λοβού. Στις πρακτικές κεραίες με πεπερασμένους πλευρικούς λοβούς, $\varepsilon_B < 1$.
 
 ---
 
-### Exercise 7: Antenna Temperature and System Noise
+### Άσκηση 7: Θερμοκρασία Κεραίας και Θόρυβος Συστήματος
 
-**Problem:** A receiving antenna with a uniform gain pattern over a $10^\circ$ cone half-angle points at the sky (brightness temperature $T_{\text{sky}} = 10$ K). Outside this cone, the pattern is zero. The ambient temperature is 290 K. The antenna has ohmic loss of 0.5 dB ($L_{\text{feed}} = 1.122$). Compute: (a) the antenna temperature $T_A$, (b) the system noise temperature if the receiver $T_{\text{rec}} = 50$ K.
+**Διατύπωση Προβλήματος:** Μια κεραία λήψης με ομοιόμορφο διάγραμμα κέρδους εντός ενός κώνου ημι-γωνίας $10^\circ$ δείχνει προς τον ουρανό (θερμοκρασία λαμπρότητας $T_{\text{sky}} = 10$ K). Εκτός αυτού του κώνου, το διάγραμμα είναι μηδέν. Η θερμοκρασία περιβάλλοντος είναι 290 K. Η κεραία έχει ωμικές απώλειες 0.5 dB ($L_{\text{feed}} = 1.122$). Υπολογίστε: (α) τη θερμοκρασία κεραίας $T_A$, (β) τη θερμοκρασία θορύβου συστήματος εάν ο δέκτης έχει $T_{\text{rec}} = 50$ K.
 
-**Solution:**
+**Λύση:**
 
-Step 1: The antenna temperature is the weighted average of brightness temperature over the gain pattern.
+Βήμα 1: Η θερμοκρασία κεραίας είναι ο σταθμισμένος μέσος όρος της θερμοκρασίας λαμπρότητας πάνω στο διάγραμμα κέρδους.
 
-Since the gain is uniform within the cone and zero outside, the solid angle of the cone is:
+Αφού το κέρδος είναι ομοιόμορφο εντός του κώνου και μηδέν εκτός, η στερεά γωνία του κώνου είναι:
 
 $$
 \Omega_{\text{cone}} = 2\pi(1 - \cos\theta_0) = 2\pi(1 - \cos 10^\circ)
@@ -786,25 +786,25 @@ $$
 \Omega_{\text{cone}} = 2\pi(1 - 0.9848) = 2\pi \times 0.0152 = 0.0955 \text{ sr}
 $$
 
-Step 2: The gain within the cone must satisfy the normalization:
+Βήμα 2: Το κέρδος εντός του κώνου πρέπει να ικανοποιεί τη κανονικοποίηση:
 
 $$
 \int_{4\pi} G(\theta, \phi) \, d\Omega = 4\pi
 $$
 
-Since gain is uniform ($G_0$) over $\Omega_{\text{cone}}$ and zero elsewhere:
+Αφού το κέρδος είναι ομοιόμορφο ($G_0$) πάνω στη γωνία $\Omega_{\text{cone}}$ και μηδέν αλλού:
 
 $$
 G_0 \Omega_{\text{cone}} = 4\pi \quad \Rightarrow \quad G_0 = \frac{4\pi}{0.0955} = 131.6
 $$
 
-Step 3: Compute antenna temperature. The brightness temperature is $T_{\text{sky}} = 10$ K within the cone.
+Βήμα 3: Υπολογισμός θερμοκρασίας κεραίας. Η θερμοκρασία λαμπρότητας είναι $T_{\text{sky}} = 10$ K εντός του κώνου.
 
 $$
 T_A = \frac{1}{4\pi} \int_{4\pi} T_b(\theta, \phi) G(\theta, \phi) \, d\Omega
 $$
 
-Within the cone: $T_b = 10$ K, $G = 131.6$. Outside: pattern is zero.
+Εντός του κώνου: $T_b = 10$ K, $G = 131.6$. Εκτός: το διάγραμμα είναι μηδέν.
 
 $$
 T_A = \frac{1}{4\pi} \times 10 \times 131.6 \times 0.0955
@@ -814,13 +814,13 @@ $$
 T_A = \frac{1}{4\pi} \times 125.7 = \frac{125.7}{12.566} = 10.0 \text{ K}
 $$
 
-Step 4: Account for ohmic losses. The feed loss reduces the effective antenna temperature at the receiver input:
+Βήμα 4: Συνυπολογισμός ωμικών απωλειών. Η απώλεια τροφοδοσίας μειώνει την ενεργό θερμοκρασία κεραίας στην είσοδο του δέκτη:
 
 $$
 T'_A = \frac{T_A}{L_{\text{feed}}} + \left(1 - \frac{1}{L_{\text{feed}}}\right) T_{\text{amb}}
 $$
 
-where $L_{\text{feed}} = 10^{0.5/10} = 1.122$.
+όπου $L_{\text{feed}} = 10^{0.5/10} = 1.122$.
 
 $$
 T'_A = \frac{10.0}{1.122} + \left(1 - \frac{1}{1.122}\right) \times 290
@@ -830,38 +830,38 @@ $$
 T'_A = 8.91 + (1 - 0.891) \times 290 = 8.91 + 0.109 \times 290 = 8.91 + 31.58 = 40.49 \text{ K}
 $$
 
-Step 5: Compute system noise temperature.
+Βήμα 5: Υπολογισμός θερμοκρασίας θορύβου συστήματος.
 
 $$
 T_s = T'_A + T_{\text{rec}} = 40.49 + 50 = 90.49 \text{ K}
 $$
 
-The system noise temperature is approximately 90.5 K.
+Η θερμοκρασία θορύβου συστήματος είναι περίπου 90.5 K.
 
-> **[Supplementary]** Antenna temperature is a critical parameter in low-noise receiving systems such as satellite ground stations and radio telescopes. A ground-looking antenna sees $T_b \approx 290$ K, while a sky-looking antenna can see $T_b$ as low as 3 K (cosmic microwave background). This is why satellite ground stations point antennas at the sky rather than toward the warm ground.
+> **[Συμπληρωματικό]** Η θερμοκρασία κεραίας είναι κρίσιμη παράμετρος σε συστήματα λήψης χαμηλού θορύβου, όπως οι επίγειοι σταθμοί δορυφόρων και τα ραδιοτηλεσκόπια. Μια κεραία που κοιτάζει το έδαφος βλέπει $T_b \approx 290$ K, ενώ μια κεραία που κοιτάζει τον ουρανό μπορεί να δει $T_b$ έως και 3 K (κοσμική ακτινοβολία υποβάθρου). Γι' αυτό οι επίγειοι δορυφορικοί σταθμοί στρέφουν τις κεραίες προς τον ουρανό και όχι προς το θερμό έδαφος.
 
 ---
 
-### Exercise 8: Friis Equation with All Loss Factors
+### Άσκηση 8: Εξίσωση Friis με Όλους τους Παράγοντες Απωλειών
 
-**Problem:** A 5.8 GHz link has the following parameters:
-- Transmit power: $P_t = 10$ dBm.
-- Transmit antenna gain: $G_t = 12$ dBi, with VSWR$_t = 1.5:1$.
-- Receive antenna gain: $G_r = 18$ dBi, with VSWR$_r = 2.0:1$.
-- Distance: $R = 500$ m.
-- Polarization: transmit is RHCP, receive is linear vertical (PLF = 0.5).
+**Διατύπωση Προβλήματος:** Μια ζεύξη στα 5.8 GHz έχει τις ακόλουθες παραμέτρους:
+- Ισχύς εκπομπής: $P_t = 10$ dBm.
+- Κέρδος κεραίας εκπομπής: $G_t = 12$ dBi, με VSWR$_t = 1.5:1$.
+- Κέρδος κεραίας λήψης: $G_r = 18$ dBi, με VSWR$_r = 2.0:1$.
+- Απόσταση: $R = 500$ m.
+- Πόλωση: η εκπομπή είναι RHCP, η λήψη είναι κατακόρυφη γραμμική (PLF = 0.5).
 
-Compute the received power in dBm.
+Υπολογίστε τη λαμβανόμενη ισχύ σε dBm.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Compute wavelength.
+Βήμα 1: Υπολογισμός μήκους κύματος.
 
 $$
 \lambda = \frac{3 \times 10^8}{5.8 \times 10^9} = 0.0517 \text{ m}
 $$
 
-Step 2: Compute free-space path loss.
+Βήμα 2: Υπολογισμός απώλειας διαδρομής ελεύθερου χώρου.
 
 $$
 \text{FSPL} = \left( \frac{4\pi R}{\lambda} \right)^2 = \left( \frac{4\pi \times 500}{0.0517} \right)^2
@@ -875,9 +875,9 @@ $$
 \text{FSPL}_{\text{dB}} = 10 \log_{10}(1.476 \times 10^{10}) = 101.69 \text{ dB}
 $$
 
-Step 3: Compute mismatch efficiencies.
+Βήμα 3: Υπολογισμός αποδόσεων προσαρμογής.
 
-For $VSWR_t = 1.5$:
+Για VSWR$_t = 1.5$:
 
 $$
 |\Gamma_t| = \frac{\text{VSWR} - 1}{\text{VSWR} + 1} = \frac{1.5 - 1}{1.5 + 1} = \frac{0.5}{2.5} = 0.2
@@ -887,7 +887,7 @@ $$
 e_{rt} = 1 - |\Gamma_t|^2 = 1 - 0.04 = 0.96
 $$
 
-For VSWR$_r = 2.0$:
+Για VSWR$_r = 2.0$:
 
 $$
 |\Gamma_r| = \frac{2 - 1}{2 + 1} = \frac{1}{3} = 0.333
@@ -897,21 +897,21 @@ $$
 e_{rr} = 1 - |\Gamma_r|^2 = 1 - 0.111 = 0.889
 $$
 
-Step 4: Express all gains and losses in dB.
+Βήμα 4: Έκφραση όλων των κερδών και απωλειών σε dB.
 
 $P_t = 10$ dBm, $G_t = 12$ dBi, $G_r = 18$ dBi, FSPL = 101.69 dB.
 
-Mismatch losses: $L_{mt} = -10 \log_{10}(0.96) = -0.177$ dB, $L_{mr} = -10 \log_{10}(0.889) = -0.511$ dB.
+Απώλειες ασυμφωνίας: $L_{mt} = -10 \log_{10}(0.96) = -0.177$ dB, $L_{mr} = -10 \log_{10}(0.889) = -0.511$ dB.
 
-Polarization loss: $L_{\text{pol}} = -10 \log_{10}(0.5) = 3.01$ dB.
+Απώλεια πόλωσης: $L_{\text{pol}} = -10 \log_{10}(0.5) = 3.01$ dB.
 
-Step 5: Compute $P_r$ in dBm.
+Βήμα 5: Υπολογισμός $P_r$ σε dBm.
 
 $$
 P_r(\text{dBm}) = P_t + G_t + G_r - \text{FSPL}_{\text{dB}} + L_{mt} + L_{mr} - L_{\text{pol}}
 $$
 
-Note: Mismatch losses are subtracted (negative dB values).
+Σημείωση: Οι απώλειες ασυμφωνίας αφαιρούνται (αρνητικές τιμές dB).
 
 $$
 P_r = 10 + 12 + 18 - 101.69 - 0.177 - 0.511 - 3.01
@@ -921,42 +921,42 @@ $$
 P_r = 40 - 105.388 = -65.388 \text{ dBm}
 $$
 
-The received power is approximately $-65.4$ dBm.
+Η λαμβανόμενη ισχύς είναι περίπου $-65.4$ dBm.
 
 ---
 
-### Exercise 9: Directivity from Numerical Integration
+### Άσκηση 9: Κατευθυντικότητα από Αριθμητική Ολοκλήρωση
 
-**Problem:** A measured power pattern has the following samples at $\theta = 0^\circ, 30^\circ, 60^\circ, 90^\circ$ (rotation is symmetric, no $\phi$ variation):
+**Διατύπωση Προβλήματος:** Ένα μετρούμενο διάγραμμα ισχύος έχει τα ακόλουθα δείγματα στις γωνίες $\theta = 0^\circ, 30^\circ, 60^\circ, 90^\circ$ (η περιστροφή είναι συμμετρική, χωρίς μεταβολή ως προς $\phi$):
 
-| $\theta$ (degrees) | $P_n(\theta)$ |
+| $\theta$ (μοίρες) | $P_n(\theta)$ |
 | :--- | :--- |
 | 0 | 1.0 |
 | 30 | 0.8 |
 | 60 | 0.3 |
 | 90 | 0.1 |
 
-The pattern is zero for $\theta > 90^\circ$. Estimate the directivity using numerical integration with the trapezoidal rule.
+Το διάγραμμα είναι μηδέν για $\theta > 90^\circ$. Εκτιμήστε την κατευθυντικότητα χρησιμοποιώντας αριθμητική ολοκλήρωση με τον τραπεζοειδή κανόνα.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Convert angles to radians.
+Βήμα 1: Μετατροπή γωνιών σε ακτίνια (radians).
 
 $\theta_1 = 0$, $\theta_2 = \pi/6$, $\theta_3 = \pi/3$, $\theta_4 = \pi/2$.
 
-Step 2: The directivity formula requires integration:
+Βήμα 2: Ο τύπος κατευθυντικότητας απαιτεί ολοκλήρωση:
 
 $$
 D_0 = \frac{4\pi}{\displaystyle \int_0^{2\pi} \int_0^{\pi/2} P_n(\theta) \sin\theta \, d\theta \, d\phi}
 $$
 
-Because of $\phi$ symmetry:
+Λόγω συμμετρίας ως προς $\phi$:
 
 $$
 D_0 = \frac{4\pi}{2\pi \displaystyle \int_0^{\pi/2} P_n(\theta) \sin\theta \, d\theta} = \frac{2}{\displaystyle \int_0^{\pi/2} P_n(\theta) \sin\theta \, d\theta}
 $$
 
-Step 3: Compute the integrand $f(\theta) = P_n(\theta) \sin\theta$ at each sample point.
+Βήμα 3: Υπολογισμός της ολοκληρωτέας συνάρτησης $f(\theta) = P_n(\theta) \sin\theta$ σε κάθε σημείο δείγματος.
 
 | $\theta$ (rad) | $P_n$ | $\sin\theta$ | $f(\theta)$ |
 | :--- | :--- | :--- | :--- |
@@ -965,7 +965,7 @@ Step 3: Compute the integrand $f(\theta) = P_n(\theta) \sin\theta$ at each sampl
 | $\pi/3$ | 0.3 | 0.866 | 0.260 |
 | $\pi/2$ | 0.1 | 1.0 | 0.1 |
 
-Step 4: Apply the trapezoidal rule.
+Βήμα 4: Εφαρμογή του τραπεζοειδούς κανόνα.
 
 $\Delta\theta_1 = \pi/6$, $\Delta\theta_2 = \pi/6$, $\Delta\theta_3 = \pi/6$.
 
@@ -985,33 +985,33 @@ $$
 = 0.3718
 $$
 
-Step 5: Compute directivity.
+Βήμα 5: Υπολογισμός κατευθυντικότητας.
 
 $$
 D_0 = \frac{2}{0.3718} = 5.38
 $$
 
-In dBi: $10 \log_{10}(5.38) = 7.31$ dBi.
+Σε dBi: $10 \log_{10}(5.38) = 7.31$ dBi.
 
-The estimated directivity is approximately 5.4 (7.3 dBi).
+Η εκτιμώμενη κατευθυντικότητα είναι περίπου 5.4 (7.3 dBi).
 
-**Note:** The accuracy of this numerical estimate depends on the sampling density. With only 4 sample points, the true directivity may differ. For practical antenna measurements, pattern sampling at $1^\circ$ to $5^\circ$ intervals is typical.
+**Σημείωση:** Η ακρίβεια αυτής της αριθμητικής εκτίμησης εξαρτάται από τη πυκνότητα δειγματοληψίας. Με μόνο 4 σημεία δείγματος, η πραγματική κατευθυντικότητα ενδέχεται να διαφέρει. Για πρακτικές μετρήσεις κεραιών, η δειγματοληψία διαγράμματος σε διαστήματα $1^\circ$ έως $5^\circ$ είναι τυπική.
 
 ---
 
-### Exercise 10: Radar Range Equation
+### Άσκηση 10: Εξίσωση Εμβέλειας Ραντάρ
 
-**Problem:** A monostatic radar operating at $f = 10$ GHz has the following parameters:
-- Transmit power: $P_t = 1$ kW.
-- Antenna gain: $G = 35$ dBi.
-- Target RCS: $\sigma = 1$ m$^2$.
-- Minimum detectable signal: $P_{r,\min} = -90$ dBm.
+**Διατύπωση Προβλήματος:** Ένα μονοστατικό ραντάρ που λειτουργεί στα $f = 10$ GHz έχει τις ακόλουθες παραμέτρους:
+- Ισχύς εκπομπής: $P_t = 1$ kW.
+- Κέρδος κεραίας: $G = 35$ dBi.
+- RCS στόχου: $\sigma = 1$ m$^2$.
+- Ελάχιστο ανιχνεύσιμο σήμα: $P_{r,\min} = -90$ dBm.
 
-Compute the maximum detection range.
+Υπολογίστε τη μέγιστη εμβέλεια ανίχνευσης.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Express all quantities in linear units.
+Βήμα 1: Έκφραση όλων των μεγεθών σε γραμμικές μονάδες.
 
 $P_t = 1000$ W.
 
@@ -1021,27 +1021,27 @@ $\lambda = \frac{3 \times 10^8}{10 \times 10^9} = 0.03$ m.
 
 $P_{r,\min} = -90$ dBm $= 10^{-90/10} \times 10^{-3} = 10^{-12}$ W.
 
-Step 2: State the radar range equation solved for $R$.
+Βήμα 2: Διατύπωση της εξίσωσης εμβέλειας ραντάρ λυμένης ως προς $R$.
 
 $$
 P_r = \frac{P_t G^2 \lambda^2 \sigma}{(4\pi)^3 R^4} \quad \Rightarrow \quad R_{\max} = \left( \frac{P_t G^2 \lambda^2 \sigma}{(4\pi)^3 P_{r,\min}} \right)^{1/4}
 $$
 
-Step 3: Compute numerator.
+Βήμα 3: Υπολογισμός αριθμητή.
 
 $$
 P_t G^2 \lambda^2 \sigma = 1000 \times (3162.3)^2 \times (0.03)^2 \times 1
 $$
 
 $$
-= 1000 \times 10,000,000 \times 0.0009 \times 1
+= 1000 \times 10.000.000 \times 0.0009 \times 1
 $$
 
 $$
 = 9 \times 10^9
 $$
 
-Step 4: Compute denominator.
+Βήμα 4: Υπολογισμός παρανομαστή.
 
 $(4\pi)^3 = (12.566)^3 = 1984.4$.
 
@@ -1049,7 +1049,7 @@ $$
 P_{r,\min} (4\pi)^3 = 10^{-12} \times 1984.4 = 1.984 \times 10^{-9}
 $$
 
-Step 5: Compute range.
+Βήμα 5: Υπολογισμός εμβέλειας.
 
 $$
 R_{\max} = \left( \frac{9 \times 10^9}{1.984 \times 10^{-9}} \right)^{1/4} = \left( 4.536 \times 10^{18} \right)^{1/4}
@@ -1060,29 +1060,29 @@ R_{\max} = (4.536)^{1/4} \times (10^{18})^{1/4} = 1.459 \times 10^{4.5}
 $$
 
 $$
-R_{\max} = 1.459 \times 31,623 = 46,137 \text{ m}
+R_{\max} = 1.459 \times 31.623 = 46.137 \text{ m}
 $$
 
-The maximum detection range is approximately 46.1 km.
+Η μέγιστη εμβέλεια ανίχνευσης είναι περίπου 46.1 km.
 
 ---
 
-## Exam Tip: Parameter Relationships and Common Pitfalls
+## Συμβουλή Εξετάσεων: Σχέσεις Παραμέτρων και Συνηθισμένες Παγίδες
 
-A frequent exam pattern asks you to compute one parameter from others using the fundamental relationships. Memorize these key equations:
+Ένα συχνό μοτίβο εξετάσεων σας ζητά να υπολογίσετε μια παράμετρο από άλλες χρησιμοποιώντας τις θεμελιώδεις σχέσεις. Απομνημονεύστε αυτές τις βασικές εξισώσεις:
 
-1. **Gain-Directivity-Efficiency:** $G(\text{dBi}) = D(\text{dBi}) + 10\log_{10}(\eta_{\text{rad}})$. Gain is always less than or equal to directivity.
+1. **Κέρδος-Κατευθυντικότητα-Απόδοση:** $G(\text{dBi}) = D(\text{dBi}) + 10\log_{10}(\eta_{\text{rad}})$. Το κέρδος είναι πάντα μικρότερο ή ίσο με την κατευθυντικότητα.
 
-2. **Effective Area-Directivity:** $A_e = \frac{\lambda^2}{4\pi} D_0$. A larger effective area means higher directivity.
+2. **Ενεργός Επιφάνεια-Κατευθυντικότητα:** $A_e = \frac{\lambda^2}{4\pi} D_0$. Μεγαλύτερη ενεργός επιφάνεια σημαίνει υψηλότερη κατευθυντικότητα.
 
-3. **Friis equation:** Do not forget the $\lambda^2/(4\pi R)^2$ term. A common mistake is to use the path loss in dB but forget to convert gains to linear units when multiplying.
+3. **Εξίσωση Friis:** Μην ξεχνάτε τον όρο $\lambda^2/(4\pi R)^2$. Ένα συχνό λάθος είναι η χρήση της απώλειας διαδρομής σε dB αλλά η παράλειψη μετατροπής των κερδών σε γραμμικές μονάδες κατά τον πολλαπλασιασμό.
 
-4. **VSWR to mismatch loss:** $|\Gamma| = (\text{VSWR} - 1)/(\text{VSWR} + 1)$, then mismatch loss $= -10\log_{10}(1 - |\Gamma|^2)$ dB.
+4. **VSWR σε απώλεια προσαρμογής:** $|\Gamma| = (\text{VSWR} - 1)/(\text{VSWR} + 1)$, στη συνέχεια απώλεια προσαρμογής $= -10\log_{10}(1 - |\Gamma|^2)$ dB.
 
-**Common pitfalls:**
-- Confusing dBi (gain relative to isotropic) with dBd (gain relative to a dipole). $G(\text{dBi}) = G(\text{dBd}) + 2.15$ dB.
-- Using HPBW in degrees directly in formulas requiring radians. Kraus formula uses degrees; the exact $4\pi/(\Theta_1 \Theta_2)$ formula uses radians.
-- Forgetting that the Friis equation assumes polarization match. Always check if a PLF adjustment is needed.
-- Confusing effective area with physical area. For aperture antennas, $A_e = \eta_{\text{ap}} A_p$, where $\eta_{\text{ap}}$ is aperture efficiency (typically 50-80%).
+**Συνηθισμένες παγίδες:**
+- Σύγχυση μεταξύ dBi (κέρδος ως προς ισοτροπική) και dBd (κέρδος ως προς δίπολο). $G(\text{dBi}) = G(\text{dBd}) + 2.15$ dB.
+- Χρήση του HPBW σε μοίρες απευθείας σε τύπους που απαιτούν ακτίνια (radians). Ο τύπος Kraus χρησιμοποιεί μοίρες, ο ακριβής τύπος $4\pi/(\Theta_1 \Theta_2)$ χρησιμοποιεί ακτίνια.
+- Λήθη ότι η εξίσωση Friis υποθέτει προσαρμογή πόλωσης. Ελέγχετε πάντα αν απαιτείται προσαρμογή PLF.
+- Σύγχυση της ενεργού επιφάνειας με τη φυσική επιφάνεια. Για κεραίες ανοίγματος, $A_e = \eta_{\text{ap}} A_p$, όπου $\eta_{\text{ap}}$ είναι η απόδοση ανοίγματος (τυπικά 50-80%).
 
-**Pattern recognition shortcut:** If an exam problem gives you HPBW in two planes, you can always provide an approximate directivity using Kraus' formula. It is not exact but is a valid engineering estimate and shows understanding of the concept.
+**Σύντομος κανόνας αναγνώρισης:** Εάν ένα πρόβλημα εξετάσεων σας δίνει το HPBW σε δύο επίπεδα, μπορείτε πάντα να παράσχετε μια προσεγγιστική κατευθυντικότητα χρησιμοποιώντας τον τύπο του Kraus. Δεν είναι ακριβής, αλλά αποτελεί έγκυρη μηχανική εκτίμηση και δείχνει κατανόηση της έννοιας.

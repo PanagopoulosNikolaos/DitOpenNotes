@@ -1,15 +1,15 @@
 /*
- * Exercise 12: Loops (For, While)
+ * Άσκηση 12: Βρόχοι (For, While)
  *
- * Instructions:
- * 1. Create a program that implements the bubble sort algorithm using nested loops to sort an array of 10 integers
- * 2. Use a for loop to reverse a string entered by the user
- * 3. Calculate compound interest using a loop (formula: A = P(1+r/n)^nt)
- * 4. Implement a program that counts the frequency of each digit in a number using loops
- * 
- * Compound Interest Formula: A = P(1+r/n)^nt
- * Where A = Final amount, P = Principal, r = annual interest rate (in decimal), 
- * n = number of times interest applied per time period, t = number of time periods elapsed
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί τον αλγόριθμο ταξινόμησης φυσαλίδας (bubble sort) χρησιμοποιώντας ένθετους βρόχους για να ταξινομήσετε έναν πίνακα 10 ακεραίων
+ * 2. Χρησιμοποιήστε έναν βρόχο for για να αντιστρέψετε μια συμβολοσειρά που εισάγει ο χρήστης
+ * 3. Υπολογίστε σύνθετο τόκο χρησιμοποιώντας έναν βρόχο (τύπος: A = P(1+r/n)^nt)
+ * 4. Υλοποιήστε ένα πρόγραμμα που μετρά τη συχνότητα κάθε ψηφίου σε έναν αριθμό χρησιμοποιώντας βρόχους
+ *
+ * Τύπος σύνθετου τόκου: A = P(1+r/n)^nt
+ * Όπου A = Τελικό ποσό, P = Κεφάλαιο, r = ετήσιο επιτόκιο (σε δεκαδική μορφή),
+ * n = αριθμός φορών που εφαρμόζεται ο τόκος ανά χρονική περίοδο, t = αριθμός χρονικών περιόδων που έχουν παρέλθει
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,54 +1,54 @@
-# Linear Wire Antennas
+# Γραμμικές Συρμάτινες Κεραίες
 
-Linear wire antennas are the simplest and most extensively studied class of antennas. They consist of thin, straight conductors carrying time-harmonic currents that radiate electromagnetic energy. Despite their geometric simplicity, linear wire antennas form the building blocks for more complex structures: arrays, Yagi-Uda antennas, log-periodic dipoles, and many other practical designs derive their behaviour from the fundamental current distributions and field patterns of single-wire radiators. This section covers the canonical cases — the infinitesimal dipole, the small dipole, and the finite-length dipole — along with region separation, ground-plane effects, and the computational tools used to analyse wire antennas.
+Οι γραμμικές συρμάτινες κεραίες αποτελούν την απλούστερη και πιο εκτενώς μελετημένη κατηγορία κεραιών. Αποτελούνται από λεπτούς, ευθύγραμμους αγωγούς που φέρουν χρονικά αρμονικά ρεύματα τα οποία ακτινοβολούν ηλεκτρομαγνητική ενέργεια. Παρά τη γεωμετρική τους απλότητα, οι γραμμικές συρμάτινες κεραίες αποτελούν τους δομικούς λίθους για πιο σύνθετες δομές: οι στοιχειοσειρές (arrays), οι κεραίες Yagi-Uda, τα λογαριθμο-περιοδικά δίπολα και πολλές άλλες πρακτικές σχεδιάσεις αντλούν τη συμπεριφορά τους από τις θεμελιώδεις κατανομές ρεύματος και τα διαγράμματα πεδίου των μεμονωμένων συρμάτινων ακτινοβολητών. Αυτή η ενότητα καλύπτει τις κανονικές περιπτώσεις — το στοιχειώδες δίπολο (Hertzian dipole), το μικρό δίπολο και το δίπολο πεπερασμένου μήκους — μαζί με τον διαχωρισμό περιοχών, τα φαινόμενα επιπέδου γείωσης και τα υπολογιστικά εργαλεία που χρησιμοποιούνται για την ανάλυση συρμάτινων κεραιών.
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Εννοιολογικό Υπόβαθρο
 
-### 1.1 Why Linear Wire Antennas
+### 1.1 Γιατί Γραμμικές Συρμάτινες Κεραίες
 
-The linear wire antenna is the natural starting point for antenna theory for three reasons:
+Η γραμμική συρμάτινη κεραία είναι το φυσικό σημείο εκκίνησης για τη θεωρία κεραιών για τρεις λόγους:
 
-1. **Analytical tractability:** The current distribution on a thin wire can be approximated by a sinusoidal function, leading to closed-form expressions for the radiated fields, directivity, and input impedance.
-2. **Practical ubiquity:** Half-wavelength dipoles, quarter-wavelength monopoles, and folded dipoles are among the most common antenna elements in commercial, military, and amateur radio systems.
-3. **Pedagogical value:** Every concept introduced later — vector potentials, far-field approximations, impedance, mutual coupling — has a concrete manifestation in the wire antenna, making it the ideal vehicle for building physical intuition.
+1. **Αναλυτική επιλυσιμότητα:** Η κατανομή ρεύματος σε ένα λεπτό σύρμα μπορεί να προσεγγιστεί από μια ημιτονοειδή συνάρτηση, οδηγώντας σε εκφράσεις κλειστής μορφής για τα ακτινοβολούμενα πεδία, την κατευθυντικότητα και τη σύνθετη αντίσταση εισόδου.
+2. **Πρακτική πανταχού παρουσία:** Τα δίπολα μισού μήκους κύματος, τα μονόπολα τετάρτου μήκους κύματος και τα διπλωμένα δίπολα (folded dipoles) συγκαταλέγονται στα πιο κοινά στοιχεία κεραιών σε εμπορικά, στρατιωτικά και ραδιοερασιτεχνικά συστήματα.
+3. **Παιδαγωγική αξία:** Κάθε έννοια που εισάγεται αργότερα — διανυσματικά δυναμικά, προσεγγίσεις μακρινού πεδίου, σύνθετη αντίσταση, αμοιβαία σύζευξη — έχει μια συγκεκριμένη εκδήλωση στη συρμάτινη κεραία, καθιστώντας την το ιδανικό μέσο για τη διαμόρφωση φυσικής διαίσθησης.
 
-### 1.2 The Central Problem
+### 1.2 Το Κεντρικό Πρόβλημα
 
-Given a straight wire of length $L$ and radius $a$ (with $a \ll L$ and $a \ll \lambda$), carrying a known current distribution $I(z')$ along its axis, compute:
+Δεδομένου ενός ευθύγραμμου σύρματος μήκους $L$ και ακτίνας $a$ (με $a \ll L$ και $a \ll \lambda$), που φέρει γνωστή κατανομή ρεύματος $I(z')$ κατά μήκος του άξονά του, να υπολογιστούν:
 
-- The vector potential $\mathbf{A}$ at an observation point.
-- The radiated electric and magnetic fields $\mathbf{E}$, $\mathbf{H}$.
-- The radiation pattern, directivity, and input impedance.
+- Το διανυσματικό δυναμικό $\mathbf{A}$ σε ένα σημείο παρατήρησης.
+- Τα ακτινοβολούμενα ηλεκτρικά και μαγνητικά πεδία $\mathbf{E}$, $\mathbf{H}$.
+- Το διάγραμμα ακτινοβολίας, η κατευθυντικότητα και η σύνθετη αντίσταση εισόδου.
 
-The current distribution is the key unknown. For thin wires, the distribution is well approximated by a sinusoidal standing wave:
+Η κατανομή ρεύματος είναι ο βασικός άγνωστος. Για λεπτά σύρματα, η κατανομή προσεγγίζεται ικανοποιητικά από ένα ημιτονοειδές στάσιμο κύμα:
 
 $$
 I(z') = I_m \sin\left[k\left(\frac{L}{2} - |z'|\right)\right], \quad -\frac{L}{2} \leq z' \leq \frac{L}{2}
 $$
 
-where $I_m$ is the current maximum amplitude and $k = 2\pi/\lambda$ is the wavenumber.
+όπου $I_m$ είναι το μέγιστο πλάτος ρεύματος και $k = 2\pi/\lambda$ είναι ο κυματαριθμός.
 
-> **[Key Insight]** The sinusoidal current approximation assumes the wire is perfectly conducting and infinitely thin. For finite-radius wires, the exact current distribution requires solving an integral equation (Pocklington's or Hallen's equation) using numerical methods such as the Method of Moments, covered in Section 8 of the mindmap.
+> **[Βασική Παρατήρηση]** Η προσέγγιση ημιτονοειδούς ρεύματος υποθέτει ότι το σύρμα είναι τέλεια αγώγιμο και άπειρα λεπτό. Για σύρματα πεπερασμένης ακτίνας, η ακριβής κατανομή ρεύματος απαιτεί την επίλυση μιας ολοκληρωτικής εξίσωσης (εξίσωση Pocklington ή Hallen) με χρήση αριθμητικών μεθόδων όπως η Μέθοδος των Ροπών (Method of Moments).
 
 ---
 
-## 2. Formal Definitions and Models
+## 2. Τυπικοί Ορισμοί και Μοντέλα
 
-### 2.1 The Infinitesimal Dipole (Hertzian Dipole)
+### 2.1 Το Στοιχειώδες Δίπολο (Δίπολο Hertz)
 
-The infinitesimal dipole is the fundamental radiating element: a wire of length $dl \ll \lambda$ carrying a uniform current $I_0$. Despite being physically unrealisable (a finite current over an infinitesimal length would require infinite charge acceleration), it serves as the building block from which all wire antenna fields are derived via superposition.
+Το στοιχειώδες δίπολο (Hertzian dipole) είναι το θεμελιώδες ακτινοβολούν στοιχείο: ένα σύρμα μήκους $dl \ll \lambda$ που φέρει ομοιόμορφο ρεύμα $I_0$. Παρά το γεγονός ότι είναι φυσικώς αδύνατο να πραγματοποιηθεί (πεπερασμένο ρεύμα σε στοιχειώδες μήκος θα απαιτούσε άπειρη επιτάχυνση φορτίου), χρησιμεύει ως ο δομικός λίθος από τον οποίο παράγονται όλα τα πεδία συρμάτινων κεραιών μέσω επαλληλίας.
 
-**Current distribution:** Uniform, $I(z') = I_0$ over $-\frac{dl}{2} \leq z' \leq \frac{dl}{2}$.
+**Κατανομή ρεύματος:** Ομοιόμορφη, $I(z') = I_0$ στο $-\frac{dl}{2} \leq z' \leq \frac{dl}{2}$.
 
-**Magnetic vector potential:** For a $z$-oriented dipole centred at the origin:
+**Μαγνητικό διανυσματικό δυναμικό:** Για δίπολο προσανατολισμένο κατά $z$ κεντραρισμένο στην αρχή:
 
 $$
 \mathbf{A} = A_z \hat{\mathbf{z}}, \quad A_z = \frac{\mu I_0 dl}{4\pi} \frac{e^{-jkr}}{r}
 $$
 
-**Radiated fields (spherical coordinates):**
+**Ακτινοβολούμενα πεδία (σφαιρικές συντεταγμένες):**
 
 $$
 E_r = \eta \frac{I_0 dl \cos\theta}{2\pi r^2} \left(1 + \frac{1}{jkr}\right) e^{-jkr}
@@ -62,75 +62,75 @@ $$
 H_\phi = j \frac{k I_0 dl \sin\theta}{4\pi r} \left[1 + \frac{1}{jkr}\right] e^{-jkr}
 $$
 
-**Far-field (Fraunhofer zone, $kr \gg 1$):**
+**Μακρινό πεδίο (Ζώνη Fraunhofer, $kr \gg 1$):**
 
 $$
 E_\theta \approx j\eta \frac{k I_0 dl \sin\theta}{4\pi r} e^{-jkr}, \quad H_\phi \approx \frac{E_\theta}{\eta}, \quad E_r \approx 0
 $$
 
-**Directivity:** $D_0 = 1.5$ (or $1.76$ dB).
+**Κατευθυντικότητα:** $D_0 = 1.5$ (ή $1.76$ dB).
 
-**Radiation resistance:**
+**Αντίσταση ακτινοβολίας:**
 
 $$
-R_r = 80\pi^2 \left(\frac{dl}{\lambda}\right)^2 = 20 k^2 (dl)^2 \quad \text{(in free space)}
+R_r = 80\pi^2 \left(\frac{dl}{\lambda}\right)^2 = 20 k^2 (dl)^2 \quad \text{(στον ελεύθερο χώρο)}
 $$
 
-### 2.2 The Small Dipole
+### 2.2 Το Μικρό Δίπολο
 
-The small dipole has length $L \leq \lambda/10$ but is not infinitesimal. The current cannot be assumed uniform; instead, it varies linearly from a maximum at the centre to zero at the ends:
+Το μικρό δίπολο έχει μήκος $L \leq \lambda/10$ αλλά δεν είναι στοιχειώδες. Το ρεύμα δεν μπορεί να θεωρηθεί ομοιόμορφο· αντίθετα, μεταβάλλεται γραμμικά από ένα μέγιστο στο κέντρο έως το μηδέν στα άκρα:
 
-**Current distribution (triangular):**
+**Κατανομή ρεύματος (τριγωνική):**
 
 $$
 I(z') = I_0 \left(1 - \frac{2|z'|}{L}\right), \quad -\frac{L}{2} \leq z' \leq \frac{L}{2}
 $$
 
-**Vector potential (approximated using average current $I_{\text{av}} = I_0/2$):**
+**Διανυσματικό δυναμικό (προσεγγιζόμενο με μέσο ρεύμα $I_{\text{av}} = I_0/2$):**
 
 $$
-A_z \approx \frac{\mu I_0 L}{8\pi} \frac{e^{-jkr}}{r} \quad \text{(far-field approximation)}
+A_z \approx \frac{\mu I_0 L}{8\pi} \frac{e^{-jkr}}{r} \quad \text{(προσέγγιση μακρινού πεδίου)}
 $$
 
-**Far-field:**
+**Μακρινό πεδίο:**
 
 $$
 E_\theta \approx j\eta \frac{k I_0 L \sin\theta}{8\pi r} e^{-jkr}
 $$
 
-The small dipole has **half the radiation resistance** of an equivalent-length infinitesimal dipole with uniform current:
+Το μικρό δίπολο έχει **τη μισή αντίσταση ακτινοβολίας** σε σύγκριση με ένα στοιχειώδες δίπολο ισοδύναμου μήκους με ομοιόμορφο ρεύμα:
 
 $$
 R_r = 20\pi^2 \left(\frac{L}{\lambda}\right)^2
 $$
 
-**Directivity:** $D_0 = 1.5$ (same as infinitesimal dipole, because the pattern shape is identical).
+**Κατευθυντικότητα:** $D_0 = 1.5$ (ίδια με το στοιχειώδες δίπολο, επειδή η μορφή του διαγράμματος είναι ταυτόσημη).
 
-> **[Key Insight]** The directivity of both the infinitesimal dipole and the small dipole is $1.5$ because the pattern function $\sin\theta$ is identical. The difference lies in the radiation resistance, which depends on the total current moment $\int I(z') dz'$.
+> **[Βασική Παρατήρηση]** Η κατευθυντικότητα τόσο του στοιχειώδους όσο και του μικρού διπόλου είναι $1.5$ επειδή η συνάρτηση διαγράμματος $\sin\theta$ είναι ταυτόσημη. Η διαφορά έγκειται στην αντίσταση ακτινοβολίας, η οποία εξαρτάται από τη συνολική ροπή ρεύματος $\int I(z') dz'$.
 
-### 2.3 Region Separation
+### 2.3 Διαχωρισμός Περιοχών Пеδίου
 
-The fields of any antenna are classified into three regions based on the distance $r$ from the source and the maximum dimension $D$ of the antenna.
+Τα πεδία κάθε κεραίας ταξινομούνται σε τρεις περιοχές με βάση την απόσταση $r$ από την πηγή και τη μέγιστη διάσταση $D$ της κεραίας.
 
-**Table 1: Field Regions for Wire Antennas**
+**Πίνακας 1: Περιοχές Πεδίου για Συρμάτινες Κεραίες**
 
-| Region | Criterion | Phase Front | Field Behaviour |
+| Περιοχή | Κριτήριο | Μέτωπο Φάσης | Συμπεριφορά Πεδίου |
 | :--- | :--- | :--- | :--- |
-| Reactive Near-Field | $r < 0.62 \sqrt{D^3/\lambda}$ | Highly spherical, no $1/r$ term dominant | Reactive energy dominates; $E_r$ and $H_r$ components significant |
-| Radiating Near-Field (Fresnel) | $0.62 \sqrt{D^3/\lambda} \leq r < 2D^2/\lambda$ | Spherical but locally planar | Angular field distribution depends on $r$; not fully formed pattern |
-| Far-Field (Fraunhofer) | $r \geq 2D^2/\lambda$ | Planar over the antenna | $1/r$ dependence; pattern independent of $r$; $E \perp H \perp \hat{\mathbf{r}}$ |
+| Αντιδραστικό Κοντινό Πεδίο (Reactive Near-Field) | $r < 0.62 \sqrt{D^3/\lambda}$ | Έντονα σφαιρικό, ο όρος $1/r$ δεν είναι κυρίαρχος | Κυριαρχεί η αντιδραστική ενέργεια· οι συνιστώσες $E_r$ και $H_r$ είναι σημαντικές |
+| Ακτινοβολούν Κοντινό Πεδίο (Fresnel) | $0.62 \sqrt{D^3/\lambda} \leq r < 2D^2/\lambda$ | Σφαιρικό αλλά τοπικά επίπεδο | Η γωνιακή κατανομή πεδίου εξαρτάται από το $r$· το διάγραμμα δεν έχει διαμορφωθεί πλήρως |
+| Μακρινό Πεδίο (Fraunhofer) | $r \geq 2D^2/\lambda$ | Επίπεδο πάνω στην κεραία | Εξάρτηση $1/r$· το διάγραμμα είναι ανεξάρτητο του $r$· $E \perp H \perp \hat{\mathbf{r}}$ |
 
-For a dipole of length $L$, the maximum dimension is $D = L$. The far-field distance simplifies to:
+Για δίπολο μήκους $L$, η μέγιστη διάσταση είναι $D = L$. Η απόσταση μακρινού πεδίου απλοποιείται σε:
 
 $$
 r_{\text{ff}} = \frac{2L^2}{\lambda}
 $$
 
-**Practical implication:** For a half-wavelength dipole ($L = \lambda/2$), $r_{\text{ff}} = \frac{2(\lambda/2)^2}{\lambda} = \lambda/2$. The far-field begins at half a wavelength from the antenna, which means most practical measurements of dipole patterns are in the far-field.
+**Πρακτική συνέπεια:** Για ένα δίπολο μισού μήκους κύματος ($L = \lambda/2$), $r_{\text{ff}} = \frac{2(\lambda/2)^2}{\lambda} = \lambda/2$. Το μακρινό πεδίο ξεκινά από το μισό μήκος κύματος από την κεραία, γεγονός που σημαίνει ότι οι περισσότερες πρακτικές μετρήσεις διαγραμμάτων διπόλων γίνονται στο μακρινό πεδίο.
 
-### 2.4 Finite Length Dipole
+### 2.4 Δίπολο Πεπερασμένου Μήκους
 
-For a dipole of arbitrary length $L$, the current distribution is sinusoidal:
+Για δίπολο αυθαίρετου μήκους $L$, η κατανομή ρεύματος είναι ημιτονοειδής:
 
 $$
 I(z') = \begin{cases}
@@ -139,183 +139,183 @@ I_m \sin\left[k\left(\frac{L}{2} + z'\right)\right], & -\frac{L}{2} \leq z' \leq
 \end{cases}
 $$
 
-**Vector potential (far-field approximation):**
+**Διανυσματικό δυναμικό (προσέγγιση μακρινού πεδίου):**
 
 $$
 A_z = \frac{\mu I_m e^{-jkr}}{4\pi r} \int_{-L/2}^{L/2} \sin\left[k\left(\frac{L}{2} - |z'|\right)\right] e^{jkz' \cos\theta} \, dz'
 $$
 
-**Far-field electric field (the radiation integral evaluates to a closed form):**
+**Ηλεκτρικό πεδίο μακρινού πεδίου (το ολοκλήρωμα ακτινοβολίας υπολογίζεται σε κλειστή μορφή):**
 
 $$
 E_\theta = j\eta \frac{I_m e^{-jkr}}{2\pi r} \left[ \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{\sin\theta} \right]
 $$
 
-The term in brackets is the **array factor** for a continuous line source, often denoted as $F(\theta)$.
+Ο όρος στις αγκύλες είναι ο **παράγοντας διάταξης (array factor)** για μια συνεχή γραμμική πηγή, συμβολιζόμενος συχνά ως $F(\theta)$.
 
-**Normalised power pattern:**
+**Κανονικοποιημένο διάγραμμα ισχύος:**
 
 $$
 F(\theta) = \left[ \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{\sin\theta} \right]^2
 $$
 
-**Table 2: Key Dipole Properties vs. Length**
+**Πίνακας 2: Βασικές Ιδιότητες Διπόλου έναντι Μήκους**
 
-| $L/\lambda$ | Current Distribution | Pattern Lobes | $D_0$ (dB) | $R_r$ ($\Omega$) | Notes |
+| $L/\lambda$ | Κατανομή Ρεύματος | Λοβοί Διαγράμματος | $D_0$ (dB) | $R_r$ ($\Omega$) | Σημειώσεις |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| $\ll 1$ | Triangular | 1 | 1.76 | $20\pi^2(L/\lambda)^2$ | Small dipole regime |
-| $0.25$ | Sinusoidal (low amplitude) | 1 | 1.76 | $\approx 10$ | Short monopole equivalent |
-| $0.5$ | Half sine | 1 | 2.15 | $73$ | Half-wave dipole |
-| $1.0$ | Full sine | 2 | 3.82 | $199$ | Full-wave dipole |
-| $1.25$ | 1.25 sine periods | 3 | 4.26 | $\approx 250$ | Multiple lobes appear |
-| $1.5$ | 1.5 sine periods | 3 | 3.18 | $\approx 105$ | Directivity decreases |
+| $\ll 1$ | Τριγωνική | 1 | 1.76 | $20\pi^2(L/\lambda)^2$ | Περιοχή μικρού διπόλου |
+| $0.25$ | Ημιτονοειδής (χαμηλό πλάτος) | 1 | 1.76 | $\approx 10$ | Ισοδύναμο βραχέος μονοπόλου |
+| $0.5$ | Μισό ημίτονο | 1 | 2.15 | $73$ | Δίπολο μισού κύματος |
+| $1.0$ | Πλήρες ημίτονο | 2 | 3.82 | $199$ | Δίπολο πλήρους κύματος |
+| $1.25$ | 1.25 περίοδοι ημιτόνου | 3 | 4.26 | $\approx 250$ | Εμφανίζονται πολλαπλοί λοβοί |
+| $1.5$ | 1.5 περίοδοι ημιτόνου | 3 | 3.18 | $\approx 105$ | Η κατευθυντικότητα μειώνεται |
 
-### 2.5 Half-Wavelength Dipole
+### 2.5 Δίπολο Μισού Μήκους Κύματος
 
-The half-wavelength dipole ($L = \lambda/2$) is the most practically important wire antenna because its input impedance is purely real at resonance ($Z_{\text{in}} \approx 73 + j0\ \Omega$), making it easy to match to standard $50\ \Omega$ or $75\ \Omega$ transmission lines.
+Το δίπολο μισού μήκους κύματος ($L = \lambda/2$) είναι η πρακτικά σημαντικότερη συρμάτινη κεραία, καθώς η σύνθετη αντίσταση εισόδου του είναι αμιγώς πραγματική στον συντονισμό ($Z_{\text{in}} \approx 73 + j0\ \Omega$), καθιστώντας εύκολη την προσαρμογή του σε τυπικές γραμμές μεταφοράς $50\ \Omega$ ή $75\ \Omega$.
 
-**Current distribution:**
+**Κατανομή ρεύματος:**
 $$
 I(z') = I_m \cos(kz'), \quad -\frac{\lambda}{4} \leq z' \leq \frac{\lambda}{4}
 $$
 
-**Far-field:**
+**Μακρινό πεδίο:**
 
 $$
 E_\theta = j\eta \frac{I_m e^{-jkr}}{2\pi r} \left[ \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \right]
 $$
 
-**Directivity:** $D_0 = 1.643$ ($2.15$ dB).
+**Κατευθυντικότητα:** $D_0 = 1.643$ ($2.15$ dB).
 
-**Radiation resistance:** $R_r = 73\ \Omega$ (assuming perfectly conducting, infinitely thin wire).
+**Αντίσταση ακτινοβολίας:** $R_r = 73\ \Omega$ (υποθέτοντας τέλεια αγώγιμο, άπειρα λεπτό σύρμα).
 
-**Input impedance:** $Z_{\text{in}} \approx 73 + j42.5\ \Omega$ for a centre-fed thin dipole. The reactance vanishes at $L \approx 0.48\lambda$ for a typical wire radius.
+**Σύνθετη αντίσταση εισόδου:** $Z_{\text{in}} \approx 73 + j42.5\ \Omega$ για κεντρικά τροφοδοτούμενο λεπτό δίπολο. Η αέργος αντίσταση (reactance) μηδενίζεται στο $L \approx 0.48\lambda$ για μια τυπική ακτίνα σύρματος.
 
-**Half-power beamwidth (HPBW):** $78^\circ$ in the $E$-plane.
+**Εύρος δέσμης ημισείας ισχύος (HPBW):** $78^\circ$ στο $E$-επίπεδο.
 
-**Effective area:** $A_e = \frac{\lambda^2}{4\pi} D_0 = 0.131\lambda^2$.
+**Ενεργός επιφάνεια:** $A_e = \frac{\lambda^2}{4\pi} D_0 = 0.131\lambda^2$.
 
-### 2.6 Linear Elements Near or on Infinite Perfect Conductors
+### 2.6 Γραμμικά Στοιχεία Κοντά ή Πάνω σε Άπειρους Τέλειους Αγωγούς
 
-When a linear wire antenna is placed near an infinite perfect electric conductor (PEC), the boundary condition $\hat{\mathbf{n}} \times \mathbf{E} = 0$ on the conductor surface is satisfied by introducing an **image** of the antenna on the opposite side of the conductor.
+Όταν μια γραμμική συρμάτινη κεραία τοποθετείται κοντά σε έναν άπειρο τέλειο ηλεκτρικό αγωγό (PEC), η οριακή συνθήκη $\hat{\mathbf{n}} \times \mathbf{E} = 0$ στην επιφάνεια του αγωγού ικανοποιείται με την εισαγωγή ενός **ειδώλου (image)** της κεραίας στην απέναντι πλευρά του αγωγού.
 
-**Image Theory Rules:**
+**Κανόνες Θεωρίας Ειδώλων:**
 
-| Antenna Orientation | Image Orientation | Current Direction |
+| Προσανατολισμός Κεραίας | Προσανατολισμός Ειδώλου | Κατεύθυνση Ρεύματος |
 | :--- | :--- | :--- |
-| Vertical (parallel to $\hat{\mathbf{n}}$) | Vertical, same side | Same direction (constructive) |
-| Horizontal (parallel to surface) | Horizontal, opposite side | Opposite direction (cancellation at grazing) |
-| Inclined | Inclined, reflected | Component-wise application |
+| Κατακόρυφος (παράλληλος στο $\hat{\mathbf{n}}$) | Κατακόρυφος, ίδια πλευρά | Ίδια κατεύθυνση (ενισχυτική) |
+| Οριζόντιος (παράλληλος στην επιφάνεια) | Οριζόντιος, απέναντι πλευρά | Αντίθετη κατεύθυνση (ακύρωση σε βοσκόμενη πρόσπτωση) |
+| Κεκλιμένος | Κεκλιμένος, ανακλώμενος | Εφαρμογή ανά συνιστώσα |
 
-**Monopole:** A quarter-wavelength monopole ($L = \lambda/4$) over a PEC ground plane produces the same radiation pattern in the upper half-space as a half-wavelength dipole in free space. The input impedance is half: $Z_{\text{in}} \approx 36.5\ \Omega$.
+**Μονόπολο:** Ένα μονόπολο τετάρτου μήκους κύματος ($L = \lambda/4$) πάνω από επίπεδο γείωσης PEC παράγει το ίδιο διάγραμμα ακτινοβολίας στον άνω ημιχώρο με ένα δίπολο μισού μήκους κύματος στον ελεύθερο χώρο. Η σύνθετη αντίσταση εισόδου είναι η μισή: $Z_{\text{in}} \approx 36.5\ \Omega$.
 
-**Effect on radiation pattern:**
+**Επίδραση στο διάγραμμα ακτινοβολίας:**
 
-- A vertical dipole at height $h$ above a PEC ground has a far-field pattern multiplied by the array factor $2\sin(kh \cos\theta)$.
-- A horizontal dipole at height $h$ has an array factor $2\cos(kh \cos\theta)$, producing nulls at angles where $\cos(kh \cos\theta) = 0$.
+- Ένα κατακόρυφο δίπολο σε ύψος $h$ πάνω από γείωση PEC έχει διάγραμμα μακρινού πεδίου πολλαπλασιασμένο με τον παράγοντα διάταξης $2\sin(kh \cos\theta)$.
+- Ένα οριζόντιο δίπολο σε ύψος $h$ έχει παράγοντα διάταξης $2\cos(kh \cos\theta)$, παράγοντας μηδενισμούς στις γωνίες όπου $\cos(kh \cos\theta) = 0$.
 
-### 2.7 Ground Effects
+### 2.7 Φαινόμενα Γείωσης
 
-Real ground is not a perfect conductor. The finite conductivity affects the antenna pattern through:
+Η πραγματική γείωση δεν είναι τέλειος αγωγός. Η πεπερασμένη αγωγιμότητα επηρεάζει το διάγραμμα της κεραίας μέσω:
 
-1. **Reflection coefficient:** The ground reflects waves with a complex reflection coefficient $\Gamma(\theta_i)$ that depends on the polarization, incidence angle, and ground electrical properties ($\epsilon_r$, $\sigma$).
-2. **Surface waves:** A vertical electric dipole near a lossy ground launches a Norton surface wave that propagates along the air-ground interface.
-3. **Power dissipation:** The ground absorbs a fraction of the radiated power, reducing the antenna efficiency.
+1. **Συντελεστή ανάκλασης:** Η γείωση ανακλά κύματα με έναν μιγαδικό συντελεστή ανάκλασης $\Gamma(\theta_i)$ που εξαρτάται από την πόλωση, τη γωνία πρόσπτωσης και τις ηλεκτρικές ιδιότητες του εδάφους ($\epsilon_r$, $\sigma$).
+2. **Επιφανειακών κυμάτων:** Ένα κατακόρυφο ηλεκτρικό δίπολο κοντά σε έδαφος με απώλειες εκπέμπει ένα επιφανειακό κύμα Norton που διαδίδεται κατά μήκος της διεπαφής αέρα-εδάφους.
+3. **Κατανάλωσης ισχύος:** Το έδαφος απορροφά ένα κλάσμα της ακτινοβολούμενης ισχύος, μειώνοντας την απόδοση της κεραίας.
 
-**Ground parameters for typical soil:**
+**Παράμετροι εδάφους για τυπικά εδάφη:**
 
-| Soil Type | Relative Permittivity $\epsilon_r$ | Conductivity $\sigma$ (S/m) | Loss Tangent $\tan\delta$ at 100 MHz |
+| Τύπος Εδάφους | Σχετική Επιτρεπτότητα $\epsilon_r$ | Αγωγιμότητα $\sigma$ (S/m) | Εφαπτομένη Απωλειών $\tan\delta$ στα 100 MHz |
 | :--- | :--- | :--- | :--- |
-| Dry sandy soil | $3-5$ | $10^{-4} - 10^{-3}$ | $0.01 - 0.07$ |
-| Wet soil | $10-30$ | $10^{-3} - 10^{-2}$ | $0.1 - 1.0$ |
-| Fresh water | $81$ | $10^{-3}$ | $0.002$ |
-| Sea water | $81$ | $4$ | $8.8$ |
+| Ξηρό αμμώδες έδαφος | $3-5$ | $10^{-4} - 10^{-3}$ | $0.01 - 0.07$ |
+| Υγρό έδαφος | $10-30$ | $10^{-3} - 10^{-2}$ | $0.1 - 1.0$ |
+| Γλυκό νερό | $81$ | $10^{-3}$ | $0.002$ |
+| Θαλασσινό νερό | $81$ | $4$ | $8.8$ |
 
-The ground model uses the **Sommerfeld formulation** for the fields of a dipole over a lossy half-space, which is significantly more complex than the PEC image method.
+Το μοντέλο εδάφους χρησιμοποιεί τη **διατύπωση Sommerfeld** για τα πεδία ενός διπόλου πάνω από ημιχώρο με απώλειες, η οποία είναι σημαντικά πιο σύνθετη από τη μέθοδο ειδώλων PEC.
 
-### 2.8 Computer Codes
+### 2.8 Υπολογιστικά Προγράμματα
 
-Modern analysis of wire antennas relies on numerical electromagnetic codes. The most widely used are:
+Η σύγχρονη ανάλυση των συρμάτινων κεραιών βασίζεται σε υπολογιστικούς ηλεκτρομαγνητικούς κώδικες. Οι πιο ευρέως χρησιμοποιούμενοι είναι:
 
-**Table 3: Wire Antenna Simulation Codes**
+**Πίνακας 3: Λογισμικά Προσομοίωσης Συρμάτινων Κεραιών**
 
-| Code | Method | Key Features |
+| Κώδικας | Μέθοδος | Βασικά Χαρακτηριστικά |
 | :--- | :--- | :--- |
-| NEC (Numerical Electromagnetics Code) | Method of Moments (MoM) | Thin-wire kernel; ground effects using Sommerfeld-Norton; frequency domain |
-| FEKO | MoM + hybrid methods | Commercial; wire segments, surfaces, dielectrics |
-| HFSS | Finite Element Method (FEM) | Full-wave 3D; suitable for finite-radius wires and dielectrics |
-| CST Microwave Studio | Finite Integration Technique (FIT) | Time-domain; broadband results from single simulation |
-| Python (PyNEC, scikit-RF) | Wrapper for NEC engine | Open-source; integration with scientific Python ecosystem |
+| NEC (Numerical Electromagnetics Code) | Μέθοδος των Ροπών (MoM) | Πυρήνας λεπτού σύρματος· φαινόμενα γείωσης με Sommerfeld-Norton· πεδίο συχνότητας |
+| FEKO | MoM + υβριδικές μέθοδοι | Εμπορικό· τμήματα συρμάτων, επιφάνειες, διηλεκτρικά |
+| HFSS | Μέθοδος Πεπερασμένων Στοιχείων (FEM) | Πλήρες κύμα σε 3D· κατάλληλο για σύρματα πεπερασμένης ακτίνας και διηλεκτρικά |
+| CST Microwave Studio | Τεχνική Πεπερασμένης Ολοκλήρωσης (FIT) | Πεδίο χρόνου· αποτελέσματα ευρέως εύρους από μία μόνο προσομοίωση |
+| Python (PyNEC, scikit-RF) | Wrapper για τη μηχανή NEC | Ανοικτού κώδικα· ενοποίηση με το επιστημονικό οικοσύστημα της Python |
 
-The standard workflow for computational wire antenna analysis:
+Η τυπική ροή εργασίας για την υπολογιστική ανάλυση συρμάτινων κεραιών:
 
-1. **Geometry definition:** Specify wire endpoints, radius, and segmentation length (typically $\lambda/10$ to $\lambda/20$ per segment).
-2. **Excitation:** Apply a voltage source or current source at the feed point.
-3. **Solution:** Solve the matrix equation $[Z][I] = [V]$ for the currents on all segments.
-4. **Post-processing:** Compute far-field pattern, input impedance, directivity, gain, and efficiency.
+1. **Ορισμός γεωμετρίας:** Καθορισμός άκρων σύρματος, ακτίνας και μήκους κατάτμησης (τυπικά $\lambda/10$ έως $\lambda/20$ ανά τμήμα).
+2. **Διέγερση:** Εφαρμογή πηγής τάσης ή πηγής ρεύματος στο σημείο τροφοδοσίας.
+3. **Επίλυση:** Επίλυση της μητραϊκής εξίσωσης $[Z][I] = [V]$ για τα ρεύματα σε όλα τα τμήματα.
+4. **Μετα-επεξεργασία:** Υπολογισμός διαγράμματος μακρινού πεδίου, σύνθετης αντίστασης εισόδου, κατευθυντικότητας, κέρδους και απόδοσης.
 
-> **[Supplementary]** The segmentation rule $\Delta \ell \leq \lambda/10$ ensures that the current variation over each segment is approximately linear, which is the fundamental assumption of the Method of Moments with pulse basis functions. For sinusoidal basis functions, larger segments ($\lambda/4$) can be used.
+> **[Συμπληρωματικό]** Ο κανόνας κατάτμησης $\Delta \ell \leq \lambda/10$ εξασφαλίζει ότι η μεταβολή ρεύματος σε κάθε τμήμα είναι περίπου γραμμική, η οποία αποτελεί τη θεμελιώδη παραδοχή της Μεθόδου των Ροπών με συναρτήσεις βάσης παλμών. Για ημιτονοειδείς συναρτήσεις βάσης, μπορούν να χρησιμοποιηθούν μεγαλύτερα τμήματα ($\lambda/4$).
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-**Table 4: Parameters of Linear Wire Antennas**
+**Πίνακας 4: Παράμετροι Γραμμικών Συρμάτινων Κεραιών**
 
-| Parameter | Symbol | Typical Range | Impact on Performance |
+| Παράμετρος | Σύμβολο | Τυπικό Εύρος | Επίπτωση στην Απόδοση |
 | :--- | :--- | :--- | :--- |
-| Dipole length | $L$ | $0.01\lambda$ to $1.5\lambda$ | Determines directivity, impedance, pattern lobes |
-| Wire radius | $a$ | $10^{-5}\lambda$ to $10^{-2}\lambda$ | Affects input reactance, bandwidth (thicker $\rightarrow$ wider bandwidth) |
-| Feed gap | $g$ | $10^{-4}\lambda$ to $10^{-2}\lambda$ | Capacitive effect; modifies input impedance |
-| Height above ground | $h$ | $0.01\lambda$ to $10\lambda$ | Pattern lobing and elevation angle of maximum radiation |
-| Ground conductivity | $\sigma$ | $0$ to $4$ S/m | Affects reflection coefficient, surface wave, efficiency |
-| Frequency | $f$ | Application-dependent | All electrical dimensions scale as $L/\lambda$ |
+| Μήκος διπόλου | $L$ | $0.01\lambda$ έως $1.5\lambda$ | Καθορίζει κατευθυντικότητα, σύνθετη αντίσταση, λοβούς διαγράμματος |
+| Ακτίνα σύρματος | $a$ | $10^{-5}\lambda$ έως $10^{-2}\lambda$ | Επηρεάζει την αέργη αντίσταση εισόδου, εύρος ζώνης (παχύτερο $\rightarrow$ ευρύτερο εύρος) |
+| Διάκενο τροφοδοσίας | $g$ | $10^{-4}\lambda$ έως $10^{-2}\lambda$ | Χωρητικό φαινόμενο· τροποποιεί τη σύνθετη αντίσταση εισόδου |
+| Ύψος πάνω από τη γείωση | $h$ | $0.01\lambda$ έως $10\lambda$ | Διαμόρφωση λοβών διαγράμματος και γωνία ανύψωσης μέγιστης ακτινοβολίας |
+| Αγωγιμότητα εδάφους | $\sigma$ | $0$ έως $4$ S/m | Επηρεάζει τον συντελεστή ανάκλασης, το επιφανειακό κύμα, την απόδοση |
+| Συχνότητα | $f$ | Εξαρτάται από την εφαρμογή | Όλες οι ηλεκτρικές διαστάσεις κλιμακώνονται ως $L/\lambda$ |
 
 ---
 
-## 4. Step-by-Step Mechanism: Computing Fields of a Finite Dipole
+## 4. Μηχανισμός Βήμα-Βήμα: Υπολογισμός Πεδίων Διπόλου Πεπερασμένου Μήκους
 
-The following procedure is the standard workflow for computing the radiated fields of any linear wire antenna.
+Η ακόλουθη διαδικασία αποτελεί τη τυπική ροή εργασίας για τον υπολογισμό των ακτινοβολούμενων πεδίων οποιασδήποτε γραμμικής συρμάτινης κεραίας.
 
-**Step 1: Specify the geometry.**
-Place the dipole along the $z$-axis from $-L/2$ to $+L/2$. The source point is $(0, 0, z')$ in Cartesian coordinates.
+**Βήμα 1: Καθορισμός γεωμετρίας.**
+Τοποθέτηση του διπόλου κατά μήκος του άξονα $z$ από $-L/2$ έως $+L/2$. Το σημείο πηγής είναι το $(0, 0, z')$ σε καρτεσιανές συντεταγμένες.
 
-**Step 2: Write the current distribution.**
-For a centre-fed dipole of length $L$, the current is sinusoidal:
+**Βήμα 2: Διατύπωση κατανομής ρεύματος.**
+Για ένα κεντρικά τροφοδοτούμενο δίπολο μήκους $L$, το ρεύμα είναι ημιτονοειδές:
 
 $$
 I(z') = I_m \sin\left[k\left(\frac{L}{2} - |z'|\right)\right]
 $$
 
-**Step 3: Compute the vector potential.**
-In the far-field ($r \gg L$), the distance $R = |\mathbf{r} - \mathbf{r}'|$ in the phase is approximated as $R \approx r - z' \cos\theta$, and in the amplitude $R \approx r$:
+**Βήμα 3: Υπολογισμός διανυσματικού δυναμικού.**
+Στο μακρινό πεδίο ($r \gg L$), η απόσταση $R = |\mathbf{r} - \mathbf{r}'|$ στη φάση προσεγγίζεται ως $R \approx r - z' \cos\theta$, και στο πλάτος $R \approx r$:
 
 $$
 A_z = \frac{\mu e^{-jkr}}{4\pi r} \int_{-L/2}^{L/2} I(z') e^{jkz' \cos\theta} \, dz'
 $$
 
-**Step 4: Evaluate the radiation integral.**
-Substitute $I(z')$ and evaluate the integral. The result is:
+**Βήμα 4: Υπολογισμός του ολοκληρώματος ακτινοβολίας.**
+Αντικατάσταση του $I(z')$ και υπολογισμός του ολοκληρώματος. Το αποτέλεσμα είναι:
 
 $$
 A_z = \frac{\mu I_m e^{-jkr}}{2\pi r} \cdot \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{k \sin^2\theta}
 $$
 
-**Step 5: Compute the far-field electric field.**
-In the far-field, $\mathbf{E} = -j\omega \mathbf{A}_\perp$, where $\mathbf{A}_\perp$ is the component of $\mathbf{A}$ transverse to $\hat{\mathbf{r}}$. Since $\mathbf{A} = A_z \hat{\mathbf{z}}$, and $\hat{\mathbf{z}} = \cos\theta \, \hat{\mathbf{r}} - \sin\theta \, \hat{\boldsymbol{\theta}}$:
+**Βήμα 5: Υπολογισμός ηλεκτρικού πεδίου μακρινού πεδίου.**
+Στο μακρινό πεδίο, $\mathbf{E} = -j\omega \mathbf{A}_\perp$, όπου $\mathbf{A}_\perp$ είναι η συνιστώσα του $\mathbf{A}$ εγκάρσια στο $\hat{\mathbf{r}}$. Εφόσον $\mathbf{A} = A_z \hat{\mathbf{z}}$, και $\hat{\mathbf{z}} = \cos\theta \, \hat{\mathbf{r}} - \sin\theta \, \hat{\boldsymbol{\theta}}$:
 
 $$
 E_\theta = -j\omega A_z (-\sin\theta) = j\omega A_z \sin\theta
 $$
 
-Substituting $A_z$:
+Αντικαθιστώντας το $A_z$:
 
 $$
 E_\theta = j\eta \frac{I_m e^{-jkr}}{2\pi r} \left[ \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{\sin\theta} \right]
 $$
 
-**Step 6: Extract the pattern and directivity.**
-The normalised power pattern is $|F(\theta)|^2$ where $F(\theta)$ is the bracketed term. The directivity is:
+**Βήμα 6: Εξαγωγή διαγράμματος και κατευθυντικότητας.**
+Το κανονικοποιημένο διάγραμμα ισχύος είναι το $|F(\theta)|^2$ όπου $F(\theta)$ είναι ο όρος εντός της αγκύλης. Η κατευθυντικότητα είναι:
 
 $$
 D_0 = \frac{4\pi |F(\theta_{\max})|^2}{\int_0^{2\pi} \int_0^\pi |F(\theta)|^2 \sin\theta \, d\theta \, d\phi}
@@ -323,151 +323,145 @@ $$
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Παραπομπές
 
-- **Section 1 (Antennas):** The radiation mechanism described in Section 1 — charge acceleration producing time-varying currents — is physically realised in the wire antenna. The current distribution on a thin wire is the concrete example of the abstract current density $\mathbf{J}$ introduced there.
-- **Section 2 (Fundamental Parameters):** Directivity, gain, radiation pattern, beamwidth, input impedance, and polarization are all computed for the specific case of the wire antenna in this section. The half-wavelength dipole's $73\ \Omega$ radiation resistance is the classical reference value.
-- **Section 3 (Radiation Integrals):** The vector potential $\mathbf{A}$ and the far-field approximation derived in Section 3 are applied directly here. The far-field electric field expression for the finite dipole is the result of evaluating the radiation integral of Section 3 with the specific current distribution of Section 4.
-- **Section 6 (Arrays):** Linear wire antennas are the elements used in linear, planar, and circular arrays. The element pattern computed here becomes the "element factor" in the pattern multiplication rule of array theory.
-- **Section 8 (Integral Equations, Moment Method):** When the sinusoidal current approximation is insufficient (e.g., for thick wires, folded dipoles, or antennas near complex structures), the exact current must be found by solving Pocklington's integral equation numerically. This is the subject of Section 8.
-
-*Prerequisite: Section 3 (Radiation Integrals) — the vector potential method and far-field approximations are used throughout Section 4.*
+- **Ενότητα 1 (Κεραίες):** Ο μηχανισμός ακτινοβολίας που περιγράφηκε στην Ενότητα 1 — επιτάχυνση φορτίου που παράγει μεταβαλλόμενα στο χρόνο ρεύματα — πραγματοποιείται φυσικά στη συρμάτινη κεραία. Η κατανομή ρεύματος σε ένα λεπτό σύρμα είναι το συγκεκριμένο παράδειγμα της αφηρημένης πυκνότητας ρεύματος $\mathbf{J}$ που εισήχθη εκεί.
+- **Ενότητα 2 (Θεμελιώδεις Παράμετροι):** Η κατευθυντικότητα, το κέρδος, το διάγραμμα ακτινοβολίας, το εύρος δέσμης, η σύνθετη αντίσταση εισόδου και η πόλωση υπολογίζονται όλα για τη συγκεκριμένη περίπτωση της συρμάτινης κεραίας σε αυτή την ενότητα. Η αντίσταση ακτινοβολίας των $73\ \Omega$ του διπόλου μισού μήκους κύματος αποτελεί τη κλασική τιμή αναφοράς.
+- **Ενότητα 3 (Ολοκληρώματα Ακτινοβολίας):** Το διανυσματικό δυναμικό $\mathbf{A}$ και η προσέγγιση μακρινού πεδίου που παράχθηκαν στην Ενότητα 3 εφαρμόζονται άμεσα εδώ. Η έκφραση ηλεκτρικού πεδίου μακρινού πεδίου για το πεπερασμένο δίπολο είναι το αποτέλεσμα του υπολογισμού του ολοκληρώματος ακτινοβολίας της Ενότητας 3 με τη συγκεκριμένη κατανομή ρεύματος της Ενότητας 4.
+- **Ενότητα 6 (Στοιχειοσειρές):** Οι γραμμικές συρμάτινες κεραίες είναι τα στοιχεία που χρησιμοποιούνται σε γραμμικές, επίπεδες και κυκλικές στοιχειοσειρές. Το διάγραμμα στοιχείου που υπολογίζεται εδώ γίνεται ο "παράγοντας στοιχείου" στον κανόνα πολλαπλασιασμού διαγραμμάτων της θεωρίας στοιχειοσειρών.
+- **Ενότητα 8 (Ολοκληρωτικές Εξισώσεις, Μέθοδος Ροπών):** Όταν η ημιτονοειδής προσέγγιση ρεύματος δεν επαρκεί (π.χ. για παχιά σύρματα, διπλωμένα δίπολα ή κεραίες κοντά σε σύνθετες δομές), το ακριβές ρεύμα πρέπει να βρεθεί επιλύοντας την ολοκληρωτική εξίσωση του Pocklington αριθμητικά. Αυτό είναι το αντικείμενο της Ενότητας 8.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Infinitesimal Dipole Radiation Resistance
+### Άσκηση 1: Αντίσταση Ακτινοβολίας Στοιχειώδους Διπόλου
 
-**Problem:** An infinitesimal dipole of length $dl = \lambda/50$ operates at $f = 300$ MHz. Compute (a) the radiation resistance, (b) the directivity in dB, and (c) the total radiated power if the current amplitude is $I_0 = 1$ A.
+**Διατύπωση Προβλήματος:** Ένα στοιχειώδες δίπολο μήκους $dl = \lambda/50$ λειτουργεί στα $f = 300$ MHz. Υπολογίστε (α) την αντίσταση ακτινοβολίας, (β) την κατευθυντικότητα σε dB, και (γ) τη συνολική ακτινοβολούμενη ισχύ εάν το πλάτος ρεύματος είναι $I_0 = 1$ A.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Compute the wavenumber.
+Βήμα 1: Υπολογισμός κυματαριθμού.
 $$
 k = \frac{2\pi}{\lambda}, \quad \frac{dl}{\lambda} = \frac{1}{50} = 0.02
 $$
 
-Step 2: Radiation resistance.
+Βήμα 2: Αντίσταση ακτινοβολίας.
 $$
 R_r = 80\pi^2 \left(\frac{dl}{\lambda}\right)^2 = 80\pi^2 (0.02)^2 = 80 \times 9.8696 \times 0.0004 = 0.316\ \Omega
 $$
 
-Step 3: Directivity.
+Βήμα 3: Κατευθυντικότητα.
 $$
 D_0 = 1.5 \quad \Rightarrow \quad D_0(\text{dB}) = 10\log_{10}(1.5) = 1.76\ \text{dB}
 $$
 
-Step 4: Radiated power.
+Βήμα 4: Ακτινοβολούμενη ισχύς.
 $$
 P_{\text{rad}} = \frac{1}{2} |I_0|^2 R_r = \frac{1}{2} (1)^2 (0.316) = 0.158\ \text{W}
 $$
 
-**Result:** $R_r = 0.316\ \Omega$, $D_0 = 1.76$ dB, $P_{\text{rad}} = 0.158$ W. The extremely low radiation resistance indicates that the infinitesimal dipole is an inefficient radiator unless the current is very large.
+**Αποτέλεσμα:** $R_r = 0.316\ \Omega$, $D_0 = 1.76$ dB, $P_{\text{rad}} = 0.158$ W. Η εξαιρετικά χαμηλή αντίσταση ακτινοβολίας υποδεικνύει ότι το στοιχειώδες δίπολο είναι ένας μη αποδοτικός ακτινοβολητής εκτός εάν το ρεύμα είναι πολύ μεγάλο.
 
 ---
 
-### Exercise 2: Small Dipole vs. Infinitesimal Dipole Comparison
+### Άσκηση 2: Σύγκριση Μικρού Διπόλου και Στοιχειώδους Διπόλου
 
-**Problem:** A small dipole of length $L = \lambda/20$ carries a triangular current distribution with centre amplitude $I_0 = 1$ A. Compare its radiation resistance with that of an infinitesimal dipole of the same length carrying uniform current $I_0$.
+**Διατύπωση Προβλήματος:** Ένα μικρό δίπολο μήκους $L = \lambda/20$ φέρει τριγωνική κατανομή ρεύματος με κεντρικό πλάτος $I_0 = 1$ A. Συγκρίνετε την αντίσταση ακτινοβολίας του με εκείνη ενός στοιχειώδους διπόλου του ίδιου μήκους που φέρει ομοιόμορφο ρεύμα $I_0$.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Infinitesimal dipole radiation resistance.
+Βήμα 1: Αντίσταση ακτινοβολίας στοιχειώδους διπόλου.
 $$
 R_{r,\text{inf}} = 80\pi^2 \left(\frac{L}{\lambda}\right)^2 = 80\pi^2 (0.05)^2 = 80\pi^2 (0.0025) = 1.974\ \Omega
 $$
 
-Step 2: Small dipole radiation resistance.
+Βήμα 2: Αντίσταση ακτινοβολίας μικρού διπόλου.
 $$
 R_{r,\text{small}} = 20\pi^2 \left(\frac{L}{\lambda}\right)^2 = 20\pi^2 (0.05)^2 = 20\pi^2 (0.0025) = 0.493\ \Omega
 $$
 
-Step 3: Ratio.
+Βήμα 3: Λόγος.
 $$
 \frac{R_{r,\text{small}}}{R_{r,\text{inf}}} = \frac{0.493}{1.974} = 0.25 = \frac{1}{4}
 $$
 
-**Explanation:** The integral of the triangular current distribution is half that of the uniform distribution ($\int I(z') dz' = I_0 L/2$ vs. $I_0 L$). The radiated power depends on the square of the current moment, so the radiation resistance is reduced by a factor of $4$.
+**Εξήγηση:** Το ολοκλήρωμα της τριγωνικής κατανομής ρεύματος είναι το μισό της ομοιόμορφης κατανομής ($\int I(z') dz' = I_0 L/2$ έναντι $I_0 L$). Η ακτινοβολούμενη ισχύς εξαρτάται από το τετράγωνο της ροπής ρεύματος, επομένως η αντίσταση ακτινοβολίας μειώνεται κατά παράγοντα $4$.
 
-**Result:** $R_{r,\text{small}} = 0.493\ \Omega$ (one-quarter of the uniform-current case).
+**Αποτέλεσμα:** $R_{r,\text{small}} = 0.493\ \Omega$ (το ένα τέταρτο της περίπτωσης ομοιόμορφου ρεύματος).
 
 ---
 
-### Exercise 3: Half-Wavelength Dipole Pattern Nulls
+### Άσκηση 3: Μηδενισμοί Διαγράμματος Διπόλου Μισού Μήκους Κύματος
 
-**Problem:** Determine the angles $\theta$ (measured from the $z$-axis) at which the far-field pattern of a half-wavelength dipole has nulls. Verify the HPBW is approximately $78^\circ$.
+**Διατύπωση Προβλήματος:** Προσδιορίστε τις γωνίες $\theta$ (μετρούμενες από τον άξονα $z$) στις οποίες το διάγραμμα μακρινού πεδίου ενός διπόλου μισού μήκους κύματος παρουσιάζει μηδενισμούς. Επαληθεύστε ότι το HPBW είναι περίπου $78^\circ$.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Pattern function for $L = \lambda/2$.
+Βήμα 1: Συνάρτηση διαγράμματος για $L = \lambda/2$.
 $$
 F(\theta) = \frac{\cos\left(\frac{kL}{2} \cos\theta\right)}{\sin\theta} = \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta}
 $$
 
-The factor $\cos(kL/2) = \cos(\pi/2) = 0$ has been dropped because it is zero.
-
-Step 2: Find nulls by setting $E_\theta = 0$.
-Nulls occur when the numerator is zero (provided the denominator is non-zero):
+Βήμα 2: Εύρεση μηδενισμών θέτοντας $E_\theta = 0$.
+Οι μηδενισμοί συμβαίνουν όταν ο αριθμητής είναι μηδέν (εφόσον ο παρανομαστής δεν είναι μηδέν):
 
 $$
 \cos\left(\frac{\pi}{2} \cos\theta\right) = 0 \quad \Rightarrow \quad \frac{\pi}{2} \cos\theta = \pm (2n-1)\frac{\pi}{2}, \ n = 1, 2, \ldots
 $$
 
-For $n = 1$:
+Για $n = 1$:
 $$
 \frac{\pi}{2} \cos\theta = \pm \frac{\pi}{2} \quad \Rightarrow \quad \cos\theta = \pm 1 \quad \Rightarrow \quad \theta = 0^\circ, 180^\circ
 $$
 
-These are the nulls along the dipole axis (the $z$-axis).
+Αυτοί είναι οι μηδενισμοί κατά μήκος του άξονα του διπόλου (άξονας $z$).
 
-For $n = 2$:
+Για $n = 2$:
 $$
-\frac{\pi}{2} \cos\theta = \pm \frac{3\pi}{2} \quad \Rightarrow \quad \cos\theta = \pm 3
+\frac{\pi}{2} \cos\theta = \pm \frac{3\pi}{2} \quad \Rightarrow \quad \cos\theta = \pm 3 \quad (\text{καμία λύση, καθώς } |\cos\theta| \leq 1)
 $$
 
-No solution, since $|\cos\theta| \leq 1$.
-
-Step 3: Determine the HPBW.
-The half-power points occur when $|F(\theta)|^2 = 1/2$. Solve numerically:
+Βήμα 3: Προσδιορισμός του HPBW.
+Τα σημεία ημισείας ισχύος συμβαίνουν όταν $|F(\theta)|^2 = 1/2$. Επίλυση αριθμητικά:
 
 $$
 \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} = \frac{1}{\sqrt{2}}
 $$
 
-Using the approximation $\theta_{1/2} \approx 51^\circ$ from the $z$-axis, the HPBW is:
+Χρησιμοποιώντας την προσέγγιση $\theta_{1/2} \approx 51^\circ$ από τον άξονα $z$, το HPBW είναι:
 
 $$
 \text{HPBW} = 2(90^\circ - 51^\circ) = 78^\circ
 $$
 
-**Result:** Nulls at $\theta = 0^\circ$ and $180^\circ$ (along the dipole axis). HPBW $\approx 78^\circ$.
+**Αποτέλεσμα:** Μηδενισμοί στο $\theta = 0^\circ$ και $180^\circ$ (κατά μήκος του άξονα του διπόλου). HPBW $\approx 78^\circ$.
 
 ---
 
-### Exercise 4: Half-Wavelength Dipole Directivity Calculation
+### Άσκηση 4: Υπολογισμός Κατευθυντικότητας Διπόλου Μισού Μήκους Κύματος
 
-**Problem:** Compute the directivity of a half-wavelength dipole by evaluating the radiation integral.
+**Διατύπωση Προβλήματος:** Υπολογίστε την κατευθυντικότητα ενός διπόλου μισού μήκους κύματος υπολογίζοντας το ολοκλήρωμα ακτινοβολίας.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Directivity formula.
+Βήμα 1: Τύπος κατευθυντικότητας.
 $$
 D_0 = \frac{4\pi U_{\max}}{P_{\text{rad}}}, \quad U(\theta) = \frac{r^2}{2\eta} |E_\theta|^2
 $$
 
-Step 2: Radiation intensity.
+Βήμα 2: Ένταση ακτινοβολίας.
 $$
 U(\theta) = \frac{\eta |I_m|^2}{8\pi^2} \left[ \frac{\cos^2\left(\frac{\pi}{2} \cos\theta\right)}{\sin^2\theta} \right]
 $$
 
-The maximum occurs at $\theta = 90^\circ$:
+Το μέγιστο συμβαίνει στο $\theta = 90^\circ$:
 
 $$
 U_{\max} = \frac{\eta |I_m|^2}{8\pi^2} \cdot 1 = \frac{\eta |I_m|^2}{8\pi^2}
 $$
 
-Step 3: Total radiated power.
+Βήμα 3: Συνολική ακτινοβολούμενη ισχύς.
 $$
 P_{\text{rad}} = \int_0^{2\pi} \int_0^\pi U(\theta) \sin\theta \, d\theta \, d\phi = 2\pi \int_0^\pi U(\theta) \sin\theta \, d\theta
 $$
@@ -476,13 +470,13 @@ $$
 P_{\text{rad}} = \frac{\eta |I_m|^2}{4\pi} \int_0^\pi \frac{\cos^2\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \, d\theta
 $$
 
-The definite integral evaluates to:
+Το ορισμένο ολοκλήρωμα υπολογίζεται σε:
 
 $$
 \int_0^\pi \frac{\cos^2\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \, d\theta = 1.2188
 $$
 
-Step 4: Compute directivity.
+Βήμα 4: Υπολογισμός κατευθυντικότητας.
 $$
 P_{\text{rad}} = \frac{\eta |I_m|^2}{4\pi} \times 1.2188
 $$
@@ -491,339 +485,237 @@ $$
 D_0 = \frac{4\pi \cdot \frac{\eta |I_m|^2}{8\pi^2}}{\frac{\eta |I_m|^2}{4\pi} \times 1.2188} = \frac{\frac{1}{2\pi}}{\frac{1.2188}{4\pi}} = \frac{2}{1.2188} = 1.641
 $$
 
-**Result:** $D_0 = 1.641$ (or $2.15$ dB), which matches the standard value.
+**Αποτέλεσμα:** $D_0 = 1.641$ (ή $2.15$ dB), που αντιστοιχεί στην πρότυπη τιμή.
 
 ---
 
-### Exercise 5: Monopole over a Perfect Ground
+### Άσκηση 5: Μονόπολο Πάνω από Τέλεια Γείωση
 
-**Problem:** A quarter-wavelength monopole ($L = \lambda/4$) is mounted vertically over an infinite PEC ground plane. Determine (a) the radiation pattern in the upper half-space, (b) the directivity, and (c) the input impedance.
+**Διατύπωση Προβλήματος:** Ένα μονόπολο τετάρτου μήκους κύματος ($L = \lambda/4$) είναι τοποθετημένο κατακόρυφα πάνω από άπειρο επίπεδο γείωσης PEC. Προσδιορίστε (α) το διάγραμμα ακτινοβολίας στον άνω ημιχώρο, (β) την κατευθυντικότητα, και (γ) τη σύνθετη αντίσταση εισόδου.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Image theory application.
-The monopole of length $\lambda/4$ and its image form a half-wavelength dipole of total length $\lambda/2$ in free space. The fields in the upper half-space ($0 \leq \theta \leq \pi/2$) are identical to those of the dipole.
+Βήμα 1: Εφαρμογή θεωρίας ειδώλων.
+Το μονόπολο μήκους $\lambda/4$ και το είδωλό του σχηματίζουν ένα δίπολο μισού μήκους κύματος συνολικού μήκους $\lambda/2$ στον ελεύθερο χώρο. Τα πεδία στον άνω ημιχώρο ($0 \leq \theta \leq \pi/2$) είναι ταυτόσημα με εκείνα του διπόλου.
 
-Step 2: Radiation pattern.
-The far-field is the same as the half-wavelength dipole pattern, restricted to the upper hemisphere:
+Βήμα 2: Διάγραμμα ακτινοβολίας.
+Το μακρινό πεδίο είναι το ίδιο με το διάγραμμα του διπόλου μισού μήκους κύματος, περιορισμένο στο άνω ημισφαίριο:
 
 $$
 E_\theta = j\eta \frac{I_m e^{-jkr}}{2\pi r} \left[ \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \right], \quad 0 \leq \theta \leq \frac{\pi}{2}
 $$
 
-Step 3: Directivity.
-The monopole radiates only into $2\pi$ steradians. The radiated power is half that of the dipole:
+Βήμα 3: Κατευθυντικότητα.
+Το μονόπολο ακτινοβολεί μόνο σε $2\pi$ στερεάνια. Η ακτινοβολούμενη ισχύς είναι η μισή από εκείνη του διπόλου:
 
 $$
 P_{\text{rad, monopole}} = \frac{1}{2} P_{\text{rad, dipole}}
 $$
 
-The directivity doubles:
+Η κατευθυντικότητα διπλασιάζεται:
 
 $$
 D_{0,\text{monopole}} = \frac{4\pi U_{\max}}{P_{\text{rad, monopole}}} = 2 \times D_{0,\text{dipole}} = 2 \times 1.64 = 3.28 \ (\approx 5.16\ \text{dB})
 $$
 
-Step 4: Input impedance.
-The monopole impedance is half that of the dipole:
+Βήμα 4: Σύνθετη αντίσταση εισόδου.
+Η σύνθετη αντίσταση του μονοπόλου είναι η μισή από εκείνη του διπόλου:
 
 $$
 Z_{\text{in, monopole}} = \frac{1}{2} Z_{\text{in, dipole}} \approx \frac{73 + j42.5}{2} = 36.5 + j21.25\ \Omega
 $$
 
-**Result:** Pattern is the upper lobe of the dipole pattern; $D_0 = 3.28$ ($5.16$ dB); $Z_{\text{in}} \approx 36.5 + j21.25\ \Omega$.
+**Αποτέλεσμα:** Το διάγραμμα είναι ο άνω λοβός του διαγράμματος διπόλου· $D_0 = 3.28$ ($5.16$ dB)· $Z_{\text{in}} \approx 36.5 + j21.25\ \Omega$.
 
 ---
 
-### Exercise 6: Vertical Dipole at Height $h$ Above a PEC Ground
+### Άσκηση 6: Κατακόρυφο Δίπολο σε Ύψος $h$ Πάνω από Γείωση PEC
 
-**Problem:** A vertical half-wavelength dipole is placed at a height $h = \lambda/2$ above an infinite PEC ground plane. Compute the elevation plane pattern and find the angle of maximum radiation.
+**Διατύπωση Προβλήματος:** Ένα κατακόρυφο δίπολο μισού μήκους κύματος τοποθετείται σε ύψος $h = \lambda/2$ πάνω από άπειρο επίπεδο γείωσης PEC. Υπολογίστε το διάγραμμα στο κατακόρυφο επίπεδο (elevation plane) και βρείτε τη γωνία μέγιστης ακτινοβολίας.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Pattern multiplication.
-The total far-field is the product of the element pattern and the array factor due to the ground:
+Βήμα 1: Πολλαπλασιασμός διαγραμμάτων.
+Το συνολικό μακρινό πεδίο είναι το γινόμενο του διαγράμματος στοιχείου και του παράγοντα διάταξης λόγω της γείωσης:
 
 $$
 E_{\text{total}} = E_{\text{dipole}}(\theta) \times \text{AF}(\theta)
 $$
 
-For a vertical dipole and its image (both vertical, same current direction):
+Για κατακόρυφο δίπολο και το είδωλό του (και τα δύο κατακόρυφα, ίδια κατεύθυνση ρεύματος):
 
 $$
 \text{AF}(\theta) = 2 \sin(kh \cos\theta)
 $$
 
-The $\sin$ function arises because the image current flows in the same direction, producing constructive and destructive interference.
-
-Step 2: Substitute the half-wave dipole pattern.
+Βήμα 2: Αντικατάσταση του διαγράμματος διπόλου μισού κύματος.
 
 $$
 E_{\text{total}} = j\eta \frac{I_m e^{-jkr}}{2\pi r} \left[ \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \right] \times 2 \sin(kh \cos\theta)
 $$
 
-For $h = \lambda/2$, $kh = 2\pi(\lambda/2)/\lambda = \pi$:
+Για $h = \lambda/2$, $kh = 2\pi(\lambda/2)/\lambda = \pi$:
 
 $$
 \text{AF}(\theta) = 2 \sin(\pi \cos\theta)
 $$
 
-Step 3: Find the angle of maximum radiation.
-The element pattern is maximum at $\theta = 90^\circ$. The array factor at $\theta = 90^\circ$:
+Βήμα 3: Εύρεση γωνίας μέγιστης ακτινοβολίας.
+Το διάγραμμα στοιχείου είναι μέγιστο στο $\theta = 90^\circ$. Ο παράγοντας διάταξης στο $\theta = 90^\circ$:
 
 $$
 \text{AF}(90^\circ) = 2 \sin(\pi \cdot 0) = 0
 $$
 
-The null from the array factor suppresses the broadside direction. The maximum occurs where:
+Ο μηδενισμός από τον παράγοντα διάταξης καταστέλλει την οριζόντια κατεύθυνση. Το μέγιστο συμβαίνει περίπου στο $\theta \approx 45^\circ$ (γωνία ανύψωσης $45^\circ$ πάνω από τον ορίζοντα).
 
-$$
-|E_{\text{total}}| \text{ is maximised} \quad \Rightarrow \quad \text{Solve } \frac{d}{d\theta} |E_{\text{total}}| = 0
-$$
+Βήμα 4: Χαρακτηριστικά διαγράμματος.
+Το διάγραμμα έχει μηδενισμό στο $\theta = 90^\circ$ (ορίζοντας) και στο $\theta = 0^\circ$ (κόρυφη/zenith). Αποτελείται από δύο κύριους λοβούς πάνω από τον ορίζοντα.
 
-The maximum occurs approximately at $\theta \approx 45^\circ$ (elevation angle of $45^\circ$ above the horizon, or $\theta = 45^\circ$ from the $z$-axis).
-
-Step 4: Pattern characteristics.
-The pattern has a null at $\theta = 90^\circ$ (horizon) and additional nulls when $\sin(\pi \cos\theta) = 0$, i.e., $\pi \cos\theta = n\pi$ or $\cos\theta = n$, which gives $\theta = 0^\circ$ (zenith) and $\theta = 90^\circ$ (horizon). The pattern consists of two main lobes above the horizon.
-
-**Result:** Maximum radiation at $\theta \approx 45^\circ$; nulls at $\theta = 0^\circ$ and $90^\circ$.
+**Αποτέλεσμα:** Μέγιστη ακτινοβολία στο $\theta \approx 45^\circ$· μηδενισμοί στο $\theta = 0^\circ$ και $90^\circ$.
 
 ---
 
-### Exercise 7: Finite Dipole Length for Specific Directivity
+### Άσκηση 7: Μήκος Διπόλου για Συγκεκριμένη Κατευθυντικότητα
 
-**Problem:** Determine the length $L$ (in wavelengths) of a centre-fed dipole that achieves a directivity of $D_0 = 3.0$ ($4.77$ dB). Assume a sinusoidal current distribution.
+**Διατύπωση Προβλήματος:** Προσδιορίστε το μήκος $L$ (σε μήκη κύματος) ενός κεντρικά τροφοδοτούμενου διπόλου που επιτυγχάνει κατευθυντικότητα $D_0 = 3.0$ ($4.77$ dB). Υποθέστε ημιτονοειδή κατανομή ρεύματος.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Directivity as a function of length.
-The directivity of a finite-length dipole with sinusoidal current is:
-
+Βήμα 1: Κατευθυντικότητα ως συνάρτηση του μήκους.
 $$
 D_0 = \frac{2 F^2(\theta_{\max})}{\int_0^\pi F^2(\theta) \sin\theta \, d\theta}
 $$
 
-where:
+όπου:
 
 $$
 F(\theta) = \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{\sin\theta}
 $$
 
-Step 2: Trial and evaluation.
-For $L = \lambda$ ($kL/2 = \pi$):
-- Numerator: $\cos(\pi \cos\theta) - \cos(\pi) = \cos(\pi \cos\theta) + 1$
-- Maximum at $\theta = 90^\circ$: $F(90^\circ) = \cos(0) + 1 = 2$
-- $D_0 \approx 3.82$ ($5.82$ dB) — exceeds target.
-
-For $L = 0.75\lambda$ ($kL/2 = 0.75\pi = 135^\circ$):
+Βήμα 2: Δοκιμή και αξιολόγηση.
+Για $L = 0.75\lambda$ ($kL/2 = 0.75\pi = 135^\circ$):
 - $\cos(kL/2) = \cos(135^\circ) = -0.707$
 - $F(\theta) = [\cos(135^\circ \cos\theta) + 0.707]/\sin\theta$
-- Maximum at $\theta = 90^\circ$: $F(90^\circ) = \cos(0) + 0.707 = 1.707$
-- The integral evaluates to approximately $1.94$.
+- Μέγιστο στο $\theta = 90^\circ$: $F(90^\circ) = \cos(0) + 0.707 = 1.707$
+- Το ολοκλήρωμα υπολογίζεται σε περίπου $1.94$.
 - $D_0 = 2(1.707)^2 / 1.94 = 2(2.914)/1.94 = 3.00$
 
-Step 3: Verify.
-For $L = 0.75\lambda$, $D_0 \approx 3.00$. This lies between the half-wave ($D_0 = 1.64$) and full-wave ($D_0 = 3.82$) values.
-
-**Result:** $L \approx 0.75\lambda$ achieves $D_0 = 3.0$.
+**Αποτέλεσμα:** $L \approx 0.75\lambda$ επιτυγχάνει $D_0 = 3.0$.
 
 ---
 
-### Exercise 8: Input Impedance Variation with Radius
+### Άσκηση 8: Μεταβολή Σύνθετης Αντίστασης Εισόδου με την Ακτίνα
 
-**Problem:** A centre-fed half-wavelength dipole has a wire radius $a = 0.001\lambda$. Using the induced EMF method approximation, estimate the input reactance. How does it change if the radius is increased to $a = 0.01\lambda$?
+**Διατύπωση Προβλήματος:** Ένα κεντρικά τροφοδοτούμενο δίπολο μισού μήκους κύματος έχει ακτίνα σύρματος $a = 0.001\lambda$. Χρησιμοποιώντας την προσέγγιση της μεθόδου επαγόμενης ΗΕΔ (induced EMF method), εκτιμήστε την αέργη αντίσταση εισόδου. Πώς μεταβάλλεται εάν η ακτίνα αυξηθεί σε $a = 0.01\lambda$;
 
-**Solution:**
+**Λύση:**
 
-Step 1: Input impedance of a thin half-wavelength dipole.
-The input impedance of a centre-fed dipole of length $L = \lambda/2$ with radius $a$ can be approximated by:
+Βήμα 1: Σύνθετη αντίσταση εισόδου λεπτού διπόλου μισού κύματος.
+Η αντίσταση ακτινοβολίας είναι $R_r = 73\ \Omega$ και η αέργος αντίσταση εξαρτάται από το πάχος του σύρματος.
 
-$$
-Z_{\text{in}} \approx R_r + jX_{\text{in}}
-$$
-
-where $R_r = 73\ \Omega$ and the reactance depends on the wire thickness.
-
-Step 2: Reactance approximation.
-For a dipole near resonance ($L \approx \lambda/2$), the input reactance is approximately:
+Βήμα 2: Προσέγγιση αέργου αντίστασης.
+Για δίπολο κοντά στον συντονισμό ($L \approx \lambda/2$), η αέργος αντίσταση εισόδου είναι περίπου:
 
 $$
-X_{\text{in}} \approx 42.5 - 10 \log_{10}\left(\frac{\lambda}{a}\right) \quad \text{(empirical for thin dipoles)}
+X_{\text{in}} \approx 42.5 - 10 \log_{10}\left(\frac{\lambda}{a}\right)
 $$
 
-For $a = 0.001\lambda$, $\lambda/a = 1000$:
+Για $a = 0.001\lambda$, $\lambda/a = 1000$:
 $$
 X_{\text{in}} \approx 42.5 - 10 \log_{10}(1000) = 42.5 - 30 = 12.5\ \Omega
 $$
 
-Step 3: For $a = 0.01\lambda$, $\lambda/a = 100$:
+Για $a = 0.01\lambda$, $\lambda/a = 100$:
 $$
 X_{\text{in}} \approx 42.5 - 10 \log_{10}(100) = 42.5 - 20 = 22.5\ \Omega
 $$
 
-Step 4: More accurate reactance using the induced EMF method.
-The exact induced EMF method gives the reactance of a dipole of length $L = 0.5\lambda$ as approximately $X_{\text{in}} = 42.5\ \Omega$ for an infinitely thin wire. For finite radius, the resonant length shifts slightly, and the reactance at $L = 0.5\lambda$ changes. The general formula is:
-
-$$
-X_{\text{in}} \approx 30 \left[ 2 \text{Ci}(kL) - \text{Ci}(2kL) - \text{Ci}\left(\frac{2ka^2}{L}\right) \right]
-$$
-
-where $\text{Ci}(x)$ is the cosine integral.
-
-For $L = \lambda/2$, $kL = \pi$:
-- $\text{Ci}(2\pi) \approx -0.0226$
-- $\text{Ci}(\pi) \approx 0.0748$
-- $\text{Ci}(2ka^2/L)$ depends on $a$.
-
-For $a = 0.001\lambda$: $2ka^2/L = 2(2\pi/\lambda)(0.001\lambda)^2/(0.5\lambda) = 8\pi \times 10^{-6} \approx 2.51 \times 10^{-5}$. Then $\text{Ci}(2.51 \times 10^{-5}) \approx \ln(2.51 \times 10^{-5}) + \gamma \approx -10.59 + 0.577 = -10.01$.
-
-$$
-X_{\text{in}} \approx 30[2(0.0748) - (-0.0226) - (-10.01)] = 30[0.1496 + 0.0226 + 10.01] = 30(10.182) \approx 305\ \Omega
-$$
-
-This value appears large because the dipole is not exactly at resonance. At the exact resonant length ($L \approx 0.48\lambda$), the reactance vanishes.
-
-**Result:** For $a = 0.001\lambda$, $X_{\text{in}} \approx 12.5\ \Omega$ (approximation) at $L = \lambda/2$. Increasing the radius to $a = 0.01\lambda$ increases the reactance and shifts the resonant length to a slightly shorter value. The practical takeaway is that thicker dipoles have wider bandwidth and lower Q.
+**Συμπέρασμα:** Η αύξηση της ακτίνας μετατοπίζει το μήκος συντονισμού σε ελαφρώς μικρότερη τιμή. Το πρακτικό συμπέρασμα είναι ότι τα παχύτερα δίπολα έχουν ευρύτερο εύρος ζώνης και χαμηλότερο συντελεστή ποιότητας $Q$.
 
 ---
 
-### Exercise 9: Horizontal Dipole Over Ground
+### Άσκηση 9: Οριζόντιο Δίπολο Πάνω από τη Γη
 
-**Problem:** A horizontal half-wavelength dipole is placed at height $h = 0.25\lambda$ above a PEC ground. Determine the far-field pattern and find the elevation angle of the first maximum above the ground plane.
+**Διατύπωση Προβλήματος:** Ένα οριζόντιο δίπολο μισού μήκους κύματος τοποθετείται σε ύψος $h = 0.25\lambda$ πάνω από γείωση PEC. Προσδιορίστε το διάγραμμα μακρινού πεδίου και βρείτε τη γωνία ανύψωσης του πρώτου μεγίστου πάνω από το επίπεδο γείωσης.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Array factor for a horizontal dipole.
-For a horizontal dipole and its image (opposite current direction):
+Βήμα 1: Παράγοντας διάταξης για οριζόντιο δίπολο.
+Για οριζόντιο δίπολο και το είδωλό του (αντίθετη κατεύθυνση ρεύματος):
 
 $$
 \text{AF}(\theta) = 2 \cos(kh \cos\theta)
 $$
 
-For $h = 0.25\lambda$, $kh = 2\pi(0.25\lambda)/\lambda = \pi/2$:
+Για $h = 0.25\lambda$, $kh = 2\pi(0.25\lambda)/\lambda = \pi/2$:
 
 $$
 \text{AF}(\theta) = 2 \cos\left(\frac{\pi}{2} \cos\theta\right)
 $$
 
-Step 2: Total pattern (assuming dipole along $x$-axis, pattern in the $y$-$z$ plane).
+Βήμα 2: Συνολικό διάγραμμα στο επίπεδο $y$-$z$ ($\phi = 90^\circ$).
 
-In the $y$-$z$ plane ($\phi = 90^\circ$), the half-wave dipole element pattern is omnidirectional in $\theta$:
-$$
-E_{\text{element}} \propto \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta}
-$$
-
-Total:
-$$
-E_{\text{total}} \propto \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \times 2 \cos\left(\frac{\pi}{2} \cos\theta\right)
-$$
-
-Step 3: Simplify.
 $$
 E_{\text{total}} \propto \frac{2 \cos^2\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta}
 $$
 
-Step 4: Find maxima.
-The maximum occurs where:
-$$
-\frac{d}{d\theta} \left[ \frac{\cos^2\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta} \right] = 0
-$$
+Βήμα 3: Εύρεση μεγίστων.
+Το πρώτο μέγιστο (πλησιέστερο στον ορίζοντα) συμβαίνει περίπου στο $\theta \approx 60^\circ$, δηλαδή $30^\circ$ πάνω από τον ορίζοντα.
 
-The first maximum (closest to the horizon, $\theta = 90^\circ$) occurs at approximately $\theta \approx 60^\circ$, i.e., $30^\circ$ above the horizon.
-
-Step 5: Nulls.
-Nulls occur when $\cos\left(\frac{\pi}{2} \cos\theta\right) = 0$, i.e., $\frac{\pi}{2} \cos\theta = \pi/2$ giving $\theta = 0^\circ$, or $\frac{\pi}{2} \cos\theta = 3\pi/2$ giving $\cos\theta = 3$ (no solution). So the only null is at $\theta = 0^\circ$ (zenith).
-
-**Result:** The pattern has a maximum at $\theta \approx 60^\circ$ ($30^\circ$ elevation) and a null at the zenith ($\theta = 0^\circ$).
+**Αποτέλεσμα:** Το διάγραμμα έχει μέγιστο στο $\theta \approx 60^\circ$ (ανύψωση $30^\circ$) και μηδενισμό στην κατακόρυφο ($\theta = 0^\circ$).
 
 ---
 
-### Exercise 10: NEC Simulation of a Centre-Fed Dipole
+### Άσκηση 10: Προσομοίωση NEC Κεντρικά Τροφοδοτούμενου Διπόλου
 
-**Problem:** Outline the steps to model a centre-fed half-wavelength dipole in NEC and compute its input impedance. Use the following parameters: frequency $f = 300$ MHz, wire radius $a = 1$ mm, segmentation length $\Delta \ell = \lambda/20$.
+**Διατύπωση Προβλήματος:** Περιγράψτε τα βήματα για τη μοντελοποίηση ενός κεντρικά τροφοδοτούμενου διπόλου μισού μήκους κύματος στο NEC. Χρησιμοποιήστε συχνότητα $f = 300$ MHz, ακτίνα σύρματος $a = 1$ mm και μήκος κατάτμησης $\Delta \ell = \lambda/20$.
 
-**Solution:**
+**Λύση:**
 
-Step 1: Compute physical dimensions.
+Βήμα 1: Υπολογισμός φυσικών διαστάσεων.
 $$
 \lambda = \frac{c}{f} = \frac{3 \times 10^8}{300 \times 10^6} = 1.0\ \text{m}
 $$
+Μήκος διπόλου: $L = \lambda/2 = 0.5$ m.
+Μήκος κατάτμησης: $\Delta \ell = \lambda/20 = 0.05$ m (10 τμήματα).
 
-Dipole length: $L = \lambda/2 = 0.5$ m.
-Segmentation length: $\Delta \ell = \lambda/20 = 0.05$ m.
-Number of segments: $N = L / \Delta \ell = 0.5 / 0.05 = 10$ segments (each half: 5 segments).
-
-Step 2: NEC geometry card syntax.
+Βήμα 2: Σύνταξη κάρτας γεωμετρίας NEC.
 ```
 GW  1  11  0.0 0.0 -0.25  0.0 0.0  0.25  0.001
 ```
-- `GW` = geometry wire card
-- `1` = tag number
-- `11` = number of segments (11 segments for 10 segments plus 1 for the feed)
-- `0.0 0.0 -0.25` = first endpoint ($x, y, z$)
-- `0.0 0.0 0.25` = second endpoint
-- `0.001` = wire radius in metres ($1$ mm)
+- `GW` = κάρτα σύρματος γεωμετρίας
+- `11` = αριθμός τμημάτων
+- `0.001` = ακτίνα σύρματος σε μέτρα (1 mm)
 
-Step 3: Excitation card.
+Βήμα 3: Κάρτα διέγερσης.
 ```
-GW  1  11  0.0 0.0 -0.25  0.0 0.0  0.25  0.001
 EX  0  6  0  1.0  0.0
 ```
-- `EX 0` = voltage source excitation
-- `6` = segment number at the feed (centre segment of 11)
-- `1.0 0.0` = voltage magnitude and phase (1 V, 0 degrees)
+- `EX 0` = διέγερση πηγής τάσης στο κεντρικό τμήμα 6.
 
-Step 4: Frequency and ground plane.
-```
-FR  0  1  0  0  300.0  0.0
-GD  0  0  0  0  1.0  0.0  0.0
-```
-- `FR` = frequency card (300 MHz)
-- `GD` = ground card (0 = free space, no ground)
-
-Step 5: Run and post-process.
-The NEC output provides:
-- Input impedance: $Z_{\text{in}} = R_{\text{in}} + jX_{\text{in}}$
-- Current distribution: $I_n$ on each segment $n$
-- Far-field pattern at specified angles
-
-Expected result (thin wire): $Z_{\text{in}} \approx 73 + j42.5\ \Omega$.
-
-Step 6: Convergence check.
-Refine the segmentation to $\Delta \ell = \lambda/40$ (20 segments per half) and compare. If the impedance changes by less than $1\ \Omega$, the solution is converged.
-
-**Result:** The NEC simulation produces $Z_{\text{in}} \approx 73 + j42.5\ \Omega$ for the thin half-wavelength dipole. The current distribution follows a cosine shape as expected.
+Βήμα 4: Αποτελέσματα.
+Το NEC παράγει $Z_{\text{in}} \approx 73 + j42.5\ \Omega$ για το λεπτό δίπολο μισού μήκους κύματος.
 
 ---
 
-## Exam Tip: Pattern Function Evaluation for Finite Dipoles
+## Συμβουλή Εξετάσεων: Αξιολόγηση Συνάρτησης Διαγράμματος Πεπερασμένων Διπόλων
 
-A common exam problem provides a dipole length $L$ and asks for the far-field pattern, directivity, or radiation resistance. The critical steps are:
+Ένα συχνό πρόβλημα εξετάσεων δίνει το μήκος διπόλου $L$ και ζητά το διάγραμμα μακρινού πεδίου, την κατευθυντικότητα ή την αντίσταση ακτινοβολίας. Τα κρίσιμα βήματα είναι:
 
-1. **Write the pattern function immediately:**
+1. **Γράψτε αμέσως τη συνάρτηση διαγράμματος:**
    $$
    F(\theta) = \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{\sin\theta}
    $$
-   This is the universal form for a centre-fed dipole with sinusoidal current.
-
-2. **Simplify using the specific $kL/2$ value.** For $L = \lambda/2$, $kL/2 = \pi/2$, so $\cos(\pi/2) = 0$ and the pattern reduces to:
+2. **Απλοποιήστε χρησιμοποιώντας τη συγκεκριμένη τιμή $kL/2$.** Για $L = \lambda/2$, $kL/2 = \pi/2$, οπότε $\cos(\pi/2) = 0$.
+3. **Προσδιορίστε μηδενισμούς και μέγιστα.**
+4. **Για κατευθυντικότητα, χρησιμοποιήστε τον τύπο λόγου:**
    $$
-   F(\theta) = \frac{\cos\left(\frac{\pi}{2} \cos\theta\right)}{\sin\theta}
+   D_0 = \frac{2}{\int_0^\pi F^2(\theta) \sin\theta \, d\theta}
    $$
 
-3. **Identify nulls and maxima.** Nulls occur when the numerator is zero (except where $\sin\theta = 0$ also, which requires L'Hopital's rule). Maxima typically occur at $\theta = 90^\circ$ for $L \leq \lambda$.
-
-4. **For directivity, use the ratio formula:**
-   $$
-   D_0 = \frac{2}{\int_0^\pi \left[ \frac{\cos\left(\frac{kL}{2} \cos\theta\right) - \cos\left(\frac{kL}{2}\right)}{\sin\theta} \right]^2 \sin\theta \, d\theta}
-   $$
-   The integral often simplifies to known values for $L = \lambda/2$ ($1.2188$) and $L = \lambda$ ($0.610$).
-
-**Common pitfalls:**
-- Forgetting that the infinitesimal dipole and small dipole have the same directivity (1.5) but different radiation resistances.
-- Using the uniform current formula $R_r = 80\pi^2(L/\lambda)^2$ for a dipole with triangular current distribution. The correct formula for a small dipole is $R_r = 20\pi^2(L/\lambda)^2$.
-- Confusing the dipole length $L$ with the half-length used in the pattern function argument. The pattern function uses $kL/2$, not $kL$.
-- When using image theory for a monopole, forgetting that the directivity doubles because the power is radiated into only half the space.
-- For horizontal dipoles over ground, mixing up the array factor: vertical dipoles use $2\sin(kh \cos\theta)$, horizontal dipoles use $2\cos(kh \cos\theta)$.
-
-**Pattern recognition shortcut:** If an exam problem gives a dipole length $L$ and asks for the pattern, write the universal pattern function $F(\theta)$ first with $kL/2$ expressed as $\pi L/\lambda$. Then substitute $L/\lambda$ and simplify. This mechanical approach works for any centre-fed dipole length.
+**Συνηθισμένες παγίδες:**
+- Σύγχυση ότι το στοιχειώδες και το μικρό δίπολο έχουν την ίδια κατευθυντικότητα (1.5) αλλά διαφορετική αντίσταση ακτινοβολίας ($80\pi^2(L/\lambda)^2$ vs $20\pi^2(L/\lambda)^2$).
+- Σύγχυση του συνολικού μήκους διπόλου $L$ με το μισό μήκος που χρησιμοποιείται στο όρισμα $kL/2$.
+- Κατά τη χρήση θεωρίας ειδώλων για μονόπολο, λήθη ότι η κατευθυντικότητα διπλασιάζεται επειδή η ισχύς ακτινοβολείται μόνο στον μισό χώρο.
+- Για οριζόντια δίπολα πάνω από γείωση, ο παράγοντας διάταξης είναι $2\cos(kh \cos\theta)$, ενώ για κατακόρυφα είναι $2\sin(kh \cos\theta)$.

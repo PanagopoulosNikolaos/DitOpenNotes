@@ -1,29 +1,29 @@
-# Comprehensive C++ Guide: From Basics to Advanced OOP
+# Πλήρης Οδηγός C++: Από τα Βασικά στο Προχωρημένο ΑΠ
 
-This guide covers C++ programming from fundamental concepts to advanced Object-Oriented Programming principles. Each section builds upon the previous one, providing a complete learning path for beginners to advance to professional-level C++ programming.
+Αυτός ο οδηγός καλύπτει τον προγραμματισμό σε C++ από τις θεμελιώδεις έννοιες έως τις προχωρημένες αρχές του Αντικειμενοστραφούς Προγραμματισμού. Κάθε ενότητα βασίζεται στην προηγούμενη, παρέχοντας μια πλήρη πορεία μάθησης για αρχάριους έως επαγγελματικό επίπεδο προγραμματισμού σε C++.
 
-## Table of Contents
-1. [Basic Printing (Output/Input)](#basic-printing-outputinput)
-2. [Variables and Data Types](#variables-and-data-types)
-3. [Control Flow (If/Else, Switch)](#control-flow-ifelse-switch)
-4. [Loops (For, While)](#loops-for-while)
-5. [Tables (Arrays)](#tables-arrays)
-6. [Functions (Pass-by-value vs. Pass-by-reference)](#functions-pass-by-value-vs-pass-by-reference)
-7. [Pointers and References](#pointers-and-references)
-8. [Vectors (Dynamic Arrays)](#vectors-dynamic-arrays)
-9. [Maps (Associative Containers)](#maps-associative-containers)
-10. [Classes and Objects (The Basics)](#classes-and-objects-the-basics)
-11. [Constructors and Destructors](#constructors-and-destructors)
-12. [The `this` Pointer](#the-this-pointer)
-13. [Object-Oriented Programming Principles (Encapsulation, Abstraction)](#object-oriented-programming-principles-encapsulation-abstraction)
-14. [Inheritance and Polymorphism](#inheritance-and-polymorphism)
-15. [Advanced Memory Management (Heap vs. Stack, Smart Pointers)](#advanced-memory-management-heap-vs-stack-smart-pointers)
+## Πίνακας Περιεχομένων
+1. [Βασική Εκτύπωση (Έξοδος/Είσοδος)](#βασική-εκτύπωση-έξοδοςείσοδος)
+2. [Μεταβλητές και Τύποι Δεδομένων](#μεταβλητές-και-τύποι-δεδομένων)
+3. [Έλεγχος Ροής (If/Else, Switch)](#έλεγχος-ροής-ifelse-switch)
+4. [Βρόχοι (For, While)](#βρόχοι-for-while)
+5. [Πίνακες (Arrays)](#πίνακες-arrays)
+6. [Συναρτήσεις (Πέρασμα-κατά-τιμή έναντι Πέρασμα-κατά-αναφορά)](#συναρτήσεις-πέρασμα-κατά-τιμή-έναντι-πέρασμα-κατά-αναφορά)
+7. [Δείκτες και Αναφορές](#δείκτες-και-αναφορές)
+8. [Διανύσματα (Δυναμικοί Πίνακες)](#διανύσματα-δυναμικοί-πίνακες)
+9. [Χάρτες (Συσχετιστικά Περιέκτες)](#χάρτες-συσχετιστικά-περιέκτες)
+10. [Κλάσεις και Αντικείμενα (Τα Βασικά)](#κλάσεις-και-αντικείμενα-τα-βασικά)
+11. [Κατασκευαστές και Καταστροφείς](#κατασκευαστές-και-καταστροφείς)
+12. [Ο Δείκτης `this`](#ο-δείκτης-this)
+13. [Αρχές Αντικειμενοστραφούς Προγραμματισμού (Ενθυλάκωση, Αφαίρεση)](#αρχές-αντικειμενοστραφούς-προγραμματισμού-ενθυλάκωση-αφαίρεση)
+14. [Κληρονομικότητα και Πολυμορφισμός](#κληρονομικότητα-και-πολυμορφισμός)
+15. [Προχωρημένη Διαχείριση Μνήμης (Σωρός έναντι Στοίβας, Έξυπνοι Δείκτες)](#προχωρημένη-διαχείριση-μνήμης-σωρός-έναντι-στοίβας-έξυπνοι-δείκτες)
 
 ---
 
-## Basic Printing (Output/Input)
+## Βασική Εκτύπωση (Έξοδος/Είσοδος)
 
-### Hello World Program
+### Πρόγραμμα Hello World
 ```cpp
 #include <iostream>
 using namespace std;
@@ -34,13 +34,13 @@ int main() {
 }
 ```
 
-### Explanation:
-- `#include <iostream>`: Includes input/output stream library
-- `cout`: Console output stream object
-- `<<`: Stream insertion operator
-- `endl`: Inserts newline and flushes the buffer
+### Επεξήγηση:
+- `#include <iostream>`: Περιλαμβάνει τη βιβλιοθήκη ροών εισόδου/εξόδου
+- `cout`: Το αντικείμενο ροής εξόδου κονσόλας
+- `<<`: Ο τελεστής εισαγωγής ροής
+- `endl`: Εισάγει νέα γραμμή και αδειάζει τον προσωρινό χώρο
 
-### Multiple Print Statements
+### Πολλαπλές Εντολές Εκτύπωσης
 ```cpp
 #include <iostream>
 using namespace std;
@@ -54,7 +54,7 @@ int main() {
 }
 ```
 
-### Input from User
+### Είσοδος από τον Χρήστη
 ```cpp
 #include <iostream>
 using namespace std;
@@ -75,7 +75,7 @@ int main() {
 }
 ```
 
-### Using printf (C-style)
+### Χρήση printf (Στυλ C)
 ```cpp
 #include <cstdio>
 
@@ -89,38 +89,38 @@ int main() {
 
 ---
 
-## Variables and Data Types
+## Μεταβλητές και Τύποι Δεδομένων
 
-### Fundamental Data Types
+### Θεμελιώδεις Τύποι Δεδομένων
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Integer types
-    int integer_var = 42;           // Regular integer
-    short short_var = 100;          // Short integer
-    long long_var = 100000L;        // Long integer
-    long long very_long = 1000000LL; // Very long integer
+    // Ακέραιοι τύποι
+    int integer_var = 42;           // Κανονικός ακέραιος
+    short short_var = 100;          // Σύντομος ακέραιος
+    long long_var = 100000L;        // Μακρύς ακέραιος
+    long long very_long = 1000000LL; // Πολύ μακρύς ακέραιος
     
-    // Floating-point types
-    float float_var = 3.14f;        // Single precision
-    double double_var = 3.14159;    // Double precision
-    long double long_double = 3.141592653589L; // Extended precision
+    // Τύποι κινητής υποδιαστολής
+    float float_var = 3.14f;        // Απλή ακρίβεια
+    double double_var = 3.14159;    // Διπλή ακρίβεια
+    long double long_double = 3.141592653589L; // Εκτεταμένη ακρίβεια
     
-    // Character types
-    char char_var = 'A';            // Single character
-    wchar_t wide_char = L'B';       // Wide character
-    char16_t utf16_char = u'C';     // UTF-16 character
-    char32_t utf32_char = U'D';     // UTF-32 character
+    // Τύποι χαρακτήρων
+    char char_var = 'A';            // Μεμονωμένος χαρακτήρας
+    wchar_t wide_char = L'B';       // Ευρύς χαρακτήρας
+    char16_t utf16_char = u'C';     // Χαρακτήρας UTF-16
+    char32_t utf32_char = U'D';     // Χαρακτήρας UTF-32
     
-    // Boolean type
-    bool bool_var = true;           // Boolean (true/false)
+    // Λογικός τύπος
+    bool bool_var = true;           // Λογική τιμή (true/false)
     
-    // Constants
-    const int constant = 100;       // Constant value
+    // Σταθερές
+    const int constant = 100;       // Σταθερή τιμή
     
-    // Output all variables
+    // Εκτύπωση όλων των μεταβλητών
     cout << "Integer: " << integer_var << endl;
     cout << "Short: " << short_var << endl;
     cout << "Long: " << long_var << endl;
@@ -135,23 +135,23 @@ int main() {
 }
 ```
 
-### Variable Declaration and Initialization
+### Δήλωση και Αρχικοποίηση Μεταβλητών
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Different ways to initialize variables
-    int a = 5;              // Copy initialization
-    int b{10};              // Direct initialization (C++11)
-    int c{};                // Value initialization (default value)
+    // Διαφορετικοί τρόποι αρχικοποίησης μεταβλητών
+    int a = 5;              // Αρχικοποίηση αντιγραφής
+    int b{10};              // Άμεση αρχικοποίηση (C++11)
+    int c{};                // Αρχικοποίηση τιμής (προεπιλεγμένη τιμή)
     
-    // Type inference
-    auto x = 42;            // x is deduced as int
-    auto y = 3.14;          // y is deduced as double
-    auto z = 'A';           // z is deduced as char
+    // Συμπερασμός τύπου
+    auto x = 42;            // Το x συμπεραίνεται ως int
+    auto y = 3.14;          // Το y συμπεραίνεται ως double
+    auto z = 'A';           // Το z συμπεραίνεται ως char
     
-    // Multiple declarations
+    // Πολλαπλές δηλώσεις
     int width = 10, height = 20, area = width * height;
     
     cout << "Width: " << width << ", Height: " << height << ", Area: " << area << endl;
@@ -163,9 +163,9 @@ int main() {
 
 ---
 
-## Control Flow (If/Else, Switch)
+## Έλεγχος Ροής (If/Else, Switch)
 
-### If-Else Statements
+### Εντολές If-Else
 ```cpp
 #include <iostream>
 using namespace std;
@@ -173,19 +173,19 @@ using namespace std;
 int main() {
     int score = 85;
     
-    // Simple if statement
+    // Απλή εντολή if
     if (score >= 90) {
         cout << "Grade: A" << endl;
     }
     
-    // If-else statement
+    // Εντολή if-else
     if (score >= 80) {
         cout << "Grade: B" << endl;
     } else {
         cout << "Grade: Below B" << endl;
     }
     
-    // If-else if ladder
+    // Κλίμακα if-else if
     if (score >= 90) {
         cout << "Excellent!" << endl;
     } else if (score >= 80) {
@@ -196,7 +196,7 @@ int main() {
         cout << "Needs improvement" << endl;
     }
     
-    // Nested if statements
+    // Ένθετες εντολές if
     int age = 20;
     bool hasLicense = true;
     
@@ -214,7 +214,7 @@ int main() {
 }
 ```
 
-### Switch Statement
+### Εντολή Switch
 ```cpp
 #include <iostream>
 using namespace std;
@@ -248,7 +248,7 @@ int main() {
             cout << "Invalid day" << endl;
     }
     
-    // Switch with character
+    // Switch με χαρακτήρα
     char grade = 'B';
     
     switch (grade) {
@@ -271,7 +271,7 @@ int main() {
 }
 ```
 
-### Conditional Operator (Ternary)
+### Τριαδικός Τελεστής (Τελεστής Συνθήκης)
 ```cpp
 #include <iostream>
 using namespace std;
@@ -280,11 +280,11 @@ int main() {
     int age = 20;
     string status;
     
-    // Using conditional operator
+    // Χρήση τριαδικού τελεστή
     status = (age >= 18) ? "Adult" : "Minor";
     cout << "Status: " << status << endl;
     
-    // Nested conditional operators
+    // Ένθετοι τριαδικοί τελεστές
     int score = 85;
     string result = (score >= 90) ? "Excellent" :
                    (score >= 80) ? "Good" :
@@ -297,36 +297,36 @@ int main() {
 
 ---
 
-## Loops (For, While)
+## Βρόχοι (For, While)
 
-### For Loop
+### Βρόχος For
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Basic for loop
+    // Βασικός βρόχος for
     cout << "Counting from 1 to 5:" << endl;
     for (int i = 1; i <= 5; i++) {
         cout << i << " ";
     }
     cout << endl;
     
-    // For loop with different increment
+    // Βρόχος for με διαφορετική αύξηση
     cout << "Even numbers from 0 to 10:" << endl;
     for (int i = 0; i <= 10; i += 2) {
         cout << i << " ";
     }
     cout << endl;
     
-    // For loop with decrement
+    // Βρόχος for με μείωση
     cout << "Counting down from 5 to 1:" << endl;
     for (int i = 5; i >= 1; i--) {
         cout << i << " ";
     }
     cout << endl;
     
-    // Range-based for loop (C++11)
+    // Βρόχος for βασισμένος σε εύρος (C++11)
     int numbers[] = {1, 2, 3, 4, 5};
     cout << "Using range-based for loop:" << endl;
     for (int num : numbers) {
@@ -338,7 +338,7 @@ int main() {
 }
 ```
 
-### While Loop
+### Βρόχος While
 ```cpp
 #include <iostream>
 using namespace std;
@@ -353,7 +353,7 @@ int main() {
     }
     cout << endl;
     
-    // While loop with condition change
+    // Βρόχος while με αλλαγή συνθήκης
     int num = 10;
     cout << "Dividing by 2 until less than 1:" << endl;
     while (num > 1) {
@@ -366,7 +366,7 @@ int main() {
 }
 ```
 
-### Do-While Loop
+### Βρόχος Do-While
 ```cpp
 #include <iostream>
 using namespace std;
@@ -381,7 +381,7 @@ int main() {
     } while (count <= 5);
     cout << endl;
     
-    // Do-while guarantees at least one execution
+    // Το do-while εγγυάται τουλάχιστον μία εκτέλεση
     int condition = 0;
     cout << "Do-while executes at least once:" << endl;
     do {
@@ -392,13 +392,13 @@ int main() {
 }
 ```
 
-### Nested Loops
+### Ένθετοι Βρόχοι
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Multiplication table
+    // Πίνακας πολλαπλασιασμού
     cout << "Multiplication Table (1-5):" << endl;
     for (int i = 1; i <= 5; i++) {
         for (int j = 1; j <= 5; j++) {
@@ -407,7 +407,7 @@ int main() {
         cout << endl;
     }
     
-    // Pattern printing
+    // Εκτύπωση σχήματος
     cout << "\nRight triangle pattern:" << endl;
     for (int i = 1; i <= 5; i++) {
         for (int j = 1; j <= i; j++) {
@@ -420,7 +420,7 @@ int main() {
 }
 ```
 
-### Loop Control Statements
+### Εντολές Ελέγχου Βρόχου
 ```cpp
 #include <iostream>
 using namespace std;
@@ -428,21 +428,21 @@ using namespace std;
 int main() {
     cout << "Using continue and break:" << endl;
     
-    // Skip even numbers using continue
+    // Παράλειψη ζυγών αριθμών με continue
     cout << "Odd numbers from 1 to 10:" << endl;
     for (int i = 1; i <= 10; i++) {
         if (i % 2 == 0) {
-            continue;  // Skip even numbers
+            continue;  // Παράλειψη ζυγών αριθμών
         }
         cout << i << " ";
     }
     cout << endl;
     
-    // Stop at 5 using break
+    // Σταμάτημα στο 5 με break
     cout << "Numbers from 1 to 10, stopping at 5:" << endl;
     for (int i = 1; i <= 10; i++) {
         if (i > 5) {
-            break;  // Exit loop when i > 5
+            break;  // Έξοδος από τον βρόχο όταν i > 5
         }
         cout << i << " ";
     }
@@ -454,9 +454,9 @@ int main() {
 
 ---
 
-## Tables (Arrays)
+## Πίνακες (Arrays)
 
-### Basic Arrays
+### Βασικοί Πίνακες
 ```cpp
 #include <iostream>
 #include <array>
@@ -464,16 +464,16 @@ int main() {
 using namespace std;
 
 int main() {
-    // Traditional C-style arrays
+    // Παραδοσιακοί πίνακες στυλ C
     int traditionalArray[5] = {10, 20, 30, 40, 50};
     
-    // C++ std::array (preferred)
+    // C++ std::array (προτιμότερο)
     array<int, 5> cppArray = {100, 200, 300, 400, 500};
     
-    // Array of doubles
+    // Πίνακας double
     double prices[] = {19.99, 29.99, 39.99, 49.99};
     
-    // Array of strings
+    // Πίνακας συμβολοσειρών
     string names[3] = {"Alice", "Bob", "Charlie"};
     
     cout << "Traditional array: ";
@@ -500,7 +500,7 @@ int main() {
     }
     cout << endl;
     
-    // Multidimensional arrays
+    // Πολυδιάστατοι πίνακες
     int matrix[3][3] = {
         {1, 2, 3},
         {4, 5, 6},
@@ -515,7 +515,7 @@ int main() {
         cout << endl;
     }
     
-    // 3D array example
+    // Παράδειγμα 3D πίνακα
     int cube[2][2][2] = {
         {{1, 2}, {3, 4}},
         {{5, 6}, {7, 8}}
@@ -537,7 +537,7 @@ int main() {
 }
 ```
 
-### Array Operations and Algorithms
+### Λειτουργίες και Αλγόριθμοι Πινάκων
 ```cpp
 #include <iostream>
 #include <array>
@@ -553,45 +553,45 @@ int main() {
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Sort the array
+    // Ταξινόμηση του πίνακα
     sort(numbers.begin(), numbers.end());
     cout << "Sorted: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Reverse the array
+    // Αντιστροφή του πίνακα
     reverse(numbers.begin(), numbers.end());
     cout << "Reversed: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Find maximum and minimum
+    // Εύρεση μεγίστου και ελαχίστου
     auto minMax = minmax_element(numbers.begin(), numbers.end());
     cout << "Min: " << *(minMax.first) << ", Max: " << *(minMax.second) << endl;
     
-    // Calculate sum
+    // Υπολογισμός αθροίσματος
     int sum = accumulate(numbers.begin(), numbers.end(), 0);
     cout << "Sum: " << sum << endl;
     
-    // Count occurrences
+    // Μέτρηση εμφανίσεων
     int count = count(numbers.begin(), numbers.end(), 5);
     cout << "Count of 5: " << count << endl;
     
-    // Fill array with a value
+    // Γέμισμα πίνακα με τιμή
     array<int, 5> filledArray;
     fill(filledArray.begin(), filledArray.end(), 42);
     cout << "Filled with 42: ";
     for (int n : filledArray) cout << n << " ";
     cout << endl;
     
-    // Partial fill
+    // Μερικό γέμισμα
     array<int, 10> partialFill = {};
     fill(partialFill.begin(), partialFill.begin() + 5, 7);
     cout << "Partially filled: ";
     for (int n : partialFill) cout << n << " ";
     cout << endl;
     
-    // Array of objects
+    // Πίνακας αντικειμένων
     struct Point {
         int x, y;
         Point(int x = 0, int y = 0) : x(x), y(y) {}
@@ -606,14 +606,14 @@ int main() {
     }
     cout << endl;
     
-    // Array iteration with indices
+    // Επανάληψη πίνακα με δείκτες
     cout << "Index-value pairs: ";
     for (size_t i = 0; i < numbers.size(); i++) {
         cout << "[" << i << "]=" << numbers[i] << " ";
     }
     cout << endl;
     
-    // Using iterators
+    // Χρήση επαναληπτών (iterators)
     cout << "Using iterators: ";
     for (auto it = numbers.begin(); it != numbers.end(); ++it) {
         cout << *it << " ";
@@ -624,7 +624,7 @@ int main() {
 }
 ```
 
-### Dynamic Arrays and Memory Management
+### Δυναμικοί Πίνακες και Διαχείριση Μνήμης
 ```cpp
 #include <iostream>
 #include <vector>
@@ -632,11 +632,11 @@ int main() {
 using namespace std;
 
 int main() {
-    // Dynamic array using new
+    // Δυναμικός πίνακας με new
     int size = 5;
     int* dynamicArray = new int[size];
     
-    // Initialize the dynamic array
+    // Αρχικοποίηση του δυναμικού πίνακα
     for (int i = 0; i < size; i++) {
         dynamicArray[i] = (i + 1) * 10;
     }
@@ -647,16 +647,16 @@ int main() {
     }
     cout << endl;
     
-    // Resize the array (manual implementation)
+    // Αλλαγή μεγέθους πίνακα (χειροκίνητη υλοποίηση)
     int newSize = 8;
     int* resizedArray = new int[newSize];
     
-    // Copy old values
+    // Αντιγραφή παλαιών τιμών
     for (int i = 0; i < size; i++) {
         resizedArray[i] = dynamicArray[i];
     }
     
-    // Initialize new elements
+    // Αρχικοποίηση νέων στοιχείων
     for (int i = size; i < newSize; i++) {
         resizedArray[i] = (i + 1) * 100;
     }
@@ -667,11 +667,11 @@ int main() {
     }
     cout << endl;
     
-    // Clean up dynamically allocated memory
+    // Καθαρισμός δυναμικά δεσμευμένης μνήμης
     delete[] dynamicArray;
     delete[] resizedArray;
     
-    // Better approach: Using smart pointers
+    // Καλύτερη προσέγγιση: Χρήση έξυπνων δεικτών
     unique_ptr<int[]> smartArray(new int[6]);
     for (int i = 0; i < 6; i++) {
         smartArray[i] = (i + 1) * 5;
@@ -682,9 +682,9 @@ int main() {
         cout << smartArray[i] << " ";
     }
     cout << endl;
-    // No need to manually delete - automatic cleanup
+    // Δεν χρειάζεται χειροκίνητη διαγραφή - αυτόματος καθαρισμός
     
-    // Using vector instead of manual dynamic arrays (recommended)
+    // Χρήση vector αντί για χειροκίνητους δυναμικούς πίνακες (συνιστάται)
     cout << "\nUsing vector (recommended approach):" << endl;
     vector<int> recommendedArray = {10, 20, 30, 40, 50};
     
@@ -692,7 +692,7 @@ int main() {
     for (int n : recommendedArray) cout << n << " ";
     cout << endl;
     
-    // Add elements
+    // Προσθήκη στοιχείων
     recommendedArray.push_back(60);
     recommendedArray.push_back(70);
     
@@ -700,21 +700,21 @@ int main() {
     for (int n : recommendedArray) cout << n << " ";
     cout << endl;
     
-    // Remove elements
+    // Αφαίρεση στοιχείων
     recommendedArray.pop_back();
     
     cout << "After removing last element: ";
-    for (int n : recommendedArray) cout << n << ";
+    for (int n : recommendedArray) cout << n << " ";
     cout << endl;
     
-    // Multi-dimensional dynamic arrays
+    // Πολυδιάστατοι δυναμικοί πίνακες
     int rows = 3, cols = 4;
     int** matrix = new int*[rows];
     for (int i = 0; i < rows; i++) {
         matrix[i] = new int[cols];
     }
     
-    // Initialize the matrix
+    // Αρχικοποίηση του πίνακα
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             matrix[i][j] = i * cols + j;
@@ -729,7 +729,7 @@ int main() {
         cout << endl;
     }
     
-    // Clean up 2D array
+    // Καθαρισμός 2D πίνακα
     for (int i = 0; i < rows; i++) {
         delete[] matrix[i];
     }
@@ -741,20 +741,20 @@ int main() {
 
 ---
 
-## Functions (Pass-by-value vs. Pass-by-reference)
+## Συναρτήσεις (Πέρασμα-κατά-τιμή έναντι Πέρασμα-κατά-αναφορά)
 
-### Basic Function Definition
+### Βασικός Ορισμός Συνάρτησης
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Function declaration
+// Δήλωση συνάρτησης
 void greet();
 int add(int a, int b);
 double calculateArea(double radius);
 
 int main() {
-    // Function calls
+    // Κλήσεις συναρτήσεων
     greet();
     
     int sum = add(10, 20);
@@ -766,7 +766,7 @@ int main() {
     return 0;
 }
 
-// Function definitions
+// Ορισμοί συναρτήσεων
 void greet() {
     cout << "Hello, welcome to C++ functions!" << endl;
 }
@@ -781,18 +781,18 @@ double calculateArea(double radius) {
 }
 ```
 
-### Function Parameters and Return Types
+### Παράμετροι Συνάρτησης και Τύποι Επιστροφής
 ```cpp
 #include <iostream>
 #include <string>
 using namespace std;
 
-// Function with multiple parameters
+// Συνάρτηση με πολλαπλές παραμέτρους
 int multiply(int x, int y, int z) {
     return x * y * z;
 }
 
-// Function with default parameters
+// Συνάρτηση με προεπιλεγμένες παραμέτρους
 int power(int base, int exp = 2) {
     int result = 1;
     for (int i = 0; i < exp; i++) {
@@ -801,14 +801,14 @@ int power(int base, int exp = 2) {
     return result;
 }
 
-// Function returning multiple values via reference
+// Συνάρτηση που επιστρέφει πολλαπλές τιμές μέσω αναφοράς
 void swapValues(int& a, int& b) {
     int temp = a;
     a = b;
     b = temp;
 }
 
-// Function with string parameter
+// Συνάρτηση με παράμετρο συμβολοσειράς
 string repeatString(const string& str, int times) {
     string result = "";
     for (int i = 0; i < times; i++) {
@@ -819,8 +819,8 @@ string repeatString(const string& str, int times) {
 
 int main() {
     cout << "Product: " << multiply(2, 3, 4) << endl;
-    cout << "Power (default): " << power(3) << endl;  // Uses default exponent 2
-    cout << "Power (custom): " << power(3, 4) << endl;  // Uses custom exponent
+    cout << "Power (default): " << power(3) << endl;  // Χρησιμοποιεί προεπιλεγμένο εκθέτη 2
+    cout << "Power (custom): " << power(3, 4) << endl;  // Χρησιμοποιεί προσαρμοσμένο εκθέτη
     
     int x = 10, y = 20;
     cout << "Before swap: x = " << x << ", y = " << y << endl;
@@ -833,33 +833,33 @@ int main() {
 }
 ```
 
-### Pass-by-value vs Pass-by-reference
+### Πέρασμα-κατά-τιμή έναντι Πέρασμα-κατά-αναφορά
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Pass-by-value: function receives a copy
+// Πέρασμα-κατά-τιμή: η συνάρτηση λαμβάνει αντίγραφο
 void modifyByValue(int x) {
-    x = 100;  // Only modifies the local copy
+    x = 100;  // Τροποποιεί μόνο το τοπικό αντίγραφο
     cout << "Inside modifyByValue: x = " << x << endl;
 }
 
-// Pass-by-reference: function receives a reference
+// Πέρασμα-κατά-αναφορά: η συνάρτηση λαμβάνει αναφορά
 void modifyByReference(int& x) {
-    x = 200;  // Modifies the original variable
+    x = 200;  // Τροποποιεί την αρχική μεταβλητή
     cout << "Inside modifyByReference: x = " << x << endl;
 }
 
-// Pass-by-constant-reference: prevents modification
+// Πέρασμα-κατά-σταθερή-αναφορά: αποτρέπει την τροποποίηση
 void printByConstReference(const int& x) {
-    // x = 30;  // This would cause a compile error
+    // x = 30;  // Αυτό θα προκαλούσε σφάλμα μεταγλώττισης
     cout << "Inside printByConstReference: x = " << x << endl;
 }
 
-// Pass-by-pointer
+// Πέρασμα-κατά-δείκτη
 void modifyByPointer(int* x) {
     if (x != nullptr) {
-        *x = 300;  // Modifies the original variable
+        *x = 300;  // Τροποποιεί την αρχική μεταβλητή
         cout << "Inside modifyByPointer: *x = " << *x << endl;
     }
 }
@@ -869,19 +869,19 @@ int main() {
     
     cout << "Original value: " << value << endl;
     
-    // Pass-by-value
+    // Πέρασμα-κατά-τιμή
     modifyByValue(value);
     cout << "After modifyByValue: " << value << endl;
     
-    // Pass-by-reference
+    // Πέρασμα-κατά-αναφορά
     modifyByReference(value);
     cout << "After modifyByReference: " << value << endl;
     
-    // Pass-by-constant-reference
+    // Πέρασμα-κατά-σταθερή-αναφορά
     printByConstReference(value);
     cout << "After printByConstReference: " << value << endl;
     
-    // Pass-by-pointer
+    // Πέρασμα-κατά-δείκτη
     modifyByPointer(&value);
     cout << "After modifyByPointer: " << value << endl;
     
@@ -889,13 +889,13 @@ int main() {
 }
 ```
 
-### Function Overloading
+### Υπερφόρτωση Συναρτήσεων
 ```cpp
 #include <iostream>
 #include <string>
 using namespace std;
 
-// Function overloading - same name, different parameters
+// Υπερφόρτωση συναρτήσεων - ίδιο όνομα, διαφορετικές παράμετροι
 void print(int value) {
     cout << "Integer: " << value << endl;
 }
@@ -921,48 +921,48 @@ void print(int arr[], int size) {
 }
 
 int main() {
-    print(42);                    // Calls print(int)
-    print(3.14);                  // Calls print(double)
-    print("Hello");               // Calls print(string)
-    print(10, 20);                // Calls print(int, int)
+    print(42);                    // Καλεί print(int)
+    print(3.14);                  // Καλεί print(double)
+    print("Hello");               // Καλεί print(string)
+    print(10, 20);                // Καλεί print(int, int)
     
     int numbers[] = {1, 2, 3, 4, 5};
-    print(numbers, 5);            // Calls print(array, size)
+    print(numbers, 5);            // Καλεί print(array, size)
     
     return 0;
 }
 ```
 
-### Recursive Functions
+### Αναδρομικές Συναρτήσεις
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Factorial calculation using recursion
+// Υπολογισμός παραγοντικού με αναδρομή
 long long factorial(int n) {
     if (n <= 1) {
-        return 1;  // Base case
+        return 1;  // Βασική περίπτωση
     }
-    return n * factorial(n - 1);  // Recursive case
+    return n * factorial(n - 1);  // Αναδρομική περίπτωση
 }
 
-// Fibonacci sequence using recursion
+// Ακολουθία Fibonacci με αναδρομή
 long long fibonacci(int n) {
     if (n <= 1) {
-        return n;  // Base cases
+        return n;  // Βασικές περιπτώσεις
     }
-    return fibonacci(n - 1) + fibonacci(n - 2);  // Recursive case
+    return fibonacci(n - 1) + fibonacci(n - 2);  // Αναδρομική περίπτωση
 }
 
-// Power calculation using recursion
+// Υπολογισμός δύναμης με αναδρομή
 int powerRecursive(int base, int exp) {
     if (exp == 0) {
-        return 1;  // Base case
+        return 1;  // Βασική περίπτωση
     }
     if (exp == 1) {
-        return base;  // Base case
+        return base;  // Βασική περίπτωση
     }
-    return base * powerRecursive(base, exp - 1);  // Recursive case
+    return base * powerRecursive(base, exp - 1);  // Αναδρομική περίπτωση
 }
 
 int main() {
@@ -976,41 +976,42 @@ int main() {
 
 ---
 
-## Pointers and References
+## Δείκτες και Αναφορές
 
-### Pointers
+### Δείκτες
 ```cpp
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Declaring and initializing a pointer
+    // Δήλωση και αρχικοποίηση δείκτη
     int value = 42;
-    int* ptr = &value; // ptr points to the address of value
+    int* ptr = &value; // Ο ptr δείχνει στη διεύθυνση της value
     
     cout << "Value: " << value << endl;
     cout << "Address of value: " << &value << endl;
     cout << "Pointer value (address): " << ptr << endl;
     cout << "Value pointed to by ptr: " << *ptr << endl;
     
-    // Changing value through pointer
+    // Αλλαγή τιμής μέσω δείκτη
     *ptr = 100;
     cout << "After changing through pointer, value: " << value << endl;
     
-    // Pointer arithmetic
+    // Αριθμητική δεικτών
+
     int arr[] = {10, 20, 30, 40, 50};
-    int* arrPtr = arr;  // Points to first element
+    int* arrPtr = arr;  // Δείχνει στο πρώτο στοιχείο
     
     cout << "\nArray elements using pointer arithmetic:" << endl;
     for (int i = 0; i < 5; i++) {
         cout << "Element " << i << ": " << *(arrPtr + i) << endl;
     }
     
-    // Pointer to pointer
+    // Δείκτης σε δείκτη
     int** ptrToPtr = &ptr;
     cout << "\nValue through pointer to pointer: " << **ptrToPtr << endl;
     
-    // Null pointer
+    // Μηδενικός δείκτης
     int* nullPtr = nullptr;
     if (nullPtr == nullptr) {
         cout << "Pointer is null" << endl;
@@ -1020,7 +1021,7 @@ int main() {
 }
 ```
 
-### References
+### Αναφορές
 ```cpp
 #include <iostream>
 using namespace std;
@@ -1028,54 +1029,54 @@ using namespace std;
 int main() {
     int value = 42;
     
-    // Reference declaration
-    int& ref = value;  // ref is an alias for value
+    // Δήλωση αναφοράς
+    int& ref = value;  // Η ref είναι ψευδώνυμο για τη value
     
     cout << "Value: " << value << endl;
     cout << "Reference: " << ref << endl;
     
-    // Modifying through reference
+    // Τροποποίηση μέσω αναφοράς
     ref = 100;
     cout << "After modifying through reference, value: " << value << endl;
     
-    // References vs Pointers
+    // Αναφορές έναντι Δεικτών
     int x = 10;
     int y = 20;
     
-    int& refX = x;  // Reference must be initialized
+    int& refX = x;  // Η αναφορά πρέπει να αρχικοποιηθεί
     cout << "refX = " << refX << endl;
     
-    // refX = y;  // This assigns y's VALUE to x, not makes refX point to y
+    // refX = y;  // Αυτό αναθέτει την ΤΙΜΗ της y στο x, δεν κάνει τη refX να δείχνει στο y
     cout << "After refX = y, x = " << x << ", y = " << y << ", refX = " << refX << endl;
     
-    // Pointer example for comparison
+    // Παράδειγμα δείκτη για σύγκριση
     int* ptr = &x;
-    ptr = &y;  // Now ptr points to y
+    ptr = &y;  // Τώρα ο ptr δείχνει στο y
     cout << "After ptr = &y, ptr points to value: " << *ptr << endl;
     
     return 0;
 }
 ```
 
-### Pointers and Functions
+### Δείκτες και Συναρτήσεις
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Function that takes pointer as parameter
+// Συνάρτηση που δέχεται δείκτη ως παράμετρο
 void modifyThroughPointer(int* ptr) {
     if (ptr != nullptr) {
         *ptr = 100;
     }
 }
 
-// Function that returns a pointer
+// Συνάρτηση που επιστρέφει δείκτη
 int* createInt(int value) {
     int* ptr = new int(value);
     return ptr;
 }
 
-// Function that takes reference as parameter
+// Συνάρτηση που δέχεται αναφορά ως παράμετρο
 void modifyThroughReference(int& ref) {
     ref = 200;
 }
@@ -1085,19 +1086,19 @@ int main() {
     
     cout << "Original value: " << value << endl;
     
-    // Modify through pointer
+    // Τροποποίηση μέσω δείκτη
     modifyThroughPointer(&value);
     cout << "After modifyThroughPointer: " << value << endl;
     
-    // Modify through reference
+    // Τροποποίηση μέσω αναφοράς
     modifyThroughReference(value);
     cout << "After modifyThroughReference: " << value << endl;
     
-    // Function that returns pointer
+    // Συνάρτηση που επιστρέφει δείκτη
     int* dynamicInt = createInt(300);
     cout << "Value from createInt: " << *dynamicInt << endl;
     
-    // Don't forget to clean up dynamically allocated memory
+    // Μην ξεχνάτε να καθαρίσετε τη δυναμικά δεσμευμένη μνήμη
     delete dynamicInt;
     
     return 0;
@@ -1106,9 +1107,9 @@ int main() {
 
 ---
 
-## Vectors (Dynamic Arrays)
+## Διανύσματα (Δυναμικοί Πίνακες)
 
-### Basic Vector Operations
+### Βασικές Λειτουργίες Διανυσμάτων
 ```cpp
 #include <iostream>
 #include <vector>
@@ -1117,10 +1118,10 @@ int main() {
 using namespace std;
 
 int main() {
-    // Creating vectors
-    vector<int> numbers;                    // Empty vector
-    vector<int> numbers2(5, 10);           // Vector with 5 elements, all 10
-    vector<int> numbers3 = {1, 2, 3, 4, 5}; // Initialize with values
+    // Δημιουργία διανυσμάτων
+    vector<int> numbers;                    // Κενό διάνυσμα
+    vector<int> numbers2(5, 10);           // Διάνυσμα με 5 στοιχεία, όλα 10
+    vector<int> numbers3 = {1, 2, 3, 4, 5}; // Αρχικοποίηση με τιμές
     
     cout << "Empty vector size: " << numbers.size() << endl;
     cout << "Vector with 5 tens: ";
@@ -1131,7 +1132,7 @@ int main() {
     for (int n : numbers3) cout << n << " ";
     cout << endl;
     
-    // Adding elements
+    // Προσθήκη στοιχείων
     numbers.push_back(10);
     numbers.push_back(20);
     numbers.push_back(30);
@@ -1140,27 +1141,27 @@ int main() {
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Accessing elements
+    // Πρόσβαση σε στοιχεία
     cout << "First element: " << numbers.front() << endl;
     cout << "Last element: " << numbers.back() << endl;
     cout << "Element at index 1: " << numbers[1] << endl;
     cout << "Element at index 1 (safe): " << numbers.at(1) << endl;
     
-    // Iterating with iterators
+    // Επανάληψη με επαναλήπτες
     cout << "Using iterators: ";
     for (auto it = numbers.begin(); it != numbers.end(); ++it) {
         cout << *it << " ";
     }
     cout << endl;
     
-    // Size and capacity
+    // Μέγεθος και χωρητικότητα
     cout << "Size: " << numbers.size() << ", Capacity: " << numbers.capacity() << endl;
     
     return 0;
 }
 ```
 
-### Vector Manipulation Methods
+### Μέθοδοι Χειρισμού Διανυσμάτων
 ```cpp
 #include <iostream>
 #include <vector>
@@ -1174,44 +1175,44 @@ int main() {
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Insert elements
-    numbers.insert(numbers.begin() + 2, 25);  // Insert at position 2
+    // Εισαγωγή στοιχείων
+    numbers.insert(numbers.begin() + 2, 25);  // Εισαγωγή στη θέση 2
     cout << "After inserting 25 at pos 2: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Insert multiple elements
+    // Εισαγωγή πολλαπλών στοιχείων
     vector<int> moreNumbers = {15, 17};
     numbers.insert(numbers.begin() + 1, moreNumbers.begin(), moreNumbers.end());
     cout << "After inserting multiple: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Erase elements
-    numbers.erase(numbers.begin() + 3);  // Remove element at position 3
+    // Διαγραφή στοιχείων
+    numbers.erase(numbers.begin() + 3);  // Αφαίρεση στοιχείου στη θέση 3
     cout << "After erasing position 3: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Erase range
+    // Διαγραφή περιοχής
     numbers.erase(numbers.begin() + 1, numbers.begin() + 3);
     cout << "After erasing positions 1-2: ";
-    for (int n : numbers) cout << n << ";
+    for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Clear vector
+    // Εκκαθάριση διανύσματος
     vector<int> temp = {1, 2, 3, 4, 5};
     cout << "Before clear: " << temp.size() << " elements" << endl;
     temp.clear();
     cout << "After clear: " << temp.size() << " elements" << endl;
     
-    // Resize vector
-    temp.resize(3, 0);  // Resize to 3 elements, fill new with 0
+    // Αλλαγή μεγέθους διανύσματος
+    temp.resize(3, 0);  // Αλλαγή μεγέθους σε 3 στοιχεία, γέμισμα νέων με 0
     cout << "After resize to 3 with fill 0: ";
     for (int n : temp) cout << n << " ";
     cout << endl;
     
-    temp.resize(6, 99);  // Resize to 6 elements, fill new with 99
+    temp.resize(6, 99);  // Αλλαγή μεγέθους σε 6 στοιχεία, γέμισμα νέων με 99
     cout << "After resize to 6 with fill 99: ";
     for (int n : temp) cout << n << " ";
     cout << endl;
@@ -1220,7 +1221,7 @@ int main() {
 }
 ```
 
-### Vector Algorithms and Sorting
+### Αλγόριθμοι και Ταξινόμηση Διανυσμάτων
 ```cpp
 #include <iostream>
 #include <vector>
@@ -1235,19 +1236,19 @@ int main() {
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Sort vector
+    // Ταξινόμηση διανύσματος
     sort(numbers.begin(), numbers.end());
     cout << "Sorted ascending: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Sort in descending order
-    sort(numbers.rbegin(), numbers.rend());  // Reverse iterators
+    // Ταξινόμηση σε φθίνουσα σειρά
+    sort(numbers.rbegin(), numbers.rend());  // Αντίστροφοι επαναλήπτες
     cout << "Sorted descending: ";
-    for (int n : numbers) cout << n << ";
+    for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Find element
+    // Εύρεση στοιχείου
     auto it = find(numbers.begin(), numbers.end(), 7);
     if (it != numbers.end()) {
         cout << "Found 7 at position: " << distance(numbers.begin(), it) << endl;
@@ -1255,25 +1256,25 @@ int main() {
         cout << "7 not found" << endl;
     }
     
-    // Count occurrences
+    // Μέτρηση εμφανίσεων
     int count = count(numbers.begin(), numbers.end(), 5);
     cout << "Count of 5: " << count << endl;
     
-    // Calculate sum
+    // Υπολογισμός αθροίσματος
     int sum = accumulate(numbers.begin(), numbers.end(), 0);
     cout << "Sum of all elements: " << sum << endl;
     
-    // Minimum and maximum
+    // Ελάχιστο και μέγιστο
     auto minMax = minmax_element(numbers.begin(), numbers.end());
     cout << "Min: " << *(minMax.first) << ", Max: " << *(minMax.second) << endl;
     
-    // Reverse vector
+    // Αντιστροφή διανύσματος
     reverse(numbers.begin(), numbers.end());
     cout << "Reversed: ";
     for (int n : numbers) cout << n << " ";
     cout << endl;
     
-    // Unique elements (requires sorted vector)
+    // Μοναδικά στοιχεία (απαιτεί ταξινομημένο διάνυσμα)
     vector<int> sortedNums = {1, 1, 2, 2, 3, 4, 4, 5};
     auto last = unique(sortedNums.begin(), sortedNums.end());
     sortedNums.erase(last, sortedNums.end());
@@ -1285,7 +1286,7 @@ int main() {
 }
 ```
 
-### Vector of Objects
+### Διάνυσμα Αντικειμένων
 ```cpp
 #include <iostream>
 #include <vector>
@@ -1308,14 +1309,14 @@ public:
         cout << "Name: " << name << ", Age: " << age << endl;
     }
     
-    // Comparison operator for sorting
+    // Τελεστής σύγκρισης για ταξινόμηση
     bool operator<(const Person& other) const {
         return age < other.age;
     }
 };
 
 int main() {
-    // Vector of objects
+    // Διάνυσμα αντικειμένων
     vector<Person> people = {
         Person("Alice", 25),
         Person("Bob", 30),
@@ -1328,16 +1329,16 @@ int main() {
         person.display();
     }
     
-    // Sort by age using overloaded operator<
+    // Ταξινόμηση κατά ηλικία χρησιμοποιώντας τον υπερφορτωμένο τελεστή<
     sort(people.begin(), people.end());
     cout << "\nAfter sorting by age:" << endl;
     for (const Person& person : people) {
         person.display();
     }
     
-    // Using lambda for custom sorting
+    // Χρήση lambda για προσαρμοσμένη ταξινόμηση
     sort(people.begin(), people.end(), [](const Person& a, const Person& b) {
-        return a.getName() < b.getName();  // Sort by name
+        return a.getName() < b.getName();  // Ταξινόμηση κατά όνομα
     });
     
     cout << "\nAfter sorting by name:" << endl;
@@ -1345,7 +1346,7 @@ int main() {
         person.display();
     }
     
-    // Find person by age
+    // Εύρεση ατόμου κατά ηλικία
     auto it = find_if(people.begin(), people.end(), [](const Person& p) {
         return p.getAge() == 30;
     });
@@ -1355,8 +1356,8 @@ int main() {
         it->display();
     }
     
-    // Add new person
-    people.emplace_back("Eve", 28);  // More efficient than push_back
+    // Προσθήκη νέου ατόμου
+    people.emplace_back("Eve", 28);  // Πιο αποδοτικό από το push_back
     cout << "\nAfter adding Eve:" << endl;
     for (const Person& person : people) {
         person.display();
@@ -1368,9 +1369,9 @@ int main() {
 
 ---
 
-## Maps (Associative Containers)
+## Χάρτες (Συσχετιστικοί Περιέκτες)
 
-### Basic Map Operations
+### Βασικές Λειτουργίες Χαρτών
 ```cpp
 #include <iostream>
 #include <map>
@@ -1379,16 +1380,16 @@ int main() {
 using namespace std;
 
 int main() {
-    // Creating maps
+    // Δημιουργία χαρτών
     map<string, int> ages;
     map<string, int> grades = {{"Alice", 85}, {"Bob", 92}, {"Charlie", 78}};
     
-    // Inserting elements
+    // Εισαγωγή στοιχείων
     ages["John"] = 25;
     ages["Jane"] = 30;
     ages["Mike"] = 35;
     
-    // Insert using insert method
+    // Εισαγωγή με την μέθοδο insert
     ages.insert(make_pair("Sarah", 28));
     ages.insert({"Tom", 32});
     
@@ -1402,16 +1403,16 @@ int main() {
         cout << pair.first << ": " << pair.second << endl;
     }
     
-    // Accessing elements
+    // Πρόσβαση σε στοιχεία
     cout << "\nAccessing elements:" << endl;
     cout << "John's age: " << ages["John"] << endl;
     cout << "Jane's age (using at): " << ages.at("Jane") << endl;
     
-    // Updating elements
+    // Ενημέρωση στοιχείων
     ages["John"] = 26;
     cout << "Updated John's age: " << ages["John"] << endl;
     
-    // Check if key exists
+    // Έλεγχος ύπαρξης κλειδιού
     string key = "Bob";
     if (grades.find(key) != grades.end()) {
         cout << key << " exists in grades map with value: " << grades[key] << endl;
@@ -1419,7 +1420,7 @@ int main() {
         cout << key << " does not exist in grades map" << endl;
     }
     
-    // Safe access using find
+    // Ασφαλής πρόσβαση με find
     auto it = ages.find("NonExistent");
     if (it != ages.end()) {
         cout << "Found: " << it->first << " -> " << it->second << endl;
@@ -1431,7 +1432,7 @@ int main() {
 }
 ```
 
-### Map Methods and Iteration
+### Μέθοδοι και Επανάληψη Χαρτών
 ```cpp
 #include <iostream>
 #include <map>
@@ -1451,11 +1452,11 @@ int main() {
         cout << subject.first << ": " << subject.second << endl;
     }
     
-    // Size and emptiness
+    // Μέγεθος και κενότητα
     cout << "\nMap size: " << scores.size() << endl;
     cout << "Is empty: " << (scores.empty() ? "Yes" : "No") << endl;
     
-    // Lower and upper bounds
+    // Κάτω και άνω όρια
     auto lower = scores.lower_bound("English");
     auto upper = scores.upper_bound("Science");
     
@@ -1464,21 +1465,21 @@ int main() {
         cout << it->first << ": " << it->second << endl;
     }
     
-    // Equal range (returns pair of iterators)
+    // Ίσο εύρος (επιστρέφει ζεύγος επαναληπτών)
     auto range = scores.equal_range("History");
     cout << "\nEqual range for 'History':" << endl;
     for (auto it = range.first; it != range.second; ++it) {
         cout << it->first << ": " << it->second << endl;
     }
     
-    // Erasing elements
+    // Διαγραφή στοιχείων
     scores.erase("History");
     cout << "\nAfter erasing 'History':" << endl;
     for (const auto& subject : scores) {
         cout << subject.first << ": " << subject.second << endl;
     }
     
-    // Erasing by iterator
+    // Διαγραφή με επαναλήπτη
     auto eraseIt = scores.find("English");
     if (eraseIt != scores.end()) {
         scores.erase(eraseIt);
@@ -1488,7 +1489,7 @@ int main() {
         }
     }
     
-    // Clear the map
+    // Εκκαθάριση χάρτη
     map<string, int> temp = {{"A", 1}, {"B", 2}};
     cout << "\nBefore clear: " << temp.size() << " elements" << endl;
     temp.clear();
@@ -1498,7 +1499,7 @@ int main() {
 }
 ```
 
-### Unordered Map vs Ordered Map
+### Μη Διατεταγμένος Χάρτης έναντι Διατεταγμένου Χάρτη
 ```cpp
 #include <iostream>
 #include <map>
@@ -1508,7 +1509,7 @@ int main() {
 using namespace std;
 
 int main() {
-    // Ordered map (std::map) - maintains sorted order
+    // Διατεταγμένος χάρτης (std::map) - διατηρεί ταξινομημένη σειρά
     map<string, int> orderedMap = {
         {"zebra", 1},
         {"apple", 2},
@@ -1522,7 +1523,7 @@ int main() {
         cout << pair.first << ": " << pair.second << endl;
     }
     
-    // Unordered map (std::unordered_map) - faster access, no order guarantee
+    // Μη διατεταγμένος χάρτης (std::unordered_map) - ταχύτερη πρόσβαση, χωρίς εγγύηση σειράς
     unordered_map<string, int> unorderedMap = {
         {"zebra", 1},
         {"apple", 2},
@@ -1536,10 +1537,10 @@ int main() {
         cout << pair.first << ": " << pair.second << endl;
     }
     
-    // Performance comparison
+    // Σύγκριση απόδοσης
     cout << "\nPerformance comparison:" << endl;
     
-    // Timing ordered map insertion
+    // Χρονομέτρηση εισαγωγής σε διατεταγμένο χάρτη
     auto start = chrono::high_resolution_clock::now();
     map<int, string> orderedTest;
     for (int i = 0; i < 10000; i++) {
@@ -1548,7 +1549,7 @@ int main() {
     auto end = chrono::high_resolution_clock::now();
     auto orderedTime = chrono::duration_cast<chrono::microseconds>(end - start);
     
-    // Timing unordered map insertion
+    // Χρονομέτρηση εισαγωγής σε μη διατεταγμένο χάρτη
     start = chrono::high_resolution_clock::now();
     unordered_map<int, string> unorderedTest;
     for (int i = 0; i < 10000; i++) {
@@ -1560,18 +1561,18 @@ int main() {
     cout << "Ordered map insertion time: " << orderedTime.count() << " microseconds" << endl;
     cout << "Unordered map insertion time: " << unorderedTime.count() << " microseconds" << endl;
     
-    // Count method
+    // Μέθοδος count
     cout << "\nUsing count method:" << endl;
     cout << "Does 'apple' exist in ordered map? " 
          << (orderedMap.count("apple") ? "Yes" : "No") << endl;
     cout << "Does 'grape' exist in ordered map? " 
          << (orderedMap.count("grape") ? "Yes" : "No") << endl;
     
-    // Try-emplace (C++17) - only inserts if key doesn't exist
+    // try-emplace (C++17) - εισάγει μόνο αν το κλειδί δεν υπάρχει
     auto [it, inserted] = orderedMap.try_emplace("elderberry", 6);
     cout << "Tried to insert 'elderberry': " << (inserted ? "Success" : "Already existed") << endl;
     
-    // Emplace (always inserts)
+    // emplace (εισάγει πάντα)
     auto [it2, inserted2] = orderedMap.emplace("fig", 7);
     cout << "Emplaced 'fig': " << (inserted2 ? "New element" : "Already existed") << endl;
     
@@ -1579,7 +1580,7 @@ int main() {
 }
 ```
 
-### Map with Custom Comparator
+### Χάρτης με Προσαρμοσμένο Συγκριτή
 ```cpp
 #include <iostream>
 #include <map>
@@ -1587,13 +1588,13 @@ int main() {
 #include <functional>
 using namespace std;
 
-// Custom comparator class
+// Κλάση προσαρμοσμένου συγκριτή
 struct CaseInsensitiveCompare {
     bool operator()(const string& a, const string& b) const {
         string lowerA = a;
         string lowerB = b;
         
-        // Convert to lowercase for comparison
+        // Μετατροπή σε πεζά για σύγκριση
         transform(lowerA.begin(), lowerA.end(), lowerA.begin(), ::tolower);
         transform(lowerB.begin(), lowerB.end(), lowerB.begin(), ::tolower);
         
@@ -1602,25 +1603,25 @@ struct CaseInsensitiveCompare {
 };
 
 int main() {
-    // Map with custom comparator
+    // Χάρτης με προσαρμοσμένο συγκριτή
     map<string, int, CaseInsensitiveCompare> caseInsensitiveMap;
     
     caseInsensitiveMap["Apple"] = 1;
     caseInsensitiveMap["banana"] = 2;
     caseInsensitiveMap["Cherry"] = 3;
-    caseInsensitiveMap["apPLe"] = 4;  // This will overwrite the first "Apple"
+    caseInsensitiveMap["apPLe"] = 4;  // Αυτό θα αντικαταστήσει το πρώτο "Apple"
     
     cout << "Case-insensitive map:" << endl;
     for (const auto& pair : caseInsensitiveMap) {
         cout << pair.first << ": " << pair.second << endl;
     }
     
-    // Lambda-based custom comparator
+    // Προσαρμοσμένος συγκριτής βασισμένος σε lambda
     auto lengthComparator = [](const string& a, const string& b) {
         if (a.length() != b.length()) {
-            return a.length() < b.length();  // Sort by length first
+            return a.length() < b.length();  // Ταξινόμηση κατά μήκος πρώτα
         }
-        return a < b;  // Then alphabetically
+        return a < b;  // Μετά αλφαβητικά
     };
     
     map<string, int, decltype(lengthComparator)> lengthBasedMap(lengthComparator);
@@ -1636,11 +1637,11 @@ int main() {
         cout << pair.first << " (" << pair.first.length() << " chars): " << pair.second << endl;
     }
     
-    // Map of pairs
+    // Χάρτης ζευγών
     map<pair<string, int>, double> complexMap;
     complexMap[make_pair("Alice", 25)] = 3.8;
     complexMap[make_pair("Bob", 30)] = 3.9;
-    complexMap[make_pair("Alice", 26)] = 3.7;  // Different age, same name
+    complexMap[make_pair("Alice", 26)] = 3.7;  // Διαφορετική ηλικία, ίδιο όνομα
     
     cout << "\nMap with pair keys:" << endl;
     for (const auto& pair : complexMap) {
@@ -1654,9 +1655,9 @@ int main() {
 
 ---
 
-## Classes and Objects (The Basics)
+## Κλάσεις και Αντικείμενα (Τα Βασικά)
 
-### Basic Class Definition
+### Βασικός Ορισμός Κλάσης
 ```cpp
 #include <iostream>
 #include <string>
@@ -1669,7 +1670,7 @@ private:
     double gpa;
 
 public:
-    // Default constructor
+    // Προεπιλεγμένος κατασκευαστής
     Student() {
         name = "Unknown";
         age = 0;
@@ -1677,12 +1678,12 @@ public:
         cout << "Default constructor called for " << name << endl;
     }
     
-    // Parameterized constructor
+    // Παραμετροποιημένος κατασκευαστής
     Student(string n, int a, double g) : name(n), age(a), gpa(g) {
         cout << "Parameterized constructor called for " << name << endl;
     }
     
-    // Copy constructor
+    // Κατασκευαστής αντιγραφής
     Student(const Student& other) {
         name = other.name;
         age = other.age;
@@ -1690,22 +1691,22 @@ public:
         cout << "Copy constructor called for " << name << endl;
     }
     
-    // Destructor
+    // Καταστροφέας
     ~Student() {
         cout << "Destructor called for " << name << endl;
     }
     
-    // Getter methods
+    // Μέθοδοι λήψης (getters)
     string getName() const { return name; }
     int getAge() const { return age; }
     double getGPA() const { return gpa; }
     
-    // Setter methods
+    // Μέθοδοι ρύθμισης (setters)
     void setName(const string& n) { name = n; }
     void setAge(int a) { age = a; }
     void setGPA(double g) { gpa = g; }
     
-    // Display method
+    // Μέθοδος εμφάνισης
     void display() const {
         cout << "Name: " << name << ", Age: " << age << ", GPA: " << gpa << endl;
     }
@@ -1729,7 +1730,7 @@ int main() {
 }
 ```
 
-### Constructor Initialization Lists
+### Λίστες Αρχικοποίησης Κατασκευαστή
 ```cpp
 #include <iostream>
 #include <string>
@@ -1740,24 +1741,24 @@ private:
     double length;
     double width;
     string color;
-    static int count;  // Static member
+    static int count;  // Στατικό μέλος
 
 public:
-    // Constructor using initialization list
+    // Κατασκευαστής με λίστα αρχικοποίησης
     Rectangle(double l, double w, string c) : 
         length(l), width(w), color(c) {
         count++;
         cout << "Rectangle created. Total rectangles: " << count << endl;
     }
     
-    // Constructor with default values
+    // Κατασκευαστής με προεπιλεγμένες τιμές
     Rectangle(double l = 1.0, double w = 1.0) : 
         length(l), width(w), color("white") {
         count++;
         cout << "Rectangle created with default color. Total: " << count << endl;
     }
     
-    // Copy constructor
+    // Κατασκευαστής αντιγραφής
     Rectangle(const Rectangle& other) :
         length(other.length), width(other.width), color(other.color) {
         count++;
@@ -1769,28 +1770,28 @@ public:
         cout << "Rectangle destroyed. Remaining: " << count << endl;
     }
     
-    // Getters
+    // Μέθοδοι λήψης
     double getLength() const { return length; }
     double getWidth() const { return width; }
     string getColor() const { return color; }
     
-    // Calculate area
+    // Υπολογισμός εμβαδού
     double getArea() const {
         return length * width;
     }
     
-    // Display rectangle info
+    // Εμφάνιση πληροφοριών ορθογωνίου
     void display() const {
         cout << "Rectangle: " << length << "x" << width 
              << ", Color: " << color 
              << ", Area: " << getArea() << endl;
     }
     
-    // Static method to get count
+    // Στατική μέθοδος για λήψη του πλήθους
     static int getCount() { return count; }
 };
 
-// Initialize static member
+// Αρχικοποίηση στατικού μέλους
 int Rectangle::count = 0;
 
 int main() {
@@ -1802,7 +1803,7 @@ int main() {
     Rectangle rect2(4.0, 6.0);
     rect2.display();
     
-    Rectangle rect3(rect1);  // Copy constructor
+    Rectangle rect3(rect1);  // Κατασκευαστής αντιγραφής
     rect3.display();
     
     cout << "\nTotal rectangles created: " << Rectangle::getCount() << endl;
@@ -1811,7 +1812,7 @@ int main() {
 }
 ```
 
-### Methods and Access Specifiers
+### Μέθοδοι και Προσδιοριστές Πρόσβασης
 ```cpp
 #include <iostream>
 #include <string>
@@ -1825,13 +1826,13 @@ private:
     string owner;
     vector<double> transactionHistory;
     
-    // Private helper method
+    // Ιδιωτική βοηθητική μέθοδος
     bool isValidAmount(double amount) const {
         return amount >= 0;
     }
     
 public:
-    // Constructor
+    // Κατασκευαστής
     BankAccount(const string& accNum, const string& own, double initialBalance = 0.0)
         : accountNumber(accNum), owner(own), balance(initialBalance) {
         if (initialBalance > 0) {
@@ -1839,7 +1840,7 @@ public:
         }
     }
     
-    // Public interface methods
+    // Μέθοδοι δημόσιας διεπαφής
     void deposit(double amount) {
         if (isValidAmount(amount)) {
             balance += amount;
@@ -1853,7 +1854,7 @@ public:
     bool withdraw(double amount) {
         if (isValidAmount(amount) && amount <= balance) {
             balance -= amount;
-            transactionHistory.push_back(-amount);  // Negative indicates withdrawal
+            transactionHistory.push_back(-amount);  // Αρνητικό υποδηλώνει ανάληψη
             cout << "Withdrew $" << amount << ". New balance: $" << balance << endl;
             return true;
         } else {
@@ -1863,7 +1864,7 @@ public:
         }
     }
     
-    // Getter methods (controlled access)
+    // Μέθοδοι λήψης (ελεγχόμενη πρόσβαση)
     double getBalance() const {
         return balance;
     }
@@ -1876,7 +1877,7 @@ public:
         return owner;
     }
     
-    // Method to view limited transaction history
+    // Μέθοδος προβολής περιορισμένου ιστορικού συναλλαγών
     void showRecentTransactions(int count = 5) const {
         int start = max(0, (int)transactionHistory.size() - count);
         cout << "Recent " << count << " transactions:" << endl;
@@ -1886,7 +1887,7 @@ public:
         }
     }
     
-    // Display account info
+    // Εμφάνιση πληροφοριών λογαριασμού
     void displayInfo() const {
         cout << "Account: " << accountNumber << ", Owner: " << owner 
              << ", Balance: $" << balance << endl;
@@ -1899,7 +1900,7 @@ int main() {
     
     account.deposit(500.0);
     account.withdraw(200.0);
-    account.withdraw(2000.0);  // Invalid withdrawal
+    account.withdraw(2000.0);  // Μη έγκυρη ανάληψη
     
     account.showRecentTransactions();
     
@@ -1911,9 +1912,9 @@ int main() {
 
 ---
 
-## Constructors and Destructors
+## Κατασκευαστές και Καταστροφείς
 
-### Basic Class with Constructor and Destructor
+### Βασική Κλάση με Κατασκευαστή και Καταστροφέα
 ```cpp
 #include <iostream>
 #include <string>
@@ -1926,7 +1927,7 @@ private:
     double gpa;
 
 public:
-    // Default constructor
+    // Προεπιλεγμένος κατασκευαστής
     Student() {
         name = "Unknown";
         age = 0;
@@ -1934,12 +1935,12 @@ public:
         cout << "Default constructor called for " << name << endl;
     }
     
-    // Parameterized constructor
+    // Παραμετροποιημένος κατασκευαστής
     Student(string n, int a, double g) : name(n), age(a), gpa(g) {
         cout << "Parameterized constructor called for " << name << endl;
     }
     
-    // Copy constructor
+    // Κατασκευαστής αντιγραφής
     Student(const Student& other) {
         name = other.name;
         age = other.age;
@@ -1947,22 +1948,22 @@ public:
         cout << "Copy constructor called for " << name << endl;
     }
     
-    // Destructor
+    // Καταστροφέας
     ~Student() {
         cout << "Destructor called for " << name << endl;
     }
     
-    // Getter methods
+    // Μέθοδοι λήψης (getters)
     string getName() const { return name; }
     int getAge() const { return age; }
     double getGPA() const { return gpa; }
     
-    // Setter methods
+    // Μέθοδοι ρύθμισης (setters)
     void setName(const string& n) { name = n; }
     void setAge(int a) { age = a; }
     void setGPA(double g) { gpa = g; }
     
-    // Display method
+    // Μέθοδος εμφάνισης
     void display() const {
         cout << "Name: " << name << ", Age: " << age << ", GPA: " << gpa << endl;
     }
@@ -1986,7 +1987,7 @@ int main() {
 }
 ```
 
-### Destructors and Resource Management
+### Καταστροφείς και Διαχείριση Πόρων
 ```cpp
 #include <iostream>
 #include <fstream>
@@ -2000,17 +2001,17 @@ private:
     int* dynamicMemory;
 
 public:
-    // Constructor allocates resources
+    // Ο κατασκευαστής δεσμεύει πόρους
     FileHandler(const string& fname) : filename(fname) {
         cout << "Opening file: " << filename << endl;
         file.open(filename);
         
-        // Allocate dynamic memory
+        // Δέσμευση δυναμικής μνήμης
         dynamicMemory = new int[100];
         cout << "Allocated dynamic memory" << endl;
     }
     
-    // Destructor releases resources
+    // Ο καταστροφέας αποδεσμεύει πόρους
     ~FileHandler() {
         if (file.is_open()) {
             file.close();
@@ -2023,14 +2024,14 @@ public:
         }
     }
     
-    // Method to write to file
+    // Μέθοδος εγγραφής σε αρχείο
     void writeData(const string& data) {
         if (file.is_open()) {
             file << data << endl;
         }
     }
     
-    // Method to simulate error handling
+    // Μέθοδος προσομοίωσης διαχείρισης σφαλμάτων
     void processWithError() {
         cout << "Processing with potential error..." << endl;
         throw runtime_error("Simulated error");
@@ -2043,7 +2044,7 @@ int main() {
         FileHandler handler("test.txt");
         handler.writeData("Hello, World!");
         
-        // Uncomment the next line to test destructor with exception
+        // Αποσχολιάστε την επόμενη γραμμή για να δοκιμάσετε τον καταστροφέα με εξαίρεση
         // handler.processWithError();
         
         cout << "Normal exit from try block" << endl;
@@ -2058,9 +2059,9 @@ int main() {
 
 ---
 
-## The `this` Pointer
+## Ο Δείκτης `this`
 
-### Understanding the `this` Pointer
+### Κατανόηση του Δείκτη `this`
 ```cpp
 #include <iostream>
 #include <string>
@@ -2073,26 +2074,26 @@ private:
     string owner;
 
 public:
-    // Constructor
+    // Κατασκευαστής
     BankAccount(const string& accNum, double bal, const string& own) 
         : accountNumber(accNum), balance(bal), owner(own) {}
     
-    // Using 'this' to distinguish between member variables and parameters
+    // Χρήση του 'this' για διάκριση μεταξύ μεταβλητών μελών και παραμέτρων
     void setDetails(const string& accountNumber, double balance, const string& owner) {
-        this->accountNumber = accountNumber;  // Member vs parameter
-        this->balance = balance;              // Member vs parameter
-        this->owner = owner;                  // Member vs parameter
+        this->accountNumber = accountNumber;  // Μέλος έναντι παραμέτρου
+        this->balance = balance;              // Μέλος έναντι παραμέτρου
+        this->owner = owner;                  // Μέλος έναντι παραμέτρου
         
         cout << "Account details updated using 'this' pointer" << endl;
     }
     
-    // Method chaining using 'this'
+    // Αλυσιδωτή κλήση μεθόδων χρησιμοποιώντας το 'this'
     BankAccount& deposit(double amount) {
         if (amount > 0) {
             balance += amount;
             cout << "Deposited $" << amount << ". New balance: $" << balance << endl;
         }
-        return *this;  // Return reference to current object
+        return *this;  // Επιστροφή αναφοράς στο τρέχον αντικείμενο
     }
     
     BankAccount& withdraw(double amount) {
@@ -2100,19 +2101,19 @@ public:
             balance -= amount;
             cout << "Withdrew $" << amount << ". New balance: $" << balance << endl;
         }
-        return *this;  // Return reference to current object
+        return *this;  // Επιστροφή αναφοράς στο τρέχον αντικείμενο
     }
     
-    // Method to compare with another object
+    // Μέθοδος σύγκρισης με άλλο αντικείμενο
     bool isEqual(const BankAccount& other) {
         return (this->accountNumber == other.accountNumber &&
                 this->balance == other.balance &&
                 this->owner == other.owner);
     }
     
-    // Self-assignment protection
+    // Προστασία αυτο-ανάθεσης
     BankAccount& operator=(const BankAccount& other) {
-        if (this != &other) {  // Check for self-assignment
+        if (this != &other) {  // Έλεγχος για αυτο-ανάθεση
             accountNumber = other.accountNumber;
             balance = other.balance;
             owner = other.owner;
@@ -2123,13 +2124,13 @@ public:
         return *this;
     }
     
-    // Display account information
+    // Εμφάνιση πληροφοριών λογαριασμού
     void display() const {
         cout << "Account: " << accountNumber << ", Owner: " << owner 
              << ", Balance: $" << balance << endl;
     }
     
-    // Accessor methods
+    // Μέθοδοι πρόσβασης
     const string& getAccountNumber() const { return accountNumber; }
     double getBalance() const { return balance; }
     const string& getOwner() const { return owner; }
@@ -2139,25 +2140,25 @@ int main() {
     BankAccount account("ACC001", 1000.0, "John Doe");
     account.display();
     
-    // Using 'this' in method chaining
+    // Χρήση του 'this' στην αλυσιδωτή κλήση μεθόδων
     account.deposit(50).withdraw(200).deposit(100);
     
-    // Using 'this' to distinguish parameters from members
+    // Χρήση του 'this' για διάκριση παραμέτρων από μέλη
     account.setDetails("ACC002", 2000.0, "Jane Smith");
     account.display();
     
-    // Comparing with another object
+    // Σύγκριση με άλλο αντικείμενο
     BankAccount account2("ACC002", 2000.0, "Jane Smith");
     cout << "Accounts are equal: " << (account.isEqual(account2) ? "Yes" : "No") << endl;
     
-    // Self-assignment test
-    account = account;  // Should detect self-assignment
+    // Δοκιμή αυτο-ανάθεσης
+    account = account;  // Θα πρέπει να ανιχνεύσει την αυτο-ανάθεση
     
     return 0;
 }
 ```
 
-### `this` in Complex Scenarios
+### Το `this` σε Σύνθετα Σενάρια
 ```cpp
 #include <iostream>
 #include <vector>
@@ -2171,14 +2172,14 @@ private:
 public:
     NumberProcessor(const vector<int>& nums) : numbers(nums) {}
     
-    // Method that returns a reference to the current object
+    // Μέθοδος που επιστρέφει αναφορά στο τρέχον αντικείμενο
     NumberProcessor& addNumber(int num) {
         numbers.push_back(num);
         cout << "Added " << num << endl;
         return *this;
     }
     
-    // Method that returns a reference to the current object
+    // Μέθοδος που επιστρέφει αναφορά στο τρέχον αντικείμενο
     NumberProcessor& removeNumber(int num) {
         auto it = find(numbers.begin(), numbers.end(), num);
         if (it != numbers.end()) {
@@ -2188,14 +2189,14 @@ public:
         return *this;
     }
     
-    // Method that uses 'this' to compare with another object
+    // Μέθοδος που χρησιμοποιεί το 'this' για σύγκριση με άλλο αντικείμενο
     bool containsSameNumbers(const NumberProcessor& other) const {
-        // Compare sizes first
+        // Σύγκριση μεγεθών πρώτα
         if (this->numbers.size() != other.numbers.size()) {
             return false;
         }
         
-        // Sort both vectors temporarily for comparison
+        // Ταξινόμηση και των δύο διανυσμάτων προσωρινά για σύγκριση
         vector<int> thisSorted = this->numbers;
         vector<int> otherSorted = other.numbers;
         
@@ -2205,21 +2206,21 @@ public:
         return thisSorted == otherSorted;
     }
     
-    // Method that returns the object itself
+    // Μέθοδος που επιστρέφει το ίδιο το αντικείμενο
     NumberProcessor& sortNumbers() {
         sort(numbers.begin(), numbers.end());
         cout << "Numbers sorted" << endl;
         return *this;
     }
     
-    // Method that processes and returns a new object
+    // Μέθοδος που επεξεργάζεται και επιστρέφει νέο αντικείμενο
     NumberProcessor getProcessedVersion() const {
-        NumberProcessor processed = *this;  // Copy of current object
-        processed.sortNumbers();  // Process the copy
+        NumberProcessor processed = *this;  // Αντίγραφο του τρέχοντος αντικειμένου
+        processed.sortNumbers();  // Επεξεργασία του αντιγράφου
         return processed;
     }
     
-    // Display method
+    // Μέθοδος εμφάνισης
     void display() const {
         cout << "Numbers: ";
         for (int num : numbers) {
@@ -2228,12 +2229,12 @@ public:
         cout << endl;
     }
     
-    // Get size
+    // Λήψη μεγέθους
     size_t getSize() const {
         return numbers.size();
     }
     
-    // Operator overload that uses 'this'
+    // Υπερφόρτωση τελεστή που χρησιμοποιεί το 'this'
     bool operator<(const NumberProcessor& other) const {
         return this->getSize() < other.getSize();
     }
@@ -2243,16 +2244,16 @@ int main() {
     NumberProcessor processor({5, 2, 8, 1});
     processor.display();
     
-    // Method chaining using 'this'
+    // Αλυσιδωτή κλήση μεθόδων χρησιμοποιώντας το 'this'
     processor.addNumber(10).removeNumber(2).sortNumbers();
     processor.display();
     
-    // Create another processor for comparison
+    // Δημιουργία άλλου επεξεργαστή για σύγκριση
     NumberProcessor processor2({8, 5, 1, 10});
     cout << "Both processors have same numbers: " 
          << (processor.containsSameNumbers(processor2) ? "Yes" : "No") << endl;
     
-    // Get processed version
+    // Λήψη επεξεργασμένης έκδοσης
     NumberProcessor sortedVersion = processor.getProcessedVersion();
     cout << "Original: ";
     processor.display();
@@ -2265,9 +2266,9 @@ int main() {
 
 ---
 
-## Object-Oriented Programming Principles (Encapsulation, Abstraction)
+## Αρχές Αντικειμενοστραφούς Προγραμματισμού (Ενθυλάκωση, Αφαίρεση)
 
-### Encapsulation
+### Ενθυλάκωση
 ```cpp
 #include <iostream>
 #include <string>
@@ -2281,13 +2282,13 @@ private:
     string owner;
     vector<double> transactionHistory;
     
-    // Private helper method
+    // Ιδιωτική βοηθητική μέθοδος
     bool isValidAmount(double amount) const {
         return amount >= 0;
     }
     
 public:
-    // Constructor
+    // Κατασκευαστής
     BankAccount(const string& accNum, const string& own, double initialBalance = 0.0)
         : accountNumber(accNum), owner(own), balance(initialBalance) {
         if (initialBalance > 0) {
@@ -2295,7 +2296,7 @@ public:
         }
     }
     
-    // Public interface methods
+    // Μέθοδοι δημόσιας διεπαφής
     void deposit(double amount) {
         if (isValidAmount(amount)) {
             balance += amount;
@@ -2309,7 +2310,7 @@ public:
     bool withdraw(double amount) {
         if (isValidAmount(amount) && amount <= balance) {
             balance -= amount;
-            transactionHistory.push_back(-amount);  // Negative indicates withdrawal
+            transactionHistory.push_back(-amount);  // Αρνητικό υποδηλώνει ανάληψη
             cout << "Withdrew $" << amount << ". New balance: $" << balance << endl;
             return true;
         } else {
@@ -2319,7 +2320,7 @@ public:
         }
     }
     
-    // Getter methods (controlled access)
+    // Μέθοδοι λήψης (ελεγχόμενη πρόσβαση)
     double getBalance() const {
         return balance;
     }
@@ -2332,7 +2333,7 @@ public:
         return owner;
     }
     
-    // Method to view limited transaction history
+    // Μέθοδος προβολής περιορισμένου ιστορικού συναλλαγών
     void showRecentTransactions(int count = 5) const {
         int start = max(0, (int)transactionHistory.size() - count);
         cout << "Recent " << count << " transactions:" << endl;
@@ -2342,7 +2343,7 @@ public:
         }
     }
     
-    // Display account info
+    // Εμφάνιση πληροφοριών λογαριασμού
     void displayInfo() const {
         cout << "Account: " << accountNumber << ", Owner: " << owner 
              << ", Balance: $" << balance << endl;
@@ -2355,7 +2356,7 @@ int main() {
     
     account.deposit(500.0);
     account.withdraw(200.0);
-    account.withdraw(2000.0);  // Invalid withdrawal
+    account.withdraw(2000.0);  // Μη έγκυρη ανάληψη
     
     account.showRecentTransactions();
     
@@ -2365,7 +2366,7 @@ int main() {
 }
 ```
 
-### Abstraction
+### Αφαίρεση
 ```cpp
 #include <iostream>
 #include <string>
@@ -2373,7 +2374,7 @@ int main() {
 #include <memory>
 using namespace std;
 
-// Abstract base class
+// Αφηρημένη βασική κλάση
 class Shape {
 protected:
     string color;
@@ -2381,20 +2382,20 @@ protected:
 public:
     Shape(const string& c) : color(c) {}
     
-    // Pure virtual function makes this class abstract
+    // Η καθαρά εικονική συνάρτηση καθιστά αυτή την κλάση αφηρημένη
     virtual double calculateArea() const = 0;
     virtual double calculatePerimeter() const = 0;
     
-    // Virtual function that can be overridden
+    // Εικονική συνάρτηση που μπορεί να παρακαμφθεί
     virtual void display() const {
         cout << "Shape color: " << color << endl;
     }
     
-    // Virtual destructor for proper cleanup
+    // Εικονικός καταστροφέας για σωστό καθαρισμό
     virtual ~Shape() = default;
 };
 
-// Concrete derived classes
+// Συγκεκριμένες παράγωγες κλάσεις
 class Circle : public Shape {
 private:
     double radius;
@@ -2451,7 +2452,7 @@ public:
         : Shape(c), side1(s1), side2(s2), side3(s3) {}
     
     double calculateArea() const override {
-        // Using Heron's formula
+        // Χρήση του τύπου του Ήρωνα (Heron)
         double s = (side1 + side2 + side3) / 2;
         return sqrt(s * (s - side1) * (s - side2) * (s - side3));
     }
@@ -2469,7 +2470,7 @@ public:
 };
 
 int main() {
-    // Using polymorphism with smart pointers
+    // Χρήση πολυμορφισμού με έξυπνους δείκτες
     vector<unique_ptr<Shape>> shapes;
     
     shapes.push_back(make_unique<Circle>("Red", 5.0));
@@ -2484,7 +2485,7 @@ int main() {
         cout << "---" << endl;
     }
     
-    // Calculate total area
+    // Υπολογισμός συνολικού εμβαδού
     double totalArea = 0;
     for (const auto& shape : shapes) {
         totalArea += shape->calculateArea();
@@ -2497,16 +2498,16 @@ int main() {
 
 ---
 
-## Inheritance and Polymorphism
+## Κληρονομικότητα και Πολυμορφισμός
 
-### Single Inheritance
+### Απλή Κληρονομικότητα
 ```cpp
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
-// Base class
+// Βασική κλάση
 class Vehicle {
 protected:
     string brand;
@@ -2533,14 +2534,14 @@ public:
     
     virtual ~Vehicle() = default;
     
-    // Getters
+    // Μέθοδοι λήψης
     string getBrand() const { return brand; }
     string getModel() const { return model; }
     int getYear() const { return year; }
     double getPrice() const { return price; }
 };
 
-// Derived class
+// Παράγωγη κλάση
 class Car : public Vehicle {
 private:
     int doors;
@@ -2570,13 +2571,13 @@ public:
         cout << "Opening trunk of " << brand << " " << model << endl;
     }
     
-    // Additional car-specific method
+    // Επιπλέον μέθοδος ειδική για αυτοκίνητο
     void honk() const {
         cout << brand << " " << model << " goes beep beep!" << endl;
     }
 };
 
-// Another derived class
+// Άλλη παράγωγη κλάση
 class Motorcycle : public Vehicle {
 private:
     int engineCC;
@@ -2607,7 +2608,7 @@ int main() {
     Car car("Toyota", "Camry", 2023, 25000, 4, "Gasoline");
     Motorcycle motorcycle("Harley-Davidson", "Street 750", 2022, 8000, 750);
     
-    // Base class method calls
+    // Κλήσεις μεθόδων βασικής κλάσης
     car.displayInfo();
     car.startEngine();
     cout << endl;
@@ -2616,7 +2617,7 @@ int main() {
     motorcycle.startEngine();
     cout << endl;
     
-    // Derived class specific methods
+    // Μέθοδοι ειδικές για παράγωγες κλάσεις
     car.openTrunk();
     car.honk();
     cout << endl;
@@ -2624,7 +2625,7 @@ int main() {
     motorcycle.wheelie();
     cout << endl;
     
-    // Polymorphism with base class pointers
+    // Πολυμορφισμός με δείκτες βασικής κλάσης
     Vehicle* vehicles[] = {&car, &motorcycle};
     
     cout << "Using polymorphism:" << endl;
@@ -2638,7 +2639,7 @@ int main() {
 }
 ```
 
-### Polymorphism
+### Πολυμορφισμός
 ```cpp
 #include <iostream>
 #include <string>
@@ -2647,7 +2648,7 @@ int main() {
 #include <algorithm>
 using namespace std;
 
-// Base class demonstrating polymorphism
+// Βασική κλάση που επιδεικνύει πολυμορφισμό
 class Animal {
 protected:
     string name;
@@ -2656,7 +2657,7 @@ protected:
 public:
     Animal(const string& n, int a) : name(n), age(a) {}
     
-    // Virtual functions for runtime polymorphism
+    // Εικονικές συναρτήσεις για πολυμορφισμό εκτέλεσης
     virtual void makeSound() const {
         cout << name << " makes a sound." << endl;
     }
@@ -2676,7 +2677,7 @@ public:
     virtual ~Animal() = default;
 };
 
-// Derived classes
+// Παράγωγες κλάσεις
 class Dog : public Animal {
 private:
     string breed;
@@ -2774,7 +2775,7 @@ public:
     }
 };
 
-// Function that demonstrates polymorphism
+// Συνάρτηση που επιδεικνύει πολυμορφισμό
 void animalActivity(const Animal& animal) {
     animal.displayInfo();
     animal.makeSound();
@@ -2784,7 +2785,7 @@ void animalActivity(const Animal& animal) {
 }
 
 int main() {
-    // Create animals using smart pointers
+    // Δημιουργία ζώων με έξυπνους δείκτες
     vector<unique_ptr<Animal>> animals;
     
     animals.push_back(make_unique<Dog>("Buddy", 3, "Golden Retriever"));
@@ -2798,10 +2799,10 @@ int main() {
         animalActivity(*animal);
     }
     
-    // Demonstrating specific behaviors
+    // Επίδειξη συγκεκριμένων συμπεριφορών
     cout << "Specific behaviors:" << endl;
     for (const auto& animal : animals) {
-        // Downcasting to access specific methods (with safety checks)
+        // Downcasting για πρόσβαση σε συγκεκριμένες μεθόδους (με ελέγχους ασφαλείας)
         if (Dog* dog = dynamic_cast<Dog*>(animal.get())) {
             dog->fetch();
         } else if (Cat* cat = dynamic_cast<Cat*>(animal.get())) {
@@ -2815,14 +2816,14 @@ int main() {
 }
 ```
 
-### Multiple Inheritance
+### Πολλαπλή Κληρονομικότητα
 ```cpp
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
-// First base class
+// Πρώτη βασική κλάση
 class Flyable {
 protected:
     double maxAltitude;
@@ -2846,7 +2847,7 @@ public:
     virtual ~Flyable() = default;
 };
 
-// Second base class
+// Δεύτερη βασική κλάση
 class Swimmable {
 protected:
     double maxDepth;
@@ -2870,7 +2871,7 @@ public:
     virtual ~Swimmable() = default;
 };
 
-// Third base class
+// Τρίτη βασική κλάση
 class LandVehicle {
 protected:
     double groundSpeed;
@@ -2890,7 +2891,7 @@ public:
     virtual ~LandVehicle() = default;
 };
 
-// Derived class using multiple inheritance
+// Παράγωγη κλάση με πολλαπλή κληρονομικότητα
 class AmphibiousVehicle : public Flyable, public Swimmable, public LandVehicle {
 private:
     string name;
@@ -2901,7 +2902,7 @@ public:
         : Flyable(alt, fSpeed), Swimmable(depth, sSpeed), 
           LandVehicle(gSpeed, w), name(n) {}
     
-    // Override methods to provide amphibious-specific behavior
+    // Παράκαμψη μεθόδων για συμπεριφορά ειδική για αμφίβια οχήματα
     void takeOff() const override {
         cout << name << " taking off from water surface..." << endl;
     }
@@ -2933,30 +2934,30 @@ public:
         LandVehicle::drive();
     }
     
-    // New method combining all capabilities
+    // Νέα μέθοδος που συνδυάζει όλες τις δυνατότητες
     void performAmphibiousSequence() const {
         cout << "\n--- " << name << " Amphibious Sequence ---" << endl;
         
-        // Drive on land
+        // Οδήγηση στη στεριά
         drive();
         
-        // Go to water
+        // Μετάβαση στο νερό
         brake();
         cout << name << " entering water..." << endl;
         
-        // Swim
+        // Κολύμπι
         swim();
         
-        // Dive
+        // Κατάδυση
         dive();
         cout << name << " exploring underwater..." << endl;
         surface();
         
-        // Take off
+        // Απογείωση
         takeOff();
         fly();
         
-        // Land
+        // Προσγείωση
         land();
         cout << name << " returning to shore." << endl;
         cout << "--- End of sequence ---\n" << endl;
@@ -2978,16 +2979,16 @@ int main() {
     duckBoat.displayCapabilities();
     cout << endl;
     
-    // Access methods from all inherited classes
+    // Πρόσβαση σε μεθόδους από όλες τις κληρονομημένες κλάσεις
     duckBoat.drive();
     duckBoat.swim();
     duckBoat.fly();
     cout << endl;
     
-    // Perform the complete sequence
+    // Εκτέλεση της πλήρους ακολουθίας
     duckBoat.performAmphibiousSequence();
     
-    // Demonstrate accessing specific base class methods
+    // Επίδειξη πρόσβασης σε συγκεκριμένες μεθόδους βασικής κλάσης
     cout << "Accessing specific base class methods:" << endl;
     duckBoat.Flyable::takeOff();
     duckBoat.Swimmable::dive();
@@ -2999,9 +3000,9 @@ int main() {
 
 ---
 
-## Advanced Memory Management (Heap vs. Stack, Smart Pointers)
+## Προχωρημένη Διαχείριση Μνήμης (Σωρός έναντι Στοίβας, Έξυπνοι Δείκτες)
 
-### Smart Pointers
+### Έξυπνοι Δείκτες
 ```cpp
 #include <iostream>
 #include <memory>
@@ -3016,7 +3017,7 @@ private:
     size_t size;
     
 public:
-    // Constructor
+    // Κατασκευαστής
     Resource(const string& n, size_t s) : name(n), size(s) {
         data = new int[size];
         for (size_t i = 0; i < size; i++) {
@@ -3025,13 +3026,13 @@ public:
         cout << "Resource '" << name << "' allocated with " << size << " integers" << endl;
     }
     
-    // Destructor
+    // Καταστροφέας
     ~Resource() {
         delete[] data;
         cout << "Resource '" << name << "' deallocated" << endl;
     }
     
-    // Copy constructor
+    // Κατασκευαστής αντιγραφής
     Resource(const Resource& other) : name(other.name + "_copy"), size(other.size) {
         data = new int[size];
         for (size_t i = 0; i < size; i++) {
@@ -3040,10 +3041,10 @@ public:
         cout << "Resource '" << name << "' copied from '" << other.name << "'" << endl;
     }
     
-    // Assignment operator
+    // Τελεστής ανάθεσης
     Resource& operator=(const Resource& other) {
         if (this != &other) {
-            delete[] data;  // Clean up existing resource
+            delete[] data;  // Καθαρισμός υπάρχοντος πόρου
             
             name = other.name + "_assigned";
             size = other.size;
@@ -3057,17 +3058,17 @@ public:
         return *this;
     }
     
-    // Move constructor
+    // Κατασκευαστής μετακίνησης
     Resource(Resource&& other) noexcept : name(move(other.name)), size(other.size), data(other.data) {
         other.data = nullptr;
         other.size = 0;
         cout << "Resource moved to '" << name << "'" << endl;
     }
     
-    // Move assignment operator
+    // Τελεστής ανάθεσης μετακίνησης
     Resource& operator=(Resource&& other) noexcept {
         if (this != &other) {
-            delete[] data;  // Clean up existing resource
+            delete[] data;  // Καθαρισμός υπάρχοντος πόρου
             
             name = move(other.name);
             size = other.size;
@@ -3083,7 +3084,7 @@ public:
     
     void display() const {
         cout << "Resource '" << name << "': ";
-        for (size_t i = 0; i < min(size, (size_t)5); i++) {  // Show first 5 elements
+        for (size_t i = 0; i < min(size, (size_t)5); i++) {  // Εμφάνιση πρώτων 5 στοιχείων
             cout << data[i] << " ";
         }
         if (size > 5) cout << "...";
@@ -3096,19 +3097,19 @@ public:
 void demonstrateUniquePtr() {
     cout << "\n=== Unique Pointer Demo ===" << endl;
     
-    // Creating unique_ptr
+    // Δημιουργία unique_ptr
     unique_ptr<Resource> ptr1 = make_unique<Resource>("Resource1", 10);
     ptr1->display();
     
-    // Transfer ownership using move
+    // Μεταφορά ιδιοκτησίας με move
     unique_ptr<Resource> ptr2 = move(ptr1);
-    // ptr1 is now null
+    // Το ptr1 είναι τώρα null
     cout << "ptr1 is " << (ptr1 ? "valid" : "null") << endl;
     cout << "ptr2 is " << (ptr2 ? "valid" : "null") << endl;
     
     ptr2->display();
     
-    // Array with unique_ptr
+    // Πίνακας με unique_ptr
     unique_ptr<int[]> arrayPtr = make_unique<int[]>(5);
     for (int i = 0; i < 5; i++) {
         arrayPtr[i] = (i + 1) * 10;
@@ -3120,43 +3121,43 @@ void demonstrateUniquePtr() {
     }
     cout << endl;
     
-    // unique_ptr automatically cleans up when going out of scope
+    // Το unique_ptr καθαρίζει αυτόματα όταν βγαίνει εκτός πεδίου εφαρμογής
 }
 
 void demonstrateSharedPtr() {
     cout << "\n=== Shared Pointer Demo ===" << endl;
     
-    // Creating shared_ptr
+    // Δημιουργία shared_ptr
     shared_ptr<Resource> ptr1 = make_shared<Resource>("SharedResource", 5);
     cout << "Reference count: " << ptr1.use_count() << endl;
     
     {
-        // Creating another shared_ptr pointing to the same object
+        // Δημιουργία άλλου shared_ptr που δείχνει στο ίδιο αντικείμενο
         shared_ptr<Resource> ptr2 = ptr1;
         cout << "Reference count: " << ptr1.use_count() << endl;
         cout << "Reference count (ptr2): " << ptr2.use_count() << endl;
         
         ptr2->display();
         
-        // Creating a third shared_ptr
+        // Δημιουργία τρίτου shared_ptr
         shared_ptr<Resource> ptr3 = ptr1;
         cout << "Reference count: " << ptr1.use_count() << endl;
     }
     
-    // ptr2 and ptr3 went out of scope, reference count decreased
+    // Τα ptr2 και ptr3 βγήκαν εκτός πεδίου, ο μετρητής αναφορών μειώθηκε
     cout << "Reference count after scope: " << ptr1.use_count() << endl;
     ptr1->display();
     
-    // Weak pointer to break circular references
+    // Ασθενής δείκτης για διάσπαση κυκλικών αναφορών
     weak_ptr<Resource> weakPtr = ptr1;
     cout << "Weak pointer created, shared count: " << weakPtr.use_count() << endl;
     
-    if (auto lockedPtr = weakPtr.lock()) {  // Safely access the resource
+    if (auto lockedPtr = weakPtr.lock()) {  // Ασφαλής πρόσβαση στον πόρο
         cout << "Successfully locked weak pointer" << endl;
         lockedPtr->display();
     }
     
-    // Reset the shared pointer
+    // Επαναφορά του shared pointer
     ptr1.reset();
     cout << "ptr1 reset, expired: " << weakPtr.expired() << endl;
 }
@@ -3164,7 +3165,7 @@ void demonstrateSharedPtr() {
 void demonstrateCustomDeleter() {
     cout << "\n=== Custom Deleter Demo ===" << endl;
     
-    // Custom deleter function
+    // Προσαρμοσμένη συνάρτηση διαγραφής
     auto customDeleter = [](Resource* res) {
         cout << "Custom deleter called for: " << res->getName() << endl;
         delete res;
@@ -3176,7 +3177,7 @@ void demonstrateCustomDeleter() {
     );
     
     ptr->display();
-    // Custom deleter will be called automatically
+    // Ο προσαρμοσμένος διαγράφων θα κληθεί αυτόματα
 }
 
 int main() {
@@ -3192,7 +3193,7 @@ int main() {
 }
 ```
 
-### RAII (Resource Acquisition Is Initialization)
+### RAII (Απόκτηση Πόρων Είναι Αρχικοποίηση)
 ```cpp
 #include <iostream>
 #include <fstream>
@@ -3201,7 +3202,7 @@ int main() {
 #include <chrono>
 using namespace std;
 
-// RAII class for file handling
+// Κλάση RAII για διαχείριση αρχείων
 class FileManager {
 private:
     string filename;
@@ -3219,7 +3220,7 @@ public:
         }
     }
     
-    // Destructor automatically closes file
+    // Ο καταστροφέας κλείνει αυτόματα το αρχείο
     ~FileManager() {
         if (isOpen) {
             file.close();
@@ -3227,18 +3228,18 @@ public:
         }
     }
     
-    // Non-copyable to prevent resource duplication
+    // Μη αντιγράψιμη για αποτροπή διπλασιασμού πόρων
     FileManager(const FileManager&) = delete;
     FileManager& operator=(const FileManager&) = delete;
     
-    // Move constructor
+    // Κατασκευαστής μετακίνησης
     FileManager(FileManager&& other) noexcept 
         : filename(move(other.filename)), file(move(other.file)), isOpen(other.isOpen) {
         other.isOpen = false;
         cout << "File manager moved" << endl;
     }
     
-    // Write to file
+    // Εγγραφή σε αρχείο
     bool write(const string& data) {
         if (isOpen) {
             file << data << endl;
@@ -3250,7 +3251,7 @@ public:
     bool isFileOpen() const { return isOpen; }
 };
 
-// RAII class for thread synchronization
+// Κλάση RAII για συγχρονισμό νημάτων
 class ThreadLock {
 private:
     mutex& mtx;
@@ -3269,11 +3270,11 @@ public:
         }
     }
     
-    // Prevent copying
+    // Αποτροπή αντιγραφής
     ThreadLock(const ThreadLock&) = delete;
     ThreadLock& operator=(const ThreadLock&) = delete;
     
-    // Move constructor
+    // Κατασκευαστής μετακίνησης
     ThreadLock(ThreadLock&& other) noexcept : mtx(other.mtx), locked(other.locked) {
         other.locked = false;
     }
@@ -3295,7 +3296,7 @@ public:
     }
 };
 
-// RAII class for database connection simulation
+// Κλάση RAII για προσομοίωση σύνδεσης βάσης δεδομένων
 class DatabaseConnection {
 private:
     string connectionString;
@@ -3303,9 +3304,9 @@ private:
     
 public:
     DatabaseConnection(const string& connStr) : connectionString(connStr), isConnected(false) {
-        // Simulate connection attempt
+        // Προσομοίωση προσπάθειας σύνδεσης
         cout << "Attempting to connect to: " << connectionString << endl;
-        isConnected = true;  // Simulate successful connection
+        isConnected = true;  // Προσομοίωση επιτυχούς σύνδεσης
         cout << "Database connected successfully" << endl;
     }
     
@@ -3315,11 +3316,11 @@ public:
         }
     }
     
-    // Prevent copying
+    // Αποτροπή αντιγραφής
     DatabaseConnection(const DatabaseConnection&) = delete;
     DatabaseConnection& operator=(const DatabaseConnection&) = delete;
     
-    // Move constructor
+    // Κατασκευαστής μετακίνησης
     DatabaseConnection(DatabaseConnection&& other) noexcept 
         : connectionString(move(other.connectionString)), isConnected(other.isConnected) {
         other.isConnected = false;
@@ -3339,28 +3340,28 @@ public:
 void demonstrateRAII() {
     cout << "=== RAII Demonstration ===" << endl;
     
-    // File RAII
+    // RAII αρχείου
     {
         FileManager fm("example.txt");
         if (fm.isFileOpen()) {
             fm.write("Hello from RAII!");
             fm.write("Resource automatically managed");
         }
-    }  // File automatically closed here
+    }  // Το αρχείο κλείνεται αυτόματα εδώ
     
-    // Mutex RAII
+    // RAII mutex
     mutex mtx;
     {
         ThreadLock lock(mtx);
         cout << "Critical section accessed safely" << endl;
-        // Mutex automatically unlocked when lock goes out of scope
+        // Το mutex ξεκλειδώνεται αυτόματα όταν το lock βγαίνει εκτός πεδίου
     }
     
-    // Database RAII
+    // RAII βάσης δεδομένων
     {
         DatabaseConnection db("localhost:5432/mydb");
         db.executeQuery("SELECT * FROM users;");
-        // Connection automatically closed
+        // Η σύνδεση κλείνεται αυτόματα
     }
     
     cout << "All resources properly managed with RAII!" << endl;
@@ -3373,31 +3374,31 @@ void demonstrateExceptionSafety() {
         FileManager fm("exception_test.txt");
         fm.write("Before exception");
         
-        // Simulate an exception
+        // Προσομοίωση εξαίρεσης
         throw runtime_error("Simulated exception occurred");
         
-        // This line won't be reached, but FileManager still gets cleaned up
+        // Αυτή η γραμμή δεν θα εκτελεστεί, αλλά το FileManager θα καθαριστεί
         fm.write("After exception - this won't execute");
     } catch (const exception& e) {
         cout << "Caught exception: " << e.what() << endl;
         cout << "Notice that file was still properly closed due to RAII!" << endl;
     }
     
-    // Demonstrate scoped resource management
+    // Επίδειξη διαχείρισης πόρων σε πεδία εφαρμογής
     cout << "\nManual resource management vs RAII:" << endl;
     
-    // Without RAII (bad practice):
+    // Χωρίς RAII (κακή πρακτική):
     cout << "Without RAII - potential resource leak:" << endl;
     ofstream* badFile = new ofstream("bad_example.txt");
     *badFile << "This might not get cleaned up properly";
-    // Forgot to close/delete - resource leak!
+    // Ξεχάστηκε το κλείσιμο/διαγραφή - διαρροή πόρων!
     
-    // With RAII (good practice):
+    // Με RAII (καλή πρακτική):
     cout << "With RAII - guaranteed cleanup:" << endl;
     {
         FileManager goodFile("good_example.txt");
         goodFile.write("This will definitely get cleaned up");
-    }  // Automatic cleanup occurs here
+    }  // Ο αυτόματος καθαρισμός γίνεται εδώ
 }
 
 int main() {
@@ -3408,7 +3409,7 @@ int main() {
 }
 ```
 
-### Memory Pools and Custom Allocators
+### Ομάδες Μνήμης και Προσαρμοσμένοι Κατανεμητές
 ```cpp
 #include <iostream>
 #include <vector>
@@ -3417,7 +3418,7 @@ int main() {
 #include <chrono>
 using namespace std;
 
-// Simple memory pool implementation
+// Απλή υλοποίηση ομάδας μνήμης
 template<typename T, size_t PoolSize = 100>
 class MemoryPool {
 private:
@@ -3426,7 +3427,7 @@ private:
         Block* next;
         
         Block() : next(nullptr) {}
-        ~Block() {}  // Must be trivial for placement new
+        ~Block() {}  // Πρέπει να είναι τετριμμένος για placement new
     };
     
     Block* freeList;
@@ -3435,7 +3436,7 @@ private:
     
 public:
     MemoryPool() : freeList(nullptr), pool(PoolSize), allocatedCount(0) {
-        // Initialize free list
+        // Αρχικοποίηση λίστας ελεύθερων
         for (size_t i = 0; i < PoolSize - 1; ++i) {
             pool[i].next = &pool[i + 1];
         }
@@ -3444,11 +3445,11 @@ public:
     }
     
     ~MemoryPool() {
-        // Destroy all allocated objects
+        // Καταστροφή όλων των δεσμευμένων αντικειμένων
         reset();
     }
     
-    // Allocate an object from the pool
+    // Δέσμευση αντικειμένου από την ομάδα
     T* allocate() {
         if (!freeList) {
             throw bad_alloc();
@@ -3458,34 +3459,34 @@ public:
         freeList = block->next;
         ++allocatedCount;
         
-        // Use placement new to construct object in pre-allocated memory
+        // Χρήση placement new για κατασκευή αντικειμένου σε προδεσμευμένη μνήμη
         return new(&block->object) T();
     }
     
-    // Deallocate an object back to the pool
+    // Αποδέσμευση αντικειμένου πίσω στην ομάδα
     void deallocate(T* ptr) {
         if (!ptr) return;
         
-        // Call destructor
+        // Κλήση καταστροφέα
         ptr->~T();
         
-        // Find corresponding block
+        // Εύρεση αντίστοιχου block
         Block* block = reinterpret_cast<Block*>(ptr);
         
-        // Add back to free list
+        // Προσθήκη πίσω στη λίστα ελεύθερων
         block->next = freeList;
         freeList = block;
         --allocatedCount;
     }
     
-    // Reset the entire pool
+    // Επαναφορά ολόκληρης της ομάδας
     void reset() {
-        // Destroy all allocated objects
-        // This is a simplified version - in practice, you'd need to track allocated objects
+        // Καταστροφή όλων των δεσμευμένων αντικειμένων
+        // Αυτή είναι απλοποιημένη έκδοση - στην πράξη, θα χρειαστείτε να παρακολουθείτε τα δεσμευμένα αντικείμενα
         pool.clear();
         pool.resize(PoolSize);
         
-        // Rebuild free list
+        // Ανακατασκευή λίστας ελεύθερων
         for (size_t i = 0; i < PoolSize - 1; ++i) {
             pool[i].next = &pool[i + 1];
         }
@@ -3498,11 +3499,11 @@ public:
     size_t getFreeCount() const { return PoolSize - allocatedCount; }
 };
 
-// Class to demonstrate pool usage
+// Κλάση για επίδειξη χρήσης ομάδας μνήμης
 class ExpensiveObject {
 private:
     int id;
-    vector<int> data;  // Simulate expensive initialization
+    vector<int> data;  // Προσομοίωση δαπανηρής αρχικοποίησης
     
 public:
     ExpensiveObject(int objId = 0) : id(objId), data(1000, objId) {
@@ -3517,7 +3518,7 @@ public:
     size_t getDataSize() const { return data.size(); }
     
     void doWork() {
-        // Simulate some work
+        // Προσομοίωση κάποιας εργασίας
         int sum = 0;
         for (int val : data) {
             sum += val;
@@ -3526,13 +3527,13 @@ public:
     }
 };
 
-// Custom allocator example
+// Παράδειγμα προσαρμοσμένου κατανεμητή
 template<typename T>
 class TrackingAllocator {
 public:
     using value_type = T;
     
-    // Static counters for tracking allocations
+    // Στατικοί μετρητές για παρακολούθηση δεσμεύσεων
     static size_t allocation_count;
     static size_t deallocation_count;
     static size_t bytes_allocated;
@@ -3567,7 +3568,7 @@ public:
     bool operator!=(const TrackingAllocator<U>&) const { return false; }
 };
 
-// Initialize static members
+// Αρχικοποίηση στατικών μελών
 template<typename T>
 size_t TrackingAllocator<T>::allocation_count = 0;
 
@@ -3588,7 +3589,7 @@ void demonstrateMemoryPool() {
     cout << "Initial pool state - Allocated: " << pool.getAllocatedCount() 
          << ", Free: " << pool.getFreeCount() << endl;
     
-    // Allocate objects from pool
+    // Δέσμευση αντικειμένων από την ομάδα
     vector<ExpensiveObject*> objects;
     for (int i = 0; i < 5; ++i) {
         ExpensiveObject* obj = pool.allocate();
@@ -3599,7 +3600,7 @@ void demonstrateMemoryPool() {
              << ", Free: " << pool.getFreeCount() << endl;
     }
     
-    // Deallocate some objects
+    // Αποδέσμευση μερικών αντικειμένων
     cout << "\nDeallocating objects..." << endl;
     for (int i = 0; i < 2; ++i) {
         pool.deallocate(objects[i]);
@@ -3609,7 +3610,7 @@ void demonstrateMemoryPool() {
              << ", Free: " << pool.getFreeCount() << endl;
     }
     
-    // Clean up remaining objects
+    // Καθαρισμός υπόλοιπων αντικειμένων
     for (size_t i = 2; i < objects.size(); ++i) {
         if (objects[i]) {
             pool.deallocate(objects[i]);
@@ -3620,17 +3621,17 @@ void demonstrateMemoryPool() {
 void demonstrateCustomAllocator() {
     cout << "\n=== Custom Allocator Demonstration ===" << endl;
     
-    // Reset counters
+    // Επαναφορά μετρητών
     TrackingAllocator<int>::allocation_count = 0;
     TrackingAllocator<int>::deallocation_count = 0;
     TrackingAllocator<int>::bytes_allocated = 0;
     TrackingAllocator<int>::bytes_deallocated = 0;
     
     {
-        // Use custom allocator with vector
+        // Χρήση προσαρμοσμένου κατανεμητή με vector
         vector<int, TrackingAllocator<int>> trackedVec;
         
-        // Add elements
+        // Προσθήκη στοιχείων
         for (int i = 0; i < 100; ++i) {
             trackedVec.push_back(i);
         }
@@ -3649,7 +3650,7 @@ void performanceComparison() {
     
     const int numObjects = 1000;
     
-    // Time regular allocation
+    // Χρονομέτρηση κανονικής δέσμευσης
     auto start = chrono::high_resolution_clock::now();
     vector<unique_ptr<ExpensiveObject>> regularObjects;
     for (int i = 0; i < numObjects; ++i) {
@@ -3660,7 +3661,7 @@ void performanceComparison() {
     
     cout << "Regular allocation time: " << regularTime.count() << " microseconds" << endl;
     
-    // Time pool allocation
+    // Χρονομέτρηση δέσμευσης από ομάδα μνήμης
     MemoryPool<ExpensiveObject, numObjects> pool;
     start = chrono::high_resolution_clock::now();
     vector<ExpensiveObject*> poolObjects;
@@ -3672,7 +3673,7 @@ void performanceComparison() {
     
     cout << "Pool allocation time: " << poolTime.count() << " microseconds" << endl;
     
-    // Clean up pool objects
+    // Καθαρισμός αντικειμένων ομάδας
     for (auto obj : poolObjects) {
         pool.deallocate(obj);
     }
@@ -3691,24 +3692,23 @@ int main() {
 
 ---
 
-## Conclusion
+## Συμπέρασμα
 
-This comprehensive guide covers C++ programming from basic concepts to advanced OOP principles and memory management. Each section builds upon the previous one, providing a solid foundation for understanding C++ programming.
+Αυτός ο πλήρης οδηγός καλύπτει τον προγραμματισμό σε C++ από τις βασικές έννοιες έως τις προχωρημένες αρχές ΑΠ (Αντικειμενοστραφούς Προγραμματισμού) και τη διαχείριση μνήμης. Κάθε ενότητα βασίζεται στην προηγούμενη, παρέχοντας μια σταθερή βάση για την κατανόηση του προγραμματισμού σε C++.
 
-Key concepts covered:
-- Basic printing and variable operations
-- Control flow (if/else, switch)
-- Loops (for, while, do-while)
-- Tables (arrays)
-- Functions (pass-by-value vs. pass-by-reference)
-- Pointers and references
-- Vectors (dynamic arrays)
-- Maps (associative containers)
-- Classes and objects (the basics)
-- Constructors and destructors
-- The `this` pointer
-- Object-oriented programming principles (encapsulation, abstraction)
-- Inheritance and polymorphism
-- Advanced memory management (heap vs. stack, smart pointers)
+Βασικές έννοιες που καλύπτονται:
+- Βασική εκτύπωση και λειτουργίες μεταβλητών
+- Έλεγχος ροής (if/else, switch)
+- Βρόχοι (for, while, do-while)
+- Πίνακες (arrays)
+- Συναρτήσεις (πέρασμα-κατά-τιμή έναντι πέρασμα-κατά-αναφορά)
+- Δείκτες και αναφορές
+- Διανύσματα (δυναμικοί πίνακες)
+- Χάρτες (συσχετιστικοί περιέκτες)
+- Κλάσεις και αντικείμενα (τα βασικά)
+- Κατασκευαστές και καταστροφείς
+- Ο δείκτης `this`
+- Αρχές αντικειμενοστραφούς προγραμματισμού (ενθυλάκωση, αφαίρεση)
+- Κληρονομικότητα και πολυμορφισμός
+- Προχωρημένη διαχείριση μνήμης (σωρός έναντι στοίβας, έξυπνοι δείκτες)
 
-Each example includes practical code that demonstrates the concepts in action, allowing for hands-on learning and experimentation.

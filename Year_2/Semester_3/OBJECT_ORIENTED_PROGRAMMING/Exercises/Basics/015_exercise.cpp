@@ -1,22 +1,22 @@
 /*
- * Exercise 15: Tables (Arrays)
+ * Άσκηση 15: Πίνακες (Arrays)
  *
- * Instructions:
- * 1. Create a program that implements the Sieve of Eratosthenes algorithm to find all prime numbers up to 100
- * 2. Use a boolean array to mark composite numbers
- * 3. Initialize the array so that all entries are true except indices 0 and 1
- * 4. Starting from 2, mark all multiples of each prime number as composite (false)
- * 5. Print all numbers that remain marked as prime
- * 
- * Algorithm: Start with a list of numbers from 2 to n. Mark multiples of each prime as composite.
- * The remaining unmarked numbers are primes.
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί τον αλγόριθμο του Κοσκίνου του Ερατοσθένη για να βρει όλους τους πρώτους αριθμούς έως το 100
+ * 2. Χρησιμοποιήστε έναν λογικό πίνακα (boolean) για να σημειώσετε τους σύνθετους αριθμούς
+ * 3. Αρχικοποιήστε τον πίνακα έτσι ώστε όλες οι εγγραφές να είναι true εκτός από τους δείκτες 0 και 1
+ * 4. Ξεκινώντας από το 2, σημειώστε όλα τα πολλαπλάσια κάθε πρώτου αριθμού ως σύνθετα (false)
+ * 5. Εκτυπώστε όλους τους αριθμούς που παραμένουν σημειωμένοι ως πρώτοι
+ *
+ * Αλγόριθμος: Ξεκινήστε με μια λίστα αριθμών από 2 έως n. Σημειώστε τα πολλαπλάσια κάθε πρώτου ως σύνθετα.
+ * Οι υπόλοιποι μη σημειωμένοι αριθμοί είναι πρώτοι.
  */
 
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

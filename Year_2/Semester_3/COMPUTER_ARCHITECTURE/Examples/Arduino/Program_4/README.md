@@ -1,40 +1,40 @@
-# Program 4: Ultrasonic Distance Sensor
+# Πρόγραμμα 4: Αισθητήρας Απόστασης Υπερήχων
 
-Arduino program that measures distance using an HC-SR04 ultrasonic sensor with enhanced accuracy features.
+Πρόγραμμα Arduino που μετρά την απόσταση χρησιμοποιώντας έναν αισθητήρα υπερήχων HC-SR04 με βελτιωμένα χαρακτηριστικά ακρίβειας.
 
-## Functionality
+## Λειτουργικότητα
 
-- Measures distance using ultrasonic sensor
-- Median filtering to reject outliers (7 samples)
-- Temperature-compensated sound speed calculation
-- Timeout handling for out-of-range detection
-- Updates ~4 times per second
+- Μέτρηση απόστασης με αισθητήρα υπερήχων
+- Φίλτρο διαμέσου για απόρριψη ακραίων τιμών (7 δείγματα)
+- Υπολογισμός ταχύτητας ήχου με θερμοκρασιακή αντιστάθμιση
+- Διαχείριση χρονικού ορίου για εντοπισμό εκτός εύρους
+- Ενημέρωση ~4 φορές το δευτερόλεπτο
 
-## Upload Instructions
+## Οδηγίες Μεταφόρτωσης
 
 ```bash
 arduino-cli compile --fqbn arduino:avr:uno Program_4.ino
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Program_4.ino
 ```
 
-## Components Required
+## Απαιτούμενα Εξοπλίσματα
 
 - Arduino Uno
-- HC-SR04 ultrasonic sensor
-- Jumper wires
-- Breadboard
+- Αισθητήρας υπερήχων HC-SR04
+- Ενωτικά καλώδια
+- Πινακοπλακίδιο (Breadboard)
 
-## Circuit
+## Κύκλωμα
 
-- TRIGGER pin → Arduino pin 3
-- ECHO pin → Arduino pin 2
+- Πόλωση TRIGGER → Arduino πόλωση 3
+- Πόλωση ECHO → Arduino πόλωση 2
 - VCC → 5V
 - GND → GND
 
-## Serial Monitor
+## Σειριακή Οθόνη Παρακολούθησης
 
-Open serial monitor at 9600 baud to see distance measurements in centimeters.
+Ανοίξτε τη σειριακή οθόνη παρακολούθησης σε 9600 baud για να δείτε τις μετρήσεις απόστασης σε εκατοστά.
 
-## Python Script
+## Σενάριο Python
 
-Run `main_execute.py` to read and log distance measurements from the Arduino.
+Εκτελέστε το `main_execute.py` για ανάγνωση και καταγραφή μετρήσεων απόστασης από το Arduino.

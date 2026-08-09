@@ -1,30 +1,34 @@
-# Traveling Wave and Broadband Antennas
+# Κεραίες Οδεύοντος Κύματος και Ευρείας Ζώνης
 
-Traveling wave antennas represent a class of non-resonant radiators where the electric current propagates as a unidirectional wave along the guiding structure, rather than forming a standing wave. By terminating the antenna structure with a matched load, reflection from the open end is eliminated, resulting in a low-Q system that exhibits stable input impedance and radiation patterns over a wide frequency band. This section covers the theoretical foundations, mathematical formulations, and engineering design principles of long-wire traveling wave antennas, V antennas, rhombic antennas, helical antennas (operating in normal and axial modes), and Yagi-Uda arrays.
-
----
-
-## 1. Conceptual Foundation
-
-### 1.1 Resonant vs. Non-Resonant (Traveling Wave) Antennas
-Standing waves on traditional resonant antennas (such as thin wire dipoles) are formed by the superposition of waves traveling outward from the feedpoint and their reflections from the open ends of the conductor. The open ends act as large impedance mismatches, reflecting the wave back with a phase shift. This reflections-based resonance stores reactive energy near the antenna, producing a high quality factor ($Q$). Consequently, the input reactance changes rapidly with frequency, limiting the matching bandwidth to typically $2\% - 5\%$.
-
-Non-resonant (traveling wave) antennas suppress end reflections by terminating the antenna structure opposite the feedpoint with a resistive load equal to the antenna's characteristic impedance. Without reflections, the current travels exclusively in one direction. The absence of stored reactive energy results in a very low quality factor ($Q$), enabling stable input impedance and broad bandwidth (often spanning several octaves).
-
-### 1.2 Radiation Mechanism and Wave Lobe Offsets
-In a traveling wave antenna, radiation occurs along the length of the conductor. As the electromagnetic wave propagates along the wire, it leaks energy into space. Because the current phase varies continuously along the wire ($e^{-jkz'}$), the radiation from different segments of the wire adds constructively at an oblique angle $\theta_{\text{max}}$ relative to the wire axis. As the wire length increases, the phase velocity of the wave along the wire relative to the speed of light causes the main lobe of the radiation pattern to tilt closer to the axis of the wire (tending toward an endfire configuration).
-
-### 1.3 Helical Antenna Modes and Polarization Transitions
-A helical antenna consists of a conducting wire wound in the form of a helix and backed by a ground plane. Depending on the ratio of the helix dimensions (diameter and pitch spacing) to the operating wavelength, the antenna exhibits distinct physical behaviors:
-1. **Normal Mode (Broadside):** When the helix diameter and spacing are much smaller than a wavelength ($D \ll \lambda$, $S \ll \lambda$), the phase of the current is nearly uniform across the structure. The radiation pattern is omnidirectional in the plane perpendicular to the helix axis. The helix behaves as a superposition of short vertical dipoles (axial current) and small loops (circular current). Under a specific geometry, the orthogonal fields from these components are in phase quadrature and equal in magnitude, yielding circular polarization perpendicular to the axis.
-2. **Axial Mode (Endfire):** When the circumference of the helix is comparable to the wavelength ($C \approx \lambda$), the current along the wire behaves as a traveling wave. The radiation pattern transitions from broadside to a highly directive beam along the axis of the helix (endfire). The fields radiated by the loops and dipoles add constructively in the axial direction, producing a circularly polarized beam with high gain and broad bandwidth.
+Οι κεραίες οδεύοντος κύματος (traveling wave antennas) αποτελούν μια κατηγορία μη συντονιζόμενων ακτινοβολούντων δομών όπου το ηλεκτρικό ρεύμα διαδίδεται ως μονοκατευθυντικό κύμα κατά μήκος της καθοδηγούσας δομής, αντί να σχηματίζει στάσιμο κύμα. Τερματίζοντας τη δομή της κεραίας με ένα αντιστοιχισμένο φορτίο, εξαλείφεται η ανάκλαση από το ανοιχτό άκρο, με αποτέλεσμα ένα σύστημα χαμηλού συντελεστή ποιότητας ($Q$). Αυτό εκδηλώνεται ως σταθερή σύνθετη αντίσταση εισόδου και διαγράμματα ακτινοβολίας σε μια ευρεία ζώνη συχνοτήτων. Η ενότητα καλύπτει τα θεωρητικά θεμέλια, τις μαθηματικές διατυπώσεις και τις αρχές μηχανικής σχεδίασης των κεραιών οδεύοντος κύματος μακρού σύρματος, των κεραιών V, των ρομβοειδών κεραιών, των ελικοειδών κεραιών (που λειτουργούν σε κανονική και αξονική μορφή) και των συστοιχιών Yagi-Uda.
 
 ---
 
-## 2. Formal Definitions and Models
+## 1. Εννοιολογικό Υπόβαθρο
 
-### 2.1 Single-Wire Traveling Wave Antenna (Long Wire)
-A long-wire traveling wave antenna consists of a thin, straight wire of physical length $L$ aligned along the $z$-axis ($0 \le z' \le L$), terminated with a matched load at $z' = L$.
+### 1.1 Συντονιζόμενες έναντι Μη Συντονιζόμενων (Οδεύοντος Κύματος) Κεραιών
+
+Τα στάσιμα κύματα σε παραδοσιακές συντονιζόμενες κεραίες (όπως τα δίπολα λεπτού σύρματος) σχηματίζονται από την υπέρθεση κυμάτων που διαδίδονται προς τα έξω από το σημείο τροφοδοσίας και των ανακλάσεών τους από τα ανοιχτά άκρα του αγωγού. Τα ανοιχτά άκρα λειτουργούν ως μεγάλες ασυμφωνίες σύνθετης αντίστασης, ανακλώντας το κύμα πίσω με μια μετατόπιση φάσης. Αυτή η συντονιστική συμπεριφορά βάσει ανακλάσεων αποθηκεύει άεργη ενέργεια κοντά στην κεραία, παράγοντας υψηλό συντελεστή ποιότητας ($Q$). Κατόπιν, η αντιδραστική συνιστώσα της εισόδου μεταβάλλεται ταχέως με τη συχνότητα, περιορίζοντας το εύρος ζώνης προσαρμογής συνήθως στο $2\% - 5\%$.
+
+Οι μη συντονιζόμενες (οδεύοντος κύματος) κεραίες καταστέλλουν τις ανακλάσεις στα άκρα τερματίζοντας τη δομή της κεραίας απέναντι από το σημείο τροφοδοσίας με ένα αντιστατικό φορτίο ίσο με τη χαρακτηριστική σύνθετη αντίσταση της κεραίας. Χωρίς ανακλάσεις, το ρεύμα ταξιδεύει αποκλειστικά προς μία κατεύθυνση. Η απουσία αποθηκευμένης άεργης ενέργειας οδηγεί σε πολύ χαμηλό συντελεστή ποιότητας ($Q$), επιτρέποντας σταθερή σύνθετη αντίσταση εισόδου και ευρύ εύρος ζώνης (συχνά καλύπτοντας πολλές οκτάβες).
+
+### 1.2 Μηχανισμός Ακτινοβολίας και Μετατοπίσεις Λοβού Κύματος
+
+Σε μια κεραία οδεύοντος κύματος, η ακτινοβολία λαμβάνει χώρα κατά μήκος του αγωγού. Καθώς το ηλεκτρομαγνητικό κύμα διαδίδεται κατά μήκος του σύρματος, διαρρέει ενέργεια στον χώρο. Επειδή η φάση του ρεύματος μεταβάλλεται συνεχώς κατά μήκος του σύρματος ($e^{-jkz'}$), η ακτινοβολία από διαφορετικά τμήματα του σύρματος προστίθεται ενισχυτικά σε μια πλάγια γωνία $\theta_{\text{max}}$ σχετικά με τον άξονα του σύρματος. Καθώς το μήκος του σύρματος αυξάνεται, η ταχύτητα φάσης του κύματος κατά μήκος του σύρματος σε σχέση με την ταχύτητα του φωτός προκαλεί τον κύριο λοβό του διαγράμματος ακτινοβολίας να κλίνει πιο κοντά στον άξονα του σύρματος (τείνοντας προς μια διάταξη τύπου endfire — κατά μήκος του άξονα).
+
+### 1.3 Μορφές Ελικοειδούς Κεραίας και Μεταβάσεις Πόλωσης
+
+Μια ελικοειδής κεραία (helical antenna) αποτελείται από έναν αγώγιμο σύρμα τυλιγμένο υπό μορφή έλικας και υποστηριζόμενο από επίπεδο γείωσης. Ανάλογα με τον λόγο των διαστάσεων της έλικας (διάμετρος και διάστημα βήματος) προς το μήκος κύματος λειτουργίας, η κεραία εμφανίζει διακριτές φυσικές συμπεριφορές:
+1. **Κανονική Μορφή (Broadside):** Όταν η διάμετρος και το διάστημα της έλικας είναι πολύ μικρότερα από το μήκος κύματος ($D \ll \lambda$, $S \ll \lambda$), η φάση του ρεύματος είναι σχεδόν ομοιόμορφη σε όλη τη δομή. Το διάγραμμα ακτινοβολίας είναι πανκατευθυντικό (omnidirectional) στο επίπεδο κάθετο στον άξονα της έλικας. Η έλικα συμπεριφέρεται ως υπέρθεση βραχέων κατακόρυφων διπόλων (αξονικό ρεύμα) και μικρών βρόχων (κυκλικό ρεύμα). Υπό μια συγκεκριμένη γεωμετρία, τα ορθογώνια πεδία από αυτές τις συνιστώσες βρίσκονται σε χωρική τετραγωνική διαφορά φάσης και ίση τιμή, παράγοντας κυκλική πόλωση κάθετη στον άξονα.
+2. **Αξονική Μορφή (Endfire):** Όταν η περιφέρεια της έλικας είναι συγκρίσιμη με το μήκος κύματος ($C \approx \lambda$), το ρεύμα κατά μήκος του σύρματος συμπεριφέρεται ως οδεύον κύμα. Το διάγραμμα ακτινοβολίας μεταβαίνει από το εγκάρσιο (broadside) σε μια ισχυρά κατευθυντική δέσμη κατά μήκος του άξονα της έλικας (endfire). Τα πεδία που ακτινοβολούνται από τους βρόχους και τα δίπολα προστίθενται ενισχυτικά στην αξονική κατεύθυνση, παράγοντας μια δέσμη κυκλικής πόλωσης με υψηλό κέρδος και ευρύ εύρος ζώνης.
+
+---
+
+## 2. Τυπικοί Ορισμοί και Μοντέλα
+
+### 2.1 Κεραία Οδεύοντος Κύματος Μονού Σύρματος (Μακρύ Σύρμα)
+
+Μια κεραία οδεύοντος κύματος μακρού σύρματος αποτελείται από ένα λεπτό, ευθύγραμμο σύρμα φυσικού μήκους $L$ ευθυγραμμισμένο κατά τον άξονα $z$ ($0 \le z' \le L$), τερματισμένο με αντιστοιχισμένο φορτίο στο $z' = L$.
 
 ```
    Feed                                          Termination
@@ -32,56 +36,60 @@ A long-wire traveling wave antenna consists of a thin, straight wire of physical
    z' = 0                   Wire Length L                   z' = L  ///
 ```
 
-#### 2.1.1 Current Distribution
-Assuming a lossless wire in free space, the unidirectional current distribution $I(z')$ is modeled as:
+#### 2.1.1 Κατανομή Ρεύματος
+
+Υποθέτοντας ένα σύρμα χωρίς απώλειες στον ελεύθερο χώρο, η μονοκατευθυντική κατανομή ρεύματος $I(z')$ μοντελοποιείται ως:
 $$
 I(z') = I_0 e^{-jkz'} \quad (0 \le z' \le L)
 $$
-where:
-- $I_0$ is the current amplitude at the feedpoint ($z' = 0$),
-- $k = \frac{2\pi}{\lambda}$ is the free-space wavenumber,
-- $z'$ is the position along the wire.
+όπου:
+- $I_0$ είναι το πλάτος του ρεύματος στο σημείο τροφοδοσίας ($z' = 0$),
+- $k = \frac{2\pi}{\lambda}$ είναι ο κυματαριθμός (wavenumber) του ελεύθερου χώρου,
+- $z'$ είναι η θέση κατά μήκος του σύρματος.
 
-#### 2.1.2 Far-Zone Radiation Fields
-The vector potential $A_z$ in the far-zone ($r \gg L$) is:
+#### 2.1.2 Πεδία Ακτινοβολίας Μακρινού Πεδίου
+
+Το διανυσματικό δυναμικό $A_z$ στο μακρινό πεδίο ($r \gg L$) είναι:
 $$
 A_z \approx \mu \frac{e^{-jkr}}{4\pi r} \int_{0}^{L} I(z') e^{jkz'\cos\theta} \, dz'
 $$
-where $\theta$ is the angle relative to the $+z$ axis. Substituting the current distribution:
+όπου $\theta$ είναι η γωνία σχετικά με τον άξονα $+z$. Αντικαθιστώντας την κατανομή ρεύματος:
 $$
 A_z \approx \mu I_0 \frac{e^{-jkr}}{4\pi r} \int_{0}^{L} e^{-jkz'(1-\cos\theta)} \, dz'
 $$
-Evaluating the integral:
+Αξιολογώντας το ολοκλήρωμα:
 $$
 \int_{0}^{L} e^{-jkz'(1-\cos\theta)} \, dz' = L e^{-j\frac{kL}{2}(1-\cos\theta)} \left[ \frac{\sin\left(\frac{kL}{2}(1-\cos\theta)\right)}{\frac{kL}{2}(1-\cos\theta)} \right]
 $$
-The far-zone electric field $E_\theta$ is related to $A_z$ by $E_\theta \approx j\omega A_\theta = -j\omega A_z \sin\theta$. Substituting $\omega \mu = k \eta$:
+Το ηλεκτρικό πεδίο μακρινού πεδίου $E_\theta$ σχετίζεται με το $A_z$ μέσω $E_\theta \approx j\omega A_\theta = -j\omega A_z \sin\theta$. Αντικαθιστώντας $\omega \mu = k \eta$:
 $$
 E_\theta \approx j\eta I_0 \frac{e^{-jkr}}{2\pi r} e^{-j\psi_0} \left[ \frac{\sin\theta}{1 - \cos\theta} \sin\left(\frac{kL}{2}(1-\cos\theta)\right) \right]
 $$
-where:
-- $\eta \approx 120\pi \; \Omega$ is the intrinsic impedance of free space,
-- $\psi_0 = \frac{kL}{2}(1-\cos\theta)$ is the phase term.
+όπου:
+- $\eta \approx 120\pi \; \Omega$ είναι η εγγενής σύνθετη αντίσταση του ελεύθερου χώρου,
+- $\psi_0 = \frac{kL}{2}(1-\cos\theta)$ είναι ο όρος φάσης.
 
-The radiation intensity $U(\theta)$ is:
+Η ένταση ακτινοβολίας $U(\theta)$ είναι:
 $$
 U(\theta) = \frac{r^2}{2\eta} |E_\theta|^2 = \frac{\eta I_0^2}{8\pi^2} \left[ \cot\left(\frac{\theta}{2}\right) \sin\left(\frac{kL}{2}(1-\cos\theta)\right) \right]^2
 $$
 
-#### 2.1.3 Angle of Maximum Radiation
-The angle of maximum radiation $\theta_{\text{max}}$ with respect to the wire axis is given by:
+#### 2.1.3 Γωνία Μέγιστης Ακτινοβολίας
+
+Η γωνία μέγιστης ακτινοβολίας $\theta_{\text{max}}$ ως προς τον άξονα του σύρματος δίνεται από:
 $$
 \theta_{\text{max}} = \arccos\left(1 - \frac{0.371}{L/\lambda}\right)
 $$
 
-> **[Supplementary]** For long wires ($L \gg \lambda$), the radiation resistance $R_{\text{rad}}$ can be approximated using:
+> **[Συμπληρωματικό]** Για μακριά σύρματα ($L \gg \lambda$), η αντίσταση ακτινοβολίας $R_{\text{rad}}$ μπορεί να προσεγγιστεί χρησιμοποιώντας:
 > $$
 > R_{\text{rad}} \approx 60 \left[ \gamma + \ln\left( \frac{4\pi L}{\lambda} \right) \right] \; \Omega
 > $$
-> where $\gamma \approx 0.5772$ is the Euler-Mascheroni constant.
+> όπου $\gamma \approx 0.5772$ είναι η σταθερά Euler-Mascheroni.
 
-### 2.2 V Antenna (Traveling Wave)
-A traveling-wave V antenna is formed by two long-wire traveling wave antennas arranged in a "V" configuration with an apex angle $2\theta_0$. The arms are fed out-of-phase at the apex and terminated with matched loads at their open ends.
+### 2.2 Κεραία V (Οδεύοντος Κύματος)
+
+Μια κεραία οδεύοντος κύματος τύπου V σχηματίζεται από δύο κεραίες οδεύοντος κύματος μακρού σύρματος διατεταγμένες σε διάταξη «V» με γωνία κορυφής $2\theta_0$. Τα βραχίονια τροφοδοτούνται με αντίθετη φάση στην κορυφή και τερματίζονται με αντιστοιχισμένα φορτία στα ανοιχτά τους άκρα.
 
 ```
                   Arm 1 (Length L)
@@ -94,14 +102,15 @@ A traveling-wave V antenna is formed by two long-wire traveling wave antennas ar
                   Arm 2 (Length L)               ///
 ```
 
-To align the main radiation lobes of both wires constructively along the bisector of the V, the apex half-angle $\theta_0$ is designed to equal the angle of maximum radiation $\theta_{\text{max}}$ of an isolated wire:
+Για την ευθυγράμμιση των κύριων λοβών ακτινοβολίας και των δύο συρμάτων ενισχυτικά κατά μήκος της διχοτόμου του V, η ημιγωνία κορυφής $\theta_0$ σχεδιάζεται να ισούται με τη γωνία μέγιστης ακτινοβολίας $\theta_{\text{max}}$ ενός μεμονωμένου σύρματος:
 $$
 \theta_0 = \theta_{\text{max}} = \arccos\left(1 - \frac{0.371}{L/\lambda}\right)
 $$
-This alignment produces a unidirectional beam along the symmetric axis of the V, with suppressed sidelobes.
+Αυτή η ευθυγράμμιση παράγει μια μονοκατευθυντική δέσμη κατά μήκος του άξονα συμμετρίας του V, με κατασταλμένους παράπλευρους λοβούς.
 
-### 2.3 Rhombic Antenna
-A rhombic antenna consists of four long-wire traveling wave elements of length $L$ arranged in a diamond (rhombus) coplanar shape. One apex is connected to a balanced feedline, while the opposite apex is terminated with a non-inductive resistor $R_L \approx 600 - 800 \; \Omega$ to absorb remaining power and prevent reflections.
+### 2.3 Ρομβοειδής Κεραία
+
+Μια ρομβοειδής κεραία (rhombic antenna) αποτελείται από τέσσερα στοιχεία οδεύοντος κύματος μακρού σύρματος μήκους $L$ διατεταγμένα σε σχήμα ρόμβου (διαμαντιού) στο ίδιο επίπεδο. Μια κορυφή συνδέεται με ισορροπημένη γραμμή τροφοδοσίας, ενώ η απέναντι κορυφή τερματίζεται με έναν μη επαγωγικό αντιστάτη $R_L \approx 600 - 800 \; \Omega$ ώστε να απορροφά την εναπομένουσα ισχύ και να αποτρέπει τις ανακλάσεις.
 
 ```
                            Tilt Angle \psi
@@ -118,29 +127,32 @@ A rhombic antenna consists of four long-wire traveling wave elements of length $
                                  \/
 ```
 
-#### 2.3.1 Alignment Design in Free Space
-The tilt angle $\psi$ (the angle between each wire and the major axis of the rhombus) is designed to align the main lobes of all four wires constructively along the major axis:
+#### 2.3.1 Σχεδιασμός Ευθυγράμμισης στον Ελεύθερο Χώρο
+
+Η γωνία κλίσης $\psi$ (η γωνία μεταξύ κάθε σύρματος και του κύριου άξονα του ρόμβου) σχεδιάζεται ώστε να ευθυγραμμίζει ενισχυτικά τους κύριους λοβούς και των τεσσάρων συρμάτων κατά μήκος του κύριου άξονα:
 $$
 \psi = 90^\circ - \theta_{\text{max}} \implies \cos\psi = \sin\theta_{\text{max}}
 $$
 
-#### 2.3.2 Design Over Ground Plane
-When suspended horizontally at a height $H$ above a ground plane, the vertical radiation pattern is shaped by ground reflection. To align the main lobe with a specific elevation (wave) angle $\Delta$:
-- **Optimum Tilt Angle:**
+#### 2.3.2 Σχεδιασμός Πάνω από Επίπεδο Γείωσης
+
+Όταν αιωρείται οριζόντια σε ύψος $H$ πάνω από ένα επίπεδο γείωσης, το κάθετο διάγραμμα ακτινοβολίας διαμορφώνεται από την ανάκλαση στο έδαφος. Για την ευθυγράμμιση του κύριου λοβού με μια συγκεκριμένη γωνία ύψωσης (κύματος) $\Delta$:
+- **Βέλτιστη Γωνία Κλίσης:**
   $$
   \psi = 90^\circ - \Delta
   $$
-- **Optimum Height:**
+- **Βέλτιστο Ύψος:**
   $$
   H = \frac{\lambda}{4 \sin\Delta}
   $$
-- **Optimum Leg Length:**
+- **Βέλτιστο Μήκος Βραχίονα:**
   $$
   L = \frac{\lambda}{2 \sin^2\Delta}
   $$
 
-### 2.4 Helical Antenna
-A helical antenna consists of a conducting wire wound in a helix of diameter $D$ and spacing $S$, backed by a flat ground plane of diameter $D_g \ge 0.8\lambda$.
+### 2.4 Ελικοειδής Κεραία
+
+Μια ελικοειδής κεραία αποτελείται από έναν αγώγιμο σύρμα τυλιγμένο σε έλικα διαμέτρου $D$ και διαστήματος $S$, υποστηριζόμενη από ένα επίπεδο γειωτικό επίπεδο διαμέτρου $D_g \ge 0.8\lambda$.
 
 ```
          Helix axis (z-axis)
@@ -153,67 +165,70 @@ A helical antenna consists of a conducting wire wound in a helix of diameter $D$
    Plane   Diameter D
 ```
 
-The geometry is defined by:
-- **Diameter:** $D$
-- **Circumference:** $C = \pi D$
-- **Spacing (Pitch):** $S$
-- **Pitch Angle ($\alpha$):**
+Η γεωμετρία ορίζεται από:
+- **Διάμετρος:** $D$
+- **Περιφέρεια:** $C = \pi D$
+- **Διάστημα (Βήμα):** $S$
+- **Γωνία Βήματος ($\alpha$):**
   $$
   \alpha = \tan^{-1}\left(\frac{S}{C}\right) = \tan^{-1}\left(\frac{S}{\pi D}\right)
   $$
-- **Number of Turns:** $N$
-- **Total Axial Length:** $A = NS$
-- **Single-Turn Wire Length ($L_0$):**
+- **Αριθμός Στροφών:** $N$
+- **Συνολικό Αξονικό Μήκος:** $A = NS$
+- **Μήκος Σύρματος Μίας Στροφής ($L_0$):**
   $$
   L_0 = \sqrt{C^2 + S^2}
   $$
 
-#### 2.4.1 Normal Mode ($C \ll \lambda$, $S \ll \lambda$)
-In normal mode, the helix is electrically small. The far-zone fields are represented by the superposition of fields from equivalent short dipoles of length $S$ and small loops of diameter $D$.
+#### 2.4.1 Κανονική Μορφή ($C \ll \lambda$, $S \ll \lambda$)
 
-The electric field components are:
+Στην κανονική μορφή, η έλικα είναι ηλεκτρικά μικρή. Τα πεδία μακρινού πεδίου παριστάνονται από την υπέρθεση πεδίων ισοδύναμων βραχέων διπόλων μήκους $S$ και μικρών βρόχων διαμέτρου $D$.
+
+Οι συνιστώσες του ηλεκτρικού πεδίου είναι:
 $$
 E_\theta = j\eta \frac{k I_0 S e^{-jkr}}{4\pi r} \sin\theta, \quad E_\phi = \eta \frac{k^2 I_0 \pi D^2 e^{-jkr}}{16\pi r} \sin\theta
 $$
-The axial ratio (AR) of the polarization ellipse is:
+Ο λόγος αξόνων (AR) του ελλειψοειδούς πόλωσης είναι:
 $$
 \text{AR} = \frac{|E_\theta|}{|E_\phi|} = \frac{2 S \lambda}{\pi^2 D^2} = \frac{2 S \lambda}{C^2}
 $$
-To achieve circular polarization ($\text{AR} = 1$):
+Για την επίτευξη κυκλικής πόλωσης ($\text{AR} = 1$):
 $$
 C = \sqrt{2 S \lambda} \implies \pi D = \sqrt{2 S \lambda}
 $$
-Under this circular polarization condition, the pitch angle $\alpha$ is related to the circumference by:
+Υπό αυτήν την προϋπόθεση κυκλικής πόλωσης, η γωνία βήματος $\alpha$ σχετίζεται με την περιφέρεια μέσω:
 $$
 \tan\alpha = \frac{S}{C} = \frac{C^2 / (2\lambda)}{C} = \frac{C}{2\lambda}
 $$
 
-#### 2.4.2 Axial Mode ($0.8\lambda \le C \le 1.2\lambda$)
-In axial mode, the helix operates as a traveling wave antenna. Radiation is directed along the helix axis. The empirical Kraus formulas estimate the performance of an axial-mode helix with $12^\circ \le \alpha \le 14^\circ$ and $N \ge 4$:
+#### 2.4.2 Αξονική Μορφή ($0.8\lambda \le C \le 1.2\lambda$)
 
-- **Input Resistance ($R_{\text{in}}$):**
+Στην αξονική μορφή, η έλικα λειτουργεί ως κεραία οδεύοντος κύματος. Η ακτινοβολία κατευθύνεται κατά μήκος του άξονα της έλικας. Οι εμπειρικοί τύποι του Kraus εκτιμούν την απόδοση μιας έλικας αξονικής μορφής με $12^\circ \le \alpha \le 14^\circ$ και $N \ge 4$:
+
+- **Αντίσταση Εισόδου ($R_{\text{in}}$):**
   $$
   R_{\text{in}} \approx 140 \left(\frac{C}{\lambda}\right) \; \Omega
   $$
-- **Half-Power Beamwidth (HPBW):**
+- **Πλάτος Δέσμης Ημίσειας Ισχύος (HPBW):**
   $$
   \text{HPBW} \approx \frac{52^\circ}{\left(\frac{C}{\lambda}\right) \sqrt{N\left(\frac{S}{\lambda}\right)}}
   $$
-- **First-Null Beamwidth (FNBW):**
+- **Πλάτος Δέσμης Πρώτου Μηδενισμού (FNBW):**
   $$
   \text{FNBW} \approx \frac{115^\circ}{\left(\frac{C}{\lambda}\right) \sqrt{N\left(\frac{S}{\lambda}\right)}}
   $$
-- **Directivity ($D_0$):**
+- **Κατευθυντικότητα ($D_0$):**
   $$
   D_0 \approx 15 N \left(\frac{C}{\lambda}\right)^2 \left(\frac{S}{\lambda}\right)
   $$
-- **Axial Ratio (AR):**
+- **Λόγος Αξόνων (AR):**
   $$
   \text{AR} \approx \frac{2N+1}{2N}
   $$
 
-### 2.5 Yagi-Uda Array
-A Yagi-Uda array is a directive parasitic linear array. It consists of a single driven element (usually a half-wave folded dipole) and several parasitic elements (one reflector and one or more directors) aligned parallel to each other.
+### 2.5 Συστοιχία Yagi-Uda
+
+Μια συστοιχία Yagi-Uda είναι μια κατευθυντική παρασιτική γραμμική συστοιχία. Αποτελείται από ένα μόνο διεγερμένο στοιχείο (συνήθως ένα δίπολο μισού κύματος τύπου folded — πτυχωτού) και αρκετά παρασιτικά στοιχεία (έναν ανακλαστήρα και έναν ή περισσότερους διευθυντήρες) ευθυγραμμισμένα παράλληλα μεταξύ τους.
 
 ```
        Reflector        Driven Element        Director 1        Director 2
@@ -225,93 +240,97 @@ A Yagi-Uda array is a directive parasitic linear array. It consists of a single 
          L_r \approx 0.50\lambda  L_d \approx 0.47\lambda  L_dir1 \approx 0.44\lambda  L_dir2 \approx 0.43\lambda
 ```
 
-#### 2.5.1 Element Roles and Reactances
-- **Driven Element ($L_d \approx 0.45\lambda - 0.49\lambda$):** Fed directly, acting as the primary source of electromagnetic energy.
-- **Reflector ($L_r \approx 0.50\lambda$):** Slightly longer than the driven element, making its input impedance inductive. The induced current lags the excitation phase, reflecting the wave back toward the driven element. Typically placed at a spacing of $S_{rd} \approx 0.15\lambda - 0.25\lambda$.
-- **Directors ($L_{\text{dir}} \approx 0.40\lambda - 0.45\lambda$):** Slightly shorter than the driven element, making their input impedances capacitive. The induced currents lead the excitation phase, focusing the radiation forward. Typically spaced at $S_{dd} \approx 0.15\lambda - 0.40\lambda$.
+#### 2.5.1 Ρόλοι και Αντιδράσεις Στοιχείων
+
+- **Διεγερμένο Στοιχείο ($L_d \approx 0.45\lambda - 0.49\lambda$):** Τροφοδοτείται άμεσα, ενεργώντας ως η πρωταρχική πηγή ηλεκτρομαγνητικής ενέργειας.
+- **Ανακλαστήρας ($L_r \approx 0.50\lambda$):** Ελαφρώς μεγαλύτερο από το διεγερμένο στοιχείο, καθιστώντας την είσοδό του επαγωγική. Το επαγόμενο ρεύμα υστερεί σε φάση ως προς τη φάση διέγερσης, ανακλώντας το κύμα πίσω προς το διεγερμένο στοιχείο. Τοποθετείται συνήθως σε απόσταση $S_{rd} \approx 0.15\lambda - 0.25\lambda$.
+- **Διευθυντήρες ($L_{\text{dir}} \approx 0.40\lambda - 0.45\lambda$):** Ελαφρώς μικρότεροι από το διεγερμένο στοιχείο, καθιστώντας τις εισόδους τους χωρητικές. Τα επαγόμενα ρεύματα προηγούνται σε φάση της διέγερσης, εστιάζοντας την ακτινοβολία προς τα εμπρός. Τοποθετούνται συνήθως σε απόσταση $S_{dd} \approx 0.15\lambda - 0.40\lambda$.
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-### Table 1: Design Parameters of Traveling Wave and Broadband Antennas
+### Πίνακας 1: Παράμετροι Σχεδίασης Κεραιών Οδεύοντος Κύματος και Ευρείας Ζώνης
 
-| Parameter | Symbol | Typical Range | Units | Operational Impact |
+| Παράμετρος | Σύμβολο | Τυπικό Εύρος | Μονάδες | Λειτουργική Επίπτωση |
 | :--- | :--- | :--- | :--- | :--- |
-| Long-wire length | $L$ | $2\lambda$ to $10\lambda$ | meters | Determines directivity, gain, and beam tilt angle $\theta_{\text{max}}$ |
-| Termination resistance | $R_L$ | $600$ to $800$ | ohms | Absorbs reflected wave to maintain traveling wave mode |
-| Rhombic tilt angle | $\psi$ | $40^\circ$ to $75^\circ$ | degrees | Aligns individual wire lobes along the major rhombic axis |
-| Helical pitch angle | $\alpha$ | $12^\circ$ to $14^\circ$ | degrees | Establishes axial mode operation and circular polarization |
-| Helical circumference | $C$ | $0.8\lambda$ to $1.2\lambda$ | meters | Controls input resistance and spatial mode transition |
-| Parasitic spacing | $S_{rd}, S_{dd}$ | $0.15\lambda$ to $0.4\lambda$ | meters | Determines mutual coupling, front-to-back ratio, and gain |
+| Μήκος μακρού σύρματος | $L$ | $2\lambda$ έως $10\lambda$ | μέτρα | Καθορίζει την κατευθυντικότητα, τον κέρδος και τη γωνία κλίσης της δέσμης $\theta_{\text{max}}$ |
+| Αντίσταση τερματισμού | $R_L$ | $600$ έως $800$ | ohm | Απορροφά το ανακλώμενο κύμα ώστε να διατηρείται η λειτουργία οδεύοντος κύματος |
+| Γωνία κλίσης ρόμβου | $\psi$ | $40^\circ$ έως $75^\circ$ | μοίρες | Ευθυγραμμίζει τους λοβούς των επιμέρους συρμάτων κατά μήκος του κύριου άξονα του ρόμβου |
+| Γωνία βήματος έλικας | $\alpha$ | $12^\circ$ έως $14^\circ$ | μοίρες | Καθορίζει τη λειτουργία αξονικής μορφής και την κυκλική πόλωση |
+| Περιφέρεια έλικας | $C$ | $0.8\lambda$ έως $1.2\lambda$ | μέτρα | Ελέγχει την αντίσταση εισόδου και τη χωρική μετάβαση μορφής |
+| Παρασιτικό διάστημα | $S_{rd}, S_{dd}$ | $0.15\lambda$ έως $0.4\lambda$ | μέτρα | Καθορίζει τον αμοιβαίο συζευγμό, τον λόγο εμπρός-πίσω και τον κέρδος |
 
-### Table 2: Comparative Summary of Antenna Configurations
+### Πίνακας 2: Συγκριτική Σύνοψη Διατάξεων Κεραιών
 
-| Antenna Type | Bandwidth (VSWR < 2) | Polarization | Directivity | Main Advantage | Key Disadvantage |
+| Τύπος Κεραίας | Εύρος Ζώνης (VSWR < 2) | Πόλωση | Κατευθυντικότητα | Κύριο Πλεονέκτημα | Κύριο Μειονέκτημα |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Long Wire** | Moderate (2:1) | Linear | Moderate | Simple construction | High sidelobes |
-| **V Antenna** | Moderate (2:1) | Linear | High | Directive beam along bisector | Requires balanced termination |
-| **Rhombic** | Very Broad (5:1) | Linear | Very High | Excellent HF ionospheric match | Large physical footprint; $50\%$ loss in termination |
-| **Helical (Normal)** | Narrow ($5\%$) | Circular | Low | Electrically small | Low radiation efficiency |
-| **Helical (Axial)** | Broad ($2:1$) | Circular | High | Circular polarization; high gain | High wind loading profile |
-| **Yagi-Uda** | Narrow ($5\% - 10\%$) | Linear | High | High gain-to-size ratio | Frequency sensitive; narrow band |
+| **Μακρύ Σύρμα** | Μέτριο (2:1) | Γραμμική | Μέτρια | Απλή κατασκευή | Υψηλοί παράπλευροι λοβοί |
+| **Κεραία V** | Μέτριο (2:1) | Γραμμική | Υψηλή | Κατευθυντική δέσμη κατά μήκος της διχοτόμου | Απαιτεί ισορροπημένο τερματισμό |
+| **Ρομβοειδής** | Πολύ Ευρύ (5:1) | Γραμμική | Πολύ Υψηλή | Εξαιρετική προσαρμογή σε HF ιονόσφαιρα | Μεγάλο φυσικό αποτύπωμα· απώλεια $50\%$ στον τερματισμό |
+| **Ελικοειδής (Κανονική)** | Στενό ($5\%$) | Κυκλική | Χαμηλή | Ηλεκτρικά μικρή | Χαμηλή απόδοση ακτινοβολίας |
+| **Ελικοειδής (Αξονική)** | Ευρύ ($2:1$) | Κυκλική | Υψηλή | Κυκλική πόλωση· υψηλός κέρδος | Υψηλό προφίλ ανέμου |
+| **Yagi-Uda** | Στενό ($5\% - 10\%$) | Γραμμική | Υψηλή | Υψηλός λόγος κέρδους προς μέγεθος | Ευαίσθητη στη συχνότητα· στενή ζώνη |
 
 ---
 
-## 4. Step-by-Step Mechanism
+## 4. Μηχανισμός Βήμα προς Βήμα
 
-### 4.1 Radiation Mechanism of a Traveling Wave Wire
-The process by which a straight terminated wire radiates a directive beam is described as follows:
+### 4.1 Μηχανισμός Ακτινοβολίας ενός Σύρματος Οδεύοντος Κύματος
 
-1. **Excitation:** A high-frequency signal is applied at the feedpoint ($z' = 0$). An electromagnetic wave propagates along the wire with phase velocity $v \approx c$.
-2. **Phase Matching:** The phase along the wire varies as $e^{-jkz'}$. At a far-field point at angle $\theta$ relative to the wire axis, the path length difference introduces a phase shift $e^{jkz'\cos\theta}$.
-3. **Coherent Integration:** The total electric field is the sum of radiation from all incremental elements $dz'$. The differential phase between adjacent elements is:
+Η διαδικασία με την οποία ένα ευθύγραμμο τερματισμένο σύρμα ακτινοβολεί μια κατευθυντική δέσμη περιγράφεται ως εξής:
+
+1. **Διέγερση:** Ένα σήμα υψηλής συχνότητας εφαρμόζεται στο σημείο τροφοδοσίας ($z' = 0$). Ένα ηλεκτρομαγνητικό κύμα διαδίδεται κατά μήκος του σύρματος με ταχύτητα φάσης $v \approx c$.
+2. **Ταίριασμα Φάσης:** Η φάση κατά μήκος του σύρματος μεταβάλλεται ως $e^{-jkz'}$. Σε ένα σημείο μακρινού πεδίου σε γωνία $\theta$ σχετικά με τον άξονα του σύρματος, η διαφορά μήκους διαδρομής εισάγει μια μετατόπιση φάσης $e^{jkz'\cos\theta}$.
+3. **Συνεκτική Ολοκλήρωση:** Το συνολικό ηλεκτρικό πεδίο είναι το άθροισμα της ακτινοβολίας από όλα τα απειροστά στοιχεία $dz'$. Η διαφορική φάση μεταξύ γειτονικών στοιχείων είναι:
    $$
    d\Phi = -k \, dz' + k \, dz' \cos\theta = -k \, dz' (1 - \cos\theta)
    $$
-4. **Main Lobe Formation:** When $d\Phi = 0$ (at $\theta = 0$), the fields would add in-phase, but the dipole element factor $\sin\theta$ goes to zero at $\theta = 0$. This forces the radiation to zero along the wire axis. The vector sum of the fields peaks at an angle $\theta_{\text{max}}$ where the phase difference over the wire length accumulates to approximately $0.371\lambda$, leading to constructive interference.
-5. **Termination Absorption:** The wave reaches the far end ($z' = L$) and is completely absorbed by the matching resistor $R_L$, preventing a backward standing wave.
+4. **Σχηματισμός Κύριου Λοβού:** Όταν $d\Phi = 0$ (στο $\theta = 0$), τα πεδία θα προστίθεντο σε φάση, αλλά ο παραγοντικός παράγοντας στοιχείου διπόλου $\sin\theta$ μηδενίζεται στο $\theta = 0$. Αυτό εξαναγκάζει την ακτινοβολία σε μηδέν κατά μήκος του άξονα του σύρματος. Το διανυσματικό άθροισμα των πεδίων κορυφώνεται σε μια γωνία $\theta_{\text{max}}$ όπου η συσσώρευση διαφοράς φάσης κατά μήκος του σύρματος φτάνει περίπου το $0.371\lambda$, οδηγώντας σε ενισχυτική παρεμβολή.
+5. **Απορρόφηση Τερματισμού:** Το κύμα φτάνει στο μακρινό άκρο ($z' = L$) και απορροφάται πλήρως από τον αντιστάτη αντιστοίχισης $R_L$, αποτρέποντας ένα αντίστροφο στάσιμο κύμα.
 
-### 4.2 Mode Transition in Helical Antennas
-The transition of a helix from normal mode to axial mode occurs through the following steps as frequency increases:
+### 4.2 Μετάβαση Μορφής σε Ελικοειδείς Κεραίες
 
-1. **Low Frequency ($C \ll \lambda$):** The current is nearly uniform and in-phase across the helical turns. Radiation is dominated by the axial dipole moment (vertical polarization) and loop moment (horizontal polarization), adding to form a broadside omnidirectional pattern.
-2. **Frequency Increase ($C \to 0.8\lambda$):** The electrical length of each turn approaches one wavelength. The current along the helix wire can no longer be assumed in-phase. The phase delay along the helix wire matches the spatial path delay along the helix axis:
+Η μετάβαση μιας έλικας από την κανονική μορφή στην αξονική πραγματοποιείται μέσω των εξής βημάτων καθώς αυξάνεται η συχνότητα:
+
+1. **Χαμηλή Συχνότητα ($C \ll \lambda$):** Το ρεύμα είναι σχεδόν ομοιόμορφο και σε φάση σε όλες τις στροφές της έλικας. Η ακτινοβολία κυριαρχείται από τη ροπή αξονικού διπόλου (κατακόρυφη πόλωση) και τη ροπή βρόχου (οριζόντια πόλωση), που προστίθενται σχηματίζοντας ένα εγκάρσιο πανκατευθυντικό διάγραμμα.
+2. **Αύξηση Συχνότητας ($C \to 0.8\lambda$):** Το ηλεκτρικό μήκος κάθε στροφής πλησιάζει το ένα μήκος κύματος. Το ρεύμα κατά μήκος του σύρματος της έλικας δεν μπορεί πλέον να θεωρηθεί σε φάση. Η καθυστέρηση φάσης κατά μήκος του σύρματος της έλικας ταιριάζει με την χωρική καθυστέρηση διαδρομής κατά μήκος του άξονα της έλικας:
    $$
-   k_0 L_0 \approx k_z S + 2\pi m \quad \text{[Supplementary]}
+   k_0 L_0 \approx k_z S + 2\pi m \quad \text{[Συμπληρωματικό]}
    $$
-   where $k_z$ is the axial phase constant.
-3. **Axial Alignment:** The outgoing fields from successive turns add in-phase along the helix axis (z-axis), creating an endfire beam.
-4. **Polarization Circularity:** Since the current rotates as it travels along the helix, the radiated electric field components $E_x$ and $E_y$ maintain a $90^\circ$ phase difference and equal magnitude in the axial direction, resulting in circular polarization.
+   όπου $k_z$ είναι ο αξονικός σταθερός φάσης.
+3. **Αξονική Ευθυγράμμιση:** Τα εξερχόμενα πεδία από διαδοχικές στροφές προστίθενται σε φάση κατά μήκος του άξονα της έλικας (άξονα z), δημιουργώντας μια δέσμη endfire.
+4. **Κυκλικότητα Πόλωσης:** Επειδή το ρεύμα περιστρέφεται καθώς ταξιδεύει κατά μήκος της έλικας, οι συνιστώσες του ακτινοβολούμενου ηλεκτρικού πεδίου $E_x$ και $E_y$ διατηρούν διαφορά φάσης $90^\circ$ και ίσο μέτρο στην αξονική κατεύθυνση, οδηγώντας σε κυκλική πόλωση.
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- **Section 2 (Fundamental Parameters):** The directivity $D_0$, input resistance $R_{\text{in}}$, and axial ratio (AR) formulas developed here map directly to the general antenna definitions in Section 2.
-- **Section 4 (Linear Wire Antennas):** The single-wire traveling wave analysis uses the same vector potential integration method introduced in Section 4, but replaces the standing-wave current distribution ($I(z') = I_0 \sin[k(L-z')] $) with a traveling-wave distribution ($I(z') = I_0 e^{-jkz'}$).
-- **Section 6 (Arrays):** The Yagi-Uda array and V-antenna are analyzed by treating their elements as an array of line sources, utilizing the array factor principles developed in Section 6.
-- **Section 11 (Frequency Independent Antennas):** The broadband, self-scaling concepts of traveling-wave structures serve as a prerequisite for understanding the frequency-independent log-periodic and spiral antennas.
+- **Ενότητα 2 (Θεμελιώδεις Παράμετροι):** Οι τύποι για την κατευθυντικότητα $D_0$, την αντίσταση εισόδου $R_{\text{in}}$ και τον λόγο αξόνων (AR) που αναπτύσσονται εδώ αντιστοιχούν απευθείας στους γενικούς ορισμούς κεραιών της Ενότητας 2.
+- **Ενότητα 4 (Κεραίες Γραμμικού Σύρματος):** Η ανάλυση οδεύοντος κύματος μονού σύρματος χρησιμοποιεί την ίδια μέθοδο ολοκλήρωσης διανυσματικού δυναμικού που εισήχθη στην Ενότητα 4, αλλά αντικαθιστά την κατανομή ρεύματος στάσιμου κύματος ($I(z') = I_0 \sin[k(L-z')] $) με μια κατανομή οδεύοντος κύματος ($I(z') = I_0 e^{-jkz'}$).
+- **Ενότητα 6 (Συστοιχίες):** Η συστοιχία Yagi-Uda και η κεραία V αναλύονται αντιμετωπίζοντας τα στοιχεία τους ως μια συστοιχία πηγών γραμμής, αξιοποιώντας τις αρχές του παράγοντα συστοιχίας που αναπτύχθηκαν στην Ενότητα 6.
+- **Ενότητα 11 (Κεραίες Ανεξάρτητες από τη Συχνότητα):** Οι ευρυζωνικές έννοιες αυτοκλιμάκωσης των δομών οδεύοντος κύματος αποτελούν προαπαιτούμενο για την κατανόηση των ανεξάρτητων από τη συχνότητα λογαριθμοπεριοδικών και σπειροειδών κεραιών.
 
-*Prerequisite: Section 2 (Fundamental Parameters) — understanding of polarization, directivity, and VSWR. Section 4 (Linear Wire Antennas) — far-field integration techniques.*
+*Προαπαιτούμενο: Ενότητα 2 (Θεμελιώδεις Παράμετροι) — κατανόηση πόλωσης, κατευθυντικότητας και VSWR. Ενότητα 4 (Κεραίες Γραμμικού Σύρματος) — τεχνικές ολοκλήρωσης μακρινού πεδίου.*
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Angle of Maximum Radiation for a Long Wire
-**Problem:** A single-wire traveling-wave antenna of length $L = 5\lambda$ is placed in free space. Calculate the angle of maximum radiation $\theta_{\text{max}}$ with respect to the wire axis.
+### Άσκηση 1: Γωνία Μέγιστης Ακτινοβολίας για Μακρύ Σύρμα
 
-**Solution:**
+**Πρόβλημα:** Μια κεραία οδεύοντος κύματος μονού σύρματος μήκους $L = 5\lambda$ τοποθετείται στον ελεύθερο χώρο. Υπολογίστε τη γωνία μέγιστης ακτινοβολίας $\theta_{\text{max}}$ ως προς τον άξονα του σύρματος.
 
-#### Step 1: Identify the formula
-The angle of maximum radiation for a terminated long-wire antenna is:
+**Λύση:**
+
+#### Βήμα 1: Αναγνώριση του τύπου
+Η γωνία μέγιστης ακτινοβολίας για μια τερματισμένη κεραία μακρού σύρματος είναι:
 $$
 \theta_{\text{max}} = \arccos\left(1 - \frac{0.371}{L/\lambda}\right)
 $$
 
-#### Step 2: Substitute the electrical length
-Given $L/\lambda = 5$:
+#### Βήμα 2: Αντικατάσταση του ηλεκτρικού μήκους
+Δεδομένου $L/\lambda = 5$:
 $$
 \cos\theta_{\text{max}} = 1 - \frac{0.371}{5}
 $$
@@ -319,28 +338,29 @@ $$
 \cos\theta_{\text{max}} = 1 - 0.0742 = 0.9258
 $$
 
-#### Step 3: Compute the angle
+#### Βήμα 3: Υπολογισμός της γωνίας
 $$
 \theta_{\text{max}} = \arccos(0.9258) \approx 22.21^\circ
 $$
 
-> **[Supplementary]** We can verify this using the small-angle approximation for long wires, $\theta_{\text{max}} \approx \sqrt{\frac{0.742}{L/\lambda}}$:
+> **[Συμπληρωματικό]** Μπορούμε να το επαληθεύσουμε χρησιμοποιώντας την προσέγγιση μικρής γωνίας για μακριά σύρματα, $\theta_{\text{max}} \approx \sqrt{\frac{0.742}{L/\lambda}}$:
 > $$
 > \theta_{\text{max, approx}} \approx \sqrt{\frac{0.742}{5}} = \sqrt{0.1484} \approx 0.3852 \text{ rad} \approx 22.07^\circ
 > $$
-> The two methods differ by only $0.14^\circ$, validating the calculation.
+> Οι δύο μέθοδοι διαφέρουν κατά μόλις $0.14^\circ$, επικυρώνοντας τον υπολογισμό.
 
 ---
 
-### Exercise 2: Apex Angle of a Traveling-Wave V Antenna
-**Problem:** A traveling-wave V antenna operating in free space is constructed from two wire arms of length $L = 6\lambda$ each. 
-1. Determine the angle of maximum radiation $\theta_{\text{max}}$ for an individual arm.
-2. Calculate the optimum apex angle $2\theta_0$ of the V antenna to align the main lobes along the bisecting axis.
+### Άσκηση 2: Γωνία Κορυφής μιας Κεραίας V Οδεύοντος Κύματος
 
-**Solution:**
+**Πρόβλημα:** Μια κεραία V οδεύοντος κύματος που λειτουργεί στον ελεύθερο χώρο κατασκευάζεται από δύο βραχίονες σύρματος μήκους $L = 6\lambda$ έκαστος.
+1. Προσδιορίστε τη γωνία μέγιστης ακτινοβολίας $\theta_{\text{max}}$ για έναν επιμέρους βραχίονα.
+2. Υπολογίστε τη βέλτιστη γωνία κορυφής $2\theta_0$ της κεραίας V ώστε να ευθυγραμμίζονται οι κύριοι λοβοί κατά μήκος του άξονα διχοτόμησης.
 
-#### Step 1: Calculate the single-wire lobe angle
-For a wire of length $L/\lambda = 6$:
+**Λύση:**
+
+#### Βήμα 1: Υπολογισμός της γωνίας λοβού μονού σύρματος
+Για σύρμα μήκους $L/\lambda = 6$:
 $$
 \cos\theta_{\text{max}} = 1 - \frac{0.371}{6}
 $$
@@ -351,123 +371,125 @@ $$
 \theta_{\text{max}} = \arccos(0.938167) \approx 20.25^\circ
 $$
 
-#### Step 2: Determine the optimum half-apex angle $\theta_0$
-For optimum alignment, the half-apex angle must match the single-wire maximum angle:
+#### Βήμα 2: Προσδιορισμός της βέλτιστης ημιγωνίας κορυφής $\theta_0$
+Για βέλτιστη ευθυγράμμιση, η ημιγωνία κορυφής πρέπει να ταυτίζεται με τη γωνία μεγίστου του μονού σύρματος:
 $$
 \theta_0 = \theta_{\text{max}} = 20.25^\circ
 $$
 
-#### Step 3: Compute the total apex angle $2\theta_0$
+#### Βήμα 3: Υπολογισμός της συνολικής γωνίας κορυφής $2\theta_0$
 $$
 2\theta_0 = 2 \times 20.25^\circ = 40.50^\circ
 $$
 
 ---
 
-### Exercise 3: Rhombic Antenna Optimum Design Over Ground
-**Problem:** Design a horizontal rhombic antenna operating in free space at $f = 15$ MHz for ionospheric propagation with a desired elevation (wave) angle $\Delta = 18^\circ$ above the ground plane.
-1. Calculate the optimum tilt angle $\psi$.
-2. Calculate the optimum leg length $L$ in meters.
-3. Calculate the optimum height $H$ of the antenna above ground in meters.
+### Άσκηση 3: Βέλτιστος Σχεδιασμός Ρομβοειδούς Κεραίας πάνω από το Έδαφος
 
-**Solution:**
+**Πρόβλημα:** Σχεδιάστε μια οριζόντια ρομβοειδή κεραία που λειτουργεί στον ελεύθερο χώρο στα $f = 15$ MHz για ιονοσφαιρική διάδοση με επιθυμητή γωνία ύψωσης (κύματος) $\Delta = 18^\circ$ πάνω από το επίπεδο γείωσης.
+1. Υπολογίστε τη βέλτιστη γωνία κλίσης $\psi$.
+2. Υπολογίστε το βέλτιστο μήκος βραχίονα $L$ σε μέτρα.
+3. Υπολογίστε το βέλτιστο ύψος $H$ της κεραίας πάνω από το έδαφος σε μέτρα.
 
-#### Step 1: Find the wavelength
-At $f = 15$ MHz ($15 \times 10^6$ Hz):
+**Λύση:**
+
+#### Βήμα 1: Εύρεση του μήκους κύματος
+Στα $f = 15$ MHz ($15 \times 10^6$ Hz):
 $$
 \lambda = \frac{c}{f} = \frac{3 \times 10^8 \text{ m/s}}{15 \times 10^6 \text{ Hz}} = 20.0 \text{ meters}
 $$
 
-#### Step 2: Calculate the optimum tilt angle $\psi$
+#### Βήμα 2: Υπολογισμός της βέλτιστης γωνίας κλίσης $\psi$
 $$
 \psi = 90^\circ - \Delta = 90^\circ - 18^\circ = 72.0^\circ
 $$
 
-#### Step 3: Calculate the optimum leg length $L$
-The formula for optimum leg length is:
+#### Βήμα 3: Υπολογισμός του βέλτιστου μήκους βραχίονα $L$
+Ο τύπος για το βέλτιστο μήκος βραχίονα είναι:
 $$
 L = \frac{\lambda}{2 \sin^2\Delta}
 $$
-First compute $\sin(18^\circ)$:
+Πρώτα υπολογίστε το $\sin(18^\circ)$:
 $$
 \sin(18^\circ) \approx 0.309017 \implies \sin^2(18^\circ) \approx 0.095492
 $$
-Substitute into the formula:
+Αντικατάσταση στον τύπο:
 $$
 L = \frac{20.0}{2 \times 0.095492} = \frac{20.0}{0.190984} \approx 104.72 \text{ meters}
 $$
 
-#### Step 4: Calculate the optimum height $H$
-The formula for optimum height is:
+#### Βήμα 4: Υπολογισμός του βέλτιστου ύψους $H$
+Ο τύπος για το βέλτιστο ύψος είναι:
 $$
 H = \frac{\lambda}{4 \sin\Delta}
 $$
-Substitute the values:
+Αντικαταστήστε τις τιμές:
 $$
 H = \frac{20.0}{4 \times 0.309017} = \frac{20.0}{1.236068} \approx 16.18 \text{ meters}
 $$
 
 ---
 
-### Exercise 4: Performance of an Axial-Mode Helical Antenna
-**Problem:** An axial-mode helical antenna is designed for Wi-Fi communication at $f = 2.45$ GHz with $N = 8$ turns, a circumference $C = 1.05\lambda$, and a pitch angle $\alpha = 12.5^\circ$.
-1. Compute the operating wavelength $\lambda$ in millimeters.
-2. Determine the spacing $S$ between turns in millimeters.
-3. Calculate the input resistance $R_{\text{in}}$.
-4. Calculate the Half-Power Beamwidth (HPBW) and First-Null Beamwidth (FNBW) in degrees.
-5. Compute the directivity $D_0$ in dimensionless units and in dB.
-6. Find the axial ratio (AR).
+### Άσκηση 4: Απόδοση μιας Ελικοειδούς Κεραίας Αξονικής Μορφής
 
-**Solution:**
+**Πρόβλημα:** Μια ελικοειδής κεραία αξονικής μορφής σχεδιάζεται για επικοινωνία Wi-Fi στα $f = 2.45$ GHz με $N = 8$ στροφές, περιφέρεια $C = 1.05\lambda$ και γωνία βήματος $\alpha = 12.5^\circ$.
+1. Υπολογίστε το μήκος κύματος λειτουργίας $\lambda$ σε χιλιοστά.
+2. Προσδιορίστε το διάστημα $S$ μεταξύ στροφών σε χιλιοστά.
+3. Υπολογίστε την αντίσταση εισόδου $R_{\text{in}}$.
+4. Υπολογίστε το Πλάτος Δέσμης Ημίσειας Ισχύος (HPBW) και το Πλάτος Δέσμης Πρώτου Μηδενισμού (FNBW) σε μοίρες.
+5. Υπολογίστε την κατευθυντικότητα $D_0$ σε αδιάστατες μονάδες και σε dB.
+6. Βρείτε τον λόγο αξόνων (AR).
 
-#### Step 1: Compute the operating wavelength
+**Λύση:**
+
+#### Βήμα 1: Υπολογισμός του μήκους κύματος λειτουργίας
 $$
 \lambda = \frac{3 \times 10^8 \text{ m/s}}{2.45 \times 10^9 \text{ Hz}} = 0.122449 \text{ m} = 122.45 \text{ mm}
 $$
 
-#### Step 2: Calculate the spacing $S$
-Using $S = C \tan\alpha$:
+#### Βήμα 2: Υπολογισμός του διαστήματος $S$
+Χρησιμοποιώντας $S = C \tan\alpha$:
 $$
 C = 1.05\lambda = 1.05 \times 122.45 \text{ mm} = 128.57 \text{ mm}
 $$
 $$
 S = 128.57 \text{ mm} \times \tan(12.5^\circ)
 $$
-Calculate the tangent:
+Υπολογισμός της εφαπτομένης:
 $$
 \tan(12.5^\circ) \approx 0.221695
 $$
 $$
 S = 128.57 \text{ mm} \times 0.221695 \approx 28.50 \text{ mm}
 $$
-Normalized spacing:
+Κανονικοποιημένο διάστημα:
 $$
 \frac{S}{\lambda} = \frac{28.50 \text{ mm}}{122.45 \text{ mm}} \approx 0.2328
 $$
 
-#### Step 3: Calculate the input resistance $R_{\text{in}}$
+#### Βήμα 3: Υπολογισμός της αντίστασης εισόδου $R_{\text{in}}$
 $$
 R_{\text{in}} \approx 140 \left(\frac{C}{\lambda}\right) = 140 \times 1.05 = 147.0 \; \Omega
 $$
 
-#### Step 4: Calculate the beamwidths
-- **Half-Power Beamwidth (HPBW):**
+#### Βήμα 4: Υπολογισμός των πλατών δέσμης
+- **Πλάτος Δέσμης Ημίσειας Ισχύος (HPBW):**
   $$
   \text{HPBW} \approx \frac{52^\circ}{\left(\frac{C}{\lambda}\right) \sqrt{N\left(\frac{S}{\lambda}\right)}}
   $$
-  Evaluate the denominator term:
+  Αξιολόγηση του όρου του παρονομαστή:
   $$
   \sqrt{N\left(\frac{S}{\lambda}\right)} = \sqrt{8 \times 0.2328} = \sqrt{1.8624} \approx 1.3647
   $$
   $$
   \text{HPBW} \approx \frac{52^\circ}{1.05 \times 1.3647} = \frac{52^\circ}{1.4329} \approx 36.29^\circ
   $$
-- **First-Null Beamwidth (FNBW):**
+- **Πλάτος Δέσμης Πρώτου Μηδενισμού (FNBW):**
   $$
   \text{FNBW} \approx \frac{115^\circ}{\left(\frac{C}{\lambda}\right) \sqrt{N\left(\frac{S}{\lambda}\right)}} = \frac{115^\circ}{1.4329} \approx 80.26^\circ
   $$
 
-#### Step 5: Compute the directivity $D_0$
+#### Βήμα 5: Υπολογισμός της κατευθυντικότητας $D_0$
 $$
 D_0 \approx 15 N \left(\frac{C}{\lambda}\right)^2 \left(\frac{S}{\lambda}\right)
 $$
@@ -477,122 +499,124 @@ $$
 $$
 D_0 \approx 120 \times 1.1025 \times 0.2328 \approx 30.80
 $$
-In decibels relative to isotropic (dBi):
+Σε ντεσιμπέλ ως προς το ισότροπο (dBi):
 $$
 D_{\text{dB}} = 10 \log_{10}(30.80) \approx 14.89 \text{ dBi}
 $$
 
-#### Step 6: Find the axial ratio (AR)
+#### Βήμα 6: Εύρεση του λόγου αξόνων (AR)
 $$
-\text{AR} \approx \frac{2N+1}{2N} = \frac{2(8)+1}{2(8)} = \frac{17}{16} = 1.0625 \text{ (or } 0.53 \text{ dB)}
+\text{AR} \approx \frac{2N+1}{2N} = \frac{2(8)+1}{2(8)} = \frac{17}{16} = 1.0625 \text{ (ή } 0.53 \text{ dB)}
 $$
 
 ---
 
-### Exercise 5: Normal Mode Circular Polarization Design
-**Problem:** A normal-mode helical antenna is to be designed to produce circular polarization at $f = 433$ MHz. The helix diameter is chosen as $D = 2.0$ cm.
-1. Find the wavelength $\lambda$.
-2. Compute the required spacing $S$ between turns.
-3. Compute the resulting pitch angle $\alpha$.
-4. Verify that the helix dimensions satisfy the electrically small assumption ($C \ll \lambda$ and $S \ll \lambda$).
+### Άσκηση 5: Σχεδιασμός Κυκλικής Πόλωσης Κανονικής Μορφής
 
-**Solution:**
+**Πρόβλημα:** Μια ελικοειδής κεραία κανονικής μορφής πρόκειται να σχεδιαστεί ώστε να παράγει κυκλική πόλωση στα $f = 433$ MHz. Η διάμετρος της έλικας επιλέγεται $D = 2.0$ cm.
+1. Βρείτε το μήκος κύματος $\lambda$.
+2. Υπολογίστε το απαιτούμενο διάστημα $S$ μεταξύ στροφών.
+3. Υπολογίστε τη γωνία βήματος $\alpha$ που προκύπτει.
+4. Επαληθεύστε ότι οι διαστάσεις της έλικας ικανοποιούν την υπόθεση ηλεκτρικά μικρής κεραίας ($C \ll \lambda$ και $S \ll \lambda$).
 
-#### Step 1: Compute the wavelength
+**Λύση:**
+
+#### Βήμα 1: Υπολογισμός του μήκους κύματος
 $$
 \lambda = \frac{c}{f} = \frac{3 \times 10^8 \text{ m/s}}{4.33 \times 10^8 \text{ Hz}} \approx 0.6928 \text{ m} = 69.28 \text{ cm}
 $$
 
-#### Step 2: Calculate the circumference and spacing
+#### Βήμα 2: Υπολογισμός της περιφέρειας και του διαστήματος
 $$
 C = \pi D = \pi \times 2.0 \text{ cm} \approx 6.2832 \text{ cm}
 $$
-The circular polarization condition is:
+Η συνθήκη κυκλικής πόλωσης είναι:
 $$
 C = \sqrt{2 S \lambda} \implies C^2 = 2 S \lambda \implies S = \frac{C^2}{2\lambda}
 $$
-Substitute the values:
+Αντικατάσταση των τιμών:
 $$
 S = \frac{(6.2832)^2}{2 \times 69.28} = \frac{39.4786}{138.56} \approx 0.2849 \text{ cm} = 2.85 \text{ mm}
 $$
 
-#### Step 3: Compute the pitch angle $\alpha$
+#### Βήμα 3: Υπολογισμός της γωνίας βήματος $\alpha$
 $$
 \alpha = \tan^{-1}\left(\frac{S}{C}\right) = \tan^{-1}\left(\frac{0.2849}{6.2832}\right) = \tan^{-1}(0.04534) \approx 2.59^\circ
 $$
 
-#### Step 4: Verify the assumptions
-Check the normalized dimensions:
+#### Βήμα 4: Επαλήθευση των υποθέσεων
+Έλεγχος των κανονικοποιημένων διαστάσεων:
 $$
 \frac{C}{\lambda} = \frac{6.2832}{69.28} \approx 0.0907 \ll 1
 $$
 $$
 \frac{S}{\lambda} = \frac{0.2849}{69.28} \approx 0.00411 \ll 1
 $$
-Since both $C < 0.1\lambda$ and $S < 0.1\lambda$, the normal mode approximations are valid.
+Εφόσον και $C < 0.1\lambda$ και $S < 0.1\lambda$, οι προσεγγίσεις κανονικής μορφής είναι έγκυρες.
 
 ---
 
-### Exercise 6: Yagi-Uda Array Design Calculations
-**Problem:** A 3-element Yagi-Uda antenna is designed for operation in the FM band at $f = 100$ MHz. The array contains a reflector, a folded dipole driven element, and one director.
-1. Calculate the wavelength $\lambda$.
-2. Determine typical physical lengths for the reflector, folded dipole driven element, and director using standard design parameters.
-3. If the reflector-to-driver spacing is $0.2\lambda$ and the driver-to-director spacing is $0.15\lambda$, calculate the overall length of the boom in meters.
-4. Estimate the input impedance of the array at resonance, assuming the mutual coupling effects result in a single isolated dipole impedance of $Z_d \approx 70 + j0 \; \Omega$, and the folded dipole has equal conductor radii.
+### Άσκηση 6: Υπολογισμοί Σχεδίασης Συστοιχίας Yagi-Uda
 
-**Solution:**
+**Πρόβλημα:** Μια συστοιχία Yagi-Uda τριών στοιχείων σχεδιάζεται για λειτουργία στη ζώνη FM στα $f = 100$ MHz. Η συστοιχία περιέχει έναν ανακλαστήρα, ένα διεγερμένο στοιχείο πτυχωτού διπόλου και έναν διευθυντήρα.
+1. Υπολογίστε το μήκος κύματος $\lambda$.
+2. Προσδιορίστε τυπικά φυσικά μήκη για τον ανακλαστήρα, το διεγερμένο στοιχείο πτυχωτού διπόλου και τον διευθυντήρα χρησιμοποιώντας τυπικές παραμέτρους σχεδίασης.
+3. Αν το διάστημα ανακλαστήρα-διεγερμένου είναι $0.2\lambda$ και το διάστημα διεγερμένου-διευθυντήρα είναι $0.15\lambda$, υπολογίστε το συνολικό μήκος του ιστού (boom) σε μέτρα.
+4. Εκτιμήστε τη σύνθετη αντίσταση εισόδου της συστοιχίας στον συντονισμό, υποθέτοντας ότι τα αποτελέσματα αμοιβαίου συζεύγματος οδηγούν σε αντίσταση μεμονωμένου απομονωμένου διπόλου $Z_d \approx 70 + j0 \; \Omega$, και ο πτυχωτός δίπολος έχει ίσες ακτίνες αγωγών.
 
-#### Step 1: Compute the wavelength
+**Λύση:**
+
+#### Βήμα 1: Υπολογισμός του μήκους κύματος
 $$
 \lambda = \frac{c}{f} = \frac{3 \times 10^8 \text{ m/s}}{100 \times 10^6 \text{ Hz}} = 3.0 \text{ meters}
 $$
 
-#### Step 2: Determine element lengths
-Using typical design coefficients:
-- **Reflector ($L_r \approx 0.50\lambda$):**
+#### Βήμα 2: Προσδιορισμός μηκών στοιχείων
+Χρησιμοποιώντας τυπικούς συντελεστές σχεδίασης:
+- **Ανακλαστήρας ($L_r \approx 0.50\lambda$):**
   $$
   L_r = 0.50 \times 3.0 \text{ m} = 1.50 \text{ m}
   $$
-- **Driven Element ($L_d \approx 0.47\lambda$):**
+- **Διεγερμένο Στοιχείο ($L_d \approx 0.47\lambda$):**
   $$
   L_d = 0.47 \times 3.0 \text{ m} = 1.41 \text{ m}
   $$
-- **Director ($L_{\text{dir}} \approx 0.44\lambda$):**
+- **Διευθυντήρας ($L_{\text{dir}} \approx 0.44\lambda$):**
   $$
   L_{\text{dir}} = 0.44 \times 3.0 \text{ m} = 1.32 \text{ m}
   $$
 
-#### Step 3: Compute the boom length
-The spacings between the elements are:
+#### Βήμα 3: Υπολογισμός του μήκους του ιστού
+Τα διαστήματα μεταξύ των στοιχείων είναι:
 $$
 S_{rd} = 0.2 \times 3.0 \text{ m} = 0.60 \text{ m}
 $$
 $$
 S_{dd} = 0.15 \times 3.0 \text{ m} = 0.45 \text{ m}
 $$
-The total length of the boom is the sum of these spacings:
+Το συνολικό μήκος του ιστού είναι το άθροισμα αυτών των διαστημάτων:
 $$
 L_{\text{boom}} = S_{rd} + S_{dd} = 0.60 + 0.45 = 1.05 \text{ meters}
 $$
 
-#### Step 4: Calculate the input impedance
-For a folded dipole with equal conductor radii, the impedance step-up ratio is:
+#### Βήμα 4: Υπολογισμός της σύνθετης αντίστασης εισόδου
+Για έναν πτυχωτό δίπολο με ίσες ακτίνες αγωγών, ο λόγος αύξησης αντίστασης είναι:
 $$
 (1 + \alpha)^2 = 2^2 = 4
 $$
-With the isolated dipole impedance $Z_d = 70 \; \Omega$, the stepped-up input impedance is:
+Με την αντίσταση απομονωμένου διπόλου $Z_d = 70 \; \Omega$, η ανυψωμένη αντίσταση εισόδου είναι:
 $$
 Z_{\text{in}} \approx 4 \times Z_d = 4 \times 70 \; \Omega = 280 \; \Omega
 $$
 
 ---
 
-## Exam Tip: Traveling Wave and Helical Antennas
+## Συμβουλή Εξέτασης: Κεραίες Οδεύοντος Κύματος και Ελικοειδείς
 
-When solving exam problems on traveling-wave and broadband antennas, watch out for these common pitfalls and patterns:
+Κατά την επίλυση προβλημάτων εξέτασης σε κεραίες οδεύοντος κύματος και ευρείας ζώνης, προσέξτε τις ακόλουθες συνήθεις παγίδες και μοτίβα:
 
-1. **Traveling Wave Main Lobe Offset:** The radiation lobe of a traveling wave single-wire antenna is NEVER along the axis of the wire ($\theta = 0$) due to the element factor $\sin\theta = 0$. It is always tilted at an angle $\theta_{\text{max}}$. Do not confuse the axial direction of the current flow with the direction of maximum radiation.
-2. **Rhombic Antenna Ground Height:** Make sure to note whether the rhombic antenna is in free space or suspended over a ground plane. In free space, the tilt angle matches the single-wire lobe angle ($\psi = 90^\circ - \theta_{\text{max}}$). Over ground, it is designed in conjunction with height to match a desired ground elevation angle $\Delta$.
-3. **Helical Normal Mode Circular Polarization:** Circular polarization in the normal mode is highly sensitive to the geometry. The condition is $C = \sqrt{2 S \lambda}$. If the frequency changes, the antenna will lose its circular polarization and become elliptically polarized, since $\lambda$ changes.
-4. **Helical Axial Mode Input Resistance:** The input resistance of an axial-mode helix is purely real and estimated as $R_{\text{in}} \approx 140 (C/\lambda) \; \Omega$. Notice that this does NOT depend on the number of turns $N$. Adding turns increases directivity and decreases beamwidth, but leaves the input resistance virtually unchanged.
-5. **Yagi-Uda Reactances:** Directors are always shorter than the resonant length (capacitive reactance, directing the wave forward), while reflectors are always longer (inductive reactance, reflecting the wave back).
+1. **Μετατόπιση Κύριου Λοβού Οδεύοντος Κύματος:** Ο λοβός ακτινοβολίας μιας κεραίας οδεύοντος κύματος μονού σύρματος ΠΟΤΕ δεν βρίσκεται κατά μήκος του άξονα του σύρματος ($\theta = 0$) λόγω του παραγοντικού στοιχείου $\sin\theta = 0$. Είναι πάντα κεκλιμένος υπό γωνία $\theta_{\text{max}}$. Μην συγχέετε την αξονική κατεύθυνση της ροής ρεύματος με την κατεύθυνση μέγιστης ακτινοβολίας.
+2. **Ύψος Εδάφους Ρομβοειδούς Κεραίας:** Βεβαιωθείτε ότι σημειώνετε αν η ρομβοειδής κεραία βρίσκεται στον ελεύθερο χώρο ή αιωρείται πάνω από επίπεδο γείωσης. Στον ελεύθερο χώρο, η γωνία κλίσης ταυτίζεται με τη γωνία λοβού μονού σύρματος ($\psi = 90^\circ - \theta_{\text{max}}$). Πάνω από το έδαφος, σχεδιάζεται σε συνδυασμό με το ύψος ώστε να ταιριάζει με μια επιθυμητή γωνία ύψωσης εδάφους $\Delta$.
+3. **Κυκλική Πόλωση Κανονικής Μορφής Ελικοειδούς:** Η κυκλική πόλωση στην κανονική μορφή είναι εξαιρετικά ευαίσθητη στη γεωμετρία. Η συνθήκη είναι $C = \sqrt{2 S \lambda}$. Αν αλλάξει η συχνότητα, η κεραία θα χάσει την κυκλική της πόλωση και θα γίνει ελλειπτικά πολωμένη, δεδομένου ότι μεταβάλλεται το $\lambda$.
+4. **Αντίσταση Εισόδου Αξονικής Μορφής Ελικοειδούς:** Η αντίσταση εισόδου μιας έλικας αξονικής μορφής είναι καθαρά πραγματική και εκτιμάται ως $R_{\text{in}} \approx 140 (C/\lambda) \; \Omega$. Παρατηρήστε ότι αυτό ΔΕΝ εξαρτάται από τον αριθμό στροφών $N$. Η προσθήκη στροφών αυξάνει την κατευθυντικότητα και μειώνει το πλάτος δέσμης, αλλά αφήνει την αντίσταση εισόδου ουσιαστικά αμετάβλητη.
+5. **Αντιδράσεις Yagi-Uda:** Οι διευθυντήρες είναι πάντα μικρότεροι από το μήκος συντονισμού (χωρητική αντίδραση, κατευθύνοντας το κύμα προς τα εμπρός), ενώ οι ανακλαστήρες είναι πάντα μεγαλύτεροι (επαγωγική αντίδραση, ανακλώντας το κύμα πίσω).

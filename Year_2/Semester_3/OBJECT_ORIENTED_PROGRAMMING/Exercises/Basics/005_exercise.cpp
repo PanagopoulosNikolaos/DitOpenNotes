@@ -1,11 +1,11 @@
 /*
- * Exercise 5: Variables and Data Types
+ * Άσκηση 5: Μεταβλητές και Τύποι Δεδομένων
  *
- * Instructions:
- * 1. Create variables using different initialization methods: copy initialization, direct initialization, and uniform initialization
- * 2. Use type inference (auto) to declare variables based on initializers
- * 3. Declare and initialize multiple variables of the same type in a single statement
- * 4. Demonstrate the use of const variables and explain their purpose
+ * Οδηγίες:
+ * 1. Δημιουργήστε μεταβλητές χρησιμοποιώντας διαφορετικές μεθόδους αρχικοποίησης: αρχικοποίηση αντιγραφής, άμεση αρχικοποίηση και ομοιόμορφη αρχικοποίηση
+ * 2. Χρησιμοποιήστε συμπερασμό τύπου (auto) για να δηλώσετε μεταβλητές βάσει αρχικοποιητών
+ * 3. Δηλώστε και αρχικοποιήστε πολλαπλές μεταβλητές του ίδιου τύπου σε μία μόνο εντολή
+ * 4. Επιδείξτε τη χρήση σταθερών μεταβλητών (const) και εξηγήστε τον σκοπό τους
  */
 
 #include <iostream>
@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,13 +1,13 @@
 /*
- * Exercise 32: Constructors and Destructors
+ * Άσκηση 32: Κατασκευαστές και Καταστροφείς
  *
- * Instructions:
- * 1. Create a class called DynamicArray that manages a dynamically allocated array of integers
- * 2. Implement a constructor that takes the size and allocates memory
- * 3. Implement a copy constructor that properly copies the array content
- * 4. Implement a destructor that deallocates the memory
- * 5. Implement assignment operator that properly handles memory management
- * 6. Demonstrate the Rule of Three (Constructor, Copy Constructor, Destructor) with proper memory management
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται DynamicArray που διαχειρίζεται έναν δυναμικά δεσμευμένο πίνακα ακεραίων
+ * 2. Υλοποιήστε έναν κατασκευαστή που δέχεται το μέγεθος και δεσμεύει μνήμη
+ * 3. Υλοποιήστε έναν κατασκευαστή αντιγραφής που αντιγράφει σωστά το περιεχόμενο του πίνακα
+ * 4. Υλοποιήστε έναν καταστροφέα που αποδεσμεύει τη μνήμη
+ * 5. Υλοποιήστε τελεστή ανάθεσης που διαχειρίζεται σωστά τη διαχείριση μνήμης
+ * 6. Επιδείξτε τον Κανόνα των Τριών (Κατασκευαστής, Κατασκευαστής Αντιγραφής, Καταστροφέας) με σωστή διαχείριση μνήμης
  */
 
 #include <iostream>
@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,14 +1,14 @@
 /*
- * Exercise 2: Book Class
- * 
- * Create a Book class with:
- * - Private members: title (string), author (string), pages (int), price (double)
- * - Constructor that initializes all members
- * - Getter methods for all members
- * - Setter method for price
- * - Overload operator << to display: "Title: X, Author: Y, Pages: Z, Price: W€"
- * 
- * In main(), create 4 books and display them.
+ * Άσκηση 2: Κλάση Βιβλίου
+ *
+ * Δημιουργήστε μια κλάση Book με:
+ * - Ιδιωτικά μέλη: τίτλος (title) (string), συγγραφέας (author) (string), σελίδες (pages) (int), τιμή (price) (double)
+ * - Κατασκευαστή που αρχικοποιεί όλα τα μέλη
+ * - Μεθόδους λήψης (getters) για όλα τα μέλη
+ * - Μέθοδο ρύθμισης (setter) για την τιμή
+ * - Υπερφόρτωση τελεστή << για εμφάνιση: "Title: X, Author: Y, Pages: Z, Price: W€"
+ *
+ * Στο main(), δημιουργήστε 4 βιβλία και εμφανίστε τα.
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

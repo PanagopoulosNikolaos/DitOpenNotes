@@ -1,13 +1,13 @@
 /*
- * Exercise 45: Advanced Memory Management (Heap vs. Stack, Smart Pointers)
+ * Άσκηση 45: Προχωρημένη Διαχείριση Μνήμης (Σωρός έναντι Στοίβας, Έξυπνοι Δείκτες)
  *
- * Instructions:
- * 1. Create a class called MemoryPool that manages a pool of reusable objects
- * 2. Implement allocation and deallocation methods that reuse memory instead of constantly allocating/deallocating
- * 3. Use smart pointers to manage the objects in the pool
- * 4. Implement proper synchronization if multiple threads could access the pool (conceptual, no actual threading needed)
- * 5. Demonstrate the performance benefits of memory pooling compared to regular allocation
- * 6. Show how the memory pool helps prevent memory fragmentation
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται MemoryPool που διαχειρίζεται μια δεξαμενή επαναχρησιμοποιήσιμων αντικειμένων
+ * 2. Υλοποιήστε μεθόδους δέσμευσης και αποδέσμευσης που επαναχρησιμοποιούν τη μνήμη αντί να δεσμεύουν/αποδεσμεύουν συνεχώς
+ * 3. Χρησιμοποιήστε έξυπνους δείκτες για να διαχειρίζεστε τα αντικείμενα στη δεξαμενή
+ * 4. Υλοποιήστε σωστό συγχρονισμό αν πολλαπλά νήματα μπορούσαν να έχουν πρόσβαση στη δεξαμενή (εννοιολογικά, δεν χρειάζεται πραγματικός πολυνηματισμός)
+ * 5. Επιδείξτε τα οφέλη απόδοσης της δεξαμενοποίησης μνήμης σε σύγκριση με την κανονική δέσμευση
+ * 6. Δείξτε πώς η δεξαμενή μνήμης βοηθά στην πρόληψη του κατακερματισμού της μνήμης
  */
 
 #include <iostream>
@@ -17,7 +17,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

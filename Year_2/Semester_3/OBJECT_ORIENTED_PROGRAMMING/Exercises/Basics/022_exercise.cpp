@@ -1,12 +1,12 @@
 /*
- * Exercise 22: Vectors (Dynamic Arrays)
+ * Άσκηση 22: Διανύσματα (Δυναμικοί Πίνακες)
  *
- * Instructions:
- * 1. Create a program that implements a simple student gradebook using vectors
- * 2. Add students and their grades to the vector
- * 3. Calculate average, highest, and lowest grades
- * 4. Implement functions to add, remove, and update student records
- * 5. Sort the students by grade or alphabetically by name
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που υλοποιεί ένα απλό βιβλίο βαθμολογίας μαθητών χρησιμοποιώντας διανύσματα
+ * 2. Προσθέστε μαθητές και τους βαθμούς τους στο διάνυσμα
+ * 3. Υπολογίστε τον μέσο όρο, τον υψηλότερο και τον χαμηλότερο βαθμό
+ * 4. Υλοποιήστε συναρτήσεις για προσθήκη, αφαίρεση και ενημέρωση εγγραφών μαθητών
+ * 5. Ταξινομήστε τους μαθητές κατά βαθμό ή αλφαβητικά κατά όνομα
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

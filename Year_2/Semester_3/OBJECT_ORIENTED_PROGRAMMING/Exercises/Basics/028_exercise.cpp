@@ -1,12 +1,12 @@
 /*
- * Exercise 28: Classes and Objects (The Basics)
+ * Άσκηση 28: Κλάσεις και Αντικείμενα (Τα Βασικά)
  *
- * Instructions:
- * 1. Create a class called Rectangle with private attributes for length and width
- * 2. Implement public methods to set and get the dimensions
- * 3. Implement methods to calculate area and perimeter
- * 4. Implement a method to display the rectangle's information
- * 5. Create multiple objects of the Rectangle class and demonstrate their usage
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται Rectangle με ιδιωτικά χαρακτηριστικά για μήκος και πλάτος
+ * 2. Υλοποιήστε δημόσιες μεθόδους για ορισμό και λήψη των διαστάσεων
+ * 3. Υλοποιήστε μεθόδους για υπολογισμό εμβαδού και περιμέτρου
+ * 4. Υλοποιήστε μια μέθοδο για εμφάνιση των πληροφοριών του ορθογωνίου
+ * 5. Δημιουργήστε πολλά αντικείμενα της κλάσης Rectangle και επιδείξτε τη χρήση τους
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

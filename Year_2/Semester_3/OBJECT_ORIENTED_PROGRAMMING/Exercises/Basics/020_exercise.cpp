@@ -1,12 +1,12 @@
 /*
- * Exercise 20: Pointers and References
+ * Άσκηση 20: Δείκτες και Αναφορές
  *
- * Instructions:
- * 1. Create a function that calculates the length of a string using pointer arithmetic
- * 2. Create a program that implements a simple linked list with nodes containing integer values
- * 3. Create a function that sorts an array using pointers instead of array indexing
- * 4. Create a function that finds the address of the maximum element in an array and returns a pointer to it
- * 5. Implement a function that uses double pointers (pointer to pointer) to swap two pointers
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια συνάρτηση που υπολογίζει το μήκος μιας συμβολοσειράς χρησιμοποιώντας αριθμητική δεικτών
+ * 2. Δημιουργήστε ένα πρόγραμμα που υλοποιεί μια απλή συνδεδεμένη λίστα με κόμβους που περιέχουν ακέραιες τιμές
+ * 3. Δημιουργήστε μια συνάρτηση που ταξινομεί έναν πίνακα χρησιμοποιώντας δείκτες αντί για ευρετηρίαση πίνακα
+ * 4. Δημιουργήστε μια συνάρτηση που βρίσκει τη διεύθυνση του μέγιστου στοιχείου σε έναν πίνακα και επιστρέφει έναν δείκτη σε αυτό
+ * 5. Υλοποιήστε μια συνάρτηση που χρησιμοποιεί διπλούς δείκτες (δείκτης σε δείκτη) για να ανταλλάξει δύο δείκτες
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,15 +1,15 @@
 /*
- * Exercise 42: Inheritance and Polymorphism
+ * Άσκηση 42: Κληρονομικότητα και Πολυμορφισμός
  *
- * Instructions:
- * 1. Create a base class called Vehicle with attributes like brand, model, and year
- * 2. Derive classes like Car, Motorcycle, and Truck from the Vehicle base class
- * 3. Implement virtual methods like startEngine(), stopEngine(), and calculateFuelEfficiency()
- * 4. Each derived class should implement these methods differently based on their specific characteristics
- * 5. Create a function that accepts a Vehicle pointer/reference and demonstrates polymorphism
- * 
- * Consider different engine types, fuel efficiency calculations, and operational differences
- * for each vehicle type when implementing the virtual methods.
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια βασική κλάση που ονομάζεται Vehicle με χαρακτηριστικά όπως μάρκα, μοντέλο και έτος
+ * 2. Παράγετε κλάσεις όπως Car, Motorcycle και Truck από τη βασική κλάση Vehicle
+ * 3. Υλοποιήστε εικονικές μεθόδους όπως startEngine(), stopEngine() και calculateFuelEfficiency()
+ * 4. Κάθε παράγωγη κλάση θα πρέπει να υλοποιεί αυτές τις μεθόδους διαφορετικά βάσει των ειδικών χαρακτηριστικών της
+ * 5. Δημιουργήστε μια συνάρτηση που δέχεται έναν δείκτη/αναφορά Vehicle και επιδεικνύει πολυμορφισμό
+ *
+ * Εξετάστε διαφορετικούς τύπους κινητήρων, υπολογισμούς απόδοσης καυσίμου και λειτουργικές διαφορές
+ * για κάθε τύπο οχήματος κατά την υλοποίηση των εικονικών μεθόδων.
  */
 
 #include <iostream>
@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

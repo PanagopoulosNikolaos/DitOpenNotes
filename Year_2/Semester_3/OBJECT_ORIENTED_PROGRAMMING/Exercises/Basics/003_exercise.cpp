@@ -1,11 +1,11 @@
 /*
- * Exercise 3: Basic Printing (Output/Input)
+ * Άσκηση 3: Βασική Εκτύπωση (Έξοδος/Είσοδος)
  *
- * Instructions:
- * 1. Create a program that prints a multiplication table for a number entered by the user (1-10)
- * 2. Format the output nicely with proper alignment
- * 3. Ask the user for a string and print it in uppercase and lowercase
- * 4. Use std::printf for formatting the multiplication table
+ * Οδηγίες:
+ * 1. Δημιουργήστε ένα πρόγραμμα που εκτυπώνει έναν πίνακα πολλαπλασιασμού για έναν αριθμό που εισάγει ο χρήστης (1-10)
+ * 2. Μορφοποιήστε την έξοδο όμορφα με σωστή στοίχιση
+ * 3. Ζητήστε από τον χρήστη μια συμβολοσειρά και εκτυπώστε την με κεφαλαία και πεζά γράμματα
+ * 4. Χρησιμοποιήστε το std::printf για τη μορφοποίηση του πίνακα πολλαπλασιασμού
  */
 
 #include <iostream>
@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

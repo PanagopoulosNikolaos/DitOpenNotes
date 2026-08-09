@@ -1,183 +1,183 @@
-# Signal Propagation - Antenna Theory Mindmap
+# Διάδοση Σημάτων - Νοητικός Χάρτης Θεωρίας Κεραιών
 
-## Section 1: Antennas
-- a. Introduction
-- b. Types of Antennas
-- c. Radiation Mechanism
-- d. Current Distribution on a Thin Wire Antenna
-- e. Historical Advancement
+## Ενότητα 1: Κεραίες
+- a. Εισαγωγή
+- b. Τύποι κεραιών
+- c. Μηχανισμός ακτινοβολίας
+- d. Κατανομή ρεύματος σε κεραία λεπτού σύρματος
+- e. Ιστορική εξέλιξη
 
-## Section 2: Fundamental Parameters of Antennas
-- a. Introduction
-- b. Radiation Pattern
-- c. Radiation Power Density
-- d. Radiation Intensity
-- e. Beamwidth
-- f. Directivity
-- g. Numerical Techniques
-- h. Antenna Efficiency
-- i. Gain
-- j. Beam Efficiency
-- k. Bandwidth
-- l. Polarization
-- m. Input Impedance
-- n. Antenna Radiation Efficiency
-- o. Antenna Vector Effective Length and Equivalent Areas
-- p. Maximum Directivity and Maximum Effective Area
-- q. Friis Transmission Equation and Radar Range Equation
-- r. Antenna Temperature
+## Ενότητα 2: Θεμελιώδεις Παράμετροι Κεραιών
+- a. Εισαγωγή
+- b. Διάγραμμα ακτινοβολίας
+- c. Πυκνότητα ισχύος ακτινοβολίας
+- d. Ένταση ακτινοβολίας
+- e. Πλάτος δέσμης
+- f. Κατευθυντικότητα
+- g. Αριθμητικές τεχνικές
+- h. Απόδοση κεραίας
+- i. Κέρδος
+- j. Απόδοση δέσμης
+- k. Εύρος ζώνης
+- l. Πόλωση
+- m. Σύνθετη αντίσταση εισόδου
+- n. Απόδοση ακτινοβολίας κεραίας
+- o. Διανυσματικό ενεργό μήκος κεραίας και ισοδύναμα εμβαδά
+- p. Μέγιστη κατευθυντικότητα και μέγιστο ενεργό εμβαδόν
+- q. Εξίσωση μετάδοσης Friis και εξίσωση εμβέλειας ραντάρ
+- r. Θερμοκρασία κεραίας
 
-## Section 3: Radiation Integrals and Auxiliary Potential Functions
-- a. Introduction
-- b. The Vector Potential A for an Electric Current Source J
-- c. The Vector Potential F for a Magnetic Current Source M
-- d. Electric and Magnetic Fields for Electric (J) and Magnetic (M) Current Sources
-- e. Solution of the Inhomogeneous Vector Potential Wave Equation
-- f. Far-Field Radiation
-- g. Duality Theorem
-- h. Reciprocity and Reaction Theorems
+## Ενότητα 3: Ολοκληρώματα Ακτινοβολίας και Βοηθητικές Συναρτήσεις Δυναμικού
+- a. Εισαγωγή
+- b. Το διανυσματικό δυναμικό A για πηγή ηλεκτρικού ρεύματος J
+- c. Το διανυσματικό δυναμικό F για πηγή μαγνητικού ρεύματος M
+- d. Ηλεκτρικά και μαγνητικά πεδία για πηγές ηλεκτρικού (J) και μαγνητικού (M) ρεύματος
+- e. Επίλυση της ανομοιογενούς κυματικής εξίσωσης του διανυσματικού δυναμικού
+- f. Ακτινοβολία μακρινού πεδίου
+- g. Θεώρημα δυϊκότητας
+- h. Θεωρήματα αμοιβαιότητας και αντίδρασης
 
-## Section 4: Linear Wire Antennas
-- a. Introduction
-- b. Infinitesimal Dipole
-- c. Small Dipole
-- d. Region Separation
-- e. Finite Length Dipole
-- f. Half-Wavelength Dipole
-- g. Linear Elements Near or on Infinite Perfect Conductors
-- h. Ground Effects
-- i. Computer Codes
+## Ενότητα 4: Γραμμικές Κεραίες Σύρματος
+- a. Εισαγωγή
+- b. Απειροστό δίπολο
+- c. Μικρό δίπολο
+- d. Διαχωρισμός περιοχών
+- e. Δίπολο πεπερασμένου μήκους
+- f. Δίπολο μισού μήκους κύματος
+- g. Γραμμικά στοιχεία κοντά ή πάνω σε άπειρους τέλειους αγωγούς
+- h. Επιδράσεις εδάφους
+- i. Υπολογιστικοί κώδικες
 
-## Section 5: Loop Antennas
-- a. Introduction
-- b. Small Circular Loop
-- c. Circular Loop of Constant Current
-- d. Circular Loop with Nonuniform Current
-- e. Ground and Earth Curvature Effects for Circular Loops
-- f. Polygonal Loop Antennas
-- g. Ferrite Loop
-- h. Mobile Communication Systems Applications
+## Ενότητα 5: Κεραίες Βρόχου
+- a. Εισαγωγή
+- b. Μικρός κυκλικός βρόχος
+- c. Κυκλικός βρόχος σταθερού ρεύματος
+- d. Κυκλικός βρόχος με ανομοιόμορφο ρεύμα
+- e. Επιδράσεις εδάφους και καμπυλότητας της Γης για κυκλικούς βρόχους
+- f. Κεραίες πολυγωνικού βρόχου
+- g. Βρόχος φερρίτη
+- h. Εφαρμογές σε συστήματα κινητών επικοινωνιών
 
-## Section 6: Arrays: Linear, Planar, and Circular
-- a. Introduction
-- b. Two-Element Array
-- c. N-Element Linear Array: Uniform Amplitude and Spacing
-- d. N-Element Linear Array: Directivity
-- e. Design Procedure
-- f. N-Element Linear Array: Three-Dimensional Characteristics
-- g. Rectangular-to-Polar Graphical Solution
-- h. N-Element Linear Array: Uniform Spacing, Nonuniform Amplitude
-- i. Superdirectivity
-- j. Planar Array
-- k. Design Considerations
-- l. Circular Array
+## Ενότητα 6: Συστοιχίες: Γραμμικές, Επίπεδες και Κυκλικές
+- a. Εισαγωγή
+- b. Συστοιχία δύο στοιχείων
+- c. Γραμμική συστοιχία N στοιχείων: Ομοιόμορφο πλάτος και απόσταση
+- d. Γραμμική συστοιχία N στοιχείων: Κατευθυντικότητα
+- e. Διαδικασία σχεδίασης
+- f. Γραμμική συστοιχία N στοιχείων: Τρισδιάστατα χαρακτηριστικά
+- g. Γραφική επίλυση από ορθογώνιες σε πολικές συντεταγμένες
+- h. Γραμμική συστοιχία N στοιχείων: Ομοιόμορφη απόσταση, ανομοιόμορφο πλάτος
+- i. Υπερκατευθυντικότητα
+- j. Επίπεδη συστοιχία
+- k. Σχεδιαστικές εκτιμήσεις
+- l. Κυκλική συστοιχία
 
-## Section 7: Antenna Synthesis and Continuous Sources
-- a. Introduction
-- b. Continuous Sources
-- c. Schelkunoff Polynomial Method
-- d. Fourier Transform Method
-- e. Woodward-Lawson Method
-- f. Taylor Line-Source (Tschebyscheff-Error)
-- g. Taylor Line-Source (One-Parameter)
-- h. Triangular, Cosine, and Cosine-Squared Amplitude Distributions
-- i. Line-Source Phase Distributions
-- j. Continuous Aperture Sources
+## Ενότητα 7: Σύνθεση Κεραιών και Συνεχείς Πηγές
+- a. Εισαγωγή
+- b. Συνεχείς πηγές
+- c. Μέθοδος πολυωνύμων Schelkunoff
+- d. Μέθοδος μετασχηματισμού Fourier
+- e. Μέθοδος Woodward-Lawson
+- f. Γραμμική πηγή Taylor (σφάλμα Tschebyscheff)
+- g. Γραμμική πηγή Taylor (μία παράμετρος)
+- h. Τριγωνικές, συνημιτονοειδείς και τετραγωνικές συνημιτονοειδείς κατανομές πλάτους
+- i. Κατανομές φάσης γραμμικής πηγής
+- j. Συνεχείς πηγές διαφράγματος
 
-## Section 8: Integral Equations, Moment Method, and Self and Mutual Impedances
-- a. Introduction
-- b. Integral Equation Method
-- c. Finite Diameter Wires
-- d. Moment Method Solution
-- e. Self-Impedance
-- f. Mutual Impedance Between Linear Elements
-- g. Mutual Coupling in Arrays
+## Ενότητα 8: Ολοκληρωτικές Εξισώσεις, Μέθοδος Ροπών και Ίδιες και Αμοιβαίες Σύνθετες Αντιστάσεις
+- a. Εισαγωγή
+- b. Μέθοδος ολοκληρωτικών εξισώσεων
+- c. Σύρματα πεπερασμένης διαμέτρου
+- d. Επίλυση με τη μέθοδο των ροπών
+- e. Ίδια σύνθετη αντίσταση
+- f. Αμοιβαία σύνθετη αντίσταση μεταξύ γραμμικών στοιχείων
+- g. Αμοιβαία σύζευξη σε συστοιχίες
 
-## Section 9: Broadband Dipoles and Matching Techniques
-- a. Introduction
-- b. Biconical Antenna
-- c. Triangular Sheet, Bow-Tie, and Wire Simulation
-- d. Cylindrical Dipole
-- e. Folded Dipole
-- f. Discone and Conical Skirt Monopole
-- g. Matching Techniques
+## Ενότητα 9: Δίπολα Ευρείας Ζώνης και Τεχνικές Προσαρμογής
+- a. Εισαγωγή
+- b. Δικωνική κεραία
+- c. Τριγωνικό φύλλο, κεραία «παπιγιόν» και προσομοίωση σύρματος
+- d. Κυλινδρικό δίπολο
+- e. Διπλωμένο δίπολο
+- f. Δισκοκωνική κεραία και μονόπολο με κωνική φούστα
+- g. Τεχνικές προσαρμογής
 
-## Section 10: Traveling Wave and Broadband Antennas
-- a. Introduction
-- b. Traveling Wave Antennas
-- c. Broadband Antennas
+## Ενότητα 10: Κεραίες Οδεύοντος Κύματος και Ευρείας Ζώνης
+- a. Εισαγωγή
+- b. Κεραίες οδεύοντος κύματος
+- c. Κεραίες ευρείας ζώνης
 
-## Section 11: Frequency Independent Antennas, Antenna Miniaturization, and Fractal Antennas
-- a. Introduction
-- b. Theory
-- c. Equiangular Spiral Antennas
-- d. Log-Periodic Antennas
-- e. Fundamental Limits of Electrically Small Antennas
-- f. Fractal Antennas
+## Ενότητα 11: Κεραίες Ανεξάρτητες από τη Συχνότητα, Σμίκρυνση Κεραιών και Κεραίες Fractal
+- a. Εισαγωγή
+- b. Θεωρία
+- c. Ισογώνιες σπειροειδείς κεραίες
+- d. Λογαριθμοπεριοδικές κεραίες
+- e. Θεμελιώδη όρια ηλεκτρικά μικρών κεραιών
+- f. Κεραίες fractal
 
-## Section 12: Aperture Antennas
-- a. Introduction
-- b. Field Equivalence Principle: Huygens' Principle
-- c. Radiation Equations
-- d. Directivity
-- e. Rectangular Apertures
-- f. Circular Apertures
-- g. Design Considerations
-- h. Babinet's Principle
-- i. Fourier Transforms in Aperture Antenna Theory
-- j. Ground Plane Edge Effects: The Geometrical Theory of Diffraction
+## Ενότητα 12: Κεραίες Διαφράγματος
+- a. Εισαγωγή
+- b. Αρχή ισοδυναμίας πεδίων: Αρχή του Huygens
+- c. Εξισώσεις ακτινοβολίας
+- d. Κατευθυντικότητα
+- e. Ορθογώνια διαφράγματα
+- f. Κυκλικά διαφράγματα
+- g. Σχεδιαστικές εκτιμήσεις
+- h. Αρχή του Babinet
+- i. Μετασχηματισμοί Fourier στη θεωρία κεραιών διαφράγματος
+- j. Επιδράσεις ακμών επιπέδου γείωσης: Η γεωμετρική θεωρία περίθλασης
 
-## Section 13: Horn Antennas
-- a. Introduction
-- b. E-Plane Sectoral Horn
-- c. H-Plane Sectoral Horn
-- d. Pyramidal Horn
-- e. Conical Horn
-- f. Corrugated Horn
-- g. Aperture-Matched Horns
-- h. Multimode Horns
-- i. Dielectric-Loaded Horns
-- j. Phase Center
+## Ενότητα 13: Κεραίες Χοάνης
+- a. Εισαγωγή
+- b. Τομεακή χοάνη στο επίπεδο E
+- c. Τομεακή χοάνη στο επίπεδο H
+- d. Πυραμιδοειδής χοάνη
+- e. Κωνική χοάνη
+- f. Αυλακωτή χοάνη
+- g. Χοάνες προσαρμοσμένες στο διάφραγμα
+- h. Πολύτροπες χοάνες
+- i. Χοάνες με διηλεκτρικό φορτίο
+- j. Κέντρο φάσης
 
-## Section 14: Microstrip Antennas
-- a. Introduction
-- b. Rectangular Patch
-- c. Circular Patch
-- d. Quality Factor, Bandwidth, and Efficiency
-- e. Input Impedance
-- f. Coupling
-- g. Circular Polarization
-- h. Arrays and Feed Networks
+## Ενότητα 14: Κεραίες Μικροταινίας
+- a. Εισαγωγή
+- b. Ορθογώνιο έμπλαστρο
+- c. Κυκλικό έμπλαστρο
+- d. Συντελεστής ποιότητας, εύρος ζώνης και απόδοση
+- e. Σύνθετη αντίσταση εισόδου
+- f. Σύζευξη
+- g. Κυκλική πόλωση
+- h. Συστοιχίες και δίκτυα τροφοδοσίας
 
-## Section 15: Reflector Antennas
-- a. Introduction
-- b. Plane Reflector
-- c. Corner Reflector
-- d. Parabolic Reflector
-- e. Spherical Reflector
+## Ενότητα 15: Κεραίες Ανακλαστήρα
+- a. Εισαγωγή
+- b. Επίπεδος ανακλαστήρας
+- c. Ανακλαστήρας γωνίας
+- d. Παραβολικός ανακλαστήρας
+- e. Σφαιρικός ανακλαστήρας
 
-## Section 16: Smart Antennas
-- a. Introduction
-- b. Smart-Antenna Analogy
-- c. Cellular Radio Systems Evolution
-- d. Signal Propagation
-- e. Smart Antennas' Benefits
-- f. Smart Antennas' Drawbacks
-- g. Antenna
-- h. Antenna Beamforming
-- i. Mobile Ad hoc Networks (MANETs)
-- j. Smart-Antenna System Design, Simulation, and Results
-- k. Beamforming, Diversity Combining, Rayleigh-Fading, and Trellis-Coded Modulation
-- l. Other Geometries
+## Ενότητα 16: Έξυπνες Κεραίες
+- a. Εισαγωγή
+- b. Αναλογία έξυπνων κεραιών
+- c. Εξέλιξη κυψελωτών ραδιοσυστημάτων
+- d. Διάδοση σημάτων
+- e. Οφέλη των έξυπνων κεραιών
+- f. Μειονεκτήματα των έξυπνων κεραιών
+- g. Κεραία
+- h. Διαμόρφωση δέσμης κεραίας
+- i. Κινητά δίκτυα ad hoc (MANETs)
+- j. Σχεδίαση συστήματος έξυπνης κεραίας, προσομοίωση και αποτελέσματα
+- k. Διαμόρφωση δέσμης, συνδυασμός διαφορισμού, διαλείψεις Rayleigh και διαμόρφωση με κωδικοποίηση πλέγματος
+- l. Άλλες γεωμετρίες
 
-## Section 17: Antenna Measurements
-- a. Introduction
-- b. Antenna Ranges
-- c. Radiation Patterns
-- d. Gain Measurements
-- e. Directivity Measurements
-- f. Radiation Efficiency
-- g. Impedance Measurements
-- h. Current Measurements
-- i. Polarization Measurements
-- j. Scale Model Measurements
+## Ενότητα 17: Μετρήσεις Κεραιών
+- a. Εισαγωγή
+- b. Πεδία δοκιμών κεραιών
+- c. Διαγράμματα ακτινοβολίας
+- d. Μετρήσεις κέρδους
+- e. Μετρήσεις κατευθυντικότητας
+- f. Απόδοση ακτινοβολίας
+- g. Μετρήσεις σύνθετης αντίστασης
+- h. Μετρήσεις ρεύματος
+- i. Μετρήσεις πόλωσης
+- j. Μετρήσεις σε μοντέλα κλίμακας

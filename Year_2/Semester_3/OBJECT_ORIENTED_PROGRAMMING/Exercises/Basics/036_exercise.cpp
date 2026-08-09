@@ -1,14 +1,14 @@
 /*
- * Exercise 36: The `this` Pointer
+ * Άσκηση 36: Ο Δείκτης `this`
  *
- * Instructions:
- * 1. Create a class called Point with x and y coordinates
- * 2. Implement methods for calculating distance to another point using `this` pointer
- * 3. Implement comparison operators that use `this` to compare with another object
- * 4. Implement a method that returns a new Point based on transformations of the current point
- * 5. Use `this` pointer in a fluent interface pattern to allow method chaining for transformations
- * 
- * Distance formula: sqrt((x2-x1)² + (y2-y1)²)
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια κλάση που ονομάζεται Point με συντεταγμένες x και y
+ * 2. Υλοποιήστε μεθόδους για υπολογισμό απόστασης προς άλλο σημείο χρησιμοποιώντας τον δείκτη `this`
+ * 3. Υλοποιήστε τελεστές σύγκρισης που χρησιμοποιούν το `this` για σύγκριση με άλλο αντικείμενο
+ * 4. Υλοποιήστε μια μέθοδο που επιστρέφει ένα νέο Point βάσει μετασχηματισμών του τρέχοντος σημείου
+ * 5. Χρησιμοποιήστε τον δείκτη `this` σε ένα πρότυπο ρέουσας διεπαφής (fluent interface) για να επιτραπεί η αλυσιδωτή κλήση μεθόδων για μετασχηματισμούς
+ *
+ * Τύπος απόστασης: sqrt((x2-x1)² + (y2-y1)²)
  */
 
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

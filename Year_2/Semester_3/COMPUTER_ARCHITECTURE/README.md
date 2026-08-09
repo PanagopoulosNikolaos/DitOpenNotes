@@ -1,30 +1,29 @@
-# Computer Architecture
+# Αρχιτεκτονική Υπολογιστών
 
-## Course Overview
-This course covers the fundamental concepts of computer architecture and organization, including processor design, memory hierarchy, and instruction set architectures.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα καλύπτει τις θεμελιώδεις έννοιες της αρχιτεκτονικής και οργάνωσης υπολογιστών, συμπεριλαμβανομένου του σχεδιασμού επεξεργαστών, της ιεραρχίας μνήμης και των αρχιτεκτονικών συνόλου εντολών.
 
-## Course Code
-301 (COMPUTER ARCHITECTURE)
+## Κωδικός Μαθήματος
+301 (ΑΡΧΙΤΕΚΤΟΝΙΚΗ ΥΠΟΛΟΓΙΣΤΩΝ)
 
-## Prerequisites
-- Digital Electronics (ECE 102)
-- Logic Design (CPE 101)
+## Προϋποθέσεις
+- Ψηφιακά Ηλεκτρονικά (ECE 102)
+- Σχεδιασμός Λογικών Κυκλωμάτων (CPE 101)
 
-## Topics Covered
-- Instruction set architecture
-- Computer arithmetic
-- Processor design (single-cycle, multi-cycle, pipelined)
-- Memory hierarchy (cache, main memory, virtual memory)
-- Input/output systems
-- Performance evaluation
-- Parallel processing concepts
-- RISC vs CISC architectures
+## Θέματα Που Καλύπτονται
+- Αρχιτεκτονική συνόλου εντολών
+- Αριθμητική υπολογιστών
+- Σχεδιασμός επεξεργαστών (μονοκύκλου, πολυκύκλου, με διασωλήνωση)
+- Ιεραρχία μνήμης (κρυφή μνήμη, κύρια μνήμη, εικονική μνήμη)
+- Συστήματα εισόδου/εξόδου
+- Αξιολόγηση απόδοσης
+- Έννοιες παράλληλης επεξεργασίας
+- Αρχιτεκτονικές RISC vs CISC
 
-## Learning Objectives
-- Understand computer system organization
-- Design basic processors
-- Analyze memory systems
-- Evaluate computer performance
-- Understand instruction execution
-- Apply design principles to computer systems
-
+## Μαθησιακοί Στόχοι
+- Κατανόηση οργάνωσης συστημάτων υπολογιστών
+- Σχεδιασμός βασικών επεξεργαστών
+- Ανάλυση συστημάτων μνήμης
+- Αξιολόγηση απόδοσης υπολογιστών
+- Κατανόηση εκτέλεσης εντολών
+- Εφαρμογή αρχών σχεδιασμού σε συστήματα υπολογιστών

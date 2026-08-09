@@ -1,12 +1,12 @@
 /*
- * Exercise 13: Tables (Arrays)
+ * Άσκηση 13: Πίνακες (Arrays)
  *
- * Instructions:
- * 1. Create a 2D array (matrix) of size 5x5 and initialize it with random values between 1 and 100
- * 2. Write a function to find the maximum and minimum elements in the array
- * 3. Write a function to calculate the sum of all elements in the array
- * 4. Write a function to transpose the matrix (swap rows and columns)
- * 5. Print the original matrix and the transposed matrix
+ * Οδηγίες:
+ * 1. Δημιουργήστε έναν 2D πίνακα (μήτρα) μεγέθους 5x5 και αρχικοποιήστε τον με τυχαίες τιμές μεταξύ 1 και 100
+ * 2. Γράψτε μια συνάρτηση για να βρείτε τα μέγιστα και ελάχιστα στοιχεία στον πίνακα
+ * 3. Γράψτε μια συνάρτηση για να υπολογίσετε το άθροισμα όλων των στοιχείων στον πίνακα
+ * 4. Γράψτε μια συνάρτηση για να μεταθέσετε τη μήτρα (αντιμετάθεση γραμμών και στηλών)
+ * 5. Εκτυπώστε την αρχική μήτρα και τη μετατεθειμένη μήτρα
  */
 
 #include <iostream>
@@ -14,7 +14,7 @@
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

@@ -1,3 +1,3 @@
-#### To view the complete exercise, follow this GitHub link:
+#### Για να δείτε την πλήρη άσκηση, ακολουθήστε αυτόν τον σύνδεσμο GitHub:
 
-- [JsspSolver Repository](https://github.com/PanagopoulosNikolaos/JsspSolver.git)
+- [Αποθετήριο JsspSolver](https://github.com/PanagopoulosNikolaos/JsspSolver.git)

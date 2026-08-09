@@ -1,21 +1,21 @@
 /*
- * Exercise 21: Pointers and References
+ * Άσκηση 21: Δείκτες και Αναφορές
  *
- * Instructions:
- * 1. Create a function that implements matrix multiplication using pointers
- * 2. Create a function that uses void pointers to create a generic swap function
- * 3. Create a program that demonstrates pointer to functions by implementing an operation dispatcher
- * 4. Create a function that uses dynamic memory allocation to create a 2D array based on user input
- * 5. Implement a function that creates an array of function pointers to different mathematical operations
- * 
- * Matrix multiplication: For matrices A[m][n] and B[n][p], result C[m][p] where C[i][j] = sum(A[i][k]*B[k][j])
+ * Οδηγίες:
+ * 1. Δημιουργήστε μια συνάρτηση που υλοποιεί πολλαπλασιασμό πινάκων χρησιμοποιώντας δείκτες
+ * 2. Δημιουργήστε μια συνάρτηση που χρησιμοποιεί δείκτες void για να δημιουργήσει μια γενική συνάρτηση ανταλλαγής
+ * 3. Δημιουργήστε ένα πρόγραμμα που επιδεικνύει δείκτη σε συναρτήσεις υλοποιώντας έναν διανομέα λειτουργιών
+ * 4. Δημιουργήστε μια συνάρτηση που χρησιμοποιεί δυναμική δέσμευση μνήμης για να δημιουργήσει έναν 2D πίνακα βάσει εισόδου χρήστη
+ * 5. Υλοποιήστε μια συνάρτηση που δημιουργεί έναν πίνακα δεικτών σε συναρτήσεις για διαφορετικές μαθηματικές πράξεις
+ *
+ * Πολλαπλασιασμός πινάκων: Για πίνακες A[m][n] και B[n][p], το αποτέλεσμα C[m][p] όπου C[i][j] = άθροισμα(A[i][k]*B[k][j])
  */
 
 #include <iostream>
 using namespace std;
 
 int main() {
-    // Your code here
+    // Ο κώδικάς σας εδώ
     
     return 0;
 }

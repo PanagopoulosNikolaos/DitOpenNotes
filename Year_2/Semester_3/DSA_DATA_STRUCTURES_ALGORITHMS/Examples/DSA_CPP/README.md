@@ -1,103 +1,103 @@
-# DSA Data Structures and Algorithms - C++ Implementation
+# DSA Δομές Δεδομένων και Αλγόριθμοι - Υλοποίηση σε C++
 
-This repository contains C++ implementations of various data structures and algorithms originally implemented in Python. All code has been carefully converted while maintaining the same functionality and educational purpose.
+Αυτό το αποθετήριο περιέχει υλοποιήσεις σε C++ διαφόρων δομών δεδομένων και αλγόριθμων που αρχικά υλοποιήθηκαν σε Python. Όλος ο κώδικας έχει μετατραπεί προσεκτικά διατηρώντας την ίδια λειτουργικότητα και τον ίδιο εκπαιδευτικό σκοπό.
 
-## Directory Structure
+## Δομή Καταλόγου
 
 ```
 DSA_CPP/
 ├── algorithms/
-│   ├── searching.cpp          # Searching algorithms (linear, binary, jump, etc.)
-│   ├── sorting.cpp            # Sorting algorithms (bubble, quick, merge, etc.)
-│   └── graph_algorithms.cpp   # Graph algorithms (Dijkstra, Prim's, Kruskal's, etc.)
+│   ├── searching.cpp          # Αλγόριθμοι αναζήτησης (γραμμική, δυαδική, άλματος κ.ά.)
+│   ├── sorting.cpp            # Αλγόριθμοι ταξινόμησης (bubble, quick, merge κ.ά.)
+│   └── graph_algorithms.cpp   # Αλγόριθμοι γράφων (Dijkstra, Prim, Kruskal κ.ά.)
 ├── data_structures/
-│   ├── arrays.cpp             # Dynamic and static arrays
-│   ├── linked_lists.cpp       # Singly and doubly linked lists
-│   ├── stacks.cpp             # Stack implementations
-│   ├── queues.cpp             # Queue implementations
-│   ├── hash_tables.cpp        # Hash table implementations
-│   ├── trees.cpp              # Tree implementations (BST, AVL)
-│   └── graphs.cpp             # Graph implementations
-└── main.cpp                   # Main file demonstrating all implementations
+│   ├── arrays.cpp             # Δυναμικοί και στατικοί πίνακες
+│   ├── linked_lists.cpp       # Μονά και διπλά συνδεδεμένες λίστες
+│   ├── stacks.cpp             # Υλοποιήσεις στοίβας
+│   ├── queues.cpp             # Υλοποιήσεις ουράς
+│   ├── hash_tables.cpp        # Υλοποιήσεις πινάκων κατακερματισμού
+│   ├── trees.cpp              # Υλοποιήσεις δέντρων (BST, AVL)
+│   └── graphs.cpp             # Υλοποιήσεις γράφων
+└── main.cpp                   # Κύριο αρχείο που επιδεικνύει όλες τις υλοποιήσεις
 ```
 
-## Algorithms Included
+## Αλγόριθμοι που Συμπεριλαμβάνονται
 
-### Searching Algorithms
-- Linear Search
-- Binary Search
-- Jump Search
-- Interpolation Search
-- Exponential Search
-- Ternary Search
-- Advanced searching (first/last occurrence, count occurrences)
+### Αλγόριθμοι Αναζήτησης
+- Γραμμική Αναζήτηση (Linear Search)
+- Δυαδική Αναζήτηση (Binary Search)
+- Αναζήτηση με Άλμα (Jump Search)
+- Αναζήτηση Παρεμβολής (Interpolation Search)
+- Αναζήτηση Εκθετική (Exponential Search)
+- Αναζήτηση Τριαδική (Ternary Search)
+- Προχωρημένη αναζήτηση (πρώτη/τελευταία εμφάνιση, μέτρηση εμφανίσεων)
 
-### Sorting Algorithms
-- Bubble Sort
-- Selection Sort
-- Insertion Sort
-- Quick Sort
-- Merge Sort
-- Counting Sort
-- Radix Sort
+### Αλγόριθμοι Ταξινόμησης
+- Ταξινόμηση Φυσαλίδας (Bubble Sort)
+- Ταξινόμηση Επιλογής (Selection Sort)
+- Ταξινόμηση Εισαγωγής (Insertion Sort)
+- Ταξινόμηση Γρήγορη (Quick Sort)
+- Ταξινόμηση Συγχώνευσης (Merge Sort)
+- Ταξινόμηση Μέτρησης (Counting Sort)
+- Ταξινόμηση Ρίζας (Radix Sort)
 
-### Graph Algorithms
-- Dijkstra's Algorithm
-- Bellman-Ford Algorithm
-- Prim's Algorithm (MST)
-- Kruskal's Algorithm (MST)
-- Ford-Fulkerson Algorithm (Max Flow)
-- Edmonds-Karp Algorithm (Max Flow)
+### Αλγόριθμοι Γράφων
+- Αλγόριθμος του Dijkstra
+- Αλγόριθμος Bellman-Ford
+- Αλγόριθμος Prim (Ελάχιστο Γεννητικό Δέντρο - MST)
+- Αλγόριθμος Kruskal (Ελάχιστο Γεννητικό Δέντρο - MST)
+- Αλγόριθμος Ford-Fulkerson (Μέγιστη Ροή - Max Flow)
+- Αλγόριθμος Edmonds-Karp (Μέγιστη Ροή - Max Flow)
 
-## Data Structures Included
+## Δομές Δεδομένων που Συμπεριλαμβάνονται
 
-### Linear Data Structures
-- Arrays (Dynamic and Static)
-- Linked Lists (Singly and Doubly)
-- Stacks (Array-based and Linked-list-based)
-- Queues (Array, Circular, Linked, and Deque)
+### Γραμμικές Δομές Δεδομένων
+- Πίνακες (Δυναμικοί και Στατικοί)
+- Συνδεδεμένες Λίστες (Μονές και Διπλές)
+- Στοίβες (Βασισμένες σε πίνακα και σε συνδεδεμένη λίστα)
+- Ουρές (Πίνακα, Κυκλική, Συνδεδεμένη και Deque)
 
-### Non-Linear Data Structures
-- Hash Tables (Chaining and Linear Probing)
-- Binary Trees (Basic traversals)
-- Binary Search Trees (BST)
-- AVL Trees (Self-balancing BST)
-- Graphs (Adjacency List and Matrix representations)
+### Μη Γραμμικές Δομές Δεδομένων
+- Πίνακες Κατακερματισμού (Αλυσίδωση και Γραμμική Εξερεύνηση)
+- Δυαδικά Δέντρα (Βασικές διασχίσεις)
+- Δυαδικά Δέντρα Αναζήτησης (BST)
+- Δέντρα AVL (Αυτο-ισορροπούμενα BST)
+- Γράφοι (Αναπαραστάσεις με Λίστα και Πίνακα Γειτνίασης)
 
-## Compilation and Usage
+## Μεταγλώττιση και Χρήση
 
-To compile and run the main demonstration:
+Για να μεταγλωττίσετε και να εκτελέσετε την κύρια επίδειξη:
 
 ```bash
 g++ -std=c++11 -o main main.cpp
 ./main
 ```
 
-Each individual file can also be compiled separately if needed.
+Κάθε μεμονωμένο αρχείο μπορεί επίσης να μεταγλωττιστεί ξεχωριστά εάν απαιτείται.
 
-## Key Features
+## Βασικά Χαρακτηριστικά
 
-1. **Comprehensive Coverage**: All major data structures and algorithms covered
-2. **Educational Focus**: Well-documented code with detailed comments explaining algorithms
-3. **Performance Considerations**: Proper time and space complexity analysis
-4. **Memory Management**: Proper use of smart pointers to avoid memory leaks
-5. **Error Handling**: Appropriate exception handling for edge cases
+1. **Πλήρης Κάλυψη**: Καλύπτονται όλες οι κύριες δομές δεδομένων και αλγόριθμοι
+2. **Εκπαιδευτική Εστίαση**: Καλά τεκμηριωμένος κώδικας με λεπτομερή σχόλια που εξηγούν τους αλγόριθμους
+3. **Θέματα Απόδοσης**: Κατάλληλη ανάλυση πολυπλοκότητας χρόνου και μνήμης
+4. **Διαχείριση Μνήμης**: Σωστή χρήση έξυπνων δεικτών (smart pointers) για αποφυγή διαρροών μνήμης
+5. **Χειρισμός Σφαλμάτων**: Κατάλληλος χειρισμός εξαιρέσεων για ακραίες περιπτώσεις
 
-## C++ Specific Notes
+## Σημειώσεις Ειδικά για C++
 
-- Used smart pointers (`std::shared_ptr`, `std::unique_ptr`) for automatic memory management
-- Utilized templates for generic data types where appropriate
-- Leveraged STL containers like `std::vector`, `std::unordered_map`, and `std::queue`
-- Implemented proper constructors, destructors, and RAII principles
-- Used modern C++ features like `auto`, range-based loops, and initializer lists
+- Χρήση έξυπνων δεικτών (`std::shared_ptr`, `std::unique_ptr`) για αυτόματη διαχείριση μνήμης
+- Αξιοποίηση προτύπων (templates) για γενικούς τύπους δεδομένων όπου κρίνεται σκόπιμο
+- Αξιοποίηση των κοντέινερ της STL όπως `std::vector`, `std::unordered_map` και `std::queue`
+- Υλοποίηση κατάλληλων κατασκευαστών, καταστροφέων και αρχών RAII
+- Χρήση σύγχρονων δυνατοτήτων της C++ όπως `auto`, βρόχοι βασισμένους σε εύρος (range-based) και λίστες αρχικοποίησης
 
-## Learning Objectives
+## Μαθησιακοί Στόχοι
 
-After studying this implementation, you should understand:
+Αφού μελετήσετε αυτή την υλοποίηση, θα πρέπει να κατανοείτε:
 
-1. How to implement fundamental data structures in C++
-2. The differences between Python and C++ implementations
-3. Memory management in C++ using smart pointers
-4. Time and space complexity of various algorithms
-5. When to use specific data structures and algorithms
-6. Best practices for C++ programming in the context of DSA
+1. Πώς να υλοποιείτε θεμελιώδεις δομές δεδομένων σε C++
+2. Τις διαφορές μεταξύ των υλοποιήσεων σε Python και C++
+3. Τη διαχείριση μνήμης σε C++ με χρήση έξυπνων δεικτών
+4. Την πολυπλοκότητα χρόνου και μνήμης διαφόρων αλγόριθμων
+5. Πότε να χρησιμοποιείτε συγκεκριμένες δομές δεδομένων και αλγόριθμους
+6. Βέλτιστες πρακτικές για προγραμματισμό σε C++ στο πλαίσιο των DSA
