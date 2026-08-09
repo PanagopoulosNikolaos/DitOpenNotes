@@ -1,18 +1,18 @@
-# Semester 4
+# Εξάμηνο 4
 
-This directory contains materials for the fourth semester courses.
+Αυτός ο κατάλογος περιέχει υλικό για τα μαθήματα του τετάρτου εξαμήνου.
 
-## Courses
+## Μαθήματα
 
-- `PROGRAMMING_LANGUAGES_PRINCIPLES (401)` - Principles of Programming Languages
-- `OPERATING_SYSTEMS (402)` - Operating Systems
-- `COMPUTER_NETWORKS (403)` - Computer Networks  
-- `DATABASES (404)` - Database Systems
-- `PROBABILITY_STATISTICS (405)` - Probability and Statistics
+- `PROGRAMMING_LANGUAGES_PRINCIPLES (401)` - Αρχές Γλωσσών Προγραμματισμού
+- `OPERATING_SYSTEMS (402)` - Λειτουργικά Συστήματα
+- `COMPUTER_NETWORKS (403)` - Δίκτυα Υπολογιστών
+- `DATABASES (404)` - Συστήματα Βάσεων Δεδομένων
+- `PROBABILITY_STATISTICS (405)` - Πιθανότητες και Στατιστική
 
-Each course directory contains:
-- `Lectures/` - Course lecture materials and slides
-- `Exercises/` - Homework assignments and solutions
-- `Examples/` - Code examples and practical implementations
-- `Quizzes/` - Self-assessment quizzes
-- `README.md` - Course-specific information
+Κάθε κατάλογος μαθήματος περιέχει:
+- `Lectures/` - Διδακτικό υλικό και διαφάνειες μαθημάτων
+- `Exercises/` - Εργασίες και λύσεις
+- `Examples/` - Παραδείγματα κώδικα και πρακτικές υλοποιήσεις
+- `Quizzes/` - Κουίζ αυτοαξιολόγησης
+- `README.md` - Πληροφορίες ειδικές για το μάθημα
