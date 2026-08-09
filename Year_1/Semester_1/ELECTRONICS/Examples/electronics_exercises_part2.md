@@ -1,182 +1,182 @@
-# Electronics Exercises Part 2: Transistors and Amplifiers
+# Ασκήσεις Ηλεκτρονικής Μέρος 2: Τρανζίστορ και Ενισχυτές
 
-This file contains 30 solved exercises covering Bipolar Junction Transistors (BJTs), including their operating principles, biasing circuits, and application as amplifiers.
+Αυτό το αρχείο περιέχει 30 λυμένες ασκήσεις που καλύπτουν τα Διπολικά Τρανζίστορ Επαφής (BJTs), συμπεριλαμβανομένων των αρχών λειτουργίας τους, των κυκλωμάτων πόλωσης και της εφαρμογής τους ως ενισχυτών.
 
 ---
 
-### BJT Fundamentals
+### Βασικές Αρχές BJT
 
-**Exercise 1:** What are the two main types of Bipolar Junction Transistors (BJTs)? Describe their basic structure.
-**Solution:**
-The two main types are NPN and PNP.
-- **NPN:** Consists of a thin layer of P-type semiconductor (the base) sandwiched between two layers of N-type semiconductor (the emitter and collector).
-- **PNP:** Consists of a thin layer of N-type semiconductor (the base) sandwiched between two layers of P-type semiconductor (the emitter and collector).
+**Άσκηση 1:** Ποιοι είναι οι δύο κύριοι τύποι των Διπολικών Τρανζίστορ Επαφής (BJTs); Περιγράψτε τη βασική τους δομή.
+**Λύση:**
+Οι δύο κύριοι τύποι είναι τα NPN και PNP.
+- **NPN:** Αποτελείται από ένα λεπτό στρώμα ημιαγωγού τύπου P (τη βάση) σανφουάρ μεταξύ δύο στρωμάτων ημιαγωγού τύπου N (του εκπομπού και του συλλέκτη).
+- **PNP:** Αποτελείται από ένα λεπτό στρώμα ημιαγωγού τύπου N (τη βάση) σανφουάρ μεταξύ δύο στρωμάτων ημιαγωγού τύπου P (του εκπομπού και του συλλέκτη).
 
-**Exercise 2:** What are the three operating regions of a BJT? Briefly describe the bias condition for the two junctions in each region.
-**Solution:**
-1.  **Cutoff Region:** The transistor is "off." Both the base-emitter (BE) and base-collector (BC) junctions are reverse-biased. No significant current flows.
-2.  **Active Region:** The transistor acts as an amplifier. The BE junction is forward-biased, and the BC junction is reverse-biased.
-3.  **Saturation Region:** The transistor is fully "on." Both the BE and BC junctions are forward-biased. The collector current is at its maximum value, limited by the external circuit.
+**Άσκηση 2:** Ποιες είναι οι τρεις περιοχές λειτουργίας ενός BJT; Περιγράψτε σύντομα τη συνθήκη πόλωσης για τις δύο επαφές σε κάθε περιοχή.
+**Λύση:**
+1.  **Περιοχή Αποκοπής (Cutoff Region):** Το τρανζίστορ είναι «κλειστό». Και οι δύο επαφές βάσης-εκπομπού (BE) και βάσης-συλλέκτη (BC) είναι ανάστροφα πολωμένες. Δεν ρέει σημαντικό ρεύμα.
+2.  **Περιοχή Ενεργού Λειτουργίας (Active Region):** Το τρανζίστορ λειτουργεί ως ενισχυτής. Η επαφή BE είναι ορθά πολωμένη και η επαφή BC είναι ανάστροφα πολωμένη.
+3.  **Περιοχή Κορεσμού (Saturation Region):** Το τρανζίστορ είναι πλήρως «ανοιχτό». Και οι δύο επαφές BE και BC είναι ορθά πολωμένες. Το ρεύμα συλλέκτη βρίσκεται στη μέγιστη τιμή του, περιορισμένο από το εξωτερικό κύκλωμα.
 
-**Exercise 3:** Define the DC current gain, $\beta$ (beta), of a BJT. What is its typical range of values?
-**Solution:**
-The DC current gain, $\beta$ (also known as $h_{FE}$), is the ratio of the collector current ($I_C$) to the base current ($I_B$) when the transistor is operating in the active region.
+**Άσκηση 3:** Ορίστε το κέρδος ρεύματος DC, $\beta$ (beta), ενός BJT. Ποια είναι η τυπική του κλίμακα τιμών;
+**Λύση:**
+Το κέρδος ρεύματος DC, $\beta$ (γνωστό και ως $h_{FE}$), είναι ο λόγος του ρεύματος συλλέκτη ($I_C$) προς το ρεύμα βάσης ($I_B$) όταν το τρανζίστορ λειτουργεί στην περιοχή ενεργού λειτουργίας.
 $$ \beta = \frac{I_C}{I_B} $$
-Typical values for $\beta$ in small-signal transistors range from 50 to over 400.
+Τυπικές τιμές για το $\beta$ σε τρανζίστορ μικρού σήματος κυμαίνονται από 50 έως πάνω από 400.
 
-**Exercise 4:** A transistor has a $\beta$ of 150. If the base current ($I_B$) is 20µA, what is the collector current ($I_C$)?
-**Solution:**
-Using the formula for beta:
+**Άσκηση 4:** Ένα τρανζίστορ έχει $\beta$ ίσο με 150. Αν το ρεύμα βάσης ($I_B$) είναι 20µA, ποιο είναι το ρεύμα συλλέκτη ($I_C$);
+**Λύση:**
+Χρησιμοποιώντας τον τύπο για το beta:
 $$ I_C = \beta \times I_B = 150 \times 20\mu A = 3000\mu A = 3mA $$
 
-**Exercise 5:** What is the relationship between the emitter current ($I_E$), collector current ($I_C$), and base current ($I_B$)?
-**Solution:**
-Based on Kirchhoff's Current Law applied to the transistor, the emitter current is the sum of the collector and base currents:
+**Άσκηση 5:** Ποια είναι η σχέση μεταξύ του ρεύματος εκπομπού ($I_E$), του ρεύματος συλλέκτη ($I_C$) και του ρεύματος βάσης ($I_B$);
+**Λύση:**
+Με βάση τον Νόμο Ρευμάτων του Kirchhoff εφαρμοσμένο στο τρανζίστορ, το ρεύμα εκπομπού είναι το άθροισμα του ρεύματος συλλέκτη και βάσης:
 $$ I_E = I_C + I_B $$
 
-**Exercise 6:** For the transistor in Exercise 4 ($\beta=150$, $I_B=20\mu A$, $I_C=3mA$), calculate the emitter current ($I_E$).
-**Solution:**
+**Άσκηση 6:** Για το τρανζίστορ της Άσκησης 4 ($\beta=150$, $I_B=20\mu A$, $I_C=3mA$), υπολογίστε το ρεύμα εκπομπού ($I_E$).
+**Λύση:**
 $$ I_E = I_C + I_B = 3mA + 20\mu A = 3mA + 0.02mA = 3.02mA $$
 
-**Exercise 7:** Define the parameter $\alpha$ (alpha) and express it in terms of $\beta$.
-**Solution:**
-Alpha ($\alpha$) is the ratio of the collector current ($I_C$) to the emitter current ($I_E$).
+**Άσκηση 7:** Ορίστε την παράμετρο $\alpha$ (alpha) και εκφράστε την συναρτήσει του $\beta$.
+**Λύση:**
+Το άλφα ($\alpha$) είναι ο λόγος του ρεύματος συλλέκτη ($I_C$) προς το ρεύμα εκπομπού ($I_E$).
 $$ \alpha = \frac{I_C}{I_E} $$
-It represents the fraction of emitter current that reaches the collector. It can be expressed in terms of $\beta$ as:
+Αντιπροσωπεύει το κλάσμα του ρεύματος εκπομπού που φτάνει στον συλλέκτη. Μπορεί να εκφραστεί συναρτήσει του $\beta$ ως:
 $$ \alpha = \frac{\beta}{\beta + 1} $$
-Alpha is always slightly less than 1.
+Το άλφα είναι πάντα ελαφρώς μικρότερο από το 1.
 
-**Exercise 8:** If a transistor has a $\beta$ of 100, what is its $\alpha$?
-**Solution:**
+**Άσκηση 8:** Αν ένα τρανζίστορ έχει $\beta$ ίσο με 100, ποιο είναι το $\alpha$ του;
+**Λύση:**
 $$ \alpha = \frac{\beta}{\beta + 1} = \frac{100}{100 + 1} = \frac{100}{101} \approx 0.99 $$
 
-**Exercise 9:** Explain why the base region of a BJT is made very thin and lightly doped.
-**Solution:**
-The base is made thin and lightly doped to ensure that most of the charge carriers injected from the emitter pass through the base to the collector without recombining with the majority carriers in the base. This maximizes the collector current and results in a high current gain ($\beta$).
+**Άσκηση 9:** Εξηγήστε γιατί η περιοχή της βάσης ενός BJT κατασκευάζεται πολύ λεπτή και ελαφρά εμπλουτισμένη (lightly doped).
+**Λύση:**
+Η βάση κατασκευάζεται λεπτή και ελαφρά εμπλουτισμένη για να διασφαλιστεί ότι οι περισσότεροι φορείς φορτίου που εγχέονται από τον εκπομπό διέρχονται της βάσης προς τον συλλέκτη χωρίς να ανασυνδυάζονται με τους φορείς πλειονότητας στη βάση. Αυτό μεγιστοποιεί το ρεύμα συλλέκτη και οδηγεί σε υψηλό κέρδος ρεύματος ($\beta$).
 
-**Exercise 10:** What does it mean for a transistor to be in "saturation"? What is the approximate value of $V_{CE}$ in saturation?
-**Solution:**
-Saturation is the state where the transistor is fully "on" and acts like a closed switch. In this state, an increase in base current does not lead to a further increase in collector current, as the collector current is limited by the external circuit components ($R_C$ and $V_{CC}$). The voltage between the collector and emitter, $V_{CE(sat)}$, is very small, typically around 0.2V for a silicon transistor.
+**Άσκηση 10:** Τι σημαίνει για ένα τρανζίστορ να βρίσκεται σε «κορεσμό»; Ποια είναι η κατά προσέγγιση τιμή του $V_{CE}$ στον κορεσμό;
+**Λύση:**
+Ο κορεσμός είναι η κατάσταση όπου το τρανζίστορ είναι πλήρως «ανοιχτό» και λειτουργεί σαν κλειστός διακόπτης. Σε αυτή την κατάσταση, μια αύξηση του ρεύματος βάσης δεν οδηγεί σε περαιτέρω αύξηση του ρεύματος συλλέκτη, καθώς το ρεύμα συλλέκτη περιορίζεται από τα εξωτερικά εξαρτήματα του κυκλώματος ($R_C$ και $V_{CC}$). Η τάση μεταξύ συλλέκτη και εκπομπού, $V_{CE(sat)}$, είναι πολύ μικρή, τυπικά γύρω στα 0.2V για ένα τρανζίστορ πυριτίου.
 
 ---
 
-### BJT Biasing
+### Πόλωση BJT
 
-**Exercise 11:** What is the purpose of biasing a transistor? What is the "Q-point"?
-**Solution:**
-Biasing is the process of applying DC voltages to a transistor to set its DC operating point, ensuring it operates correctly in the desired region (usually the active region for amplification). The Q-point (Quiescent point) is the specific DC operating point of the transistor, defined by its DC collector current ($I_{CQ}$) and collector-emitter voltage ($V_{CEQ}$) when no AC signal is applied.
+**Άσκηση 11:** Ποιος είναι ο σκοπός της πόλωσης ενός τρανζίστορ; Τι είναι το «σημείο Q»;
+**Λύση:**
+Η πόλωση είναι η διαδικασία εφαρμογής τάσεων DC σε ένα τρανζίστορ για να ρυθμίσει το σημείο λειτουργίας DC του, διασφαλίζοντας ότι λειτουργεί σωστά στην επιθυμητή περιοχή (συνήθως την περιοχή ενεργού λειτουργίας για ενίσχυση). Το σημείο Q (Quiescent point) είναι το συγκεκριμένο σημείο λειτουργίας DC του τρανζίστορ, ορισμένο από το ρεύμα συλλέκτη DC ($I_{CQ}$) και την τάση συλλέκτη-εκπομπού ($V_{CEQ}$) όταν δεν εφαρμόζεται σήμα AC.
 
-**Exercise 12:** Describe the "base bias" configuration. What is a major disadvantage of this biasing method?
-**Solution:**
-In a base bias circuit, the base resistor ($R_B$) is connected between the DC supply ($V_{CC}$) and the base. The base current is determined solely by $V_{CC}$ and $R_B$. A major disadvantage is that the Q-point is highly dependent on the transistor's $\beta$, which can vary significantly between transistors of the same type and with temperature. This makes the circuit unstable.
+**Άσκηση 12:** Περιγράψτε τη διάταξη «βάσης» (base bias). Ποιο είναι ένα κύριο μειονέκτημα αυτής της μεθόδου πόλωσης;
+**Λύση:**
+Σε ένα κύκλωμα πόλωσης βάσης, ο αντιστάτης βάσης ($R_B$) συνδέεται μεταξύ της πηγής DC ($V_{CC}$) και της βάσης. Το ρεύμα βάσης καθορίζεται αποκλειστικά από το $V_{CC}$ και το $R_B$. Ένα κύριο μειονέκτημα είναι ότι το σημείο Q εξαρτάται έντονα από το $\beta$ του τρανζίστορ, το οποίο μπορεί να διαφέρει σημαντικά μεταξύ τρανζίστορ του ίδιου τύπου και με τη θερμοκρασία. Αυτό καθιστά το κύκλωμα ασταθές.
 
-**Exercise 13:** In a base bias circuit, $V_{CC} = 12V$ and $R_B = 220k\Omega$. Assuming a silicon transistor ($V_{BE} = 0.7V$), calculate the base current $I_B$.
-**Solution:**
-Applying KVL to the base-emitter loop:
+**Άσκηση 13:** Σε ένα κύκλωμα πόλωσης βάσης, $V_{CC} = 12V$ και $R_B = 220k\Omega$. Υποθέτοντας ένα τρανζίστορ πυριτιτίου ($V_{BE} = 0.7V$), υπολογίστε το ρεύμα βάσης $I_B$.
+**Λύση:**
+Εφαρμόζοντας τον KVL στο βρόχο βάσης-εκπομπού:
 $$ V_{CC} - I_B R_B - V_{BE} = 0 $$
 $$ I_B = \frac{V_{CC} - V_{BE}}{R_B} = \frac{12V - 0.7V}{220k\Omega} = \frac{11.3V}{220 \times 10^3 \Omega} \approx 51.4\mu A $$
 
-**Exercise 14:** For the circuit in Exercise 13, if $\beta = 100$ and $R_C = 1k\Omega$, what are $I_C$ and $V_{CE}$?
-**Solution:**
+**Άσκηση 14:** Για το κύκλωμα της Άσκησης 13, αν $\beta = 100$ και $R_C = 1k\Omega$, ποια είναι τα $I_C$ και $V_{CE}$;
+**Λύση:**
 $$ I_C = \beta \times I_B = 100 \times 51.4\mu A = 5.14mA $$
-Applying KVL to the collector-emitter loop:
+Εφαρμόζοντας τον KVL στο βρόχο συλλέκτη-εκπομπού:
 $$ V_{CC} - I_C R_C - V_{CE} = 0 $$
 $$ V_{CE} = V_{CC} - I_C R_C = 12V - (5.14mA \times 1k\Omega) = 12V - 5.14V = 6.86V $$
-The Q-point is ($I_{CQ} = 5.14mA$, $V_{CEQ} = 6.86V$).
+Το σημείο Q είναι ($I_{CQ} = 5.14mA$, $V_{CEQ} = 6.86V$).
 
-**Exercise 15:** Describe the "voltage-divider bias" configuration. Why is it more stable than base bias?
-**Solution:**
-Voltage-divider bias uses two resistors ($R_1$ and $R_2$) connected to $V_{CC}$ to create a voltage divider that sets a stable voltage at the base ($V_B$). An emitter resistor ($R_E$) is also included. This configuration is much more stable because the base voltage is held nearly constant, regardless of the transistor's $\beta$. The emitter current, and thus the collector current, is primarily determined by this stable base voltage and the emitter resistor, making the Q-point largely independent of $\beta$.
+**Άσκηση 15:** Περιγράψτε τη διάταξη «πόλωσης με διαχωριστή τάσης» (voltage-divider bias). Γιατί είναι πιο σταθερή από την πόλωση βάσης;
+**Λύση:**
+Η πόλωση με διαχωριστή τάσης χρησιμοποιεί δύο αντιστάτες ($R_1$ και $R_2$) συνδεδεμένους στο $V_{CC}$ για να δημιουργήσει έναν διαχωριστή τάσης που καθορίζει μια σταθερή τάση στη βάση ($V_B$). Συμπεριλαμβάνεται επίσης ένας αντιστάτης εκπομπού ($R_E$). Αυτή η διάταξη είναι πολύ πιο σταθερή διότι η τάση βάσης διατηρείται σχεδόν σταθερή, ανεξάρτητα από το $\beta$ του τρανζίστορ. Το ρεύμα εκπομπού, και συνεπώς το ρεύμα συλλέκτη, καθορίζεται κυρίως από αυτή τη σταθερή τάση βάσης και τον αντιστάτη εκπομπού, καθιστώντας το σημείο Q σε μεγάλο βαθμό ανεξάρτητο του $\beta$.
 
-**Exercise 16:** In a voltage-divider bias circuit, $V_{CC} = 15V$, $R_1 = 10k\Omega$, and $R_2 = 2.2k\Omega$. Calculate the approximate base voltage $V_B$.
-**Solution:**
-The voltage divider sets the base voltage:
+**Άσκηση 16:** Σε ένα κύκλωμα πόλωσης με διαχωριστή τάσης, $V_{CC} = 15V$, $R_1 = 10k\Omega$, και $R_2 = 2.2k\Omega$. Υπολογίστε την κατά προσέγγιση τάση βάσης $V_B$.
+**Λύση:**
+Ο διαχωριστής τάσης καθορίζει την τάση βάσης:
 $$ V_B = V_{CC} \times \frac{R_2}{R_1 + R_2} = 15V \times \frac{2.2k\Omega}{10k\Omega + 2.2k\Omega} = 15V \times \frac{2.2}{12.2} \approx 2.7V $$
 
-**Exercise 17:** For the circuit in Exercise 16, if $R_E = 1k\Omega$, calculate the emitter current $I_E$. Assume a silicon transistor.
-**Solution:**
-The emitter voltage is one diode drop below the base voltage:
+**Άσκηση 17:** Για το κύκλωμα της Άσκησης 16, αν $R_E = 1k\Omega$, υπολογίστε το ρεύμα εκπομπού $I_E$. Υποθέστε τρανζίστορ πυριτίου.
+**Λύση:**
+Η τάση εκπομπού είναι μια πτώση διόδου κάτω από την τάση βάσης:
 $$ V_E = V_B - V_{BE} = 2.7V - 0.7V = 2.0V $$
-The emitter current is found using Ohm's law on the emitter resistor:
+Το ρεύμα εκπομπού βρίσκεται χρησιμοποιώντας τον Νόμο του Ohm στον αντιστάτη εκπομπού:
 $$ I_E = \frac{V_E}{R_E} = \frac{2.0V}{1k\Omega} = 2.0mA $$
 
-**Exercise 18:** For the circuit in Exercises 16-17, if $R_C = 3.3k\Omega$, what is $V_{CE}$?
-**Solution:**
-First, assume $I_C \approx I_E = 2.0mA$.
-The collector voltage is:
+**Άσκηση 18:** Για το κύκλωμα των Ασκήσεων 16-17, αν $R_C = 3.3k\Omega$, ποιο είναι το $V_{CE}$;
+**Λύση:**
+Πρώτα, υποθέτουμε $I_C \approx I_E = 2.0mA$.
+Η τάση συλλέκτη είναι:
 $$ V_C = V_{CC} - I_C R_C = 15V - (2.0mA \times 3.3k\Omega) = 15V - 6.6V = 8.4V $$
-The collector-emitter voltage is:
+Η τάση συλλέκτη-εκπομπού είναι:
 $$ V_{CE} = V_C - V_E = 8.4V - 2.0V = 6.4V $$
 
-**Exercise 19:** What is a DC load line? What two points are used to draw it?
-**Solution:**
-A DC load line is a line drawn on the transistor's characteristic curves ($I_C$ vs. $V_{CE}$) that represents all possible Q-points for a given amplifier circuit. The two endpoints of the load line are:
-1.  **Saturation Point:** Where the transistor is fully on ($V_{CE} \approx 0$). The collector current is at its maximum, $I_{C(sat)} = V_{CC} / (R_C + R_E)$.
-2.  **Cutoff Point:** Where the transistor is fully off ($I_C = 0$). The collector-emitter voltage is at its maximum, $V_{CE(cutoff)} = V_{CC}$.
+**Άσκηση 19:** Τι είναι μια γραμμή DC φορτίου; Ποια δύο σημεία χρησιμοποιούνται για τη σχεδίασή της;
+**Λύση:**
+Μια γραμμή DC φορτίου είναι μια ευθεία σχεδιασμένη στις χαρακτηριστικές καμπύλες του τρανζίστορ ($I_C$ ως προς $V_{CE}$) που αναπαριστά όλα τα πιθανά σημεία Q για ένα δεδομένο κύκλωμα ενισχυτή. Τα δύο άκρα της γραμμής φορτίου είναι:
+1.  **Σημείο Κορεσμού:** Όπου το τρανζίστορ είναι πλήρως ανοιχτό ($V_{CE} \approx 0$). Το ρεύμα συλλέκτη βρίσκεται στο μέγιστο, $I_{C(sat)} = V_{CC} / (R_C + R_E)$.
+2.  **Σημείο Αποκοπής:** Όπου το τρανζίστορ είναι πλήρως κλειστό ($I_C = 0$). Η τάση συλλέκτη-εκπομπού βρίσκεται στο μέγιστο, $V_{CE(cutoff)} = V_{CC}$.
 
-**Exercise 20:** For a circuit with $V_{CC} = 20V$, $R_C = 2k\Omega$, and $R_E = 0.5k\Omega$, find the two endpoints of the DC load line.
-**Solution:**
-1.  **Saturation Point ($V_{CE} = 0$):**
+**Άσκηση 20:** Για ένα κύκλωμα με $V_{CC} = 20V$, $R_C = 2k\Omega$, και $R_E = 0.5k\Omega$, βρείτε τα δύο άκρα της γραμμής DC φορτίου.
+**Λύση:**
+1.  **Σημείο Κορεσμού ($V_{CE} = 0$):**
     $$ I_{C(sat)} = \frac{V_{CC}}{R_C + R_E} = \frac{20V}{2k\Omega + 0.5k\Omega} = \frac{20V}{2.5k\Omega} = 8mA $$
-2.  **Cutoff Point ($I_C = 0$):**
+2.  **Σημείο Αποκοπής ($I_C = 0$):**
     $$ V_{CE(cutoff)} = V_{CC} = 20V $$
-The endpoints are (0V, 8mA) and (20V, 0mA).
+Τα άκρα είναι (0V, 8mA) και (20V, 0mA).
 
 ---
 
-### BJT Amplifiers
+### Ενισχυτές BJT
 
-**Exercise 21:** What is the purpose of coupling capacitors in a BJT amplifier circuit?
-**Solution:**
-Coupling capacitors are used at the input and output of an amplifier stage. Their purpose is to block DC current while allowing the AC signal to pass through. This prevents the DC bias of one stage from affecting the bias of the next stage, and it also prevents the DC voltage of the amplifier from affecting the source or load.
+**Άσκηση 21:** Ποιος είναι ο σκοπός των πυκνωτών σύζευξης (coupling capacitors) σε ένα κύκλωμα ενισχυτή BJT;
+**Λύση:**
+Οι πυκνωτές σύζευξης χρησιμοποιούνται στην είσοδο και έξοδο ενός σταδίου ενισχυτή. Ο σκοπός τους είναι να αποκλείουν το ρεύμα DC ενώ επιτρέπουν στο σήμα AC να διέρχεται. Αυτό εμποδίζει την πόλωση DC του ενός σταδίου να επηρεάζει την πόλωση του επόμενου σταδίου, και επίσης εμποδίζει την τάση DC του ενισχυτή να επηρεάζει την πηγή ή το φορτίο.
 
-**Exercise 22:** What is the purpose of an emitter bypass capacitor?
-**Solution:**
-An emitter bypass capacitor is placed in parallel with the emitter resistor ($R_E$). For AC signals, the capacitor acts as a short circuit, effectively "bypassing" the emitter resistor. This significantly increases the amplifier's voltage gain, because without it, $R_E$ would introduce negative feedback that reduces the gain.
+**Άσκηση 22:** Ποιος είναι ο σκοπός ενός πυκνωτή παράκαμψης εκπομπού (emitter bypass capacitor);
+**Λύση:**
+Ένας πυκνωτής παράκαμψης εκπομπού τοποθετείται παράλληλα με τον αντιστάτη εκπομπού ($R_E$). Για τα σήματα AC, ο πυκνωτής λειτουργεί ως βραχυκύκλωμα, «παρακάμπτοντας» αποτελεσματικά τον αντιστάτη εκπομπού. Αυτό αυξάνει σημαντικά το κέρδος τάσης του ενισχυτή, διότι χωρίς αυτόν, το $R_E$ θα εισήγαγε αρνητική ανάδραση που μειώνει το κέρδος.
 
-**Exercise 23:** What is the AC emitter resistance, $r'_e$? How is it calculated?
-**Solution:**
-The AC emitter resistance, $r'_e$, is the dynamic resistance of the base-emitter junction to AC signals. It is an internal property of the transistor, not a physical resistor. It is calculated based on the DC emitter current ($I_E$):
+**Άσκηση 23:** Τι είναι η αντίσταση εκπομπού AC, $r'_e$; Πώς υπολογίζεται;
+**Λύση:**
+Η αντίσταση εκπομπού AC, $r'_e$, είναι η δυναμική αντίσταση της επαφής βάσης-εκπομπού στα σήματα AC. Είναι μια εσωτερική ιδιότητα του τρανζίστορ, όχι φυσικός αντιστάτης. Υπολογίζεται με βάση το ρεύμα εκπομπού DC ($I_E$):
 $$ r'_e = \frac{25mV}{I_E} $$
-This value is crucial for calculating the voltage gain of an amplifier.
+Αυτή η τιμή είναι κρίσιμη για τον υπολογισμό του κέρδους τάσης ενός ενισχυτή.
 
-**Exercise 24:** An amplifier is biased such that its DC emitter current $I_E$ is 2.5mA. Calculate the AC emitter resistance $r'_e$.
-**Solution:**
+**Άσκηση 24:** Ένας ενισχυτής έχει πολωθεί έτσι ώστε το ρεύμα εκπομπού DC $I_E$ να είναι 2.5mA. Υπολογίστε την αντίσταση εκπομπού AC $r'_e$.
+**Λύση:**
 $$ r'_e = \frac{25mV}{I_E} = \frac{25mV}{2.5mA} = 10\Omega $$
 
-**Exercise 25:** For a common-emitter amplifier, what is the formula for voltage gain ($A_v$) if the emitter resistor is fully bypassed?
-**Solution:**
-The voltage gain ($A_v$) is the ratio of the total AC collector resistance ($r_C$) to the AC emitter resistance ($r'_e$). The total AC collector resistance is the parallel combination of the collector resistor ($R_C$) and the load resistor ($R_L$).
+**Άσκηση 25:** Για έναν ενισχυτή κοινού εκπομπού (common-emitter), ποιος είναι ο τύπος για το κέρδος τάσης ($A_v$) αν ο αντιστάτης εκπομπού παρακάμπτεται πλήρως;
+**Λύση:**
+Το κέρδος τάσης ($A_v$) είναι ο λόγος της συνολικής αντίστασης συλλέκτη AC ($r_C$) προς την αντίσταση εκπομπού AC ($r'_e$). Η συνολική αντίσταση συλλέκτη AC είναι ο παράλληλος συνδυασμός του αντιστάτη συλλέκτη ($R_C$) και του αντιστάτη φορτίου ($R_L$).
 $$ A_v = \frac{r_C}{r'_e} = \frac{R_C || R_L}{r'_e} $$
 
-**Exercise 26:** A common-emitter amplifier has $R_C = 4k\Omega$, $R_L = 4k\Omega$, and is biased so that $r'_e = 20\Omega$. The emitter resistor is fully bypassed. Calculate the voltage gain.
-**Solution:**
-First, find the total AC collector resistance:
+**Άσκηση 26:** Ένας ενισχυτής κοινού εκπομπού έχει $R_C = 4k\Omega$, $R_L = 4k\Omega$, και έχει πολωθεί ώστε $r'_e = 20\Omega$. Ο αντιστάτης εκπομπού παρακάμπτεται πλήρως. Υπολογίστε το κέρδος τάσης.
+**Λύση:**
+Πρώτα, βρίσκουμε τη συνολική αντίσταση συλλέκτη AC:
 $$ r_C = R_C || R_L = \frac{4k\Omega \times 4k\Omega}{4k\Omega + 4k\Omega} = \frac{16}{8}k\Omega = 2k\Omega $$
-Now, calculate the voltage gain:
+Τώρα, υπολογίζουμε το κέρδος τάσης:
 $$ A_v = \frac{r_C}{r'_e} = \frac{2k\Omega}{20\Omega} = \frac{2000\Omega}{20\Omega} = 100 $$
 
-**Exercise 27:** How does the voltage gain change if the emitter resistor is *not* bypassed?
-**Solution:**
-If the emitter resistor ($R_E$) is not bypassed, it is part of the AC circuit. The total AC resistance in the emitter circuit becomes $R_E + r'_e$. The voltage gain formula is modified to:
+**Άσκηση 27:** Πώς αλλάζει το κέρδος τάσης αν ο αντιστάτης εκπομπού *δεν* παρακάμπτεται;
+**Λύση:**
+Αν ο αντιστάτης εκπομπού ($R_E$) δεν παρακάμπτεται, αποτελεί μέρος του κυκλώματος AC. Η συνολική αντίσταση AC στο κύκλωμα εκπομπού γίνεται $R_E + r'_e$. Ο τύπος του κέρδους τάσης τροποποιείται ως:
 $$ A_v = \frac{r_C}{R_E + r'_e} $$
-Since the denominator is now much larger, the voltage gain is significantly reduced. This is a form of negative feedback, which increases stability and input impedance at the cost of lower gain.
+Εφόσον ο παρονομαστής είναι τώρα πολύ μεγαλύτερος, το κέρδος τάσης μειώνεται σημαντικά. Αυτό αποτελεί μια μορφή αρνητικής ανάδρασης, η οποία αυξάνει τη σταθερότητα και τη διεισδυτικότητα εισόδου (input impedance) με κόστος χαμηλότερου κέρδους.
 
-**Exercise 28:** For the amplifier in Exercise 26 ($r_C = 2k\Omega$, $r'_e = 20\Omega$), if an unbypassed emitter resistor of $R_E = 180\Omega$ is added, what is the new voltage gain?
-**Solution:**
+**Άσκηση 28:** Για τον ενισχυτή της Άσκησης 26 ($r_C = 2k\Omega$, $r'_e = 20\Omega$), αν προστεθεί ένας μη παρακαμπτόμενος αντιστάτης εκπομπού $R_E = 180\Omega$, ποιο είναι το νέο κέρδος τάσης;
+**Λύση:**
 $$ A_v = \frac{r_C}{R_E + r'_e} = \frac{2k\Omega}{180\Omega + 20\Omega} = \frac{2000\Omega}{200\Omega} = 10 $$
-The gain drops from 100 to 10.
+Το κέρδος πέφτει από 100 σε 10.
 
-**Exercise 29:** What is the input impedance of a common-emitter amplifier with voltage-divider bias and a bypassed emitter resistor?
-**Solution:**
-The input impedance of the stage ($Z_{in(stage)}$) is the parallel combination of the biasing resistors ($R_1$ and $R_2$) and the input impedance looking into the base of the transistor ($\beta r'_e$).
+**Άσκηση 29:** Ποια είναι η διεισδυτικότητα εισόδου ενός ενισχυτή κοινού εκπομπού με πόλωση διαχωριστή τάσης και παρακαμπτόμενο αντιστάτη εκπομπού;
+**Λύση:**
+Η διεισδυτικότητα εισόδου του σταδίου ($Z_{in(stage)}$) είναι ο παράλληλος συνδυασμός των αντιστατών πόλωσης ($R_1$ και $R_2$) και της διεισδυτικότητας εισόδου κοιτάζοντας στη βάση του τρανζίστορ ($\beta r'_e$).
 $$ Z_{in(stage)} = R_1 || R_2 || (\beta r'_e) $$
 
-**Exercise 30:** A common-emitter amplifier has $R_1 = 10k\Omega$, $R_2 = 2.2k\Omega$, $\beta = 150$, and $r'_e = 15\Omega$. Calculate the input impedance of the stage.
-**Solution:**
-First, find the input impedance at the base:
+**Άσκηση 30:** Ένας ενισχυτής κοινού εκπομπού έχει $R_1 = 10k\Omega$, $R_2 = 2.2k\Omega$, $\beta = 150$, και $r'_e = 15\Omega$. Υπολογίστε τη διεισδυτικότητα εισόδου του σταδίου.
+**Λύση:**
+Πρώτα, βρίσκουμε τη διεισδυτικότητα εισόδου στη βάση:
 $$ Z_{in(base)} = \beta r'_e = 150 \times 15\Omega = 2250\Omega = 2.25k\Omega $$
-Next, find the parallel combination of the biasing resistors:
+Στη συνέχεια, βρίσκουμε τον παράλληλο συνδυασμό των αντιστατών πόλωσης:
 $$ R_{1,2} = R_1 || R_2 = \frac{10k\Omega \times 2.2k\Omega}{10k\Omega + 2.2k\Omega} \approx 1.8k\Omega $$
-Finally, find the total input impedance:
+Τέλος, βρίσκουμε τη συνολική διεισδυτικότητα εισόδου:
 $$ Z_{in(stage)} = R_{1,2} || Z_{in(base)} = \frac{1.8k\Omega \times 2.25k\Omega}{1.8k\Omega + 2.25k\Omega} \approx \frac{4.05}{4.05}k\Omega = 1k\Omega $$

@@ -1,187 +1,187 @@
-# Electronics Exercises Part 1: Circuits and Diodes
+# Ασκήσεις Ηλεκτρονικής Μέρος 1: Κυκλώματα και Δίοδοι
 
-This file contains 30 solved exercises covering fundamental electronics concepts, including Ohm's Law, Kirchhoff's Laws, circuit theorems, and diode characteristics and applications.
+Αυτό το αρχείο περιέχει 30 λυμένες ασκήσεις που καλύπτουν θεμελιώδεις έννοιες της ηλεκτρονικής, συμπεριλαμβανομένων του Νόμου του Ohm, των Νόμων του Kirchhoff, των θεωρημάτων κυκλωμάτων, καθώς και των χαρακτηριστικών και εφαρμογών των διόδων.
 
 ---
 
-### Ohm's Law and Resistance
+### Νόμος του Ohm και Αντίσταση
 
-**Exercise 1:** A resistor has a voltage of 12V across it and a current of 3mA flowing through it. What is its resistance?
-**Solution:**
-Using Ohm's Law, $V = IR$. We can rearrange to solve for resistance: $R = V/I$.
+**Άσκηση 1:** Ένας αντιστάτης έχει τάση 12V στα άκρα του και ρεύμα 3mA να διαρρέει μέσω αυτού. Ποια είναι η αντίστασή του;
+**Λύση:**
+Χρησιμοποιώντας τον Νόμο του Ohm, $V = IR$. Μπορούμε να αναδιατάξουμε για να λύσουμε ως προς την αντίσταση: $R = V/I$.
 $$ R = \frac{12V}{3 \times 10^{-3}A} = 4000\Omega = 4k\Omega $$
 
-**Exercise 2:** Explain the difference between resistors connected in series and in parallel. How is the total resistance calculated in each case?
-**Solution:**
-- **Series Connection:** Resistors are connected end-to-end. The same current flows through all of them. The total resistance is the sum of individual resistances: $R_{total} = R_1 + R_2 + ... + R_n$.
-- **Parallel Connection:** Resistors are connected across the same two points. The voltage across each resistor is the same. The reciprocal of the total resistance is the sum of the reciprocals of individual resistances: $\frac{1}{R_{total}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$.
+**Άσκηση 2:** Εξηγήστε τη διαφορά μεταξύ αντιστατών συνδεδεμένων σε σειρά και παράλληλα. Πώς υπολογίζεται η συνολική αντίσταση σε κάθε περίπτωση;
+**Λύση:**
+- **Σύνδεση σε Σειρά:** Οι αντιστάτες συνδέονται ο ένας μετά τον άλλο. Το ίδιο ρεύμα διαρρέει όλους τους αντιστάτες. Η συνολική αντίσταση είναι το άθροισμα των επιμέρους αντιστάσεων: $R_{total} = R_1 + R_2 + ... + R_n$.
+- **Παράλληλη Σύνδεση:** Οι αντιστάτες συνδέονται στα ίδια δύο σημεία. Η τάση σε κάθε αντιστάτη είναι η ίδια. Το αντίστροφο της συνολικής αντίστασης είναι το άθροισμα των αντιστρόφων των επιμέρους αντιστάσεων: $\frac{1}{R_{total}} = \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n}$.
 
-**Exercise 3:** Three resistors, $R_1 = 100\Omega$, $R_2 = 200\Omega$, and $R_3 = 300\Omega$, are connected in series to a 60V source. What is the current flowing through the circuit?
-**Solution:**
-First, calculate the total series resistance:
+**Άσκηση 3:** Τρεις αντιστάτες, $R_1 = 100\Omega$, $R_2 = 200\Omega$, και $R_3 = 300\Omega$, συνδέονται σε σειρά με μια πηγή 60V. Ποιο είναι το ρεύμα που διαρρέει το κύκλωμα;
+**Λύση:**
+Πρώτα, υπολογίζουμε τη συνολική αντίσταση σειράς:
 $$ R_{total} = R_1 + R_2 + R_3 = 100\Omega + 200\Omega + 300\Omega = 600\Omega $$
-Then, use Ohm's Law to find the current:
+Στη συνέχεια, χρησιμοποιούμε τον Νόμο του Ohm για να βρούμε το ρεύμα:
 $$ I = \frac{V}{R_{total}} = \frac{60V}{600\Omega} = 0.1A = 100mA $$
 
-**Exercise 4:** The same three resistors from Exercise 3 ($R_1 = 100\Omega$, $R_2 = 200\Omega$, $R_3 = 300\Omega$) are now connected in parallel to a 60V source. What is the total current drawn from the source?
-**Solution:**
-In a parallel circuit, the voltage across each resistor is 60V. We can find the current through each resistor and sum them up.
+**Άσκηση 4:** Οι ίδιοι τρεις αντιστάτες της Άσκησης 3 ($R_1 = 100\Omega$, $R_2 = 200\Omega$, $R_3 = 300\Omega$) συνδέονται τώρα παράλληλα με μια πηγή 60V. Ποιο είναι το συνολικό ρεύμα που αντλείται από την πηγή;
+**Λύση:**
+Σε ένα παράλληλο κύκλωμα, η τάση σε κάθε αντιστάτη είναι 60V. Μπορούμε να βρούμε το ρεύμα μέσω κάθε αντιστάτη και να τα αθροίσουμε.
 $$ I_1 = \frac{V}{R_1} = \frac{60V}{100\Omega} = 0.6A $$
 $$ I_2 = \frac{V}{R_2} = \frac{60V}{200\Omega} = 0.3A $$
 $$ I_3 = \frac{V}{R_3} = \frac{60V}{300\Omega} = 0.2A $$
-The total current is the sum of the individual currents:
+Το συνολικό ρεύμα είναι το άθροισμα των επιμέρους ρευμάτων:
 $$ I_{total} = I_1 + I_2 + I_3 = 0.6A + 0.3A + 0.2A = 1.1A $$
 
-**Exercise 5:** What is a voltage divider and what is its primary purpose? Provide the general formula for a simple two-resistor voltage divider.
-**Solution:**
-A voltage divider is a simple linear circuit that produces an output voltage ($V_{out}$) that is a fraction of its input voltage ($V_{in}$). It is made by connecting two or more resistors in series. Its primary purpose is to scale down a voltage. For a simple divider with two series resistors, $R_1$ and $R_2$, the output voltage across $R_2$ is given by:
+**Άσκηση 5:** Τι είναι ένας διαχωριστής τάσης (voltage divider) και ποιος είναι ο κύριος σκοπός του; Δώστε τον γενικό τύπο για έναν απλό διαχωριστή τάσης με δύο αντιστάτες.
+**Λύση:**
+Ένας διαχωριστής τάσης είναι ένα απλό γραμμικό κύκλωμα που παράγει μια τάση εξόδου ($V_{out}$) η οποία αποτελεί κλάσμα της τάσης εισόδου ($V_{in}$). Κατασκευάζεται συνδέοντας δύο ή περισσότερους αντιστάτες σε σειρά. Ο κύριος σκοπός του είναι η κλιμάκωση μιας τάσης προς τα κάτω. Για έναν απλό διαχωριστή με δύο αντιστάτες σε σειρά, $R_1$ και $R_2$, η τάση εξόδου στα άκρα του $R_2$ δίνεται από τον τύπο:
 $$ V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2} $$
 
 ---
 
-### Kirchhoff's Laws
+### Νόμοι του Kirchhoff
 
-**Exercise 6:** State Kirchhoff's Current Law (KCL).
-**Solution:**
-Kirchhoff's Current Law (KCL) states that the algebraic sum of currents entering a node (or junction) is zero. This means that the total current flowing into a node must equal the total current flowing out of that node. It is based on the principle of conservation of charge.
+**Άσκηση 6:** Διατυπώστε τον Νόμο Ρευμάτων του Kirchhoff (KCL).
+**Λύση:**
+Ο Νόμος Ρευμάτων του Kirchhoff (KCL) διατυπώνει ότι το αλγεβρικό άθροισμα των ρευμάτων που εισέρχονται σε έναν κόμβο (ή σημείο σύνδεσης) είναι μηδέν. Αυτό σημαίνει ότι το συνολικό ρεύμα που εισέρχεται σε έναν κόμβο πρέπει να ισούται με το συνολικό ρεύμα που εξέρχεται από τον κόμβο. Βασίζεται στην αρχή της διατήρησης του φορτίου.
 $$ \sum_{k=1}^{n} I_k = 0 $$
 
-**Exercise 7:** State Kirchhoff's Voltage Law (KVL).
-**Solution:**
-Kirchhoff's Voltage Law (KVL) states that the algebraic sum of all voltages around any closed loop in a circuit is equal to zero. This means the sum of voltage drops equals the sum of voltage rises. It is based on the principle of conservation of energy.
+**Άσκηση 7:** Διατυπώστε τον Νόμο Τάσεων του Kirchhoff (KVL).
+**Λύση:**
+Ο Νόμος Τάσεων του Kirchhoff (KVL) διατυπώνει ότι το αλγεβρικό άθροισμα όλων των τάσεων σε οποιονδήποτε κλειστό βρόχο ενός κυκλώματος ισούται με το μηδέν. Αυτό σημαίνει ότι το άθροισμα των πτώσεων τάσης ισούται με το άθροισμα των αναβάσεων τάσης. Βασίζεται στην αρχή της διατήρησης της ενέργειας.
 $$ \sum_{k=1}^{n} V_k = 0 $$
 
-**Exercise 8:** At a node, two currents are entering: $I_1 = 2A$ and $I_2 = 3A$. One current is leaving: $I_3 = 1A$. What is the fourth current, $I_4$, and is it entering or leaving the node?
-**Solution:**
-According to KCL, the sum of currents entering equals the sum of currents leaving. Let's assume $I_4$ is leaving.
+**Άσκηση 8:** Σε έναν κόμβο, δύο ρεύματα εισέρχονται: $I_1 = 2A$ και $I_2 = 3A$. Ένα ρεύμα εξέρχεται: $I_3 = 1A$. Ποιο είναι το τέταρτο ρεύμα, $I_4$, και εισέρχεται ή εξέρχεται του κόμβου;
+**Λύση:**
+Σύμφωνα με τον KCL, το άθροισμα των ρευμάτων εισόδου ισούται με το άθροισμα των ρευμάτων εξόδου. Έστω ότι το $I_4$ εξέρχεται.
 $$ I_{in} = I_1 + I_2 = 2A + 3A = 5A $$
 $$ I_{out} = I_3 + I_4 = 1A + I_4 $$
-Setting $I_{in} = I_{out}$:
+Θέτοντας $I_{in} = I_{out}$:
 $$ 5A = 1A + I_4 \implies I_4 = 4A $$
-Since the result is positive, our assumption was correct. $I_4$ is 4A, leaving the node.
+Εφόσον το αποτέλεσμα είναι θετικό, η υπόθεσή μας ήταν σωστή. Το $I_4$ είναι 4A, εξερχόμενο του κόμβου.
 
-**Exercise 9:** A simple loop contains a 9V battery and two resistors, $R_1$ and $R_2$. The voltage drop across $R_1$ is measured to be 4V. What is the voltage drop across $R_2$?
-**Solution:**
-According to KVL, the sum of voltages in a closed loop is zero. Let the battery be a voltage rise ($+9V$) and the resistors be voltage drops ($-V_{R1}$, $-V_{R2}$).
+**Άσκηση 9:** Ένας απλός βρόχος περιέχει μια μπαταρία 9V και δύο αντιστάτες, $R_1$ και $R_2$. Η πτώση τάσης στα άκρα του $R_1$ μετράται ίση με 4V. Ποια είναι η πτώση τάσης στα άκρα του $R_2$;
+**Λύση:**
+Σύμφωνα με τον KVL, το άθροισμα των τάσεων σε έναν κλειστό βρόχο είναι μηδέν. Έστω η μπαταρία ως αναβάση τάσης ($+9V$) και οι αντιστάτες ως πτώσεις τάσης ($-V_{R1}$, $-V_{R2}$).
 $$ 9V - V_{R1} - V_{R2} = 0 $$
 $$ 9V - 4V - V_{R2} = 0 $$
 $$ 5V - V_{R2} = 0 \implies V_{R2} = 5V $$
-The voltage drop across $R_2$ is 5V.
+Η πτώση τάσης στα άκρα του $R_2$ είναι 5V.
 
-**Exercise 10:** Why are Kirchhoff's laws fundamental to circuit analysis?
-**Solution:**
-Kirchhoff's laws are fundamental because they provide a systematic way to analyze complex circuits that cannot be simplified to simple series or parallel combinations. KCL allows us to relate currents at nodes, and KVL allows us to relate voltages in loops. Together, they form the basis for advanced analysis techniques like mesh analysis and nodal analysis, enabling the calculation of all currents and voltages in any linear circuit.
+**Άσκηση 10:** Γιατί οι νόμοι του Kirchhoff είναι θεμελιώδεις για την ανάλυση κυκλωμάτων;
+**Λύση:**
+Οι νόμοι του Kirchhoff είναι θεμελιώδεις διότι παρέχουν έναν συστηματικό τρόπο ανάλυσης πολύπλοκων κυκλωμάτων που δεν μπορούν να απλοποιηθούν σε απλούς συνδυασμούς σειράς ή παράλληλης σύνδεσης. Ο KCL μας επιτρέπει να συσχετίζουμε ρεύματα σε κόμβους, και ο KVL μας επιτρέπει να συσχετίζουμε τάσεις σε βρόχους. Μαζί, αποτελούν τη βάση για προχωρημένες τεχνικές ανάλυσης όπως η ανάλυση βροχών (mesh analysis) και η ανάλυση κόμβων (nodal analysis), καθιστώντας δυνατόν τον υπολογισμό όλων των ρευμάτων και τάσεων σε οποιοδήποτε γραμμικό κύκλωμα.
 
 ---
 
-### Thevenin's and Norton's Theorems
+### Θεωρήματα Thevenin και Norton
 
-**Exercise 11:** What is the purpose of Thevenin's theorem? Describe the Thevenin equivalent circuit.
-**Solution:**
-Thevenin's theorem simplifies a complex linear circuit into a simple equivalent circuit. This is useful for analyzing the circuit's behavior with respect to a load. The Thevenin equivalent circuit consists of a single voltage source ($V_{th}$) in series with a single resistor ($R_{th}$).
+**Άσκηση 11:** Ποιος είναι ο σκοπός του θεωρήματος Thevenin; Περιγράψτε το ισοδύναμο κύκλωμα Thevenin.
+**Λύση:**
+Το θεώρημα Thevenin απλοποιεί ένα πολύπλοκο γραμμικό κύκλωμα σε ένα απλό ισοδύναμο κύκλωμα. Αυτό είναι χρήσιμο για την ανάλυση της συμπεριφοράς του κυκλώματος ως προς ένα φορτίο. Το ισοδύναμο κύκλωμα Thevenin αποτελείται από μια μοναδική πηγή τάσης ($V_{th}$) σε σειρά με μια μοναδική αντίσταση ($R_{th}$).
 
-**Exercise 12:** How is the Thevenin voltage ($V_{th}$) calculated?
-**Solution:**
-The Thevenin voltage ($V_{th}$) is the open-circuit voltage at the terminals where the load is to be connected. To calculate it, you remove the load from the circuit and calculate the voltage across those open terminals.
+**Άσκηση 12:** Πώς υπολογίζεται η τάση Thevenin ($V_{th}$);
+**Λύση:**
+Η τάση Thevenin ($V_{th}$) είναι η τάση ανοικτοκυκλώματος (open-circuit voltage) στα άκρα όπου πρόκειται να συνδεθεί το φορτίο. Για να την υπολογίσετε, αφαιρείτε το φορτίο από το κύκλωμα και υπολογίζετε την τάση στα εν λόγω ανοικτά άκρα.
 
-**Exercise 13:** How is the Thevenin resistance ($R_{th}$) calculated?
-**Solution:**
-The Thevenin resistance ($R_{th}$) is the equivalent resistance of the circuit looking back from the load terminals. To calculate it, you first deactivate all independent sources (voltage sources are replaced by short circuits, and current sources are replaced by open circuits) and then calculate the total resistance between the terminals.
+**Άσκηση 13:** Πώς υπολογίζεται η αντίσταση Thevenin ($R_{th}$);
+**Λύση:**
+Η αντίσταση Thevenin ($R_{th}$) είναι η ισοδύναμη αντίσταση του κυκλώματος κοιτάζοντας προς τα πίσω από τα άκρα του φορτίου. Για να την υπολογίσετε, απενεργοποιείτε πρώτα όλες τις ανεξάρτητες πηγές (οι πηγές τάσης αντικαθίστανται με βραχυκυκλώματα και οι πηγές ρεύματος με ανοικτά κυκλώματα) και στη συνέχεια υπολογίζετε τη συνολική αντίσταση μεταξύ των ακρών.
 
-**Exercise 14:** Describe the Norton equivalent circuit and its relationship to the Thevenin equivalent.
-**Solution:**
-The Norton equivalent circuit is another simplification, consisting of a single current source ($I_N$) in parallel with a single resistor ($R_N$). The Norton resistance ($R_N$) is identical to the Thevenin resistance ($R_{th}$). The Norton current ($I_N$) is the short-circuit current at the load terminals and can be calculated from the Thevenin equivalent as:
+**Άσκηση 14:** Περιγράψτε το ισοδύναμο κύκλωμα Norton και τη σχέση του με το ισοδύναμο Thevenin.
+**Λύση:**
+Το ισοδύναμο κύκλωμα Norton είναι μια άλλη απλοποίηση, που αποτελείται από μια μοναδική πηγή ρεύματος ($I_N$) σε παράλληλη σύνδεση με μια μοναδική αντίσταση ($R_N$). Η αντίσταση Norton ($R_N$) είναι ταυτόσημη με την αντίσταση Thevenin ($R_{th}$). Το ρεύμα Norton ($I_N$) είναι το ρεύμα βραχυκυκλώματος στα άκρα του φορτίου και μπορεί να υπολογιστεί από το ισοδύναμο Thevenin ως:
 $$ I_N = \frac{V_{th}}{R_{th}} $$
 
-**Exercise 15:** A circuit is simplified to a Thevenin equivalent with $V_{th} = 10V$ and $R_{th} = 50\Omega$. What is the corresponding Norton equivalent circuit?
-**Solution:**
-The Norton resistance is the same as the Thevenin resistance:
+**Άσκηση 15:** Ένα κύκλωμα απλοποιείται σε ένα ισοδύναμο Thevenin με $V_{th} = 10V$ και $R_{th} = 50\Omega$. Ποιο είναι το αντίστοιχο ισοδύναμο κύκλωμα Norton;
+**Λύση:**
+Η αντίσταση Norton είναι ίδια με την αντίσταση Thevenin:
 $$ R_N = R_{th} = 50\Omega $$
-The Norton current is:
+Το ρεύμα Norton είναι:
 $$ I_N = \frac{V_{th}}{R_{th}} = \frac{10V}{50\Omega} = 0.2A = 200mA $$
-The Norton equivalent is a 200mA current source in parallel with a $50\Omega$ resistor.
+Το ισοδύναμο Norton είναι μια πηγή ρεύματος 200mA σε παράλληλη σύνδεση με μια αντίσταση $50\Omega$.
 
 ---
 
-### Diodes and Applications
+### Δίοδοι και Εφαρμογές
 
-**Exercise 16:** What is an ideal diode, and how does it behave under forward and reverse bias?
-**Solution:**
-An ideal diode is a theoretical two-terminal electronic component.
-- **Forward Bias:** It acts as a perfect conductor (a short circuit) with zero voltage drop across it. It allows unlimited current to flow.
-- **Reverse Bias:** It acts as a perfect insulator (an open circuit), allowing no current to flow. It can withstand any amount of reverse voltage.
+**Άσκηση 16:** Τι είναι μια ιδανική δίοδος και πώς συμπεριφέρεται υπό ορθή και ανάστροφη πόλωση;
+**Λύση:**
+Μια ιδανική δίοδος είναι ένα θεωρητικό ηλεκτρονικό εξάρτημα δύο ακροδεκτών.
+- **Ορθή Πόλωση:** Λειτουργεί ως τέλειος αγωγός (βραχυκύκλωμα) με μηδενική πτώση τάσης στα άκρα της. Επιτρέπει την απεριόριστη ροή ρεύματος.
+- **Ανάστροφη Πόλωση:** Λειτουργεί ως τέλειος μονωτής (ανοικτό κύκλωμα), μη επιτρέποντας τη ροή ρεύματος. Μπορεί να αντέξει οποιαδήποτε ανάστροφη τάση.
 
-**Exercise 17:** How does a practical silicon diode differ from an ideal diode in forward bias?
-**Solution:**
-A practical silicon diode requires a minimum forward voltage, called the forward voltage drop or threshold voltage, to begin conducting. For silicon diodes, this is approximately 0.7V. Below this voltage, it conducts very little current. Unlike an ideal diode, it does not act as a perfect short circuit and has a small internal resistance.
+**Άσκηση 17:** Πώς διαφέρει μια πραγματική δίοδος πυριτίου από μια ιδανική δίοδο σε ορθή πόλωση;
+**Λύση:**
+Μια πραγματική δίοδος πυριτίου απαιτεί μια ελάχιστη τάση ορθής πόλωσης, γνωστή ως πτώση τάσης ορθής πόλωσης ή τάση κατωφλίου, για να αρχίσει να αγωγιμοποιείται. Για διόδους πυριτίου, αυτή είναι περίπου 0.7V. Κάτω από αυτή την τάση, αγωγιμοποιείται με πολύ μικρό ρεύμα. Σε αντίθεση με την ιδανική δίοδο, δεν λειτουργεί ως τέλειο βραχυκύκλωμα και έχει μια μικρή εσωτερική αντίσταση.
 
-**Exercise 18:** A 5V source is connected in series with a $1k\Omega$ resistor and an ideal diode. If the diode is forward-biased, what is the current in the circuit?
-**Solution:**
-Since the diode is ideal and forward-biased, it acts as a short circuit. The only resistance in the circuit is the $1k\Omega$ resistor.
+**Άσκηση 18:** Μια πηγή 5V συνδέεται σε σειρά με έναν αντιστάτη $1k\Omega$ και μια ιδανική δίοδο. Αν η δίοδος είναι ορθά πολωμένη, ποιο είναι το ρεύμα στο κύκλωμα;
+**Λύση:**
+Εφόσον η δίοδος είναι ιδανική και ορθά πολωμένη, λειτουργεί ως βραχυκύκλωμα. Η μοναδική αντίσταση στο κύκλωμα είναι ο αντιστάτης $1k\Omega$.
 $$ I = \frac{V}{R} = \frac{5V}{1k\Omega} = 5mA $$
 
-**Exercise 19:** If the diode in Exercise 18 is reversed (reverse-biased), what is the current?
-**Solution:**
-An ideal reverse-biased diode acts as an open circuit. No current can flow.
+**Άσκηση 19:** Αν η δίοδος στην Άσκηση 18 αντιστραφεί (ανάστροφη πόλωση), ποιο είναι το ρεύμα;
+**Λύση:**
+Μια ιδανική ανάστροφα πολωμένη δίοδος λειτουργεί ως ανοικτό κύκλωμα. Κανένα ρεύμα δεν μπορεί να ρέει.
 $$ I = 0A $$
 
-**Exercise 20:** A 12V source is connected to a series combination of a $2k\Omega$ resistor and a practical silicon diode (forward-biased). What is the approximate current?
-**Solution:**
-A practical silicon diode has a forward voltage drop of about 0.7V. This voltage is dropped across the diode, leaving the rest for the resistor.
+**Άσκηση 20:** Μια πηγή 12V συνδέεται σε σειριακό συνδυασμό ενός αντιστάτη $2k\Omega$ και μιας πραγματικής διόδου πυριτίου (ορθά πολωμένης). Ποιο είναι το κατά προσέγγιση ρεύμα;
+**Λύση:**
+Μια πραγματική δίοδος πυριτίου έχει πτώση τάσης ορθής πόλωσης περίπου 0.7V. Αυτή η τάση αφαιρείται στα άκρα της διόδου, αφήνοντας το υπόλοιπο για τον αντιστάτη.
 $$ V_R = V_{source} - V_{diode} = 12V - 0.7V = 11.3V $$
-The current through the resistor (and the circuit) is:
+Το ρεύμα μέσω του αντιστάτη (και του κυκλώματος) είναι:
 $$ I = \frac{V_R}{R} = \frac{11.3V}{2k\Omega} = 5.65mA $$
 
-**Exercise 21:** What is a Zener diode and what is its primary application?
-**Solution:**
-A Zener diode is a special type of diode designed to reliably operate in its reverse breakdown region. When a reverse voltage reaches the Zener voltage ($V_Z$), the diode starts conducting current while maintaining a nearly constant voltage across it. Its primary application is as a voltage regulator, providing a stable reference voltage.
+**Άσκηση 21:** Τι είναι μια δίοδος Zener και ποια είναι η κύρια εφαρμογή της;
+**Λύση:**
+Μια δίοδος Zener είναι ένα ειδικό είδος διόδου σχεδιασμένο να λειτουργεί αξιόπιστα στην περιοχή ανάστροφης θρυμμάτωσής (reverse breakdown) της. Όταν μια ανάστροφη τάση φτάσει την τάση Zener ($V_Z$), η δίοδος αρχίζει να αγωγιμοποιείται ενώ διατηρεί μια σχεδόν σταθερή τάση στα άκρα της. Η κύρια εφαρμογή της είναι ως σταθεροποιητής τάσης, παρέχοντας μια σταθερή τάση αναφοράς.
 
-**Exercise 22:** A Zener diode with $V_Z = 5.1V$ is used in a simple regulator circuit. If the input voltage is 12V and the series resistor is $1k\Omega$, what is the current through the series resistor?
-**Solution:**
-The Zener diode maintains a constant voltage of 5.1V across itself (and any parallel load). The voltage across the series resistor is the difference between the input voltage and the Zener voltage.
+**Άσκηση 22:** Μια δίοδος Zener με $V_Z = 5.1V$ χρησιμοποιείται σε ένα απλό κύκλωμα σταθεροποιητή. Αν η τάση εισόδου είναι 12V και ο σειριακός αντιστάτης είναι $1k\Omega$, ποιο είναι το ρεύμα μέσω του σειριακού αντιστάτη;
+**Λύση:**
+Η δίοδος Zener διατηρεί μια σταθερή τάση 5.1V στα άκρα της (και σε οποιοδήποτε παράλληλο φορτίο). Η τάση στα άκρα του σειριακού αντιστάτη είναι η διαφορά μεταξύ της τάσης εισόδου και της τάσης Zener.
 $$ V_R = V_{in} - V_Z = 12V - 5.1V = 6.9V $$
-The current through the resistor is:
+Το ρεύμα μέσω του αντιστάτη είναι:
 $$ I_R = \frac{V_R}{R} = \frac{6.9V}{1k\Omega} = 6.9mA $$
 
-**Exercise 23:** In the circuit from Exercise 22, if a load resistor draws 2mA, what is the current flowing through the Zener diode?
-**Solution:**
-The total current flowing through the series resistor ($I_R = 6.9mA$) splits between the Zener diode ($I_Z$) and the load ($I_L$).
-Using KCL: $I_R = I_Z + I_L$.
+**Άσκηση 23:** Στο κύκλωμα της Άσκησης 22, αν ένας αντιστάτης φορτίου αντλεί 2mA, ποιο είναι το ρεύμα που διαρρέει τη δίοδο Zener;
+**Λύση:**
+Το συνολικό ρεύμα που διαρρέει τον σειριακό αντιστάτη ($I_R = 6.9mA$) διαχωρίζεται μεταξύ της διόδου Zener ($I_Z$) και του φορτίου ($I_L$).
+Χρησιμοποιώντας τον KCL: $I_R = I_Z + I_L$.
 $$ 6.9mA = I_Z + 2mA $$
 $$ I_Z = 6.9mA - 2mA = 4.9mA $$
 
-**Exercise 24:** What happens if the input voltage to a Zener regulator circuit drops too low?
-**Solution:**
-If the input voltage drops to a point where the voltage across the Zener diode (as determined by the voltage divider of the series resistor and the load) is less than its Zener voltage ($V_Z$), the Zener diode will stop conducting in the breakdown region. It will behave like a regular reverse-biased diode (an open circuit). The circuit will no longer regulate, and the output voltage will drop and follow the input voltage.
+**Άσκηση 24:** Τι συμβαίνει αν η τάση εισόδου σε ένα κύκλωμα σταθεροποιητή Zener πέσει πολύ χαμηλά;
+**Λύση:**
+Αν η τάση εισόδου πέσει σε σημείο όπου η τάση στα άκρα της διόδου Zener (όπως καθορίζεται από τον διαχωριστή τάσης του σειριακού αντιστάτη και του φορτίου) είναι μικρότερη από την τάση Zener ($V_Z$) της, η δίοδος Zener θα σταματήσει να αγωγιμοποιείται στην περιοχή θρυμμάτωσης. Θα συμπεριφέρεται όπως μια κανονική ανάστροφα πολωμένη δίοδος (ανοικτό κύκλωμα). Το κύκλωμα δεν θα σταθεροποιεί πλέον, και η τάση εξόδου θα πέσει και θα ακολουθήσει την τάση εισόδου.
 
-**Exercise 25:** What is the purpose of a clipping circuit?
-**Solution:**
-A clipping circuit, also known as a limiter, is a circuit that uses diodes to prevent a signal's voltage from exceeding a certain level. It "clips off" the parts of the waveform that are above or below the specified voltage, effectively limiting the signal's amplitude.
+**Άσκηση 25:** Ποιος είναι ο σκοπός ενός κυκλώματος αποκοπής (clipping);
+**Λύση:**
+Ένα κύκλωμα αποκοπής, γνωστό επίσης ως περιοριστής (limiter), είναι ένα κύκλωμα που χρησιμοποιεί διόδους για να εμποδίζει την τάση ενός σήματος να υπερβαίνει ένα ορισμένο επίπεδο. «Αποκόπτει» τα τμήματα του κυματομορφήματος που βρίσκονται πάνω ή κάτω από την καθορισμένη τάση, περιορίζοντας αποτελεσματικά το πλάτος του σήματος.
 
 ---
 
-### Rectifiers
+### Ανορθωτές
 
-**Exercise 26:** What is rectification in electronics?
-**Solution:**
-Rectification is the process of converting alternating current (AC), which periodically reverses direction, into direct current (DC), which flows in only one direction. The electronic component that performs this conversion is called a rectifier.
+**Άσκηση 26:** Τι είναι η ανόρθωση στην ηλεκτρονική;
+**Λύση:**
+Η ανόρθωση είναι η διαδικασία μετατροπής του εναλλασσόμενου ρεύματος (AC), το οποίο αντιστρέφει περιοδικά κατεύθυνση, σε συνεχές ρεύμα (DC), το οποίο ρέει μόνο προς μία κατεύθυνση. Το ηλεκτρονικό εξάρτημα που εκτελεί αυτή τη μετατροπή ονομάζεται ανορθωτής.
 
-**Exercise 27:** Describe the output of a half-wave rectifier with a sinusoidal AC input. What is a major disadvantage of this type of rectifier?
-**Solution:**
-A half-wave rectifier allows only one half-cycle (either positive or negative) of the AC waveform to pass through to the output, while blocking the other half. The output is a pulsating DC signal. A major disadvantage is its inefficiency; it discards half of the input power, and the resulting DC is very choppy and difficult to smooth.
+**Άσκηση 27:** Περιγράψτε την έξοδο ενός ανορθωτή ημιανόρθωσης με ημιτονοειδή είσοδο AC. Ποιο είναι ένα κύριο μειονέκτημα αυτού του τύπου ανορθωτή;
+**Λύση:**
+Ένας ανορθωτής ημιανόρθωσης επιτρέπει μόνο στο μισό κύκλωμα (είτε θετικό είτε αρνητικό) του κυματομορφήματος AC να περάσει στην έξοδο, αποκλείοντας το άλλο μισό. Η έξοδος είναι ένα παλλόμενο σήμα DC. Ένα κύριο μειονέκτημα είναι η ανεπάρκειά του· απορρίπτει το μισό της ισχύος εισόδου, και το προκύπτον DC είναι πολύ τεμαχισμένο και δύσκολο να εξομαλυνθεί.
 
-**Exercise 28:** What is a full-wave rectifier, and how does it improve upon a half-wave rectifier?
-**Solution:**
-A full-wave rectifier converts both the positive and negative half-cycles of the AC input into a pulsating DC output. It does this by inverting the negative half-cycles. This makes it much more efficient than a half-wave rectifier, as it utilizes the entire input waveform. The resulting DC output has a higher average voltage and is easier to smooth.
+**Άσκηση 28:** Τι είναι ένας ανορθωτής πλήρους ανόρθωσης και πώς βελτιώνει τον ανορθωτή ημιανόρθωσης;
+**Λύση:**
+Ένας ανορθωτής πλήρους ανόρθωσης μετατρέπει τόσο τους θετικούς όσο και τους αρνητικούς ημικύκλους της εισόδου AC σε μια παλλόμενη έξοδο DC. Το πετυχαίνει αυτό αντιστρέφοντας τους αρνητικούς ημικύκλους. Αυτό τον καθιστά πολύ πιο αποδοτικό από έναν ανορθωτή ημιανόρθωσης, καθώς αξιοποιεί ολόκληρο το κυματομόρφημα εισόδου. Η προκύπτουσα έξοδος DC έχει υψηλότερη μέση τάση και είναι ευκολότερο να εξομαλυνθεί.
 
-**Exercise 29:** What is the role of a filter capacitor in a rectifier circuit?
-**Solution:**
-A filter capacitor is placed at the output of a rectifier to smooth the pulsating DC into a more constant DC voltage. It charges up during the peaks of the rectified waveform and then slowly discharges into the load when the rectified voltage drops. This action significantly reduces the voltage variation, known as ripple, in the output.
+**Άσκηση 29:** Ποιος είναι ο ρόλος ενός πυκνωτή φίλτρου σε ένα κύκλωμα ανορθωτή;
+**Λύση:**
+Ένας πυκνωτής φίλτρου τοποθετείται στην έξοδο ενός ανορθωτή για να εξομαλύνει το παλλόμενο DC σε μια πιο σταθερή τάση DC. Φορτίζεται κατά τη διάρκεια των κορυφών του ανορθωμένου κυματομορφήματος και στη συνέχεια εκφορτίζεται αργά στο φορτίο όταν η ανορθωμένη τάση πέσει. Αυτή η ενέργεια μειώνει σημαντικά τη μεταβολή της τάσης, γνωστή ως κυμάτωση (ripple), στην έξοδο.
 
-**Exercise 30:** What is "ripple voltage" in the context of a power supply? What factors determine its magnitude?
-**Solution:**
-Ripple voltage is the small, residual periodic variation of the DC voltage at the output of a rectifier after it has been filtered. It is an unwanted remnant of the original AC waveform. The magnitude of the ripple voltage is determined by:
-1.  **The filter capacitor's size (C):** A larger capacitor results in less ripple.
-2.  **The load current (I):** A larger load current (smaller load resistance) causes the capacitor to discharge faster, increasing the ripple.
-3.  **The frequency of the rectified signal (f):** A higher frequency (e.g., from a full-wave vs. half-wave rectifier) gives the capacitor less time to discharge, resulting in less ripple.
-The approximate formula is $V_{ripple} \approx \frac{I_{load}}{fC}$.
+**Άσκηση 30:** Τι είναι η «τάση κυμάτωσης» (ripple voltage) στο πλαίσιο ενός τροφοδοτικού; Ποιοι παράγοντες καθορίζουν το μέγεθός της;
+**Λύση:**
+Η τάση κυμάτωσης είναι η μικρή, υπολειμματική περιοδική μεταβολή της τάσης DC στην έξοδο ενός ανορθωτή μετά τη φίλτρανσή του. Είναι ένα ανεπιθύμητο κατάλοιπο του αρχικού κυματομορφήματος AC. Το μέγεθος της τάσης κυμάτωσης καθορίζεται από:
+1.  **Το μέγεθος του πυκνωτή φίλτρου (C):** Ένας μεγαλύτερος πυκνωτής έχει ως αποτέλεσμα μικρότερη κυμάτωση.
+2.  **Το ρεύμα φορτίου (I):** Ένα μεγαλύτερο ρεύμα φορτίου (μικρότερη αντίσταση φορτίου) προκαλεί ταχύτερη εκφόρτιση του πυκνωτή, αυξάνοντας την κυμάτωση.
+3.  **Τη συχνότητα του ανορθωμένου σήματος (f):** Μια υψηλότερη συχνότητα (π.χ., από έναν ανορθωτή πλήρους ανόρθωσης σε σχέση με ημιανόρθωση) δίνει στον πυκνωτή λιγότερο χρόνο για εκφόρτιση, με αποτέλεσμα μικρότερη κυμάτωση.
+Ο κατά προσέγγιση τύπος είναι $V_{ripple} \approx \frac{I_{load}}{fC}$.

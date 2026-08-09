@@ -1,21 +1,21 @@
-# Linear Algebra Exercises
+# Ασκήσεις Γραμμικής Άλγεβρας
 
-## Vectors and Matrices
+## Διανύσματα και Πίνακες
 
-1.  Create a 3x1 vector and a 1x3 vector. What is their product?
-2.  Create a 3x3 matrix. What is its transpose?
-3.  Create two 3x3 matrices. What is their sum and product?
+1.  Δημιουργήστε ένα διάνυσμα 3x1 και ένα διάνυσμα 1x3. Ποιο είναι το γινόμενό τους;
+2.  Δημιουργήστε έναν πίνακα 3x3. Ποιος είναι ο ανάστροφός του;
+3.  Δημιουργήστε δύο πίνακες 3x3. Ποιο είναι το άθροισμα και το γινόμενό τους;
 
-## Solving Linear Systems
+## Επίλυση Γραμμικών Συστημάτων
 
-1.  Solve the following system of linear equations:
+1.  Λύστε το ακόλουθο σύστημα γραμμικών εξισώσεων:
 
     ```
     2x + 3y = 8
     x - y = 1
     ```
 
-2.  Solve the following system of linear equations:
+2.  Λύστε το ακόλουθο σύστημα γραμμικών εξισώσεων:
 
     ```
     x + y + z = 6
@@ -23,16 +23,16 @@
     x + 2y - z = 2
     ```
 
-## Eigenvalues and Eigenvectors
+## Ιδιοτιμές και Ιδιοδιανύσματα
 
-1.  Find the eigenvalues and eigenvectors of the following matrix:
+1.  Βρείτε τις ιδιοτιμές και τα ιδιοδιανύσματα του ακόλουθου πίνακα:
 
     ```
     [2 1]
     [1 2]
     ```
 
-2.  Find the eigenvalues and eigenvectors of the following matrix:
+2.  Βρείτε τις ιδιοτιμές και τα ιδιοδιανύσματα του ακόλουθου πίνακα:
 
     ```
     [1 2 3]

@@ -1,47 +1,47 @@
-# 07_Dipolika_Transistors Documentation
+# 07_Dipolika_Transistors Τεκμηρίωση
 
-This lecture introduces the Bipolar Junction Transistor (BJT): its history, NPN and PNP types, terminal identification, operating principle, the three amplifier configurations, characteristic curves, operating regions, and key parameters ($\alpha$, $\beta$).
-
----
-
-## 1. Conceptual Foundation
-
-The transistor is a three-terminal semiconductor device that can amplify signals and act as a switch. By controlling a small base current, a much larger collector current can be regulated, enabling amplification. The BJT was invented at Bell Labs in 1948 (Bardeen, Brattain, Shockley -- Nobel Prize 1956) and revolutionized electronics.
+Αυτή η διάλεξη εισάγει το Διπολικό Τρανζίστορ Επαφής (BJT): την ιστορία του, τους τύπους NPN και PNP, τον προσδιορισμό ακροδεκτών, την αρχή λειτουργίας, τις τρεις διατάξεις ενισχυτή, τις χαρακτηριστικές καμπύλες, τις περιοχές λειτουργίας και τις βασικές παραμέτρους ($\alpha$, $\beta$).
 
 ---
 
-## 2. Formal Definition and Model
+## 1. Εννοιολογικό Θεμέλιο
 
-### 2.1 BJT Types
+Το τρανζίστορ είναι μια ημιαγωγική συσκευή τριών ακροδεκτών που μπορεί να ενισχύσει σήματα και να λειτουργήσει ως διακόπτης. Ελέγχοντας ένα μικρό ρεύμα βάσης, μπορεί να ρυθμιστεί ένα πολύ μεγαλύτερο ρεύμα συλλέκτη, επιτρέποντας την ενίσχυση. Το BJT εφευρέθηκε στα Bell Labs το 1948 (Bardeen, Brattain, Shockley -- Βραβείο Nobel 1956) και επανάστασε την ηλεκτρονική.
 
-| Type | Structure | Symbol |
+---
+
+## 2. Τυπικός Ορισμός και Μοντέλο
+
+### 2.1 Τύποι BJT
+
+| Τύπος | Δομή | Σύμβολο |
 |:-----|:----------|:-------|
-| NPN | N-P-N layers | Arrow points out at emitter |
-| PNP | P-N-P layers | Arrow points in at emitter |
+| NPN | Στρώματα N-P-N | Το βέλος δείχνει έξω στον εκπομπό |
+| PNP | Στρώματα P-N-P | Το βέλος δείχνει μέσα στον εκπομπό |
 
-### 2.2 Terminals
+### 2.2 Ακροδέκτες
 
-| Terminal | Symbol | Function |
+| Ακροδέκτης | Σύμβολο | Λειτουργία |
 |:---------|:-------|:---------|
-| Emitter | E | Heavily doped; emits charge carriers |
-| Base | B | Thin, lightly doped; controls current |
-| Collector | C | Collects charge carriers |
+| Εκπομπός | E | Έντονα εμβαπτισμένος· εκπέμπει φορείς φορτίου |
+| Βάση | B | Λεπτή, ελαφρά εμβαπτισμένη· ελέγχει το ρεύμα |
+| Συλλέκτης | C | Συλλέγει τους φορείς φορτίου |
 
-### 2.3 Terminal Identification
+### 2.3 Προσδιορισμός Ακροδεκτών
 
-- Dot on package: indicates collector.
-- Protrusion: indicates emitter.
-- Power transistors: metal case = collector.
-- Always consult the manufacturer's datasheet for pinout.
+- Τελεία στο περίβλημα: υποδηλώνει τον συλλέκτη.
+- Προεξοχή: υποδηλώνει τον εκπομπό.
+- Τρανζίστορ ισχύος: το μεταλλικό περίβλημα = συλλέκτης.
+- Να συμβουλεύεστε πάντα το φύλλο δεδομένων (datasheet) του κατασκευαστή για την ακολουθία ακροδεκτών.
 
-### 2.4 Operating Principle (NPN)
+### 2.4 Αρχή Λειτουργίας (NPN)
 
-1. Base-emitter junction: forward biased ($V_{BE} \approx 0.7\,\text{V}$).
-2. Base-collector junction: reverse biased.
-3. Electrons from emitter diffuse through the thin base into the collector.
-4. Base is thin and lightly doped -- most electrons reach the collector rather than recombining.
+1. Η επαφή βάσης-εκπομπού: σε ορθή πόλωση ($V_{BE} \approx 0.7\,\text{V}$).
+2. Η επαφή βάσης-συλλέκτη: σε ανάστροφη πόλωση.
+3. Τα ηλεκτρόνια από τον εκπομπό διαχέονται μέσω της λεπτής βάσης στον συλλέκτη.
+4. Η βάση είναι λεπτή και ελαφρά εμβαπτισμένη -- τα περισσότερα ηλεκτρόνια φτάνουν στον συλλέκτη αντί να ανασυνδυάζονται.
 
-**Key relationships:**
+**Βασικές σχέσεις:**
 
 $$
 I_E = I_C + I_B
@@ -55,50 +55,50 @@ $$
 I_E = (\beta + 1) I_B
 $$
 
-### 2.5 Current Gain Parameters
+### 2.5 Παράμετροι Ενίσχυσης Ρεύματος
 
-| Parameter | Definition | Relationship |
+| Παράμετρος | Ορισμός | Σχέση |
 |:----------|:-----------|:-------------|
-| $\beta_{DC}$ (or $h_{FE}$) | $I_C / I_B$ | $\beta = \alpha / (1 - \alpha)$ |
+| $\beta_{DC}$ (ή $h_{FE}$) | $I_C / I_B$ | $\beta = \alpha / (1 - \alpha)$ |
 | $\alpha_{DC}$ | $I_C / I_E$ | $\alpha = \beta / (\beta + 1)$ |
 | | | $\beta + 1 = 1 / (1 - \alpha)$ |
 
-Typical values: $\beta = 50$ to $300$, $\alpha = 0.9$ to $0.998$.
+Τυπικές τιμές: $\beta = 50$ έως $300$, $\alpha = 0.9$ έως $0.998$.
 
 ---
 
-## 3. Characteristic Curves and Operating Regions
+## 3. Χαρακτηριστικές Καμπύλες και Περιοχές Λειτουργίας
 
-### 3.1 Input (Base) Characteristics
+### 3.1 Χαρακτηριστικά Εισόδου (Βάσης)
 
-Plot of $I_B$ vs $V_{BE}$ for fixed $V_{CE}$. Shows diode-like exponential behavior.
+Γράφημα του $I_B$ ως προς το $V_{BE}$ για σταθερό $V_{CE}$. Εμφανίζει εκθετική συμπεριφορά παρόμοια με δίοδο.
 
-### 3.2 Output (Collector) Characteristics
+### 3.2 Χαρακτηριστικά Εξόδου (Συλλέκτη)
 
-Family of curves: $I_C$ vs $V_{CE}$ for various $I_B$ values.
+Οικογένεια καμπυλών: $I_C$ ως προς $V_{CE}$ για διάφορες τιμές $I_B$.
 
-### 3.3 Operating Regions
+### 3.3 Περιοχές Λειτουργίας
 
-| Region | BE Junction | BC Junction | Conditions |
+| Περιοχή | Επαφή BE | Επαφή BC | Συνθήκες |
 |:-------|:------------|:------------|:-----------|
-| Active (forward) | Forward biased | Reverse biased | $I_B > 0$, $V_{BC} < 0$ |
-| Saturation | Forward biased | Forward biased | $I_B > 0$, $V_{BC} > 0$ |
-| Cutoff | Reverse biased | Forward biased | $I_B < 0$ or $V_{BE} < V_T$ |
-| Breakdown | -- | -- | $V_{CE}$ too high (avalanche) |
+| Ενεργή (ορθή) | Ορθή πόλωση | Ανάστροφη πόλωση | $I_B > 0$, $V_{BC} < 0$ |
+| Κορεσμός | Ορθή πόλωση | Ορθή πόλωση | $I_B > 0$, $V_{BC} > 0$ |
+| Αποκοπή | Ανάστροφη πόλωση | Ορθή πόλωση | $I_B < 0$ ή $V_{BE} < V_T$ |
+| Θρυμματισμός | -- | -- | $V_{CE}$ πολύ υψηλό (χιονοστιβάδα) |
 
-**Active region:** $I_C = \beta I_B$ (amplification).
-**Cutoff:** $I_C = 0$ (open switch).
-**Saturation:** $V_{CE(sat)} \approx 0.2\,\text{V}$ (closed switch).
+**Ενεργή περιοχή:** $I_C = \beta I_B$ (ενίσχυση).
+**Αποκοπή:** $I_C = 0$ (ανοιχτός διακόπτης).
+**Κορεσμός:** $V_{CE(sat)} \approx 0.2\,\text{V}$ (κλειστός διακόπτης).
 
-### 3.4 Early Effect
+### 3.4 Φαινόμενο Early
 
-In the active region, $I_C$ increases slightly with $V_{CE}$ due to base width modulation.
+Στην ενεργή περιοχή, το $I_C$ αυξάνεται ελαφρώς με το $V_{CE}$ λόγω της διαμόρφωσης του πλάτους βάσης.
 
 $$
 i_C = I_S e^{v_{BE} / V_T} \left(1 + \frac{v_{CE}}{V_A}\right)
 $$
 
-Where $V_A$ is the Early voltage ($50-100\,\text{V}$ typically). Output resistance:
+Όπου το $V_A$ είναι η τάση Early (συνήθως $50-100\,\text{V}$). Η αντίσταση εξόδου:
 
 $$
 r_o = \frac{V_A}{I_C}
@@ -106,23 +106,23 @@ $$
 
 ---
 
-## 4. Three Amplifier Configurations
+## 4. Τρεις Διατάξεις Ενισχυτή
 
-| Configuration | Common Terminal | Input | Output | Characteristics |
+| Διάταξη | Κοινός Ακροδέκτης | Είσοδος | Έξοδος | Χαρακτηριστικά |
 |:--------------|:----------------|:------|:-------|:----------------|
-| Common Emitter | Emitter | Base | Collector | High voltage and current gain |
-| Common Base | Base | Emitter | Collector | Low input impedance, high voltage gain |
-| Common Collector | Collector | Base | Emitter | Unity voltage gain, high input impedance |
+| Κοινός Εκπομπός | Εκπομπός | Βάση | Συλλέκτης | Υψηλή ενίσχυση τάσης και ρεύματος |
+| Κοινή Βάση | Βάση | Εκπομπός | Συλλέκτης | Χαμηλή αντίσταση εισόδου, υψηλή ενίσχυση τάσης |
+| Κοινός Συλλέκτης | Συλλέκτης | Βάση | Εκπομπός | Ενίσχυση τάσης μονάδα, υψηλή αντίσταση εισόδου |
 
 ---
 
-## 5. Worked Examples
+## 5. Λυμένα Παραδείγματα
 
-### Exercise 1: Current Calculation -- NPN
+### Άσκηση 1: Υπολογισμός Ρεύματος -- NPN
 
-**Problem:** An NPN BJT has $\beta = 150$ and $I_B = 20\,\mu\text{A}$. Find $I_C$ and $I_E$.
+**Πρόβλημα:** Ένα NPN BJT έχει $\beta = 150$ και $I_B = 20\,\mu\text{A}$. Να βρεθούν τα $I_C$ και $I_E$.
 
-**Solution:**
+**Λύση:**
 
 $$
 I_C = \beta I_B = 150 \times 20 \times 10^{-6} = 3 \times 10^{-3} = 3\,\text{mA}
@@ -134,11 +134,11 @@ $$
 
 ---
 
-### Exercise 2: Alpha Calculation
+### Άσκηση 2: Υπολογισμός Άλφα
 
-**Problem:** A BJT has $\beta = 100$. Find $\alpha$.
+**Πρόβλημα:** Ένα BJT έχει $\beta = 100$. Να βρεθεί το $\alpha$.
 
-**Solution:**
+**Λύση:**
 
 $$
 \alpha = \frac{\beta}{\beta + 1} = \frac{100}{101} = 0.9901
@@ -146,11 +146,11 @@ $$
 
 ---
 
-### Exercise 3: Beta from Alpha
+### Άσκηση 3: Βήτα από Άλφα
 
-**Problem:** A BJT has $\alpha = 0.99$. Find $\beta$.
+**Πρόβλημα:** Ένα BJT έχει $\alpha = 0.99$. Να βρεθεί το $\beta$.
 
-**Solution:**
+**Λύση:**
 
 $$
 \beta = \frac{\alpha}{1 - \alpha} = \frac{0.99}{0.01} = 99
@@ -158,24 +158,24 @@ $$
 
 ---
 
-### Exercise 4: Region Determination
+### Άσκηση 4: Προσδιορισμός Περιοχής
 
-**Problem:** A BJT circuit has $V_{BE} = 0.7\,\text{V}$ and $V_{BC} = -2\,\text{V}$. In which region does the transistor operate?
+**Πρόβλημα:** Ένα κύκλωμα BJT έχει $V_{BE} = 0.7\,\text{V}$ και $V_{BC} = -2\,\text{V}$. Σε ποια περιοχή λειτουργεί το τρανζίστορ;
 
-**Solution:**
+**Λύση:**
 
-$V_{BE} = 0.7\,\text{V} > 0$: BE junction forward biased.
-$V_{BC} = -2\,\text{V} < 0$: BC junction reverse biased.
+$V_{BE} = 0.7\,\text{V} > 0$: η επαφή BE σε ορθή πόλωση.
+$V_{BC} = -2\,\text{V} < 0$: η επαφή BC σε ανάστροφη πόλωση.
 
-The transistor operates in the **active region**.
+Το τρανζίστορ λειτουργεί στην **ενεργή περιοχή**.
 
 ---
 
-### Exercise 5: Beta from Characteristic Curves
+### Άσκηση 5: Βήτα από Χαρακτηριστικές Καμπύλες
 
-**Problem:** From the output characteristics at $V_{CE} = 7.5\,\text{V}$, $I_C$ changes from $2.2\,\text{mA}$ to $3.2\,\text{mA}$ as $I_B$ changes from $20\,\mu\text{A}$ to $30\,\mu\text{A}$. Find $\beta_{AC}$.
+**Πρόβλημα:** Από τα χαρακτηριστικά εξόδου στο $V_{CE} = 7.5\,\text{V}$, το $I_C$ μεταβάλλεται από $2.2\,\text{mA}$ σε $3.2\,\text{mA}$ καθώς το $I_B$ μεταβάλλεται από $20\,\mu\text{A}$ σε $30\,\mu\text{A}$. Να βρεθεί το $\beta_{AC}$.
 
-**Solution:**
+**Λύση:**
 
 $$
 \beta_{AC} = \frac{\Delta I_C}{\Delta I_B} = \frac{3.2 - 2.2}{30 - 20} = \frac{1.0\,\text{mA}}{10\,\mu\text{A}} = \frac{0.001}{0.00001} = 100
@@ -183,11 +183,11 @@ $$
 
 ---
 
-### Exercise 6: DC Beta
+### Άσκηση 6: DC Βήτα
 
-**Problem:** At $V_{CE} = 7.5\,\text{V}$, $I_C = 2.7\,\text{mA}$, and $I_B = 25\,\mu\text{A}$. Find $\beta_{DC}$.
+**Πρόβλημα:** Στο $V_{CE} = 7.5\,\text{V}$, $I_C = 2.7\,\text{mA}$, και $I_B = 25\,\mu\text{A}$. Να βρεθεί το $\beta_{DC}$.
 
-**Solution:**
+**Λύση:**
 
 $$
 \beta_{DC} = \frac{I_C}{I_B} = \frac{2.7 \times 10^{-3}}{25 \times 10^{-6}} = 108
@@ -195,15 +195,15 @@ $$
 
 ---
 
-### Exercise 7: Transistor as Switch
+### Άσκηση 7: Τρανζίστορ ως Διακόπτης
 
-**Problem:** An NPN transistor with $\beta = 100$ is used as a switch with $V_{CC} = 12\,\text{V}$, $R_C = 1\,k\Omega$. Find the minimum $I_B$ to saturate the transistor.
+**Πρόβλημα:** Ένα NPN τρανζίστορ με $\beta = 100$ χρησιμοποιείται ως διακόπτης με $V_{CC} = 12\,\text{V}$, $R_C = 1\,k\Omega$. Να βρεθεί το ελάχιστο $I_B$ για τον κορεσμό του τρανζίστορ.
 
-**Solution:**
+**Λύση:**
 
-Saturation condition: $I_C = I_{C(sat)} = \frac{V_{CC}}{R_C} = \frac{12}{1000} = 12\,\text{mA}$
+Συνθήκη κορεσμού: $I_C = I_{C(sat)} = \frac{V_{CC}}{R_C} = \frac{12}{1000} = 12\,\text{mA}$
 
-Minimum base current for saturation:
+Ελάχιστο ρεύμα βάσης για κορεσμό:
 
 $$
 I_{B(min)} = \frac{I_{C(sat)}}{\beta} = \frac{12}{100} = 0.12\,\text{mA} = 120\,\mu\text{A}
@@ -211,11 +211,11 @@ $$
 
 ---
 
-### Exercise 8: Output Resistance (Early Effect)
+### Άσκηση 8: Αντίσταση Εξόδου (Φαινόμενο Early)
 
-**Problem:** A BJT has $V_A = 80\,\text{V}$ and operates at $I_C = 2\,\text{mA}$. Find the output resistance $r_o$.
+**Πρόβλημα:** Ένα BJT έχει $V_A = 80\,\text{V}$ και λειτουργεί σε $I_C = 2\,\text{mA}$. Να βρεθεί η αντίσταση εξόδου $r_o$.
 
-**Solution:**
+**Λύση:**
 
 $$
 r_o = \frac{V_A}{I_C} = \frac{80}{0.002} = 40,000\,\Omega = 40\,k\Omega
@@ -223,15 +223,15 @@ $$
 
 ---
 
-## 6. Connections and Cross-References
+## 6. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- The BJT's PN junctions rely on semiconductor theory (Lecture 03).
-- Transistor biasing circuits (Lecture 08) determine the Q-point.
-- Amplifier design (Lecture 09) uses BJT parameters from this lecture.
-- The $0.7\,\text{V}$ base-emitter voltage follows from PN junction behavior (Lecture 04).
+- Οι επαφές PN του BJT βασίζονται στην ημιαγωγική θεωρία (Διάλεξη 03).
+- Τα κυκλώματα πόλωσης τρανζίστορ (Διάλεξη 08) καθορίζουν το σημείο Q.
+- Ο σχεδιασμός ενισχυτή (Διάλεξη 09) χρησιμοποιεί τις παραμέτρους BJT από αυτή τη διάλεξη.
+- Η τάση βάσης-εκπομπού $0.7\,\text{V}$ προκύπτει από τη συμπεριφορά της επαφής PN (Διάλεξη 04).
 
 ---
 
-## Exam Tip: Identifying Operating Region
+## Συμβουλή Εξετάσεων: Προσδιορισμός Περιοχής Λειτουργίας
 
-To determine the transistor region, always follow this method: (1) assume active region, set $V_{BE} = 0.7\,\text{V}$. (2) Calculate $I_B$ and $V_{BC}$. (3) If $I_B > 0$ and $V_{BC} < 0$: active. If $I_B > 0$ and $V_{BC} > 0$: saturation. If $I_B < 0$: cutoff.
+Για τον προσδιορισμό της περιοχής του τρανζίστορ, ακολουθείτε πάντα αυτή τη μέθοδο: (1) υποθέτετε ενεργή περιοχή, θέστε $V_{BE} = 0.7\,\text{V}$. (2) Υπολογίστε το $I_B$ και το $V_{BC}$. (3) Αν $I_B > 0$ και $V_{BC} < 0$: ενεργή. Αν $I_B > 0$ και $V_{BC} > 0$: κορεσμός. Αν $I_B < 0$: αποκοπή.

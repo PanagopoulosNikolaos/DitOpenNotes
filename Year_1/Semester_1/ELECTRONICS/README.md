@@ -1,22 +1,22 @@
-# Electronics
+# Ηλεκτρονική
 
-## Course Overview
-This course provides an introduction to the fundamental concepts of electronics, including basic circuit theory, semiconductor devices, and analog circuits.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα παρέχει μια εισαγωγή στις θεμελιώδεις έννοιες της ηλεκτρονικής, συμπεριλαμβανομένων της βασικής θεωρίας κυκλωμάτων, των ημιαγωγών, και των αναλογικών κυκλωμάτων.
 
-## Course Code
+## Κωδικός Μαθήματος
 105 (ΗΛΕΚΤΡΟΝΙΚΗ)
 
-## Prerequisites
-None
+## Προαπαιτούμενα
+Κανένα
 
-This directory contains materials for the Electronics course.
+Αυτός ο κατάλογος περιέχει το υλικό για το μάθημα της Ηλεκτρονικής.
 
-## Folder Structure
+## Δομή Φακέλων
 
-*   `Lectures/`: Contains PDF presentations for each lecture.
-*   `Exercises/`: Contains solved exercises for each topic.
-*   `QuizGames/`: Contains interactive HTML-based quiz games to test your knowledge.
+*   `Lectures/`: Περιέχει τις παρουσιάσεις PDF για κάθε διάλεξη.
+*   `Exercises/`: Περιέχει λυμένες ασκήσεις για κάθε θέμα.
+*   `QuizGames/`: Περιέχει διαδραστικά παιχνίδια κουίζ βασισμένα σε HTML για να ελέγξετε τις γνώσεις σας.
 
-## How to Use
+## Τρόπος Χρήσης
 
-It is recommended to first go through the lecture PDFs, then work through the exercises, and finally use the quiz games to test your understanding.
+Συνιστάται να μελετήσετε πρώτα τα PDF των διαλέξεων, στη συνέχεια να εργαστείτε πάνω στις ασκήσεις και τέλος να χρησιμοποιήσετε τα παιχνίδια κουίζ για να ελέγξετε την κατανόησή σας.

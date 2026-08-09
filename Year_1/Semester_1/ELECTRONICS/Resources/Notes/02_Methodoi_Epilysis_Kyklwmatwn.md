@@ -1,18 +1,18 @@
-# 02_Methodoi_Epilysis_Kyklwmatwn Documentation
+# 02_Methodoi_Epilysis_Kyklwmatwn Τεκμηρίωση
 
-This lecture covers circuit analysis methods: Kirchhoff's laws, mesh analysis, nodal analysis, Thevenin and Norton theorems, and maximum power transfer. It also introduces measurement instruments and additional circuit elements such as voltage dividers, current dividers, and variable resistors.
-
----
-
-## 1. Conceptual Foundation
-
-Circuit analysis problems involve determining unknown voltages and currents in networks of resistors, independent/dependent sources, and other components. Real-world circuits can be complex, requiring systematic solution methods beyond simple Ohm's law. This lecture presents the theoretical tools needed to solve any linear resistive circuit.
+Αυτή η διάλεξη καλύπτει τις μεθόδους ανάλυσης κυκλωμάτων: τους νόμους του Kirchhoff, την ανάλυση βρόχων, την ανάλυση κόμβων, τα θεωρήματα Thevenin και Norton, και τη μέγιστη μεταφορά ισχύος. Επίσης εισάγει όργανα μέτρησης και επιπλέον στοιχεία κυκλώματος όπως οι διαιρέτες τάσης, οι διαιρέτες ρεύματος και οι μεταβλητοί αντιστάτες.
 
 ---
 
-## 2. Formal Definitions and Models
+## 1. Εννοιολογικό Υπόβαθρο
 
-### 2.1 Basic Circuit Elements
+Τα προβλήματα ανάλυσης κυκλωμάτων περιλαμβάνουν τον προσδιορισμό άγνωστων τάσεων και ρευμάτων σε δίκτυα αντιστατών, ανεξάρτητων/εξαρτημένων πηγών και άλλων στοιχείων. Τα πραγματικά κυκλώματα μπορεί να είναι πολύπλοκα, απαιτώντας συστηματικές μεθόδους επίλυσης πέραν του απλού νόμου του Ohm. Αυτή η διάλεξη παρουσιάζει τα θεωρητικά εργαλεία που απαιτούνται για την επίλυση οποιουδήποτε γραμμικού αντιστατικού κυκλώματος.
+
+---
+
+## 2. Τυπικοί Ορισμοί και Μοντέλα
+
+### 2.1 Βασικά Στοιχεία Κυκλώματος
 
 | Element | Description |
 |:--------|:------------|
@@ -23,7 +23,7 @@ Circuit analysis problems involve determining unknown voltages and currents in n
 | Control devices | Switches, potentiometers |
 | Protection devices | Relays, fuses |
 
-### 2.2 Independent and Dependent Sources
+### 2.2 Ανεξάρτητες και Εξαρτημένες Πηγές
 
 | Source Type | Ideal Behavior | Symbol |
 |:------------|:---------------|:-------|
@@ -32,9 +32,9 @@ Circuit analysis problems involve determining unknown voltages and currents in n
 | Dependent (controlled) voltage source | $V = f(V_x, I_x)$ elsewhere | Diamond shape |
 | Dependent (controlled) current source | $I = f(V_x, I_x)$ elsewhere | Diamond shape |
 
-### 2.3 Power, Energy, Cost
+### 2.3 Ισχύς, Ενέργεια, Κόστος
 
-**Power:**
+**Ισχύς:**
 
 $$
 P = V \cdot I
@@ -42,7 +42,7 @@ $$
 
 Unit: W (Watt).
 
-**Energy:**
+**Ενέργεια:**
 
 $$
 W = P \cdot t
@@ -50,7 +50,7 @@ $$
 
 Unit: J (Joule) or kWh (kilowatt-hour).
 
-**Energy cost:**
+**Κόστος ενέργειας:**
 
 $$
 \text{Cost} = \text{Price per unit energy} \times \text{Energy consumed}
@@ -58,9 +58,9 @@ $$
 
 ---
 
-## 3. Measurement Instruments
+## 3. Όργανα Μέτρησης
 
-### 3.1 Classification by Operating Principle
+### 3.1 Ταξινόμηση κατά Αρχή Λειτουργίας
 
 | Type | Principle |
 |:-----|:----------|
@@ -71,7 +71,7 @@ $$
 | Thermal | Heat effect |
 | Induction | Electromagnetic induction |
 
-### 3.2 Classification by Measured Quantity
+### 3.2 Ταξινόμηση κατά Μετρούμενο Μέγεθος
 
 | Instrument | Measures | Connection | Key Property |
 |:-----------|:---------|:-----------|:-------------|
@@ -81,68 +81,68 @@ $$
 | Frequency meter | Frequency $f$ | -- | -- |
 | Ohmmeter | Resistance $R$ | -- | Uses internal battery; remove circuit power |
 
-### 3.3 Classification by Display Method
+### 3.3 Ταξινόμηση κατά Μέθοδο Ένδειξης
 
-- **Indicating:** Show value via pointer or digital display.
-- **Recording:** Record value over time.
-- **Integrating:** Provide cumulative reading (e.g., energy meter).
+- **Indicating:** Εμφανίζει την τιμή μέσω δείκτη ή ψηφιακής οθόνης.
+- **Recording:** Καταγράφει την τιμή στο χρόνο.
+- **Integrating:** Παρέχει σωρευτική ένδειξη (π.χ. μετρητής ενέργειας).
 
-### 3.4 Panel Instruments and Multimeters
+### 3.4 Όργανα Πίνακα και Πολύμετρα
 
-**Panel instruments:** Permanently connected analog/digital instruments measuring one quantity ($I$, $V$, or $R$).
+**Όργανα πίνακα:** Μόνιμα συνδεδεμένα αναλογικά/ψηφιακά όργανα που μετρούν ένα μέγεθος ($I$, $V$ ή $R$).
 
-**Multimeters:** Combine multiple measurement functions (voltage, current, resistance) in one instrument.
+**Πολύμετρα:** Συνδυάζουν πολλαπλές λειτουργίες μέτρησης (τάση, ρεύμα, αντίσταση) σε ένα όργανο.
 
-### 3.5 Measurement Procedures
+### 3.5 Διαδικασίες Μέτρησης
 
-**Resistance measurement:**
-1. Disconnect all power sources.
-2. Use the ohmmeter's internal battery.
-3. Ensure the resistor is isolated from other components.
-4. Polarity does not matter.
+**Μέτρηση αντίστασης:**
+1. Αποσυνδέστε όλες τις πηγές τροφοδοσίας.
+2. Χρησιμοποιήστε την εσωτερική μπαταρία του ωμόμετρου.
+3. Βεβαιωθείτε ότι ο αντιστάτης είναι απομονωμένος από άλλα στοιχεία.
+4. Η πολικότητα δεν έχει σημασία.
 
-**Voltage measurement:**
-1. Power must be applied to the circuit.
-2. Select DC or AC mode.
-3. Start with the highest range.
-4. Respect polarity: black (COM) to negative, red to positive.
+**Μέτρηση τάσης:**
+1. Πρέπει να εφαρμόζεται τάση στο κύκλωμα.
+2. Επιλέξτε λειτουργία DC ή AC.
+3. Ξεκινήστε με το ανώτερο εύρος.
+4. Τηρήστε την πολικότητα: μαύρο (COM) στον αρνητικό, κόκκινο στον θετικό.
 
-**Current measurement:**
-1. Break the circuit to insert the ammeter in series.
-2. Power must be applied.
-3. Select DC/AC mode, start with highest range.
-4. Respect polarity.
+**Μέτρηση ρεύματος:**
+1. Διακόψτε το κύκλωμα για να εισάγετε το αμπερόμετρο σε σειρά.
+2. Πρέπει να εφαρμόζεται τάση.
+3. Επιλέξτε λειτουργία DC/AC, ξεκινήστε με το ανώτερο εύρος.
+4. Τηρήστε την πολικότητα.
 
 ---
 
-## 4. Step-by-Step Mechanism: Circuit Analysis Methods
+## 4. Μηχανισμός Βήμα προς Βήμα: Μέθοδοι Ανάλυσης Κυκλωμάτων
 
-### 4.1 Kirchhoff's Laws
+### 4.1 Νόμοι του Kirchhoff
 
-**Definitions:**
-- **Branch:** A group of connected elements forming a two-terminal set.
-- **Node:** A common point where two or more branches meet.
-- **Loop:** Any closed path of branches.
+**Ορισμοί:**
+- **Κλάδος (Branch):** Μια ομάδα συνδεδεμένων στοιχείων που σχηματίζει ένα δίκτυο δύο ακροδεκτών.
+- **Κόμβος (Node):** Ένα κοινό σημείο όπου συναντώνται δύο ή περισσότεροι κλάδοι.
+- **Βρόχος (Loop):** Οποιαδήποτε κλειστή διαδρομή κλάδων.
 
-**KCL (Kirchhoff's Current Law):**
-The algebraic sum of all currents at any node equals zero.
+**KCL (Νόμος Ρευμάτων του Kirchhoff):**
+Το αλγεβρικό άθροισμα όλων των ρευμάτων σε οποιονδήποτε κόμβο ισούται με μηδέν.
 
 $$
 \sum_{k=1}^{n} I_k = 0
 $$
 
-**KVL (Kirchhoff's Voltage Law):**
-The algebraic sum of all voltages around any loop equals zero.
+**KVL (Νόμος Τάσεων του Kirchhoff):**
+Το αλγεβρικό άθροισμα όλων των τάσεων γύρω από οποιονδήποτε βρόχο ισούται με μηδέν.
 
 $$
 \sum_{k=1}^{n} V_k = 0
 $$
 
-### 4.2 Mesh Analysis (M.A.B.)
+### 4.2 Ανάλυση Βρόχων (M.A.B.)
 
-**Theorem:** A circuit with $b$ branches and $n$ nodes has $b - n + 1$ independent meshes. Applying KVL to each mesh yields independent equations.
+**Θεώρημα:** Ένα κύκλωμα με $b$ κλάδους και $n$ κόμβους έχει $b - n + 1$ ανεξάρτητους βρόχους. Η εφαρμογή του KVL σε κάθε βρόχο οδηγεί σε ανεξάρτητες εξισώσεις.
 
-**Matrix form for a 2-mesh circuit:**
+**Μορφή πίνακα για κύκλωμα με 2 βρόχους:**
 
 $$
 \begin{aligned}
@@ -151,15 +151,15 @@ R_{21} I_1 + R_{22} I_2 &= \Sigma V_2
 \end{aligned}
 $$
 
-Where $R_{11}$ is the sum of resistances in mesh 1, $R_{12} = R_{21}$ is the negative sum of common resistances, and $\Sigma V_1$ is the sum of voltage sources in mesh 1.
+Όπου $R_{11}$ είναι το άθροισμα των αντιστάσεων στο βρόχο 1, $R_{12} = R_{21}$ είναι το αρνητικό άθροισμα των κοινών αντιστάσεων, και $\Sigma V_1$ είναι το άθροισμα των πηγών τάσης στο βρόχο 1.
 
-**Best suited for:** Circuits with many voltage sources.
+**Καταλληλότητα:** Κυκλώματα με πολλές πηγές τάσης.
 
-### 4.3 Nodal Analysis (M.K.)
+### 4.3 Ανάλυση Κόμβων (M.K.)
 
-**Theorem:** A circuit with $n$ nodes requires $n-1$ independent KCL equations.
+**Θεώρημα:** Ένα κύκλωμα με $n$ κόμβους απαιτεί $n-1$ ανεξάρτητες εξισώσεις KCL.
 
-**Matrix form for a 2-node circuit:**
+**Μορφή πίνακα για κύκλωμα με 2 κόμβους:**
 
 $$
 \begin{aligned}
@@ -168,39 +168,39 @@ G_{21} V_1 + G_{22} V_2 &= \Sigma I_2
 \end{aligned}
 $$
 
-Where $G_{11}$ is the sum of conductances connected to node 1, $G_{12} = G_{21}$ is the negative sum of common conductances, and $\Sigma I_1$ is the sum of current sources entering node 1.
+Όπου $G_{11}$ είναι το άθροισμα των αγωγιμοτήτων συνδεδεμένων στον κόμβο 1, $G_{12} = G_{21}$ είναι το αρνητικό άθροισμα των κοινών αγωγιμοτήτων, και $\Sigma I_1$ είναι το άθροισμα των πηγών ρεύματος που εισέρχονται στον κόμβο 1.
 
-**Best suited for:** Circuits with many current sources.
+**Καταλληλότητα:** Κυκλώματα με πολλές πηγές ρεύματος.
 
-### 4.4 Thevenin's Theorem
+### 4.4 Θεώρημα Thevenin
 
-Any two-terminal linear circuit of resistors and independent sources can be replaced by an equivalent circuit consisting of a single voltage source $V_{Th}$ in series with a single resistor $R_{Th}$.
+Οποιοδήποτε γραμμικό κύκλωμα δύο ακροδεκτών από αντιστάτες και ανεξάρτητες πηγές μπορεί να αντικατασταθεί από ένα ισοδύναμο κύκλωμα που αποτελείται από μια μοναδική πηγή τάσης $V_{Th}$ σε σειρά με έναν μοναδικό αντιστάτη $R_{Th}$.
 
-**Procedure:**
-1. $V_{Th}$ = open-circuit voltage between terminals A and B.
-2. $R_{Th}$ = equivalent resistance between A and B with all independent sources deactivated (voltage sources short-circuited, current sources open-circuited).
+**Διαδικασία:**
+1. $V_{Th}$ = τάση ανοικτοκύκλωτου μεταξύ των ακροδεκτών A και B.
+2. $R_{Th}$ = ισοδύναμη αντίσταση μεταξύ A και B με όλες τις ανεξάρτητες πηγές απενεργοποιημένες (οι πηγές τάσης βραχυκυκλώνονται, οι πηγές ρεύματος ανοιγοκυκλώνονται).
 
-### 4.5 Norton's Theorem
+### 4.5 Θεώρημα Norton
 
-Any two-terminal linear circuit can be replaced by an equivalent circuit consisting of a single current source $I_N$ in parallel with a single resistor $R_N$.
+Οποιοδήποτε γραμμικό κύκλωμα δύο ακροδεκτών μπορεί να αντικατασταθεί από ένα ισοδύναμο κύκλωμα που αποτελείται από μια μοναδική πηγή ρεύματος $I_N$ παράλληλα με έναν μοναδικό αντιστάτη $R_N$.
 
-**Procedure:**
-1. $I_N$ = short-circuit current between terminals A and B.
-2. $R_N$ = $R_{Th}$ (same as Thevenin resistance).
+**Διαδικασία:**
+1. $I_N$ = ρεύμα βραχυκυκλώματος μεταξύ των ακροδεκτών A και B.
+2. $R_N$ = $R_{Th}$ (ίδιο με την αντίσταση Thevenin).
 
-### 4.6 Thevenin-Norton Duality
+### 4.6 Δυικότητα Thevenin-Norton
 
-Two circuits are equivalent if for any load, the load current and voltage are identical.
+Δύο κυκλώματα είναι ισοδύναμα αν για οποιοδήποτε φορτίο, το ρεύμα και η τάση φορτίου είναι ταυτόσημα.
 
-**Source transformation:**
+**Μετατροπή πηγής:**
 
 $$
 V_{Th} = I_N \cdot R_N, \quad I_N = \frac{V_{Th}}{R_{Th}}
 $$
 
-### 4.7 Maximum Power Transfer Theorem
+### 4.7 Θεώρημα Μέγιστης Μεταφοράς Ισχύος
 
-Maximum power is delivered to a load when the load resistance equals the source's internal resistance (or Thevenin resistance):
+Η μέγιστη ισχύς παραδίδεται σε ένα φορτίο όταν η αντίσταση φορτίου ισούται με την εσωτερική αντίσταση της πηγής (ή την αντίσταση Thevenin):
 
 $$
 R_L = R_{source} \quad \text{(or } R_L = R_{Th} \text{)}
@@ -208,57 +208,57 @@ $$
 
 ---
 
-## 5. Additional Circuits
+## 5. Επιπλέον Κυκλώματα
 
-### 5.1 Voltage Divider
+### 5.1 Διαιρέτης Τάσης
 
 $$
 V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2}
 $$
 
-### 5.2 Current Divider
+### 5.2 Διαιρέτης Ρεύματος
 
 $$
 I_{R1} = I_{total} \cdot \frac{R_2}{R_1 + R_2}, \quad I_{R2} = I_{total} \cdot \frac{R_1}{R_1 + R_2}
 $$
 
-### 5.3 Variable Resistors
+### 5.3 Μεταβλητοί Αντιστάτες
 
 | Type | Connection | Function |
 |:-----|:-----------|:---------|
 | Rheostat | In series | Controls current |
 | Potentiometer | In parallel/shunt | Controls voltage |
 
-### 5.4 Source Transformations
+### 5.4 Μετατροπές Πηγών
 
-**Voltage source to current source:**
+**Πηγή τάσης σε πηγή ρεύματος:**
 
 $$
 I = \frac{V}{R}, \quad \text{same } R \text{ in parallel}
 $$
 
-**Current source to voltage source:**
+**Πηγή ρεύματος σε πηγή τάσης:**
 
 $$
 V = I \cdot R, \quad \text{same } R \text{ in series}
 $$
 
-### 5.5 Simplification Rules
+### 5.5 Κανόνες Απλοποίησης
 
-- A resistor in parallel with a voltage source can be omitted.
-- A resistor in series with a current source can be omitted.
+- Ένας αντιστάτης παράλληλα με πηγή τάσης μπορεί να παραλειφθεί.
+- Ένας αντιστάτης σε σειρά με πηγή ρεύματος μπορεί να παραλειφθεί.
 
 ---
 
-## 6. Worked Examples
+## 6. Επεξεργασμένα Παραδείγματα
 
-### Exercise 1: Kirchhoff's Current Law
+### Exercise 1: Νόμος Ρευμάτων του Kirchhoff
 
 **Problem:** At a node, currents $I_1 = 2\,\text{A}$ (entering), $I_2 = 3\,\text{A}$ (entering), $I_3 = 1\,\text{A}$ (leaving). Find $I_4$ (leaving).
 
 **Solution:**
 
-Applying KCL: sum of entering currents = sum of leaving currents.
+Εφαρμόζοντας τον KCL: το άθροισμα των εισερχόμενων ρευμάτων = άθροισμα των εξερχόμενων ρευμάτων.
 
 $$
 I_1 + I_2 = I_3 + I_4
@@ -270,7 +270,7 @@ $$
 
 ---
 
-### Exercise 2: Kirchhoff's Voltage Law
+### Exercise 2: Νόμος Τάσεων του Kirchhoff
 
 **Problem:** A loop contains a $12\,\text{V}$ source, a $2\,k\Omega$ resistor with $3\,\text{mA}$ flowing, and an unknown voltage $V_x$ of the same polarity as the source. Find $V_x$.
 
@@ -278,7 +278,7 @@ $$
 
 KVL: $12\,\text{V} - (2\,k\Omega \times 3\,\text{mA}) - V_x = 0$
 
-Voltage across resistor: $V_R = 2000 \times 0.003 = 6\,\text{V}$
+Τάση στα άκρα του αντιστάτη: $V_R = 2000 \times 0.003 = 6\,\text{V}$
 
 $$
 12 - 6 - V_x = 0 \quad \Rightarrow \quad V_x = 6\,\text{V}
@@ -286,19 +286,19 @@ $$
 
 ---
 
-### Exercise 3: Thevenin Equivalent -- Simple Voltage Divider
+### Exercise 3: Ισοδύναμο Thevenin -- Απλός Διαιρέτης Τάσης
 
 **Problem:** Find the Thevenin equivalent between terminals A and B for a circuit with $V_s = 10\,\text{V}$, $R_1 = 2\,k\Omega$, $R_2 = 3\,k\Omega$ in series.
 
 **Solution:**
 
-$V_{Th}$ is the open-circuit voltage (voltage across $R_2$):
+Το $V_{Th}$ είναι η τάση ανοικτοκύκλωτου (τάση στα άκρα του $R_2$):
 
 $$
 V_{Th} = 10 \times \frac{3}{2+3} = 10 \times 0.6 = 6\,\text{V}
 $$
 
-$R_{Th}$ is the resistance seen from A-B with the source shorted:
+Το $R_{Th}$ είναι η αντίσταση που φαίνεται από τα A-B με την πηγή βραχυκυκλωμένη:
 
 $$
 R_{Th} = R_1 \parallel R_2 = \frac{2 \times 3}{2 + 3} = \frac{6}{5} = 1.2\,k\Omega
@@ -306,37 +306,37 @@ $$
 
 ---
 
-### Exercise 4: Thevenin Equivalent with Multiple Sources
+### Exercise 4: Ισοδύναμο Thevenin με Πολλαπλές Πηγές
 
 **Problem:** Find $V_{Th}$ and $R_{Th}$ for a circuit with $V_1 = 5\,\text{V}$ in series with $R_1 = 1\,k\Omega$, and $V_2 = 10\,\text{V}$ in series with $R_2 = 2\,k\Omega$, both connected to terminal A with the other ends at ground.
 
 **Solution:**
 
-$V_{Th}$ is the open-circuit voltage at A. Using nodal analysis or superposition:
+Το $V_{Th}$ είναι η τάση ανοικτοκύκλωτου στο A. Χρησιμοποιώντας ανάλυση κόμβων ή υπέρθεση:
 
 $$
 V_{Th} = \frac{V_1/R_1 + V_2/R_2}{1/R_1 + 1/R_2} = \frac{5/1000 + 10/2000}{1/1000 + 1/2000} = \frac{0.005 + 0.005}{0.001 + 0.0005} = \frac{0.01}{0.0015} = 6.67\,\text{V}
 $$
 
-$R_{Th}$: short sources, $R_1 \parallel R_2 = \frac{1 \times 2}{1+2} = 0.667\,k\Omega = 667\,\Omega$
+$R_{Th}$: βραχυκύκλωση πηγών, $R_1 \parallel R_2 = \frac{1 \times 2}{1+2} = 0.667\,k\Omega = 667\,\Omega$
 
 ---
 
-### Exercise 5: Maximum Power Transfer
+### Exercise 5: Μέγιστη Μεταφορά Ισχύος
 
 **Problem:** A source has $V_{Th} = 12\,\text{V}$ and $R_{Th} = 50\,\Omega$. Find the load resistance for maximum power transfer and the maximum power.
 
 **Solution:**
 
-Maximum power when $R_L = R_{Th} = 50\,\Omega$.
+Μέγιστη ισχύς όταν $R_L = R_{Th} = 50\,\Omega$.
 
-Load current: $I = \frac{V_{Th}}{R_{Th} + R_L} = \frac{12}{50+50} = 0.12\,\text{A}$
+Ρεύμα φορτίου: $I = \frac{V_{Th}}{R_{Th} + R_L} = \frac{12}{50+50} = 0.12\,\text{A}$
 
-Maximum power: $P_{max} = I^2 \cdot R_L = (0.12)^2 \times 50 = 0.0144 \times 50 = 0.72\,\text{W}$
+Μέγιστη ισχύς: $P_{max} = I^2 \cdot R_L = (0.12)^2 \times 50 = 0.0144 \times 50 = 0.72\,\text{W}$
 
 ---
 
-### Exercise 6: Norton Equivalent from Thevenin
+### Exercise 6: Ισοδύναμο Norton από Thevenin
 
 **Problem:** Given $V_{Th} = 15\,\text{V}$ and $R_{Th} = 3\,k\Omega$, find the Norton equivalent.
 
@@ -346,17 +346,17 @@ $R_N = R_{Th} = 3\,k\Omega$
 
 $I_N = \frac{V_{Th}}{R_{Th}} = \frac{15}{3000} = 5\,\text{mA}$
 
-The Norton circuit: $5\,\text{mA}$ current source in parallel with $3\,k\Omega$.
+Το κύκλωμα Norton: πηγή ρεύματος $5\,\text{mA}$ παράλληλα με $3\,k\Omega$.
 
 ---
 
-### Exercise 7: Mesh Analysis -- Two Meshes
+### Exercise 7: Ανάλυση Βρόχων -- Δύο Βρόχοι
 
 **Problem:** Find $I_1$ and $I_2$ for a circuit with $V_1 = 10\,\text{V}$, $V_2 = 5\,\text{V}$, $R_1 = 1\,k\Omega$ (mesh 1), $R_2 = 2\,k\Omega$ (shared), $R_3 = 1\,k\Omega$ (mesh 2). $V_1$ in mesh 1, $V_2$ in mesh 2.
 
 **Solution:**
 
-Mesh equations:
+Εξισώσεις βρόχων:
 
 $$
 \begin{aligned}
@@ -379,17 +379,17 @@ $$
 \end{aligned}
 $$
 
-Solving: $I_1 = 4\,\text{mA}$, $I_2 = 1\,\text{mA}$.
+Επίλυση: $I_1 = 4\,\text{mA}$, $I_2 = 1\,\text{mA}$.
 
 ---
 
-### Exercise 8: Nodal Analysis -- Two Nodes
+### Exercise 8: Ανάλυση Κόμβων -- Δύο Κόμβοι
 
 **Problem:** Find $V_1$ and $V_2$ for a circuit with $I_1 = 2\,\text{mA}$ entering node 1, $I_2 = 1\,\text{mA}$ leaving node 2, $R_1 = 1\,k\Omega$ (node 1 to ground), $R_2 = 2\,k\Omega$ (between nodes), $R_3 = 1\,k\Omega$ (node 2 to ground).
 
 **Solution:**
 
-Nodal equations:
+Εξισώσεις κόμβων:
 
 $$
 \begin{aligned}
@@ -412,22 +412,22 @@ $$
 \end{aligned}
 $$
 
-Solving: $V_1 = 1.25\,\text{V}$, $V_2 = -0.25\,\text{V}$.
+Επίλυση: $V_1 = 1.25\,\text{V}$, $V_2 = -0.25\,\text{V}$.
 
 ---
 
-## 7. Connections and Cross-References
+## 7. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- Ohm's law (Lecture 01) is the foundation upon which all methods in this lecture are built.
-- Thevenin and Norton equivalents are essential for analyzing Zener regulators (Lecture 05) and transistor biasing (Lecture 08).
-- Maximum power transfer is critical for amplifier design (Lecture 09).
+- Ο νόμος του Ohm (Διάλεξη 01) είναι το θεμέλιο πάνω στο οποίο δομούνται όλες οι μέθοδοι αυτής της διάλεξης.
+- Τα ισοδύναμα Thevenin και Norton είναι απαραίτητα για την ανάλυση ρυθμιστών Zener (Διάλεξη 05) και την πόλωση τρανζίστορ (Διάλεξη 08).
+- Η μέγιστη μεταφορά ισχύος είναι κρίσιμη για το σχεδιασμό ενισχυτών (Διάλεξη 09).
 
 ---
 
-## Exam Tip: Selecting the Right Method
+## Exam Tip: Επιλογή της Σωστής Μεθόδου
 
-- For circuits with few nodes and many voltage sources, use **mesh analysis**.
-- For circuits with few nodes and many current sources, use **nodal analysis**.
-- When only the behavior at two terminals is needed, use **Thevenin or Norton**.
-- For power delivery problems, use the **maximum power transfer theorem**.
-- A common exam mistake is forgetting to deactivate sources when calculating $R_{Th}$: short voltage sources, open current sources.
+- Για κυκλώματα με λίγους κόμβους και πολλές πηγές τάσης, χρησιμοποιήστε **ανάλυση βρόχων**.
+- Για κυκλώματα με λίγους κόμβους και πολλές πηγές ρεύματος, χρησιμοποιήστε **ανάλυση κόμβων**.
+- Όταν απαιτείται μόνο η συμπεριφορά σε δύο ακροδέκτες, χρησιμοποιήστε **Thevenin ή Norton**.
+- Για προβλήματα παράδοσης ισχύος, χρησιμοποιήστε το **θεώρημα μέγιστης μεταφοράς ισχύος**.
+- Ένα συνηθισμένο λάθος στις εξετάσεις είναι η λήθη απενεργοποίησης των πηγών κατά τον υπολογισμό του $R_{Th}$: βραχυκυκλώστε τις πηγές τάσης, ανοιγοκυκλώστε τις πηγές ρεύματος.

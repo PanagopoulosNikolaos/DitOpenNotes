@@ -1,113 +1,113 @@
-# 08_Polwsi_Transistor Documentation
+# 08_Polwsi_Transistor Τεκμηρίωση
 
-This lecture covers transistor biasing: the load line, Q-point determination, and six biasing circuit configurations (base bias, emitter bias, voltage divider bias, dual-supply emitter bias, emitter feedback, collector-emitter feedback).
-
----
-
-## 1. Conceptual Foundation
-
-A transistor amplifier must be biased in the active region to operate linearly. The biasing network establishes DC voltages and currents (the Q-point) that determine where the transistor sits on its characteristic curves. Proper biasing ensures that the transistor remains in the active region across signal swings and temperature variations.
+Αυτή η διάλεξη καλύπτει την πόλωση τρανζίστορ: τη γραμμή φορτίου, τον προσδιορισμό σημείου Q και έξι διατάξεις κυκλωμάτων πόλωσης (πόλωση βάσης, πόλωση εκπομπού, πόλωση διαιρέτη τάσης, πόλωση εκπομπού διπλής τροφοδοσίας, ανατροφοδότηση εκπομπού, ανατροφοδότηση συλλέκτη-εκπομπού).
 
 ---
 
-## 2. Formal Definition and Model
+## 1. Εννοιολογικό Θεμέλιο
 
-### 2.1 DC Load Line
+Ένας ενισχυτής τρανζίστορ πρέπει να πολωθεί στην ενεργή περιοχή για να λειτουργήσει γραμμικά. Το δίκτυο πόλωσης εγκαθιστά σταθερές τάσεις και ρεύματα DC (το σημείο Q) που καθορίζουν τη θέση του τρανζίστορ στις χαρακτηριστικές του καμπύλες. Η σωστή πόλωση εξασφαλίζει ότι ο τρανζίστορ παραμένει στην ενεργή περιοχή σε όλη τη διάρκεια των διακυμάνσεων σήματος και των μεταβολών θερμοκρασίας.
 
-The DC load line represents all possible $(I_C, V_{CE})$ operating points for a given circuit.
+---
 
-**Endpoints:**
+## 2. Τυπικός Ορισμός και Μοντέλο
+
+### 2.1 Γραμμή Φορτίου DC
+
+Η γραμμή φορτίου DC αντιπροσωπεύει όλα τα πιθανά σημεία λειτουργίας $(I_C, V_{CE})$ για ένα δεδομένο κύκλωμα.
+
+**Ακραία σημεία:**
 - $I_{C(sat)}$: $V_{CE} = 0$, $I_C = \frac{V_{CC}}{R_C + R_E}$.
 - $V_{CE(cutoff)}$: $I_C = 0$, $V_{CE} = V_{CC}$.
 
-**Methodology for drawing the load line:**
-1. Apply KVL to the output loop. Set $V_{CE} = 0$ to find $I_{C(sat)}$.
-2. Set $I_C = 0$ to find $V_{CE(cutoff)}$.
-3. Plot these two points and connect them with a straight line.
+**Μεθοδολογία σχεδίασης της γραμμής φορτίου:**
+1. Εφαρμογή KVL στον βρόχο εξόδου. Ορισμός $V_{CE} = 0$ για εύρεση $I_{C(sat)}$.
+2. Ορισμός $I_C = 0$ για εύρεση $V_{CE(cutoff)}$.
+3. Σχεδίαση των δύο σημείων και σύνδεσή τους με ευθύγραμμο τμήμα.
 
-### 2.2 Q-Point Determination
+### 2.2 Προσδιορισμός Σημείου Q
 
-**General methodology:**
-1. Calculate $I_C$ using the input loop (usually via $I_B$ or $I_E$ with $\beta$ or $\alpha$).
-2. Apply KVL to the output loop to find $V_{CE}$.
+**Γενική μεθοδολογία:**
+1. Υπολογισμός $I_C$ μέσω του βρόχου εισόδου (συνήθως μέσω $I_B$ ή $I_E$ με $\beta$ ή $\alpha$).
+2. Εφαρμογή KVL στον βρόχο εξόδου για εύρεση $V_{CE}$.
 
 ---
 
-## 3. Biasing Circuit Configurations
+## 3. Διατάξεις Κυκλώματος Πόλωσης
 
-### 3.1 Base Bias (Fixed Bias)
+### 3.1 Πόλωση Βάσης (Σταθερή Πόλωση)
 
-- Single resistor $R_B$ from $V_{BB}$ to base.
-- Simple but unstable: Q-point varies strongly with $\beta$.
+- Μονός αντιστάτης $R_B$ από $V_{BB}$ στη βάση.
+- Απλή αλλά ασταθής: το σημείο Q μεταβάλλεται έντονα με το $\beta$.
 
-**Finding Q-point:**
-1. KVL input: $V_{BB} = I_B R_B + V_{BE}$ $\rightarrow$ $I_B = \frac{V_{BB} - 0.7}{R_B}$.
+**Εύρεση σημείου Q:**
+1. KVL εισόδου: $V_{BB} = I_B R_B + V_{BE}$ $\rightarrow$ $I_B = \frac{V_{BB} - 0.7}{R_B}$.
 2. $I_C = \beta I_B$.
-3. KVL output: $V_{CC} = I_C R_C + V_{CE}$ $\rightarrow$ $V_{CE} = V_{CC} - I_C R_C$.
+3. KVL εξόδου: $V_{CC} = I_C R_C + V_{CE}$ $\rightarrow$ $V_{CE} = V_{CC} - I_C R_C$.
 
-### 3.2 Emitter Bias
+### 3.2 Πόλωση Εκπομπού
 
-- Resistor $R_E$ in the emitter leg stabilizes Q-point.
-- KVL input: $V_{BB} = I_B R_B + V_{BE} + I_E R_E$.
+- Αντιστάτης $R_E$ στον βραχίονα εκπομπού σταθεροποιεί το σημείο Q.
+- KVL εισόδου: $V_{BB} = I_B R_B + V_{BE} + I_E R_E$.
 
-**Finding Q-point:**
-1. Use input KVL: $V_{BB} = I_B R_B + 0.7 + (\beta + 1) I_B R_E$.
-2. Solve for $I_B$, then $I_C = \beta I_B$, $I_E = (\beta + 1) I_B$.
-3. KVL output: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
+**Εύρεση σημείου Q:**
+1. Χρήση KVL εισόδου: $V_{BB} = I_B R_B + 0.7 + (\beta + 1) I_B R_E$.
+2. Επίλυση ως προς $I_B$, στη συνέχεια $I_C = \beta I_B$, $I_E = (\beta + 1) I_B$.
+3. KVL εξόδου: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
 
-**Load line:** $V_{CC} = I_C (R_C + R_E) + V_{CE}$.
+**Γραμμή φορτίου:** $V_{CC} = I_C (R_C + R_E) + V_{CE}$.
 
-### 3.3 Voltage Divider Bias
+### 3.3 Πόλωση Διαιρέτη Τάσης
 
-- Most widely used configuration.
-- Base voltage set by $R_1$-$R_2$ divider: $V_B = \frac{R_2}{R_1 + R_2} V_{CC}$.
+- Πιο ευρέως χρησιμοποιούμενη διάταξη.
+- Τάση βάσης ορίζεται από τον διαιρέτη $R_1$-$R_2$: $V_B = \frac{R_2}{R_1 + R_2} V_{CC}$.
 
-**Finding Q-point:**
+**Εύρεση σημείου Q:**
 1. $V_B = \frac{R_2}{R_1 + R_2} V_{CC}$.
-2. KVL from base to ground through emitter: $V_B = V_{BE} + I_E R_E$ $\rightarrow$ $I_E = \frac{V_B - 0.7}{R_E}$.
+2. KVL από τη βάση προς τη γείωση μέσω εκπομπού: $V_B = V_{BE} + I_E R_E$ $\rightarrow$ $I_E = \frac{V_B - 0.7}{R_E}$.
 3. $I_C \approx I_E$.
-4. KVL output: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
+4. KVL εξόδου: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
 
-**Load line:** $V_{CC} = I_C (R_C + R_E) + V_{CE}$.
+**Γραμμή φορτίου:** $V_{CC} = I_C (R_C + R_E) + V_{CE}$.
 
-### 3.4 Dual-Supply Emitter Bias
+### 3.4 Πόλωση Εκπομπού Διπλής Τροφοδοσίας
 
-- Uses both $V_{CC}$ and $V_{EE}$.
-- $I_B$ is negligible; Q-point is independent of $\beta$.
+- Χρήση τόσο $V_{CC}$ όσο και $V_{EE}$.
+- Το $I_B$ είναι παροικό· το σημείο Q είναι ανεξάρτητο από το $\beta$.
 
-**Finding Q-point:**
-1. With $I_B \approx 0$, KVL: $V_{EE} = V_{BE} + I_E R_E$ $\rightarrow$ $I_E = \frac{V_{EE} - 0.7}{R_E}$.
+**Εύρεση σημείου Q:**
+1. Με $I_B \approx 0$, KVL: $V_{EE} = V_{BE} + I_E R_E$ $\rightarrow$ $I_E = \frac{V_{EE} - 0.7}{R_E}$.
 2. $I_C \approx I_E$.
-3. KVL output: $V_{CC} = I_C R_C + V_{CE} + I_E R_E - V_{EE}$.
+3. KVL εξόδου: $V_{CC} = I_C R_C + V_{CE} + I_E R_E - V_{EE}$.
 
-### 3.5 Emitter Feedback Bias
+### 3.5 Ανατροφοδότηση Εκπομπού
 
-- Resistor $R_E$ in emitter, no $R_B$ in base (or minimal).
-- Historical significance -- first attempt at Q-point stabilization.
+- Αντιστάτης $R_E$ στον εκπομπό, χωρίς $R_B$ στη βάση (ή ελάχιστος).
+- Ιστορική σημασία -- πρώτη προσπάθεια σταθεροποίησης σημείου Q.
 
-**Finding Q-point:**
-1. KVL input: $V_{BB} = V_{BE} + I_E R_E$, using $I_E = (\beta + 1) I_B$.
+**Εύρεση σημείου Q:**
+1. KVL εισόδου: $V_{BB} = V_{BE} + I_E R_E$, με χρήση $I_E = (\beta + 1) I_B$.
 2. $I_C = \beta I_B$.
-3. KVL output: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
+3. KVL εξόδου: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
 
-### 3.6 Collector-Emitter Feedback Bias
+### 3.6 Ανατροφοδότηση Συλλέκτη-Εκπομπού
 
-- Feedback path from collector to base provides additional stabilization.
+- Η διαδρομή ανατροφοδότησης από τον συλλέκτη στη βάση παρέχει επιπλέον σταθεροποίηση.
 
-**Finding Q-point:**
-1. KVL input (loop from collector through $R_B$ to base to emitter): Express $I_C$ and $I_E$ in terms of $I_B$, solve for $I_B$.
+**Εύρεση σημείου Q:**
+1. KVL εισόδου (βρόχος από τον συλλέκτη μέσω $R_B$ στη βάση και στον εκπομπό): Εκφράστε $I_C$ και $I_E$ σε όρους $I_B$, επιλύστε ως προς $I_B$.
 2. $I_C = \beta I_B$.
-3. KVL output: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
+3. KVL εξόδου: $V_{CC} = I_C R_C + I_E R_E + V_{CE}$.
 
 ---
 
-## 4. Worked Examples
+## 4. Λυμένα Παραδείγματα
 
-### Exercise 1: Base Bias -- Q-Point
+### Άσκηση 1: Πόλωση Βάσης -- Σημείο Q
 
-**Problem:** $V_{CC} = 12\,\text{V}$, $R_C = 2.2\,k\Omega$, $R_B = 220\,k\Omega$, $\beta = 100$. Find the Q-point.
+**Πρόβλημα:** $V_{CC} = 12\,\text{V}$, $R_C = 2.2\,k\Omega$, $R_B = 220\,k\Omega$, $\beta = 100$. Να βρεθεί το σημείο Q.
 
-**Solution:**
+**Λύση:**
 
 $$
 I_B = \frac{V_{CC} - 0.7}{R_B} = \frac{12 - 0.7}{220,000} = \frac{11.3}{220,000} = 51.4\,\mu\text{A}
@@ -121,17 +121,17 @@ $$
 V_{CE} = V_{CC} - I_C R_C = 12 - (0.00514 \times 2200) = 12 - 11.31 = 0.69\,\text{V}
 $$
 
-Q-point: $I_{CQ} = 5.14\,\text{mA}$, $V_{CEQ} = 0.69\,\text{V}$.
+Σημείο Q: $I_{CQ} = 5.14\,\text{mA}$, $V_{CEQ} = 0.69\,\text{V}$.
 
 ---
 
-### Exercise 2: Emitter Bias -- Q-Point
+### Άσκηση 2: Πόλωση Εκπομπού -- Σημείο Q
 
-**Problem:** $V_{CC} = 15\,\text{V}$, $R_C = 2\,k\Omega$, $R_E = 1\,k\Omega$, $R_B = 100\,k\Omega$, $V_{BB} = 5\,\text{V}$, $\beta = 150$.
+**Πρόβλημα:** $V_{CC} = 15\,\text{V}$, $R_C = 2\,k\Omega$, $R_E = 1\,k\Omega$, $R_B = 100\,k\Omega$, $V_{BB} = 5\,\text{V}$, $\beta = 150$.
 
-**Solution:**
+**Λύση:**
 
-Input KVL: $V_{BB} = I_B R_B + 0.7 + (\beta + 1) I_B R_E$.
+KVL εισόδου: $V_{BB} = I_B R_B + 0.7 + (\beta + 1) I_B R_E$.
 
 $$
 5 = I_B \cdot 100{,}000 + 0.7 + 151 \cdot I_B \cdot 1000
@@ -149,15 +149,15 @@ $$
 I_C = 150 \times 17.1 \times 10^{-6} = 2.57\,\text{mA}
 $$
 
-Output KVL: $V_{CE} = 15 - (2.57\text{m} \times 2000) - (2.59\text{m} \times 1000) = 15 - 5.14 - 2.59 = 7.27\,\text{V}$.
+KVL εξόδου: $V_{CE} = 15 - (2.57\text{m} \times 2000) - (2.59\text{m} \times 1000) = 15 - 5.14 - 2.59 = 7.27\,\text{V}$.
 
 ---
 
-### Exercise 3: Voltage Divider Bias -- Q-Point
+### Άσκηση 3: Πόλωση Διαιρέτη Τάσης -- Σημείο Q
 
-**Problem:** $V_{CC} = 12\,\text{V}$, $R_1 = 10\,k\Omega$, $R_2 = 4.7\,k\Omega$, $R_C = 1\,k\Omega$, $R_E = 470\,\Omega$, $\beta = 120$.
+**Πρόβλημα:** $V_{CC} = 12\,\text{V}$, $R_1 = 10\,k\Omega$, $R_2 = 4.7\,k\Omega$, $R_C = 1\,k\Omega$, $R_E = 470\,\Omega$, $\beta = 120$.
 
-**Solution:**
+**Λύση:**
 
 $$
 V_B = \frac{4.7}{10 + 4.7} \times 12 = \frac{4.7}{14.7} \times 12 = 3.84\,\text{V}
@@ -177,13 +177,13 @@ $$
 
 ---
 
-### Exercise 4: Dual-Supply -- Q-Point
+### Άσκηση 4: Διπλή Τροφοδοσία -- Σημείο Q
 
-**Problem:** $V_{CC} = 10\,\text{V}$, $V_{EE} = -10\,\text{V}$, $R_C = 3.3\,k\Omega$, $R_E = 2.2\,k\Omega$, $\beta = 200$.
+**Πρόβλημα:** $V_{CC} = 10\,\text{V}$, $V_{EE} = -10\,\text{V}$, $R_C = 3.3\,k\Omega$, $R_E = 2.2\,k\Omega$, $\beta = 200$.
 
-**Solution:**
+**Λύση:**
 
-With $I_B \approx 0$: $V_{EE} = V_{BE} + I_E R_E$.
+Με $I_B \approx 0$: $V_{EE} = V_{BE} + I_E R_E$.
 
 $$
 10 = 0.7 + I_E \cdot 2200 \quad \Rightarrow \quad I_E = \frac{10 - 0.7}{2200} = 4.23\,\text{mA}
@@ -199,33 +199,33 @@ $$
 
 ---
 
-### Exercise 5: Load Line -- Drawing
+### Άσκηση 5: Γραμμή Φορτίου -- Σχεδίαση
 
-**Problem:** For a circuit with $V_{CC} = 10\,\text{V}$, $R_C = 2\,k\Omega$, $R_E = 500\,\Omega$, find the load line intercepts.
+**Πρόβλημα:** Για ένα κύκλωμα με $V_{CC} = 10\,\text{V}$, $R_C = 2\,k\Omega$, $R_E = 500\,\Omega$, να βρεθούν οι τομείς της γραμμής φορτίου.
 
-**Solution:**
+**Λύση:**
 
-$I_{C(sat)}$ (set $V_{CE} = 0$):
+$I_{C(sat)}$ (ορισμός $V_{CE} = 0$):
 
 $$
 I_{C(sat)} = \frac{10}{2000 + 500} = \frac{10}{2500} = 4\,\text{mA}
 $$
 
-$V_{CE(cutoff)}$ (set $I_C = 0$):
+$V_{CE(cutoff)}$ (ορισμός $I_C = 0$):
 
 $$
 V_{CE(cutoff)} = 10\,\text{V}
 $$
 
-Load line: connects $(0\,\text{mA}, 10\,\text{V})$ to $(4\,\text{mA}, 0\,\text{V})$.
+Γραμμή φορτίου: συνδέει το $(0\,\text{mA}, 10\,\text{V})$ με το $(4\,\text{mA}, 0\,\text{V})$.
 
 ---
 
-### Exercise 6: Base Bias -- Saturation Check
+### Άσκηση 6: Πόλωση Βάσης -- Έλεγχος Κορεσμού
 
-**Problem:** $V_{CC} = 9\,\text{V}$, $R_C = 1\,k\Omega$, $R_B = 50\,k\Omega$, $\beta = 50$. Determine if the transistor is in saturation.
+**Πρόβλημα:** $V_{CC} = 9\,\text{V}$, $R_C = 1\,k\Omega$, $R_B = 50\,k\Omega$, $\beta = 50$. Να προσδιοριστεί αν ο τρανζίστορ βρίσκεται σε κορεσμό.
 
-**Solution:**
+**Λύση:**
 
 $$
 I_B = \frac{9 - 0.7}{50{,}000} = 166\,\mu\text{A}
@@ -235,46 +235,46 @@ $$
 I_{C(sat)} = \frac{9}{1000} = 9\,\text{mA}
 $$
 
-$I_C$ if active: $I_C = 50 \times 166 \times 10^{-6} = 8.3\,\text{mA}$.
+$I_C$ σε ενεργή περιοχή: $I_C = 50 \times 166 \times 10^{-6} = 8.3\,\text{mA}$.
 
-Since $8.3\,\text{mA} < 9\,\text{mA}$, the transistor is in the **active region**.
-
----
-
-### Exercise 7: Voltage Divider -- Percentage Change
-
-**Problem:** For Exercise 3, if $\beta$ changes from 120 to 200, find the new $I_C$ and the percentage change.
-
-**Solution:**
-
-$V_B$ and $R_E$ determine $I_E$, which is independent of $\beta$ (assuming $I_B \ll I_{divider}$).
-
-$I_E$ remains $6.68\,\text{mA}$, so $I_C \approx 6.68\,\text{mA}$ (essentially unchanged). This demonstrates the stability of voltage divider bias.
+Καθώς $8.3\,\text{mA} < 9\,\text{mA}$, ο τρανζίστορ βρίσκεται στην **ενεργή περιοχή**.
 
 ---
 
-### Exercise 8: Load Line with Q-Point Verification
+### Άσκηση 7: Διαιρέτης Τάσης -- Ποσοστιαία Μεταβολή
 
-**Problem:** For Exercise 3, verify that the Q-point lies on the load line and is in the active region.
+**Πρόβλημα:** Για την Άσκηση 3, αν το $\beta$ μεταβληθεί από 120 σε 200, να βρεθεί το νέο $I_C$ και η ποσοστιαία μεταβολή.
 
-**Solution:**
+**Λύση:**
+
+Το $V_B$ και το $R_E$ καθορίζουν το $I_E$, το οποίο είναι ανεξάρτητο από το $\beta$ (υποθέτοντας $I_B \ll I_{divider}$).
+
+Το $I_E$ παραμένει $6.68\,\text{mA}$, οπότε $I_C \approx 6.68\,\text{mA}$ (ουσιαστικά αμετάβλητο). Αυτό αποδεικνύει τη σταθερότητα της πόλωσης διαιρέτη τάσης.
+
+---
+
+### Άσκηση 8: Γραμμή Φορτίου με Επιβεβαίωση Σημείου Q
+
+**Πρόβλημα:** Για την Άσκηση 3, να επιβεβαιωθεί ότι το σημείο Q βρίσκεται στη γραμμή φορτίου και στην ενεργή περιοχή.
+
+**Λύση:**
 
 $I_{C(sat)} = \frac{12}{1000 + 470} = \frac{12}{1470} = 8.16\,\text{mA}$.
 
 $V_{CE(cutoff)} = 12\,\text{V}$.
 
-Q-point $(6.68\,\text{mA}, 2.18\,\text{V})$ lies on the line connecting these endpoints. $V_{CE} > 0.2\,\text{V}$ and $I_B > 0$: active region confirmed.
+Το σημείο Q $(6.68\,\text{mA}, 2.18\,\text{V})$ βρίσκεται στη γραμμή που συνδέει τα ακραία σημεία. $V_{CE} > 0.2\,\text{V}$ και $I_B > 0$: επιβεβαίωση ενεργής περιοχής.
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- Biasing assumes $V_{BE} = 0.7\,\text{V}$ (Lecture 04, Lecture 07).
-- The load line method is analogous to the diode load line (Lecture 04).
-- These biasing circuits are the foundation for amplifier design (Lecture 09).
+- Η πόλωση υποθέτει $V_{BE} = 0.7\,\text{V}$ (Διάλεξη 04, Διάλεξη 07).
+- Η μέθοδος γραμμής φορτίου είναι ανάλογη με τη γραμμή φορτίου διόδου (Διάλεξη 04).
+- Αυτά τα κυκλώματα πόλωσης αποτελούν τη βάση για τον σχεδιασμό ενισχυτή (Διάλεξη 09).
 
 ---
 
-## Exam Tip: Voltage Divider Stability
+## Συμβουλή Εξετάσεων: Σταθερότητα Διαιρέτη Τάσης
 
-Voltage divider bias is the most common exam configuration because it provides the most stable Q-point. The key insight is that $V_B$ is fixed by the divider resistors, so $I_E = (V_B - 0.7)/R_E$ is independent of $\beta$. Always calculate $V_B$ first, then $I_E$, then $V_{CE}$.
+Η πόλωση διαιρέτη τάσης είναι η πιο συνηθισμένη διάταξη στις εξετάσεις γιατί παρέχει το πιο σταθερό σημείο Q. Η βασική ιδέα είναι ότι το $V_B$ είναι σταθερό από τους αντιστάτες του διαιρέτη, οπότε το $I_E = (V_B - 0.7)/R_E$ είναι ανεξάρτητο από το $\beta$. Πάντα υπολογίστε πρώτα το $V_B$, στη συνέχεια το $I_E$, και τέλος το $V_{CE}$.

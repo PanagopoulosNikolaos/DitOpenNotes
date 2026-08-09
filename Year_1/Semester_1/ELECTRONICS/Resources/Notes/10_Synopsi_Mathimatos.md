@@ -1,150 +1,150 @@
-# 10_Synopsi_Mathimatos Documentation
+# 10_Synopsi_Mathimatos Τεκμηρίωση
 
-This lecture provides a comprehensive summary of the entire Electronics course, covering all nine preceding lecture topics: Ohm's law and circuits, circuit analysis methods, semiconductors and PN junctions, diodes, special diodes, diode applications, BJT transistors, transistor biasing, and amplifiers.
-
----
-
-## 1. Conceptual Foundation
-
-This summary lecture revisits the complete Electronics curriculum, connecting all topics into a unified framework. It serves as a final review emphasizing the key formulas, diagrams, and methodologies from each lecture.
+Αυτό το μάθημα παρέχει μια περιεκτική σύνοψη ολόκληρου του μαθήματος Ηλεκτρονικής, καλύπτοντας όλα τα εννέα προηγούμενα θέματα μαθημάτων: νόμος του Ohm και κυκλώματα, μέθοδοι ανάλυσης κυκλωμάτων, αγωγιμοί και σύνομα PN, δίοδοι, ειδικές δίοδοι, εφαρμογές διόδων, τρανζίστορ BJT, πόλωση τρανζίστορ και ενισχυτές.
 
 ---
 
-## 2. Topic Summaries
+## 1. Θεμελιώδης Έννοια
 
-### 2.1 Circuits and Ohm's Law (Lecture 01)
+Αυτό το μάθηση σύνοψης αναθεωρεί ολόκληρο το πρόγραμμα Ηλεκτρονικής, συνδέοντας όλα τα θέματα σε ένα ενοποιημένο πλαίσιο. Λειτουργεί ως τελική ανασκόπηση που τονίζει τις κύριες τύπους, διαγράμματα και μεθοδολογίες από κάθε μάθημα.
 
-- **Drude model:** Free electron cloud in metals explains conductivity.
-- **Energy bands:** Conductors (no gap), semiconductors (small gap), insulators (large gap).
-- **Fermi level:** Maximum electron energy at $0\,\text{K}$.
-- **Ohm's law:** $V = IR$, $I = V/R$, $R = V/I$.
-- **Resistors:** Series $R_{total} = \sum R_i$, parallel $1/R_{total} = \sum 1/R_i$.
-- **Capacitors:** $C = Q/V$, $\tau = RC$, energy $E = \frac{1}{2}CV^2$.
-- **Inductors:** Lenz's law, energy $E = \frac{1}{2}LI^2$.
-- **Sources:** Real sources have internal resistance. Ideal voltage source: $r \to 0$. Ideal current source: $r \to \infty$.
+---
 
-### 2.2 Circuit Analysis Methods (Lecture 02)
+## 2. Συνόψεις Θεμάτων
 
-| Method | Equation Count | Best For |
+### 2.1 Κυκλώματα και Νόμος του Ohm (Μάθημα 01)
+
+- **Μοντέλο Drude:** Το ελεύθερο ηλεκτρονικό σύννεφο σε μέταλλα εξηγεί την αγωγιμότητα.
+- **Ενεργειακές ζώνες:** Αγωγοί (χωρίς κενό), αγωγιμοί (μικρό κενό), μονωτές (μεγάλο κενό).
+- **Επίπεδο Fermi:** Μέγιστη ενέργεια ηλεκτρονίων στο $0\,\text{K}$.
+- **Νόμος του Ohm:** $V = IR$, $I = V/R$, $R = V/I$.
+- **Αντιστάτες:** Σειρά $R_{total} = \sum R_i$, παράλληλα $1/R_{total} = \sum 1/R_i$.
+- **Πυκνωτές:** $C = Q/V$, $\tau = RC$, ενέργεια $E = \frac{1}{2}CV^2$.
+- **Πηνία:** Νόμος Lenz, ενέργεια $E = \frac{1}{2}LI^2$.
+- **Πηγές:** Οι πραγματικές πηγές έχουν εσωτερική αντίσταση. Ιδανική πηγή τάσης: $r \to 0$. Ιδανική πηγή ρεύματος: $r \to \infty$.
+
+### 2.2 Μέθοδοι Ανάλυσης Κυκλωμάτων (Μάθημα 02)
+
+| Μέθοδος | Αριθμός Εξισώσεων | Καλύτερο Για |
 |:-------|:---------------|:---------|
-| KCL | $n-1$ node equations | General |
-| KVL | $b-n+1$ mesh equations | General |
-| Mesh (M.A.B.) | $b-n+1$ | Many voltage sources |
-| Nodal (M.K.) | $n-1$ | Many current sources |
-| Thevenin | Open-circuit voltage + short sources | Two-terminal analysis |
-| Norton | Short-circuit current + open sources | Two-terminal analysis |
-| Max power | $R_L = R_{Th}$ | Power delivery |
+| KCL | $n-1$ εξισώσεις κόμβων | Γενικά |
+| KVL | $b-n+1$ εξισώσεις πλεγμάτων | Γενικά |
+| Πλέγμα (M.A.B.) | $b-n+1$ | Πολλές πηγές τάσης |
+| Κομβιακή (M.K.) | $n-1$ | Πολλές πηγές ρεύματος |
+| Thevenin | Τάση ανοικτού κυκλώματος + σύντομες πηγές | Ανάλυση δύο τερματίων |
+| Norton | Ρεύμα σύντομου κυκλώματος + ανοικτές πηγές | Ανάλυση δύο τερματίων |
+| Μέγιστη ισχύς | $R_L = R_{Th}$ | Παράδοση ισχύος |
 
-**Key formulas:**
+**Κύριοι τύποι:**
 
-| Circuit | Formula |
+| Κύκλωμα | Τύπος |
 |:--------|:--------|
-| Voltage divider | $V_{out} = V_{in} \cdot R_2/(R_1+R_2)$ |
-| Current divider | $I_{R1} = I_{total} \cdot R_2/(R_1+R_2)$ |
-| Source transformation | $V = I \cdot R$, $I = V/R$ |
-| Thevenin/Norton duality | $V_{Th} = I_N R_N$, $I_N = V_{Th}/R_{Th}$ |
+| Ταξιδιαστής τάσης | $V_{out} = V_{in} \cdot R_2/(R_1+R_2)$ |
+| Ταξιδιαστής ρεύματος | $I_{R1} = I_{total} \cdot R_2/(R_1+R_2)$ |
+| Μετασχηματισμός πηγής | $V = I \cdot R$, $I = V/R$ |
+| Δυαδικότητα Thevenin/Norton | $V_{Th} = I_N R_N$, $I_N = V_{Th}/R_{Th}$ |
 
-### 2.3 Semiconductors and PN Junction (Lecture 03)
+### 2.3 Αγωγιμοί και Σύνομο PN (Μάθημα 03)
 
-- **Intrinsic:** $n = p = n_i$.
-- **Doping:** Donors (n-type), acceptors (p-type).
-- **PN junction:** Diffusion $\rightarrow$ depletion region $\rightarrow$ contact potential $V_0 \approx 0.6-0.7\,\text{V}$.
-- **Forward bias:** Narrow depletion, conduction.
-- **Reverse bias:** Wide depletion, insulation.
-- **Junction capacitance:** $C_0 = \epsilon A/W$.
+- **Εγγενής:** $n = p = n_i$.
+- **Δότηση:** Δότες (n-type), αποδέκτες (p-type).
+- **Σύνομο PN:** Διάχυση $\rightarrow$ περιοχή αφαίρεσης $\rightarrow$ δυναμική επαφής $V_0 \approx 0.6-0.7\,\text{V}$.
+- **Ορθή πόλωση:** Στενή αφαίρεση, αγωγιμότητα.
+- **Ανάστροφη πόλωση:** Ευρεία αφαίρεση, μόνωση.
+- **Πυκνότητα συνόμου:** $C_0 = \epsilon A/W$.
 
-### 2.4 Diode (Lecture 04)
+### 2.4 Δίοδος (Μάθημα 04)
 
-- **Shockley equation:** $I_D = I_S[\exp(V_D/\eta V_T) - 1]$.
-- **Threshold:** $0.7\,\text{V}$ (Si), $0.2\,\text{V}$ (Ge).
-- **DC resistance:** $R_{DC} = V_{DQ}/I_{DQ}$.
-- **AC resistance:** $r_{AC} = \eta V_T / I_D$.
-- **Three models:** Ideal ($V_T=0$), Typical ($V_T=0.7\,\text{V}$), Real ($V_T=0.7\,\text{V} + r_d$).
+- **Εξίσωση Shockley:** $I_D = I_S[\exp(V_D/\eta V_T) - 1]$.
+- **Όριο:** $0.7\,\text{V}$ (Si), $0.2\,\text{V}$ (Ge).
+- **Αντίσταση DC:** $R_{DC} = V_{DQ}/I_{DQ}$.
+- **Αντίσταση AC:** $r_{AC} = \eta V_T / I_D$.
+- **Τρία μοντέλα:** Ιδανικό ($V_T=0$), Τυπικό ($V_T=0.7\,\text{V}$), Πραγματικό ($V_T=0.7\,\text{V} + r_d$).
 
-### 2.5 Special Diodes (Lecture 05)
+### 2.5 Ειδικές Δίοδοι (Μάθημα 05)
 
-| Type | Key Feature | Application |
+| Τύπος | Κύριο Χαρακτηριστικό | Εφαρμογή |
 |:-----|:------------|:------------|
-| Zener | Breakdown region operation | Voltage regulation |
-| Schottky | Metal-semiconductor junction | High-speed switching |
-| LED | Light emission (forward bias) | Displays, illumination |
-| Laser diode | Coherent light | Optical communication |
-| Photodiode | Photocurrent (reverse bias) | Light sensing |
-| Phototransistor | Light-activated transistor | Optical sensors |
-| Optocoupler | LED + photodetector | Electrical isolation |
+| Zener | Λειτουργία στην περιοχή κατάρρευσης | Ρύθμιση τάσης |
+| Schottky | Σύνομο μετάλλου-αγωγού | Υψηλής ταχύτητας εναλλαγή |
+| LED | Εκπομπή φωτός (ορθή πόλωση) | Οθόνες, φωτισμός |
+| Δίοδος Laser | Συμβατό φως | Οπτική επικοινωνία |
+| Φωτοδίοδος | Φωτορεύμα (ανάστροφη πόλωση) | Αίσθηση φωτός |
+| Φωτοτρανζίστορ | Φωτοενεργοποιούμενος τρανζίστορ | Οπτικοί αισθητήρες |
+| Οπτοσυζευκτής | LED + φωτοανιχνευτής | Ηλεκτρικός απομόνωση |
 
-### 2.6 Diode Applications (Lecture 06)
+### 2.6 Εφαρμογές Διόδων (Μάθημα 06)
 
-| Rectifier Type | $V_{dc}$ | PIV | $f_{out}$ |
+| Τύπος Ανορθωτή | $V_{dc}$ | PIV | $f_{out}$ |
 |:---------------|:---------|:---|:----------|
-| Half-wave | $0.318 V_p$ | $V_p$ | $f_{in}$ |
-| Full-wave (center-tap) | $0.636 V_p$ | $2V_p + 0.7$ | $2f_{in}$ |
-| Bridge | $0.636 V_p$ | $V_p + 0.7$ | $2f_{in}$ |
+| Ημικυμάτων | $0.318 V_p$ | $V_p$ | $f_{in}$ |
+| Ολόκληρου κύματος (κεντρική λήψη) | $0.636 V_p$ | $2V_p + 0.7$ | $2f_{in}$ |
+| Γέφυρα | $0.636 V_p$ | $V_p + 0.7$ | $2f_{in}$ |
 
-**Power supply chain:** AC $\rightarrow$ Transformer $\rightarrow$ Rectifier $\rightarrow$ Filter $\rightarrow$ Regulator $\rightarrow$ DC.
+**Αλυσίδα τροφοδοσίας:** AC $\rightarrow$ Μετασχηματιστής $\rightarrow$ Ανορθωτής $\rightarrow$ Φίλτρο $\rightarrow$ Ρυθμιστής $\rightarrow$ DC.
 
-### 2.7 BJT Transistor (Lecture 07)
+### 2.7 Τρανζίστορ BJT (Μάθημα 07)
 
-- **Types:** NPN, PNP.
-- **Current relationships:** $I_E = I_C + I_B$, $I_C = \beta I_B$, $I_E = (\beta + 1) I_B$.
+- **Τύποι:** NPN, PNP.
+- **Σχέσεις ρεύματος:** $I_E = I_C + I_B$, $I_C = \beta I_B$, $I_E = (\beta + 1) I_B$.
 - **$\alpha = \beta/(\beta+1)$, $\beta = \alpha/(1-\alpha)$.**
-- **Regions:**
-  - Active: BE forward, BC reverse ($I_B > 0$, $V_{BC} < 0$).
-  - Cutoff: $I_B < 0$ or $V_{BE} < 0.7\,\text{V}$.
-  - Saturation: BE forward, BC forward ($V_{CE} \approx 0.2\,\text{V}$).
-- **Early effect:** $r_o = V_A/I_C$.
+- **Περιοχές:**
+  - Ενεργή: BE ορθή, BC ανάστροφη ($I_B > 0$, $V_{BC} < 0$).
+  - Αποκοπής: $I_B < 0$ ή $V_{BE} < 0.7\,\text{V}$.
+  - Κορεσμού: BE ορθή, BC ορθή ($V_{CE} \approx 0.2\,\text{V}$).
+- **Εφήρημα Early:** $r_o = V_A/I_C$.
 
-### 2.8 Transistor Biasing (Lecture 08)
+### 2.8 Πόλωση Τρανζίστορ (Μάθημα 08)
 
-| Bias Type | Stability | Complexity |
+| Τύπος Πόλωσης | Σταθερότητα | Πολυπλοκότητα |
 |:----------|:----------|:-----------|
-| Base (fixed) | Low | Simple |
-| Emitter | Medium | Moderate |
-| Voltage divider | High | Moderate |
-| Dual-supply | High | Complex |
-| Emitter feedback | Medium | Simple |
-| Collector-emitter feedback | Medium | Moderate |
+| Βάσης (σταθερή) | Χαμηλή | Απλή |
+| Εκπομπού | Μεσαία | Μέτρια |
+| Ταξιδιαστής τάσης | Υψηλή | Μέτρια |
+| Διπλής τροφοδοσίας | Υψηλή | Πολύπλοκη |
+| Επιστροφής εκπομπού | Μεσαία | Απλή |
+| Επιστροφής συλλέκτη-εκπομπού | Μεσαία | Μέτρια |
 
-**Load line endpoints:** $I_{C(sat)} = V_{CC}/(R_C + R_E)$, $V_{CE(cutoff)} = V_{CC}$.
+**Τελικοί σημείο γραμμής φορτίου:** $I_{C(sat)} = V_{CC}/(R_C + R_E)$, $V_{CE(cutoff)} = V_{CC}$.
 
-### 2.9 Transistor Amplifiers (Lecture 09)
+### 2.9 Ενισχυτές Τρανζίστορ (Μάθημα 09)
 
-- **Small-signal parameters:**
+- **Παράμετροι μικροσήματος:**
   - $g_m = I_C/V_T$
   - $r_e' = 25\,\text{mV}/I_E$
   - $r_\pi' = \beta r_e'$
-- **Gain (common emitter):** $A_v = r_c/(r_e' + R_E)$.
-- **With bypass capacitor:** $A_v = r_c/r_e'$.
-- **Stage input impedance:** $Z_{inStage} = R_1 \parallel R_2 \parallel \beta(r_e' + R_E)$.
-- **Output resistance:** $r_c = R_C \parallel R_L$.
+- **Απολαβή (κοινού εκπομπού):** $A_v = r_c/(r_e' + R_E)$.
+- **Με πυκνωτή παράκαμψης:** $A_v = r_c/r_e'$.
+- **Αντίσταση εισόδου βαθμίδας:** $Z_{inStage} = R_1 \parallel R_2 \parallel \beta(r_e' + R_E)$.
+- **Αντίσταση εξόδου:** $r_c = R_C \parallel R_L$.
 
-**Generalized methodology:**
-1. DC analysis: find $I_E$, compute $r_e' = 25/I_E$.
-2. AC analysis: ground DC sources, short capacitors, draw Pi model, compute $A_v$ and $v_{out}$.
-
----
-
-## 3. Key Diagrams Reference
-
-The lecture includes illustrations of:
-1. Energy band diagrams for metals, insulators, and semiconductors.
-2. PN junction depletion region under zero, forward, and reverse bias.
-3. Diode I-V characteristic curve with breakdown region.
-4. Half-wave, center-tapped full-wave, and bridge rectifier circuits.
-5. Full power supply block diagram with waveforms.
-6. BJT characteristic curves showing four operating regions.
-7. Load line with Q-point on output characteristics.
-8. Pi model for AC analysis of common-emitter amplifier.
+**Γενικευμένη μεθοδολογία:**
+1. Ανάλυση DC: εντοπισμός $I_E$, υπολογισμός $r_e' = 25/I_E$.
+2. Ανάλυση AC: σύνδεση πηγών DC στη γη, σύντομο πυκνωτών, σχεδίαση μοντέλου Pi, υπολογισμός $A_v$ και $v_{out}$.
 
 ---
 
-## 4. Worked Examples
+## 3. Αναφορά Κύριων Διαγραμμάτων
 
-### Exercise 1: Ohm's Law and Power
+Το μάθημα περιλαμβάνει εικονίδια:
+1. Διαγράμματα ενεργειακών ζωνών για μέταλλα, μονωτές και αγωγιμούς.
+2. Περιοχή αφαίρεσης συνόμου PN σε μηδενική, ορθή και ανάστροφη πόλωση.
+3. Χαρακτηριστική καμπύλη I-V διόδου με περιοχή κατάρρευσης.
+4. Κυκλώματα ανορθωτή ημικυμάτων, κεντρικής λήψης ολόκληρου κύματος και γέφυρας.
+5. Διάγραμμα μπλοκ πλήρους τροφοδοσίας με μορφές κύματος.
+6. Χαρακτηριστικές καμπύλες BJT που δείχνουν τέσσερις περιοχές λειτουργίας.
+7. Γραμμή φορτίου με σημείο Q στις χαρακτηριστικές εξόδου.
+8. Μοντέλο Pi για ανάλυση AC ενισχυτή κοινού εκπομπού.
 
-**Problem:** A $1\,k\Omega$ resistor carries $10\,\text{mA}$. Find the voltage and power.
+---
 
-**Solution:**
+## 4. Επιλυμένα Παραδείγματα
+
+### Άσκηση 1: Νόμος του Ohm και Ισχύς
+
+**Ερώτημα:** Ένας αντιστάτης $1\,k\Omega$ διέρχεται από $10\,\text{mA}$. Εντοπίστε την τάση και την ισχύ.
+
+**Λύση:**
 
 $V = IR = 0.01 \times 1000 = 10\,\text{V}$
 
@@ -152,84 +152,84 @@ $P = VI = 10 \times 0.01 = 0.1\,\text{W} = 100\,\text{mW}$
 
 ---
 
-### Exercise 2: Thevenin and Biasing Connection
+### Άσκηση 2: Thevenin και Σύνδεση Πόλωσης
 
-**Problem:** A Zener regulator uses Thevenin analysis. Explain why.
+**Ερώτημα:** Ένας ρυθμιστής Zener χρησιμοποιεί ανάλυση Thevenin. Εξηγήστε γιατί.
 
-**Solution:**
+**Λύση:**
 
-The Zener regulator's behavior depends on the voltage at the Zener terminals. By finding $V_{Th}$ and $R_{Th}$ seen by the Zener, one can directly determine if $V_{Th} > V_Z$ (Zener conducts, regulates) or $V_{Th} < V_Z$ (Zener off). This simplifies analysis of complex resistor networks feeding the Zener.
-
----
-
-### Exercise 3: PN Junction -- Quick Identification
-
-**Problem:** A material has a resistivity of $0.5\,\Omega\cdot\text{cm}$. Is it a conductor, semiconductor, or insulator?
-
-**Solution:**
-
-$0.5\,\Omega\cdot\text{cm} = 0.005\,\Omega\cdot\text{m}$. This falls in the semiconductor range ($10^{-6}$ to $10^6\,\Omega\cdot\text{m}$). It is a **semiconductor**.
+Η συμπεριφορά του ρυθμιστή Zener εξαρτάται από την τάση στα τερματία Zener. Εντοπίζοντας το $V_{Th}$ και $R_{Th}$ που βλέπει ο Zener, μπορεί κανείς να καθορίσει αν $V_{Th} > V_Z$ (ο Zener διέρχεται, ρυθμίζει) ή $V_{Th} < V_Z$ (ο Zener είναι απενεργοποιημένος). Αυτό απλοποιεί την ανάλυση πολύπλοκων δικτύων αντιστατών που τροφοδοτούν τον Zener.
 
 ---
 
-### Exercise 4: Rectifier Selection
+### Άσκηση 3: Σύνομο PN -- Γρήγορος Εντοπισμός
 
-**Problem:** A power supply requires $12\,\text{V DC}$ from a $230\,\text{V AC}$ mains. Which rectifier type minimizes transformer complexity?
+**Ερώτημα:** Ένα υλικό έχει αντιστατικότητα $0.5\,\Omega\cdot\text{cm}$. Είναι αγωγός, αγωγιμός ή μονωτής;
 
-**Solution:**
+**Λύση:**
 
-The **bridge rectifier** uses a simple (non-center-tapped) transformer, requiring only a single secondary winding. It also has lower PIV requirements per diode compared to the center-tapped design.
+$0.5\,\Omega\cdot\text{cm} = 0.005\,\Omega\cdot\text{m}$. Αυτό εμπίπτει στο εύρος των αγωγιμών ($10^{-6}$ έως $10^6\,\Omega\cdot\text{m}$). Είναι **αγωγιμός**.
 
 ---
 
-### Exercise 5: BJT Region -- Final Check
+### Άσκηση 4: Επιλογή Ανορθωτή
 
-**Problem:** Given $V_{BE} = 0.7\,\text{V}$ and $V_{CE} = 0.2\,\text{V}$, determine the transistor region.
+**Ερώτημα:** Μια τροφοδοσία απαιτεί $12\,\text{V DC}$ από $230\,\text{V AC}$ δίκτυο. Ποιος τύπος ανορθωτή ελαχιστοποιεί την πολυπλοκότητα του μετασχηματιστή;
 
-**Solution:**
+**Λύση:**
+
+Ο **ανορθωτής γέφυρας** χρησιμοποιεί απλό μετασχηματιστή (χωρίς κεντρική λήψη), απαιτώντας μόνο ένα δευτερεύον τύλιγμα. Επίσης έχει χαμηλότερες απαιτήσεις PIV ανά δίοδο σε σύγκριση με το σχέδιο κεντρικής λήψης.
+
+---
+
+### Άσκηση 5: Περιοχή BJT -- Τελικός Έλεγχος
+
+**Ερώτημα:** Δεδομένων $V_{BE} = 0.7\,\text{V}$ και $V_{CE} = 0.2\,\text{V}$, καθορίστε την περιοχή του τρανζίστορ.
+
+**Λύση:**
 
 $V_{BC} = V_{BE} - V_{CE} = 0.7 - 0.2 = 0.5\,\text{V} > 0$.
 
-Both BE and BC junctions are forward biased. The transistor is in **saturation**.
+Και τα δύο σύνομα BE και BC είναι σε ορθή πόλωση. Ο τρανζίστορ είναι σε **κορεσμό**.
 
 ---
 
-### Exercise 6: Voltage Divider Bias -- Stability
+### Άσκηση 6: Πόλωση Ταξιδιαστή Τάσης -- Σταθερότητα
 
-**Problem:** Explain why voltage divider bias is preferred over fixed base bias for amplifiers.
+**Ερώτημα:** Εξηγήστε γιατί η πόλωση ταξιδιαστή τάσης προτιμάται από τη σταθερή πόλωση βάσης για ενισχυτές.
 
-**Solution:**
+**Λύση:**
 
-Voltage divider bias sets $V_B$ independently of $\beta$, making $I_E = (V_B - 0.7)/R_E$ stable. Fixed base bias has $I_B = (V_{BB} - 0.7)/R_B$ but $I_C = \beta I_B$, which varies strongly with $\beta$. Since $\beta$ changes with temperature and between devices, voltage divider bias provides a predictable, stable Q-point.
-
----
-
-### Exercise 7: Amplifier Gain -- Parameter Dependence
-
-**Problem:** An amplifier's gain changes when a bypass capacitor is added. Which parameter changes and why?
-
-**Solution:**
-
-Without bypass: $A_v = r_c/(r_e' + R_E)$. With bypass: $A_v = r_c/r_e'$. The $R_E$ term is removed from the AC path because the capacitor shorts it. This increases $A_v$ because the denominator decreases from $r_e' + R_E$ to just $r_e'$.
+Η πόλωση ταξιδιαστή τάσης ορίζει το $V_B$ ανεξάρτητα από το $\beta$, καθιστώντας το $I_E = (V_B - 0.7)/R_E$ σταθερό. Η σταθερή πόλωση βάσης έχει $I_B = (V_{BB} - 0.7)/R_B$ αλλά $I_C = \beta I_B$, το οποίο μεταβάλλεται δυναμικά με το $\beta$. Επειδή το $\beta$ αλλάζει με τη θερμοκρασία και μεταξύ συσκευών, η πόλωση ταξιδιαστή τάσης παρέχει προβλέψιμο, σταθερό σημείο Q.
 
 ---
 
-### Exercise 8: Complete Power Supply -- Voltage Calculation
+### Άσκηση 7: Απολαβή Ενισχυτή -- Εξάρτηση Παραμέτρων
 
-**Problem:** A power supply uses a bridge rectifier with a $12\,\text{V RMS}$ transformer secondary, capacitor filter, and Zener regulator ($V_Z = 5.1\,\text{V}$). Estimate the DC voltage before the regulator and verify regulation with $R_S = 100\,\Omega$, $I_L = 30\,\text{mA}$.
+**Ερώτημα:** Η απολαβή ενός ενισχυτή αλλάζει όταν προστίθεται πυκνωτής παράκαμψης. Ποια παράμετρος αλλάζει και γιατί;
 
-**Solution:**
+**Λύση:**
 
-Peak: $12 \times 1.414 = 16.97\,\text{V}$. After bridge: $16.97 - 1.4 = 15.57\,\text{V}$ peak.
-
-After capacitor filter: approximately $15.57\,\text{V}$ DC (with ripple).
-
-Regulator current: $I_1 = (15.57 - 5.1)/100 = 104.7\,\text{mA}$.
-
-$I_Z = 104.7 - 30 = 74.7\,\text{mA}$. Regulation is maintained if $I_Z$ is within limits.
+Χωρίς παράκαμψη: $A_v = r_c/(r_e' + R_E)$. Με παράκαμψη: $A_v = r_c/r_e'$. Ο όρος $R_E$ αφαιρείται από το μονοπάτι AC επειδή ο πυκνωτής τον συντομεύει. Αυτό αυξάνει το $A_v$ επειδά ο παρονομαστής μειώνεται από $r_e' + R_E$ σε μόνο $r_e'$.
 
 ---
 
-## Exam Tip: Final Exam Strategy
+### Άσκηση 8: Πλήρης Τροφοδοσία -- Υπολογισμός Τάσης
 
-For the final exam, focus on these key areas: (1) Thevenin/Norton equivalents, (2) diode model selection and load line, (3) Zener regulator analysis using Thevenin, (4) rectifier PIV calculation, (5) BJT region determination, (6) voltage divider bias Q-point, and (7) amplifier gain with and without bypass capacitor. These topics cover approximately 80% of the exam material.
+**Ερώτημα:** Μια τροφοδοσία χρησιμοποιεί ανορθωτή γέφυρας με δευτερεύον μετασχηματιστή $12\,\text{V RMS}$, φίλτρο πυκνωτή και ρυθμιστή Zener ($V_Z = 5.1\,\text{V}$). Εκτιμήστε την τάση DC πριν τον ρυθμιστή και επιβεβαιώστε τη ρύθμιση με $R_S = 100\,\Omega$, $I_L = 30\,\text{mA}$.
+
+**Λύση:**
+
+Αιχμή: $12 \times 1.414 = 16.97\,\text{V}$. Μετά τη γέφυρα: $16.97 - 1.4 = 15.57\,\text{V}$ αιχμή.
+
+Μετά το φίλτρο πυκνωτή: περίπου $15.57\,\text{V}$ DC (με κυματοτράχηλο).
+
+Ρεύμα ρυθμιστή: $I_1 = (15.57 - 5.1)/100 = 104.7\,\text{mA}$.
+
+$I_Z = 104.7 - 30 = 74.7\,\text{mA}$. Η ρύθμιση διατηρείται αν το $I_Z$ βρίσκεται εντός ορίων.
+
+---
+
+## Συμβουλή Εξέτασης: Στρατηγική Τελικής Εξέτασης
+
+Για την τελική εξέταση, εστιάστε στις ακόλουθες κύριες περιοχές: (1) ισοδύναμα Thevenin/Norton, (2) επιλογή μοντέλου διόδου και γραμμή φορτίου, (3) ανάλυση ρυθμιστή Zener χρησιμοποιώντας Thevenin, (4) υπολογισμός PIV ανορθωτή, (5) καθορισμός περιοχής BJT, (6) σημείο Q πόλωσης ταξιδιαστή τάσης και (7) απολαβή ενισχυτή με και χωρίς πυκνωτή παράκαμψης. Αυτά τα θέματα καλύπτουν περίπου το 80% του υλικού εξέτασης.

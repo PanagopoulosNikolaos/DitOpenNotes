@@ -1,19 +1,19 @@
-# Linear Transformations
+# Γραμμικοί Μετασχηματισμοί
 
-A linear transformation is a map between vector spaces that preserves the operations of addition and scalar multiplication. This structure-preserving property makes linear transformations the natural morphisms in the category of vector spaces. Every linear transformation corresponds to a matrix once bases are chosen for the domain and codomain, and the kernel-image (rank-nullity) theorem governs the dimensions involved. Isomorphisms, composition, and geometric transformations such as rotation and reflection are special cases within this framework.
+Ένας γραμμικός μετασχηματισμός είναι μια απεικόνιση μεταξύ διανυσματικών χώρων που διατηρεί τις πράξεις της πρόσθεσης και του βαθμωτού πολλαπλασιασμού. Αυτή η ιδιότητα διατήρησης της δομής καθιστά τους γραμμικούς μετασχηματισμούς τους φυσικούς μορφισμούς στην κατηγορία των διανυσματικών χώρων. Κάθε γραμμικός μετασχηματισμός αντιστοιχεί σε έναν πίνακα εφόσον επιλεγούν βάσεις για το πεδίο ορισμού και το πεδίο τιμών, ενώ το θεώρημα πυρήνα-εικόνας (rank-nullity) διέπει τις εμπλεκόμενες διαστάσεις. Οι ισομορφισμοί, η σύνθεση και οι γεωμετρικοί μετασχηματισμοί όπως η στροφή και η ανάκλαση αποτελούν ειδικές περιπτώσεις εντός αυτού του πλαισίου.
 
 ---
 
-## 1. Core Definitions
+## 1. Βασικοί Ορισμοί
 
-### 1.1 Linear Transformation
+### 1.1 Γραμμικός Μετασχηματισμός
 
-Let $V$ and $W$ be vector spaces over $\mathbb{F}$. A map $T: V \to W$ is **linear** if:
+Έστω $V$ και $W$ διανυσματικοί χώροι πάνω στο σώμα $\mathbb{F}$. Μια απεικόνιση $T: V \to W$ είναι **γραμμική** αν:
 
-1. $T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v})$ for all $\mathbf{u}, \mathbf{v} \in V$
-2. $T(c\mathbf{u}) = c\,T(\mathbf{u})$ for all $c \in \mathbb{F}$, $\mathbf{u} \in V$
+1. $T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v})$ για όλα τα $\mathbf{u}, \mathbf{v} \in V$
+2. $T(c\mathbf{u}) = c\,T(\mathbf{u})$ για όλα τα $c \in \mathbb{F}$, $\mathbf{u} \in V$
 
-### 1.2 Immediate Consequences
+### 1.2 Άμεσες Συνέπειες
 
 - $T(\mathbf{0}_V) = \mathbf{0}_W$
 - $T(-\mathbf{v}) = -T(\mathbf{v})$
@@ -21,27 +21,27 @@ Let $V$ and $W$ be vector spaces over $\mathbb{F}$. A map $T: V \to W$ is **line
 
 ---
 
-## 2. Kernel and Image
+## 2. Πυρήνας και Εικόνα
 
-### 2.1 Kernel (Null Space)
+### 2.1 Πυρήνας (Null Space)
 
 $$
 \ker(T) = \{\mathbf{v} \in V \mid T(\mathbf{v}) = \mathbf{0}\} \subseteq V
 $$
 
-$\ker(T)$ is a subspace of $V$.
+Ο $\ker(T)$ είναι υποχώρος του $V$.
 
-### 2.2 Image (Range)
+### 2.2 Εικόνα (Range)
 
 $$
 \text{Im}(T) = \{T(\mathbf{v}) \mid \mathbf{v} \in V\} \subseteq W
 $$
 
-$\text{Im}(T)$ is a subspace of $W$.
+Η $\text{Im}(T)$ είναι υποχώρος του $W$.
 
-### 2.3 Rank-Nullity Theorem for Linear Transformations
+### 2.3 Θεώρημα Rank-Nullity (Πυρήνα-Εικόνας) για Γραμμικούς Μετασχηματισμούς
 
-If $V$ is finite-dimensional:
+Αν ο $V$ είναι πεπερασμένης διάστασης:
 
 $$
 \dim(\ker(T)) + \dim(\text{Im}(T)) = \dim(V)
@@ -49,71 +49,71 @@ $$
 
 ---
 
-## 3. Isomorphism
+## 3. Ισομορφισμός
 
-### 3.1 Definitions
+### 3.1 Ορισμοί
 
-- **Injective (one-to-one):** $T(\mathbf{u}) = T(\mathbf{v})$ implies $\mathbf{u} = \mathbf{v}$. Equivalently, $\ker(T) = \{\mathbf{0}\}$.
-- **Surjective (onto):** $\text{Im}(T) = W$.
-- **Isomorphism:** a linear transformation that is both injective and surjective (bijective).
+- **Αμφιμονοσήμαντος (1-1 / Injective):** $T(\mathbf{u}) = T(\mathbf{v})$ συνεπάγεται $\mathbf{u} = \mathbf{v}$. Ισοδύναμα, $\ker(T) = \{\mathbf{0}\}$.
+- **Επί (Surjective):** $\text{Im}(T) = W$.
+- **Ισομορφισμός:** ένας γραμμικός μετασχηματισμός που είναι ταυτόχρονα 1-1 και επί (αμφιμονοσήμαντος και επί / bijective).
 
-### 3.2 Finite-Dimensional Classification
+### 3.2 Ταξινόμηση Πεπερασμένης Διάστασης
 
-If $\dim(V) = \dim(W)$, then $T$ is injective iff it is surjective (the rank-nullity theorem forces the equivalence).
+Αν $\dim(V) = \dim(W)$, τότε ο $T$ είναι 1-1 αν και μόνο αν είναι επί (το θεώρημα rank-nullity επιβάλλει αυτή την ισοδυναμία).
 
 ---
 
-## 4. Matrix Representation
+## 4. Αναπαράσταση με Πίνακα
 
-### 4.1 Standard Matrix
+### 4.1 Κανονικός Πίνακας Μετασχηματισμού
 
-Given bases $B = \{\mathbf{b}_1, \ldots, \mathbf{b}_n\}$ for $V$ and $C = \{\mathbf{c}_1, \ldots, \mathbf{c}_m\}$ for $W$, the matrix $[T]_{C \leftarrow B}$ is $m \times n$ with column $j$ equal to $[T(\mathbf{b}_j)]_C$.
+Δεδομένων των βάσεων $B = \{\mathbf{b}_1, \ldots, \mathbf{b}_n\}$ για τον $V$ και $C = \{\mathbf{c}_1, \ldots, \mathbf{c}_m\}$ για τον $W$, ο πίνακας $[T]_{C \leftarrow B}$ είναι $m \times n$ με στήλη $j$ ίση με το $[T(\mathbf{b}_j)]_C$.
 
-For $V = \mathbb{R}^n$, $W = \mathbb{R}^m$ with standard bases, $[T] = A$ simply satisfies $T(\mathbf{x}) = A\mathbf{x}$.
+Για $V = \mathbb{R}^n$, $W = \mathbb{R}^m$ με τις κανονικές βάσεις, ο $[T] = A$ ικανοποιεί απλώς $T(\mathbf{x}) = A\mathbf{x}$.
 
-### 4.2 Composition
+### 4.2 Σύνθεση Μετασχηματισμών
 
-If $T: V \to W$ and $S: W \to U$ are linear, then $S \circ T: V \to U$ is linear and:
+Αν $T: V \to W$ και $S: W \to U$ είναι γραμμικές απεικονίσεις, τότε η σύνθεση $S \circ T: V \to U$ είναι γραμμική και:
 
 $$
 [S \circ T] = [S][T]
 $$
 
-(matrix multiplication of the representations).
+(πολλαπλασιασμός των πινάκων αναπαράστασης).
 
-### 4.3 Similarity
+### 4.3 Ομοιότητα Πινάκων
 
-If $A$ and $B$ represent the same linear transformation under different bases, then $B = P^{-1}AP$ for some invertible change-of-basis matrix $P$. Matrices related this way are called **similar**.
+Αν οι πίνακες $A$ και $B$ αναπαριστούν τον ίδιο γραμμικό μετασχηματισμό ως προς διαφορετικές βάσεις, τότε $B = P^{-1}AP$ για κάποιον αντιστρέψιμο πίνακα αλλαγής βάσης $P$. Οι πίνακες που συνδέονται με αυτόν τον τρόπο ονομάζονται **όμοιοι (similar)**.
 
 ---
 
-## 5. Geometric Transformations in $\mathbb{R}^2$
+## 5. Γεωμετρικοί Μετασχηματισμοί στον $\mathbb{R}^2$
 
-### 5.1 Rotation by $\theta$
+### 5.1 Στροφή κατά γωνία $\theta$
 
 $$
 R_\theta = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
 $$
 
-### 5.2 Reflection across the $x$-axis
+### 5.2 Ανάκλαση ως προς τον άξονα $x$
 
 $$
 \text{Refl}_x = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
 $$
 
-### 5.3 Reflection across the line $y = x$
+### 5.3 Ανάκλαση ως προς την ευθεία $y = x$
 
 $$
 \text{Refl}_{y=x} = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}
 $$
 
-### 5.4 Shear in the $x$-direction
+### 5.4 Διάτμηση (Shear) στην κατεύθυνση $x$
 
 $$
 \text{Shear}_x(k) = \begin{bmatrix} 1 & k \\ 0 & 1 \end{bmatrix}
 $$
 
-### 5.5 Orthogonal Projection onto the $x$-axis
+### 5.5 Ορθογώνια Προβολή στον άξονα $x$
 
 $$
 P_x = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}
@@ -121,15 +121,15 @@ $$
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Checking Linearity
+### Άσκηση 1: Έλεγχος Γραμμικότητας
 
-**Problem:**
-Determine whether $T: \mathbb{R}^2 \to \mathbb{R}^2$, $T(x, y) = (x + 2y, 3x)$ is linear.
+**Πρόβλημα:**
+Εξετάστε αν η $T: \mathbb{R}^2 \to \mathbb{R}^2$, $T(x, y) = (x + 2y, 3x)$ είναι γραμμική.
 
-**Solution:**
-Check additivity: let $\mathbf{u} = (u_1, u_2)$, $\mathbf{v} = (v_1, v_2)$.
+**Λύση:**
+Έλεγχος προσθετικότητας: έστω $\mathbf{u} = (u_1, u_2)$, $\mathbf{v} = (v_1, v_2)$.
 
 $$
 T(\mathbf{u} + \mathbf{v}) = T(u_1 + v_1, u_2 + v_2) = (u_1 + v_1 + 2(u_2 + v_2), 3(u_1 + v_1))
@@ -143,50 +143,50 @@ $$
 T(\mathbf{u}) + T(\mathbf{v}) = (u_1 + 2u_2, 3u_1) + (v_1 + 2v_2, 3v_1) = (u_1 + 2u_2 + v_1 + 2v_2, 3u_1 + 3v_1)
 $$
 
-They match. Check homogeneity: $T(c\mathbf{u}) = (cu_1 + 2cu_2, 3cu_1) = c(u_1 + 2u_2, 3u_1) = c T(\mathbf{u})$. Both conditions hold. $T$ is linear.
+Ταυτίζονται. Έλεγχος ομογένειας: $T(c\mathbf{u}) = (cu_1 + 2cu_2, 3cu_1) = c(u_1 + 2u_2, 3u_1) = c T(\mathbf{u})$. Ισχύουν και οι δύο συνθήκες. Η $T$ είναι γραμμική.
 
 ---
 
-### Exercise 2: Non-Linear Map
+### Άσκηση 2: Μη-Γραμμική Απεικόνιση
 
-**Problem:**
-Show that $T: \mathbb{R} \to \mathbb{R}$, $T(x) = x^2$ is not linear.
+**Πρόβλημα:**
+Δείξτε ότι η $T: \mathbb{R} \to \mathbb{R}$, $T(x) = x^2$ δεν είναι γραμμική.
 
-**Solution:**
-Check homogeneity: $T(cx) = (cx)^2 = c^2 x^2 \neq c\,T(x) = c x^2$ for $c \neq 0, 1$. For example, $T(2 \cdot 3) = 36 \neq 2 \cdot T(3) = 18$. Not linear.
+**Λύση:**
+Έλεγχος ομογένειας: $T(cx) = (cx)^2 = c^2 x^2 \neq c\,T(x) = c x^2$ για $c \neq 0, 1$. Για παράδειγμα, $T(2 \cdot 3) = 36 \neq 2 \cdot T(3) = 18$. Δεν είναι γραμμική.
 
 ---
 
-### Exercise 3: Kernel and Image
+### Άσκηση 3: Πυρήνας και Εικόνα
 
-**Problem:**
-Find $\ker(T)$ and $\text{Im}(T)$ for $T: \mathbb{R}^3 \to \mathbb{R}^2$, $T(x, y, z) = (x + y, y - z)$.
+**Πρόβλημα:**
+Βρείτε τον $\ker(T)$ και την $\text{Im}(T)$ για την $T: \mathbb{R}^3 \to \mathbb{R}^2$, $T(x, y, z) = (x + y, y - z)$.
 
-**Solution:**
-**Kernel:** Solve $T(x, y, z) = (0, 0)$:
+**Λύση:**
+**Πυρήνας:** Λύνουμε $T(x, y, z) = (0, 0)$:
 
 $$
 x + y = 0,\quad y - z = 0 \Rightarrow z = y,\; x = -y
 $$
 
-Set $y = t$: $(x, y, z) = (-t, t, t) = t(-1, 1, 1)$.
+Θέτουμε $y = t$: $(x, y, z) = (-t, t, t) = t(-1, 1, 1)$.
 
 $$
 \ker(T) = \text{span}\{(-1, 1, 1)\},\quad \dim(\ker) = 1
 $$
 
-**Image:** $T(x, y, z) = (x + y, y - z)$. Any vector in $\mathbb{R}^2$ can be written as $(a, b)$ by choosing $x, y, z$ appropriately. For any $(a, b) \in \mathbb{R}^2$, set $y = 0$, $z = -b$, $x = a$. Then $T(a, 0, -b) = (a, b)$. So $\text{Im}(T) = \mathbb{R}^2$, $\dim(\text{Im}) = 2$.
+**Εικόνα:** $T(x, y, z) = (x + y, y - z)$. Κάθε διάνυσμα στον $\mathbb{R}^2$ μπορεί να γραφεί ως $(a, b)$ επιλέγοντας κατάλληλα τα $x, y, z$. Για οποιοδήποτε $(a, b) \in \mathbb{R}^2$, θέτουμε $y = 0$, $z = -b$, $x = a$. Τότε $T(a, 0, -b) = (a, b)$. Άρα $\text{Im}(T) = \mathbb{R}^2$, $\dim(\text{Im}) = 2$.
 
-Verify rank-nullity: $1 + 2 = 3 = \dim(\mathbb{R}^3)$.
+Επαλήθευση θεωρήματος rank-nullity: $1 + 2 = 3 = \dim(\mathbb{R}^3)$.
 
 ---
 
-### Exercise 4: Matrix of a Linear Transformation
+### Άσκηση 4: Πίνακας Γραμμικού Μετασχηματισμού
 
-**Problem:**
-Find the matrix $A$ of $T: \mathbb{R}^3 \to \mathbb{R}^2$, $T(x, y, z) = (2x - y, x + 3y + z)$ using standard bases.
+**Πρόβλημα:**
+Βρείτε τον πίνακα $A$ της $T: \mathbb{R}^3 \to \mathbb{R}^2$, $T(x, y, z) = (2x - y, x + 3y + z)$ ως προς τις κανονικές βάσεις.
 
-**Solution:**
+**Λύση:**
 $T(\mathbf{e}_1) = T(1, 0, 0) = (2, 1)^\mathsf{T}$.
 $T(\mathbf{e}_2) = T(0, 1, 0) = (-1, 3)^\mathsf{T}$.
 $T(\mathbf{e}_3) = T(0, 0, 1) = (0, 1)^\mathsf{T}$.
@@ -195,18 +195,18 @@ $$
 A = \begin{bmatrix} 2 & -1 & 0 \\ 1 & 3 & 1 \end{bmatrix}
 $$
 
-Verification: $A \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2x - y \\ x + 3y + z \end{pmatrix}$.
+Επαλήθευση: $A \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 2x - y \\ x + 3y + z \end{pmatrix}$.
 
 ---
 
-### Exercise 5: Composition of Transformations
+### Άσκηση 5: Σύνθεση Μετασχηματισμών
 
-**Problem:**
-Let $T: \mathbb{R}^2 \to \mathbb{R}^2$ be rotation by $90^\circ$ and $S: \mathbb{R}^2 \to \mathbb{R}^2$ be reflection across the $x$-axis. Find $[S \circ T]$.
+**Πρόβλημα:**
+Έστω $T: \mathbb{R}^2 \to \mathbb{R}^2$ η στροφή κατά $90^\circ$ και $S: \mathbb{R}^2 \to \mathbb{R}^2$ η ανάκλαση ως προς τον άξονα $x$. Βρείτε τον $[S \circ T]$.
 
-**Solution:**
-Rotation by $90^\circ$: $R_{90} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$.
-Reflection across $x$-axis: $R_x = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$.
+**Λύση:**
+Στροφή κατά $90^\circ$: $R_{90} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$.
+Ανάκλαση ως προς τον άξονα $x$: $R_x = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$.
 
 $$
 [S \circ T] = R_x \cdot R_{90} = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}
@@ -214,51 +214,51 @@ $$
 = \begin{bmatrix} 0 & -1 \\ -1 & 0 \end{bmatrix}
 $$
 
-This is reflection across the line $y = -x$. Check: $T(1, 0) = (0, 1)$, then $S(0, 1) = (0, -1)$. Direct: $(S \circ T)(1, 0) = (0, -1)$, and $A(1, 0)^\mathsf{T} = (0, -1)^\mathsf{T}$, correct.
+Αυτή είναι ανάκλαση ως προς την ευθεία $y = -x$. Έλεγχος: $T(1, 0) = (0, 1)$, στη συνέχεια $S(0, 1) = (0, -1)$. Απευθείας: $(S \circ T)(1, 0) = (0, -1)$, και $A(1, 0)^\mathsf{T} = (0, -1)^\mathsf{T}$, σωστό.
 
 ---
 
-### Exercise 6: Injectivity and Surjectivity
+### Άσκηση 6: Αμφιμονοσημαντότητα και Επιμορφισμός
 
-**Problem:**
-Determine if $T: \mathbb{R}^2 \to \mathbb{R}^2$, $T(x, y) = (x + 2y, 2x + 4y)$ is injective and/or surjective.
+**Πρόβλημα:**
+Εξετάστε αν η $T: \mathbb{R}^2 \to \mathbb{R}^2$, $T(x, y) = (x + 2y, 2x + 4y)$ είναι 1-1 και/ή επί.
 
-**Solution:**
-The matrix is $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$. $\det(A) = 1 \cdot 4 - 2 \cdot 2 = 0$. $A$ is singular.
+**Λύση:**
+Ο πίνακας μετασχηματισμού είναι $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$. $\det(A) = 1 \cdot 4 - 2 \cdot 2 = 0$. Ο $A$ είναι ιδιάζων.
 
-**Kernel:** Solve $A\mathbf{x} = \mathbf{0}$: $x + 2y = 0$, $2x + 4y = 0$. The second equation is $2 \times$ the first. So $x = -2y$. Non-zero vectors exist (e.g., $(-2, 1)$), so $\ker(T) \neq \{\mathbf{0}\}$. $T$ is **not injective**.
+**Πυρήνας:** Λύνουμε $A\mathbf{x} = \mathbf{0}$: $x + 2y = 0$, $2x + 4y = 0$. Η δεύτερη εξίσωση είναι $2 \times$ η πρώτη. Άρα $x = -2y$. Υπάρχουν μη-μηδενικά διανύσματα (π.χ. $(-2, 1)$), οπότε $\ker(T) \neq \{\mathbf{0}\}$. Η $T$ **δεν είναι 1-1**.
 
-**Image:** $\text{rank}(A) = 1$ (only one pivot), but $\dim(\mathbb{R}^2) = 2$. So $\text{Im}(T) \neq \mathbb{R}^2$. $T$ is **not surjective**.
-
----
-
-### Exercise 7: Similarity
-
-**Problem:**
-Show that $A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ and $B = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix}$ are similar.
-
-**Solution:**
-Find eigenvectors of $A$. $\det(A - \lambda I) = (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = (\lambda - 3)(\lambda - 1)$. Eigenvalues $\lambda = 3, 1$.
-
-For $\lambda = 3$: $(A - 3I)\mathbf{v} = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}\mathbf{v} = \mathbf{0} \Rightarrow \mathbf{v} = (1, 1)$.
-
-For $\lambda = 1$: $(A - I)\mathbf{v} = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\mathbf{v} = \mathbf{0} \Rightarrow \mathbf{v} = (1, -1)$.
-
-Let $P = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ (eigenvectors as columns). Then $P^{-1}AP = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix} = B$. Thus $A$ and $B$ are similar.
+**Εικόνα:** $\text{rank}(A) = 1$ (μόνο ένα pivot), ενώ $\dim(\mathbb{R}^2) = 2$. Άρα $\text{Im}(T) \neq \mathbb{R}^2$. Η $T$ **δεν είναι επί**.
 
 ---
 
-### Exercise 8: Geometric Transformation Composition
+### Άσκηση 7: Ομοιότητα Πινάκων
 
-**Problem:**
-Find the matrix for rotation by $45^\circ$ followed by reflection across the $y$-axis.
+**Πρόβλημα:**
+Δείξτε ότι οι $A = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ και $B = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix}$ είναι όμοιοι.
 
-**Solution:**
-Rotation by $45^\circ$: $R_{45} = \begin{bmatrix} \cos 45^\circ & -\sin 45^\circ \\ \sin 45^\circ & \cos 45^\circ \end{bmatrix} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}$.
+**Λύση:**
+Βρίσκουμε τα ιδιοδιανύσματα του $A$. $\det(A - \lambda I) = (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = (\lambda - 3)(\lambda - 1)$. Ιδιοτιμές $\lambda = 3, 1$.
 
-Reflection across $y$-axis: $\text{Refl}_y = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$.
+Για $\lambda = 3$: $(A - 3I)\mathbf{v} = \begin{bmatrix} -1 & 1 \\ 1 & -1 \end{bmatrix}\mathbf{v} = \mathbf{0} \Rightarrow \mathbf{v} = (1, 1)$.
 
-Composition: $\text{Refl}_y \circ R_{45}$:
+Για $\lambda = 1$: $(A - I)\mathbf{v} = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}\mathbf{v} = \mathbf{0} \Rightarrow \mathbf{v} = (1, -1)$.
+
+Έστω $P = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ (τα ιδιοδιανύσματα ως στήλες). Τότε $P^{-1}AP = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix} = B$. Επομένως οι $A$ και $B$ είναι όμοιοι.
+
+---
+
+### Άσκηση 8: Σύνθεση Γεωμετρικών Μετασχηματισμών
+
+**Πρόβλημα:**
+Βρείτε τον πίνακα της στροφής κατά $45^\circ$ ακολουθούμενης από ανάκλαση ως προς τον άξονα $y$.
+
+**Λύση:**
+Στροφή κατά $45^\circ$: $R_{45} = \begin{bmatrix} \cos 45^\circ & -\sin 45^\circ \\ \sin 45^\circ & \cos 45^\circ \end{bmatrix} = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}$.
+
+Ανάκλαση ως προς τον άξονα $y$: $\text{Refl}_y = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$.
+
+Σύνθεση: $\text{Refl}_y \circ R_{45}$:
 
 $$
 A = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix} \cdot \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix} = \frac{1}{\sqrt{2}} \begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix}
@@ -266,8 +266,8 @@ $$
 
 ---
 
-## Exam Tip: Kernel Membership Check
+## Συμβουλή Εξετάσεων: Έλεγχος Συμμετοχής στον Πυρήνα
 
-To test if a vector $\mathbf{v}$ is in $\ker(T)$, simply apply $T$ and verify the result is $\mathbf{0}$. For $\text{Im}(T)$ membership, solve $T(\mathbf{x}) = \mathbf{b}$ for $\mathbf{x}$; if consistent, $\mathbf{b} \in \text{Im}(T)$. On exams, the rank-nullity theorem is often needed to determine dimensions without full computation.
+Για να ελέγξετε αν ένα διάνυσμα $\mathbf{v}$ ανήκει στον $\ker(T)$, απλώς εφαρμόστε την $T$ και επαληθεύστε ότι το αποτέλεσμα είναι το $\mathbf{0}$. Για τη συμμετοχή στην $\text{Im}(T)$, λύστε την εξίσωση $T(\mathbf{x}) = \mathbf{b}$ ως προς $\mathbf{x}$· αν είναι συμβατή, τότε $\mathbf{b} \in \text{Im}(T)$. Στις εξετάσεις, το θεώρημα rank-nullity απαιτείται συχνά για τον προσδιορισμό των διαστάσεων χωρίς πλήρη υπολογισμό.
 
 ---

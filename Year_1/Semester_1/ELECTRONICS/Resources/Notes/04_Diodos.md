@@ -1,54 +1,54 @@
-# 04_Diodos Documentation
+# 04_Diodos Τεκμηρίωση
 
-This lecture covers the PN junction diode: its construction, electrical characteristics, Shockley equation, load line analysis, operating point, static and dynamic resistance, and the three approximation models (ideal, typical, real).
-
----
-
-## 1. Conceptual Foundation
-
-A diode is the practical implementation of a PN junction, providing controlled, unidirectional current flow. It functions as an electronic valve -- allowing current in one direction (forward bias) while blocking it in the opposite direction (reverse bias). This fundamental switching property underlies rectification, signal clipping, and countless other applications.
+Αυτή η διάλεξη καλύπτει τη δίοδο σύνδεσης PN: την κατασκευή της, τα ηλεκτρικά χαρακτηριστικά, την εξίσωση Shockley, την ανάλυση γραμμής φορτίου, το λειτουργικό σημείο, τη στατική και δυναμική αντίσταση και τα τρία μοντέλα προσέγγισης (ιδανικό, τυπικό, πραγματικό).
 
 ---
 
-## 2. Formal Definition and Model
+## 1. Θεμελιώδες Υπόβαθρο
 
-### 2.1 Crystal Diode (PN Junction Implementation)
+Η δίοδος είναι η πρακτική υλοποίηση μιας σύνδεσης PN, παρέχοντας ελεγχόμενη, μονοκατευθυντική ροή ρεύματος. Λειτουργεί ως ηλεκτρονική βαλβίδα -- επιτρέποντας το ρεύμα σε μία κατεύθυνση (ορθή πόλωση) ενώ το μπλοκάρει στην αντίθετη κατεύθυνση (ανάστροφη πόλωση). Αυτή η θεμελιώδη ιδιότητα εναλλαγής αποτελεί τη βάση του ανορθωτή, του περικοπής σήματος και αμέτρητων άλλων εφαρμογών.
 
-- Two-terminal asymmetric device.
-- **Anode:** P-type terminal.
-- **Cathode:** N-type terminal.
-- Symbol: arrow (anode to cathode direction) with a bar at the cathode.
-- Marked on physical diodes with a band at the cathode end.
+---
 
-### 2.2 I-V Characteristic Regions
+## 2. Επίσημος Ορισμός και Μοντέλο
 
-| Bias Condition | Behavior | Resistance |
+### 2.1 Κρυσταλλική Δίοδος (Υλοποίηση Σύνδεσης PN)
+
+- Δυαδικό συστατικό ασύμμετρης σύστασης.
+- **Άνοδος:** Ακροδέκτης τύπου P.
+- **Κάθοδος:** Ακροδέκτης τύπου N.
+- Σύμβολο: βέλος (κατεύθυνση από άνοδο προς κάθοδο) με μια γραμμή στην κάθοδο.
+- Σημαίνεται στις φυσικές διόδους με μια λωρίδα στην πλευρά της καθόδου.
+
+### 2.2 Περιοχές Χαρακτηριστικής I-V
+
+| Συνθήκη Πόλωσης | Συμπεριφορά | Αντίσταση |
 |:---------------|:---------|:-----------|
-| No bias | Depletion region exists; $V_0 \approx 0.6-0.7\,\text{V}$ for Si | High |
-| Forward bias ($V > V_T$) | Conduction | Low ($50-100\,\Omega$) |
-| Reverse bias ($V < 0$) | Blocking | High ($> 10\,k\Omega$) |
-| Breakdown ($V < -V_{br}$) | Avalanche (destructive for standard diodes) | Very low |
+| Χωρίς πόλωση | Υπάρχει η περιοχή αποστέρωσης· $V_0 \approx 0.6-0.7\,\text{V}$ για Si | Υψηλή |
+| Ορθή πόλωση ($V > V_T$) | Αγωγιμότητα | Χαμηλή ($50-100\,\Omega$) |
+| Ανάστροφη πόλωση ($V < 0$) | Αποκλεισμός | Υψηλή ($> 10\,k\Omega$) |
+| Κατάρρευση ($V < -V_{br}$) | Καταιγίδα (καταστροφική για τυπικές διόδους) | Πολύ χαμηλή |
 
-### 2.3 Threshold Voltage ($V_T$)
+### 2.3 Τάση Κατωφλίου ($V_T$)
 
-- Silicon: $V_T \approx 0.7\,\text{V}$
-- Germanium: $V_T \approx 0.2-0.3\,\text{V}$
+- Πυρίτιο: $V_T \approx 0.7\,\text{V}$
+- Γερμάνιο: $V_T \approx 0.2-0.3\,\text{V}$
 
-### 2.4 Shockley Equation
+### 2.4 Εξίσωση Shockley
 
-The diode current as a function of applied voltage:
+Το ρεύμα της διόδου ως συνάρτηση της εφαρμοσμένης τάσης:
 
 $$
 I_D = I_S \left[ \exp\left(\frac{V_D}{\eta V_T}\right) - 1 \right]
 $$
 
-Where:
-- $I_S$ = reverse saturation current.
-- $V_D$ = voltage across the diode.
-- $\eta$ = ideality factor ($1 \leq \eta \leq 2$).
-- $V_T$ = thermal voltage ($\approx 25\,\text{mV}$ at $300\,\text{K}$).
+Όπου:
+- $I_S$ = ανάστροφο ρεύμα κορεσμού.
+- $V_D$ = τάση στη δίοδο.
+- $\eta$ = παράγοντας ιδανικότητας ($1 \leq \eta \leq 2$).
+- $V_T$ = θερμική τάση ($\approx 25\,\text{mV}$ στο $300\,\text{K}$).
 
-For forward bias with $V_D \gg V_T$:
+Για ορθή πόλωση με $V_D \gg V_T$:
 
 $$
 I_D \approx I_S \exp\left(\frac{V_D}{\eta V_T}\right)
@@ -56,15 +56,15 @@ $$
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
-### 3.1 DC (Static) Resistance
+### 3.1 DC (Στατική) Αντίσταση
 
 $$
 R_{DC} = \frac{V_{DQ}}{I_{DQ}}
 $$
 
-### 3.2 AC (Dynamic) Resistance
+### 3.2 AC (Δυναμική) Αντίσταση
 
 $$
 r_{AC} = \frac{\Delta V_D}{\Delta I_D} \approx \frac{\eta V_T}{I_D}
@@ -72,50 +72,50 @@ $$
 
 ---
 
-## 4. Step-by-Step Mechanism
+## 4. Μηχανισμός Βήμα προς Βήμα
 
-### 4.1 Load Line Analysis
+### 4.1 Ανάλυση Γραμμής Φορτίου
 
-For a circuit with a DC source $V_{DD}$, resistor $R$, and diode:
+Για ένα κύκλωμα με DC πηγή $V_{DD}$, αντιστάτη $R$ και δίοδο:
 
-1. Write the KVL equation: $V_{DD} = I_D R + V_D$.
-2. Rearrange to load line: $I_D = \frac{V_{DD} - V_D}{R}$.
-3. Plot this line on the diode's I-V characteristic.
-4. The intersection is the **Q-point** (quiescent operating point).
+1. Γράψτε την εξίσωση KVL: $V_{DD} = I_D R + V_D$.
+2. Μετατρέψτε σε γραμμή φορτίου: $I_D = \frac{V_{DD} - V_D}{R}$.
+3. Σχεδιάστε αυτή τη γραμμή στη χαρακτηριστική I-V της διόδου.
+4. Το σημείο τομής είναι το **σημείο Q** (ηρεμιακό λειτουργικό σημείο).
 
-### 4.2 Three Approximation Models
+### 4.2 Τρία Μοντέλα Προσέγγισης
 
-| Model | Forward Voltage | Forward Resistance | Best For |
+| Μοντέλο | Τάση Ορθής Πόλωσης | Αντίσταση Ορθής Πόλωσης | Κατάλληλο Για |
 |:------|:----------------|:-------------------|:---------|
-| 1st: Ideal | $0\,\text{V}$ | $0\,\Omega$ | Quick estimates, large signals |
-| 2nd: Typical | $0.7\,\text{V}$ | $0\,\Omega$ | Most practical analysis |
-| 3rd: Real | $0.7\,\text{V}$ | $r_d$ (dynamic) | Precise calculations |
+| 1ο: Ιδανικό | $0\,\text{V}$ | $0\,\Omega$ | Γρήγορες εκτιμήσεις, μεγάλα σήματα |
+| 2ο: Τυπικό | $0.7\,\text{V}$ | $0\,\Omega$ | Η περισσότερη πρακτική ανάλυση |
+| 3ο: Πραγματικό | $0.7\,\text{V}$ | $r_d$ (δυναμική) | Ακριβείς υπολογισμοί |
 
-**1st Approximation (Ideal Diode):**
-- Forward bias = short circuit.
-- Reverse bias = open circuit.
-- No threshold voltage.
+**1η Προσέγγιση (Ιδανική Δίοδος):**
+- Ορθή πόλωση = βραχυκύκλωμα.
+- Ανάστροφη πόλωση = ανοικτό κύκλωμα.
+- Χωρίς τάση κατωφλίου.
 
-**2nd Approximation (Typical Diode):**
-- Ideal diode in series with a $0.7\,\text{V}$ battery.
-- Conducts only when $V_D > 0.7\,\text{V}$.
-- Reverse bias: open circuit.
+**2η Προσέγγιση (Τυπική Δίοδος):**
+- Ιδανική δίοδος σε σειρά με μπαταρία $0.7\,\text{V}$.
+- Αγωγιμότητα μόνο όταν $V_D > 0.7\,\text{V}$.
+- Ανάστροφη πόλωση: ανοικτό κύκλωμα.
 
-**3rd Approximation (Real Diode):**
-- Typical diode model plus internal resistance $r_d$.
-- Produces the most accurate I-V characteristic.
+**3η Προσέγγιση (Πραγματική Δίοδος):**
+- Μοντέλο τυπικής διόδου συν εσωτερική αντίσταση $r_d$.
+- Παράγει την πιο ακριβή χαρακτηριστική I-V.
 
 ---
 
-## 5. Worked Examples
+## 5. Επεξεργασμένα Παραδείγματα
 
-### Exercise 1: Ideal Diode -- Forward Bias
+### Exercise 1: Ιδανική Δίοδος -- Ορθή Πόλωση
 
-**Problem:** A circuit has $V_{DD} = 10\,\text{V}$, $R = 1\,k\Omega$, and an ideal diode in series. Find $I_D$.
+**Πρόβλημα:** Ένα κύκλωμα έχει $V_{DD} = 10\,\text{V}$, $R = 1\,k\Omega$ και μια ιδανική δίοδο σε σειρά. Βρείτε το $I_D$.
 
-**Solution:**
+**Λύση:**
 
-Ideal diode forward bias = short circuit ($V_D = 0$).
+Ιδανική δίοδος σε ορθή πόλωση = βραχυκύκλωμα ($V_D = 0$).
 
 $$
 I_D = \frac{V_{DD}}{R} = \frac{10}{1000} = 10\,\text{mA}
@@ -123,11 +123,11 @@ $$
 
 ---
 
-### Exercise 2: Typical Diode Model
+### Exercise 2: Τυπικό Μοντέλο Διόδου
 
-**Problem:** Same circuit but use the typical diode model ($V_T = 0.7\,\text{V}$). Find $I_D$.
+**Πρόβλημα:** Ίδιο κύκλωμα αλλά με το τυπικό μοντέλο διόδου ($V_T = 0.7\,\text{V}$). Βρείτε το $I_D$.
 
-**Solution:**
+**Λύση:**
 
 $$
 I_D = \frac{V_{DD} - V_T}{R} = \frac{10 - 0.7}{1000} = \frac{9.3}{1000} = 9.3\,\text{mA}
@@ -135,11 +135,11 @@ $$
 
 ---
 
-### Exercise 3: Real Diode Model
+### Exercise 3: Πραγματικό Μοντέλο Διόδου
 
-**Problem:** Same circuit but diode internal resistance $r_d = 200\,\Omega$. Find $I_D$.
+**Πρόβλημα:** Ίδιο κύκλωμα αλλά η εσωτερική αντίσταση της διόδου είναι $r_d = 200\,\Omega$. Βρείτε το $I_D$.
 
-**Solution:**
+**Λύση:**
 
 $$
 I_D = \frac{V_{DD} - V_T}{R + r_d} = \frac{10 - 0.7}{1000 + 200} = \frac{9.3}{1200} = 7.75\,\text{mA}
@@ -147,13 +147,13 @@ $$
 
 ---
 
-### Exercise 4: Diode State Determination
+### Exercise 4: Καθορισμός Κατάστασης Διόδου
 
-**Problem:** A circuit has $V_{DD} = 5\,\text{V}$, $R = 2.2\,k\Omega$, and a silicon diode. Determine if the diode is forward or reverse biased, and find $I_D$ using the typical model.
+**Πρόβλημα:** Ένα κύκλωμα έχει $V_{DD} = 5\,\text{V}$, $R = 2.2\,k\Omega$ και μια δίοδο πυριτίου. Καθορίστε αν η δίοδος είναι σε ορθή ή ανάστροφη πόλωση και βρείτε το $I_D$ χρησιμοποιώντας το τυπικό μοντέλο.
 
-**Solution:**
+**Λύση:**
 
-The diode is forward biased (positive voltage to anode, negative to cathode through $R$). Using the typical model:
+Η δίοδος είναι σε ορθή πόλωση (θετική τάση στην άνοδο, αρνητική στην κάθοδο μέσω $R$). Χρησιμοποιώντας το τυπικό μοντέλο:
 
 $$
 I_D = \frac{5 - 0.7}{2200} = \frac{4.3}{2200} = 1.95\,\text{mA}
@@ -161,43 +161,43 @@ $$
 
 ---
 
-### Exercise 5: Reverse Bias
+### Exercise 5: Ανάστροφη Πόλωση
 
-**Problem:** A silicon diode is connected with $V_{DD} = -10\,\text{V}$ (anode negative relative to cathode) and $R = 1\,k\Omega$. Find $I_D$.
+**Πρόβλημα:** Μια δίοδο πυριτίου συνδέεται με $V_{DD} = -10\,\text{V}$ (άνοδος αρνητική σε σχέση με κάθοδο) και $R = 1\,k\Omega$. Βρείτε το $I_D$.
 
-**Solution:**
+**Λύση:**
 
-The diode is reverse biased. Using any model:
+Η δίοδος είναι σε ανάστροφη πόλωση. Χρησιμοποιώντας οποιοδήποτε μοντέλο:
 
-- Ideal: $I_D = 0$.
-- Typical: $I_D = 0$.
-- Real: $I_D \approx -I_S$ (negligible, typically $\text{nA}$).
+- Ιδανικό: $I_D = 0$.
+- Τυπικό: $I_D = 0$.
+- Πραγματικό: $I_D \approx -I_S$ (αμελητέο, συνήθως $\text{nA}$).
 
-For practical analysis, $I_D \approx 0\,\text{A}$.
+Για πρακτική ανάλυση, $I_D \approx 0\,\text{A}$.
 
 ---
 
-### Exercise 6: Load Line -- Q-Point
+### Exercise 6: Γραμμή Φορτίου -- Σημείο Q
 
-**Problem:** A circuit has $V_{DD} = 12\,\text{V}$, $R = 1\,k\Omega$, and a silicon diode. Find the Q-point using the typical model.
+**Πρόβλημα:** Ένα κύκλωμα έχει $V_{DD} = 12\,\text{V}$, $R = 1\,k\Omega$ και μια δίοδο πυριτίου. Βρείτε το σημείο Q χρησιμοποιώντας το τυπικό μοντέλο.
 
-**Solution:**
+**Λύση:**
 
-With $V_D = 0.7\,\text{V}$:
+Με $V_D = 0.7\,\text{V}$:
 
 $$
 I_D = \frac{12 - 0.7}{1000} = 11.3\,\text{mA}
 $$
 
-Q-point: $V_{DQ} = 0.7\,\text{V}$, $I_{DQ} = 11.3\,\text{mA}$.
+Σημείο Q: $V_{DQ} = 0.7\,\text{V}$, $I_{DQ} = 11.3\,\text{mA}$.
 
 ---
 
-### Exercise 7: Dynamic Resistance Calculation
+### Exercise 7: Υπολογισμός Δυναμικής Αντίστασης
 
-**Problem:** For a silicon diode operating at $I_D = 5\,\text{mA}$, find the dynamic resistance at room temperature ($V_T = 25\,\text{mV}$, $\eta = 1$).
+**Πρόβλημα:** Για μια δίοδο πυριτίου που λειτουργεί σε $I_D = 5\,\text{mA}$, βρείτε τη δυναμική αντίσταση σε θερμοκρασία δωματίου ($V_T = 25\,\text{mV}$, $\eta = 1$).
 
-**Solution:**
+**Λύση:**
 
 $$
 r_{AC} = \frac{\eta V_T}{I_D} = \frac{1 \times 0.025}{0.005} = \frac{0.025}{0.005} = 5\,\Omega
@@ -205,31 +205,31 @@ $$
 
 ---
 
-### Exercise 8: Comparing Models for Low Voltage
+### Exercise 8: Σύγκριση Μοντέλων για Χαμηλή Τάση
 
-**Problem:** For $V_{DD} = 1\,\text{V}$, $R = 100\,\Omega$, find $I_D$ using all three models ($r_d = 200\,\Omega$).
+**Πρόβλημα:** Για $V_{DD} = 1\,\text{V}$, $R = 100\,\Omega$, βρείτε το $I_D$ χρησιμοποιώντας και τα τρία μοντέλα ($r_d = 200\,\Omega$).
 
-**Solution:**
+**Λύση:**
 
-**1st (Ideal):** $I_D = \frac{1}{100} = 10\,\text{mA}$.
+**1ο (Ιδανικό):** $I_D = \frac{1}{100} = 10\,\text{mA}$.
 
-**2nd (Typical):** $I_D = \frac{1 - 0.7}{100} = \frac{0.3}{100} = 3\,\text{mA}$.
+**2ο (Τυπικό):** $I_D = \frac{1 - 0.7}{100} = \frac{0.3}{100} = 3\,\text{mA}$.
 
-**3rd (Real):** $I_D = \frac{1 - 0.7}{100 + 200} = \frac{0.3}{300} = 1\,\text{mA}$.
+**3ο (Πραγματικό):** $I_D = \frac{1 - 0.7}{100 + 200} = \frac{0.3}{300} = 1\,\text{mA}$.
 
-This demonstrates that at low voltages, the model choice significantly impacts the result.
-
----
-
-## 6. Connections and Cross-References
-
-- The diode's I-V characteristic derives from PN junction theory (Lecture 03).
-- Zener diode operation builds on the breakdown region (Lecture 05).
-- Diode applications in rectification (Lecture 06) use the switching model.
-- Transistor biasing (Lecture 08) uses the $0.7\,\text{V}$ forward drop of PN junctions.
+Αυτό αποδεικνύει ότι σε χαμηλές τάσεις, η επιλογή μοντέλου επηρεάζει σημαντικά το αποτέλεσμα.
 
 ---
 
-## Exam Tip: Model Selection
+## 6. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-When an exam problem does not specify which model to use, solve using the **typical (2nd) model** as it is the most commonly expected approach. The ideal model is acceptable only when signals are much larger than $0.7\,\text{V}$ or when the problem explicitly states "ideal diode." Always state which model you are using.
+- Η χαρακτηριστική I-V της διόδου προέρχεται από τη θεωρία της σύνδεσης PN (Διάλεξη 03).
+- Η λειτουργία της διόδου Zener βασίζεται στην περιοχή κατάρρευσης (Διάλεξη 05).
+- Οι εφαρμογές της διόδου στον ανορθωτή (Διάλεξη 06) χρησιμοποιούν το μοντέλο εναλλαγής.
+- Η πόλωση τρανζίστορ (Διάλεξη 08) χρησιμοποιεί την πτώση $0.7\,\text{V}$ σε ορθή πόλωση των συνδέσεων PN.
+
+---
+
+## Exam Tip: Επιλογή Μοντέλου
+
+Όταν ένα εξεταστικό θέμα δεν καθορίζει ποιο μοντέλο να χρησιμοποιηθεί, λύστε χρησιμοποιώντας το **τυπικό (2ο) μοντέλο** καθώς είναι η πιο συχνά αναμενόμενη προσέγγιση. Το ιδανικό μοντέλο είναι αποδεκτό μόνο όταν τα σήματα είναι πολύ μεγαλύτερα από $0.7\,\text{V}$ ή όταν το θέμα αναφέρει ρητά "ιδανική δίοδο". Πάντα δηλώστε ποιο μοντέλο χρησιμοποιείτε.

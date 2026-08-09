@@ -1,206 +1,206 @@
-# 03_Hmiagogoi-Epafi_PN Documentation
+# 03_Hmiagogoi-Epafi_PN Τεκμηρίωση
 
-This lecture covers semiconductor materials, intrinsic and extrinsic doping, the PN junction structure and its energy band analysis, depletion region formation, and the behavior under forward and reverse bias.
-
----
-
-## 1. Conceptual Foundation
-
-Semiconductors are materials whose conductivity falls between conductors and insulators. By introducing controlled impurities (doping), their electrical properties can be precisely engineered. The PN junction -- the interface between p-type and n-type regions of the same semiconductor crystal -- is the fundamental building block of diodes, transistors, and integrated circuits.
+Αυτή η διάλεξη καλύπτει τα υλικά ημιαγωγών, την εγγενή και εξωγενή ζάχαρη, τη δομή της σύνδεσης PN και την ανάλυση ενεργειακών ζωνών, τον σχηματισμό της περιοχής αποστέρωσης και τη συμπεριφορά σε ορθή και ανάστροφη πόλωση.
 
 ---
 
-## 2. Formal Definition and Model
+## 1. Θεμελιώδες Υπόβαθρο
 
-### 2.1 Material Classification by Resistivity
+Οι ημιαγωγοί είναι υλικά των οποίων η αγωγιμότητα κυμαίνεται μεταξύ αγωγών και μονωτών. Με την εισαγωγή ελεγχόμενων ακαθαρσιών (ζάχαρη), τα ηλεκτρικά τους χαρακτηριστικά μπορούν να προσαρμοστούν με ακρίβεια. Η σύνδεση PN -- το όριο μεταξύ περιοχών τύπου p και τύπου n του ίδιου κρυσταλλικού ημιαγωγού -- αποτελεί τη θεμελιώδη μονάδα κατασκευής διόδων, τρανζίστορ και ολοκληρωμένων κυκλωμάτων.
 
-| Material Type | Resistivity Range ($\Omega \cdot \text{m}$) |
+---
+
+## 2. Επίσημος Ορισμός και Μοντέλο
+
+### 2.1 Ταξινόμηση Υλικών κατά Ειδική Αντίσταση
+
+| Τύπος Υλικού | Εύρος Ειδικής Αντίστασης ($\Omega \cdot \text{m}$) |
 |:--------------|:-------------------------------------------|
-| Conductors | $10^{-8}$ |
-| Semiconductors | $10^{-6}$ to $10^{6}$ |
-| Insulators | $10^{11}$ |
+| Αγωγοί | $10^{-8}$ |
+| Ημιαγωγοί | $10^{-6}$ έως $10^{6}$ |
+| Μονωτές | $10^{11}$ |
 
-### 2.2 Temperature Dependence
+### 2.2 Εξάρτηση από Θερμοκρασία
 
-- Conductors and insulators: resistivity does not change significantly with temperature.
-- Semiconductors: resistivity changes significantly with temperature.
+- Αγωγοί και μονωτές: η ειδική αντίσταση δεν μεταβάλλεται σημαντικά με τη θερμοκρασία.
+- Ημιαγωγοί: η ειδική αντίσταση μεταβάλλεται σημαντικά με τη θερμοκρασία.
 
-### 2.3 Semiconductor Crystal Structure
+### 2.3 Κρυσταλλική Δομή Ημιαγωγών
 
-Silicon (Si) and Germanium (Ge) have four valence electrons, forming four covalent bonds in a diamond-like crystal lattice. At $T = 0\,\text{K}$, all electrons are bound (semiconductor behaves as an insulator). At room temperature, thermal energy frees some electrons, creating **electron-hole pairs**.
+Το πυρίτιο (Si) και το γερμάνιο (Ge) έχουν τέσσερις ηλεκτρόνια σθένους, σχηματίζοντας τέσσερις ομοιοπολικούς δεσμούς σε κρυσταλλικό πλέγμα παρόμοιο με τον διαμάντη. Στο $T = 0\,\text{K}$, όλα τα ηλεκτρόνια είναι δεμένα (ο ημιαγωγός συμπεριφέρεται ως μονωτής). Σε θερμοκρασία δωματίου, η θερμική ενέργεια απελευθερώνει ορισμένα ηλεκτρόνια, δημιουργώντας **ζεύγη ηλεκτρονίου-τρύπας**.
 
-### 2.4 Charge Carriers
+### 2.4 Φορείς Φορτίου
 
-| Carrier | Type | Effective Charge |
+| Φορέας | Τύπος | Ενεργό Φορτίο |
 |:--------|:-----|:-----------------|
-| Electron | Negative charge carrier | $-q$ |
-| Hole | Positive charge carrier | $+q$ (absence of electron) |
+| Ηλεκτρόνιο | Αρνητικός φορέας φορτίου | $-q$ |
+| Τρύπα | Θετικός φορέας φορτίου | $+q$ (απουσία ηλεκτρονίου) |
 
-Holes move in the opposite direction to electrons under an applied field.
+Οι τρύπες κινούνται στην αντίθετη κατεύθυνση από τα ηλεκτρόνια υπό εφαρμοσμένο ηλεκτρικό πεδίο.
 
 ---
 
-## 3. Energy Band Approach
+## 3. Προσέγγιση Ενεργειακών Ζωνών
 
-### 3.1 Energy Bands
+### 3.1 Ενεργειακές Ζώνες
 
-- **Valence band:** Energy levels of bonding electrons.
-- **Conduction band:** Energy levels of free electrons.
-- **Band gap ($E_g$):** Forbidden region between valence and conduction bands.
+- **Ζώνη σθένους:** Ενεργειακά επίπεδα των δεμένων ηλεκτρονίων.
+- **Ζώνη αγωγιμότητας:** Ενεργειακά επίπεδα των ελεύθερων ηλεκτρονίων.
+- **Ενεργειακό χάσμα ($E_g$):** Απαγορευτική περιοχή μεταξύ της ζώνης σθένους και της ζώνης αγωγιμότητας.
 
-### 3.2 Material Comparison
+### 3.2 Σύγκριση Υλικών
 
-| Material | Band Gap | Behavior |
+| Υλικό | Ενεργειακό Χάσμα | Συμπεριφορά |
 |:---------|:---------|:---------|
-| Insulator (diamond) | Large ($> 5\,\text{eV}$) | Non-conductive |
-| Semiconductor (Si) | Small ($1.12\,\text{eV}$) | Partially conductive |
-| Conductor (metal) | Zero (bands overlap) | Highly conductive |
+| Μονωτής (διαμάντης) | Μεγάλο ($> 5\,\text{eV}$) | Μη αγώγιμος |
+| Ημιαγωγός (Si) | Μικρό ($1.12\,\text{eV}$) | Μερικώς αγώγιμος |
+| Αγωγός (μέταλλο) | Μηδενικό (οι ζώνες αλληλεπικαλύπτονται) | Ισχυρά αγώγιμος |
 
 ---
 
-## 4. Intrinsic and Extrinsic Semiconductors
+## 4. Εγγενείς και Εξωγενείς Ημιαγωγοί
 
-### 4.1 Intrinsic (Pure) Semiconductors
+### 4.1 Εγγενείς (Καθαροί) Ημιαγωγοί
 
-- All atoms are identical (pure Si or Ge).
-- $n = p = n_i$, where $n$ = electron concentration, $p$ = hole concentration.
-- $n_i$ depends on temperature and band gap:
+- Όλα τα άτομα είναι ίδια (καθαρό Si ή Ge).
+- $n = p = n_i$, όπου $n$ = συγκέντρωση ηλεκτρονίων, $p$ = συγκέντρωση τρυπών.
+- Το $n_i$ εξαρτάται από τη θερμοκρασία και το ενεργειακό χάσμα:
 
 $$
 n_i^2 = BT^3 e^{-E_g / kT}
 $$
 
-Where $B$ is a material constant, $T$ is absolute temperature, $k$ is Boltzmann's constant, and $E_g$ is the band gap energy.
+Όπου $B$ είναι σταθερά υλικού, $T$ είναι η απόλυτη θερμοκρασία, $k$ είναι η σταθερά του Boltzmann και $E_g$ είναι η ενέργεια του ενεργειακού χάσματος.
 
-### 4.2 Extrinsic (Doped) Semiconductors
+### 4.2 Εξωγενείς (Ζαχαρωμένοι) Ημιαγωγοί
 
-Doping: Adding pentavalent (5 valence electrons) or trivalent (3 valence electrons) impurity atoms to a tetravalent semiconductor.
+Ζάχαρη: Προσθήκη πεντασθενών (5 ηλεκτρόνια σθένους) ή τρισθενών (3 ηλεκτρόνια σθένους) ατόμων ακαθαρσίας σε τετρασθενή ημιαγωγό.
 
-| Dopant Type | Valence | Role | Example |
+| Τύπος Ζάχαρης | Σθένος | Ρόλος | Παράδειγμα |
 |:------------|:--------|:-----|:--------|
-| Donor | 5 | Contributes extra electrons | Phosphorus (P) |
-| Acceptor | 3 | Creates extra holes | Boron (B) |
+| Δότης | 5 | Παρέχει επιπλέον ηλεκτρόνια | Φωσφόρος (P) |
+| Αποδέκτης | 3 | Δημιουργεί επιπλέον τρύπες | Βορίο (B) |
 
-**N-type semiconductor:**
-- Doped with donor atoms (pentavalent).
-- Majority carriers: electrons.
-- Minority carriers: holes.
+**Ημιαγωγός τύπου N:**
+- Ζαχαρωμένος με άτομα δότη (πεντασθενή).
+- Κύριοι φορείς: ηλεκτρόνια.
+- Ελάσσονες φορείς: τρύπες.
 
-**P-type semiconductor:**
-- Doped with acceptor atoms (trivalent).
-- Majority carriers: holes.
-- Minority carriers: electrons.
+**Ημιαγωγός τύπου P:**
+- Ζαχαρωμένος με άτομα αποδέκτη (τρισθενή).
+- Κύριοι φορείς: τρύπες.
+- Ελάσσονες φορείς: ηλεκτρόνια.
 
-### 4.3 Other Semiconductor Types
+### 4.3 Άλλοι Τύποι Ημιαγωγών
 
-- **Organic semiconductors:** Fluoresce under applied voltage; color depends on electric field strength.
-- **Amorphous semiconductors:** Used in photovoltaic cells (e.g., amorphous silicon).
+- **Οργανικοί ημιαγωγοί:** Φωτοφωρούν υπό εφαρμοσμένη τάση· το χρώμα εξαρτάται από την ένταση του ηλεκτρικού πεδίου.
+- **Αμορφικοί ημιαγωγοί:** Χρησιμοποιούνται σε φωτοβολταϊκά κελιά (π.χ. αμορφικό πυρίτιο).
 
 ---
 
-## 5. PN Junction
+## 5. Σύνδεση PN
 
-### 5.1 Diffusion at Junction Formation
+### 5.1 Διάχυση κατά τον Σχηματισμό της Σύνδεσης
 
-When p-type and n-type regions are brought together:
+Όταν οι περιοχές τύπου p και τύπου n φέρνονται κοντά:
 
-1. Electrons diffuse from n to p region.
-2. Holes diffuse from p to n region.
-3. A **diffusion region** forms around the junction containing both carrier types.
-4. Recombination occurs: free electrons fill holes, eliminating both carriers.
+1. Τα ηλεκτρόνια διαχέονται από την περιοχή n στην περιοχή p.
+2. Οι τρύπες διαχέονται από την περιοχή p στην περιοχή n.
+3. Μια **περιοχή διάχυσης** σχηματίζεται γύρω από τη σύνδεση που περιέχει και τους δύο τύπους φορέων.
+4. Πραγματοποιείται επανασύνδεση: ελεύθερα ηλεκτρόνια γεμίζουν τρύπες, εξαφανίζοντας και τους δύο φορείς.
 
-### 5.2 Depletion Region
+### 5.2 Περιοχή Αποστέρωσης
 
-- **Depletion region (space charge region):** The region near the junction depleted of free carriers.
-- Fixed ionized impurities remain, creating a **space charge distribution**:
-  - Negative charge on p-side (acceptors).
-  - Positive charge on n-side (donors).
+- **Περιοχή αποστέρωσης (περιοχή χωρικού φορτίου):** Η περιοχή κοντά στη σύνδεση που εκτονώνεται από ελεύθερους φορείς.
+- Παραμένουν σταθερά ιονισμένες ακαθαρσίες, δημιουργώντας μια **κατανομή χωρικού φορτίου**:
+  - Αρνητικό φορτίο στην πλευρά p (αποδέκτες).
+  - Θετικό φορτίο στην πλευρά n (δότες).
 
-### 5.3 Contact Potential ($V_0$)
+### 5.3 Επαφική Δυναμική ($V_0$)
 
-The space charge creates a built-in electric field and a potential difference across the junction called the **contact potential** (or built-in potential). For silicon, $V_0 \approx 0.6 - 0.7\,\text{V}$.
+Το χωρικό φορτίο δημιουργεί ένα ενσωματωμένο ηλεκτρικό πεδίο και μια διαφορά δυναμικού στη σύνδεση που ονομάζεται **επαφική δυναμική** (ή ενσωματωμένη δυναμική). Για το πυρίτιο, $V_0 \approx 0.6 - 0.7\,\text{V}$.
 
-### 5.4 Junction Capacitance ($C_0$)
+### 5.4 Χωρητικότητα Σύνδεσης ($C_0$)
 
-The depletion region, with its two oppositely charged layers, behaves as a capacitor:
+Η περιοχή αποστέρωσης, με τα δύο αντίθετα φορτισμένα στρώματα, συμπεριφέρεται ως πυκνωτής:
 
 $$
 C_0 = \frac{\epsilon A}{W}
 $$
 
-Where $\epsilon$ is permittivity, $A$ is cross-sectional area, and $W$ is depletion width.
+Όπου $\epsilon$ είναι η διαπερατότητα, $A$ είναι η εμβαδική επιφάνεια και $W$ είναι το πλάτος της περιοχής αποστέρωσης.
 
-### 5.5 Energy Barrier ($E_0$)
+### 5.5 Ενεργειακό Φράγμα ($E_0$)
 
-At equilibrium, the Fermi levels of both sides equalize. This creates an energy barrier $E_0 = qV_0$ that prevents further diffusion.
-
----
-
-## 6. Step-by-Step Mechanism: PN Junction Bias
-
-### 6.1 Reverse Bias
-
-**Configuration:** Positive terminal to n-side, negative terminal to p-side.
-
-1. External field pulls majority carriers away from the junction.
-2. Depletion region **widens**.
-3. The potential barrier **increases**.
-4. The junction acts as an **insulator** (open circuit).
-5. A negligible leakage current flows due to thermally generated minority carriers.
-
-### 6.2 Forward Bias
-
-**Configuration:** Positive terminal to p-side, negative terminal to n-side.
-
-1. External field pushes majority carriers toward the junction.
-2. Depletion region **narrows**.
-3. The potential barrier **decreases**.
-4. When applied voltage exceeds $V_0$, the barrier is overcome.
-5. Current flows freely through the junction.
+Σε ισορροπία, τα επίπεδα Fermi και των δύο πλευρών εξισορροπούνται. Αυτό δημιουργεί ένα ενεργειακό φράγμα $E_0 = qV_0$ που εμποδίζει την περαιτέρω διάχυση.
 
 ---
 
-## 7. Worked Examples
+## 6. Μηχανισμός Βήμα προς Βήμα: Πόλωση Σύνδεσης PN
 
-### Exercise 1: Intrinsic Carrier Concentration
+### 6.1 Ανάστροφη Πόλωση
 
-**Problem:** For intrinsic silicon at $300\,\text{K}$, $n_i = 1.5 \times 10^{10}\,\text{cm}^{-3}$. If for intrinsic germanium at the same temperature $n_i = 2.4 \times 10^{13}\,\text{cm}^{-3}$, which has a larger band gap?
+**Διαμόρφωση:** Θετικός ακροδέκτης στην πλευρά n, αρνητικός ακροδέκτης στην πλευρά p.
 
-**Solution:**
+1. Το εξωτερικό πεδίο τραβά τους κύριους φορείς μακριά από τη σύνδεση.
+2. Η περιοχή αποστέρωσης **επεκτείνεται**.
+3. Το δυναμικό φράγμα **αυξάνεται**.
+4. Η σύνδεση συμπεριφέρεται ως **μονωτής** (ανοικτό κύκλωμα).
+5. Ρέει αμελητέο ρεύμα διαρροής λόγω θερμικά δημιουργημένων ελάσσονων φορέων.
 
-The intrinsic carrier concentration $n_i$ depends exponentially on the band gap. A smaller $n_i$ corresponds to a larger $E_g$. Since silicon has $n_i = 1.5 \times 10^{10}\,\text{cm}^{-3}$ (much smaller than germanium's $2.4 \times 10^{13}\,\text{cm}^{-3}$), silicon has a larger band gap.
+### 6.2 Ορθή Πόλωση
+
+**Διαμόρφωση:** Θετικός ακροδέκτης στην πλευρά p, αρνητικός ακροδέκτης στην πλευρά n.
+
+1. Το εξωτερικό πεδίο ωθεί τους κύριους φορείς προς τη σύνδεση.
+2. Η περιοχή αποστέρωσης **στενεύει**.
+3. Το δυναμικό φράγμα **μειώνεται**.
+4. Όταν η εφαρμοσμένη τάση υπερβεί το $V_0$, το φράγμα ξεπερνιέται.
+5. Το ρεύμα ρέει ελεύθερα μέσα από τη σύνδεση.
 
 ---
 
-### Exercise 2: N-type Doping
+## 7. Επεξεργασμένα Παραδείγματα
 
-**Problem:** A silicon crystal is doped with $10^{16}\,\text{cm}^{-3}$ phosphorus atoms. Assuming complete ionization at room temperature, find the electron and hole concentrations. ($n_i = 1.5 \times 10^{10}\,\text{cm}^{-3}$)
+### Exercise 1: Συγκέντρωση Εγγενών Φορέων
 
-**Solution:**
+**Πρόβλημα:** Για καθαρό πυρίτιο στο $300\,\text{K}$, $n_i = 1.5 \times 10^{10}\,\text{cm}^{-3}$. Αν για καθαρό γερμάνιο στην ίδια θερμοκρασία $n_i = 2.4 \times 10^{13}\,\text{cm}^{-3}$, ποιο έχει μεγαλύτερο ενεργειακό χάσμα;
 
-For n-type doping, $N_D = 10^{16}\,\text{cm}^{-3}$.
+**Λύση:**
+
+Η συγκέντρωση εγγενών φορέων $n_i$ εξαρτάται εκθετικά από το ενεργειακό χάσμα. Μικρότερο $n_i$ αντιστοιχεί σε μεγαλύτερο $E_g$. Επειδή το πυρίτιο έχει $n_i = 1.5 \times 10^{10}\,\text{cm}^{-3}$ (πολύ μικρότερο από το $2.4 \times 10^{13}\,\text{cm}^{-3}$ του γερμανίου), το πυρίτιο έχει μεγαλύτερο ενεργειακό χάσμα.
+
+---
+
+### Exercise 2: Ζάχαρη τύπου N
+
+**Πρόβλημα:** Ένα κρύσταλλο πυριτίου ζαχαρώνεται με $10^{16}\,\text{cm}^{-3}$ άτομα φωσφόρου. Υποθέτοντας πλήρη ιονισμό σε θερμοκρασία δωματίου, βρείτε τις συγκεντρώσεις ηλεκτρονίων και τρυπών. ($n_i = 1.5 \times 10^{10}\,\text{cm}^{-3}$)
+
+**Λύση:**
+
+Για ζάχαρη τύπου N, $N_D = 10^{16}\,\text{cm}^{-3}$.
 
 $$
 n \approx N_D = 10^{16}\,\text{cm}^{-3}
 $$
 
-Using the mass action law $n \cdot p = n_i^2$:
+Χρησιμοποιώντας τον νόμο δράσης μάζας $n \cdot p = n_i^2$:
 
 $$
 p = \frac{n_i^2}{n} = \frac{(1.5 \times 10^{10})^2}{10^{16}} = \frac{2.25 \times 10^{20}}{10^{16}} = 2.25 \times 10^{4}\,\text{cm}^{-3}
 $$
 
-Majority carriers (electrons): $10^{16}\,\text{cm}^{-3}$. Minority carriers (holes): $2.25 \times 10^{4}\,\text{cm}^{-3}$.
+Κύριοι φορείς (ηλεκτρόνια): $10^{16}\,\text{cm}^{-3}$. Ελάσσονες φορείς (τρύπες): $2.25 \times 10^{4}\,\text{cm}^{-3}$.
 
 ---
 
-### Exercise 3: P-type Doping
+### Exercise 3: Ζάχαρη τύπου P
 
-**Problem:** A silicon crystal is doped with $5 \times 10^{15}\,\text{cm}^{-3}$ boron atoms. Find the hole and electron concentrations at room temperature.
+**Πρόβλημα:** Ένα κρύσταλλο πυριτίου ζαχαρώνεται με $5 \times 10^{15}\,\text{cm}^{-3}$ άτομα βορίου. Βρείτε τις συγκεντρώσεις τρυπών και ηλεκτρονίων σε θερμοκρασία δωματίου.
 
-**Solution:**
+**Λύση:**
 
-For p-type doping, $N_A = 5 \times 10^{15}\,\text{cm}^{-3}$.
+Για ζάχαρη τύπου P, $N_A = 5 \times 10^{15}\,\text{cm}^{-3}$.
 
 $$
 p \approx N_A = 5 \times 10^{15}\,\text{cm}^{-3}
@@ -210,53 +210,53 @@ $$
 n = \frac{n_i^2}{p} = \frac{(1.5 \times 10^{10})^2}{5 \times 10^{15}} = \frac{2.25 \times 10^{20}}{5 \times 10^{15}} = 4.5 \times 10^{4}\,\text{cm}^{-3}
 $$
 
-Majority carriers (holes): $5 \times 10^{15}\,\text{cm}^{-3}$. Minority carriers (electrons): $4.5 \times 10^{4}\,\text{cm}^{-3}$.
+Κύριοι φορείς (τρύπες): $5 \times 10^{15}\,\text{cm}^{-3}$. Ελάσσονες φορείς (ηλεκτρόνια): $4.5 \times 10^{4}\,\text{cm}^{-3}$.
 
 ---
 
-### Exercise 4: Energy Band Gap Identification
+### Exercise 4: Ταξινόμηση Ενεργειακού Χάσματος
 
-**Problem:** Three materials have band gaps of $0\,\text{eV}$, $1.1\,\text{eV}$, and $6\,\text{eV}$. Classify each as conductor, semiconductor, or insulator.
+**Πρόβλημα:** Τρία υλικά έχουν ενεργειακά χάσματα $0\,\text{eV}$, $1.1\,\text{eV}$ και $6\,\text{eV}$. Ταξινομήστε καθένα ως αγωγό, ημιαγωγό ή μονωτή.
 
-**Solution:**
+**Λύση:**
 
-- $0\,\text{eV}$ (bands overlap): **Conductor** (metal).
-- $1.1\,\text{eV}$: **Semiconductor** (silicon).
-- $6\,\text{eV}$: **Insulator** (diamond).
-
----
-
-### Exercise 5: Depletion Region -- Forward Bias Effect
-
-**Problem:** Explain why forward bias reduces the depletion region width.
-
-**Solution:**
-
-Under forward bias, the external voltage opposes the built-in potential. Positive voltage applied to p-side repels holes toward the junction; negative voltage on n-side repels electrons toward the junction. This influx of carriers neutralizes the fixed space charge, narrowing the depletion region. When the external voltage exceeds $V_0$, the depletion region practically disappears and current flows.
+- $0\,\text{eV}$ (οι ζώνες αλληλεπικαλύπτονται): **Αγωγός** (μέταλλο).
+- $1.1\,\text{eV}$: **Ημιαγωγός** (πυρίτιο).
+- $6\,\text{eV}$: **Μονωτής** (διαμάντης).
 
 ---
 
-### Exercise 6: Reverse Bias -- Leakage Current
+### Exercise 5: Περιοχή Αποστέρωσης -- Επίδραση Ορθής Πόλωσης
 
-**Problem:** A silicon diode at room temperature has a reverse saturation current of $10\,\text{nA}$. If the temperature rises, does the reverse current increase or decrease? Explain.
+**Πρόβλημα:** Εξηγήστε γιατί η ορθή πόλωση μειώνει το πλάτος της περιοχής αποστέρωσης.
 
-**Solution:**
+**Λύση:**
 
-The reverse current in a PN junction is primarily due to thermally generated minority carriers. As temperature increases, more electron-hole pairs are generated, so the reverse current **increases**. This is why reverse leakage current is temperature-dependent.
+Υπό ορθή πόλωση, η εξωτερική τάση αντιτίθεται στην ενσωματωμένη δυναμική. Η θετική τάση που εφαρμόζεται στην πλευρά p απωθεί τις τρύπες προς τη σύνδεση· η αρνητική τάση στην πλευρά n απωθεί τα ηλεκτρόνια προς τη σύνδεση. Αυτή η εισροή φορέων ουδετεροποιεί το σταθερό χωρικό φορτίο, στενεύοντας την περιοχή αποστέρωσης. Όταν η εξωτερική τάση υπερβεί το $V_0$, η περιοχή αποστέρωσης εξαφανίζεται ουσιαστικά και ρέει ρεύμα.
 
 ---
 
-### Exercise 7: Depletion Capacitance
+### Exercise 6: Ανάστροφη Πόλωση -- Ρεύμα Διαρροής
 
-**Problem:** A PN junction has a depletion width of $0.5\,\mu\text{m}$ and area $1\,\text{mm}^2$. The permittivity of silicon is $\epsilon = 11.7 \times 8.85 \times 10^{-14}\,\text{F/cm}$. Estimate the junction capacitance.
+**Πρόβλημα:** Μια δίοδος πυριτίου σε θερμοκρασία δωματίου έχει ανάστροφο ρεύμα κορεσμού $10\,\text{nA}$. Αν αυξηθεί η θερμοκρασία, αυξάνεται ή μειώνεται το ανάστροφο ρεύμα; Εξηγήστε.
 
-**Solution:**
+**Λύση:**
+
+Το ανάστροφο ρεύμα σε σύνδεSMC PN οφείλεται κυρίως σε θερμικά δημιουργημένους ελάσσονες φορείς. Καθώς αυξάνεται η θερμοκρασία, δημιουργούνται περισσότερα ζεύγη ηλεκτρονίου-τρύπας, οπότε το ανάστροφο ρεύμα **αυξάνεται**. Αυτό εξηγεί γιατί το ρεύμα διαρροής εξαρτάται από τη θερμοκρασία.
+
+---
+
+### Exercise 7: Χωρητικότητα Αποστέρωσης
+
+**Πρόβλημα:** Μια σύνδεση PN έχει πλάτος αποστέρωσης $0.5\,\mu\text{m}$ και εμβαδική επιφάνεια $1\,\text{mm}^2$. Η διαπερατότητα του πυριτίου είναι $\epsilon = 11.7 \times 8.85 \times 10^{-14}\,\text{F/cm}$. Εκτιμήστε τη χωρητικότητα της σύνδεσης.
+
+**Λύση:**
 
 $$
 C_0 = \frac{\epsilon A}{W}
 $$
 
-Convert units: $A = 1\,\text{mm}^2 = 0.01\,\text{cm}^2$, $W = 0.5\,\mu\text{m} = 5 \times 10^{-5}\,\text{cm}$.
+Μετατροπή μονάδων: $A = 1\,\text{mm}^2 = 0.01\,\text{cm}^2$, $W = 0.5\,\mu\text{m} = 5 \times 10^{-5}\,\text{cm}$.
 
 $$
 \epsilon = 11.7 \times 8.85 \times 10^{-14} = 1.036 \times 10^{-12}\,\text{F/cm}
@@ -268,24 +268,24 @@ $$
 
 ---
 
-### Exercise 8: PN Junction -- Equilibrium Analysis
+### Exercise 8: Σύνδεση PN -- Ανάλυση Ισορροπίας
 
-**Problem:** For a PN junction in thermal equilibrium, why must the Fermi level be constant across the junction?
+**Πρόβλημα:** Για μια σύνδεση PN σε θερμική ισορροπία, γιατί πρέπει το επίπεδο Fermi να είναι σταθερό σε όλη τη σύνδεση;
 
-**Solution:**
+**Λύση:**
 
-In thermal equilibrium, there is no net current flow. If the Fermi level were different on the two sides, electrons from the higher Fermi level side would have a statistical tendency to flow to the lower side, creating a net current. Therefore, the Fermi level must be constant (flat) across the entire junction at equilibrium. This equalization process creates the energy barrier $E_0$.
-
----
-
-## 8. Connections and Cross-References
-
-- The PN junction is the basis for the diode (Lecture 04, Lecture 05).
-- Semiconductor doping concepts are essential for understanding BJT transistors (Lecture 07).
-- The depletion region and its capacitance are critical for high-frequency diode behavior.
+Σε θερμική ισορροπία, δεν υπάρχει καθαρό ρεύμα. Αν το επίπεδο Fermi ήταν διαφορετικό στις δύο πλευρές, τα ηλεκτρόνια από την πλευρά με το υψηλότερο επίπεδο Fermi θα είχαν στατική τάση να ρέουν προς τη χαμηλότερη πλευρά, δημιουργώντας καθαρό ρεύμα. Επομένως, το επίπεδο Fermi πρέπει να είναι σταθερό (επίπεδο) σε όλη τη σύνδεση σε ισορροπία. Αυτή η διαδικασία εξισορρόπησης δημιουργεί το ενεργειακό φράγμα $E_0$.
 
 ---
 
-## Exam Tip: Identifying Doping Type
+## 8. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-In exams, remember: **Donor** (5 valence electrons) gives **N-type** (Negative majority carriers). **Acceptor** (3 valence electrons) gives **P-type** (Positive majority carriers). The number 5 starts with "f" like "five" and "free electrons" -- a simple mnemonic: pentavalent donors produce n-type.
+- Η σύνδεση PN αποτελεί τη βάση για τη δίοδο (Διάλεξη 04, Διάλεξη 05).
+- Τα εννοιολογικά θέματα ζάχαρης ημιαγωγών είναι απαραίτητα για την κατανόηση των τρανζίστορ BJT (Διάλεξη 07).
+- Η περιοχή αποστέρωσης και η χωρητικότητά της είναι κρίσιμες για τη συμπεριφορά των διόδων σε υψηλές συχνότητες.
+
+---
+
+## Exam Tip: Αναγνώριση Τύπου Ζάχαρης
+
+Στις εξετάσεις, θυμηθείτε: Ο **δότης** (5 ηλεκτρόνια σθένους) δίνει **τύπου N** (αρνητικοί κύριοι φορείς). Ο **αποδέκτης** (3 ηλεκτρόνια σθένους) δίνει **τύπου P** (θετικοί κύριοι φορείς). Ο αριθμός 5 ξεκινά με "f" όπως "five" και "free electrons" -- ένα απλό μνημονικό: πεντασθενείς δότες παράγουν τύπου N.

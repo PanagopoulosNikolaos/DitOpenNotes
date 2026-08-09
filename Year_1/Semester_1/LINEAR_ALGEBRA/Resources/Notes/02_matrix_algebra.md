@@ -1,14 +1,14 @@
-# Matrix Algebra
+# Άλγεβρα Πινάκων
 
-Matrix algebra provides the formal language for expressing and manipulating linear systems. A matrix is a rectangular array of numbers that compactly represents linear transformations. Operations such as addition, multiplication, inversion, and transposition enable solving systems, decomposing transformations, and computing quantities like the determinant. This section covers the definitions, algebraic rules, and key matrix types encountered throughout linear algebra.
+Η άλγεβρα πινάκων παρέχει την τυπική γλώσσα για την έκφραση και τον χειρισμό γραμμικών συστημάτων. Ένας πίνακας είναι μια ορθογώνια διάταξη αριθμών που αναπαριστά συμπαγώς γραμμικούς μετασχηματισμούς. Πράξεις όπως η πρόσθεση, ο πολλαπλασιασμός, η αντιστροφή και η αναστροφή επιτρέπουν την επίλυση συστημάτων, την αποσύνθεση μετασχηματισμών και τον υπολογισμό ποσοτήτων όπως η ορίζουσα. Αυτή η ενότητα καλύπτει τους ορισμούς, τους αλγεβρικούς κανόνες και τους βασικούς τύπους πινάκων που συναντώνται σε όλη τη γραμμική άλγεβρα.
 
 ---
 
-## 1. Core Definitions
+## 1. Βασικοί Ορισμοί
 
-### 1.1 Matrix
+### 1.1 Πίνακας
 
-A **matrix** $A$ of size $m \times n$ is a rectangular array with $m$ rows and $n$ columns:
+Ένας **πίνακας** $A$ μεγέθους $m \times n$ είναι μια ορθογώνια διάταξη με $m$ γραμμές και $n$ στήλες:
 
 $$
 A = \begin{bmatrix}
@@ -19,58 +19,58 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 \end{bmatrix}
 $$
 
-The entry at row $i$, column $j$ is denoted $a_{ij}$ or $A_{ij}$.
+Το στοιχείο στη γραμμή $i$, στήλη $j$ συμβολίζεται ως $a_{ij}$ ή $A_{ij}$.
 
-### 1.2 Special Types of Matrices
+### 1.2 Ειδικοί Τύποι Πινάκων
 
-- **Square matrix:** $m = n$
-- **Diagonal matrix:** $a_{ij} = 0$ for $i \neq j$, often written $\text{diag}(d_1, d_2, \ldots, d_n)$
-- **Identity matrix $I_n$:** diagonal matrix with $d_i = 1$ for all $i$
-- **Zero matrix $0_{m \times n}$:** all entries are zero
-- **Upper triangular:** $a_{ij} = 0$ for $i > j$
-- **Lower triangular:** $a_{ij} = 0$ for $i < j$
-- **Symmetric:** $A = A^\mathsf{T}$
-- **Skew-symmetric:** $A = -A^\mathsf{T}$
+- **Τετραγωνικός πίνακας:** $m = n$
+- **Διαγώνιος πίνακας:** $a_{ij} = 0$ για $i \neq j$, συχνά συμβολίζεται ως $\text{diag}(d_1, d_2, \ldots, d_n)$
+- **Μοναδιαίος πίνακας $I_n$:** διαγώνιος πίνακας με $d_i = 1$ για όλα τα $i$
+- **Μηδενικός πίνακας $0_{m \times n}$:** όλα τα στοιχεία είναι μηδέν
+- **Άνω τριγωνικός:** $a_{ij} = 0$ για $i > j$
+- **Κάτω τριγωνικός:** $a_{ij} = 0$ για $i < j$
+- **Συμμετρικός:** $A = A^\mathsf{T}$
+- **Αντισυμμετρικός:** $A = -A^\mathsf{T}$
 
 ---
 
-## 2. Matrix Operations
+## 2. Πράξεις Πινάκων
 
-### 2.1 Addition and Scalar Multiplication
+### 2.1 Πρόσθεση και Βαθμωτός Πολλαπλασιασμός
 
-For $A, B$ of the same size $m \times n$ and scalar $c$:
+Για $A, B$ του ίδιου μεγέθους $m \times n$ και βαθμωτό (βαθμωτό αριθμό) $c$:
 
 $$
 (A + B)_{ij} = a_{ij} + b_{ij}, \qquad (cA)_{ij} = c \cdot a_{ij}
 $$
 
-**Properties:**
-- $A + B = B + A$ (commutative)
-- $(A + B) + C = A + (B + C)$ (associative)
-- $c(A + B) = cA + cB$ (distributive)
+**Ιδιότητες:**
+- $A + B = B + A$ (αντιμεταθετική)
+- $(A + B) + C = A + (B + C)$ (προσεταιριστική)
+- $c(A + B) = cA + cB$ (επιμεριστική)
 - $A + 0 = A$
 
-### 2.2 Matrix Multiplication
+### 2.2 Πολλαπλασιασμός Πινάκων
 
-If $A$ is $m \times n$ and $B$ is $n \times p$, then $C = AB$ is $m \times p$ with
+Αν ο $A$ είναι $m \times n$ και ο $B$ είναι $n \times p$, τότε ο $C = AB$ είναι $m \times p$ με
 
 $$
 c_{ij} = \sum_{k=1}^{n} a_{ik} b_{kj}
 $$
 
-**Important:** Matrix multiplication is **not commutative**. $AB \neq BA$ in general.
+**Σημαντικό:** Ο πολλαπλασιασμός πινάκων **δεν είναι αντιμεταθετικός**. $AB \neq BA$ γενικά.
 
-**Properties:**
-- $(AB)C = A(BC)$ (associative)
-- $A(B + C) = AB + AC$ (left distributive)
-- $(B + C)A = BA + CA$ (right distributive)
+**Ιδιότητες:**
+- $(AB)C = A(BC)$ (προσεταιριστική)
+- $A(B + C) = AB + AC$ (αριστερή επιμεριστική)
+- $(B + C)A = BA + CA$ (δεξιά επιμεριστική)
 - $AI = IA = A$
 
-### 2.3 Transpose
+### 2.3 Ανάστροφος Πίνακας
 
-The **transpose** of $A$ ($m \times n$) is $A^\mathsf{T}$ ($n \times m$) where $(A^\mathsf{T})_{ij} = A_{ji}$.
+Ο **ανάστροφος** του $A$ ($m \times n$) είναι ο $A^\mathsf{T}$ ($n \times m$) όπου $(A^\mathsf{T})_{ij} = A_{ji}$.
 
-**Properties:**
+**Ιδιότητες:**
 - $(A^\mathsf{T})^\mathsf{T} = A$
 - $(A + B)^\mathsf{T} = A^\mathsf{T} + B^\mathsf{T}$
 - $(cA)^\mathsf{T} = c A^\mathsf{T}$
@@ -78,93 +78,93 @@ The **transpose** of $A$ ($m \times n$) is $A^\mathsf{T}$ ($n \times m$) where $
 
 ---
 
-## 3. Inverse Matrix
+## 3. Αντίστροφος Πίνακας
 
-### 3.1 Definition
+### 3.1 Ορισμός
 
-A square matrix $A$ is **invertible** (or non-singular) if there exists a matrix $A^{-1}$ such that
+Ένας τετραγωνικός πίνακας $A$ είναι **αντιστρέψιμος** (ή ομαλός / μη-ιδιάζων) αν υπάρχει πίνακας $A^{-1}$ τέτοιος ώστε
 
 $$
 A A^{-1} = A^{-1} A = I
 $$
 
-If no such matrix exists, $A$ is **singular**.
+Αν δεν υπάρχει τέτοιος πίνακας, ο $A$ είναι **μη-αντιστρέψιμος (ιδιάζων)**.
 
-### 3.2 Existence Condition
+### 3.2 Συνθήκη Ύπαρξης
 
-$A$ is invertible iff $\det(A) \neq 0$.
+Ο $A$ είναι αντιστρέψιμος αν και μόνο αν $\det(A) \neq 0$.
 
-### 3.3 Inverse of a 2x2 Matrix
+### 3.3 Αντίστροφος Πίνακα 2x2
 
-For $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$,
+Για $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$,
 
 $$
 A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
 $$
 
-provided $ad - bc \neq 0$.
+με την προϋπόθεση ότι $ad - bc \neq 0$.
 
-### 3.4 Finding Inverse via Gauss-Jordan
+### 3.4 Εύρεση Αντιστρόφου μέσω Gauss-Jordan
 
-Form the augmented matrix $[A \mid I]$ and apply row operations until the left block is $I$. The right block is $A^{-1}$:
+Σχηματίζουμε τον επαυξημένο πίνακα $[A \mid I]$ και εφαρμόζουμε πράξεις γραμμών μέχρι το αριστερό τμήμα να γίνει $I$. Το δεξί τμήμα θα είναι ο $A^{-1}$:
 
 $$
 [A \mid I] \xrightarrow{\text{Gauss-Jordan}} [I \mid A^{-1}]
 $$
 
-### 3.5 Properties of Inverses
+### 3.5 Ιδιότητες Αντιστρόφων
 
 - $(A^{-1})^{-1} = A$
-- $(AB)^{-1} = B^{-1} A^{-1}$ (if both invertible)
+- $(AB)^{-1} = B^{-1} A^{-1}$ (αν και οι δύο είναι αντιστρέψιμοι)
 - $(A^\mathsf{T})^{-1} = (A^{-1})^\mathsf{T}$
 - $(cA)^{-1} = \frac{1}{c} A^{-1}$, $c \neq 0$
 
 ---
 
-## 4. Elementary Matrices and LU Decomposition
+## 4. Στοιχειώδεις Πίνακες και Παραγοντοποίηση LU
 
-### 4.1 Elementary Matrices
+### 4.1 Στοιχειώδεις Πίνακες
 
-An **elementary matrix** represents a single row operation. Multiplying $A$ on the left by an elementary matrix performs that operation.
+Ένας **στοιχειώδης πίνακας** αναπαριστά μία μόνο πράξη γραμμών. Ο πολλαπλασιασμός του $A$ από αριστερά με έναν στοιχειώδη πίνακα εκτελεί αυτήν την πράξη.
 
-- $E_{\text{swap}}$: swaps two rows
-- $E_{\text{scale}}$: scales a row by a non-zero constant
-- $E_{\text{add}}$: adds a multiple of one row to another
+- $E_{\text{swap}}$: εναλλάσσει δύο γραμμές
+- $E_{\text{scale}}$: πολλαπλασιάζει μια γραμμή με μια μη-μηδενική σταθερά
+- $E_{\text{add}}$: προσθέτει ένα πολλαπλάσιο μιας γραμμής σε μια άλλη
 
-Every elementary matrix is invertible.
+Κάθε στοιχειώδης πίνακας είναι αντιστρέψιμος.
 
-### 4.2 LU Decomposition
+### 4.2 Παραγοντοποίηση LU
 
-For a square matrix $A$ without row swaps, there exists a lower triangular $L$ and an upper triangular $U$ such that
+Για έναν τετραγωνικό πίνακα $A$ χωρίς ανάγκη εναλλαγής γραμμών, υπάρχει ένας κάτω τριγωνικός πίνακας $L$ και ένας άνω τριγωνικός πίνακας $U$ τέτοιοι ώστε
 
 $$
 A = LU
 $$
 
-$L$ has 1s on the diagonal and records the multipliers from Gaussian elimination. $U$ is the REF of $A$.
+Ο $L$ έχει μονάδες (1) στη διαγώνιο και καταγράφει τους πολλαπλασιαστές από την απαλοιφή Gauss. Ο $U$ είναι η μορφή REF του $A$.
 
-Solving $A\mathbf{x} = \mathbf{b}$ via LU:
-1. Solve $L\mathbf{y} = \mathbf{b}$ (forward substitution)
-2. Solve $U\mathbf{x} = \mathbf{y}$ (back substitution)
+Επίλυση του $A\mathbf{x} = \mathbf{b}$ μέσω LU:
+1. Λύνουμε το $L\mathbf{y} = \mathbf{b}$ (εμπρός αντικατάσταση)
+2. Λύνουμε το $U\mathbf{x} = \mathbf{y}$ (πίσω αντικατάσταση)
 
-If row swaps are needed, $PA = LU$ where $P$ is a permutation matrix.
+Αν απαιτούνται εναλλαγές γραμμών, τότε $PA = LU$ όπου $P$ είναι ένας πίνακας μετάθεσης (permutation matrix).
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Matrix Multiplication
+### Άσκηση 1: Πολλαπλασιασμός Πινάκων
 
-**Problem:**
-Compute $AB$ for:
+**Πρόβλημα:**
+Υπολογίστε το $AB$ για:
 
 $$
 A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad
 B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
 $$
 
-**Solution:**
-$AB$ is $2 \times 2$. Compute each entry:
+**Λύση:**
+Το $AB$ είναι $2 \times 2$. Υπολογίζουμε κάθε στοιχείο:
 
 $$
 c_{11} = 1 \cdot 5 + 2 \cdot 7 = 5 + 14 = 19
@@ -188,12 +188,12 @@ $$
 
 ---
 
-### Exercise 2: Non-Commutativity
+### Άσκηση 2: Μη-Αντιμεταθετικότητα
 
-**Problem:**
-Compute $BA$ for the same matrices and compare.
+**Πρόβλημα:**
+Υπολογίστε το $BA$ για τους ίδιους πίνακες και συγκρίνετε.
 
-**Solution:**
+**Λύση:**
 
 $$
 BA = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
@@ -222,20 +222,20 @@ $$
 
 ---
 
-### Exercise 3: Inverse of a 2x2 Matrix
+### Άσκηση 3: Αντίστροφος Πίνακα 2x2
 
-**Problem:**
-Find $A^{-1}$ for $A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}$.
+**Πρόβλημα:**
+Βρείτε τον $A^{-1}$ για τον $A = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}$.
 
-**Solution:**
-Compute $\det(A) = 2 \cdot 4 - 3 \cdot 1 = 8 - 3 = 5 \neq 0$, so $A$ is invertible.
+**Λύση:**
+Υπολογίζουμε $\det(A) = 2 \cdot 4 - 3 \cdot 1 = 8 - 3 = 5 \neq 0$, οπότε ο $A$ είναι αντιστρέψιμος.
 
 $$
 A^{-1} = \frac{1}{5} \begin{bmatrix} 4 & -3 \\ -1 & 2 \end{bmatrix}
 = \begin{bmatrix} \frac{4}{5} & -\frac{3}{5} \\ -\frac{1}{5} & \frac{2}{5} \end{bmatrix}
 $$
 
-**Verification:**
+**Επαλήθευση:**
 
 $$
 A A^{-1} = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix}
@@ -247,13 +247,13 @@ $$
 
 ---
 
-### Exercise 4: Inverse of a 3x3 via Gauss-Jordan
+### Άσκηση 4: Αντίστροφος Πίνακα 3x3 μέσω Gauss-Jordan
 
-**Problem:**
-Find $A^{-1}$ for $A = \begin{bmatrix} 1 & 1 & 4 \\ 2 & 5 & 1 \\ 1 & 1 & 2 \end{bmatrix}$.
+**Πρόβλημα:**
+Βρείτε τον $A^{-1}$ για τον $A = \begin{bmatrix} 1 & 1 & 4 \\ 2 & 5 & 1 \\ 1 & 1 & 2 \end{bmatrix}$.
 
-**Solution:**
-Form $[A \mid I]$:
+**Λύση:**
+Σχηματίζουμε τον $[A \mid I]$:
 
 $$
 \left[\begin{array}{ccc|ccc}
@@ -313,7 +313,7 @@ $$
 \end{array}\right]
 $$
 
-Thus:
+Έτσι:
 
 $$
 A^{-1} = \begin{bmatrix}
@@ -325,13 +325,13 @@ $$
 
 ---
 
-### Exercise 5: Inverse of a Diagonal Matrix
+### Άσκηση 5: Αντίστροφος Διαγώνιου Πίνακα
 
-**Problem:**
-Find the inverse of $D = \begin{bmatrix} 2 & 0 & 0 \\ 0 & -3 & 0 \\ 0 & 0 & 5 \end{bmatrix}$.
+**Πρόβλημα:**
+Βρείτε τον αντίστροφο του $D = \begin{bmatrix} 2 & 0 & 0 \\ 0 & -3 & 0 \\ 0 & 0 & 5 \end{bmatrix}$.
 
-**Solution:**
-The inverse of a diagonal matrix is the diagonal matrix of reciprocals:
+**Λύση:**
+Ο αντίστροφος ενός διαγώνιου πίνακα είναι ο διαγώνιος πίνακας των αντιστρόφων των διαγώνιων στοιχείων του:
 
 $$
 D^{-1} = \begin{bmatrix}
@@ -341,32 +341,32 @@ D^{-1} = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-**Verification:** $D D^{-1} = I_3$.
+**Επαλήθευση:** $D D^{-1} = I_3$.
 
 ---
 
-### Exercise 6: Singular Matrix
+### Άσκηση 6: Μη-Αντιστρέψιμος (Ιδιάζων) Πίνακας
 
-**Problem:**
-Show that $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ is singular.
+**Πρόβλημα:**
+Δείξτε ότι ο $A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ είναι ιδιάζων.
 
-**Solution:**
-Compute $\det(A) = 1 \cdot 4 - 2 \cdot 2 = 4 - 4 = 0$. Since $\det(A) = 0$, $A$ is not invertible. Indeed, the rows are linearly dependent: $R_2 = 2R_1$.
+**Λύση:**
+Υπολογίζουμε $\det(A) = 1 \cdot 4 - 2 \cdot 2 = 4 - 4 = 0$. Καθώς $\det(A) = 0$, ο $A$ δεν είναι αντιστρέψιμος. Πράγματι, οι γραμμές είναι γραμμικά εξαρτημένες: $R_2 = 2R_1$.
 
 ---
 
-### Exercise 7: Transpose Properties
+### Άσκηση 7: Ιδιότητες Αναστρόφου
 
-**Problem:**
-Verify $(AB)^\mathsf{T} = B^\mathsf{T} A^\mathsf{T}$ for
+**Πρόβλημα:**
+Επαληθεύστε τη σχέση $(AB)^\mathsf{T} = B^\mathsf{T} A^\mathsf{T}$ για τους
 
 $$
 A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix},\quad
 B = \begin{bmatrix} 0 & 1 \\ 2 & 3 \end{bmatrix}
 $$
 
-**Solution:**
-First compute $AB$:
+**Λύση:**
+Πρώτα υπολογίζουμε το $AB$:
 
 $$
 AB = \begin{bmatrix} 1\cdot0+2\cdot2 & 1\cdot1+2\cdot3 \\ 3\cdot0+4\cdot2 & 3\cdot1+4\cdot3 \\ 5\cdot0+6\cdot2 & 5\cdot1+6\cdot3 \end{bmatrix}
@@ -375,7 +375,7 @@ $$
 
 $(AB)^\mathsf{T} = \begin{bmatrix} 4 & 8 & 12 \\ 7 & 15 & 23 \end{bmatrix}$.
 
-Now compute $B^\mathsf{T} A^\mathsf{T}$:
+Τώρα υπολογίζουμε το $B^\mathsf{T} A^\mathsf{T}$:
 
 $$
 B^\mathsf{T} = \begin{bmatrix} 0 & 2 \\ 1 & 3 \end{bmatrix},\quad
@@ -390,28 +390,28 @@ B^\mathsf{T} A^\mathsf{T} = \begin{bmatrix}
 = \begin{bmatrix} 4 & 8 & 12 \\ 7 & 15 & 23 \end{bmatrix}
 $$
 
-They match, verifying the identity.
+Ταυτίζονται, επαληθεύοντας την ιδιότητα.
 
 ---
 
-### Exercise 8: LU Decomposition
+### Άσκηση 8: Παραγοντοποίηση LU
 
-**Problem:**
-Find the LU decomposition of $A = \begin{bmatrix} 2 & 1 \\ 4 & 5 \end{bmatrix}$ and solve $A\mathbf{x} = \begin{bmatrix} 3 \\ 11 \end{bmatrix}$.
+**Πρόβλημα:**
+Βρείτε την παραγοντοποίηση LU του $A = \begin{bmatrix} 2 & 1 \\ 4 & 5 \end{bmatrix}$ και λύστε το $A\mathbf{x} = \begin{bmatrix} 3 \\ 11 \end{bmatrix}$.
 
-**Solution:**
-Perform Gaussian elimination: subtract $2 \times$ row 1 from row 2 ($\ell_{21} = 2$):
+**Λύση:**
+Εκτελούμε απαλοιφή Gauss: αφαιρούμε $2 \times$ τη 1η γραμμή από τη 2η γραμμή ($\ell_{21} = 2$):
 
 $$
 U = \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix},\quad
 L = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
 $$
 
-Check: $LU = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
+Έλεγχος: $LU = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
 \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}
 = \begin{bmatrix} 2 & 1 \\ 4 & 5 \end{bmatrix} = A$.
 
-Solve $L\mathbf{y} = \mathbf{b}$:
+Λύνουμε το $L\mathbf{y} = \mathbf{b}$:
 
 $$
 \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
@@ -420,7 +420,7 @@ $$
 \Rightarrow y_1 = 3,\; 2\cdot3 + y_2 = 11 \Rightarrow y_2 = 5
 $$
 
-Solve $U\mathbf{x} = \mathbf{y}$:
+Λύνουμε το $U\mathbf{x} = \mathbf{y}$:
 
 $$
 \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}
@@ -429,18 +429,18 @@ $$
 \Rightarrow x_2 = \frac{5}{3},\; 2x_1 + \frac{5}{3} = 3 \Rightarrow 2x_1 = \frac{4}{3} \Rightarrow x_1 = \frac{2}{3}
 $$
 
-**Solution:** $\mathbf{x} = \left(\frac{2}{3}, \frac{5}{3}\right)$.
+**Λύση:** $\mathbf{x} = \left(\frac{2}{3}, \frac{5}{3}\right)$.
 
 ---
 
-## Exam Tip: Invertibility Shortcuts
+## Συμβουλή Εξετάσεων: Συντομεύσεις Αντιστρεψιμότητας
 
-Three quick ways to detect singular matrices:
+Τρεις γρήγοροι τρόποι να εντοπίζετε μη-αντιστρέψιμους (ιδιάζοντες) πίνακες:
 
-1. **Zero determinant:** $\det(A) = 0$ means $A^{-1}$ does not exist.
-2. **Linearly dependent rows/columns:** if one row is a multiple of another, $A$ is singular.
-3. **Zero row or column:** a row or column of all zeros makes $\det(A) = 0$.
+1. **Μηδενική ορίζουσα:** $\det(A) = 0$ σημαίνει ότι ο $A^{-1}$ δεν υπάρχει.
+2. **Γραμμικά εξαρτημένες γραμμές/στήλες:** αν μια γραμμή είναι πολλαπλάσιο μιας άλλης, ο $A$ είναι ιδιάζων.
+3. **Μηδενική γραμμή ή στήλη:** μια γραμμή ή στήλη γεμάτη μηδενικά κάνει τη $\det(A) = 0$.
 
-On exams, checking determinants is often the fastest path. For $2 \times 2$ inverses, memorize the formula; for larger matrices, Gauss-Jordan is the standard method.
+Στις εξετάσεις, ο έλεγχος της ορίζουσας είναι συχνά ο ταχύτερος δρόμος. Για αντιστρόφους $2 \times 2$, αποστηθίστε τον τύπο· για μεγαλύτερους πίνακες, η μέθοδος Gauss-Jordan είναι η τυπική προσέγγιση.
 
 ---

@@ -1,39 +1,39 @@
-# 05_Eidikoi_typoi_diodwn Documentation
+# 05_Eidikoi_typoi_diodwn Τεκμηρίωση
 
-This lecture covers special diode types beyond the standard PN junction diode: the Zener diode (operating in breakdown for voltage regulation), Schottky diode, optoelectronic devices (LED, laser diode, photodiode), phototransistors, and optocouplers.
-
----
-
-## 1. Conceptual Foundation
-
-Standard PN junction diodes are destroyed if operated in the breakdown region. By modifying the doping profile during manufacturing, special-purpose diodes are created that either exploit breakdown safely (Zener) or couple electrical signals with light (optoelectronics). These devices extend the diode's functionality into voltage regulation, high-speed switching, display, sensing, and isolation applications.
+Αυτή η διάλεξη καλύπτει ειδικούς τύπους διόδων πέρα από την τυπική δίοδο επαφής PN: τη δίοδο Zener (που λειτουργεί στην περιοχή θρυμματισμού για ρύθμιση τάσης), τη δίοδο Σχότκι (Schottky), τις οπτοηλεκτρονικές συσκευές (LED, δίοδο λέιζερ, φωτοδίοδο), τα φωτοτρανζίστορ και τους οπτικοζεύκτες.
 
 ---
 
-## 2. Formal Definition and Model
+## 1. Εννοιολογικό Θεμέλιο
 
-### 2.1 Zener Diode
+Οι τυπικές δίοδοι επαφής PN καταστρέφονται αν λειτουργήσουν στην περιοχή θρυμματισμού. Με την τροποποίηση του προφίλ εμβάπτισης κατά την κατασκευή, δημιουργούνται δίοδοι ειδικού σκοπού που είτε εκμεταλλεύονται τον θρυμματισμό με ασφάλεια (Zener) είτε ζευγοποιούν ηλεκτρικά σήματα με το φως (οπτοηλεκτρονική). Οι συσκευές αυτές επεκτείνουν τη λειτουργικότητα της διόδου σε εφαρμογές ρύθμισης τάσης, ταχείας μεταγωγής, οπτικής απεικόνισης, αισθητικής και απομόνωσης.
 
-- Designed to operate in the **reverse breakdown region** without damage.
-- Breakdown voltages available from $2\,\text{V}$ to $200\,\text{V}$ (controlled by doping level).
-- In forward bias: behaves as a standard silicon diode ($V_T \approx 0.7\,\text{V}$).
-- In reverse bias: maintains constant voltage $V_Z$ across a range of reverse currents ($I_{Zmin}$ to $I_{Zmax}$).
+---
 
-### 2.2 Zener Diode Key Parameters
+## 2. Τυπικός Ορισμός και Μοντέλο
 
-| Parameter | Symbol | Description |
+### 2.1 Δίοδος Zener
+
+- Σχεδιασμένη να λειτουργεί στην **περιοχή ανάστροφου θρυμματισμού** χωρίς βλάβη.
+- Τάσεις θρυμματισμού διαθέσιμες από $2\,\text{V}$ έως $200\,\text{V}$ (ελέγχονται από το επίπεδο εμβάπτισης).
+- Σε ορθή πόλωση: συμπεριφέρεται ως τυπική δίοδος πυριτίου ($V_T \approx 0.7\,\text{V}$).
+- Σε ανάστροφη πόλωση: διατηρεί σταθερή τάση $V_Z$ σε ένα εύρος ανάστροφων ρευμάτων ($I_{Zmin}$ έως $I_{Zmax}$).
+
+### 2.2 Βασικές Παράμετροι της Διόδου Zener
+
+| Παράμετρος | Σύμβολο | Περιγραφή |
 |:----------|:--------|:------------|
-| Zener voltage | $V_Z$ | Rated breakdown voltage |
-| Zener test current | $I_{ZT}$ | Current at which $V_Z$ is specified |
-| Maximum Zener current | $I_{Zmax}$ | Maximum safe reverse current |
-| Minimum Zener current | $I_{Zmin}$ | Minimum current to maintain regulation |
-| Maximum power dissipation | $P_D$ | $P_D = I_{Zmax} \times V_Z$ |
-| Reverse leakage current | $I_R$ | Current for $V_R < V_Z$ |
-| Dynamic impedance | $Z_{ZT}$ | $\Delta V_Z / \Delta I_Z$ at test point |
+| Τάση Zener | $V_Z$ | Ονομαστική τάση θρυμματισμού |
+| Ρεύμα δοκιμής Zener | $I_{ZT}$ | Ρεύμα στο οποίο προσδιορίζεται η $V_Z$ |
+| Μέγιστο ρεύμα Zener | $I_{Zmax}$ | Μέγιστο ασφαλές ανάστροφο ρεύμα |
+| Ελάχιστο ρεύμα Zener | $I_{Zmin}$ | Ελάχιστο ρεύμα για τη διατήρηση ρύθμισης |
+| Μέγιστη διασπορά ισχύος | $P_D$ | $P_D = I_{Zmax} \times V_Z$ |
+| Ρεύμα ανάστροφης διαρροής | $I_R$ | Ρεύμα για $V_R < V_Z$ |
+| Δυναμική εμπέδηση | $Z_{ZT}$ | $\Delta V_Z / \Delta I_Z$ στο σημείο δοκιμής |
 
-### 2.3 Zener Voltage Regulator
+### 2.3 Ρυθμιστής Τάσης Zener
 
-**Line regulator** (constant load current $I_L$, varying input $V_1$):
+**Ρυθμιστής γραμμής** (σταθερό ρεύμα φορτίου $I_L$, μεταβαλλόμενη είσοδος $V_1$):
 
 $$
 \begin{aligned}
@@ -42,137 +42,137 @@ V_1 &= I_1 R_S + V_Z = (I_Z + I_L) R_S + V_Z
 \end{aligned}
 $$
 
-As $V_1$ changes, $I_Z$ absorbs the variation. Output $V_{out} = V_Z$ remains constant as long as $I_{Zmin} < I_Z < I_{Zmax}$.
+Καθώς μεταβάλλεται το $V_1$, το $I_Z$ απορροφά την παραλλαγή. Η έξοδος $V_{out} = V_Z$ παραμένει σταθερή όσο ισχύει $I_{Zmin} < I_Z < I_{Zmax}$.
 
-**Load regulator** (constant input $V_1$, varying load $I_L$):
+**Ρυθμιστής φορτίου** (σταθερή είσοδος $V_1$, μεταβαλλόμενο φορτίο $I_L$):
 
 $$
 I_1 = I_Z + I_L
 $$
 
-As $R_L$ changes (changing $I_L$), $I_Z$ adjusts to keep $V_Z$ constant.
+Καθώς μεταβάλλεται το $R_L$ (αλλάζοντας το $I_L$), το $I_Z$ προσαρμόζεται ώστε να διατηρεί σταθερή την $V_Z$.
 
-### 2.4 Percentage Regulation
+### 2.4 Ποσοστιαία Ρύθμιση
 
-**Line regulation:**
+**Ρύθμιση γραμμής:**
 
 $$
 \text{Line Reg (\%)} = \frac{\Delta V_{out}}{\Delta V_{in}} \times 100\%
 $$
 
-**Load regulation:**
+**Ρύθμιση φορτίου:**
 
 $$
 \text{Load Reg (\%)} = \frac{\Delta V_{out}}{\Delta I_L} \times 100\%
 $$
 
-### 2.5 Schottky Diode
+### 2.5 Δίοδος Σχότκι (Schottky)
 
-- Junction: metal-semiconductor (e.g., gold with N-type silicon) instead of PN.
-- Majority carrier device (no minority carrier storage) -- very fast switching.
-- Lower forward voltage drop than standard PN diode.
-- Used in high-speed switching applications.
+- Επαφή: μεταλλοημιαγωγός (π.χ. χρυσός με πυρίτιο τύπου N) αντί για PN.
+- Συσκευή φορέων πλειοψηφίας (χωρίς αποθήκευση φορέων μειοψηφίας) -- πολύ ταχεία μεταγωγή.
+- Χαμηλότερη πτώση τάσης ορθής πόλωσης από την τυπική δίοδο PN.
+- Χρησιμοποιείται σε εφαρμογές ταχείας μεταγωγής.
 
 ---
 
-## 3. Optoelectronic Devices
+## 3. Οπτοηλεκτρονικές Συσκευές
 
-### 3.1 Light Emitting Diode (LED)
+### 3.1 Δίοδος Εκπομπής Φωτός (LED)
 
-- Emits light when forward biased.
-- Current requirement: $10-20\,\text{mA}$ for adequate brightness.
-- Forward voltage: $1.5-2.5\,\text{V}$ (depends on color).
-- Reverse breakdown threshold: $\approx 3\,\text{V}$ (will damage LED if exceeded).
-- **Protection resistor** required in series.
+- Εκπέμπει φως όταν βρίσκεται σε ορθή πόλωση.
+- Απαίτηση ρεύματος: $10-20\,\text{mA}$ για επαρκή φωτεινότητα.
+- Τάση ορθής πόλωσης: $1.5-2.5\,\text{V}$ (εξαρτάται από το χρώμα).
+- Κατώφλι ανάστροφου θρυμματισμού: $\approx 3\,\text{V}$ (θα καταστρέψει την LED αν ξεπεραστεί).
+- Απαιτείται **αντιστάτης προστασίας** σε σειρά.
 
-**Example calculation for protection resistor:**
+**Παράδειγμα υπολογισμού αντιστάτη προστασίας:**
 
-With $V_{supply} = 5\,\text{V}$, LED $V_F = 2\,\text{V}$, desired $I_F = 15\,\text{mA}$:
+Με $V_{supply} = 5\,\text{V}$, LED $V_F = 2\,\text{V}$, επιθυμητό $I_F = 15\,\text{mA}$:
 
 $$
 R = \frac{V_{supply} - V_F}{I_F} = \frac{5 - 2}{0.015} = 200\,\Omega
 $$
 
-### 3.2 LED Advantages
+### 3.2 Πλεονεκτήματα LED
 
-| Advantage | Details |
+| Πλεονέκτημα | Λεπτομέρειες |
 |:----------|:--------|
-| Efficiency | More light per watt than incandescent |
-| Color | Specific wavelength without filters |
-| Size | Smaller than $2\,\text{mm}$ |
-| Response time | Microseconds to full brightness |
-| Cold light | Minimal infrared heat |
-| Lifetime | $35,000-50,000$ hours |
-| Shock resistance | Solid-state, robust |
-| Focus | Can be designed for directional output |
-| Non-toxic | No mercury (unlike fluorescent) |
+| Απόδοση | Περισσότερο φως ανά Watt από τον πυρακτωτή |
+| Χρώμα | Συγκεκριμένο μήκος κύματος χωρίς φίλτρα |
+| Μέγεθος | Μικρότερο από $2\,\text{mm}$ |
+| Χρόνος απόκρισης | Μικροδευτερόλεπτα έως πλήρη φωτεινότητα |
+| Ψυχρό φως | Ελάχιστη υπέρυθρη θερμότητα |
+| Διάρκεια ζωής | $35,000-50,000$ ώρες |
+| Αντίσταση σε κραδασμούς | Στερεάς κατάστασης, ανθεκτικό |
+| Εστίαση | Δυνατός ο σχεδιασμός για κατευθυντική έξοδο |
+| Μη τοξικό | Χωρίς υδράργυρο (σε αντίθεση με τον φθορίζοντα) |
 
-### 3.3 LED Disadvantages
+### 3.3 Μειονεκτήματα LED
 
-- Higher initial cost than conventional lighting.
-- Temperature-dependent operation (can overheat and fail in high-temperature environments).
-- Voltage sensitivity.
-- Color rendering differs from black-body sources.
-- Blue light emission in cold-white LEDs.
+- Υψηλότερο αρχικό κόστος από τον συμβατικό φωτισμό.
+- Λειτουργία εξαρτώμενη από τη θερμοκρασία (μπορεί να υπερθερμανθεί και να αστοχήσει σε περιβάλλοντα υψηλής θερμοκρασίας).
+- Ευαισθησία στην τάση.
+- Απόδοση χρώματος διαφέρει από τις πηγές μέλανος σώματος.
+- Εκπομπή μπλε φωτός σε LED ψυχρού λευκού.
 
-### 3.4 LED Applications
+### 3.4 Εφαρμογές LED
 
-1. **Visible indication:** Displays, indicators, seven-segment displays.
-2. **Illumination:** General lighting, backlighting.
-3. **Non-visible:** Optical communication, sensing.
+1. **Οπτική ένδειξη:** Οθόνες, ενδεικτικές λυχνίες, οθόνες επτά τμημάτων.
+2. **Φωτισμός:** Γενικός φωτισμός, οπίσθιος φωτισμός.
+3. **Μη ορατό:** Οπτική επικοινωνία, αισθητική.
 
-### 3.5 Laser Diode
+### 3.5 Δίοδος Λέιζερ
 
-- PN junction with a polished cavity.
-- Cavity length determines the emitted wavelength.
-- Produces coherent, monochromatic light.
-- Used in optical communication, barcode readers, laser printers.
+- Επαφή PN με γυαλισμένο θάλαμο συντονισμού.
+- Το μήκος του θαλάμου καθορίζει το εκπεμπόμενο μήκος κύματος.
+- Παράγει συμφασικό, μονοχρωματικό φως.
+- Χρησιμοποιείται σε οπτική επικοινωνία, αναγνώστες γραμμοκωδίκων, εκτυπωτές λέιζερ.
 
-### 3.6 Photodiode
+### 3.6 Φωτοδίοδος
 
-- Reverse biased PN junction.
-- When illuminated with appropriate wavelength, generates photocurrent $I_\lambda$.
-- Used in light detection, optical communication receivers.
+- Επαφή PN σε ανάστροφη πόλωση.
+- Όταν φωτιστεί με κατάλληλο μήκος κύματος, παράγει φωτορεύμα $I_\lambda$.
+- Χρησιμοποιείται σε ανίχνευση φωτός, δέκτες οπτικής επικοινωνίας.
 
-### 3.7 Phototransistor
+### 3.7 Φωτοτρανζίστορ
 
-- Transistor whose base current is generated by light instead of an electrical signal.
-- Provides amplification of the photocurrent.
-- Used in optical sensors, light-activated switches.
+- Τρανζίστορ του οποίου το ρεύμα βάσης παράγεται από το φως αντί για ηλεκτρικό σήμα.
+- Παρέχει ενίσχυση του φωτορεύματος.
+- Χρησιμοποιείται σε οπτικούς αισθητήρες, διακόπτες ενεργοποιούμενους από το φως.
 
-### 3.8 Optocoupler (Optoisolator)
+### 3.8 Οπτικοζεύκτης (Οπτοαπομονωτής)
 
-- Combines an LED and a photodetector (photodiode or phototransistor) in a single package.
-- Provides **complete electrical isolation** between input and output circuits.
-- Used for safety isolation, noise reduction, level shifting.
+- Συνδυάζει μια LED και έναν φωτοανιχνευτή (φωτοδίοδο ή φωτοτρανζίστορ) σε ένα μοναδικό περίβλημα.
+- Παρέχει **πλήρη ηλεκτρική απομόνωση** μεταξύ των κυκλωμάτων εισόδου και εξόδου.
+- Χρησιμοποιείται για ασφαλή απομόνωση, μείωση θορύβου, μετατόπιση στάθμης.
 
 ---
 
-## 4. Worked Examples
+## 4. Λυμένα Παραδείγματα
 
-### Exercise 1: Zener Voltage -- Basic Calculation
+### Άσκηση 1: Τάση Zener -- Βασικός Υπολογισμός
 
-**Problem:** A Zener diode with $V_Z = 6.2\,\text{V}$ and $I_{ZT} = 20\,\text{mA}$ is used. The supply voltage is $12\,\text{V}$ with $R_S = 220\,\Omega$. Verify the Zener is operating within its test current.
+**Πρόβλημα:** Χρησιμοποιείται μια δίοδος Zener με $V_Z = 6.2\,\text{V}$ και $I_{ZT} = 20\,\text{mA}$. Η τάση τροφοδοσίας είναι $12\,\text{V}$ με $R_S = 220\,\Omega$. Να επαληθευτεί ότι η Zener λειτουργεί εντός του ρεύματος δοκιμής της.
 
-**Solution:**
+**Λύση:**
 
-Assuming $V_{out} = V_Z = 6.2\,\text{V}$:
+Υποθέτοντας $V_{out} = V_Z = 6.2\,\text{V}$:
 
 $$
 I_1 = \frac{V_{in} - V_Z}{R_S} = \frac{12 - 6.2}{220} = \frac{5.8}{220} = 26.4\,\text{mA}
 $$
 
-If no load is connected, $I_Z = I_1 = 26.4\,\text{mA}$, which exceeds $I_{ZT} = 20\,\text{mA}$ -- acceptable if below $I_{Zmax}$.
+Αν δεν συνδεθεί φορτίο, $I_Z = I_1 = 26.4\,\text{mA}$, που υπερβαίνει το $I_{ZT} = 20\,\text{mA}$ -- αποδεκτό αν είναι κάτω από το $I_{Zmax}$.
 
 ---
 
-### Exercise 2: Zener Line Regulation
+### Άσκηση 2: Ρύθμιση Γραμμής Zener
 
-**Problem:** A Zener regulator has $V_Z = 5.1\,\text{V}$, $R_S = 100\,\Omega$, $I_L = 20\,\text{mA}$ (constant). Input varies from $8\,\text{V}$ to $10\,\text{V}$. Verify regulation is maintained.
+**Πρόβλημα:** Ένας ρυθμιστής Zener έχει $V_Z = 5.1\,\text{V}$, $R_S = 100\,\Omega$, $I_L = 20\,\text{mA}$ (σταθερό). Η είσοδος μεταβάλλεται από $8\,\text{V}$ έως $10\,\text{V}$. Να επαληθευτεί ότι διατηρείται η ρύθμιση.
 
-**Solution:**
+**Λύση:**
 
-**At $V_{in} = 8\,\text{V}$:**
+**Για $V_{in} = 8\,\text{V}$:**
 
 $$
 I_1 = \frac{8 - 5.1}{100} = \frac{2.9}{100} = 29\,\text{mA}
@@ -182,7 +182,7 @@ $$
 I_Z = I_1 - I_L = 29 - 20 = 9\,\text{mA}
 $$
 
-**At $V_{in} = 10\,\text{V}$:**
+**Για $V_{in} = 10\,\text{V}$:**
 
 $$
 I_1 = \frac{10 - 5.1}{100} = \frac{4.9}{100} = 49\,\text{mA}
@@ -192,65 +192,65 @@ $$
 I_Z = 49 - 20 = 29\,\text{mA}
 $$
 
-Regulation is maintained if $I_{Zmin} < I_Z < I_{Zmax}$ in both cases.
+Η ρύθμιση διατηρείται αν ισχύει $I_{Zmin} < I_Z < I_{Zmax}$ και στις δύο περιπτώσεις.
 
 ---
 
-### Exercise 3: LED Protection Resistor
+### Άσκηση 3: Αντιστάτης Προστασίας LED
 
-**Problem:** An LED with $V_F = 2\,\text{V}$ and maximum current $30\,\text{mA}$ is powered by a $9\,\text{V}$ battery. Choose a suitable protection resistor for $20\,\text{mA}$ operation.
+**Πρόβλημα:** Μια LED με $V_F = 2\,\text{V}$ και μέγιστο ρεύμα $30\,\text{mA}$ τροφοδοτείται από μπαταρία $9\,\text{V}$. Να επιλεγεί κατάλληλος αντιστάτης προστασίας για λειτουργία στα $20\,\text{mA}$.
 
-**Solution:**
+**Λύση:**
 
 $$
 R = \frac{9 - 2}{0.020} = \frac{7}{0.020} = 350\,\Omega
 $$
 
-Select the nearest standard value: $330\,\Omega$ or $360\,\Omega$.
+Επιλέγεται η πλησιέστερη τυπική τιμή: $330\,\Omega$ ή $360\,\Omega$.
 
 ---
 
-### Exercise 4: Zener Load Regulation
+### Άσκηση 4: Ρύθμιση Φορτίου Zener
 
-**Problem:** A Zener regulator has $V_Z = 3.3\,\text{V}$, $R_S = 150\,\Omega$, $V_{in} = 8\,\text{V}$ (constant). Load current varies from $0$ to $25\,\text{mA}$. Determine if the Zener remains in regulation ($I_{Zmin} = 5\,\text{mA}$, $I_{Zmax} = 50\,\text{mA}$).
+**Πρόβλημα:** Ένας ρυθμιστής Zener έχει $V_Z = 3.3\,\text{V}$, $R_S = 150\,\Omega$, $V_{in} = 8\,\text{V}$ (σταθερό). Το ρεύμα φορτίου μεταβάλλεται από $0$ έως $25\,\text{mA}$. Να προσδιοριστεί αν η Zener παραμένει σε ρύθμιση ($I_{Zmin} = 5\,\text{mA}$, $I_{Zmax} = 50\,\text{mA}$).
 
-**Solution:**
+**Λύση:**
 
-**No load ($I_L = 0$):**
+**Χωρίς φορτίο ($I_L = 0$):**
 
 $$
 I_Z = \frac{8 - 3.3}{150} = \frac{4.7}{150} = 31.3\,\text{mA} < I_{Zmax}
 $$
 
-**Maximum load ($I_L = 25\,\text{mA}$):**
+**Μέγιστο φορτίο ($I_L = 25\,\text{mA}$):**
 
 $$
 I_Z = 31.3 - 25 = 6.3\,\text{mA} > I_{Zmin}
 $$
 
-Regulation is maintained for the entire load range.
+Η ρύθμιση διατηρείται για ολόκληρο το εύρος φορτίου.
 
 ---
 
-### Exercise 5: LED Television Power Calculation
+### Άσκηση 5: Υπολογισμός Ισχύος Τηλεόρασης LED
 
-**Problem:** An LED TV with $1366 \times 768$ resolution consumes $40\,\text{W}$. Each LED operates at $2\,\text{V}$. Find the current per LED assuming all power goes to the LEDs.
+**Πρόβλημα:** Μια τηλεόραση LED με ανάλυση $1366 \times 768$ καταναλώνει $40\,\text{W}$. Κάθε LED λειτουργεί στα $2\,\text{V}$. Να βρεθεί το ρεύμα ανά LED θεωρώντας ότι όλη η ισχύς καταναλώνεται στις LED.
 
-**Solution:**
+**Λύση:**
 
-Total LED count (assuming RGB, 3 sub-pixels per pixel):
+Συνολικός αριθμός LED (θεωρώντας RGB, 3 υπο-εικονοστοιχεία ανά εικονοστοιχείο):
 
 $$
 N = 1366 \times 768 \times 3 = 3,147,264
 $$
 
-Power per LED:
+Ισχύς ανά LED:
 
 $$
 P_{LED} = \frac{40}{3,147,264} = 1.27 \times 10^{-5}\,\text{W}
 $$
 
-Current per LED:
+Ρεύμα ανά LED:
 
 $$
 I_{LED} = \frac{P_{LED}}{V_{LED}} = \frac{1.27 \times 10^{-5}}{2} = 6.35 \times 10^{-6}\,\text{A} = 6.35\,\mu\text{A}
@@ -258,43 +258,43 @@ $$
 
 ---
 
-### Exercise 6: Zener Power Dissipation
+### Άσκηση 6: Διασπορά Ισχύος Zener
 
-**Problem:** A Zener diode has $V_Z = 12\,\text{V}$ and $P_{Dmax} = 1\,\text{W}$. Find the maximum safe Zener current.
+**Πρόβλημα:** Μια δίοδος Zener έχει $V_Z = 12\,\text{V}$ και $P_{Dmax} = 1\,\text{W}$. Να βρεθεί το μέγιστο ασφαλές ρεύμα Zener.
 
-**Solution:**
+**Λύση:**
 
 $$
 I_{Zmax} = \frac{P_{Dmax}}{V_Z} = \frac{1}{12} = 83.3\,\text{mA}
 $$
 
-The Zener must never exceed this current.
+Η Zener δεν πρέπει ποτέ να υπερβαίνει αυτό το ρεύμα.
 
 ---
 
-### Exercise 7: Schottky vs PN Diode
+### Άσκηση 7: Σχότκι (Schottky) έναντι Διόδου PN
 
-**Problem:** A circuit switches at $10\,\text{MHz}$. Which diode type is more suitable and why?
+**Πρόβλημα:** Ένα κύκλωμα μεταγωγής λειτουργεί στα $10\,\text{MHz}$. Ποιος τύπος διόδου είναι καταλληλότερος και γιατί;
 
-**Solution:**
+**Λύση:**
 
-The **Schottky diode** is more suitable because it is a majority carrier device. Standard PN diodes store minority carriers during forward conduction, requiring reverse recovery time to clear stored charge. Schottky diodes have negligible storage time, enabling much faster switching.
+Η **δίοδος Σχότκι (Schottky)** είναι καταλληλότερη γιατί είναι συσκευή φορέων πλειοψηφίας. Οι τυπικές δίοδοι PN αποθηκεύουν φορείς μειοψηφίας κατά τη διάρκεια της ορθής αγωγιμότητας, απαιτώντας χρόνο ανάκτησης ανάστροφης πόλωσης για την απομάκρυνση του αποθηκευμένου φορτίου. Οι δίοδοι Σχότκι έχουν αμελητέο χρόνο αποθήκευσης, επιτρέποντας πολύ ταχύτερη μεταγωγή.
 
 ---
 
-### Exercise 8: Photodiode in Reverse Bias
+### Άσκηση 8: Φωτοδίοδος σε Ανάστροφη Πόλωση
 
-**Problem:** A photodiode rated at $10\,\mu\text{A}$ per $1000\,\text{lux}$ is reverse biased with $5\,\text{V}$ through a $10\,k\Omega$ resistor. Find the output voltage at $500\,\text{lux}$.
+**Πρόβλημα:** Μια φωτοδίοδος με ονομαστική τιμή $10\,\mu\text{A}$ ανά $1000\,\text{lux}$ βρίσκεται σε ανάστροφη πόλωση με $5\,\text{V}$ μέσω αντιστάτη $10\,k\Omega$. Να βρεθεί η τάση εξόδου στα $500\,\text{lux}$.
 
-**Solution:**
+**Λύση:**
 
-Photocurrent at $500\,\text{lux}$:
+Φωτορεύμα στα $500\,\text{lux}$:
 
 $$
 I_\lambda = 10\,\mu\text{A} \times \frac{500}{1000} = 5\,\mu\text{A}
 $$
 
-Output voltage (across the resistor):
+Τάση εξόδου (στα άκρα του αντιστάτη):
 
 $$
 V_{out} = 5\,\text{V} - (5 \times 10^{-6} \times 10^4) = 5 - 0.05 = 4.95\,\text{V}
@@ -302,15 +302,15 @@ $$
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- Zener regulation builds on Thevenin analysis (Lecture 02).
-- Diode breakdown physics is introduced in Lecture 04.
-- Phototransistor behavior connects to BJT theory (Lecture 07).
-- Zener regulators are used in power supply design (Lecture 06).
+- Η ρύθμιση Zener βασίζεται στην ανάλυση Thevenin (Διάλεξη 02).
+- Η φυσική του θρυμματισμού της διόδου εισάγεται στη Διάλεξη 04.
+- Η συμπεριφορά του φωτοτρανζίστορ συνδέεται με τη θεωρία BJT (Διάλεξη 07).
+- Οι ρυθμιστές Zener χρησιμοποιούνται στον σχεδιασμό τροφοδοτικού (Διάλεξη 06).
 
 ---
 
-## Exam Tip: Zener Circuit Analysis
+## Συμβουλή Εξετάσεων: Ανάλυση Κυκλώματος Zener
 
-When analyzing Zener circuits, first determine the Thevenin equivalent seen by the Zener diode (Lecture 02 method). If $V_{Th} > V_Z$, the Zener is in breakdown and regulates. If $V_{Th} < V_Z$, the Zener is off and does not conduct. This Thevenin approach simplifies the analysis significantly.
+Κατά την ανάλυση κυκλωμάτων Zener, πρέπει πρώτα να προσδιοριστεί το ισοδύναμο Thevenin που βλέπει η δίοδος Zener (μέθοδος Διάλεξης 02). Αν $V_{Th} > V_Z$, η Zener βρίσκεται σε θρυμματισμό και ρυθμίζει. Αν $V_{Th} < V_Z$, η Zener είναι ανενεργή και δεν άγει. Αυτή η προσέγγιση Thevenin απλοποιεί σημαντικά την ανάλυση.

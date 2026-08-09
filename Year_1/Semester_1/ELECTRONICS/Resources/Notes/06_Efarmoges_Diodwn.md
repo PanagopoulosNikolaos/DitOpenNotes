@@ -1,132 +1,140 @@
-# 06_Efarmoges_Diodwn Documentation
+# 06_Efarmoges_Diodwn Τεκμηρίωση
 
-This lecture covers diode applications in power supply design: rectification (half-wave, full-wave, bridge), smoothing filters, Zener regulation, voltage multipliers, and fault detection in power supplies.
-
----
-
-## 1. Conceptual Foundation
-
-Electronic devices require stable DC voltages for operation. While batteries can power low-consumption devices, most equipment requires a power supply that converts AC mains voltage to a regulated DC voltage. The process involves four stages: transformation, rectification, filtering, and regulation.
+Αυτή η διάλεξη καλύπτει τις εφαρμογές των διόδων στον σχεδιασμό τροφοδοτικών: ανόρθωση (ημιανόρθωση, πλήρης ανόρθωση, γέφυρα), φίλτρα εξομάλυνσης, ρύθμιση Zener, πολλαπλασιαστές τάσης και ανίχνευση βλαβών σε τροφοδοτικά.
 
 ---
 
-## 2. Formal Definition and Model
+## 1. Εννοιολογικό Θεμέλιο
 
-### 2.1 Power Supply Block Diagram
+Οι ηλεκτρονικές συσκευές απαιτούν σταθερές τάσεις DC για τη λειτουργία τους. Ενώ οι μπαταρίες μπορούν να τροφοδοτήσουν συσκευές χαμηλής κατανάλωσης, ο περισσότερος εξοπλισμός απαιτεί ένα τροφοδοτικό που μετατρέπει την τάση του δικτύου AC σε μια ρυθμιζόμενη τάση DC. Η διαδικασία περιλαμβάνει τέσσερα στάδια: μετασχηματισμό, ανόρθωση, φιλτράρισμα και ρύθμιση.
+
+---
+
+## 2. Τυπικός Ορισμός και Μοντέλο
+
+### 2.1 Διάγραμμα Μπλοκ Τροφοδοτικού
 
 $$
 \text{AC Mains} \rightarrow \text{Step-down Transformer} \rightarrow \text{Rectifier} \rightarrow \text{Filter} \rightarrow \text{Regulator} \rightarrow \text{DC Output}
 $$
 
-### 2.2 Rectifier Types
+### 2.2 Τύποι Ανορθωτών
 
-**Half-wave rectifier:**
-- Uses a single diode.
-- Only positive half-cycles pass; negative half-cycles are blocked.
-- Average output: $V_{dc} = 0.318 \times V_{out(max)}$.
-- Frequency: $f_{out} = f_{in}$.
+**Ανορθωτής ημιανόρθωσης:**
 
-**Full-wave rectifier (center-tapped transformer, 2 diodes):**
-- Both half-cycles are rectified.
-- Average output: $V_{dc} = 0.636 \times V_{out(max)}$.
-- Frequency: $f_{out} = 2 \times f_{in}$.
-- PIV (Peak Inverse Voltage) per diode: $2 \times V_{out(max)} + 0.7\,\text{V}$.
+- Χρησιμοποιεί μια μοναδική δίοδο.
+- Μόνο οι θετικοί ημικύκλοι περνούν· οι αρνητικοί ημικύκλοι αποκλείονται.
+- Μέση τιμή εξόδου: $V_{dc} = 0.318 \times V_{out(max)}$.
+- Συχνότητα: $f_{out} = f_{in}$.
 
-**Full-wave bridge rectifier (4 diodes):**
-- Both half-cycles rectified without center tap.
-- Average output: $V_{dc} = 0.636 \times V_{out(max)}$.
-- Frequency: $f_{out} = 2 \times f_{in}$.
-- PIV per diode: $V_{out(max)} + 0.7\,\text{V}$ (half of center-tap type).
+**Ανορθωτής πλήρους ανόρθωσης (μετασχηματιστής με μεσαίο πηνίο, 2 δίοδοι):**
 
-### 2.3 Comparison of Rectifier Types
+- Και τα δύο ημικύκλα ανορθώνονται.
+- Μέση τιμή εξόδου: $V_{dc} = 0.636 \times V_{out(max)}$.
+- Συχνότητα: $f_{out} = 2 \times f_{in}$.
+- PIV (Κορυφαία Ανάστροφη Τάση) ανά δίοδο: $2 \times V_{out(max)} + 0.7\,\text{V}$.
 
-| Property | Half-Wave | Full-Wave (2-diode) | Full-Wave (Bridge) |
+**Ανορθωτής γέφυρας πλήρους ανόρθωσης (4 δίοδοι):**
+
+- Και τα δύο ημικύκλα ανορθώνονται χωρίς μεσαίο πηνίο.
+- Μέση τιμή εξόδου: $V_{dc} = 0.636 \times V_{out(max)}$.
+- Συχνότητα: $f_{out} = 2 \times f_{in}$.
+- PIV ανά δίοδο: $V_{out(max)} + 0.7\,\text{V}$ (το μισό του τύπου με μεσαίο πηνίο).
+
+### 2.3 Σύγκριση Τύπων Ανορθωτών
+
+| Ιδιότητα | Ημιανόρθωση | Πλήρης (2 διόδων) | Πλήρης (Γέφυρα) |
 |:---------|:----------|:--------------------|:-------------------|
-| Diodes needed | 1 | 2 | 4 |
-| Transformer | Simple | Center-tapped | Simple |
-| $V_{dc}$ relative to $V_{peak}$ | $0.318 \times V_p$ | $0.636 \times V_p$ | $0.636 \times V_p$ |
-| Output frequency | $f_{in}$ | $2 f_{in}$ | $2 f_{in}$ |
-| PIV per diode | $V_p$ | $2V_p + 0.7$ | $V_p + 0.7$ |
-| DC voltage | Lower | Higher | Higher |
-| Ripple | Higher | Lower | Lower |
+| Δίοδοι που απαιτούνται | 1 | 2 | 4 |
+| Μετασχηματιστής | Απλός | Με μεσαίο πηνίο | Απλός |
+| $V_{dc}$ ως προς $V_{peak}$ | $0.318 \times V_p$ | $0.636 \times V_p$ | $0.636 \times V_p$ |
+| Συχνότητα εξόδου | $f_{in}$ | $2 f_{in}$ | $2 f_{in}$ |
+| PIV ανά δίοδο | $V_p$ | $2V_p + 0.7$ | $V_p + 0.7$ |
+| Τάση DC | Χαμηλότερη | Υψηλότερη | Υψηλότερη |
+| Κυμάτωση | Υψηλότερη | Χαμηλότερη | Χαμηλότερη |
 
-### 2.4 Three-Phase Rectification
+### 2.4 Τριφασική Ανόρθωση
 
-**Three-phase half-wave:** $V_{dc} = 0.831 \times V_{max}$.
+**Τριφασική ημιανόρθωση:** $V_{dc} = 0.831 \times V_{max}$.
 
-**Three-phase full-wave:** Higher efficiency, lower ripple.
+**Τριφασική πλήρης ανόρθωση:** Υψηλότερη απόδοση, χαμηλότερη κυμάτωση.
 
-### 2.5 Smoothing Filters
+### 2.5 Φίλτρα Εξομάλυνσης
 
-**Capacitor filter:**
-- Capacitor charges to peak voltage when diode conducts.
-- Discharges through $R_L$ when diode is off.
-- Ripple voltage: $\Delta V_{out} \approx \frac{I_{out}}{f_{out} \cdot C}$.
+**Φίλτρο πυκνωτή:**
 
-**Inductor filter:**
-- Series inductor opposes current changes.
-- Smoother output for high-current loads.
+- Ο πυκνωτής φορτίζεται στην κορυφαία τάση όταν άγει η δίοδος.
+- Εκφορτίζεται μέσω του $R_L$ όταν η δίοδος είναι ανενεργή.
+- Τάση κυμάτωσης: $\Delta V_{out} \approx \frac{I_{out}}{f_{out} \cdot C}$.
 
-**Stabilization coefficient ($\gamma$):**
+**Φίλτρο πηνίου:**
+
+- Το σειριακό πηνίο αντιτίθεται στις μεταβολές του ρεύματος.
+- Ομαλότερη έξοδος για φορτία υψηλού ρεύματος.
+
+**Συντελεστής σταθεροποίησης ($\gamma$):**
 
 $$
 \gamma = \frac{\Delta v_{out}}{\Delta V}
 $$
 
-Where $\Delta v_{out}$ is the change in smoothed voltage and $\Delta V$ is the change in rectified voltage. Lower $\gamma$ means better filtering.
+Όπου το $\Delta v_{out}$ είναι η μεταβολή στην εξομαλυμένη τάση και το $\Delta V$ είναι η μεταβολή στην ανορθωμένη τάση. Χαμηλότερο $\gamma$ σημαίνει καλύτερο φιλτράρισμα.
 
-### 2.6 Voltage Multipliers
+### 2.6 Πολλαπλασιαστές Τάσης
 
-| Type | Configuration | Output |
+| Τύπος | Διάταξη | Έξοδος |
 |:-----|:--------------|:-------|
-| Half-wave doubler | 2 diodes + 2 capacitors | $2 \times V_{peak}$ |
-| Full-wave doubler | 2 diodes + 2 capacitors | $2 \times V_{peak}$ |
-| Tripler | Doubler + 1 diode + 1 capacitor | $3 \times V_{peak}$ |
-| Quadrupler | Doubler + extended stages | $4 \times V_{peak}$ |
+| Διπλασιαστής ημιανόρθωσης | 2 δίοδοι + 2 πυκνωτές | $2 \times V_{peak}$ |
+| Διπλασιαστής πλήρους ανόρθωσης | 2 δίοδοι + 2 πυκνωτές | $2 \times V_{peak}$ |
+| Τριπλασιαστής | Διπλασιαστής + 1 δίοδος + 1 πυκνωτής | $3 \times V_{peak}$ |
+| Τετραπλασιαστής | Διπλασιαστής + επεκτεταμένα στάδια | $4 \times V_{peak}$ |
 
 ---
 
-## 3. Step-by-Step Mechanism
+## 3. Βήμα προς Βήμα Μηχανισμός
 
-### 3.1 Fault Detection in Power Supplies
+### 3.1 Ανίχνευση Βλαβών σε Τροφοδοτικά
 
-**Failure symptoms:**
-1. Zero output voltage.
-2. Low output voltage.
-3. Excessive ripple.
-4. High output voltage.
+**Συμπτώματα βλάβης:**
 
-**Diagnostic approach:**
-1. Observe physical damage.
-2. Analyze possible causes using circuit knowledge.
-3. Narrow possibilities through measurements.
+1. Μηδενική τάση εξόδου.
+2. Χαμηλή τάση εξόδου.
+3. Υπερβολική κυμάτωση.
+4. Υψηλή τάση εξόδου.
 
-**Example fault analysis:**
-- Correct transformer secondary ($12.7\,\text{V AC}$) + DC measurement of $10.5\,\text{V}$ after filter = no filtering action $\rightarrow$ open filter capacitor.
+**Διαγνωστική προσέγγιση:**
+
+1. Παρατήρηση φυσικής βλάβης.
+2. Ανάλυση πιθανών αιτιών με τη γνώση του κυκλώματος.
+3. Περιορισμός των πιθανοτήτων μέσω μετρήσεων.
+
+**Παράδειγμα ανάλυσης βλάβης:**
+
+- Σωστό δευτερεύον μετασχηματιστή ($12.7\,\text{V AC}$) + μέτρηση DC $10.5\,\text{V}$ μετά το φίλτρο = απουσία φιλτραρίσματος $\rightarrow$ ανοιχτός πυκνωτής φίλτρου.
 
 ---
 
-## 4. Worked Examples
+## 4. Λυμένα Παραδείγματα
 
-### Exercise 1: Half-Wave Rectifier
+### Άσκηση 1: Ανορθωτής Ημιανόρθωσης
 
-**Problem:** A half-wave rectifier has $V_{in(peak)} = 10\,\text{V}$ (after transformer) with a silicon diode. Find $V_{dc}$ and PIV.
+**Πρόβλημα:** Ένας ανορθωτής ημιανόρθωσης έχει $V_{in(peak)} = 10\,\text{V}$ (μετά τον μετασχηματιστή) με δίοδο πυριτίου. Να βρεθούν $V_{dc}$ και PIV.
 
-**Solution:**
+**Λύση:**
 
-Peak output: $V_{out(max)} = 10 - 0.7 = 9.3\,\text{V}$
+Κορυφαία έξοδος: $V_{out(max)} = 10 - 0.7 = 9.3\,\text{V}$
 
-Average DC: $V_{dc} = 0.318 \times 9.3 = 2.96\,\text{V}$
+Μέση DC: $V_{dc} = 0.318 \times 9.3 = 2.96\,\text{V}$
 
 PIV: $PIV = V_{in(peak)} = 10\,\text{V}$
 
 ---
 
-### Exercise 2: Full-Wave Center-Tapped Rectifier
+### Άσκηση 2: Ανορθωτής Πλήρους Ανόρθωσης με Μεσαίο Πηνίο
 
-**Problem:** A center-tapped transformer provides $12\,\text{V RMS}$ on each half-secondary. Find $V_{dc}$ and PIV per diode. ($V_{peak} = V_{RMS} \times \sqrt{2}$)
+**Πρόβλημα:** Ένας μετασχηματιστής με μεσαίο πηνίο παρέχει $12\,\text{V RMS}$ σε κάθε μισό δευτερεύον. Να βρεθούν $V_{dc}$ και PIV ανά δίοδο. ($V_{peak} = V_{RMS} \times \sqrt{2}$)
 
-**Solution:**
+**Λύση:**
 
 $V_{peak} = 12 \times 1.414 = 16.97\,\text{V}$
 
@@ -138,15 +146,15 @@ $PIV = 2 \times 16.27 + 0.7 = 33.24\,\text{V}$
 
 ---
 
-### Exercise 3: Bridge Rectifier
+### Άσκηση 3: Ανορθωτής Γέφυρας
 
-**Problem:** A bridge rectifier has $V_{in(RMS)} = 12\,\text{V}$. Find $V_{dc}$ and PIV per diode.
+**Πρόβλημα:** Ένας ανορθωτής γέφυρας έχει $V_{in(RMS)} = 12\,\text{V}$. Να βρεθούν $V_{dc}$ και PIV ανά δίοδο.
 
-**Solution:**
+**Λύση:**
 
 $V_{peak} = 12 \times 1.414 = 16.97\,\text{V}$
 
-Two diode drops: $V_{out(max)} = 16.97 - 1.4 = 15.57\,\text{V}$
+Δύο πτώσεις διόδων: $V_{out(max)} = 16.97 - 1.4 = 15.57\,\text{V}$
 
 $V_{dc} = 0.636 \times 15.57 = 9.90\,\text{V}$
 
@@ -154,15 +162,15 @@ $PIV = 15.57 + 0.7 = 16.27\,\text{V}$
 
 ---
 
-### Exercise 4: Capacitor Filter Ripple
+### Άσκηση 4: Κυμάτωση Φίλτρου Πυκνωτή
 
-**Problem:** A full-wave bridge rectifier supplies $100\,\text{mA}$ to a load. The filter capacitor is $1000\,\mu\text{F}$ and line frequency is $50\,\text{Hz}$. Estimate the ripple voltage.
+**Πρόβλημα:** Ένας ανορθωτής γέφυρας πλήρους ανόρθωσης τροφοδοτεί φορτίο $100\,\text{mA}$. Ο πυκνωτής φίλτρου είναι $1000\,\mu\text{F}$ και η συχνότητα δικτύου είναι $50\,\text{Hz}$. Να εκτιμηθεί η τάση κυμάτωσης.
 
-**Solution:**
+**Λύση:**
 
-Full-wave output frequency: $f_{out} = 2 \times 50 = 100\,\text{Hz}$
+Συχνότητα εξόδου πλήρους ανόρθωσης: $f_{out} = 2 \times 50 = 100\,\text{Hz}$
 
-Ripple voltage:
+Τάση κυμάτωσης:
 
 $$
 \Delta V = \frac{I_{out}}{f_{out} \cdot C} = \frac{0.1}{100 \times 1000 \times 10^{-6}} = \frac{0.1}{0.1} = 1\,\text{V}_{pp}
@@ -170,66 +178,67 @@ $$
 
 ---
 
-### Exercise 5: Half-Wave Voltage Doubler
+### Άσκηση 5: Διπλασιαστής Τάσης Ημιανόρθωσης
 
-**Problem:** Explain the operation of a half-wave voltage doubler with input peak $10\,\text{V}$.
+**Πρόβλημα:** Να εξηγηθεί η λειτουργία ενός διπλασιαστή τάσης ημιανόρθωσης με κορυφαία τάση εισόδου $10\,\text{V}$.
 
-**Solution:**
+**Λύση:**
 
-1. During negative half-cycle: $D_1$ conducts, $C_1$ charges to $V_{peak} = 10\,\text{V}$.
-2. During positive half-cycle: $D_2$ conducts, the input ($+10\,\text{V}$) adds to $C_1$'s stored voltage ($+10\,\text{V}$).
-3. $C_2$ charges to $10 + 10 = 20\,\text{V}$.
-4. Output: $V_{out} \approx 2 \times V_{peak} = 20\,\text{V}$.
+1. Κατά τον αρνητικό ημικύκλο: άγει η $D_1$, ο $C_1$ φορτίζεται στην $V_{peak} = 10\,\text{V}$.
+2. Κατά τον θετικό ημικύκλο: άγει η $D_2$, η είσοδος ($+10\,\text{V}$) προστίθεται στην αποθηκευμένη τάση του $C_1$ ($+10\,\text{V}$).
+3. Ο $C_2$ φορτίζεται στα $10 + 10 = 20\,\text{V}$.
+4. Έξοδος: $V_{out} \approx 2 \times V_{peak} = 20\,\text{V}$.
 
 ---
 
-### Exercise 6: Zener Regulator in Power Supply
+### Άσκηση 6: Ρυθμιστής Zener σε Τροφοδοτικό
 
-**Problem:** A bridge rectifier produces $15\,\text{V}$ DC with $2\,\text{V}$ ripple. A Zener regulator with $V_Z = 5.1\,\text{V}$, $R_S = 100\,\Omega$, drives a $50\,\text{mA}$ load. Determine if regulation is maintained through the ripple cycle.
+**Πρόβλημα:** Ένας ανορθωτής γέφυρας παράγει $15\,\text{V}$ DC με κυμάτωση $2\,\text{V}$. Ένας ρυθμιστής Zener με $V_Z = 5.1\,\text{V}$, $R_S = 100\,\Omega$, οδηγεί φορτίο $50\,\text{mA}$. Να προσδιοριστεί αν διατηρείται η ρύθμιση καθ' όλο τον κύκλο κυμάτωσης.
 
-**Solution:**
+**Λύση:**
 
-$I_L = 50\,\text{mA}$ (constant).
+$I_L = 50\,\text{mA}$ (σταθερό).
 
-At $V_{in(max)} = 15 + 1 = 16\,\text{V}$:
+Στο $V_{in(max)} = 15 + 1 = 16\,\text{V}$:
 
 $$
 I_1 = \frac{16 - 5.1}{100} = 109\,\text{mA}, \quad I_Z = 109 - 50 = 59\,\text{mA}
 $$
 
-At $V_{in(min)} = 15 - 1 = 14\,\text{V}$:
+Στο $V_{in(min)} = 15 - 1 = 14\,\text{V}$:
 
 $$
 I_1 = \frac{14 - 5.1}{100} = 89\,\text{mA}, \quad I_Z = 89 - 50 = 39\,\text{mA}
 $$
 
-Regulation maintained if $I_Z$ stays within limits.
+Η ρύθμιση διατηρείται αν το $I_Z$ παραμένει εντός ορίων.
 
 ---
 
-### Exercise 7: Power Supply Fault Diagnosis
+### Άσκηση 7: Διάγνωση Βλάβης Τροφοδοτικού
 
-**Problem:** A bridge rectifier power supply outputs $0\,\text{V}$. The transformer secondary measures $12\,\text{V AC}$. Where is the fault?
+**Πρόβλημα:** Ένα τροφοδοτικό ανορθωτή γέφυρας εξάγει $0\,\text{V}$. Το δευτερεύον του μετασχηματιστή μετράται στα $12\,\text{V AC}$. Πού εντοπίζεται η βλάβη;
 
-**Solution:**
+**Λύση:**
 
-Since the transformer is working, the fault is after the secondary. Possible causes:
-- Open circuit in the bridge rectifier (all four diodes open).
-- Blown fuse after the rectifier.
-- Shorted filter capacitor (blows fuse or shorts output to ground).
-- Open filter inductor/choke.
+Δεδομένου ότι ο μετασχηματιστής λειτουργεί, η βλάβη βρίσκεται μετά το δευτερεύον. Πιθανές αιτίες:
 
-Check the rectifier output with a DC voltmeter first. If $0\,\text{V}$, test each diode with an ohmmeter.
+- Ανοικτό κύκλωμα στη γέφυρα ανόρθωσης (όλες οι τέσσερις δίοδοι ανοιχτές).
+- Καμένη ασφάλεια μετά τον ανορθωτή.
+- Βραχυκυκλωμένος πυκνωτής φίλτρου (καίει την ασφάλεια ή βραχυκυκλώνει την έξοδο στη γείωση).
+- Ανοιχτό πηνίο φίλτρου/πνίγτης.
+
+Ελέγξτε πρώτα την έξοδο του ανορθωτή με DC βολτόμετρο. Αν είναι $0\,\text{V}$, δοκιμάστε κάθε δίοδο με ωμόμετρο.
 
 ---
 
-### Exercise 8: Three-Phase Rectifier
+### Άσκηση 8: Τριφασικός Ανορθωτής
 
-**Problem:** A three-phase half-wave rectifier has a phase voltage peak of $20\,\text{V}$. Find the DC output voltage.
+**Πρόβλημα:** Ένας τριφασικός ανορθωτής ημιανόρθωσης έχει κορυφαία τάση φάσης $20\,\text{V}$. Να βρεθεί η τάση εξόδου DC.
 
-**Solution:**
+**Λύση:**
 
-For three-phase half-wave rectification:
+Για τριφασική ημιανόρθωση:
 
 $$
 V_{dc} = 0.831 \times V_{max} = 0.831 \times 20 = 16.62\,\text{V}
@@ -237,15 +246,15 @@ $$
 
 ---
 
-## 5. Connections and Cross-References
+## 5. Συνδέσεις και Διασταυρούμενες Αναφορές
 
-- Diode models (Lecture 04) determine the $0.7\,\text{V}$ drop used in rectifier calculations.
-- Zener regulation (Lecture 05) completes the power supply chain.
-- Capacitor charging behavior and time constants (Lecture 01) explain filter operation.
-- Transformer theory and mutual induction (Lecture 01) underlie the step-down stage.
+- Τα μοντέλα διόδων (Διάλεξη 04) καθορίζουν την πτώση $0.7\,\text{V}$ που χρησιμοποιείται στους υπολογισμούς ανόρθωσης.
+- Η ρύθμιση Zener (Διάλεξη 05) συμπληρώνει την αλυσίδα τροφοδοτικού.
+- Η συμπεριφορά φόρτισης πυκνωτή και οι χρονικές σταθερές (Διάλεξη 01) εξηγούν τη λειτουργία του φίλτρου.
+- Η θεωρία μετασχηματιστή και η αμοιβαία επαγωγή (Διάλεξη 01) υποβάλλουν το στάδιο μείωσης τάσης.
 
 ---
 
-## Exam Tip: PIV Calculation
+## Συμβουλή Εξετάσεων: Υπολογισμός PIV
 
-The most common mistake in rectifier problems is incorrect PIV calculation. For half-wave: PIV = $V_{peak}$. For center-tapped full-wave: PIV = $2V_{out(max)} + 0.7\,\text{V}$. For bridge: PIV = $V_{out(max)} + 0.7\,\text{V}$. The bridge requires diodes with half the PIV rating compared to the center-tapped design.
+Το συχνότερο λάθος σε προβλήματα ανορθωτών είναι ο λανθασμένος υπολογισμός του PIV. Για ημιανόρθωση: PIV = $V_{peak}$. Για πλήρη ανόρθωση με μεσαίο πηνίο: PIV = $2V_{out(max)} + 0.7\,\text{V}$. Για γέφυρα: PIV = $V_{out(max)} + 0.7\,\text{V}$. Η γέφυρα απαιτεί διόδους με το μισό ονομαστικό PIV σε σύγκριση με τον σχεδιασμό με μεσαίο πηνίο.

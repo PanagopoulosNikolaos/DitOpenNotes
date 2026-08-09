@@ -1,18 +1,18 @@
-# 01_Eisagwgh-Nomos_Ohm Documentation
+# 01_Eisagwgh-Nomos_Ohm Τεκμηρίωση
 
-This lecture introduces the fundamental concepts of electronics: atomic structure, electrical conductivity, Ohm's law, circuit elements (resistors, capacitors, inductors), signal types, and voltage/current sources. It establishes the theoretical foundation required for all subsequent circuit analysis.
+Αυτή η διάλεξη εισάγει τις θεμελιώδεις έννοιες της ηλεκτρονικής: την ατομική δομή, την ηλεκτρική αγωγιμότητα, τον Νόμο του Ohm, τα στοιχεία κυκλώματος (αντιστάτες, πυκνωτές, πηνία), τους τύπους σήματος και τις πηγές τάσης/ρεύματος. Θεμελιώνει το θεωρητικό υπόβαθρο που απαιτείται για όλη την επόμενη ανάλυση κυκλωμάτων.
 
 ---
 
-## 1. Core Definitions
+## 1. Βασικοί Ορισμοί
 
-### 1.1 Atomic Structure and Electrical Charge
+### 1.1 Ατομική Δομή και Ηλεκτρικό Φορτίο
 
-Matter consists of molecules, which subdivide into atoms. Atoms contain protons (positive charge), neutrons (neutral), and electrons (negative charge). The electron is the primary charge carrier in electrical circuits.
+Η ύλη αποτελείται από μόρια, τα οποία υποδιαιρούνται σε άτομα. Τα άτομα περιέχουν πρωτόνια (θετικό φορτίο), νετρόνια (ουδέτερα) και ηλεκτρόνια (αρνητικό φορτίο). Το ηλεκτρόνιο είναι ο κύριος φορέας φορτίου στα ηλεκτρικά κυκλώματα.
 
-### 1.2 Electrical Conductivity and Current
+### 1.2 Ηλεκτρική Αγωγιμότητα και Ρεύμα
 
-Electrical conductivity is the ability of a material to support directed movement of charged particles. This directed flow is called electric current $I$, defined as the rate of charge flow:
+Η ηλεκτρική αγωγιμότητα είναι η ικανότητα ενός υλικού να υποστηρίζει την κατευθυνόμενη κίνηση φορτισμένων σωματιδίων. Αυτή η κατευθυνόμενη ροή ονομάζεται ηλεκτρικό ρεύμα $I$, το οποίο ορίζεται ως ο ρυθμός ροής φορτίου:
 
 $$
 I = \frac{d|Q|}{dt}
@@ -24,7 +24,7 @@ $$
 | $Q$ | Charge | Cb (Coulomb) |
 | $t$ | Time | s (second) |
 
-### 1.3 Conductors, Semiconductors, Insulators
+### 1.3 Αγωγοί, Ημιαγωγοί, Μονωτές
 
 | Material Type | Conductivity | Example |
 |:--------------|:-------------|:--------|
@@ -32,13 +32,13 @@ $$
 | Insulator | Blocks current | Plastics, rubber |
 | Semiconductor | Intermediate behavior | Silicon (Si), Germanium (Ge) |
 
-### 1.4 Drude Model (1900)
+### 1.4 Μοντέλο Drude (1900)
 
-Proposed by P. Drude: in metals, valence electrons form a cloud of free electrons that move between positively charged ion cores. Under an electric field, these free electrons move directionally, constituting current. Collisions with the lattice cause electrical resistance and heat dissipation.
+Προτάθηκε από τον P. Drude: στα μέταλλα, τα ηλεκτρόνια σθένους σχηματίζουν ένα νέφος ελεύθερων ηλεκτρονίων που κινούνται ανάμεσα στους θετικά φορτισμένους πυρήνες ιόντων. Υπό την επίδραση ενός ηλεκτρικού πεδίου, αυτά τα ελεύθερα ηλεκτρόνια κινούνται κατευθυντικά, αποτελώντας το ρεύμα. Οι συγκρούσεις με το πλέγμα προκαλούν ηλεκτρική αντίσταση και απώλεια θερμότητας.
 
-### 1.5 Energy Band Approach
+### 1.5 Προσέγγιση Ζωνών Ενέργειας
 
-In isolated atoms, electrons occupy discrete energy levels (orbits). In crystalline solids, these levels broaden into energy bands separated by band gaps.
+Στα μεμονωμένα άτομα, τα ηλεκτρόνια καταλαμβάνουν διακριτά ενεργειακά επίπεδα (τροχιές). Στα κρυσταλλικά στερεά, αυτά τα επίπεδα διευρύνονται σε ενεργειακές ζώνες που χωρίζονται από ενεργειακά χάσματα.
 
 | Band | Description |
 |:-----|:------------|
@@ -46,21 +46,21 @@ In isolated atoms, electrons occupy discrete energy levels (orbits). In crystall
 | Conduction band | Energy levels where electrons are free to conduct |
 | Band gap | Forbidden energy region between bands |
 
-**Fermi level:** The maximum energy an electron can have at absolute zero ($0\,K$).
+**Fermi level:** Το μέγιστο ενεργειακό επίπεδο που μπορεί να έχει ένα ηλεκτρόνιο στο απόλυτο μηδέν ($0\,K$).
 
-**Material classification by energy bands:**
+**Ταξινόμηση υλικών με βάση τις ενεργειακές ζώνες:**
 
-- **Conductors:** No band gap (valence and conduction bands overlap).
-- **Insulators:** Large band gap -- electrons cannot jump to conduction band.
-- **Semiconductors:** Small band gap -- electrons can jump with small energy (e.g., thermal).
+- **Αγωγοί:** Κανένα ενεργειακό χάσμα (οι ζώνες σθένους και αγωγιμότητας αλληλεπικαλύπτονται).
+- **Μονωτές:** Μεγάλο ενεργειακό χάσμα -- τα ηλεκτρόνια δεν μπορούν να μεταπηδήσουν στη ζώνη αγωγιμότητας.
+- **Ημιαγωγοί:** Μικρό ενεργειακό χάσμα -- τα ηλεκτρόνια μπορούν να μεταπηδήσουν με μικρή ενέργεια (π.χ. θερμική).
 
 ---
 
-## 2. Foundational Formulas
+## 2. Θεμελιώδεις Τύποι
 
-### 2.1 Electric Potential and Voltage
+### 2.1 Ηλεκτρικό Δυναμικό και Τάση
 
-**Potential** is energy per unit charge:
+Το **δυναμικό** είναι ενέργεια ανά μονάδα φορτίου:
 
 $$
 V = \frac{E}{q}
@@ -68,17 +68,17 @@ $$
 
 Unit: $1\,\text{Volt} = 1\,\text{Joule} / 1\,\text{Coulomb}$
 
-**Voltage (potential difference):**
+**Τάση (διαφορά δυναμικού):**
 
 $$
 \Delta V = V_1 - V_2
 $$
 
-According to the principle of minimum energy, charge flows from higher to lower potential (for positive charges). Negative charges (electrons) flow from lower to higher potential.
+Σύμφωνα με την αρχή της ελάχιστης ενέργειας, το φορτίο ρέει από το υψηλότερο στο χαμηλότερο δυναμικό (για θετικά φορτία). Τα αρνητικά φορτία (ηλεκτρόνια) ρέουν από το χαμηλότερο στο υψηλότερο δυναμικό.
 
-### 2.2 Ohm's Law
+### 2.2 Νόμος του Ohm
 
-For a resistor $R$ with voltage $V$ applied across it:
+Για έναν αντιστάτη $R$ στον οποίο εφαρμόζεται τάση $V$:
 
 $$
 I = \frac{V}{R} \quad \text{or} \quad V = I \cdot R \quad \text{or} \quad R = \frac{V}{I}
@@ -90,7 +90,7 @@ $$
 | $I$ | Current | A (Ampere) |
 | $R$ | Resistance | $\Omega$ (Ohm) |
 
-**Conductance:**
+**Αγωγιμότητα:**
 
 $$
 g = \frac{1}{R} = \frac{I}{V}
@@ -98,27 +98,27 @@ $$
 
 Unit: Siemens (S) or mho ($\mho$).
 
-### 2.3 I-V Characteristic Curve
+### 2.3 Χαρακτηριστική Καμπύλη I-V
 
-For an ohmic resistor, the I-V characteristic is a straight line through the origin with slope equal to $1/R$.
+Για έναν ωμικό αντιστάτη, η χαρακτηριστική I-V είναι μια ευθεία γραμμή που διέρχεται από την αρχή με κλίση ίση με $1/R$.
 
-### 2.4 Resistor Combinations
+### 2.4 Συνδυασμοί Αντιστατών
 
-**Series:**
+**Σε σειρά:**
 
 $$
 R_{total} = R_1 + R_2 + R_3 + \dots
 $$
 
-**Parallel:**
+**Παράλληλα:**
 
 $$
 \frac{1}{R_{total}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \dots
 $$
 
-### 2.5 Capacitance
+### 2.5 Χωρητικότητα
 
-Capacitance $C$ of a capacitor is the ratio of charge $Q$ to voltage $V$:
+Η χωρητικότητα $C$ ενός πυκνωτή είναι ο λόγος του φορτίου $Q$ προς την τάση $V$:
 
 $$
 C = \frac{Q}{V}
@@ -126,51 +126,51 @@ $$
 
 Unit: F (Farad). Typical circuit values: $\mu\text{F}$ or $\text{nF}$.
 
-**Time constant:**
+**Σταθερά χρόνου:**
 
 $$
 \tau = R \cdot C \quad (\text{seconds})
 $$
 
-A capacitor is considered fully charged after $5\tau$.
+Ένας πυκνωτής θεωρείται πλήρως φορτισμένος μετά από $5\tau$.
 
-**Energy stored in a capacitor (electric field):**
+**Ενέργεια αποθηκευμένη σε πυκνωτή (ηλεκτρικό πεδίο):**
 
 $$
 E = \frac{1}{2} C V^2
 $$
 
-**Capacitors in series:**
+**Πυκνωτές σε σειρά:**
 
 $$
 \frac{1}{C_{total}} = \frac{1}{C_1} + \frac{1}{C_2} + \dots
 $$
 
-**Capacitors in parallel:**
+**Πυκνωτές παράλληλα:**
 
 $$
 C_{total} = C_1 + C_2 + \dots
 $$
 
-### 2.6 Inductance
+### 2.6 Επαγωγικότητα
 
-**Self-induction (Lenz's law):** When current through an inductor changes, an induced voltage appears across it with polarity opposing the change.
+**Αυτεπαγωγή (νόμος του Lenz):** Όταν το ρεύμα μέσω ενός πηνίου μεταβάλλεται, εμφανίζεται επαγόμενη τάση στα άκρα του με πολικότητα που αντιτίθεται στη μεταβολή.
 
-**Mutual induction:** An induced voltage appears in a secondary coil when current changes in a primary coil, and vice versa.
+**Αμοιβαία επαγωγή:** Εμφανίζεται επαγόμενη τάση σε ένα δευτερεύον πηνίο όταν το ρεύμα μεταβάλλεται σε ένα πρωτεύον πηνίο, και αντιστρόφως.
 
-**Energy stored in an inductor (magnetic field):**
+**Ενέργεια αποθηκευμένη σε πηνίο (μαγνητικό πεδίο):**
 
 $$
 E = \frac{1}{2} L I^2
 $$
 
-**Inductors in series:**
+**Πηνία σε σειρά:**
 
 $$
 L_{total} = L_1 + L_2 + \dots
 $$
 
-**Inductors in parallel:**
+**Πηνία παράλληλα:**
 
 $$
 \frac{1}{L_{total}} = \frac{1}{L_1} + \frac{1}{L_2} + \dots
@@ -178,7 +178,7 @@ $$
 
 ---
 
-## 3. Key Parameters and Constraints
+## 3. Βασικές Παράμετροι και Περιορισμοί
 
 | Component | Parameter | Unit | Notes |
 |:----------|:----------|:-----|:------|
@@ -190,76 +190,76 @@ $$
 
 ---
 
-## 4. Step-by-Step Mechanisms
+## 4. Μηχανισμοί Βήμα προς Βήμα
 
-### 4.1 Conventional Current vs Electron Flow
+### 4.1 Συμβατικό Ρεύμα έναντι Ροής Ηλεκτρονίων
 
-1. Electrons (negative charge carriers) move from the negative to the positive terminal of a source.
-2. By historical convention, current direction is defined as opposite to electron flow (positive to negative).
-3. This conventional direction corresponds to the flow of hypothetical positive charge carriers.
+1. Τα ηλεκτρόνια (φορείς αρνητικού φορτίου) κινούνται από τον αρνητικό στον θετικό πόλο μιας πηγής.
+2. Κατά τη σύμβαση, η διεύθυνση του ρεύματος ορίζεται αντίθετα προς τη ροή των ηλεκτρονίων (θετικό προς αρνητικό).
+3. Αυτή η συμβατική διεύθυνση αντιστοιχεί στη ροή υποθετικών φορέων θετικού φορτίου.
 
-### 4.2 Ground and Reference Potential
+### 4.2 Γείωση και Δυναμικό Αναφοράς
 
-1. A reference point (ground) is assigned $0\,\text{V}$ potential.
-2. All voltages in the circuit are measured relative to this reference.
-3. In single-supply circuits, the negative terminal of the source is typically chosen as ground.
-4. The common terminal of voltmeters (COM) connects to this ground point.
+1. Ένα σημείο αναφοράς (γείωση) ορίζεται με δυναμικό $0\,\text{V}$.
+2. Όλες οι τάσεις στο κύκλωμα μετρώνται ως προς αυτή την αναφορά.
+3. Στα κυκλώματα μονής τροφοδοσίας, ο αρνητικός πόλος της πηγής επιλέγεται συνήθως ως γείωση.
+4. Το κοινό άκρο των βολτομέτρων (COM) συνδέεται σε αυτό το σημείο γείωσης.
 
 ---
 
-## 5. Signal Types and Sources
+## 5. Τύποι Σήματος και Πηγές
 
-### 5.1 Analog and Digital Signals
+### 5.1 Αναλογικά και Ψηφιακά Σήματα
 
 | Signal Type | Characteristics |
 |:------------|:----------------|
 | Analog | Continuous in time and amplitude; all natural sources produce analog signals |
 | Digital | Discrete amplitude; binary signals take only two values |
 
-### 5.2 DC and AC Signals
+### 5.2 Σήματα DC και AC
 
 | Signal | Definition | Characteristics |
 |:-------|:-----------|:----------------|
 | DC (Direct Current) | Maintains constant sign over time | May be constant or varying, but polarity never changes |
 | AC (Alternating Current) | Alternates polarity over time | Periodically reverses direction |
 
-> **[Key Insight]** A constant voltage is always DC, but not all DC is constant. Varying waveforms that maintain a single polarity are still considered DC.
+> **[Βασική Παρατήρηση]** Μια σταθερή τάση είναι πάντα DC, αλλά όχι όλες οι DC είναι σταθερές. Κυματομορφές που μεταβάλλονται αλλά διατηρούν μοναδική πολικότητα εξακολουθούν να θεωρούνται DC.
 
-### 5.3 Voltage Sources
+### 5.3 Πηγές Τάσης
 
-**Ideal voltage source:** Maintains constant voltage regardless of load current ($r \to 0$).
+**Ιδανική πηγή τάσης:** Διατηρεί σταθερή τάση ανεξάρτητα από το ρεύμα φορτίου ($r \to 0$).
 
-**Real voltage source:** Has internal resistance $r$. Condition for proper operation: $r \ll R_L$.
+**Πραγματική πηγή τάσης:** Έχει εσωτερική αντίσταση $r$. Συνθήκη για σωστή λειτουργία: $r \ll R_L$.
 
-**Maximum current $I_{max}$:** The highest current the source can deliver while maintaining its specified voltage.
+**Μέγιστο ρεύμα $I_{max}$:** Το μέγιστο ρεύμα που μπορεί να αποδώσει η πηγή διατηρώντας την καθορισμένη τάση της.
 
-### 5.4 Current Sources
+### 5.4 Πηγές Ρεύματος
 
-**Ideal current source:** Delivers constant current regardless of load voltage ($r \to \infty$).
+**Ιδανική πηγή ρεύματος:** Αποδίδει σταθερό ρεύμα ανεξάρτητα από την τάση φορτίου ($r \to \infty$).
 
-**Real current source:** Condition: $r \gg R_L$.
+**Πραγματική πηγή ρεύματος:** Συνθήκη: $r \gg R_L$.
 
-**Minimum voltage $V_{min}$:** The lowest voltage at which the source operates correctly.
+**Ελάχιστη τάση $V_{min}$:** Η ελάχιστη τάση στην οποία λειτουργεί σωστά η πηγή.
 
-### 5.5 Source Connections
+### 5.5 Συνδέσεις Πηγών
 
-**Voltage sources in series:** Total voltage is the sum of individual voltages. The maximum current is limited by the lowest $I_{max}$.
+**Πηγές τάσης σε σειρά:** Η συνολική τάση είναι το άθροισμα των επιμέρους τάσεων. Το μέγιστο ρεύμα περιορίζεται από το χαμηλότερο $I_{max}$.
 
-**Voltage sources in parallel (identical only):** Total voltage equals the common voltage; maximum current equals the sum of individual $I_{max}$ values.
+**Πηγές τάσης παράλληλα (μόνο όμοιες):** Η συνολική τάση ισούται με την κοινή τάση· το μέγιστο ρεύμα ισούται με το άθροισμα των επιμέρους τιμών $I_{max}$.
 
-**Current sources in parallel:** Total current is the sum of individual currents.
+**Πηγές ρεύματος παράλληλα:** Το συνολικό ρεύμα είναι το άθροισμα των επιμέρους ρευμάτων.
 
 ---
 
-## 6. Solved Exercises
+## 6. Λυμένες Ασκήσεις
 
-### Exercise 1: Ohm's Law -- Direct Calculation
+### Exercise 1: Νόμος του Ohm -- Άμεσος Υπολογισμός
 
 **Problem:** A $10\,k\Omega$ resistor has $12\,\text{V}$ applied across it. Find the current.
 
 **Solution:**
 
-Using Ohm's law $I = V/R$:
+Χρησιμοποιώντας τον νόμο του Ohm $I = V/R$:
 
 $$
 I = \frac{12\,\text{V}}{10 \times 10^3\,\Omega} = 1.2 \times 10^{-3}\,\text{A} = 1.2\,\text{mA}
@@ -267,7 +267,7 @@ $$
 
 ---
 
-### Exercise 2: Ohm's Law -- Finding Resistance
+### Exercise 2: Νόμος του Ohm -- Εύρεση Αντίστασης
 
 **Problem:** A current of $5\,\text{mA}$ flows through a resistor when $15\,\text{V}$ is applied. Find the resistance.
 
@@ -279,7 +279,7 @@ $$
 
 ---
 
-### Exercise 3: Resistors in Series
+### Exercise 3: Αντιστάτες σε Σειρά
 
 **Problem:** Three resistors $R_1 = 1\,k\Omega$, $R_2 = 2.2\,k\Omega$, $R_3 = 3.3\,k\Omega$ are connected in series. Find the total resistance.
 
@@ -291,7 +291,7 @@ $$
 
 ---
 
-### Exercise 4: Resistors in Parallel
+### Exercise 4: Αντιστάτες Παράλληλα
 
 **Problem:** Two resistors $R_1 = 2\,k\Omega$ and $R_2 = 3\,k\Omega$ are connected in parallel. Find the total resistance.
 
@@ -307,19 +307,19 @@ $$
 
 ---
 
-### Exercise 5: Mixed Resistor Network
+### Exercise 5: Μικτό Δίκτυο Αντιστατών
 
 **Problem:** $R_1 = 1\,k\Omega$ is in series with a parallel combination of $R_2 = 2\,k\Omega$ and $R_3 = 2\,k\Omega$. Find the total resistance.
 
 **Solution:**
 
-Step 1: Calculate the parallel combination:
+Βήμα 1: Υπολογισμός του παράλληλου συνδυασμού:
 
 $$
 \frac{1}{R_{23}} = \frac{1}{2} + \frac{1}{2} = 1 \quad \Rightarrow \quad R_{23} = 1\,k\Omega
 $$
 
-Step 2: Add the series resistor:
+Βήμα 2: Πρόσθεση του αντιστάτη σε σειρά:
 
 $$
 R_{total} = R_1 + R_{23} = 1 + 1 = 2\,k\Omega
@@ -327,19 +327,19 @@ $$
 
 ---
 
-### Exercise 6: Capacitor Charge Calculation
+### Exercise 6: Υπολογισμός Φορτίου Πυκνωτή
 
 **Problem:** A $10\,\mu\text{F}$ capacitor is connected to a $12\,\text{V}$ source. Find the stored charge and energy.
 
 **Solution:**
 
-Charge:
+Φορτίο:
 
 $$
 Q = C \cdot V = 10 \times 10^{-6} \times 12 = 120 \times 10^{-6} = 120\,\mu\text{C}
 $$
 
-Energy:
+Ενέργεια:
 
 $$
 E = \frac{1}{2} C V^2 = \frac{1}{2} \times 10 \times 10^{-6} \times 12^2 = \frac{1}{2} \times 10 \times 10^{-6} \times 144 = 720 \times 10^{-6} = 720\,\mu\text{J}
@@ -347,19 +347,19 @@ $$
 
 ---
 
-### Exercise 7: RC Time Constant
+### Exercise 7: Σταθερά Χρόνου RC
 
 **Problem:** A $1\,k\Omega$ resistor and a $100\,\mu\text{F}$ capacitor form an RC circuit. Find the time constant and the time required for full charge.
 
 **Solution:**
 
-Time constant:
+Σταθερά χρόνου:
 
 $$
 \tau = R \cdot C = 1000 \times 100 \times 10^{-6} = 0.1\,\text{s}
 $$
 
-Full charge time ($5\tau$):
+Χρόνος πλήρους φόρτισης ($5\tau$):
 
 $$
 t_{full} = 5 \times 0.1 = 0.5\,\text{s}
@@ -367,24 +367,24 @@ $$
 
 ---
 
-### Exercise 8: Voltage Source with Internal Resistance
+### Exercise 8: Πηγή Τάσης με Εσωτερική Αντίσταση
 
 **Problem:** A $12\,\text{V}$ battery has an internal resistance of $0.5\,\Omega$. It is connected to a $10\,\Omega$ load. Find the actual voltage across the load.
 
 **Solution:**
 
-Using the voltage divider principle:
+Χρησιμοποιώντας την αρχή του διαιρέτη τάσης:
 
 $$
 V_{load} = V \cdot \frac{R_L}{r + R_L} = 12 \times \frac{10}{0.5 + 10} = 12 \times \frac{10}{10.5} = 12 \times 0.9524 = 11.43\,\text{V}
 $$
 
-The internal resistance causes a $0.57\,\text{V}$ drop.
+Η εσωτερική αντίσταση προκαλεί πτώση $0.57\,\text{V}$.
 
 ---
 
-## Exam Tip: Recognizing DC vs Constant Signals
+## Exam Tip: Αναγνώριση Σημάτων DC έναντι Σταθερών
 
-In exam problems, pay careful attention to whether a source is ideal ($r=0$) or has an internal resistance. When a problem states "ideal voltage source," treat the internal resistance as zero. When a real battery is specified, always account for the voltage drop across its internal resistance. A common mistake is to treat real sources as ideal.
+Στα θέματα των εξετάσεων, δώστε ιδιαίτερη προσοχή στο αν μια πηγή είναι ιδανική ($r=0$) ή διαθέτει εσωτερική αντίσταση. Όταν ένα θέμα αναφέρει «ιδανική πηγή τάσης», θεωρήστε την εσωτερική αντίσταση μηδενική. Όταν καθορίζεται μια πραγματική μπαταρία, λάβετε πάντα υπόψη την πτώση τάσης στα άκρα της εσωτερικής της αντίστασης. Ένα συνηθισμένο λάθος είναι η αντιμετώπιση των πραγματικών πηγών ως ιδανικών.
 
-Electronics typically uses $k\Omega$ for resistors and $\mu\text{F}$ or $\text{nF}$ for capacitors -- ensure your unit conversions are correct.
+Η ηλεκτρονική χρησιμοποιεί συνήθως $k\Omega$ για τους αντιστάτες και $\mu\text{F}$ ή $\text{nF}$ για τους πυκνωτές -- βεβαιωθείτε ότι οι μετατροπές μονάδων είναι σωστές.

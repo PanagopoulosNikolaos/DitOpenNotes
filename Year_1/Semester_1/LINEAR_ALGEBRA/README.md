@@ -1,21 +1,21 @@
-# Linear Algebra
+# Γραμμική Άλγεβρα
 
-## Course Overview
-This course provides an introduction to the fundamental concepts of linear algebra, including vectors, matrices, systems of linear equations, and eigenvalues.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα παρέχει μια εισαγωγή στις θεμελιώδεις έννοιες της γραμμικής άλγεβρας, συμπεριλαμβανομένων διανυσμάτων, πινάκων, συστημάτων γραμμικών εξισώσεων και ιδιοτιμών.
 
-## Course Code
+## Κωδικός Μαθήματος
 102 (ΓΡΑΜΜΙΚΗ ΑΛΓΕΒΡΑ)
 
-## Prerequisites
-None
+## Προαπαιτούμενα
+Κανένα
 
-This directory contains materials for the Linear Algebra course.
+Αυτός ο κατάλογος περιέχει υλικό για το μάθημα της Γραμμικής Άλγεβρας.
 
-## Folder Structure
+## Δομή Φακέλων
 
-*   `Matlab_Octave_Code/`: Contains Matlab/Octave code examples that demonstrate various concepts in linear algebra.
-*   `Linear_Algebra_and_its_application.pdf`: The main textbook for the course.
+* `Matlab_Octave_Code/`: Περιέχει παραδείγματα κώδικα Matlab/Octave που επιδεικνύουν διάφορες έννοιες στη γραμμική άλγεβρα.
+* `Linear_Algebra_and_its_application.pdf`: Το κύριο σύγγραμμα του μαθήματος.
 
-## How to Use
+## Πώς να το Χρησιμοποιήσετε
 
-It is recommended to read the textbook and then run the code examples to see the concepts in action.
+Συνιστάται να διαβάσετε το σύγγραμμα και στη συνέχεια να εκτελέσετε τα παραδείγματα κώδικα για να δείτε τις έννοιες στην πράξη.

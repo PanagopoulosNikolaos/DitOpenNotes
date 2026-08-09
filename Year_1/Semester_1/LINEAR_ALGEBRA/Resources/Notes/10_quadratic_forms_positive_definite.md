@@ -1,24 +1,24 @@
-# Quadratic Forms and Positive Definite Matrices
+# Τετραγωνικές Μορφές και Θετικά Ορισμένοι Πίνακες
 
-A quadratic form is a homogeneous polynomial of degree two in several variables, expressible as $\mathbf{x}^\mathsf{T} A \mathbf{x}$ with a symmetric matrix $A$. The definiteness of a quadratic form---whether it is always positive, always negative, or changes sign---determines the nature of critical points in optimization and the stability of dynamical systems. The spectral theorem provides the canonical diagonalization of quadratic forms, and Sylvester's criterion gives a practical test for positive definiteness.
+Μια τετραγωνική μορφή είναι ένα ομογενές πολυώνυμο δευτέρου βαθμού σε πολλές μεταβλητές, το οποίο εκφράζεται ως $\mathbf{x}^\mathsf{T} A \mathbf{x}$ με έναν συμμετρικό πίνακα $A$. Η οριστικότητα μιας τετραγωνικής μορφής --- αν δηλαδή είναι πάντα θετική, πάντα αρνητική ή αλλάζει πρόσημο --- καθορίζει τη φύση των κρίσιμων σημείων στη βελτιστοποίηση και τη στάθμη ευστάθειας των δυναμικών συστημάτων. Το φασματικό θεώρημα παρέχει τη κανονική διαγωνοποίηση των τετραγωνικών μορφών, και το κριτήριο του Sylvester δίνει έναν πρακτικό έλεγχο για τη θετική οριστικότητα.
 
 ---
 
-## 1. Core Definitions
+## 1. Βασικοί Ορισμοί
 
-### 1.1 Quadratic Form
+### 1.1 Τετραγωνική Μορφή
 
-A **quadratic form** in $n$ variables is:
+Μια **τετραγωνική μορφή** σε $n$ μεταβλητές είναι:
 
 $$
 Q(\mathbf{x}) = \mathbf{x}^\mathsf{T} A \mathbf{x} = \sum_{i=1}^{n} \sum_{j=1}^{n} a_{ij} x_i x_j
 $$
 
-where $A$ is symmetric ($a_{ij} = a_{ji}$). The symmetry condition is always assumed because the anti-symmetric part contributes zero to $Q$.
+όπου ο $A$ είναι συμμετρικός ($a_{ij} = a_{ji}$). Η συνθήκη συμμετρίας υποτίθεται πάντα διότι το αντισυμμετρικό μέρος συνεισφέρει μηδέν στο $Q$.
 
-### 1.2 Canonical Form via Diagonalization
+### 1.2 Κανονική Μορφή μέσω Διαγωνοποίησης
 
-By the spectral theorem, $A = Q D Q^\mathsf{T}$ with $Q$ orthogonal and $D = \text{diag}(\lambda_1, \ldots, \lambda_n)$. Let $\mathbf{y} = Q^\mathsf{T} \mathbf{x}$, then:
+Από το φασματικό θεώρημα, $A = Q D Q^\mathsf{T}$ με τον $Q$ ορθογώνιο και $D = \text{diag}(\lambda_1, \ldots, \lambda_n)$. Θέτοντας $\mathbf{y} = Q^\mathsf{T} \mathbf{x}$, έχουμε:
 
 $$
 Q(\mathbf{x}) = \mathbf{y}^\mathsf{T} D \mathbf{y} = \lambda_1 y_1^2 + \lambda_2 y_2^2 + \cdots + \lambda_n y_n^2
@@ -26,97 +26,97 @@ $$
 
 ---
 
-## 2. Classification of Quadratic Forms
+## 2. Ταξινόμηση Τετραγωνικών Μορφών
 
-Let $A$ be symmetric. The quadratic form $Q(\mathbf{x}) = \mathbf{x}^\mathsf{T} A \mathbf{x}$ is:
+Έστω $A$ συμμετρικός πίνακας. Η τετραγωνική μορφή $Q(\mathbf{x}) = \mathbf{x}^\mathsf{T} A \mathbf{x}$ είναι:
 
-| Type | Condition | Example |
+| Τύπος | Συνθήκη | Παράδειγμα |
 | :--- | :--- | :--- |
-| Positive definite | $Q(\mathbf{x}) > 0$ for all $\mathbf{x} \neq \mathbf{0}$ | $x_1^2 + x_2^2$ |
-| Positive semidefinite | $Q(\mathbf{x}) \geq 0$ for all $\mathbf{x}$ | $x_1^2$ |
-| Negative definite | $Q(\mathbf{x}) < 0$ for all $\mathbf{x} \neq \mathbf{0}$ | $-x_1^2 - x_2^2$ |
-| Negative semidefinite | $Q(\mathbf{x}) \leq 0$ for all $\mathbf{x}$ | $-x_1^2$ |
-| Indefinite | $Q$ takes both positive and negative values | $x_1^2 - x_2^2$ |
+| Θετικά ορισμένη (Positive definite) | $Q(\mathbf{x}) > 0$ για όλα τα $\mathbf{x} \neq \mathbf{0}$ | $x_1^2 + x_2^2$ |
+| Θετικά ημιορισμένη (Positive semidefinite) | $Q(\mathbf{x}) \geq 0$ για όλα τα $\mathbf{x}$ | $x_1^2$ |
+| Αρνητικά ορισμένη (Negative definite) | $Q(\mathbf{x}) < 0$ για όλα τα $\mathbf{x} \neq \mathbf{0}$ | $-x_1^2 - x_2^2$ |
+| Αρνητικά ημιορισμένη (Negative semidefinite) | $Q(\mathbf{x}) \leq 0$ για όλα τα $\mathbf{x}$ | $-x_1^2$ |
+| Αόριστη (Indefinite) | Το $Q$ παίρνει θετικές και αρνητικές τιμές | $x_1^2 - x_2^2$ |
 
 ---
 
-## 3. Positive Definite Matrices
+## 3. Θετικά Ορισμένοι Πίνακες
 
-### 3.1 Equivalent Conditions
+### 3.1 Ισοδύναμες Συνθήκες
 
-For a symmetric $n \times n$ matrix $A$, the following are equivalent:
+Για έναν συμμετρικό $n \times n$ πίνακα $A$, τα ακόλουθα είναι ισοδύναμα:
 
-1. $A$ is positive definite ($\mathbf{x}^\mathsf{T} A \mathbf{x} > 0$ for $\mathbf{x} \neq \mathbf{0}$).
-2. All eigenvalues of $A$ are positive ($\lambda_i > 0$).
-3. All leading principal minors are positive (Sylvester's criterion).
-4. $A = LL^\mathsf{T}$ for some lower triangular $L$ with positive diagonal (Cholesky factorization exists).
-5. $A = B^\mathsf{T} B$ for some full-rank matrix $B$.
+1. Ο $A$ είναι θετικά ορισμένος ($\mathbf{x}^\mathsf{T} A \mathbf{x} > 0$ για $\mathbf{x} \neq \mathbf{0}$).
+2. Όλες οι ιδιοτιμές του $A$ είναι θετικές ($\lambda_i > 0$).
+3. Όλες οι κύριες ηγετικές ελάσσονες ορίζουσες (leading principal minors) είναι θετικές (Κριτήριο Sylvester).
+4. $A = LL^\mathsf{T}$ για κάποιον κάτω τριγωνικό $L$ με θετική διαγώνιο (υπάρχει παραγοντοποίηση Cholesky).
+5. $A = B^\mathsf{T} B$ για κάποιον πίνακα $B$ πλήρους τάξης.
 
-### 3.2 Sylvester's Criterion
+### 3.2 Κριτήριο του Sylvester
 
-Let $A_k$ denote the $k \times k$ upper-left submatrix of $A$ (the $k$-th leading principal submatrix). $A$ is positive definite iff:
+Έστω $A_k$ ο υποπίνακας $k \times k$ της άνω αριστερής γωνίας του $A$ ($k$-οστή ηγετική κύρια ελάσσονα). Ο $A$ είναι θετικά ορισμένος αν και μόνο αν:
 
 $$
 \det(A_1) > 0,\; \det(A_2) > 0,\; \ldots,\; \det(A_n) > 0
 $$
 
-### 3.3 Applications
+### 3.3 Εφαρμογές
 
-- **Optimization:** At a critical point, if the Hessian matrix is positive definite, the point is a local minimum; if negative definite, a local maximum; if indefinite, a saddle point.
-- **Statistics:** Covariance matrices are positive semidefinite.
-- **Engineering:** Stiffness matrices in finite element analysis are positive definite.
+- **Βελτιστοποίηση:** Σε ένα κρίσιμο σημείο, αν ο Εσσιανός πίνακας (Hessian matrix) είναι θετικά ορισμένος, το σημείο είναι τοπικό ελάχιστο· αν είναι αρνητικά ορισμένος, τοπικό μέγιστο· αν είναι αόριστος, σαγματικό σημείο (saddle point).
+- **Στατιστική:** Οι πίνακες διακύμανσης-συνδιακύμανσης (covariance matrices) είναι θετικά ημιορισμένοι.
+- **Μηχανική:** Οι πίνακες δυσκαμψίας στην ανάλυση πεπερασμένων στοιχείων είναι θετικά ορισμένοι.
 
 ---
 
-## 4. Spectral Theorem (Review)
+## 4. Φασματικό Θεώρημα (Επανεξέταση)
 
-### 4.1 Statement
+### 4.1 Διατύπωση
 
-Every real symmetric matrix $A$ can be orthogonally diagonalized:
+Κάθε πραγματικός συμμετρικός πίνακας $A$ μπορεί να διαγωνοποιηθεί ορθογώνια:
 
 $$
 A = Q D Q^\mathsf{T}
 $$
 
-### 4.2 Implications for Quadratic Forms
+### 4.2 Συνέπειες για τις Τετραγωνικές Μορφές
 
-- Eigenvectors corresponding to distinct eigenvalues are orthogonal.
-- The maximum and minimum of $Q(\mathbf{x})$ on the unit sphere $\|\mathbf{x}\| = 1$ are the largest and smallest eigenvalues of $A$.
+- Τα ιδιοδιανύσματα που αντιστοιχούν σε διαφορετικές ιδιοτιμές είναι ορθογώνια.
+- Το μέγιστο και το ελάχιστο της $Q(\mathbf{x})$ στη μοναδιαία σφαίρα $\|\mathbf{x}\| = 1$ είναι η μέγιστη και η ελάχιστη ιδιοτιμή του $A$.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: Classification by Eigenvalues
+### Άσκηση 1: Ταξινόμηση μέσω Ιδιοτιμών
 
-**Problem:**
-Classify $Q(x_1, x_2) = 2x_1^2 + 4x_1x_2 + 2x_2^2$.
+**Πρόβλημα:**
+Ταξινομήστε την $Q(x_1, x_2) = 2x_1^2 + 4x_1x_2 + 2x_2^2$.
 
-**Solution:**
-Write in matrix form: $A = \begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}$.
+**Λύση:**
+Γράφουμε σε μορφή πίνακα: $A = \begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}$.
 
-Eigenvalues: $\det(A - \lambda I) = (2-\lambda)^2 - 4 = \lambda^2 - 4\lambda = \lambda(\lambda - 4)$.
+Ιδιοτιμές: $\det(A - \lambda I) = (2-\lambda)^2 - 4 = \lambda^2 - 4\lambda = \lambda(\lambda - 4)$.
 $\lambda_1 = 4$, $\lambda_2 = 0$.
 
-Since one eigenvalue is zero and the other is positive, $Q$ is **positive semidefinite**.
+Καθώς η μία ιδιοτιμή είναι μηδέν και η άλλη θετική, η $Q$ είναι **θετικά ημιορισμένη**.
 
-Check: $Q(x_1, x_2) = 2(x_1^2 + 2x_1x_2 + x_2^2) = 2(x_1 + x_2)^2 \geq 0$, with equality when $x_1 = -x_2$.
+Έλεγχος: $Q(x_1, x_2) = 2(x_1^2 + 2x_1x_2 + x_2^2) = 2(x_1 + x_2)^2 \geq 0$, με την ισότητα να ισχύει όταν $x_1 = -x_2$.
 
 ---
 
-### Exercise 2: Sylvester's Criterion
+### Άσκηση 2: Κριτήριο του Sylvester
 
-**Problem:**
-Determine if $A = \begin{bmatrix} 4 & 2 & 1 \\ 2 & 5 & 3 \\ 1 & 3 & 6 \end{bmatrix}$ is positive definite.
+**Πρόβλημα:**
+Εξετάστε αν ο $A = \begin{bmatrix} 4 & 2 & 1 \\ 2 & 5 & 3 \\ 1 & 3 & 6 \end{bmatrix}$ είναι θετικά ορισμένος.
 
-**Solution:**
-Check leading principal minors:
+**Λύση:**
+Ελέγχουμε τις ηγετικές κύριες ελάσσονες ορίζουσες:
 
 $A_1 = [4]$, $\det(A_1) = 4 > 0$.
 
 $A_2 = \begin{bmatrix} 4 & 2 \\ 2 & 5 \end{bmatrix}$, $\det(A_2) = 4 \cdot 5 - 2 \cdot 2 = 20 - 4 = 16 > 0$.
 
-$A_3 = A$, compute determinant:
+$A_3 = A$, υπολογίζουμε την ορίζουσα:
 
 $$
 \det(A) = 4 \begin{vmatrix} 5 & 3 \\ 3 & 6 \end{vmatrix}
@@ -129,62 +129,62 @@ $$
 = 84 - 18 + 1 = 67 > 0
 $$
 
-All leading principal minors are positive, so $A$ is **positive definite**.
+Όλες οι ηγετικές κύριες ελάσσονες είναι θετικές, άρα ο $A$ είναι **θετικά ορισμένος**.
 
 ---
 
-### Exercise 3: Classification as Definite, Semidefinite, or Indefinite
+### Άσκηση 3: Ταξινόμηση ως Ορισμένη, Ημιορισμένη ή Αόριστη
 
-**Problem:**
-Classify $Q(x_1, x_2, x_3) = x_1^2 - 2x_1x_2 + x_2^2 - x_3^2$.
+**Πρόβλημα:**
+Ταξινομήστε την $Q(x_1, x_2, x_3) = x_1^2 - 2x_1x_2 + x_2^2 - x_3^2$.
 
-**Solution:**
-Matrix form with symmetric $A$: $Q = \mathbf{x}^\mathsf{T} \begin{bmatrix} 1 & -1 & 0 \\ -1 & 1 & 0 \\ 0 & 0 & -1 \end{bmatrix} \mathbf{x}$.
+**Λύση:**
+Μορφή πίνακα με συμμετρικό $A$: $Q = \mathbf{x}^\mathsf{T} \begin{bmatrix} 1 & -1 & 0 \\ -1 & 1 & 0 \\ 0 & 0 & -1 \end{bmatrix} \mathbf{x}$.
 
-Eigenvalues: $\det(A - \lambda I) = (1-\lambda)^2(-1-\lambda) - (-1)^2(-1-\lambda)$.
+Ιδιοτιμές: $\det(A - \lambda I) = (1-\lambda)^2(-1-\lambda) - (-1)^2(-1-\lambda)$.
 
-This simplifies: $\det = ((1-\lambda)^2 - 1)(-1-\lambda) = (\lambda^2 - 2\lambda)(-1-\lambda) = \lambda(\lambda - 2)(-\lambda - 1) = -\lambda(\lambda - 2)(\lambda + 1)$.
+Απλοποίηση: $\det = ((1-\lambda)^2 - 1)(-1-\lambda) = (\lambda^2 - 2\lambda)(-1-\lambda) = \lambda(\lambda - 2)(-\lambda - 1) = -\lambda(\lambda - 2)(\lambda + 1)$.
 
-Eigenvalues: $\lambda = 0$, $\lambda = 2$, $\lambda = -1$.
+Ιδιοτιμές: $\lambda = 0$, $\lambda = 2$, $\lambda = -1$.
 
-Since there are both positive ($2$) and negative ($-1$) eigenvalues, $Q$ is **indefinite**. Note the zero eigenvalue makes it not definite in either direction.
+Καθώς υπάρχουν τόσο θετικές ($2$) όσο και αρνητικές ($-1$) ιδιοτιμές, η $Q$ είναι **αόριστη**.
 
 ---
 
-### Exercise 4: Optimization Application
+### Άσκηση 4: Εφαρμογή στη Βελτιστοποίηση
 
-**Problem:**
-Find and classify the critical point of $f(x, y) = x^2 + 4xy + 5y^2 - 6x - 14y$.
+**Πρόβλημα:**
+Βρείτε και ταξινομήστε το κρίσιμο σημείο της $f(x, y) = x^2 + 4xy + 5y^2 - 6x - 14y$.
 
-**Solution:**
-Gradient: $\nabla f = (2x + 4y - 6, 4x + 10y - 14)$.
+**Λύση:**
+Κλίση (Gradient): $\nabla f = (2x + 4y - 6, 4x + 10y - 14)$.
 
-Set to zero:
+Εξίσωση με το μηδέν:
 $$
 2x + 4y = 6,\quad 4x + 10y = 14
 $$
 
-Divide first by 2: $x + 2y = 3$. Second: $4x + 10y = 14$.
+Διαίρεση της πρώτης με το 2: $x + 2y = 3$. Δεύτερη: $4x + 10y = 14$.
 
-From the first, $x = 3 - 2y$. Substitute: $4(3 - 2y) + 10y = 12 - 8y + 10y = 12 + 2y = 14 \Rightarrow y = 1$, $x = 1$.
+Από την πρώτη, $x = 3 - 2y$. Αντικατάσταση: $4(3 - 2y) + 10y = 12 - 8y + 10y = 12 + 2y = 14 \Rightarrow y = 1$, $x = 1$.
 
-Critical point: $(1, 1)$.
+Κρίσιμο σημείο: $(1, 1)$.
 
-Hessian matrix: $H = \begin{bmatrix} 2 & 4 \\ 4 & 10 \end{bmatrix}$.
+Εσσιανός πίνακας: $H = \begin{bmatrix} 2 & 4 \\ 4 & 10 \end{bmatrix}$.
 
-Leading principal minors: $\det(H_1) = 2 > 0$, $\det(H_2) = 2 \cdot 10 - 4 \cdot 4 = 20 - 16 = 4 > 0$.
+Ηγετικές κύριες ελάσσονες: $\det(H_1) = 2 > 0$, $\det(H_2) = 2 \cdot 10 - 4 \cdot 4 = 20 - 16 = 4 > 0$.
 
-$H$ is positive definite, so $(1, 1)$ is a **local minimum**.
+Ο $H$ είναι θετικά ορισμένος, οπότε το σημείο $(1, 1)$ είναι **τοπικό ελάχιστο**.
 
 ---
 
-### Exercise 5: Completing the Square
+### Άσκηση 5: Συμπλήρωση Τετραγώνου
 
-**Problem:**
-Write $Q(x, y) = 3x^2 + 4xy + 2y^2$ as a sum of squares.
+**Πρόβλημα:**
+Γράψτε την $Q(x, y) = 3x^2 + 4xy + 2y^2$ ως άθροισμα τετραγώνων.
 
-**Solution:**
-Complete the square in $x$:
+**Λύση:**
+Συμπληρώνουμε το τετράγωνο ως προς $x$:
 
 $$
 Q = 3\left(x^2 + \frac{4}{3}xy\right) + 2y^2
@@ -196,65 +196,65 @@ $$
 = 3\left(x + \frac{2}{3}y\right)^2 + \frac{2}{3}y^2
 $$
 
-Both coefficients are positive, confirming $Q$ is positive definite.
+Και οι δύο συντελεστές είναι θετικοί, επιβεβαιώνοντας ότι η $Q$ είναι θετικά ορισμένη.
 
 ---
 
-### Exercise 6: Maximum of Quadratic Form on Unit Sphere
+### Άσκηση 6: Μέγιστο Τετραγωνικής Μορφής στη Μοναδιαία Σφαίρα
 
-**Problem:**
-Find the maximum and minimum of $Q(\mathbf{x}) = 3x_1^2 + 2x_1x_2 + 3x_2^2$ on the unit circle $x_1^2 + x_2^2 = 1$.
+**Πρόβλημα:**
+Βρείτε το μέγιστο και το ελάχιστο της $Q(\mathbf{x}) = 3x_1^2 + 2x_1x_2 + 3x_2^2$ στον μοναδιαίο κύκλο $x_1^2 + x_2^2 = 1$.
 
-**Solution:**
-Matrix: $A = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}$.
+**Λύση:**
+Πίνακας: $A = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}$.
 
-Eigenvalues: $(3-\lambda)^2 - 1 = \lambda^2 - 6\lambda + 8 = (\lambda - 4)(\lambda - 2)$.
+Ιδιοτιμές: $(3-\lambda)^2 - 1 = \lambda^2 - 6\lambda + 8 = (\lambda - 4)(\lambda - 2)$.
 $\lambda_{\max} = 4$, $\lambda_{\min} = 2$.
 
-Maximum of $Q$ on $\|\mathbf{x}\| = 1$ is $\lambda_{\max} = 4$, minimum is $\lambda_{\min} = 2$.
+Το μέγιστο της $Q$ για $\|\mathbf{x}\| = 1$ είναι $\lambda_{\max} = 4$, το ελάχιστο είναι $\lambda_{\min} = 2$.
 
-The eigenvectors give the directions: $(1, 1)/\sqrt{2}$ for $\lambda = 4$, $(1, -1)/\sqrt{2}$ for $\lambda = 2$.
+Τα ιδιοδιανύσματα δίνουν τις κατευθύνσεις: $(1, 1)/\sqrt{2}$ για $\lambda = 4$, $(1, -1)/\sqrt{2}$ για $\lambda = 2$.
 
 ---
 
-### Exercise 7: Leading Principal Minors (3x3)
+### Άσκηση 7: Ηγετικές Κύριες Ελάσσονες (3x3)
 
-**Problem:**
-For what values of $k$ is $A = \begin{bmatrix} 2 & 1 & 0 \\ 1 & k & 0 \\ 0 & 0 & 5 \end{bmatrix}$ positive definite?
+**Πρόβλημα:**
+Για ποιες τιμές του $k$ ο $A = \begin{bmatrix} 2 & 1 & 0 \\ 1 & k & 0 \\ 0 & 0 & 5 \end{bmatrix}$ είναι θετικά ορισμένος;
 
-**Solution:**
-Leading principal minors:
+**Λύση:**
+Ηγετικές κύριες ελάσσονες:
 
-$\det(A_1) = 2 > 0$ (always).
+$\det(A_1) = 2 > 0$ (πάντα).
 
 $\det(A_2) = 2k - 1 = 0 \Rightarrow k = \frac{1}{2}$.
 
 $\det(A_3) = \det(A) = 5 \cdot \det(A_2) = 5(2k - 1)$.
 
-For $A$ positive definite: $\det(A_2) > 0 \Rightarrow k > \frac{1}{2}$, and $\det(A_3) > 0 \Rightarrow 5(2k - 1) > 0 \Rightarrow k > \frac{1}{2}$.
+Για να είναι ο $A$ θετικά ορισμένος: $\det(A_2) > 0 \Rightarrow k > \frac{1}{2}$, και $\det(A_3) > 0 \Rightarrow 5(2k - 1) > 0 \Rightarrow k > \frac{1}{2}$.
 
-Thus $k > \frac{1}{2}$.
-
----
-
-### Exercise 8: Indefinite Quadratic Form
-
-**Problem:**
-Show that $Q(x, y) = x^2 - 2xy + y^2 - z^2$ is indefinite.
-
-**Solution:**
-Rewrite: $Q = (x - y)^2 - z^2$.
-
-At $(x, y, z) = (1, 1, 0)$: $Q = 0 - 0 = 0$.
-At $(x, y, z) = (2, 1, 0)$: $Q = (1)^2 - 0 = 1 > 0$.
-At $(x, y, z) = (1, 1, 1)$: $Q = 0 - 1 = -1 < 0$.
-
-Since $Q$ takes both positive and negative values, it is **indefinite**.
+Επομένως $k > \frac{1}{2}$.
 
 ---
 
-## Exam Tip: Sylvester's Criterion Pitfalls
+### Άσκηση 8: Αόριστη Τετραγωνική Μορφή
 
-Sylvester's criterion applies only to **symmetric** matrices that are either positive definite or negative definite. For negative definiteness, check that the leading principal minors alternate in sign: $\det(A_1) < 0$, $\det(A_2) > 0$, $\det(A_3) < 0$, etc. Never use Sylvester's criterion for semidefiniteness---it can be misleading. Instead, check eigenvalues for semidefinite classification.
+**Πρόβλημα:**
+Δείξτε ότι η $Q(x, y) = x^2 - 2xy + y^2 - z^2$ είναι αόριστη.
+
+**Λύση:**
+Αναγραφή: $Q = (x - y)^2 - z^2$.
+
+Στο $(x, y, z) = (1, 1, 0)$: $Q = 0 - 0 = 0$.
+Στο $(x, y, z) = (2, 1, 0)$: $Q = (1)^2 - 0 = 1 > 0$.
+Στο $(x, y, z) = (1, 1, 1)$: $Q = 0 - 1 = -1 < 0$.
+
+Καθώς η $Q$ παίρνει τόσο θετικές όσο και αρνητικές τιμές, είναι **αόριστη**.
+
+---
+
+## Συμβουλή Εξετάσεων: Παγίδες του Κριτηρίου Sylvester
+
+Το κριτήριο του Sylvester εφαρμόζεται **μόνο σε συμμετρικούς** πίνακες που είναι είτε θετικά ορισμένοι είτε αρνητικά ορισμένοι. Για την αρνητική οριστικότητα, ελέγξτε ότι οι ηγετικές κύριες ελάσσονες εναλλάσσονται σε πρόσημο: $\det(A_1) < 0$, $\det(A_2) > 0$, $\det(A_3) < 0$, κ.λπ. Μη χρησιμοποιείτε ποτέ το κριτήριο Sylvester για ημιορισμένους πίνακες --- μπορεί να οδηγήσει σε λάθος συμπεράσματα. Αντίθετα, υπολογίζετε τις ιδιοτιμές για την ταξινόμηση ημιορισμένων πινάκων.
 
 ---
