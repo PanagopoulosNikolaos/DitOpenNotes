@@ -1,84 +1,84 @@
-# Networking Exercises - Part 2: Advanced Topics
-## Comprehensive Exam Preparation
+# Ασκήσεις Δικτύων - Μέρος 2ο: Προχωρημένα Θέματα
+## Ολοκληρωμένη Προετοιμασία Εξετάσεων
 
-This file contains 20 advanced networking exercises covering IP tables, fragmentation, windowing, routing protocols, and complex scenarios. These exercises simulate real exam conditions.
+Αυτό το αρχείο περιλαμβάνει 20 προχωρημένες ασκήσεις δικτύων υπολογιστών που καλύπτουν πίνακες IP, κατάτμηση (fragmentation), παράθυρα ροής (windowing), πρωτόκολλα δρομολόγησης και σύνθετα σενάρια. Οι ασκήσεις αυτές προσομοιώνουν πραγματικές συνθήκες εξετάσεων.
 
 ---
 
-## Exercise 1: Complex Subnetting with VLSM
-**Question:** You are given the network 172.16.0.0/16. Design a VLSM (Variable Length Subnet Mask) scheme for the following requirements:
-- Network A: 5000 hosts
-- Network B: 2000 hosts
-- Network C: 500 hosts
-- Network D: 100 hosts
-- Network E: 2 hosts (point-to-point link)
+## Άσκηση 1: Σύνθετη Υποδικτύωση με VLSM
+**Ερώτηση:** Σας δίνεται το δίκτυο 172.16.0.0/16. Σχεδιάστε ένα σχήμα VLSM (Μάσκα Υποδικτύου Μεταβλητού Μήκους) για τις ακόλουθες απαιτήσεις:
+- Δίκτυο A: 5000 hosts
+- Δίκτυο B: 2000 hosts
+- Δίκτυο C: 500 hosts
+- Δίκτυο D: 100 hosts
+- Δίκτυο E: 2 hosts (ζεύξη σημείου-προς-σημείο)
 
-For each network, provide: subnet address, subnet mask, first host, last host, and broadcast address.
+Για κάθε δίκτυο, δώστε: διεύθυνση υποδικτύου, μάσκα υποδικτύου, πρώτο host, τελευταίο host και διεύθυνση broadcast.
 
-**Solution:**
+**Λύση:**
 
-Start with the largest network and work down:
+Ξεκινάμε από το μεγαλύτερο δίκτυο και προχωράμε προς τα μικρότερα:
 
-**Network A: 5000 hosts**
-- Need: 2^n - 2 ≥ 5000 → 2^13 - 2 = 8190 hosts 
-- Host bits: 13, Network bits: 32 - 13 = 19
-- Subnet: 172.16.0.0/19
-- Mask: 255.255.224.0
-- Range: 172.16.0.0 - 172.16.31.255
-- First host: 172.16.0.1
-- Last host: 172.16.31.254
+**Δίκτυο A: 5000 hosts**
+- Απαιτούνται: 2^n - 2 ≥ 5000 → 2^13 - 2 = 8190 hosts 
+- Bits host: 13, Bits δικτύου: 32 - 13 = 19
+- Υποδίκτυο: 172.16.0.0/19
+- Μάσκα: 255.255.224.0
+- Εύρος: 172.16.0.0 - 172.16.31.255
+- Πρώτος host: 172.16.0.1
+- Τελευταίος host: 172.16.31.254
 - Broadcast: 172.16.31.255
 
-**Network B: 2000 hosts**
-- Need: 2^11 - 2 = 2046 hosts 
-- Host bits: 11, Network bits: 21
-- Subnet: 172.16.32.0/21
-- Mask: 255.255.248.0
-- Range: 172.16.32.0 - 172.16.39.255
-- First host: 172.16.32.1
-- Last host: 172.16.39.254
+**Δίκτυο B: 2000 hosts**
+- Απαιτούνται: 2^11 - 2 = 2046 hosts 
+- Bits host: 11, Bits δικτύου: 21
+- Υποδίκτυο: 172.16.32.0/21
+- Μάσκα: 255.255.248.0
+- Εύρος: 172.16.32.0 - 172.16.39.255
+- Πρώτος host: 172.16.32.1
+- Τελευταίος host: 172.16.39.254
 - Broadcast: 172.16.39.255
 
-**Network C: 500 hosts**
-- Need: 2^9 - 2 = 510 hosts 
-- Host bits: 9, Network bits: 23
-- Subnet: 172.16.40.0/23
-- Mask: 255.255.254.0
-- Range: 172.16.40.0 - 172.16.41.255
-- First host: 172.16.40.1
-- Last host: 172.16.41.254
+**Δίκτυο C: 500 hosts**
+- Απαιτούνται: 2^9 - 2 = 510 hosts 
+- Bits host: 9, Bits δικτύου: 23
+- Υποδίκτυο: 172.16.40.0/23
+- Μάσκα: 255.255.254.0
+- Εύρος: 172.16.40.0 - 172.16.41.255
+- Πρώτος host: 172.16.40.1
+- Τελευταίος host: 172.16.41.254
 - Broadcast: 172.16.41.255
 
-**Network D: 100 hosts**
-- Need: 2^7 - 2 = 126 hosts 
-- Host bits: 7, Network bits: 25
-- Subnet: 172.16.42.0/25
-- Mask: 255.255.255.128
-- Range: 172.16.42.0 - 172.16.42.127
-- First host: 172.16.42.1
-- Last host: 172.16.42.126
+**Δίκτυο D: 100 hosts**
+- Απαιτούνται: 2^7 - 2 = 126 hosts 
+- Bits host: 7, Bits δικτύου: 25
+- Υποδίκτυο: 172.16.42.0/25
+- Μάσκα: 255.255.255.128
+- Εύρος: 172.16.42.0 - 172.16.42.127
+- Πρώτος host: 172.16.42.1
+- Τελευταίος host: 172.16.42.126
 - Broadcast: 172.16.42.127
 
-**Network E: 2 hosts (point-to-point)**
-- Need: 2^2 - 2 = 2 hosts 
-- Host bits: 2, Network bits: 30
-- Subnet: 172.16.42.128/30
-- Mask: 255.255.255.252
-- Range: 172.16.42.128 - 172.16.42.131
-- First host: 172.16.42.129
-- Last host: 172.16.42.130
+**Δίκτυο E: 2 hosts (σημείου-προς-σημείο)**
+- Απαιτούνται: 2^2 - 2 = 2 hosts 
+- Bits host: 2, Bits δικτύου: 30
+- Υποδίκτυο: 172.16.42.128/30
+- Μάσκα: 255.255.255.252
+- Εύρος: 172.16.42.128 - 172.16.42.131
+- Πρώτος host: 172.16.42.129
+- Τελευταίος host: 172.16.42.130
 - Broadcast: 172.16.42.131
 
 ---
 
-## Exercise 2: Routing Table Interpretation
-**Question:** Given the following routing table, determine the next hop for packets destined to:
+## Άσκηση 2: Ερμηνεία Πίνακα Δρομολόγησης
+**Ερώτηση:** Δοθέντος του παρακάτω πίνακα δρομολόγησης, προσδιορίστε το επόμενο άλμα (next hop) για πακέτα με προορισμό:
 - a) 192.168.50.25
 - b) 10.0.0.5
 - c) 172.16.100.50
 - d) 8.8.8.8
 
-**Routing Table:**
+**Πίνακας Δρομολόγησης:**
 ```
 Destination      Netmask          Gateway         Interface
 192.168.50.0     255.255.255.0    0.0.0.0         eth0
@@ -87,86 +87,86 @@ Destination      Netmask          Gateway         Interface
 0.0.0.0          0.0.0.0          192.168.50.254  eth0
 ```
 
-**Solution:**
+**Λύση:**
 
 - a) **192.168.50.25**
-  - Matches: 192.168.50.0/24 (most specific)
-  - Gateway: 0.0.0.0 (directly connected)
-  - Interface: eth0
-  - **Action:** Deliver directly on local network
+  - Αντιστοιχεί: 192.168.50.0/24 (πιο εξειδικευμένη)
+  - Gateway: 0.0.0.0 (άμεσα συνδεδεμένο)
+  - Διεπαφή (Interface): eth0
+  - **Ενέργεια:** Απευθείας παράδοση στο τοπικό δίκτυο
 
 - b) **10.0.0.5**
-  - Matches: 10.0.0.0/8
+  - Αντιστοιχεί: 10.0.0.0/8
   - Gateway: 192.168.50.1
-  - Interface: eth0
-  - **Next hop:** 192.168.50.1
+  - Διεπαφή (Interface): eth0
+  - **Επόμενο άλμα:** 192.168.50.1
 
 - c) **172.16.100.50**
-  - Matches: 172.16.0.0/16
+  - Αντιστοιχεί: 172.16.0.0/16
   - Gateway: 192.168.50.2
-  - Interface: eth0
-  - **Next hop:** 192.168.50.2
+  - Διεπαφή (Interface): eth0
+  - **Επόμενο άλμα:** 192.168.50.2
 
 - d) **8.8.8.8**
-  - Matches: 0.0.0.0/0 (default route)
+  - Αντιστοιχεί: 0.0.0.0/0 (προεπιλεγμένη διαδρομή)
   - Gateway: 192.168.50.254
-  - Interface: eth0
-  - **Next hop:** 192.168.50.254 (default gateway)
+  - Διεπαφή (Interface): eth0
+  - **Επόμενο άλμα:** 192.168.50.254 (default gateway)
 
-**Note:** The router always selects the most specific route (longest prefix match).
+**Σημείωση:** Ο δρομολογητής επιλέγει πάντα την πιο εξειδικευμένη διαδρομή (longest prefix match).
 
 ---
 
-## Exercise 3: IP Fragmentation with MF and DF Flags
-**Question:** A router receives an IP packet with:
-- Total Length: 3000 bytes
-- Header Length: 20 bytes
-- DF flag: 0 (fragmentation allowed)
-- Identification: 12345
-- MTU of outgoing link: 1500 bytes
+## Άσκηση 3: Κατάτμηση IP (IP Fragmentation) με Σημαίες MF και DF
+**Ερώτηση:** Ένας δρομολογητής λαμβάνει ένα πακέτο IP με:
+- Συνολικό Μήκος: 3000 bytes
+- Μήκος Επικεφαλίδας: 20 bytes
+- Σημαία DF: 0 (επιτρέπεται η κατάτμηση)
+- Αναγνωριστικό (Identification): 12345
+- MTU εξερχόμενης ζεύξης: 1500 bytes
 
-Calculate the fragmentation details for all fragments including:
-- Fragment size
-- MF (More Fragments) flag
-- Fragment Offset
-- Total Length field
+Υπολογίστε τις λεπτομέρειες κατάτμησης για όλα τα τμήματα συμπεριλαμβανομένων των:
+- Μέγεθος τμήματος
+- Σημαία MF (More Fragments)
+- Μετατόπιση Τμήματος (Fragment Offset)
+- Πεδίο Συνολικού Μήκους (Total Length)
 
-**Solution:**
+**Λύση:**
 
-**Fragment Calculations:**
-- Data to fragment: 3000 - 20 = 2980 bytes
-- Maximum data per fragment: 1500 - 20 = 1480 bytes
-- Fragment offset unit: 8 bytes
-- Data must be multiple of 8: 1480 ÷ 8 = 185 (no remainder, good)
+**Υπολογισμοί Τμημάτων:**
+- Δεδομένα προς κατάτμηση: 3000 - 20 = 2980 bytes
+- Μέγιστα δεδομένα ανά τμήμα: 1500 - 20 = 1480 bytes
+- Μονάδα μετατόπισης τμήματος: 8 bytes
+- Τα δεδομένα πρέπει να είναι πολλαπλάσιο του 8: 1480 ÷ 8 = 185 (χωρίς υπόλοιπο, έγκυρο)
 
-**Fragment 1:**
-- Data: 1480 bytes (offset 0 to 1479)
-- Total Length: 1480 + 20 = 1500 bytes
-- MF flag: 1 (more fragments follow)
-- DF flag: 0
-- Fragment Offset: 0 ÷ 8 = 0
-- Identification: 12345
+**Τμήμα 1:**
+- Δεδομένα: 1480 bytes (μετατόπιση 0 έως 1479)
+- Συνολικό Μήκος: 1480 + 20 = 1500 bytes
+- Σημαία MF: 1 (ακολουθούν περισσότερα τμήματα)
+- Σημαία DF: 0
+- Μετατόπιση Τμήματος (Fragment Offset): 0 ÷ 8 = 0
+- Αναγνωριστικό (Identification): 12345
 
-**Fragment 2:**
-- Data: 1480 bytes (offset 1480 to 2959)
-- Total Length: 1480 + 20 = 1500 bytes
-- MF flag: 1 (more fragments follow)
-- DF flag: 0
-- Fragment Offset: 1480 ÷ 8 = 185
-- Identification: 12345
+**Τμήμα 2:**
+- Δεδομένα: 1480 bytes (μετατόπιση 1480 έως 2959)
+- Συνολικό Μήκος: 1480 + 20 = 1500 bytes
+- Σημαία MF: 1 (ακολουθούν περισσότερα τμήματα)
+- Σημαία DF: 0
+- Μετατόπιση Τμήματος (Fragment Offset): 1480 ÷ 8 = 185
+- Αναγνωριστικό (Identification): 12345
 
-**Fragment 3:**
-- Data: 1020 bytes (offset 2960 to 3979, but only 2980 bytes exist)
-- Actual data: 2980 - 2960 = 20 bytes
-- Total Length: 20 + 20 = 40 bytes
-- MF flag: 0 (last fragment)
-- DF flag: 0
-- Fragment Offset: 2960 ÷ 8 = 370
-- Identification: 12345
+**Τμήμα 3:**
+- Δεδομένα: 1020 bytes (μετατόπιση 2960 έως 3979, αλλά υπάρχουν μόνο 2980 bytes)
+- Πραγματικά δεδομένα: 2980 - 2960 = 20 bytes
+- Συνολικό Μήκος: 20 + 20 = 40 bytes
+- Σημαία MF: 0 (τελευταίο τμήμα)
+- Σημαία DF: 0
+- Μετατόπιση Τμήματος (Fragment Offset): 2960 ÷ 8 = 370
+- Αναγνωριστικό (Identification): 12345
 
-**Summary Table:**
+**Συνοπτικός Πίνακας:**
 
-| Fragment | Total Length | Data Size | MF | Offset | Offset (bytes) |
+| Τμήμα | Συνολικό Μήκος | Μέγεθος Δεδομένων | MF | Offset | Offset (bytes) |
 |----------|--------------|-----------|-----|--------|----------------|
 | 1        | 1500         | 1480      | 1   | 0      | 0              |
 | 2        | 1500         | 1480      | 1   | 185    | 1480           |
@@ -174,115 +174,115 @@ Calculate the fragmentation details for all fragments including:
 
 ---
 
-## Exercise 4: TCP Sliding Window Protocol
-**Question:** Host A is sending data to Host B with:
-- Initial sequence number: 1000
-- Window size: 4000 bytes
-- Segment size: 1000 bytes
+## Άσκηση 4: Πρωτόκολλο Ολισθαίνοντος Παραθύρου TCP (Sliding Window)
+**Ερώτηση:** Ο Host A στέλνει δεδομένα στον Host B με:
+- Αρχικό αριθμό ακολουθίας (ISN): 1000
+- Μέγεθος παραθύρου: 4000 bytes
+- Μέγεθος segment: 1000 bytes
 
-Draw the transmission timeline showing:
-- Segments sent
-- Acknowledgments received
-- Window movements
+Σχεδιάστε το χρονοδιάγραμμα μετάδοσης εμφανίζοντας:
+- Απεσταλμένα segments
+- Ληφθείσες επιβεβαιώσεις (ACKs)
+- Μετακινήσεις παραθύρου
 
-Assume:
-- Segment 1 RTT: 100ms
-- Segment 2 is lost
-- Segment 3 RTT: 100ms
-- Segment 4 RTT: 100ms
+Υποθέστε:
+- RTT Segment 1: 100ms
+- Το Segment 2 χάνεται
+- RTT Segment 3: 100ms
+- RTT Segment 4: 100ms
 
-**Solution:**
+**Λύση:**
 
-**Time 0ms:** 
+**Χρόνος 0ms:** 
 - Send Seg1 (seq=1000, len=1000) [1000-1999]
 - Send Seg2 (seq=2000, len=1000) [2000-2999]
 - Send Seg3 (seq=3000, len=1000) [3000-3999]
 - Send Seg4 (seq=4000, len=1000) [4000-4999]
 - Window: [1000-4999] (full)
 
-**Time 100ms:**
-- Receive ACK=2000 (acknowledges Seg1)
-- Window slides: [2000-5999]
+**Χρόνος 100ms:**
+- Λήψη ACK=2000 (επιβεβαιώνει το Seg1)
+- Το παράθυρο ολισθαίνει: [2000-5999]
 - Send Seg5 (seq=5000, len=1000) [5000-5999]
-- **Problem:** Seg2 was lost, no ACK=3000 arrives
+- **Πρόβλημα:** Το Seg2 χάθηκε, δεν φτάνει ACK=3000
 
-**Time 200ms:**
-- Receive ACK=2000 (duplicate - Seg3 arrived but out of order)
-- Receive ACK=2000 (duplicate - Seg4 arrived but out of order)
-- **Receiver cannot ACK beyond 2000 due to gap**
+**Χρόνος 200ms:**
+- Λήψη ACK=2000 (διπλότυπο - το Seg3 έφτασε αλλά εκτός σειράς)
+- Λήψη ACK=2000 (διπλότυπο - το Seg4 έφτασε αλλά εκτός σειράς)
+- **Ο παραλήπτης δεν μπορεί να στείλει ACK πέρα από το 2000 λόγω κενού**
 
-**Time 300ms:**
-- Receive ACK=2000 (third duplicate from Seg5)
-- **Fast Retransmit triggered!**
-- Retransmit Seg2 (seq=2000, len=1000)
+**Χρόνος 300ms:**
+- Λήψη ACK=2000 (τρίτο διπλότυπο από το Seg5)
+- **Ενεργοποίηση Γρήγορης Επαναμετάδοσης (Fast Retransmit)!**
+- Επαναμετάδοση Seg2 (seq=2000, len=1000)
 
-**Time 400ms:**
-- Receive ACK=6000 (cumulative ACK for Seg2-5)
-- Window slides: [6000-9999]
-- Continue transmission
+**Χρόνος 400ms:**
+- Λήψη ACK=6000 (συσσωρευτικό ACK για Seg2-5)
+- Το παράθυρο ολισθαίνει: [6000-9999]
+- Συνέχιση μετάδοσης
 
-**Key Points:**
-- TCP uses cumulative acknowledgments
-- Receiver cannot ACK beyond missing segment
-- Three duplicate ACKs trigger fast retransmit
-- Sliding window allows pipelining for efficiency
+**Κύρια Σημεία:**
+- Το TCP χρησιμοποιεί συσσωρευτικές επιβεβαιώσεις (cumulative acknowledgments)
+- Ο παραλήπτης δεν μπορεί να στείλει ACK πέρα από το τμήμα που λείπει
+- Τρία διπλότυπα ACKs ενεργοποιούν τη γρήγορη επαναμετάδοση
+- Το ολισθαίνον παράθυρο επιτρέπει διοχέτευση (pipelining) για υψηλή απόδοση
 
 ---
 
-## Exercise 5: Complete IP Routing Table Exercise
-**Question:** Fill in the missing entries in the routing table:
+## Άσκηση 5: Πλήρης Άσκηση Πίνακα Δρομολόγησης IP
+**Ερώτηση:** Συμπληρώστε τις καταχωρίσεις που λείπουν στον πίνακα δρομολόγησης:
 
-| Destination Network | Subnet Mask    | Next Hop    | Interface | Metric |
+| Destination Network | Υποδίκτυο Mask    | Next Hop    | Interface | Μετρική |
 |---------------------|----------------|-------------|-----------|--------|
 | 192.168.10.0        | ?              | 0.0.0.0     | eth0      | 0      |
 | 10.0.0.0            | 255.0.0.0      | ?           | eth0      | 1      |
 | ?                   | 255.255.255.0  | 10.20.30.1  | eth1      | 2      |
 | 0.0.0.0             | ?              | 192.168.10.1| eth0      | 10     |
 
-Additional info:
+Πρόσθετες πληροφορίες:
 - eth0 IP: 192.168.10.50/24
 - eth1 IP: 10.20.30.50/24
-- The third entry is for a remote network with 100 usable hosts
-- Gateway on 10.0.0.0 network is first usable IP
+- Η τρίτη καταχώριση αφορά ένα απομακρυσμένο δίκτυο με 100 χρησιμοποιήσιμους hosts
+- Η πύλη (Gateway) στο δίκτυο 10.0.0.0 είναι η πρώτη χρησιμοποιήσιμη IP
 
-**Solution:**
+**Λύση:**
 
-| Destination Network | Subnet Mask      | Next Hop     | Interface | Metric |
+| Destination Network | Υποδίκτυο Mask      | Next Hop     | Interface | Μετρική |
 |---------------------|------------------|--------------|-----------|--------|
 | 192.168.10.0        | **255.255.255.0**| 0.0.0.0      | eth0      | 0      |
 | 10.0.0.0            | 255.0.0.0        | **10.20.30.1**| eth0     | 1      |
 | **172.16.5.0**      | 255.255.255.0    | 10.20.30.1   | eth1      | 2      |
 | 0.0.0.0             | **0.0.0.0**      | 192.168.10.1 | eth0      | 10     |
 
-**Explanation:**
-1. First entry: Directly connected network on eth0 (/24 = 255.255.255.0)
-2. Second entry: Gateway must be reachable, so use gateway on eth1's network (10.20.30.1)
-3. Third entry: 100 hosts need /25 minimum (2^7-2=126), but answer shows /24 (254 hosts); destination can be any valid network (e.g., 172.16.5.0)
-4. Fourth entry: Default route uses 0.0.0.0/0 (0.0.0.0 mask)
+**Επεξήγηση:**
+1. Πρώτη καταχώριση: Άμεσα συνδεδεμένο δίκτυο στη διεπαφή eth0 (/24 = 255.255.255.0)
+2. Δεύτερη καταχώριση: Η πύλη πρέπει να είναι προσβάσιμη, επομένως χρησιμοποιούμε την πύλη στο δίκτυο της eth1 (10.20.30.1)
+3. Τρίτη καταχώριση: 100 hosts απαιτούν τουλάχιστον /25 (2^7-2=126), αλλά η απάντηση δείχνει /24 (254 hosts)· ο προορισμός μπορεί να είναι οποιοδήποτε έγκυρο δίκτυο (π.χ. 172.16.5.0)
+4. Τέταρτη καταχώριση: Η προεπιλεγμένη διαδρομή χρησιμοποιεί 0.0.0.0/0 (μάσκα 0.0.0.0)
 
 ---
 
-## Exercise 6: TCP Congestion Window (CWND)
-**Question:** Explain TCP congestion control using slow start and congestion avoidance. Given:
-- Initial CWND: 1 MSS (Maximum Segment Size = 1460 bytes)
-- ssthresh (slow start threshold): 8 MSS
-- All ACKs received successfully
+## Άσκηση 6: Παράθυρο Συμφόρησης TCP (CWND)
+**Ερώτηση:** Εξηγήστε τον έλεγχο συμφόρησης TCP χρησιμοποιώντας αργή εκκίνηση (slow start) και αποφυγή συμφόρησης (congestion avoidance). Δίνονται:
+- Αρχικό CWND: 1 MSS (Maximum Segment Size = 1460 bytes)
+- ssthresh (κατώφλι αργής εκκίνησης): 8 MSS
+- Όλα τα ACKs ελήφθησαν επιτυχώς
 
-Calculate CWND values for the first 10 RTTs.
+Υπολογίστε τις τιμές του CWND για τα πρώτα 10 RTTs.
 
-**Solution:**
+**Λύση:**
 
-**Slow Start Phase (CWND < ssthresh):**
-- CWND doubles every RTT
-- Exponential growth
+**Φάση Αργής Εκκίνησης (Slow Start Phase - CWND < ssthresh):**
+- Το CWND διπλασιάζεται σε κάθε RTT
+- Εκθετική αύξηση
 
-**Congestion Avoidance Phase (CWND ≥ ssthresh):**
-- CWND increases by 1 MSS per RTT
-- Linear growth
+**Φάση Αποφυγής Συμφόρησης (Congestion Avoidance Phase - CWND ≥ ssthresh):**
+- Το CWND αυξάνεται κατά 1 MSS ανά RTT
+- Γραμμική αύξηση
 
-**Calculation:**
+**Υπολογισμός:**
 
-| RTT | Phase             | CWND (MSS) | CWND (bytes) | Segments Sent |
+| RTT | Φάση | CWND (MSS) | CWND (bytes) | Απεσταλμένα Segments |
 |-----|-------------------|------------|--------------|---------------|
 | 0   | Slow Start        | 1          | 1460         | 1             |
 | 1   | Slow Start        | 2          | 2920         | 2             |
@@ -296,22 +296,22 @@ Calculate CWND values for the first 10 RTTs.
 | 9   | Congestion Avoid. | 14         | 20440        | 14            |
 | 10  | Congestion Avoid. | 15         | 21900        | 15            |
 
-**Key Points:**
-- Slow start: CWND doubles (1→2→4→8)
-- At RTT 3, CWND = ssthresh = 8, switch to congestion avoidance
-- Congestion avoidance: CWND += 1 per RTT (8→9→10...)
+**Κύρια Σημεία:**
+- Αργή εκκίνηση: Το CWND διπλασιάζεται (1→2→4→8)
+- Στο RTT 3, CWND = ssthresh = 8, μετάβαση στην αποφυγή συμφόρησης
+- Αποφυγή συμφόρησης: CWND += 1 ανά RTT (8→9→10...)
 
 ---
 
-## Exercise 7: NAT (Network Address Translation) Table
-**Question:** A company uses NAT with:
-- Private network: 192.168.1.0/24
-- Public IP: 203.0.113.5
-- NAT router translates using port numbers
+## Άσκηση 7: Πίνακας NAT (Διεύθυνση Δικτύου Translation)
+**Ερώτηση:** Μια εταιρεία χρησιμοποιεί NAT με:
+- Ιδιωτικό δίκτυο: 192.168.1.0/24
+- Δημόσια IP: 203.0.113.5
+- Ο δρομολογητής NAT μεταφράζει χρησιμοποιώντας αριθμούς θυρών
 
-Fill in the NAT translation table:
+Συμπληρώστε τον πίνακα μετάφρασης NAT:
 
-**Outbound Connections:**
+**Εξερχόμενες Συνδέσεις:**
 
 | Inside Local      | Inside Global      | Outside Global    |
 |-------------------|--------------------|-------------------|
@@ -319,7 +319,7 @@ Fill in the NAT translation table:
 | 192.168.1.15:5001 | ?                  | 93.184.216.34:80 |
 | ?                 | 203.0.113.5:1026   | 151.101.1.69:443 |
 
-**Solution:**
+**Λύση:**
 
 | Inside Local      | Inside Global      | Outside Global    |
 |-------------------|--------------------|-------------------|
@@ -327,22 +327,22 @@ Fill in the NAT translation table:
 | 192.168.1.15:5001 | **203.0.113.5:1025**| 93.184.216.34:80 |
 | **192.168.1.x:yyyy**| 203.0.113.5:1026 | 151.101.1.69:443 |
 
-**Explanation:**
-- Inside Local: Original private IP:port
-- Inside Global: Translated public IP:port (NAT assigns unique ports)
-- Outside Global: Destination server IP:port
-- NAT router maintains this table to route return traffic correctly
-- For third entry, private IP cannot be determined without additional info
+**Επεξήγηση:**
+- Inside Local: Αρχική ιδιωτική IP:θύρα
+- Inside Global: Μεταφρασμένη δημόσια IP:θύρα (το NAT εκχωρεί μοναδικές θύρες)
+- Outside Global: IP:θύρα του διακομιστή προορισμού
+- Ο δρομολογητής NAT διατηρεί αυτόν τον πίνακα για τη σωστή δρομολόγηση της επιστρεφόμενης κίνησης
+- Για την τρίτη καταχώριση, η ιδιωτική IP δεν μπορεί να προσδιοριστεί χωρίς πρόσθετες πληροφορίες
 
-**Return Traffic Example:**
-- Packet arrives: From 8.8.8.8:53 to 203.0.113.5:1024
-- NAT looks up 203.0.113.5:1024 → 192.168.1.10:5000
-- Forwards to internal host
+**Παράδειγμα Επιστρεφόμενης Κίνησης:**
+- Το πακέτο φτάνει: Από 8.8.8.8:53 προς 203.0.113.5:1024
+- Το NAT αναζητά 203.0.113.5:1024 → 192.168.1.10:5000
+- Προωθεί στον εσωτερικό host
 
 ---
 
-## Exercise 8: Packet Fragmentation Offset Calculation
-**Question:** You receive three IP fragments with the following details:
+## Άσκηση 8: Υπολογισμός Μετατόπισης Κατάτμησης Πακέτων
+**Ερώτηση:** Λαμβάνετε τρία τμήματα (fragments) IP με τις ακόλουθες λεπτομέρειες:
 
 | Fragment | Total Length | Header Length | MF | Offset |
 |----------|--------------|---------------|-----|--------|
@@ -350,113 +350,113 @@ Fill in the NAT translation table:
 | B        | 1500         | 20            | 1   | 185    |
 | C        | 540          | 20            | 0   | 370    |
 
-- a) What was the original packet's data size?
-- b) Reconstruct the byte ranges for each fragment
-- c) Verify the fragmentation is correct
+- a) Ποιο ήταν το μέγεθος δεδομένων του αρχικού πακέτου;
+- b) Ανακατασκευάστε τα εύρη bytes για κάθε τμήμα
+- c) Επαληθεύστε εάν η κατάτμηση είναι σωστή
 
-**Solution:**
+**Λύση:**
 
-**a) Original packet data size:**
-- Fragment C has MF=0 (last fragment)
-- Fragment C offset: 370 × 8 = 2960 bytes
-- Fragment C data: 540 - 20 = 520 bytes
-- Last byte position: 2960 + 520 = 3480 bytes
-- **Original data size: 3480 bytes**
-- **Original packet size: 3480 + 20 = 3500 bytes**
+**a) Μέγεθος δεδομένων αρχικού πακέτου:**
+- Το Τμήμα C έχει MF=0 (τελευταίο τμήμα)
+- Μετατόπιση Τμήματος C: 370 × 8 = 2960 bytes
+- Δεδομένα Τμήματος C: 540 - 20 = 520 bytes
+- Θέση τελευταίου byte: 2960 + 520 = 3480 bytes
+- **Μέγεθος αρχικών δεδομένων: 3480 bytes**
+- **Μέγεθος αρχικού πακέτου: 3480 + 20 = 3500 bytes**
 
-**b) Byte ranges:**
+**b) Εύρη bytes:**
 
 **Fragment A:**
 - Offset: 0 × 8 = 0
 - Data length: 1500 - 20 = 1480 bytes
-- Range: bytes 0-1479
-- MF=1  (more fragments)
+- Εύρος: bytes 0-1479
+- MF=1  (ακολουθούν περισσότερα τμήματα)
 
 **Fragment B:**
 - Offset: 185 × 8 = 1480
 - Data length: 1500 - 20 = 1480 bytes
-- Range: bytes 1480-2959
-- MF=1  (more fragments)
+- Εύρος: bytes 1480-2959
+- MF=1  (ακολουθούν περισσότερα τμήματα)
 
 **Fragment C:**
 - Offset: 370 × 8 = 2960
 - Data length: 540 - 20 = 520 bytes
-- Range: bytes 2960-3479
-- MF=0  (last fragment)
+- Εύρος: bytes 2960-3479
+- MF=0  (τελευταίο τμήμα)
 
-**c) Verification:**
-- Fragment A ends at byte 1479
-- Fragment B starts at byte 1480  (no gap)
-- Fragment B ends at byte 2959
-- Fragment C starts at byte 2960  (no gap)
-- Fragment C is last (MF=0) 
-- **Fragmentation is correct!**
+**c) Επαλήθευση:**
+- Το Τμήμα A τελειώνει στο byte 1479
+- Το Τμήμα B ξεκινά στο byte 1480  (χωρίς κενό)
+- Το Τμήμα B τελειώνει στο byte 2959
+- Το Τμήμα C ξεκινά στο byte 2960  (χωρίς κενό)
+- Το Τμήμα C είναι το τελευταίο (MF=0) 
+- **Η κατάτμηση είναι σωστή!**
 
 ---
 
-## Exercise 9: CIDR Supernetting (Route Summarization)
-**Question:** You have the following networks:
+## Άσκηση 9: CIDR Supernetting (Σύνοψη Διαδρομών - Route Summarization)
+**Ερώτηση:** Διαθέτετε τα ακόλουθα δίκτυα:
 - 192.168.16.0/24
 - 192.168.17.0/24
 - 192.168.18.0/24
 - 192.168.19.0/24
 
-Find the single CIDR route that summarizes all four networks.
+Βρείτε τη μία διαδρομή CIDR που συνοψίζει και τα τέσσερα δίκτυα.
 
-**Solution:**
+**Λύση:**
 
-**Step 1: Convert to binary (third octet only)**
+**Βήμα 1: Μετατροπή σε δυαδικό (μόνο το τρίτο οκτάψαφιο)**
 - 192.168.**16**.0/24 = 192.168.**00010000**.0
 - 192.168.**17**.0/24 = 192.168.**00010001**.0
 - 192.168.**18**.0/24 = 192.168.**00010010**.0
 - 192.168.**19**.0/24 = 192.168.**00010011**.0
 
-**Step 2: Find common bits**
+**Βήμα 2: Εύρεση κοινών bits**
 ```
 00010000
 00010001
 00010010
 00010011
 ------
-0001xxxx  ← First 4 bits are common
+0001xxxx  ← Τα πρώτα 4 bits είναι κοινά
 ```
 
-**Step 3: Calculate summary**
-- Common prefix in third octet: 0001 (4 bits)
-- Total network bits: 16 (first two octets) + 4 = 20 bits
-- Summary: **192.168.16.0/22**
-- Subnet mask: **255.255.252.0**
+**Βήμα 3: Υπολογισμός σύνοψης**
+- Κοινό πρόθεμα στο τρίτο οκτάψαφιο: 0001 (4 bits)
+- Συνολικά bits δικτύου: 16 (πρώτα δύο οκτάψαφια) + 4 = 20 bits
+- Σύνοψη: **192.168.16.0/22**
+- Μάσκα υποδικτύου: **255.255.252.0**
 
-**Step 4: Verification**
-- 192.168.16.0/22 covers: 192.168.16.0 to 192.168.19.255
+**Βήμα 4: Επαλήθευση**
+- Το 192.168.16.0/22 καλύπτει: 192.168.16.0 έως 192.168.19.255
 - Binary: 192.168.000100xx.xxxxxxxx
-- This includes all four /24 networks 
+- Περιλαμβάνει και τα τέσσερα δίκτυα /24 
 
 **Answer: 192.168.16.0/22**
 
 ---
 
-## Exercise 10: TCP Window Size and Throughput
-**Question:** Calculate the maximum throughput for a TCP connection with:
-- RTT (Round Trip Time): 100 ms
-- Window size: 64 KB
-- No packet loss
+## Άσκηση 10: Μέγεθος Παραθύρου TCP και Ρυθμοαπόδοση (Throughput)
+**Ερώτηση:** Υπολογίστε τη μέγιστη ρυθμοαπόδοση (throughput) για μια σύνδεση TCP με:
+- RTT (Χρόνος Μετάβασης και Επιστροφής): 100 ms
+- Μέγεθος παραθύρου: 64 KB
+- Χωρίς απώλεια πακέτων
 
-Then determine the required window size for 100 Mbps throughput with the same RTT.
+Στη συνέχεια, προσδιορίστε το απαιτούμενο μέγεθος παραθύρου για ρυθμοαπόδοση 100 Mbps με το ίδιο RTT.
 
-**Solution:**
+**Λύση:**
 
-**Part 1: Maximum Throughput**
+**Μέρος 1ο: Μέγιστη Ρυθμοαπόδοση**
 
-Formula: **Throughput = Window Size / RTT**
+Τύπος: **Ρυθμοαπόδοση (Throughput) = Μέγεθος Παραθύρου / RTT**
 
-- Window size: 64 KB = 64 × 1024 = 65,536 bytes = 524,288 bits
+- Μέγεθος παραθύρου: 64 KB = 64 × 1024 = 65,536 bytes = 524,288 bits
 - RTT: 100 ms = 0.1 seconds
 - Throughput = 524,288 bits / 0.1 s = **5,242,880 bps = 5.24 Mbps**
 
-**Part 2: Required Window Size for 100 Mbps**
+**Μέρος 2ο: Απαιτούμενο Μέγεθος Παραθύρου για 100 Mbps**
 
-Rearranging: **Window Size = Throughput × RTT**
+Αναδιάταξη: **Μέγεθος Παραθύρου = Ρυθμοαπόδοση × RTT**
 
 - Throughput: 100 Mbps = 100,000,000 bps
 - RTT: 0.1 seconds
@@ -466,38 +466,38 @@ Rearranging: **Window Size = Throughput × RTT**
 **Bandwidth-Delay Product (BDP):**
 - BDP = Bandwidth × RTT
 - BDP = 100 Mbps × 100 ms = 10 Mb = 1.25 MB
-- Window size must be ≥ BDP for optimal throughput
+- Το μέγεθος παραθύρου πρέπει να είναι ≥ BDP για βέλτιστη ρυθμοαπόδοση
 
 ---
 
-## Exercise 11: Subnet Design with Requirements
-**Question:** Design a subnet scheme for a company with three departments:
-- Sales: 60 hosts
-- Engineering: 120 hosts
-- Management: 30 hosts
+## Άσκηση 11: Σχεδιασμός Υποδικτύων με Απαιτήσεις
+**Ερώτηση:** Σχεδιάστε ένα σχήμα υποδικτύωσης για μια εταιρεία με τρία τμήματα:
+- Πωλήσεις (Sales): 60 hosts
+- Μηχανικοί (Engineering): 120 hosts
+- Διοίκηση (Management): 30 hosts
 
-Use the network 192.168.100.0/24. Minimize IP waste.
+Χρησιμοποιήστε το δίκτυο 192.168.100.0/24. Ελαχιστοποιήστε τη σπατάλη διευθύνσεων IP.
 
-**Solution:**
+**Λύση:**
 
-**Step 1: Sort by size (largest first)**
+**Βήμα 1: Ταξινόμηση κατά μέγεθος (μεγαλύτερο πρώτα)**
 1. Engineering: 120 hosts
 2. Sales: 60 hosts
 3. Management: 30 hosts
 
-**Step 2: Engineering subnet (120 hosts)**
+**Βήμα 2: Υποδίκτυο Μηχανικών (120 hosts)**
 - Need: 2^n - 2 ≥ 120 → 2^7 - 2 = 126 
-- Subnet: 192.168.100.0/25
-- Mask: 255.255.255.128
+- Υποδίκτυο: 192.168.100.0/25
+- Μάσκα: 255.255.255.128
 - Hosts: 126 usable
 - Range: 192.168.100.0 - 192.168.100.127
 - First host: 192.168.100.1
 - Last host: 192.168.100.126
 - Broadcast: 192.168.100.127
 
-**Step 3: Sales subnet (60 hosts)**
+**Βήμα 3: Υποδίκτυο Πωλήσεων (60 hosts)**
 - Need: 2^6 - 2 = 62 
-- Subnet: 192.168.100.128/26
+- Υποδίκτυο: 192.168.100.128/26
 - Mask: 255.255.255.192
 - Hosts: 62 usable
 - Range: 192.168.100.128 - 192.168.100.191
@@ -505,9 +505,9 @@ Use the network 192.168.100.0/24. Minimize IP waste.
 - Last host: 192.168.100.190
 - Broadcast: 192.168.100.191
 
-**Step 4: Management subnet (30 hosts)**
+**Βήμα 4: Υποδίκτυο Διοίκησης (30 hosts)**
 - Need: 2^5 - 2 = 30 
-- Subnet: 192.168.100.192/27
+- Υποδίκτυο: 192.168.100.192/27
 - Mask: 255.255.255.224
 - Hosts: 30 usable
 - Range: 192.168.100.192 - 192.168.100.223
@@ -515,18 +515,18 @@ Use the network 192.168.100.0/24. Minimize IP waste.
 - Last host: 192.168.100.222
 - Broadcast: 192.168.100.223
 
-**Step 5: Remaining space**
-- Available: 192.168.100.224 - 192.168.100.255 (32 addresses)
+**Βήμα 5: Εναπομείνας χώρος**
+- Διαθέσιμος: 192.168.100.224 - 192.168.100.255 (32 addresses)
 - Can be used for future expansion or point-to-point links
 
 ---
 
-## Exercise 12: IPv4 Header Checksum Verification
-**Question:** Given an IPv4 header (simplified):
+## Άσκηση 12: Επαλήθευση Αθροίσματος Ελέγχου (Checksum) Επικεφαλίδας IPv4
+**Ερώτηση:** Δοθείσης μιας επικεφαλίδας IPv4 (απλοποιημένης):
 
 ```
 Version/IHL: 0x45
-Type of Service: 0x00
+Τύπος of Service: 0x00
 Total Length: 0x003C (60 bytes)
 Identification: 0x1A2B
 Flags/Fragment: 0x4000
@@ -537,11 +537,11 @@ Source IP: 192.168.1.1 (0xC0A80101)
 Dest IP: 10.0.0.5 (0x0A000005)
 ```
 
-Verify if the checksum is correct.
+Επαληθεύστε εάν το άθροισμα ελέγχου (checksum) είναι σωστό.
 
-**Solution:**
+**Λύση:**
 
-**Step 1: Sum all 16-bit words (excluding checksum field)**
+**Βήμα 1: Πρόσθεση όλων των λέξεων 16-bit (εξαιρουμένου του πεδίου checksum)**
 
 ```
 0x4500  (Version/IHL + TOS)
@@ -556,7 +556,7 @@ Verify if the checksum is correct.
 0x0005  (Dest IP - lower)
 ```
 
-**Step 2: Add values**
+**Βήμα 2: Πρόσθεση τιμών**
 ```
   4500
   003C
@@ -571,7 +571,7 @@ Verify if the checksum is correct.
  1479F (carry: 1, sum: 479F)
 ```
 
-**Step 3: Add carry**
+**Βήμα 3: Πρόσθεση κρατουμένου**
 ```
   479F
 +    1
@@ -579,46 +579,46 @@ Verify if the checksum is correct.
   47A0
 ```
 
-**Step 4: One's complement**
+**Βήμα 4: Συμπλήρωμα ως προς 1 (One's complement)**
 ```
 47A0 → B85F (flip all bits)
 ```
 
-**Expected checksum: 0xB85F**
-**Given checksum: 0xB861**
+**Αναμενόμενο checksum: 0xB85F**
+**Δοθέν checksum: 0xB861**
 
-**Result: Checksum is INCORRECT** 
+**Αποτέλεσμα: Το checksum είναι ΛΑΝΘΑΣΜΕΝΟ** 
 
-The packet may be corrupted and should be discarded.
+Το πακέτο ενδέχεται να έχει αλλοιωθεί και πρέπει να απορριφθεί.
 
 **Note:** This simplified example demonstrates the checksum algorithm. Actual headers may have options that affect the calculation.
 
 ---
 
-## Exercise 13: Bandwidth Calculation with Overhead
-**Question:** A satellite link has:
-- Physical bandwidth: 10 Mbps
-- IP header: 20 bytes
-- TCP header: 20 bytes
-- Application data per packet: 1000 bytes
-- Propagation delay: 270 ms (one way)
+## Άσκηση 13: Υπολογισμός Εύρους Ζώνης με Επιβάρυνση (Επιβάρυνση (Overhead))
+**Ερώτηση:** Μια δορυφορική ζεύξη έχει:
+- Φυσικό εύρος ζώνης: 10 Mbps
+- Επικεφαλίδα IP: 20 bytes
+- Επικεφαλίδα TCP: 20 bytes
+- Δεδομένα εφαρμογής ανά πακέτο: 1000 bytes
+- Καθυστέρηση διάδοσης: 270 ms (μονής κατεύθυνσης)
 
-Calculate:
-- a) Efficiency (%)
-- b) Effective application throughput
+Υπολογίστε:
+- a) Αποδοτικότητα (%)
+- b) Πραγματική ρυθμοαπόδοση εφαρμογής
 - c) RTT
-- d) Maximum window size needed for full bandwidth utilization
+- d) Μέγιστο μέγεθος παραθύρου που απαιτείται για πλήρη αξιοποίηση εύρους ζώνης
 
-**Solution:**
+**Λύση:**
 
 **a) Efficiency:**
 - Total packet size: 20 + 20 + 1000 = 1040 bytes
 - Payload: 1000 bytes
-- Overhead: 40 bytes
+- Επιβάρυνση (Overhead): 40 bytes
 - Efficiency = (1000 / 1040) × 100 = **96.15%**
 
 **b) Effective throughput:**
-- Physical bandwidth: 10 Mbps
+- Φυσικό εύρος ζώνης: 10 Mbps
 - Effective throughput = 10 × 0.9615 = **9.615 Mbps**
 
 **c) RTT:**
@@ -634,8 +634,8 @@ For TCP window scaling, this requires window scale option since standard TCP win
 
 ---
 
-## Exercise 14: Distance Vector Routing (RIP)
-**Question:** Given the following network topology and initial routing tables:
+## Άσκηση 14: Δρομολόγηση Διανύσματος Απόστασης (RIP)
+**Ερώτηση:** Δοθείσης της παρακάτω τοπολογίας δικτύου και των αρχικών πινάκων δρομολόγησης:
 
 ```
 Router A --- 5 --- Router B --- 10 --- Router C
@@ -645,38 +645,38 @@ Router A --- 5 --- Router B --- 10 --- Router C
 Router D ------------ 7 ----------- Router E
 ```
 
-Complete Router B's routing table after one update cycle using RIP (count-to-infinity not considered).
+Συμπληρώστε τον πίνακα δρομολόγησης του Δρομολογητή B μετά από έναν κύκλο ενημέρωσης χρησιμοποιώντας RIP (χωρίς να λαμβάνεται υπόψη το πρόβλημα count-to-infinity).
 
-**Initial Router B table:**
+**Αρχικός πίνακας Δρομολογητή B:**
 | Destination | Cost | Next Hop |
 |-------------|------|----------|
 | A           | 5    | A        |
 | B           | 0    | -        |
 | C           | 10   | C        |
 
-**Router B receives updates from neighbors:**
+**Ο Δρομολογητής B λαμβάνει ενημερώσεις από τους γείτονες:**
 - From A: {D: 8, E: ∞}
 - From C: {E: 3}
 - From D: {A: 8, E: 7}
 
-**Solution:**
+**Λύση:**
 
-**Update process:**
+**Διαδικασία ενημέρωσης:**
 
-**Route to D:**
+**Διαδρομή προς το D:**
 - Via A: 5 (A→B) + 8 (A→D) = 13
 - Via D: 3 (D→B direct, need to check topology) - NOT DIRECT CONNECTION
 - Via C: not advertised
 - **Best: cost 13 via A** (if A-D link exists)
 - Note: Topology doesn't show direct B-D, so via A
 
-**Route to E:**
+**Διαδρομή προς το E:**
 - Via A: 5 + ∞ = ∞
 - Via C: 10 (B→C) + 3 (C→E) = 13
 - Via D: not directly connected
 - **Best: cost 13 via C**
 
-**Updated Router B table:**
+**Ενημερωμένος πίνακας Δρομολογητή B:**
 | Destination | Cost | Next Hop |
 |-------------|------|----------|
 | A           | 5    | A        |
@@ -685,273 +685,273 @@ Complete Router B's routing table after one update cycle using RIP (count-to-inf
 | D           | 13   | A        |
 | E           | 13   | C        |
 
-**Note:** RIP uses hop count (max 15). This example uses link costs.
+**Note:** Το RIP χρησιμοποιεί μέτρηση αλμάτων (hop count, μέγιστο 15). Αυτό το παράδειγμα χρησιμοποιεί κόστη ζεύξεων.
 
 ---
 
-## Exercise 15: TCP Sequence Numbers and Acknowledgments
-**Question:** A TCP connection has:
-- Client ISN (Initial Sequence Number): 3000
-- Server ISN: 5000
-- Client sends 500 bytes of data
-- Server sends 300 bytes of data
-- Then client sends another 200 bytes
+## Άσκηση 15: Αριθμοί Ακολουθίας και Επιβεβαιώσεις TCP
+**Ερώτηση:** Μια σύνδεση TCP διαθέτει:
+- ISN του Client (Αρχικός Αριθμός Ακολουθίας): 3000
+- ISN του Server: 5000
+- Ο client στέλνει 500 bytes δεδομένων
+- Ο server στέλνει 300 bytes δεδομένων
+- Στη συνέχεια ο client στέλνει άλλα 200 bytes
 
-Show the sequence and acknowledgment numbers for each segment.
+Εμφανίστε τους αριθμούς ακολουθίας και επιβεβαίωσης για κάθε segment.
 
-**Solution:**
+**Λύση:**
 
-**Segment 1: Three-way handshake - SYN**
-- Direction: Client → Server
+**Segment 1: Χειραψία τριών βημάτων - SYN**
+- Κατεύθυνση: Client → Server
 - Flags: SYN
 - SEQ: 3000
 - ACK: (none)
 - Data: 0 bytes
 
-**Segment 2: Three-way handshake - SYN-ACK**
-- Direction: Server → Client
+**Segment 2: Χειραψία τριών βημάτων - SYN-ACK**
+- Κατεύθυνση: Server → Client
 - Flags: SYN, ACK
 - SEQ: 5000
 - ACK: 3001 (acknowledges SYN, which consumes 1 seq number)
 - Data: 0 bytes
 
-**Segment 3: Three-way handshake - ACK**
-- Direction: Client → Server
+**Segment 3: Χειραψία τριών βημάτων - ACK**
+- Κατεύθυνση: Client → Server
 - Flags: ACK
 - SEQ: 3001
 - ACK: 5001 (acknowledges SYN)
 - Data: 0 bytes
 
-**Segment 4: Client data**
-- Direction: Client → Server
+**Segment 4: Δεδομένα Client**
+- Κατεύθυνση: Client → Server
 - Flags: PSH, ACK
 - SEQ: 3001
 - ACK: 5001
 - Data: 500 bytes (SEQ 3001-3500)
 
-**Segment 5: Server ACK + data**
-- Direction: Server → Client
+**Segment 5: ACK + δεδομένα Server**
+- Κατεύθυνση: Server → Client
 - Flags: PSH, ACK
 - SEQ: 5001
 - ACK: 3501 (acknowledges 500 bytes)
 - Data: 300 bytes (SEQ 5001-5300)
 
-**Segment 6: Client ACK + data**
-- Direction: Client → Server
+**Segment 6: ACK + δεδομένα Client**
+- Κατεύθυνση: Client → Server
 - Flags: PSH, ACK
 - SEQ: 3501
 - ACK: 5301 (acknowledges 300 bytes)
 - Data: 200 bytes (SEQ 3501-3700)
 
-**Segment 7: Server ACK**
-- Direction: Server → Client
+**Segment 7: ACK Server**
+- Κατεύθυνση: Server → Client
 - Flags: ACK
 - SEQ: 5301
 - ACK: 3701 (acknowledges 200 bytes)
 - Data: 0 bytes
 
 **Summary:**
-- SEQ numbers advance by data bytes sent
-- ACK numbers indicate next expected byte
-- SYN and FIN flags consume 1 sequence number each
+- Οι αριθμοί SEQ προχωρούν κατά τα απεσταλμένα bytes δεδομένων
+- Οι αριθμοί ACK υποδεικνύουν το επόμενο αναμενόμενο byte
+- Οι σημαίες SYN και FIN καταναλώνουν από 1 αριθμό ακολουθίας η καθένα
 
 ---
 
-## Exercise 16: Complex Packet Flow with TTL
-**Question:** A packet travels through the following path:
+## Άσκηση 16: Σύνθετη Ροή Πακέτων με TTL
+**Question:** Ένα πακέτο ταξιδεύει μέσω της ακόλουθης διαδρομής:
 
 ```
 Source (192.168.1.10) → Router A → Router B → Router C → Destination (10.0.0.5)
-Initial TTL: 5
+Αρχικό TTL: 5
 ```
 
-At each router:
-- Router A: TTL decremented, forwards packet
-- Router B: TTL decremented, forwards packet
-- Router C: TTL decremented, should forward but...
+Σε κάθε δρομολογητή:
+- Δρομολογητής A: Το TTL μειώνεται, προωθεί το πακέτο
+- Δρομολογητής B: Το TTL μειώνεται, προωθεί το πακέτο
+- Δρομολογητής C: Το TTL μειώνεται, θα έπρεπε να προωθήσει αλλά...
 
-What happens at each hop? What ICMP message (if any) is generated?
+Τι συμβαίνει σε κάθε άλμα; Ποιο μήνυμα ICMP (εάν υπάρχει) δημιουργείται;
 
-**Solution:**
+**Λύση:**
 
-**At Source:**
-- Packet created
+**Στην Πηγή:**
+- Δημιουργία πακέτου
 - TTL: 5
-- Action: Send to Router A
+- Ενέργεια: Αποστολή στον Δρομολογητή A
 
-**At Router A:**
-- Receives packet, TTL: 5
-- Decrements TTL: 5 - 1 = 4
+**Στον Δρομολογητή A:**
+- Λαμβάνει πακέτο, TTL: 5
+- Μειώνει το TTL: 5 - 1 = 4
 - Check: TTL > 0 
-- Action: Forward to Router B
+- Ενέργεια: Προώθηση στον Δρομολογητή B
 
-**At Router B:**
-- Receives packet, TTL: 4
-- Decrements TTL: 4 - 1 = 3
+**Στον Δρομολογητή B:**
+- Λαμβάνει πακέτο, TTL: 4
+- Μειώνει το TTL: 4 - 1 = 3
 - Check: TTL > 0 
-- Action: Forward to Router C
+- Ενέργεια: Προώθηση στον Δρομολογητή C
 
-**At Router C:**
-- Receives packet, TTL: 3
-- Decrements TTL: 3 - 1 = 2
+**Στον Δρομολογητή C:**
+- Λαμβάνει πακέτο, TTL: 3
+- Μειώνει το TTL: 3 - 1 = 2
 - Check: TTL > 0 
-- Action: Forward to destination
+- Ενέργεια: Προώθηση στον προορισμό
 
-**At Destination:**
-- Receives packet, TTL: 2
-- Packet delivered successfully 
+**Στον Προορισμό:**
+- Λαμβάνει πακέτο, TTL: 2
+- Το πακέτο παραδόθηκε επιτυχώς 
 
-**Scenario 2: If initial TTL was 3:**
+**Σενάριο 2ο: Εάν το αρχικό TTL ήταν 3:**
 
-**At Router C:**
-- Receives packet, TTL: 1
-- Decrements TTL: 1 - 1 = 0
-- Check: TTL = 0  **DISCARD PACKET**
+**Στον Δρομολογητή C:**
+- Λαμβάνει πακέτο, TTL: 1
+- Μειώνει το TTL: 1 - 1 = 0
+- Check: TTL = 0  **ΑΠΟΡΡΙΨΗ ΠΑΚΕΤΟΥ**
 - Action: 
-  - Drop packet
-  - Generate **ICMP Time Exceeded** message
-  - Send to source: 192.168.1.10
-  - ICMP Type: 11 (Time Exceeded)
-  - ICMP Code: 0 (TTL expired in transit)
+  - Απόρριψη πακέτου
+  - Δημιουργία μηνύματος **ICMP Time Exceeded**
+  - Αποστολή στην πηγή: 192.168.1.10
+  - ICMP Τύπος: 11 (Time Exceeded)
+  - Κωδικός ICMP: 0 (το TTL έληξε κατά τη μεταφορά)
 
-**Purpose of TTL:**
-- Prevents packets from looping infinitely
-- Each router decrements by 1
-- When TTL reaches 0, packet is dropped
-- Used by traceroute to map network paths
+**Σκοπός του TTL:**
+- Αποτρέπει τα πακέτα από το να ανακυκλώνονται επ' άπειρον
+- Κάθε δρομολογητής το μειώνει κατά 1
+- Όταν το TTL φτάσει στο 0, το πακέτο απορρίπτεται
+- Χρησιμοποιείται από το traceroute για τη χαρτογράφηση διαδρομών δικτύου
 
 ---
 
-## Exercise 17: IPv6 Address Compression
-**Question:** Compress the following IPv6 addresses using standard notation rules:
+## Άσκηση 17: Συμπίεση Διευθύνσεων IPv6
+**Ερώτηση:** Συμπιέστε τις παρακάτω διευθύνσεις IPv6 χρησιμοποιώντας τους τυπικούς κανόνες συμβολισμού:
 
 a) 2001:0DB8:0000:0000:0000:0000:0000:0001
 b) FE80:0000:0000:0000:0202:B3FF:FE1E:8329
 c) 2001:0DB8:0000:0042:0000:8A2E:0370:7334
 d) 0000:0000:0000:0000:0000:0000:0000:0001
 
-**Solution:**
+**Λύση:**
 
-**Rules:**
-1. Remove leading zeros in each group
-2. Replace longest string of consecutive zero groups with ::
-3. Use :: only once
+**Κανόνες:**
+1. Αφαίρεση αρχικών μηδενικών σε κάθε ομάδα
+2. Αντικατάσταση της μεγαλύτερης ακολουθίας συνεχόμενων μηδενικών ομάδων με ::
+3. Χρήση του :: μόνο μία φορά
 
 **a) 2001:0DB8:0000:0000:0000:0000:0000:0001**
-- Remove leading zeros: 2001:DB8:0:0:0:0:0:1
-- Replace longest zero string: **2001:DB8::1**
+- Αφαίρεση αρχικών μηδενικών: 2001:DB8:0:0:0:0:0:1
+- Αντικατάσταση μεγαλύτερης ακολουθίας μηδενικών: **2001:DB8::1**
 
 **b) FE80:0000:0000:0000:0202:B3FF:FE1E:8329**
-- Remove leading zeros: FE80:0:0:0:202:B3FF:FE1E:8329
-- Replace longest zero string: **FE80::202:B3FF:FE1E:8329**
+- Αφαίρεση αρχικών μηδενικών: FE80:0:0:0:202:B3FF:FE1E:8329
+- Αντικατάσταση μεγαλύτερης ακολουθίας μηδενικών: **FE80::202:B3FF:FE1E:8329**
 
 **c) 2001:0DB8:0000:0042:0000:8A2E:0370:7334**
-- Remove leading zeros: 2001:DB8:0:42:0:8A2E:370:7334
-- Replace first/longest zero string: **2001:DB8:0:42::8A2E:370:7334**
-- Alternative: 2001:DB8::42:0:8A2E:370:7334 (both valid, use first occurrence)
+- Αφαίρεση αρχικών μηδενικών: 2001:DB8:0:42:0:8A2E:370:7334
+- Αντικατάσταση πρώτης/μεγαλύτερης ακολουθίας μηδενικών: **2001:DB8:0:42::8A2E:370:7334**
+- Εναλλακτικά: 2001:DB8::42:0:8A2E:370:7334 (και τα δύο έγκυρα, χρησιμοποιείται η πρώτη εμφάνιση)
 
 **d) 0000:0000:0000:0000:0000:0000:0000:0001**
-- This is the loopback address: **::1**
+- Αυτή είναι η διεύθυνση loopback: **::1**
 
-**Expanding back example (::1):**
-- :: represents 7 groups of zeros (since one group is :1)
-- Expanded: 0000:0000:0000:0000:0000:0000:0000:0001
+**Παράδειγμα ανάπτυξης (::1):**
+- Το :: αντιπροσωπεύει 7 ομάδες μηδενικών (αφού μία ομάδα είναι η :1)
+- Αναπτυγμένη μορφή: 0000:0000:0000:0000:0000:0000:0000:0001
 
 ---
 
-## Exercise 18: Buffer Overflow and Window Management
+## Άσκηση 18: Υπερχείλιση Buffer και Διαχείριση Παραθύρου
 **Question:** A receiver has:
-- Buffer size: 8000 bytes
-- Application reads 1000 bytes every 100ms
-- Sender transmits 2000 bytes every 50ms
+- Μέγεθος buffer: 8000 bytes
+- Η εφαρμογή διαβάζει 1000 bytes κάθε 100ms
+- Ο αποστολέας μεταδίδει 2000 bytes κάθε 50ms
 
-Model the buffer state and TCP window advertisements for 500ms.
+Μοντελοποιήστε την κατάσταση του buffer και τις ανακοινώσεις παραθύρου TCP για 500ms.
 
-**Solution:**
+**Λύση:**
 
-| Time (ms) | Event                    | Buffer Used | Available | Window Advertised |
+| Χρόνος (ms) | Συμβάν                    | Χρησιμοποιημένος Buffer | Διαθέσιμος | Ανακοινωθέν Παράθυρο |
 |-----------|--------------------------|-------------|-----------|-------------------|
-| 0         | Initial                  | 0           | 8000      | 8000              |
-| 50        | Receive 2000 bytes       | 2000        | 6000      | 6000              |
-| 100       | Receive 2000 bytes       | 4000        | 4000      | 4000              |
-|           | App reads 1000 bytes     | 3000        | 5000      | 5000              |
-| 150       | Receive 2000 bytes       | 5000        | 3000      | 3000              |
-| 200       | Receive 2000 bytes       | 7000        | 1000      | 1000              |
-|           | App reads 1000 bytes     | 6000        | 2000      | 2000              |
-| 250       | Receive 2000 bytes       | 8000        | 0         | **0 (FULL!)**     |
-|           |                          |             |           | **Zero Window**   |
-| 300       | **Sender must stop**     | 8000        | 0         | 0                 |
-|           | App reads 1000 bytes     | 7000        | 1000      | 1000              |
-| 350       | **Window update sent**   | 7000        | 1000      | 1000              |
-| 400       | App reads 1000 bytes     | 6000        | 2000      | 2000              |
-| 450       | Receive 2000 bytes       | 8000        | 0         | 0                 |
-| 500       | App reads 1000 bytes     | 7000        | 1000      | 1000              |
+| 0         | Αρχική κατάσταση                  | 0           | 8000      | 8000              |
+| 50        | Λήψη 2000 bytes       | 2000        | 6000      | 6000              |
+| 100       | Λήψη 2000 bytes       | 4000        | 4000      | 4000              |
+|           | Η εφαρμογή διαβάζει 1000 bytes     | 3000        | 5000      | 5000              |
+| 150       | Λήψη 2000 bytes       | 5000        | 3000      | 3000              |
+| 200       | Λήψη 2000 bytes       | 7000        | 1000      | 1000              |
+|           | Η εφαρμογή διαβάζει 1000 bytes     | 6000        | 2000      | 2000              |
+| 250       | Λήψη 2000 bytes       | 8000        | 0         | **0 (ΠΛΗΡΗΣ!)**     |
+|           |                          |             |           | **Μηδενικό Παράθυρο**   |
+| 300       | **Ο αποστολέας πρέπει να σταματήσει**     | 8000        | 0         | 0                 |
+|           | Η εφαρμογή διαβάζει 1000 bytes     | 7000        | 1000      | 1000              |
+| 350       | **Αποστολή ενημέρωσης παραθύρου**   | 7000        | 1000      | 1000              |
+| 400       | Η εφαρμογή διαβάζει 1000 bytes     | 6000        | 2000      | 2000              |
+| 450       | Λήψη 2000 bytes       | 8000        | 0         | 0                 |
+| 500       | Η εφαρμογή διαβάζει 1000 bytes     | 7000        | 1000      | 1000              |
 
-**Analysis:**
-- **At 250ms:** Buffer full! Receiver advertises window = 0
-- Sender must stop transmitting
+**Ανάλυση:**
+- **At 250ms:** Ο buffer είναι πλήρης! Ο παραλήπτης ανακοινώνει παράθυρο = 0
+- Ο αποστολέας πρέπει να σταματήσει transmitting
 - **Silly Window Syndrome:** Small window advertisements are inefficient
-- **Solution:** Delayed ACK or wait until substantial space available
+- **Λύση:** Delayed ACK or wait until substantial space available
 
-**Flow Control:**
-- TCP window prevents sender from overwhelming receiver
-- Window size dynamically adjusts based on buffer availability
-- Zero window probe: Sender periodically checks if window opened
+**Έλεγχος Ροής (Flow Control):**
+- Το παράθυρο TCP αποτρέπει τον αποστολέα από το να υπερχειλίσει τον παραλήπτη
+- Το μέγεθος παραθύρου προσαρμόζεται δυναμικά με βάση τη διαθεσιμότητα του buffer
+- Έλεγχος μηδενικού παραθύρου (Zero window probe): Ο αποστολέας ελέγχει περιοδικά εάν άνοιξε το παράθυρο
 
 ---
 
-## Exercise 19: Routing Protocol Comparison
-**Question:** Complete the comparison table for RIP, OSPF, and BGP:
+## Άσκηση 19: Σύγκριση Πρωτοκόλλων Δρομολόγησης
+**Question:** Συμπληρώστε τον πίνακα σύγκρισης για RIP, OSPF και BGP:
 
-| Feature              | RIP | OSPF | BGP |
+| Χαρακτηριστικό              | RIP | OSPF | BGP |
 |----------------------|-----|------|-----|
-| Type                 | ?   | ?    | ?   |
-| Metric               | ?   | ?    | ?   |
-| Max Network Size     | ?   | ?    | ?   |
-| Convergence Speed    | ?   | ?    | ?   |
-| Algorithm            | ?   | ?    | ?   |
-| Use Case             | ?   | ?    | ?   |
+| Τύπος                 | ?   | ?    | ?   |
+| Μετρική               | ?   | ?    | ?   |
+| Μέγιστο Μέγεθος Δικτύου     | ?   | ?    | ?   |
+| Ταχύτητα Σύγκλισης    | ?   | ?    | ?   |
+| Αλγόριθμος            | ?   | ?    | ?   |
+| Περίπτωση Χρήσης             | ?   | ?    | ?   |
 
-**Solution:**
+**Λύση:**
 
-| Feature              | RIP                | OSPF                | BGP                    |
+| Χαρακτηριστικό              | RIP                | OSPF                | BGP                    |
 |----------------------|--------------------|---------------------|------------------------|
-| Type                 | Distance Vector    | Link State          | Path Vector            |
-| Metric               | Hop count          | Cost (bandwidth)    | AS path, policies      |
-| Max Network Size     | 15 hops (small)    | Large (areas)       | Internet-scale         |
-| Convergence Speed    | Slow (minutes)     | Fast (seconds)      | Slow (path-dependent)  |
-| Algorithm            | Bellman-Ford       | Dijkstra (SPF)      | Path attributes        |
-| Use Case             | Small networks     | Enterprise          | Internet (ISPs)        |
-| Protocol Type        | IGP                | IGP                 | EGP                    |
-| Update Method        | Periodic (30s)     | Event-triggered     | Incremental            |
-| Overhead             | High               | Moderate            | Low after convergence  |
+| Τύπος                 | Διάνυσμα Απόστασης    | Κατάσταση Ζεύξης          | Διάνυσμα Διαδρομής            |
+| Μετρική               | Αριθμός αλμάτων (hop count)          | Κόστος (εύρος ζώνης)    | Διαδρομή AS, πολιτικές      |
+| Μέγιστο Μέγεθος Δικτύου     | 15 άλματα (μικρό)    | Μεγάλο (περιοχές - areas)       | Κλίμακα Διαδικτύου         |
+| Ταχύτητα Σύγκλισης    | Αργή (λεπτά)     | Γρήγορη (δευτερόλεπτα)      | Αργή (εξαρτώμενη από τη διαδρομή)  |
+| Αλγόριθμος            | Bellman-Ford       | Dijkstra (SPF)      | Ιδιότητες διαδρομής        |
+| Περίπτωση Χρήσης             | Μικρά δίκτυα     | Εταιρικά δίκτυα          | Διαδίκτυο (ISPs)        |
+| Protocol Τύπος        | IGP                | IGP                 | EGP                    |
+| Μέθοδος Ενημέρωσης        | Περιοδική (30s)     | Συμβάν-triggered     | Σταδιακή / Αυξητική            |
+| Επιβάρυνση (Overhead)             | Υψηλή               | Μέτρια            | Χαμηλή μετά τη σύγκλιση  |
 
-**Additional Details:**
+**Πρόσθετες Λεπτομέρειες:**
 
 **RIP (Routing Information Protocol):**
-- Simple, easy to configure
-- Max 15 hops (16 = infinity)
-- Count-to-infinity problem
-- RIPv2 supports CIDR
+- Απλό, εύκολο στη διαμόρφωση
+- Μέγιστο 15 άλματα (16 = άπειρο)
+- Πρόβλημα count-to-infinity
+- Το RIPv2 υποστηρίζει CIDR
 
 **OSPF (Open Shortest Path First):**
-- Hierarchical (areas, backbone)
-- Fast convergence
-- Supports VLSM
-- Complex configuration
+- Ιεραρχικό (περιοχές, κορμός - backbone)
+- Γρήγορη σύγκλιση
+- Υποστηρίζει VLSM
+- Σύνθετη διαμόρφωση
 
 **BGP (Border Gateway Protocol):**
-- Policy-based routing
-- Autonomous System (AS) based
-- eBGP (external) and iBGP (internal)
-- Internet backbone protocol
+- Δρομολόγηση βάσει πολιτικών
+- Βασισμένο σε Αυτόνομα Συστήματα (AS)
+- eBGP (εξωτερικό) και iBGP (εσωτερικό)
+- Πρωτόκολλο κορμού του Διαδικτύου
 
 ---
 
-## Exercise 20: Comprehensive Network Troubleshooting
-**Question:** A user at 192.168.10.50/24 (gateway: 192.168.10.1) cannot reach www.example.com (IP: 93.184.216.34). Run these diagnostic steps and interpret results:
+## Άσκηση 20: Ολοκληρωμένη Αντιμετώπιση Προβλημάτων Δικτύου (Troubleshooting)
+**Question:** Ένας χρήστης στο 192.168.10.50/24 (gateway: 192.168.10.1) δεν μπορεί να προσπελάσει το www.example.com (IP: 93.184.216.34). Εκτελέστε αυτά τα διαγνωστικά βήματα και ερμηνεύστε τα αποτελέσματα:
 
-**Given outputs:**
+**Δεδομένες έξοδοι:**
 ```
 ping 127.0.0.1 → Success
 ping 192.168.10.50 → Success
@@ -960,44 +960,44 @@ ping 93.184.216.34 → Request timeout
 nslookup www.example.com → Returns 93.184.216.34
 ```
 
-Diagnose the problem and suggest solutions.
+Διαγνώστε το πρόβλημα και προτείνετε λύσεις.
 
-**Solution:**
+**Λύση:**
 
-**Analysis:**
+**Ανάλυση:**
 
-**Test 1: ping 127.0.0.1 → Success **
-- **Interpretation:** TCP/IP stack is working
-- Loopback interface operational
-- Problem is NOT in OS network stack
+**Δοκιμή 1: ping 127.0.0.1 → Επιτυχία **
+- **Ερμηνεία:** Η στοίβα TCP/IP λειτουργεί
+- Η διεπαφή loopback είναι λειτουργική
+- Το πρόβλημα ΔΕΝ είναι στη στοίβα δικτύου του ΛΣ
 
-**Test 2: ping 192.168.10.50 → Success **
-- **Interpretation:** NIC (Network Interface Card) is working
-- IP configuration is correct
-- Problem is NOT in local interface
+**Δοκιμή 2: ping 192.168.10.50 → Επιτυχία **
+- **Ερμηνεία:** Η κάρτα δικτύου (NIC) λειτουργεί
+- Η διαμόρφωση IP είναι σωστή
+- Το πρόβλημα ΔΕΝ είναι στην τοπική διεπαφή
 
-**Test 3: ping 192.168.10.1 → Request timeout **
-- **Interpretation:** Cannot reach default gateway
-- **Critical problem identified!**
-- Possible causes:
-  - Gateway is down
-  - Physical connection issue (cable, switch)
-  - Firewall blocking ICMP on gateway
-  - ARP resolution failure
+**Δοκιμή 3: ping 192.168.10.1 → Λήξη χρονικού ορίου (Request timeout) **
+- **Ερμηνεία:** Αδυναμία πρόσβασης στην προεπιλεγμένη πύλη (default gateway)
+- **Εντοπίστηκε κρίσιμο πρόβλημα!**
+- Πιθανές αιτίες:
+  - Η πύλη είναι εκτός λειτουργίας
+  - Πρόβλημα φυσικής σύνδεσης (καλώδιο, switch)
+  - Το τείχος προστασίας (firewall) μπλοκάρει το ICMP στην πύλη
+  - Αποτυχία επίλυσης ARP
 
-**Test 4: ping 93.184.216.34 → Request timeout **
+**Δοκιμή 4: ping 93.184.216.34 → Λήξη χρονικού ορίου (Request timeout) **
 - **Expected:** Fails because gateway unreachable
-- Cannot route outside local network
+- Αδυναμία δρομολόγησης εκτός του τοπικού δικτύου
 
-**Test 5: nslookup www.example.com → Returns IP **
-- **Interpretation:** DNS resolution working
-- But this might be cached or local hosts file
-- DNS server might be on local network
+**Δοκιμή 5: nslookup www.example.com → Επιστρέφει IP **
+- **Ερμηνεία:** Η επίλυση DNS λειτουργεί
+- Αλλά αυτό μπορεί να είναι προσωρινά αποθηκευμένο (cached) ή από το τοπικό αρχείο hosts
+- Ο διακομιστής DNS ενδέχεται να βρίσκεται στο τοπικό δίκτυο
 
-**Root Cause:**
-**Gateway unreachable - Layer 2 or Layer 3 issue between host and gateway**
+**Βασική Αιτία:**
+**Μη προσβάσιμη πύλη - Πρόβλημα Επιπέδου 2 ή Επιπέδου 3 μεταξύ host και πύλης**
 
-**Additional Diagnostics:**
+**Πρόσθετα Διαγνωστικά:**
 
 ```bash
 # Check ARP table
@@ -1017,59 +1017,59 @@ route -n
 arping 192.168.10.1
 ```
 
-**Solutions:**
+**Λύσεις:**
 
-1. **Check physical layer:**
-   - Verify cable connections
-   - Check link lights on NIC/switch
-   - Try different cable/port
+1. **Έλεγχος φυσικού επιπέδου:**
+   - Επαληθεύστε τις συνδέσεις καλωδίων
+   - Ελέγξτε τις λυχνίες σύνδεσης στην κάρτα δικτύου/switch
+   - Δοκιμάστε διαφορετικό καλώδιο/θύρα
 
-2. **Check gateway:**
-   - Verify gateway is powered on
-   - Check gateway configuration
-   - Reboot gateway if accessible
+2. **Έλεγχος πύλης:**
+   - Επιβεβαιώστε ότι η πύλη είναι ενεργοποιημένη
+   - Ελέγξτε τη διαμόρφωση της πύλης
+   - Επανεκκινήστε την πύλη εάν είναι προσβάσιμη
 
-3. **Check firewall:**
-   - Temporarily disable host firewall
-   - Check gateway firewall rules
+3. **Έλεγχος firewall:**
+   - Προσωρινή απενεργοποίηση του firewall του host
+   - Ελέγξτε τους κανόνες firewall της πύλης
 
-4. **Network configuration:**
-   - Verify IP settings: `ipconfig /all` or `ip addr`
-   - Renew DHCP: `ipconfig /renew`
-   - Static IP: verify correct gateway
+4. **Διαμόρφωση δικτύου:**
+   - Επαληθεύστε τις ρυθμίσεις IP: `ipconfig /all` or `ip addr`
+   - Ανανέωση DHCP: `ipconfig /renew`
+   - Στατική IP: επαληθεύστε τη σωστή πύλη
 
-5. **ARP issues:**
-   - Clear ARP cache: `arp -d` or `ip neigh flush`
-   - Check for ARP conflicts
+5. **Θέματα ARP:**
+   - Καθαρισμός κρυφής μνήμης ARP: `arp -d` or `ip neigh flush`
+   - Ελέγξτε για διενέξεις ARP
 
-**Troubleshooting Order (OSI Model):**
-1.  Physical: Cable, link status
-2.  Data Link: ARP, MAC address
-3. → Network: IP configuration, routing
-4. → Transport: TCP/UDP (not reached yet)
-5. → Application: DNS, services (not reached yet)
+**Σειρά Αντιμετώπισης Προβλημάτων (Μοντέλο OSI):**
+1. Φυσικό: Καλώδιο, κατάσταση σύνδεσης
+2. Σύνδεσης Δεδομένων: ARP, διεύθυνση MAC
+3. → Δικτύου: Διαμόρφωση IP, δρομολόγηση
+4. → Μεταφοράς: TCP/UDP (δεν έχει φτάσει ακόμα)
+5. → Εφαρμογής: DNS, υπηρεσίες (δεν έχει φτάσει ακόμα)
 
 ---
 
-## Final Exam Tips
+## Συμβουλές για τις Τελικές Εξετάσεις
 
-**Key Topics Mastered:**
-1.  VLSM and complex subnetting
-2.  Routing tables and packet forwarding
-3.  IP fragmentation (MF, DF, offsets)
-4.  TCP windowing and flow control
-5.  NAT translation tables
-6.  Congestion control algorithms
-7.  Routing protocols (RIP, OSPF, BGP)
-8.  Network troubleshooting methodology
-9.  TCP sequence/ACK numbers
-10.  Bandwidth calculations and overhead
+**Κύρια Θέματα που Καλύφθηκαν:**
+1. VLSM και σύνθετη υποδικτύωση
+2. Πίνακες δρομολόγησης και προώθηση πακέτων
+3. Κατάτμηση IP (MF, DF, μετατοπίσεις)
+4. Παράθυρα TCP και έλεγχος ροής
+5. Πίνακες μετάφρασης NAT
+6. Αλγόριθμοι ελέγχου συμφόρησης
+7. Πρωτόκολλα δρομολόγησης (RIP, OSPF, BGP)
+8. Μεθοδολογία αντιμετώπισης προβλημάτων δικτύου
+9. Αριθμοί ακολουθίας/ACK του TCP
+10. Υπολογισμοί εύρους ζώνης και επιβάρυνσης
 
-**Exam Strategy:**
-- Draw diagrams for complex problems
-- Show all calculations step-by-step
-- Verify answers (especially subnetting)
-- Watch for trick questions (DF flag set = no fragmentation!)
-- Use binary for subnet calculations when needed
-- Remember: network address and broadcast address are not usable
+**Στρατηγική Εξετάσεων:**
+- Σχεδιάστε διαγράμματα για σύνθετα προβλήματα
+- Εμφανίστε όλους τους υπολογισμούς βήμα προς βήμα
+- Επαληθεύστε τις απαντήσεις σας (ειδικά στην υποδικτύωση)
+- Προσέξτε τις ερωτήσεις παγίδα (σημαία DF ενεργή = καμία κατάτμηση!)
+- Χρησιμοποιήστε δυαδικό σύστημα για τους υπολογισμούς υποδικτύωσης όταν χρειάζεται
+- Θυμηθείτε: η διεύθυνση δικτύου και η διεύθυνση broadcast δεν είναι χρησιμοποιήσιμες
 

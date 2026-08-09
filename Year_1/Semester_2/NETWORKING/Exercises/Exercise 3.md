@@ -1,7 +1,7 @@
   
-### **1.2 DNS Query Tools**
+### **1.2 Εργαλεία Ερωτημάτων DNS**
 
-- **Resolve A/MX records for domains**:
+- **Επίλυση εγγραφών A/MX για τομείς (domains)**:
     
     ```Shell
     dig A example.com +short && dig MX example.com +short
@@ -45,7 +45,7 @@ b.iana-servers.net	has AAAA address 2001:500:8d::53
 
   
 
-- **Reverse DNS lookup for IP 8.8.8.8**:
+- **Αντίστροφη αναζήτηση DNS για την IP 8.8.8.8**:
     
     ```Shell
     dig -x 8.8.8.8 +short
@@ -58,7 +58,7 @@ b.iana-servers.net	has AAAA address 2001:500:8d::53
     8.8.8.8.in-addr.arpa.	82537	IN	PTR	dns.google.
     ```
     
-- **Specify alternate DNS server (e.g., Google DNS)**:
+- **Καθορισμός εναλλακτικού διακομιστή DNS (π.χ. Google DNS)**:
     
     ```Shell
     dig @8.8.8.8 example.com +short
@@ -76,35 +76,35 @@ b.iana-servers.net	has AAAA address 2001:500:8d::53
 
 ---
 
-### **2. Packet Capture & Analysis**
+### **2. Σύλληψη & Ανάλυση Πακέτων**
 
-### **2.1 Baseline Capture Filters**
+### **2.1 Βασικά Φίλτρα Σύλληψης**
 
-- **Capture HTTP traffic on port 80 with TCP header analysis**:
+- **Σύλληψη κίνησης HTTP στη θύρα 80 με ανάλυση επικεφαλίδας TCP**:
     
     ```Shell
     sudo tcpdump -i wlp4s0 -s0 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)' -w http.pcap
     ```
     
-    - **Filter breakdown**:
-        - `tcp port 80`: Match TCP traffic on HTTP port
-        - `ip[2:2]`: Total IP packet length
-        - `(ip&0xf)<<2`: IP header length
-        - `(tcp&0xf0)>>2`: TCP header length
-        - `!=0`: Exclude zero-length payloads
-- **Isolate DNS MX record queries**:
+    - **Ανάλυση φίλτρου**:
+        - `tcp port 80`: Αντιστοίχιση κίνησης TCP στη θύρα HTTP
+        - `ip[2:2]`: Συνολικό μήκος πακέτου IP
+        - `(ip&0xf)<<2`: Μήκος επικεφαλίδας IP
+        - `(tcp&0xf0)>>2`: Μήκος επικεφαλίδας TCP
+        - `!=0`: Εξαίρεση ωφέλιμων φορτίων μηδενικού μήκους
+- **Απομόνωση ερωτημάτων εγγραφών DNS MX**:
     
     ```Shell
     sudo tcpdump -i wlp4s0 -s0 -vvv 'port 53 and udp and (udp[10] & 0x7f = 15)' -w dns_mx.pcap
     ```
     
-    - **Filter explanation**:
-        - `udp`: DNS query type field at offset 10
-        - `0x7f = 15`: Match MX record type (value 15)
+    - **Επεξήγηση φίλτρου**:
+        - `udp`: Πεδίο τύπου ερωτήματος DNS στο offset 10
+        - `0x7f = 15`: Αντιστοίχιση τύπου εγγραφής MX (τιμή 15)
 
   
 
-## **Capture DNS queries/responses on port 53 (UDP/TCP)**:
+## **Σύλληψη ερωτημάτων/απαντήσεων DNS στη θύρα 53 (UDP/TCP)**:
 
 ```Shell
 sudo timeout 30s tcpdump -i any -s0 -nn 'port 53' -w dns_capture.pca
@@ -112,7 +112,7 @@ sudo timeout 30s tcpdump -i any -s0 -nn 'port 53' -w dns_capture.pca
 
   
 
-# Opening the Captured DNS PCAP File
+# Άνοιγμα του Συλληφθέντος Αρχείου PCAP DNS
 
 ```Python
 tshark -r dns_capture.pcap -Y "dns"
@@ -141,9 +141,9 @@ tshark -r dns_capture.pcap -Y "dns"
 
   
 
-## Second command:
+## Δεύτερη εντολή:
 
-- more info harder to read
+- περισσότερες πληροφορίες, πιο δύσκολη στην ανάγνωση
 
 ```Python
 tcpdump -r dns_capture.pcap -n -vvv -X
@@ -223,7 +223,7 @@ Warning: interface names might be incorrect
 
 ---
 
-Full complete analysis:
+Πλήρης και ολοκληρωμένη ανάλυση:
 
 ```Python
 ┌─[ice@parrot]─[~]
@@ -261,7 +261,7 @@ Full complete analysis:
  
 ```
 
-- the tcpdump analysis was the most complete but most complex to read!
+- η ανάλυση με tcpdump ήταν η πιο πλήρης αλλά και η πιο σύνθετη στην ανάγνωση!
 
   
 
@@ -271,50 +271,50 @@ Full complete analysis:
 
 ---
 
-### **3. Exercise-Specific Commands**
+### **3. Ειδικές Εντολές Ασκήσεων**
 
-### **3.1 SET 1: Web Browsing Traffic Analysis**
+### **3.1 ΣΕΤ 1: Ανάλυση Κίνησης Περιήγησης στο Web**
 
-1. **Capture all HTTP/HTTPS and DNS traffic**:
+1. **Σύλληψη όλης της κίνησης HTTP/HTTPS και DNS**:
     
     ```Shell
     sudo tcpdump -i wlp4s0 -s0 -w browsing.pcap '(tcp port 80 or tcp port 443 or port 53)'
     ```
     
-2. **Extract DNS query/response pairs**:
+2. **Εξαγωγή ζευγών ερωτημάτων/απαντήσεων DNS**:
     
     ```Shell
     tshark -r browsing.pcap -Y 'dns' -T fields -e frame.time -e dns.qry.name -e dns.a
     ```
     
 
-### **3.2 SET 2: nslookup [www.mit.edu](http://www.mit.edu/) Analysis**
+### **3.2 ΣΕΤ 2: Ανάλυση nslookup [www.mit.edu](http://www.mit.edu/)**
 
-1. **Targeted capture during nslookup**:
+1. **Στοχευμένη σύλληψη κατά τη διάρκεια του nslookup**:
     
     ```Shell
     sudo tcpdump -i wlp4s0 -s0 -w mit.pcap 'host www.mit.edu and port 53' &
     nslookup www.mit.edu
     ```
     
-2. **Identify source/dest ports and DNS server**:
+2. **Αναγνώριση θυρών πηγής/προορισμού και διακομιστή DNS**:
     
     ```Shell
     tshark -r mit.pcap -Y 'dns' -T fields -e dns.id -e ip.src -e udp.srcport -e ip.dst -e udp.dstport
     ```
     
 
-### **3.3 SET 3: Advanced DNS Record Analysis**
+### **3.3 ΣΕΤ 3: Προηγμένη Ανάλυση Εγγραφών DNS**
 
-1. **Capture iterative DNS resolution process**:
+1. **Σύλληψη επαναληπτικής διαδικασίας επίλυσης DNS**:
     
     ```Shell
     sudo tcpdump -i wlp4s0 -s0 -w iterative.pcap 'port 53 and (udp[10] & 0x80 = 0)'
     dig +trace example.com
     ```
     
-    - `udp & 0x80 = 0`: Match DNS queries (non-responses)
-2. **Extract authoritative name server responses**:
+    - `udp & 0x80 = 0`: Αντιστοίχιση ερωτημάτων DNS (μη απαντήσεις)
+2. **Εξαγωγή απαντήσεων αυθεντικών διακομιστών ονομάτων (authoritative name servers)**:
     
     ```Shell
     tshark -r iterative.pcap -Y 'dns.flags.response == 1 and dns.flags.auth == 1' -V
@@ -323,21 +323,21 @@ Full complete analysis:
 
 ---
 
-### **4. Post-Capture Analysis Tools**
+### **4. Εργαλεία Ανάλυσης Μετά τη Σύλληψη**
 
-1. **Extract HTTP headers from PCAP**:
+1. **Εξαγωγή επικεφαλίδων HTTP από PCAP**:
     
     ```Shell
     tshark -r capture.pcap -Y 'http' -T json --no-duplicate-keys
     ```
     
-2. **Detect DNS tunneling attempts**:
+2. **Εντοπισμός αποπειρών διοχέτευσης DNS (DNS tunneling)**:
     
     ```Shell
     tshark -r dns.pcap -Y 'dns.qry.name matches ".*[.]exe$|.*[.]zip$"'
     ```
     
-3. **Map DNS query/response timing**:
+3. **Χαρτογράφηση χρονισμού ερωτημάτων/απαντήσεων DNS**:
     
     ```Shell
     tshark -r dns.pcap -Y 'dns' -T fields -e frame.time_delta -e dns.qry.name
@@ -346,22 +346,22 @@ Full complete analysis:
 
 ---
 
-### **5. Wireless Analysis (Bonus)**
+### **5. Ασύρματη Ανάλυση (Bonus)**
 
-### **5.1 Monitor-mode capture with aircrack-ng**
+### **5.1 Σύλληψη σε λειτουργία παρακολούθησης (monitor-mode) με aircrack-ng**
 
 ```Shell
 sudo airmon-ng start wlan0
 sudo airodump-ng wlan0mon --channel 6 --write wireless.pcap
 ```
 
-### **5.2 WPA handshake capture**
+### **5.2 Σύλληψη χειραψίας (handshake) WPA**
 
 ```Shell
 sudo tcpdump -i wlan0mon -s0 -w wpa_handshake.pcap '(ether proto 0x888e)'
 ```
 
-### **5.3 Pre-shared key cracking**
+### **5.3 Σπάσιμο προσυμφωνημένου κλειδιού (Pre-shared key cracking)**
 
 ```Shell
 aircrack-ng -w rockyou.txt -b AA:BB:CC:DD:EE:FF wireless.pcap
@@ -369,22 +369,22 @@ aircrack-ng -w rockyou.txt -b AA:BB:CC:DD:EE:FF wireless.pcap
 
 ---
 
-### **Filter Design Principles**
+### **Αρχές Σχεδιασμού Φίλτρων**
 
-1. **Specificity**: Use BPF syntax to isolate layers (e.g., `udp` for DNS query types).
-2. **Performance**: Limit captures with `c 1000` (packet count) or `G 60` (rotate files every 60s).
-3. **Readability**: Add comments for complex filters:
+1. **Εξειδίκευση**: Χρησιμοποιήστε σύνταξη BPF για την απομόνωση επιπέδων (π.χ. `udp` για τύπους ερωτημάτων DNS).
+2. **Απόδοση**: Περιορίστε τις συλλήψεις με `c 1000` (αριθμός πακέτων) ή `G 60` (εναλλαγή αρχείων κάθε 60s).
+3. **Αναγνωσιμότητα**: Προσθέστε σχόλια για σύνθετα φίλτρα:
     
     ```Shell
     # Capture TCP SYN packets excluding loopback
     sudo tcpdump -i any 'tcp[tcpflags] & (tcp-syn) != 0 and not dst net 127.0.0.0/8'
     ```
     
-4. **Verification**: Validate filters with `d` to dump compiled BPF code:
+4. **Επαλήθευση**: Επαληθεύστε τα φίλτρα με `d` για την εξαγωγή μεταγλωττισμένου κώδικα BPF:
     
     ```Shell
     tcpdump -d 'port 53 and (udp or tcp)'
     ```
     
 
-This CLI-focused approach ensures reproducibility and granular control over network analysis tasks. For GUI-based tools like Wireshark, substitute `tcpdump` captures with `tshark` for similar functionality in automated pipelines.
+Αυτή η προσέγγιση που εστιάζει σε CLI διασφαλίζει την αναπαραγωγιμότητα και τον λεπτομερή έλεγχο στις εργασίες ανάλυσης δικτύου. Για εργαλεία με γραφικό περιβάλλον (GUI) όπως το Wireshark, αντικαταστήστε τις συλλήψεις `tcpdump` με το `tshark` για παρόμοια λειτουργικότητα σε αυτοματοποιημένες ροές.

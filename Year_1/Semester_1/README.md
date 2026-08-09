@@ -1,15 +1,16 @@
-# Semester 1
+# 1ο Εξάμηνο
 
-This directory contains materials for the first semester of the Computer Science program.
+Αυτός ο κατάλογος περιέχει υλικό για το πρώτο εξάμηνο του προγράμματος Πληροφορικής.
 
-## Courses
+## Μαθήματα
 
-This semester covers the following courses:
+Αυτό το εξάμηνο καλύπτει τα ακόλουθα μαθήματα:
 
-*   **C Programming I:** An introduction to the C programming language.
-*   **Electronics:** An introduction to the fundamental concepts of electronics.
-*   **Linear Algebra:** An introduction to linear algebra and its applications.
-*   **Logic Design:** An introduction to the design and analysis of digital logic circuits.
-*   **Mathematical Analysis:** An introduction to the fundamental concepts of mathematical analysis.
+*   **Προγραμματισμός C I:** Εισαγωγή στη γλώσσα προγραμματισμού C.
+*   **Ηλεκτρονική:** Εισαγωγή στις θεμελιώδεις έννοιες της ηλεκτρονικής.
+*   **Γραμμική Άλγεβρα:** Εισαγωγή στη γραμμική άλγεβρα και τις εφαρμογές της.
+*   **Σχεδίαση Λογικής:** Εισαγωγή στη σχεδίαση και ανάλυση ψηφιακών λογικών κυκλωμάτων.
+*   **Μαθηματική Ανάλυση:** Εισαγωγή στις θεμελιώδεις έννοιες της μαθηματικής ανάλυσης.
 
-Each course has its own directory, which contains all the materials for that course. Each course directory also has a `README.md` file that explains the structure of the directory and how to use the materials.
+Κάθε μάθημα έχει τον δικό του κατάλογο, ο οποίος περιέχει όλο το υλικό για το συγκεκριμένο μάθημα. Κάθε κατάλογος μαθήματος διαθέτει επίσης ένα αρχείο `README.md` που εξηγεί τη δομή του καταλόγου και τον τρόπο χρήσης του υλικού.
+

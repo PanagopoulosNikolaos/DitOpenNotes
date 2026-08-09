@@ -1,161 +1,161 @@
-# Networking Exercises - Part 1: Foundation
-## Introduction to Networking Concepts
+# Ασκήσεις Δικτύων - Μέρος 1ο: Θεμελιώδεις Έννοιες
+## Εισαγωγή στις Έννοιες Δικτύωσης
 
-This file contains 20 exercises covering basic networking concepts with progressive difficulty. These exercises will prepare you for more advanced topics in Part 2.
-
----
-
-## Exercise 1: OSI Model Layers
-**Question:** List all 7 layers of the OSI model from Layer 1 to Layer 7, and provide the primary function of each layer.
-
-**Solution:**
-1. **Physical Layer** - Transmits raw bits over physical medium (cables, signals)
-2. **Data Link Layer** - Provides node-to-node data transfer, error detection (MAC addresses)
-3. **Network Layer** - Handles routing and IP addressing
-4. **Transport Layer** - Provides reliable data transfer (TCP/UDP, port numbers)
-5. **Session Layer** - Manages sessions between applications
-6. **Presentation Layer** - Data formatting, encryption, compression
-7. **Application Layer** - Network services to end-user applications (HTTP, FTP, DNS)
+Αυτό το αρχείο περιλαμβάνει 20 ασκήσεις που καλύπτουν βασικές έννοιες δικτύων υπολογιστών με προοδευτικό βαθμό δυσκολίας. Οι ασκήσεις αυτές θα σας προετοιμάσουν για πιο προχωρημένα θέματα στο 2ο Μέρος.
 
 ---
 
-## Exercise 2: IP Address Classification
-**Question:** Identify the class (A, B, C, D, or E) of the following IP addresses:
+## Άσκηση 1: Επίπεδα Μοντέλου OSI
+**Ερώτηση:** Αναφέρετε και τα 7 επίπεδα του μοντέλου OSI από το Επίπεδο 1 έως το Επίπεδο 7, και δώστε την κύρια λειτουργία του κάθε επιπέδου.
+
+**Λύση:**
+1. **Φυσικό Επίπεδο (Physical Layer)** - Μεταδίδει ακατέργαστα bits μέσω φυσικού μέσου (καλώδια, σήματα)
+2. **Επίπεδο Σύνδεσης Δεδομένων (Data Link Layer)** - Παρέχει μεταφορά δεδομένων από κόμβο σε κόμβο και ανίχνευση σφαλμάτων (διευθύνσεις MAC)
+3. **Επίπεδο Δικτύου (Network Layer)** - Διαχειρίζεται τη δρομολόγηση και τη διευθυνσιοδότηση IP
+4. **Επίπεδο Μεταφοράς (Transport Layer)** - Παρέχει αξιόπιστη μεταφορά δεδομένων (TCP/UDP, αριθμοί θυρών)
+5. **Επίπεδο Συνόδου (Session Layer)** - Διαχειρίζεται τις συνόδους (sessions) μεταξύ εφαρμογών
+6. **Επίπεδο Παρουσίασης (Presentation Layer)** - Μορφοποίηση δεδομένων, κρυπτογράφηση, συμπίεση
+7. **Επίπεδο Εφαρμογής (Application Layer)** - Υπηρεσίες δικτύου σε εφαρμογές τελικού χρήστη (HTTP, FTP, DNS)
+
+---
+
+## Άσκηση 2: Κατηγοριοποίηση Διευθύνσεων IP
+**Ερώτηση:** Αναγνωρίστε την κλάση (A, B, C, D ή E) των παρακάτω διευθύνσεων IP:
 - a) 10.25.30.5
 - b) 172.16.50.100
 - c) 192.168.1.1
 - d) 224.0.0.5
 
-**Solution:**
-- a) **Class A** (first octet: 1-126)
-- b) **Class B** (first octet: 128-191)
-- c) **Class C** (first octet: 192-223)
-- d) **Class D** (first octet: 224-239) - Multicast address
+**Λύση:**
+- a) **Κλάση A** (πρώτο οκτάψαφιο: 1-126)
+- b) **Κλάση B** (πρώτο οκτάψαφιο: 128-191)
+- c) **Κλάση C** (πρώτο οκτάψαφιο: 192-223)
+- d) **Κλάση D** (πρώτο οκτάψαφιο: 224-239) - Διεύθυνση Multicast
 
-**Note:** 
-- Class A: 0.0.0.0 to 127.255.255.255
-- Class B: 128.0.0.0 to 191.255.255.255
-- Class C: 192.0.0.0 to 223.255.255.255
-- Class D: 224.0.0.0 to 239.255.255.255 (Multicast)
-- Class E: 240.0.0.0 to 255.255.255.255 (Reserved)
+**Σημείωση:** 
+- Κλάση A: 0.0.0.0 έως 127.255.255.255
+- Κλάση B: 128.0.0.0 έως 191.255.255.255
+- Κλάση C: 192.0.0.0 έως 223.255.255.255
+- Κλάση D: 224.0.0.0 έως 239.255.255.255 (Multicast)
+- Κλάση E: 240.0.0.0 έως 255.255.255.255 (Δεσμευμένη)
 
 ---
 
-## Exercise 3: Binary to Decimal Conversion
-**Question:** Convert the following binary IP address to decimal notation:
+## Άσκηση 3: Μετατροπή από Δυαδικό σε Δεκαδικό
+**Ερώτηση:** Μετατρέψτε την ακόλουθη δυαδική διεύθυνση IP σε δεκαδική μορφή:
 `11000000.10101000.00000001.01100100`
 
-**Solution:**
+**Λύση:**
 - 11000000 = 128 + 64 = **192**
 - 10101000 = 128 + 32 + 8 = **168**
 - 00000001 = 1 = **1**
 - 01100100 = 64 + 32 + 4 = **100**
 
-**Answer:** 192.168.1.100
+**Απάντηση:** 192.168.1.100
 
 ---
 
-## Exercise 4: Subnet Mask Basics
-**Question:** What is the default subnet mask for a Class B network? Express it in both decimal and CIDR notation.
+## Άσκηση 4: Βασικά Στοιχεία Μάσκας Υποδικτύου
+**Ερώτηση:** Ποια είναι η προεπιλεγμένη μάσκα υποδικτύου για ένα δίκτυο Κλάσης B; Εκφράστε την τόσο σε δεκαδική όσο και σε μορφή CIDR.
 
-**Solution:**
-- **Decimal notation:** 255.255.0.0
-- **CIDR notation:** /16
-- **Binary:** 11111111.11111111.00000000.00000000
+**Λύση:**
+- **Δεκαδική μορφή:** 255.255.0.0
+- **Μορφή CIDR:** /16
+- **Δυαδική μορφή:** 11111111.11111111.00000000.00000000
 
-**Explanation:** Class B networks use the first 16 bits for the network portion.
+**Επεξήγηση:** Τα δίκτυα Κλάσης B χρησιμοποιούν τα πρώτα 16 bits για το τμήμα δικτύου (network portion).
 
 ---
 
-## Exercise 5: TCP vs UDP
-**Question:** Fill in the comparison table:
+## Άσκηση 5: Συγκριτική Ανάλυση TCP και UDP
+**Ερώτηση:** Συμπληρώστε τον πίνακα σύγκρισης:
 
-| Feature | TCP | UDP |
+| Χαρακτηριστικό | TCP | UDP |
 |---------|-----|-----|
-| Connection Type | ? | ? |
-| Reliability | ? | ? |
-| Speed | ? | ? |
-| Header Size | ? | ? |
-| Use Cases | ? | ? |
+| Τύπος Σύνδεσης | ? | ? |
+| Αξιοπιστία | ? | ? |
+| Ταχύτητα | ? | ? |
+| Μέγεθος Επικεφαλίδας | ? | ? |
+| Περιπτώσεις Χρήσης | ? | ? |
 
-**Solution:**
+**Λύση:**
 
-| Feature | TCP | UDP |
+| Χαρακτηριστικό | TCP | UDP |
 |---------|-----|-----|
-| Connection Type | Connection-oriented | Connectionless |
-| Reliability | Reliable (acknowledgments) | Unreliable (no acknowledgments) |
-| Speed | Slower | Faster |
-| Header Size | 20 bytes (minimum) | 8 bytes |
-| Use Cases | HTTP, FTP, Email | DNS, Video streaming, VoIP |
+| Τύπος Σύνδεσης | Με σύνδεση (Connection-oriented) | Χωρίς σύνδεση (Connectionless) |
+| Αξιοπιστία | Αξιόπιστο (επιβεβαιώσεις) | Μη αξιόπιστο (χωρίς επιβεβαιώσεις) |
+| Ταχύτητα | Βραδύτερο | Ταχύτερο |
+| Μέγεθος Επικεφαλίδας | 20 bytes (ελάχιστο) | 8 bytes |
+| Περιπτώσεις Χρήσης | HTTP, FTP, Ηλεκτρονικό ταχυδρομείο | DNS, Ροή βίντεο (Video streaming), VoIP |
 
 ---
 
-## Exercise 6: Network vs Host Bits
-**Question:** For the IP address 192.168.10.50/24:
-- a) How many bits are used for the network?
-- b) How many bits are used for hosts?
-- c) What is the subnet mask?
-- d) What is the network address?
+## Άσκηση 6: Bits Δικτύου έναντι Bits Host
+**Ερώτηση:** Για τη διεύθυνση IP 192.168.10.50/24:
+- a) Πόσα bits χρησιμοποιούνται για το δίκτυο;
+- b) Πόσα bits χρησιμοποιούνται για τους hosts;
+- c) Ποια είναι η μάσκα υποδικτύου;
+- d) Ποια είναι η διεύθυνση δικτύου;
 
-**Solution:**
-- a) **24 bits** for network (indicated by /24)
-- b) **8 bits** for hosts (32 - 24 = 8)
-- c) **Subnet mask:** 255.255.255.0
-- d) **Network address:** 192.168.10.0
-
----
-
-## Exercise 7: Broadcast Address
-**Question:** Calculate the broadcast address for the network 192.168.10.0/24.
-
-**Solution:**
-- Network: 192.168.10.0/24
-- Subnet mask: 255.255.255.0
-- Last 8 bits are for hosts
-- Set all host bits to 1: 192.168.10.11111111
-- **Broadcast address:** 192.168.10.255
+**Λύση:**
+- a) **24 bits** για το δίκτυο (υποδεικνύεται από το /24)
+- b) **8 bits** για τους hosts (32 - 24 = 8)
+- c) **Μάσκα υποδικτύου:** 255.255.255.0
+- d) **Διεύθυνση δικτύου:** 192.168.10.0
 
 ---
 
-## Exercise 8: Valid Host Range
-**Question:** For the network 10.20.30.0/24, determine:
-- a) First valid host address
-- b) Last valid host address
-- c) Total number of usable host addresses
+## Άσκηση 7: Διεύθυνση Broadcast
+**Ερώτηση:** Υπολογίστε τη διεύθυνση broadcast για το δίκτυο 192.168.10.0/24.
 
-**Solution:**
-- **Network address:** 10.20.30.0
-- **Broadcast address:** 10.20.30.255
-- a) **First valid host:** 10.20.30.1
-- b) **Last valid host:** 10.20.30.254
-- c) **Total usable hosts:** 2^8 - 2 = 254 hosts
-  - (256 total addresses - network address - broadcast address)
+**Λύση:**
+- Δίκτυο: 192.168.10.0/24
+- Μάσκα υποδικτύου: 255.255.255.0
+- Τα τελευταία 8 bits είναι για τους hosts
+- Θέτουμε όλα τα bits host σε 1: 192.168.10.11111111
+- **Διεύθυνση broadcast:** 192.168.10.255
 
 ---
 
-## Exercise 9: MAC Address Format
-**Question:** Which of the following MAC addresses are valid? Explain why or why not.
+## Άσκηση 8: Έγκυρο Εύρος Διευθύνσεων Host
+**Ερώτηση:** Για το δίκτυο 10.20.30.0/24, προσδιορίστε:
+- a) Την πρώτη έγκυρη διεύθυνση host
+- b) Την τελευταία έγκυρη διεύθυνση host
+- c) Τον συνολικό αριθμό χρησιμοποιήσιμων διευθύνσεων host
+
+**Λύση:**
+- **Διεύθυνση δικτύου:** 10.20.30.0
+- **Διεύθυνση broadcast:** 10.20.30.255
+- a) **Πρώτος έγκυρος host:** 10.20.30.1
+- b) **Τελευταίος έγκυρος host:** 10.20.30.254
+- c) **Συνολικοί χρησιμοποιήσιμοι hosts:** 2^8 - 2 = 254 hosts
+  - (256 συνολικές διευθύνσεις - διεύθυνση δικτύου - διεύθυνση broadcast)
+
+---
+
+## Άσκηση 9: Μορφή Διευθύνσεων MAC
+**Ερώτηση:** Ποιες από τις παρακάτω διευθύνσεις MAC είναι έγκυρες; Εξηγήστε γιατί.
 - a) 00:1A:2B:3C:4D:5E
 - b) 00-1A-2B-3C-4D-5E
 - c) 001A.2B3C.4D5E
 - d) 00:1G:2B:3C:4D:5E
 
-**Solution:**
-- a) **Valid** - Colon-separated hexadecimal format
-- b) **Valid** - Hyphen-separated hexadecimal format
-- c) **Valid** - Cisco notation (dot-separated groups of 4)
-- d) **Invalid** - Contains 'G' which is not a hexadecimal digit (0-9, A-F)
+**Λύση:**
+- a) **Έγκυρη** - Δεκαεξαδική μορφή διαχωρισμένη με άνω-κάτω τελείες
+- b) **Έγκυρη** - Δεκαεξαδική μορφή διαχωρισμένη με παύλες
+- c) **Έγκυρη** - Συμβολισμός Cisco (ομάδες των 4 διαχωρισμένες με τελείες)
+- d) **Μη έγκυρη** - Περιέχει το 'G' που δεν είναι δεκαεξαδικό ψηφίο (0-9, A-F)
 
-**Note:** MAC addresses are 48 bits (6 bytes) in hexadecimal.
+**Σημείωση:** MAC addresses are 48 bits (6 bytes) in hexadecimal.
 
 ---
 
-## Exercise 10: Port Numbers
-**Question:** Match the following well-known port numbers with their services:
-- Ports: 20/21, 22, 23, 25, 53, 80, 443, 110, 143
-- Services: HTTP, HTTPS, FTP, SSH, Telnet, SMTP, DNS, POP3, IMAP
+## Άσκηση 10: Αριθμοί Θυρών (Port Numbers)
+**Ερώτηση:** Αντιστοιχίστε τους παρακάτω γνωστούς αριθμούς θυρών με τις υπηρεσίες τους:
+- Θύρες: 20/21, 22, 23, 25, 53, 80, 443, 110, 143
+- Υπηρεσίες: HTTP, HTTPS, FTP, SSH, Telnet, SMTP, DNS, POP3, IMAP
 
-**Solution:**
+**Λύση:**
 - **20/21** - FTP (File Transfer Protocol)
 - **22** - SSH (Secure Shell)
 - **23** - Telnet
@@ -168,43 +168,43 @@ This file contains 20 exercises covering basic networking concepts with progress
 
 ---
 
-## Exercise 11: Subnetting - Number of Hosts
-**Question:** How many usable host addresses are available in each of the following subnets?
+## Άσκηση 11: Υποδικτύωση - Αριθμός Hosts
+**Ερώτηση:** Πόσες χρησιμοποιήσιμες διευθύνσεις host είναι διαθέσιμες σε καθένα από τα παρακάτω υποδίκτυα;
 - a) /25
 - b) /26
 - c) /27
 - d) /30
 
-**Solution:**
-- a) **/25** → Host bits: 32 - 25 = 7 → 2^7 - 2 = **126 hosts**
-- b) **/26** → Host bits: 32 - 26 = 6 → 2^6 - 2 = **62 hosts**
-- c) **/27** → Host bits: 32 - 27 = 5 → 2^5 - 2 = **30 hosts**
-- d) **/30** → Host bits: 32 - 30 = 2 → 2^2 - 2 = **2 hosts** (point-to-point links)
+**Λύση:**
+- a) **/25** → Bits host: 32 - 25 = 7 → 2^7 - 2 = **126 hosts**
+- b) **/26** → Bits host: 32 - 26 = 6 → 2^6 - 2 = **62 hosts**
+- c) **/27** → Bits host: 32 - 27 = 5 → 2^5 - 2 = **30 hosts**
+- d) **/30** → Bits host: 32 - 30 = 2 → 2^2 - 2 = **2 hosts** (ζεύξεις σημείου-προς-σημείο)
 
-**Formula:** 2^(host bits) - 2
-
----
-
-## Exercise 12: Private IP Ranges
-**Question:** List all three private IP address ranges as defined by RFC 1918.
-
-**Solution:**
-1. **Class A:** 10.0.0.0 to 10.255.255.255 (10.0.0.0/8)
-2. **Class B:** 172.16.0.0 to 172.31.255.255 (172.16.0.0/12)
-3. **Class C:** 192.168.0.0 to 192.168.255.255 (192.168.0.0/16)
-
-**Note:** These addresses are not routable on the public Internet.
+**Τύπος:** 2^(bits host) - 2
 
 ---
 
-## Exercise 13: CIDR Notation Conversion
-**Question:** Convert the following subnet masks to CIDR notation:
+## Άσκηση 12: Ιδιωτικά Εύρη Διευθύνσεων IP
+**Ερώτηση:** Αναφέρετε και τα τρία ιδιωτικά εύρη διευθύνσεων IP όπως ορίζονται από το RFC 1918.
+
+**Λύση:**
+1. **Κλάση A:** 10.0.0.0 έως 10.255.255.255 (10.0.0.0/8)
+2. **Κλάση B:** 172.16.0.0 έως 172.31.255.255 (172.16.0.0/12)
+3. **Κλάση C:** 192.168.0.0 έως 192.168.255.255 (192.168.0.0/16)
+
+**Σημείωση:** These addresses are not routable on the public Internet.
+
+---
+
+## Άσκηση 13: Μετατροπή σε Μορφή CIDR
+**Ερώτηση:** Μετατρέψτε τις παρακάτω μάσκες υποδικτύου σε μορφή CIDR:
 - a) 255.255.255.0
 - b) 255.255.255.128
 - c) 255.255.240.0
 - d) 255.255.255.252
 
-**Solution:**
+**Λύση:**
 - a) 255.255.255.0 = 11111111.11111111.11111111.00000000 = **/24**
 - b) 255.255.255.128 = 11111111.11111111.11111111.10000000 = **/25**
 - c) 255.255.240.0 = 11111111.11111111.11110000.00000000 = **/20**
@@ -212,183 +212,183 @@ This file contains 20 exercises covering basic networking concepts with progress
 
 ---
 
-## Exercise 14: Basic Subnetting Problem
-**Question:** You have the network 192.168.1.0/24. Divide it into 4 equal subnets. For each subnet, provide:
-- Subnet address
-- Subnet mask
-- First usable host
-- Last usable host
-- Broadcast address
+## Άσκηση 14: Βασικό Πρόβλημα Υποδικτύωσης
+**Ερώτηση:** Διαθέτετε το δίκτυο 192.168.1.0/24. Χωρίστε το σε 4 ίσα υποδίκτυα. Για κάθε υποδίκτυο, δώστε:
+- Διεύθυνση υποδικτύου
+- Μάσκα υποδικτύου
+- Πρώτο χρησιμοποιήσιμο host
+- Τελευταίο χρησιμοποιήσιμο host
+- Διεύθυνση broadcast
 
-**Solution:**
-To create 4 subnets, we need 2 additional bits (2^2 = 4).
-New subnet mask: /26 (255.255.255.192)
-Each subnet has 64 addresses (2^6).
+**Λύση:**
+Για να δημιουργήσουμε 4 υποδίκτυα, χρειαζόμαστε 2 επιπλέον bits (2^2 = 4).
+Νέα μάσκα υποδικτύου: /26 (255.255.255.192)
+Κάθε υποδίκτυο διαθέτει 64 διευθύνσεις (2^6).
 
-**Subnet 1:**
-- Subnet: 192.168.1.0/26
-- Mask: 255.255.255.192
-- First host: 192.168.1.1
-- Last host: 192.168.1.62
+**Υποδίκτυο 1:**
+- Υποδίκτυο: 192.168.1.0/26
+- Μάσκα: 255.255.255.192
+- Πρώτος host: 192.168.1.1
+- Τελευταίος host: 192.168.1.62
 - Broadcast: 192.168.1.63
 
-**Subnet 2:**
-- Subnet: 192.168.1.64/26
-- Mask: 255.255.255.192
-- First host: 192.168.1.65
-- Last host: 192.168.1.126
+**Υποδίκτυο 2:**
+- Υποδίκτυο: 192.168.1.64/26
+- Μάσκα: 255.255.255.192
+- Πρώτος host: 192.168.1.65
+- Τελευταίος host: 192.168.1.126
 - Broadcast: 192.168.1.127
 
-**Subnet 3:**
-- Subnet: 192.168.1.128/26
-- Mask: 255.255.255.192
-- First host: 192.168.1.129
-- Last host: 192.168.1.190
+**Υποδίκτυο 3:**
+- Υποδίκτυο: 192.168.1.128/26
+- Μάσκα: 255.255.255.192
+- Πρώτος host: 192.168.1.129
+- Τελευταίος host: 192.168.1.190
 - Broadcast: 192.168.1.191
 
-**Subnet 4:**
-- Subnet: 192.168.1.192/26
-- Mask: 255.255.255.192
-- First host: 192.168.1.193
-- Last host: 192.168.1.254
+**Υποδίκτυο 4:**
+- Υποδίκτυο: 192.168.1.192/26
+- Μάσκα: 255.255.255.192
+- Πρώτος host: 192.168.1.193
+- Τελευταίος host: 192.168.1.254
 - Broadcast: 192.168.1.255
 
 ---
 
-## Exercise 15: Three-Way Handshake
-**Question:** Describe the TCP three-way handshake process. What flags are set in each step?
+## Άσκηση 15: Χειραψία Τριών Βημάτων (Three-Way Handshake)
+**Ερώτηση:** Περιγράψτε τη διαδικασία χειραψίας τριών βημάτων (three-way handshake) του TCP. Ποιες σημαίες (flags) είναι ενεργοποιημένες σε κάθε βήμα;
 
-**Solution:**
-The TCP three-way handshake establishes a connection between client and server:
+**Λύση:**
+Η χειραψία τριών βημάτων του TCP εγκαθιδρύει μια σύνδεση μεταξύ client και server:
 
-**Step 1: SYN**
+**Βήμα 1: SYN**
 - Client → Server
-- Flags: SYN = 1
-- Client sends SYN packet with initial sequence number (ISN)
+- Σημαίες: SYN = 1
+- Ο client στέλνει πακέτο SYN με αρχικό αριθμό ακολουθίας (ISN)
 
-**Step 2: SYN-ACK**
+**Βήμα 2: SYN-ACK**
 - Server → Client
-- Flags: SYN = 1, ACK = 1
-- Server acknowledges client's SYN and sends its own SYN with its ISN
-- ACK number = Client's ISN + 1
+- Σημαίες: SYN = 1, ACK = 1
+- Ο server επιβεβαιώνει το SYN του client και στέλνει το δικό του SYN με το δικό του ISN
+- Αριθμός ACK = ISN του client + 1
 
-**Step 3: ACK**
+**Βήμα 3: ACK**
 - Client → Server
-- Flags: ACK = 1
-- Client acknowledges server's SYN
-- ACK number = Server's ISN + 1
+- Σημαίες: ACK = 1
+- Ο client επιβεβαιώνει το SYN του server
+- Αριθμός ACK = ISN του server + 1
 
-After these three steps, the connection is established and data transfer can begin.
-
----
-
-## Exercise 16: IPv4 Header Fields
-**Question:** List and briefly explain 5 important fields in the IPv4 header.
-
-**Solution:**
-1. **Version (4 bits):** Indicates IP version (IPv4 = 4)
-2. **Header Length (4 bits):** Length of header in 32-bit words
-3. **Total Length (16 bits):** Total length of IP packet (header + data)
-4. **Time to Live - TTL (8 bits):** Prevents packets from looping indefinitely; decremented by each router
-5. **Protocol (8 bits):** Identifies next-level protocol (6 = TCP, 17 = UDP, 1 = ICMP)
-6. **Source IP Address (32 bits):** IP address of sender
-7. **Destination IP Address (32 bits):** IP address of recipient
+Μετά από αυτά τα τρία βήματα, η σύνδεση εγκαθιδρύεται και η μεταφορά δεδομένων μπορεί να ξεκινήσει.
 
 ---
 
-## Exercise 17: Calculate Subnet Mask
-**Question:** A network administrator needs to create subnets for 50 hosts each. What is the appropriate subnet mask for a Class C network (starting with 192.168.1.0)?
+## Άσκηση 16: Πεδία Επικεφαλίδας IPv4
+**Ερώτηση:** Αναφέρετε και εξηγήστε εν συντομία 5 σημαντικά πεδία στην επικεφαλίδα IPv4.
 
-**Solution:**
-- Need 50 usable hosts per subnet
-- Formula: 2^n - 2 ≥ 50
-- 2^6 - 2 = 62 hosts  (2^5 - 2 = 30 is too few)
-- Need 6 bits for hosts
-- Network bits: 32 - 6 = 26 bits
-
-**Answer:**
-- **CIDR notation:** /26
-- **Subnet mask:** 255.255.255.192
-- **Number of subnets possible:** 4 (from original /24)
-- **Usable hosts per subnet:** 62
+**Λύση:**
+1. **Έκδοση (Version - 4 bits):** Υποδεικνύει την έκδοση IP (IPv4 = 4)
+2. **Μήκος Επικεφαλίδας (Header Length - 4 bits):** Μήκος επικεφαλίδας σε λέξεις των 32-bit
+3. **Συνολικό Μήκος (Total Length - 16 bits):** Συνολικό μήκος του πακέτου IP (επικεφαλίδα + δεδομένα)
+4. **Χρόνος Ζωής - TTL (8 bits):** Αποτρέπει τα πακέτα από το να ανακυκλώνονται επ' άπειρον· μειώνεται από κάθε δρομολογητή
+5. **Πρωτόκολλο (Protocol - 8 bits):** Αναγνωρίζει το πρωτόκολλο επόμενου επιπέδου (6 = TCP, 17 = UDP, 1 = ICMP)
+6. **Διεύθυνση IP Πηγής (Source IP Address - 32 bits):** Η διεύθυνση IP του αποστολέα
+7. **Διεύθυνση IP Προορισμού (Destination IP Address - 32 bits):** Η διεύθυνση IP του παραλήπτη
 
 ---
 
-## Exercise 18: Loopback and Special Addresses
-**Question:** Explain the purpose of the following special IP addresses:
+## Άσκηση 17: Υπολογισμός Μάσκας Υποδικτύου
+**Ερώτηση:** Ένας διαχειριστής δικτύου πρέπει να δημιουργήσει υποδίκτυα για 50 hosts το καθένα. Ποια είναι η κατάλληλη μάσκα υποδικτύου για ένα δίκτυο Κλάσης C (που ξεκινά με 192.168.1.0);
+
+**Λύση:**
+- Απαιτούνται 50 χρησιμοποιήσιμοι hosts ανά υποδίκτυο
+- Τύπος: 2^n - 2 ≥ 50
+- 2^6 - 2 = 62 hosts  (2^5 - 2 = 30 είναι πολύ λίγο)
+- Απαιτούνται 6 bits για τους hosts
+- Bits δικτύου: 32 - 6 = 26 bits
+
+**Απάντηση:**
+- **Μορφή CIDR:** /26
+- **Μάσκα υποδικτύου:** 255.255.255.192
+- **Αριθμός δυνατών υποδικτύων:** 4 (από το αρχικό /24)
+- **Χρησιμοποιήσιμοι hosts ανά υποδίκτυο:** 62
+
+---
+
+## Άσκηση 18: Διευθύνσεις Loopback και Ειδικές Διευθύνσεις
+**Ερώτηση:** Εξηγήστε τον σκοπό των παρακάτω ειδικών διευθύνσεων IP:
 - a) 127.0.0.1
 - b) 0.0.0.0
 - c) 255.255.255.255
 - d) 169.254.x.x
 
-**Solution:**
-- a) **127.0.0.1** - Loopback address (localhost), used to test TCP/IP stack on local machine
-- b) **0.0.0.0** - Represents "any address" or unknown address; used by hosts during DHCP discovery
-- c) **255.255.255.255** - Limited broadcast address; packet sent to all devices on local network
-- d) **169.254.x.x** - APIPA (Automatic Private IP Addressing); self-assigned when DHCP fails
+**Λύση:**
+- a) **127.0.0.1** - Διεύθυνση Loopback (localhost), χρησιμοποιείται για τον έλεγχο της στοίβας TCP/IP τοπικά
+- b) **0.0.0.0** - Αντιπροσωπεύει "οποιαδήποτε διεύθυνση" ή άγνωστη διεύθυνση· χρησιμοποιείται από hosts κατά την ανακάλυψη DHCP
+- c) **255.255.255.255** - Περιορισμένη διεύθυνση broadcast· το πακέτο αποστέλλεται σε όλες τις συσκευές του τοπικού δικτύου
+- d) **169.254.x.x** - APIPA (Automatic Private IP Addressing)· αυτόματα εκχωρούμενη όταν η υπηρεσία DHCP αποτυγχάνει
 
 ---
 
-## Exercise 19: Maximum Transmission Unit (MTU)
-**Question:** 
-- a) What is the standard MTU for Ethernet?
-- b) A packet of 2000 bytes needs to be transmitted over Ethernet. How many fragments will be created? (Assume 20-byte IP header)
+## Άσκηση 19: Μέγιστη Μονάδα Μετάδοσης (MTU)
+**Ερώτηση:** 
+- a) Ποια είναι η τυπική τιμή MTU για το Ethernet;
+- b) Ένα πακέτο 2000 bytes πρέπει να μεταδοθεί μέσω Ethernet. Πόσα τμήματα (fragments) θα δημιουργηθούν; (Υποθέστε επικεφαλίδα IP 20 bytes)
 
-**Solution:**
-- a) **Standard Ethernet MTU:** 1500 bytes
+**Λύση:**
+- a) **Τυπικό Ethernet MTU:** 1500 bytes
 
-- b) **Fragmentation calculation:**
-  - Total packet size: 2000 bytes
-  - Available payload per fragment: 1500 - 20 (IP header) = 1480 bytes
-  - First fragment: 1480 bytes of data + 20 byte header = 1500 bytes
-  - Second fragment: 520 bytes of data + 20 byte header = 540 bytes
-  - **Answer: 2 fragments**
+- b) **Υπολογισμός κατάτμησης:**
+  - Συνολικό μέγεθος πακέτου: 2000 bytes
+  - Διαθέσιμο ωφέλιμο φορτίο ανά τμήμα: 1500 - 20 (επικεφαλίδα IP) = 1480 bytes
+  - Πρώτο τμήμα: 1480 bytes δεδομένων + επικεφαλίδα 20 bytes = 1500 bytes
+  - Δεύτερο τμήμα: 520 bytes δεδομένων + επικεφαλίδα 20 bytes = 540 bytes
+  - **Απάντηση: 2 τμήματα (fragments)**
 
 ---
 
-## Exercise 20: ARP (Address Resolution Protocol)
-**Question:** 
-- a) What is the purpose of ARP?
-- b) Host A (IP: 192.168.1.10, MAC: AA:AA:AA:AA:AA:AA) wants to communicate with Host B (IP: 192.168.1.20). Host A doesn't know Host B's MAC address. Describe the ARP process.
+## Άσκηση 20: ARP (Address Resolution Protocol)
+**Ερώτηση:** 
+- a) Ποιος είναι ο σκοπός του ARP;
+- b) Ο Host A (IP: 192.168.1.10, MAC: AA:AA:AA:AA:AA:AA) θέλει να επικοινωνήσει με τον Host B (IP: 192.168.1.20). Ο Host A δεν γνωρίζει τη διεύθυνση MAC του Host B. Περιγράψτε τη διαδικασία ARP.
 
-**Solution:**
-- a) **Purpose of ARP:** Maps IP addresses (Layer 3) to MAC addresses (Layer 2) on a local network.
+**Λύση:**
+- a) **Σκοπός του ARP:** Αντιστοιχίζει διευθύνσεις IP (Επίπεδο 3) σε διευθύνσεις MAC (Επίπεδο 2) σε ένα τοπικό δίκτυο.
 
-- b) **ARP Process:**
+- b) **Διαδικασία ARP:**
 
-**Step 1: ARP Request (Broadcast)**
+**Βήμα 1: Αίτημα ARP - ARP Request (Broadcast)**
 - Source IP: 192.168.1.10
 - Source MAC: AA:AA:AA:AA:AA:AA
 - Target IP: 192.168.1.20
 - Target MAC: FF:FF:FF:FF:FF:FF (broadcast)
-- Message: "Who has IP 192.168.1.20? Tell 192.168.1.10"
-- Sent to all devices on the local network
+- Μήνυμα: "Who has IP 192.168.1.20? Tell 192.168.1.10"
+- Αποστέλλεται σε όλες τις συσκευές του τοπικού δικτύου
 
-**Step 2: ARP Reply (Unicast)**
-- Host B responds directly to Host A
+**Βήμα 2: Απάντηση ARP - ARP Reply (Unicast)**
+- Ο Host B απαντά απευθείας στον Host A
 - Source IP: 192.168.1.20
-- Source MAC: BB:BB:BB:BB:BB:BB (Host B's MAC)
+- MAC Πηγής: BB:BB:BB:BB:BB:BB (MAC του Host B)
 - Target IP: 192.168.1.10
 - Target MAC: AA:AA:AA:AA:AA:AA
-- Message: "192.168.1.20 is at BB:BB:BB:BB:BB:BB"
+- Μήνυμα: "192.168.1.20 is at BB:BB:BB:BB:BB:BB"
 
-**Step 3: Cache Update**
-- Host A stores the mapping in its ARP cache
-- Future communications don't require ARP requests until cache expires
+**Βήμα 3: Ενημέρωση Κρυφής Μνήμης (Cache Update)**
+- Ο Host A αποθηκεύει την αντιστοίχιση στην κρυφή μνήμη (ARP cache) του
+- Οι μελλοντικές επικοινωνίες δεν απαιτούν αιτήματα ARP έως ότου λήξει η κρυφή μνήμη
 
 ---
 
-## Summary
-You've completed Part 1! You should now understand:
-- OSI Model layers
-- IP addressing and classification
-- Binary/decimal conversions
-- Subnet masks and CIDR notation
-- Basic subnetting
-- TCP vs UDP
-- Port numbers
-- MAC addresses
-- Special IP addresses
-- ARP protocol
+## Σύνοψη
+Ολοκληρώσατε το 1ο Μέρος! Τώρα θα πρέπει να έχετε κατανοήσει:
+- Τα επίπεδα του μοντέλου OSI
+- Τη διευθυνσιοδότηση IP και την κατηγοριοποίησή της
+- Τις μετατροπές μεταξύ δυαδικού και δεκαδικού συστήματος
+- Τις μάσκες υποδικτύου και τη μορφή CIDR
+- Την βασική υποδικτύωση
+- Τις διαφορές μεταξύ TCP και UDP
+- Τους αριθμούς θυρών (port numbers)
+- Τις διευθύνσεις MAC
+- Τις ειδικές διευθύνσεις IP
+- Το πρωτόκολλο ARP
 
-**Next:** Proceed to Part 2 for advanced topics including IP tables, fragmentation, windowing, and complex routing scenarios.
+**Συνέχεια:** Προχωρήστε στο 2ο Μέρος για προχωρημένα θέματα, συμπεριλαμβανομένων των πινάκων IP, της κατάτμησης, των παραθύρων ροής και σύνθετων σεναρίων δρομολόγησης.

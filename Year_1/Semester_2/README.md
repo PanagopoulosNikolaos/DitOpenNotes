@@ -1,15 +1,16 @@
-# Semester 2
+# 2ο Εξάμηνο
 
-This directory contains materials for the second semester of the Computer Science program.
+Αυτός ο κατάλογος περιέχει υλικό για το δεύτερο εξάμηνο του προγράμματος Πληροφορικής.
 
-## Courses
+## Μαθήματα
 
-This semester covers the following courses:
+Αυτό το εξάμηνο καλύπτει τα ακόλουθα μαθήματα:
 
-*   **C Programming II:** An introduction to advanced topics in C programming.
-*   **Digital Electronics:** An introduction to the fundamental concepts of digital electronics.
-*   **Discrete Mathematics:** An introduction to discrete mathematics and its applications in computer science.
-*   **Electromagnetics:** An introduction to the fundamental concepts of electromagnetism.
-*   **Networking:** An introduction to computer networks and communication.
+*   **Προγραμματισμός C II:** Εισαγωγή σε προχωρημένα θέματα του προγραμματισμού C.
+*   **Ψηφιακά Ηλεκτρονικά:** Εισαγωγή στις θεμελιώδεις έννοιες των ψηφιακών ηλεκτρονικών.
+*   **Διακριτά Μαθηματικά:** Εισαγωγή στα διακριτά μαθηματικά και τις εφαρμογές τους στην πληροφορική.
+*   **Ηλεκτρομαγνητισμός:** Εισαγωγή στις θεμελιώδεις έννοιες του ηλεκτρομαγνητισμού.
+*   **Δίκτυα Υπολογιστών:** Εισαγωγή στα δίκτυα υπολογιστών και την επικοινωνία.
 
-Each course has its own directory, which contains all the materials for that course. Each course directory also has a `README.md` file that explains the structure of the directory and how to use the materials.
+Κάθε μάθημα έχει τον δικό του κατάλογο, ο οποίος περιέχει όλο το υλικό για το συγκεκριμένο μάθημα. Κάθε κατάλογος μαθήματος διαθέτει επίσης ένα αρχείο `README.md` που εξηγεί τη δομή του καταλόγου και τον τρόπο χρήσης του υλικού.
+

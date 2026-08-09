@@ -1,30 +1,30 @@
-# Networking
+# Δίκτυα Υπολογιστών
 
-## Course Overview
-This course introduces fundamental concepts of computer networking, including network protocols, architectures, and communication principles.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα εισάγει τις θεμελιώδεις έννοιες των δικτύων υπολογιστών, συμπεριλαμβανομένων των πρωτοκόλλων δικτύου, των αρχιτεκτονικών και των αρχών επικοινωνίας.
 
-## Course Code
+## Κωδικός Μαθήματος
 202 (NETWORKING)
 
-## Prerequisites
-None
+## Προαπαιτούμενα
+Κανένα
 
-## Topics Covered
-- Network architectures and models (OSI, TCP/IP)
-- Physical layer concepts
-- Data link layer protocols
-- Network layer and routing
-- Transport layer protocols (TCP, UDP)
-- Application layer protocols
-- Network security basics
-- Wireless and mobile networks
-- Network management
+## Θέματα που Καλύπτονται
+- Αρχιτεκτονικές και μοντέλα δικτύων (OSI, TCP/IP)
+- Έννοιες φυσικού επιπέδου
+- Πρωτόκολλα επιπέδου σύνδεσης δεδομένων
+- Επίπεδο δικτύου και δρομολόγηση
+- Πρωτόκολλα επιπέδου μεταφοράς (TCP, UDP)
+- Πρωτόκολλα επιπέδου εφαρμογής
+- Βασικές αρχές ασφάλειας δικτύων
+- Ασύρματα και κινητά δίκτυα
+- Διαχείριση δικτύων
 
-## Learning Objectives
-- Understand network architectures and protocols
-- Implement basic network communication
-- Configure network devices
-- Analyze network performance
-- Apply network security principles
-- Design simple network topologies
+## Μαθησιακοί Στόχοι
+- Κατανόηση αρχιτεκτονικών και πρωτοκόλλων δικτύου
+- Υλοποίηση βασικής επικοινωνίας δικτύου
+- Διαμόρφωση συσκευών δικτύου
+- Ανάλυση απόδοσης δικτύου
+- Εφαρμογή αρχών ασφάλειας δικτύων
+- Σχεδιασμός απλών τοπολογιών δικτύου
 

@@ -1,14 +1,14 @@
   
 
-# Part 1: Working with ARP Tables
+# Μέρος 1: Εργασία με Πίνακες ARP
 
-The Address Resolution Protocol (ARP) table maps IP addresses to MAC addresses on your local network. Here's how to view it:
+Ο πίνακας του Πρωτοκόλλου Επίλυσης Διευθύνσεων (ARP) αντιστοιχίζει διευθύνσεις IP σε διευθύνσεις MAC στο τοπικό σας δίκτυο. Δείτε πώς μπορείτε να τον προβάλετε:
 
 ```JavaScript
 arp -a # or arp
 ```
 
-Example output showing IP addresses and their corresponding MAC addresses:
+Παράδειγμα εξόδου που εμφανίζει διευθύνσεις IP και τις αντίστοιχες διευθύνσεις MAC:
 
 ```Shell
 ┌─[]─[root@parrot]─[/home/ice]
@@ -22,42 +22,42 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 ? (172.21.0.1) at 32:eb:45:fc:5a:34 [ether] on wlp4s0
 ```
 
-# Lab Exercise: Packet Capture with tcpdump
+# Εργαστηριακή Άσκηση: Σύλληψη Πακέτων με tcpdump
 
   
 
-### 1. Capturing HTTP/HTTPS Traffic
+### 1. Σύλληψη Κίνησης HTTP/HTTPS
 
-This command captures packets for 23 seconds on interface wlp4s0:
+Αυτή η εντολή συλλαμβάνει πακέτα για 23 δευτερόλεπτα στη διεπαφή wlp4s0:
 
 ```JavaScript
 timeout 23s tcpdump -i wlp4s0 -s 0 -w capture.pcap 'tcp port 80 or tcp port 443'
 ```
 
-Flags explained:
+Επεξήγηση σημαιών:
 
-- timeout 23s: Limits capture duration to 23 seconds
-- -i wlp4s0: Specifies the network interface
-- -s 0: Captures entire packets
-- -w capture.pcap: Saves output to a file
-- 'tcp port 80 or tcp port 443': Filters for HTTP/HTTPS traffic
+- timeout 23s: Περιορίζει τη διάρκεια σύλληψης σε 23 δευτερόλεπτα
+- -i wlp4s0: Καθορίζει τη διεπαφή δικτύου
+- -s 0: Συλλαμβάνει ολόκληρα τα πακέτα
+- -w capture.pcap: Αποθηκεύει την έξοδο σε ένα αρχείο
+- 'tcp port 80 or tcp port 443': Φιλτράρει για κίνηση HTTP/HTTPS
 
-### 2. Analyzing HTTP GET Requests
+### 2. Ανάλυση Αιτημάτων HTTP GET
 
 ```JavaScript
 tcpdump -r capture.pcap -n -A | grep -B3 -A10 "GET"
 ```
 
-Flags explained:
+Επεξήγηση σημαιών:
 
-- -r: Reads from capture file
-- -n: Displays IP addresses (no DNS resolution)
-- -A: Shows packet content in ASCII
-- `**| grep -B3 -A10 "GET / HTTP"**`: Pipes the output to grep, which searches for "GET / HTTP" and shows 3 lines before and 10 lines after each match
+- -r: Διαβάζει από το αρχείο σύλληψης
+- -n: Εμφανίζει διευθύνσεις IP (χωρίς ανάλυση DNS)
+- -A: Εμφανίζει το περιεχόμενο του πακέτου σε μορφή ASCII
+- `**| grep -B3 -A10 "GET / HTTP"**`: Διοχετεύει την έξοδο στη grep, η οποία αναζητά το "GET / HTTP" και εμφανίζει 3 γραμμές πριν και 10 γραμμές μετά από κάθε αντιστοίχιση
 
   
 
-Sample output showing captured HTTP requests:
+Δείγμα εξόδου που εμφανίζει συλληφθέντα αιτήματα HTTP:
 
 ```Shell
 reading from file capture.pcap, link-type EN10MB (Ethernet), snapshot length 262144
@@ -93,29 +93,29 @@ Accept-Language: en-US,en;q=0.8
 Accept-Encoding: gzip, deflate
 ```
 
-### 3. Detailed Packet Analysis
+### 3. Λεπτομερής Ανάλυση Πακέτων
 
-For more detailed analysis, we can use:
+Για πιο λεπτομερή ανάλυση, μπορούμε να χρησιμοποιήσουμε:
 
 ```Shell
 sudo timeout 10s tcpdump -i any -s 0 -w capture.pcap -vvv -X 'tcp port 80 and tcp[((tcp[12:1] & 0xf0) >> 2):4] != 0'
 ```
 
-This modified command does the following:
+Αυτή η τροποποιημένη εντολή κάνει τα εξής:
 
-1. Uses `**timeout 10s**` to run tcpdump for 10 seconds
-2. Captures on all interfaces (`**i any**`)
-3. Captures full packet size (`**s 0**`)
-4. Writes to a file named capture.pcap (`**w capture.pcap**`)
-5. Uses very verbose output (`**vvv**`)
-6. Shows packet contents in hex and ASCII (`**X**`)
-7. Uses a simplified filter expression that achieves the same goal:
-    - Captures TCP traffic on port 80
-    - Only captures packets with data payload (not just TCP handshakes)
+1. Χρησιμοποιεί το `**timeout 10s**` για την εκτέλεση της tcpdump για 10 δευτερόλεπτα
+2. Συλλαμβάνει σε όλες τις διεπαφές (`**i any**`)
+3. Συλλαμβάνει πλήρες μέγεθος πακέτου (`**s 0**`)
+4. Γράφει σε ένα αρχείο με όνομα capture.pcap (`**w capture.pcap**`)
+5. Χρησιμοποιεί πολύ αναλυτική έξοδο (`**vvv**`)
+6. Εμφανίζει τα περιεχόμενα των πακέτων σε δεκαεξαδική μορφή (hex) και ASCII (`**X**`)
+7. Χρησιμοποιεί μια απλοποιημένη έκφραση φίλτρου που επιτυγχάνει τον ίδιο στόχο:
+    - Συλλαμβάνει κίνηση TCP στη θύρα 80
+    - Συλλαμβάνει μόνο πακέτα με ωφέλιμο φορτίο δεδομένων (όχι απλώς TCP handshakes)
 
-The simplified filter `**tcp[((tcp[12:1] & 0xf0) >> 2):4] != 0**` checks if there's data in the TCP payload
+Το απλοποιημένο φίλτρο `**tcp[((tcp[12:1] & 0xf0) >> 2):4] != 0**` ελέγχει αν υπάρχουν δεδομένα στο ωφέλιμο φορτίο TCP
 
-Example output:
+Δείγμα εξόδου:
 
 ```Shell
 tcpdump: data link type LINUX_SLL2
@@ -125,21 +125,21 @@ tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot leng
 0 packets dropped by kernel
 ```
 
-Note: LINUX_SLL2 doesn't include Ethernet frame information.
+Σημείωση: Το LINUX_SLL2 δεν περιλαμβάνει πληροφορίες πλαισίου Ethernet.
 
-To read the detailed capture:
+Για την ανάγνωση της λεπτομερούς σύλληψης:
 
 ```Shell
 tcpdump -r capture.pcap -n -vvv -X
 ```
 
-This will read the capture file and display:
+Αυτό θα διαβάσει το αρχείο σύλληψης και θα εμφανίσει:
 
-1. Source and destination MAC addresses (part of the verbose output)
-2. Protocol information (HTTP in this case)
-3. Full contents of the HTTP GET requests
+1. Διευθύνσεις MAC πηγής και προορισμού (μέρος της αναλυτικής εξόδου)
+2. Πληροφορίες πρωτοκόλλου (HTTP σε αυτή την περίπτωση)
+3. Πλήρη περιεχόμενα των αιτημάτων HTTP GET
 
-Sample detailed output showing packet contents and headers:
+Δείγμα αναλυτικής εξόδου που εμφανίζει περιεχόμενα πακέτων και επικεφαλίδες:
 
 ```Shell
 reading from file capture.pcap, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144

@@ -1,29 +1,29 @@
-# Electromagnetics
+# Ηλεκτρομαγνητισμός
 
-## Course Overview
-This course covers the fundamental principles of electromagnetic fields and waves, including Maxwell's equations and their applications in engineering.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα καλύπτει τις θεμελιώδεις αρχές των ηλεκτρομαγνητικών πεδίων και κυμάτων, συμπεριλαμβανομένων των εξισώσεων του Maxwell και των εφαρμογών τους στη μηχανική.
 
-## Course Code
+## Κωδικός Μαθήματος
 201 (ΑΡΧΕΣ ΗΛΕΚΤΡΟΜΑΓΝΗΤΙΣΜΟΥ & ΤΗΛΕΠΙΚΟΙΝΩΝΙΩΝ)
 
-## Prerequisites
-- Mathematical Analysis (MAT 101)
-- Physics I
+## Προαπαιτούμενα
+- Μαθηματική Ανάλυση (MAT 101)
+- Φυσική Ι
 
-## Topics Covered
-- Vector analysis
-- Electric field and potential
-- Magnetic field and vector potential
-- Maxwell's equations
-- Electromagnetic wave propagation
-- Transmission lines
-- Waveguides
-- Antenna fundamentals
-- Electromagnetic interference
+## Θεματικές Ενότητες
+- Διανυσματική ανάλυση
+- Ηλεκτρικό πεδίο και δυναμικό
+- Μαγνητικό πεδίο και διανυσματικό δυναμικό
+- Εξισώσεις Maxwell
+- Διάδοση ηλεκτρομαγνητικών κυμάτων
+- Γραμμές μεταφοράς
+- Κυματοδηγοί
+- Βασικές αρχές κεραίων
+- Ηλεκτρομαγνητική παρεμβολή
 
-## Learning Objectives
-- Understand electromagnetic field theory
-- Apply Maxwell's equations to solve electromagnetic problems
-- Analyze transmission lines and waveguides
-- Understand electromagnetic wave propagation
-- Apply electromagnetic principles to engineering problems
+## Μαθησιακοί Στόχοι
+- Κατανόηση της θεωρίας ηλεκτρομαγνητικού πεδίου
+- Εφαρμογή των εξισώσεων Maxwell για την επίλυση ηλεκτρομαγνητικών προβλημάτων
+- Ανάλυση γραμμών μεταφοράς και κυματοδηγών
+- Κατανόηση της διάδοσης ηλεκτρομαγνητικών κυμάτων
+- Εφαρμογή των ηλεκτρομαγνητικών αρχών σε προβλήματα μηχανικής
