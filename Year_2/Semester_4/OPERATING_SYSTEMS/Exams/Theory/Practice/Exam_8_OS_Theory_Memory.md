@@ -1,25 +1,25 @@
-# Exam 8: OS Theory - Memory Management
+# Θέμα 8: Θεωρία ΛΣ - Διαχείριση Μνήμης
 
 ***
 
-## Questions
+## Ερωτήσεις
 
-**Question 1: Paging and Logical Addresses**
-A computer system uses 16-bit logical addresses and pagination (paging) to support virtual memory. The size of each page is 1024 bytes.
-- (i) Explain how many bits will be used to specify the offset within the page.
-- (ii) How many entries must the page table have to support the maximum number of pages for this address space?
+**Ερώτηση 1: Σελιδοποίηση και Λογικές Διευθύνσεις (Paging and Logical Addresses)**
+Ένα υπολογιστικό σύστημα χρησιμοποιεί λογικές διευθύνσεις 16 bit και σελιδοποίηση (paging) για την υποστήριξη ιδεατής μνήμης. Το μέγεθος κάθε σελίδας είναι 1024 bytes.
+- (i) Εξηγήστε πόσα bits θα χρησιμοποιηθούν για τον καθορισμό της μετατόπισης (offset) εντός της σελίδας.
+- (ii) Πόσες εγγραφές πρέπει να έχει ο πίνακας σελίδων (page table) ώστε να υποστηρίζει τον μέγιστο αριθμό σελίδων για αυτόν τον χώρο διευθύνσεων;
 
-**Question 2: Fragmentation**
-Differentiate between Internal Fragmentation and External Fragmentation. Which type of memory allocation scheme (Paging or Segmentation) suffers from which type of fragmentation?
+**Ερώτηση 2: Κατάτμηση (Fragmentation)**
+Διακρίνετε την Εσωτερική Κατάτμηση (Internal Fragmentation) από την Εξωτερική Κατάτμηση (External Fragmentation). Ποιος τύπος σχήματος κατανομής μνήμης (Σελιδοποίηση ή Τμηματοποίηση/Segmentation) υποφέρει από ποιον τύπο κατάτμησης;
 
-**Question 3: Page Replacement Algorithms**
-Explain the concept of the Least Recently Used (LRU) page replacement algorithm. How does it decide which page to evict from memory when a page fault occurs?
+**Ερώτηση 3: Αλγόριθμοι Αντικατάστασης Σελίδων (Page Replacement Algorithms)**
+Εξηγήστε την έννοια του αλγορίθμου αντικατάστασης σελίδων LRU (Least Recently Used). Πώς αποφασίζει ποια σελίδα θα αποβληθεί από τη μνήμη όταν συμβαίνει ένα σφάλμα σελίδας (page fault);
 
-**Question 4: Thrashing**
-What is thrashing in the context of virtual memory? What are its primary causes, and how can an operating system mitigate it?
+**Ερώτηση 4: Υπερβολική Ανταλλαγή / Thrashing**
+Τι είναι το thrashing στα πλαίσια της ιδεατής μνήμης; Ποιες είναι οι κύριες αιτίες του και πώς μπορεί ένα λειτουργικό σύστημα να το περιορίσει;
 
-**Question 5: Translation Lookaside Buffer (TLB)**
-What is the purpose of a Translation Lookaside Buffer (TLB) in a paged memory system? How does it improve the performance of logical-to-physical address translation?
+**Ερώτηση 5: Translation Lookaside Buffer (TLB)**
+Ποιος είναι ο σκοπός του Translation Lookaside Buffer (TLB) σε ένα σύστημα σελιδοποιημένης μνήμης; Πώς βελτιώνει την απόδοση της μετάφρασης λογικών διευθύνσεων σε φυσικές;
 
 ***
-*Tip: Remember that 1 KB = 1024 bytes, which is 2^10 bytes. This will help you calculate offset bits quickly.*
+*Συμβουλή: Θυμηθείτε ότι 1 KB = 1024 bytes, που ισούται με 2^10 bytes. Αυτό θα σας βοηθήσει να υπολογίσετε γρήγορα τα bits της μετατόπισης (offset).*

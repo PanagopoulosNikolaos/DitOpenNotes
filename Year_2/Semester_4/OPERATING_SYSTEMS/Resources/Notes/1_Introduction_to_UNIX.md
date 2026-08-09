@@ -1,105 +1,105 @@
-# 1. Introduction to UNIX and Linux Terminal Basics
+# 1. Εισαγωγή στο UNIX και Βασικές Έννοιες Τερματικού Linux
 
 ***
 
-## What is an Operating System?
+## Τι είναι ένα Λειτουργικό Σύστημα;
 
-An Operating System (OS) is the foundational software layer that manages all hardware and software resources of a computer. Without an OS, computers are unusable by standard applications and end-users. It handles CPU scheduling, memory management, file systems, and peripheral devices.
+Ένα Λειτουργικό Σύστημα (ΛΣ - Operating System, OS) είναι το θεμελιώδες στρώμα λογισμικού που διαχειρίζεται όλους τους πόρους υλικού (hardware) και λογισμικού (software) ενός υπολογιστή. Χωρίς ένα ΛΣ, οι υπολογιστές είναι άχρηστοι για τις τυπικές εφαρμογές και τους τελικούς χρήστες. Διαχειρίζεται τη δρομολόγηση της CPU, τη διαχείριση της μνήμης, τα συστήματα αρχείων και τις περιφερειακές συσκευές.
 
-Common operating systems include Windows, macOS, UNIX, and Linux distributions.
-
-***
-
-## History and Philosophy of UNIX
-
-| Year | Event |
-|------|-------|
-| 1969 | Created by Kenneth Thompson at Bell Labs, written in PDP-7 assembly (initially single-user). |
-| 1971 | Rewritten in PDP-11 assembly. |
-| 1973 | Rewritten entirely in the C programming language by Dennis Ritchie at Bell Labs. This transition made it multi-user and highly portable. |
-| 1984 | Standardization efforts began to ensure portability across various hardware architectures. |
-
-**UNIX Philosophy Highlights:**
-- **Everything is a file:** From regular text files to directories, keyboards, and network connections, UNIX treats almost all resources as files.
-- **Do one thing and do it well:** Programs are designed to be small, modular, and focused on a single task.
-- **Chaining programs:** Complex tasks are accomplished by combining simple programs together.
+Συνήθη λειτουργικά συστήματα περιλαμβάνουν τα Windows, το macOS, το UNIX και τις διανομές Linux.
 
 ***
 
-## UNIX and Linux Distributions
+## Ιστορία και Φιλοσοφία του UNIX
 
-UNIX evolved into numerous commercial and open-source variants:
-- **Commercial UNIX:** Solaris (Sun Microsystems), AIX (IBM), HP/UX (Hewlett-Packard).
-- **Free/Open Source:** Linux (originally created by Linus Torvalds), FreeBSD.
-- **JSLinux / Lightweight Terminals:** Environments like JSLinux run a minimal Linux kernel (often using BusyBox) directly in a web browser, providing a lightweight sandbox for learning terminal basics without local installation.
+| Έτος | Γεγονός |
+|------|---------|
+| 1969 | Δημιουργήθηκε από τον Kenneth Thompson στα Bell Labs, γραμμένο σε γλώσσα assembly για PDP-7 (αρχικά για έναν χρήστη). |
+| 1971 | Ξαναγράφτηκε σε assembly για PDP-11. |
+| 1973 | Ξαναγράφτηκε εξ ολοκλήρου στη γλώσσα προγραμματισμού C από τον Dennis Ritchie στα Bell Labs. Αυτή η μετάβαση το κατέστησε πολυ-χρηστικό (multi-user) και εξαιρετικά φορητό (portable). |
+| 1984 | Ξεκίνησαν οι προσπάθειες τυποποίησης (standardization) για τη διασφάλιση της φορητότητας σε διάφορες αρχιτεκτονικές υλικού. |
 
-***
-
-## UNIX Core Features
-
-- **Multi-User / Time Sharing:** Multiple users can access the system simultaneously, sharing the CPU and memory.
-- **Multi-Tasking:** Each user can run multiple programs concurrently.
-- **User Accounts:** Every user has a dedicated account, ensuring security and isolation of file spaces.
-- **Networking:** Built from the ground up with networking in mind, allowing remote access and resource sharing.
+**Κύρια Σημεία της Φιλοσοφίας του UNIX:**
+- **Τα πάντα είναι αρχείο (Everything is a file):** Από τα κανονικά αρχεία κειμένου έως τους καταλόγους, τα πληκτρολόγια και τις συνδέσεις δικτύου, το UNIX αντιμετωπίζει σχεδόν όλους τους πόρους ως αρχεία.
+- **Κάνε ένα πράγμα και κάντο καλά (Do one thing and do it well):** Τα προγράμματα σχεδιάζονται ώστε να είναι μικρά, αρθρωτά (modular) και εστιασμένα σε μία μόνο εργασία.
+- **Σύνδεση προγραμμάτων σε αλυσίδα (Chaining programs):** Σύνθετες εργασίες επιτυγχάνονται συνδυάζοντας απλά προγράμματα μεταξύ τους.
 
 ***
 
-## User Account Properties
+## UNIX και Διανομές Linux
 
-When you interact with a Linux terminal, you do so under a specific user account.
-
-| Property | Description |
-|----------|-------------|
-| `username` | The identifier used to log in. |
-| `password` | The secret authentication key (stored in encrypted format, usually in `/etc/shadow`). |
-| `userid` (UID) | A unique integer representing the user internally. Root is always `0`. |
-| `groupid` (GID) | An integer identifying the user's primary group, used for resource access control. |
-| `home directory` | The dedicated directory where the user stores personal files (e.g., `/home/username`). |
-| `shell` | The command-line interpreter that processes your commands (e.g., `/bin/bash`, `/bin/sh`). |
+Το UNIX εξελίχθηκε σε πολλούς εμπορικούς και ανοιχτού κώδικα τύπους:
+- **Εμπορικό UNIX:** Solaris (Sun Microsystems), AIX (IBM), HP/UX (Hewlett-Packard).
+- **Δωρεάν/Ανοιχτού Κώδικα:** Linux (αρχικά δημιουργημένο από τον Linus Torvalds), FreeBSD.
+- **JSLinux / Ελαφρά Τερματικά:** Περιβάλλοντα όπως το JSLinux εκτελούν έναν ελάχιστο πυρήνα Linux (συχνά με χρήση του BusyBox) απευθείας σε έναν περιηγητή ιστού (browser), παρέχοντας ένα ελαφρύ δοκιμαστήριο (sandbox) για την εκμάθηση των βασικών εντολών τερματικού χωρίς τοπική εγκατάσταση.
 
 ***
 
-## The Filesystem Structure
+## Βασικά Χαρακτηριστικά του UNIX
 
-The UNIX filesystem is organized as a hierarchical tree. The absolute top of this tree is the **root directory**, represented by a single forward slash `/`.
+- **Πολυ-χρηστικό / Επιμερισμός Χρόνου (Multi-User / Time Sharing):** Πολλαπλοί χρήστες μπορούν να έχουν πρόσβαση στο σύστημα ταυτόχρονα, μοιραζόμενοι την CPU και τη μνήμη.
+- **Πολυ-επεξεργασία (Multi-Tasking):** Κάθε χρήστης μπορεί να εκτελεί πολλαπλά προγράμματα ταυτόχρονα.
+- **Λογαριασμοί Χρηστών (User Accounts):** Κάθε χρήστης διαθέτει αποκλειστικό λογαριασμό, εξασφαλίζοντας ασφάλεια και απομόνωση των χώρων αρχείων.
+- **Δικτύωση (Networking):** Σχεδιασμένο από την αρχή με γνώμονα τη δικτύωση, επιτρέποντας απομακρυσμένη πρόσβαση και κοινή χρήση πόρων.
+
+***
+
+## Ιδιότητες Λογαριασμού Χρήστη
+
+Όταν αλληλεπιδράτε με ένα τερματικό Linux, το κάνετε υπό έναν συγκεκριμένο λογαριασμό χρήστη.
+
+| Ιδιότητα | Περιγραφή |
+|----------|-----------|
+| `username` | Αναγνωριστικό που χρησιμοποιείται για τη σύνδεση (login). |
+| `password` | Το κρυφό κλειδί αυθεντικοποίησης (αποθηκευμένο σε κρυπτογραφημένη μορφή, συνήθως στο `/etc/shadow`). |
+| `userid` (UID) | Ένας μοναδικός ακέραιος που αναπαριστά τον χρήστη εσωτερικά. Ο root είναι πάντα `0`. |
+| `groupid` (GID) | Ένας ακέραιος που προσδιορίζει την κύρια ομάδα του χρήστη, χρησιμοποιούμενος για τον έλεγχο πρόσβασης. |
+| `home directory` | Ο αποκλειστικός κατάλογος όπου ο χρήστης αποθηκεύει τα προσωπικά του αρχεία (π.χ., `/home/username`). |
+| `shell` | Ο διερμηνέας γραμμής εντολών που επεξεργάζεται τις εντολές σας (π.χ., `/bin/bash`, `/bin/sh`). |
+
+***
+
+## Η Δομή του Συστήματος Αρχείων
+
+Το σύστημα αρχείων UNIX είναι οργανωμένο ως ιεραρχικό δέντρο. Η απόλυτη κορυφή αυτού του δέντρου είναι ο **ριζικός κατάλογος (root directory)**, ο οποίος αναπαρίσταται από μία μόνο κάθετο `/`.
 
 ```text
 /
-├── bin/      (Essential command binaries)
-├── etc/      (System configuration files)
-├── home/     (User home directories)
+├── bin/      (Βασικά εκτελέσιμα αρχεία εντολών)
+├── etc/      (Αρχεία ρυθμίσεων συστήματος)
+├── home/     (Προσωπικοί κατάλογοι χρηστών)
 │   ├── fred/
 │   ├── sue/
 │   └── user1/
-├── root/     (Home directory for the root superuser)
-└── tmp/      (Temporary files)
+├── root/     (Προσωπικός κατάλογος του υπερχρήστη root)
+└── tmp/      (Προσωρινά αρχεία)
 ```
 
 ***
 
-## Login, Logout, and the Shell
+## Σύνδεση, Αποσύνδεση και το Shell
 
-### The Login Process
+### Η Διαδικασία Σύνδεσης (Login)
 
-When you connect to a UNIX system, you are prompted for your credentials.
+Όταν συνδέεστε σε ένα σύστημα UNIX, σας ζητούνται τα διαπιστευτήριά σας.
 
 ```sh
 login: user1
 Password: 
 ```
 
-- Passwords are **case-sensitive** and are **never echoed** to the screen for security reasons.
-- Upon successful authentication, the system sets your current working directory to your home directory and launches your default **shell**.
+- Οι κωδικοί πρόσβασης είναι **ευαίσθητοι σε πεζά/κεφαλαία (case-sensitive)** και **δεν εμφανίζονται** στην οθόνη για λόγους ασφαλείας.
+- Μετά την επιτυχή αυθεντικοποίηση, το σύστημα ορίζει τον τρέχοντα κατάλογο εργασίας στον προσωπικό σας κατάλογο (home directory) και εκκινεί το προεπιλεγμένο σας **shell**.
 
-### The Shell Prompt
+### Προτροπή του Shell (Shell Prompt)
 
-The shell indicates it is ready to accept commands by displaying a prompt.
-- `$` usually denotes a standard user.
-- `#` usually denotes the root user (superuser).
+Το shell υποδεικνύει ότι είναι έτοιμο να δεχτεί εντολές εμφανίζοντας μια προτροπή (prompt).
+- Το σύμβολο `$` υποδηλώνει συνήθως έναν τυπικό χρήστη.
+- Το σύμβολο `#` υποδηλώνει συνήθως τον υπερχρήστη `root`.
 
-### Logout
+### Αποσύνδεση (Logout)
 
-To terminate your session, use any of the following methods:
+Για να τερματίσετε τη συνεδρία σας, χρησιμοποιήστε οποιαδήποτε από τις ακόλουθες μεθόδους:
 
 ```sh
 exit
@@ -107,21 +107,21 @@ exit
 ```sh
 logout
 ```
-Alternatively, press `Ctrl + D` (which sends an End-of-File signal to the shell).
+Εναλλακτικά, πιέστε `Ctrl + D` (το οποίο στέλνει ένα σήμα End-of-File στο shell).
 
 ***
 
-## Basic Terminal Commands
+## Βασικές Εντολές Τερματικού
 
-### `passwd` — Change Password
+### `passwd` — Αλλαγή Κωδικού Πρόσβασης
 
-Changes the password for the current user. Root users can change any user's password by supplying the username as an argument.
+Αλλάζει τον κωδικό πρόσβασης για τον τρέχοντα χρήστη. Οι χρήστες root μπορούν να αλλάξουν τον κωδικό πρόσβασης οποιουδήποτε χρήστη παρέχοντας το username ως όρισμα.
 
 ```sh
 passwd
 ```
 
-**Interactive Flow:**
+**Διαδραστική Ροή:**
 ```text
 Changing password for user1.
 (current) UNIX password: 
@@ -130,9 +130,9 @@ Retype new UNIX password:
 passwd: password updated successfully
 ```
 
-### `date` — Display Date and Time
+### `date` — Εμφάνιση Ημερομηνίας και Ώρας
 
-Outputs the current system date and time.
+Εμφανίζει την τρέχουσα ημερομηνία και ώρα του συστήματος.
 
 ```sh
 date
@@ -141,45 +141,45 @@ date
 Thu Oct 24 10:00:00 UTC 2024
 ```
 
-**Custom Formatting:**
+**Προσαρμοσμένη Μορφοποίηση:**
 ```sh
 date +"%Y-%m-%d %H:%M:%S"
 ```
 
-### `cal` — Display Calendar
+### `cal` — Εμφάνιση Ημερολογίου
 
-Displays a formatted calendar.
+Εμφανίζει ένα μορφοποιημένο ημερολόγιο.
 
 ```sh
-cal               # Shows the current month
-cal 2024          # Shows the entire year 2024
-cal 5 2024        # Shows May 2024
+cal               # Εμφανίζει τον τρέχοντα μήνα
+cal 2024          # Εμφανίζει ολόκληρο το έτος 2024
+cal 5 2024        # Εμφανίζει τον Μάιο του 2024
 ```
 
-### `who` and `whoami` — User Information
+### `who` και `whoami` — Πληροφορίες Χρηστών
 
-Identify who is currently logged into the system.
+Προσδιορίζουν ποιος είναι συνδεδεμένος αυτή τη στιγμή στο σύστημα.
 
 ```sh
 who
 ```
-Displays a list of all currently logged-in users, their terminal line, and login time.
+Εμφανίζει μια λίστα με όλους τους συνδεδεμένους χρήστες, τη γραμμή τερματικού τους και την ώρα σύνδεσης.
 
 ```sh
 whoami
 ```
-Displays only the username associated with the current effective user ID.
+Εμφανίζει μόνο το username που σχετίζεται με το τρέχον ενεργό UID.
 
 ```sh
 who am i
 ```
-Displays details specifically for the current terminal session.
+Εμφανίζει λεπτομέρειες ειδικά για τη συγκεκριμένη συνεδρία τερματικού.
 
 ***
 
-## Lab Environment Note: QEMU / JSLinux
+## Σημείωση Περιβάλλοντος Εργαστηρίου: QEMU / JSLinux
 
-If you are using a virtualized environment like QEMU or a browser-based emulator like JSLinux:
-- You are typically interacting with a minimal command-line interface.
-- You may start out automatically logged in as `root` or a generic user.
-- To shut down a virtual machine safely from the command line, use the `halt`, `poweroff`, or `shutdown -h now` commands (requires root privileges).
+Εάν χρησιμοποιείτε ένα εικονικοποιημένο περιβάλλον όπως το QEMU ή έναν εξομοιωτή βασισμένο σε περιηγητή όπως το JSLinux:
+- Συνήθως αλληλεπιδράτε με μια ελάχιστη διεπαφή γραμμής εντολών.
+- Μπορεί να ξεκινήσετε αυτόματα συνδεδεμένοι ως `root` ή ως γενικός χρήστης.
+- Για να απενεργοποιήσετε με ασφάλεια μια εικονική μηχανή από τη γραμμή εντολών, χρησιμοποιήστε τις εντολές `halt`, `poweroff` ή `shutdown -h now` (απαιτεί δικαιώματα root).

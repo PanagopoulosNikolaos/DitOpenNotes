@@ -1,37 +1,36 @@
-# Exam 4: Expert Challenge
-
+# Θέμα 4: Πρόκληση για Προχωρημένους (Hard)
 
 ***
 
-## Questions
+## Ερωτήσεις
 
-**Question 1: Understanding Umask**
-Your system's default `umask` is currently set to `027`.
-- If you create a brand new regular text file, what will be its exact numeric AND symbolic permissions?
-- If you create a brand new directory, what will be its exact numeric AND symbolic permissions?
-*(Show your math based on the default maximums for files and directories).*
+**Ερώτηση 1: Κατανόηση του Umask (Understanding Umask)**
+Το προεπιλεγμένο `umask` του συστήματός σας είναι αυτή τη στιγμή ρυθμισμένο σε `027`.
+- Εάν δημιουργήσετε ένα νέο κανονικό αρχείο κειμένου, ποια θα είναι τα ακριβή αριθμητικά ΚΑΙ συμβολικά δικαιώματά του;
+- Εάν δημιουργήσετε έναν νέο κατάλογο, ποια θα είναι τα ακριβή αριθμητικά ΚΑΙ συμβολικά δικαιώματά του;
+*(Δείξτε τους υπολογισμούς σας με βάση τα προεπιλεγμένα μέγιστα δικαιώματα για αρχεία και καταλόγους).*
 
-**Question 2: Ownership Transfers**
-You have written a deployment script named `deploy.sh`. You need to hand over ownership of this file to the system user `jenkins` and change its group ownership to `devops`.
-- Write the single command to accomplish both changes simultaneously.
+**Ερώτηση 2: Μεταβίβαση Ιδιοκτησίας (Ownership Transfers)**
+Έχετε γράψει ένα script ανάπτυξης με όνομα `deploy.sh`. Πρέπει να μεταβιβάσετε την ιδιοκτησία αυτού του αρχείου στον χρήστη συστήματος `jenkins` και να αλλάξετε την ομάδα ιδιοκτησίας του σε `devops`.
+- Γράψτε τη μία εντολή για να επιτύχετε και τις δύο αλλαγές ταυτόχρονα.
 
-**Question 3: One-Shot Complex Permission Flip**
-Consider a file `database.db` that currently has the permissions `653` (`-rw-r-x-wx`). 
-You need to change the permissions such that:
-- The owner loses write access but gains execute access.
-- The group gains write access.
-- Others lose all access.
-Write the single symbolic `chmod` command (using `+` and `-`) to achieve this. What is the final numeric permission of the file?
+**Ερώτηση 3: Σύνθετη Αλλαγή Δικαιωμάτων σε Μία Εντολή (One-Shot Complex Permission Flip)**
+Θεωρήστε ένα αρχείο `database.db` που έχει αυτή τη στιγμή δικαιώματα `653` (`-rw-r-x-wx`).
+Πρέπει να αλλάξετε τα δικαιώματα έτσι ώστε:
+- Ο ιδιοκτήτης να χάσει το δικαίωμα εγγραφής αλλά να αποκτήσει δικαίωμα εκτέλεσης.
+- Η ομάδα να αποκτήσει δικαίωμα εγγραφής.
+- Οι άλλοι να χάσουν κάθε πρόσβαση.
+Γράψτε τη μία συμβολική εντολή `chmod` (χρησιμοποιώντας `+` και `-`) για να το επιτύχετε αυτό. Ποια είναι τα τελικά αριθμητικά δικαιώματα του αρχείου;
 
-**Question 4: Link Behaviors**
-You need to create a symbolic (soft) link named `current_log` in your current directory that points to `/var/log/syslog`.
-- What is the command to create this link?
-- If you subsequently run `rm current_log`, does it delete the original `/var/log/syslog` file, or just the link?
+**Ερώτηση 4: Συμπεριφορά Συνδέσμων (Link Behaviors)**
+Πρέπει να δημιουργήσετε έναν συμβολικό σύνδεσμο (symbolic/soft link) με όνομα `current_log` στον τρέχοντα κατάλογό σας που να δείχνει στο `/var/log/syslog`.
+- Ποια είναι η εντολή για τη δημιουργία αυτού του συνδέσμου;
+- Εάν στη συνέχεια εκτελέσετε `rm current_log`, διαγράφει το πρωτότυπο αρχείο `/var/log/syslog` ή μόνο τον σύνδεσμο;
 
-**Question 5: The "Permission Denied" Mystery**
-A junior developer complains about an access issue. They belong to the `other` category for a specific directory. 
-They demonstrate that they can run `ls /var/www/html` and successfully see `index.html` listed in the output. 
-However, when they type `cat /var/www/html/index.html`, they immediately get a "Permission denied" error. 
+**Ερώτηση 5: Το Μυστήριο του "Permission Denied" (The "Permission Denied" Mystery)**
+Ένας νέος προγραμματιστής παραπονιέται για ένα πρόβλημα πρόσβασης. Ανήκει στην κατηγορία `other` για έναν συγκεκριμένο κατάλογο.
+Δείχνει ότι μπορεί να εκτελέσει `ls /var/www/html` και βλέπει επιτυχώς το `index.html` στην έξοδο.
+Ωστόσο, όταν πληκτρολογεί `cat /var/www/html/index.html`, λαμβάνει αμέσως σφάλμα "Permission denied".
 
-You inspect the file and see it has permissions `-rw-r--r--` (so `other` clearly has read access to the file).
-- Based on UNIX permission rules, what specific permission bit is missing on the `/var/www/html` directory for the `other` category that is causing this error? Explain why.
+Επιθεωρείτε το αρχείο και βλέπετε ότι έχει δικαιώματα `-rw-r--r--` (άρα η κατηγορία `other` έχει σαφώς δικαίωμα ανάγνωσης στο αρχείο).
+- Με βάση τους κανόνες δικαιωμάτων του UNIX, ποιο συγκεκριμένο bit δικαιώματος λείπει από τον κατάλογο `/var/www/html` για την κατηγορία `other` που προκαλεί αυτό το σφάλμα; Εξηγήστε γιατί.

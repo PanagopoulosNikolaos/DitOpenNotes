@@ -1,141 +1,141 @@
-# 6. UNIX I/O Redirection and Pipes
+# 6. Ανακατεύθυνση Εισόδου/Εξόδου και Διοχετεύσεις (Pipes) στο UNIX
 
 ***
 
-## Standard I/O Streams
+## Τυπικές Ροές Εισόδου/Εξόδου (Standard I/O Streams)
 
-In UNIX, every command-line program automatically opens three standard streams (files) when it runs:
+Στο UNIX, κάθε πρόγραμμα γραμμής εντολών ανοίγει αυτόματα τρεις τυπικές ροές (αρχεία) όταν εκτελείται:
 
-| Stream Name                    | File Descriptor | Default Device  | Purpose                                                |
-| ------------------------------ | --------------- | --------------- | ------------------------------------------------------ |
-| **Standard Input (`stdin`)**   | 0               | Keyboard        | Where the program reads input from.                    |
-| **Standard Output (`stdout`)** | 1               | Terminal Screen | Where the program sends its normal output.             |
-| **Standard Error (`stderr`)**  | 2               | Terminal Screen | Where the program sends error and diagnostic messages. |
+| Όνομα Ροής                     | Περιγραφέας Αρχείου (File Descriptor) | Προεπιλεγμένη Συσκευή | Σκοπός                                                 |
+| ------------------------------ | ------------------------------------- | --------------------- | ------------------------------------------------------ |
+| **Τυπική Είσοδος (`stdin`)**   | 0                                     | Πληκτρολόγιο          | Από πού διαβάζει δεδομένα το πρόγραμμα.               |
+| **Τυπική Έξοδος (`stdout`)** | 1                                     | Οθόνη Τερματικού      | Πού στέλνει το πρόγραμμα την κανονική του έξοδο.      |
+| **Τυπικό Σφάλμα (`stderr`)**  | 2                                     | Οθόνη Τερματικού      | Πού στέλνει το πρόγραμμα μηνύματα σφαλμάτων/διαγνωστικά. |
 
-I/O Redirection allows you to detach these streams from their default devices and connect them to files or other programs.
+Η Ανακατεύθυνση Ε/Ε (I/O Redirection) σας επιτρέπει να αποσυνδέσετε αυτές τις ροές από τις προεπιλεγμένες συσκευές τους και να τις συνδέσετε σε αρχεία ή άλλα προγράμματα.
 
 ***
 
-## Output Redirection
+## Ανακατεύθυνση Εξόδου (Output Redirection)
 
-### Overwrite Output (`>`)
+### Αντικατάσταση Εξόδου (`>`)
 
-Redirects `stdout` to a file. If the file does not exist, it is created. **If the file already exists, it is completely overwritten.**
+Ανακατευθύνει τη `stdout` σε ένα αρχείο. Εάν το αρχείο δεν υπάρχει, δημιουργείται. **Εάν το αρχείο υπάρχει ήδη, αντικαθίσταται εντελώς.**
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command > filename
+εντολή > όνομα_αρχείου
 ```
 
-**Examples:**
+**Παραδείγματα:**
 ```sh
 echo "Hello, World!" > greeting.txt
 ls -l > directory_listing.txt
 ```
-*(The output is not printed to the screen; it goes directly into the file.)*
+*(Η έξοδος δεν εκτυπώνεται στην οθόνη, πηγαίνει απευθείας στο αρχείο.)*
 
-### Append Output (`>>`)
+### Προσάρτηση Εξόδου (`>>`)
 
-Redirects `stdout` to a file. **If the file exists, the new output is appended to the end of the file.** It does not overwrite the existing contents.
+Ανακατευθύνει τη `stdout` σε ένα αρχείο. **Εάν το αρχείο υπάρχει, η νέα έξοδος προσαρτάται στο τέλος του αρχείου.** Δεν αντικαθιστά τα υπάρχοντα περιεχόμενα.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command >> filename
+εντολή >> όνομα_αρχείου
 ```
 
-**Example:**
+**Παράδειγμα:**
 ```sh
 echo "New line of text" >> greeting.txt
 ```
 
 ***
 
-## Error Redirection
+## Ανακατεύθυνση Σφαλμάτων (Error Redirection)
 
-By default, error messages bypass standard output redirection and still print to the screen. To capture errors in a file, you must redirect `stderr` specifically.
+Από προεπιλογή, τα μηνύματα σφαλμάτων παρακάμπτουν την ανακατεύθυνση της τυπικής εξόδου και συνεχίζουν να εκτυπώνονται στην οθόνη. Για να καταγράψετε σφάλματα σε ένα αρχείο, πρέπει να ανακατευθύνετε ειδικά τη `stderr`.
 
-### Redirect `stderr` (`2>`)
+### Ανακατεύθυνση της `stderr` (`2>`)
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command 2> error_log.txt
+εντολή 2> error_log.txt
 ```
 
-**Example:**
+**Παράδειγμα:**
 ```sh
 ls /nonexistent_directory 2> errors.txt
 ```
 
-### Redirect both `stdout` and `stderr`
+### Ταυτόχρονη Ανακατεύθυνση `stdout` και `stderr`
 
-You can redirect both streams to the same file.
+Μπορείτε να ανακατευθύνετε και τις δύο ροές στο ίδιο αρχείο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command > output_and_errors.txt 2>&1
+εντολή > output_and_errors.txt 2>&1
 ```
-*(This tells the shell to send descriptor 2 to wherever descriptor 1 is currently pointing.)*
+*(Αυτό λέει στο shell να στείλει τον περιγραφέα 2 εκεί όπου δείχνει αυτή τη στιγμή ο περιγραφέας 1.)*
 
-Modern bash shells also support a shorthand for this:
+Τα σύγχρονα shell bash υποστηρίζουν επίσης μια συντομογραφία για αυτό:
 ```sh
-command &> output_and_errors.txt
+εντολή &> output_and_errors.txt
 ```
 
 ***
 
-## Input Redirection
+## Ανακατεύθυνση Εισόδου (Input Redirection)
 
-### Redirect `stdin` (`<`)
+### Ανακατεύθυνση της `stdin` (`<`)
 
-Feeds the contents of a file into a command as if it were typed on the keyboard.
+Τροφοδοτεί τα περιεχόμενα ενός αρχείου σε μια εντολή σαν να είχαν πληκτρολογηθεί στο πληκτρολόγιο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command < input_file
+εντολή < αρχείο_εισόδου
 ```
 
-**Example:**
+**Παράδειγμα:**
 ```sh
 wc -l < data.txt
 ```
-*(Counts the lines in `data.txt`. Note: Unlike `wc -l data.txt`, using input redirection will only output the number, without printing the filename.)*
+*(Καταμετρά τις γραμμές στο `data.txt`. Σημείωση: Σε αντίθεση με την `wc -l data.txt`, η χρήση ανακατεύθυνσης εισόδου εμφανίζει μόνο τον αριθμό, χωρίς να εκτυπώνει το όνομα του αρχείου.)*
 
 ***
 
-## Pipes (`|`)
+## Διοχετεύσεις / Pipes (`|`)
 
-Pipes are one of the most powerful features in UNIX. A pipe connects the `stdout` of one command directly to the `stdin` of another command. This allows you to chain small programs together to perform complex tasks without creating temporary files.
+Οι διοχετεύσεις (pipes) είναι μία από τις πιο ισχυρές δυνατότητες στο UNIX. Μια διοχέτευση συνδέει τη `stdout` μιας εντολής απευθείας στη `stdin` μιας άλλης εντολής. Αυτό σας επιτρέπει να συνδέετε μικρά προγράμματα σε αλυσίδα για την εκτέλεση σύνθετων εργασιών χωρίς τη δημιουργία προσωρινών αρχείων.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command1 | command2 | command3
+εντολή1 | εντολή2 | εντολή3
 ```
 
-**How it works:**
-The output of `command1` becomes the input for `command2`. The output of `command2` becomes the input for `command3`. Only the final output is printed to the screen.
+**Πώς λειτουργεί:**
+Η έξοδος της `εντολή1` γίνεται είσοδος για την `εντολή2`. Η έξοδος της `εντολή2` γίνεται είσοδος για την `εντολή3`. Μόνο η τελική έξοδος εκτυπώνεται στην οθόνη.
 
-**Examples:**
+**Παραδείγματα:**
 
-1. **Viewing long output:**
+1. **Προβολή μεγάλης εξόδου:**
    ```sh
    ls -l /etc | less
    ```
-   *(Passes the long directory listing into `less` for easier scrolling.)*
+   *(Περνάει τη μεγάλη λίστα καταλόγου στην `less` για ευκολότερη κύλιση.)*
 
-2. **Counting files in a directory:**
+2. **Καταμέτρηση αρχείων σε έναν κατάλογο:**
    ```sh
    ls -1 | wc -l
    ```
-   *(Lists files one per line, then passes that list to `wc -l` to count the lines.)*
+   *(Εμφανίζει τα αρχεία ένα ανά γραμμή, μετά περνάει τη λίστα στην `wc -l` για να καταμετρήσει τις γραμμές.)*
 
-3. **Finding specific processes:**
+3. **Εύρεση συγκεκριμένων διεργασιών:**
    ```sh
    ps aux | grep "python"
    ```
-   *(Lists all running processes, then filters that list to show only lines containing "python".)*
+   *(Εμφανίζει όλες τις εκτελούμενες διεργασίες, μετά φιλτράρει τη λίστα για να εμφανίσει μόνο τις γραμμές που περιέχουν "python".)*
 
-4. **Complex chaining:**
+4. **Σύνθετη αλυσίδα εντολών:**
    ```sh
    cat access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
    ```
-   *(Reads a web server log, extracts IP addresses, sorts them, counts unique occurrences, sorts by highest count, and shows the top 10.)*
+   *(Διαβάζει ένα αρχείο καταγραφής διακομιστή ιστού, εξάγει τις διευθύνσεις IP, τις ταξινομεί, καταμετρά τις μοναδικές εμφανίσεις, ταξινομεί κατά τον υψηλότερο αριθμό και εμφανίζει τις 10 πρώτες.)*

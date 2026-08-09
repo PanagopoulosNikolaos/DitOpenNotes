@@ -1,31 +1,31 @@
-# Exams Directory
+# Κατάλογος Εξετάσεων (Exams Directory)
 
-## Structure
+## Δομή
 
-| Directory | Content |
-|-----------|---------|
-| `Lab_Unix/Practice/` | Practice exams covering Unix shell, permissions, wildcards, piping, and comprehensive lab scenarios |
-| `Lab_Unix/Past_Papers/` | Past lab exam papers (actual exams from previous years) |
-| `Theory/Practice/` | Practice exams covering OS theory (processes, semaphores, memory, scheduling) |
-| `Theory/Past_Papers/` | Past theory exam papers (actual exams from previous years) |
-| `Combined_Past_Exam_2023/` | June 2023 exam with both theory and lab sections, including scanned images |
+| Κατάλογος | Περιεχόμενο |
+|-----------|-------------|
+| `Lab_Unix/Practice/` | Ασκήσεις προετοιμασίας εξετάσεων για Unix shell, δικαιώματα πρόσβασης, wildcards, piping, και σύνθετα σενάρια εργαστηρίου |
+| `Lab_Unix/Past_Papers/` | Θέματα παλαιότερων ετών για το εργαστήριο Unix (πραγματικές εξετάσεις) |
+| `Theory/Practice/` | Ασκήσεις προετοιμασίας θεωρίας ΛΣ (διεργασίες, σημαφόροι, μνήμη, δρομολόγηση) |
+| `Theory/Past_Papers/` | Θέματα παλαιότερων ετών για τη θεωρία ΛΣ (πραγματικές εξετάσεις) |
+| `Combined_Past_Exam_2023/` | Εξέταση Ιουνίου 2023 που περιλαμβάνει θέματα θεωρίας και εργαστηρίου, μαζί με σαρωμένες εικόνες |
 
 ## Lab_Unix/Practice
 
-Covers terminal navigation, file operations, permissions (numeric and symbolic), wildcards, piping, and comprehensive lab exercises. Difficulty ranges from Easy (Exam 1) to Hard (Exam 4).
+Καλύπτει πλοήγηση στο τερματικό, λειτουργίες αρχείων, δικαιώματα (αριθμητική και συμβολική μορφή), wildcards, piping, και ολοκληρωμένες εργαστηριακές ασκήσεις. Η δυσκολία κυμαίνεται από Εύκολο (Exam 1) έως Δύσκολο (Exam 4).
 
-- `Exam_1_Easy.md` - Terminal basics, directory creation, permissions intro
-- `Exam_2_Intermediate.md` - File management, permission scenarios
-- `Exam_3_Advanced.md` - Advanced permissions, deletion traps, umask
-- `Exam_4_Hard.md` - Expert challenge: umask, ownership, links, sticky bits
-- `Exam_5_Wildcards_And_Piping.md` - Wildcards, piping, redirection
-- `Exam_6_Permissions_And_Ownership.md` - Permissions and ownership deep dive
-- `Exam_9_Comprehensive_Lab_Part1.md` - Navigation and operations
-- `Exam_10_Comprehensive_Lab_Part2.md` - Advanced lab operations
+- `Exam_1_Easy.md` - Βασικές εντολές τερματικού, δημιουργία καταλόγων, εισαγωγή στα δικαιώματα
+- `Exam_2_Intermediate.md` - Διαχείριση αρχείων, σενάρια δικαιωμάτων πρόσβασης
+- `Exam_3_Advanced.md` - Προχωρημένα δικαιώματα, παγίδες διαγραφής, umask
+- `Exam_4_Hard.md` - Πρόκληση για προχωρημένους: umask, ιδιοκτησία (ownership), σύνδεσμοι (links), sticky bits
+- `Exam_5_Wildcards_And_Piping.md` - Wildcards, piping, ανακατεύθυνση (redirection)
+- `Exam_6_Permissions_And_Ownership.md` - Εμβάθυνση σε δικαιώματα και ιδιοκτησία
+- `Exam_9_Comprehensive_Lab_Part1.md` - Πλοήγηση και βασικές λειτουργίες
+- `Exam_10_Comprehensive_Lab_Part2.md` - Προχωρημένες εργαστηριακές λειτουργίες
 
 ## Theory/Practice
 
-Covers operating system theoretical concepts: process management, synchronization, memory management, and CPU scheduling.
+Καλύπτει θεωρητικές έννοιες λειτουργικών συστημάτων: διαχείριση διεργασιών, συγχρονισμό, διαχείριση μνήμης και δρομολόγηση CPU.
 
-- `Exam_7_OS_Theory_Processes.md` - Process states, semaphores, deadlocks, context switching, scheduling
-- `Exam_8_OS_Theory_Memory.md` - Memory management, paging, segmentation, virtual memory
+- `Exam_7_OS_Theory_Processes.md` - Καταστάσεις διεργασιών, σημαφόροι, αδιέξοδα, εναλλαγή πλαισίου (context switching), δρομολόγηση
+- `Exam_8_OS_Theory_Memory.md` - Διαχείριση μνήμης, σελιδοποίηση (paging), κατάτμηση (segmentation), ιδεατή μνήμη (virtual memory)

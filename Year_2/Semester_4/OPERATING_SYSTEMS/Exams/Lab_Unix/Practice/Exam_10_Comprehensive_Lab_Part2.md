@@ -1,28 +1,26 @@
-# Exam 10: Comprehensive Lab Part 2 - Analysis and Permissions
-
-
-***
-
-## Questions
-
-**Question 1: Extracting File Information**
-Write a command to extract the first 10 lines of the file `data.csv`, then sort those lines alphabetically, and finally display them on the screen. (Use piping).
-
-**Question 2: Permission Analysis**
-A directory `reports` has the permissions `drwxr-xr--`. A user named `john`, who is not the owner and not in the group associated with the directory, attempts to run the command `ls reports`. 
-- Will the command succeed? Explain why or why not.
-
-**Question 3: Modifying Permissions Numerically**
-A file `database.db` currently has permissions `-rw-rw-r--`. 
-- Provide the single numeric `chmod` command to change the permissions such that the owner has full rights (read, write, execute), the group has read and execute, and others have no rights.
-
-**Question 4: Advanced Wildcards**
-Explain what the following command does: `cp *[0-9]*.jpg ~/images/`
-- What kind of files will be copied, and where will they be placed?
-
-**Question 5: Searching Inside Files**
-Write a command to search for the exact string "Failed password" inside all files in the current directory and its subdirectories, displaying the line number alongside the matching text.
+# Θέμα 10: Ολοκληρωμένο Εργαστήριο Μέρος 2 - Ανάλυση και Δικαιώματα
 
 ***
-*Tip: Breaking down piped commands step-by-step is the easiest way to ensure your logic is sound.*
 
+## Ερωτήσεις
+
+**Ερώτηση 1: Εξαγωγή Πληροφοριών Αρχείου (Extracting File Information)**
+Γράψτε μια εντολή για να εξαγάγετε τις πρώτες 10 γραμμές του αρχείου `data.csv`, στη συνέχεια να ταξινομήσετε αυτές τις γραμμές αλφαβητικά, και τέλος να τις εμφανίσετε στην οθόνη. (Χρησιμοποιήστε διοχέτευση / piping).
+
+**Ερώτηση 2: Ανάλυση Δικαιωμάτων (Permission Analysis)**
+Ένας κατάλογος `reports` έχει δικαιώματα `drwxr-xr--`. Ένας χρήστης με όνομα `john`, ο οποίος δεν είναι ο ιδιοκτήτης και δεν ανήκει στην ομάδα που σχετίζεται με τον κατάλογο, επιχειρεί να εκτελέσει την εντολή `ls reports`.
+- Θα επιτύχει η εντολή; Εξηγήστε γιατί ή γιατί όχι.
+
+**Ερώτηση 3: Τροποποίηση Δικαιωμάτων Αριθμητικά (Modifying Permissions Numerically)**
+Ένα αρχείο `database.db` έχει αυτή τη στιγμή δικαιώματα `-rw-rw-r--`.
+- Δώστε τη μία αριθμητική εντολή `chmod` για να αλλάξετε τα δικαιώματα έτσι ώστε ο ιδιοκτήτης να έχει πλήρη δικαιώματα (ανάγνωση, εγγραφή, εκτέλεση), η ομάδα να έχει ανάγνωση και εκτέλεση, και οι άλλοι να μην έχουν κανένα δικαίωμα.
+
+**Ερώτηση 4: Προχωρημένα Wildcards (Advanced Wildcards)**
+Εξηγήστε τι κάνει η ακόλουθη εντολή: `cp *[0-9]*.jpg ~/images/`
+- Τι είδος αρχείων θα αντιγραφούν και πού θα τοποθετηθούν;
+
+**Ερώτηση 5: Αναζήτηση Μέσα σε Αρχεία (Searching Inside Files)**
+Γράψτε μια εντολή για να αναζητήσετε την ακριβή συμβολοσειρά "Failed password" μέσα σε όλα τα αρχεία στον τρέχοντα κατάλογο και τους υποκαταλόγους του, εμφανίζοντας τον αριθμό γραμμής δίπλα στο κείμενο που ταιριάζει.
+
+***
+*Συμβουλή: Η ανάλυση των διοχετευμένων εντολών βήμα-βήμα είναι ο ευκολότερος τρόπος για να βεβαιωθείτε ότι η λογική σας είναι σωστή.*

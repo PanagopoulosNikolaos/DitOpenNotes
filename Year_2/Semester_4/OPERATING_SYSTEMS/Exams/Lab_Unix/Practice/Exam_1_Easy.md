@@ -1,29 +1,29 @@
-# Exam 1: Terminal Basics & Introduction to Permissions
+# Θέμα 1: Βασικές Εντολές Τερματικού & Εισαγωγή στα Δικαιώματα (Easy)
 
 ***
 
-## Questions
+## Ερωτήσεις
 
-**Question 1: Navigation**
-You are currently in `/home/user/docs`. 
-- What command navigates you to `/var/log` using an absolute path? 
-- What command navigates you to `/var/log` using a relative path?
+**Ερώτηση 1: Πλοήγηση (Navigation)**
+Βρίσκεστε αυτή τη στιγμή στον κατάλογο `/home/user/docs`.
+- Ποια εντολή σας μεταφέρει στον κατάλογο `/var/log` χρησιμοποιώντας απόλυτη διαδρομή (absolute path);
+- Ποια εντολή σας μεταφέρει στον κατάλογο `/var/log` χρησιμοποιώντας σχετική διαδρομή (relative path);
 
-**Question 2: Directory Creation**
-You are starting a new project and need to create a nested directory structure: `project/src/lib` in your current directory. 
-- Write the single command that achieves this without throwing an error if the parent directories do not exist.
+**Ερώτηση 2: Δημιουργία Καταλόγων (Directory Creation)**
+Ξεκινάτε ένα νέο έργο και πρέπει να δημιουργήσετε μια εμφωλευμένη δομή καταλόγων: `project/src/lib` στον τρέχοντα κατάλογό σας.
+- Γράψτε τη μία και μοναδική εντολή που το επιτυγχάνει αυτό χωρίς να εμφανίσει σφάλμα αν οι γονικοί κατάλογοι δεν υπάρχουν ήδη.
 
-**Question 3: Numeric Permissions**
-You check a file's permissions and see `-rw-r--r--`. 
-- What is the octal (numeric) equivalent of this permission string?
+**Ερώτηση 3: Αριθμητικά Δικαιώματα (Numeric Permissions)**
+Ελέγχετε τα δικαιώματα ενός αρχείου και βλέπετε `-rw-r--r--`.
+- Ποιο είναι το οκταδικό (αριθμητικό) ισοδύναμο αυτού του συμβολοσειράς δικαιωμάτων;
 
-**Question 4: Symbolic Permissions**
-You have just created a bash script named `script.sh`. 
-- Using symbolic notation (`u`, `g`, `o`), write the command to add execute permission for the owner and the group, while leaving others unchanged.
+**Ερώτηση 4: Συμβολικά Δικαιώματα (Symbolic Permissions)**
+Μόλις δημιουργήσατε ένα bash script με όνομα `script.sh`.
+- Χρησιμοποιώντας συμβολική σημειογραφία (`u`, `g`, `o`), γράψτε την εντολή για να προσθέσετε δικαίωμα εκτέλεσης (execute) στον ιδιοκτήτη (owner) και στην ομάδα (group), αφήνοντας τους άλλους (others) αμετάβλητους.
 
-**Question 5: Applying Permissions**
-You have a sensitive file `data.txt` that currently has permissions set to `777`. 
-- Write the numeric command to change its permissions so that the owner can read and write, the group can only read, and others have no access whatsoever.
+**Ερώτηση 5: Εφαρμογή Δικαιωμάτων (Applying Permissions)**
+Έχετε ένα ευαίσθητο αρχείο `data.txt` που αυτή τη στιγμή έχει δικαιώματα ρυθμισμένα σε `777`.
+- Γράψτε την αριθμητική εντολή για να αλλάξετε τα δικαιώματά του ώστε ο ιδιοκτήτης να μπορεί να διαβάζει και να γράφει, η ομάδα να μπορεί μόνο να διαβάζει, και οι άλλοι να μην έχουν καμία πρόσβαση απολύτως.
 
 ***
-*Tip: Write your answers down and test them in your Linux terminal to verify if they work as expected!*
+*Συμβουλή: Γράψτε τις απαντήσεις σας σε ένα χαρτί και δοκιμάστε τις στο τερματικό Linux για να επιβεβαιώσετε ότι λειτουργούν όπως αναμένεται!*

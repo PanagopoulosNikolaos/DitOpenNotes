@@ -1,172 +1,172 @@
-# 3. UNIX File and Directory Management
+# 3. Διαχείριση Αρχείων και Καταλόγων στο UNIX
 
 ***
 
-## File and Directory Deletion
+## Διαγραφή Αρχείων και Καταλόγων
 
-### `rm` — Remove Files and Directories
+### `rm` — Διαγραφή Αρχείων και Καταλόγων (Remove)
 
-The `rm` command deletes files permanently. Unlike modern graphical desktop environments, the UNIX terminal does not have a "Recycle Bin." Once a file is removed with `rm`, it is generally unrecoverable.
+Η εντολή `rm` διαγράφει αρχεία οριστικά. Σε αντίθεση με τα σύγχρονα γραφικά περιβάλλοντα, το τερματικό UNIX δεν διαθέτει "Κάδο Ανακύκλωσης". Μόλις ένα αρχείο διαγραφεί με την `rm`, είναι γενικά μη ανακτήσιμο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-rm <file_name>
+rm <όνομα_αρχείου>
 ```
 
-**Common Flags:**
+**Συνήθεις Σημαίες:**
 
-| Flag | Description |
-|------|-------------|
-| `-i` | Interactive mode. Prompts for confirmation before deleting each file. |
-| `-r` or `-R` | Recursive mode. Required to delete directories and their contents. |
-| `-f` | Force mode. Ignores nonexistent files and never prompts for confirmation. Use with extreme caution. |
+| Σημασία | Περιγραφή |
+|---------|-----------|
+| `-i` | Διαδραστική λειτουργία (Interactive mode). Ζητά επιβεβαίωση πριν από τη διαγραφή κάθε αρχείου. |
+| `-r` ή `-R` | Αναδρομική λειτουργία (Recursive mode). Απαιτείται για τη διαγραφή καταλόγων και των περιεχομένων τους. |
+| `-f` | Βίαιη λειτουργία (Force mode). Αγνοεί τα μη υπάρχοντα αρχεία και δεν ζητά ποτέ επιβεβαίωση. Χρησιμοποιήστε τη με εξαιρετική προσοχή. |
 
-**Examples:**
+**Παραδείγματα:**
 
 ```sh
-rm report.txt              # Deletes a single file silently
-rm -i important_data.csv   # Asks for confirmation before deletion
+rm report.txt              # Διαγράφει ένα αρχείο σιωπηλά
+rm -i important_data.csv   # Ζητά επιβεβαίωση πριν από τη διαγραφή
 ```
 ```text
 rm: remove regular file 'important_data.csv'? y
 ```
 
-**Deleting Directories:**
-To delete a directory that contains files, you cannot use `rmdir`. You must use `rm -r`.
+**Διαγραφή Καταλόγων:**
+Για να διαγράψετε έναν κατάλογο που περιέχει αρχεία, δεν μπορείτε να χρησιμοποιήσετε την `rmdir`. Πρέπει να χρησιμοποιήσετε την `rm -r`.
 
 ```sh
-rm -r old_project/         # Deletes the directory and everything inside it
-rm -ri old_project/        # Deletes recursively, but asks for confirmation at each step
+rm -r old_project/         # Διαγράφει τον κατάλογο και όλα όσα περιέχει
+rm -ri old_project/        # Διαγράφει αναδρομικά, αλλά ζητά επιβεβαίωση σε κάθε βήμα
 ```
 
-**Warning:** Running `rm -rf /` is catastrophically destructive as it attempts to forcefully delete the entire file system starting from the root directory. Never run this command.
+**Προειδοποίηση:** Η εκτέλεση της εντολής `rm -rf /` είναι καταστροφική καθώς επιχειρεί να διαγράψει βίαια ολόκληρο το σύστημα αρχείων ξεκινώντας από τον ριζικό κατάλογο. Μην εκτελέσετε ποτέ αυτή την εντολή.
 
 ***
 
-## Copying Files and Directories
+## Αντιγραφή Αρχείων και Καταλόγων
 
-### `cp` — Copy
+### `cp` — Αντιγραφή (Copy)
 
-The `cp` command duplicates files or directories from a source to a destination.
+Η εντολή `cp` δημιουργεί αντίγραφα αρχείων ή καταλόγων από μια πηγή σε έναν προορισμό.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-cp <source> <destination>
+cp <πηγή> <προορισμός>
 ```
 
-**Common Flags:**
+**Συνήθεις Σημαίες:**
 
-| Flag | Description |
-|------|-------------|
-| `-r` or `-R` | Recursive mode. Required when copying directories. |
-| `-i` | Interactive mode. Prompts before overwriting an existing file at the destination. |
-| `-v` | Verbose mode. Prints the name of each file as it is copied. |
+| Σημασία | Περιγραφή |
+|---------|-----------|
+| `-r` ή `-R` | Αναδρομική λειτουργία. Απαιτείται κατά την αντιγραφή καταλόγων. |
+| `-i` | Διαδραστική λειτουργία. Ζητά επιβεβαίωση πριν από την αντικατάσταση ενός υπάρχοντος αρχείου στον προορισμό. |
+| `-v` | Λεπτομερής λειτουργία (Verbose). Εκτυπώνει το όνομα κάθε αρχείου καθώς αντιγράφεται. |
 
-**Usage Scenarios:**
+**Σενάρια Χρήσης:**
 
-1. **Copying a single file to a new name:**
+1. **Αντιγραφή ενός αρχείου με νέο όνομα:**
    ```sh
    cp original.txt backup.txt
    ```
 
-2. **Copying a file into another directory:**
+2. **Αντιγραφή ενός αρχείου σε άλλον κατάλογο:**
    ```sh
    cp original.txt /tmp/
    ```
 
-3. **Copying multiple files into a directory:**
+3. **Αντιγραφή πολλαπλών αρχείων σε έναν κατάλογο:**
    ```sh
    cp file1.txt file2.txt /backup_dir/
    ```
 
-4. **Copying an entire directory:**
+4. **Αντιγραφή ολόκληρου καταλόγου:**
    ```sh
    cp -r project_source/ project_backup/
    ```
 
-**Overwriting Files:**
-If a file with the target name already exists at the destination, `cp` will silently overwrite it by default. Using the `-i` flag prevents accidental data loss.
+**Αντικατάσταση Αρχείων:**
+Εάν ένα αρχείο με το όνομα στόχο υπάρχει ήδη στον προορισμό, η `cp` θα το αντικαταστήσει σιωπηλά από προεπιλογή. Η χρήση της σημαίας `-i` αποτρέπει την τυχαία απώλεια δεδομένων.
 
 ***
 
-## Moving and Renaming
+## Μετακίνηση και Μετονομασία
 
-### `mv` — Move / Rename
+### `mv` — Μετακίνηση / Μετονομασία (Move)
 
-The `mv` command is used for two distinct operations: moving files from one location to another, and renaming files. It does not require a recursive flag for directories.
+Η εντολή `mv` χρησιμοποιείται για δύο διαφορετικές λειτουργίες: τη μετακίνηση αρχείων από μια τοποθεσία σε άλλη, και τη μετονομασία αρχείων. Δεν απαιτεί αναδρομική σημαία για τους καταλόγους.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-mv <source> <destination>
+mv <πηγή> <προορισμός>
 ```
 
-**Usage Scenarios:**
+**Σενάρια Χρήσης:**
 
-1. **Renaming a file (moving it within the same directory):**
+1. **Μετονομασία αρχείου (μετακίνηση εντός του ίδιου καταλόγου):**
    ```sh
    mv old_name.txt new_name.txt
    ```
 
-2. **Moving a file to another directory:**
+2. **Μετακίνηση αρχείου σε άλλον κατάλογο:**
    ```sh
    mv data.csv /home/user/archives/
    ```
 
-3. **Moving and renaming simultaneously:**
+3. **Ταυτόχρονη μετακίνηση και μετονομασία:**
    ```sh
    mv /tmp/download.zip /home/user/software_v2.zip
    ```
 
-4. **Moving a directory:**
+4. **Μετακίνηση καταλόγου:**
    ```sh
    mv my_project/ /var/www/html/
    ```
 
 ***
 
-## Listing Directory Contents
+## Εμφάνιση Περιεχομένων Καταλόγου
 
-### `ls` — List
+### `ls` — Εμφάνιση Λίστας (List)
 
-The `ls` command displays the contents of a directory. By default, it lists files in the current working directory in alphabetical order.
+Η εντολή `ls` εμφανίζει τα περιεχόμενα ενός καταλόγου. Από προεπιλογή, εμφανίζει τα αρχεία στον τρέχοντα κατάλογο εργασίας σε αλφαβητική σειρά.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-ls [options] [directory]
+ls [επιλογές] [κατάλογος]
 ```
 
-**Common Flags:**
+**Συνήθεις Σημαίες:**
 
-| Flag | Description |
-|------|-------------|
-| `-l` | Long listing format. Displays permissions, ownership, size, and timestamps. |
-| `-a` | Show all files, including hidden files (those starting with a dot `.`). |
-| `-h` | Human-readable file sizes (e.g., 1K, 234M, 2G). Often used with `-l`. |
-| `-R` | Recursive listing. Lists the contents of all subdirectories. |
-| `-t` | Sort by modification time, newest first. |
+| Σημασία | Περιγραφή |
+|---------|-----------|
+| `-l` | Μορφή μακράς λίστας (Long listing format). Εμφανίζει δικαιώματα, ιδιοκτησία, μέγεθος και χρονικές σημάνσεις. |
+| `-a` | Εμφάνιση όλων των αρχείων, συμπεριλαμβανομένων των κρυφών αρχείων (αυτά που ξεκινάνε με τελεία `.`). |
+| `-h` | Αναγνώσιμα από τον άνθρωπο μεγέθη αρχείων (π.χ. 1K, 234M, 2G). Συχνά χρησιμοποιείται με το `-l`. |
+| `-R` | Αναδρομική εμφάνιση. Εμφανίζει τα περιεχόμενα όλων των υποκαταλόγων. |
+| `-t` | Ταξινόμηση κατά χρόνο τροποποίησης, τα νεότερα πρώτα. |
 
-**Understanding `ls -l` Output:**
+**Κατανόηση της Εξόδου της `ls -l`:**
 
-Running `ls -l` produces a detailed output row for each file:
+Η εκτέλεση της `ls -l` παράγει μια λεπτομερή γραμμή εξόδου για κάθε αρχείο:
 
 ```text
 -rw-r--r-- 1 user group 1024 Oct 24 10:00 document.txt
 drwxr-xr-x 2 user group 4096 Oct 24 10:05 my_folder
 ```
 
-**Field Breakdown:**
-1. **Type and Permissions:** The first 10 characters (e.g., `-rw-r--r--` or `drwxr-xr-x`). The first character indicates the file type (`-` for file, `d` for directory). The next 9 characters represent read, write, and execute permissions.
-2. **Hard Links:** The number of hard links pointing to the inode.
-3. **Owner:** The user who owns the file.
-4. **Group:** The group that owns the file.
-5. **Size:** The file size in bytes.
-6. **Modification Date:** The date and time the file was last modified.
-7. **Name:** The file or directory name.
+**Ανάλυση Πεδίων:**
+1. **Τύπος και Δικαιώματα:** Οι πρώτοι 10 χαρακτήρες (π.χ. `-rw-r--r--` ή `drwxr-xr-x`). Ο πρώτος χαρακτήρας υποδεικνύει τον τύπο του αρχείου (`-` για αρχείο, `d` για κατάλογο). Οι επόμενοι 9 χαρακτήρες αναπαριστούν δικαιώματα ανάγνωσης, εγγραφής και εκτέλεσης.
+2. **Σκληροί Σύνδεσμοι (Hard Links):** Ο αριθμός των σκληρών συνδέσμων που δείχνουν στο inode.
+3. **Ιδιοκτήτης (Owner):** Ο χρήστης στον οποίο ανήκει το αρχείο.
+4. **Ομάδα (Group):** Η ομάδα στην οποία ανήκει το αρχείο.
+5. **Μέγεθος:** Το μέγεθος του αρχείου σε bytes.
+6. **Ημερομηνία Τροποποίησης:** Η ημερομηνία και ώρα της τελευταίας τροποποίησης του αρχείου.
+7. **Όνομα:** Το όνομα του αρχείου ή του καταλόγου.
 
-**Combining Flags:**
-Flags can be combined to form powerful commands.
+**Συνδυασμός Σημαιών:**
+Οι σημαίες μπορούν να συνδυαστούν για τη δημιουργία ισχυρών εντολών.
 ```sh
-ls -la       # Long listing, including hidden files
-ls -lh       # Long listing with human-readable file sizes
-ls -lt       # Long listing sorted by newest modification time
+ls -la       # Μακρά λίστα, συμπεριλαμβανομένων των κρυφών αρχείων
+ls -lh       # Μακρά λίστα με αναγνώσιμα μεγέθη αρχείων
+ls -lt       # Μακρά λίστα ταξινομημένη κατά τον νεότερο χρόνο τροποποίησης
 ```

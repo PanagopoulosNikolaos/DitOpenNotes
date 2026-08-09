@@ -1,26 +1,26 @@
-# Exam 5: Wildcards and Command Piping
+# Θέμα 5: Wildcards και Διοχέτευση Εντολών (Command Piping)
 
 ***
 
-## Questions
+## Ερωτήσεις
 
-**Question 1: File Deletion with Wildcards**
-You are in a directory containing numerous files. You need to delete all files that start with `backup`, end with `.log`, and are exactly 14 characters long.
-- What is the single command to accomplish this using wildcards?
+**Ερώτηση 1: Διαγραφή Αρχείων με Wildcards (File Deletion with Wildcards)**
+Βρίσκεστε σε έναν κατάλογο που περιέχει πολλούς αρχεία. Πρέπει να διαγράψετε όλα τα αρχεία που ξεκινάνε με `backup`, τελειώνουν σε `.log` και έχουν ακριβώς 14 χαρακτήρες μήκος.
+- Ποια είναι η μία και μοναδική εντολή για να το επιτύχετε αυτό χρησιμοποιώντας wildcards;
 
-**Question 2: Counting Lines and Piping**
-You have a large text file named `syslog.txt`. You want to find out how many words are in the last 15 lines of this file and save the result to a new file named `wordcount.out`.
-- Provide the full command line using piping and output redirection.
+**Ερώτηση 2: Καταμέτρηση Γραμμών και Διοχέτευση (Counting Lines and Piping)**
+Έχετε ένα μεγάλο αρχείο κειμένου με όνομα `syslog.txt`. Θέλετε να βρείτε πόσες λέξεις περιέχονται στις τελευταίες 15 γραμμές αυτού του αρχείου και να αποθηκεύσετε το αποτέλεσμα σε ένα νέο αρχείο με όνομα `wordcount.out`.
+- Δώστε την πλήρη γραμμή εντολών χρησιμοποιώντας διοχέτευση (piping) και ανακατεύθυνση εξόδου (output redirection).
 
-**Question 3: Listing Specific Files**
-Explain what happens when you execute the following command in a UNIX system: `ls -Ral .`
+**Ερώτηση 3: Εμφάνιση Συγκεκριμένων Αρχείων (Listing Specific Files)**
+Εξηγήστε τι συμβαίνει όταν εκτελείτε την ακόλουθη εντολή σε ένα σύστημα UNIX: `ls -Ral .`
 
-**Question 4: Complex Pattern Matching**
-Explain if the command `rm d[a-c]t[12]a` will delete the following files (assume they exist in the current directory): `data1a`, `dct2a`, `dat12a`, `dbt3a`. Provide a brief justification for each.
+**Ερώτηση 4: Σύνθετη Ταίριασμα Προτύπων (Complex Pattern Matching)**
+Εξηγήστε αν η εντολή `rm d[a-c]t[12]a` θα διαγράψει τα ακόλουθα αρχεία (υποθέστε ότι υπάρχουν στον τρέχοντα κατάλογο): `data1a`, `dct2a`, `dat12a`, `dbt3a`. Δώστε μια σύντομη αιτιολόγηση για το καθένα.
 
-**Question 5: Appending Output**
-You want to search for the word "Error" inside `server.log` and append the matched lines to an existing file named `errors.txt` without overwriting its current contents.
-- What command should you use?
+**Ερώτηση 5: Προσάρτηση Εξόδου (Appending Output)**
+Θέλετε να αναζητήσετε τη λέξη "Error" μέσα στο `server.log` και να προσαρτήσετε τις γραμμές που ταιριάζουν στο τέλος ενός υπάρχοντος αρχείου με όνομα `errors.txt` χωρίς να αντικαταστήσετε τα τρέχοντα περιεχόμενά του.
+- Ποια εντολή πρέπει να χρησιμοποιήσετε;
 
 ***
-*Tip: Remember the difference between `>` and `>>` when redirecting output!*
+*Συμβουλή: Θυμηθείτε τη διαφορά μεταξύ `>` και `>>` κατά την ανακατεύθυνση εξόδου!*

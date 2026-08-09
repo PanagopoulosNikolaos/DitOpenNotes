@@ -1,149 +1,149 @@
-# 4. UNIX Access Permissions
+# 4. Δικαιώματα Πρόσβασης στο UNIX
 
 ***
 
-## The Permission Model
+## Το Μοντέλο Δικαιωμάτων
 
-UNIX is a multi-user operating system. To maintain security and privacy, every file and directory is protected by a set of permissions that dictate who can read, modify, or execute them.
+Το UNIX είναι ένα πολυ-χρηστικό λειτουργικό σύστημα. Για τη διατήρηση της ασφάλειας και της ιδιωτικότητας, κάθε αρχείο και κατάλογος προστατεύεται από ένα σύνολο δικαιωμάτων που καθορίζουν ποιος μπορεί να τα διαβάσει, να τα τροποποιήσει ή να τα εκτελέσει.
 
-Permissions are categorized into three ownership tiers:
+Τα δικαιώματα κατηγοριοποιούνται σε τρία επίπεδα ιδιοκτησίας:
 
-1. **User (Owner - `u`):** The account that owns the file (usually the creator).
-2. **Group (`g`):** A defined collection of users who share access rights to the file.
-3. **Other (`o`):** Everyone else on the system who is not the owner and not in the group.
+1. **Χρήστης / Ιδιοκτήτης (User / Owner - `u`):** Ο λογαριασμός στον οποίο ανήκει το αρχείο (συνήθως ο δημιουργός).
+2. **Ομάδα (Group - `g`):** Μια καθορισμένη συλλογή χρηστών που μοιράζονται δικαιώματα πρόσβασης στο αρχείο.
+3. **Άλλοι (Other - `o`):** Όλοι οι υπόλοιποι στο σύστημα που δεν είναι ο ιδιοκτήτης και δεν ανήκουν στην ομάδα.
 
-For each of these tiers, three types of permissions can be granted:
+Για καθένα από αυτά τα επίπεδα, μπορούν να εκχωρηθούν τρεις τύποι δικαιωμάτων:
 
-| Permission | Symbol | Value | Meaning on a File | Meaning on a Directory |
-|------------|--------|-------|-------------------|------------------------|
-| **Read** | `r` | 4 | View file contents. | List the files inside the directory (`ls`). |
-| **Write** | `w` | 2 | Modify or delete file contents. | Create, delete, or rename files inside the directory. |
-| **Execute**| `x` | 1 | Run the file as a program or script. | Traverse the directory (access files within it). |
+| Δικαίωμα | Σύμβολο | Τιμή | Σημασία σε Αρχείο | Σημασία σε Κατάλογο |
+|----------|---------|------|-------------------|---------------------|
+| **Ανάγνωση (Read)** | `r` | 4 | Προβολή περιεχομένων αρχείου. | Εμφάνιση λίστας αρχείων εντός του καταλόγου (`ls`). |
+| **Εγγραφή (Write)** | `w` | 2 | Τροποποίηση ή διαγραφή περιεχομένων αρχείου. | Δημιουργία, διαγραφή ή μετονομασία αρχείων εντός του καταλόγου. |
+| **Εκτέλεση (Execute)**| `x` | 1 | Εκτέλεση του αρχείου ως πρόγραμμα ή script. | Προσπέλαση/Διάσχιση του καταλόγου (πρόσβαση σε αρχεία μέσα σε αυτόν). |
 
 ***
 
-## Interpreting Permission Strings
+## Ερμηνεία Συμβολοσειρών Δικαιωμάτων
 
-When you run `ls -l`, the first column displays a 10-character string representing the file type and permissions.
+Όταν εκτελείτε `ls -l`, η πρώτη στήλη εμφανίζει μια συμβολοσειρά 10 χαρακτήρων που αναπαριστά τον τύπο του αρχείου και τα δικαιώματα.
 
 ```text
 -rwxr-x--- 1 user1 staff  1024 Oct 24 file.txt
 drwxr-xr-x 2 user1 staff  4096 Oct 24 folder/
 ```
 
-**Deconstructing `-rwxr-x---`:**
-- `[` `-` `]` Type: Regular file.
-- `[` `rwx` `]` User (Owner): Has Read, Write, and Execute permissions.
-- `[` `r-x` `]` Group: Has Read and Execute permissions, but cannot Write (modify).
-- `[` `---` `]` Other: Has no access whatsoever.
+**Αποδομήοντας το `-rwxr-x---`:**
+- `[` `-` `]` Τύπος: Κανονικό αρχείο.
+- `[` `rwx` `]` Χρήστης (Ιδιοκτήτης): Έχει δικαιώματα Ανάγνωσης, Εγγραφής και Εκτέλεσης.
+- `[` `r-x` `]` Ομάδα: Έχει δικαιώματα Ανάγνωσης και Εκτέλεσης, αλλά δεν μπορεί να Γράψει (τροποποιήσει).
+- `[` `---` `]` Άλλοι: Δεν έχουν καμία πρόσβαση απολύτως.
 
 ***
 
-## Directories: The `Execute` Bit
+## Κατάλογοι: Το Bit `Εκτέλεσης` (Execute Bit)
 
-A common point of confusion is how permissions apply to directories.
+Ένα σύνηθες σημείο σύγχυσης είναι το πώς εφαρμόζονται τα δικαιώματα στους καταλόγους.
 
-- To use `cd` to enter a directory, you **must** have Execute (`x`) permission on it.
-- To see the names of files inside a directory (using `ls`), you need Read (`r`) permission.
-- However, to read the attributes of the files inside (using `ls -l`), you need **both** Read and Execute permissions on the directory.
-- To create or delete a file inside a directory, you need Write (`w`) and Execute (`x`) permissions on the directory, regardless of the permissions of the file itself.
+- Για να χρησιμοποιήσετε την `cd` ώστε να εισέλθετε σε έναν κατάλογο, **πρέπει** να έχετε δικαίωμα Εκτέλεσης (`x`) σε αυτόν.
+- Για να δείτε τα ονόματα των αρχείων μέσα σε έναν κατάλογο (χρησιμοποιώντας την `ls`), χρειάζεστε δικαίωμα Ανάγνωσης (`r`).
+- Ωστόσο, για να διαβάσετε τα ατribut/ιδιότητες των αρχείων μέσα (χρησιμοποιώντας `ls -l`), χρειάζεστε **και** δικαίωμα Ανάγνωσης **και** δικαίωμα Εκτέλεσης στον κατάλογο.
+- Για να δημιουργήσετε ή να διαγράψετε ένα αρχείο μέσα σε έναν κατάλογο, χρειάζεστε δικαιώματα Εγγραφής (`w`) και Εκτέλεσης (`x`) στον κατάλογο, ανεξάρτητα από τα δικαιώματα του ίδιου του αρχείου.
 
 ***
 
-## Modifying Permissions: `chmod`
+## Τροποποίηση Δικαιωμάτων: `chmod`
 
-The `chmod` (change mode) command is used to alter permissions. Only the file owner or the `root` user can change a file's permissions.
+Η εντολή `chmod` (change mode) χρησιμοποιείται για την αλλαγή δικαιωμάτων. Μόνο ο ιδιοκτήτης του αρχείου ή ο χρήστης `root` μπορεί να αλλάξει τα δικαιώματα ενός αρχείου.
 
-There are two primary methods to use `chmod`: Numeric (Octal) and Symbolic.
+Υπάρχουν δύο κύριες μέθοδοι για τη χρήση της `chmod`: Αριθμητική (Οκταδική) και Συμβολική.
 
-### Method 1: Numeric (Octal) Notation
+### Μέθοδος 1: Αριθμητική (Οκταδική) Σημειογραφία
 
-This method uses numbers to represent permission sets. You sum the values of the permissions you want to grant for each tier.
-- Read = 4
-- Write = 2
-- Execute = 1
+Αυτή η μέθοδος χρησιμοποιεί αριθμούς για την αναπαράσταση συνόλων δικαιωμάτων. Αθροίζετε τις τιμές των δικαιωμάτων που θέλετε να εκχωρήσετε για κάθε επίπεδο.
+- Ανάγνωση (Read) = 4
+- Εγγραφή (Write) = 2
+- Εκτέλεση (Execute) = 1
 
-**Examples:**
+**Παραδείγματα:**
 - `rwx` = 4 + 2 + 1 = **7**
 - `rw-` = 4 + 2 + 0 = **6**
 - `r-x` = 4 + 0 + 1 = **5**
 - `r--` = 4 + 0 + 0 = **4**
 
-You construct a 3-digit number representing User, Group, and Other:
+Σχηματίζετε έναν 3-ψήφιο αριθμό που αναπαριστά τον Χρήστη, την Ομάδα και τους Άλλους:
 
 ```sh
 chmod 755 script.sh
 ```
-*Sets `rwxr-xr-x`. Owner can do everything; Group and Other can read and execute.*
+*Ορίζει `rwxr-xr-x`. Ο ιδιοκτήτης μπορεί να κάνει τα πάντα, η Ομάδα και οι Άλλοι μπορούν να διαβάσουν και να εκτελέσουν.*
 
 ```sh
 chmod 644 document.txt
 ```
-*Sets `rw-r--r--`. Owner can read/write; Group and Other can only read. (Standard file permission)*
+*Ορίζει `rw-r--r--`. Ο ιδιοκτήτης μπορεί να διαβάσει/γράψει, η Ομάδα και οι Άλλοι μπορούν μόνο να διαβάσουν. (Τυπικό δικαίωμα αρχείου)*
 
 ```sh
 chmod 700 private_folder/
 ```
-*Sets `rwx------`. Only the owner has access. (Standard for private directories)*
+*Ορίζει `rwx------`. Μόνο ο ιδιοκτήτης έχει πρόσβαση. (Τυπικό για ιδιωτικούς καταλόγους)*
 
-### Method 2: Symbolic Notation
+### Μέθοδος 2: Συμβολική Σημειογραφία
 
-This method uses letters to selectively add or remove permissions without affecting others.
+Αυτή η μέθοδος χρησιμοποιεί γράμματα για την επιλεκτική προσθήκη ή αφαίρεση δικαιωμάτων χωρίς να επηρεάζει τα υπόλοιπα.
 
-**Syntax:** `chmod [who][operator][permission] file`
+**Σύνταξη:** `chmod [ποιος][τελεστής][δικαίωμα] αρχείο`
 
-- **Who:** `u` (user), `g` (group), `o` (other), `a` (all)
-- **Operator:** `+` (add), `-` (remove), `=` (set exactly)
-- **Permission:** `r`, `w`, `x`
+- **Ποιος:** `u` (user), `g` (group), `o` (other), `a` (all)
+- **Τελεστής:** `+` (προσθήκη), `-` (αφαίρεση), `=` (ακριβής ορισμός)
+- **Δικαίωμα:** `r`, `w`, `x`
 
-**Examples:**
+**Παραδείγματα:**
 
 ```sh
-chmod u+x script.sh         # Add execute permission for the owner
-chmod go-w file.txt         # Remove write permission for group and others
-chmod a+r public.txt        # Add read permission for everyone
-chmod g=rx shared_dir/      # Set group permission exactly to read and execute
-chmod u=rwx,g=rx,o=r file   # Set multiple permissions separated by commas
+chmod u+x script.sh         # Προσθήκη δικαιώματος εκτέλεσης για τον ιδιοκτήτη
+chmod go-w file.txt         # Αφαίρεση δικαιώματος εγγραφής για την ομάδα και τους άλλους
+chmod a+r public.txt        # Προσθήκη δικαιώματος ανάγνωσης για όλους
+chmod g=rx shared_dir/      # Ορισμός δικαιώματος ομάδας ακριβώς σε ανάγνωση και εκτέλεση
+chmod u=rwx,g=rx,o=r file   # Ορισμός πολλαπλών δικαιωμάτων χωρισμένων με κόμματα
 ```
 
 ***
 
-## Ownership Commands
+## Εντολές Ιδιοκτησίας
 
-### `chown` — Change Owner
+### `chown` — Αλλαγή Ιδιοκτήτη (Change Owner)
 
-Changes the user ownership of a file or directory.
+Αλλάζει την ιδιοκτησία χρήστη ενός αρχείου ή καταλόγου.
 
 ```sh
-chown user2 report.txt              # Change owner to user2
-chown user2:finance report.txt      # Change owner to user2 and group to finance
-chown -R user2 project_dir/         # Recursively change ownership for a directory
+chown user2 report.txt              # Αλλαγή ιδιοκτήτη σε user2
+chown user2:finance report.txt      # Αλλαγή ιδιοκτήτη σε user2 και ομάδας σε finance
+chown -R user2 project_dir/         # Αναδρομική αλλαγή ιδιοκτησίας για έναν κατάλογο
 ```
 
-### `chgrp` — Change Group
+### `chgrp` — Αλλαγή Ομάδας (Change Group)
 
-Changes only the group ownership of a file or directory.
+Αλλάζει μόνο την ιδιοκτησία ομάδας ενός αρχείου ή καταλόγου.
 
 ```sh
 chgrp finance report.txt
 ```
 
-*(Note: In most Linux systems, including JSLinux, changing ownership usually requires `root` privileges via `sudo` or logging in as root.)*
+*(Σημείωση: Στα περισσότερα συστήματα Linux, συμπεριλαμβανομένου του JSLinux, η αλλαγή ιδιοκτησίας απαιτεί συνήθως δικαιώματα `root` μέσω της `sudo` ή σύνδεση ως root.)*
 
 ***
 
-## Default Permissions: `umask`
+## Προεπιλεγμένα Δικαιώματα: `umask`
 
-When you create a new file or directory, the system assigns default permissions based on the `umask` (user file-creation mode mask).
+Όταν δημιουργείτε ένα νέο αρχείο ή κατάλογο, το σύστημα εκχωρεί προεπιλεγμένα δικαιώματα με βάση το `umask` (user file-creation mode mask).
 
-The default maximum permissions are `666` for files and `777` for directories. The `umask` value is *subtracted* from these maximums.
+Τα προεπιλεγμένα μέγιστα δικαιώματα είναι `666` για αρχεία και `777` για καταλόγους. Η τιμή του `umask` *αφαιρείται* από αυτά τα μέγιστα.
 
-If your `umask` is `022`:
-- New files will have `666 - 022 = 644` (`rw-r--r--`).
-- New directories will have `777 - 022 = 755` (`rwxr-xr-x`).
+Εάν το `umask` σας είναι `022`:
+- Τα νέα αρχεία θα έχουν `666 - 022 = 644` (`rw-r--r--`).
+- Οι νέοι κατάλογοι θα έχουν `777 - 022 = 755` (`rwxr-xr-x`).
 
-You can check or set your umask:
+Μπορείτε να ελέγξετε ή να ορίσετε το umask σας:
 ```sh
-umask        # Displays current umask (e.g., 0022)
-umask 027    # Sets new umask, resulting in files (640) and dirs (750)
+umask        # Εμφανίζει το τρέχον umask (π.χ. 0022)
+umask 027    # Ορίζει νέο umask, παράγοντας αρχεία (640) και καταλόγους (750)
 ```

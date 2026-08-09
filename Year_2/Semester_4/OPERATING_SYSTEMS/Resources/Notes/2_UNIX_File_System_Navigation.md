@@ -1,91 +1,91 @@
-# 2. UNIX File System Navigation
+# 2. Πλοήγηση στο Σύστημα Αρχείων UNIX
 
 ***
 
-## Understanding the File System
+## Κατανόηση του Συστήματος Αρχείων
 
-The file system is the component of the operating system responsible for organizing, storing, and retrieving files. In UNIX and Linux, the file system is strictly hierarchical (tree-shaped), with all files and directories stemming from a single origin.
-
-***
-
-## Unix File Types
-
-While UNIX adheres to the philosophy that "everything is a file," it distinguishes between several file types:
-
-- **Regular Files (`-`):** Standard files containing data, text, or executable code.
-- **Directories (`d`):** Special files that contain lists of other files and directories.
-- **Symbolic Links (`l`):** Pointers to other files or directories.
-- **Special Files (`c` or `b`):** Represent hardware devices (e.g., terminals, hard drives) usually found in `/dev`.
-- **Pipes and Sockets (`p` or `s`):** Used for inter-process communication.
+Το σύστημα αρχείων (file system) είναι το συστατικό του λειτουργικού συστήματος που είναι υπεύθυνο για την οργάνωση, αποθήκευση και ανάκτηση αρχείων. Στο UNIX και το Linux, το σύστημα αρχείων είναι αυστηρά ιεραρχικό (σε μορφή δέντρου), με όλα τα αρχεία και τους καταλόγους να προέρχονται από μία μοναδική αφετηρία.
 
 ***
 
-## The Hierarchy and Important Directories
+## Τύποι Αρχείων στο Unix
 
-The top level of the hierarchy is the **root directory**, represented by `/`. 
+Ενώ το UNIX ακολουθεί τη φιλοσοφία ότι "τα πάντα είναι αρχείο", διακρίνει διάφορους τύπους αρχείων:
 
-| Directory | Common Contents |
-|-----------|-----------------|
-| `/` | The absolute root of the file system. |
-| `/bin` | Essential executable commands (e.g., `ls`, `cp`, `mkdir`). |
-| `/dev` | Device files representing hardware. |
-| `/etc` | System-wide configuration files. |
-| `/home` | User home directories (e.g., `/home/username`). |
-| `/tmp` | Temporary files, often cleared when the system reboots. |
-| `/var` | Variable data files, such as logs and databases. |
-| `/usr` | Secondary hierarchy for user data and read-only applications. |
+- **Κανονικά Αρχεία (`-`):** Τυπικά αρχεία που περιέχουν δεδομένα, κείμενο ή εκτελέσιμο κώδικα.
+- **Κατάλογοι (`d`):** Ειδικά αρχεία που περιέχουν λίστες άλλων αρχείων και καταλόγων.
+- **Συμβολικοί Σύνδεσμοι (`l`):** Δείκτες προς άλλα αρχεία ή καταλόγους.
+- **Ειδικά Αρχεία (`c` ή `b`):** Αναπαριστούν συσκευές υλικού (π.χ. τερματικά, σκληρούς δίσκους) που συνήθως βρίσκονται στο `/dev`.
+- **Pipes και Sockets (`p` ή `s`):** Χρησιμοποιούνται για δια-διεργασιακή επικοινωνία (inter-process communication).
 
 ***
 
-## Pathnames: Absolute vs. Relative
+## Η Ιεραρχία και Σημαντικοί Κατάλογοι
 
-A pathname is the string of characters used to identify a location in the directory tree. Understanding the difference between absolute and relative pathnames is critical for navigation.
+Το ανώτατο επίπεδο της ιεραρχίας είναι ο **ριζικός κατάλογος (root directory)**, ο οποίος αναπαρίσταται από το `/`.
 
-### Absolute Pathnames
+| Κατάλογος | Συνήθη Περιεχόμενα |
+|-----------|--------------------|
+| `/` | Η απόλυτη ρίζα του συστήματος αρχείων. |
+| `/bin` | Βασικές εκτελέσιμες εντολές (π.χ. `ls`, `cp`, `mkdir`). |
+| `/dev` | Αρχεία συσκευών που αναπαριστούν υλικό. |
+| `/etc` | Αρχεία ρυθμίσεων ολόκληρου του συστήματος. |
+| `/home` | Προσωπικοί κατάλογοι χρηστών (π.χ. `/home/username`). |
+| `/tmp` | Προσωρινά αρχεία, συχνά διαγράφονται κατά την επανεκκίνηση. |
+| `/var` | Αρχεία μεταβλητών δεδομένων, όπως αρχεία καταγραφής (logs) και βάσεις δεδομένων. |
+| `/usr` | Δευτερεύουσα ιεραρχία για δεδομένα χρηστών και εφαρμογές μόνο για ανάγνωση. |
 
-An absolute path always defines the location starting from the root directory (`/`). It is a complete path that will work regardless of your current working directory.
+***
 
-**Characteristics:**
-- Always begins with a forward slash `/`.
-- Uniquely identifies a single file or directory.
+## Διαδρομές: Απόλυτες vs. Σχετικές
 
-**Examples:**
+Μια διαδρομή (pathname) είναι η συμβολοσειρά χαρακτήρων που χρησιμοποιείται για τον προσδιορισμό μιας τοποθεσίας στο δέντρο καταλόγων. Η κατανόηση της διαφοράς μεταξύ απόλυτων και σχετικών διαδρομών είναι κρίσιμη για την πλοήγηση.
+
+### Απόλυτες Διαδρομές (Absolute Pathnames)
+
+Μια απόλυτη διαδρομή ορίζει πάντα την τοποθεσία ξεκινώντας από τον ριζικό κατάλογο (`/`). Είναι μια πλήρης διαδρομή που θα λειτουργήσει ανεξάρτητα από τον τρέχοντα κατάλογο εργασίας σας.
+
+**Χαρακτηριστικά:**
+- Ξεκινά πάντα με μια κάθετο `/`.
+- Προσδιορίζει μοναδικά ένα συγκεκριμένο αρχείο ή κατάλογο.
+
+**Παραδείγματα:**
 ```sh
 /home/user1/documents/report.txt
 /etc/ssh/sshd_config
 /var/log/syslog
 ```
 
-### Relative Pathnames
+### Σχετικές Διαδρομές (Relative Pathnames)
 
-A relative path defines the location starting from your **Current Working Directory (CWD)**. It is relative to where you currently are in the file system.
+Μια σχετική διαδρομή ορίζει την τοποθεσία ξεκινώντας από τον **Τρέχοντα Κατάλογο Εργασίας (Current Working Directory - CWD)**. Είναι σχετική με το πού βρίσκεστε αυτή τη στιγμή στο σύστημα αρχείων.
 
-**Characteristics:**
-- Never begins with a forward slash `/`.
-- Can be shorter and more convenient.
+**Χαρακτηριστικά:**
+- Δεν ξεκινά ποτέ με κάθετο `/`.
+- Μπορεί να είναι μικρότερη και πιο εύχρηστη.
 
-**Special Navigational Symbols:**
-| Symbol | Meaning |
-|--------|---------|
-| `.` | The current directory. |
-| `..` | The parent directory (one level up). |
-| `~` | The current user's home directory. |
+**Ειδικά Σύμβολα Πλοήγησης:**
+| Σύμβολο | Σημασία |
+|---------|---------|
+| `.` | Ο τρέχων κατάλογος. |
+| `..` | Ο γονικός κατάλογος (ένα επίπεδο πάνω). |
+| `~` | Ο προσωπικός κατάλογος (home directory) του τρέχοντος χρήστη. |
 
-**Examples (Assuming CWD is `/home/user1/`):**
+**Παραδείγματα (Υποθέτοντας ότι ο CWD είναι ο `/home/user1/`):**
 ```sh
-documents/report.txt     # Refers to /home/user1/documents/report.txt
-./documents/report.txt   # Identical to the above
-../user2/file.txt        # Refers to /home/user2/file.txt
-../../etc/passwd         # Refers to /etc/passwd
+documents/report.txt     # Αναφέρεται στο /home/user1/documents/report.txt
+./documents/report.txt   # Πανομοιότυπο με το παραπάνω
+../user2/file.txt        # Αναφέρεται στο /home/user2/file.txt
+../../etc/passwd         # Αναφέρεται στο /etc/passwd
 ```
 
 ***
 
-## Navigation Commands
+## Εντολές Πλοήγησης
 
-### `pwd` — Print Working Directory
+### `pwd` — Εκτύπωση Τρέχοντος Καταλόγου Εργασίας (Print Working Directory)
 
-Displays the absolute pathname of your current location in the file system.
+Εμφανίζει την απόλυτη διαδρομή της τρέχουσας τοποθεσίας σας στο σύστημα αρχείων.
 
 ```sh
 pwd
@@ -94,73 +94,73 @@ pwd
 /home/user1/documents
 ```
 
-### `cd` — Change Directory
+### `cd` — Αλλαγή Καταλόγου (Change Directory)
 
-Changes your current working directory. It accepts both absolute and relative paths.
+Αλλάζει τον τρέχοντα κατάλογο εργασίας σας. Δέχεται τόσο απόλυτες όσο και σχετικές διαδρομές.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-cd <path>
+cd <διαδρομή>
 ```
 
-**Common Usage Patterns:**
-| Command | Action |
-|---------|--------|
-| `cd /etc` | Move to `/etc` (Absolute path). |
-| `cd documents` | Move to `documents` within the current directory (Relative path). |
-| `cd ..` | Move up one directory level. |
-| `cd ../..` | Move up two directory levels. |
-| `cd ~` or `cd` | Return immediately to your home directory. |
-| `cd -` | Return to the previous directory you were in. |
+**Συνήθη Πρότυπα Χρήσης:**
+| Εντολή | Ενέργεια |
+|--------|----------|
+| `cd /etc` | Μετάβαση στο `/etc` (Απόλυτη διαδρομή). |
+| `cd documents` | Μετάβαση στο `documents` εντός του τρέχοντος καταλόγου (Σχετική διαδρομή). |
+| `cd ..` | Μετάβαση ένα επίπεδο πάνω. |
+| `cd ../..` | Μετάβαση δύο επίπεδα πάνω. |
+| `cd ~` ή `cd` | Άμεση επιστροφή στον προσωπικό σας κατάλογο (home directory). |
+| `cd -` | Επιστροφή στον προηγούμενο κατάλογο στον οποίο βρισκόσασταν. |
 
 ***
 
-## Directory Management Commands
+## Εντολές Διαχείρισης Καταλόγων
 
-### `mkdir` — Make Directory
+### `mkdir` — Δημιουργία Καταλόγου (Make Directory)
 
-Creates one or more new directories.
+Δημιουργεί έναν ή περισσότερους νέους καταλόγους.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-mkdir <directory_name>
+mkdir <όνομα_καταλόγου>
 ```
 
-**Examples:**
+**Παραδείγματα:**
 ```sh
-mkdir projects           # Creates 'projects' in the current directory
-mkdir /tmp/testdir       # Creates 'testdir' in /tmp using an absolute path
+mkdir projects           # Δημιουργεί το 'projects' στον τρέχοντα κατάλογο
+mkdir /tmp/testdir       # Δημιουργεί το 'testdir' στο /tmp με χρήση απόλυτης διαδρομής
 ```
 
-**Creating Nested Directories:**
-If you attempt to create a directory inside a parent that does not exist, `mkdir` will fail. Use the `-p` (parents) flag to create the entire path structure at once.
+**Δημιουργία Εμφωλευμένων Καταλόγων:**
+Εάν επιχειρήσετε να δημιουργήσετε έναν κατάλογο μέσα σε έναν γονικό που δεν υπάρχει, η `mkdir` θα αποτύχει. Χρησιμοποιήστε τη σημαία `-p` (parents) για να δημιουργήσετε ολόκληρη τη δομή διαδρομής ταυτόχρονα.
 
 ```sh
 mkdir -p projects/python/scripts
 ```
-This command ensures that `projects`, `python`, and `scripts` are all created without errors.
+Αυτή η εντολή διασφαλίζει ότι τα `projects`, `python` και `scripts` θα δημιουργηθούν όλα χωρίς σφάλματα.
 
-### `rmdir` — Remove Directory
+### `rmdir` — Διαγραφή Καταλόγου (Remove Directory)
 
-Removes empty directories.
+Διαγράφει άδειους καταλόγους.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-rmdir <directory_name>
+rmdir <όνομα_καταλόγου>
 ```
 
-**Important Caveat:**
-`rmdir` will only succeed if the target directory contains absolutely no files or subdirectories. If the directory is not empty, you will receive an error:
+**Σημαντική Επιφύλαξη:**
+Η `rmdir` θα επιτύχει μόνο εάν ο κατάλογος στόχος δεν περιέχει απολύτως κανένα αρχείο ή υποκατάλογο. Εάν ο κατάλογος δεν είναι άδειος, θαλάβετε σφάλμα:
 ```text
 rmdir: failed to remove 'projects': Directory not empty
 ```
-To remove a directory and all of its contents simultaneously, you must use the `rm` command with recursive flags (covered in the next section).
+Για να διαγράψετε έναν κατάλογο μαζί με όλα τα περιεχόμενά του ταυτόχρονα, πρέπει να χρησιμοποιήσετε την εντολή `rm` με αναδρομικές σημαίες (καλύπτεται στην επόμενη ενότητα).
 
 ***
 
-## Summary of Navigation Workflow
+## Σύνοψη Ροής Εργασίας Πλοήγησης
 
-1. Use `pwd` to confirm where you are.
-2. Use `cd` to move around the system.
-3. Use `mkdir` to create new organizational folders.
-4. Remember to use `.` and `..` to reference relative locations quickly without typing long absolute paths.
+1. Χρησιμοποιήστε την `pwd` για να επιβεβαιώσετε πού βρίσκεστε.
+2. Χρησιμοποιήστε την `cd` για να μετακινηθείτε στο σύστημα.
+3. Χρησιμοποιήστε την `mkdir` για να δημιουργήσετε νέους καταλόγους οργάνωσης.
+4. Θυμηθείτε να χρησιμοποιείτε τα `.` και `..` για να αναφέρεστε γρήγορα σε σχετικές τοποθεσίες χωρίς να πληκτρολογείτε μεγάλες απόλυτες διαδρομές.

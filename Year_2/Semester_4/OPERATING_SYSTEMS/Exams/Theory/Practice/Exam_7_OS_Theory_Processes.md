@@ -1,24 +1,24 @@
-# Exam 7: OS Theory - Processes and Semaphores
+# Θέμα 7: Θεωρία ΛΣ - Διεργασίες και Σημαφόροι
 
 ***
 
-## Questions
+## Ερωτήσεις
 
-**Question 1: Process State Transitions**
-Explain the circumstances under which a process transitions to the "Suspended" (or "Suspended in Memory") state. What causes this transition, and when does the process return to a ready or active state?
+**Ερώτηση 1: Μεταβάσεις Κατάστασης Διεργασιών (Process State Transitions)**
+Εξηγήστε τις συνθήκες υπό τις οποίες μια διεργασία μεταβαίνει στην κατάσταση "Σε αναστολή" ("Suspended" ή "Suspended in Memory"). Τι προκαλεί αυτή τη μετάβαση και πότε επιστρέφει η διεργασία σε έτοιμη (ready) ή ενεργή κατάσταση;
 
-**Question 2: Semaphore Operations**
-Consider a binary semaphore `S` initialized with a value of 1. 
-- Describe in detail what happens to the program execution and the value of the semaphore when a process calls the `wait(S)` (or `P(S)`) operation.
+**Ερώτηση 2: Λειτουργίες Σημαφόρων (Semaphore Operations)**
+Θεωρήστε έναν δυαδικό σημαφόρο `S` αρχικοποιημένο με την τιμή 1.
+- Περιγράψτε λεπτομερώς τι συμβαίνει στην εκτέλεση του προγράμματος και στην τιμή του σημαφόρου όταν μια διεργασία καλεί τη λειτουργία `wait(S)` (ή `P(S)`).
 
-**Question 3: Deadlocks**
-What are the four necessary conditions for a deadlock to occur in an operating system? Briefly explain each condition.
+**Ερώτηση 3: Αδιέξοδα (Deadlocks)**
+Ποιες είναι οι τέσσερις απαραίτητες συνθήκες για να προκληθεί αδιέξοδο (deadlock) σε ένα λειτουργικό σύστημα; Εξηγήστε εντελώς συνοπτικά κάθε συνθήκη.
 
-**Question 4: Context Switching**
-Describe the steps an operating system takes when performing a context switch between two processes. Why is context switching considered overhead?
+**Ερώτηση 4: Εναλλαγή Πλαισίου (Context Switching)**
+Περιγράψτε τα βήματα που πραγματοποιεί ένα λειτουργικό σύστημα κατά την εκτέλεση μιας εναλλαγής πλαισίου (context switch) μεταξύ δύο διεργασιών. Γιατί η εναλλαγή πλαισίου θεωρείται επιβάρυνση (overhead);
 
-**Question 5: CPU Scheduling**
-Compare the First-Come, First-Served (FCFS) scheduling algorithm with the Round Robin (RR) algorithm. In what scenario would RR perform significantly better than FCFS in terms of average response time?
+**Ερώτηση 5: Δρομολόγηση CPU (CPU Scheduling)**
+Συγκρίνετε τον αλγόριθμο δρομολόγησης FCFS (First-Come, First-Served) με τον αλγόριθμο Round Robin (RR). Σε ποιο σενάριο ο RR θα είχει σημαντικά καλύτερη απόδοση από τον FCFS όσον αφορά τον μέσο χρόνο απόκρισης (average response time);
 
 ***
-*Tip: For semaphores, clearly distinguish between the value of the semaphore and the blocking/waking of processes.*
+*Συμβουλή: Για τους σημαφόρους, διαχωρίστε σαφώς την τιμή του σημαφόρου από το μπλοκάρισμα/αποκλεισμό (blocking) και την αφύπνιση (waking) των διεργασιών.*

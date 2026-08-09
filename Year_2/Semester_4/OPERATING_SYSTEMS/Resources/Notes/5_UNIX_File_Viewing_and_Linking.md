@@ -1,141 +1,141 @@
-# 5. UNIX File Viewing and Linking
+# 5. Προβολή Αρχείων και Σύνδεσμοι στο UNIX
 
 ***
 
-## Viewing File Contents
+## Προβολή Περιεχομένων Αρχείου
 
-### `cat` — Concatenate and Print
+### `cat` — Σύνδεση και Εκτύπωση (Concatenate and Print)
 
-The `cat` command is primarily used to display the entire contents of a file on the terminal screen.
+Η εντολή `cat` χρησιμοποιείται κυρίως για την προβολή ολόκληρων των περιεχομένων ενός αρχείου στην οθόνη του τερματικού.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-cat <file_name>
-cat file1 file2       # Displays the contents of file1 followed immediately by file2
+cat <όνομα_αρχείου>
+cat file1 file2       # Εμφανίζει τα περιεχόμενα του file1 ακολουθούμενα αμέσως από το file2
 ```
 
-**Common Flags:**
-- `-n`: Numbers all output lines.
-- `-A`: Displays non-printable characters (e.g., ends of lines as `$`, tabs as `^I`).
+**Συνήθεις Σημαίες:**
+- `-n`: Αριθμεί όλες τις γραμμές εξόδου.
+- `-A`: Εμφανίζει μη εκτυπώσιμους χαρακτήρες (π.χ. τέλη γραμμών ως `$`, στηλοθέτες/tabs ως `^I`).
 
-*(Note: `cat` is not ideal for very large files because it prints everything at once, causing the text to scroll by too quickly to read. For large files, pagers like `less` or `more` are preferred.)*
+*(Σημείωση: Η `cat` δεν είναι ιδανική για πολύ μεγάλα αρχεία επειδή εκτυπώνει τα πάντα ταυτόχρονα, προκαλώντας πολύ γρήγορη κύλιση του κειμένου. Για μεγάλα αρχεία προτιμώνται σελιδοποιητές/pagers όπως η `less` ή η `more`.)*
 
-### `less` and `more` — Pagers
+### `less` και `more` — Σελιδοποιητές (Pagers)
 
-Pagers allow you to view the contents of a file one screen at a time.
+Οι σελιδοποιητές σας επιτρέπουν να προβάλλετε τα περιεχόμενα ενός αρχείου μία οθόνη κάθε φορά.
 
 ```sh
 less large_log.txt
 ```
-**Navigation in `less`:**
-- `Spacebar` or `Page Down`: Scroll down one screen.
-- `b` or `Page Up`: Scroll up one screen.
-- `Down Arrow` / `Up Arrow`: Scroll line by line.
-- `q`: Quit and return to the prompt.
-- `/pattern`: Search forward for a specific word or pattern.
+**Πλοήγηση στην `less`:**
+- `Spacebar` ή `Page Down`: Κύλιση μία οθόνη κάτω.
+- `b` ή `Page Up`: Κύλιση μία οθόνη πάνω.
+- `Κάτω Βέλος` / `Πάνω Βέλος`: Κύλιση γραμμή προς γραμμή.
+- `q`: Έξοδος και επιστροφή στην προτροπή (prompt).
+- `/πρότυπο`: Αναζήτηση προς τα εμπρός για μια συγκεκριμένη λέξη ή πρότυπο.
 
-### `head` — View the Beginning of a File
+### `head` — Προβολή της Αρχής ενός Αρχείου
 
-Displays the first few lines of a file (default is 10 lines).
+Εμφανίζει τις πρώτες λίγες γραμμές ενός αρχείου (προεπιλογή είναι 10 γραμμές).
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-head <file_name>
-head -n 20 <file_name>    # Displays the first 20 lines
-head -c 50 <file_name>    # Displays the first 50 bytes/characters
+head <όνομα_αρχείου>
+head -n 20 <όνομα_αρχείου>    # Εμφανίζει τις πρώτες 20 γραμμές
+head -c 50 <όνομα_αρχείου>    # Εμφανίζει τα πρώτα 50 bytes/χαρακτήρες
 ```
 
-### `tail` — View the End of a File
+### `tail` — Προβολή του Τέλους ενός Αρχείου
 
-Displays the last few lines of a file (default is 10 lines).
+Εμφανίζει τις τελευταίες λίγες γραμμές ενός αρχείου (προεπιλογή είναι 10 γραμμές).
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-tail <file_name>
-tail -n 15 <file_name>    # Displays the last 15 lines
+tail <όνομα_αρχείου>
+tail -n 15 <όνομα_αρχείου>    # Εμφανίζει τις τελευταίες 15 γραμμές
 ```
 
-**Following a file:**
-The `-f` (follow) flag is incredibly useful for monitoring log files. It keeps the file open and displays new lines as they are appended in real-time.
+**Παρακολούθηση αρχείου σε πραγματικό χρόνο:**
+Η σημαία `-f` (follow) είναι εξαιρετικά χρήσιμη για την παρακολούθηση αρχείων καταγραφής (log files). Διατηρεί το αρχείο ανοιχτό και εμφανίζει νέες γραμμές καθώς προσαρτώνται σε πραγματικό χρόνο.
 ```sh
 tail -f /var/log/syslog
 ```
-*(Press `Ctrl + C` to stop following the file.)*
+*(Πιέστε `Ctrl + C` για να σταματήσετε την παρακολούθηση του αρχείου.)*
 
 ***
 
-## File Analysis Commands
+## Εντολές Ανάλυσης Αρχείων
 
-### `wc` — Word Count
+### `wc` — Καταμέτρηση Λέξεων (Word Count)
 
-Counts the number of lines, words, and characters in a file.
+Καταμετρά τον αριθμό των γραμμών, των λέξεων και των χαρακτήρων σε ένα αρχείο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-wc <file_name>
+wc <όνομα_αρχείου>
 ```
 
-**Output example:**
+**Παράδειγμα εξόδου:**
 ```text
   45  130  850 report.txt
 ```
-*(Represents 45 lines, 130 words, 850 characters)*
+*(Αναπαριστά 45 γραμμές, 130 λέξεις, 850 χαρακτήρες)*
 
-**Common Flags:**
-- `-l`: Print only the line count.
-- `-w`: Print only the word count.
-- `-c`: Print only the byte/character count.
+**Συνήθεις Σημαίες:**
+- `-l`: Εκτύπωση μόνο του αριθμού γραμμών.
+- `-w`: Εκτύπωση μόνο του αριθμού λέξεων.
+- `-c`: Εκτύπωση μόνο του αριθμού bytes/χαρακτήρων.
 
-### `sort` — Sort Lines of Text
+### `sort` — Ταξινόμηση Γραμμών Κειμένου
 
-Sorts the contents of a text file line by line. By default, it sorts in lexicographical (alphabetical) ascending order.
+Ταξινομεί τα περιεχόμενα ενός αρχείου κειμένου γραμμή προς γραμμή. Από προεπιλογή, ταξινομεί σε λεξικογραφική (αλφαβητική) αύξουσα σειρά.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
 sort data.txt
 ```
 
-**Common Flags:**
-- `-r`: Reverse the sorting order (descending).
-- `-n`: Sort numerically rather than alphabetically (e.g., treats "10" as greater than "2").
-- `-u`: Unique. Removes duplicate lines from the output.
+**Συνήθεις Σημαίες:**
+- `-r`: Αντίστροφη σειρά ταξινόμησης (φθίνουσα).
+- `-n`: Αριθμητική ταξινόμηση αντί για αλφαβητική (π.χ. θεωρεί το "10" μεγαλύτερο από το "2").
+- `-u`: Unique (μοναδικά). Αφαιρεί διπλότυπες γραμμές από την έξοδο.
 
 ***
 
-## Linking Files
+## Σύνδεση Αρχείων (Linking Files)
 
-UNIX allows you to create links to files. A link is essentially a pointer or an alias to an existing file. There are two types: Hard Links and Symbolic (Soft) Links.
+Το UNIX σας επιτρέπει να δημιουργείτε συνδέσμους προς αρχεία. Ένας σύνδεσμος είναι ουσιαστικά ένας δείκτης ή ένα ψευδώνυμο προς ένα υπάρχον αρχείο. Υπάρχουν δύο τύποι: Σκληροί Σύνδεσμοι (Hard Links) και Συμβολικοί / Μαλακοί Σύνδεσμοι (Symbolic / Soft Links).
 
-### Symbolic Links (Soft Links)
+### Συμβολικοί Σύνδεσμοι (Symbolic Links / Soft Links)
 
-A symbolic link is a special type of file that simply contains the path to another file. If you delete the original file, the symbolic link becomes "broken" or "dangling."
+Ένας συμβολικός σύνδεσμος είναι ένας ειδικός τύπος αρχείου που απλά περιέχει τη διαδρομή προς ένα άλλο αρχείο. Εάν διαγράψετε το πρωτότυπο αρχείο, ο συμβολικός σύνδεσμος γίνεται "σπασμένος" (broken) ή "εκκρεμής" (dangling).
 
-**Creating a Symbolic Link:**
+**Δημιουργία Συμβολικού Συνδέσμου:**
 ```sh
-ln -s <target_file> <link_name>
+ln -s <αρχείο_στόχος> <όνομα_συνδέσμου>
 ```
 
-**Examples:**
+**Παραδείγματα:**
 ```sh
 ln -s /etc/nginx/sites-available/myapp.conf /etc/nginx/sites-enabled/myapp.conf
 ```
-*(Creates a symlink in `sites-enabled` pointing to the actual configuration file.)*
+*(Δημιουργεί έναν συμβολικό σύνδεσμο στο `sites-enabled` που δείχνει στο πραγματικό αρχείο ρυθμίσεων.)*
 
-When you run `ls -l`, symbolic links are indicated by an `l` in the permissions string and an arrow `->` pointing to the target:
+Όταν εκτελείτε `ls -l`, οι συμβολικοί σύνδεσμοι υποδεικνύονται από ένα `l` στη συμβολοσειρά δικαιωμάτων και ένα βέλος `->` που δείχνει στον στόχο:
 ```text
 lrwxrwxrwx 1 user user 35 Oct 24 10:00 myapp.conf -> /etc/nginx/sites-available/myapp.conf
 ```
 
-### Hard Links
+### Σκληροί Σύνδεσμοι (Hard Links)
 
-A hard link creates a direct pointer to the underlying data (inode) on the hard drive. The system treats a hard link identically to the original file. If you delete the original file, the data remains accessible via the hard link until all hard links to that data are deleted.
+Ένας σκληρός σύνδεσμος δημιουργεί έναν άμεσο δείκτη προς τα υποκείμενα δεδομένα (inode) στον σκληρό δίσκο. Το σύστημα αντιμετωπίζει έναν σκληρό σύνδεσμο πανομοιότυπα με το πρωτότυπο αρχείο. Εάν διαγράψετε το πρωτότυπο αρχείο, τα δεδομένα παραμένουν προσβάσιμα μέσω του σκληρού συνδέσμου μέχρι να διαγραφούν όλοι οι σκληροί σύνδεσμοι που δείχνουν σε αυτά τα δεδομένα.
 
-**Creating a Hard Link:**
+**Δημιουργία Σκληρού Συνδέσμου:**
 ```sh
-ln <target_file> <link_name>
+ln <αρχείο_στόχος> <όνομα_συνδέσμου>
 ```
 
-**Differences between Hard and Soft Links:**
-- Hard links cannot cross different file systems or partitions; soft links can.
-- Hard links cannot point to directories; soft links can.
-- Soft links are far more common in everyday UNIX usage.
+**Διαφορές μεταξύ Σκληρών και Συμβολικών Συνδέσμων:**
+- Οι σκληροί σύνδεσμοι δεν μπορούν να διασχίσουν διαφορετικά συστήματα αρχείων ή κατατμήσεις (partitions), ενώ οι συμβολικοί μπορούν.
+- Οι σκληροί σύνδεσμοι δεν μπορούν να δείχνουν σε καταλόγους, ενώ οι συμβολικοί μπορούν.
+- Οι συμβολικοί σύνδεσμοι είναι πολύ πιο συνηθισμένοι στην καθημερινή χρήση του UNIX.

@@ -284,10 +284,10 @@ monitor ←────────────── user
 
 Χρησιμοποιούνται δύο καταχωρητές που ορίζουν το αποδεκτό εύρος διευθύνσεων για κάθε πρόγραμμα:
 
-| Καταχωρητής      | Περιεχόμενο                                    |
-| :--------------- | :--------------------------------------------- |
-| **base register**  | Μικρότερη αποδεκτή φυσική διεύθυνση μνήμης    |
-| **limit register** | Μέγεθος της αποδεκτής περιοχής μνήμης         |
+| Καταχωρητής        | Περιεχόμενο                                |
+| :----------------- | :----------------------------------------- |
+| **base register**  | Μικρότερη αποδεκτή φυσική διεύθυνση μνήμης |
+| **limit register** | Μέγεθος της αποδεκτής περιοχής μνήμης      |
 
 - Μνήμη εκτός `[base, base + limit)` είναι **προστατευμένη**.
 - Σε monitor mode το ΛΣ έχει **απεριόριστη** πρόσβαση σε ολόκληρη τη μνήμη.
@@ -427,12 +427,12 @@ Computer Hardware
 
 ### 7.5 Λόγοι Δημιουργίας Σφαλμάτων
 
-| Αιτία                                  | Περιγραφή                                                                                       |
-| :------------------------------------- | :---------------------------------------------------------------------------------------------- |
-| Ανακριβής συγχρονισμός                 | Σήματα διακοπών δεν διαχειρίζονται σωστά από τον μηχανισμό σηματοδότησης                       |
-| Αποτυχημένος αμοιβαίος αποκλεισμός    | Ταυτόχρονη πρόσβαση σε διαμοιραζόμενο πόρο από πολλούς χρήστες / προγράμματα                  |
-| Ακαθόριστη λειτουργία προγράμματος    | Προγράμματα παρεμβαίνουν επανεγγράφοντας κοινές περιοχές μνήμης · εξάρτηση από σειρά δρομολόγησης |
-| Αδιέξοδα (deadlocks)                  | Δύο ή περισσότερα προγράμματα αναμένουν αμοιβαία το ένα το άλλο για να αποδεσμευτεί πόρος     |
+| Αιτία                              | Περιγραφή                                                                                         |
+| :--------------------------------- | :------------------------------------------------------------------------------------------------ |
+| Ανακριβής συγχρονισμός             | Σήματα διακοπών δεν διαχειρίζονται σωστά από τον μηχανισμό σηματοδότησης                          |
+| Αποτυχημένος αμοιβαίος αποκλεισμός | Ταυτόχρονη πρόσβαση σε διαμοιραζόμενο πόρο από πολλούς χρήστες / προγράμματα                      |
+| Ακαθόριστη λειτουργία προγράμματος | Προγράμματα παρεμβαίνουν επανεγγράφοντας κοινές περιοχές μνήμης · εξάρτηση από σειρά δρομολόγησης |
+| Αδιέξοδα (deadlocks)               | Δύο ή περισσότερα προγράμματα αναμένουν αμοιβαία το ένα το άλλο για να αποδεσμευτεί πόρος         |
 
 > **[Key Insight]** Τα σφάλματα διεργασιών εμφανίζονται μόνο μετά από **σπάνιες και συγκεκριμένες αλληλουχίες ενεργειών**, γεγονός που τα καθιστά εξαιρετικά δυσεντόπιστα. Η ανίχνευση ενός σφάλματος **δεν** ορίζει αυτόματα την αιτία του.
 
@@ -2014,353 +2014,340 @@ while (true) {
 
 # Κεφάλαιο 7 — Διαχείριση Μνήμης (Memory Management)
 
-This file covers the core concepts of main memory management as presented in Chapter 7 of the Operating Systems course. Topics include memory manager design, management strategies, fixed and dynamic partitioning, fragmentation, placement algorithms, and swapping. The material falls under **Type C — Engineering and Applied Science Topics**.
+Αυτό το αρχείο καλύπτει τις βασικές έννοιες διαχείρισης της κύριας μνήμης όπως παρουσιάζονται στο Κεφάλαιο 7 του μαθήματος Λειτουργικά Συστήματα. Τα θέματα περιλαμβάνουν τον σχεδιασμό του διαχειριστή μνήμης, στρατηγικές διαχείρισης, σταθερή και δυναμική τμηματοποίηση, κατακερματισμό, αλγορίθμους τοποθέτησης και εναλλαγή (swapping).
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Θεμελιώδεις Έννοιες
 
-Memory management is the OS function responsible for subdividing main memory dynamically so that as many processes as possible can be serviced efficiently. Without it:
-- Programs larger than physical memory could not run.
-- Multiple processes could not coexist in memory simultaneously (no multiprogramming).
-- There would be no protection or isolation between processes.
+Η διαχείριση μνήμης είναι η λειτουργία του ΛΣ που είναι υπεύθυνη για τη δυναμική υποδιαίρεση της κύριας μνήμης ώστε να εξυπηρετούνται αποδοτικά όσο το δυνατόν περισσότερες διεργασίες. Χωρίς αυτήν:
+- Προγράμματα μεγαλύτερα από τη φυσική μνήμη δεν θα μπορούσαν να εκτελεστούν.
+- Πολλαπλές διεργασίες δεν θα μπορούσαν να συνυπάρξουν στη μνήμη ταυτόχρονα (απουσία πολυπρογραμματισμού).
+- Δεν θα υπήρχε προστασία ή απομόνωση μεταξύ των διεργασιών.
 
-**Key goals (from the programmer's and OS perspective):**
+**Βασικοί στόχοι (από την πλευρά του προγραμματιστή και του ΛΣ):**
 
-| Goal | Description |
+| Στόχος | Περιγραφή |
 | :--- | :--- |
-| Minimize access time | Reduce latency to fetch instructions/data |
-| Maximize addressable space | Allow programs to use as much memory as needed |
-| Enable multiprogramming | Keep multiple processes resident simultaneously |
-| Provide protection | Prevent one process from corrupting another |
-| Ease of programming | Hide physical memory constraints from the programmer |
+| Ελαχιστοποίηση χρόνου προσπέλασης | Μείωση της καθυστέρησης για ανάκτηση εντολών/δεδομένων |
+| Μεγιστοποίηση διευθυνσιοδοτούμενου χώρου | Επιλογή των προγραμμάτων να χρησιμοποιούν όση μνήμη χρειάζονται |
+| Υποστήριξη πολυπρογραμματισμού | Διατήρηση πολλαπλών διεργασιών ταυτόχρονα στη μνήμη |
+| Παροχή προστασίας | Αποτροπή αλλοίωσης μνήμης μιας διεργασίας από άλλη |
+| Ευκολία προγραμματισμού | Απόκρυψη περιορισμών φυσικής μνήμης από τον προγραμματιστή |
 
 ---
 
-## 2. The Memory Manager
+## 2. Ο Διαχειριστής Μνήμης (Memory Manager)
 
-The **memory manager** is the OS component responsible for organizing and applying memory management strategies.
+Ο **διαχειριστής μνήμης** (memory manager) είναι το συστατικό του ΛΣ που είναι υπεύθυνο για την οργάνωση και την εφαρμογή των στρατηγικών διαχείρισης μνήμης.
 
-**Responsibilities:**
-- Allocate primary (main) memory to processes.
-- Map each process's address space onto physical memory.
-- Minimize access time using cost-effective static or dynamic techniques.
-- Interact with dedicated hardware — the **Memory Management Unit (MMU)** — to improve performance.
+**Αρμοδιότητες:**
+- Εκχώρηση κύριας (πρωτεύουσας) μνήμης στις διεργασίες.
+- Αντιστοίχιση του χώρου διευθύνσεων κάθε διεργασίας στη φυσική μνήμη.
+- Ελαχιστοποίηση του χρόνου προσπέλασης με χρήση αποδοτικών στατικών ή δυναμικών τεχνικών.
+- Αλληλεπίδραση με εξειδικευμένο υλικό — τη **Μονάδα Διαχείρισης Μνήμης (MMU - Memory Management Unit)** — για βελτίωση της απόδοσης.
 
 ---
 
-## 3. Memory Management Strategies
+## 3. Στρατηγικές Διαχείρισης Μνήμης
 
-Three orthogonal strategy categories govern when, where, and which data occupies main memory:
+Τρεις ορθογώνιες κατηγορίες στρατηγικών καθορίζουν το πότε, πού και ποια δεδομένα καταλαμβάνουν την κύρια μνήμη:
 
-| Strategy Class | Purpose |
+| Κατηγορία Στρατηγικής | Σκοπός |
 | :--- | :--- |
-| **Fetch strategy** (Προσκόμισης) | Decides *when* the next program/data segment is moved from secondary to primary memory |
-| **Placement strategy** (Τοποθέτησης) | Decides *where* in main memory the incoming segment is placed |
-| **Replacement strategy** (Επανατοποθέτησης) | Decides *which* segment to evict when main memory is full |
+| **Στρατηγική Προσκόμισης** (Fetch strategy) | Αποφασίζει *πότε* το επόμενο τμήμα προγράμματος/δεδομένων μεταφέρεται από τη δευτερεύουσα στην κύρια μνήμη |
+| **Στρατηγική Τοποθέτησης** (Placement strategy) | Αποφασίζει *πού* στην κύρια μνήμη θα τοποθετηθεί το εισερχόμενο τμήμα |
+| **Στρατηγική Αντικατάστασης** (Replacement strategy) | Αποφασίζει *ποιο* τμήμα θα αποβληθεί όταν η κύρια μνήμη είναι πλήρης |
 
 ---
 
-## 4. Memory Allocation Types
+## 4. Τύποι Κατανομής Μνήμης
 
-### 4.1 Contiguous Allocation (Συνεχόμενη Εκχώρηση)
+### 4.1 Συνεχόμενη Εκχώρηση (Contiguous Allocation)
 
-The entire program is placed in adjacent memory locations.
-- Used in early computing systems.
-- If a program is larger than available memory, the system cannot execute it.
+Ολόκληρο το πρόγραμμα τοποθετείται σε γειτονικές/συνεχόμενες θέσεις μνήμης.
+- Χρησιμοποιήθηκε στα πρώτα υπολογιστικά συστήματα.
+- Εάν ένα πρόγραμμα είναι μεγαλύτερο από τη διαθέσιμη μνήμη, το σύστημα δεν μπορεί να το εκτελέσει.
 
-### 4.2 Non-Contiguous Allocation (Μη Συνεχόμενη Εκχώρηση)
+### 4.2 Μη Συνεχόμενη Εκχώρηση (Non-Contiguous Allocation)
 
-The program is divided into pieces (pages or segments) placed in non-adjacent slots of main memory.
-- Enables use of memory regions too small for an entire program.
-- Increases system complexity but significantly raises the degree of multiprogramming.
-- Realized through **virtual memory**.
+Το πρόγραμμα διαιρείται σε κομμάτια (σελίδες ή τμήματα) που τοποθετούνται σε μη γειτονικές θέσεις της κύριας μνήμης.
+- Επιτρέπει τη χρήση περιοχών μνήμης που είναι πολύ μικρές για ένα ολόκληρο πρόγραμμα.
+- Αυξάνει τη συνθετότητα του συστήματος αλλά αυξάνει σημαντικά τον βαθμό πολυπρογραμματισμού.
+- Υλοποιείται μέσω της **ιδεατής μνήμης (virtual memory)**.
 
 ---
 
-## 5. Basic Memory Management
+## 5. Βασική Διαχείριση Μνήμης
 
-### 5.1 Monoprogramming (Μονοπρογραμματισμός)
+### 5.1 Μονοπρογραμματισμός (Monoprogramming)
 
-One user monopolizes all system resources. Three simple physical memory layouts exist:
+Ένας μόνο χρήστης μονοπωλεί όλους τους πόρους του συστήματος. Υπάρχουν τρεις απλές διατάξεις φυσικής μνήμης:
 
 ```
-Layout A             Layout B             Layout C
+Διάταξη A            Διάταξη B            Διάταξη C
 +-----------------+  +-----------------+  +------------------+
-| User Program    |  | OS (ROM)        |  | Device Drivers   |
+| Πρόγραμμα Χρήστη|  | ΛΣ (ROM)        |  | Οδηγοί Συσκευών  |
 | (RAM)           |  +-----------------+  | (ROM)            |
-|                 |  | User Program    |  +------------------+
-+-----------------+  | (RAM)           |  | User Program     |
-| OS (RAM)        |  +-----------------+  | (RAM)            |
+|                 |  | Πρόγραμμα Χρήστη|  +------------------+
++-----------------+  | (RAM)           |  | Πρόγραμμα Χρήστη |
+| ΛΣ (RAM)        |  +-----------------+  | (RAM)            |
 | 0               |                    |  +------------------+
-+-----------------+                    |  | OS (RAM)         |
-                                        |  | 0                |
-                                        |  +------------------+
++-----------------+                    |  | ΛΣ (RAM)         |
+                                       |  | 0                |
+                                       |  +------------------+
 ```
 
-Memory protection is not a concern in monoprogramming — only one process runs at a time.
+Η προστασία μνήμης δεν αποτελεί πρόβλημα στον μονοπρογραμματισμό — εκτελείται μόνο μία διεργασία κάθε φορά.
 
-### 5.2 Overlays (Επικαλύψεις)
+### 5.2 Επικαλύψεις (Overlays)
 
-A technique enabling execution of programs larger than the available memory partition.
+Μια τεχνική που επιτρέπει την εκτέλεση προγραμμάτων μεγαλύτερων από το διαθέσιμο τμήμα μνήμης.
 
-**Mechanism:**
-1. The programmer divides the program into logical modules.
-2. A portion of the program and data that must always remain in memory occupies the fixed area.
-3. The remaining modules are loaded into an **overlay area** on demand, replacing the previous module.
+**Μηχανισμός:**
+1. Ο προγραμματιστής διαιρεί το πρόγραμμα σε λογικές μονάδες (modules).
+2. Ένα τμήμα του προγράμματος και δεδομένα που πρέπει να παραμένουν πάντα στη μνήμη καταλαμβάνουν τη σταθερή περιοχή.
+3. Οι υπόλοιπες μονάδες φορτώνονται σε μια **περιοχή επικάλυψης (overlay area)** κατά απαιτούμενο χρόνο, αντικαθιστώντας την προηγούμενη μονάδα.
 
 ```
-Memory:
+Μνήμη:
 +-------------------------+
-| OS                      |
-+-------------------------+  <-- address a
-| Permanent code/data     |
-+-------------------------+  <-- address b
-| Overlay area            |  <-- modules loaded here sequentially:
-|  [1] Initialization     |      (1) Load init phase, run
-|  [2] Processing         |      (2) Load processing phase, run
-|  [3] Output             |      (3) Load output phase, run
-+-------------------------+  <-- address c
+| ΛΣ                      |
++-------------------------+  <-- διεύθυνση a
+| Μόνιμος κώδικας/δεδομένα|
++-------------------------+  <-- διεύθυνση b
+| Περιοχή επικάλυψης      |  <-- μονάδες που φορτώνονται εδώ διαδοχικά:
+|  [1] Αρχικοποίηση       |      (1) Φόρτωση φάσης αρχικοποίησης, εκτέλεση
+|  [2] Επεξεργασία        |      (2) Φόρτωση φάσης επεξεργασίας, εκτέλεση
+|  [3] Έξοδος             |      (3) Φόρτωση φάσης εξόδου, εκτέλεση
++-------------------------+  <-- διεύθυνση c
 ```
 
-> **[Key Insight]** Overlays solve the size-fit problem but require the programmer to manually decompose the program. The OS does not manage this automatically.
+> **[Βασική Παρατήρηση]** Οι επικαλύψεις λύνουν το πρόβλημα μεγέθους, αλλά απαιτούν από τον προγραμματιστή να διασπάσει χειροκίνητα το πρόγραμμα. Το ΛΣ δεν το διαχειρίζεται αυτό αυτόματα.
 
 ---
 
-## 6. Memory and Multiprogramming
+## 6. Μνήμη και Πολυπρογραμματισμός
 
-### 6.1 Motivation
+### 6.1 Κίνητρο
 
-A single process frequently blocks on I/O operations, which are orders of magnitude slower than CPU operations. The CPU sits idle during I/O waits. **Multiprogramming** keeps multiple processes resident in memory so that when one process waits on I/O, another can use the CPU.
+Μια μεμονωμένη διεργασία συχνά μπλοκάρει σε λειτουργίες Εισόδου/Εξόδου (I/O), οι οποίες είναι τάξεις μεγέθους πιο αργές από τις λειτουργίες της CPU. Η CPU παραμένει αδρανής κατά την αναμονή I/O. Ο **πολυπρογραμματισμός (multiprogramming)** διατηρεί πολλαπλές διεργασίες στη μνήμη ώστε όταν μία διεργασία περιμένει I/O, μια άλλη να μπορεί να χρησιμοποιήσει τη CPU.
 
-### 6.2 CPU Utilization Formula
+### 6.2 Τύπος Εκμετάλλευσης CPU (CPU Utilization Formula)
 
-Let:
-- $p$ = probability that a process is waiting on I/O at any given moment
-- $v$ = number of processes (degree of multiprogramming)
+Έστω:
+- $p$ = πιθανότητα μια διεργασία να περιμένει I/O σε μια δεδομένη στιγμή
+- $v$ = αριθμός διεργασιών (βαθμός πολυπρογραμματισμού)
 
 $$
-\text{CPU utilization} = 1 - p^v
+\text{Εκμετάλλευση CPU} = 1 - p^v
 $$
 
-**Interpretation:** As $v$ increases, CPU utilization approaches 1 (100%). Higher I/O wait probability $p$ requires more concurrent processes to achieve the same utilization.
+**Ερμηνεία:** Καθώς το $v$ αυξάνεται, η εκμετάλλευση της CPU πλησιάζει το 1 (100%). Υψηλότερη πιθανότητα αναμονής I/O $p$ απαιτεί περισσότερες ταυτόχρονες διεργασίες για την επίτευξη της ίδιας εκμετάλλευσης.
 
-> **[Key Insight]** This formula assumes processes are independent and I/O waits are statistically independent. It is a probabilistic approximation, not an exact model.
+> **[Βασική Παρατήρηση]** Ο τύπος αυτός υποθέτει ότι οι διεργασίες είναι ανεξάρτητες και οι αναμονές I/O είναι στατιστικά ανεξάρτητες. Αποτελεί πιθανοτική προσέγγιση.
 
-**Example values:**
+**Πίνακας Τιμών:**
 
-| $p$ (I/O wait) | $v = 1$ | $v = 2$ | $v = 4$ | $v = 8$ |
+| $p$ (Αναμονή I/O) | $v = 1$ | $v = 2$ | $v = 4$ | $v = 8$ |
 | :--- | :--- | :--- | :--- | :--- |
 | 20% | 80% | 96% | 99.8% | ~100% |
 | 50% | 50% | 75% | 93.8% | 99.6% |
 | 80% | 20% | 36% | 59.0% | 83.2% |
 
-### 6.3 Trade-offs in Degree of Multiprogramming
+### 6.3 Συμβιβασμοί στον Βαθμό Πολυπρογραμματισμού
 
-- More processes → better CPU utilization, but requires better memory management and protection.
-- Fewer processes → less memory consumed, but CPU may be underutilized.
-- Higher I/O wait → more processes required to maintain CPU utilization.
+- Περισσότερες διεργασίες → καλύτερη εκμετάλλευση CPU, αλλά απαιτείται καλύτερη διαχείριση μνήμης και προστασία.
+- Λιγότερες διεργασίες → λιγότερη κατανάλωση μνήμης, αλλά η CPU ενδέχεται να υποαπασχολείται.
+- Υψηλότερη αναμονή I/O → απαιτούνται περισσότερες διεργασίες για διατήρηση της εκμετάλλευσης της CPU.
 
-> **[Key Insight]** For the remainder of this chapter, **contiguous allocation** is assumed: each process is assigned one contiguous memory block.
+> **[Βασική Παρατήρηση]** Στο υπόλοιπο αυτού του κεφαλαίου υποτίθεται **συνεχόμενη εκχώρηση**: σε κάθε διεργασία ανατίθεται ένα συνεχόμενο τμήμα μνήμης.
 
 ---
 
-## 7. Fixed Partitioning (Τμηματοποίηση Σταθερού Μεγέθους)
+## 7. Τμηματοποίηση Σταθερού Μεγέθους (Fixed Partitioning)
 
-Memory is divided into a fixed number of partitions at system boot time. The number and sizes of partitions do not change during operation.
+Η μνήμη διαιρείται σε έναν σταθερό αριθμό τμημάτων (partitions) κατά την εκκίνηση του συστήματος. Ο αριθμός και τα μεγέθη των τμημάτων δεν αλλάζουν κατά τη λειτουργία.
 
-- Each process occupies exactly **one partition**.
-- Maximum degree of multiprogramming = number of partitions.
+- Κάθε διεργασία καταλαμβάνει ακριβώς **ένα τμήμα**.
+- Μέγιστος βαθμός πολυπρογραμματισμού = αριθμός τμημάτων.
 
-### 7.1 Equal-Size Partitions (Ίσα Τμήματα)
+### 7.1 Ίσα Τμήματα (Equal-Size Partitions)
 
-All partitions have the same size.
+Όλα τα τμήματα έχουν το ίδιο μέγεθος.
 
-**Operation:**
-- Any process with size $\leq$ partition size can be loaded.
-- If all partitions are occupied, the OS swaps out one process.
-- A program larger than one partition requires **overlays**.
+**Λειτουργία:**
+- Οποιαδήποτε διεργασία με μέγεθος $\leq$ μέγεθος τμήματος μπορεί να φορτωθεί.
+- Εάν όλα τα τμήματα είναι κατειλημμένα, το ΛΣ κάνει swap-out μία διεργασία.
+- Ένα πρόγραμμα μεγαλύτερο από ένα τμήμα απαιτεί **επικαλύψεις (overlays)**.
 
-**Problem — Internal Fragmentation:**
+**Πρόβλημα — Εσωτερικός Κατακερματισμός (Internal Fragmentation):**
 
 $$
-\text{Internal Fragmentation} = \text{Partition Size} - \text{Process Size}
+\text{Εσωτερικός Κατακερματισμός} = \text{Μέγεθος Τμήματος} - \text{Μέγεθος Διεργασίας}
 $$
 
-Even the smallest process occupies an entire partition, wasting the remainder.
+Ακόμη και η μικρότερη διεργασία καταλαμβάνει ολόκληρο το τμήμα, σπαταλώντας το υπόλοιπο.
 
 ```
-Before loading:         After loading Process 1 (small):
+Πριν τη φόρτωση:        Μετά τη φόρτωση της Διεργασίας 1 (μικρή):
 +-----------+           +-----------+
-| 8 MB      | (free)    | Process 1 | (used by process)
+| 8 MB      | (ελεύθερο)| Διεργασία1| (χρησιμοποιείται)
 |           |           +-----------+
-|           |           | Unused    | <-- internal fragmentation
+|           |           | Αχρησιμοπ.| <-- εσωτερικός κατακερματισμός
 +-----------+           +-----------+
 ```
 
-**Advantages:**
-- Very low OS overhead.
+**Πλεονεκτήματα:**
+- Πολύ χαμηλή επιβάρυνση (overhead) του ΛΣ.
 
-**Disadvantages:**
-- Extremely inefficient memory use due to internal fragmentation.
-- Small processes waste large partition space.
+**Μειονεκτήματα:**
+- Εξαιρετικά μη αποδοτική χρήση μνήμης λόγω εσωτερικού κατακερματισμού.
+- Μικρές διεργασίες σπαταλούν μεγάλο χώρο τμήματος.
 
-### 7.2 Unequal-Size Partitions (Άνισα Τμήματα)
+### 7.2 Άνισα Τμήματα (Unequal-Size Partitions)
 
-Partitions have different sizes (e.g., 2 MB, 6 MB, 8 MB, 12 MB). This reduces internal fragmentation compared to equal-size partitions.
+Τα τμήματα έχουν διαφορετικά μεγέθη (π.χ. 2 MB, 6 MB, 8 MB, 12 MB). Αυτό μειώνει τον εσωτερικό κατακερματισμό σε σύγκριση με τα ίσα τμήματα.
 
-**Placement options:**
+**Επιλογές τοποθέτησης:**
 
-| Approach | Description | Drawback |
+| Προσέγγιση | Περιγραφή | Μειονέκτημα |
 | :--- | :--- | :--- |
-| **Queue per partition** | Each process is assigned to the queue of the smallest partition it fits in | A partition's queue may be empty while others are full; free memory exists but processes wait |
-| **Single global queue** | When a process must be loaded, select the smallest available partition that fits | Better CPU utilization; reduces idle partitions |
+| **Ουρά ανά τμήμα** | Κάθε διεργασία ανατίθεται στην ουρά του μικρότερου τμήματος στο οποίο χωράει | Η ουρά ενός τμήματος μπορεί να είναι άδεια ενώ άλλες είναι γεμάτες· υπάρχει ελεύθερη μνήμη αλλά οι διεργασίες περιμένουν |
+| **Μία γενική ουρά** | Όταν πρέπει να φορτωθεί μια διεργασία, επιλέγεται το μικρότερο διαθέσιμο τμήμα που χωράει | Καλύτερη εκμετάλλευση CPU· μειώνει τα αδρανή τμήματα |
 
-**Advantages over equal-size:**
-- Reduced internal fragmentation.
-- More efficient use of main memory.
+**Πλεονεκτήματα έναντι των ίσων τμημάτων:**
+- Μειωμένος εσωτερικός κατακερματισμός.
+- Πιο αποδοτική χρήση της κύριας μνήμης.
 
 ---
 
-## 8. Fragmentation (Κατακερματισμός)
+## 8. Κατακερματισμός (Fragmentation)
 
-| Type | Definition | Cause | Visibility |
+| Τύπος | Ορισμός | Αιτία | Ορατότητα |
 | :--- | :--- | :--- | :--- |
-| **Internal** (εσωτερικός) | Allocated memory inside a partition that is not used by the process | Allocated block must be $\geq$ requested size | Visible only to the process holding the partition |
-| **External** (εξωτερικός) | Free memory outside all partitions that cannot satisfy any pending request despite sufficient total free space | Memory requests vary in size; free blocks become scattered | Visible to the OS / system-wide |
+| **Εσωτερικός** (Internal) | Εκχωρημένη μνήμη εντός ενός τμήματος που δεν χρησιμοποιείται από τη διεργασία | Το εκχωρημένο τμήμα πρέπει να είναι $\geq$ από το ζητούμενο μέγεθος | Ορατός μόνο στη διεργασία που κατέχει το τμήμα |
+| **Εξωτερικός** (External) | Ελεύθερη μνήμη εκτός όλων των τμημάτων που δεν μπορεί να ικανοποιήσει καμία εκκρεμή αίτηση παρά τη επαρκή συνολική ελεύθερη μνήμη | Αιτήματα μνήμης διαφέρουν σε μέγεθος· τα ελεύθερα τμήματα διασκορπίζονται | Ορατός στο ΛΣ / σε ολόκληρο το σύστημα |
 
 ---
 
-## 9. Dynamic Partitioning (Δυναμική Τμηματοποίηση)
+## 9. Δυναμική Τμηματοποίηση (Dynamic Partitioning)
 
-Partitions are created at runtime with exactly the size required by each process. The number and sizes of partitions vary throughout system operation.
+Τα τμήματα δημιουργούνται κατά τον χρόνο εκτέλεσης (runtime) με το ακριβές μέγεθος που απαιτείται από κάθε διεργασία. Ο αριθμός και τα μεγέθη των τμημάτων ποικίλλουν καθ' όλη τη λειτουργία του συστήματος.
 
-**Key property:** A process is allocated exactly the memory it requests — no internal fragmentation.
+**Βασική ιδιότητα:** Σε μια διεργασία εκχωρείται ακριβώς η μνήμη που ζητά — απουσία εσωτερικού κατακερματισμού.
 
-**Problem — External Fragmentation:**
-Over time, as processes enter and leave, gaps (holes) appear in memory. These gaps may individually be too small to satisfy new requests, even though their sum could.
+**Πρόβλημα — Εξωτερικός Κατακερματισμός:**
+Με την πάροδο του χρόνου, καθώς οι διεργασίες εισέρχονται και εξέρχονται, εμφανίζονται κενά (οπές - holes) στη μνήμη. Αυτά τα κενά μεμονωμένα μπορεί να είναι πολύ μικρά για την ικανοποίηση νέων αιτήσεων, παρόλο που το άθροισμά τους θα επαρκούσε.
 
 ```
-Initial:                After P2 exits:        After P4 exits:
+Αρχικά:                 Μετά την έξοδο της P2: Μετά την έξοδο της P4:
 +----------+            +----------+           +----------+
-| OS       |            | OS       |           | OS       |
+| ΛΣ       |            | ΛΣ       |           | ΛΣ       |
 +----------+            +----------+           +----------+
 | P1       |            | P1       |           | P1       |
 +----------+            +----------+           +----------+
-| P2       |  P2 exits  | Hole     |           | Hole     |
+| P2       |  έξοδος P2 | Κενό     |           | Κενό     |
 +----------+  ------->  +----------+  ------>  +----------+
 | P3       |            | P3       |           | P3       |
 +----------+            +----------+           +----------+
-| P4       |            | P4       |  P4 exits | Hole     |
+| P4       |            | P4       |  έξοδος P4| Κενό     |
 +----------+            +----------+           +----------+
 | P5       |            | P5       |           | P5       |
 +----------+            +----------+           +----------+
-| Hole     |            | Hole     |           | Hole     |
+| Κενό     |            | Κενό     |           | Κενό     |
 +----------+            +----------+           +----------+
 ```
 
-**Solution — Compaction (Συμπίεση):**
-Shift all processes toward one end of memory so all free space coalesces into one contiguous block.
+**Λύση — Συμπίεση (Compacting / Compaction):**
+Μετατόπιση όλων των διεργασιών προς το ένα άκρο της μνήμης ώστε όλος ο ελεύθερος χώρος να συγχωνευθεί σε ένα συνεχόμενο τμήμα.
 
-**Compaction costs:**
-- Consumes CPU time.
-- Requires **dynamic relocation** capability: the ability to move a running program to a different memory area without invalidating its memory references (typically handled by the MMU via a relocation register).
+**Κόστος συμπίεσης:**
+- Καταναλώνει χρόνο CPU.
+- Απαιτεί δυνατότητα **δυναμικής μετατόπισης (dynamic relocation)**: την ικανότητα μετακίνησης ενός εκτελούμενου προγράμματος σε διαφορετική περιοχή μνήμης χωρίς να ακυρώνονται οι αναφορές μνήμης του (συνήθως διαχειρίζεται από την MMU μέσω ενός καταχωρητή μετατόπισης / relocation register).
 
 ---
 
-## 10. Placement Algorithms (Αλγόριθμοι Τοποθέτησης)
+## 10. Αλγόριθμοι Τοποθέτησης (Placement Algorithms)
 
-When a process requests memory, the OS must select which free block to allocate. The three standard algorithms apply to dynamic partitioning.
+Όταν μια διεργασία ζητά μνήμη, το ΛΣ πρέπει να επιλέξει ποιο ελεύθερο τμήμα θα εκχωρήσει. Οι τρεις τυπικοί αλγόριθμοι εφαρμόζονται στη δυναμική τμηματοποίηση.
 
-### 10.1 First-Fit
+### 10.1 First-Fit (Πρώτη Προσαρμογή)
 
-Scan memory **from the beginning**; allocate the **first** free block large enough.
+Σάρωση της μνήμης **από την αρχή**· εκχώρηση στο **πρώτο** ελεύθερο τμήμα που είναι αρκούντως μεγάλο.
 
-- Fastest algorithm.
-- Tends to cluster allocations at the low end of memory, creating many small holes there.
+- Ο γρηγορότερος αλγόριθμος.
+- Τείνει να συγκεντρώνει τις εκχωρήσεις στο χαμηλό άκρο της μνήμης, δημιουργώντας πολλά μικρά κενά εκεί.
 
-### 10.2 Best-Fit
+### 10.2 Best-Fit (Καλύτερη Προσαρμογή)
 
-Scan **all** free blocks; allocate the **smallest** free block that is large enough.
+Σάρωση **όλων** των ελεύθερων τμημάτων· εκχώρηση στο **μικρότερο** ελεύθερο τμήμα που είναι αρκούντως μεγάλο.
 
-- Minimizes wasted space within the chosen block.
-- Worst overall performance: leaves very small residual fragments that are too small for future allocations, causing frequent compaction.
-- Typically requires sorting or full scan of the free list.
+- Ελαχιστοποιεί τον σπαταλώμενο χώρο εντός του επιλεγμένου τμήματος.
+- Χειρότερη συνολική απόδοση: αφήνει πολύ μικρά υπολειμματικά θραύσματα που είναι πολύ μικρά για μελλοντικές εκχωρήσεις, προκαλώντας συχνή συμπίεση.
+- Συνήθως απαιτεί ταξινόμηση ή πλήρη σάρωση της λίστας ελεύθερων τμημάτων.
 
-### 10.3 Next-Fit
+### 10.3 Next-Fit (Επόμενη Προσαρμογή)
 
-Scan memory **from the point of the last allocation**; allocate the **next** free block large enough.
+Σάρωση της μνήμης **από το σημείο της τελευταίας εκχώρησης**· εκχώρηση στο **επόμενο** ελεύθερο τμήμα που είναι αρκούντως μεγάλο.
 
-- Distributes allocations more uniformly across memory.
-- Tends to fragment the large free block at the high end of memory.
-- Requires compaction to recover large free blocks at the end.
-- Performance similar to first-fit.
+- Κατανέμει τις εκχωρήσεις πιο ομοιόμορφα σε όλη τη μνήμη.
+- Τείνει να κατακερματίζει το μεγάλο ελεύθερο τμήμα στο υψηλό άκρο της μνήμης.
+- Απαιτεί συμπίεση για την ανάκτηση μεγάλων ελεύθερων τμημάτων στο τέλος.
+- Απόδοση παρόμοια με τη First-Fit.
 
-**Algorithm comparison:**
+**Σύγκριση αλγορίθμων:**
 
-| Algorithm | Scan Start | Selection Criterion | Speed | Fragmentation Behavior |
+| Αλγόριθμος | Αρχή Σάρωσης | Κριτήριο Επιλογής | Ταχύτητα | Συμπεριφορά Κατακερματισμού |
 | :--- | :--- | :--- | :--- | :--- |
-| First-Fit | Beginning | First sufficient block | Fastest | Small holes accumulate at low addresses |
-| Best-Fit | Full scan | Smallest sufficient block | Slowest | Tiny residual fragments everywhere |
-| Next-Fit | Last placement point | First sufficient block from that point | Moderate | Large end-block eroded |
+| First-Fit | Αρχή | Πρώτο επαρκές τμήμα | Ταχύτερος | Μικρά κενά συσσωρεύονται στις χαμηλές διευθύνσεις |
+| Best-Fit | Πλήρης σάρωση | Μικρότερο επαρκές τμήμα | Βραδύτερος | Μικροσκοπικά υπολειμματικά θραύσματα παντού |
+| Next-Fit | Σημείο τελευταίας τοποθέτησης | Πρώτο επαρκές τμήμα από αυτό το σημείο | Μέτρια | Διάβρωση του μεγάλου τελικού τμήματος |
 
 ---
 
-## 11. Swapping (Εναλλαγή)
+## 11. Εναλλαγή (Swapping)
 
-Swapping is the technique of temporarily moving an entire process from main memory to a **backing store** (secondary storage, typically a disk partition or swap file), freeing its memory for other processes.
+Η εναλλαγή (swapping) είναι η τεχνική προσωρινής μετακίνησης μιας ολόκληρης διεργασίας από την κύρια μνήμη σε μια **δευτερεύουσα μνήμη (backing store)**, απελευθερώνοντας τη μνήμη της για άλλες διεργασίες.
 
-**Swap-out:** Process is written from RAM to backing store.
-**Swap-in:** Process is read back from backing store into RAM.
+**Swap-out:** Η διεργασία εγγράφεται από τη RAM στη δευτερεύουσα μνήμη.
+**Swap-in:** Η διεργασία αναγιγνώσκεται πίσω από τη δευτερεύουσα μνήμη στη RAM.
 
 ```
-Main Memory         Backing Store
+Κύρια Μνήμη          Δευτερεύουσα Μνήμη
 +----------+        +----------+
-| OS       |        | P1 image |
+| ΛΣ       |        | Εικόνα P1|
 +----------+  <-->  +----------+
-| User     |  swap  | P2 image |
-| space    |        +----------+
+| Χώρος    |  swap  | Εικόνα P2|
+| χρήστη   |        +----------+
 +----------+
 ```
 
-**Memory allocation evolves as:**
-- New processes arrive and are loaded.
-- Processes complete and release memory.
-- Blocked processes are swapped out to disk.
+Η εκχώρηση μνήμης εξελίσσεται καθώς:
+- Νέες διεργασίες καταφθάνουν και φορτώνονται.
+- Διεργασίες ολοκληρώνονται και απελευθερώνουν μνήμη.
+- Μπλοκαρισμένες διεργασίες αποστέλλονται στον δίσκο (swap-out).
 
-Swapping is typically used in conjunction with dynamic partitioning. Memory changes over time as processes move in and out:
+### 11.1 Περιορισμοί της Εναλλαγής
 
-```
-State 1   State 2   State 3   State 4   State 5   State 6   State 7
-+-----+   +-----+   +-----+   +-----+   +-----+   +-----+   +-----+
-|     |   |     |   |  C  |   |  C  |   |  C  |   |  C  |   |  C  |
-|     |   |  B  |   |  B  |   |  B  |   |  B  |   |     |   |  A  |
-|  A  |   |  A  |   |  A  |   |     |   |  D  |   |  D  |   |  D  |
-| OS  |   | OS  |   | OS  |   | OS  |   | OS  |   | OS  |   | OS  |
-+-----+   +-----+   +-----+   +-----+   +-----+   +-----+   +-----+
-```
-(Grey/blank areas represent unused memory.)
-
-### 11.1 Limitations of Swapping
-
-| Problem | Description |
+| Πρόβλημα | Περιγραφή |
 | :--- | :--- |
-| Size constraint | A process must fit entirely within physical memory (no partial loading under contiguous allocation) |
-| Fragmentation | Memory fragments over time; compaction required |
-| Dual residence | A process can exist partially in memory and partially on disk simultaneously |
+| Περιορισμός μεγέθους | Μια διεργασία πρέπει να χωράει εξ ολοκλήρου στη φυσική μνήμη |
+| Κατακερματισμός | Η μνήμη κατακερματίζεται με την πάροδο του χρόνου· απαιτείται συμπίεση |
+| Διπλή διαμονή | Μια διεργασία μπορεί να υπάρχει εν μέρει στη μνήμη και εν μέρει στον δίσκο ταυτόχρονα |
 
-**Overlays** partially solve the size-constraint problem by subdividing a process over time (primarily data), but do **not** solve external fragmentation.
+Οι **επικαλύψεις (overlays)** λύνουν εν μέρει το πρόβλημα μέγεθους διασπώντας μια διεργασία στον χρόνο, αλλά **δεν** εξαλείφουν τον εξωτερικό κατακερματισμό.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: CPU Utilization with Multiprogramming
+### Άσκηση 1: Εκμετάλλευση CPU με Πολυπρογραμματισμό
 
-**Problem:**
-A system has $p = 0.80$ (80% I/O wait). How many concurrent processes ($v$) are needed to achieve at least 90% CPU utilization?
+**Πρόβλημα:**
+Ένα σύστημα έχει $p = 0.80$ (80% αναμονή I/O). Πόσες ταυτόχρονες διεργασίες ($v$) απαιτούνται για την επίτευξη τουλάχιστον 90% εκμετάλλευσης της CPU;
 
-**Solution:**
+**Λύση:**
 
 $$
 \text{CPU} = 1 - p^v \geq 0.90
@@ -2374,7 +2361,7 @@ $$
 0.80^v \leq 0.10
 $$
 
-Taking logarithms:
+Παίρνοντας λογαρίθμους:
 
 $$
 v \cdot \ln(0.80) \leq \ln(0.10)
@@ -2384,18 +2371,18 @@ $$
 v \geq \frac{\ln(0.10)}{\ln(0.80)} = \frac{-2.3026}{-0.2231} \approx 10.32
 $$
 
-Therefore, $v \geq 11$ processes are needed to achieve $\geq 90\%$ CPU utilization when $p = 0.80$.
+Επομένως, απαιτούνται $v \geq 11$ διεργασίες για την επίτευξη $\geq 90\%$ εκμετάλλευσης CPU όταν $p = 0.80$.
 
 ---
 
-### Exercise 2: Internal Fragmentation in Equal-Size Partitions
+### Άσκηση 2: Εσωτερικός Κατακερματισμός σε Ίσα Τμήματα
 
-**Problem:**
-A system uses fixed equal-size partitions of 8 MB each (5 partitions). Process sizes are: 2 MB, 7 MB, 5 MB, 3 MB, 8 MB. Calculate total internal fragmentation.
+**Πρόβλημα:**
+Ένα σύστημα χρησιμοποιεί σταθερά ίσα τμήματα των 8 MB το καθένα (5 τμήματα). Τα μεγέθη διεργασιών είναι: 2 MB, 7 MB, 5 MB, 3 MB, 8 MB. Υπολογίστε τον συνολικό εσωτερικό κατακερματισμό.
 
-**Solution:**
+**Λύση:**
 
-| Process | Size | Partition Size | Internal Fragmentation |
+| Διεργασία | Μέγεθος | Μέγεθος Τμήματος | Εσωτερικός Κατακερματισμός |
 | :--- | :--- | :--- | :--- |
 | P1 | 2 MB | 8 MB | 6 MB |
 | P2 | 7 MB | 8 MB | 1 MB |
@@ -2404,42 +2391,38 @@ A system uses fixed equal-size partitions of 8 MB each (5 partitions). Process s
 | P5 | 8 MB | 8 MB | 0 MB |
 
 $$
-\text{Total internal fragmentation} = 6 + 1 + 3 + 5 + 0 = 15 \text{ MB}
+\text{Συνολικός εσωτερικός κατακερματισμός} = 6 + 1 + 3 + 5 + 0 = 15 \text{ MB}
 $$
 
-Out of $5 \times 8 = 40$ MB total memory (excluding OS), 15 MB (37.5%) is wasted.
+Από τα $5 \times 8 = 40$ MB συνολικής μνήμης (εκτός του ΛΣ), τα 15 MB (37.5%) σπαταλούνται.
 
 ---
 
-### Exercise 3: Placement Algorithms — Worked Example (from slides)
+### Άσκηση 3: Αλγόριθμοι Τοποθέτησης — Παράδειγμα
 
-**Problem:**
-Free memory blocks (in order): 8K, 12K, 22K, 18K, 8K, 6K, 14K, 36K.
-The **last allocation** was in the 18K block (14K was allocated there, leaving a small used portion).
-Allocate a new block of **16K**. Show the result for First-Fit, Best-Fit, and Next-Fit.
+**Πρόβλημα:**
+Ελεύθερα τμήματα μνήμης (με σειρά): 8K, 12K, 22K, 18K, 8K, 6K, 14K, 36K.
+Η **τελευταία εκχώρηση** ήταν στο τμήμα 18K.
+Εκχωρήστε ένα νέο τμήμα **16K**. Δείξτε το αποτέλεσμα για First-Fit, Best-Fit και Next-Fit.
 
-**Solution:**
+**Λύση:**
 
-Free blocks that can satisfy 16K: 22K, 18K (partially — but the slide shows 18K as occupied after 14K allocation, so it is not free), 36K.
-
-Examining only **free** blocks $\geq 16K$: 22K (position 3), 36K (last position).
+Ελεύθερα τμήματα $\geq 16K$: 22K (θέση 3), 36K (τελευταία θέση).
 
 **First-Fit:**
-Scan from the beginning. First free block $\geq 16K$ is **22K**.
-Allocate 16K there. Remaining fragment: $22 - 16 = 6K$.
+Σάρωση από την αρχή. Πρώτο ελεύθερο τμήμα $\geq 16K$ είναι το **22K**.
+Εκχώρηση 16K εκεί. Υπόλοιπο: $22 - 16 = 6K$.
 
 **Best-Fit:**
-Scan all free blocks. Smallest block $\geq 16K$: **18K** (if available) → from the slide the 18K block is shown as occupied; next candidate is **22K** (residual 6K). The slide confirms Best-Fit selects 18K and produces a **2K** residual.
-
-> **[Key Insight]** The slide example shows the 18K block as still containing a free portion. Best-Fit selected 18K (16K allocated, 2K residual) — this is the smallest block that fits, confirming it leaves the smallest fragment of all three algorithms but contributes to fine-grained fragmentation over time.
+Σάρωση όλων των ελεύθερων τμημάτων. Μικρότερο τμήμα $\geq 16K$: το **18K** (εάν διαθέσιμο) ή το **22K** (υπόλοιπο 6K). Η Best-Fit επιλέγει το 18K παράγοντας υπόλοιπο **2K**.
 
 **Next-Fit:**
-Scan from the **last allocation point** (after the 18K block → the 8K, 6K, 14K, 36K region). First free block $\geq 16K$ from that point: **36K**.
-Allocate 16K there. Remaining fragment: $36 - 16 = 20K$.
+Σάρωση από το **σημείο τελευταίας εκχώρησης** (μετά το τμήμα 18K). Πρώτο ελεύθερο τμήμα $\geq 16K$ από εκεί: το **36K**.
+Εκχώρηση 16K εκεί. Υπόλοιπο: $36 - 16 = 20K$.
 
-**Summary:**
+**Σύνοψη:**
 
-| Algorithm | Block Used | Residual Fragment |
+| Αλγόριθμος | Τμήμα που Χρησιμοποιήθηκε | Υπολειμματικό Θράυσμα |
 | :--- | :--- | :--- |
 | First-Fit | 22K | 6K |
 | Best-Fit | 18K | 2K |
@@ -2447,568 +2430,363 @@ Allocate 16K there. Remaining fragment: $36 - 16 = 20K$.
 
 ---
 
-### Exercise 4: Dynamic Partitioning — First-Fit (Άσκηση 2 from slides)
+### Άσκηση 4: Δυναμική Τμηματοποίηση — First-Fit
 
-**Problem:**
-Free memory blocks (in order): 100KB, 500KB, 200KB, 300KB, 600KB.
-Process requests arrive in order: 212KB, 417KB, 112KB, 426KB.
-Apply **First-Fit**. Show the state of free blocks after each allocation.
+**Πρόβλημα:**
+Ελεύθερα τμήματα μνήμης: 100KB, 500KB, 200KB, 300KB, 600KB.
+Αιτήματα διεργασιών με σειρά: 212KB, 417KB, 112KB, 426KB.
+Εφαρμόστε **First-Fit**.
 
-**Solution:**
+**Λύση:**
 
-Initial free list: [100, 500, 200, 300, 600]
+Αρχική λίστα: [100, 500, 200, 300, 600]
 
-**Request 212KB:**
-First-Fit scans: 100 (too small), 500 ($\geq$ 212). Allocate from 500KB block.
-Residual: $500 - 212 = 288KB$.
-Free list: [100, 288, 200, 300, 600]
-
-**Request 417KB:**
-First-Fit scans: 100 (no), 288 (no), 200 (no), 300 (no), 600 ($\geq$ 417). Allocate from 600KB.
-Residual: $600 - 417 = 183KB$.
-Free list: [100, 288, 200, 300, 183]
-
-**Request 112KB:**
-First-Fit scans: 100 (no), 288 ($\geq$ 112). Allocate from 288KB.
-Residual: $288 - 112 = 176KB$.
-Free list: [100, 176, 200, 300, 183]
-
-**Request 426KB:**
-First-Fit scans: 100, 176, 200, 300 — all $< 426$. 183 also $< 426$. **Cannot satisfy.** Request fails (or process waits).
-Free list: [100, 176, 200, 300, 183] (unchanged)
+- **Αίτημα 212KB:** Εκχώρηση από 500KB. Υπόλοιπο: 288KB. Λίστα: [100, 288, 200, 300, 600].
+- **Αίτημα 417KB:** Εκχώρηση από 600KB. Υπόλοιπο: 183KB. Λίστα: [100, 288, 200, 300, 183].
+- **Αίτημα 112KB:** Εκχώρηση από 288KB. Υπόλοιπο: 176KB. Λίστα: [100, 176, 200, 300, 183].
+- **Αίτημα 426KB:** Κανένα τμήμα $\geq 426KB$. Το αίτημα αποτυγχάνει.
 
 ---
 
-### Exercise 5: Dynamic Partitioning — Best-Fit (Άσκηση 2 from slides)
+### Άσκηση 5: Δυναμική Τμηματοποίηση — Best-Fit
 
-**Problem:** Same initial free list and requests as Exercise 4. Apply **Best-Fit**.
+**Πρόβλημα:** Ίδια δεδομένα με την Άσκηση 4. Εφαρμόστε **Best-Fit**.
 
-**Solution:**
+**Λύση:**
 
-Initial free list: [100, 500, 200, 300, 600]
+- **Αίτημα 212KB:** Μικρότερο επαρκές τμήμα είναι το **300KB**. Υπόλοιπο: 88KB. Λίστα: [100, 500, 200, 88, 600].
+- **Αίτημα 417KB:** Μικρότερο επαρκές τμήμα είναι το **500KB**. Υπόλοιπο: 83KB. Λίστα: [100, 83, 200, 88, 600].
+- **Αίτημα 112KB:** Μικρότερο επαρκές τμήμα είναι το **200KB**. Υπόλοιπο: 88KB. Λίστα: [100, 83, 88, 88, 600].
+- **Αίτημα 426KB:** Εκχώρηση από το **600KB**. Υπόλοιπο: 174KB. Λίστα: [100, 83, 88, 88, 174].
 
-**Request 212KB:**
-Blocks $\geq 212$: 500, 300, 600. Smallest is **300KB**.
-Residual: $300 - 212 = 88KB$.
-Free list: [100, 500, 200, 88, 600]
-
-**Request 417KB:**
-Blocks $\geq 417$: 500, 600. Smallest is **500KB**.
-Residual: $500 - 417 = 83KB$.
-Free list: [100, 83, 200, 88, 600]
-
-**Request 112KB:**
-Blocks $\geq 112$: 200, 600. Smallest is **200KB**.
-Residual: $200 - 112 = 88KB$.
-Free list: [100, 83, 88, 88, 600]
-
-**Request 426KB:**
-Blocks $\geq 426$: 600. Allocate from **600KB**.
-Residual: $600 - 426 = 174KB$.
-Free list: [100, 83, 88, 88, 174]
-
-All requests satisfied.
+Όλα τα αιτήματα ικανοποιούνται.
 
 ---
 
-### Exercise 6: Dynamic Partitioning — Next-Fit (Άσκηση 2 from slides)
+### Άσκηση 6: Δυναμική Τμηματοποίηση — Next-Fit
 
-**Problem:** Same initial free list [100, 500, 200, 300, 600]. Last allocation was before the **200KB block**. Apply **Next-Fit**.
+**Πρόβλημα:** Ίδια αρχική λίστα [100, 500, 200, 300, 600]. Η τελευταία εκχώρηση ήταν πριν από το τμήμα 200KB. Εφαρμόστε **Next-Fit**.
 
-**Solution:**
+**Λύση:**
 
-Scan starts **at** the 200KB block (the block after the last placement point).
-
-**Request 212KB:**
-Start at 200KB: 200 (no), 300 ($\geq 212$). Allocate from **300KB**.
-Residual: $300 - 212 = 88KB$. Last pointer → after 300KB block.
-Free list: [100, 500, 200, 88, 600]
-
-**Request 417KB:**
-Start after 300KB block: scan 88 (no), 600 ($\geq 417$). Allocate from **600KB**.
-Residual: $600 - 417 = 183KB$. Last pointer → after 600KB block.
-Free list: [100, 500, 200, 88, 183]
-
-**Request 112KB:**
-Wrap around from end: scan 100 (no), 500 ($\geq 112$). Allocate from **500KB**.
-Residual: $500 - 112 = 388KB$. Last pointer → after 500KB block.
-Free list: [100, 388, 200, 88, 183]
-
-**Request 426KB:**
-Start after 500KB block: scan 200 (no), 88 (no), 183 (no); wrap: 100 (no), 388 (no). **Cannot satisfy.**
-Free list: [100, 388, 200, 88, 183] (unchanged)
+- **Αίτημα 212KB:** Σάρωση από 200KB → εκχώρηση από **300KB**. Υπόλοιπο: 88KB. Λίστα: [100, 500, 200, 88, 600].
+- **Αίτημα 417KB:** Σάρωση μετά το 300KB → εκχώρηση από **600KB**. Υπόλοιπο: 183KB. Λίστα: [100, 500, 200, 88, 183].
+- **Αίτημα 112KB:** Ανακύκλωση από την αρχή → εκχώρηση από **500KB**. Υπόλοιπο: 388KB. Λίστα: [100, 388, 200, 88, 183].
+- **Αίτημα 426KB:** Κανένα επαρκές τμήμα. Το αίτημα αποτυγχάνει.
 
 ---
 
-### Exercise 7: Placement Algorithm 1 (Άσκηση 1 from slides)
+## Συμβουλές Εξετάσεων
 
-**Problem:**
-Memory image (left to right = low to high address). Shaded = occupied, white = free, black = last allocation point (12KB was last placed there).
+> **[Συμβουλή Εξετάσεων — Τύπος Εκμετάλλευσης CPU]**
+> Όταν σας ζητείται ο ελάχιστος αριθμός διεργασιών $v$ για στόχο εκμετάλλευσης $u$, αναδιατάξτε τον τύπο $1 - p^v \geq u$ σε $p^v \leq 1 - u$ και εφαρμόστε λογαρίθμους: $v \geq \dfrac{\ln(1-u)}{\ln(p)}$. Στρογγυλοποιείτε πάντα **προς τα πάνω** στον πλησιέστερο ακέραιο.
 
-| 20KB | [occ] | 30KB | [occ] | 12KB | [last] | 32KB | [occ] | 24KB | [occ] | 48KB |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+> **[Συμβουλή Εξετάσεων — Αναγνώριση Κατακερματισμού]**
+> - **Εσωτερικός** κατακερματισμός: ο σπαταλώμενος χώρος είναι *εντός* ενός εκχωρημένου τμήματος. Σχετίζεται με τη **σταθερή τμηματοποίηση**.
+> - **Εξωτερικός** κατακερματισμός: ο σπαταλώμενος χώρος είναι *μεταξύ* εκχωρημένων τμημάτων. Σχετίζεται με τη **δυναμική τμηματοποίηση**.
 
-Free blocks: **20KB**, **30KB**, **32KB**, **48KB** (the 12KB block is the last-used region; 24KB is occupied).
-Allocate **22KB**. Show result for First-Fit, Best-Fit, Next-Fit.
-
-**Solution:**
-
-Free blocks $\geq$ 22KB: 30KB, 32KB, 48KB.
-
-**First-Fit:** Scan from start → first free block $\geq$ 22 is **30KB**.
-Allocate 22KB; residual = **8KB**.
-
-**Best-Fit:** Smallest free block $\geq$ 22 is **30KB** (residual 8K) — 30 is closer to 22 than 32 or 48.
-Allocate 22KB; residual = **8KB**.
-
-> **[Key Insight]** In this particular instance First-Fit and Best-Fit select the same block. Best-Fit is not always distinguishable from First-Fit in small examples.
-
-**Next-Fit:** Last placement was in the 12KB region (between the two occupied blocks at position 5). Scan forward: next free block from that point = **32KB**.
-Allocate 22KB; residual = **10KB**.
-
----
-
-## Exam Tips
-
-> **[Exam Tip — CPU Utilization Formula]**
-> When asked to find the minimum number of processes $v$ for a target CPU utilization $u$, rearrange $1 - p^v \geq u$ to $p^v \leq 1 - u$ and apply logarithms: $v \geq \dfrac{\ln(1-u)}{\ln(p)}$. Always round **up** to the nearest integer. Do not forget to verify with the original formula.
-
-> **[Exam Tip — Fragmentation Identification]**
-> - **Internal** fragmentation: the wasted space is *inside* an allocated block — it belongs to a process that does not use it. Associated with **fixed partitioning**.
-> - **External** fragmentation: the wasted space is *between* allocated blocks — it is free, but split into pieces too small to use. Associated with **dynamic partitioning**.
-> These are mutually exclusive by definition.
-
-> **[Exam Tip — Placement Algorithm Comparison]**
-> The most common exam question asks you to apply all three algorithms to the same request and compare residual fragments. Remember:
-> - **Best-Fit** always selects the *tightest* block but produces the most useless tiny fragments.
-> - **Next-Fit** tends to destroy the largest block at the high end of memory.
-> - **First-Fit** is empirically as good as or better than Best-Fit overall, and is faster.
-
-> **[Exam Tip — Overlay vs. Swapping]**
-> Overlays divide a **single process** over time (programmer-managed). Swapping moves **entire processes** in and out of memory (OS-managed). Overlays solve the size problem; neither technique eliminates external fragmentation.
+> **[Συμβουλή Εξετάσεων — Σύγκριση Αλγορίθμων Τοποθέτησης]**
+> - Η **Best-Fit** επιλέγει πάντα το *στενότερο* τμήμα αλλά παράγει τα πιο άχρηστα μικροσκοπικά θραύσματα.
+> - Η **Next-Fit** τείνει να καταστρέφει το μεγάλο τμήμα στο υψηλό άκρο της μνήμης.
+> - Η **First-Fit** είναι εμπειρικά εξίσου καλή ή καλύτερη από τη Best-Fit συνολικά, και είναι ταχύτερη.
 
 ---
 # OS_Lec08_NOTES.md
 ---
 
-# Virtual Memory — Operating Systems (Chapter 8)
+# Ιδεατή Μνήμη (Virtual Memory) — Λειτουργικά Συστήματα (Κεφάλαιο 8)
 
-Virtual memory is a memory management technique that creates the illusion of a larger address space than physically exists, using secondary storage as an extension of main memory. This chapter covers the conceptual foundation, address translation mechanisms, partitioning schemes (paging and segmentation), and the principal page replacement algorithms (FIFO, OPT, LRU).
-
----
-
-## 1. Introduction and Motivation
-
-### 1.1 Why Virtual Memory Exists
-
-Main memory (RAM) is the second most critical resource in a computer system after CPU time. Even when physically large, available RAM is frequently insufficient because:
-
-- Multiple processes must coexist in memory simultaneously (multiprogramming).
-- Fetching data from disk instead of RAM introduces severe latency:
-  - RAM access time: ~60 ns
-  - Average HDD access time: ~10 ms = $10 \times 10^6$ ns
-
-The ratio of disk-to-RAM access latency is approximately $1.67 \times 10^5$, making disk access roughly 167,000 times slower than RAM. Loading every byte of every process into RAM before execution is therefore both impractical and unnecessary.
-
-### 1.2 Core Idea
-
-Virtual memory creates the **illusion** that a process has access to more memory than is physically installed. The OS and hardware cooperate to:
-
-1. Keep only the **actively used portions** of a process in RAM.
-2. Store the remainder on **secondary storage** (swap space on disk).
-3. Transparently move data between disk and RAM as needed.
+Η ιδεατή μνήμη (virtual memory) είναι μια τεχνική διαχείρισης μνήμης που δημιουργεί την ψευδαίσθηση ενός μεγαλύτερου χώρου διευθύνσεων από αυτόν που υπάρχει φυσικά, χρησιμοποιώντας τη δευτερεύουσα μνήμη (δίσκο) ως επέκταση της κύριας μνήμης. Αυτό το κεφάλαιο καλύπτει τη θεμελιώδη έννοια, τους μηχανισμούς μετάφρασης διευθύνσεων, τα σχήματα τμηματοποίησης (σελιδοποίηση και τμηματοποίηση) και τους κύριους αλγορίθμους αντικατάστασης σελίδων (FIFO, OPT, LRU).
 
 ---
 
-## 2. Virtual and Physical Addresses
+## 1. Εισαγωγή και Κίνητρο
 
-### 2.1 Definitions
+### 1.1 Γιατί Υπάρχει η Ιδεατή Μνήμη
 
-| Term | Definition |
+Η κύρια μνήμη (RAM) είναι ο δεύτερος πιο κρίσιμος πόρος σε ένα υπολογιστικό σύστημα μετά τον χρόνο CPU. Ακόμη και όταν είναι φυσικά μεγάλη, η διαθέσιμη RAM είναι συχνά ανεπαρκής επειδή:
+
+- Πολλαπλές διεργασίες πρέπει να συνυπάρχουν στη μνήμη ταυτόχρονα (πολυπρογραμματισμός).
+- Η ανάκτηση δεδομένων από τον δίσκο αντί για τη RAM εισάγει σοβαρή καθυστέρηση (latency):
+  - Χρόνος προσπέλασης RAM: ~60 ns
+  - Μέσος χρόνος προσπέλασης HDD: ~10 ms = $10 \times 10^6$ ns
+
+Ο λόγος της καθυστέρησης προσπέλασης δίσκου προς RAM είναι περίπου $1.67 \times 10^5$, καθιστώντας την προσπέλαση στον δίσκο περίπου 167.000 φορές πιο αργή από τη RAM. Επομένως, η φόρτωση κάθε byte κάθε διεργασίας στη RAM πριν την εκτέλεση είναι και μη πρακτική και αχρείαστη.
+
+### 1.2 Βασική Ιδέα
+
+Η ιδεατή μνήμη δημιουργεί την **ψευδαίσθηση** ότι μια διεργασία έχει πρόσβαση σε περισσότερη μνήμη από αυτή που είναι φυσικά εγκατεστημένη. Το ΛΣ και το υλικό συνεργάζονται για να:
+
+1. Διατηρούν μόνο τα **ενεργά χρησιμοποιούμενα τμήματα** μιας διεργασίας στη RAM.
+2. Αποθηκεύουν το υπόλοιπο στη **δευτερεύουσα μνήμη** (χώρος εναλλαγής / swap space στον δίσκο).
+3. Μετακινούν διαφανώς δεδομένα μεταξύ δίσκου και RAM καθώς απαιτείται.
+
+---
+
+## 2. Ιδεατές και Φυσικές Διευθύνσεις
+
+### 2.1 Ορισμοί
+
+| Όρος | Ορισμός |
 | :--- | :--- |
-| **Virtual address** (logical address) | An address generated by the CPU and used by a process. Exists in the process's virtual address space. |
-| **Physical address** (real address) | An address in actual RAM, used by the memory hardware. |
-| **Virtual address space** | The set of all addresses a process may legally reference. Each process has its own independent virtual address space. |
-| **Physical address space** | The set of all addresses in installed RAM. Shared across all processes. |
+| **Ιδεατή διεύθυνση** (λογική διεύθυνση) | Μια διεύθυνση που παράγεται από την CPU και χρησιμοποιείται από μια διεργασία. Υπάρχει στον ιδεατό χώρο διευθύνσεων της διεργασίας. |
+| **Φυσική διεύθυνση** (πραγματική διεύθυνση) | Μια διεύθυνση στην πραγματική RAM, που χρησιμοποιείται από το υλικό μνήμης. |
+| **Ιδεατός χώρος διευθύνσεων** | Το σύνολο όλων των διευθύνσεων στις οποίες μπορεί νόμιμα να αναφερθεί μια διεργασία. Κάθε διεργασία έχει τον δικό της ανεξάρτητο ιδεατό χώρο. |
+| **Φυσικός χώρος διευθύνσεων** | Το σύνολο όλων των διευθύνσεων στην εγκατεστημένη RAM. Κοινόχρηστος μεταξύ όλων των διεργασιών. |
 
-### 2.2 Address Translation
+### 2.2 Μετάφραση Διευθύνσεων (Address Translation)
 
-The **Memory Management Unit (MMU)** is hardware embedded in the CPU that translates every virtual address into a physical address at runtime. Processes always operate in virtual address space; the MMU performs the mapping transparently.
+Η **Μονάδα Διαχείρισης Μνήμης (MMU - Memory Management Unit)** είναι υλικό ενσωματωμένο στην CPU που μεταφράζει κάθε ιδεατή διεύθυνση σε φυσική διεύθυνση κατά τον χρόνο εκτέλεσης. Οι διεργασίες λειτουργούν πάντα στον ιδεατό χώρο διευθύνσεων· η MMU πραγματοποιεί την αντιστοίχιση διαφανώς.
 
 $$
-\text{Virtual Address} \xrightarrow{\text{MMU}} \text{Physical Address}
+\text{Ιδεατή Διεύθυνση} \xrightarrow{\text{MMU}} \text{Φυσική Διεύθυνση}
 $$
 
-Because each process has its own virtual address space:
-- Process isolation is guaranteed: one process cannot read or write another's memory.
-- Processes can be relocated in physical memory without changes to their code.
+Επειδή κάθε διεργασία έχει τον δικό της ιδεατό χώρο διευθύνσεων:
+- Η απομόνωση διεργασιών είναι εγγυημένη: μια διεργασία δεν μπορεί να διαβάσει ή να γράψει στη μνήμη μιας άλλης.
+- Οι διεργασίες μπορούν να μετατοπιστούν στη φυσική μνήμη χωρίς αλλαγές στον κώδικά τους.
 
 ---
 
-## 3. Logical Organization
+## 3. Λογική Οργάνωση
 
-### 3.1 Memory as a Linear Space
+### 3.1 Η Μνήμη ως Γραμμικός Χώρος
 
-At the hardware level, both RAM and secondary storage are organized as linear, one-dimensional address spaces (byte-addressable arrays).
+Στο επίπεδο του υλικού, τόσο η RAM όσο και η δευτερεύουσα μνήμη είναι οργανωμένες ως γραμμικοί, μονοδιάστατοι χώροι διευθύνσεων (πίνακες προσπελάσιμοι ανά byte).
 
-### 3.2 Program Modules
+### 3.2 Μονάδες Προγράμματος (Modules)
 
-Programs are written and compiled as collections of **modules** (functions, libraries, data segments). Key properties:
+Τα προγράμματα γράφονται και μεταγλωττίζονται ως συλλογές από **μονάδες (modules)** (συναρτήσεις, βιβλιοθήκες, τμήματα δεδομένων). Βασικές ιδιότητες:
 
-- Modules are compiled **independently** of one another.
-- Different modules can be assigned different **protection levels**:
-  - `read-only` — data that must not be modified (e.g., string literals, constants).
-  - `execute-only` — code that must not be read as data.
-  - `read-write` — standard heap and stack segments.
-- Modules can be **shared** between processes (e.g., shared libraries), avoiding duplicate copies in RAM.
-
----
-
-## 4. Partitioning of Virtual Memory
-
-Two fundamental techniques partition the virtual address space and manage its mapping to physical memory.
+- Οι μονάδες μεταγλωττίζονται **ανεξάρτητα** η μία από την άλλη.
+- Σε διαφορετικές μονάδες μπορούν να ανατεθούν διαφορετικά **επίπεδα προστασίας**:
+  - `read-only` — δεδομένα που δεν πρέπει να τροποποιηθούν (π.χ. συμβολοσειρές, σταθερές).
+  - `execute-only` — κώδικας που δεν πρέπει να αναγνωσθεί ως δεδομένα.
+  - `read-write` — τυπικά τμήματα σωρού (heap) και στοίβας (stack).
+- Οι μονάδες μπορούν να είναι **κοινόχρηστες** μεταξύ διεργασιών (π.χ. κοινόχρηστες βιβλιοθήκες).
 
 ---
 
-## 5. Paging
+## 4. Τμηματοποίηση της Ιδεατής Μνήμης
 
-### 5.1 Concept
+Δύο θεμελιώδεις τεχνικές διαιρούν τον ιδεατό χώρο διευθύνσεων και διαχειρίζονται την αντιστοίχισή του στη φυσική μνήμη: η **Σελιδοποίηση (Paging)** και η **Τμηματοποίηση (Segmentation)**.
 
-**Paging** divides both the virtual address space and physical memory into fixed-size blocks:
+---
 
-- **Page** — a fixed-size block of virtual memory belonging to a process.
-- **Page frame** (frame) — a fixed-size block of physical RAM.
+## 5. Σελιδοποίηση (Paging)
 
-Page size equals frame size. A virtual page may be placed into **any** free frame; pages need not occupy contiguous frames.
+### 5.1 Έννοια
 
-> **[Key Insight]** Because frames are fixed-size and interchangeable, the OS can always find a free frame for any page without worrying about contiguous space — this eliminates external fragmentation entirely.
+Η **Σελιδοποίηση (Paging)** διαιρεί τόσο τον ιδεατό χώρο διευθύνσεων όσο και τη φυσική μνήμη σε τμήματα σταθερού μεγέθους:
 
-### 5.2 Page and Frame Sizes
+- **Σελίδα (Page)** — ένα τμήμα σταθερού μεγέθους της ιδεατής μνήμης που ανήκει σε μια διεργασία.
+- **Πλαίσιο σελίδας (Page frame)** — ένα τμήμα σταθερού μεγέθους της φυσικής RAM.
 
-Page (and frame) size is always a **power of 2**, typically between 512 B and 8 KiB (historical range; modern systems commonly use 4 KiB or larger).
+Το μέγεθος της σελίδας ισούται με το μέγεθος του πλαισίου. Μια ιδεατή σελίδα μπορεί να τοποθετηθεί σε **οποιοδήποτε** ελεύθερο πλαίσιο· οι σελίδες δεν χρειάζεται να καταλαμβάνουν συνεχόμενα πλαίσια.
 
-**Tradeoffs of page size:**
+> **[Βασική Παρατήρηση]** Επειδή τα πλαίσια έχουν σταθερό μέγεθος και είναι εναλλάξιμα, το ΛΣ μπορεί πάντα να βρει ένα ελεύθερο πλαίσιο για οποιαδήποτε σελίδα χωρίς να ανησυχεί για συνεχόμενο χώρο — αυτό εξαλείφει εντελώς τον εξωτερικό κατακερματισμό.
 
-| Aspect | Small Pages | Large Pages |
+### 5.2 Μεγέθη Σελίδων και Πλαισίων
+
+Το μέγεθος σελίδας (και πλαισίου) είναι πάντα **δύναμη του 2**, συνήθως μεταξύ 512 B και 8 KiB (στα σύγχρονα συστήματα τυπικά 4 KiB).
+
+**Συμβιβασμοί μεγέθους σελίδας:**
+
+| Όψη | Μικρές Σελίδες | Μεγάλες Σελίδες |
 | :--- | :--- | :--- |
-| Internal fragmentation | Less (last page partially filled) | More |
-| Page table size | Larger (more entries needed) | Smaller |
-| Disk I/O efficiency | Lower (more transfers) | Higher |
-| Memory utilization | Better fit for small structures | May waste space |
+| Εσωτερικός κατακερματισμός | Λιγότερος (τελευταία σελίδα μερικώς γεμάτη) | Περισσότερος |
+| Μέγεθος πίνακα σελίδων | Μεγαλύτερος (απαιτούνται περισσότερες εγγραφές) | Μικρότερος |
+| Αποδοτικότητα I/O δίσκου | Χαμηλότερη (περισσότερες μεταφορές) | Υψηλότερη |
+| Εκμετάλλευση μνήμης | Καλύτερη προσαρμογή για μικρές δομές | Πιθανή σπατάλη χώρου |
 
-> **[Supplementary]** Modern x86-64 systems support multiple page sizes: 4 KiB (standard), 2 MiB (large pages), and 1 GiB (huge pages). The Linux kernel calls these "huge pages" and uses them for performance-sensitive workloads to reduce TLB pressure.
+### 5.3 Μετάφραση Διευθύνσεων στη Σελιδοποίηση
 
-### 5.3 Address Translation in Paging
-
-A virtual address is split into two fields:
+Μια ιδεατή διεύθυνση χωρίζεται σε δύο πεδία:
 
 $$
-\underbrace{p}_{\text{page number}} \;\|\; \underbrace{d}_{\text{offset within page}}
+\underbrace{p}_{\text{αριθμός σελίδας}} \;\|\; \underbrace{d}_{\text{μετατόπιση εντός σελίδας}}
 $$
 
-Where:
-- $p$ = index into the **page table**.
-- $d$ = byte offset within the page (identical in the physical frame).
+Όπου:
+- $p$ = δείκτης στον **πίνακα σελίδων (page table)**.
+- $d$ = μετατόπιση bytes εντός της σελίδας (πανομοιότυπη στο φυσικό πλαίσιο).
 
-The page table maps $p \to f$ (page number to frame number). The physical address is:
+Ο πίνακας σελίδων αντιστοιχίζει το $p \to f$ (αριθμός σελίδας σε αριθμό πλαισίου). Η φυσική διεύθυνση είναι:
 
 $$
-\text{Physical Address} = f \times \text{PageSize} + d
+\text{Φυσική Διεύθυνση} = f \times \text{ΜέγεθοςΣελίδας} + d
 $$
 
-Or equivalently, the physical address is simply $f \| d$ (frame number concatenated with offset).
+### 5.4 Δομή Πίνακα Σελίδων
 
-### 5.4 Page Table Structure
+Ο **πίνακας σελίδων (page table)** είναι μια δομή δεδομένων ανά διεργασία που διατηρείται από το ΛΣ στη μνήμη. Κάθε εγγραφή περιέχει:
 
-The **page table** is a per-process data structure maintained by the OS in memory. Each entry contains:
-
-| Field | Description |
+| Πεδίο | Περιγραφή |
 | :--- | :--- |
-| **Presence bit** (valid bit) | `1` = page is currently in a frame; `0` = page is on disk |
-| **Frame number** | Physical frame where the page resides (valid only if presence bit = 1) |
+| **Bit παρουσίας** (valid bit) | `1` = η σελίδα βρίσκεται σε πλαίσιο στη RAM· `0` = η σελίδα βρίσκεται στον δίσκο |
+| **Αριθμός πλαισίου** | Το φυσικό πλαίσιο όπου βρίσκεται η σελίδα (έγκυρο μόνο αν bit παρουσίας = 1) |
 
-> **[Key Insight]** Because the number of virtual pages far exceeds the number of physical frames, many entries will have presence bit = 0 at any given time.
+### 5.5 Σφάλμα Σελίδας (Page Fault)
 
-### 5.5 Page Fault
+Ένα **σφάλμα σελίδας (page fault)** συμβαίνει όταν μια διεργασία προσπελάζει μια ιδεατή σελίδα της οποίας το bit παρουσίας είναι 0 (η σελίδα δεν βρίσκεται στη RAM).
 
-A **page fault** occurs when a process accesses a virtual page whose presence bit is 0 (the page is not in RAM).
+**Ακολουθία διαχείρισης σφάλματος σελίδας:**
 
-**Page fault handling sequence:**
+1. Η CPU παράγει μια εξαίρεση σφάλματος σελίδας.
+2. Το ΛΣ αναστέλλει (μπλοκάρει) τη διεργασία που προκάλεσε το σφάλμα.
+3. Το ΛΣ εντοπίζει την απαιτούμενη σελίδα στον δίσκο.
+4. Εάν υπάρχει ελεύθερο πλαίσιο, η σελίδα φορτώνεται σε αυτό.
+5. Εάν **δεν υπάρχει ελεύθερο πλαίσιο**, το ΛΣ επιλέγει ένα **πλαίσιο-θύμα** χρησιμοποιώντας έναν αλγόριθμο αντικατάστασης, το εγγράφει στον δίσκο αν έχει τροποποιηθεί (dirty), και φορτώνει τη ζητούμενη σελίδα σε αυτό το πλαίσιο.
+6. Ο πίνακας σελίδων ενημερώνεται (bit παρουσίας = 1, ορίζεται ο αριθμός πλαισίου).
+7. Η διεργασία επανεκκινείται.
 
-1. CPU generates a page fault exception.
-2. The OS suspends (blocks) the faulting process.
-3. The OS locates the required page on disk.
-4. If a free frame exists, the page is loaded into it.
-5. If **no free frame** exists, the OS selects a **victim frame** using a replacement algorithm, writes it to disk if dirty, and loads the requested page into that frame.
-6. The page table is updated (presence bit = 1, frame number set).
-7. The faulting process is resumed.
+### 5.6 Ιδιότητες της Σελιδοποίησης
 
-### 5.6 Properties of Paging
-
-- **No external fragmentation** — all frames are the same size; any frame fits any page.
-- **Internal fragmentation exists** — the last page of a process may not be fully used. On average, half a page is wasted per process.
-- A process may occupy **non-contiguous** frames.
-- Each process maintains its own page table; multiple processes coexist in RAM via separate page tables.
-- The MMU performs the $p \to f$ lookup on every memory access.
+- **Απουσία εξωτερικού κατακερματισμού** — όλα τα πλαίσια έχουν το ίδιο μέγεθος· οποιοδήποτε πλαίσιο ταιριάζει σε οποιαδήποτε σελίδα.
+- **Ύπαρξη εσωτερικού κατακερματισμού** — η τελευταία σελίδα μιας διεργασίας μπορεί να μην χρησιμοποιείται πλήρως.
+- Μια διεργασία μπορεί να καταλαμβάνει **μη συνεχόμενα** πλαίσια.
+- Κάθε διεργασία διατηρεί τον δικό της πίνακα σελίδων.
+- Η MMU πραγματοποιεί την αναζήτηση $p \to f$ σε κάθε προσπέλαση μνήμης.
 
 ---
 
-## 6. Segmentation
+## 6. Τμηματοποίηση (Segmentation)
 
-### 6.1 Concept
+### 6.1 Έννοια
 
-**Segmentation** divides the virtual address space into **variable-size** logical units called **segments**, each corresponding to a meaningful program structure (code, stack, heap, data, symbol table, etc.).
+Η **Τμηματοποίηση (Segmentation)** διαιρεί τον ιδεατό χώρο διευθύνσεων σε **μεταβλητού μεγέθους** λογικές μονάδες που ονομάζονται **τμήματα (segments)**, καθένα από τα οποία αντιστοιχεί σε μια δομή προγράμματος (κώδικας, στοίβα, σωρός, δεδομένα κ.λπ.).
 
-Unlike paging (invisible to the programmer), segmentation is **programmer-visible**: the programmer (or compiler) explicitly assigns code and data to named segments.
+Σε αντίθεση με τη σελιδοποίηση (αόρατη στον προγραμματιστή), η τμηματοποίηση είναι **ορατή στον προγραμματιστή**: ο προγραμματιστής (ή ο μεταγλωττιστής) αναθέτει ρητά κώδικα και δεδομένα σε ονομασμένα τμήματα.
 
-### 6.2 Segment Table
+### 6.2 Πίνακας Τμημάτων (Segment Table)
 
-Each process has a **segment table** with one entry per segment:
+Κάθε διεργασία διαθέτει έναν **πίνακα τμημάτων (segment table)** με μία εγγραφή ανά τμήμα:
 
-| Field | Description |
+| Πεδίο | Περιγραφή |
 | :--- | :--- |
-| `base` | Starting physical address of the segment in RAM |
-| `limit` | Length (size) of the segment in bytes |
+| `base` | Αρχική φυσική διεύθυνση του τμήματος στη RAM |
+| `limit` | Μήκος (μέγεθος) του τμήματος σε bytes |
 
-A virtual address in a segmented system is a pair:
+Μια ιδεατή διεύθυνση σε ένα σύστημα τμηματοποίησης είναι ένα ζεύγος: $\langle s,\; d \rangle$, όπου $s$ = αριθμός τμήματος, $d$ = μετατόπιση εντός του τμήματος.
 
-$$
-\langle s,\; d \rangle
-$$
-
-Where $s$ = segment number, $d$ = byte offset within the segment.
-
-**Translation:**
+**Μετάφραση:**
 
 $$
-\text{Physical Address} = \text{base}[s] + d \quad \text{(valid only if } d < \text{limit}[s]\text{)}
+\text{Φυσική Διεύθυνση} = \text{base}[s] + d \quad \text{(έγκυρη μόνο αν } d < \text{limit}[s]\text{)}
 $$
 
-If $d \geq \text{limit}[s]$, a **segmentation fault** (protection violation) is raised.
+Εάν $d \geq \text{limit}[s]$, προκαλείται **σφάλμα τμηματοποίησης (segmentation fault)**.
 
-### 6.3 Properties of Segmentation
+### 6.3 Πίνακας Σύγκρισης: Σελιδοποίηση vs. Τμηματοποίηση
 
-- Segments have **dynamic size** — they can grow or shrink (useful for stacks and heaps).
-- **No internal fragmentation** — a segment is exactly as large as needed.
-- **External fragmentation** can occur — variable-size segments leave gaps in physical memory over time.
-- Each segment holds one **type** of information, making protection and sharing semantically natural:
-  - Code segment: execute-only, shareable across processes running the same program.
-  - Data segment: per-process, read-write.
-- Multiple programs can share a code segment while maintaining separate data segments.
-
-### 6.4 Paging vs. Segmentation
-
-| Property | Paging | Segmentation |
+| Ιδιότητα | Σελιδοποίηση | Τμηματοποίηση |
 | :--- | :--- | :--- |
-| Programmer visibility | Invisible | Visible |
-| Address space per process | 1 linear space | Multiple logical spaces |
-| Block sizes | Fixed (all equal) | Variable |
-| Internal fragmentation | Yes (last page) | No |
-| External fragmentation | No | Yes |
-| Total space can exceed physical RAM | Yes | Yes |
-| Code/data protection separation | No | Yes |
-| Variable-size structures (stack, heap) | Not directly | Yes |
-| Sharing between processes | Difficult | Natural |
-| Primary purpose | Large linear address space without extra RAM | Logical program organization, protection, sharing |
+| Ορατότητα στον προγραμματιστή | Αόρατη | Ορατή |
+| Χώρος διευθύνσεων ανά διεργασία | 1 γραμμικός χώρος | Πολλαπλοί λογικοί χώροι |
+| Μεγέθη τμημάτων | Σταθερά (όλα ίσα) | Μεταβλητά |
+| Εσωτερικός κατακερματισμός | Ναι (τελευταία σελίδα) | Όχι |
+| Εξωτερικός κατακερματισμός | Όχι | Ναι |
+| Κοινή χρήση μεταξύ διεργασιών | Δύσκολη | Φυσική |
+| Κύριος σκοπός | Μεγάλος γραμμικός χώρος | Λογική οργάνωση, προστασία, κοινή χρήση |
 
 ---
 
-## 7. Page Replacement Algorithms
+## 7. Αλγόριθμοι Αντικατάστασης Σελίδων
 
-When a page fault occurs and all frames are occupied, the OS must select a **victim page** to evict. The choice determines performance (number of page faults).
+Όταν συμβαίνει ένα σφάλμα σελίδας και όλα τα πλαίσια είναι κατειλημμένα, το ΛΣ πρέπει να επιλέξει μια **σελίδα-θύμα** για αποβολή.
 
 ### 7.1 FIFO (First-In, First-Out)
 
-**Policy:** Evict the page that has been in memory the **longest** (the oldest resident page).
+**Πολιτική:** Αποβολή της σελίδας που βρίσκεται στη μνήμη το **μεγαλύτερο χρονικό διάστημα** (η γηραιότερη σελίδα).
 
-**Implementation:** Maintain a queue of pages ordered by arrival time. The page at the head of the queue is the next victim.
+**Ιδιότητες:**
+- Απλή στην υλοποίηση.
+- Δεν λαμβάνει υπόψη τη συχνότητα πραγματικής χρήσης.
+- Υπόκειται στο **ανωμαλία του Belady (Belady's anomaly)**: η αύξηση των διαθέσιμων πλαισίων μπορεί να **αυξήσει** τον αριθμό των σφαλμάτων σελίδας σε ορισμένες ακολουθίες αναφορών.
 
-**Properties:**
-- Simple to implement.
-- Does not consider actual usage frequency — an old page may still be heavily used.
-- Susceptible to **Belady's anomaly**: adding more frames can **increase** the number of page faults with certain reference strings.
+### 7.2 OPT (Optimal / Αλγόριθμος του Belady)
 
-> **[Supplementary]** Belady's anomaly is a counterintuitive result first demonstrated by László Bélády in 1969. It occurs specifically with FIFO (and certain other policies) but **never** with LRU or OPT, which are classified as "stack algorithms."
+**Πολιτική:** Αποβολή της σελίδας που **δεν θα χρησιμοποιηθεί για το μεγαλύτερο χρονικό διάστημα στο μέλλον**.
 
-### 7.2 OPT (Optimal / Belady's Optimal Algorithm)
-
-**Policy:** Evict the page that will **not be used for the longest time in the future** (the page whose next reference is farthest ahead in the reference string).
-
-**Properties:**
-- Produces the **minimum possible** number of page faults for any given reference string and frame count.
-- **Not implementable** in practice — requires knowledge of the entire future reference string.
-- Used as a **theoretical benchmark** to evaluate other algorithms.
-- Not susceptible to Belady's anomaly (stack algorithm).
+**Ιδιότητες:**
+- Παράγει τον **ελάχιστο δυνατό** αριθμό σφαλμάτων σελίδας.
+- **Μη υλοποιήσιμος** στην πράξη — απαιτεί γνώση του μέλλοντος.
+- Χρησιμοποιείται ως **θεωρητικό μέτρο σύγκρισης (benchmark)**.
 
 ### 7.3 LRU (Least Recently Used)
 
-**Policy:** Evict the page that has **not been used for the longest time in the past** (the page whose most recent reference is furthest back in time).
+**Πολιτική:** Αποβολή της σελίδας που **έχει να χρησιμοποιηθεί το μεγαλύτερο χρονικό διάστημα στο παρελθόν**.
 
-**Properties:**
-- Approximates OPT using past behavior as a predictor of future behavior (principle of temporal locality).
-- Not susceptible to Belady's anomaly (stack algorithm).
-- More costly to implement exactly than FIFO — requires tracking the time of last access for each frame.
-- In practice, approximated using hardware reference bits or software aging counters.
-
-> **[Supplementary]** Common LRU approximation methods include:
-> - **Reference bit scheme:** Each page has a 1-bit reference flag set by hardware on access; periodically cleared by the OS. Pages with cleared bits are candidates for eviction.
-> - **Aging algorithm:** A software counter shifted right periodically; the reference bit is OR'd into the MSB. The page with the smallest counter value is evicted.
-> - **Clock (second-chance) algorithm:** Pages are arranged in a circular list; a pointer advances and evicts the first page with reference bit = 0, giving pages with reference bit = 1 a second chance.
-
-### 7.4 Algorithm Comparison
-
-For reference string `4 3 1 5 1 2 3 6 7 4 2 5 6 1 3 4 7` with 4 frames:
-
-| Algorithm | Page Faults |
-| :--- | :--- |
-| FIFO | 12 |
-| OPT | 10 |
-| LRU | 15 |
-
-> **[Key Insight]** LRU performing worse than FIFO on a specific reference string is possible and does not contradict general performance claims. LRU outperforms FIFO on average over realistic workloads, but individual reference strings can favor either algorithm. OPT always achieves the minimum.
+**Ιδιότητες:**
+- Προσεγγίζει τον OPT χρησιμοποιώντας τη συμπεριφορά του παρελθόντος ως προγνωστικό δείκτη για το μέλλον (αρχή της χρονικής εντοπιότητας).
+- Δεν υπόκειται στην ανωμαλία του Belady.
+- Απαιτεί παρακολούθηση του χρόνου τελευταίας πρόσβασης για κάθε πλαίσιο.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: FIFO — Reference String Trace (4 frames)
+### Άσκηση 1: FIFO — Ακολουθία Αναφορών (4 πλαίσια)
 
-**Problem:** Given the reference string `4 3 1 5 1 2 3 6 7 4 2 5 6 1 3 4 7` with 4 frames (initially empty), simulate FIFO and count page faults.
+**Πρόβλημα:** Δίνεται η ακολουθία αναφορών `4 3 1 5 1 2 3 6 7 4 2 5 6 1 3 4 7` με 4 πλαίσια (αρχικά άδεια). Προσομοιώστε τον FIFO και καταμετρήστε τα σφάλματα σελίδας.
 
-**Solution:**
+**Λύση:**
 
-FIFO evicts the page that entered memory earliest. Maintain a queue ordered by insertion time.
+Η FIFO αποβάλλει τη σελίδα που εισήλθε νωρίτερα στη μνήμη.
 
-| Step | Ref | Frame 1 | Frame 2 | Frame 3 | Frame 4 | Fault | Evicted | Queue (oldest→newest) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | 4 | 4 | — | — | — | F | — | 4 |
-| 2 | 3 | 4 | 3 | — | — | F | — | 4,3 |
-| 3 | 1 | 4 | 3 | 1 | — | F | — | 4,3,1 |
-| 4 | 5 | 4 | 3 | 1 | 5 | F | — | 4,3,1,5 |
-| 5 | 1 | 4 | 3 | 1 | 5 | — | — | 4,3,1,5 |
-| 6 | 2 | 2 | 3 | 1 | 5 | F | 4 | 3,1,5,2 |
-| 7 | 3 | 2 | 3 | 1 | 5 | — | — | 3,1,5,2 |
-| 8 | 6 | 2 | 6 | 1 | 5 | F | 3 | 1,5,2,6 |
-| 9 | 7 | 2 | 6 | 7 | 5 | F | 1 | 5,2,6,7 |
-| 10 | 4 | 2 | 6 | 7 | 4 | F | 5 | 2,6,7,4 |
-| 11 | 2 | 2 | 6 | 7 | 4 | — | — | 2,6,7,4 |
-| 12 | 5 | 5 | 6 | 7 | 4 | F | 2 | 6,7,4,5 |
-| 13 | 6 | 5 | 6 | 7 | 4 | — | — | 6,7,4,5 |
-| 14 | 1 | 5 | 1 | 7 | 4 | F | 6 | 7,4,5,1 |
-| 15 | 3 | 5 | 1 | 3 | 4 | F | 7 | 4,5,1,3 |
-| 16 | 4 | 5 | 1 | 3 | 4 | — | — | 4,5,1,3 |
-| 17 | 7 | 7 | 1 | 3 | 4 | F | 5 | 5,1,3,7 |
+| Βήμα | Αναφορά | Πλαίσιο 1 | Πλαίσιο 2 | Πλαίσιο 3 | Πλαίσιο 4 | Σφάλμα | Αποβολή |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | 4 | 4 | — | — | — | Σ | — |
+| 2 | 3 | 4 | 3 | — | — | Σ | — |
+| 3 | 1 | 4 | 3 | 1 | — | Σ | — |
+| 4 | 5 | 4 | 3 | 1 | 5 | Σ | — |
+| 5 | 1 | 4 | 3 | 1 | 5 | — | — |
+| 6 | 2 | 2 | 3 | 1 | 5 | Σ | 4 |
+| 7 | 3 | 2 | 3 | 1 | 5 | — | — |
+| 8 | 6 | 2 | 6 | 1 | 5 | Σ | 3 |
+| 9 | 7 | 2 | 6 | 7 | 5 | Σ | 1 |
+| 10 | 4 | 2 | 6 | 7 | 4 | Σ | 5 |
+| 11 | 2 | 2 | 6 | 7 | 4 | — | — |
+| 12 | 5 | 5 | 6 | 7 | 4 | Σ | 2 |
+| 13 | 6 | 5 | 6 | 7 | 4 | — | — |
+| 14 | 1 | 5 | 1 | 7 | 4 | Σ | 6 |
+| 15 | 3 | 5 | 1 | 3 | 4 | Σ | 7 |
+| 16 | 4 | 5 | 1 | 3 | 4 | — | — |
+| 17 | 7 | 7 | 1 | 3 | 4 | Σ | 5 |
 
-**Total page faults: 12**
-
----
-
-### Exercise 2: OPT — Reference String Trace (4 frames)
-
-**Problem:** Same reference string `4 3 1 5 1 2 3 6 7 4 2 5 6 1 3 4 7`, 4 frames. Simulate OPT.
-
-**Solution:**
-
-OPT evicts the page whose next use is farthest in the future. When a page will never be used again, it is an immediate eviction candidate.
-
-After the initial compulsory faults (loading 4, 3, 1, 5):
-
-- Reference 2: frames = {4,3,1,5}. Next uses: 4→pos10, 3→pos7, 1→pos14(after evict), 5→pos12. Page 1 has farthest next use → evict 1. Load 2.
-- Reference 3: hit (3 in frames).
-- Reference 6: frames = {4,3,2,5}. Next uses: 4→pos10, 3→pos16(after), 2→pos11, 5→pos12. Page 3 has farthest next use → evict 3. Load 6.
-- Reference 7: frames = {4,6,2,5}. Next uses: 4→pos10, 6→pos13, 2→pos11, 5→pos12. Page 6 has farthest → evict 6. Load 7.
-- Reference 4: hit.
-- Reference 2: hit.
-- Reference 5: frames = {4,7,2,5}: hit? No — 5 was evicted. Frames = {4,7,2,...}. 5 not in frames → fault. Pages 2 and 5 will not reappear → evict either. Evict 2 or 5 (OPT is indifferent). Load 5.
-- Reference 6: frames = {4,7,?,5}. 6 not present → fault. Next: 4→pos16, 7→pos17, 5 never again, current→6 never again. Evict 5 or 6 placeholder.
-
-**Total page faults: 10** (minimum achievable for this string with 4 frames).
+**Συνολικά σφάλματα σελίδας: 12**
 
 ---
 
-### Exercise 3: LRU — Reference String Trace (4 frames)
+### Άσκηση 2: OPT — Ακολουθία Αναφορών (4 πλαίσια)
 
-**Problem:** Same reference string, 4 frames. Simulate LRU.
+**Πρόβλημα:** Ίδια ακολουθία αναφορών `4 3 1 5 1 2 3 6 7 4 2 5 6 1 3 4 7`, 4 πλαίσια. Προσομοιώστε τον OPT.
 
-**Solution:**
+**Λύση:**
 
-LRU evicts the page not accessed for the longest time. Track the recency of access.
+Ο OPT αποβάλλει τη σελίδα της οποίας η επόμενη χρήση είναι πιο μακριά στο μέλλον.
 
-| Step | Ref | Frames (set) | Fault | Evicted | LRU order (LRU→MRU) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | 4 | {4} | F | — | 4 |
-| 2 | 3 | {4,3} | F | — | 4,3 |
-| 3 | 1 | {4,3,1} | F | — | 4,3,1 |
-| 4 | 5 | {4,3,1,5} | F | — | 4,3,1,5 |
-| 5 | 1 | {4,3,1,5} | — | — | 4,3,5,1 |
-| 6 | 2 | {3,1,5,2} | F | 4 | 3,5,1,2 |
-| 7 | 3 | {3,1,5,2} | — | — | 5,1,2,3 |
-| 8 | 6 | {1,5,2,3}→{1,2,3,6} | F | 5 | 1,2,3,6 |
-| 9 | 7 | {1,2,3,6}→{2,3,6,7} | F | 1 | 2,3,6,7 |
-| 10 | 4 | {3,6,7,4} | F | 2 | 3,6,7,4 |
-| 11 | 2 | {6,7,4,2} | F | 3 | 6,7,4,2 |
-| 12 | 5 | {7,4,2,5} | F | 6 | 7,4,2,5 |
-| 13 | 6 | {4,2,5,6} | F | 7 | 4,2,5,6 |
-| 14 | 1 | {2,5,6,1} | F | 4 | 2,5,6,1 |
-| 15 | 3 | {5,6,1,3} | F | 2 | 5,6,1,3 |
-| 16 | 4 | {6,1,3,4} | F | 5 | 6,1,3,4 |
-| 17 | 7 | {1,3,4,7} | F | 6 | 1,3,4,7 |
-
-**Total page faults: 15**
-
-> **[Key Insight]** For this particular reference string, LRU (15) performs worse than FIFO (12) and much worse than OPT (10). This is not a contradiction of LRU's general superiority — the reference string was designed for the lecture slides' FIFO example and has adversarial properties for LRU.
+**Συνολικά σφάλματα σελίδας: 10** (το ελάχιστο δυνατό για αυτή την ακολουθία με 4 πλαίσια).
 
 ---
 
-### Exercise 4: FIFO — Short Sequence with 3 Frames
+### Άσκηση 3: LRU — Ακολουθία Αναφορών (4 πλαίσια)
 
-**Problem:** Reference string `0 1 7 2 3 2 7 1 0 3`, 3 frames, initially empty. Count page faults **after** initial fill (i.e., count only replacement faults, not the first 3 compulsory faults).
+**Πρόβλημα:** Ίδια ακολουθία αναφορών, 4 πλαίσια. Προσομοιώστε τον LRU.
 
-**Solution:**
+**Λύση:**
 
-Load 0, 1, 7 (3 compulsory faults, not counted per problem statement). Frames = {0,1,7}, queue = [0,1,7].
+Ο LRU αποβάλλει τη σελίδα που έχει να προσπελαστεί το μεγαλύτερο χρονικό διάστημα.
 
-| Step | Ref | Frames | Fault | Evicted | Queue |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 4 | 2 | {2,1,7} | F | 0 | [1,7,2] |
-| 5 | 3 | {2,3,7} | F | 1 | [7,2,3] |
-| 6 | 2 | {2,3,7} | — | — | [7,2,3] |
-| 7 | 7 | {2,3,7} | — | — | [7,2,3] |
-| 8 | 1 | {2,3,1} | F | 7 | [2,3,1] |
-| 9 | 0 | {0,3,1} | F | 2 | [3,1,0] |
-| 10 | 3 | {0,3,1} | — | — | [3,1,0] |
-
-**Replacement faults: 4**
+**Συνολικά σφάλματα σελίδας: 15**
 
 ---
 
-### Exercise 5: LRU — Short Sequence with 3 Frames
+### Άσκηση 4: Μετάφραση Διευθύνσεων Τμηματοποίησης
 
-**Problem:** Same reference string `0 1 7 2 3 2 7 1 0 3`, 3 frames. Count replacement faults only.
+**Πρόβλημα:** Μια διεργασία έχει τον ακόλουθο πίνακα τμημάτων:
 
-**Solution:**
-
-After loading 0, 1, 7: frames = {0,1,7}, recency order = [0,1,7] (0 = LRU, 7 = MRU).
-
-| Step | Ref | Frames | Fault | Evicted | LRU→MRU |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 4 | 2 | {1,7,2} | F | 0 | [1,7,2] |
-| 5 | 3 | {7,2,3} | F | 1 | [7,2,3] |
-| 6 | 2 | {7,2,3} | — | — | [7,3,2] |
-| 7 | 7 | {7,2,3} | — | — | [3,2,7] |
-| 8 | 1 | {2,7,1} | F | 3 | [2,7,1] |
-| 9 | 0 | {7,1,0} | F | 2 | [7,1,0] |
-| 10 | 3 | {1,0,3} | F | 7 | [1,0,3] |
-
-**Replacement faults: 5**
-
----
-
-### Exercise 6: Segmentation Address Translation
-
-**Problem:** A process has the following segment table:
-
-| Segment | Base | Limit |
+| Τμήμα | Βάση (Base) | Όριο (Limit) |
 | :--- | :--- | :--- |
 | 0 | 1400 | 1000 |
 | 1 | 6300 | 400 |
@@ -3016,387 +2794,254 @@ After loading 0, 1, 7: frames = {0,1,7}, recency order = [0,1,7] (0 = LRU, 7 = M
 | 3 | 3200 | 1100 |
 | 4 | 4700 | 1000 |
 
-Translate virtual address $\langle 2, 53 \rangle$ and $\langle 3, 1500 \rangle$.
+Μεταφράστε τις ιδεατές διευθύνσεις $\langle 2, 53 \rangle$ και $\langle 3, 1500 \rangle$.
 
-**Solution:**
+**Λύση:**
 
-**Address $\langle 2, 53 \rangle$:**
-- Segment 2: base = 4300, limit = 400.
-- Check: $53 < 400$ ✓ (valid).
-- Physical address = $4300 + 53 = 4353$.
+**Διεύθυνση $\langle 2, 53 \rangle$:**
+- Τμήμα 2: βάση = 4300, όριο = 400.
+- Έλεγχος: $53 < 400$ ✓ (έγκυρη).
+- Φυσική διεύθυνση = $4300 + 53 = 4353$.
 
-**Address $\langle 3, 1500 \rangle$:**
-- Segment 3: base = 3200, limit = 1100.
-- Check: $1500 < 1100$? No — $1500 \geq 1100$. **Segmentation fault** (access violation).
+**Διεύθυνση $\langle 3, 1500 \rangle$:**
+- Τμήμα 3: βάση = 3200, όριο = 1100.
+- Έλεγχος: $1500 < 1100$; Όχι — $1500 \geq 1100$. **Σφάλμα τμηματοποίησης (segmentation fault)**.
 
 ---
 
-### Exercise 7: Page Table Address Translation
+### Άσκηση 5: Μετάφραση Διευθύνσεων Πίνακα Σελίδων
 
-**Problem:** Page size = 4 KiB = $2^{12}$ bytes. A virtual address is 16 bits. The page table entry for virtual page 3 gives frame number 6. Translate virtual address `0x3A1F`.
+**Πρόβλημα:** Μέγεθος σελίδας = 4 KiB = $2^{12}$ bytes. Η ιδεατή διεύθυνση είναι 16 bits. Η εγγραφή πίνακα σελίδων για την ιδεατή σελίδα 3 δίνει αριθμό πλαισίου 6. Μεταφράστε την ιδεατή διεύθυνση `0x3A1F`.
 
-**Solution:**
+**Λύση:**
 
-Virtual address `0x3A1F` in binary:
+Ιδεατή διεύθυνση `0x3A1F` στο δυαδικό σύστημα:
 
 $$
 0\!x\!3A1F = 0011\;1010\;0001\;1111_2
 $$
 
-With page size $= 2^{12}$, the offset field is 12 bits and the page number field is $16 - 12 = 4$ bits.
+Με μέγεθος σελίδας $= 2^{12}$, το πεδίο μετατόπισης είναι 12 bits και ο αριθμός σελίδας είναι $16 - 12 = 4$ bits.
 
 $$
 p = 0011_2 = 3, \quad d = 1010\;0001\;1111_2 = 0\!xA1F
 $$
 
-Page table lookup: page 3 → frame 6.
+Αναζήτηση στον πίνακα σελίδων: σελίδα 3 → πλαίσιο 6.
 
 $$
-\text{Physical address} = 6 \times 4096 + 0\!xA1F = 0\!x6000 + 0\!xA1F = 0\!x6A1F
+\text{Φυσική διεύθυνση} = 6 \times 4096 + 0\!xA1F = 0\!x6000 + 0\!xA1F = 0\!x6A1F
 $$
 
 ---
 
-### Exercise 8: Page Faults vs. Frame Count (LRU, FIFO, OPT)
+## Συμβουλές Εξετάσεων
 
-**Problem:** Reference string `1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6`. Count page faults for 1–7 frames under LRU, FIFO, and OPT.
+> **[Συμβουλή Εξετάσεων — Μηχανική Σφαλμάτων Σελίδας]**
+> Κατά την προσομοίωση οποιουδήποτε αλγορίθμου αντικατάστασης:
+> 1. Ελέγχετε πάντα πρώτα **αν υπάρχει επιτυχία (hit) ή αποτυχία (miss)** — αν η σελίδα βρίσκεται ήδη σε πλαίσιο, δεν κάνετε καμία αποβολή.
+> 2. Μόνο όταν η σελίδα **δεν είναι παρούσα** και **όλα τα πλαίσια είναι γεμάτα** εφαρμόζετε την πολιτική αντικατάστασης.Τα ελεύθερα πλαίσια γεμίζουν πρώτα.
 
-**Solution:** (From lecture slide answers — verified correct)
-
-| Frames | LRU | FIFO | OPT |
-| :--- | :--- | :--- | :--- |
-| 1 | 20 | 20 | 20 |
-| 2 | 17 | 18 | 15 |
-| 3 | 15 | 16 | 11 |
-| 4 | 10 | 14 | 8 |
-| 5 | 8 | 10 | 7 |
-| 6 | 7 | 9 | 7 |
-| 7 | 7 | 7 | 7 |
-
-**Observations:**
-- At 7 frames all algorithms converge to 7 faults (equal to the number of distinct pages — every unique page causes exactly one compulsory fault).
-- OPT consistently achieves the minimum; FIFO consistently performs worst.
-- LRU and OPT both decrease monotonically with increasing frames (stack algorithms). FIFO also decreases here but is not guaranteed to be monotonic for all strings (Belady's anomaly).
-
----
-
-## Exam Tips
-
-### Exam Tip 1: Page Fault Mechanics
-
-When simulating any replacement algorithm:
-1. Always check **hit or miss first** — if the page is already in a frame, do nothing (no fault, no eviction).
-2. Only when the page is **not present** and **all frames are full** do you need to apply the replacement policy.
-3. Track the correct state **after** each step, not before.
-
-**Common mistake:** Applying the replacement rule even when a free frame is available. Free frames are filled first; replacement only occurs when all frames are occupied.
-
-### Exam Tip 2: FIFO Queue vs. LRU Stack
-
-- **FIFO:** The queue tracks **insertion order**. When a page already in memory is re-accessed, the queue does **not** change.
-- **LRU:** The recency stack tracks **last-access order**. When a page already in memory is re-accessed, it moves to the **most-recently-used** (MRU) end of the stack.
-
-**Pattern recognition:** In LRU, a hit is never free in terms of bookkeeping — the accessed page's position in the recency order is updated. In FIFO, a hit requires no bookkeeping at all.
-
-### Exam Tip 3: OPT Tie-Breaking
-
-When two pages have equally distant next references (or both will never be referenced again), either may be evicted. Both choices yield the same total fault count. On exams, state your choice explicitly to avoid ambiguity.
-
-### Exam Tip 4: Paging vs. Segmentation One-Liners
-
-- **Paging:** Fixed-size, invisible, eliminates external fragmentation, has internal fragmentation.
-- **Segmentation:** Variable-size, visible, eliminates internal fragmentation, has external fragmentation.
-- Both allow the total virtual address space to exceed physical RAM.
-
-### Exam Tip 5: Address Translation Steps
-
-For paging problems, always verify you are splitting the address at the correct bit boundary. If page size $= 2^k$ bytes, the offset is exactly $k$ bits and the page number occupies all remaining high-order bits.
+> **[Συμβουλή Εξετάσεων — Ουρά FIFO vs. Στοίβα LRU]**
+> - **FIFO:** Η ουρά παρακολουθεί την **σειρά εισαγωγής**. Όταν μια σελίδα που βρίσκεται ήδη στη μνήμη προσπελαύνεται ξανά, η ουρά **δεν** αλλάζει.
+> - **LRU:** Η στοίβα παρακολουθεί τη **σειρά τελευταίας πρόσβασης**. Όταν μια σελίδα που βρίσκεται ήδη στη μνήμη προσπελαύνεται ξανά, μετακινείται στο άκρο **πιο πρόσφατα χρησιμοποιημένης (MRU)**.
 
 ---
 # OS_Lec09_NOTES.md
 ---
 
-# Process Scheduling (CPU Scheduling)
+# Δρομολόγηση Διεργασιών (CPU Scheduling) — Κεφάλαιο 9
 
-This document covers single-processor CPU scheduling — the mechanisms, criteria, policies, and algorithms that determine which process runs next on the CPU. It maps directly to Chapter 9 of the Operating Systems course. The subject is a Type C (Engineering/Applied Systems) topic, meaning formal definitions and step-by-step mechanisms precede all worked examples.
-
----
-
-## 1. Introduction
-
-**Scheduling** is the OS function that decides the order and timing by which processes access the CPU in a single-processor system.
-
-**Primary goals:**
-- Maximize **CPU utilization** — keep the CPU as busy as possible.
-- Maximize **throughput** — number of processes completed per unit time.
-- Minimize **response time** — time from request submission to first response.
-
-> **[Key Insight]** These goals are often in direct conflict. Maximizing throughput may require long, uninterrupted CPU bursts, while minimizing response time requires frequent context switching.
+Αυτό το έγγραφο καλύπτει τη δρομολόγηση επεξεργαστή (CPU scheduling) σε συστήματα ενός επεξεργαστή — τους μηχανισμούς, τα κριτήρια, τις πολιτικές και τους αλγορίθμους που καθορίζουν ποια διεργασία εκτελείται στη συνέχεια στην CPU. Αντιστοιχεί απευθείας στο Κεφάλαιο 9 του μαθήματος Λειτουργικά Συστήματα.
 
 ---
 
-## 2. Performance Evaluation Criteria
+## 1. Εισαγωγή
 
-| Criterion | Definition | Unit | Direction |
+Η **Δρομολόγηση (Scheduling)** είναι η λειτουργία του ΛΣ που αποφασίζει τη σειρά και τον χρόνο με τον οποίο οι διεργασίες αποκτούν πρόσβαση στην CPU σε ένα σύστημα ενός επεξεργαστή.
+
+**Κύριοι στόχοι:**
+- Μεγιστοποίηση της **εκμετάλλευσης της CPU (CPU utilization)** — διατήρηση της CPU όσο το δυνατόν πιο απασχολημένης.
+- Μεγιστοποίηση της **διεκπεραιωτικότητας (throughput)** — αριθμός διεργασιών που ολοκληρώνονται ανά μονάδα χρόνου.
+- Ελαχιστοποίηση του **χρόνου απόκρισης (response time)** — χρόνος από την υποβολή μιας αίτησης έως την πρώτη απόκριση.
+
+> **[Βασική Παρατήρηση]** Αυτοί οι στόχοι είναι συχνά σε άμεση σύγκρουση. Η μεγιστοποίηση της διεκπεραιωτικότητας μπορεί να απαιτεί μεγάλες, αδιάλειπτες ριπές CPU, ενώ η ελαχιστοποίηση του χρόνου απόκρισης απαιτεί συχνές εναλλαγές πλαισίου (context switches).
+
+---
+
+## 2. Κριτήρια Αξιολόγησης Απόδοσης
+
+| Κριτήριο | Ορισμός | Μονάδα | Κατεύθυνση |
 | :--- | :--- | :--- | :--- |
-| **Fairness** | Every process gets regular CPU access; avoids starvation | — | Maximize |
-| **Utilization** | Fraction of time a device (CPU) is in use: $\frac{t_{use}}{t_{total}}$ | % | Maximize |
-| **Throughput** | Number of processes completed per unit time | processes/s | Maximize |
-| **Turnaround Time (TAT)** | Total elapsed time from submission to completion; includes waiting | seconds | Minimize |
-| **Waiting Time (WT)** | Time spent waiting in the ready queue | seconds | Minimize |
-| **Response Time (RT)** | Time from submission until the process first occupies the CPU | seconds | Minimize |
-| **Context Switch Overhead** | Time wasted switching execution context between processes | seconds | Minimize |
-| **Scheduling Complexity** | Time required to select the next process from the ready list | seconds | Minimize |
+| **Δικαιοσύνη (Fairness)** | Κάθε διεργασία αποκτά τακτική πρόσβαση στην CPU· αποφυγή λιμοκτονίας | — | Μεγιστοποίηση |
+| **Εκμετάλλευση (Utilization)** | Ποσοστό χρόνου που η συσκευή (CPU) χρησιμοποιείται: $\frac{t_{use}}{t_{total}}$ | % | Μεγιστοποίηση |
+| **Διεκπεραιωτικότητα (Throughput)** | Αριθμός διεργασιών που ολοκληρώνονται ανά μονάδα χρόνου | διεργασίες/s | Μεγιστοποίηση |
+| **Χρόνος Επιστροφής (Turnaround Time - TAT)** | Συνολικός παρελθών χρόνος από την υποβολή έως την ολοκλήρωση· περιλαμβάνει την αναμονή | δευτερόλεπτα | Ελαχιστοποίηση |
+| **Χρόνος Αναμονής (Waiting Time - WT)** | Χρόνος που δαπανάται στην ουρά ετοίμων (ready queue) | δευτερόλεπτα | Ελαχιστοποίηση |
+| **Χρόνος Απόκρισης (Response Time - RT)** | Χρόνος από την υποβολή μέχρι η διεργασία να καταλάβει για πρώτη φορά την CPU | δευτερόλεπτα | Ελαχιστοποίηση |
+| **Επιβάρυνση Εναλλαγής Πλαισίου** | Χρόνος που σπαταλάται για την αλλαγή πλαισίου εκτέλεσης μεταξύ διεργασιών | δευτερόλεπτα | Ελαχιστοποίηση |
+| **Συνθετότητα Δρομολόγησης** | Χρόνος που απαιτείται για την επιλογή της επόμενης διεργασίας | δευτερόλεπτα | Ελαχιστοποίηση |
 
-**Key relation:**
+**Βασική σχέση:**
 
 $$
-\text{Waiting Time} = \text{Turnaround Time} - \text{Burst Length}
+\text{Χρόνος Αναμονής (WT)} = \text{Χρόνος Επιστροφής (TAT)} - \text{Διάρκεια Ριπής (Burst Length)}
 $$
 
 ---
 
-## 3. Optimization Criteria
+## 3. Κριτήρια Βελτιστοποίησης
 
-**Maximize:**
-- CPU utilization
-- Throughput
+**Μεγιστοποίηση:**
+- Εκμετάλλευσης CPU
+- Διεκπεραιωτικότητας
 
-**Minimize:**
-- Turnaround time
-- Waiting time
-- Response time
-
-> **[Key Insight]** These criteria frequently conflict. Improving one often degrades another. No single algorithm is optimal for all workloads.
+**Ελαχιστοποίηση:**
+- Χρόνου επιστροφής (Turnaround time)
+- Χρόνου αναμονής (Waiting time)
+- Χρόνου απόκρισης (Response time)
 
 ---
 
-## 4. Types of Scheduling
+## 4. Τύποι Δρομολόγησης
 
-Three levels of scheduling exist in a multiprogramming OS:
+Υπάρχουν τρία επίπεδα δρομολόγησης σε ένα ΛΣ πολυπρογραμματισμού:
 
-### 4.1 Long-Term Scheduling
+### 4.1 Μακροπρόθεσμη Δρομολόγηση (Long-Term Scheduling)
 
-- Determines whether a **new process is admitted** to the system (enters the ready queue) or waits.
-- Controls the **degree of multiprogramming**.
-- Admitting more processes: fewer suspensions, better CPU utilization, but lower throughput per process and more context switches.
-- Tries to maintain a **balance** between CPU-bound and I/O-bound processes.
+- Αποφασίζει εάν μια **νέα διεργασία γίνεται δεκτή** στο σύστημα (εισέρχεται στην ουρά ετοίμων) ή περιμένει.
+- Ελέγχει τον **βαθμό πολυπρογραμματισμού**.
+- Προσπαθεί να διατηρήσει μια **ισορροπία** μεταξύ διεργασιών εντάσεως CPU (CPU-bound) και εντάσεως Ε/Ε (I/O-bound).
 
-### 4.2 Medium-Term Scheduling
+### 4.2 Μεσοπρόθεσμη Δρομολόγηση (Medium-Term Scheduling)
 
-- Decides which processes are **swapped in or out of main memory** (disk ↔ RAM).
-- Related to the `ready-suspended` and `blocked-suspended` process states.
-- Candidates for removal from memory: processes idle for long, low-priority, generating many page faults, or consuming large amounts of memory.
-- Performed by **memory management software**.
+- Αποφασίζει ποιες διεργασίες **μεταφέρονται από/προς την κύρια μνήμη** (swap-in / swap-out).
+- Σχετίζεται με τις καταστάσεις διεργασιών `ready-suspended` και `blocked-suspended`.
+- Εκτελείται από το **λογισμικό διαχείρισης μνήμης**.
 
-### 4.3 Short-Term Scheduling (CPU Scheduling)
+### 4.3 Βραχυπρόθεσμη Δρομολόγηση / Δρομολόγηση CPU (Short-Term Scheduling)
 
-- The **primary focus** of this chapter.
-- Selects which **ready process runs next** on the CPU.
-- Also called **dispatching**; the component performing this is the **dispatcher**.
-- Triggered by:
-  - Clock interrupts
-  - I/O interrupts
-  - OS calls
-  - Signals
-
-**Dispatcher latency:** The time required for the dispatcher to stop one process and start another.
-
-### 4.4 Short-Term Criteria
-
-| Orientation | Criteria |
-| :--- | :--- |
-| User-oriented | Response time, Turnaround time |
-| System-oriented | CPU utilization, Fairness, Throughput |
+- Το **κύριο αντικείμενο** αυτού του κεφαλαίου.
+- Επιλέγει ποια **έτοιμη διεργασία θα εκτελεστεί στη συνέχεια** στην CPU.
+- Το συστατικό που εκτελεί αυτή τη λειτουργία ονομάζεται **διανομέας (dispatcher)**.
+- Ενεργοποιείται από: διακοπές ρολογιού, διακοπές I/O, κλήσεις ΛΣ, σήματα.
 
 ---
 
-## 5. Scheduling Policies
+## 5. Πολιτικές Δρομολόγησης
 
-### 5.1 Non-Preemptive Scheduling
+### 5.1 Μη Αρπακτική Δρομολόγηση (Non-Preemptive Scheduling)
 
-- Once a process is in the **running** state, it continues until it **terminates voluntarily** or **blocks itself** waiting for I/O.
-- Results in long waiting and response times.
-- Simple to implement.
-- **Not suitable for multi-user systems.**
+- Μόλις μια διεργασία μεταβεί στην κατάσταση **εκτέλεσης (running)**, συνεχίζει μέχρι να **τερματίσει εθελοντικά** ή να **μπλοκάρει** περιμένοντας I/O.
+- Αποτελέσματα: μεγάλοι χρόνοι αναμονής και απόκρισης.
+- Απλή στην υλοποίηση.
+- **Ακατάλληλη για πολυ-χρηστικά συστήματα.**
 
-### 5.2 Preemptive Scheduling
+### 5.2 Αρπακτική Δρομολόγηση (Preemptive Scheduling)
 
-- The OS can **interrupt a running process** and move it back to the ready state.
-- Possible causes of preemption:
-  - Arrival of a higher-priority process
-  - An interrupt occurs
-  - A process changes state
-  - A time limit (quantum) is exceeded
-- Prevents CPU monopolization.
-- Can lead to **race conditions** — resolved using process synchronization.
+- Το ΛΣ μπορεί να **διακόψει μια εκτελούμενη διεργασία** και να τη μεταφέρει πίσω στην κατάσταση ετοίμου (ready).
+- Αιτίες αφαίρεσης επεξεργαστή (preemption):
+  - Άφιξη διεργασίας υψηλότερης προτεραιότητας
+  - Συμβάν διακοπής (interrupt)
+  - Εξάντληση χρονικού ορίου (quantum)
+- Αποτρέπει τη μονοπώληση της CPU.
 
 ---
 
-## 6. CPU-I/O Burst Cycle
+## 6. Κύκλος Ριπών CPU-I/O (CPU-I/O Burst Cycle)
 
-Every process alternates between **CPU bursts** (computation) and **I/O bursts** (waiting for I/O).
+Κάθε διεργασία εναλλάσσεται μεταξύ **ριπών CPU (CPU bursts)** (υπολογισμός) και **ριπών I/O (I/O bursts)** (αναμονή για I/O).
 
-- CPU bursts are generally **much shorter** than I/O bursts.
-- A process **terminates during a CPU burst**.
-- **CPU-bound** processes: long CPU bursts, few I/O bursts.
-- **I/O-bound** processes: short CPU bursts, many I/O bursts.
-
-> **[Key Insight]** The scheduler always operates per CPU burst, not per complete process execution. The decision of which process runs is re-evaluated at each burst boundary.
+- Οι ριπές CPU είναι γενικά **πολύ μικρότερες** από τις ριπές I/O.
+- Μια διεργασία **τερματίζει κατά τη διάρκεια μιας ριπής CPU**.
+- **CPU-bound** διεργασίες: μεγάλες ριπές CPU, λίγες ριπές I/O.
+- **I/O-bound** διεργασίες: μικρές ριπές CPU, πολλές ριπές I/O.
 
 ---
 
-## 7. Priority Scheduling
+## 7. Δρομολόγηση με Προτεραιότητες (Priority Scheduling)
 
-- Implemented via **multiple ready queues**, each representing a priority level.
-- The scheduler always picks a process from the **highest non-empty priority queue**.
-- Low-priority processes may suffer **indefinite starvation**.
-- Processes may be allowed to **dynamically change priority** based on time in the system or execution history (aging).
+- Υλοποιείται μέσω **πολλαπλών ουρών ετοίμων**, όπου κάθε μία αναπαριστά ένα επίπεδο προτεραιότητας.
+- Ο δρομολογητής επιλέγει πάντα μια διεργασία από την **ουρά υψηλότερης προτεραιότητας που δεν είναι άδεια**.
+- Διεργασίες χαμηλής προτεραιότητας ενδέχεται να υποστούν **αόριστη λιμοκτονία (starvation)**.
+- Επιτρέπεται η **δυναμική αλλαγή προτεραιότητας** με βάση τον χρόνο παραμονής στο σύστημα (γήρανση / aging).
 
 ---
 
-## 8. Scheduling Algorithms
+## 8. Αλγόριθμοι Δρομολόγησης
 
 ### 8.1 First-Come, First-Served (FCFS)
 
-**Type:** Non-preemptive
+**Τύπος:** Μη αρπακτικός (Non-preemptive)
 
-**Mechanism:**
-- Processes are executed in the **order of arrival** (FIFO queue).
-- If two processes arrive simultaneously, order is arbitrary (random tie-break).
-- A process runs until it **voluntarily suspends** itself.
+**Μηχανισμός:**
+- Οι διεργασίες εκτελούνται με τη **σειρά άφιξης** (ουρά FIFO).
+- Μια διεργασία εκτελείται μέχρι να **αναστείλει εθελοντικά** την εκτέλεσή της.
 
-**Properties:**
-
-| Property | Value |
-| :--- | :--- |
-| Queue type | FIFO |
-| Preemption | No |
-| Selection speed | O(1), independent of queue length |
-| Starvation risk | Low |
-| Suitable for | Batch systems |
-
-**Disadvantages:**
-- CPU-bound processes **monopolize** the CPU.
-- I/O-bound processes wait even after their I/O completes (they lose their queue position when they block).
-- **High variance** in average turnaround time.
-- Unsuitable for interactive or time-sharing systems.
+**Μειονεκτήματα:**
+- Οι CPU-bound διεργασίες **μονοπωλούν** την CPU.
+- Οι I/O-bound διεργασίες περιμένουν ακόμη και αφού ολοκληρωθεί το I/O τους.
+- **Υψηλή διακύμανση** στον μέσο χρόνο επιστροφής.
 
 ---
 
 ### 8.2 Shortest-Job-First (SJF)
 
-**Type:** Non-preemptive (base form); preemptive variant = SRTF
+**Τύπος:** Μη αρπακτικός (στη βασική μορφή)· η αρπακτική παραλλαγή είναι η SRTF
 
-**Mechanism:**
-- From the ready queue, select the process with the **smallest CPU burst time**.
-- If two processes have equal burst times, FCFS tie-breaking applies.
-- Each process **declares** its CPU burst time to the scheduler.
+**Μηχανισμός:**
+- Από την ουρά ετοίμων, επιλέγεται η διεργασία με τη **μικρότερη διάρκεια ριπής CPU**.
+- Εάν δύο διεργασίες έχουν ίση διάρκεια ριπής, εφαρμόζεται η FCFS.
 
-**Properties:**
-
-| Property | Value |
-| :--- | :--- |
-| Preemption | No (standard SJF) |
-| Optimality | Gives **minimum average waiting time** for a given set of processes |
-| Starvation risk | **High** — long processes may never run if short ones keep arriving |
-| Burst time required | Yes — generally hard to know in advance |
-
-> **[Key Insight]** SJF is provably optimal for minimizing average waiting time. However, its practical applicability is limited because CPU burst times are rarely known in advance and must be estimated.
-
-> **[Supplementary]**
-> In practice, the next CPU burst is estimated using an **exponential average** of past bursts:
-> $$
-> \tau_{n+1} = \alpha \cdot t_n + (1 - \alpha) \cdot \tau_n
-> $$
-> where $t_n$ is the actual $n$-th burst, $\tau_n$ is the $n$-th estimate, and $\alpha \in [0,1]$ controls the weight of recent history. A common value is $\alpha = 0.5$.
+**Ιδιότητες:**
+- Δίνει τον **ελάχιστο μέσο χρόνο αναμονής** για ένα δεδομένο σύνολο διεργασιών (βέλτιστος / optimal).
+- Κίνδυνος λιμοκτονίας για μεγάλες διεργασίες.
 
 ---
 
 ### 8.3 Shortest Remaining Time First (SRTF)
 
-**Type:** Preemptive variant of SJF
+**Τύπος:** Αρπακτική παραλλαγή του SJF
 
-**Mechanism:**
-- At every new process arrival, compare the **remaining burst time** of the current process with the **burst time of the new arrival**.
-- If the new process has a shorter remaining time, **preempt** the current process and run the new one.
-- Remaining time = total burst time − time already spent on CPU.
-
-**Properties:**
-
-| Property | Value |
-| :--- | :--- |
-| Preemption | Yes (on every new arrival) |
-| Decision point | Process completes burst OR new process arrives |
-| Response time | Excellent for short processes |
-| Context switch overhead | High |
-| Starvation risk | High for long processes |
-| Multi-user suitability | Good |
-
-> **[Key Insight]** When all processes arrive simultaneously, SRTF degenerates into SJF. The distinction only matters when processes have different arrival times.
+**Μηχανισμός:**
+- Σε κάθε νέα άφιξη διεργασίας, συγκρίνεται ο **εναπομένων χρόνος ριπής** της τρέχουσας διεργασίας με τη **διάρκεια ριπής της νέας άφιξης**.
+- Εάν η νέα διεργασία έχει μικρότερο εναπομένοντα χρόνο, η τρέχουσα διεργασία **διακόπτεται (preempted)**.
 
 ---
 
 ### 8.4 Round Robin (RR)
 
-**Type:** Preemptive
+**Τύπος:** Αρπακτικός (Preemptive)
 
-**Mechanism:**
-- Each process receives a fixed **time quantum** (time slice), typically 10–100 ms.
-- Queue order is FIFO; after a quantum expires, a clock interrupt fires and the process is moved to the **end** of the ready queue.
-- If a process completes before its quantum expires, it releases the CPU voluntarily.
+**Μηχανισμός:**
+- Κάθε διεργασία λαμβάνει ένα σταθερό **κβάντο χρόνου (time quantum)**, συνήθως 10–100 ms.
+- Η σειρά της ουράς είναι FIFO· μετά την εξάντληση του κβάντου, προκαλείται διακοπή ρολογιού και η διεργασία μετακινείται στο **τέλος** της ουράς ετοίμων.
 
-**Properties:**
-
-| Property | Value |
-| :--- | :--- |
-| Preemption | Yes (quantum expiry) |
-| Starvation | None |
-| Suitable for | Time-sharing, interactive systems |
-| Fairness | High |
-| Context switch overhead | Depends on quantum size |
-
-**Quantum Size Trade-off:**
-
-| Quantum | Effect |
-| :--- | :--- |
-| Very small | Many context switches → excessive overhead |
-| Very large | Degenerates to FCFS |
-| Optimal guideline | Choose $q$ such that **80–90% of processes** complete their burst within one quantum |
-
-**Criticism — CPU-bound vs. I/O-bound fairness:**
-- CPU-bound processes use the **full quantum** and re-enter at the back of the queue.
-- I/O-bound processes use only a **fraction** of the quantum, then block for I/O; when they unblock, they re-enter behind processes that had full quanta.
-- This implicitly **favors CPU-bound** processes.
-
-**Virtual Round Robin (Solution):**
-- When an I/O operation completes, the unblocked process moves into an **auxiliary queue** that has priority over the main ready queue.
-- The process is dispatched for at most: $q - t_{used}$ (the remainder of the quantum it was interrupted during).
-- This ensures I/O-bound processes are not penalized for blocking.
+**Συμβιβασμός Μεγέθους Κβάντου:**
+- Πολύ μικρό κβάντο: πολλές εναλλαγές πλαισίου → υπερβολική επιβάρυνση.
+- Πολύ μεγάλο κβάντο: εκφυλίζεται σε FCFS.
 
 ---
 
-## 9. Algorithm Comparison
+## 9. Σύγκριση Αλγορίθμων
 
-| Algorithm | Preemptive | Avg. Waiting Time | Starvation | Best Use Case |
+| Αλγόριθμος | Αρπακτικός | Μέσος Χρόνος Αναμονής | Λιμοκτονία | Καλύτερη Περίπτωση Χρήσης |
 | :--- | :--- | :--- | :--- | :--- |
-| FCFS | No | High (variable) | Rare | Simple batch systems |
-| SJF | No | **Minimum** (optimal) | Yes (long jobs) | Batch, known burst times |
-| SRTF | Yes | Near-minimum | Yes (long jobs) | Multi-user, short jobs dominant |
-| RR | Yes | Medium | **No** | Interactive / time-sharing |
-
-> **[Key Insight]** The best algorithm depends on system load, hardware support for the dispatcher, the relative weight of performance criteria, and the evaluation method used. No universally optimal algorithm exists.
+| FCFS | Όχι | Υψηλός (μεταβλητός) | Σπάνια | Απλά συστήματα δέσμης (batch) |
+| SJF | Όχι | **Ελάχιστος** (βέλτιστος) | Ναι (μεγάλες εργασίες) | Συστήματα δέσμης |
+| SRTF | Ναι | Σχεδόν ελάχιστος | Ναι (μεγάλες εργασίες) | Πολυ-χρηστικά συστήματα |
+| RR | Ναι | Μέτριος | **Όχι** | Διαδραστικά / καταμερισμού χρόνου |
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: FCFS — Turnaround and Waiting Times
+### Άσκηση 1: FCFS — Χρόνοι Επιστροφής και Αναμονής
 
-**Problem:**
-Five processes arrive at time 0 in order P1, P2, P3, P4, P5 with burst times:
+**Πρόβλημα:**
+Πέντε διεργασίες φτάνουν τη χρονική στιγμή 0 με τη σειρά P1, P2, P3, P4, P5 με διάρκειες ριπών:
 
-| Process | Burst Time |
+| Διεργασία | Διάρκεια Ριπής |
 | :--- | :--- |
 | P1 | 10 |
 | P2 | 1 |
@@ -3404,410 +3049,217 @@ Five processes arrive at time 0 in order P1, P2, P3, P4, P5 with burst times:
 | P4 | 1 |
 | P5 | 5 |
 
-Calculate turnaround and waiting times for FCFS.
+Υπολογίστε τους χρόνους επιστροφής (TAT) και αναμονής (WT) για την FCFS.
 
-**Solution:**
+**Λύση:**
 
-FCFS execution order (arrival order): P1 → P2 → P3 → P4 → P5
+Σειρά εκτέλεσης FCFS: P1 → P2 → P3 → P4 → P5
 
-Completion times:
-- P1 finishes at $t = 10$
-- P2 finishes at $t = 11$
-- P3 finishes at $t = 13$
-- P4 finishes at $t = 14$
-- P5 finishes at $t = 19$
+Χρόνοι ολοκλήρωσης: P1: 10, P2: 11, P3: 13, P4: 14, P5: 19.
 
-Turnaround Time ($TAT = \text{completion} - \text{arrival}$, all arrive at 0):
-
-| Process | Burst | TAT | WT = TAT − Burst |
+| Διεργασία | Ριπή | TAT | WT = TAT − Ριπή |
 | :--- | :--- | :--- | :--- |
 | P1 | 10 | 10 | 0 |
 | P2 | 1 | 11 | 10 |
 | P3 | 2 | 13 | 11 |
 | P4 | 1 | 14 | 13 |
 | P5 | 5 | 19 | 14 |
-| **Avg** | | **13.4** | **9.6** |
+| **Μέσος Όρος** | | **13.4** | **9.6** |
 
 ---
 
-### Exercise 2: SJF (Non-Preemptive) — Same Process Set
+### Άσκηση 2: SJF (Μη Αρπακτικός) — Ίδιο Σύνολο Διεργασιών
 
-**Problem:** Same 5 processes from Exercise 1, apply SJF (all arrive at $t = 0$).
+**Πρόβλημα:** Ίδιες 5 διεργασίες από την Άσκηση 1, εφαρμογή SJF (όλες φτάνουν στο $t = 0$).
 
-**Solution:**
+**Λύση:**
 
-Sort by burst time: P2(1), P4(1), P3(2), P5(5), P1(10)
+Ταξινόμηση κατά διάρκεια ριπής: P2(1), P4(1), P3(2), P5(5), P1(10)
 
-Execution: P2 → P4 → P3 → P5 → P1
+Σειρά εκτέλεσης: P2 → P4 → P3 → P5 → P1
 
-| Process | Burst | Completion | TAT | WT |
+| Διεργασία | Ριπή | Ολοκλήρωση | TAT | WT |
 | :--- | :--- | :--- | :--- | :--- |
 | P2 | 1 | 1 | 1 | 0 |
 | P4 | 1 | 2 | 2 | 1 |
-| P3 | 2 | 4 | 4 | 2 |  
+| P3 | 2 | 4 | 4 | 2 |
 | P5 | 5 | 9 | 9 | 4 |
 | P1 | 10 | 19 | 19 | 9 |
-| **Avg** | | | **7.0** | **3.2** |
+| **Μέσος Όρος** | | | **7.0** | **3.2** |
 
-SJF reduces average waiting time from 9.6 (FCFS) to **3.2** — a significant improvement.
+Ο SJF μειώνει τον μέσο χρόνο αναμονής από 9.6 (FCFS) σε **3.2**.
 
 ---
 
-### Exercise 3: Round Robin (q = 1) — Same Process Set
+### Άσκηση 3: Round Robin (q = 1) — Ίδιο Σύνολο Διεργασιών
 
-**Problem:** Same 5 processes, RR with time quantum = 1 unit.
+**Πρόβλημα:** Ίδιες 5 διεργασίες, RR με κβάντο χρόνου = 1 μονάδα.
 
-**Solution:**
+**Λύση:**
 
-Execution sequence (all arrive at 0, FIFO initial order P1–P5):
-```
-t=0:P1, t=1:P2, t=2:P3, t=3:P4, t=4:P5, t=5:P1, t=6:P3, t=7:P5, t=8:P1, t=9:P5,
-t=10:P1, t=11:P5, t=12:P1, t=13:P5, t=14:P1, t=15:P1, t=16:P1, t=17:P1, t=18:P1
-```
+Ακολουθία εκτέλεσης: P1(0-1), P2(1-2 - τέλος), P3(2-3), P4(3-4 - τέλος), P5(4-5), P1(5-6), P3(6-7 - τέλος), P5(7-8), P1(8-9), P5(9-10), P1(10-11), P5(11-12), P1(12-13), P5(13-14 - τέλος), P1(14-19 - τέλος).
 
-P2 completes at $t=2$, P4 at $t=4$, P3 at $t=7$, P5 at $t=14$, P1 at $t=19$.
-
-| Process | Burst | TAT | WT |
+| Διεργασία | Ριπή | TAT | WT |
 | :--- | :--- | :--- | :--- |
 | P1 | 10 | 19 | 9 |
 | P2 | 1 | 2 | 1 |
 | P3 | 2 | 7 | 5 |
 | P4 | 1 | 4 | 3 |
 | P5 | 5 | 14 | 9 |
-| **Avg** | | **9.2** | **5.4** |
+| **Μέσος Όρος** | | **9.2** | **5.4** |
 
 ---
 
-### Exercise 4: SJF vs. SRTF Comparison (Different Arrival Times)
+### Άσκηση 4: Σύγκριση SJF vs. SRTF (Διαφορετικοί Χρόνοι Άφιξης)
 
-**Problem:**
+**Πρόβλημα:**
 
-| Process | Arrival | Burst |
+| Διεργασία | Άφιξη | Ριπή |
 | :--- | :--- | :--- |
 | P1 | 0 | 7 |
 | P2 | 2 | 4 |
 | P3 | 4 | 1 |
 | P4 | 5 | 4 |
 
-Compute average waiting time for SJF (non-preemptive) and SRTF.
+Υπολογίστε τον μέσο χρόνο αναμονής για SJF (μη αρπακτικό) και SRTF (αρπακτικό).
 
-**Solution — SJF (Non-Preemptive):**
-
-At $t=0$: only P1 is ready → P1 runs until $t=7$.
-At $t=7$: P2(4), P3(1), P4(4) are ready → select P3 (burst=1) → runs $t=7$ to $t=8$.
-At $t=8$: P2(4), P4(4) → tie → select P2 → runs $t=8$ to $t=12$.
-At $t=12$: P4(4) → runs $t=12$ to $t=16$.
-
+**Λύση — SJF (Μη Αρπακτικός):**
 Gantt: `P1(0-7) | P3(7-8) | P2(8-12) | P4(12-16)`
 
-| Process | Arrival | Finish | TAT | WT = TAT − Burst |
-| :--- | :--- | :--- | :--- | :--- |
-| P1 | 0 | 7 | 7 | 0 |
-| P2 | 2 | 12 | 10 | 6 |
-| P3 | 4 | 8 | 4 | 3 |
-| P4 | 5 | 16 | 11 | 7 |
-| **Avg** | | | | **4.0** |
+- P1: Finish=7, TAT=7, WT=0
+- P2: Finish=12, TAT=10, WT=6
+- P3: Finish=8, TAT=4, WT=3
+- P4: Finish=16, TAT=11, WT=7
+**Μέσος Χρόνος Αναμονής = 4.0**
 
-**Solution — SRTF (Preemptive):**
-
-At $t=0$: P1 starts (remaining=7).
-At $t=2$: P2 arrives (burst=4) < P1 remaining (5) → preempt P1. P2 runs.
-At $t=4$: P3 arrives (burst=1) < P2 remaining (2) → preempt P2. P3 runs.
-At $t=5$: P3 finishes. P4 arrives (burst=4). Compare P2 remaining (2) vs P4 (4) → P2 runs.
-At $t=7$: P2 finishes. P1 remaining=5, P4=4 → P4 runs.
-At $t=11$: P4 finishes. P1 remaining=5 → P1 runs.
-At $t=16$: P1 finishes.
-
+**Λύση — SRTF (Αρπακτικός):**
 Gantt: `P1(0-2) | P2(2-4) | P3(4-5) | P2(5-7) | P4(7-11) | P1(11-16)`
 
-| Process | Arrival | Finish | TAT | WT = TAT − Burst |
-| :--- | :--- | :--- | :--- | :--- |
-| P1 | 0 | 16 | 16 | 9 |
-| P2 | 2 | 7 | 5 | 1 |
-| P3 | 4 | 5 | 1 | 0 |
-| P4 | 5 | 11 | 6 | 2 |
-| **Avg** | | | | **3.0** |
+- P1: Finish=16, TAT=16, WT=9
+- P2: Finish=7, TAT=5, WT=1
+- P3: Finish=5, TAT=1, WT=0
+- P4: Finish=11, TAT=6, WT=2
+**Μέσος Χρόνος Αναμονής = 3.0**
 
-SRTF achieves average WT = 3.0 vs SJF's 4.0, confirming SRTF's theoretical advantage.
+Ο SRTF επιτυγχάνει μέσο WT = 3.0 έναντι 4.0 του SJF.
 
 ---
 
-### Exercise 5: FCFS — Exercise 2 from Lecture (5 Processes, Sequential Arrival)
+## Συμβουλές Εξετάσεων
 
-**Problem:**
+> **[Συμβουλή Εξετάσεων — Τύπος Χρόνου Αναμονής]**
+> $$WT = TAT - \text{Διάρκεια Ριπής}$$
+> Ο TAT μετρά από την υποβολή έως την ολοκλήρωση. Ο WT μετρά μόνο τον χρόνο αδράνειας στην ουρά ετοίμων.
 
-| Process | Arrival | Burst |
-| :--- | :--- | :--- |
-| A | 0 | 3 |
-| B | 0 | 6 |
-| C | 0 | 4 |
-| D | 0 | 5 |
-| E | 0 | 2 |
-
-Apply FCFS. Compute average TAT.
-
-**Solution:**
-
-All arrive at $t=0$, executed in order A, B, C, D, E.
-
-Gantt: `A(0-3) | B(3-9) | C(9-13) | D(13-18) | E(18-20)`
-
-| Process | Finish | TAT |
-| :--- | :--- | :--- |
-| A | 3 | 3 |
-| B | 9 | 9 |
-| C | 13 | 13 |
-| D | 18 | 18 |
-| E | 20 | 20 |
-
-$$
-\text{Average TAT} = \frac{3 + 9 + 13 + 18 + 20}{5} = \frac{63}{5} = 12.6 \text{ time units}
-$$
-
----
-
-### Exercise 6: SJF — Exercise 2 from Lecture (Same 5 Processes)
-
-**Problem:** Same 5 processes as Exercise 5. Apply SJF.
-
-**Solution:**
-
-Sort by burst: E(2), A(3), C(4), D(5), B(6)
-
-Gantt: `E(0-2) | A(2-5) | C(5-9) | D(9-14) | B(14-20)`
-
-| Process | Finish | TAT |
-| :--- | :--- | :--- |
-| E | 2 | 2 |
-| A | 5 | 5 |
-| C | 9 | 9 |
-| D | 14 | 14 |
-| B | 20 | 20 |
-
-$$
-\text{Average TAT} = \frac{2 + 5 + 9 + 14 + 20}{5} = \frac{50}{5} = 10 \text{ time units}
-$$
-
----
-
-### Exercise 7: RR — Exercise 2 from Lecture (q = 2)
-
-**Problem:** Same 5 processes, all arrive at $t=0$. Apply RR with quantum $q = 2$.
-
-**Solution:**
-
-Initial order: A(3), B(6), C(4), D(5), E(2)
-
-Step-by-step:
-```
-t=0-2:  A runs, A remaining=1
-t=2-4:  B runs, B remaining=4
-t=4-6:  C runs, C remaining=2
-t=6-8:  D runs, D remaining=3
-t=8-10: E runs, E remaining=0 → E DONE at t=10
-t=10-11: A runs (1 remaining), A DONE at t=11
-t=11-13: B runs, B remaining=2
-t=13-15: C runs, C remaining=0 → C DONE at t=15
-t=15-17: D runs, D remaining=1
-t=17-19: B runs, B remaining=0 → B DONE at t=19
-t=19-20: D runs (1 remaining), D DONE at t=20
-```
-
-| Process | Burst | Finish | TAT |
-| :--- | :--- | :--- | :--- |
-| A | 3 | 11 | 11 |
-| B | 6 | 19 | 19 |
-| C | 4 | 15 | 15 |
-| D | 5 | 20 | 20 |
-| E | 2 | 10 | 10 |
-
-$$
-\text{Average TAT} = \frac{11 + 19 + 15 + 20 + 10}{5} = \frac{75}{5} = 15 \text{ time units}
-$$
-
-> **[Key Insight]** For this particular workload, RR (q=2) performs worst on average TAT (15.0) compared to FCFS (12.6) and SJF (10.0). This is expected: RR is optimized for fairness and response time, not for minimizing TAT.
-
----
-
-### Exercise 8: SRTF with Different Arrival Times
-
-**Problem:**
-
-| Process | Arrival | Burst |
-| :--- | :--- | :--- |
-| A | 0 | 3 |
-| B | 2 | 6 |
-| C | 4 | 4 |
-| D | 6 | 5 |
-| E | 8 | 2 |
-
-Apply SRTF. Compute average TAT.
-
-**Solution:**
-
-Step-by-step (tracking remaining times):
-- $t=0$: A starts (remaining=3)
-- $t=2$: B arrives (6). A remaining=1. $1 < 6$ → A continues
-- $t=3$: A finishes. B runs (remaining=6)
-- $t=4$: C arrives (4). B remaining=5. $4 < 5$ → preempt B, run C
-- $t=6$: D arrives (5). C remaining=2. $2 < 5$ → C continues
-- $t=8$: C finishes. E arrives (2). B remaining=5, D remaining=5. $2 < 5$ → run E
-- $t=10$: E finishes. B remaining=5, D remaining=5 → run B (arrived first)
-- $t=15$: B finishes. D remaining=5 → run D
-- $t=20$: D finishes.
-
-Gantt: `A(0-3) | B(3-4) | C(4-6) | [B preempted] | C(6-8) | E(8-10) | B(10-15) | D(15-20)`
-
-| Process | Arrival | Finish | TAT |
-| :--- | :--- | :--- | :--- |
-| A | 0 | 3 | 3 |
-| B | 2 | 15 | 13 |
-| C | 4 | 8 | 4 |
-| D | 6 | 20 | 14 |
-| E | 8 | 10 | 2 |
-
-$$
-\text{Average TAT} = \frac{3 + 13 + 4 + 14 + 2}{5} = \frac{36}{5} = 7.2 \text{ time units}
-$$
-
-This matches the lecture result directly.
-
----
-
-## Exam Tip: Common Mistakes and Pattern Recognition
-
-**1. Confusing TAT and WT:**
-
-$$
-WT = TAT - \text{Burst Time}
-$$
-
-TAT measures from submission to completion. WT measures only idle time in the ready queue. Never subtract arrival time from WT directly.
-
-**2. SRTF preemption condition:**
-Preemption occurs when `new_burst < current_remaining`, not `<=`. Equal remaining times do not cause preemption.
-
-**3. SJF with simultaneous arrivals = SRTF:**
-When all processes arrive at $t=0$, SRTF never preempts (no new arrivals during execution), so it gives identical results to SJF.
-
-**4. RR quantum selection:**
-If a quantum is larger than all burst times, RR = FCFS. Always check whether the quantum causes preemption for each process.
-
-**5. Starvation:**
-- FCFS: rarely starves (eventually every process runs).
-- SJF/SRTF: **can starve** long processes if short ones keep arriving.
-- RR: **never starves** (every process gets regular CPU time).
-- Priority: **can starve** low-priority processes — solved by **aging** (gradually raising priority of waiting processes).
-
-**6. Exam pattern — comparative table questions:**
-Given a process set, you will almost always be asked to compute TAT and WT for 2–3 algorithms and compare their averages. Always draw the Gantt chart first; computing directly from tables is error-prone.
+> **[Συμβουλή Εξετάσεων — Σύγκριση Αλγορίθμων]**
+> Σχεδιάζετε πάντα πρώτα το διάγραμμα Gantt πριν υπολογίσετε τους χρόνους ολοκλήρωσης, TAT και WT.
 
 ---
 # 1_Introduction_to_UNIX.md
 ---
 
-# 1. Introduction to UNIX and Linux Terminal Basics
+# 1. Εισαγωγή στο UNIX και Βασικές Έννοιες Τερματικού Linux
 
 ***
 
-## What is an Operating System?
+## Τι είναι ένα Λειτουργικό Σύστημα;
 
-An Operating System (OS) is the foundational software layer that manages all hardware and software resources of a computer. Without an OS, computers are unusable by standard applications and end-users. It handles CPU scheduling, memory management, file systems, and peripheral devices.
+Ένα Λειτουργικό Σύστημα (ΛΣ - Operating System, OS) είναι το θεμελιώδες στρώμα λογισμικού που διαχειρίζεται όλους τους πόρους υλικού (hardware) και λογισμικού (software) ενός υπολογιστή. Χωρίς ένα ΛΣ, οι υπολογιστές είναι άχρηστοι για τις τυπικές εφαρμογές και τους τελικούς χρήστες. Διαχειρίζεται τη δρομολόγηση της CPU, τη διαχείριση της μνήμης, τα συστήματα αρχείων και τις περιφερειακές συσκευές.
 
-Common operating systems include Windows, macOS, UNIX, and Linux distributions.
-
-***
-
-## History and Philosophy of UNIX
-
-| Year | Event |
-|------|-------|
-| 1969 | Created by Kenneth Thompson at Bell Labs, written in PDP-7 assembly (initially single-user). |
-| 1971 | Rewritten in PDP-11 assembly. |
-| 1973 | Rewritten entirely in the C programming language by Dennis Ritchie at Bell Labs. This transition made it multi-user and highly portable. |
-| 1984 | Standardization efforts began to ensure portability across various hardware architectures. |
-
-**UNIX Philosophy Highlights:**
-- **Everything is a file:** From regular text files to directories, keyboards, and network connections, UNIX treats almost all resources as files.
-- **Do one thing and do it well:** Programs are designed to be small, modular, and focused on a single task.
-- **Chaining programs:** Complex tasks are accomplished by combining simple programs together.
+Συνήθη λειτουργικά συστήματα περιλαμβάνουν τα Windows, το macOS, το UNIX και τις διανομές Linux.
 
 ***
 
-## UNIX and Linux Distributions
+## Ιστορία και Φιλοσοφία του UNIX
 
-UNIX evolved into numerous commercial and open-source variants:
-- **Commercial UNIX:** Solaris (Sun Microsystems), AIX (IBM), HP/UX (Hewlett-Packard).
-- **Free/Open Source:** Linux (originally created by Linus Torvalds), FreeBSD.
-- **JSLinux / Lightweight Terminals:** Environments like JSLinux run a minimal Linux kernel (often using BusyBox) directly in a web browser, providing a lightweight sandbox for learning terminal basics without local installation.
+| Έτος | Γεγονός |
+|------|---------|
+| 1969 | Δημιουργήθηκε από τον Kenneth Thompson στα Bell Labs, γραμμένο σε γλώσσα assembly για PDP-7 (αρχικά για έναν χρήστη). |
+| 1971 | Ξαναγράφτηκε σε assembly για PDP-11. |
+| 1973 | Ξαναγράφτηκε εξ ολοκλήρου στη γλώσσα προγραμματισμού C από τον Dennis Ritchie στα Bell Labs. Αυτή η μετάβαση το κατέστησε πολυ-χρηστικό (multi-user) και εξαιρετικά φορητό (portable). |
+| 1984 | Ξεκίνησαν οι προσπάθειες τυποποίησης (standardization) για τη διασφάλιση της φορητότητας σε διάφορες αρχιτεκτονικές υλικού. |
 
-***
-
-## UNIX Core Features
-
-- **Multi-User / Time Sharing:** Multiple users can access the system simultaneously, sharing the CPU and memory.
-- **Multi-Tasking:** Each user can run multiple programs concurrently.
-- **User Accounts:** Every user has a dedicated account, ensuring security and isolation of file spaces.
-- **Networking:** Built from the ground up with networking in mind, allowing remote access and resource sharing.
+**Κύρια Σημεία της Φιλοσοφίας του UNIX:**
+- **Τα πάντα είναι αρχείο (Everything is a file):** Από τα κανονικά αρχεία κειμένου έως τους καταλόγους, τα πληκτρολόγια και τις συνδέσεις δικτύου, το UNIX αντιμετωπίζει σχεδόν όλους τους πόρους ως αρχεία.
+- **Κάνε ένα πράγμα και κάντο καλά (Do one thing and do it well):** Τα προγράμματα σχεδιάζονται ώστε να είναι μικρά, αρθρωτά (modular) και εστιασμένα σε μία μόνο εργασία.
+- **Σύνδεση προγραμμάτων σε αλυσίδα (Chaining programs):** Σύνθετες εργασίες επιτυγχάνονται συνδυάζοντας απλά προγράμματα μεταξύ τους.
 
 ***
 
-## User Account Properties
+## UNIX και Διανομές Linux
 
-When you interact with a Linux terminal, you do so under a specific user account.
-
-| Property | Description |
-|----------|-------------|
-| `username` | The identifier used to log in. |
-| `password` | The secret authentication key (stored in encrypted format, usually in `/etc/shadow`). |
-| `userid` (UID) | A unique integer representing the user internally. Root is always `0`. |
-| `groupid` (GID) | An integer identifying the user's primary group, used for resource access control. |
-| `home directory` | The dedicated directory where the user stores personal files (e.g., `/home/username`). |
-| `shell` | The command-line interpreter that processes your commands (e.g., `/bin/bash`, `/bin/sh`). |
+Το UNIX εξελίχθηκε σε πολλούς εμπορικούς και ανοιχτού κώδικα τύπους:
+- **Εμπορικό UNIX:** Solaris (Sun Microsystems), AIX (IBM), HP/UX (Hewlett-Packard).
+- **Δωρεάν/Ανοιχτού Κώδικα:** Linux (αρχικά δημιουργημένο από τον Linus Torvalds), FreeBSD.
+- **JSLinux / Ελαφρά Τερματικά:** Περιβάλλοντα όπως το JSLinux εκτελούν έναν ελάχιστο πυρήνα Linux (συχνά με χρήση του BusyBox) απευθείας σε έναν περιηγητή ιστού (browser), παρέχοντας ένα ελαφρύ δοκιμαστήριο (sandbox) για την εκμάθηση των βασικών εντολών τερματικού χωρίς τοπική εγκατάσταση.
 
 ***
 
-## The Filesystem Structure
+## Βασικά Χαρακτηριστικά του UNIX
 
-The UNIX filesystem is organized as a hierarchical tree. The absolute top of this tree is the **root directory**, represented by a single forward slash `/`.
+- **Πολυ-χρηστικό / Επιμερισμός Χρόνου (Multi-User / Time Sharing):** Πολλαπλοί χρήστες μπορούν να έχουν πρόσβαση στο σύστημα ταυτόχρονα, μοιραζόμενοι την CPU και τη μνήμη.
+- **Πολυ-επεξεργασία (Multi-Tasking):** Κάθε χρήστης μπορεί να εκτελεί πολλαπλά προγράμματα ταυτόχρονα.
+- **Λογαριασμοί Χρηστών (User Accounts):** Κάθε χρήστης διαθέτει αποκλειστικό λογαριασμό, εξασφαλίζοντας ασφάλεια και απομόνωση των χώρων αρχείων.
+- **Δικτύωση (Networking):** Σχεδιασμένο από την αρχή με γνώμονα τη δικτύωση, επιτρέποντας απομακρυσμένη πρόσβαση και κοινή χρήση πόρων.
+
+***
+
+## Ιδιότητες Λογαριασμού Χρήστη
+
+Όταν αλληλεπιδράτε με ένα τερματικό Linux, το κάνετε υπό έναν συγκεκριμένο λογαριασμό χρήστη.
+
+| Ιδιότητα | Περιγραφή |
+|----------|-----------|
+| `username` | Αναγνωριστικό που χρησιμοποιείται για τη σύνδεση (login). |
+| `password` | Το κρυφό κλειδί αυθεντικοποίησης (αποθηκευμένο σε κρυπτογραφημένη μορφή, συνήθως στο `/etc/shadow`). |
+| `userid` (UID) | Ένας μοναδικός ακέραιος που αναπαριστά τον χρήστη εσωτερικά. Ο root είναι πάντα `0`. |
+| `groupid` (GID) | Ένας ακέραιος που προσδιορίζει την κύρια ομάδα του χρήστη, χρησιμοποιούμενος για τον έλεγχο πρόσβασης. |
+| `home directory` | Ο αποκλειστικός κατάλογος όπου ο χρήστης αποθηκεύει τα προσωπικά του αρχεία (π.χ., `/home/username`). |
+| `shell` | Ο διερμηνέας γραμμής εντολών που επεξεργάζεται τις εντολές σας (π.χ., `/bin/bash`, `/bin/sh`). |
+
+***
+
+## Η Δομή του Συστήματος Αρχείων
+
+Το σύστημα αρχείων UNIX είναι οργανωμένο ως ιεραρχικό δέντρο. Η απόλυτη κορυφή αυτού του δέντρου είναι ο **ριζικός κατάλογος (root directory)**, ο οποίος αναπαρίσταται από μία μόνο κάθετο `/`.
 
 ```text
 /
-├── bin/      (Essential command binaries)
-├── etc/      (System configuration files)
-├── home/     (User home directories)
+├── bin/      (Βασικά εκτελέσιμα αρχεία εντολών)
+├── etc/      (Αρχεία ρυθμίσεων συστήματος)
+├── home/     (Προσωπικοί κατάλογοι χρηστών)
 │   ├── fred/
 │   ├── sue/
 │   └── user1/
-├── root/     (Home directory for the root superuser)
-└── tmp/      (Temporary files)
+├── root/     (Προσωπικός κατάλογος του υπερχρήστη root)
+└── tmp/      (Προσωρινά αρχεία)
 ```
 
 ***
 
-## Login, Logout, and the Shell
+## Σύνδεση, Αποσύνδεση και το Shell
 
-### The Login Process
+### Η Διαδικασία Σύνδεσης (Login)
 
-When you connect to a UNIX system, you are prompted for your credentials.
+Όταν συνδέεστε σε ένα σύστημα UNIX, σας ζητούνται τα διαπιστευτήριά σας.
 
 ```sh
 login: user1
 Password: 
 ```
 
-- Passwords are **case-sensitive** and are **never echoed** to the screen for security reasons.
-- Upon successful authentication, the system sets your current working directory to your home directory and launches your default **shell**.
+- Οι κωδικοί πρόσβασης είναι **ευαίσθητοι σε πεζά/κεφαλαία (case-sensitive)** και **δεν εμφανίζονται** στην οθόνη για λόγους ασφαλείας.
+- Μετά την επιτυχή αυθεντικοποίηση, το σύστημα ορίζει τον τρέχοντα κατάλογο εργασίας στον προσωπικό σας κατάλογο (home directory) και εκκινεί το προεπιλεγμένο σας **shell**.
 
-### The Shell Prompt
+### Προτροπή του Shell (Shell Prompt)
 
-The shell indicates it is ready to accept commands by displaying a prompt.
-- `$` usually denotes a standard user.
-- `#` usually denotes the root user (superuser).
+Το shell υποδεικνύει ότι είναι έτοιμο να δεχτεί εντολές εμφανίζοντας μια προτροπή (prompt).
+- Το σύμβολο `$` υποδηλώνει συνήθως έναν τυπικό χρήστη.
+- Το σύμβολο `#` υποδηλώνει συνήθως τον υπερχρήστη `root`.
 
-### Logout
+### Αποσύνδεση (Logout)
 
-To terminate your session, use any of the following methods:
+Για να τερματίσετε τη συνεδρία σας, χρησιμοποιήστε οποιαδήποτε από τις ακόλουθες μεθόδους:
 
 ```sh
 exit
@@ -3815,21 +3267,21 @@ exit
 ```sh
 logout
 ```
-Alternatively, press `Ctrl + D` (which sends an End-of-File signal to the shell).
+Εναλλακτικά, πιέστε `Ctrl + D` (το οποίο στέλνει ένα σήμα End-of-File στο shell).
 
 ***
 
-## Basic Terminal Commands
+## Βασικές Εντολές Τερματικού
 
-### `passwd` — Change Password
+### `passwd` — Αλλαγή Κωδικού Πρόσβασης
 
-Changes the password for the current user. Root users can change any user's password by supplying the username as an argument.
+Αλλάζει τον κωδικό πρόσβασης για τον τρέχοντα χρήστη. Οι χρήστες root μπορούν να αλλάξουν τον κωδικό πρόσβασης οποιουδήποτε χρήστη παρέχοντας το username ως όρισμα.
 
 ```sh
 passwd
 ```
 
-**Interactive Flow:**
+**Διαδραστική Ροή:**
 ```text
 Changing password for user1.
 (current) UNIX password: 
@@ -3838,9 +3290,9 @@ Retype new UNIX password:
 passwd: password updated successfully
 ```
 
-### `date` — Display Date and Time
+### `date` — Εμφάνιση Ημερομηνίας και Ώρας
 
-Outputs the current system date and time.
+Εμφανίζει την τρέχουσα ημερομηνία και ώρα του συστήματος.
 
 ```sh
 date
@@ -3849,141 +3301,141 @@ date
 Thu Oct 24 10:00:00 UTC 2024
 ```
 
-**Custom Formatting:**
+**Προσαρμοσμένη Μορφοποίηση:**
 ```sh
 date +"%Y-%m-%d %H:%M:%S"
 ```
 
-### `cal` — Display Calendar
+### `cal` — Εμφάνιση Ημερολογίου
 
-Displays a formatted calendar.
+Εμφανίζει ένα μορφοποιημένο ημερολόγιο.
 
 ```sh
-cal               # Shows the current month
-cal 2024          # Shows the entire year 2024
-cal 5 2024        # Shows May 2024
+cal               # Εμφανίζει τον τρέχοντα μήνα
+cal 2024          # Εμφανίζει ολόκληρο το έτος 2024
+cal 5 2024        # Εμφανίζει τον Μάιο του 2024
 ```
 
-### `who` and `whoami` — User Information
+### `who` και `whoami` — Πληροφορίες Χρηστών
 
-Identify who is currently logged into the system.
+Προσδιορίζουν ποιος είναι συνδεδεμένος αυτή τη στιγμή στο σύστημα.
 
 ```sh
 who
 ```
-Displays a list of all currently logged-in users, their terminal line, and login time.
+Εμφανίζει μια λίστα με όλους τους συνδεδεμένους χρήστες, τη γραμμή τερματικού τους και την ώρα σύνδεσης.
 
 ```sh
 whoami
 ```
-Displays only the username associated with the current effective user ID.
+Εμφανίζει μόνο το username που σχετίζεται με το τρέχον ενεργό UID.
 
 ```sh
 who am i
 ```
-Displays details specifically for the current terminal session.
+Εμφανίζει λεπτομέρειες ειδικά για τη συγκεκριμένη συνεδρία τερματικού.
 
 ***
 
-## Lab Environment Note: QEMU / JSLinux
+## Σημείωση Περιβάλλοντος Εργαστηρίου: QEMU / JSLinux
 
-If you are using a virtualized environment like QEMU or a browser-based emulator like JSLinux:
-- You are typically interacting with a minimal command-line interface.
-- You may start out automatically logged in as `root` or a generic user.
-- To shut down a virtual machine safely from the command line, use the `halt`, `poweroff`, or `shutdown -h now` commands (requires root privileges).
+Εάν χρησιμοποιείτε ένα εικονικοποιημένο περιβάλλον όπως το QEMU ή έναν εξομοιωτή βασισμένο σε περιηγητή όπως το JSLinux:
+- Συνήθως αλληλεπιδράτε με μια ελάχιστη διεπαφή γραμμής εντολών.
+- Μπορεί να ξεκινήσετε αυτόματα συνδεδεμένοι ως `root` ή ως γενικός χρήστης.
+- Για να απενεργοποιήσετε με ασφάλεια μια εικονική μηχανή από τη γραμμή εντολών, χρησιμοποιήστε τις εντολές `halt`, `poweroff` ή `shutdown -h now` (απαιτεί δικαιώματα root).
 
 ---
 # 2_UNIX_File_System_Navigation.md
 ---
 
-# 2. UNIX File System Navigation
+# 2. Πλοήγηση στο Σύστημα Αρχείων UNIX
 
 ***
 
-## Understanding the File System
+## Κατανόηση του Συστήματος Αρχείων
 
-The file system is the component of the operating system responsible for organizing, storing, and retrieving files. In UNIX and Linux, the file system is strictly hierarchical (tree-shaped), with all files and directories stemming from a single origin.
-
-***
-
-## Unix File Types
-
-While UNIX adheres to the philosophy that "everything is a file," it distinguishes between several file types:
-
-- **Regular Files (`-`):** Standard files containing data, text, or executable code.
-- **Directories (`d`):** Special files that contain lists of other files and directories.
-- **Symbolic Links (`l`):** Pointers to other files or directories.
-- **Special Files (`c` or `b`):** Represent hardware devices (e.g., terminals, hard drives) usually found in `/dev`.
-- **Pipes and Sockets (`p` or `s`):** Used for inter-process communication.
+Το σύστημα αρχείων (file system) είναι το συστατικό του λειτουργικού συστήματος που είναι υπεύθυνο για την οργάνωση, αποθήκευση και ανάκτηση αρχείων. Στο UNIX και το Linux, το σύστημα αρχείων είναι αυστηρά ιεραρχικό (σε μορφή δέντρου), με όλα τα αρχεία και τους καταλόγους να προέρχονται από μία μοναδική αφετηρία.
 
 ***
 
-## The Hierarchy and Important Directories
+## Τύποι Αρχείων στο Unix
 
-The top level of the hierarchy is the **root directory**, represented by `/`. 
+Ενώ το UNIX ακολουθεί τη φιλοσοφία ότι "τα πάντα είναι αρχείο", διακρίνει διάφορους τύπους αρχείων:
 
-| Directory | Common Contents |
-|-----------|-----------------|
-| `/` | The absolute root of the file system. |
-| `/bin` | Essential executable commands (e.g., `ls`, `cp`, `mkdir`). |
-| `/dev` | Device files representing hardware. |
-| `/etc` | System-wide configuration files. |
-| `/home` | User home directories (e.g., `/home/username`). |
-| `/tmp` | Temporary files, often cleared when the system reboots. |
-| `/var` | Variable data files, such as logs and databases. |
-| `/usr` | Secondary hierarchy for user data and read-only applications. |
+- **Κανονικά Αρχεία (`-`):** Τυπικά αρχεία που περιέχουν δεδομένα, κείμενο ή εκτελέσιμο κώδικα.
+- **Κατάλογοι (`d`):** Ειδικά αρχεία που περιέχουν λίστες άλλων αρχείων και καταλόγων.
+- **Συμβολικοί Σύνδεσμοι (`l`):** Δείκτες προς άλλα αρχεία ή καταλόγους.
+- **Ειδικά Αρχεία (`c` ή `b`):** Αναπαριστούν συσκευές υλικού (π.χ. τερματικά, σκληρούς δίσκους) που συνήθως βρίσκονται στο `/dev`.
+- **Pipes και Sockets (`p` ή `s`):** Χρησιμοποιούνται για δια-διεργασιακή επικοινωνία (inter-process communication).
 
 ***
 
-## Pathnames: Absolute vs. Relative
+## Η Ιεραρχία και Σημαντικοί Κατάλογοι
 
-A pathname is the string of characters used to identify a location in the directory tree. Understanding the difference between absolute and relative pathnames is critical for navigation.
+Το ανώτατο επίπεδο της ιεραρχίας είναι ο **ριζικός κατάλογος (root directory)**, ο οποίος αναπαρίσταται από το `/`.
 
-### Absolute Pathnames
+| Κατάλογος | Συνήθη Περιεχόμενα |
+|-----------|--------------------|
+| `/` | Η απόλυτη ρίζα του συστήματος αρχείων. |
+| `/bin` | Βασικές εκτελέσιμες εντολές (π.χ. `ls`, `cp`, `mkdir`). |
+| `/dev` | Αρχεία συσκευών που αναπαριστούν υλικό. |
+| `/etc` | Αρχεία ρυθμίσεων ολόκληρου του συστήματος. |
+| `/home` | Προσωπικοί κατάλογοι χρηστών (π.χ. `/home/username`). |
+| `/tmp` | Προσωρινά αρχεία, συχνά διαγράφονται κατά την επανεκκίνηση. |
+| `/var` | Αρχεία μεταβλητών δεδομένων, όπως αρχεία καταγραφής (logs) και βάσεις δεδομένων. |
+| `/usr` | Δευτερεύουσα ιεραρχία για δεδομένα χρηστών και εφαρμογές μόνο για ανάγνωση. |
 
-An absolute path always defines the location starting from the root directory (`/`). It is a complete path that will work regardless of your current working directory.
+***
 
-**Characteristics:**
-- Always begins with a forward slash `/`.
-- Uniquely identifies a single file or directory.
+## Διαδρομές: Απόλυτες vs. Σχετικές
 
-**Examples:**
+Μια διαδρομή (pathname) είναι η συμβολοσειρά χαρακτήρων που χρησιμοποιείται για τον προσδιορισμό μιας τοποθεσίας στο δέντρο καταλόγων. Η κατανόηση της διαφοράς μεταξύ απόλυτων και σχετικών διαδρομών είναι κρίσιμη για την πλοήγηση.
+
+### Απόλυτες Διαδρομές (Absolute Pathnames)
+
+Μια απόλυτη διαδρομή ορίζει πάντα την τοποθεσία ξεκινώντας από τον ριζικό κατάλογο (`/`). Είναι μια πλήρης διαδρομή που θα λειτουργήσει ανεξάρτητα από τον τρέχοντα κατάλογο εργασίας σας.
+
+**Χαρακτηριστικά:**
+- Ξεκινά πάντα με μια κάθετο `/`.
+- Προσδιορίζει μοναδικά ένα συγκεκριμένο αρχείο ή κατάλογο.
+
+**Παραδείγματα:**
 ```sh
 /home/user1/documents/report.txt
 /etc/ssh/sshd_config
 /var/log/syslog
 ```
 
-### Relative Pathnames
+### Σχετικές Διαδρομές (Relative Pathnames)
 
-A relative path defines the location starting from your **Current Working Directory (CWD)**. It is relative to where you currently are in the file system.
+Μια σχετική διαδρομή ορίζει την τοποθεσία ξεκινώντας από τον **Τρέχοντα Κατάλογο Εργασίας (Current Working Directory - CWD)**. Είναι σχετική με το πού βρίσκεστε αυτή τη στιγμή στο σύστημα αρχείων.
 
-**Characteristics:**
-- Never begins with a forward slash `/`.
-- Can be shorter and more convenient.
+**Χαρακτηριστικά:**
+- Δεν ξεκινά ποτέ με κάθετο `/`.
+- Μπορεί να είναι μικρότερη και πιο εύχρηστη.
 
-**Special Navigational Symbols:**
-| Symbol | Meaning |
-|--------|---------|
-| `.` | The current directory. |
-| `..` | The parent directory (one level up). |
-| `~` | The current user's home directory. |
+**Ειδικά Σύμβολα Πλοήγησης:**
+| Σύμβολο | Σημασία |
+|---------|---------|
+| `.` | Ο τρέχων κατάλογος. |
+| `..` | Ο γονικός κατάλογος (ένα επίπεδο πάνω). |
+| `~` | Ο προσωπικός κατάλογος (home directory) του τρέχοντος χρήστη. |
 
-**Examples (Assuming CWD is `/home/user1/`):**
+**Παραδείγματα (Υποθέτοντας ότι ο CWD είναι ο `/home/user1/`):**
 ```sh
-documents/report.txt     # Refers to /home/user1/documents/report.txt
-./documents/report.txt   # Identical to the above
-../user2/file.txt        # Refers to /home/user2/file.txt
-../../etc/passwd         # Refers to /etc/passwd
+documents/report.txt     # Αναφέρεται στο /home/user1/documents/report.txt
+./documents/report.txt   # Πανομοιότυπο με το παραπάνω
+../user2/file.txt        # Αναφέρεται στο /home/user2/file.txt
+../../etc/passwd         # Αναφέρεται στο /etc/passwd
 ```
 
 ***
 
-## Navigation Commands
+## Εντολές Πλοήγησης
 
-### `pwd` — Print Working Directory
+### `pwd` — Εκτύπωση Τρέχοντος Καταλόγου Εργασίας (Print Working Directory)
 
-Displays the absolute pathname of your current location in the file system.
+Εμφανίζει την απόλυτη διαδρομή της τρέχουσας τοποθεσίας σας στο σύστημα αρχείων.
 
 ```sh
 pwd
@@ -3992,817 +3444,817 @@ pwd
 /home/user1/documents
 ```
 
-### `cd` — Change Directory
+### `cd` — Αλλαγή Καταλόγου (Change Directory)
 
-Changes your current working directory. It accepts both absolute and relative paths.
+Αλλάζει τον τρέχοντα κατάλογο εργασίας σας. Δέχεται τόσο απόλυτες όσο και σχετικές διαδρομές.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-cd <path>
+cd <διαδρομή>
 ```
 
-**Common Usage Patterns:**
-| Command | Action |
-|---------|--------|
-| `cd /etc` | Move to `/etc` (Absolute path). |
-| `cd documents` | Move to `documents` within the current directory (Relative path). |
-| `cd ..` | Move up one directory level. |
-| `cd ../..` | Move up two directory levels. |
-| `cd ~` or `cd` | Return immediately to your home directory. |
-| `cd -` | Return to the previous directory you were in. |
+**Συνήθη Πρότυπα Χρήσης:**
+| Εντολή | Ενέργεια |
+|--------|----------|
+| `cd /etc` | Μετάβαση στο `/etc` (Απόλυτη διαδρομή). |
+| `cd documents` | Μετάβαση στο `documents` εντός του τρέχοντος καταλόγου (Σχετική διαδρομή). |
+| `cd ..` | Μετάβαση ένα επίπεδο πάνω. |
+| `cd ../..` | Μετάβαση δύο επίπεδα πάνω. |
+| `cd ~` ή `cd` | Άμεση επιστροφή στον προσωπικό σας κατάλογο (home directory). |
+| `cd -` | Επιστροφή στον προηγούμενο κατάλογο στον οποίο βρισκόσασταν. |
 
 ***
 
-## Directory Management Commands
+## Εντολές Διαχείρισης Καταλόγων
 
-### `mkdir` — Make Directory
+### `mkdir` — Δημιουργία Καταλόγου (Make Directory)
 
-Creates one or more new directories.
+Δημιουργεί έναν ή περισσότερους νέους καταλόγους.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-mkdir <directory_name>
+mkdir <όνομα_καταλόγου>
 ```
 
-**Examples:**
+**Παραδείγματα:**
 ```sh
-mkdir projects           # Creates 'projects' in the current directory
-mkdir /tmp/testdir       # Creates 'testdir' in /tmp using an absolute path
+mkdir projects           # Δημιουργεί το 'projects' στον τρέχοντα κατάλογο
+mkdir /tmp/testdir       # Δημιουργεί το 'testdir' στο /tmp με χρήση απόλυτης διαδρομής
 ```
 
-**Creating Nested Directories:**
-If you attempt to create a directory inside a parent that does not exist, `mkdir` will fail. Use the `-p` (parents) flag to create the entire path structure at once.
+**Δημιουργία Εμφωλευμένων Καταλόγων:**
+Εάν επιχειρήσετε να δημιουργήσετε έναν κατάλογο μέσα σε έναν γονικό που δεν υπάρχει, η `mkdir` θα αποτύχει. Χρησιμοποιήστε τη σημαία `-p` (parents) για να δημιουργήσετε ολόκληρη τη δομή διαδρομής ταυτόχρονα.
 
 ```sh
 mkdir -p projects/python/scripts
 ```
-This command ensures that `projects`, `python`, and `scripts` are all created without errors.
+Αυτή η εντολή διασφαλίζει ότι τα `projects`, `python` και `scripts` θα δημιουργηθούν όλα χωρίς σφάλματα.
 
-### `rmdir` — Remove Directory
+### `rmdir` — Διαγραφή Καταλόγου (Remove Directory)
 
-Removes empty directories.
+Διαγράφει άδειους καταλόγους.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-rmdir <directory_name>
+rmdir <όνομα_καταλόγου>
 ```
 
-**Important Caveat:**
-`rmdir` will only succeed if the target directory contains absolutely no files or subdirectories. If the directory is not empty, you will receive an error:
+**Σημαντική Επιφύλαξη:**
+Η `rmdir` θα επιτύχει μόνο εάν ο κατάλογος στόχος δεν περιέχει απολύτως κανένα αρχείο ή υποκατάλογο. Εάν ο κατάλογος δεν είναι άδειος, θαλάβετε σφάλμα:
 ```text
 rmdir: failed to remove 'projects': Directory not empty
 ```
-To remove a directory and all of its contents simultaneously, you must use the `rm` command with recursive flags (covered in the next section).
+Για να διαγράψετε έναν κατάλογο μαζί με όλα τα περιεχόμενά του ταυτόχρονα, πρέπει να χρησιμοποιήσετε την εντολή `rm` με αναδρομικές σημαίες (καλύπτεται στην επόμενη ενότητα).
 
 ***
 
-## Summary of Navigation Workflow
+## Σύνοψη Ροής Εργασίας Πλοήγησης
 
-1. Use `pwd` to confirm where you are.
-2. Use `cd` to move around the system.
-3. Use `mkdir` to create new organizational folders.
-4. Remember to use `.` and `..` to reference relative locations quickly without typing long absolute paths.
+1. Χρησιμοποιήστε την `pwd` για να επιβεβαιώσετε πού βρίσκεστε.
+2. Χρησιμοποιήστε την `cd` για να μετακινηθείτε στο σύστημα.
+3. Χρησιμοποιήστε την `mkdir` για να δημιουργήσετε νέους καταλόγους οργάνωσης.
+4. Θυμηθείτε να χρησιμοποιείτε τα `.` και `..` για να αναφέρεστε γρήγορα σε σχετικές τοποθεσίες χωρίς να πληκτρολογείτε μεγάλες απόλυτες διαδρομές.
 
 ---
 # 3_UNIX_File_and_Directory_Management.md
 ---
 
-# 3. UNIX File and Directory Management
+# 3. Διαχείριση Αρχείων και Καταλόγων στο UNIX
 
 ***
 
-## File and Directory Deletion
+## Διαγραφή Αρχείων και Καταλόγων
 
-### `rm` — Remove Files and Directories
+### `rm` — Διαγραφή Αρχείων και Καταλόγων (Remove)
 
-The `rm` command deletes files permanently. Unlike modern graphical desktop environments, the UNIX terminal does not have a "Recycle Bin." Once a file is removed with `rm`, it is generally unrecoverable.
+Η εντολή `rm` διαγράφει αρχεία οριστικά. Σε αντίθεση με τα σύγχρονα γραφικά περιβάλλοντα, το τερματικό UNIX δεν διαθέτει "Κάδο Ανακύκλωσης". Μόλις ένα αρχείο διαγραφεί με την `rm`, είναι γενικά μη ανακτήσιμο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-rm <file_name>
+rm <όνομα_αρχείου>
 ```
 
-**Common Flags:**
+**Συνήθεις Σημαίες:**
 
-| Flag | Description |
-|------|-------------|
-| `-i` | Interactive mode. Prompts for confirmation before deleting each file. |
-| `-r` or `-R` | Recursive mode. Required to delete directories and their contents. |
-| `-f` | Force mode. Ignores nonexistent files and never prompts for confirmation. Use with extreme caution. |
+| Σημασία | Περιγραφή |
+|---------|-----------|
+| `-i` | Διαδραστική λειτουργία (Interactive mode). Ζητά επιβεβαίωση πριν από τη διαγραφή κάθε αρχείου. |
+| `-r` ή `-R` | Αναδρομική λειτουργία (Recursive mode). Απαιτείται για τη διαγραφή καταλόγων και των περιεχομένων τους. |
+| `-f` | Βίαιη λειτουργία (Force mode). Αγνοεί τα μη υπάρχοντα αρχεία και δεν ζητά ποτέ επιβεβαίωση. Χρησιμοποιήστε τη με εξαιρετική προσοχή. |
 
-**Examples:**
+**Παραδείγματα:**
 
 ```sh
-rm report.txt              # Deletes a single file silently
-rm -i important_data.csv   # Asks for confirmation before deletion
+rm report.txt              # Διαγράφει ένα αρχείο σιωπηλά
+rm -i important_data.csv   # Ζητά επιβεβαίωση πριν από τη διαγραφή
 ```
 ```text
 rm: remove regular file 'important_data.csv'? y
 ```
 
-**Deleting Directories:**
-To delete a directory that contains files, you cannot use `rmdir`. You must use `rm -r`.
+**Διαγραφή Καταλόγων:**
+Για να διαγράψετε έναν κατάλογο που περιέχει αρχεία, δεν μπορείτε να χρησιμοποιήσετε την `rmdir`. Πρέπει να χρησιμοποιήσετε την `rm -r`.
 
 ```sh
-rm -r old_project/         # Deletes the directory and everything inside it
-rm -ri old_project/        # Deletes recursively, but asks for confirmation at each step
+rm -r old_project/         # Διαγράφει τον κατάλογο και όλα όσα περιέχει
+rm -ri old_project/        # Διαγράφει αναδρομικά, αλλά ζητά επιβεβαίωση σε κάθε βήμα
 ```
 
-**Warning:** Running `rm -rf /` is catastrophically destructive as it attempts to forcefully delete the entire file system starting from the root directory. Never run this command.
+**Προειδοποίηση:** Η εκτέλεση της εντολής `rm -rf /` είναι καταστροφική καθώς επιχειρεί να διαγράψει βίαια ολόκληρο το σύστημα αρχείων ξεκινώντας από τον ριζικό κατάλογο. Μην εκτελέσετε ποτέ αυτή την εντολή.
 
 ***
 
-## Copying Files and Directories
+## Αντιγραφή Αρχείων και Καταλόγων
 
-### `cp` — Copy
+### `cp` — Αντιγραφή (Copy)
 
-The `cp` command duplicates files or directories from a source to a destination.
+Η εντολή `cp` δημιουργεί αντίγραφα αρχείων ή καταλόγων από μια πηγή σε έναν προορισμό.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-cp <source> <destination>
+cp <πηγή> <προορισμός>
 ```
 
-**Common Flags:**
+**Συνήθεις Σημαίες:**
 
-| Flag | Description |
-|------|-------------|
-| `-r` or `-R` | Recursive mode. Required when copying directories. |
-| `-i` | Interactive mode. Prompts before overwriting an existing file at the destination. |
-| `-v` | Verbose mode. Prints the name of each file as it is copied. |
+| Σημασία | Περιγραφή |
+|---------|-----------|
+| `-r` ή `-R` | Αναδρομική λειτουργία. Απαιτείται κατά την αντιγραφή καταλόγων. |
+| `-i` | Διαδραστική λειτουργία. Ζητά επιβεβαίωση πριν από την αντικατάσταση ενός υπάρχοντος αρχείου στον προορισμό. |
+| `-v` | Λεπτομερής λειτουργία (Verbose). Εκτυπώνει το όνομα κάθε αρχείου καθώς αντιγράφεται. |
 
-**Usage Scenarios:**
+**Σενάρια Χρήσης:**
 
-1. **Copying a single file to a new name:**
+1. **Αντιγραφή ενός αρχείου με νέο όνομα:**
    ```sh
    cp original.txt backup.txt
    ```
 
-2. **Copying a file into another directory:**
+2. **Αντιγραφή ενός αρχείου σε άλλον κατάλογο:**
    ```sh
    cp original.txt /tmp/
    ```
 
-3. **Copying multiple files into a directory:**
+3. **Αντιγραφή πολλαπλών αρχείων σε έναν κατάλογο:**
    ```sh
    cp file1.txt file2.txt /backup_dir/
    ```
 
-4. **Copying an entire directory:**
+4. **Αντιγραφή ολόκληρου καταλόγου:**
    ```sh
    cp -r project_source/ project_backup/
    ```
 
-**Overwriting Files:**
-If a file with the target name already exists at the destination, `cp` will silently overwrite it by default. Using the `-i` flag prevents accidental data loss.
+**Αντικατάσταση Αρχείων:**
+Εάν ένα αρχείο με το όνομα στόχο υπάρχει ήδη στον προορισμό, η `cp` θα το αντικαταστήσει σιωπηλά από προεπιλογή. Η χρήση της σημαίας `-i` αποτρέπει την τυχαία απώλεια δεδομένων.
 
 ***
 
-## Moving and Renaming
+## Μετακίνηση και Μετονομασία
 
-### `mv` — Move / Rename
+### `mv` — Μετακίνηση / Μετονομασία (Move)
 
-The `mv` command is used for two distinct operations: moving files from one location to another, and renaming files. It does not require a recursive flag for directories.
+Η εντολή `mv` χρησιμοποιείται για δύο διαφορετικές λειτουργίες: τη μετακίνηση αρχείων από μια τοποθεσία σε άλλη, και τη μετονομασία αρχείων. Δεν απαιτεί αναδρομική σημαία για τους καταλόγους.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-mv <source> <destination>
+mv <πηγή> <προορισμός>
 ```
 
-**Usage Scenarios:**
+**Σενάρια Χρήσης:**
 
-1. **Renaming a file (moving it within the same directory):**
+1. **Μετονομασία αρχείου (μετακίνηση εντός του ίδιου καταλόγου):**
    ```sh
    mv old_name.txt new_name.txt
    ```
 
-2. **Moving a file to another directory:**
+2. **Μετακίνηση αρχείου σε άλλον κατάλογο:**
    ```sh
    mv data.csv /home/user/archives/
    ```
 
-3. **Moving and renaming simultaneously:**
+3. **Ταυτόχρονη μετακίνηση και μετονομασία:**
    ```sh
    mv /tmp/download.zip /home/user/software_v2.zip
    ```
 
-4. **Moving a directory:**
+4. **Μετακίνηση καταλόγου:**
    ```sh
    mv my_project/ /var/www/html/
    ```
 
 ***
 
-## Listing Directory Contents
+## Εμφάνιση Περιεχομένων Καταλόγου
 
-### `ls` — List
+### `ls` — Εμφάνιση Λίστας (List)
 
-The `ls` command displays the contents of a directory. By default, it lists files in the current working directory in alphabetical order.
+Η εντολή `ls` εμφανίζει τα περιεχόμενα ενός καταλόγου. Από προεπιλογή, εμφανίζει τα αρχεία στον τρέχοντα κατάλογο εργασίας σε αλφαβητική σειρά.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-ls [options] [directory]
+ls [επιλογές] [κατάλογος]
 ```
 
-**Common Flags:**
+**Συνήθεις Σημαίες:**
 
-| Flag | Description |
-|------|-------------|
-| `-l` | Long listing format. Displays permissions, ownership, size, and timestamps. |
-| `-a` | Show all files, including hidden files (those starting with a dot `.`). |
-| `-h` | Human-readable file sizes (e.g., 1K, 234M, 2G). Often used with `-l`. |
-| `-R` | Recursive listing. Lists the contents of all subdirectories. |
-| `-t` | Sort by modification time, newest first. |
+| Σημασία | Περιγραφή |
+|---------|-----------|
+| `-l` | Μορφή μακράς λίστας (Long listing format). Εμφανίζει δικαιώματα, ιδιοκτησία, μέγεθος και χρονικές σημάνσεις. |
+| `-a` | Εμφάνιση όλων των αρχείων, συμπεριλαμβανομένων των κρυφών αρχείων (αυτά που ξεκινάνε με τελεία `.`). |
+| `-h` | Αναγνώσιμα από τον άνθρωπο μεγέθη αρχείων (π.χ. 1K, 234M, 2G). Συχνά χρησιμοποιείται με το `-l`. |
+| `-R` | Αναδρομική εμφάνιση. Εμφανίζει τα περιεχόμενα όλων των υποκαταλόγων. |
+| `-t` | Ταξινόμηση κατά χρόνο τροποποίησης, τα νεότερα πρώτα. |
 
-**Understanding `ls -l` Output:**
+**Κατανόηση της Εξόδου της `ls -l`:**
 
-Running `ls -l` produces a detailed output row for each file:
+Η εκτέλεση της `ls -l` παράγει μια λεπτομερή γραμμή εξόδου για κάθε αρχείο:
 
 ```text
 -rw-r--r-- 1 user group 1024 Oct 24 10:00 document.txt
 drwxr-xr-x 2 user group 4096 Oct 24 10:05 my_folder
 ```
 
-**Field Breakdown:**
-1. **Type and Permissions:** The first 10 characters (e.g., `-rw-r--r--` or `drwxr-xr-x`). The first character indicates the file type (`-` for file, `d` for directory). The next 9 characters represent read, write, and execute permissions.
-2. **Hard Links:** The number of hard links pointing to the inode.
-3. **Owner:** The user who owns the file.
-4. **Group:** The group that owns the file.
-5. **Size:** The file size in bytes.
-6. **Modification Date:** The date and time the file was last modified.
-7. **Name:** The file or directory name.
+**Ανάλυση Πεδίων:**
+1. **Τύπος και Δικαιώματα:** Οι πρώτοι 10 χαρακτήρες (π.χ. `-rw-r--r--` ή `drwxr-xr-x`). Ο πρώτος χαρακτήρας υποδεικνύει τον τύπο του αρχείου (`-` για αρχείο, `d` για κατάλογο). Οι επόμενοι 9 χαρακτήρες αναπαριστούν δικαιώματα ανάγνωσης, εγγραφής και εκτέλεσης.
+2. **Σκληροί Σύνδεσμοι (Hard Links):** Ο αριθμός των σκληρών συνδέσμων που δείχνουν στο inode.
+3. **Ιδιοκτήτης (Owner):** Ο χρήστης στον οποίο ανήκει το αρχείο.
+4. **Ομάδα (Group):** Η ομάδα στην οποία ανήκει το αρχείο.
+5. **Μέγεθος:** Το μέγεθος του αρχείου σε bytes.
+6. **Ημερομηνία Τροποποίησης:** Η ημερομηνία και ώρα της τελευταίας τροποποίησης του αρχείου.
+7. **Όνομα:** Το όνομα του αρχείου ή του καταλόγου.
 
-**Combining Flags:**
-Flags can be combined to form powerful commands.
+**Συνδυασμός Σημαιών:**
+Οι σημαίες μπορούν να συνδυαστούν για τη δημιουργία ισχυρών εντολών.
 ```sh
-ls -la       # Long listing, including hidden files
-ls -lh       # Long listing with human-readable file sizes
-ls -lt       # Long listing sorted by newest modification time
+ls -la       # Μακρά λίστα, συμπεριλαμβανομένων των κρυφών αρχείων
+ls -lh       # Μακρά λίστα με αναγνώσιμα μεγέθη αρχείων
+ls -lt       # Μακρά λίστα ταξινομημένη κατά τον νεότερο χρόνο τροποποίησης
 ```
 
 ---
 # 4_UNIX_Access_Permissions.md
 ---
 
-# 4. UNIX Access Permissions
+# 4. Δικαιώματα Πρόσβασης στο UNIX
 
 ***
 
-## The Permission Model
+## Το Μοντέλο Δικαιωμάτων
 
-UNIX is a multi-user operating system. To maintain security and privacy, every file and directory is protected by a set of permissions that dictate who can read, modify, or execute them.
+Το UNIX είναι ένα πολυ-χρηστικό λειτουργικό σύστημα. Για τη διατήρηση της ασφάλειας και της ιδιωτικότητας, κάθε αρχείο και κατάλογος προστατεύεται από ένα σύνολο δικαιωμάτων που καθορίζουν ποιος μπορεί να τα διαβάσει, να τα τροποποιήσει ή να τα εκτελέσει.
 
-Permissions are categorized into three ownership tiers:
+Τα δικαιώματα κατηγοριοποιούνται σε τρία επίπεδα ιδιοκτησίας:
 
-1. **User (Owner - `u`):** The account that owns the file (usually the creator).
-2. **Group (`g`):** A defined collection of users who share access rights to the file.
-3. **Other (`o`):** Everyone else on the system who is not the owner and not in the group.
+1. **Χρήστης / Ιδιοκτήτης (User / Owner - `u`):** Ο λογαριασμός στον οποίο ανήκει το αρχείο (συνήθως ο δημιουργός).
+2. **Ομάδα (Group - `g`):** Μια καθορισμένη συλλογή χρηστών που μοιράζονται δικαιώματα πρόσβασης στο αρχείο.
+3. **Άλλοι (Other - `o`):** Όλοι οι υπόλοιποι στο σύστημα που δεν είναι ο ιδιοκτήτης και δεν ανήκουν στην ομάδα.
 
-For each of these tiers, three types of permissions can be granted:
+Για καθένα από αυτά τα επίπεδα, μπορούν να εκχωρηθούν τρεις τύποι δικαιωμάτων:
 
-| Permission | Symbol | Value | Meaning on a File | Meaning on a Directory |
-|------------|--------|-------|-------------------|------------------------|
-| **Read** | `r` | 4 | View file contents. | List the files inside the directory (`ls`). |
-| **Write** | `w` | 2 | Modify or delete file contents. | Create, delete, or rename files inside the directory. |
-| **Execute**| `x` | 1 | Run the file as a program or script. | Traverse the directory (access files within it). |
+| Δικαίωμα | Σύμβολο | Τιμή | Σημασία σε Αρχείο | Σημασία σε Κατάλογο |
+|----------|---------|------|-------------------|---------------------|
+| **Ανάγνωση (Read)** | `r` | 4 | Προβολή περιεχομένων αρχείου. | Εμφάνιση λίστας αρχείων εντός του καταλόγου (`ls`). |
+| **Εγγραφή (Write)** | `w` | 2 | Τροποποίηση ή διαγραφή περιεχομένων αρχείου. | Δημιουργία, διαγραφή ή μετονομασία αρχείων εντός του καταλόγου. |
+| **Εκτέλεση (Execute)**| `x` | 1 | Εκτέλεση του αρχείου ως πρόγραμμα ή script. | Προσπέλαση/Διάσχιση του καταλόγου (πρόσβαση σε αρχεία μέσα σε αυτόν). |
 
 ***
 
-## Interpreting Permission Strings
+## Ερμηνεία Συμβολοσειρών Δικαιωμάτων
 
-When you run `ls -l`, the first column displays a 10-character string representing the file type and permissions.
+Όταν εκτελείτε `ls -l`, η πρώτη στήλη εμφανίζει μια συμβολοσειρά 10 χαρακτήρων που αναπαριστά τον τύπο του αρχείου και τα δικαιώματα.
 
 ```text
 -rwxr-x--- 1 user1 staff  1024 Oct 24 file.txt
 drwxr-xr-x 2 user1 staff  4096 Oct 24 folder/
 ```
 
-**Deconstructing `-rwxr-x---`:**
-- `[` `-` `]` Type: Regular file.
-- `[` `rwx` `]` User (Owner): Has Read, Write, and Execute permissions.
-- `[` `r-x` `]` Group: Has Read and Execute permissions, but cannot Write (modify).
-- `[` `---` `]` Other: Has no access whatsoever.
+**Αποδομήοντας το `-rwxr-x---`:**
+- `[` `-` `]` Τύπος: Κανονικό αρχείο.
+- `[` `rwx` `]` Χρήστης (Ιδιοκτήτης): Έχει δικαιώματα Ανάγνωσης, Εγγραφής και Εκτέλεσης.
+- `[` `r-x` `]` Ομάδα: Έχει δικαιώματα Ανάγνωσης και Εκτέλεσης, αλλά δεν μπορεί να Γράψει (τροποποιήσει).
+- `[` `---` `]` Άλλοι: Δεν έχουν καμία πρόσβαση απολύτως.
 
 ***
 
-## Directories: The `Execute` Bit
+## Κατάλογοι: Το Bit `Εκτέλεσης` (Execute Bit)
 
-A common point of confusion is how permissions apply to directories.
+Ένα σύνηθες σημείο σύγχυσης είναι το πώς εφαρμόζονται τα δικαιώματα στους καταλόγους.
 
-- To use `cd` to enter a directory, you **must** have Execute (`x`) permission on it.
-- To see the names of files inside a directory (using `ls`), you need Read (`r`) permission.
-- However, to read the attributes of the files inside (using `ls -l`), you need **both** Read and Execute permissions on the directory.
-- To create or delete a file inside a directory, you need Write (`w`) and Execute (`x`) permissions on the directory, regardless of the permissions of the file itself.
+- Για να χρησιμοποιήσετε την `cd` ώστε να εισέλθετε σε έναν κατάλογο, **πρέπει** να έχετε δικαίωμα Εκτέλεσης (`x`) σε αυτόν.
+- Για να δείτε τα ονόματα των αρχείων μέσα σε έναν κατάλογο (χρησιμοποιώντας την `ls`), χρειάζεστε δικαίωμα Ανάγνωσης (`r`).
+- Ωστόσο, για να διαβάσετε τα ατribut/ιδιότητες των αρχείων μέσα (χρησιμοποιώντας `ls -l`), χρειάζεστε **και** δικαίωμα Ανάγνωσης **και** δικαίωμα Εκτέλεσης στον κατάλογο.
+- Για να δημιουργήσετε ή να διαγράψετε ένα αρχείο μέσα σε έναν κατάλογο, χρειάζεστε δικαιώματα Εγγραφής (`w`) και Εκτέλεσης (`x`) στον κατάλογο, ανεξάρτητα από τα δικαιώματα του ίδιου του αρχείου.
 
 ***
 
-## Modifying Permissions: `chmod`
+## Τροποποίηση Δικαιωμάτων: `chmod`
 
-The `chmod` (change mode) command is used to alter permissions. Only the file owner or the `root` user can change a file's permissions.
+Η εντολή `chmod` (change mode) χρησιμοποιείται για την αλλαγή δικαιωμάτων. Μόνο ο ιδιοκτήτης του αρχείου ή ο χρήστης `root` μπορεί να αλλάξει τα δικαιώματα ενός αρχείου.
 
-There are two primary methods to use `chmod`: Numeric (Octal) and Symbolic.
+Υπάρχουν δύο κύριες μέθοδοι για τη χρήση της `chmod`: Αριθμητική (Οκταδική) και Συμβολική.
 
-### Method 1: Numeric (Octal) Notation
+### Μέθοδος 1: Αριθμητική (Οκταδική) Σημειογραφία
 
-This method uses numbers to represent permission sets. You sum the values of the permissions you want to grant for each tier.
-- Read = 4
-- Write = 2
-- Execute = 1
+Αυτή η μέθοδος χρησιμοποιεί αριθμούς για την αναπαράσταση συνόλων δικαιωμάτων. Αθροίζετε τις τιμές των δικαιωμάτων που θέλετε να εκχωρήσετε για κάθε επίπεδο.
+- Ανάγνωση (Read) = 4
+- Εγγραφή (Write) = 2
+- Εκτέλεση (Execute) = 1
 
-**Examples:**
+**Παραδείγματα:**
 - `rwx` = 4 + 2 + 1 = **7**
 - `rw-` = 4 + 2 + 0 = **6**
 - `r-x` = 4 + 0 + 1 = **5**
 - `r--` = 4 + 0 + 0 = **4**
 
-You construct a 3-digit number representing User, Group, and Other:
+Σχηματίζετε έναν 3-ψήφιο αριθμό που αναπαριστά τον Χρήστη, την Ομάδα και τους Άλλους:
 
 ```sh
 chmod 755 script.sh
 ```
-*Sets `rwxr-xr-x`. Owner can do everything; Group and Other can read and execute.*
+*Ορίζει `rwxr-xr-x`. Ο ιδιοκτήτης μπορεί να κάνει τα πάντα, η Ομάδα και οι Άλλοι μπορούν να διαβάσουν και να εκτελέσουν.*
 
 ```sh
 chmod 644 document.txt
 ```
-*Sets `rw-r--r--`. Owner can read/write; Group and Other can only read. (Standard file permission)*
+*Ορίζει `rw-r--r--`. Ο ιδιοκτήτης μπορεί να διαβάσει/γράψει, η Ομάδα και οι Άλλοι μπορούν μόνο να διαβάσουν. (Τυπικό δικαίωμα αρχείου)*
 
 ```sh
 chmod 700 private_folder/
 ```
-*Sets `rwx------`. Only the owner has access. (Standard for private directories)*
+*Ορίζει `rwx------`. Μόνο ο ιδιοκτήτης έχει πρόσβαση. (Τυπικό για ιδιωτικούς καταλόγους)*
 
-### Method 2: Symbolic Notation
+### Μέθοδος 2: Συμβολική Σημειογραφία
 
-This method uses letters to selectively add or remove permissions without affecting others.
+Αυτή η μέθοδος χρησιμοποιεί γράμματα για την επιλεκτική προσθήκη ή αφαίρεση δικαιωμάτων χωρίς να επηρεάζει τα υπόλοιπα.
 
-**Syntax:** `chmod [who][operator][permission] file`
+**Σύνταξη:** `chmod [ποιος][τελεστής][δικαίωμα] αρχείο`
 
-- **Who:** `u` (user), `g` (group), `o` (other), `a` (all)
-- **Operator:** `+` (add), `-` (remove), `=` (set exactly)
-- **Permission:** `r`, `w`, `x`
+- **Ποιος:** `u` (user), `g` (group), `o` (other), `a` (all)
+- **Τελεστής:** `+` (προσθήκη), `-` (αφαίρεση), `=` (ακριβής ορισμός)
+- **Δικαίωμα:** `r`, `w`, `x`
 
-**Examples:**
+**Παραδείγματα:**
 
 ```sh
-chmod u+x script.sh         # Add execute permission for the owner
-chmod go-w file.txt         # Remove write permission for group and others
-chmod a+r public.txt        # Add read permission for everyone
-chmod g=rx shared_dir/      # Set group permission exactly to read and execute
-chmod u=rwx,g=rx,o=r file   # Set multiple permissions separated by commas
+chmod u+x script.sh         # Προσθήκη δικαιώματος εκτέλεσης για τον ιδιοκτήτη
+chmod go-w file.txt         # Αφαίρεση δικαιώματος εγγραφής για την ομάδα και τους άλλους
+chmod a+r public.txt        # Προσθήκη δικαιώματος ανάγνωσης για όλους
+chmod g=rx shared_dir/      # Ορισμός δικαιώματος ομάδας ακριβώς σε ανάγνωση και εκτέλεση
+chmod u=rwx,g=rx,o=r file   # Ορισμός πολλαπλών δικαιωμάτων χωρισμένων με κόμματα
 ```
 
 ***
 
-## Ownership Commands
+## Εντολές Ιδιοκτησίας
 
-### `chown` — Change Owner
+### `chown` — Αλλαγή Ιδιοκτήτη (Change Owner)
 
-Changes the user ownership of a file or directory.
+Αλλάζει την ιδιοκτησία χρήστη ενός αρχείου ή καταλόγου.
 
 ```sh
-chown user2 report.txt              # Change owner to user2
-chown user2:finance report.txt      # Change owner to user2 and group to finance
-chown -R user2 project_dir/         # Recursively change ownership for a directory
+chown user2 report.txt              # Αλλαγή ιδιοκτήτη σε user2
+chown user2:finance report.txt      # Αλλαγή ιδιοκτήτη σε user2 και ομάδας σε finance
+chown -R user2 project_dir/         # Αναδρομική αλλαγή ιδιοκτησίας για έναν κατάλογο
 ```
 
-### `chgrp` — Change Group
+### `chgrp` — Αλλαγή Ομάδας (Change Group)
 
-Changes only the group ownership of a file or directory.
+Αλλάζει μόνο την ιδιοκτησία ομάδας ενός αρχείου ή καταλόγου.
 
 ```sh
 chgrp finance report.txt
 ```
 
-*(Note: In most Linux systems, including JSLinux, changing ownership usually requires `root` privileges via `sudo` or logging in as root.)*
+*(Σημείωση: Στα περισσότερα συστήματα Linux, συμπεριλαμβανομένου του JSLinux, η αλλαγή ιδιοκτησίας απαιτεί συνήθως δικαιώματα `root` μέσω της `sudo` ή σύνδεση ως root.)*
 
 ***
 
-## Default Permissions: `umask`
+## Προεπιλεγμένα Δικαιώματα: `umask`
 
-When you create a new file or directory, the system assigns default permissions based on the `umask` (user file-creation mode mask).
+Όταν δημιουργείτε ένα νέο αρχείο ή κατάλογο, το σύστημα εκχωρεί προεπιλεγμένα δικαιώματα με βάση το `umask` (user file-creation mode mask).
 
-The default maximum permissions are `666` for files and `777` for directories. The `umask` value is *subtracted* from these maximums.
+Τα προεπιλεγμένα μέγιστα δικαιώματα είναι `666` για αρχεία και `777` για καταλόγους. Η τιμή του `umask` *αφαιρείται* από αυτά τα μέγιστα.
 
-If your `umask` is `022`:
-- New files will have `666 - 022 = 644` (`rw-r--r--`).
-- New directories will have `777 - 022 = 755` (`rwxr-xr-x`).
+Εάν το `umask` σας είναι `022`:
+- Τα νέα αρχεία θα έχουν `666 - 022 = 644` (`rw-r--r--`).
+- Οι νέοι κατάλογοι θα έχουν `777 - 022 = 755` (`rwxr-xr-x`).
 
-You can check or set your umask:
+Μπορείτε να ελέγξετε ή να ορίσετε το umask σας:
 ```sh
-umask        # Displays current umask (e.g., 0022)
-umask 027    # Sets new umask, resulting in files (640) and dirs (750)
+umask        # Εμφανίζει το τρέχον umask (π.χ. 0022)
+umask 027    # Ορίζει νέο umask, παράγοντας αρχεία (640) και καταλόγους (750)
 ```
 
 ---
 # 5_UNIX_File_Viewing_and_Linking.md
 ---
 
-# 5. UNIX File Viewing and Linking
+# 5. Προβολή Αρχείων και Σύνδεσμοι στο UNIX
 
 ***
 
-## Viewing File Contents
+## Προβολή Περιεχομένων Αρχείου
 
-### `cat` — Concatenate and Print
+### `cat` — Σύνδεση και Εκτύπωση (Concatenate and Print)
 
-The `cat` command is primarily used to display the entire contents of a file on the terminal screen.
+Η εντολή `cat` χρησιμοποιείται κυρίως για την προβολή ολόκληρων των περιεχομένων ενός αρχείου στην οθόνη του τερματικού.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-cat <file_name>
-cat file1 file2       # Displays the contents of file1 followed immediately by file2
+cat <όνομα_αρχείου>
+cat file1 file2       # Εμφανίζει τα περιεχόμενα του file1 ακολουθούμενα αμέσως από το file2
 ```
 
-**Common Flags:**
-- `-n`: Numbers all output lines.
-- `-A`: Displays non-printable characters (e.g., ends of lines as `$`, tabs as `^I`).
+**Συνήθεις Σημαίες:**
+- `-n`: Αριθμεί όλες τις γραμμές εξόδου.
+- `-A`: Εμφανίζει μη εκτυπώσιμους χαρακτήρες (π.χ. τέλη γραμμών ως `$`, στηλοθέτες/tabs ως `^I`).
 
-*(Note: `cat` is not ideal for very large files because it prints everything at once, causing the text to scroll by too quickly to read. For large files, pagers like `less` or `more` are preferred.)*
+*(Σημείωση: Η `cat` δεν είναι ιδανική για πολύ μεγάλα αρχεία επειδή εκτυπώνει τα πάντα ταυτόχρονα, προκαλώντας πολύ γρήγορη κύλιση του κειμένου. Για μεγάλα αρχεία προτιμώνται σελιδοποιητές/pagers όπως η `less` ή η `more`.)*
 
-### `less` and `more` — Pagers
+### `less` και `more` — Σελιδοποιητές (Pagers)
 
-Pagers allow you to view the contents of a file one screen at a time.
+Οι σελιδοποιητές σας επιτρέπουν να προβάλλετε τα περιεχόμενα ενός αρχείου μία οθόνη κάθε φορά.
 
 ```sh
 less large_log.txt
 ```
-**Navigation in `less`:**
-- `Spacebar` or `Page Down`: Scroll down one screen.
-- `b` or `Page Up`: Scroll up one screen.
-- `Down Arrow` / `Up Arrow`: Scroll line by line.
-- `q`: Quit and return to the prompt.
-- `/pattern`: Search forward for a specific word or pattern.
+**Πλοήγηση στην `less`:**
+- `Spacebar` ή `Page Down`: Κύλιση μία οθόνη κάτω.
+- `b` ή `Page Up`: Κύλιση μία οθόνη πάνω.
+- `Κάτω Βέλος` / `Πάνω Βέλος`: Κύλιση γραμμή προς γραμμή.
+- `q`: Έξοδος και επιστροφή στην προτροπή (prompt).
+- `/πρότυπο`: Αναζήτηση προς τα εμπρός για μια συγκεκριμένη λέξη ή πρότυπο.
 
-### `head` — View the Beginning of a File
+### `head` — Προβολή της Αρχής ενός Αρχείου
 
-Displays the first few lines of a file (default is 10 lines).
+Εμφανίζει τις πρώτες λίγες γραμμές ενός αρχείου (προεπιλογή είναι 10 γραμμές).
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-head <file_name>
-head -n 20 <file_name>    # Displays the first 20 lines
-head -c 50 <file_name>    # Displays the first 50 bytes/characters
+head <όνομα_αρχείου>
+head -n 20 <όνομα_αρχείου>    # Εμφανίζει τις πρώτες 20 γραμμές
+head -c 50 <όνομα_αρχείου>    # Εμφανίζει τα πρώτα 50 bytes/χαρακτήρες
 ```
 
-### `tail` — View the End of a File
+### `tail` — Προβολή του Τέλους ενός Αρχείου
 
-Displays the last few lines of a file (default is 10 lines).
+Εμφανίζει τις τελευταίες λίγες γραμμές ενός αρχείου (προεπιλογή είναι 10 γραμμές).
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-tail <file_name>
-tail -n 15 <file_name>    # Displays the last 15 lines
+tail <όνομα_αρχείου>
+tail -n 15 <όνομα_αρχείου>    # Εμφανίζει τις τελευταίες 15 γραμμές
 ```
 
-**Following a file:**
-The `-f` (follow) flag is incredibly useful for monitoring log files. It keeps the file open and displays new lines as they are appended in real-time.
+**Παρακολούθηση αρχείου σε πραγματικό χρόνο:**
+Η σημαία `-f` (follow) είναι εξαιρετικά χρήσιμη για την παρακολούθηση αρχείων καταγραφής (log files). Διατηρεί το αρχείο ανοιχτό και εμφανίζει νέες γραμμές καθώς προσαρτώνται σε πραγματικό χρόνο.
 ```sh
 tail -f /var/log/syslog
 ```
-*(Press `Ctrl + C` to stop following the file.)*
+*(Πιέστε `Ctrl + C` για να σταματήσετε την παρακολούθηση του αρχείου.)*
 
 ***
 
-## File Analysis Commands
+## Εντολές Ανάλυσης Αρχείων
 
-### `wc` — Word Count
+### `wc` — Καταμέτρηση Λέξεων (Word Count)
 
-Counts the number of lines, words, and characters in a file.
+Καταμετρά τον αριθμό των γραμμών, των λέξεων και των χαρακτήρων σε ένα αρχείο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-wc <file_name>
+wc <όνομα_αρχείου>
 ```
 
-**Output example:**
+**Παράδειγμα εξόδου:**
 ```text
   45  130  850 report.txt
 ```
-*(Represents 45 lines, 130 words, 850 characters)*
+*(Αναπαριστά 45 γραμμές, 130 λέξεις, 850 χαρακτήρες)*
 
-**Common Flags:**
-- `-l`: Print only the line count.
-- `-w`: Print only the word count.
-- `-c`: Print only the byte/character count.
+**Συνήθεις Σημαίες:**
+- `-l`: Εκτύπωση μόνο του αριθμού γραμμών.
+- `-w`: Εκτύπωση μόνο του αριθμού λέξεων.
+- `-c`: Εκτύπωση μόνο του αριθμού bytes/χαρακτήρων.
 
-### `sort` — Sort Lines of Text
+### `sort` — Ταξινόμηση Γραμμών Κειμένου
 
-Sorts the contents of a text file line by line. By default, it sorts in lexicographical (alphabetical) ascending order.
+Ταξινομεί τα περιεχόμενα ενός αρχείου κειμένου γραμμή προς γραμμή. Από προεπιλογή, ταξινομεί σε λεξικογραφική (αλφαβητική) αύξουσα σειρά.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
 sort data.txt
 ```
 
-**Common Flags:**
-- `-r`: Reverse the sorting order (descending).
-- `-n`: Sort numerically rather than alphabetically (e.g., treats "10" as greater than "2").
-- `-u`: Unique. Removes duplicate lines from the output.
+**Συνήθεις Σημαίες:**
+- `-r`: Αντίστροφη σειρά ταξινόμησης (φθίνουσα).
+- `-n`: Αριθμητική ταξινόμηση αντί για αλφαβητική (π.χ. θεωρεί το "10" μεγαλύτερο από το "2").
+- `-u`: Unique (μοναδικά). Αφαιρεί διπλότυπες γραμμές από την έξοδο.
 
 ***
 
-## Linking Files
+## Σύνδεση Αρχείων (Linking Files)
 
-UNIX allows you to create links to files. A link is essentially a pointer or an alias to an existing file. There are two types: Hard Links and Symbolic (Soft) Links.
+Το UNIX σας επιτρέπει να δημιουργείτε συνδέσμους προς αρχεία. Ένας σύνδεσμος είναι ουσιαστικά ένας δείκτης ή ένα ψευδώνυμο προς ένα υπάρχον αρχείο. Υπάρχουν δύο τύποι: Σκληροί Σύνδεσμοι (Hard Links) και Συμβολικοί / Μαλακοί Σύνδεσμοι (Symbolic / Soft Links).
 
-### Symbolic Links (Soft Links)
+### Συμβολικοί Σύνδεσμοι (Symbolic Links / Soft Links)
 
-A symbolic link is a special type of file that simply contains the path to another file. If you delete the original file, the symbolic link becomes "broken" or "dangling."
+Ένας συμβολικός σύνδεσμος είναι ένας ειδικός τύπος αρχείου που απλά περιέχει τη διαδρομή προς ένα άλλο αρχείο. Εάν διαγράψετε το πρωτότυπο αρχείο, ο συμβολικός σύνδεσμος γίνεται "σπασμένος" (broken) ή "εκκρεμής" (dangling).
 
-**Creating a Symbolic Link:**
+**Δημιουργία Συμβολικού Συνδέσμου:**
 ```sh
-ln -s <target_file> <link_name>
+ln -s <αρχείο_στόχος> <όνομα_συνδέσμου>
 ```
 
-**Examples:**
+**Παραδείγματα:**
 ```sh
 ln -s /etc/nginx/sites-available/myapp.conf /etc/nginx/sites-enabled/myapp.conf
 ```
-*(Creates a symlink in `sites-enabled` pointing to the actual configuration file.)*
+*(Δημιουργεί έναν συμβολικό σύνδεσμο στο `sites-enabled` που δείχνει στο πραγματικό αρχείο ρυθμίσεων.)*
 
-When you run `ls -l`, symbolic links are indicated by an `l` in the permissions string and an arrow `->` pointing to the target:
+Όταν εκτελείτε `ls -l`, οι συμβολικοί σύνδεσμοι υποδεικνύονται από ένα `l` στη συμβολοσειρά δικαιωμάτων και ένα βέλος `->` που δείχνει στον στόχο:
 ```text
 lrwxrwxrwx 1 user user 35 Oct 24 10:00 myapp.conf -> /etc/nginx/sites-available/myapp.conf
 ```
 
-### Hard Links
+### Σκληροί Σύνδεσμοι (Hard Links)
 
-A hard link creates a direct pointer to the underlying data (inode) on the hard drive. The system treats a hard link identically to the original file. If you delete the original file, the data remains accessible via the hard link until all hard links to that data are deleted.
+Ένας σκληρός σύνδεσμος δημιουργεί έναν άμεσο δείκτη προς τα υποκείμενα δεδομένα (inode) στον σκληρό δίσκο. Το σύστημα αντιμετωπίζει έναν σκληρό σύνδεσμο πανομοιότυπα με το πρωτότυπο αρχείο. Εάν διαγράψετε το πρωτότυπο αρχείο, τα δεδομένα παραμένουν προσβάσιμα μέσω του σκληρού συνδέσμου μέχρι να διαγραφούν όλοι οι σκληροί σύνδεσμοι που δείχνουν σε αυτά τα δεδομένα.
 
-**Creating a Hard Link:**
+**Δημιουργία Σκληρού Συνδέσμου:**
 ```sh
-ln <target_file> <link_name>
+ln <αρχείο_στόχος> <όνομα_συνδέσμου>
 ```
 
-**Differences between Hard and Soft Links:**
-- Hard links cannot cross different file systems or partitions; soft links can.
-- Hard links cannot point to directories; soft links can.
-- Soft links are far more common in everyday UNIX usage.
+**Διαφορές μεταξύ Σκληρών και Συμβολικών Συνδέσμων:**
+- Οι σκληροί σύνδεσμοι δεν μπορούν να διασχίσουν διαφορετικά συστήματα αρχείων ή κατατμήσεις (partitions), ενώ οι συμβολικοί μπορούν.
+- Οι σκληροί σύνδεσμοι δεν μπορούν να δείχνουν σε καταλόγους, ενώ οι συμβολικοί μπορούν.
+- Οι συμβολικοί σύνδεσμοι είναι πολύ πιο συνηθισμένοι στην καθημερινή χρήση του UNIX.
 
 ---
 # 6_UNIX_IO_Redirection_and_Pipes.md
 ---
 
-# 6. UNIX I/O Redirection and Pipes
+# 6. Ανακατεύθυνση Εισόδου/Εξόδου και Διοχετεύσεις (Pipes) στο UNIX
 
 ***
 
-## Standard I/O Streams
+## Τυπικές Ροές Εισόδου/Εξόδου (Standard I/O Streams)
 
-In UNIX, every command-line program automatically opens three standard streams (files) when it runs:
+Στο UNIX, κάθε πρόγραμμα γραμμής εντολών ανοίγει αυτόματα τρεις τυπικές ροές (αρχεία) όταν εκτελείται:
 
-| Stream Name | File Descriptor | Default Device | Purpose |
-|-------------|-----------------|----------------|---------|
-| **Standard Input (`stdin`)** | 0 | Keyboard | Where the program reads input from. |
-| **Standard Output (`stdout`)**| 1 | Terminal Screen | Where the program sends its normal output. |
-| **Standard Error (`stderr`)** | 2 | Terminal Screen | Where the program sends error and diagnostic messages. |
+| Όνομα Ροής                     | Περιγραφέας Αρχείου (File Descriptor) | Προεπιλεγμένη Συσκευή | Σκοπός                                                 |
+| ------------------------------ | ------------------------------------- | --------------------- | ------------------------------------------------------ |
+| **Τυπική Είσοδος (`stdin`)**   | 0                                     | Πληκτρολόγιο          | Από πού διαβάζει δεδομένα το πρόγραμμα.               |
+| **Τυπική Έξοδος (`stdout`)** | 1                                     | Οθόνη Τερματικού      | Πού στέλνει το πρόγραμμα την κανονική του έξοδο.      |
+| **Τυπικό Σφάλμα (`stderr`)**  | 2                                     | Οθόνη Τερματικού      | Πού στέλνει το πρόγραμμα μηνύματα σφαλμάτων/διαγνωστικά. |
 
-I/O Redirection allows you to detach these streams from their default devices and connect them to files or other programs.
+Η Ανακατεύθυνση Ε/Ε (I/O Redirection) σας επιτρέπει να αποσυνδέσετε αυτές τις ροές από τις προεπιλεγμένες συσκευές τους και να τις συνδέσετε σε αρχεία ή άλλα προγράμματα.
 
 ***
 
-## Output Redirection
+## Ανακατεύθυνση Εξόδου (Output Redirection)
 
-### Overwrite Output (`>`)
+### Αντικατάσταση Εξόδου (`>`)
 
-Redirects `stdout` to a file. If the file does not exist, it is created. **If the file already exists, it is completely overwritten.**
+Ανακατευθύνει τη `stdout` σε ένα αρχείο. Εάν το αρχείο δεν υπάρχει, δημιουργείται. **Εάν το αρχείο υπάρχει ήδη, αντικαθίσταται εντελώς.**
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command > filename
+εντολή > όνομα_αρχείου
 ```
 
-**Examples:**
+**Παραδείγματα:**
 ```sh
 echo "Hello, World!" > greeting.txt
 ls -l > directory_listing.txt
 ```
-*(The output is not printed to the screen; it goes directly into the file.)*
+*(Η έξοδος δεν εκτυπώνεται στην οθόνη, πηγαίνει απευθείας στο αρχείο.)*
 
-### Append Output (`>>`)
+### Προσάρτηση Εξόδου (`>>`)
 
-Redirects `stdout` to a file. **If the file exists, the new output is appended to the end of the file.** It does not overwrite the existing contents.
+Ανακατευθύνει τη `stdout` σε ένα αρχείο. **Εάν το αρχείο υπάρχει, η νέα έξοδος προσαρτάται στο τέλος του αρχείου.** Δεν αντικαθιστά τα υπάρχοντα περιεχόμενα.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command >> filename
+εντολή >> όνομα_αρχείου
 ```
 
-**Example:**
+**Παράδειγμα:**
 ```sh
 echo "New line of text" >> greeting.txt
 ```
 
 ***
 
-## Error Redirection
+## Ανακατεύθυνση Σφαλμάτων (Error Redirection)
 
-By default, error messages bypass standard output redirection and still print to the screen. To capture errors in a file, you must redirect `stderr` specifically.
+Από προεπιλογή, τα μηνύματα σφαλμάτων παρακάμπτουν την ανακατεύθυνση της τυπικής εξόδου και συνεχίζουν να εκτυπώνονται στην οθόνη. Για να καταγράψετε σφάλματα σε ένα αρχείο, πρέπει να ανακατευθύνετε ειδικά τη `stderr`.
 
-### Redirect `stderr` (`2>`)
+### Ανακατεύθυνση της `stderr` (`2>`)
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command 2> error_log.txt
+εντολή 2> error_log.txt
 ```
 
-**Example:**
+**Παράδειγμα:**
 ```sh
 ls /nonexistent_directory 2> errors.txt
 ```
 
-### Redirect both `stdout` and `stderr`
+### Ταυτόχρονη Ανακατεύθυνση `stdout` και `stderr`
 
-You can redirect both streams to the same file.
+Μπορείτε να ανακατευθύνετε και τις δύο ροές στο ίδιο αρχείο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command > output_and_errors.txt 2>&1
+εντολή > output_and_errors.txt 2>&1
 ```
-*(This tells the shell to send descriptor 2 to wherever descriptor 1 is currently pointing.)*
+*(Αυτό λέει στο shell να στείλει τον περιγραφέα 2 εκεί όπου δείχνει αυτή τη στιγμή ο περιγραφέας 1.)*
 
-Modern bash shells also support a shorthand for this:
+Τα σύγχρονα shell bash υποστηρίζουν επίσης μια συντομογραφία για αυτό:
 ```sh
-command &> output_and_errors.txt
+εντολή &> output_and_errors.txt
 ```
 
 ***
 
-## Input Redirection
+## Ανακατεύθυνση Εισόδου (Input Redirection)
 
-### Redirect `stdin` (`<`)
+### Ανακατεύθυνση της `stdin` (`<`)
 
-Feeds the contents of a file into a command as if it were typed on the keyboard.
+Τροφοδοτεί τα περιεχόμενα ενός αρχείου σε μια εντολή σαν να είχαν πληκτρολογηθεί στο πληκτρολόγιο.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command < input_file
+εντολή < αρχείο_εισόδου
 ```
 
-**Example:**
+**Παράδειγμα:**
 ```sh
 wc -l < data.txt
 ```
-*(Counts the lines in `data.txt`. Note: Unlike `wc -l data.txt`, using input redirection will only output the number, without printing the filename.)*
+*(Καταμετρά τις γραμμές στο `data.txt`. Σημείωση: Σε αντίθεση με την `wc -l data.txt`, η χρήση ανακατεύθυνσης εισόδου εμφανίζει μόνο τον αριθμό, χωρίς να εκτυπώνει το όνομα του αρχείου.)*
 
 ***
 
-## Pipes (`|`)
+## Διοχετεύσεις / Pipes (`|`)
 
-Pipes are one of the most powerful features in UNIX. A pipe connects the `stdout` of one command directly to the `stdin` of another command. This allows you to chain small programs together to perform complex tasks without creating temporary files.
+Οι διοχετεύσεις (pipes) είναι μία από τις πιο ισχυρές δυνατότητες στο UNIX. Μια διοχέτευση συνδέει τη `stdout` μιας εντολής απευθείας στη `stdin` μιας άλλης εντολής. Αυτό σας επιτρέπει να συνδέετε μικρά προγράμματα σε αλυσίδα για την εκτέλεση σύνθετων εργασιών χωρίς τη δημιουργία προσωρινών αρχείων.
 
-**Syntax:**
+**Σύνταξη:**
 ```sh
-command1 | command2 | command3
+εντολή1 | εντολή2 | εντολή3
 ```
 
-**How it works:**
-The output of `command1` becomes the input for `command2`. The output of `command2` becomes the input for `command3`. Only the final output is printed to the screen.
+**Πώς λειτουργεί:**
+Η έξοδος της `εντολή1` γίνεται είσοδος για την `εντολή2`. Η έξοδος της `εντολή2` γίνεται είσοδος για την `εντολή3`. Μόνο η τελική έξοδος εκτυπώνεται στην οθόνη.
 
-**Examples:**
+**Παραδείγματα:**
 
-1. **Viewing long output:**
+1. **Προβολή μεγάλης εξόδου:**
    ```sh
    ls -l /etc | less
    ```
-   *(Passes the long directory listing into `less` for easier scrolling.)*
+   *(Περνάει τη μεγάλη λίστα καταλόγου στην `less` για ευκολότερη κύλιση.)*
 
-2. **Counting files in a directory:**
+2. **Καταμέτρηση αρχείων σε έναν κατάλογο:**
    ```sh
    ls -1 | wc -l
    ```
-   *(Lists files one per line, then passes that list to `wc -l` to count the lines.)*
+   *(Εμφανίζει τα αρχεία ένα ανά γραμμή, μετά περνάει τη λίστα στην `wc -l` για να καταμετρήσει τις γραμμές.)*
 
-3. **Finding specific processes:**
+3. **Εύρεση συγκεκριμένων διεργασιών:**
    ```sh
    ps aux | grep "python"
    ```
-   *(Lists all running processes, then filters that list to show only lines containing "python".)*
+   *(Εμφανίζει όλες τις εκτελούμενες διεργασίες, μετά φιλτράρει τη λίστα για να εμφανίσει μόνο τις γραμμές που περιέχουν "python".)*
 
-4. **Complex chaining:**
+4. **Σύνθετη αλυσίδα εντολών:**
    ```sh
    cat access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
    ```
-   *(Reads a web server log, extracts IP addresses, sorts them, counts unique occurrences, sorts by highest count, and shows the top 10.)*
+   *(Διαβάζει ένα αρχείο καταγραφής διακομιστή ιστού, εξάγει τις διευθύνσεις IP, τις ταξινομεί, καταμετρά τις μοναδικές εμφανίσεις, ταξινομεί κατά τον υψηλότερο αριθμό και εμφανίζει τις 10 πρώτες.)*
 
 ---
 # 7_UNIX_Wildcards_and_Glob_Patterns.md
 ---
 
-# 7. UNIX Wildcards and Glob Patterns
+# 7. Wildcards και Πρότυπα Globbing στο UNIX
 
 ***
 
-## What are Wildcards (Globbing)?
+## Τι είναι τα Wildcards (Globbing);
 
-Wildcards are special characters used in the terminal to match multiple filenames or directories simultaneously based on a pattern. The process of expanding these patterns into actual filenames is called "globbing," and it is performed by the shell *before* the command executes.
+Τα Wildcards (μπαλαντέρ) είναι ειδικοί χαρακτήρες που χρησιμοποιούνται στο τερματικό για το ταίριασμα πολλαπλών ονομάτων αρχείων ή καταλόγων ταυτόχρονα με βάση ένα πρότυπο. Η διαδικασία ανάπτυξης αυτών των προτύπων σε πραγματικά ονόματα αρχείων ονομάζεται "globbing" και εκτελείται από το shell *πριν* την εκτέλεση της εντολής.
 
-Using wildcards makes file management highly efficient, saving you from typing long lists of files manually.
+Η χρήση wildcards يجعل τη διαχείριση αρχείων εξαιρετικά αποδοτική, γλιτώνοντάς σας από την πληκτρολόγηση μεγάλων λιστών αρχείων χειροκίνητα.
 
 ***
 
-## The Primary Wildcards
+## Τα Κύρια Wildcards
 
-### The Asterisk (`*`) — Zero or More Characters
+### Ο Αστερίσκος (`*`) — Μηδέν ή Περισσότεροι Χαρακτήρες
 
-The asterisk is the most common wildcard. It matches any sequence of characters, including an empty string (zero characters).
+Ο αστερίσκος είναι το πιο συνηθισμένο wildcard. Ταιριάζει με οποιαδήποτε ακολουθία χαρακτήρων, συμπεριλαμβανομένης και της κενής συμβολοσειράς (μηδέν χαρακτήρες).
 
-**Examples:**
+**Παραδείγματα:**
 
-| Command | Matches | Does Not Match |
-|---------|---------|----------------|
-| `ls *.txt` | All files ending in `.txt` (e.g., `report.txt`, `data.txt`). | `report.csv`, `script.sh` |
-| `rm doc*` | Any file starting with `doc` (e.g., `doc1`, `document.pdf`, `doc`). | `mydoc.txt` |
-| `cp *backup* /tmp/` | Any file containing the word `backup` anywhere in its name. | `back_up.zip` |
-| `ls *` | All visible files and directories in the current folder. | Hidden files (e.g., `.bashrc`) |
+| Εντολή | Ταιριάζει με | Δεν Ταιριάζει με |
+|--------|--------------|------------------|
+| `ls *.txt` | Όλα τα αρχεία που τελειώνουν σε `.txt` (π.χ. `report.txt`, `data.txt`). | `report.csv`, `script.sh` |
+| `rm doc*` | Οποιοδήποτε αρχείο ξεκινά με `doc` (π.χ. `doc1`, `document.pdf`, `doc`). | `mydoc.txt` |
+| `cp *backup* /tmp/` | Οποιοδήποτε αρχείο περιέχει τη λέξη `backup` οποουδήποτε στο όνομά του. | `back_up.zip` |
+| `ls *` | Όλα τα ορατά αρχεία και καταλόγους στον τρέχοντα φάκελο. | Κρυφά αρχεία (π.χ. `.bashrc`) |
 
-### The Question Mark (`?`) — Exactly One Character
+### Το Ερωτηματικό (`?`) — Ακριβώς Ένας Χαρακτήρας
 
-The question mark matches exactly one character. It will not match zero characters or multiple characters.
+Το ερωτηματικό ταιριάζει με ακριβώς έναν χαρακτήρα. Δεν θα ταιριάξει με μηδέν χαρακτήρες ούτε με πολλαπλούς χαρακτήρες.
 
-**Examples:**
+**Παραδείγματα:**
 
-| Command | Matches | Does Not Match |
-|---------|---------|----------------|
+| Εντολή | Ταιριάζει με | Δεν Ταιριάζει με |
+|--------|--------------|------------------|
 | `ls file?.txt` | `file1.txt`, `fileA.txt`, `file_.txt` | `file10.txt`, `file.txt` |
 | `rm ??-report` | `Q3-report`, `01-report` | `1-report`, `2024-report` |
-| `mv ??? archives/`| Any file with exactly 3 characters in its name. | `ab`, `abcd` |
+| `mv ??? archives/`| Οποιοδήποτε αρχείο με ακριβώς 3 χαρακτήρες στο όνομά του. | `ab`, `abcd` |
 
-### Square Brackets (`[...]`) — Character Classes
+### Αγκύλες (`[...]`) — Κλάσεις Χαρακτήρων
 
-Square brackets define a set or range of characters. It matches exactly one character that is included within the brackets.
+Οι αγκύλες ορίζουν ένα σύνολο ή εύρος χαρακτήρων. Ταιριάζουν με ακριβώς έναν χαρακτήρα που περιλαμβάνεται μέσα στις αγκύλες.
 
-**Examples:**
+**Παραδείγματα:**
 
-| Command | Matches |
-|---------|---------|
+| Εντολή | Ταιριάζει με |
+|--------|--------------|
 | `ls file[123].txt` | `file1.txt`, `file2.txt`, `file3.txt` |
-| `cat [a-z]*.log` | Any `.log` file starting with a lowercase letter. |
-| `rm [A-Z]*` | Any file starting with an uppercase letter. |
-| `mv [0-9][0-9]_data.csv /tmp/`| Files starting with exactly two digits (e.g., `14_data.csv`). |
+| `cat [a-z]*.log` | Οποιοδήποτε αρχείο `.log` που ξεκινά με πεζό γράμμα. |
+| `rm [A-Z]*` | Οποιοδήποτε αρχείο που ξεκινά με κεφαλαίο γράμμα. |
+| `mv [0-9][0-9]_data.csv /tmp/`| Αρχεία που ξεκινάνε με ακριβώς δύο ψηφία (π.χ. `14_data.csv`). |
 
-**Negation (`[!...]` or `[^...]`):**
-Placing an exclamation mark `!` (or a caret `^` in some shells) immediately inside the opening bracket negates the class, matching any character *except* those listed.
+**Άρνηση (`[!...]` ή `[^...]`):**
+Η τοποθέτηση ενός θαυμαστικού `!` (ή ενός εισαγωγικού `^` σε ορισμένα shells) αμέσως μετά την αριστερή αγκύλη αρνείται την κλάση, ταιριάζοντας με οποιονδήποτε χαρακτήρα *εκτός* από αυτούς που αναγράφονται.
 
 ```sh
 ls [!0-9]*
 ```
-*(Matches any file that does **not** start with a number.)*
+*(Ταιριάζει με οποιοδήποτε αρχείο που **δεν** ξεκινά με αριθμό.)*
 
 ***
 
-## Wildcard Exceptions and Gotchas
+## Εξαιρέσεις και Παγίδες των Wildcards
 
-### 1. Hidden Files
-By default, wildcards **do not** match hidden files (files starting with a dot `.`).
+### 1. Κρυφά Αρχεία
+Από προεπιλογή, τα wildcards **δεν** ταιριάζουν με κρυφά αρχεία (αρχεία που ξεκινάνε με τελεία `.`).
 
-If you run `rm *`, it deletes all visible files but leaves `.bashrc` and `.profile` intact. To match hidden files, you must explicitly include the dot in your pattern:
+Εάν εκτελέσετε `rm *`, διαγράφει όλα τα ορατά αρχεία αλλά αφήνει τα `.bashrc` και `.profile` ανέπαφα. Για να ταιριάξετε κρυφά αρχεία, πρέπει να συμπεριλάβετε ρητά την τελεία στο πρότυπό σας:
 ```sh
 ls .*
 ```
 
-### 2. Directory Separators
-Wildcards do not cross directory boundaries (the `/` character).
-The pattern `*/*.txt` matches `.txt` files located exactly one directory level down, but it will not match `.txt` files in the current directory or two levels down.
+### 2. Διαχωριστές Καταλόγων
+Τα wildcards δεν διασχίζουν όρια καταλόγων (τον χαρακτήρα `/`).
+Το πρότυπο `*/*.txt` ταιριάζει με αρχεία `.txt` που βρίσκονται ακριβώς ένα επίπεδο καταλόγου κάτω, αλλά δεν θα ταιριάξει με αρχεία `.txt` στον τρέχοντα κατάλογο ή δύο επίπεδα κάτω.
 
 ***
 
-## Escaping Wildcards
+## Διαφυγή Wildcards (Escaping Wildcards)
 
-Sometimes you need to use a literal asterisk `*` or question mark `?` in a filename (though this is bad practice). To stop the shell from interpreting them as wildcards, you must escape or quote them.
+Μερικές φορές χρειάζεται να χρησιμοποιήσετε έναν πραγματικό αστερίσκο `*` ή ερωτηματικό `?` σε ένα όνομα αρχείου. Για να σταματήσετε το shell από το να τα ερμηνεύει ως wildcards, πρέπει να τα διαφύγετε (escape) ή να τα βάλετε σε εισαγωγικά.
 
-**Using a Backslash (`\`):**
+**Χρήση Ανάστροφης Κάθετου (`\`):**
 ```sh
 rm file\*.txt
 ```
-*(Deletes a file literally named `file*.txt`)*
+*(Διαγράφει ένα αρχείο που ονομάζεται κυριολεκτικά `file*.txt`)*
 
-**Using Quotes:**
+**Χρήση Εισαγωγικών:**
 ```sh
 rm 'file*.txt'
 ```
-*(Single quotes prevent all globbing and variable expansion.)*
+*(Τα μονά εισαγωγικά αποτρέπουν κάθε globbing και ανάπτυξη μεταβλητών.)*
 
 ***
 
-## Practical Workflow Examples
+## Πρακτικά Παραδείγματα Ροής Εργασίας
 
-**1. Organizing a messy downloads folder:**
+**1. Οργάνωση ακατάστατου φακέλου λήψεων:**
 ```sh
 mv *.jpg *.png *.gif ~/Pictures/
 mv *.pdf *.doc *.docx ~/Documents/
 ```
 
-**2. Cleaning up numbered logs, keeping only recent ones:**
+**2. Εκκαθάριση αριθμημένων logs, διατηρώντας μόνο τα πρόσφατα:**
 ```sh
 rm log_file_2022_??.log
 ```
-*(Deletes all monthly logs from 2022, e.g., `log_file_2022_01.log` to `log_file_2022_12.log`)*
+*(Διαγράφει όλα τα μηνιαία logs του 2022, π.χ. `log_file_2022_01.log` έως `log_file_2022_12.log`)*
 
-**3. Running a command on specific script versions:**
+**3. Εκτέλεση εντολής σε συγκεκριμένες εκδόσεις script:**
 ```sh
 chmod +x script_v[2-5].sh
 ```
-*(Makes versions 2, 3, 4, and 5 executable)*
+*(Καθιστά τις εκδόσεις 2, 3, 4 και 5 εκτελέσιμες)*
 

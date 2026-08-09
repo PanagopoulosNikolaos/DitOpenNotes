@@ -1,31 +1,31 @@
-# Exam 6: Advanced Permissions and Ownership
+# Θέμα 6: Προχωρημένα Δικαιώματα και Ιδιοκτησία (Permissions and Ownership)
 
 ***
 
-## Questions
+## Ερωτήσεις
 
-**Question 1: Symbolic Permissions**
-You want to ensure that a file named `script.sh`, located in your current directory and owned by you, has read, write, and execute permissions for the owner, but everyone else has only read permissions. 
-- Write the full UNIX command to achieve this using numeric (octal) notation.
+**Ερώτηση 1: Συμβολικά Δικαιώματα (Symbolic Permissions)**
+Θέλετε να διασφαλίσετε ότι ένα αρχείο με όνομα `script.sh`, το οποίο βρίσκεται στον τρέχοντα κατάλογό σας και ανήκει σε εσάς, έχει δικαιώματα ανάγνωσης, εγγραφής και εκτέλεσης για τον ιδιοκτήτη, αλλά όλοι οι άλλοι έχουν μόνο δικαιώματα ανάγνωσης.
+- Γράψτε την πλήρη εντολή UNIX για να το επιτύχετε αυτό χρησιμοποιώντας αριθμητική (οκταδική) σημειογραφία.
 
-**Question 2: Interpreting ls -l Output**
-Suppose the output of the `ls -l` command includes the following line:
+**Ερώτηση 2: Ερμηνεία Εξόδου της ls -l (Interpreting ls -l Output)**
+Υποθέστε ότι η έξοδος της εντολής `ls -l` περιλαμβάνει την ακόλουθη γραμμή:
 `-r--rwx-wx 1 alice admins 1024 May 12 10:00 project.dat`
 
-Determine if the following statements are True or False:
-(a) The user `alice` can modify the contents of `project.dat`.
-(b) Any user belonging to the `admins` group can execute `project.dat`.
-(c) Users who are neither `alice` nor in the `admins` group cannot read the file.
-(d) The `admins` group can delete the file `project.dat` because they have write access to it.
+Προσδιορίστε αν οι ακόλουθες προτάσεις είναι Σωστή (True) ή Λανθασμένη (False):
+(α) Ο χρήστης `alice` μπορεί να τροποποιήσει τα περιεχόμενα του `project.dat`.
+(β) Οποιοσδήποτε χρήστης ανήκει στην ομάδα `admins` μπορεί να εκτελέσει το `project.dat`.
+(γ) Οι χρήστες που δεν είναι ούτε η `alice` ούτε ανήκουν στην ομάδα `admins` δεν μπορούν να διαβάσουν το αρχείο.
+(δ) Η ομάδα `admins` μπορεί να διαγράψει το αρχείο `project.dat` επειδή έχει δικαίωμα εγγραφής σε αυτό.
 
-**Question 3: Applying Execution Rights**
-What command should you use to grant execute permissions to all users (owner, group, and others) for a program named `compiler` located in the `/usr/local/bin` directory, using the symbolic method?
+**Ερώτηση 3: Εφαρμογή Δικαιωμάτων Εκτέλεσης (Applying Execution Rights)**
+Ποια εντολή πρέπει να χρησιμοποιήσετε για να εκχωρήσετε δικαιώματα εκτέλεσης σε όλους τους χρήστες (ιδιοκτήτη, ομάδα και άλλους) για ένα πρόγραμμα με όνομα `compiler` που βρίσκεται στον κατάλογο `/usr/local/bin`, χρησιμοποιώντας τη συμβολική μέθοδο;
 
-**Question 4: Default Permissions**
-If a user creates a new file, and their `umask` is set to `022`, what will be the default permissions of the newly created file in symbolic notation (e.g., `-rw-r--r--`)?
+**Ερώτηση 4: Προεπιλεγμένα Δικαιώματα (Default Permissions)**
+Εάν ένας χρήστης δημιουργήσει ένα νέο αρχείο και το `umask` του είναι ρυθμισμένο σε `022`, ποια θα είναι τα προεπιλεγμένα δικαιώματα του νεοδημιουργηθέντος αρχείου σε συμβολική σημειογραφία (π.χ. `-rw-r--r--`);
 
-**Question 5: Changing Ownership**
-Write the command to change the owner of the directory `global` and all of its contents to the user `bob`.
+**Ερώτηση 5: Αλλαγή Ιδιοκτησίας (Changing Ownership)**
+Γράψτε την εντολή για να αλλάξετε τον ιδιοκτήτη του καταλόγου `global` και όλων των περιεχομένων του στον χρήστη `bob`.
 
 ***
-*Tip: Always analyze the 10-character permission string carefully!*
+*Συμβουλή: Αναλύετε πάντα προσεκτικά τη συμβολοσειρά δικαιωμάτων 10 χαρακτήρων!*

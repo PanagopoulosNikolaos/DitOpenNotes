@@ -1,115 +1,115 @@
-# 7. UNIX Wildcards and Glob Patterns
+# 7. Wildcards και Πρότυπα Globbing στο UNIX
 
 ***
 
-## What are Wildcards (Globbing)?
+## Τι είναι τα Wildcards (Globbing);
 
-Wildcards are special characters used in the terminal to match multiple filenames or directories simultaneously based on a pattern. The process of expanding these patterns into actual filenames is called "globbing," and it is performed by the shell *before* the command executes.
+Τα Wildcards (μπαλαντέρ) είναι ειδικοί χαρακτήρες που χρησιμοποιούνται στο τερματικό για το ταίριασμα πολλαπλών ονομάτων αρχείων ή καταλόγων ταυτόχρονα με βάση ένα πρότυπο. Η διαδικασία ανάπτυξης αυτών των προτύπων σε πραγματικά ονόματα αρχείων ονομάζεται "globbing" και εκτελείται από το shell *πριν* την εκτέλεση της εντολής.
 
-Using wildcards makes file management highly efficient, saving you from typing long lists of files manually.
+Η χρήση wildcards يجعل τη διαχείριση αρχείων εξαιρετικά αποδοτική, γλιτώνοντάς σας από την πληκτρολόγηση μεγάλων λιστών αρχείων χειροκίνητα.
 
 ***
 
-## The Primary Wildcards
+## Τα Κύρια Wildcards
 
-### The Asterisk (`*`) — Zero or More Characters
+### Ο Αστερίσκος (`*`) — Μηδέν ή Περισσότεροι Χαρακτήρες
 
-The asterisk is the most common wildcard. It matches any sequence of characters, including an empty string (zero characters).
+Ο αστερίσκος είναι το πιο συνηθισμένο wildcard. Ταιριάζει με οποιαδήποτε ακολουθία χαρακτήρων, συμπεριλαμβανομένης και της κενής συμβολοσειράς (μηδέν χαρακτήρες).
 
-**Examples:**
+**Παραδείγματα:**
 
-| Command | Matches | Does Not Match |
-|---------|---------|----------------|
-| `ls *.txt` | All files ending in `.txt` (e.g., `report.txt`, `data.txt`). | `report.csv`, `script.sh` |
-| `rm doc*` | Any file starting with `doc` (e.g., `doc1`, `document.pdf`, `doc`). | `mydoc.txt` |
-| `cp *backup* /tmp/` | Any file containing the word `backup` anywhere in its name. | `back_up.zip` |
-| `ls *` | All visible files and directories in the current folder. | Hidden files (e.g., `.bashrc`) |
+| Εντολή | Ταιριάζει με | Δεν Ταιριάζει με |
+|--------|--------------|------------------|
+| `ls *.txt` | Όλα τα αρχεία που τελειώνουν σε `.txt` (π.χ. `report.txt`, `data.txt`). | `report.csv`, `script.sh` |
+| `rm doc*` | Οποιοδήποτε αρχείο ξεκινά με `doc` (π.χ. `doc1`, `document.pdf`, `doc`). | `mydoc.txt` |
+| `cp *backup* /tmp/` | Οποιοδήποτε αρχείο περιέχει τη λέξη `backup` οποουδήποτε στο όνομά του. | `back_up.zip` |
+| `ls *` | Όλα τα ορατά αρχεία και καταλόγους στον τρέχοντα φάκελο. | Κρυφά αρχεία (π.χ. `.bashrc`) |
 
-### The Question Mark (`?`) — Exactly One Character
+### Το Ερωτηματικό (`?`) — Ακριβώς Ένας Χαρακτήρας
 
-The question mark matches exactly one character. It will not match zero characters or multiple characters.
+Το ερωτηματικό ταιριάζει με ακριβώς έναν χαρακτήρα. Δεν θα ταιριάξει με μηδέν χαρακτήρες ούτε με πολλαπλούς χαρακτήρες.
 
-**Examples:**
+**Παραδείγματα:**
 
-| Command | Matches | Does Not Match |
-|---------|---------|----------------|
+| Εντολή | Ταιριάζει με | Δεν Ταιριάζει με |
+|--------|--------------|------------------|
 | `ls file?.txt` | `file1.txt`, `fileA.txt`, `file_.txt` | `file10.txt`, `file.txt` |
 | `rm ??-report` | `Q3-report`, `01-report` | `1-report`, `2024-report` |
-| `mv ??? archives/`| Any file with exactly 3 characters in its name. | `ab`, `abcd` |
+| `mv ??? archives/`| Οποιοδήποτε αρχείο με ακριβώς 3 χαρακτήρες στο όνομά του. | `ab`, `abcd` |
 
-### Square Brackets (`[...]`) — Character Classes
+### Αγκύλες (`[...]`) — Κλάσεις Χαρακτήρων
 
-Square brackets define a set or range of characters. It matches exactly one character that is included within the brackets.
+Οι αγκύλες ορίζουν ένα σύνολο ή εύρος χαρακτήρων. Ταιριάζουν με ακριβώς έναν χαρακτήρα που περιλαμβάνεται μέσα στις αγκύλες.
 
-**Examples:**
+**Παραδείγματα:**
 
-| Command | Matches |
-|---------|---------|
+| Εντολή | Ταιριάζει με |
+|--------|--------------|
 | `ls file[123].txt` | `file1.txt`, `file2.txt`, `file3.txt` |
-| `cat [a-z]*.log` | Any `.log` file starting with a lowercase letter. |
-| `rm [A-Z]*` | Any file starting with an uppercase letter. |
-| `mv [0-9][0-9]_data.csv /tmp/`| Files starting with exactly two digits (e.g., `14_data.csv`). |
+| `cat [a-z]*.log` | Οποιοδήποτε αρχείο `.log` που ξεκινά με πεζό γράμμα. |
+| `rm [A-Z]*` | Οποιοδήποτε αρχείο που ξεκινά με κεφαλαίο γράμμα. |
+| `mv [0-9][0-9]_data.csv /tmp/`| Αρχεία που ξεκινάνε με ακριβώς δύο ψηφία (π.χ. `14_data.csv`). |
 
-**Negation (`[!...]` or `[^...]`):**
-Placing an exclamation mark `!` (or a caret `^` in some shells) immediately inside the opening bracket negates the class, matching any character *except* those listed.
+**Άρνηση (`[!...]` ή `[^...]`):**
+Η τοποθέτηση ενός θαυμαστικού `!` (ή ενός εισαγωγικού `^` σε ορισμένα shells) αμέσως μετά την αριστερή αγκύλη αρνείται την κλάση, ταιριάζοντας με οποιονδήποτε χαρακτήρα *εκτός* από αυτούς που αναγράφονται.
 
 ```sh
 ls [!0-9]*
 ```
-*(Matches any file that does **not** start with a number.)*
+*(Ταιριάζει με οποιοδήποτε αρχείο που **δεν** ξεκινά με αριθμό.)*
 
 ***
 
-## Wildcard Exceptions and Gotchas
+## Εξαιρέσεις και Παγίδες των Wildcards
 
-### 1. Hidden Files
-By default, wildcards **do not** match hidden files (files starting with a dot `.`).
+### 1. Κρυφά Αρχεία
+Από προεπιλογή, τα wildcards **δεν** ταιριάζουν με κρυφά αρχεία (αρχεία που ξεκινάνε με τελεία `.`).
 
-If you run `rm *`, it deletes all visible files but leaves `.bashrc` and `.profile` intact. To match hidden files, you must explicitly include the dot in your pattern:
+Εάν εκτελέσετε `rm *`, διαγράφει όλα τα ορατά αρχεία αλλά αφήνει τα `.bashrc` και `.profile` ανέπαφα. Για να ταιριάξετε κρυφά αρχεία, πρέπει να συμπεριλάβετε ρητά την τελεία στο πρότυπό σας:
 ```sh
 ls .*
 ```
 
-### 2. Directory Separators
-Wildcards do not cross directory boundaries (the `/` character).
-The pattern `*/*.txt` matches `.txt` files located exactly one directory level down, but it will not match `.txt` files in the current directory or two levels down.
+### 2. Διαχωριστές Καταλόγων
+Τα wildcards δεν διασχίζουν όρια καταλόγων (τον χαρακτήρα `/`).
+Το πρότυπο `*/*.txt` ταιριάζει με αρχεία `.txt` που βρίσκονται ακριβώς ένα επίπεδο καταλόγου κάτω, αλλά δεν θα ταιριάξει με αρχεία `.txt` στον τρέχοντα κατάλογο ή δύο επίπεδα κάτω.
 
 ***
 
-## Escaping Wildcards
+## Διαφυγή Wildcards (Escaping Wildcards)
 
-Sometimes you need to use a literal asterisk `*` or question mark `?` in a filename (though this is bad practice). To stop the shell from interpreting them as wildcards, you must escape or quote them.
+Μερικές φορές χρειάζεται να χρησιμοποιήσετε έναν πραγματικό αστερίσκο `*` ή ερωτηματικό `?` σε ένα όνομα αρχείου. Για να σταματήσετε το shell από το να τα ερμηνεύει ως wildcards, πρέπει να τα διαφύγετε (escape) ή να τα βάλετε σε εισαγωγικά.
 
-**Using a Backslash (`\`):**
+**Χρήση Ανάστροφης Κάθετου (`\`):**
 ```sh
 rm file\*.txt
 ```
-*(Deletes a file literally named `file*.txt`)*
+*(Διαγράφει ένα αρχείο που ονομάζεται κυριολεκτικά `file*.txt`)*
 
-**Using Quotes:**
+**Χρήση Εισαγωγικών:**
 ```sh
 rm 'file*.txt'
 ```
-*(Single quotes prevent all globbing and variable expansion.)*
+*(Τα μονά εισαγωγικά αποτρέπουν κάθε globbing και ανάπτυξη μεταβλητών.)*
 
 ***
 
-## Practical Workflow Examples
+## Πρακτικά Παραδείγματα Ροής Εργασίας
 
-**1. Organizing a messy downloads folder:**
+**1. Οργάνωση ακατάστατου φακέλου λήψεων:**
 ```sh
 mv *.jpg *.png *.gif ~/Pictures/
 mv *.pdf *.doc *.docx ~/Documents/
 ```
 
-**2. Cleaning up numbered logs, keeping only recent ones:**
+**2. Εκκαθάριση αριθμημένων logs, διατηρώντας μόνο τα πρόσφατα:**
 ```sh
 rm log_file_2022_??.log
 ```
-*(Deletes all monthly logs from 2022, e.g., `log_file_2022_01.log` to `log_file_2022_12.log`)*
+*(Διαγράφει όλα τα μηνιαία logs του 2022, π.χ. `log_file_2022_01.log` έως `log_file_2022_12.log`)*
 
-**3. Running a command on specific script versions:**
+**3. Εκτέλεση εντολής σε συγκεκριμένες εκδόσεις script:**
 ```sh
 chmod +x script_v[2-5].sh
 ```
-*(Makes versions 2, 3, 4, and 5 executable)*
+*(Καθιστά τις εκδόσεις 2, 3, 4 και 5 εκτελέσιμες)*

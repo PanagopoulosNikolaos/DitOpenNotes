@@ -1,31 +1,27 @@
-# Exam 9: Comprehensive Lab Part 1 - Navigation and Operations
-
-
-***
-
-## Questions
-
-**Question 1: Relative Path Creation**
-Your current directory in a UNIX system is `/local/home/student/project1`. You want to create a directory named `student1` inside the directory `/local/home/teacher`. 
-- Provide the complete UNIX command to achieve this using a **relative** path.
-
-**Question 2: Relative Path Navigation**
-Your current directory is `/home/paul/data`. 
-- Provide the complete UNIX command to set your current directory to `/home/peter/files` using a **relative** path.
-
-**Question 3: Directory Relocation**
-What command would you use to move the directory `global`, which is located in your current directory, along with all of its contents, into the directory `/local`?
-
-**Question 4: Hard and Soft Links**
-You have a file `source.txt`.
-- Write the command to create a symbolic (soft) link named `softlink.txt` pointing to `source.txt`.
-- What happens to `softlink.txt` if `source.txt` is deleted?
-
-**Question 5: Finding Files**
-Write the command using `find` to search for all files within the `/var/log` directory that have the `.log` extension and were modified within the last 7 days.
+# Θέμα 9: Ολοκληρωμένο Εργαστήριο Μέρος 1 - Πλοήγηση και Λειτουργίες
 
 ***
-*Tip: Draw out the directory tree on scratch paper if you get confused with relative paths!*
 
+## Ερωτήσεις
 
+**Ερώτηση 1: Δημιουργία Σχετικής Διαδρομής (Relative Path Creation)**
+Ο τρέχων κατάλογός σας σε ένα σύστημα UNIX είναι ο `/local/home/student/project1`. Θέλετε να δημιουργήσετε έναν κατάλογο με όνομα `student1` μέσα στον κατάλογο `/local/home/teacher`.
+- Δώστε την πλήρη εντολή UNIX για να το επιτύχετε αυτό χρησιμοποιώντας **σχετική** διαδρομή (relative path).
 
+**Ερώτηση 2: Πλοήγηση με Σχετική Διαδρομή (Relative Path Navigation)**
+Ο τρέχων κατάλογός σας είναι ο `/home/paul/data`.
+- Δώστε την πλήρη εντολή UNIX για να ορίσετε ως τρέχοντα κατάλογο τον `/home/peter/files` χρησιμοποιώντας **σχετική** διαδρομή (relative path).
+
+**Ερώτηση 3: Μετεγκατάσταση Καταλόγου (Directory Relocation)**
+Ποια εντολή θα χρησιμοποιούσατε για να μετακινήσετε τον κατάλογο `global`, που βρίσκεται στον τρέχοντα κατάλογό σας, μαζί με όλα τα περιεχόμενά του, μέσα στον κατάλογο `/local`;
+
+**Ερώτηση 4: Σκληροί και Συμβολικοί Σύνδεσμοι (Hard and Soft Links)**
+Έχετε ένα αρχείο `source.txt`.
+- Γράψτε την εντολή για να δημιουργήσετε έναν συμβολικό σύνδεσμο (soft link) με όνομα `softlink.txt` που να δείχνει στο `source.txt`.
+- Τι συμβαίνει στο `softlink.txt` εάν διαγραφεί το `source.txt`;
+
+**Ερώτηση 5: Αναζήτηση Αρχείων (Finding Files)**
+Γράψτε την εντολή χρησιμοποιώντας την `find` για να αναζητήσετε όλα τα αρχεία μέσα στον κατάλογο `/var/log` που έχουν την επέκταση `.log` και τροποποιήθηκαν τις τελευταίες 7 ημέρες.
+
+***
+*Συμβουλή: Σχεδιάστε το δέντρο καταλόγων σε ένα πρόχειρο χαρτί αν μπερδευτείτε με τις σχετικές διαδρομές!*

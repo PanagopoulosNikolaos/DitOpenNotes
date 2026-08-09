@@ -1,29 +1,29 @@
-# Database Systems
+# Βάσεις Δεδομένων
 
-## Course Overview
-This course covers the fundamental concepts of database systems, including database design, implementation, and management.
+## Επισκοπή Μαθήματος
+Αυτό το μάθημα καλύπτει τα βασικά concepts των βάσεων δεδομένων, καθώς και την ενσωμάτωση, υλοποίηση και διαχείρισή τους.
 
-## Course Code
-404 (DATABASES)
+## Κωδικός Μαθήματος
+404 (ΒΑΣΕΙΣ ΔΕΔΟΜΕΝΩΝ)
 
-## Prerequisites
-- Data Structures and Algorithms (CPE 202)
+## Προαπαιτούμενα
+- Δομές Δεδομένων & Αλγορίθμους (CPE 202)
 
-## Topics Covered
-- Database design and modeling
-- Relational database theory
-- SQL and query languages
-- Database normalization
-- Transaction management
-- Concurrency control
-- Database security
-- Database administration
-- NoSQL databases
+## Θεματικά Περιεχόμενα
+- Σχεδίαση και μοντέλοποίηση βάσεων δεδομένων
+- Θεωρία σχεσιακών βάσεων δεδομένων
+- Γλώσσες SQL και ερωτηματισμού
+- Κανονικοποίηση βάσεων δεδομένων
+- Διαχείριση συναλλαγών
+- Συγχρονισμός
+- Ασφάλεια βάσεων δεδομένων
+- Διαχείριση βάσεων δεδομένων
+- Βάσεις δεδομένων NoSQL
 
-## Learning Objectives
-- Design and implement database systems
-- Write complex SQL queries
-- Understand database normalization
-- Implement transaction management
-- Design database schemas
-- Apply database security principles
+## Στόχοι Μάθηματος
+- Σχεδίαση και υλοποίηση συστημάτων βάσεων δεδομένων
+- Σύνθεση πολύπλοκων ερωτηματισμών SQL
+- Κατανόηση της κανονικοποίησης βάσεων δεδομένων
+- Υλοποίηση διαχείρισης συναλλαγών
+- Σχεδίαση σχήματος βάσης δεδομένων
+- Εφαρμογή αρχών ασφάλειας βάσεων δεδομένων

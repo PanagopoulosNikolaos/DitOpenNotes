@@ -1,352 +1,339 @@
 # Κεφάλαιο 7 — Διαχείριση Μνήμης (Memory Management)
 
-This file covers the core concepts of main memory management as presented in Chapter 7 of the Operating Systems course. Topics include memory manager design, management strategies, fixed and dynamic partitioning, fragmentation, placement algorithms, and swapping. The material falls under **Type C — Engineering and Applied Science Topics**.
+Αυτό το αρχείο καλύπτει τις βασικές έννοιες διαχείρισης της κύριας μνήμης όπως παρουσιάζονται στο Κεφάλαιο 7 του μαθήματος Λειτουργικά Συστήματα. Τα θέματα περιλαμβάνουν τον σχεδιασμό του διαχειριστή μνήμης, στρατηγικές διαχείρισης, σταθερή και δυναμική τμηματοποίηση, κατακερματισμό, αλγορίθμους τοποθέτησης και εναλλαγή (swapping).
 
 ---
 
-## 1. Conceptual Foundation
+## 1. Θεμελιώδεις Έννοιες
 
-Memory management is the OS function responsible for subdividing main memory dynamically so that as many processes as possible can be serviced efficiently. Without it:
-- Programs larger than physical memory could not run.
-- Multiple processes could not coexist in memory simultaneously (no multiprogramming).
-- There would be no protection or isolation between processes.
+Η διαχείριση μνήμης είναι η λειτουργία του ΛΣ που είναι υπεύθυνη για τη δυναμική υποδιαίρεση της κύριας μνήμης ώστε να εξυπηρετούνται αποδοτικά όσο το δυνατόν περισσότερες διεργασίες. Χωρίς αυτήν:
+- Προγράμματα μεγαλύτερα από τη φυσική μνήμη δεν θα μπορούσαν να εκτελεστούν.
+- Πολλαπλές διεργασίες δεν θα μπορούσαν να συνυπάρξουν στη μνήμη ταυτόχρονα (απουσία πολυπρογραμματισμού).
+- Δεν θα υπήρχε προστασία ή απομόνωση μεταξύ των διεργασιών.
 
-**Key goals (from the programmer's and OS perspective):**
+**Βασικοί στόχοι (από την πλευρά του προγραμματιστή και του ΛΣ):**
 
-| Goal | Description |
+| Στόχος | Περιγραφή |
 | :--- | :--- |
-| Minimize access time | Reduce latency to fetch instructions/data |
-| Maximize addressable space | Allow programs to use as much memory as needed |
-| Enable multiprogramming | Keep multiple processes resident simultaneously |
-| Provide protection | Prevent one process from corrupting another |
-| Ease of programming | Hide physical memory constraints from the programmer |
+| Ελαχιστοποίηση χρόνου προσπέλασης | Μείωση της καθυστέρησης για ανάκτηση εντολών/δεδομένων |
+| Μεγιστοποίηση διευθυνσιοδοτούμενου χώρου | Επιλογή των προγραμμάτων να χρησιμοποιούν όση μνήμη χρειάζονται |
+| Υποστήριξη πολυπρογραμματισμού | Διατήρηση πολλαπλών διεργασιών ταυτόχρονα στη μνήμη |
+| Παροχή προστασίας | Αποτροπή αλλοίωσης μνήμης μιας διεργασίας από άλλη |
+| Ευκολία προγραμματισμού | Απόκρυψη περιορισμών φυσικής μνήμης από τον προγραμματιστή |
 
 ---
 
-## 2. The Memory Manager
+## 2. Ο Διαχειριστής Μνήμης (Memory Manager)
 
-The **memory manager** is the OS component responsible for organizing and applying memory management strategies.
+Ο **διαχειριστής μνήμης** (memory manager) είναι το συστατικό του ΛΣ που είναι υπεύθυνο για την οργάνωση και την εφαρμογή των στρατηγικών διαχείρισης μνήμης.
 
-**Responsibilities:**
-- Allocate primary (main) memory to processes.
-- Map each process's address space onto physical memory.
-- Minimize access time using cost-effective static or dynamic techniques.
-- Interact with dedicated hardware — the **Memory Management Unit (MMU)** — to improve performance.
+**Αρμοδιότητες:**
+- Εκχώρηση κύριας (πρωτεύουσας) μνήμης στις διεργασίες.
+- Αντιστοίχιση του χώρου διευθύνσεων κάθε διεργασίας στη φυσική μνήμη.
+- Ελαχιστοποίηση του χρόνου προσπέλασης με χρήση αποδοτικών στατικών ή δυναμικών τεχνικών.
+- Αλληλεπίδραση με εξειδικευμένο υλικό — τη **Μονάδα Διαχείρισης Μνήμης (MMU - Memory Management Unit)** — για βελτίωση της απόδοσης.
 
 ---
 
-## 3. Memory Management Strategies
+## 3. Στρατηγικές Διαχείρισης Μνήμης
 
-Three orthogonal strategy categories govern when, where, and which data occupies main memory:
+Τρεις ορθογώνιες κατηγορίες στρατηγικών καθορίζουν το πότε, πού και ποια δεδομένα καταλαμβάνουν την κύρια μνήμη:
 
-| Strategy Class | Purpose |
+| Κατηγορία Στρατηγικής | Σκοπός |
 | :--- | :--- |
-| **Fetch strategy** (Προσκόμισης) | Decides *when* the next program/data segment is moved from secondary to primary memory |
-| **Placement strategy** (Τοποθέτησης) | Decides *where* in main memory the incoming segment is placed |
-| **Replacement strategy** (Επανατοποθέτησης) | Decides *which* segment to evict when main memory is full |
+| **Στρατηγική Προσκόμισης** (Fetch strategy) | Αποφασίζει *πότε* το επόμενο τμήμα προγράμματος/δεδομένων μεταφέρεται από τη δευτερεύουσα στην κύρια μνήμη |
+| **Στρατηγική Τοποθέτησης** (Placement strategy) | Αποφασίζει *πού* στην κύρια μνήμη θα τοποθετηθεί το εισερχόμενο τμήμα |
+| **Στρατηγική Αντικατάστασης** (Replacement strategy) | Αποφασίζει *ποιο* τμήμα θα αποβληθεί όταν η κύρια μνήμη είναι πλήρης |
 
 ---
 
-## 4. Memory Allocation Types
+## 4. Τύποι Κατανομής Μνήμης
 
-### 4.1 Contiguous Allocation (Συνεχόμενη Εκχώρηση)
+### 4.1 Συνεχόμενη Εκχώρηση (Contiguous Allocation)
 
-The entire program is placed in adjacent memory locations.
-- Used in early computing systems.
-- If a program is larger than available memory, the system cannot execute it.
+Ολόκληρο το πρόγραμμα τοποθετείται σε γειτονικές/συνεχόμενες θέσεις μνήμης.
+- Χρησιμοποιήθηκε στα πρώτα υπολογιστικά συστήματα.
+- Εάν ένα πρόγραμμα είναι μεγαλύτερο από τη διαθέσιμη μνήμη, το σύστημα δεν μπορεί να το εκτελέσει.
 
-### 4.2 Non-Contiguous Allocation (Μη Συνεχόμενη Εκχώρηση)
+### 4.2 Μη Συνεχόμενη Εκχώρηση (Non-Contiguous Allocation)
 
-The program is divided into pieces (pages or segments) placed in non-adjacent slots of main memory.
-- Enables use of memory regions too small for an entire program.
-- Increases system complexity but significantly raises the degree of multiprogramming.
-- Realized through **virtual memory**.
+Το πρόγραμμα διαιρείται σε κομμάτια (σελίδες ή τμήματα) που τοποθετούνται σε μη γειτονικές θέσεις της κύριας μνήμης.
+- Επιτρέπει τη χρήση περιοχών μνήμης που είναι πολύ μικρές για ένα ολόκληρο πρόγραμμα.
+- Αυξάνει τη συνθετότητα του συστήματος αλλά αυξάνει σημαντικά τον βαθμό πολυπρογραμματισμού.
+- Υλοποιείται μέσω της **ιδεατής μνήμης (virtual memory)**.
 
 ---
 
-## 5. Basic Memory Management
+## 5. Βασική Διαχείριση Μνήμης
 
-### 5.1 Monoprogramming (Μονοπρογραμματισμός)
+### 5.1 Μονοπρογραμματισμός (Monoprogramming)
 
-One user monopolizes all system resources. Three simple physical memory layouts exist:
+Ένας μόνο χρήστης μονοπωλεί όλους τους πόρους του συστήματος. Υπάρχουν τρεις απλές διατάξεις φυσικής μνήμης:
 
 ```
-Layout A             Layout B             Layout C
+Διάταξη A            Διάταξη B            Διάταξη C
 +-----------------+  +-----------------+  +------------------+
-| User Program    |  | OS (ROM)        |  | Device Drivers   |
+| Πρόγραμμα Χρήστη|  | ΛΣ (ROM)        |  | Οδηγοί Συσκευών  |
 | (RAM)           |  +-----------------+  | (ROM)            |
-|                 |  | User Program    |  +------------------+
-+-----------------+  | (RAM)           |  | User Program     |
-| OS (RAM)        |  +-----------------+  | (RAM)            |
+|                 |  | Πρόγραμμα Χρήστη|  +------------------+
++-----------------+  | (RAM)           |  | Πρόγραμμα Χρήστη |
+| ΛΣ (RAM)        |  +-----------------+  | (RAM)            |
 | 0               |                    |  +------------------+
-+-----------------+                    |  | OS (RAM)         |
-                                        |  | 0                |
-                                        |  +------------------+
++-----------------+                    |  | ΛΣ (RAM)         |
+                                       |  | 0                |
+                                       |  +------------------+
 ```
 
-Memory protection is not a concern in monoprogramming — only one process runs at a time.
+Η προστασία μνήμης δεν αποτελεί πρόβλημα στον μονοπρογραμματισμό — εκτελείται μόνο μία διεργασία κάθε φορά.
 
-### 5.2 Overlays (Επικαλύψεις)
+### 5.2 Επικαλύψεις (Overlays)
 
-A technique enabling execution of programs larger than the available memory partition.
+Μια τεχνική που επιτρέπει την εκτέλεση προγραμμάτων μεγαλύτερων από το διαθέσιμο τμήμα μνήμης.
 
-**Mechanism:**
-1. The programmer divides the program into logical modules.
-2. A portion of the program and data that must always remain in memory occupies the fixed area.
-3. The remaining modules are loaded into an **overlay area** on demand, replacing the previous module.
+**Μηχανισμός:**
+1. Ο προγραμματιστής διαιρεί το πρόγραμμα σε λογικές μονάδες (modules).
+2. Ένα τμήμα του προγράμματος και δεδομένα που πρέπει να παραμένουν πάντα στη μνήμη καταλαμβάνουν τη σταθερή περιοχή.
+3. Οι υπόλοιπες μονάδες φορτώνονται σε μια **περιοχή επικάλυψης (overlay area)** κατά απαιτούμενο χρόνο, αντικαθιστώντας την προηγούμενη μονάδα.
 
 ```
-Memory:
+Μνήμη:
 +-------------------------+
-| OS                      |
-+-------------------------+  <-- address a
-| Permanent code/data     |
-+-------------------------+  <-- address b
-| Overlay area            |  <-- modules loaded here sequentially:
-|  [1] Initialization     |      (1) Load init phase, run
-|  [2] Processing         |      (2) Load processing phase, run
-|  [3] Output             |      (3) Load output phase, run
-+-------------------------+  <-- address c
+| ΛΣ                      |
++-------------------------+  <-- διεύθυνση a
+| Μόνιμος κώδικας/δεδομένα|
++-------------------------+  <-- διεύθυνση b
+| Περιοχή επικάλυψης      |  <-- μονάδες που φορτώνονται εδώ διαδοχικά:
+|  [1] Αρχικοποίηση       |      (1) Φόρτωση φάσης αρχικοποίησης, εκτέλεση
+|  [2] Επεξεργασία        |      (2) Φόρτωση φάσης επεξεργασίας, εκτέλεση
+|  [3] Έξοδος             |      (3) Φόρτωση φάσης εξόδου, εκτέλεση
++-------------------------+  <-- διεύθυνση c
 ```
 
-> **[Key Insight]** Overlays solve the size-fit problem but require the programmer to manually decompose the program. The OS does not manage this automatically.
+> **[Βασική Παρατήρηση]** Οι επικαλύψεις λύνουν το πρόβλημα μεγέθους, αλλά απαιτούν από τον προγραμματιστή να διασπάσει χειροκίνητα το πρόγραμμα. Το ΛΣ δεν το διαχειρίζεται αυτό αυτόματα.
 
 ---
 
-## 6. Memory and Multiprogramming
+## 6. Μνήμη και Πολυπρογραμματισμός
 
-### 6.1 Motivation
+### 6.1 Κίνητρο
 
-A single process frequently blocks on I/O operations, which are orders of magnitude slower than CPU operations. The CPU sits idle during I/O waits. **Multiprogramming** keeps multiple processes resident in memory so that when one process waits on I/O, another can use the CPU.
+Μια μεμονωμένη διεργασία συχνά μπλοκάρει σε λειτουργίες Εισόδου/Εξόδου (I/O), οι οποίες είναι τάξεις μεγέθους πιο αργές από τις λειτουργίες της CPU. Η CPU παραμένει αδρανής κατά την αναμονή I/O. Ο **πολυπρογραμματισμός (multiprogramming)** διατηρεί πολλαπλές διεργασίες στη μνήμη ώστε όταν μία διεργασία περιμένει I/O, μια άλλη να μπορεί να χρησιμοποιήσει τη CPU.
 
-### 6.2 CPU Utilization Formula
+### 6.2 Τύπος Εκμετάλλευσης CPU (CPU Utilization Formula)
 
-Let:
-- $p$ = probability that a process is waiting on I/O at any given moment
-- $v$ = number of processes (degree of multiprogramming)
+Έστω:
+- $p$ = πιθανότητα μια διεργασία να περιμένει I/O σε μια δεδομένη στιγμή
+- $v$ = αριθμός διεργασιών (βαθμός πολυπρογραμματισμού)
 
 $$
-\text{CPU utilization} = 1 - p^v
+\text{Εκμετάλλευση CPU} = 1 - p^v
 $$
 
-**Interpretation:** As $v$ increases, CPU utilization approaches 1 (100%). Higher I/O wait probability $p$ requires more concurrent processes to achieve the same utilization.
+**Ερμηνεία:** Καθώς το $v$ αυξάνεται, η εκμετάλλευση της CPU πλησιάζει το 1 (100%). Υψηλότερη πιθανότητα αναμονής I/O $p$ απαιτεί περισσότερες ταυτόχρονες διεργασίες για την επίτευξη της ίδιας εκμετάλλευσης.
 
-> **[Key Insight]** This formula assumes processes are independent and I/O waits are statistically independent. It is a probabilistic approximation, not an exact model.
+> **[Βασική Παρατήρηση]** Ο τύπος αυτός υποθέτει ότι οι διεργασίες είναι ανεξάρτητες και οι αναμονές I/O είναι στατιστικά ανεξάρτητες. Αποτελεί πιθανοτική προσέγγιση.
 
-**Example values:**
+**Πίνακας Τιμών:**
 
-| $p$ (I/O wait) | $v = 1$ | $v = 2$ | $v = 4$ | $v = 8$ |
+| $p$ (Αναμονή I/O) | $v = 1$ | $v = 2$ | $v = 4$ | $v = 8$ |
 | :--- | :--- | :--- | :--- | :--- |
 | 20% | 80% | 96% | 99.8% | ~100% |
 | 50% | 50% | 75% | 93.8% | 99.6% |
 | 80% | 20% | 36% | 59.0% | 83.2% |
 
-### 6.3 Trade-offs in Degree of Multiprogramming
+### 6.3 Συμβιβασμοί στον Βαθμό Πολυπρογραμματισμού
 
-- More processes → better CPU utilization, but requires better memory management and protection.
-- Fewer processes → less memory consumed, but CPU may be underutilized.
-- Higher I/O wait → more processes required to maintain CPU utilization.
+- Περισσότερες διεργασίες → καλύτερη εκμετάλλευση CPU, αλλά απαιτείται καλύτερη διαχείριση μνήμης και προστασία.
+- Λιγότερες διεργασίες → λιγότερη κατανάλωση μνήμης, αλλά η CPU ενδέχεται να υποαπασχολείται.
+- Υψηλότερη αναμονή I/O → απαιτούνται περισσότερες διεργασίες για διατήρηση της εκμετάλλευσης της CPU.
 
-> **[Key Insight]** For the remainder of this chapter, **contiguous allocation** is assumed: each process is assigned one contiguous memory block.
+> **[Βασική Παρατήρηση]** Στο υπόλοιπο αυτού του κεφαλαίου υποτίθεται **συνεχόμενη εκχώρηση**: σε κάθε διεργασία ανατίθεται ένα συνεχόμενο τμήμα μνήμης.
 
 ---
 
-## 7. Fixed Partitioning (Τμηματοποίηση Σταθερού Μεγέθους)
+## 7. Τμηματοποίηση Σταθερού Μεγέθους (Fixed Partitioning)
 
-Memory is divided into a fixed number of partitions at system boot time. The number and sizes of partitions do not change during operation.
+Η μνήμη διαιρείται σε έναν σταθερό αριθμό τμημάτων (partitions) κατά την εκκίνηση του συστήματος. Ο αριθμός και τα μεγέθη των τμημάτων δεν αλλάζουν κατά τη λειτουργία.
 
-- Each process occupies exactly **one partition**.
-- Maximum degree of multiprogramming = number of partitions.
+- Κάθε διεργασία καταλαμβάνει ακριβώς **ένα τμήμα**.
+- Μέγιστος βαθμός πολυπρογραμματισμού = αριθμός τμημάτων.
 
-### 7.1 Equal-Size Partitions (Ίσα Τμήματα)
+### 7.1 Ίσα Τμήματα (Equal-Size Partitions)
 
-All partitions have the same size.
+Όλα τα τμήματα έχουν το ίδιο μέγεθος.
 
-**Operation:**
-- Any process with size $\leq$ partition size can be loaded.
-- If all partitions are occupied, the OS swaps out one process.
-- A program larger than one partition requires **overlays**.
+**Λειτουργία:**
+- Οποιαδήποτε διεργασία με μέγεθος $\leq$ μέγεθος τμήματος μπορεί να φορτωθεί.
+- Εάν όλα τα τμήματα είναι κατειλημμένα, το ΛΣ κάνει swap-out μία διεργασία.
+- Ένα πρόγραμμα μεγαλύτερο από ένα τμήμα απαιτεί **επικαλύψεις (overlays)**.
 
-**Problem — Internal Fragmentation:**
+**Πρόβλημα — Εσωτερικός Κατακερματισμός (Internal Fragmentation):**
 
 $$
-\text{Internal Fragmentation} = \text{Partition Size} - \text{Process Size}
+\text{Εσωτερικός Κατακερματισμός} = \text{Μέγεθος Τμήματος} - \text{Μέγεθος Διεργασίας}
 $$
 
-Even the smallest process occupies an entire partition, wasting the remainder.
+Ακόμη και η μικρότερη διεργασία καταλαμβάνει ολόκληρο το τμήμα, σπαταλώντας το υπόλοιπο.
 
 ```
-Before loading:         After loading Process 1 (small):
+Πριν τη φόρτωση:        Μετά τη φόρτωση της Διεργασίας 1 (μικρή):
 +-----------+           +-----------+
-| 8 MB      | (free)    | Process 1 | (used by process)
+| 8 MB      | (ελεύθερο)| Διεργασία1| (χρησιμοποιείται)
 |           |           +-----------+
-|           |           | Unused    | <-- internal fragmentation
+|           |           | Αχρησιμοπ.| <-- εσωτερικός κατακερματισμός
 +-----------+           +-----------+
 ```
 
-**Advantages:**
-- Very low OS overhead.
+**Πλεονεκτήματα:**
+- Πολύ χαμηλή επιβάρυνση (overhead) του ΛΣ.
 
-**Disadvantages:**
-- Extremely inefficient memory use due to internal fragmentation.
-- Small processes waste large partition space.
+**Μειονεκτήματα:**
+- Εξαιρετικά μη αποδοτική χρήση μνήμης λόγω εσωτερικού κατακερματισμού.
+- Μικρές διεργασίες σπαταλούν μεγάλο χώρο τμήματος.
 
-### 7.2 Unequal-Size Partitions (Άνισα Τμήματα)
+### 7.2 Άνισα Τμήματα (Unequal-Size Partitions)
 
-Partitions have different sizes (e.g., 2 MB, 6 MB, 8 MB, 12 MB). This reduces internal fragmentation compared to equal-size partitions.
+Τα τμήματα έχουν διαφορετικά μεγέθη (π.χ. 2 MB, 6 MB, 8 MB, 12 MB). Αυτό μειώνει τον εσωτερικό κατακερματισμό σε σύγκριση με τα ίσα τμήματα.
 
-**Placement options:**
+**Επιλογές τοποθέτησης:**
 
-| Approach | Description | Drawback |
+| Προσέγγιση | Περιγραφή | Μειονέκτημα |
 | :--- | :--- | :--- |
-| **Queue per partition** | Each process is assigned to the queue of the smallest partition it fits in | A partition's queue may be empty while others are full; free memory exists but processes wait |
-| **Single global queue** | When a process must be loaded, select the smallest available partition that fits | Better CPU utilization; reduces idle partitions |
+| **Ουρά ανά τμήμα** | Κάθε διεργασία ανατίθεται στην ουρά του μικρότερου τμήματος στο οποίο χωράει | Η ουρά ενός τμήματος μπορεί να είναι άδεια ενώ άλλες είναι γεμάτες· υπάρχει ελεύθερη μνήμη αλλά οι διεργασίες περιμένουν |
+| **Μία γενική ουρά** | Όταν πρέπει να φορτωθεί μια διεργασία, επιλέγεται το μικρότερο διαθέσιμο τμήμα που χωράει | Καλύτερη εκμετάλλευση CPU· μειώνει τα αδρανή τμήματα |
 
-**Advantages over equal-size:**
-- Reduced internal fragmentation.
-- More efficient use of main memory.
+**Πλεονεκτήματα έναντι των ίσων τμημάτων:**
+- Μειωμένος εσωτερικός κατακερματισμός.
+- Πιο αποδοτική χρήση της κύριας μνήμης.
 
 ---
 
-## 8. Fragmentation (Κατακερματισμός)
+## 8. Κατακερματισμός (Fragmentation)
 
-| Type | Definition | Cause | Visibility |
+| Τύπος | Ορισμός | Αιτία | Ορατότητα |
 | :--- | :--- | :--- | :--- |
-| **Internal** (εσωτερικός) | Allocated memory inside a partition that is not used by the process | Allocated block must be $\geq$ requested size | Visible only to the process holding the partition |
-| **External** (εξωτερικός) | Free memory outside all partitions that cannot satisfy any pending request despite sufficient total free space | Memory requests vary in size; free blocks become scattered | Visible to the OS / system-wide |
+| **Εσωτερικός** (Internal) | Εκχωρημένη μνήμη εντός ενός τμήματος που δεν χρησιμοποιείται από τη διεργασία | Το εκχωρημένο τμήμα πρέπει να είναι $\geq$ από το ζητούμενο μέγεθος | Ορατός μόνο στη διεργασία που κατέχει το τμήμα |
+| **Εξωτερικός** (External) | Ελεύθερη μνήμη εκτός όλων των τμημάτων που δεν μπορεί να ικανοποιήσει καμία εκκρεμή αίτηση παρά τη επαρκή συνολική ελεύθερη μνήμη | Αιτήματα μνήμης διαφέρουν σε μέγεθος· τα ελεύθερα τμήματα διασκορπίζονται | Ορατός στο ΛΣ / σε ολόκληρο το σύστημα |
 
 ---
 
-## 9. Dynamic Partitioning (Δυναμική Τμηματοποίηση)
+## 9. Δυναμική Τμηματοποίηση (Dynamic Partitioning)
 
-Partitions are created at runtime with exactly the size required by each process. The number and sizes of partitions vary throughout system operation.
+Τα τμήματα δημιουργούνται κατά τον χρόνο εκτέλεσης (runtime) με το ακριβές μέγεθος που απαιτείται από κάθε διεργασία. Ο αριθμός και τα μεγέθη των τμημάτων ποικίλλουν καθ' όλη τη λειτουργία του συστήματος.
 
-**Key property:** A process is allocated exactly the memory it requests — no internal fragmentation.
+**Βασική ιδιότητα:** Σε μια διεργασία εκχωρείται ακριβώς η μνήμη που ζητά — απουσία εσωτερικού κατακερματισμού.
 
-**Problem — External Fragmentation:**
-Over time, as processes enter and leave, gaps (holes) appear in memory. These gaps may individually be too small to satisfy new requests, even though their sum could.
+**Πρόβλημα — Εξωτερικός Κατακερματισμός:**
+Με την πάροδο του χρόνου, καθώς οι διεργασίες εισέρχονται και εξέρχονται, εμφανίζονται κενά (οπές - holes) στη μνήμη. Αυτά τα κενά μεμονωμένα μπορεί να είναι πολύ μικρά για την ικανοποίηση νέων αιτήσεων, παρόλο που το άθροισμά τους θα επαρκούσε.
 
 ```
-Initial:                After P2 exits:        After P4 exits:
+Αρχικά:                 Μετά την έξοδο της P2: Μετά την έξοδο της P4:
 +----------+            +----------+           +----------+
-| OS       |            | OS       |           | OS       |
+| ΛΣ       |            | ΛΣ       |           | ΛΣ       |
 +----------+            +----------+           +----------+
 | P1       |            | P1       |           | P1       |
 +----------+            +----------+           +----------+
-| P2       |  P2 exits  | Hole     |           | Hole     |
+| P2       |  έξοδος P2 | Κενό     |           | Κενό     |
 +----------+  ------->  +----------+  ------>  +----------+
 | P3       |            | P3       |           | P3       |
 +----------+            +----------+           +----------+
-| P4       |            | P4       |  P4 exits | Hole     |
+| P4       |            | P4       |  έξοδος P4| Κενό     |
 +----------+            +----------+           +----------+
 | P5       |            | P5       |           | P5       |
 +----------+            +----------+           +----------+
-| Hole     |            | Hole     |           | Hole     |
+| Κενό     |            | Κενό     |           | Κενό     |
 +----------+            +----------+           +----------+
 ```
 
-**Solution — Compaction (Συμπίεση):**
-Shift all processes toward one end of memory so all free space coalesces into one contiguous block.
+**Λύση — Συμπίεση (Compacting / Compaction):**
+Μετατόπιση όλων των διεργασιών προς το ένα άκρο της μνήμης ώστε όλος ο ελεύθερος χώρος να συγχωνευθεί σε ένα συνεχόμενο τμήμα.
 
-**Compaction costs:**
-- Consumes CPU time.
-- Requires **dynamic relocation** capability: the ability to move a running program to a different memory area without invalidating its memory references (typically handled by the MMU via a relocation register).
+**Κόστος συμπίεσης:**
+- Καταναλώνει χρόνο CPU.
+- Απαιτεί δυνατότητα **δυναμικής μετατόπισης (dynamic relocation)**: την ικανότητα μετακίνησης ενός εκτελούμενου προγράμματος σε διαφορετική περιοχή μνήμης χωρίς να ακυρώνονται οι αναφορές μνήμης του (συνήθως διαχειρίζεται από την MMU μέσω ενός καταχωρητή μετατόπισης / relocation register).
 
 ---
 
-## 10. Placement Algorithms (Αλγόριθμοι Τοποθέτησης)
+## 10. Αλγόριθμοι Τοποθέτησης (Placement Algorithms)
 
-When a process requests memory, the OS must select which free block to allocate. The three standard algorithms apply to dynamic partitioning.
+Όταν μια διεργασία ζητά μνήμη, το ΛΣ πρέπει να επιλέξει ποιο ελεύθερο τμήμα θα εκχωρήσει. Οι τρεις τυπικοί αλγόριθμοι εφαρμόζονται στη δυναμική τμηματοποίηση.
 
-### 10.1 First-Fit
+### 10.1 First-Fit (Πρώτη Προσαρμογή)
 
-Scan memory **from the beginning**; allocate the **first** free block large enough.
+Σάρωση της μνήμης **από την αρχή**· εκχώρηση στο **πρώτο** ελεύθερο τμήμα που είναι αρκούντως μεγάλο.
 
-- Fastest algorithm.
-- Tends to cluster allocations at the low end of memory, creating many small holes there.
+- Ο γρηγορότερος αλγόριθμος.
+- Τείνει να συγκεντρώνει τις εκχωρήσεις στο χαμηλό άκρο της μνήμης, δημιουργώντας πολλά μικρά κενά εκεί.
 
-### 10.2 Best-Fit
+### 10.2 Best-Fit (Καλύτερη Προσαρμογή)
 
-Scan **all** free blocks; allocate the **smallest** free block that is large enough.
+Σάρωση **όλων** των ελεύθερων τμημάτων· εκχώρηση στο **μικρότερο** ελεύθερο τμήμα που είναι αρκούντως μεγάλο.
 
-- Minimizes wasted space within the chosen block.
-- Worst overall performance: leaves very small residual fragments that are too small for future allocations, causing frequent compaction.
-- Typically requires sorting or full scan of the free list.
+- Ελαχιστοποιεί τον σπαταλώμενο χώρο εντός του επιλεγμένου τμήματος.
+- Χειρότερη συνολική απόδοση: αφήνει πολύ μικρά υπολειμματικά θραύσματα που είναι πολύ μικρά για μελλοντικές εκχωρήσεις, προκαλώντας συχνή συμπίεση.
+- Συνήθως απαιτεί ταξινόμηση ή πλήρη σάρωση της λίστας ελεύθερων τμημάτων.
 
-### 10.3 Next-Fit
+### 10.3 Next-Fit (Επόμενη Προσαρμογή)
 
-Scan memory **from the point of the last allocation**; allocate the **next** free block large enough.
+Σάρωση της μνήμης **από το σημείο της τελευταίας εκχώρησης**· εκχώρηση στο **επόμενο** ελεύθερο τμήμα που είναι αρκούντως μεγάλο.
 
-- Distributes allocations more uniformly across memory.
-- Tends to fragment the large free block at the high end of memory.
-- Requires compaction to recover large free blocks at the end.
-- Performance similar to first-fit.
+- Κατανέμει τις εκχωρήσεις πιο ομοιόμορφα σε όλη τη μνήμη.
+- Τείνει να κατακερματίζει το μεγάλο ελεύθερο τμήμα στο υψηλό άκρο της μνήμης.
+- Απαιτεί συμπίεση για την ανάκτηση μεγάλων ελεύθερων τμημάτων στο τέλος.
+- Απόδοση παρόμοια με τη First-Fit.
 
-**Algorithm comparison:**
+**Σύγκριση αλγορίθμων:**
 
-| Algorithm | Scan Start | Selection Criterion | Speed | Fragmentation Behavior |
+| Αλγόριθμος | Αρχή Σάρωσης | Κριτήριο Επιλογής | Ταχύτητα | Συμπεριφορά Κατακερματισμού |
 | :--- | :--- | :--- | :--- | :--- |
-| First-Fit | Beginning | First sufficient block | Fastest | Small holes accumulate at low addresses |
-| Best-Fit | Full scan | Smallest sufficient block | Slowest | Tiny residual fragments everywhere |
-| Next-Fit | Last placement point | First sufficient block from that point | Moderate | Large end-block eroded |
+| First-Fit | Αρχή | Πρώτο επαρκές τμήμα | Ταχύτερος | Μικρά κενά συσσωρεύονται στις χαμηλές διευθύνσεις |
+| Best-Fit | Πλήρης σάρωση | Μικρότερο επαρκές τμήμα | Βραδύτερος | Μικροσκοπικά υπολειμματικά θραύσματα παντού |
+| Next-Fit | Σημείο τελευταίας τοποθέτησης | Πρώτο επαρκές τμήμα από αυτό το σημείο | Μέτρια | Διάβρωση του μεγάλου τελικού τμήματος |
 
 ---
 
-## 11. Swapping (Εναλλαγή)
+## 11. Εναλλαγή (Swapping)
 
-Swapping is the technique of temporarily moving an entire process from main memory to a **backing store** (secondary storage, typically a disk partition or swap file), freeing its memory for other processes.
+Η εναλλαγή (swapping) είναι η τεχνική προσωρινής μετακίνησης μιας ολόκληρης διεργασίας από την κύρια μνήμη σε μια **δευτερεύουσα μνήμη (backing store)**, απελευθερώνοντας τη μνήμη της για άλλες διεργασίες.
 
-**Swap-out:** Process is written from RAM to backing store.
-**Swap-in:** Process is read back from backing store into RAM.
+**Swap-out:** Η διεργασία εγγράφεται από τη RAM στη δευτερεύουσα μνήμη.
+**Swap-in:** Η διεργασία αναγιγνώσκεται πίσω από τη δευτερεύουσα μνήμη στη RAM.
 
 ```
-Main Memory         Backing Store
+Κύρια Μνήμη          Δευτερεύουσα Μνήμη
 +----------+        +----------+
-| OS       |        | P1 image |
+| ΛΣ       |        | Εικόνα P1|
 +----------+  <-->  +----------+
-| User     |  swap  | P2 image |
-| space    |        +----------+
+| Χώρος    |  swap  | Εικόνα P2|
+| χρήστη   |        +----------+
 +----------+
 ```
 
-**Memory allocation evolves as:**
-- New processes arrive and are loaded.
-- Processes complete and release memory.
-- Blocked processes are swapped out to disk.
+Η εκχώρηση μνήμης εξελίσσεται καθώς:
+- Νέες διεργασίες καταφθάνουν και φορτώνονται.
+- Διεργασίες ολοκληρώνονται και απελευθερώνουν μνήμη.
+- Μπλοκαρισμένες διεργασίες αποστέλλονται στον δίσκο (swap-out).
 
-Swapping is typically used in conjunction with dynamic partitioning. Memory changes over time as processes move in and out:
+### 11.1 Περιορισμοί της Εναλλαγής
 
-```
-State 1   State 2   State 3   State 4   State 5   State 6   State 7
-+-----+   +-----+   +-----+   +-----+   +-----+   +-----+   +-----+
-|     |   |     |   |  C  |   |  C  |   |  C  |   |  C  |   |  C  |
-|     |   |  B  |   |  B  |   |  B  |   |  B  |   |     |   |  A  |
-|  A  |   |  A  |   |  A  |   |     |   |  D  |   |  D  |   |  D  |
-| OS  |   | OS  |   | OS  |   | OS  |   | OS  |   | OS  |   | OS  |
-+-----+   +-----+   +-----+   +-----+   +-----+   +-----+   +-----+
-```
-(Grey/blank areas represent unused memory.)
-
-### 11.1 Limitations of Swapping
-
-| Problem | Description |
+| Πρόβλημα | Περιγραφή |
 | :--- | :--- |
-| Size constraint | A process must fit entirely within physical memory (no partial loading under contiguous allocation) |
-| Fragmentation | Memory fragments over time; compaction required |
-| Dual residence | A process can exist partially in memory and partially on disk simultaneously |
+| Περιορισμός μεγέθους | Μια διεργασία πρέπει να χωράει εξ ολοκλήρου στη φυσική μνήμη |
+| Κατακερματισμός | Η μνήμη κατακερματίζεται με την πάροδο του χρόνου· απαιτείται συμπίεση |
+| Διπλή διαμονή | Μια διεργασία μπορεί να υπάρχει εν μέρει στη μνήμη και εν μέρει στον δίσκο ταυτόχρονα |
 
-**Overlays** partially solve the size-constraint problem by subdividing a process over time (primarily data), but do **not** solve external fragmentation.
+Οι **επικαλύψεις (overlays)** λύνουν εν μέρει το πρόβλημα μέγεθους διασπώντας μια διεργασία στον χρόνο, αλλά **δεν** εξαλείφουν τον εξωτερικό κατακερματισμό.
 
 ---
 
-## Solved Exercises
+## Λυμένες Ασκήσεις
 
-### Exercise 1: CPU Utilization with Multiprogramming
+### Άσκηση 1: Εκμετάλλευση CPU με Πολυπρογραμματισμό
 
-**Problem:**
-A system has $p = 0.80$ (80% I/O wait). How many concurrent processes ($v$) are needed to achieve at least 90% CPU utilization?
+**Πρόβλημα:**
+Ένα σύστημα έχει $p = 0.80$ (80% αναμονή I/O). Πόσες ταυτόχρονες διεργασίες ($v$) απαιτούνται για την επίτευξη τουλάχιστον 90% εκμετάλλευσης της CPU;
 
-**Solution:**
+**Λύση:**
 
 $$
 \text{CPU} = 1 - p^v \geq 0.90
@@ -360,7 +347,7 @@ $$
 0.80^v \leq 0.10
 $$
 
-Taking logarithms:
+Παίρνοντας λογαρίθμους:
 
 $$
 v \cdot \ln(0.80) \leq \ln(0.10)
@@ -370,18 +357,18 @@ $$
 v \geq \frac{\ln(0.10)}{\ln(0.80)} = \frac{-2.3026}{-0.2231} \approx 10.32
 $$
 
-Therefore, $v \geq 11$ processes are needed to achieve $\geq 90\%$ CPU utilization when $p = 0.80$.
+Επομένως, απαιτούνται $v \geq 11$ διεργασίες για την επίτευξη $\geq 90\%$ εκμετάλλευσης CPU όταν $p = 0.80$.
 
 ---
 
-### Exercise 2: Internal Fragmentation in Equal-Size Partitions
+### Άσκηση 2: Εσωτερικός Κατακερματισμός σε Ίσα Τμήματα
 
-**Problem:**
-A system uses fixed equal-size partitions of 8 MB each (5 partitions). Process sizes are: 2 MB, 7 MB, 5 MB, 3 MB, 8 MB. Calculate total internal fragmentation.
+**Πρόβλημα:**
+Ένα σύστημα χρησιμοποιεί σταθερά ίσα τμήματα των 8 MB το καθένα (5 τμήματα). Τα μεγέθη διεργασιών είναι: 2 MB, 7 MB, 5 MB, 3 MB, 8 MB. Υπολογίστε τον συνολικό εσωτερικό κατακερματισμό.
 
-**Solution:**
+**Λύση:**
 
-| Process | Size | Partition Size | Internal Fragmentation |
+| Διεργασία | Μέγεθος | Μέγεθος Τμήματος | Εσωτερικός Κατακερματισμός |
 | :--- | :--- | :--- | :--- |
 | P1 | 2 MB | 8 MB | 6 MB |
 | P2 | 7 MB | 8 MB | 1 MB |
@@ -390,42 +377,38 @@ A system uses fixed equal-size partitions of 8 MB each (5 partitions). Process s
 | P5 | 8 MB | 8 MB | 0 MB |
 
 $$
-\text{Total internal fragmentation} = 6 + 1 + 3 + 5 + 0 = 15 \text{ MB}
+\text{Συνολικός εσωτερικός κατακερματισμός} = 6 + 1 + 3 + 5 + 0 = 15 \text{ MB}
 $$
 
-Out of $5 \times 8 = 40$ MB total memory (excluding OS), 15 MB (37.5%) is wasted.
+Από τα $5 \times 8 = 40$ MB συνολικής μνήμης (εκτός του ΛΣ), τα 15 MB (37.5%) σπαταλούνται.
 
 ---
 
-### Exercise 3: Placement Algorithms — Worked Example (from slides)
+### Άσκηση 3: Αλγόριθμοι Τοποθέτησης — Παράδειγμα
 
-**Problem:**
-Free memory blocks (in order): 8K, 12K, 22K, 18K, 8K, 6K, 14K, 36K.
-The **last allocation** was in the 18K block (14K was allocated there, leaving a small used portion).
-Allocate a new block of **16K**. Show the result for First-Fit, Best-Fit, and Next-Fit.
+**Πρόβλημα:**
+Ελεύθερα τμήματα μνήμης (με σειρά): 8K, 12K, 22K, 18K, 8K, 6K, 14K, 36K.
+Η **τελευταία εκχώρηση** ήταν στο τμήμα 18K.
+Εκχωρήστε ένα νέο τμήμα **16K**. Δείξτε το αποτέλεσμα για First-Fit, Best-Fit και Next-Fit.
 
-**Solution:**
+**Λύση:**
 
-Free blocks that can satisfy 16K: 22K, 18K (partially — but the slide shows 18K as occupied after 14K allocation, so it is not free), 36K.
-
-Examining only **free** blocks $\geq 16K$: 22K (position 3), 36K (last position).
+Ελεύθερα τμήματα $\geq 16K$: 22K (θέση 3), 36K (τελευταία θέση).
 
 **First-Fit:**
-Scan from the beginning. First free block $\geq 16K$ is **22K**.
-Allocate 16K there. Remaining fragment: $22 - 16 = 6K$.
+Σάρωση από την αρχή. Πρώτο ελεύθερο τμήμα $\geq 16K$ είναι το **22K**.
+Εκχώρηση 16K εκεί. Υπόλοιπο: $22 - 16 = 6K$.
 
 **Best-Fit:**
-Scan all free blocks. Smallest block $\geq 16K$: **18K** (if available) → from the slide the 18K block is shown as occupied; next candidate is **22K** (residual 6K). The slide confirms Best-Fit selects 18K and produces a **2K** residual.
-
-> **[Key Insight]** The slide example shows the 18K block as still containing a free portion. Best-Fit selected 18K (16K allocated, 2K residual) — this is the smallest block that fits, confirming it leaves the smallest fragment of all three algorithms but contributes to fine-grained fragmentation over time.
+Σάρωση όλων των ελεύθερων τμημάτων. Μικρότερο τμήμα $\geq 16K$: το **18K** (εάν διαθέσιμο) ή το **22K** (υπόλοιπο 6K). Η Best-Fit επιλέγει το 18K παράγοντας υπόλοιπο **2K**.
 
 **Next-Fit:**
-Scan from the **last allocation point** (after the 18K block → the 8K, 6K, 14K, 36K region). First free block $\geq 16K$ from that point: **36K**.
-Allocate 16K there. Remaining fragment: $36 - 16 = 20K$.
+Σάρωση από το **σημείο τελευταίας εκχώρησης** (μετά το τμήμα 18K). Πρώτο ελεύθερο τμήμα $\geq 16K$ από εκεί: το **36K**.
+Εκχώρηση 16K εκεί. Υπόλοιπο: $36 - 16 = 20K$.
 
-**Summary:**
+**Σύνοψη:**
 
-| Algorithm | Block Used | Residual Fragment |
+| Αλγόριθμος | Τμήμα που Χρησιμοποιήθηκε | Υπολειμματικό Θράυσμα |
 | :--- | :--- | :--- |
 | First-Fit | 22K | 6K |
 | Best-Fit | 18K | 2K |
@@ -433,142 +416,62 @@ Allocate 16K there. Remaining fragment: $36 - 16 = 20K$.
 
 ---
 
-### Exercise 4: Dynamic Partitioning — First-Fit (Άσκηση 2 from slides)
+### Άσκηση 4: Δυναμική Τμηματοποίηση — First-Fit
 
-**Problem:**
-Free memory blocks (in order): 100KB, 500KB, 200KB, 300KB, 600KB.
-Process requests arrive in order: 212KB, 417KB, 112KB, 426KB.
-Apply **First-Fit**. Show the state of free blocks after each allocation.
+**Πρόβλημα:**
+Ελεύθερα τμήματα μνήμης: 100KB, 500KB, 200KB, 300KB, 600KB.
+Αιτήματα διεργασιών με σειρά: 212KB, 417KB, 112KB, 426KB.
+Εφαρμόστε **First-Fit**.
 
-**Solution:**
+**Λύση:**
 
-Initial free list: [100, 500, 200, 300, 600]
+Αρχική λίστα: [100, 500, 200, 300, 600]
 
-**Request 212KB:**
-First-Fit scans: 100 (too small), 500 ($\geq$ 212). Allocate from 500KB block.
-Residual: $500 - 212 = 288KB$.
-Free list: [100, 288, 200, 300, 600]
-
-**Request 417KB:**
-First-Fit scans: 100 (no), 288 (no), 200 (no), 300 (no), 600 ($\geq$ 417). Allocate from 600KB.
-Residual: $600 - 417 = 183KB$.
-Free list: [100, 288, 200, 300, 183]
-
-**Request 112KB:**
-First-Fit scans: 100 (no), 288 ($\geq$ 112). Allocate from 288KB.
-Residual: $288 - 112 = 176KB$.
-Free list: [100, 176, 200, 300, 183]
-
-**Request 426KB:**
-First-Fit scans: 100, 176, 200, 300 — all $< 426$. 183 also $< 426$. **Cannot satisfy.** Request fails (or process waits).
-Free list: [100, 176, 200, 300, 183] (unchanged)
+- **Αίτημα 212KB:** Εκχώρηση από 500KB. Υπόλοιπο: 288KB. Λίστα: [100, 288, 200, 300, 600].
+- **Αίτημα 417KB:** Εκχώρηση από 600KB. Υπόλοιπο: 183KB. Λίστα: [100, 288, 200, 300, 183].
+- **Αίτημα 112KB:** Εκχώρηση από 288KB. Υπόλοιπο: 176KB. Λίστα: [100, 176, 200, 300, 183].
+- **Αίτημα 426KB:** Κανένα τμήμα $\geq 426KB$. Το αίτημα αποτυγχάνει.
 
 ---
 
-### Exercise 5: Dynamic Partitioning — Best-Fit (Άσκηση 2 from slides)
+### Άσκηση 5: Δυναμική Τμηματοποίηση — Best-Fit
 
-**Problem:** Same initial free list and requests as Exercise 4. Apply **Best-Fit**.
+**Πρόβλημα:** Ίδια δεδομένα με την Άσκηση 4. Εφαρμόστε **Best-Fit**.
 
-**Solution:**
+**Λύση:**
 
-Initial free list: [100, 500, 200, 300, 600]
+- **Αίτημα 212KB:** Μικρότερο επαρκές τμήμα είναι το **300KB**. Υπόλοιπο: 88KB. Λίστα: [100, 500, 200, 88, 600].
+- **Αίτημα 417KB:** Μικρότερο επαρκές τμήμα είναι το **500KB**. Υπόλοιπο: 83KB. Λίστα: [100, 83, 200, 88, 600].
+- **Αίτημα 112KB:** Μικρότερο επαρκές τμήμα είναι το **200KB**. Υπόλοιπο: 88KB. Λίστα: [100, 83, 88, 88, 600].
+- **Αίτημα 426KB:** Εκχώρηση από το **600KB**. Υπόλοιπο: 174KB. Λίστα: [100, 83, 88, 88, 174].
 
-**Request 212KB:**
-Blocks $\geq 212$: 500, 300, 600. Smallest is **300KB**.
-Residual: $300 - 212 = 88KB$.
-Free list: [100, 500, 200, 88, 600]
-
-**Request 417KB:**
-Blocks $\geq 417$: 500, 600. Smallest is **500KB**.
-Residual: $500 - 417 = 83KB$.
-Free list: [100, 83, 200, 88, 600]
-
-**Request 112KB:**
-Blocks $\geq 112$: 200, 600. Smallest is **200KB**.
-Residual: $200 - 112 = 88KB$.
-Free list: [100, 83, 88, 88, 600]
-
-**Request 426KB:**
-Blocks $\geq 426$: 600. Allocate from **600KB**.
-Residual: $600 - 426 = 174KB$.
-Free list: [100, 83, 88, 88, 174]
-
-All requests satisfied.
+Όλα τα αιτήματα ικανοποιούνται.
 
 ---
 
-### Exercise 6: Dynamic Partitioning — Next-Fit (Άσκηση 2 from slides)
+### Άσκηση 6: Δυναμική Τμηματοποίηση — Next-Fit
 
-**Problem:** Same initial free list [100, 500, 200, 300, 600]. Last allocation was before the **200KB block**. Apply **Next-Fit**.
+**Πρόβλημα:** Ίδια αρχική λίστα [100, 500, 200, 300, 600]. Η τελευταία εκχώρηση ήταν πριν από το τμήμα 200KB. Εφαρμόστε **Next-Fit**.
 
-**Solution:**
+**Λύση:**
 
-Scan starts **at** the 200KB block (the block after the last placement point).
-
-**Request 212KB:**
-Start at 200KB: 200 (no), 300 ($\geq 212$). Allocate from **300KB**.
-Residual: $300 - 212 = 88KB$. Last pointer → after 300KB block.
-Free list: [100, 500, 200, 88, 600]
-
-**Request 417KB:**
-Start after 300KB block: scan 88 (no), 600 ($\geq 417$). Allocate from **600KB**.
-Residual: $600 - 417 = 183KB$. Last pointer → after 600KB block.
-Free list: [100, 500, 200, 88, 183]
-
-**Request 112KB:**
-Wrap around from end: scan 100 (no), 500 ($\geq 112$). Allocate from **500KB**.
-Residual: $500 - 112 = 388KB$. Last pointer → after 500KB block.
-Free list: [100, 388, 200, 88, 183]
-
-**Request 426KB:**
-Start after 500KB block: scan 200 (no), 88 (no), 183 (no); wrap: 100 (no), 388 (no). **Cannot satisfy.**
-Free list: [100, 388, 200, 88, 183] (unchanged)
+- **Αίτημα 212KB:** Σάρωση από 200KB → εκχώρηση από **300KB**. Υπόλοιπο: 88KB. Λίστα: [100, 500, 200, 88, 600].
+- **Αίτημα 417KB:** Σάρωση μετά το 300KB → εκχώρηση από **600KB**. Υπόλοιπο: 183KB. Λίστα: [100, 500, 200, 88, 183].
+- **Αίτημα 112KB:** Ανακύκλωση από την αρχή → εκχώρηση από **500KB**. Υπόλοιπο: 388KB. Λίστα: [100, 388, 200, 88, 183].
+- **Αίτημα 426KB:** Κανένα επαρκές τμήμα. Το αίτημα αποτυγχάνει.
 
 ---
 
-### Exercise 7: Placement Algorithm 1 (Άσκηση 1 from slides)
+## Συμβουλές Εξετάσεων
 
-**Problem:**
-Memory image (left to right = low to high address). Shaded = occupied, white = free, black = last allocation point (12KB was last placed there).
+> **[Συμβουλή Εξετάσεων — Τύπος Εκμετάλλευσης CPU]**
+> Όταν σας ζητείται ο ελάχιστος αριθμός διεργασιών $v$ για στόχο εκμετάλλευσης $u$, αναδιατάξτε τον τύπο $1 - p^v \geq u$ σε $p^v \leq 1 - u$ και εφαρμόστε λογαρίθμους: $v \geq \dfrac{\ln(1-u)}{\ln(p)}$. Στρογγυλοποιείτε πάντα **προς τα πάνω** στον πλησιέστερο ακέραιο.
 
-| 20KB | [occ] | 30KB | [occ] | 12KB | [last] | 32KB | [occ] | 24KB | [occ] | 48KB |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+> **[Συμβουλή Εξετάσεων — Αναγνώριση Κατακερματισμού]**
+> - **Εσωτερικός** κατακερματισμός: ο σπαταλώμενος χώρος είναι *εντός* ενός εκχωρημένου τμήματος. Σχετίζεται με τη **σταθερή τμηματοποίηση**.
+> - **Εξωτερικός** κατακερματισμός: ο σπαταλώμενος χώρος είναι *μεταξύ* εκχωρημένων τμημάτων. Σχετίζεται με τη **δυναμική τμηματοποίηση**.
 
-Free blocks: **20KB**, **30KB**, **32KB**, **48KB** (the 12KB block is the last-used region; 24KB is occupied).
-Allocate **22KB**. Show result for First-Fit, Best-Fit, Next-Fit.
-
-**Solution:**
-
-Free blocks $\geq$ 22KB: 30KB, 32KB, 48KB.
-
-**First-Fit:** Scan from start → first free block $\geq$ 22 is **30KB**.
-Allocate 22KB; residual = **8KB**.
-
-**Best-Fit:** Smallest free block $\geq$ 22 is **30KB** (residual 8K) — 30 is closer to 22 than 32 or 48.
-Allocate 22KB; residual = **8KB**.
-
-> **[Key Insight]** In this particular instance First-Fit and Best-Fit select the same block. Best-Fit is not always distinguishable from First-Fit in small examples.
-
-**Next-Fit:** Last placement was in the 12KB region (between the two occupied blocks at position 5). Scan forward: next free block from that point = **32KB**.
-Allocate 22KB; residual = **10KB**.
-
----
-
-## Exam Tips
-
-> **[Exam Tip — CPU Utilization Formula]**
-> When asked to find the minimum number of processes $v$ for a target CPU utilization $u$, rearrange $1 - p^v \geq u$ to $p^v \leq 1 - u$ and apply logarithms: $v \geq \dfrac{\ln(1-u)}{\ln(p)}$. Always round **up** to the nearest integer. Do not forget to verify with the original formula.
-
-> **[Exam Tip — Fragmentation Identification]**
-> - **Internal** fragmentation: the wasted space is *inside* an allocated block — it belongs to a process that does not use it. Associated with **fixed partitioning**.
-> - **External** fragmentation: the wasted space is *between* allocated blocks — it is free, but split into pieces too small to use. Associated with **dynamic partitioning**.
-> These are mutually exclusive by definition.
-
-> **[Exam Tip — Placement Algorithm Comparison]**
-> The most common exam question asks you to apply all three algorithms to the same request and compare residual fragments. Remember:
-> - **Best-Fit** always selects the *tightest* block but produces the most useless tiny fragments.
-> - **Next-Fit** tends to destroy the largest block at the high end of memory.
-> - **First-Fit** is empirically as good as or better than Best-Fit overall, and is faster.
-
-> **[Exam Tip — Overlay vs. Swapping]**
-> Overlays divide a **single process** over time (programmer-managed). Swapping moves **entire processes** in and out of memory (OS-managed). Overlays solve the size problem; neither technique eliminates external fragmentation.
+> **[Συμβουλή Εξετάσεων — Σύγκριση Αλγορίθμων Τοποθέτησης]**
+> - Η **Best-Fit** επιλέγει πάντα το *στενότερο* τμήμα αλλά παράγει τα πιο άχρηστα μικροσκοπικά θραύσματα.
+> - Η **Next-Fit** τείνει να καταστρέφει το μεγάλο τμήμα στο υψηλό άκρο της μνήμης.
+> - Η **First-Fit** είναι εμπειρικά εξίσου καλή ή καλύτερη από τη Best-Fit συνολικά, και είναι ταχύτερη.

@@ -1,143 +1,143 @@
-# Bases Dedomenon (Mindmap)
+# Βάσεις Δεδομένων (Mindmap)
 
-## Eisagogi & Basikes Ennoies
+## Εισαγωγή & Βασικές Έννοιες
 
-### Dedomena, Pliroforia kai Gnosi
+### Δεδομένα, Πληροφορία και Γνώση
 
-- Epeksergasia akatergaston dedomenon (Data)
-- Paragogi pliroforias (Information)
-- Dimioyrgia gnosis gia lipsi apofaseon (Knowledge)
+- Επεξεργασία ακατέργαστων δεδομένων (Data)
+- Παραγωγή πληροφορίας (Information)
+- Δημιουργία γνώσης για λήψη αποφάσεων (Knowledge)
 
-### Pliroforiaka Systimata (PS)
+### Πληροφοριακά Συστήματα (ΠΣ)
 
-- Yliko (Hardware)
-- Logismiko (Software)
-- Dedomena (Data)
-- Diadikasies (Processes)
-- Anthropoi (People - Xristes, Diacheiristes)
+- Υλικό (Hardware)
+- Λογισμικό (Software)
+- Δεδομένα (Data)
+- Διαδικασίες (Processes)
+- Άνθρωποι (People - Χρήστες, Διαχειριστές)
 
-### Systimata Diacheirisis Vaseon Dedomenon (SDVD / DBMS)
+### Συστήματα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ / DBMS)
 
-- Apothikefsi, anaktici kai apodotiki diacheirisi
-- Prostasia dedomenon kai politikes asfaleias
-- Tautochroni prosvasis apo pollaplous xristes (Concurrency)
-- Elachistopoiisi pleonasmou kai asynepeias dedomenon
+- Αποθήκευση, ανάκτηση και αποδοτική διαχείριση
+- Προστασία δεδομένων και πολιτικές ασφάλειας
+- Ταυτόχρονη πρόσβαση από πολλούς χρήστες (Concurrency)
+- Ελαχιστοποίηση πλεονασμού και ασυνέπειας δεδομένων
 
-## Kyklos Zois & Schediasmos Vasis Dedomenon
+## Κύκλος Ζωής & Σχεδιασμός Βάσεων Δεδομένων
 
-### Vima 1: Syllogi & Analysi Apaitiseon
+### Βήμα 1: Συλλογή & Ανάλυση Απαιτήσεων
 
-- Kathorismos anachon xriston kai organismou
-- Apotyposi epicheirisiakon leitourgon kai prodiagrafon
+- Καθορισμός αναχειριστών χρήστης και οργανισμού
+- Αποτυπώση επιχειρησιακών λειτουργιών και προδιαγραφών
 
-### Vima 2: Ennoiologiki Schediasi
+### Βήμα 2: Εννοιολογική Σχεδίαση
 
-- Dimioyrgia Montelou Ontotiton-Sychetiseon (ER Model)
-- Schimatiki optikopoiisi tis logikis domis
+- Δημιουργία Μοντέλου Οντοτήτων-Σχέσεων (ER Model)
+- Σχεδιαστική οπτικοποίηση της λογικής δομής
 
-### Vima 3: Logiki Schediasi
+### Βήμα 3: Λογική Σχεδίαση
 
-- Metavasi sto Schesiako Montelo Dedomenon
-- Metatropi ennoiologikou montelou se exartomenous pinakes
+- Μετάβαση στο Σχηματικό Μοντέλο Δεδομένων
+- Μετάτρψη εννοιολογικού μοντέλου σε εξαρτώμενους πίνακες
 
-### Vima 4: Fysiki Schediasi & Ylopoiiisi
+### Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση
 
-- Esoteriki organosi archeion sto systima
-- Programmatismos me SQL kai dimioyrgia fysikon domon
+- Εσωτερική οργάνωση αρχείων στο σύστημα
+- Προγραμματισμός με SQL και δημιουργία φυσικών δομών
 
-## Montelo Ontotiton-Sychetiseon (E-R)
+## Μοντέλο Οντοτήτων-Σχέσεων (E-R)
 
-### Ontotites (Entities)
+### Οντότητες (Entities)
 
-- **Ischyes Ontotites** (Anexartiti yparksi, kanonika orthogonia)
-- **Astheneis Ontotites** (Exartomenes yparxiaka, dipla orthogonia)
+- **Ισχύς Οντότητες** (Ανεξάρτητη ύπαρξη, κανονικές σχέσεις)
+- **Ασθενείς Οντότητες** (Εξαρτημένες ύπαρξεις, διπλές σχέσεις)
 
-### Gnorismata (Attributes)
+### Γνωρίσματα (Attributes)
 
-- **Apla** (Mi diaireta) kai **Syntheta** (P.x. Onomateponymo)
-- **Monotima** (Mia timi) kai **Pleiotima** (Polles times, diples elleipseis)
-- **Paragomena** (Ypologizomena apo alla pedia, diakekomenes elleipseis)
+- **Απλά** (Μη διαχωρίσιμα) και **Συνθετικά** (π.χ. Ονοματεπώνυμο)
+- **Μονόδομες** (Μία τιμή) και **Πολυδομες** (Πολλές τιμές, διπλές ελλείψεις)
+- **Παραγώγιμα** (Υπολογισμένα από άλλα πεδία, δηλ. ελλείψεις)
 
-### Sychetiseis (Relationships)
+### Σχέσεις (Relationships)
 
-- **Vathmos sychetisis** (Monadiaia/Anadromiki, Dyadiki, Triadiki)
-- **Anaparastasi me romvous** (aplous i diplous)
+- **Βάθος σχέσης** (Μονάδα/Ανάδρομη, Διάδρομος, Τριγωνικό)
+- **Αναπαράσταση με ρομβούς** (απλούς ή διπλούς)
 
-### Periorismoi Plithikotitas (Cardinality Constraints)
+### Περιορισμοί Πληθικότητας (Cardinality Constraints)
 
-- **Ena-pros-Ena** (1:1)
-- **Ena-pros-Polla** (1:N)
-- **Polla-pros-Polla** (N:M)
+- **Ένα-προς-Ένα** (1:1)
+- **Ένα-προς-Πολλά** (1:N)
+- **Πολλά-προς-Πολλά** (N:M)
 
-## Schesiako Montelo & Schesiaki Algevra
+## Σχηματικό Μοντέλο & Σχεσιακή Άλγεβρα
 
-### Vasika Stoicheia Schesiakou Montelou
+### Βασικά Στοιχεία Σχηματικού Μοντέλου
 
-- **Scheseis** (Antistoichoun stous Pinakes / Tables)
-- **Pleiades** (Antistoichoun stis Engrafes / Grammes / Rows)
-- **Gnorismata** (Antistoichoun stis Stiles / Columns)
-- **Pedia Orismou** (Domains - Epitreptes times ana pedio)
+- **Σχέσεις** (Αντίστοιχα στους Πίνακες / Tables)
+- **Πλειάδες** (Αντίστοιχα στις Εγγραφές / Rows)
+- **Γνωρίσματα** (Αντίστοιχα στις Στήλες / Columns)
+- **Πεδία Ορισμού** (Domains - Επιτρεπτές τιμές ανά πεζί)
 
-### Periorismoi kai Kleidia
+### Περιορισμοί & Κλειδιά
 
-- **Ypochifia Kleidia** (Candidate Keys - Synola idiotiton monadikotitas)
-- **Proteon Kleidi** (Primary Key - To epilegmeno ypochifio kleidi)
-- **Xeno Kleidi** (Foreign Key - Gefyra syndesis pinakon)
-- **Akeraiotita ontotiton** (Kanena PK null) kai **anaforiki akeraiotita**
+- **Υποχειριακά Κλειδιά** (Candidate Keys - Συνολική μοναδικότητα)
+- **Πρωτεύον Κλειδί** (Primary Key - Το επιλεγμένο υποχειριακό κλειδί)
+- **Ξένο Κλειδί** (Foreign Key - Γέφυρα σύνδεσης πινάκων)
+- **Ακεραιότητα οντότητων** (Κανένα PK null) και **αναφορική ακεραιότητα**
 
-### Prakseis Schesiakis Algebras
+### Πράξεις Σχεσιακής Άλγεβρας
 
-- **Theorias Synolon**: Enosi (Union), Tomi (Intersection), Diafora (Difference), Kartesianino Ginomeno (Cartesian Product)
-- **Eidikes Schesiakes**: Epilogi (Selection), Provoli (Projection)
-- **Synenoseis**: Esoteriki synenosi (Inner Join)
+- **Θεωριακές Συνελίξεις**: Ενώση (Union), Τομή (Intersection), Διαφορά (Difference), Καρτεσιακό Γιννεμο (Cartesian Product)
+- **Ειδικές Σχεσιακές**: Επιλογή (Selection), Προβολή (Projection)
+- **Συνελίξεις**: Εσωτερική συνέλιξη (Inner Join)
 
-## Glossa SQL: Orismos Dedomenon (DDL - Data Definition Language)
+## Γλώσσα SQL: Ορισμός Δεδομένων (DDL - Data Definition Language)
 
-### Diacheirisi Vaseon Dedomenon
+### Διαχείριση Βάσεων Δεδομένων
 
-- **CREATE DATABASE / SCHEMA** (Dimiourgia neas VD)
-- **DROP DATABASE** (Oliki diagrafi VD)
-- **USE** (Epilogi energis VD gia to trechon session)
-- **SHOW DATABASES** (Provoli olon ton diathesimon VD)
+- **CREATE DATABASE / SCHEMA** (Δημιουργία νέας βάσης δεδομένων)
+- **DROP DATABASE** (Ολική διαγραφή βάσης δεδομένων)
+- **USE** (Επιλογή ενεργής βάσης δεδομένων για τη συνεδρία)
+- **SHOW DATABASES** (Προβολή όλων των διαθέσιμων βάσεων δεδομένων)
 
-### Diacheirisi Pinakon (Domi/Schima)
+### Διαχείριση Πινάκων (Δωμάτιο/Σχήμα)
 
-- **CREATE TABLE** (Dimiourgia pinaka, orismos pedion, typon kai Primary Key)
-- **DROP TABLE** (Oristiki diagrafi pinaka)
-- **DESCRIBE / EXPLAIN** (Provoli tou schimatos/metadata tou pinaka)
+- **CREATE TABLE** (Δημιουργία πίνακα, ορισμός πεδίων, τύπων και Πρωτεύον Κλειδιού)
+- **DROP TABLE** (Επιλεκτική διαγραφή πίνακα)
+- **DESCRIBE / EXPLAIN** (Παρουσίαση σχεδίου/μαγνητογραφίας του πίνακα)
 
-### Tropopoiisi Schimatos Pinaka (ALTER TABLE)
+### Τροποποίηση Σχεδίου Πίνακα (ALTER TABLE)
 
-- **ADD** (Prosthesi neas stilis sto telos)
-- **MODIFY** (Allagi tou typou dedomenon mias yparxousas stilis)
-- **CHANGE** (Metonomasia stilis me taytochroni dilosi neou typou)
-- **DROP COLUMN** (Afairesi stilis - prokalei apoleia dedomenon)
+- **ADD** (Πρόσθεση νέας στήλης στο τέλος)
+- **MODIFY** (Άλλαγη τύπου δεδομένων μιας υπάρχουσας στήλης)
+- **CHANGE** (Μετανώναση στήλης με ταυχόμενη οριστική δήλωση νέου τύπου)
+- **DROP COLUMN** (Αφαίρεση στήλης - προκαλεί απώλεια δεδομένων)
 
-## Glossa SQL: Cheirismos & Erotimata (DML & DQL)
+## Γλώσσα SQL: Χειρισμός & Ερωτήματα (DML & DQL)
 
-### Cheirismos Dedomenon (DML - Data Manipulation Language)
+### Χειρισμός Δεδομένων (DML - Data Manipulation Language)
 
-- **INSERT INTO** (Eisagogi neon engrafon/pleiadon se enan pinaka)
-- **UPDATE ... SET ... WHERE** (Enimerosi/tropopoiisi yparxonton dedomenon)
-- **DELETE FROM ... WHERE** (Diagrafi sygkekrimenon engrafon vasi synthikis)
+- **INSERT INTO** (Εισαγωγή νέων εγγραφών/πλειάδων σε έναν πίνακα)
+- **UPDATE ... SET ... WHERE** (Ενημέρωση/τροποποίηση υπαρχόντων δεδομένων)
+- **DELETE FROM ... WHERE** (Διαγραφή συγκεκριμένων εγγραφών βάσει συνθήκης)
 
-### Erotimata & Anaktisi (DQL - Data Query Language)
+### Ερωτήματα & Ανάκτιση (DQL - Data Query Language)
 
-- **Basiki domi**: SELECT (Ti anakta), FROM (Apo pou), WHERE (Me poious orous)
-- **Provoli sygkekrimenon stilon i synolou afton (*)**
-- **Filtarisma, telestes sygrisis (=, >, <) kai logikoi telestes (AND, OR, NOT)**
+- **Βασική δομή**: SELECT (Τι ανακτά), FROM (Από πού), WHERE (Με ποιους ορούς)
+- **Προβολή συγκεκριμένων στλων ή ολόκληρου του συνόλου (*)**
+- **Φίλτρα, συνθέτες σύγκρισης (=, >, <) και λογικοί συνθέτες (AND, OR, NOT)**
 
-## Praktiki Efarmogi & Perivallonta Anaptyxis
+## Πρακτική Εφαρμοή & Περιβάλλοντα Ανάπτυξης
 
-### Ergaleia, Systimata & Architektoniki
+### Εργαλεία, Σύστηματα & Αρχιτεκτονικές
 
-- **MySQL Server** (To Backend systima diacheirisis)
-- **MySQL Workbench** (Grafiko perivallon diacheirisis / GUI Client)
-- **XAMPP & phpMyAdmin** (Paketo web diacheirisis kai ypiresion)
+- **MySQL Server** (Το backend σύστημα διαχείρισης)
+- **MySQL Workbench** (Γραφικό περιβάλλον διαχείρισης / GUI Client)
+- **XAMPP & phpMyAdmin** (Πακέτο web διαχείρισης και υπηρεσιών)
 
-### Ylopoiiisi se Pragmatikes Synthikes
+### Υλοποίηση σε Πρακτικές Σχεδισμένες
 
-- Prosdiorismos katallilon typon dedomenon (INT, VARCHAR, DATE k.a.)
-- Ylopoiiisi periorismon (NOT NULL, UNIQUE, DEFAULT)
-- Syndesi pinakon meso Xenon Kleidion (Dilosi FOREIGN KEY ... REFERENCES)
-- Diacheirisi scheseon "polla-pros-polla" (Analysi se 1:N meso endiamesou pinaka)
+- Καθορισμός κατάλληλων τύπων δεδομένων (INT, VARCHAR, DATE κ.α.)
+- Υλοποίηση περιιγμή (NOT NULL, UNIQUE, DEFAULT)
+- Σύνδεση πινάκων με Ξένο Κλειδί (Δήλωση FOREIGN KEY ... REFERENCES)
+- Διαχείριση σχέσεων "πολλά-προς-πολλά" (Ανάλυση σε 1:N με μεσαίους πίνακες)

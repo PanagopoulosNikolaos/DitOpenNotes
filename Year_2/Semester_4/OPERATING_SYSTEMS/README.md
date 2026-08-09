@@ -1,30 +1,30 @@
-# Operating Systems
+# Λειτουργικά Συστήματα (Operating Systems)
 
-## Course Overview
-This course covers the fundamental concepts of operating systems, including process management, memory management, file systems, and system calls.
+## Επισκόπηση Μαθήματος
+Το μάθημα αυτό καλύπτει τις βασικές έννοιες των λειτουργικών συστημάτων, συμπεριλαμβανομένης της διαχείρισης διεργασιών, της διαχείρισης μνήμης, των συστημάτων αρχείων και των κλήσεων συστήματος (system calls).
 
-## Course Code
-402 (OPERATING SYSTEMS)
+## Κωδικός Μαθήματος
+402 (ΛΕΙΤΟΥΡΓΙΚΑ ΣΥΣΤΗΜΑΤΑ)
 
-## Prerequisites
-- Computer Architecture (CPE 201)
-- Data Structures and Algorithms (CPE 202)
+## Προαπαιτούμενα
+- Αρχιτεκτονική Υπολογιστών (CPE 201)
+- Δομές Δεδομένων και Αλγόριθμοι (CPE 202)
 
-## Topics Covered
-- Operating system concepts and functions
-- Process management and scheduling
-- Thread management
-- Synchronization and deadlocks
-- Memory management
-- Virtual memory
-- File systems
-- I/O systems
-- Security and protection
+## Θεματικές Ενότητες
+- Έννοιες και λειτουργίες λειτουργικού συστήματος
+- Διαχείριση και δρομολόγηση διεργασιών (process management & scheduling)
+- Διαχείριση νημάτων (thread management)
+- Συγχρονισμός και αδιέξοδα (deadlocks)
+- Διαχείριση μνήμης (memory management)
+- Ιδεατή μνήμη (virtual memory)
+- Συστήματα αρχείων (file systems)
+- Συστήματα Εισόδου/Εξόδου (I/O systems)
+- Ασφάλεια και προστασία (security & protection)
 
-## Learning Objectives
-- Understand operating system design principles
-- Implement process and thread management
-- Design synchronization mechanisms
-- Analyze memory management algorithms
-- Understand file system operations
-- Apply OS concepts to real-world systems
+## Μαθησιακοί Στόχοι
+- Κατανόηση των αρχών σχεδιασμού λειτουργικών συστημάτων
+- Υλοποίηση διαχείρισης διεργασιών και νημάτων
+- Σχεδιασμός μηχανισμών συγχρονισμού
+- Ανάλυση αλγορίθμων διαχείρισης μνήμης
+- Κατανόηση της λειτουργίας συστημάτων αρχείων
+- Εφαρμογή εννοιών ΛΣ σε συστήματα του πραγματικού κόσμου
