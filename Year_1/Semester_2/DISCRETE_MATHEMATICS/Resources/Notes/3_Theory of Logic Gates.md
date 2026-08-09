@@ -1,17 +1,17 @@
-## Part 1 Theory of Logic Gates  
+## Μέρος 1 Θεωρία Λογικών Πυλών  
 
-### **1. The seven basic gates**  
-| Gate | Boolean symbol | Verbal rule (2-inputs) | Truth-table rule |  
+### **1. Οι επτά βασικές πύλες**  
+| Πύλη | Σύμβολο Boolean | Λεκτικός κανόνας (2 εισόδων) | Κανόνας πίνακα αληθείας |  
 |---|---|---|---|  
-| AND | $$Y=A\cdot B$$ | “1 only if both inputs are 1” | 11 → 1, else 0 |  
-| OR  | $$Y=A+B$$ | “1 if at least one input is 1” | 00 → 0, else 1 |  
-| NOT | $$Y=\overline{A}$$ | “Inverts its single input” | 0  1 |  
-| NAND| $$Y=\overline{A\cdot B}$$ | “AND followed by NOT” | 11 → 0, else 1 |  
-| NOR | $$Y=\overline{A+B}$$ | “OR followed by NOT” | 00 → 1, else 0 |  
-| XOR | $$Y=A\oplus B$$ | “1 when inputs differ” | 00/11 → 0, 01/10 → 1 |  
-| XNOR| $$Y=\overline{A\oplus B}$$ | “1 when inputs match” | 00/11 → 1, 01/10 → 0 |  
+| AND | $$Y=A\cdot B$$ | “1 μόνο αν και οι δύο είσοδοι είναι 1” | 11 → 1, αλλιώς 0 |  
+| OR  | $$Y=A+B$$ | “1 αν τουλάχιστον μία είσοδος είναι 1” | 00 → 0, αλλιώς 1 |  
+| NOT | $$Y=\overline{A}$$ | “Αντιστρέφει τη μία και μοναδική είσοδό της” | 0 → 1 |  
+| NAND| $$Y=\overline{A\cdot B}$$ | “AND ακολουθούμενη από NOT” | 11 → 0, αλλιώς 1 |  
+| NOR | $$Y=\overline{A+B}$$ | “OR ακολουθούμενη από NOT” | 00 → 1, αλλιώς 0 |  
+| XOR | $$Y=A\oplus B$$ | “1 όταν οι είσοδοι διαφέρουν” | 00/11 → 0, 01/10 → 1 |  
+| XNOR| $$Y=\overline{A\oplus B}$$ | “1 όταν οι είσοδοι ταυτίζονται” | 00/11 → 1, 01/10 → 0 |  
 
-### **2. Visual cheat-sheet**
+### **2. Οπτικός οδηγός αναφοράς**
 
 ```mermaid
 flowchart LR
@@ -24,16 +24,16 @@ flowchart LR
     A7((A)) & B7((B)) --> XNOR[XNOR]
 ```
 
-### **3. Spotlight on XOR**
+### **3. Εστίαση στην πύλη XOR**
 
-* Boolean form (2-inputs): $$A\oplus B=\overline{A}B+A\overline{B}$$.  
-* Parity view: for *n* inputs XOR outputs 1 iff the number of 1’s is odd.  
-* Core properties  
-  - Commutative $$A\oplus B=B\oplus A$$  
-  - Associative $$(A\oplus B)\oplus C=A\oplus(B\oplus C)$$  
-  - Identity $$A\oplus 0=A$$  
-  - Self-inverse $$A\oplus A=0$$  
-* Gate-level implementation (OR + AND + NOT):
+* Μορφή Boolean (2 εισόδων): $$A\oplus B=\overline{A}B+A\overline{B}$$.  
+* Άποψη ισοτιμίας (parity): για *n* εισόδους, η XOR βγάζει 1 αν και μόνο αν το πλήθος των 1 είναι περιττό.  
+* Βασικές ιδιότητες  
+  - Αντιμεταθετική $$A\oplus B=B\oplus A$$  
+  - Προσεταιριστική $$(A\oplus B)\oplus C=A\oplus(B\oplus C)$$  
+  - Ταυτοτική $$A\oplus 0=A$$  
+  - Αυτο-αντίστροφη $$A\oplus A=0$$  
+* Υλοποίηση σε επίπεδο πυλών (OR + AND + NOT):
 
 ```mermaid
 flowchart TD
@@ -46,19 +46,19 @@ flowchart TD
     t1 & t2 --> XORout[OR ⇒ A⊕B]
 ```
 
-* Applications: half-adders, parity checkers, cryptographic mixing.
+* Εφαρμογές: ημιαθροιστές, ελεγκτές ισοτιμίας, κρυπτογραφική ανάμειξη.
 
 ---
 
-## Part 2 Exercises taken from the video  
+## Μέρος 2 Ασκήσεις από το βίντεο  
 
-> *Try each task first, then click “Solution”.*
+> *Δοκιμάστε πρώτα κάθε άσκηση μόνοι σας και μετά κάντε κλικ στο “Λύση”.*
 
-### **Exercise 1 – Complete the big truth table**
+### **Άσκηση 1 – Συμπλήρωση του μεγάλου πίνακα αληθείας**
 
-Fill the missing outputs for every gate when $$A=1,\;B=0$$.
+Συμπληρώστε τις εξόδους που λείπουν για κάθε πύλη όταν $$A=1,\;B=0$$.
 
-| Gate | Expected output | Your answer |
+| Πύλη | Αναμενόμενη έξοδος | Η απάντησή σας |
 |------|-----------------|-------------|
 | AND  |                 |             |
 | OR   |                 |             |
@@ -68,9 +68,9 @@ Fill the missing outputs for every gate when $$A=1,\;B=0$$.
 | XNOR |                 |             |
 
 <details>
-<summary>Solution</summary>
+<summary>Λύση</summary>
 
-| Gate | Output |
+| Πύλη | Έξοδος |
 |------|--------|
 | AND  | 0 |
 | OR   | 1 |
@@ -78,14 +78,14 @@ Fill the missing outputs for every gate when $$A=1,\;B=0$$.
 | NOR  | 0 |
 | XOR  | 1 |
 | XNOR | 0 |
-(Obtained directly from the rules in Part 1.)  
+(Προκύπτει απευθείας από τους κανόνες του Μέρους 1.)  
 </details>
 
 ---
 
-### **Exercise 2 – Circuit evaluation**
+### **Άσκηση 2 – Αξιολόγηση κυκλώματος**
 
-Evaluate $$Y=((A\;\text{NAND}\;B)\;\text{NOR}\;(A\oplus B))$$.
+Αξιολογήστε το $$Y=((A\;\text{NAND}\;B)\;\text{NOR}\;(A\oplus B))$$.
 
 ```mermaid
 flowchart LR
@@ -95,22 +95,22 @@ flowchart LR
     N2 --> Y((Y))
 ```
 
-Given inputs $$A=1,\;B=1$$.
+Δίνονται είσοδοι $$A=1,\;B=1$$.
 
 <details>
-<summary>Solution</summary>
+<summary>Λύση</summary>
 
 1. $$A\;\text{NAND}\;B = \overline{1\cdot1}=0$$.  
 2. $$A\oplus B = 0$$.  
 3. $$0\;\text{NOR}\;0=\overline{0+0}=1$$.  
-So $$Y=1$$.
+Άρα $$Y=1$$.
 </details>
 
 ---
 
-### **Exercise 3 – Show XOR associativity**
+### **Άσκηση 3 – Απόδειξη προσεταιριστικότητας της XOR**
 
-Prove $$(A\oplus B)\oplus C = A\oplus(B\oplus C)$$ with a truth table.
+Αποδείξτε ότι $$(A\oplus B)\oplus C = A\oplus(B\oplus C)$$ με πίνακα αληθείας.
 
 | A | B | C | $$A\oplus B$$ | LHS | $$B\oplus C$$ | RHS |
 |---|---|---|--------------|-----|--------------|-----|
@@ -124,40 +124,39 @@ Prove $$(A\oplus B)\oplus C = A\oplus(B\oplus C)$$ with a truth table.
 | 1 | 1 | 1 |              |     |              |     |
 
 <details>
-<summary>Solution</summary>
+<summary>Λύση</summary>
 
-Filling the table with $$A\oplus B$$ etc. shows the LHS and RHS columns are identical for all 8 rows, confirming associativity (uses XOR rule in Section 3).
+Συμπληρώνοντας τον πίνακα με $$A\oplus B$$ κλπ. φαίνεται ότι οι στήλες LHS και RHS είναι πανομοιότυπες και για τις 8 γραμμές, επιβεβαιώνοντας την προσεταιριστικότητα (χρησιμοποιεί τον κανόνα της XOR από την Ενότητα 3).
 </details>
 
 ---
 
-### **Exercise 4 – Build a 3-input parity checker**
+### **Άσκηση 4 – Κατασκευή ελεγκτή ισοτιμίας 3 εισόδων**
 
-Design a circuit that outputs 1 when an odd number of $$A,B,C$$ are 1.  
-*(Hint : cascade two XOR gates.)*
+Σχεδιάστε ένα κύκλωμα που βγάζει 1 όταν ένας περιττός αριθμός από τις εισόδους $$A,B,C$$ είναι 1.  
+*(Υπόδειξη: συνδέστε σε σειρά δύο πύλες XOR.)*
 
-**Solution diagram**
+**Διάγραμμα λύσης**
 
 ```mermaid
 flowchart TD
     A((A)) & B((B)) --> X1[XOR]
     X1 & C((C)) --> X2[XOR]
-    X2 --> P((Parity out))
+    X2 --> P((Έξοδος ισοτιμίας))
 ```
-Because XOR is associative and signals “odd-ones-count”, $P=A\oplus B \oplus C$.  
+Επειδή η XOR είναι προσεταιριστική και σηματοδοτεί "περιττό πλήθος μονάδων", $P=A\oplus B \oplus C$.  
 
 
 ---
 
-### **Exercise 5 – Symmetric difference & XOR**
+### **Άσκηση 5 – Συμμετρική διαφορά & XOR**
 
-Let sets $A,B$. Show that the characteristic-bit of $A\triangle B$ equals $A\oplus B$.
+Έστω σύνολα $A,B$. Δείξτε ότι το ψηφίο-χαρακτηριστική του $A\triangle B$ είναι ίσο με $A\oplus B$.
 
-**Solution**
+**Λύση**
 
-For each universe element, its membership pair $$(a,b)$$ is mapped to  
-$$A\triangle B =1$$ if the pair is (1,0) or (0,1); this is exactly the 2-input XOR truth table.
+Για κάθε στοιχείο του καθολικού συνόλου, το ζεύγος συμμετοχής του $$(a,b)$$ αντιστοιχίζεται σε  
+$$A\triangle B =1$$ αν το ζεύγος είναι (1,0) ή (0,1)· αυτός είναι ακριβώς ο πίνακας αληθείας της XOR 2 εισόδων.
 
 
 ---
-

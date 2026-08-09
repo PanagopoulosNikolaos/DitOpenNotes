@@ -1,191 +1,192 @@
-# Graph Theory: Complete Study Notes
+# Θεωρία Γράφων: Πλήρεις Σημειώσεις Μελέτης
 
-## 1. Fundamental Concepts of Graphs
+## 1. Θεμελιώδεις Έννοιες των Γράφων
 
-### Definition of a Graph
-A graph `G` is a pair `(V, E)` where:
-- `V` is a set of **vertices** (or nodes).
-- `E` is a set of **edges** that connect pairs of vertices.
+### Ορισμός του Γράφου
+Ένας γράφος `G` είναι ένα ζεύγος `(V, E)` όπου:
+- `V` είναι ένα σύνολο **κορυφών** (ή κόμβων).
+- `E` είναι ένα σύνολο **ακμών** που συνδέουν ζεύγη κορυφών.
 
-### Types of Graphs
+### Τύποι Γράφων
 
-#### Undirected Graphs
-Edges are unordered pairs of vertices `{u, v}`. The edge `(u, v)` is identical to `(v, u)`. They are used to model symmetric relationships.
+#### Μη Κατευθυνόμενοι Γράφοι
+Οι ακμές είναι μη διατεταγμένα ζεύγη κορυφών `{u, v}`. Η ακμή `(u, v)` είναι πανομοιότυπη με την `(v, u)`. Χρησιμοποιούνται για τη μοντελοποίηση συμμετρικών σχέσεων.
 
-#### Directed Graphs (Digraphs)
-Edges are ordered pairs of vertices `(u, v)`, representing a one-way connection from `u` (the tail) to `v` (the head).
+#### Κατευθυνόμενοι Γράφοι (Διγράφους)
+Οι ακμές είναι διατεταγμένα ζεύγη κορυφών `(u, v)`, αναπαριστώντας μια μονόδρομη σύνδεση από το `u` (την αρχή) στο `v` (το τέλος).
 
 ```mermaid
 graph TD
-    subgraph Undirected Graph
+    subgraph Μη Κατευθυνόμενος Γράφος
         A --- B
         B --- C
         C --- A
     end
-    subgraph Directed Graph
+    subgraph Κατευθυνόμενος Γράφος
         D --> E
         F --> E
         D --> F
     end
 ```
 
-## 2. Graph Terminology
+## 2. Ορολογία Γράφων
 
-### Adjacency, Neighborhood, and Degree
-- **Adjacent Vertices**: Two vertices are **adjacent** if they are connected by an edge.
-- **Neighborhood `N(v)`**: The set of all vertices adjacent to a vertex `v`.
-- **Degree `deg(v)`**: The number of edges incident to a vertex `v`. In a digraph, we distinguish between:
-  - **In-degree `deg⁻(v)`**: Number of incoming edges.
-  - **Out-degree `deg⁺(v)`**: Number of outgoing edges.
+### Γειτνίαση, Γειτονιά και Βαθμός
+- **Γειτονικές Κορυφές**: Δύο κορυφές είναι **γειτονικές** αν συνδέονται με μια ακμή.
+- **Γειτονιά `N(v)`**: Το σύνολο όλων των κορυφών που είναι γειτονικές με μια κορυφή `v`.
+- **Βαθμός `deg(v)`**: Το πλήθος των ακμών που προσπίπτουν σε μια κορυφή `v`. Σε έναν διγράφο, διακρίνουμε:
+  - **Βαθμός εισόδου `deg⁻(v)`**: Πλήθος εισερχόμενων ακμών.
+  - **Βαθμός εξόδου `deg⁺(v)`**: Πλήθος εξερχόμενων ακμών.
   - `deg(v) = deg⁻(v) + deg⁺(v)`
 
-### Handshaking Theorem
-For any undirected graph, the sum of the degrees of all vertices is equal to twice the number of edges.
+### Θεώρημα Χειραψιών (Handshaking Theorem)
+Για οποιονδήποτε μη κατευθυνόμενο γράφο, το άθροισμα των βαθμών όλων των κορυφών ισούται με το διπλάσιο του αριθμού των ακμών.
 $$ \sum_{v \in V} \deg(v) = 2|E| $$
-This implies that the number of vertices with an odd degree must be even.
+Αυτό συνεπάγεται ότι το πλήθος των κορυφών με περιττό βαθμό πρέπει να είναι άρτιο.
 
 ```mermaid
 graph LR
-    A[Vertex v] --> B{deg(v) = ?}
-    B --> C[Sum of incident edges]
-    subgraph Directed Graph
+    A[Κορυφή v] --> B{deg(v) = ;}
+    B --> C[Άθροισμα προσπιπτουσών ακμών]
+    subgraph Κατευθυνόμενος Γράφος
         D[deg⁻(v)]
         E[deg⁺(v)]
         C --> D & E
     end
 ```
 
-## 3. Paths, Trails, and Walks
+## 3. Μονοπάτια, Διαδρομές και Περίπατοι (Paths, Trails, Walks)
 
-- **Walk**: A sequence of vertices and edges `v₀, e₁, v₁, e₂, ..., eₖ, vₖ` where each edge `eᵢ` connects `vᵢ₋₁` and `vᵢ`. Edges and vertices can be repeated.
-- **Trail**: A walk where no edge is repeated.
-- **Path**: A trail where no vertex is repeated (except possibly the start and end vertices).
+- **Περίπατος (Walk)**: Μια ακολουθία κορυφών και ακμών `v₀, e₁, v₁, e₂, ..., eₖ, vₖ` όπου κάθε ακμή `eᵢ` συνδέει τις `vᵢ₋₁` και `vᵢ`. Ακμές και κορυφές μπορούν να επαναλαμβάνονται.
+- **Διαδρομή (Trail)**: Ένας περίπατος στον οποίο καμία ακμή δεν επαναλαμβάνεται.
+- **Μονοπάτι (Path)**: Μια διαδρομή στην οποία καμία κορυφή δεν επαναλαμβάνεται (εκτός ενδεχομένως από την αρχική και την τελική κορυφή).
 
-## 4. Cycles and Circuits
+## 4. Κύκλοι και Περιφέρειες (Cycles and Circuits)
 
-- **Circuit**: A closed trail (starts and ends at the same vertex) where no edge is repeated.
-- **Cycle**: A circuit where no intermediate vertex is repeated. It's a path that starts and ends at the same vertex.
-
-```mermaid
-graph TD
-    A[Sequence of Vertices] --> B{Repeated Edges?}
-    B -->|No| C[Trail]
-    B -->|Yes| D[Walk]
-    C --> E{Repeated Vertices?}
-    E -->|No| F[Path]
-    E -->|Yes| G[Trail]
-    F --> H{Closed?}
-    H -->|Yes| I[Cycle]
-    H -->|No| J[Simple Path]
-```
-
-## 5. Euler Paths and Circuits
-
-### Definitions
-- **Euler Trail/Path**: A trail that visits every edge of the graph exactly once.
-- **Euler Circuit/Cycle**: An Euler trail that is a circuit (starts and ends at the same vertex).
-
-### Euler's Theorem
-For a connected, undirected graph:
-- An **Euler circuit** exists if and only if every vertex has an **even degree**.
-- An **Euler path** exists if and only if there are **exactly two vertices of odd degree**. These two vertices will be the start and end points of the path.
-
-The famous **Königsberg Bridge Problem** was solved by Euler using this theorem, marking the birth of graph theory. The city's layout had four landmasses connected by seven bridges, which translated to a graph with four vertices of odd degrees (3, 3, 3, 5), thus having no Euler circuit or path.
+- **Περιφέρεια (Circuit)**: Μια κλειστή διαδρομή (ξεκινά και τελειώνει στην ίδια κορυφή) στην οποία καμία ακμή δεν επαναλαμβάνεται.
+- **Κύκλος (Cycle)**: Μια περιφέρεια στην οποία καμία ενδιάμεση κορυφή δεν επαναλαμβάνεται. Είναι ένα μονοπάτι που ξεκινά και τελειώνει στην ίδια κορυφή.
 
 ```mermaid
 graph TD
-    A[Connected Graph] --> B{Vertex Degrees}
-    B -->|All Even| C[Euler Circuit Exists]
-    B -->|Exactly Two Odd| D[Euler Path Exists]
-    B -->|More than Two Odd| E[Neither Exists]
+    A[Ακολουθία Κορυφών] --> B{Επαναλαμβανόμενες Ακμές;}
+    B -->|Όχι| C[Διαδρομή (Trail)]
+    B -->|Ναι| D[Περίπατος (Walk)]
+    C --> E{Επαναλαμβανόμενες Κορυφές;}
+    E -->|Όχι| F[Μονοπάτι (Path)]
+    E -->|Ναι| G[Διαδρομή (Trail)]
+    F --> H{Κλειστό;}
+    H -->|Ναι| I[Κύκλος (Cycle)]
+    H -->|Όχι| J[Απλό Μονοπάτι]
 ```
 
-## 6. Hamiltonian Paths and Cycles
+## 5. Μονοπάτια και Κύκλοι Euler
 
-### Definitions
-- **Hamiltonian Path**: A path that visits every vertex of the graph exactly once.
-- **Hamiltonian Cycle**: A Hamiltonian path that is a cycle (starts and ends at the same vertex, forming a loop through all vertices).
+### Ορισμοί
+- **Διαδρομή/Μονοπάτι Euler**: Μια διαδρομή που διέρχεται από κάθε ακμή του γράφου ακριβώς μία φορά.
+- **Περιφέρεια/Κύκλος Euler**: Μια διαδρομή Euler που είναι κλειστή (ξεκινά και τελειώνει στην ίδια κορυφή).
 
-### Properties
-- Unlike Euler paths, there is no simple necessary and sufficient condition for the existence of Hamiltonian paths/cycles.
-- Finding a Hamiltonian cycle is an **NP-complete problem**, meaning it is computationally hard to solve for large graphs.
-- **Dirac's Theorem (Sufficient Condition)**: If a graph `G` with `n ≥ 3` vertices has a minimum degree `δ(G) ≥ n/2`, then `G` has a Hamiltonian cycle.
+### Θεώρημα Euler
+Για έναν συνεκτικό, μη κατευθυνόμενο γράφο:
+- Ένας **κύκλος Euler** υπάρχει αν και μόνο αν κάθε κορυφή έχει **άρτιο βαθμό**.
+- Ένα **μονοπάτι Euler** υπάρχει αν και μόνο αν υπάρχουν **ακριβώς δύο κορυφές περιττού βαθμού**. Αυτές οι δύο κορυφές θα είναι τα σημεία αρχής και τέλους του μονοπατιού.
+
+Το περίφημο **Πρόβλημα των Γεφυρών του Κένιγκσμπεργκ (Königsberg)** λύθηκε από τον Euler χρησιμοποιώντας αυτό το θεώρημα, σηματοδοτώντας τη γέννηση της θεωρίας γράφων. Η διάταξη της πόλης είχε τέσσερις περιοχές ξηράς που συνδέονταν με επτά γέφυρες, που μεταφράστηκαν σε έναν γράφο με τέσσερις κορυφές περιττού βαθμού (3, 3, 3, 5), επομένως δεν είχε ούτε κύκλο ούτε μονοπάτι Euler.
 
 ```mermaid
 graph TD
-    A[Graph] --> B{Visits Every Vertex Exactly Once?}
-    B -->|Yes| C[Hamiltonian Path/Cycle]
-    B -->|No| D[Not Hamiltonian]
-    C --> E{Is it a Cycle?}
-    E -->|Yes| F[Hamiltonian Cycle]
-    E -->|No| G[Hamiltonian Path]
+    A[Συνεκτικός Γράφος] --> B{Βαθμοί Κορυφών}
+    B -->|Όλοι Άρτιοι| C[Υπάρχει Κύκλος Euler]
+    B -->|Ακριβώς Δύο Περιττοί| D[Υπάρχει Μονοπάτι Euler]
+    B -->|Περισσότεροι από Δύο Περιττοί| E[Δεν Υπάρχει Κανένα]
 ```
 
-## 7. Planar Graphs
+## 6. Μονοπάτια και Κύκλοι Hamiltonian
 
-### Definition
-A graph is **planar** if it can be drawn on a plane without any edges crossing each other. Such a drawing is called a **planar representation**.
+### Ορισμοί
+- **Μονοπάτι Hamiltonian**: Ένα μονοπάτι που επισκέπτεται κάθε κορυφή του γράφου ακριβώς μία φορά.
+- **Κύκλος Hamiltonian**: Ένα μονοπάτι Hamiltonian που είναι κύκλος (ξεκινά και τελειώνει στην ίδια κορυφή, σχηματίζοντας έναν βρόχο που διέρχεται από όλες τις κορυφές).
 
-### Euler's Formula for Planar Graphs
-For any connected planar graph with `v` vertices, `e` edges, and `f` faces (regions bounded by edges, including the outer unbounded region):
+### Ιδιότητες
+- Αντίθετα με τα μονοπάτια Euler, δεν υπάρχει απλή ικανή και αναγκαία συνθήκη για την ύπαρξη μονοπατιών/κύκλων Hamiltonian.
+- Η εύρεση ενός κύκλου Hamiltonian είναι ένα **NP-πλήρες πρόβλημα**, που σημαίνει ότι είναι υπολογιστικά δύσκολο να επιλυθεί για μεγάλους γράφους.
+- **Θεώρημα Dirac (Ικανή Συνθήκη)**: Αν ένας γράφος `G` με `n ≥ 3` κορυφές έχει ελάχιστο βαθμό `δ(G) ≥ n/2`, τότε ο `G` έχει κύκλο Hamiltonian.
+
+```mermaid
+graph TD
+    A[Γράφος] --> B{Επισκέπτεται Κάθε Κορυφή Ακριβώς Μία Φορά;}
+    B -->|Ναι| C[Μονοπάτι/Κύκλος Hamiltonian]
+    B -->|Όχι| D[Όχι Hamiltonian]
+    C --> E{Είναι Κύκλος;}
+    E -->|Ναι| F[Κύκλος Hamiltonian]
+    E -->|Όχι| G[Μονοπάτι Hamiltonian]
+```
+
+## 7. Επίπεδοι Γράφοι (Planar Graphs)
+
+### Ορισμός
+Ένας γράφος είναι **επίπεδος** αν μπορεί να σχεδιαστεί σε ένα επίπεδο χωρίς να τέμνονται οι ακμές του. Μια τέτοια σχεδίαση ονομάζεται **επίπεδη αναπαράσταση**.
+
+### Τύπος του Euler για Επίπεδους Γράφους
+Για οποιονδήποτε συνεκτικό επίπεδο γράφο με `v` κορυφές, `e` ακμές και `f` έδρες/περιοχές (περιοχές που οριοθετούνται από ακμές, συμπεριλαμβανομένης της εξωτερικής μη φραγμένης περιοχής):
 $$ v - e + f = 2 $$
 
-### Kuratowski's Theorem
-A graph is non-planar if and only if it contains a subgraph that is a **subdivision** of `K₅` (the complete graph with 5 vertices) or `K₃,₃` (the complete bipartite graph with two sets of 3 vertices).
+### Θεώρημα Kuratowski
+Ένας γράφος είναι μη επίπεδος αν και μόνο αν περιέχει έναν υπογράφο που είναι **υποδιαίρεση** του `K₅` (του πλήρους γράφου με 5 κορυφές) ή του `K₃,₃` (του πλήρους διμερούς γράφου με δύο σύνολα των 3 κορυφών).
 
 ```mermaid
 graph TD
-    subgraph Non-Planar Graphs
+    subgraph Μη Επίπεδοι Γράφοι
         K5((K₅))
         K33((K₃,₃))
     end
-    A[Graph] --> B{Can be drawn without crossing edges?}
-    B -->|Yes| C[Planar]
-    B -->|No| D[Non-Planar]
-    D --> E{Contains K₅ or K₃,₃ subdivision?}
-    E -->|Yes| F[Confirmed Non-Planar by Kuratowski's Theorem]
+    A[Γράφος] --> B{Μπορεί να σχεδιαστεί χωρίς τομές ακμών;}
+    B -->|Ναι| C[Επίπεδος]
+    B -->|Όχι| D[Μη Επίπεδος]
+    D --> E{Περιέχει υποδιαίρεση K₅ ή K₃,₃;}
+    E -->|Ναι| F[Επιβεβαιωμένα Μη Επίπεδος από το Θεώρημα Kuratowski]
 ```
 
-## 8. Graph Isomorphism
+## 8. Ισομορφισμός Γράφων
 
-### Definition
-Two graphs `G₁ = (V₁, E₁)` and `G₂ = (V₂, E₂)` are **isomorphic** if there exists a bijection (a one-to-one correspondence) `f: V₁ → V₂` such that any two vertices `u` and `v` in `V₁` are adjacent if and only if `f(u)` and `f(v)` are adjacent in `G₂`.
+### Ορισμός
+Δύο γράφοι `G₁ = (V₁, E₁)` και `G₂ = (V₂, E₂)` είναι **ισόμορφοι** αν υπάρχει μια αμφιμονοσήμαντη αντιστοίχιση (ένα προς ένα και επί) `f: V₁ → V₂` τέτοια ώστε οποιεσδήποτε δύο κορυφές `u` και `v` στο `V₁` να είναι γειτονικές αν και μόνο αν οι `f(u)` και `f(v)` είναι γειτονικές στο `G₂`.
 
-In simple terms, two graphs are isomorphic if they are structurally identical, even if they are drawn differently.
+Με απλά λόγια, δύο γράφοι είναι ισόμορφοι αν είναι δομικά πανομοιότυποι, ακόμη και αν σχεδιάζονται διαφορετικά.
 
-### Invariants
-Properties that must be the same in isomorphic graphs:
-- Same number of vertices.
-- Same number of edges.
-- Same degree sequence (the list of degrees of all vertices).
+### Αναλλοίωτα (Invariants)
+Ιδιότητες που πρέπει να είναι ίδιες σε ισόμορφους γράφους:
+- Ίδιος αριθμός κορυφών.
+- Ίδιος αριθμός ακμών.
+- Ίδια ακολουθία βαθμών (η λίστα των βαθμών όλων των κορυφών).
 
-## 9. Topological Sort
+## 9. Τοπολογική Ταξινόμηση (Topological Sort)
 
-### Definition
-A **topological sort** or **topological ordering** of a directed acyclic graph (DAG) is a linear ordering of its vertices such that for every directed edge from vertex `u` to vertex `v`, `u` comes before `v` in the ordering.
+### Ορισμός
+Μια **τοπολογική ταξινόμηση** ή **τοπολογική διάταξη** ενός κατευθυνόμενου αμετάβατου γράφου (DAG - Directed Acyclic Graph) είναι μια γραμμική διάταξη των κορυφών του τέτοια ώστε για κάθε κατευθυνόμενη ακμή από την κορυφή `u` στην κορυφή `v`, η `u` να προηγείται της `v` στη διάταξη.
 
-### Algorithm (Kahn's Algorithm)
-1. Compute the in-degree for every vertex.
-2. Initialize a queue with all vertices having an in-degree of 0.
-3. While the queue is not empty:
-   a. Dequeue a vertex `u`. Add `u` to the topological order.
-   b. For each neighbor `v` of `u`:
-      i. Decrement the in-degree of `v`.
-      ii. If the in-degree of `v` becomes 0, enqueue `v`.
-4. If the topological order contains all vertices, the sort is successful. Otherwise, the graph has a cycle.
+### Αλγόριθμος (Αλγόριθμος του Kahn)
+1. Υπολογίστε τον βαθμό εισόδου για κάθε κορυφή.
+2. Αρχικοποιήστε μια ουρά με όλες τις κορυφές που έχουν βαθμό εισόδου 0.
+3. Όσο η ουρά δεν είναι κενή:
+   a. Αφαιρέστε μια κορυφή `u` από την ουρά. Προσθέστε την `u` στην τοπολογική διάταξη.
+   b. Για κάθε γείτονα `v` της `u`:
+      i. Μειώστε τον βαθμό εισόδου της `v`.
+      ii. Αν ο βαθμός εισόδου της `v` γίνει 0, εισάγετε την `v` στην ουρά.
+4. Αν η τοπολογική διάταξη περιέχει όλες τις κορυφές, η ταξινόμηση είναι επιτυχής. Διαφορετικά, ο γράφος περιέχει κύκλο.
 
 ```mermaid
 graph TD
-    A[Start] --> B{Find vertices with in-degree 0};
-    B --> C[Add to queue];
-    C --> D{Queue empty?};
-    D -- No --> E[Dequeue vertex u];
-    E --> F[Add u to sorted list];
-    F --> G[For each neighbor v of u];
-    G --> H{Decrement in-degree of v};
-    H --> I{in-degree of v == 0?};
-    I -- Yes --> J[Enqueue v];
+    A[Αρχή] --> B{Βρες κορυφές με βαθμό εισόδου 0};
+    B --> C[Πρόσθεσε στην ουρά];
+    C --> D{Ουρά κενή;};
+    D -- Όχι --> E[Άντληση κορυφής u];
+    E --> F[Πρόσθεσε τη u στη ταξινομημένη λίστα];
+    F --> G[Για κάθε γείτονα v της u];
+    G --> H{Μείωσε τον βαθμό εισόδου της v};
+    H --> I{βαθμός εισόδου της v == 0;};
+    I -- Ναι --> J[Εισαγωγή v στην ουρά];
     J --> G;
-    I -- No --> G;
-    G -- All neighbors processed --> D;
-    D -- Yes --> K[End];
+    I -- Όχι --> G;
+    G -- Επεξεργασία όλων των γειτόνων --> D;
+    D -- Ναι --> K[Τέλος];
+```

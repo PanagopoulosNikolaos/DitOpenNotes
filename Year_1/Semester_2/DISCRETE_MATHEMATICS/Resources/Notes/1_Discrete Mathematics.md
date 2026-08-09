@@ -1,61 +1,61 @@
-# Discrete Mathematics: Sets & Foundations
+# Διακριτά Μαθηματικά: Σύνολα & Θεμέλια
 
-## Overview
+## Επισκόπηση
 
-**Discrete Mathematics** studies countable, distinct mathematical structures—the digital backbone of computer science.
+Τα **Διακριτά Μαθηματικά** μελετούν απαριθμήσιμες, διακριτές μαθηματικές δομές—τη ψηφιακή ραχοκοκαλιά της επιστήμης υπολογιστών.
 
 ```mermaid
 graph TD
-    A[Discrete Math] --> B[Sets]
-    A --> C[Logic]
-    A --> D[Graph Theory]
-    A --> E[Combinatorics]
-    B --> F[Set Operations]
-    B --> G[Power Sets]
-    B --> H[Relations]
+    A[Διακριτά Μαθηματικά] --> B[Σύνολα]
+    A --> C[Λογική]
+    A --> D[Θεωρία Γράφων]
+    A --> E[Συνδυαστική]
+    B --> F[Πράξεις Συνόλων]
+    B --> G[Δυναμοσύνολα]
+    B --> H[Σχέσεις]
 ```
 
 ---
 
-## Core Concepts
+## Βασικές Έννοιες
 
-### Sets Fundamentals
+### Θεμελιώδη Στοιχεία Συνόλων
 
-| Concept | Notation | Example |
+| Έννοια | Συμβολισμός | Παράδειγμα |
 |---------|----------|---------|
-| **Roster Form** | `{a, b, c}` | $V = \{a, e, i, o, u\}$ |
-| **Set-Builder** | `{x \| condition}` | $E = \{x \mid x \text{ even, } x > 0\}$ |
-| **Cardinality** | `\|A\|` | $\|\{1,2,3\}\| = 3$ |
-| **Empty Set** | `∅` | $\|\emptyset\| = 0$ |
+| **Μορφή Αναγραφής** | `{a, b, c}` | $V = \{a, e, i, o, u\}$ |
+| **Περιγραφική Μορφή** | `{x \| συνθήκη}` | $E = \{x \mid x \text{ άρτιος, } x > 0\}$ |
+| **Πληθικότητα (Πληθικός Αριθμός)** | `\|A\|` | $\|\{1,2,3\}\| = 3$ |
+| **Κενό Σύνολο** | `∅` | $\|\emptyset\| = 0$ |
 
-### Set Relationships
+### Σχέσεις Συνόλων
 
 $$A \subseteq B \iff \forall x(x \in A \rightarrow x \in B)$$
 
-- **Subset**: $A \subseteq B$ (can be equal)
-- **Proper Subset**: $A \subset B$ (strictly smaller)
-- **Key Rule**: $\emptyset \subseteq$ every set
+- **Υποσύνολο**: $A \subseteq B$ (μπορεί να είναι και ίσα)
+- **Γνήσιο Υποσύνολο**: $A \subset B$ (αυστηρά μικρότερο)
+- **Βασικός Κανόνας**: $\emptyset \subseteq$ κάθε σύνολο
 
-### Set Operations
+### Πράξεις Συνόλων
 
-| Operation | Symbol | Definition | Visual |
+| Πράξη | Σύμβολο | Ορισμός | Οπτικοποίηση |
 |-----------|--------|------------|--------|
-| **Union** | $A \cup B$ | Elements in A or B | $\{1,2\} \cup \{2,3\} = \{1,2,3\}$ |
-| **Intersection** | $A \cap B$ | Elements in both A and B | $\{1,2\} \cap \{2,3\} = \{2\}$ |
-| **Difference** | $A - B$ | Elements in A but not B | $\{1,2\} - \{2,3\} = \{1\}$ |
-| **Complement** | $A'$ | Elements not in A | If $U=\{1,2,3\}$, $A'=\{3\}$ |
+| **Ένωση** | $A \cup B$ | Στοιχεία στο A ή στο B | $\{1,2\} \cup \{2,3\} = \{1,2,3\}$ |
+| **Τομή** | $A \cap B$ | Στοιχεία και στο A και στο B | $\{1,2\} \cap \{2,3\} = \{2\}$ |
+| **Διαφορά** | $A - B$ | Στοιχεία στο A αλλά όχι στο B | $\{1,2\} - \{2,3\} = \{1\}$ |
+| **Συμπλήρωμα** | $A'$ | Στοιχεία εκτός του A | Αν $U=\{1,2,3\}$, $A'=\{3\}$ |
 
 ---
 
-## Power Sets
+## Δυναμοσύνολα (Power Sets)
 
 $$|P(A)| = 2^{|A|}$$
 
-**Power Set**: Set of all subsets of A
+**Δυναμοσύνολο**: Το σύνολο όλων των υποσυνόλων του A.
 
-### Quick Reference
+### Γρήγορη Αναφορά
 
-| Set Size | Power Set Size | Example |
+| Μέγεθος Συνόλου | Μέγεθος Δυναμοσυνόλου | Παράδειγμα |
 |----------|---------------|---------|
 | 0 | 1 | $P(\emptyset) = \{\emptyset\}$ |
 | 1 | 2 | $P(\{a\}) = \{\emptyset, \{a\}\}$ |
@@ -64,61 +64,60 @@ $$|P(A)| = 2^{|A|}$$
 
 ---
 
-## Exercises & Solutions
+## Ασκήσεις & Λύσεις
 
-### Exercise Set A: Basic Operations
+### Ομάδα Ασκήσεων Α: Βασικές Πράξεις
 
-**Q1:** Given $S = \{1, 2, 3\}$, classify each as subset/proper subset:
+**Ε1:** Δίνεται το $S = \{1, 2, 3\}$, ταξινομήστε καθένα ως υποσύνολο/γνήσιο υποσύνολο:
 - $A = \{1, 3\}$
 - $B = \{1, 2, 3\}$ 
 - $C = \{1, 4\}$
 - $D = \emptyset$
 
-**Solutions:**
-- $A \subset S$  (proper subset)
-- $B \subseteq S$  (subset, not proper)
+**Λύσεις:**
+- $A \subset S$  (γνήσιο υποσύνολο)
+- $B \subseteq S$  (υποσύνολο, όχι γνήσιο)
 - $C \not\subseteq S$  (4 ∉ S)
-- $D \subset S$  (proper subset)
+- $D \subset S$  (γνήσιο υποσύνολο)
 
-### Exercise Set B: Power Sets
+### Ομάδα Ασκήσεων Β: Δυναμοσύνολα
 
-**Q2:** Find $P(\{a, b, c\})$
+**Ε2:** Βρείτε το $P(\{a, b, c\})$
 
-**Solution:** 
+**Λύση:** 
 $$P(\{a,b,c\}) = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a,b\}, \{a,c\}, \{b,c\}, \{a,b,c\}\}$$
-Size: $2^3 = 8$ elements
+Μέγεθος: $2^3 = 8$ στοιχεία
 
-**Q3:** Letters in "ALGEBRA" → $|P(M)|$?
+**Ε3:** Γράμματα στη λέξη "ALGEBRA" → $|P(M)|$;
 
-**Solution:**
-- Unique letters: $M = \{A, L, G, E, B, R\}$
+**Λύση:**
+- Μοναδικά γράμματα: $M = \{A, L, G, E, B, R\}$
 - $|M| = 6$
 - $|P(M)| = 2^6 = 64$
 
-### Exercise Set C: Advanced Relationships
+### Ομάδα Ασκήσεων Γ: Προχωρημένες Σχέσεις
 
-**Q4:** Given $A = \{s, t\}$, evaluate:
-- $A \subseteq P(A)$?
-- $A \in P(A)$?
+**Ε4:** Δίνεται το $A = \{s, t\}$, αξιολογήστε:
+- $A \subseteq P(A)$;
+- $A \in P(A)$;
 
-**Analysis:**
+**Ανάλυση:**
 $P(A) = \{\emptyset, \{s\}, \{t\}, \{s,t\}\}$
 
-- $A \subseteq P(A)$: **False** (elements $s,t \notin P(A)$)
-- $A \in P(A)$: **True** ($\{s,t\}$ is element of $P(A)$)
+- $A \subseteq P(A)$: **Ψευδές** (τα στοιχεία $s,t \notin P(A)$)
+- $A \in P(A)$: **Αληθές** (το $\{s,t\}$ είναι στοιχείο του $P(A)$)
 
-**Q5:** $C = \{0,1\}$, $D = \{x,y,z\}$ → $|P(C × D)|$?
+**Ε5:** $C = \{0,1\}$, $D = \{x,y,z\}$ → $|P(C × D)|$;
 
-**Solution:**
+**Λύση:**
 - $|C × D| = 2 × 3 = 6$
 - $|P(C × D)| = 2^6 = 64$
 
 ---
 
-## Key Takeaways
+## Βασικά Συμπεράσματα
 
-- **Element vs Subset**: $\in$ vs $\subseteq$
-- **Power Set Growth**: Exponential ($2^n$)
-- **Empty Set Rule**: $\emptyset$ is subset of everything
-- **Cartesian Products**: $|A × B| = |A| × |B|$
-
+- **Στοιχείο vs Υποσύνολο**: $\in$ vs $\subseteq$
+- **Αύξηση Δυναμοσυνόλου**: Εκθετική ($2^n$)
+- **Κανόνας Κενού Συνόλου**: Το $\emptyset$ είναι υποσύνολο των πάντων
+- **Καρτεσιανά Γινόμενα**: $|A × B| = |A| × |B|$

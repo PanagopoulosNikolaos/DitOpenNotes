@@ -1,30 +1,29 @@
-# Discrete Mathematics
+# Διακριτά Μαθηματικά
 
-## Course Overview
-This course introduces fundamental concepts of discrete mathematics, including logic, set theory, combinatorics, and graph theory, which are essential for computer science.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα εισάγει τις θεμελιώδεις έννοιες των διακριτών μαθηματικών, συμπεριλαμβανομένης της λογικής, της θεωρίας συνόλων, της συνδυαστικής και της θεωρίας γράφων, οι οποίες είναι απαραίτητες για την επιστήμη των υπολογιστών.
 
-## Course Code
+## Κωδικός Μαθήματος
 203 (ΔΙΑΚΡΙΤΑ ΜΑΘΗΜΑΤΙΚΑ)
 
-## Prerequisites
-- Mathematical Analysis (MAT 101)
+## Προαπαιτούμενα
+- Μαθηματική Ανάλυση (MAT 101)
 
-## Topics Covered
-- Logic and proofs
-- Set theory
-- Relations and functions
-- Combinatorics and counting
-- Graph theory
-- Trees and algorithms
-- Boolean algebra
-- Mathematical induction
-- Recurrence relations
+## Θέματα που Καλύπτονται
+- Λογική και αποδείξεις
+- Θεωρία συνόλων
+- Σχέσεις και συναρτήσεις
+- Συνδυαστική και απαρίθμηση
+- Θεωρία γράφων
+- Δέντρα και αλγόριθμοι
+- Άλγεβρα Boolean
+- Μαθηματική επαγωγή
+- Αναδρομικές σχέσεις
 
-## Learning Objectives
-- Understand fundamental discrete structures
-- Apply logical reasoning and proof techniques
-- Work with sets, relations, and functions
-- Solve counting problems
-- Analyze graphs and trees
-- Apply discrete mathematics to computer science problems
-
+## Μαθησιακοί Στόχοι
+- Κατανόηση θεμελιωδών διακριτών δομών
+- Εφαρμογή λογικού συλλογισμού και τεχνικών απόδειξης
+- Εργασία με σύνολα, σχέσεις και συναρτήσεις
+- Επίλυση προβλημάτων απαρίθμησης
+- Ανάλυση γράφων και δέντρων
+- Εφαρμογή των διακριτών μαθηματικών σε προβλήματα της επιστήμης υπολογιστών

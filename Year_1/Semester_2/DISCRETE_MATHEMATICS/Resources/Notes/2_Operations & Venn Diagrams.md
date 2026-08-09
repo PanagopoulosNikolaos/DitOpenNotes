@@ -1,22 +1,22 @@
- # Set Operations & Venn Diagrams
+# Πράξεις Συνόλων & Διαγράμματα Venn
 
-## Core Concepts
+## Βασικές Έννοιες
 
-### 1. Universal Set (U)
--  **Definition**: Contains all possible elements for a given context
--  **Notation**: $U$ or Universe
--  **Example**: $U = \{1, 2, 3, 4, 5\}$ (positive integers ≤ 5)
+### 1. Καθολικό Σύνολο (U)
+- **Ορισμός**: Περιέχει όλα τα πιθανά στοιχεία για ένα συγκεκριμένο πλαίσιο
+- **Συμβολισμός**: $U$ ή Σύμπαν (Universe)
+- **Παράδειγμα**: $U = \{1, 2, 3, 4, 5\}$ (θετικοί ακέραιοι ≤ 5)
 
-### 2. Complement ($A^c$ or $\overline{A}$)
--  **Definition**: All elements in $U$ that are NOT in set $A$
--  **Formula**: $\overline{A} = \{x \in U : x \notin A\}$
--  **Example**: If $U = \{1, 2, 3, 4, 5\}$ and $A = \{1, 2\}$, then $\overline{A} = \{3, 4, 5\}$
+### 2. Συμπλήρωμα ($A^c$ ή $\overline{A}$)
+- **Ορισμός**: Όλα τα στοιχεία στο $U$ που ΔΕΝ ανήκουν στο σύνολο $A$
+- **Τύπος**: $\overline{A} = \{x \in U : x \notin A\}$
+- **Παράδειγμα**: Αν $U = \{1, 2, 3, 4, 5\}$ και $A = \{1, 2\}$, τότε $\overline{A} = \{3, 4, 5\}$
 
 ### 1+2:
 ```mermaid
 graph TD
-    subgraph U [" Universe U = {1, 2, 3, 4, 5}"]
-        subgraph A ["Set A = {1, 2}"]
+    subgraph U [" Καθολικό Σύνολο U = {1, 2, 3, 4, 5}"]
+        subgraph A ["Σύνολο A = {1, 2}"]
             style A fill:#ffcccb,stroke:#ff6b6b,stroke-width:3px
             a1[1]
             a2[2]
@@ -28,8 +28,8 @@ graph TD
     end
     
     subgraph Legend [" "]
-        L1[" Set A"]
-        L2[" Complement A' = {3, 4, 5}"]
+        L1[" Σύνολο A"]
+        L2[" Συμπλήρωμα A' = {3, 4, 5}"]
     end
     
     style U fill:#f0f8ff,stroke:#4682b4,stroke-width:2px
@@ -40,14 +40,14 @@ graph TD
     style L2 fill:#f,stroke:#4caf50
 
 ```
-### 3. Intersection ($A \cap B$)
--  **Definition**: Elements common to both sets
--  **Formula**: $A \cap B = \{x : x \in A \text{ AND } x \in B\}$
--  **Example**: $\{1, 2, 3\} \cap \{3, 4, 5\} = \{3\}$
+### 3. Τομή ($A \cap B$)
+- **Ορισμός**: Κοινά στοιχεία και στα δύο σύνολα
+- **Τύπος**: $A \cap B = \{x : x \in A \text{ ΚΑΙ } x \in B\}$
+- **Παράδειγμα**: $\{1, 2, 3\} \cap \{3, 4, 5\} = \{3\}$
 ```mermaid
 graph LR
-    subgraph Venn ["Venn Diagram: A ∩ B"]
-        subgraph SetA ["Set A = {1, 2, 3}"]
+    subgraph Venn ["Διάγραμμα Venn: A ∩ B"]
+        subgraph SetA ["Σύνολο A = {1, 2, 3}"]
             a1[1]
             a2[2]
         end
@@ -56,7 +56,7 @@ graph LR
             common[3]
         end
         
-        subgraph SetB ["Set B = {3, 4, 5}"]
+        subgraph SetB ["Σύνολο B = {3, 4, 5}"]
             b4[4]
             b5[5]
         end
@@ -68,25 +68,25 @@ graph LR
     style common fill:#81c784,stroke:#2e7d32,stroke-width:2px
 
 ```
-### 4. Union ($A \cup B$)
--  **Definition**: All elements from either set (or both)
--  **Formula**: $A \cup B = \{x : x \in A \text{ OR } x \in B\}$
--  **Example**: $\{1, 2, 3\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}$
+### 4. Ένωση ($A \cup B$)
+- **Ορισμός**: Όλα τα στοιχεία από οποιοδήποτε σύνολο (ή και από τα δύο)
+- **Τύπος**: $A \cup B = \{x : x \in A \text{ Ή } x \in B\}$
+- **Παράδειγμα**: $\{1, 2, 3\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}$
 ```mermaid
 graph TD
-    subgraph Result [" Union: A ∪ B = {1, 2, 3, 4, 5}"]
-        subgraph OnlyA ["Only in A"]
+    subgraph Result [" Ένωση: A ∪ B = {1, 2, 3, 4, 5}"]
+        subgraph OnlyA ["Μόνο στο A"]
             style OnlyA fill:#ffebee,stroke:#e91e63
             ua1[1]
             ua2[2]
         end
         
-        subgraph Both ["In Both A & B"]
+        subgraph Both ["Και στα δύο A & B"]
             style Both fill:#fff3e0,stroke:#ff9800
             ub3[3]
         end
         
-        subgraph OnlyB ["Only in B"]
+        subgraph OnlyB ["Μόνο στο B"]
             style OnlyB fill:#e3f2fd,stroke:#2196f3
             ub4[4]
             ub5[5]
@@ -94,27 +94,27 @@ graph TD
     end
 
 ```
-### 5. Difference ($A - B$ or $A \setminus B$)
--  **Definition**: Elements in $A$ but not in $B$
--  **Formula**: $A - B = \{x : x \in A \text{ AND } x \notin B\}$
--  **Example**: $\{1, 2, 3\} - \{3, 4, 5\} = \{1, 2\}$
+### 5. Διαφορά ($A - B$ ή $A \setminus B$)
+- **Ορισμός**: Στοιχεία στο $A$ αλλά όχι στο $B$
+- **Τύπος**: $A - B = \{x : x \in A \text{ ΚΑΙ } x \notin B\}$
+- **Παράδειγμα**: $\{1, 2, 3\} - \{3, 4, 5\} = \{1, 2\}$
 ```mermaid
 graph TD
-    subgraph Operation ["A - B: Remove B elements from A"]
-        subgraph Original ["Original Set A = {1, 2, 3}"]
-            subgraph Keep [" Keep (not in B)"]
+    subgraph Operation ["A - B: Αφαίρεση στοιχείων του B από το A"]
+        subgraph Original ["Αρχικό Σύνολο A = {1, 2, 3}"]
+            subgraph Keep [" Διατήρηση (όχι στο B)"]
                 style Keep fill:#c8e6c9,stroke:#4caf50,stroke-width:2px
                 k1[1]
                 k2[2]
             end
             
-            subgraph Remove [" Remove (also in B)"]
+            subgraph Remove [" Αφαίρεση (επίσης στο B)"]
                 style Remove fill:#ffcdd2,stroke:#f44336,stroke-width:2px,stroke-dasharray: 5 5
                 r3[3]
             end
         end
         
-        subgraph Result [" Result: A - B = {1, 2}"]
+        subgraph Result [" Αποτέλεσμα: A - B = {1, 2}"]
             style Result fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px
             res1[1]
             res2[2]
@@ -125,17 +125,17 @@ graph TD
     style Operation fill:#f,stroke:#666
 
 ```
-## Visual Representations
+## Οπτικές Αναπαραστάσεις
 
 ```mermaid
 graph TD
-    subgraph Summary [" Set Operations Visual Summary"]
-        subgraph Row1 ["Basic Operations"]
-            A1[" Set A<br/>{1,2,3}"]
-            B1[" Set B<br/>{3,4,5}"]
+    subgraph Summary [" Οπτική Σύνοψη Πράξεων Συνόλων"]
+        subgraph Row1 ["Βασικές Πράξεις"]
+            A1[" Σύνολο A<br/>{1,2,3}"]
+            B1[" Σύνολο B<br/>{3,4,5}"]
         end
         
-        subgraph Row2 ["Results"]
+        subgraph Row2 ["Αποτελέσματα"]
             Int["🟢 A ∩ B<br/>{3}"]
             Union["🟠 A ∪ B<br/>{1,2,3,4,5}"]
             Diff["🟡 A - B<br/>{1,2}"]
@@ -158,7 +158,7 @@ graph TD
 
 ```mermaid
 graph LR
-    subgraph "Set Operations Examples"
+    subgraph "Παραδείγματα Πράξεων Συνόλων"
         subgraph "A = {1, 2, 3}"
             A1[1] 
             A2[2]
@@ -171,63 +171,63 @@ graph LR
         end
     end
     
-    subgraph Results
+    subgraph Αποτελέσματα
         Int["A ∩ B = {3}"]
         Union["A ∪ B = {1, 2, 3, 4, 5}"]
         Diff["A - B = {1, 2}"]
     end
 ```
 
-## Practice Exercises
+## Ασκήσεις Εμπέδωσης
 
-**Given:**
--  $A = \{1, 3, 5, 7, 9\}$ (odd numbers < 10)
--  $B = \{4, 8, 12, 16\}$ (multiples of 4)
--  $C = \{1, 4, 9, 16\}$ (perfect squares)
--  $U = \{1, 2, 3, ..., 20\}$
+**Δίνονται:**
+- $A = \{1, 3, 5, 7, 9\}$ (περιττοί αριθμοί < 10)
+- $B = \{4, 8, 12, 16\}$ (πολλαπλάσια του 4)
+- $C = \{1, 4, 9, 16\}$ (τέλεια τετράγωνα)
+- $U = \{1, 2, 3, ..., 20\}$
 
-**Calculate:**
+**Υπολογίστε:**
 
 1. $A \cup B$
 2. $C \cap B$ 
 3. $C - B$
 4. $\emptyset \cap B$
-5. $\overline{A}$ (complement of A)
+5. $\overline{A}$ (συμπλήρωμα του A)
 6. $(A \cup C) \cap B$
 7. $A - (B \cup C)$
 
 
-**details**
+**Λεπτομέρειες**
 1. **$A \cup B = \{1, 3, 4, 5, 7, 8, 9, 12, 16\}$**
-   -  All unique elements from both sets
+   - Όλα τα μοναδικά στοιχεία και από τα δύο σύνολα
 
 2. **$C \cap B = \{4, 16\}$**
-   -  Common elements in both C and B
+   - Κοινά στοιχεία και στο C και στο B
 
 3. **$C - B = \{1, 9\}$**
-   -  Elements in C but not in B
+   - Στοιχεία στο C αλλά όχι στο B
 
 4. **$\emptyset \cap B = \emptyset$**
-   -  Empty set intersected with any set = empty set
+   - Τομή κενού συνόλου με οποιοδήποτε σύνολο = κενό σύνολο
 
 5. **$\overline{A} = \{2, 4, 6, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20\}$**
-   -  All elements in U not in A
+   - Όλα τα στοιχεία στο U που δεν ανήκουν στο A
 
 6. **$(A \cup C) \cap B = \{4, 16\}$**
-   -  First: $A \cup C = \{1, 3, 4, 5, 7, 9, 16\}$
-   -  Then intersect with B
+   - Πρώτα: $A \cup C = \{1, 3, 4, 5, 7, 9, 16\}$
+   - Μετά τομή με το B
 
 7. **$A - (B \cup C) = \{3, 5, 7\}$**
-   -  First: $B \cup C = \{1, 4, 8, 9, 12, 16\}$
-   -  Elements in A but not in $(B \cup C)$
+   - Πρώτα: $B \cup C = \{1, 4, 8, 9, 12, 16\}$
+   - Στοιχεία στο A αλλά όχι στο $(B \cup C)$
 
 
 
-## Key Properties
+## Βασικές Ιδιότητες
 
-| Property     | Formula                                                | Description                                       |
+| Ιδιότητα     | Τύπος                                                | Περιγραφή                                       |
 | ------------ | ------------------------------------------------------ | ------------------------------------------------- |
-| Commutative  | $A \cup B = B \cup A$                                  | Order doesn't matter                              |
-| Associative  | $(A \cup B) \cup C = A \cup (B \cup C)$                | Grouping doesn't matter                           |
-| Distributive | $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$       | Intersection distributes over union               |
-| De Morgan's  | $\overline{A \cup B} = \overline{A} \cap \overline{B}$ | Complement of union = intersection of complements |
+| Αντιμεταθετική  | $A \cup B = B \cup A$                                  | Η σειρά δεν έχει σημασία                              |
+| Προσεταιριστική  | $(A \cup B) \cup C = A \cup (B \cup C)$                | Η ομαδοποίηση δεν έχει σημασία                           |
+| Επιμεριστική | $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$       | Η τομή επιμερίζεται ως προς την ένωση               |
+| De Morgan  | $\overline{A \cup B} = \overline{A} \cap \overline{B}$ | Συμπλήρωμα ένωσης = τομή συμπληρωμάτων |

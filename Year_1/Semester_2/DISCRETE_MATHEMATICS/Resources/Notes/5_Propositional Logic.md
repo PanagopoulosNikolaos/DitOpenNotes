@@ -1,74 +1,74 @@
-# Propositional Logic: Complete Study Notes
+# Προτασιακή Λογική: Πλήρεις Σημειώσεις Μελέτης
 
 
 
-## 1. Propositions
+## 1. Προτάσεις
 
-### Definition and Characteristics
-A **proposition** is any statement that can be declared as either true or false, but not both simultaneously. You don't need to know whether it's actually true or false - just that it can be one of those two values.
+### Ορισμός και Χαρακτηριστικά
+Μια **πρόταση** είναι κάθε δήλωση που μπορεί να χαρακτηριστεί είτε ως αληθής είτε ως ψευδής, αλλά όχι και τα δύο ταυτόχρονα. Δεν χρειάζεται να γνωρίζετε αν είναι πράγματι αληθής ή ψευδής - μόνο ότι μπορεί να λάβει μία από αυτές τις δύο τιμές.
 
-### Examples of Valid Propositions
-- "The result of adding two rational numbers is rational" (true proposition)
-- "Binary number 0 is used to represent false in logic" (true proposition)
+### Παραδείγματα Έγκυρων Προτάσεων
+- "Το αποτέλεσμα της πρόσθεσης δύο ρητών αριθμών είναι ρητός" (αληθής πρόταση)
+- "Ο δυαδικός αριθμός 0 χρησιμοποιείται για την αναπαράσταση του ψευδούς στη λογική" (αληθής πρόταση)
 
-### What Are NOT Propositions
-- **Questions (Interrogatives)**: "Is this a proposition?" - cannot be true or false
-- **Commands (Imperatives)**: "Take this from me and run" - cannot be true or false
+### Τι ΔΕΝ είναι Προτάσεις
+- **Ερωτήσεις (Ερωτηματικές)**: "Είναι αυτό πρόταση;" - δεν μπορεί να είναι αληθής ή ψευδής
+- **Εντολές (Προστακτικές)**: "Πάρε αυτό από μένα και τρέξε" - δεν μπορεί να είναι αληθής ή ψευδής
 
-### Truth Value Representation
-In discrete mathematics, we use binary representation instead of T/F notation:
-- **1** represents True
-- **0** represents False
+### Αναπαράσταση Τιμής Αληθείας
+Στα διακριτά μαθηματικά, χρησιμοποιούμε δυαδική αναπαράσταση αντί για τη συμβολισμό Α/Ψ:
+- **1** αντιπροσωπεύει το Αληθές
+- **0** αντιπροσωπεύει το Ψευδές
 
 ```mermaid
 graph TD
-    A[Statement] --> B{Can it be declared true or false?}
-    B -->|Yes| C[Proposition]
-    B -->|No| D[Not a Proposition]
-    D --> E[Question/Interrogative]
-    D --> F[Command/Imperative]
-    C --> G[Truth Value: 1 or 0]
+    A[Δήλωση] --> B{Μπορεί να δηλωθεί ως αληθής ή ψευδής;}
+    B -->|Ναι| C[Πρόταση]
+    B -->|Όχι| D[Όχι Πρόταση]
+    D --> E[Ερώτηση/Ερωτηματική]
+    D --> F[Εντολή/Προστακτική]
+    C --> G[Τιμή Αληθείας: 1 ή 0]
 ```
 
-## 2. Logical Connectives
+## 2. Λογικοί Σύνδεσμοι
 
-### Basic Connectives Overview
-Logical connectives are operators that combine propositions to form compound statements. Here are the five fundamental connectives:
+### Επισκόπηση Βασικών Συνδέσμων
+Οι λογικοί σύνδεσμοι είναι τελεστές που συνδυάζουν προτάσεις για να σχηματίσουν σύνθετες δηλώσεις. Εδώ είναι οι πέντε θεμελιώδεις σύνδεσμοι:
 ![[Pasted image 20250617223632.png]]
 
-| Symbol | Alternative | Name | Description |
+| Σύμβολο | Εναλλακτικό | Όνομα | Περιγραφή |
 |--------|-------------|------|-------------|
-| ¬ | ~, ! | Negation (NOT) | Flips truth value |
-| ∧ | &, · | Conjunction (AND) | True only when both are true |
-| ∨ | + | Disjunction (OR) | True when at least one is true |
-| → | ⊃ | Conditional (IF-THEN) | False only when antecedent true, consequent false |
-|  | ≡ | Biconditional (IFF) | True when both have same truth value |
+| ¬ | ~, ! | Άρνηση (NOT) | Αντιστρέφει την τιμή αληθείας |
+| ∧ | &, · | Σύζευξη (AND) | Αληθής μόνο όταν και οι δύο είναι αληθείς |
+| ∨ | + | Διάζευξη (OR) | Αληθής όταν τουλάχιστον μία είναι αληθής |
+| → | ⊃ | Συνεπαγωγή (IF-THEN) | Ψευδής μόνο όταν η υπόθεση είναι αληθής και το συμπέρασμα ψευδές |
+| ↔ | ≡ | Ισοδυναμία (IFF) | Αληθής όταν και οι δύο έχουν την ίδια τιμή αληθείας |
 
-### Detailed Connective Explanations
+### Λεπτομερείς Εξηγήσεις Συνδέσμων
 
-#### Negation (¬)
-- **Mathematical formula**: Value of ¬p = 1 - value of p
-- **Example**: If "grass is green" is true, then "grass is not green" is false
+#### Άρνηση (¬)
+- **Μαθηματικός τύπος**: Τιμή του ¬p = 1 - τιμή του p
+- **Παράδειγμα**: Αν το "το γρασίδι είναι πράσινο" είναι αληθές, τότε το "το γρασίδι δεν είναι πράσινο" είναι ψευδές
 
-#### Conjunction (∧)
-- **Mathematical formula**: Value of p ∧ q = min(value of p, value of q)
-- **English equivalents**: and, but, although, even though, however, in addition to
-- **Truth condition**: True only when both propositions are true
+#### Σύζευξη (∧)
+- **Μαθηματικός τύπος**: Τιμή του p ∧ q = min(τιμή του p, τιμή του q)
+- **Αγγλικοί/Ελληνικοί ισοδύναμοι όροι**: και, αλλά, αν και, παρόλο που, ωστόσο, επιπλέον
+- **Συνθήκη αληθείας**: Αληθής μόνο όταν και οι δύο προτάσεις είναι αληθείς
 
-#### Disjunction (∨)
-- **Mathematical formula**: Value of p ∨ q = max(value of p, value of q)
-- **English equivalents**: or, unless
-- **Truth condition**: True when at least one proposition is true
+#### Διάζευξη (∨)
+- **Μαθηματικός τύπος**: Τιμή του p ∨ q = max(τιμή του p, τιμή του q)
+- **Αγγλικοί/Ελληνικοί ισοδύναμοι όροι**: ή, εκτός αν
+- **Συνθήκη αληθείας**: Αληθής όταν τουλάχιστον μία πρόταση είναι αληθής
 
-#### Conditional (→)
-- **Mathematical formula**: True if and only if value of p ≤ value of q
-- **Structure**: If p (antecedent) then q (consequent)
-- **Key insight**: False only when antecedent is true and consequent is false
+#### Συνεπαγωγή (→)
+- **Μαθηματικός τύπος**: Αληθής αν και μόνο αν τιμή του p ≤ τιμή του q
+- **Δομή**: Αν p (υπόθεση/ηγούμενο) τότε q (συμπέρασμα/επόμενο)
+- **Βασική παρατήρηση**: Ψευδής μόνο όταν η υπόθεση είναι αληθής και το συμπέρασμα ψευδές
 
-#### Biconditional ()
-- **Structure**: p if and only if q
-- **Meaning**: Combines both directions (p → q and q → p)
-- **Truth condition**: True when both propositions have the same truth value
+#### Ισοδυναμία (↔)
+- **Δομή**: p αν και μόνο αν q
+- **Σημασία**: Συνδυάζει και τις δύο κατευθύνσεις (p → q και q → p)
+- **Συνθήκη αληθείας**: Αληθής όταν και οι δύο προτάσεις έχουν την ίδια τιμή αληθείας
 
 ```mermaid
 graph LR
@@ -79,351 +79,308 @@ graph LR
     H[q] --> G
     I[p] --> J[p → q]
     K[q] --> J
-    L[p] --> M[p  q]
+    L[p] --> M[p ↔ q]
     N[q] --> M
 ```
 
-## 3. Well-Formed Formulas (WFFs)
+## 3. Καλά Σχηματισμένοι Τύποι (WFFs)
 
-### Definition and Rules
-A **well-formed formula** is a syntactically correct logical expression that follows specific construction rules.
+### Ορισμός και Κανόνες
+Ένας **καλά σχηματισμένος τύπος** (WFF) είναι μια συντακτικά ορθή λογική έκφραση που ακολουθεί συγκεκριμένους κανόνες κατασκευής.
 
-### Valid Construction Rules
-1. Any single proposition (p, q, r) is a WFF
-2. If A is a WFF, then ¬A is a WFF
-3. If A and B are WFFs, then (A ∧ B), (A ∨ B), (A → B), and (A  B) are WFFs
+### Κανόνες Έγκυρης Κατασκευής
+1. Κάθε μεμονωμένη πρόταση (p, q, r) είναι WFF
+2. Αν το A είναι WFF, τότε το ¬A είναι WFF
+3. Αν τα A και B είναι WFFs, τότε τα (A ∧ B), (A ∨ B), (A → B), και (A ↔ B) είναι WFFs
 
-### Invalid Constructions
-- Two propositions without connectives: "p q" 
-- Connectives without proper operands: "p ∧ ∨ q" 
-- Hanging connectives: "p ∧" 
+### Άκυρες Κατασκευές
+- Δύο προτάσεις χωρίς συνδέσμους: "p q" 
+- Σύνδεσμοι χωρίς κατάλληλους τελεστέους: "p ∧ ∨ q" 
+- Αιωρούμενοι σύνδεσμοι: "p ∧" 
 
-### Main Connective
-The **main connective** is the operator that scopes over the entire formula. It's typically the last connective added when building the formula and can be identified by the outermost brackets.
+## 4. Πίνακες Αληθείας
 
-```mermaid
-graph TD
-    A[¬p ∧ q → r] --> B{Main Connective}
-    B --> C[→]
-    C --> D[¬p ∧ q]
-    C --> E[r]
-    D --> F[∧]
-    F --> G[¬p]
-    F --> H[q]
-    G --> I[¬]
-    I --> J[p]
-```
+### Ορισμός και Σκοπός
+Ένας **πίνακας αληθείας** είναι ένας μαθηματικός πίνακας που χρησιμοποιείται στη λογική για να προσδιορίσει εάν μια σύνθετη πρόταση είναι αληθής ή ψευδής για όλους τους πιθανούς συνδυασμούς τιμών αληθείας των μεταβλητών της.
 
-## 4. Truth Tables
+### Υπολογισμός Αριθμού Γραμμών
+Για μια έκφραση με $n$ προτασιακές μεταβλητές, ο πίνακας αληθείας απαιτεί $2^n$ γραμμές:
+- 1 μεταβλητή: $2^1 = 2$ γραμμές
+- 2 μεταβλητές: $2^2 = 4$ γραμμές
+- 3 μεταβλητές: $2^3 = 8$ γραμμές
+- 4 μεταβλητές: $2^4 = 16$ γραμμές
 
-### Construction Method
-Truth tables systematically list all possible truth value combinations for propositions.
+### Βασικοί Πίνακες Αληθείας (Δυαδική Αναπαράσταση)
 
-#### Pattern for Multiple Variables
-- **Rightmost column**: Alternate 1, 0, 1, 0...
-- **Next column left**: Double up - 1, 1, 0, 0, 1, 1, 0, 0...
-- **Continue pattern**: Keep doubling for each column moving left
-- **Number of rows**: 2^n where n = number of variables
+#### Πίνακας Αληθείας Άρνησης
+| p | ¬p |
+|---|----|
+| 1 | 0  |
+| 0 | 1  |
 
-### Complete Truth Table for Basic Connectives
+#### Πίνακες Αληθείας Δυαδικών Συνδέσμων
+| p | q | p ∧ q | p ∨ q | p → q | p ↔ q |
+|---|---|-------|-------|-------|-------|
+| 1 | 1 |   1   |   1   |   1   |   1   |
+| 1 | 0 |   0   |   1   |   0   |   0   |
+| 0 | 1 |   0   |   1   |   1   |   0   |
+| 0 | 0 |   0   |   0   |   1   |   1   |
 
-| p | q | ¬p | p ∧ q | p ∨ q | p → q | p  q |
-|---|---|----|----|----|----|----| 
-| 1 | 1 | 0  | 1  | 1  | 1  | 1  |
-| 1 | 0 | 0  | 0  | 1  | 0  | 0  |
-| 0 | 1 | 1  | 0  | 1  | 1  | 0  |
-| 0 | 0 | 1  | 0  | 0  | 1  | 1  |
+### Βήμα προς Βήμα Κατασκευή Πίνακα Αληθείας
+Για την αξιολόγηση της σύνθετης έκφρασης: $(p \lor q) \land \neg(p \land q)$
 
-### Complex Formula Evaluation
-For complex formulas like (p ∧ q) ∨ (¬p ∧ ¬q), build columns step by step:
-1. Basic propositions (p, q)
-2. Negations (¬p, ¬q)
-3. Simple conjunctions/disjunctions
-4. Final compound expression
+| p | q | p ∨ q | p ∧ q | ¬(p ∧ q) | (p ∨ q) ∧ ¬(p ∧ q) |
+|---|---|-------|-------|----------|-------------------|
+| 1 | 1 |   1   |   1   |    0     |         0         |
+| 1 | 0 |   1   |   0   |    1     |         1         |
+| 0 | 1 |   1   |   0   |    1     |         1         |
+| 0 | 0 |   0   |   0   |    1     |         0         |
 
-## 5. Classification of Formulas
+## 5. Ταυτολογίες, Αντιφάσεις και Ενδεχόμενα
 
-### Tautologies
-- **Definition**: Always true regardless of truth value assignments
-- **Symbol**: ⊤ (top)
-- **Examples**: p ∨ ¬p, ¬(p ∧ ¬p), p → p
-- **Truth table result**: All 1s
+### Ταυτολογία
+Μια **ταυτολογία** είναι μια σύνθετη πρόταση που είναι **πάντα αληθής** (τιμή 1), ανεξάρτητα από τις τιμές αληθείας των προτασιακών μεταβλητών της.
 
-### Contradictions
-- **Definition**: Always false regardless of truth value assignments
-- **Symbol**: ⊥ (falsum)
-- **Examples**: p ∧ ¬p, ¬(p ∨ ¬p)
-- **Truth table result**: All 0s
+#### Κλασικό Παράδειγμα: $p \lor \neg p$ (Νόμος του Αποκλειόμενου Τρίτου)
+| p | ¬p | p ∨ ¬p |
+|---|----|--------|
+| 1 | 0  |   1    |
+| 0 | 1  |   1    |
 
-### Contingent Formulas
-- **Definition**: Sometimes true, sometimes false
-- **Examples**: p ∧ q, p → q, p ∨ q
-- **Truth table result**: Mix of 1s and 0s
+### Αντίφαση
+Μια **αντίφαση** είναι μια σύνθετη πρόταση που είναι **πάντα ψευδής** (τιμή 0), ανεξάρτητα από τις τιμές αληθείας των προτασιακών μεταβλητών της.
 
-```mermaid
-graph TD
-    A[Formula Classification] --> B[Tautology]
-    A --> C[Contradiction]
-    A --> D[Contingent]
-    B --> E[Always True - All 1s]
-    C --> F[Always False - All 0s]
-    D --> G[Sometimes True/False - Mixed]
-```
+#### Κλασικό Παράδειγμα: $p \land \neg p$ (Νόμος της Μη Αντίφασης)
+| p | ¬p | p ∧ ¬p |
+|---|----|--------|
+| 1 | 0  |   0    |
+| 0 | 1  |   0    |
 
-## 6. Logical Equivalence
+### Ενδεχόμενο (Contingency)
+Ένα **ενδεχόμενο** είναι μια σύνθετη πρόταση που δεν είναι ούτε ταυτολογία ούτε αντίφαση - είναι αληθής για ορισμένους συνδυασμούς τιμών αληθείας και ψευδής για άλλους.
 
-### Definition
-Two formulas are **logically equivalent** if they have identical truth values in all possible scenarios. This means they have the same truth table output.
-
-### Examples of Equivalence
-- p  q ≡ (p ∧ q) ∨ (¬p ∧ ¬q)
-- All tautologies are equivalent to each other
-- All contradictions are equivalent to each other
-
-## 7. Conditionals and Related Forms
-
-### Four Related Forms
-Starting with conditional p → q:
-
-1. **Conditional**: p → q
-2. **Inverse**: ¬p → ¬q (negate both)
-3. **Converse**: q → p (swap positions)
-4. **Contrapositive**: ¬q → ¬p (negate and swap)
-
-### Equivalence Relationships
-- **Conditional ≡ Contrapositive**
-- **Inverse ≡ Converse**
-- Conditional is NOT equivalent to its inverse or converse
+#### Παράδειγμα: $p \to q$
+Είναι αληθής στις περισσότερες περιπτώσεις, αλλά ψευδής όταν $p=1$ και $q=0$.
 
 ```mermaid
 graph TD
-    A[p → q] --> B[Conditional]
-    A --> C[¬p → ¬q]
-    A --> D[q → p]
-    A --> E[¬q → ¬p]
-    B --> F[Original]
-    C --> G[Inverse]
-    D --> H[Converse]
-    E --> I[Contrapositive]
-    F -.->|Equivalent| I
-    G -.->|Equivalent| H
+    A[Σύνθετη Πρόταση] --> B{Τιμή Αληθείας στον Πίνακα}
+    B -->|Όλα 1| C[Ταυτολογία]
+    B -->|Όλα 0| D[Αντίφαση]
+    B -->|Μείγμα 1 και 0| E[Ενδεχόμενο]
 ```
 
-## 8. Logical Laws and Equivalences
+## 6. Λογική Ισοδυναμία
 
-### De Morgan's Laws
-The most important equivalence laws for negating compound statements:
+### Ορισμός
+Δύο λογικές εκφράσεις $A$ και $B$ είναι **λογικά ισοδύναμες** (συμβολίζεται $A \equiv B$ ή $A \iff B$) αν έχουν την ίδια ακριβώς τιμή αληθείας υπό όλες τις πιθανές ερμηνείες.
 
-- **First Law**: ¬(p ∧ q) ≡ ¬p ∨ ¬q
-- **Second Law**: ¬(p ∨ q) ≡ ¬p ∧ ¬q
+### Θεμελιώδεις Λογικές Ισοδυναμίες
 
-**Memory technique**: Push negation through to all letters and flip the connective (∧ becomes ∨, ∨ becomes ∧)
+#### Νόμοι De Morgan
+- $\neg(p \land q) \equiv \neg p \lor \neg q$
+- $\neg(p \lor q) \equiv \neg p \land \neg q$
 
-### Other Important Laws
+#### Νόμοι Συνεπαγωγής
+- $p \to q \equiv \neg p \lor q$
+- $p \to q \equiv \neg q \to \neg p$ (Αντιθετοαντίστροφος)
 
-#### Distributive Law
-- p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)
-- p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)
+#### Νόμοι Ισοδυναμίας
+- $p \leftrightarrow q \equiv (p \to q) \land (q \to p)$
+- $p \leftrightarrow q \equiv (p \land q) \lor (\neg p \land \neg q)$
 
-#### Conditional Law
-- p → q ≡ ¬p ∨ q
+#### Διπλή Άρνηση
+- $\neg(\neg p) \equiv p$
 
-#### Contrapositive Law
-- p → q ≡ ¬q → ¬p
+#### Επιμεριστικοί Νόμοι
+- $p \land (q \lor r) \equiv (p \land q) \lor (p \land r)$
+- $p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)$
 
-#### Associative Law
-- (p ∧ q) ∧ r ≡ p ∧ (q ∧ r)
-- (p ∨ q) ∨ r ≡ p ∨ (q ∨ r)
+### Απόδειξη Ισοδυναμίας με Πίνακα Αληθείας: $p \to q \equiv \neg p \lor q$
 
-## 9. Arguments and Translation
+| p | q | p → q | ¬p | ¬p ∨ q |
+|---|---|-------|----|--------|
+| 1 | 1 |   1   | 0  |   1    |
+| 1 | 0 |   0   | 0  |   0    |
+| 0 | 1 |   1   | 1  |   1    |
+| 0 | 0 |   1   | 1  |   1    |
 
-### Argument Structure
-An **argument** consists of:
-- **Premises**: Assumptions or given statements
-- **Conclusion**: What we want to prove
-- **Inferences**: Logical steps connecting premises to conclusion
+*Αφού οι στήλες $p \to q$ και $\neg p \lor q$ είναι πανομοιότυπες, οι εκφράσεις είναι λογικά ισοδύναμες.*
 
-### Translation Guidelines
+## 7. Παραλλαγές της Συνεπαγωγής
 
-#### Identifying Conditionals
-- **If-then structure**: "If p then q" → p → q
-- **Antecedent**: What comes after "if" (unless "only if" is present)
-- **Consequent**: What comes after "then" (explicit or implied)
+Για μια δοσμένη συνεπαγωγή $p \to q$:
 
-#### Common Translation Patterns
-- **"But"** = ∧ (conjunction)
-- **"Although"** = ∧ (conjunction) 
-- **"Either...or"** = ∨ (disjunction)
-- **"Not"** = ¬ (negation)
+### Αντίστροφη (Converse)
+- **Μορφή**: $q \to p$
+- **Σημαντικό σημείο**: ΔΕΝ είναι λογικά ισοδύναμη με την αρχική συνεπαγωγή
 
-### Translation Examples
-1. "If 6 is rational, it is the sum of two rational digits" → r → s
-2. "6 is rational or 6 is irrational" → r ∨ ¬r
-3. "8 is even but not divisible by 6" → e ∧ ¬d
-4. "Although 7 is rational, √7 is not rational" → r ∧ ¬s
+### Αντιθετοαντίστροφη (Contrapositive)
+- **Μορφή**: $\neg q \to \neg p$
+- **Σημαντικό σημείο**: ΕΙΝΑΙ λογικά ισοδύναμη με την αρχική συνεπαγωγή ($p \to q \equiv \neg q \to \neg p$)
 
-## 10. Logical Inference Rules
+### Αρνητική Αντίστροφη (Inverse)
+- **Μορφή**: $\neg p \to \neg q$
+- **Σημαντικό σημείο**: ΔΕΝ είναι λογικά ισοδύναμη με την αρχική συνεπαγωγή, αλλά ΕΙΝΑΙ ισοδύναμη με την αντίστροφη
 
-### Primary Inference Rules
+### Σύγκριση με Πίνακα Αληθείας
 
-#### Modus Ponens
-- **Form**: p → q, p ⊢ q
-- **Description**: If p implies q and p is true, then q is true
-- **Example**: If it rains then I go inside; It's raining; Therefore, I go inside
-
-#### Modus Tollens  
-- **Form**: p → q, ¬q ⊢ ¬p
-- **Description**: If p implies q and q is false, then p is false
-- **Example**: If it rains then I go inside; I'm not inside; Therefore, it's not raining
-
-#### Disjunctive Syllogism
-- **Form**: p ∨ q, ¬p ⊢ q
-- **Description**: If either p or q is true, and p is false, then q must be true
-- **Example**: Either it's raining or sunny; It's not raining; Therefore, it's sunny
-
-### Secondary Inference Rules
-
-#### Conjunction Introduction
-- **Form**: p, q ⊢ p ∧ q
-- **Description**: If both p and q are true individually, their conjunction is true
-
-#### Conjunction Elimination
-- **Form**: p ∧ q ⊢ p; p ∧ q ⊢ q  
-- **Description**: If a conjunction is true, each conjunct is true individually
-
-#### Disjunction Introduction
-- **Form**: p ⊢ p ∨ q
-- **Description**: If p is true, then p or anything else is true
-
-#### Double Negation
-- **Form**: ¬¬p ⊢ p
-- **Description**: Double negation of p is equivalent to p
-
-#### Contraposition
-- **Form**: p → q ⊢ ¬q → ¬p
-- **Description**: A conditional is equivalent to its contrapositive
+| p | q | Αρχική ($p \to q$) | Αντίστροφη ($q \to p$) | Αντιθετοαντίστροφη ($\neg q \to \neg p$) | Αρνητική Αντίστροφη ($\neg p \to \neg q$) |
+|---|---|-------------------|-------------------|-----------------------------------|-----------------------------------|
+| 1 | 1 |         1         |         1         |                 1                 |                 1                 |
+| 1 | 0 |         0         |         1         |                 0                 |                 1                 |
+| 0 | 1 |         1         |         0         |                 1                 |                 0                 |
+| 0 | 0 |         1         |         1         |                 1                 |                 1                 |
 
 ```mermaid
 graph TD
-    A[Inference Rules] --> B[Modus Ponens]
-    A --> C[Modus Tollens]
-    A --> D[Disjunctive Syllogism]
-    A --> E[Conjunction Rules]
-    A --> F[Disjunction Rules]
-    A --> G[Negation Rules]
-    
-    B --> B1[p → q, p ⊢ q]
-    C --> C1[p → q, ¬q ⊢ ¬p]
-    D --> D1[p ∨ q, ¬p ⊢ q]
-    E --> E1[Introduction: p, q ⊢ p ∧ q]
-    E --> E2[Elimination: p ∧ q ⊢ p]
-    F --> F1[Introduction: p ⊢ p ∨ q]
-    G --> G1[Double Negation: ¬¬p ⊢ p]
-    G --> G2[Contraposition: p → q ⊢ ¬q → ¬p]
+    A["Αρχική: p → q"] -- "Λογικά Ισοδύναμη" --> B["Αντιθετοαντίστροφη: ¬q → ¬p"]
+    C["Αντίστροφη: q → p"] -- "Λογικά Ισοδύναμη" --> D["Αρνητική Αντίστροφη: ¬p → ¬q"]
+    A -- "ΔΕΝ είναι Ισοδύναμη" --> C
+    A -- "ΔΕΝ είναι Ισοδύναμη" --> D
 ```
 
-## 11. Proof Construction Examples
+## 8. Προτασιακά Επιχειρήματα και Κανόνες Συμπερασμού
 
-### Example 1: Proving ¬r
-**Given**: p ∧ q, q → s, ¬r ∨ ¬s  
-**Goal**: Prove ¬r
+### Ορισμός Επιχειρήματος
+Ένα **επιχείρημα** είναι μια σειρά δηλώσεων που καταλήγει σε ένα συμπέρασμα. Έχει τη μορφή:
+$$P_1, P_2, \dots, P_n \vdash C$$
+όπου $P_1, P_2, \dots, P_n$ είναι **υποθέσεις (προκείμενες)** και $C$ είναι το **συμπέρασμα**.
 
-**Proof**:
-1. p ∧ q (Given)
-2. q → s (Given)  
-3. ¬r ∨ ¬s (Given)
-4. q (Conjunction Elimination from 1)
-5. s (Modus Ponens from 2, 4)
-6. ¬r (Disjunctive Syllogism from 3, 5)
+### Έγκυρα vs Άκυρα Επιχειρήματα
+- **Έγκυρο Επιχείρημα**: Αν όλες οι υποθέσεις είναι αληθείς, το συμπέρασμα ΠΡΕΠΕΙ να είναι αληθές.
+- **Μαθηματικός Ορισμός Εγκυρότητας**: Το επιχείρημα είναι έγκυρο αν και μόνο αν η συνεπαγωγή $(P_1 \land P_2 \land \dots \land P_n) \to C$ είναι **ταυτολογία**.
 
-### Example 2: Proving p ∧ q
-**Given**: ¬p ∧ q → s, ¬s ∨ r, ¬r  
-**Goal**: Prove p ∧ q
+### Βασικοί Κανόνες Συμπερασμού
 
-**Proof**:
+#### Modus Ponens (Τρόπος του Τιθέναι)
+- **Μορφή**: $p \to q, p \vdash q$
+- **Δομή**:
+  - Υπόθεση 1: Αν p τότε q
+  - Υπόθεση 2: p
+  - Συμπέρασμα: Άρα q
 
-1. ¬p ∧ q → s (Given)
-2. ¬s ∨ r (Given)
-3. ¬r (Given)
-4. ¬s (Disjunctive Syllogism from 2, 3)
-5. ¬(¬p ∧ q) (Modus Tollens from 1, 4)
-6. **p ∨ ¬q** (De Morgan's Law from 5)
+#### Modus Tollens (Τρόπος του Αίροντος)
+- **Μορφή**: $p \to q, \neg q \vdash \neg p$
+- **Δομή**:
+  - Υπόθεση 1: Αν p τότε q
+  - Υπόθεση 2: Όχι q
+  - Συμπέρασμα: Άρα όχι p
 
-## 12. Key Concepts Summary
+#### Υποθετικός Συλλογισμός (Hypothetical Syllogism)
+- **Μορφή**: $p \to q, q \to r \vdash p \to r$
+- **Δομή**:
+  - Υπόθεση 1: Αν p τότε q
+  - Υπόθεση 2: Αν q τότε r
+  - Συμπέρασμα: Άρα αν p τότε r
 
-### Mathematical Foundations
-- Propositions are binary: exactly one truth value (1 or 0)
-- Truth tables provide systematic evaluation methods
-- Logical equivalence enables formula transformation and simplification
+#### Διαζευκτικός Συλλογισμός (Disjunctive Syllogism)
+- **Μορφή**: $p \lor q, \neg p \vdash q$
+- **Δομή**:
+  - Υπόθεση 1: p ή q
+  - Υπόθεση 2: Όχι p
+  - Συμπέρασμα: Άρα q
 
-### Practical Applications
-- **Computer Science**: Boolean algebra, digital circuit design, programming logic
-- **Mathematics**: Proof construction, theorem validation, logical reasoning
-- **Philosophy**: Argument analysis, formal reasoning, logical structure
+#### Απλοποίηση (Simplification)
+- **Μορφή**: $p \land q \vdash p$
 
-### Study Strategy
-- **Memorize basic truth tables** for all five connectives
-- **Practice translation** from English to logical notation
-- **Master inference rules** through repeated application
-- **Build complex proofs** step by step using established rules
+#### Πρόσθεση (Addition)
+- **Μορφή**: $p \vdash p \lor q$
 
-SOS:
-1. Kill all → and 
-    
-    - p→q ≡ ¬p ∨ q
-        
-    - pq ≡ (p∧q) ∨ (¬p∧¬q)
+### Συνηθισμένες Λογικές Πλάνες (Άκυρα Επιχειρήματα)
 
-|   |   |   |   |   |   |   |
-|---|---|---|---|---|---|---|
-|**p**|**q**|**r**|**p→q**|**q→r**|**A=p∧(p→q)∧(q→r)**|**F=A→r**|
-|0|0|0|1|1|0|**1**|
-|0|0|1|1|1|0|**1**|
-|0|1|0|1|0|0|**1**|
-|0|1|1|1|1|0|**1**|
-|1|0|0|0|1|0|**1**|
-|1|0|1|0|1|0|**1**|
-|1|1|0|1|0|0|**1**|
-|1|1|1|1|1|1|**1**|
+#### Πλάνη της Επιβεβαίωσης του Επομένου (Fallacy of Affirming the Consequent)
+- **Άκυρη Μορφή**: $p \to q, q \vdash p$
+- **Σφάλμα**: Το ότι συνέβη το q δεν σημαίνει ότι το προκάλεσε το p.
 
-Παρατηρούμε από την τελική στήλη (F) ότι η έκφραση είναι πάντα αληθής (1) για κάθε συνδυασμό. Αυτό από μόνο του αποδεικνύει ότι είναι ταυτολογία. Ας το επιβεβαιώσουμε όμως και με τον χάρτη Karnaugh.
+#### Πλάνη της Άρνησης του Ηγουμένου (Fallacy of Denying the Antecedent)
+- **Άκυρη Μορφή**: $p \to q, \neg p \vdash \neg q$
+- **Σφάλμα**: Το ότι δεν συνέβη το p δεν σημαίνει ότι το q δεν μπορεί να συμβεί από άλλη αιτία.
 
-### Βήμα 2: Δημιουργία του Χάρτη Karnaugh (K-map)
+## 9. Κανονικές Μορφές
 
-Τώρα, θα μεταφέρουμε τις τιμές της τελικής στήλης (F) σε έναν χάρτη Karnaugh 3 μεταβλητών. Ο χάρτης αντιστοιχεί τις τιμές των μεταβλητών στα κελιά του. Η σειρά των στηλών (qr) ακολουθεί τον κώδικα Gray (00, 01, 11, 10), όπου μόνο ένα bit αλλάζει μεταξύ γειτονικών στηλών.
+### Διορθωτική Κανονική Μορφή (DNF)
+Η DNF είναι μια **διάζευξη συζεύξεων** (OR από ANDs). Έχει τη μορφή:
+$$(m_1) \lor (m_2) \lor \dots \lor (m_k)$$
+όπου κάθε $m_i$ είναι ένας **ελάχιστος όρος (minterm)** (μια σύζευξη μεταβλητών ή των αρνήσεων τους).
 
-Κάθε κελί του χάρτη αντιστοιχεί σε μία γραμμή του πίνακα αληθείας:
+### Συζευκτική Κανονική Μορφή (CNF)
+Η CNF είναι μια **σύζευξη διαζεύξεων** (AND από ORs). Έχει τη μορφή:
+$$(M_1) \land (M_2) \land \dots \land (M_k)$$
+όπου κάθε $M_i$ είναι ένας **μέγιστος όρος (maxterm)** (μια διάζευξη μεταβλητών ή των αρνήσεων τους).
 
-- (p,q,r) = (0,0,0) → κελί p=0, qr=00
-- (p,q,r) = (0,0,1) → κελί p=0, qr=01
-- ... και ούτω καθεξής.
-
-Ο χάρτης μας θα γεμίσει ως εξής:
-
-```
-      qr
-p   \  00  01  11  10
-     +---+---+---+---+
-   0 | 1 | 1 | 1 | 1 |
-     +---+---+---+---+
-   1 | 1 | 1 | 1 | 1 |
-     +---+---+---+---+
+```mermaid
+graph TD
+    A[Λογική Έκφραση] --> B[Διορθωτική Κανονική Μορφή - DNF]
+    A --> C[Συζευκτική Κανονική Μορφή - CNF]
+    B --> D["OR από ANDs: (A ∧ B) ∨ (C ∧ D)"]
+    C --> E["AND από ORs: (A ∨ B) ∧ (C ∨ D)"]
 ```
 
-### Βήμα 3: Ομαδοποίηση και Απλοποίηση
+## 10. Πλήρη Συστήματα Συνδέσμων
 
-Ο σκοπός του χάρτη Karnaugh είναι να δημιουργήσουμε τις μεγαλύτερες δυνατές ορθογώνιες ομάδες από '1' (με μέγεθος που είναι δύναμη του 2, δηλαδή 1, 2, 4, 8, ...).
+### Ορισμός
+Ένα σύνολο λογικών συνδέσμων ονομάζεται **πλήρες** αν κάθε δυνατή συνάρτηση αληθείας μπορεί να εκφραστεί χρησιμοποιώντας μόνο τους συνδέσμους αυτού του συνόλου.
 
-Σε αυτή την περίπτωση, βλέπουμε ότι **όλα τα κελιά του χάρτη περιέχουν '1'**. Μπορούμε να δημιουργήσουμε μία μεγάλη ομάδα που τα περιλαμβάνει όλα (μια ομάδα των 8).
+### Παραδείγματα Πλήρων Συστημάτων
+- **Τυπικό Πλήρες Σύστημα**: $\{\neg, \land, \lor\}$
+- **Ελάχιστα Πλήρη Συστήματα**:
+  - $\{\neg, \land\}$
+  - $\{\neg, \lor\}$
+  - $\{\neg, \to\}$
 
-Κανόνας απλοποίησης:
+### Μεμονωμένοι Πλήρεις Σύνδεσμοι (Universal Gates)
 
-Όταν μια ομάδα καλύπτει ολόκληρο τον χάρτη, σημαίνει ότι η τιμή της συνάρτησης είναι '1' ανεξάρτητα από τις τιμές των μεταβλητών εισόδου (p,q,r). Κάθε μεταβλητή εμφανίζεται τόσο στην κανονική της μορφή (π.χ., p) όσο και στην αντεστραμμένη της (¬p) μέσα στην ομάδα, με αποτέλεσμα να "ακυρώνεται".
+#### Πύλη NAND (Σύνδεσμος Sheffer Stroke: $|$)
+- $p | q \equiv \neg(p \land q)$
+- Μπορεί να εκφράσει όλους τους άλλους συνδέσμους:
+  - $\neg p \equiv p | p$
+  - $p \land q \equiv (p | q) | (p | q)$
+  - $p \lor q \equiv (p | p) | (q | q)$
 
-Η απλοποιημένη έκφραση για μια ομάδα που καλύπτει ολόκληρο τον χάρτη είναι απλώς:
+#### Πύλη NOR (Βέλος του Peirce: $\downarrow$)
+- $p \downarrow q \equiv \neg(p \lor q)$
+- Επίσης επαρκεί από μόνη της για την έκφραση όλων των λογικών συνδέσμων.
 
-F=1
+## 11. Πρακτικές Ασκήσεις και Λύσεις
 
-### Συμπέρασμα
+### Άσκηση 1: Κατασκευή Πίνακα Αληθείας
+**Πρόβλημα**: Κατασκευάστε τον πίνακα αληθείας για την πρόταση $(p \to q) \land (q \to p)$.
 
-Η απλοποίηση μέσω του χάρτη Karnaugh μας δίνει το αποτέλεσμα `1` (που αντιστοιχεί στο `T` / Αληθής). Αφού η τελική, απλούστερη ισοδύναμη έκφραση είναι `T`, επιβεβαιώνεται ότι ο αρχικός τύπος **είναι ταυτολογία**.
+**Λύση**:
+
+| p | q | p → q | q → p | (p → q) ∧ (q → p) |
+|---|---|-------|-------|-------------------|
+| 1 | 1 |   1   |   1   |         1         |
+| 1 | 0 |   0   |   1   |         0         |
+| 0 | 1 |   1   |   0   |         0         |
+| 0 | 0 |   1   |   1   |         1         |
+
+*Παρατήρηση: Αυτή η έκφραση είναι λογικά ισοδύναμη με την ισοδυναμία $p \leftrightarrow q$.*
+
+### Άσκηση 2: Μετατροπή σε DNF
+**Πρόβλημα**: Βρείτε τη DNF της έκφρασης $p \to q$.
+
+**Λύση**:
+1. Δημιουργούμε τον πίνακα αληθείας για το $p \to q$:
+   - $p=1, q=1 \to 1$ (minterm: $p \land q$)
+   - $p=1, q=0 \to 0$
+   - $p=0, q=1 \to 1$ (minterm: $\neg p \land q$)
+   - $p=0, q=0 \to 1$ (minterm: $\neg p \land \neg q$)
+
+2. Παίρνουμε τη διάζευξη των minterms που δίνουν αποτέλεσμα 1:
+   $$\text{DNF} = (p \land q) \lor (\neg p \land q) \lor (\neg p \land \neg q)$$
+
+### Άσκηση 3: Έλεγχος Εγκυρότητας Επιχειρήματος
+**Πρόβλημα**: Ελέγξτε αν το παρακάτω επιχείρημα είναι έγκυρο:
+- Αν βρέχει, ο δρόμος είναι βρεγμένος.
+- Ο δρόμος είναι βρεγμένος.
+- Άρα, βρέχει.
+
+**Λύση**:
+1. Συμβολισμός:
+   - $p$: Βρέχει
+   - $q$: Ο δρόμος είναι βρεγμένος
+2. Μορφή επιχειρήματος: $p \to q, q \vdash p$
+3. Αυτό αποτελεί την **πλάνη της επιβεβαίωσης του επομένου**.
+4. **Συμπέρασμα**: Το επιχείρημα είναι **ΑΚΥΡΟ**. Ο δρόμος μπορεί να είναι βρεγμένος για άλλο λόγο (π.χ. πλύσιμο δρόμου).
