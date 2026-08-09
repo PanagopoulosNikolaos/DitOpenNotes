@@ -1,195 +1,195 @@
-# Mathematical Analysis: Calculus 1 Exercises (Part 1)
+# Μαθηματική Ανάλυση: Ασκήσεις Απειροστικού Λογισμού 1 (Μέρος 1)
 
-This file contains introductory exercises on limits, derivatives, and basic applications.
+Αυτό το αρχείο περιέχει εισαγωγικές ασκήσεις στα όρια, τις παραγώγους και βασικές εφαρμογές.
 
 ---
 
-### Section 1: Limits of Functions
+### Ενότητα 1: Όρια Συναρτήσεων
 
-**Exercise 1:** Find the limit: $\lim_{x \to 2} (3x^2 - 5x + 1)$
-**Solution:**
-Substitute $x=2$ into the expression:
+**Άσκηση 1:** Βρείτε το όριο: $\lim_{x \to 2} (3x^2 - 5x + 1)$
+**Λύση:**
+Αντικαταστήστε το $x=2$ στην έκφραση:
 $$3(2)^2 - 5(2) + 1 = 3(4) - 10 + 1 = 12 - 10 + 1 = 3$$
 
-**Exercise 2:** Find the limit: $\lim_{x \to -1} \frac{x^2 + 2x + 1}{x + 1}$
-**Solution:**
-Factor the numerator: $x^2 + 2x + 1 = (x+1)^2$.
+**Άσκηση 2:** Βρείτε το όριο: $\lim_{x \to -1} \frac{x^2 + 2x + 1}{x + 1}$
+**Λύση:**
+Παραγοντοποιήστε τον αριθμητή: $x^2 + 2x + 1 = (x+1)^2$.
 $$\lim_{x \to -1} \frac{(x+1)^2}{x + 1} = \lim_{x \to -1} (x+1) = -1 + 1 = 0$$
 
-**Exercise 3:** Find the limit: $\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$
-**Solution:**
-Factor the numerator: $x^2 - 9 = (x-3)(x+3)$.
+**Άσκηση 3:** Βρείτε το όριο: $\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$
+**Λύση:**
+Παραγοντοποιήστε τον αριθμητή: $x^2 - 9 = (x-3)(x+3)$.
 $$\lim_{x \to 3} \frac{(x-3)(x+3)}{x - 3} = \lim_{x \to 3} (x+3) = 3 + 3 = 6$$
 
-**Exercise 4:** Find the limit: $\lim_{x \to 0} \frac{\sin(x)}{x}$
-**Solution:**
-This is a standard trigonometric limit.
+**Άσκηση 4:** Βρείτε το όριο: $\lim_{x \to 0} \frac{\sin(x)}{x}$
+**Λύση:**
+Αυτό είναι ένα βασικό τριγωνομετρικό όριο.
 $$\lim_{x \to 0} \frac{\sin(x)}{x} = 1$$
 
-**Exercise 5:** Find the limit: $\lim_{x \to \infty} \frac{2x^2 - 1}{3x^2 + x}$
-**Solution:**
-Divide the numerator and denominator by the highest power of $x$, which is $x^2$.
+**Άσκηση 5:** Βρείτε το όριο: $\lim_{x \to \infty} \frac{2x^2 - 1}{3x^2 + x}$
+**Λύση:**
+Διαιρέστε τον αριθμητή και τον παρονομαστή με τη μεγαλύτερη δύναμη του $x$, δηλαδή το $x^2$.
 $$\lim_{x \to \infty} \frac{2 - 1/x^2}{3 + 1/x} = \frac{2 - 0}{3 + 0} = \frac{2}{3}$$
 
 ---
 
-### Section 2: Continuity
+### Ενότητα 2: Συνέχεια
 
-**Exercise 6:** Determine if the function $f(x) = x^2 + 1$ is continuous at $x=1$.
-**Solution:**
-The function is a polynomial, which is continuous everywhere.
+**Άσκηση 6:** Εξετάστε αν η συνάρτηση $f(x) = x^2 + 1$ είναι συνεχής στο $x=1$.
+**Λύση:**
+Η συνάρτηση είναι πολυωνυμική, επομένως είναι συνεχής παντού.
 $f(1) = 1^2 + 1 = 2$.
 $\lim_{x \to 1} (x^2 + 1) = 1^2 + 1 = 2$.
-Since $f(1) = \lim_{x \to 1} f(x)$, the function is continuous at $x=1$.
+Αφού $f(1) = \lim_{x \to 1} f(x)$, η συνάρτηση είναι συνεχής στο $x=1$.
 
-**Exercise 7:** Find the value of $c$ that makes the function continuous at $x=2$.
-$f(x) = \begin{cases} x^2 & \text{if } x \leq 2 \\ cx + 3 & \text{if } x > 2 \end{cases}$
-**Solution:**
-For continuity, the left-hand limit must equal the right-hand limit at $x=2$.
+**Άσκηση 7:** Βρείτε την τιμή του $c$ που καθιστά τη συνάρτηση συνεχή στο $x=2$.
+$f(x) = \begin{cases} x^2 & \text{αν } x \leq 2 \\ cx + 3 & \text{αν } x > 2 \end{cases}$
+**Λύση:**
+Για τη συνέχεια, το αριστερό όριο πρέπει να ισούται με το δεξί όριο στο $x=2$.
 $\lim_{x \to 2^-} f(x) = 2^2 = 4$.
 $\lim_{x \to 2^+} f(x) = c(2) + 3 = 2c + 3$.
-Set them equal: $4 = 2c + 3 \implies 2c = 1 \implies c = 1/2$.
+Εξισώνοντάς τα: $4 = 2c + 3 \implies 2c = 1 \implies c = 1/2$.
 
 ---
 
-### Section 3: Derivatives using the Limit Definition
+### Ενότητα 3: Παράγωγοι με χρήση του Ορισμού του Ορίου
 
-**Exercise 8:** Find the derivative of $f(x) = 3x + 2$ using the limit definition.
-**Solution:**
+**Άσκηση 8:** Βρείτε την παράγωγο της $f(x) = 3x + 2$ χρησιμοποιώντας τον ορισμό του ορίου.
+**Λύση:**
 $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} = \lim_{h \to 0} \frac{(3(x+h) + 2) - (3x+2)}{h}$$
 $$= \lim_{h \to 0} \frac{3x + 3h + 2 - 3x - 2}{h} = \lim_{h \to 0} \frac{3h}{h} = 3$$
 
-**Exercise 9:** Find the derivative of $f(x) = x^2$ using the limit definition.
-**Solution:**
+**Άσκηση 9:** Βρείτε την παράγωγο της $f(x) = x^2$ χρησιμοποιώντας τον ορισμό του ορίου.
+**Λύση:**
 $$f'(x) = \lim_{h \to 0} \frac{(x+h)^2 - x^2}{h} = \lim_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h}$$
 $$= \lim_{h \to 0} \frac{2xh + h^2}{h} = \lim_{h \to 0} (2x + h) = 2x$$
 
 ---
 
-### Section 4: Basic Differentiation Rules
+### Ενότητα 4: Βασικοί Κανόνες Παραγώγισης
 
-**Exercise 10:** Find the derivative of $f(x) = 5x^4 - 2x^3 + x - 7$.
-**Solution:**
-Using the power rule:
+**Άσκηση 10:** Βρείτε την παράγωγο της $f(x) = 5x^4 - 2x^3 + x - 7$.
+**Λύση:**
+Χρησιμοποιώντας τον κανόνα της δύναμης:
 $$f'(x) = 5(4x^3) - 2(3x^2) + 1 - 0 = 20x^3 - 6x^2 + 1$$
 
-**Exercise 11:** Find the derivative of $f(x) = \sqrt{x}$.
-**Solution:**
-Rewrite as $f(x) = x^{1/2}$.
+**Άσκηση 11:** Βρείτε την παράγωγο της $f(x) = \sqrt{x}$.
+**Λύση:**
+Ξαναγράψτε ως $f(x) = x^{1/2}$.
 $$f'(x) = \frac{1}{2}x^{-1/2} = \frac{1}{2\sqrt{x}}$$
 
-**Exercise 12:** Find the derivative of $f(x) = \sin(x) + \cos(x)$.
-**Solution:**
+**Άσκηση 12:** Βρείτε την παράγωγο της $f(x) = \sin(x) + \cos(x)$.
+**Λύση:**
 $$f'(x) = \cos(x) - \sin(x)$$
 
-**Exercise 13:** Find the derivative of $f(x) = e^x \ln(x)$.
-**Solution:**
-Using the product rule: $(uv)' = u'v + uv'$.
+**Άσκηση 13:** Βρείτε την παράγωγο της $f(x) = e^x \ln(x)$.
+**Λύση:**
+Χρησιμοποιώντας τον κανόνα γινομένου: $(uv)' = u'v + uv'$.
 $$f'(x) = (e^x)'\ln(x) + e^x(\ln(x))' = e^x\ln(x) + e^x\frac{1}{x}$$
 
-**Exercise 14:** Find the derivative of $g(t) = \frac{t^2}{t+1}$.
-**Solution:**
-Using the quotient rule: $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$.
+**Άσκηση 14:** Βρείτε την παράγωγο της $g(t) = \frac{t^2}{t+1}$.
+**Λύση:**
+Χρησιμοποιώντας τον κανόνα πηλίκου: $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$.
 $$g'(t) = \frac{(2t)(t+1) - (t^2)(1)}{(t+1)^2} = \frac{2t^2 + 2t - t^2}{(t+1)^2} = \frac{t^2 + 2t}{(t+1)^2}$$
 
-**Exercise 15:** Find the derivative of $h(x) = (x^2 + 1)^5$.
-**Solution:**
-Using the chain rule:
+**Άσκηση 15:** Βρείτε την παράγωγο της $h(x) = (x^2 + 1)^5$.
+**Λύση:**
+Χρησιμοποιώντας τον κανόνα της αλυσίδας:
 $$h'(x) = 5(x^2 + 1)^4 \cdot (2x) = 10x(x^2 + 1)^4$$
 
-**Exercise 16:** Find the derivative of $f(x) = \cos(3x^2)$.
-**Solution:**
-Using the chain rule:
+**Άσκηση 16:** Βρείτε την παράγωγο της $f(x) = \cos(3x^2)$.
+**Λύση:**
+Χρησιμοποιώντας τον κανόνα της αλυσίδας:
 $$f'(x) = -\sin(3x^2) \cdot (6x) = -6x\sin(3x^2)$$
 
-**Exercise 17:** Find the derivative of $f(x) = \ln(x^2 + 4)$.
-**Solution:**
-Using the chain rule:
+**Άσκηση 17:** Βρείτε την παράγωγο της $f(x) = \ln(x^2 + 4)$.
+**Λύση:**
+Χρησιμοποιώντας τον κανόνα της αλυσίδας:
 $$f'(x) = \frac{1}{x^2+4} \cdot (2x) = \frac{2x}{x^2+4}$$
 
 ---
 
-### Section 5: Applications of Derivatives
+### Ενότητα 5: Εφαρμογές των Παραγώγων
 
-**Exercise 18:** Find the equation of the tangent line to $f(x) = x^3 - 2x$ at $x=2$.
-**Solution:**
-First, find the slope by calculating the derivative: $f'(x) = 3x^2 - 2$.
-The slope at $x=2$ is $m = f'(2) = 3(2)^2 - 2 = 12 - 2 = 10$.
-The point on the curve is $(2, f(2))$. $f(2) = 2^3 - 2(2) = 8 - 4 = 4$.
-Using the point-slope form $y - y_1 = m(x - x_1)$:
+**Άσκηση 18:** Βρείτε την εξίσωση της εφαπτομένης ευθείας στη γραφική παράσταση της $f(x) = x^3 - 2x$ στο $x=2$.
+**Λύση:**
+Πρώτα, βρείτε την κλίση υπολογίζοντας την παράγωγο: $f'(x) = 3x^2 - 2$.
+Η κλίση στο $x=2$ είναι $m = f'(2) = 3(2)^2 - 2 = 12 - 2 = 10$.
+Το σημείο πάνω στη καμπύλη είναι το $(2, f(2))$. $f(2) = 2^3 - 2(2) = 8 - 4 = 4$.
+Χρησιμοποιώντας τη μορφή σημείου-κλίσης $y - y_1 = m(x - x_1)$:
 $$y - 4 = 10(x - 2) \implies y = 10x - 20 + 4 \implies y = 10x - 16$$
 
-**Exercise 19:** Find the critical points of $f(x) = x^3 - 6x^2 + 5$.
-**Solution:**
-Find the derivative and set it to zero: $f'(x) = 3x^2 - 12x$.
+**Άσκηση 19:** Βρείτε τα κρίσιμα σημεία της $f(x) = x^3 - 6x^2 + 5$.
+**Λύση:**
+Βρείτε την παράγωγο και μηδενίστε την: $f'(x) = 3x^2 - 12x$.
 $$3x^2 - 12x = 0 \implies 3x(x - 4) = 0$$
-The critical points are $x=0$ and $x=4$.
+Τα κρίσιμα σημεία είναι $x=0$ και $x=4$.
 
-**Exercise 20:** Determine the intervals where $f(x) = x^3 - 3x$ is increasing or decreasing.
-**Solution:**
-Find the derivative: $f'(x) = 3x^2 - 3 = 3(x^2 - 1) = 3(x-1)(x+1)$.
-The critical points are $x=-1$ and $x=1$.
-Test intervals:
-- $(-\infty, -1)$: $f'(-2) = 3(3) > 0$ (increasing)
-- $(-1, 1)$: $f'(0) = -3 < 0$ (decreasing)
-- $(1, \infty)$: $f'(2) = 3(3) > 0$ (increasing)
+**Άσκηση 20:** Προσδιορίστε τα διαστήματα στα οποία η $f(x) = x^3 - 3x$ είναι αύξουσα ή φθίνουσα.
+**Λύση:**
+Βρείτε την παράγωγο: $f'(x) = 3x^2 - 3 = 3(x^2 - 1) = 3(x-1)(x+1)$.
+Τα κρίσιμα σημεία είναι $x=-1$ και $x=1$.
+Διαστήματα ελέγχου:
+- $(-\infty, -1)$: $f'(-2) = 3(3) > 0$ (αύξουσα)
+- $(-1, 1)$: $f'(0) = -3 < 0$ (φθίνουσα)
+- $(1, \infty)$: $f'(2) = 3(3) > 0$ (αύξουσα)
 
-**Exercise 21:** Find the local maximum and minimum values of $f(x) = 2x^3 - 3x^2 - 12x + 1$.
-**Solution:**
+**Άσκηση 21:** Βρείτε τα τοπικά μέγιστα και ελάχιστα της $f(x) = 2x^3 - 3x^2 - 12x + 1$.
+**Λύση:**
 $f'(x) = 6x^2 - 6x - 12 = 6(x^2 - x - 2) = 6(x-2)(x+1)$.
-Critical points are $x=2$ and $x=-1$.
-Use the second derivative test: $f''(x) = 12x - 6$.
-- $f''(-1) = -12 - 6 = -18 < 0$, so there is a local maximum at $x=-1$.
-- $f''(2) = 24 - 6 = 18 > 0$, so there is a local minimum at $x=2$.
+Τα κρίσιμα σημεία είναι $x=2$ και $x=-1$.
+Χρησιμοποιήστε το κριτήριο της δεύτερης παραγώγου: $f''(x) = 12x - 6$.
+- $f''(-1) = -12 - 6 = -18 < 0$, άρα υπάρχει τοπικό μέγιστο στο $x=-1$.
+- $f''(2) = 24 - 6 = 18 > 0$, άρα υπάρχει τοπικό ελάχιστο στο $x=2$.
 
-**Exercise 22:** A particle moves along a line with position function $s(t) = t^3 - 6t^2 + 9t$. Find its velocity at time $t$.
-**Solution:**
-Velocity is the derivative of position:
+**Άσκηση 22:** Ένα σωματίδιο κινείται σε μια ευθεία με συνάρτηση θέσης $s(t) = t^3 - 6t^2 + 9t$. Βρείτε την ταχύτητά του τη χρονική στιγμή $t$.
+**Λύση:**
+Η ταχύτητα είναι η παράγωγος της θέσης:
 $$v(t) = s'(t) = 3t^2 - 12t + 9$$
 
-**Exercise 23:** For the particle in the previous exercise, when is the particle at rest?
-**Solution:**
-The particle is at rest when $v(t) = 0$.
+**Άσκηση 23:** Για το σωματίδιο της προηγούμενης άσκησης, πότε το σωματίδιο είναι ακινητοποιημένο;
+**Λύση:**
+Το σωματίδιο είναι ακινητοποιημένο όταν $v(t) = 0$.
 $$3t^2 - 12t + 9 = 0 \implies 3(t^2 - 4t + 3) = 0 \implies 3(t-1)(t-3) = 0$$
-The particle is at rest at $t=1$ and $t=3$.
+Το σωματίδιο είναι ακινητοποιημένο στις χρονικές στιγμές $t=1$ και $t=3$.
 
 ---
 
-### Section 6: L'Hôpital's Rule
+### Ενότητα 6: Κανόνας L'Hôpital
 
-**Exercise 24:** Use L'Hôpital's Rule to find the limit: $\lim_{x \to 0} \frac{e^x - 1}{x}$
-**Solution:**
-This is an indeterminate form $\frac{0}{0}$.
+**Άσκηση 24:** Χρησιμοποιήστε τον Κανόνα L'Hôpital για να βρείτε το όριο: $\lim_{x \to 0} \frac{e^x - 1}{x}$
+**Λύση:**
+Αυτή είναι μια απροσδιόριστη μορφή $\frac{0}{0}$.
 $$\lim_{x \to 0} \frac{\frac{d}{dx}(e^x - 1)}{\frac{d}{dx}(x)} = \lim_{x \to 0} \frac{e^x}{1} = e^0 = 1$$
 
-**Exercise 25:** Use L'Hôpital's Rule to find the limit: $\lim_{x \to \infty} \frac{\ln(x)}{x}$
-**Solution:**
-This is an indeterminate form $\frac{\infty}{\infty}$.
+**Άσκηση 25:** Χρησιμοποιήστε τον Κανόνα L'Hôpital για να βρείτε το όριο: $\lim_{x \to \infty} \frac{\ln(x)}{x}$
+**Λύση:**
+Αυτή είναι μια απροσδιόριστη μορφή $\frac{\infty}{\infty}$.
 $$\lim_{x \to \infty} \frac{\frac{d}{dx}(\ln x)}{\frac{d}{dx}(x)} = \lim_{x \to \infty} \frac{1/x}{1} = 0$$
 
-**Exercise 26:** Find the limit: $\lim_{x \to 0} \frac{1 - \cos(x)}{x^2}$
-**Solution:**
-This is a $\frac{0}{0}$ form. Apply L'Hôpital's Rule.
+**Άσκηση 26:** Βρείτε το όριο: $\lim_{x \to 0} \frac{1 - \cos(x)}{x^2}$
+**Λύση:**
+Αυτή είναι μορφή $\frac{0}{0}$. Εφαρμόστε τον Κανόνα L'Hôpital.
 $$\lim_{x \to 0} \frac{\sin(x)}{2x}$$
-This is still $\frac{0}{0}$. Apply the rule again.
+Είναι ακόμα μορφή $\frac{0}{0}$. Εφαρμόστε τον κανόνα ξανά.
 $$\lim_{x \to 0} \frac{\cos(x)}{2} = \frac{1}{2}$$
 
 ---
 
-### Section 7: Basic Integration
+### Ενότητα 7: Βασικά Ολοκληρώματα
 
-**Exercise 27:** Find the indefinite integral: $\int (3x^2 + 4x - 5) dx$
-**Solution:**
+**Άσκηση 27:** Υπολογίστε το αόριστο ολοκλήρωμα: $\int (3x^2 + 4x - 5) dx$
+**Λύση:**
 $$\int (3x^2 + 4x - 5) dx = 3\frac{x^3}{3} + 4\frac{x^2}{2} - 5x + C = x^3 + 2x^2 - 5x + C$$
 
-**Exercise 28:** Find the indefinite integral: $\int \frac{1}{x} dx$
-**Solution:**
+**Άσκηση 28:** Υπολογίστε το αόριστο ολοκλήρωμα: $\int \frac{1}{x} dx$
+**Λύση:**
 $$\int \frac{1}{x} dx = \ln|x| + C$$
 
-**Exercise 29:** Evaluate the definite integral: $\int_0^1 (x^2 + 1) dx$
-**Solution:**
+**Άσκηση 29:** Υπολογίστε το ορισμένο ολοκλήρωμα: $\int_0^1 (x^2 + 1) dx$
+**Λύση:**
 $$\int_0^1 (x^2 + 1) dx = \left[ \frac{x^3}{3} + x \right]_0^1 = \left(\frac{1^3}{3} + 1\right) - (0) = \frac{1}{3} + 1 = \frac{4}{3}$$
 
-**Exercise 30:** Evaluate the definite integral: $\int_0^{\pi} \sin(x) dx$
-**Solution:**
+**Άσκηση 30:** Υπολογίστε το ορισμένο ολοκλήρωμα: $\int_0^{\pi} \sin(x) dx$
+**Λύση:**
 $$\int_0^{\pi} \sin(x) dx = [-\cos(x)]_0^{\pi} = (-\cos(\pi)) - (-\cos(0)) = -(-1) - (-1) = 1 + 1 = 2$$

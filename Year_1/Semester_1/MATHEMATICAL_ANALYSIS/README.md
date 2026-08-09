@@ -1,21 +1,21 @@
-# Mathematical Analysis
+# Μαθηματική Ανάλυση
 
-## Course Overview
-This course provides an introduction to the fundamental concepts of mathematical analysis, including limits, continuity, derivatives, and integrals.
+## Επισκόπηση Μαθήματος
+Αυτό το μάθημα παρέχει μια εισαγωγή στις θεμελιώδεις έννοιες της μαθηματικής ανάλυσης, συμπεριλαμβανομένων των ορίων, της συνέχειας, των παραγώγων και των ολοκληρωμάτων.
 
-## Course Code
+## Κωδικός Μαθήματος
 101 (ΜΑΘΗΜΑΤΙΚΗ ΑΝΑΛΥΣΗ)
 
-## Prerequisites
-None
+## Προαπαιτούμενα
+Κανένα
 
-This directory contains materials for the Mathematical Analysis course.
+Αυτός ο φάκελος περιέχει υλικό για το μάθημα της Μαθηματικής Ανάλυσης.
 
-## Folder Structure
+## Δομή Φακέλων
 
-*   `Lectures/`: Contains PDF presentations for each lecture.
-*   `QuizGames/`: Contains interactive HTML-based quiz games to test your knowledge.
+*   `Lectures/`: Περιέχει παρουσιάσεις PDF για κάθε διάλεξη.
+*   `QuizGames/`: Περιέχει διαδραστικά παιχνίδια κουίζ βασισμένα σε HTML για τη δοκιμή των γνώσεών σας.
 
-## How to Use
+## Τρόπος Χρήσης
 
-It is recommended to first go through the lecture PDFs and then use the quiz games to test your understanding.
+Συνιστάται να μελετήσετε πρώτα τα PDF των διαλέξεων και στη συνέχεια να χρησιμοποιήσετε τα παιχνίδια κουίζ για να ελέγξετε την κατανόησή σας.
