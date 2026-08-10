@@ -1,23 +1,23 @@
 $$
-\textbf{Ομάδα Α}
+\textbf{Group A}
 $$
-\textbf{ΘΕΜΑ 1}
-Δίνεται η συνάρτηση:
+\textbf{PROBLEM 1}
+The function is given:
 $$
 f(x)=\begin{cases}sin(\pi x)+ae^{x-2},&x\le2\\ \frac{x^{3}-x^{2}-2x}{x^{2}-4},&x>2\end{cases}
 $$
-Για ποιες τιμές του $a$ η $f$ είναι συνεχής στο $\mathbb{R}$;
+For which values of $a$ is $f$ continuous on $\mathbb{R}$?
 
-**Λύση**
+**Solution**
 
-Για να είναι η συνάρτηση $f$ συνεχής στο $\mathbb{R}$, πρέπει να είναι συνεχής σε κάθε σημείο του πεδίου ορισμού της. Οι δύο κλάδοι της συνάρτησης είναι συνεχείς στο διάστημά τους. Το μόνο σημείο που χρειάζεται να εξετάσουμε είναι το $x=2$.
+For the function $f$ to be continuous on $\mathbb{R}$, it must be continuous at every point of its domain. The two branches of the function are continuous on their respective intervals. The only point we need to examine is $x=2$.
 
-Για να είναι η $f$ συνεχής στο $x=2$, πρέπει να ισχύει:
+For $f$ to be continuous at $x=2$, the following must hold:
 $$
 \lim_{x\to2^{-}}f(x) = \lim_{x\to2^{+}}f(x) = f(2)
 $$
 
-1.  **Υπολογισμός του $f(2)$ και του αριστερού ορίου:**
+1.  **Computing $f(2)$ and the left-hand limit:**
     $$
     f(2) = \sin(2\pi) + ae^{2-2} = 0 + a \cdot e^0 = a
     $$
@@ -25,137 +25,137 @@ $$
     \lim_{x\to2^{-}}f(x) = \lim_{x\to2^{-}}(\sin(\pi x)+ae^{x-2}) = \sin(2\pi) + ae^{2-2} = a
     $$
 
-2.  **Υπολογισμός του δεξιού ορίου:**
+2.  **Computing the right-hand limit:**
     $$
     \lim_{x\to2^{+}}f(x) = \lim_{x\to2^{+}}\frac{x^{3}-x^{2}-2x}{x^{2}-4}
     $$
-    Αντικαθιστώντας $x=2$ παίρνουμε την απροσδιόριστη μορφή $\frac{0}{0}$. Επομένως, παραγοντοποιούμε τον αριθμητή και τον παρονομαστή:
+    Substituting $x=2$ yields the indeterminate form $\frac{0}{0}$. Therefore, we factor the numerator and the denominator:
     *   $x^{3}-x^{2}-2x = x(x^{2}-x-2) = x(x-2)(x+1)$
     *   $x^{2}-4 = (x-2)(x+2)$
 
-    Το όριο γίνεται:
+    The limit becomes:
     $$
     \lim_{x\to2^{+}}\frac{x(x-2)(x+1)}{(x-2)(x+2)} = \lim_{x\to2^{+}}\frac{x(x+1)}{x+2} = \frac{2(2+1)}{2+2} = \frac{6}{4} = \frac{3}{2}
     $$
 
-3.  **Εξίσωση των ορίων:**
-    Για να είναι συνεχής η συνάρτηση, πρέπει τα όρια να είναι ίσα:
+3.  **Equating the limits:**
+    For the function to be continuous, the limits must be equal:
     $$
     a = \frac{3}{2}
     $$
 
-Επομένως, η $f$ είναι συνεχής στο $\mathbb{R}$ για $a = \frac{3}{2}$.
+Therefore, $f$ is continuous on $\mathbb{R}$ for $a = \frac{3}{2}$.
 
 ---
 $$
-\textbf{ΘΕΜΑ 2}
+\textbf{PROBLEM 2}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να βρεθούν οι ρίζες της εξίσωσης:
+What commands must be given to Octave in order to find the roots of the equation:
 $$
 x^{4}-8x^{3}-70x=19.
 $$
-**Λύση**
+**Solution**
 
-1.  **Μετατροπή της εξίσωσης:**
-    Πρώτα, φέρνουμε την εξίσωση στην πολυωνυμική μορφή $p(x)=0$:
+1.  **Converting the equation:**
+    First, we bring the equation to the polynomial form $p(x)=0$:
     $$
     x^{4}-8x^{3}+0x^{2}-70x-19 = 0
     $$
 
-2.  **Δημιουργία διανύσματος συντελεστών:**
-    Στο Octave, ένα πολυώνυμο αναπαρίσταται από ένα διάνυσμα που περιέχει τους συντελεστές του, ξεκινώντας από τη μεγαλύτερη δύναμη. Οι συντελεστές είναι: $1, -8, 0, -70, -19$.
+2.  **Creating the coefficient vector:**
+    In Octave, a polynomial is represented by a vector containing its coefficients, starting from the highest power. The coefficients are: $1, -8, 0, -70, -19$.
     ```octave
     p = [1, -8, 0, -70, -19];
     ```
 
-3.  **Εύρεση των ριζών:**
-    Χρησιμοποιούμε την ενσωματωμένη συνάρτηση `roots()` για να υπολογίσουμε τις ρίζες του πολυωνύμου.
+3.  **Finding the roots:**
+    We use the built-in function `roots()` to compute the roots of the polynomial.
     ```octave
     roots(p)
     ```
 
-Συνολικά, οι εντολές στο Octave είναι:
+In summary, the commands in Octave are:
 ```octave
-% Ορισμός του διανύσματος των συντελεστών του πολυωνύμου
+% Definition of the polynomial coefficient vector
 p = [1, -8, 0, -70, -19];
 
-% Εύρεση των ριζών με τη συνάρτηση roots()
+% Finding the roots using the roots() function
 roots(p)
 ```
 ---
 $$
-\textbf{ΘΕΜΑ 3}
+\textbf{PROBLEM 3}
 $$
-Να υπολογισθεί το όριο:
+Compute the limit:
 $$
 \lim_{x\to-\infty}(\frac{2x^{4}+x-1}{4x^{3}-x^{2}+2})
 $$
-**Λύση**
+**Solution**
 
-Για να υπολογίσουμε το όριο μιας ρητής συνάρτησης καθώς το $x$ τείνει στο $\pm\infty$, κρατάμε μόνο τους όρους με τη μεγαλύτερη δύναμη του $x$ στον αριθμητή και τον παρονομαστή.
+To compute the limit of a rational function as $x$ tends to $\pm\infty$, we keep only the terms with the highest power of $x$ in the numerator and the denominator.
 
-1.  **Κανόνας των μεγιστοβάθμιων όρων:**
+1.  **Rule of highest-degree terms:**
     $$
     \lim_{x\to-\infty}\frac{2x^{4}+x-1}{4x^{3}-x^{2}+2} = \lim_{x\to-\infty}\frac{2x^{4}}{4x^{3}}
     $$
 
-2.  **Απλοποίηση:**
+2.  **Simplification:**
     $$
     \lim_{x\to-\infty}\frac{2x^{4}}{4x^{3}} = \lim_{x\to-\infty}\frac{x}{2}
     $$
 
-3.  **Υπολογισμός του ορίου:**
-    Καθώς το $x$ τείνει στο $-\infty$, η έκφραση $\frac{x}{2}$ τείνει επίσης στο $-\infty$.
+3.  **Computing the limit:**
+    As $x$ tends to $-\infty$, the expression $\frac{x}{2}$ also tends to $-\infty$.
     $$
     \lim_{x\to-\infty}\frac{x}{2} = -\infty
     $$
 
-Επομένως, το όριο είναι $-\infty$.
+Therefore, the limit is $-\infty$.
 
 ---
 $$
-\textbf{ΘΕΜΑ 4}
+\textbf{PROBLEM 4}
 $$
-Βρείτε όλες τις κατακόρυφες ασύμπτωτες της συνάρτησης:
+Find all vertical asymptotes of the function:
 $$
 f(x)=\frac{1}{(x+2)(x-4)}
 $$
-**Λύση**
+**Solution**
 
-Οι κατακόρυφες ασύμπτωτες μιας ρητής συνάρτησης βρίσκονται στις τιμές του $x$ που μηδενίζουν τον παρονομαστή, αλλά όχι τον αριθμητή.
+The vertical asymptotes of a rational function are found at the values of $x$ that make the denominator zero but not the numerator.
 
-1.  **Εύρεση των ριζών του παρονομαστή:**
-    Θέτουμε τον παρονομαστή ίσο με το μηδέν:
+1.  **Finding the roots of the denominator:**
+    We set the denominator equal to zero:
     $$
     (x+2)(x-4) = 0
     $$
-    Οι ρίζες είναι $x = -2$ και $x = 4$.
+    The roots are $x = -2$ and $x = 4$.
 
-2.  **Έλεγχος του αριθμητή:**
-    Ο αριθμητής είναι 1, ο οποίος είναι σταθερός και διάφορος του μηδενός. Επομένως, οι τιμές $x=-2$ και $x=4$ είναι υποψήφιες για κατακόρυφες ασύμπτωτες.
+2.  **Checking the numerator:**
+    The numerator is 1, which is constant and non-zero. Therefore, the values $x=-2$ and $x=4$ are candidates for vertical asymptotes.
 
-3.  **Υπολογισμός των πλευρικών ορίων:**
-    Ελέγχουμε τα όρια της $f(x)$ καθώς το $x$ προσεγγίζει αυτές τις τιμές:
-    *   Για $x=-2$: $\lim_{x\to-2}\frac{1}{(x+2)(x-4)} = \frac{1}{0 \cdot (-6)} = \infty$.
-    *   Για $x=4$: $\lim_{x\to4}\frac{1}{(x+2)(x-4)} = \frac{1}{6 \cdot 0} = \infty$.
+3.  **Computing the one-sided limits:**
+    We check the limits of $f(x)$ as $x$ approaches these values:
+    *   For $x=-2$: $\lim_{x\to-2}\frac{1}{(x+2)(x-4)} = \frac{1}{0 \cdot (-6)} = \infty$.
+    *   For $x=4$: $\lim_{x\to4}\frac{1}{(x+2)(x-4)} = \frac{1}{6 \cdot 0} = \infty$.
 
-Αφού τα όρια τείνουν στο άπειρο, οι ευθείες $x=-2$ και $x=4$ είναι οι κατακόρυφες ασύμπτωτες της συνάρτησης.
+Since the limits tend to infinity, the lines $x=-2$ and $x=4$ are the vertical asymptotes of the function.
 
 ---
 $$
-\textbf{ΘΕΜΑ 5}
+\textbf{PROBLEM 5}
 $$
-Να υπολογιστούν οι παράγωγοι των συναρτήσεων:
+Compute the derivatives of the functions:
 $$
 f(x)=\frac{x^{2}-2}{x+1}
 $$
 $$
 h(x)=(3x^{2}+e^{x})\ln(3x)
 $$
-**Λύση**
+**Solution**
 
-**Για τη συνάρτηση $f(x)$:**
-Χρησιμοποιούμε τον κανόνα παραγώγισης πηλίκου $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$, όπου $u(x) = x^2-2$ και $v(x) = x+1$.
+**For the function $f(x)$:**
+We use the quotient rule for differentiation $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$, where $u(x) = x^2-2$ and $v(x) = x+1$.
 *   $u'(x) = 2x$
 *   $v'(x) = 1$
 
@@ -163,27 +163,27 @@ $$
 f'(x) = \frac{(2x)(x+1) - (x^2-2)(1)}{(x+1)^2} = \frac{2x^2+2x - x^2+2}{(x+1)^2} = \frac{x^2+2x+2}{(x+1)^2}
 $$
 
-**Για τη συνάρτηση $h(x)$:**
-Χρησιμοποιούμε τον κανόνα παραγώγισης γινομένου $(uv)' = u'v + uv'$, όπου $u(x) = 3x^2+e^x$ και $v(x) = \ln(3x)$.
+**For the function $h(x)$:**
+We use the product rule for differentiation $(uv)' = u'v + uv'$, where $u(x) = 3x^2+e^x$ and $v(x) = \ln(3x)$.
 *   $u'(x) = 6x+e^x$
-*   $v'(x) = \frac{1}{3x} \cdot (3x)' = \frac{1}{3x} \cdot 3 = \frac{1}{x}$ (χρησιμοποιώντας τον κανόνα της αλυσίδας)
+*   $v'(x) = \frac{1}{3x} \cdot (3x)' = \frac{1}{3x} \cdot 3 = \frac{1}{x}$ (using the chain rule)
 
 $$
 h'(x) = (6x+e^x)\ln(3x) + (3x^2+e^x)\frac{1}{x} = (6x+e^x)\ln(3x) + 3x + \frac{e^x}{x}
 $$
 ---
 $$
-\textbf{ΘΕΜΑ 6}
+\textbf{PROBLEM 6}
 $$
-Δίνεται η συνάρτηση $y(x)$ που ορίζεται από την ισότητα:
+The function $y(x)$ is defined by the equality:
 $$
 x^{3}y^{5}+3x=8y^{3}+1
 $$
-Να βρεθεί η εξίσωση της εφαπτομένης ευθείας στη γραφική παράσταση της $y(x)$ στο σημείο $(0,-\frac{1}{2})$.
-**Λύση**
+Find the equation of the tangent line to the graph of $y(x)$ at the point $(0,-\frac{1}{2})$.
+**Solution**
 
-1.  **Πεπλεγμένη παραγώγιση:**
-    Παραγωγίζουμε και τα δύο μέλη της εξίσωσης ως προς $x$, θεωρώντας το $y$ ως συνάρτηση του $x$ ($y(x)$).
+1.  **Implicit differentiation:**
+    We differentiate both sides of the equation with respect to $x$, treating $y$ as a function of $x$ ($y(x)$).
     $$
     \frac{d}{dx}(x^3y^5+3x) = \frac{d}{dx}(8y^3+1)
     $$
@@ -191,7 +191,7 @@ $$
     (3x^2 \cdot y^5 + x^3 \cdot 5y^4 \frac{dy}{dx}) + 3 = 24y^2 \frac{dy}{dx} + 0
     $$
 
-2.  **Επίλυση ως προς $\frac{dy}{dx}$:**
+2.  **Solving for $\frac{dy}{dx}$:**
     $$
     3x^2y^5 + 3 = 24y^2 \frac{dy}{dx} - 5x^3y^4 \frac{dy}{dx}
     $$
@@ -202,14 +202,14 @@ $$
     \frac{dy}{dx} = \frac{3x^2y^5 + 3}{24y^2 - 5x^3y^4}
     $$
 
-3.  **Υπολογισμός της κλίσης στο σημείο $(0, -\frac{1}{2})$:**
-    Αντικαθιστούμε $x=0$ και $y=-\frac{1}{2}$ στην έκφραση της παραγώγου για να βρούμε την κλίση $m$ της εφαπτομένης.
+3.  **Computing the slope at the point $(0, -\frac{1}{2})$:**
+    We substitute $x=0$ and $y=-\frac{1}{2}$ into the derivative expression to find the slope $m$ of the tangent.
     $$
     m = \frac{3(0)^2(-\frac{1}{2})^5 + 3}{24(-\frac{1}{2})^2 - 5(0)^3(-\frac{1}{2})^4} = \frac{0+3}{24(\frac{1}{4}) - 0} = \frac{3}{6} = \frac{1}{2}
     $$
 
-4.  **Εξίσωση της εφαπτομένης:**
-    Χρησιμοποιούμε τον τύπο της εξίσωσης ευθείας $y - y_0 = m(x - x_0)$ με $(x_0, y_0) = (0, -\frac{1}{2})$ και $m = \frac{1}{2}$.
+4.  **Equation of the tangent:**
+    We use the line equation form $y - y_0 = m(x - x_0)$ with $(x_0, y_0) = (0, -\frac{1}{2})$ and $m = \frac{1}{2}$.
     $$
     y - (-\frac{1}{2}) = \frac{1}{2}(x - 0)
     $$
@@ -221,70 +221,70 @@ $$
     $$
 ---
 $$
-\textbf{ΘΕΜΑ 7}
+\textbf{PROBLEM 7}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να γίνει η σχεδίαση της συνάρτησης $y=3\sin(2x)$ στο διάστημα $[-\frac{\pi}{2},2\pi]$;
+What commands must be given to Octave in order to plot the function $y=3\sin(2x)$ on the interval $[-\frac{\pi}{2},2\pi]$;
 
-**Λύση**
+**Solution**
 
-1.  **Ορισμός του διαστήματος του x:**
-    Δημιουργούμε ένα διάνυσμα τιμών για το $x$ από $-\frac{\pi}{2}$ έως $2\pi$. Χρησιμοποιούμε τη συνάρτηση `linspace` για να πάρουμε έναν μεγάλο αριθμό σημείων (π.χ. 200) για μια ομαλή καμπύλη.
+1.  **Defining the x interval:**
+    We create a vector of values for $x$ from $-\frac{\pi}{2}$ to $2\pi$. We use the `linspace` function to obtain a large number of points (e.g., 200) for a smooth curve.
     ```octave
     x = linspace(-pi/2, 2*pi, 200);
     ```
 
-2.  **Υπολογισμός των τιμών του y:**
-    Υπολογίζουμε τις αντίστοιχες τιμές του $y$ για κάθε $x$.
+2.  **Computing the y values:**
+    We compute the corresponding $y$ values for each $x$.
     ```octave
     y = 3 * sin(2*x);
     ```
 
-3.  **Σχεδίαση της γραφικής παράστασης:**
-    Χρησιμοποιούμε τη συνάρτηση `plot` για να σχεδιάσουμε το $y$ σε σχέση με το $x$.
+3.  **Plotting the graph:**
+    We use the `plot` function to plot $y$ against $x$.
     ```octave
     plot(x, y);
     ```
 
-4.  **Προσθήκη ετικετών και τίτλου (προαιρετικά):**
-    Για μια πιο ολοκληρωμένη γραφική παράσταση, μπορούμε να προσθέσουμε ετικέτες στους άξονες και έναν τίτλο.
+4.  **Adding labels and title (optional):**
+    For a more complete graph, we can add axis labels and a title.
     ```octave
     xlabel('x');
     ylabel('y');
-    title('Графиική παράσταση της y = 3sin(2x)');
+    title('Graph of y = 3sin(2x)');
     grid on;
     ```
 
-Συνολικά, οι βασικές εντολές στο Octave είναι:
+In summary, the basic commands in Octave are:
 ```octave
-% Ορισμός του διανύσματος x
+% Definition of the x vector
 x = linspace(-pi/2, 2*pi, 200);
 
-% Υπολογισμός του y
+% Computation of y
 y = 3 * sin(2*x);
 
-% Σχεδίαση
+% Plotting
 plot(x, y);
-title('Графиική παράσταση της y = 3sin(2x)');
+title('Graph of y = 3sin(2x)');
 xlabel('x');
 ylabel('y');
 grid on;
 ```
 
 $$
-\textbf{Ομάδα Β}
+\textbf{Group B}
 $$
-$$\textbf{ΘΕΜΑ 1}$$
-Να υπολογιστούν οι παράγωγοι των συναρτήσεων:
+$$\textbf{PROBLEM 1}$$
+Compute the derivatives of the functions:
 $$
 f(x)=\frac{x+2}{x^{2}-1}
 $$
 $$
 h(x)=(5x^{4}+\sin(3x))\ln(x)
 $$
-**Λύση**
+**Solution**
 
-**Για τη συνάρτηση $f(x)$:**
-Χρησιμοποιούμε τον κανόνα παραγώγισης πηλίκου $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$, όπου $u(x) = x+2$ και $v(x) = x^2-1$.
+**For the function $f(x)$:**
+We use the quotient rule for differentiation $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$, where $u(x) = x+2$ and $v(x) = x^2-1$.
 *   $u'(x) = 1$
 *   $v'(x) = 2x$
 
@@ -292,9 +292,9 @@ $$
 f'(x) = \frac{(1)(x^2-1) - (x+2)(2x)}{(x^2-1)^2} = \frac{x^2-1 - (2x^2+4x)}{(x^2-1)^2} = \frac{-x^2-4x-1}{(x^2-1)^2}
 $$
 
-**Για τη συνάρτηση $h(x)$:**
-Χρησιμοποιούμε τον κανόνα παραγώγισης γινομένου $(uv)' = u'v + uv'$, όπου $u(x) = 5x^4+\sin(3x)$ και $v(x) = \ln(x)$.
-*   $u'(x) = 20x^3 + \cos(3x) \cdot 3 = 20x^3 + 3\cos(3x)$ (με κανόνα αλυσίδας)
+**For the function $h(x)$:**
+We use the product rule for differentiation $(uv)' = u'v + uv'$, where $u(x) = 5x^4+\sin(3x)$ and $v(x) = \ln(x)$.
+*   $u'(x) = 20x^3 + \cos(3x) \cdot 3 = 20x^3 + 3\cos(3x)$ (using the chain rule)
 *   $v'(x) = \frac{1}{x}$
 
 $$
@@ -302,17 +302,17 @@ h'(x) = (20x^3 + 3\cos(3x))\ln(x) + (5x^4+\sin(3x))\frac{1}{x} = (20x^3 + 3\cos(
 $$
 ---
 $$
-\textbf{ΘΕΜΑ 2}
+\textbf{PROBLEM 2}
 $$
-Δίνεται η συνάρτηση $y(x)$ που ορίζεται από την ισότητα:
+The function $y(x)$ is defined by the equality:
 $$
 x^{5}y^{3}+3x=8y^{3}-1
 $$
-Να βρεθεί η εξίσωση της εφαπτομένης ευθείας στη γραφική παράσταση της $y(x)$ στο σημείο $(0,\frac{1}{2})$.
-**Λύση**
+Find the equation of the tangent line to the graph of $y(x)$ at the point $(0,\frac{1}{2})$.
+**Solution**
 
-1.  **Πεπλεγμένη παραγώγιση:**
-    Παραγωγίζουμε και τα δύο μέλη της εξίσωσης ως προς $x$.
+1.  **Implicit differentiation:**
+    We differentiate both sides of the equation with respect to $x$.
     $$
     \frac{d}{dx}(x^5y^3+3x) = \frac{d}{dx}(8y^3-1)
     $$
@@ -320,7 +320,7 @@ $$
     (5x^4 \cdot y^3 + x^5 \cdot 3y^2 \frac{dy}{dx}) + 3 = 24y^2 \frac{dy}{dx} - 0
     $$
 
-2.  **Επίλυση ως προς $\frac{dy}{dx}$:**
+2.  **Solving for $\frac{dy}{dx}$:**
     $$
     5x^4y^3 + 3 = 24y^2 \frac{dy}{dx} - 3x^5y^2 \frac{dy}{dx}
     $$
@@ -331,14 +331,14 @@ $$
     \frac{dy}{dx} = \frac{5x^4y^3 + 3}{24y^2 - 3x^5y^2}
     $$
 
-3.  **Υπολογισμός της κλίσης στο σημείο $(0, \frac{1}{2})$:**
-    Αντικαθιστούμε $x=0$ και $y=\frac{1}{2}$ για να βρούμε την κλίση $m$.
+3.  **Computing the slope at the point $(0, \frac{1}{2})$:**
+    We substitute $x=0$ and $y=\frac{1}{2}$ to find the slope $m$.
     $$
     m = \frac{5(0)^4(\frac{1}{2})^3 + 3}{24(\frac{1}{2})^2 - 3(0)^5(\frac{1}{2})^2} = \frac{0+3}{24(\frac{1}{4}) - 0} = \frac{3}{6} = \frac{1}{2}
     $$
 
-4.  **Εξίσωση της εφαπτομένης:**
-    Χρησιμοποιούμε τον τύπο $y - y_0 = m(x - x_0)$ με $(x_0, y_0) = (0, \frac{1}{2})$ και $m = \frac{1}{2}$.
+4.  **Equation of the tangent:**
+    We use the form $y - y_0 = m(x - x_0)$ with $(x_0, y_0) = (0, \frac{1}{2})$ and $m = \frac{1}{2}$.
     $$
     y - \frac{1}{2} = \frac{1}{2}(x - 0)
     $$
@@ -347,18 +347,18 @@ $$
     $$
 ---
 $$
-\textbf{ΘΕΜΑ 3}
+\textbf{PROBLEM 3}
 $$
-Δίνεται η συνάρτηση:
+The function is given:
 $$
 f(x)=\begin{cases}ae^{x-1}+\sin(\pi x),&x\le1\\ \frac{x^{3}+2x^{2}-3x}{x^{2}-1},&x>1\end{cases}
 $$
-Να βρείτε τον πραγματικό αριθμό $a$ ώστε η $f$ να είναι συνεχής στο πεδίο ορισμού της.
-**Λύση**
+Find the real number $a$ such that $f$ is continuous on its domain.
+**Solution**
 
-Για να είναι η $f$ συνεχής, πρέπει να είναι συνεχής στο σημείο $x=1$. Άρα, πρέπει $\lim_{x\to1^{-}}f(x) = \lim_{x\to1^{+}}f(x) = f(1)$.
+For $f$ to be continuous, it must be continuous at the point $x=1$. Therefore, we need $\lim_{x\to1^{-}}f(x) = \lim_{x\to1^{+}}f(x) = f(1)$.
 
-1.  **Υπολογισμός του $f(1)$ και του αριστερού ορίου:**
+1.  **Computing $f(1)$ and the left-hand limit:**
     $$
     f(1) = ae^{1-1} + \sin(\pi \cdot 1) = a \cdot e^0 + 0 = a
     $$
@@ -366,173 +366,173 @@ $$
     \lim_{x\to1^{-}}f(x) = \lim_{x\to1^{-}}(ae^{x-1}+\sin(\pi x)) = a
     $$
 
-2.  **Υπολογισμός του δεξιού ορίου:**
+2.  **Computing the right-hand limit:**
     $$
     \lim_{x\to1^{+}}f(x) = \lim_{x\to1^{+}}\frac{x^{3}+2x^{2}-3x}{x^{2}-1}
     $$
-    Αντικαθιστώντας $x=1$ παίρνουμε την απροσδιόριστη μορφή $\frac{0}{0}$. Παραγοντοποιούμε:
+    Substituting $x=1$ yields the indeterminate form $\frac{0}{0}$. We factor:
     *   $x^{3}+2x^{2}-3x = x(x^2+2x-3) = x(x-1)(x+3)$
     *   $x^{2}-1 = (x-1)(x+1)$
 
-    Το όριο γίνεται:
+    The limit becomes:
     $$
     \lim_{x\to1^{+}}\frac{x(x-1)(x+3)}{(x-1)(x+1)} = \lim_{x\to1^{+}}\frac{x(x+3)}{x+1} = \frac{1(1+3)}{1+1} = \frac{4}{2} = 2
     $$
 
-3.  **Εξίσωση των ορίων:**
+3.  **Equating the limits:**
     $$
     a = 2
     $$
 
-Επομένως, η $f$ είναι συνεχής για $a = 2$.
+Therefore, $f$ is continuous for $a = 2$.
 
 ---
 $$
-\textbf{ΘΕΜΑ 4}
+\textbf{PROBLEM 4}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να γίνει η σχεδίαση της συνάρτησης $y=2\cos(2x)$ στο διάστημα $[-\pi, \pi]$;
-**Λύση**
+What commands must be given to Octave in order to plot the function $y=2\cos(2x)$ on the interval $[-\pi, \pi]$;
+**Solution**
 
-Οι εντολές στο Octave για τη σχεδίαση της γραφικής παράστασης είναι οι εξής:
+The commands in Octave for plotting the graph are as follows:
 ```octave
-% 1. Ορισμός του διαστήματος τιμών για το x
+% 1. Definition of the value interval for x
 x = linspace(-pi, pi, 200);
 
-% 2. Υπολογισμός των αντίστοιχων τιμών y
+% 2. Computation of the corresponding y values
 y = 2 * cos(2*x);
 
-% 3. Σχεδίαση της γραφικής παράστασης
+% 3. Plotting the graph
 plot(x, y);
 
-% 4. Προσθήκη τίτλου και ετικετών (προαιρετικά)
-title('Графиική παράσταση της y = 2cos(2x)');
+% 4. Adding title and labels (optional)
+title('Graph of y = 2cos(2x)');
 xlabel('x');
 ylabel('y');
 grid on;
 ```
 ---
 $$
-\textbf{ΘΕΜΑ 5}
+\textbf{PROBLEM 5}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να βρεθούν οι ρίζες της εξίσωσης:
+What commands must be given to Octave in order to find the roots of the equation:
 $$
 x^{5}-8x^{4}-70x^{2}+6x=19
 $$
-**Λύση**
+**Solution**
 
-1.  **Μετατροπή της εξίσωσης:**
-    Φέρνουμε την εξίσωση στην πολυωνυμική μορφή $p(x)=0$:
+1.  **Converting the equation:**
+    We bring the equation to the polynomial form $p(x)=0$:
     $$
     x^{5}-8x^{4}+0x^3-70x^{2}+6x-19 = 0
     $$
 
-2.  **Δημιουργία διανύσματος συντελεστών:**
-    Οι συντελεστές του πολυωνύμου είναι: $1, -8, 0, -70, 6, -19$.
+2.  **Creating the coefficient vector:**
+    The coefficients of the polynomial are: $1, -8, 0, -70, 6, -19$.
     ```octave
     p = [1, -8, 0, -70, 6, -19];
     ```
 
-3.  **Εύρεση των ριζών:**
-    Χρησιμοποιούμε τη συνάρτηση `roots()`.
+3.  **Finding the roots:**
+    We use the `roots()` function.
     ```octave
     roots(p)
     ```
 
-Συνολικά, οι εντολές στο Octave είναι:
+In summary, the commands in Octave are:
 ```octave
 p = [1, -8, 0, -70, 6, -19];
 roots(p)
 ```
 ---
 $$
-\textbf{ΘΕΜΑ 6}
+\textbf{PROBLEM 6}
 $$
-Να υπολογισθεί το όριο:
+Compute the limit:
 $$
 \lim_{x\to-\infty}(\frac{3x^{4}+x^{3}-2}{2x^{3}+x^{2}-10x})
 $$
-**Λύση**
+**Solution**
 
-Χρησιμοποιούμε τον κανόνα των μεγιστοβάθμιων όρων για όρια ρητών συναρτήσεων στο άπειρο.
+We use the rule of highest-degree terms for limits of rational functions at infinity.
 
-1.  **Κανόνας των μεγιστοβάθμιων όρων:**
+1.  **Rule of highest-degree terms:**
     $$
     \lim_{x\to-\infty}\frac{3x^{4}+x^{3}-2}{2x^{3}+x^{2}-10x} = \lim_{x\to-\infty}\frac{3x^{4}}{2x^{3}}
     $$
 
-2.  **Απλοποίηση:**
+2.  **Simplification:**
     $$
     \lim_{x\to-\infty}\frac{3x}{2}
     $$
 
-3.  **Υπολογισμός του ορίου:**
-    Καθώς το $x \to -\infty$, η έκφραση $\frac{3x}{2}$ τείνει επίσης στο $-\infty$.
+3.  **Computing the limit:**
+    As $x \to -\infty$, the expression $\frac{3x}{2}$ also tends to $-\infty$.
     $$
     \lim_{x\to-\infty}\frac{3x}{2} = -\infty
     $$
 ---
 $$
-\textbf{ΘΕΜΑ 7}
+\textbf{PROBLEM 7}
 $$
-Βρείτε όλες τις κατακόρυφες ασύμπτωτες της συνάρτησης:
+Find all vertical asymptotes of the function:
 $$
 f(x)=\frac{1}{(x-5)(x+4)}
 $$
-**Λύση**
+**Solution**
 
-Οι κατακόρυφες ασύμπτωτες βρίσκονται στις ρίζες του παρονομαστή που δεν είναι ρίζες του αριθμητή.
+The vertical asymptotes are found at the roots of the denominator that are not roots of the numerator.
 
-1.  **Εύρεση των ριζών του παρονομαστή:**
+1.  **Finding the roots of the denominator:**
     $$
     (x-5)(x+4) = 0
     $$
-    Οι ρίζες είναι $x = 5$ και $x = -4$.
+    The roots are $x = 5$ and $x = -4$.
 
-2.  **Έλεγχος του αριθμητή:**
-    Ο αριθμητής είναι 1, οπότε οι ρίζες του παρονομαστή οδηγούν σε κατακόρυφες ασύμπτωτες.
+2.  **Checking the numerator:**
+    The numerator is 1, so the roots of the denominator lead to vertical asymptotes.
 
-3.  **Συμπέρασμα:**
-    Οι κατακόρυφες ασύμπτωτες της συνάρτησης είναι οι ευθείες $x=5$ και $x=-4$.
+3.  **Conclusion:**
+    The vertical asymptotes of the function are the lines $x=5$ and $x=-4$.
 
 $$
-\textbf{Ομάδα Γ}
+\textbf{Group C}
 $$
 $$
-\textbf{ΘΕΜΑ 1}
+\textbf{PROBLEM 1}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να γίνει η σχεδίαση της συνάρτησης $y=2\sin(2x)$ στο διάστημα $[-\pi, \pi]$;
-**Λύση**
+What commands must be given to Octave in order to plot the function $y=2\sin(2x)$ on the interval $[-\pi, \pi]$;
+**Solution**
 
-Οι εντολές στο Octave είναι:
+The commands in Octave are:
 ```octave
-% Ορισμός του διανύσματος x
+% Definition of the x vector
 x = linspace(-pi, pi, 200);
 
-% Υπολογισμός του y
+% Computation of y
 y = 2 * sin(2*x);
 
-% Σχεδίαση
+% Plotting
 plot(x, y);
-title('Графиική παράσταση της y = 2sin(2x)');
+title('Graph of y = 2sin(2x)');
 xlabel('x');
 ylabel('y');
 grid on;
 ```
 ---
 $$
-\textbf{ΘΕΜΑ 2}
+\textbf{PROBLEM 2}
 $$
-Να υπολογιστούν οι παράγωγοι των συναρτήσεων:
+Compute the derivatives of the functions:
 $$
 f(x)=\frac{x^{3}-1}{x+1}
 $$
 $$
 h(x)=(2x^{5}+e^{2x})\ln(x)
 $$
-**Λύση**
+**Solution**
 
-**Για τη συνάρτηση $f(x)$:**
-Χρησιμοποιούμε τον κανόνα του πηλίκου $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$ με $u=x^3-1$ και $v=x+1$.
+**For the function $f(x)$:**
+We use the quotient rule $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$ with $u=x^3-1$ and $v=x+1$.
 *   $u' = 3x^2$
 *   $v' = 1$
 
@@ -540,8 +540,8 @@ $$
 f'(x) = \frac{(3x^2)(x+1) - (x^3-1)(1)}{(x+1)^2} = \frac{3x^3+3x^2 - x^3+1}{(x+1)^2} = \frac{2x^3+3x^2+1}{(x+1)^2}
 $$
 
-**Για τη συνάρτηση $h(x)$:**
-Χρησιμοποιούμε τον κανόνα του γινομένου $(uv)' = u'v + uv'$ με $u=2x^5+e^{2x}$ και $v=\ln(x)$.
+**For the function $h(x)$:**
+We use the product rule $(uv)' = u'v + uv'$ with $u=2x^5+e^{2x}$ and $v=\ln(x)$.
 *   $u' = 10x^4 + e^{2x} \cdot 2 = 10x^4 + 2e^{2x}$
 *   $v' = \frac{1}{x}$
 
@@ -550,16 +550,16 @@ h'(x) = (10x^4 + 2e^{2x})\ln(x) + (2x^5+e^{2x})\frac{1}{x} = (10x^4 + 2e^{2x})\l
 $$
 ---
 $$
-\textbf{ΘΕΜΑ 3}
+\textbf{PROBLEM 3}
 $$
-Δίνεται η συνάρτηση $y(x)$ που ορίζεται από την ισότητα:
+The function $y(x)$ is defined by the equality:
 $$
 x^{2}y=y^{2}-6x
 $$
-Να βρεθεί η εξίσωση της εφαπτομένης ευθείας στη γραφική παράσταση της $y(x)$ στο σημείο $(2, 6)$.
-**Λύση**
+Find the equation of the tangent line to the graph of $y(x)$ at the point $(2, 6)$.
+**Solution**
 
-1.  **Πεπλεγμένη παραγώγιση:**
+1.  **Implicit differentiation:**
     $$
     \frac{d}{dx}(x^2y) = \frac{d}{dx}(y^2-6x)
     $$
@@ -567,7 +567,7 @@ $$
     2xy + x^2 \frac{dy}{dx} = 2y \frac{dy}{dx} - 6
     $$
 
-2.  **Επίλυση ως προς $\frac{dy}{dx}$:**
+2.  **Solving for $\frac{dy}{dx}$:**
     $$
     2xy + 6 = 2y \frac{dy}{dx} - x^2 \frac{dy}{dx}
     $$
@@ -578,12 +578,12 @@ $$
     \frac{dy}{dx} = \frac{2xy + 6}{2y - x^2}
     $$
 
-3.  **Υπολογισμός της κλίσης στο σημείο $(2, 6)$:**
+3.  **Computing the slope at the point $(2, 6)$:**
     $$
     m = \frac{2(2)(6) + 6}{2(6) - (2)^2} = \frac{24+6}{12-4} = \frac{30}{8} = \frac{15}{4}
     $$
 
-4.  **Εξίσωση της εφαπτομένης:**
+4.  **Equation of the tangent:**
     $$
     y - 6 = \frac{15}{4}(x - 2)
     $$
@@ -595,72 +595,72 @@ $$
     $$
 ---
 $$
-\textbf{ΘΕΜΑ 4}
+\textbf{PROBLEM 4}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να βρεθούν οι ρίζες της εξίσωσης:
+What commands must be given to Octave in order to find the roots of the equation:
 $$
 7x^{5}-x^{4}+2x^{3}+5x=15
 $$
-**Λύση**
+**Solution**
 
-1.  **Μετατροπή της εξίσωσης:**
+1.  **Converting the equation:**
     $$
     7x^{5}-x^{4}+2x^{3}+0x^2+5x-15 = 0
     $$
 
-2.  **Εντολές Octave:**
+2.  **Octave commands:**
     ```octave
     p = [7, -1, 2, 0, 5, -15];
     roots(p)
     ```
 ---
 $$
-\textbf{ΘΕΜΑ 5}
+\textbf{PROBLEM 5}
 $$
-Να υπολογισθεί το όριο:
+Compute the limit:
 $$
 \lim_{x\to-\infty}(\frac{2x^{3}+x-1}{4x^{4}-x^{2}+2})
 $$
-**Λύση**
+**Solution**
 
-Χρησιμοποιούμε τον κανόνα των μεγιστοβάθμιων όρων.
+We use the rule of highest-degree terms.
 $$
 \lim_{x\to-\infty}\frac{2x^{3}+x-1}{4x^{4}-x^{2}+2} = \lim_{x\to-\infty}\frac{2x^{3}}{4x^{4}} = \lim_{x\to-\infty}\frac{1}{2x}
 $$
-Καθώς το $x \to -\infty$, ο παρονομαστής $2x$ τείνει στο $-\infty$, άρα το κλάσμα $\frac{1}{2x}$ τείνει στο 0.
+As $x \to -\infty$, the denominator $2x$ tends to $-\infty$, so the fraction $\frac{1}{2x}$ tends to 0.
 $$
 \lim_{x\to-\infty}\frac{1}{2x} = 0
 $$
 ---
 $$
-\textbf{ΘΕΜΑ 6}
+\textbf{PROBLEM 6}
 $$
-Βρείτε όλες τις κατακόρυφες ασύμπτωτες της συνάρτησης:
+Find all vertical asymptotes of the function:
 $$
 f(x)=\frac{1}{(x-2)(x+4)}
 $$
-**Λύση**
+**Solution**
 
-Οι κατακόρυφες ασύμπτωτες βρίσκονται στις ρίζες του παρονομαστή.
+The vertical asymptotes are found at the roots of the denominator.
 $$
-(x-2)(x+4) = 0 \implies x=2 \text{ και } x=-4
+(x-2)(x+4) = 0 \implies x=2 \text{ and } x=-4
 $$
-Ο αριθμητής είναι 1, άρα οι ευθείες $x=2$ και $x=-4$ είναι οι κατακόρυφες ασύμπτωτες.
+The numerator is 1, so the lines $x=2$ and $x=-4$ are the vertical asymptotes.
 
 ---
 $$
-\textbf{ΘΕΜΑ 7}
+\textbf{PROBLEM 7}
 $$
-Δίνεται η συνάρτηση:
+The function is given:
 $$
 f(x)=\begin{cases}e^{x-2}+a\cos(\pi x),&x\le2\\ \frac{x^{3}-x^{2}-6x}{x^{2}-4},&x>2\end{cases}
 $$
-Για ποιες τιμές του $a$ η $f$ είναι συνεχής στο $\mathbb{R}$;
-**Λύση**
+For which values of $a$ is $f$ continuous on $\mathbb{R}$;
+**Solution**
 
-Εξετάζουμε τη συνέχεια στο $x=2$. Πρέπει $\lim_{x\to2^{-}}f(x) = \lim_{x\to2^{+}}f(x) = f(2)$.
+We examine the continuity at $x=2$. We need $\lim_{x\to2^{-}}f(x) = \lim_{x\to2^{+}}f(x) = f(2)$.
 
-1.  **Αριστερό όριο και $f(2)$:**
+1.  **Left-hand limit and $f(2)$:**
     $$
     f(2) = e^{2-2} + a\cos(2\pi) = e^0 + a(1) = 1+a
     $$
@@ -668,106 +668,106 @@ $$
     \lim_{x\to2^{-}}f(x) = 1+a
     $$
 
-2.  **Δεξιό όριο:**
+2.  **Right-hand limit:**
     $$
-    \lim_{x\to2^{+}}\frac{x^{3}-x^{2}-6x}{x^{2}-4} \quad (\text{μορφή } \frac{0}{0})
+    \lim_{x\to2^{+}}\frac{x^{3}-x^{2}-6x}{x^{2}-4} \quad (\text{form } \frac{0}{0})
     $$
-    Παραγοντοποιούμε:
+    We factor:
     *   $x^3-x^2-6x = x(x^2-x-6) = x(x-3)(x+2)$
     *   $x^2-4 = (x-2)(x+2)$
-    Το όριο γίνεται:
+    The limit becomes:
     $$
     \lim_{x\to2^{+}}\frac{x(x-3)(x+2)}{(x-2)(x+2)} = \lim_{x\to2^{+}}\frac{x(x-3)}{x-2}
     $$
-    Καθώς $x \to 2^+$, ο αριθμητής τείνει στο $2(2-3)=-2$ και ο παρονομαστής στο $0^+$. Άρα, το όριο είναι $-\infty$.
+    As $x \to 2^+$, the numerator tends to $2(2-3)=-2$ and the denominator tends to $0^+$. Therefore, the limit is $-\infty$.
 
-3.  **Συμπέρασμα:**
-    Αφού το δεξιό όριο είναι $-\infty$ και το αριστερό είναι $1+a$, δεν υπάρχει τιμή του $a$ για την οποία τα όρια να είναι ίσα. Επομένως, η συνάρτηση δεν μπορεί να είναι συνεχής στο $x=2$ για καμία τιμή του $a$.
+3.  **Conclusion:**
+    Since the right-hand limit is $-\infty$ and the left-hand limit is $1+a$, there is no value of $a$ for which the limits are equal. Therefore, the function cannot be continuous at $x=2$ for any value of $a$.
 
 $$
-\textbf{Ομάδα Δ}
+\textbf{Group D}
 $$
-\textbf{ΘΕΜΑ 1}
-Να υπολογισθεί το όριο:
+\textbf{PROBLEM 1}
+Compute the limit:
 $$
 \lim_{x\to-\infty}(\frac{3x^{3}+x^{2}-2}{2x^{4}+x^{2}-10x})
 $$
-**Λύση**
+**Solution**
 
-Χρησιμοποιούμε τον κανόνα των μεγιστοβάθμιων όρων.
+We use the rule of highest-degree terms.
 $$
 \lim_{x\to-\infty}\frac{3x^{3}}{2x^{4}} = \lim_{x\to-\infty}\frac{3}{2x}
 $$
-Καθώς $x \to -\infty$, ο παρονομαστής $2x \to -\infty$, άρα το όριο είναι 0.
+As $x \to -\infty$, the denominator $2x \to -\infty$, so the limit is 0.
 $$
 \lim_{x\to-\infty}\frac{3}{2x} = 0
 $$
 ---
 $$
-\textbf{ΘΕΜΑ 2}
+\textbf{PROBLEM 2}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να βρεθούν οι ρίζες της εξίσωσης:
+What commands must be given to Octave in order to find the roots of the equation:
 $$
 2x^{5}-3x^{4}+2x^{2}+8x=11
 $$
-**Λύση**
+**Solution**
 
-1.  **Μετατροπή της εξίσωσης:**
+1.  **Converting the equation:**
     $$
     2x^{5}-3x^{4}+0x^3+2x^{2}+8x-11 = 0
     $$
 
-2.  **Εντολές Octave:**
+2.  **Octave commands:**
     ```octave
     p = [2, -3, 0, 2, 8, -11];
     roots(p)
     ```
 ---
 $$
-\textbf{ΘΕΜΑ 3}
+\textbf{PROBLEM 3}
 $$
-Βρείτε όλες τις κατακόρυφες ασύμπτωτες της συνάρτησης:
+Find all vertical asymptotes of the function:
 $$
 f(x)=\frac{2}{(x+5)(x-4)}
 $$
-**Λύση**
+**Solution**
 
-Οι κατακόρυφες ασύμπτωτες βρίσκονται στις ρίζες του παρονομαστή.
+The vertical asymptotes are found at the roots of the denominator.
 $$
-(x+5)(x-4) = 0 \implies x=-5 \text{ και } x=4
+(x+5)(x-4) = 0 \implies x=-5 \text{ and } x=4
 $$
-Ο αριθμητής είναι 2, άρα οι ευθείες $x=-5$ και $x=4$ είναι οι κατακόρυφες ασύμπτωτες.
+The numerator is 2, so the lines $x=-5$ and $x=4$ are the vertical asymptotes.
 
 ---
 $$
-\textbf{ΘΕΜΑ 4}
+\textbf{PROBLEM 4}
 $$
-Ποιες εντολές πρέπει να δοθούν στο Octave έτσι ώστε να γίνει η σχεδίαση της συνάρτησης $y=3\cos(2x)$ στο διάστημα $[-\frac{\pi}{2},2\pi]$;
-**Λύση**
+What commands must be given to Octave in order to plot the function $y=3\cos(2x)$ on the interval $[-\frac{\pi}{2},2\pi]$;
+**Solution**
 
 ```octave
 x = linspace(-pi/2, 2*pi, 200);
 y = 3 * cos(2*x);
 plot(x, y);
-title('Графиική παράσταση της y = 3cos(2x)');
+title('Graph of y = 3cos(2x)');
 xlabel('x');
 ylabel('y');
 grid on;
 ```
 ---
 $$
-\textbf{ΘΕΜΑ 5}
+\textbf{PROBLEM 5}
 $$
-Δίνεται η συνάρτηση:
+The function is given:
 $$
 f(x)=\begin{cases}e^{1-x}-a\cos(2\pi x),&x\le1\\ \frac{x^{3}-3x^{2}+2x}{x^{2}-1},&x>1\end{cases}
 $$
-Να βρείτε τον πραγματικό αριθμό $a$ ώστε η $f$ να είναι συνεχής στο πεδίο ορισμού της.
-**Λύση**
+Find the real number $a$ such that $f$ is continuous on its domain.
+**Solution**
 
-Εξετάζουμε τη συνέχεια στο $x=1$. Πρέπει $\lim_{x\to1^{-}}f(x) = \lim_{x\to1^{+}}f(x) = f(1)$.
+We examine the continuity at $x=1$. We need $\lim_{x\to1^{-}}f(x) = \lim_{x\to1^{+}}f(x) = f(1)$.
 
-1.  **Αριστερό όριο και $f(1)$:**
+1.  **Left-hand limit and $f(1)$:**
     $$
     f(1) = e^{1-1} - a\cos(2\pi) = e^0 - a(1) = 1-a
     $$
@@ -775,37 +775,37 @@ $$
     \lim_{x\to1^{-}}f(x) = 1-a
     $$
 
-2.  **Δεξιό όριο:**
+2.  **Right-hand limit:**
     $$
-    \lim_{x\to1^{+}}\frac{x^{3}-3x^{2}+2x}{x^{2}-1} \quad (\text{μορφή } \frac{0}{0})
+    \lim_{x\to1^{+}}\frac{x^{3}-3x^{2}+2x}{x^{2}-1} \quad (\text{form } \frac{0}{0})
     $$
-    Παραγοντοποιούμε:
+    We factor:
     *   $x^3-3x^2+2x = x(x^2-3x+2) = x(x-1)(x-2)$
     *   $x^2-1 = (x-1)(x+1)$
-    Το όριο γίνεται:
+    The limit becomes:
     $$
     \lim_{x\to1^{+}}\frac{x(x-1)(x-2)}{(x-1)(x+1)} = \lim_{x\to1^{+}}\frac{x(x-2)}{x+1} = \frac{1(1-2)}{1+1} = \frac{-1}{2}
     $$
 
-3.  **Εξίσωση των ορίων:**
+3.  **Equating the limits:**
     $$
     1-a = -\frac{1}{2} \implies a = 1 + \frac{1}{2} = \frac{3}{2}
     $$
-Για $a = \frac{3}{2}$, η συνάρτηση είναι συνεχής.
+For $a = \frac{3}{2}$, the function is continuous.
 
 ---
 $$
-\textbf{ΘΕΜΑ 6}
+\textbf{PROBLEM 6}
 $$
-Δίνεται η συνάρτηση $y(x)$ που ορίζεται από την ισότητα:
+The function $y(x)$ is defined by the equality:
 $$
 x^{2}y-6x=-y^{2}
 $$
-Να βρεθεί η εξίσωση της εφαπτομένης ευθείας στη γραφική παράσταση της $y(x)$ στο σημείο $(2,-6)$.
-**Λύση**
+Find the equation of the tangent line to the graph of $y(x)$ at the point $(2,-6)$.
+**Solution**
 
-Η εξίσωση είναι $x^2y+y^2-6x=0$.
-1.  **Πεπλεγμένη παραγώγιση:**
+The equation is $x^2y+y^2-6x=0$.
+1.  **Implicit differentiation:**
     $$
     \frac{d}{dx}(x^2y+y^2-6x) = \frac{d}{dx}(0)
     $$
@@ -813,7 +813,7 @@ $$
     (2xy + x^2 \frac{dy}{dx}) + 2y \frac{dy}{dx} - 6 = 0
     $$
 
-2.  **Επίλυση ως προς $\frac{dy}{dx}$:**
+2.  **Solving for $\frac{dy}{dx}$:**
     $$
     (x^2 + 2y)\frac{dy}{dx} = 6 - 2xy
     $$
@@ -821,12 +821,12 @@ $$
     \frac{dy}{dx} = \frac{6 - 2xy}{x^2 + 2y}
     $$
 
-3.  **Υπολογισμός της κλίσης στο σημείο $(2, -6)$:**
+3.  **Computing the slope at the point $(2, -6)$:**
     $$
     m = \frac{6 - 2(2)(-6)}{(2)^2 + 2(-6)} = \frac{6 + 24}{4 - 12} = \frac{30}{-8} = -\frac{15}{4}
     $$
 
-4.  **Εξίσωση της εφαπτομένης:**
+4.  **Equation of the tangent:**
     $$
     y - (-6) = -\frac{15}{4}(x - 2)
     $$
@@ -841,19 +841,19 @@ $$
     $$
 ---
 $$
-\textbf{ΘΕΜΑ 7}
+\textbf{PROBLEM 7}
 $$
-Να υπολογιστούν οι παράγωγοι των συναρτήσεων:
+Compute the derivatives of the functions:
 $$
 f(x)=\frac{x+1}{x^{2}+2}
 $$
 $$
 h(x)=(3x^{3}-\cos x)\ln(5x)
 $$
-**Λύση**
+**Solution**
 
-**Για τη συνάρτηση $f(x)$:**
-Χρησιμοποιούμε τον κανόνα του πηλίκου $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$ με $u=x+1$ και $v=x^2+2$.
+**For the function $f(x)$:**
+We use the quotient rule $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$ with $u=x+1$ and $v=x^2+2$.
 *   $u' = 1$
 *   $v' = 2x$
 
@@ -861,8 +861,8 @@ $$
 f'(x) = \frac{(1)(x^2+2) - (x+1)(2x)}{(x^2+2)^2} = \frac{x^2+2 - 2x^2-2x}{(x^2+2)^2} = \frac{-x^2-2x+2}{(x^2+2)^2}
 $$
 
-**Για τη συνάρτηση $h(x)$:**
-Χρησιμοποιούμε τον κανόνα του γινομένου $(uv)' = u'v + uv'$ με $u=3x^3-\cos x$ και $v=\ln(5x)$.
+**For the function $h(x)$:**
+We use the product rule $(uv)' = u'v + uv'$ with $u=3x^3-\cos x$ and $v=\ln(5x)$.
 *   $u' = 9x^2 - (-\sin x) = 9x^2 + \sin x$
 *   $v' = \frac{1}{5x} \cdot 5 = \frac{1}{x}$
 

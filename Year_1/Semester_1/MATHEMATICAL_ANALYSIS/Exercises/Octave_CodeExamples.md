@@ -1,8 +1,8 @@
-## 1. Σχεδίαση Συνάρτησης
+## 1. Function Plotting
 
-**Πρόβλημα/Συνάρτηση:** Σχεδιάστε το ημιτονοειδές κύμα, $$y = \sin(x)$$, για τιμές του $$x$$ από -10 έως 10. Αυτό το παράδειγμα εμφανίζεται στην παρουσίαση για βασικές συναρτήσεις (Συναρτήσεις (Μέρος Α)).
+**Problem/Function:** Plot the sinusoidal wave, $$y = \sin(x)$$, for values of $$x$$ from -10 to 10. This example appears in the presentation for basic functions (Functions (Part A)).
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 x = [-10:0.1:10];
 y = sin(x);
@@ -12,14 +12,14 @@ xlabel("x")
 ylabel("y(x)")
 ```
 
-**Έξοδος:**
+**Output:**
 ```
-[Γράφημα ημιτονοειδούς κύματος]
+[Sinusoidal wave graph]
 ```
 
-**Πρόβλημα/Συνάρτηση:** Σχεδιάστε τη συνάρτηση $$y = x^2 - 4x + 3$$ για τιμές του $$x$$ από -2 έως 6.
+**Problem/Function:** Plot the function $$y = x^2 - 4x + 3$$ for values of $$x$$ from -2 to 6.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 x = [-2:0.1:6];
 y = x.^2 - 4*x + 3;
@@ -30,35 +30,35 @@ xlabel("x")
 ylabel("y(x)")
 ```
 
-**Έξοδος:**
+**Output:**
 ```
-[Γράφημα παραβολής με πλέγμα]
+[Parabola graph with grid]
 ```
 
-**Πρόβλημα/Συνάρτηση:** Σχεδιάστε δύο συναρτήσεις στο ίδιο γράφημα: $$y_1 = e^x$$ και $$y_2 = e^{-x}$$ για $$x$$ από -3 έως 3.
+**Problem/Function:** Plot two functions on the same graph: $$y_1 = e^x$$ and $$y_2 = e^{-x}$$ for $$x$$ from -3 to 3.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 x = [-3:0.1:3];
 y1 = exp(x);
 y2 = exp(-x);
 plot(x,y1,'r-',x,y2,'b--')
 legend('e^x','e^{-x}')
-title("Εκθετικές συναρτήσεις")
+title("Exponential functions")
 xlabel("x")
 ylabel("y(x)")
 ```
 
-**Έξοδος:**
+**Output:**
 ```
-[Γράφημα με δύο εκθετικές συναρτήσεις - κόκκινη συνεχής και μπλε διακεκομμένη γραμμή]
+[Graph with two exponential functions - red solid and blue dashed line]
 ```
 
-## 2. Παράγωγος
+## 2. Derivative
 
-**Πρόβλημα/Συνάρτηση:** Βρείτε την παράγωγο της συνάρτησης $$f(x) = 2\sin(x) + 3x^5$$. Αυτό το παράδειγμα προέρχεται από την παρουσίαση Παράγωγος Συνάρτησης.
+**Problem/Function:** Find the derivative of the function $$f(x) = 2\sin(x) + 3x^5$$. This example comes from the Derivative of a Function presentation.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -66,7 +66,7 @@ y = 2*sin(x) + 3*x^5
 Dy = diff(y)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 y = (sym)
     5
@@ -77,9 +77,9 @@ Dy = (sym)
   15*x + 2*cos(x)
 ```
 
-**Πρόβλημα/Συνάρτηση:** Βρείτε την 3η παράγωγο της $$f(x) = 2\sin(x) + 3x^5$$ και στη συνέχεια υπολογίστε το αποτέλεσμα στο $$x = π$$.
+**Problem/Function:** Find the 3rd derivative of $$f(x) = 2\sin(x) + 3x^5$$ and then evaluate the result at $$x = π$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -88,7 +88,7 @@ D3y = diff(y,3,x)
 D3y2 = subs(D3y,pi)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 D3y = (sym)
       / 2      \
@@ -99,9 +99,9 @@ D3y2 = (sym)
   2 + 180*pi
 ```
 
-**Πρόβλημα/Συνάρτηση:** Βρείτε την παράγωγο της σύνθετης συνάρτησης $$f(x) = (3x^2 + 5)^9$$.
+**Problem/Function:** Find the derivative of the composite function $$f(x) = (3x^2 + 5)^9$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -109,7 +109,7 @@ y = (3*x^2+5)^9
 Dy = diff(y)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 y = (sym)
     / 2    \9
@@ -120,9 +120,9 @@ Dy = (sym)
   54*x*|3*x + 5|
 ```
 
-**Πρόβλημα/Συνάρτηση:** Βρείτε την παράγωγο της $$f(x) = \ln(x^2 + 1) + \arctan(x)$$.
+**Problem/Function:** Find the derivative of $$f(x) = \ln(x^2 + 1) + \arctan(x)$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -130,7 +130,7 @@ y = log(x^2+1) + atan(x)
 Dy = diff(y)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 y = (sym)
   log(x^2 + 1) + atan(x)
@@ -142,11 +142,11 @@ Dy = (sym)
      x + 1      x + 1
 ```
 
-## 3. Όρια Συναρτήσεων
+## 3. Limits of Functions
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το όριο της συνάρτησης $$f(x) = \frac{4x^2 - 9x + 1}{x + 7}$$ καθώς το $$x$$ πλησιάζει το 3.
+**Problem/Function:** Compute the limit of the function $$f(x) = \frac{4x^2 - 9x + 1}{x + 7}$$ as $$x$$ approaches 3.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -154,14 +154,14 @@ y = (4*x^2-9*x+1)/(x+7);
 limit(y,3)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym) 1
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το όριο της $$f(x) = \frac{5}{x^3 + 8}$$ καθώς το $$x$$ πλησιάζει το άπειρο.
+**Problem/Function:** Compute the limit of $$f(x) = \frac{5}{x^3 + 8}$$ as $$x$$ approaches infinity.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -169,14 +169,14 @@ y1 = 5/(x^3+8);
 limit(y1,inf)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym) 0
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το μονόπλευρο όριο της $$f(x) = \frac{1}{x}$$ καθώς το $$x$$ πλησιάζει το 0 από δεξιά.
+**Problem/Function:** Compute the one-sided limit of $$f(x) = \frac{1}{x}$$ as $$x$$ approaches 0 from the right.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -184,14 +184,14 @@ f = 1/x;
 limit(f,x,0,'right')
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = Inf
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το μονόπλευρο όριο της $$f(x) = \frac{1}{x}$$ καθώς το $$x$$ πλησιάζει το 0 από αριστερά.
+**Problem/Function:** Compute the one-sided limit of $$f(x) = \frac{1}{x}$$ as $$x$$ approaches 0 from the left.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -199,14 +199,14 @@ f = 1/x;
 limit(f,x,0,'left')
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = -Inf
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το όριο της $$f(x) = \frac{\sin(x)}{x}$$ καθώς το $$x$$ πλησιάζει το 0.
+**Problem/Function:** Compute the limit of $$f(x) = \frac{\sin(x)}{x}$$ as $$x$$ approaches 0.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -214,14 +214,14 @@ f = sin(x)/x;
 limit(f,x,0)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym) 1
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το όριο της $$f(x) = \frac{x^2 - 4}{x - 2}$$ καθώς το $$x$$ πλησιάζει το 2.
+**Problem/Function:** Compute the limit of $$f(x) = \frac{x^2 - 4}{x - 2}$$ as $$x$$ approaches 2.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -229,16 +229,16 @@ f = (x^2-4)/(x-2);
 limit(f,x,2)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym) 4
 ```
 
-## 4. Ολοκληρωτικός Λογισμός
+## 4. Integral Calculus
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το αόριστο ολοκλήρωμα της $$f(x) = x^3 - x \cdot e^x$$.
+**Problem/Function:** Compute the indefinite integral of $$f(x) = x^3 - x \cdot e^x$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -246,7 +246,7 @@ y = x^3 - x*exp(x)
 int(y,x)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 y = (sym)
     3        x
@@ -259,23 +259,23 @@ ans = (sym)
   4
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το ορισμένο ολοκλήρωμα της $$f(x) = \frac{x+1}{\sqrt{x}}$$ από $$x=1$$ έως $$x=4$$.
+**Problem/Function:** Compute the definite integral of $$f(x) = \frac{x+1}{\sqrt{x}}$$ from $$x=1$$ to $$x=4$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
 int((x+1)/sqrt(x),1,4)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym) 20/3
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το αόριστο ολοκλήρωμα της $$f(x) = \cos(2x) + 3x^2$$.
+**Problem/Function:** Compute the indefinite integral of $$f(x) = \cos(2x) + 3x^2$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
@@ -283,33 +283,33 @@ y = cos(2*x) + 3*x^2;
 int(y,x)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym)
     3
    x + sin(2*x)/2
 ```
 
-**Πρόβλημα/Συνάρτηση:** Υπολογίστε το ορισμένο ολοκλήρωμα της $$f(x) = e^{-x^2}$$ από $$x=0$$ έως $$x=1$$.
+**Problem/Function:** Compute the definite integral of $$f(x) = e^{-x^2}$$ from $$x=0$$ to $$x=1$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 pkg load symbolic
 syms x
 int(exp(-x^2),0,1)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = (sym)
   sqrt(pi)*erf(1)/2
 ```
 
-## 5. Μιγαδικοί Αριθμοί
+## 5. Complex Numbers
 
-**Πρόβλημα:** Δείξτε βασικές αριθμητικές πράξεις (πρόσθεση, πολλαπλασιασμό, διαίρεση) με τους μιγαδικούς αριθμούς $$z = 3 + 2i$$ και $$w = 5 - 4i$$.
+**Problem:** Demonstrate basic arithmetic operations (addition, multiplication, division) with the complex numbers $$z = 3 + 2i$$ and $$w = 5 - 4i$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 z = 3+2*i
 w = 5-4*i
@@ -318,7 +318,7 @@ z*w
 z/w
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 z = 3 + 2i
 w = 5 - 4i
@@ -327,15 +327,15 @@ ans = 23 - 2i
 ans = 0.17073 + 0.53659i
 ```
 
-**Πρόβλημα:** Βρείτε τις ρίζες του πολυωνύμου $$x^3 - 3x^2 + 5x - 3$$.
+**Problem:** Find the roots of the polynomial $$x^3 - 3x^2 + 5x - 3$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 c = [1,-3,5,-3]
 roots(c)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 c = 1 -3 5 -3
 ans =
@@ -344,44 +344,44 @@ ans =
  1.0000 + 0.0000i
 ```
 
-**Πρόβλημα:** Υπολογίστε το μέτρο και την αργή του μιγαδικού αριθμού $$z = 4 + 3i$$.
+**Problem:** Compute the modulus and argument of the complex number $$z = 4 + 3i$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 z = 4+3*i;
 abs(z)
 angle(z)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = 5
 ans = 0.64350
 ```
 
-**Πρόβλημα:** Μετατρέψτε τον μιγαδικό αριθμό από πολική σε καρτεσιανή μορφή: $$r = 5$$, $$θ = π/4$$.
+**Problem:** Convert the complex number from polar to Cartesian form: $$r = 5$$, $$θ = π/4$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 r = 5;
 theta = pi/4;
 z = r * exp(1i * theta)
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 z = 3.5355 + 3.5355i
 ```
 
-**Πρόβλημα:** Υπολογίστε τη δύναμη $$(1 + i)^8$$.
+**Problem:** Compute the power $$(1 + i)^8$$.
 
-**Κώδικας MATLAB/Octave:**
+**MATLAB/Octave Code:**
 ```matlab
 z = 1+1*i;
 z^8
 ```
 
-**Έξοδος:**
+**Output:**
 ```
 ans = 16 + 0i
 ```

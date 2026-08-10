@@ -1,42 +1,42 @@
-# 1. (1 μονάδα) Δίνεται η συνάρτηση $f(x) = \begin{cases} 7x^2 - 6, & x < 0 \\ 3, & x = 0 \\ 3x - 4, & x > 0 \end{cases}$.
-Ποιες από τις παρακάτω προτάσεις ισχύουν για τη συνάρτηση $f$;
+# 1. (1 point) The function is given $f(x) = \begin{cases} 7x^2 - 6, & x < 0 \\ 3, & x = 0 \\ 3x - 4, & x > 0 \end{cases}$.
+Which of the following propositions hold for the function $f$?
 
-a. To $\lim_{x \to 0} f(x)$ υπάρχει
+a. The limit $\lim_{x \to 0} f(x)$ exists
 
-b. To $f(0)$ υπάρχει
+b. The value $f(0)$ exists
 
-c. Η $f$ είναι συνεχής στο $x=0$
+c. $f$ is continuous at $x=0$
 
-d. Η $f$ είναι δεν παραγωγίσιμη στο $x=0$
+d. $f$ is not differentiable at $x=0$
 
-**Λύση:**
+**Solution:**
 
-Για να εξετάσουμε τις προτάσεις, θα αναλύσουμε τη συμπεριφορά της συνάρτησης γύρω από το $x=0$.
+To examine the propositions, we will analyze the behavior of the function around $x=0$.
 
-1.  **Εξέταση του ορίου (Πρόταση a):**
-    *   Υπολογίζουμε το πλευρικό όριο καθώς το $x$ τείνει στο 0 από τα αριστερά (x < 0):
+1.  **Examination of the limit (Proposition a):**
+    *   We compute the one-sided limit as $x$ tends to 0 from the left (x < 0):
         $\lim_{x \to 0^-} f(x) = \lim_{x \to 0^-} (7x^2 - 6) = 7(0)^2 - 6 = -6$.
-    *   Υπολογίζουμε το πλευρικό όριο καθώς το $x$ τείνει στο 0 από τα δεξιά (x > 0):
+    *   We compute the one-sided limit as $x$ tends to 0 from the right (x > 0):
         $\lim_{x \to 0^+} f(x) = \lim_{x \to 0^+} (3x - 4) = 3(0) - 4 = -4$.
-    *   Επειδή τα δύο πλευρικά όρια είναι διαφορετικά ($-6 \neq -4$), το όριο $\lim_{x \to 0} f(x)$ **δεν υπάρχει**. Άρα η πρόταση (a) είναι ψευδής.
+    *   Since the two one-sided limits are different ($-6 \neq -4$), the limit $\lim_{x \to 0} f(x)$ **does not exist**. Therefore, proposition (a) is false.
 
-2.  **Εξέταση της τιμής στο x=0 (Πρόταση b):**
-    *   Από τον ορισμό της συνάρτησης, για $x=0$, έχουμε $f(0) = 3$.
-    *   Επομένως, το $f(0)$ **υπάρχει**. Άρα η πρόταση (b) είναι αληθής.
+2.  **Examination of the value at x=0 (Proposition b):**
+    *   From the definition of the function, for $x=0$, we have $f(0) = 3$.
+    *   Therefore, $f(0)$ **exists**. Thus, proposition (b) is true.
 
-3.  **Εξέταση της συνέχειας (Πρόταση c):**
-    *   Για να είναι μια συνάρτηση συνεχής στο $x=0$, πρέπει να ισχύει $\lim_{x \to 0} f(x) = f(0)$.
-    *   Όπως είδαμε, το $\lim_{x \to 0} f(x)$ δεν υπάρχει.
-    *   Επομένως, η $f$ **δεν είναι συνεχής** στο $x=0$. Άρα η πρόταση (c) είναι ψευδής.
+3.  **Examination of continuity (Proposition c):**
+    *   For a function to be continuous at $x=0$, it must hold that $\lim_{x \to 0} f(x) = f(0)$.
+    *   As we saw, $\lim_{x \to 0} f(x)$ does not exist.
+    *   Therefore, $f$ **is not continuous** at $x=0$. Thus, proposition (c) is false.
 
-4.  **Εξέταση της παραγωγισιμότητας (Πρόταση d):**
-    *   Μια βασική ιδιότητα των συναρτήσεων είναι ότι αν μια συνάρτηση είναι παραγωγίσιμη σε ένα σημείο, τότε είναι και συνεχής σε αυτό το σημείο.
-    *   Αφού η $f$ δεν είναι συνεχής στο $x=0$, δεν μπορεί να είναι ούτε παραγωγίσιμη.
-    *   Επομένως, η $f$ **δεν είναι παραγωγίσιμη** στο $x=0$. Άρα η πρόταση (d) είναι αληθής.
+4.  **Examination of differentiability (Proposition d):**
+    *   A fundamental property of functions is that if a function is differentiable at a point, then it is also continuous at that point.
+    *   Since $f$ is not continuous at $x=0$, it cannot be differentiable either.
+    *   Therefore, $f$ **is not differentiable** at $x=0$. Thus, proposition (d) is true.
 
-**Σωστές προτάσεις: b, d**
+**Correct propositions: b, d**
 
-# 2. (0.5 μονάδα) Έστω $h(x) = \frac{3x-1}{5x-2}$. Τότε $h'(x) =$
+# 2. (0.5 points) Let $h(x) = \frac{3x-1}{5x-2}$. Then $h'(x) =$
 
 a. $-\frac{\alpha}{2x}$ 
 
@@ -46,31 +46,31 @@ c. $\frac{5x^2-2x-9}{(3x-1)^2}$
 
 d. $\frac{1}{(5x-2)^2}$
 
-**Λύση:**
+**Solution:**
 
-Για να βρούμε την παράγωγο της $h(x)$, θα χρησιμοποιήσουμε τον κανόνα παραγώγισης πηλίκου:
+To find the derivative of $h(x)$, we use the quotient rule for differentiation:
 $(\frac{f}{g})' = \frac{f'g - fg'}{g^2}$.
 
-Στην περίπτωσή μας, $f(x) = 3x-1$ και $g(x) = 5x-2$.
+In our case, $f(x) = 3x-1$ and $g(x) = 5x-2$.
 
-1.  **Υπολογίζουμε τις παραγώγους των $f(x)$ και $g(x)$:**
+1.  **We compute the derivatives of $f(x)$ and $g(x)$:**
     *   $f'(x) = (3x-1)' = 3$
     *   $g'(x) = (5x-2)' = 5$
 
-2.  **Εφαρμόζουμε τον κανόνα του πηλίκου:**
+2.  **We apply the quotient rule:**
     $h'(x) = \frac{(3x-1)'(5x-2) - (3x-1)(5x-2)'}{(5x-2)^2}$
     $h'(x) = \frac{3(5x-2) - (3x-1)5}{(5x-2)^2}$
 
-3.  **Απλοποιούμε την έκφραση στον αριθμητή:**
+3.  **We simplify the numerator expression:**
     $h'(x) = \frac{15x - 6 - (15x - 5)}{(5x-2)^2}$
     $h'(x) = \frac{15x - 6 - 15x + 5}{(5x-2)^2}$
     $h'(x) = \frac{-1}{(5x-2)^2}$
 
-Καμία από τις επιλογές a, b, c, d δεν ταιριάζει ακριβώς με το αποτέλεσμα. Η επιλογή (d) έχει τον σωστό παρονομαστή αλλά λάθος αριθμητή. Αν υποθέσουμε τυπογραφικό λάθος στην επιλογή (d) και ότι ο αριθμητής θα έπρεπε να είναι -1, τότε αυτή θα ήταν η σωστή απάντηση. Με βάση τις δοθείσες επιλογές, καμία δεν είναι σωστή. Το σωστό αποτέλεσμα είναι $h'(x) = -\frac{1}{(5x-2)^2}$.
+None of the options a, b, c, d matches exactly with the result. Option (d) has the correct denominator but wrong numerator. If we assume a typographical error in option (d) and that the numerator should be -1, then this would be the correct answer. Based on the given options, none is correct. The correct result is $h'(x) = -\frac{1}{(5x-2)^2}$.
 
-**Σωστή απάντηση (εκτός επιλογών):** $h'(x) = -\frac{1}{(5x-2)^2}$
+**Correct answer (outside options):** $h'(x) = -\frac{1}{(5x-2)^2}$
 
-# 3. (1 μονάδα) Βρείτε την εξίσωση της εφαπτομένης στην καμπύλη $2xy - y^2 = 1$ στο σημείο $(2,1)$. Επιλέξτε τη σωστή απάντηση.
+# 3. (1 point) Find the equation of the tangent to the curve $2xy - y^2 = 1$ at the point $(2,1)$. Select the correct answer.
 
 a. $y = x - 1$
 
@@ -80,251 +80,251 @@ c. $y = 1$
 
 d. $x = 1$
 
-**Λύση:**
+**Solution:**
 
-Για να βρούμε την κλίση της εφαπτομένης, χρειαζόμαστε την τιμή της παραγώγου $\frac{dy}{dx}$ στο σημείο $(2,1)$. Θα χρησιμοποιήσουμε πεπλεγμένη παραγώγιση.
+To find the slope of the tangent, we need the value of the derivative $\frac{dy}{dx}$ at the point $(2,1)$. We use implicit differentiation.
 
-1.  **Παραγωγίζουμε και τα δύο μέλη της εξίσωσης $2xy - y^2 = 1$ ως προς $x$:**
+1.  **We differentiate both sides of the equation $2xy - y^2 = 1$ with respect to $x$:**
     $\frac{d}{dx}(2xy - y^2) = \frac{d}{dx}(1)$
     $\frac{d}{dx}(2xy) - \frac{d}{dx}(y^2) = 0$
 
-2.  **Εφαρμόζουμε τον κανόνα του γινομένου για τον όρο $2xy$ και τον κανόνα της αλυσίδας για τον όρο $y^2$ (όπου $y$ είναι συνάρτηση του $x$):**
+2.  **We apply the product rule for the term $2xy$ and the chain rule for the term $y^2$ (where $y$ is a function of $x$):**
     $[(\frac{d}{dx}(2x))y + 2x(\frac{d}{dx}(y))] - [2y \cdot \frac{dy}{dx}] = 0$
     $[2y + 2x \frac{dy}{dx}] - 2y \frac{dy}{dx} = 0$
 
-3.  **Λύνουμε την εξίσωση ως προς $\frac{dy}{dx}$:**
+3.  **We solve the equation for $\frac{dy}{dx}$:**
     $2y + (2x - 2y) \frac{dy}{dx} = 0$
     $(2x - 2y) \frac{dy}{dx} = -2y$
     $\frac{dy}{dx} = \frac{-2y}{2x - 2y} = \frac{-y}{x - y}$
 
-4.  **Υπολογίζουμε την κλίση (m) στο σημείο $(x, y) = (2, 1)$:**
+4.  **We compute the slope (m) at the point $(x, y) = (2, 1)$:**
     $m = \frac{-1}{2 - 1} = \frac{-1}{1} = -1$
 
-5.  **Βρίσκουμε την εξίσωση της εφαπτομένης χρησιμοποιώντας τον τύπο $y - y_1 = m(x - x_1)$ με σημείο $(x_1, y_1) = (2, 1)$ και κλίση $m = -1$:**
+5.  **We find the equation of the tangent using the form $y - y_1 = m(x - x_1)$ with point $(x_1, y_1) = (2, 1)$ and slope $m = -1$:**
     $y - 1 = -1(x - 2)$
     $y - 1 = -x + 2$
     $y = -x + 3$
 
-Καμία από τις δοθείσες επιλογές δεν ταιριάζει με το αποτέλεσμα $y = -x + 3$. Ελέγχοντας ξανά τους υπολογισμούς, φαίνεται να υπάρχει λάθος στις επιλογές.
+None of the given options matches the result $y = -x + 3$. Checking the calculations again, it appears there is an error in the options.
 
-**Σωστή απάντηση (εκτός επιλογών):** $y = -x + 3$
+**Correct answer (outside options):** $y = -x + 3$
 
-# 4. (1 μονάδα) Ποια από τις παρακάτω προτάσεις είναι σωστή;
+# 4. (1 point) Which of the following propositions is correct?
 
-a. Αν η $f(x)$ είναι συνεχής στο α είναι και το όριο $\lim_{x \to a} f'(x)$ υπάρχει
+a. If $f(x)$ is continuous at a then the limit $\lim_{x \to a} f'(x)$ also exists
 
-b. Το αόριστο ολοκλήρωμα είναι μια συνάρτηση
+b. The indefinite integral is a function
 
-c. Αν η $f'(x)$ είναι συνεχής στο α είναι και παραγωγίσιμη στο α
+c. If $f'(x)$ is continuous at a then it is also differentiable at a
 
-d. Αν $v(t)$ είναι η ταχύτητα ενός σωματιδίου που κινείται σε ευθεία τροχιά, τότε το $\int_a^b v(t) dt$ ισούται με τη διαφορά της θέσης του σωματιδίου 
-μεταξύ των $t=a$ και $t=b$.
+d. If $v(t)$ is the velocity of a particle moving in a straight line, then $\int_a^b v(t) dt$ equals the difference in the particle's position 
+between $t=a$ and $t=b$.
 
-e. Το ορισμένο ολοκλήρωμα είναι ένας αριθμός
+e. The definite integral is a number
 
-**Λύση:**
+**Solution:**
 
-*   **a:** Ψευδής. Μια συνάρτηση μπορεί να είναι συνεχής αλλά όχι παραγωγίσιμη (π.χ. $f(x)=|x|$ στο $x=0$). Αν δεν είναι παραγωγίσιμη, το όριο της παραγώγου δεν μπορεί να υπάρχει.
-*   **b:** Ψευδής. Το αόριστο ολοκλήρωμα $\int f(x)dx$ αντιπροσωπεύει μια *οικογένεια συναρτήσεων* (τις παράγουσες της $f$), που διαφέρουν κατά μια σταθερά C.
-*   **c:** Ψευδής. Η συνέχεια της $f'(x)$ δεν εγγυάται την παραγωγισιμότητα της $f'(x)$ (δηλαδή την ύπαρξη της $f''(x)$).
-*   **d:** Αληθής. Αν $s(t)$ είναι η συνάρτηση θέσης, τότε $s'(t) = v(t)$. Από το Θεμελιώδες Θεώρημα του Ολοκληρωτικού Λογισμού, $\int_a^b v(t) dt = \int_a^b s'(t) dt = s(b) - s(a)$, που είναι η μετατόπιση (διαφορά θέσης) του σωματιδίου.
-*   **e:** Αληθής. Το ορισμένο ολοκλήρωμα $\int_a^b f(x) dx$, εφόσον υπάρχει, είναι ένας συγκεκριμένος πραγματικός αριθμός που αντιπροσωπεύει (γεωμετρικά) το εμβαδόν μεταξύ της καμπύλης και του άξονα x.
+*   **a:** False. A function can be continuous but not differentiable (e.g., $f(x)=|x|$ at $x=0$). If it is not differentiable, the limit of its derivative cannot exist.
+*   **b:** False. The indefinite integral $\int f(x)dx$ represents a *family of functions* (the antiderivatives of $f$), which differ by a constant C.
+*   **c:** False. The continuity of $f'(x)$ does not guarantee the differentiability of $f'(x)$ (i.e., the existence of $f''(x)$).
+*   **d:** True. If $s(t)$ is the position function, then $s'(t) = v(t)$. By the Fundamental Theorem of Calculus, $\int_a^b v(t) dt = \int_a^b s'(t) dt = s(b) - s(a)$, which is the displacement (change in position) of the particle.
+*   **e:** True. The definite integral $\int_a^b f(x) dx$, provided it exists, is a specific real number that represents (geometrically) the area between the curve and the x-axis.
 
-Και οι προτάσεις (d) και (e) είναι σωστές. Η (d) είναι μια εφαρμογή του ορισμένου ολοκληρώματος, ενώ η (e) είναι ένας θεμελιώδης ορισμός του.
+Both propositions (d) and (e) are correct. (d) is an application of the definite integral, while (e) is a fundamental definition of it.
 
-**Σωστές προτάσεις: d, e**
+**Correct propositions: d, e**
 
-# 5. (1 μονάδα) Να λυθεί στο σύνολο των μιγαδικών αριθμών η εξίσωση $z^2 - 2z + 5 = 0$.
+# 5. (1 point) Solve the equation $z^2 - 2z + 5 = 0$ in the set of complex numbers.
 
-**Λύση:**
+**Solution:**
 
-Θα χρησιμοποιήσουμε τον τύπο για την επίλυση δευτεροβάθμιας εξίσωσης $az^2+bz+c=0$, που είναι $z = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$.
+We use the formula for solving the quadratic equation $az^2+bz+c=0$, which is $z = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$.
 
-1.  **Προσδιορίζουμε τους συντελεστές:**
+1.  **We determine the coefficients:**
     $a=1$, $b=-2$, $c=5$.
 
-2.  **Υπολογίζουμε τη διακρίνουσα $\Delta$:**
+2.  **We compute the discriminant $\Delta$:**
     $\Delta = b^2 - 4ac = (-2)^2 - 4(1)(5) = 4 - 20 = -16$.
 
-3.  **Βρίσκουμε τις ρίζες:**
-    Αφού η διακρίνουσα είναι αρνητική, οι ρίζες θα είναι συζυγείς μιγαδικοί αριθμοί.
+3.  **We find the roots:**
+    Since the discriminant is negative, the roots will be complex conjugate numbers.
     $z = \frac{-(-2) \pm \sqrt{-16}}{2(1)}$
     $z = \frac{2 \pm \sqrt{16 \cdot (-1)}}{2}$
     $z = \frac{2 \pm \sqrt{16} \sqrt{-1}}{2}$
-    Χρησιμοποιώντας τη μονάδα των φανταστικών αριθμών, $i = \sqrt{-1}$:
+    Using the imaginary unit $i = \sqrt{-1}$:
     $z = \frac{2 \pm 4i}{2}$
 
-4.  **Απλοποιούμε για να βρούμε τις δύο λύσεις:**
+4.  **We simplify to find the two solutions:**
     $z_1 = \frac{2 + 4i}{2} = 1 + 2i$
     $z_2 = \frac{2 - 4i}{2} = 1 - 2i$
 
-**Οι λύσεις είναι $z = 1 + 2i$ και $z = 1 - 2i$.**
+**The solutions are $z = 1 + 2i$ and $z = 1 - 2i$.**
 
-# 6. (1 μονάδα) Να γραφεί στη μορφή $x + yi$ ο μιγαδικός αριθμός $\frac{i^5+3}{(i^{21}+i^8+5)}$.
+# 6. (1 point) Write in the form $x + yi$ the complex number $\frac{i^5+3}{(i^{21}+i^8+5)}$.
 
-**Λύση:**
+**Solution:**
 
-1.  **Απλοποιούμε τις δυνάμεις του $i$:**
-    Οι δυνάμεις του $i$ επαναλαμβάνονται κάθε 4: $i^1=i, i^2=-1, i^3=-i, i^4=1$. Για να βρούμε μια δύναμη, διαιρούμε τον εκθέτη με το 4 και κρατάμε το υπόλοιπο.
+1.  **We simplify the powers of $i$:**
+    The powers of $i$ repeat every 4: $i^1=i, i^2=-1, i^3=-i, i^4=1$. To find a power, we divide the exponent by 4 and keep the remainder.
     *   $i^5 = i^{4 \cdot 1 + 1} = i^1 = i$
     *   $i^{21} = i^{4 \cdot 5 + 1} = i^1 = i$
     *   $i^8 = i^{4 \cdot 2 + 0} = i^0 = 1$
 
-2.  **Αντικαθιστούμε τις απλοποιημένες δυνάμεις στην αρχική έκφραση:**
+2.  **We substitute the simplified powers into the original expression:**
     $\frac{i^5+3}{i^{21}+i^8+5} = \frac{i+3}{i+1+5} = \frac{3+i}{6+i}$
 
-3.  **Πολλαπλασιάζουμε αριθμητή και παρονομαστή με τον συζυγή του παρονομαστή ($6-i$) για να μετατρέψουμε τον παρονομαστή σε πραγματικό αριθμό:**
+3.  **We multiply numerator and denominator by the conjugate of the denominator ($6-i$) to convert the denominator to a real number:**
     $\frac{3+i}{6+i} \cdot \frac{6-i}{6-i} = \frac{(3+i)(6-i)}{(6+i)(6-i)}$
 
-4.  **Εκτελούμε τους πολλαπλασιασμούς:**
-    *   Αριθμητής: $(3+i)(6-i) = 18 - 3i + 6i - i^2 = 18 + 3i - (-1) = 19 + 3i$
-    *   Παρονομαστής: $(6+i)(6-i) = 6^2 - i^2 = 36 - (-1) = 37$
+4.  **We perform the multiplications:**
+    *   Numerator: $(3+i)(6-i) = 18 - 3i + 6i - i^2 = 18 + 3i - (-1) = 19 + 3i$
+    *   Denominator: $(6+i)(6-i) = 6^2 - i^2 = 36 - (-1) = 37$
 
-5.  **Συνδυάζουμε και γράφουμε στην τελική μορφή $x+yi$:**
+5.  **We combine and write in the final form $x+yi$:**
     $\frac{19+3i}{37} = \frac{19}{37} + \frac{3}{37}i$
 
-**Η μορφή $x+yi$ του μιγαδικού αριθμού είναι $\frac{19}{37} + \frac{3}{37}i$.**
+**The form $x+yi$ of the complex number is $\frac{19}{37} + \frac{3}{37}i$.**
 
-# 7. (1.5 μονάδα) Να βρεθούν τα διαστήματα μονοτονίας και τα τοπικά ακρότατα της $f(x) = 2x^3 e^x$.
+# 7. (1.5 points) Find the intervals of monotonicity and the local extrema of $f(x) = 2x^3 e^x$.
 
-**Λύση:**
+**Solution:**
 
-1.  **Βρίσκουμε την πρώτη παράγωγο $f'(x)$ χρησιμοποιώντας τον κανόνα του γινομένου $(uv)' = u'v + uv'$:**
+1.  **We find the first derivative $f'(x)$ using the product rule $(uv)' = u'v + uv'$:**
     $f'(x) = (2x^3)'e^x + 2x^3(e^x)'$
     $f'(x) = (6x^2)e^x + 2x^3e^x$
 
-2.  **Βρίσκουμε τα κρίσιμα σημεία λύνοντας την εξίσωση $f'(x)=0$:**
+2.  **We find the critical points by solving the equation $f'(x)=0$:**
     $6x^2e^x + 2x^3e^x = 0$
-    Βγάζουμε κοινό παράγοντα το $2x^2e^x$:
+    We factor out $2x^2e^x$:
     $2x^2e^x(3 + x) = 0$
-    Αφού $e^x > 0$ για κάθε $x$, οι λύσεις προκύπτουν από:
+    Since $e^x > 0$ for every $x$, the solutions come from:
     $2x^2 = 0 \implies x = 0$
     $3 + x = 0 \implies x = -3$
-    Τα κρίσιμα σημεία είναι $x=0$ και $x=-3$.
+    The critical points are $x=0$ and $x=-3$.
 
-3.  **Κατασκευάζουμε πίνακα προσήμων για την $f'(x)$ για να βρούμε τα διαστήματα μονοτονίας:**
-    Η $f'(x) = 2x^2e^x(3+x)$. Το πρόσημο εξαρτάται από τον παράγοντα $(3+x)$, αφού $2x^2e^x \ge 0$ για κάθε $x$.
-    *   Για $x < -3$, ο όρος $(3+x)$ είναι αρνητικός, άρα $f'(x) < 0$. Η $f$ είναι **γνησίως φθίνουσα** στο $(-\infty, -3]$.
-    *   Για $-3 < x < 0$, ο όρος $(3+x)$ είναι θετικός, άρα $f'(x) > 0$. Η $f$ είναι **γνησίως αύξουσα** στο $[-3, 0]$.
-    *   Για $x > 0$, ο όρος $(3+x)$ είναι θετικός, άρα $f'(x) > 0$. Η $f$ είναι **γνησίως αύξουσα** στο $[0, \infty)$.
+3.  **We construct a sign table for $f'(x)$ to find the intervals of monotonicity:**
+    $f'(x) = 2x^2e^x(3+x)$. The sign depends on the factor $(3+x)$, since $2x^2e^x \ge 0$ for every $x$.
+    *   For $x < -3$, the term $(3+x)$ is negative, so $f'(x) < 0$. $f$ is **strictly decreasing** on $(-\infty, -3]$.
+    *   For $-3 < x < 0$, the term $(3+x)$ is positive, so $f'(x) > 0$. $f$ is **strictly increasing** on $[-3, 0]$.
+    *   For $x > 0$, the term $(3+x)$ is positive, so $f'(x) > 0$. $f$ is **strictly increasing** on $[0, \infty)$.
 
-| Διάστημα | $(-\infty, -3)$ | $(-3, 0)$ | $(0, \infty)$ |
+| Interval | $(-\infty, -3)$ | $(-3, 0)$ | $(0, \infty)$ |
 | :--- | :---: | :---: | :---: |
-| Πρόσημο $f'(x)$ | - | + | + |
-| Μονοτονία $f(x)$ |  |  |  |
+| Sign of $f'(x)$ | - | + | + |
+| Monotonicity of $f(x)$ |  |  |  |
 
-4.  **Προσδιορίζουμε τα τοπικά ακρότατα:**
-    *   Στο $x=-3$, η $f'(x)$ αλλάζει πρόσημο από αρνητικό σε θετικό, άρα η $f$ έχει **τοπικό ελάχιστο**.
+4.  **We determine the local extrema:**
+    *   At $x=-3$, $f'(x)$ changes sign from negative to positive, so $f$ has a **local minimum**.
         $f(-3) = 2(-3)^3 e^{-3} = 2(-27)e^{-3} = -54e^{-3} = -\frac{54}{e^3}$.
-    *   Στο $x=0$, η $f'(x)$ δεν αλλάζει πρόσημο (είναι θετικό και στις δύο πλευρές). Επομένως, στο $x=0$ **δεν υπάρχει τοπικό ακρότατο** (είναι σημείο καμπής).
+    *   At $x=0$, $f'(x)$ does not change sign (it is positive on both sides). Therefore, at $x=0$ **there is no local extremum** (it is an inflection point).
 
-**Συμπέρασμα:**
-*   **Διαστήματα μονοτονίας:**
-    *   Γνησίως φθίνουσα στο $(-\infty, -3]$.
-    *   Γνησίως αύξουσα στο $[-3, \infty)$.
-*   **Τοπικά ακρότατα:**
-    *   Τοπικό ελάχιστο στο σημείο $(-3, -54e^{-3})$.
+**Conclusion:**
+*   **Intervals of monotonicity:**
+    *   Strictly decreasing on $(-\infty, -3]$.
+    *   Strictly increasing on $[-3, \infty)$.
+*   **Local extrema:**
+    *   Local minimum at the point $(-3, -54e^{-3})$.
 
-# 8. (1 μονάδα) Να υπολογισθεί το ολοκλήρωμα $I_1 = \int_0^2 x^2(4x + \frac{1}{x^2}) dx$.
+# 8. (1 point) Compute the integral $I_1 = \int_0^2 x^2(4x + \frac{1}{x^2}) dx$.
 
-**Λύση:**
+**Solution:**
 
-1.  **Απλοποιούμε την υπό ολοκλήρωση συνάρτηση:**
+1.  **We simplify the integrand:**
     $x^2(4x + \frac{1}{x^2}) = x^2 \cdot 4x + x^2 \cdot \frac{1}{x^2} = 4x^3 + 1$
 
-2.  **Αντικαθιστούμε την απλοποιημένη έκφραση στο ολοκλήρωμα:**
+2.  **We substitute the simplified expression into the integral:**
     $I_1 = \int_0^2 (4x^3 + 1) dx$
 
-3.  **Υπολογίζουμε το αόριστο ολοκλήρωμα:**
+3.  **We compute the indefinite integral:**
     $\int (4x^3 + 1) dx = \int 4x^3 dx + \int 1 dx = 4 \frac{x^{3+1}}{3+1} + x = 4 \frac{x^4}{4} + x = x^4 + x$
 
-4.  **Εφαρμόζουμε το Θεμελιώδες Θεώρημα του Ολοκληρωτικού Λογισμού για να υπολογίσουμε το ορισμένο ολοκλήρωμα:**
+4.  **We apply the Fundamental Theorem of Calculus to compute the definite integral:**
     $I_1 = [x^4 + x]_0^2 = (2^4 + 2) - (0^4 + 0)$
     $I_1 = (16 + 2) - 0 = 18$
 
-**Το αποτέλεσμα είναι $I_1 = 18$.**
+**The result is $I_1 = 18$.**
 
-# 9. (1 μονάδα) Να βρεθεί η γραμμική προσέγγιση της $f(x) = \ln(2x+1)$ για $x$ κοντά στο $a=0$. Χρησιμοποιήστε τη γραμμική προσέγγιση για να υπολογίσετε την τιμή $\ln(1.2) \approx f(0.1)$.
+# 9. (1 point) Find the linear approximation of $f(x) = \ln(2x+1)$ for $x$ near $a=0$. Use the linear approximation to compute the value $\ln(1.2) \approx f(0.1)$.
 
-**Λύση:**
+**Solution:**
 
-1.  **Βρίσκουμε τον τύπο της γραμμικής προσέγγισης (ή γραμμικοποίησης) $L(x)$:**
-    Η γραμμική προσέγγιση μιας συνάρτησης $f(x)$ κοντά στο $x=a$ δίνεται από τον τύπο:
+1.  **We find the form of the linear approximation (or linearization) $L(x)$:**
+    The linear approximation of a function $f(x)$ near $x=a$ is given by the formula:
     $L(x) = f(a) + f'(a)(x-a)$
 
-2.  **Υπολογίζουμε τα $f(a)$ και $f'(a)$ για $a=0$:**
+2.  **We compute $f(a)$ and $f'(a)$ for $a=0$:**
     *   $f(x) = \ln(2x+1) \implies f(0) = \ln(2(0)+1) = \ln(1) = 0$.
-    *   Για την παράγωγο, χρησιμοποιούμε τον κανόνα της αλυσίδας:
+    *   For the derivative, we use the chain rule:
         $f'(x) = \frac{1}{2x+1} \cdot (2x+1)' = \frac{2}{2x+1}$.
     *   $f'(0) = \frac{2}{2(0)+1} = \frac{2}{1} = 2$.
 
-3.  **Αντικαθιστούμε τις τιμές στον τύπο της γραμμικοποίησης:**
+3.  **We substitute the values into the linearization formula:**
     $L(x) = 0 + 2(x-0) = 2x$.
-    Άρα, η γραμμική προσέγγιση της $f(x)$ κοντά στο $a=0$ είναι $L(x) = 2x$.
-    Αυτό σημαίνει ότι για $x$ κοντά στο 0, ισχύει $\ln(2x+1) \approx 2x$.
+    Therefore, the linear approximation of $f(x)$ near $a=0$ is $L(x) = 2x$.
+    This means that for $x$ near 0, $\ln(2x+1) \approx 2x$.
 
-4.  **Χρησιμοποιούμε την προσέγγιση για να υπολογίσουμε το $\ln(1.2)$:**
-    Θέλουμε να βρούμε το $x$ για το οποίο $2x+1 = 1.2$.
+4.  **We use the approximation to compute $\ln(1.2)$:**
+    We want to find the $x$ for which $2x+1 = 1.2$.
     $2x = 1.2 - 1 \implies 2x = 0.2 \implies x = 0.1$.
-    Αφού το $x=0.1$ είναι κοντά στο $a=0$, μπορούμε να χρησιμοποιήσουμε την προσέγγιση:
+    Since $x=0.1$ is near $a=0$, we can use the approximation:
     $\ln(1.2) = f(0.1) \approx L(0.1)$
     $L(0.1) = 2(0.1) = 0.2$.
 
-**Η γραμμική προσέγγιση είναι $L(x) = 2x$ και η προσεγγιστική τιμή είναι $\ln(1.2) \approx 0.2$.**
+**The linear approximation is $L(x) = 2x$ and the approximate value is $\ln(1.2) \approx 0.2$.**
 
-# 10. (0.5 μονάδα) Υπολογίστε το όριο $\lim_{x \to 2} \frac{x^2-3x+2}{x-2}$.
+# 10. (0.5 points) Compute the limit $\lim_{x \to 2} \frac{x^2-3x+2}{x-2}$.
 
-**Λύση:**
+**Solution:**
 
-1.  **Προσπαθούμε να κάνουμε απευθείας αντικατάσταση $x=2$:**
+1.  **We attempt direct substitution of $x=2$:**
     $\frac{2^2 - 3(2) + 2}{2-2} = \frac{4 - 6 + 2}{0} = \frac{0}{0}$.
-    Έχουμε απροσδιόριστη μορφή $\frac{0}{0}$, άρα πρέπει να απλοποιήσουμε την έκφραση.
+    We have the indeterminate form $\frac{0}{0}$, so we must simplify the expression.
 
-2.  **Μέθοδος 1: Παραγοντοποίηση**
-    *   Παραγοντοποιούμε το τριώνυμο του αριθμητή: $x^2 - 3x + 2$. Ψάχνουμε δύο αριθμούς με άθροισμα -3 και γινόμενο 2. Αυτοί είναι οι -1 και -2.
-    *   Άρα, $x^2 - 3x + 2 = (x-1)(x-2)$.
-    *   Αντικαθιστούμε στο όριο:
+2.  **Method 1: Factorization**
+    *   We factor the trinomial in the numerator: $x^2 - 3x + 2$. We look for two numbers with sum -3 and product 2. These are -1 and -2.
+    *   Therefore, $x^2 - 3x + 2 = (x-1)(x-2)$.
+    *   We substitute into the limit:
         $\lim_{x \to 2} \frac{(x-1)(x-2)}{x-2}$
-    *   Για $x \neq 2$, μπορούμε να απλοποιήσουμε τον όρο $(x-2)$:
+    *   For $x \neq 2$, we can cancel the factor $(x-2)$:
         $\lim_{x \to 2} (x-1)$
-    *   Τώρα κάνουμε αντικατάσταση:
+    *   Now we substitute:
         $2 - 1 = 1$.
 
-3.  **Μέθοδος 2: Κανόνας L'Hôpital**
-    *   Αφού έχουμε μορφή $\frac{0}{0}$, μπορούμε να παραγωγίσουμε αριθμητή και παρονομαστή:
+3.  **Method 2: L'Hôpital's Rule**
+    *   Since we have the form $\frac{0}{0}$, we can differentiate numerator and denominator:
         $\lim_{x \to 2} \frac{(x^2-3x+2)'}{(x-2)'} = \lim_{x \to 2} \frac{2x-3}{1}$
-    *   Κάνουμε αντικατάσταση $x=2$:
+    *   We substitute $x=2$:
         $\frac{2(2)-3}{1} = \frac{4-3}{1} = 1$.
 
-**Το όριο είναι 1.**
+**The limit is 1.**
 
-# 11. (0.5 μονάδα) Ποιες εντολές πρέπει να δοθούν στο Octave για να υπολογισθεί η παράγωγος της $f(x) = e^x \cos(x^2)$;
+# 11. (0.5 points) What commands must be given to Octave to compute the derivative of $f(x) = e^x \cos(x^2)$?
 
-**Λύση:**
+**Solution:**
 
-Για να κάνουμε συμβολικούς υπολογισμούς (όπως η παραγώγιση) στο Octave, πρέπει πρώτα να φορτώσουμε το πακέτο συμβολικών υπολογισμών (`symbolic`).
+To perform symbolic computations (such as differentiation) in Octave, we must first load the symbolic computation package (`symbolic`).
 
-1.  **Φόρτωση του πακέτου `symbolic`:**
+1.  **Loading the `symbolic` package:**
     ```octave
     pkg load symbolic
     ```
 
-2.  **Δήλωση της συμβολικής μεταβλητής `x`:**
+2.  **Declaring the symbolic variable `x`:**
     ```octave
     syms x
     ```
 
-3.  **Ορισμός της συνάρτησης `f(x)`:**
+3.  **Defining the function `f(x)`:**
     ```octave
     f = exp(x) * cos(x^2)
     ```
 
-4.  **Υπολογισμός της παραγώγου με την εντολή `diff`:**
+4.  **Computing the derivative using the `diff` command:**
     ```octave
     df = diff(f, x)
     ```
 
-**Οι εντολές στο Octave είναι:**
+**The commands in Octave are:**
 ```octave
 pkg load symbolic
 syms x
