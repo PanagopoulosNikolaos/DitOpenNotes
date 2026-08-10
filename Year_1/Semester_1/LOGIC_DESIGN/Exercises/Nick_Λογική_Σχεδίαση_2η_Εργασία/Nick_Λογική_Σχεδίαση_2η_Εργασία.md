@@ -1,33 +1,33 @@
-*## Κώδικες και μετατροπές
+*## Codes and Conversions
 
-### Υλικά Άσκησης
+### Exercise Materials
 
 - 1 IC 7404 (Hex Inverters)
 - 1 IC 7408 (Quad 2-input AND Gate)
 - 1 IC 7432 (Quad 2-input OR Gate)
 - 1 IC 7486 (Quad 2-input exclusive OR)
 
-### 1ο Μέρος: Μετατροπή κώδικα Gray σε δυαδικό
+### Part 1: Gray Code to Binary Conversion
 
-Υλοποιήστε ένα συνδυαστικό κύκλωμα με 4 εισόδους και 4 εξόδους που να μετατρέπει έναν 4-bit αριθμό κώδικα Gray στον ισοδύναμο 4bit δυαδικό αριθμό. Να σχηματίσετε τον πίνακα μετατροπής κώδικα Gray σε δυαδικό. Σχεδιάστε το λογικό διάγραμμα χρησιμοποιώντας μόνο πύλες XOR. Υλοποιήστε και επιβεβαιώστε την σωστή λειτουργία του.
+Implement a combinational circuit with 4 inputs and 4 outputs that converts a 4-bit Gray code number to its equivalent 4-bit binary number. Construct the Gray to binary conversion table. Design the logic diagram using only XOR gates. Implement and verify correct operation.
 
-### 2ο Μέρος: Συμπλήρωμα ως προς 9
+### Part 2: Complement with Respect to 9
 
-Σχεδιάστε ένα συνδυαστικό κύκλωμα με 4 εισόδους που παριστάνουν ένα δεκαδικό ψηφίο σε κώδικα BCD και με 4 εξόδους που δίνουν το συμπλήρωμα ως προς 9 του ψηφίου εισόδου. Με μια επιπλέον έξοδο δώστε την δυνατότητα ανίχνευσης εσφαλμένων εισόδων (μη κωδικών).
+Design a combinational circuit with 4 inputs representing a decimal digit in BCD code and 4 outputs that produce the complement with respect to 9 of the input digit. With one additional output, provide the ability to detect invalid inputs (non-coded).
 
 ---
 
   
 
-### Μέρος 1: Μετατροπή κώδικα Gray σε δυαδικό
+### Part 1: Gray Code to Binary Conversion
 
-Για να υλοποιήσουμε ένα συνδυαστικό κύκλωμα που μετατρέπει έναν 4-bit κώδικα Gray στον ισοδύναμο 4-bit δυαδικό αριθμό, ακολουθούμε τα εξής βήματα:
+To implement a combinational circuit that converts a 4-bit Gray code to its equivalent 4-bit binary number, we follow these steps:
 
-**Πίνακας μετατροπής κώδικα Gray σε δυαδικό:**
+**Gray to Binary Conversion Table:**
 
 ---
 
-# 1ο Μέρος: Μετατροπή κώδικα Gray σε δυαδικό
+# Part 1: Gray Code to Binary Conversion
 
 |   |   |   |   |   |
 |---|---|---|---|---|
@@ -52,7 +52,7 @@
 
 ---
 
-**Χάρτης Karnaugh για τη μετατροπή:**
+**Karnaugh Map for the Conversion:**
 
 ```undefined
 G3G2\G1G0  00   01   11   10
@@ -64,11 +64,11 @@ G3G2\G1G0  00   01   11   10
 
 ---
 
-# Αντιστοιχία Δυαδικού - Gray Code
+# Binary - Gray Code Correspondence
 
 |   |   |   |
 |---|---|---|
-|**Δεκαδικός**|**Δυαδικός**|**Gray Code**|
+|**Decimal**|**Binary**|**Gray Code**|
 |0|0000|0000|
 |1|0001|0001|
 |2|0010|0011|
@@ -92,7 +92,7 @@ G3G2\G1G0  00   01   11   10
 
 ```Mermaid
 graph TD
-    subgraph "Μέρος 1: Μετατροπή κώδικα Gray σε δυαδικό"
+    subgraph "Part 1: Gray to Binary Conversion"
     
     
     
@@ -120,29 +120,29 @@ graph TD
 
   
 
-**Σχεδιασμός με πύλες XOR:**
+**Design with XOR Gates:**
 
-Η μετατροπή από Gray σε δυαδικό γίνεται ως εξής:
+The conversion from Gray to binary is performed as follows:
 
-- Το πιο σημαντικό bit του δυαδικού αριθμού (B3) είναι ίδιο με το πιο σημαντικό bit του κώδικα Gray (G3).
-- Κάθε επόμενο δυαδικό bit είναι το αποτέλεσμα της πράξης XOR μεταξύ του προηγούμενου δυαδικού bit και του αντίστοιχου bit του κώδικα Gray.
+- The most significant bit of the binary number (B3) is the same as the most significant bit of the Gray code (G3).
+- Each subsequent binary bit is the result of the XOR operation between the previous binary bit and the corresponding Gray code bit.
 
-**Εξισώσεις:**
+**Equations:**
 
 - **B3 = G3**
 - **B2 = B3 XOR G2**
 - **B1 = B2 XOR G1**
 - **B0 = B1 XOR G0**
 
-**Λογικό διάγραμμα:**
+**Logic Diagram:**
 
-- Χρησιμοποιούμε πύλες XOR για τις πράξεις.
-- Έχουμε μία πύλη XOR για κάθε εξίσωση B2, B1, B0.
-- Το B3 συνδέεται απευθείας με το G3.
+- We use XOR gates for the operations.
+- We have one XOR gate for each equation B2, B1, B0.
+- B3 is connected directly to G3.
 
-**Υλοποίηση:**
+**Implementation:**
 
-Με το IC 7486 (Quad 2-input XOR Gate), μπορούμε να υλοποιήσουμε τις απαιτούμενες πύλες XOR.
+With the IC 7486 (Quad 2-input XOR Gate), we can implement the required XOR gates.
 
 ![[/image 39.png|image 39.png]]
 
@@ -152,25 +152,25 @@ graph TD
 
   
 
-# Μέρος 2: Συμπλήρωμα ως προς 9
+# Part 2: Complement with Respect to 9
 
-**Σχεδιασμός κυκλώματος:**
+**Circuit Design:**
 
-- Το κύκλωμα δέχεται ένα 4-bit BCD ψηφίο (D3 D2 D1 D0).
-- Παράγει το συμπλήρωμα ως προς 9 του ψηφίου εισόδου.
-- Εντοπίζει μη έγκυρες BCD εισόδους (τιμές από 1010 έως 1111).
+- The circuit accepts a 4-bit BCD digit (D3 D2 D1 D0).
+- It produces the complement with respect to 9 of the input digit.
+- It detects invalid BCD inputs (values from 1010 to 1111).
 
 ---
 
-### Υπολογισμός του συμπληρώματος ως προς 9
+### Complement with Respect to 9 Calculation
 
-Το συμπλήρωμα ως προς 9 ενός δεκαδικού ψηφίου $D$ είναι:
+The complement with respect to 9 of a decimal digit $D$ is:
 
 $C = 9 - D$
 
 ---
 
-### Πίνακας Αληθείας
+### Truth Table
 
 |   |   |   |
 |---|---|---|
@@ -192,13 +192,13 @@ $C = 9 - D$
 |**1110**|X|**1**|
 |**1111**|X|**1**|
 
-- Για τιμές από $D = [1010, ..., 1111]$, το Error είναι ενεργό ($Error = 1$).
+- For values from $D = [1010, ..., 1111]$, the Error is active ($Error = 1$).
 
 ---
 
-### Χάρτες Karnaugh
+### Karnaugh Maps
 
-Για C3:
+For C3:
 
 ```undefined
 D3D2\D1D0 00  01  11  10
@@ -208,7 +208,7 @@ D3D2\D1D0 00  01  11  10
       10   0   0   0   0
 ```
 
-Για C2:
+For C2:
 
 ```undefined
 D3D2\D1D0 00  01  11  10
@@ -218,7 +218,7 @@ D3D2\D1D0 00  01  11  10
       10   1   1   1   1
 ```
 
-Για C1:
+For C1:
 
 ```undefined
 D3D2\D1D0 00  01  11  10
@@ -228,7 +228,7 @@ D3D2\D1D0 00  01  11  10
       10   1   1   0   0
 ```
 
-Για C0:
+For C0:
 
 ```undefined
 D3D2\D1D0 00  01  11  10
@@ -238,34 +238,34 @@ D3D2\D1D0 00  01  11  10
       10   1   0   0   1
 ```
 
-### Συναρτήσεις
+### Functions
 
-### Υπολογισμός του συμπληρώματος ως προς το 9:
+### Complement with Respect to 9 Calculation:
 
-Οι εξισώσεις για $C3, C2, C1, C0$:
+The equations for $C3, C2, C1, C0$:
 
 - $C3 = \overline{D3} + (\overline{D2} \cdot \overline{D1} \cdot \overline{D0})$
 - $C2 = \overline{D2} + (\overline{D3} \cdot D2 \cdot \overline{D1})$
 - $C1 = \overline{D1} + (\overline{D3} \cdot D2 \cdot D1 \cdot \overline{D0})$
 - $C0 = \overline{D0}$
 
-### Ανίχνευση σφάλματος:
+### Error Detection:
 
-Η εξίσωση για την έξοδο σφάλματος:  
+The equation for the error output:  
 $Error = D3 \cdot (D2 + D1 + D0)$
 
 ---
 
-### Μορφή σε Hexadecimal για κάθε σήμα
+### Hexadecimal Format for Each Signal
 
-### Είσοδοι:
+### Inputs:
 
 - $D_0: \texttt{0000000000001111} = \texttt{0x000F}$
 - $D_1: \texttt{0000000011110000} = \texttt{0x00F0}$
 - $D_2: \texttt{0000111100001111} = \texttt{0x0F0F}$
 - $D_3: \texttt{1111000011110000} = \texttt{0xF0F0}$
 
-### Έξοδοι:
+### Outputs:
 
 - $C_0: \texttt{1111111111110000} = \texttt{FFF0}$
 - $C_1: \texttt{1111000011110000} = \texttt{F0F0}$
@@ -278,7 +278,7 @@ $\texttt{Error: } =\texttt{00FF}$
 
 ---
 
-### Διάγραμμα Mermaid
+### Mermaid Diagram
 
 ```Mermaid
 graph TD
@@ -324,7 +324,7 @@ graph TD
 
 ```Mermaid
 graph TD
-    subgraph "Συμπλήρωμα ως προς 9 και Ανίχνευση Σφάλματος"
+    subgraph "Complement with Respect to 9 and Error Detection"
         D3 --> NOT3[NOT]
         D2 --> NOT2[NOT]
         D1 --> NOT1[NOT]

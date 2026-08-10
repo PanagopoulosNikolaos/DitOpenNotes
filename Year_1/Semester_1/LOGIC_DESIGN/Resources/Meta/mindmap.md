@@ -1,69 +1,69 @@
-# Σχεδίαση Ψηφιακών Συστημάτων - Νοητικός Χάρτης
+# Digital Systems Design - Mindmap
 
-## Παρουσίαση Μαθήματοςv3
-### Στόχος Μαθήματος
-### Περιεχόμενο Μαθήματος (Θεωρία & Εργαστήριο)
-### Κριτήρια Αξιολόγησης
-### Βιβλιογραφία
+## Course Presentation v3
+### Course Objective
+### Course Content (Theory & Laboratory)
+### Evaluation Criteria
+### Bibliography
 
-## Κεφάλαιο_1_Ψηφιακά_Συστήματα_και _Δυαδικοί_Αριθμοί
-### Ψηφιακά Συστήματα & Δυαδικά Ψηφιακά Σήματα
-### Αναλογικά και Ψηφιακά Σήματα
-### Συστήματα Αρίθμησης (Δεκαδικό, Δυαδικό, Οκταδικό, Δεκαεξαδικό)
-### Υπολογιστικές Πράξεις (Πρόσθεση, Αφαίρεση, Πολλαπλασιασμός)
-### Μετατροπές Συστημάτων Αρίθμησης
-### Συμπληρώματα (Συμπλήρωμα ως προς τη βάση r, Συμπλήρωμα ως προς r-1)
-### Αφαίρεση με Συμπληρώματα
-### Προσημασμένοι Δυαδικοί Αριθμοί
-### Δυαδικοί Κώδικες (BCD, Gray, ASCII, Ανίχνευση Σφαλμάτων)
-### Δυαδική Αποθήκευση, Καταχωρητές και Μεταφορά Πληροφορίας
-### Δυαδική Λογική (AND, OR, NOT, Πίνακες Αληθείας, Λογικές Πύλες)
+## Chapter 1: Digital Systems and Binary Numbers
+### Digital Systems & Binary Digital Signals
+### Analog and Digital Signals
+### Numbering Systems (Decimal, Binary, Octal, Hexadecimal)
+### Computational Operations (Addition, Subtraction, Multiplication)
+### Numbering System Conversions
+### Complements (Complement with respect to base r, Complement with respect to r-1)
+### Subtraction with Complements
+### Signed Binary Numbers
+### Binary Codes (BCD, Gray, ASCII, Error Detection)
+### Binary Storage, Registers and Information Transfer
+### Binary Logic (AND, OR, NOT, Truth Tables, Logic Gates)
 
-## κεφάλαιο_2_Boolean__Άλγεβρα_και_Λογικές_Πύλες
-### Αξιωματικός Ορισμός της Boolean Άλγεβρας (Αξιώματα Huntington)
-### Boolean Άλγεβρα Δύο Τιμών
-### Αρχή του Δυϊσμού
-### Βασικά Θεωρήματα της Boolean Άλγεβρας
-### Προτεραιότητα Τελεστών
-### Boolean Συναρτήσεις και Πίνακες Αληθείας
-### Αλγεβρικός Χειρισμός και Ελαχιστοποίηση
-### Συμπλήρωμα Συνάρτησης (Θεώρημα DeMorgan)
-### Κανονικές Μορφές: Ελαχιστόροι (Minterms) και Μεγιστόροι (Maxterms)
-### Άθροισμα Ελαχιστόρων (Sum of Minterms)
-### Γινόμενο Μεγιστόρων (Product of Maxterms)
-### Μετατροπή μεταξύ Κανονικών Μορφών
-### Πρότυπες Μορφές (Άθροισμα γινομένων, Γινόμενο αθροισμάτων)
-### Λογικές Πύλες & Ολοκληρωμένα Κυκλώματα (SSI, MSI, LSI, VLSI)
-### Οικογένειες Ψηφιακής Λογικής (TTL, ECL, MOS, CMOS, Fan-out, Fan-in)
-### CAD (Computer-Aided Design) & Γλώσσες Περιγραφής Υλικού (VHDL, Verilog)
+## Chapter 2: Boolean Algebra and Logic Gates
+### Axiomatic Definition of Boolean Algebra (Huntington Axioms)
+### Two-Valued Boolean Algebra
+### Duality Principle
+### Basic Theorems of Boolean Algebra
+### Operator Precedence
+### Boolean Functions and Truth Tables
+### Algebraic Manipulation and Minimization
+### Function Complement (DeMorgan's Theorem)
+### Canonical Forms: Minterms and Maxterms
+### Sum of Minterms
+### Product of Maxterms
+### Conversion Between Canonical Forms
+### Standard Forms (Sum of Products, Product of Sums)
+### Logic Gates & Integrated Circuits (SSI, MSI, LSI, VLSI)
+### Digital Logic Families (TTL, ECL, MOS, CMOS, Fan-out, Fan-in)
+### CAD (Computer-Aided Design) & Hardware Description Languages (VHDL, Verilog)
 
-## Κεφάλαιο_3_ελαχιστοποίηση_σε_επίπεδο_πύλης
-### Ελαχιστοποίηση σε Επίπεδο Πυλών
-### Η Μέθοδος του Χάρτη (Κ-Χάρτης 2, 3, 4, 5 Μεταβλητών)
-### Πρωτεύοντες Όροι (Prime Implicants) & Θεμελιώδεις Πρωτεύοντες Όροι
-### Απλοποίηση σε Μορφή Γινομένου Αθροισμάτων
-### Συνθήκες Αδιάφορης Τιμής (Don't Care)
-### Υλοποίηση με Πύλες NAND και NOR (Οικουμενικές Πύλες)
-### Πολυεπίπεδα Κυκλώματα NAND/NOR
-### Συνάρτηση Αποκλειστικού-OR (XOR, XNOR)
-### Δημιουργία και Έλεγχος Ισοτιμίας (Parity Generator & Checker)
-### VHDL Μοντελοποίηση (Entity, Architecture, Components, Propagation Delays)
-### Verilog Μοντελοποίηση (Module, Timescale, User Defined Primitives)
+## Chapter 3: Gate-Level Minimization
+### Gate-Level Minimization
+### Map Method (K-Map for 2, 3, 4, 5 Variables)
+### Prime Implicants & Essential Prime Implicants
+### Product-of-Sums Simplification
+### Don't Care Conditions
+### Implementation with NAND and NOR Gates (Universal Gates)
+### Multi-Level NAND/NOR Circuits
+### Exclusive-OR Function (XOR, XNOR)
+### Parity Generation and Checking
+### VHDL Modeling (Entity, Architecture, Components, Propagation Delays)
+### Verilog Modeling (Module, Timescale, User Defined Primitives)
 
-## Κεφάλαιο_4_Συνδυαστική_Λογική
-### Εισαγωγή στα Συνδυαστικά Κυκλώματα
-### Διαδικασία Ανάλυσης Συνδυαστικών Κυκλωμάτων
-### Διαδικασία Σχεδίασης Συνδυαστικών Κυκλωμάτων
-### Μετατροπέας BCD-to-Excess 3
-### Αποκωδικοποιητής Επτά Τμημάτων (Seven-Segment Decoder)
-### Δυαδικός Αθροιστής (HA, FA, Ripple Carry, Carry Lookahead)
-### Αθροιστής BCD
-### Δυαδικός Αφαιρέτης & Αθροιστής/Αφαιρέτης
-### Υπερχείλιση σε Προσημασμένους και Μη Αριθμούς
-### Συγκριτής Μεγέθους (Magnitude Comparator)
-### Αποκωδικοποιητές (Decoders, Enable, Expansion)
-### Υλοποίηση Συνδυαστικής Λογικής με Αποκωδικοποιητές
-### Κωδικοποιητές (Encoders, Priority Encoders)
-### Πολυπλέκτες (MUX, Function Implementation, MUX Expansion)
-### Αποπολυπλέκτες (DeMUX)
-### Τρισταθείς Πύλες (Three-State Gates, MUX implementation)
+## Chapter 4: Combinational Logic
+### Introduction to Combinational Circuits
+### Combinational Circuit Analysis Procedure
+### Combinational Circuit Design Procedure
+### BCD-to-Excess 3 Converter
+### Seven-Segment Decoder
+### Binary Adder (HA, FA, Ripple Carry, Carry Lookahead)
+### BCD Adder
+### Binary Subtractor & Adder/Subtractor
+### Overflow in Signed and Unsigned Numbers
+### Magnitude Comparator
+### Decoders (Enable, Expansion)
+### Combinational Logic Implementation with Decoders
+### Encoders (Priority Encoders)
+### Multiplexers (MUX, Function Implementation, MUX Expansion)
+### Demultiplexers (DeMUX)
+### Three-State Gates (MUX implementation)

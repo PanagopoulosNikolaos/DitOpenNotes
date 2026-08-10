@@ -4,7 +4,7 @@
 This course introduces the fundamental concepts of digital logic design, including Boolean algebra, logic gates, combinational and sequential circuits.
 
 ## Course Code
-104 (ΛΟΓΙΚΗ ΣΧΕΔΙΑΣΗ)
+104 (Logic Design)
 
 ## Prerequisites
 None

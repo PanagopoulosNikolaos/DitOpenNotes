@@ -4,7 +4,7 @@
 This course provides an introduction to the C programming language, covering fundamental concepts such as variables, data types, control flow, functions, and arrays. It is designed for beginners with no prior programming experience.
 
 ## Course Code
-103 (ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ I)
+103 (PROGRAMMING I)
 
 ## Prerequisites
 None

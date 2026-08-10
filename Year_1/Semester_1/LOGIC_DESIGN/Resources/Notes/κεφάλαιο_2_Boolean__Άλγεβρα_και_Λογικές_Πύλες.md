@@ -1,143 +1,143 @@
-# Boolean Άλγεβρα και Λογικές Πύλες
+# Boolean Algebra and Logic Gates
 
-Αυτό το κεφάλαιο παρουσιάζει την Άλγεβρα Boole, η οποία αποτελεί το μαθηματικό υπόβαθρο για τη σχεδίαση και ανάλυση των ψηφιακών κυκλωμάτων. Καλύπτει τα αξιώματα του Huntington, τις ιδιότητες των λογικών πράξεων, την αρχή του δυϊσμού, τις Boolean συναρτήσεις, τις κανονικές μορφές (ελαχιστόροι και μεγιστόροι), τις πρότυπες μορφές, τις βασικές λογικές πύλες, τις οικογένειες ψηφιακής λογικής και τα εισαγωγικά στοιχεία για CAD/HDL.
+This chapter presents Boolean algebra, which forms the mathematical foundation for the design and analysis of digital circuits. It covers the Huntington axioms, properties of logical operations, the duality principle, Boolean functions, canonical forms (minterms and maxterms), standard forms, basic logic gates, digital logic families, and introductory elements for CAD/HDL.
 
 ---
 
 ## 1. Core Definitions
 
-### 1.1 Αξιωματικός Ορισμός Boolean Άλγεβρας (Huntington, 1904)
-Έστω ένα σύνολο στοιχείων $B = \{0, 1\}$ με δύο δυαδικούς τελεστές, την πρόσθεση $+$ (πράξη OR) και τον πολλαπλασιασμό $\cdot$ (πράξη AND), και έναν μοναδιαίο τελεστή συμπληρώματος $'$ (πράξη NOT). Η δομή αυτή ορίζει μια Boolean άλγεβρα εάν ικανοποιούνται τα ακόλουθα αξιώματα:
-- **Κλειστότητα (Closure):** Για κάθε $x, y \in B$, ισχύει $x + y \in B$ και $x \cdot y \in B$.
-- **Ουδέτερο Στοιχείο (Identity):**
-  - Το $0$ είναι το ουδέτερο στοιχείο ως προς την πράξη $+$: $x + 0 = x$.
-  - Το $1$ είναι το ουδέτερο στοιχείο ως προς την πράξη $\cdot$: $x \cdot 1 = x$.
-- **Αντιμεταθετικός Κανόνας (Commutative Law):** $x + y = y + x$ και $x \cdot y = y \cdot x$.
-- **Επιμεριστικός Κανόνας (Distributive Law):**
-  - Ο $\cdot$ είναι επιμεριστικός ως προς τον $+$: $x \cdot (y + z) = (x \cdot y) + (x \cdot z)$.
-  - Ο $+$ είναι επιμεριστικός ως προς τον $\cdot$: $x + (y \cdot z) = (x + y) \cdot (x + z)$.
-- **Συμπλήρωμα (Complement):** Για κάθε $x \in B$, υπάρχει ένα στοιχείο $x' \in B$ τέτοιο ώστε:
+### 1.1 Axiomatic Definition of Boolean Algebra (Huntington, 1904)
+Let $B = \{0, 1\}$ be a set of elements with two binary operators: addition $+$ (OR operation) and multiplication $\cdot$ (AND operation), and a unary complement operator $'$ (NOT operation). This structure defines a Boolean algebra if the following axioms are satisfied:
+- **Closure:** For every $x, y \in B$, $x + y \in B$ and $x \cdot y \in B$.
+- **Identity Element:**
+  - $0$ is the identity element for the $+$ operation: $x + 0 = x$.
+  - $1$ is the identity element for the $\cdot$ operation: $x \cdot 1 = x$.
+- **Commutative Law:** $x + y = y + x$ and $x \cdot y = y \cdot x$.
+- **Distributive Law:**
+  - $\cdot$ distributes over $+$: $x \cdot (y + z) = (x \cdot y) + (x \cdot z)$.
+  - $+$ distributes over $\cdot$: $x + (y \cdot z) = (x + y) \cdot (x + z)$.
+- **Complement:** For every $x \in B$, there exists an element $x' \in B$ such that:
   - $x + x' = 1$
   - $x \cdot x' = 0$
-- **Ύπαρξη δύο διακριτών στοιχείων:** Υπάρχουν τουλάχιστον δύο στοιχεία $x, y \in B$ τέτοια ώστε $x \neq y$.
+- **Existence of two distinct elements:** There exist at least two elements $x, y \in B$ such that $x \neq y$.
 
-### 1.2 Κανονικές Μορφές (Canonical Forms)
-- **Ελαχιστόρος (Minterm):** Ένας όρος γινομένου (AND) που περιέχει όλες τις μεταβλητές της συνάρτησης στην κανονική ή συμπληρωματική τους μορφή ακριβώς μία φορά.
-- **Μεγιστόρος (Maxterm):** Ένας όρος αθροίσματος (OR) που περιέχει όλες τις μεταβλητές της συνάρτησης στην κανονική ή συμπληρωματική τους μορφή ακριβώς μία φορά.
+### 1.2 Canonical Forms
+- **Minterm:** A product (AND) term that contains all variables of the function in their normal or complemented form exactly once.
+- **Maxterm:** A sum (OR) term that contains all variables of the function in their normal or complemented form exactly once.
 
 ---
 
 ## 2. Foundational Formulas & Theorems
 
-### 2.1 Αρχή του Δυϊσμού (Duality Principle)
-Κάθε Boolean έκφραση παραμένει έγκυρη αν αντικαταστήσουμε όλους τους τελεστές $+$ με $\cdot$ (και αντίστροφα), και όλα τα $1$ με $0$ (και αντίστροφα).
+### 2.1 Duality Principle
+Every Boolean expression remains valid if we replace all $+$ operators with $\cdot$ (and vice versa), and all $1$s with $0$s (and vice versa).
 
-### 2.2 Βασικά Θεωρήματα
+### 2.2 Basic Theorems
 
-| Θεώρημα | Μορφή (a) | Μορφή (b) |
+| Theorem | Form (a) | Form (b) |
 | :--- | :--- | :--- |
-| **Θεώρημα 1 (Ταυτοδυναμία)** | $x + x = x$ | $x \cdot x = x$ |
-| **Θεώρημα 2** | $x + 1 = 1$ | $x \cdot 0 = 0$ |
-| **Θεώρημα 3 (Διπλή Άρνηση)** | $(x')' = x$ | |
-| **Θεώρημα 4 (Προσεταιρισμός)** | $x + (y + z) = (x + y) + z$ | $x(yz) = (xy)z$ |
-| **Θεώρημα 5 (DeMorgan)** | $(x + y)' = x'y'$ | $(xy)' = x' + y'$ |
-| **Θεώρημα 6 (Απορρόφηση)** | $x + xy = x$ | $x(x + y) = x$ |
-| **Θεώρημα Consensus** | $xy + x'z + yz = xy + x'z$ | $(x+y)(x'+z)(y+z) = (x+y)(x'+z)$ |
+| **Theorem 1 (Idempotency)** | $x + x = x$ | $x \cdot x = x$ |
+| **Theorem 2** | $x + 1 = 1$ | $x \cdot 0 = 0$ |
+| **Theorem 3 (Double Negation)** | $(x')' = x$ | |
+| **Theorem 4 (Associativity)** | $x + (y + z) = (x + y) + z$ | $x(yz) = (xy)z$ |
+| **Theorem 5 (DeMorgan)** | $(x + y)' = x'y'$ | $(xy)' = x' + y'$ |
+| **Theorem 6 (Absorption)** | $x + xy = x$ | $x(x + y) = x$ |
+| **Consensus Theorem** | $xy + x'z + yz = xy + x'z$ | $(x+y)(x'+z)(y+z) = (x+y)(x'+z)$ |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Απόδειξη Ταυτοδυναμίας $x+x=x$
+### Exercise 1: Proof of Idempotency $x+x=x$
 **Problem:**
-Αποδείξτε αλγεβρικά το Θεώρημα 1(a): $x + x = x$ χρησιμοποιώντας μόνο τα αξιώματα Huntington.
+Prove algebraically Theorem 1(a): $x + x = x$ using only the Huntington axioms.
 
 **Solution:**
-1. Ξεκινάμε από το αριστερό μέλος:
+1. Start from the left side:
    $$
-   x + x = (x + x) \cdot 1 \quad (\text{Αξίωμα 2b - ουδέτερο στοιχείο})
+   x + x = (x + x) \cdot 1 \quad (\text{Axiom 2b - identity element})
    $$
-2. Αντικαθιστούμε το $1$ με $x + x'$:
+2. Substitute $1$ with $x + x'$:
    $$
-   = (x + x) \cdot (x + x') \quad (\text{Αξίωμα 5a - συμπλήρωμα})
+   = (x + x) \cdot (x + x') \quad (\text{Axiom 5a - complement})
    $$
-3. Εφαρμόζουμε τον επιμεριστικό κανόνα του $+$ ως προς τον $\cdot$ (Αξίωμα 4b):
+3. Apply the distributive law of $+$ over $\cdot$ (Axiom 4b):
    $$
    = x + (x \cdot x')
    $$
-4. Αντικαθιστούμε το $x \cdot x'$ με $0$:
+4. Substitute $x \cdot x'$ with $0$:
    $$
-   = x + 0 \quad (\text{Αξίωμα 5b - συμπλήρωμα})
+   = x + 0 \quad (\text{Axiom 5b - complement})
    $$
-5. Απλοποιούμε:
+5. Simplify:
    $$
-   = x \quad (\text{Αξίωμα 2a - ουδέτερο στοιχείο})
+   = x \quad (\text{Axiom 2a - identity element})
    $$
-   Η ισότητα αποδείχθηκε.
+   The equality has been proven.
 
 ---
 
-### Exercise 2: Απλοποίηση Συνάρτησης
+### Exercise 2: Function Simplification
 **Problem:**
-Απλοποιήστε την Boolean συνάρτηση $F = x'y'z + x'yz + xy'$.
+Simplify the Boolean function $F = x'y'z + x'yz + xy'$.
 
 **Solution:**
-1. Ομαδοποιούμε τους δύο πρώτους όρους και βγάζουμε κοινό παράγοντα το $x'z$:
+1. Group the first two terms and factor out $x'z$:
    $$
    F = x'z(y' + y) + xy'
    $$
-2. Γνωρίζουμε ότι $y' + y = 1$:
+2. Recognize that $y' + y = 1$:
    $$
    F = x'z(1) + xy'
    $$
-3. Απλοποιούμε:
+3. Simplify:
    $$
    F = x'z + xy'
    $$
 
 ---
 
-### Exercise 3: Εύρεση Συμπληρώματος Συνάρτησης με DeMorgan
+### Exercise 3: Finding Function Complement Using DeMorgan
 **Problem:**
-Βρείτε το συμπλήρωμα της συνάρτησης $F = x(y'z' + yz)$.
+Find the complement of the function $F = x(y'z' + yz)$.
 
 **Solution:**
-1. Εφαρμόζουμε το θεώρημα DeMorgan:
+1. Apply DeMorgan's theorem:
    $$
    F' = [x(y'z' + yz)]'
    $$
-2. Χρησιμοποιούμε τον κανόνα $(AB)' = A' + B'$:
+2. Use the rule $(AB)' = A' + B'$:
    $$
    F' = x' + (y'z' + yz)'
    $$
-3. Εφαρμόζουμε ξανά τον κανόνα DeMorgan για το άθροισμα $(A+B)' = A'B'$:
+3. Apply DeMorgan's rule again for the sum $(A+B)' = A'B'$:
    $$
    F' = x' + (y'z')' \cdot (yz)'
    $$
-4. Απλοποιούμε τα επιμέρους συμπληρώματα:
+4. Simplify the individual complements:
    $$
    (y'z')' = (y')' + (z')' = y + z
    $$
    $$
    (yz)' = y' + z'
    $$
-5. Αντικαθιστούμε:
+5. Substitute:
    $$
    F' = x' + (y + z)(y' + z') = x' + yy' + yz' + y'z + zz'
    $$
-   Εφόσον $yy' = 0$ και $zz' = 0$:
+   Since $yy' = 0$ and $zz' = 0$:
    $$
    F' = x' + y'z + yz'
    $$
 
 ---
 
-### Exercise 4: Έκφραση Συνάρτησης ως Άθροισμα Ελαχιστόρων (Sum of Minterms)
+### Exercise 4: Expressing Function as Sum of Minterms
 **Problem:**
-Εκφράστε τη συνάρτηση $F(A, B, C) = A + B'C$ σε κανονική μορφή αθροίσματος ελαχιστόρων.
+Express the function $F(A, B, C) = A + B'C$ in canonical sum-of-minterms form.
 
 **Solution:**
-1. Ο όρος $A$ στερείται των μεταβλητών $B$ και $C$:
+1. The term $A$ lacks variables $B$ and $C$:
    $$
    A = A(B + B') = AB + AB'
    $$
@@ -147,18 +147,18 @@
    $$
    AB' = AB'(C + C') = AB'C + AB'C'
    $$
-2. Ο όρος $B'C$ στερείται της μεταβλητής $A$:
+2. The term $B'C$ lacks variable $A$:
    $$
    B'C = B'C(A + A') = AB'C + A'B'C
    $$
-3. Συνδυάζουμε όλους τους όρους και αφαιρούμε τις διπλότυπες εμφανίσεις:
+3. Combine all terms and remove duplicates:
    $$
    F = (ABC + ABC' + AB'C + AB'C') + (AB'C + A'B'C)
    $$
    $$
    F = ABC + ABC' + AB'C + AB'C' + A'B'C
    $$
-4. Αντιστοιχούμε σε minterms:
+4. Map to minterms:
    - $ABC = m_7$
    - $ABC' = m_6$
    - $AB'C = m_5$
@@ -170,29 +170,29 @@
 
 ---
 
-### Exercise 5: Έκφραση Συνάρτησης ως Γινόμενο Μεγιστόρων (Product of Maxterms)
+### Exercise 5: Expressing Function as Product of Maxterms
 **Problem:**
-Εκφράστε την ίδια συνάρτηση $F(A, B, C) = A + B'C$ σε κανονική μορφή γινομένου μεγιστόρων.
+Express the same function $F(A, B, C) = A + B'C$ in canonical product-of-maxterms form.
 
 **Solution:**
-1. Εφαρμόζουμε τον επιμεριστικό κανόνα του $+$ ως προς τον $\cdot$:
+1. Apply the distributive law of $+$ over $\cdot$:
    $$
    F = A + B'C = (A + B')(A + C)
    $$
-2. Συμπληρώνουμε τις μεταβλητές που λείπουν από κάθε όρο:
-   - Για τον όρο $(A + B')$ λείπει η $C$:
+2. Add missing variables to each term:
+   - For term $(A + B')$, $C$ is missing:
      $$
      A + B' = A + B' + CC' = (A + B' + C)(A + B' + C')
      $$
-   - Για τον όρο $(A + C)$ λείπει η $B$:
+   - For term $(A + C)$, $B$ is missing:
      $$
      A + C = A + C + BB' = (A + B + C)(A + B' + C)
      $$
-3. Συνδυάζουμε τους όρους και αφαιρούμε τις διπλότυπες εμφανίσεις:
+3. Combine terms and remove duplicates:
    $$
    F = (A + B' + C)(A + B' + C')(A + B + C)
    $$
-4. Αντιστοιχούμε σε maxterms:
+4. Map to maxterms:
    - $(A + B + C) = M_0$
    - $(A + B' + C) = M_2$
    - $(A + B' + C') = M_3$
@@ -202,51 +202,51 @@
 
 ---
 
-### Exercise 6: Μετατροπή μεταξύ Κανονικών Μορφών
+### Exercise 6: Conversion Between Canonical Forms
 **Problem:**
-Αν μια συνάρτηση 3 μεταβλητών ορίζεται ως $F(A, B, C) = \sum(1, 4, 5, 6, 7)$, βρείτε την έκφρασή της ως γινόμενο μεγιστόρων.
+If a 3-variable function is defined as $F(A, B, C) = \sum(1, 4, 5, 6, 7)$, find its expression as a product of maxterms.
 
 **Solution:**
-1. Οι μεγιστόροι που περιγράφουν τη συνάρτηση είναι αυτοί που αντιστοιχούν στους minterms που λείπουν από το άθροισμα.
-2. Οι δείκτες που λείπουν από το σύνολο $\{0, 1, 2, 3, 4, 5, 6, 7\}$ είναι οι $\{0, 2, 3\}$.
-3. Επομένως:
+1. The maxterms that describe the function are those corresponding to the minterms missing from the sum.
+2. The indices missing from the set $\{0, 1, 2, 3, 4, 5, 6, 7\}$ are $\{0, 2, 3\}$.
+3. Therefore:
    $$
    F(A, B, C) = \prod(0, 2, 3)
    $$
 
 ---
 
-### Exercise 7: Αλγεβρική Απόδειξη Consensus Theorem
+### Exercise 7: Algebraic Proof of Consensus Theorem
 **Problem:**
-Αποδείξτε αλγεβρικά το θεώρημα: $xy + x'z + yz = xy + x'z$.
+Prove algebraically the theorem: $xy + x'z + yz = xy + x'z$.
 
 **Solution:**
-1. Προσθέτουμε τον όρο $(x + x')$ στον όρο $yz$:
+1. Add the term $(x + x')$ to the term $yz$:
    $$
    xy + x'z + yz = xy + x'z + yz(x + x')
    $$
-2. Αναπτύσσουμε την παρένθεση:
+2. Expand the parentheses:
    $$
    = xy + x'z + xyz + x'yz
    $$
-3. Ομαδοποιούμε τους όρους:
+3. Group the terms:
    $$
    = xy(1 + z) + x'z(1 + y)
    $$
-4. Εφόσον $1 + z = 1$ και $1 + y = 1$:
+4. Since $1 + z = 1$ and $1 + y = 1$:
    $$
    = xy(1) + x'z(1) = xy + x'z
    $$
-   Η ισότητα αποδείχθηκε.
+   The equality has been proven.
 
 ---
 
-### Exercise 8: Πίνακας Αληθείας
+### Exercise 8: Truth Table
 **Problem:**
-Κατασκευάστε τον πίνακα αληθείας για τη συνάρτηση $F = x'y + xy'$.
+Construct the truth table for the function $F = x'y + xy'$.
 
 **Solution:**
-Υπολογίζουμε την έξοδο για όλους τους δυνατούς συνδυασμούς των $x, y$:
+Calculate the output for all possible combinations of $x, y$:
 
 | $x$ | $y$ | $x'$ | $y'$ | $x'y$ | $xy'$ | $F$ |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -257,9 +257,9 @@
 
 ---
 
-## Exam Tip: Ορισμός minterms / maxterms
-Ένα συχνό λάθος στις εξετάσεις είναι η λανθασμένη αντιστοίχιση των ψηφίων $0$ και $1$ στους minterms και maxterms.
-- Στους **minterms (m)**: Το $0$ αντιστοιχεί στη συμπληρωματική μεταβλητή ($x'$) και το $1$ στην κανονική ($x$).
-  *Παράδειγμα:* Ο $m_5$ ($101_2$) για τις μεταβλητές $x, y, z$ είναι ο $xy'z$.
-- Στους **maxterms (M)**: Το $0$ αντιστοιχεί στην κανονική μεταβλητή ($x$) και το $1$ στη συμπληρωματική ($x'$).
-  *Παράδειγμα:* Ο $M_5$ ($101_2$) για τις μεταβλητές $x, y, z$ είναι ο $x' + y + z'$.
+## Exam Tip: Defining minterms / maxterms
+A common mistake in exams is incorrectly mapping the digits $0$ and $1$ to minterms and maxterms.
+- **Minterms (m):** The $0$ corresponds to the complemented variable ($x'$) and the $1$ to the normal ($x$).
+  *Example:* $m_5$ ($101_2$) for variables $x, y, z$ is $xy'z$.
+- **Maxterms (M):** The $0$ corresponds to the normal variable ($x$) and the $1$ to the complemented ($x'$).
+  *Example:* $M_5$ ($101_2$) for variables $x, y, z$ is $x' + y + z'$.

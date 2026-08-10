@@ -1,549 +1,549 @@
-# Ηλεκτρονική - Νοητικός Χάρτης
+# Electronics - Mind Map
 
-## 1. Εισαγωγή - Νόμος Ohm (Διάλεξη 01)
+## 1. Introduction - Ohm's Law (Lecture 01)
 
-### 1.1 Δομή Ατόμου & Ιδιότητες Ύλης
-- 1.1.1 Συστατικά ατόμου: πρωτόνια, νετρόνια, ηλεκτρόνια
-- 1.1.2 Ηλεκτρικό φορτίο και αγωγιμότητα
+### 1.1 Atomic Structure & Material Properties
+- 1.1.1 Constituents of an atom: protons, neutrons, electrons
+- 1.1.2 Electric charge and conductivity
 
-### 1.2 Αγωγοί, Ημιαγωγοί, Μονωτές
-- 1.2.1 Ιδιότητες αγωγών (μέταλλα)
-- 1.2.2 Ιδιότητες μονωτών
-- 1.2.3 Ενδιάμεση συμπεριφορά ημιαγωγών
+### 1.2 Conductors, Semiconductors, Insulators
+- 1.2.1 Properties of conductors (metals)
+- 1.2.2 Properties of insulators
+- 1.2.3 Intermediate behavior of semiconductors
 
-### 1.3 Ηλεκτρική Αγωγιμότητα Μετάλλων
-- 1.3.1 Μοντέλο Drude (1900)
-- 1.3.2 Νέφος ελεύθερων ηλεκτρονίων
-- 1.3.3 Φορείς ρεύματος και συγκρούσεις
-- 1.3.4 Ενεργειακή προσέγγιση
-  - 1.3.4.1 Ζώνη αγωγιμότητας και ζώνη σθένους
-  - 1.3.4.2 Ενεργειακό χάσμα
-  - 1.3.4.3 Στάθμη Fermi
+### 1.3 Electrical Conductivity of Metals
+- 1.3.1 Drude Model (1900)
+- 1.3.2 Free electron cloud
+- 1.3.3 Current carriers and collisions
+- 1.3.4 Energy approach
+  - 1.3.4.1 Conduction band and valence band
+  - 1.3.4.2 Energy gap
+  - 1.3.4.3 Fermi level
 
-### 1.4 Δυναμικό - Διαφορά Δυναμικού - Τάση
-- 1.4.1 Αρχή ελάχιστης ενέργειας
-- 1.4.2 Ορισμός δυναμικού V = E/q
-- 1.4.3 Τάση ως διαφορά δυναμικού ΔV
+### 1.4 Potential - Potential Difference - Voltage
+- 1.4.1 Principle of minimum energy
+- 1.4.2 Definition of potential V = E/q
+- 1.4.3 Voltage as potential difference ΔV
 
-### 1.5 Ηλεκτρικό Κύκλωμα & Συμβατική Φορά
-- 1.5.1 Προϋποθέσεις ροής ρεύματος
-- 1.5.2 Αντίσταση (R) και αγωγιμότητα (g)
-- 1.5.3 Συμβατική φορά vs πραγματική κίνηση ηλεκτρονίων
-- 1.5.4 Γείωση, δυναμικό αναφοράς, κοινός αγωγός
+### 1.5 Electric Circuit & Conventional Current Direction
+- 1.5.1 Conditions for current flow
+- 1.5.2 Resistance (R) and conductance (g)
+- 1.5.3 Conventional current vs actual electron movement
+- 1.5.4 Ground, reference potential, common conductor
 
-### 1.6 Νόμος του Ohm
+### 1.6 Ohm's Law
 - 1.6.1 V = I*R, I = V/R, R = V/I
-- 1.6.2 Τρίγωνο ηλεκτρολόγου
-- 1.6.3 Χαρακτηριστική καμπύλη I-V
-- 1.6.4 Αγωγιμότητα g = 1/R
+- 1.6.2 Electrical triangle
+- 1.6.3 I-V characteristic curve
+- 1.6.4 Conductance g = 1/R
 
-### 1.7 Συνδεσμολογίες Αντιστάσεων
-- 1.7.1 Σειρά: R_ολ = R1 + R2 + ...
-- 1.7.2 Παράλληλα: 1/R_ολ = 1/R1 + 1/R2 + ...
-- 1.7.3 Μικτές συνδεσμολογίες
+### 1.7 Resistor Connections
+- 1.7.1 Series: R_total = R1 + R2 + ...
+- 1.7.2 Parallel: 1/R_total = 1/R1 + 1/R2 + ...
+- 1.7.3 Mixed connections
 
-### 1.8 Πυκνωτές
-- 1.8.1 Χωρητικότητα C = Q/V
-- 1.8.2 Ενέργεια πυκνωτή (ηλεκτρικό πεδίο)
-- 1.8.3 Σταθερά χρόνου τ = R*C
-- 1.8.4 Διηλεκτρικό και διηλεκτρική αντοχή
-- 1.8.5 Συνδεσμολογίες σειράς και παράλληλα
+### 1.8 Capacitors
+- 1.8.1 Capacitance C = Q/V
+- 1.8.2 Capacitor energy (electric field)
+- 1.8.3 Time constant τ = R*C
+- 1.8.4 Dielectric and dielectric strength
+- 1.8.5 Series and parallel connections
 
-### 1.9 Πηνία
-- 1.9.1 Φαινόμενο αυτεπαγωγής (κανόνας Lenz)
-- 1.9.2 Αμοιβαία επαγωγή
-- 1.9.3 Ενέργεια πηνίου (μαγνητικό πεδίο)
-- 1.9.4 Συνδεσμολογίες σειράς και παράλληλα
+### 1.9 Inductors
+- 1.9.1 Self-induction phenomenon (Lenz's rule)
+- 1.9.2 Mutual induction
+- 1.9.3 Inductor energy (magnetic field)
+- 1.9.4 Series and parallel connections
 
-### 1.10 Αναλογικό και Ψηφιακό Σήμα
+### 1.10 Analog and Digital Signal
 
-### 1.11 Συνεχές και Εναλλασσόμενο Ρεύμα
-- 1.11.1 DC: σταθερό πρόσημο
-- 1.11.2 AC: εναλλαγή πολικότητας
+### 1.11 Direct and Alternating Current
+- 1.11.1 DC: constant polarity
+- 1.11.2 AC: polarity alternation
 
-### 1.12 Πηγές Τάσης
-- 1.12.1 Πραγματικές πηγές: εσωτερική αντίσταση r
-- 1.12.2 Ιδανική πηγή: r << RL
-- 1.12.3 Μέγιστο ρεύμα Imax
+### 1.12 Voltage Sources
+- 1.12.1 Real sources: internal resistance r
+- 1.12.2 Ideal source: r << RL
+- 1.12.3 Maximum current Imax
 
-### 1.13 Πηγές Ρεύματος
-- 1.13.1 Συνθήκη ιδανικής πηγής: r >> RL
-- 1.13.2 Ελάχιστη τάση Vmin
+### 1.13 Current Sources
+- 1.13.1 Ideal source condition: r >> RL
+- 1.13.2 Minimum voltage Vmin
 
-### 1.14 Συνδέσεις Πηγών
-- 1.14.1 Σειρά πηγών τάσης
-- 1.14.2 Παράλληλη σύνδεση όμοιων πηγών τάσης
-- 1.14.3 Συνδέσεις πηγών ρεύματος
+### 1.14 Source Connections
+- 1.14.1 Series connection of voltage sources
+- 1.14.2 Parallel connection of identical voltage sources
+- 1.14.3 Current source connections
 
 ---
 
-## 2. Μέθοδοι Επίλυσης Κυκλωμάτων (Διάλεξη 02)
+## 2. Circuit Analysis Methods (Lecture 02)
 
-### 2.1 Βασικά Στοιχεία Κυκλωμάτων
-- 2.1.1 Πηγές ενέργειας
-- 2.1.2 Αγωγοί, μονωτές, ημιαγωγοί
-- 2.1.3 Διακόπτες, ποτενσιόμετρα
-- 2.1.4 Ρελέ, ασφάλειες
-- 2.1.5 Συμβολισμός εξαρτημάτων και σχηματικά διαγράμματα
+### 2.1 Basic Circuit Elements
+- 2.1.1 Energy sources
+- 2.1.2 Conductors, insulators, semiconductors
+- 2.1.3 Switches, potentiometers
+- 2.1.4 Relays, fuses
+- 2.1.5 Component symbols and schematic diagrams
 
-### 2.2 Ανεξάρτητες και Εξαρτημένες Πηγές
-- 2.2.1 Ιδανική ανεξάρτητη πηγή τάσης
-- 2.2.2 Ιδανική ανεξάρτητη πηγή ρεύματος
-- 2.2.3 Εξαρτημένες (ελεγχόμενες) πηγές
+### 2.2 Independent and Dependent Sources
+- 2.2.1 Ideal independent voltage source
+- 2.2.2 Ideal independent current source
+- 2.2.3 Dependent (controlled) sources
 
-### 2.3 Ισχύς, Ενέργεια, Κόστος
-- 2.3.1 Ισχύς: P = V * I
-- 2.3.2 Ενέργεια: W = P * t
-- 2.3.3 Κόστος ενέργειας
+### 2.3 Power, Energy, Cost
+- 2.3.1 Power: P = V * I
+- 2.3.2 Energy: W = P * t
+- 2.3.3 Energy cost
 
-### 2.4 Όργανα Μέτρησης
-- 2.4.1 Κατά αρχή λειτουργίας (στρεπτού πηνίου, κινητού σιδήρου, ηλεκτροδυναμικά, ηλεκτροστατικά, θερμικά, επαγωγικά)
-- 2.4.2 Κατά μετρούμενο μέγεθος (βολτόμετρο, αμπερόμετρο, βατόμετρο, συχνόμετρο)
-- 2.4.3 Κατά τρόπο παροχής (ενδεικτικά, καταγραφικά, αθροιστικά)
-- 2.4.4 Αμπερόμετρο: σειρά, μικρή εσωτερική αντίσταση
-- 2.4.5 Βολτόμετρο: παράλληλα, μεγάλη εσωτερική αντίσταση
-- 2.4.6 Όργανα πίνακα και πολύμετρα
-- 2.4.7 Μέτρηση αντίστασης (ωμόμετρο)
-- 2.4.8 Μέτρηση τάσης
-- 2.4.9 Μέτρηση ρεύματος
+### 2.4 Measuring Instruments
+- 2.4.1 By operating principle (moving coil, moving iron, electrodynamic, electrostatic, thermal, induction)
+- 2.4.2 By measured quantity (voltmeter, ammeter, wattmeter, frequency meter)
+- 2.4.3 By display method (indicating, recording, integrating)
+- 2.4.4 Ammeter: series, low internal resistance
+- 2.4.5 Voltmeter: parallel, high internal resistance
+- 2.4.6 Panel instruments and multimeters
+- 2.4.7 Resistance measurement (ohmmeter)
+- 2.4.8 Voltage measurement
+- 2.4.9 Current measurement
 
-### 2.5 Μέθοδοι Επίλυσης Κυκλωμάτων
-- 2.5.1 Νόμος Ohm και συνδεσμολογίες
-- 2.5.2 Κανόνες Kirchhoff
-- 2.5.3 Μέθοδος Απλών Βρόχων (Μ.Α.Β.)
-- 2.5.4 Μέθοδος Κόμβων (Μ.Κ.)
-- 2.5.5 Θεώρημα Μέγιστης Μεταφοράς Ισχύος
-- 2.5.6 Θεωρήματα Thevenin και Norton
+### 2.5 Circuit Analysis Methods
+- 2.5.1 Ohm's law and connections
+- 2.5.2 Kirchhoff's rules
+- 2.5.3 Mesh Analysis Method (M.A.M.)
+- 2.5.4 Nodal Analysis Method (M.N.)
+- 2.5.5 Maximum Power Transfer Theorem
+- 2.5.6 Thevenin and Norton Theorems
 
-### 2.6 Κανόνες Kirchhoff
-- 2.6.1 Ορισμοί: κλάδος, κόμβος, βρόχος
-- 2.6.2 Φορά αναφοράς και πολικότητα
-- 2.6.3 1ος Κανόνας (ρευμάτων): ΣΙ = 0
-- 2.6.4 2ος Κανόνας (τάσεων): ΣV = 0
+### 2.6 Kirchhoff's Rules
+- 2.6.1 Definitions: branch, node, loop
+- 2.6.2 Reference direction and polarity
+- 2.6.3 1st Rule (currents): ΣI = 0
+- 2.6.4 2nd Rule (voltages): ΣV = 0
 
-### 2.7 Μέθοδος Απλών Βρόχων (Μ.Α.Β.)
-- 2.7.1 Αριθμός ανεξάρτητων βρόχων: b - n + 1
-- 2.7.2 Μορφή πινάκων: R11*I1 + R12*I2 = ΣV1
-- 2.7.3 Κατάλληλη για κυκλώματα με πολλές πηγές τάσης
+### 2.7 Mesh Analysis Method (M.A.M.)
+- 2.7.1 Number of independent loops: b - n + 1
+- 2.7.2 Matrix form: R11*I1 + R12*I2 = ΣV1
+- 2.7.3 Suitable for circuits with many voltage sources
 
-### 2.8 Μέθοδος Κόμβων (Μ.Κ.)
-- 2.8.1 Αριθμός εξισώσεων: n - 1
-- 2.8.2 Μορφή πινάκων: G11*V1 + G12*V2 = ΣI1
-- 2.8.3 Κατάλληλη για κυκλώματα με πολλές πηγές ρεύματος
+### 2.8 Nodal Analysis Method (M.N.)
+- 2.8.1 Number of equations: n - 1
+- 2.8.2 Matrix form: G11*V1 + G12*V2 = ΣI1
+- 2.8.3 Suitable for circuits with many current sources
 
-### 2.9 Θεώρημα Μέγιστης Μεταφοράς Ισχύος
-- 2.9.1 Συνθήκη: R_φορτίου = R_εσωτερική
+### 2.9 Maximum Power Transfer Theorem
+- 2.9.1 Condition: R_load = R_internal
 
-### 2.10 Θεώρημα Thevenin
-- 2.10.1 Ισοδύναμο κύκλωμα: VTh σε σειρά με RTh
-- 2.10.2 VTh: τάση ανοικτού κυκλώματος
-- 2.10.3 RTh: βραχυκύκλωμα πηγών τάσης, ανοικτοκύκλωμα πηγών ρεύματος
+### 2.10 Thevenin Theorem
+- 2.10.1 Equivalent circuit: VTh in series with RTh
+- 2.10.2 VTh: open-circuit voltage
+- 2.10.3 RTh: short-circuit voltage sources, open-circuit current sources
 
-### 2.11 Θεώρημα Norton
-- 2.11.1 Ισοδύναμο κύκλωμα: IN παράλληλα με RN
-- 2.11.2 IN: ρεύμα βραχυκυκλώματος
+### 2.11 Norton Theorem
+- 2.11.1 Equivalent circuit: IN parallel with RN
+- 2.11.2 IN: short-circuit current
 - 2.11.3 RN = RTh
 
-### 2.12 Δυικότητα Thevenin-Norton
-- 2.12.1 Ισοδυναμία δικτυωμάτων
-- 2.12.2 Μετατροπή πηγών
+### 2.12 Thevenin-Norton Duality
+- 2.12.1 Network equivalence
+- 2.12.2 Source conversion
 
-### 2.13 Επιπλέον Κυκλώματα
-- 2.13.1 Διαιρέτης τάσης
-- 2.13.2 Διαιρέτης ρεύματος
-- 2.13.3 Μεταβλητές αντιστάσεις (ροοστάτης, ποτενσιόμετρο)
-- 2.13.4 Μετατροπή πηγής τάσης σε ρεύματος
-- 2.13.5 Μετατροπή πηγής ρεύματος σε τάσης
-- 2.13.6 Αντίσταση παράλληλα σε πηγή τάσης (παραλείπεται)
-- 2.13.7 Αντίσταση σε σειρά με πηγή ρεύματος (παραλείπεται)
-
----
-
-## 3. Ημιαγωγοί - Επαφή PN (Διάλεξη 03)
-
-### 3.1 Αγωγοί, Μονωτές, Ημιαγωγοί
-- 3.1.1 Κατηγοριοποίηση βάσει ηλεκτρικών ιδιοτήτων
-- 3.1.2 Εύρη ειδικής αντίστασης
-
-### 3.2 Αίτια Αλλαγής Συμπεριφοράς Ημιαγωγών
-- 3.2.1 Ειδική αντίσταση
-- 3.2.2 Θερμοκρασία
-
-### 3.3 Δομή Ημιαγωγών
-- 3.3.1 Πυρίτιο (Si) και Γερμάνιο (Ge)
-- 3.3.2 Τέσσερα ηλεκτρόνια σθένους, ομοιοπολικοί δεσμοί
-- 3.3.3 Κρυσταλλικό πλέγμα
-
-### 3.4 Ημιαγωγοί ως Μονωτές
-- 3.4.1 Σε T = 0K: κανένα ελεύθερο ηλεκτρόνιο
-
-### 3.5 Ημιαγωγοί ως Αγωγοί
-- 3.5.1 Σε θερμοκρασία δωματίου: ελεύθερα ηλεκτρόνια
-- 3.5.2 Κίνηση οπών και ηλεκτρονίων
-  - 3.5.2.1 Οπή: θετικός φορέας (κενή θέση)
-  - 3.5.2.2 Αντίθετη φορά κίνησης
-
-### 3.6 Ενεργειακές Ζώνες
-- 3.6.1 Ζώνη σθένους και ζώνη αγωγιμότητας
-- 3.6.2 Ενεργειακό χάσμα
-- 3.6.3 Μονωτής: μεγάλο χάσμα
-- 3.6.4 Ημιαγωγός: μικρό χάσμα
-- 3.6.5 Αγωγός: μηδενικό χάσμα (αλληλοκάλυψη)
-
-### 3.7 Ενδογενείς και Εξωγενείς Ημιαγωγοί
-- 3.7.1 Ενδογενείς: καθαροί, n = p = ni
-- 3.7.2 Εξωγενείς: εμπλουτισμένοι με προσμίξεις
-- 3.7.3 Συγκέντρωση φορέων
-
-### 3.8 Ενδογενείς (Καθαροί) Ημιαγωγοί
-- 3.8.1 Πανομοιότυπη δομή
-- 3.8.2 Αποκλειστικά Ge ή Si
-- 3.8.3 Δύο είδη φορέων: οπές και ηλεκτρόνια
-
-### 3.9 Εμπλουτισμένοι Ημιαγωγοί
-- 3.9.1 Προσθήκη πεντασθενών ή τρισθενών ατόμων
-- 3.9.2 Δότες και αποδέκτες (προσμίξεις)
-- 3.9.3 Τύπου n και τύπου p
-
-### 3.10 Ημιαγωγοί Τύπου n
-- 3.10.1 Πρόσμιξη με 5 ηλεκτρόνια (δότες) - π.χ. Φώσφορος
-- 3.10.2 Φορείς πλειονότητας: ηλεκτρόνια
-- 3.10.3 Φορείς μειονότητας: οπές
-
-### 3.11 Ημιαγωγοί Τύπου p
-- 3.11.1 Πρόσμιξη με 3 ηλεκτρόνια (αποδέκτες) - π.χ. Βόριο
-- 3.11.2 Φορείς πλειονότητας: οπές
-- 3.11.3 Φορείς μειονότητας: ηλεκτρόνια
-
-### 3.12 Άλλοι Ημιαγωγοί
-- 3.12.1 Οργανικοί ημιαγωγοί
-- 3.12.2 Άμορφοι ημιαγωγοί (φωτοβολταϊκά)
-
-### 3.13 Επαφή PN
-- 3.13.1 Φαινόμενο διάχυσης
-  - 3.13.1.1 Διάχυση ηλεκτρονίων από n προς p
-  - 3.13.1.2 Διάχυση οπών από p προς n
-- 3.13.2 Περιοχή διάχυσης
-- 3.13.3 Σχηματισμός φορτίου χώρου
-- 3.13.4 Ισορροπία
-
-### 3.14 Ενεργειακή Προσέγγιση Επαφής PN
-- 3.14.1 Στάθμη Fermi σε τύπου p (κοντά στη ζώνη σθένους)
-- 3.14.2 Στάθμη Fermi σε τύπου n (κοντά στη ζώνη αγωγιμότητας)
-- 3.14.3 Σχηματισμός ενεργειακού φραγμού E0
-- 3.14.4 Εξίσωση σταθμών Fermi στην ισορροπία
-
-### 3.15 Περιοχή Απογύμνωσης
-- 3.15.1 Ανασύζευξη φορέων
-- 3.15.2 Απογύμνωση από φορείς
-- 3.15.3 Αύξηση πάχους προς την ισορροπία
-
-### 3.16 Ηλεκτρικά Χαρακτηριστικά Επαφής PN
-- 3.16.1 Κατανομή φορτίου χώρου
-- 3.16.2 Δυναμικό επαφής V0
-- 3.16.3 Χωρητικότητα επαφής C0
-
-### 3.17 Ανάστροφη Πόλωση
-- 3.17.1 Θετικός στο n, αρνητικός στο p
-- 3.17.2 Διεύρυνση περιοχής απογύμνωσης
-- 3.17.3 Συμπεριφορά μονωτή (ανοικτό κύκλωμα)
-- 3.17.4 Απειροελάχιστο ρεύμα (θερμική διέγερση)
-
-### 3.18 Ορθή Πόλωση
-- 3.18.1 Θετικός στο p, αρνητικός στο n
-- 3.18.2 Στένεμα περιοχής απογύμνωσης
-- 3.18.3 Άρση φραγμού δυναμικού
-- 3.18.4 Διέλευση ρεύματος
+### 2.13 Additional Circuits
+- 2.13.1 Voltage divider
+- 2.13.2 Current divider
+- 2.13.3 Variable resistors (rheostat, potentiometer)
+- 2.13.4 Voltage source to current source conversion
+- 2.13.5 Current source to voltage source conversion
+- 2.13.6 Resistor in parallel with voltage source (omitted)
+- 2.13.7 Resistor in series with current source (omitted)
 
 ---
 
-## 4. Δίοδος (Διάλεξη 04)
+## 3. Semiconductors - PN Junction (Lecture 03)
 
-### 4.1 Κρυσταλλοδίοδος
-- 4.1.1 Υλοποίηση επαφής PN
-- 4.1.2 Μονοκατευθυντική ροή ρεύματος
-- 4.1.3 Ασύμμετρη διάταξη δύο ακροδεκτών
-- 4.1.4 Άνοδος (p) και Κάθοδος (n)
-- 4.1.5 Δίοδος στερεάς κατάστασης vs λυχνία κενού
+### 3.1 Conductors, Insulators, Semiconductors
+- 3.1.1 Classification by electrical properties
+- 3.1.2 Resistivity values
 
-### 4.2 Ηλεκτρικά Χαρακτηριστικά
-- 4.2.1 Χωρίς πόλωση: περιοχή απογύμνωσης, φράγμα 0.6-0.7V (Si)
-- 4.2.2 Ορθή πόλωση: στενεύει, μικρή αντίσταση (50-100Ω)
-- 4.2.3 Ανάστροφη πόλωση: φαρδαίνει, μεγάλη αντίσταση (>10kΩ)
-- 4.2.4 Τάση κατωφλίου VT (0.7V Si, 0.2V Ge)
-- 4.2.5 Δίοδος ως διακόπτης (κλειστός/ανοιχτός)
+### 3.2 Causes of Semiconductor Behavior Change
+- 3.2.1 Resistivity
+- 3.2.2 Temperature
 
-### 4.3 Θεωρητικό Μοντέλο
-- 4.3.1 Μη γραμμικό στοιχείο
-- 4.3.2 Λόγος αντιστάσεων ορθής/ανάστροφης >1000:1
-- 4.3.3 Τάση κατάρρευσης Vbr
-- 4.3.4 Περιοχή κατάρρευσης (καταστροφική για κοινές διόδους)
+### 3.3 Semiconductor Structure
+- 3.3.1 Silicon (Si) and Germanium (Ge)
+- 3.3.2 Four valence electrons, covalent bonds
+- 3.3.3 Crystal lattice
 
-### 4.4 Χαρακτηριστική Εξίσωση
-- 4.4.1 Εξίσωση Shockley: ID = Is * exp(VD / (ηVT))
-- 4.4.2 Θερμική τάση VT
+### 3.4 Semiconductors as Insulators
+- 3.4.1 At T = 0K: no free electrons
 
-### 4.5 Ευθεία Φόρτου και Σημείο Λειτουργίας
-- 4.5.1 DC ανάλυση: σημείο Q
-- 4.5.2 Ευθεία φόρτου: VDD = ID*R + VD
-- 4.5.3 Στατική (DC) αντίσταση
-- 4.5.4 Δυναμική (AC) αντίσταση
-- 4.5.5 Ανάλυση μικρού σήματος
+### 3.5 Semiconductors as Conductors
+- 3.5.1 At room temperature: free electrons
+- 3.5.2 Hole and electron movement
+  - 3.5.2.1 Hole: positive carrier (vacant position)
+  - 3.5.2.2 Opposite direction of movement
 
-### 4.6 Μοντέλα Λειτουργίας
-- 4.6.1 Ιδανική δίοδος (1η προσέγγιση)
-- 4.6.2 Τυπική δίοδος (2η προσέγγιση)
-- 4.6.3 Πραγματική δίοδος (3η προσέγγιση)
+### 3.6 Energy Bands
+- 3.6.1 Valence band and conduction band
+- 3.6.2 Energy gap
+- 3.6.3 Insulator: large gap
+- 3.6.4 Semiconductor: small gap
+- 3.6.5 Conductor: zero gap (overlap)
 
-### 4.7 Πρακτικά
-- 4.7.1 Έλεγχος με ωμόμετρο
-- 4.7.2 Φύλλα δεδομένων κατασκευαστή (1N4001)
-- 4.7.3 Παράδειγμα υπολογισμού
+### 3.7 Intrinsic and Extrinsic Semiconductors
+- 3.7.1 Intrinsic: pure, n = p = ni
+- 3.7.2 Extrinsic: doped with impurities
+- 3.7.3 Carrier concentration
+
+### 3.8 Intrinsic (Pure) Semiconductors
+- 3.8.1 Uniform structure
+- 3.8.2 Exclusively Ge or Si
+- 3.8.3 Two types of carriers: holes and electrons
+
+### 3.9 Extrinsic Semiconductors
+- 3.9.1 Addition of pentavalent or trivalent atoms
+- 3.9.2 Donors and acceptors (impurities)
+- 3.9.3 n-type and p-type
+
+### 3.10 n-type Semiconductors
+- 3.10.1 Doping with 5 valence electrons (donors) - e.g. Phosphorus
+- 3.10.2 Majority carriers: electrons
+- 3.10.3 Minority carriers: holes
+
+### 3.11 p-type Semiconductors
+- 3.11.1 Doping with 3 valence electrons (acceptors) - e.g. Boron
+- 3.11.2 Majority carriers: holes
+- 3.11.3 Minority carriers: electrons
+
+### 3.12 Other Semiconductors
+- 3.12.1 Organic semiconductors
+- 3.12.2 Amorphous semiconductors (photovoltaic)
+
+### 3.13 PN Junction
+- 3.13.1 Diffusion phenomenon
+  - 3.13.1.1 Electron diffusion from n to p
+  - 3.13.1.2 Hole diffusion from p to n
+- 3.13.2 Diffusion region
+- 3.13.3 Space charge formation
+- 3.13.4 Equilibrium
+
+### 3.14 Energy Approach of PN Junction
+- 3.14.1 Fermi level in p-type (near valence band)
+- 3.14.2 Fermi level in n-type (near conduction band)
+- 3.14.3 Energy barrier formation E0
+- 3.14.4 Fermi level equalization at equilibrium
+
+### 3.15 Depletion Region
+- 3.15.1 Carrier recombination
+- 3.15.2 Carrier depletion
+- 3.15.3 Width increase toward equilibrium
+
+### 3.16 Electrical Characteristics of PN Junction
+- 3.16.1 Space charge distribution
+- 3.16.2 Junction potential V0
+- 3.16.3 Junction capacitance C0
+
+### 3.17 Reverse Bias
+- 3.17.1 Positive to n, negative to p
+- 3.17.2 Depletion region widening
+- 3.17.3 Insulator behavior (open circuit)
+- 3.17.4 Negligible current (thermal excitation)
+
+### 3.18 Forward Bias
+- 3.18.1 Positive to p, negative to n
+- 3.18.2 Depletion region narrowing
+- 3.18.3 Potential barrier removal
+- 3.18.4 Current flow
 
 ---
 
-## 5. Ειδικοί Τύποι Διόδων (Διάλεξη 05)
+## 4. Diode (Lecture 04)
 
-### 5.1 Δίοδος Zener
-- 5.1.1 Λειτουργία στην περιοχή κατάρρευσης
-- 5.1.2 Τάσεις κατάρρευσης 2V-200V
-- 5.1.3 Χαρακτηριστική I-V
-- 5.1.4 Ορθή πόλωση: σαν απλή δίοδος
-- 5.1.5 Ανάστροφη: σταθερή τάση VZ
-- 5.1.6 Χαρακτηριστικά μεγέθη
-- 5.1.7 Σταθεροποιητής τάσης
-  - 5.1.7.1 Γραμμής (σταθερό IL)
-  - 5.1.7.2 Φορτίου (σταθερή VI)
-- 5.1.8 Επί τοις εκατό σταθεροποίηση
-- 5.1.9 Πρακτική ανάλυση με Thevenin
+### 4.1 Crystal Diode
+- 4.1.1 PN junction implementation
+- 4.1.2 Unidirectional current flow
+- 4.1.3 Asymmetric two-terminal arrangement
+- 4.1.4 Anode (p) and Cathode (n)
+- 4.1.5 Solid-state diode vs vacuum tube
 
-### 5.2 Δίοδος Schottky
-- 5.2.1 Επαφή μετάλλου-ημιαγωγού N
-- 5.2.2 Φορείς πλειονότητας (ταχύτητα)
+### 4.2 Electrical Characteristics
+- 4.2.1 No bias: depletion region, 0.6-0.7V barrier (Si)
+- 4.2.2 Forward bias: narrows, low resistance (50-100Ω)
+- 4.2.3 Reverse bias: widens, high resistance (>10kΩ)
+- 4.2.4 Threshold voltage VT (0.7V Si, 0.2V Ge)
+- 4.2.5 Diode as switch (closed/open)
 
-### 5.3 Οπτοηλεκτρονικές Διατάξεις
-- 5.3.1 Οπτοηλεκτρονική: οπτική + ηλεκτρονικά
-- 5.3.2 Βασισμένες σε επαφή PN
+### 4.3 Theoretical Model
+- 4.3.1 Non-linear element
+- 4.3.2 Forward/reverse resistance ratio >1000:1
+- 4.3.3 Breakdown voltage Vbr
+- 4.3.4 Breakdown region (destructive for common diodes)
 
-### 5.4 LED (Δίοδος Φωτοεκπομπής)
-- 5.4.1 Εκπομπή φωτός σε ορθή πόλωση
-- 5.4.2 Χρώματα και υπέρυθρο
-- 5.4.3 Ρεύμα 10-20mA, τάση 1.5-2.5V
-- 5.4.4 Αντίσταση προστασίας
-- 5.4.5 Εφαρμογές
-- 5.4.6 Πλεονεκτήματα και μειονεκτήματα
+### 4.4 Characteristic Equation
+- 4.4.1 Shockley equation: ID = Is * exp(VD / (ηVT))
+- 4.4.2 Thermal voltage VT
 
-### 5.5 Δίοδος Laser
-- 5.5.1 Κοιλότητα με στιλβωμένες επιφάνειες
+### 4.5 Load Line and Operating Point
+- 4.5.1 DC analysis: Q point
+- 4.5.2 Load line: VDD = ID*R + VD
+- 4.5.3 Static (DC) resistance
+- 4.5.4 Dynamic (AC) resistance
+- 4.5.5 Small-signal analysis
 
-### 5.6 Φωτοδίοδος
-- 5.6.1 Ανάστροφη πόλωση + φωτισμός = ρεύμα Iλ
+### 4.6 Operating Models
+- 4.6.1 Ideal diode (1st approximation)
+- 4.6.2 Typical diode (2nd approximation)
+- 4.6.3 Real diode (3rd approximation)
 
-### 5.7 Φωτοτρανζίστορ
-
-### 5.8 Οπτοαπομονωτές (Οπτοζεύκτες)
-- 5.8.1 Πλήρης ηλεκτρική απομόνωση
+### 4.7 Practical
+- 4.7.1 Ohmmeter testing
+- 4.7.2 Manufacturer datasheets (1N4001)
+- 4.7.3 Calculation example
 
 ---
 
-## 6. Εφαρμογές Διόδων - Τροφοδοτικά (Διάλεξη 06)
+## 5. Special Diode Types (Lecture 05)
 
-### 6.1 Τροφοδοτικά
-- 6.1.1 Ανορθωτής (AC σε DC)
-- 6.1.2 Φίλτρο εξομάλυνσης (μείωση κυμάτωσης)
-- 6.1.3 Σταθεροποιητής τάσης
+### 5.1 Zener Diode
+- 5.1.1 Breakdown region operation
+- 5.1.2 Breakdown voltages 2V-200V
+- 5.1.3 I-V characteristic
+- 5.1.4 Forward bias: like a standard diode
+- 5.1.5 Reverse: constant voltage VZ
+- 5.1.6 Key parameters
+- 5.1.7 Voltage regulator
+  - 5.1.7.1 Line (constant IL)
+  - 5.1.7.2 Load (constant VI)
+- 5.1.8 Percentage regulation
+- 5.1.9 Practical analysis with Thevenin
 
-### 6.2 Στάδια Μετατροπής
-- 6.2.1 Μετασχηματιστής υποβιβασμού
-- 6.2.2 Ανόρθωση (ημιανόρθωση ή πλήρης)
-- 6.2.3 Εξομάλυνση
-- 6.2.4 Σταθεροποίηση
+### 5.2 Schottky Diode
+- 5.2.1 Metal-N semiconductor junction
+- 5.2.2 Majority carrier device (speed)
 
-### 6.3 Ημιανόρθωση
-- 6.3.1 Αποκοπή αρνητικών ημικυμάτων
-- 6.3.2 Μέση τιμή: Vdc = 0.318 * Vout(max)
-- 6.3.3 Μέγιστη Ανάστροφη Τάση (PIV)
+### 5.3 Optoelectronic Devices
+- 5.3.1 Optoelectronics: optics + electronics
+- 5.3.2 Based on PN junction
 
-### 6.4 Πλήρης Ανόρθωση με 2 Διόδους
-- 6.4.1 Μετασχηματιστής με μεσαία λήψη
-- 6.4.2 Συχνότητα εξόδου: fout = 2 * fin
+### 5.4 LED (Light Emitting Diode)
+- 5.4.1 Light emission in forward bias
+- 5.4.2 Colors and infrared
+- 5.4.3 Current 10-20mA, voltage 1.5-2.5V
+- 5.4.4 Protection resistor
+- 5.4.5 Applications
+- 5.4.6 Advantages and disadvantages
+
+### 5.5 Laser Diode
+- 5.5.1 Cavity with polished surfaces
+
+### 5.6 Photodiode
+- 5.6.1 Reverse bias + illumination = current Iλ
+
+### 5.7 Phototransistor
+
+### 5.8 Optocouplers (Optoisolators)
+- 5.8.1 Complete electrical isolation
+
+---
+
+## 6. Diode Applications - Power Supplies (Lecture 06)
+
+### 6.1 Power Supplies
+- 6.1.1 Rectifier (AC to DC)
+- 6.1.2 Smoothing filter (ripple reduction)
+- 6.1.3 Voltage regulator
+
+### 6.2 Conversion Stages
+- 6.2.1 Step-down transformer
+- 6.2.2 Rectification (half-wave or full-wave)
+- 6.2.3 Smoothing
+- 6.2.4 Regulation
+
+### 6.3 Half-Wave Rectification
+- 6.3.1 Blocking of negative half-cycles
+- 6.3.2 Average value: Vdc = 0.318 * Vout(max)
+- 6.3.3 Peak Inverse Voltage (PIV)
+
+### 6.4 Full-Wave Rectification with 2 Diodes
+- 6.4.1 Center-tapped transformer
+- 6.4.2 Output frequency: fout = 2 * fin
 - 6.4.3 PIV = 2*Vout(max) + 0.7V
 
-### 6.5 Πλήρης Ανόρθωση με Γέφυρα
-- 6.5.1 Τέσσερις δίοδοι
+### 6.5 Bridge Rectification
+- 6.5.1 Four diodes
 - 6.5.2 PIV = Vout(max) + 0.7V
-- 6.5.3 Συσκευασίες γέφυρας
+- 6.5.3 Bridge packages
 
-### 6.6 Σύγκριση
-- 6.6.1 Διπλάσια DC τάση
-- 6.6.2 Χαμηλότερος συντελεστής κυμάτωσης
-- 6.6.3 Διπλάσιος συντελεστής ισχύος
+### 6.6 Comparison
+- 6.6.1 Double DC voltage
+- 6.6.2 Lower ripple factor
+- 6.6.3 Double power factor
 
-### 6.7 Τριφασική Ανόρθωση
-- 6.7.1 Ημιανόρθωση: Vdc = 0.831 * Vmax
-- 6.7.2 Πλήρης ανόρθωση
+### 6.7 Three-Phase Rectification
+- 6.7.1 Half-wave: Vdc = 0.831 * Vmax
+- 6.7.2 Full-wave rectification
 
-### 6.8 Φίλτρα Εξομάλυνσης
-- 6.8.1 Εξομάλυνση με πυκνωτή
-- 6.8.2 Εξομάλυνση με πηνίο
-- 6.8.3 Συντελεστής σταθεροποίησης γ
+### 6.8 Smoothing Filters
+- 6.8.1 Capacitor smoothing
+- 6.8.2 Inductor smoothing
+- 6.8.3 Stabilization factor γ
 
-### 6.9 Σταθεροποιητής Zener
-- 6.9.1 Γραμμής
-- 6.9.2 Φορτίου
+### 6.9 Zener Regulator
+- 6.9.1 Line
+- 6.9.2 Load
 
-### 6.10 Πολλαπλασιαστές Τάσης
-- 6.10.1 Διπλασιαστής ημικύματος
-- 6.10.2 Διπλασιαστής πλήρους κύματος
-- 6.10.3 Τριπλασιαστής
-- 6.10.4 Τετραπλασιαστής
+### 6.10 Voltage Multipliers
+- 6.10.1 Half-wave doubler
+- 6.10.2 Full-wave doubler
+- 6.10.3 Tripler
+- 6.10.4 Quadrupler
 
-### 6.11 Ανίχνευση Βλαβών
+### 6.11 Fault Detection
 
 ---
 
-## 7. Διπολικά Τρανζίστορ (Διάλεξη 07)
+## 7. Bipolar Junction Transistor (Lecture 07)
 
-### 7.1 Εισαγωγή
-- 7.1.1 Τρανζίστορ: διάταξη ημιαγωγών στερεάς κατάστασης
-- 7.1.2 Εφαρμογές: ενίσχυση, σταθεροποίηση, διαμόρφωση, διακόπτης
+### 7.1 Introduction
+- 7.1.1 Transistor: solid-state semiconductor device
+- 7.1.2 Applications: amplification, regulation, modulation, switching
 
-### 7.2 Ιστορική Αναδρομή
+### 7.2 Historical Overview
 - 7.2.1 Lilienfeld (1928)
 - 7.2.2 Heil (1934)
 - 7.2.3 Bardeen, Brattain, Shockley (Bell Labs, 1948)
-- 7.2.4 Nobel Φυσικής 1956
-- 7.2.5 Πρώτο τρανζίστορ πυριτίου (Texas Instruments, 1954)
-- 7.2.6 Πρώτο MOSFET (Kahng & Atalla, Bell Labs, 1960)
+- 7.2.4 Nobel Prize in Physics 1956
+- 7.2.5 First silicon transistor (Texas Instruments, 1954)
+- 7.2.6 First MOSFET (Kahng & Atalla, Bell Labs, 1960)
 
-### 7.3 Διπολικό Τρανζίστορ Επαφής (BJT)
-- 7.3.1 Τύποι: NPN και PNP
-- 7.3.2 Ακροδέκτες: Εκπομπός (E), Βάση (B), Συλλέκτης (C)
-- 7.3.3 Δομή: δύο δίοδοι πλάτη-πλάτη
-- 7.3.4 Αναγνώριση ακροδεκτών
+### 7.3 Bipolar Junction Transistor (BJT)
+- 7.3.1 Types: NPN and PNP
+- 7.3.2 Terminals: Emitter (E), Base (B), Collector (C)
+- 7.3.3 Structure: two back-to-back diodes
+- 7.3.4 Terminal identification
 
-### 7.4 Αρχή Λειτουργίας
-- 7.4.1 Πόλωση: BE ορθά, BC ανάστροφα
-- 7.4.2 Μικρό ρεύμα βάσης ελέγχει μεγάλο ρεύμα συλλέκτη
+### 7.4 Operating Principle
+- 7.4.1 Biasing: BE forward, BC reverse
+- 7.4.2 Small base current controls large collector current
 - 7.4.3 IE = IB + IC
-- 7.4.4 Λεπτή και ελαφρά εμπλουτισμένη βάση
+- 7.4.4 Thin and lightly doped base
 
-### 7.5 Κυκλώματα Πόλωσης
-- 7.5.1 Κοινής Βάσης
-- 7.5.2 Κοινού Εκπομπού
-- 7.5.3 Κοινού Συλλέκτη
+### 7.5 Biasing Configurations
+- 7.5.1 Common Base
+- 7.5.2 Common Emitter
+- 7.5.3 Common Collector
 
-### 7.6 Χαρακτηριστικές Καμπύλες
-- 7.6.1 Χαρακτηριστικές εισόδου (Βάσης)
-- 7.6.2 Χαρακτηριστικές εξόδου (Συλλέκτη)
-- 7.6.3 Οικογένεια καμπυλών
+### 7.6 Characteristic Curves
+- 7.6.1 Input (Base) characteristics
+- 7.6.2 Output (Collector) characteristics
+- 7.6.3 Curve family
 
-### 7.7 Περιοχές Λειτουργίας
-- 7.7.1 Αποκοπή
-- 7.7.2 Κόρος
-- 7.7.3 Ενεργός περιοχή
-- 7.7.4 Κατάρρευση
+### 7.7 Operating Regions
+- 7.7.1 Cutoff
+- 7.7.2 Saturation
+- 7.7.3 Active region
+- 7.7.4 Breakdown
 
-### 7.8 Παράμετροι
+### 7.8 Parameters
 - 7.8.1 βDC = IC/IB, αDC = IC/IE
-- 7.8.2 Σχέσεις: α = β/(β+1), β = α/(1-α)
+- 7.8.2 Relationships: α = β/(β+1), β = α/(1-α)
 - 7.8.3 IC = β*IB, IE = (β+1)*IB
-- 7.8.4 Φαινόμενο Early, τάση VA
+- 7.8.4 Early effect, VA voltage
 
-### 7.9 Εφαρμογές
-- 7.9.1 Διακόπτης (αποκοπή/κόρος)
-- 7.9.2 Ενισχυτής
-
----
-
-## 8. Πόλωση Τρανζίστορ (Διάλεξη 08)
-
-### 8.1 Ευθεία Φορτίου
-- 8.1.1 Σημείο λειτουργίας Q(VCE, IC)
-- 8.1.2 Τομή ευθείας φορτίου με χαρακτηριστική
-- 8.1.3 Μεθοδολογία εύρεσης Q
-- 8.1.4 Μεθοδολογία σχεδίασης γραμμής φορτίου
-
-### 8.2 DC Ανάλυση
-- 8.2.1 Υπολογισμός συνεχών ρευμάτων και δυναμικών
-- 8.2.2 Εντοπισμός σημείου Q
-- 8.2.3 Σχεδίαση γραμμής φορτίου
-
-### 8.3 Κυκλώματα Πόλωσης
-
-#### 8.3.1 Πόλωση Βάσης
-- 8.3.1.1 Σταθερό ρεύμα βάσης
-- 8.3.1.2 Μεθοδολογία εύρεσης Q
-- 8.3.1.3 Γραμμή φορτίου
-
-#### 8.3.2 Πόλωση Εκπομπού
-- 8.3.2.1 Σταθεροποιεί το σημείο Q
-- 8.3.2.2 Αντίσταση στον εκπομπό
-
-#### 8.3.3 Πόλωση Διαιρέτη Τάσης
-- 8.3.3.1 Ευρέως χρησιμοποιούμενο
-- 8.3.3.2 Υπολογισμός VB από διαιρέτη
-- 8.3.3.3 Διατηρεί το Q σταθερό
-
-#### 8.3.4 Πόλωση Εκπομπού Διπλής Τροφοδοσίας
-- 8.3.4.1 Σταθερό Q ανεξαρτήτως β
-- 8.3.4.2 ΙΒ αμελητέο
-
-#### 8.3.5 Πόλωση με Ανάδραση από Εκπομπό
-- 8.3.5.1 Ιστορικής σημασίας
-
-#### 8.3.6 Πόλωση με Ανάδραση από Συλλέκτη και Εκπομπό
-- 8.3.6.1 Ιστορικής σημασίας
-- 8.3.6.2 Βρόχος εισόδου από συλλέκτη
+### 7.9 Applications
+- 7.9.1 Switch (cutoff/saturation)
+- 7.9.2 Amplifier
 
 ---
 
-## 9. Ενισχυτές με Τρανζίστορ (Διάλεξη 09)
+## 8. Transistor Biasing (Lecture 08)
 
-### 9.1 Εισαγωγή
-- 9.1.1 Ενισχυτές μικρού σήματος
-- 9.1.2 Λειτουργία στην ενεργό περιοχή
+### 8.1 Load Line
+- 8.1.1 Operating point Q(VCE, IC)
+- 8.1.2 Load line intersection with characteristic curve
+- 8.1.3 Methodology for finding Q
+- 8.1.4 Methodology for drawing load line
 
-### 9.2 Υλοποίηση Ενισχυτών
-- 9.2.1 Πυκνωτής σύζευξης στην είσοδο
-- 9.2.2 Αντίσταση φόρτου RL στην έξοδο
-- 9.2.3 Αντίσταση εισόδου Rg
-- 9.2.4 Πυκνωτής παράκαμψης
+### 8.2 DC Analysis
+- 8.2.1 Calculation of DC currents and voltages
+- 8.2.2 Q-point identification
+- 8.2.3 Load line drawing
 
-### 9.3 Παραλλαγές Ενισχυτών
-- 9.3.1 Βασισμένος σε πόλωση Βάσης
-- 9.3.2 Βασισμένος σε πόλωση Εκπομπού
-- 9.3.3 Βασισμένος σε διαιρέτη τάσης
-- 9.3.4 Βασισμένος σε διπλή τροφοδοσία
-- 9.3.5 Με ανάδραση από εκπομπό
-- 9.3.6 Με ανάδραση από συλλέκτη και εκπομπό
+### 8.3 Biasing Circuits
 
-### 9.4 Μεγέθη Ενισχυτών
-- 9.4.1 Συμβολισμοί (DC: κεφαλαία, AC: πεζά)
-- 9.4.2 Επαλληλία DC και AC
-- 9.4.3 Διαγωγιμότητα gm = IC/VT
-- 9.4.4 Αντίσταση εισόδου rπ' = β/gm
-- 9.4.5 Αντίσταση εκπομπού re' = VT/IE
+#### 8.3.1 Base Biasing
+- 8.3.1.1 Fixed base current
+- 8.3.1.2 Q-point methodology
+- 8.3.1.3 Load line
 
-### 9.5 DC Ανάλυση Ενισχυτών
-- 9.5.1 Υπολογισμός ρεύματος εκπομπού IE
-- 9.5.2 Πυκνωτές = ανοιχτοί διακόπτες
+#### 8.3.2 Emitter Biasing
+- 8.3.2.1 Q-point stabilization
+- 8.3.2.2 Emitter resistor
 
-### 9.6 AC Ανάλυση
-- 9.6.1 Πρότυπο Τ (κοινής βάσης)
-- 9.6.2 Πρότυπο Π (κοινού εκπομπού)
-- 9.6.3 Σύνθετες αντιστάσεις εισόδου
-- 9.6.4 Απολαβή τάσης Av = rc / (re' + RE)
-- 9.6.5 Επίδραση πυκνωτή παράκαμψης
-- 9.6.6 Διαιρέτης τάσης με Rg
+#### 8.3.3 Voltage Divider Biasing
+- 8.3.3.1 Widely used
+- 8.3.3.2 VB calculation from divider
+- 8.3.3.3 Maintains stable Q
 
-### 9.7 Γενικευμένη Μεθοδολογία
-- 9.7.1 DC Ανάλυση: εύρεση IE
-- 9.7.2 Υπολογισμός re' = 25mV/IE
-- 9.7.3 AC Ανάλυση με πρότυπο Π
-- 9.7.4 Υπολογισμός Av και Vout
+#### 8.3.4 Dual-Supply Emitter Biasing
+- 8.3.4.1 Stable Q independent of β
+- 8.3.4.2 IB negligible
+
+#### 8.3.5 Emitter Feedback Biasing
+- 8.3.5.1 Historical significance
+
+#### 8.3.6 Collector and Emitter Feedback Biasing
+- 8.3.6.1 Historical significance
+- 8.3.6.2 Input loop from collector
 
 ---
 
-## 10. Σύνοψη Μαθήματος (Διάλεξη 10)
-Επισκόπηση όλων των ενοτήτων με βασικά διαγράμματα και τύπους.
+## 9. Transistor Amplifiers (Lecture 09)
+
+### 9.1 Introduction
+- 9.1.1 Small-signal amplifiers
+- 9.1.2 Active region operation
+
+### 9.2 Amplifier Implementation
+- 9.2.1 Input coupling capacitor
+- 9.2.2 Load resistor RL at output
+- 9.2.3 Input resistance Rg
+- 9.2.4 Bypass capacitor
+
+### 9.3 Amplifier Variants
+- 9.3.1 Base biasing based
+- 9.3.2 Emitter biasing based
+- 9.3.3 Voltage divider based
+- 9.3.4 Dual-supply based
+- 9.3.5 With emitter feedback
+- 9.3.6 With collector and emitter feedback
+
+### 9.4 Amplifier Parameters
+- 9.4.1 Notation (DC: capitals, AC: lowercase)
+- 9.4.2 DC and AC superposition
+- 9.4.3 Transconductance gm = IC/VT
+- 9.4.4 Input resistance rπ' = β/gm
+- 9.4.5 Emitter resistance re' = VT/IE
+
+### 9.5 DC Analysis of Amplifiers
+- 9.5.1 Emitter current IE calculation
+- 9.5.2 Capacitors = open switches
+
+### 9.6 AC Analysis
+- 9.6.1 T model (common base)
+- 9.6.2 Pi model (common emitter)
+- 9.6.3 Complex input resistances
+- 9.6.4 Voltage gain Av = rc / (re' + RE)
+- 9.6.5 Bypass capacitor effect
+- 9.6.6 Voltage divider with Rg
+
+### 9.7 Generalized Methodology
+- 9.7.1 DC Analysis: finding IE
+- 9.7.2 Calculating re' = 25mV/IE
+- 9.7.3 AC Analysis with Pi model
+- 9.7.4 Calculating Av and Vout
+
+---
+
+## 10. Course Summary (Lecture 10)
+Overview of all topics with key diagrams and formulas.
