@@ -1,125 +1,125 @@
-Τμήμα Πληροφορικής και Τηλεπικοινωνιών
-Πανεπιστήμιο Ιωαννίνων
-Σπυρίδων Τζίμας
-Εαρινό Εξάμηνο 2025
+Department of Informatics and Telecommunications
+University of Ioannina
+Spyridon Tzimas
+Spring Semester 2025
 
-# 203: Διακριτά Μαθηματικά
-## Εξέταση Ιουνίου 2025
+# 203: Discrete Mathematics
+## June 2025 Exam
 
-Η θέση σας σε αυτήν την εξέταση ταυτοποιείται μοναδικά με μία ετικέτα της μορφής $X - I J$ όπου $X$ είναι το όνομα της αίθουσας και $I$ και $J$ είναι η γραμμή και στήλη αντίστοιχα στις οποίες ανήκει η συγκεκριμένη θέση. Η ομάδα σας είναι η:
+Your seat in this exam is uniquely identified by a label of the form $X - I J$ where $X$ is the name of the room and $I$ and $J$ are the row and column respectively to which the particular seat belongs. Your group is:
 
-| $I \setminus J$ | άρτιος | περιττός |
+| $I \setminus J$ | even | odd |
 | :--- | :--- | :--- |
-| άρτιος | Ομάδα Α | Ομάδα Β |
-| περιττός | Ομάδα Γ | Ομάδα Δ |
+| even | Group A | Group B |
+| odd | Group C | Group D |
 
-Η βαθμολογική αξία της εξέτασης είναι 10 μονάδες. Η χρονική διάρκεια της εξέτασης είναι τρεις ώρες. Επιτρέπεται στυλό μόνο μπλε και μαύρου χρώματος. Επιτρέπεται μολύβι μόνο για γραφή στο πρόχειρο.
+The grading value of the exam is 10 points. The duration of the exam is three hours. Only blue and black pens are allowed. Pencil is allowed only for writing on scrap paper.
 
-Καλή Επιτυχία!
-
----
-
-**Θέμα 1. (2 μονάδες)** Κατασκευάστε τον πίνακα αληθείας των ακόλουθων προτασιακών τύπων.
-α'. (1 μονάδα) $((p \to q) \land ((?) \to q)) \to q$
-β'. (1 μονάδα) $p \to ((p \to (?)) \lor (p \to q))$
-
-- **Ομάδα Α:** (?) = $\neg p$
-- **Ομάδα Β:** (?) = $\neg q$
-- **Ομάδα Γ:** (?) = $\top$
-- **Ομάδα Δ:** (?) = $\bot$
-
-**Σημείωση:** Τα $\top$ και $\bot$ δεν είναι μεταβλητές, είναι πάντα αληθής και ψευδής αντίστοιχα.
+Good Luck!
 
 ---
 
-**Θέμα 2. (1 μονάδα)** Οι 256 συμμετέχοντες μίας έρευνας ερωτήθηκαν ποια χρώματα τους αρέσουν από τα τρία βασικά χρώματα που είναι το κόκκινο, το πράσινο και το μπλε. Από αυτούς, οι 169 απάντησαν ότι τους αρέσει το κόκκινο, οι 100 το πράσινο, οι 64 το μπλε, οι 49 το κόκκινο και το πράσινο, οι 36 το πράσινο και το μπλε, οι (?) το κόκκινο και το μπλε, και μόλις 1 ότι του αρέσουν και τα τρία. Υπολογίστε σε πόσους από τους συμμετέχοντες στην έρευνα δεν αρέσει κανένα από τα τρία βασικά χρώματα.
+**Topic 1. (2 points)** Construct the truth table of the following propositional formulas.
+a. (1 point) $((p \to q) \land ((?) \to q)) \to q$
+b. (1 point) $p \to ((p \to (?)) \lor (p \to q))$
 
-- **Ομάδα Α:** (?) = 4
-- **Ομάδα Β:** (?) = 9
-- **Ομάδα Γ:** (?) = 16
-- **Ομάδα Δ:** (?) = 25
+- **Group A:** (?) = $\neg p$
+- **Group B:** (?) = $\neg q$
+- **Group C:** (?) = $\top$
+- **Group D:** (?) = $\bot$
 
----
-
-**Θέμα 3. (1 μονάδα)** Θεωρούμε το πείραμα ρίψης δύο διακεκριμένων αμερόληπτων $d(?)$.
-
-- **Ομάδα Α:** (?) = 4
-- **Ομάδα Β:** (?) = 8
-- **Ομάδα Γ:** (?) = 12
-- **Ομάδα Δ:** (?) = 20
-
-**Επεξήγηση:** Για $n \in \{4, 6, 8, 12, 20\}$, με $dn$ συμβολίζουμε το ζάρι με $n$ ταυτόσημες έδρες.
-
-α'. (0.5 μονάδα) Απαριθμήστε τα δυνατά αποτελέσματα της μορφής (άρτιος, περιττός).  
-β'. (0.5 μονάδα) Απαριθμήστε τα δυνατά αποτελέσματα που αθροίζουν σε πρώτο αριθμό.
-
-**Σημείωση:** Οι πρώτοι αριθμοί από το 1 έως το 20 είναι οι $2, 3, 5, 7, 11, 13, 17, 19$.
+**Note:** $\top$ and $\bot$ are not variables, they are always true and false respectively.
 
 ---
 
-**Θέμα 4. (1 μονάδα)** Έχει μετρηθεί πειραματικά ότι ένα άτομο που έχει προσβληθεί από αναπνευστικό ιό έχει πιθανότητα $1/2$ να έχει προσβληθεί από τον ιό της γρίπης $A$, $1/3$ από τον ιό της γρίπης $B$ και $1/6$ από τον κορονοϊό, έστω $C$. Ένα τεστ $T$ για αναπνευστικούς ιούς έχει πιθανότητα $2\%$ εσφαλμένα αρνητικού αποτελέσματος (false negative) για τον ιό της γρίπης $A$, $3\%$ για τον ιό της γρίπης $B$ και $(?)\%$ για τον κορονοϊό.
+**Topic 2. (1 point)** The 256 participants of a survey were asked which colors they like among the three primary colors red, green and blue. Of these, 169 answered that they like red, 100 green, 64 blue, 49 red and green, 36 green and blue, (?) red and blue, and only 1 that they like all three. Calculate how many of the survey participants like none of the three primary colors.
 
-- **Ομάδα Α:** (?) = 6
-- **Ομάδα Β:** (?) = 12
-- **Ομάδα Γ:** (?) = 18
-- **Ομάδα Δ:** (?) = 24
-
-α'. (0.5 μονάδα) Υπολογίστε την πιθανότητα εσφαλμένα αρνητικής διάγνωσης με χρήση του τεστ $T$ ατόμου που έχει προσβληθεί από αναπνευστικό ιό.
-
-β'. (0.5 μονάδα) Δεδομένου ότι ένα άτομο έχει διαγνωστεί εσφαλμένα αρνητικά με χρήση του τεστ $T$, υπολογίστε την πιθανότητα να έχει προσβληθεί από τον ιό της γρίπης $A$.
+- **Group A:** (?) = 4
+- **Group B:** (?) = 9
+- **Group C:** (?) = 16
+- **Group D:** (?) = 25
 
 ---
 
-**Θέμα 5. (1 μονάδα)** Για την ακόλουθη σχέση επί του $S = \{1, 2, 3\}$, ελέγξτε την ισχύ καθεμίας εκ των ιδιοτήτων: ανακλαστική, συμμετρική, αντισυμμετρική και μεταβατική.
+**Topic 3. (1 point)** Consider the experiment of rolling two distinct fair $d(?)$.
 
-- **Ομάδα Α:** $R = \{(1, 1), (1, 2), (2, 1), (2, 2), (3, 3)\}$
-- **Ομάδα Β:** $R = \{(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)\}$
-- **Ομάδα Γ:** $R = \{(1, 1), (1, 2), (2, 3), (3, 1), (3, 3)\}$
-- **Ομάδα Δ:** $R = \{(1, 1), (1, 2), (2, 1), (2, 2), (2, 3), (3, 2)\}$
+- **Group A:** (?) = 4
+- **Group B:** (?) = 8
+- **Group C:** (?) = 12
+- **Group D:** (?) = 20
+
+**Explanation:** For $n \in \{4, 6, 8, 12, 20\}$, with $dn$ we denote the die with $n$ identical faces.
+
+a. (0.5 points) Enumerate the possible outcomes of the form (even, odd).  
+b. (0.5 points) Enumerate the possible outcomes that sum to a prime number.
+
+**Note:** The prime numbers from 1 to 20 are $2, 3, 5, 7, 11, 13, 17, 19$.
 
 ---
 
-**Θέμα 6. (2 μονάδες)** Έστω τα ακόλουθα γραφήματα:
+**Topic 4. (1 point)** It has been experimentally measured that a person who has contracted a respiratory virus has a probability of $1/2$ of having contracted the influenza $A$ virus, $1/3$ of the influenza $B$ virus and $1/6$ of the coronavirus, denoted $C$. A test $T$ for respiratory viruses has a $2\%$ probability of a false negative result for the influenza $A$ virus, $3\%$ for the influenza $B$ virus and $(?)\%$ for the coronavirus.
+
+- **Group A:** (?) = 6
+- **Group B:** (?) = 12
+- **Group C:** (?) = 18
+- **Group D:** (?) = 24
+
+a. (0.5 points) Calculate the probability of an incorrectly negative diagnosis using test $T$ of a person who has contracted a respiratory virus.
+
+b. (0.5 points) Given that a person has been incorrectly diagnosed as negative using test $T$, calculate the probability that they have contracted the influenza $A$ virus.
+
+---
+
+**Topic 5. (1 point)** For the following relation on $S = \{1, 2, 3\}$, check the validity of each of the properties: reflexive, symmetric, antisymmetric and transitive.
+
+- **Group A:** $R = \{(1, 1), (1, 2), (2, 1), (2, 2), (3, 3)\}$
+- **Group B:** $R = \{(1, 1), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)\}$
+- **Group C:** $R = \{(1, 1), (1, 2), (2, 3), (3, 1), (3, 3)\}$
+- **Group D:** $R = \{(1, 1), (1, 2), (2, 1), (2, 2), (2, 3), (3, 2)\}$
+
+---
+
+**Topic 6. (2 points)** Consider the following graphs:
 
 $G_1 = (V_1 = \{A, B, C, D, E, F\}, E_1 = \{\{A, B\}, \{A, D\}, \{B, C\}, \{C, D\}, \{D, E\}, \{E, F\}, \{A, F\}, (?)\})$  
 $G_2 = (V_2 = \{1, 2, 3, 4, 5, 6\}, E_2 = \{\{1, 2\}, \{2, 3\}, \{2, 5\}, \{3, 4\}, \{3, 6\}, \{4, 5\}, \{5, 6\}, \{1, 6\}\})$
 
-- **Ομάδα Α:** (?) = $\{B, E\}$
-- **Ομάδα Β:** (?) = $\{B, F\}$
-- **Ομάδα Γ:** (?) = $\{C, E\}$
-- **Ομάδα Δ:** (?) = $\{C, F\}$
+- **Group A:** (?) = $\{B, E\}$
+- **Group B:** (?) = $\{B, F\}$
+- **Group C:** (?) = $\{C, E\}$
+- **Group D:** (?) = $\{C, F\}$
 
-α'. (1 μονάδα) Δείξτε αν τα γραφήματα $G_1$ και $G_2$ είναι ισόμορφα.
+a. (1 point) Show whether the graphs $G_1$ and $G_2$ are isomorphic.
 
-β'. (1 μονάδα) Δείξτε ότι το γράφημα $G_1$ είναι επίπεδο και επαληθεύστε τον τύπο του Euler.
-
----
-
-**Θέμα 7. (0.5 μονάδα)** Γράψτε μία κανονική έκφραση που περιγράφει το σύνολο των συμβολοσειρών με αλφάβητο το $\{0, 1\}$ που περιέχουν:
-
-- **Ομάδα Α:** τουλάχιστον 2 εμφανίσεις του 0
-- **Ομάδα Β:** ακριβώς 3 εμφανίσεις του 1
-- **Ομάδα Γ:** άρτιος αριθμός εμφανίσεων του 0
-- **Ομάδα Δ:** περιττός αριθμός εμφανίσεων του 1
+b. (1 point) Show that the graph $G_1$ is planar and verify Euler's formula.
 
 ---
 
-**Θέμα 8. (0.5 μονάδα)** Γράψτε ποιες από τις συμβολοσειρές $bat, bit, bot, but, bait, boat, bout$ ανήκουν στο κανονικό σύνολο που περιγράφει η ακόλουθη κανονική έκφραση.
+**Topic 7. (0.5 points)** Write a regular expression that describes the set of strings over the alphabet $\{0, 1\}$ that contain:
 
-- **Ομάδα Α:** $b(\epsilon | a)(\epsilon | i)t$
-- **Ομάδα Β:** $bo(\epsilon | a | u)t$
-- **Ομάδα Γ:** $b(\epsilon | o)a(\epsilon | i)t$
-- **Ομάδα Δ:** $b(\epsilon | i)(\epsilon | o | u)t$
-
-**Σημείωση:** Με $\epsilon$ συμβολίζουμε την κενή συμβολοσειρά.
+- **Group A:** at least 2 occurrences of 0
+- **Group B:** exactly 3 occurrences of 1
+- **Group C:** an even number of occurrences of 0
+- **Group D:** an odd number of occurrences of 1
 
 ---
 
-**Θέμα 9. (1 μονάδα)** Δείξτε ότι για κάθε $n \ge 0$ ισχύει η ακόλουθη ισότητα.
+**Topic 8. (0.5 points)** Write which of the strings $bat, bit, bot, but, bait, boat, bout$ belong to the regular set described by the following regular expression.
 
-- **Ομάδα Α:** $1 + 3 + 3^2 + \cdots + 3^n = \frac{3^{n+1} - 1}{2}$
-- **Ομάδα Β:** $1 + 5 + 5^2 + \cdots + 5^n = \frac{5^{n+1} - 1}{4}$
-- **Ομάδα Γ:** $1 + 7 + 7^2 + \cdots + 7^n = \frac{7^{n+1} - 1}{6}$
-- **Ομάδα Δ:** $1 + 11 + 11^2 + \cdots + 11^n = \frac{11^{n+1} - 1}{10}$
+- **Group A:** $b(\epsilon | a)(\epsilon | i)t$
+- **Group B:** $bo(\epsilon | a | u)t$
+- **Group C:** $b(\epsilon | o)a(\epsilon | i)t$
+- **Group D:** $b(\epsilon | i)(\epsilon | o | u)t$
 
-**Σημείωση:** Για κάθε μη μηδενικό αριθμό $a$, ορίζουμε $a^0 = 1$ και $a^1 = a$.
+**Note:** With $\epsilon$ we denote the empty string.
+
+---
+
+**Topic 9. (1 point)** Show that for every $n \ge 0$ the following equality holds.
+
+- **Group A:** $1 + 3 + 3^2 + \cdots + 3^n = \frac{3^{n+1} - 1}{2}$
+- **Group B:** $1 + 5 + 5^2 + \cdots + 5^n = \frac{5^{n+1} - 1}{4}$
+- **Group C:** $1 + 7 + 7^2 + \cdots + 7^n = \frac{7^{n+1} - 1}{6}$
+- **Group D:** $1 + 11 + 11^2 + \cdots + 11^n = \frac{11^{n+1} - 1}{10}$
+
+**Note:** For every non-zero number $a$, we define $a^0 = 1$ and $a^1 = a$.

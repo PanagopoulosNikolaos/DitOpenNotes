@@ -1,56 +1,56 @@
-# Κλειδί Λύσεων — Εικονική Εξέταση 1 (Ευκολότερη)
+# Answer Key — Mock Exam 1 (Easier)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_1_Easier.md`
+> Corresponds to the file: `Mock_Exam_1_Easier.md`
 
 ---
 
-## Θέμα 1 (3 μονάδες) — Πράξεις Συνόλων
+## Topic 1 (3 points) — Set Operations
 
-**Δεδομένα:**
+**Given:**
 - $A = \{1, 2, 3, 4\}$
 - $B = \{3, 4, 5, 6\}$
 - $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8\}$
-- Ζητείται: $(A \cup B)^c \cup (?)$
+- Required: $(A \cup B)^c \cup (?)$
 
-**Βήμα 1 — Υπολογισμός $A \cup B$:**
+**Step 1 — Calculation of $A \cup B$:**
 
 $$A \cup B = \{1, 2, 3, 4, 5, 6\}$$
 
-**Βήμα 2 — Υπολογισμός $(A \cup B)^c$:**
+**Step 2 — Calculation of $(A \cup B)^c$:**
 
-Το συμπλήρωμα ως προς $\Omega$:
+The complement with respect to $\Omega$:
 
 $$(A \cup B)^c = \Omega \setminus (A \cup B) = \{7, 8\}$$
 
-**Βήμα 3 — Υπολογισμός των επιμέρους εκφράσεων ανά Ομάδα:**
+**Step 3 — Calculation of the individual expressions per Group:**
 
-| Σύνολο | Τιμή |
+| Set | Value |
 | :--- | :--- |
 | $A \cap B$ | $\{3, 4\}$ |
 | $A \setminus B$ | $\{1, 2\}$ |
 | $B \setminus A$ | $\{5, 6\}$ |
-| $A \oplus B$ (συμμετρική διαφορά) | $\{1, 2, 5, 6\}$ |
+| $A \oplus B$ (symmetric difference) | $\{1, 2, 5, 6\}$ |
 
-**Βήμα 4 — Τελικό αποτέλεσμα $(A \cup B)^c \cup (?)$ ανά Ομάδα:**
+**Step 4 — Final result $(A \cup B)^c \cup (?)$ per Group:**
 
-- **Ομάδα Α:** $\{7, 8\} \cup \{3, 4\} = \{3, 4, 7, 8\}$
-- **Ομάδα Β:** $\{7, 8\} \cup \{1, 2\} = \{1, 2, 7, 8\}$
-- **Ομάδα Γ:** $\{7, 8\} \cup \{5, 6\} = \{5, 6, 7, 8\}$
-- **Ομάδα Δ:** $\{7, 8\} \cup \{1, 2, 5, 6\} = \{1, 2, 5, 6, 7, 8\}$
+- **Group A:** $\{7, 8\} \cup \{3, 4\} = \{3, 4, 7, 8\}$
+- **Group B:** $\{7, 8\} \cup \{1, 2\} = \{1, 2, 7, 8\}$
+- **Group C:** $\{7, 8\} \cup \{5, 6\} = \{5, 6, 7, 8\}$
+- **Group D:** $\{7, 8\} \cup \{1, 2, 5, 6\} = \{1, 2, 5, 6, 7, 8\}$
 
 ---
 
-## Θέμα 2 (3 μονάδες) — Πίνακες Αληθείας & Ταξινόμηση Τύπου
+## Topic 2 (3 points) — Truth Tables & Type Classification
 
-**Τύπος:** $((p \lor q) \land \neg p) \to (?)$
+**Formula:** $((p \lor q) \land \neg p) \to (?)$
 
-**Παρατήρηση-κλειδί:** Η υπόθεση $((p \lor q) \land \neg p)$ απλοποιείται. Αναλύουμε:
+**Key observation:** The hypothesis $((p \lor q) \land \neg p)$ simplifies. We analyze:
 
 $(p \lor q) \land \neg p \equiv (\neg p \land p) \lor (\neg p \land q) \equiv \bot \lor (\neg p \land q) \equiv \neg p \land q$
 
-Άρα ο τύπος γίνεται: $(\neg p \land q) \to (?)$
+So the formula becomes: $(\neg p \land q) \to (?)$
 
-**Πίνακας Αληθείας (κοινός για όλες τις Ομάδες — η στήλη ($?$) αλλάζει):**
+**Truth Table (common for all Groups — the ($?$) column changes):**
 
 | $p$ | $q$ | $\neg p$ | $p \lor q$ | $(p \lor q) \land \neg p$ | $q$ | $\neg q$ | $p \land q$ | $p \lor q$ |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -59,53 +59,53 @@ $(p \lor q) \land \neg p \equiv (\neg p \land p) \lor (\neg p \land q) \equiv \b
 | T | F | F | T | F | F | T | F | T |
 | T | T | F | T | F | T | F | T | T |
 
-**Αποτέλεσμα ανά Ομάδα** (η συνθήκη είναι αληθής μόνο στη γραμμή $p=F, q=T$):
+**Result per Group** (the condition is true only on the row $p=F, q=T$):
 
-- **Ομάδα Α** — $(?) = q$:
-  Στη γραμμή $p=F, q=T$: υπόθεση = T, συμπέρασμα $q$ = T. Υπόλοιπες γραμμές: υπόθεση = F, άρα ο τύπος = T. **Αποτέλεσμα: Ταυτολογία.**
+- **Group A** — $(?) = q$:
+  On the row $p=F, q=T$: hypothesis = T, conclusion $q$ = T. Remaining rows: hypothesis = F, so the formula = T. **Result: Tautology.**
 
-- **Ομάδα Β** — $(?) = \neg q$:
-  Στη γραμμή $p=F, q=T$: υπόθεση = T, συμπέρασμα $\neg q$ = F. Ο τύπος = F. **Αποτέλεσμα: Ενδεχομενικότητα (contingency).**
+- **Group B** — $(?) = \neg q$:
+  On the row $p=F, q=T$: hypothesis = T, conclusion $\neg q$ = F. The formula = F. **Result: Contingency.**
 
-- **Ομάδα Γ** — $(?) = p \land q$:
-  Στη γραμμή $p=F, q=T$: υπόθεση = T, συμπέρασμα $p \land q = F \land T$ = F. Ο τύπος = F. **Αποτέλεσμα: Ενδεχομενικότητα.**
+- **Group C** — $(?) = p \land q$:
+  On the row $p=F, q=T$: hypothesis = T, conclusion $p \land q = F \land T$ = F. The formula = F. **Result: Contingency.**
 
-- **Ομάδα Δ** — $(?) = p \lor q$:
-  Στη γραμμή $p=F, q=T$: υπόθεση = T, συμπέρασμα $p \lor q = F \lor T$ = T. Υπόλοιπες γραμμές: υπόθεση = F. **Αποτέλεσμα: Ταυτολογία.**
+- **Group D** — $(?) = p \lor q$:
+  On the row $p=F, q=T$: hypothesis = T, conclusion $p \lor q = F \lor T$ = T. Remaining rows: hypothesis = F. **Result: Tautology.**
 
 ---
 
-## Θέμα 3 (4 μονάδες) — Γραφήματα & Βαθμοί Κορυφών
+## Topic 3 (4 points) — Graphs & Vertex Degrees
 
-**Δεδομένα:** $G = (V, E)$, $V = \{v_1, v_2, v_3, v_4, v_5\}$, βαθμοί $= \{2, 2, 2, 3, (?)\}$.
+**Given:** $G = (V, E)$, $V = \{v_1, v_2, v_3, v_4, v_5\}$, degrees $= \{2, 2, 2, 3, (?)\}$.
 
-**Θεώρημα χειραψιών (Handshaking Lemma):**
+**Handshaking Lemma:**
 $$\sum_{i=1}^{n} \deg(v_i) = 2|E|$$
-Άρα το άθροισμα των βαθμών πρέπει να είναι **άρτιο**.
+So the sum of the degrees must be **even**.
 
-**Επίσης:** Σε απλό γράφημα με $n = 5$ κορυφές, ο μέγιστος βαθμός οποιασδήποτε κορυφής είναι $n - 1 = 4$.
+**Also:** In a simple graph with $n = 5$ vertices, the maximum degree of any vertex is $n - 1 = 4$.
 
-**Ανάλυση ανά Ομάδα:**
+**Analysis per Group:**
 
-- **Ομάδα Α** — $(?) = 1$:
-  Άθροισμα $= 2+2+2+3+1 = 10$ (άρτιο). Ακμές $= 10/2 = 5$.
-  Υπάρχει γράφημα; Το ακολουθιακό βαθμών $(3, 2, 2, 2, 1)$ ικανοποιεί το θεώρημα Erdos-Gallai; Ναι. **Γράφημα υπάρχει, ακμές = 5.**
+- **Group A** — $(?) = 1$:
+  Sum $= 2+2+2+3+1 = 10$ (even). Edges $= 10/2 = 5$.
+  Does a graph exist? Does the degree sequence $(3, 2, 2, 2, 1)$ satisfy the Erdős–Gallai theorem? Yes. **The graph exists, edges = 5.**
 
-- **Ομάδα Β** — $(?) = 3$:
-  Άθροισμα $= 2+2+2+3+3 = 12$ (άρτιο). Ακμές $= 12/2 = 6$.
-  Ακολουθία $(3, 3, 2, 2, 2)$: επαληθεύεται. **Γράφημα υπάρχει, ακμές = 6.**
+- **Group B** — $(?) = 3$:
+  Sum $= 2+2+2+3+3 = 12$ (even). Edges $= 12/2 = 6$.
+  Sequence $(3, 3, 2, 2, 2)$: verified. **The graph exists, edges = 6.**
 
-- **Ομάδα Γ** — $(?) = 5$:
-  **Παγίδα!** Σε απλό γράφημα με 5 κορυφές, $\deg_{\max} \le 4$. Βαθμός 5 είναι αδύνατος.
-  **Γράφημα ΔΕΝ υπάρχει.**
+- **Group C** — $(?) = 5$:
+  **Trap!** In a simple graph with 5 vertices, $\deg_{\max} \le 4$. A degree of 5 is impossible.
+  **The graph does NOT exist.**
 
-- **Ομάδα Δ** — $(?) = 7$:
-  **Παγίδα!** Βαθμός 7 σε γράφημα με 5 κορυφές είναι αδύνατος ($\deg_{\max} \le 4$).
-  **Γράφημα ΔΕΝ υπάρχει.**
+- **Group D** — $(?) = 7$:
+  **Trap!** A degree of 7 in a graph with 5 vertices is impossible ($\deg_{\max} \le 4$).
+  **The graph does NOT exist.**
 
-**Παράδειγμα γραφήματος για Ομάδα Α** (βαθμοί 3, 2, 2, 2, 1):
-- $v_1$: συνδέεται με $v_2, v_3, v_4$ (βαθμός 3)
-- $v_2$: συνδέεται με $v_1, v_5$ (βαθμός 2)
-- $v_3$: συνδέεται με $v_1, v_4$ (βαθμός 2)
-- $v_4$: συνδέεται με $v_1, v_3$ (βαθμός 2)
-- $v_5$: συνδέεται με $v_2$ (βαθμός 1)
+**Example graph for Group A** (degrees 3, 2, 2, 2, 1):
+- $v_1$: connected to $v_2, v_3, v_4$ (degree 3)
+- $v_2$: connected to $v_1, v_5$ (degree 2)
+- $v_3$: connected to $v_1, v_4$ (degree 2)
+- $v_4$: connected to $v_1, v_3$ (degree 2)
+- $v_5$: connected to $v_2$ (degree 1)

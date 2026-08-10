@@ -386,19 +386,19 @@ SOS:
 |1|1|0|1|0|0|**1**|
 |1|1|1|1|1|1|**1**|
 
-Παρατηρούμε από την τελική στήλη (F) ότι η έκφραση είναι πάντα αληθής (1) για κάθε συνδυασμό. Αυτό από μόνο του αποδεικνύει ότι είναι ταυτολογία. Ας το επιβεβαιώσουμε όμως και με τον χάρτη Karnaugh.
+We observe from the final column (F) that the expression is always true (1) for every combination. This alone proves it is a tautology. Let us also confirm it with the Karnaugh map.
 
-### Βήμα 2: Δημιουργία του Χάρτη Karnaugh (K-map)
+### Step 2: Creating the Karnaugh Map (K-map)
 
-Τώρα, θα μεταφέρουμε τις τιμές της τελικής στήλης (F) σε έναν χάρτη Karnaugh 3 μεταβλητών. Ο χάρτης αντιστοιχεί τις τιμές των μεταβλητών στα κελιά του. Η σειρά των στηλών (qr) ακολουθεί τον κώδικα Gray (00, 01, 11, 10), όπου μόνο ένα bit αλλάζει μεταξύ γειτονικών στηλών.
+Now we transfer the values of the final column (F) into a 3-variable Karnaugh map. The map maps the values of the variables onto its cells. The order of the columns (qr) follows the Gray code (00, 01, 11, 10), where only one bit changes between neighboring columns.
 
-Κάθε κελί του χάρτη αντιστοιχεί σε μία γραμμή του πίνακα αληθείας:
+Each cell of the map corresponds to one row of the truth table:
 
-- (p,q,r) = (0,0,0) → κελί p=0, qr=00
-- (p,q,r) = (0,0,1) → κελί p=0, qr=01
-- ... και ούτω καθεξής.
+- (p,q,r) = (0,0,0) → cell p=0, qr=00
+- (p,q,r) = (0,0,1) → cell p=0, qr=01
+- ... and so on.
 
-Ο χάρτης μας θα γεμίσει ως εξής:
+Our map will be filled as follows:
 
 ```
       qr
@@ -410,20 +410,20 @@ p   \  00  01  11  10
      +---+---+---+---+
 ```
 
-### Βήμα 3: Ομαδοποίηση και Απλοποίηση
+### Step 3: Grouping and Simplification
 
-Ο σκοπός του χάρτη Karnaugh είναι να δημιουργήσουμε τις μεγαλύτερες δυνατές ορθογώνιες ομάδες από '1' (με μέγεθος που είναι δύναμη του 2, δηλαδή 1, 2, 4, 8, ...).
+The purpose of the Karnaugh map is to create the largest possible rectangular groups of '1' (with a size that is a power of 2, i.e. 1, 2, 4, 8, ...).
 
-Σε αυτή την περίπτωση, βλέπουμε ότι **όλα τα κελιά του χάρτη περιέχουν '1'**. Μπορούμε να δημιουργήσουμε μία μεγάλη ομάδα που τα περιλαμβάνει όλα (μια ομάδα των 8).
+In this case, we see that **all the cells of the map contain '1'**. We can create one large group that includes all of them (a group of 8).
 
-Κανόνας απλοποίησης:
+Simplification rule:
 
-Όταν μια ομάδα καλύπτει ολόκληρο τον χάρτη, σημαίνει ότι η τιμή της συνάρτησης είναι '1' ανεξάρτητα από τις τιμές των μεταβλητών εισόδου (p,q,r). Κάθε μεταβλητή εμφανίζεται τόσο στην κανονική της μορφή (π.χ., p) όσο και στην αντεστραμμένη της (¬p) μέσα στην ομάδα, με αποτέλεσμα να "ακυρώνεται".
+When a group covers the entire map, it means that the value of the function is '1' regardless of the values of the input variables (p,q,r). Each variable appears both in its normal form (e.g., p) and in its inverted form (¬p) within the group, with the result that they "cancel out".
 
-Η απλοποιημένη έκφραση για μια ομάδα που καλύπτει ολόκληρο τον χάρτη είναι απλώς:
+The simplified expression for a group covering the entire map is simply:
 
 F=1
 
-### Συμπέρασμα
+### Conclusion
 
-Η απλοποίηση μέσω του χάρτη Karnaugh μας δίνει το αποτέλεσμα `1` (που αντιστοιχεί στο `T` / Αληθής). Αφού η τελική, απλούστερη ισοδύναμη έκφραση είναι `T`, επιβεβαιώνεται ότι ο αρχικός τύπος **είναι ταυτολογία**.
+The simplification via the Karnaugh map gives the result `1` (which corresponds to `T` / True). Since the final, simplest equivalent expression is `T`, it is confirmed that the original formula **is a tautology**.

@@ -1,169 +1,168 @@
-
 ---
 
-## **Κεφάλαιο 0: Μαθηματική Επαγωγή**
+## **Chapter 0: Mathematical Induction**
 
-### **Θεωρητικό Υπόβαθρο**
+### **Theoretical Background**
 
-Η **αρχή της μαθηματικής επαγωγής** είναι một ισχυρή αποδεικτική τεχνική που χρησιμοποιείται για να αποδειχθεί ότι μια πρόταση $P(n)$ ισχύει για όλους τους φυσικούς αριθμούς $n$ που είναι μεγαλύτεροι ή ίσοι με έναν αρχικό αριθμό $n_0$.
+The **principle of mathematical induction** is a powerful proof technique used to prove that a statement $P(n)$ holds for all natural numbers $n$ that are greater than or equal to an initial number $n_0$.
 
-Η απόδειξη με μαθηματική επαγωγή αποτελείται από δύο βασικά βήματα:
+A proof by mathematical induction consists of two basic steps:
 
-1.  **Βάση της Επαγωγής (Base Case):**
-	    Δείχνουμε ότι η πρόταση $P(n)$ ισχύει για την αρχική τιμή $n = n_0$. Αυτό το βήμα είναι θεμελιώδες, καθώς αποτελεί το "πρώτο ντόμινο" που πέφτει.
+1.  **Base Case:**
+	    We show that the statement $P(n)$ holds for the initial value $n = n_0$. This step is fundamental, as it constitutes the "first domino" that falls.
 
-2.  **Επαγωγικό Βήμα (Inductive Step):**
-    Αποτελείται από δύο μέρη:
-    *   **Επαγωγική Υπόθεση (Inductive Hypothesis):** Υποθέτουμε ότι η πρόταση $P(k)$ ισχύει για έναν τυχαίο, αυθαίρετο ακέραιο $k \ge n_0$.
-    *   **Επαγωγικό Συμπέρασμα (Inductive Conclusion):** Χρησιμοποιώντας την επαγωγική υπόθεση, αποδεικνύουμε ότι η πρόταση ισχύει και για τον επόμενο ακέραιο, δηλαδή ότι ισχύει η $P(k+1)$.
+2.  **Inductive Step:**
+    It consists of two parts:
+    *   **Inductive Hypothesis:** We assume that the statement $P(k)$ holds for an arbitrary integer $k \ge n_0$.
+    *   **Inductive Conclusion:** Using the inductive hypothesis, we prove that the statement also holds for the next integer, that is, that $P(k+1)$ holds.
 
-Αν και τα δύο αυτά βήματα ολοκληρωθούν επιτυχώς, τότε σύμφωνα με την αρχή της μαθηματικής επαγωγής, η πρόταση $P(n)$ ισχύει για κάθε ακέραιο $n \ge n_0$.
+If both of these steps are completed successfully, then according to the principle of mathematical induction, the statement $P(n)$ holds for every integer $n \ge n_0$.
 
 ```mermaid
 graph TD
-    A["Βάση: Δείξε ότι ισχύει η P(n₀)"] --> B{"Επαγωγικό Βήμα"};
-    B --> C["Υπόθεση: Υπόθεσε ότι ισχύει η P(k) για k ≥ n₀"];
-    C --> D["Απόδειξη: Δείξε ότι ισχύει η P(k+1)"];
-    D --> E["Συμπέρασμα: Η P(n) ισχύει για όλα τα n ≥ n₀"];
+    A["Base: Show that P(n₀) holds"] --> B{"Inductive Step"};
+    B --> C["Hypothesis: Assume P(k) holds for k ≥ n₀"];
+    C --> D["Proof: Show that P(k+1) holds"];
+    D --> E["Conclusion: P(n) holds for all n ≥ n₀"];
 ```
 
 ---
 
-### **Λύσεις Ασκήσεων**
+### **Exercise Solutions**
 
-#### **Άσκηση 0.1**
-Δείξτε ότι για κάθε $n \ge 1$ ισχύει η ακόλουθη ισότητα:
+#### **Exercise 0.1**
+Show that for every $n \ge 1$ the following equality holds:
 $$ 1^2 + 2^2 + 3^2 + \dots + n^2 = \frac{n(n + 1)(2n + 1)}{6} $$
 
-**Λύση:**
+**Solution:**
 
-Έστω $P(n)$ η πρόταση: $\sum_{i=1}^{n} i^2 = \frac{n(n + 1)(2n + 1)}{6}$.
+Let $P(n)$ be the statement: $\sum_{i=1}^{n} i^2 = \frac{n(n + 1)(2n + 1)}{6}$.
 
-1.  **Βάση της Επαγωγής (για $n=1$):**
-    *   Αριστερό μέλος: $1^2 = 1$.
-    *   Δεξιό μέλος: $\frac{1(1 + 1)(2 \cdot 1 + 1)}{6} = \frac{1 \cdot 2 \cdot 3}{6} = \frac{6}{6} = 1$.
-    *   Αφού $1=1$, η πρόταση $P(1)$ ισχύει.
+1.  **Base Case (for $n=1$):**
+    *   Left-hand side: $1^2 = 1$.
+    *   Right-hand side: $\frac{1(1 + 1)(2 \cdot 1 + 1)}{6} = \frac{1 \cdot 2 \cdot 3}{6} = \frac{6}{6} = 1$.
+    *   Since $1=1$, the statement $P(1)$ holds.
 
-2.  **Επαγωγικό Βήμα:**
-    *   **Επαγωγική Υπόθεση:** Υποθέτουμε ότι η $P(k)$ ισχύει για κάποιον ακέραιο $k \ge 1$. Δηλαδή, υποθέτουμε ότι:
+2.  **Inductive Step:**
+    *   **Inductive Hypothesis:** We assume that $P(k)$ holds for some integer $k \ge 1$. That is, we assume that:
         $$ 1^2 + 2^2 + \dots + k^2 = \frac{k(k + 1)(2k + 1)}{6} $$
-    *   **Επαγωγικό Συμπέρασμα:** Θα δείξουμε ότι ισχύει η $P(k+1)$, δηλαδή:
+    *   **Inductive Conclusion:** We will show that $P(k+1)$ holds, that is:
         $$ 1^2 + 2^2 + \dots + k^2 + (k+1)^2 = \frac{(k+1)((k+1) + 1)(2(k+1) + 1)}{6} $$
         $$ 1^2 + 2^2 + \dots + k^2 + (k+1)^2 = \frac{(k+1)(k + 2)(2k + 3)}{6} $$
 
-    Ξεκινάμε από το αριστερό μέλος της $P(k+1)$ και χρησιμοποιούμε την επαγωγική υπόθεση:
+    We start from the left-hand side of $P(k+1)$ and use the inductive hypothesis:
     $$ (1^2 + 2^2 + \dots + k^2) + (k+1)^2 = \left( \frac{k(k + 1)(2k + 1)}{6} \right) + (k+1)^2 $$
-    Βγάζουμε κοινό παράγοντα το $(k+1)$:
+    We factor out the common factor $(k+1)$:
     $$ = (k+1) \left[ \frac{k(2k + 1)}{6} + (k+1) \right] $$
     $$ = (k+1) \left[ \frac{2k^2 + k}{6} + \frac{6(k+1)}{6} \right] $$
     $$ = (k+1) \left[ \frac{2k^2 + k + 6k + 6}{6} \right] $$
     $$ = (k+1) \left[ \frac{2k^2 + 7k + 6}{6} \right] $$
-    Το τριώνυμο $2k^2 + 7k + 6$ έχει ρίζες $k = \frac{-7 \pm \sqrt{49 - 4 \cdot 2 \cdot 6}}{4} = \frac{-7 \pm 1}{4}$, δηλαδή $k_1 = -2$ και $k_2 = -3/2$. Επομένως, παραγοντοποιείται ως $2(k+2)(k+3/2) = (k+2)(2k+3)$. Αντικαθιστώντας:
+    The trinomial $2k^2 + 7k + 6$ has roots $k = \frac{-7 \pm \sqrt{49 - 4 \cdot 2 \cdot 6}}{4} = \frac{-7 \pm 1}{4}$, that is, $k_1 = -2$ and $k_2 = -3/2$. Therefore, it factors as $2(k+2)(k+3/2) = (k+2)(2k+3)$. Substituting:
     $$ = \frac{(k+1)(k + 2)(2k + 3)}{6} $$
-    Αυτό είναι ακριβώς το δεξιό μέλος της $P(k+1)$.
+    This is exactly the right-hand side of $P(k+1)$.
 
-Εφόσον η βάση και το επαγωγικό βήμα ισχύουν, η πρόταση $P(n)$ ισχύει για κάθε $n \ge 1$.
+Since the base case and the inductive step hold, the statement $P(n)$ holds for every $n \ge 1$.
 
 ---
 
-#### **Άσκηση 0.2**
-Δείξτε ότι για κάθε $n \ge 3$ ισχύει η ακόλουθη ανισότητα: $2n + 3 \le n^2$.
+#### **Exercise 0.2**
+Show that for every $n \ge 3$ the following inequality holds: $2n + 3 \le n^2$.
 
-**Λύση:**
+**Solution:**
 
-Έστω $P(n)$ η πρόταση: $2n + 3 \le n^2$.
+Let $P(n)$ be the statement: $2n + 3 \le n^2$.
 
-1.  **Βάση της Επαγωγής (για $n=3$):**
-    *   Αριστερό μέλος: $2 \cdot 3 + 3 = 6 + 3 = 9$.
-    *   Δεξιό μέλος: $3^2 = 9$.
-    *   Αφού $9 \le 9$, η πρόταση $P(3)$ ισχύει.
+1.  **Base Case (for $n=3$):**
+    *   Left-hand side: $2 \cdot 3 + 3 = 6 + 3 = 9$.
+    *   Right-hand side: $3^2 = 9$.
+    *   Since $9 \le 9$, the statement $P(3)$ holds.
 
-2.  **Επαγωγικό Βήμα:**
-    *   **Επαγωγική Υπόθεση:** Υποθέτουμε ότι η $P(k)$ ισχύει για κάποιον ακέραιο $k \ge 3$. Δηλαδή:
+2.  **Inductive Step:**
+    *   **Inductive Hypothesis:** We assume that $P(k)$ holds for some integer $k \ge 3$. That is:
         $$ 2k + 3 \le k^2 $$
-    *   **Επαγωγικό Συμπέρασμα:** Θα δείξουμε ότι ισχύει η $P(k+1)$, δηλαδή:
+    *   **Inductive Conclusion:** We will show that $P(k+1)$ holds, that is:
         $$ 2(k+1) + 3 \le (k+1)^2 $$
         $$ 2k + 2 + 3 \le k^2 + 2k + 1 $$
         $$ 2k + 5 \le k^2 + 2k + 1 $$
 
-    Ξεκινάμε από το αριστερό μέλος της $P(k+1)$:
+    We start from the left-hand side of $P(k+1)$:
     $$ 2(k+1) + 3 = (2k+3) + 2 $$
-    Από την επαγωγική υπόθεση, γνωρίζουμε ότι $2k+3 \le k^2$. Άρα:
+    From the inductive hypothesis, we know that $2k+3 \le k^2$. Therefore:
     $$ (2k+3) + 2 \le k^2 + 2 $$
-    Τώρα, θέλουμε να δείξουμε ότι $k^2 + 2 \le (k+1)^2$ για $k \ge 3$.
+    Now, we want to show that $k^2 + 2 \le (k+1)^2$ for $k \ge 3$.
     $$ k^2 + 2 \le k^2 + 2k + 1 $$
     $$ 2 \le 2k + 1 $$
     $$ 1 \le 2k $$
-    Η ανισότητα $1 \le 2k$ είναι αληθής για κάθε $k \ge 3$.
-    Επομένως, έχουμε δείξει ότι $2(k+1)+3 \le k^2+2 \le (k+1)^2$, το οποίο συνεπάγεται $2(k+1)+3 \le (k+1)^2$.
+    The inequality $1 \le 2k$ is true for every $k \ge 3$.
+    Therefore, we have shown that $2(k+1)+3 \le k^2+2 \le (k+1)^2$, which implies $2(k+1)+3 \le (k+1)^2$.
 
-Εφόσον η βάση και το επαγωγικό βήμα ισχύουν, η πρόταση $P(n)$ ισχύει για κάθε $n \ge 3$.
-
----
-
-## **Κεφάλαιο 5: Σχέσεις**
-
-### **Θεωρητικό Υπόβαθρο**
-
-Μια **διμελής σχέση** $R$ σε ένα σύνολο $S$ είναι ένα υποσύνολο του καρτεσιανού γινομένου $S \times S$. Αν $(a, b) \in R$, λέμε ότι το $a$ σχετίζεται με το $b$.
-
-Μια σχέση $R$ σε ένα σύνολο $S$ μπορεί να έχει τις ακόλουθες ιδιότητες:
-*   **Ανακλαστική (Reflexive):** Για κάθε στοιχείο $a \in S$, ισχύει $(a, a) \in R$.
-*   **Συμμετρική (Symmetric):** Αν $(a, b) \in R$, τότε και $(b, a) \in R$.
-*   **Αντισυμμετρική (Antisymmetric):** Αν $(a, b) \in R$ και $(b, a) \in R$, τότε $a=b$.
-*   **Μεταβατική (Transitive):** Αν $(a, b) \in R$ και $(b, c) \in R$, τότε και $(a, c) \in R$.
-
-Ένα **μερικώς διατεταγμένο σύνολο (poset)** είναι ένα ζεύγος $(S, R)$ όπου $S$ είναι ένα σύνολο και $R$ είναι μια σχέση μερικής διάταξης, δηλαδή μια σχέση που είναι ανακλαστική, αντισυμμετρική και μεταβατική.
-
-Σε ένα poset $(S, R)$, ορίζουμε τα εξής στοιχεία:
-*   **Ελαχιστικό (Minimal):** Ένα στοιχείο $a \in S$ είναι ελαχιστικό αν δεν υπάρχει άλλο στοιχείο $x \in S$ τέτοιο ώστε $(x, a) \in R$ και $x \ne a$.
-*   **Μεγιστικό (Maximal):** Ένα στοιχείο $a \in S$ είναι μεγιστικό αν δεν υπάρχει άλλο στοιχείο $x \in S$ τέτοιο ώστε $(a, x) \in R$ και $x \ne a$.
-*   **Ελάχιστο (Minimum):** Ένα στοιχείο $a \in S$ είναι το ελάχιστο αν για κάθε $x \in S$ ισχύει $(a, x) \in R$. Είναι μοναδικό, αν υπάρχει.
-*   **Μέγιστο (Maximum):** Ένα στοιχείο $a \in S$ είναι το μέγιστο αν για κάθε $x \in S$ ισχύει $(x, a) \in R$. Είναι μοναδικό, αν υπάρχει.
+Since the base case and the inductive step hold, the statement $P(n)$ holds for every $n \ge 3$.
 
 ---
 
-### **Λύσεις Ασκήσεων**
+## **Chapter 5: Relations**
 
-#### **Άσκηση 5.1**
-Έστω $S = \{1, 2, 3\}$. Για καθεμία από τις σχέσεις επί του $S$, ελέγξτε τις ιδιότητες.
+### **Theoretical Background**
 
-**α. $R = \{(1, 1),(1, 2),(2, 3),(1, 3)\}$**
+A **binary relation** $R$ on a set $S$ is a subset of the Cartesian product $S \times S$. If $(a, b) \in R$, we say that $a$ is related to $b$.
 
-*   **Ανακλαστική:** Όχι. Λείπουν τα $(2, 2)$ και $(3, 3)$.
-*   **Συμμετρική:** Όχι. Έχουμε το $(1, 2)$ αλλά όχι το $(2, 1)$.
-*   **Αντισυμμετρική:** Ναι. Δεν υπάρχει κανένα ζεύγος $(a, b)$ και $(b, a)$ με $a \ne b$.
-*   **Μεταβατική:** Ναι. Έχουμε $(1, 2) \in R$ και $(2, 3) \in R$, και επίσης έχουμε το $(1, 3) \in R$. Δεν υπάρχουν άλλες τέτοιες περιπτώσεις για έλεγχο.
+A relation $R$ on a set $S$ can have the following properties:
+*   **Reflexive:** For every element $a \in S$, $(a, a) \in R$ holds.
+*   **Symmetric:** If $(a, b) \in R$, then $(b, a) \in R$ also holds.
+*   **Antisymmetric:** If $(a, b) \in R$ and $(b, a) \in R$, then $a=b$.
+*   **Transitive:** If $(a, b) \in R$ and $(b, c) \in R$, then $(a, c) \in R$ also holds.
 
-**β. $R = \{(1, 1),(1, 2),(2, 3),(3, 1),(1, 3)\}$**
+A **partially ordered set (poset)** is a pair $(S, R)$ where $S$ is a set and $R$ is a partial order relation, that is, a relation that is reflexive, antisymmetric and transitive.
 
-*   **Ανακλαστική:** Όχι. Λείπουν τα $(2, 2)$ και $(3, 3)$.
-*   **Συμμετρική:** Όχι. Έχουμε το $(1, 2)$ αλλά όχι το $(2, 1)$.
-*   **Αντισυμμετρική:** Όχι. Έχουμε το $(1, 3)$ και το $(3, 1)$, αλλά $1 \ne 3$.
-*   **Μεταβατική:** Όχι. Έχουμε $(3, 1) \in R$ και $(1, 2) \in R$, αλλά λείπει το $(3, 2)$.
-
-**γ. $R = \{(1, 3),(3, 3),(3, 1),(2, 2),(2, 3),(1, 1),(1, 2)\}$**
-
-*   **Ανακλαστική:** Ναι. Περιέχει τα $(1, 1), (2, 2), (3, 3)$.
-*   **Συμμετρική:** Όχι. Έχουμε το $(1, 2)$ αλλά όχι το $(2, 1)$. Έχουμε το $(2, 3)$ αλλά όχι το $(3, 2)$.
-*   **Αντισυμμετρική:** Όχι. Έχουμε το $(1, 3)$ και το $(3, 1)$, αλλά $1 \ne 3$.
-*   **Μεταβατική:** Όχι. Έχουμε $(2, 3) \in R$ και $(3, 1) \in R$, αλλά λείπει το $(2, 1)$.
-
-**δ. $R = \{(1, 1),(3, 3),(2, 2)\}$ (Σχέση ταυτότητας)**
-
-*   **Ανακλαστική:** Ναι. Περιέχει τα $(1, 1), (2, 2), (3, 3)$.
-*   **Συμμετρική:** Ναι. Για κάθε $(a, a) \in R$, το "αντίστροφό" του είναι το ίδιο το $(a, a)$, που ανήκει στην $R$.
-*   **Αντισυμμετρική:** Ναι. Αν $(a, b) \in R$ και $(b, a) \in R$, τότε αναγκαστικά $a=b$.
-*   **Μεταβατική:** Ναι. Αν $(a, a) \in R$ και $(a, a) \in R$, τότε το $(a, a)$ είναι στην $R$.
+In a poset $(S, R)$, we define the following elements:
+*   **Minimal:** An element $a \in S$ is minimal if there is no other element $x \in S$ such that $(x, a) \in R$ and $x \ne a$.
+*   **Maximal:** An element $a \in S$ is maximal if there is no other element $x \in S$ such that $(a, x) \in R$ and $x \ne a$.
+*   **Minimum:** An element $a \in S$ is the minimum if for every $x \in S$, $(a, x) \in R$ holds. It is unique, if it exists.
+*   **Maximum:** An element $a \in S$ is the maximum if for every $x \in S$, $(x, a) \in R$ holds. It is unique, if it exists.
 
 ---
 
-#### **Άσκηση 5.2**
-Προσδιορίστε τα ελαχιστικά, μεγιστικά, ελάχιστα και μέγιστα στοιχεία.
+### **Exercise Solutions**
 
-**α. $(S = \{a, b, c\}, R = \{(a, a),(b, b),(c, c),(a, b),(b, c),(a, c)\})$**
+#### **Exercise 5.1**
+Let $S = \{1, 2, 3\}$. For each of the relations on $S$, check the properties.
 
-Η σχέση $R$ είναι ανακλαστική, αντισυμμετρική και μεταβατική (αφού $(a,b)$ και $(b,c)$ συνεπάγεται $(a,c)$), άρα είναι σχέση μερικής διάταξης. Το διάγραμμα Hasse για αυτή τη σχέση είναι μια απλή αλυσίδα.
+**a. $R = \{(1, 1),(1, 2),(2, 3),(1, 3)\}$**
+
+*   **Reflexive:** No. The pairs $(2, 2)$ and $(3, 3)$ are missing.
+*   **Symmetric:** No. We have $(1, 2)$ but not $(2, 1)$.
+*   **Antisymmetric:** Yes. There is no pair $(a, b)$ and $(b, a)$ with $a \ne b$.
+*   **Transitive:** Yes. We have $(1, 2) \in R$ and $(2, 3) \in R$, and we also have $(1, 3) \in R$. There are no other such cases to check.
+
+**b. $R = \{(1, 1),(1, 2),(2, 3),(3, 1),(1, 3)\}$**
+
+*   **Reflexive:** No. The pairs $(2, 2)$ and $(3, 3)$ are missing.
+*   **Symmetric:** No. We have $(1, 2)$ but not $(2, 1)$.
+*   **Antisymmetric:** No. We have $(1, 3)$ and $(3, 1)$, but $1 \ne 3$.
+*   **Transitive:** No. We have $(3, 1) \in R$ and $(1, 2) \in R$, but $(3, 2)$ is missing.
+
+**c. $R = \{(1, 3),(3, 3),(3, 1),(2, 2),(2, 3),(1, 1),(1, 2)\}$**
+
+*   **Reflexive:** Yes. It contains $(1, 1), (2, 2), (3, 3)$.
+*   **Symmetric:** No. We have $(1, 2)$ but not $(2, 1)$. We have $(2, 3)$ but not $(3, 2)$.
+*   **Antisymmetric:** No. We have $(1, 3)$ and $(3, 1)$, but $1 \ne 3$.
+*   **Transitive:** No. We have $(2, 3) \in R$ and $(3, 1) \in R$, but $(2, 1)$ is missing.
+
+**d. $R = \{(1, 1),(3, 3),(2, 2)\}$ (Identity relation)**
+
+*   **Reflexive:** Yes. It contains $(1, 1), (2, 2), (3, 3)$.
+*   **Symmetric:** Yes. For every $(a, a) \in R$, its "reverse" is the pair $(a, a)$ itself, which belongs to $R$.
+*   **Antisymmetric:** Yes. If $(a, b) \in R$ and $(b, a) \in R$, then necessarily $a=b$.
+*   **Transitive:** Yes. If $(a, a) \in R$ and $(a, a) \in R$, then $(a, a)$ is in $R$.
+
+---
+
+#### **Exercise 5.2**
+Determine the minimal, maximal, minimum and maximum elements.
+
+**a. $(S = \{a, b, c\}, R = \{(a, a),(b, b),(c, c),(a, b),(b, c),(a, c)\})$**
+
+The relation $R$ is reflexive, antisymmetric and transitive (since $(a,b)$ and $(b,c)$ imply $(a,c)$), so it is a partial order relation. The Hasse diagram for this relation is a simple chain.
 
 ```mermaid
 graph TD
@@ -172,15 +171,15 @@ graph TD
     a --> b
 ```
 
-Από το διάγραμμα Hasse:
-*   **Ελαχιστικά στοιχεία:** $\{a\}$ (κανένα στοιχείο δεν είναι "μικρότερο" από το a).
-*   **Μεγιστικά στοιχεία:** $\{c\}$ (κανένα στοιχείο δεν είναι "μεγαλύτερο" από το c).
-*   **Ελάχιστο στοιχείο:** $a$ (επειδή είναι το μοναδικό ελαχιστικό).
-*   **Μέγιστο στοιχείο:** $c$ (επειδή είναι το μοναδικό μεγιστικό).
+From the Hasse diagram:
+*   **Minimal elements:** $\{a\}$ (no element is "smaller" than a).
+*   **Maximal elements:** $\{c\}$ (no element is "greater" than c).
+*   **Minimum element:** $a$ (because it is the only minimal).
+*   **Maximum element:** $c$ (because it is the only maximal).
 
-**β. $(S = \{a, b, c, d\}, R = \{(a, a),(b, b),(c, c),(d, d),(a, b),(a, c)\})$**
+**b. $(S = \{a, b, c, d\}, R = \{(a, a),(b, b),(c, c),(d, d),(a, b),(a, c)\})$**
 
-Η σχέση είναι ανακλαστική, αντισυμμετρική και μεταβατική. Το διάγραμμα Hasse της είναι:
+The relation is reflexive, antisymmetric and transitive. Its Hasse diagram is:
 
 ```mermaid
 graph TD
@@ -191,153 +190,153 @@ graph TD
     d
 ```
 
-Από το διάγραμμα Hasse:
-*   **Ελαχιστικά στοιχεία:** $\{a, d\}$ (δεν υπάρχει στοιχείο "μικρότερο" από το $a$ ή το $d$).
-*   **Μεγιστικά στοιχεία:** $\{b, c, d\}$ (δεν υπάρχει στοιχείο "μεγαλύτερο" από τα $b, c$ ή $d$).
-*   **Ελάχιστο στοιχείο:** Δεν υπάρχει. Για να υπάρχει, θα έπρεπε να είναι ένα και μοναδικό ελαχιστικό στοιχείο. Εδώ έχουμε δύο ($a$ και $d$).
-*   **Μέγιστο στοιχείο:** Δεν υπάρχει. Για να υπάρχει, θα έπρεπε να είναι ένα και μοναδικό μεγιστικό στοιχείο. Εδώ έχουμε τρία ($b, c$ και $d$).
+From the Hasse diagram:
+*   **Minimal elements:** $\{a, d\}$ (there is no element "smaller" than $a$ or $d$).
+*   **Maximal elements:** $\{b, c, d\}$ (there is no element "greater" than $b, c$ or $d$).
+*   **Minimum element:** None. For it to exist, there would need to be one and only one minimal element. Here we have two ($a$ and $d$).
+*   **Maximum element:** None. For it to exist, there would need to be one and only one maximal element. Here we have three ($b, c$ and $d$).
 
 ---
 
-## **Κεφάλαιο 6: Θεωρία Γραφημάτων**
+## **Chapter 6: Graph Theory**
 
-### **Θεωρητικό Υπόβαθρο**
+### **Theoretical Background**
 
-*   **Ισομορφισμός Γραφημάτων:** Δύο γραφήματα $G_1 = (V_1, E_1)$ και $G_2 = (V_2, E_2)$ είναι **ισόμορφα** αν υπάρχει μια αμφιμονοσήμαντη (1-1 και επί) συνάρτηση $f: V_1 \to V_2$ τέτοια ώστε για κάθε ζεύγος κορυφών $u, v \in V_1$, η ακμή $\{u, v\}$ υπάρχει στην $E_1$ αν και μόνο αν η ακμή $\{f(u), f(v)\}$ υπάρχει στην $E_2$.
-    Για να δείξουμε ότι δύο γραφήματα **δεν** είναι ισόμορφα, αρκεί να βρούμε μια ιδιότητα (αναλλοίωτη) που διαφέρει μεταξύ τους, όπως:
-    *   Αριθμός κορυφών ($|V|$)
-    *   Αριθμός ακμών ($|E|$)
-    *   Ακολουθία βαθμών (η λίστα των βαθμών όλων των κορυφών)
-    *   Ύπαρξη κύκλων συγκεκριμένου μήκους
+*   **Graph Isomorphism:** Two graphs $G_1 = (V_1, E_1)$ and $G_2 = (V_2, E_2)$ are **isomorphic** if there exists a bijective (1-1 and onto) function $f: V_1 \to V_2$ such that for every pair of vertices $u, v \in V_1$, the edge $\{u, v\}$ exists in $E_1$ if and only if the edge $\{f(u), f(v)\}$ exists in $E_2$.
+    To show that two graphs are **not** isomorphic, it suffices to find a property (invariant) that differs between them, such as:
+    *   Number of vertices ($|V|$)
+    *   Number of edges ($|E|$)
+    *   Degree sequence (the list of the degrees of all vertices)
+    *   Existence of cycles of a specific length
 
-*   **Επίπεδο Γράφημα:** Ένα γράφημα λέγεται **επίπεδο** (planar) αν μπορεί να σχεδιαστεί στο επίπεδο με τέτοιο τρόπο ώστε οι ακμές του να τέμνονται μόνο στις κορυφές.
+*   **Planar Graph:** A graph is called **planar** if it can be drawn on the plane in such a way that its edges intersect only at the vertices.
 
-*   **Τύπος του Euler:** Για κάθε συνεκτικό επίπεδο γράφημα με $v$ κορυφές, $e$ ακμές και $f$ όψεις (περιοχές, συμπεριλαμβανομένης της εξωτερικής), ισχύει η σχέση:
+*   **Euler's Formula:** For every connected planar graph with $v$ vertices, $e$ edges and $f$ faces (regions, including the outer one), the following relation holds:
     $$ v - e + f = 2 $$
 
 ---
 
-### **Λύσεις Ασκήσεων**
+### **Exercise Solutions**
 
-#### **Άσκηση 6.1**
-Για κάθε δύο από τα γραφήματα που ακολουθούν, δείξτε αν είναι ισόμορφα.
+#### **Exercise 6.1**
+For each pair of the following graphs, show whether they are isomorphic.
 
-*Αναπαράσταση των Γραφημάτων*
+*Representation of the Graphs*
 ![[Pasted image 20250620042020.png]]
-**Ανάλυση Αναλλοίωτων:**
+**Invariant Analysis:**
 
-| Γράφημα | Κορυφές (v) | Ακμές (e) | Ακολουθία Βαθμών |
+| Graph | Vertices (v) | Edges (e) | Degree Sequence |
 | :------ | :---------- | :-------- | :--------------------- |
 | **G1**  | 5           | 8         | (4, 4, 4, 4, 4)        |
 | **G2**  | 5           | 7         | (4, 3, 3, 2, 2)        |
 | **G3**  | 6           | 10        | (5, 3, 3, 3, 3, 3)     |
 
-**Συγκρίσεις:**
+**Comparisons:**
 
-*   **G1 και G2:**
-    *   $v_{G1}=5$, $v_{G2}=5$ (Ίδιος αριθμός κορυφών).
-    *   $e_{G1}=8$, $e_{G2}=7$ (Διαφορετικός αριθμός ακμών).
-    *   **Συμπέρασμα:** Τα G1 και G2 **δεν είναι ισόμορφα** επειδή έχουν διαφορετικό αριθμό ακμών.
+*   **G1 and G2:**
+    *   $v_{G1}=5$, $v_{G2}=5$ (Same number of vertices).
+    *   $e_{G1}=8$, $e_{G2}=7$ (Different number of edges).
+    *   **Conclusion:** G1 and G2 are **not isomorphic** because they have a different number of edges.
 
-*   **G1 και G3:**
-    *   $v_{G1}=5$, $v_{G3}=6$ (Διαφορετικός αριθμός κορυφών).
-    *   **Συμπέρασμα:** Τα G1 και G3 **δεν είναι ισόμορφα** επειδή έχουν διαφορετικό αριθμό κορυφών.
+*   **G1 and G3:**
+    *   $v_{G1}=5$, $v_{G3}=6$ (Different number of vertices).
+    *   **Conclusion:** G1 and G3 are **not isomorphic** because they have a different number of vertices.
 
-*   **G2 και G3:**
-    *   $v_{G2}=5$, $v_{G3}=6$ (Διαφορετικός αριθμός κορυφών).
-    *   **Συμπέρασμα:** Τα G2 και G3 **δεν είναι ισόμορφα** επειδή έχουν διαφορετικό αριθμό κορυφών.
-Λύση: Τα δύο πρώτα γραφήματα είναι ισόμορφα. ΄Ενας ισομορφισμός είναι ο ακόλουθος:
+*   **G2 and G3:**
+    *   $v_{G2}=5$, $v_{G3}=6$ (Different number of vertices).
+    *   **Conclusion:** G2 and G3 are **not isomorphic** because they have a different number of vertices.
+Solution: The two first graphs are isomorphic. An isomorphism is the following:
 
 ![[Pasted image 20250620042150.png]]
 
 ---
 
-#### **Άσκηση 6.2**
-Δείξτε ότι το ακόλουθο γράφημα είναι επίπεδο.
+#### **Exercise 6.2**
+Show that the following graph is planar.
 
-**Αρχικό Γράφημα:**
+**Initial Graph:**
 ![[Pasted image 20250620042253.png]]
 
 ---
-Λύση: Μια κατάλληλη απεικόνιση του γραφήματος στο επίπεδο είναι η ακόλουθη:
+Solution: An appropriate embedding of the graph on the plane is the following:
 
 ![[Pasted image 20250620042453.png]]
-#### **Άσκηση 6.3**
-Επαληθεύστε τον τύπο του Euler για το ακόλουθο επίπεδο γράφημα.
+#### **Exercise 6.3**
+Verify Euler's formula for the following planar graph.
 ![[Pasted image 20250620042643.png]]
-**Λύση:** Καταμετρώντας τις κορυφές, τις ακμές και τις περιοχές του γραφήματος, παίρνουμε v = 13, e = 19 και f = 8. Συνεπώς v − e + f = 13 − 19 + 8 = 2
+**Solution:** By counting the vertices, edges and regions of the graph, we get v = 13, e = 19 and f = 8. Therefore v − e + f = 13 − 19 + 8 = 2
 
 ---
 
-## **Κεφάλαιο 7: Θεωρία Αυτομάτων και Τυπικών Γλωσσών**
+## **Chapter 7: Automata Theory and Formal Languages**
 
-### **Θεωρητικό Υπόβαθρο**
+### **Theoretical Background**
 
-Οι **κανονικές εκφράσεις** (regular expressions) είναι ένας συμπαγής τρόπος για την περιγραφή συνόλων συμβολοσειρών (που ονομάζονται κανονικά σύνολα ή κανονικές γλώσσες).
+**Regular expressions** are a compact way to describe sets of strings (called regular sets or regular languages).
 
-**Βασικοί Τελεστές:**
-*   **Παράθεση (Concatenation):** Η έκφραση `rs` περιγράφει το σύνολο των συμβολοσειρών που προκύπτουν από την παράθεση μιας συμβολοσειράς από τη γλώσσα της `r` με μια συμβολοσειρά από τη γλώσσα της `s`.
-*   **Ένωση (Union/Alternation):** Η έκφραση `r|s` (ή `r+s` σε παλαιότερους συμβολισμούς) περιγράφει το σύνολο των συμβολοσειρών που ανήκουν είτε στη γλώσσα της `r` είτε στη γλώσσα της `s`.
-*   **Άστρο του Kleene (Kleene Star):** Η έκφραση `r*` περιγράφει το σύνολο των συμβολοσειρών που προκύπτουν από την παράθεση μηδέν ή περισσότερων συμβολοσειρών από τη γλώσσα της `r`. Περιλαμβάνει και την κενή συμβολοσειρά `ε`.
-*   **Θετική Θήκη (Kleene Plus):** Η έκφραση `r+` περιγράφει το σύνολο των συμβολοσειρών που προκύπτουν από την παράθεση μίας ή περισσότερων συμβολοσειρών από τη γλώσσα της `r`. Ισχύει $r^+ = rr^*$.
-*   **Κενή Συμβολοσειρά:** Το σύμβολο `ε` (έψιλον) αναπαριστά τη συμβολοσειρά μηδενικού μήκους.
-
----
-
-### **Λύσεις Ασκήσεων**
-
-#### **Άσκηση 7.1**
-Γράψτε κανονικές εκφράσεις που περιγράφουν τα ακόλουθα κανονικά σύνολα:
-
-**α. Το σύνολο {101, 1001, 10001, ...}.**
-*   **Ανάλυση:** Όλες οι συμβολοσειρές αρχίζουν με '1', ακολουθούνται από ένα ή περισσότερα '0', και τελειώνουν με '1'.
-*   **Κανονική Έκφραση:** `10+1`
-
-**β. Το σύνολο των συμβολοσειρών με αλφάβητο το {0, 1} που αρχίζουν με 0 και τελειώνουν σε 1.**
-*   **Ανάλυση:** Ένα '0' στην αρχή, ένα '1' στο τέλος, και οτιδήποτε (οποιαδήποτε ακολουθία από '0' και '1') ενδιάμεσα.
-*   **Κανονική Έκφραση:** `0(0|1)*1`
-
-**γ. Το σύνολο των συμβολοσειρών με αλφάβητο το {0, 1} που περιέχουν τουλάχιστον ένα 0.**
-*   **Ανάλυση:** Μπορεί να υπάρχει οτιδήποτε πριν το πρώτο '0', και οτιδήποτε μετά.
-*   **Κανονική Έκφραση:** `(0|1)*0(0|1)*`
-
-**δ. Το σύνολο των συμβολοσειρών με αλφάβητο το {0, 1} που περιέχουν ακριβώς δύο 0.**
-*   **Ανάλυση:** Οι συμβολοσειρές αποτελούνται από τμήματα που περιέχουν μόνο '1', τα οποία διαχωρίζονται από δύο '0'.
-*   **Κανονική Έκφραση:** `1*01*01*`
-
-**ε. Το σύνολο των συμβολοσειρών με αλφάβητο το {0, 1} που περιέχουν περιττό αριθμό 0.**
-*   **Ανάλυση:** Μια συμβολοσειρά με περιττό αριθμό μηδενικών μπορεί να θεωρηθεί ως μια ακολουθία από τμήματα με ζυγό αριθμό μηδενικών, ακολουθούμενη από ένα τμήμα με ένα μηδενικό. Ένα τμήμα με ζυγό αριθμό μηδενικών είναι το `01*0`.
-*   **Κανονική Έκφραση:** `1*(01*01*)*01*`
-    *   `1*`: Οποιοσδήποτε αριθμός από 1 στην αρχή.
-    *   `(01*01*)*`: Ένα μπλοκ με ζυγό αριθμό (δύο) μηδενικών, που μπορεί να επαναληφθεί 0 ή περισσότερες φορές. Αυτό παράγει πάντα ζυγό πλήθος μηδενικών.
-    *   `01*`: Το τελικό μπλοκ που προσθέτει ένα ακόμη μηδενικό, κάνοντας το συνολικό πλήθος περιττό.
-
-**ϛ. Το σύνολο των συμβολοσειρών με αλφάβητο το {a, b} όπου κάθε εμφάνιση του a ακολουθείται από δύο εμφανίσεις του b.**
-*   **Ανάλυση:** Τα επιτρεπτά "δομικά στοιχεία" είναι το 'b' και το 'abb'. Οποιαδήποτε συμβολοσειρά της γλώσσας μπορεί να κατασκευαστεί από αυτά τα δύο.
-*   **Κανονική Έκφραση:** `(b|abb)*`
+**Basic Operators:**
+*   **Concatenation:** The expression `rs` describes the set of strings resulting from concatenating a string from the language of `r` with a string from the language of `s`.
+*   **Union/Alternation:** The expression `r|s` (or `r+s` in older notations) describes the set of strings that belong to either the language of `r` or the language of `s`.
+*   **Kleene Star:** The expression `r*` describes the set of strings resulting from concatenating zero or more strings from the language of `r`. It includes the empty string `ε`.
+*   **Kleene Plus:** The expression `r+` describes the set of strings resulting from concatenating one or more strings from the language of `r`. It holds that $r^+ = rr^*$.
+*   **Empty String:** The symbol `ε` (epsilon) represents the string of zero length.
 
 ---
 
-#### **Άσκηση 7.2**
-Αναφέρετε ποιες από τις συμβολοσειρές `beer`, `beter` και `better` ανήκουν στο κανονικό σύνολο.
+### **Exercise Solutions**
 
-**α. `be(ε|t)er`**
-*   **Ανάλυση:** Η έκφραση `(ε|t)` σημαίνει "η κενή συμβολοσειρά ή το γράμμα t". Επομένως, η έκφραση ταιριάζει με `be` + (τίποτα) + `er` ή `be` + `t` + `er`.
-*   `beer`: Ταιριάζει (επιλέγοντας το `ε`).
-*   `beter`: Ταιριάζει (επιλέγοντας το `t`).
-*   `better`: Δεν ταιριάζει.
-*   **Συμβολοσειρές που ανήκουν:** `{beer, beter}`
+#### **Exercise 7.1**
+Write regular expressions that describe the following regular sets:
 
-**β. `bet*er`**
-*   **Ανάλυση:** Η έκφραση `t*` σημαίνει "μηδέν ή περισσότερες επαναλήψεις του t".
-*   `beer`: Ταιριάζει (μηδέν `t`).
-*   `beter`: Ταιριάζει (ένα `t`).
-*   `better`: Ταιριάζει (δύο `t`).
-*   **Συμβολοσειρές που ανήκουν:** `{beer, beter, better}`
+**a. The set {101, 1001, 10001, ...}.**
+*   **Analysis:** All strings start with '1', are followed by one or more '0's, and end with '1'.
+*   **Regular Expression:** `10+1`
 
-**γ. `bet+er`**
-*   **Ανάλυση:** Η έκφραση `t+` σημαίνει "μία ή περισσότερες επαναλήψεις του t".
-*   `beer`: Δεν ταιριάζει (έχει μηδέν `t`).
-*   `beter`: Ταιριάζει (ένα `t`).
-*   `better`: Ταιριάζει (δύο `t`).
-*   **Συμβολοσειρές που ανήκουν:** `{beter, better}`
+**b. The set of strings over the alphabet {0, 1} that start with 0 and end with 1.**
+*   **Analysis:** A '0' at the start, a '1' at the end, and anything (any sequence of '0' and '1') in between.
+*   **Regular Expression:** `0(0|1)*1`
+
+**c. The set of strings over the alphabet {0, 1} that contain at least one 0.**
+*   **Analysis:** There can be anything before the first '0', and anything after.
+*   **Regular Expression:** `(0|1)*0(0|1)*`
+
+**d. The set of strings over the alphabet {0, 1} that contain exactly two 0's.**
+*   **Analysis:** The strings consist of parts containing only '1's, which are separated by two '0's.
+*   **Regular Expression:** `1*01*01*`
+
+**e. The set of strings over the alphabet {0, 1} that contain an odd number of 0's.**
+*   **Analysis:** A string with an odd number of zeros can be viewed as a sequence of parts with an even number of zeros, followed by a part with one zero. A part with an even number of zeros is `01*0`.
+*   **Regular Expression:** `1*(01*01*)*01*`
+    *   `1*`: Any number of 1's at the start.
+    *   `(01*01*)*`: A block with an even number (two) of zeros, which can be repeated 0 or more times. This always produces an even count of zeros.
+    *   `01*`: The final block that adds one more zero, making the total count odd.
+
+**f. The set of strings over the alphabet {a, b} where every occurrence of a is followed by two occurrences of b.**
+*   **Analysis:** The allowed "building blocks" are 'b' and 'abb'. Any string of the language can be built from these two.
+*   **Regular Expression:** `(b|abb)*`
+
+---
+
+#### **Exercise 7.2**
+State which of the strings `beer`, `beter` and `better` belong to the regular set.
+
+**a. `be(ε|t)er`**
+*   **Analysis:** The expression `(ε|t)` means "the empty string or the letter t". Therefore, the expression matches `be` + (nothing) + `er` or `be` + `t` + `er`.
+*   `beer`: Matches (by choosing `ε`).
+*   `beter`: Matches (by choosing `t`).
+*   `better`: Does not match.
+*   **Strings that belong:** `{beer, beter}`
+
+**b. `bet*er`**
+*   **Analysis:** The expression `t*` means "zero or more repetitions of t".
+*   `beer`: Matches (zero `t`).
+*   `beter`: Matches (one `t`).
+*   `better`: Matches (two `t`).
+*   **Strings that belong:** `{beer, beter, better}`
+
+**c. `bet+er`**
+*   **Analysis:** The expression `t+` means "one or more repetitions of t".
+*   `beer`: Does not match (it has zero `t`).
+*   `beter`: Matches (one `t`).
+*   `better`: Matches (two `t`).
+*   **Strings that belong:** `{beter, better}`

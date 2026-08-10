@@ -1,50 +1,50 @@
-Τμήμα Πληροφορικής και Τηλεπικοινωνιών
-Πανεπιστήμιο Ιωαννίνων
-Σπυρίδων Τζίμας
-Εαρινό Εξάμηνο 2025
+Department of Informatics and Telecommunications
+University of Ioannina
+Spyridon Tzimas
+Spring Semester 2025
 
-# 203: Διακριτά Μαθηματικά
-## Εικονική Εξέταση 1 (Ευκολότερη)
+# 203: Discrete Mathematics
+## Mock Exam 1 (Easier)
 
-Η θέση σας σε αυτήν την εξέταση ταυτοποιείται μοναδικά με μία ετικέτα της μορφής $X - I J$ όπου $X$ είναι το όνομα της αίθουσας και $I$ και $J$ είναι η γραμμή και στήλη αντίστοιχα στις οποίες ανήκει η συγκεκριμένη θέση. Η ομάδα σας είναι η:
+Your seat in this exam is uniquely identified by a label of the form $X - I J$ where $X$ is the name of the room and $I$ and $J$ are the row and column respectively to which the particular seat belongs. Your group is:
 
-| $I \setminus J$ | άρτιος | περιττός |
+| $I \setminus J$ | even | odd |
 | :--- | :--- | :--- |
-| άρτιος | Ομάδα Α | Ομάδα Β |
-| περιττός | Ομάδα Γ | Ομάδα Δ |
+| even | Group A | Group B |
+| odd | Group C | Group D |
 
-Η βαθμολογική αξία της εξέτασης είναι 10 μονάδες. Η χρονική διάρκεια της εξέτασης είναι τρεις ώρες. Επιτρέπεται στυλό μόνο μπλε και μαύρου χρώματος. Επιτρέπεται μολύβι μόνο για γραφή στο πρόχειρο.
+The grading value of the exam is 10 points. The duration of the exam is three hours. Only blue and black pens are allowed. Pencil is allowed only for writing on scrap paper.
 
-Καλή Επιτυχία!
+Good Luck!
 
 ---
 
-**Θέμα 1. (3 μονάδες)** Δίνονται τα σύνολα $A = \{1, 2, 3, 4\}$, $B = \{3, 4, 5, 6\}$ και το καθολικό σύνολο $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8\}$. Υπολογίστε το σύνολο:
+**Topic 1. (3 points)** Given the sets $A = \{1, 2, 3, 4\}$, $B = \{3, 4, 5, 6\}$ and the universal set $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8\}$. Calculate the set:
 $(A \cup B)^c \cup (?)$
 
-- **Ομάδα Α:** (?) = $A \cap B$
-- **Ομάδα Β:** (?) = $A \setminus B$
-- **Ομάδα Γ:** (?) = $B \setminus A$
-- **Ομάδα Δ:** (?) = $A \oplus B$
+- **Group A:** (?) = $A \cap B$
+- **Group B:** (?) = $A \setminus B$
+- **Group C:** (?) = $B \setminus A$
+- **Group D:** (?) = $A \oplus B$
 
 ---
 
-**Θέμα 2. (3 μονάδες)** Κατασκευάστε τον πίνακα αληθείας για τον παρακάτω προτασιακό τύπο και προσδιορίστε αν είναι ταυτολογία, αντίφαση ή ενδεχομενικότητα:
+**Topic 2. (3 points)** Construct the truth table for the following propositional formula and determine whether it is a tautology, a contradiction or a contingency:
 $((p \lor q) \land \neg p) \to (?)$
 
-- **Ομάδα Α:** (?) = $q$
-- **Ομάδα Β:** (?) = $\neg q$
-- **Ομάδα Γ:** (?) = $p \land q$
-- **Ομάδα Δ:** (?) = $p \lor q$
+- **Group A:** (?) = $q$
+- **Group B:** (?) = $\neg q$
+- **Group C:** (?) = $p \land q$
+- **Group D:** (?) = $p \lor q$
 
 ---
 
-**Θέμα 3. (4 μονάδες)** Δίνεται ένα απλό μη κατευθυνόμενο γράφημα $G = (V, E)$ με σύνολο κορυφών $V = \{v_1, v_2, v_3, v_4, v_5\}$. Οι βαθμοί των κορυφών είναι αντίστοιχα $\{2, 2, 2, 3, (?)\}$.
+**Topic 3. (4 points)** Given a simple undirected graph $G = (V, E)$ with set of vertices $V = \{v_1, v_2, v_3, v_4, v_5\}$. The degrees of the vertices are respectively $\{2, 2, 2, 3, (?)\}$.
 
-- **Ομάδα Α:** (?) = 1
-- **Ομάδα Β:** (?) = 3
-- **Ομάδα Γ:** (?) = 5
-- **Ομάδα Δ:** (?) = 7
+- **Group A:** (?) = 1
+- **Group B:** (?) = 3
+- **Group C:** (?) = 5
+- **Group D:** (?) = 7
 
-α'. (2 μονάδες) Σχεδιάστε ένα τέτοιο γράφημα, αν υπάρχει. Αν δεν υπάρχει, εξηγήστε το γιατί (Προσοχή στις "παγίδες" των βαθμών, π.χ. μέγιστος βαθμός σε απλό γράφημα).
-β'. (2 μονάδες) Πόσες ακμές έχει το γράφημα (αν υπάρχει);
+a. (2 points) Draw such a graph, if it exists. If it does not exist, explain why (Beware of the degree "traps", e.g. the maximum degree in a simple graph).
+b. (2 points) How many edges does the graph have (if it exists)?

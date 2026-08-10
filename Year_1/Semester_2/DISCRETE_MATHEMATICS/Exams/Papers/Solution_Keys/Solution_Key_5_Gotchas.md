@@ -1,256 +1,256 @@
-# Κλειδί Λύσεων — Εικονική Εξέταση 5 (Με Παγίδες)
+# Answer Key — Mock Exam 5 (Gotchas)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_5_Gotchas.md`
+> Corresponds to the file: `Mock_Exam_5_Gotchas.md`
 
 ---
 
-## Θέμα 1 (3 μονάδες) — Συνολοθεωρία: Παγίδες με $\in$ και $\subseteq$
+## Topic 1 (3 points) — Set Theory: Traps with $\in$ and $\subseteq$
 
-### α'. (1.5 μονάδες) — Αν $A \subseteq B \cup C$, τότε απαραίτητα $(A \subseteq B)$ ή $(A \subseteq C)$;
+### a. (1.5 points) — If $A \subseteq B \cup C$, then necessarily $(A \subseteq B)$ or $(A \subseteq C)$?
 
-**Απάντηση: ΨΕΥΔΗΣ.**
+**Answer: FALSE.**
 
-**Αντιπαράδειγμα:**
+**Counterexample:**
 - $A = \{1, 2\}$
 - $B = \{1, 3\}$
 - $C = \{2, 4\}$
 
-Τότε $B \cup C = \{1, 2, 3, 4\}$ και $A = \{1, 2\} \subseteq \{1, 2, 3, 4\}$. Άρα $A \subseteq B \cup C$.
+Then $B \cup C = \{1, 2, 3, 4\}$ and $A = \{1, 2\} \subseteq \{1, 2, 3, 4\}$. So $A \subseteq B \cup C$.
 
-Όμως:
-- $A \not\subseteq B$ γιατί $2 \in A$ αλλά $2 \notin B$.
-- $A \not\subseteq C$ γιατί $1 \in A$ αλλά $1 \notin C$.
+However:
+- $A \not\subseteq B$ because $2 \in A$ but $2 \notin B$.
+- $A \not\subseteq C$ because $1 \in A$ but $1 \notin C$.
 
-Η πρόταση είναι ψευδής: το $A$ μπορεί να «κρέμεται» ανάμεσα στα $B$ και $C$.
-
----
-
-### β'. (1.5 μονάδες) — Το $\emptyset \in P((?))$ ανά Ομάδα
-
-**Υπενθύμιση:** Το δυναμοσύνολο $P(X)$ περιέχει ως στοιχεία **όλα τα υποσύνολα** του $X$. Το $\emptyset$ είναι πάντα υποσύνολο οποιουδήποτε συνόλου, άρα $\emptyset \in P(X)$ για **κάθε** σύνολο $X$.
-
-**Άρα για όλες τις Ομάδες η απάντηση είναι ΑΛΗΘΗΣ**, αλλά τα δυναμοσύνολα διαφέρουν:
+The statement is false: $A$ can "hang" between $B$ and $C$.
 
 ---
 
-**Ομάδα Α — (?) = $\emptyset$:**
+### b. (1.5 points) — The $\emptyset \in P((?))$ per Group
+
+**Reminder:** The power set $P(X)$ contains as elements **all the subsets** of $X$. The $\emptyset$ is always a subset of any set, so $\emptyset \in P(X)$ for **every** set $X$.
+
+**So for all Groups the answer is TRUE**, but the power sets differ:
+
+---
+
+**Group A — (?) = $\emptyset$:**
 
 $$P(\emptyset) = \{\emptyset\}$$
 
-Στοιχεία του $P(\emptyset)$: μόνο το $\emptyset$. Άρα $\emptyset \in P(\emptyset)$. **ΑΛΗΘΗΣ.**
+Elements of $P(\emptyset)$: only the $\emptyset$. So $\emptyset \in P(\emptyset)$. **TRUE.**
 
-**Παγίδα:** Το $P(\emptyset) = \{\emptyset\}$ έχει **1 στοιχείο**, δηλαδή $|P(\emptyset)| = 1 = 2^0$. Το $\emptyset$ δεν είναι ίσο με το $\{\emptyset\}$!
+**Trap:** $P(\emptyset) = \{\emptyset\}$ has **1 element**, i.e. $|P(\emptyset)| = 1 = 2^0$. $\emptyset$ is not equal to $\{\emptyset\}$!
 
 ---
 
-**Ομάδα Β — (?) = $\{\emptyset\}$:**
+**Group B — (?) = $\{\emptyset\}$:**
 
 $$P(\{\emptyset\}) = \{\emptyset,\ \{\emptyset\}\}$$
 
-Άρα $\emptyset \in P(\{\emptyset\})$. **ΑΛΗΘΗΣ.**
+So $\emptyset \in P(\{\emptyset\})$. **TRUE.**
 
-**Παγίδα:** Εδώ $\{\emptyset\}$ είναι ένα σύνολο με **ένα στοιχείο** (το ίδιο το κενό σύνολο). Ο φοιτητής πρέπει να διακρίνει $\emptyset$ (κενό σύνολο) από $\{\emptyset\}$ (σύνολο που περιέχει το κενό σύνολο ως στοιχείο).
+**Trap:** Here $\{\emptyset\}$ is a set with **one element** (the empty set itself). The student must distinguish $\emptyset$ (empty set) from $\{\emptyset\}$ (set containing the empty set as an element).
 
 ---
 
-**Ομάδα Γ — (?) = $\{1, 2\}$:**
+**Group C — (?) = $\{1, 2\}$:**
 
 $$P(\{1,2\}) = \{\emptyset,\ \{1\},\ \{2\},\ \{1,2\}\}$$
 
-Άρα $\emptyset \in P(\{1,2\})$. **ΑΛΗΘΗΣ.**
+So $\emptyset \in P(\{1,2\})$. **TRUE.**
 
 ---
 
-**Ομάδα Δ — (?) = $\{\{\emptyset\}\}$:**
+**Group D — (?) = $\{\{\emptyset\}\}$:**
 
 $$P(\{\{\emptyset\}\}) = \{\emptyset,\ \{\{\emptyset\}\}\}$$
 
-Άρα $\emptyset \in P(\{\{\emptyset\}\})$. **ΑΛΗΘΗΣ.**
+So $\emptyset \in P(\{\{\emptyset\}\})$. **TRUE.**
 
-**Παγίδα:** Να μην μπερδευτεί το $\emptyset \in P(X)$ (πάντα αληθές) με το $\emptyset \in X$ (δεν είναι πάντα αληθές). Εδώ $\emptyset \notin \{\{\emptyset\}\}$ (το $\{\{\emptyset\}\}$ περιέχει ως στοιχείο το $\{\emptyset\}$, όχι το $\emptyset$).
-
----
-
-## Θέμα 2 (4 μονάδες) — NFA σε DFA (Κατασκευή Υποσυνόλων)
-
-**Γλώσσα:** $L = (0 \cup 1)^*(??)(0 \cup 1)^*$, δηλαδή όλες οι συμβολοσειρές που **περιέχουν** ως υποσυμβολοσειρά το (?) ανά Ομάδα.
-
-**Ιδέα NFA:** Ένα φυσικό NFA για «περιέχει $w$» έχει $|w|+1$ καταστάσεις: μία αρχική, $|w|$ ενδιάμεσες, μία αποδεκτή (παγίδα).
+**Trap:** Do not confuse $\emptyset \in P(X)$ (always true) with $\emptyset \in X$ (not always true). Here $\emptyset \notin \{\{\emptyset\}\}$ (the set $\{\{\emptyset\}\}$ contains $\{\emptyset\}$ as an element, not $\emptyset$).
 
 ---
 
-### Ομάδα Α — (?) = $00$: Γλώσσα συμβολοσειρών που περιέχουν $00$
+## Topic 2 (4 points) — NFA to DFA (Subset Construction)
+
+**Language:** $L = (0 \cup 1)^*(??)(0 \cup 1)^*$, i.e. all strings that **contain** as a substring the (?) per Group.
+
+**NFA idea:** A natural NFA for "contains $w$" has $|w|+1$ states: one initial, $|w|$ intermediate, one accepting (trap).
+
+---
+
+### Group A — (?) = $00$: Language of strings that contain $00$
 
 **NFA:**
-- $q_0$: αρχική (δεν έχουμε δει ακόμα ένα $0$)
-- $q_1$: είδαμε ένα $0$
-- $q_2$: είδαμε $00$ — αποδεκτή (παγίδα)
+- $q_0$: initial (we have not yet seen a $0$)
+- $q_1$: we saw one $0$
+- $q_2$: we saw $00$ — accepting (trap)
 
-| Κατάσταση NFA | Με $0$ | Με $1$ |
+| NFA State | with $0$ | with $1$ |
 | :--- | :--- | :--- |
 | $q_0$ | $\{q_0, q_1\}$ | $\{q_0\}$ |
 | $q_1$ | $\{q_2\}$ | $\{q_0\}$ |
 | $q_2$ | $\{q_2\}$ | $\{q_2\}$ |
 
-**Κατασκευή DFA (Υποσύνολα):**
+**DFA Construction (Subsets):**
 
-Αρχική κατάσταση DFA: $\{q_0\}$
+Initial DFA state: $\{q_0\}$
 
-| Κατάσταση DFA | Με $0$ | Με $1$ | Αποδεκτή; |
+| DFA State | with $0$ | with $1$ | Accepting? |
 | :--- | :--- | :--- | :---: |
-| $\{q_0\}$ | $\{q_0, q_1\}$ | $\{q_0\}$ | Όχι |
-| $\{q_0, q_1\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0\}$ | Όχι |
-| $\{q_0, q_1, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Ναι |
-| $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Ναι |
+| $\{q_0\}$ | $\{q_0, q_1\}$ | $\{q_0\}$ | No |
+| $\{q_0, q_1\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0\}$ | No |
+| $\{q_0, q_1, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Yes |
+| $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Yes |
 
-**Ελάχιστο DFA: 4 καταστάσεις.**
+**Minimal DFA: 4 states.**
 
-**Παγίδα:** Η αρχική κατάσταση $\{q_0\}$ και η $\{q_0, q_1\}$ δεν είναι αποδεκτές, ενώ κάθε κατάσταση που εμπεριέχει $q_2$ είναι αποδεκτή.
+**Trap:** The initial state $\{q_0\}$ and $\{q_0, q_1\}$ are not accepting, while every state containing $q_2$ is accepting.
 
 ---
 
-### Ομάδα Β — (?) = $11$: Γλώσσα συμβολοσειρών που περιέχουν $11$
+### Group B — (?) = $11$: Language of strings that contain $11$
 
 **NFA:**
 
-| Κατάσταση NFA | Με $0$ | Με $1$ |
+| NFA State | with $0$ | with $1$ |
 | :--- | :--- | :--- |
 | $q_0$ | $\{q_0\}$ | $\{q_0, q_1\}$ |
 | $q_1$ | $\emptyset$ | $\{q_2\}$ |
 | $q_2$ | $\{q_2\}$ | $\{q_2\}$ |
 
-**Κατασκευή DFA:**
+**DFA Construction:**
 
-| Κατάσταση DFA | Με $0$ | Με $1$ | Αποδεκτή; |
+| DFA State | with $0$ | with $1$ | Accepting? |
 | :--- | :--- | :--- | :---: |
-| $\{q_0\}$ | $\{q_0\}$ | $\{q_0, q_1\}$ | Όχι |
-| $\{q_0, q_1\}$ | $\{q_0\}$ | $\{q_0, q_1, q_2\}$ | Όχι |
-| $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Ναι |
-| $\{q_0, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Ναι |
+| $\{q_0\}$ | $\{q_0\}$ | $\{q_0, q_1\}$ | No |
+| $\{q_0, q_1\}$ | $\{q_0\}$ | $\{q_0, q_1, q_2\}$ | No |
+| $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Yes |
+| $\{q_0, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Yes |
 
-**Ελάχιστο DFA: 4 καταστάσεις.** (Συμμετρικό με Ομάδα Α λόγω συμμετρίας $0 \leftrightarrow 1$.)
+**Minimal DFA: 4 states.** (Symmetric to Group A due to the symmetry $0 \leftrightarrow 1$.)
 
 ---
 
-### Ομάδα Γ — (?) = $01$: Γλώσσα συμβολοσειρών που περιέχουν $01$
+### Group C — (?) = $01$: Language of strings that contain $01$
 
 **NFA:**
 
-| Κατάσταση NFA | Με $0$ | Με $1$ |
+| NFA State | with $0$ | with $1$ |
 | :--- | :--- | :--- |
 | $q_0$ | $\{q_0, q_1\}$ | $\{q_0\}$ |
 | $q_1$ | $\emptyset$ | $\{q_2\}$ |
 | $q_2$ | $\{q_2\}$ | $\{q_2\}$ |
 
-**Κατασκευή DFA:**
+**DFA Construction:**
 
-| Κατάσταση DFA | Με $0$ | Με $1$ | Αποδεκτή; |
+| DFA State | with $0$ | with $1$ | Accepting? |
 | :--- | :--- | :--- | :---: |
-| $\{q_0\}$ | $\{q_0, q_1\}$ | $\{q_0\}$ | Όχι |
-| $\{q_0, q_1\}$ | $\{q_0, q_1\}$ | $\{q_0, q_2\}$ | Όχι |
-| $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Ναι |
-| $\{q_0, q_1, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Ναι |
+| $\{q_0\}$ | $\{q_0, q_1\}$ | $\{q_0\}$ | No |
+| $\{q_0, q_1\}$ | $\{q_0, q_1\}$ | $\{q_0, q_2\}$ | No |
+| $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Yes |
+| $\{q_0, q_1, q_2\}$ | $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | Yes |
 
-**Ελάχιστο DFA: 4 καταστάσεις.**
+**Minimal DFA: 4 states.**
 
 ---
 
-### Ομάδα Δ — (?) = $10$: Γλώσσα συμβολοσειρών που περιέχουν $10$
+### Group D — (?) = $10$: Language of strings that contain $10$
 
 **NFA:**
 
-| Κατάσταση NFA | Με $0$ | Με $1$ |
+| NFA State | with $0$ | with $1$ |
 | :--- | :--- | :--- |
 | $q_0$ | $\{q_0\}$ | $\{q_0, q_1\}$ |
 | $q_1$ | $\{q_2\}$ | $\emptyset$ |
 | $q_2$ | $\{q_2\}$ | $\{q_2\}$ |
 
-**Κατασκευή DFA:**
+**DFA Construction:**
 
-| Κατάσταση DFA | Με $0$ | Με $1$ | Αποδεκτή; |
+| DFA State | with $0$ | with $1$ | Accepting? |
 | :--- | :--- | :--- | :---: |
-| $\{q_0\}$ | $\{q_0\}$ | $\{q_0, q_1\}$ | Όχι |
-| $\{q_0, q_1\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1\}$ | Όχι |
-| $\{q_0, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Ναι |
-| $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Ναι |
+| $\{q_0\}$ | $\{q_0\}$ | $\{q_0, q_1\}$ | No |
+| $\{q_0, q_1\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1\}$ | No |
+| $\{q_0, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Yes |
+| $\{q_0, q_1, q_2\}$ | $\{q_0, q_2\}$ | $\{q_0, q_1, q_2\}$ | Yes |
 
-**Ελάχιστο DFA: 4 καταστάσεις.**
-
----
-
-## Θέμα 3 (3 μονάδες) — Σύνθεση Συναρτήσεων & Ιδιότητες
-
-**Δεδομένο:** $f: A \to B$, $g: B \to C$, $g \circ f: A \to C$.
+**Minimal DFA: 4 states.**
 
 ---
 
-### Ομάδα Α — $g \circ f$ αμφιμονότιμη (injective)
+## Topic 3 (3 points) — Function Composition & Properties
 
-**Τι συμπεραίνεται με βεβαιότητα:**
+**Given:** $f: A \to B$, $g: B \to C$, $g \circ f: A \to C$.
 
-> **Θεώρημα:** Αν $g \circ f$ είναι 1-1, τότε η $f$ είναι 1-1.
+---
 
-**Απόδειξη:** Έστω $f(a_1) = f(a_2)$. Τότε $g(f(a_1)) = g(f(a_2))$, άρα $(g \circ f)(a_1) = (g \circ f)(a_2)$. Επειδή η $g \circ f$ είναι 1-1, συνάγεται $a_1 = a_2$. Άρα η $f$ είναι 1-1. $\blacksquare$
+### Group A — $g \circ f$ injective
 
-**Τι ΔΕΝ συμπεραίνεται:** Η $g$ δεν είναι αναγκαστικά 1-1.
+**What is concluded with certainty:**
 
-**Αντιπαράδειγμα για $g$:**
+> **Theorem:** If $g \circ f$ is 1-1, then $f$ is 1-1.
+
+**Proof:** Suppose $f(a_1) = f(a_2)$. Then $g(f(a_1)) = g(f(a_2))$, so $(g \circ f)(a_1) = (g \circ f)(a_2)$. Since $g \circ f$ is 1-1, it follows that $a_1 = a_2$. So $f$ is 1-1. $\blacksquare$
+
+**What is NOT concluded:** $g$ is not necessarily 1-1.
+
+**Counterexample for $g$:**
 - $A = \{1\}$, $B = \{1, 2\}$, $C = \{1\}$
 - $f(1) = 1$ (1-1)
-- $g(1) = 1$, $g(2) = 1$ (όχι 1-1)
-- $(g \circ f)(1) = 1$ — η $g \circ f$ είναι 1-1, αλλά η $g$ όχι.
+- $g(1) = 1$, $g(2) = 1$ (not 1-1)
+- $(g \circ f)(1) = 1$ — $g \circ f$ is 1-1, but $g$ is not.
 
 ---
 
-### Ομάδα Β — $g \circ f$ επί (surjective)
+### Group B — $g \circ f$ surjective
 
-**Τι συμπεραίνεται με βεβαιότητα:**
+**What is concluded with certainty:**
 
-> **Θεώρημα:** Αν $g \circ f$ είναι επί, τότε η $g$ είναι επί.
+> **Theorem:** If $g \circ f$ is onto, then $g$ is onto.
 
-**Απόδειξη:** Έστω $c \in C$. Επειδή $g \circ f$ είναι επί, υπάρχει $a \in A$ με $(g \circ f)(a) = c$, δηλαδή $g(f(a)) = c$. Θέτουμε $b = f(a) \in B$. Τότε $g(b) = c$. Άρα η $g$ είναι επί. $\blacksquare$
+**Proof:** Suppose $c \in C$. Since $g \circ f$ is onto, there exists $a \in A$ with $(g \circ f)(a) = c$, i.e. $g(f(a)) = c$. We set $b = f(a) \in B$. Then $g(b) = c$. So $g$ is onto. $\blacksquare$
 
-**Τι ΔΕΝ συμπεραίνεται:** Η $f$ δεν είναι αναγκαστικά επί.
+**What is NOT concluded:** $f$ is not necessarily onto.
 
-**Αντιπαράδειγμα για $f$:**
+**Counterexample for $f$:**
 - $A = \{1\}$, $B = \{1, 2\}$, $C = \{1\}$
-- $f(1) = 1$ (όχι επί, αφού $2 \notin \text{Im}(f)$)
-- $g(1) = 1$, $g(2) = 1$ (επί, αφού $g$ καλύπτει το $C$)
-- $(g \circ f)(1) = 1$ — η $g \circ f$ είναι επί, αλλά η $f$ όχι.
+- $f(1) = 1$ (not onto, since $2 \notin \text{Im}(f)$)
+- $g(1) = 1$, $g(2) = 1$ (onto, since $g$ covers $C$)
+- $(g \circ f)(1) = 1$ — $g \circ f$ is onto, but $f$ is not.
 
 ---
 
-### Ομάδα Γ — $g \circ f$ αμφιμονότιμη ΚΑΙ η $f$ επί
+### Group C — $g \circ f$ injective AND $f$ surjective
 
-**Τι συμπεραίνεται με βεβαιότητα:**
+**What is concluded with certainty:**
 
-Από την αμφιμονοτιμία του $g \circ f$ (Ομάδα Α): η $f$ είναι 1-1.
-Δεδομένου ότι επιπλέον η $f$ είναι **και** επί, η $f$ είναι **αμφιμονότιμη** (bijection), άρα αντιστρέψιμη.
+From the injectivity of $g \circ f$ (Group A): $f$ is 1-1.
+Given that additionally $f$ is **also** onto, $f$ is a **bijection**, hence invertible.
 
-Τότε μπορούμε να γράψουμε: $g = (g \circ f) \circ f^{-1}$.
-Σύνθεση 1-1 συναρτήσεων είναι 1-1, άρα **η $g$ είναι επίσης 1-1**.
+Then we can write: $g = (g \circ f) \circ f^{-1}$.
+The composition of 1-1 functions is 1-1, so **$g$ is also 1-1**.
 
-Άρα: **Και $f$ και $g$ είναι 1-1**, και επιπλέον η $f$ είναι και επί.
+Therefore: **Both $f$ and $g$ are 1-1**, and additionally $f$ is also onto.
 
-**Παγίδα:** Η $g$ δεν είναι αναγκαστικά επί (μπορεί $\text{Im}(g) \subsetneq C$).
+**Trap:** $g$ is not necessarily onto (it can be that $\text{Im}(g) \subsetneq C$).
 
 ---
 
-### Ομάδα Δ — $g \circ f$ επί ΚΑΙ η $g$ αμφιμονότιμη
+### Group D — $g \circ f$ surjective AND $g$ injective
 
-**Τι συμπεραίνεται με βεβαιότητα:**
+**What is concluded with certainty:**
 
-Από την επί-ότητα του $g \circ f$ (Ομάδα Β): η $g$ είναι επί.
-Δεδομένου ότι επιπλέον η $g$ είναι **και** 1-1, η $g$ είναι **αμφιμονότιμη** (bijection), άρα αντιστρέψιμη.
+From the surjectivity of $g \circ f$ (Group B): $g$ is onto.
+Given that additionally $g$ is **also** 1-1, $g$ is a **bijection**, hence invertible.
 
-Τότε: $f = g^{-1} \circ (g \circ f)$. Σύνθεση επί συναρτήσεων είναι επί, άρα **η $f$ είναι επί**.
+Then: $f = g^{-1} \circ (g \circ f)$. The composition of onto functions is onto, so **$f$ is onto**.
 
-Άρα: **Και $f$ και $g$ είναι επί**, και επιπλέον η $g$ είναι και 1-1.
+Therefore: **Both $f$ and $g$ are onto**, and additionally $g$ is also 1-1.
 
-**Παγίδα:** Η $f$ δεν είναι αναγκαστικά 1-1.
+**Trap:** $f$ is not necessarily 1-1.
 
-**Αντιπαράδειγμα για $f$ μη-1-1:**
+**Counterexample for $f$ not-1-1:**
 - $A = \{1, 2\}$, $B = \{1\}$, $C = \{1\}$
-- $f(1) = 1$, $f(2) = 1$ (επί, αλλά όχι 1-1)
-- $g(1) = 1$ (αμφιμονότιμη)
-- $(g \circ f)(1) = 1$, $(g \circ f)(2) = 1$ — η $g \circ f$ είναι επί.
+- $f(1) = 1$, $f(2) = 1$ (onto, but not 1-1)
+- $g(1) = 1$ (bijection)
+- $(g \circ f)(1) = 1$, $(g \circ f)(2) = 1$ — $g \circ f$ is onto.

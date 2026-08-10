@@ -4,7 +4,7 @@
 This course introduces fundamental concepts of discrete mathematics, including logic, set theory, combinatorics, and graph theory, which are essential for computer science.
 
 ## Course Code
-203 (ΔΙΑΚΡΙΤΑ ΜΑΘΗΜΑΤΙΚΑ)
+203 (DISCRETE MATHEMATICS)
 
 ## Prerequisites
 - Mathematical Analysis (MAT 101)

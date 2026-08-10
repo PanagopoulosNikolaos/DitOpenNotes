@@ -4,7 +4,7 @@
 This course covers the fundamentals of digital electronics and digital system design, including logic gates, Boolean algebra, and sequential circuits.
 
 ## Course Code
-205 (ΨΗΦΙΑΚΑ ΗΛΕΚΤΡΟΝΙΚΑ)
+205 (DIGITAL ELECTRONICS)
 
 ## Prerequisites
 - Electronics (ECE 101)

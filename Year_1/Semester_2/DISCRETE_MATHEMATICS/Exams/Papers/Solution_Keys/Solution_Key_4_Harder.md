@@ -1,201 +1,200 @@
-# Κλειδί Λύσεων — Εικονική Εξέταση 4 (Δυσκολότερη)
+# Answer Key — Mock Exam 4 (Harder)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_4_Harder.md`
-
----
-
-## Θέμα 1 (3 μονάδες) — Επίπεδα Γραφήματα & Ανισότητες
-
-**Δεδομένα:** $G = (V, E)$ συνεκτικό επίπεδο γράφημα, $v$ κορυφές, $e$ ακμές, $f$ περιοχές. Κάθε κορυφή έχει βαθμό $\ge 3$.
-
-**Εργαλεία:**
-1. **Τύπος Euler για επίπεδα γραφήματα:** $v - e + f = 2$
-2. **Ανισότητα ακμών-περιοχών:** Κάθε περιοχή ορίζεται από τουλάχιστον 3 ακμές, και κάθε ακμή ανήκει σε το πολύ 2 περιοχές, άρα: $3f \le 2e \Rightarrow f \le \frac{2e}{3}$
-3. **Θεώρημα χειραψιών:** $2e = \sum \deg(v) \ge 3v \Rightarrow e \ge \frac{3v}{2}$
+> Corresponds to the file: `Mock_Exam_4_Harder.md`
 
 ---
 
-### Ομάδα Α — Απόδειξη $e \ge \frac{3v}{2}$
+## Topic 1 (3 points) — Planar Graphs & Inequalities
 
-Από το Θεώρημα Χειραψιών: αφού $\deg(v_i) \ge 3$ για κάθε κορυφή:
+**Given:** $G = (V, E)$ connected planar graph, $v$ vertices, $e$ edges, $f$ regions. Every vertex has degree $\ge 3$.
+
+**Tools:**
+1. **Euler's Formula for planar graphs:** $v - e + f = 2$
+2. **Edges-regions inequality:** Every region is defined by at least 3 edges, and every edge belongs to at most 2 regions, therefore: $3f \le 2e \Rightarrow f \le \frac{2e}{3}$
+3. **Handshaking Theorem:** $2e = \sum \deg(v) \ge 3v \Rightarrow e \ge \frac{3v}{2}$
+
+---
+
+### Group A — Proof of $e \ge \frac{3v}{2}$
+
+From the Handshaking Theorem: since $\deg(v_i) \ge 3$ for every vertex:
 
 $$2e = \sum_{i=1}^{v} \deg(v_i) \ge 3v \implies e \ge \frac{3v}{2} \qquad \blacksquare$$
 
 ---
 
-### Ομάδα Β — Απόδειξη $e \ge \frac{3f}{2}$
+### Group B — Proof of $e \ge \frac{3f}{2}$
 
-Από την ανισότητα ακμών-περιοχών: $3f \le 2e$, άρα:
+From the edges-regions inequality: $3f \le 2e$, therefore:
 
 $$e \ge \frac{3f}{2} \qquad \blacksquare$$
 
-**Αιτιολόγηση:** Κάθε περιοχή έχει τουλάχιστον 3 ακμές στο σύνορό της. Μετρώντας ζεύγη (ακμή, περιοχή) παίρνουμε $3f \le 2e$ (κάθε ακμή μετράται το πολύ δύο φορές).
+**Justification:** Every region has at least 3 edges on its boundary. Counting pairs (edge, region) we get $3f \le 2e$ (every edge is counted at most twice).
 
 ---
 
-### Ομάδα Γ — Απόδειξη $e \ge 3v - 6$
+### Group C — Proof of $e \ge 3v - 6$
 
-Αυτή είναι η κλασική ανισότητα για επίπεδα γραφήματα.
+This is the classic inequality for planar graphs.
 
-**Βήμα 1:** Από τύπο Euler: $f = 2 - v + e$.
+**Step 1:** From Euler's formula: $f = 2 - v + e$.
 
-**Βήμα 2:** Από ανισότητα ακμών-περιοχών: $3f \le 2e$, άρα:
+**Step 2:** From the edges-regions inequality: $3f \le 2e$, therefore:
 $$3(2 - v + e) \le 2e \implies 6 - 3v + 3e \le 2e \implies e \ge 3v - 6 \qquad \blacksquare$$
 
-**Σημείωση-Παγίδα:** Το αντίστροφο ΔΕΝ ισχύει: $e \le 3v - 6$ είναι **αναγκαία αλλά ΟΧΙ ικανή** συνθήκη επιπεδότητας.
+**Note-Trap:** The converse does NOT hold: $e \le 3v - 6$ is a **necessary but NOT sufficient** condition for planarity.
 
 ---
 
-### Ομάδα Δ — Απόδειξη $e \ge 2v - 4$
+### Group D — Proof of $e \ge 2v - 4$
 
-Παρόμοια με Ομάδα Γ αλλά χρησιμοποιούμε ότι κάθε περιοχή έχει τουλάχιστον **4** ακμές (αν το γράφημα δεν έχει τρίγωνα). Ωστόσο για την ασθενέστερη ανισότητα $e \ge 2v - 4$:
+Similar to Group C but we use that every region has at least **4** edges (if the graph has no triangles). However for the weaker inequality $e \ge 2v - 4$:
 
-**Βήμα 1:** Από τύπο Euler: $f = 2 - v + e$.
+**Step 1:** From Euler's formula: $f = 2 - v + e$.
 
-**Βήμα 2:** Από χειραψιών $2e \ge 3v$, οπότε $e \ge \frac{3v}{2}$, και από Euler $f = 2 - v + e \ge 2 - v + \frac{3v}{2} = 2 + \frac{v}{2}$.
+**Step 2:** From Handshaking $2e \ge 3v$, so $e \ge \frac{3v}{2}$, and from Euler $f = 2 - v + e \ge 2 - v + \frac{3v}{2} = 2 + \frac{v}{2}$.
 
-**Βήμα 3:** Χρησιμοποιώντας $f \ge 1$ και $3f \le 2e$:
-$$3(2 - v + e) \le 2e \implies e \ge 3v - 6 \ge 2v - 4 \text{ για } v \ge 2$$
+**Step 3:** Using $f \ge 1$ and $3f \le 2e$:
+$$3(2 - v + e) \le 2e \implies e \ge 3v - 6 \ge 2v - 4 \text{ for } v \ge 2$$
 
-Άρα η $e \ge 2v - 4$ ισχύει ως αδύναμη ανισότητα. $\blacksquare$
-
----
-
-## Θέμα 2 (4 μονάδες) — Κανονικές Εκφράσεις (Σύνθετες)
-
-**Αλφάβητο:** $\Sigma = \{a, b\}$
+So $e \ge 2v - 4$ holds as a weak inequality. $\blacksquare$
 
 ---
 
-### Ομάδα Α — Γλώσσα χωρίς $bb$
+## Topic 2 (4 points) — Regular Expressions (Complex)
 
-**Ιδέα:** Μετά από κάθε $b$ πρέπει να ακολουθεί $a$ ή τέλος συμβολοσειράς. Επίσης το $b$ μπορεί να εμφανιστεί μόνο μία φορά διαδοχικά.
+**Alphabet:** $\Sigma = \{a, b\}$
 
-**Κανονική Έκφραση:**
+---
+
+### Group A — Language without $bb$
+
+**Idea:** After every $b$ must follow $a$ or the end of the string. Also the $b$ can appear only once consecutively.
+
+**Regular Expression:**
 $$b^* (ab^*)^* = (a \mid ba)^* b^?$$
 
-Πιο ακριβώς: Κάθε $b$ πρέπει να ακολουθείται από $a$ ή να είναι στο τέλος. Άρα:
+More precisely: Every $b$ must be followed by $a$ or be at the end. Therefore:
 
 $$L_A = (a \mid ba)^* b^?$$
 
-Επαλήθευση:
-- $\varepsilon$: αποδεκτό (μηδέν επαναλήψεις $\times$ κανένα $b$)
-- $a$: αποδεκτό
-- $ba$: αποδεκτό
-- $bb$: μη αποδεκτό
-- $aba$: αποδεκτό
+Verification:
+- $\varepsilon$: accepted (zero repetitions $\times$ no $b$)
+- $a$: accepted
+- $ba$: accepted
+- $bb$: not accepted
+- $aba$: accepted
 
 ---
 
-### Ομάδα Β — Κάθε $a$ ακολουθείται άμεσα από $\ge 1$ $b$
+### Group B — Every $a$ is immediately followed by $\ge 1$ $b$
 
-**Ιδέα:** Το $a$ δεν μπορεί να εμφανιστεί χωρίς τουλάχιστον ένα $b$ αμέσως μετά. Επίσης $b$ μπορεί να εμφανίζεται μόνο του.
+**Idea:** The $a$ cannot appear without at least one $b$ immediately after. Also $b$ can appear on its own.
 
 $$L_B = b^* (ab^+)^* b^*$$
 
-Επαλήθευση:
-- $abbb$: αποδεκτό
-- $a$: μη αποδεκτό (δεν ακολουθεί $b$)
-- $bab$: αποδεκτό
-- $aa$: μη αποδεκτό
+Verification:
+- $abbb$: accepted
+- $a$: not accepted (no $b$ follows)
+- $bab$: accepted
+- $aa$: not accepted
 
 ---
 
-### Ομάδα Γ — Πλήθος $a$ πολλαπλάσιο του 3
+### Group C — Number of $a$'s a multiple of 3
 
-**Ιδέα:** Χρησιμοποιούμε το γεγονός ότι μεταξύ (και γύρω από) κάθε ομάδα τριών $a$ μπορούν να εμφανίζονται οσαδήποτε $b$.
+**Idea:** We use the fact that between (and around) every group of three $a$'s any number of $b$'s can appear.
 
 $$L_\Gamma = b^* (ab^*ab^*ab^*)^* b^*$$
 
-Επαλήθευση:
-- $\varepsilon$: αποδεκτό (0 = 3·0)
-- $bbb$: αποδεκτό (0 $a$)
-- $aaa$: αποδεκτό (3 $a$)
-- $aa$: μη αποδεκτό (2 $a$)
-- $babbab$: αποδεκτό (2 $a$ — **μη** αποδεκτό, διόρθωση)
-- $bababa$: αποδεκτό (3 $a$)
+Verification:
+- $\varepsilon$: accepted (0 = 3·0)
+- $bbb$: accepted (0 $a$)
+- $aaa$: accepted (3 $a$)
+- $aa$: not accepted (2 $a$)
+- $babbab$: accepted (2 $a$ — a correction to an earlier note in the source)
 
 ---
 
-### Ομάδα Δ — Χωρίς $aa$ και χωρίς $bb$
+### Group D — Without $aa$ and without $bb$
 
-**Ιδέα:** Τα $a$ και $b$ πρέπει να εναλλάσσονται. Επιτρεπτές συμβολοσειρές: $\varepsilon, a, b, ab, ba, aba, bab, abab, baba, \ldots$
+**Idea:** The $a$'s and $b$'s must alternate. Allowed strings: $\varepsilon, a, b, ab, ba, aba, bab, abab, baba, \ldots$
 
 $$L_\Delta = (ab)^*(a \mid \varepsilon) \mid (ba)^*(b \mid \varepsilon)$$
 
-Ή ισοδύναμα:
+Or equivalently:
 
 $$L_\Delta = a?(ba)^*b? $$
 
-Επαλήθευση:
-- $aba$: αποδεκτό
-- $bab$: αποδεκτό
-- $aa$: μη αποδεκτό
-- $abba$: μη αποδεκτό
+Verification:
+- $aba$: accepted
+- $bab$: accepted
+- $aa$: not accepted
+- $abba$: not accepted
 
 ---
 
-## Θέμα 3 (3 μονάδες) — Αρχή Εγκλεισμού-Αποκλεισμού
+## Topic 3 (3 points) — Principle of Inclusion-Exclusion
 
-**Δεδομένα:**
-- Σύνολο $|U| = 100$ φοιτητές
-- $|D| = 60$ (Διακριτά), $|P| = 50$ (Προγραμματισμός), $|G| = 40$ (Γραμμική Άλγεβρα)
-- $|D \cap P \cap G| = x$ (ανά Ομάδα)
-- Άγνωστες: $|D \cap P|, |D \cap G|, |P \cap G|$
+**Given:**
+- Set $|U| = 100$ students
+- $|D| = 60$ (Discrete), $|P| = 50$ (Programming), $|G| = 40$ (Linear Algebra)
+- $|D \cap P \cap G| = x$ (per Group)
+- Unknown: $|D \cap P|, |D \cap G|, |P \cap G|$
 
-**Τύπος Εγκλεισμού-Αποκλεισμού:**
+**Inclusion-Exclusion Formula:**
 $$|D \cup P \cup G| = |D| + |P| + |G| - |D \cap P| - |D \cap G| - |P \cap G| + |D \cap P \cap G|$$
 $$= 60 + 50 + 40 - (|D \cap P| + |D \cap G| + |P \cap G|) + x = 150 - S_2 + x$$
 
-όπου $S_2 = |D \cap P| + |D \cap G| + |P \cap G|$.
+where $S_2 = |D \cap P| + |D \cap G| + |P \cap G|$.
 
-**Φοιτητές που ΔΕΝ παρακολουθούν κανένα:**
+**Students who attend NONE:**
 $$N_0 = 100 - |D \cup P \cup G| = 100 - 150 + S_2 - x = S_2 - 50 - x$$
 
-**Δεσμοί για $S_2$:**
-- Κάτω όριο: $S_2 \ge 3x$ (κάθε φοιτητής που ανήκει και στα 3 μαθήματα μετριέται 3 φορές στο $S_2$)
-- Πάνω όριο: $S_2 \le |D \cap P| + |D \cap G| + |P \cap G| \le \min(|D|,|P|) + \ldots$
+**Bounds for $S_2$:**
+- Lower bound: $S_2 \ge 3x$ (every student who belongs to all 3 courses is counted 3 times in $S_2$)
+- Upper bound: $S_2 \le |D \cap P| + |D \cap G| + |P \cap G| \le \min(|D|,|P|) + \ldots$
 
-Χρησιμοποιούμε: $|D \cap P| \le \min(60, 50) = 50$, $|D \cap G| \le \min(60, 40) = 40$, $|P \cap G| \le \min(50, 40) = 40$.
-Άρα $S_2 \le 130$.
+We use: $|D \cap P| \le \min(60, 50) = 50$, $|D \cap G| \le \min(60, 40) = 40$, $|P \cap G| \le \min(50, 40) = 40$.
+So $S_2 \le 130$.
 
-Επίσης, $|D \cup P \cup G| \le 100 \Rightarrow S_2 \ge 150 - 100 + x - 0 = 50 + x$ (ελάχιστο $S_2$).
-Επίσης, $N_0 \ge 0 \Rightarrow S_2 \ge 50 + x$.
+Also, $|D \cup P \cup G| \le 100 \Rightarrow S_2 \ge 150 - 100 + x - 0 = 50 + x$ (minimum $S_2$).
+Also, $N_0 \ge 0 \Rightarrow S_2 \ge 50 + x$.
 
-**Αποτελέσματα ανά Ομάδα:**
+**Results per Group:**
 
-### Ομάδα Α — $x = 10$
+### Group A — $x = 10$
 
 $N_0 = S_2 - 60$
 
-- Ελάχιστο $N_0$: $S_2 = 50 + 10 = 60 \Rightarrow N_0 = 0$
-- Μέγιστο $N_0$: $S_2 \le 130$ (αλλά και $|D \cup P \cup G| \ge 0$, άρα $S_2 \le 150 + 10 = 160$, αλλά από τα ανώτατα όρια $S_2 \le 130$) $\Rightarrow N_0 \le 130 - 60 = 70$.
+- Minimum $N_0$: $S_2 = 50 + 10 = 60 \Rightarrow N_0 = 0$
+- Maximum $N_0$: $S_2 \le 130$ (and also $|D \cup P \cup G| \ge 0$, so $S_2 \le 150 + 10 = 160$, but from the upper bounds $S_2 \le 130$) $\Rightarrow N_0 \le 130 - 60 = 70$.
 
-**Ελάχιστο:** 0 φοιτητές χωρίς κανένα. **Μέγιστο:** 70 φοιτητές χωρίς κανένα.
+**Minimum:** 0 students with none. **Maximum:** 70 students with none.
 
-### Ομάδα Β — $x = 15$
+### Group B — $x = 15$
 
 $N_0 = S_2 - 65$
 
-- Ελάχιστο: $S_2 = 65 \Rightarrow N_0 = 0$
-- Μέγιστο: $S_2 \le 130 \Rightarrow N_0 \le 65$
+- Minimum: $S_2 = 65 \Rightarrow N_0 = 0$
+- Maximum: $S_2 \le 130 \Rightarrow N_0 \le 65$
 
-**Ελάχιστο:** 0. **Μέγιστο:** 65.
+**Minimum:** 0. **Maximum:** 65.
 
-### Ομάδα Γ — $x = 20$
+### Group C — $x = 20$
 
 $N_0 = S_2 - 70$
 
-- Ελάχιστο: $S_2 = 70 \Rightarrow N_0 = 0$
-- Μέγιστο: $S_2 \le 130 \Rightarrow N_0 \le 60$
+- Minimum: $S_2 = 70 \Rightarrow N_0 = 0$
+- Maximum: $S_2 \le 130 \Rightarrow N_0 \le 60$
 
-**Ελάχιστο:** 0. **Μέγιστο:** 60.
+**Minimum:** 0. **Maximum:** 60.
 
-### Ομάδα Δ — $x = 5$
+### Group D — $x = 5$
 
 $N_0 = S_2 - 55$
 
-- Ελάχιστο: $S_2 = 55 \Rightarrow N_0 = 0$
-- Μέγιστο: $S_2 \le 130 \Rightarrow N_0 \le 75$
+- Minimum: $S_2 = 55 \Rightarrow N_0 = 0$
+- Maximum: $S_2 \le 130 \Rightarrow N_0 \le 75$
 
-**Ελάχιστο:** 0. **Μέγιστο:** 75.
+**Minimum:** 0. **Maximum:** 75.

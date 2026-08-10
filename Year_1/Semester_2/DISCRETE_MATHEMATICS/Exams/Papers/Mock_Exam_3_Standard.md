@@ -1,52 +1,52 @@
-Τμήμα Πληροφορικής και Τηλεπικοινωνιών
-Πανεπιστήμιο Ιωαννίνων
-Σπυρίδων Τζίμας
-Εαρινό Εξάμηνο 2025
+Department of Informatics and Telecommunications
+University of Ioannina
+Spyridon Tzimas
+Spring Semester 2025
 
-# 203: Διακριτά Μαθηματικά
-## Εικονική Εξέταση 3 (Κανονική)
+# 203: Discrete Mathematics
+## Mock Exam 3 (Standard)
 
-Η θέση σας σε αυτήν την εξέταση ταυτοποιείται μοναδικά με μία ετικέτα της μορφής $X - I J$ όπου $X$ είναι το όνομα της αίθουσας και $I$ και $J$ είναι η γραμμή και στήλη αντίστοιχα στις οποίες ανήκει η συγκεκριμένη θέση. Η ομάδα σας είναι η:
+Your seat in this exam is uniquely identified by a label of the form $X - I J$ where $X$ is the name of the room and $I$ and $J$ are the row and column respectively to which the particular seat belongs. Your group is:
 
-| $I \setminus J$ | άρτιος | περιττός |
+| $I \setminus J$ | even | odd |
 | :--- | :--- | :--- |
-| άρτιος | Ομάδα Α | Ομάδα Β |
-| περιττός | Ομάδα Γ | Ομάδα Δ |
+| even | Group A | Group B |
+| odd | Group C | Group D |
 
-Η βαθμολογική αξία της εξέτασης είναι 10 μονάδες. Η χρονική διάρκεια της εξέτασης είναι τρεις ώρες. Επιτρέπεται στυλό μόνο μπλε και μαύρου χρώματος. Επιτρέπεται μολύβι μόνο για γραφή στο πρόχειρο.
+The grading value of the exam is 10 points. The duration of the exam is three hours. Only blue and black pens are allowed. Pencil is allowed only for writing on scrap paper.
 
-Καλή Επιτυχία!
-
----
-
-**Θέμα 1. (3 μονάδες)** Δίνεται η παρακάτω λογική συνάρτηση $F(A, B, C) = (A \text{ NAND } B) \text{ XOR } (?)$.
-
-- **Ομάδα Α:** (?) = $C$
-- **Ομάδα Β:** (?) = $(B \text{ OR } C)$
-- **Ομάδα Γ:** (?) = $(A \text{ AND } C)$
-- **Ομάδα Δ:** (?) = $(\text{NOT } C)$
-
-α'. (1.5 μονάδες) Γράψτε την αντίστοιχη Boolean έκφραση με σύμβολα ($\land, \lor, \neg, \oplus$).
-β'. (1.5 μονάδες) Κατασκευάστε τον πίνακα αληθείας της συνάρτησης.
+Good Luck!
 
 ---
 
-**Θέμα 2. (4 μονάδες)** Έστω η οικογένεια συνόλων $A_i = [i, i+2]$ για $i \in \mathbb{Z}^+$. Υπολογίστε τα ακόλουθα:
+**Topic 1. (3 points)** Given the following logic function $F(A, B, C) = (A \text{ NAND } B) \text{ XOR } (?)$.
+
+- **Group A:** (?) = $C$
+- **Group B:** (?) = $(B \text{ OR } C)$
+- **Group C:** (?) = $(A \text{ AND } C)$
+- **Group D:** (?) = $(\text{NOT } C)$
+
+a. (1.5 points) Write the corresponding Boolean expression with symbols ($\land, \lor, \neg, \oplus$).
+b. (1.5 points) Construct the truth table of the function.
+
+---
+
+**Topic 2. (4 points)** Let the family of sets $A_i = [i, i+2]$ for $i \in \mathbb{Z}^+$. Calculate the following:
 1. $\bigcup_{i=1}^{n} A_i$
 2. $\bigcap_{i=(?)}^{n+2} A_i$
 
-- **Ομάδα Α:** (?) = $n$
-- **Ομάδα Β:** (?) = $n-1$
-- **Ομάδα Γ:** (?) = $1$
-- **Ομάδα Δ:** (?) = $n+1$
+- **Group A:** (?) = $n$
+- **Group B:** (?) = $n-1$
+- **Group C:** (?) = $1$
+- **Group D:** (?) = $n+1$
 
-(Προσοχή: Εξετάστε προσεκτικά τα άκρα των διαστημάτων στις τομές και ενώσεις).
+(Beware: Examine carefully the endpoints of the intervals in the intersections and unions).
 
 ---
 
-**Θέμα 3. (3 μονάδες)** Αποδείξτε χρησιμοποιώντας Μαθηματική Επαγωγή ότι:
+**Topic 3. (3 points)** Prove using Mathematical Induction that:
 
-- **Ομάδα Α:** Το άθροισμα των πρώτων $n$ περιττών αριθμών είναι $n^2$.
-- **Ομάδα Β:** Το άθροισμα των πρώτων $n$ άρτιων αριθμών είναι $n(n+1)$.
-- **Ομάδα Γ:** Το $3^n - 1$ είναι πολλαπλάσιο του 2 για κάθε $n \ge 1$.
-- **Ομάδα Δ:** Το $5^n - 1$ είναι πολλαπλάσιο του 4 για κάθε $n \ge 1$.
+- **Group A:** The sum of the first $n$ odd numbers is $n^2$.
+- **Group B:** The sum of the first $n$ even numbers is $n(n+1)$.
+- **Group C:** $3^n - 1$ is a multiple of 2 for every $n \ge 1$.
+- **Group D:** $5^n - 1$ is a multiple of 4 for every $n \ge 1$.

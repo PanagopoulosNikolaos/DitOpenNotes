@@ -1,47 +1,47 @@
-Τμήμα Πληροφορικής και Τηλεπικοινωνιών
-Πανεπιστήμιο Ιωαννίνων
-Σπυρίδων Τζίμας
-Εαρινό Εξάμηνο 2025
+Department of Informatics and Telecommunications
+University of Ioannina
+Spyridon Tzimas
+Spring Semester 2025
 
-# 203: Διακριτά Μαθηματικά
-## Εικονική Εξέταση 2 (Κανονική)
+# 203: Discrete Mathematics
+## Mock Exam 2 (Standard)
 
-Η θέση σας σε αυτήν την εξέταση ταυτοποιείται μοναδικά με μία ετικέτα της μορφής $X - I J$ όπου $X$ είναι το όνομα της αίθουσας και $I$ και $J$ είναι η γραμμή και στήλη αντίστοιχα στις οποίες ανήκει η συγκεκριμένη θέση. Η ομάδα σας είναι η:
+Your seat in this exam is uniquely identified by a label of the form $X - I J$ where $X$ is the name of the room and $I$ and $J$ are the row and column respectively to which the particular seat belongs. Your group is:
 
-| $I \setminus J$ | άρτιος | περιττός |
+| $I \setminus J$ | even | odd |
 | :--- | :--- | :--- |
-| άρτιος | Ομάδα Α | Ομάδα Β |
-| περιττός | Ομάδα Γ | Ομάδα Δ |
+| even | Group A | Group B |
+| odd | Group C | Group D |
 
-Η βαθμολογική αξία της εξέτασης είναι 10 μονάδες. Η χρονική διάρκεια της εξέτασης είναι τρεις ώρες. Επιτρέπεται στυλό μόνο μπλε και μαύρου χρώματος. Επιτρέπεται μολύβι μόνο για γραφή στο πρόχειρο.
+The grading value of the exam is 10 points. The duration of the exam is three hours. Only blue and black pens are allowed. Pencil is allowed only for writing on scrap paper.
 
-Καλή Επιτυχία!
-
----
-
-**Θέμα 1. (3 μονάδες)** Έστω $R$ μία σχέση στο σύνολο $A = \{a, b, c, d\}$. Η σχέση δίνεται ως εξής: $R = \{(a, a), (b, b), (c, c), (d, d), (a, b), (b, a), (?)\}$.
-
-- **Ομάδα Α:** (?) = $(b, c)$
-- **Ομάδα Β:** (?) = $(a, c)$
-- **Ομάδα Γ:** (?) = $(c, d), (d, c)$
-- **Ομάδα Δ:** (?) = $(a, d), (d, a)$
-
-Εξετάστε αν η σχέση $R$ είναι σχέση ισοδυναμίας. Αν δεν είναι, προσθέστε το ελάχιστο πλήθος στοιχείων (ζευγών) ώστε να γίνει σχέση ισοδυναμίας (μεταβατική κλειστότητα κ.λπ.).
+Good Luck!
 
 ---
 
-**Θέμα 2. (4 μονάδες)** Σχεδιάστε ένα Ντετερμινιστικό Πεπερασμένο Αυτόματο (DFA) που να αναγνωρίζει τη γλώσσα επί του αλφαβήτου $\Sigma = \{0, 1\}$ η οποία περιέχει όλες τις συμβολοσειρές που:
+**Topic 1. (3 points)** Let $R$ be a relation on the set $A = \{a, b, c, d\}$. The relation is given as follows: $R = \{(a, a), (b, b), (c, c), (d, d), (a, b), (b, a), (?)\}$.
 
-- **Ομάδα Α:** Λήγουν σε 10
-- **Ομάδα Β:** Ξεκινούν με 01
-- **Ομάδα Γ:** Περιέχουν την υποσυμβολοσειρά 11
-- **Ομάδα Δ:** Έχουν άρτιο αριθμό από 0 και περιττό από 1
+- **Group A:** (?) = $(b, c)$
+- **Group B:** (?) = $(a, c)$
+- **Group C:** (?) = $(c, d), (d, c)$
+- **Group D:** (?) = $(a, d), (d, a)$
+
+Examine whether the relation $R$ is an equivalence relation. If it is not, add the minimum number of elements (pairs) so that it becomes an equivalence relation (transitive closure, etc.).
 
 ---
 
-**Θέμα 3. (3 μονάδες)** Σε μία κληρωτίδα υπάρχουν 10 μπάλες αριθμημένες από το 1 έως το 10. Τραβάμε 3 μπάλες χωρίς επανατοποθέτηση. Ποια η πιθανότητα το άθροισμα των αριθμών στις μπάλες να είναι (?);
+**Topic 2. (4 points)** Draw a Deterministic Finite Automaton (DFA) that recognizes the language over the alphabet $\Sigma = \{0, 1\}$ which contains all the strings that:
 
-- **Ομάδα Α:** άρτιο
-- **Ομάδα Β:** περιττό
-- **Ομάδα Γ:** μεγαλύτερο του 24
-- **Ομάδα Δ:** μικρότερο του 10
+- **Group A:** End in 10
+- **Group B:** Start with 01
+- **Group C:** Contain the substring 11
+- **Group D:** Have an even number of 0's and an odd number of 1's
+
+---
+
+**Topic 3. (3 points)** In a lottery bag there are 10 balls numbered from 1 to 10. We draw 3 balls without replacement. What is the probability that the sum of the numbers on the balls is (?);
+
+- **Group A:** even
+- **Group B:** odd
+- **Group C:** greater than 24
+- **Group D:** less than 10

@@ -1,53 +1,53 @@
-Τμήμα Πληροφορικής και Τηλεπικοινωνιών
-Πανεπιστήμιο Ιωαννίνων
-Σπυρίδων Τζίμας
-Εαρινό Εξάμηνο 2025
+Department of Informatics and Telecommunications
+University of Ioannina
+Spyridon Tzimas
+Spring Semester 2025
 
-# 203: Διακριτά Μαθηματικά
-## Εικονική Εξέταση 5 (Με παγίδες)
+# 203: Discrete Mathematics
+## Mock Exam 5 (Gotchas)
 
-Η θέση σας σε αυτήν την εξέταση ταυτοποιείται μοναδικά με μία ετικέτα της μορφής $X - I J$ όπου $X$ είναι το όνομα της αίθουσας και $I$ και $J$ είναι η γραμμή και στήλη αντίστοιχα στις οποίες ανήκει η συγκεκριμένη θέση. Η ομάδα σας είναι η:
+Your seat in this exam is uniquely identified by a label of the form $X - I J$ where $X$ is the name of the room and $I$ and $J$ are the row and column respectively to which the particular seat belongs. Your group is:
 
-| $I \setminus J$ | άρτιος | περιττός |
+| $I \setminus J$ | even | odd |
 | :--- | :--- | :--- |
-| άρτιος | Ομάδα Α | Ομάδα Β |
-| περιττός | Ομάδα Γ | Ομάδα Δ |
+| even | Group A | Group B |
+| odd | Group C | Group D |
 
-Η βαθμολογική αξία της εξέτασης είναι 10 μονάδες. Η χρονική διάρκεια της εξέτασης είναι τρεις ώρες. Επιτρέπεται στυλό μόνο μπλε και μαύρου χρώματος. Επιτρέπεται μολύβι μόνο για γραφή στο πρόχειρο.
+The grading value of the exam is 10 points. The duration of the exam is three hours. Only blue and black pens are allowed. Pencil is allowed only for writing on scrap paper.
 
-Καλή Επιτυχία!
-
----
-
-**Θέμα 1. (3 μονάδες)** Προσδιορίστε αν οι ακόλουθες προτάσεις είναι Αληθείς ή Ψευδείς και αιτιολογήστε την απάντησή σας.
-α'. (1.5 μονάδα) Αν $A \subseteq B \cup C$, τότε απαραίτητα $(A \subseteq B)$ ή $(A \subseteq C)$.
-β'. (1.5 μονάδα) Το κενό σύνολο $\emptyset$ είναι στοιχείο του δυναμοσυνόλου $P((?))$.
-
-- **Ομάδα Α:** (?) = $\emptyset$
-- **Ομάδα Β:** (?) = $\{\emptyset\}$
-- **Ομάδα Γ:** (?) = $\{1, 2\}$
-- **Ομάδα Δ:** (?) = $\{\{\emptyset\}\}$
-
-(Παγίδα: Διακρίνετε σωστά το "ανήκει" ($\in$) από το "υποσύνολο" ($\subseteq$)).
+Good Luck!
 
 ---
 
-**Θέμα 2. (4 μονάδες)** Θεωρήστε το Μη-Ντετερμινιστικό Πεπερασμένο Αυτόματο (NFA) $N$ που αναγνωρίζει τη γλώσσα $L = (0 \cup 1)^*(?)(0 \cup 1)^*$. Μετατρέψτε το σε ισοδύναμο DFA χρησιμοποιώντας τον αλγόριθμο κατασκευής υποσυνόλων.
+**Topic 1. (3 points)** Determine whether the following statements are True or False and justify your answer.
+a. (1.5 points) If $A \subseteq B \cup C$, then necessarily $(A \subseteq B)$ or $(A \subseteq C)$.
+b. (1.5 points) The empty set $\emptyset$ is an element of the power set $P((?))$.
 
-- **Ομάδα Α:** (?) = $00$
-- **Ομάδα Β:** (?) = $11$
-- **Ομάδα Γ:** (?) = $01$
-- **Ομάδα Δ:** (?) = $10$
+- **Group A:** (?) = $\emptyset$
+- **Group B:** (?) = $\{\emptyset\}$
+- **Group C:** (?) = $\{1, 2\}$
+- **Group D:** (?) = $\{\{\emptyset\}\}$
 
-Πόσες καταστάσεις έχει το ελάχιστο DFA που προκύπτει; (Παγίδα: Υπάρχουν μη προσβάσιμες ή ισοδύναμες καταστάσεις;)
+(Trap: Correctly distinguish "belongs" ($\in$) from "subset" ($\subseteq$)).
 
 ---
 
-**Θέμα 3. (3 μονάδες)** Έχουμε μία συνάρτηση $f: A \to B$ και μία $g: B \to C$. Αν η σύνθεση $g \circ f$ είναι (?), τι μπορούμε να συμπεράνουμε με βεβαιότητα για τις $f$ και $g$;
+**Topic 2. (4 points)** Consider the Non-deterministic Finite Automaton (NFA) $N$ that recognizes the language $L = (0 \cup 1)^*(?)(0 \cup 1)^*$. Convert it to an equivalent DFA using the subset construction algorithm.
 
-- **Ομάδα Α:** (?) = αμφιμονότιμη (1-1, injective)
-- **Ομάδα Β:** (?) = επί (surjective)
-- **Ομάδα Γ:** (?) = αμφιμονότιμη ΚΑΙ η $f$ είναι επί
-- **Ομάδα Δ:** (?) = επί ΚΑΙ η $g$ είναι αμφιμονότιμη
+- **Group A:** (?) = $00$
+- **Group B:** (?) = $11$
+- **Group C:** (?) = $01$
+- **Group D:** (?) = $10$
 
-Δώστε ένα αντιπαράδειγμα για την ιδιότητα που ΔΕΝ κληρονομείται υποχρεωτικά. (Παγίδα: Ποια συνάρτηση αναγκάζεται να έχει την ιδιότητα και ποια όχι;)
+How many states does the resulting minimal DFA have? (Trap: Are there any unreachable or equivalent states?)
+
+---
+
+**Topic 3. (3 points)** We have a function $f: A \to B$ and a $g: B \to C$. If the composition $g \circ f$ is (?), what can we conclude with certainty about $f$ and $g$?
+
+- **Group A:** (?) = injective (1-1)
+- **Group B:** (?) = surjective (onto)
+- **Group C:** (?) = injective AND $f$ is surjective
+- **Group D:** (?) = surjective AND $g$ is injective
+
+Give a counterexample for the property that is NOT necessarily inherited. (Trap: Which function is forced to have the property and which is not?)

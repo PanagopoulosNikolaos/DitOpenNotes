@@ -1,18 +1,18 @@
-# 11. VHDL - Προχωρημένο
+# 11. VHDL - Advanced
 
-Η ενότητα αυτή επεκτείνει τα βασικά της VHDL σε προχωρημένες τεχνικές που απαιτούνται για τη σχεδίαση πολύπλοκων ψηφιακών συστημάτων: μοντελοποίηση συνδυαστικών και ακολουθιακών κυκλωμάτων, FSM, generics, packages, functions, testbenches και σύνθεση RTL.
+This section extends the basics of VHDL to advanced techniques required for designing complex digital systems: modeling of combinational and sequential circuits, FSMs, generics, packages, functions, testbenches, and RTL synthesis.
 
 ---
 
-## 1. Μοντελοποίηση Συνδυαστικών Κυκλωμάτων
+## 1. Modeling Combinational Circuits
 
-### 1.1 Πύλες, MUX, Decoder
+### 1.1 Gates, MUX, Decoder
 
 ```vhdl
--- 2-to-1 MUX με when-else
+-- 2-to-1 MUX with when-else
 Y <= A when S = '0' else B;
 
--- 4-to-1 MUX με with-select
+-- 4-to-1 MUX with with-select
 with S select
     Y <= A when "00",
          B when "01",
@@ -37,15 +37,15 @@ Cout <= (A AND B) OR (A AND Cin) OR (B AND Cin);
 
 ### 1.3 Sensitivity List
 
-Για combinational: όλες οι είσοδοι. Για sequential: μόνο `clk` (και `rst` αν async).
+For combinational: all inputs. For sequential: only `clk` (and `rst` if async).
 
-### 1.4 Ανεπιθύμητα Latches
+### 1.4 Unwanted Latches
 
-Αν σε `process` υπάρχει `if` χωρίς `else`, το synthesis tool μπορεί να παράγει latch. Αποφυγή: προσθήκη `else` ή χρήση default value.
+If in a `process` there is an `if` without `else`, the synthesis tool may generate a latch. Avoid: add `else` or use a default value.
 
 ---
 
-## 2. Μοντελοποίηση Ακολουθιακών Κυκλωμάτων
+## 2. Modeling Sequential Circuits
 
 ### 2.1 D Flip-Flop
 
@@ -58,9 +58,9 @@ begin
 end process;
 ```
 
-### 2.2 Σύγχρονο vs Ασύγχρονο Reset/Preset
+### 2.2 Synchronous vs Asynchronous Reset/Preset
 
-**Σύγχρονος reset:**
+**Synchronous reset:**
 ```vhdl
 process(clk)
 begin
@@ -74,7 +74,7 @@ begin
 end process;
 ```
 
-**Ασύγχρονος reset:**
+**Asynchronous reset:**
 ```vhdl
 process(clk, rst)
 begin
@@ -88,9 +88,9 @@ begin
 end process;
 ```
 
-> **[Key Insight]** Ο ασύγχρονος reset είναι πιο γρήγορος αλλά πιο επικίνδυνος (μπορεί να προκαλέσει metastability). Η νεότερη σύγκλιση προτιμά σύγχρονο reset.
+> **[Key Insight]** Asynchronous reset is faster but more dangerous (can cause metastability). Modern convergence prefers synchronous reset.
 
-### 2.3 Καταχωρητές και Shift Registers
+### 2.3 Registers and Shift Registers
 
 ```vhdl
 -- 4-bit shift right register
@@ -102,7 +102,7 @@ begin
 end process;
 ```
 
-### 2.4 Μετρητές
+### 2.4 Counters
 
 ```vhdl
 -- mod-10 up counter
@@ -120,7 +120,7 @@ end process;
 
 ---
 
-## 3. FSM σε VHDL
+## 3. FSM in VHDL
 
 ### 3.1 State Type
 
@@ -149,7 +149,7 @@ end process;
 
 ### 3.3 2-Process FSM
 
-Ένα process για state register, ένα για next-state/output logic:
+One process for state register, one for next-state/output logic:
 
 ```vhdl
 -- Process 1: State register
@@ -179,7 +179,7 @@ end process;
 
 ### 3.4 3-Process FSM
 
-Ένα για state register, ένα για next-state, ένα για outputs. Πιο ξεκάθαρη δομή.
+One for state register, one for next-state, one for outputs. Cleaner structure.
 
 ### 3.5 One-Hot Encoding
 
@@ -190,7 +190,7 @@ attribute fsm_encoding of current_state : signal is "one-hot";
 
 ---
 
-## 4. Γενικοί Σχεδιασμοί (Generics)
+## 4. Generics
 
 ### 4.1 Generic Parameters
 
@@ -204,7 +204,7 @@ entity n_adder is
 end entity;
 ```
 
-### 4.2 N-bit Register με Generic
+### 4.2 N-bit Register with Generic
 
 ```vhdl
 entity n_register is
@@ -227,7 +227,7 @@ end generate;
 
 ---
 
-## 5. Πακέτα & Βιβλιοθήκες
+## 5. Packages & Libraries
 
 ### 5.1 Package Definition
 
@@ -249,7 +249,7 @@ signal sum  : unsigned(8 downto 0);
 sum <= resize(a, 9) + resize(b, 9);
 ```
 
-> **[Key Insight]** Χρησιμοποιήστε πάντα `ieee.numeric_std` αντί `ieee.std_logic_arith`. Το `numeric_std` είναι IEEE standard, το `std_logic_arith` είναι third-party.
+> **[Key Insight]** Always use `ieee.numeric_std` instead of `ieee.std_logic_arith`. `numeric_std` is the IEEE standard, `std_logic_arith` is third-party.
 
 ---
 
@@ -284,14 +284,14 @@ end procedure;
 
 ## 7. Testbenches
 
-### 7.1 Entity χωρίς Ports
+### 7.1 Entity without Ports
 
 ```vhdl
 entity tb_my_design is
 end entity tb_my_design;
 ```
 
-### 7.2 Component Instantiation του DUT
+### 7.2 DUT Component Instantiation
 
 ```vhdl
 DUT: my_design port map (
@@ -301,7 +301,7 @@ DUT: my_design port map (
 );
 ```
 
-### 7.3 Παραγωγή Ρολογιού
+### 7.3 Clock Generation
 
 ```vhdl
 clk_process: process
@@ -325,30 +325,30 @@ Non-synthesizable constructs: `wait for`, `report`, `assert`, `file I/O`.
 
 ---
 
-## 8. RTL Σύνθεση
+## 8. RTL Synthesis
 
 ### 8.1 Synthesizable Subset
 
 - `process(clk)` → Flip-Flop
 - `process(a, b)` → Combinational logic
-- Δεν συντίθεται: `wait for`, μη απλές δομές βρόχων
+- Not synthesized: `wait for`, non-trivial loop structures
 
 ### 8.2 Setup/Hold Time
 
-- **Setup time ($t_{su}$):** Χρόνος πριν την ακμή που τα δεδομένα πρέπει να είναι σταθερά
-- **Hold time ($t_h$):** Χρόνος μετά την ακμή που τα δεδομένα πρέπει να παραμείνουν σταθερά
+- **Setup time ($t_{su}$):** Time before the edge that data must be stable
+- **Hold time ($t_h$):** Time after the edge that data must remain stable
 
 ### 8.3 Critical Path
 
-Το πιο αργό μονοπάτι στο κύκλωμα — καθορίζει τη μέγιστη συχνότητα ρολογιού.
+The slowest path in the circuit — determines the maximum clock frequency.
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: 2-Process FSM σε VHDL
+### Exercise 1: 2-Process FSM in VHDL
 
-**Problem:** Να υλοποιηθεί FSM ανιχνευτή "101" με 2-process στυλ.
+**Problem:** Implement an FSM detector for "101" with 2-process style.
 
 **Solution:**
 ```vhdl
@@ -380,9 +380,9 @@ begin
 end process;
 ```
 
-### Exercise 2: N-bit Adder με Generic
+### Exercise 2: N-bit Adder with Generic
 
-**Problem:** Να σχεδιαστεί N-bit adder με generic.
+**Problem:** Design an N-bit adder with generic.
 
 **Solution:**
 ```vhdl
@@ -394,9 +394,9 @@ entity n_adder is
 end entity;
 ```
 
-### Exercise 3: Testbench για Full Adder
+### Exercise 3: Testbench for Full Adder
 
-**Problem:** Να γραφεί testbench για full adder.
+**Problem:** Write a testbench for full adder.
 
 **Solution:**
 ```vhdl
@@ -416,7 +416,7 @@ end architecture;
 
 ### Exercise 4: Generate Statement
 
-**Problem:** Να χρησιμοποιηθεί generate για N-bit inverter chain.
+**Problem:** Use generate for an N-bit inverter chain.
 
 **Solution:**
 ```vhdl
@@ -427,7 +427,7 @@ end generate;
 
 ### Exercise 5: Shift Register Structural
 
-**Problem:** Να υλοποιηθεί 4-bit SIPO shift register structural.
+**Problem:** Implement a 4-bit SIPO shift register structurally.
 
 **Solution:**
 ```vhdl
@@ -435,11 +435,11 @@ gen_ff: for i in 0 to 3 generate
     FF: d_ff port map (clk => clk, D => D_in(i), Q => Q(i));
 end generate;
 ```
-με σωστή σύνδεση: `D_in(0) <= serial_in`, `D_in(i) <= Q(i-1)` για $i > 0$.
+with correct connection: `D_in(0) <= serial_in`, `D_in(i) <= Q(i-1)` for $i > 0$.
 
-### Exercise 6: Variable σε Process
+### Exercise 6: Variable in Process
 
-**Problem:** Να εξηγηθεί γιατί η variable χρησιμοποιείται σε accumulator.
+**Problem:** Explain why a variable is used in an accumulator.
 
 **Solution:**
 ```vhdl
@@ -447,15 +447,15 @@ process(clk)
     variable acc : unsigned(15 downto 0) := (others => '0');
 begin
     if rising_edge(clk) then
-        acc := acc + unsigned(input);  -- άμεση ενημέρωση
+        acc := acc + unsigned(input);  -- immediate update
         Q <= std_logic_vector(acc);
     end if;
 end process;
 ```
 
-### Exercise 7: Package με Constants
+### Exercise 7: Package with Constants
 
-**Problem:** Να δημιουργηθεί package με σταθερές για project.
+**Problem:** Create a package with constants for a project.
 
 **Solution:**
 ```vhdl
@@ -466,16 +466,16 @@ package project_constants is
 end package;
 ```
 
-### Exercise 8: Async vs Sync Reset συγκριση
+### Exercise 8: Async vs Sync Reset Comparison
 
-**Problem:** Πότε προτιμάται async και πότε sync reset;
+**Problem:** When is async vs sync reset preferred?
 
 **Solution:**
-- **Async:** Όταν η επαναφορά πρέπει να γίνει άμεσα χωρίς clock (εξωτερικό επεισόδιο)
-- **Sync:** Όταν η επαναφορά πρέπει να συγχρονιστεί με τον clock (πιο ασφαλής, πολύχρηστη σε σύγχρονα συστήματα)
+- **Async:** When reset must happen immediately without clock (external event)
+- **Sync:** When reset must be synchronized with the clock (safer, widely used in modern systems)
 
 ---
 
 ## Exam Tip: Non-Synthesizable Constructs
 
-Σε εξέταση, αν σας ζητηθεί να γράψετε testbench, χρησιμοποιήστε `wait for` για χρονισμό και `assert` για έλεγχο. Αν σας ζητηθεί synthesizable κώδικας, ποτέ `wait for` μέσα σε process — χρησιμοποιήστε `rising_edge(clk)`. Αυτή η διάκριση είναι θεμελιώδης στις εξετάσεις.
+In an exam, if asked to write a testbench, use `wait for` for timing and `assert` for checking. If asked to write synthesizable code, never use `wait for` inside a process — use `rising_edge(clk)`. This distinction is fundamental in exams.

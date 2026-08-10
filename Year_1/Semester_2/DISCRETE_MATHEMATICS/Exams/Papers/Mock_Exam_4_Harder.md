@@ -1,49 +1,49 @@
-Τμήμα Πληροφορικής και Τηλεπικοινωνιών
-Πανεπιστήμιο Ιωαννίνων
-Σπυρίδων Τζίμας
-Εαρινό Εξάμηνο 2025
+Department of Informatics and Telecommunications
+University of Ioannina
+Spyridon Tzimas
+Spring Semester 2025
 
-# 203: Διακριτά Μαθηματικά
-## Εικονική Εξέταση 4 (Δυσκολότερη)
+# 203: Discrete Mathematics
+## Mock Exam 4 (Harder)
 
-Η θέση σας σε αυτήν την εξέταση ταυτοποιείται μοναδικά με μία ετικέτα της μορφής $X - I J$ όπου $X$ είναι το όνομα της αίθουσας και $I$ και $J$ είναι η γραμμή και στήλη αντίστοιχα στις οποίες ανήκει η συγκεκριμένη θέση. Η ομάδα σας είναι η:
+Your seat in this exam is uniquely identified by a label of the form $X - I J$ where $X$ is the name of the room and $I$ and $J$ are the row and column respectively to which the particular seat belongs. Your group is:
 
-| $I \setminus J$ | άρτιος | περιττός |
+| $I \setminus J$ | even | odd |
 | :--- | :--- | :--- |
-| άρτιος | Ομάδα Α | Ομάδα Β |
-| περιττός | Ομάδα Γ | Ομάδα Δ |
+| even | Group A | Group B |
+| odd | Group C | Group D |
 
-Η βαθμολογική αξία της εξέτασης είναι 10 μονάδες. Η χρονική διάρκεια της εξέτασης είναι τρεις ώρες. Επιτρέπεται στυλό μόνο μπλε και μαύρου χρώματος. Επιτρέπεται μολύβι μόνο για γραφή στο πρόχειρο.
+The grading value of the exam is 10 points. The duration of the exam is three hours. Only blue and black pens are allowed. Pencil is allowed only for writing on scrap paper.
 
-Καλή Επιτυχία!
-
----
-
-**Θέμα 1. (3 μονάδες)** Έστω $G = (V, E)$ ένα συνεκτικό επίπεδο γράφημα με $v$ κορυφές, $e$ ακμές και $f$ περιοχές. Γνωρίζουμε ότι ο βαθμός κάθε κορυφής είναι τουλάχιστον 3. Αποδείξτε ότι $e \ge (?)$.
-
-- **Ομάδα Α:** (?) = $\frac{3v}{2}$
-- **Ομάδα Β:** (?) = $\frac{3f}{2}$
-- **Ομάδα Γ:** (?) = $3v - 6$
-- **Ομάδα Δ:** (?) = $2v - 4$
-
-(Προσοχή στην "παγίδα": Ποιες ανισότητες ισχύουν πάντα σε επίπεδα γραφήματα και πώς συνδυάζονται με τον τύπο του Euler;)
+Good Luck!
 
 ---
 
-**Θέμα 2. (4 μονάδες)** Δίνεται το αλφάβητο $\Sigma = \{a, b\}$. Γράψτε την κανονική έκφραση για τη γλώσσα $L$ που περιλαμβάνει όλες τις λέξεις όπου:
+**Topic 1. (3 points)** Let $G = (V, E)$ be a connected planar graph with $v$ vertices, $e$ edges and $f$ regions. We know that the degree of every vertex is at least 3. Prove that $e \ge (?)$.
 
-- **Ομάδα Α:** Δεν εμφανίζεται η υποσυμβολοσειρά $bb$.
-- **Ομάδα Β:** Κάθε $a$ ακολουθείται άμεσα από τουλάχιστον ένα $b$.
-- **Ομάδα Γ:** Το πλήθος των $a$ είναι πολλαπλάσιο του 3 (συμπεριλαμβανομένου του 0).
-- **Ομάδα Δ:** Δεν περιέχουν ούτε $aa$ ούτε $bb$ ως υποσυμβολοσειρές.
+- **Group A:** (?) = $\frac{3v}{2}$
+- **Group B:** (?) = $\frac{3f}{2}$
+- **Group C:** (?) = $3v - 6$
+- **Group D:** (?) = $2v - 4$
+
+(Beware of the "trap": Which inequalities always hold in planar graphs and how do they combine with Euler's formula?)
 
 ---
 
-**Θέμα 3. (3 μονάδες)** Σε μία τάξη 100 φοιτητών, 60 παρακολουθούν Διακριτά Μαθηματικά, 50 παρακολουθούν Προγραμματισμό και 40 παρακολουθούν Γραμμική Άλγεβρα. Γνωρίζουμε επίσης ότι (?) φοιτητές παρακολουθούν και τα 3 μαθήματα. Ποιος είναι ο μέγιστος και ποιος ο ελάχιστος δυνατός αριθμός φοιτητών που ΔΕΝ παρακολουθούν κανένα από τα 3 μαθήματα;
+**Topic 2. (4 points)** Given the alphabet $\Sigma = \{a, b\}$. Write the regular expression for the language $L$ that includes all words where:
 
-- **Ομάδα Α:** (?) = 10
-- **Ομάδα Β:** (?) = 15
-- **Ομάδα Γ:** (?) = 20
-- **Ομάδα Δ:** (?) = 5
+- **Group A:** The substring $bb$ does not appear.
+- **Group B:** Every $a$ is immediately followed by at least one $b$.
+- **Group C:** The number of $a$'s is a multiple of 3 (including 0).
+- **Group D:** They contain neither $aa$ nor $bb$ as substrings.
 
-(Παγίδα: Εφαρμόστε σωστά την Αρχή Εγκλεισμού-Αποκλεισμού λαμβάνοντας υπόψη τα άγνωστα όρια για τις τομές ανά δύο).
+---
+
+**Topic 3. (3 points)** In a class of 100 students, 60 attend Discrete Mathematics, 50 attend Programming and 40 attend Linear Algebra. We also know that (?) students attend all 3 courses. What is the maximum and what is the minimum possible number of students who do NOT attend any of the 3 courses?
+
+- **Group A:** (?) = 10
+- **Group B:** (?) = 15
+- **Group C:** (?) = 20
+- **Group D:** (?) = 5
+
+(Trap: Apply the Principle of Inclusion-Exclusion correctly, taking into account the unknown bounds for the pairwise intersections).
