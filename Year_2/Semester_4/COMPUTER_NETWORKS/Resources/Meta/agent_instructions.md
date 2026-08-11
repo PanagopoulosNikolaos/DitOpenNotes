@@ -8,29 +8,29 @@ For each top-level entry in the mindmap, you must produce **exactly one Markdown
 
 1. **Target Directory**: All files must be saved inside the `Lectures/` directory. Create the directory if it does not exist.
 2. **One File per Main Topic**: Do not split subtopics into separate files. Every sub-bullet and nested sub-bullet must be covered as sections and subsections within the single parent file.
-3. **File Naming**: Use the format `topic_<n>_<concept_name>.md` where `<n>` is the topic number (1-indexed) and `<concept_name>` is a concise English transliteration or translation of the Greek topic title. Use underscores for spaces, all lowercase.
+3. **File Naming**: Use the format `topic_<n>_<concept_name>.md` where `<n>` is the topic number (1-indexed) and `<concept_name>` is a concise English transliteration or translation of the topic title. Use underscores for spaces, all lowercase.
 
 **Naming Examples from `mindmap.md`:**
 
 | Mindmap Entry | Output File |
 |---|---|
-| Δίκτυο στο Έπακρο | `Lectures/topic_1_dikaio_sto_epakro.md` |
-| Το Διαδίκτυο | `Lectures/topic_2_to_diadiktyo.md` |
-| Δομή Δικτύου | `Lectures/topic_3_domi_diktyo.md` |
-| Τεχνολογίες Πρόσβασης | `Lectures/topic_4_texnologies_prosvasis.md` |
-| Επικοινωνιακά Μέσα | `Lectures/topic_5_epikinoniaka_mesa.md` |
-| Διαμεταγωγή Δεδομένων | `Lectures/topic_6_diametagogi_dedomenon.md` |
-| Βασικά Ζητήματα | `Lectures/topic_7_vasika_zitiimata.md` |
+| Network at the Edge | `Lectures/topic_1_network_edge.md` |
+| The Internet | `Lectures/topic_2_the_internet.md` |
+| Network Structure | `Lectures/topic_3_network_structure.md` |
+| Access Technologies | `Lectures/topic_4_access_technologies.md` |
+| Physical Media | `Lectures/topic_5_physical_media.md` |
+| Data Switching | `Lectures/topic_6_data_switching.md` |
+| Basic Issues | `Lectures/topic_7_basic_issues.md` |
 
 ## File Internal Structure
 
 Every generated file must follow this internal structure, strictly in this order:
 
 ### 1. Title
-Use the Greek topic name as the `# H1` heading, followed immediately by an English subtitle in italics.
+Use the topic name as the `# H1` heading, followed immediately by a subtitle in italics.
 
 ```
-# Δίκτυο στο Έπακρο
+# Network at the Edge
 *The Network at a Glance*
 ```
 
@@ -71,7 +71,7 @@ A short bulleted list (5-10 bullets) of the most important facts, distinctions, 
 - Use fenced code blocks (` ``` `) for ASCII diagrams, protocol exchange sequences, and configuration snippets.
 
 ### 2. Clarity and Flow
-- Write for a university student encountering these concepts for the first time in Greek, but use English for all standard technical terms (e.g., "router", "TCP/IP", "packet", "bandwidth").
+- Write for a university student encountering these concepts for the first time, using standard technical terms (e.g., "router", "TCP/IP", "packet", "bandwidth").
 - Follow a top-down progression: start with the big picture, then drill into specifics.
 - Do not leave out important edge cases, protocol details, or distinctions — e.g., the difference between symmetric and asymmetric DSL, or why LEO satellites have lower latency than geostationary ones.
 - Highlight exam-critical distinctions explicitly using a **bold label** such as **"Exam Note:"** or **"Key Distinction:"**.
@@ -112,7 +112,7 @@ The following requirements apply specifically to this subject and override the g
 - **No minimum solved-problem count is required.** This subject is primarily conceptual and architectural, not computational.
 - **Do include at least one worked numerical example per file** where a quantitative formula is presented (e.g., calculate end-to-end delay for a 3-hop packet-switched path, or calculate throughput given link capacity and RTT).
 - **Do include at least one protocol interaction sequence** per file where a protocol is discussed (e.g., a DNS query-response sequence, a TCP three-way handshake sketch).
-- **Greek subtopic headers are required.** Use the exact Greek names from `mindmap.md` as your `## H2` section headings to maintain alignment with lecture materials, followed by the English translation in italics on the next line.
+- **Subtopic headers are required.** Use the exact names from `mindmap.md` as your `## H2` section headings to maintain alignment with lecture materials.
 
 ---
 
@@ -120,4 +120,4 @@ The following requirements apply specifically to this subject and override the g
 - Emojis are not allowed and may not be used in any way.
 - If you spot any emojis, ask whether they are needed; if the answer is no, remove them.
 - Do not fabricate protocol specifications or RFC numbers. If uncertain, use web search to verify or explicitly mark the information as approximate.
-- All file content must be in Greek for prose explanations, with English used for technical terms, protocol names, standards, and code/diagram blocks.
+- All file content must be in English for prose explanations, technical terms, protocol names, standards, and code/diagram blocks.

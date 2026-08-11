@@ -1,53 +1,53 @@
-# Δίκτυα Υπολογιστών (Mindmap)
+# Computer Networks (Mindmap)
 
-* **Δίκτυο στο Έπακρο**
-  * Τελικά Συστήματα
-    * Το Δίκτυο ως υπηρεσία
-    * Πρόγραμμα πελάτης
-    * Κεντρικός κόμβος
-    * Δίκτυα ομοτιμότητας (peer-to-peer)
-  * Παροχή Δικτύου
-    * Σύνδεση ενσύρματων συστημάτων
-    * Σύνδεση ασύρματων
-    * Επικοινωνία (Καλώδια)
-    * Υπηρεσίες τηλεπικοινωνιών
-* **Το Διαδίκτυο**
-  * Υλικό: Εξοπλισμός, καλώδια
-  * Πρωτόκολλα (TCP/IP, DNS, κτλ)
-  * Οπτική ίνα, δορυφόρος
-  * Μεταφορά δεδομένων μεταξύ συσκευών
-* **Δομή Δικτύου**
+* **Network at the Edge**
+  * End Systems
+    * Network as a service
+    * Client program
+    * Host / Central node
+    * Peer-to-peer networks
+  * Network Access
+    * Wired system connection
+    * Wireless connection
+    * Communication (Cables)
+    * Telecommunications services
+* **The Internet**
+  * Hardware: Equipment, cables
+  * Protocols (TCP/IP, DNS, etc.)
+  * Optical fiber, satellite
+  * Data transfer between devices
+* **Network Structure**
   * Network Edge
-    * Clients και Servers
-    * Δίκτυα πρόσβασης
+    * Clients and Servers
+    * Access networks
   * Network Core
-    * Διασυνδεδεμένοι routers
-    * Δίκτυα δικτύων
-  * Κόμβοι
+    * Interconnected routers
+    * Network of networks
+  * Nodes
     * Routers, switches, modems
-    * Ενδιάμεσα κομβικά (δίκτυα πρόσβασης)
-* **Τεχνολογίες Πρόσβασης**
-  * Οικιακά Δίκτυα
-    * DSL (Ασύμμετρη / Συμμετρική)
-    * HFC / Cable (Ομοαξονικό & Ίνα)
+    * Intermediate nodes (access networks)
+* **Access Technologies**
+  * Home Networks
+    * DSL (Asymmetric / Symmetric)
+    * HFC / Cable (Coaxial & Fiber)
     * FTTH
-  * Εταιρικά / Ιδρυματικά
+  * Enterprise / Institutional
     * Ethernet
-  * Κινητά / Ασύρματα
+  * Mobile / Wireless
     * Wi-Fi
     * 4G / 5G
-* **Επικοινωνιακά Μέσα**
-  * Χαλκός (ομοαξονικό και συνεστραμμένο)
-  * Οπτική ίνα (μονότροπη)
-  * Δορυφορικά (Geostationary / LEO)
-  * Ασύρματα (επίγεια μικροκύματα)
-* **Διαμεταγωγή Δεδομένων**
-  * Ανταλλαγή πληροφοριών
-  * Μεταγωγή Πακέτου & Κυκλώματος
-  * Προώθηση πακέτων
-  * Αλγόριθμοι δρομολόγησης
-* **Βασικά Ζητήματα**
-  * Διευθύνσεις και ονόματα
-  * Δρομολόγηση
-  * Ανίχνευση σφαλμάτων
-  * Ασφάλεια και κρυπτογραφία
+* **Physical Media**
+  * Copper (coaxial and twisted pair)
+  * Optical fiber (single-mode)
+  * Satellite (Geostationary / LEO)
+  * Wireless (terrestrial microwave)
+* **Data Switching**
+  * Information exchange
+  * Packet & Circuit Switching
+  * Packet forwarding
+  * Routing algorithms
+* **Basic Issues**
+  * Addressing and naming
+  * Routing
+  * Error detection
+  * Security and cryptography

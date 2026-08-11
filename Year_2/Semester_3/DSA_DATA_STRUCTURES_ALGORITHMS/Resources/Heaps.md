@@ -1,33 +1,33 @@
-# Σωροί (Heaps)
+# Heaps
 
-## Περιεχόμενα
-1. [Εισαγωγή](#εισαγωγή)
-2. [Ορισμός και Ιδιότητες](#ορισμός-και-ιδιότητες)
-3. [Τύποι Σωρών](#τύποι-σωρών)
-4. [Αναπαράσταση με Πίνακα](#αναπαράσταση-με-πίνακα)
-5. [Βασικές Λειτουργίες](#βασικές-λειτουργίες)
-6. [Παραδείγματα με Λύσεις](#παραδείγματα-με-λύσεις)
-7. [Πολυπλοκότητα](#πολυπλοκότητα)
-
----
-
-## Εισαγωγή
-
-Ο **σωρός (heap)** είναι μια ειδική δενδρική δομή δεδομένων που ικανοποιεί την **ιδιότητα του σωρού**. Χρησιμοποιείται ευρέως σε αλγορίθμους ταξινόμησης (π.χ., Heap Sort) και σε ουρές προτεραιότητας (Priority Queues).
-
-### Χαρακτηριστικά
-- Είναι ένα **πλήρες δυαδικό δέντρο** (complete binary tree)
-- Κάθε κόμβος ικανοποιεί μια συγκεκριμένη σχέση με τα παιδιά του
-- Αποδοτική υλοποίηση με πίνακα
+## Contents
+1. [Introduction](#introduction)
+2. [Definition and Properties](#definition-and-properties)
+3. [Heap Types](#heap-types)
+4. [Array Representation](#array-representation)
+5. [Core Operations](#core-operations)
+6. [Examples with Solutions](#examples-with-solutions)
+7. [Complexity](#complexity)
 
 ---
 
-## Ορισμός και Ιδιότητες
+## Introduction
 
-### Πλήρες Δυαδικό Δέντρο
-Ένα δυαδικό δέντρο είναι **πλήρες** όταν:
-- Όλα τα επίπεδα είναι πλήρως γεμάτα, εκτός πιθανώς του τελευταίου
-- Το τελευταίο επίπεδο γεμίζει από αριστερά προς τα δεξιά
+A **heap** is a specialized tree-based data structure that satisfies the **heap property**. It is widely used in sorting algorithms (e.g., Heap Sort) and in priority queues.
+
+### Characteristics
+- It is a **complete binary tree**
+- Every node satisfies a specific relationship with its children
+- Efficient array-based implementation
+
+---
+
+## Definition and Properties
+
+### Complete Binary Tree
+A binary tree is **complete** when:
+- All levels are fully filled, possibly except the last
+- The last level fills from left to right
 
 ```mermaid
 graph TD
@@ -47,18 +47,18 @@ graph TD
     style G fill:#FFB6C1,stroke:#333,stroke-width:2px,color:black
 ```
 
-### Ιδιότητα Σωρού
-Για κάθε κόμβο `i` (εκτός της ρίζας):
+### Heap Property
+For every node `i` (except the root):
 - **Max-Heap**: `parent(i) ≥ i`
 - **Min-Heap**: `parent(i) ≤ i`
 
 ---
 
-## Τύποι Σωρών
+## Heap Types
 
-### 1. Max-Heap (Μέγιστος Σωρός)
+### 1. Max-Heap
 
-Η τιμή κάθε κόμβου είναι **μεγαλύτερη ή ίση** από τις τιμές των παιδιών του.
+The value of every node is **greater than or equal to** the values of its children.
 
 ```mermaid
 graph TD
@@ -78,13 +78,13 @@ graph TD
     style G fill:#FFD700,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Παρατηρήσεις:**
-- Η ρίζα περιέχει το **μέγιστο** στοιχείο
-- Για κάθε κόμβο: `parent ≥ left_child` και `parent ≥ right_child`
+**Observations:**
+- The root contains the **maximum** element
+- For every node: `parent ≥ left_child` and `parent ≥ right_child`
 
-### 2. Min-Heap (Ελάχιστος Σωρός)
+### 2. Min-Heap
 
-Η τιμή κάθε κόμβου είναι **μικρότερη ή ίση** από τις τιμές των παιδιών του.
+The value of every node is **less than or equal to** the values of its children.
 
 ```mermaid
 graph TD
@@ -104,22 +104,22 @@ graph TD
     style G fill:#87CEEB,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Παρατηρήσεις:**
-- Η ρίζα περιέχει το **ελάχιστο** στοιχείο
-- Για κάθε κόμβο: `parent ≤ left_child` και `parent ≤ right_child`
+**Observations:**
+- The root contains the **minimum** element
+- For every node: `parent ≤ left_child` and `parent ≤ right_child`
 
 ---
 
-## Αναπαράσταση με Πίνακα
+## Array Representation
 
-### Αντιστοίχιση Δείκτη
+### Index Mapping
 
-Για έναν κόμβο στη θέση `i` (με βάση το 0):
-- **Γονέας**: `parent(i) = ⌊(i-1)/2⌋`
-- **Αριστερό παιδί**: `left(i) = 2i + 1`
-- **Δεξί παιδί**: `right(i) = 2i + 2`
+For a node at position `i` (0-based):
+- **Parent**: `parent(i) = ⌊(i-1)/2⌋`
+- **Left child**: `left(i) = 2i + 1`
+- **Right child**: `right(i) = 2i + 2`
 
-### Παράδειγμα Max-Heap
+### Max-Heap Example
 
 ```mermaid
 graph TD
@@ -133,80 +133,80 @@ graph TD
     style A fill:#FF6B6B,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Αναπαράσταση σε πίνακα:**
+**Array representation:**
 ```
 Index:  0   1   2   3   4   5   6
 Value: [50, 30, 40, 10, 20, 15, 25]
 ```
 
-**Επαλήθευση σχέσεων:**
-- `parent(1) = ⌊(1-1)/2⌋ = 0` → 50 (Σωστό)
-- `left(0) = 2×0 + 1 = 1` → 30 (Σωστό)
-- `right(0) = 2×0 + 2 = 2` → 40 (Σωστό)
+**Relationship verification:**
+- `parent(1) = ⌊(1-1)/2⌋ = 0` → 50 (Correct)
+- `left(0) = 2×0 + 1 = 1` → 30 (Correct)
+- `right(0) = 2×0 + 2 = 2` → 40 (Correct)
 
 ---
 
-## Βασικές Λειτουργίες
+## Core Operations
 
-### 1. Heapify (Αποκατάσταση Ιδιότητας)
+### 1. Heapify (Property Restoration)
 
-Η διαδικασία **heapify** διορθώνει την ιδιότητα του σωρού για έναν υποσωρό.
+The **heapify** procedure fixes the heap property for a subtree.
 
 #### Heapify-Down (Max-Heap)
 
 ```cpp
 /**
- * Αποκαθιστά την ιδιότητα max-heap για τον κόμβο i.
+ * Restores the max-heap property for node i.
  * 
  * Args:
- *     arr (std::vector<int>&): Ο πίνακας που αναπαριστά τον σωρό.
- *     n (int): Το μέγεθος του σωρού.
- *     i (int): Ο δείκτης του κόμβου προς επεξεργασία.
+ *     arr (std::vector<int>&): The array representing the heap.
+ *     n (int): The size of the heap.
+ *     i (int): The index of the node to process.
  */
 void heapifyDown(std::vector<int>& arr, int n, int i) {
-    int largest = i;  // Αρχικοποίηση του μεγαλύτερου ως ρίζα
-    int left_child = 2 * i + 1;  // Αριστερό παιδί
-    int right_child = 2 * i + 2;  // Δεξί παιδί
+    int largest = i;  // Initialize largest as root
+    int left_child = 2 * i + 1;  // Left child
+    int right_child = 2 * i + 2;  // Right child
     
-    // Έλεγχος αν το αριστερό παιδί υπάρχει και είναι μεγαλύτερο
+    // Check if left child exists and is greater
     if (left_child < n && arr[left_child] > arr[largest]) {
         largest = left_child;
     }
     
-    // Έλεγχος αν το δεξί παιδί υπάρχει και είναι μεγαλύτερο
+    // Check if right child exists and is greater
     if (right_child < n && arr[right_child] > arr[largest]) {
         largest = right_child;
     }
     
-    // Αν το μεγαλύτερο δεν είναι η ρίζα
+    // If the largest is not the root
     if (largest != i) {
-        std::swap(arr[i], arr[largest]);  // Ανταλλαγή
-        heapifyDown(arr, n, largest);  // Αναδρομική κλήση
+        std::swap(arr[i], arr[largest]);  // Swap
+        heapifyDown(arr, n, largest);  // Recursive call
     }
 }
 ```
 
-### 2. Εισαγωγή Στοιχείου (Insert)
+### 2. Element Insertion
 
-Προσθήκη νέου στοιχείου στον σωρό και αποκατάσταση της ιδιότητας.
+Adding a new element to the heap and restoring the property.
 
 ```cpp
 /**
- * Εισάγει ένα νέο στοιχείο στον max-heap.
+ * Inserts a new element into the max-heap.
  * 
  * Args:
- *     heap (std::vector<int>&): Ο σωρός.
- *     value (int): Η τιμή προς εισαγωγή.
+ *     heap (std::vector<int>&): The heap.
+ *     value (int): The value to insert.
  */
 void insertMaxHeap(std::vector<int>& heap, int value) {
-    heap.push_back(value);  // Προσθήκη στο τέλος
-    int i = heap.size() - 1;  // Δείκτης του νέου στοιχείου
+    heap.push_back(value);  // Add to the end
+    int i = heap.size() - 1;  // Index of the new element
     
-    // Heapify-up: ανέβασμα του στοιχείου στη σωστή θέση
+    // Heapify-up: bubble the element up to its correct position
     while (i > 0) {
         int parent_index = (i - 1) / 2;
         if (heap[i] > heap[parent_index]) {
-            std::swap(heap[i], heap[parent_index]);  // Ανταλλαγή
+            std::swap(heap[i], heap[parent_index]);  // Swap
             i = parent_index;
         } else {
             break;
@@ -215,57 +215,57 @@ void insertMaxHeap(std::vector<int>& heap, int value) {
 }
 ```
 
-### 3. Διαγραφή Μέγιστου/Ελάχιστου (Extract)
+### 3. Maximum/Minimum Deletion (Extract)
 
-Αφαίρεση της ρίζας (μέγιστο/ελάχιστο) και αποκατάσταση του σωρού.
+Removing the root (maximum/minimum) and restoring the heap.
 
 ```cpp
 /**
- * Αφαιρεί και επιστρέφει το μέγιστο στοιχείο από τον max-heap.
+ * Removes and returns the maximum element from the max-heap.
  * 
  * Args:
- *     heap (std::vector<int>&): Ο σωρός.
+ *     heap (std::vector<int>&): The heap.
  * 
  * Returns:
- *     int: Το μέγιστο στοιχείο.
+ *     int: The maximum element.
  * 
  * Throws:
- *     std::runtime_error: Αν ο σωρός είναι κενός.
+ *     std::runtime_error: If the heap is empty.
  */
 int extractMax(std::vector<int>& heap) {
     if (heap.empty()) {
-        throw std::runtime_error("Ο σωρός είναι κενός");
+        throw std::runtime_error("The heap is empty");
     }
     
-    int max_val = heap[0];  // Αποθήκευση του μέγιστου
+    int max_val = heap[0];  // Store the maximum
     
     if (heap.size() == 1) {
         heap.pop_back();
         return max_val;
     }
     
-    heap[0] = heap.back();  // Μετακίνηση του τελευταίου στη ρίζα
+    heap[0] = heap.back();  // Move the last element to the root
     heap.pop_back();
-    heapifyDown(heap, heap.size(), 0);  // Αποκατάσταση ιδιότητας
+    heapifyDown(heap, heap.size(), 0);  // Restore the property
     
     return max_val;
 }
 ```
 
-### 4. Build Heap (Κατασκευή Σωρού)
+### 4. Build Heap
 
-Μετατροπή ενός μη δομημένου πίνακα σε σωρό.
+Converting an unstructured array into a heap.
 
 ```cpp
 /**
- * Μετατρέπει έναν πίνακα σε max-heap.
+ * Converts an array into a max-heap.
  * 
  * Args:
- *     arr (std::vector<int>&): Ο πίνακας προς μετατροπή.
+ *     arr (std::vector<int>&): The array to convert.
  */
 void buildMaxHeap(std::vector<int>& arr) {
     int n = arr.size();
-    // Ξεκινάμε από τον τελευταίο μη-φύλλο κόμβο
+    // Start from the last non-leaf node
     for (int i = n / 2 - 1; i >= 0; i--) {
         heapifyDown(arr, n, i);
     }
@@ -274,15 +274,15 @@ void buildMaxHeap(std::vector<int>& arr) {
 
 ---
 
-## Παραδείγματα με Λύσεις
+## Examples with Solutions
 
-### Παράδειγμα 1: Δημιουργία Max-Heap
+### Example 1: Creating a Max-Heap
 
-**Πρόβλημα:** Δημιούργησε max-heap από τον πίνακα `[4, 10, 3, 5, 1]`.
+**Problem:** Create a max-heap from the array `[4, 10, 3, 5, 1]`.
 
-**Λύση Βήμα-Βήμα:**
+**Step-by-step Solution:**
 
-**Αρχικό Δέντρο:**
+**Initial Tree:**
 ```mermaid
 graph TD
     A[4] --> B[10]
@@ -291,15 +291,15 @@ graph TD
     B --> E[1]
 ```
 
-**Βήμα 1:** Heapify από τον κόμβο 1 (τιμή 10)
-- `left(1) = 3` → τιμή 5
-- `right(1) = 4` → τιμή 1
-- `max(10, 5, 1) = 10` → Καμία αλλαγή
+**Step 1:** Heapify from node 1 (value 10)
+- `left(1) = 3` → value 5
+- `right(1) = 4` → value 1
+- `max(10, 5, 1) = 10` → No change
 
-**Βήμα 2:** Heapify από τον κόμβο 0 (τιμή 4)
-- `left(0) = 1` → τιμή 10
-- `right(0) = 2` → τιμή 3
-- `max(4, 10, 3) = 10` → Ανταλλαγή 4  10
+**Step 2:** Heapify from node 0 (value 4)
+- `left(0) = 1` → value 10
+- `right(0) = 2` → value 3
+- `max(4, 10, 3) = 10` → Swap 4 and 10
 
 ```mermaid
 graph TD
@@ -309,12 +309,12 @@ graph TD
     B --> E[1]
 ```
 
-**Βήμα 3:** Heapify από τον κόμβο 1 (τιμή 4 μετά την ανταλλαγή)
-- `left(1) = 3` → τιμή 5
-- `right(1) = 4` → τιμή 1
-- `max(4, 5, 1) = 5` → Ανταλλαγή 4  5
+**Step 3:** Heapify from node 1 (value 4 after swap)
+- `left(1) = 3` → value 5
+- `right(1) = 4` → value 1
+- `max(4, 5, 1) = 5` → Swap 4 and 5
 
-**Τελικό Max-Heap:**
+**Final Max-Heap:**
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -325,15 +325,15 @@ graph TD
     style A fill:#FF6B6B,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Πίνακας:** `[10, 5, 3, 4, 1]`
+**Array:** `[10, 5, 3, 4, 1]`
 
 ---
 
-### Παράδειγμα 2: Εισαγωγή Στοιχείου σε Max-Heap
+### Example 2: Inserting an Element into a Max-Heap
 
-**Πρόβλημα:** Εισήγαγε την τιμή `15` στον max-heap `[50, 30, 40, 10, 20, 15, 25]`.
+**Problem:** Insert the value `15` into the max-heap `[50, 30, 40, 10, 20, 15, 25]`.
 
-**Αρχικός Σωρός:**
+**Initial Heap:**
 ```mermaid
 graph TD
     A[50] --> B[30]
@@ -344,7 +344,7 @@ graph TD
     C --> G[25]
 ```
 
-**Βήμα 1:** Προσθήκη του 15 στο τέλος
+**Step 1:** Add 15 to the end
 ```
 [50, 30, 40, 10, 20, 15, 25, 15]
 ```
@@ -362,9 +362,9 @@ graph TD
     style H fill:#FFFF00,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 2:** Heapify-up από θέση 7
-- `parent(7) = 3` → τιμή 10
-- `15 > 10` → Ανταλλαγή
+**Step 2:** Heapify-up from position 7
+- `parent(7) = 3` → value 10
+- `15 > 10` → Swap
 
 ```mermaid
 graph TD
@@ -379,19 +379,19 @@ graph TD
     style D fill:#FFFF00,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 3:** Heapify-up από θέση 3
-- `parent(3) = 1` → τιμή 30
-- `15 < 30` → Τέλος
+**Step 3:** Heapify-up from position 3
+- `parent(3) = 1` → value 30
+- `15 < 30` → End
 
-**Τελικός Σωρός:** `[50, 30, 40, 15, 20, 15, 25, 10]`
+**Final Heap:** `[50, 30, 40, 15, 20, 15, 25, 10]`
 
 ---
 
-### Παράδειγμα 3: Διαγραφή Μέγιστου από Max-Heap
+### Example 3: Deleting the Maximum from a Max-Heap
 
-**Πρόβλημα:** Διέγραψε το μέγιστο από τον σωρό `[50, 30, 40, 10, 20, 15, 25]`.
+**Problem:** Delete the maximum from the heap `[50, 30, 40, 10, 20, 15, 25]`.
 
-**Αρχικός Σωρός:**
+**Initial Heap:**
 ```mermaid
 graph TD
     A[50] --> B[30]
@@ -404,7 +404,7 @@ graph TD
     style A fill:#FF0000,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 1:** Αντικατάσταση ρίζας με τελευταίο στοιχείο
+**Step 1:** Replace root with last element
 ```
 [25, 30, 40, 10, 20, 15]
 ```
@@ -420,10 +420,10 @@ graph TD
     style A fill:#FFFF00,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 2:** Heapify-down από ρίζα
-- `left(0) = 1` → τιμή 30
-- `right(0) = 2` → τιμή 40
-- `max(25, 30, 40) = 40` → Ανταλλαγή 25  40
+**Step 2:** Heapify-down from root
+- `left(0) = 1` → value 30
+- `right(0) = 2` → value 40
+- `max(25, 30, 40) = 40` → Swap 25 and 40
 
 ```mermaid
 graph TD
@@ -436,24 +436,24 @@ graph TD
     style C fill:#FFFF00,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 3:** Heapify-down από θέση 2
-- `left(2) = 5` → τιμή 15
-- `right(2) = 6` → δεν υπάρχει
-- `max(25, 15) = 25` → Τέλος
+**Step 3:** Heapify-down from position 2
+- `left(2) = 5` → value 15
+- `right(2) = 6` → does not exist
+- `max(25, 15) = 25` → End
 
-**Τελικός Σωρός:** `[40, 30, 25, 10, 20, 15]`
+**Final Heap:** `[40, 30, 25, 10, 20, 15]`
 
 ---
 
-### Παράδειγμα 4: Δημιουργία Min-Heap
+### Example 4: Creating a Min-Heap
 
-**Πρόβλημα:** Μετέτρεψε τον πίνακα `[20, 15, 8, 10, 5, 7, 6, 2, 9, 1]` σε min-heap.
+**Problem:** Convert the array `[20, 15, 8, 10, 5, 7, 6, 2, 9, 1]` into a min-heap.
 
-**Λύση:**
+**Solution:**
 
-**Βήμα 1:** Ξεκινάμε από τον τελευταίο μη-φύλλο (index = `n//2 - 1 = 4`)
+**Step 1:** Start from the last non-leaf (index = `n//2 - 1 = 4`)
 
-**Αρχικό Δέντρο:**
+**Initial Tree:**
 ```mermaid
 graph TD
     A[20] --> B[15]
@@ -467,42 +467,42 @@ graph TD
     E --> J[1]
 ```
 
-**Βήμα 2:** Heapify από index 4 (τιμή 5)
-- `left(4) = 9` → τιμή 1
-- `min(5, 1) = 1` → Ανταλλαγή 5  1
+**Step 2:** Heapify from index 4 (value 5)
+- `left(4) = 9` → value 1
+- `min(5, 1) = 1` → Swap 5 and 1
 
-**Βήμα 3:** Heapify από index 3 (τιμή 10)
-- `left(3) = 7` → τιμή 2
-- `right(3) = 8` → τιμή 9
-- `min(10, 2, 9) = 2` → Ανταλλαγή 10  2
+**Step 3:** Heapify from index 3 (value 10)
+- `left(3) = 7` → value 2
+- `right(3) = 8` → value 9
+- `min(10, 2, 9) = 2` → Swap 10 and 2
 
-**Βήμα 4:** Heapify από index 2 (τιμή 8)
-- `left(2) = 5` → τιμή 7
-- `right(2) = 6` → τιμή 6
-- `min(8, 7, 6) = 6` → Ανταλλαγή 8  6
+**Step 4:** Heapify from index 2 (value 8)
+- `left(2) = 5` → value 7
+- `right(2) = 6` → value 6
+- `min(8, 7, 6) = 6` → Swap 8 and 6
 
-**Βήμα 5:** Heapify από index 1 (τιμή 15)
-- `left(1) = 3` → τιμή 2
-- `right(1) = 4` → τιμή 1
-- `min(15, 2, 1) = 1` → Ανταλλαγή 15  1
-- Συνεχίζουμε heapify στη θέση 4:
-  - `left(4) = 9` → τιμή 5
-  - `min(15, 5) = 5` → Ανταλλαγή 15  5
+**Step 5:** Heapify from index 1 (value 15)
+- `left(1) = 3` → value 2
+- `right(1) = 4` → value 1
+- `min(15, 2, 1) = 1` → Swap 15 and 1
+- Continue heapify at position 4:
+  - `left(4) = 9` → value 5
+  - `min(15, 5) = 5` → Swap 15 and 5
 
-**Βήμα 6:** Heapify από index 0 (τιμή 20)
-- `left(0) = 1` → τιμή 1
-- `right(0) = 2` → τιμή 6
-- `min(20, 1, 6) = 1` → Ανταλλαγή 20  1
-- Συνεχίζουμε από θέση 1:
-  - `left(1) = 3` → τιμή 2
-  - `right(1) = 4` → τιμή 5
-  - `min(20, 2, 5) = 2` → Ανταλλαγή 20  2
-- Συνεχίζουμε από θέση 3:
-  - `left(3) = 7` → τιμή 10
-  - `right(3) = 8` → τιμή 9
-  - `min(20, 10, 9) = 9` → Ανταλλαγή 20  9
+**Step 6:** Heapify from index 0 (value 20)
+- `left(0) = 1` → value 1
+- `right(0) = 2` → value 6
+- `min(20, 1, 6) = 1` → Swap 20 and 1
+- Continue from position 1:
+  - `left(1) = 3` → value 2
+  - `right(1) = 4` → value 5
+  - `min(20, 2, 5) = 2` → Swap 20 and 2
+- Continue from position 3:
+  - `left(3) = 7` → value 10
+  - `right(3) = 8` → value 9
+  - `min(20, 10, 9) = 9` → Swap 20 and 9
 
-**Τελικό Min-Heap:**
+**Final Min-Heap:**
 ```mermaid
 graph TD
     A[1] --> B[2]
@@ -518,41 +518,41 @@ graph TD
     style A fill:#4169E1,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Πίνακας:** `[1, 2, 6, 9, 5, 7, 8, 10, 20, 15]`
+**Array:** `[1, 2, 6, 9, 5, 7, 8, 10, 20, 15]`
 
 ---
 
-### Παράδειγμα 5: Heap Sort
+### Example 5: Heap Sort
 
-**Πρόβλημα:** Ταξινόμησε τον πίνακα `[12, 11, 13, 5, 6, 7]` χρησιμοποιώντας Heap Sort.
+**Problem:** Sort the array `[12, 11, 13, 5, 6, 7]` using Heap Sort.
 
-**Αλγόριθμος:**
+**Algorithm:**
 ```cpp
 /**
- * Ταξινομεί έναν πίνακα χρησιμοποιώντας Heap Sort.
+ * Sorts an array using Heap Sort.
  * 
  * Args:
- *     arr (std::vector<int>&): Ο πίνακας προς ταξινόμηση.
+ *     arr (std::vector<int>&): The array to sort.
  */
 void heapSort(std::vector<int>& arr) {
     int n = arr.size();
     
-    // Βήμα 1: Δημιουργία max-heap
+    // Step 1: Build max-heap
     buildMaxHeap(arr);
     
-    // Βήμα 2: Εξαγωγή στοιχείων ένα-ένα
+    // Step 2: Extract elements one by one
     for (int i = n - 1; i > 0; i--) {
-        std::swap(arr[0], arr[i]);  // Ανταλλαγή ρίζας με τελευταίο
-        heapifyDown(arr, i, 0);  // Heapify στον μειωμένο σωρό
+        std::swap(arr[0], arr[i]);  // Swap root with last
+        heapifyDown(arr, i, 0);  // Heapify on the reduced heap
     }
 }
 ```
 
-**Λύση Βήμα-Βήμα:**
+**Step-by-step Solution:**
 
-**Βήμα 1:** Build Max-Heap
+**Step 1:** Build Max-Heap
 ```
-Αρχικός: [12, 11, 13, 5, 6, 7]
+Initial: [12, 11, 13, 5, 6, 7]
 Max-Heap: [13, 11, 12, 5, 6, 7]
 ```
 
@@ -565,76 +565,76 @@ graph TD
     C --> F[7]
 ```
 
-**Βήμα 2:** Ανταλλαγή 13  7, Heapify
+**Step 2:** Swap 13 and 7, Heapify
 ```
 [7, 11, 12, 5, 6 | 13]
 Heapify → [12, 11, 7, 5, 6 | 13]
 ```
 
-**Βήμα 3:** Ανταλλαγή 12  6, Heapify
+**Step 3:** Swap 12 and 6, Heapify
 ```
 [6, 11, 7, 5 | 12, 13]
 Heapify → [11, 6, 7, 5 | 12, 13]
 ```
 
-**Βήμα 4:** Ανταλλαγή 11  5, Heapify
+**Step 4:** Swap 11 and 5, Heapify
 ```
 [5, 6, 7 | 11, 12, 13]
 Heapify → [7, 6, 5 | 11, 12, 13]
 ```
 
-**Βήμα 5:** Ανταλλαγή 7  5, Heapify
+**Step 5:** Swap 7 and 5, Heapify
 ```
 [5, 6 | 7, 11, 12, 13]
 Heapify → [6, 5 | 7, 11, 12, 13]
 ```
 
-**Βήμα 6:** Ανταλλαγή 6  5
+**Step 6:** Swap 6 and 5
 ```
 [5 | 6, 7, 11, 12, 13]
 ```
 
-**Τελικός Ταξινομημένος:** `[5, 6, 7, 11, 12, 13]`
+**Final Sorted:** `[5, 6, 7, 11, 12, 13]`
 
 ---
 
-## Πολυπλοκότητα
+## Complexity
 
-### Χρονική Πολυπλοκότητα
+### Time Complexity
 
-| Λειτουργία | Πολυπλοκότητα | Επεξήγηση |
+| Operation | Complexity | Explanation |
 |------------|---------------|-----------|
-| Insert | O(log n) | Heapify-up στο ύψος του δέντρου |
-| Extract Max/Min | O(log n) | Heapify-down στο ύψος του δέντρου |
-| Heapify | O(log n) | Επεξεργασία ενός μονοπατιού |
-| Build Heap | O(n) | Βελτιστοποιημένη κατασκευή |
-| Heap Sort | O(n log n) | n εξαγωγές × O(log n) |
-| Peek (Find Max/Min) | O(1) | Πρόσβαση στη ρίζα |
+| Insert | O(log n) | Heapify-up up the height of the tree |
+| Extract Max/Min | O(log n) | Heapify-down up the height of the tree |
+| Heapify | O(log n) | Processing a single path |
+| Build Heap | O(n) | Optimized construction |
+| Heap Sort | O(n log n) | n extractions × O(log n) |
+| Peek (Find Max/Min) | O(1) | Accessing the root |
 
-### Χωρική Πολυπλοκότητα
+### Space Complexity
 
-- **Αποθήκευση:** O(n) - Πίνακας n στοιχείων
-- **Αναδρομή:** O(log n) - Βάθος αναδρομής για heapify
+- **Storage:** O(n) - Array of n elements
+- **Recursion:** O(log n) - Recursion depth for heapify
 
 ---
 
-## Εφαρμογές Σωρών
+## Heap Applications
 
-### 1. Ουρά Προτεραιότητας (Priority Queue)
+### 1. Priority Queue
 ```cpp
 /**
- * Ουρά προτεραιότητας με χρήση min-heap.
+ * Priority queue using min-heap.
  * 
- * Παρέχει βασικές λειτουργίες διαχείρισης στοιχείων με βάση την προτεραιότητα.
+ * Provides basic element management operations based on priority.
  */
 class PriorityQueue {
 public:
     /**
-     * Εισαγωγή στοιχείου με προτεραιότητα.
+     * Insert element with priority.
      * 
      * Args:
-     *     priority (int): Η τιμή προτεραιότητας.
-     *     item (std::string): Το αντικείμενο.
+     *     priority (int): The priority value.
+     *     item (std::string): The item.
      */
     void push(int priority, std::string item) {
         heap_data.push_back({priority, item});
@@ -642,10 +642,10 @@ public:
     }
 
     /**
-     * Εξαγωγή στοιχείου με υψηλότερη προτεραιότητα (μικρότερη τιμή).
+     * Extract element with highest priority (lowest value).
      * 
      * Returns:
-     *     std::string: Το αντικείμενο με την ελάχιστη προτεραιότητα.
+     *     std::string: The item with the lowest priority.
      */
     std::string pop() {
         if (heap_data.empty()) return "";
@@ -672,10 +672,10 @@ private:
     std::vector<Node> heap_data;
 
     /**
-     * Αποκατάσταση ιδιότητας σωρού προς τα πάνω.
+     * Restore heap property upward.
      * 
      * Args:
-     *     index (int): Ο δείκτης εκκίνησης.
+     *     index (int): The starting index.
      */
     void heapifyUp(int index) {
         int i = index;
@@ -689,10 +689,10 @@ private:
     }
 
     /**
-     * Αποκατάσταση ιδιότητας σωρού προς τα κάτω.
+     * Restore heap property downward.
      * 
      * Args:
-     *     index (int): Ο δείκτης εκκίνησης.
+     *     index (int): The starting index.
      */
     void heapifyDown(int index) {
         int smallest = index;
@@ -713,55 +713,54 @@ private:
 };
 ```
 
-### 2. Αλγόριθμος Dijkstra
-Χρήση min-heap για αποδοτική εύρεση συντομότερων διαδρομών.
+### 2. Dijkstra's Algorithm
+Using min-heap to efficiently find shortest paths.
 
 ### 3. Median Maintenance
-Χρήση δύο heaps (max-heap και min-heap) για εύρεση διάμεσου σε ροή δεδομένων.
+Using two heaps (max-heap and min-heap) to find the median in a data stream.
 
 ---
 
-## Ασκήσεις Εξάσκησης
+## Practice Exercises
 
-### Άσκηση 1
-Δημιούργησε max-heap από τον πίνακα `[3, 9, 2, 1, 4, 5]`.
+### Exercise 1
+Create a max-heap from the array `[3, 9, 2, 1, 4, 5]`.
 
 <details>
-<summary>Λύση</summary>
+<summary>Solution</summary>
 
-**Βήματα:**
-1. Build από index 2: `[3, 9, 5, 1, 4, 2]`
-2. Build από index 1: `[3, 9, 5, 1, 4, 2]` (καμία αλλαγή)
-3. Build από index 0: `[9, 4, 5, 1, 3, 2]`
+**Steps:**
+1. Build from index 2: `[3, 9, 5, 1, 4, 2]`
+2. Build from index 1: `[3, 9, 5, 1, 4, 2]` (no change)
+3. Build from index 0: `[9, 4, 5, 1, 3, 2]`
 
-**Τελικό:** `[9, 4, 5, 1, 3, 2]`
+**Final:** `[9, 4, 5, 1, 3, 2]`
 </details>
 
-### Άσκηση 2
-Εισήγαγε το 8 στον min-heap `[1, 3, 2, 7, 5, 4, 6]`.
+### Exercise 2
+Insert 8 into the min-heap `[1, 3, 2, 7, 5, 4, 6]`.
 
 <details>
-<summary>Λύση</summary>
+<summary>Solution</summary>
 
-1. Προσθήκη: `[1, 3, 2, 7, 5, 4, 6, 8]`
-2. Parent(7) = 3, τιμή 7
-3. 8 > 7, καμία αλλαγή
+1. Add: `[1, 3, 2, 7, 5, 4, 6, 8]`
+2. Parent(7) = 3, value 7
+3. 8 > 7, no change
 
-**Τελικό:** `[1, 3, 2, 7, 5, 4, 6, 8]`
+**Final:** `[1, 3, 2, 7, 5, 4, 6, 8]`
 </details>
 
-### Άσκηση 3
-Διέγραψε το ελάχιστο από τον min-heap `[2, 4, 3, 8, 5, 9, 7]`.
+### Exercise 3
+Delete the minimum from the min-heap `[2, 4, 3, 8, 5, 9, 7]`.
 
 <details>
-<summary>Λύση</summary>
+<summary>Solution</summary>
 
-1. Αφαίρεση 2, αντικατάσταση με 7: `[7, 4, 3, 8, 5, 9]`
-2. Heapify: 7 > min(4,3), ανταλλαγή με 3: `[3, 4, 7, 8, 5, 9]`
-3. Heapify: 7 < min(9), τέλος
+1. Remove 2, replace with 7: `[7, 4, 3, 8, 5, 9]`
+2. Heapify: 7 > min(4,3), swap with 3: `[3, 4, 7, 8, 5, 9]`
+3. Heapify: 7 < min(9), end
 
-**Τελικό:** `[3, 4, 7, 8, 5, 9]`
+**Final:** `[3, 4, 7, 8, 5, 9]`
 </details>
 
 ---
-

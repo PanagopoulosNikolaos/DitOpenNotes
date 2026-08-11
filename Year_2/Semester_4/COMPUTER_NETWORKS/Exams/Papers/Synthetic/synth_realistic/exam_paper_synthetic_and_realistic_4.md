@@ -1,93 +1,92 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Synthetic & Realistic Exam 4)
+# Computer Networks - Exam Questions (Synthetic & Realistic Exam 4)
 *Computer Networks - Synthetic & Realistic Exam 4*
 
-## Πληροφορίες Εξέτασης
-- **Ακαδημαϊκό Έτος:** .......................
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+## Exam Information
+- **Academic Year:** .......................
+- **Exam Duration:** 2 hours and 15 minutes
 
-## Στοιχεία Φοιτητή
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
+## Student Data
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
 
 ---
 
-## Μέρος Α: Ερωτήσεις Πολλαπλής Επιλογής & Θεωρίας (3 μονάδες)
+## Part A: Multiple Choice & Theory Questions (3 points)
 
-**1.** Στη διαδικασία "Ενθυλάκωσης" (Encapsulation), όταν τα δεδομένα μεταφέρονται από το Επίπεδο Εφαρμογής (Application Layer) προς το Φυσικό Επίπεδο (Physical Layer):
-- [ ] A. Αφαιρούνται οι κεφαλίδες (headers) σε κάθε επίπεδο.
-- [ ] B. Τα δεδομένα κρυπτογραφούνται υποχρεωτικά από το Data Link Layer.
-- [✓] C. Προστίθεται μια νέα κεφαλίδα (header) σε κάθε επίπεδο, δημιουργώντας τελικά το πλαίσιο (frame) στο Επίπεδο 2.
-- [ ] D. Η διεύθυνση IP του παραλήπτη αλλάζει σε κάθε επίπεδο.
+**1.** In the "Encapsulation" process, when data is passed from the Application Layer down to the Physical Layer:
+- [ ] A. Headers are removed at each layer.
+- [ ] B. Data is obligatorily encrypted by the Data Link Layer.
+- [✓] C. A new header is added at each layer, finally creating the frame at Layer 2.
+- [ ] D. The recipient IP address changes at each layer.
 
-*Αιτιολόγηση:* Η ενθυλάκωση σημαίνει ότι τα δεδομένα του ανώτερου επιπέδου γίνονται ωφέλιμο φορτίο (payload) για το κατώτερο, λαμβάνοντας νέο header. Η απο-ενθυλάκωση (αφαίρεση headers) συμβαίνει στον παραλήπτη.
+*Justification:* Encapsulation means higher layer data becomes payload for lower layer, receiving new header. De-encapsulation occurs at the receiver.
 
-**2.** Ποια είναι η κύρια διαφορά ανάμεσα σε ένα Collision Domain (Πεδίο Συγκρούσεων) και ένα Broadcast Domain (Πεδίο Εκπομπής);
-- [ ] A. Δεν υπάρχει καμία διαφορά, είναι συνώνυμα.
-- [✓] B. Ένας Δρομολογητής (Router) διαχωρίζει τα Broadcast Domains, ενώ ένας Μεταγωγέας (Switch) διαχωρίζει τα Collision Domains.
-- [ ] C. Ένας Δρομολογητής διαχωρίζει τα Collision Domains, ενώ ένας Μεταγωγέας διαχωρίζει τα Broadcast Domains.
-- [ ] D. Ένα Hub διαχωρίζει τα Collision Domains.
+**2.** What is the main difference between a Collision Domain and a Broadcast Domain?
+- [ ] A. There is no difference, they are synonymous.
+- [✓] B. A Router separates Broadcast Domains, while a Switch separates Collision Domains.
+- [ ] C. A Router separates Collision Domains, while a Switch separates Broadcast Domains.
+- [ ] D. A Hub separates Collision Domains.
 
-*Αιτιολόγηση:* Το Switch χωρίζει το δίκτυο σε μικρο-τμήματα χωρίς συγκρούσεις (micro-segments), αλλά προωθεί τα broadcasts. Μόνο ο Router σταματάει τα πακέτα εκπομπής (broadcasts).
+*Justification:* Switches divide networks into collision-free micro-segments, but forward broadcasts. Only Routers stop broadcast packets.
 
-**3.** Ο αλγόριθμος Dijkstra υπολογίζει τις συντομότερες διαδρομές χρησιμοποιώντας:
-- [ ] A. Τον αριθμό των κόμβων (hop count) και μόνο.
-- [✓] B. Πλήρη γνώση της τοπολογίας και των κοστών όλων των ζεύξεων του δικτύου (Link State).
-- [ ] C. Πληροφορίες που λαμβάνει αποκλειστικά από τους άμεσους γείτονές του (Distance Vector).
-- [ ] D. MAC Διευθύνσεις αποκλειστικά.
+**3.** The Dijkstra algorithm calculates shortest paths using:
+- [ ] A. Hop count alone.
+- [✓] B. Full knowledge of topology and costs of all network links (Link State).
+- [ ] C. Information received exclusively from immediate neighbors (Distance Vector).
+- [ ] D. MAC Addresses exclusively.
 
-*Αιτιολόγηση:* Ο Dijkstra απαιτεί όλο το δίκτυο (χάρτη) για να βρει το συντομότερο μονοπάτι από την πηγή.
+*Justification:* Dijkstra requires full network map to find shortest paths from source.
 
-**4.** Αν μια ροή πολυμέσων (video streaming) στέλνει 2.000 πακέτα το δευτερόλεπτο και κάθε πακέτο έχει μέγεθος 1.000 Bytes, ο ελάχιστος απαιτούμενος ρυθμός μετάδοσης (Bandwidth) χωρίς απώλειες είναι:
+**4.** If a video streaming flow sends 2,000 packets per second and each packet size is 1,000 Bytes, the minimum required transmission rate (Bandwidth) without loss is:
 - [ ] A. 2 Mbps
 - [✓] B. 16 Mbps
 - [ ] C. 2 Gbps
 - [ ] D. 16 Gbps
 
-*Αιτιολόγηση:* $2.000\text{ πακέτα/δευτ} \times 1.000\text{ Bytes/πακέτο} = 2.000.000\text{ Bytes/δευτ}$.
-Σε bits: $2.000.000 \times 8 = 16.000.000\text{ bps} = 16\text{ Mbps}$.
+*Justification:* $2,000\text{ pkts/sec} \times 1,000\text{ Bytes/pkt} = 2,000,000\text{ Bytes/sec} = 16\text{ Mbps}$.
 
-**5.** Επιλέξτε Σωστό (Σ) ή Λάθος (Λ):
-- **[✓] Σ** / [ ] Λ Το πρωτόκολλο OSPF υποστηρίζει Ιεραρχική Δρομολόγηση μέσω του διαχωρισμού σε περιοχές (Areas).
-- [ ] Σ / **[✓] Λ** Στη μεταγωγή κυκλώματος (Circuit Switching), αν ο χρήστης δεν μιλάει (αδράνεια), το εύρος ζώνης αξιοποιείται αυτόματα από άλλους χρήστες.
-- **[✓] Σ** / [ ] Λ Τα μηνύματα ARP Reply (Απαντήσεις ARP) στέλνονται ως Unicast προς τον κόμβο που έκανε το αίτημα.
+**5.** Select True (T) or False (F):
+- **[✓] T** / [ ] F The OSPF protocol supports Hierarchical Routing through division into Areas.
+- [ ] T / **[✓] F** In Circuit Switching, if the user is idle, bandwidth is automatically utilized by other users.
+- **[✓] T** / [ ] F ARP Reply messages are sent as Unicast to the requesting node.
 
-*Αιτιολόγηση:*
-- **Σ (Σωστό):** Το OSPF χωρίζει τα μεγάλα δίκτυα σε Areas (π.χ. Area 0) για μείωση του overhead.
-- **Λ (Λάθος):** Στη μεταγωγή κυκλώματος (Circuit Switching), αν υπάρχει αδράνεια, ο πόρος παραμένει δεσμευμένος και σπαταλιέται. Αυτό είναι το μειονέκτημά της έναντι του packet switching.
-- **Σ (Σωστό):** Tο ARP Request είναι Broadcast (FF:FF...), αλλά το ARP Reply είναι πάντα Unicast προς την MAC αυτού που έκανε την ερώτηση.
-
----
-
-## Μέρος Β: Ασκήσεις και Δίκτυα (7 μονάδες)
-
-### Άσκηση 1 (2 μονάδες)
-**Υπολογισμός TCP Timeout & Sliding Window**
-Στο πρωτόκολλο TCP, ο υπολογισμός του χρόνου λήξης (Timeout) γίνεται βάσει της εκτίμησης του RTT:
-- $\text{Timeout} = 2 \times \text{EstimatedRTT}$ *(σε απλοποιημένη μορφή)*
-
-**a.** Αν το τρέχον $\text{EstimatedRTT}$ είναι $80\text{ ms}$ και λαμβάνεται ένα νέο $\text{SampleRTT} = 120\text{ ms}$, υπολογίστε το νέο $\text{Timeout}$.
-(Υποθέστε τη σχέση: $\text{EstimatedRTT}_{new} = 0.875 \cdot \text{EstimatedRTT}_{old} + 0.125 \cdot \text{SampleRTT}$).
+*Justification:*
+- **T (True):** OSPF divides large networks into Areas (e.g. Area 0) to reduce overhead.
+- **F (False):** In Circuit Switching, if idle, resources remain reserved and wasted.
+- **T (True):** ARP Request is Broadcast, ARP Reply is always Unicast to requester.
 
 ---
-**Απάντηση:**
+
+## Part B: Exercises and Networks (7 points)
+
+### Exercise 1 (2 points)
+**TCP Timeout & Sliding Window Calculation**
+In TCP protocol, Timeout calculation is based on EstimatedRTT:
+- $\text{Timeout} = 2 \times \text{EstimatedRTT}$ *(in simplified form)*
+
+**a.** If current $\text{EstimatedRTT}$ is $80\text{ ms}$ and a new $\text{SampleRTT} = 120\text{ ms}$ is received, calculate the new $\text{Timeout}$.
+(Assume relation: $\text{EstimatedRTT}_{new} = 0.875 \cdot \text{EstimatedRTT}_{old} + 0.125 \cdot \text{SampleRTT}$).
+
+---
+**Answer:**
 $$ \text{EstimatedRTT}_{new} = 0.875 \cdot 80 + 0.125 \cdot 120 = 70 + 15 = 85\text{ ms} $$
 $$ \text{Timeout} = 2 \cdot \text{EstimatedRTT}_{new} = 2 \cdot 85\text{ ms} = `170\text{ ms}` $$
 
-**b.** Έστω ότι συνδέεστε με έναν FTP Server. Το μέγεθος του αρχείου που κατεβάζετε είναι τεράστιο. Το Bandwidth της σύνδεσης είναι $R = 200\text{ Mbps}$, και το RTT (Round Trip Time) της σύνδεσης είναι σταθερό στα $50\text{ ms}$.
-Για να αξιοποιήσετε στο έπακρο το διαθέσιμο Bandwidth χωρίς να αδειάσει το "κανάλι" αναμένοντας τις επιβεβαιώσεις (ACKs), ποιο πρέπει να είναι το ελάχιστο μέγεθος του Κυλιόμενου Παραθύρου (Sliding Window) σε MBytes;
+**b.** Suppose you connect to an FTP Server. The file size you are downloading is huge. Connection Bandwidth is $R = 200\text{ Mbps}$, and connection RTT (Round Trip Time) is constant at $50\text{ ms}$.
+To fully utilize available Bandwidth without the "channel" running empty awaiting acknowledgements (ACKs), what must be the minimum Sliding Window size in MBytes?
 
 ---
-**Απάντηση:**
-Για να μην υπάρχει idle time, ο αποστολέας πρέπει να στέλνει συνεχώς δεδομένα κατά τη διάρκεια ενός RTT:
-$$ \text{Window Size} = \text{Bandwidth} \times \text{RTT} = (200 \times 10^6\text{ bps}) \times 0.05\text{ s} = 10.000.000\text{ bits} $$
-Μετατροπή σε MBytes:
-$$ \text{Window Size (Bytes)} = \frac{10.000.000}{8} = 1.250.000\text{ Bytes} = `1.25\text{ MB}` $$
+**Answer:**
+To eliminate idle time, the sender must continuously send data during one RTT:
+$$ \text{Window Size} = \text{Bandwidth} \times \text{RTT} = (200 \times 10^6\text{ bps}) \times 0.05\text{ s} = 10,000,000\text{ bits} $$
+Conversion to MBytes:
+$$ \text{Window Size (Bytes)} = \frac{10,000,000}{8} = 1,250,000\text{ Bytes} = `1.25\text{ MB}` $$
 
 ---
 
-### Άσκηση 2 (2.5 μονάδες)
-**Αλγόριθμος Dijkstra (Link State)**
-Θεωρήστε την παρακάτω τοπολογία δικτύου, με τα κόστη μετάδοσης στις ακμές.
+### Exercise 2 (2.5 points)
+**Dijkstra Algorithm (Link State)**
+Consider the network topology below, with edge transmission costs.
 
 ```
            2
@@ -101,9 +100,9 @@ $$ \text{Window Size (Bytes)} = \frac{10.000.000}{8} = 1.250.000\text{ Bytes} = 
       (F)---3-(G)
 ```
 
-Εφαρμόστε τον αλγόριθμο του Dijkstra με **κόμβο εκκίνησης τον Α** για να βρείτε τα συντομότερα μονοπάτια προς όλους τους κόμβους. Συμπληρώστε τον πίνακα δίνοντας το συνολικό κόστος και τον προηγούμενο κόμβο στην παρένθεση.
+Apply Dijkstra's algorithm with **starting node A** to find shortest paths to all nodes. Fill in the table giving total cost and previous node in parentheses.
 
-| Βήμα | Επισκέφθηκε | B | C | D | E | F | G |
+| Step | Visited | B | C | D | E | F | G |
 |---|---|---|---|---|---|---|---|
 | 0 | A | `2(A)` | `1(A)` | `3(A)` | `\infty` | `\infty` | `\infty` |
 | 1 | `A, C` | `2(A)` | `**1(A)**` | `3(A)` | `\infty` | `\infty` | `\infty` |
@@ -113,41 +112,41 @@ $$ \text{Window Size (Bytes)} = \frac{10.000.000}{8} = 1.250.000\text{ Bytes} = 
 | 5 | `A, C, B, D, F, G` | `2(A)` | `1(A)` | `3(A)` | `6(B)` | `4(D)` | `**5(D)**` |
 | 6 | `A, C, B, D, F, G, E` | `2(A)` | `1(A)` | `3(A)` | `**6(B)**` | `4(D)` | `5(D)` |
 
-Βάσει του πίνακα, ποιο είναι το συντομότερο μονοπάτι για να φτάσετε στον κόμβο G;
+Based on the table, what is the shortest path to reach node G?
 ---
-**Απάντηση:**
-Με βάση τον πίνακα: Το ελάχιστο κόστος είναι 5. Ο προηγούμενος του G είναι ο D. Ο προηγούμενος του D είναι ο A.
-- Μονοπάτι: **`A ➔ D ➔ G`**
-- Κόστος: **`5`**
-
----
-
-### Άσκηση 3 (2.5 μονάδες)
-**Κώδικας Hamming (Περιττή Ισοτιμία / Odd Parity)**
-Αποστολέας θέλει να μεταδώσει το μήνυμα δεδομένων `1101` εφαρμόζοντας τον κώδικα διόρθωσης σφαλμάτων Hamming.
-
-**a.** Ποιος είναι ο απαιτούμενος αριθμός bits ισοτιμίας ($p$);
-**b.** Σχηματίστε το τελικό μήνυμα που θα σταλεί, υποθέτοντας χρήση **περιττής ισοτιμίας (Odd Parity)**. Να φανεί αναλυτικά ο υπολογισμός για κάθε bit ισοτιμίας.
+**Answer:**
+Based on the table: Minimum cost is 5. Previous to G is D. Previous to D is A.
+- Path: **`A ➔ D ➔ G`**
+- Cost: **`5`**
 
 ---
-**Απαντήσεις:**
+
+### Exercise 3 (2.5 points)
+**Hamming Code (Odd Parity)**
+A sender wishes to transmit data message `1101` using Hamming error-correcting code.
+
+**a.** What is the required number of parity bits ($p$)?
+**b.** Form the complete message to be sent, assuming the use of **odd parity**. Show the calculation for each parity bit in detail.
+
+---
+**Answers:**
 **a.** $$2^p \ge d + p + 1 \Rightarrow 2^p \ge 4 + p + 1 \Rightarrow 2^p \ge p + 5$$
-Για $p=3$: $2^3 = 8 \ge 8$. Άρα **$p = `3`$** bits.
+For $p=3$: $2^3 = 8 \ge 8$. So **$p = `3`$** bits.
 
-**b.** Συνολικά 7 bits.
-Θέσεις ισοτιμίας: 1, 2, 4. Θέσεις δεδομένων: 3, 5, 6, 7.
+**b.** 7 bits total.
+Parity positions: 1, 2, 4. Data positions: 3, 5, 6, 7.
 
-| Θέση | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| Position | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 |---|---|---|---|---|---|---|---|
 | Bit | $P_1$ | $P_2$ | $D_1$ | $P_4$ | $D_2$ | $D_3$ | $D_4$ |
-| Τιμή | `0` | `1` | `1` | `1` | `1` | `0` | `1` |
+| Value | `0` | `1` | `1` | `1` | `1` | `0` | `1` |
 
-Υπολογισμός bits (Περιττή ισοτιμία σημαίνει ο συνολικός αριθμός των άσων '1' στην ομάδα ελέγχου πρέπει να είναι περιττός/μονός):
-- **$P_1$ (θέσεις 1, 3, 5, 7):** $P_1 \oplus D_1 \oplus D_2 \oplus D_4 = P_1 \oplus 1 \oplus 1 \oplus 1 = P_1 \oplus 1$.
-  Για να έχουμε περιττό αριθμό άσων, πρέπει ήδη το 1 άσο να παραμείνει. Άρα **$P_1 = `0`$**.
-- **$P_2$ (θέσεις 2, 3, 6, 7):** $P_2 \oplus D_1 \oplus D_3 \oplus D_4 = P_2 \oplus 1 \oplus 0 \oplus 1 = P_2 \oplus 0$.
-  Έχουμε 0 άσους (άρτιος αριθμός). Για να γίνει περιττός, χρειαζόμαστε 1 άσο. Άρα **$P_2 = `1`$**.
-- **$P_4$ (θέσεις 4, 5, 6, 7):** $P_4 \oplus D_2 \oplus D_3 \oplus D_4 = P_4 \oplus 1 \oplus 0 \oplus 1 = P_4 \oplus 0$.
-  Έχουμε 0 άσους (άρτιος αριθμός). Για να γίνει περιττός, χρειαζόμαστε 1 άσο. Άρα **$P_4 = `1`$**.
+Calculation of bits (Odd Parity means total number of '1' bits in check group must be odd):
+- **$P_1$ (positions 1, 3, 5, 7):** $P_1 \oplus D_1 \oplus D_2 \oplus D_4 = P_1 \oplus 1 \oplus 1 \oplus 1 = P_1 \oplus 1$.
+  To have an odd number of ones, $P_1 = `0`$.
+- **$P_2$ (positions 2, 3, 6, 7):** $P_2 \oplus D_1 \oplus D_3 \oplus D_4 = P_2 \oplus 1 \oplus 0 \oplus 1 = P_2 \oplus 0$.
+  We have 0 ones (even). To make it odd, $P_2 = `1`$.
+- **$P_4$ (positions 4, 5, 6, 7):** $P_4 \oplus D_2 \oplus D_3 \oplus D_4 = P_4 \oplus 1 \oplus 0 \oplus 1 = P_4 \oplus 0$.
+  We have 0 ones (even). To make it odd, $P_4 = `1`$.
 
-Τελικό μεταδιδόμενο μήνυμα: **`0111101`**
+Final transmitted message: **`0111101`**

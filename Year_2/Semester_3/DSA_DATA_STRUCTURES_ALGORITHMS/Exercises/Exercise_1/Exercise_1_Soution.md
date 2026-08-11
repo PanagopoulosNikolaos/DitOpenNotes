@@ -1,10 +1,10 @@
-## 1. Καλύτερη, Μέση, Χειρότερη Περίπτωση
+## 1. Best, Average, Worst Case
 
-**Καλύτερη περίπτωση:** Ελάχιστες λειτουργίες που απαιτούνται
+**Best case:** Minimum operations required
 
-**Μέση περίπτωση:** Αναμενόμενες λειτουργίες για τυπική είσοδο
+**Average case:** Expected operations for typical input
 
-**Χειρότερη περίπτωση:** Μέγιστες λειτουργίες που απαιτούνται
+**Worst case:** Maximum operations required
 
 ### Python
 ```python
@@ -32,7 +32,7 @@ print(linear_search(arr_worst, 5))  # Found at last position
 ```
 
 
-## 2. Σειρά Ρυθμού Ανάπτυξης
+## 2. Growth Rate Order
 
 $$\log n < n \log n < n^2 < 2^n < n!$$
 
@@ -56,13 +56,13 @@ for name, value in sorted(functions.items(), key=lambda item: item[1]):
 ```
 
 
-## 3. Εκτίμηση Χρόνου
+## 3. Time Estimation
 
-Για $$O(n^2)$$: $$\frac{T_2}{T_1} = \frac{n_2^2}{n_1^2}$$
+For $$O(n^2)$$: $$\frac{T_2}{T_1} = \frac{n_2^2}{n_1^2}$$
 
 $$\frac{T_2}{1} = \frac{5000^2}{1000^2} = \frac{25000000}{1000000} = 25$$
 
-**Χρόνος = 25 δευτερόλεπτα**
+**Time = 25 seconds**
 
 ### Python
 ```python
@@ -77,12 +77,12 @@ print(f"Time for {n2} elements: {t2} seconds")
 ```
 
 
-## 4. Πολυπλοκότητα Χρόνου έναντι Χώρου
+## 4. Time Complexity vs Space Complexity
 
-**Πολυπλοκότητα χρόνου:** Μέτρηση λειτουργιών
-**Πολυπλοκότητα χώρου:** Χρήση μνήμης
+**Time complexity:** Counting operations
+**Space complexity:** Memory usage
 
-Παράδειγμα ανταλλαγής: Η απομνημόνευση αυξάνει τον χώρο αλλά μειώνει τον χρόνο
+Example of tradeoff: Memoization increases space but reduces time
 
 ### Python
 ```python
@@ -107,11 +107,11 @@ print(fib_fast(30))  # Faster, more memory
 ```
 
 
-## 5. Προσεγγίσεις Βελτιστοποίησης
+## 5. Optimization Approaches
 
-**Απομνημόνευση:** Αποθήκευση υπολογισμένων αποτελεσμάτων για την αποφυγή περιττών υπολογισμών
+**Memoization:** Storing computed results to avoid redundant calculations
 
-**Καλύτερες δομές δεδομένων:** Χρήση πινάκων κατακερματισμού αντί για πίνακες για αναζητήσεις
+**Better data structures:** Using hash tables instead of arrays for lookups
 
 
 ### C++

@@ -1,73 +1,74 @@
-## i. Εφαρμογή του πρωτοκόλλου Spanning Tree
+## i. Application of Spanning Tree Protocol
 ![](images/Lab5_p1.png)
-### 1. Εκλογή Γέφυρας Ρίζας (Root Bridge)
+### 1. Root Bridge Election
 
-Η γέφυρα με το μικρότερο αναγνωριστικό (ID) εκλέγεται ως **Root Bridge**.
-- **Αποτέλεσμα:** Η γέφυρα **$B1$** είναι η Ρίζα του δέντρου.
+The bridge with the smallest identifier (ID) is elected as the **Root Bridge**.
+- **Result:** Bridge **$B1$** is the Root of the tree.
 
-### 2. Ανταλλαγή Μηνυμάτων (BPDU) και Επιλογή Θυρών Ρίζας
+### 2. Message Exchange (BPDU) and Root Port Selection
 
-- **$B1$:** Στέλνει $(B1, 0, B1)$ στα LAN $A, B, D$.
-- **$B3$:** Λαμβάνει το μήνυμα στο LAN $A$. Θέτει ως **Root Port (RP)** τη θύρα προς το $A$ (Κόστος $1$). Στέλνει $(B1, 1, B3)$ στο LAN $C$.
-- **$B5$:** Λαμβάνει το μήνυμα στο LAN $D$. Θέτει ως **RP** τη θύρα προς το $D$ (Κόστος $1$). Στέλνει $(B1, 1, B5)$ στα LAN $E, F, G, H$.
-- **$B7$:** Λαμβάνει το μήνυμα στο LAN $B$. Θέτει ως **RP** τη θύρα προς το $B$ (Κόστος $1$). Στέλνει $(B1, 1, B7)$ στα LAN $F, K$.
-- **$B2$:** Λαμβάνει $(B1, 1, B3)$ από το $C$ και $(B1, 1, B5)$ από το $E$. Το συνολικό κόστος και από τις δύο είναι $2$. Επιλέγει ως **RP** τη θύρα προς το $C$ λόγω χαμηλότερου ID αποστολέα ($B3 < B5$).
-- **$B4$:** Λαμβάνει $(B1, 1, B5)$ από το $H$. Θέτει ως **RP** τη θύρα προς το $H$ (Κόστος $2$). Στέλνει $(B1, 2, B4)$ στα $I, J$.
-- **$B6$:** Λαμβάνει $(B1, 1, B5)$ από το $G$. Θέτει ως **RP** τη θύρα προς το $G$ (Κόστος $2$). Στέλνει $(B1, 2, B6)$ στο $I$.
+- **$B1$:** Sends $(B1, 0, B1)$ to LANs $A, B, D$.
+- **$B3$:** Receives the message on LAN $A$. Sets port towards $A$ as **Root Port (RP)** (Cost $1$). Sends $(B1, 1, B3)$ to LAN $C$.
+- **$B5$:** Receives the message on LAN $D$. Sets port towards $D$ as **RP** (Cost $1$). Sends $(B1, 1, B5)$ to LANs $E, F, G, H$.
+- **$B7$:** Receives the message on LAN $B$. Sets port towards $B$ as **RP** (Cost $1$). Sends $(B1, 1, B7)$ to LANs $F, K$.
+- **$B2$:** Receives $(B1, 1, B3)$ from $C$ and $(B1, 1, B5)$ from $E$. Total cost from both is $2$. Chooses port towards $C$ as **RP** due to lower sender ID ($B3 < B5$).
+- **$B4$:** Receives $(B1, 1, B5)$ from $H$. Sets port towards $H$ as **RP** (Cost $2$). Sends $(B1, 2, B4)$ to $I, J$.
+- **$B6$:** Receives $(B1, 1, B5)$ from $G$. Sets port towards $G$ as **RP** (Cost $2$). Sends $(B1, 2, B6)$ to $I$.
 
 ---
 
-### 3. Καθορισμένες Γέφυρες (Designated Bridges) ανά LAN
+### 3. Designated Bridges per LAN
 
-|**LAN**|**Συνδεδεμένες Γέφυρες (Κόστος προς Ρίζα)**|**Καθορισμένη Γέφυρα (Designated)**|
+|**LAN**|**Connected Bridges (Cost to Root)**|**Designated Bridge**|
 |---|---|---|
 |**A**|$B1(0), B3(1)$|**$B1$**|
 |**B**|$B1(0), B7(1)$|**$B1$**|
 |**D**|$B1(0), B5(1)$|**$B1$**|
 |**C**|$B3(1), B2(2)$|**$B3$**|
 |**E**|$B5(1), B2(2)$|**$B5$**|
-|**F**|$B5(1), B7(1)$|**$B5$** (λόγω ID: $5 < 7$)|
+|**F**|$B5(1), B7(1)$|**$B5$** (due to ID: $5 < 7$)|
 |**G**|$B5(1), B6(2)$|**$B5$**|
 |**H**|$B5(1), B4(2)$|**$B5$**|
-|**I**|$B4(2), B6(2)$|**$B4$** (λόγω ID: $4 < 6$)|
+|**I**|$B4(2), B6(2)$|**$B4$** (due to ID: $4 < 6$)|
 |**J**|$B4(2)$|**$B4$**|
 |**K**|$B7(1)$|**$B7$**|
 
 ---
 
-### 4. Συμπέρασμα
+### 4. Conclusion
 
-Μια γέφυρα δεν συμπεριλαμβάνεται στο ενεργό δέντρο (δηλαδή δεν προωθεί πακέτα δεδομένων) εάν όλες οι θύρες της, εκτός από τη θύρα ρίζας (RP), τίθενται σε κατάσταση **Blocking**. Αυτό συμβαίνει όταν η γέφυρα δεν είναι "Καθορισμένη" (Designated) για κανένα από τα LAN στα οποία συνδέεται.
+A bridge is not included in the active tree (i.e. does not forward data packets) if all its ports, except for the root port (RP), are set to **Blocking** state. This happens when the bridge is not "Designated" for any of the LANs to which it connects.
 
-- **Γέφυρα $B2$:**
-    - Στο LAN $C$, καθορισμένη είναι η $B3$.
-    - Στο LAN $E$, καθορισμένη είναι η $B5$.
-    - Η $B2$ δεν εξυπηρετεί κανένα LAN, άρα **δεν συμπεριλαμβάνεται**.
-- **Γέφυρα $B6$:**
-    - Στο LAN $G$, καθορισμένη είναι η $B5$.
-    - Στο LAN $I$, καθορισμένη είναι η $B4$.
-    - Η $B6$ δεν εξυπηρετεί κανένα LAN, άρα **δεν συμπεριλαμβάνεται**.
+- **Bridge $B2$:**
+    - On LAN $C$, $B3$ is designated.
+    - On LAN $E$, $B5$ is designated.
+    - $B2$ serves no LAN, hence **it is not included**.
+- **Bridge $B6$:**
+    - On LAN $G$, $B5$ is designated.
+    - On LAN $I$, $B4$ is designated.
+    - $B6$ serves no LAN, hence **it is not included**.
 
-**Απάντηση:** Οι γέφυρες που δεν θα συμπεριληφθούν στο δέντρο διάσχισης είναι οι **$B2$** και **$B6$**.
+**Answer:** The bridges that will not be included in the spanning tree are **$B2$** and **$B6$**.
 
 ---
-## ii. Εφαρμογή του αλγορίθμου Dijkstra
+
+## ii. Application of Dijkstra's Algorithm
 
 ![](images/Lab5_p2-a.png)
-## Πίνακας 1
+## Table 1
 
-- Round 1, προσθήκη A: A=0, B=20, C=20, D=∞, E=∞, F=∞, G=∞, H=∞.
-- Round 2, προσθήκη B: A=0, B=20, C=20, D=25, E=∞, F=∞, G=∞, H=∞.
-- Round 3, προσθήκη C: A=0, B=20, C=20, D=25, E=25, F=∞, G=∞, H=∞.
-- Round 4, προσθήκη D: A=0, B=20, C=20, D=25, E=25, F=30, G=∞, H=∞.
-- Round 5, προσθήκη E: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=∞.
-- Round 6, προσθήκη F: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=40.
-- Round 7, προσθήκη G: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=40.
-- Round 8, προσθήκη H: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=40.
+- Round 1, add A: A=0, B=20, C=20, D=∞, E=∞, F=∞, G=∞, H=∞.
+- Round 2, add B: A=0, B=20, C=20, D=25, E=∞, F=∞, G=∞, H=∞.
+- Round 3, add C: A=0, B=20, C=20, D=25, E=25, F=∞, G=∞, H=∞.
+- Round 4, add D: A=0, B=20, C=20, D=25, E=25, F=30, G=∞, H=∞.
+- Round 5, add E: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=∞.
+- Round 6, add F: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=40.
+- Round 7, add G: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=40.
+- Round 8, add H: A=0, B=20, C=20, D=25, E=25, F=30, G=30, H=40.
 
-## Συμπληρωμένος πίνακας
+## Completed Table
 
-|Round|Προσθήκη κόμβου|A|B|C|D|E|F|G|H|
+|Round|Node Addition|A|B|C|D|E|F|G|H|
 |---|---|---|---|---|---|---|---|---|---|
 |1|A|0|20|20|∞|∞|∞|∞|∞|
 |2|B|0|20|20|25|∞|∞|∞|∞|
@@ -78,28 +79,28 @@
 |7|G|0|20|20|25|25|30|30|40|
 |8|H|0|20|20|25|25|30|30|40|
 
-## Τελικό αποτέλεσμα
+## Final Result
 
-- Σειρά οριστικοποίησης κόμβων: A, B, C, D, E, F, G, H.
-- Συντομότερη διαδρομή: A → B → D → F → H.
-- Συνολικό κόστος: 40.
+- Node finalization sequence: A, B, C, D, E, F, G, H.
+- Shortest path: A → B → D → F → H.
+- Total cost: 40.
 
-## iii. Εφαρμογή του αλγορίθμου Bellman Ford
+## iii. Application of Bellman-Ford Algorithm
 
 ![](images/Lab5_p3.png)
 
-## Πίνακας 2
+## Table 2
 
-|Κόμβος|A|B|C|D|
+|Node|A|B|C|D|
 |---|---|---|---|---|
 |A|0|2|7|∞|
 |B|2|0|1|3|
 |C|7|1|0|1|
 |D|∞|3|1|0|
 
-## Πίνακας 3
+## Table 3
 
-|Κόμβος|A|B|C|D|
+|Node|A|B|C|D|
 |---|---|---|---|---|
 |A|0|2|3|4|
 |B|2|0|1|2|
@@ -108,27 +109,25 @@
 
 ---
 ## LAB 
-## i. Δημιουργία δικτύου
+## i. Network Creation
 
 > **File: Lab5-3323-RIP.pkt**
 
 ![](images/Main_Network.png)
 
-
-
 ### PC Configurations
 
-  
-**PC0** IP: 10.10.3.1 Mask: 255.255.255.252 Gateway: 10.10.3.2 
-**PC1** IP: 10.10.1.1 Mask: 255.255.255.252 Gateway: 10.10.1.2 
-**PC2** IP: 10.10.2.1 Mask: 255.255.255.252 Gateway: 10.10.2.2 
-**PC3** IP: 10.10.4.1 Mask: 255.255.255.252 Gateway: 10.10.4.2 
-**PC4** IP: 10.10.5.1 Mask: 255.255.255.252 Gateway: 10.10.5.2 
-**PC5** IP: 10.10.8.1 Mask: 255.255.255.252 Gateway: 10.10.8.2 
-**PC6** IP: 10.10.7.1 Mask: 255.255.255.252 Gateway: 10.10.7.2 
-**PC7** IP: 10.10.6.1 Mask: 255.255.255.252 Gateway: 10.10.6.2
+**PC0** IP: 10.10.3.1 Mask: 255.255.255.252 Gateway: 10.10.3.2 
+**PC1** IP: 10.10.1.1 Mask: 255.255.255.252 Gateway: 10.10.1.2 
+**PC2** IP: 10.10.2.1 Mask: 255.255.255.252 Gateway: 10.10.2.2 
+**PC3** IP: 10.10.4.1 Mask: 255.255.255.252 Gateway: 10.10.4.2 
+**PC4** IP: 10.10.5.1 Mask: 255.255.255.252 Gateway: 10.10.5.2 
+**PC5** IP: 10.10.8.1 Mask: 255.255.255.252 Gateway: 10.10.8.2 
+**PC6** IP: 10.10.7.1 Mask: 255.255.255.252 Gateway: 10.10.7.2 
+**PC7** IP: 10.10.6.1 Mask: 255.255.255.252 Gateway: 10.10.6.2
+
 ### Shell input: 
-**$PC_χ$:**  
+**$PC_x$:**  
 ```  
 ipconfig <IP> <MASK> <GATEWAY>  
 ```  
@@ -387,10 +386,9 @@ end
 write memory
 ```
 
-
 ### Testing Network
 ![](images/Ping_before_rip.png)
-- Ολα καταλιγουν σε "Request timed out." καθως οι δρομολογητές γνωρίζουν μόνο τα άμεσα συνδεδεμένα δίκτυά τους. Δεν γνωρίζουν τις διαδρομές προς τα απομακρυσμένα υποδίκτυα επειδή δεν είναι ενεργό πρωτόκολλο δρομολόγησης.
+- All result in "Request timed out." because routers only know their directly connected networks. They do not know routes to remote subnets because no routing protocol is active.
 ---
 
 ## Router0
@@ -520,12 +518,12 @@ write memory
 ```
 
 ![](images/Ping_with_RIP.png)
-- Το δίκτυο λειτουργεί σωστά αφου οι δρομολογητές γνωρίζουν πλέον τις διαδρομές προς τα απομακρυσμένα υποδίκτυα και είναι δυνατή η επικοινωνία μεταξύ των υπολογιστών.
+- The network operates correctly now that routers know routes to remote subnets and inter-computer communication is possible.
 ---
 
-## vi. Δρομολόγηση OSPF 
+## vi. OSPF Routing
 
-### Ρύθμιση OSPF
+### OSPF Configuration
 ---
 > **File: Lab5-3323-OSPF.pkt**
 ## Router0
@@ -638,7 +636,7 @@ end
 write memory
 ```
 
-### Επαλήθευση
+### Verification
 ```bash
 show ip protocols
 show ip route
@@ -744,7 +742,7 @@ Router>
 ```
 
 ![](images/Ping_with_OSPF.png)
-- Το δίκτυο λειτουργεί σωστά με OSPF καθώς οι δρομολογητές ανταλλάσσουν LSA (Link State Advertisements) και δομούν πλήρη εικόνα της τοπολογίας μέσω του Shortest Path First αλγορίθμου.
+- The network operates correctly with OSPF as routers exchange LSAs (Link State Advertisements) and build a complete view of the topology using the Shortest Path First algorithm.
 
 
 Resources:

@@ -1,25 +1,25 @@
-# Κεφάλαιο 18: Υπολογιστές Πολλαπλών Πυρήνων - Smart Notes
+# Chapter 18: Multicore Computers - Smart Notes
 
 ---
 
-## 1.0 Ζητήματα Απόδοσης Υλικού
+## 1.0 Hardware Performance Issues
 
-### 1.1 Εκθετική Αύξηση Απόδοσης Μικροεπεξεργαστών
+### 1.1 Exponential Performance Growth of Microprocessors
 
-**i. Παράγοντες Βελτίωσης:**
-- Βελτίωση στην οργάνωση αρχιτεκτονικής
-- Αύξηση συχνότητας λειτουργίας
+**i. Improvement Factors:**
+- Architecture organization improvements
+- Operating frequency increases
 
-**ii. Τεχνικές Ενίσχυσης Παράλληλου Επεξεργαστή:**
-- **Διασωλήνωση (Pipelining)**: Ταχύτερη επεξεργασία εντολών
-- **Υπερβαθμωτή Αρχιτεκτονική (Superscalar)**: Αποδοτικότερη εκτέλεση πολλαπλών εντολών
-- **Ταυτόχρονη Πολυνημάτωση (Simultaneous Multithreading - SMT)**: Καλύτερη αξιοποίηση πόρων
+**ii. Parallel Processor Enhancement Techniques:**
+- **Pipelining**: Faster instruction processing
+- **Superscalar Architecture**: More efficient multiple instruction execution
+- **Simultaneous Multithreading (SMT)**: Better resource utilization
 
-### 1.2 Νόμος του Moore
+### 1.2 Moore's Law
 
-**i. Ιστορική Εξέλιξη Τεχνολογίας Κατασκευής:**
+**i. Historical Technology Manufacturing Evolution:**
 
-| Περίοδος | Μέγεθος Τεχνολογίας |
+| Period | Technology Size |
 |----------|---------------------|
 | 1971 | 10 μm |
 | 1984 | 1 μm |
@@ -29,29 +29,29 @@
 | 2012 | 22 nm |
 | 2018 | 7 nm |
 | 2020 | 5 nm |
-| 2023 | ~3 nm (M3 Apple) |
+| 2023 | ~3 nm (Apple M3) |
 | 2024 | ~2 nm |
 
-**ii. Σημασία:**
-- Συνεχής μείωση μεγέθους τρανζίστορ επιτρέπει υψηλότερη πυκνότητα
-- Αύξηση απόδοσης και μείωση κόστους
+**ii. Significance:**
+- Continuous transistor size reduction enables higher density
+- Performance increase and cost reduction
 
-> [!INFO] **Οι Ορισμοί:**
+> [!INFO] **Definitions:**
 >
 > **MOSFET (Metal-Oxide-Semiconductor Field-Effect Transistor)**:
-> - Βασικό στοιχείο μικροεπεξεργαστών και μνημών
-> - Λειτουργεί ως διακόπτης ή ενισχυτής ηλεκτρικών σημάτων
-> - Ο αριθμός MOSFETs = δείκτης υπολογιστικής ισχύος
+> - Fundamental component of microprocessors and memory
+> - Functions as a switch or amplifier of electrical signals
+> - Number of MOSFETs = computational power indicator
 >
 > **Wafer Scale Engine (WSE)**:
-> - Ολόκληρη η επιφάνεια ενός wafer πυριτίου χρησιμοποιείται για ένα chip
-> - Εκατομμύρια πυρήνες, τεράστια μνήμη
-> - Εφαρμογές: AI, Machine Learning, HPC
-> - Παράδειγμα: Cerebras WSE-2 (2600 δισεκ. τρανζίστορ, 840,000 AI-πυρήνες)
+> - Entire surface of a silicon wafer used for one chip
+> - Millions of cores, massive memory
+> - Applications: AI, Machine Learning, HPC
+> - Example: Cerebras WSE-2 (2.6 trillion transistors, 840,000 AI-cores)
 
-### 1.3 Εξέλιξη Μικροεπεξεργαστών και Τεχνολογιών IC
+### 1.3 Microprocessor and IC Technology Evolution
 
-| Έτος | Στοιχείο | Ονομασία | MOSFETs (δισεκ.) |
+| Year | Component | Name | MOSFETs (billions) |
 |------|---------|----------|-----------------|
 | 2019 | IC Chip | Samsung V-NAND | 2000 |
 | 2020 | GPU | AMD Instinct MI250X | 59 |
@@ -59,134 +59,134 @@
 | 2020 | IC Chip | Wafer Scale Engine 2 | 2600 |
 | 2021 | Microprocessor | Apple M1 Max | 57 |
 
-### 1.4 Κανόνας του Pollack
+### 1.4 Pollack's Rule
 
-> [!INFO] **Θεώρημα Απόδοσης:**
+> [!INFO] **Performance Theorem:**
 >
-> Η αύξηση απόδοσης ενός επεξεργαστή είναι περίπου ανάλογη με την τετραγωνική ρίζα της αύξησης πολυπλοκότητας:
+> Processor performance increase is approximately proportional to the square root of complexity increase:
 >
-> $$ \text{Απόδοση} \propto \sqrt{\text{Πολυπλοκότητα}} $$
+> $$ \text{Performance} \propto \sqrt{\text{Complexity}} $$
 >
-> **Παράδειγμα**: Διπλασιασμός λογικών κυκλωμάτων πυρήνα → Αύξηση απόδοσης ~40%
+> **Example**: Doubling core logic circuits → ~40% performance increase
 
-**i. Προκλήσεις Σχεδίασης:**
-- Αυξημένη δυσκολία κατασκευής
-- Πολυπλοκότητα αποσφαλμάτωσης
-- Περιορισμοί επέκτασης
+**i. Design Challenges:**
+- Increased manufacturing difficulty
+- Debugging complexity
+- Scaling limitations
 
-### 1.5 Αύξηση Πολυπλοκότητας και Κατανάλωση Ενέργειας
+### 1.5 Complexity Increase and Power Consumption
 
-**i. Πρόβλημα Ισχύος:**
-- Κατανάλωση ενέργειας αυξάνεται εκθετικά με πυκνότητα τρανζίστορ
-- Συχνότητα ρολογιού επιδεινώνει το πρόβλημα
-- Πάνω από 20 δισεκ. τρανζίστορ σε σύγχρονα chips
+**i. Power Problem:**
+- Power consumption increases exponentially with transistor density
+- Clock frequency worsens the problem
+- Over 20 billion transistors in modern chips
 
-**ii. Λύση: Πολλαπλοί Πυρήνες**
-- Αντιμετώπιση υπερθέρμανσης
-- Αύξηση απόδοσης
-- Αποτελεσματική διαχείριση κρυφής μνήμης
+**ii. Solution: Multiple Cores**
+- Heat management
+- Performance increase
+- Efficient cache management
 
 ```mermaid
 graph TD
-    A[Αύξηση Πυκνότητας Τρανζίστορ] --> B[Αύξηση Θερμότητας]
-    A --> C[Δυσκολία Εκμετάλλευσης Μονού Πυρήνα]
-    B --> D[Λύση: Πολλαπλοί Πυρήνες]
+    A[Transistor Density Increase] --> B[Heat Increase]
+    A --> C[Single Core Exploitation Difficulty]
+    B --> D[Solution: Multiple Cores]
     C --> D
-    D --> E[Μείωση Θερμότητας ανά Πυρήνα]
-    D --> F[Καλύτερη Αξιοποίηση Cache]
-    D --> G[Υψηλότερη Συνολική Απόδοση]
+    D --> E[Heat Reduction per Core]
+    D --> F[Better Cache Utilization]
+    D --> G[Higher Overall Performance]
 ```
 
 ---
 
-## 2.0 Θέματα Απόδοσης Λογισμικού
+## 2.0 Software Performance Issues
 
-### 2.1 Νόμος του Amdahl
+### 2.1 Amdahl's Law
 
-**i. Μαθηματική Διατύπωση:**
+**i. Mathematical Formulation:**
 
 $$
 S = \frac{1}{(1-f) + \frac{f}{N}}
 $$
 
-Όπου:
-- $ S $: Αύξηση ταχύτητας (speedup)
-- $ f $: Ποσοστό παράλληλου κώδικα
-- $ (1-f) $: Ποσοστό σειριακού κώδικα
-- $ N $: Αριθμός επεξεργαστών
+Where:
+- $ S $: Speedup
+- $ f $: Parallel code percentage
+- $ (1-f) $: Serial code percentage
+- $ N $: Number of processors
 
-**ii. Πρακτικό Παράδειγμα:**
-- 10% σειριακός κώδικας σε σύστημα 8 επεξεργαστών
-- Επίτευξη: Μόλις 4.7× απόδοση (όχι 8×)
+**ii. Practical Example:**
+- 10% serial code in an 8-processor system
+- Achievement: Only 4.7× speedup (not 8×)
 
-> [!WARNING] **Κρίσιμη Παρατήρηση:**
+> [!WARNING] **Critical Observation:**
 >
-> Ακόμα και μικρό ποσοστό σειριακού κώδικα περιορίζει σημαντικά την απόδοση παράλληλων συστημάτων.
+> Even a small percentage of serial code significantly limits parallel system performance.
 
-**iii. Επιπλέον Επιβαρύνσεις Λογισμικού:**
-- Επικοινωνία μεταξύ επεξεργαστών
-- Κατανομή εργασίας στους πυρήνες
-- Διατήρηση συνοχής κρυφής μνήμης
+**iii. Additional Software Overheads:**
+- Communication between processors
+- Workload distribution across cores
+- Cache coherence maintenance
 
 ```mermaid
 graph LR
-    A[Πρόγραμμα] --> B["Σειριακό Τμήμα (1-f)"]
-    A --> C["Παράλληλο Τμήμα (f)"]
-    B --> D[Εκτέλεση σε 1 CPU]
-    C --> E["Κατανομή σε N CPUs"]
-    D --> F[Συνολικός Χρόνος]
+    A[Program] --> B["Serial Section (1-f)"]
+    A --> C["Parallel Section (f)"]
+    B --> D[Execution on 1 CPU]
+    C --> E["Distribution to N CPUs"]
+    D --> F[Total Time]
     E --> F
     F --> G["Speedup = 1 / ((1-f) + f/N)"]
 
 ```
 
-### 2.2 Επιτάχυνση με Σειριακά Τμήματα
+### 2.2 Speedup with Serial Sections
 
-| Αρ. Επεξεργαστών | 0% Σειριακό | 2% Σειριακό | 5% Σειριακό | 10% Σειριακό |
+| Number of Processors | 0% Serial | 2% Serial | 5% Serial | 10% Serial |
 |------------------|-------------|-------------|-------------|--------------|
 | 1 | 1.0× | 1.0× | 1.0× | 1.0× |
 | 2 | 2.0× | 1.96× | 1.90× | 1.82× |
 | 4 | 4.0× | 3.77× | 3.48× | 3.08× |
 | 8 | 8.0× | 6.90× | 5.93× | 4.71× |
 
-### 2.3 Επίδραση Overhead
+### 2.3 Overhead Impact
 
-**i. Επιβαρύνσεις συστήματος** (5%, 10%, 15%, 20%):
-- Μείωση πραγματικής επίδοσης
-- Καθυστερήσεις επικοινωνίας
-- Συγχρονισμός νημάτων
+**i. System overheads** (5%, 10%, 15%, 20%):
+- Reduced actual performance
+- Communication delays
+- Thread synchronization
 
-**ii. Παρατήρηση από Benchmarks:**
-- Single-threaded performance ανεξάρτητη από αριθμό πυρήνων
-- Παράδειγμα: Intel i7-7700K (4/8) ≈ Ryzen Threadripper 1950X (16/32) σε μονονηματικά workloads
+**ii. Observation from Benchmarks:**
+- Single-threaded performance independent of core count
+- Example: Intel i7-7700K (4/8) ≈ Ryzen Threadripper 1950X (16/32) in single-threaded workloads
 
 ---
 
-## 3.0 Παράγοντες Διαμόρφωσης Πολυπύρηνων Επεξεργαστών
+## 3.0 Multicore Processor Configuration Factors
 
-### 3.1 Βασικοί Παράγοντες Σχεδίασης
+### 3.1 Basic Design Factors
 
-**i. Αριθμός Επεξεργαστών:**
-- Πλήθος πυρήνων στο chip
+**i. Number of Processors:**
+- Number of cores on chip
 
-**ii. Επίπεδα Κρυφής Μνήμης:**
+**ii. Cache Levels:**
 - L1, L2, L3 cache
-- Ιεραρχία για βελτίωση ταχύτητας πρόσβασης
+- Hierarchy for access speed improvement
 
-**iii. Ποσότητα Κοινόχρηστης Κρυφής Μνήμης:**
-- Μέγεθος shared cache μεταξύ πυρήνων
+**iii. Shared Cache Amount:**
+- Shared cache size between cores
 
-**iv. Υποστήριξη Simultaneous Multithreading:**
-- Ταυτόχρονη εκτέλεση πολλαπλών νημάτων ανά πυρήνα
+**iv. Simultaneous Multithreading Support:**
+- Concurrent execution of multiple threads per core
 
-**v. Τύποι Πυρήνων:**
-- **Ομοιογενείς (Homogeneous)**: Ίδιοι πυρήνες
-- **Ετερογενείς (Heterogeneous)**: Διαφορετικοί πυρήνες για εξειδικευμένες λειτουργίες
+**v. Core Types:**
+- **Homogeneous**: Identical cores
+- **Heterogeneous**: Different cores for specialized functions
 
 ```mermaid
 mindmap
-  root((Πολυπύρηνες<br/>Αρχιτεκτονικές))
-    Αριθμός Πυρήνων
+  root((Multicore<br/>Architectures))
+    Number of Cores
       2-4 cores
       8-16 cores
       32+ cores
@@ -206,27 +206,27 @@ mindmap
 
 ---
 
-## 4.0 Οργάνωση Κρυφής Μνήμης
+## 4.0 Cache Organization
 
-### 4.1 Τύποι Διαμόρφωσης Cache
+### 4.1 Cache Configuration Types
 
-**i. Δεσμευμένη Κρυφή Μνήμη Επιπέδου 1 (L1):**
-- Κάθε πυρήνας: Αποκλειστική L1
-- Διαχωρισμός: L1-D (Data), L1-I (Instruction)
-- Πρόσβαση στην κύρια μνήμη μέσω I/O
+**i. Level 1 Dedicated Cache:**
+- Per core: Exclusive L1
+- Split: L1-D (Data), L1-I (Instruction)
+- Access to main memory via I/O
 
-**ii. Δεσμευμένη Κρυφή Μνήμη Επιπέδου 2 (L2):**
-- Κάθε πυρήνας: Αποκλειστική L1 + Δεσμευμένη L2
-- Μεγαλύτερη χωρητικότητα ανά πυρήνα
+**ii. Level 2 Dedicated Cache:**
+- Per core: Exclusive L1 + Dedicated L2
+- Larger capacity per core
 
-**iii. Κοινόχρηστη Κρυφή Μνήμη Επιπέδου 2:**
-- Πυρήνες μοιράζονται κοινή L2
-- Μείωση αντιγραφής δεδομένων μεταξύ πυρήνων
+**iii. Shared Level 2 Cache:**
+- Cores share common L2
+- Reduced data replication between cores
 
-**iv. Κοινόχρηστη Κρυφή Μνήμη Επιπέδου 3 (L3):**
-- L1, L2: Δεσμευμένα ανά πυρήνα
-- L3: Κοινόχρηστη για όλους τους πυρήνες
-- Ενδιάμεσος χώρος πριν την κύρια μνήμη
+**iv. Shared Level 3 Cache (L3):**
+- L1, L2: Dedicated per core
+- L3: Shared by all cores
+- Intermediate space before main memory
 
 ```mermaid
 graph TD
@@ -249,48 +249,48 @@ graph TD
 
 ```
 
-### 4.2 Πλεονεκτήματα Κοινόχρηστης Cache
+### 4.2 Shared Cache Advantages
 
-**i. Μειωμένοι Ρυθμοί Αστοχίας:**
-- Συνολική μείωση miss rate
+**i. Reduced Miss Rates:**
+- Overall miss rate reduction
 
-**ii. Κοινή Αποθήκευση Δεδομένων:**
-- Δεδομένα που χρησιμοποιούνται από πολλούς πυρήνες αποθηκεύονται μία φορά
-- Εξοικονόμηση πόρων
+**ii. Common Data Storage:**
+- Data used by multiple cores stored once
+- Resource savings
 
-**iii. Δυναμική Κατανομή Μνήμης:**
-- Αλγόριθμοι αντικατάστασης προσαρμόζουν την κατανομή
-- Νήματα με χαμηλή τοπικότητα αποκτούν περισσότερο χώρο
+**iii. Dynamic Memory Allocation:**
+- Replacement algorithms adjust allocation
+- Threads with low locality gain more space
 
-**iv. Αποτελεσματική Επικοινωνία:**
-- Επικοινωνία μέσω shared cache
-- Εξάλειψη ανάγκης για εξωτερικά δίκτυα
+**iv. Efficient Communication:**
+- Communication through shared cache
+- Elimination of need for external networks
 
 ---
 
-## 5.0 Αρχιτεκτονικές Ετερογενών Συστημάτων
+## 5.0 Heterogeneous System Architectures
 
-### 5.1 Πολλαπλοί Πυρήνες CPU/GPU
+### 5.1 CPU/GPU Multiple Cores
 
-**i. Χαρακτηριστικά GPU:**
-- Υποστήριξη χιλιάδων παράλληλων νημάτων
-- Κατάλληλες για εφαρμογές μεγάλων δεδομένων (διανύσματα, πίνακες)
-- Αρχική χρήση: Βελτίωση απόδοσης γραφικών
-- Σύγχρονη χρήση: Επαναληπτικές πράξεις σε δομημένα δεδομένα
+**i. GPU Characteristics:**
+- Support for thousands of parallel threads
+- Suitable for large data applications (vectors, matrices)
+- Initial use: Graphics performance improvement
+- Modern use: Repetitive operations on structured data
 
-**ii. Τεχνολογίες:**
-- **CUDA**: Πλατφόρμα παράλληλης επεξεργασίας (NVIDIA)
+**ii. Technologies:**
+- **CUDA**: Parallel processing platform (NVIDIA)
 - **GPGPU**: General-Purpose computing on GPUs
 
-> [!INFO] **Ιδεατή Μνήμη (Virtual Memory)**:
+> [!INFO] **Virtual Memory**:
 >
-> Μηχανισμός διαχείρισης που παρέχει:
-> - Εντύπωση μεγάλου συνεχούς χώρου μνήμης
-> - Ανεξαρτησία από φυσική RAM
-> - Τεχνικές: Σελιδοποίηση (paging), Τμηματοποίηση (segmentation)
-> - Αποφυγή συγκρούσεων, διαχείριση μεγαλύτερων datasets
+> Management mechanism providing:
+> - Impression of large contiguous memory space
+> - Independence from physical RAM
+> - Techniques: Paging, Segmentation
+> - Conflict avoidance, larger dataset management
 
-### 5.2 Αρχιτεκτονική Heterogeneous Systems
+### 5.2 Heterogeneous Systems Architecture
 
 ```mermaid
 graph TD
@@ -315,69 +315,69 @@ graph TD
     DRAM2 --> MEM2[Main Memory]
 ```
 
-**i. Κοινή Ιδεατή Μνήμη:**
-- Προσβάσιμη από CPU και GPU
-- Σελίδες μεταφέρονται στη φυσική μνήμη όταν απαιτείται
+**i. Shared Virtual Memory:**
+- Accessible by CPU and GPU
+- Pages transferred to physical memory when needed
 
-**ii. Πολιτική Συνοχής:**
-- Διατήρηση ενημερωμένων δεδομένων σε CPU/GPU caches
+**ii. Coherence Policy:**
+- Maintaining up-to-date data in CPU/GPU caches
 
-**iii. Ενιαία Διεπαφή Προγραμματισμού:**
-- Αξιοποίηση σειριακής ισχύος CPU
-- Αξιοποίηση παράλληλης ισχύος GPU
+**iii. Unified Programming Interface:**
+- CPU serial power utilization
+- GPU parallel power utilization
 
-### 5.3 Σύγκριση Απόδοσης CPU/GPU
+### 5.3 CPU/GPU Performance Comparison
 
-**Παράδειγμα: AMD A10 5800K**
+**Example: AMD A10 5800K**
 
-| Παράμετρος | CPU | GPU |
+| Parameter | CPU | GPU |
 |------------|-----|-----|
-| Συχνότητα ρολογιού | 3.8 GHz | 0.8 GHz |
-| Πυρήνες | 4 | 384 |
-| FLOPS/πυρήνα/κύκλο | 8 | 2 |
+| Clock frequency | 3.8 GHz | 0.8 GHz |
+| Cores | 4 | 384 |
+| FLOPS/core/cycle | 8 | 2 |
 | **GFLOPS** | **121.6** | **614.4** |
 
-**i. Συμπεράσματα:**
-- GPU: Χαμηλότερη συχνότητα, αλλά περισσότεροι πυρήνες
-- GPU: 5× υψηλότερη συνολική απόδοση σε παράλληλες εργασίες
-- CPU: Ευέλικτη για σειριακές διεργασίες
-- GPU: Ενδεικνυόμενη για γραφικά, ML, επιστημονικούς υπολογισμούς
+**i. Conclusions:**
+- GPU: Lower frequency, but more cores
+- GPU: 5× higher overall performance in parallel tasks
+- CPU: Flexible for serial processes
+- GPU: Recommended for graphics, ML, scientific computing
 
 ---
 
-## 6.0 Αρχιτεκτονική ARM
+## 6.0 ARM Architecture
 
-### 6.1 Εισαγωγή στην ARM
+### 6.1 Introduction to ARM
 
 **i. Advanced RISC Machine:**
-- Αρχικά: Acorn RISC Machine
-- Βάση: Αρχιτεκτονική RISC (Reduced Instruction Set Computing)
-- Κατασκευή: Πολλοί κατασκευαστές μέσω αδειών ARM Holdings
+- Originally: Acorn RISC Machine
+- Basis: RISC Architecture (Reduced Instruction Set Computing)
+- Manufacturing: Multiple manufacturers via ARM Holdings licenses
 
-**ii. Διάδοση:**
-- Έως 2017: >100 δισεκ. ARM επεξεργαστές παραγόμενοι
-- Πιο διαδεδομένη αρχιτεκτονική συνόλου εντολών
+**ii. Proliferation:**
+- Up to 2017: >100 billion ARM processors produced
+- Most widely used instruction set architecture
 
 > [!INFO] **RISC (Reduced Instruction Set Computing)**:
 >
-> **Βασικά Χαρακτηριστικά:**
-> - Μικρό και βελτιστοποιημένο σύνολο εντολών
-> - Κάθε εντολή εκτελείται σε ~1 κύκλο ρολογιού
-> - Ομοιομορφία εντολών (σταθερό μήκος/δομή)
-> - Εστίαση στο λογισμικό (compiler)
-> - Αποδοτική χρήση καταχωρητών
+> **Key Characteristics:**
+> - Small and optimized instruction set
+> - Each instruction executes in ~1 clock cycle
+> - Instruction uniformity (fixed length/structure)
+> - Focus on software (compiler)
+> - Efficient register usage
 >
-> **Σύγχρονες Αρχιτεκτονικές:** ARM, MIPS, RISC-V
+> **Modern Architectures:** ARM, MIPS, RISC-V
 
-### 6.2 Αρχιτεκτονική big.LITTLE
+### 6.2 big.LITTLE Architecture
 
-**i. Έννοια:**
-- Συνδυασμός πυρήνων υψηλής απόδοσης (big) και χαμηλής κατανάλωσης (LITTLE)
-- Παρόμοιες αρχιτεκτονικές ISA, διαφορετικά χαρακτηριστικά
+**i. Concept:**
+- Combination of high-performance (big) and low-power (LITTLE) cores
+- Similar ISA architectures, different characteristics
 
-**ii. Στόχοι:**
-- Ισορροπία μεταξύ απόδοσης και ενεργειακής αποδοτικότητας
-- Κυρίως για smartphones, tablets
+**ii. Goals:**
+- Balance between performance and energy efficiency
+- Primarily for smartphones, tablets
 
 ```mermaid
 graph TB
@@ -415,26 +415,26 @@ graph TB
     CCI --> MEM[Memory Controllers]
 ```
 
-### 6.3 Σύγκριση Απόδοσης Cortex-A7 vs A15
+### 6.3 Cortex-A7 vs A15 Performance Comparison
 
-| Χαρακτηριστικό | Cortex-A7 | Cortex-A15 |
+| Characteristic | Cortex-A7 | Cortex-A15 |
 |----------------|-----------|------------|
-| Απόδοση ανά MHz | 1× | ~2× |
-| Ενεργειακή Αποδοτικότητα | 3× καλύτερη | 1× |
-| Διασωλήνωση | 8-10 στάδια | 15-24 στάδια |
-| Εκτέλεση | In-order | Out-of-order |
-| Εντολές/κύκλο | 2 (5 execution units) | 3 (8 execution units) |
-| Ουρά εντολών | Ενιαία | Ξεχωριστή ανά unit |
+| Performance per MHz | 1× | ~2× |
+| Energy Efficiency | 3× better | 1× |
+| Pipelining | 8-10 stages | 15-24 stages |
+| Execution | In-order | Out-of-order |
+| Instructions/cycle | 2 (5 execution units) | 3 (8 execution units) |
+| Instruction queue | Unified | Separate per unit |
 
 **i. Cortex-A15:**
-- Διπλάσια απόδοση ανά MHz
-- Υψηλότερη κατανάλωση
+- Double performance per MHz
+- Higher power consumption
 
 **ii. Cortex-A7:**
-- Τρεις φορές πιο αποδοτικός ενεργειακά για ίδιο φορτίο
-- 4 σημεία λειτουργίας ισχύος + idle mode
+- Three times more energy efficient for same load
+- 4 power operating points + idle mode
 
-### 6.4 Λειτουργικά Μοντέλα big.LITTLE
+### 6.4 big.LITTLE Operating Models
 
 #### 6.4.1 Clustered Switching
 
@@ -456,10 +456,10 @@ sequenceDiagram
     end
 ```
 
-**i. Χαρακτηριστικά:**
-- Επιλογή **μίας συστάδας** τη φορά
-- High Cluster: Αν χρειάζεται ≥1 πυρήνας υψηλής απόδοσης
-- Low Cluster: Διαφορετικά
+**i. Characteristics:**
+- Select **one cluster** at a time
+- High Cluster: When ≥1 high-performance core is needed
+- Low Cluster: Otherwise
 
 #### 6.4.2 In-Kernel Switcher
 
@@ -483,17 +483,17 @@ graph LR
     J -.-> R[Lowest Power]
 ```
 
-**i. Χαρακτηριστικά:**
-- 4 SMP εικονικοί πυρήνες
-- CPUfreq switch ανά εικονικό πυρήνα
-- Εναλλαγή μεταξύ A15/A7 δυναμικά
+**i. Characteristics:**
+- 4 SMP virtual cores
+- CPUfreq switch per virtual core
+- Dynamic switching between A15/A7
 
 #### 6.4.3 Heterogeneous Multi-Processing (HMP)
 
-**i. Χαρακτηριστικά:**
-- **Όλοι οι 8 πυρήνες** (4× A15 + 4× A7) ταυτόχρονα ενεργοί
-- Linux Scheduler: 8 μη-συμμετρικοί πυρήνες
-- Δρομολόγηση σε big ή LITTLE ανάλογα με workload
+**i. Characteristics:**
+- **All 8 cores** (4× A15 + 4× A7) simultaneously active
+- Linux Scheduler: 8 asymmetric cores
+- Routing to big or LITTLE based on workload
 
 ```mermaid
 flowchart TD
@@ -509,55 +509,55 @@ flowchart TD
 
 ### 6.5 ARM DynamIQ
 
-**i. Εισαγωγή:**
-- Πυρήνες: Cortex-A75, Cortex-A55
-- Ενισχυμένη υποστήριξη AI/ML
+**i. Introduction:**
+- Cores: Cortex-A75, Cortex-A55
+- Enhanced AI/ML support
 
-**ii. Βελτιώσεις:**
-- **>50× AI performance boost** στην CPU (3-5 έτη)
-- **10× ταχύτερη απόκριση** σε επιταχυντές
-- Dedicated processor instructions για AI
-- Καλυτερη πρόσβαση σε acceleration
+**ii. Improvements:**
+- **>50× AI performance boost** on CPU (3-5 years)
+- **10× faster response** on accelerators
+- Dedicated processor instructions for AI
+- Better acceleration access
 
 ### 6.6 ARM Cortex-X1
 
-| Χαρακτηριστικό | Τιμή |
+| Characteristic | Value |
 |----------------|------|
-| Ημερομηνία Κυκλοφορίας | 2020 |
-| Σχεδιαστής | ARM Ltd. |
+| Release Date | 2020 |
+| Designer | ARM Ltd. |
 | Max Clock Rate | 3.0 GHz (phones), 3.3 GHz (tablets/laptops) |
 | Address Width | 40-bit |
-| L1 Cache | 128 KiB (64 KiB I-cache + 64 KiB D-cache) ανά πυρήνα |
-| L2 Cache | 512–1024 KiB ανά πυρήνα |
+| L1 Cache | 128 KiB (64 KiB I-cache + 64 KiB D-cache) per core |
+| L2 Cache | 512–1024 KiB per core |
 | L3 Cache | 512 KiB – 8 MiB (optional) |
 
-**i. Χαρακτηριστικά:**
-- Υπερκλιμάκωση εκτός σειράς
-- Λήψη 5 εντολών ανά κύκλο
-- Παράθυρο 224 καταχωρητών
+**i. Characteristics:**
+- Out-of-order superscaling
+- 5 instruction fetch per cycle
+- 224-register window
 - SIMD units: 4×128b
 
 ---
 
 ## 7.0 Apple M1 Pro/Max
 
-### 7.1 Προδιαγραφές
+### 7.1 Specifications
 
-| Χαρακτηριστικό | M1 Pro | M1 Max |
+| Characteristic | M1 Pro | M1 Max |
 |----------------|--------|--------|
-| Ημερομηνία | 18 Οκτωβρίου 2021 | 18 Οκτωβρίου 2021 |
-| Εφαρμογή | MacBook Pro | MacBook Pro |
-| Τεχνολογία | 5 nm | 5 nm |
-| Μικροαρχιτεκτονική | Firestorm + Icestorm | Firestorm + Icestorm |
-| Σετ Εντολών | ARMv8.4-A | ARMv8.4-A |
-| Τρανζίστορ | 33.7 δισεκ. | 57 δισεκ. |
-| CPU Cores | 8 ή 10 (6-8 perf + 2 efficiency) | 10 (8 perf + 2 efficiency) |
-| GPU Cores | Έως 16 | Έως 32 |
-| Neural Engine | 16 πυρήνες, 600 δισεκ. ops/sec | 16 πυρήνες, 600 δισεκ. ops/sec |
+| Date | October 18, 2021 | October 18, 2021 |
+| Application | MacBook Pro | MacBook Pro |
+| Technology | 5 nm | 5 nm |
+| Microarchitecture | Firestorm + Icestorm | Firestorm + Icestorm |
+| Instruction Set | ARMv8.4-A | ARMv8.4-A |
+| Transistors | 33.7 billion | 57 billion |
+| CPU Cores | 8 or 10 (6-8 perf + 2 efficiency) | 10 (8 perf + 2 efficiency) |
+| GPU Cores | Up to 16 | Up to 32 |
+| Neural Engine | 16 cores, 600 billion ops/sec | 16 cores, 600 billion ops/sec |
 
-**i. GPU Δομή:**
-- Κάθε πυρήνας GPU: 16 execution units
-- Κάθε execution unit: 8 ALUs
+**i. GPU Structure:**
+- Each GPU core: 16 execution units
+- Each execution unit: 8 ALUs
 
 ```mermaid
 graph TD
@@ -580,33 +580,33 @@ graph TD
 
 ---
 
-## 8.0 Σύγκριση CPU και GPU
+## 8.0 CPU and GPU Comparison
 
-### 8.1 Δομικές Διαφορές
+### 8.1 Structural Differences
 
-| Χαρακτηριστικό | CPU | GPU |
+| Characteristic | CPU | GPU |
 |----------------|-----|-----|
-| Αριθμός Πυρήνων | Λίγοι ισχυροί (4-64) | Πολλοί απλοί (>1000) |
-| Κρυφή Μνήμη | Μεγάλη ανά πυρήνα | Μικρή ανά πυρήνα |
-| Εκτέλεση | Out-of-order | In-order (SIMD) |
-| Branch Prediction | Εξελιγμένη | Βασική |
-| Παραλληλία | Thread-level | Massive data parallelism |
+| Number of Cores | Few powerful (4-64) | Many simple (>1000) |
+| Cache | Large per core | Small per core |
+| Execution | Out-of-order | In-order (SIMD) |
+| Branch Prediction | Advanced | Basic |
+| Parallelism | Thread-level | Massive data parallelism |
 
 **i. CPU:**
-- Λίγοι ισχυροί πυρήνες
-- Μεγάλη κρυφή μνήμη
-- Πρόβλεψη διακλαδώσεων
-- Εκτέλεση εντολών εκτός σειράς
+- Few powerful cores
+- Large cache
+- Branch prediction
+- Out-of-order instruction execution
 
 **ii. GPU:**
-- Πολλοί μικροί, απλοί πυρήνες
+- Many small, simple cores
 - In-order execution
-- **SIMD** (Single Instruction Multiple Data): Παράλληλη επεξεργασία δεδομένων κινητής υποδιαστολής
-- Σύγχρονες υλοποιήσεις: >1000 πυρήνες
+- **SIMD** (Single Instruction Multiple Data): Parallel floating-point data processing
+- Modern implementations: >1000 cores
   - NVIDIA Tesla V100: 5,120 CUDA cores
   - NVIDIA H100: 18,176 cores
 
-### 8.2 Εξέλιξη Απόδοσης GPU vs CPU
+### 8.2 GPU vs CPU Performance Evolution
 
 ```mermaid
 graph LR
@@ -621,46 +621,46 @@ graph LR
     style B2 fill:#ff9999
 ```
 
-**i. Σύγχρονες Επιδόσεις:**
+**i. Modern Performance:**
 - NVIDIA Tesla V100: 7.5 TFLOPS (double precision), 15 TFLOPS (single precision)
 - NVIDIA H100 (2022): 33.5 TFLOPS (double precision)
 
 > [!INFO] **TFLOPS (Tera Floating Point Operations Per Second)**:
 >
-> Μονάδα μέτρησης απόδοσης:
-> - 1 TFLOPS = 1 τρισεκατομμύριο πράξεις κινητής υποδιαστολής/δευτερόλεπτο
-> - Κρίσιμο για επιστημονικούς υπολογισμούς, προσομοιώσεις, AI
+> Performance measurement unit:
+> - 1 TFLOPS = 1 trillion floating-point operations/second
+> - Critical for scientific computing, simulations, AI
 >
 > **Single Precision (FP32 - 32 bits):**
-> - 1 bit: πρόσημο
-> - 8 bits: εκθέτης
-> - 23 bits: κλασματικό μέρος
-> - Ακρίβεια: ~7 δεκαδικά ψηφία
-> - Χρήση: ML, γραφικά
+> - 1 bit: sign
+> - 8 bits: exponent
+> - 23 bits: fractional part
+> - Precision: ~7 decimal digits
+> - Use: ML, graphics
 >
 > **Double Precision (FP64 - 64 bits):**
-> - 1 bit: πρόσημο
-> - 11 bits: εκθέτης
-> - 52 bits: κλασματικό μέρος
-> - Ακρίβεια: ~15 δεκαδικά ψηφία
-> - Χρήση: Επιστημονικές προσομοιώσεις, χρηματοοικονομικά μοντέλα
+> - 1 bit: sign
+> - 11 bits: exponent
+> - 52 bits: fractional part
+> - Precision: ~15 decimal digits
+> - Use: Scientific simulations, financial models
 
 ---
 
-## 9.0 Αρχιτεκτονική NVIDIA Fermi
+## 9.0 NVIDIA Fermi Architecture
 
-### 9.1 Εισαγωγή
+### 9.1 Introduction
 
-**i. Σημασία:**
-- Πρώτη GPU αρχιτεκτονική για γραφικά **και** GPGPU
-- Έτος κυκλοφορίας: ~2010
+**i. Significance:**
+- First GPU architecture for graphics **and** GPGPU
+- Release year: ~2010
 
-**ii. Βασικά Χαρακτηριστικά:**
-- **64-bit διευθυνσιοδότηση μνήμης**: Διαχείριση μεγαλύτερων όγκων δεδομένων
-- **Unified Memory**: Ευκολότερη συνεργασία CPU-GPU
-- **CUDA βελτιώσεις**: Ανάλυση δεδομένων, εκπαίδευση νευρωνικών δικτύων
-- **DirectX 11**: Δυναμικός φωτισμός, σκιές, πολύπλοκα εφέ
-- Θεμέλια για GeForce GTX σειρά
+**ii. Key Features:**
+- **64-bit memory addressing**: Handling larger data volumes
+- **Unified Memory**: Easier CPU-GPU cooperation
+- **CUDA improvements**: Data analysis, neural network training
+- **DirectX 11**: Dynamic lighting, shadows, complex effects
+- Foundation for GeForce GTX series
 
 ```mermaid
 graph TD
@@ -684,50 +684,50 @@ graph TD
     DRAM1 --> MEM[GDDR5 Memory<br/>384-bit total]
 ```
 
-### 9.2 Δομή Streaming Multiprocessor (SM)
+### 9.2 Streaming Multiprocessor (SM) Structure
 
-**i. Περιεχόμενα ανά SM:**
-- 2 στήλες × 32 πυρήνες CUDA = **64 CUDA cores**
-- 16 μονάδες Load/Store (LD/ST)
+**i. Contents per SM:**
+- 2 columns × 32 CUDA cores = **64 CUDA cores**
+- 16 Load/Store units (LD/ST)
 - 4 Special Function Units (SFU)
 
-**ii. Αρχείο Καταχωρητών:**
+**ii. Register File:**
 - 32K × 32-bit registers
 
-**iii. Δρομολογητής Νημάτων:**
-- Διπλός SIMD thread scheduler
-- Διάσπαση νημάτων σε δέσμες 32 νημάτων (warps)
-- Κάθε νήμα: Δικό του instruction counter + register set
+**iii. Thread Scheduler:**
+- Dual SIMD thread scheduler
+- Thread splitting into 32-thread bundles (warps)
+- Each thread: Own instruction counter + register set
 
-**iv. Μονάδες Ειδικών Λειτουργιών (SFU):**
-- Πράξεις: sin, cos, αντίστροφοι, τετραγωνική ρίζα
-- Απόδοση: 1 κύκλος ρολογιού (8 κύκλοι για 32 παράλληλα νήματα)
+**iv. Special Function Units (SFU):**
+- Operations: sin, cos, reciprocals, square root
+- Performance: 1 clock cycle (8 cycles for 32 parallel threads)
 
 **v. Shared Memory/L1 Cache:**
-- 64 KB κοινόχρηστη ανά SM
+- 64 KB shared per SM
 
 > [!INFO] **Streaming Multiprocessors (SMs)**:
 >
-> Βασικές υπολογιστικές μονάδες GPU:
-> - Πυρήνες υψηλής παράλληλης επεξεργασίας
-> - Εκτέλεση μεγάλου αριθμού νημάτων ταυτόχρονα
+> GPU basic computational units:
+> - High parallelism processing cores
+> - Execution of large number of threads simultaneously
 >
-> **Χαρακτηριστικά:**
-> 1. **Πολλαπλή παράλληλη επεξεργασία**: Δεκάδες-εκατοντάδες νήματα
-> 2. **Εξειδικευμένες μονάδες**: FP, LD/ST, SFU
-> 3. **Τοπική κρυφή μνήμη**: Μείωση καθυστέρησης πρόσβασης
-> 4. **Ευελιξία**: Γραφικά και GPGPU
+> **Characteristics:**
+> 1. **Multiple parallel processing**: Tens-hundreds of threads
+> 2. **Specialized units**: FP, LD/ST, SFU
+> 3. **Local cache**: Access latency reduction
+> 4. **Flexibility**: Graphics and GPGPU
 
 ### 9.3 Fermi Architecture Overview
 
-| Στοιχείο | Προδιαγραφή |
+| Component | Specification |
 |----------|-------------|
-| Αριθμός SM | 16 |
-| CUDA Cores ανά SM | 32 (2 στήλες × 16) |
-| Συνολικοί CUDA Cores | 512 |
-| LD/ST Units ανά SM | 16 |
-| SFU ανά SM | 4 |
-| L2 Cache | 768 KB (κοινόχρηστο) |
+| SM Count | 16 |
+| CUDA Cores per SM | 32 (2 columns × 16) |
+| Total CUDA Cores | 512 |
+| LD/ST Units per SM | 16 |
+| SFU per SM | 4 |
+| L2 Cache | 768 KB (shared) |
 | Memory Interfaces | 6 × 64-bit = 384-bit |
 | Memory Type | GDDR5 |
 
@@ -760,35 +760,35 @@ graph TB
 ### 9.4 Parallel Processing Characteristics
 
 **i. GigaThread Scheduler:**
-- Διανομή thread blocks στους 16 SMs
-- Κάθε SM: Δικός του local thread scheduler
+- Thread block distribution to 16 SMs
+- Each SM: Own local thread scheduler
 
 **ii. Latency Hiding:**
-- Πολλά νήματα συγκαλύπτουν καθυστερήσεις μνήμης
-- Λεπτή νημάτωση (fine-grained threading)
+- Many threads mask memory latencies
+- Fine-grained threading
 
 **iii. CUDA Core Cooperation:**
-- Πυρήνες συνεργάζονται ανά δύο για FP64 operations
+- Cores work in pairs for FP64 operations
 
-### 9.5 Εξέλιξη Αρχιτεκτονικών NVIDIA
+### 9.5 NVIDIA Architecture Evolution
 
-| Αρχιτεκτονική | FP32 Units/SM | FP64 Units/SM | Ειδικά Χαρακτηριστικά |
+| Architecture | FP32 Units/SM | FP64 Units/SM | Special Features |
 |---------------|---------------|---------------|-----------------------|
-| **Tesla** | 8 | - | Πρώτη CUDA αρχιτεκτονική |
+| **Tesla** | 8 | - | First CUDA architecture |
 | **Fermi** | 32 | 16 | 64-bit addressing, Unified Memory |
-| **Kepler** | 192 | 64 | Υψηλότερη παραλληλία |
-| **Maxwell** | 128 | 4 | Ενεργειακή αποδοτικότητα |
+| **Kepler** | 192 | 64 | Higher parallelism |
+| **Maxwell** | 128 | 4 | Energy efficiency |
 | **Pascal** | 64 | 32 | FP16 support (2×FP16 per FP32 core) |
-| **Volta/Turing** | 64 | 32 | **Tensor Cores** για AI |
+| **Volta/Turing** | 64 | 32 | **Tensor Cores** for AI |
 
 **i. Volta & Turing Innovations:**
-- **Tensor Cores**: Αφιερωμένες μονάδες AI/ML
-- Ανάλυση προβλημάτων σε υπερυπολογιστές
-- Επεξεργασία σε consumer GPUs
+- **Tensor Cores**: Dedicated AI/ML units
+- Supercomputer problem solving
+- Consumer GPU processing
 
 ```mermaid
 timeline
-    title Εξέλιξη NVIDIA GPU Architectures
+    title NVIDIA GPU Architecture Evolution
     2006 : Tesla - 8 FP32/SM
     2010 : Fermi - 32 FP32/SM : 64-bit addressing
     2012 : Kepler - 192 FP32/SM : Massive parallelism
@@ -800,24 +800,24 @@ timeline
 
 ---
 
-## 10.0 Συμπεράσματα και Τάσεις
+## 10.0 Conclusions and Trends
 
-### 10.1 Βασικές Αρχές Πολυπύρηνης Σχεδίασης
+### 10.1 Basic Multicore Design Principles
 
 **i. Hardware Constraints:**
-- Κανόνας Pollack: $ \text{Performance} \propto \sqrt{\text{Complexity}} $
-- Power density αυξάνεται εκθετικά
-- Λύση: Πολλαπλοί απλούστεροι πυρήνες
+- Pollack's Rule: $ \text{Performance} \propto \sqrt{\text{Complexity}} $
+- Power density increases exponentially
+- Solution: Multiple simpler cores
 
 **ii. Software Constraints:**
-- Νόμος Amdahl περιορίζει speedup
-- Σειριακός κώδικας = bottleneck
-- Overhead επικοινωνίας και συγχρονισμού
+- Amdahl's Law limits speedup
+- Serial code = bottleneck
+- Communication and synchronization overhead
 
 **iii. Memory Hierarchy:**
-- L1: Dedicated, ταχύτερη
-- L2: Dedicated ή Shared
-- L3: Shared, μεγαλύτερη χωρητικότητα
+- L1: Dedicated, fastest
+- L2: Dedicated or Shared
+- L3: Shared, larger capacity
 
 ### 10.2 Heterogeneous Computing
 
@@ -836,7 +836,7 @@ graph LR
 ```
 
 **i. CPU Strengths:**
-- Σειριακή απόδοση
+- Serial performance
 - Branch prediction
 - Out-of-order execution
 
@@ -850,60 +850,60 @@ graph LR
 - Neural Engines: On-device inference
 - RT Cores: Ray tracing
 
-### 10.3 Μελλοντικές Τάσεις
+### 10.3 Future Trends
 
 **i. Process Technology:**
-- Από 10 μm (1971) → 2 nm (2024)
-- Moore's Law συνεχίζει (με αργότερο ρυθμό)
+- From 10 μm (1971) → 2 nm (2024)
+- Moore's Law continues (at slower pace)
 
 **ii. Architectural Innovations:**
-- ARM DynamIQ: >50× AI boost σε 3-5 έτη
-- Wafer-scale chips: 2600 δισεκ. τρανζίστορ
+- ARM DynamIQ: >50× AI boost in 3-5 years
+- Wafer-scale chips: 2.6 trillion transistors
 - 3D stacking technologies
 
 **iii. Software Adaptation:**
-- Παραλληλοποίηση αλγορίθμων
+- Algorithm parallelization
 - Heterogeneous programming models (CUDA, OpenCL)
 - AI-driven workload optimization
 
 ---
 
-## Παράρτημα: Βασικοί Τύποι
+## Appendix: Key Formulas
 
-### Α.1 Νόμος του Amdahl
+### A.1 Amdahl's Law
 
 $$
 S = \frac{1}{(1-f) + \frac{f}{N}}
 $$
 
 - $ S $: Speedup
-- $ f $: Παράλληλο τμήμα προγράμματος
-- $ N $: Αριθμός επεξεργαστών
+- $ f $: Parallel program fraction
+- $ N $: Number of processors
 
-### Α.2 Κανόνας Pollack
+### A.2 Pollack's Rule
 
 $$
 \text{Performance} \propto \sqrt{\text{Complexity}}
 $$
 
-Διπλασιασμός πολυπλοκότητας → ~40% αύξηση απόδοσης
+Doubling complexity → ~40% performance increase
 
-### Α.3 Υπολογισμός GFLOPS
+### A.3 GFLOPS Calculation
 
 $$
 \text{GFLOPS} = \text{Cores} \times \text{Clock (GHz)} \times \frac{\text{FLOPS}}{\text{Core/Cycle}}
 $$
 
-**Παράδειγμα (AMD A10 GPU):**
+**Example (AMD A10 GPU):**
 $$
 \text{GFLOPS} = 384 \times 0.8 \times 2 = 614.4 \text{ GFLOPS}
 $$
 
 ---
 
-## Αναφορές και Πηγές
+## References and Sources
 
-- Πανεπιστήμιο Ιωαννίνων - Τμήμα Πληροφορικής & Τηλεπικοινωνιών
-- Διδάσκων: Αλέξανδρος Μπανταλούκας-Αρτζμάντ (k.arjmand@uoi.gr)
-- Επιμέλεια: Κωνσταντίνος Σακκάς (ksakkas@uoi.gr)
-- Κεφάλαιο 18: Αρχιτεκτονική Υπολογιστών (3ο Εξάμηνο)
+- University of Ioannina - Department of Informatics & Telecommunications
+- Instructor: Alexandros Bantaloukas-Arjmand (k.arjmand@uoi.gr)
+- Editor: Konstantinos Sakkas (ksakkas@uoi.gr)
+- Chapter 18: Computer Architecture (3rd Semester)

@@ -2,68 +2,69 @@
 ## Exercise 2
 
 
-1.Αναφέρετε και περιγράψτε το “προγραμματιστικό μπλοκ” (σύνολο εντολών) που απαιτείται για την αποστολή μηνυμάτων στην κονσόλα (προς ενημέρωση του χρήστη)​
+1. Describe the "programming block" (set of instructions) required for sending messages to the console (for user notification)
 
-2.Αναφέρετε και περιγράψτε το “προγραμματιστικό μπλοκ” που απαιτείται για την εισαγωγή δεδομένων από το πληκτρολόγιο (χρήστη)​
+2. Describe the "programming block" required for data input from the keyboard (user)
 
-3.Μόλις ανακτηθούν τα δεδομένα από το πληκτρολόγιο, που αποθηκεύονται;​
+3. Once data is retrieved from the keyboard, where is it stored?
 
-4.Όταν θέλουμε να εμφανίσουμε δεδομένα, που θα πρέπει να τοποθετηθούν;
-### Απαντήσεις
+4. When we want to display data, where should it be placed?
 
-1. **Εκτύπωση μηνύματος:**
-    Χρησιμοποιείται ο κωδικός κλήσης συστήματος `4` στον καταχωρητή `$v0` και η διεύθυνση του μηνύματος στον `$a0`.
+### Answers
+
+1. **Print message:**
+    System call code `4` is used in register `$v0` and the message address in `$a0`.
     ```mips
-    li $v0, 4       # Κωδικός για print string
-    la $a0, label   # Φόρτωση διεύθυνσης μηνύματος
-    syscall         # Εκτέλεση
+    li $v0, 4       # Code for print string
+    la $a0, label   # Load message address
+    syscall         # Execute
     ```
 
-2. **Εισαγωγή δεδομένων:**
-    Για ακέραιο, χρησιμοποιείται ο κωδικός `5` στον `$v0`.
+2. **Data input:**
+    For integers, code `5` is used in `$v0`.
     ```mips
-    li $v0, 5       # Κωδικός για read integer
-    syscall         # Εκτέλεση
+    li $v0, 5       # Code for read integer
+    syscall         # Execute
     ```
 
-3. **Αποθήκευση δεδομένων:**
-    *   Οι **ακέραιοι** αποθηκεύονται στον καταχωρητή `$v0`.
-    *   Οι **συμβολοσειρές (strings)** αποθηκεύονται στη μνήμη, στη διεύθυνση που είχε προκαθοριστεί στον καταχωρητή `$a0`.
+3. **Data storage:**
+    *   **Integers** are stored in register `$v0`.
+    *   **Strings** are stored in memory, at the address previously specified in register `$a0`.
 
-4. **Τοποθέτηση δεδομένων για εμφάνιση:**
-    Τα δεδομένα πρέπει να μεταφερθούν στον καταχωρητή **`$a0`** (για ακεραίους/συμβολοσειρές) ή στον **`$f12`** (για αριθμούς κινητής υποδιαστολής) πριν την κλήση `syscall`.
+4. **Data placement for display:**
+    Data must be transferred to register **`$a0`** (for integers/strings) or **`$f12`** (for floating-point numbers) before calling `syscall`.
 
 ---
 
-## Τεκμηρίωση Προγράμματος Αριθμομηχανής (MIPS Calculator)
+## Calculator Program Documentation (MIPS Calculator)
 
-### Περιγραφή
-Το πρόγραμμα υλοποιεί μια αριθμομηχανή σε γλώσσα assembly MIPS, σχεδιασμένη να εκτελείται στον προσομοιωτή QtSpim. Επιτρέπει στον χρήστη να εκτελεί βασικές αριθμητικές πράξεις και διαθέτει μηχανισμό τερματισμού βάσει του Αριθμού Μητρώου (ΑΜ) του φοιτητή.
+### Description
+The program implements a calculator in MIPS assembly language, designed to run on the QtSpim simulator. It allows the user to perform basic arithmetic operations and features a termination mechanism based on the student's Registration Number (AM).
 
-### Λειτουργίες
-1.  **Εισαγωγή Στοιχείων**: Κατά την εκκίνηση, το πρόγραμμα ζητά το ονοματεπώνυμο, τον ΑΜ και το εξάμηνο του χρήστη.
-2.  **Ροή Προγράμματος**: Ο χρήστης εισάγει πρώτα τους δύο αριθμούς και στη συνέχεια επιλέγει την επιθυμητή πράξη.
-3.  **Αριθμητικές Πράξεις**:
-    *   **Πρόσθεση (1)**: Υπολογίζει το a + b.
-    *   **Αφαίρεση (2)**: Υπολογίζει το a - b.
-    *   **Πολλαπλασιασμός (3)**: Υπολογίζει το a * b.
-    *   **Διαίρεση (4)**: Υπολογίζει το a / b (με έλεγχο για διαίρεση με το μηδέν).
-    *   **Τετράγωνο (5)**: Υπολογίζει το τετράγωνο του πρώτου αριθμού (a^2).
+### Functions
+1.  **Data Input**: At startup, the program asks for the user's full name, registration number (AM), and current semester.
+2.  **Program Flow**: The user first enters two numbers and then selects the desired operation.
+3.  **Arithmetic Operations**:
+    *   **Addition (1)**: Calculates a + b.
+    *   **Subtraction (2)**: Calculates a - b.
+    *   **Multiplication (3)**: Calculates a * b.
+    *   **Division (4)**: Calculates a / b (with division-by-zero check).
+    *   **Square (5)**: Calculates the square of the first number (a^2).
 
-### Μηχανισμός Τερματισμού
-Το πρόγραμμα επαναλαμβάνεται συνεχώς (loop) μέχρι ο χρήστης να εισάγει τον **ΑΜ** του σε οποιοδήποτε από τα δύο πεδία εισαγωγής αριθμών.
+### Termination Mechanism
+The program runs continuously (loop) until the user enters their **AM** in either of the two number input fields.
 
-### Τεχνικές Λεπτομέρειες
-*   **Καταχωρητές**:
-    *   `$s0`: Αποθήκευση του ΑΜ για τον έλεγχο τερματισμού.
-    *   `$s1, $s2`: Αποθήκευση των δύο αριθμών εισόδου.
-    *   `$t0`: Επιλογή πράξης.
-*   **Δομή**: Το πρόγραμμα χρησιμοποιεί υπορουτίνες (όπως η `print_binary_header`) για τη βελτιστοποίηση της εκτύπωσης των αποτελεσμάτων και τη μείωση του μεγέθους του κώδικα.
-*   **Ασφάλεια**: Πραγματοποιείται έλεγχος πριν από τη διαίρεση για την αποφυγή σφαλμάτων συστήματος σε περίπτωση μηδενικού διαιρέτη.
+### Technical Details
+*   **Registers**:
+    *   `$s0`: Stores the AM for termination check.
+    *   `$s1, $s2`: Stores the two input numbers.
+    *   `$t0`: Operation selection.
+*   **Structure**: The program uses subroutines (such as `print_binary_header`) to optimize result printing and reduce code size.
+*   **Safety**: A check is performed before division to prevent system errors in case of a zero divisor.
 
 ![alt text](image.png)
 
-### Αυτοματοποιημένη εκτέλεση/tests
+### Automated execution/tests
 ```shell
 chmod u+x run_tests.sh
 ./run_tests.sh
@@ -87,7 +88,7 @@ AM detected. Terminating program...
 Tests completed and temporary files cleaned up.
 ```
 
-### Χειροκίνητη εκτέλεση
+### Manual execution
 ```shell
 spim -file calculator_spec.asm
 ```
@@ -126,4 +127,3 @@ Square: 8^2 = 64
 Enter the first number: 3323
 AM detected. Terminating program...
 ```
-

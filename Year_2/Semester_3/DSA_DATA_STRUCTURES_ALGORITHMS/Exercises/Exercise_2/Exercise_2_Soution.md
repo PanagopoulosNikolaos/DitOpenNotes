@@ -1,12 +1,12 @@
-## 1. Δυαδική Αναζήτηση
+## 1. Binary Search
 
-Η δυαδική αναζήτηση εργάζεται διαιρώντας επαναληπτικά το χώρο αναζήτησης στη μέση. Συγκρίνει το στοιχείο στη μέση θέση με την τιμή-στόχο και αποφασίζει αν θα συνεχίσει την αναζήτηση στο αριστερό ή δεξί μισό του πίνακα. Σε κάθε βήμα, το μέγεθος του χώρου αναζήτησης μειώνεται κατά το ήμισυ, καταλήγοντας είτε στην εύρεση του στοιχείου είτε σε άδειο υποπίνακα.
+Binary search works by repeatedly dividing the search space in half. It compares the element in the middle position with the target value and decides whether to continue searching in the left or right half of the array. At each step, the size of the search space is reduced by half, ending either in finding the element or in an empty subarray.
 
-**Προϋπόθεση:** Ο πίνακας πρέπει να είναι **ταξινομημένος**. Χωρίς ταξινόμηση, η λογική της διαίρεσης του χώρου αναζήτησης βάσει σύγκρισης με το μεσαίο στοιχείο δεν λειτουργεί.
+**Prerequisite:** The array must be **sorted**. Without sorting, the logic of dividing the search space based on comparison with the middle element does not work.
 
-## 2. Αναδρομή vs Επανάληψη
+## 2. Recursion vs Iteration
 
-Η αναδρομή θεωρείται εναλλακτική της επανάληψης επειδή και οι δύο τεχνικές μπορούν να εκφράσουν τις ίδιες υπολογιστικές διαδικασίες. Η αναδρομή μπορεί να αντικατασταθεί από επανάληψη με ρητή στοίβα κλήσεων, ενώ η επανάληψη μπορεί να αντικατασταθεί με αναδρομή ουράς.
+Recursion is considered an alternative to iteration because both techniques can express the same computational procedures. Recursion can be replaced by iteration with an explicit call stack, while iteration can be replaced by recursion using a queue.
 
 
 **C++:**
@@ -36,18 +36,18 @@ int main() {
 ```
 
 
-## 3. Σύγκριση Ταξινόμησης
+## 3. Sorting Comparison
 
-| Χαρακτηριστικό | Insertion Sort | Selection Sort | Bubble Sort |
+| Feature | Insertion Sort | Selection Sort | Bubble Sort |
 |---|---|---|---|
-| **Μέση Πολυπλοκότητα** | O(n²)  | O(n²)  | O(n²)  |
-| **Καλύτερη Περίπτωση** | O(n)  | O(n²)  | O(n)  |
-| **Χειρότερη Περίπτωση** | O(n²)  | O(n²)  | O(n²)  |
-| **Προσαρμοστικότητα** | Ναι  | Όχι  | Όχι  |
-| **Ανταλλαγές** | Λιγότερες  | Ελάχιστες  | Πολλές  |
-| **Ταχύτητα** | Γρηγορότερη  | Μέτρια | Πιο αργή  |
+| **Average Complexity** | O(n²)  | O(n²)  | O(n²)  |
+| **Best Case** | O(n)  | O(n²)  | O(n)  |
+| **Worst Case** | O(n²)  | O(n²)  | O(n²)  |
+| **Adaptability** | Yes  | No  | No  |
+| **Swaps** | Fewer  | Minimum  | Many  |
+| **Speed** | Faster  | Moderate  | Slower  |
 
-Η insertion sort συγκρίνει κάθε στοιχείο με το ταξινομημένο τμήμα αριστερά και το τοποθετεί στη σωστή θέση. Η selection sort βρίσκει το ελάχιστο στοιχείο και το τοποθετεί στην αρχή. Η bubble sort συγκρίνει και ανταλλάσσει γειτονικά στοιχεία επαναληπτικά.
+Insertion sort compares each element with the sorted portion to its left and places it in the correct position. Selection sort finds the minimum element and places it at the beginning. Bubble sort repeatedly compares and swaps adjacent elements.
 
 **C++:**
 
@@ -123,14 +123,14 @@ int main() {
 
 ## 4. Divide and Conquer - Merge Sort
 
-Το **Merge Sort** εφαρμόζει τη στρατηγική Διαίρει και Βασίλευε.
+**Merge Sort** applies the Divide and Conquer strategy.
 
-**Στάδια:**
-1. **Διαίρεση (Divide):** Χωρισμός του πίνακα στη μέση σε δύο υποπίνακες
-2. **Κατάκτηση (Conquer):** Αναδρομική ταξινόμηση κάθε υποπίνακα μέχρι να απομείνουν μονά στοιχεία
-3. **Συνδυασμός (Combine):** Συγχώνευση των ταξινομημένων υποπινάκων σε ενιαίο ταξινομημένο πίνακα
+**Phases:**
+1. **Divide:** Splitting the array in half into two subarrays
+2. **Conquer:** Recursively sorting each subarray until single elements remain
+3. **Combine:** Merging the sorted subarrays into a single sorted array
 
-Η διαδικασία συνεχίζεται αναδρομικά μέχρι όλα τα στοιχεία να ενωθούν σε έναν πλήρως ταξινομημένο πίνακα.
+The process continues recursively until all elements are merged into a fully sorted array.
 
 
 
@@ -193,9 +193,9 @@ int main() {
 ```
 
 
-## 5. Πίνακας Πολυπλοκότητας
+## 5. Complexity Table
 
-| Αλγόριθμος | Πολυπλοκότητα (Μέση) |
+| Algorithm | Complexity (Average) |
 |---|---|
 | Selection Sort | O(n²)  |
 | Insertion Sort | O(n²)  |

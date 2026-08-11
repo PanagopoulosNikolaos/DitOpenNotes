@@ -1,556 +1,407 @@
-# Επικοινωνιακά Μέσα
+# Communication Media
 *Communication Media*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 
-- [Εισαγωγή](#εισαγωγή)
-- [Χαλκός (Ομοαξονικό και Συνεστραμμένο)](#χαλκός-ομοαξονικό-και-συνεστραμμένο)
-  - [Συνεστραμμένο Ζεύγος (Twisted Pair)](#συνεστραμμένο-ζεύγος-twisted-pair)
-  - [Ομοαξονικό Καλώδιο (Coaxial Cable)](#ομοαξονικό-καλώδιο-coaxial-cable)
-  - [Σύγκριση Χαλκού: Twisted Pair vs Coaxial](#σύγκριση-χαλκού-twisted-pair-vs-coaxial)
-- [Οπτική Ίνα Μονότροπη (Single-Mode Fiber)](#οπτική-ίνα-μονότροπη-single-mode-fiber)
-  - [Αρχή Λειτουργίας](#αρχή-λειτουργίας)
-  - [Δομή και Φυσικά Χαρακτηριστικά](#δομή-και-φυσικά-χαρακτηριστικά)
+- [Introduction](#introduction)
+- [Copper Media: Coaxial and Twisted Pair](#copper-media-coaxial-and-twisted-pair)
+  - [Twisted Pair Cable](#twisted-pair-cable)
+  - [Coaxial Cable](#coaxial-cable)
+  - [Copper Comparison Table](#copper-comparison-table)
+- [Single-Mode Fiber Optic](#single-mode-fiber-optic)
+  - [Operating Principle](#operating-principle)
+  - [Structure and Physical Characteristics](#structure-and-physical-characteristics)
   - [Single-Mode vs Multi-Mode Fiber](#single-mode-vs-multi-mode-fiber)
-  - [DWDM: Πολλαπλασιασμός Χωρητικότητας](#dwdm-πολλαπλασιασμός-χωρητικότητας)
-  - [Αριθμητικό Παράδειγμα Καθυστέρησης Διάδοσης σε Ίνα](#αριθμητικό-παράδειγμα-καθυστέρησης-διάδοσης-σε-ίνα)
-- [Δορυφορικά (Geostationary / LEO)](#δορυφορικά-geostationary--leo)
-  - [Γεωστατικοί Δορυφόροι (Geostationary / GEO)](#γεωστατικοί-δορυφόροι-geostationary--geo)
-  - [Δορυφόροι Χαμηλής Τροχιάς (LEO)](#δορυφόροι-χαμηλής-τροχιάς-leo)
-  - [Σύγκριση GEO vs LEO](#σύγκριση-geo-vs-leo)
-  - [Αριθμητικό Παράδειγμα Latency Δορυφόρου](#αριθμητικό-παράδειγμα-latency-δορυφόρου)
-- [Ασύρματα — Επίγεια Μικροκύματα](#ασύρματα--επίγεια-μικροκύματα)
-  - [Αρχή Λειτουργίας Επίγειων Μικροκυμάτων](#αρχή-λειτουργίας-επίγειων-μικροκυμάτων)
-  - [Ζώνες Συχνοτήτων και Εφαρμογές](#ζώνες-συχνοτήτων-και-εφαρμογές)
-  - [Παράγοντες που Επηρεάζουν τη Σύνδεση](#παράγοντες-που-επηρεάζουν-τη-σύνδεση)
-- [Guided vs Unguided Media: Γενική Σύγκριση](#guided-vs-unguided-media-γενική-σύγκριση)
-- [Συγκεντρωτικός Πίνακας](#συγκεντρωτικός-πίνακας)
-- [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+  - [Dense Wavelength Division Multiplexing (DWDM)](#dense-wavelength-division-multiplexing-dwdm)
+  - [Worked Numerical Example](#worked-numerical-example)
+- [Satellite Communications](#satellite-communications)
+  - [Geostationary Earth Orbit (GEO)](#geostationary-earth-orbit-geo)
+  - [Low Earth Orbit Satellites (LEO)](#low-earth-orbit-satellites-leo)
+  - [GEO vs LEO Comparison](#geo-vs-leo-comparison)
+  - [Worked Numerical Example](#worked-numerical-example-1)
+- [Wireless — Terrestrial Microwave Links](#wireless--terrestrial-microwave-links)
+  - [Operating Principle](#operating-principle-1)
+  - [Frequency Bands and Applications](#frequency-bands-and-applications)
+  - [Factors Affecting Microwave Links](#factors-affecting-microwave-links)
+- [Guided vs Unguided Media: General Comparison](#guided-vs-unguided-media-general-comparison)
+- [Summary Table](#summary-table)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Τα **επικοινωνιακά μέσα** (communication media) αποτελούν το φυσικό υπόστρωμα πάνω στο οποίο στηρίζεται κάθε δίκτυο υπολογιστών — από το τοπικό LAN ενός γραφείου έως τα υποβρύχια καλώδια που ενώνουν ηπείρους. Το επίπεδο στο οποίο ανήκουν είναι το **Physical Layer (Layer 1)** του OSI model, το χαμηλότερο επίπεδο της αρχιτεκτονικής, το οποίο ορίζει τον τρόπο κωδικοποίησης και φυσικής μεταφοράς των bits. Η επιλογή του κατάλληλου μέσου διαμορφώνει καταλυτικά τις επιδόσεις του δικτύου: το bandwidth, την καθυστέρηση (latency), την ατσάλωση (attenuation), την ανοσία σε παρεμβολές και το κόστος εγκατάστασης. Η κατανόηση κάθε τύπου μέσου — χαλκός, οπτική ίνα, δορυφορικός, ασύρματος — είναι προαπαιτούμενο για τη σωστή αξιολόγηση των τεχνολογιών πρόσβασης (topic 4) αλλά και της μεταγωγής δεδομένων (topic 6) που εξετάζεται στη συνέχεια.
+**Communication media** form the physical foundation underpinning computer networks — from office Ethernet LANs to transoceanic submarine cables. Media belong to the OSI **Physical Layer (Layer 1)**, which specifies bit encoding and physical transmission. Choosing a medium influences bandwidth, latency, attenuation, noise immunity, and deployment cost. Understanding media properties (copper, fiber, satellite, wireless) is prerequisite to evaluating access technologies (Topic 4) and data switching (Topic 6).
 
 ---
 
-## Χαλκός (Ομοαξονικό και Συνεστραμμένο)
+## Copper Media: Coaxial and Twisted Pair
 *Copper Media: Coaxial and Twisted Pair*
 
-Ο **χαλκός** (copper) ήταν ιστορικά το πρώτο μέσο μετάδοσης δεδομένων στα δίκτυα υπολογιστών και παραμένει ευρέως διαδεδομένος σήμερα λόγω του χαμηλού κόστους, της ευκολίας εγκατάστασης και της συμβατότητάς του με υπάρχουσες υποδομές. Ανήκει στην κατηγορία των **guided media** (κατευθυνόμενων μέσων), δηλαδή μέσων που παρέχουν φυσικό κανάλι μετάδοσης. Τα ηλεκτρομαγνητικά σήματα ταξιδεύουν εντός του χαλκού ως εναλλασσόμενο ηλεκτρικό ρεύμα.
+**Copper** remains widely deployed due to low cost, ease of installation, and backward compatibility. Copper cables belong to **guided media**, channeling electromagnetic signals as AC electrical current.
 
-### Συνεστραμμένο Ζεύγος (Twisted Pair)
+### Twisted Pair Cable
 *Twisted Pair Cable*
 
-Το **συνεστραμμένο ζεύγος** (twisted pair) αποτελείται από δύο μονωμένα χάλκινα σύρματα, συνεστραμμένα (στριμμένα) μεταξύ τους σε ελικοειδή μορφή. Το στρίψιμο δεν είναι αισθητικό — επιτελεί κρίσιμη λειτουργία: μειώνει δραστικά την **ηλεκτρομαγνητική παρεμβολή (EMI)** και το **crosstalk** (παρεμβολή μεταξύ γειτονικών ζευγών). Φυσικά, ένα καλώδιο Ethernet περιέχει **4 ζεύγη** (8 σύρματα).
-
-**Αναλογία:** Το στρίψιμο λειτουργεί σαν δύο ηχεία που ακυρώνουν αμοιβαία τον θόρυβο του άλλου — κάθε παρεμβολή από εξωτερική πηγή επηρεάζει και τα δύο σύρματα εξίσου, οπότε ο δέκτης, μετρώντας τη **διαφορά** των δύο σημάτων, εξαλείφει τον κοινό θόρυβο.
-
-#### Κατηγορίες Twisted Pair (Ethernet Categories)
+**Twisted pair** cabling consists of insulated copper wires twisted around each other in a helix. Twisting reduces **electromagnetic interference (EMI)** and **crosstalk** between adjacent pairs. Standard Ethernet cables bundle **4 pairs** (8 wires).
 
 ```
-  Συνεστραμμένο Ζεύγος — Δομή Καλωδίου
+  Twisted Pair Cable Structure
   ───────────────────────────────────────────────────────
   ╔═══════════════════════════════════════════╗
-  ║  Εξωτερική Μόνωση (PVC jacket)           ║
+  ║  Outer Jacket (PVC)                       ║
   ║  ┌───────────────────────────────────┐   ║
-  ║  │  Ζεύγος 1: ─────/─────/─────     │   ║
-  ║  │  Ζεύγος 2:   ──/──/──/──/──      │   ║ ← 4 ζεύγη / 8 σύρματα
-  ║  │  Ζεύγος 3:  ────/────/────       │   ║
-  ║  │  Ζεύγος 4:   ───/───/───/        │   ║
+  ║  │  Pair 1: ─────/─────/─────        │   ║
+  ║  │  Pair 2:   ──/──/──/──/──         │   ║ ← 4 pairs / 8 wires
+  ║  │  Pair 3:  ────/────/────          │   ║
+  ║  │  Pair 4:   ───/───/───/           │   ║
   ║  └───────────────────────────────────┘   ║
   ╚═══════════════════════════════════════════╝
-  Κάθε "/" συμβολίζει στρίψιμο (twist)
 ```
 
-| Κατηγορία | Μέγιστη Ταχύτητα | Bandwidth | Μέγιστη Απόσταση | Τυπική Χρήση |
+| Category | Max Speed | Bandwidth | Max Distance | Typical Application |
 |---|---|---|---|---|
 | **Cat5e** | 1 Gbps | 100 MHz | 100 m | Ethernet LAN, DSL |
-| **Cat6** | 1 Gbps / 10 Gbps* | 250 MHz | 100 m / 55 m* | Γραφεία, switches |
-| **Cat6a** | 10 Gbps | 500 MHz | 100 m | Data centers, εταιρικά |
-| **Cat7** | 10 Gbps | 600 MHz | 100 m | Εξελιγμένα LANs |
-| **Cat8** | 25/40 Gbps | 2000 MHz | 30 m | Server rooms, κοντές ζεύξεις |
+| **Cat6** | 1 Gbps / 10 Gbps* | 250 MHz | 100 m / 55 m* | Offices, switches |
+| **Cat6a** | 10 Gbps | 500 MHz | 100 m | Data centers, enterprise |
+| **Cat7** | 10 Gbps | 600 MHz | 100 m | High-performance LANs |
+| **Cat8** | 25/40 Gbps | 2000 MHz | 30 m | Server racks, short links |
 
-*Cat6 υποστηρίζει 10 Gbps μόνο έως ~55 m.*
+*\*Cat6 supports 10 Gbps up to ~55 m.*
 
-**Τύποι Θωράκισης:**
-- **UTP (Unshielded Twisted Pair):** Χωρίς μεταλλική θωράκιση. Φθηνότερο, πιο εύκαμπτο, ιδανικό για οικιακό/εταιρικό Ethernet.
-- **STP (Shielded Twisted Pair):** Με θωράκιση ανά ζεύγος ή ανά καλώδιο. Ανώτερη ανοσία σε EMI — χρησιμοποιείται σε βιομηχανικά ή ηλεκτρικά θορυβώδη περιβάλλοντα.
-- **FTP (Foiled Twisted Pair):** Κοινή αλουμινόφυλλο θωράκιση γύρω από όλα τα ζεύγη.
+**Shielding Types:**
+- **UTP (Unshielded Twisted Pair):** Unshielded, flexible, standard for indoor Ethernet.
+- **STP (Shielded Twisted Pair):** Shielded pairs, providing superior EMI immunity for industrial environments.
+- **FTP (Foiled Twisted Pair):** Overall foil shield wrapping all pairs.
 
-**Σημαντικό Χαρακτηριστικό:** Το twisted pair υποστηρίζει **Power over Ethernet (PoE)** — μεταφορά ηλεκτρικής ισχύος μέσω του ίδιου καλωδίου με τα δεδομένα. Αυτό επιτρέπει την τροφοδοσία IP καμερών, VoIP τηλεφώνων και Wi-Fi access points χωρίς ξεχωριστή παροχή ρεύματος.
+**Power over Ethernet (PoE):** Delivers DC power alongside data over the same Ethernet cable, powering IP cameras, VoIP phones, and Wi-Fi APs without separate power supplies.
 
-**Key Distinction:** Η **εξασθένιση (attenuation)** του σήματος αυξάνεται με τη συχνότητα και την απόσταση. Γι' αυτό το πρότυπο Ethernet ορίζει **100 m** ως μέγιστο όριο για κάθε segment — πέρα από αυτό χρειάζεται repeater ή switch.
+**Key Distinction:** **Attenuation** increases with frequency and distance. Ethernet standards enforce a **100 m** segment limit before requiring switches or repeaters.
 
 ---
 
-### Ομοαξονικό Καλώδιο (Coaxial Cable)
+### Coaxial Cable
 *Coaxial Cable*
 
-Το **ομοαξονικό καλώδιο** (coaxial cable) αποτελείται από τέσσερα ομόκεντρα στρώματα, εξ ού και η ονομασία «ομό-αξονικό» (common axis):
+**Coaxial cable** features four concentric layers along a common axis:
 
 ```
-  Δομή Ομοαξονικού Καλωδίου (Coaxial Cable)
+  Coaxial Cable Structure
   ───────────────────────────────────────────────────────
   ╔═══════════════════════════════════════════════════╗
-  ║  4. Εξωτερική Μόνωση (PVC jacket)                ║
+  ║  4. Outer PVC Jacket                             ║
   ║  ┌───────────────────────────────────────────┐   ║
-  ║  │  3. Μεταλλικό Πλέγμα (metallic braid)    │   ║  ← Θωράκιση EMI
+  ║  │  3. Metallic Shielding Braid (Faraday)    │   ║  ← EMI Shielding
   ║  │  ┌─────────────────────────────────────┐  │   ║
-  ║  │  │  2. Διηλεκτρικό (insulator)         │  │   ║
+  ║  │  │  2. Dielectric Insulator           │  │   ║
   ║  │  │  ┌───────────────────────────────┐  │  │   ║
-  ║  │  │  │  1. Κεντρικός Αγωγός (Cu)     │  │  │   ║  ← Φέρει το σήμα
-  ║  │  │  │     ─────────────────────     │  │  │   ║
+  ║  │  │  │  1. Central Copper Conductor  │  │  │   ║  ← Carries signal
   ║  │  │  └───────────────────────────────┘  │  │   ║
-  ║  │  └─────────────────────────────────────┘  │   ║
   ║  └───────────────────────────────────────────┘   ║
   ╚═══════════════════════════════════════════════════╝
 ```
 
-**Λειτουργία:** Το σήμα μεταφέρεται μέσω του κεντρικού χάλκινου αγωγού. Το μεταλλικό πλέγμα λειτουργεί ως **ηλεκτρομαγνητική θωράκιση (Faraday cage)**, εμποδίζοντας την εισροή εξωτερικής παρεμβολής και συγχρόνως αποτρέποντας την εκπομπή σήματος προς τα έξω.
+- **75 Ω (RG-6, RG-11):** Standard for cable TV (CATV) and HFC last-mile broadband (DOCSIS).
+- **50 Ω (RG-8, RG-58):** Specialized RF radio communication.
 
-**Τύποι:**
-- **75 Ω (RG-6, RG-11):** Πρότυπο για καλωδιακή τηλεόραση (CATV) και broadband Internet (DOCSIS). Χρησιμοποιείται στα δίκτυα HFC για την τελευταία χιλιομετρική σύνδεση (last-mile) από τον κόμβο καλωδίωσης μέχρι τα σπίτια.
-- **50 Ω (RG-8, RG-58):** Χρησιμοποιείται σε ραδιοεπικοινωνίες και εξειδικευμένες εφαρμογές RF.
-
-**Πλεονεκτήματα vs Twisted Pair:**
-- **Καλύτερη θωράκιση EMI:** Ο κεντρικός αγωγός βρίσκεται εντός κλωβού Faraday.
-- **Μεγαλύτερη απόσταση χωρίς ενίσχυση:** Τυπικά 100–500 m ανά segment χωρίς επαναλήπτη.
-- **Υψηλότερο bandwidth υψηλών συχνοτήτων:** Κατάλληλο για μεταφορά RF σήματος (όπως στα cable modems).
-
-**Μειονεκτήματα:**
-- Πιο άκαμπτο και βαρύ σε σχέση με twisted pair.
-- Δεν υποστηρίζει PoE.
-- Δυσκολότερη εγκατάσταση (απαιτεί ειδικά connectors F-type ή BNC).
-
-**Exam Note:** Στα σύγχρονα δίκτυα HFC (Hybrid Fiber-Coaxial), η οπτική ίνα φτάνει μέχρι τον κοντινό κόμβο (fiber node) και το ομοαξονικό καλώδιο καλύπτει την τελευταία χιλιομέτρια ζεύξη μέχρι τα σπίτια. Αυτός ο συνδυασμός επιτρέπει ταχύτητες εκατοντάδων Mbps έως αρκετών Gbps (DOCSIS 3.1: έως 10 Gbps downstream).
+**Coaxial vs Twisted Pair:**
+- **Superior EMI Shielding:** Central conductor rests inside a metallic Faraday cage.
+- **Longer distance without amplification:** 100–500 m segments.
+- **Higher RF bandwidth:** Ideal for multi-channel RF signals (cable modems).
+- **Drawbacks:** Stiffer, lacks PoE support, complex F-type connectors.
 
 ---
 
-### Σύγκριση Χαλκού: Twisted Pair vs Coaxial
-*Copper Comparison Table*
+### Copper Comparison Table
 
-| Χαρακτηριστικό | Twisted Pair (UTP Cat6a) | Coaxial (75Ω RG-6) |
+| Property | Twisted Pair (UTP Cat6a) | Coaxial (75Ω RG-6) |
 |---|---|---|
-| **Τυπική Χρήση** | Ethernet LAN, DSL | HFC, καλωδιακό TV |
-| **Μέγιστη Ταχύτητα** | 10 Gbps (100 m) | Gbps+ (DOCSIS 3.1) |
-| **Μέγιστη Απόσταση** | 100 m | 500 m χωρίς amplifier |
-| **Θωράκιση EMI** | Μέτρια (UTP) / Καλή (STP) | Πολύ καλή (Faraday cage) |
-| **Ευκαμψία** | Υψηλή | Χαμηλή |
-| **PoE** | Ναι | Οχι |
-| **Κόστος** | Χαμηλό | Μέτριο |
+| **Typical Use** | Ethernet LAN, DSL | HFC, cable TV |
+| **Max Speed** | 10 Gbps (100 m) | Gbps+ (DOCSIS 3.1) |
+| **Max Distance** | 100 m | 500 m unamplified |
+| **EMI Shielding** | Moderate (UTP) / High (STP) | Superior (Faraday cage) |
+| **Flexibility** | High | Low |
+| **PoE Support** | Yes | No |
+| **Cost** | Low | Moderate |
 | **Connector** | RJ-45 | F-type / BNC |
-| **OSI Layer** | Physical + Data Link (Ethernet) | Physical |
 
 ---
 
-## Οπτική Ίνα Μονότροπη (Single-Mode Fiber)
+## Single-Mode Fiber Optic
 *Single-Mode Fiber Optic*
 
-### Αρχή Λειτουργίας
-*Operating Principle*
+### Operating Principle
 
-Η **οπτική ίνα** (fiber optic cable) δεν μεταφέρει ηλεκτρικό ρεύμα αλλά **παλμούς φωτός**. Αντί για ηλεκτρόνια κινούνται φωτόνια — και μάλιστα με ταχύτητα που πλησιάζει τη **ταχύτητα φωτός στο κενό** ($c \approx 3 \times 10^8$ m/s). Η ταχύτητα διάδοσης εντός της ίνας είναι περίπου **$\frac{2}{3}c \approx 2 \times 10^8$ m/s**, λόγω του δείκτη διάθλασης του γυαλιού.
+**Optical fiber** transmits **light pulses** instead of electrical currents. Photons travel inside glass fibers at roughly **$\frac{2}{3}c \approx 2 \times 10^8$ m/s** due to the glass refractive index.
 
-**Φυσικό Φαινόμενο: Ολική Εσωτερική Ανάκλαση (Total Internal Reflection)**
+#### Total Internal Reflection
 
-Το φως παραμένει εγκλωβισμένο εντός της ίνας λόγω του φαινομένου **ολικής εσωτερικής ανάκλασης**: όταν το φως προσπίπτει στη διεπαφή πυρήνα-κελύφους σε γωνία μεγαλύτερη από τη **κρίσιμη γωνία**, ανακλάται πλήρως εντός του πυρήνα και δεν διαφεύγει.
+Light stays trapped inside the fiber core due to **total internal reflection**: when light strikes the core-cladding boundary at an angle greater than the critical angle, it reflects completely into the core.
 
 ```
-  Ολική Εσωτερική Ανάκλαση σε Οπτική Ίνα
+  Total Internal Reflection in Fiber
   ───────────────────────────────────────────────────────────────
-  Cladding (χαμηλός δείκτης n2)
+  Cladding (low index n2)
   ─────────────────────────────────────────────────────────────
-  Core    (υψηλός δείκτης n1)
+  Core     (high index n1)
        ╲       ╱       ╲       ╱       ╲       ╱
         ╲     ╱         ╲     ╱         ╲     ╱
-   Laser ╲   ╱           ╲   ╱           ╲   ╱   → φωτεινός
-   source ╲ ╱             ╲ ╱             ╲ ╱      παλμός
+   Laser ╲   ╱           ╲   ╱           ╲   ╱   → Light pulse
+   source ╲ ╱             ╲ ╱             ╲ ╱
   ─────────V───────────────V───────────────V──────────────────
-  Cladding (χαμηλός δείκτης n2)
+  Cladding (low index n2)
 
-  Συνθήκη: n1 > n2  ⟹  Ολική εσωτερική ανάκλαση
+  Condition: n1 > n2  ⟹ Total internal reflection
 ```
 
-**Πηγή φωτός:** Για single-mode fiber χρησιμοποιείται αποκλειστικά **laser** (όχι LED) λόγω της εξαιρετικά μικρής δέσμης που απαιτείται για έγχυση σε πυρήνα 8-10 μm.
+**Single-Mode Fiber (SMF)** uses semiconductor **lasers** to inject light into an 8–10 μm core.
 
 ---
 
-### Δομή και Φυσικά Χαρακτηριστικά
-*Structure and Physical Characteristics*
+### Structure and Physical Characteristics
 
 ```
-  Δομή Single-Mode Fiber Optic (SMF)
+  Single-Mode Fiber Optic Structure (SMF)
   ────────────────────────────────────────────────────────────────
   ╔════════════════════════════════════════════════════════╗
-  ║  Εξωτερικός Μανδύας / Buffer Coating (250–900 μm)     ║  ← Μηχανική προστασία
+  ║  Outer Buffer Coating (250–900 μm)                     ║  ← Mechanical protection
   ║  ┌──────────────────────────────────────────────────┐  ║
-  ║  │  Cladding — Κέλυφος (125 μm εξωτερική διάμετρος) │  ║  ← Χαμηλός n, ανάκλαση
+  ║  │  Cladding (125 μm outer diameter)                │  ║  ← Low n, reflection
   ║  │  ┌────────────────────────────────────────────┐  │  ║
-  ║  │  │  Core — Πυρήνας (~8-10 μm διάμετρος)      │  │  ║  ← Φέρει το φως (laser)
-  ║  │  │       ═══════════════════════════          │  │  ║
+  ║  │  │  Core (~8-10 μm diameter)                    │  │  ║  ← Carries laser light
   ║  │  └────────────────────────────────────────────┘  │  ║
   ║  └──────────────────────────────────────────────────┘  ║
   ╚════════════════════════════════════════════════════════╝
-
-  Σύγκριση: SMF πυρήνας ~8-10 μm  vs  MMF πυρήνας ~50-62.5 μm
 ```
 
-**Βασικές Παράμετροι Single-Mode Fiber:**
-
-| Παράμετρος | Τιμή / Χαρακτηριστικό |
+| Parameter | Value |
 |---|---|
-| Διάμετρος πυρήνα | ~8–10 μm |
-| Διάμετρος cladding | 125 μm |
-| Πηγή φωτός | Laser (semiconductor) |
-| Μήκη κύματος λειτουργίας | 1310 nm (O-band) και 1550 nm (C-band) |
-| Εξασθένιση @ 1310 nm | ~0.35 dB/km |
-| Εξασθένιση @ 1550 nm | ~0.20 dB/km (ελάχιστη απώλεια) |
-| Μέγιστη απόσταση | >100 km (με optical amplifiers: εκατοντάδες km) |
-| Bandwidth ανά κανάλι | 100 Gbps+ |
+| Core diameter | ~8–10 μm |
+| Cladding diameter | 125 μm |
+| Light source | Laser |
+| Operating Wavelengths | 1310 nm (O-band) and 1550 nm (C-band) |
+| Attenuation @ 1310 nm | ~0.35 dB/km |
+| Attenuation @ 1550 nm | ~0.20 dB/km (lowest loss) |
+| Max Distance | >100 km (hundreds of km with EDFAs) |
+| Channel Bandwidth | 100 Gbps+ |
 
-**Γιατί 1310 nm και 1550 nm;**
+**1550 nm Window:** Represents the **attenuation minimum** in silica glass (~0.20 dB/km). Erbium-Doped Fiber Amplifiers (EDFA) amplify 1550 nm signals optically without electrical conversion.
 
-Τα δύο αυτά μήκη κύματος επιλέχθηκαν γιατί αντιστοιχούν σε **ελάχιστα της εξασθένισης** (attenuation minima) στο φάσμα απορρόφησης του SiO₂ (γυαλί πυριτίου). Το **1550 nm** παρουσιάζει τη χαμηλότερη εξασθένιση (~0.20 dB/km) και είναι η βέλτιστη επιλογή για long-haul ζεύξεις. Ταυτόχρονα, οι **ενισχυτές EDFA (Erbium-Doped Fiber Amplifier)** λειτουργούν ακριβώς στη ζώνη C (1530–1565 nm), ενισχύοντας το σήμα οπτικά χωρίς μετατροπή σε ηλεκτρικό.
-
-**Αναλογία:** Το 1550 nm είναι σαν να επιλέγεις τον πιο αδιάβροχο δρόμο για μια πεζοπορία στη βροχή — υπάρχουν άλλοι δρόμοι, αλλά σε αυτόν χάνεις ελάχιστη ενέργεια.
-
-**Exam Note:** Σε single-mode fiber μεταδίδεται **ένας μόνο τρόπος (mode) φωτός** — μία δέσμη (ray). Αυτό εξαλείφει τη **modal dispersion** (διασπορά λόγω διαφορετικής ταχύτητας πολλαπλών δεσμών), επιτρέποντας μετάδοση σε εξαιρετικά μεγάλες αποστάσεις χωρίς διαστρέβλωση σήματος.
+**Exam Note:** Single-mode fiber admits only **one light mode (ray)**. This eliminates **modal dispersion**, enabling multi-hundred-kilometer links without pulse distortion.
 
 ---
 
 ### Single-Mode vs Multi-Mode Fiber
-*Comparison*
 
-| Χαρακτηριστικό | Single-Mode (SMF) | Multi-Mode (MMF) |
+| Property | Single-Mode (SMF) | Multi-Mode (MMF) |
 |---|---|---|
-| Διάμετρος πυρήνα | ~8–10 μm | ~50–62.5 μm |
-| Τρόποι (modes) φωτός | 1 | Πολλοί (100+) |
-| Πηγή φωτός | Laser | LED ή VCSEL |
-| Modal Dispersion | Ανύπαρκτη | Σημαντική |
-| Μέγιστη απόσταση | >100 km | <2 km |
-| Bandwidth | Εξαιρετικά υψηλό | Μέτριο |
-| Κόστος transceiver | Υψηλό | Χαμηλό |
-| Τυπική χρήση | Backbone ISP, υποβρύχια καλώδια, WAN | Data centers, εντός κτιρίων |
-
-**Key Distinction:** Στο MMF, οι διαφορετικές δέσμες φωτός ταξιδεύουν με ελαφρώς διαφορετικές ταχύτητες (λόγω διαφορετικών γωνιών ανάκλασης), με αποτέλεσμα **modal dispersion**: ο παλμός «απλώνεται» με την απόσταση και στο τέλος οι παλμοί αλληλεπικαλύπτονται, καθιστώντας αδύνατη τη μεγάλης απόστασης μεταφορά. Το SMF εξαλείφει αυτό το πρόβλημα τελείως.
+| Core Diameter | ~8–10 μm | ~50–62.5 μm |
+| Light Modes | 1 | Many (100+) |
+| Light Source | Laser | LED or VCSEL |
+| Modal Dispersion | None | Significant |
+| Max Distance | >100 km | <2 km |
+| Bandwidth | Extremely High | Moderate |
+| Transceiver Cost | High | Low |
+| Primary Use | ISP backbones, WAN, submarine | Data centers, intra-building |
 
 ---
 
-### DWDM: Πολλαπλασιασμός Χωρητικότητας
-*Dense Wavelength Division Multiplexing*
+### Dense Wavelength Division Multiplexing (DWDM)
 
-Η **DWDM (Dense Wavelength Division Multiplexing)** είναι η τεχνολογία που μετατρέπει μία μόνο ίνα σε δεκάδες παράλληλα κανάλια επικοινωνίας, χρησιμοποιώντας διαφορετικά μήκη κύματος φωτός (διαφορετικά «χρώματα» laser).
+**DWDM** multiplexes dozens of parallel optical channels over a single fiber using distinct laser wavelengths.
 
 ```
-  DWDM: Πολλαπλά Κανάλια σε Μία Ίνα
+  DWDM Concept
   ────────────────────────────────────────────────────────────────
   [Laser λ1 = 1530.33 nm] ─────┐
   [Laser λ2 = 1531.12 nm] ─────┤
   [Laser λ3 = 1531.90 nm] ─────┤  [Multiplexer]═══════[SMF]═══════[Demultiplexer]
   [Laser λ4 = 1532.68 nm] ─────┤                                        │
-        ...                    ┤                                   ┌─────┴────┐
-  [Laser λN = 1561.42 nm] ─────┘                              λ1,λ2,...,λN ανεξάρτητα κανάλια
+        ...                    ┤                                   λ1..λN channels
+  [Laser λN = 1561.42 nm] ─────┘
 
-  Χωρητικότητα: 80–160+ κανάλια × 100 Gbps/κανάλι = 8–16+ Tbps ανά ίνα
+  Capacity: 80–160 channels × 100 Gbps/channel = 8–16+ Tbps per fiber
 ```
 
-**Βασικά Στοιχεία DWDM:**
-- **Spacing καναλιών:** 0.8 nm ή λιγότερο (πυκνή συσκευασία μηκών κύματος).
-- **Ζώνη λειτουργίας:** C-band (1530–1565 nm) και L-band (1565–1625 nm).
-- **Optical Amplifiers (EDFA):** Ενισχύουν ταυτόχρονα όλα τα κανάλια DWDM χωρίς μετατροπή σε ηλεκτρικό σήμα.
-- **Πρακτική χωρητικότητα:** Σύγχρονα υποβρύχια καλώδια μεταφέρουν εκατοντάδες **Tbps**.
+---
 
-Το DWDM εξηγεί γιατί το Διαδίκτυο μπορεί να λειτουργεί παγκοσμίως με **λιγότερες από 500 υποβρύχιες ίνες** να μεταφέρουν ~99% του διεθνούς traffic.
+### Worked Numerical Example
+*Propagation Delay in Fiber*
+
+**Scenario:** Transmitting a packet across a $d = 3,800 \text{ km}$ submarine fiber cable between Lisbon and Athens.
+- Propagation speed in fiber: $s = 2 \times 10^8 \text{ m/s}$
+- Link bandwidth: $R = 100 \text{ Gbps} = 10^{11} \text{ bps}$
+- Packet size: $L = 12,000 \text{ bits}$
+
+**Propagation Delay:**
+
+$$d_{prop} = \frac{d}{s} = \frac{3.8 \times 10^6}{2 \times 10^8} = 0.019 \text{ s} = 19 \text{ ms}$$
+
+**Transmission Delay:**
+
+$$d_{trans} = \frac{L}{R} = \frac{12,000}{10^{11}} = 1.2 \times 10^{-7} \text{ s} = 0.00012 \text{ ms}$$
+
+**Conclusion:** At high optical rates (100 Gbps), transmission delay is negligible ($0.00012\text{ ms}$) compared to propagation delay ($19\text{ ms}$). Physical distance and light speed dictate total delay.
 
 ---
 
-### Αριθμητικό Παράδειγμα Καθυστέρησης Διάδοσης σε Ίνα
-*Worked Numerical Example*
-
-**Σενάριο:** Ένα πακέτο μεταδίδεται από τη Λισαβόνα στην Αθήνα μέσω υποβρύχιου οπτικού καλωδίου. Η απόσταση ίνας είναι $d = 3.800 \text{ km}$.
-
-**Δεδομένα:**
-- Ταχύτητα διάδοσης σε ίνα: $s = 2 \times 10^8 \text{ m/s}$ (~2/3 της ταχύτητας φωτός στο κενό)
-- Bandwidth ζεύξης: $R = 100 \text{ Gbps}$
-- Μέγεθος πακέτου: $L = 12.000 \text{ bits}$ (1.500 bytes × 8)
-
-**Υπολογισμός Καθυστέρησης Διάδοσης:**
-
-$$d_{prop} = \frac{d}{s} = \frac{3.8 \times 10^6 \text{ m}}{2 \times 10^8 \text{ m/s}} = 0.019 \text{ s} = 19 \text{ ms}$$
-
-**Υπολογισμός Καθυστέρησης Μετάδοσης:**
-
-$$d_{trans} = \frac{L}{R} = \frac{12.000 \text{ bits}}{10^{11} \text{ bps}} = 1.2 \times 10^{-7} \text{ s} = 0.00012 \text{ ms}$$
-
-**Συμπέρασμα:** Στις υψηλές ταχύτητες οπτικής ίνας (100 Gbps), η **καθυστέρηση μετάδοσης** ($d_{trans}$) είναι αμελητέα (0.00012 ms) σε σχέση με την **καθυστέρηση διάδοσης** ($d_{prop}$ = 19 ms). Κυρίαρχος παράγοντας καθυστέρησης είναι η **φυσική απόσταση** — η ταχύτητα φωτός είναι το θεμελιώδες όριο.
-
----
-
-## Δορυφορικά (Geostationary / LEO)
+## Satellite Communications
 *Satellite Communications*
 
-Τα **δορυφορικά μέσα** (satellite media) ανήκουν στην κατηγορία **unguided media** (μη κατευθυνόμενα): τα σήματα μεταδίδονται ως ηλεκτρομαγνητικά κύματα μέσω του κενού χώρου, χωρίς φυσικό αγωγό. Ο δορυφόρος λειτουργεί ως **relay station** (αναμεταδότης) στο διάστημα, λαμβάνοντας σήμα από σταθμό εδάφους (**uplink**) και επαναμεταδίδοντάς το σε άλλο (**downlink**).
+Satellites act as spaceborne **relay stations**, receiving signals from ground stations (**uplink**) and retransmitting them to distant terminals (**downlink**).
 
-Τα δορυφορικά μέσα διακρίνονται πρωτίστως από το **ύψος τροχιάς**, το οποίο καθορίζει θεμελιωδώς τη **latency**, την κάλυψη και την πολυπλοκότητα του δικτύου.
+### Geostationary Earth Orbit (GEO)
 
-### Γεωστατικοί Δορυφόροι (Geostationary / GEO)
-*Geostationary Earth Orbit*
-
-Ένας **GEO δορυφόρος** βρίσκεται σε τροχιά ύψους **~35.786 km** πάνω από τον Ισημερινό. Στο ύψος αυτό, η τροχιακή ταχύτητα ισούται ακριβώς με την γωνιακή ταχύτητα περιστροφής της Γης — με αποτέλεσμα ο δορυφόρος να παραμένει **απολύτως ακίνητος** ως προς ένα σημείο της επιφάνειας της Γης.
-
-**Αναλογία:** Ένας GEO δορυφόρος μοιάζει με έναν αιωρούμενο αναμεταδότη που «κάθεται» πάντα πάνω από την ίδια χώρα — μια σταθερή «σκιά» στον ουρανό που δεν μετακινείται ποτέ.
+GEO satellites orbit at an altitude of **~35,786 km** above the Equator. Their orbital velocity matches Earth's rotation speed, making them appear **stationary** from the ground.
 
 ```
-  Γεωστατικός Δορυφόρος (GEO)
+  Geostationary Satellite (GEO)
   ────────────────────────────────────────────────────────────────
                         [GEO Satellite]
-                       ↑  ~35.786 km ↑
+                       ~35,786 km altitude
                       /               \
            [Uplink]  /                 \  [Downlink]
                     /                   \
           [Gateway Station]        [Dish Antenna]
                 |                       |
-           [Internet]              [Οικία / Πλοίο / Αεροπλάνο]
+           [Internet]              [Home / Ship]
 
-  Διαδρομή σήματος: Γη → Δορ. → Γη → Δορ. → Γη
-  Συνολική απόσταση RTT: ~4 × 35.786 km ≈ 143.144 km
-  Latency RTT: ~480–700 ms
+  Signal Path RTT: ~4 × 35,786 km ≈ 143,144 km
+  Latency RTT: ~500–700 ms
 ```
 
-**Κύρια Χαρακτηριστικά GEO:**
-- **Latency:** ~500–700 ms RTT — πολύ υψηλό για real-time εφαρμογές.
-- **Κάλυψη:** 3 στρατηγικά τοποθετημένοι GEO δορυφόροι καλύπτουν πρακτικά ολόκληρη τη Γη (εκτός από τους πόλους).
-- **Download speed:** 25–100+ Mbps ανά χρήστη.
-- **Ζώνες συχνοτήτων:** C-band (4–8 GHz), Ku-band (12–18 GHz), Ka-band (26.5–40 GHz).
-- **Κατάλληλο για:** Δορυφορική τηλεόραση, broadcast, επικοινωνίες αποστάσεων (ωκεανοί, απόκεντρα).
-- **Ακατάλληλο για:** VoIP, online gaming, video conferencing, TCP-intensive εφαρμογές (λόγω υπερβολικής latency).
-
-**Exam Note:** Η υψηλή latency των GEO δορυφόρων δεν είναι τεχνικό ελάττωμα αλλά φυσική συνέπεια του νόμου του Νεύτωνα — χρειάζεται τροχιά ~36.000 km για να είναι ο δορυφόρος γεωστατικός. Το TCP έχει ιδιαίτερα δυσκολία με GEO latency γιατί κάθε επαλήθευση (ACK) απαιτεί πλήρες RTT πριν σταλεί το επόμενο παράθυρο δεδομένων.
+- **Latency:** ~500–700 ms RTT (excessive for real-time traffic).
+- **Coverage:** Just 3 GEO satellites cover almost the entire planet.
+- **Unsuitable for:** Real-time VoIP, online gaming, interactive applications.
 
 ---
 
-### Δορυφόροι Χαμηλής Τροχιάς (LEO)
-*Low Earth Orbit Satellites*
+### Low Earth Orbit Satellites (LEO)
 
-Οι **LEO δορυφόροι** τροχιοδρομούν σε ύψος **~500–2.000 km**. Λόγω της χαμηλής τροχιάς, ο κάθε δορυφόρος κινείται με μεγάλη ταχύτητα (7–8 km/s) και έχει περίοδο τροχιάς ~90–120 λεπτά — άρα δεν παραμένει πάνω από ένα συγκεκριμένο σημείο. Για συνεχή κάλυψη απαιτείται **μεγάλος αριθμός δορυφόρων** (constellation).
+LEO satellites orbit at **~500–2,000 km**. Moving at ~7–8 km/s, they complete orbits in ~90–120 minutes, requiring large satellite **constellations** (e.g. Starlink) for continuous coverage.
 
 ```
-  LEO Constellation — Διαστημικό Δίκτυο (π.χ. SpaceX Starlink)
+  LEO Constellation (e.g. Starlink)
   ────────────────────────────────────────────────────────────────
   [LEO Sat A] ←──Laser ISL──→ [LEO Sat B] ←──Laser ISL──→ [LEO Sat C]
        ↑  ~550 km                    ↑                           ↑
-       │                             │                           │
-  [Gateway]                     [User Dish]                [Gateway]
-       │                                                        │
-   [Internet]                                              [Internet]
-
-  ISL = Inter-Satellite Link (οπτικά laser μεταξύ δορυφόρων)
-  RTT Latency: ~20–50 ms
-  Starlink constellation (2025): ~6.000+ ενεργοί δορυφόροι
+   [Gateway]                     [User Dish]                [Gateway]
 ```
 
-**Κύρια Χαρακτηριστικά LEO:**
-- **Latency:** 20–50 ms RTT — συγκρίσιμο με επίγειο broadband.
-- **Download speed:** 50–300 Mbps (Starlink residential), έως 1+ Gbps (επαγγελματικό).
-- **Κάλυψη:** Παγκόσμια με 1.000+ δορυφόρους σε πολλαπλά orbital planes.
-- **Inter-Satellite Links (ISL):** Ο Starlink χρησιμοποιεί **laser links** μεταξύ δορυφόρων για δρομολόγηση δεδομένων χωρίς επιστροφή στο έδαφος — αυτό μειώνει περαιτέρω τη latency.
-- **Handover:** Κάθε ~5–7 λεπτά ο χρήστης αλλάζει δορυφόρο (handover) — διαφανές για τον χρήστη λόγω αυτόματης διαχείρισης.
-
-**Εταιρείες LEO Constellation (2025):**
-- **Starlink (SpaceX):** ~6.000+ δορυφόροι, ~550 km τροχιά.
-- **OneWeb (Eutelsat):** ~648 δορυφόροι, ~1.200 km τροχιά.
-- **Amazon Kuiper:** Σε ανάπτυξη, στόχος 3.236 δορυφόροι.
+- **Latency:** 20–50 ms RTT (comparable to landline broadband).
+- **Speeds:** 50–300+ Mbps.
+- **Inter-Satellite Links (ISL):** Laser cross-links route packets space-to-space without intermediate ground hops.
 
 ---
 
-### Σύγκριση GEO vs LEO
-*GEO vs LEO Comparison*
+### GEO vs LEO Comparison
 
-| Χαρακτηριστικό | GEO Δορυφόρος | LEO Constellation |
+| Property | GEO Satellite | LEO Constellation |
 |---|---|---|
-| **Ύψος τροχιάς** | ~35.786 km | ~500–2.000 km |
+| **Orbital Altitude** | ~35,786 km | ~500–2,000 km |
 | **Latency (RTT)** | 500–700 ms | 20–50 ms |
-| **Download Speed** | 25–100 Mbps | 50–1.000 Mbps |
-| **Αριθμός δορυφόρων** | 3 για παγκόσμια κάλυψη | 1.000+ |
-| **Περίοδος τροχιάς** | 24 ώρες (γεωστατικός) | ~90–120 λεπτά |
-| **Handover** | Καθόλου | Κάθε 5–7 λεπτά |
-| **Κεραία χρήστη** | Σταθερή παραβολική | Αυτόματη ρύθμιση (phased array) |
-| **Εφαρμογές** | TV broadcast, απομακρυσμένα | Broadband αγροτικών, πλοίων |
-| **Ακατάλληλο για** | Real-time (VoIP, gaming) | (ελάχιστοι περιορισμοί) |
-| **Κόστος εκτόξευσης** | Πολύ υψηλό (1 μεγάλος) | Χαμηλό/μέσο (πολλά μικρά) |
+| **Download Speeds** | 25–100 Mbps | 50–1,000 Mbps |
+| **Satellites Needed** | 3 for global coverage | 1,000+ |
+| **Handover** | None | Every 5–7 minutes |
+| **Antenna** | Fixed dish | Phased-array auto-tracking |
 
 ---
 
-### Αριθμητικό Παράδειγμα Latency Δορυφόρου
-*Worked Numerical Example*
+### Worked Numerical Example
+*GEO vs LEO RTT Propagation Latency*
 
-**Σενάριο:** Σύγκριση της καθυστέρησης διάδοσης μεταξύ GEO και LEO δορυφόρου για ένα απλό request-response (RTT).
+**Theoretical GEO RTT:**
 
-**Δεδομένα:**
-- Ταχύτητα φωτός (κενό): $c = 3 \times 10^8 \text{ m/s}$
-- GEO ύψος: $h_{GEO} = 35.786 \text{ km}$
-- LEO ύψος: $h_{LEO} = 550 \text{ km}$
+$$RTT_{GEO} = \frac{4 \times 35,786,000}{3 \times 10^8} \approx 0.477 \text{ s} = 477 \text{ ms}$$
 
-**GEO Latency (RTT = 4 × h / c):**
+*(Real-world RTT with processing: 500–700 ms).*
 
-Το σήμα ταξιδεύει: Γη → Δορυφόρος → Γη (downlink) → Δορυφόρος → Γη (για ACK).
+**Theoretical LEO RTT (550 km):**
 
-$$RTT_{GEO} = \frac{4 \times h_{GEO}}{c} = \frac{4 \times 35.786.000}{3 \times 10^8} \approx 0.477 \text{ s} \approx 477 \text{ ms}$$
+$$RTT_{LEO} = \frac{4 \times 550,000}{3 \times 10^8} \approx 0.0073 \text{ s} = 7.3 \text{ ms}$$
 
-Στην πράξη, λόγω εκτροπής σήματος και επεξεργασίας: **500–700 ms**.
-
-**LEO Latency (RTT = 4 × h / c):**
-
-$$RTT_{LEO} = \frac{4 \times h_{LEO}}{c} = \frac{4 \times 550.000}{3 \times 10^8} \approx 0.00733 \text{ s} \approx 7.3 \text{ ms}$$
-
-Στην πράξη, λόγω routing overhead και handover: **20–50 ms**.
-
-**Παρατήρηση:** Θεωρητικά το LEO υπόσχεται ~7 ms φυσική καθυστέρηση. Στην πράξη, το overhead επικοινωνίας (routing, ISL hops, gateway processing) ανεβάζει το RTT στα 20–50 ms — ακόμα εξαιρετικά ανώτερο από GEO.
+*(Real-world RTT with routing/handover: 20–50 ms).*
 
 ---
 
-## Ασύρματα — Επίγεια Μικροκύματα
+## Wireless — Terrestrial Microwave Links
 *Wireless — Terrestrial Microwave Links*
 
-### Αρχή Λειτουργίας Επίγειων Μικροκυμάτων
-*Operating Principle*
+### Operating Principle
 
-Τα **επίγεια μικροκύματα** (terrestrial microwave links) είναι ασύρματοι σύνδεσμοι point-to-point που χρησιμοποιούν **ηλεκτρομαγνητικά κύματα** στο εύρος συχνοτήτων **1 GHz – 90+ GHz**. Ανήκουν στην κατηγορία **unguided media** αλλά, σε αντίθεση με Wi-Fi ή 4G/5G, στοχεύουν σε **άμεση, κατευθυνόμενη** σύνδεση μεταξύ δύο σημείων με **παραβολικά πιατάκια** (dish antennas).
-
-**Αναλογία:** Ένας microwave link είναι σαν φακός (flashlight) που στέλνει δέσμη φωτός ακριβώς σε έναν στόχο — αντί για broadcast σε όλες τις κατευθύνσεις, η ενέργεια εστιάζεται σε ένα μόνο σημείο.
+Terrestrial microwave links provide point-to-point wireless connections across **1 GHz – 90+ GHz** radio frequencies using directional parabolic dish antennas.
 
 ```
-  Επίγεια Ζεύξη Μικροκυμάτων (Point-to-Point Microwave Link)
+  Point-to-Point Microwave Link
   ────────────────────────────────────────────────────────────────
-  [Παραβολική Κεραία]                     [Παραβολική Κεραία]
+  [Parabolic Antenna]                     [Parabolic Antenna]
          ║                                         ║
-         ║══════════╗                 ╔════════════║
-         ║ Εκπομπή ║                 ║   Λήψη     ║
-         ║══════════╝                 ╚════════════║
-         ║                                         ║
-     [BTS / Router]     ~~~ μικροκύματα ~~~    [BTS / Router]
-         |                                         |
-    [Backbone]                               [Backbone]
+     [Router]        ~~~ microwave ~~~        [Router]
 
-  Απόσταση: Έως 50+ km (line-of-sight)
-  Συχνότητα: 2 GHz – 90+ GHz (ανάλογα ζώνη)
-  Χρήση: Backhaul κινητών δικτύων, μεσαίων ISP
+  Range: Up to 50+ km (Line-of-sight required)
 ```
 
-**Βασικές Απαιτήσεις:**
-- **Line-of-Sight (LOS):** Απαιτείται απολύτως άμεση οπτική επαφή — τα μικροκύματα δεν διαπερνούν εμπόδια όπως χαμηλές ραδιοσυχνότητες.
-- **Fresnel Zone:** Η ελλειψοειδής περιοχή γύρω από τη βέλτιστη διαδρομή πρέπει να παραμένει ελεύθερη εμποδίων, αλλιώς η περίθλαση (diffraction) μειώνει το σήμα.
+**Requirements:** Clear **Line-of-Sight (LOS)** and unobstructed **Fresnel Zone**.
 
 ---
 
-### Ζώνες Συχνοτήτων και Εφαρμογές
-*Frequency Bands and Applications*
+### Frequency Bands and Applications
 
-| Ζώνη Συχνοτήτων | Τυπική Χρήση | Μέγιστη Απόσταση | Σχόλιο |
+| Band | Application | Distance | Properties |
 |---|---|---|---|
-| **2–11 GHz** | Long-haul backhaul, ISP | 10–50+ km | Λιγότερο ευαίσθητο στη βροχή |
-| **13–23 GHz** | Backhaul κινητών (4G/5G) | 5–15 km | Αυξημένη χωρητικότητα |
-| **26–40 GHz** | Μεσαίες αποστάσεις | 2–8 km | Υψηλό bandwidth |
-| **70–80 GHz (E-band)** | High-capacity backhaul | 1–3 km | Gbps ταχύτητες |
-| **60 GHz** | Εντός κτιρίων, V-band | <500 m | Wi-Gig, absorption ατμ. Ο₂ |
-
-**Χρήσεις Επίγειων Μικροκυμάτων:**
-- **Backhaul κινητών δικτύων:** Ζεύξη 4G/5G κεραιών (cell towers) με τον ISP backbone — ειδικά σε περιοχές χωρίς φυσική ίνα.
-- **ISP Point-of-Presence:** Σύνδεση μεταξύ δύο κτιρίων ή τοποθεσιών αντί για ακριβή τάφρευση ίνας.
-- **Backup links:** Εφεδρική σύνδεση όταν αποτύχει το fiber.
-- **Έρημοι/Ορεινές περιοχές:** Σύνδεση κοινοτήτων όπου η εγκατάσταση καλωδίου είναι ανέφικτη.
+| **2–11 GHz** | Long-haul backhaul | 10–50+ km | Resistant to rain attenuation |
+| **13–23 GHz** | Cellular backhaul (4G/5G) | 5–15 km | High capacity |
+| **70–80 GHz (E-band)** | Short high-speed links | 1–3 km | Multi-Gbps throughput |
 
 ---
 
-### Παράγοντες που Επηρεάζουν τη Σύνδεση
-*Factors Affecting Microwave Links*
+### Factors Affecting Microwave Links
 
-**1. Εξασθένιση Βροχής (Rain Attenuation):**
-Σε συχνότητες άνω των **10 GHz**, η βροχή απορροφά σημαντικό μέρος της ενέργειας των μικροκυμάτων. Αυτό ονομάζεται **rain fade** και είναι ο πιο κρίσιμος περιβαλλοντικός παράγοντας για υψηλές ζώνες.
-
-**2. Πολλαπλές Ανακλάσεις (Multipath Fading):**
-Το σήμα μπορεί να φτάσει στον δέκτη μέσω πολλαπλών διαδρομών (direct + ανακλάσεις από επιφάνειες) — οι παρεμβολές μεταξύ αυτών προκαλούν **fading**. Αντιμετωπίζεται με τεχνικές **space diversity** (πολλαπλές κεραίες) και **frequency diversity**.
-
-**3. Ατμοσφαιρική Διάθλαση (Atmospheric Refraction):**
-Οι μεταβολές θερμοκρασίας/υγρασίας στην ατμόσφαιρα αλλάζουν τον δείκτη διάθλασης, προκαλώντας κύρτωση της δέσμης (duct propagation ή sub-refraction).
-
-**4. Εκπομπή Σε Ζώνες (Link Budget):**
-Η χωρητικότητα μιας ζεύξης μικροκυμάτων υπολογίζεται με το **link budget**:
-
-$$P_{received} = P_{TX} + G_{TX} + G_{RX} - L_{free\_space} - L_{rain} - L_{other}$$
-
-Όπου:
-- $P_{TX}$: Ισχύς εκπομπής (dBm)
-- $G_{TX}$, $G_{RX}$: Κέρδη κεραιών εκπομπής/λήψης (dBi)
-- $L_{free\_space}$: Free-space path loss (dB)
-- $L_{rain}$: Εξασθένιση βροχής (dB/km)
-
-**Τεχνικές Αντιμετώπισης Προβλημάτων:**
-- **Adaptive Coded Modulation (ACM):** Δυναμική αλλαγή διαμόρφωσης (π.χ. 256-QAM → 16-QAM) κατά τη διάρκεια βροχής για διατήρηση σύνδεσης.
-- **Automatic Transmitter Power Control (ATPC):** Αύξηση ισχύος εκπομπής κατά τη βροχή.
-
-**Key Distinction:** Τα επίγεια μικροκύματα ανταγωνίζονται την οπτική ίνα σε σενάρια όπου η τάφρευση ίνας είναι οικονομικά ή τεχνικά ανέφικτη. Σε αστικά περιβάλλοντα, ένας μικροκυματικός σύνδεσμος E-band (70/80 GHz) μπορεί να παρέχει **Gbps throughput** με latency μικρότερο από αυτό κάποιων ίνας (μηδαμινό propagation delay σε σχέση με processing overhead).
+1. **Rain Attenuation (Rain Fade):** Frequencies above 10 GHz suffer severe signal absorption during heavy rain.
+2. **Multipath Fading:** Reflections from ground/water cause destructive phase interference.
+3. **Adaptive Modulation (ACM):** Dynamically adjusts QAM order (e.g. 256-QAM to 16-QAM) to sustain links during rain fade.
 
 ---
 
-## Guided vs Unguided Media: Γενική Σύγκριση
-*Guided vs Unguided Media: General Comparison*
+## Guided vs Unguided Media: General Comparison
 
 ```
-  Ταξινόμηση Φυσικών Μέσων
+  Physical Media Classification
   ────────────────────────────────────────────────────────────────
-  Φυσικά Μέσα (Physical Media)
+  Physical Media
        │
-       ├── Guided (Κατευθυνόμενα / Ενσύρματα)
-       │       │
-       │       ├── Χαλκός
-       │       │       ├── Twisted Pair (Cat5e/Cat6a/Cat8)
-       │       │       └── Coaxial (RG-6, RG-11)
-       │       │
-       │       └── Οπτική Ίνα
-       │               ├── Single-Mode Fiber (SMF) ← αυτό το topic
-       │               └── Multi-Mode Fiber (MMF)
+       ├── Guided (Wired / Cables)
+       │       ├── Copper (Twisted Pair, Coaxial)
+       │       └── Optical Fiber (Single-Mode, Multi-Mode)
        │
-       └── Unguided (Μη Κατευθυνόμενα / Ασύρματα)
-               │
-               ├── Επίγεια
-               │       ├── Επίγεια Μικροκύματα (Microwave links) ← αυτό το topic
-               │       ├── Wi-Fi (IEEE 802.11)
-               │       └── Cellular (4G LTE, 5G NR)
-               │
-               └── Διαστημικά
-                       ├── GEO Δορυφόροι              ← αυτό το topic
-                       └── LEO Δορυφόροι (Starlink)   ← αυτό το topic
+       └── Unguided (Wireless / Space)
+               ├── Terrestrial (Microwave links, Wi-Fi, Cellular)
+               └── Satellite (GEO, LEO)
 ```
 
 ---
 
-## Συγκεντρωτικός Πίνακας
+## Summary Table
 
-| Μέσο | Τύπος | Bandwidth | Τυπική Απόσταση | Latency | Τυπική Χρήση |
+| Medium | Type | Bandwidth | Typical Range | Latency | Key Application |
 |---|---|---|---|---|---|
 | **Twisted Pair (Cat6a)** | Guided / Copper | 10 Gbps | 100 m | <1 ms | Ethernet LAN, DSL |
-| **Twisted Pair (Cat8)** | Guided / Copper | 40 Gbps | 30 m | <1 ms | Server rooms |
-| **Coaxial (RG-6)** | Guided / Copper | Gbps+ | 500 m | <1 ms | HFC, καλωδιακό TV |
-| **Single-Mode Fiber** | Guided / Optical | 100 Gbps+ (DWDM: Tbps) | >100 km | ~5–20 ms (πρ. 3.800 km) | Backbone, WAN, υποβρύχια |
-| **GEO Δορυφόρος** | Unguided / Satellite | 25–100 Mbps | Παγκόσμια | 500–700 ms | Broadcast, TV, απόκεντρα |
-| **LEO Δορυφόρος** | Unguided / Satellite | 50–1.000 Mbps | Παγκόσμια | 20–50 ms | Broadband αγροτικών |
-| **Επίγεια Μικροκύματα** | Unguided / Wireless | Εκατ. Mbps έως Gbps | 1–50 km | <5 ms | Backhaul κινητών, ISP |
+| **Coaxial (RG-6)** | Guided / Copper | Gbps+ | 500 m | <1 ms | HFC cable internet |
+| **Single-Mode Fiber** | Guided / Optical | 100 Gbps+ (DWDM: Tbps) | >100 km | ~19 ms (3800 km) | Backbone, WAN, submarine |
+| **GEO Satellite** | Unguided / Satellite | 25–100 Mbps | Global (3 sats) | 500–700 ms | TV broadcast, remote sites |
+| **LEO Satellite** | Unguided / Satellite | 50–1000 Mbps | Global (1000+ sats) | 20–50 ms | Rural broadband |
+| **Terrestrial Microwave** | Unguided / Wireless | Gbps | 1–50 km | <5 ms | Cellular backhaul, ISP WAN |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-- Τα **guided media** (χαλκός, οπτική ίνα) προσφέρουν υψηλό bandwidth, χαμηλή latency και ασφάλεια, αλλά απαιτούν φυσική υποδομή εγκατάστασης.
-- Τα **unguided media** (δορυφόροι, μικροκύματα) προσφέρουν ευελιξία ανάπτυξης και κάλυψη δυσπρόσιτων περιοχών, με trade-off σε latency ή bandwidth.
-- Το **Twisted Pair** παραμένει το πλέον διαδεδομένο μέσο για Ethernet LAN λόγω κόστους και ευκολίας εγκατάστασης. Υποστηρίζει PoE ενώ το coaxial δεν υποστηρίζει.
-- Το **Ομοαξονικό καλώδιο** εξυπηρετεί κυρίως HFC δίκτυα καλωδιακού ίντερνετ (DOCSIS) και παρέχει καλύτερη θωράκιση EMI από το twisted pair.
-- Η **Single-Mode Fiber** αποτελεί το βέλτιστο μέσο για μακράς απόστασης μεταφορά δεδομένων. Χάρη στο DWDM, μία ίνα μπορεί να μεταφέρει εκατοντάδες Tbps ταυτόχρονα.
-- Οι **GEO δορυφόροι** παρέχουν παγκόσμια κάλυψη με ελάχιστους δορυφόρους, αλλά το latency ~500–700 ms τους καθιστά ακατάλληλους για real-time εφαρμογές.
-- Οι **LEO δορυφόροι** (Starlink) επιλύουν το πρόβλημα latency (20–50 ms) αλλά απαιτούν χιλιάδες δορυφόρους και πολύπλοκη διαχείριση constellation.
-- Τα **Επίγεια Μικροκύματα** είναι η προτιμώμενη λύση backhaul για κινητά δίκτυα όπου η εγκατάσταση ίνας είναι ανέφικτη — απαιτούν line-of-sight και επηρεάζονται από καιρικές συνθήκες.
-- **Exam Note:** Η επιλογή μέσου εξαρτάται από τέσσερις παραμέτρους: bandwidth, latency, απόσταση και κόστος εγκατάστασης. Δεν υπάρχει «καλύτερο» μέσο για όλες τις χρήσεις.
+- **Guided media** (copper, fiber) offer high speed and reliability over physically wired paths.
+- **Unguided media** (satellite, wireless) enable untethered mobility and remote coverage.
+- **Twisted pair** is the standard Ethernet LAN cable supporting PoE up to 100 meters.
+- **Single-Mode Fiber** with **DWDM** transports terabits per second across oceanic distances.
+- **GEO satellites** offer wide coverage at the expense of high latency (~600 ms).
+- **LEO constellations** (Starlink) reduce satellite latency to 20–50 ms.
+- **Terrestrial microwaves** provide high-capacity wireless backhaul where running fiber is cost-prohibitive.

@@ -1,97 +1,90 @@
-# Βασικά Ζητήματα
+# Basic Issues in Networking
 *Basic Issues in Networking*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 
-- [Εισαγωγή](#εισαγωγή)
-- [Διευθύνσεις και ονόματα](#διευθύνσεις-και-ονόματα)
-  - [Φυσικές Διευθύνσεις (MAC Addresses)](#φυσικές-διευθύνσεις-mac-addresses)
-  - [Λογικές Διευθύνσεις (IP Addresses)](#λογικές-διευθύνσεις-ip-addresses)
-  - [Ονόματα Συστημάτων (Hostnames) και DNS](#ονόματα-συστημάτων-hostnames-και-dns)
-  - [Πρωτόκολλο ARP (Address Resolution Protocol)](#πρωτόκολλο-arp-address-resolution-protocol)
-- [Δρομολόγηση](#δρομολόγηση)
+- [Introduction](#introduction)
+- [Addresses and Names](#addresses-and-names)
+  - [Physical Addresses (MAC Addresses)](#physical-addresses-mac-addresses)
+  - [Logical Addresses (IP Addresses)](#logical-addresses-ip-addresses)
+  - [System Names (Hostnames) and DNS](#system-names-hostnames-and-dns)
+  - [Address Resolution Protocol (ARP)](#address-resolution-protocol-arp)
+- [Routing](#routing)
   - [Routing vs Forwarding](#routing-vs-forwarding)
-  - [Αλγόριθμοι Κατάστασης Συνδέσμου (Link-State Algorithms)](#αλγόριθμοι-κατάστασης-συνδέσμου-link-state-algorithms)
-  - [Αλγόριθμοι Διανύσματος Απόστασης (Distance-Vector Algorithms)](#αλγόριθμοι-διανύσματος-απόστασης-distance-vector-algorithms)
-  - [Αρχιτεκτονική Ιεραρχικής Δρομολόγησης (Autonomous Systems)](#αρχιτεκτονική-ιεραρχικής-δρομολόγησης-autonomous-systems)
-  - [Αριθμητικό Παράδειγμα: Αλγόριθμος Dijkstra](#αριθμητικό-παράδειγμα-αλγόριθμος-dijkstra)
-- [Ανίχνευση σφαλμάτων](#ανίχνευση-σφαλμάτων)
-  - [Έλεγχος Ισοτιμίας (Parity Checking)](#έλεγχος-ισοτιμίας-parity-checking)
-  - [Άθροισμα Ελέγχου Διαδικτύου (Internet Checksum)](#άθροισμα-ελέγχου-διαδικτύου-internet-checksum)
-  - [Κυκλικός Έλεγχος Πλεονασμού (Cyclic Redundancy Check - CRC)](#κυκλικός-έλεγχος-πλεονασμού-cyclic-redundancy-check---crc)
-  - [Αριθμητικό Παράδειγμα: Υπολογισμός CRC](#αριθμητικό-παράδειγμα-υπολογισμός-crc)
-- [Ασφάλεια και κρυπτογραφία](#ασφάλεια-και-κρυπτογραφία)
-  - [Συμμετρική Κρυπτογραφία (Symmetric-Key Cryptography)](#συμμετρική-κρυπτογραφία-symmetric-key-cryptography)
-  - [Ασύμμετρη Κρυπτογραφία (Public-Key Cryptography)](#ασύμμετρη-κρυπτογραφία-public-key-cryptography)
-  - [Ψηφιακές Υπογραφές και Πιστοποιητικά (Digital Signatures & Certificates)](#ψηφιακές-υπογραφές-και-πιστοποιητικά-digital-signatures--certificates)
-  - [Πρωτόκολλα Ασφάλειας (SSL/TLS, IPsec)](#πρωτόκολλα-ασφάλειας-ssltls-ipsec)
-- [Συγκεντρωτικός Πίνακας](#συγκεντρωτικός-πίνακας)
-- [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+  - [Link-State Algorithms](#link-state-algorithms)
+  - [Distance-Vector Algorithms](#distance-vector-algorithms)
+  - [Hierarchical Routing Architecture (Autonomous Systems)](#hierarchical-routing-architecture-autonomous-systems)
+  - [Worked Numerical Example: Dijkstra's Algorithm](#worked-numerical-example-dijkstras-algorithm)
+- [Error Detection](#error-detection)
+  - [Parity Checking](#parity-checking)
+  - [Hamming Code](#hamming-code)
+  - [Internet Checksum](#internet-checksum)
+  - [Cyclic Redundancy Check (CRC)](#cyclic-redundancy-check-crc)
+  - [Worked Numerical Example: CRC Calculation](#worked-numerical-example-crc-calculation)
+- [Security and Cryptography](#security-and-cryptography)
+  - [Symmetric-Key Cryptography](#symmetric-key-cryptography)
+  - [Public-Key Cryptography](#public-key-cryptography)
+  - [Digital Signatures & Certificates](#digital-signatures--certificates)
+  - [Security Protocols (SSL/TLS, IPsec)](#security-protocols-ssltls-ipsec)
+- [Summary Table](#summary-table)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Η λειτουργία των σύγχρονων δικτύων υπολογιστών βασίζεται στην επίλυση τεσσάρων θεμελιωδών προκλήσεων: την αναγνώριση των συσκευών, την εύρεση της βέλτιστης διαδρομής μεταφοράς των δεδομένων, τη διασφάλιση της ορθότητας των ληφθέντων πληροφοριών και την προστασία τους από κακόβουλες παρεμβολές. Αυτά τα **βασικά ζητήματα** (basic issues) διατρέχουν οριζόντια όλα τα επίπεδα της στοίβας πρωτοκόλλων (protocol stack). Η κατανόησή τους επιτρέπει σε έναν μηχανικό δικτύων να αντιληφθεί πώς το Διαδίκτυο κλιμακώνεται σε παγκόσμια κλίμακα, παραμένοντας ταυτόχρονα αξιόπιστο και ασφαλές παρά την εγγενή αναξιοπιστία των φυσικών μέσων μετάδοσης και τις συνεχείς απειλές ασφαλείας.
+The operation of modern computer networks rests on solving four fundamental challenges: identifying devices, discovering optimal data transmission paths, ensuring data integrity, and protecting communication against malicious interference. These **basic issues** cut horizontally across all protocol stack layers. Mastering them enables network engineers to understand how the Internet scales globally while remaining reliable and secure despite physical transmission media noise and constant security threats.
 
 ---
 
-## Διευθύνσεις και ονόματα
+## Addresses and Names
 *Addresses and Names*
 
-Σε ένα παγκόσμιο δίκτυο, κάθε οντότητα (host, router, interface) πρέπει να έχει μια ταυτότητα. Η ταυτοποίηση αυτή υλοποιείται σε τρία διαφορετικά επίπεδα αφαίρεσης για να εξυπηρετήσει διαφορετικές ανάγκες: τη φυσική διευθυνσιοδότηση, τη λογική διευθυνσιοδότηση και τα ανθρωποκεντρικά ονόματα συστημάτων.
+In a global network, every entity (host, router, interface) requires an identity. Identification operates across three abstraction layers: physical addressing, logical addressing, and human-readable hostnames.
 
 ```
-  Σχέση και Αντιστοίχιση Διευθύνσεων & Ονομάτων
+  Relationship & Mapping of Addresses & Names
   ──────────────────────────────────────────────────────────────────────────
-  [Application Layer]       Hostname (π.χ., www.uoa.gr)
+  [Application Layer]       Hostname (e.g., www.uoa.gr)
          │
-         │ (Επίλυση μέσω DNS)
+         │ (DNS Resolution)
          ▼
-  [Network Layer]           IP Address (Logical) (π.χ., 195.134.100.2)
+  [Network Layer]           IP Address (Logical) (e.g., 195.134.100.2)
          │
-         │ (Επίλυση μέσω ARP στο τοπικό δίκτυο)
+         │ (ARP Resolution within local subnet)
          ▼
-  [Data Link Layer]         MAC Address (Physical) (π.χ., 00:1A:2B:3C:4D:5E)
+  [Data Link Layer]         MAC Address (Physical) (e.g., 00:1A:2B:3C:4D:5E)
 ```
 
-### Φυσικές Διευθύνσεις (MAC Addresses)
+### Physical Addresses (MAC Addresses)
 
-Η **διεύθυνση MAC (Media Access Control Address)** είναι μια φυσική διεύθυνση (physical address) που ταυτοποιεί μοναδικά μια κάρτα δικτύου (Network Interface Card - NIC). 
-- **Χαρακτηριστικά**: Έχει μήκος 48 bits (6 bytes) και αναπαρίσταται συνήθως σε δεκαεξαδική μορφή (π.χ., `00:1A:2B:3C:4D:5E`). Είναι «καμένη» (burned-in) στη συσκευή κατά την κατασκευή της.
-- **Δομή**: Είναι επίπεδη (flat address space). Τα πρώτα 24 bits αποτελούν το **OUI (Organizationally Unique Identifier)** που προσδιορίζει τον κατασκευαστή, και τα υπόλοιπα 24 bits είναι ο μοναδικός σειριακός αριθμός της κάρτας.
-- **Λειτουργία**: Χρησιμοποιείται στο Επίπεδο Σύνδεσης Δεδομένων (Data Link Layer - Layer 2) για τη μεταφορά πλαισίων (frames) μεταξύ συσκευών που βρίσκονται στο **ίδιο τοπικό δίκτυο (LAN / subnet)**.
+A **MAC (Media Access Control) Address** is a physical address uniquely identifying a Network Interface Card (NIC).
+- **Properties**: 48 bits (6 bytes) long, represented in hexadecimal notation (`00:1A:2B:3C:4D:5E`). Burned into device hardware during manufacturing.
+- **Structure**: Flat address space. The first 24 bits comprise the **OUI (Organizationally Unique Identifier)** identifying the manufacturer; the remaining 24 bits represent the card's unique serial number.
+- **Function**: Operates at the Data Link Layer (Layer 2) to transfer frames between devices residing on the **same local area network (LAN/subnet)**.
 
-**Αναλογία**: Η διεύθυνση MAC μοιάζει με τον Αριθμό Δελτίου Ταυτότητας (ΑΔΤ) ή τον ΑΜΚΑ ενός ανθρώπου. Είναι μοναδικός, προσωπικός και δεν αλλάζει όπου κι αν μετακινηθεί το άτομο.
+---
 
-### Λογικές Διευθύνσεις (IP Addresses)
+### Logical Addresses (IP Addresses)
 
-Η **διεύθυνση IP (Internet Protocol Address)** είναι μια λογική διεύθυνση (logical address) που εκχωρείται δυναμικά ή στατικά σε μια συσκευή όταν αυτή συνδέεται σε ένα δίκτυο.
-- **Χαρακτηριστικά**: Στο IPv4 έχει μήκος 32 bits (4 bytes), γραμμένη σε μορφή τεσσάρων δεκαδικών ψηφίων χωρισμένων με τελείες (π.χ., `192.168.1.1`). Στο IPv6 έχει μήκος 128 bits και αναπαρίσταται με οκτώ ομάδες δεκαεξαδικών ψηφίων χωρισμένων με άνω-κάτω τελείες.
-- **Δομή**: Είναι ιεραρχική (hierarchical address space). Αποτελείται από το **Network Prefix (πρόθεμα δικτύου)** που προσδιορίζει το δίκτυο στο οποίο ανήκει η συσκευή, και το **Host Identifier (αναγνωριστικό συστήματος)** που προσδιορίζει τη συγκεκριμένη συσκευή εντός αυτού του δικτύου.
-- **Λειτουργία**: Χρησιμοποιείται στο Επίπεδο Δικτύου (Network Layer - Layer 3) για την καθολική δρομολόγηση πακέτων (packets) μεταξύ διαφορετικών δικτύων σε ολόκληρο τον κόσμο.
+An **IP (Internet Protocol) Address** is a logical address assigned dynamically or statically to a host when connecting to a network.
+- **Properties**: IPv4 addresses are 32 bits (4 bytes) long, written in dotted-decimal notation (`192.168.1.1`). IPv6 addresses are 128 bits long, written in 8 groups of hexadecimal digits separated by colons.
+- **Structure**: Hierarchical address space comprising a **Network Prefix** (identifying the destination network) and a **Host Identifier** (identifying the specific host within that network).
+- **Function**: Operates at the Network Layer (Layer 3) for global packet routing across disparate networks worldwide.
 
-**Αναλογία**: Η διεύθυνση IP μοιάζει με την ταχυδρομική σας διεύθυνση (π.χ., Χώρα, Πόλη, Οδός, Αριθμός). Είναι ιεραρχική και αλλάζει αν μετακομίσετε σε άλλη περιοχή (άλλο δίκτυο).
+---
 
-### Ονόματα Συστημάτων (Hostnames) και DNS
+### System Names (Hostnames) and DNS
 
-Τα **ονόματα συστημάτων (hostnames / domain names)** είναι ανθρωποκεντρικά, εύκολα στην απομνημόνευση αλφαριθμητικά strings (π.χ., `www.example.com`) που χρησιμοποιούνται στο Επίπεδο Εφαρμογής (Application Layer).
+**Hostnames / Domain Names** are human-readable alphanumeric strings (`www.example.com`) used at the Application Layer.
 
-Επειδή οι δρομολογητές (routers) επεξεργάζονται μόνο αριθμητικές διευθύνσεις IP, απαιτείται ένας μηχανισμός μετάφρασης. Αυτόν τον ρόλο επιτελεί το **DNS (Domain Name System)**.
-- **Ορισμός**: Το DNS είναι μια κατανεμημένη, ιεραρχική βάση δεδομένων (distributed hierarchical database) και ένα πρωτόκολλο του επιπέδου εφαρμογής που επιλύει (resolves) hostnames σε IP διευθύνσεις.
-- **Αρχιτεκτονική**: Αποτελείται από τρία κύρια επίπεδα εξυπηρετητών:
-  1. **Root DNS Servers**: Δείχνουν προς τους εξυπηρετητές των Top-Level Domains (TLDs).
-  2. **Top-Level Domain (TLD) DNS Servers**: Διαχειρίζονται καταλήξεις όπως `.com`, `.org`, `.gr`.
-  3. **Authoritative DNS Servers**: Ανήκουν στους οργανισμούς και παρέχουν την τελική, επίσημη αντιστοίχιση Hostname-to-IP για τα συστήματά τους.
-  4. **Local DNS Server (Default Resolver)**: Ο τοπικός εξυπηρετητής του ISP ή του οργανισμού που λαμβάνει τα αιτήματα των χρηστών και εκτελεί την αναδρομική αναζήτηση (recursive query).
+Because routers process numerical IP addresses, translation is mandatory. The **DNS (Domain Name System)** performs this role:
+- **Definition**: A distributed, hierarchical database and application-layer protocol resolving hostnames into IP addresses.
+- **Hierarchy**: Root DNS Servers $\to$ Top-Level Domain (TLD) DNS Servers (`.com`, `.gr`) $\to$ Authoritative DNS Servers $\to$ Local DNS Resolvers.
 
-**Αναλογία**: Το DNS λειτουργεί ακριβώς όπως ο τηλεφωνικός κατάλογος του κινητού σας. Αντί να πληκτρολογείτε τον αριθμό τηλεφώνου (IP address), αναζητάτε το όνομα της επαφής (hostname).
-
-#### Πρωτόκολλο Αλληλεπίδρασης DNS (DNS Query-Response Sequence)
-
-Όταν ένας client θέλει να επισκεφθεί την ιστοσελίδα `www.example.com`, εκτελείται η παρακάτω ακολουθία ανταλλαγής μηνυμάτων:
+#### DNS Query-Response Sequence
 
 ```
   Client (Resolver)                      Local DNS Server             Authoritative Server
@@ -108,96 +101,92 @@
          │       "IP: 192.0.2.1"                │                               │
 ```
 
-### Πρωτόκολλο ARP (Address Resolution Protocol)
+---
 
-Όταν ένα πακέτο φτάσει στο τελικό τοπικό δίκτυο, ο αποστολέας γνωρίζει την IP διεύθυνση του προορισμού αλλά όχι τη MAC διεύθυνσή του, η οποία είναι απαραίτητη για τη δημιουργία του πλαισίου Ethernet (Layer 2 frame).
-- **Ορισμός**: Το **ARP (Address Resolution Protocol)** επιλύει τη διεύθυνση IP ενός συστήματος στην αντίστοιχη φυσική διεύθυνση MAC εντός του ίδιου LAN.
-- **Λειτουργία**: 
-  1. Ο αποστολέας στέλνει ένα **ARP Request** ως εκπομπή (broadcast - διεύθυνση MAC προορισμού `FF:FF:FF:FF:FF:FF`) ρωτώντας: *«Ποιος έχει την IP X; Στείλτε μου τη MAC σας»*.
-  2. Η συσκευή με την IP X απαντά με ένα **ARP Reply** ως μονοδιανομή (unicast) απευθείας στον αποστολέα: *«Έχω την IP X, η MAC μου είναι η Y»*.
-  3. Ο αποστολέας αποθηκεύει την αντιστοίχιση στο **ARP Cache** του για μελλοντική χρήση.
+### Address Resolution Protocol (ARP)
 
-#### Σύγκριση Διευθύνσεων και Ονομάτων
+When a packet arrives at the destination local subnet, the sender knows the destination IP address but lacks its MAC address, which is required to construct the Ethernet frame.
+- **Definition**: **ARP (Address Resolution Protocol)** resolves a known IP address to its corresponding physical MAC address within the same subnet.
+- **Function**:
+  1. The sender broadcasts an **ARP Request** (`FF:FF:FF:FF:FF:FF`) asking: *"Who has IP X? Send me your MAC."*
+  2. The target host holding IP X returns a unicast **ARP Reply**: *"I have IP X; my MAC is Y."*
+  3. The sender caches the IP-to-MAC mapping in its **ARP Cache**.
 
-| Χαρακτηριστικό | MAC Address | IP Address | Hostname / Domain Name |
+#### Address and Name Comparison
+
+| Feature | MAC Address | IP Address | Hostname / Domain Name |
 |---|---|---|---|
-| **Επίπεδο OSI** | Data Link Layer (Layer 2) | Network Layer (Layer 3) | Application Layer (Layer 7) |
-| **Μορφή / Μέγεθος** | 48 bits (6 bytes), Hexadecimal (π.χ., `00:1A:2B:3C:4D:5E`) | 32 bits (IPv4) / 128 bits (IPv6) (π.χ., `192.0.2.1`) | Αλφαριθμητικό String μεταβλητού μήκους (π.χ., `www.uoa.gr`) |
-| **Δομή** | Επίπεδη (Flat) - Κατασκευαστής & Σειριακός | Ιεραρχική (Hierarchical) - Network ID & Host ID | Ιεραρχική (Hierarchical) - Root, TLD, Domain, Subdomain |
-| **Ανάθεση** | Μόνιμη (καμένη στη NIC από τον κατασκευαστή) | Δυναμική (DHCP) ή Στατική (Config) | Καταχώρηση μέσω καταχωρητή (Registrar) |
-| **Εμβέλεια** | Τοπικό δίκτυο (Local Subnet) | Παγκόσμια (Globally routable) | Παγκόσμια (μέσω DNS) |
+| **OSI Layer** | Data Link Layer (Layer 2) | Network Layer (Layer 3) | Application Layer (Layer 7) |
+| **Format / Size** | 48 bits (Hexadecimal) | 32 bits (IPv4) / 128 bits (IPv6) | Variable length alphanumeric string |
+| **Structure** | Flat (OUI + Serial) | Hierarchical (Network ID + Host ID) | Hierarchical (Root, TLD, Domain) |
+| **Assignment** | Permanent (Burned-in) | Dynamic (DHCP) or Static | Registered via Domain Registrar |
+| **Scope** | Local Subnet | Globally Routable | Global (via DNS) |
 
 ---
 
-## Δρομολόγηση
+## Routing
 *Routing*
 
-Η δρομολόγηση αποτελεί την κεντρική λειτουργία του επιπέδου δικτύου (Layer 3) και εξασφαλίζει ότι τα πακέτα θα βρουν το δρόμο τους μέσα από έναν πολύπλοκο ιστό διασυνδεδεμένων routers από την πηγή στον προορισμό.
+Routing is the primary Layer 3 function determining end-to-end paths across complex meshes of interconnected routers.
 
 ### Routing vs Forwarding
 
-**Key Distinction**: Είναι κρίσιμο να διαχωρίζονται οι δύο αυτές λειτουργίες του επιπέδου δικτύου:
-- **Δρομολόγηση (Routing)**: Η διαδικασία καθορισμού της **συνολικής διαδρομής** (end-to-end path) που θα ακολουθήσουν τα πακέτα από την πηγή έως τον προορισμό. Εκτελείται στο **Control Plane (επίπεδο ελέγχου)** και χρησιμοποιεί αλγορίθμους δρομολόγησης.
-- **Προώθηση (Forwarding)**: Η τοπική ενέργεια ενός router να μεταφέρει ένα πακέτο από μια **διεπαφή εισόδου** (input interface) στην κατάλληλη **διεπαφή εξόδου** (output interface). Εκτελείται στο **Data Plane (επίπεδο δεδομένων)** σε χρόνο microsecond, με βάση τον πίνακα προώθησης (forwarding table).
-
-**Αναλογία**: 
-- Το **Routing** είναι σαν να σχεδιάζετε το ταξίδι σας από την Αθήνα στη Θεσσαλονίκη μελετώντας έναν οδικό χάρτη (σχεδιασμός διαδρομής).
-- Το **Forwarding** είναι σαν να φτάνετε σε μια διασταύρωση στη Λάρισα και να στρίβετε δεξιά ακολουθώντας τις πινακίδες (τοπική απόφαση κατεύθυνσης).
+- **Routing**: Determining the **end-to-end path** packets follow from source to destination. Executes in the **Control Plane** via routing algorithms.
+- **Forwarding**: The local action of transferring a packet from a router's **input interface** to the appropriate **output interface**. Executes in the **Data Plane** in hardware (nanoseconds) based on the forwarding table.
 
 ```
-  Αρχιτεκτονική Router: Δρομολόγηση vs Προώθηση
+  Router Architecture: Routing vs Forwarding
   ──────────────────────────────────────────────────────────────────────────
-       [ Routing Algorithm ] (Control Plane - αργό, υπολογιστικό)
+       [ Routing Algorithm ] (Control Plane - software routing math)
                 │
-                ▼ (Ενημερώνει)
+                ▼ (Installs entries)
        ┌────────────────────────┐
        │   Forwarding Table     │
        └────────────────────────┘
                 │
-  [Input Port] ─┼───────────────► [Output Port] (Data Plane - ταχύτατο hardware)
-                │ (Switch Fabric)
+  [Input Port] ─┼───────────────► [Output Port] (Data Plane - hardware switching)
 ```
 
-### Αλγόριθμοι Κατάστασης Συνδέσμου (Link-State Algorithms)
+---
 
-Οι **αλγόριθμοι κατάστασης συνδέσμου (link-state algorithms)** βασίζονται στην καθολική γνώση της τοπολογίας του δικτύου.
-- **Λειτουργία**: Κάθε router συλλέγει πληροφορίες για τους άμεσα συνδεδεμένους συνδέσμους του (link costs) και τις διαχέει σε όλους τους άλλους routers του δικτύου μέσω μιας διαδικασίας που ονομάζεται **Link-State Broadcast (εκπομπή κατάστασης συνδέσμου)**.
-- **Αποτέλεσμα**: Όλοι οι routers καταλήγουν να έχουν την ίδια, πλήρη εικόνα του δικτύου (τοπολογικό διάγραμμα).
-- **Υπολογισμός**: Κάθε router τρέχει ανεξάρτητα τον **αλγόριθμο του Dijkstra** για να υπολογίσει το δέντρο συντομότερων διαδρομών (shortest path tree) με ρίζα τον εαυτό του.
-- **Πρωτόκολλο**: Το **OSPF (Open Shortest Path First)** είναι το πιο διαδεδομένο εσωτερικό πρωτόκολλο που υλοποιεί αυτήν τη μέθοδο.
+### Link-State Algorithms
 
-### Αλγόριθμοι Διανύσματος Απόστασης (Distance-Vector Algorithms)
+- **Mechanism**: Every router collects information about its directly connected links and broadcasts these link states to all routers in the network via **Link-State Advertisements (LSAs)**.
+- **Result**: All routers construct identical topology maps of the network.
+- **Computation**: Each router independently runs **Dijkstra's Algorithm** to compute the shortest path tree rooted at itself.
+- **Protocol**: **OSPF (Open Shortest Path First)** is the dominant link-state protocol.
 
-Οι **αλγόριθμοι διανύσματος απόστασης (distance-vector algorithms)** είναι αποκεντρωμένοι και επαναληπτικοί.
-- **Λειτουργία**: Κάθε router διατηρεί έναν πίνακα (διάνυσμα) με τις εκτιμώμενες αποστάσεις (costs) προς όλους τους πιθανούς προορισμούς. Δεν γνωρίζει την πλήρη τοπολογία του δικτύου, παρά μόνο τους άμεσους γείτονές του.
-- **Υπολογισμός**: Οι routers ανταλλάσσουν περιοδικά τα διανύσματά τους μόνο με τους άμεσους γείτονές τους. Κάθε router ενημερώνει τις δικές του εκτιμήσεις χρησιμοποιώντας την **εξίσωση Bellman-Ford**:
+---
 
-$$D_x(y) = \min_v \{ c(x,v) + D_v(y) \}$$
+### Distance-Vector Algorithms
 
-Όπου $D_x(y)$ είναι το ελάχιστο κόστος από το $x$ στο $y$, $c(x,v)$ το κόστος του απευθείας συνδέσμου από το $x$ στον γείτονα $v$, και $D_v(y)$ η απόσταση από τον $v$ στο $y$.
-- **Προβλήματα**: Παρουσιάζουν αργή σύγκλιση και είναι επιρρεπείς σε routing loops. Ένα γνωστό πρόβλημα είναι η **μέτρηση στο άπειρο (count-to-infinity problem)**, όπου μια αύξηση κόστους συνδέσμου διαδίδεται αργά μέσω επαναλαμβανόμενων ενημερώσεων. Αντιμετωπίζεται εν μέρει με τεχνικές όπως το **split horizon** και το **poison reverse**.
-- **Πρωτόκολλο**: Το **RIP (Routing Information Protocol)** χρησιμοποιεί distance-vector (με metric το hop count, μέγιστο 15).
+- **Mechanism**: Routers maintain vectors of estimated distances to all destinations, knowing only immediate neighbors.
+- **Computation**: Neighbors periodically exchange distance vectors. Routers update estimates using the **Bellman-Ford equation**:
+  $$D_x(y) = \min_v \{ c(x,v) + D_v(y) \}$$
+- **Issues**: Slow convergence, count-to-infinity problem (mitigated via split horizon and poison reverse).
+- **Protocol**: **RIP (Routing Information Protocol)**.
 
-### Αρχιτεκτονική Ιεραρχικής Δρομολόγησης (Autonomous Systems)
+---
 
-Στο πραγματικό Διαδίκτυο, είναι αδύνατο όλοι οι routers να γνωρίζουν όλους τους προορισμούς (δισεκατομμύρια συσκευές). Για το λόγο αυτό, η δρομολόγηση οργανώνεται ιεραρχικά σε **Αυτόνομα Συστήματα (Autonomous Systems - AS)**.
-- **Autonomous System (AS)**: Μια ομάδα routers που τελεί υπό κοινή τεχνική και διοικητική διαχείριση (π.χ., το δίκτυο ενός ISP ή ενός Πανεπιστημίου).
-- **Εσωτερική Δρομολόγηση (Intra-AS / Interior Gateway Protocols - IGP)**: Δρομολόγηση εντός του ίδιου AS. Δίνει έμφαση στην απόδοση και την ταχύτητα. Παραδείγματα: OSPF, RIP.
-- **Εξωτερική Δρομολόγηση (Inter-AS / Exterior Gateway Protocols - EGP)**: Δρομολόγηση μεταξύ διαφορετικών AS. Δίνει έμφαση στις πολιτικές (policy-based routing), στις επιχειρηματικές συμφωνίες και στην ασφάλεια. Το de facto πρότυπο είναι το **BGP (Border Gateway Protocol)**.
+### Hierarchical Routing Architecture (Autonomous Systems)
 
-#### Σύγκριση Link-State και Distance-Vector
+Internet routing is organized hierarchically into **Autonomous Systems (AS)**:
+- **Autonomous System (AS)**: A group of routers under common administrative control.
+- **Intra-AS Routing (IGP)**: Routing within an AS prioritizing performance (OSPF, RIP).
+- **Inter-AS Routing (EGP)**: Routing between ASes prioritizing policies and business agreements (**BGP**).
 
-| Χαρακτηριστικό | Link-State (LS) | Distance-Vector (DV) |
-|---|---|---|
-| **Γνώση Τοπολογίας** | Πλήρης γνώση ολόκληρου του δικτύου (καθολική) | Μόνο άμεσοι γείτονες και οι εκτιμήσεις τους (τοπική) |
-| **Βασικός Αλγόριθμος** | Dijkstra | Bellman-Ford |
-| **Ταχύτητα Σύγκλισης** | Γρήγορη σύγκλιση (γρήγορη ενημέρωση) | Αργή σύγκλιση, πιθανότητα βρόχων (routing loops) |
-| **Προβλήματα** | Υψηλό overhead λόγω Link-State Advertisements (LSAs) | Πρόβλημα "μέτρησης στο άπειρο" (count-to-infinity) |
-| **Παράδειγμα Πρωτοκόλλου** | OSPF | RIP, EIGRP |
+---
 
-### Αριθμητικό Παράδειγμα: Αλγόριθμος Dijkstra
+### Worked Numerical Example: Dijkstra's Algorithm
 
-Έστω το παρακάτω δίκτυο με 6 κόμβους ($u, v, w, x, y, z$) και τα αντίστοιχα κόστη συνδέσμων:
+**Network Topology Costs:**
+- $u \to v: 2$, $u \to x: 1$
+- $x \to v: 2$, $x \to y: 1$
+- $v \to w: 3$, $v \to y: 3$
+- $y \to w: 1$, $y \to z: 2$
+- $w \to z: 5$
+
+**Source Node:** $u$
 
 ```
           2           3
@@ -210,56 +199,7 @@ $$D_x(y) = \min_v \{ c(x,v) + D_v(y) \}$$
           1           2
 ```
 
-Θέλουμε να βρούμε τις συντομότερες διαδρομές από τον κόμβο-πηγή $u$ προς όλους τους άλλους κόμβους χρησιμοποιώντας τον αλγόριθμο Dijkstra.
-
-#### Ορισμοί:
-- $N'$: Το σύνολο των κόμβων των οποίων η συντομότερη διαδρομή έχει ήδη βρεθεί.
-- $D(v)$: Το τρέχον κόστος της συντομότερης διαδρομής από την πηγή $u$ στον προορισμό $v$.
-- $p(v)$: Ο προηγούμενος κόμβος (parent) του $v$ στη συντομότερη διαδρομή.
-
-#### Βήματα Υπολογισμού:
-
-1. **Αρχικοποίηση**:
-   - $N' = \{u\}$
-   - Για τους άμεσους γείτονες του $u$:
-     - $D(v) = 2, p(v) = u$
-     - $D(x) = 1, p(x) = u$
-     - $D(w) = \infty, p(w) = \text{undefined}$
-     - $D(y) = \infty, p(y) = \text{undefined}$
-     - $D(z) = \infty, p(z) = \text{undefined}$
-
-2. **Βήμα 1**:
-   - Επιλέγουμε κόμβο $w \notin N'$ με το ελάχιστο $D(w)$. Αυτός είναι ο $x$ ($D(x) = 1$).
-   - Προσθέτουμε τον $x$ στο $N'$. Τώρα $N' = \{u, x\}$.
-   - Ενημερώνουμε τα κόστη των γειτόνων του $x$ που δεν ανήκουν στο $N'$ ($v, y$):
-     - $D(v) = \min(D(v), D(x) + c(x,v)) = \min(2, 1 + 2) = 2$ (δεν αλλάζει, προτιμάται η διαδρομή $u \to v$)
-     - $D(y) = \min(D(y), D(x) + c(x,y)) = \min(\infty, 1 + 1) = 2, p(y) = x$
-
-3. **Βήμα 2**:
-   - Επιλέγουμε κόμβο εκτός $N'$ με ελάχιστο κόστος. Έχουμε $D(v) = 2$ και $D(y) = 2$. Επιλέγουμε αυθαίρετα τον $v$.
-   - $N' = \{u, x, v\}$.
-   - Ενημερώνουμε τους γείτονες του $v$ ($w, y$):
-     - $D(w) = \min(D(w), D(v) + c(v,w)) = \min(\infty, 2 + 3) = 5, p(w) = v$
-     - $D(y) = \min(D(y), D(v) + c(v,y)) = \min(2, 2 + 3) = 2$ (δεν αλλάζει)
-
-4. **Βήμα 3**:
-   - Επιλέγουμε τον επόμενο κόμβο εκτός $N'$ με το ελάχιστο κόστος, που είναι ο $y$ ($D(y) = 2$).
-   - $N' = \{u, x, v, y\}$.
-   - Ενημερώνουμε τους γείτονες του $y$ ($w, z$):
-     - $D(w) = \min(D(w), D(y) + c(y,w)) = \min(5, 2 + 1) = 3, p(w) = y$ (βελτιώθηκε!)
-     - $D(z) = \min(D(z), D(y) + c(y,z)) = \min(\infty, 2 + 2) = 4, p(z) = y$
-
-5. **Βήμα 4**:
-   - Επιλέγουμε τον $w$ ($D(w) = 3$).
-   - $N' = \{u, x, v, y, w\}$.
-   - Ενημερώνουμε τον γείτονα $z$:
-     - $D(z) = \min(D(z), D(w) + c(w,z)) = \min(4, 3 + 5) = 4$ (δεν αλλάζει)
-
-6. **Βήμα 5**:
-   - Επιλέγουμε τον τελευταίο κόμβο $z$ ($D(z) = 4$).
-   - $N' = \{u, x, v, y, w, z\}$. Ο αλγόριθμος τερματίζει.
-
-#### Πίνακας Εκτέλεσης Αλγορίθμου Dijkstra:
+#### Step-by-Step Dijkstra Execution Table:
 
 | Step | $N'$ | $D(v), p(v)$ | $D(w), p(w)$ | $D(x), p(x)$ | $D(y), p(y)$ | $D(z), p(z)$ |
 |:---:|---|:---:|:---:|:---:|:---:|:---:|
@@ -270,324 +210,168 @@ $$D_x(y) = \min_v \{ c(x,v) + D_v(y) \}$$
 | 4 | $\{u, x, v, y, w\}$ | | | | | $4, y$ |
 | 5 | $\{u, x, v, y, w, z\}$ | | | | | |
 
-**Αποτέλεσμα**: Η συντομότερη διαδρομή από τον $u$ στον $z$ έχει συνολικό κόστος $4$ και είναι η: **$u \to x \to y \to z$**.
+**Result**: The shortest path from $u$ to $z$ has a total cost of **$4$**: path **$u \to x \to y \to z$**.
 
 ---
 
-## Ανίχνευση σφαλμάτων
+## Error Detection
 *Error Detection*
 
-Κατά τη μετάδοση δεδομένων μέσω φυσικών μέσων (π.χ. χαλκός, αέρας), ο θόρυβος, οι παρεμβολές και η εξασθένηση του σήματος μπορούν να αλλοιώσουν τα bits (να αλλάξουν ένα `0` σε `1` ή το αντίστροφο). Η ανίχνευση σφαλμάτων επιτρέπει στον παραλήπτη να καταλάβει αν τα δεδομένα αλλοιώθηκαν, ώστε να ζητήσει επαναμετάδοση ή να τα απορρίψει.
+Transmission over noisy physical media can invert bits ($0 \to 1$ or $1 \to 0$). Error detection allows receivers to identify corrupted frames and drop or request retransmission.
+
+---
+
+### Parity Checking
+
+- **Single Parity Bit**: Appends 1 bit to data. In **even parity**, the total number of 1s in the frame is made even; in **odd parity**, odd. Detects single-bit errors (or odd numbers of bit errors).
+- **Two-Dimensional Parity**: Arranges data into rows and columns, calculating parity per row and column. Can detect and **correct** single-bit errors (Forward Error Correction - FEC).
+
+---
+
+### Hamming Code
+
+**Hamming Code** is a Forward Error Correction scheme that detects and corrects single-bit errors by placing parity bits at power-of-two positions ($1, 2, 4, 8 \dots$).
+
+**Example (Odd Parity for Data `1110`):**
+Data bits placed at non-power-of-two positions: `[P1] [P2] [1] [P4] [1] [1] [0]`.
+- **P1** checks positions 1, 3, 5, 7 (`P1`, `1`, `1`, `0`): Requires odd number of 1s $\to$ **P1 = 1**.
+- **P2** checks positions 2, 3, 6, 7 (`P2`, `1`, `1`, `0`) $\to$ **P2 = 1**.
+- **P4** checks positions 4, 5, 6, 7 (`P4`, `1`, `1`, `0`) $\to$ **P4 = 1**.
+
+Transmitted Hamming Codeword: **`1 1 1 1 1 1 0`**.
+
+---
+
+### Internet Checksum
+
+Used in IP, TCP, and UDP protocols.
+1. Data split into 16-bit integers.
+2. Summed using **1s complement arithmetic** (end-around carry added back to LSB).
+3. Bitwise NOT applied to sum to generate checksum.
+4. Receiver adds 16-bit words including checksum; result must be all 1s (`1111111111111111`).
+
+---
+
+### Cyclic Redundancy Check (CRC)
+
+**CRC** uses polynomial division in Galois Field arithmetic (XOR operations) implemented in hardware shift registers.
+
+#### Mechanism:
+1. Sender and receiver agree on a **generator polynomial $G$** of length $r+1$ bits.
+2. Sender appends $r$ zeros to data $D$ ($D \cdot 2^r$).
+3. Performs modulo-2 division of $D \cdot 2^r$ by $G$.
+4. The remainder $R$ ($r$ bits) is appended to data: Transmitted frame $T = D \cdot 2^r \oplus R$.
+5. Receiver divides $T$ by $G$. Zero remainder indicates no errors.
+
+---
+
+### Worked Numerical Example: CRC Calculation
+
+Data $D = 101001$, Generator $G = 1101$ ($r = 3$).
+
+1. **Appended Data:** $D \cdot 2^3 = 101001000$
+2. **Modulo-2 Division ($101001000 \div 1101$ using XOR):**
 
 ```
-  Διαδικασία Ανίχνευσης Σφαλμάτων
-  ──────────────────────────────────────────────────────────────────────────
-  [Αποστολέας]                                            [Παραλήπτης]
-  Data (D) ───► Υπολογισμός ──► Transmitted ──► Κανάλι ──► Λήψη T' ──► Division
-                Redundancy (R)  Codeword (T)    (Θόρυβος)             by G
-                                                                           │
-                                                                           ▼
-                                                             Remainder = 0?
-                                                             YES -> OK
-                                                             NO  -> Error!
-```
-
-### Έλεγχος Ισοτιμίας (Parity Checking)
-
-Ο **έλεγχος ισοτιμίας (parity checking)** είναι η απλούστερη μορφή ανίχνευσης σφαλμάτων.
-- **Απλός Έλεγχος Ισοτιμίας (Single Parity Bit)**: Προστίθεται $1$ επιπλέον bit στο τέλος των δεδομένων. 
-  - Στην **άρτια ισοτιμία (even parity)**, το parity bit επιλέγεται έτσι ώστε ο συνολικός αριθμός των άσων (`1`) στο block (δεδομένα + parity) να είναι άρτιος.
-  - Στην **περιττή ισοτιμία (odd parity)**, ο αριθμός των άσων πρέπει να είναι περιττός.
-  - **Περιορισμός**: Ανιχνεύει μόνο μονό αριθμό σφαλμάτων (π.χ. αλλοίωση 1 bit, 3 bits κτλ). Αν αλλοιωθούν ακριβώς 2 bits, η ισοτιμία παραμένει σωστή και το σφάλμα δεν ανιχνεύεται.
-- **Δισδιάστατος Έλεγχος Ισοτιμίας (Two-Dimensional Parity)**: Τα δεδομένα χωρίζονται σε γραμμές και στήλες (πίνακας). Υπολογίζεται ένα parity bit για κάθε γραμμή και ένα για κάθε στήλη.
-  - **Πλεονέκτημα**: Μπορεί όχι μόνο να ανιχνεύσει αλλά και να **διορθώσει** ένα σφάλμα 1 bit (Forward Error Correction - FEC). Το σφάλμα εντοπίζεται στη διασταύρωση της γραμμής και της στήλης που παρουσιάζουν αποτυχία ισοτιμίας.
-
-### Κώδικας Hamming (Hamming Code)
-
-Ο **Κώδικας Hamming** είναι ένας κώδικας διόρθωσης σφαλμάτων (Forward Error Correction) που μπορεί να ανιχνεύσει και να διορθώσει σφάλματα ενός bit. Λειτουργεί παρεμβάλλοντας bit ισοτιμίας (parity bits) σε συγκεκριμένες θέσεις μέσα στα δεδομένα.
-
-**Αλγόριθμος Υπολογισμού (Για αποστολέα):**
-1. **Θέσεις των Parity Bits:** Τα bits ισοτιμίας τοποθετούνται στις θέσεις που είναι δυνάμεις του 2 (δηλαδή στις θέσεις 1, 2, 4, 8, 16...). 
-2. **Θέσεις των Data Bits:** Τα bits δεδομένων συμπληρώνουν τα υπόλοιπα κενά (θέσεις 3, 5, 6, 7, 9, 10, 11...).
-3. **Υπολογισμός Κάθε Parity Bit:** Κάθε bit ισοτιμίας ελέγχει συγκεκριμένα bits. Για να βρούμε ποια bits ελέγχει το parity bit της θέσης $n$:
-   - Ελέγχουμε τις θέσεις των οποίων η δυαδική αναπαράσταση έχει "1" στη θέση που αντιστοιχεί στη δύναμη του 2 του parity bit.
-   - Απλοποιημένος Κανόνας: Ξεκινάμε από τη θέση $n$, ελέγχουμε $n$ bits, προσπερνάμε $n$ bits, ελέγχουμε $n$ bits κ.ο.κ.
-     - **P1** (Θέση 1): Ελέγχει θέσεις 1, 3, 5, 7, 9, 11...
-     - **P2** (Θέση 2): Ελέγχει θέσεις 2, 3, 6, 7, 10, 11...
-     - **P4** (Θέση 4): Ελέγχει θέσεις 4, 5, 6, 7, 12, 13...
-     - **P8** (Θέση 8): Ελέγχει θέσεις 8-15, 24-31...
-4. **Καθορισμός Τιμής:** Η τιμή του parity bit ορίζεται ώστε να ικανοποιεί τον επιθυμητό κανόνα (π.χ. Άρτια ή Περιττή Ισοτιμία) για το σύνολο των bits που ελέγχει.
-
-**Παράδειγμα (Περιττή Ισοτιμία - Odd Parity):**
-Έστω η λέξη δεδομένων `1110`. Θέλουμε να δημιουργήσουμε τον κώδικα Hamming με περιττή ισοτιμία.
-- Τα δεδομένα έχουν 4 bits. Χρειαζόμαστε 3 parity bits (αφού $2^3 \ge 4 + 3 + 1$). Άρα συνολικό μήκος: 7 bits.
-- Μορφή: `[P1] [P2] [D1] [P4] [D2] [D3] [D4]` $\to$ `[P1] [P2] [1] [P4] [1] [1] [0]`
-
-Υπολογισμός (Περιττή Ισοτιμία σημαίνει ότι το πλήθος των '1' πρέπει να είναι **μονός αριθμός**):
-- **P1** ελέγχει θέσεις 1, 3, 5, 7: `P1`, `1`, `1`, `0`. Έχουμε δύο '1'. Για να γίνουν περιττά (τρία '1'), το `P1` πρέπει να είναι **1**.
-- **P2** ελέγχει θέσεις 2, 3, 6, 7: `P2`, `1`, `1`, `0`. Έχουμε δύο '1'. Άρα `P2 = 1`.
-- **P4** ελέγχει θέσεις 4, 5, 6, 7: `P4`, `1`, `1`, `0`. Έχουμε δύο '1'. Άρα `P4 = 1`.
-
-Τελικός Κώδικας Hamming προς μετάδοση: **`1 1 1 1 1 1 0`**.
-
-### Άθροισμα Ελέγχου Διαδικτύου (Internet Checksum)
-
-Το **άθροισμα ελέγχου (Internet Checksum)** χρησιμοποιείται ευρέως στα πρωτόκολλα της οικογένειας TCP/IP (IP, TCP, UDP) στο επίπεδο μεταφοράς και δικτύου.
-- **Λειτουργία**: 
-  1. Τα δεδομένα χωρίζονται σε τμήματα των 16 bits.
-  2. Τα τμήματα αυτά προστίθενται χρησιμοποιώντας **αριθμητική συμπληρώματος ως προς 1 (ones' complement arithmetic)**. Κατά την πρόσθεση αυτή, οποιοδήποτε κρατούμενο (carry) προκύπτει από το σημαντικότερο bit (MSB) προστίθεται ξανά στο λιγότερο σημαντικό bit (LSB).
-  3. Στο τέλος, εφαρμόζεται η δυαδική άρνηση (NOT) στο άθροισμα. Αυτό το αποτέλεσμα είναι το checksum.
-  4. Ο παραλήπτης προσθέτει όλα τα ληφθέντα τμήματα μαζί με το checksum. Αν δεν υπάρχουν σφάλματα, το αποτέλεσμα πρέπει να είναι ένας αριθμός με όλους τους άσους (`1111111111111111`).
-- **Χαρακτηριστικά**: Είναι εύκολο και γρήγορο στον υπολογισμό μέσω λογισμικού (software), αλλά έχει χαμηλότερη ικανότητα ανίχνευσης σε σχέση με το CRC.
-
-### Κυκλικός Έλεγχος Πλεονασμού (Cyclic Redundancy Check - CRC)
-
-Ο **κυκλικός έλεγχος πλεονασμού (Cyclic Redundancy Check - CRC)** είναι μια εξαιρετικά ισχυρή μέθοδος που βασίζεται στη θεωρία των πολυωνύμων και εκτελείται ταχύτατα σε επίπεδο υλικού (hardware) με χρήση καταχωρητών ολίσθησης (shift registers). Χρησιμοποιείται στο Ethernet και στο Wi-Fi.
-
-#### Λογική Λειτουργίας:
-1. Ο αποστολέας και ο παραλήπτης συμφωνούν εκ των προτέρων σε ένα **γεννήτορα πολυώνυμο (generator polynomial)**, το οποίο αναπαρίσταται ως δυαδικό string $G$ μήκους $r+1$ bits (βαθμού $r$).
-2. Έστω $D$ τα δεδομένα μήκους $d$ bits.
-3. Ο αποστολέας προσθέτει $r$ μηδενικά στο τέλος των δεδομένων $D$ (πολλαπλασιάζοντας τα δεδομένα με το $2^r$).
-4. Διαιρεί το string $D \cdot 2^r$ με το $G$ χρησιμοποιώντας **διαίρεση modulo-2** (όπου η αφαίρεση αντικαθίσταται από την πράξη XOR).
-5. Το υπόλοιπο της διαίρεσης αυτής, έστω $R$ (μήκους $r$ bits), αποτελεί τα bit πλεονασμού (CRC).
-6. Ο αποστολέας μεταδίδει το string $T = D \cdot 2^r \oplus R$ (τα δεδομένα $D$ ακολουθούμενα από το υπόλοιπο $R$).
-7. Ο παραλήπτης διαιρεί το ληφθέν string με το $G$. Αν το υπόλοιπο είναι $0$, τα δεδομένα θεωρούνται έγκυρα. Αν είναι διάφορο του μηδενός, έχει συμβεί σφάλμα.
-
-**Αναλογία**: Το CRC μοιάζει με τον έλεγχο ταυτότητας όπου συμφωνείτε να στείλετε έναν αριθμό που πρέπει να διαιρείται ακριβώς με το 7. Αν ο παραλήπτης κάνει τη διαίρεση και βρει υπόλοιπο, ξέρει ότι ο αριθμός αλλοιώθηκε κατά τη διαδρομή.
-
-#### Σύγκριση Μεθόδων Ανίχνευσης Σφαλμάτων
-
-| Χαρακτηριστικό | Parity Bit | Internet Checksum | CRC (Cyclic Redundancy Check) |
-|---|---|---|---|
-| **Πολυπλοκότητα Υλοποίησης** | Ελάχιστη | Χαμηλή (ιδανική για software) | Μέτρια (σε software) / Πολύ χαμηλή (σε hardware) |
-| **Πλεονασμός (Overhead)** | 1 bit ανά byte ή block | 16 bits ανά πακέτο | $r$ bits ανά πλαίσιο (συνήθως 32 bits) |
-| **Ανίχνευση Σφαλμάτων** | Μόνο μονά σφάλματα | Καλή, αλλά αποτυγχάνει σε αναδιατάξεις bytes | Εξαιρετική, ανιχνεύει ριπές σφαλμάτων (burst errors) |
-| **Διόρθωση Σφαλμάτων** | Όχι (μόνο στη δισδιάστατη) | Όχι | Όχι |
-| **Πού Χρησιμοποιείται** | Legacy συστήματα, RAM | IP, TCP, UDP | Ethernet, Wi-Fi, Storage (SATA/USB) |
-
-### Αριθμητικό Παράδειγμα: Υπολογισμός CRC
-
-Έστω ότι θέλουμε να μεταδώσουμε τα δεδομένα $D = 101001$ και έχουμε συμφωνήσει στο γεννήτορα πολυώνυμο $G = 1101$.
-
-#### 1. Προσδιορισμός παραμέτρων:
-- Δεδομένα $D = 101001$ ($d = 6$ bits)
-- Γεννήτορας $G = 1101$ (μήκος $r+1 = 4$ bits, άρα $r = 3$)
-- Προσθέτουμε $r = 3$ μηδενικά στο $D$, παράγοντας το $D \cdot 2^r = 101001000$.
-
-#### 2. Διαίρεση Modulo-2 (πράξεις XOR):
-
-```
-            101101  (Πηλίκο - δεν μας ενδιαφέρει)
-     ───────┐─────────────────
-1101 │ 101001000
-       1101
-       ─────
-       01110      <-- XOR του 1010 με 1101 (το πρώτο bit είναι 0, ολισθαίνουμε)
+             101101  (Quotient)
+      ───────┐─────────────────
+ 1101 │ 101001000
         1101
-        ────
-        00111     <-- XOR
-         0000     <-- Επειδή το MSB είναι 0, διαιρούμε με 0000 (ή απλά ολισθαίνουμε)
+        ─────
+        01110
+         1101
          ────
-         01110    <-- Κατεβάζουμε το επόμενο bit (0)
-          1101
+         00111
+          0000
           ────
-          00110   <-- XOR
+          01110
            1101
            ────
-           0101   <-- XOR (Υπόλοιπο R = 011, μήκους r = 3 bits)
-```
-
-*Αναλυτικότερα τα βήματα της modulo-2 διαίρεσης:*
-- $101001000 \div 1101$
-- Το $1101$ χωράει στο $1010$ (MSB = 1): $1010 \oplus 1101 = 111$. Κατεβάζουμε το επόμενο bit `0` $\to 1110$.
-- Το $1101$ χωράει στο $1110$ (MSB = 1): $1110 \oplus 1101 = 011$. Κατεβάζουμε το επόμενο bit `1` $\to 111$.
-- Το $1101$ δεν χωράει στο $0111$ (MSB = 0): $111 \oplus 0000 = 111$. Κατεβάζουμε το επόμενο bit `0` $\to 1110$.
-- Το $1101$ χωράει στο $1110$ (MSB = 1): $1110 \oplus 1101 = 011$. Κατεβάζουμε το επόμενο bit `0` $\to 110$.
-- Το $1101$ δεν χωράει στο $0110$ (MSB = 0): $110 \oplus 0000 = 110$. Κατεβάζουμε το επόμενο bit `0` $\to 1100$.
-- Το $1101$ χωράει στο $1100$ (MSB = 1): $1100 \oplus 1101 = 011$.
-- Το τελικό υπόλοιπο είναι **$R = 011$**.
-
-#### 3. Κωδικολέξη προς Μετάδοση:
-Ο αποστολέας στέλνει το $T = D \cdot 2^r \oplus R = 101001011$.
-
-#### 4. Επαλήθευση στον Παραλήπτη:
-Ο παραλήπτης λαμβάνει το $T' = 101001011$ και εκτελεί τη διαίρεση με το $G = 1101$:
-
-```
-            101101
-     ───────┐─────────────────
-1101 │ 101001011
-       1101
-       ─────
-        1110
-        1101
-        ────
-         0111
-         0000
-         ────
-          1111
-          1101
-          ────
-           0101
-           0000
-           ────
-            1011
+           00110
             1101
             ────
-            0000  <-- Υπόλοιπο = 0 (Τα δεδομένα είναι ορθά!)
+            0101
+            0000
+            ────
+             011  (Remainder R = 011)
 ```
 
-Επειδή το υπόλοιπο της διαίρεσης είναι **$0$**, ο παραλήπτης αποδέχεται τα δεδομένα.
+3. **Transmitted Codeword:** $T = 101001011$
+4. **Receiver Verification:** $101001011 \div 1101$ yields remainder **`000`** $\to$ Data accepted cleanly.
 
 ---
 
-## Ασφάλεια και κρυπτογραφία
+## Security and Cryptography
 *Security and Cryptography*
 
-Η ασφάλεια δικτύων (network security) αποσκοπεί στη διασφάλιση τεσσάρων βασικών ιδιοτήτων κατά την επικοινωνία:
-1. **Εμπιστευτικότητα (Confidentiality)**: Μόνο ο αποστολέας και ο παραλήπτης μπορούν να κατανοήσουν το περιεχόμενο του μηνύματος.
-2. **Ακεραιότητα (Integrity)**: Διασφάλιση ότι το μήνυμα δεν τροποποιήθηκε κατά τη μεταφορά.
-3. **Πιστοποίηση (Authentication)**: Επιβεβαίωση της ταυτότητας των συνομιλητών.
-4. **Μη αποποίηση ευθύνης (Non-repudiation)**: Ο αποστολέας δεν μπορεί να αρνηθεί ότι έστειλε το μήνυμα.
-
-### Συμμετρική Κρυπτογραφία (Symmetric-Key Cryptography)
-
-Στη **συμμετρική κρυπτογραφία (symmetric-key cryptography)**, ο αποστολέας και ο παραλήπτης μοιράζονται το **ίδιο μυστικό κλειδί** ($K$) για την κρυπτογράφηση και την αποκρυπτογράφηση.
-
-```
-  Συμμετρική Κρυπτογραφία
-  ──────────────────────────────────────────────────────────────────────────
-  [Αποστολέας]                                            [Παραλήπτης]
-  Plaintext (M) ──► Κρυπτογράφηση ──► Ciphertext (C) ──► Αποκρυπτογράφηση ──► Plaintext (M)
-                         ▲                                     ▲
-                         │                                     │
-                 Shared Key (K) ───────────────────────► Shared Key (K)
-```
-
-- **Λειτουργία**: 
-  - Κρυπτογράφηση: $C = E_K(M)$
-  - Αποκρυπτογράφηση: $M = D_K(C)$
-- **Πλεονέκτημα**: Είναι εξαιρετικά γρήγορη και αποδοτική, κατάλληλη για κρυπτογράφηση μεγάλου όγκου δεδομένων σε πραγματικό χρόνο.
-- **Μειονέκτημα**: Το **πρόβλημα διανομής κλειδιών (key distribution problem)**. Πώς θα συμφωνήσουν οι δύο πλευρές στο κοινό κλειδί με ασφάλεια μέσω ενός ανασφαλούς δικτύου;
-- **Παραδείγματα**: **AES (Advanced Encryption Standard)**, DES, 3DES, RC4.
-
-**Αναλογία**: Είναι σαν ένα χρηματοκιβώτιο που κλειδώνει και ξεκλειδώνει με το ίδιο ακριβώς φυσικό κλειδί. Πρέπει με κάποιο τρόπο να δώσετε ένα αντίγραφο του κλειδιού στον φίλο σας χωρίς να σας το κλέψει κανείς.
-
-### Ασύμμετρη Κρυπτογραφία (Public-Key Cryptography)
-
-Στην **ασύμμετρη κρυπτογραφία (asymmetric / public-key cryptography)**, κάθε χρήστης διαθέτει ένα **ζεύγος κλειδιών**:
-1. **Δημόσιο Κλειδί (Public Key - $K^+$)**: Είναι γνωστό σε όλους. Χρησιμοποιείται για την κρυπτογράφηση των μηνυμάτων προς αυτόν τον χρήστη.
-2. **Ιδιωτικό Κλειδί (Private Key - $K^-$)**: Διατηρείται αυστηρά μυστικό από τον κάτοχο. Χρησιμοποιείται για την αποκρυπτογράφηση.
-
-```
-  Ασύμμετρη Κρυπτογραφία
-  ──────────────────────────────────────────────────────────────────────────
-  [Αποστολέας]                                            [Παραλήπτης]
-  Plaintext (M) ──► Κρυπτογράφηση ──► Ciphertext (C) ──► Αποκρυπτογράφηση ──► Plaintext (M)
-                         ▲                                     ▲
-                         │                                     │
-                 Receiver's Public                     Receiver's Private
-                     Key (K_B+)                            Key (K_B-)
-```
-
-- **Λειτουργία**: 
-  - Αν ο Αλκίνοος θέλει να στείλει μήνυμα στη Βαλέρια, το κρυπτογραφεί με το δημόσιο κλειδί της Βαλέριας ($K_B^+$): $C = E_{K_B^+}(M)$.
-  - Μόνο η Βαλέρια μπορεί να το αποκρυπτογραφήσει χρησιμοποιώντας το ιδιωτικό κλειδί της ($K_B^-$): $M = D_{K_B^-}(C)$.
-- **Πλεονέκτημα**: Λύνει πλήρως το πρόβλημα διανομής κλειδιών, καθώς τα δημόσια κλειδιά μπορούν να μεταδοθούν ελεύθερα.
-- **Μειονέκτημα**: Είναι υπολογιστικά βαριά και αργή (έως και 1000 φορές πιο αργή από τη συμμετρική).
-- **Υβριδικά Συστήματα (Hybrid Systems)**: Στην πράξη, η ασύμμετρη κρυπτογραφία χρησιμοποιείται μόνο για την ασφαλή ανταλλαγή ενός προσωρινού συμμετρικού κλειδιού (**session key**). Στη συνέχεια, η επικοινωνία κρυπτογραφείται με συμμετρικό αλγόριθμο (π.χ., AES).
-- **Παραδείγματα**: **RSA (Rivest-Shamir-Adleman)**, Diffie-Hellman, Elliptic Curve Cryptography (ECC).
-
-**Αναλογία**: Το δημόσιο κλειδί είναι σαν ένα ανοιχτό λουκέτο που το δίνετε σε όλο τον κόσμο. Οποιοσδήποτε μπορεί να βάλει ένα γράμμα σε ένα κουτί και να το κλειδώσει με το λουκέτο σας. Όμως, μόνο εσείς που έχετε το μοναδικό κλειδί (ιδιωτικό κλειδί) μπορείτε να ξεκλειδώσετε το λουκέτο και να διαβάσετε το γράμμα.
-
-### Ψηφιακές Υπογραφές και Πιστοποιητικά (Digital Signatures & Certificates)
-
-#### Ψηφιακές Υπογραφές (Digital Signatures)
-Η **ψηφιακή υπογραφή (digital signature)** παρέχει ακεραιότητα, πιστοποίηση προέλευσης και μη αποποίηση ευθύνης.
-- **Λειτουργία**: 
-  1. Ο αποστολέας περνά το μήνυμα από μια **κρυπτογραφική συνάρτηση κατακερματισμού (cryptographic hash function)** όπως η SHA-256, παράγοντας μια σύνοψη σταθερού μήκους (digest).
-  2. Ο αποστολέας κρυπτογραφεί τη σύνοψη με το **ιδιωτικό του κλειδί** ($K^-$). Αυτό το κρυπτογραφημένο hash είναι η ψηφιακή υπογραφή.
-  3. Ο παραλήπτης αποκρυπτογραφεί την υπογραφή με το **δημόσιο κλειδί του αποστολέα** ($K^+$), υπολογίζει ξανά το hash του μηνύματος και τα συγκρίνει. Αν ταυτίζονται, το μήνυμα είναι αυθεντικό και δεν έχει αλλοιωθεί.
-
-```
-  Διαδικασία Δημιουργίας Ψηφιακής Υπογραφής
-  ──────────────────────────────────────────────────────────────────────────
-  Message (M) ──► Hash Function (SHA-256) ──► Digest ──► Encrypt with ──► Signature
-                                                         Private Key (K-)
-```
-
-#### Ψηφιακά Πιστοποιητικά (Digital Certificates)
-Πώς ξέρουμε ότι ένα δημόσιο κλειδί ανήκει όντως σε αυτόν που ισχυρίζεται (π.χ., στην τράπεζά μας και όχι σε έναν ενδιάμεσο επιτιθέμενο);
-- **Ορισμός**: Το **ψηφιακό πιστοποιητικό (digital certificate)** συνδέει μια οντότητα (π.χ., domain name) με το δημόσιο κλειδί της.
-- **Certificate Authority (CA)**: Μια έμπιστη τρίτη οντότητα (Αρχή Πιστοποίησης) που επαληθεύει την ταυτότητα του κατόχου και **υπογράφει ψηφιακά** το πιστοποιητικό με το δικό της ιδιωτικό κλειδί. Τα προγράμματα περιήγησης (browsers) διαθέτουν προεγκατεστημένα τα δημόσια κλειδιά των έμπιστων CAs για να επαληθεύουν τα πιστοποιητικά αυτά.
-
-### Πρωτόκολλα Ασφάλειας (SSL/TLS, IPsec)
-
-Τα κρυπτογραφικά εργαλεία ενσωματώνονται σε πρωτόκολλα για την ασφάλεια των δικτύων:
-
-- **SSL/TLS (Secure Sockets Layer / Transport Layer Security)**:
-  - Λειτουργεί πάνω από το επίπεδο μεταφοράς (TCP) και κάτω από το επίπεδο εφαρμογής.
-  - Παρέχει ένα ασφαλές κανάλι (secure channel) επικοινωνίας. Χρησιμοποιείται για το **HTTPS** (θύρα 443).
-  - Περιλαμβάνει τη φάση χειραψίας (**TLS Handshake**) για την ανταλλαγή πιστοποιητικών και την παραγωγή του session key, και τη φάση μεταφοράς δεδομένων (Record Protocol) με συμμετρική κρυπτογράφηση.
-- **IPsec (Internet Protocol Security)**:
-  - Λειτουργεί στο επίπεδο δικτύου (Layer 3).
-  - Κρυπτογραφεί και πιστοποιεί όλα τα πακέτα IP μεταξύ δύο κόμβων (hosts ή routers).
-  - Χρησιμοποιείται κυρίως για τη δημιουργία **VPN (Virtual Private Networks)**.
-
-#### Πρωτόκολλο Αλληλεπίδρασης TLS Handshake (Απλουστευμένη Μορφή)
-
-```
-  Client                                                            Server
-    │                                                                 │
-    ├────────── ClientHello (Cipher Suites, Random Value) ───────────►│
-    │                                                                 │
-    │◄───────── ServerHello, Certificate, ServerKeyExchange ──────────┤
-    │          (Contains Server's Public Key)                         │
-    │                                                                 │
-    │  [Verifies Certificate with built-in CA list]                   │
-    │  [Generates Pre-Master Secret, encrypts with Server Public Key] │
-    │                                                                 │
-    ├────────── ClientKeyExchange (Encrypted Pre-Master) ────────────►│
-    │                                                                 │
-    │                                     [Decrypts Pre-Master with   │
-    │                                      its Private Key]           │
-    │                                     [Both derive Session Key]   │
-    │                                                                 │
-    ├────────── ChangeCipherSpec & Finished (Encrypted) ─────────────►│
-    │                                                                 │
-    │◄───────── ChangeCipherSpec & Finished (Encrypted) ──────────────┤
-    │                                                                 │
-    │◄====================== Secure Session =========================►│
-    │               (Symmetric encryption with Session Key)           │
-```
+Network security enforces **Confidentiality**, **Integrity**, **Authentication**, and **Non-repudiation**.
 
 ---
 
-## Συγκεντρωτικός Πίνακας
+### Symmetric-Key Cryptography
 
-| Έννοια | Ορισμός | Κύριο Χαρακτηριστικό |
+Sender and receiver share a **single secret key ($K$)** for encryption and decryption.
+- Encryption: $C = E_K(M)$
+- Decryption: $M = D_K(C)$
+- **Pros:** Fast and efficient (e.g. **AES**, DES).
+- **Cons:** Key distribution challenge across untrusted channels.
+
+---
+
+### Public-Key Cryptography
+
+Uses asymmetric **key pairs**: **Public Key ($K^+$)** (shared freely) and **Private Key ($K^-$)** (kept secret).
+- Sender encrypts message with receiver's Public Key: $C = E_{K_B^+}(M)$.
+- Receiver decrypts using private key: $M = D_{K_B^-}(C)$.
+- **Pros:** Solves key distribution.
+- **Cons:** Computationally expensive (e.g. **RSA**, ECC).
+- **Hybrid Systems:** Asymmetric encryption securely exchanges a temporary symmetric **session key**, which encrypts payload data via AES.
+
+---
+
+### Digital Signatures & Certificates
+
+#### Digital Signatures
+Ensures integrity, authentication, and non-repudiation.
+1. Sender hashes message $M$ using SHA-256 to produce digest $H(M)$.
+2. Sender encrypts digest with private key ($K^-$): $\text{Sig} = E_{K_A^-}(H(M))$.
+3. Receiver decrypts signature with sender's public key ($K_A^+$) and compares computed digest.
+
+#### Digital Certificates
+A **Digital Certificate** binds a public key to an entity identity, digitally signed by a trusted **Certificate Authority (CA)**.
+
+---
+
+### Security Protocols (SSL/TLS, IPsec)
+
+- **TLS (Transport Layer Security)**: Secures transport connections (HTTPS port 443) via TLS Handshake (certificate verification and session key exchange) and Record Protocol (symmetric encryption).
+- **IPsec**: Secures Layer 3 IP traffic for Virtual Private Networks (VPNs).
+
+---
+
+## Summary Table
+
+| Concept | Definition | Key Feature |
 |---|---|---|
-| **MAC Address** | Φυσική διεύθυνση 48-bit ενσωματωμένη στη NIC. | Επίπεδη δομή, χρησιμοποιείται για τοπική παράδοση (Layer 2). |
-| **IP Address** | Λογική διεύθυνση (32-bit IPv4 / 128-bit IPv6) συσκευής. | Ιεραρχική δομή, χρησιμοποιείται για παγκόσμια δρομολόγηση (Layer 3). |
-| **DNS** | Κατανεμημένο σύστημα ονοματοδοσίας και επίλυσης διευθύνσεων. | Μεταφράζει ανθρωποκεντρικά hostnames σε IP διευθύνσεις (Layer 7). |
-| **ARP** | Πρωτόκολλο αντιστοίχισης λογικών σε φυσικές διευθύνσεις. | Λειτουργεί με broadcasts στο τοπικό δίκτυο για εύρεση MAC. |
-| **Routing** | Καθορισμός της συνολικής διαδρομής ενός πακέτου. | Λειτουργεί στο Control Plane με χρήση αλγορίθμων (Dijkstra, Bellman-Ford). |
-| **Forwarding** | Τοπική μεταφορά πακέτου από είσοδο σε έξοδο router. | Λειτουργεί στο Data Plane σε επίπεδο hardware για μέγιστη ταχύτητα. |
-| **Parity Check** | Μέθοδος ανίχνευσης σφαλμάτων με προσθήκη bit ισοτιμίας. | Πολύ απλή, ανιχνεύει μόνο μονό αριθμό σφαλμάτων bit. |
-| **Checksum** | Άθροισμα συμπληρώματος ως προς 1 για ανίχνευση σφαλμάτων. | Υλοποιείται εύκολα σε software, χρησιμοποιείται σε IP/TCP/UDP. |
-| **CRC** | Ανίχνευση σφαλμάτων με βάση πολυωνυμική διαίρεση. | Εξαιρετικά ισχυρή, ανιχνεύει ριπές σφαλμάτων, υλοποιείται σε hardware. |
-| **Symmetric Key** | Κρυπτογραφία με χρήση κοινού μυστικού κλειδιού. | Πολύ γρήγορη, παρουσιάζει δυσκολία στην ασφαλή διανομή κλειδιών. |
-| **Public Key** | Κρυπτογραφία με χρήση ζεύγους δημόσιου-ιδιωτικού κλειδιού. | Ασφαλής ανταλλαγή, αργή, χρησιμοποιείται για υβριδικά σχήματα. |
-| **Digital Signature** | Κρυπτογραφημένη σύνοψη μηνύματος με ιδιωτικό κλειδί. | Εξασφαλίζει πιστοποίηση προέλευσης και ακεραιότητα δεδομένων. |
-| **TLS/SSL** | Πρωτόκολλο ασφάλειας επιπέδου μεταφοράς. | Χρησιμοποιεί υβριδική κρυπτογραφία για προστασία του HTTPS. |
+| **MAC Address** | 48-bit physical hardware identifier | Layer 2 local subnet delivery |
+| **IP Address** | 32-bit (v4) / 128-bit (v6) logical address | Layer 3 global routing |
+| **DNS** | Distributed domain naming system | Resolves hostnames to IP addresses |
+| **ARP** | Address resolution protocol | Maps IP addresses to MAC addresses via broadcast |
+| **Routing** | Computing end-to-end network paths | Control plane software operation |
+| **Forwarding** | Local packet switching from input to output | Data plane hardware operation |
+| **Parity Check** | Single bit error check | Detects odd number of bit errors |
+| **Checksum** | 1s complement sum of 16-bit words | Used in IP, TCP, UDP transport headers |
+| **CRC** | Polynomial division error detection | Hardware-accelerated, robust against burst errors |
+| **Symmetric Encryption** | Single shared secret key (AES) | High speed payload encryption |
+| **Public-Key Encryption** | Key pair (RSA/ECC) | Solves key exchange |
+| **TLS/SSL** | Transport layer security protocol | Hybrid encryption powering HTTPS |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-* **Διαστρωμάτωση Ταυτοποίησης**: Η ανάγκη για MAC, IP και Hostnames πηγάζει από τη διαστρωμάτωση (layering). Κάθε επίπεδο εξυπηρετεί διαφορετικό σκοπό (τοπική παράδοση, δρομολόγηση, ανθρώπινη χρήση), και τα ARP/DNS εξασφαλίζουν τη μεταξύ τους γέφυρα.
-* **Control vs Data Plane**: Η δρομολόγηση (routing) ανήκει στο control plane και απαιτεί χρόνο για τον υπολογισμό των διαδρομών, ενώ η προώθηση (forwarding) ανήκει στο data plane και πρέπει να εκτελείται ακαριαία από το hardware.
-* **Link-State vs Distance-Vector**: Ο OSPF (Link-State) ανταλλάσσει τοπική πληροφορία με όλους (global view), ενώ ο RIP (Distance-Vector) ανταλλάσσει καθολική πληροφορία μόνο με τους γείτονες (local view).
-* **CRC υπεροχή**: Παρά την απλότητα του Checksum, το CRC είναι το de facto πρότυπο για το Data Link Layer επειδή η πολυωνυμική διαίρεση εγγυάται την ανίχνευση σχεδόν κάθε πιθανής ριπής σφαλμάτων που προκαλείται από φυσικά αίτια.
-* **Υβριδική Κρυπτογραφία**: Όλα τα σύγχρονα πρωτόκολλα ασφαλείας (όπως το TLS) συνδυάζουν την ασύμμετρη κρυπτογραφία (για την αρχική αυθεντικοποίηση και ανταλλαγή κλειδιού) με τη συμμετρική κρυπτογραφία (για τη γρήγορη κρυπτογράφηση των δεδομένων της συνεδρίας).
-* **Έμπιστη Τρίτη Οντότητα**: Η ασύμμετρη κρυπτογραφία είναι ευάλωτη σε επιθέσεις Man-in-the-Middle (MitM) χωρίς τη χρήση Ψηφιακών Πιστοποιητικών υπογεγραμμένων από κοινά αποδεκτές Αρχές Πιστοποίησης (CAs).
+- **Layered Identification**: MAC addresses serve Layer 2 local delivery, IP addresses handle Layer 3 global routing, and Hostnames provide human-readable names; ARP and DNS bridge these layers.
+- **Control vs Data Plane**: Routing algorithms run in software within the control plane, while forwarding executes instantly in data plane hardware.
+- **Link-State vs Distance-Vector**: OSPF (Link-State) floods local link info to all nodes for global topology maps; RIP (Distance-Vector) exchanges full distance tables only with neighbors.
+- **CRC Hardware Strength**: CRC polynomial division reliably catches error bursts over physical media.
+- **Hybrid Cryptography**: Modern security protocols (TLS) combine public-key cryptography for initial handshake key exchange with symmetric-key cryptography for payload encryption.

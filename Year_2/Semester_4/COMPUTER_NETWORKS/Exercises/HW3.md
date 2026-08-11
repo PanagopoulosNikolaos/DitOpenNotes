@@ -1,129 +1,129 @@
-# Δίκτυα Υπολογιστών: HomeWork 3
+# Computer Networks: HomeWork 3
 
 ---
 
-## Σενάριο
-Χρησιμοποιήστε το δίκτυο που σας δίνεται στο **Cisco Packet Tracer** για να διερευνήσετε τη λειτουργία των **PDUs** (Protocol Data Units). 
-Οι συσκευές είναι ήδη διαμορφωμένες. Θα συγκεντρώσετε πληροφορίες PDU σε **λειτουργία προσομοίωσης (Simulation Mode)** και θα απαντήσετε σε μια σειρά ερωτήσεων σχετικά με τα δεδομένα που συλλέγετε. 
+## Scenario
+Use the network provided to you in **Cisco Packet Tracer** to investigate the operation of **PDUs** (Protocol Data Units). 
+The devices are already configured. You will gather PDU information in **Simulation Mode** and answer a series of questions regarding the data you collect. 
 
 ---
 
-## Μέρος 1: Εξετάστε ένα αίτημα ARP
+## Part 1: Examine an ARP Request
 
-### Βήμα 1: Δημιουργήστε αιτήματα ARP κάνοντας ping στο 172.16.31.3 από το 172.16.31.2.
+### Step 1: Create ARP requests by pinging 172.16.31.3 from 172.16.31.2.
 
-- **a.** Κάντε κλικ στον υπολογιστή με IP `172.16.31.2` και ανοίξτε τη γραμμή εντολών (**Command Prompt**).
-- **b.** Εισάγετε την παρακάτω εντολή για να καθαρίσετε τον πίνακα ARP:
+- **a.** Click on the PC with IP `172.16.31.2` and open the **Command Prompt**.
+- **b.** Enter the following command to clear the ARP table:
   ```bash
   arp -d
   ```
-- **c.** Μεταβείτε σε **κατάσταση προσομοίωσης (Simulation Mode)** (βρίσκεται συνήθως στο κάτω δεξιά μέρος της οθόνης) στο Packet Tracer και εισαγάγετε την εντολή:
+- **c.** Switch to **Simulation Mode** (usually located in the lower right part of the screen) in Packet Tracer and enter the command:
   ```bash
   ping 172.16.31.3
   ```
-  > **Σημείωση:** Θα δημιουργηθούν δύο PDUs. Η εντολή ping δεν μπορεί να ολοκληρώσει το πακέτο ICMP χωρίς να γνωρίζει τη διεύθυνση MAC του προορισμού. Έτσι, ο υπολογιστής στέλνει ένα πλαίσιο εκπομπής ARP για να βρει τη διεύθυνση MAC του προορισμού.
-- **d.** Κάντε κλικ στο κουμπί **Capture/Forward** μία φορά.
-  Το ARP PDU μετακινείται στο `Switch1`, ενώ το ICMP PDU εξαφανίζεται, περιμένοντας την απάντηση ARP. Ανοίξτε το PDU κάνοντας κλικ στο χρωματιστό κουτάκι στο γραφικό περιβάλλον και καταγράψτε τη διεύθυνση MAC του προορισμού.
-  > **Ερώτηση d:** Είναι η διεύθυνση αυτή καταχωρημένη στον παραπάνω πίνακα;
-- **e.** Κάντε κλικ στο **Capture/Forward** για να μετακινήσετε το PDU στην επόμενη συσκευή.
-  > **Ερώτηση e:** Πόσα αντίγραφα του PDU δημιούργησε το Switch1;
-- **f.** Παραμένοντας στην ίδια κατάσταση, δείτε τη συσκευή υποδοχής:
-  > **Ερώτηση f:** Ποια είναι η διεύθυνση IP της συσκευής που δέχθηκε το PDU;
-- **g.** Ανοίξτε το PDU και εξετάστε το επίπεδο 2 (Layer 2) στην καρτέλα *Inbound/Outbound PDU Details*.
-  > **Ερώτηση g:** Τι παρατηρείται στις διευθύνσεις MAC πηγής και προορισμού;
-- **h.** Κάντε κλικ στο **Capture/Forward** συνεχόμενα μέχρι το PDU να επιστρέψει στο `172.16.31.2`.
-  > **Ερώτηση h:** Πόσα αντίγραφα του PDU δημιούργησε ο μεταγωγέας (switch) κατά τη διάρκεια της απάντησης ARP;
+  > **Note:** Two PDUs will be created. The ping command cannot complete the ICMP packet without knowing the destination MAC address. Thus, the PC sends an ARP broadcast frame to find the destination MAC address.
+- **d.** Click the **Capture/Forward** button once.
+  The ARP PDU moves to `Switch1`, while the ICMP PDU disappears, waiting for the ARP reply. Open the PDU by clicking on the colored box in the GUI and record the destination MAC address.
+  > **Question d:** Is this address listed in the table above?
+- **e.** Click **Capture/Forward** to move the PDU to the next device.
+  > **Question e:** How many copies of the PDU did Switch1 create?
+- **f.** Remaining in the same state, check the receiving device:
+  > **Question f:** What is the IP address of the device that accepted the PDU?
+- **g.** Open the PDU and examine Layer 2 under the *Inbound/Outbound PDU Details* tab.
+  > **Question g:** What do you observe regarding the source and destination MAC addresses?
+- **h.** Click **Capture/Forward** continuously until the PDU returns to `172.16.31.2`.
+  > **Question h:** How many copies of the PDU did the switch create during the ARP reply?
 
 <br>
 
-### Βήμα 2: Εξετάστε τον πίνακα ARP
+### Step 2: Examine the ARP table
 
-- **a.** Σημειώστε ότι το πακέτο ICMP επανεμφανίζεται. Ανοίξτε το PDU και εξετάστε τις διευθύνσεις MAC.
-  > **Ερώτηση a:** Οι διευθύνσεις MAC της πηγής και του προορισμού συμφωνούν με τις διευθύνσεις IP τους;
-- **b.** Επιστρέψτε στη λειτουργία **Realtime** (Πραγματικού Χρόνου) και αφήστε το ping να ολοκληρωθεί.
-- **c.** Κάντε κλικ στο `172.16.31.2` και εισαγάγετε την εντολή:
+- **a.** Note that the ICMP packet reappears. Open the PDU and examine the MAC addresses.
+  > **Question a:** Do the source and destination MAC addresses agree with their IP addresses?
+- **b.** Return to **Realtime** mode and let the ping complete.
+- **c.** Click on `172.16.31.2` and enter the command:
   ```bash
   arp -a
   ```
-  > **Ερώτηση c:** Σε ποια διεύθυνση IP αντιστοιχεί η καταχώρηση της διεύθυνσης MAC;
+  > **Question c:** Which IP address does the MAC address entry correspond to?
 - **d.**
-  > **Ερώτηση d:** Γενικά, πότε μια τελική συσκευή εκδίδει ένα αίτημα ARP;
+  > **Question d:** In general, when does an end device issue an ARP request?
 
 ---
 
-## Μέρος 2: Εξετάστε έναν πίνακα διευθύνσεων MAC ενός μεταγωγέα (Switch)
+## Part 2: Examine a Switch MAC Address Table
 
-### Βήμα 1: Δημιουργήστε πρόσθετη κίνηση για να συμπληρώσετε τον πίνακα διευθύνσεων MAC του μεταγωγέα
+### Step 1: Generate additional traffic to populate the switch MAC address table
 
-- **a.** Από τη διεύθυνση `172.16.31.2`, εισαγάγετε την εντολή:
+- **a.** From address `172.16.31.2`, enter the command:
   ```bash
   ping 172.16.31.4
   ```
-- **b.** Κάντε κλικ στη συσκευή με IP `10.10.10.2` και ανοίξτε τη γραμμή εντολών (**Command Prompt**).
-- **c.** Εισάγετε την εντολή:
+- **b.** Click on the device with IP `10.10.10.2` and open the **Command Prompt**.
+- **c.** Enter the command:
   ```bash
   ping 10.10.10.3
   ```
-  > **Ερώτηση c:** Πόσες απαντήσεις στάλθηκαν και λήφθηκαν;
+  > **Question c:** How many replies were sent and received?
 
 <br>
 
-### Βήμα 2: Εξετάστε τον πίνακα διευθύνσεων MAC στους μεταγωγείς
+### Step 2: Examine the MAC address table on the switches
 
-- **a.** Κάντε κλικ στο `Switch1` και στη συνέχεια στην καρτέλα **CLI**. Εισάγετε την παρακάτω εντολή:
+- **a.** Click on `Switch1` and then on the **CLI** tab. Enter the following command:
   ```cisco
   show mac-address-table
   ```
-  > **Ερώτηση a:** Οι καταχωρήσεις αντιστοιχούν σε αυτές του παραπάνω πίνακα;
-- **b.** Κάντε κλικ στο `Switch0` και, στη συνέχεια, στην καρτέλα **CLI**. Εισέλθετε σε προνομιακή κατάσταση EXEC (πληκτρολογώντας `enable`) και εισάγετε την εντολή:
+  > **Question a:** Do the entries correspond to those in the table above?
+- **b.** Click on `Switch0` and then on the **CLI** tab. Enter privileged EXEC mode (by typing `enable`) and enter the command:
   ```cisco
   show mac-address-table
   ```
-  > **Ερώτηση b:** Οι καταχωρήσεις αντιστοιχούν σε αυτές του παραπάνω πίνακα;
+  > **Question b:** Do the entries correspond to those in the table above?
 - **c.**
-  > **Ερώτηση c:** Γιατί συνδέονται δύο διευθύνσεις MAC με μία θύρα;
+  > **Question c:** Why are two MAC addresses associated with a single port?
 
 ---
 
-## Μέρος 3: Εξετάστε τη διαδικασία ARP στις απομακρυσμένες επικοινωνίες
+## Part 3: Examine the ARP process in Remote Communications
 
-### Βήμα 1: Δημιουργήστε κίνηση για την παραγωγή κίνησης ARP
+### Step 1: Generate traffic to produce ARP traffic
 
-- **a.** Κάντε κλικ στο `172.16.31.2` και ανοίξτε τη γραμμή εντολών.
-- **b.** Εισάγετε την εντολή:
+- **a.** Click on `172.16.31.2` and open the command prompt.
+- **b.** Enter the command:
   ```bash
   ping 10.10.10.1
   ```
-- **c.** Πληκτρολογήστε:
+- **c.** Type:
   ```bash
   arp -a
   ```
-  > **Ερώτηση c:** Ποια είναι η διεύθυνση IP της νέας καταχώρησης του πίνακα ARP;
-- **d.** Πληκτρολογήστε `arp -d` για να διαγράψετε τον πίνακα ARP και μεταβείτε πάλι σε **κατάσταση προσομοίωσης (Simulation Mode)**.
-- **e.** Επαναλάβετε το ping προς τη διεύθυνση `10.10.10.1`.
-  > **Ερώτηση e:** Πόσα PDUs εμφανίζονται;
-- **f.** Κάντε κλικ στο **Capture/Forward**. Κάντε κλικ στο PDU που βρίσκεται τώρα στο `Switch1`.
-  > **Ερώτηση f:** Ποια είναι η διεύθυνση IP προορισμού-στόχου του αιτήματος ARP;
+  > **Question c:** What is the IP address of the new ARP table entry?
+- **d.** Type `arp -d` to clear the ARP table and switch back to **Simulation Mode**.
+- **e.** Repeat the ping to address `10.10.10.1`.
+  > **Question e:** How many PDUs appear?
+- **f.** Click **Capture/Forward**. Click on the PDU currently at `Switch1`.
+  > **Question f:** What is the target destination IP address of the ARP request?
 - **g.**
-  > **Ερώτηση g:** Η διεύθυνση IP προορισμού δεν είναι η `10.10.10.1`. Γιατί;
+  > **Question g:** The destination IP address is not `10.10.10.1`. Why?
 
 <br>
 
-### Βήμα 2: Εξετάστε τον πίνακα ARP στον δρομολογητή (Router1)
+### Step 2: Examine the ARP table on the router (Router1)
 
-- **a.** Μεταβείτε στη λειτουργία **Realtime** (Πραγματικού Χρόνου). Κάντε κλικ στο `Router1` και στη συνέχεια στην καρτέλα **CLI**.
-- **b.** Εισέλθετε σε προνομιακή κατάσταση EXEC (γράψτε `enable`) και, στη συνέχεια, πληκτρολογήστε:
+- **a.** Switch to **Realtime** mode. Click on `Router1` and then on the **CLI** tab.
+- **b.** Enter privileged EXEC mode (type `enable`) and then type:
   ```cisco
   show mac-address-table
   ```
-  > **Ερώτηση b:** Πόσες διευθύνσεις MAC υπάρχουν στον πίνακα; Γιατί;
-- **c.** Εισάγετε την εντολή:
+  > **Question b:** How many MAC addresses are in the table? Why?
+- **c.** Enter the command:
   ```cisco
   show arp
   ```
-  > **Ερώτηση c:** Υπάρχει καταχώρηση για την `172.16.31.2`;
+  > **Question c:** Is there an entry for `172.16.31.2`?
 - **d.**
-  > **Ερώτηση d:** Τι συμβαίνει στο πρώτο ping σε περίπτωση που ο δρομολογητής απαντήσει στο αίτημα ARP;
+  > **Question d:** What happens on the first ping in case the router answers the ARP request?
 
 ---
-> **ΠΡΟΣΟΧΗ:** Όλες οι παραπάνω απαντήσεις (Ερωτήσεις **a**, **b**, **c**, κ.λπ.) πρέπει να συμπληρωθούν στο αρχείο απαντήσεων: `AM_HW3Answers_Sheet.txt`.
+> **ATTENTION:** All the above answers (Questions **a**, **b**, **c**, etc.) must be completed in the answer file: `AM_HW3Answers_Sheet.txt`.

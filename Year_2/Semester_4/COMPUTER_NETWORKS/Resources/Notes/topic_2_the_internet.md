@@ -1,166 +1,167 @@
-# Το Διαδίκτυο
+# The Internet
 *The Internet*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 
-- [Εισαγωγή](#εισαγωγή)
-- [Υλικό: Εξοπλισμός και Καλώδια](#υλικό-εξοπλισμός-και-καλώδια)
-  - [Τερματικές Συσκευές](#τερματικές-συσκευές)
-  - [Συσκευές Διασύνδεσης](#συσκευές-διασύνδεσης)
-  - [Φυσικά Μέσα Μετάδοσης](#φυσικά-μέσα-μετάδοσης)
-- [Πρωτόκολλα (TCP/IP, DNS, κτλ)](#πρωτόκολλα-tcpip-dns-κτλ)
-  - [Τι είναι Πρωτόκολλο](#τι-είναι-πρωτόκολλο)
-  - [Η Στοίβα TCP/IP](#η-στοίβα-tcpip)
+- [Introduction](#introduction)
+- [Hardware: Equipment and Cables](#hardware-equipment-and-cables)
+  - [End Devices](#end-devices)
+  - [Interconnection Devices](#interconnection-devices)
+  - [Physical Transmission Media](#physical-transmission-media)
+- [Protocols (TCP/IP, DNS, etc.)](#protocols-tcpip-dns-etc)
+  - [What is a Protocol](#what-is-a-protocol)
+  - [The TCP/IP Stack](#the-tcpip-stack)
   - [IP (Internet Protocol)](#ip-internet-protocol)
-  - [TCP και UDP](#tcp-και-udp)
+  - [TCP and UDP](#tcp-and-udp)
+  - [Traceroute Utility](#traceroute-utility)
   - [DNS (Domain Name System)](#dns-domain-name-system)
   - [HTTP / HTTPS](#http--https)
-- [Οπτική Ίνα και Δορυφόρος](#οπτική-ίνα-και-δορυφόρος)
-  - [Οπτική Ίνα ως Ραχοκοκαλιά του Διαδικτύου](#οπτική-ίνα-ως-ραχοκοκαλιά-του-διαδικτύου)
-  - [Δορυφορική Επικοινωνία](#δορυφορική-επικοινωνία)
-  - [Σύγκριση Οπτικής Ίνας και Δορυφόρου](#σύγκριση-οπτικής-ίνας-και-δορυφόρου)
-- [Μεταφορά Δεδομένων μεταξύ Συσκευών](#μεταφορά-δεδομένων-μεταξύ-συσκευών)
-  - [Τμηματοποίηση Μηνυμάτων σε Πακέτα](#τμηματοποίηση-μηνυμάτων-σε-πακέτα)
-  - [Καθυστερήσεις Μεταφοράς](#καθυστερήσεις-μεταφοράς)
-  - [Αριθμητικό Παράδειγμα End-to-End Καθυστέρησης](#αριθμητικό-παράδειγμα-end-to-end-καθυστέρησης)
-  - [Ενθυλάκωση Δεδομένων (Encapsulation)](#ενθυλάκωση-δεδομένων-encapsulation)
-- [Συγκεντρωτικός Πίνακας](#συγκεντρωτικός-πίνακας)
-- [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+- [Fiber Optic and Satellite](#fiber-optic-and-satellite)
+  - [Fiber Optic as the Internet Backbone](#fiber-optic-as-the-internet-backbone)
+  - [Satellite Communication](#satellite-communication)
+  - [Comparison of Fiber Optic and Satellite](#comparison-of-fiber-optic-and-satellite)
+- [Data Transfer Between Devices](#data-transfer-between-devices)
+  - [Message Segmentation into Packets](#message-segmentation-into-packets)
+  - [Transfer Delays](#transfer-delays)
+  - [Worked Numerical Example](#worked-numerical-example)
+  - [Data Encapsulation](#data-encapsulation)
+- [Summary Table](#summary-table)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Το **Διαδίκτυο** (Internet) είναι το μεγαλύτερο και πολυπλοκότερο δίκτυο υπολογιστών που έχει κατασκευαστεί ποτέ — ένα παγκόσμιο «δίκτυο δικτύων» που συνδέει δισεκατομμύρια συσκευές μέσω τυποποιημένων πρωτοκόλλων επικοινωνίας. Η κατανόησή του απαιτεί εξέταση τριών αλληλένδετων διαστάσεων: του **υλικού** (hardware) — δηλαδή των φυσικών συσκευών και μέσων που το αποτελούν — των **πρωτοκόλλων** που καθορίζουν τους κανόνες επικοινωνίας, και των **μηχανισμών** με τους οποίους τα δεδομένα ταξιδεύουν από συσκευή σε συσκευή. Η ενότητα αυτή διερευνά αυτές τις τρεις διαστάσεις με έμφαση στα φυσικά μέσα υψηλής ταχύτητας (οπτικές ίνες, δορυφόροι) και τα θεμελιώδη πρωτόκολλα (TCP/IP, DNS) που καθιστούν εφικτή την παγκόσμια διασύνδεση. Αποτελεί τη γέφυρα μεταξύ του «Δικτύου στο Έπακρο» (edge) που εξετάσαμε προηγουμένως και της βαθύτερης ανάλυσης της δομής, της μεταγωγής και των πρωτοκόλλων που ακολουθεί.
+The **Internet** is the largest and most complex computer network ever constructed — a global "network of networks" connecting billions of devices through standardized communication protocols. Understanding it requires examining three interconnected dimensions: **hardware** — the physical devices and media that constitute it —, **protocols** defining communication rules, and **mechanisms** by which data travels from device to device. This topic explores these three dimensions with an emphasis on high-speed physical media (optical fibers, satellites) and foundational protocols (TCP/IP, DNS) enabling global interconnection. It serves as a bridge between the "Network Edge" previously examined and the deeper analysis of structure, switching, and protocols that follow.
 
 ---
 
-## Υλικό: Εξοπλισμός και Καλώδια
+## Hardware: Equipment and Cables
 *Hardware: Equipment and Cables*
 
-Το Διαδίκτυο είναι, στο πιο θεμελιώδες επίπεδό του, μια τεράστια φυσική υποδομή από συσκευές και μέσα μετάδοσης. Χωρίς αυτή την υποδομή, κανένα πρωτόκολλο δεν θα είχε νόημα.
+At its most fundamental level, the Internet is a vast physical infrastructure of devices and transmission media. Without this infrastructure, no protocol would function.
 
-### Τερματικές Συσκευές
+### End Devices
 *End Devices / Hosts*
 
-Οι **τερματικές συσκευές** (end devices) είναι οι hosts που βρίσκονται στα άκρα του δικτύου και παράγουν ή καταναλώνουν δεδομένα. Κάθε τέτοια συσκευή διαθέτει μια **NIC (Network Interface Card)** — την κάρτα δικτύου που παρέχει τη φυσική σύνδεση.
+**End devices** (hosts) reside at the network edges and generate or consume data. Every such device features a **NIC (Network Interface Card)** — the network card providing physical connectivity.
 
-| Κατηγορία | Παραδείγματα | Τύπος Σύνδεσης |
+| Category | Examples | Connection Type |
 |---|---|---|
-| Προσωπικοί Υπολογιστές | Desktop, Laptop | Ethernet (ενσύρματο), Wi-Fi |
-| Κινητές Συσκευές | Smartphone, Tablet | Wi-Fi, 4G/5G |
-| Διακομιστές | Web servers, DNS servers | Ethernet (Gbps ή 10 Gbps) |
-| Συσκευές IoT | Smart TV, έξυπνος θερμοστάτης, κάμερα | Wi-Fi, Ethernet, Zigbee |
-| Βιομηχανικές | PLC, αισθητήρες | Ethernet βιομηχανικό (Profinet) |
+| Personal Computers | Desktop, Laptop | Ethernet (wired), Wi-Fi |
+| Mobile Devices | Smartphone, Tablet | Wi-Fi, 4G/5G |
+| Servers | Web servers, DNS servers | Ethernet (Gbps or 10 Gbps) |
+| IoT Devices | Smart TV, smart thermostat, camera | Wi-Fi, Ethernet, Zigbee |
+| Industrial | PLC, sensors | Industrial Ethernet (Profinet) |
 
 ---
 
-### Συσκευές Διασύνδεσης
+### Interconnection Devices
 *Interconnection Devices*
 
-Οι **συσκευές διασύνδεσης** είναι ο «σκελετός» του Διαδικτύου — οι κόμβοι που λαμβάνουν, επεξεργάζονται και προωθούν δεδομένα μεταξύ δικτύων.
+**Interconnection devices** form the "backbone" of the Internet — nodes receiving, processing, and forwarding data between networks.
 
-#### Router (Δρομολογητής)
+#### Router
 
-Ο **router** είναι η συσκευή που συνδέει διαφορετικά δίκτυα και αποφασίζει τον βέλτιστο δρόμο που θα ακολουθήσει κάθε πακέτο. Λειτουργεί στο **Επίπεδο 3 (Network Layer)** του OSI model, χρησιμοποιώντας **διευθύνσεις IP** για τη λήψη αποφάσεων δρομολόγησης.
+A **router** is a device connecting different networks and determining the optimal path for each packet. It operates at **Layer 3 (Network Layer)** of the OSI model, using **IP addresses** for routing decisions.
 
-**Αναλογία:** Ο router είναι σαν τον διανομέα ενός ταχυδρομείου — λαμβάνει γράμματα (πακέτα) από παντού, διαβάζει τον παραλήπτη (διεύθυνση IP), και τα στέλνει στη σωστή κατεύθυνση.
+**Analogy:** A router acts like a postal sorting center — receiving letters (packets) from everywhere, reading the recipient (IP address), and dispatching them in the correct direction.
 
-#### Switch (Μεταγωγέας)
+#### Switch
 
-Ο **switch** συνδέει συσκευές εντός του **ίδιου** δικτύου (LAN). Λειτουργεί στο **Επίπεδο 2 (Data Link Layer)**, χρησιμοποιώντας **διευθύνσεις MAC** για να αποστέλλει δεδομένα απευθείας στον σωστό παραλήπτη εντός του LAN.
+A **switch** connects devices within the **same** network (LAN). It operates at **Layer 2 (Data Link Layer)**, using **MAC addresses** to send data directly to the correct recipient within the LAN.
 
 #### Modem
 
-Το **modem** (MOdulator-DEModulator) μετατρέπει ψηφιακά σήματα σε αναλογικά (και αντίστροφα), επιτρέποντας τη μετάδοση δεδομένων μέσω τηλεφωνικών γραμμών (DSL modem) ή ομοαξονικών καλωδίων (cable modem).
+A **modem** (MOdulator-DEModulator) converts digital signals to analog (and vice versa), enabling data transmission over telephone lines (DSL modem) or coaxial cables (cable modem).
 
-#### Σύγκριση Βασικών Συσκευών Δικτύου
+#### Comparison of Core Network Devices
 
 ```
-  Τυπική Αρχιτεκτονική Οικιακού Δικτύου
+  Typical Home Network Architecture
   ────────────────────────────────────────────────────────────
-  [Διαδίκτυο / ISP]
+  [Internet / ISP]
          |
-     [Modem]   ← Μετατροπή αναλογικού σε ψηφιακό
+     [Modem]   ← Analog to digital conversion
          |
-    [Router]   ← Δρομολόγηση μεταξύ οικιακού LAN και Internet
+    [Router]   ← Routing between home LAN and Internet
          |
-      [Switch]  ← (Εσωτερικό) Σύνδεση LAN συσκευών
+      [Switch]  ← (Internal) Connects LAN devices
      /   |   \
 [PC] [Laptop] [NAS]
          |
-      [Wi-Fi AP] ← Ασύρματη σύνδεση
+      [Wi-Fi AP] ← Wireless connectivity
      /        \
 [Smartphone] [Tablet]
 ```
 
-| Συσκευή | OSI Layer | Αναγνωριστικό | Πεδίο Εφαρμογής |
+| Device | OSI Layer | Identifier | Application Domain |
 |---|---|---|---|
-| **Hub** | Layer 1 (Physical) | Κανένα | Παρωχημένο, broadcast |
-| **Switch** | Layer 2 (Data Link) | MAC Address | Εντός LAN |
-| **Router** | Layer 3 (Network) | IP Address | Μεταξύ δικτύων |
-| **Firewall** | Layer 3-7 | IP + Ports | Ασφάλεια |
+| **Hub** | Layer 1 (Physical) | None | Legacy, broadcast |
+| **Switch** | Layer 2 (Data Link) | MAC Address | Within LAN |
+| **Router** | Layer 3 (Network) | IP Address | Between networks |
+| **Firewall** | Layer 3-7 | IP + Ports | Security |
 
-**Exam Note:** Ο router ενώνει *διαφορετικά* δίκτυα (π.χ. LAN με Internet). Ο switch ενώνει συσκευές *εντός* του ίδιου δικτύου. Αυτή η διάκριση είναι κρίσιμη.
+**Exam Note:** A router joins *different* networks (e.g. LAN to Internet). A switch joins devices *within* the same network. This distinction is critical.
 
 ---
 
-### Φυσικά Μέσα Μετάδοσης
+### Physical Transmission Media
 *Physical Transmission Media*
 
-Τα **φυσικά μέσα μετάδοσης** (physical media) είναι τα κανάλια μέσω των οποίων ταξιδεύουν τα bits. Διακρίνονται σε **guided media** (κατευθυνόμενα — καλώδια) και **unguided media** (μη κατευθυνόμενα — ασύρματο).
+**Physical transmission media** are channels through which bits travel. Classified into **guided media** (cables) and **unguided media** (wireless).
 
-#### Χαλκός (Copper)
+#### Copper
 
-Ο χαλκός χρησιμοποιείται σε δύο βασικές μορφές:
+Copper is used in two primary forms:
 
-- **Twisted Pair (Συνεστραμμένο Ζεύγος):** Δύο χάλκινα σύρματα στριμμένα μαζί για μείωση ηλεκτρομαγνητικής παρεμβολής. Η πλέον διαδεδομένη μορφή για Ethernet LAN (Cat5e: 1 Gbps, Cat6a: 10 Gbps) και DSL.
-- **Ομοαξονικό (Coaxial):** Κεντρικός αγωγός χαλκού με θωράκιση. Χρησιμοποιείται σε δίκτυα HFC (καλωδιακό ίντερνετ) — ταχύτητες εκατοντάδων Mbps έως Gbps.
+- **Twisted Pair:** Two copper wires twisted together to reduce electromagnetic interference. The most widespread form for Ethernet LAN (Cat5e: 1 Gbps, Cat6a: 10 Gbps) and DSL.
+- **Coaxial:** Central copper conductor with shielding. Used in HFC networks (cable internet) — speeds from hundreds of Mbps to Gbps.
 
-#### Οπτική Ίνα (Fiber Optic)
+#### Fiber Optic
 
-Η **οπτική ίνα** μεταδίδει δεδομένα ως παλμούς φωτός μέσα σε γυάλινη ή πλαστική ίνα. Αναλύεται εκτενώς στην επόμενη ενότητα.
+**Optical fiber** transmits data as light pulses through glass or plastic fiber. Explored extensively in subsequent sections.
 
-#### Ασύρματο (Wireless)
+#### Wireless
 
-Τα ασύρματα μέσα χρησιμοποιούν ηλεκτρομαγνητικά κύματα (ραδιοκύματα, μικροκύματα) για τη μεταφορά δεδομένων χωρίς φυσική σύνδεση. Παραδείγματα: Wi-Fi (IEEE 802.11), 4G LTE, 5G NR, Bluetooth.
+Wireless media use electromagnetic waves (radio waves, microwaves) to transfer data without physical connections. Examples: Wi-Fi (IEEE 802.11), 4G LTE, 5G NR, Bluetooth.
 
 ---
 
-## Πρωτόκολλα (TCP/IP, DNS, κτλ)
+## Protocols (TCP/IP, DNS, etc.)
 *Protocols (TCP/IP, DNS, etc.)*
 
-### Τι είναι Πρωτόκολλο
+### What is a Protocol
 *What is a Protocol*
 
-Ένα **πρωτόκολλο** (protocol) είναι ένα σύνολο κανόνων που καθορίζει τον τρόπο με τον οποίο οι συσκευές επικοινωνούν μεταξύ τους — τι μηνύματα στέλνουν, σε ποια σειρά, και ποιες ενέργειες εκτελούν.
+A **protocol** is a set of rules defining how devices communicate — what messages they send, in what order, and what actions they take.
 
-**Αναλογία:** Ένα πρωτόκολλο είναι σαν μια γλώσσα επικοινωνίας με αυστηρούς κανόνες γραμματικής. Δύο συσκευές που «μιλούν» διαφορετικά πρωτόκολλα δεν μπορούν να επικοινωνήσουν, ακριβώς όπως δύο άνθρωποι που μιλούν διαφορετικές γλώσσες.
+**Analogy:** A protocol is like a language with strict grammar rules. Two devices speaking different protocols cannot communicate, just as two humans speaking different languages cannot understand each other.
 
 ```
-  Αναλογία Πρωτοκόλλου: Ανθρώπινη Συνομιλία vs Δικτυακή Επικοινωνία
+  Protocol Analogy: Human Conversation vs Network Communication
   ─────────────────────────────────────────────────────────────────────
-  Ανθρώπινη:                     Δικτυακή:
-  "Γεια σου!"        →           TCP SYN
-  "Γεια! Τι κάνεις?" →           TCP SYN-ACK
-  "Καλά, εσύ?"       →           TCP ACK
-  (συνομιλία)        →           (ανταλλαγή δεδομένων)
-  "Αντίο"            →           TCP FIN
+  Human:                        Network:
+  "Hello!"          →           TCP SYN
+  "Hi! How are you?"→           TCP SYN-ACK
+  "Good, you?"      →           TCP ACK
+  (conversation)    →           (data transfer)
+  "Goodbye"         →           TCP FIN
 ```
 
-Τα πρωτόκολλα ορίζουν: (α) τον **τύπο** και τη **μορφή** των μηνυμάτων, (β) τη **σειρά** ανταλλαγής τους, και (γ) τις **ενέργειες** που εκτελούνται κατά τη λήψη μηνύματος.
+Protocols define: (a) message **type** and **format**, (b) **sequence** of exchange, and (c) **actions** taken upon receiving a message.
 
 ---
 
-### Η Στοίβα TCP/IP
+### The TCP/IP Stack
 *The TCP/IP Stack*
 
-Η **στοίβα TCP/IP** (TCP/IP stack) είναι το αρχιτεκτονικό μοντέλο 4 επιπέδων που περιγράφει πώς τα πρωτόκολλα συνεργάζονται για να επιτρέψουν τη διαδικτυακή επικοινωνία. Είναι η πρακτική υλοποίηση του θεωρητικού μοντέλου OSI (7 επίπεδα).
+The **TCP/IP stack** is a 4-layer architectural model describing how protocols work together to enable Internet communication. It is the practical implementation of the theoretical 7-layer OSI model.
 
 ```
-  Στοίβα TCP/IP (4 Επίπεδα)                   Αντίστοιχα OSI Layer(s)
+  TCP/IP Stack (4 Layers)                      Corresponding OSI Layer(s)
   ──────────────────────────────────────────────────────────────────────
   ┌─────────────────────────────────┐
   │   Application Layer             │  ← OSI: Layer 7, 6, 5
@@ -177,117 +178,117 @@
   └─────────────────────────────────┘
 ```
 
-**Βασική Αρχή:** Κάθε επίπεδο παρέχει υπηρεσίες στο επάνω επίπεδο και χρησιμοποιεί υπηρεσίες του κάτω επιπέδου. Το κάθε επίπεδο δεν «γνωρίζει» τις εσωτερικές λεπτομέρειες των άλλων — αυτή η αρχή ονομάζεται **encapsulation** (ενθυλάκωση).
+**Core Principle:** Each layer provides services to the layer above and consumes services from the layer below. A layer does not "know" the internal details of other layers — this principle is called **encapsulation**.
 
 ---
 
 ### IP (Internet Protocol)
 *Internet Protocol*
 
-Το **IP (Internet Protocol)** είναι το θεμελιώδες πρωτόκολλο δρομολόγησης του Διαδικτύου. Λειτουργεί στο **Internet Layer** και είναι υπεύθυνο για:
+**IP (Internet Protocol)** is the foundational routing protocol of the Internet. Operating at the **Internet Layer**, it is responsible for:
 
-1. **Διευθυνσιοδότηση:** Κάθε συσκευή στο Διαδίκτυο διαθέτει μοναδική **IP διεύθυνση** που χρησιμοποιείται για τον εντοπισμό της.
-2. **Τμηματοποίηση (Fragmentation):** Κατάτμηση μεγάλων δεδομένων σε πακέτα που μπορεί να μεταδοθούν.
-3. **Δρομολόγηση (Routing):** Αποστολή κάθε πακέτου προς τον προορισμό του μέσω των κατάλληλων routers.
+1. **Addressing:** Every device on the Internet possesses a unique **IP address** used to identify it.
+2. **Fragmentation:** Splitting large data items into transmittable packets.
+3. **Routing:** Delivering each packet toward its destination via appropriate routers.
 
 #### IPv4 vs IPv6
 
-| Χαρακτηριστικό | IPv4 | IPv6 |
+| Characteristic | IPv4 | IPv6 |
 |---|---|---|
-| Μήκος διεύθυνσης | 32 bits | 128 bits |
-| Μορφή | `192.168.1.1` | `2001:db8::1` |
-| Αριθμός διευθύνσεων | ~4.3 δισ. | ~3.4 × 10^38 |
-| Κατάσταση | Εξαντλημένες | Σε υιοθέτηση |
-| Header | 20 bytes (σταθερό) | 40 bytes (απλοποιημένο) |
+| Address length | 32 bits | 128 bits |
+| Format | `192.168.1.1` | `2001:db8::1` |
+| Number of addresses | ~4.3 billion | ~3.4 × 10^38 |
+| Status | Exhausted | In adoption |
+| Header | 20 bytes (fixed) | 40 bytes (simplified) |
 
-**Key Distinction:** Το IPv4 έχει εξαντλήσει τον διαθέσιμο χώρο διευθύνσεων από το 2011. Η μετάβαση σε IPv6 παρέχει πρακτικά απεριόριστο χώρο διευθύνσεων για IoT, 5G και μελλοντικές συσκευές.
+**Key Distinction:** IPv4 exhausted available address space in 2011. Transitioning to IPv6 provides practically unlimited address space for IoT, 5G, and future devices.
 
-**Exam Note:** Το IP είναι **connectionless** και **best-effort** — δεν εγγυάται παράδοση, σειρά ή αποφυγή διπλοτύπων. Αυτές οι εγγυήσεις παρέχονται από το TCP στο ανώτερο επίπεδο.
+**Exam Note:** IP is **connectionless** and **best-effort** — it does not guarantee delivery, ordering, or duplicate avoidance. These guarantees are provided by TCP at the upper layer.
 
 ---
 
-### TCP και UDP
+### TCP and UDP
 *Transmission Control Protocol and User Datagram Protocol*
 
-Το **Transport Layer** παρέχει δύο κύρια πρωτόκολλα με διαφορετικές εγγυήσεις:
+The **Transport Layer** provides two primary protocols offering different guarantees:
 
 #### TCP (Transmission Control Protocol)
 
-Το **TCP** παρέχει **αξιόπιστη, connection-oriented** επικοινωνία. Πριν από οποιαδήποτε μεταφορά δεδομένων, εκτελείται η διαδικασία **Three-Way Handshake**:
+**TCP** provides **reliable, connection-oriented** communication. Before any data transfer occurs, the **Three-Way Handshake** procedure is executed:
 
 ```
   TCP Three-Way Handshake
   ─────────────────────────────────────────────────────
   [Client]                             [Server]
       |                                    |
-      |──── SYN (seq=x) ─────────────────>|   Αίτηση σύνδεσης
+      |──── SYN (seq=x) ─────────────────>|   Connection request
       |                                    |
-      |<─── SYN-ACK (seq=y, ack=x+1) ─────|   Αποδοχή
+      |<─── SYN-ACK (seq=y, ack=x+1) ─────|   Acceptance
       |                                    |
-      |──── ACK (ack=y+1) ───────────────>|   Επιβεβαίωση
+      |──── ACK (ack=y+1) ───────────────>|   Acknowledgement
       |                                    |
-      |════ DATA TRANSFER ════════════════>|   Μεταφορά δεδομένων
+      |════ DATA TRANSFER ════════════════>|   Data transfer
       |                                    |
 ```
 
-**Χαρακτηριστικά TCP:**
-- **Αξιόπιστη παράδοση:** Επαναποστολή χαμένων πακέτων.
-- **Σωστή σειρά:** Τα δεδομένα παραδίδονται με τη σωστή σειρά ακόμα και αν έφτασαν εκτός σειράς.
-- **Έλεγχος ροής (Flow Control):** Ο αποστολέας προσαρμόζει τον ρυθμό αποστολής ανάλογα με την ικανότητα του παραλήπτη.
-- **Έλεγχος συμφόρησης (Congestion Control):** Μείωση ρυθμού αποστολής όταν το δίκτυο είναι φορτωμένο.
-- **Εφαρμογές:** HTTP/HTTPS, SMTP, FTP, SSH.
+**TCP Characteristics:**
+- **Reliable delivery:** Retransmission of lost packets.
+- **In-order delivery:** Data is delivered in sequence even if packets arrived out of order.
+- **Flow control:** Sender adjusts transmission rate to match receiver capacity.
+- **Congestion control:** Sender reduces transmission rate when the network is congested.
+- **Applications:** HTTP/HTTPS, SMTP, FTP, SSH.
 
-**TCP Κυλιόμενο Παράθυρο (Sliding Window) & Υπολογισμός Timeout:**
-Το TCP χρησιμοποιεί τον μηχανισμό του κυλιόμενου παραθύρου για αξιόπιστη μεταφορά. Ο χρόνος αναμονής (timeout) πριν από την επαναμετάδοση ενός πακέτου εξαρτάται από τον εκτιμώμενο χρόνο RTT (Round Trip Time). 
-- **SampleRTT:** Ο χρόνος από την αποστολή ενός τμήματος (segment) έως τη λήψη του αντίστοιχου ACK (εξαιρουμένων των επαναμεταδόσεων, βάσει του Κανόνα του Karn). Εναλλακτικά χρησιμοποιούνται TCP Timestamps.
-- **EstimatedRTT:** Ο σταθμισμένος μέσος όρος που εξομαλύνει τις διακυμάνσεις του δικτύου (συνήθως $\alpha = 0.875$):
+**TCP Sliding Window & Timeout Calculation:**
+TCP employs a sliding window mechanism for reliable transfer. The timeout interval before segment retransmission depends on the estimated RTT (Round Trip Time).
+- **SampleRTT:** Time measured from segment transmission to receiving corresponding ACK (excluding retransmissions, per Karn's Algorithm). TCP Timestamps option is alternatively used.
+- **EstimatedRTT:** Weighted average smoothing network variations (typically $\alpha = 0.875$):
   $$\text{EstimatedRTT} = a \times \text{EstimatedRTT} + (1-a) \times \text{SampleRTT}$$
-- **Timeout Interval:** Ο χρόνος αναμονής πριν την επαναμετάδοση υπολογίζεται συνήθως (απλοποιημένα στις ασκήσεις) ως:
+- **Timeout Interval:** Wait time before retransmission is calculated as:
   $$\text{Timeout} = 2 \times \text{EstimatedRTT}$$
 
 #### UDP (User Datagram Protocol)
 
-Το **UDP** είναι **connectionless** και **unreliable** — αποστέλλει πακέτα χωρίς εγγύηση παράδοσης, σωστής σειράς ή αποφυγής διπλοτύπων. Αντίθετα, είναι **πολύ ταχύτερο** από το TCP λόγω έλλειψης overhead.
+**UDP** is **connectionless** and **unreliable** — sending datagrams without guarantees of delivery, ordering, or duplicate avoidance. Conversely, it is **much faster** than TCP due to minimal overhead.
 
-**Εφαρμογές UDP:** DNS (γρήγορα ερωτήματα), video streaming (καλύτερο latency), VoIP (Skype, WhatsApp), online gaming, DHCP.
+**UDP Applications:** DNS (quick queries), video streaming (better latency), VoIP (Skype, WhatsApp), online gaming, DHCP.
 
-#### Σύγκριση TCP vs UDP
+#### TCP vs UDP Comparison
 
-| Χαρακτηριστικό | TCP | UDP |
+| Characteristic | TCP | UDP |
 |---|---|---|
 | Connection | Connection-oriented (3-way handshake) | Connectionless |
-| Αξιοπιστία | Εγγυημένη παράδοση | Καμία εγγύηση |
-| Σειρά δεδομένων | Διατηρείται | Δεν διατηρείται |
-| Έλεγχος ροής | Ναι | Όχι |
-| Έλεγχος συμφόρησης | Ναι | Όχι |
-| Ταχύτητα | Αργότερο (overhead) | Γρηγορότερο |
-| Χρήση | HTTP, email, file transfer | DNS, streaming, gaming, VoIP |
+| Reliability | Guaranteed delivery | No guarantee |
+| Data ordering | Preserved | Not preserved |
+| Flow control | Yes | No |
+| Congestion control | Yes | No |
+| Speed | Slower (overhead) | Faster |
+| Use cases | HTTP, email, file transfer | DNS, streaming, gaming, VoIP |
 
 ---
 
-### Παρακολούθηση Διαδρομής (Traceroute)
+### Traceroute Utility
 *Traceroute Utility*
 
-Το **traceroute** (ή `tracert` στα Windows) είναι ένα διαγνωστικό εργαλείο δικτύου που παρακολουθεί τη διαδρομή που ακολουθούν τα πακέτα για να φθάσουν από τον αποστολέα σε έναν προορισμό.
-- **Μηχανισμός λειτουργίας:** Λειτουργεί στέλνοντας μια σειρά από IP πακέτα με σταδιακά αυξανόμενο χρόνο ζωής (**TTL - Time To Live**), ξεκινώντας από $TTL = 1$.
-- Κάθε ενδιάμεσος δρομολογητής μειώνει το TTL κατά 1. 
-- Όταν το TTL γίνει 0, ο δρομολογητής απορρίπτει το πακέτο και στέλνει πίσω ένα μήνυμα σφάλματος **ICMP Time Exceeded**, αποκαλύπτοντας έτσι την ταυτότητά του (IP διεύθυνση) στον αποστολέα.
+**Traceroute** (or `tracert` in Windows) is a diagnostic tool tracing the path packets take from sender to destination.
+- **Mechanism:** Sends a sequence of IP packets with incrementally increasing Time To Live (**TTL**), starting at $TTL = 1$.
+- Each intermediate router decrements TTL by 1.
+- When TTL reaches 0, the router drops the packet and returns an **ICMP Time Exceeded** error message, revealing its IP address to the sender.
 
 ---
 
 ### DNS (Domain Name System)
 *Domain Name System*
 
-Το **DNS** είναι το «τηλεφωνικό κατάλογο» του Διαδικτύου. Μεταφράζει ονόματα τομέων (domain names) που είναι αναγνώσιμα από ανθρώπους (π.χ. `www.google.com`) σε αριθμητικές διευθύνσεις IP (π.χ. `142.250.185.78`) που χρησιμοποιούν οι υπολογιστές.
+**DNS** is the "phonebook" of the Internet. It translates human-readable domain names (e.g. `www.google.com`) into numerical IP addresses (e.g. `142.250.185.78`) used by computers.
 
-**Αναλογία:** Το DNS είναι σαν μια πολυεπίπεδη βιβλιοθήκη — αντί να γνωρίζεις εσύ τον αριθμό τηλεφώνου κάθε επαφής, ρωτάς τον κατάλογο ο οποίος τον βρίσκει γρήγορα για σένα.
+**Analogy:** DNS is like a multi-tiered directory — instead of knowing everyone's phone number, you ask the directory which looks it up for you.
 
-#### Ιεραρχία DNS
+#### DNS Hierarchy
 
 ```
-  Ιεραρχία DNS
+  DNS Hierarchy
   ──────────────────────────────────────────────────────────────
-                     [Root DNS Servers]  (13 κεντρικοί παγκοσμίως)
+                     [Root DNS Servers]  (13 logical root servers globally)
                     /        |         \
           [.com TLD]    [.org TLD]   [.gr TLD]     (Top-Level Domain)
               |
@@ -296,26 +297,26 @@
        [www.google.com]  → 142.250.185.78
 ```
 
-**Τύποι DNS Servers:**
-1. **Root DNS Server:** Κορυφαίο επίπεδο — γνωρίζει τους servers για κάθε TLD (Top-Level Domain). Υπάρχουν 13 λογικοί root servers παγκοσμίως (γράμματα a έως m).
-2. **TLD DNS Server:** Υπεύθυνος για ένα συγκεκριμένο TLD (π.χ. `.com`, `.gr`).
-3. **Authoritative DNS Server:** Γνωρίζει τις ακριβείς IP διευθύνσεις για ένα συγκεκριμένο domain (π.χ. `google.com`).
-4. **Local DNS Server (Resolver):** Το «πρώτο σημείο επαφής» — συνήθως παρέχεται από τον ISP ή χρησιμοποιούνται δημόσιοι resolvers (Google: `8.8.8.8`, Cloudflare: `1.1.1.1`).
+**Types of DNS Servers:**
+1. **Root DNS Server:** Top level — knows servers for each TLD (Top-Level Domain). 13 logical root servers exist globally (a through m).
+2. **TLD DNS Server:** Responsible for a specific TLD (e.g. `.com`, `.gr`).
+3. **Authoritative DNS Server:** Holds exact IP addresses for a specific domain (e.g. `google.com`).
+4. **Local DNS Server (Resolver):** First contact point — typically provided by ISP or public resolvers (Google: `8.8.8.8`, Cloudflare: `1.1.1.1`).
 
-#### Ακολουθία DNS Query
+#### DNS Query Sequence
 
 ```
-  Πλήρης DNS Query Sequence για το "www.example.com"
+  Complete DNS Query Sequence for "www.example.com"
   ─────────────────────────────────────────────────────────────────
   [Browser / Client]
        |
-       |──(1) "Ξέρεις το www.example.com?" ──────>[Local DNS Resolver]
+       |──(1) "Do you know www.example.com?" ───>[Local DNS Resolver]
        |                                                    |
-       |                  (2) Δεν ξέρω, ρωτώ Root ──────>[Root Server]
+       |                  (2) Don't know, asking Root ─>[Root Server]
        |                                                    |
-       |                  (3) Δεν ξέρω, ρώτα .com ──────>[TLD .com Server]
+       |                  (3) Don't know, ask .com ─────>[TLD .com Server]
        |                                                    |
-       |                  (4) Ρώτα example.com ────>[Authoritative Server]
+       |                  (4) Ask example.com ─────>[Authoritative Server]
        |                                                    |
        |                  (5) 93.184.216.34 ←──────────────|
        |                                                    |
@@ -324,269 +325,261 @@
        |──(7) HTTP GET http://93.184.216.34/ ──────>[Web Server]
 ```
 
-**Exam Note:** Το DNS χρησιμοποιεί κυρίως **UDP** (port 53) για queries λόγω ταχύτητας. Χρησιμοποιεί **TCP** (port 53) για zone transfers ή μεγάλες αποκρίσεις.
+**Exam Note:** DNS primarily uses **UDP** (port 53) for queries due to speed. It uses **TCP** (port 53) for zone transfers or large responses.
 
 #### DNS Caching
 
-Για αποφυγή επαναλαμβανόμενων queries, κάθε DNS server **αποθηκεύει (cache)** τις αποκρίσεις για χρόνο που ορίζεται από το **TTL (Time To Live)** — ένας counter σε δευτερόλεπτα που ορίζει πόσο μπορεί να διατηρηθεί η εγγραφή στην cache. Τυπικά TTL: 300 seconds (5 λεπτά) έως 86400 seconds (1 ημέρα).
+To prevent redundant queries, DNS servers **cache** responses for a duration specified by **TTL (Time To Live)** — a counter in seconds defining how long a record may stay in cache. Typical TTLs: 300 seconds (5 mins) to 86400 seconds (1 day).
 
 ---
 
 ### HTTP / HTTPS
 *HyperText Transfer Protocol / Secure*
 
-Το **HTTP (HyperText Transfer Protocol)** είναι το πρωτόκολλο μεταφοράς web περιεχομένου, λειτουργώντας στο Application Layer. Βασίζεται σε request-response μοντέλο μεταξύ client (browser) και server.
+**HTTP (HyperText Transfer Protocol)** is the web content transfer protocol operating at the Application Layer. It uses a request-response model between client (browser) and server.
 
-Το **HTTPS** (HTTP Secure) είναι η κρυπτογραφημένη έκδοση — χρησιμοποιεί **TLS (Transport Layer Security)** για κρυπτογράφηση, αυθεντικοποίηση server και ακεραιότητα δεδομένων. Σήμερα, πάνω από 95% του web traffic χρησιμοποιεί HTTPS.
+**HTTPS** (HTTP Secure) is the encrypted version — using **TLS (Transport Layer Security)** for encryption, server authentication, and data integrity. Today, over 95% of web traffic uses HTTPS.
 
 ---
 
-## Οπτική Ίνα και Δορυφόρος
+## Fiber Optic and Satellite
 *Fiber Optic and Satellite*
 
-### Οπτική Ίνα ως Ραχοκοκαλιά του Διαδικτύου
+### Fiber Optic as the Internet Backbone
 *Fiber Optic as the Internet Backbone*
 
-Η **οπτική ίνα** (fiber optic cable) αποτελεί τη ραχοκοκαλιά (backbone) του σύγχρονου Διαδικτύου. Μεταδίδει δεδομένα ως παλμούς **φωτός** (laser) μέσα σε μια εξαιρετικά λεπτή γυάλινη ή πλαστική ίνα.
+**Optical fiber** forms the backbone of the modern Internet. It transmits data as light pulses (lasers) inside an extremely thin glass or plastic fiber.
 
-**Βασικές Αρχές Λειτουργίας:** Το φως ταξιδεύει εντός της ίνας λόγω του φαινομένου της **ολικής εσωτερικής ανάκλασης** (total internal reflection) — όταν το φως χτυπά το τοίχωμα της ίνας σε γωνία μικρότερη από τη «κρίσιμη γωνία», ανακλάται πλήρως και παραμένει εντός της ίνας.
+**Operating Principles:** Light travels inside the fiber due to **total internal reflection** — when light strikes the cladding at an angle smaller than the critical angle, it reflects completely and stays inside the core.
 
 ```
-  Δομή Οπτικής Ίνας (Single-mode)
+  Optical Fiber Structure (Single-mode)
   ───────────────────────────────────────────────────────────────
   ╔══════════════════════════════════════════════════════╗
-  ║  Outer Jacket (εξωτερική προστασία)                 ║
+  ║  Outer Jacket (external protection)                 ║
   ║  ┌──────────────────────────────────────────────┐   ║
-  ║  │  Cladding (κέλυφος, χαμηλός δείκτης n)      │   ║
+  ║  │  Cladding (low refractive index n)           │   ║
   ║  │  ┌──────────────────────────────────────┐   │   ║
-  ║  │  │  Core (πυρήνας, ~9 μm για SMF)       │   │   ║
-  ║  │  │  → → → [φωτεινοί παλμοί (laser)] → →│   │   ║
+  ║  │  │  Core (~9 μm for SMF)                │   │   ║
+  ║  │  │  → → → [light pulses (laser)] → →    │   │   ║
   ║  │  └──────────────────────────────────────┘   │   ║
   ║  └──────────────────────────────────────────────┘   ║
   ╚══════════════════════════════════════════════════════╝
 ```
 
-#### Τύποι Οπτικής Ίνας
+#### Types of Optical Fiber
 
-| Τύπος | Διάμετρος Πυρήνα | Πηγή Φωτός | Απόσταση | Εφαρμογή |
+| Type | Core Diameter | Light Source | Distance | Application |
 |---|---|---|---|---|
-| **Single-mode (SMF)** | ~9 μm | Laser | >100 km | Υποβρύχια καλώδια, backbone ISP |
-| **Multi-mode (MMF)** | ~50-62.5 μm | LED | <2 km | Data centers, εντός κτιρίων |
+| **Single-mode (SMF)** | ~9 μm | Laser | >100 km | Submarine cables, ISP backbone |
+| **Multi-mode (MMF)** | ~50-62.5 μm | LED | <2 km | Data centers, intra-building |
 
-**Key Distinction:** H SMF (single-mode fiber) έχει λεπτότερο πυρήνα οπότε ταξιδεύει μόνο μία δέσμη (mode) φωτός — αυτό εξαλείφει τη **modal dispersion** (διασπορά) και επιτρέπει μεταφορά σε πολύ μεγαλύτερες αποστάσεις χωρίς ενίσχυση σήματος.
+**Key Distinction:** SMF (single-mode fiber) has a narrower core so only one light mode travels — eliminating **modal dispersion** and allowing transmission over vastly greater distances without amplification.
 
-#### Υποβρύχια Καλώδια: Η Ραχοκοκαλιά της Παγκόσμιας Επικοινωνίας
+#### Submarine Cables: Backbone of Global Communication
 
-Τα **υποβρύχια οπτικά καλώδια** (submarine fiber optic cables) μεταφέρουν περίπου **99% όλης της διεθνούς διαδικτυακής κίνησης**. Χωρίς αυτά, το παγκόσμιο Διαδίκτυο δεν θα μπορούσε να υπάρξει στη σημερινή του μορφή.
+**Submarine fiber optic cables** carry approximately **99% of all international Internet traffic**. Without them, the global Internet could not exist in its modern form.
 
-**Χαρακτηριστικά:**
-- Χωρητικότητα σύγχρονων καλωδίων: εκατοντάδες **Tbps (Terabits per second)**.
-- Τεχνολογία **DWDM (Dense Wavelength Division Multiplexing):** Ταυτόχρονη μετάδοση πολλών σημάτων διαφορετικού μήκους κύματος (χρώματος) στην ίδια ίνα — σαν πολλαπλές «λωρίδες κυκλοφορίας» εντός μιας ίνας.
-- Βάθος: έως 8 km κάτω από τη θαλάσσια επιφάνεια.
-- Τρωτά σημεία: άγκυρες πλοίων, σεισμοί, αλιεία.
+**Characteristics:**
+- Capacity of modern cables: hundreds of **Tbps (Terabits per second)**.
+- **DWDM (Dense Wavelength Division Multiplexing):** Simultaneous transmission of multiple signals at different wavelengths (colors) in the same fiber — like multiple traffic lanes inside one fiber.
+- Depth: up to 8 km below sea level.
+- Vulnerabilities: ship anchors, earthquakes, commercial fishing.
 
 ---
 
-### Δορυφορική Επικοινωνία
+### Satellite Communication
 *Satellite Communication*
 
-Ο **δορυφόρος** (satellite) χρησιμοποιείται ως μέσο μετάδοσης δεδομένων κυρίως σε περιοχές όπου η κατάσταση εδάφους καθιστά αδύνατη την εγκατάσταση καλωδιακής υποδομής (ωκεανοί, απομακρυσμένες περιοχές, πολικές ζώνες).
+Satellites serve as transmission media primarily in regions where terrain makes cable infrastructure impossible (oceans, remote areas, polar zones).
 
-#### Γεωστατικοί Δορυφόροι (Geostationary / GEO)
+#### Geostationary Satellites (GEO)
 
-Οι **GEO δορυφόροι** βρίσκονται σε τροχιά ύψους **~36.000 km** πάνω από τον Ισημερινό. Στο ύψος αυτό, η ταχύτητα τροχιάς ταιριάζει ακριβώς με την περιστροφή της Γης — επομένως ο δορυφόρος φαίνεται **ακίνητος** από το έδαφος, επιτρέποντας τη χρήση σταθερής παραβολικής κεραίας.
+**GEO satellites** orbit at an altitude of **~36,000 km** above the Equator. At this altitude, orbital speed matches Earth's rotation exactly — thus the satellite appears **stationary** from the ground, allowing fixed parabolic dish antennas.
 
 ```
-  Γεωστατικός Δορυφόρος (GEO)
+  Geostationary Satellite (GEO)
   ────────────────────────────────────────────────────────────────
                     [GEO Satellite]
-                   ~36.000 km ύψος
+                   ~36,000 km altitude
                   /              \
        [Gateway Station]      [Remote Dish]
              |                      |
-         [Internet]            [Οικία/Πλοίο]
+         [Internet]            [Home/Ship]
 
   Round-trip latency: ~500-700 ms
-  (Σήμα: Γη → Δορ. → Γη → Δορ. → Γη = ~144.000 km)
+  (Signal: Earth → Sat → Earth → Sat → Earth = ~144,000 km)
 ```
 
-**Χαρακτηριστικά GEO:**
-- Latency: **500-700 ms** RTT (πολύ υψηλό).
-- Ταχύτητα download: 25-100+ Mbps.
-- Κάλυψη: 3 μόνο δορυφόροι καλύπτουν σχεδόν ολόκληρη τη Γη.
-- Εφαρμογές: τηλεόραση δορυφόρου, broadcast, επικοινωνίες σε απομακρυσμένες περιοχές.
-- **Ακατάλληλο** για: VoIP, online gaming, video conferencing — λόγω υπερβολικού latency.
+**GEO Characteristics:**
+- Latency: **500-700 ms** RTT (very high).
+- Download speed: 25-100+ Mbps.
+- Coverage: Just 3 satellites cover nearly the entire Earth.
+- Applications: Satellite TV, broadcasting, remote communications.
+- **Unsuitable** for: VoIP, online gaming, video conferencing — due to excessive latency.
 
-#### LEO Δορυφόροι (Low Earth Orbit)
+#### Low Earth Orbit Satellites (LEO)
 
-Οι **LEO δορυφόροι** τροχιοδρομούν σε ύψος **500-2.000 km**. Λόγω της χαμηλής τροχιάς κινούνται ταχύτατα (περίοδος: ~90-120 λεπτά), οπότε απαιτείται μεγάλος αριθμός δορυφόρων (**constellation**) για συνεχή κάλυψη.
+**LEO satellites** orbit at altitudes of **500-2,000 km**. Due to low orbit, they travel rapidly (period: ~90-120 mins), requiring a large **constellation** of satellites for continuous coverage.
 
 ```
-  LEO Constellation (π.χ. Starlink)
+  LEO Constellation (e.g. Starlink)
   ────────────────────────────────────────────────────────────────
     [LEO sat 1] ← → [LEO sat 2] ← → [LEO sat 3]
          \               |               /
           \              |              /
-     ~550 km ύψος        |
+     ~550 km altitude    |
           \              |              /
            [Gateway]  [Dish]  [Gateway]
                 |
             [Internet]
 
   Round-trip latency: ~20-50 ms
-  (Πολύ κοντύτερη διαδρομή φωτός)
+  (Much shorter light path)
 ```
 
-**Χαρακτηριστικά LEO:**
-- Latency: **20-50 ms** RTT — συγκρίσιμο με γήινο broadband.
-- Ταχύτητα download: 50-500 Mbps (Starlink).
-- Απαιτούνται εκατοντάδες έως χιλιάδες δορυφόροι (Starlink: ~6.000+ σε τροχιά, 2025).
-- Εφαρμογές: broadband σε αγροτικές περιοχές, πλοία, αεροσκάφη.
+**LEO Characteristics:**
+- Latency: **20-50 ms** RTT — comparable to terrestrial broadband.
+- Download speed: 50-500 Mbps (Starlink).
+- Requires hundreds to thousands of satellites (Starlink: ~6,000+ in orbit).
+- Applications: Rural broadband, maritime, aviation.
 
 ---
 
-### Σύγκριση Οπτικής Ίνας και Δορυφόρου
+### Comparison of Fiber Optic and Satellite
 
-| Χαρακτηριστικό | Οπτική Ίνα (Submarine) | GEO Δορυφόρος | LEO Δορυφόρος |
+| Characteristic | Optical Fiber (Submarine) | GEO Satellite | LEO Satellite |
 |---|---|---|---|
 | Latency (RTT) | 10-30 ms | 500-700 ms | 20-50 ms |
-| Bandwidth | Εκατ. Tbps | 25-100 Mbps ανά χρήστη | 50-500 Mbps ανά χρήστη |
-| Κάλυψη | Σε σημεία σύνδεσης | Σχεδόν παγκόσμια (3 δορ.) | Παγκόσμια (1000+ δορ.) |
-| Αξιοπιστία | Πολύ υψηλή | Υψηλή | Μεσαία (handover) |
-| Κόστος εγκατάστασης | Πολύ υψηλό | Υψηλό | Υψηλό (constellation) |
-| Ιδανικό για | Backbone, μεγάλες ταχύτητες | Broadcast, απομακρυσμένο | Broadband σε απομακρυσμένα |
+| Bandwidth | Millions of Tbps | 25-100 Mbps per user | 50-500 Mbps per user |
+| Coverage | At landing points | Nearly global (3 sats) | Global (1000+ sats) |
+| Reliability | Extremely high | High | Moderate (handover) |
+| Installation cost | Very high | High | High (constellation) |
+| Ideal for | Backbone, massive speed | Broadcast, remote | Remote broadband |
 
-**Exam Note:** Το βασικό μειονέκτημα των GEO δορυφόρων είναι το **υπερβολικό latency** (~500 ms) λόγω της απόστασης 36.000 km. Αυτό το καθιστά ακατάλληλο για real-time εφαρμογές. Οι LEO δορυφόροι (Starlink) λύνουν αυτό το πρόβλημα με χαμηλότερη τροχιά αλλά απαιτούν πολύπλοκο constellation management.
+**Exam Note:** The main drawback of GEO satellites is **excessive latency** (~500 ms) due to 36,000 km distance. This renders them unsuitable for real-time applications. LEO satellites (Starlink) resolve this with lower orbits but require complex constellation management.
 
 ---
 
-## Μεταφορά Δεδομένων μεταξύ Συσκευών
+## Data Transfer Between Devices
 *Data Transfer Between Devices*
 
-### Τμηματοποίηση Μηνυμάτων σε Πακέτα
+### Message Segmentation into Packets
 *Message Segmentation into Packets*
 
-Στο Διαδίκτυο, τα δεδομένα **δεν** μεταφέρονται ως ενιαίο μεγάλο σύνολο. Αντίθετα, κατατέμνονται σε μικρά κομμάτια που ονομάζονται **πακέτα** (packets) — συνήθως μεγέθους **1.500 bytes** για Ethernet (το **MTU — Maximum Transmission Unit**).
+On the Internet, data is **not** transmitted as a single large block. Instead, it is segmented into small pieces called **packets** — typically **1,500 bytes** for Ethernet (the **MTU — Maximum Transmission Unit**).
 
-**Γιατί πακέτα και όχι ένα μεγάλο μήνυμα;**
+**Why packets instead of one large message?**
 
-1. **Αποδοτική χρήση δικτύου:** Πολλές συνομιλίες μπορούν να μοιράζονται τον ίδιο σύνδεσμο ταυτόχρονα (statistical multiplexing).
-2. **Ευκολότερος χειρισμός σφαλμάτων:** Αν ένα πακέτο χαθεί, επαναποστέλλεται μόνο αυτό — όχι ολόκληρο το μήνυμα.
-3. **Ευελιξία δρομολόγησης:** Διαφορετικά πακέτα μπορούν να ακολουθούν διαφορετικές διαδρομές (routes) ανάλογα με τη συμφόρηση δικτύου.
+1. **Efficient network use:** Multiple conversations share the same link simultaneously (statistical multiplexing).
+2. **Easier error handling:** If a packet is lost, only that packet is retransmitted — not the entire message.
+3. **Routing flexibility:** Different packets can follow different routes depending on network congestion.
 
 ```
-  Τμηματοποίηση Μηνύματος σε Πακέτα
+  Message Segmentation into Packets
   ────────────────────────────────────────────────────────────────
-  Αρχικό Μήνυμα (π.χ. 4.500 bytes):
+  Original Message (e.g. 4,500 bytes):
   [═══════════════════════════════════════════]
 
-  Μετά από τμηματοποίηση (MTU = 1.500 bytes):
-  Πακέτο 1: [Header | Data (1.460 bytes)]
-  Πακέτο 2: [Header | Data (1.460 bytes)]
-  Πακέτο 3: [Header | Data (580 bytes)  ]
+  After segmentation (MTU = 1,500 bytes):
+  Packet 1: [Header | Data (1,460 bytes)]
+  Packet 2: [Header | Data (1,460 bytes)]
+  Packet 3: [Header | Data (580 bytes)  ]
 
-  Κάθε πακέτο:
+  Each packet:
   ┌─────────────────────────────────────────────┐
   │ IP Header (20 bytes) │ TCP Header (20 bytes) │ Data (payload) │
   └─────────────────────────────────────────────┘
-  Αποστολέας IP ─────────────────────────────────────▶ Παραλήπτης IP
-  Source Port ─────────────────────────────────────▶ Destination Port
+  Sender IP ─────────────────────────────────────▶ Receiver IP
+  Source Port ───────────────────────────────────▶ Destination Port
 ```
 
 ---
 
-### Καθυστερήσεις Μεταφοράς
+### Transfer Delays
 *Transfer Delays*
 
-Κάθε φορά που ένα πακέτο ταξιδεύει από κόμβο σε κόμβο, υφίσταται τέσσερα είδη καθυστέρησης. Το άθροισμά τους αποτελεί τη **nodal delay** (καθυστέρηση κόμβου):
+As a packet travels node to node, it experiences four delay types. Their sum constitutes **nodal delay**:
 
 $$d_{nodal} = d_{proc} + d_{queue} + d_{trans} + d_{prop}$$
 
-#### 1. Καθυστέρηση Επεξεργασίας ($d_{proc}$)
+#### 1. Processing Delay ($d_{proc}$)
 
-Ο χρόνος που χρειάζεται ο router για να εξετάσει την επικεφαλίδα (header) του πακέτου, να ελέγξει σφάλματα και να αποφασίσει την εξερχόμενη γραμμή.
+Time required for a router to inspect the packet header, check errors, and select the outbound link.
 
-**Τιμή:** Συνήθως < 1 ms σε σύγχρονους routers.
+**Value:** Typically < 1 ms in modern routers.
 
-#### 2. Καθυστέρηση Ουράς ($d_{queue}$)
+#### 2. Queuing Delay ($d_{queue}$)
 
-Ο χρόνος αναμονής ενός πακέτου στην ουρά (buffer) του router μέχρι να είναι ελεύθερος ο σύνδεσμος για να μεταδοθεί.
+Time a packet spends waiting in a router queue (buffer) until the link becomes free for transmission.
 
-**Παρατήρηση:** Η καθυστέρηση ουράς εξαρτάται από την **κυκλοφοριακή ένταση** (traffic intensity): $ L \cdot a / R $, όπου $L$ το μέγεθος πακέτου, $a$ ο ρυθμός άφιξης, $R$ η χωρητικότητα. Όταν αυτός ο λόγος πλησιάζει 1, η καθυστέρηση τείνει στο άπειρο.
+**Note:** Queuing delay depends on **traffic intensity**: $ L \cdot a / R $, where $L$ is packet size, $a$ is arrival rate, $R$ is link bandwidth. As this ratio approaches 1, queuing delay approaches infinity.
 
-#### 3. Καθυστέρηση Μετάδοσης ($d_{trans}$)
+#### 3. Transmission Delay ($d_{trans}$)
 
-Ο χρόνος που απαιτείται για να «σπρωχτούν» όλα τα bits του πακέτου στο φυσικό σύνδεσμο.
+Time required to push all packet bits onto the physical link.
 
 $$d_{trans} = \frac{L}{R}$$
 
-- **$L$:** Μήκος πακέτου σε bits.
-- **$R$:** Ρυθμός μετάδοσης (bandwidth) του συνδέσμου σε bps.
+- **$L$:** Packet length in bits.
+- **$R$:** Link transmission rate (bandwidth) in bps.
 
-**Παράδειγμα:** Πακέτο 12.000 bits σε σύνδεσμο 1 Mbps: $d_{trans} = 12.000 / 1.000.000 = 0.012 s = 12 ms$.
+**Example:** 12,000-bit packet on 1 Mbps link: $d_{trans} = 12,000 / 1,000,000 = 0.012 s = 12 ms$.
 
-#### 4. Καθυστέρηση Διάδοσης ($d_{prop}$)
+#### 4. Propagation Delay ($d_{prop}$)
 
-Ο χρόνος που χρειάζεται το σήμα για να ταξιδέψει φυσικά από τον αποστολέα στον παραλήπτη μέσω του υλικού μέσου.
+Time required for a bit to physically travel from sender to receiver across the physical medium.
 
 $$d_{prop} = \frac{d}{s}$$
 
-- **$d$:** Φυσική απόσταση μεταξύ δύο κόμβων.
-- **$s$:** Ταχύτητα διάδοσης σήματος στο μέσο (≈ $2 \times 10^8$ m/s σε χαλκό/ίνα, δηλ. ~2/3 της ταχύτητας φωτός).
+- **$d$:** Physical distance between nodes.
+- **$s$:** Signal propagation speed in medium (≈ $2 \times 10^8$ m/s in copper/fiber, ~2/3 speed of light).
 
-**Exam Note:** Μην μπερδεύετε $d_{trans}$ και $d_{prop}$. Η καθυστέρηση μετάδοσης εξαρτάται από το **μέγεθος πακέτου και bandwidth**. Η καθυστέρηση διάδοσης εξαρτάται από την **απόσταση** μεταξύ κόμβων.
+**Exam Note:** Do not confuse $d_{trans}$ and $d_{prop}$. Transmission delay depends on **packet size and bandwidth**. Propagation delay depends on **distance** between nodes.
 
 ---
 
-### Αριθμητικό Παράδειγμα End-to-End Καθυστέρησης
+### Worked Numerical Example
 *Worked Numerical Example*
 
-**Σενάριο:** Ένα αρχείο 750.000 bytes αποστέλλεται από κόμβο Α σε κόμβο Γ, με ένα ενδιάμεσο router Β (2 hops). Κάθε σύνδεσμος έχει:
-- Ταχύτητα: $R = 1.5 \text{ Mbps} = 1.5 \times 10^6 \text{ bps}$
-- Φυσική απόσταση: $d = 300 \text{ km} = 3 \times 10^5 \text{ m}$
-- Ταχύτητα διάδοσης: $s = 2 \times 10^8 \text{ m/s}$
+**Scenario:** A 750,000-byte file is sent from node A to node C, via intermediate router B (2 hops). Each link has:
+- Bandwidth: $R = 1.5 \text{ Mbps} = 1.5 \times 10^6 \text{ bps}$
+- Distance: $d = 300 \text{ km} = 3 \times 10^5 \text{ m}$
+- Propagation speed: $s = 2 \times 10^8 \text{ m/s}$
 
-Αγνοούμε queuing delay και processing delay.
+Ignore queuing delay and processing delay.
 
-**Βήμα 1: Υπολογισμός μεγέθους αρχείου σε bits:**
+**Step 1: Calculate file size in bits:**
 
-$$L = 750.000 \times 8 = 6 \times 10^6 \text{ bits}$$
+$$L = 750,000 \times 8 = 6 \times 10^6 \text{ bits}$$
 
-**Βήμα 2: Το αρχείο αποστέλλεται ως ένα πακέτο (για απλότητα):**
+**Step 2: Transmission delay per hop:**
 
 $$d_{trans} = \frac{L}{R} = \frac{6 \times 10^6}{1.5 \times 10^6} = 4 \text{ sec}$$
 
-**Βήμα 3: Καθυστέρηση διάδοσης ανά hop:**
+**Step 3: Propagation delay per hop:**
 
 $$d_{prop} = \frac{d}{s} = \frac{3 \times 10^5}{2 \times 10^8} = 1.5 \times 10^{-3} \text{ s} = 1.5 \text{ ms}$$
 
-**Βήμα 4: Store-and-Forward:**
+**Step 4: Store-and-Forward End-to-End Delay:**
 
-Σε store-and-forward packet switching, ο router Β πρέπει να λάβει **ολόκληρο** το πακέτο πριν το προωθήσει. Άρα:
+In store-and-forward packet switching, router B must receive the **entire** packet before forwarding it:
 
 $$d_{end-to-end} = N \cdot d_{trans} + N \cdot d_{prop}$$
 
-Για $N = 2$ hops (Α→Β, Β→Γ):
+For $N = 2$ hops (A→B, B→C):
 
 $$d_{end-to-end} = 2 \times 4 + 2 \times 0.0015 = 8 + 0.003 \approx 8.003 \text{ sec}$$
 
-**Παρατήρηση:** Σε αυτό το παράδειγμα, η καθυστέρηση μετάδοσης (8 sec) κυριαρχεί, ενώ η καθυστέρηση διάδοσης (3 ms) είναι αμελητέα — γιατί το αρχείο είναι μεγάλο και το bandwidth σχετικά μικρό.
-
-**Αντίστροφο Σενάριο:** Αν το bandwidth ήταν $R = 1 \text{ Gbps}$:
-
-$$d_{trans} = \frac{6 \times 10^6}{10^9} = 6 \times 10^{-3} \text{ sec} = 6 \text{ ms}$$
-
-Τώρα η διάδοση (3 ms) και μετάδοση (6 ms) είναι συγκρίσιμα — το bandwidth του συνδέσμου καθορίζει ποια καθυστέρηση κυριαρχεί.
-
 ---
 
-### Ενθυλάκωση Δεδομένων (Encapsulation)
+### Data Encapsulation
 *Data Encapsulation*
 
-Κατά τη μεταφορά δεδομένων, κάθε επίπεδο της TCP/IP στοίβας **προσθέτει** την επικεφαλίδα (header) του στα δεδομένα — αυτή η διαδικασία ονομάζεται **encapsulation** (ενθυλάκωση). Στον παραλήπτη, κάθε επίπεδο **αφαιρεί** την αντίστοιχη επικεφαλίδα (de-encapsulation).
+During data transfer, each layer of the TCP/IP stack **appends** its own header to data — this process is called **encapsulation**. At the receiver, each layer **strips** its header (de-encapsulation).
 
 ```
-  Encapsulation: Αποστολέας (Κατεβαίνοντας στη στοίβα)
+  Encapsulation: Sender (Moving down the stack)
   ──────────────────────────────────────────────────────────────
   Application:   [   DATA   ]
                       ↓  + Application Header (HTTP)
@@ -596,73 +589,54 @@ $$d_{trans} = \frac{6 \times 10^6}{10^9} = 6 \times 10^{-3} \text{ sec} = 6 \tex
                       ↓  + IP Header
   Network Access:[ETH HDR | IP HDR | TCP HDR | DATA | ETH TRAIL]
                       ↓
-                   Φυσικό Μέσο (bits)
+                   Physical Medium (bits)
 
-  Ονομασία PDU (Protocol Data Unit) ανά επίπεδο:
-  Application:  Message (μήνυμα)
-  Transport:    Segment (τμήμα) — TCP / Datagram — UDP
-  Internet:     Datagram (ή packet)
-  Network Acc.: Frame (πλαίσιο)
+  PDU Names per Layer:
+  Application:  Message
+  Transport:    Segment (TCP) / Datagram (UDP)
+  Internet:     Datagram (or packet)
+  Network Acc.: Frame
   Physical:     Bits
 ```
 
-**Πρακτικό Παράδειγμα — Αποστολή HTTP αίτησης:**
-
-```
-  [Browser]                [Router Α]            [Web Server]
-      |                        |                       |
-      | Δημιουργεί HTTP GET     |                       |
-      | TCP Segment             |                       |
-      | IP Datagram             |                       |
-      | Ethernet Frame          |                       |
-      |── Frame ───────────────>|                       |
-      |                         | Αφαιρεί ETH header    |
-      |                         | Εξετάζει IP header    |
-      |                         | Προσθέτει νέο ETH HDR |
-      |                         |── Frame ─────────────>|
-      |                         |                       | De-encapsulates
-      |                         |                       | HTTP GET παραδίδεται
-      |                         |                       | στην εφαρμογή
-```
-
 ---
 
-## Συγκεντρωτικός Πίνακας
+## Summary Table
 
-| Έννοια | Ορισμός | Κύριο Χαρακτηριστικό |
+| Concept | Definition | Key Characteristic |
 |---|---|---|
-| **Router** | Συσκευή δρομολόγησης πακέτων μεταξύ δικτύων | Layer 3, χρησιμοποιεί IP addresses |
-| **Switch** | Συσκευή σύνδεσης συσκευών εντός LAN | Layer 2, χρησιμοποιεί MAC addresses |
-| **Modem** | Μετατροπέας ψηφιακού/αναλογικού σήματος | Γέφυρα μεταξύ LAN και ISP γραμμής |
-| **NIC** | Κάρτα δικτύου συσκευής | Παρέχει φυσική σύνδεση |
-| **IP (Internet Protocol)** | Πρωτόκολλο δρομολόγησης — Internet Layer | Connectionless, best-effort |
-| **IPv4** | Διευθύνσεις 32-bit (~4.3 δισ.) | Εξαντλημένες, χρήση NAT |
-| **IPv6** | Διευθύνσεις 128-bit | Πρακτικά απεριόριστες |
-| **TCP** | Αξιόπιστο, connection-oriented πρωτόκολλο | 3-way handshake, flow control |
-| **UDP** | Connectionless, unreliable πρωτόκολλο | Ταχύτερο, για streaming/DNS/gaming |
-| **DNS** | Μετατροπή domain name σε IP | «Τηλεφωνικός κατάλογος» Διαδικτύου |
-| **HTTP/HTTPS** | Πρωτόκολλο μεταφοράς web περιεχομένου | HTTPS = HTTP + TLS κρυπτογράφηση |
-| **Single-mode Fiber** | Οπτική ίνα, πυρήνας ~9 μm, laser | Tbps, εκατοντάδες km χωρίς ενίσχυση |
-| **Multi-mode Fiber** | Οπτική ίνα, πυρήνας ~50 μm, LED | Μικρές αποστάσεις (<2 km), data centers |
-| **GEO Δορυφόρος** | Τροχιά ~36.000 km, ακίνητος από Γη | Latency 500-700 ms, παγκόσμια κάλυψη (3 δορ.) |
-| **LEO Δορυφόρος** | Τροχιά 500-2.000 km, constellation | Latency 20-50 ms, απαιτεί πολλούς δορυφόρους |
-| **Καθυστέρηση Μετάδοσης** | $d_{trans} = L/R$ | Εξαρτάται από πακέτο + bandwidth |
-| **Καθυστέρηση Διάδοσης** | $d_{prop} = d/s$ | Εξαρτάται από απόσταση + μέσο |
-| **Encapsulation** | Προσθήκη header σε κάθε επίπεδο TCP/IP | PDU: Message → Segment → Datagram → Frame → Bits |
-| **MTU** | Maximum Transmission Unit, 1.500 bytes (Ethernet) | Μέγιστο μέγεθος πακέτου σε Ethernet |
-| **DWDM** | Dense Wavelength Division Multiplexing | Πολλαπλά σήματα στην ίδια οπτική ίνα |
+| **Router** | Packet routing device between networks | Layer 3, uses IP addresses |
+| **Switch** | Device connecting nodes within LAN | Layer 2, uses MAC addresses |
+| **Modem** | Digital/analog signal converter | Bridge between LAN and ISP line |
+| **NIC** | Network Interface Card | Provides physical connectivity |
+| **IP (Internet Protocol)** | Routing protocol — Internet Layer | Connectionless, best-effort |
+| **IPv4** | 32-bit addresses (~4.3B) | Exhausted, uses NAT |
+| **IPv6** | 128-bit addresses | Practically unlimited |
+| **TCP** | Reliable, connection-oriented protocol | 3-way handshake, flow control |
+| **UDP** | Connectionless, unreliable protocol | Faster, streaming/DNS/gaming |
+| **DNS** | Domain name to IP translation | Internet "phonebook" |
+| **HTTP/HTTPS** | Web content transfer protocol | HTTPS = HTTP + TLS encryption |
+| **Single-mode Fiber** | Fiber, ~9 μm core, laser | Tbps, hundreds of km without repeaters |
+| **Multi-mode Fiber** | Fiber, ~50 μm core, LED | Short distance (<2 km), data centers |
+| **GEO Satellite** | Orbit ~36,000 km, stationary | Latency 500-700 ms, global coverage (3 sats) |
+| **LEO Satellite** | Orbit 500-2,000 km, constellation | Latency 20-50 ms, requires many satellites |
+| **Transmission Delay** | $d_{trans} = L/R$ | Depends on packet size + bandwidth |
+| **Propagation Delay** | $d_{prop} = d/s$ | Depends on distance + medium |
+| **Encapsulation** | Header addition at each TCP/IP layer | PDU: Message → Segment → Datagram → Frame → Bits |
+| **MTU** | Maximum Transmission Unit, 1,500 bytes (Ethernet) | Max packet size on Ethernet |
+| **DWDM** | Dense Wavelength Division Multiplexing | Multiple signals in single optical fiber |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-- Το Διαδίκτυο αποτελείται από **τρία συμπληρωματικά στρώματα**: φυσική υποδομή (hardware/καλώδια), πρωτόκολλα επικοινωνίας (TCP/IP, DNS) και μηχανισμούς μεταφοράς δεδομένων (packet switching).
-- Ο **router** λειτουργεί στο Layer 3 (IP) και διασυνδέει **διαφορετικά** δίκτυα. Ο **switch** λειτουργεί στο Layer 2 (MAC) και διασυνδέει συσκευές **εντός** ενός δικτύου.
-- Το **TCP/IP** είναι η στοίβα πρωτοκόλλων 4 επιπέδων (Application, Transport, Internet, Network Access) που καθορίζει πώς λειτουργεί το Διαδίκτυο. Κάθε επίπεδο προσθέτει header (encapsulation) κατά την αποστολή.
-- Το **TCP** παρέχει αξιόπιστη επικοινωνία (3-way handshake, flow/congestion control). Το **UDP** είναι ταχύτερο αλλά χωρίς εγγυήσεις.
-- Το **DNS** μεταφράζει domain names (αναγνώσιμα) σε IP addresses (αριθμητικά), λειτουργώντας ιεραρχικά: Root → TLD → Authoritative. Χρησιμοποιεί UDP (port 53) για queries.
-- Η **single-mode οπτική ίνα** (SMF) με DWDM τεχνολογία αποτελεί τη ραχοκοκαλιά του Διαδικτύου — μεταφέρει **99%** της διεθνούς κίνησης μέσω υποβρύχιων καλωδίων σε χωρητικότητα εκατοντάδων Tbps.
-- Οι **GEO δορυφόροι** (~36.000 km) προσφέρουν παγκόσμια κάλυψη με τρεις μόνο δορυφόρους, αλλά έχουν απαράδεκτο latency (~600 ms) για real-time εφαρμογές. Οι **LEO δορυφόροι** (500-2.000 km) επιλύουν αυτό με latency ~20-50 ms αλλά απαιτούν μεγάλα constellations.
-- Η **καθυστέρηση μετάδοσης** ($d_{trans} = L/R$) εξαρτάται από μέγεθος πακέτου και bandwidth. Η **καθυστέρηση διάδοσης** ($d_{prop} = d/s$) εξαρτάται από τη φυσική απόσταση — είναι θεμελιωδώς διαφορετικές έννοιες.
-- Σε **store-and-forward** packet switching, ο router πρέπει να λάβει **ολόκληρο** το πακέτο πριν το προωθήσει — αυτό προσθέτει $d_{trans}$ καθυστέρηση ανά hop.
-- Το **IPv4** (32-bit) έχει εξαντλήσει τον χώρο διευθύνσεων. Το **IPv6** (128-bit) παρέχει πρακτικά απεριόριστες διευθύνσεις για IoT, 5G και μελλοντική κλιμάκωση.
+- The Internet comprises **three complementary layers**: physical infrastructure (hardware/cables), communication protocols (TCP/IP, DNS), and data transfer mechanisms (packet switching).
+- A **router** operates at Layer 3 (IP) interconnecting **different** networks. A **switch** operates at Layer 2 (MAC) connecting devices **within** a network.
+- **TCP/IP** is the 4-layer protocol stack (Application, Transport, Internet, Network Access) defining Internet operations.
+- **TCP** provides reliable communication (3-way handshake, flow/congestion control). **UDP** is faster but offers no delivery guarantees.
+- **DNS** translates human-readable domain names into IP addresses, operating hierarchically: Root → TLD → Authoritative.
+- **Single-mode optical fiber** (SMF) with DWDM technology forms the Internet backbone — transporting **99%** of international traffic.
+- **GEO satellites** (~36,000 km) provide global coverage with just three satellites, but have unacceptable latency (~600 ms) for real-time applications. **LEO satellites** (500-2,000 km) resolve this with latency ~20-50 ms.
+- **Transmission delay** ($d_{trans} = L/R$) depends on packet size and bandwidth. **Propagation delay** ($d_{prop} = d/s$) depends on distance.
+- In **store-and-forward** packet switching, a router must receive an **entire** packet before forwarding it — adding $d_{trans}$ delay per hop.
+- **IPv4** (32-bit) address space is exhausted. **IPv6** (128-bit) provides virtually unlimited addresses for future expansion.

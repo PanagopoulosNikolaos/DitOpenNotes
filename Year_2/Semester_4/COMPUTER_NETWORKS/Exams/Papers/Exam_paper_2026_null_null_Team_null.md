@@ -1,32 +1,32 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Μέρος 1)
+# Computer Networks - Exam Questions (Part 1)
 
-**Διάρκεια Εξέτασης:** 1 ώρα και 45 λεπτά
+**Exam Duration:** 1 hour and 45 minutes
 
 ---
 
-## Θέματα
+## Questions
 
-### 1. (1 μονάδα)
-Έστω το δίκτυο της Εικόνας 1. Ορίστε αναλυτικά την καθυστέρηση από άκρο σε άκρο, ως μαθηματική έκφραση και εξηγήστε τα σύμβολα που θα συμπεριλάβετε σε αυτή.
-Υποθέτουμε ότι το μέγεθος του πακέτου είναι L, ο ρυθμός μετάδοσης R, η απόσταση l και η ταχύτητα διάδοσης u.
-Σημειώστε τυχόν άλλες παραδοχές.
+### 1. (1 point)
+Consider the network in Figure 1. Define end-to-end delay in detail as a mathematical expression and explain the symbols included in it.
+Assume packet size is L, transmission rate R, distance l, and propagation speed u.
+Note any other assumptions.
 
 ```
        Packet
  (A)====[======]========(B)
          link
-       Εικόνα 1
+       Figure 1
 ```
 
 ---
 
-### 2. (0,5 μονάδες)
-Έστω μια ζεύξη (link) δικτύου με χαρακτηριστικά Bandwidth και Delay. Ποιος είναι ο μέγιστος αριθμός bits που μπορούν να μεταφέρονται σε αυτή τη ζεύξη σε κάθε χρονική στιγμή αν υποθέσουμε ότι το Bandwidth είναι ίσο με τον ΑΜ σας σε KB και το Delay είναι ίσο με το τελευταίο ψηφίο του ΑΜ σας σε ms. (Αν το τελευταίο ψηφίο του ΑΜ σας είναι 0 (μηδέν) θεωρείστε Delay = 6 ms).
+### 2. (0.5 points)
+Consider a network link with Bandwidth and Delay parameters. What is the maximum number of bits that can be present on this link at any given moment assuming Bandwidth is equal to your Registration Number in KB and Delay is equal to the last digit of your Registration Number in ms. (If the last digit of your Registration Number is 0 (zero), consider Delay = 6 ms).
 
 ---
 
-### 3. (1 μονάδα)
-Για το δίκτυο της Εικόνας 2 ορίστε δρομολόγηση OSPF υποθέτοντας ότι έχετε μόνο μια περιοχή δρομολόγησης (συμπληρώστε τα κενά)
+### 3. (1 point)
+For the network in Figure 2, configure OSPF routing assuming you have only one routing area (fill in the blanks)
 
 ```
         172.16.8.0/29
@@ -35,7 +35,7 @@
               |
         192.168.1.0/24
 
-          Εικόνα 2
+          Figure 2
 ```
 
 ```
@@ -49,31 +49,31 @@ R# __________________________________________________
 ```
 
 ---
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Μέρος 2)
+# Computer Networks - Exam Questions (Part 2)
 
-**Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
-
----
-
-### 4. (1,5 μονάδες)
-Το 2016, η Google δημοσίευσε τον αλγόριθμο ελέγχου συμφόρησης με βάση το εύρος ζώνης συμφόρησης και τον χρόνο μετάδοσης μετά επιστροφής (το ονομαζόμενο BBR). Το πρωτόκολλο BBR θέτει το παράθυρο συμφόρησης CWND = RtProp x BtlBw, όπου RtProp = min(RTTt).
-
-a. Υποθέστε ότι χρησιμοποιείτε το πρωτόκολλο TCP για να την εγκατάσταση μιας σύνδεσης με τον δικτυακό τόπο του Τμήματος (https://dit.uoi.gr/). Προτείνετε έναν τουλάχιστον τον τρόπο λήψης δειγμάτων RTT και τον τρόπο υπολογισμού του RtProp.
-b. Με ποιο τρόπο μπορείτε να παρακολουθήσετε τη διαδρομή που ακολουθούν τα πακέτα για να φθάσουν από τον υπολογιστή σας στο δικτυακό τόπο του Τμήματος;
-c. Υποθέτουμε ότι σας διατίθεται ένας σύνδεσμος για συνδεθείτε απευθείας με τον server που φιλοξενεί τον δικτυακό τόπο του Τμήματος και ο χρόνος μετάδοσης μετά επιστροφής είναι 5 ms, και ο ρυθμός μετάδοσης είναι 0,125GB/s. Να υπολογιστεί το μέγεθος του παραθύρου συμφόρησης.
+**Exam Duration:** 2 hours and 15 minutes
 
 ---
 
-### 5. (1 μονάδα)
-Έστω τα δίκτυα που φαίνονται στις Εικόνες 3 και 4. Ο κόμβος X στέλνει πακέτα στον κόμβο Y. Ποια διαδρομή θα ακολουθήσουν τα πακέτα στην κάθε περίπτωση και γιατί; Οι ελλείψεις αντιστοιχούν σε διαφορετικά αυτόνομα συστήματα και χρησιμοποιείται το πρωτόκολλο BGP.
+### 4. (1.5 points)
+In 2016, Google published the Bottleneck Bandwidth and Round-trip propagation time (BBR) congestion control algorithm. The BBR protocol sets the congestion window CWND = RtProp x BtlBw, where RtProp = min(RTTt).
+
+a. Suppose you use the TCP protocol to establish a connection with the Department's website (https://dit.uoi.gr/). Propose at least one method for sampling RTT and calculating RtProp.
+b. How can you trace the path taken by packets from your computer to the Department's website?
+c. Suppose you are provided a direct link to connect with the server hosting the Department's website, where the round-trip propagation time is 5 ms and the transmission rate is 0.125 GB/s. Calculate the congestion window size.
+
+---
+
+### 5. (1 point)
+Consider the networks shown in Figures 3 and 4. Node X sends packets to node Y. Which path will the packets follow in each case and why? The ellipses correspond to different autonomous systems and the BGP protocol is used.
 
 ```
-Εικόνα 3:
+Figure 3:
 Verizon:  [A] --- [B] --- [C] --- [D] ===> (Y)
                                    |
 AT&T: (X) --- [E] --- [F] --- [G] --- [H] --- [I]
 
-Εικόνα 4:
+Figure 4:
 Verizon:  [A] --- [B] --- [C] --- [D] --- [E] ===> (Y)
            |               |               |
 AT&T:     [F] --- [G] --- [H] --- [I] --- [J]
@@ -83,37 +83,37 @@ AT&T:     [F] --- [G] --- [H] --- [I] --- [J]
 
 ---
 
-## 1η Άσκηση (2.5 μονάδες)
+## Exercise 1 (2.5 points)
 
 ```
 ( A ) --------- Link 1 --------- ( B ) --------- Link 2 --------- ( C )
 ```
 
-Θεωρείστε το παραπάνω διάγραμμα. Η ζεύξη 1 (Link1) έχει μήκος L1 (m) (όπου m σημαίνει μέτρα) και επιτρέπει την αποστολή πακέτων που διαδίδονται με ταχύτητα u1 (m/sec), ενώ η ζεύξη 2 (Link2) έχει μήκος L2 (m) αλλά επιτρέπει τη διάδοση πακέτων με ταχύτητα u2 (m/sec). Το Link1 έχει ρυθμό μετάδοσης R1 (bps) και το Link2 έχει ρυθμό μετάδοσης R2 (bps). Για όλα τα παρακάτω θεωρείστε ότι το μέγεθος του πακέτου είναι ίσο με το 1/2 του Α.Μ σας.
+Consider the diagram above. Link 1 (Link1) has length L1 (m) (where m stands for meters) and permits sending packets propagating at speed u1 (m/sec), while link 2 (Link2) has length L2 (m) and permits packet propagation at speed u2 (m/sec). Link1 has a transmission rate R1 (bps) and Link2 has a transmission rate R2 (bps). For all the following, assume packet size is equal to 1/2 of your Registration Number.
 
-Να υπολογιστούν:
+Calculate:
 
-A. Ο χρόνος που χρειάζεται για την αποστολή ενός πακέτου από τον κόμβο A στον κόμβο C, δεδομένου ότι R1 = 10000, L1 = 100Km και u1 = u2 = 2,5 * 10^8, R2 = 10000, L2 = 50Km.
-B. Το RTT (round trip time) για ένα πακέτο που αποστέλλεται από τον κόμβο A στον κόμβο B (το πακέτο λαμβάνεται και μεταδίδεται πίσω από τον κόμβο B αμέσως μετά τη λήψη του) αν αγνοηθεί η καθυστέρηση επεξεργασίας.
-
----
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Μέρος 3)
-
-**Θέματα Εξετάσεων**  
-**Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+A. The time required to send a packet from node A to node C, given that R1 = 10000, L1 = 100Km and u1 = u2 = 2.5 * 10^8, R2 = 10000, L2 = 50Km.
+B. The RTT (round trip time) for a packet sent from node A to node B (the packet is received and transmitted back by node B immediately after reception) ignoring processing delay.
 
 ---
+# Computer Networks - Exam Questions (Part 3)
 
-## 1η Άσκηση (συνέχεια)
-
-C. Το RTT (round trip time) για ένα πακέτο που αποστέλλεται από τον κόμβο A στον κόμβο C (το πακέτο λαμβάνεται και μεταδίδεται πίσω από τον κόμβο C αμέσως μετά τη λήψη του) αν η καθυστέρηση επεξεργασίας σε κάθε κόμβο είναι 0,02 ms.
+**Exam Questions**  
+**Exam Duration:** 2 hours and 15 minutes
 
 ---
 
-## 2η Άσκηση (2.5 μονάδες)
+## Exercise 1 (continued)
+
+C. The RTT (round trip time) for a packet sent from node A to node C (the packet is received and transmitted back by node C immediately after reception) if the processing delay at each node is 0.02 ms.
+
+---
+
+## Exercise 2 (2.5 points)
 
 ### A)
-Έστω ο γράφος που αντιστοιχεί στην τοπολογία ενός δικτύου. Ο αριθμός δίπλα στην κάθε ακμή υποδεικνύει το κόστος της που αντιστοιχεί στην κάθε ζεύξη. Εφαρμόσετε τον αλγόριθμο κατάστασης ζεύξεων του Dijkstra και υπολογίστε το συντομότερο μονοπάτι από τον κόμβο a στον κόμβο k.
+Consider the graph corresponding to the topology of a network. The number next to each edge indicates the link cost. Apply Dijkstra's link-state algorithm and calculate the shortest path from node a to node k.
 
 ```
            5            5
@@ -144,4 +144,4 @@ C. Το RTT (round trip time) για ένα πακέτο που αποστέλλ
 ---
 
 ### B)
-Ένα δίκτυο χρησιμοποιεί CSMA/CD και έχει bandwidth 10 Mbps. Αν ο μέγιστος χρόνος διάδοσης (συμπεριλαμβανομένων και των καθυστερήσεων) είναι 25.6 μs, ποιο είναι το ελάχιστο μέγεθος του πλαισίου;
+A network uses CSMA/CD and has a bandwidth of 10 Mbps. If the maximum propagation time (including delays) is 25.6 μs, what is the minimum frame size?

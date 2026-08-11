@@ -1,76 +1,76 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων
+# Computer Networks - Exam Paper
 *Computer Networks - Exam Paper*
 
-## Πληροφορίες Εξέτασης
+## Exam Information
 
-- **Ακαδημαϊκό Έτος:** .......................
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά *(Σημείωση στο γραπτό: 1 ώρα και 45 λεπτά)*
-- **Εξεταζόμενο Μάθημα:**
-  - [✓] Δίκτυα Υπολογιστών
-  - [ ] Τοπικά & Αστικά Δίκτυα Θ
-  - [ ] Τοπικά & Αστικά Δίκτυα Ε
-
----
-
-## Στοιχεία Φοιτητή
-
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
-- **Αριθμός Θέσης:** __________________
+- **Academic Year:** .......................
+- **Exam Duration:** 2 hours and 15 minutes *(Note on paper: 1 hour and 45 minutes)*
+- **Examined Course:**
+  - [✓] Computer Networks
+  - [ ] Local & Metropolitan Area Networks Th
+  - [ ] Local & Metropolitan Area Networks Lab
 
 ---
 
-## Θέματα
+## Student Data
 
-### Θέμα 1 (1 μονάδα)
-Έστω το δίκτυο της Εικόνας 1. Ορίστε αναλυτικά την καθυστέρηση από άκρο σε άκρο (end-to-end delay), ως μαθηματική έκφραση και εξηγήστε τα σύμβολα που θα συμπεριλάβετε σε αυτή.
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
+- **Seat Number:** __________________
+
+---
+
+## Questions
+
+### Question 1 (1 point)
+Consider the network in Figure 1. Define end-to-end delay in detail as a mathematical expression and explain the symbols included in it.
 
 ```
                   +-----------+
   ( A ) --------->|   queue   |---------> ( B )
                   +-----------+
-                    Εικόνα 1
+                    Figure 1
 ```
 
 ---
-**Απάντηση:**
-Η συνολική καθυστέρηση από άκρο σε άκρο ($d_{\text{end-to-end}}$) αποτελείται από το άθροισμα τεσσάρων επιμέρους καθυστερήσεων:
+**Answer:**
+The total end-to-end delay ($d_{\text{end-to-end}}$) consists of the sum of four component delays:
 $$d_{\text{end-to-end}} = d_{\text{proc}} + d_{\text{queue}} + d_{\text{trans}} + d_{\text{prop}}$$
 
-**Επεξήγηση συμβόλων:**
-1. **$d_{\text{proc}}$ (Καθυστέρηση Επεξεργασίας / Processing Delay):** Ο χρόνος που απαιτείται για τον έλεγχο των επικεφαλίδων των πακέτων και τον προσδιορισμό του επόμενου κόμβου δρομολόγησης, καθώς και για έλεγχο σφαλμάτων bit.
-2. **$d_{\text{queue}}$ (Καθυστέρηση Ουράς / Queuing Delay):** Ο χρόνος αναμονής του πακέτου στην ουρά του μεταγωγέα/δρομολογητή μέχρι να έρθει η σειρά του για μετάδοση. Εξαρτάται από το ρυθμό άφιξης άλλων πακέτων.
-3. **$d_{\text{trans}}$ (Καθυστέρηση Μετάδοσης / Transmission Delay):** Ο χρόνος που απαιτείται για τη διοχέτευση όλων των bits του πακέτου στο φυσικό μέσο. Υπολογίζεται ως $d_{\text{trans}} = \frac{L}{R}$, όπου $L$ το μέγεθος του πακέτου σε bits και $R$ ο ρυθμός μετάδοσης (Bandwidth) της ζεύξης.
-4. **$d_{\text{prop}}$ (Καθυστέρηση Διάδοσης / Propagation Delay):** Ο χρόνος που χρειάζεται ένα bit για να διατρέξει τη φυσική απόσταση της ζεύξης από την πηγή στον προορισμό. Υπολογίζεται ως $d_{\text{prop}} = \frac{d}{s}$, όπου $d$ η απόσταση και $s$ η ταχύτητα διάδοσης του σήματος στο συγκεκριμένο φυσικό μέσο.
+**Explanation of symbols:**
+1. **$d_{\text{proc}}$ (Processing Delay):** The time required to examine packet headers, determine the next routing node, and check for bit errors.
+2. **$d_{\text{queue}}$ (Queuing Delay):** The time a packet waits in the switch/router queue before its turn for transmission. Depends on the arrival rate of other packets.
+3. **$d_{\text{trans}}$ (Transmission Delay):** The time required to push all packet bits onto the physical medium. Calculated as $d_{\text{trans}} = \frac{L}{R}$, where $L$ is packet size in bits and $R$ is link transmission rate (Bandwidth).
+4. **$d_{\text{prop}}$ (Propagation Delay):** The time needed for a bit to propagate through the physical length of the link from source to destination. Calculated as $d_{\text{prop}} = \frac{d}{s}$, where $d$ is distance and $s$ is signal propagation speed in the specific physical medium.
 
 ---
 
-### Θέμα 2 (0,5 μονάδες)
-Έστω μια ζεύξη (link) δικτύου με χαρακτηριστικά Bandwidth και Delay. Ποιος είναι ο μέγιστος αριθμός bits που μπορούν να μεταφέρονται σε αυτή τη ζεύξη σε κάθε χρονική στιγμή αν υποθέσουμε ότι το Bandwidth είναι ίσο με τον ΑΜ σας σε KB και το Delay είναι ίσο με το τελευταίο ψηφίο του ΑΜ σας σε ms. (Αν το τελευταίο ψηφίο του ΑΜ σας είναι 0 (μηδέν) θεωρείστε Delay = 5ms).
+### Question 2 (0.5 points)
+Consider a network link with Bandwidth and Delay parameters. What is the maximum number of bits that can be present on this link at any given moment assuming Bandwidth is equal to your Registration Number in KB and Delay is equal to the last digit of your Registration Number in ms. (If the last digit of your Registration Number is 0 (zero), consider Delay = 5ms).
 
 ---
-**Απάντηση:**
-Ο μέγιστος αριθμός bits που μπορούν να βρίσκονται πάνω στη ζεύξη ανά πάσα στιγμή ισούται με το Γινόμενο Εύρους Ζώνης-Καθυστέρησης (Bandwidth-Delay Product - BDP):
+**Answer:**
+The maximum number of bits present on the link at any given time equals the Bandwidth-Delay Product (BDP):
 $$\text{Max Bits} = \text{Bandwidth} \times \text{Delay}$$
 
-Έστω $N$ ο Αριθμός Μητρώου (AM) και $d$ το τελευταίο ψηφίο του AM (αν $d = 0$, τότε $\text{Delay} = 5\text{ ms}$).
+Let $N$ be the Registration Number (AM) and $d$ the last digit of AM (if $d = 0$, then $\text{Delay} = 5\text{ ms}$).
 - **Bandwidth ($R$):** $N\text{ KB/s} = N \times 1000 \times 8\text{ bps} = 8000 \times N\text{ bps}$
 - **Delay ($D$):** $d\text{ ms} = d \times 10^{-3}\text{ s}$
 
-**Μαθηματικός Τύπος:**
+**Mathematical Formula:**
 $$\text{Max Bits} = (8000 \times N) \times (d \times 10^{-3}) = 8 \times N \times d\text{ bits}$$
-*(Σημείωση: Αν χρησιμοποιηθεί η δυαδική προσέγγιση όπου $1\text{ KB} = 1024\text{ Bytes}$, τότε $R = N \times 1024 \times 8 = 8192 \times N\text{ bps}$, οπότε $\text{Max Bits} = 8,192 \times N \times d \times 10^{-3}\text{ bits}$).*
+*(Note: If binary convention is used where $1\text{ KB} = 1024\text{ Bytes}$, then $R = N \times 1024 \times 8 = 8192 \times N\text{ bps}$, so $\text{Max Bits} = 8,192 \times N \times d \times 10^{-3}\text{ bits}$).*
 
-**Παράδειγμα για AM = 3323:**
+**Example for AM = 3323:**
 - $N = 3323$, $d = 3$
-- $R = 3323 \times 1000 \times 8 = 26.584 .000\text{ bps}$
-- $D = 3\text{ ms} = 0,003\text{ s}$
-- $\text{Max Bits} = 26.584 .000 \times 0,003 = `79.752\text{ bits}`$
+- $R = 3323 \times 1000 \times 8 = 26,584,000\text{ bps}$
+- $D = 3\text{ ms} = 0.003\text{ s}$
+- $\text{Max Bits} = 26,584,000 \times 0.003 = `79,752\text{ bits}`$
 
 ---
 
-### Θέμα 3 (1 μονάδα)
-Για το δίκτυο της Εικόνας 2 ορίστε δρομολόγηση OSPF υποθέτοντας ότι έχετε μόνο μια περιοχή δρομολόγησης (συμπληρώστε τα κενά).
+### Question 3 (1 point)
+For the network in Figure 2, configure OSPF routing assuming you have only one routing area (fill in the blanks).
 
 ```
               172.16.8.0/29
@@ -84,67 +84,67 @@ $$\text{Max Bits} = (8000 \times N) \times (d \times 10^{-3}) = 8 \times N \time
       10.10.23.0/30 |
               192.168.1.0/24
 
-                 Εικόνα 2
+                 Figure 2
 ```
 
-**Κενά προς συμπλήρωση:**
+**Blanks to fill:**
 ```text
 R>en
-R# `configure terminal`
-R(config)# `router ospf 1`
-R(config-router)# `network 10.10.10.0 0.0.0.3 area 0`
-R(config-router)# `network 10.10.23.0 0.0.0.3 area 0`
-R(config-router)# `network 172.16.8.0 0.0.0.7 area 0`
-R(config-router)# `network 192.168.1.0 0.0.0.255 area 0`
-R(config-router)# `end`
+R# configure terminal
+R(config)# router ospf 1
+R(config-router)# network 10.10.10.0 0.0.0.3 area 0
+R(config-router)# network 10.10.23.0 0.0.0.3 area 0
+R(config-router)# network 172.16.8.0 0.0.0.7 area 0
+R(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R(config-router)# end
 ```
 
 ---
-*Σημείωση: Οι wildcard μάσκες υπολογίζονται αφαιρώντας τη μάσκα υποδικτύου από την $255.255.255.255$:*
+*Note: Wildcard masks are calculated by subtracting the subnet mask from 255.255.255.255:*
 - $/30 \Rightarrow 255.255.255.252 \Rightarrow \text{Wildcard: } 0.0.0.3$
 - $/29 \Rightarrow 255.255.255.248 \Rightarrow \text{Wildcard: } 0.0.0.7$
 - $/24 \Rightarrow 255.255.255.0 \Rightarrow \text{Wildcard: } 0.0.0.255$
 
 ---
 
-### Θέμα 4 (1,5 μονάδες)
-Το πρωτόκολλο TCP χρησιμοποιεί το μηχανισμό του κυλιόμενου παραθύρου (Sliding Window) και ο υπολογισμός του μεγέθους του παραθύρου βασίζεται στο timeout. Πιο συγκεκριμένα χρησιμοποιούνται οι ακόλουθες σχέσεις:
+### Question 4 (1.5 points)
+The TCP protocol uses the Sliding Window mechanism, and window size calculation is based on timeout. Specifically, the following relations are used:
 - $\text{Timeout} = 2 \times \text{EstimatedRTT}$
 - $\text{EstimatedRTT} = a \times \text{EstimatedRTT} + (1-a) \times \text{SampleRTT}$
 
-**a.** Υποθέστε ότι χρησιμοποιείτε το πρωτόκολλο TCP για την εγκατάσταση μιας σύνδεσης με τον δικτυακό τόπο του Τμήματος (https://dit.uoi.gr/). Προτείνετε έναν τουλάχιστον τρόπο λήψης δειγμάτων RTT και τον τρόπο υπολογισμού του SampleRTT.
+**a.** Suppose you use the TCP protocol to establish a connection with the Department's website (https://dit.uoi.gr/). Propose at least one method for sampling RTT and calculating SampleRTT.
 
 ---
-**Απάντηση:**
-Το TCP μετράει το **SampleRTT** ως το χρόνο που μεσολαβεί μεταξύ της αποστολής ενός τμήματος (segment) και της λήψης της αντίστοιχης επιβεβαίωσης (ACK).
-- **Κανόνας του Karn:** Για να αποφευχθεί ο διφορούμενος υπολογισμός λόγω επαναμεταδόσεων, το TCP λαμβάνει δείγματα SampleRTT *μόνο* για τμήματα που μεταδίδονται επιτυχώς με την πρώτη προσπάθεια.
-- **TCP Timestamps Option (RFC 7323):** Μια σύγχρονη εναλλακτική είναι η ενσωμάτωση χρονικών σημάντρων (timestamps) στην κεφαλίδα του TCP. Ο αποστολέας θέτει το χρόνο αποστολής και ο παραλήπτης τον επιστρέφει στο ACK, επιτρέποντας τον ακριβή υπολογισμό του RTT ακόμα και σε επαναμεταδόσεις.
+**Answer:**
+TCP measures **SampleRTT** as the time elapsed between sending a segment and receiving the corresponding acknowledgment (ACK).
+- **Karn's Algorithm:** To prevent ambiguous calculation due to retransmissions, TCP collects SampleRTT samples *only* for segments transmitted successfully on the first attempt.
+- **TCP Timestamps Option (RFC 7323):** A modern alternative is embedding timestamps in the TCP header. The sender sets the transmit time and the receiver echoes it in the ACK, allowing accurate RTT calculation even during retransmissions.
 
-**b.** Με ποιο τρόπο μπορείτε να παρακολουθήσετε τη διαδρομή που ακολουθούν τα πακέτα για να φθάσουν από τον υπολογιστή σας στο δικτυακό τόπο του Τμήματος;
-
----
-**Απάντηση:**
-Χρησιμοποιείται το πρόγραμμα **traceroute** (ή **tracert** στα Windows).
-Λειτουργεί στέλνοντας μια σειρά από IP πακέτα με αυξανόμενο χρόνο ζωής (**TTL - Time To Live**), ξεκινώντας από $TTL = 1$. Κάθε ενδιάμεσος δρομολογητής μειώνει το TTL κατά 1. Όταν το TTL γίνει 0, ο δρομολογητής απορρίπτει το πακέτο και στέλνει πίσω ένα μήνυμα σφάλματος **ICMP Time Exceeded**, αποκαλύπτοντας την ταυτότητα (IP) του.
-
-**c.** Υποθέτουμε ότι σας διατίθεται ένας σύνδεσμος για να συνδεθείτε απευθείας με τον server που φιλοξενεί τον δικτυακό τόπο του Τμήματος και ο χρόνος διάδοσης στο σύνδεσμο είναι 5 $\mu$s, και ο ρυθμός μετάδοσης είναι 0,125 GB/s. Αν θέλετε να κατεβάσετε ένα πολύ-πολύ μεγάλο αρχείο, ποιος είναι ο μέγιστος αριθμός των bits που μπορούν να σταλούν από τον αποστολέα μέχρι να φτάσει το 1ο bit στη συσκευή σας (bits in flight);
+**b.** How can you trace the path taken by packets from your computer to the Department's website?
 
 ---
-**Απάντηση:**
+**Answer:**
+The **traceroute** utility (or **tracert** on Windows) is used.
+It operates by sending a series of IP packets with increasing Time To Live (**TTL**), starting at $TTL = 1$. Each intermediate router decrements TTL by 1. When TTL becomes 0, the router drops the packet and sends back an **ICMP Time Exceeded** error message, revealing its IP identity.
+
+**c.** Suppose you are provided a direct link to connect with the server hosting the Department's website, where the propagation time on the link is 5 $\mu$s, and the transmission rate is 0.125 GB/s. If you want to download a very, very large file, what is the maximum number of bits that can be sent by the sender until the 1st bit reaches your device (bits in flight)?
+
+---
+**Answer:**
 - $d_{\text{prop}} = 5\ \mu\text{s} = 5 \times 10^{-6}\text{ s}$
-- $R = 0,125\text{ GB/s} = 0,125 \times 10^9\text{ Bytes/s} = 1,25 \times 10^8\text{ Bytes/s}$
-- $R = 1,25 \times 10^8 \times 8\text{ bits/byte} = 10^9\text{ bps} = 1\text{ Gbps}$
-- **Bits in flight** (χωρητικότητα ζεύξης μιας κατεύθυνσης):
+- $R = 0.125\text{ GB/s} = 0.125 \times 10^9\text{ Bytes/s} = 1.25 \times 10^8\text{ Bytes/s}$
+- $R = 1.25 \times 10^8 \times 8\text{ bits/byte} = 10^9\text{ bps} = 1\text{ Gbps}$
+- **Bits in flight** (one-way link capacity):
   $$\text{Bits in flight} = R \times d_{\text{prop}} = 10^9\text{ bps} \times 5 \times 10^{-6}\text{ s} = `5000\text{ bits}`$$
-*(Σημείωση: Αν χρησιμοποιηθεί δυαδικός ορισμός για το GB ($1\text{ GB} = 2^{30}\text{ Bytes}$), τότε $R = 0,125 \times 2^{30} \times 8 = 1.073.741.824\text{ bps}$, οπότε $\text{Bits in flight} \approx `5369\text{ bits}`$).*
+*(Note: If binary definition is used for GB ($1\text{ GB} = 2^{30}\text{ Bytes}$), then $R = 0.125 \times 2^{30} \times 8 = 1,073,741,824\text{ bps}$, so $\text{Bits in flight} \approx `5369\text{ bits}`$).*
 
 ---
 
-### Θέμα 5 (1 μονάδα)
-Έστω τα δίκτυα που φαίνονται στις Εικόνες 3 και 4. Ο κόμβος X στέλνει πακέτα στον κόμβο Y. Ποια διαδρομή θα ακολουθήσουν τα πακέτα στην κάθε περίπτωση και γιατί; Οι ελλείψεις αντιστοιχούν σε διαφορετικά αυτόνομα συστήματα και χρησιμοποιείται το πρωτόκολλο BGP.
+### Question 5 (1 point)
+Consider the networks shown in Figures 3 and 4. Node X sends packets to node Y. Which path will the packets follow in each case and why? The ellipses correspond to different autonomous systems and the BGP protocol is used.
 
 ```
-Εικόνα 3:
+Figure 3:
 +-----------------------------------------------------------+
 | Verizon AS                                                |
 |    [A] ---------- [B] ---------- [C] ---------- [D]       |
@@ -162,7 +162,7 @@ R(config-router)# `end`
 | AT&T AS                                                   |
 +-----------------------------------------------------------+
 
-Εικόνα 4:
+Figure 4:
 +-----------------------------------------------------------+
 | Verizon AS                                                |
 |    [A] ------ [B] ------ [C] ------ [D] ------ [E] ------ (Y)
@@ -179,25 +179,25 @@ R(config-router)# `end`
 ```
 
 ---
-**Απάντηση:**
-Στο BGP, όταν το AS-Path length είναι ίσο (1 AS διέλευσης), εφαρμόζεται η **δρομολόγηση "καυτής πατάτας" (hot-potato routing)**. Κάθε αυτόνομο σύστημα προσπαθεί να προωθήσει το πακέτο εκτός των ορίων του χρησιμοποιώντας την πλησιέστερη πύλη εξόδου (egress router) με βάση το κόστος του εσωτερικού πρωτοκόλλου δρομολόγησης (IGP).
+**Answer:**
+In BGP, when AS-Path length is equal (1 transit AS), **hot-potato routing** is applied. Each autonomous system attempts to forward the packet out of its network using the nearest egress router based on internal gateway protocol (IGP) cost.
 
-**Εικόνα 3:**
-- Η AT&T (κάτω AS) έχει δύο πύλες εξόδου προς τη Verizon: την $F$ (αριστερά) και την $I$ (δεξιά).
-- Η απόσταση από τον $X$ προς την $F$ είναι 2 hops ($X \rightarrow E \rightarrow F$).
-- Η απόσταση από τον $X$ προς την $I$ είναι 5 hops ($X \rightarrow E \rightarrow F \rightarrow G \rightarrow H \rightarrow I$).
-- Η AT&T επιλέγει την $F$ ως την πλησιέστερη έξοδο. Η Verizon αναλαμβάνει να δρομολογήσει εσωτερικά το πακέτο από τον $A$ στον $Y$.
-- **Διαδρομή:** `X ➔ E ➔ F ➔ A ➔ B ➔ C ➔ D ➔ Y`.
+**Figure 3:**
+- AT&T (bottom AS) has two egress routers to Verizon: $F$ (left) and $I$ (right).
+- Distance from $X$ to $F$ is 2 hops ($X \rightarrow E \rightarrow F$).
+- Distance from $X$ to $I$ is 5 hops ($X \rightarrow E \rightarrow F \rightarrow G \rightarrow H \rightarrow I$).
+- AT&T chooses $F$ as the nearest egress. Verizon handles internal routing from $A$ to $Y$.
+- **Path:** `X -> E -> F -> A -> B -> C -> D -> Y`.
 
-**Εικόνα 4:**
-- Η AT&T έχει δύο εξόδους: την $F$ (σύνδεση με $A$) and την $J$ (σύνδεση με $E$).
-- Η απόσταση από τον $X$ (μέσω $H$) προς την $F$ είναι 2 hops ($H \rightarrow G \rightarrow F$).
-- Η απόσταση από τον $X$ (μέσω $H$) προς την $J$ είναι 2 hops ($H \rightarrow I \rightarrow J$).
-- Υπάρχει ισοπαλία στο hot-potato routing. Η επιλογή θα γίνει με βάση δευτερεύοντες κανόνες (π.χ. χαμηλότερο Router ID του γειτονικού BGP peer). Αν επιλεγεί η έξοδος $J$, η διαδρομή είναι σημαντικά συντομότερη συνολικά (`X ➔ H ➔ I ➔ J ➔ E ➔ Y`, 5 hops), ενώ αν επιλεγεί η $F$ η διαδρομή είναι 9 hops.
+**Figure 4:**
+- AT&T has two egresses: $F$ (connecting to $A$) and $J$ (connecting to $E$).
+- Distance from $X$ (via $H$) to $F$ is 2 hops ($H \rightarrow G \rightarrow F$).
+- Distance from $X$ (via $H$) to $J$ is 2 hops ($H \rightarrow I \rightarrow J$).
+- A tie occurs in hot-potato routing. Selection is made based on secondary rules (e.g. lower Router ID of neighbor BGP peer). If egress $J$ is selected, the path is significantly shorter overall (`X -> H -> I -> J -> E -> Y`, 5 hops), whereas if $F$ is selected the path is 9 hops.
 
 ---
 
-### 1η Άσκηση (2.5 μονάδες)
+### Exercise 1 (2.5 points)
 
 ```
               Link 1                      Link 2
@@ -205,41 +205,41 @@ R(config-router)# `end`
           L1 (m), u1, R1              L2 (m), u2, R2
 ```
 
-Θεωρείστε το παραπάνω διάγραμμα. Η ζεύξη 1 (Link1) έχει μήκος $L_1$ (m) και επιτρέπει την αποστολή πακέτων που διαδίδονται με ταχύτητα $u_1$ (m/sec), ενώ η ζεύξη 2 (Link2) έχει μήκος $L_2$ (m) αλλά επιτρέπει τη διάδοση πακέτων με ταχύτητα $u_2$ (m/sec). Το Link1 έχει ρυθμό μετάδοσης $R_1$ (bps) και το Link2 έχει ρυθμό μετάδοσης $R_2$ (bps). Για όλα τα παρακάτω θεωρείστε ότι το μέγεθος του πακέτου είναι ίσο με το 1/2 του Α.Μ. σας.
+Consider the diagram above. Link 1 (Link1) has length $L_1$ (m) and permits sending packets propagating at speed $u_1$ (m/sec), while link 2 (Link2) has length $L_2$ (m) and permits packet propagation at speed $u_2$ (m/sec). Link1 has transmission rate $R_1$ (bps) and Link2 has transmission rate $R_2$ (bps). For all the following, assume packet size is equal to 1/2 of your Registration Number.
 
-Να υπολογιστούν:
+Calculate:
 
-**A.** Ο χρόνος που χρειάζεται για την αποστολή ενός πακέτου από τον κόμβο A στον κόμβο C, δεδομένου ότι $R_1 = 12000$, $L_1 = 10\text{ Km}$ και $u_1 = u_2 = 2,5 \times 10^8$, $R_2 = 15000$, $L_2 = 50\text{ Km}$.
+**A.** The time required to send a packet from node A to node C, given that $R_1 = 12000$, $L_1 = 10\text{ Km}$ and $u_1 = u_2 = 2.5 \times 10^8$, $R_2 = 15000$, $L_2 = 50\text{ Km}$.
 
 ---
-**Απάντηση:**
-Έστω $P$ το μέγεθος του πακέτου σε bits ($P = \frac{1}{2} \text{AM} \times 8 \text{ bits/byte}$).
+**Answer:**
+Let $P$ be packet size in bits ($P = \frac{1}{2} \text{AM} \times 8 \text{ bits/byte}$).
 $$t_{\text{total}} = d_{\text{trans1}} + d_{\text{prop1}} + d_{\text{trans2}} + d_{\text{prop2}}$$
 - $d_{\text{trans1}} = \frac{P}{R_1} = \frac{P}{12000}\text{ s}$
-- $d_{\text{prop1}} = \frac{L_1}{u_1} = \frac{10000\text{ m}}{2,5 \times 10^8\text{ m/s}} = 4 \times 10^{-5}\text{ s} = 0,04\text{ ms}$
+- $d_{\text{prop1}} = \frac{L_1}{u_1} = \frac{10000\text{ m}}{2.5 \times 10^8\text{ m/s}} = 4 \times 10^{-5}\text{ s} = 0.04\text{ ms}$
 - $d_{\text{trans2}} = \frac{P}{R_2} = \frac{P}{15000}\text{ s}$
-- $d_{\text{prop2}} = \frac{L_2}{u_2} = \frac{50000\text{ m}}{2,5 \times 10^8\text{ m/s}} = 2 \times 10^{-4}\text{ s} = 0,2\text{ ms}$
+- $d_{\text{prop2}} = \frac{L_2}{u_2} = \frac{50000\text{ m}}{2.5 \times 10^8\text{ m/s}} = 2 \times 10^{-4}\text{ s} = 0.2\text{ ms}$
 
-$$t_{\text{total}} = P \times \left( \frac{1}{12000} + \frac{1}{15000} \right) + 0,00024\text{ s} = `1,5 \times 10^{-4} \times P + 0,00024\text{ s}`$$
+$$t_{\text{total}} = P \times \left( \frac{1}{12000} + \frac{1}{15000} \right) + 0.00024\text{ s} = `1.5 \times 10^{-4} \times P + 0.00024\text{ s}`$$
 
-**B.** Το RTT (round trip time) για ένα πακέτο που αποστέλλεται από τον κόμβο A στον κόμβο B (το πακέτο λαμβάνεται και μεταδίδεται πίσω από τον κόμβο B αμέσως μετά τη λήψη του) αν αγνοηθεί η καθυστέρηση επεξεργασίας.
+**B.** The RTT (round trip time) for a packet sent from node A to node B (the packet is received and transmitted back by node B immediately after reception) ignoring processing delay.
 
 ---
-**Απάντηση:**
+**Answer:**
 $$\text{RTT}_{A-B} = 2 \times d_{\text{trans1}} + 2 \times d_{\text{prop1}} = 2 \times \frac{P}{12000} + 2 \times 4 \times 10^{-5}\text{ s} = `\frac{P}{6000} + 8 \times 10^{-5}\text{ s}`$$
 
-**C.** Το RTT (round trip time) για ένα πακέτο που αποστέλλεται από τον κόμβο A στον κόμβο C (το πακέτο λαμβάνεται και μεταδίδεται πίσω από τον κόμβο C αμέσως μετά τη λήψη του) αν η καθυστέρηση επεξεργασίας σε κάθε κόμβο είναι $0,02\text{ ms}$.
+**C.** The RTT (round trip time) for a packet sent from node A to node C (the packet is received and transmitted back by node C immediately after reception) if the processing delay at each node is $0.02\text{ ms}$.
 
 ---
-**Απάντηση:**
-Η διαδρομή είναι $A \rightarrow B \rightarrow C \rightarrow B \rightarrow A$. Μεσολαβούν 3 καθυστερήσεις επεξεργασίας (στο $B$ κατά τη μετάβαση, στο $C$ κατά την αναστροφή, και στο $B$ κατά την επιστροφή):
+**Answer:**
+The path is $A \rightarrow B \rightarrow C \rightarrow B \rightarrow A$. 3 processing delays occur (at $B$ during forward transit, at $C$ during reversal, and at $B$ during return transit):
 $$\text{RTT}_{A-C} = 2 \times d_{\text{trans1}} + 2 \times d_{\text{prop1}} + 2 \times d_{\text{trans2}} + 2 \times d_{\text{prop2}} + 3 \times d_{\text{proc}}$$
-$$\text{RTT}_{A-C} = 2 \times t_{\text{total}} + 3 \times d_{\text{proc}} = 2 \times (1,5 \times 10^{-4} \times P + 0,00024) + 3 \times 2 \times 10^{-5}$$
-$$\text{RTT}_{A-C} = `3 \times 10^{-4} \times P + 0,00054\text{ s}`$$
+$$\text{RTT}_{A-C} = 2 \times t_{\text{total}} + 3 \times d_{\text{proc}} = 2 \times (1.5 \times 10^{-4} \times P + 0.00024) + 3 \times 2 \times 10^{-5}$$
+$$\text{RTT}_{A-C} = `3 \times 10^{-4} \times P + 0.00054\text{ s}`$$
 
 ---
 
-### 2η Άσκηση (2.5 μονάδες)
+### Exercise 2 (2.5 points)
 
 ```
           (H)
@@ -257,7 +257,7 @@ $$\text{RTT}_{A-C} = `3 \times 10^{-4} \times P + 0,00054\text{ s}`$$
       (E)
 ```
 
-**A)** Έστω ο γράφος παραπάνω που αντιστοιχεί στην τοπολογία ενός δικτύου. Ο αριθμός δίπλα στην κάθε ακμή υποδεικνύει το κόστος της που αντιστοιχεί στην κάθε ζεύξη. Εφαρμόσετε τον αλγόριθμο κατάστασης ζεύξεων του Dijkstra και υπολογίσετε το συντομότερο μονοπάτι από τον κόμβο E σε όλους τους άλλους κόμβους του δικτύου.
+**A)** Consider the graph above corresponding to network topology. The number next to each edge indicates link cost. Apply Dijkstra's link-state algorithm and calculate the shortest path from node E to all other nodes in the network.
 
 | Step | N | A | B | C | D | E | F | G | H |
 |---|---|---|---|---|---|---|---|---|---|
@@ -270,51 +270,39 @@ $$\text{RTT}_{A-C} = `3 \times 10^{-4} \times P + 0,00054\text{ s}`$$
 | `7` | `ECDFABG` | `4(C)` | `5(D)` | `3(E)` | `3(E)` | `0` | `3(E)` | `8(D)` | `10(G)` |
 | `8` | `ECDFABGH` | `4(C)` | `5(D)` | `3(E)` | `3(E)` | `0` | `3(E)` | `8(D)` | `10(G)` |
 
-**Συντομότερα μονοπάτια από E:**
-- Προς **C**: $E \rightarrow C$ (Κόστος: `3`)
-- Προς **D**: $E \rightarrow D$ (Κόστος: `3`)
-- Προς **F**: $E \rightarrow F$ (Κόστος: `3`)
-- Προς **A**: $E \rightarrow C \rightarrow A$ (Κόστος: `4`)
-- Προς **B**: $E \rightarrow D \rightarrow B$ (Κόστος: `5`)
-- Προς **G**: $E \rightarrow D \rightarrow G$ (Κόστος: `8`)
-- Προς **H**: $E \rightarrow D \rightarrow G \rightarrow H$ (Κόστος: `10`)
+**Shortest paths from E:**
+- To **C**: $E \rightarrow C$ (Cost: `3`)
+- To **D**: $E \rightarrow D$ (Cost: `3`)
+- To **F**: $E \rightarrow F$ (Cost: `3`)
+- To **A**: $E \rightarrow C \rightarrow A$ (Cost: `4`)
+- To **B**: $E \rightarrow D \rightarrow B$ (Cost: `5`)
+- To **G**: $E \rightarrow D \rightarrow G$ (Cost: `8`)
+- To **H**: $E \rightarrow D \rightarrow G \rightarrow H$ (Cost: `10`)
 
-**B)** Ένα δίκτυο χρησιμοποιεί CSMA/CD και έχει bandwidth 15 Mbps. Αν ο μέγιστος χρόνος διάδοσης (συμπεριλαμβανομένων και των καθυστερήσεων) είναι $25.6\ \mu\text{s}$, ποιο είναι το ελάχιστο μέγεθος του πλαισίου;
+**B)** A network uses CSMA/CD and has a bandwidth of 15 Mbps. If the maximum propagation time (including delays) is $25.6\ \mu\text{s}$, what is the minimum frame size?
 
 ---
-**Απάντηση:**
+**Answer:**
 $$t_{\text{trans}} \ge 2 \times t_{\text{prop}} \Rightarrow L_{\text{min}} \ge 2 \times t_{\text{prop}} \times R$$
-Με $R = 15\text{ Mbps} = 15 \times 10^6\text{ bps}$ και $t_{\text{prop}} = 25,6\ \mu\text{s} = 25,6 \times 10^{-6}\text{ s}$:
-$$L_{\text{min}} = 2 \times (25,6 \times 10^{-6}\text{ s}) \times (15 \times 10^6\text{ bps}) = 768\text{ bits}$$
-Σε Bytes: $\frac{768}{8} = `96\text{ Bytes}`$.
+With $R = 15\text{ Mbps} = 15 \times 10^6\text{ bps}$ and $t_{\text{prop}} = 25.6\ \mu\text{s} = 25.6 \times 10^{-6}\text{ s}$:
+$$L_{\text{min}} = 2 \times (25.6 \times 10^{-6}\text{ s}) \times (15 \times 10^6\text{ bps}) = 768\text{ bits}$$
+In Bytes: $\frac{768}{8} = `96\text{ Bytes}`$.
 
 ---
 
-### 3η Άσκηση (Bonus +1 μονάδα)
-Αποστολέας στέλνει το μήνυμα `10001011` εφαρμόζοντας τον κώδικα Hamming. Ποιο είναι το μήνυμα που θα μεταδοθεί; Υποθέστε περιττή ισοτιμία.
+### Exercise 3 (Bonus +1 point)
+A sender transmits message `10001011` using Hamming code. What is the transmitted message? Assume odd parity.
 
 ---
-**Απάντηση:**
-Μήνυμα δεδομένων: $D = 10001011$ ($d = 8$ bits).
-Αριθμός bits ισοτιμίας ($p$): $2^p \ge 8 + p + 1 \Rightarrow p = 4$.
-Συνολικό μήνυμα $n = d + p = 12$ bits.
-Θέσεις bits:
-- Bits ισοτιμίας στις θέσεις δυνάμεων του 2: 1, 2, 4, 8.
-- Bits δεδομένων στις υπόλοιπες θέσεις: 3, 5, 6, 7, 9, 10, 11, 12.
+**Answer:**
+Data message: $D = 10001011$ ($d = 8$ bits).
+Number of parity bits ($p$): $2^p \ge 8 + p + 1 \Rightarrow p = 4$.
+Total message $n = d + p = 12$ bits.
 
-| Θέση | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Bit | **$P_1$** | **$P_2$** | $D_1$ | **$P_4$** | $D_2$ | $D_3$ | $D_4$ | **$P_8$** | $D_5$ | $D_6$ | $D_7$ | $D_8$ |
-| Τιμή | `0` | `1` | `1` | `0` | `0` | `0` | `0` | `0` | `1` | `0` | `1` | `1` |
+Calculations with odd parity:
+- **$P_1$ (positions 1, 3, 5, 7, 9, 11):** $P_1 \oplus 1 \oplus 0 \oplus 0 \oplus 1 \oplus 1 \Rightarrow P_1 \oplus 3$. To get an odd number of ones, $P_1 = `0`$.
+- **$P_2$ (positions 2, 3, 6, 7, 10, 11):** $P_2 \oplus 1 \oplus 0 \oplus 0 \oplus 0 \oplus 1 \Rightarrow P_2 \oplus 2$. To get an odd number of ones, $P_2 = `1`$.
+- **$P_4$ (positions 4, 5, 6, 7, 12):** $P_4 \oplus 0 \oplus 0 \oplus 0 \oplus 1 \Rightarrow P_4 \oplus 1$. To get an odd number of ones, $P_4 = `0`$.
+- **$P_8$ (positions 8, 9, 10, 11, 12):** $P_8 \oplus 1 \oplus 0 \oplus 1 \oplus 1 \Rightarrow P_8 \oplus 3$. To get an odd number of ones, $P_8 = `0`$.
 
-**Υπολογισμός με περιττή ισοτιμία (odd parity):**
-- **$P_1$ (θέσεις 1, 3, 5, 7, 9, 11):** $P_1 \oplus 1 \oplus 0 \oplus 0 \oplus 1 \oplus 1 \Rightarrow P_1 \oplus 3$.
-  Για να έχουμε περιττό αριθμό άσων, πρέπει $P_1 = `0`$ (έτσι έχουμε 3 άσους).
-- **$P_2$ (θέσεις 2, 3, 6, 7, 10, 11):** $P_2 \oplus 1 \oplus 0 \oplus 0 \oplus 0 \oplus 1 \Rightarrow P_2 \oplus 2$.
-  Για να έχουμε περιττό αριθμό άσων, πρέπει $P_2 = `1`$ (έτσι έχουμε 3 άσους).
-- **$P_4$ (θέσεις 4, 5, 6, 7, 12):** $P_4 \oplus 0 \oplus 0 \oplus 0 \oplus 1 \Rightarrow P_4 \oplus 1$.
-  Για να έχουμε περιττό αριθμό άσων, πρέπει $P_4 = `0`$ (έτσι έχουμε 1 άσο).
-- **$P_8$ (θέσεις 8, 9, 10, 11, 12):** $P_8 \oplus 1 \oplus 0 \oplus 1 \oplus 1 \Rightarrow P_8 \oplus 3$.
-  Για να έχουμε περιττό αριθμό άσων, πρέπει $P_8 = `0`$ (έτσι έχουμε 3 άσους).
-
-Τελικό μεταδιδόμενο μήνυμα Hamming: **`011000001011`**
+Final transmitted Hamming message: **`011000001011`**

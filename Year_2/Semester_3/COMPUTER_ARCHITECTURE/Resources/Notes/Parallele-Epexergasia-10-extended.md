@@ -1,158 +1,158 @@
-# Κεφάλαιο 17: Παράλληλη Επεξεργασία (Parallel Processing)
+# Chapter 17: Parallel Processing
 
-## 1.0 Θεμελιώδεις Έννοιες Απόδοσης σε Παράλληλα Συστήματα
+## 1.0 Fundamental Performance Concepts in Parallel Systems
 
-### 1.1 Χρόνοι Εκτέλεσης και Κόστη
+### 1.1 Execution Times and Costs
 
 > [!INFO]
-> Η βασική ιδέα της παράλληλης επεξεργασίας (Parallel Processing) είναι ότι ένα πρόβλημα με συνολικό έργο $W$ μπορεί να διαμοιραστεί σε πολλούς επεξεργαστές ώστε ο **χρόνος εκτέλεσης** να μειωθεί. Ωστόσο, η πραγματική απόδοση εξαρτάται από:
+> The core idea of parallel processing is that a problem with total work $W$ can be distributed across multiple processors to reduce **execution time**. However, actual performance depends on:
 > 
-> - τον σειριακό χρόνο $T_s$ (serial time)
-> - τον παράλληλο χρόνο $T_p$ (parallel time)
-> - το **κόστος υπερκεφαλής** (parallel overhead) $T_O$ (επικοινωνία, συγχρονισμός, ανισοκατανομή φορτίου).
+> - serial time $T_s$
+> - parallel time $T_p$
+> - **parallel overhead** $T_O$ (communication, synchronization, load imbalance).
 
-Ο συνολικός πόρος (processor-time product) σε ένα σύστημα με $p$ επεξεργαστές είναι:
+The total resource (processor-time product) in a system with $p$ processors is:
 
 $$
 p \cdot T_p = T_s + T_O
 $$
 
-**Legenda:**
-- $p$: αριθμός επεξεργαστών (processors)
-- $T_s$: χρόνος σειριακής εκτέλεσης
-- $T_p$: χρόνος παράλληλης εκτέλεσης
-- $T_O$: κόστος υπερκεφαλής (overhead: επικοινωνία, συγχρονισμός, ανισορροπία φορτίου)
+**Legend:**
+- $p$: number of processors
+- $T_s$: serial execution time
+- $T_p$: parallel execution time
+- $T_O$: parallel overhead (communication, synchronization, load imbalance)
 
-### 1.2 Speedup (Επιτάχυνση) και Efficiency (Αποδοτικότητα)
+### 1.2 Speedup and Efficiency
 
 $$
 S(p) = \frac{T_s}{T_p}
 $$
 
-**Legenda:**
-- $S(p)$: speedup με $p$ επεξεργαστές
-- $T_s$: σειριακός χρόνος
-- $T_p$: παράλληλος χρόνος
+**Legend:**
+- $S(p)$: speedup with $p$ processors
+- $T_s$: serial time
+- $T_p$: parallel time
 
-Η **αποδοτικότητα (Efficiency)** ορίζεται ως:
+**Efficiency** is defined as:
 
 $$
 E(p) = \frac{S(p)}{p}
 $$
 
-**Legenda:**
-- $E(p)$: αποδοτικότητα ανά επεξεργαστή
+**Legend:**
+- $E(p)$: efficiency per processor
 - $S(p)$: speedup
-- $p$: αριθμός επεξεργαστών
+- $p$: number of processors
 
-Μία τιμή $E(p) \approx 1$ (ή 100%) σημαίνει σχεδόν ιδανικό παραλληλισμό.
+A value $E(p) \approx 1$ (or 100%) indicates near-ideal parallelism.
 
-### 1.3 Νόμος του Amdahl (Amdahl's Law)
+### 1.3 Amdahl's Law
 
 > [!INFO]
-> Ο νόμος του Amdahl μοντελοποιεί το **μέγιστο δυνατό speedup** όταν μόνο ένα ποσοστό του κώδικα μπορεί να παραλληλοποιηθεί.
+> Amdahl's Law models the **maximum possible speedup** when only a fraction of the code can be parallelized.
 
-Έστω ότι:
-- κλάσμα σειριακού κώδικα: $1-P$
-- κλάσμα πλήρως παραλληλίσιμου κώδικα: $P$
+Let:
+- fraction of serial code: $1-P$
+- fraction of fully parallelizable code: $P$
 
-Τότε το speedup με $N$ επεξεργαστές είναι:
+Then the speedup with $N$ processors is:
 
 $$
 S(N) = \frac{1}{(1-P) + \frac{P}{N}}
 $$
 
-**Legenda:**
-- $P$: ποσοστό προγράμματος που μπορεί να εκτελεστεί παράλληλα ($0 \le P \le 1$)
-- $N$: αριθμός επεξεργαστών
-- $1-P$: σειριακό μέρος προγράμματος
+**Legend:**
+- $P$: fraction of the program that can execute in parallel ($0 \le P \le 1$)
+- $N$: number of processors
+- $1-P$: serial portion of the program
 
-Μέγιστο θεωρητικό speedup όταν $N \to \infty$:
+Maximum theoretical speedup as $N \to \infty$:
 
 $$
 S_{\max} = \frac{1}{1-P}
 $$
 
-**Ερμηνεία:** ακόμη και αν αυξηθούν απεριόριστα οι επεξεργαστές, η αύξηση απόδοσης περιορίζεται από το **μη παραλληλίσιμο** μέρος.
+**Interpretation:** Even if processors are increased indefinitely, performance gain is limited by the **non-parallelizable** portion.
 
-### 1.4 Νόμος του Gustafson (Gustafson's Law)
+### 1.4 Gustafson's Law
 
 > [!INFO]
-> Ο νόμος του Gustafson αντιμετωπίζει την αδυναμία του Amdahl: στην πράξη η **διάσταση του προβλήματος** αυξάνεται όταν υπάρχουν περισσότεροι επεξεργαστές.
+> Gustafson's Law addresses Amdahl's limitation: in practice, the **problem scale** increases when more processors are available.
 
-Αν $s$ είναι το σειριακό κλάσμα (σε χρόνο) σε ένα σύστημα με $N$ επεξεργαστές και $p = 1-s$ το παράλληλο κλάσμα, τότε το **scaled speedup** είναι:
+If $s$ is the serial fraction (in time) in a system with $N$ processors and $p = 1-s$ the parallel fraction, then the **scaled speedup** is:
 
 $$
 S_G(N) = s + p \cdot N = 1 + (N-1)\cdot p
 $$
 
-**Legenda:**
-- $S_G(N)$: scaled speedup κατά Gustafson
-- $N$: αριθμός επεξεργαστών
-- $s$: σειριακό κλάσμα σε παράλληλη εκτέλεση
-- $p$: παράλληλο κλάσμα, $p = 1-s$
+**Legend:**
+- $S_G(N)$: scaled speedup according to Gustafson
+- $N$: number of processors
+- $s$: serial fraction in parallel execution
+- $p$: parallel fraction, $p = 1-s$
 
-## 2.0 MIPS και IPC σε Παράλληλα Συστήματα
+## 2.0 MIPS and IPC in Parallel Systems
 
-### 2.1 Ορισμός MIPS
+### 2.1 MIPS Definition
 
 $$
 \text{MIPS} = \frac{f \cdot IPC}{10^6}
 $$
 
-**Legenda:**
+**Legend:**
 - $\text{MIPS}$: Million Instructions Per Second
-- $f$: συχνότητα ρολογιού σε Hz
-- $IPC$: Instructions Per Cycle (εντολές ανά κύκλο)
+- $f$: clock frequency in Hz
+- $IPC$: Instructions Per Cycle
 
-Σε πολυπύρηνα/πολυεπεξεργαστικά συστήματα, ο συνολικός ρυθμός MIPS προσεγγίζεται (ιδανικά) από το άθροισμα των MIPS όλων των πυρήνων, υπό την προϋπόθεση ότι δεν υπάρχουν σημαντικά bottlenecks μνήμης ή διαύλου.
+In multi-core/multi-processor systems, the total MIPS rate is approached (ideally) by summing the MIPS of all cores, provided there are no significant memory or bus bottlenecks.
 
-## 3.0 Ταξινόμηση Flynn (Flynn's Taxonomy)
+## 3.0 Flynn's Taxonomy
 
-### 3.1 Βασικά Συστατικά Αρχιτεκτονικής
+### 3.1 Basic Architectural Components
 
-| Συστατικό | Ονομασία | Λειτουργία |
-|-----------|----------|------------|
-| **CU** | Control Unit (Μονάδα Ελέγχου) | Διαχείριση ροής εντολών |
-| **PU** | Processing Unit (Μονάδα Επεξεργασίας) | Εκτέλεση εντολών |
-| **MU** | Memory Unit (Μονάδα Μνήμης) | Αποθήκευση δεδομένων |
-| **LM** | Local Memory (Τοπική Μνήμη) | Μνήμη ανά επεξεργαστή |
+| Component | Name | Function |
+|-----------|------|----------|
+| **CU** | Control Unit | Instruction flow management |
+| **PU** | Processing Unit | Instruction execution |
+| **MU** | Memory Unit | Data storage |
+| **LM** | Local Memory | Per-processor memory |
 
-### 3.2 Κατηγορίες Αρχιτεκτονικών Flynn
+### 3.2 Flynn Architecture Categories
 
-| Τύπος | Πλήρης Ονομασία | Χαρακτηριστικά | Παραδείγματα |
-|-------|-----------------|----------------|--------------|
-| **SISD** | Single Instruction, Single Data | 1 ροή εντολών, 1 ροή δεδομένων | Παραδοσιακοί μονοεπεξεργαστές |
-| **SIMD** | Single Instruction, Multiple Data | 1 ροή εντολών, πολλές ροές δεδομένων | GPUs, Vector Processors |
-| **MISD** | Multiple Instruction, Single Data | Πολλές ροές εντολών, 1 ροή δεδομένων | Σπάνιο, θεωρητικό |
-| **MIMD** | Multiple Instruction, Multiple Data | Πολλές ροές εντολών, πολλές ροές δεδομένων | SMP, NUMA, Clusters |
+| Type | Full Name | Characteristics | Examples |
+|------|-----------|-----------------|----------|
+| **SISD** | Single Instruction, Single Data | 1 instruction stream, 1 data stream | Traditional single processors |
+| **SIMD** | Single Instruction, Multiple Data | 1 instruction stream, multiple data streams | GPUs, Vector Processors |
+| **MISD** | Multiple Instruction, Single Data | Multiple instruction streams, 1 data stream | Rare, theoretical |
+| **MIMD** | Multiple Instruction, Multiple Data | Multiple instruction streams, multiple data streams | SMP, NUMA, Clusters |
 
 > [!INFO]
 > ```mermaid
 > flowchart TB
->     START[Αρχιτεκτονική Υπολογιστών]
->     START --> IS{Ροές Εντολών}
->     IS -->|Μία| SINGLE_I[Single Instruction]
->     IS -->|Πολλές| MULTI_I[Multiple Instructions]
+>     START[Computer Architecture]
+>     START --> IS{Instruction Streams}
+>     IS -->|One| SINGLE_I[Single Instruction]
+>     IS -->|Multiple| MULTI_I[Multiple Instructions]
 >     
->     SINGLE_I --> DS1{Ροές Δεδομένων}
->     DS1 -->|Μία| SISD[SISD\nΠαραδοσιακός Επεξεργαστής]
->     DS1 -->|Πολλές| SIMD[SIMD\nGPUs, Vector Processors]
+>     SINGLE_I --> DS1{Data Streams}
+>     DS1 -->|One| SISD[SISD\nTraditional Processor]
+>     DS1 -->|Multiple| SIMD[SIMD\nGPUs, Vector Processors]
 >     
->     MULTI_I --> DS2{Ροές Δεδομένων}
->     DS2 -->|Μία| MISD[MISD\nΘεωρητικό]
->     DS2 -->|Πολλές| MIMD[MIMD\nSMP, NUMA, Clusters]
+>     MULTI_I --> DS2{Data Streams}
+>     DS2 -->|One| MISD[MISD\nTheoretical]
+>     DS2 -->|Multiple| MIMD[MIMD\nSMP, NUMA, Clusters]
 > ```
 
-## 4.0 SISD και SIMD σε Σύγκριση
+## 4.0 SISD vs SIMD Comparison
 
-| Ιδιότητα | SISD | SIMD |
+| Property | SISD | SIMD |
 |----------|------|------|
-| Ροές Εντολών | Μία | Μία |
-| Ροές Δεδομένων | Μία | Πολλές |
-| Παραλληλισμός | Σειριακός | Δεδομένων (Data Parallelism) |
-| Τυπικά Παραδείγματα | Κλασικοί CPUs | GPUs, Vector Units |
-| Καταλληλότητα | Γενικού σκοπού | Μαζικές πράξεις σε arrays/vectors |
+| Instruction Streams | One | One |
+| Data Streams | One | Multiple |
+| Parallelism | Serial | Data Parallelism |
+| Typical Examples | Classical CPUs | GPUs, Vector Units |
+| Suitability | General-purpose | Bulk operations on arrays/vectors |
 
 > [!INFO]
 > ```mermaid
@@ -160,13 +160,13 @@ $$
 >     subgraph SISD[SISD]
 >         CU1[CU]
 >         PU1[PU]
->         MEM1[Μνήμη]
+>         MEM1[Memory]
 >         CU1 --> PU1
 >         PU1 <--> MEM1
 >     end
 > 
 >     subgraph SIMD[SIMD]
->         CU2[Κοινή CU]
+>         CU2[Shared CU]
 >         PUA[PU 1]
 >         PUB[PU 2]
 >         PUC[PU 3]
@@ -186,17 +186,17 @@ $$
 >     end
 > ```
 
-## 5.0 MIMD: SMP, NUMA και Clusters
+## 5.0 MIMD: SMP, NUMA and Clusters
 
-### 5.1 Σύγκριση SMP, NUMA, Clusters
+### 5.1 SMP, NUMA, Clusters Comparison
 
-| Ιδιότητα | SMP | NUMA | Clusters |
+| Property | SMP | NUMA | Clusters |
 |----------|-----|------|----------|
-| Μνήμη | Κοινή (Shared) UMA | Κατανεμημένη, CC-NUMA | Ιδιωτική ανά κόμβο |
-| Χρόνος Πρόσβασης | Ομοιόμορφος | Μη ομοιόμορφος | Δικτυακός (message passing) |
-| Κλιμάκωση | 2–8 CPUs | 16–1024 CPUs | Πρακτικά απεριόριστη |
-| Προγραμματιστικό Μοντέλο | Shared Memory | Shared Memory με locality | Message Passing (MPI) |
-| Συνέπεια Cache | MESI/MOESI | Directory-based CC-NUMA | Τοπική, ρητή επικοινωνία |
+| Memory | Shared UMA | Distributed, CC-NUMA | Private per node |
+| Access Time | Uniform | Non-uniform | Network (message passing) |
+| Scalability | 2–8 CPUs | 16–1024 CPUs | Practically unlimited |
+| Programming Model | Shared Memory | Shared Memory with locality | Message Passing (MPI) |
+| Cache Coherence | MESI/MOESI | Directory-based CC-NUMA | Local, explicit communication |
 
 > [!INFO]
 > ```mermaid
@@ -240,17 +240,17 @@ $$
 >     end
 > ```
 
-## 6.0 Συνοχή Κρυφής Μνήμης (Cache Coherence)
+## 6.0 Cache Coherence
 
-### 6.1 Πρωτόκολλο MESI και MOESI
+### 6.1 MESI and MOESI Protocols
 
-| Κατάσταση | Πρωτόκολλο | Σημασία | Χαρακτηριστικά |
-|-----------|------------|---------|----------------|
-| **M** | MESI/MOESI | Modified | Μοναδικό αντίγραφο, διαφέρει από μνήμη, απαιτεί write-back |
-| **E** | MESI/MOESI | Exclusive | Μοναδικό αντίγραφο, ίδιο με μνήμη |
-| **S** | MESI/MOESI | Shared | Πολλαπλά αντίγραφα, ίδιο με μνήμη |
-| **I** | MESI/MOESI | Invalid | Άκυρα δεδομένα |
-| **O** | MOESI | Owned | Τροποποιημένα δεδομένα, μπορεί να υπάρχουν shared καθαρές κόπιες |
+| State | Protocol | Meaning | Characteristics |
+|-------|----------|---------|-----------------|
+| **M** | MESI/MOESI | Modified | Unique copy, differs from memory, requires write-back |
+| **E** | MESI/MOESI | Exclusive | Unique copy, matches memory |
+| **S** | MESI/MOESI | Shared | Multiple copies, matches memory |
+| **I** | MESI/MOESI | Invalid | Invalid data |
+| **O** | MOESI | Owned | Modified data, shared clean copies may exist |
 
 
  ```mermaid
@@ -291,14 +291,14 @@ $$
 
 ### 6.2 Write-Invalidate vs Write-Update
 
-| Πολιτική | Λειτουργία | Πλεονεκτήματα | Μειονεκτήματα |
-|----------|-----------|---------------|----------------|
-| Write-Invalidate | Ο συγγραφέας κάνει invalidate τα άλλα caches | Λιγότερα writes στο bus | Περισσότερα cache misses σε αναγνώσεις μετά το write |
-| Write-Update | Ο συγγραφέας στέλνει νέα δεδομένα σε όλους | Γρήγορη ορατότητα νέων τιμών | Μεγάλο traffic στο bus |
+| Policy | Operation | Advantages | Disadvantages |
+|--------|-----------|------------|---------------|
+| Write-Invalidate | Writer invalidates other caches | Fewer bus writes | More cache misses on reads after write |
+| Write-Update | Writer sends new data to all | Fast visibility of new values | High bus traffic |
 
-Οι σύγχρονες SMP/CC-NUMA υλοποιούν κυρίως **write-invalidate** πρωτόκολλα (MESI/MOESI) με write-back caches.
+Modern SMP/CC-NUMA systems primarily implement **write-invalidate** protocols (MESI/MOESI) with write-back caches.
 
-## 7.0 False Sharing και Τοπικότητα (Locality)
+## 7.0 False Sharing and Locality
 
 > [!INFO]
 > ```mermaid
@@ -315,22 +315,22 @@ $$
 >     B -.->|Invalidate| C1[Cache Core 1]
 > ```
 
-| Φαινόμενο | Περιγραφή | Επίπτωση | Αντιμετώπιση |
-|-----------|-----------|----------|--------------|
-| True Sharing | Πολλοί πυρήνες γράφουν/διαβάζουν την ίδια μεταβλητή | Συχνές invalidations, serialization | Μείωση πρόσβασης σε κοινά δεδομένα |
-| False Sharing | Διαφορετικές μεταβλητές στην ίδια cache line | Περιττές invalidations, χαμηλό throughput | Padding δομών, στοίχιση σε cache line |
+| Phenomenon | Description | Impact | Mitigation |
+|------------|-------------|--------|------------|
+| True Sharing | Multiple cores write/read the same variable | Frequent invalidations, serialization | Reduce access to shared data |
+| False Sharing | Different variables on the same cache line | Unnecessary invalidations, low throughput | Structure padding, cache line alignment |
 
-Σε NUMA, η τοποθέτηση δεδομένων κοντά στα threads (thread/data affinity) μειώνει το κόστος διασύνδεσης και τον αριθμό coherence μηνυμάτων.
+In NUMA, placing data near threads (thread/data affinity) reduces interconnect cost and the number of coherence messages.
 
-## 8.0 Multithreading και TLP (Thread-Level Parallelism)
+## 8.0 Multithreading and TLP (Thread-Level Parallelism)
 
-### 8.1 Τύποι Multithreading
+### 8.1 Multithreading Types
 
-| Τεχνική | Ονομασία | Ιδέα | Χαρακτηριστικά |
-|---------|----------|------|----------------|
-| Fine-Grained | Fine-Grained Multithreading | Εναλλαγή thread κάθε κύκλο | Κρύβει latency, απαιτεί πολλά threads |
-| Coarse-Grained | Coarse-Grained Multithreading | Εναλλαγή σε μεγάλα stalls (π.χ. cache miss) | Απλούστερο hardware, λιγότερη εκμετάλλευση πόρων |
-| SMT | Simultaneous Multithreading | Πολλαπλά threads στον ίδιο κύκλο | Υψηλή αξιοποίηση pipelines, αυξημένη πολυπλοκότητα |
+| Technique | Name | Idea | Characteristics |
+|-----------|------|------|-----------------|
+| Fine-Grained | Fine-Grained Multithreading | Switch thread every cycle | Hides latency, requires many threads |
+| Coarse-Grained | Coarse-Grained Multithreading | Switch on large stalls (e.g. cache miss) | Simpler hardware, less resource utilization |
+| SMT | Simultaneous Multithreading | Multiple threads in the same cycle | High pipeline utilization, increased complexity |
 
 > [!INFO]
 > ```mermaid
@@ -339,22 +339,21 @@ $$
 >     MT --> FG[Fine-Grained]
 >     MT --> CG[Coarse-Grained]
 >     MT --> SMT[Simultaneous MT]
->     FG --> FG_DESC[Switch κάθε κύκλο]
->     CG --> CG_DESC[Switch σε μεγάλα stalls]
->     SMT --> SMT_DESC[Πολλαπλά threads ταυτόχρονα]
+>     FG --> FG_DESC[Switch every cycle]
+>     CG --> CG_DESC[Switch on large stalls]
+>     SMT --> SMT_DESC[Multiple threads simultaneously]
 > ```
 
-## 9.0 Συγχρονισμός: Locks, Semaphores, Barriers, Atomics
+## 9.0 Synchronization: Locks, Semaphores, Barriers, Atomics
 
-### 9.1 Σύγκριση Βασικών Primitive
+### 9.1 Basic Primitives Comparison
 
-| Primitive  | Ιδιότητα              | Τυπική Χρήση                      | Παρατηρήσεις                         |
-| ---------- | --------------------- | --------------------------------- | ------------------------------------ |
-| Mutex/Lock | Mutual Exclusion      | Προστασία critical sections       | Spin ή blocking locks                |
-| Semaphore  | Counter-based sync    | Producer-Consumer, resource pools | Binary ή counting                    |
-| Barrier    | Ομαδικός συγχρονισμός | Parallel loops, BSP supersteps    | Όλες οι διεργασίες πρέπει να φτάσουν |
-| Atomic Ops | Αδιαίρετες πράξεις    | Lock-free δομές                   | CAS, test-and-set, LL/SC             |
-|            |                       |                                   |                                      |
+| Primitive  | Property              | Typical Use                      | Notes                         |
+| ---------- | --------------------- | -------------------------------- | ----------------------------- |
+| Mutex/Lock | Mutual Exclusion      | Critical section protection      | Spin or blocking locks        |
+| Semaphore  | Counter-based sync    | Producer-Consumer, resource pools | Binary or counting            |
+| Barrier    | Group synchronization | Parallel loops, BSP supersteps    | All processes must arrive     |
+| Atomic Ops | Indivisible operations | Lock-free structures             | CAS, test-and-set, LL/SC     |
 
 > [!INFO]
 ```mermaid
@@ -380,20 +379,20 @@ flowchart TB
 
 ### 9.2 Spin Locks vs Blocking Locks
 
-| Τύπος Lock | Λειτουργία | Πλεονεκτήματα | Μειονεκτήματα |
-|------------|-----------|---------------|----------------|
-| Spin Lock | Busy-waiting με atomic ops | Πολύ γρήγορο για μικρά critical sections | Σπατάλη CPU, κακό σε high contention |
-| Blocking Lock | Thread μπλοκάρει στο OS | Καλύτερο για μεγάλα critical sections | Overhead context switch |
+| Lock Type | Operation | Advantages | Disadvantages |
+|-----------|-----------|------------|---------------|
+| Spin Lock | Busy-waiting with atomic ops | Very fast for small critical sections | CPU waste, poor under high contention |
+| Blocking Lock | Thread blocks at OS | Better for large critical sections | Context switch overhead |
 
 ### 9.3 Atomic Operations
 
-Συνηθισμένα atomic primitives:
+Common atomic primitives:
 
 - **Test-and-Set (TAS)**
 - **Compare-and-Swap (CAS)**
 - **Load-Linked/Store-Conditional (LL/SC)**
 
-Παράδειγμα ιδεατού spinlock με CAS:
+Example of an idealized spinlock using CAS:
 
 ```c
 while (CAS(&lock, 0, 1) != 0) {
@@ -403,39 +402,39 @@ while (CAS(&lock, 0, 1) != 0) {
 lock = 0;
 ```
 
-## 10.0 Μοντέλα Συνέπειας Μνήμης (Memory Consistency Models)
+## 10.0 Memory Consistency Models
 
 ### 10.1 Sequential Consistency (SC)
 
 > [!INFO]
-> Η Sequential Consistency απαιτεί όλες οι προσπελάσεις μνήμης να εμφανίζονται σαν να εκτελούνται σε κάποια κοινή συνολική σειρά, συμβατή με τη σειρά προγράμματος κάθε επεξεργαστή.
+> Sequential Consistency requires all memory accesses to appear as if executed in some global total order, consistent with each processor's program order.
 
-- Εύκολο στο reasoning
-- Περιορίζει reorderings και performance
+- Easy to reason about
+- Limits reorderings and performance
 
 ### 10.2 Release Consistency (RC)
 
-Χωρίζει τις προσπελάσεις σε **acquire** και **release**.
+Divides accesses into **acquire** and **release**.
 
-Κανόνες:
-- Πριν από κάθε πρόσβαση σε shared μνήμη πρέπει να έχει ολοκληρωθεί κάθε προηγούμενο **acquire** του ίδιου επεξεργαστή.
-- Πριν από ένα **release** πρέπει να έχουν ολοκληρωθεί όλες οι προηγούμενες αναγνώσεις/εγγραφές.
+Rules:
+- Before any shared memory access, every previous **acquire** by the same processor must have completed.
+- Before a **release**, all previous reads/writes must have completed.
 
-Πρακτικά:
+In practice:
 - `lock()` = acquire
 - `unlock()` = release
 
-Το RC επιτρέπει περισσότερα reorderings (άρα υψηλότερη απόδοση) αρκεί ο κώδικας να είναι σωστά συγχρονισμένος.
+RC allows more reorderings (thus higher performance) provided the code is properly synchronized.
 
-## 11.0 Interconnection Networks σε Παράλληλα Συστήματα
+## 11.0 Interconnection Networks in Parallel Systems
 
-### 11.1 Σύγκριση Βασικών Δικτύων
+### 11.1 Basic Networks Comparison
 
-| Δίκτυο | Κόστος (Switches/Links) | Διάμετρος | Blocking | Σχόλια |
-|--------|-------------------------|----------|----------|--------|
-| Bus | O(1) | 1 | Πολύ υψηλό | Φθηνό, bottleneck |
-| Crossbar | O(N^2) | 1 | Non-blocking | Πολύ ακριβό για μεγάλα N |
-| Omega (MIN) | O(N log N) | O(log N) | Blocking | Καλή κλιμάκωση |
+| Network | Cost (Switches/Links) | Diameter | Blocking | Notes |
+|---------|----------------------|----------|----------|-------|
+| Bus | O(1) | 1 | Very high | Cheap, bottleneck |
+| Crossbar | O(N^2) | 1 | Non-blocking | Very expensive for large N |
+| Omega (MIN) | O(N log N) | O(log N) | Blocking | Good scalability |
 
 > [!INFO]
 > ```mermaid
@@ -468,11 +467,11 @@ lock = 0;
 >     end
 > ```
 
-### 11.2 Omega Network (Παράδειγμα MIN)
+### 11.2 Omega Network (MIN Example)
 
-Για $N$ εισόδους/εξόδους:
-- Απαιτούνται $\log_2 N$ στάδια
-- Κάθε στάδιο έχει $N/2$ 2×2 switches
+For $N$ inputs/outputs:
+- $\log_2 N$ stages are required
+- Each stage has $N/2$ 2×2 switches
 
 > [!INFO]
 > ```mermaid
@@ -502,45 +501,45 @@ lock = 0;
 >     S21 --> OUT3[Out3]
 > ```
 
-## 12.0 BSP (Bulk-Synchronous Parallel) Μοντέλο
+## 12.0 BSP (Bulk-Synchronous Parallel) Model
 
 > [!INFO]
-> Το BSP είναι ένα **bridging model** ανάμεσα σε hardware και parallel programming: περιγράφει προγράμματα ως ακολουθία από supersteps (τοπικός υπολογισμός + επικοινωνία + barrier).
+> BSP is a **bridging model** between hardware and parallel programming: it describes programs as a sequence of supersteps (local computation + communication + barrier).
 
-### 12.1 Κόστος BSP
+### 12.1 BSP Cost
 
-Για κάθε superstep:
+For each superstep:
 
 $$
 T = w + g h + l
 $$
 
-**Legenda:**
-- $w$: μέγιστη ποσότητα τοπικού υπολογισμού (flops) ανά επεξεργαστή
-- $h$: μέγιστος αριθμός λέξεων που στέλνονται/λαμβάνονται (h-relation)
-- $g$: χρόνος ανά λέξη (inverse bandwidth)
-- $l$: latency/barrier κόστος
+**Legend:**
+- $w$: maximum amount of local computation (flops) per processor
+- $h$: maximum number of words sent/received (h-relation)
+- $g$: time per word (inverse bandwidth)
+- $l$: latency/barrier cost
 
-Συνολικό κόστος BSP για $N$ supersteps:
+Total BSP cost for $N$ supersteps:
 
 $$
 T_{\text{BSP}} = \sum_{i=1}^{N} \left( w_i + g h_i + l \right)
 $$
 
-**Legenda:**
-- $w_i$: τοπικός υπολογισμός στο superstep $i$
-- $h_i$: επικοινωνία στο superstep $i$
-- $N$: πλήθος supersteps
+**Legend:**
+- $w_i$: local computation at superstep $i$
+- $h_i$: communication at superstep $i$
+- $N$: number of supersteps
 
-## 13.0 Εξισορρόπηση Φόρτου (Load Balancing) και Work Stealing
+## 13.0 Load Balancing and Work Stealing
 
-### 13.1 Στατικό vs Δυναμικό Scheduling
+### 13.1 Static vs Dynamic Scheduling
 
-| Τεχνική | Ιδέα | Πλεονεκτήματα | Μειονεκτήματα |
-|---------|-----|---------------|----------------|
-| Static Scheduling | Κατανομή εργασίας εκ των προτέρων | Χαμηλό overhead | Κακή προσαρμογή σε ανισόρροπο φορτίο |
-| Dynamic Scheduling | Ανάθεση εργασίας κατά την εκτέλεση | Καλύτερη προσαρμογή | Overhead scheduling |
-| Work Stealing | Idle επεξεργαστές κλέβουν δουλειά | Καλή κλιμάκωση, τοπικότητα | Πολυπλοκότητα υλοποίησης |
+| Technique | Idea | Advantages | Disadvantages |
+|-----------|------|------------|---------------|
+| Static Scheduling | Pre-assigned work distribution | Low overhead | Poor adaptation to imbalanced load |
+| Dynamic Scheduling | Work assignment during execution | Better adaptation | Scheduling overhead |
+| Work Stealing | Idle processors steal work | Good scalability, locality | Implementation complexity |
 
 > [!INFO]
 > ```mermaid
@@ -553,40 +552,40 @@ $$
 >     P3 -->|Steal| D1
 > ```
 
-Στο work stealing κάθε επεξεργαστής δουλεύει τοπικά (stack-like) ενώ οι κλέφτες τραβούν tasks από την «κορυφή» ξένων ουρών, ελαχιστοποιώντας migration και βελτιώνοντας locality.
+In work stealing each processor works locally (stack-like) while stealers pull tasks from the "top" of foreign queues, minimizing migration and improving locality.
 
-## 14.0 Σύνοψη Αρχιτεκτονικών Παράλληλης Επεξεργασίας
+## 14.0 Parallel Processing Architectures Summary
 
-| Αρχιτεκτονική | Μνήμη | Μοντέλο Προγρ. | Κλιμάκωση | Τύπος Παραλληλισμού |
-|---------------|-------|----------------|-----------|----------------------|
-| SISD | Κεντρική | Σειριακό | - | Instruction level (ILP) |
-| SIMD | Κοινή/Τοπική | Data parallel | Μέτρια | Data-level parallelism |
-| SMP | Shared UMA | Shared memory | Περιορισμένη | Thread-level parallelism |
-| NUMA/CC-NUMA | Κατανεμημένη | Shared memory + locality | Υψηλή | TLP + Data locality |
-| Clusters | Distributed | Message passing | Πολύ υψηλή | Task / data parallelism |
+| Architecture | Memory | Programming Model | Scalability | Parallelism Type |
+|--------------|--------|-------------------|-------------|------------------|
+| SISD | Central | Serial | - | Instruction level (ILP) |
+| SIMD | Shared/Local | Data parallel | Moderate | Data-level parallelism |
+| SMP | Shared UMA | Shared memory | Limited | Thread-level parallelism |
+| NUMA/CC-NUMA | Distributed | Shared memory + locality | High | TLP + Data locality |
+| Clusters | Distributed | Message passing | Very high | Task / data parallelism |
 
-## 15.0 Τεχνικοί Όροι και Ακρωνύμια
+## 15.0 Technical Terms and Acronyms
 
-| Ακρωνύμιο | Πλήρης Ονομασία | Ελληνική Μετάφραση |
-|-----------|-----------------|-------------------|
-| ALU | Arithmetic Logic Unit | Αριθμητική Λογική Μονάδα |
-| BSP | Bulk-Synchronous Parallel | Μαζικά Συγχρονισμένο Παράλληλο Μοντέλο |
-| CC-NUMA | Cache Coherent NUMA | NUMA με Συνοχή Κρυφής Μνήμης |
-| CAS | Compare-and-Swap | Σύγκριση και Αντικατάσταση |
-| CU | Control Unit | Μονάδα Ελέγχου |
-| GPU | Graphics Processing Unit | Μονάδα Επεξεργασίας Γραφικών |
-| IPC | Instructions Per Cycle | Εντολές Ανά Κύκλο |
-| LL/SC | Load-Linked/Store-Conditional | Φόρτωση-Σύνδεση / Αποθήκευση-Υπό-Όρο |
-| MESI | Modified, Exclusive, Shared, Invalid | Πρωτόκολλο Συνοχής Cache |
-| MOESI | MESI + Owned | Πρωτόκολλο Συνοχής με Owned |
-| MIMD | Multiple Instruction, Multiple Data | Πολλαπλές Εντολές, Πολλαπλά Δεδομένα |
-| MIPS | Million Instructions Per Second | Εκατομμύρια Εντολές Ανά Δευτερόλεπτο |
-| NUMA | Non-Uniform Memory Access | Μη Ομοιόμορφη Πρόσβαση Μνήμης |
-| PU | Processing Unit | Μονάδα Επεξεργασίας |
-| SC | Sequential Consistency | Σειριακή Συνέπεια |
-| SIMD | Single Instruction, Multiple Data | Μονή Εντολή, Πολλαπλά Δεδομένα |
-| SISD | Single Instruction, Single Data | Μονή Εντολή, Μονό Δεδομένο |
-| SMT | Simultaneous Multithreading | Ταυτόχρονη Πολυνηματική Επεξεργασία |
-| SMP | Symmetric Multiprocessing | Συμμετρική Πολυεπεξεργασία |
-| TLP | Thread-Level Parallelism | Παραλληλισμός σε Επίπεδο Νήματος |
-| VLIW | Very Long Instruction Word | Πολύ Μεγάλη Λέξη Εντολής |
+| Acronym | Full Name | Greek Translation |
+|---------|-----------|-------------------|
+| ALU | Arithmetic Logic Unit | Arithmetic Logic Unit |
+| BSP | Bulk-Synchronous Parallel | Bulk-Synchronous Parallel Model |
+| CC-NUMA | Cache Coherent NUMA | NUMA with Cache Coherence |
+| CAS | Compare-and-Swap | Compare-and-Swap |
+| CU | Control Unit | Control Unit |
+| GPU | Graphics Processing Unit | Graphics Processing Unit |
+| IPC | Instructions Per Cycle | Instructions Per Cycle |
+| LL/SC | Load-Linked/Store-Conditional | Load-Linked / Store-Conditional |
+| MESI | Modified, Exclusive, Shared, Invalid | Cache Coherence Protocol |
+| MOESI | MESI + Owned | Coherence Protocol with Owned |
+| MIMD | Multiple Instruction, Multiple Data | Multiple Instructions, Multiple Data |
+| MIPS | Million Instructions Per Second | Million Instructions Per Second |
+| NUMA | Non-Uniform Memory Access | Non-Uniform Memory Access |
+| PU | Processing Unit | Processing Unit |
+| SC | Sequential Consistency | Sequential Consistency |
+| SIMD | Single Instruction, Multiple Data | Single Instruction, Multiple Data |
+| SISD | Single Instruction, Single Data | Single Instruction, Single Data |
+| SMT | Simultaneous Multithreading | Simultaneous Multithreading |
+| SMP | Symmetric Multiprocessing | Symmetric Multiprocessing |
+| TLP | Thread-Level Parallelism | Thread-Level Parallelism |
+| VLIW | Very Long Instruction Word | Very Long Instruction Word |

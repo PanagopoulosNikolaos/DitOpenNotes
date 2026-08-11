@@ -549,153 +549,153 @@ USReadResult readUltrasonicCm(float &outCm) {
 ```
 
 
-# Αυτοματισμός Έξυπνης Πόλης - Επεξήγηση Κώδικα
+# Smart City Automation - Code Explanation
 
-## Σκοπός Συστήματος
-Προσαρμοστικός φωτισμός δρόμου (LDR + PIR) + σύστημα ασφαλείας μόνο κατά τη νύχτα (υπέρηχοι + piezo).
+## System Purpose
+Adaptive street lighting (LDR + PIR) + security system only at night (ultrasonic + piezo).
 
-## Pins & Σταθερές
-*   **LED Δρόμου:** `D2`–`D6` (LED1/3=digital, LED2/4/5=PWM)
-*   **LED Συναγερμού:** `D7`–`D9` (ΚΟΚΚΙΝΟ, ΠΟΡΤΟΚΑΛΙ, ΠΡΑΣΙΝΟ)
-*   **Αισθητήρες:** `D10`=PIR, `A0`=LDR, `D11`=ECHO, `D12`=TRIG, `D13`=PIEZO
+## Pins & Constants
+*   **Street LEDs:** `D2`–`D6` (LED1/3=digital, LED2/4/5=PWM)
+*   **Alarm LEDs:** `D7`–`D9` (RED, ORANGE, GREEN)
+*   **Sensors:** `D10`=PIR, `A0`=LDR, `D11`=ECHO, `D12`=TRIG, `D13`=PIEZO
 
-| Παράμετρος | Τιμή | Περιγραφή |
+| Parameter | Value | Description |
 | :--- | :--- | :--- |
-| **Όρια LDR** | ON `<930`, OFF `>960` | Ζώνη υστέρησης `930`–`960`: καμία ρητή διατήρηση κατάστασης· μεταπίπτει στη λογική "φωτεινής λειτουργίας" αν δεν πληρούται το όριο |
-| **Δειγματοληψία** | `2000ms` | Διάστημα λογικής ελέγχου φωτισμού |
-| **Χρονικό Όριο Κίνησης** | `5000ms` | Μόνο σε φωτεινή λειτουργία· επαναφέρεται αν ανιχνευθεί κίνηση ή αν η επαναανάγνωση του LDR δείξει σκοτάδι μεταξύ των δειγμάτων |
-| **Διάρκεια Fade** | `2.56s` | 256 βήματα × 10ms (μόνο PWM LEDs· τα digital pins γίνονται LOW μετά την ολοκλήρωση του fade) |
-| **Τηλεμετρία** | `500ms` | Μόνο σε φωτεινή λειτουργία (καταστέλλεται σε σκοτεινή λειτουργία μέσω πρόωρης επιστροφής/early return) |
-| **Υπέρηχοι** | `60ms` ελάχ. διάστημα | 30ms timeout, `cm = duration/58` |
-| **Ημέρα/Νύχτα** | `60s` κύκλος | 30s ΝΥΧΤΑ, 30s ΗΜΕΡΑ (βάσει χρονοδιακόπτη, όχι LDR) |
+| **LDR Thresholds** | ON `<930`, OFF `>960` | Hysteresis zone `930`–`960`: no explicit state preservation; falls back to "bright operation" logic if threshold is not met |
+| **Sampling** | `2000ms` | Lighting logic check interval |
+| **Motion Timeout** | `5000ms` | Only in bright operation; resets if motion is detected or if LDR re-reading shows darkness between samples |
+| **Fade Duration** | `2.56s` | 256 steps × 10ms (only PWM LEDs; digital pins go LOW after fade completion) |
+| **Telemetry** | `500ms` | Only in bright operation (suppressed in dark mode via early return) |
+| **Ultrasonic** | `60ms` min interval | 30ms timeout, `cm = duration/58` |
+| **Day/Night** | `60s` cycle | 30s NIGHT, 30s DAY (timer-based, not LDR) |
 
-**Μοτίβα Ήχου Ασφαλείας:**
-*   **ΚΟΝΤΑ (≤25cm):** 2200Hz, 90ms ON / 90ms OFF
-*   **ΜΕΣΑΙΑ (≤50cm):** 1100Hz, 90ms ON / 260ms OFF
-*   **ΜΑΚΡΙΑ (>50cm):** 420Hz, 70ms ON / 900ms OFF
+**Security Sound Patterns:**
+*   **CLOSE (≤25cm):** 2200Hz, 90ms ON / 90ms OFF
+*   **MEDIUM (≤50cm):** 1100Hz, 90ms ON / 260ms OFF
+*   **FAR (>50cm):** 420Hz, 70ms ON / 900ms OFF
 
-## Ακολουθία Αρχικοποίησης
-1.  **`setup()`**: Serial 9600, ρύθμιση pins, όλοι οι ενεργοποιητές OFF.
+## Initialization Sequence
+1.  **`setup()`**: Serial 9600, pin setup, all actuators OFF.
 2.  **`runSelfTest()`**:
-  *   **[TEST 1]** Τα LED συναγερμού αναβοσβήνουν (200ms το καθένα).
-  *   **[TEST 2]** Ακολουθία LED δρόμου (150ms on, 80ms off).
-  *   **[TEST 3]** Piezo: Μοτίβο ΚΟΝΤΑ (2200Hz ~800ms) + Μοτίβο ΜΑΚΡΙΑ (420Hz ~1500ms).
-  *   **[TEST 4]** Φωτοαντίσταση: ανάγνωση, προειδοποίηση αν `<2` ή `>1021`.
-  *   **[TEST 5]** HC-SR04: 3 προσπάθειες, εκτύπωση απόστασης ή οδηγιών.
-  *   **[TEST 6]** PIR: 10s προθέρμανση + 10s επαλήθευση κίνησης.
+  *   **[TEST 1]** Alarm LEDs blink (200ms each).
+  *   **[TEST 2]** Street LED sequence (150ms on, 80ms off).
+  *   **[TEST 3]** Piezo: CLOSE pattern (2200Hz ~800ms) + FAR pattern (420Hz ~1500ms).
+  *   **[TEST 4]** Photoresistor: reading, warning if `<2` or `>1021`.
+  *   **[TEST 5]** HC-SR04: 3 attempts, print distance or instructions.
+  *   **[TEST 6]** PIR: 10s warm-up + 10s motion verification.
 
 3.  **`waitForUserConfirmation()`**:
-  *   Προτροπή "Type 'Y' then ENTER...".
-  *   Θέτει `selfTestPassed = true` με 'Y' ή 'F' (δεν διακρίνει πεζά/κεφαλαία).
-> **Σημείωση:** Μέχρι την επιβεβαίωση, η `loop()` αναβοσβήνει το ΚΟΚΚΙΝΟ LED κάθε 500ms (ένδειξη αποτυχίας self-test).
+  *   Prompt "Type 'Y' then ENTER...".
+  *   Sets `selfTestPassed = true` with 'Y' or 'F' (case-insensitive).
+> **Note:** Until confirmation, `loop()` blinks the RED LED every 500ms (self-test failure indicator).
 
-## Κύριος Βρόχος (Main Loop - κύκλος βάσης 20ms)
-1.  `detectNightTime()` → Ενημέρωση ημέρας/νύχτας βάσει χρονοδιακόπτη 60s.
-2.  `handleLightingSystem()` → LDR + PIR + timeout → φώτα δρόμου + τηλεμετρία.
-3.  `handleSecuritySystem()` → Υπέρηχοι → LED απειλής (μόνο νύχτα).
-4.  `handleSoundSystem()` → Δρομολόγηση ήχου σε beeps ασφαλείας (μόνο νύχτα).
+## Main Loop (20ms base cycle)
+1.  `detectNightTime()` → Day/night update based on 60s timer.
+2.  `handleLightingSystem()` → LDR + PIR + timeout → street lights + telemetry.
+3.  `handleSecuritySystem()` → Ultrasonic → threat LEDs (night only).
+4.  `handleSoundSystem()` → Sound routing to security beeps (night only).
 5.  `delay(20)`
 
-## Λογική Φωτισμού Δρόμου
+## Street Lighting Logic
 
-### Δειγματοληψία & Συμπεριφορά Μεταξύ Δειγμάτων
-- Η πλήρης λογική LDR + PIR τρέχει κάθε 2s.
-- **Μεταξύ των δειγμάτων** (εντός των 2s): 
-  - Αν τα φώτα είναι ON και το χρονικό όριο κίνησης (5s) έχει λήξει:
-    - Γίνεται **επαναανάγνωση** του LDR
-    - Αν `lightLevel > 960` (φωτεινά): το fade ενεργοποιείται άμεσα (δεν περιμένει το επόμενο δείγμα των 2s)
-    - Αν `lightLevel < 930` (σκοτεινά): το `lastMotionTime` επαναφέρεται (επεκτείνει το timeout, τα φώτα παραμένουν ON χωρίς fade)
+### Sampling & Behavior Between Samples
+- Full LDR + PIR logic runs every 2s.
+- **Between samples** (within the 2s):
+  - If lights are ON and motion timeout (5s) has expired:
+    - **LDR re-reading** occurs
+    - If `lightLevel > 960` (bright): fade activates immediately (does not wait for the next 2s sample)
+    - If `lightLevel < 930` (dark): `lastMotionTime` resets (extends timeout, lights remain ON without fade)
 
-### Σκοτεινή Λειτουργία (LDR < 930)
-*   Ανάβει τα φώτα **ON**, επαναφέρει συνεχώς το `lastMotionTime` (αποτρέπει το fade όσο είναι σκοτεινά).
-*   Καταγράφει **μόνο τις αλλαγές κατάστασης** του PIR (εκτυπώνει μόνο όταν ανιχνευθεί/σταματήσει η κίνηση, όχι συνεχόμενα).
-*   **Πρόωρη επιστροφή (Early return)** αποτρέπει την εκτύπωση τηλεμετρίας (καταστέλλεται σε σκοτεινή λειτουργία).
+### Dark Mode (LDR < 930)
+*   Turns lights **ON**, continuously resets `lastMotionTime` (prevents fade while dark).
+*   Records **only PIR state changes** (prints only when motion is detected/stopped, not continuously).
+*   **Early return** prevents telemetry printing (suppressed in dark mode).
 
-### Φωτεινή Λειτουργία (LDR > 960)
-*   **PIR HIGH:** φώτα **ON**, ενημέρωση `lastMotionTime`.
-*   **PIR LOW + 5s timeout:** fade **OFF** (2.56s PWM fade στα LED2/4/5, μετά τα LED1/3 γίνονται LOW αφού ολοκληρωθεί το fade).
-*   Η τηλεμετρία εκτυπώνει κάθε 500ms: `[STATUS] Light: XXX | PIR: 0/1 | StreetLights: ON/OFF | Night: YES/NO`
+### Bright Mode (LDR > 960)
+*   **PIR HIGH:** lights **ON**, update `lastMotionTime`.
+*   **PIR LOW + 5s timeout:** fade **OFF** (2.56s PWM fade on LED2/4/5, then LED1/3 go LOW after fade completes).
+*   Telemetry prints every 500ms: `[STATUS] Light: XXX | PIR: 0/1 | StreetLights: ON/OFF | Night: YES/NO`
 
-### Ζώνη Υστέρησης (930–960)
-*   Δεν υπάρχει κώδικας ρητής διατήρησης κατάστασης.
-*   Αν το LDR είναι στη ζώνη, μεταπίπτει στη λογική φωτεινής λειτουργίας (έλεγχος βάσει PIR).
-*   Η πραγματική κατάσταση εξαρτάται από τον προηγούμενο κύκλο και την είσοδο PIR.
+### Hysteresis Zone (930–960)
+*   No explicit state preservation code.
+*   If LDR is in the zone, falls back to bright operation logic (PIR-based check).
+*   Actual state depends on previous cycle and PIR input.
 
-### Ενεργοποιητές (Actuators)
+### Actuators
 *   `turnStreetLightsOn()`: LED1/3=`HIGH`, LED2/4/5=`PWM 255`.
-*   `turnStreetLightsOff()`: Όλα σε `LOW`/`0`.
-*   `fadeStreetLightsOff()`: PWM 255→0 (βήματα 10ms), **μετά** τα LED1/3 γίνονται LOW (παραμένουν HIGH κατά τη διάρκεια του fade, μεταβαίνουν σε LOW μετά).
+*   `turnStreetLightsOff()`: All to `LOW`/`0`.
+*   `fadeStreetLightsOff()`: PWM 255→0 (10ms steps), **then** LED1/3 go LOW (remain HIGH during fade, transition to LOW after).
 
-### Παρακολούθηση Κατάστασης
-Η σημαία `pirWasActive` αποτρέπει τον καταιγισμό μηνυμάτων (εκτυπώνει μόνο σε αλλαγή κατάστασης).
+### State Monitoring
+The `pirWasActive` flag prevents message flooding (prints only on state change).
 
-## Σύστημα Ασφαλείας (Μόνο Νύχτα)
+## Security System (Night Only)
 
-### Λειτουργία Ημέρας
-*   Καθαρίζει τα LED (RED/ORANGE/GREEN=`LOW`).
-*   Επαναφέρει: `currentSecurityState=-1`, `ultrasonicValid=false`, `lastUltrasonicCm=-1.0f`.
+### Day Operation
+*   Clears LEDs (RED/ORANGE/GREEN=`LOW`).
+*   Resets: `currentSecurityState=-1`, `ultrasonicValid=false`, `lastUltrasonicCm=-1.0f`.
 
-### Λειτουργία Νύχτας
-*   Διαβάζει απόσταση υπερήχων κάθε 60ms κατ' ελάχιστο.
-*   **Αν είναι έγκυρη:**
-    *   **≤25cm (ΚΟΚΚΙΝΟ):** Red=`HIGH`, Άλλα=`LOW`.
-    *   **≤50cm (ΠΟΡΤΟΚΑΛΙ):** Orange=`HIGH`, Άλλα=`LOW`.
-    *   **>50cm (ΠΡΑΣΙΝΟ):** Green=`HIGH`, Άλλα=`LOW`.
-*   Η σημαία κατάστασης αποτρέπει τα πλεονάζοντα μηνύματα ζώνης.
+### Night Operation
+*   Reads ultrasonic distance every 60ms minimum.
+*   **If valid:**
+    *   **≤25cm (RED):** Red=`HIGH`, Others=`LOW`.
+    *   **≤50cm (ORANGE):** Orange=`HIGH`, Others=`LOW`.
+    *   **>50cm (GREEN):** Green=`HIGH`, Others=`LOW`.
+*   State flag prevents redundant zone messages.
 
-### Συνάρτηση `readUltrasonicCm()`
-*   Επιβάλλει ελάχιστο διάστημα 60ms (επιστρέφει `US_TOO_SOON` αν κληθεί νωρίτερα).
-*   Στέλνει παλμό trigger 10µs.
-*   Μετρά την ηχώ (echo) με timeout 30ms.
-*   Μετατρέπει: `cm = duration / 58.0`.
-*   Επιστρέφει: `US_OK`, `US_TIMEOUT`, ή `US_TOO_SOON`.
+### `readUltrasonicCm()` Function
+*   Enforces 60ms minimum interval (returns `US_TOO_SOON` if called earlier).
+*   Sends 10µs trigger pulse.
+*   Measures echo with 30ms timeout.
+*   Converts: `cm = duration / 58.0`.
+*   Returns: `US_OK`, `US_TIMEOUT`, or `US_TOO_SOON`.
 
-## Σύστημα Ήχου (Μόνο Ασφάλεια, Όχι Ήχος PIR)
+## Sound System (Security Only, No PIR Sound)
 
-### Ενεργοποίηση
-Ενεργό όταν: `isNightTime && ultrasonicValid`
+### Activation
+Active when: `isNightTime && ultrasonicValid`
 
-### Μοτίβα βάσει Απόστασης
-*   **≤25cm:** `beeperSet(2200, 90, 90)` → γρήγορο υψίσυχνο.
-*   **≤50cm:** `beeperSet(1100, 90, 260)` → μέτριο μεσαίου τόνου.
-*   **>50cm:** `beeperSet(420, 70, 900)` → αργό χαμηλόσυχνο.
+### Distance-Based Patterns
+*   **≤25cm:** `beeperSet(2200, 90, 90)` → fast high-frequency.
+*   **≤50cm:** `beeperSet(1100, 90, 260)` → medium mid-tone.
+*   **>50cm:** `beeperSet(420, 70, 900)` → slow low-frequency.
 
-### Μηχανή Κατάστασης χωρίς καθυστερήσεις (Non-blocking)
-*   `beeperSet()`: Αποθηκεύει το μοτίβο, επιστρέφει αν είναι αμετάβλητο (αποφεύγει την επαναφορά).
-*   `beeperUpdate()`: Εναλλάσσει τον τόνο ON/OFF βάσει χρονοπρογραμματισμού `millis()` (σε κάθε loop).
-*   `beeperStop()`: Σιγάζει το piezo, καθαρίζει την ενεργή κατάσταση.
-*   Όταν οι συνθήκες ασφαλείας γίνουν ανενεργές (λειτουργία ημέρας ή άκυροι υπέρηχοι), καλείται η `beeperStop()`.
-> **Ο PIR δεν ενεργοποιεί ήχο — συμβαίνουν μόνο beeps ασφαλείας βάσει απόστασης.**
+### Non-blocking State Machine
+*   `beeperSet()`: Stores pattern, returns if unchanged (avoids reset).
+*   `beeperUpdate()`: Toggles tone ON/OFF based on `millis()` scheduling (each loop).
+*   `beeperStop()`: Silences piezo, clears active state.
+*   When security conditions become inactive (day mode or invalid ultrasonic), `beeperStop()` is called.
+> **PIR does not trigger sound — only distance-based security beeps occur.**
 
-## Περίληψη Συμπεριφοράς
+## Behavior Summary
 
-### LDR < 930 (Σκοτεινή Λειτουργία)
-*   Φώτα **ON** (συνεχόμενα).
-*   Οι έλεγχοι timeout κίνησης και timeout μεταξύ δειγμάτων παρακάμπτονται (τα φώτα μένουν ON).
-*   Καταγράφονται οι αλλαγές PIR (μόνο αλλαγή κατάστασης, όχι τηλεμετρία).
-*   Ασφάλεια: μόνο νύχτα (υπέρηχοι → LED + beep).
+### LDR < 930 (Dark Mode)
+*   Lights **ON** (continuous).
+*   Motion timeout and inter-sample timeout checks are bypassed (lights stay ON).
+*   PIR changes recorded (state change only, no telemetry).
+*   Security: night only (ultrasonic → LED + beep).
 
-### LDR > 960 (Φωτεινή Λειτουργία)
-*   Φώτα **ON** μόνο αν ο PIR ανιχνεύσει κίνηση.
-*   5s αφού σταματήσει η κίνηση: fade **OFF** (2.56s PWM fade, τα digital pins μεταβαίνουν σε LOW μετά το fade).
-*   Επαναανάγνωση LDR μεταξύ δειγμάτων: αν είναι φωτεινά + timeout, το fade ενεργοποιείται άμεσα· αν είναι σκοτεινά, το timeout επεκτείνεται.
-*   Ασφάλεια: μόνο νύχτα (υπέρηχοι → LED + beep).
-*   Τηλεμετρία: εκτυπώνει κάθε 500ms.
+### LDR > 960 (Bright Mode)
+*   Lights **ON** only if PIR detects motion.
+*   5s after motion stops: fade **OFF** (2.56s PWM fade, digital pins transition to LOW after fade).
+*   LDR re-reading between samples: if bright + timeout, fade activates immediately; if dark, timeout extends.
+*   Security: night only (ultrasonic → LED + beep).
+*   Telemetry: prints every 500ms.
 
-### LDR 930–960 (Ζώνη Υστέρησης)
-*   Καμία ρητή διατήρηση κατάστασης.
-*   Μεταπίπτει στη λογική φωτεινής λειτουργίας (έλεγχος βάσει PIR).
-*   Η πραγματική συμπεριφορά εξαρτάται από την είσοδο PIR και την προηγούμενη κατάσταση.
+### LDR 930–960 (Hysteresis Zone)
+*   No explicit state preservation.
+*   Falls back to bright operation logic (PIR-based check).
+*   Actual behavior depends on PIR input and previous state.
 
-## Βασικά Χαρακτηριστικά
-*   Η παρακολούθηση κατάστασης αποτρέπει τον καταιγισμό μηνυμάτων στη σειριακή (`pirWasActive`, `currentSecurityState`).
-*   Το σκοτάδι υπερισχύει της κίνησης (πάντα ON όταν είναι σκοτεινά).
-*   Η φωτεινότητα ενεργοποιεί την εξοικονόμηση ενέργειας (ενεργοποίηση με κίνηση και timeout).
-*   Η επαναανάγνωση LDR μεταξύ δειγμάτων επιτρέπει την ενεργοποίηση fade στα μέσα του κύκλου αν η φωτεινότητα αλλάξει γρήγορα (ή επέκταση timeout αν σκοτεινιάσει).
-*   Το non-blocking beeper επιτρέπει ταυτόχρονη δειγματοληψία (polling).
-*   Το PWM fade είναι ομαλό στα analog pins· τα digital pins παραμένουν HIGH κατά το fade, και μεταβαίνουν σε LOW μετά.
-*   Ο ήχος ασφαλείας βασίζεται **μόνο στην απόσταση** — ο PIR δεν έχει έξοδο ήχου.
-*   Η τηλεμετρία καταστέλλεται σε σκοτεινή λειτουργία (η πρόωρη επιστροφή αποτρέπει την εκτύπωση).
+## Key Features
+*   State monitoring prevents message flooding on serial (`pirWasActive`, `currentSecurityState`).
+*   Darkness overrides motion (always ON when dark).
+*   Brightness enables energy saving (motion-activated and timeout).
+*   LDR re-reading between samples allows fade activation mid-cycle if brightness changes quickly (or timeout extension if it gets dark).
+*   Non-blocking beeper enables simultaneous sampling (polling).
+*   PWM fade is smooth on analog pins; digital pins remain HIGH during fade, transition to LOW after.
+*   Security sound is **distance-only** — PIR has no sound output.
+*   Telemetry is suppressed in dark mode (early return prevents printing).
 
 ---
 

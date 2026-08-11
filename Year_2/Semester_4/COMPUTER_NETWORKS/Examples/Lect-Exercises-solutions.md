@@ -1,83 +1,83 @@
-# Ασκήσεις
+# Exercises
 
-## E1. Χαρακτηριστικά καναλιού εκπομπής (broadcast channel)
-Εξετάστε τα ακόλουθα τέσσερα επιθυμητά χαρακτηριστικά ενός καναλιού εκπομπής (broadcast channel).
+## E1. Broadcast Channel Characteristics
+Consider the following four desirable characteristics of a broadcast channel.
 
-Ποια από αυτά τα χαρακτηριστικά ικανοποιούνται από τα FDMA, pure ALOHA, slotted ALOHA και CSMA; Έστω ότι το $R$ είναι το εύρος ζώνης (bandwidth) του καναλιού.
+Which of these characteristics are satisfied by FDMA, pure ALOHA, slotted ALOHA, and CSMA? Let $R$ be the bandwidth of the channel.
 
-(a) Όταν μόνο ένας κόμβος έχει δεδομένα για αποστολή, τότε αυτός ο κόμβος έχει ρυθμό μετάδοσης (throughput) ίσο με $R$.
+(a) When only one node has data to send, that node has a throughput equal to $R$.
 
-(b) Όταν $M$ κόμβοι έχουν δεδομένα για αποστολή, κάθε ένας από αυτούς έχει κατά μέσο όρο ένα δίκαιο μερίδιο (fair share) του εύρους ζώνης του καναλιού.
+(b) When $M$ nodes have data to send, each of them has on average a fair share of the channel's bandwidth.
 
-(c) Το πρωτόκολλο είναι αποκεντρωμένο (decentralized), δηλαδή δεν υπάρχει ένας κεντρικός κόμβος (master node) που να αποτελεί μοναδικό σημείο αποτυχίας (single point of failure).
+(c) The protocol is decentralized, i.e., there is no master node that acts as a single point of failure.
 
-(d) Το πρωτόκολλο είναι απλό, ώστε να έχει χαμηλό κόστος υλοποίησης.
+(d) The protocol is simple, resulting in low implementation cost.
 
-*(Σημείωση: Δεν παρέχεται λύση στο έγγραφο)*
+*(Note: Solution not provided in document)*
 
-## A1. slotted ALOHA
-Θεωρήστε δύο κόμβους, τους A και B, οι οποίοι χρησιμοποιούν το πρωτόκολλο slotted ALOHA για να ανταγωνιστούν για πρόσβαση σε ένα κανάλι με εύρος ζώνης $R$. Υποθέστε ότι ο κόμβος A έχει περισσότερα δεδομένα για μετάδοση από τον κόμβο B και ότι η πιθανότητα επαναμετάδοσης του κόμβου A, $p_A$, είναι μεγαλύτερη από την πιθανότητα επαναμετάδοσης του κόμβου B, $p_B$.
+## A1. Slotted ALOHA
+Consider two nodes, A and B, which use the slotted ALOHA protocol to compete for access to a channel with bandwidth $R$. Suppose node A has more data to transmit than node B and that node A's retransmission probability, $p_A$, is greater than node B's retransmission probability, $p_B$.
 
-(a) Δώστε έναν τύπο για τη μέση ρυθμαπόδοση (average throughput) του κόμβου A.
-**Λύση:**
-Η μέση ρυθμαπόδοση (average throughput) του A δίνεται από:
+(a) Give a formula for the average throughput of node A.
+**Solution:**
+Node A's average throughput is given by:
 $p_A(1 - p_B)$
 
-(b) Δώστε έναν τύπο για τη μέση ρυθμαπόδοση (average throughput) του κόμβου B.
-**Λύση:**
-Η μέση ρυθμαπόδοση (average throughput) του B δίνεται από:
+(b) Give a formula for the average throughput of node B.
+**Solution:**
+Node B's average throughput is given by:
 $p_B(1 - p_A)$
 
-(c) Ποια είναι η συνολική αποδοτικότητα (total efficiency) του πρωτοκόλλου με αυτούς τους δύο κόμβους;
-**Λύση:**
-Η συνολική αποδοτικότητα (total efficiency) είναι:
-ρυθμαπόδοση του A + ρυθμαπόδοση του B
+(c) What is the total efficiency of the protocol with these two nodes?
+**Solution:**
+The total efficiency is:
+throughput of A + throughput of B
 $p_A(1 - p_B) + p_B(1 - p_A)$
 
-(d) Αν $p_A = 2 \cdot p_B$, είναι η μέση ρυθμαπόδοση του κόμβου A διπλάσια από εκείνη του κόμβου B; Γιατί ή γιατί όχι; Αν όχι, πώς μπορείτε να επιλέξετε τα $p_A$ και $p_B$ ώστε αυτό να συμβαίνει;
-**Λύση:**
-Αν $p_A = 2 \cdot p_B$, τότε η μέση ρυθμαπόδοση του A γίνεται:
+(d) If $p_A = 2 \cdot p_B$, is node A's average throughput double that of node B? Why or why not? If not, how can you choose $p_A$ and $p_B$ so that this is the case?
+**Solution:**
+If $p_A = 2 \cdot p_B$, then node A's average throughput becomes:
 $2p_B(1 - p_B)$
-Επιπλέον, η μέση ρυθμαπόδοση του B γίνεται:
+Furthermore, node B's average throughput becomes:
 $p_B(1 - 2p_B)$
-Μπορούμε ξεκάθαρα να δούμε ότι η ρυθμαπόδοση του A δεν είναι διπλάσια από αυτή του B.
-Για να είναι η ρυθμαπόδοση του A διπλάσια από αυτή του B, πρέπει να ισχύει:
+We can clearly see that node A's throughput is not double that of node B.
+For node A's throughput to be double that of node B, it must hold:
 $p_A(1 - p_B) = 2 p_B(1 - p_A)$
 $p_A = 2 \cdot p_B / (1 + p_B)$
 
-(e) Γενικά, υποθέστε ότι υπάρχουν $N$ κόμβοι, από τους οποίους ο κόμβος A έχει πιθανότητα επαναμετάδοσης $2 \cdot p$ και όλοι οι άλλοι κόμβοι έχουν πιθανότητα επαναμετάδοσης $p$. Δώστε εκφράσεις για τον υπολογισμό της μέσης ρυθμαπόδοσης του κόμβου A και οποιουδήποτε άλλου κόμβου.
-**Λύση:**
-Δεδομένου ότι η πιθανότητα επαναμετάδοσης του A είναι $2 \cdot p$, και όλοι οι άλλοι ($N - 1$) κόμβοι έχουν πιθανότητα επαναμετάδοσης $p$, 
-η μέση ρυθμαπόδοση (average throughput) του A πρέπει να είναι:
+(e) In general, suppose there are $N$ nodes, of which node A has a retransmission probability of $2 \cdot p$ and all other nodes have a retransmission probability of $p$. Give expressions to calculate the average throughput of node A and any other node.
+**Solution:**
+Given that node A's retransmission probability is $2 \cdot p$, and all other ($N - 1$) nodes have a retransmission probability of $p$, 
+node A's average throughput must be:
 $2 \cdot p(1 - p)^{N-1}$
 
-Για τους υπόλοιπους κόμβους, η μέση ρυθμαπόδοση θα είναι:
+For the remaining nodes, the average throughput will be:
 $p(1 - p)^{N-2}(1 - 2p)$
 
-## A2. Link state protocols
-Ας υποθέσουμε ότι έχουμε ένα δίκτυο L3 με την τοπολογία που φαίνεται παραπάνω (λείπει το σχήμα) και ότι ο αλγόριθμος δρομολόγησης που χρησιμοποιείται είναι ο αλγόριθμος κατάστασης συνδέσεων.
+## A2. Link State Protocols
+Suppose we have an L3 network with the topology shown above (figure missing) and that the routing algorithm used is the link state algorithm.
 
-1. Μετά τη σύγκλιση, ποιο είναι το κόστος διαδρομής από τον H1 στον H2 και ποιες είναι οι πιθανές διαδρομές με αυτό το κόστος;
+1. After convergence, what is the path cost from H1 to H2 and what are the possible paths with this cost?
 
-*(Σημείωση: Δεν παρέχεται λύση στο έγγραφο)*
+*(Note: Solution not provided in document)*
 
 ## A3. Multiple Access Protocols: Collisions
-Εξετάστε το παραπάνω σχήμα, το οποίο δείχνει την άφιξη 9 μηνυμάτων για μετάδοση σε διαφορετικούς ασύρματους κόμβους πολλαπλής πρόσβασης, σε χρονικές στιγμές:
+Consider the figure above, which shows the arrival of 9 messages for transmission at different wireless multiple access nodes, at times:
 $t = \{0.1, 0.6, 1.7, 2.7, 2.8, 3.5, 4.2, 4.3, 4.9\}$
-και κάθε μετάδοση απαιτεί ακριβώς μία χρονική μονάδα.
-Υποθέστε ότι όλοι οι κόμβοι εφαρμόζουν το πρωτόκολλο ALOHA.
-Για κάθε μήνυμα, υποδείξτε τη χρονική στιγμή κατά την οποία ξεκινά κάθε μετάδοση.
+and each transmission requires exactly one time unit.
+Suppose all nodes implement the ALOHA protocol.
+For each message, indicate the time instant at which each transmission begins.
 
-*(Σημείωση: Δεν παρέχεται λύση στο έγγραφο)*
+*(Note: Solution not provided in document)*
 
-## Α4. Error Detection And Correction: Two Dimensional Parity
+## A4. Error Detection And Correction: Two Dimensional Parity
 10001100 01101000
 10111011 01100001
 01000110 11110101
 00010000 00011001
 11101010 01101110
 
-**Λύση:**
+**Solution:**
 00010010 10100001 **1**
 11101111 10100111 **1**
 10000101 10000001 **1**
@@ -85,49 +85,49 @@ $t = \{0.1, 0.6, 1.7, 2.7, 2.8, 3.5, 4.2, 4.3, 4.9\}$
 00110010 01110100 **1**
 **11011110 11011010 1**
 
-## Α5. Χρόνος μετάδοσης
-Έστω ότι στέλνετε ένα πακέτο μεγέθους L bits μέσω μιας διαδρομής Q ζεύξεων. Κάθε ζεύξη έχει ταχύτητα μετάδοσης R bps. Έστω επίσης ότι τόσο η καθυστέρηση στις ουρές αναμονής όσο και η καθυστέρηση μετάδοσης είναι αμελητέες. Να υπολογιστεί ο χρόνος που χρειάζεται για να φτάσει το πακέτο στον προορισμό του στις παρακάτω περιπτώσεις:
+## A5. Transmission Time
+Suppose you send a packet of size L bits over a path of Q links. Each link has a transmission rate of R bps. Assume that both queuing delay and propagation delay are negligible. Calculate the time it takes for the packet to reach its destination in the following cases:
 
-α) Το δίκτυο είναι μεταγωγής πακέτου εικονικού κυκλώματος. Στην περίπτωση αυτή θεωρήστε ότι ο χρόνος εγκατάστασης ενός εικονικού κυκλώματος (VC setup time) είναι $t_s$ sec ενώ το συνολικό μέγεθος της κεφαλίδας (header) ενός πακέτου είναι $h$ bits.
-**Λύση:**
-Ο χρόνος μετάδοσης ενός πακέτου στην ζεύξη είναι:
+a) The network is virtual circuit packet-switched. In this case, assume that the virtual circuit setup time (VC setup time) is $t_s$ sec, while the total packet header size is $h$ bits.
+**Solution:**
+The transmission time of a packet on the link is:
 $(L+h)/R$
-Ο συνολικός χρόνος μετάδοσης μέσω των Q ζεύξεων είναι: 
+The total transmission time across Q links is: 
 $Q (L+h)/R$
-Επομένως, ο ζητούμενος χρόνος είναι sec. 
+Therefore, the required time is sec. 
 $t_s + Q (L+h)/R$
 
-β) Το δίκτυο παρέχει ασυνδεσμική (connectionless) υπηρεσία. Στην περίπτωση αυτή έστω ότι κάθε πακέτο έχει κεφαλίδα ίση με $2h$ bits. 
-**Λύση:**
+b) The network provides a connectionless service. In this case, assume that each packet has a header equal to $2h$ bits. 
+**Solution:**
 $Q (L+2h)/R$
 
-γ) Το δίκτυο είναι μεταγωγής κυκλώματος. Στην περίπτωση αυτή θεωρήστε ότι ο ρυθμός μετάδοσης του κυκλώματος μεταξύ της πηγής και του προορισμού είναι $R$ bps, ο χρόνος εγκατάστασης του κυκλώματος είναι $t_s$ sec και η κεφαλίδα κάθε πακέτου έχει μέγεθος $h$ bits. 
-**Λύση:**
-$T_s+(h+L)/R$
+c) The network is circuit-switched. In this case, assume that the circuit transmission rate between source and destination is $R$ bps, the circuit setup time is $t_s$ sec, and each packet header size is $h$ bits. 
+**Solution:**
+$t_s+(h+L)/R$
 
-## A6. Γινόμενο εύρους ζώνης-καθυστέρησης 
-Υποθέστε ότι δύο υπολογιστές, A και B, απέχουν 10,000 km και συνδέονται με μία απευθείας σύνδεση $R = 1$ Mbps. Υποθέστε επίσης ότι ο ρυθμός διάδοσης επάνω στην ζεύξη είναι $2.5 \cdot 10^8$ m/sec.
+## A6. Bandwidth-Delay Product
+Suppose two computers, A and B, are 10,000 km apart and connected by a direct link of $R = 1$ Mbps. Assume also that the propagation speed on the link is $2.5 \cdot 10^8$ m/sec.
 
-α) Υπολογίστε το γινόμενο εύρους ζώνης-καθυστέρησης, $R \cdot D_{prop}$
-**Λύση:**
+a) Calculate the bandwidth-delay product, $R \cdot D_{prop}$
+**Solution:**
 40,000 bits 
 
-β) Σκεφτείτε την αποστολή ενός αρχείου 400,000 bits από τον υπολογιστή A στον υπολογιστή B. Υποθέστε ότι το αρχείο στέλνεται συνεχόμενα, ως ένα μεγάλο μήνυμα. Ποιος είναι ο μέγιστος αριθμός bit που θα βρίσκονται επάνω στην ζεύξη μια δεδομένη στιγμή;
-**Λύση:**
+b) Consider sending a 400,000-bit file from computer A to computer B. Assume the file is sent continuously as one large message. What is the maximum number of bits that will be on the link at any given time?
+**Solution:**
 40,000 bits 
 
-γ) Δώστε μια ερμηνεία του γινομένου εύρους ζώνης -καθυστέρησης. 
-**Λύση:**
-Το γινόμενο εύρους ζώνης – καθυστέρησης εκφράζει τον μέγιστο αριθμό bits που μπορούν να βρίσκονται στην ζεύξη. 
+c) Give an interpretation of the bandwidth-delay product. 
+**Solution:**
+The bandwidth-delay product represents the maximum number of bits that can be present on the link. 
 
-δ) Ποιο είναι το πλάτος ενός bit (σε μέτρα) μέσα στην ζεύξη; Είναι μεγαλύτερο από ένα γήπεδο ποδοσφαίρου; 
-**Λύση:**
-Το πλάτος ενός bit = μήκος ζεύξης / γινόμενο εύρους ζώνης – καθυστέρησης. Επομένως, το πλάτος 1 bit είναι 250 μέτρα, που είναι μεγαλύτερο από ένα γήπεδο ποδοσφαίρου. 
+d) What is the width of a bit (in meters) on the link? Is it larger than a football field? 
+**Solution:**
+The width of a bit = link length / bandwidth-delay product. Therefore, the width of 1 bit is 250 meters, which is larger than a football field. 
 
-ε) Πόσος χρόνος απαιτείται για την μετάδοση του αρχείου, αν θεωρήσουμε ότι στέλνεται συνεχόμενα; 
-**Λύση:**
+e) How much time is required to transmit the file, assuming it is sent continuously? 
+**Solution:**
 $t_{trans} + t_{prop} = 400 \text{ msec} + 40 \text{ msec} = 440 \text{ msec}$
 
-στ) Υποθέστε ότι το αρχείο σπάει σε 10 επιμέρους πακέτα όπου κάθε πακέτο αποτελείται από 40000 bits. Υποθέστε επίσης ότι ο παραλήπτης επιβεβαιώνει την λήψη κάθε πακέτου και ότι ο χρόνος μετάδοσης του πακέτου επιβεβαίωσης είναι αμελητέος. Τέλος, υποθέστε ότι ο αποστολέας δεν μπορεί να στείλει νέο πακέτο προς τον παραλήπτη αν δεν λάβει επιβεβαίωση λήψης του προηγούμενου πακέτου. Πόσος χρόνος απαιτείται για την μετάδοση του αρχείου;
-**Λύση:**
+f) Suppose the file is broken down into 10 individual packets where each packet consists of 40,000 bits. Assume also that the receiver acknowledges receipt of each packet and that the transmission time of the acknowledgment packet is negligible. Finally, assume that the sender cannot send a new packet to the receiver without receiving an acknowledgment of receipt of the previous packet. How much time is required to transmit the file?
+**Solution:**
 $10 \cdot (t_{trans} + 2 t_{prop}) = 10 \cdot (40 \text{ msec} + 80 \text{ msec}) = 1.2 \text{ sec}$

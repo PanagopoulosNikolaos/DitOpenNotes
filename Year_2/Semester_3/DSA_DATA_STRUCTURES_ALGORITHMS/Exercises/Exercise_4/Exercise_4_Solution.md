@@ -1,56 +1,56 @@
-## 1. Σωροί (Heaps) - Ορισμός και Διαφορές
+## 1. Heaps - Definition and Differences
 
-Ο σωρός είναι πλήρες δυαδικό δέντρο όπου το κλειδί κάθε κόμβου ικανοποιεί συγκεκριμένη σχέση με τα παιδιά του.
+A heap is a complete binary tree where the key of each node satisfies a specific relationship with its children.
 
-### Διαφορά Max Heap και Min Heap
+### Difference Between Max Heap and Min Heap
 
-**Max Heap**: Η τιμή κάθε γονικού κόμβου είναι μεγαλύτερη ή ίση από τις τιμές των παιδιών του, με τη μέγιστη τιμή στη ρίζα.
+**Max Heap**: The value of each parent node is greater than or equal to the values of its children, with the maximum value at the root.
 
-**Min Heap**: Η τιμή κάθε γονικού κόμβου είναι μικρότερη ή ίση από τις τιμές των παιδιών του, με την ελάχιστη τιμή στη ρίζα.
+**Min Heap**: The value of each parent node is less than or equal to the values of its children, with the minimum value at the root.
 
-### Διατήρηση Ιδιότητας Σωρού
+### Maintaining Heap Property
 
-**Εισαγωγή**: Το νέο στοιχείο τοποθετείται στο τέλος του σωρού. Ακολουθεί η διαδικασία heapify που συγκρίνει το στοιχείο με τον γονέα του και τα εναλλάσσει αν παραβιάζεται η ιδιότητα του σωρού, επαναλαμβάνοντας μέχρι να αποκατασταθεί η ιδιότητα.
+**Insertion**: The new element is placed at the end of the heap. The heapify process then compares the element with its parent and swaps them if the heap property is violated, repeating until the property is restored.
 
-**Διαγραφή**: Συνήθως διαγράφεται η ρίζα (μέγιστο/ελάχιστο). Το τελευταίο στοιχείο μετακινείται στη ρίζα και η διαδικασία heapify συγκρίνει το στοιχείο με τα παιδιά του, εναλλάσσοντάς το με το μεγαλύτερο (max heap) ή μικρότερο (min heap) παιδί, επαναλαμβάνοντας μέχρι να αποκατασταθεί η ιδιότητα.
-
-
-## 2. Σωροί και Ουρές Προτεραιοτήτων
-
-### Γιατί οι Σωροί είναι Κατάλληλοι;
-
-Οι σωροί (heaps) θεωρούνται κατάλληλοι για την υλοποίηση ουρών προτεραιότητας (priority queues) λόγω της ιδιότητας διάταξης (heap order), που εξασφαλίζει ότι η ρίζα περιέχει πάντα το μέγιστο ή ελάχιστο στοιχείο, επιτρέποντας γρήγορη εξαγωγή του. Επιπλέον, οι βασικές λειτουργίες εισαγωγής και διαγραφής εκτελούνται σε χρόνο O(log N), ενώ η αρχική κατασκευή γίνεται σε O(N), καθιστώντας τους αποδοτικούς για μεγάλες συλλογές δεδομένων.
-
-### Παραδείγματα Πραγματικών Εφαρμογών
-
-1. Χρονοπρογραμματισμός Εργασιών: Σε λειτουργικά συστήματα, οι διεργασίες/threads διατηρούνται σε ουρά προτεραιότητας με κλειδιά τις προτεραιότητές τους, επιτρέποντας γρήγορη επιλογή της επόμενης διεργασίας προς εκτέλεση.​
-
-2. Αλγόριθμος Dijkstra: Για εύρεση συντομότερων μονοπατιών σε γράφους, χρησιμοποιείται priority queue για να επιλέγεται πάντα ο κόμβος με την ελάχιστη απόσταση προς επεξεργασία.
+**Deletion**: Typically the root (maximum/minimum) is deleted. The last element is moved to the root and the heapify process compares the element with its children, swapping it with the larger (max heap) or smaller (min heap) child, repeating until the property is restored.
 
 
-## 3. Συνάρτηση Κατακερματισμού (Hash Function)
-Μια **συνάρτηση κατακερματισμού** είναι μια μαθηματική συνάρτηση που παίρνει έναν αριθμό αυθαίρετου μεγέθους (κλειδί) και παράγει έναν ακέραιο αριθμό σταθερού μεγέθους (hash value), που δείχνει μια θέση στον πίνακα κατακερματισμού.
+## 2. Heaps and Priority Queues
 
-### Χαρακτηριστικά Αποδοτικής Συνάρτησης Κατακερματισμού
+### Why Are Heaps Suitable?
 
-**1. Ντετερμινιστική:**
-- Το ίδιο κλειδί παράγει πάντα την ίδια τιμή hash
-- Εάν h(x) = 5 σήμερα, h(x) = 5 πάντα
+Heaps are considered suitable for implementing priority queues due to the heap order property, which ensures that the root always contains the maximum or minimum element, allowing quick extraction. Additionally, the basic insertion and deletion operations run in O(log N) time, while initial construction takes O(N), making them efficient for large data collections.
 
-**2. Ομοιόμορφη Κατανομή:**
-- Τα hash values κατανέμονται ομοιόμορφα στο χώρο
-- Αποφεύγει συγκεντρώσεις (clustering) που δημιουργούν συγκρούσεις
+### Real-World Application Examples
 
-**3. Γρήγορη Υπολογισμός:**
-- Ο χρόνος υπολογισμού πρέπει να είναι O(1) ή O(|key|)
-- Δεν πρέπει να είναι περισσότερο χρονοβόρα από τη λειτουργία που προκαλεί
+1. Task Scheduling: In operating systems, processes/threads are maintained in a priority queue with their priorities as keys, allowing quick selection of the next process to execute.​
 
-**4. Ελαχιστοποίηση Συγκρούσεων:**
-- Διαφορετικά κλειδιά πρέπει να παράγουν διαφορετικές τιμές hash
-- Πρακτικά αδύνατο για όλα τα κλειδιά, αλλά πρέπει να ελαχιστοποιηθούν
+2. Dijkstra's Algorithm: For finding shortest paths in graphs, a priority queue is used to always select the node with the smallest distance for processing.
 
-**5. Κανονικοποίηση Εξόδου:**
-- h(key) mod table_size εξασφαλίζει ότι το αποτέλεσμα είναι εντός ορίων
+
+## 3. Hash Function
+A **hash function** is a mathematical function that takes an arbitrary-sized number (key) and produces a fixed-size integer (hash value), which indicates a position in the hash table.
+
+### Characteristics of an Efficient Hash Function
+
+**1. Deterministic:**
+- The same key always produces the same hash value
+- If h(x) = 5 today, h(x) = 5 always
+
+**2. Uniform Distribution:**
+- Hash values are distributed uniformly across the space
+- Avoids clustering that causes collisions
+
+**3. Fast Computation:**
+- Computation time should be O(1) or O(|key|)
+- It should not be more time-consuming than the operation that triggers it
+
+**4. Collision Minimization:**
+- Different keys should produce different hash values
+- Practically impossible for all keys, but they should be minimized
+
+**5. Output Normalization:**
+- h(key) mod table_size ensures the result is within bounds
 
 ```python
 class HashFunction:
@@ -79,52 +79,52 @@ print(f"polynomial_hash('apple'): {hasher.polynomial_hash('apple')}")
 print(f"python_hash(123): {hasher.python_hash(123)}")
 ```
 
-## 4. Στρατηγικές Επίλυσης Συγκρούσεων
-## Chaining (Αλυσίδωση)
+## 4. Collision Resolution Strategies
+## Chaining
 
-Δημιουργεί συνδεδεμένη λίστα στοιχείων με ίδιο hash στην ίδια θέση πίνακα.
+Creates a linked list of elements with the same hash at the same table position.
 
-**Πλεονεκτήματα:**
-- Απλή υλοποίηση
-- Δεν γεμίζει ποτέ ο πίνακας - δεν υπάρχει όριο στοιχείων
-- Αποδοτική για υψηλό συντελεστή φόρτωσης (λ)
-- Εύκολη διαγραφή στοιχείων
+**Advantages:**
+- Simple implementation
+- The table never fills up - there is no element limit
+- Efficient for high load factor (λ)
+- Easy element deletion
 
-**Μειονεκτήματα:**
-- Απαιτεί επιπλέον μνήμη για pointers/δείκτες
-- Κακή χρήση cache (μη συνεχόμενη μνήμη)
-- Χειρότερη απόδοση αν οι λίστες μεγαλώσουν πολύ
+**Disadvantages:**
+- Requires extra memory for pointers
+- Poor cache usage (non-contiguous memory)
+- Worse performance if lists grow too large
 
-## Open Addressing (Ανοιχτή Διευθυνσιοδότηση)
+## Open Addressing
 
-Εφαρμόζει δευτερεύουσα συνάρτηση κατακερματισμού συνεχώς μέχρι να βρεθεί κενή θέση. Περιλαμβάνει γραμμική/τετραγωνική ανίχνευση και διπλό κατακερματισμό.
+Applies a secondary hash function continuously until an empty slot is found. Includes linear/quadratic probing and double hashing.
 
-**Πλεονεκτήματα:**
-- Δεν απαιτεί επιπλέον μνήμη για pointers
-- Καλύτερη cache performance (συνεχόμενη μνήμη)
-- Για διπλό κατακερματισμό: αποφεύγει primary/secondary clustering, προσεγγίζει βέλτιστο κόστος αναζήτησης
+**Advantages:**
+- Does not require extra memory for pointers
+- Better cache performance (contiguous memory)
+- For double hashing: avoids primary/secondary clustering, approaches optimal search cost
 
-**Μειονεκτήματα:**
-- Ο πίνακας γεμίζει (περιορισμένο μέγεθος)
-- Χειρότερη απόδοση με υψηλό λ
-- Για διπλό κατακερματισμό: απαιτεί επιπλέον υπολογισμό hash
-- Πιο πολύπλοκη διαγραφή
+**Disadvantages:**
+- The table fills up (limited size)
+- Worse performance with high λ
+- For double hashing: requires additional hash computation
+- More complex deletion
 
 
-## 5. Κωδικοποίηση Huffman
+## 5. Huffman Coding
 
-Η βασική ιδέα της κωδικοποίησης Huffman είναι η απόδοση μεταβλητού μήκους δυαδικών κωδικών σε χαρακτήρες, όπου οι συχνότεροι χαρακτήρες λαμβάνουν συντομότερους κωδικούς για την ελαχιστοποίηση του συνολικού μεγέθους των δεδομένων.
+The basic idea of Huffman coding is assigning variable-length binary codes to characters, where more frequent characters receive shorter codes to minimize the total data size.
 
-### Κατασκευή Δέντρου Huffman
-Η κατασκευή ακολουθεί έναν άπληστο αλγόριθμο (greedy algorithm) από κάτω προς τα πάνω (bottom-up):
-1.  **Αρχικοποίηση**: Δημιουργείται ένας κόμβος-φύλλο για κάθε χαρακτήρα με βάρος ίσο με τη συχνότητα εμφάνισής του.
-2.  **Ταξινόμηση/Ουρά**: Όλοι οι κόμβοι εισάγονται σε μια ουρά προτεραιότητας (priority queue) διατεταγμένη κατά αύξουσα συχνότητα.
-3.  **Σύμπτυξη**: Εξάγονται οι δύο κόμβοι με τις χαμηλότερες συχνότητες. Δημιουργείται ένας νέος εσωτερικός κόμβος-γονέας με συχνότητα ίση με το άθροισμα των συχνοτήτων των δύο παιδιών του.
-4.  **Επανάληψη**: Ο νέος κόμβος εισάγεται ξανά στην ουρά. Η διαδικασία επαναλαμβάνεται μέχρι να απομείνει ένας μοναδικός κόμβος (η ρίζα).
-5.  **Κωδικοποίηση**: Οι ακμές προς τα αριστερά παιδιά λαμβάνουν συνήθως την τιμή '0' και προς τα δεξιά την τιμή '1', παράγοντας τους κωδικούς ως διαδρομές από τη ρίζα στα φύλλα.
+### Huffman Tree Construction
+The construction follows a greedy algorithm bottom-up:
+1.  **Initialization**: A leaf node is created for each character with a weight equal to its frequency.
+2.  **Sorting/Queue**: All nodes are inserted into a priority queue ordered by ascending frequency.
+3.  **Merging**: The two nodes with the lowest frequencies are extracted. A new internal parent node is created with a frequency equal to the sum of its two children's frequencies.
+4.  **Repetition**: The new node is reinserted into the queue. The process repeats until a single node remains (the root).
+5.  **Encoding**: Edges to left children are typically assigned the value '0' and to right children the value '1', generating codes as paths from root to leaves.
 
-### Βελτιστότητα ως προς το Μήκος
-Το Huffman είναι βέλτιστο γιατί ελαχιστοποιεί το σταθμισμένο μήκος διαδρομής (weighted path length) του δέντρου, που ισοδυναμεί με το μέσο μήκος κωδικής λέξης:
-*   **Prefix Property**: Παράγει έναν προθεματικό κώδικα (prefix code), εξαλείφοντας την ανάγκη διαχωριστικών συμβόλων και διασφαλίζοντας μονοσήμαντη αποκωδικοποίηση.
-*   **Αντιστοίχιση Συχνοτήτων**: Ο αλγόριθμος εγγυάται ότι τα σύμβολα με τη μεγαλύτερη συχνότητα βρίσκονται πιο κοντά στη ρίζα (μικρότερο βάθος), άρα έχουν λιγότερα bits. Αντίστροφα, τα σπάνια σύμβολα ωθούνται στα βαθύτερα επίπεδα.
-*   **Μαθηματική Απόδειξη**: Αποδεικνύεται ότι για μια δεδομένη κατανομή πιθανοτήτων, δεν υπάρχει άλλος προθεματικός κώδικας που να δίνει μικρότερο αναμενόμενο μήκος κωδικής λέξης $$\sum p_i l_i$$ από τον κώδικα Huffman.
+### Optimality with Respect to Length
+Huffman is optimal because it minimizes the weighted path length of the tree, which corresponds to the average code word length:
+*   **Prefix Property**: It produces a prefix code, eliminating the need for separator symbols and ensuring unambiguous decoding.
+*   **Frequency Mapping**: The algorithm guarantees that symbols with the highest frequency are closer to the root (smaller depth), thus having fewer bits. Conversely, rare symbols are pushed to deeper levels.
+*   **Mathematical Proof**: It is proven that for a given probability distribution, there is no other prefix code that yields a smaller expected code word length $$\sum p_i l_i$$ than the Huffman code.

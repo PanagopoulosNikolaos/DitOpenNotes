@@ -1,345 +1,345 @@
-# 1.0 Παραλληλισμός σε επίπεδο εντολών (ILP) και Υπερβαθμωτοί Επεξεργαστές
+# 1.0 Instruction-Level Parallelism (ILP) and Superscalar Processors
 
-## 1.1 Ιστορικό πλαίσιο και εξελίξεις
+## 1.1 Historical Context and Developments
 
-i. Μεγάλες εξελίξεις στην αρχιτεκτονική Η/Υ  
-- Οικογένειες υπολογιστών: IBM System/360 (1964), DEC PDP-8.  
-- Διαχωρισμός αρχιτεκτονικής από υλοποίηση.  
-- Μικροπρογραμματισμός μονάδας ελέγχου: πρόταση Wilkes (1951), υλοποίηση IBM S/360 (1964).  
-- Εισαγωγή κρυφής μνήμης: IBM S/360 Model 85 (1969).  
+i. Major developments in computer architecture  
+- Computer families: IBM System/360 (1964), DEC PDP-8.  
+- Separation of architecture from implementation.  
+- Control unit microprogramming: Wilkes proposal (1951), IBM S/360 implementation (1964).  
+- Introduction of cache memory: IBM S/360 Model 85 (1969).  
 - Solid-state RAM.  
-- Μικροεπεξεργαστές: Intel 4004 (1971).  
-- Διασωλήνωση: εισάγει παραλληλισμό στην προσκόμιση–εκτέλεση εντολών.  
-- Πολυεπεξεργαστές.  
-- Υπερβαθμωτές (superscalar) μηχανές: οι πρώτες εμπορικές υλοποιήσεις 1–2 χρόνια μετά την επινόηση του όρου (RISC 6–7 χρόνια μετά).
+- Microprocessors: Intel 4004 (1971).  
+- Pipelining: introduces parallelism in instruction fetch–execute.  
+- Multiprocessors.  
+- Superscalar machines: first commercial implementations 1–2 years after the term was coined (RISC 6–7 years later).
 
-ii. Εμφάνιση υπερβαθμωτής προσέγγισης  
-- Ο όρος «superscalar» εμφανίζεται το 1987.  
-- Σχεδιάζεται για βελτίωση της απόδοσης με εκτέλεση πολλών εντολών ταυτόχρονα.  
-- Στις περισσότερες εφαρμογές, οι πράξεις γίνονται σε βαθμωτές ποσότητες (scalar).  
-- Η υπερβαθμωτή προσέγγιση είναι το επόμενο βήμα στους επεξεργαστές υψηλής απόδοσης (σε RISC και CISC).
+ii. Emergence of the superscalar approach  
+- The term "superscalar" appears in 1987.  
+- Designed to improve performance by executing multiple instructions simultaneously.  
+- In most applications, operations are performed on scalar quantities.  
+- The superscalar approach is the next step in high-performance processors (in both RISC and CISC).
 
-iii. Ορισμός βαθμωτών ποσοτήτων  
-- Βαθμωτές ποσότητες: φυσικά μεγέθη που καθορίζονται πλήρως από ένα μέτρο και μία μονάδα μέτρησης, χωρίς κατεύθυνση.
+iii. Definition of scalar quantities  
+- Scalar quantities: physical magnitudes fully determined by a measure and a unit of measurement, without direction.
 
 ***
 
-# 2.0 Υπερβαθμωτός Επεξεργαστής – Βασική Ιδέα
+# 2.0 Superscalar Processor – Basic Idea
 
-## 2.1 Ορισμός και χαρακτηριστικά
+## 2.1 Definition and Characteristics
 
-i. Βασικά χαρακτηριστικά υπερβαθμωτού επεξεργαστή  
-- Χρήση πολλαπλών ανεξάρτητων σωληνώσεων εντολών (multiple instruction pipelines).  
-- Πολλαπλές λειτουργικές μονάδες (ALU, FPU, load/store κ.λπ.).  
-- Νέο επίπεδο παραλληλισμού: ταυτόχρονη επεξεργασία πολλών εντολών ανά κύκλο.  
-- Τυποποιημένη μέθοδος υλοποίησης μικροεπεξεργαστών υψηλής απόδοσης.  
-- Εφαρμόζεται σε RISC και CISC αρχιτεκτονικές.
+i. Basic characteristics of a superscalar processor  
+- Use of multiple independent instruction pipelines.  
+- Multiple functional units (ALU, FPU, load/store, etc.).  
+- New level of parallelism: simultaneous processing of multiple instructions per cycle.  
+- Standard method for implementing high-performance microprocessors.  
+- Applied to both RISC and CISC architectures.
 
-ii. Γιατί υπερβαθμωτός;  
-- Πολλές εντολές επεξεργάζονται σύνθετες ποσότητες δεδομένων.  
-- Η επιτάχυνση της εκτέλεσης αυτών των εντολών βελτιώνει σημαντικά την απόδοση.  
-- Ο παραλληλισμός σε επίπεδο εντολής (ILP) είναι ο μέσος αριθμός εντολών που μπορούν να εκτελούνται ταυτόχρονα.
+ii. Why superscalar?  
+- Many instructions process complex data quantities.  
+- Accelerating the execution of these instructions significantly improves performance.  
+- Instruction-level parallelism (ILP) is the average number of instructions that can be executed simultaneously.
 
 ***
 
 > [!INFO]
-> **Ροή δεδομένων σε υπερβαθμωτή οργάνωση εντολών**
+> **Data flow in a superscalar instruction organization**
 
 ```mermaid
 flowchart TB
-  A[Ρυθμιστής εντολών] --> B[Ανάκτηση από cache]
-  B --> C[Αποκωδικοποίηση / Μετονομασία]
-  C --> D[Παράθυρο εντολών]
-  D --> E1[Μονάδες ακέραιων]
-  D --> E2[Μονάδες FP]
-  D --> E3[Μονάδες μνήμης]
-  E1 --> F[Cache / Μνήμη]
+  A[Instruction Scheduler] --> B[Fetch from cache]
+  B --> C[Decode / Rename]
+  C --> D[Instruction Window]
+  D --> E1[Integer Units]
+  D --> E2[FP Units]
+  D --> E3[Memory Units]
+  E1 --> F[Cache / Memory]
   E2 --> F
   E3 --> F
-  F --> G[Δέσμευση αποτελεσμάτων]
+  F --> G[Result Commitment]
 ```
 
 ***
 
-# 3.0 Βαθμωτή vs Υπερβαθμωτή Οργάνωση
+# 3.0 Scalar vs Superscalar Organization
 
-## 3.1 Συγκριτική Δομή
+## 3.1 Comparative Structure
 
-| Χαρακτηριστικό                     | Βαθμωτή Οργάνωση (Scalar)                                      | Υπερβαθμωτή Οργάνωση (Superscalar)                            |
-|-----------------------------------|----------------------------------------------------------------|----------------------------------------------------------------|
-| Αριθμός εντολών/κύκλο             | Τυπικά 1                                                       | >1 (2, 3, 4, …)                                                |
-| Λειτουργικές μονάδες ακέραιων     | 1 μονάδα με διασωλήνωση                                       | Πολλαπλές μονάδες με διασωλήνωση                              |
-| Λειτουργικές μονάδες FPU          | 1 μονάδα με διασωλήνωση                                       | Πολλαπλές μονάδες με διασωλήνωση                              |
-| Αρχείο καταχωρητών                | Ένα ανά τύπο πράξεων (int, FP)                                | Πολλαπλά αρχεία, συχνά διευρυμένα με δυναμικούς καταχωρητές   |
-| Παραλληλία εκτέλεσης              | Περιορισμένη (μια εντολή κάθε φορά ανά μονάδα)                | Ταυτόχρονη εκτέλεση πολλών εντολών                           |
-| Πολυπλοκότητα λογικού             | Χαμηλή                                                         | Υψηλή (πρόβλεψη, μετονομασία, αναδιάταξη)                     |
-| Απόδοση σε ILP                    | Περιορισμένη                                                   | Υψηλή, εκμεταλλεύεται ILP και παραλληλισμό μηχανής           |
+| Characteristic                    | Scalar Organization                                          | Superscalar Organization                                        |
+|-----------------------------------|--------------------------------------------------------------|-----------------------------------------------------------------|
+| Instructions/cycle                | Typically 1                                                  | >1 (2, 3, 4, ...)                                               |
+| Integer functional units          | 1 unit with pipelining                                       | Multiple units with pipelining                                   |
+| FP functional units               | 1 unit with pipelining                                       | Multiple units with pipelining                                   |
+| Register file                     | One per operation type (int, FP)                             | Multiple files, often extended with dynamic registers            |
+| Execution parallelism             | Limited (one instruction at a time per unit)                 | Simultaneous execution of multiple instructions                  |
+| Logic complexity                  | Low                                                          | High (prediction, renaming, reordering)                          |
+| ILP performance                   | Limited                                                      | High, exploits ILP and machine parallelism                       |
 
 ***
 
 > [!INFO]
-> **Σύγκριση βαθμωτής και υπερβαθμωτής οργάνωσης**
+> **Comparison of scalar and superscalar organization**
 
 ```mermaid
 graph TB
-    S[Βαθμωτή Οργάνωση] --> S_INT[1 μονάδα ακέραιων με pipeline]
-    S --> S_FP[1 μονάδα FP με pipeline]
-    S_INT --> S_REG[Int καταχωρητές]
-    S_FP --> S_REGFP[FP καταχωρητές]
+    S[Scalar Organization] --> S_INT[1 integer unit with pipeline]
+    S --> S_FP[1 FP unit with pipeline]
+    S_INT --> S_REG[Int registers]
+    S_FP --> S_REGFP[FP registers]
 
-    SS[Υπερβαθμωτή Οργάνωση] --> SS_INT[Πολλαπλές μονάδες ακέραιων]
-    SS --> SS_FP[Πολλαπλές μονάδες FP]
-    SS_INT --> SS_REG[Int αρχείο καταχωρητών]
-    SS_FP --> SS_REGFP[FP αρχείο καταχωρητών]
+    SS[Superscalar Organization] --> SS_INT[Multiple integer units]
+    SS --> SS_FP[Multiple FP units]
+    SS_INT --> SS_REG[Int register file]
+    SS_FP --> SS_REGFP[FP register file]
 ```
 
 ***
 
-# 4.0 Διασωλήνωση, Υπερ-διασωλήνωση και Superscalar
+# 4.0 Pipelining, Superpipelining and Superscalar
 
-## 4.1 Βασικά στάδια διασωλήνωσης
+## 4.1 Basic pipelining stages
 
-i. Τυπική διασωλήνωση 4 σταδίων  
-1. Ανάκληση εντολής.  
-2. Αποκωδικοποίηση λειτουργίας.  
-3. Εκτέλεση λειτουργίας.  
-4. Εγγραφή αποτελέσματος.
+i. Typical 4-stage pipelining  
+1. Instruction fetch.  
+2. Operation decode.  
+3. Operation execution.  
+4. Result write-back.
 
-ii. Υπερ-διασωλήνωση  
-- Πολλαπλά στάδια διασωλήνωσης εκτελούνται ανά κύκλο.  
-- Πολλές εντολές προσκομίζονται ταυτόχρονα, αλλά κάθε στιγμή μία βρίσκεται στο στάδιο εκτέλεσης.
+ii. Superpipelining  
+- Multiple pipeline stages execute per cycle.  
+- Many instructions are fetched simultaneously, but at any moment one is in the execution stage.
 
-iii. Superscalar vs Υπερ-διασωλήνωση  
-- Υπερ-διασωλήνωση: αυξάνει το βάθος της διασωλήνωσης (περισσότερα στάδια).  
-- Superscalar: αυξάνει το πλάτος (πολλαπλές εντολές ταυτόχρονα σε κάθε στάδιο).
+iii. Superscalar vs Superpipelining  
+- Superpipelining: increases pipeline depth (more stages).  
+- Superscalar: increases width (multiple instructions simultaneously at each stage).
 
 ***
 
 > [!INFO]
-> **Σύγκριση απλής διασωλήνωσης, υπερ-διασωλήνωσης και superscalar**
+> **Comparison of simple pipelining, superpipelining and superscalar**
 
 ```mermaid
 sequenceDiagram
-    participant C as Κύκλοι
-    participant P as Απλή Διασωλήνωση
-    participant HP as Υπερ-διασωλήνωση
-    participant SS as Υπερβαθμωτή
+    participant C as Cycles
+    participant P as Simple Pipelining
+    participant HP as Superpipelining
+    participant SS as Superscalar
 
-    Note over P: 1 στάδιο / εντολή / κύκλο
-    Note over HP: 2 στάδια / εντολή / κύκλο
-    Note over SS: 2 εντολές / στάδιο / κύκλο
+    Note over P: 1 stage / instruction / cycle
+    Note over HP: 2 stages / instruction / cycle
+    Note over SS: 2 instructions / stage / cycle
 
-    C->>P: Εκτέλεση 4 σταδίων<br/>για κάθε εντολή
-    C->>HP: 4 στάδια σε λιγότερους κύκλους
-    C->>SS: 2 εντολές παράλληλα<br/>σε κάθε στάδιο
+    C->>P: Execute 4 stages<br/>for each instruction
+    C->>HP: 4 stages in fewer cycles
+    C->>SS: 2 instructions in parallel<br/>at each stage
 ```
 
 ***
 
-# 5.0 Περιορισμοί Παραλληλισμού σε Υπερβαθμωτούς
+# 5.0 Parallelism Limitations in Superscalar Processors
 
-## 5.1 Είδη εξαρτήσεων
+## 5.1 Types of Dependencies
 
-i. Πραγματικές εξαρτήσεις δεδομένων (RAW – Read After Write)  
-Παράδειγμα:  
+i. True data dependencies (RAW – Read After Write)  
+Example:  
 - ADD r1, r2   (r1 := r1 + r2)  
 - MOVE r3, r1  (r3 := r1)
 
-Η δεύτερη εντολή χρειάζεται το αποτέλεσμα της πρώτης. Δεν μπορεί να εκτελεστεί πριν ολοκληρωθεί η ADD. Αν η εξάρτηση περιλαμβάνει φόρτωση από μνήμη, η καθυστέρηση αυξάνεται (ιδίως σε αστοχία cache).
+The second instruction needs the result of the first. It cannot execute until the ADD completes. If the dependency involves a memory load, the delay increases (especially on cache misses).
 
-ii. Εξαρτήσεις διαδικασιών  
-- Όταν η σειρά εκτέλεσης πρέπει να διατηρηθεί για ορθότητα (π.χ. διακλαδώσεις, μεταβλητού μήκους εντολές).  
-- Η ανάγκη αποκωδικοποίησης για προσδιορισμό προσβάσεων μνήμης μπορεί να εμποδίσει ταυτόχρονη ανάκληση εντολών.
+ii. Procedural dependencies  
+- When execution order must be maintained for correctness (e.g. branches, variable-length instructions).  
+- The need for decode to determine memory accesses can prevent simultaneous instruction fetching.
 
-iii. Διαμάχες πόρων (resource conflicts)  
-- Πολλαπλές εντολές διεκδικούν τον ίδιο πόρο:  
-  - Μνήμη ή cache.  
-  - Λειτουργικές μονάδες (ALU, FPU).  
-- Λύση: αύξηση πόρων (πολλαπλές μονάδες).
+iii. Resource conflicts  
+- Multiple instructions contend for the same resource:  
+  - Memory or cache.  
+  - Functional units (ALU, FPU).  
+- Solution: increase resources (multiple units).
 
-iv. Εξαρτήσεις εξόδων (WAW – Write After Write)  
-Παράδειγμα:  
+iv. Output dependencies (WAW – Write After Write)  
+Example:  
 - R3 := R3 + R5  (I1)  
 - R4 := R3 + 1   (I2)  
 - R3 := R5 + 1   (I3)  
 - R7 := R3 + R4  (I4)
 
-Η I2 εξαρτάται από I1, ενώ I3 και I4 εξαρτώνται επίσης από I1. Αν I3 ολοκληρωθεί πριν την I1, η τιμή του R3 μπορεί να αλλοιωθεί (write-write hazard).
+I2 depends on I1, while I3 and I4 also depend on I1. If I3 completes before I1, the value of R3 may be corrupted (write-write hazard).
 
-v. Αντιεξαρτήσεις (WAR – Write After Read)  
-Το ίδιο παράδειγμα:  
-- I2 χρησιμοποιεί R3 (ανάγνωση).  
-- I3 γράφει στο R3.  
-Η I3 δεν μπορεί να ολοκληρωθεί πριν ξεκινήσει η I2, επειδή θα κατέστρεφε τιμή που χρειάζεται η I2 (read πριν write).
+v. Anti-dependencies (WAR – Write After Read)  
+Same example:  
+- I2 uses R3 (read).  
+- I3 writes to R3.  
+I3 cannot complete before I2 starts, because it would destroy the value I2 needs (read before write).
 
 ***
 
 > [!INFO]
-> **Επίδραση εξαρτήσεων σε υπερβαθμωτή μηχανή βαθμού 2**
+> **Impact of dependencies on a degree-2 superscalar machine**
 
 ```mermaid
 flowchart LR
-    A[Χωρίς εξαρτήσεις] --> B[2 εντολές/κύκλο<br/>ανάκτηση και εκτέλεση]
-    C[Με εξάρτηση δεδομένων] --> D[Καθυστέρηση 2ης εντολής<br/>μέχρι διαθεσιμότητα αποτελέσματος]
-    E[Διαδικαστική εξάρτηση] --> F[Αναστολή pipeline<br/>μέχρι επίλυση διακλάδωσης]
-    G[Διαμάχη πόρων] --> H[Σειριοποίηση εντολών<br/>που μοιράζονται μονάδα]
+    A[No dependencies] --> B[2 instructions/cycle<br/>fetch and execute]
+    C[Data dependency] --> D[Delay 2nd instruction<br/>until result available]
+    E[Procedural dependency] --> F[Stall pipeline<br/>until branch resolved]
+    G[Resource conflict] --> H[Serialize instructions<br/>sharing a unit]
 ```
 
 ***
 
-## 5.2 Σχεδιαστικά ζητήματα
+## 5.2 Design Issues
 
-i. Παραλληλισμός σε επίπεδο εντολής  
-- Αριθμός ανεξάρτητων εντολών που μπορούν να εκτελούνται με χρονική επικάλυψη.  
-- Περιορίζεται από εξαρτήσεις δεδομένων και διαδικασιών.
+i. Instruction-level parallelism  
+- Number of independent instructions that can execute with temporal overlap.  
+- Limited by data and procedural dependencies.
 
-ii. Παραλληλισμός μηχανής  
-- Δυνατότητα του επεξεργαστή να αξιοποιεί ILP.  
-- Εξαρτάται από:  
-  - Αριθμό παράλληλων pipelines.  
-  - Αποτελεσματικότητα μηχανισμών ανίχνευσης ανεξάρτητων εντολών.
+ii. Machine parallelism  
+- Processor's ability to exploit ILP.  
+- Depends on:  
+  - Number of parallel pipelines.  
+  - Effectiveness of independent instruction detection mechanisms.
 
-iii. Λανθάνων χρόνος λειτουργίας  
-- Χρόνος μέχρι τα αποτελέσματα μιας εντολής να είναι διαθέσιμα στις επόμενες.  
-- Καθορίζει καθυστερήσεις λόγω εξαρτήσεων.
-
-***
-
-# 6.0 Πολιτικές Έκδοσης και Ολοκλήρωσης Εντολών
-
-## 6.1 Ορισμοί
-
-i. Σειρά εκτέλεσης (in-order / out-of-order)  
-- Βήματα: προσκόμιση – εκτέλεση – ενημέρωση καταχωρητών/μνήμης.  
-- Μια εντολή «εκδίδεται» όταν μετακινείται από αποκωδικοποίηση στο πρώτο στάδιο εκτέλεσης.  
-- Ο επεξεργαστής εξετάζει επόμενες εντολές για να βελτιώσει την απόδοση.
+iii. Latency  
+- Time until results of one instruction are available to subsequent ones.  
+- Determines delays due to dependencies.
 
 ***
 
-## 6.2 Έκδοση με σειρά – Ολοκλήρωση με σειρά
+# 6.0 Instruction Issue and Completion Policies
 
-i. Χαρακτηριστικά  
-- Εντολές εκδίδονται και ολοκληρώνονται διαδοχικά.  
-- Διατηρείται η σειρά προγράμματος.  
-- Απλή αλλά λιγότερο αποδοτική.  
-- Συχνές αναστολές λόγω συγκρούσεων και εξαρτήσεων.
+## 6.1 Definitions
 
-ii. Συμπεριφορά σε παράδειγμα  
-- I1 απαιτεί 2 κύκλους εκτέλεσης.  
-- I3 και I4 ανταγωνίζονται για την ίδια λειτουργική μονάδα.  
-- I5 εξαρτάται από αποτέλεσμα της I4 και καθυστερεί.  
-- I5 και I6 ανταγωνίζονται επίσης για την ίδια μονάδα.  
-- Η ολοκλήρωση παραμένει αυστηρά σειριακή.
+i. Execution order (in-order / out-of-order)  
+- Steps: fetch – execute – register/memory update.  
+- An instruction is "issued" when it moves from decode to the first execution stage.  
+- The processor examines subsequent instructions to improve performance.
 
 ***
 
-## 6.3 Έκδοση με σειρά – Ολοκλήρωση εκτός σειράς
+## 6.2 In-order issue – In-order completion
 
-i. Χαρακτηριστικά  
-- Πολλαπλές εντολές εκτελούνται ταυτόχρονα (μέχρι τον μέγιστο βαθμό παραλληλισμού).  
-- Η ολοκλήρωση μπορεί να γίνει με διαφορετική σειρά από την προσκόμιση.  
-- Απαιτεί πολύ πιο σύνθετα λογικά κυκλώματα.  
-- Σε διακοπές, πρέπει να διασφαλίζεται η ορθότητα της κατάστασης.
+i. Characteristics  
+- Instructions are issued and completed sequentially.  
+- Program order is maintained.  
+- Simple but less efficient.  
+- Frequent stalls due to conflicts and dependencies.
 
-ii. Συμπεριφορά  
-- I3 και I4 μπορούν να ολοκληρωθούν εκτός σειράς, ανάλογα με τη διαθεσιμότητα της λειτουργικής μονάδας.  
-- I5 εξαρτάται από την I4 και εκτελείται μόνον όταν I4 ολοκληρωθεί.  
-- Ι5 και Ι6 μοιράζονται λειτουργική μονάδα, ολοκλήρωση ίσως εκτός σειράς.
-
-iii. Σχέση με RISC  
-- Εφαρμόζεται ιδιαίτερα σε βαθμωτούς RISC επεξεργαστές.  
-- Παράδειγμα: I2 ολοκληρώνεται πριν την I1, επιτρέποντας στην I3 να τελειώσει νωρίτερα και κερδίζοντας έναν κύκλο.
+ii. Behavior in example  
+- I1 requires 2 execution cycles.  
+- I3 and I4 compete for the same functional unit.  
+- I5 depends on I4's result and stalls.  
+- I5 and I6 also compete for the same unit.  
+- Completion remains strictly serial.
 
 ***
 
-## 6.4 Έκδοση εκτός σειράς – Ολοκλήρωση εκτός σειράς
+## 6.3 In-order issue – Out-of-order completion
 
-i. Δομή pipeline με παράθυρο εντολών  
-- Αποσύνδεση σταδίων αποκωδικοποίησης και εκτέλεσης.  
-- Παράθυρο εντολών (instruction window) χωρίζει τη διασωλήνωση σε:  
-  - Στάδιο προσκόμισης (in-order).  
-  - Στάδιο εκτέλεσης (out-of-order).  
-- Ο επεξεργαστής συνεχίζει προσκόμιση/αποκωδικοποίηση όσο το παράθυρο δεν είναι πλήρες.
+i. Characteristics  
+- Multiple instructions execute simultaneously (up to the maximum degree of parallelism).  
+- Completion may occur in a different order than fetching.  
+- Requires much more complex logic circuits.  
+- On interrupts, program state correctness must be ensured.
 
-ii. Ροή σταδίων  
-- Ανάκληση → Αποκωδικοποίηση → Μετονομασία → Μεταφορά → Έκδοση → Ανάγνωση καταχωρητή → Εκτέλεση → Πίσω εγγραφή.  
-- Απομονωτής εντολών (issue buffer) και απομονωτής επαναδιάταξης (reorder buffer) για διαχείριση σειράς.
+ii. Behavior  
+- I3 and I4 may complete out-of-order, depending on functional unit availability.  
+- I5 depends on I4 and executes only when I4 completes.  
+- I5 and I6 share a functional unit, completion possibly out-of-order.
 
-iii. Λειτουργία  
-- Όταν μια λειτουργική μονάδα είναι διαθέσιμη, εκδίδεται «κατάλληλη» εντολή από το παράθυρο.  
-- Μετά την αποκωδικοποίηση, εντολές εξετάζονται μπροστά (look-ahead) για ανεξαρτησία.  
-- Αποτελέσματα εκτός σειράς αποθηκεύονται προσωρινά και δεσμεύονται (commit) με σειρά προγράμματος.
+iii. Relationship with RISC  
+- Applied particularly to scalar RISC processors.  
+- Example: I2 completes before I1, allowing I3 to finish earlier and gaining one cycle.
+
+***
+
+## 6.4 Out-of-order issue – Out-of-order completion
+
+i. Pipeline structure with instruction window  
+- Decoupling of decode and execution stages.  
+- Instruction window divides pipelining into:  
+  - Issue stage (in-order).  
+  - Execution stage (out-of-order).  
+- Processor continues fetching/decoding as long as the window is not full.
+
+ii. Stage flow  
+- Fetch → Decode → Rename → Transfer → Issue → Register Read → Execute → Write-back.  
+- Issue buffer and reorder buffer manage ordering.
+
+iii. Operation  
+- When a functional unit is available, a "suitable" instruction is issued from the window.  
+- After decode, instructions are examined ahead (look-ahead) for independence.  
+- Out-of-order results are stored temporarily and committed in program order.
 
 ***
 
 > [!INFO]
-> **Pipeline με έκδοση/ολοκλήρωση εκτός σειράς**
+> **Pipeline with out-of-order issue/completion**
 
 ```mermaid
 flowchart TB
-  F[Ανάκληση] --> D[Αποκωδικοποίηση]
-  D --> R[Μετονομασία]
-  R --> T[Μεταφορά στο παράθυρο]
-  T --> I[Έκδοση σε λειτουργικές μονάδες]
-  I --> RG[Ανάγνωση καταχωρητών]
-  RG --> EX[Εκτέλεση]
-  EX --> WB[Πίσω εγγραφή]
-  WB --> ROB[Απομονωτής αναδιάταξης]
-  ROB --> COMMIT[Δέσμευση με σειρά προγράμματος]
+  F[Fetch] --> D[Decode]
+  D --> R[Rename]
+  R --> T[Transfer to window]
+  T --> I[Issue to functional units]
+  I --> RG[Register Read]
+  RG --> EX[Execute]
+  EX --> WB[Write-back]
+  WB --> ROB[Reorder Buffer]
+  ROB --> COMMIT[Commit in program order]
 ```
 
 ***
 
-# 7.0 Μετονομασία Καταχωρητών
+# 7.0 Register Renaming
 
-## 7.1 Σκοπός και αποτέλεσμα
+## 7.1 Purpose and Result
 
-i. Προβλήματα χωρίς μετονομασία  
-- Εξαρτήσεις δεδομένων, εξόδων και αντιεξαρτήσεις προκαλούν stalls.  
-- Στατική κατανομή λογικών καταχωρητών σε φυσικούς επιδεινώνει τις καθυστερήσεις.
+i. Problems without renaming  
+- Data, output dependencies and anti-dependencies cause stalls.  
+- Static allocation of logical registers to physical registers exacerbates delays.
 
-ii. Ιδέα μετονομασίας  
-- Δυναμική κατανομή φυσικών καταχωρητών από το υλικό.  
-- Ουσιαστικά «διπλασιάζονται» οι διαθέσιμοι πόροι (καταχωρητές), αν το επιτρέπει η υλοποίηση.  
-- Μειώνονται ψευδοεξαρτήσεις (WAW, WAR).
+ii. Renaming idea  
+- Dynamic allocation of physical registers by hardware.  
+- Essentially "doubles" available resources (registers), if implementation allows.  
+- Reduces false dependencies (WAW, WAR).
 
 ***
 
-## 7.2 Παράδειγμα με/χωρίς μετονομασία
+## 7.2 Example with/without renaming
 
-i. Αρχικό πρόγραμμα  
+i. Original program  
 - R3 := R3 + R5  (I1)  
 - R4 := R3 + 1   (I2)  
 - R3 := R5 + 1   (I3)  
 - R7 := R3 + R4  (I4)
 
-Εδώ:  
-- I2 εξαρτάται από αποτέλεσμα της I1 (RAW).  
-- I3 γράφει στο R3 που χρησιμοποιείται από I2 (WAR).  
-- I1 και I3 γράφουν στο R3 (WAW).
+Here:  
+- I2 depends on I1's result (RAW).  
+- I3 writes to R3 which is used by I2 (WAR).  
+- I1 and I3 both write to R3 (WAW).
 
-ii. Με μετονομασία καταχωρητών  
+ii. With register renaming  
 - R3b := R3a + R5a  (I1)  
 - R4b := R3b + 1    (I2)  
 - R3c := R5a + 1    (I3)  
 - R7b := R3c + R4b  (I4)
 
-Σημειώσεις:  
-- Χωρίς δείκτη (R3) → λογικός καταχωρητής.  
-- Με δείκτη (R3a, R3b, R3c) → δυναμικός φυσικός καταχωρητής.
+Notes:  
+- Without index (R3) → logical register.  
+- With index (R3a, R3b, R3c) → dynamic physical register.
 
 ***
 
 > [!INFO]
-> **Εννοιολογικό διάγραμμα μετονομασίας καταχωρητών**
+> **Conceptual diagram of register renaming**
 
 ```mermaid
 flowchart LR
-    L[R3 λογικός] --> A[R3a για I1 είσοδο]
-    L --> B[R3b για I1 έξοδο / I2 είσοδο]
-    L --> C[R3c για I3 έξοδο]
+    L[R3 logical] --> A[R3a for I1 input]
+    L --> B[R3b for I1 output / I2 input]
+    L --> C[R3c for I3 output]
 
-    R5[R5 λογικός] --> R5a[R5a φυσικός]
+    R5[R5 logical] --> R5a[R5a physical]
 
     A --> I1[I1: R3b := R3a + R5a]
     B --> I2[I2: R4b := R3b + 1]
@@ -350,121 +350,121 @@ flowchart LR
 
 ***
 
-# 8.0 Παραλληλισμός Μηχανής και Απόδοση
+# 8.0 Machine Parallelism and Performance
 
-## 8.1 Διπλασιασμός πόρων, παράθυρο εντολών και μετονομασία
+## 8.1 Resource doubling, instruction window and renaming
 
-i. Διπλασιασμός πόρων  
-- Αύξηση αριθμού μονάδων load/store (ld/st).  
-- Αύξηση αριθμού ALU.  
-- Μόνος του δίνει μικρή βελτίωση αν δεν υπάρχει out-of-order & μετονομασία.
+i. Resource doubling  
+- Increasing the number of load/store (ld/st) units.  
+- Increasing the number of ALUs.  
+- Alone gives small improvement if no out-of-order & renaming.
 
-ii. Ρόλος παραθύρου εντολών  
-- Όσο μεγαλύτερο το παράθυρο, τόσο περισσότερες ανεξάρτητες εντολές «φαίνονται».  
-- Επιτρέπει εκμετάλλευση ILP μέσω δυναμικής επαναδιάταξης.
+ii. Role of instruction window  
+- The larger the window, the more independent instructions are "visible".  
+- Enables ILP exploitation through dynamic reordering.
 
-iii. Συνδυασμός τεχνικών  
-- Έκδοση εκτός σειράς + μετονομασία καταχωρητών + πολλαπλές μονάδες ld/st και ALU → σημαντική αύξηση ταχύτητας.  
+iii. Combining techniques  
+- Out-of-order issue + register renaming + multiple ld/st and ALU units → significant speed increase.  
 
 ***
 
-## 8.2 Θεωρητικές μελέτες αύξησης ταχύτητας
+## 8.2 Theoretical speedup studies
 
-i. Μέτρο αύξησης  
-- Ο κατακόρυφος άξονας: μέση αύξηση ταχύτητας υπερβαθμωτής σε σχέση με βαθμωτή μηχανή.  
-- Ο οριζόντιος άξονας: μέγεθος παραθύρου (8, 16, 32).  
-- Συγκρίνονται μορφές:  
-  - Βαθμωτός με δυνατότητα έκδοσης εκτός σειράς.  
-  - Μηχανή βάσης.  
+i. Speedup measure  
+- Vertical axis: average speedup of superscalar vs scalar machine.  
+- Horizontal axis: window size (8, 16, 32).  
+- Compared configurations:  
+  - Scalar with out-of-order issue capability.  
+  - Base machine.  
   - + ld/st.  
   - + ALU.  
-  - + και τα δύο.
+  - + both.
 
-ii. Συμπέρασμα  
-- Χωρίς μετονομασία: η αύξηση ταχύτητας περιορίζεται.  
-- Με μετονομασία: η αύξηση ταχύτητας βελτιώνεται σημαντικά, ειδικά με μεγάλο παράθυρο.
+ii. Conclusion  
+- Without renaming: speedup is limited.  
+- With renaming: speedup improves significantly, especially with large window.
 
 ***
 
-# 9.0 Πρόβλεψη Διακλαδώσεων σε Υπερβαθμωτούς
+# 9.0 Branch Prediction in Superscalar Processors
 
-## 9.1 Τεχνικές πρόβλεψης
+## 9.1 Prediction techniques
 
-i. Καθυστερημένη διακλάδωση (RISC)  
-- Χρησιμοποιήθηκε έντονα σε RISC βαθμωτούς επεξεργαστές.  
-- Εκμεταλλεύεται «delay slots» μετά τη διακλάδωση.
+i. Delayed branching (RISC)  
+- Heavily used in RISC scalar processors.  
+- Exploits "delay slots" after the branch.
 
-ii. Δυναμική πρόβλεψη διακλαδώσεων  
-- Σε υπερβαθμωτούς είναι απαραίτητη για συνεχή απασχόληση των πόρων.  
-- Χρησιμοποιούνται μηχανισμοί όπως:  
-  - Branch Target Buffer (BTB): αποθηκεύει διευθύνσεις στόχων.  
-  - Πίνακες ιστορικού διακλαδώσεων.
+ii. Dynamic branch prediction  
+- In superscalar processors, essential for keeping resources continuously busy.  
+- Mechanisms used include:  
+  - Branch Target Buffer (BTB): stores target addresses.  
+  - Branch history tables.
 
 ***
 
 > [!INFO]
-> **Εννοιολογική απεικόνιση επεξεργασίας σε υπερβαθμωτή μηχανή**
+> **Conceptual representation of processing in a superscalar machine**
 
 ```mermaid
 flowchart TB
-  A[Στατικό πρόγραμμα<br/>γραμμική ακολουθία εντολών] 
-    --> B[Ανάκληση εντολών & πρόβλεψη διακλαδώσεων]
-  B --> C[Εξέταση και αφαίρεση εξαρτήσεων]
-  C --> D[Παράθυρο εκτέλεσης<br/>οργάνωση με βάση πραγματικές εξαρτήσεις]
-  D --> E[Εκτέλεση εντολών<br/>βάσει διαθεσιμότητα πόρων]
-  E --> F[Αναδιάταξη σε ακολουθιακή σειρά]
-  F --> G[Εγγραφή αποτελεσμάτων]
+  A[Static program<br/>linear instruction sequence] 
+    --> B[Instruction fetch & branch prediction]
+  B --> C[Examine and remove dependencies]
+  C --> D[Execution window<br/>organization based on real dependencies]
+  D --> E[Execute instructions<br/>based on resource availability]
+  E --> F[Reorder into sequential order]
+  F --> G[Write results]
 ```
 
 ***
 
-# 10.0 Μικροαρχιτεκτονικά Παραδείγματα x86
+# 10.0 x86 Microarchitectural Examples
 
-## 10.1 Pentium 4 – Δομή και βασικές έννοιες
+## 10.1 Pentium 4 – Structure and basic concepts
 
-### 10.1.1 Δομικά τμήματα Pentium 4
+### 10.1.1 Structural components of Pentium 4
 
-i. Cache και διαύλους  
-- L1 cache δεδομένων: 8 KB.  
-- L1 cache εντολών (ή Trace Cache για αποκωδικοποιημένες micro-ops).  
+i. Cache and buses  
+- L1 data cache: 8 KB.  
+- L1 instruction cache (or Trace Cache for decoded micro-ops).  
 - L2 cache: 256 KB.  
-- Δίαυλος συστήματος: 3.2 GB/s.
+- System bus: 3.2 GB/s.
 
-ii. Αρχείο καταχωρητών  
-- Αρχείο καταχωρητών ακεραίων.  
-- Αρχείο καταχωρητών FP (κινητής υποδιαστολής).
+ii. Register file  
+- Integer register file.  
+- Floating-point register file.
 
-iii. Λειτουργικές μονάδες  
-- Πολλαπλές ALUs για ακέραιες πράξεις.  
-- FP μονάδες (Fadd, Fmul).  
-- Μονάδες MMX/SIMD για πολυμέσα.  
-- Μονάδες φόρτωσης/αποθήκευσης (AGU – Address Generation Unit).
+iii. Functional units  
+- Multiple ALUs for integer operations.  
+- FP units (Fadd, Fmul).  
+- MMX/SIMD units for multimedia.  
+- Load/store units (AGU – Address Generation Unit).
 
 iv. Out-of-order execution  
-- Λογικά κυκλώματα για εκτέλεση εντολών εκτός σειράς, με δέσμευση στη σειρά.
+- Logic circuits for executing instructions out of order, with commitment in order.
 
 ***
 
 > [!INFO]
-> **Διάγραμμα δομικών τμημάτων Pentium 4 (εννοιολογικά)**
+> **Structural components diagram of Pentium 4 (conceptual)**
 
 ```mermaid
 flowchart TB
-    SYS[Δίαυλος συστήματος 3.2 GB/s] --> L2[L2 Cache 256KB]
-    L2 --> L1I[L1 Cache εντολών / Trace Cache]
-    L2 --> L1D[L1 Cache δεδομένων 8KB]
+    SYS[System Bus 3.2 GB/s] --> L2[L2 Cache 256KB]
+    L2 --> L1I[L1 Instruction Cache / Trace Cache]
+    L2 --> L1D[L1 Data Cache 8KB]
 
-    L1I --> FET[Προσκόμιση/Αποκωδικοποίηση]
-    FET --> RENAME[Μετονομασία / Κατανομή]
-    RENAME --> UQ[Ουρά micro-ops]
-    UQ --> SCHED[Προγραμματιστές]
+    L1I --> FET[Fetch/Decode]
+    FET --> RENAME[Rename / Allocate]
+    RENAME --> UQ[Micro-op Queue]
+    UQ --> SCHED[Schedulers]
 
-    SCHED --> INT1[ALU ακέραιων 1]
-    SCHED --> INT2[ALU ακέραιων 2]
+    SCHED --> INT1[Integer ALU 1]
+    SCHED --> INT2[Integer ALU 2]
     SCHED --> FP1[FP Fadd / Fmul]
     SCHED --> MMX[MMX/SIMD]
-    SCHED --> AGU_LD[AGU Φόρτωσης]
-    SCHED --> AGU_ST[AGU Αποθήκευσης]
+    SCHED --> AGU_LD[Load AGU]
+    SCHED --> AGU_ST[Store AGU]
 
     AGU_LD --> L1D
     AGU_ST --> L1D
@@ -472,40 +472,40 @@ flowchart TB
 
 ***
 
-### 10.1.2 Λειτουργία Pentium 4 – CISC εξωτερικά, RISC εσωτερικά
+### 10.1.2 Pentium 4 Operation – CISC externally, RISC internally
 
-i. Γενικός μηχανισμός  
-- Εντολές x86 μεταβλητού μήκους (CISC) προσκομίζονται.  
-- Μεταφράζονται σε μία ή περισσότερες εντολές RISC σταθερού μήκους (micro-ops).  
-- Micro-ops εκτελούνται σε υπερβαθμωτό pipeline (out-of-order).  
-- Αποτελέσματα δεσμεύονται στη σειρά ροής προγράμματος.
+i. General mechanism  
+- Variable-length x86 instructions (CISC) are fetched.  
+- Translated into one or more fixed-length RISC instructions (micro-ops).  
+- Micro-ops execute in a superscalar pipeline (out-of-order).  
+- Results are committed in program flow order.
 
 ii. Pipeline  
-- Εσωτερικός αγωγός τουλάχιστον 20 σταδίων.  
-- Ορισμένες micro-ops απαιτούν πολλαπλά στάδια εκτέλεσης.  
-- Σχέση με κλασικό x86 pipeline (π.χ. 5 στάδια σε παλιά Pentium).
+- Internal conduit of at least 20 stages.  
+- Some micro-ops require multiple execution stages.  
+- Relationship with classic x86 pipeline (e.g. 5 stages in old Pentium).
 
 ***
 
-### 10.1.3 Pentium 4 – Στάδια αγωγού
+### 10.1.3 Pentium 4 – Pipeline stages
 
-i. Ενδεικτικά στάδια  
-- TC Next IP: εντοπισμός επόμενης εντολής στην cache.  
-- TC Fetch: ανάκτηση εντολής από Trace Cache.  
-- Alloc: διανομή πόρων.  
-- Rename: δυναμική μετονομασία καταχωρητών.  
-- Que: ουρά micro-ops.  
-- Sch: χρονοπρογραμματισμός micro-ops.  
-- Disp: αποστολή σε μονάδες.  
-- RF: ανάγνωση/εγγραφή καταχωρητών.  
-- Ex: εκτέλεση.  
-- Flags: διαχείριση σημαιών ALU.  
-- Br Ck: έλεγχος διακλάδωσης.
+i. Indicative stages  
+- TC Next IP: locate next instruction in cache.  
+- TC Fetch: fetch instruction from Trace Cache.  
+- Alloc: resource allocation.  
+- Rename: dynamic register renaming.  
+- Que: micro-op queue.  
+- Sch: micro-op scheduling.  
+- Disp: dispatch to units.  
+- RF: register read/write.  
+- Ex: execute.  
+- Flags: ALU flag management.  
+- Br Ck: branch check.
 
 ***
 
 > [!INFO]
-> **Pipeline Pentium 4 – Ροή micro-ops**
+> **Pentium 4 Pipeline – micro-op flow**
 
 ```mermaid
 flowchart TB
@@ -522,42 +522,42 @@ flowchart TB
 
 ***
 
-## 10.2 Intel Core i7 – Πολυπύρηνη αρχιτεκτονική
+## 10.2 Intel Core i7 – Multi-core architecture
 
-### 10.2.1 Βασικά δομικά στοιχεία
+### 10.2.1 Basic structural elements
 
-i. Πολυπύρηνη δομή  
-- 4 πυρήνες με SMT (Simultaneous Multithreading): CPU-0, CPU-1, CPU-2, CPU-3.  
-- Κάθε πυρήνας: παράλληλη εκτέλεση νημάτων (multi-threading).
+i. Multi-core structure  
+- 4 cores with SMT (Simultaneous Multithreading): CPU-0, CPU-1, CPU-2, CPU-3.  
+- Each core: parallel thread execution (multi-threading).
 
-ii. Ιδιωτικές κρυφές μνήμες  
-- L1D (Data Cache) και L1I (Instruction Cache) ανά πυρήνα.  
-- L2 cache ανά πυρήνα για ταχύτητα.
+ii. Private caches  
+- L1D (Data Cache) and L1I (Instruction Cache) per core.  
+- L2 cache per core for speed.
 
-iii. Κοινόχρηστη L3 cache  
-- Μοιράζεται από όλους τους πυρήνες.  
-- Βελτιώνει επικοινωνία και μειώνει καθυστερήσεις μνήμης.
+iii. Shared L3 cache  
+- Shared by all cores.  
+- Improves communication and reduces memory latencies.
 
-iv. Ελεγκτής μνήμης DDR3  
-- Ενσωματωμένος memory controller για DDR3, γρήγορη ροή δεδομένων.
+iv. DDR3 memory controller  
+- Integrated memory controller for DDR3, fast data flow.
 
 v. QPI (Quick Path Interconnect)  
-- Ταχύς δίαυλος επικοινωνίας μεταξύ επεξεργαστών, μνήμης, περιφερειακών.
+- Fast bus for communication between processors, memory, peripherals.
 
 ***
 
 > [!INFO]
-> **Ιεραρχία μνήμης σε Intel Core i7**
+> **Memory hierarchy in Intel Core i7**
 
 ```mermaid
 graph TB
-    CPU0[Πυρήνας 0<br/>L1I/L1D/L2] 
-    CPU1[Πυρήνας 1<br/>L1I/L1D/L2] 
-    CPU2[Πυρήνας 2<br/>L1I/L1D/L2] 
-    CPU3[Πυρήνας 3<br/>L1I/L1D/L2] 
+    CPU0[Core 0<br/>L1I/L1D/L2] 
+    CPU1[Core 1<br/>L1I/L1D/L2] 
+    CPU2[Core 2<br/>L1I/L1D/L2] 
+    CPU3[Core 3<br/>L1I/L1D/L2] 
 
-    L3[Κοινόχρηστη L3 Cache]
-    MEM[Κύρια μνήμη DDR3]
+    L3[Shared L3 Cache]
+    MEM[Main Memory DDR3]
     QPI[Quick Path Interconnect]
 
     CPU0 --> L3
@@ -571,91 +571,91 @@ graph TB
 
 ***
 
-## 10.3 Μικροαρχιτεκτονική Intel Core
+## 10.3 Intel Core Microarchitecture
 
-### 10.3.1 Στάδια και μονάδες
+### 10.3.1 Stages and units
 
 i. Front-end  
-- Κρυφή μνήμη εντολών L1: γρήγορη ανάκληση.  
-- Ανάκληση και προ-κωδικοποίηση εντολών.  
-- Μονάδα πρόβλεψης διακλαδώσεων.  
-- Ουρά εντολών.  
-- ROM μικροκώδικα για σύνθετες CISC εντολές.
+- L1 instruction cache: fast fetch.  
+- Instruction fetch and pre-decode.  
+- Branch prediction unit.  
+- Instruction queue.  
+- ROM microcode for complex CISC instructions.
 
 ii. Rename/Assign  
-- Μετονομασία καταχωρητών.  
-- Εκχώρηση πόρων και καταχωρητών.
+- Register renaming.  
+- Resource and register allocation.
 
-iii. Εκτέλεση  
-- Μονάδα υποδοχής αποτελεσμάτων (reorder buffer).  
-- Χρονοπρογραμματιστής / σταθμός δέσμευσης.  
-- Πολλαπλές θύρες προς λειτουργικές μονάδες:
-  - Θύρα 0: Ακέραια ALU, Branch, MMX/SSE, FP move.  
-  - Θύρα 1: Ακέραια ALU, FP add, MMX/SSE, FP move.  
-  - Θύρα 2: Ακέραια ALU, FPMul, MMX/SSE, FP move.  
-  - Θύρα 3–4: Μονάδες φόρτωσης/αποθήκευσης.  
+iii. Execution  
+- Reorder buffer (result acceptance unit).  
+- Scheduler / commitment station.  
+- Multiple ports to functional units:
+  - Port 0: Integer ALU, Branch, MMX/SSE, FP move.  
+  - Port 1: Integer ALU, FP add, MMX/SSE, FP move.  
+  - Port 2: Integer ALU, FPMul, MMX/SSE, FP move.  
+  - Port 3–4: Load/store units.  
 
-iv. Μνήμη  
-- Κρυφή μνήμη δεδομένων L1.  
-- DTLB (Data TLB) για μετάφραση διευθύνσεων.  
-- Κοινόχρηστη cache και FSB έως 10.7 Gbps.
+iv. Memory  
+- L1 data cache.  
+- DTLB (Data TLB) for address translation.  
+- Shared cache and FSB up to 10.7 Gbps.
 
 ***
 
 > [!INFO]
-> **Μικροαρχιτεκτονική Intel Core – ροή εντολών**
+> **Intel Core Microarchitecture – instruction flow**
 
 ```mermaid
 flowchart TD
-  I1[L1 Cache εντολών] --> F1[Ανάκληση & προ-κωδικοποίηση]
-  F1 --> BP[Πρόβλεψη διακλαδώσεων]
-  BP --> IQ[Ουρά εντολών]
-  IQ --> DEC[Αποκωδικοποίηση / ROM μικροκώδικα]
-  DEC --> REN[Μετονομασία / Εκχώρηση]
-  REN --> ROB["Μονάδα υποδοχής αποτελεσμάτων<br/>(Reorder Buffer)"]
-  ROB --> SCH[Χρονοπρογραμματισμός / Σταθμοί δέσμευσης]
-  SCH --> P0[Θύρα 0: ALU/Branch/MMX/SSE]
-  SCH --> P1[Θύρα 1: ALU/FPAdd/MMX/SSE]
-  SCH --> P2[Θύρα 2: ALU/FPMul/MMX/SSE]
-  SCH --> LD[Μονάδα φόρτωσης]
-  SCH --> ST[Μονάδα αποθήκευσης]
+  I1[L1 Instruction Cache] --> F1[Fetch & pre-decode]
+  F1 --> BP[Branch prediction]
+  BP --> IQ[Instruction queue]
+  IQ --> DEC[Decode / ROM microcode]
+  DEC --> REN[Rename / Allocate]
+  REN --> ROB["Reorder Buffer"]
+  ROB --> SCH[Scheduler / Commitment stations]
+  SCH --> P0[Port 0: ALU/Branch/MMX/SSE]
+  SCH --> P1[Port 1: ALU/FPAdd/MMX/SSE]
+  SCH --> P2[Port 2: ALU/FPMul/MMX/SSE]
+  SCH --> LD[Load unit]
+  SCH --> ST[Store unit]
   LD --> D1[L1 D-Cache & DTLB]
   ST --> D1
 ```
 
 ***
 
-# 11.0 Σύνοψη Εννοιών ILP και Superscalar (Χωρίς Σύνοψη Κειμένου)
+# 11.0 Summary of ILP and Superscalar Concepts
 
-## 11.1 Λειτουργικές Σχέσεις και Σχέδιο Μελέτης
+## 11.1 Functional Relationships and Study Design
 
-i. Λειτουργική σχέση ILP – Απόδοσης  
-- Αν ο μέσος αριθμός εντολών ανά κύκλο είναι \( IPC \) και η συχνότητα ρολογιού είναι \( f \), τότε η απόδοση (ρυθμός εκτέλεσης εντολών) δίνεται από:  
-  $$ \text{Ρυθμός Εκτέλεσης} = IPC \cdot f $$  
+i. Functional ILP – Performance relationship  
+- If the average number of instructions per cycle is \( IPC \) and clock frequency is \( f \), then performance (instruction execution rate) is:  
+  $$ \text{Execution Rate} = IPC \cdot f $$  
 
-ii. Λανθάνων χρόνος και throughput  
-- Αν ο λανθάνων χρόνος μίας λειτουργίας είναι \( L \) κύκλοι και η διασωλήνωση επιτρέπει ένα αποτέλεσμα κάθε κύκλο μετά το πλήρωμα, τότε:  
-  $$ \text{Χρόνος Ολοκλήρωσης } N \text{ εντολών} \approx L + (N - 1) $$  
+ii. Latency and throughput  
+- If the latency of one operation is \( L \) cycles and pipelining allows one result per cycle after filling, then:  
+  $$ \text{Completion Time for } N \text{ instructions} \approx L + (N - 1) $$  
 
-iii. Περιορισμοί από εξαρτήσεις  
-- Για μια ακολουθία εντολών με ποσοστό εξαρτήσεων \( p \), ο ιδανικός μέγιστος παραλληλισμός μειώνεται:  
-  $$ IPC_{\text{eff}} \leq (1 - p) \cdot IPC_{\text{θεωρητικό}} $$  
+iii. Dependency limitations  
+- For an instruction sequence with dependency percentage \( p \), ideal maximum parallelism decreases:  
+  $$ IPC_{\text{eff}} \leq (1 - p) \cdot IPC_{\text{theoretical}} $$  
 
-(οι εξισώσεις αποτυπώνουν λειτουργικές σχέσεις, όχι συγκεκριμένες μετρήσεις από το PDF, αλλά συνδέουν τις έννοιες ILP, λανθάνον χρόνου και παραλληλισμού).
-
-***
-
-# 12.0 Πίνακας Συγκριτικών Χαρακτηριστικών Pentium 4 – Intel Core – Intel Core i7
-
-| Χαρακτηριστικό                    | Pentium 4                                          | Intel Core (μικροαρχιτεκτονική)               | Intel Core i7                            |
-|-----------------------------------|----------------------------------------------------|-----------------------------------------------|------------------------------------------|
-| Μοντέλο αρχιτεκτονικής           | CISC εξωτερικά, RISC micro-ops εσωτερικά          | Superscalar x86 με διασωλήνωση                | Πολυπύρηνη x86 με SMT                    |
-| Pipelines                         | Μακρύς αγωγός (≥20 στάδια)                         | Πολλαπλές θύρες ALU/FP/MMX/SSE                | Πολλαπλοί πυρήνες, πολλαπλά pipelines    |
-| ILP τεχνικές                      | Out-of-order, μετονομασία, BTB, Trace Cache        | Out-of-order, ROB, ισχυρή πρόβλεψη           | Όμοια + πολυπύρηνη και πολυνηματική ILP  |
-| Cache ιεραρχία                    | L1 I/D, L2 256KB                                   | L1 I/D, L2, κοινόχρηστη cache                | L1 και L2 ανά πυρήνα, κοινή L3           |
-| Διασύνδεση με μνήμη              | Δίαυλος συστήματος 3.2 GB/s                        | FSB έως 10.7 Gbps                             | QPI + ενσωματωμένος DDR3 controller      |
-| SIMD υποστήριξη                   | MMX / SIMD                                         | MMX / SSE                                     | MMX / SSE / σύγχρονα SIMD extensions     |
+(equations capture functional relationships, not specific measurements from the PDF, but connect ILP, latency and parallelism concepts).
 
 ***
 
-Με αυτά τα δομημένα «έξυπνα» σημειώματα, το κεφάλαιο για παραλληλισμό σε επίπεδο εντολών και υπερβαθμωτούς επεξεργαστές αποτυπώνεται ως δίκτυο εννοιών, μηχανισμών και μικροαρχιτεκτονικών υλοποιήσεων (Pentium 4, Intel Core, Core i7), με έμφαση σε εξαρτήσεις, μετονομασία, πολιτικές έκδοσης και pipeline organization.
+# 12.0 Comparative Characteristics Table – Pentium 4 – Intel Core – Intel Core i7
+
+| Characteristic                    | Pentium 4                                          | Intel Core (microarchitecture)                      | Intel Core i7                            |
+|-----------------------------------|----------------------------------------------------|-----------------------------------------------------|------------------------------------------|
+| Architecture model                | CISC externally, RISC micro-ops internally          | Superscalar x86 with pipelining                      | Multi-core x86 with SMT                  |
+| Pipelines                         | Long conduit (≥20 stages)                           | Multiple ALU/FP/MMX/SSE ports                        | Multiple cores, multiple pipelines       |
+| ILP techniques                    | Out-of-order, renaming, BTB, Trace Cache            | Out-of-order, ROB, strong prediction                 | Similar + multi-core and multithreaded ILP |
+| Cache hierarchy                   | L1 I/D, L2 256KB                                    | L1 I/D, L2, shared cache                            | L1 and L2 per core, shared L3            |
+| Memory interconnection            | System bus 3.2 GB/s                                 | FSB up to 10.7 Gbps                                 | QPI + integrated DDR3 controller         |
+| SIMD support                      | MMX / SIMD                                          | MMX / SSE                                            | MMX / SSE / modern SIMD extensions       |
+
+***
+
+With these structured "smart notes," the chapter on instruction-level parallelism and superscalar processors is captured as a network of concepts, mechanisms and microarchitectural implementations (Pentium 4, Intel Core, Core i7), with emphasis on dependencies, renaming, issue policies and pipeline organization.

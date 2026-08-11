@@ -1,79 +1,79 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (2023-2024)
+# Computer Networks - Exam Questions (2023-2024)
 *Computer Networks - Exam Paper 2023-2024*
 
-## Πληροφορίες Εξέτασης
-- **Ακαδημαϊκό Έτος:** 2023-2024
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+## Exam Information
+- **Academic Year:** 2023-2024
+- **Exam Duration:** 2 hours and 15 minutes
 
-## Στοιχεία Φοιτητή
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
+## Student Data
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
 
 ---
 
-## Μέρος Α: Ερωτήσεις Πολλαπλής Επιλογής & Θεωρίας
+## Part A: Multiple Choice & Theory Questions
 
-**1.** Ποιο από τα ακόλουθα δεν ανήκει στους πιθανούς τρόπους ανταλλαγής δεδομένων;
+**1.** Which of the following is not among the possible data exchange modes?
 - [ ] A. Simplex
 - [✓] B. Multiplex
 - [ ] C. Half-duplex
 - [ ] D. Full duplex
 
-*Αιτιολόγηση:* Το Simplex, το Half-duplex και το Full-duplex περιγράφουν την κατεύθυνση και τη χρονικότητα με την οποία γίνεται η ανταλλαγή δεδομένων σε ένα κανάλι. Η πολυπλεξία (Multiplexing) είναι τεχνική συνένωσης πολλών σημάτων σε ένα κοινό μέσο και δεν περιγράφει κατεύθυνση επικοινωνίας.
+*Justification:* Simplex, Half-duplex, and Full-duplex describe the direction and timing of data exchange in a channel. Multiplexing is a technique for combining multiple signals over a shared medium and does not describe communication direction.
 
-**2.** Δίκτυο υπολογιστών είναι:
-- [ ] A. Μια συλλογή από υλικά (hardware) συστατικά και υπολογιστές
-- [ ] B. Διασύνδεση με κανάλια επικοινωνίας
-- [ ] C. Διαμοίραση πόρων και πληροφορίας
-- [✓] D. Όλα τα παραπάνω
+**2.** A computer network is:
+- [ ] A. A collection of hardware components and computers
+- [ ] B. Interconnection via communication channels
+- [ ] C. Resource and information sharing
+- [✓] D. All of the above
 
-*Αιτιολόγηση:* Ένα δίκτυο υπολογιστών αποτελείται από υλικό (routers, switches, PCs), κανάλια επικοινωνίας (καλώδια, ασύρματες ζεύξεις) και έχει ως πρωταρχικό σκοπό τη διαμοίραση πόρων και πληροφοριών.
+*Justification:* A computer network consists of hardware (routers, switches, PCs), communication channels (cables, wireless links) and has the primary goal of resource and information sharing.
 
-**3.** Σε ποιο επίπεδο του OSI λειτουργεί ο επαναλήπτης (Repeater);
+**3.** At which layer of the OSI model does a Repeater operate?
 - [✓] A. Physical layer
 - [ ] B. Data link layer
 - [ ] C. Network layer
 - [ ] D. Transport layer
 
-*Αιτιολόγηση:* Ο επαναλήπτης (Repeater) λειτουργεί αποκλειστικά στο φυσικό επίπεδο (Layer 1). Αναπαράγει και ενισχύει τα ηλεκτρικά/οπτικά σήματα (bits) χωρίς να εξετάζει κεφαλίδες πλαισίων (MAC) ή πακέτων (IP).
+*Justification:* A Repeater operates exclusively at the Physical layer (Layer 1). It regenerates and amplifies electrical/optical signals (bits) without examining frame (MAC) or packet (IP) headers.
 
-**4.** Ποια είναι η χρήση της γέφυρας (Bridge) στο δίκτυο;
-- [ ] A. σύνδεση LANs
-- [ ] B. να ξεχωρίσει LANs
-- [ ] C. να έχει το έλεγχο της ταχύτητας στο δίκτυο
-- [✓] D. Όλα τα παραπάνω
+**4.** What is the function of a Bridge in a network?
+- [ ] A. connecting LANs
+- [ ] B. separating LANs
+- [ ] C. controlling speed in the network
+- [✓] D. All of the above
 
-*Αιτιολόγηση:* Η γέφυρα (Bridge) λειτουργεί στο Επίπεδο 2 (Data Link Layer). Συνδέει πολλαπλά LAN segments (Α) και φιλτράρει την κίνηση βάσει MAC διευθύνσεων, χωρίζοντας έτσι ένα μεγάλο collision domain σε μικρότερα (Β). Συχνά στο γραπτό θεωρείται σωστή η απάντηση D (αν η διατύπωση "έλεγχος ταχύτητας" αναφέρεται χαλαρά στη μείωση των συγκρούσεων που βελτιώνει την απόδοση), παρότι οι κύριες λειτουργίες είναι οι Α και Β.
+*Justification:* A Bridge operates at Layer 2 (Data Link Layer). It connects multiple LAN segments (A) and filters traffic based on MAC addresses, thereby separating a large collision domain into smaller ones (B). In exam papers, answer D is often considered correct (if "speed control" refers loosely to collision reduction that improves throughput), although the main functions are A and B.
 
-**5.** Σε ένα δίκτυο εμφανίζεται συμφόρηση όταν:
-- [✓] A. υπερβολική κίνηση
-- [ ] B. όταν ένα σύστημα τερματίσει
-- [ ] C. όταν η σύνδεση μεταξύ δύο κόμβων τερματιστεί
-- [ ] D. Κανένα από τα παραπάνω
+**5.** Congestion occurs in a network when:
+- [✓] A. excessive traffic
+- [ ] B. when a system terminates
+- [ ] C. when the link between two nodes terminates
+- [ ] D. None of the above
 
-*Αιτιολόγηση:* Η συμφόρηση (congestion) προκαλείται όταν τα πακέτα καταφθάνουν σε ένα δρομολογητή/μεταγωγέα με ρυθμό μεγαλύτερο από αυτόν που μπορεί να εξυπηρετήσει, οδηγώντας σε γέμισμα των ουρών αναμονής (buffers) και εν τέλει σε απόρριψη πακέτων (packet loss).
+*Justification:* Congestion is caused when packets arrive at a router/switch at a rate faster than it can process them, filling queues (buffers) and ultimately leading to packet loss.
 
-**6.** Έστω δύο μηχανές που επικοινωνούν μεταξύ τους. Η διαδικασία που επικοινωνεί με ένα συγκεκριμένο επίπεδο σε κάθε μηχανή καλείται:
+**6.** Suppose two machines communicate with each other. The process that communicates with a specific layer on each machine is called:
 - [ ] A. UDP process
 - [ ] B. Intranet process
 - [ ] C. Server
 - [✓] D. Peer-peer process
 
-*Αιτιολόγηση:* Στην αρχιτεκτονική δικτύων (π.χ. μοντέλο OSI), οντότητες που βρίσκονται στο ίδιο επίπεδο σε διαφορετικούς κόμβους (π.χ. Transport layer στον αποστολέα και Transport layer στον παραλήπτη) ονομάζονται "ομότιμες" διαδικασίες (peer processes).
+*Justification:* In network architecture (e.g. OSI model), entities at the same layer on different nodes (e.g. Transport layer on sender and Transport layer on receiver) are called "peer processes".
 
-**Άνευ αριθμού.** Τα "Parity bits" χρησιμοποιούνται για τον ακόλουθο σκοπό:
-- [ ] Κρυπτογράφηση δεδομένων
-- [ ] Ταχύτερη μετάδοση δεδομένων
-- [✓] Ανίχνευση λαθών
-- [ ] Αναγνώριση χρήσης
+**Unnumbered.** "Parity bits" are used for the following purpose:
+- [ ] Data encryption
+- [ ] Faster data transmission
+- [✓] Error detection
+- [ ] Usage identification
 
-*Αιτιολόγηση:* Τα bits ισοτιμίας (parity bits) είναι η απλούστερη μορφή ελέγχου σφαλμάτων και χρησιμοποιούνται αποκλειστικά για την ανίχνευση λαθών (error detection) κατά τη μετάδοση.
+*Justification:* Parity bits are the simplest form of error checking and are used exclusively for error detection during transmission.
 
 ---
 
-## Μέρος Β: Ασκήσεις και Δίκτυα
+## Part B: Exercises and Networks
 
-### Άσκηση 4
+### Exercise 4
 ```
                        (D)
                        |
@@ -89,40 +89,40 @@
            0C-C4-11-6F-E3-98
                        |
                       (B)
-                     Εικόνα 3
+                     Figure 3
 ```
 
-Για το δίκτυο της Εικόνας 3 υποθέστε ότι ο υπολογιστής A επιθυμεί να επικοινωνήσει με τον υπολογιστή C για τον οποίο γνωρίζει την IP του αλλά όχι την MAC address. Απαντήστε στα παρακάτω ερωτήματα:
+For the network in Figure 3, suppose computer A wishes to communicate with computer C, for which it knows the IP but not the MAC address. Answer the following questions:
 
-**a.** Ποια είναι τα στοιχεία των μηνυμάτων ARP που ανταλλάσσουν οι δύο συσκευές;
+**a.** What are the contents of the ARP messages exchanged by the two devices?
 
-**Αίτημα Υπολογιστή Α (ARP Request)**
+**Computer A Request (ARP Request)**
 Sender MAC: `71-65-F7-2B-08-53`
 Sender IP:  `137.196.7.23`
 Target MAC: `00:00:00:00:00:00`
 Target IP:  `137.196.7.14`
 
-**Απάντηση υπολογιστή C (ARP Reply)**
+**Computer C Reply (ARP Reply)**
 Sender MAC: `58-23-D7-FA-20-B0`
 Sender IP:  `137.196.7.14`
 Target MAC: `71-65-F7-2B-08-53`
 Target IP:  `137.196.7.23`
 
-**b.** Ποιο είναι το είδος της εκπομπής για την αποστολή του αιτήματος (ARP Request) και ποιο για τη λήψη του μηνύματος (ARP Reply) που χρησιμοποιεί η κάθε συσκευή;
+**b.** What type of transmission is used for sending the request (ARP Request) and receiving the reply (ARP Reply) by each device?
 ---
-**Απάντηση:**
-- Το **ARP Request** αποστέλλεται ως **Broadcast (Εκπομπή)** (MAC προορισμού: `FF-FF-FF-FF-FF-FF`) ώστε να το λάβουν όλοι οι κόμβοι στο LAN.
-- Το **ARP Reply** αποστέλλεται ως **Unicast (Μονοεκπομπή)** απευθείας στον υπολογιστή Α, αφού η MAC του είναι πλέον γνωστή στον C.
+**Answer:**
+- The **ARP Request** is sent as **Broadcast** (destination MAC: `FF-FF-FF-FF-FF-FF`) so all nodes on the LAN receive it.
+- The **ARP Reply** is sent as **Unicast** directly to computer A, since A's MAC is now known to C.
 
-**c.** Αν μετά από 5 λεπτά, ο υπολογιστής C θέλει να στείλει ένα πακέτο στον υπολογιστή A θα χρησιμοποιήσει ξανά το πρωτόκολλο ARP; (1 μονάδα)
+**c.** If after 5 minutes, computer C wants to send a packet to computer A, will it use the ARP protocol again? (1 point)
 ---
-**Απάντηση:**
-**`Όχι`**, δεν θα χρησιμοποιήσει ξανά το ARP. Η αντιστοίχιση IP-MAC αποθηκεύεται στην **ARP Cache** των συσκευών για κάποια λεπτά (συνήθως 15-20 λεπτά), οπότε ο C θα ανακτήσει τη MAC του A απευθείας από τη μνήμη του.
+**Answer:**
+**`No`**, it will not use ARP again. The IP-to-MAC mapping is cached in the devices' **ARP Cache** for several minutes (typically 15-20 minutes), so C retrieves A's MAC directly from memory.
 
 ---
 
-### Άσκηση 23
-Συμπληρώστε τα στοιχεία του μηνύματος ARP που ανταλλάσσουν οι δύο συσκευές της Εικόνας:
+### Exercise 23
+Fill in the contents of the ARP message exchanged by the two devices in the Figure:
 
 ```
     [PC] ---------------------------------- ( Router ) ----------- ( Internet )
@@ -130,13 +130,13 @@ Target IP:  `137.196.7.23`
  MAC: 00:25:64:D5:10:8B               MAC: 00:00:5E:00:10:01   MAC: 00:0B:14:E0:00:35
 ```
 
-**Αίτημα Υπολογιστή (ARP Request)**
+**Computer Request (ARP Request)**
 Sender MAC: `00:25:64:D5:10:8B`
 Sender IP:  `195.130.8.25`
 Target MAC: `00:00:00:00:00:00`
 Target IP:  `195.130.8.1`
 
-**Απάντηση συσκευής (Router ARP Reply)**
+**Device Reply (Router ARP Reply)**
 Sender MAC: `00:00:5E:00:10:01`
 Sender IP:  `195.130.8.1`
 Target MAC: `00:25:64:D5:10:8B`
@@ -144,8 +144,8 @@ Target IP:  `195.130.8.25`
 
 ---
 
-### Άσκηση 24
-Για το δίκτυο της Εικόνας ορίστε δρομολόγηση RIP version 2 (συμπληρώστε τα κενά)
+### Exercise 24
+For the network in the Figure, configure RIP version 2 routing (fill in the blanks)
 
 ```
         10.15.2.0/24
@@ -156,31 +156,31 @@ Target IP:  `195.130.8.25`
 10.15.3.0/24             10.15.6.0/24
 ```
 
-**Κενά προς συμπλήρωση:**
+**Blanks to fill:**
 ```text
 R>en
-R# `configure terminal`
-R(config)# `router rip`
-R(config-router)# `version 2`
-R(config-router)# `no auto-summary`
-R(config-router)# `network 10.15.2.0`
-R(config-router)# `network 10.15.3.0`
-R(config-router)# `network 10.15.6.0`
-R(config-router)# `end`
+R# configure terminal
+R(config)# router rip
+R(config-router)# version 2
+R(config-router)# no auto-summary
+R(config-router)# network 10.15.2.0
+R(config-router)# network 10.15.3.0
+R(config-router)# network 10.15.6.0
+R(config-router)# end
 ```
 
 ---
 
-### Άσκηση 32
-Επιλέξτε Σωστό (Σ) ή Λάθος (Λ):
+### Exercise 32
+Select True (T) or False (F):
 
-- **[✓] Σ** / [ ] Λ Στην τοπολογία διαύλου (Bus), όλοι οι κόμβοι στο ίδιο πεδίο συγκρούσεων (collision domain)
-- [ ] Σ / **[✓] Λ** Στην τοπολογία αστέρα (Star), όλοι οι κόμβοι στο ίδιο πεδίο συγκρούσεων (collision domain)
-- **[✓] Σ** / [ ] Λ Στην τοπολογία αστέρα (Star), κάθε ζεύξη είναι από μόνη της πεδίο συγκρούσεων (collision domain)
-- **[✓] Σ** / [ ] Λ Κάθε φυσική θύρα του δρομολογητή ορίζει ένα πεδίο εκπομπής (broadcast domain)
+- **[✓] T** / [ ] F In a Bus topology, all nodes are in the same collision domain
+- [ ] T / **[✓] F** In a Star topology, all nodes are in the same collision domain
+- **[✓] T** / [ ] F In a Star topology, each link is itself a collision domain
+- **[✓] T** / [ ] F Each physical router port defines a broadcast domain
 
-*Αιτιολόγηση:*
-1. **Σωστό:** Όλοι οι υπολογιστές μοιράζονται το ίδιο φυσικό μέσο (π.χ. ομοαξονικό καλώδιο).
-2. **Λάθος:** Στα σύγχρονα δίκτυα αστέρα χρησιμοποιούνται Switches, όπου κάθε πόρτα αποτελεί ξεχωριστό collision domain (θα ίσχυε μόνο αν χρησιμοποιούνταν Hub).
-3. **Σωστό:** Κάθε μικρο-τμήμα (micro-segment) που συνδέεται σε switch port απομονώνει τις συγκρούσεις.
-4. **Σωστό:** Οι δρομολογητές διακόπτουν τα broadcasts του Layer 2. Κάθε interface συνδέεται σε διαφορετικό υποδίκτυο.
+*Justification:*
+1. **True:** All computers share the same physical medium (e.g. coaxial cable).
+2. **False:** In modern star networks, Switches are used, where each port is a separate collision domain (would only be true if Hubs were used).
+3. **True:** Each micro-segment connected to a switch port isolates collisions.
+4. **True:** Routers break Layer 2 broadcasts. Each interface connects to a different subnet.

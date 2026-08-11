@@ -1,29 +1,29 @@
-# Δυαδικά Δέντρα: Διάσχιση, Εισαγωγή, Διαγραφή
+# Binary Trees: Traversal, Insertion, Deletion
 
-## Περιεχόμενα
-1. [Εισαγωγή στα Δυαδικά Δέντρα](#εισαγωγή-στα-δυαδικά-δέντρα)
-2. [Διάσχιση (Traversal)](#διάσχιση-traversal)
-3. [Εισαγωγή Στοιχείων](#εισαγωγή-στοιχείων)
-4. [Διαγραφή Στοιχείων](#διαγραφή-στοιχείων)
-5. [Πρακτικά Παραδείγματα](#πρακτικά-παραδείγματα)
+## Contents
+1. [Introduction to Binary Trees](#introduction-to-binary-trees)
+2. [Traversal (Traversal)](#traversal)
+3. [Inserting Elements](#inserting-elements)
+4. [Deleting Elements](#deleting-elements)
+5. [Practical Examples](#practical-examples)
 
 ---
 
-## Εισαγωγή στα Δυαδικά Δέντρα
+## Introduction to Binary Trees
 
-### Τι είναι Δυαδικό Δέντρο;
-Ένα **δυαδικό δέντρο** είναι μια ιεραρχική δομή δεδομένων όπου κάθε κόμβος έχει **το πολύ δύο παιδιά**: αριστερό και δεξί.
+### What is a Binary Tree?
+A **binary tree** is a hierarchical data structure where each node has **at most two children**: left and right.
 
-### Βασική Ορολογία
-- **Ρίζα (Root)**: Ο κορυφαίος κόμβος του δέντρου
-- **Φύλλο (Leaf)**: Κόμβος χωρίς παιδιά
-- **Εσωτερικός Κόμβος (Internal Node)**: Κόμβος με τουλάχιστον ένα παιδί
-- **Γονέας (Parent)**: Κόμβος που έχει παιδιά
-- **Ύψος (Height)**: Το μέγιστο μήκος διαδρομής από ρίζα σε φύλλο
-- **Βάθος (Depth)**: Το μήκος διαδρομής από ρίζα σε συγκεκριμένο κόμβο
-- **Επίπεδο (Level)**: Ομάδα κόμβων στο ίδιο βάθος
+### Basic Terminology
+- **Root**: The topmost node of the tree
+- **Leaf**: A node without children
+- **Internal Node**: A node with at least one child
+- **Parent**: A node that has children
+- **Height**: The maximum path length from root to leaf
+- **Depth**: The path length from root to a specific node
+- **Level**: A group of nodes at the same depth
 
-### Παράδειγμα Βασικού Δυαδικού Δέντρου
+### Example of a Basic Binary Tree
 
 ```mermaid
 graph TD
@@ -43,28 +43,28 @@ graph TD
     style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Χαρακτηριστικά**:
-- Ρίζα: 10
-- Φύλλα: 3, 7, 12, 20
-- Ύψος: 2
-- Εσωτερικοί κόμβοι: 10, 5, 15
+**Characteristics**:
+- Root: 10
+- Leaves: 3, 7, 12, 20
+- Height: 2
+- Internal nodes: 10, 5, 15
 
 ---
 
-## Διάσχιση (Traversal)
+## Traversal
 
-Η διάσχιση είναι η συστηματική επίσκεψη όλων των κόμβων ενός δέντρου. Υπάρχουν **τέσσερις βασικές μέθοδοι**.
+Traversal is the systematic visiting of all nodes of a tree. There are **four basic methods**.
 
-### 1. Προ-διάταξη (Pre-order): Ρίζα → Αριστερά → Δεξιά
+### 1. Pre-order (Pre-order): Root -> Left -> Right
 
-**Αλγόριθμος**:
-1. Επισκέπτομαι τη ρίζα
-2. Διασχίζω το αριστερό υποδέντρο
-3. Διασχίζω το δεξί υποδέντρο
+**Algorithm**:
+1. Visit the root
+2. Traverse the left subtree
+3. Traverse the right subtree
 
 ```mermaid
 graph TD
-    A[" 10<br/>Ρίζα"] --> B[" 5"]
+    A[" 10<br/>Root"] --> B[" 5"]
     A --> C[" 15"]
     B --> D[" 3"]
     B --> E[" 7"]
@@ -82,22 +82,22 @@ graph TD
     style G fill:#d96bff,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Αποτέλεσμα Διάσχισης**: 10, 5, 3, 7, 6, 15, 12, 20
+**Traversal Result**: 10, 5, 3, 7, 6, 15, 12, 20
 
-**Χρήση**: Δημιουργία αντιγράφου δέντρου, υπολογισμός παράστασης prefix
+**Use**: Creating a copy of a tree, computing prefix expressions
 
 ---
 
-### 2. Εν-διάταξη (In-order): Αριστερά → Ρίζα → Δεξιά
+### 2. In-order (In-order): Left -> Root -> Right
 
-**Αλγόριθμος**:
-1. Διασχίζω το αριστερό υποδέντρο
-2. Επισκέπτομαι τη ρίζα
-3. Διασχίζω το δεξί υποδέντρο
+**Algorithm**:
+1. Traverse the left subtree
+2. Visit the root
+3. Traverse the right subtree
 
 ```mermaid
 graph TD
-    A[" 10<br/>Ρίζα"] --> B[" 5"]
+    A[" 10<br/>Root"] --> B[" 5"]
     A --> C[" 15"]
     B --> D[" 3"]
     B --> E[" 7"]
@@ -115,24 +115,24 @@ graph TD
     style GA fill:#d96bff,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Αποτέλεσμα Διάσχισης**: 3, 5, 7, 10, 12, 15, 20, 25
+**Traversal Result**: 3, 5, 7, 10, 12, 15, 20, 25
 
- **Σημαντικό**: Στα **Δυαδικά Δέντρα Αναζήτησης (BST)**, η in-order διάσχιση επιστρέφει τα στοιχεία σε **αύξουσα ταξινομημένη σειρά**!
+ **Important**: In **Binary Search Trees (BST)**, in-order traversal returns elements in **ascending sorted order**!
 
-**Χρήση**: Ταξινόμηση στοιχείων BST, υπολογισμός παράστασης infix
+**Use**: Sorting BST elements, computing infix expressions
 
 ---
 
-### 3. Μετα-διάταξη (Post-order): Αριστερά → Δεξιά → Ρίζα
+### 3. Post-order (Post-order): Left -> Right -> Root
 
-**Αλγόριθμος**:
-1. Διασχίζω το αριστερό υποδέντρο
-2. Διασχίζω το δεξί υποδέντρο
-3. Επισκέπτομαι τη ρίζα
+**Algorithm**:
+1. Traverse the left subtree
+2. Traverse the right subtree
+3. Visit the root
 
 ```mermaid
 graph TD
-    A[" 10<br/>Ρίζα"] --> B[" 5"]
+    A[" 10<br/>Root"] --> B[" 5"]
     A --> C[" 15"]
     B --> D[" 2"]
     B --> E[" 7"]
@@ -152,26 +152,26 @@ graph TD
     style A fill:#ff6bd9,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Αποτέλεσμα Διάσχισης**: 2, 7, 5, 12, 17, 19, 18, 15, 10
+**Traversal Result**: 2, 7, 5, 12, 17, 19, 18, 15, 10
 
-**Χρήση**: Διαγραφή δέντρου, υπολογισμός παράστασης postfix
+**Use**: Deleting a tree, computing postfix expressions
 
 ---
 
-### 4. Κατά Επίπεδα (Level-order / BFS)
+### 4. Level-order (Level-order / BFS)
 
-**Αλγόριθμος**:
-Επισκεπτόμαστε όλους τους κόμβους **επίπεδο-προς-επίπεδο**, από αριστερά προς τα δεξιά.
+**Algorithm**:
+We visit all nodes **level-by-level**, from left to right.
 
 ```mermaid
 graph TD
-    A[" 10<br/>(Επίπεδο 0)"] --> B[" 5<br/>(Επίπεδο 1)"]
-    A --> C[" 15<br/>(Επίπεδο 1)"]
-    B --> D[" 3<br/>(Επίπεδο 2)"]
-    B --> E[" 7<br/>(Επίπεδο 2)"]
-    C --> F[" 12<br/>(Επίπεδο 2)"]
-    C --> G[" 20<br/>(Επίπεδο 2)"]
-    D --> H[" 1<br/>(Επίπεδο 3)"]
+    A[" 10<br/>(Level 0)"] --> B[" 5<br/>(Level 1)"]
+    A --> C[" 15<br/>(Level 1)"]
+    B --> D[" 3<br/>(Level 2)"]
+    B --> E[" 7<br/>(Level 2)"]
+    C --> F[" 12<br/>(Level 2)"]
+    C --> G[" 20<br/>(Level 2)"]
+    D --> H[" 1<br/>(Level 3)"]
     
     style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:black
     style B fill:#ffa06b,stroke:#333,stroke-width:2px,color:black
@@ -183,13 +183,13 @@ graph TD
     style H fill:#d96bff,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Αποτέλεσμα Διάσχισης**: 10, 5, 15, 3, 7, 12, 20, 1
+**Traversal Result**: 10, 5, 15, 3, 7, 12, 20, 1
 
-**Χρήση**: Εύρεση συντομότερης διαδρομής, εκτύπωση δέντρου κατά επίπεδα
+**Use**: Finding shortest path, printing a tree by level
 
 ---
 
-### Σύγκριση Μεθόδων Διάσχισης
+### Comparison of Traversal Methods
 
 ```mermaid
 graph TD
@@ -209,28 +209,28 @@ graph TD
     style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
-| Μέθοδος | Αποτέλεσμα | Χρήση |
+| Method | Result | Use |
 |---------|------------|-------|
-| **Pre-order** | 50, 30, 20, 40, 70, 60, 80 | Αντιγραφή δέντρου |
-| **In-order** | 20, 30, 40, 50, 60, 70, 80 | Ταξινόμηση (BST) |
-| **Post-order** | 20, 40, 30, 60, 80, 70, 50 | Διαγραφή δέντρου |
-| **Level-order** | 50, 30, 70, 20, 40, 60, 80 | Αναζήτηση κατά πλάτος |
+| **Pre-order** | 50, 30, 20, 40, 70, 60, 80 | Copying a tree |
+| **In-order** | 20, 30, 40, 50, 60, 70, 80 | Sorting (BST) |
+| **Post-order** | 20, 40, 30, 60, 80, 70, 50 | Deleting a tree |
+| **Level-order** | 50, 30, 70, 20, 40, 60, 80 | Breadth-first search |
 
 ---
 
-## Εισαγωγή Στοιχείων
+## Inserting Elements
 
-### Δυαδικό Δέντρο Αναζήτησης (BST)
+### Binary Search Tree (BST)
 
-**Ιδιότητα BST**: Για κάθε κόμβο:
-- Όλα τα στοιχεία στο **αριστερό** υποδέντρο είναι **μικρότερα**
-- Όλα τα στοιχεία στο **δεξί** υποδέντρο είναι **μεγαλύτερα**
+**BST Property**: For each node:
+- All elements in the **left** subtree are **smaller**
+- All elements in the **right** subtree are **larger**
 
 ---
 
-### Παράδειγμα 1: Εισαγωγή σε Κενό Δέντρο
+### Example 1: Insertion into an Empty Tree
 
-**Εισαγωγή: 8**
+**Insert: 8**
 
 ```mermaid
 graph TD
@@ -238,23 +238,23 @@ graph TD
     style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- Το πρώτο στοιχείο γίνεται αυτόματα η **ρίζα** του δέντρου.
+ The first element automatically becomes the **root** of the tree.
 
 ---
 
-### Παράδειγμα 2: Βηματική Εισαγωγή Πολλαπλών Στοιχείων
+### Example 2: Step-by-step Insertion of Multiple Elements
 
-**Εισαγωγή Ακολουθίας**: 8, 3, 10, 1, 6, 14, 4
+**Insertion Sequence**: 8, 3, 10, 1, 6, 14, 4
 
-#### Βήμα 1: Εισαγωγή 8
+#### Step 1: Insert 8
 ```mermaid
 graph TD
     A[8]
     style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 2: Εισαγωγή 3
-- 3 < 8 → **αριστερά**
+#### Step 2: Insert 3
+- 3 < 8 -> **left**
 
 ```mermaid
 graph TD
@@ -262,8 +262,8 @@ graph TD
     style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 3: Εισαγωγή 10
-- 10 > 8 → **δεξιά**
+#### Step 3: Insert 10
+- 10 > 8 -> **right**
 
 ```mermaid
 graph TD
@@ -272,9 +272,9 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 4: Εισαγωγή 1
-- 1 < 8 → αριστερά
-- 1 < 3 → **αριστερά**
+#### Step 4: Insert 1
+- 1 < 8 -> left
+- 1 < 3 -> **left**
 
 ```mermaid
 graph TD
@@ -284,9 +284,9 @@ graph TD
     style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 5: Εισαγωγή 6
-- 6 < 8 → αριστερά
-- 6 > 3 → **δεξιά**
+#### Step 5: Insert 6
+- 6 < 8 -> left
+- 6 > 3 -> **right**
 
 ```mermaid
 graph TD
@@ -297,9 +297,9 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 6: Εισαγωγή 14
-- 14 > 8 → δεξιά
-- 14 > 10 → **δεξιά**
+#### Step 6: Insert 14
+- 14 > 8 -> right
+- 14 > 10 -> **right**
 
 ```mermaid
 graph TD
@@ -311,10 +311,10 @@ graph TD
     style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 7: Εισαγωγή 4
-- 4 < 8 → αριστερά
-- 4 > 3 → δεξιά
-- 4 < 6 → **αριστερά**
+#### Step 7: Insert 4
+- 4 < 8 -> left
+- 4 > 3 -> right
+- 4 < 6 -> **left**
 
 ```mermaid
 graph TD
@@ -327,7 +327,7 @@ graph TD
     style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Τελικό Δέντρο**:
+**Final Tree**:
 ```mermaid
 graph TD
     A[8] --> B[3]
@@ -348,22 +348,22 @@ graph TD
 
 ---
 
-### Παράδειγμα 3: Διαφορετική Σειρά Εισαγωγής
+### Example 3: Different Insertion Order
 
-**Εισαγωγή Ακολουθίας**: 15, 10, 20, 8, 12, 25, 6
+**Insertion Sequence**: 15, 10, 20, 8, 12, 25, 6
 
-#### Πλήρης Διαδικασία:
+#### Complete Process:
 
-**Διαδρομές**:
-- **15**: Ρίζα (κενό δέντρο)
-- **10**: 10 < 15 → αριστερά
-- **20**: 20 > 15 → δεξιά
-- **8**: 8 < 15 → αριστερά, 8 < 10 → αριστερά
-- **12**: 12 < 15 → αριστερά, 12 > 10 → δεξιά
-- **25**: 25 > 15 → δεξιά, 25 > 20 → δεξιά
-- **6**: 6 < 15 → αριστερά, 6 < 10 → αριστερά, 6 < 8 → αριστερά
+**Paths**:
+- **15**: Root (empty tree)
+- **10**: 10 < 15 -> left
+- **20**: 20 > 15 -> right
+- **8**: 8 < 15 -> left, 8 < 10 -> left
+- **12**: 12 < 15 -> left, 12 > 10 -> right
+- **25**: 25 > 15 -> right, 25 > 20 -> right
+- **6**: 6 < 15 -> left, 6 < 10 -> left, 6 < 8 -> left
 
-**Τελικό Δέντρο**:
+**Final Tree**:
 ```mermaid
 graph TD
     A[15] --> B[10]
@@ -384,9 +384,9 @@ graph TD
 
 ---
 
-### Παράδειγμα 4: Περίπτωση Μη Ισορροπημένου Δέντρου
+### Example 4: Unbalanced Tree Case
 
-**Εισαγωγή Αυξητικής Ακολουθίας**: 1, 2, 3, 4, 5, 6
+**Insertion of Ascending Sequence**: 1, 2, 3, 4, 5, 6
 
 ```mermaid
 graph TD
@@ -404,25 +404,25 @@ graph TD
     style F fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Πρόβλημα**: Το δέντρο εκφυλίζεται σε **γραμμική λίστα**!
-- Ύψος = n-1 = 5
-- Πολυπλοκότητα αναζήτησης: O(n)
+ **Problem**: The tree degenerates into a **linked list**!
+- Height = n-1 = 5
+- Search complexity: O(n)
 
 ---
 
-## Διαγραφή Στοιχείων
+## Deleting Elements
 
-Η διαγραφή έχει **τρεις περιπτώσεις** ανάλογα με τα παιδιά του κόμβου.
+Deletion has **three cases** depending on the children of the node.
 
 ---
 
-### Περίπτωση 1: Διαγραφή Φύλλου (0 Παιδιά)
+### Case 1: Deleting a Leaf (0 Children)
 
-**Κανόνας**: Απλά αφαιρούμε τον κόμβο.
+**Rule**: Simply remove the node.
 
-**Παράδειγμα: Διαγραφή του 6**
+**Example: Deleting 6**
 
-**Πριν**:
+**Before**:
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -437,7 +437,7 @@ graph TD
     class EA deleteNode
 ```
 
-**Μετά**:
+**After**:
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -454,17 +454,17 @@ graph TD
     style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Απλή διαδικασία**: Διαγράφουμε με την κατάλληλη σύνδεση του γονέα.
+ **Simple process**: We delete with the appropriate parent connection.
 
 ---
 
-### Περίπτωση 2: Διαγραφή Κόμβου με 1 Παιδί
+### Case 2: Deleting a Node with 1 Child
 
-**Κανόνας**: Ο κόμβος αντικαθίσταται από το μοναδικό του παιδί.
+**Rule**: The node is replaced by its single child.
 
-**Παράδειγμα: Διαγραφή του 5**
+**Example: Deleting 5**
 
-**Πριν**:
+**Before**:
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -477,7 +477,7 @@ graph TD
     class B deleteNode
 ```
 
-**Μετά**:
+**After**:
 ```mermaid
 graph TD
     A[10] --> D[3]
@@ -490,15 +490,15 @@ graph TD
     style F fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
- Το **3 μετακινείται** στη θέση του 5.
+ **3 moves** to the position of 5.
 
 ---
 
-### Παράδειγμα με Δεξί Παιδί
+### Example with Right Child
 
-**Διαγραφή του 15**
+**Deleting 15**
 
-**Πριν**:
+**Before**:
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -512,7 +512,7 @@ graph TD
     class C deleteNode
 ```
 
-**Μετά**:
+**After**:
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -523,19 +523,19 @@ graph TD
     style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- Το **20 μετακινείται** στη θέση του 15.
+ **20 moves** to the position of 15.
 
 ---
 
-### Περίπτωση 3: Διαγραφή Κόμβου με 2 Παιδιά
+### Case 3: Deleting a Node with 2 Children
 
-**Μέθοδος**: Βρίσκουμε:
-- **In-order Successor** = Το μικρότερο στοιχείο στο **δεξί** υποδέντρο, ή
-- **In-order Predecessor** = Το μεγαλύτερο στοιχείο στο **αριστερό** υποδέντρο
+**Method**: We find:
+- **In-order Successor** = The smallest element in the **right** subtree, or
+- **In-order Predecessor** = The largest element in the **left** subtree
 
-**Παράδειγμα 1: Διαγραφή του 10**
+**Example 1: Deleting 10**
 
-**Πριν**:
+**Before**:
 ```mermaid
 graph TD
     A[10] --> B[5]
@@ -550,9 +550,9 @@ graph TD
     class A deleteNode
 ```
 
-**Βήμα 1: Εύρεση In-order Successor**
-- Πάμε **δεξιά** (15)
-- Μετά πάμε όσο πιο **αριστερά** γίνεται → **12**
+**Step 1: Find In-order Successor**
+- Go **right** (15)
+- Then go as far **left** as possible -> **12**
 
 ```mermaid
 graph TD
@@ -571,7 +571,7 @@ graph TD
     class F successor
 ```
 
-**Βήμα 2: Αντικατάσταση**
+**Step 2: Replacement**
 
 ```mermaid
 graph TD
@@ -584,15 +584,15 @@ graph TD
     style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- Το **12 αντικαθιστά** το 10!
+ **12 replaces** 10!
 
 ---
 
-### Παράδειγμα 2: Διαγραφή Ρίζας Περίπλοκου Δέντρου
+### Example 2: Deleting the Root of a Complex Tree
 
-**Διαγραφή του 50**
+**Deleting 50**
 
-**Πριν**:
+**Before**:
 ```mermaid
 graph TD
     A[50] --> B[30]
@@ -611,11 +611,11 @@ graph TD
     class A deleteNode
 ```
 
-**Εύρεση In-order Successor**:
-- Δεξί υποδέντρο: 70
-- Πιο αριστερά: 60 → 55 
+**Finding In-order Successor**:
+- Right subtree: 70
+- Leftmost: 60 -> 55 
 
-**Μετά (Αντικατάσταση με 55)**:
+**After (Replaced with 55)**:
 ```mermaid
 graph TD
     A[55] --> B[30]
@@ -633,11 +633,11 @@ graph TD
 
 ---
 
-### Παράδειγμα 3: Χρήση In-order Predecessor
+### Example 3: Using In-order Predecessor
 
-**Διαγραφή του 20 (με predecessor)**
+**Deleting 20 (with predecessor)**
 
-**Πριν**:
+**Before**:
 ```mermaid
 graph TD
     A[20] --> B[10]
@@ -650,11 +650,11 @@ graph TD
     style A fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Εύρεση In-order Predecessor**:
-- Αριστερό υποδέντρο: 10
-- Πιο δεξιά: 15 → 18 
+**Finding In-order Predecessor**:
+- Left subtree: 10
+- Rightmost: 15 -> 18 
 
-**Μετά**:
+**After**:
 ```mermaid
 graph TD
     A[18] --> B[10]
@@ -668,13 +668,13 @@ graph TD
 
 ---
 
-## Πρακτικά Παραδείγματα
+## Practical Examples
 
-### Παράδειγμα 5: Πλήρης Κύκλος (Εισαγωγή → Διάσχιση → Διαγραφή)
+### Example 5: Full Cycle (Insertion -> Traversal -> Deletion)
 
-**Εισαγωγή**: 50, 30, 70, 20, 40, 60, 80
+**Insertion**: 50, 30, 70, 20, 40, 60, 80
 
-**Δέντρο**:
+**Tree**:
 ```mermaid
 graph TD
     A[50] --> B[30]
@@ -693,13 +693,13 @@ graph TD
     style G fill:#f1f8e9,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διασχίσεις**:
+**Traversals**:
 - **Pre-order**: 50, 30, 20, 40, 70, 60, 80
-- **In-order**: 20, 30, 40, 50, 60, 70, 80  (ταξινομημένη)
+- **In-order**: 20, 30, 40, 50, 60, 70, 80  (sorted)
 - **Post-order**: 20, 40, 30, 60, 80, 70, 50
 - **Level-order**: 50, 30, 70, 20, 40, 60, 80
 
-**Διαγραφή 30**:
+**Delete 30**:
 ```mermaid
 graph TD
     A[50] --> B[40]
@@ -713,9 +713,9 @@ graph TD
 
 ---
 
-### Παράδειγμα 6: Αναζήτηση Στοιχείου
+### Example 6: Element Search
 
-**Αναζήτηση του 65** στο δέντρο:
+**Searching for 65** in the tree:
 
 ```mermaid
 graph TD
@@ -734,25 +734,25 @@ graph TD
     style FB fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαδρομή Αναζήτησης**:
-1. Ξεκινάω από ρίζα: **50**
-   - 65 > 50 → πάω **δεξιά**
-2. Επισκέπτομαι: **70**
-   - 65 < 70 → πάω **αριστερά**
-3. Επισκέπτομαι: **60**
-   - 65 > 60 → πάω **δεξιά**
-4. Επισκέπτομαι: **65**
-   - **Βρέθηκε!** 
+**Search Path**:
+1. Start from root: **50**
+   - 65 > 50 -> go **right**
+2. Visit: **70**
+   - 65 < 70 -> go **left**
+3. Visit: **60**
+   - 65 > 60 -> go **right**
+4. Visit: **65**
+   - **Found!** 
 
-**Συνολικές Συγκρίσεις**: 4
+**Total Comparisons**: 4
 
 ---
 
-### Παράδειγμα 7: Ισορροπημένο vs Μη Ισορροπημένο
+### Example 7: Balanced vs Unbalanced
 
-#### Μη Ισορροπημένο (Worst Case)
+#### Unbalanced (Worst Case)
 
-**Εισαγωγή**: 1, 2, 3, 4, 5
+**Insertion**: 1, 2, 3, 4, 5
 
 ```mermaid
 graph TD
@@ -768,13 +768,13 @@ graph TD
     style E fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
-- **Ύψος**: 4
-- **Πολυπλοκότητα**: O(n)
-- **Πρόβλημα**: Εκφυλισμένο δέντρο
+- **Height**: 4
+- **Complexity**: O(n)
+- **Problem**: Degenerate tree
 
-#### Ισορροπημένο (Best Case)
+#### Balanced (Best Case)
 
-**Εισαγωγή**: 3, 1, 5, 2, 4
+**Insertion**: 3, 1, 5, 2, 4
 
 ```mermaid
 graph TD
@@ -790,15 +790,15 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-- **Ύψος**: 2
-- **Πολυπλοκότητα**: O(log n)
-- **Βέλτιστο**: Ισορροπημένο δέντρο
+- **Height**: 2
+- **Complexity**: O(log n)
+- **Optimal**: Balanced tree
 
 ---
 
-### Παράδειγμα 8: Διαδοχικές Πράξεις
+### Example 8: Sequential Operations
 
-**Αρχικό Δέντρο**:
+**Initial Tree**:
 ```mermaid
 graph TD
     A[20] --> B[10]
@@ -809,7 +809,7 @@ graph TD
     C --> G[35]
 ```
 
-**1. Διαγραφή του 10**:
+**1. Delete 10**:
 ```mermaid
 graph TD
     A[20] --> B[15]
@@ -821,7 +821,7 @@ graph TD
     style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**2. Εισαγωγή του 12**:
+**2. Insert 12**:
 ```mermaid
 graph TD
     A[20] --> B[15]
@@ -834,7 +834,7 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**3. Διαγραφή του 20**:
+**3. Delete 20**:
 ```mermaid
 graph TD
     A[25] --> B[15]
@@ -848,9 +848,9 @@ graph TD
 
 ---
 
-### Παράδειγμα 9: Μεγάλο Δέντρο με Πολλαπλές Διαγραφές
+### Example 9: Large Tree with Multiple Deletions
 
-**Αρχικό**:
+**Initial**:
 ```mermaid
 graph TD
     A[40] --> B[20]
@@ -867,9 +867,9 @@ graph TD
     style A fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαγραφή: 20, 60, 10**
+**Deletions: 20, 60, 10**
 
-**Μετά Διαγραφή 20** (αντικατάσταση με 25):
+**After Deleting 20** (replaced with 25):
 ```mermaid
 graph TD
     A[40] --> B[25]
@@ -883,7 +883,7 @@ graph TD
     E --> K[35]
 ```
 
-**Μετά Διαγραφή 60** (αντικατάσταση με 70):
+**After Deleting 60** (replaced with 70):
 ```mermaid
 graph TD
     A[40] --> B[25]
@@ -896,7 +896,7 @@ graph TD
     E --> K[35]
 ```
 
-**Μετά Διαγραφή 10** (αντικατάσταση με 15):
+**After Deleting 10** (replaced with 15):
 ```mermaid
 graph TD
     A[40] --> B[25]
@@ -912,37 +912,37 @@ graph TD
 
 ---
 
-## Σύνοψη
+## Summary
 
-### Πολυπλοκότητα Λειτουργιών
+### Operation Complexity
 
-| Λειτουργία | Μέση Περίπτωση | Χειρότερη Περίπτωση |
+| Operation | Average Case | Worst Case |
 |------------|----------------|---------------------|
-| **Αναζήτηση** | O(log n) | O(n) |
-| **Εισαγωγή** | O(log n) | O(n) |
-| **Διαγραφή** | O(log n) | O(n) |
-| **Διάσχιση** | O(n) | O(n) |
+| **Search** | O(log n) | O(n) |
+| **Insertion** | O(log n) | O(n) |
+| **Deletion** | O(log n) | O(n) |
+| **Traversal** | O(n) | O(n) |
 
-### Βασικοί Κανόνες BST
+### Basic BST Rules
 
- **Αριστερό υποδέντρο**: Όλες οι τιμές **< ρίζα**  
- **Δεξί υποδέντρο**: Όλες οι τιμές **> ρίζα**  
- **In-order διάσχιση**: Δίνει **ταξινομημένη σειρά**  
- **Ισορροπία**: Κρίσιμη για απόδοση **O(log n)**
+ **Left subtree**: All values **< root**  
+ **Right subtree**: All values **> root**  
+ **In-order traversal**: Gives **sorted order**  
+ **Balance**: Critical for **O(log n)** performance
 
-### Μέθοδοι Διάσχισης - Χρήσεις
+### Traversal Methods - Uses
 
-| Μέθοδος | Σειρά | Χρήση |
+| Method | Order | Use |
 |---------|-------|-------|
-| **Pre-order** | Root → Left → Right | Αντιγραφή δέντρου |
-| **In-order** | Left → Root → Right | Ταξινόμηση |
-| **Post-order** | Left → Right → Root | Διαγραφή δέντρου |
-| **Level-order** | Επίπεδο-προς-επίπεδο | BFS, εκτύπωση |
+| **Pre-order** | Root -> Left -> Right | Copying a tree |
+| **In-order** | Left -> Root -> Right | Sorting |
+| **Post-order** | Left -> Right -> Root | Deleting a tree |
+| **Level-order** | Level-by-level | BFS, printing |
 
-### Περιπτώσεις Διαγραφής
+### Deletion Cases
 
-| Παιδιά | Μέθοδος |
+| Children | Method |
 |--------|---------|
-| **0** | Απλή αφαίρεση |
-| **1** | Αντικατάσταση με το παιδί |
+| **0** | Simple removal |
+| **1** | Replace with the child |
 | **2** | In-order successor/predecessor |

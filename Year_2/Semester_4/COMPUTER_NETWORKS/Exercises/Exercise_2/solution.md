@@ -1,17 +1,17 @@
-**Ονοματεπώνυμο:** Παναγόπουλος Νικόλαος
+**Full Name:** Panagopoulos Nikolaos
 
-**(AM):** 3323
+**(Registration No.):** 3323
 
 
-# Μέρος 1: Μέτρηση Καθυστέρησης Δικτύου
+# Part 1: Network Delay Measurement
 
-**Θεωρητικός Τύπος:** $$\boxed{d_{nodal} = d_{proc} + d_{queue} + \frac{L}{R} + \frac{d}{u}}$$
+**Theoretical Formula:** $$\boxed{d_{nodal} = d_{proc} + d_{queue} + \frac{L}{R} + \frac{d}{u}}$$
 
-Όπου:
-* $L$ = μέγεθος πακέτου (packet length)
-* $R$ = ρυθμός μετάδοσης (transmission rate)
-* $d$ = απόσταση (distance)
-* $u$ = ταχύτητα διάδοσης (propagation speed) ($2.8 \times 10^8$ m/sec)
+Where:
+* $L$ = packet length
+* $R$ = transmission rate
+* $d$ = distance
+* $u$ = propagation speed ($2.8 \times 10^8$ m/sec)
 
 #### Table 1-1: Delay vs. Distance (Parameters: R = 512 Kbps, L = 100 Bytes)
 | Distance (d) | Measured Delay (A1) | Calculated Delay (A2) |
@@ -39,34 +39,34 @@
 
 ---
 
-### **Ανάλυση Γραφημάτων**
+### **Graph Analysis**
 ![Network Performance Analysis](images/combined_delay_analysis.png)
 
-### **Σχολιασμός**
-- **Συγκρίνοντας τις μετρημένες τιμές ($A_1$) από τον simulator με τις θεωρητικά υπολογισμένες ($A_2$), παρατηρούμε ότι οι δύο δεν συμπίπτουν πάντα — και αυτό είναι αναμενόμενο. Το θεωρητικό μοντέλο λαμβάνει υπόψη μόνο το propagation και το transmission delay, αγνοώντας το **processing delay** ($d_{proc}$) και το **queuing delay** ($d_{queue}$). Στην πράξη, κάθε router αφιερώνει χρόνο για να αναλύσει την επικεφαλίδα του πακέτου, ενώ σε φορτωμένους συνδέσμους το πακέτο περιμένει στο buffer πριν μεταδοθεί.**
+### **Comments**
+- **Comparing the measured values ($A_1$) from the simulator with the theoretically calculated ones ($A_2$), we observe that the two do not always match — and this is expected. The theoretical model takes into account only propagation and transmission delay, ignoring **processing delay** ($d_{proc}$) and **queuing delay** ($d_{queue}$). In practice, every router spends time analyzing the packet header, while on loaded links the packet waits in a buffer before being transmitted.**
 
-- **Όσον αφορά την απόσταση (Table 1-1), η γραμμική αύξηση της καθυστέρησης επιβεβαιώνει τη θεωρία. Ωστόσο, το χάσμα μεταξύ $A_1$ και $A_2$ μεγαλώνει σε μεγαλύτερες αποστάσεις, γεγονός που υποδηλώνει ότι ο simulator εισάγει επιπλέον overhead όσο αυξάνεται η πολυπλοκότητα της διαδρομής.**
+- **Regarding distance (Table 1-1), the linear increase in delay confirms the theory. However, the gap between $A_1$ and $A_2$ grows at larger distances, indicating that the simulator introduces additional overhead as path complexity increases.**
 
-- **Στον άξονα του ρυθμού μετάδοσης (Table 1-3), τα αποτελέσματα δείχνουν καθαρά ότι η αύξηση του bandwidth μειώνει ταχύτατα την καθυστέρηση — μέχρι ένα σημείο. Πέρα από τα 100 Mbps, η συνολική καθυστέρηση σταθεροποιείται, καθώς το transmission delay γίνεται αμελητέο και κυριαρχεί πλέον το propagation delay.**
+- **On the transmission rate axis (Table 1-3), the results clearly show that increasing bandwidth rapidly decreases delay — up to a point. Beyond 100 Mbps, overall delay stabilizes as transmission delay becomes negligible and propagation delay dominates.**
 
-- **Τέλος, στο μέγεθος πακέτου (Table 1-2), μεγαλύτερα πακέτα αυξάνουν φυσικά τον χρόνο μετάδοσης. Οι μικρές αποκλίσεις που παρατηρούνται μπορούν να αποδοθούν σε ελαφρύ queuing ή σε εσωτερικές διαδικασίες ελέγχου fragmentation εντός του simulator.**
+- **Finally, regarding packet size (Table 1-2), larger packets naturally increase transmission time. The small discrepancies observed can be attributed to slight queuing or internal fragmentation check processes within the simulator.**
 
 ---
 
-### **Έρευνα Jitter**
+### **Jitter Investigation**
 ![Jitter Analysis](images/combined_jitter_analysis.png)
 
-### **Σχολιασμός**
-- **Το jitter αντιπροσωπεύει τη διακύμανση της καθυστέρησης στον χρόνο. Στα δεδομένα που συλλέχθηκαν, το inter-packet jitter παραμένει σχετικά χαμηλό, γεγονός που υποδηλώνει σταθερό link με συνεπείς χρόνους αναμονής. Υψηλό jitter συνήθως προκαλείται από παροδική συμφόρηση δικτύου (network congestion) ή από μεταβαλλόμενα μήκη μονοπατιού σε πιο πολύπλοκα routing περιβάλλοντα.**
+### **Comments**
+- **Jitter represents the variation in delay over time. In the collected data, inter-packet jitter remains relatively low, indicating a stable link with consistent queue times. High jitter is typically caused by transient network congestion or varying path lengths in more complex routing environments.**
 
 ---
 
-# Μέρος 2: Δημιουργία Δικτύου
-## 1. Μόνο Switch
+# Part 2: Network Creation
+## 1. Switch Only
 
 ![image.png](Exercise_2/images/switch_only_network.png)
 
-Η τοπολογία αποτελείται από 4 PC συνδεδεμένα μέσω 3 switches (Switch0, Switch1, Switch2) σε αλυσίδα. Κάθε PC βρίσκεται σε διαφορετικό subnet.
+The topology consists of 4 PCs connected via 3 switches (Switch0, Switch1, Switch2) in a chain. Each PC is in a different subnet.
 
 | **Device** | **IP Address** | **Subnet Mask** | **Default Gateway** |
 | --- | --- | --- | --- |
@@ -74,27 +74,27 @@
 | PC1 | `192.168.2.10` | `255.255.255.0` | `192.168.1.1`  |
 | PC2 | `192.168.3.10` | `255.255.255.0` | `192.168.1.1`  |
 | PC3 | `192.168.4.10` | `255.255.255.0` | `192.168.1.1`  |
-- Το default gateway `192.168.1.1` ορίστηκε σε όλα τα PC, αλλά επειδή δεν υπάρχει router στην τοπολογία, η διεύθυνση αυτή είναι μη προσβάσιμη και δεν έχει κανένα αποτέλεσμα.
+- The default gateway `192.168.1.1` was set on all PCs, but because there is no router in the topology, this address is unreachable and has no effect.
 
-Παρόλο που χρησιμοποιούνται 3 switches σε αλυσίδα, αυτό δεν αλλάζει τη συμπεριφορά — τα switches δεν μπορούν να δρομολογήσουν μεταξύ subnets.
+Even though 3 switches are used in a chain, this does not change the behavior — switches cannot route between subnets.
 
 ![image.png](Exercise_2/images/switch_only_network_shell.png)
 
-### Γιατί η επικοινωνία απέτυχε
+### Why Communication Failed
 
-Το switch λειτουργεί στο **Layer 2 (Data Link)** και προωθεί frames μόνο βάσει **MAC addresses** — δεν έχει καμία αντίληψη IP routing. Εφόσον τα τέσσερα PC βρίσκονται σε **διαφορετικά subnets**, το PC0 αντιμετωπίζει το PC1 ως απομακρυσμένο host και προσπαθεί να στείλει το πακέτο στο Default Gateway του (`192.168.1.1`). Όμως δεν υπάρχει router στην τοπολογία, οπότε το πακέτο απορρίπτεται — αποτέλεσμα: **100% packet loss**.
+The switch operates at **Layer 2 (Data Link)** and forwards frames based solely on **MAC addresses** — it has no concept of IP routing. Since the four PCs are in **different subnets**, PC0 treats PC1 as a remote host and tries to send the packet to its Default Gateway (`192.168.1.1`). However, there is no router in the topology, so the packet is dropped — result: **100% packet loss**.
 
-### Τι θα έπρεπε να γίνει για να δουλέψει
+### What Should Be Done to Make It Work
 
-Αν όλα τα PC μοιράζονταν το **ίδιο subnet** (π.χ. `192.168.1.10`–`192.168.1.13 /24`), το PC0 θα αναγνώριζε το PC1 ως local host, θα έλυνε το MAC address του μέσω ARP, και το switch θα προωθούσε το frame απευθείας — χωρίς router.
+If all PCs shared the **same subnet** (e.g. `192.168.1.10`–`192.168.1.13 /24`), PC0 would recognize PC1 as a local host, resolve its MAC address via ARP, and the switch would forward the frame directly — without a router.
 
 ---
 
-## 2. Router Προστέθηκε
+## 2. Router Added
 
 ![image.png](Exercise_2/images/router_network.png)
 
-Προστέθηκε ένας **Cisco 1941 Router** (Router0) ανάμεσα στα δύο switches. Τα 4 PC αναδιοργανώθηκαν σε **2 subnet groups**, καθένα με το δικό του default gateway που δείχνει στο αντίστοιχο interface του router.
+A **Cisco 1941 Router** (Router0) was added between the two switches. The 4 PCs were reorganized into **2 subnet groups**, each with its own default gateway pointing to the corresponding router interface.
 
 - **Subnet 1** (`192.168.1.0/24`): CopyPC0, CopyPC1 → gateway `192.168.1.1` (Router Gig0/0)
 - **Subnet 2** (`192.168.2.0/24`): CopyPC2, CopyPC3 → gateway `192.168.2.1` (Router Gig0/1)
@@ -110,15 +110,15 @@
 
 ![image.png](Exercise_2/images/router_network_shell.png)
 
-### Γιατί η επικοινωνία πέτυχε
+### Why Communication Succeeded
 
-Το ping στάλθηκε από το **CopyPC1** (`192.168.1.11`) στο **CopyPC3** (`192.168.2.11`) — cross-subnet ping. Το CopyPC1 προώθησε το πακέτο στο default gateway (Router Gig0/0 στο `192.168.1.1`). Ο router στη συνέχεια το δρομολόγησε στο subnet `192.168.2.0/24` μέσω Gig0/1, φτάνοντας επιτυχώς στο CopyPC3.
+The ping was sent from **CopyPC1** (`192.168.1.11`) to **CopyPC3** (`192.168.2.11`) — cross-subnet ping. CopyPC1 forwarded the packet to its default gateway (Router Gig0/0 at `192.168.1.1`). The router then routed it to subnet `192.168.2.0/24` via Gig0/1, successfully reaching CopyPC3.
 
 ---
 
-# Μέρος 3: Απόδοση Μεταφοράς Αρχείου
+# Part 3: File Transfer Performance
 
-### Παράμετροι Σεναρίου
+### Scenario Parameters
 
 | Parameter | Value |
 | :--- | :--- |
@@ -137,7 +137,7 @@
 
 ### Case A: Continuous Transmission
 
-Όλα τα πακέτα αποστέλλονται διαδοχικά χωρίς αναμονή για acknowledgements. Ο συνολικός χρόνος περιλαμβάνει το αρχικό handshake, τον χρόνο για τη μετάδοση όλων των bits στο καλώδιο, και το propagation delay για το τελευταίο bit να φτάσει στον παραλήπτη.
+All packets are sent sequentially without waiting for acknowledgements. Total time includes initial handshake, time to transmit all bits on the wire, and propagation delay for the last bit to reach the receiver.
 
 $$T_A = \text{Handshake} + \frac{\text{TotalBits}}{\text{Rate}} + d_{prop}$$
 
@@ -149,7 +149,7 @@ $$\boxed{T_A = 28{,}456.128 \text{ ms} \approx 28.46 \text{ s}}$$
 
 ### Case B: Stop-and-Wait
 
-Μετά από κάθε πακέτο, ο αποστολέας περιμένει ένα πλήρες RTT πριν στείλει το επόμενο. Είναι η λιγότερο αποδοτική στρατηγική, καθώς ο σύνδεσμος παραμένει αδρανής για το μεγαλύτερο μέρος κάθε κύκλου.
+After each packet, the sender waits for one full RTT before sending the next. It is the least efficient strategy, as the link remains idle for most of each cycle.
 
 $$T_B = \text{Handshake} + N \times (T_{packet} + RTT)$$
 
@@ -161,7 +161,7 @@ $$\boxed{T_B = 305{,}136.128 \text{ ms} \approx 305.14 \text{ s}}$$
 
 ### Case C: Exponential Window Growth (TCP Slow-Start)
 
-Υποθέτουμε ότι το link έχει άπειρο bandwidth (transmission delay = 0). Ο αποστολέας ξεκινά με window 1 πακέτου και το διπλασιάζει κάθε RTT, ακολουθώντας τον κανόνα TCP slow-start ($2^0, 2^1, 2^2, \ldots$). Η διαδικασία συνεχίζεται μέχρι να αποσταλούν και τα 3,459 πακέτα.
+We assume the link has infinite bandwidth (transmission delay = 0). The sender starts with a window of 1 packet and doubles it every RTT, following the TCP slow-start rule ($2^0, 2^1, 2^2, \ldots$). The process continues until all 3,459 packets are sent.
 
 $$T_C = \text{Handshake} + \text{DataRTTs} \times RTT$$
 
@@ -180,7 +180,7 @@ $$T_C = \text{Handshake} + \text{DataRTTs} \times RTT$$
 | 11 | 1,024 | 1,024 | 1,412 |
 | 12 | 2,048 | 1,412 | 0 |
 
-Χρειάζονται 12 data RTTs. Το τελευταίο RTT στέλνει μόνο 1,412 πακέτα (ό,τι απόμεινε), όχι ένα πλήρες window των 2,048.
+It takes 12 data RTTs. The last RTT sends only 1,412 packets (whatever was left), not a full window of 2,048.
 
 $$T_C = 80 + 12 \times 80$$
 
@@ -188,7 +188,7 @@ $$\boxed{T_C = 1{,}040 \text{ ms} \approx 1.04 \text{ s}}$$
 
 ---
 
-### Σύνοψη
+### Summary
 
 | Case | Strategy | Total Time |
 | :--- | :--- | :--- |
@@ -196,4 +196,4 @@ $$\boxed{T_C = 1{,}040 \text{ ms} \approx 1.04 \text{ s}}$$
 | B | Stop-and-Wait | 305,136.128 ms (305.14 s) |
 | C | Exponential Window Growth | 1,040.000 ms (1.04 s) |
 
-Τα αποτελέσματα δείχνουν καθαρά πόσο μεγάλη είναι η επίδραση της στρατηγικής μετάδοσης στον συνολικό χρόνο. Το Case B είναι περίπου **10.7x πιο αργό** από το Case A, καθώς ο σύνδεσμος μένει αδρανής μετά από κάθε πακέτο περιμένοντας ACK — το propagation delay κυριαρχεί σε κάθε κύκλο. Το Case C, παρόλο που χρησιμοποιεί άπειρο bandwidth ως απλοποίηση, δείχνει γιατί το TCP slow-start είναι τόσο αποδοτικό: διπλασιάζοντας το in-flight window κάθε RTT, τα 3,459 πακέτα παραδίδονται σε μόλις 12 RTTs — **27.4x πιο γρήγορο** από το Case A και **293x πιο γρήγορο** από το Case B.
+The results clearly show how large an impact the transmission strategy has on total time. Case B is approximately **10.7x slower** than Case A, as the link stays idle after each packet waiting for ACK — propagation delay dominates every cycle. Case C, despite using infinite bandwidth as a simplification, demonstrates why TCP slow-start is so efficient: by doubling the in-flight window every RTT, all 3,459 packets are delivered in just 12 RTTs — **27.4x faster** than Case A and **293x faster** than Case B.

@@ -1,39 +1,39 @@
-# Τεχνολογίες Πρόσβασης
+# Access Technologies
 *Access Technologies*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 
-- [Εισαγωγή](#εισαγωγή)
-- [Οικιακά Δίκτυα](#οικιακά-δίκτυα)
-  - [DSL (Ασύμμετρη / Συμμετρική)](#dsl-ασύμμετρη--συμμετρική)
-  - [HFC / Cable (Ομοαξονικό & Ίνα)](#hfc--cable-ομοαξονικό--ίνα)
+- [Introduction](#introduction)
+- [Residential Access Networks](#residential-access-networks)
+  - [DSL (Asymmetric / Symmetric)](#dsl-asymmetric--symmetric)
+  - [HFC / Cable (Coaxial & Fiber)](#hfc--cable-coaxial--fiber)
   - [FTTH](#ftth)
-- [Εταιρικά / Ιδρυματικά](#εταιρικά--ιδρυματικά)
+- [Enterprise / Institutional Access Networks](#enterprise--institutional-access-networks)
   - [Ethernet](#ethernet)
-- [Κινητά / Ασύρματα](#κινητά--ασύρματα)
+- [Mobile / Wireless Access Networks](#mobile--wireless-access-networks)
   - [Wi-Fi](#wi-fi)
   - [4G / 5G](#4g--5g)
-- [Αριθμητικό Παράδειγμα](#αριθμητικό-παράδειγμα)
-- [Συγκεντρωτικός Πίνακας](#συγκεντρωτικός-πίνακας)
-- [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+- [Worked Numerical Example](#worked-numerical-example)
+- [Summary Table](#summary-table)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Οι **τεχνολογίες πρόσβασης** (access technologies) αποτελούν το «γέφυρα» που συνδέει τα τελικά συστήματα (end systems) — υπολογιστές, smartphones, servers — με τον πρώτο router του ISP, εισάγοντας τα δεδομένα στον πυρήνα του Διαδικτύου (Network Core). Πρόκειται, ουσιαστικά, για το πρόβλημα της «τελευταίας μίλιας» (last-mile problem): πώς φτάνει η συνδεσιμότητα υψηλής ταχύτητας από τη ραχοκοκαλιά του Διαδικτύου μέχρι το σπίτι, το γραφείο ή το κινητό τηλέφωνο κάθε χρήστη. Κάθε κατηγορία χρήστη (οικιακός, εταιρικός, κινητός) έχει διαφορετικές ανάγκες ταχύτητας, κόστους και κινητικότητας, γεγονός που οδήγησε στην ανάπτυξη διαφορετικών τεχνολογιών. Η κατανόηση των τεχνολογιών πρόσβασης είναι θεμελιώδης, καθώς αποτελεί τον συνδετικό κρίκο μεταξύ της φυσικής υποδομής μετάδοσης (επικοινωνιακά μέσα) και της αρχιτεκτονικής δικτύου που αναλύθηκε στις προηγούμενες ενότητες.
+**Access technologies** form the bridge connecting end systems (computers, smartphones, servers) to the ISP's edge router, injecting data into the Internet Network Core. This addresses the "last-mile problem": delivering high-speed connectivity from the Internet backbone to the end user's home, office, or mobile device. Different user categories (residential, enterprise, mobile) have distinct requirements for speed, cost, and mobility, giving rise to diverse technologies. Understanding access technologies is essential, as they link physical transmission media with the network architecture discussed in previous topics.
 
 ---
 
-## Οικιακά Δίκτυα
+## Residential Access Networks
 *Residential Access Networks*
 
-Τα **οικιακά δίκτυα πρόσβασης** (residential access networks) έχουν ως στόχο να παρέχουν ευρυζωνική σύνδεση (broadband) στον τελικό οικιακό χρήστη με το χαμηλότερο δυνατό κόστος ανάπτυξης υποδομής. Οι τρεις κυρίαρχες τεχνολογίες είναι η DSL, το HFC/Cable και η FTTH, καθεμία με ξεχωριστό φυσικό μέσο, αρχιτεκτονική και χαρακτηριστικά ταχύτητας.
+Residential access networks deliver broadband connectivity to home users at low infrastructure deployment costs. The three dominant technologies are DSL, HFC/Cable, and FTTH, each defined by distinct physical media, architecture, and performance characteristics.
 
 ```
-  Οικιακό Δίκτυο: Τυπική Αρχιτεκτονική
+  Residential Access Network Architecture
   ─────────────────────────────────────────────────────────────────────
                           [ISP / Edge Router]
                                   |
@@ -50,264 +50,235 @@
 
 ---
 
-### DSL (Ασύμμετρη / Συμμετρική)
+### DSL (Asymmetric / Symmetric)
 *Digital Subscriber Line*
 
-#### Τι είναι το DSL
+#### What is DSL
 
-Η **DSL (Digital Subscriber Line)** είναι τεχνολογία μετάδοσης ψηφιακών δεδομένων μέσω **υπάρχουσας τηλεφωνικής γραμμής χαλκού** (copper telephone line). Το βασικό πλεονέκτημα της DSL είναι ότι αξιοποιεί την τηλεφωνική υποδομή που ήδη υπάρχει σχεδόν παντού, χωρίς να απαιτεί νέο καλωδιακό δίκτυο. Η μετάδοση δεδομένων γίνεται σε **συχνότητες υψηλότερες** από αυτές που χρησιμοποιεί η ανθρώπινη φωνή (0–4 kHz), επιτρέποντας την **ταυτόχρονη χρήση** τηλεφωνίας και internet στο ίδιο καλώδιο.
+**DSL (Digital Subscriber Line)** transmits digital data over **existing copper telephone lines**. Its primary advantage is leveraging legacy telephone infrastructure without requiring new wiring. Transmission occurs at **higher frequencies** than human voice (0–4 kHz), allowing **simultaneous** voice calls and Internet access over the same wire pair.
 
-**Αναλογία:** Η τηλεφωνική γραμμή είναι σαν έναν δρόμο που αρχικά προοριζόταν μόνο για επιβατικά αυτοκίνητα (φωνή). Η DSL «ανοίγει» επιπλέον λωρίδες για φορτηγά (δεδομένα) στον ίδιο δρόμο, χωρίς να παρεμβάλλεται στην κίνηση των επιβατικών.
+**Analogy:** A telephone line is like a road originally built for cars (voice). DSL opens extra lanes for cargo trucks (data) on the same road without disrupting car traffic.
 
-#### Αρχιτεκτονική DSL
+#### DSL Architecture
 
 ```
-  DSL: Πλήρης Αρχιτεκτονική
+  DSL Architecture
   ─────────────────────────────────────────────────────────────────────────
-  [Οικία]                           [CO: Central Office]          [ISP]
+  [Home]                            [CO: Central Office]          [ISP]
      |                                      |                        |
-  [DSL Modem] ──────── χαλκός ────────► [DSLAM] ──── οπτική ίνα ──► [Router]
-     |          (τηλεφωνική γραμμή)    (DSL Access                   |
-  [Splitter]    0-4kHz: φωνή           Multiplexer)              [Internet]
-   /       \    25kHz+: δεδομένα
+  [DSL Modem] ──────── copper ────────► [DSLAM] ──── optical fiber ─► [Router]
+     |          (telephone line)       (DSL Access                   |
+  [Splitter]    0-4kHz: voice           Multiplexer)              [Internet]
+   /       \    25kHz+: data
  [POTS]  [Router]
- (Τηλέφωνο) (LAN)
+ (Phone) (LAN)
 ```
 
-**DSLAM (DSL Access Multiplexer):** Βρίσκεται στο **τηλεφωνικό κέντρο (Central Office — CO)** του ISP. Είναι η συσκευή που συγκεντρώνει εκατοντάδες DSL γραμμές από τις οικίες και τις πολυπλέκει σε έναν κοινό ψηφιακό σύνδεσμο υψηλής ταχύτητας (οπτική ίνα) προς τον edge router. Το CO λειτουργεί ως κόμβος συγκέντρωσης της γειτονιάς.
+- **DSLAM (DSL Access Multiplexer):** Located at the ISP **Central Office (CO)**. Aggregates hundreds of subscriber DSL lines onto a single high-speed fiber link to the edge router.
+- **Splitter:** Passive splitter separating copper signals into two frequency bands:
+  - **Voice (POTS):** 0–4 kHz → connected to the telephone.
+  - **Data:** 25 kHz and above → connected to the DSL modem.
 
-**Splitter:** Παθητικός διαχωριστής που χωρίζει το σήμα χαλκού σε δύο κανάλια:
-- **Κανάλι φωνής (POTS):** 0–4 kHz → πηγαίνει στο τηλέφωνο.
-- **Κανάλι δεδομένων:** 25 kHz και πάνω → πηγαίνει στο DSL modem.
+#### DMT Modulation and Spectrum Use
 
-#### Διαμόρφωση DMT και Χρήση Φάσματος
-
-Η DSL χρησιμοποιεί **DMT (Discrete Multitone Modulation)** — χωρίζει το φάσμα σε 256 υποκανάλια των 4,3 kHz έκαστο. Σε κάθε υποκανάλι εφαρμόζεται QAM διαμόρφωση. Τα υποκανάλια με υψηλότερο SNR (Signal-to-Noise Ratio) φορτώνονται με περισσότερα bits (υψηλότερη τάξη QAM), ενώ εκείνα με κακό SNR απενεργοποιούνται.
+DSL uses **DMT (Discrete Multitone Modulation)** — dividing spectrum into 256 subchannels of 4.3 kHz each. QAM modulation is applied per subchannel. Subchannels with high Signal-to-Noise Ratios (SNR) carry more bits, while degraded subchannels are disabled.
 
 ```
-  Κατανομή Φάσματος ADSL2+
+  ADSL2+ Frequency Spectrum Allocation
   ─────────────────────────────────────────────────────────────────────
-  Συχνότητα (kHz):
+  Frequency (kHz):
   0──4    25──138          138────────────────────────2208
   ├─────┤├─────────────────┤├────────────────────────────────────────┤
   │Voice││    Upstream     ││              Downstream                │
   │(POTS)│   (upload)      ││              (download)                │
   └──────┘└────────────────┘└────────────────────────────────────────┘
-  Εύρος upstream << εύρος downstream → Ασυμμετρία!
+  Upstream bandwidth << Downstream bandwidth → Asymmetry!
 ```
 
-#### Τύποι DSL: Ασύμμετρη και Συμμετρική
+#### DSL Types: Asymmetric and Symmetric
 
-**Ασύμμετρη DSL (ADSL — Asymmetric DSL):** Το **download** (λήψη) είναι σαφώς **ταχύτερο** από το **upload** (αποστολή). Αυτό επιλέγεται σκόπιμα για οικιακούς χρήστες, οι οποίοι κατεβάζουν πολύ περισσότερα δεδομένα (streaming, ιστοσελίδες) από ό,τι ανεβάζουν.
+- **Asymmetric DSL (ADSL):** **Download** speed is substantially **faster** than **upload**. Designed intentionally for residential users who consume far more data than they generate.
+- **Symmetric DSL (SDSL):** Provides **equal** download and upload speeds, preferred by businesses (VoIP, cloud backups, video conferencing).
 
-**Key Distinction:** Η ασυμμετρία δεν είναι τεχνική αδυναμία — είναι σχεδιαστική επιλογή. Το φυσικό μέσο (χαλκός) μπορεί να μεταδώσει εξίσου σε κάθε κατεύθυνση, αλλά ο ISP διανέμει το φάσμα άνισα επειδή έτσι ταιριάζει καλύτερα στα μοτίβα χρήσης των οικιακών χρηστών.
-
-| Τεχνολογία | Πρότυπο | Download | Upload | Χαρακτηριστικό |
+| Technology | Standard | Download | Upload | Characteristics |
 |---|---|---|---|---|
-| **ADSL** | ITU-T G.992.1 | 1–8 Mbps | 0.5–1 Mbps | Πλήρως χαλκός, legacy |
-| **ADSL2+** | ITU-T G.992.5 | έως 24 Mbps | έως 3.5 Mbps | Ευρύτερο φάσμα (2.2 MHz) |
-| **VDSL** | ITU-T G.993.1 | 30–52 Mbps | 10–26 Mbps | Σύντομη χαλκός, fiber FTTC |
-| **VDSL2** | ITU-T G.993.2 | έως 100 Mbps | έως 50 Mbps | Vectoring, FTTC/FTTB |
-| **G.fast** | ITU-T G.9700 | έως 1 Gbps | Υψηλό | Πολύ σύντομη χαλκός (<250 m) |
-| **SDSL** | — | Ίσο | Ίσο | Συμμετρική, επαγγελματική |
+| **ADSL** | ITU-T G.992.1 | 1–8 Mbps | 0.5–1 Mbps | Pure copper, legacy |
+| **ADSL2+** | ITU-T G.992.5 | Up to 24 Mbps | Up to 3.5 Mbps | Wider spectrum (2.2 MHz) |
+| **VDSL** | ITU-T G.993.1 | 30–52 Mbps | 10–26 Mbps | Short copper loop, FTTC |
+| **VDSL2** | ITU-T G.993.2 | Up to 100 Mbps | Up to 50 Mbps | Vectoring, FTTC/FTTB |
+| **G.fast** | ITU-T G.9700 | Up to 1 Gbps | High | Ultra-short copper (<250 m) |
+| **SDSL** | — | Equal | Equal | Symmetric, business-grade |
 
-**Key Distinction:** Η **SDSL (Symmetric DSL)** παρέχει **ίσο** download και upload και χρησιμοποιείται από επιχειρήσεις (VoIP, cloud backup, video conferencing). Κοστίζει περισσότερο από την ADSL γιατί αφιερώνει ισόποση φασματική πόρο και στις δύο κατευθύνσεις.
+#### Distance Limitation
 
-#### Κρίσιμος Περιορισμός: Εξάρτηση από Απόσταση
-
-**Exam Note:** Η DSL είναι έντονα εξαρτημένη από την απόσταση. Η ταχύτητα μειώνεται δραστικά με την αύξηση του μήκους της χαλκής γραμμής:
+**Exam Note:** DSL performance degrades sharply with distance from the CO:
 
 $$\text{Attenuation (dB)} \propto \sqrt{f} \cdot d$$
 
-Όπου $f$ είναι η συχνότητα και $d$ η απόσταση. Αυτός είναι ο λόγος που η VDSL χρειάζεται σύντομες χαλκές γραμμές και χρησιμοποιεί **FTTC (Fiber to the Cabinet)** — η οπτική ίνα φτάνει μέχρι τον κατανεμητή δρόμου, και μόνο τα τελευταία μέτρα είναι χαλκός.
+Where $f$ is frequency and $d$ is distance. VDSL requires short copper loops using **FTTC (Fiber to the Cabinet)** — optical fiber runs to street cabinets, leaving only the final meters to copper.
 
 ```
-  ADSL vs VDSL2: Επίδραση Απόστασης στην Ταχύτητα
+  ADSL vs VDSL2: Speed Degradation over Distance
   ─────────────────────────────────────────────────────────────────────
-  Ταχύτητα Download (Mbps)
-  100 |                    ●──VDSL2 (αρχή)
+  Download Speed (Mbps)
+  100 |                    ●──VDSL2 (start)
       |                   /
    52 |                  /
       |                 /
-   24 |────────────────●──ADSL2+ (αρχή)
+   24 |────────────────●──ADSL2+ (start)
       |               / \
     8 |──────────────●   \──VDSL2 (500m)
       |             /     \
     2 |────────────●────────●──ADSL2+ (2km)   ●──VDSL2 (1.5km)
       |──────────────────────────────────────────────────────────
-      0          500m        1km        2km        3km    Απόσταση από CO
+      0          500m        1km        2km        3km    Distance from CO
 ```
 
 ---
 
-### HFC / Cable (Ομοαξονικό & Ίνα)
+### HFC / Cable (Coaxial & Fiber)
 *Hybrid Fiber-Coaxial*
 
-#### Τι είναι το HFC
+#### What is HFC
 
-Το **HFC (Hybrid Fiber-Coaxial)** είναι η τεχνολογία ευρυζωνικής πρόσβασης που χρησιμοποιείται από τους **παρόχους καλωδιακής τηλεόρασης (cable operators)**. Η ονομασία «υβριδικό» υποδηλώνει ότι το δίκτυο χρησιμοποιεί **οπτική ίνα** για το τμήμα υψηλής χωρητικότητας (headend → κόμβος γειτονιάς) και **ομοαξονικό καλώδιο (coaxial cable)** για το τμήμα «τελευταίας μίλιας» (κόμβος → οικίες).
-
-**Αναλογία:** Το HFC είναι σαν ένα δίκτυο αυτοκινητοδρόμων (οπτική ίνα) που καταλήγει σε γειτονικές οδούς (ομοαξονικό). Ο αυτοκινητόδρομος εξυπηρετεί τη μαζική μεταφορά, ενώ οι τοπικές οδοί φτάνουν στα σπίτια — αλλά τις μοιράζονται **όλοι** οι κάτοικοι της γειτονιάς.
-
-#### Αρχιτεκτονική HFC
+**HFC (Hybrid Fiber-Coaxial)** is the broadband technology used by cable TV operators. "Hybrid" indicates the network uses **optical fiber** for high-capacity trunk lines (headend to neighborhood node) and **coaxial cable** for last-mile delivery (node to homes).
 
 ```
-  HFC: Πλήρης Αρχιτεκτονική
+  HFC Architecture
   ───────────────────────────────────────────────────────────────────────────
   [Cable Headend]
        |
   [CMTS]  ← Cable Modem Termination System
        |
-  [Οπτική Ίνα] ← υψηλής χωρητικότητας backbone
+  [Optical Fiber] ← High-capacity backbone
        |
-  [HFC Node] ← μετατροπή οπτικού σε RF (coaxial)
+  [HFC Node] ← Optical to RF (coaxial) conversion
        |
   ┌────┴────────────────────────────────────────────┐
-  | Ομοαξονικό καλώδιο (κοινόχρηστο / shared)      |
+  | Shared Coaxial Cable                           |
   |                                                  |
-  [Οικία 1]  [Οικία 2]  [Οικία 3]  ...  [Οικία N]
-  [Cable     [Cable     [Cable           (500-2000 οικίες
-   Modem]     Modem]     Modem]           ανά coax segment)
+  [Home 1]   [Home 2]   [Home 3]   ...   [Home N]
+  [Cable     [Cable     [Cable           (500-2000 homes
+   Modem]     Modem]     Modem]           per coax segment)
 ```
 
-**Headend:** Το κεντρικό κόμβο του cable operator. Εδώ βρίσκεται ο **CMTS (Cable Modem Termination System)**, που είναι το αντίστοιχο του DSLAM για το καλωδιακό δίκτυο. Ο CMTS διαχειρίζεται την επικοινωνία με εκατοντάδες cable modems.
+- **Headend:** Central facility housing the **CMTS (Cable Modem Termination System)** — managing subscriber cable modems.
+- **HFC Node:** Converts optical signals to RF signals over coaxial cable and vice versa. Each node serves **500–2,000 homes**.
 
-**HFC Node:** Ενδιάμεσος κόμβος που μετατρέπει τα οπτικά σήματα (fiber) σε ηλεκτρικά σήματα ραδιοσυχνοτήτων (RF) για το ομοαξονικό καλώδιο και αντίστροφα. Κάθε node εξυπηρετεί **500–2000 οικίες**.
+#### DOCSIS Protocol
 
-#### Πρωτόκολλο DOCSIS
+Data over HFC is governed by **DOCSIS (Data Over Cable Service Interface Specification)**:
 
-Η μετάδοση δεδομένων μέσω HFC διέπεται από το **DOCSIS (Data Over Cable Service Interface Specification)**, ένα πρότυπο του CableLabs:
-
-| Έκδοση | Download | Upload | Τεχνολογία Διαμόρφωσης |
+| Version | Download | Upload | Modulation Technology |
 |---|---|---|---|
 | **DOCSIS 3.0** | ~1 Gbps (bonded) | ~200 Mbps | 256-QAM, Channel Bonding |
-| **DOCSIS 3.1** | έως 10 Gbps | έως 2 Gbps | OFDM, 4096-QAM |
-| **DOCSIS 4.0** | έως 10 Gbps | έως 6 Gbps | Full Duplex / Extended Spectrum |
+| **DOCSIS 3.1** | Up to 10 Gbps | Up to 2 Gbps | OFDM, 4096-QAM |
+| **DOCSIS 4.0** | Up to 10 Gbps | Up to 6 Gbps | Full Duplex / Extended Spectrum |
 
-**Key Distinction — Shared Medium:** Σε αντίθεση με τη DSL, το ομοαξονικό τμήμα του HFC είναι **κοινόχρηστο (shared medium)**. Όλοι οι χρήστες της ίδιας γειτονιάς (ίδιο coaxial segment) **μοιράζονται** το διαθέσιμο bandwidth:
+**Key Distinction — Shared Medium:** Unlike DSL's dedicated copper pairs, HFC coaxial segments are **shared media**. Users in the same neighborhood share total segment bandwidth:
 
 ```
   DSL (Dedicated) vs HFC (Shared)
   ─────────────────────────────────────────────────────────────────────
   DSL:
-  [Χρήστης A] ───── αποκλειστική γραμμή ───── [DSLAM]
-  [Χρήστης B] ───── αποκλειστική γραμμή ───── [DSLAM]
-  [Χρήστης C] ───── αποκλειστική γραμμή ───── [DSLAM]
-  → Κάθε χρήστης έχει εγγυημένο bandwidth
+  [User A] ──────── Dedicated Line ──────── [DSLAM]
+  [User B] ──────── Dedicated Line ──────── [DSLAM]
+  [User C] ──────── Dedicated Line ──────── [DSLAM]
+  → Guaranteed individual line capacity
 
   HFC:
-  [Χρήστης A] ─┐
-  [Χρήστης B] ─┤── κοινόχρηστο coax ──── [HFC Node] ── ίνα ──[Headend]
-  [Χρήστης C] ─┘
-  → Bandwidth μοιράζεται: ώρα αιχμής = χαμηλότερη ταχύτητα ανά χρήστη
+  [User A] ─┐
+  [User B] ─┤── Shared Coax ──── [HFC Node] ── Fiber ──[Headend]
+  [User C] ─┘
+  → Shared bandwidth: peak hours reduce per-user throughput
 ```
 
-**Exam Note:** Σε ώρες αιχμής (βράδυ, σαββατοκύριακα), η πραγματική ταχύτητα HFC μειώνεται σημαντικά επειδή το bandwidth του coaxial segment είναι κοινόχρηστο. Η DSL δεν επηρεάζεται από τη γειτονική κατανάλωση — κάθε χρήστης έχει αποκλειστική χάλκινη γραμμή μέχρι το CO.
-
-#### Upstream/Downstream: Χωρισμός Φάσματος
-
-Στο HFC, το φάσμα του ομοαξονικού καλωδίου χωρίζεται σε ζώνες:
-- **Downstream (5–1000 MHz):** Δεδομένα από headend προς χρήστη.
-- **Upstream (5–85 MHz σε παλαιά / 5–204 MHz σε DOCSIS 3.1):** Δεδομένα από χρήστη προς headend.
-
-Αυτός είναι ο λόγος που το HFC είναι επίσης **ασύμμετρο** — μεγαλύτερο φάσμα για download.
+**Exam Note:** During peak usage hours (evenings), effective HFC speeds may decrease because neighborhood coaxial bandwidth is shared. DSL dedicated loops are unaffected by neighbor traffic.
 
 ---
 
 ### FTTH
 *Fiber to the Home*
 
-#### Τι είναι το FTTH
+#### What is FTTH
 
-Η **FTTH (Fiber to the Home)** είναι η τεχνολογία πρόσβασης που φέρνει **οπτική ίνα** απευθείας μέχρι το σπίτι του χρήστη. Δεν υπάρχει χαλκός ή ομοαξονικό στο τμήμα πρόσβασης — η οπτική ίνα εκτείνεται από τον κεντρικό κόμβο του ISP (Central Office) μέχρι τον τερματικό εξοπλισμό (**ONT**) μέσα ή έξω από την οικία. Αποτελεί την **ταχύτερη και πλέον μελλοντοστραφή** τεχνολογία οικιακής πρόσβασης.
+**FTTH (Fiber to the Home)** extends **optical fiber** directly into subscriber residences, eliminating copper or coaxial segments. An **ONT (Optical Network Terminal)** converts optical signals to Ethernet inside or outside the premises. FTTH represents the fastest, most future-proof residential access solution.
 
-**Αναλογία:** Αν η DSL είναι ένας παλιός αυτοκινητόδρομος αναβαθμισμένος με επιπλέον λωρίδες, το FTTH είναι ένας ολοκαίνουριος αυτοκινητόδρομος υψίστης χωρητικότητας που φτάνει κατευθείαν μέχρι την πόρτα του σπιτιού σου.
+#### PON Architecture (Passive Optical Network)
 
-#### Αρχιτεκτονική PON (Passive Optical Network)
-
-Η κυρίαρχη αρχιτεκτονική για FTTH είναι το **PON (Passive Optical Network)**, που χρησιμοποιεί **παθητικούς οπτικούς διαχωριστές (passive optical splitters)** για να διανείμει το σήμα ενός OLT port σε πολλούς συνδρομητές, χωρίς ενεργό εξοπλισμό (routers, switches) στο πεδίο.
+FTTH predominantly uses **PON (Passive Optical Network)** architecture, employing **passive optical splitters** to distribute light signals from an OLT port to multiple subscribers without active electronics in the field.
 
 ```
-  FTTH / PON Αρχιτεκτονική (Παράδειγμα με 1:4 Splitter)
+  FTTH / PON Architecture (1:4 Splitter Example)
   ─────────────────────────────────────────────────────────────────────────
   [ISP Central Office]
          |
   [OLT] ← Optical Line Terminal
-  (ελέγχει ολόκληρο το PON segment)
          |
-  [Fiber Backbone] (μεγάλη απόσταση, εκατ. Gbps)
+  [Fiber Backbone]
          |
-  [Passive Optical Splitter] ← 1:32 ή 1:64
+  [Passive Optical Splitter] ← 1:32 or 1:64 ratio
    /    |    |    \
   /     |    |     \
-[ONT] [ONT] [ONT] [ONT]   ← Optical Network Terminal ανά σπίτι
-  |     |     |     |        (μετατρέπει οπτικό → Ethernet)
-[Οικ1][Οικ2][Οικ3][Οικ4]
+[ONT] [ONT] [ONT] [ONT]   ← Optical Network Terminal per home
   |     |     |     |
-[Router][Router][Router][Router]  ← Home router
+[Home1][Home2][Home3][Home4]
 ```
 
-**OLT (Optical Line Terminal):** Βρίσκεται στο Central Office του ISP. Ελέγχει τη ροή δεδομένων σε ολόκληρο το PON segment, κατανέμει χρονικά slots σε κάθε ONT (TDMA — Time Division Multiple Access στο upstream) και λαμβάνει/μεταδίδει δεδομένα σε πολλαπλά μήκη κύματος.
+- **OLT (Optical Line Terminal):** Located at the ISP Central Office, controlling PON data traffic and assigning upstream TDMA time slots to ONTs.
+- **Passive Optical Splitter:** Unpowered optical device splitting light into 32 or 64 subscriber strands.
+- **ONT (Optical Network Terminal):** Home unit converting optical signals into electrical Ethernet frames.
 
-**Passive Optical Splitter:** Παθητικό (passive) — δεν απαιτεί ηλεκτρική τροφοδοσία. Χωρίζει το οπτικό σήμα σε **1:32** ή **1:64** κλάδους χωρίς ενίσχυση. Τοποθετείται σε σημεία της υπόγειας ή εναέριας υποδομής (junction boxes).
+#### PON Standards and Speeds
 
-**ONT (Optical Network Terminal):** Η συσκευή στο σπίτι του χρήστη που **μετατρέπει τα οπτικά σήματα σε ηλεκτρικά** (Ethernet, POTS, RF για TV). Συνδέεται με τον οικιακό router μέσω Ethernet.
-
-#### Πρότυπα PON και Ταχύτητες
-
-| Πρότυπο | Πρότυπο ITU-T | Download | Upload | Συμμετρία |
+| Standard | ITU-T Standard | Download | Upload | Symmetry |
 |---|---|---|---|---|
-| **GPON** | G.984 | 2.5 Gbps | 1.25 Gbps | Ασύμμετρο |
-| **XG-PON** | G.987 | 10 Gbps | 2.5 Gbps | Ασύμμετρο |
-| **XGS-PON** | G.9807 | 10 Gbps | 10 Gbps | **Συμμετρικό** |
-| **25G-PON** | (υπό ανάπτυξη) | 25 Gbps | 25 Gbps | Συμμετρικό |
+| **GPON** | G.984 | 2.5 Gbps | 1.25 Gbps | Asymmetric |
+| **XG-PON** | G.987 | 10 Gbps | 2.5 Gbps | Asymmetric |
+| **XGS-PON** | G.9807 | 10 Gbps | 10 Gbps | **Symmetric** |
+| **25G-PON** | In development | 25 Gbps | 25 Gbps | Symmetric |
 
-**Exam Note:** Το **FTTH/XGS-PON** είναι η μόνη από τις τυπικές οικιακές τεχνολογίες που παρέχει πλήρως **συμμετρικό** (ίσο download/upload) bandwidth, καθιστώντας το ιδανικό για εφαρμογές όπως 8K video streaming, cloud backup, τηλεργασία με βίντεο υψηλής ανάλυσης.
+**Exam Note:** **FTTH/XGS-PON** is the only mainstream residential technology providing fully **symmetric** 10 Gbps speeds.
 
-#### Σύγκριση Οικιακών Τεχνολογιών Πρόσβασης
+#### Residential Access Technology Comparison
 
-| Χαρακτηριστικό | DSL (ADSL2+) | DSL (VDSL2) | HFC (DOCSIS 3.1) | FTTH (XGS-PON) |
+| Feature | DSL (ADSL2+) | DSL (VDSL2) | HFC (DOCSIS 3.1) | FTTH (XGS-PON) |
 |---|---|---|---|---|
-| **Φυσικό Μέσο** | Χαλκός | Χαλκός + Ίνα (FTTC) | Ίνα + Ομοαξονικό | Οπτική Ίνα |
-| **Μέγιστο Download** | ~24 Mbps | ~100 Mbps | ~10 Gbps | ~10 Gbps |
-| **Μέγιστο Upload** | ~3.5 Mbps | ~50 Mbps | ~2 Gbps | ~10 Gbps |
-| **Συμμετρία** | Ασύμμετρο | Ασύμμετρο | Ασύμμετρο | **Συμμετρικό** |
-| **Κοινόχρηστο;** | Όχι (dedicated) | Όχι (dedicated) | **Ναι** (shared coax) | Ναι (PON splitter) |
-| **Επίδραση Απόστασης** | Υψηλή | Υψηλή | Ελάχιστη | Ελάχιστη |
-| **Εγκατάσταση** | Εύκολη (υπάρχει χαλκός) | Μέτρια (FTTC) | Εύκολη (υπάρχει coax) | Δύσκολη (νέο δίκτυο) |
-| **Κόστος** | Χαμηλό | Μέτριο | Μέτριο | Υψηλό (αρχικά) |
-| **Τεχνολογική Ωριμότητα** | Legacy | Σε χρήση | Σε χρήση | Μελλοντοστραφές |
+| **Physical Medium** | Copper | Copper + Fiber (FTTC) | Fiber + Coaxial | Optical Fiber |
+| **Max Download** | ~24 Mbps | ~100 Mbps | ~10 Gbps | ~10 Gbps |
+| **Max Upload** | ~3.5 Mbps | ~50 Mbps | ~2 Gbps | ~10 Gbps |
+| **Symmetry** | Asymmetric | Asymmetric | Asymmetric | **Symmetric** |
+| **Shared Medium?** | No (dedicated) | No (dedicated) | **Yes** (shared coax) | Yes (PON splitter) |
+| **Distance Impact** | High | High | Minimal | Minimal |
+| **Deployment Cost** | Low | Moderate | Moderate | High (initial) |
 
 ---
 
-## Εταιρικά / Ιδρυματικά
+## Enterprise / Institutional Access Networks
 *Enterprise / Institutional Access Networks*
 
-Τα **εταιρικά και ιδρυματικά δίκτυα** (enterprise/institutional networks) υπηρετούν χρήστες σε επαγγελματικό πλαίσιο: γραφεία, πανεπιστήμια, νοσοκομεία, data centers. Οι απαιτήσεις τους είναι πολύ υψηλότερες από τις οικιακές: υψηλότερες ταχύτητες, μεγαλύτερη αξιοπιστία, χαμηλότερη καθυστέρηση και αυξημένη ασφάλεια. Η κυρίαρχη τεχνολογία πρόσβασης σε αυτό το περιβάλλον είναι το **Ethernet**.
+Enterprise and institutional networks (offices, universities, data centers) mandate far higher bandwidth, lower latency, superior reliability, and robust security compared to residential networks. **Ethernet** is the dominant access technology in these environments.
 
 ---
 
 ### Ethernet
 *IEEE 802.3*
 
-#### Τι είναι το Ethernet
+#### What is Ethernet
 
-Το **Ethernet** είναι η πλέον διαδεδομένη τεχνολογία **ενσύρματων τοπικών δικτύων (LAN)**. Ορίζεται από τo πρότυπo **IEEE 802.3** και λειτουργεί στα επίπεδα **Physical (Layer 1)** και **Data Link (Layer 2)** του OSI model. Στην εταιρική/ιδρυματική χρήση, το Ethernet αποτελεί τη «ραχοκοκαλιά» (backbone) του εσωτερικού δικτύου που συνδέει χρήστες, servers, και εξοπλισμό πρίν από τη σύνδεσή τους με τον ISP.
+**Ethernet** (IEEE 802.3) is the ubiquitous wired LAN technology operating at OSI **Layer 1 (Physical)** and **Layer 2 (Data Link)**. In enterprise settings, Ethernet serves as the campus backbone connecting hosts, servers, and switches prior to edge router connectivity.
 
-**Αναλογία:** Αν το Internet είναι το παγκόσμιο σύστημα αυτοκινητοδρόμων, το Ethernet είναι το εσωτερικό σύστημα δρόμων ενός campus ή κτιρίου — υψηλής ταχύτητας, αξιόπιστο, και κατευθείαν ελεγχόμενο από τον οργανισμό.
-
-#### Αρχιτεκτονική Εταιρικού Δικτύου
+#### Enterprise Network Architecture
 
 ```
-  Τυπικό Εταιρικό / Ιδρυματικό Δίκτυο
+  Typical Enterprise / Campus Network Architecture
   ─────────────────────────────────────────────────────────────────────
   [Internet / ISP]
          |
-  [Edge Router / Firewall]  ← Gateway προς internet
+  [Edge Router / Firewall]
          |
   [Core Switch] (Layer 3, 10-100 Gbps)
    /       |       \
-  /        |        \
 [Distribution  [Distribution  [Distribution
  Switch]        Switch]        Switch]
 (Layer 3,      (Layer 3,      (Layer 3,
@@ -315,367 +286,208 @@ $$\text{Attenuation (dB)} \propto \sqrt{f} \cdot d$$
   /   \           /   \           /   \
 [Access] [Access] [Access] [Access] [Access] [Access]
 [Switch] [Switch] [Switch] [Switch] [Switch] [Switch]
-(L2,     (L2,     (L2,     (L2,     (L2,     (L2,
- 100Mbps- (1Gbps)  1Gbps)   1Gbps)   1Gbps)   1Gbps)
-  1Gbps)
-  / | \   / | \
-[PC][PC][PC] [PC][PC][PC]  ← End systems (100Mbps-1Gbps)
+(L2, 1Gbps)
+  / | \
+[PC][PC][PC]  ← End systems (1 Gbps links)
 ```
 
-Η αρχιτεκτονική αυτή ονομάζεται **3-tier hierarchical model** (Core – Distribution – Access) και είναι το de facto πρότυπο για enterprise networks.
+This 3-tier hierarchical architecture (Core – Distribution – Access) is the enterprise design standard.
 
-#### Εξέλιξη Ταχύτητας Ethernet
+#### Ethernet Speed Evolution
 
-| Γενιά | Πρότυπο | Ταχύτητα | Μέσο | Τυπική Χρήση |
+| Generation | Standard | Speed | Medium | Typical Application |
 |---|---|---|---|---|
-| **Ethernet** | IEEE 802.3 | 10 Mbps | Coaxial / UTP | Παλιά LAN (1980s) |
-| **Fast Ethernet** | IEEE 802.3u | 100 Mbps | Cat 5 UTP | Access layer (1990s) |
-| **Gigabit Ethernet** | IEEE 802.3ab/z | 1 Gbps | Cat 5e/6 / Fiber | Access / uplinks |
-| **10GbE** | IEEE 802.3ae/an | 10 Gbps | Cat 6a / Fiber | Distribution / servers |
-| **40GbE** | IEEE 802.3ba | 40 Gbps | Fiber | Core switches |
-| **100GbE** | IEEE 802.3ba/bm | 100 Gbps | Fiber | Data center backbone |
-| **400GbE** | IEEE 802.3bs | 400 Gbps | Fiber (SR8, DR4) | Hyperscale data centers |
+| **Ethernet** | IEEE 802.3 | 10 Mbps | Coaxial / UTP | Legacy LANs |
+| **Fast Ethernet** | IEEE 802.3u | 100 Mbps | Cat 5 UTP | Access layer |
+| **Gigabit Ethernet** | IEEE 802.3ab/z | 1 Gbps | Cat 5e/6 / Fiber | Desktop access / uplinks |
+| **10GbE** | IEEE 802.3ae/an | 10 Gbps | Cat 6a / Fiber | Switches / servers |
+| **100GbE** | IEEE 802.3ba/bm | 100 Gbps | Fiber | Data center backbones |
+| **400GbE** | IEEE 802.3bs | 400 Gbps | Fiber | Hyperscale data centers |
 
-**Exam Note:** Η τυπική σύνδεση τελικού χρήστη (PC, workstation) σε εταιρικό δίκτυο είναι **1 Gbps** Ethernet μέσω Cat 5e/6 UTP, ενώ οι uplinks μεταξύ switches χρησιμοποιούν **10 Gbps** ή **100 Gbps** οπτικές ίνες.
+#### Ethernet Operation: CSMA/CD (Legacy) vs Full-Duplex Switched (Modern)
 
-#### Λειτουργία Ethernet: CSMA/CD (Legacy) και Full-Duplex (Σύγχρονο)
+- **CSMA/CD (Carrier Sense Multiple Access / Collision Detection):** Legacy MAC protocol for shared Ethernet hubs. Stations sense carriers before transmitting and abort upon collision detection.
+- **Minimum Frame Size in CSMA/CD:**
+  To guarantee collision detection before transmission finishes:
+  $$t_{trans} \ge 2 \times t_{prop}$$
+  $$L_{min} \ge 2 \times t_{prop} \times R$$
+  *Where $t_{prop}$ is one-way propagation delay between furthest nodes and $R$ is link bandwidth.*
+  
+  *Calculation Example:*
+  For $R = 15 \text{ Mbps}$ and $t_{prop} = 25.6\ \mu s$:
+  $$L_{min} = 2 \times (25.6 \times 10^{-6}) \times (15 \times 10^6) = 768 \text{ bits} \text{ (96 Bytes)}$$
 
-**CSMA/CD (Carrier Sense Multiple Access / Collision Detection):** Το αρχικό πρωτόκολλο ελέγχου πρόσβασης μέσου (MAC protocol) για shared Ethernet (με hubs). Κάθε σταθμός «ακούει» (carrier sense) πριν μεταδώσει και ανιχνεύει συγκρούσεις (collision detection). Πρακτικά **δεν χρησιμοποιείται πλέον** σε σύγχρονα switched Ethernet.
-
-**Ελάχιστο Μέγεθος Πλαισίου (Minimum Frame Size) στο CSMA/CD:**
-Για την αξιόπιστη ανίχνευση σύγκρουσης, ένας σταθμός πρέπει να εξακολουθεί να εκπέμπει το πλαίσιο μέχρι τη στιγμή που ενδεχόμενο σήμα σύγκρουσης θα επιστρέψει σε αυτόν. Συνεπώς, η καθυστέρηση μετάδοσης πρέπει να είναι τουλάχιστον διπλάσια από τη μέγιστη καθυστέρηση διάδοσης:
-$$t_{trans} \ge 2 \times t_{prop}$$
-Επειδή $t_{trans} = \frac{L}{R}$, προκύπτει ο τύπος για το ελάχιστο μέγεθος πλαισίου $L_{min}$:
-$$L_{min} \ge 2 \times t_{prop} \times R$$
-*Όπου $t_{prop}$ είναι η μέγιστη καθυστέρηση διάδοσης μεταξύ των δύο πιο απομακρυσμένων κόμβων και $R$ είναι ο ρυθμός μετάδοσης (Bandwidth).*
-
-**Παράδειγμα Υπολογισμού:**
-Αν ένα δίκτυο CSMA/CD έχει Bandwidth 15 Mbps ($15 \times 10^6$ bps) και ο μέγιστος χρόνος διάδοσης είναι $25.6\ \mu s$ ($25.6 \times 10^{-6}$ s), ποιο είναι το ελάχιστο μέγεθος πλαισίου;
-$$L_{min} = 2 \times (25.6 \times 10^{-6}) \times (15 \times 10^6) = 2 \times 25.6 \times 15 = 768 \text{ bits} \text{ (δηλαδή 96 Bytes)}$$
-
-**Σύγχρονο Switched Ethernet:** Με τη χρήση switches (αντί hubs), κάθε σύνδεση είναι **point-to-point** και **full-duplex** — δεν υπάρχουν πλέον συγκρούσεις. Ο switch χρησιμοποιεί **MAC address table** για να προωθεί frames αποκλειστικά στο σωστό port.
+- **Modern Switched Ethernet:** Uses point-to-point **full-duplex** links connected to Layer 2 switches. Collisions are entirely eliminated.
 
 ```
-  Ethernet Frame: Δομή
+  Ethernet Frame Format
   ─────────────────────────────────────────────────────────────────────
   ┌──────────┬──────────┬──────┬──────────────────────┬─────┐
   │ Preamble │ Dst MAC  │ Src  │      Payload         │ FCS │
   │  8 bytes │  6 bytes │ MAC  │   46 - 1500 bytes    │ 4B  │
   │          │          │ 6 B  │  (Ethernet MTU=1500) │(CRC)│
   └──────────┴──────────┴──────┴──────────────────────┴─────┘
-  FCS (Frame Check Sequence): CRC-32 για ανίχνευση σφαλμάτων
-  MTU (Maximum Transmission Unit): 1500 bytes payload
-```
-
-#### Ethernet ως Access Network για ISP
-
-Σε ιδρυματικό περιβάλλον (πανεπιστήμια, εταιρίες), ο ISP παρέχει συνδεσιμότητα μέσω **dedicated Ethernet leased line** — συχνά **1 Gbps, 10 Gbps ή 100 Gbps** οπτική ίνα μέχρι τον edge router. Αυτό ονομάζεται **Ethernet WAN** ή **Metro Ethernet** και είναι σαφώς πιο αξιόπιστο και ταχύτερο από DSL ή HFC.
-
-```
-  Εταιρικό Access: ISP → Campus
-  ─────────────────────────────────────────────────────────────────────
-  [ISP PoP]
-      |
-  [10/100 Gbps Fiber] ← Dedicated leased line (Metro Ethernet)
-      |
-  [Campus Edge Router]
-      |
-  [Internal Ethernet LAN]
+  FCS: CRC-32 for error detection
+  Ethernet MTU: 1,500 bytes payload
 ```
 
 ---
 
-## Κινητά / Ασύρματα
+## Mobile / Wireless Access Networks
 *Mobile / Wireless Access Networks*
 
-Τα **κινητά και ασύρματα δίκτυα πρόσβασης** επιτρέπουν σύνδεση **χωρίς φυσικό καλώδιο**, με αντάλλαγμα την κινητικότητα (mobility) και την ευελιξία. Διακρίνονται σε **Wi-Fi** (τοπική, ασύρματη πρόσβαση εντός κτιρίου ή campus) και **κυψελωτά δίκτυα** (4G LTE, 5G NR) που καλύπτουν μεγάλες γεωγραφικές περιοχές.
+Wireless access technologies substitute physical cabling for untethered mobility. They fall into **Wi-Fi** (local WLAN coverage) and **cellular networks** (4G LTE, 5G NR wide-area coverage).
 
 ---
 
 ### Wi-Fi
 *IEEE 802.11 — Wireless LAN*
 
-#### Τι είναι το Wi-Fi
+#### What is Wi-Fi
 
-Το **Wi-Fi** είναι οικογένεια ασύρματων πρωτοκόλλων τοπικής δικτύωσης (WLAN) που ορίζεται από τo πρότυπo **IEEE 802.11** και διαχειρίζεται από τη **Wi-Fi Alliance**. Επιτρέπει ασύρματη σύνδεση συσκευών (laptops, smartphones, IoT) με έναν **access point (AP)** που παρέχει πρόσβαση στο LAN και, μέσω αυτού, στο Internet.
-
-**Αναλογία:** Το Wi-Fi είναι σαν μια ασύρματη επέκταση του Ethernet — ο ίδιος «δρόμος», αλλά χωρίς καλώδιο. Ο access point είναι ο «κόμβος» του ασύρματου τμήματος.
-
-#### Αρχιτεκτονική Wi-Fi
+**Wi-Fi** (IEEE 802.11) enables wireless communication between client devices and an **Access Point (AP)** connected to a wired Ethernet LAN.
 
 ```
-  Wi-Fi: Infrastructure Mode (Κυρίαρχος Τρόπος Λειτουργίας)
+  Wi-Fi Infrastructure Mode
   ─────────────────────────────────────────────────────────────────────
-  [Internet / ISP]
-         |
-  [Home/Office Router] ← συχνά ενσωματωμένος AP
-         |        )))  ← ασύρματο σήμα (2.4GHz / 5GHz / 6GHz)
-         |
-  ┌──────┼────────────────────────┐
-  |      |     Wi-Fi Coverage Area|
-  | [Laptop] [Smartphone] [IoT]  |
-  └──────────────────────────────┘
-  (Κάθε συσκευή ανταγωνίζεται για τον ίδιο ασύρματο δίαυλο)
+  [Internet / ISP] ──▶ [Router] ──▶ [Wi-Fi Access Point]
+                                              )))  2.4/5/6 GHz RF
+                                         ┌─────┴─────┐
+                                         |[PC][Phone]|
+                                         └───────────┘
 ```
 
-**BSS (Basic Service Set):** Το βασικό σύνολο επικοινωνίας — ένας AP με τους συνδεδεμένους στo stations (clients). Κάθε BSS έχει μοναδικό **BSSID** (η MAC διεύθυνση του AP) και ένα **SSID** (το «όνομα» του Wi-Fi δικτύου).
+- **BSS (Basic Service Set):** An AP and its associated clients. Identified by **BSSID** (AP MAC address) and **SSID** (network name).
+- **ESS (Extended Service Set):** Multiple BSSs sharing an SSID across a wired distribution system, supporting client **roaming**.
 
-**ESS (Extended Service Set):** Πολλαπλά BSS (πολλοί APs) με το ίδιο SSID, συνδεδεμένοι μέσω ενσύρματου backbone (distribution system). Επιτρέπει **roaming** — η συσκευή μεταπηδά (handoff) από AP σε AP διατηρώντας τη σύνδεση.
+#### Wi-Fi Evolution
 
-#### Τεχνικές Προδιαγραφές Wi-Fi (Εξέλιξη Προτύπων)
-
-| Γενιά | Πρότυπο | Συχνότητες | Μέγ. Ταχύτητα | Τεχνολογία |
+| Generation | Standard | Frequencies | Max Speed | Core Technologies |
 |---|---|---|---|---|
-| Wi-Fi 4 | 802.11n | 2.4 GHz / 5 GHz | 600 Mbps | MIMO, 40 MHz |
+| Wi-Fi 4 | 802.11n | 2.4 / 5 GHz | 600 Mbps | MIMO, 40 MHz |
 | Wi-Fi 5 | 802.11ac | 5 GHz | 3.5 Gbps | MU-MIMO, 80/160 MHz |
 | **Wi-Fi 6** | **802.11ax** | **2.4 / 5 / 6 GHz** | **9.6 Gbps** | **OFDMA, 1024-QAM** |
 | Wi-Fi 7 | 802.11be | 2.4 / 5 / 6 GHz | ~46 Gbps | Multi-Link, 4096-QAM |
 
-**Καίριες Τεχνολογίες Wi-Fi 6 (802.11ax):**
+#### CSMA/CA Access Control
 
-- **OFDMA (Orthogonal Frequency Division Multiple Access):** Χωρίζει το κανάλι σε μικρότερους **Resource Units (RUs)** που εκχωρούνται ταυτόχρονα σε διαφορετικές συσκευές. Αντί ο AP να μεταδίδει σε μία συσκευή τη φορά (802.11ac), τώρα εξυπηρετεί πολλαπλές ταυτόχρονα.
-- **MU-MIMO (Multi-User MIMO):** 8×8 MU-MIMO — έως 8 ροές δεδομένων ταυτόχρονα.
-- **1024-QAM:** Υψηλότερη πυκνότητα bits ανά σύμβολο — 25% αύξηση throughput σε σχέση με 256-QAM.
-- **Target Wake Time (TWT):** Ο AP «συνομολογεί» με κάθε IoT device πότε να ξυπνά — εξοικονομεί μπαταρία.
-- **BSS Coloring:** Αντιμετωπίζει παρεμβολές από γειτονικά δίκτυα (overlapping BSS).
-
-#### CSMA/CA: Πρωτόκολλο Ελέγχου Πρόσβασης
-
-Σε αντίθεση με το Ethernet (CSMA/CD), το Wi-Fi χρησιμοποιεί **CSMA/CA (Collision Avoidance)** επειδή η **ανίχνευση συγκρούσεων (collision detection) είναι αδύνατη** στο ασύρματο μέσο.
+Wi-Fi uses **CSMA/CA (Collision Avoidance)** because wireless collision detection (CSMA/CD) is physically impossible (transmitters blind their own receivers).
 
 ```
-  CSMA/CA: Λογική Αποφυγής Συγκρούσεων
+  CSMA/CA Flow
   ─────────────────────────────────────────────────────────────────────
-  Σταθμός Α θέλει να στείλει:
-  1. Ακούει το κανάλι (Carrier Sense)
-  2. Αν ελεύθερο, αναμένει DIFS (DCF Interframe Space)
-  3. Επιλέγει τυχαίο "backoff" χρόνο (Contention Window)
-  4. Μειώνει backoff μετρητή όσο το κανάλι είναι ελεύθερο
-  5. Μεταδίδει όταν backoff = 0
-  6. Αναμένει ACK από παραλήπτη
-  7. Αν δεν ληφθεί ACK → υποθέτει σύγκρουση → επαναμεταδίδει
+  1. Carrier Sense (Listen to medium)
+  2. If clear, wait DIFS interval
+  3. Choose random backoff timer in Contention Window
+  4. Decrement timer while channel stays clear
+  5. Transmit when backoff = 0
+  6. Await ACK from receiver (retransmit if ACK missing)
 ```
-
-**Key Distinction:** Στο Ethernet (CSMA/CD), η σύγκρουση **ανιχνεύεται άμεσα** και η μετάδοση σταματά. Στο Wi-Fi (CSMA/CA), η σύγκρουση **αποφεύγεται** με τυχαίο backoff, γιατί ο αποστολέας δεν μπορεί να «ακούσει» τη δική του μετάδοση ταυτόχρονα με τη λήψη (half-duplex στο ασύρματο).
-
-#### Συχνότητες Wi-Fi: 2.4 GHz vs 5 GHz vs 6 GHz
-
-| Ζώνη | Κανάλια | Εμβέλεια | Throughput | Παρεμβολές |
-|---|---|---|---|---|
-| **2.4 GHz** | 3 μη-επικαλυπτόμενα | Μεγάλη, διαπερνά τοίχους | Χαμηλό | Υψηλές (πολλά δίκτυα) |
-| **5 GHz** | ~23 μη-επικαλυπτόμενα | Μέτρια | Υψηλό | Μέτριες |
-| **6 GHz** (Wi-Fi 6E) | ~59 μη-επικαλυπτόμενα | Μικρή | Πολύ υψηλό | Ελάχιστες (νέο φάσμα) |
 
 ---
 
 ### 4G / 5G
-*Κυψελωτά Δίκτυα Κινητής Επικοινωνίας*
+*Cellular Mobile Networks*
 
-#### Αρχιτεκτονική Κυψελωτών Δικτύων
+#### Cellular Network Architecture
 
-Τα **κυψελωτά δίκτυα (cellular networks)** διαιρούν τη γεωγραφική περιοχή κάλυψης σε **κυψέλες (cells)** — εξαγωνικές περιοχές (θεωρητικά) που καλύπτονται από έναν **σταθμό βάσης (Base Station — BS)**, γνωστό ως **eNodeB** (4G LTE) ή **gNodeB** (5G NR).
+Cellular networks divide geographical space into **cells**, each served by a **Base Station (BS)** — termed **eNodeB** (4G LTE) or **gNodeB** (5G NR).
 
 ```
-  Αρχιτεκτονική Κυψελωτού Δικτύου
+  Cellular Architecture
   ─────────────────────────────────────────────────────────────────────
-                   [Core Network / EPC (4G) / 5GC (5G)]
+                   [Core Network: EPC (4G) / 5GC (5G)]
                         |           |           |
-               ┌────────┘   ┌───────┘   ┌───────┘
-               |             |           |
-          [eNodeB/gNodeB] [eNodeB] [eNodeB]  ← Base Stations
-          (πύργος+κεραία)
-               |
-         )))))))))))  ← RF σήμα (ασύρματο)
-               |
-      ┌────────┼────────┐
-   [UE]      [UE]      [UE]   ← User Equipment (smartphones, tablets, IoT)
-
-  UE = User Equipment
-  Handover: Μετάβαση UE από κυψέλη σε κυψέλη διατηρώντας τη σύνδεση
+               [eNodeB/gNodeB] [eNodeB] [eNodeB]
+                      ))))))))  RF Coverage
+                     ┌────┴────┐
+                     |[UE] [UE]|  User Equipment
+                     └─────────┘
 ```
 
-**Handover (Μεταποίηση):** Όταν μια κινητή συσκευή μεταβαίνει από τη μία κυψέλη σε άλλη, ο έλεγχος μεταφέρεται αυτόματα από τον παλιό σε νέο BS — χωρίς διακοπή της σύνδεσης. Αυτό είναι το θεμελιώδες πλεονέκτημα των κυψελωτών δικτύων έναντι του Wi-Fi.
+- **Handover:** Automatic transfer of an active connection from one base station to another as user equipment moves.
 
-#### 4G LTE (Long Term Evolution)
+#### 4G LTE
 
-Η **4G LTE** (Long Term Evolution) είναι το πρότυπο 4ης γενιάς κυψελωτής επικοινωνίας, ορισμένο από τον οργανισμό **3GPP (3rd Generation Partnership Project)**.
-
-**Βασικά Χαρακτηριστικά 4G LTE:**
-
-- **Ταχύτητες:** Θεωρητικά έως ~300 Mbps download, ~75 Mbps upload (LTE-Advanced: ~1 Gbps peak).
-- **Καθυστέρηση (Latency):** ~30–70 ms RTT σε πραγματικές συνθήκες.
-- **Τεχνολογία Διαμόρφωσης:** OFDMA (downlink), SC-FDMA (uplink).
-- **Ζώνες Συχνοτήτων:** 700 MHz, 1800 MHz, 2100 MHz, 2600 MHz (ανάλογα με χώρα και operator).
-- **Αρχιτεκτονική Core:** **EPC (Evolved Packet Core)** — πλήρως IP-based (All-IP).
-
-```
-  4G LTE: Αρχιτεκτονική End-to-End
-  ─────────────────────────────────────────────────────────────────────
-  [Smartphone (UE)]
-         |
-  [Ασύρματο Κανάλι LTE]
-         |
-  [eNodeB (Base Station)]
-         |
-  [S1 Interface]
-         |
-  ┌──────┴──────────────────────┐
-  |     EPC (Evolved Packet Core)|
-  |  [MME]  [S-GW]  [P-GW]     |  ← Core network nodes
-  |  (Mobility) (Data) (PDN GW) |
-  └──────────────────────────────┘
-         |
-  [Internet / ISP]
-
-  MME: Mobility Management Entity
-  S-GW: Serving Gateway (δεδομένα εντός δικτύου)
-  P-GW: PDN Gateway (σύνδεση με internet)
-```
+- **Peak Speeds:** ~300 Mbps download, ~75 Mbps upload (LTE-Advanced: ~1 Gbps).
+- **Latency:** ~30–50 ms.
+- **Core Architecture:** **EPC (Evolved Packet Core)** — All-IP network.
 
 #### 5G NR (New Radio)
 
-Η **5G NR (New Radio)** είναι το πρότυπο 5ης γενιάς, σχεδιασμένο για να υποστηρίξει μαζικά διαφορετικές εφαρμογές: από γρήγορη κινητή πρόσβαση έως βιομηχανικό IoT και αυτόνομα οχήματα.
-
-**Ζώνες Συχνοτήτων 5G:**
-
-| Frequency Range | Εύρος Συχνοτήτων | Κάλυψη | Ταχύτητα |
-|---|---|---|---|
-| **FR1 (Sub-6 GHz)** | 410 MHz – 7.125 GHz | Μεγάλη (χιλιόμετρα) | Μέτρια (έως ~4 Gbps) |
-| **FR2 (mmWave)** | 24.25 GHz – 71 GHz | Μικρή (εκατοντάδες μέτρα) | Πολύ υψηλή (έως ~20 Gbps) |
-
-**Key Distinction:** Τα **mmWave (FR2)** συχνοτικά ζεύγη αποδίδουν εξαιρετικές ταχύτητες αλλά έχουν πολύ **μικρή εμβέλεια** και δυσκολεύονται να διαπεράσουν τοίχους ή φύλλωμα δέντρων. Τα **Sub-6 GHz (FR1)** παρέχουν καλύτερη κάλυψη αλλά χαμηλότερες ταχύτητες.
-
-**Τρεις Κατηγορίες Υπηρεσιών 5G (Use Cases):**
+**Frequency Ranges:**
+- **FR1 (Sub-6 GHz):** 410 MHz – 7.125 GHz (Wide coverage, speeds up to 4 Gbps).
+- **FR2 (mmWave):** 24.25 GHz – 71 GHz (Ultra-high speed up to 20 Gbps, short range, poor penetration).
 
 ```
-  5G: Τρίγωνο Υπηρεσιών (ITU IMT-2020)
+  5G Service Triangle (ITU IMT-2020)
   ─────────────────────────────────────────────────────────────────────
             eMBB (Enhanced Mobile Broadband)
-             /\  ← Streaming, VR/AR, υψηλή ταχύτητα
-            /  \    (έως 20 Gbps peak)
+             /\  ← High throughput (streaming, AR/VR)
+            /  \
            /    \
-          /      \
   URLLC  /________\  mMTC
- (Ultra   Reliable    (Massive Machine
-  Low     Latency     Type Comm.)
-  Comm.)  ~1ms         ← IoT: εκατ. συσκευές/km²
-  ← Αυτόνομα οχήματα,
-    χειρουργικά ρομπότ
+  (Ultra-Reliable    (Massive Machine-Type
+   Low-Latency)       Comm: 1M IoT devices/km²)
+   ← <1ms latency: autonomous vehicles, robotics
 ```
 
-- **eMBB (Enhanced Mobile Broadband):** Υψηλές ταχύτητες για streaming, VR/AR. Θεωρητικό peak: 20 Gbps.
-- **URLLC (Ultra-Reliable Low-Latency Communications):** Καθυστέρηση κάτω από 1 ms. Απαιτείται για αυτόνομα οχήματα, βιομηχανικούς αυτοματισμούς.
-- **mMTC (Massive Machine Type Communications):** Υποστήριξη εκατομμυρίων IoT συσκευών ανά km² με χαμηλή κατανάλωση ενέργειας.
+**Key 5G Technologies:** Massive MIMO, Beamforming, Network Slicing, Edge Computing (MEC).
 
-**Βασικές Τεχνικές Τεχνολογίες 5G:**
+#### Wi-Fi vs Cellular Comparison
 
-| Τεχνολογία | Λειτουργία | Πλεονέκτημα |
-|---|---|---|
-| **Massive MIMO** | Δεκάδες κεραίες ανά BS | Αύξηση χωρητικότητας, beamforming |
-| **Beamforming** | Κατεύθυνση σήματος στον χρήστη | Λιγότερες παρεμβολές, μεγαλύτερη εμβέλεια mmWave |
-| **Network Slicing** | Εικονικά «κομμάτια» δικτύου | Ξεχωριστές SLA για κάθε use case |
-| **Edge Computing (MEC)** | Επεξεργασία κοντά στον χρήστη | Μείωση latency για URLLC |
-| **OFDM με Flexible Numerology** | Ευέλικτο subcarrier spacing | Προσαρμογή σε FR1/FR2 |
-
-#### Σύγκριση 4G LTE vs 5G NR
-
-| Χαρακτηριστικό | 4G LTE | 5G NR |
-|---|---|---|
-| **Μέγιστη Ταχύτητα (Peak)** | ~1 Gbps (LTE-A) | ~20 Gbps |
-| **Καθυστέρηση (Latency)** | ~10–50 ms | < 1 ms (URLLC) |
-| **Φάσμα** | Sub-3 GHz | Sub-6 GHz + mmWave |
-| **Πυκνότητα Συσκευών** | ~100K/km² | ~1M/km² |
-| **Αρχιτεκτονική Core** | EPC (Centralized) | 5GC (Cloud-native, SBA) |
-| **Κύρια Εφαρμογή** | Smartphone internet | eMBB + URLLC + mMTC |
-| **MIMO** | 4x4 MIMO | Massive MIMO (32–256 κεραίες) |
-
-#### Wi-Fi vs Κυψελωτά: Συμπληρωματικές Τεχνολογίες
-
-| Χαρακτηριστικό | Wi-Fi (802.11ax) | 4G LTE | 5G NR |
+| Feature | Wi-Fi 6 (802.11ax) | 4G LTE | 5G NR |
 |---|---|---|---|
-| **Φάσμα** | Αδειοδοτηθέν (unlicensed) | Αδειοδοτηθέν (licensed) | Αδειοδοτηθέν |
-| **Κάλυψη** | Τοπική (~100m) | Ευρεία (km) | Ευρεία (+ mmWave τοπική) |
-| **Κινητικότητα** | Περιορισμένη | Πλήρης (handover) | Πλήρης |
-| **Κόστος Χρήσης** | Δωρεάν (εσωτερικά) | Συνδρομή operator | Συνδρομή operator |
-| **Ταχύτητα (Πρακτική)** | ~500 Mbps σε καλές συνθήκες | ~50–200 Mbps | ~100 Mbps – 5 Gbps |
+| **Spectrum** | Unlicensed (free) | Licensed | Licensed |
+| **Coverage** | Local (~100m) | Wide-area (km) | Wide-area + mmWave cells |
+| **Mobility** | Limited | High (handover) | High (handover) |
 | **Latency** | ~5–20 ms | ~30–50 ms | < 1 ms (URLLC) |
 
-**Exam Note:** Wi-Fi και κυψελωτά δίκτυα **δεν ανταγωνίζονται** — είναι **συμπληρωματικά**. Το Wi-Fi εξυπηρετεί εσωτερική (indoor) σύνδεση με χαμηλό κόστος, ενώ τα 4G/5G παρέχουν ubiquitous κάλυψη εξωτερικού χώρου με κινητικότητα. Τα σύγχρονα smartphones χρησιμοποιούν αυτόματη επιλογή μεταξύ Wi-Fi και cellular.
-
 ---
 
-## Αριθμητικό Παράδειγμα
-*Worked Numerical Example: Σύγκριση Καθυστερήσεων σε Τεχνολογίες Πρόσβασης*
+## Worked Numerical Example
+*Access Technology Transfer Time Comparison*
 
-**Σενάριο:** Ένας χρήστης κατεβάζει ένα αρχείο μεγέθους $F = 10 \text{ MB} = 80 \times 10^6 \text{ bits}$ μέσω τριών διαφορετικών τεχνολογιών πρόσβασης. Υπολογισμός του χρόνου μετάδοσης (transmission time) για κάθε τεχνολογία, αγνοώντας διάδοση και queuing delay.
+**Scenario:** A user downloads a file of size $F = 10 \text{ MB} = 80 \times 10^6 \text{ bits}$ across different access technologies. Compute theoretical transmission time $T_{trans} = F / R$.
 
-**Φόρμουλα:**
-
-$$T_{trans} = \frac{F}{R}$$
-
-Όπου $F$ = μέγεθος αρχείου (bits), $R$ = bandwidth (bps).
-
-**Βήμα 1: Υπολογισμός για κάθε τεχνολογία**
-
-| Τεχνολογία | Bandwidth $R$ | $T_{trans} = F/R$ |
+| Technology | Bandwidth $R$ | $T_{trans} = F / R$ |
 |---|---|---|
-| ADSL (download) | 24 Mbps = $24 \times 10^6$ bps | $\frac{80 \times 10^6}{24 \times 10^6} = 3.33 \text{ s}$ |
-| HFC DOCSIS 3.1 | 1 Gbps = $10^9$ bps | $\frac{80 \times 10^6}{10^9} = 0.08 \text{ s} = 80 \text{ ms}$ |
-| FTTH XGS-PON | 10 Gbps = $10^{10}$ bps | $\frac{80 \times 10^6}{10^{10}} = 0.008 \text{ s} = 8 \text{ ms}$ |
-| Wi-Fi 6 (πρακτικά) | 500 Mbps = $5 \times 10^8$ bps | $\frac{80 \times 10^6}{5 \times 10^8} = 0.16 \text{ s} = 160 \text{ ms}$ |
-| 4G LTE (πρακτικά) | 100 Mbps = $10^8$ bps | $\frac{80 \times 10^6}{10^8} = 0.8 \text{ s}$ |
-| 5G NR (Sub-6, πρακτικά) | 500 Mbps = $5 \times 10^8$ bps | $\frac{80 \times 10^6}{5 \times 10^8} = 0.16 \text{ s} = 160 \text{ ms}$ |
+| ADSL (download) | 24 Mbps | $\frac{80 \times 10^6}{24 \times 10^6} = 3.33 \text{ s}$ |
+| HFC DOCSIS 3.1 | 1 Gbps | $\frac{80 \times 10^6}{10^9} = 0.08 \text{ s} = 80 \text{ ms}$ |
+| FTTH XGS-PON | 10 Gbps | $\frac{80 \times 10^6}{10^{10}} = 0.008 \text{ s} = 8 \text{ ms}$ |
+| Wi-Fi 6 (practical) | 500 Mbps | $\frac{80 \times 10^6}{5 \times 10^8} = 0.16 \text{ s} = 160 \text{ ms}$ |
+| 4G LTE (practical) | 100 Mbps | $\frac{80 \times 10^6}{10^8} = 0.8 \text{ s}$ |
+| 5G NR (Sub-6) | 500 Mbps | $\frac{80 \times 10^6}{5 \times 10^8} = 0.16 \text{ s} = 160 \text{ ms}$ |
 
-**Βήμα 2: Ανάλυση**
-
-Η σύγκριση αναδεικνύει ότι το FTTH (XGS-PON) στα 10 Gbps είναι **416 φορές ταχύτερο** από ADSL 24 Mbps για το ίδιο αρχείο:
-
-$$\text{Speedup} = \frac{T_{ADSL}}{T_{FTTH}} = \frac{3.33 \text{ s}}{0.008 \text{ s}} = 416\times$$
-
-**Key Observation:** Σε πρακτικές συνθήκες, ο χρόνος λήψης επηρεάζεται επίσης από:
-- Το bandwidth του server (δεν είναι πάντα 10 Gbps).
-- Το congestion window του TCP (αρχικά χαμηλό).
-- Τον αριθμό hops και το propagation delay.
-- Στο HFC, το **shared medium** μειώνει το πραγματικό bandwidth σε ώρες αιχμής.
+**Conclusion:** FTTH XGS-PON is **416x faster** than 24 Mbps ADSL for downloading this file.
 
 ---
 
-## Συγκεντρωτικός Πίνακας
+## Summary Table
 
-| Τεχνολογία | Φυσικό Μέσο | Τυπικό Download | Τυπικό Upload | Κοινόχρηστο; | OSI Layer |
+| Technology | Medium | Download | Upload | Shared Medium? | OSI Layer |
 |---|---|---|---|---|---|
-| **ADSL** | Χαλκός (τηλ. γραμμή) | 1–24 Mbps | 0.5–3.5 Mbps | Όχι | L1/L2 |
-| **VDSL2** | Χαλκός + Ίνα (FTTC) | 30–100 Mbps | 10–50 Mbps | Όχι | L1/L2 |
-| **HFC (DOCSIS 3.1)** | Ίνα + Ομοαξονικό | έως 10 Gbps | έως 2 Gbps | **Ναι** (coax) | L1/L2 |
-| **FTTH (GPON)** | Οπτική Ίνα | 2.5 Gbps | 1.25 Gbps | Ναι (PON) | L1/L2 |
-| **FTTH (XGS-PON)** | Οπτική Ίνα | 10 Gbps | 10 Gbps | Ναι (PON) | L1/L2 |
-| **Ethernet (1GbE)** | UTP Cat5e/6 | 1 Gbps | 1 Gbps | Όχι (switched) | L1/L2 |
-| **Ethernet (10GbE)** | UTP Cat6a / Fiber | 10 Gbps | 10 Gbps | Όχι (switched) | L1/L2 |
-| **Wi-Fi 6 (802.11ax)** | Ραδιο (2.4/5/6 GHz) | ~600 Mbps–9.6 Gbps | Ίδιο | **Ναι** (shared RF) | L1/L2 |
-| **4G LTE** | Ραδιο (sub-3 GHz) | ~50–300 Mbps | ~25–75 Mbps | **Ναι** (shared cell) | L1/L2 |
-| **5G NR (FR1)** | Ραδιο (sub-6 GHz) | ~100 Mbps–4 Gbps | Υψηλό | **Ναι** (shared cell) | L1/L2 |
-| **5G NR (mmWave)** | Ραδιο (24–71 GHz) | έως 20 Gbps | Υψηλό | **Ναι** (shared cell) | L1/L2 |
+| **ADSL** | Copper | 1–24 Mbps | 0.5–3.5 Mbps | No (dedicated) | L1/L2 |
+| **VDSL2** | Copper + Fiber | 30–100 Mbps | 10–50 Mbps | No (dedicated) | L1/L2 |
+| **HFC (DOCSIS 3.1)** | Fiber + Coax | Up to 10 Gbps | Up to 2 Gbps | **Yes** (coax) | L1/L2 |
+| **FTTH (GPON)** | Optical Fiber | 2.5 Gbps | 1.25 Gbps | Yes (PON) | L1/L2 |
+| **FTTH (XGS-PON)** | Optical Fiber | 10 Gbps | 10 Gbps | Yes (PON) | L1/L2 |
+| **Ethernet (1GbE)** | UTP Cat5e/6 | 1 Gbps | 1 Gbps | No (switched) | L1/L2 |
+| **Wi-Fi 6 (802.11ax)** | RF (2.4/5/6 GHz) | Up to 9.6 Gbps | Same | **Yes** (RF) | L1/L2 |
+| **4G LTE** | RF (sub-3 GHz) | ~50–300 Mbps | ~25–75 Mbps | **Yes** (cell) | L1/L2 |
+| **5G NR (Sub-6)** | RF (sub-6 GHz) | ~100 Mbps–4 Gbps | High | **Yes** (cell) | L1/L2 |
+| **5G NR (mmWave)** | RF (24–71 GHz) | Up to 20 Gbps | High | **Yes** (cell) | L1/L2 |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-- Η **DSL** αξιοποιεί υπάρχουσα τηλεφωνική υποδομή χαλκού, αλλά η ταχύτητά της υποβαθμίζεται δραστικά με την απόσταση από το Central Office — αυτό είναι το κυριότερο μειονέκτημά της.
-
-- Η **ADSL** είναι ασύμμετρη (download >> upload) σκόπιμα για οικιακή χρήση, ενώ η **SDSL** παρέχει συμμετρική σύνδεση για επαγγελματικές ανάγκες.
-
-- Το **HFC** χρησιμοποιεί οπτική ίνα μέχρι τον κόμβο γειτονιάς και ομοαξονικό στην τελευταία μίλια. Το ομοαξονικό τμήμα είναι **κοινόχρηστο** — η πραγματική ταχύτητα εξαρτάται από το φορτίο των γειτονικών χρηστών.
-
-- Το **FTTH** φέρνει οπτική ίνα απευθείας στο σπίτι μέσω αρχιτεκτονικής **PON** (OLT → Splitter → ONT). Είναι η μοναδική τεχνολογία που παρέχει πλήρως **συμμετρική** υψηλή ταχύτητα (XGS-PON: 10 Gbps/10 Gbps).
-
-- Το **Ethernet** κυριαρχεί στα εταιρικά δίκτυα, χρησιμοποιώντας ιεραρχική αρχιτεκτονική (Core–Distribution–Access) και εξυπηρετεί ταχύτητες από 100 Mbps (access) έως 400 Gbps (data center backbone).
-
-- Το **Wi-Fi** (IEEE 802.11ax/Wi-Fi 6) παρέχει ασύρματη πρόσβαση εντός κτιρίου. Χρησιμοποιεί **CSMA/CA** (όχι CD) και τεχνολογίες **OFDMA** και **MU-MIMO** για αποδοτική εξυπηρέτηση πολλών συσκευών ταυτόχρονα.
-
-- Τα **κυψελωτά δίκτυα (4G/5G)** διαιρούν την κάλυψη σε κυψέλες (cells) με base stations, υποστηρίζοντας **handover** (αδιάλειπτη μετάβαση μεταξύ κυψελών) — αυτό είναι το θεμελιώδες πλεονέκτημα έναντι Wi-Fi.
-
-- Το **5G** υποστηρίζει τρία διαφορετικά επίπεδα υπηρεσιών: **eMBB** (υψηλές ταχύτητες), **URLLC** (< 1 ms latency) και **mMTC** (εκατ. IoT συσκευές/km²).
-
-- **Key Distinction:** Οι τεχνολογίες πρόσβασης λειτουργούν πάντα στα **Layer 1 (Physical)** και **Layer 2 (Data Link)** του OSI model — ο router/ISP αναλαμβάνει από Layer 3 και πάνω.
-
-- **Exam Note:** Σε κάθε εξέταση, να αναγνωρίζεται αν ένα access medium είναι **dedicated** (DSL, Ethernet switched) ή **shared** (HFC coax, Wi-Fi, 4G/5G cell) — αυτό καθορίζει αν το bandwidth επηρεάζεται από τους συνδεδεμένους χρήστες.
+- **DSL** reuses legacy copper pairs, but performance drops severely with distance from the CO.
+- **HFC** combines fiber backhaul with shared coaxial last-mile distribution; peak traffic degrades per-user speeds.
+- **FTTH (XGS-PON)** delivers end-to-end optical fiber offering symmetric 10 Gbps speeds.
+- **Ethernet** dominates campus networks in 3-tier topologies (Core–Distribution–Access).
+- **Wi-Fi 6** uses **CSMA/CA**, **OFDMA**, and **MU-MIMO** for high-density WLAN access.
+- **Cellular networks (4G/5G)** provide wide-area mobility through cell **handover**.
+- **5G** defines three service profiles: **eMBB** (throughput), **URLLC** (<1ms latency), and **mMTC** (massive IoT density).
+- Access technologies operate strictly at **Layer 1 (Physical)** and **Layer 2 (Data Link)**.
+- **Exam Note:** Distinguish between **dedicated** (DSL, switched Ethernet) and **shared** media (HFC coax, Wi-Fi, cellular) to determine bandwidth contention risks.

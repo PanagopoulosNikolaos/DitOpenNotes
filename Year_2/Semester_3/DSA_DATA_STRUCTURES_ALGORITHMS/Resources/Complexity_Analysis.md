@@ -1,73 +1,73 @@
-# Υπολογισμός Πολυπλοκότητας Αλγορίθμων σε C++
+# Algorithm Complexity Analysis in C++
 
-## Εισαγωγή
+## Introduction
 
-Η πολυπλοκότητα ενός αλγορίθμου είναι ένα μέτρο που δείχνει πόσος χρόνος ή μνήμη απαιτείται για την εκτέλεση του αλγορίθμου σε σχέση με το μέγεθος της εισόδου. Η ανάλυση πολυπλοκότητας είναι κρίσιμη για την επιλογή του κατάλληλου αλγορίθμου και τη βελτιστοποίηση του κώδικα.
+The complexity of an algorithm is a measure that shows how much time or memory is required to execute the algorithm relative to the size of the input. Complexity analysis is critical for choosing the appropriate algorithm and optimizing the code.
 
-## Συμβολισμός Big O
+## Big O Notation
 
-Ο συμβολισμός Big O (Ο μεγάλο) χρησιμοποιείται για να περιγράψει την ανώτερη φραγμένη πολυπλοκότητας ενός αλγορίθμου. Αντιπροσωπεύει τη χειρότερη περίπτωση εκτέλεσης.
+Big O notation (O big) is used to describe the upper bound complexity of an algorithm. It represents the worst-case execution.
 
-### Βασικές Κατηγορίες Πολυπλοκότητας
+### Basic Complexity Categories
 
-1. **O(1) - Σταθερή Πολυπλοκότητα**
-   - Ο χρόνος εκτέλεσης δεν εξαρτάται από το μέγεθος της εισόδου
-   - Παράδειγμα: Πρόσβαση σε στοιχείο πίνακα με δείκτη
+1. **O(1) - Constant Complexity**
+   - The execution time does not depend on the size of the input
+   - Example: Accessing an array element by index
 
-2. **O(log n) - Λογαριθμική Πολυπλοκότητα**
-   - Ο χρόνος εκτέλεσης αυξάνεται λογαριθμικά με το μέγεθος της εισόδου
-   - Παράδειγμα: Δυαδική αναζήτηση
+2. **O(log n) - Logarithmic Complexity**
+   - The execution time increases logarithmically with the size of the input
+   - Example: Binary search
 
-3. **O(n) - Γραμμική Πολυπλοκότητα**
-   - Ο χρόνος εκτέλεσης αυξάνεται ανάλογα με το μέγεθος της εισόδου
-   - Παράδειγμα: Γραμμική αναζήτηση
+3. **O(n) - Linear Complexity**
+   - The execution time increases linearly with the size of the input
+   - Example: Linear search
 
-4. **O(n log n) - Γραμμικολογαριθμική Πολυπλοκότητα**
-   - Παράδειγμα: Ταξινόμηση με συγχώνευση (Merge Sort)
+4. **O(n log n) - Linearithmic Complexity**
+   - Example: Merge Sort
 
-5. **O(n²) - Τετραγωνική Πολυπλοκότητα**
-   - Ο χρόνος εκτέλεσης αυξάνεται ανάλογα με το τετράγωνο του μεγέθους της εισόδου
-   - Παράδειγμα: Φυσαλίδωση (Bubble Sort)
+5. **O(n²) - Quadratic Complexity**
+   - The execution time increases proportionally to the square of the input size
+   - Example: Bubble Sort
 
-6. **O(2^n) - Εκθετική Πολυπλοκότητα**
-   - Ο χρόνος εκτέλεσης διπλασιάζεται με κάθε προσθήκη στοιχείου στην είσοδο
-   - Παράδειγμα: Αναδρομικός υπολογισμός αριθμών Fibonacci
+6. **O(2^n) - Exponential Complexity**
+   - The execution time doubles with each addition of an element to the input
+   - Example: Recursive Fibonacci number calculation
 
-7. **O(n!) - Παραγοντική Πολυπλοκότητα**
-   - Ο χρόνος εκτέλεσης αυξάνεται παραγοντικά με το μέγεθος της εισόδου
-   - Παράδειγμα: Πρόβλημα του περιπλανώμενου πωλητή
+7. **O(n!) - Factorial Complexity**
+   - The execution time increases factorially with the size of the input
+   - Example: Traveling Salesman Problem
 
-## Βήμα-Βήμα Ανάλυση Πολυπλοκότητας
+## Step-by-Step Complexity Analysis
 
-### Βήμα 1: Αναγνώριση Βασικών Πράξεων
+### Step 1: Identifying Basic Operations
 
-Πρέπει να προσδιορίσουμε ποιες πράξεις θεωρούνται "βασικές" και μετρούνται:
-- Ανάθεση τιμής σε μεταβλητή
-- Μαθηματικές πράξεις
-- Συγκρίσεις
-- Πρόσβαση σε στοιχεία πίνακα
-- Κλήσεις συναρτήσεων
+We need to determine which operations are considered "basic" and are counted:
+- Value assignment to a variable
+- Mathematical operations
+- Comparisons
+- Accessing array elements
+- Function calls
 
-### Βήμα 2: Μέτρηση Επαναλήψεων
+### Step 2: Counting Iterations
 
-Πρέπει να μετρήσουμε πόσες φορές εκτελείται κάθε βασική πράξη σε σχέση με το μέγεθος της εισόδου.
+We need to count how many times each basic operation is executed relative to the size of the input.
 
-### Βήμα 3: Απλοποίηση
+### Step 3: Simplification
 
-Αγνοούμε σταθερούς παράγοντες και όρους χαμηλότερης τάξης, κρατώντας μόνο τον όρο υψηλότερης τάξης.
+We ignore constant factors and lower-order terms, keeping only the highest-order term.
 
-## Παραδείγματα Ανάλυσης Πολυπλοκότητας
+## Complexity Analysis Examples
 
-### Παράδειγμα 1: Σταθερή Πολυπλοκότητα O(1)
+### Example 1: Constant Complexity O(1)
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Συνάρτηση με σταθερή πολυπλοκότητα
+// Function with constant complexity
 int getFirstElement(int arr[], int n) {
-    // Πρόσβαση σε στοιχείο πίνακα με δείκτη
-    // Ο χρόνος εκτέλεσης είναι πάντα ο ίδιος
+    // Accessing an array element by index
+    // The execution time is always the same
     return arr[0];
 }
 
@@ -75,62 +75,62 @@ int main() {
     int arr[] = {10, 20, 30, 40, 50};
     int n = sizeof(arr) / sizeof(arr[0]);
     
-    cout << "Πρώτο στοιχείο: " << getFirstElement(arr, n) << endl;
+    cout << "First element: " << getFirstElement(arr, n) << endl;
     return 0;
 }
 ```
 
-**Ανάλυση:**
-- Η συνάρτηση `getFirstElement` εκτελεί μόνο μία πράξη (πρόσβαση σε στοιχείο πίνακα)
-- Ο χρόνος εκτέλεσης δεν εξαρτάται από το n
-- **Πολυπλοκότητα: O(1)**
+**Analysis:**
+- The `getFirstElement` function performs only one operation (accessing an array element)
+- The execution time does not depend on n
+- **Complexity: O(1)**
 
-### Παράδειγμα 2: Γραμμική Πολυπλοκότητα O(n)
+### Example 2: Linear Complexity O(n)
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Συνάρτηση με γραμμική πολυπλοκότητα
+// Function with linear complexity
 int sumArray(int arr[], int n) {
-    int sum = 0;                    // 1 πράξη
+    int sum = 0;                    // 1 operation
     
-    for (int i = 0; i < n; i++) {   // Επανάληψη n φορές
-        sum += arr[i];              // 1 πράξη ανά επανάληψη
+    for (int i = 0; i < n; i++) {   // Loop n times
+        sum += arr[i];              // 1 operation per iteration
     }
     
-    return sum;                     // 1 πράξη
+    return sum;                     // 1 operation
 }
 
 int main() {
     int arr[] = {1, 2, 3, 4, 5};
     int n = sizeof(arr) / sizeof(arr[0]);
     
-    cout << "Άθροισμα: " << sumArray(arr, n) << endl;
+    cout << "Sum: " << sumArray(arr, n) << endl;
     return 0;
 }
 ```
 
-**Ανάλυση:**
-- Αρχικοποίηση `sum = 0`: 1 πράξη
-- Βρόχος `for`: εκτελείται n φορές
-  - Κάθε επανάληψη: 1 πράξη (`sum += arr[i]`)
-  - Συνολικά: n πράξεις
-- Επιστροφή αποτελέσματος: 1 πράξη
-- **Συνολικές πράξεις: 1 + n + 1 = n + 2**
-- **Πολυπλοκότητα: O(n)** (αγνοούμε τους σταθερούς όρους)
+**Analysis:**
+- Initialization `sum = 0`: 1 operation
+- `for` loop: executes n times
+  - Each iteration: 1 operation (`sum += arr[i]`)
+  - Total: n operations
+- Return result: 1 operation
+- **Total operations: 1 + n + 1 = n + 2**
+- **Complexity: O(n)** (ignoring constant terms)
 
-### Παράδειγμα 3: Τετραγωνική Πολυπλοκότητα O(n²)
+### Example 3: Quadratic Complexity O(n²)
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Συνάρτηση με τετραγωνική πολυπλοκότητα
+// Function with quadratic complexity
 void printPairs(int arr[], int n) {
-    for (int i = 0; i < n; i++) {           // Εξωτερικός βρόχος: n επαναλήψεις
-        for (int j = 0; j < n; j++) {       // Εσωτερικός βρόχος: n επαναλήψεις
-            cout << "(" << arr[i] << ", " << arr[j] << ") ";  // 1 πράξη ανά επανάληψη
+    for (int i = 0; i < n; i++) {           // Outer loop: n iterations
+        for (int j = 0; j < n; j++) {       // Inner loop: n iterations
+            cout << "(" << arr[i] << ", " << arr[j] << ") ";  // 1 operation per iteration
         }
         cout << endl;
     }
@@ -140,44 +140,44 @@ int main() {
     int arr[] = {1, 2, 3};
     int n = sizeof(arr) / sizeof(arr[0]);
     
-    cout << "Όλα τα ζεύγη:" << endl;
+    cout << "All pairs:" << endl;
     printPairs(arr, n);
     return 0;
 }
 ```
 
-**Ανάλυση:**
-- Εξωτερικός βρόχος: εκτελείται n φορές
-- Για κάθε επανάληψη του εξωτερικού βρόχου, ο εσωτερικός βρόχος εκτελείται n φορές
-- Συνολικά: n × n = n² επαναλήψεις
-- **Πολυπλοκότητα: O(n²)**
+**Analysis:**
+- Outer loop: executes n times
+- For each iteration of the outer loop, the inner loop executes n times
+- Total: n × n = n² iterations
+- **Complexity: O(n²)**
 
-### Παράδειγμα 4: Λογαριθμική Πολυπλοκότητα O(log n)
+### Example 4: Logarithmic Complexity O(log n)
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Δυαδική αναζήτηση με λογαριθμική πολυπλοκότητα
+// Binary search with logarithmic complexity
 int binarySearch(int arr[], int n, int target) {
-    int left = 0;                   // 1 πράξη
-    int right = n - 1;              // 1 πράξη
+    int left = 0;                   // 1 operation
+    int right = n - 1;              // 1 operation
     
-    while (left <= right) {         // Επανάληψη μέχρι να βρεθεί το στοιχείο
-        int mid = left + (right - left) / 2;  // 1 πράξη
+    while (left <= right) {         // Loop until element is found
+        int mid = left + (right - left) / 2;  // 1 operation
         
-        if (arr[mid] == target) {   // 1 πράξη
-            return mid;             // Βρέθηκε
+        if (arr[mid] == target) {   // 1 operation
+            return mid;             // Found
         }
         
-        if (arr[mid] < target) {    // 1 πράξη
-            left = mid + 1;         // 1 πράξη
+        if (arr[mid] < target) {    // 1 operation
+            left = mid + 1;         // 1 operation
         } else {
-            right = mid - 1;        // 1 πράξη
+            right = mid - 1;        // 1 operation
         }
     }
     
-    return -1;  // Δεν βρέθηκε
+    return -1;  // Not found
 }
 
 int main() {
@@ -188,38 +188,38 @@ int main() {
     int result = binarySearch(arr, n, target);
     
     if (result != -1) {
-        cout << "Το στοιχείο " << target << " βρέθηκε στη θέση " << result << endl;
+        cout << "Element " << target << " found at position " << result << endl;
     } else {
-        cout << "Το στοιχείο " << target << " δεν βρέθηκε" << endl;
+        cout << "Element " << target << " not found" << endl;
     }
     
     return 0;
 }
 ```
 
-**Ανάλυση:**
-- Σε κάθε επανάληψη, το εύρος αναζήτησης υποδιπλασιάζεται
-- Αρχικό εύρος: n
-- Μετά από 1 επανάληψη: n/2
-- Μετά από 2 επαναλήψεις: n/4
+**Analysis:**
+- In each iteration, the search range is halved
+- Initial range: n
+- After 1 iteration: n/2
+- After 2 iterations: n/4
 - ...
-- Μετά από k επαναλήψεις: n/2^k
-- Η αναζήτηση τερματίζει όταν n/2^k = 1, δηλαδή k = log₂(n)
-- **Πολυπλοκότητα: O(log n)**
+- After k iterations: n/2^k
+- The search terminates when n/2^k = 1, i.e., k = log₂(n)
+- **Complexity: O(log n)**
 
-### Παράδειγμα 5: Εκθετική Πολυπλοκότητα O(2^n)
+### Example 5: Exponential Complexity O(2^n)
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-// Αναδρομικός υπολογισμός αριθμών Fibonacci
+// Recursive Fibonacci number calculation
 int fibonacci(int n) {
-    if (n <= 1) {                   // 1 πράξη
-        return n;                   // 1 πράξη
+    if (n <= 1) {                   // 1 operation
+        return n;                   // 1 operation
     }
     
-    return fibonacci(n - 1) + fibonacci(n - 2);  // 2 αναδρομικές κλήσεις
+    return fibonacci(n - 1) + fibonacci(n - 2);  // 2 recursive calls
 }
 
 int main() {
@@ -230,66 +230,66 @@ int main() {
 }
 ```
 
-**Ανάλυση:**
-- Κάθε κλήση της `fibonacci` δημιουργεί 2 νέες αναδρομικές κλήσεις
-- Το δέντρο αναδρομής έχει βάθος n
-- Ο αριθμός των κλήσεων αυξάνεται εκθετικά
-- **Πολυπλοκότητα: O(2^n)**
+**Analysis:**
+- Each call to `fibonacci` creates 2 new recursive calls
+- The recursion tree has depth n
+- The number of calls increases exponentially
+- **Complexity: O(2^n)**
 
-### Παράδειγμα 6: Γραμμικολογαριθμική Πολυπλοκότητα O(n log n)
+### Example 6: Linearithmic Complexity O(n log n)
 
 ```cpp
 #include <iostream>
 #include <vector>
 using namespace std;
 
-// Ταξινόμηση με συγχώνευση (Merge Sort)
+// Merge Sort
 void merge(vector<int>& arr, int left, int mid, int right) {
-    int n1 = mid - left + 1;        // 1 πράξη
-    int n2 = right - mid;           // 1 πράξη
+    int n1 = mid - left + 1;        // 1 operation
+    int n2 = right - mid;           // 1 operation
     
-    vector<int> L(n1), R(n2);       // Δημιουργία προσωρινών πινάκων
+    vector<int> L(n1), R(n2);       // Create temporary arrays
     
-    // Αντιγραφή δεδομένων στους προσωρινούς πίνακες
-    for (int i = 0; i < n1; i++)    // n1 επαναλήψεις
+    // Copy data to temporary arrays
+    for (int i = 0; i < n1; i++)    // n1 iterations
         L[i] = arr[left + i];
-    for (int j = 0; j < n2; j++)    // n2 επαναλήψεις
+    for (int j = 0; j < n2; j++)    // n2 iterations
         R[j] = arr[mid + 1 + j];
     
-    // Συγχώνευση των προσωρινών πινάκων
+    // Merge the temporary arrays
     int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2) {      // Μέχρι να εξαντληθούν οι πίνακες
-        if (L[i] <= R[j]) {         // 1 πράξη
-            arr[k] = L[i];          // 1 πράξη
-            i++;                    // 1 πράξη
+    while (i < n1 && j < n2) {      // Until arrays are exhausted
+        if (L[i] <= R[j]) {         // 1 operation
+            arr[k] = L[i];          // 1 operation
+            i++;                    // 1 operation
         } else {
-            arr[k] = R[j];          // 1 πράξη
-            j++;                    // 1 πράξη
+            arr[k] = R[j];          // 1 operation
+            j++;                    // 1 operation
         }
-        k++;                        // 1 πράξη
+        k++;                        // 1 operation
     }
     
-    // Αντιγραφή των υπολειπόμενων στοιχείων
-    while (i < n1) {                // Μέχρι να εξαντληθεί ο L
-        arr[k] = L[i];              // 1 πράξη
-        i++;                        // 1 πράξη
-        k++;                        // 1 πράξη
+    // Copy remaining elements
+    while (i < n1) {                // Until L is exhausted
+        arr[k] = L[i];              // 1 operation
+        i++;                        // 1 operation
+        k++;                        // 1 operation
     }
     
-    while (j < n2) {                // Μέχρι να εξαντληθεί ο R
-        arr[k] = R[j];              // 1 πράξη
-        j++;                        // 1 πράξη
-        k++;                        // 1 πράξη
+    while (j < n2) {                // Until R is exhausted
+        arr[k] = R[j];              // 1 operation
+        j++;                        // 1 operation
+        k++;                        // 1 operation
     }
 }
 
 void mergeSort(vector<int>& arr, int left, int right) {
-    if (left < right) {             // 1 πράξη
-        int mid = left + (right - left) / 2;  // 1 πράξη
+    if (left < right) {             // 1 operation
+        int mid = left + (right - left) / 2;  // 1 operation
         
-        mergeSort(arr, left, mid);          // Αναδρομική κλήση
-        mergeSort(arr, mid + 1, right);     // Αναδρομική κλήση
-        merge(arr, left, mid, right);       // Συγχώνευση
+        mergeSort(arr, left, mid);          // Recursive call
+        mergeSort(arr, mid + 1, right);     // Recursive call
+        merge(arr, left, mid, right);       // Merge
     }
 }
 
@@ -297,14 +297,14 @@ int main() {
     vector<int> arr = {12, 11, 13, 5, 6, 7};
     int n = arr.size();
     
-    cout << "Αρχικός πίνακας: ";
+    cout << "Original array: ";
     for (int i = 0; i < n; i++)
         cout << arr[i] << " ";
     cout << endl;
     
     mergeSort(arr, 0, n - 1);
     
-    cout << "Ταξινομημένος πίνακας: ";
+    cout << "Sorted array: ";
     for (int i = 0; i < n; i++)
         cout << arr[i] << " ";
     cout << endl;
@@ -313,183 +313,180 @@ int main() {
 }
 ```
 
-**Ανάλυση:**
-- Ο πίνακας χωρίζεται σε δύο ίσα μέρη σε κάθε επίπεδο αναδρομής
-- Το βάθος της αναδρομής είναι log n
-- Σε κάθε επίπεδο, η συγχώνευση χρειάζεται O(n) χρόνο
-- **Συνολική πολυπλοκότητα: O(n log n)**
+**Analysis:**
+- The array is split into two equal parts at each recursion level
+- The recursion depth is log n
+- At each level, the merge requires O(n) time
+- **Total complexity: O(n log n)**
 
-## Πρακτικές Συμβουλές για Ανάλυση Πολυπλοκότητας
+## Practical Tips for Complexity Analysis
 
-### 1. Προσέξτε τους Βρόχους
+### 1. Watch Out for Loops
 
 ```cpp
-// Φωλιασμένοι βρόχοι συνήθως δίνουν O(n²)
+// Nested loops typically give O(n²)
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
-        // Κάποια πράξη
+        // Some operation
     }
 }
 
-// Βρόχος που υποδιπλασιάζει τον δείκτη δίνει O(log n)
+// Loop that halves the index gives O(log n)
 for (int i = 1; i < n; i *= 2) {
-    // Κάποια πράξη
+    // Some operation
 }
 ```
 
-### 2. Αναδρομικές Συναρτήσεις
+### 2. Recursive Functions
 
 ```cpp
-// Αναδρομικές συναρτήσεις με μία κλήση: O(n)
-// Αναδρομικές συναρτήσεις με δύο κλήσεις: O(2^n)
-// Αναδρομικές συναρτήσεις με διαίρεση: O(log n)
+// Recursive functions with one call: O(n)
+// Recursive functions with two calls: O(2^n)
+// Recursive functions with division: O(log n)
 ```
 
-### 3. Χώρος vs Χρόνος
+### 3. Space vs Time
 
 ```cpp
-// Χρήση πρόσθετης μνήμης μπορεί να μειώσει το χρόνο
-// Παράδειγμα: Χρήση hash map για γρήγορη αναζήτηση
+// Using additional memory can reduce time
+// Example: Using a hash map for fast search
 ```
 
-### 4. Αποφύγετε Εμφωλευμένους Βρόχους
+### 4. Avoid Nested Loops
 
 ```cpp
-// Κακό: O(n²)
+// Bad: O(n²)
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
         if (arr[i] == arr[j]) {
-            // Κάποια πράξη
+            // Some operation
         }
     }
 }
 
-// Καλύτερο: O(n) με χρήση hash set
+// Better: O(n) using a hash set
 unordered_set<int> seen;
 for (int i = 0; i < n; i++) {
     if (seen.find(arr[i]) != seen.end()) {
-        // Κάποια πράξη
+        // Some operation
     }
     seen.insert(arr[i]);
 }
 ```
 
-## Πράξεις με Πολυπλοκότητες
+## Operations with Complexities
 
-### Πρόσθεση Πολυπλοκοτήτων
+### Addition of Complexities
 
-Όταν έχουμε δύο διαδοχικές εκτελέσεις, οι πολυπλοκότητες προστίθενται:
+When we have two sequential executions, the complexities are added:
 
 ```cpp
-// Παράδειγμα πρόσθεσης πολυπλοκοτήτων
+// Example of complexity addition
 void exampleAddition(int arr1[], int arr2[], int n) {
-    // Πρώτος βρόχος: O(n)
+    // First loop: O(n)
     for (int i = 0; i < n; i++) {
         cout << arr1[i] << " ";
     }
     
-    // Δεύτερος βρόχος: O(n)
+    // Second loop: O(n)
     for (int i = 0; i < n; i++) {
         cout << arr2[i] << " ";
     }
 }
-// Συνολική πολυπλοκότητα: O(n) + O(n) = O(n)
+// Total complexity: O(n) + O(n) = O(n)
 ```
 
-**Κανόνας:** Κρατάμε τον όρο με τη μεγαλύτερη τάξη:
+**Rule:** We keep the term with the highest order:
 - O(n) + O(n) = O(n)
 - O(n²) + O(n) = O(n²)
 - O(log n) + O(n) = O(n)
 
-### Πολλαπλασιασμός Πολυπλοκοτήτων
+### Multiplication of Complexities
 
-Όταν έχουμε φωλιασμένες εκτελέσεις, οι πολυπλοκότητες πολλαπλασιάζονται:
+When we have nested executions, the complexities are multiplied:
 
 ```cpp
-// Παράδειγμα πολλαπλασιασμού πολυπλοκοτήτων
+// Example of complexity multiplication
 void exampleMultiplication(int arr1[], int arr2[], int n) {
-    // Εξωτερικός βρόχος: O(n)
+    // Outer loop: O(n)
     for (int i = 0; i < n; i++) {
-        // Εσωτερικός βρόχος: O(n)
+        // Inner loop: O(n)
         for (int j = 0; j < n; j++) {
             cout << "(" << arr1[i] << ", " << arr2[j] << ") ";
         }
     }
 }
-// Συνολική πολυπλοκότητα: O(n) × O(n) = O(n²)
+// Total complexity: O(n) × O(n) = O(n²)
 ```
 
-**Κανόνες πολλαπλασιασμού:**
+**Multiplication rules:**
 - O(n) × O(n) = O(n²)
 - O(log n) × O(n) = O(n log n)
 - O(n) × O(log n) = O(n log n)
 - O(n²) × O(n) = O(n³)
 
-### Σύνθετα Παραδείγματα
+### Complex Examples
 
 ```cpp
-// Παράδειγμα 1: Πρόσθεση και πολλαπλασιασμός
+// Example 1: Addition and multiplication
 void complexExample1(int arr[], int n) {
-    // Μέρος 1: O(n)
+    // Part 1: O(n)
     for (int i = 0; i < n; i++) {
         cout << arr[i] << " ";
     }
     
-    // Μέρος 2: O(n²)
+    // Part 2: O(n²)
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << arr[i] + arr[j] << " ";
         }
     }
 }
-// Συνολική πολυπλοκότητα: O(n) + O(n²) = O(n²)
+// Total complexity: O(n) + O(n²) = O(n²)
 ```
 
 ```cpp
-// Παράδειγμα 2: Πολλαπλασιασμός με διαφορετικές πολυπλοκότητες
+// Example 2: Multiplication with different complexities
 void complexExample2(int arr1[], int arr2[], int n) {
-    // Εξωτερικός βρόχος: O(log n)
+    // Outer loop: O(log n)
     for (int i = 1; i < n; i *= 2) {
-        // Εσωτερικός βρόχος: O(n)
+        // Inner loop: O(n)
         for (int j = 0; j < n; j++) {
             cout << arr1[i] + arr2[j] << " ";
         }
     }
 }
-// Συνολική πολυπλοκότητα: O(log n) × O(n) = O(n log n)
+// Total complexity: O(log n) × O(n) = O(n log n)
 ```
 
 ```cpp
-// Παράδειγμα 3: Πολλαπλασιασμός με σταθερές
+// Example 3: Multiplication with constants
 void complexExample3(int arr[], int n) {
-    // Εξωτερικός βρόχος: O(n)
+    // Outer loop: O(n)
     for (int i = 0; i < n; i++) {
-        // Εσωτερικός βρόχος: O(1) - σταθερός αριθμός επαναλήψεων
+        // Inner loop: O(1) - constant number of iterations
         for (int j = 0; j < 10; j++) {
             cout << arr[i] * j << " ";
         }
     }
 }
-// Συνολική πολυπλοκότητα: O(n) × O(1) = O(n)
+// Total complexity: O(n) × O(1) = O(n)
 ```
 
-### Κανόνες Απλοποίησης
+### Simplification Rules
 
-1. **Πρόσθεση:** Κρατάμε τον όρο με τη μεγαλύτερη τάξη
+1. **Addition:** We keep the term with the highest order
    - O(n³) + O(n²) + O(n) = O(n³)
    - O(2^n) + O(n²) = O(2^n)
 
-2. **Πολλαπλασιασμός:** Πολλαπλασιάζουμε τους όρους
+2. **Multiplication:** We multiply the terms
    - O(n) × O(log n) = O(n log n)
    - O(n²) × O(n) = O(n³)
 
-3. **Σταθεροί παράγοντες:** Αγνοούνται
+3. **Constants:** Are ignored
    - O(5n) = O(n)
    - O(100) = O(1)
 
-4. **Μικροί όροι:** Αγνοούνται
+4. **Lower-order terms:** Are ignored
    - O(n² + n) = O(n²)
    - O(n + log n) = O(n)
-
-
-

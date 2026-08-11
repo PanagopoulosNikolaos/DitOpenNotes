@@ -1,28 +1,28 @@
-# Κορυφαίες Τάσεις Νέων Τεχνολογιών
-## Αρχιτεκτονική Υπολογιστών - Διάλεξη 12
+# Leading Emerging Technology Trends
+## Computer Architecture - Lecture 12
 
-**Πανεπιστήμιο Ιωαννίνων**  
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**  
-**Διδάσκων:** Αλέξανδρος Μπανταλούκας-Αρτζμάντ MSc, PhD  
-**Επιμέλεια:** Κωνσταντίνος Σακκάς BSc, MSc
+**University of Ioannina**  
+**Department of Computer Science & Telecommunications**  
+**Instructor:** Alexandros Bantaloukas-Artzimant MSc, PhD  
+**Editor:** Konstantinos Sakkas BSc, MSc
 
 ---
 
-## 1.0 Τεχνητή Νοημοσύνη (Artificial Intelligence - AI)
+## 1.0 Artificial Intelligence (AI)
 
-### Θεωρητικός Ορισμός
-Η **Τεχνητή Νοημοσύνη (AI)** αναφέρεται στην προσομοίωση ανθρώπινων νοητικών διαδικασιών από μηχανές, ειδικά από υπολογιστικά συστήματα.
+### Theoretical Definition
+**Artificial Intelligence (AI)** refers to the simulation of human cognitive processes by machines, especially computer systems.
 
-### Βασικές Εφαρμογές
-i. **Έμπειρα Συστήματα** (Expert Systems)  
-ii. **Επεξεργασία Φυσικής Γλώσσας** (Natural Language Processing)  
-iii. **Αναγνώριση Ομιλίας** (Speech Recognition)  
-iv. **Μηχανική Όραση** (Machine Vision)
+### Basic Applications
+i. **Expert Systems**  
+ii. **Natural Language Processing**  
+iii. **Speech Recognition**  
+iv. **Machine Vision**
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Chatbot Developer | $70,000 |
 | Data Analyst | $75,000 |
 | Image Processing Engineer | $85,000 |
@@ -34,7 +34,7 @@ iv. **Μηχανική Όραση** (Machine Vision)
 | Deep Learning Engineer | $120,000 |
 | Computer Scientist | $120,000 |
 
-### Αρχιτεκτονική Συστημάτων AI
+### AI System Architecture
 ```mermaid
 graph TD
   A[AI System]
@@ -57,19 +57,19 @@ graph TD
 
 ## 2.0 Robotic Process Automation (RPA)
 
-### Θεωρητικός Ορισμός
-Η **RPA** είναι μια τεχνολογία λογισμικού που διευκολύνει την κατασκευή, ανάπτυξη και διαχείριση ρομπότ λογισμικού, τα οποία μιμούνται τις ανθρώπινες ενέργειες σε ψηφιακά συστήματα.
+### Theoretical Definition
+**RPA** is a software technology that facilitates the construction, development and management of software robots that mimic human actions in digital systems.
 
-### Βασικά Χαρακτηριστικά
-i. Εκτέλεση εργασιών ταχύτερα από τους ανθρώπους  
-ii. Μεγαλύτερη συνέπεια στην εκτέλεση  
-iii. Λειτουργία χωρίς διαλλείματα  
-iv. Μίμηση ανθρώπινων ψηφιακών ενεργειών
+### Basic Characteristics
+i. Executes tasks faster than humans  
+ii. Greater consistency in execution  
+iii. Operates without breaks  
+iv. Mimics human digital actions
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | RPA Tester | $60,000 |
 | RPA Support Engineer | $70,000 |
 | RPA Trainer | $75,000 |
@@ -81,7 +81,7 @@ iv. Μίμηση ανθρώπινων ψηφιακών ενεργειών
 | RPA Architect | $120,000 |
 | RPA Operations Manager | $130,000 |
 
-### Κύκλος Ζωής RPA
+### RPA Lifecycle
 
 ```mermaid
 flowchart LR
@@ -99,19 +99,19 @@ flowchart LR
 
 ## 3.0 Edge Computing
 
-### Θεωρητικός Ορισμός
-Το **Edge Computing** είναι ένα αναδυόμενο υπολογιστικό μοντέλο που περιλαμβάνει δίκτυα και συσκευές κοντά στον χρήστη.
+### Theoretical Definition
+**Edge Computing** is an emerging computing model that involves networks and devices close to the user.
 
-### Βασικά Χαρακτηριστικά
-i. Επεξεργασία δεδομένων κοντά στο σημείο παραγωγής τους  
-ii. Ταχύτερη επεξεργασία δεδομένων  
-iii. Επεξεργασία μεγαλύτερου όγκου δεδομένων  
-iv. Αποτελέσματα σε πραγματικό χρόνο (real-time)
+### Basic Characteristics
+i. Data processing near the point of data generation  
+ii. Faster data processing  
+iii. Processing of larger data volumes  
+iv. Real-time results
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Edge Computing Analyst | $85,000 |
 | Edge Computing Systems Administrator | $95,000 |
 | Edge Computing Developer | $105,000 |
@@ -122,10 +122,10 @@ iv. Αποτελέσματα σε πραγματικό χρόνο (real-time)
 | Edge Computing Solution Architect | $145,000 |
 | Edge Computing Operations Manager | $150,000 |
 
-### Αρχιτεκτονική Edge Computing
+### Edge Computing Architecture
 
 > [!INFO]
-> Το Edge Computing μειώνει την καθυστέρηση (latency) μεταφέροντας την επεξεργασία πιο κοντά στην πηγή των δεδομένων.
+> Edge Computing reduces latency by moving processing closer to the data source.
 
 ```mermaid
 graph TB
@@ -156,21 +156,21 @@ graph TB
 
 ## 4.0 Quantum Computing
 
-### Θεωρητικός Ορισμός
-Η **Κβαντική Πληροφορική** είναι ένας διεπιστημονικός τομέας που συνδυάζει:
-- Επιστήμη των Υπολογιστών
-- Φυσική
-- Μαθηματικά
+### Theoretical Definition
+**Quantum Computing** is an interdisciplinary field that combines:
+- Computer Science
+- Physics
+- Mathematics
 
-### Βασικές Αρχές
-i. Αξιοποιεί την **κβαντική μηχανική**  
-ii. Ταχύτερη επίλυση σύνθετων προβλημάτων σε σχέση με κλασικούς υπολογιστές  
-iii. Περιλαμβάνει έρευνα υλικού και ανάπτυξη εφαρμογών
+### Basic Principles
+i. Exploits **quantum mechanics**  
+ii. Faster solution of complex problems compared to classical computers  
+iii. Includes hardware research and application development
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Quantum Systems Administrator | $85,000 |
 | Quantum Computing Engineer | $90,000 |
 | Quantum Software Developer | $100,000 |
@@ -182,7 +182,7 @@ iii. Περιλαμβάνει έρευνα υλικού και ανάπτυξη 
 | Quantum Computing Scientist | $160,000 |
 | Quantum Information Theorist | $170,000 |
 
-### Σύγκριση Κλασικού vs Κβαντικού Υπολογιστή
+### Classical vs Quantum Computer Comparison
 
 ```mermaid
 graph LR
@@ -199,22 +199,22 @@ graph LR
 
 ---
 
-## 5.0 Εικονική και Επαυξημένη Πραγματικότητα (VR/AR → xR)
+## 5.0 Virtual and Augmented Reality (VR/AR -> xR)
 
-### Θεωρητικοί Ορισμοί
+### Theoretical Definitions
 
 #### Virtual Reality (VR)
-Η **Εικονική Πραγματικότητα** χρησιμοποιεί ένα σετ κεφαλής (headset) για να μεταφέρει τον χρήστη σε έναν υπολογιστικά δημιουργημένο κόσμο που μπορεί να εξερευνήσει.
+**Virtual Reality** uses a headset to transport the user into a computationally created world that can be explored.
 
 #### Augmented Reality (AR)
-Η **Επαυξημένη Πραγματικότητα** τοποθετεί ψηφιακές εικόνες στον πραγματικό κόσμο μέσω:
-- Διαφανούς προσωπίδας (transparent visor)
+**Augmented Reality** places digital images in the real world through:
+- Transparent visor
 - Smartphone
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | VR Artist | $55,000 |
 | VR Animator | $60,000 |
 | VR Sound Designer | $65,000 |
@@ -226,7 +226,7 @@ graph LR
 | VR Project Manager | $100,000 |
 | VR Marketing Manager | $110,000 |
 
-### Διαφορές VR vs AR
+### VR vs AR Differences
 
 ```mermaid
 flowchart TD
@@ -244,23 +244,23 @@ flowchart TD
 
 ## 6.0 Blockchain
 
-### Θεωρητικός Ορισμός
-Το **Blockchain** είναι μια δομή δεδομένων στην οποία:
-- Μπορείτε **μόνο να προσθέσετε** πληροφορίες
-- **Χωρίς δυνατότητα διαγραφής ή τροποποίησης**
-- Σχηματίζει μια αλληλουχία δεδομένων ή "**αλυσίδα**"
+### Theoretical Definition
+**Blockchain** is a data structure in which:
+- You can **only add** information
+- **Without ability to delete or modify**
+- Forms a data sequence or "**chain**"
 
-### Βασικά Χαρακτηριστικά
-i. Υψηλή ασφάλεια (security)  
-ii. Διαφάνεια συναλλαγών  
-iii. Αποκεντρωμένο σύστημα  
-iv. Αρχικά αναπτύχθηκε για κρυπτονομίσματα (Bitcoin)  
-v. Εφαρμογές σε πολλούς τομείς πέρα από τα κρυπτονομίσματα
+### Basic Characteristics
+i. High security  
+ii. Transaction transparency  
+iii. Decentralized system  
+iv. Originally developed for cryptocurrencies (Bitcoin)  
+v. Applications in many sectors beyond cryptocurrencies
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Blockchain Technical Writer | $65,000 |
 | Blockchain Marketing Manager | $75,000 |
 | Blockchain Quality Assurance Engineer | $80,000 |
@@ -272,7 +272,7 @@ v. Εφαρμογές σε πολλούς τομείς πέρα από τα κρ
 | Blockchain Developer | $110,000 |
 | Blockchain Architect | $120,000 |
 
-### Αρχιτεκτονική Blockchain
+### Blockchain Architecture
 
 ```mermaid
 graph LR
@@ -292,23 +292,23 @@ graph LR
 
 ## 7.0 Internet of Things (IoT)
 
-### Θεωρητικός Ορισμός
-Το **Διαδίκτυο των Πραγμάτων (IoT)** αναφέρεται σε συσκευές εξοπλισμένες με:
-- **Αισθητήρες** (sensors)
-- Δυνατότητες **επεξεργασίας**
-- **Λογισμικό**
-- Άλλες τεχνολογίες
+### Theoretical Definition
+The **Internet of Things (IoT)** refers to devices equipped with:
+- **Sensors**
+- Processing **capabilities**
+- **Software**
+- Other technologies
 
-### Βασικά Χαρακτηριστικά
-i. Σύνδεση μέσω Διαδικτύου ή άλλων δικτύων επικοινωνίας  
-ii. Ανταλλαγή δεδομένων με άλλες συσκευές και συστήματα  
-iii. Αυτοματοποίηση διαδικασιών  
-iv. Real-time data collection και analysis
+### Basic Characteristics
+i. Connection via the Internet or other communication networks  
+ii. Data exchange with other devices and systems  
+iii. Process automation  
+iv. Real-time data collection and analysis
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | IoT Systems Administrator | $70,000 |
 | IoT Business Analyst | $75,000 |
 | IoT Data Analyst | $80,000 |
@@ -320,7 +320,7 @@ iv. Real-time data collection και analysis
 | IoT Product Manager | $115,000 |
 | IoT Architect | $120,000 |
 
-### Αρχιτεκτονική IoT
+### IoT Architecture
 
 ```mermaid
 graph TB
@@ -356,18 +356,18 @@ graph TB
 
 ## 8.0 5G Technology
 
-### Θεωρητικός Ορισμός
-Η **Τεχνολογία 5G** έχει τη δυνατότητα να αλλάξει τον τρόπο με τον οποίο αντιλαμβανόμαστε τον ψηφιακό κόσμο.
+### Theoretical Definition
+**5G Technology** has the potential to change the way we perceive the digital world.
 
-### Εξέλιξη Τεχνολογιών Δικτύων
-i. **3G**: Βελτίωσε την κινητή περιήγηση στο διαδίκτυο  
-ii. **4G**: Επέτρεψε υπηρεσίες βασισμένες στα δεδομένα και streaming  
-iii. **5G**: Ταχύτερη επικοινωνία, αυξημένο εύρος ζώνης, χαμηλότερη καθυστέρηση
+### Network Technology Evolution
+i. **3G**: Improved mobile internet browsing  
+ii. **4G**: Enabled data-based services and streaming  
+iii. **5G**: Faster communication, increased bandwidth, lower latency
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | 5G Operations Engineer | $85,000 |
 | 5G Software Developer | $90,000 |
 | 5G Testing and Validation Engineer | $90,000 |
@@ -379,7 +379,7 @@ iii. **5G**: Ταχύτερη επικοινωνία, αυξημένο εύρο�
 | 5G Network Architect | $110,000 |
 | 5G Product Manager | $120,000 |
 
-### Σύγκριση Γενεών Κινητής Τηλεφωνίας
+### Mobile Generation Comparison
 
 ```mermaid
 timeline
@@ -399,21 +399,21 @@ timeline
 
 ## 9.0 Cybersecurity
 
-### Θεωρητικός Ορισμός
-Ο πρωταρχικός στόχος της **Ασφάλειας στον Κυβερνοχώρο** είναι η προστασία:
-- Συσκευών (smartphones, laptops, tablets, υπολογιστές)
-- Υπηρεσιών στο διαδίκτυο και στον χώρο εργασίας
-- Προσωπικών δεδομένων
+### Theoretical Definition
+The primary goal of **Cybersecurity** is the protection of:
+- Devices (smartphones, laptops, tablets, computers)
+- Internet and workplace services
+- Personal data
 
-### Βασικοί Άξονες Προστασίας
-i. **Προστασία από κλοπή ή ζημία**  
-ii. **Αποτροπή μη εξουσιοδοτημένης πρόσβασης**  
-iii. Προστασία **τεράστιου όγκου προσωπικών δεδομένων**
+### Key Protection Axes
+i. **Protection from theft or damage**  
+ii. **Prevention of unauthorized access**  
+iii. Protection of **massive volumes of personal data**
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Cryptographer | $75,000 |
 | Information Security Analyst | $80,000 |
 | Cybersecurity Analyst | $85,000 |
@@ -425,7 +425,7 @@ iii. Προστασία **τεράστιου όγκου προσωπικών δ�
 | Incident Responder | $120,000 |
 | Chief Information Security Officer (CISO) | $150,000 |
 
-### Στρώματα Ασφάλειας Κυβερνοχώρου
+### Cybersecurity Layers
 ```mermaid
 graph TD
   A[Cybersecurity Layers] --> B[Identify]
@@ -461,24 +461,24 @@ graph TD
 
 ## 10.0 Full Stack Development
 
-### Θεωρητικός Ορισμός
-Η **Ανάπτυξη Πλήρους Στοίβας (Full Stack Development)** αναφέρεται στην ολοκληρωμένη ανάπτυξη λογισμικού που περιλαμβάνει:
+### Theoretical Definition
+**Full Stack Development** refers to the comprehensive software development that includes:
 
 #### Frontend
-- **Διεπαφή Χρήστη** (User Interface)
+- **User Interface**
 - Client-side logic
 - User experience
 
 #### Backend
-- **Επιχειρηματική Λογική** (Business Logic)
-- **Ροές Εργασιών** (Workflows)
+- **Business Logic**
+- **Workflows**
 - Server-side processing
 - Database management
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Web Developer | $50,000 |
 | JavaScript Developer | $60,000 |
 | Back-End Developer | $65,000 |
@@ -490,7 +490,7 @@ graph TD
 | Full Stack Engineer | $100,000 |
 | Full Stack Architect | $110,000 |
 
-### Αρχιτεκτονική Full Stack
+### Full Stack Architecture
 
 ```mermaid
 graph TB
@@ -530,18 +530,18 @@ graph TB
 
 ## 11.0 Computing Power
 
-### Θεωρητικός Ορισμός
-Η **Υπολογιστική Ισχύς (Computing Power)** αναφέρεται στην ικανότητα ενός υπολογιστή ή ενός συστήματος υπολογιστών να:
-- Εκτελεί **πολύπλοκους υπολογισμούς**
-- Επεξεργάζεται **δεδομένα**
+### Theoretical Definition
+**Computing Power** refers to the ability of a computer or computer system to:
+- Execute **complex computations**
+- Process **data**
 
-### Μέτρηση Ταχύτητας Επεξεργασίας
-Η ταχύτητα επεξεργασίας μετράται από τον **αριθμό υπολογισμών ή λειτουργιών ανά δευτερόλεπτο** που μπορεί να ολοκληρώσει το σύστημα.
+### Processing Speed Measurement
+Processing speed is measured by the **number of computations or operations per second** the system can complete.
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Systems Administrator | $60,000 |
 | Network Engineer | $70,000 |
 | Data Engineer | $80,000 |
@@ -553,7 +553,7 @@ graph TB
 | Data Center Engineer | $115,000 |
 | High Performance Computing (HPC) Engineer | $120,000 |
 
-### Επίπεδα Υπολογιστικής Ισχύος
+### Computing Power Levels
 
 ```mermaid
 graph TD
@@ -574,21 +574,21 @@ graph TD
 
 ## 12.0 Datafication
 
-### Θεωρητικός Ορισμός
-Η **Μετατροπή σε Δεδομένα (Datafication)** στις επιχειρήσεις αναφέρεται στη διαδικασία μετατροπής των περισσότερων πτυχών μιας επιχείρησης σε **μετρήσιμα δεδομένα**.
+### Theoretical Definition
+**Datafication** in businesses refers to the process of converting most aspects of a business into **measurable data**.
 
-### Βασικές Λειτουργίες
-i. **Παρακολούθηση** (Monitoring)  
-ii. **Έλεγχος** (Control)  
-iii. **Ανάλυση** (Analysis)
+### Basic Functions
+i. **Monitoring**  
+ii. **Control**  
+iii. **Analysis**
 
-### Στόχος
-Μετατροπή οργανισμού σε επιχείρηση με γνώμονα τα δεδομένα (data-driven enterprise).
+### Goal
+Transforming an organization into a data-driven enterprise.
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Data Analyst | $75,000 |
 | Business Intelligence Analyst | $90,000 |
 | Data Engineer | $115,000 |
@@ -600,7 +600,7 @@ iii. **Ανάλυση** (Analysis)
 | Artificial Intelligence (AI) Developer | $145,000 |
 | Data Scientist | $150,000 |
 
-### Κύκλος Datafication
+### Datafication Cycle
 
 ```mermaid
 graph LR
@@ -627,32 +627,32 @@ graph LR
 
 ## 13.0 Digital Trust
 
-### Θεωρητικός Ορισμός
-Η **Ψηφιακή Εμπιστοσύνη (Digital Trust)** αναφέρεται στο επίπεδο εμπιστοσύνης που έχουν άτομα και επιχειρήσεις σε:
-- **Ασφάλεια** (Security)
-- **Ιδιωτικότητα** (Privacy)
-- **Αξιοπιστία** (Reliability)
+### Theoretical Definition
+**Digital Trust** refers to the level of trust that individuals and businesses have in:
+- **Security**
+- **Privacy**
+- **Reliability**
 
-### Σημασία για Επιχειρήσεις
-i. Ενίσχυση **αφοσίωσης πελατών** (customer loyalty)  
-ii. Αύξηση **εσόδων** (revenue increase)  
-iii. Βελτίωση φήμης επιχείρησης
+### Importance for Businesses
+i. Enhancing **customer loyalty**  
+ii. Increasing **revenue**  
+iii. Improving business reputation
 
-### Τομείς Ασφάλειας (Security Segments)
+### Security Segments
 
-| **Τομέας** | **Περιγραφή** |
-|------------|---------------|
-| Identity and Access Management | Διαχείριση ταυτοτήτων και πρόσβασης |
-| Cloud Security | Ασφάλεια cloud περιβαλλόντων |
-| Application Security | Ασφάλεια εφαρμογών |
-| End-point Security | Ασφάλεια τερματικών συσκευών |
-| Security Monitoring | Παρακολούθηση ασφάλειας |
-| Data Security | Ασφάλεια δεδομένων |
+| **Segment** | **Description** |
+|------------|-----------------|
+| Identity and Access Management | Identity and access management |
+| Cloud Security | Cloud environment security |
+| Application Security | Application security |
+| End-point Security | Endpoint device security |
+| Security Monitoring | Security monitoring |
+| Data Security | Data security |
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Compliance Officer | $50,000 |
 | Risk Management Analyst | $60,000 |
 | Digital Privacy Consultant | $65,000 |
@@ -664,7 +664,7 @@ iii. Βελτίωση φήμης επιχείρησης
 | Cybersecurity Analyst | $95,000 |
 | Digital Forensic Investigator | $100,000 |
 
-### Αρχιτεκτονική Digital Trust
+### Digital Trust Architecture
 
 ```mermaid
 mindmap
@@ -699,16 +699,16 @@ mindmap
 
 ## 14.0 Internet of Behaviors (IoB)
 
-### Θεωρητικός Ορισμός
-Το **Internet of Behaviors (IoB)** αξιοποιεί δεδομένα που συλλέγονται από συσκευές χρηστών συνδεδεμένες στο διαδίκτυο.
+### Theoretical Definition
+The **Internet of Behaviors (IoB)** utilizes data collected from user devices connected to the internet.
 
-### Βασικές Λειτουργίες
-i. Συλλογή μεγάλων όγκων δεδομένων  
-ii. **Ανάλυση** δεδομένων  
-iii. **Παρακολούθηση** συμπεριφοράς  
-iv. Κατανόηση **ανθρώπινης συμπεριφοράς**
+### Basic Functions
+i. Collection of large data volumes  
+ii. Data **analysis**  
+iii. Behavior **monitoring**  
+iv. Understanding **human behavior**
 
-### Ιεραρχία Γνώσης - IoB Framework
+### Knowledge Hierarchy - IoB Framework
 
 ```mermaid
 graph TB
@@ -722,10 +722,10 @@ graph TB
     style F fill:#ffe1e1
 ```
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Behavior Analyst | $50,000 |
 | Digital Marketing Analyst | $60,000 |
 | Data Analyst | $75,000 |
@@ -737,7 +737,7 @@ graph TB
 | Cybersecurity Analyst | $105,000 |
 | Data Privacy Consultant | $110,000 |
 
-### Εφαρμογές IoB
+### IoB Applications
 
 ```mermaid
 graph TD
@@ -765,22 +765,22 @@ graph TD
 
 ## 15.0 Predictive Analytics
 
-### Θεωρητικός Ορισμός
-Η **Προγνωστική Ανάλυση (Predictive Analytics)** είναι η διαδικασία αξιοποίησης δεδομένων για την **πρόβλεψη μελλοντικών αποτελεσμάτων**.
+### Theoretical Definition
+**Predictive Analytics** is the process of utilizing data to **predict future outcomes**.
 
-### Τεχνολογίες που Χρησιμοποιούνται
-i. **Ανάλυση Δεδομένων** (Data Analysis)  
-ii. **Μηχανική Μάθηση** (Machine Learning)  
-iii. **Τεχνητή Νοημοσύνη** (AI)  
-iv. **Στατιστικά Μοντέλα** (Statistical Models)
+### Technologies Used
+i. **Data Analysis**  
+ii. **Machine Learning**  
+iii. **AI**  
+iv. **Statistical Models**
 
-### Στόχος
-Αναγνώριση μοτίβων που θα μπορούσαν να προβλέψουν **μελλοντική συμπεριφορά**.
+### Goal
+Identify patterns that could predict **future behavior**.
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Data Analyst | $42,000 |
 | Business Intelligence Analyst | $51,000 |
 | Marketing Analyst | $52,000 |
@@ -792,7 +792,7 @@ iv. **Στατιστικά Μοντέλα** (Statistical Models)
 | Quantitative Analyst | $71,000 |
 | Data Scientist | $72,000 |
 
-### Κύκλος Predictive Analytics
+### Predictive Analytics Cycle
 
 ```mermaid
 sequenceDiagram
@@ -817,21 +817,21 @@ sequenceDiagram
 
 ## 16.0 DevOps
 
-### Θεωρητικός Ορισμός
-Το **DevOps** αποτελεί ένα σύνολο μεθόδων και πρακτικών που στοχεύει στη βελτίωση της συνεργασίας και επικοινωνίας μεταξύ:
-- **Ομάδων Ανάπτυξης Λογισμικού** (Software Developers)
+### Theoretical Definition
+**DevOps** is a set of methods and practices aimed at improving collaboration and communication between:
+- **Software Development Teams**
 - **IT Operators**
 
-### Βασικά Χαρακτηριστικά
-i. Χρήση εργαλείων **αυτοματοποίησης**  
-ii. Διαδικασίες για **ενίσχυση αποτελεσματικότητας**  
-iii. **Μείωση σφαλμάτων**  
-iv. Παράδοση λογισμικού **υψηλής ποιότητας**
+### Basic Characteristics
+i. Use of **automation** tools  
+ii. Processes to **enhance efficiency**  
+iii. **Reducing errors**  
+iv. Delivering **high-quality** software
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Configuration Manager | $70,000 |
 | Automation Engineer | $75,000 |
 | Release Manager | $80,000 |
@@ -843,7 +843,7 @@ iv. Παράδοση λογισμικού **υψηλής ποιότητας**
 | Site Reliability Engineer (SRE) | $110,000 |
 | DevOps Engineer | $115,000 |
 
-### Κύκλος DevOps
+### DevOps Cycle
 
 ```mermaid
 graph TB
@@ -866,7 +866,7 @@ graph TB
     style H fill:#ccffff
 ```
 
-### Αρχές DevOps
+### DevOps Principles
 
 ```mermaid
 mindmap
@@ -893,22 +893,22 @@ mindmap
 
 ## 17.0 3D Printing
 
-### Θεωρητικός Ορισμός
-Η **Τρισδιάστατη Εκτύπωση (3D Printing)** έχει γίνει μια βασική τεχνολογία για τη δημιουργία **πρωτοτύπων**.
+### Theoretical Definition
+**3D Printing** has become a fundamental technology for creating **prototypes**.
 
-### Κύριοι Τομείς Εφαρμογής
-i. **Βιομηχανία** (Industry)  
-ii. **Βιοϊατρική** (Biomedical)
+### Main Application Areas
+i. **Industry**  
+ii. **Biomedical**
 
-### Βασικά Χαρακτηριστικά
-- Δημιουργία **πραγματικών αντικειμένων** από εκτυπωτή
+### Basic Characteristics
+- Creation of **real objects** from a printer
 - Additive manufacturing process
 - Rapid prototyping capabilities
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Additive Manufacturing Technician | $30,000 |
 | Quality Control Specialist | $35,000 |
 | 3D CAD Designer | $40,000 |
@@ -920,7 +920,7 @@ ii. **Βιοϊατρική** (Biomedical)
 | Robotics Engineer | $85,000 |
 | Research and Development Engineer | $90,000 |
 
-### Διαδικασία 3D Printing
+### 3D Printing Process
 ```mermaid
 graph LR
   A["3D Modeling<br/>CAD"] --> B["File Preparation<br/>STL"]
@@ -941,7 +941,7 @@ graph LR
   style H fill:#0288d1
 ```
 
-### Τεχνολογίες 3D Printing
+### 3D Printing Technologies
 
 ```mermaid
 graph TD
@@ -962,24 +962,24 @@ graph TD
 
 ## 18.0 AI-as-a-Service (AIaaS)
 
-### Θεωρητικός Ορισμός
-Το **AI-as-a-Service** είναι μια βασισμένη στο σύννεφο (cloud-based) λύση που προσφέρει δυνατότητες **Τεχνητής Νοημοσύνης**.
+### Theoretical Definition
+**AI-as-a-Service** is a cloud-based solution that offers **Artificial Intelligence** capabilities.
 
-### Μοντέλα Υπηρεσιών
+### Service Models
 i. **PaaS** - Platform as a Service  
 ii. **IaaS** - Infrastructure as a Service  
 iii. **SaaS** - Software as a Service
 
-### Πλεονεκτήματα
-- Πρόσβαση στην AI **χωρίς επένδυση** σε δαπανηρό υλικό
-- Χωρίς συντήρηση εργαλείων
+### Advantages
+- Access to AI **without investment** in expensive hardware
+- No tool maintenance
 - Scalability
 - Pay-as-you-go model
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Data Analyst | $48,000 |
 | Software Developer | $52,000 |
 | DevOps Engineer | $74,000 |
@@ -991,7 +991,7 @@ iii. **SaaS** - Software as a Service
 | Project Manager | $110,000 |
 | Data Scientist | $115,000 |
 
-### AIaaS Αρχιτεκτονική
+### AIaaS Architecture
 
 ```mermaid
 graph TB
@@ -1035,28 +1035,28 @@ graph TB
 
 ## 19.0 Genomics
 
-### Θεωρητικός Ορισμός
-Ο τομέας της **Γονιδιωματικής (Genomics)** χρησιμοποιεί τεχνολογία για:
-- Μελέτη **DNA και γονιδίων**
-- **Χαρτογράφηση** γονιδιώματος
-- **Ποσοτικοποίηση** γονιδίων
-- Ανίχνευση πιθανών **προβλημάτων υγείας**
+### Theoretical Definition
+The field of **Genomics** uses technology for:
+- Studying **DNA and genes**
+- **Genome mapping**
+- **Gene quantification**
+- Detecting potential **health problems**
 
-### Κατηγορίες Ρόλων
+### Role Categories
 
-#### Τεχνικοί Ρόλοι
-i. Ανάλυση  
-ii. Σχεδιασμός  
-iii. Διάγνωση
+#### Technical Roles
+i. Analysis  
+ii. Design  
+iii. Diagnosis
 
-#### Μη-Τεχνικοί Ρόλοι
-i. Θεωρητική ανάλυση  
-ii. Έρευνα
+#### Non-Technical Roles
+i. Theoretical analysis  
+ii. Research
 
-### Επαγγελματικές Θέσεις και Μισθολογικά Δεδομένα
+### Career Positions and Salary Data
 
-| **Θέση** | **Μισθός (USD)** |
-|---------|------------------|
+| **Position** | **Salary (USD)** |
+|-------------|------------------|
 | Data Analyst | $48,000 |
 | Software Developer | $52,000 |
 | DevOps Engineer | $74,000 |
@@ -1081,7 +1081,7 @@ flowchart LR
     G --> H[Clinical Report]
 ```
 
-### Εφαρμογές Genomics
+### Genomics Applications
 
 ```mermaid
 mindmap
@@ -1104,10 +1104,10 @@ mindmap
 
 ---
 
-## Συνοπτικός Πίνακας Μισθών ανά Τεχνολογία
+## Salary Summary Table by Technology
 
-| **Τεχνολογία** | **Ελάχιστος Μισθός** | **Μέγιστος Μισθός** | **Μέση Τιμή** |
-|----------------|---------------------|---------------------|---------------|
+| **Technology** | **Minimum Salary** | **Maximum Salary** | **Average** |
+|----------------|-------------------|-------------------|-------------|
 | AI | $70,000 | $120,000 | $95,000 |
 | RPA | $60,000 | $130,000 | $95,000 |
 | Edge Computing | $85,000 | $150,000 | $117,500 |
@@ -1130,7 +1130,7 @@ mindmap
 
 ---
 
-## Σύνοψη Τεχνολογικών Τάσεων
+## Technology Trends Summary
 
 ```mermaid
 mindmap
@@ -1169,20 +1169,20 @@ mindmap
 
 ---
 
-## Βιβλιογραφία και Πηγές
+## Bibliography and Sources
 
-**Διδάσκων:** Αλέξανδρος Μπανταλούκας-Αρτζμάντ MSc, PhD  
+**Instructor:** Alexandros Bantaloukas-Artzimant MSc, PhD  
 **Email:** k.arjmand@uoi.gr
 
-**Επιμέλεια:** Κωνσταντίνος Σακκάς BSc, MSc  
+**Editor:** Konstantinos Sakkas BSc, MSc  
 **Email:** ksakkas@uoi.gr
 
-**Πανεπιστήμιο Ιωαννίνων**  
-**Σχολή Πληροφορικής & Τηλεπικοινωνιών**  
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**  
-**3ο Εξάμηνο - Αρχιτεκτονική Υπολογιστών**
+**University of Ioannina**  
+**School of Computer Science & Telecommunications**  
+**Department of Computer Science & Telecommunications**  
+**3rd Semester - Computer Architecture**
 
 ---
 
-**Ημερομηνία Δημιουργίας:** Ιανουάριος 2026  
-**Έκδοση:** 1.0
+**Creation Date:** January 2026  
+**Version:** 1.0

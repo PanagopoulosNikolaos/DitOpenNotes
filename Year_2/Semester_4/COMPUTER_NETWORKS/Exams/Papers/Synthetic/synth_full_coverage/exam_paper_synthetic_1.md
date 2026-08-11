@@ -1,66 +1,66 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Synthetic Exam 1)
+# Computer Networks - Exam Questions (Synthetic Exam 1)
 *Computer Networks - Synthetic Exam 1*
 
-## Πληροφορίες Εξέτασης
-- **Ακαδημαϊκό Έτος:** .......................
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+## Exam Information
+- **Academic Year:** .......................
+- **Exam Duration:** 2 hours and 15 minutes
 
-## Στοιχεία Φοιτητή
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
+## Student Data
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
 
 ---
 
-## Μέρος Α: Ερωτήσεις Πολλαπλής Επιλογής & Θεωρίας (3 μονάδες)
+## Part A: Multiple Choice & Theory Questions (3 points)
 
-**1.** Ποιο από τα παρακάτω είναι χαρακτηριστικό της μεταγωγής πακέτου (packet switching) σε αντίθεση με τη μεταγωγή κυκλώματος (circuit switching);
-- [ ] A. Η αποκλειστική δέσμευση πόρων εκ των προτέρων
-- [✓] B. Η δυνατότητα στατιστικής πολυπλεξίας (statistical multiplexing)
-- [ ] C. Η αδυναμία απώλειας πακέτων (packet loss)
-- [ ] D. Ο εγγυημένος ρυθμός μετάδοσης (QoS) για κάθε χρήστη
+**1.** Which of the following is a characteristic of packet switching as opposed to circuit switching?
+- [ ] A. Dedicated resource reservation in advance
+- [✓] B. The capability of statistical multiplexing
+- [ ] C. The impossibility of packet loss
+- [ ] D. Guaranteed transmission rate (QoS) for each user
 
-*Αιτιολόγηση:* Η μεταγωγή πακέτου μοιράζεται δυναμικά το εύρος ζώνης μεταξύ των χρηστών, επιτρέποντας σε πολλούς χρήστες να μοιράζονται αποδοτικά τους πόρους. Το A, C, και D είναι χαρακτηριστικά (ή μειονεκτήματα) της μεταγωγής κυκλώματος.
+*Justification:* Packet switching dynamically shares bandwidth among users, allowing multiple users to share resources efficiently. A, C, and D are characteristics (or drawbacks) of circuit switching.
 
-**2.** Η λειτουργία "Store-and-Forward" σε έναν δρομολογητή (router) σημαίνει ότι:
-- [✓] A. Ο δρομολογητής πρέπει να λάβει ολόκληρο το πακέτο πριν αρχίσει την προώθησή του.
-- [ ] B. Ο δρομολογητής αποθηκεύει τα πακέτα μόνιμα στο σκληρό του δίσκο.
-- [ ] C. Η προώθηση ξεκινά μόλις ληφθεί η κεφαλίδα (header) του πακέτου.
-- [ ] D. Ο δρομολογητής δεν ελέγχει ποτέ για σφάλματα κατά τη μεταφορά.
+**2.** The "Store-and-Forward" operation in a router means that:
+- [✓] A. The router must receive the entire packet before beginning to forward it.
+- [ ] B. The router permanently stores packets on its hard disk.
+- [ ] C. Forwarding begins as soon as the packet header is received.
+- [ ] D. The router never checks for errors during transfer.
 
-*Αιτιολόγηση:* Αυτή είναι η βασική αρχή του Store-and-Forward στο packet switching, προσθέτοντας καθυστέρηση μετάδοσης σε κάθε hop.
+*Justification:* This is the core principle of Store-and-Forward in packet switching, adding transmission delay at each hop.
 
-**3.** Ποιο από τα παρακάτω πρωτόκολλα δρομολόγησης βασίζεται στον αλγόριθμο Κατάστασης Ζεύξης (Link State) και απαιτεί πλήρη γνώση της τοπολογίας του δικτύου;
+**3.** Which of the following routing protocols is based on the Link State algorithm and requires complete knowledge of network topology?
 - [ ] A. RIP
 - [✓] B. OSPF
 - [ ] C. BGP
 - [ ] D. ARP
 
-*Αιτιολόγηση:* Το OSPF (Open Shortest Path First) βασίζεται στον αλγόριθμο Dijkstra και είναι ένα πρωτόκολλο Link State που χτίζει πλήρη τοπολογικό χάρτη. Το RIP είναι Distance Vector.
+*Justification:* OSPF (Open Shortest Path First) is based on Dijkstra's algorithm and is a Link State protocol that builds a complete topological map. RIP is Distance Vector.
 
-**4.** Το μοντέλο Client-Server ανήκει αρχιτεκτονικά:
-- [ ] A. Στο Network Core (Πυρήνας Δικτύου)
-- [✓] B. Στο Network Edge (Άκρο Δικτύου)
-- [ ] C. Μόνο σε τοπικά δίκτυα (LAN)
-- [ ] D. Στο Επίπεδο Σύνδεσης Δεδομένων (Data Link Layer)
+**4.** Architecturally, the Client-Server model belongs:
+- [ ] A. In the Network Core
+- [✓] B. In the Network Edge
+- [ ] C. Only in local area networks (LAN)
+- [ ] D. In the Data Link Layer
 
-*Αιτιολόγηση:* Οι υπολογιστές-πελάτες και οι εξυπηρετητές αποτελούν τα "τελικά συστήματα" (end systems) που βρίσκονται στο άκρο του δικτύου.
+*Justification:* Client and server computers constitute the "end systems" located at the edge of the network.
 
-**5.** Επιλέξτε Σωστό (Σ) ή Λάθος (Λ):
-- **[✓] Σ** / [ ] Λ Το Control Plane ενός router αναλαμβάνει τον υπολογισμό και τη διατήρηση της γνώσης για τη δομή του δικτύου.
-- [ ] Σ / **[✓] Λ** Ένας εξυπηρετητής (Server) συνήθως έχει δυναμική IP διεύθυνση.
-- **[✓] Σ** / [ ] Λ Το πρωτόκολλο BGP χρησιμοποιείται για δρομολόγηση μεταξύ διαφορετικών Αυτόνομων Συστημάτων (AS).
+**5.** Select True (T) or False (F):
+- **[✓] T** / [ ] F The Control Plane of a router handles computing and maintaining knowledge of network structure.
+- [ ] T / **[✓] F** A Server typically has a dynamic IP address.
+- **[✓] T** / [ ] F The BGP protocol is used for routing between different Autonomous Systems (AS).
 
-*Αιτιολόγηση:*
-- **Σ (Σωστό):** Το Control Plane είναι υπεύθυνο για τους αλγορίθμους δρομολόγησης.
-- **Λ (Λάθος):** Οι Servers απαιτούν μόνιμη, σταθερή IP για να είναι πάντα διαθέσιμοι στους πελάτες.
-- **Σ (Σωστό):** Το BGP είναι το de facto πρωτόκολλο δρομολόγησης μεταξύ διαφορετικών AS στο διαδίκτυο.
+*Justification:*
+- **T (True):** The Control Plane is responsible for routing algorithms.
+- **F (False):** Servers require a permanent, static IP to remain accessible to clients.
+- **T (True):** BGP is the de facto routing protocol between different ASes on the Internet.
 
 ---
 
-## Μέρος Β: Ασκήσεις και Δίκτυα (7 μονάδες)
+## Part B: Exercises and Networks (7 points)
 
-### Άσκηση 1 (2 μονάδες)
-Για το παρακάτω τοπικό δίκτυο (LAN), υποθέστε ότι ο υπολογιστής X επιθυμεί να επικοινωνήσει με τον υπολογιστή Z. Ο υπολογιστής X γνωρίζει την IP διεύθυνση του Z, αλλά όχι τη MAC διεύθυνσή του.
+### Exercise 1 (2 points)
+For the local area network (LAN) below, suppose computer X wishes to communicate with computer Z. Computer X knows Z's IP address, but not its MAC address.
 
 ```
 (X) 192.168.1.10                    (Z) 192.168.1.30
@@ -72,77 +72,77 @@
                   BB:BB:BB:BB:BB:BB
 ```
 
-**a.** Συμπληρώστε τα στοιχεία των μηνυμάτων ARP που ανταλλάσσουν οι δύο συσκευές.
+**a.** Fill in the details of the ARP messages exchanged by the two devices.
 
-**Αίτημα Υπολογιστή X (ARP Request)**
+**Computer X Request (ARP Request)**
 Sender MAC: `AA:AA:AA:AA:AA:AA`
 Sender IP:  `192.168.1.10`
 Target MAC: `00:00:00:00:00:00`
 Target IP:  `192.168.1.30`
 
-**Απάντηση υπολογιστή Z (ARP Reply)**
+**Computer Z Reply (ARP Reply)**
 Sender MAC: `CC:CC:CC:CC:CC:CC`
 Sender IP:  `192.168.1.30`
 Target MAC: `AA:AA:AA:AA:AA:AA`
 Target IP:  `192.168.1.10`
 
-**b.** Αν ο υπολογιστής X επιθυμούσε να στείλει πακέτο σε μια IP διεύθυνση εκτός του τοπικού δικτύου (π.χ. 8.8.8.8), με ποιανού τη MAC address θα προσπαθούσε να επικοινωνήσει;
+**b.** If computer X wished to send a packet to an IP address outside the local network (e.g. 8.8.8.8), whose MAC address would it attempt to communicate with?
 
 ---
-**Απάντηση:**
-Με τη MAC διεύθυνση της **προεπιλεγμένης πύλης (Default Gateway / Router)** του τοπικού του δικτύου (καθώς η IP 8.8.8.8 βρίσκεται εκτός του τοπικού broadcast domain).
+**Answer:**
+With the MAC address of the **Default Gateway / Router** of its local network (since IP 8.8.8.8 lies outside the local broadcast domain).
 
 ---
 
-### Άσκηση 2 (2.5 μονάδες)
-Θεωρήστε ένα δίκτυο με 3 hops (Host A $\rightarrow$ Router 1 $\rightarrow$ Router 2 $\rightarrow$ Host B). Κάθε ζεύξη (link) έχει ρυθμό μετάδοσης $R = 2\text{ Mbps}$ ($2 \times 10^6\text{ bps}$) και η φυσική απόσταση της κάθε ζεύξης είναι $10.000\text{ km}$. Η ταχύτητα διάδοσης είναι $s = 2 \times 10^8\text{ m/s}$. Ο Host A θέλει να στείλει ένα πακέτο μεγέθους $L = 10.000\text{ bits}$ στον Host B. 
+### Exercise 2 (2.5 points)
+Consider a network with 3 hops (Host A $\rightarrow$ Router 1 $\rightarrow$ Router 2 $\rightarrow$ Host B). Each link has a transmission rate $R = 2\text{ Mbps}$ ($2 \times 10^6\text{ bps}$) and physical length of $10,000\text{ km}$. Signal propagation speed is $s = 2 \times 10^8\text{ m/s}$. Host A wants to send a packet of size $L = 10,000\text{ bits}$ to Host B.
 
-(Υποθέστε μηδενικές καθυστερήσεις επεξεργασίας και ουράς).
+(Assume zero processing and queuing delays).
 
-**a.** Υπολογίστε την καθυστέρηση μετάδοσης ($d_{trans}$) για ένα hop.
+**a.** Calculate the transmission delay ($d_{trans}$) for one hop.
 ---
-**Απάντηση:**
-$$d_{trans} = \frac{L}{R} = \frac{10.000\text{ bits}}{2 \times 10^6\text{ bps}} = 0,005\text{ s} = `5\text{ ms}`$$
+**Answer:**
+$$d_{trans} = \frac{L}{R} = \frac{10,000\text{ bits}}{2 \times 10^6\text{ bps}} = 0.005\text{ s} = `5\text{ ms}`$$
 
-**b.** Υπολογίστε την καθυστέρηση διάδοσης ($d_{prop}$) για ένα hop.
+**b.** Calculate the propagation delay ($d_{prop}$) for one hop.
 ---
-**Απάντηση:**
-$$d_{prop} = \frac{d}{s} = \frac{10.000 \times 10^3\text{ m}}{2 \times 10^8\text{ m/s}} = \frac{10^7}{2 \times 10^8} = 0,05\text{ s} = `50\text{ ms}`$$
+**Answer:**
+$$d_{prop} = \frac{d}{s} = \frac{10,000 \times 10^3\text{ m}}{2 \times 10^8\text{ m/s}} = \frac{10^7}{2 \times 10^8} = 0.05\text{ s} = `50\text{ ms}`$$
 
-**c.** Υπολογίστε τη συνολική καθυστέρηση (end-to-end delay) από τη στιγμή που ο Host A αρχίζει να μεταδίδει το πακέτο μέχρι τη στιγμή που ο Host B λαμβάνει ολόκληρο το πακέτο. (Η λειτουργία των routers είναι store-and-forward).
+**c.** Calculate the end-to-end delay from the instant Host A begins transmitting the packet until Host B receives the entire packet. (Routers operate in store-and-forward mode).
 ---
-**Απάντηση:**
-Η διαδρομή αποτελείται από $N = 3$ hops. Σε δίκτυο store-and-forward χωρίς άλλες καθυστερήσεις:
+**Answer:**
+The path consists of $N = 3$ hops. In a store-and-forward network without other delays:
 $$d_{total} = N \times (d_{trans} + d_{prop})$$
 $$d_{total} = 3 \times (5\text{ ms} + 50\text{ ms}) = 3 \times 55\text{ ms} = `165\text{ ms}`$$
 
 ---
 
-### Άσκηση 3 (2.5 μονάδες)
-Αποστολέας επιθυμεί να στείλει το αρχικό μήνυμα δεδομένων `1101` χρησιμοποιώντας τον κώδικα Hamming. 
+### Exercise 3 (2.5 points)
+A sender wishes to transmit the original data message `1101` using Hamming code.
 
-**a.** Πόσα bits ισοτιμίας ($p$) απαιτούνται;
+**a.** How many parity bits ($p$) are required?
 ---
-**Απάντηση:**
-Ισχύει ο τύπος $2^p \ge d + p + 1 \Rightarrow 2^p \ge 4 + p + 1 \Rightarrow 2^p \ge p + 5$.
-Για $p=3$: $2^3 = 8 \ge 3 + 5 = 8$. 
-Απαιτούνται **$p = `3`$** bits ισοτιμίας.
+**Answer:**
+The relation $2^p \ge d + p + 1 \Rightarrow 2^p \ge 4 + p + 1 \Rightarrow 2^p \ge p + 5$ applies.
+For $p=3$: $2^3 = 8 \ge 3 + 5 = 8$. 
+**$p = `3`$** parity bits are required.
 
-**b.** Ποιο είναι το συνολικό μήνυμα που θα μεταδοθεί αν υποθέσουμε χρήση **άρτιας ισοτιμίας (even parity)**; Δείξτε αναλυτικά τις θέσεις και τον υπολογισμό των bits.
+**b.** What is the complete message transmitted assuming the use of **even parity**? Show bit positions and calculation in detail.
 ---
-**Απάντηση:**
-Το συνολικό μήνυμα θα έχει $4 + 3 = 7$ bits.
-Θέσεις bits ισοτιμίας: $1, 2, 4$ (δυνάμεις του 2).
-Θέσεις bits δεδομένων: $3, 5, 6, 7$.
+**Answer:**
+The complete message will have $4 + 3 = 7$ bits.
+Parity bit positions: $1, 2, 4$ (powers of 2).
+Data bit positions: $3, 5, 6, 7$.
 
-| Θέση | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| Position | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 |---|---|---|---|---|---|---|---|
 | Bit | $P_1$ | $P_2$ | $D_1$ | $P_4$ | $D_2$ | $D_3$ | $D_4$ |
-| Τιμή | `1` | `0` | `1` | `0` | `1` | `0` | `1` |
+| Value | `1` | `0` | `1` | `0` | `1` | `0` | `1` |
 
-Υπολογισμός bits (άρτια ισοτιμία / even parity):
-- **$P_1$ (ελέγχει θέσεις 1, 3, 5, 7):** $P_1 \oplus D_1 \oplus D_2 \oplus D_4 = P_1 \oplus 1 \oplus 1 \oplus 1 = P_1 \oplus 1$. Για άρτιο αριθμό άσων: **$P_1 = `1`$**.
-- **$P_2$ (ελέγχει θέσεις 2, 3, 6, 7):** $P_2 \oplus D_1 \oplus D_3 \oplus D_4 = P_2 \oplus 1 \oplus 0 \oplus 1 = P_2 \oplus 0$. Για άρτιο αριθμό άσων: **$P_2 = `0`$**.
-- **$P_4$ (ελέγχει θέσεις 4, 5, 6, 7):** $P_4 \oplus D_2 \oplus D_3 \oplus D_4 = P_4 \oplus 1 \oplus 0 \oplus 1 = P_4 \oplus 0$. Για άρτιο αριθμό άσων: **$P_4 = `0`$**.
+Bit calculation (even parity):
+- **$P_1$ (checks positions 1, 3, 5, 7):** $P_1 \oplus D_1 \oplus D_2 \oplus D_4 = P_1 \oplus 1 \oplus 1 \oplus 1 = P_1 \oplus 1$. For even number of ones: **$P_1 = `1`$**.
+- **$P_2$ (checks positions 2, 3, 6, 7):** $P_2 \oplus D_1 \oplus D_3 \oplus D_4 = P_2 \oplus 1 \oplus 0 \oplus 1 = P_2 \oplus 0$. For even number of ones: **$P_2 = `0`$**.
+- **$P_4$ (checks positions 4, 5, 6, 7):** $P_4 \oplus D_2 \oplus D_3 \oplus D_4 = P_4 \oplus 1 \oplus 0 \oplus 1 = P_4 \oplus 0$. For even number of ones: **$P_4 = `0`$**.
 
-Τελικό μεταδιδόμενο μήνυμα: **`1010101`**
+Final transmitted message: **`1010101`**

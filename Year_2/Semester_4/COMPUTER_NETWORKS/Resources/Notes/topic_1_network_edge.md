@@ -1,108 +1,108 @@
-# Δίκτυο στο Έπακρο
+# Network at the Edge
 *The Network at a Glance*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 
-- [Εισαγωγή](#εισαγωγή)
-- [Τελικά Συστήματα](#τελικά-συστήματα)
-  - [Το Δίκτυο ως Υπηρεσία](#το-δίκτυο-ως-υπηρεσία)
-  - [Πρόγραμμα Πελάτης](#πρόγραμμα-πελάτης)
-  - [Κεντρικός Κόμβος](#κεντρικός-κόμβος)
-  - [Δίκτυα Ομοτιμότητας (Peer-to-Peer)](#δίκτυα-ομοτιμότητας-peer-to-peer)
-- [Παροχή Δικτύου](#παροχή-δικτύου)
-  - [Σύνδεση Ενσύρματων Συστημάτων](#σύνδεση-ενσύρματων-συστημάτων)
-  - [Σύνδεση Ασύρματων](#σύνδεση-ασύρματων)
-  - [Επικοινωνία (Καλώδια)](#επικοινωνία-καλώδια)
-  - [Υπηρεσίες Τηλεπικοινωνιών](#υπηρεσίες-τηλεπικοινωνιών)
-- [Συγκεντρωτικός Πίνακας](#συγκεντρωτικός-πίνακας)
-- [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
-
----
-
-## Εισαγωγή
-
-Το **Δίκτυο στο Έπακρο** (network at a glance / network edge) αποτελεί το εξωτερικό στρώμα της αρχιτεκτονικής του Διαδικτύου — το σύνολο των συσκευών και των μηχανισμών πρόσβασης που βρίσκονται στην "περιφέρεια" της δικτυακής υποδομής. Η κατανόηση αυτής της περιοχής είναι θεμελιώδης, διότι εδώ δημιουργείται και καταναλώνεται η κίνηση δεδομένων που διαχειρίζεται ο πυρήνας του δικτύου (network core). Το θέμα αυτό διερευνά τα **τελικά συστήματα** (end systems / hosts) — τις συσκευές που τρέχουν τις εφαρμογές — τα μοντέλα επικοινωνίας τους (client-server, peer-to-peer) καθώς και τις τεχνολογίες και τα φυσικά μέσα που τα συνδέουν με το υπόλοιπο δίκτυο. Η γνώση αυτής της ενότητας αποτελεί απαραίτητη βάση για τη μελέτη της δομής του δικτύου, της μεταγωγής δεδομένων και των πρωτοκόλλων που θα ακολουθήσουν.
+- [Introduction](#introduction)
+- [End Systems](#end-systems)
+  - [The Network as a Service](#the-network-as-a-service)
+  - [Client Application](#client-application)
+  - [Central Node](#central-node)
+  - [Peer-to-Peer Networks](#peer-to-peer-networks)
+- [Network Access Provision](#network-access-provision)
+  - [Wired System Connectivity](#wired-system-connectivity)
+  - [Wireless Connectivity](#wireless-connectivity)
+  - [Communication Media (Cables)](#communication-media-cables)
+  - [Telecommunications Services](#telecommunications-services)
+- [Summary Table](#summary-table)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
-## Τελικά Συστήματα
+## Introduction
+
+The **Network at the Edge** (network at a glance / network edge) constitutes the outer layer of the Internet architecture — the collection of devices and access mechanisms located at the "periphery" of the network infrastructure. Understanding this domain is fundamental, as it is here that data traffic managed by the network core is generated and consumed. This topic explores **end systems** (hosts) — devices running applications —, their communication models (client-server, peer-to-peer), as well as access technologies and physical media connecting them to the rest of the network. Knowledge of this section serves as an essential foundation for studying network structure, data switching, and protocols to follow.
+
+---
+
+## End Systems
 *End Systems / Hosts*
 
-Τα **τελικά συστήματα** (end systems), γνωστά και ως **hosts**, είναι οι συσκευές που βρίσκονται στα άκρα του δικτύου και εκτελούν εφαρμογές. Παραδείγματα: προσωπικοί υπολογιστές, smartphones, tablets, servers, αισθητήρες IoT, έξυπνες τηλεοράσεις. Αποκαλούνται "τελικά" γιατί αποτελούν το σημείο έναρξης ή λήξης της επικοινωνίας — σε αντίθεση με τους ενδιάμεσους κόμβους (routers, switches) που απλώς προωθούν δεδομένα.
+**End systems**, also known as **hosts**, are devices located at the edges of the network that execute applications. Examples: personal computers, smartphones, tablets, servers, IoT sensors, smart TVs. They are called "end" systems because they represent the starting or ending point of communication — in contrast to intermediate nodes (routers, switches) that merely forward data.
 
 ```
-  Δίκτυο στο Έπακρο (Network Edge)
+  Network Edge
   ─────────────────────────────────────────────────────
   [Laptop]   [Smartphone]   [Smart TV]   [IoT Sensor]
       \           |              |             /
        \          |              |            /
-        ──────────[Δίκτυο Πρόσβασης (Access Network)]──────
-                                  |
-                         [Πυρήνας Δικτύου (Network Core)]
-                                  |
-                         [Άλλα Τελικά Συστήματα]
+        ──────────[Access Network]─────────────────
+                                   |
+                          [Network Core]
+                                   |
+                          [Other End Systems]
 ```
 
-Τα τελικά συστήματα επικοινωνούν μέσω **εφαρμογικών πρωτοκόλλων** (application-layer protocols) όπως HTTP, SMTP, FTP, DNS, που ανήκουν στο Επίπεδο Εφαρμογής (Layer 7) του OSI model.
+End systems communicate via **application-layer protocols** such as HTTP, SMTP, FTP, DNS, belonging to Layer 7 of the OSI model.
 
 ---
 
-### Το Δίκτυο ως Υπηρεσία
+### The Network as a Service
 *The Network as a Service*
 
-#### Τεχνική Ορολογία
+#### Technical Terminology
 
-Η έννοια "δίκτυο ως υπηρεσία" εξετάζει την υποδομή επικοινωνίας από τη σκοπιά του **τι προσφέρει** στις εφαρμογές που τρέχουν στα τελικά συστήματα. Σε αυτό το πλαίσιο, το δίκτυο λειτουργεί ως ένας **αφηρημένος αγωγός** (abstract pipe) που μεταφέρει δεδομένα μεταξύ εφαρμογών, χωρίς ο προγραμματιστής να χρειάζεται να γνωρίζει τις εσωτερικές λεπτομέρειες της υλοποίησής του.
+The concept of "network as a service" examines communication infrastructure from the perspective of **what it provides** to applications running on end systems. In this framework, the network functions as an **abstract pipe** transporting data between applications, without the developer needing to know internal implementation details.
 
-Στη σύγχρονη εποχή, η έννοια αυτή υλοποιείται συχνά ως **NaaS (Network as a Service)** — ένα μοντέλο παροχής υπηρεσιών μέσω cloud, όπου οι οργανισμοί "νοικιάζουν" δικτυακές δυνατότητες (bandwidth, routing, firewalling) αντί να αγοράζουν και να συντηρούν φυσικό εξοπλισμό.
+In modern times, this concept is often realized as **NaaS (Network as a Service)** — a cloud service delivery model where organizations "rent" network capabilities (bandwidth, routing, firewalling) instead of purchasing and maintaining physical hardware.
 
-#### Μοντέλο ISP (Internet Service Provider)
+#### ISP Model (Internet Service Provider)
 
-Η πρόσβαση στο Διαδίκτυο παρέχεται ιεραρχικά μέσω **ISP (Internet Service Providers)**:
+Internet access is provided hierarchically via **ISPs (Internet Service Providers)**:
 
-| Επίπεδο ISP | Ρόλος | Παραδείγματα |
+| ISP Tier | Role | Examples |
 |---|---|---|
-| **Tier 1** | Παγκόσμιο backbone — κατέχουν υποβρύχια καλώδια οπτικών ινών | AT&T, Deutsche Telekom, NTT |
-| **Tier 2** | Περιφερειακοί — αγοράζουν transit από Tier 1 | Vodafone, Cosmote |
-| **Tier 3** | Τοπικοί — "τελευταίο μίλι" προς το σπίτι ή την επιχείρηση | τοπικοί ISP, εταιρίες καλωδιακής |
+| **Tier 1** | Global backbone — owns undersea fiber-optic cables | AT&T, Deutsche Telekom, NTT |
+| **Tier 2** | Regional — buys transit from Tier 1 | Vodafone, Cosmote |
+| **Tier 3** | Local — "last mile" to home or business | local ISPs, cable companies |
 
-**Σημαντική Διάκριση:** Οι Tier 1 ISP ανταλλάσσουν κίνηση δεδομένων μεταξύ τους με **settlement-free peering** (χωρίς χρέωση), ενώ οι Tier 2 και Tier 3 πληρώνουν για transit.
+**Important Distinction:** Tier 1 ISPs exchange data traffic with each other via **settlement-free peering** (free of charge), while Tier 2 and Tier 3 pay for transit.
 
-#### Τι Προσφέρει το Δίκτυο στις Εφαρμογές
+#### What the Network Offers to Applications
 
-Το Διαδίκτυο προσφέρει δύο βασικές κατηγορίες υπηρεσιών στις εφαρμογές:
+The Internet offers two primary service categories to applications:
 
-1. **Connection-oriented reliable service (TCP):** Εγγυημένη, σε σωστή σειρά παράδοση δεδομένων, έλεγχος ροής, έλεγχος συμφόρησης. Χρησιμοποιείται από HTTP, SMTP, FTP.
-2. **Connectionless unreliable service (UDP):** Ταχύτερη, χωρίς εγγύηση παράδοσης ή σειράς. Χρησιμοποιείται από DNS, video streaming, VoIP.
+1. **Connection-oriented reliable service (TCP):** Guaranteed, in-order data delivery, flow control, congestion control. Used by HTTP, SMTP, FTP.
+2. **Connectionless unreliable service (UDP):** Faster, without delivery or ordering guarantees. Used by DNS, video streaming, VoIP.
 
 ```
-  Εφαρμογή (Application Layer)
+  Application Layer
          |
-  [TCP ή UDP] ← Επιλογή ανάλογα με ανάγκες
+  [TCP or UDP] ← Selection based on requirements
          |
   [IP - Network Layer]
          |
   [Link Layer + Physical Layer]
          |
-  ~~~~~~ Φυσικό Δίκτυο ~~~~~~
+  ~~~~~~ Physical Network ~~~~~~
 ```
 
 ---
 
-### Πρόγραμμα Πελάτης
+### Client Application
 *Client Application / Client-Server Architecture*
 
-#### Αρχιτεκτονική Client-Server
+#### Client-Server Architecture
 
-Στο μοντέλο **client-server**, υπάρχει σαφής διαχωρισμός ρόλων:
+In the **client-server** model, there is a clear division of roles:
 
-- **Client:** Ο host που *ζητά* μια υπηρεσία. Εκκινεί την επικοινωνία, έχει δυναμική (μη-μόνιμη) σύνδεση, συχνά έχει μεταβαλλόμενη IP διεύθυνση. Παράδειγμα: web browser (Chrome, Firefox).
-- **Server:** Ο host που *παρέχει* την υπηρεσία. Λειτουργεί συνεχώς (always-on), έχει στατική IP διεύθυνση, εξυπηρετεί πολλούς clients ταυτόχρονα. Παράδειγμα: web server (Apache, Nginx).
+- **Client:** The host requesting a service. Initiates communication, has dynamic (non-permanent) connection, often has a changing IP address. Example: web browser (Chrome, Firefox).
+- **Server:** The host providing the service. Operates continuously (always-on), has a static IP address, serves multiple clients simultaneously. Example: web server (Apache, Nginx).
 
 ```
-  Μοντέλο Client-Server
+  Client-Server Model
   ─────────────────────────────────────────────
   [Client A]               [Server]
       |                       |
@@ -118,61 +118,61 @@
       | <-- HTTP 200 OK ------  |
 ```
 
-#### Χαρακτηριστικά και Παραδείγματα
+#### Characteristics and Examples
 
-Σήμερα, οι servers στεγάζονται σε μεγάλα **data centers** (π.χ. AWS, Google Cloud, Azure) που φιλοξενούν χιλιάδες servers ταυτόχρονα. Ένα data center της Google μπορεί να περιέχει εκατοντάδες χιλιάδες servers.
+Today, servers are hosted in large **data centers** (e.g. AWS, Google Cloud, Azure) housing thousands of servers simultaneously. A Google data center may contain hundreds of thousands of servers.
 
-| Εφαρμογή | Client | Server |
+| Application | Client | Server |
 |---|---|---|
 | Web browsing | Chrome, Firefox | Apache, Nginx |
 | Email | Outlook, Gmail app | SMTP/IMAP server |
 | Streaming | Netflix app | CDN servers (Akamai) |
 | Online gaming | Game client | Game server |
 
-**Exam Note:** Σε αρχιτεκτονική client-server, μόνο ο server έχει σταθερά γνωστή διεύθυνση IP. Ο client δεν χρειάζεται να γνωρίζει τη διεύθυνση άλλων clients.
+**Exam Note:** In client-server architecture, only the server has a permanently known IP address. The client does not need to know the IP addresses of other clients.
 
 ---
 
-### Κεντρικός Κόμβος
+### Central Node
 *Central Node / Server*
 
-#### Ορισμός και Λειτουργία
+#### Definition and Function
 
-Ο **κεντρικός κόμβος** (central node / server) είναι ο ειδικός host που παρέχει υπηρεσίες σε πολλούς clients ταυτόχρονα. Στο πλαίσιο του μαθήματος, ο όρος αυτός αναφέρεται στον server της αρχιτεκτονικής client-server.
+The **central node** (server) is the dedicated host providing services to multiple clients simultaneously. Within the course context, this term refers to the server in client-server architecture.
 
-**Βασικά χαρακτηριστικά ενός server:**
-- Εκτελείται συνεχώς (24/7 uptime)
-- Έχει στατική, γνωστή IP διεύθυνση
-- Μπορεί να εξυπηρετεί χιλιάδες concurrent connections
-- Συνήθως βρίσκεται σε data centers με εγγυημένο uptime, ψύξη και τροφοδοσία
+**Key characteristics of a server:**
+- Runs continuously (24/7 uptime)
+- Has a static, well-known IP address
+- Can serve thousands of concurrent connections
+- Typically located in data centers with guaranteed uptime, cooling, and power
 
-#### Κλιμάκωση (Scalability)
+#### Scalability
 
-Ένας μεμονωμένος server έχει περιορισμένη χωρητικότητα. Για την εξυπηρέτηση εκατομμυρίων χρηστών, χρησιμοποιούνται **server farms** ή **cloud platforms** με load balancing:
+An individual server has limited capacity. To serve millions of users, **server farms** or **cloud platforms** with load balancing are utilized:
 
 ```
                    [DNS / Load Balancer]
                    /        |         \
             [Server 1]  [Server 2]  [Server 3]
                 \          |           /
-                 [Κοινή Βάση Δεδομένων / Storage]
+                 [Shared Database / Storage]
 ```
 
-**Key Distinction:** Ο κεντρικός κόμβος είναι ένα *τελικό σύστημα* (end system) — δεν προωθεί πακέτα σε άλλα δίκτυα. Αυτή είναι η αρμοδιότητα των routers, που ανήκουν στον *πυρήνα* του δικτύου.
+**Key Distinction:** A central node is an *end system* — it does not forward packets to other networks. That is the responsibility of routers, which belong to the network *core*.
 
 ---
 
-### Δίκτυα Ομοτιμότητας (Peer-to-Peer)
+### Peer-to-Peer Networks
 *Peer-to-Peer (P2P) Networks*
 
-#### Αρχή Λειτουργίας
+#### Operating Principle
 
-Στο μοντέλο **Peer-to-Peer (P2P)**, δεν υπάρχει αφοσιωμένος server. Αντίθετα, οι συμμετέχουσες συσκευές — οι **peers** — επικοινωνούν απευθείας μεταξύ τους, ενεργώντας ταυτόχρονα ως clients *και* ως servers.
+In the **Peer-to-Peer (P2P)** model, there is no dedicated server. Instead, participating devices — **peers** — communicate directly with each other, acting simultaneously as clients *and* servers.
 
-**Αναλογία:** Φανταστείτε μια ομάδα μαθητών που μοιράζονται σημειώσεις απευθείας μεταξύ τους, αντί να τα παραλαμβάνουν όλοι από έναν κεντρικό εκτυπωτή (server).
+**Analogy:** Imagine a group of students sharing notes directly with each other, rather than all fetching them from a central printer (server).
 
 ```
-  Μοντέλο Peer-to-Peer
+  Peer-to-Peer Model
   ─────────────────────────────────────────────
        [Peer A] ←──────────→ [Peer B]
            \                   /
@@ -182,131 +182,131 @@
                 \
                  [Peer E]
 
-  Κάθε Peer: Κατεβάζει ΚΑΙ ανεβάζει δεδομένα ταυτόχρονα
+  Each Peer: Downloads AND uploads data simultaneously
 ```
 
-#### Χαρακτηριστικά και Πλεονεκτήματα
+#### Characteristics and Advantages
 
-| Χαρακτηριστικό | Client-Server | Peer-to-Peer |
+| Characteristic | Client-Server | Peer-to-Peer |
 |---|---|---|
-| Αφοσιωμένος server | Ναι | Όχι (ή ελάχιστα) |
-| Κλιμακωσιμότητα | Περιορισμένη από server | Αυξάνεται με τους peers |
-| Αξιοπιστία | Εξαρτάται από server | Ανθεκτικό σε αποτυχίες |
-| Έλεγχος | Κεντρικός | Αποκεντρωμένος |
-| Bandwidth server | Bottleneck | Κατανεμημένο |
+| Dedicated server | Yes | No (or minimal) |
+| Scalability | Limited by server | Increases with peers |
+| Reliability | Dependent on server | Resilient to failures |
+| Control | Centralized | Decentralized |
+| Server bandwidth | Bottleneck | Distributed |
 
-**Παραδείγματα P2P:**
-- **BitTorrent:** Κάθε peer που κατεβάζει ένα αρχείο, το ανεβάζει ταυτόχρονα σε άλλους. Όσο περισσότεροι peers υπάρχουν (seeders), τόσο ταχύτερη η λήψη.
-- **Skype (παλαιά αρχιτεκτονική):** Χρησιμοποιούσε P2P για τη διαχείριση κλήσεων.
-- **Blockchain/Κρυπτονομίσματα:** Bitcoin, Ethereum λειτουργούν σε αποκεντρωμένα P2P δίκτυα.
+**P2P Examples:**
+- **BitTorrent:** Every peer downloading a file simultaneously uploads it to others. The more peers present (seeders), the faster the download.
+- **Skype (legacy architecture):** Used P2P for call management.
+- **Blockchain/Cryptocurrencies:** Bitcoin, Ethereum operate on decentralized P2P networks.
 
-**Exam Note:** Στο P2P, η **αυτο-κλιμάκωση** (self-scalability) είναι το κύριο πλεονέκτημα: κάθε νέος peer που εντάσσεται φέρνει επιπλέον πόρους (bandwidth, storage) στο δίκτυο. Στο client-server, η αύξηση clients αυξάνει μόνο τη ζήτηση στον server.
+**Exam Note:** In P2P, **self-scalability** is the main advantage: every new peer joining brings additional resources (bandwidth, storage) to the network. In client-server, adding clients increases demand only on the server.
 
-#### Υβριδικά Μοντέλα
+#### Hybrid Models
 
-Πολλά σύγχρονα συστήματα χρησιμοποιούν **υβριδική αρχιτεκτονική**: κεντρικός server για **discovery** (εύρεση peers) και άμεση P2P επικοινωνία για τη μεταφορά δεδομένων. Παράδειγμα: το σύγχρονο Skype (Microsoft) και οι πλατφόρμες streaming.
+Many modern systems use a **hybrid architecture**: central server for **discovery** (finding peers) and direct P2P communication for data transfer. Example: modern Skype (Microsoft) and streaming platforms.
 
 ---
 
-## Παροχή Δικτύου
+## Network Access Provision
 *Network Access Provision*
 
-Η **παροχή δικτύου** αναφέρεται στο πώς τα τελικά συστήματα συνδέονται φυσικά με τον πυρήνα του Διαδικτύου. Πρόκειται για το ζήτημα του **"τελευταίου μιλίου"** (last-mile connectivity) — δηλαδή, τη σύνδεση από το σπίτι ή το γραφείο έως τον κοντινότερο κόμβο του ISP.
+**Network access provision** refers to how end systems physically connect to the Internet core. It addresses the **"last-mile"** connectivity problem — connecting from home or office to the nearest ISP node.
 
 ---
 
-### Σύνδεση Ενσύρματων Συστημάτων
+### Wired System Connectivity
 *Wired System Connectivity*
 
 #### DSL (Digital Subscriber Line)
 
-Το **DSL** χρησιμοποιεί τις υπάρχουσες **χάλκινες τηλεφωνικές γραμμές** για τη μεταφορά ψηφιακών δεδομένων. Ένα **DSL modem** στο σπίτι μετατρέπει τα ψηφιακά δεδομένα σε σήματα υψηλής συχνότητας, τα οποία διαχωρίζονται από τη φωνητική κίνηση στο **DSLAM** (DSL Access Multiplexer) του τοπικού κέντρου (central office) του ISP.
+**DSL** uses existing **copper telephone lines** to transmit digital data. A **DSL modem** at home converts digital data into high-frequency signals, which are separated from voice traffic at the **DSLAM** (DSL Access Multiplexer) in the ISP local central office.
 
 ```
-  Αρχιτεκτονική DSL
+  DSL Architecture
   ─────────────────────────────────────────────────────────────
-  [Σπίτι]                                     [Central Office]
-  [PC] ── [DSL Modem] ── χάλκινη γραμμή ──── [DSLAM] ──── [Internet]
+  [Home]                                      [Central Office]
+  [PC] ── [DSL Modem] ── copper line ──────── [DSLAM] ──── [Internet]
                           (existing phone line)     |
-                                                [Τηλεφωνικό Δίκτυο]
+                                                [Telephone Network]
 ```
 
-**Τύποι DSL:**
+**DSL Types:**
 
-| Τύπος | Download | Upload | Χαρακτηριστικό |
+| Type | Download | Upload | Characteristic |
 |---|---|---|---|
 | **ADSL** (Asymmetric DSL) | 1 – 24 Mbps | 0.5 – 3 Mbps | Download >> Upload |
-| **VDSL** (Very-high-speed DSL) | 52 – 100 Mbps | 16 – 40 Mbps | Κοντά στο central office |
-| **SDSL** (Symmetric DSL) | = Upload | = Download | Επαγγελματικές χρήσεις |
+| **VDSL** (Very-high-speed DSL) | 52 – 100 Mbps | 16 – 40 Mbps | Close to central office |
+| **SDSL** (Symmetric DSL) | = Upload | = Download | Business applications |
 
-**Key Distinction:** Η ταχύτητα DSL εξαρτάται κρίσιμα από την **απόσταση** από το central office. Για απόσταση > 5 km, η ταχύτητα υποβαθμίζεται δραματικά λόγω εξασθένισης σήματος (attenuation).
+**Key Distinction:** DSL speed critically depends on **distance** to the central office. For distance > 5 km, speed degrades dramatically due to signal attenuation.
 
 #### HFC (Hybrid Fiber-Coaxial)
 
-Το **HFC** ("καλωδιακό Ίντερνετ") χρησιμοποιεί **οπτικές ίνες** μέχρι έναν τοπικό κόμβο γειτονιάς (**fiber node**) και **ομοαξονικό καλώδιο** (coaxial cable) από τον κόμβο έως το σπίτι.
+**HFC** ("cable Internet") uses **optical fiber** up to a local neighborhood node (**fiber node**) and **coaxial cable** from the node to the home.
 
 ```
-  Αρχιτεκτονική HFC
+  HFC Architecture
   ─────────────────────────────────────────────────────────────
-  [ISP Headend] ── [Fiber] ── [Fiber Node] ── [Coaxial] ── [Σπίτι 1]
-                                                         └── [Σπίτι 2]
-                                                         └── [Σπίτι 3]
+  [ISP Headend] ── [Fiber] ── [Fiber Node] ── [Coaxial] ── [Home 1]
+                                                         └── [Home 2]
+                                                         └── [Home 3]
                         (shared coaxial segment)
 ```
 
-**Χαρακτηριστικά HFC:**
-- Ταχύτητες: 10 Mbps – 2+ Gbps (με DOCSIS 3.1)
-- **Κοινόχρηστο μέσο (shared medium):** Το ομοαξονικό τμήμα μοιράζεται μεταξύ γειτόνων — οι ταχύτητες μπορεί να μειωθούν σε ώρες αιχμής
-- Ασύμμετρο: download >> upload
+**HFC Characteristics:**
+- Speeds: 10 Mbps – 2+ Gbps (with DOCSIS 3.1)
+- **Shared medium:** Coaxial segment is shared among neighbors — speeds can drop during peak hours
+- Asymmetric: download >> upload
 
 #### FTTH (Fiber to the Home)
 
-Το **FTTH** οδηγεί **οπτικές ίνες** απευθείας μέσα στο σπίτι του χρήστη. Είναι το χρυσό πρότυπο σύνδεσης για οικιακή χρήση.
+**FTTH** brings **optical fiber** directly into the user's home. It is the gold standard for residential connections.
 
-**Αρχιτεκτονικές FTTH:**
-- **AON (Active Optical Network):** Χρησιμοποιεί ενεργό εξοπλισμό (switches) στο δίκτυο.
-- **PON (Passive Optical Network):** Χρησιμοποιεί παθητικούς οπτικούς διαχωριστές (splitters) χωρίς ηλεκτρισμό στο εξωτερικό δίκτυο — φθηνότερο και πιο διαδεδομένο.
+**FTTH Architectures:**
+- **AON (Active Optical Network):** Uses active equipment (switches) in the network.
+- **PON (Passive Optical Network):** Uses passive optical splitters without electricity in the external network — cheaper and more widespread.
 
 ```
-  Αρχιτεκτονική PON (Παθητικό Οπτικό Δίκτυο)
+  PON Architecture (Passive Optical Network)
   ──────────────────────────────────────────────────────────
-  [OLT στον ISP] ── Fiber ── [Passive Splitter] ── [ONT στο Σπίτι 1]
-                                                ├── [ONT στο Σπίτι 2]
-                                                └── [ONT στο Σπίτι 3]
+  [OLT at ISP] ── Fiber ── [Passive Splitter] ── [ONT at Home 1]
+                                              ├── [ONT at Home 2]
+                                              └── [ONT at Home 3]
   OLT = Optical Line Terminal
   ONT = Optical Network Terminal
 ```
 
-**Συγκριτικός Πίνακας Ενσύρματων Τεχνολογιών:**
+**Comparative Table of Wired Technologies:**
 
-| Τεχνολογία | Φυσικό Μέσο | Τυπικές Ταχύτητες | Βασικό Πλεονέκτημα | Βασικό Μειονέκτημα |
+| Technology | Physical Medium | Typical Speeds | Main Advantage | Main Disadvantage |
 |---|---|---|---|---|
-| DSL | Χαλκός (τηλεφωνική γραμμή) | 1 – 140 Mbps | Χρησιμοποιεί υπάρχουσα υποδομή | Εξαρτάται από απόσταση |
-| HFC / Cable | Ίνα + Ομοαξονικό | 10 Mbps – 2 Gbps | Γρηγορότερο από DSL | Κοινόχρηστο bandwidth |
-| FTTH | Οπτική ίνα (100%) | 200 Mbps – 20 Gbps | Ταχύτερο, συμμετρικό | Υψηλό κόστος εγκατάστασης |
+| DSL | Copper (telephone line) | 1 – 140 Mbps | Uses existing infrastructure | Distance-dependent |
+| HFC / Cable | Fiber + Coaxial | 10 Mbps – 2 Gbps | Faster than DSL | Shared bandwidth |
+| FTTH | Optical fiber (100%) | 200 Mbps – 20 Gbps | Fastest, symmetric | High installation cost |
 
-**Αριθμητικό Παράδειγμα (Χρόνος Μεταφοράς Αρχείου):**
+**Numerical Example (File Transfer Time):**
 
-Έστω αρχείο 100 MB = $100 \times 10^6 \times 8 = 8 \times 10^8$ bits.
+Consider a 100 MB file = $100 \times 10^6 \times 8 = 8 \times 10^8$ bits.
 
 $$T_{DSL} = \frac{8 \times 10^8 \text{ bits}}{10 \times 10^6 \text{ bps}} = 80 \text{ sec}$$
 
 $$T_{FTTH} = \frac{8 \times 10^8 \text{ bits}}{1 \times 10^9 \text{ bps}} = 0.8 \text{ sec}$$
 
-Η FTTH είναι **100 φορές** ταχύτερη από ένα τυπικό DSL (10 Mbps) για την ίδια μεταφορά.
+FTTH is **100 times** faster than typical DSL (10 Mbps) for the same file transfer.
 
 ---
 
-### Σύνδεση Ασύρματων
+### Wireless Connectivity
 *Wireless Connectivity*
 
 #### Wi-Fi (IEEE 802.11)
 
-Το **Wi-Fi** παρέχει ασύρματη πρόσβαση σε LAN (Local Area Network) μέσω ραδιοκυμάτων. Οι συσκευές συνδέονται σε ένα **Wireless Access Point (WAP)** ή **router**, το οποίο με τη σειρά του συνδέεται στο Διαδίκτυο μέσω ενσύρματης σύνδεσης (DSL, HFC, ή FTTH).
+**Wi-Fi** provides wireless LAN (Local Area Network) access via radio waves. Devices connect to a **Wireless Access Point (WAP)** or **router**, which in turn connects to the Internet via a wired connection (DSL, HFC, or FTTH).
 
-**Πρότυπα Wi-Fi:**
+**Wi-Fi Standards:**
 
-| Πρότυπο | Ζώνη Συχνοτήτων | Μέγιστη Ταχύτητα | Χρονιά |
+| Standard | Frequency Band | Max Speed | Year |
 |---|---|---|---|
 | 802.11b | 2.4 GHz | 11 Mbps | 1999 |
 | 802.11g | 2.4 GHz | 54 Mbps | 2003 |
@@ -314,126 +314,126 @@ $$T_{FTTH} = \frac{8 \times 10^8 \text{ bits}}{1 \times 10^9 \text{ bps}} = 0.8 
 | 802.11ac (Wi-Fi 5) | 5 GHz | 3.5 Gbps | 2013 |
 | 802.11ax (Wi-Fi 6) | 2.4 / 5 / 6 GHz | 9.6 Gbps | 2019 |
 
-**Key Distinction:** Το Wi-Fi είναι τεχνολογία **LAN** (τοπικής εμβέλειας, ~30-100m). Δεν είναι τεχνολογία WAN — δεν παρέχει από μόνο του πρόσβαση στο Διαδίκτυο χωρίς ενσύρματη σύνδεση.
+**Key Distinction:** Wi-Fi is a **LAN** technology (local range, ~30-100m). It is not a WAN technology — it does not independently provide Internet access without a wired backhaul connection.
 
 #### 4G LTE (Long Term Evolution)
 
-Το **4G LTE** είναι η τέταρτη γενιά κινητής τηλεπικοινωνίας. Βασίζεται σε **αρχιτεκτονική all-packet** (δεν υπάρχει circuit switching για δεδομένα — μόνο packet switching).
+**4G LTE** is the fourth generation of mobile telecommunications. Based on **all-packet architecture** (no circuit switching for data — packet switching only).
 
-**Χαρακτηριστικά 4G LTE:**
-- Τυπικές ταχύτητες: 20 – 150 Mbps download, 10 – 50 Mbps upload
+**4G LTE Characteristics:**
+- Typical speeds: 20 – 150 Mbps download, 10 – 50 Mbps upload
 - Latency: ~30-50 ms
-- Τεχνολογία: OFDMA (Orthogonal Frequency Division Multiple Access), MIMO
-- Εφαρμογές: HD video streaming, VoLTE, mobile web
+- Technology: OFDMA (Orthogonal Frequency Division Multiple Access), MIMO
+- Applications: HD video streaming, VoLTE, mobile web
 
 #### 5G New Radio (NR)
 
-Το **5G** αντιπροσωπεύει τη ριζική εξέλιξη στις κινητές επικοινωνίες. Χρησιμοποιεί **millimeter wave (mmWave)** συχνότητες (24-100 GHz) για εξαιρετικά υψηλές ταχύτητες, αλλά και χαμηλότερες συχνότητες για μεγαλύτερη κάλυψη.
+**5G** represents a radical evolution in mobile communications. Uses **millimeter wave (mmWave)** frequencies (24-100 GHz) for ultra-high speeds, alongside lower frequencies for wider coverage.
 
-**Συγκριτικός Πίνακας 4G vs 5G:**
+**4G vs 5G Comparison Table:**
 
-| Παράμετρος | 4G LTE | 5G NR |
+| Parameter | 4G LTE | 5G NR |
 |---|---|---|
-| Μέγιστη ταχύτητα | ~1 Gbps (θεωρητική) | ~20 Gbps (θεωρητική) |
-| Τυπική ταχύτητα | 20-150 Mbps | 100 Mbps – 1 Gbps |
+| Max speed | ~1 Gbps (theoretical) | ~20 Gbps (theoretical) |
+| Typical speed | 20-150 Mbps | 100 Mbps – 1 Gbps |
 | Latency | 30-50 ms | < 1 ms |
-| Πυκνότητα συσκευών | ~100K/km² | ~1M/km² |
-| Βασική χρήση | Smartphone broadband | IoT, autonomous vehicles, AR/VR |
+| Device density | ~100K/km² | ~1M/km² |
+| Core use case | Smartphone broadband | IoT, autonomous vehicles, AR/VR |
 
-**Τεχνολογίες 5G:**
-- **Massive MIMO:** Εκατοντάδες κεραίες στο base station για ταυτόχρονη εξυπηρέτηση πολλών χρηστών.
-- **Beamforming:** Κατεύθυνση του σήματος προς συγκεκριμένο χρήστη αντί για ακτινική εκπομπή.
-- **Network Slicing:** Δημιουργία εικονικών δικτύων πάνω στην ίδια υποδομή (π.χ. ένα slice για αυτόνομα αυτοκίνητα με ultra-low latency, ένα άλλο για streaming).
+**5G Technologies:**
+- **Massive MIMO:** Hundreds of antennas at the base station to serve many users simultaneously.
+- **Beamforming:** Directing signals toward a specific user instead of radial broadcasting.
+- **Network Slicing:** Creating virtual networks on top of the same infrastructure (e.g., one slice for autonomous vehicles with ultra-low latency, another for streaming).
 
 ---
 
-### Επικοινωνία (Καλώδια)
+### Communication Media (Cables)
 *Communication Media (Cables)*
 
-Τα **φυσικά μέσα μετάδοσης** (physical transmission media) καθορίζουν πώς τα bits ταξιδεύουν φυσικά από τον αποστολέα στον παραλήπτη. Διακρίνονται σε **guided media** (καλώδια, ίνες) και **unguided media** (ασύρματο).
+**Physical transmission media** define how bits physically travel from sender to receiver. Divided into **guided media** (cables, fibers) and **unguided media** (wireless).
 
-#### Συνεστραμμένο Ζεύγος Χαλκού (Twisted Pair Copper Wire)
+#### Twisted Pair Copper Wire
 
-Το **twisted pair** είναι το πλέον διαδεδομένο καλώδιο στα LAN. Αποτελείται από δύο μονωμένα χάλκινα σύρματα στριμμένα μεταξύ τους (για μείωση ηλεκτρομαγνητικής παρεμβολής).
+**Twisted pair** is the most common cable in LANs. Consists of two insulated copper wires twisted around each other (to reduce electromagnetic interference).
 
-- **UTP (Unshielded Twisted Pair):** Κατηγορίες Cat5e (1 Gbps), Cat6 (10 Gbps στα 55m), Cat6a (10 Gbps στα 100m).
-- **Χρήσεις:** Ethernet LAN, DSL.
+- **UTP (Unshielded Twisted Pair):** Categories Cat5e (1 Gbps), Cat6 (10 Gbps at 55m), Cat6a (10 Gbps at 100m).
+- **Uses:** Ethernet LAN, DSL.
 
-#### Ομοαξονικό Καλώδιο (Coaxial Cable)
+#### Coaxial Cable
 
-Το **ομοαξονικό** αποτελείται από έναν κεντρικό αγωγό χαλκού, μόνωση, έναν εξωτερικό αγωγό (πλέγμα) και εξωτερική μόνωση. Προσφέρει καλύτερη θωράκιση από το twisted pair.
+**Coaxial** consists of a central copper conductor, insulation, an outer conductor (braid), and outer shielding. Offers better shielding than twisted pair.
 
-- **Ταχύτητες:** Εκατοντάδες Mbps έως Gbps.
-- **Χρήσεις:** HFC δίκτυα (καλωδιακό ίντερνετ), τηλεοπτικό σήμα.
+- **Speeds:** Hundreds of Mbps to Gbps.
+- **Uses:** HFC networks (cable internet), TV signal.
 
-#### Οπτική Ίνα (Fiber Optic Cable)
+#### Fiber Optic Cable
 
-Η **οπτική ίνα** μεταδίδει δεδομένα ως παλμούς **φωτός** μέσα σε γυάλινες ή πλαστικές ίνες. Είναι ανθεκτική σε ηλεκτρομαγνητικές παρεμβολές και επιτρέπει μεγάλες αποστάσεις χωρίς ενισχυτές.
+**Optical fiber** transmits data as pulses of **light** inside glass or plastic fibers. Immune to electromagnetic interference and allows long distances without repeaters.
 
-- **Monomode (Single-mode):** Λεπτός πυρήνας (~9 μm), χρησιμοποιεί laser. Για μεγάλες αποστάσεις (διηπειρωτικά links, > 100 km).
-- **Multimode:** Χοντρότερος πυρήνας (~50-62.5 μm), χρησιμοποιεί LED. Για μικρές αποστάσεις (data centers, κτίρια).
-- **Ταχύτητες:** 10 Gbps – Tbps (Terabits per second).
+- **Single-Mode Fiber (SMF):** Thin core (~9 μm), uses laser. For long distances (intercontinental links, > 100 km).
+- **Multi-Mode Fiber (MMF):** Thicker core (~50-62.5 μm), uses LED. For short distances (data centers, buildings).
+- **Speeds:** 10 Gbps – Tbps (Terabits per second).
 
 ```
-  Δομή Οπτικής Ίνας (Monomode)
-  ─────────────────────────────
-  | Jacket (εξωτερικό) |
-  | Cladding (αντανάκλαση) |
-  | Core (φωτεινή δέσμη, ~9 μm) |
-     → → → → → → → → (φωτεινοί παλμοί)
+  Optical Fiber Structure (Single-Mode)
+  ─────────────────────────────────────
+  | Jacket (outer) |
+  | Cladding (reflection) |
+  | Core (light beam, ~9 μm) |
+     → → → → → → → → (light pulses)
 ```
 
-**Σύγκριση Φυσικών Μέσων:**
+**Physical Media Comparison:**
 
-| Μέσο | Εύρος Ζώνης | Απόσταση | Κόστος | Τρωτότητα |
+| Medium | Bandwidth | Distance | Cost | Vulnerability |
 |---|---|---|---|---|
-| Twisted Pair (Cat6) | 10 Gbps | ~100 m | Χαμηλό | EM παρεμβολές |
-| Ομοαξονικό | Εκατ. Mbps | Km | Μεσαίο | Μέτρια |
-| Οπτική ίνα (SMF) | Tbps | Εκατ. Km | Υψηλό | Φυσικές καταστροφές |
+| Twisted Pair (Cat6) | 10 Gbps | ~100 m | Low | EM interference |
+| Coaxial | Hundreds Mbps | Km | Medium | Moderate |
+| Optical Fiber (SMF) | Tbps | Hundreds Km | High | Physical damage |
 
 ---
 
-### Υπηρεσίες Τηλεπικοινωνιών
+### Telecommunications Services
 *Telecommunications Services*
 
-#### Το PSTN (Public Switched Telephone Network)
+#### PSTN (Public Switched Telephone Network)
 
-Το **PSTN** είναι το παγκόσμιο δίκτυο φωνητικής επικοινωνίας που αναπτύχθηκε κατά τον 20ο αιώνα. Βασίζεται ιστορικά σε **circuit switching** — δηλαδή, πριν από κάθε κλήση, δεσμεύεται ένα αφοσιωμένο κανάλι (κύκλωμα) για τη διάρκεια της συνομιλίας.
+**PSTN** is the global voice communication network developed during the 20th century. Historically based on **circuit switching** — before each call, a dedicated channel (circuit) is reserved for the duration of the conversation.
 
 ```
   Circuit Switching (PSTN)
   ────────────────────────────────────────────────────────
-  Κλήση από Αθήνα → Θεσσαλονίκη:
-  [Α] ──[link1]── [Switch1] ──[link2]── [Switch2] ──[link3]── [Β]
-        Δεσμευμένα:  link1 + link2 + link3  για όλη την κλήση
-                     (αδρανούν αν κανείς δεν μιλά)
+  Call from Athens → Thessaloniki:
+  [A] ──[link1]── [Switch1] ──[link2]── [Switch2] ──[link3]── [B]
+        Reserved:  link1 + link2 + link3  for full duration
+                   (idle if no one talks)
 ```
 
-**Χαρακτηριστικά circuit switching:**
-- Εγγυημένο bandwidth για τη διάρκεια της σύνδεσης
-- Σπατάλη πόρων σε ιδιοχρονισμένες γραμμές (αν κανείς δεν μιλά, ο πόρος δεσμεύεται αλλά είναι αδρανής)
-- Σήμερα, το PSTN χρησιμοποιεί ψηφιακή μεταγωγή
+**Circuit switching characteristics:**
+- Guaranteed bandwidth for connection duration
+- Wasted resources during silent periods (if no one talks, resource remains reserved but idle)
+- Today, PSTN uses digital switching
 
 #### VoIP (Voice over Internet Protocol)
 
-Το **VoIP** μεταφέρει φωνή ως ψηφιακά πακέτα (packet switching) πάνω από το Διαδίκτυο, αντί για αφοσιωμένα κυκλώματα. Παραδείγματα: Skype, WhatsApp, Viber, Microsoft Teams.
+**VoIP** carries voice as digital packets (packet switching) over the Internet, instead of dedicated circuits. Examples: Skype, WhatsApp, Viber, Microsoft Teams.
 
-**Πρωτόκολλο:** SIP (Session Initiation Protocol) για διαχείριση κλήσεων, RTP (Real-time Transport Protocol) για μεταφορά φωνής.
+**Protocols:** SIP (Session Initiation Protocol) for call setup, RTP (Real-time Transport Protocol) for voice transport.
 
-#### Εξέλιξη Κινητών Δικτύων
+#### Mobile Network Evolution
 
-| Γενιά | Τεχνολογία | Τύπος Μεταγωγής | Χαρακτηριστικό |
+| Generation | Technology | Switching Type | Key Feature |
 |---|---|---|---|
-| 2G (GSM) | TDMA/CDMA | Circuit (φωνή) + Packet (GPRS/EDGE) | SMS, βασικό web |
-| 3G (UMTS) | WCDMA | Και τα δύο | Mobile internet, video calls |
+| 2G (GSM) | TDMA/CDMA | Circuit (voice) + Packet (GPRS/EDGE) | SMS, basic web |
+| 3G (UMTS) | WCDMA | Both | Mobile internet, video calls |
 | 4G (LTE) | OFDMA | All-Packet | HD streaming, VoLTE |
 | 5G (NR) | OFDMA + mmWave | All-Packet | IoT, ultra-low latency |
 
-**Exam Note:** Η μετάβαση από 3G σε 4G σηματοδοτεί την πλήρη μετάβαση σε **all-IP αρχιτεκτονική** για το πυρήνα του δικτύου. Στο 4G, η φωνή μεταφέρεται ως VoLTE (Voice over LTE) — packet-switched, όχι circuit-switched.
+**Exam Note:** The transition from 3G to 4G marks the complete shift to **all-IP architecture** in the network core. In 4G, voice is transported as VoLTE (Voice over LTE) — packet-switched, not circuit-switched.
 
-#### Πρωτόκολλο Αλληλεπίδρασης (HTTP Request)
+#### Protocol Interaction (HTTP Request)
 
-Ως παράδειγμα αλληλεπίδρασης τελικού συστήματος με υπηρεσία τηλεπικοινωνιών/web:
+Example interaction of an end system with a telecom/web service:
 
 ```
   HTTP Request-Response Sequence
@@ -456,39 +456,39 @@ $$T_{FTTH} = \frac{8 \times 10^8 \text{ bits}}{1 \times 10^9 \text{ bps}} = 0.8 
 
 ---
 
-## Συγκεντρωτικός Πίνακας
+## Summary Table
 
-| Έννοια | Ορισμός | Κύριο Χαρακτηριστικό |
+| Concept | Definition | Key Characteristic |
 |---|---|---|
-| **End System / Host** | Συσκευή στην περιφέρεια που τρέχει εφαρμογές | Σημείο έναρξης/λήξης επικοινωνίας |
-| **Client-Server** | Μοντέλο όπου server παρέχει υπηρεσίες σε clients | Server: always-on, στατική IP |
-| **Peer-to-Peer (P2P)** | Αποκεντρωμένο μοντέλο — peers ανταλλάσσουν απευθείας | Αυτο-κλιμάκωση, ανθεκτικότητα |
-| **ISP** | Παροχέας πρόσβασης στο Διαδίκτυο | Ιεραρχία Tier 1/2/3 |
-| **DSL** | Ψηφιακή σύνδεση μέσω χαλκού (τηλεφωνική γραμμή) | Ταχύτητα εξαρτάται από απόσταση |
-| **HFC** | Υβριδική (ίνα + ομοαξονικό) καλωδιακή σύνδεση | Κοινόχρηστο bandwidth |
-| **FTTH** | Οπτική ίνα απευθείας στο σπίτι | Ταχύτερο, συμμετρικό |
-| **Wi-Fi (802.11)** | Ασύρματο LAN | Τοπική εμβέλεια (~100m) |
-| **4G LTE** | 4η γενιά κινητής τηλεπικοινωνίας | All-packet, VoLTE |
-| **5G NR** | 5η γενιά — mmWave + Massive MIMO | Ultra-low latency, network slicing |
-| **Twisted Pair** | Δύο στριμμένα χάλκινα σύρματα | Ethernet LAN, DSL, χαμηλό κόστος |
-| **Ομοαξονικό** | Κεντρικός αγωγός + θωράκιση | HFC, καλωδιακή TV |
-| **Οπτική ίνα (SMF)** | Μετάδοση φωτός σε γυάλινη ίνα | Tbps, ανθεκτικό σε EM παρεμβολές |
-| **PSTN** | Δημόσιο τηλεφωνικό δίκτυο | Circuit switching |
-| **VoIP** | Φωνή ως πακέτα μέσω IP | Packet switching, SIP/RTP |
-| **Circuit Switching** | Αφοσιωμένο κανάλι για τη διάρκεια σύνδεσης | Εγγυημένο QoS, σπατάλη πόρων |
-| **Packet Switching** | Δεδομένα κατατμούνται σε πακέτα | Αποδοτική χρήση πόρων, καθυστερήσεις |
+| **End System / Host** | Peripheral device running applications | Origin/destination of communication |
+| **Client-Server** | Model where server provides services to clients | Server: always-on, static IP |
+| **Peer-to-Peer (P2P)** | Decentralized model — peers exchange directly | Self-scalability, resilience |
+| **ISP** | Internet Service Provider | Tier 1/2/3 hierarchy |
+| **DSL** | Digital connection over copper (phone line) | Speed distance-dependent |
+| **HFC** | Hybrid (fiber + coaxial) cable connection | Shared bandwidth |
+| **FTTH** | Optical fiber directly to home | Fastest, symmetric |
+| **Wi-Fi (802.11)** | Wireless LAN | Local range (~100m) |
+| **4G LTE** | 4th generation mobile telecommunications | All-packet, VoLTE |
+| **5G NR** | 5th generation — mmWave + Massive MIMO | Ultra-low latency, network slicing |
+| **Twisted Pair** | Two twisted copper wires | Ethernet LAN, DSL, low cost |
+| **Coaxial** | Central conductor + shielding braid | HFC, cable TV |
+| **Optical Fiber (SMF)** | Light transmission in glass fiber | Tbps, immune to EM interference |
+| **PSTN** | Public Switched Telephone Network | Circuit switching |
+| **VoIP** | Voice as packets over IP | Packet switching, SIP/RTP |
+| **Circuit Switching** | Dedicated channel for connection duration | Guaranteed QoS, resource waste |
+| **Packet Switching** | Data segmented into packets | Efficient resource use, delays possible |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-- Τα **τελικά συστήματα** (end systems / hosts) βρίσκονται στην περιφέρεια του Διαδικτύου και είναι οι συσκευές που τρέχουν εφαρμογές — όχι οι routers που προωθούν κίνηση.
-- Το μοντέλο **client-server** απαιτεί always-on server με στατική IP. Κλιμακώνεται μέσω data centers και load balancers.
-- Το μοντέλο **peer-to-peer** είναι αποκεντρωμένο: κάθε νέος peer προσθέτει τόσο ζήτηση *όσο και πόρους* — αυτό είναι η αυτο-κλιμάκωση.
-- Η **DSL** ταχύτητα εξαρτάται κρίσιμα από την απόσταση από το central office. Η **HFC** μοιράζεται bandwidth μεταξύ γειτόνων. Η **FTTH** παρέχει τη μεγαλύτερη ταχύτητα και συμμετρία.
-- Το **Wi-Fi** είναι τεχνολογία τοπικής σύνδεσης (LAN), όχι WAN — απαιτεί ενσύρματη backhaul σύνδεση.
-- Το **5G** υπερέχει του 4G σε ταχύτητα (20 Gbps vs 1 Gbps), latency (< 1 ms vs 30-50 ms) και πυκνότητα IoT συσκευών.
-- Η **οπτική ίνα** (single-mode) παρέχει ταχύτητες Tbps σε αποστάσεις εκατοντάδων χιλιομέτρων — είναι η ραχοκοκαλιά του Διαδικτύου.
-- Το **PSTN** βασίζεται σε circuit switching (αφοσιωμένο κανάλι), ενώ το Διαδίκτυο και το 4G/5G βασίζονται σε packet switching (αποδοτικότερο).
-- Το **VoIP** (Skype, WhatsApp) μεταφέρει φωνή ως πακέτα IP, αντικαθιστώντας σταδιακά το παραδοσιακό PSTN.
-- Η ιεραρχία ISP (Tier 1/2/3) υλοποιεί το Διαδίκτυο ως "δίκτυο δικτύων" — Tier 1 ανταλλάσσουν κίνηση δωρεάν (settlement-free peering), Tier 2/3 πληρώνουν για transit.
+- **End systems** (hosts) reside at the Internet periphery and execute applications — not routers forwarding traffic.
+- The **client-server** model requires an always-on server with a static IP, scaled via data centers and load balancers.
+- The **peer-to-peer** model is decentralized: each new peer adds both demand *and resources* — this is self-scalability.
+- **DSL** speed critically depends on distance to the central office. **HFC** shares bandwidth among neighbors. **FTTH** provides maximum speed and symmetry.
+- **Wi-Fi** is a local area network (LAN) technology, not WAN — requires a wired backhaul connection.
+- **5G** surpasses 4G in speed (20 Gbps vs 1 Gbps), latency (< 1 ms vs 30-50 ms), and IoT device density.
+- **Single-mode optical fiber** delivers Tbps speeds over hundreds of kilometers — forming the Internet backbone.
+- **PSTN** relies on circuit switching (dedicated channel), whereas the Internet and 4G/5G rely on packet switching (more efficient).
+- **VoIP** (Skype, WhatsApp) transports voice as IP packets, gradually replacing traditional PSTN.
+- The ISP hierarchy (Tier 1/2/3) implements the Internet as a "network of networks" — Tier 1 exchange traffic for free (settlement-free peering), Tier 2/3 pay for transit.

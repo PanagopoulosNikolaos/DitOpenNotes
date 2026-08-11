@@ -1,76 +1,76 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Synthetic Exam 2)
+# Computer Networks - Exam Questions (Synthetic Exam 2)
 *Computer Networks - Synthetic Exam 2*
 
-## Πληροφορίες Εξέτασης
-- **Ακαδημαϊκό Έτος:** .......................
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+## Exam Information
+- **Academic Year:** .......................
+- **Exam Duration:** 2 hours and 15 minutes
 
-## Στοιχεία Φοιτητή
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
+## Student Data
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
 
 ---
 
-## Μέρος Α: Ερωτήσεις Πολλαπλής Επιλογής & Θεωρίας (3 μονάδες)
+## Part A: Multiple Choice & Theory Questions (3 points)
 
-**1.** Σύμφωνα με τον κανόνα Longest Prefix Match (LPM), όταν μια διεύθυνση προορισμού ταιριάζει σε πολλαπλές εγγραφές του πίνακα προώθησης (forwarding table), ποια εγγραφή επιλέγεται;
-- [ ] A. Η εγγραφή με το μικρότερο αριθμό bits στο prefix.
-- [✓] B. Η εγγραφή με το μεγαλύτερο αριθμό bits στο prefix.
-- [ ] C. Η προεπιλεγμένη διαδρομή (default route).
-- [ ] D. Η πρώτη εγγραφή που βρίσκεται στον πίνακα.
+**1.** According to the Longest Prefix Match (LPM) rule, when a destination address matches multiple entries in a forwarding table, which entry is selected?
+- [ ] A. The entry with the smallest number of prefix bits.
+- [✓] B. The entry with the largest number of prefix bits.
+- [ ] C. The default route.
+- [ ] D. The first entry found in the table.
 
-*Αιτιολόγηση:* Το Longest Prefix Match σημαίνει "το μεγαλύτερο σε μήκος πρόθεμα" που ταιριάζει. Είναι το πιο ειδικό/συγκεκριμένο.
+*Justification:* Longest Prefix Match means the "longest prefix in length" that matches. It is the most specific.
 
-**2.** Η καθυστέρηση ουράς (queuing delay) σε έναν δρομολογητή:
-- [ ] A. Εξαρτάται αποκλειστικά από την απόσταση μεταξύ των δύο κόμβων.
-- [ ] B. Είναι σταθερή και υπολογίζεται ως $L/R$.
-- [✓] C. Εξαρτάται από τον ρυθμό άφιξης πακέτων (traffic load) και μεταβάλλεται συνεχώς.
-- [ ] D. Οφείλεται στο χρόνο ελέγχου των σφαλμάτων (checksum).
+**2.** Queuing delay in a router:
+- [ ] A. Depends exclusively on distance between two nodes.
+- [ ] B. Is constant and calculated as $L/R$.
+- [✓] C. Depends on packet arrival rate (traffic load) and varies continuously.
+- [ ] D. Is due to error check (checksum) time.
 
-*Αιτιολόγηση:* Η καθυστέρηση ουράς εξαρτάται αποκλειστικά από την ένταση κίνησης στον δρομολογητή σε μια δεδομένη χρονική στιγμή. Δεν είναι σταθερή όπως η καθυστέρηση μετάδοσης.
+*Justification:* Queuing delay depends exclusively on traffic intensity at the router at a given moment. It is not constant like transmission delay.
 
-**3.** Ποιο από τα παρακάτω ανήκει αποκλειστικά στον πυρήνα του δικτύου (Network Core);
+**3.** Which of the following belongs exclusively to the Network Core?
 - [ ] A. Web Servers
-- [✓] B. Δρομολογητές (Routers)
-- [ ] C. Κινητά τηλέφωνα
-- [ ] D. Εφαρμογές Email (Clients)
+- [✓] B. Routers
+- [ ] C. Mobile phones
+- [ ] D. Email Applications (Clients)
 
-*Αιτιολόγηση:* Ο πυρήνας αποτελείται από routers και switches (το δίκτυο των δικτύων). Web servers, κινητά και εφαρμογές βρίσκονται στο Network Edge.
+*Justification:* The core consists of routers and switches (the network of networks). Web servers, mobile phones, and apps are located at the Network Edge.
 
-**4.** Το Data Plane ενός δρομολογητή είναι υπεύθυνο για:
-- [ ] A. Την εκτέλεση του αλγορίθμου Dijkstra.
-- [✓] B. Τη φυσική προώθηση των πακέτων από την είσοδο στην κατάλληλη έξοδο (forwarding).
-- [ ] C. Την ανταλλαγή μηνυμάτων OSPF με άλλους δρομολογητές.
-- [ ] D. Τη διατήρηση του Routing Table (RIB).
+**4.** The Data Plane of a router is responsible for:
+- [ ] A. Executing Dijkstra's algorithm.
+- [✓] B. Physical forwarding of packets from input to the appropriate output.
+- [ ] C. Exchanging OSPF messages with other routers.
+- [ ] D. Maintaining the Routing Table (RIB).
 
-*Αιτιολόγηση:* Το Data plane δουλεύει στο επίπεδο του hardware για την γρήγορη προώθηση. Το Control plane ασχολείται με τη δρομολόγηση, τους αλγορίθμους και τη δημιουργία του πίνακα.
+*Justification:* The Data plane operates at hardware speed for fast forwarding. The Control plane handles routing algorithms and table creation.
 
-**5.** Επιλέξτε Σωστό (Σ) ή Λάθος (Λ):
-- **[✓] Σ** / [ ] Λ Το πρωτόκολλο TCP χρησιμοποιεί αθροιστικές επιβεβαιώσεις (cumulative ACKs).
-- [ ] Σ / **[✓] Λ** Ένας Tier-1 ISP συνήθως πληρώνει για την ανταλλαγή κίνησης (transit) με άλλους Tier-1 ISPs.
-- **[✓] Σ** / [ ] Λ Ένα Layer 2 Switch χωρίζει το collision domain αλλά όχι το broadcast domain.
+**5.** Select True (T) or False (F):
+- **[✓] T** / [ ] F TCP uses cumulative acknowledgements (cumulative ACKs).
+- [ ] T / **[✓] F** A Tier-1 ISP typically pays for traffic exchange (transit) with other Tier-1 ISPs.
+- **[✓] T** / [ ] F A Layer 2 Switch separates collision domains but not broadcast domains.
 
-*Αιτιολόγηση:*
-- **Σ (Σωστό):** Το TCP επιβεβαιώνει τα δεδομένα αθροιστικά (cumulative ACK υποδηλώνει τον επόμενο αναμενόμενο αριθμό ακολουθίας).
-- **Λ (Λάθος):** Οι Tier-1 ISPs προσφέρουν δωρεάν peering μεταξύ τους και ΔΕΝ πληρώνουν transit σε κανέναν.
-- **Σ (Σωστό):** Το L2 switch χωρίζει το collision domain (κάθε port είναι ξεχωριστό), αλλά μεταδίδει τα broadcast (π.χ. ARP requests) σε όλα τα ports, κρατώντας τα στο ίδιο broadcast domain.
+*Justification:*
+- **T (True):** TCP acknowledges data cumulatively (cumulative ACK indicates next expected sequence number).
+- **F (False):** Tier-1 ISPs offer free peering to each other and do NOT pay transit to anyone.
+- **T (True):** An L2 switch separates collision domains (each port is separate), but forwards broadcasts (e.g. ARP requests) to all ports, keeping them in the same broadcast domain.
 
 ---
 
-## Μέρος Β: Ασκήσεις και Δίκτυα (7 μονάδες)
+## Part B: Exercises and Networks (7 points)
 
-### Άσκηση 1 (2 μονάδες)
+### Exercise 1 (2 points)
 **Longest Prefix Match (LPM)**
-Δίνεται ο παρακάτω πίνακας προώθησης ενός δρομολογητή:
+Given the following forwarding table of a router:
 
-| Prefix Δικτύου | Interface |
+| Network Prefix | Interface |
 |---|---|
 | 10.15.0.0/16 | Eth0 |
 | 10.15.20.0/24 | Eth1 |
 | 10.15.20.128/25 | Eth2 |
 | 0.0.0.0/0 (Default) | Eth3 |
 
-Σε ποιο Interface (Eth0, Eth1, Eth2, ή Eth3) θα προωθηθούν τα πακέτα με τις ακόλουθες IP διευθύνσεις προορισμού; Δικαιολογήστε την απάντησή σας.
+To which Interface (Eth0, Eth1, Eth2, or Eth3) will packets with the following destination IP addresses be forwarded? Justify your answer.
 
 1. **IP:** 10.15.20.200
 2. **IP:** 10.15.21.5
@@ -78,22 +78,22 @@
 4. **IP:** 10.15.20.50
 
 ---
-**Απαντήσεις:**
-Ο κανόνας LPM υπαγορεύει ότι το πακέτο προωθείται βάσει του longest prefix match.
-- `10.15.0.0/16` καλύπτει από 10.15.0.0 έως 10.15.255.255
-- `10.15.20.0/24` καλύπτει από 10.15.20.0 έως 10.15.20.255
-- `10.15.20.128/25` καλύπτει από 10.15.20.128 έως 10.15.20.255
+**Answers:**
+The LPM rule dictates that packets are forwarded based on longest prefix match.
+- `10.15.0.0/16` covers from 10.15.0.0 to 10.15.255.255
+- `10.15.20.0/24` covers from 10.15.20.0 to 10.15.20.255
+- `10.15.20.128/25` covers from 10.15.20.128 to 10.15.20.255
 
-1. **IP: 10.15.20.200** $\rightarrow$ `Eth2` (Ταιριάζει με /16, /24, και /25. Εφαρμόζοντας LPM, επιλέγεται η /25).
-2. **IP: 10.15.21.5** $\rightarrow$ `Eth0` (Ταιριάζει με /16, αλλά όχι με /24 ούτε /25).
-3. **IP: 10.16.5.1** $\rightarrow$ `Eth3` (Δεν ταιριάζει με καμία συγκεκριμένη, άρα πηγαίνει στην default 0.0.0.0/0).
-4. **IP: 10.15.20.50** $\rightarrow$ `Eth1` (Ταιριάζει με /16 και /24. Δεν ταιριάζει με /25 καθώς είναι κάτω από 128).
+1. **IP: 10.15.20.200** $\rightarrow$ `Eth2` (Matches /16, /24, and /25. Applying LPM, /25 is selected).
+2. **IP: 10.15.21.5** $\rightarrow$ `Eth0` (Matches /16, but not /24 or /25).
+3. **IP: 10.16.5.1** $\rightarrow$ `Eth3` (Matches no specific prefix, thus goes to default 0.0.0.0/0).
+4. **IP: 10.15.20.50** $\rightarrow$ `Eth1` (Matches /16 and /24. Does not match /25 since it is below 128).
 
 ---
 
-### Άσκηση 2 (2.5 μονάδες)
-**Αλγόριθμος Dijkstra**
-Έστω το παρακάτω δίκτυο, όπου οι αριθμοί αντιπροσωπεύουν το κόστος μετάδοσης μεταξύ των κόμβων:
+### Exercise 2 (2.5 points)
+**Dijkstra Algorithm**
+Consider the network below, where numbers represent transmission cost between nodes:
 
 ```
       (A) --- 3 --- (B) --- 1 --- (C)
@@ -103,9 +103,9 @@
       (D) --- 1 --- (E) --- 2 --- (F)
 ```
 
-Εφαρμόστε τον αλγόριθμο του Dijkstra με κόμβο εκκίνησης τον **κόμβο D** και βρείτε το συντομότερο μονοπάτι για όλους τους άλλους κόμβους. Συμπληρώστε τον πίνακα (ο αριθμός δείχνει το τρέχον μικρότερο κόστος και σε παρένθεση ο προηγούμενος κόμβος, π.χ., 5(D)).
+Apply Dijkstra's algorithm starting from **node D** and find the shortest path for all other nodes. Fill in the table (number shows current minimum cost and in parentheses the previous node, e.g., 5(D)).
 
-| Βήμα | Επισκέφθηκε | A | B | C | E | F |
+| Step | Visited | A | B | C | E | F |
 |---|---|---|---|---|---|---|
 | 0 | D | `5(D)` | `\infty` | `\infty` | `1(D)` | `\infty` |
 | 1 | `D, E` | `5(D)` | `3(E)` | `\infty` | `**1(D)**` | `3(E)` |
@@ -114,43 +114,43 @@
 | 4 | `D, E, B, F, C` | `5(D)` | `3(E)` | `**4(B)**` | `1(D)` | `3(E)` |
 | 5 | `D, E, B, F, C, A` | `**5(D)**` | `3(E)` | `4(B)` | `1(D)` | `3(E)` |
 
-*Σημείωση στο βήμα 1: Ο E συνδέεται με B (1+2=3), και με F (1+2=3).*
-*Σημείωση στο βήμα 2: Ο B συνδέεται με A (3+3=6, αλλά το 5(D) είναι μικρότερο) και με C (3+1=4).*
+*Note on step 1: E connects to B (1+2=3), and to F (1+2=3).*
+*Note on step 2: B connects to A (3+3=6, but 5(D) is smaller) and to C (3+1=4).*
 
-Ποιο είναι το συντομότερο μονοπάτι από τον κόμβο D στον κόμβο C και ποιο το κόστος του;
+What is the shortest path from node D to node C and what is its cost?
 ---
-**Απάντηση:**
-Αναδρομικά: Ο C συνδέεται βέλτιστα μέσω B, o B μέσω E, o E μέσω D.
-- Μονοπάτι: **`D ➔ E ➔ B ➔ C`**
-- Συνολικό κόστος: **`4`**
+**Answer:**
+Recursively: C connects optimally via B, B via E, E via D.
+- Path: **`D ➔ E ➔ B ➔ C`**
+- Total cost: **`4`**
 
 ---
 
-### Άσκηση 3 (2.5 μονάδες)
-**α. Υπολογισμός EstimatedRTT στο TCP (1 μονάδα)**
-Ο υπολογισμός της εκτιμώμενης διάρκειας επιστροφής (EstimatedRTT) στο TCP γίνεται μέσω του παρακάτω τύπου:
+### Exercise 3 (2.5 points)
+**a. EstimatedRTT Calculation in TCP (1 point)**
+Calculations for EstimatedRTT in TCP use the formula:
 $$\text{EstimatedRTT} = (1 - \alpha) \cdot \text{EstimatedRTT} + \alpha \cdot \text{SampleRTT}$$
-Έστω ότι η αρχική τιμή του $\text{EstimatedRTT}$ είναι $100\text{ ms}$ και $\alpha = 0.125$. 
-Το TCP λαμβάνει 2 διαδοχικά SampleRTT: $120\text{ ms}$ και έπειτα $80\text{ ms}$. 
-Υπολογίστε τη νέα τιμή του $\text{EstimatedRTT}$ μετά και το δεύτερο δείγμα.
+Suppose initial $\text{EstimatedRTT}$ is $100\text{ ms}$ and $\alpha = 0.125$. 
+TCP receives 2 consecutive SampleRTTs: $120\text{ ms}$ and then $80\text{ ms}$. 
+Calculate the new value of $\text{EstimatedRTT}$ after the second sample.
 
 ---
-**Απάντηση:**
+**Answer:**
 $$ \text{EstimatedRTT}_{0} = 100\text{ ms} $$
-Μετά το 1ο δείγμα ($\text{SampleRTT} = 120\text{ ms}$):
+After 1st sample ($\text{SampleRTT} = 120\text{ ms}$):
 $$ \text{EstimatedRTT}_{1} = (1 - 0.125) \cdot 100 + 0.125 \cdot 120 = 87.5 + 15 = 102.5\text{ ms} $$
-Μετά το 2ο δείγμα ($\text{SampleRTT} = 80\text{ ms}$):
+After 2nd sample ($\text{SampleRTT} = 80\text{ ms}$):
 $$ \text{EstimatedRTT}_{2} = 0.875 \cdot 102.5 + 0.125 \cdot 80 = 89.6875 + 10 = `99.6875\text{ ms}` $$
 
-**β. CSMA/CD Minimum Frame Size (1.5 μονάδες)**
-Σε ένα δίκτυο τοπικής περιοχής (LAN) χρησιμοποιείται το πρωτόκολλο CSMA/CD με ρυθμό μετάδοσης (Bandwidth) $R = 100\text{ Mbps}$. Η συνολική καθυστέρηση διάδοσης μεταξύ των δύο πιο απομακρυσμένων κόμβων (propagation delay, end-to-end) είναι $d_{prop} = 5.12\ \mu\text{s}$.
-Βρείτε το ελάχιστο μέγεθος του πλαισίου (minimum frame size) σε Bytes ώστε να λειτουργεί σωστά ο μηχανισμός ανίχνευσης συγκρούσεων. (Υπενθύμιση: Ο χρόνος μετάδοσης πρέπει να είναι τουλάχιστον διπλάσιος του μέγιστου χρόνου διάδοσης).
+**b. CSMA/CD Minimum Frame Size (1.5 points)**
+In a Local Area Network (LAN) using CSMA/CD protocol with transmission rate (Bandwidth) $R = 100\text{ Mbps}$, the total propagation delay between the two furthest nodes (end-to-end propagation delay) is $d_{prop} = 5.12\ \mu\text{s}$.
+Find the minimum frame size in Bytes for collision detection mechanism to operate correctly. (Reminder: Transmission time must be at least twice the maximum propagation time).
 
 ---
-**Απάντηση:**
-Η συνθήκη λειτουργίας του CSMA/CD είναι:
+**Answer:**
+CSMA/CD operating condition:
 $$ d_{trans} \ge 2 \cdot d_{prop} \Rightarrow \frac{L_{min}}{R} \ge 2 \cdot d_{prop} \Rightarrow L_{min} \ge 2 \cdot d_{prop} \cdot R $$
-Με $d_{prop} = 5.12 \times 10^{-6}\text{ s}$ και $R = 100 \times 10^6\text{ bps}$:
+With $d_{prop} = 5.12 \times 10^{-6}\text{ s}$ and $R = 100 \times 10^6\text{ bps}$:
 $$ L_{min} \ge 2 \cdot (5.12 \times 10^{-6}) \cdot (100 \times 10^6) = 1024\text{ bits} $$
-Σε Bytes:
+In Bytes:
 $$ L_{min\text{ (Bytes)}} = \frac{1024}{8} = `128\text{ Bytes}` $$

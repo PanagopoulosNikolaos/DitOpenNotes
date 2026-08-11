@@ -1,36 +1,36 @@
-## 1. Δυαδικό Δέντρο - Χαρακτηριστικά
+## 1. Binary Tree - Characteristics
 
-Το **δυαδικό δέντρο** είναι μια δομή δεδομένων όπου κάθε κόμβος έχει το πολύ δύο παιδιά (αριστερό και δεξί).
+The **binary tree** is a data structure where each node has at most two children (left and right).
 
-### Κύρια Χαρακτηριστικά:
+### Main Characteristics:
 
-**Βαθμός κόμβου**: Ο αριθμός των παιδιών του. Σε δυαδικό δέντρο: 0, 1 ή 2.
+**Node degree**: The number of its children. In a binary tree: 0, 1 or 2.
 
-**Ρίζα**: Ο κορυφαίος κόμβος χωρίς γονέα.
+**Root**: The topmost node without a parent.
 
-**Φύλλα**: Κόμβοι με βαθμό 0 (χωρίς παιδιά).
+**Leaves**: Nodes with degree 0 (without children).
 
-**Εσωτερικοί κόμβοι**: Κόμβοι με τουλάχιστον ένα παιδί.
+**Internal nodes**: Nodes with at least one child.
 
-**Ύψος**: Το μήκος του μεγαλύτερου μονοπατιού από τη ρίζα σε φύλλο. Για δέντρο με έναν κόμβο το ύψος είναι 0.
+**Height**: The length of the longest path from the root to a leaf. For a tree with a single node, the height is 0.
 
-**Βάθος κόμβου**: Το μήκος του μονοπατιού από τη ρίζα σε αυτόν τον κόμβο.
+**Node depth**: The length of the path from the root to that node.
 
-**Επίπεδο**: Όλοι οι κόμβοι στο ίδιο βάθος ανήκουν στο ίδιο επίπεδο. Η ρίζα είναι στο επίπεδο 0.
+**Level**: All nodes at the same depth belong to the same level. The root is at level 0.
 
 
 
-## 2. Δυαδικό Δέντρο Αναζήτησης (BST)
+## 2. Binary Search Tree (BST)
 
-Το **Binary Search Tree (BST)** είναι ένα δυαδικό δέντρο με μια ειδική ιδιότητα:
+The **Binary Search Tree (BST)** is a binary tree with a special property:
 
-**Βασική Ιδιότητα BST:**
-- Όλες οι τιμές στο αριστερό υποδέντρο είναι **μικρότερες** από την τιμή του κόμβου
-- Όλες οι τιμές στο δεξί υποδέντρο είναι **μεγαλύτερες** από την τιμή του κόμβου
-- Κάθε υποδέντρο είναι επίσης BST
+**Basic BST Property:**
+- All values in the left subtree are **smaller** than the node's value
+- All values in the right subtree are **larger** than the node's value
+- Each subtree is also a BST
 
-**Πώς βοηθά στην αποδοτική αναζήτηση:**
-Η ιδιότητα αυτή επιτρέπει την εφαρμογή δυαδικής αναζήτησης. Σε κάθε βήμα, μπορούμε να αποκλείσουμε το μισό δέντρο, καταλήγοντας σε **O(log n)** πολυπλοκότητα για ισορροπημένο BST (αντί για O(n) σε μη ταξινομημένη δομή).
+**How it helps efficient search:**
+This property allows the application of binary search. At each step, we can eliminate half the tree, resulting in **O(log n)** complexity for a balanced BST (instead of O(n) in an unsorted structure).
 
 
 ### C++
@@ -134,58 +134,58 @@ int main() {
 ```
 
 
-## 3. Διασχίσεις Δέντρων
+## 3. Tree Traversals
 
-### **Pre-order:** Ρίζα → Αριστερά → Δεξιά
-- Επισκεπτόμαστε πρώτα τον κόμβο, μετά το αριστερό και δεξί υποδέντρο
-- Χρήση: Αντιγραφή δέντρου, prefix expressions
+### **Pre-order:** Root → Left → Right
+- Visit the node first, then the left and right subtrees
+- Usage: Tree copying, prefix expressions
 
-### **In-order:** Αριστερά → Ρίζα → Δεξιά
-- Επισκεπτόμαστε πρώτα το αριστερό υποδέντρο, μετά τον κόμβο, μετά το δεξί
-- **Παράγει ταξινομημένη έξοδο για BST!** γιατί η ιδιότητα του BST (αριστερά < ρίζα < δεξιά) εγγυάται αύξουσα σειρά
+### **In-order:** Left → Root → Right
+- Visit the left subtree first, then the node, then the right
+- **Produces sorted output for BST!** because the BST property (left < root < right) guarantees ascending order
 
-### **Post-order:** Αριστερά → Δεξιά → Ρίζα
-- Επισκεπτόμαστε τα υποδέντρα πρώτα, μετά τον κόμβο
-- Χρήση: Διαγραφή δέντρου, postfix expressions
+### **Post-order:** Left → Right → Root
+- Visit the subtrees first, then the node
+- Usage: Tree deletion, postfix expressions
 
 
-## 4. Ισοζυγισμένα Δέντρα
+## 4. Balanced Trees
 
-Ένα δέντρο θεωρείται **ισοζυγισμένο** όταν για κάθε κόμβο, το ύψος του αριστερού και δεξιού υποδέντρου διαφέρει το πολύ κατά 1.
+A tree is considered **balanced** when for each node, the height of the left and right subtrees differs by at most 1.
 
-**Επίδραση της ισορροπίας στην απόδοση:**
+**Impact of balance on performance:**
 
-| Πράξη | Μη Ισορροπημένο BST | Ισορροπημένο BST |
+| Operation | Unbalanced BST | Balanced BST |
 |---|---|---|
-| Αναζήτηση | O(n) (χειρότερη) | O(log n) |
-| Εισαγωγή | O(n) (χειρότερη) | O(log n) |
-| Διαγραφή | O(n) (χειρότερη) | O(log n) |
+| Search | O(n) (worst case) | O(log n) |
+| Insertion | O(n) (worst case) | O(log n) |
+| Deletion | O(n) (worst case) | O(log n) |
 
 
-## 5. AVL Δέντρα
+## 5. AVL Trees
 
-Είναι δυαδικό δέντρο αναζήτησης που διατηρεί αυτόματα ισορροπία. Κάθε κόμβος έχει συντελεστή ισορροπίας που υπολογίζεται ως:
+An AVL tree is a binary search tree that automatically maintains balance. Each node has a balance factor calculated as:
 
-$$BF = \text{ύψος αριστερού υποδέντρου} - \text{ύψος δεξιού υποδέντρου}$$
+$$BF = \text{height of left subtree} - \text{height of right subtree}$$
 
-Για να είναι έγκυρο AVL δέντρο: $BF \in \{-1, 0, 1\}$ για κάθε κόμβο.
+For a valid AVL tree: $BF \in \{-1, 0, 1\}$ for every node.
 
-### Τέσσερις Βασικές Περιστροφές
+### Four Basic Rotations
 
-**1. LL (Left-Left) - Δεξιά Περιστροφή**
-- Πρόβλημα: BF = 2, αριστερό παιδί έχει BF ≥ 0
-- Λύση: Μία δεξιά περιστροφή στον ανισορροπημένο κόμβο
+**1. LL (Left-Left) - Right Rotation**
+- Problem: BF = 2, left child has BF ≥ 0
+- Solution: A single right rotation on the unbalanced node
 
-**2. RR (Right-Right) - Αριστερή Περιστροφή**
-- Πρόβλημα: BF = -2, δεξί παιδί έχει BF ≤ 0
-- Λύση: Μία αριστερή περιστροφή στον ανισορροπημένο κόμβο
+**2. RR (Right-Right) - Left Rotation**
+- Problem: BF = -2, right child has BF ≤ 0
+- Solution: A single left rotation on the unbalanced node
 
-**3. LR (Left-Right) - Διπλή Περιστροφή**
-- Πρόβλημα: BF = 2, αριστερό παιδί έχει BF < 0
-- Λύση: Αριστερή περιστροφή στο αριστερό παιδί, μετά δεξιά στη ρίζα
+**3. LR (Left-Right) - Double Rotation**
+- Problem: BF = 2, left child has BF < 0
+- Solution: Left rotation on the left child, then right on the root
 
-**4. RL (Right-Left) - Διπλή Περιστροφή**
-- Πρόβλημα: BF = -2, δεξί παιδί έχει BF > 0
-- Λύση: Δεξιά περιστροφή στο δεξί παιδί, έπειτα αριστερή στη ρίζα
+**4. RL (Right-Left) - Double Rotation**
+- Problem: BF = -2, right child has BF > 0
+- Solution: Right rotation on the right child, then left on the root
 
-Οι περιστροφές εκτελούνται μετά από κάθε εισαγωγή/διαγραφή για να διατηρηθεί η συνθήκη $|BF| \leq 1$.
+Rotations are performed after each insertion/deletion to maintain the condition $|BF| \leq 1$.

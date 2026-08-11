@@ -1,30 +1,30 @@
-# Ισοζυγισμένα Δέντρα AVL: Εισαγωγή, Διαγραφή, Περιστροφές
+# Balanced AVL Trees: Introduction, Deletion, Rotations
 
-## Περιεχόμενα
-1. [Εισαγωγή στα Δέντρα AVL](#εισαγωγή-στα-δέντρα-avl)
-2. [Συντελεστής Ισορροπίας](#συντελεστής-ισορροπίας)
-3. [Περιστροφές (Rotations)](#περιστροφές-rotations)
-4. [Εισαγωγή Στοιχείων](#εισαγωγή-στοιχείων)
-5. [Διαγραφή Στοιχείων](#διαγραφή-στοιχείων)
-6. [Πρακτικά Παραδείγματα](#πρακτικά-παραδείγματα)
+## Contents
+1. [Introduction to AVL Trees](#introduction-to-avl-trees)
+2. [Balance Factor](#balance-factor)
+3. [Rotations](#rotations)
+4. [Element Insertion](#element-insertion)
+5. [Element Deletion](#element-deletion)
+6. [Practical Examples](#practical-examples)
 
 ---
 
-## Εισαγωγή στα Δέντρα AVL
+## Introduction to AVL Trees
 
-### Τι είναι Δέντρο AVL;
+### What is an AVL Tree?
 
-Ένα **δέντρο AVL** (Adelson-Velsky and Landis) είναι ένα **αυτο-ισορροπούμενο** δυαδικό δέντρο αναζήτησης όπου η διαφορά ύψους μεταξύ αριστερού και δεξιού υποδέντρου για κάθε κόμβο είναι το πολύ **1**.
+An **AVL tree** (Adelson-Velsky and Landis) is a **self-balancing** binary search tree where the height difference between the left and right subtrees for each node is at most **1**.
 
-### Γιατί AVL;
+### Why AVL?
 
-**Πρόβλημα BST**: Τα απλά δυαδικά δέντρα αναζήτησης μπορούν να εκφυλιστούν σε γραμμική λίστα.
+**BST Problem**: Simple binary search trees can degenerate into a linear list.
 
-**Λύση AVL**: Διατηρεί αυτόματα την ισορροπία, εγγυόμενο **O(log n)** για αναζήτηση, εισαγωγή και διαγραφή.
+**AVL Solution**: Automatically maintains balance, guaranteeing **O(log n)** for search, insertion, and deletion.
 
-### Σύγκριση: BST vs AVL
+### Comparison: BST vs AVL
 
-**Μη Ισορροπημένο BST**:
+**Unbalanced BST**:
 ```mermaid
 graph TD
     A[1] --> B[2]
@@ -40,10 +40,10 @@ graph TD
     style E fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
     style F fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
-- Ύψος: **5** (χειρότερη περίπτωση)
-- Πολυπλοκότητα: **O(n)**
+- Height: **5** (worst case)
+- Complexity: **O(n)**
 
-**Ισορροπημένο AVL**:
+**Balanced AVL**:
 ```mermaid
 graph TD
     A[4] --> B[2]
@@ -59,26 +59,26 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
     style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
-- Ύψος: **2** (βέλτιστη περίπτωση)
-- Πολυπλοκότητα: **O(log n)**
+- Height: **2** (best case)
+- Complexity: **O(log n)**
 
 ---
 
-## Συντελεστής Ισορροπίας
+## Balance Factor
 
-### Ορισμός
+### Definition
 
-Ο **Συντελεστής Ισορροπίας (Balance Factor - BF)** για κάθε κόμβο υπολογίζεται:
+The **Balance Factor (BF)** for each node is calculated as:
 
-**BF = Ύψος(Αριστερό Υποδέντρο) - Ύψος(Δεξί Υποδέντρο)**
+**BF = Height(Left Subtree) - Height(Right Subtree)**
 
-### Κανόνας AVL
+### AVL Rule
 
-Για να είναι ένα δέντρο **ισορροπημένο AVL**, κάθε κόμβος πρέπει να έχει:
+For a tree to be **AVL balanced**, every node must have:
 
 **BF ∈ {-1, 0, +1}**
 
-### Παράδειγμα Υπολογισμού BF
+### BF Calculation Example
 
 ```mermaid
 graph TD
@@ -96,17 +96,17 @@ graph TD
     style F fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Υπολογισμοί**:
-- **Κόμβος 3**: BF = 0 - 0 = **0** (φύλλο)
-- **Κόμβος 7**: BF = 0 - 0 = **0** (φύλλο)
-- **Κόμβος 20**: BF = 0 - 0 = **0** (φύλλο)
-- **Κόμβος 5**: BF = 1 - 1 = **0** (έχει δύο παιδιά ίδιου ύψους)
-- **Κόμβος 15**: BF = 0 - 1 = **-1** (δεξί υποδέντρο ψηλότερο)
-- **Κόμβος 10**: BF = 2 - 1 = **+1** (αριστερό υποδέντρο ψηλότερο)
+**Calculations**:
+- **Node 3**: BF = 0 - 0 = **0** (leaf)
+- **Node 7**: BF = 0 - 0 = **0** (leaf)
+- **Node 20**: BF = 0 - 0 = **0** (leaf)
+- **Node 5**: BF = 1 - 1 = **0** (has two children of equal height)
+- **Node 15**: BF = 0 - 1 = **-1** (right subtree taller)
+- **Node 10**: BF = 2 - 1 = **+1** (left subtree taller)
 
- **Όλοι οι κόμβοι έχουν BF ∈ {-1, 0, +1}** → Ισορροπημένο AVL!
+ **All nodes have BF ∈ {-1, 0, +1}** → Balanced AVL!
 
-### Μη Ισορροπημένο Παράδειγμα
+### Unbalanced Example
 
 ```mermaid
 graph TD
@@ -122,28 +122,28 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Υπολογισμοί**:
-- **Κόμβος 10**: BF = 3 - 1 = **+2**  (παραβίαση!)
-- **Κόμβος 5**: BF = 2 - 0 = **+1** 
-- **Κόμβος 3**: BF = 1 - 0 = **+1** 
+**Calculations**:
+- **Node 10**: BF = 3 - 1 = **+2**  (violation!)
+- **Node 5**: BF = 2 - 0 = **+1** 
+- **Node 3**: BF = 1 - 0 = **+1** 
 
- **Ο κόμβος 10 έχει BF = +2** → Χρειάζεται **επαναισορρόπηση**!
+ **Node 10 has BF = +2** → **Rebalancing** needed!
 
 ---
 
-## Περιστροφές (Rotations)
+## Rotations
 
-Οι περιστροφές είναι οι **βασικές λειτουργίες** για την επαναισορρόπηση ενός AVL δέντρου. Υπάρχουν **4 τύποι**:
+Rotations are the **fundamental operations** for rebalancing an AVL tree. There are **4 types**:
 
-### 1. Δεξιά Περιστροφή (Right Rotation - RR)
+### 1. Right Rotation (RR)
 
-**Πότε χρησιμοποιείται**: Όταν το **αριστερό-αριστερό** υποδέντρο προκαλεί μη ισορροπία.
+**When used**: When the **left-left** subtree causes imbalance.
 
-**Περίπτωση**: BF(κόμβος) = **+2** και BF(αριστερό παιδί) = **+1**
+**Case**: BF(node) = **+2** and BF(left child) = **+1**
 
-#### Παράδειγμα:
+#### Example:
 
-**Πριν την Περιστροφή**:
+**Before Rotation**:
 ```mermaid
 graph TD
     A["30<br/>(BF=+2)"] --> B["20<br/>(BF=+1)"]
@@ -158,7 +158,7 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μετά τη Δεξιά Περιστροφή**:
+**After Right Rotation**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -173,22 +173,22 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μηχανισμός**:
-1. Ο κόμβος **20 ανεβαίνει** στη θέση του 30
-2. Ο κόμβος **30 κατεβαίνει** ως δεξί παιδί του 20
-3. Το **25 μεταφέρεται** ως αριστερό παιδί του 30
+**Mechanism**:
+1. Node **20 moves up** to the position of 30
+2. Node **30 moves down** as the right child of 20
+3. **25 is transferred** as the left child of 30
 
 ---
 
-### 2. Αριστερή Περιστροφή (Left Rotation - LL)
+### 2. Left Rotation (LL)
 
-**Πότε χρησιμοποιείται**: Όταν το **δεξί-δεξί** υποδέντρο προκαλεί μη ισορροπία.
+**When used**: When the **right-right** subtree causes imbalance.
 
-**Περίπτωση**: BF(κόμβος) = **-2** και BF(δεξί παιδί) = **-1**
+**Case**: BF(node) = **-2** and BF(right child) = **-1**
 
-#### Παράδειγμα:
+#### Example:
 
-**Πριν την Περιστροφή**:
+**Before Rotation**:
 ```mermaid
 graph TD
     A["10<br/>(BF=-2)"] --> B["5<br/>(BF=0)"]
@@ -203,7 +203,7 @@ graph TD
     style E fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μετά την Αριστερή Περιστροφή**:
+**After Left Rotation**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -218,22 +218,22 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μηχανισμός**:
-1. Ο κόμβος **20 ανεβαίνει** στη θέση του 10
-2. Ο κόμβος **10 κατεβαίνει** ως αριστερό παιδί του 20
-3. Το **15 μεταφέρεται** ως δεξί παιδί του 10
+**Mechanism**:
+1. Node **20 moves up** to the position of 10
+2. Node **10 moves down** as the left child of 20
+3. **15 is transferred** as the right child of 10
 
 ---
 
-### 3. Αριστερή-Δεξιά Περιστροφή (Left-Right - LR)
+### 3. Left-Right Rotation (LR)
 
-**Πότε χρησιμοποιείται**: Όταν το **αριστερό-δεξί** υποδέντρο προκαλεί μη ισορροπία.
+**When used**: When the **left-right** subtree causes imbalance.
 
-**Περίπτωση**: BF(κόμβος) = **+2** και BF(αριστερό παιδί) = **-1**
+**Case**: BF(node) = **+2** and BF(left child) = **-1**
 
-#### Παράδειγμα:
+#### Example:
 
-**Πριν την Περιστροφή**:
+**Before Rotation**:
 ```mermaid
 graph TD
     A["30<br/>(BF=+2)"] --> B["10<br/>(BF=-1)"]
@@ -246,7 +246,7 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 1: Αριστερή Περιστροφή στο 10**:
+**Step 1: Left Rotation on 10**:
 ```mermaid
 graph TD
     A["30<br/>(BF=+2)"] --> B["20<br/>(BF=+1)"]
@@ -259,7 +259,7 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 2: Δεξιά Περιστροφή στο 30**:
+**Step 2: Right Rotation on 30**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -272,21 +272,21 @@ graph TD
     style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαδικασία**: **Δύο περιστροφές**
-1. Πρώτα **αριστερή** περιστροφή στο αριστερό παιδί
-2. Μετά **δεξιά** περιστροφή στον κόμβο
+**Process**: **Two rotations**
+1. First a **left** rotation on the left child
+2. Then a **right** rotation on the node
 
 ---
 
-### 4. Δεξιά-Αριστερή Περιστροφή (Right-Left - RL)
+### 4. Right-Left Rotation (RL)
 
-**Πότε χρησιμοποιείται**: Όταν το **δεξί-αριστερό** υποδέντρο προκαλεί μη ισορροπία.
+**When used**: When the **right-left** subtree causes imbalance.
 
-**Περίπτωση**: BF(κόμβος) = **-2** και BF(δεξί παιδί) = **+1**
+**Case**: BF(node) = **-2** and BF(right child) = **+1**
 
-#### Παράδειγμα:
+#### Example:
 
-**Πριν την Περιστροφή**:
+**Before Rotation**:
 ```mermaid
 graph TD
     A["10<br/>(BF=-2)"] --> B["5<br/>(BF=0)"]
@@ -299,7 +299,7 @@ graph TD
     style D fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 1: Δεξιά Περιστροφή στο 30**:
+**Step 1: Right Rotation on 30**:
 ```mermaid
 graph TD
     A["10<br/>(BF=-2)"] --> B["5<br/>(BF=0)"]
@@ -312,7 +312,7 @@ graph TD
     style D fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 2: Αριστερή Περιστροφή στο 10**:
+**Step 2: Left Rotation on 10**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -325,37 +325,37 @@ graph TD
     style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαδικασία**: **Δύο περιστροφές**
-1. Πρώτα **δεξιά** περιστροφή στο δεξί παιδί
-2. Μετά **αριστερή** περιστροφή στον κόμβο
+**Process**: **Two rotations**
+1. First a **right** rotation on the right child
+2. Then a **left** rotation on the node
 
 ---
 
-### Σύνοψη Περιστροφών
+### Rotation Summary
 
-| Τύπος | Προϋπόθεση | Ενέργεια | Αριθμός Περιστροφών |
+| Type | Prerequisite | Action | Number of Rotations |
 |-------|------------|----------|---------------------|
-| **Right (RR)** | BF=+2, Αριστερό BF=+1 | Δεξιά περιστροφή | 1 |
-| **Left (LL)** | BF=-2, Δεξί BF=-1 | Αριστερή περιστροφή | 1 |
-| **Left-Right (LR)** | BF=+2, Αριστερό BF=-1 | Αριστερή + Δεξιά | 2 |
-| **Right-Left (RL)** | BF=-2, Δεξί BF=+1 | Δεξιά + Αριστερή | 2 |
+| **Right (RR)** | BF=+2, Left BF=+1 | Right rotation | 1 |
+| **Left (LL)** | BF=-2, Right BF=-1 | Left rotation | 1 |
+| **Left-Right (LR)** | BF=+2, Left BF=-1 | Left + Right | 2 |
+| **Right-Left (RL)** | BF=-2, Right BF=+1 | Right + Left | 2 |
 
 ---
 
-## Εισαγωγή Στοιχείων
+## Element Insertion
 
-Η εισαγωγή σε AVL δέντρο ακολουθεί τα εξής βήματα:
-1. **Εισαγωγή** όπως σε απλό BST
-2. **Επαναυπολογισμός** Balance Factor για όλους τους προγόνους
-3. **Επαναισορρόπηση** αν κάποιος κόμβος έχει |BF| > 1
+Insertion into an AVL tree follows these steps:
+1. **Insert** as in a simple BST
+2. **Recalculate** Balance Factor for all ancestors
+3. **Rebalance** if any node has |BF| > 1
 
 ---
 
-### Παράδειγμα 1: Απλή Εισαγωγή (Χωρίς Περιστροφή)
+### Example 1: Simple Insertion (Without Rotation)
 
-**Εισαγωγή ακολουθίας**: 10, 5, 15
+**Insertion sequence**: 10, 5, 15
 
-#### Βήμα 1: Εισαγωγή 10
+#### Step 1: Insert 10
 ```mermaid
 graph TD
     A["10<br/>(BF=0)"]
@@ -363,7 +363,7 @@ graph TD
     style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 2: Εισαγωγή 5
+#### Step 2: Insert 5
 ```mermaid
 graph TD
     A["10<br/>(BF=+1)"] --> B["5<br/>(BF=0)"]
@@ -372,7 +372,7 @@ graph TD
     style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 3: Εισαγωγή 15
+#### Step 3: Insert 15
 ```mermaid
 graph TD
     A["10<br/>(BF=0)"] --> B["5<br/>(BF=0)"]
@@ -383,15 +383,15 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- Όλοι οι BF ∈ {-1, 0, +1} → **Καμία περιστροφή απαιτείται**!
+ All BF ∈ {-1, 0, +1} → **No rotation needed**!
 
 ---
 
-### Παράδειγμα 2: Εισαγωγή με Δεξιά Περιστροφή
+### Example 2: Insertion with Right Rotation
 
-**Εισαγωγή ακολουθίας**: 30, 20, 10
+**Insertion sequence**: 30, 20, 10
 
-#### Βήμα 1: Εισαγωγή 30
+#### Step 1: Insert 30
 ```mermaid
 graph TD
     A["30<br/>(BF=0)"]
@@ -399,7 +399,7 @@ graph TD
     style A fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 2: Εισαγωγή 20
+#### Step 2: Insert 20
 ```mermaid
 graph TD
     A["30<br/>(BF=+1)"] --> B["20<br/>(BF=0)"]
@@ -408,9 +408,9 @@ graph TD
     style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 3: Εισαγωγή 10
+#### Step 3: Insert 10
 
-**Πριν Επαναισορρόπηση**:
+**Before Rebalancing**:
 ```mermaid
 graph TD
     A["30<br/>(BF=+2)"] --> B["20<br/>(BF=+1)"]
@@ -421,9 +421,9 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Μη ισορροπία**: BF(30) = +2 → Χρειάζεται **δεξιά περιστροφή**!
+ **Imbalance**: BF(30) = +2 → **Right rotation** needed!
 
-**Μετά Δεξιά Περιστροφή**:
+**After Right Rotation**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -434,15 +434,15 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Ισορροπημένο**!
+ **Balanced**!
 
 ---
 
-### Παράδειγμα 3: Εισαγωγή με Αριστερή-Δεξιά Περιστροφή
+### Example 3: Insertion with Left-Right Rotation
 
-**Εισαγωγή ακολουθίας**: 30, 10, 20
+**Insertion sequence**: 30, 10, 20
 
-#### Βήμα 1-2: Εισαγωγή 30, 10
+#### Step 1-2: Insert 30, 10
 ```mermaid
 graph TD
     A["30<br/>(BF=+1)"] --> B["10<br/>(BF=0)"]
@@ -451,9 +451,9 @@ graph TD
     style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-#### Βήμα 3: Εισαγωγή 20
+#### Step 3: Insert 20
 
-**Πριν Επαναισορρόπηση**:
+**Before Rebalancing**:
 ```mermaid
 graph TD
     A["30<br/>(BF=+2)"] --> B["10<br/>(BF=-1)"]
@@ -464,9 +464,9 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Μη ισορροπία**: BF(30) = +2, BF(10) = -1 → **Left-Right περιστροφή**!
+ **Imbalance**: BF(30) = +2, BF(10) = -1 → **Left-Right rotation**!
 
-**Βήμα 3.1: Αριστερή Περιστροφή στο 10**:
+**Step 3.1: Left Rotation on 10**:
 ```mermaid
 graph TD
     A["30<br/>(BF=+2)"] --> B["20<br/>(BF=+1)"]
@@ -477,7 +477,7 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 3.2: Δεξιά Περιστροφή στο 30**:
+**Step 3.2: Right Rotation on 30**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -488,15 +488,15 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Ισορροπημένο**!
+ **Balanced**!
 
 ---
 
-### Παράδειγμα 4: Σύνθετη Εισαγωγή
+### Example 4: Complex Insertion
 
-**Εισαγωγή ακολουθίας**: 50, 25, 75, 10, 30, 60, 80, 5, 15
+**Insertion sequence**: 50, 25, 75, 10, 30, 60, 80, 5, 15
 
-#### Τελικό Δέντρο (Μετά όλες τις εισαγωγές):
+#### Final Tree (After all insertions):
 
 ```mermaid
 graph TD
@@ -520,20 +520,20 @@ graph TD
     style I fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Χαρακτηριστικά**:
-- Ύψος: **3**
-- Όλοι οι BF = **0**
-- Πλήρως ισορροπημένο AVL δέντρο
+**Characteristics**:
+- Height: **3**
+- All BF = **0**
+- Fully balanced AVL tree
 
 ---
 
-### Παράδειγμα 5: Εισαγωγή που Απαιτεί Πολλαπλές Περιστροφές
+### Example 5: Insertion Requiring Multiple Rotations
 
-**Εισαγωγή**: 1, 2, 3, 4, 5, 6, 7
+**Insertion**: 1, 2, 3, 4, 5, 6, 7
 
-#### Διαδικασία:
+#### Process:
 
-**Μετά 1, 2, 3** (Αριστερή περιστροφή):
+**After 1, 2, 3** (Left rotation):
 ```mermaid
 graph TD
     A["2<br/>(BF=0)"] --> B["1<br/>(BF=0)"]
@@ -544,7 +544,7 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μετά 4** (Αριστερή περιστροφή):
+**After 4** (Left rotation):
 ```mermaid
 graph TD
     A["2<br/>(BF=-1)"] --> B["1<br/>(BF=0)"]
@@ -557,7 +557,7 @@ graph TD
     style D fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μετά 5** (Αριστερή Περιστροφή, μετά αναδιάρθρωση):
+**After 5** (Left Rotation, followed by restructuring):
 ```mermaid
 graph TD
     A["2<br/>(BF=-1)"] --> B["1<br/>(BF=0)"]
@@ -572,7 +572,7 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Τελικό (Μετά 6, 7)**:
+**Final (After 6, 7)**:
 ```mermaid
 graph TD
     A["4<br/>(BF=0)"] --> B["2<br/>(BF=0)"]
@@ -591,22 +591,22 @@ graph TD
     style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Σημείωση**: Η ίδια ακολουθία (1-7) σε απλό BST θα έδινε γραμμική λίστα!
+ **Note**: The same sequence (1-7) in a simple BST would produce a linear list!
 
 ---
 
-## Διαγραφή Στοιχείων
+## Element Deletion
 
-Η διαγραφή σε AVL δέντρο:
-1. **Διαγραφή** όπως σε απλό BST
-2. **Επαναυπολογισμός** BF για όλους τους προγόνους
-3. **Επαναισορρόπηση** όπου χρειάζεται (μπορεί να χρειαστούν πολλαπλές περιστροφές)
+Deletion from an AVL tree:
+1. **Delete** as in a simple BST
+2. **Recalculate** BF for all ancestors
+3. **Rebalance** where needed (multiple rotations may be required)
 
 ---
 
-### Παράδειγμα 6: Διαγραφή Φύλλου
+### Example 6: Leaf Deletion
 
-**Αρχικό Δέντρο**:
+**Initial Tree**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -625,7 +625,7 @@ graph TD
     style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαγραφή του 5**:
+**Deletion of 5**:
 ```mermaid
 graph TD
     A["20<br/>(BF=-1)"] --> B["10<br/>(BF=-1)"]
@@ -642,13 +642,13 @@ graph TD
     style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- Όλοι οι BF ∈ {-1, 0, +1} → **Καμία περιστροφή**!
+ All BF ∈ {-1, 0, +1} → **No rotation**!
 
 ---
 
-### Παράδειγμα 7: Διαγραφή που Απαιτεί Περιστροφή
+### Example 7: Deletion Requiring Rotation
 
-**Αρχικό Δέντρο**:
+**Initial Tree**:
 ```mermaid
 graph TD
     A["20<br/>(BF=0)"] --> B["10<br/>(BF=0)"]
@@ -670,9 +670,9 @@ graph TD
     style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαγραφή του 10**:
+**Deletion of 10**:
 
-**Πριν Επαναισορρόπηση**:
+**Before Rebalancing**:
 ```mermaid
 graph TD
     A["20<br/>(BF=-2)"] --> C["30<br/>(BF=-1)"]
@@ -683,9 +683,9 @@ graph TD
     style F fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Μη ισορροπία**: BF(20) = -2 → **Αριστερή περιστροφή**!
+ **Imbalance**: BF(20) = -2 → **Left rotation**!
 
-**Μετά Αριστερή Περιστροφή**:
+**After Left Rotation**:
 ```mermaid
 graph TD
     A["30<br/>(BF=0)"] --> B["20<br/>(BF=0)"]
@@ -696,13 +696,13 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Ισορροπημένο**!
+ **Balanced**!
 
 ---
 
-### Παράδειγμα 8: Διαγραφή με Διπλή Περιστροφή
+### Example 8: Deletion with Double Rotation
 
-**Αρχικό Δέντρο**:
+**Initial Tree**:
 ```mermaid
 graph TD
     A["20<br/>(BF=-1)"] --> B["10<br/>(BF=0)"]
@@ -715,9 +715,9 @@ graph TD
     style E fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαγραφή του 10**:
+**Deletion of 10**:
 
-**Πριν Επαναισορρόπηση**:
+**Before Rebalancing**:
 ```mermaid
 graph TD
     A["20<br/>(BF=-2)"] --> C["30<br/>(BF=+1)"]
@@ -728,9 +728,9 @@ graph TD
     style E fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Μη ισορροπία**: BF(20) = -2, BF(30) = +1 → **Right-Left περιστροφή**!
+ **Imbalance**: BF(20) = -2, BF(30) = +1 → **Right-Left rotation**!
 
-**Βήμα 1: Δεξιά Περιστροφή στο 30**:
+**Step 1: Right Rotation on 30**:
 ```mermaid
 graph TD
     A["20<br/>(BF=-2)"] --> C["25<br/>(BF=-1)"]
@@ -741,7 +741,7 @@ graph TD
     style E fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Βήμα 2: Αριστερή Περιστροφή στο 20**:
+**Step 2: Left Rotation on 20**:
 ```mermaid
 graph TD
     A["25<br/>(BF=0)"] --> B["20<br/>(BF=0)"]
@@ -752,13 +752,13 @@ graph TD
     style C fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Ισορροπημένο**!
+ **Balanced**!
 
 ---
 
-### Παράδειγμα 9: Διαγραφή Κόμβου με 2 Παιδιά
+### Example 9: Deletion of Node with 2 Children
 
-**Αρχικό Δέντρο**:
+**Initial Tree**:
 ```mermaid
 graph TD
     A["30<br/>(BF=0)"] --> B["20<br/>(BF=0)"]
@@ -777,9 +777,9 @@ graph TD
     style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Διαγραφή του 20** (Αντικατάσταση με in-order successor: 25):
+**Deletion of 20** (Replacement with in-order successor: 25):
 
-**Μετά Διαγραφή**:
+**After Deletion**:
 ```mermaid
 graph TD
     A["30<br/>(BF=0)"] --> B["25<br/>(BF=+1)"]
@@ -796,17 +796,17 @@ graph TD
     style G fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- Όλοι οι BF ∈ {-1, 0, +1} → **Καμία περιστροφή**!
+ All BF ∈ {-1, 0, +1} → **No rotation**!
 
 ---
 
-## Πρακτικά Παραδείγματα
+## Practical Examples
 
-### Παράδειγμα 10: Σύγκριση AVL vs BST για την ίδια Ακολουθία
+### Example 10: AVL vs BST Comparison for the Same Sequence
 
-**Εισαγωγή**: 10, 20, 30, 40, 50, 60
+**Insertion**: 10, 20, 30, 40, 50, 60
 
-#### Απλό BST (Χωρίς Ισορρόπηση):
+#### Simple BST (Without Balancing):
 ```mermaid
 graph TD
     A[10] --> B[20]
@@ -823,11 +823,11 @@ graph TD
     style F fill:#ffcccc,stroke:#333,stroke-width:2px,color:black
 ```
 
-- **Ύψος**: 5
-- **Αναζήτηση 60**: 6 συγκρίσεις
-- **Πολυπλοκότητα**: O(n)
+- **Height**: 5
+- **Search 60**: 6 comparisons
+- **Complexity**: O(n)
 
-#### AVL Δέντρο (Με Αυτόματη Ισορρόπηση):
+#### AVL Tree (With Automatic Balancing):
 ```mermaid
 graph TD
     A["40<br/>(BF=0)"] --> B["20<br/>(BF=0)"]
@@ -844,21 +844,21 @@ graph TD
     style F fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-- **Ύψος**: 2
-- **Αναζήτηση 60**: 3 συγκρίσεις
-- **Πολυπλοκότητα**: O(log n)
+- **Height**: 2
+- **Search 60**: 3 comparisons
+- **Complexity**: O(log n)
 
- **Απόδοση**: AVL είναι **2x ταχύτερο** σε αυτό το παράδειγμα!
+ **Performance**: AVL is **2x faster** in this example!
 
 ---
 
-### Παράδειγμα 11: Περιστροφές κατά την Εισαγωγή
+### Example 11: Rotations During Insertion
 
-**Εισαγωγή**: 3, 2, 1
+**Insertion**: 3, 2, 1
 
-#### Εξέλιξη:
+#### Evolution:
 
-**Μετά 3, 2**:
+**After 3, 2**:
 ```mermaid
 graph TD
     A["3<br/>(BF=+1)"] --> B["2<br/>(BF=0)"]
@@ -867,7 +867,7 @@ graph TD
     style B fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μετά 1 (Πριν Περιστροφή)**:
+**After 1 (Before Rotation)**:
 ```mermaid
 graph TD
     A["3<br/>(BF=+2)"] --> B["2<br/>(BF=+1)"]
@@ -878,7 +878,7 @@ graph TD
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Μετά Δεξιά Περιστροφή**:
+**After Right Rotation**:
 ```mermaid
 graph TD
     A["2<br/>(BF=0)"] --> B["1<br/>(BF=0)"]
@@ -891,11 +891,11 @@ graph TD
 
 ---
 
-### Παράδειγμα 12: Ολοκληρωμένη Διαδικασία
+### Example 12: Complete Process
 
-**Εισαγωγή**: 50, 30, 70, 20, 40, 60, 80, 10
+**Insertion**: 50, 30, 70, 20, 40, 60, 80, 10
 
-#### Τελικό AVL Δέντρο:
+#### Final AVL Tree:
 
 ```mermaid
 graph TD
@@ -917,12 +917,12 @@ graph TD
     style H fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
-**Χαρακτηριστικά**:
-- **Ύψος**: 3
-- **Αριθμός κόμβων**: 8
-- **Ισορροπημένο**: Όλοι BF ∈ {-1, 0, +1} 
+**Characteristics**:
+- **Height**: 3
+- **Number of nodes**: 8
+- **Balanced**: All BF ∈ {-1, 0, +1} 
 
-**Διαγραφή του 70 και Επαναισορρόπηση**:
+**Deletion of 70 and Rebalancing**:
 
 ```mermaid
 graph TD
@@ -942,58 +942,58 @@ graph TD
     style H fill:#90EE90,stroke:#333,stroke-width:2px,color:black
 ```
 
- **Παραμένει ισορροπημένο**!
+ **Remains balanced**!
 
 ---
 
-## Σύνοψη
+## Summary
 
-### Πλεονεκτήματα AVL
+### AVL Advantages
 
- **Εγγυημένη Απόδοση**: O(log n) για αναζήτηση, εισαγωγή, διαγραφή  
- **Αυτόματη Ισορρόπηση**: Δεν απαιτείται χειροκίνητη επαναδιάταξη  
- **Προβλέψιμη Συμπεριφορά**: Ποτέ δεν εκφυλίζεται σε λίστα
+ **Guaranteed Performance**: O(log n) for search, insertion, deletion  
+ **Automatic Balancing**: No manual restructuring required  
+ **Predictable Behavior**: Never degenerates into a list
 
-### Μειονεκτήματα AVL
+### AVL Disadvantages
 
- **Επιπλέον Μνήμη**: Χρειάζεται αποθήκευση BF για κάθε κόμβο  
- **Πολυπλοκότητα**: Περισσότερες περιστροφές από Red-Black trees  
- **Overhead Εισαγωγής**: Κάθε εισαγωγή μπορεί να απαιτήσει περιστροφές
+ **Extra Memory**: Requires storage of BF for each node  
+ **Complexity**: More rotations than Red-Black trees  
+ **Insertion Overhead**: Each insertion may require rotations
 
-### Πολυπλοκότητα Λειτουργιών
+### Operation Complexity
 
-| Λειτουργία | Πολυπλοκότητα | Σημειώσεις |
+| Operation | Complexity | Notes |
 |------------|---------------|------------|
-| **Αναζήτηση** | O(log n) | Εγγυημένο |
-| **Εισαγωγή** | O(log n) | Συν το κόστος περιστροφών |
-| **Διαγραφή** | O(log n) | Μπορεί να χρειαστεί > 1 περιστροφή |
-| **Εύρεση Min/Max** | O(log n) | Ύψος δέντρου |
+| **Search** | O(log n) | Guaranteed |
+| **Insertion** | O(log n) | Plus rotation cost |
+| **Deletion** | O(log n) | May require > 1 rotation |
+| **Find Min/Max** | O(log n) | Tree height |
 
-### Σύγκριση με Άλλες Δομές
+### Comparison with Other Structures
 
-| Δομή | Μέση Αναζήτηση | Χειρότερη Αναζήτηση | Ισορρόπηση |
+| Structure | Average Search | Worst-case Search | Balancing |
 |------|----------------|---------------------|------------|
-| **BST** | O(log n) | O(n) | Καμία |
-| **AVL** | O(log n) | O(log n) | Αυστηρή |
-| **Red-Black** | O(log n) | O(log n) | Χαλαρή |
+| **BST** | O(log n) | O(n) | None |
+| **AVL** | O(log n) | O(log n) | Strict |
+| **Red-Black** | O(log n) | O(log n) | Relaxed |
 
-### Κανόνες Balance Factor
+### Balance Factor Rules
 
-| Τιμή BF | Κατάσταση | Ενέργεια |
+| BF Value | State | Action |
 |---------|-----------|----------|
-| **0** | Ισορροπημένο | Καμία |
-| **+1** | Αριστερό ψηλότερο | Καμία |
-| **-1** | Δεξί ψηλότερο | Καμία |
-| **+2** | Μη ισορροπία | Δεξιά ή LR περιστροφή |
-| **-2** | Μη ισορροπία | Αριστερή ή RL περιστροφή |
+| **0** | Balanced | None |
+| **+1** | Left taller | None |
+| **-1** | Right taller | None |
+| **+2** | Imbalance | Right or LR rotation |
+| **-2** | Imbalance | Left or RL rotation |
 
-### Τύποι Περιστροφών - Συνοπτικά
+### Rotation Types - Summary
 
 ```mermaid
 graph TD
-    A["Μη Ισορροπία<br/>Ανιχνεύθηκε"] --> B{"BF = ?"}
-    B -->|"+2"| C{"BF(Αριστερό) = ?"}
-    B -->|"-2"| D{"BF(Δεξί) = ?"}
+    A["Imbalance<br/>Detected"] --> B{"BF = ?"}
+    B -->|"+2"| C{"BF(Left) = ?"}
+    B -->|"-2"| D{"BF(Right) = ?"}
     C -->|"+1"| E["Right Rotation<br/>(RR)"]
     C -->|"-1"| F["Left-Right<br/>(LR)"]
     D -->|"-1"| G["Left Rotation<br/>(LL)"]
@@ -1008,10 +1008,10 @@ graph TD
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-1. **AVL ≠ BST**: Το AVL διατηρεί αυστηρή ισορροπία σε κάθε πράξη
-2. **|BF| ≤ 1**: Ο θεμελιώδης κανόνας που εγγυάται O(log n)
-3. **4 Τύποι Περιστροφών**: RR, LL, LR, RL καλύπτουν όλες τις περιπτώσεις
-4. **Διπλές Περιστροφές**: LR και RL χρησιμοποιούνται όταν η μη ισορροπία είναι "ζιγκ-ζαγκ"
-5. **Εισαγωγή vs Διαγραφή**: Η διαγραφή μπορεί να απαιτήσει περισσότερες περιστροφές
+1. **AVL ≠ BST**: AVL maintains strict balance at every operation
+2. **|BF| ≤ 1**: The fundamental rule that guarantees O(log n)
+3. **4 Rotation Types**: RR, LL, LR, RL cover all cases
+4. **Double Rotations**: LR and RL are used when imbalance is "zig-zag"
+5. **Insertion vs Deletion**: Deletion may require more rotations

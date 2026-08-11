@@ -1,31 +1,31 @@
-# Διαδικασία Σχεδίασης Επεξεργαστών - Smart Notes
+# Processor Design Process - Smart Notes
 
-**Course:** Αρχιτεκτονική Υπολογιστών  
-**Institution:** Πανεπιστήμιο Ιωαννίνων - Τμήμα Πληροφορικής & Τηλεπικοινωνιών  
-**Semester:** 3ο Εξάμηνο  
-**Instructor:** Αλέξανδρος Μπανταλούκας-Αρτζμάντ MSc, PhD
+**Course:** Computer Architecture  
+**Institution:** University of Ioannina - Department of Computer Science & Telecommunications  
+**Semester:** 3rd Semester  
+**Instructor:** Alexandros Bantaloukas-Artzimant MSc, PhD
 
 ---
 
-## 1.0 Επεξεργαστής (CPU) - Θεμελιώδεις Έννοιες
+## 1.0 Processor (CPU) - Fundamental Concepts
 
-### 1.1 Ορισμός και Λειτουργία
+### 1.1 Definition and Operation
 
-Η CPU (Central Processing Unit) αποτελεί την κεντρική μονάδα επεξεργασίας που ακολουθεί ένα προκαθορισμένο σύνολο οδηγιών για την εκτέλεση συγκεκριμένων λειτουργιών επί δεδομένων εισόδου. Οι οδηγίες αυτές αποτελούν τη βάση κάθε υπολογιστικής διεργασίας.
+The CPU (Central Processing Unit) is the central processing unit that follows a predetermined set of instructions to execute specific functions on input data. These instructions form the basis of every computational process.
 
-**Βασικές Δυνατότητες:**
-- i. Ανάγνωση τιμής από μνήμη
-- ii. Εκτέλεση αριθμητικών πράξεων (πρόσθεση, αφαίρεση κ.λπ.)
-- iii. Αποθήκευση αποτελεσμάτων σε διαφορετική θέση μνήμης
-- iv. Εκτέλεση σύνθετων λειτουργιών με όρους (conditional operations)
-- v. Εκτέλεση προγραμμάτων (λειτουργικά συστήματα, εφαρμογές)
+**Core Capabilities:**
+- i. Reading values from memory
+- ii. Executing arithmetic operations (addition, subtraction, etc.)
+- iii. Storing results to different memory locations
+- iv. Executing complex conditional operations
+- v. Executing programs (operating systems, applications)
 
-### 1.2 Γλώσσες Προγραμματισμού και Μετάφραση
+### 1.2 Programming Languages and Translation
 
-> [!INFO] **Περιορισμός Κατανόησης**
-> Οι επεξεργαστές κατανοούν **μόνο δυαδικό κώδικα** (1 και 0). Προγράμματα γραμμένα σε γλώσσες υψηλού επιπέδου (C++, Java, Python) δεν είναι άμεσα εκτελέσιμα.
+> [!INFO] **Understanding Limitation**
+> Processors understand **only binary code** (1s and 0s). Programs written in high-level languages (C++, Java, Python) are not directly executable.
 
-**Διαδικασία Μετάφρασης:**
+**Translation Process:**
 
 ```mermaid
 graph LR
@@ -44,40 +44,40 @@ graph LR
 
 ## 2.0 Instruction Set Architecture (ISA)
 
-### 2.1 Ορισμός ISA
+### 2.1 ISA Definition
 
-Το **ISA** (Instruction Set Architecture) αποτελεί το σύνολο των εντολών που μία CPU έχει σχεδιαστεί να κατανοεί και να εκτελεί. Λειτουργεί ως η διεπαφή μεταξύ λογισμικού και υλικού.
+The **ISA** (Instruction Set Architecture) is the set of instructions that a CPU is designed to understand and execute. It serves as the interface between software and hardware.
 
-**Κύρια ISA:**
+**Major ISAs:**
 - i. **x86** (Intel, AMD - Desktop/Server)
 - ii. **MIPS** (Embedded Systems)
 - iii. **ARM** (Mobile Devices, IoT)
 - iv. **RISC-V** (Open-Source, Research)
 - v. **PowerPC** (Legacy Systems)
 
-### 2.2 Κατηγοριοποίηση ISA
+### 2.2 ISA Classification
 
-| Κατηγορία | Χαρακτηριστικά | Παραδείγματα |
-|-----------|----------------|--------------|
-| **Σταθερού Μήκους** | Κάθε εντολή έχει προκαθορισμένο αριθμό bits | RISC-V, ARM, MIPS |
-| **Μεταβλητού Μήκους** | Διαφορετικό μήκος εντολών, μεγαλύτερη ευελιξία | x86, x86-64 |
+| Category | Characteristics | Examples |
+|----------|-----------------|----------|
+| **Fixed-Length** | Each instruction has a predetermined number of bits | RISC-V, ARM, MIPS |
+| **Variable-Length** | Different instruction lengths, greater flexibility | x86, x86-64 |
 
-### 2.3 Παράδειγμα: RISC-V Encoding
+### 2.3 Example: RISC-V Encoding
 
 > [!INFO] **RISC-V Instruction Format**
-> Κάθε εντολή RISC-V είναι **32-bit** (σταθερού μήκους).
+> Each RISC-V instruction is **32-bit** (fixed-length).
 
-**Δομή Εντολής:**
+**Instruction Structure:**
 ```
 [31-25] [24-20] [19-15] [14-12] [11-7] [6-0]
   funct7   rs2     rs1    funct3   rd   opcode
 ```
 
-- **opcode (7-bit):** Καθορίζει τον τύπο της εντολής
-- **rd, rs1, rs2:** Υποδεικνύουν καταχωρητές
-- **funct3, funct7:** Προσδιορίζουν την ακριβή λειτουργία
+- **opcode (7-bit):** Specifies the instruction type
+- **rd, rs1, rs2:** Indicate registers
+- **funct3, funct7:** Determine the exact operation
 
-**Μετάφραση Assembly σε Binary:**
+**Assembly to Binary Translation:**
 
 ```mermaid
 flowchart TD
@@ -102,25 +102,25 @@ flowchart TD
 
 ---
 
-## 3.0 Βήματα Εκτέλεσης Εντολής (Instruction Cycle)
+## 3.0 Instruction Cycle Steps
 
-### 3.1 Τετραφασικός Κύκλος Εντολής
+### 3.1 Four-Phase Instruction Cycle
 
-**Φάση 1: Fetch (Ανάκτηση)**
-- i. Η CPU ανακτά την εντολή από τη μνήμη
-- ii. Χρησιμοποιεί το Program Counter (PC) για τη διεύθυνση
+**Phase 1: Fetch**
+- i. CPU fetches the instruction from memory
+- ii. Uses the Program Counter (PC) for the address
 
-**Φάση 2: Decode (Αποκωδικοποίηση)**
-- i. Αναγνωρίζει τον τύπο εντολής
-- ii. Κατηγοριοποίηση: αριθμητική, διακλάδωση, μνήμης
+**Phase 2: Decode**
+- i. Identifies the instruction type
+- ii. Classification: arithmetic, branch, memory
 
-**Φάση 3: Execute (Εκτέλεση)**
-- i. Ανάκτηση τελεστέων από καταχωρητές ή μνήμη
-- ii. Εκτέλεση πράξης από την ALU
+**Phase 3: Execute**
+- i. Retrieves operands from registers or memory
+- ii. Executes the operation from the ALU
 
-**Φάση 4: Write-Back (Εγγραφή Αποτελέσματος)**
-- i. Αποθήκευση αποτελέσματος σε καταχωρητή
-- ii. Ή εγγραφή στη μνήμη
+**Phase 4: Write-Back**
+- i. Stores the result in a register
+- ii. Or writes to memory
 
 ```mermaid
 sequenceDiagram
@@ -140,20 +140,20 @@ sequenceDiagram
     REG->>MEM: (Optional) Store to Memory
 ```
 
-> [!INFO] **64-bit Επεξεργαστές**
-> Οι σύγχρονοι επεξεργαστές είναι 64-bit, επιτρέποντας διαχείριση τιμών δεδομένων και διευθύνσεων **έως 64 bits** ($2^{64}$ διευθύνσεις μνήμης).
+> [!INFO] **64-bit Processors**
+> Modern processors are 64-bit, enabling handling of data values and addresses **up to 64 bits** ($2^{64}$ memory addresses).
 
 ---
 
-## 4.0 Διασωλήνωση (Pipelining)
+## 4.0 Pipelining
 
-### 4.1 Έννοια και Στόχος
+### 4.1 Concept and Goal
 
-**Ορισμός:** Τεχνική που χωρίζει τα βασικά στάδια εκτέλεσης εντολής σε **20+ μικρότερα βήματα** για βελτίωση απόδοσης.
+**Definition:** Technique that divides the main instruction execution stages into **20+ smaller steps** to improve performance.
 
-**Αναλογία:** Όπως ένας σωλήνας χρειάζεται χρόνο να γεμίσει με υγρό, έτσι και ο επεξεργαστής χρειάζεται χρόνο να γεμίσει το pipeline με δεδομένα. Μετά το γέμισμα, επιτυγχάνεται **συνεχής και σταθερή ροή** επεξεργασίας.
+**Analogy:** Just as a pipe needs time to fill with liquid, the processor needs time to fill the pipeline with data. After filling, **continuous and steady processing flow** is achieved.
 
-### 4.2 Παράδειγμα 5-Stage Pipeline
+### 4.2 5-Stage Pipeline Example
 
 ```mermaid
 gantt
@@ -190,31 +190,31 @@ gantt
     WriteBack:d5, 7, 1
 ```
 
-**Πλεονεκτήματα:**
-- i. Παράλληλη εκτέλεση πολλαπλών εντολών
-- ii. Βελτίωση throughput (εντολές/δευτερόλεπτο)
-- iii. Αποδοτικότερη χρήση hardware resources
+**Advantages:**
+- i. Parallel execution of multiple instructions
+- ii. Improved throughput (instructions/second)
+- iii. More efficient use of hardware resources
 
 ---
 
-## 5.0 Υπερκλιμακωτή Αρχιτεκτονική (Superscalar)
+## 5.0 Superscalar Architecture
 
-### 5.1 Ορισμός και Χαρακτηριστικά
+### 5.1 Definition and Characteristics
 
-**Superscalar Architecture:** Αρχιτεκτονική που επιτρέπει την **ταυτόχρονη εκτέλεση πολλαπλών εντολών** σε κάθε χρονική στιγμή, αξιοποιώντας όλα τα στάδια της διασωλήνωσης.
+**Superscalar Architecture:** Architecture that allows **simultaneous execution of multiple instructions** at each point in time, utilizing all pipeline stages.
 
-**Μηχανισμός:**
-- i. Ανίχνευση ανεξάρτητων εντολών
-- ii. Προγραμματισμός ταυτόχρονης εκτέλεσης
-- iii. Αποφυγή data hazards και dependencies
+**Mechanism:**
+- i. Detection of independent instructions
+- ii. Scheduling of simultaneous execution
+- iii. Avoidance of data hazards and dependencies
 
 ### 5.2 Simultaneous Multithreading (SMT)
 
-**Τεχνολογία:** Κοινή εφαρμογή υπερκλιμακωτής αρχιτεκτονικής που επιτρέπει σε **έναν φυσικό πυρήνα** να εκτελεί **πολλαπλά threads** ταυτόχρονα.
+**Technology:** Common application of superscalar architecture that allows a **single physical core** to execute **multiple threads** simultaneously.
 
-**Παράδειγμα - Intel Hyper-Threading:**
-- 1 φυσικός πυρήνας = 2 λογικοί πυρήνες
-- Επεξεργαστής 8 πυρήνων → 16 threads
+**Example - Intel Hyper-Threading:**
+- 1 physical core = 2 logical cores
+- 8-core processor → 16 threads
 
 ```mermaid
 graph TD
@@ -237,13 +237,13 @@ graph TD
 
 ---
 
-## 6.0 Ιεραρχία Μνήμης
+## 6.0 Memory Hierarchy
 
-### 6.1 Δομή Πυραμίδας Μνήμης
+### 6.1 Memory Pyramid Structure
 
 ```mermaid
 graph TD
-    A["Καταχωρητές<br/>~1KB | 1-2 cycles"] --> B["L1 Cache<br/>~100KB | 2-3 cycles"]
+    A["Registers<br/>~1KB | 1-2 cycles"] --> B["L1 Cache<br/>~100KB | 2-3 cycles"]
     B --> C["L2 Cache<br/>~500KB | 3-5 cycles"]
     C --> D["L3 Cache<br/>~10-15MB | 30-50 cycles"]
     D --> E["RAM<br/>~10GB | 50-200 cycles"]
@@ -257,24 +257,24 @@ graph TD
     style F fill:#9e9e9e,color:#fff
 ```
 
-### 6.2 Αρχές Ιεραρχίας
+### 6.2 Hierarchy Principles
 
-**Καθώς "κατεβαίνουμε" την ιεραρχία:**
+**As we "move down" the hierarchy:**
 
-| Χαρακτηριστικό | Τάση |
-|----------------|------|
-| **Κόστος ανά bit** | ↓ Μειώνεται |
-| **Χωρητικότητα** | ↑ Αυξάνεται |
-| **Χρόνος προσπέλασης** | ↑ Μεγαλώνει |
-| **Συχνότητα προσπέλασης** | ↓ Μειώνεται |
+| Characteristic | Trend |
+|----------------|-------|
+| **Cost per bit** | ↓ Decreases |
+| **Capacity** | ↑ Increases |
+| **Access time** | ↑ Increases |
+| **Access frequency** | ↓ Decreases |
 
-**Αιτιολόγηση Κόστους:**
-- i. **Ανώτερες μνήμες (Cache):** Χρησιμοποιούν ~6 transistors/bit → υψηλό κόστος
-- ii. **Κατώτερες μνήμες (HDD/SSD):** Απλούστερη αρχιτεκτονική → χαμηλό κόστος
+**Cost Justification:**
+- i. **Higher memories (Cache):** Use ~6 transistors/bit → high cost
+- ii. **Lower memories (HDD/SSD):** Simpler architecture → low cost
 
-### 6.3 Κρυφή Μνήμη (Cache) - Αρχιτεκτονική
+### 6.3 Cache - Architecture
 
-**Τυπική Διάταξη σε Multi-Core CPU:**
+**Typical Layout in Multi-Core CPU:**
 
 ```mermaid
 graph TB
@@ -307,14 +307,14 @@ graph TB
     style RAM fill:#9c27b0,color:#fff
 ```
 
-**Χαρακτηριστικά:**
-- i. **L1 Cache:** Διαχωρισμός σε Instruction (L1i) και Data (L1d) cache
-- ii. **L2 Cache:** Μία ανά πυρήνα, μεγαλύτερη χωρητικότητα
-- iii. **L3 Cache:** Κοινόχρηστη μεταξύ **όλων των πυρήνων**
+**Characteristics:**
+- i. **L1 Cache:** Split into Instruction (L1i) and Data (L1d) cache
+- ii. **L2 Cache:** One per core, larger capacity
+- iii. **L3 Cache:** Shared among **all cores**
 
 ### 6.4 Cache Access Pattern
 
-**Διαδικασία Αναζήτησης Δεδομένων:**
+**Data Search Process:**
 
 ```mermaid
 flowchart TD
@@ -332,33 +332,33 @@ flowchart TD
     style H fill:#ff9800
 ```
 
-### 6.5 Σημασία της Cache
+### 6.5 Importance of Cache
 
-**Ρόλος:**
-- i. Αποθήκευση **συχνά χρησιμοποιούμενων** εντολών και δεδομένων
-- ii. Ελαχιστοποίηση προσβάσεων στη βραδύτερη RAM
-- iii. Κρίσιμη για απόδοση - **χωρίς cache η απόδοση καταρρέει**
+**Role:**
+- i. Storing **frequently used** instructions and data
+- ii. Minimizing accesses to the slower RAM
+- iii. Critical for performance - **without cache, performance collapses**
 
-**Temporal Locality:** Δεδομένα που χρησιμοποιήθηκαν πρόσφατα πιθανόν να ξαναχρησιμοποιηθούν.
+**Temporal Locality:** Data recently used is likely to be used again.
 
-**Spatial Locality:** Δεδομένα κοντινά στη μνήμη πιθανόν να χρειαστούν σύντομα.
+**Spatial Locality:** Data near the current address is likely to be needed soon.
 
 ### 6.6 Memory Latency Analysis
 
-> [!INFO] **Πειραματικά Δεδομένα (Sandra 2013 SP3)**
+> [!INFO] **Experimental Data (Sandra 2013 SP3)**
 
-**Βασικά Ευρήματα:**
-- i. **0-256KB:** Χαμηλό latency (~5-10 cycles) - Δεδομένα στην L1/L2
-- ii. **256KB-16MB:** Μεσαίο latency (~30-50 cycles) - L3 Cache
-- iii. **16MB+:** Απότομη αύξηση (~100+ cycles) - RAM access
+**Key Findings:**
+- i. **0-256KB:** Low latency (~5-10 cycles) - Data in L1/L2
+- ii. **256KB-16MB:** Medium latency (~30-50 cycles) - L3 Cache
+- iii. **16MB+:** Sharp increase (~100+ cycles) - RAM access
 
-**Συμπέρασμα:** Η cache εξασφαλίζει σταθερά χαμηλό latency έως το όριο χωρητικότητάς της.
+**Conclusion:** Cache ensures consistently low latency up to its capacity limit.
 
 ---
 
-## 7.0 Σύγκριση Cache σε Σύγχρονους Επεξεργαστές
+## 7.0 Cache Comparison in Modern Processors
 
-### 7.1 Πίνακας Σύγκρισης Intel Core (2017-2018)
+### 7.1 Intel Core Comparison Table (2017-2018)
 
 | Spec | i7-7820X | i7-8700K | i9-9900K | i7-9700K |
 |------|----------|----------|----------|----------|
@@ -373,18 +373,18 @@ flowchart TD
 | **TDP** | 140W | 95W | 95W | 95W |
 | **MSRP** | $600 | $360 | $500 | $374 |
 
-**Βασικές Παρατηρήσεις:**
-- i. **i9-9900K:** Κορυφαία απόδοση (5.0 GHz boost, 16 MB L3)
-- ii. **i7-7820X:** Μέγιστη L2 cache (8 MB), Quad-Channel μνήμη
-- iii. **Hyper-Threading:** Οι i7-7820X, i7-8700K, i9-9900K υποστηρίζουν SMT
+**Key Observations:**
+- i. **i9-9900K:** Top performance (5.0 GHz boost, 16 MB L3)
+- ii. **i7-7820X:** Maximum L2 cache (8 MB), Quad-Channel memory
+- iii. **Hyper-Threading:** i7-7820X, i7-8700K, i9-9900K support SMT
 
 ---
 
-## 8.0 Πρόβλεψη Διακλάδωσης (Branch Prediction)
+## 8.0 Branch Prediction
 
-### 8.1 Πρόβλημα Διακλαδώσεων
+### 8.1 Branch Problem
 
-**Σενάριο:**
+**Scenario:**
 ```c
 if (condition) {
     // Path A
@@ -393,15 +393,15 @@ if (condition) {
 }
 ```
 
-**Πρόκληση:** Σε pipelined CPU, η επόμενη εντολή πρέπει να φορτωθεί **πριν** υπολογιστεί η συνθήκη. Ποιο μονοπάτι να διαλέξει;
+**Challenge:** In a pipelined CPU, the next instruction must be fetched **before** the condition is computed. Which path to choose?
 
-### 8.2 Κερδοσκοπική Εκτέλεση (Speculative Execution)
+### 8.2 Speculative Execution
 
-**Μηχανισμός:**
-- i. Η CPU **προβλέπει** την πιθανότερη διαδρομή
-- ii. Ξεκινά εκτέλεση εντολών από το προβλεπόμενο μονοπάτι
-- iii. **Αν σωστό:** Κέρδος απόδοσης, συνέχεια εκτέλεσης
-- iv. **Αν λάθος:** Pipeline flush, επανεκκίνηση από σωστό μονοπάτι
+**Mechanism:**
+- i. CPU **predicts** the most likely path
+- ii. Begins executing instructions from the predicted path
+- iii. **If correct:** Performance gain, continue execution
+- iv. **If wrong:** Pipeline flush, restart from correct path
 
 ```mermaid
 flowchart TD
@@ -420,20 +420,20 @@ flowchart TD
     style H fill:#f44336,color:#fff
 ```
 
-### 8.3 Machine Learning στην Πρόβλεψη
+### 8.3 Machine Learning in Prediction
 
-**Αλγόριθμοι Πρόβλεψης:**
-- i. Παρακολούθηση ιστορικού διακλαδώσεων
-- ii. **Μάθηση μοτίβων** συμπεριφοράς
-- iii. Προσαρμογή βάσει αποτελεσμάτων
+**Prediction Algorithms:**
+- i. Monitoring branch history
+- ii. **Pattern learning** of behavior
+- iii. Adaptation based on results
 
-**Απόδοση:** Σύγχρονοι επεξεργαστές επιτυγχάνουν **>90% ακρίβεια** στην πρόβλεψη διακλαδώσεων.
+**Performance:** Modern processors achieve **>90% accuracy** in branch prediction.
 
 ---
 
 ## 9.0 CISC vs RISC Architectures
 
-### 9.1 Φιλοσοφία Σχεδίασης
+### 9.1 Design Philosophy
 
 ```mermaid
 mindmap
@@ -454,45 +454,45 @@ mindmap
       ARM, RISC-V, MIPS
 ```
 
-### 9.2 Πίνακας Σύγκρισης
+### 9.2 Comparison Table
 
-| Κριτήριο | CISC | RISC |
-|----------|------|------|
-| **Έμφαση** | Υλικό (Hardware) | Λογισμικό (Software) |
-| **Πολυπλοκότητα Εντολών** | Πολλαπλών κύκλων, πολύπλοκες | Ενός κύκλου, απλές |
-| **Memory Access** | Ενσωματωμένο σε εντολές (LOAD+ADD) | Ξεχωριστά LOAD/STORE |
-| **Μέγεθος Κώδικα** | Μικρό | Μεγάλο |
-| **Κύκλοι/Εντολή** | Υψηλό | Χαμηλό |
-| **Καταχωρητές** | Περιορισμένοι | Πολλοί (για ταχύτητα) |
-| **Χρήση Transistors** | Υλοποίηση πολύπλοκων εντολών | Περισσότεροι καταχωρητές |
-| **Παραδείγματα** | Intel x86, AMD64 | ARM, RISC-V, MIPS, PowerPC |
+| Criterion | CISC | RISC |
+|-----------|------|------|
+| **Emphasis** | Hardware | Software |
+| **Instruction Complexity** | Multi-cycle, complex | Single-cycle, simple |
+| **Memory Access** | Embedded in instructions (LOAD+ADD) | Separate LOAD/STORE |
+| **Code Size** | Small | Large |
+| **Cycles/Instruction** | High | Low |
+| **Registers** | Limited | Many (for speed) |
+| **Transistor Usage** | Implementing complex instructions | More registers |
+| **Examples** | Intel x86, AMD64 | ARM, RISC-V, MIPS, PowerPC |
 
-### 9.3 Σύγχρονες Τάσεις
+### 9.3 Modern Trends
 
-**Σύγκλιση Αρχιτεκτονικών:**
-- i. Σύγχρονοι x86 επεξεργαστές χρησιμοποιούν **μικροεντολές (μ-ops)** RISC-like εσωτερικά
-- ii. ARM επεξεργαστές ενσωματώνουν πολύπλοκες εντολές (π.χ. NEON SIMD)
-- iii. Υβριδικές προσεγγίσεις για βέλτιστη απόδοση
+**Architectural Convergence:**
+- i. Modern x86 processors use **micro-ops (μ-ops)** RISC-like internally
+- ii. ARM processors incorporate complex instructions (e.g. NEON SIMD)
+- iii. Hybrid approaches for optimal performance
 
 ---
 
-## 10.0 Εσωτερική Δομή CPU
+## 10.0 CPU Internal Structure
 
-### 10.1 Βασικά Συστατικά
+### 10.1 Basic Components
 
 ```mermaid
 graph TB
     subgraph CPU[CPU Internal Structure]
-        CU[Control Unit<br/>Μονάδα Ελέγχου]
+        CU[Control Unit]
         ALU[Arithmetic Logic Unit]
-        REG[Registers<br/>Καταχωρητές]
-        BUS[Internal CPU Bus<br/>Εσωτερικός Δίαυλος]
+        REG[Registers]
+        BUS[Internal CPU Bus]
         
         subgraph ALU_SUB[ALU Components]
-            SHIFT[Shifter<br/>Ολισθητής]
-            COMP[Complementer<br/>Συμπληρωτής]
+            SHIFT[Shifter]
+            COMP[Complementer]
             ARITH[Arithmetic & Boolean Logic]
-            FLAGS[Status Flags<br/>Σημαίες Κατάστασης]
+            FLAGS[Status Flags]
         end
     end
     
@@ -508,31 +508,31 @@ graph TB
     style BUS fill:#e57373
 ```
 
-### 10.2 Λεπτομέρειες Μονάδων
+### 10.2 Unit Details
 
 **i. Arithmetic Logic Unit (ALU)**
-- Αριθμητικές πράξεις: $+, -, \times, \div$
-- Λογικές πράξεις: AND, OR, XOR, NOT
+- Arithmetic operations: $+, -, \times, \div$
+- Logical operations: AND, OR, XOR, NOT
 - Bit operations: Shift, Rotate
-- Σημαίες: Zero, Carry, Overflow, Negative
+- Flags: Zero, Carry, Overflow, Negative
 
-**ii. Καταχωρητές (Registers)**
+**ii. Registers**
 - General Purpose Registers (GPR)
 - Special Purpose: PC, SP, Status Register
-- Προσωρινή αποθήκευση δεδομένων
+- Temporary data storage
 
-**iii. Μονάδα Ελέγχου (Control Unit)**
-- Συντονισμός λειτουργίας όλων των μονάδων
-- Δημιουργία control signals
-- Timing και sequencing
+**iii. Control Unit**
+- Coordination of all unit operations
+- Control signal generation
+- Timing and sequencing
 
 ---
 
-## 11.0 Σύγχρονη Αρχιτεκτονική Πλατφόρμας
+## 11.0 Modern Platform Architecture
 
 ### 11.1 AMD Ryzen Threadripper X399
 
-**Χαρακτηριστικά Πλατφόρμας:**
+**Platform Characteristics:**
 
 ```mermaid
 graph TD
@@ -553,17 +553,17 @@ graph TD
     style DDR4 fill:#2196f3,color:#fff
 ```
 
-**Πλεονεκτήματα "No Dark" Φιλοσοφίας:**
-- **No Dark Lanes:** Όλα τα PCIe lanes ενεργά
-- **No Dark Channels:** Πλήρης χρήση Quad-Channel μνήμης
-- **No Dark Ports:** Όλες οι θύρες λειτουργικές ταυτόχρονα
+**"No Dark" Philosophy Advantages:**
+- **No Dark Lanes:** All PCIe lanes active
+- **No Dark Channels:** Full use of Quad-Channel memory
+- **No Dark Ports:** All ports functional simultaneously
 
 ### 11.2 AMD Ryzen Mobile Processors (2020)
 
-**Τεχνολογία 7nm "Zen 2":**
+**7nm "Zen 2" Technology:**
 
-| Μοντέλο | Cores/Threads | Cache | TDP | GPU | Use Case |
-|---------|---------------|-------|-----|-----|----------|
+| Model | Cores/Threads | Cache | TDP | GPU | Use Case |
+|-------|---------------|-------|-----|-----|----------|
 | Ryzen 7 4800H | 8C/16T | 12 MB | 45W | Radeon 7 (1600MHz) | Gaming/Creation |
 | Ryzen 5 4600H | 6C/12T | 11 MB | 45W | Radeon 6 (1500MHz) | Gaming |
 | Ryzen 7 4800U | 8C/16T | 12 MB | **15W** | Radeon 8 (1750MHz) | **Ultrathin** |
@@ -571,42 +571,42 @@ graph TD
 | Ryzen 3 4300U | 4C/4T | 6 MB | 15W | Radeon 5 (1400MHz) | Entry-level |
 | Athlon Gold 3150U | 2C/4T | 5 MB | 15W | Radeon 3 (1000MHz) | Budget |
 
-**Βασικά Χαρακτηριστικά:**
-- i. Υποστήριξη Wi-Fi 6 & Bluetooth 5
+**Key Features:**
+- i. Wi-Fi 6 & Bluetooth 5 support
 - ii. 4K HDR display compatibility
-- iii. 7nm process → Χαμηλή κατανάλωση ισχύος
+- iii. 7nm process → Low power consumption
 
 ---
 
-## 12.0 Κατασκευή CPU (Manufacturing Process)
+## 12.0 CPU Manufacturing Process
 
-### 12.1 Διαδικασία Παραγωγής
+### 12.1 Production Process
 
-**Βήμα 1: Εξαγωγή Πυριτίου από Άμμο**
+**Step 1: Silicon Extraction from Sand**
 
 ```mermaid
 flowchart LR
-    A[Άμμος<br/>SiO₂] --> B[Θέρμανση με Άνθρακα<br/>C as Reducing Agent]
-    B --> C[Καθαρό Πυρίτιο<br/>Si - Electronic Grade]
+    A[Sand<br/>SiO₂] --> B[Heating with Carbon<br/>C as Reducing Agent]
+    B --> C[Pure Silicon<br/>Si - Electronic Grade]
     C --> D[Polycrystalline Silicon<br/><0.1% Impurities]
     
     style A fill:#ffd54f
     style D fill:#90a4ae
 ```
 
-**Χημική Αντίδραση:**
+**Chemical Reaction:**
 $$
 \text{SiO}_2 + 2\text{C} \xrightarrow{\Delta} \text{Si} + 2\text{CO}
 $$
 
-**Βήμα 2: Δημιουργία Monocrystalline Ingot**
+**Step 2: Creating Monocrystalline Ingot**
 
-- i. Το πολυκρυσταλλικό πυρίτιο τήκεται
-- ii. Σχηματισμός κυλινδρικού πλινθίου (boule/ingot)
-- iii. Καθαρότητα >99.9%
-- iv. Μονοκρυσταλλική δομή για ομοιόμορφες ηλεκτρικές ιδιότητες
+- i. Polycrystalline silicon is melted
+- ii. Cylindrical ingot formation (boule/ingot)
+- iii. Purity >99.9%
+- iv. Monocrystalline structure for uniform electrical properties
 
-**Βήμα 3: Τεμαχισμός σε Wafers**
+**Step 3: Slicing into Wafers**
 
 ```mermaid
 flowchart TD
@@ -618,15 +618,15 @@ flowchart TD
     style C fill:#b0bec5
 ```
 
-**Βήμα 4: Chemical-Mechanical Polishing (CMP)**
+**Step 4: Chemical-Mechanical Polishing (CMP)**
 
-**Στόχος:** Επιφάνεια ποιότητας καθρέφτη
+**Goal:** Mirror-quality surface
 
-- i. **Εξομάλυνση:** Αφαίρεση ανωμαλιών από κοπή
-- ii. **Απολύμανση:** Αφαίρεση σωματιδίων
-- iii. **Βελτίωση ποιότητας:** Ετοιμότητα για φωτολιθογραφία
+- i. **Smoothing:** Removing irregularities from cutting
+- ii. **Cleaning:** Removing particles
+- iii. **Quality improvement:** Readiness for photolithography
 
-**Βήμα 5: Photolithography - Έκθεση σε UV**
+**Step 5: Photolithography - UV Exposure**
 
 ```mermaid
 sequenceDiagram
@@ -643,11 +643,11 @@ sequenceDiagram
     PR->>PR: Exposed areas become soluble
 ```
 
-**Βήμα 6: Πλύση και Χάραξη (Etching)**
+**Step 6: Washing and Etching**
 
-- i. **Πλύση:** Χημικός διαλύτης αφαιρεί εκτεθειμένο photoresist
-- ii. **Χάραξη:** Αφαίρεση υποστρώματος σύμφωνα με το μοτίβο
-- iii. **Επανάληψη:** 20-30+ στάδια για πολλαπλά στρώματα
+- i. **Washing:** Chemical solvent removes exposed photoresist
+- ii. **Etching:** Substrate removal according to pattern
+- iii. **Repetition:** 20-30+ stages for multiple layers
 
 ```mermaid
 flowchart TD
@@ -663,33 +663,33 @@ flowchart TD
     style G fill:#4caf50,color:#fff
 ```
 
-### 12.2 Τελικά Στάδια
+### 12.2 Final Stages
 
-**Doping:** Προσθήκη ακαθαρσιών (π.χ. Phosphorus, Boron) για δημιουργία p-n junctions
+**Doping:** Adding impurities (e.g. Phosphorus, Boron) to create p-n junctions
 
-**Metallization:** Δημιουργία διασυνδέσεων με χαλκό/αλουμίνιο
+**Metallization:** Creating interconnections with copper/aluminum
 
 **Testing & Dicing:**
-- i. Ηλεκτρικός έλεγχος κάθε chip στο wafer
-- ii. Κοπή σε μεμονωμένα dies
-- iii. Packaging (τοποθέτηση σε substrate, heat spreader)
+- i. Electrical testing of each chip on wafer
+- ii. Cutting into individual dies
+- iii. Packaging (placement on substrate, heat spreader)
 
 ---
 
-## 13.0 Βασικοί Τύποι και Μετρικές Απόδοσης
+## 13.0 Key Types and Performance Metrics
 
-### 13.1 Απόδοση Pipeline
+### 13.1 Pipeline Performance
 
 **Speedup Factor:**
 $$
 S = \frac{T_{\text{sequential}}}{T_{\text{pipelined}}} = \frac{n \times k}{k + (n-1)}
 $$
 
-Όπου:
-- $n$ = αριθμός εντολών
-- $k$ = αριθμός σταδίων pipeline
+Where:
+- $n$ = number of instructions
+- $k$ = number of pipeline stages
 
-**Για μεγάλο $n$:**
+**For large $n$:**
 $$
 S_{\max} \approx k
 $$
@@ -701,7 +701,7 @@ $$
 \text{AMAT} = T_{\text{cache}} + (\text{Miss Rate} \times T_{\text{miss penalty}})
 $$
 
-**Παράδειγμα:**
+**Example:**
 - $T_{\text{L1}} = 3$ cycles, Miss Rate = 5%, $T_{\text{RAM}} = 100$ cycles
 
 $$
@@ -715,7 +715,7 @@ $$
 \text{CPI}_{\text{eff}} = \text{CPI}_{\text{ideal}} + (\text{Branch Freq} \times \text{Mispredict Rate} \times \text{Penalty})
 $$
 
-**Παράδειγμα:**
+**Example:**
 - Ideal CPI = 1, 20% branches, 10% mispredicts, Penalty = 10 cycles
 
 $$
@@ -724,44 +724,44 @@ $$
 
 ---
 
-## 14.0 Βασικοί Ορισμοί - Γλωσσάριο
+## 14.0 Key Definitions - Glossary
 
-| Όρος | Ορισμός |
-|------|---------|
-| **ISA** | Instruction Set Architecture - Σύνολο εντολών που κατανοεί μία CPU |
-| **Pipeline** | Τεχνική διαίρεσης εκτέλεσης εντολής σε στάδια για παράλληλη επεξεργασία |
-| **Cache Hit** | Εύρεση ζητούμενων δεδομένων στην cache μνήμη |
-| **Cache Miss** | Αποτυχία εύρεσης δεδομένων στην cache, απαιτείται πρόσβαση σε χαμηλότερο επίπεδο |
-| **Latency** | Χρόνος που απαιτείται για την προσπέλαση δεδομένων (σε cycles) |
-| **Throughput** | Αριθμός εντολών που ολοκληρώνονται ανά μονάδα χρόνου |
-| **Superscalar** | Αρχιτεκτονική που εκτελεί >1 εντολές ανά κύκλο ρολογιού |
-| **SMT** | Simultaneous Multithreading - Πολλαπλά threads σε έναν φυσικό πυρήνα |
-| **Speculative Execution** | Εκτέλεση εντολών με βάση πρόβλεψη, πριν την επιβεβαίωση |
-| **Photolithography** | Τεχνική μεταφοράς μοτίβων σε wafer με χρήση UV φωτός |
-| **Wafer** | Λεπτή φέτα πυριτίου όπου κατασκευάζονται τα chips |
-| **CMP** | Chemical-Mechanical Polishing - Στίλβωση wafer |
+| Term | Definition |
+|------|------------|
+| **ISA** | Instruction Set Architecture - Set of instructions understood by a CPU |
+| **Pipeline** | Technique of dividing instruction execution into stages for parallel processing |
+| **Cache Hit** | Finding requested data in cache memory |
+| **Cache Miss** | Failure to find data in cache, requires access to lower level |
+| **Latency** | Time required to access data (in cycles) |
+| **Throughput** | Number of instructions completed per unit time |
+| **Superscalar** | Architecture that executes >1 instructions per clock cycle |
+| **SMT** | Simultaneous Multithreading - Multiple threads on a single physical core |
+| **Speculative Execution** | Executing instructions based on prediction, before confirmation |
+| **Photolithography** | Technique of transferring patterns to wafer using UV light |
+| **Wafer** | Thin silicon disc where chips are manufactured |
+| **CMP** | Chemical-Mechanical Polishing - Wafer polishing |
 
 ---
 
-## 15.0 Βασικές Αρχές Σχεδιασμού
+## 15.0 Core Design Principles
 
 ### 15.1 Memory Hierarchy Design Principles
 
 **i. Locality Principles**
-- **Temporal Locality:** Πρόσφατα χρησιμοποιημένα δεδομένα θα ξαναχρησιμοποιηθούν
-- **Spatial Locality:** Δεδομένα σε γειτονικές διευθύνσεις πιθανόν να χρειαστούν
+- **Temporal Locality:** Recently used data will be used again
+- **Spatial Locality:** Data in adjacent addresses is likely needed
 
 **ii. Inclusion Property**
 ```
 L1 ⊆ L2 ⊆ L3 ⊆ RAM
 ```
-Τα δεδομένα σε υψηλότερο επίπεδο συνήθως υπάρχουν και σε χαμηλότερο.
+Data at a higher level typically also exists at a lower level.
 
 ### 15.2 Pipeline Design Principles
 
 **i. Balance Pipeline Stages**
-- Ίσος χρόνος εκτέλεσης ανά στάδιο
-- Αποφυγή bottlenecks
+- Equal execution time per stage
+- Avoid bottlenecks
 
 **ii. Hazard Management**
 - **Data Hazards:** Forwarding, stalls
@@ -770,22 +770,22 @@ L1 ⊆ L2 ⊆ L3 ⊆ RAM
 
 ### 15.3 Amdahl's Law
 
-**Όριο Επιτάχυνσης:**
+**Speedup Limit:**
 $$
 S_{\text{overall}} = \frac{1}{(1-P) + \frac{P}{S}}
 $$
 
-Όπου:
-- $P$ = Ποσοστό κώδικα που βελτιώνεται
-- $S$ = Speedup του βελτιωμένου τμήματος
+Where:
+- $P$ = Fraction of code improved
+- $S$ = Speedup of the improved section
 
-**Συμπέρασμα:** Βελτιώσεις σε σπάνιες περιπτώσεις έχουν μικρή συνολική επίδραση.
+**Conclusion:** Improvements in rare cases have minimal overall impact.
 
 ---
 
-## 16.0 Αναφορές & Πόροι
+## 16.0 References & Resources
 
-### 16.1 Εκπαιδευτικά Βίντεο
+### 16.1 Educational Videos
 
 **CPU Manufacturing:**
 - Branch Education: "How It's Made - CPU"
@@ -794,9 +794,9 @@ $$
 **CPU Operation:**
 - Branch Education: "The Engineering that Runs the Digital World, How do CPUs Work?"
 
-### 16.2 Συμπληρωματική Μελέτη
+### 16.2 Supplementary Study
 
-**Θεματικές Περιοχές:**
+**Topics:**
 - i. Out-of-Order Execution
 - ii. Tomasulo's Algorithm
 - iii. Cache Coherence Protocols (MESI, MOESI)
@@ -806,6 +806,6 @@ $$
 
 ---
 
-##  Τέλος Smart Notes
+## End of Smart Notes
 
-> **Σημείωση:** Αυτές οι σημειώσεις συνθέτουν το περιεχόμενο της 8ης διάλεξης για τη Διαδικασία Σχεδίασης Επεξεργαστών. Για βαθύτερη κατανόηση, συμβουλευτείτε τα εκπαιδευτικά βίντεο και πραγματοποιήστε hands-on πειράματα με simulators (π.χ. RISC-V simulator, cache simulators).
+> **Note:** These notes compile the content of the 8th lecture on the Processor Design Process. For deeper understanding, consult the educational videos and perform hands-on experiments with simulators (e.g. RISC-V simulator, cache simulators).

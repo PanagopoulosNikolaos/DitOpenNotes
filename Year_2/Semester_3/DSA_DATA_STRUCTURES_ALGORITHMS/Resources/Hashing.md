@@ -1,37 +1,37 @@
-# Κατακερματισμός (Hashing)
+# Hashing
 
-## Περιεχόμενα
-1. [Εισαγωγή](#εισαγωγή)
-2. [Συναρτήσεις Κατακερματισμού](#συναρτήσεις-κατακερματισμού)
-3. [Συγκρούσεις και Επίλυση](#συγκρούσεις-και-επίλυση)
-4. [Ανοικτή Διευθυνσιοδότηση](#ανοικτή-διευθυνσιοδότηση)
-5. [Κλειστή Διευθυνσιοδότηση](#κλειστή-διευθυνσιοδότηση)
-6. [Πολυπλοκότητα](#πολυπλοκότητα)
-7. [Παραδείγματα](#παραδείγματα)
+## Contents
+1. [Introduction](#introduction)
+2. [Hash Functions](#hash-functions)
+3. [Collisions and Resolution](#collisions-and-resolution)
+4. [Open Addressing](#open-addressing)
+5. [Closed Addressing](#closed-addressing)
+6. [Complexity](#complexity)
+7. [Examples](#examples)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Ο **κατακερματισμός (hashing)** είναι μια τεχνική για την αποθήκευση και ανάκτηση δεδομένων σε σταθερό χρόνο O(1) κατά μέσο όρο.
+**Hashing** is a technique for storing and retrieving data in constant time O(1) on average.
 
-### Βασικές Έννοιες
+### Basic Concepts
 
-- **Hash Table (Πίνακας Κατακερματισμού)**: Δομή δεδομένων που αποθηκεύει ζεύγη κλειδιού-τιμής
-- **Hash Function (Συνάρτηση Κατακερματισμού)**: Μετατρέπει κλειδιά σε δείκτες πίνακα
-- **Collision (Σύγκρουση)**: Όταν δύο κλειδιά αντιστοιχούν στον ίδιο δείκτη
-- **Load Factor (Συντελεστής Φόρτωσης)**: α = n/m όπου n = αριθμός στοιχείων, m = μέγεθος πίνακα
+- **Hash Table**: Data structure that stores key-value pairs
+- **Hash Function**: Converts keys to table indices
+- **Collision**: When two keys map to the same index
+- **Load Factor**: α = n/m where n = number of elements, m = table size
 
-### Οπτικοποίηση Hash Table
+### Hash Table Visualization
 
 ```mermaid
 graph LR
-    A[Κλειδί: 'apple'] --> B[Hash Function]
-    B --> C[Δείκτης: 3]
+    A[Key: 'apple'] --> B[Hash Function]
+    B --> C[Index: 3]
     C --> D[Hash Table]
     
-    E[Κλειδί: 'banana'] --> F[Hash Function]
-    F --> G[Δείκτης: 7]
+    E[Key: 'banana'] --> F[Hash Function]
+    F --> G[Index: 7]
     G --> D
     
     D --> H[0: null]
@@ -46,35 +46,35 @@ graph LR
 
 ---
 
-## Συναρτήσεις Κατακερματισμού
+## Hash Functions
 
-### 1. Μέθοδος Διαίρεσης (Division Method)
+### 1. Division Method
 
-**Τύπος**: `h(k) = k mod m`
+**Formula**: `h(k) = k mod m`
 
-Όπου:
-- `k` = κλειδί
-- `m` = μέγεθος πίνακα (συνήθως πρώτος αριθμός)
+Where:
+- `k` = key
+- `m` = table size (usually a prime number)
 
-**Παράδειγμα**:
+**Example**:
 ```
-m = 11 (μέγεθος πίνακα)
+m = 11 (table size)
 
 h(25) = 25 mod 11 = 3
 h(37) = 37 mod 11 = 4
 h(42) = 42 mod 11 = 9
-h(58) = 58 mod 11 = 3  ← Σύγκρουση με 25!
+h(58) = 58 mod 11 = 3  ← Collision with 25!
 ```
 
-### 2. Μέθοδος Πολλαπλασιασμού (Multiplication Method)
+### 2. Multiplication Method
 
-**Τύπος**: `h(k) = ⌊m × (k × A mod 1)⌋`
+**Formula**: `h(k) = ⌊m × (k × A mod 1)⌋`
 
-Όπου:
-- `A` = σταθερά (0 < A < 1), συχνά A ≈ 0.6180339887 (χρυσή τομή)
-- `k × A mod 1` = κλασματικό μέρος του k × A
+Where:
+- `A` = constant (0 < A < 1), often A ≈ 0.6180339887 (golden ratio)
+- `k × A mod 1` = fractional part of k × A
 
-**Παράδειγμα**:
+**Example**:
 ```
 m = 8, A = 0.618
 
@@ -86,13 +86,13 @@ h(123) = ⌊8 × (123 × 0.618 mod 1)⌋
 
 ### 3. Universal Hashing
 
-**Τύπος**: `h(k) = ((a × k + b) mod p) mod m`
+**Formula**: `h(k) = ((a × k + b) mod p) mod m`
 
-Όπου:
-- `p` = μεγάλος πρώτος αριθμός
-- `a`, `b` = τυχαίες σταθερές
+Where:
+- `p` = large prime number
+- `a`, `b` = random constants
 
-**Παράδειγμα**:
+**Example**:
 ```
 m = 10, p = 17, a = 3, b = 5
 
@@ -102,13 +102,13 @@ h(8) = ((3 × 8 + 5) mod 17) mod 10
      = 12 mod 10 = 2
 ```
 
-### 4. Hashing για Strings
+### 4. Hashing for Strings
 
-**Πολυωνυμική Μέθοδος**:
+**Polynomial Method**:
 
 `h(s) = (s[0] × p^(n-1) + s[1] × p^(n-2) + ... + s[n-1]) mod m`
 
-**Παράδειγμα**:
+**Example**:
 ```cpp
 #include <string>
 
@@ -120,7 +120,7 @@ long long hashString(std::string s, int m = 101, int p = 31) {
     return hash_value;
 }
 
-// Παράδειγμα
+// Example
 // h("cat") = (99×31² + 97×31 + 116) mod 101
 //          = (95019 + 3007 + 116) mod 101
 //          = 98142 mod 101 = 40
@@ -128,39 +128,39 @@ long long hashString(std::string s, int m = 101, int p = 31) {
 
 ---
 
-## Συγκρούσεις και Επίλυση
+## Collisions and Resolution
 
-### Τι είναι Σύγκρουση;
+### What is a Collision?
 
-Όταν `h(k₁) = h(k₂)` αλλά `k₁ ≠ k₂`
+When `h(k₁) = h(k₂)` but `k₁ ≠ k₂`
 
-### Μέθοδοι Επίλυσης
+### Resolution Methods
 
 ```mermaid
 graph TD
-    A[Μέθοδοι Επίλυσης Συγκρούσεων] --> B[Κλειστή Διευθυνσιοδότηση<br/>Closed Addressing]
-    A --> C[Ανοικτή Διευθυνσιοδότηση<br/>Open Addressing]
+    A[Collision Resolution Methods] --> B[Closed Addressing<br/>Closed Addressing]
+    A --> C[Open Addressing<br/>Open Addressing]
     
-    B --> D[Chaining<br/>Αλυσίδωση]
+    B --> D[Chaining<br/>Chaining]
     
-    C --> E[Linear Probing<br/>Γραμμική Διερεύνηση]
-    C --> F[Quadratic Probing<br/>Τετραγωνική Διερεύνηση]
-    C --> G[Double Hashing<br/>Διπλός Κατακερματισμός]
+    C --> E[Linear Probing<br/>Linear Probing]
+    C --> F[Quadratic Probing<br/>Quadratic Probing]
+    C --> G[Double Hashing<br/>Double Hashing]
 ```
 
 ---
 
-## Κλειστή Διευθυνσιοδότηση (Chaining)
+## Closed Addressing (Chaining)
 
-### Αρχή Λειτουργίας
+### Operating Principle
 
-Κάθε θέση του πίνακα περιέχει λίστα (linked list) με όλα τα στοιχεία που κατακερματίζονται εκεί.
+Each position in the table contains a linked list with all elements that hash to that position.
 
-### Οπτικοποίηση
+### Visualization
 
 ```mermaid
 graph TD
-    subgraph "Hash Table με Chaining"
+    subgraph "Hash Table with Chaining"
     H0[0: ] --> L0[null]
     H1[1: ] --> L1[21] --> L1B[43] --> L1C[null]
     H2[2: ] --> L2[14] --> L2B[null]
@@ -175,12 +175,12 @@ graph TD
     end
 ```
 
-### Παράδειγμα 1: Εισαγωγή Στοιχείων
+### Example 1: Inserting Elements
 
-**Δεδομένα**: Εισαγωγή των αριθμών [25, 37, 42, 58, 14, 21, 43] σε πίνακα μεγέθους m=11
+**Data**: Insert the numbers [25, 37, 42, 58, 14, 21, 43] into a table of size m=11
 
 ```
-Βήμα 1: h(25) = 25 mod 11 = 3
+Step 1: h(25) = 25 mod 11 = 3
 ┌───┬────┐
 │ 0 │    │
 │ 1 │    │
@@ -189,27 +189,27 @@ graph TD
 │ 4 │    │
 └───┴────┘
 
-Βήμα 2: h(37) = 37 mod 11 = 4
+Step 2: h(37) = 37 mod 11 = 4
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
 └───┴────┘
 
-Βήμα 3: h(42) = 42 mod 11 = 9
+Step 3: h(42) = 42 mod 11 = 9
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
 │ 9 │ 42 │
 └───┴────┘
 
-Βήμα 4: h(58) = 58 mod 11 = 3 ← Σύγκρουση!
+Step 4: h(58) = 58 mod 11 = 3 ← Collision!
 ┌───┬─────────┐
 │ 3 │ 25 → 58 │
 │ 4 │ 37      │
 │ 9 │ 42      │
 └───┴─────────┘
 
-Βήμα 5-7: Συνέχεια...
+Step 5-7: Continuing...
 ┌────┬──────────────┐
 │ 1  │ 21 → 43      │
 │ 2  │ 14           │
@@ -219,7 +219,7 @@ graph TD
 └────┴──────────────┘
 ```
 
-### Υλοποίηση σε C++
+### C++ Implementation
 
 ```cpp
 #include <iostream>
@@ -292,99 +292,99 @@ public:
 };
 ```
 
-### Παράδειγμα Χρήσης
+### Usage Example
 
 ```cpp
 int main() {
-    // Δημιουργία hash table
+    // Create hash table
     HashTableChaining<int, std::string> ht(11);
 
-    // Εισαγωγή στοιχείων
+    // Insert elements
     std::vector<int> elements = {25, 37, 42, 58, 14, 21, 43};
     for (int num : elements) {
-        ht.insert(num, "Τιμή_" + std::to_string(num));
+        ht.insert(num, "Value_" + std::to_string(num));
     }
 
-    // Εμφάνιση
+    // Display
     ht.display();
 
-    // Αναζήτηση
+    // Search
     std::string* val = ht.search(58);
-    if (val) std::cout << "\nΑναζήτηση 58: " << *val << std::endl;
-    else std::cout << "\nΑναζήτηση 58: Δεν βρέθηκε" << std::endl;
+    if (val) std::cout << "\nSearch 58: " << *val << std::endl;
+    else std::cout << "\nSearch 58: Not found" << std::endl;
 
-    // Διαγραφή
+    // Delete
     ht.remove(42);
-    std::cout << "\nΜετά τη διαγραφή του 42:" << std::endl;
+    std::cout << "\nAfter deleting 42:" << std::endl;
     ht.display();
     
     return 0;
 }
 ```
 
-**Έξοδος**:
+**Output**:
 ```
 0: None
-1: (43, Τιμή_43) -> (21, Τιμή_21) -> None
-2: (14, Τιμή_14) -> None
-3: (58, Τιμή_58) -> (25, Τιμή_25) -> None
-4: (37, Τιμή_37) -> None
+1: (43, Value_43) -> (21, Value_21) -> None
+2: (14, Value_14) -> None
+3: (58, Value_58) -> (25, Value_25) -> None
+4: (37, Value_37) -> None
 5: None
 6: None
 7: None
 8: None
-9: (42, Τιμή_42) -> None
+9: (42, Value_42) -> None
 10: None
 
-Αναζήτηση 58: Τιμή_58
-Αναζήτηση 100: None
+Search 58: Value_58
+Search 100: None
 
-Μετά τη διαγραφή του 42:
+After deleting 42:
 9: None
 ```
 
 ---
 
-## Ανοικτή Διευθυνσιοδότηση (Open Addressing)
+## Open Addressing
 
-### Αρχή Λειτουργίας
+### Operating Principle
 
-Όλα τα στοιχεία αποθηκεύονται **μέσα στον πίνακα**. Σε περίπτωση σύγκρουσης, αναζητούμε την επόμενη διαθέσιμη θέση.
+All elements are stored **inside the table**. In case of a collision, we search for the next available position.
 
-### 1. Linear Probing (Γραμμική Διερεύνηση)
+### 1. Linear Probing
 
-**Τύπος**: `h(k, i) = (h'(k) + i) mod m`
+**Formula**: `h(k, i) = (h'(k) + i) mod m`
 
-Όπου:
-- `h'(k)` = αρχική συνάρτηση hash
-- `i` = αριθμός προσπάθειας (0, 1, 2, ...)
+Where:
+- `h'(k)` = initial hash function
+- `i` = probe number (0, 1, 2, ...)
 
-### Παράδειγμα Linear Probing
+### Linear Probing Example
 
-**Δεδομένα**: Εισαγωγή [25, 37, 42, 58, 14, 26] σε πίνακα μεγέθους m=11
+**Data**: Insert [25, 37, 42, 58, 14, 26] into a table of size m=11
 
 ```
-Βήμα 1: h(25, 0) = 25 mod 11 = 3
+Step 1: h(25, 0) = 25 mod 11 = 3
 ┌───┬────┐
 │ 3 │ 25 │
 └───┴────┘
 
-Βήμα 2: h(37, 0) = 37 mod 11 = 4
+Step 2: h(37, 0) = 37 mod 11 = 4
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
 └───┴────┘
 
-Βήμα 3: h(42, 0) = 42 mod 11 = 9
+Step 3: h(42, 0) = 42 mod 11 = 9
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
 │ 9 │ 42 │
 └───┴────┘
 
-Βήμα 4: h(58, 0) = 58 mod 11 = 3 ← Κατειλημμένο!
-        h(58, 1) = (3 + 1) mod 11 = 4 ← Κατειλημμένο!
-        h(58, 2) = (3 + 2) mod 11 = 5 ← Ελεύθερο!
+Step 4: h(58, 0) = 58 mod 11 = 3 ← Occupied!
+        h(58, 1) = (3 + 1) mod 11 = 4 ← Occupied!
+        h(58, 2) = (3 + 2) mod 11 = 5 ← Free!
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
@@ -392,10 +392,10 @@ int main() {
 │ 9 │ 42 │
 └───┴────┘
 
-Βήμα 5: h(14, 0) = 14 mod 11 = 3 ← Κατειλημμένο!
-        h(14, 1) = 4 ← Κατειλημμένο!
-        h(14, 2) = 5 ← Κατειλημμένο!
-        h(14, 3) = 6 ← Ελεύθερο!
+Step 5: h(14, 0) = 14 mod 11 = 3 ← Occupied!
+        h(14, 1) = 4 ← Occupied!
+        h(14, 2) = 5 ← Occupied!
+        h(14, 3) = 6 ← Free!
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
@@ -404,8 +404,8 @@ int main() {
 │ 9 │ 42 │
 └───┴────┘
 
-Βήμα 6: h(26, 0) = 26 mod 11 = 4 ← Κατειλημμένο!
-        Συνεχίζουμε: 5, 6, 7 (Ελεύθερο!)
+Step 6: h(26, 0) = 26 mod 11 = 4 ← Occupied!
+        Continuing: 5, 6, 7 (Free!)
 ┌───┬────┐
 │ 3 │ 25 │
 │ 4 │ 37 │
@@ -416,18 +416,18 @@ int main() {
 └───┴────┘
 ```
 
-### Πρόβλημα: Primary Clustering
+### Problem: Primary Clustering
 
-Δημιουργούνται μεγάλες συνεχόμενες περιοχές κατειλημμένων θέσεων.
+Large contiguous regions of occupied positions are created.
 
 ```mermaid
 graph LR
-    A[Clustering] --> B[Μεγάλες αλυσίδες<br/>κατειλημμένων θέσεων]
-    B --> C[Αύξηση χρόνου<br/>αναζήτησης]
-    C --> D[Χειρότερη<br/>απόδοση]
+    A[Clustering] --> B[Long chains of<br/>occupied positions]
+    B --> C[Increased<br/>search time]
+    C --> D[Degraded<br/>performance]
 ```
 
-### Υλοποίηση Linear Probing
+### Linear Probing Implementation
 
 ```cpp
 #include <iostream>
@@ -456,7 +456,7 @@ public:
     HashTableLinearProbing(int s = 11) : size(s), table(s), count(0) {}
 
     void insert(K key, V value) {
-        if (count >= size) throw std::runtime_error("Ο πίνακας είναι πλήρης!");
+        if (count >= size) throw std::runtime_error("The table is full!");
 
         int index = hashFunction(key);
         int i = 0;
@@ -499,28 +499,28 @@ public:
 };
 ```
 
-### 2. Quadratic Probing (Τετραγωνική Διερεύνηση)
+### 2. Quadratic Probing
 
-**Τύπος**: `h(k, i) = (h'(k) + c₁×i + c₂×i²) mod m`
+**Formula**: `h(k, i) = (h'(k) + c₁×i + c₂×i²) mod m`
 
-Συχνά χρησιμοποιούμε: `h(k, i) = (h'(k) + i²) mod m`
+Often we use: `h(k, i) = (h'(k) + i²) mod m`
 
-### Παράδειγμα Quadratic Probing
+### Quadratic Probing Example
 
-**Δεδομένα**: Εισαγωγή [25, 37, 58, 14] σε πίνακα m=11
+**Data**: Insert [25, 37, 58, 14] into a table of size m=11
 
 ```
 h(25, 0) = (25 + 0²) mod 11 = 3
 h(37, 0) = (37 + 0²) mod 11 = 4
-h(58, 0) = (58 + 0²) mod 11 = 3 ← Σύγκρουση
-h(58, 1) = (3 + 1²) mod 11 = 4 ← Σύγκρουση
-h(58, 2) = (3 + 2²) mod 11 = 7 ← Ελεύθερο!
-h(14, 0) = (14 + 0²) mod 11 = 3 ← Σύγκρουση
-h(14, 1) = (3 + 1²) mod 11 = 4 ← Σύγκρουση
-h(14, 2) = (3 + 2²) mod 11 = 7 ← Σύγκρουση
-h(14, 3) = (3 + 3²) mod 11 = 1 ← Ελεύθερο!
+h(58, 0) = (58 + 0²) mod 11 = 3 ← Collision
+h(58, 1) = (3 + 1²) mod 11 = 4 ← Collision
+h(58, 2) = (3 + 2²) mod 11 = 7 ← Free!
+h(14, 0) = (14 + 0²) mod 11 = 3 ← Collision
+h(14, 1) = (3 + 1²) mod 11 = 4 ← Collision
+h(14, 2) = (3 + 2²) mod 11 = 7 ← Collision
+h(14, 3) = (3 + 3²) mod 11 = 1 ← Free!
 
-Τελικός Πίνακας:
+Final Table:
 ┌───┬────┐
 │ 1 │ 14 │
 │ 3 │ 25 │
@@ -529,33 +529,33 @@ h(14, 3) = (3 + 3²) mod 11 = 1 ← Ελεύθερο!
 └───┴────┘
 ```
 
-### 3. Double Hashing (Διπλός Κατακερματισμός)
+### 3. Double Hashing
 
-**Τύπος**: `h(k, i) = (h₁(k) + i × h₂(k)) mod m`
+**Formula**: `h(k, i) = (h₁(k) + i × h₂(k)) mod m`
 
-Όπου:
-- `h₁(k) = k mod m` (πρωταρχική συνάρτηση)
-- `h₂(k) = 1 + (k mod (m-1))` (δευτερεύουσα συνάρτηση)
+Where:
+- `h₁(k) = k mod m` (primary function)
+- `h₂(k) = 1 + (k mod (m-1))` (secondary function)
 
-### Παράδειγμα Double Hashing
+### Double Hashing Example
 
-**Δεδομένα**: m=11, Εισαγωγή [25, 37, 58]
+**Data**: m=11, Insert [25, 37, 58]
 
 ```
 h₁(25) = 25 mod 11 = 3
 h₂(25) = 1 + (25 mod 10) = 1 + 5 = 6
-→ Θέση 3
+→ Position 3
 
 h₁(37) = 37 mod 11 = 4
 h₂(37) = 1 + (37 mod 10) = 1 + 7 = 8
-→ Θέση 4
+→ Position 4
 
-h₁(58) = 58 mod 11 = 3 ← Σύγκρουση
+h₁(58) = 58 mod 11 = 3 ← Collision
 h₂(58) = 1 + (58 mod 10) = 1 + 8 = 9
 h(58, 0) = 3
-h(58, 1) = (3 + 1×9) mod 11 = 12 mod 11 = 1 ← Ελεύθερο!
+h(58, 1) = (3 + 1×9) mod 11 = 12 mod 11 = 1 ← Free!
 
-Τελικός Πίνακας:
+Final Table:
 ┌───┬────┐
 │ 1 │ 58 │
 │ 3 │ 25 │
@@ -563,57 +563,57 @@ h(58, 1) = (3 + 1×9) mod 11 = 12 mod 11 = 1 ← Ελεύθερο!
 └───┴────┘
 ```
 
-### Σύγκριση Μεθόδων
+### Method Comparison
 
 ```mermaid
 graph TD
-    A[Μέθοδοι Probing] --> B[Linear Probing]
+    A[Probing Methods] --> B[Linear Probing]
     A --> C[Quadratic Probing]
     A --> D[Double Hashing]
     
-    B --> E[+ Απλό<br/>- Primary Clustering]
-    C --> F[+ Μειώνει Clustering<br/>- Secondary Clustering]
-    D --> G[+ Καλύτερη κατανομή<br/>- Πιο πολύπλοκο]
+    B --> E[+ Simple<br/>- Primary Clustering]
+    C --> F[+ Reduces Clustering<br/>- Secondary Clustering]
+    D --> G[+ Better distribution<br/>- More complex]
 ```
 
 ---
 
-## Πολυπλοκότητα
+## Complexity
 
 ### Chaining
 
-| Λειτουργία | Μέση Περίπτωση | Χειρότερη Περίπτωση |
-|------------|-----------------|---------------------|
-| Εισαγωγή   | O(1)            | O(n)                |
-| Αναζήτηση  | O(1 + α)        | O(n)                |
-| Διαγραφή   | O(1 + α)        | O(n)                |
+| Operation | Average Case | Worst Case |
+|-----------|--------------|------------|
+| Insertion | O(1)         | O(n)       |
+| Search    | O(1 + α)     | O(n)       |
+| Deletion  | O(1 + α)     | O(n)       |
 
-Όπου α = n/m (load factor)
+Where α = n/m (load factor)
 
 ### Open Addressing
 
-| Λειτουργία | Μέση Περίπτωση | Χειρότερη Περίπτωση |
-|------------|-----------------|---------------------|
-| Εισαγωγή   | O(1/(1-α))      | O(n)                |
-| Αναζήτηση  | O(1/(1-α))      | O(n)                |
-| Διαγραφή   | O(1/(1-α))      | O(n)                |
+| Operation | Average Case | Worst Case |
+|-----------|--------------|------------|
+| Insertion | O(1/(1-α))   | O(n)       |
+| Search    | O(1/(1-α))   | O(n)       |
+| Deletion  | O(1/(1-α))   | O(n)       |
 
-**Σημείωση**: Για α < 0.7, η απόδοση παραμένει καλή.
+**Note**: For α < 0.7, performance remains good.
 
-### Ανάλυση Load Factor
+### Load Factor Analysis
 
 ```
-α = 0.5:  Μέσος αριθμός προσπαθειών ≈ 1.5
-α = 0.75: Μέσος αριθμός προσπαθειών ≈ 4
-α = 0.9:  Μέσος αριθμός προσπαθειών ≈ 10
-α ≥ 1:    Απαιτείται rehashing
+α = 0.5:  Average number of probes ≈ 1.5
+α = 0.75: Average number of probes ≈ 4
+α = 0.9:  Average number of probes ≈ 10
+α ≥ 1:    Rehashing required
 ```
 
 ---
 
-## Παραδείγματα Εφαρμογών
+## Application Examples
 
-### Παράδειγμα 1: Λεξικό Συχνότητας Λέξεων
+### Example 1: Word Frequency Dictionary
 
 ```cpp
 #include <iostream>
@@ -628,7 +628,7 @@ std::unordered_map<std::string, int> wordFrequency(std::string text) {
     std::string word;
     
     while (ss >> word) {
-        // Μετατροπή σε πεζά
+        // Convert to lowercase
         std::transform(word.begin(), word.end(), word.begin(), ::tolower);
         freq[word]++;
     }
@@ -636,9 +636,9 @@ std::unordered_map<std::string, int> wordFrequency(std::string text) {
     return freq;
 }
 
-// Χρήση
+// Usage
 int main() {
-    std::string text = "το βιβλίο είναι καλό το βιβλίο έχει πολλές σελίδες";
+    std::string text = "the book is good the book has many pages";
     auto result = wordFrequency(text);
     
     for (const auto& pair : result) {
@@ -648,7 +648,7 @@ int main() {
 }
 ```
 
-### Παράδειγμα 2: Έλεγχος Διπλότυπων
+### Example 2: Duplicate Detection
 
 ```cpp
 #include <iostream>
@@ -670,7 +670,7 @@ std::vector<int> findDuplicates(const std::vector<int>& arr) {
     return std::vector<int>(duplicates.begin(), duplicates.end());
 }
 
-// Χρήση
+// Usage
 int main() {
     std::vector<int> numbers = {1, 2, 3, 2, 4, 5, 3, 6, 7, 5};
     auto dups = findDuplicates(numbers);
@@ -680,7 +680,7 @@ int main() {
 }
 ```
 
-### Παράδειγμα 3: Two Sum Problem
+### Example 3: Two Sum Problem
 
 ```cpp
 #include <iostream>
@@ -700,7 +700,7 @@ std::vector<int> twoSum(std::vector<int>& nums, int target) {
     return {};
 }
 
-// Χρήση
+// Usage
 int main() {
     std::vector<int> nums = {2, 7, 11, 15};
     int target = 9;
@@ -711,19 +711,19 @@ int main() {
 }
 ```
 
-**Βήμα προς Βήμα**:
+**Step by Step**:
 ```
 nums = [2, 7, 11, 15], target = 9
 
-Βήμα 1: num=2, complement=7
+Step 1: num=2, complement=7
   seen = {2: 0}
 
-Βήμα 2: num=7, complement=2
-  2 υπάρχει στο seen!
-  Επιστροφή: [0, 1]
+Step 2: num=7, complement=2
+  2 exists in seen!
+  Return: [0, 1]
 ```
 
-### Παράδειγμα 4: Anagram Detection
+### Example 4: Anagram Detection
 
 ```cpp
 #include <iostream>
@@ -749,7 +749,7 @@ bool areAnagrams(std::string s1, std::string s2) {
     return true;
 }
 
-// Χρήση
+// Usage
 int main() {
     std::cout << std::boolalpha << areAnagrams("listen", "silent") << std::endl; // true
     std::cout << std::boolalpha << areAnagrams("hello", "world") << std::endl;  // false
@@ -759,11 +759,11 @@ int main() {
 
 ---
 
-## Πρακτική Άσκηση 1: Υλοποίηση Cache
+## Practical Exercise 1: Cache Implementation
 
-Υλοποιήστε ένα σύστημα cache με LRU (Least Recently Used) eviction policy.
+Implement a cache system with LRU (Least Recently Used) eviction policy.
 
-### Λύση
+### Solution
 
 ```cpp
 #include <iostream>
@@ -787,7 +787,7 @@ public:
     int get(int key) {
         if (cacheMap.find(key) == cacheMap.end()) return -1;
         
-        // Μετακίνηση στην αρχή (πρόσφατο)
+        // Move to front (recently used)
         cacheList.splice(cacheList.begin(), cacheList, cacheMap[key]);
         return cacheMap[key]->value;
     }
@@ -810,35 +810,35 @@ public:
     }
 };
 
-// Χρήση
+// Usage
 int main() {
     LRUCache cache(2);
     cache.put(1, 1);
     cache.put(2, 2);
     std::cout << cache.get(1) << std::endl;    // 1
-    cache.put(3, 3);                           // Αφαιρεί το 2
+    cache.put(3, 3);                           // Removes 2
     std::cout << cache.get(2) << std::endl;    // -1
     return 0;
 }
 ```
 
-**Οπτικοποίηση**:
+**Visualization**:
 ```
 Capacity = 2
 
 put(1, 1): [1]
 put(2, 2): [2, 1]
-get(1):    [1, 2] (το 1 μετακινείται μπροστά)
-put(3, 3): [3, 1] (το 2 αφαιρείται - LRU)
+get(1):    [1, 2] (1 moved to front)
+put(3, 3): [3, 1] (2 removed - LRU)
 ```
 
 ---
 
-## Πρακτική Άσκηση 2: Group Anagrams
+## Practical Exercise 2: Group Anagrams
 
-Δίνεται λίστα λέξεων. Ομαδοποιήστε τα anagrams μαζί.
+Given a list of words. Group the anagrams together.
 
-### Λύση
+### Solution
 
 ```cpp
 #include <iostream>
@@ -863,16 +863,16 @@ std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& wo
     return result;
 }
 
-// Χρήση
+// Usage
 int main() {
     std::vector<std::string> words = {"eat", "tea", "tan", "ate", "nat", "bat"};
     auto result = groupAnagrams(words);
-    // Εκτύπωση αποτελεσμάτων...
+    // Print results...
     return 0;
 }
 ```
 
-**Βήμα προς Βήμα**:
+**Step by Step**:
 ```
 words = ["eat", "tea", "tan", "ate", "nat", "bat"]
 
@@ -883,16 +883,16 @@ words = ["eat", "tea", "tan", "ate", "nat", "bat"]
 "nat" → sorted: "ant" → {..., "ant": ["tan", "nat"]}
 "bat" → sorted: "abt" → {..., "abt": ["bat"]}
 
-Αποτέλεσμα: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+Result: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
 ```
 
 ---
 
-## Πρακτική Άσκηση 3: Longest Consecutive Sequence
+## Practical Exercise 3: Longest Consecutive Sequence
 
-Βρείτε το μήκος της μεγαλύτερης συνεχόμενης ακολουθίας αριθμών.
+Find the length of the longest consecutive sequence of numbers.
 
-### Λύση
+### Solution
 
 ```cpp
 #include <iostream>
@@ -919,7 +919,7 @@ int longestConsecutive(std::vector<int>& nums) {
     return max_length;
 }
 
-// Χρήση
+// Usage
 int main() {
     std::vector<int> nums = {100, 4, 200, 1, 3, 2};
     std::cout << longestConsecutive(nums) << std::endl; // 4
@@ -927,52 +927,50 @@ int main() {
 }
 ```
 
-**Ανάλυση**:
+**Analysis**:
 ```
 nums = [100, 4, 200, 1, 3, 2]
 num_set = {100, 4, 200, 1, 3, 2}
 
-Έλεγχος 100: 99 δεν υπάρχει → Αρχή ακολουθίας
-  100 → 101 δεν υπάρχει → Μήκος: 1
+Check 100: 99 does not exist → Start of sequence
+  100 → 101 does not exist → Length: 1
 
-Έλεγχος 1: 0 δεν υπάρχει → Αρχή ακολουθίας
-  1 → 2 → 3 → 4 → 5 δεν υπάρχει → Μήκος: 4 
+Check 1: 0 does not exist → Start of sequence
+  1 → 2 → 3 → 4 → 5 does not exist → Length: 4 
 
-Έλεγχος 2, 3, 4: 1, 2, 3 υπάρχουν → Όχι αρχή
+Check 2, 3, 4: 1, 2, 3 exist → Not a start
 
-Μέγιστο: 4
+Maximum: 4
 ```
 
 ---
 
-## Σύνοψη
+## Summary
 
-### Πλεονεκτήματα Hash Tables
+### Advantages of Hash Tables
 
-- O(1) μέση πολυπλοκότητα για εισαγωγή, αναζήτηση, διαγραφή
-- Ευέλικτες και εύκολες στη χρήση
-- Ιδανικές για γρήγορη αναζήτηση
+- O(1) average time complexity for insert, search, delete
+- Flexible and easy to use
+- Ideal for fast searching
 
-### Μειονεκτήματα
+### Disadvantages
 
-- Χειρότερη περίπτωση: O(n)
-- Δεν διατηρούν σειρά στοιχείων
-- Απαιτούν επιπλέον μνήμη
-- Συγκρούσεις μειώνουν απόδοση
+- Worst case: O(n)
+- Do not maintain element order
+- Require extra memory
+- Collisions reduce performance
 
-### Πότε να Χρησιμοποιούμε
+### When to Use
 
-- Γρήγορη αναζήτηση στοιχείων
-- Έλεγχος ύπαρξης
-- Μέτρηση συχνοτήτων
+- Fast element search
+- Existence checking
+- Frequency counting
 - Cache implementations
-- Ομαδοποίηση δεδομένων
+- Data grouping
 
-### Σημαντικά Σημεία
+### Key Points
 
-1. **Καλή hash function**: Ομοιόμορφη κατανομή
-2. **Load factor**: Διατήρηση α < 0.75
-3. **Επιλογή μεθόδου**: Chaining vs Open Addressing
-4. **Rehashing**: Όταν ο πίνακας γεμίζει
-
-
+1. **Good hash function**: Uniform distribution
+2. **Load factor**: Maintain α < 0.75
+3. **Method selection**: Chaining vs Open Addressing
+4. **Rehashing**: When the table is full

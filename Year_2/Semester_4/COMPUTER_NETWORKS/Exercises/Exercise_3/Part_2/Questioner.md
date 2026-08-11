@@ -1,6 +1,6 @@
-1. ARQ σημαίνει _______.
+1. ARQ stands for _______.
 
-Επιλέξτε ένα:
+Select one:
 a. Automatic repeat quantization
 b. Automatic retransmission request
 c. Automatic repeat request
@@ -8,19 +8,19 @@ d. Acknowledge repeat request
 
 **Answer:** c. Automatic repeat request
 
-2. Τα "Parity bits" χρησιμοποιούνται για τον ακόλουθο σκοπό:
+2. Parity bits are used for the following purpose:
 
-Επιλέξτε ένα:
-a. Αναγνώριση χρήσης 
-b. Ανίχνευση λαθών 
-c. Ταχύτερη μετάδοση δεδομένων 
-d. Κρυπτογράφηση δεδομένων 
+Select one:
+a. Usage identification 
+b. Error detection 
+c. Faster data transmission 
+d. Data encryption 
 
-**Answer:** b. Ανίχνευση λαθών
+**Answer:** b. Error detection
 
-3. Η καθυστέρηση διάδοσης υπολογίζεται από τον τύπο (d: το μήκος της φυσικής σύνδεσης, u: ταχύτητα διάδοσης στο μέσο, L: μήκος πακέτου, R: ρυθμός μετάδοσης συνδέσμου):
+3. Propagation delay is calculated by the formula (d: link physical length, u: propagation speed in the medium, L: packet length, R: link transmission rate):
 
-Επιλέξτε ένα:
+Select one:
 a. d = u/d 
 b. d = L/R 
 c. d = d/u 
@@ -28,19 +28,19 @@ d. d = R/L
 
 **Answer:** c. d = d/u
 
-4. Δίκτυο υπολογιστών είναι:
+4. A computer network is:
 
-Επιλέξτε ένα:
-a. Διαμοίραση πόρων και πληροφορίας 
-b. Μια συλλογή από υλικά (hardware) συστατικά και υπολογιστές 
-c. Όλα τα παραπάνω 
-d. διασύνδεση με κανάλια επικοινωνίας 
+Select one:
+a. Resource and information sharing 
+b. A collection of hardware components and computers 
+c. All of the above 
+d. Interconnection via communication channels 
 
-**Answer:** c. Όλα τα παραπάνω
+**Answer:** c. All of the above
 
-5. Η καθυστέρηση μετάδοσης υπολογίζεται από τον τύπο (d: το μήκος της φυσικής σύνδεσης, u: ταχύτητα διάδοσης στο μέσο, L: μήκος πακέτου, R: ρυθμός μετάδοσης συνδέσμου):
+5. Transmission delay is calculated by the formula (d: link physical length, u: propagation speed in the medium, L: packet length, R: link transmission rate):
 
-Επιλέξτε ένα:
+Select one:
 a. d = R/L 
 b. d = u/d 
 c. d = d/u 
@@ -48,129 +48,129 @@ d. d = L/R
 
 **Answer:** d. d = L/R
 
-6. Η διάκριση των δικτύων κατά κλίμακα είναι η ακόλουθη:
+6. The classification of networks by scale is as follows:
 
-Επιλέξτε ένα:
+Select one:
 a. LAN, MAN, WAN 
 b. BUS, STAR, RING, MESH, TREE 
 c. Client/server, Peer-to-Peer 
-d. Κανένα από τα παραπάνω 
+d. None of the above 
 
 **Answer:** a. LAN, MAN, WAN
 
-7. Ποιες από τις ακόλουθες προτάσεις είναι σωστές για τη μεταγωγή πακέτων (σε σύγκριση με τη μεταγωγή κυκλώματος):
+7. Which of the following statements are correct for packet switching (compared to circuit switching):
 
-Επιλέξτε ένα:
-a. η μεταγωγή πακέτων απαιτεί λιγότερες καταστάσεις ανά ροή 
-b. η μεταγωγή πακέτων χρησιμοποιεί στατιστική πολύπλεξη. 
-c. η μεταγωγή πακέτων παρέχει συγκεκριμένες εγγυήσεις για τις ροές. 
-d. η μεταγωγή πακέτων παρέχει πάντα εγγυήσεις για χαμηλότερη καθυστέρηση ανά πακέτο 
+Select one:
+a. packet switching requires fewer states per flow 
+b. packet switching uses statistical multiplexing. 
+c. packet switching provides specific flow guarantees. 
+d. packet switching always guarantees lower per-packet delay 
 
-**Answer:** b. η μεταγωγή πακέτων χρησιμοποιεί στατιστική πολύπλεξη.
+**Answer:** b. packet switching uses statistical multiplexing.
 
-8. Ποιες από τις ακόλουθες προτάσεις είναι σωστές για τη μεταγωγή πακέτων (σε σύγκριση με τη μεταγωγή κυκλώματος):
+8. Which of the following statements are correct for packet switching (compared to circuit switching):
 
-Επιλέξτε ένα:
-a. η μεταγωγή πακέτων απαιτεί λιγότερες καταστάσεις ανά ροή 
-b. η μεταγωγή πακέτων χρησιμοποιεί στατιστική πολύπλεξη. 
-c. η μεταγωγή πακέτων παρέχει συγκεκριμένες εγγυήσεις για τις ροές. 
-d. η μεταγωγή πακέτων παρέχει πάντα εγγυήσεις για χαμηλότερη καθυστέρηση ανά πακέτο 
+Select one:
+a. packet switching requires fewer states per flow 
+b. packet switching uses statistical multiplexing. 
+c. packet switching provides specific flow guarantees. 
+d. packet switching always guarantees lower per-packet delay 
 
-**Answer:** b. η μεταγωγή πακέτων χρησιμοποιεί στατιστική πολύπλεξη.
+**Answer:** b. packet switching uses statistical multiplexing.
 
-9. Στο μοντέλο OSI, καθώς τα πακέτα προωθούνται από το υψηλότερο στο χαμηλότερο επίπεδο, οι επικεφαλίδες _______.
+9. In the OSI model, as packets are forwarded from the highest to the lowest layer, headers are _______.
 
-Επιλέξτε ένα:
-a. Τροποποιούνται 
-b. Αφαιρούνται 
-c. Αναδιατάσσονται 
-d. Προστίθενται 
+Select one:
+a. Modified 
+b. Removed 
+c. Rearranged 
+d. Added 
 
-**Answer:** d. Προστίθενται
+**Answer:** d. Added
 
-10. Η διεκπεραιωτική ικανότητα ενός δικτύου δεν εξαρτάται:
+10. Network throughput does not depend on:
 
-Επιλέξτε ένα:
-a. Το copyright του λογισμικού των συσκευών 
-b. Τη χωρητικότητα του καναλιού 
-c. Την πολυπλεξία 
-d. Την καθυστέρηση 
+Select one:
+a. Device software copyright 
+b. Channel capacity 
+c. Multiplexing 
+d. Delay 
 
-**Answer:** a. Το copyright του λογισμικού των συσκευών
+**Answer:** a. Device software copyright
 
-11. Ποιο/α από τα παρακάτω κατά τη γνώμη σας ισχύει για τα δίκτυα:
+11. Which of the following, in your opinion, applies to networks:
 
-Επιλέξτε ένα:
-a. Δεν είναι δυνατή η επανεκκίνηση του Internet 
-b. Δεν αλλάζουν και δεν διορθώνονται εύκολα 
-c. Όλα τα παραπάνω 
-d. Κανένα από τα παραπάνω 
-e. Υπάρχουν σύνθετες εξαρτήσεις αλληλεπίδρασης μεταξύ πρωτοκόλλων / συστημάτων, δικτύων 
+Select one:
+a. It is not possible to restart the Internet 
+b. They are not easily changed or fixed 
+c. All of the above 
+d. None of the above 
+e. Complex interaction dependencies exist between protocols / systems, networks 
 
-**Answer:** c. Όλα τα παραπάνω
+**Answer:** c. All of the above
 
-12. Η διάκριση των δικτύων κατά κλίμακα είναι η ακόλουθη:
+12. The classification of networks by scale is as follows:
 
-Επιλέξτε ένα:
+Select one:
 a. BUS, STAR, RING, MESH, TREE 
-b. Κανένα από τα παραπάνω 
+b. None of the above 
 c. Client/server, Peer-to-Peer 
 d. LAN, MAN, WAN 
 
 **Answer:** d. LAN, MAN, WAN
 
-13. Η μετάδοση δεδομένων ενός υπολογιστή, που επιτρέπει την μετάδοση δεδομένων και προς τις δύο κατευθύνσεις, αλλά όχι ταυτόχρονα, καλείται:
+13. Computer data transmission that allows data transmission in both directions, but not simultaneously, is called:
 
-Επιλέξτε ένα:
+Select one:
 a. half-duplex 
-b. αυτόματη 
+b. automatic 
 c. full-duplex 
 d. simplex 
 
 **Answer:** a. half-duplex
 
-14. Εξηγήστε τι περιγράφει η φυσική τοπολογία ενός δικτύου υπολογιστών.
+14. Explain what the physical topology of a computer network describes.
 
-Επιλέξτε ένα:
-a. Τίποτε από τα παραπάνω 
-b. Περιγράφει τη ροή δεδομένων μεταξύ των συσκευών του δικτύου. 
-c. Περιγράφει την πραγματική, υλική διάταξη των συσκευών, των καλωδιώσεων και των συνδέσμων. 
+Select one:
+a. None of the above 
+b. Describes the data flow between network devices. 
+c. Describes the actual, physical arrangement of devices, cabling, and links. 
 
-**Answer:** c. Περιγράφει την πραγματική, υλική διάταξη των συσκευών, των καλωδιώσεων και των συνδέσμων.
+**Answer:** c. Describes the actual, physical arrangement of devices, cabling, and links.
 
-15. Καθυστέρηση διάδοσης είναι:
+15. Propagation delay is:
 
-Επιλέξτε ένα:
-a. ο χρόνος που απαιτείται για να διαδοθεί το bit από το ένα άκρο της σύνδεσης στο άλλο 
-b. ο χρόνος που απαιτείται για να διαδοθεί το bit από το ένα άκρο της σύνδεσης στο άλλο και να λάβει πίσω την επιβεβαίωση 
-c. ο χρόνος που απαιτείται για να μεταδοθούν τα δεδομένα στο μέσο μετάδοσης 
-d. ο χρόνος που απαιτείται για να μεταδοθούν τα δεδομένα στο μέσο μετάδοσης και να λάβει πίσω την επιβεβαίωση 
+Select one:
+a. the time required for a bit to propagate from one end of the link to the other 
+b. the time required for a bit to propagate from one end of the link to the other and receive an acknowledgment back 
+c. the time required to transmit data onto the transmission medium 
+d. the time required to transmit data onto the transmission medium and receive an acknowledgment back 
 
-**Answer:** a. ο χρόνος που απαιτείται για να διαδοθεί το bit από το ένα άκρο της σύνδεσης στο άλλο
+**Answer:** a. the time required for a bit to propagate from one end of the link to the other
 
-16. Ο όρος «Straight-through Cable» αναφέρεται:
+16. The term "Straight-through Cable" refers to:
 
-Επιλέξτε ένα:
-a. Το καλώδιο που μπορεί να συνδέσει απευθείας υπολογιστή με υπολογιστή 
-b. Το καλώδιο που δεν είναι συνεστραμμένο 
-c. Σε τέσσερα ζεύγη σύρματος που δεν είναι συνεστραμμένα μεταξύ τους. 
-d. Σε τέσσερα ζεύγη σύρματος που συνδέονται στα ίδια pin (με την ίδια σειρά) στο κάθε άκρο 
+Select one:
+a. A cable that can directly connect computer to computer 
+b. A cable that is not twisted 
+c. Four pairs of wires that are not twisted together. 
+d. Four pairs of wire connected to the same pins (in the same order) at each end 
 
-**Answer:** d. Σε τέσσερα ζεύγη σύρματος που συνδέονται στα ίδια pin (με την ίδια σειρά) στο κάθε άκρο
+**Answer:** d. Four pairs of wire connected to the same pins (in the same order) at each end
 
-17. Σε ένα διηπειρωτικό κανάλι η καθυστέρηση είναι 20 ms και το bandwidth 45 Mbps. Πόσα bits μεταδίδονται πριν το πρώτο φθάσει στο άλλο άκρο του καναλιού;
+17. In an intercontinental channel, delay is 20 ms and bandwidth is 45 Mbps. How many bits are transmitted before the first one reaches the other end of the channel?
 
-Επιλέξτε ένα:
+Select one:
 a. 9Mbits 
 b. 25Mbits 
-c. 0,9Mbits 
+c. 0.9Mbits 
 d. 45Mbits 
 
-**Answer:** c. 0,9Mbits
+**Answer:** c. 0.9Mbits
 
-18. _________ χρησιμοποιεί δισύρματο χάλκινο καλώδιο που συνδέει κάθε σταθμό σε ένα κοινό hub.
+18. _________ uses two-wire copper cable connecting each station to a common hub.
 
-Επιλέξτε ένα:
+Select one:
 a. 10Base-F 
 b. 10Base5 
 c. 10Base2 
@@ -178,9 +178,9 @@ d. 10Base-T
 
 **Answer:** d. 10Base-T
 
-19. Έστω δύο μηχανές που επικοινωνούν μεταξύ τους. Η διαδικασία σε κάθε μηχανή που επικοινωνεί με ένα συγκεκριμένο επίπεδο καλείται:
+19. Suppose two machines communicate with each other. The process on each machine that communicates with a specific layer is called:
 
-Επιλέξτε ένα:
+Select one:
 a. Intranet process 
 b. Server 
 c. UDP process 
@@ -188,49 +188,49 @@ d. Peer-peer process
 
 **Answer:** d. Peer-peer process
 
-20. Στην πλαισίωση ____________ χρειάζεται να οριστούν τα όρια των πλαισίων:
+20. In framing, _____________ frame boundaries need to be defined:
 
-Επιλέξτε ένα:
-a. Κωδικολέξεων 
-b. Μεταβλητού μεγέθους 
-c. Κανένα από τα παραπάνω 
-d. Σταθερού μεγέθους 
+Select one:
+a. Codewords 
+b. Variable size 
+c. None of the above 
+d. Fixed size 
 
-**Answer:** b. Μεταβλητού μεγέθους
+**Answer:** b. Variable size
 
-21. To χαρακτηριστικό Autonegotiation σε ένα δίκτυο Fast Ethernet:
+21. The Autonegotiation feature in a Fast Ethernet network:
 
-Επιλέξτε ένα:
-a. Κανένα από τα παραπάνω 
-b. Επιτρέπει στις συσκευές να έχουν πολλαπλές δυνατότητες 
-c. Επιτρέπει τη σύνδεση σε μη συμβατές μεταξύ τους συσκευές 
-d. Και τα δύο παραπάνω 
+Select one:
+a. None of the above 
+b. Allows devices to have multiple capabilities 
+c. Allows connection between incompatible devices 
+d. Both of the above 
 
-**Answer:** d. Και τα δύο παραπάνω
+**Answer:** d. Both of the above
 
-22. Θεωρήστε το δίκτυο που περιλαμβάνει τρεις συνδέσμους, καθένας με καθορισμένο ρυθμό μετάδοσης και μήκος. Υποθέστε ότι το μήκος του πακέτου είναι 8000 bits και ισχύει $R1 < R2 < R3$. Ποια είναι η από άκρο σε άκρο ρυθμοαπόδοση;
+22. Consider a network comprising three links, each with a defined transmission rate and length. Suppose the packet length is 8000 bits and $R1 < R2 < R3$. What is the end-to-end throughput?
 
-Επιλέξτε ένα:
-a. Κανένα από τα παραπάνω 
+Select one:
+a. None of the above 
 b. R1 
 c. R2 
 d. R3 
 
 **Answer:** b. R1
 
-23. Στην πλαισίωση ____________ δεν χρειάζεται να οριστούν τα όρια των πλαισίων:
+23. In framing, _____________ frame boundaries do not need to be defined:
 
-Επιλέξτε ένα:
-a. Μεταβλητού μεγέθους 
-b. Κωδικολέξεων 
-c. Σταθερού μεγέθους 
-d. Κανένα από τα παραπάνω 
+Select one:
+a. Variable size 
+b. Codewords 
+c. Fixed size 
+d. None of the above 
 
-**Answer:** c. Σταθερού μεγέθους
+**Answer:** c. Fixed size
 
-24. Ποιο από τα ακόλουθα δεν ανήκει στους πιθανούς τρόπους ανταλλαγής δεδομένων:
+24. Which of the following is not among the possible data exchange modes:
 
-Επιλέξτε ένα:
+Select one:
 a. Full duplex 
 b. Half-duplex 
 c. Simplex 
@@ -238,37 +238,37 @@ d. Multiplex
 
 **Answer:** d. Multiplex
 
-25. Τα δίκτυα υπολογιστών συνήθως υλοποιούν…
+25. Computer networks usually implement...
 
-Επιλέξτε ένα:
-a. Σειριακή μετάδοση δεδομένων 
-b. Παράλληλη μετάδοση δεδομένων 
+Select one:
+a. Serial data transmission 
+b. Parallel data transmission 
 
-**Answer:** a. Σειριακή μετάδοση δεδομένων
+**Answer:** a. Serial data transmission
 
-26. Η δεκαεξαδική διεύθυνση προορισμού 44 : 20 : 1B : 2E : 08 : EE είναι:
+26. The hexadecimal destination address 44 : 20 : 1B : 2E : 08 : EE is:
 
-Επιλέξτε ένα:
+Select one:
 a. Unicast 
 b. Broadcast 
-c. Δεν γνωρίζω/Δεν απαντώ 
+c. Don't know / Don't answer 
 d. Multicast 
 
 **Answer:** a. Unicast
 
-27. Ποιο μέσο μετάδοσης είναι πιο κατάλληλο για μεταφορά δεδομένων σε δίκτυο υπολογιστών εκτιθέμενο σε ηλεκτρικές παρεμβολές;
+27. Which transmission medium is most suitable for data transfer in a computer network exposed to electrical interference?
 
-Επιλέξτε ένα:
-a. Οπτική ίνα 
-b. Μικροκύματα 
-c. Δισύρματο χάλκινο καλώδιο 
-d. Ομοαξονικό καλώδιο 
+Select one:
+a. Optical fiber 
+b. Microwaves 
+c. Two-wire copper cable 
+d. Coaxial cable 
 
-**Answer:** a. Οπτική ίνα
+**Answer:** a. Optical fiber
 
-28. Ονομάστε το επίπεδο του υβριδικού μοντέλου αναφοράς που καθορίζει frames.
+28. Name the layer of the hybrid reference model that defines frames.
 
-Επιλέξτε ένα:
+Select one:
 a. Physical Layer 
 b. Data Link Layer 
 c. Transport Layer 
@@ -276,47 +276,48 @@ d. Network Layer
 
 **Answer:** b. Data Link Layer
 
-29. Υπολογίστε το bandwidth-delay product για τη μετάδοση δεδομένων από τον τερματικό σταθμό A στον τερματικό σταθμό B, ώστε να βρείτε τον μέγιστο αριθμό bits που μπορούν να βρίσκονται μέσα στη γραμμή μεταξύ αποστολέα και παραλήπτη. Υπόδειξη: $R=50$ Mbps και Propagation $delay = 0,1$ s
+29. Calculate the bandwidth-delay product for data transmission from terminal A to terminal B to find the maximum number of bits that can be present on the link between sender and receiver. Hint: $R=50$ Mbps and Propagation delay = $0.1$ s
 
-Επιλέξτε ένα:
-a. $4,1$ s 
-b. $3,1$ s 
+Select one:
+a. $4.1$ s 
+b. $3.1$ s 
 c. $15$ s 
-d. $10,5$ ms 
+d. $10.5$ ms 
 
 **Answer:** a. $4.1$
 
 ---
 
-R (Ρυθμός μετάδοσης): $50 \text{ Mbps} = 50 \times 10^6 \text{ bits/s}$
+R (Transmission Rate): $50 \text{ Mbps} = 50 \times 10^6 \text{ bits/s}$
 
-Propagation delay (Καθυστέρηση διάδοσης): $0,1 \text{ s}$
+Propagation delay: $0.1 \text{ s}$
 
-Υπολογισμός:
+Calculation:
 
-$$BDP = 50.000.000 \text{ bits/s} \times 0,1 \text{ s} = \mathbf{5.000.000 \text{ bits}}$$
+$$BDP = 50,000,000 \text{ bits/s} \times 0.1 \text{ s} = \mathbf{5,000,000 \text{ bits}}$$
 
-- χρόνος καθυστέρησης (Total Delay = $d_{trans} + d_{prop}$) αν υποθέσουμε τη μετάδοση ενός αρχείου μεγέθους 200 Mbits:
+- Total Delay ($d_{trans} + d_{prop}$) assuming transmission of a 200 Mbits file:
 
 $$
-\frac{200 \times 10^6 \text{ bits}}{50 \times 10^6 \text{ bits/s}} + 0,1 \text{s} = 4 + 0,1 = 4,1 \text{s}
-$$ .
+\frac{200 \times 10^6 \text{ bits}}{50 \times 10^6 \text{ bits/s}} + 0.1 \text{s} = 4 + 0.1 = 4.1 \text{s}
+$$
+.
 
 ---
 
-30. Έλεγχος _______ αναφέρεται σε ένα σύνολο από διαδικασίες που χρησιμοποιούνται για να περιορίσουν το πλήθος των δεδομένων που μπορεί να στείλει ο αποστολέας πριν μπει σε αναμονή για επιβεβαίωση.
+30. _______ control refers to a set of procedures used to limit the amount of data the sender can transmit before waiting for an acknowledgment.
 
-Επιλέξτε ένα:
-a. Κανένα από τα παραπάνω 
+Select one:
+a. None of the above 
 b. Flow 
 c. Error 
 d. Transmission 
 
 **Answer:** b. Flow
 
-31. Ονομάστε το επίπεδο του υβριδικού μοντέλου αναφοράς που καθορίζει σήματα.
+31. Name the layer of the hybrid reference model that defines signals.
 
-Επιλέξτε ένα:
+Select one:
 a. Network Layer 
 b. Physical Layer 
 c. Transport Layer 
@@ -324,17 +325,17 @@ d. Data Link Layer
 
 **Answer:** b. Physical Layer
 
-32. Τα πρωτόκολλα του Data Link Layer καθορίζουν τη μορφή…
+32. Data Link Layer protocols define the format of...
 
-Επιλέξτε ένα:
-a. λογικών διευθύνσεων δικτύου 
-b. φυσικών διευθύνσεων δικτύου 
+Select one:
+a. logical network addresses 
+b. physical network addresses 
 
-**Answer:** b. φυσικών διευθύνσεων δικτύου
+**Answer:** b. physical network addresses
 
-33. Ποιο είναι το μέγεθος της διεύθυνσης MAC;
+33. What is the size of a MAC address?
 
-Επιλέξτε ένα:
+Select one:
 a. 64-bits 
 b. 48-bits 
 c. 32-bits 
@@ -342,9 +343,9 @@ d. 16-bits
 
 **Answer:** b. 48-bits
 
-34. Ονομάστε το επίπεδο του υβριδικού μοντέλου αναφοράς που καθορίζει packets.
+34. Name the layer of the hybrid reference model that defines packets.
 
-Επιλέξτε ένα:
+Select one:
 a. Transport Layer 
 b. Physical Layer 
 c. Network Layer 
@@ -352,9 +353,9 @@ d. Data Link Layer
 
 **Answer:** c. Network Layer
 
-35. Υποθέστε ότι ένα πακέτο έχει μήκος $L = 1500$ bytes ($1 byte = 8 bits), και ο σύνδεσμος μεταδίδει με R = 1 Gbps (δηλαδή 1.000.000.000 bits/s). Ποια είναι η καθυστέρηση μετάδοσης (transmission delay) για αυτό το πακέτο;
+35. Suppose a packet has length $L = 1500$ bytes ($1 byte = 8 bits), and the link transmits at R = 1 Gbps (i.e. 1,000,000,000 bits/s). What is the transmission delay for this packet?
 
-Επιλέξτε ένα:
+Select one:
 a. 0.0000015 secs 
 b. 0.000012 secs 
 c. 666.666 secs 
@@ -363,22 +364,21 @@ e. 0.00012 secs
 
 **Answer:** b. 0.000012 secs
 
-36. Ένα αρχείο μεγέθους 15⋅10^7 bits πρέπει να μεταφερθεί από τον τερματικό σταθμό A στον τερματικό σταθμό B. Η ταχύτητα διάδοσης του σήματος είναι 200.000 km/s. Οι A και B συνδέονται άμεσα με έναν σύνδεσμο μήκους 20.000 km. Το αρχείο μεταφέρεται ως ένα ενιαίο μήνυμα μεγέθους 15⋅10^7 bits. Δεν υπάρχουν επικεφαλίδες ή καταλήξεις πρωτοκόλλων. Υπολογίστε τον χρόνο μεταφοράς (latency) του αρχείου, όταν ο ρυθμός μετάδοσης του δικτύου είναι 50 Mbps.
+36. A 15⋅10^7 bits file must be transferred from terminal A to terminal B. The signal propagation speed is 200,000 km/s. A and B are directly connected by a 20,000 km link. The file is transferred as a single message of size 15⋅10^7 bits. There are no protocol headers or trailers. Calculate the latency of the file transfer when the network transmission rate is 50 Mbps.
 
-Επιλέξτε ένα:
+Select one:
 a. 15 s 
-b. 4,1 s 
-c. 3,1 s 
-d. 10,5 ms 
+b. 4.1 s 
+c. 3.1 s 
+d. 10.5 ms 
 
-**Answer:** c. 3,1 s
+**Answer:** c. 3.1 s
 
-37. Εξηγήστε τι περιγράφει η λογική τοπολογία ενός δικτύου υπολογιστών.
+37. Explain what the logical topology of a computer network describes.
 
-Επιλέξτε ένα:
-a. Περιγράφει την πραγματική, υλική διάταξη των συσκευών, των καλωδιώσεων και των συνδέσμων. 
-b. Τίποτε από τα παραπάνω 
-c. Περιγράφει τη ροή δεδομένων μεταξύ των συσκευών του δικτύου. 
+Select one:
+a. Describes the actual, physical arrangement of devices, cabling, and links. 
+b. None of the above 
+c. Describes the data flow between network devices. 
 
-**Answer:** c. Περιγράφει τη ροή δεδομένων μεταξύ των συσκευών του δικτύου.
- 
+**Answer:** c. Describes the data flow between network devices.

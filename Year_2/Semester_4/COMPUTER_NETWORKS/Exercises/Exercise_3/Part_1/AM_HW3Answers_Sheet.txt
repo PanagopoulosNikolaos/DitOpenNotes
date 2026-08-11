@@ -42,26 +42,24 @@ d.
 
 
 //Part 4 
-H/Y A --------------------------------------H/Y B
+PC A --------------------------------------PC B
 192.0.3.88				192.0.3.200
 00:F2:90:34:67:B1    			02:44:88:34:77:DA   
 
 
-a)O υπολογιστής Α στέλνει ένα μήνυμα ARP στον B. 
- O υπολογιστής Β απαντά στο αίτημα του Α. Συμπληρώστε τα παρακάτω κενά:
+a) Computer A sends an ARP message to B. 
+ Computer B responds to A's request. Fill in the blanks below:
 
-ARP Αίτηση:
-IP αποστολέα ή πηγής	192.0.3.88
-ETHERNET MAC αποστολέα _____________________      
-IP προορισμού 	192.0.3.200
-ETHERNET MAC προορισμού	____________________
-
-
-
-ARP Απάντηση
-IP αποστολέα ή πηγής	192.0.3.200
-ETHERNET MAC αποστολέα  ___________________
-IP προορισμού 	        ___________________
-ETHERNET MAC προορισμού	___________________       
+ARP Request:
+Sender or source IP	192.0.3.88
+Sender ETHERNET MAC _____________________      
+Destination IP 	192.0.3.200
+Destination ETHERNET MAC	____________________
 
 
+
+ARP Reply:
+Sender or source IP	192.0.3.200
+Sender ETHERNET MAC  ___________________
+Destination IP 	        ___________________
+Destination ETHERNET MAC	___________________       

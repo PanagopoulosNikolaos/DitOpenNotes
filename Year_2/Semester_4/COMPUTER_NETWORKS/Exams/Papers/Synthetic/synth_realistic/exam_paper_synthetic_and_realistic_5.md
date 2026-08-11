@@ -1,67 +1,67 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Synthetic & Realistic Exam 5)
+# Computer Networks - Exam Questions (Synthetic & Realistic Exam 5)
 *Computer Networks - Synthetic & Realistic Exam 5*
 
-## Πληροφορίες Εξέτασης
-- **Ακαδημαϊκό Έτος:** .......................
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+## Exam Information
+- **Academic Year:** .......................
+- **Exam Duration:** 2 hours and 15 minutes
 
-## Στοιχεία Φοιτητή
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
+## Student Data
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
 
 ---
 
-## Μέρος Α: Ερωτήσεις Πολλαπλής Επιλογής & Θεωρίας (3 μονάδες)
+## Part A: Multiple Choice & Theory Questions (3 points)
 
-**1.** Ποιο από τα παρακάτω είναι χαρακτηριστικό της μεταγωγής πακέτου (packet switching) σε αντίθεση με τη μεταγωγή κυκλώματος (circuit switching);
-- [ ] A. Η αποκλειστική δέσμευση πόρων εκ των προτέρων
-- [✓] B. Η δυνατότητα στατιστικής πολυπλεξίας (statistical multiplexing)
-- [ ] C. Η αδυναμία απώλειας πακέτων (packet loss)
-- [ ] D. Ο εγγυημένος ρυθμός μετάδοσης (QoS) για κάθε χρήστη
+**1.** Which of the following is a characteristic of packet switching as opposed to circuit switching?
+- [ ] A. Dedicated resource reservation in advance
+- [✓] B. The capability of statistical multiplexing
+- [ ] C. The impossibility of packet loss
+- [ ] D. Guaranteed transmission rate (QoS) for each user
 
-*Αιτιολόγηση:* Η μεταγωγή πακέτου μοιράζεται δυναμικά το εύρος ζώνης μεταξύ των χρηστών, επιτρέποντας σε πολλούς χρήστες να μοιράζονται αποδοτικά τους πόρους. Το A, C, και D είναι χαρακτηριστικά (ή μειονεκτήματα) της μεταγωγής κυκλώματος.
+*Justification:* Packet switching dynamically shares bandwidth among users, allowing multiple users to share resources efficiently. A, C, and D are characteristics (or drawbacks) of circuit switching.
 
-**2.** Το μοντέλο Client-Server ανήκει αρχιτεκτονικά:
-- [ ] A. Στο Network Core (Πυρήνας Δικτύου)
-- [✓] B. Στο Network Edge (Άκρο Δικτύου)
-- [ ] C. Μόνο σε τοπικά δίκτυα (LAN)
-- [ ] D. Στο Επίπεδο Σύνδεσης Δεδομένων (Data Link Layer)
+**2.** Architecturally, the Client-Server model belongs:
+- [ ] A. In the Network Core
+- [✓] B. In the Network Edge
+- [ ] C. Only in local area networks (LAN)
+- [ ] D. In the Data Link Layer
 
-*Αιτιολόγηση:* Οι υπολογιστές-πελάτες και οι εξυπηρετητές αποτελούν τα "τελικά συστήματα" (end systems) που βρίσκονται στο άκρο του δικτύου.
+*Justification:* Client and server computers constitute the "end systems" located at the edge of the network.
 
-**3.** Η καθυστέρηση ουράς (queuing delay) σε έναν δρομολογητή:
-- [ ] A. Εξαρτάται αποκλειστικά από την απόσταση μεταξύ των δύο κόμβων.
-- [ ] B. Είναι σταθερή και υπολογίζεται ως $L/R$.
-- [✓] C. Εξαρτάται από τον ρυθμό άφιξης πακέτων (traffic load) και μεταβάλλεται συνεχώς.
-- [ ] D. Οφείλεται στο χρόνο ελέγχου των σφαλμάτων (checksum).
+**3.** Queuing delay in a router:
+- [ ] A. Depends exclusively on distance between two nodes.
+- [ ] B. Is constant and calculated as $L/R$.
+- [✓] C. Depends on packet arrival rate (traffic load) and varies continuously.
+- [ ] D. Is due to checksum time.
 
-*Αιτιολόγηση:* Η καθυστέρηση ουράς εξαρτάται αποκλειστικά από την ένταση κίνησης στον δρομολογητή σε μια δεδομένη χρονική στιγμή. Δεν είναι σταθερή όπως η καθυστέρηση μετάδοσης.
+*Justification:* Queuing delay depends exclusively on traffic intensity at the router at a given moment. It is not constant like transmission delay.
 
-**4.** Ποιο από τα παρακάτω πρωτόκολλα δρομολόγησης βασίζεται στον αλγόριθμο Κατάστασης Ζεύξης (Link State) και απαιτεί πλήρη γνώση της τοπολογίας του δικτύου;
+**4.** Which of the following routing protocols is based on the Link State algorithm and requires complete knowledge of network topology?
 - [ ] A. RIP
 - [✓] B. OSPF
 - [ ] C. BGP
 - [ ] D. ARP
 
-*Αιτιολόγηση:* Το OSPF (Open Shortest Path First) βασίζεται στον αλγόριθμο Dijkstra και είναι ένα πρωτόκολλο Link State που χτίζει πλήρη τοπολογικό χάρτη. Το RIP είναι Distance Vector.
+*Justification:* OSPF (Open Shortest Path First) is based on Dijkstra's algorithm and is a Link State protocol that builds a complete topological map. RIP is Distance Vector.
 
-**5.** Επιλέξτε Σωστό (Σ) ή Λάθος (Λ):
-- **[✓] Σ** / [ ] Λ Το Control Plane ενός router αναλαμβάνει τον υπολογισμό και τη διατήρηση της γνώσης για τη δομή του δικτύου.
-- [ ] Σ / **[✓] Λ** Ένας εξυπηρετητής (Server) συνήθως έχει δυναμική IP διεύθυνση.
-- **[✓] Σ** / [ ] Λ Το πρωτόκολλο BGP χρησιμοποιείται για δρομολόγηση μεταξύ διαφορετικών Αυτόνομων Συστημάτων (AS).
+**5.** Select True (T) or False (F):
+- **[✓] T** / [ ] F The Control Plane of a router handles computing and maintaining knowledge of network structure.
+- [ ] T / **[✓] F** A Server typically has a dynamic IP address.
+- **[✓] T** / [ ] F The BGP protocol is used for routing between different Autonomous Systems (AS).
 
-*Αιτιολόγηση:*
-- **Σ (Σωστό):** Το Control Plane είναι υπεύθυνο για τους αλγορίθμους δρομολόγησης.
-- **Λ (Λάθος):** Οι Servers απαιτούν μόνιμη, σταθερή IP για να είναι πάντα διαθέσιμοι στους πελάτες.
-- **Σ (Σωστό):** Το BGP είναι το de facto πρωτόκολλο δρομολόγησης μεταξύ διαφορετικών AS στο διαδίκτυο.
+*Justification:*
+- **T (True):** The Control Plane is responsible for routing algorithms.
+- **F (False):** Servers require a permanent, static IP to remain accessible to clients.
+- **T (True):** BGP is the de facto routing protocol between different ASes on the Internet.
 
 ---
 
-## Μέρος Β: Ασκήσεις και Δίκτυα (7 μονάδες)
+## Part B: Exercises and Networks (7 points)
 
-### Άσκηση 1 (2 μονάδες)
-**Υπολογισμός Καθυστερήσεων & RTT (Πολυ-κομβική Διαδρομή)**
-Έστω το παρακάτω δίκτυο με δύο ζεύξεις σε σειρά:
+### Exercise 1 (2 points)
+**Delay & RTT Calculation (Multi-node Path)**
+Consider the network below with two links in series:
 
 ```
 ( A ) ============ ( B ) ============ ( C )
@@ -69,33 +69,33 @@
        R1, L1, u1          R2, L2, u2
 ```
 
-Δίνονται: $R_1 = 20000$ bps, $L_1 = 50$ Km, $u_1 = 2,5 \times 10^8$ m/s, $R_2 = 10000$ bps, $L_2 = 100$ Km, $u_2 = 2,5 \times 10^8$ m/s. Το μέγεθος του πακέτου είναι $P = 2000$ bits.
+Given: $R_1 = 20000$ bps, $L_1 = 50$ Km, $u_1 = 2.5 \times 10^8$ m/s, $R_2 = 10000$ bps, $L_2 = 100$ Km, $u_2 = 2.5 \times 10^8$ m/s. Packet size is $P = 2000$ bits.
 
-**a.** Υπολογίστε τον χρόνο που χρειάζεται για την αποστολή ενός πακέτου από τον κόμβο A στον κόμβο C.
+**a.** Calculate the time required to send a packet from node A to node C.
 
 ---
-**Απάντηση:**
+**Answer:**
 $$t_{\text{total}} = d_{\text{trans1}} + d_{\text{prop1}} + d_{\text{trans2}} + d_{\text{prop2}}$$
-- $d_{\text{trans1}} = \frac{P}{R_1} = \frac{2000}{20000} = 0,1\text{ s}$
-- $d_{\text{prop1}} = \frac{L_1}{u_1} = \frac{50 \times 10^3}{2,5 \times 10^8} = 2 \times 10^{-4}\text{ s} = 0,2\text{ ms}$
-- $d_{\text{trans2}} = \frac{P}{R_2} = \frac{2000}{10000} = 0,2\text{ s}$
-- $d_{\text{prop2}} = \frac{L_2}{u_2} = \frac{100 \times 10^3}{2,5 \times 10^8} = 4 \times 10^{-4}\text{ s} = 0,4\text{ ms}$
+- $d_{\text{trans1}} = \frac{P}{R_1} = \frac{2000}{20000} = 0.1\text{ s}$
+- $d_{\text{prop1}} = \frac{L_1}{u_1} = \frac{50 \times 10^3}{2.5 \times 10^8} = 2 \times 10^{-4}\text{ s} = 0.2\text{ ms}$
+- $d_{\text{trans2}} = \frac{P}{R_2} = \frac{2000}{10000} = 0.2\text{ s}$
+- $d_{\text{prop2}} = \frac{L_2}{u_2} = \frac{100 \times 10^3}{2.5 \times 10^8} = 4 \times 10^{-4}\text{ s} = 0.4\text{ ms}$
 
-$$t_{\text{total}} = 0,1 + 0,0002 + 0,2 + 0,0004 = `0,3006\text{ s}`$$
+$$t_{\text{total}} = 0.1 + 0.0002 + 0.2 + 0.0004 = `0.3006\text{ s}`$$
 
-**b.** Υπολογίστε το RTT για ένα πακέτο που αποστέλλεται από τον A στον C και επιστρέφει αμέσως, αν η καθυστέρηση επεξεργασίας σε κάθε κόμβο είναι $0,01$ ms.
+**b.** Calculate the RTT for a packet sent from A to C and returning immediately, if processing delay at each node is $0.01$ ms.
 
 ---
-**Απάντηση:**
-Η διαδρομή είναι $A \rightarrow B \rightarrow C \rightarrow B \rightarrow A$. Μεσολαβούν 3 καθυστερήσεις επεξεργασίας (στο $B$ κατά τη μετάβαση, στο $C$ κατά την αναστροφή, και στο $B$ κατά την επιστροφή):
+**Answer:**
+The path is $A \rightarrow B \rightarrow C \rightarrow B \rightarrow A$. There are 3 processing delays (at $B$ outbound, at $C$ turnaround, and at $B$ return):
 $$\text{RTT}_{A-C} = 2 \times t_{\text{total}} + 3 \times d_{\text{proc}}$$
-$$\text{RTT}_{A-C} = 2 \times 0,3006 + 3 \times 0,00001 = 0,6012 + 0,00003 = `0,60123\text{ s}`$$
+$$\text{RTT}_{A-C} = 2 \times 0.3006 + 3 \times 0.00001 = 0.6012 + 0.00003 = `0.60123\text{ s}`$$
 
 ---
 
-### Άσκηση 2 (2.5 μονάδες)
-**Διαμόρφωση RIP & Τοπολογία**
-Για το δίκτυο της παρακάτω εικόνας, πρέπει να ρυθμιστεί ο Δρομολογητής "Router1" χρησιμοποιώντας το πρωτόκολλο RIP version 2.
+### Exercise 2 (2.5 points)
+**RIP Configuration & Topology**
+For the network in the figure below, Router "Router1" must be configured using RIP version 2.
 
 ```
        192.168.10.0/24
@@ -104,13 +104,13 @@ $$\text{RTT}_{A-C} = 2 \times 0,3006 + 3 \times 0,00001 = 0,6012 + 0,00003 = `0,
       +-------------+
       |   Router1   |
       +-------------+
-       /           \
+        /           \
  Se0/0/0           Se0/0/1
-  /                   \
+   /                   \
 10.0.1.0/24          10.0.2.0/24
 ```
 
-**a.** Συμπληρώστε τα κενά για τις εντολές ενεργοποίησης του RIPv2 στο Cisco IOS:
+**a.** Fill in the blanks for the commands to activate RIPv2 in Cisco IOS:
 ```text
 Router1> enable
 Router1# configure terminal
@@ -123,11 +123,11 @@ Router1(config-router)# _________________________
 Router1(config-router)# end
 ```
 
-**b.** Αν αργότερα προστεθεί ένας τρίτος δρομολογητής "Router3" στο δίκτυο 10.0.1.0/24 και χρησιμοποιεί OSPF αντί για RIP, θα μπορέσει ο Router1 να "μάθει" τις διαδρομές του Router3 μέσω του RIP χωρίς καμία άλλη παρέμβαση; Δικαιολογήστε.
+**b.** If a third router "Router3" is added to network 10.0.1.0/24 later and uses OSPF instead of RIP, will Router1 be able to "learn" Router3's routes via RIP without any other intervention? Justify.
 
 ---
-**Απαντήσεις:**
-**a.** Συμπληρωμένες εντολές CLI:
+**Answers:**
+**a.** Completed CLI commands:
 ```text
 Router1> enable
 Router1# configure terminal
@@ -140,31 +140,31 @@ Router1(config-router)# `network 10.0.2.0`
 Router1(config-router)# end
 ```
 
-**b.** **`Όχι`**, δεν θα μπορέσει να τις μάθει. Το RIP και το OSPF είναι δύο διαφορετικά πρωτόκολλα δρομολόγησης με διαφορετικά metrics (hop count vs cost) και αλγορίθμους (Distance Vector vs Link State). Για να επικοινωνήσουν, απαιτείται χειροκίνητη παραμετροποίηση **αναδιανομής δρομολόγησης (route redistribution)** από τον διαχειριστή σε δρομολογητή που τρέχει και τα δύο πρωτόκολλα (ASBR).
+**b.** **`No`**, it will not be able to learn them. RIP and OSPF are two different routing protocols with different metrics (hop count vs cost) and algorithms (Distance Vector vs Link State). To communicate, manual configuration of **route redistribution** by an administrator is required on a router running both protocols (ASBR).
 
 ---
 
-### Άσκηση 3 (2.5 μονάδες)
+### Exercise 3 (2.5 points)
 **CSMA/CD & BDP (Bandwidth-Delay Product)**
 
-**a.** Ένα δίκτυο χρησιμοποιεί CSMA/CD με bandwidth $R = 100$ Mbps. Αν ο μέγιστος χρόνος διάδοσης είναι $t_{prop} = 5,12\ \mu\text{s}$, ποιο είναι το ελάχιστο μέγεθος πλαισίου σε Bytes;
+**a.** A network uses CSMA/CD with bandwidth $R = 100$ Mbps. If maximum propagation time is $t_{prop} = 5.12\ \mu\text{s}$, what is the minimum frame size in Bytes?
 
 ---
-**Απάντηση:**
-$$L_{\text{min}} \ge 2 \times t_{\text{prop}} \times R = 2 \times (5,12 \times 10^{-6}) \times (100 \times 10^6) = 1024\text{ bits}$$
+**Answer:**
+$$L_{\text{min}} \ge 2 \times t_{\text{prop}} \times R = 2 \times (5.12 \times 10^{-6}) \times (100 \times 10^6) = 1024\text{ bits}$$
 $$L_{\text{min}} = \frac{1024}{8} = `128\text{ Bytes}`$$
 
-**b.** Μια ζεύξη μεταξύ δύο ηπείρων έχει ταχύτητα διάδοσης $2 \times 10^8$ m/s και μήκος καλωδίου $6.000$ km. Ο ρυθμός μετάδοσης δεδομένων (Bandwidth) είναι $R = 1$ Gbps ($10^9$ bps).
+**b.** An intercontinental link has a propagation speed of $2 \times 10^8$ m/s and cable length of $6,000$ km. Data transmission rate (Bandwidth) is $R = 1$ Gbps ($10^9$ bps).
 
-- **i.** Ποια είναι η καθυστέρηση διάδοσης ($d_{prop}$);
-- **ii.** Ποιος είναι ο μέγιστος αριθμός bits που μπορούν να βρίσκονται μέσα στο καλώδιο ανά πάσα στιγμή (BDP);
-- **iii.** Αν σε έναν ενδιάμεσο δρομολογητή, το μέγεθος της ουράς (buffer) είναι γεμάτο με $1.000.000$ bytes κίνησης τη στιγμή που φτάνει ένα νέο πακέτο σας, και η ταχύτητα εξόδου είναι $1$ Gbps, πόσος χρόνος θα περάσει (Καθυστέρηση Ουράς - $d_{queue}$) μέχρι να αρχίσει η μετάδοση του δικού σας πακέτου;
+- **i.** What is the propagation delay ($d_{prop}$)?
+- **ii.** What is the maximum number of bits that can be present inside the cable at any given moment (BDP)?
+- **iii.** If at an intermediate router, the buffer size is filled with $1,000,000$ bytes of traffic at the moment your new packet arrives, and output rate is $1$ Gbps, how much time will pass (Queuing Delay - $d_{queue}$) before transmission of your packet begins?
 
 ---
-**Απαντήσεις:**
-**i.** $$ d_{prop} = \frac{d}{s} = \frac{6.000 \times 10^3\text{ m}}{2 \times 10^8\text{ m/s}} = \frac{6 \times 10^6}{2 \times 10^8} = 0.03\text{ s} = `30\text{ ms}` $$
+**Answers:**
+**i.** $$ d_{prop} = \frac{d}{s} = \frac{6,000 \times 10^3\text{ m}}{2 \times 10^8\text{ m/s}} = \frac{6 \times 10^6}{2 \times 10^8} = 0.03\text{ s} = `30\text{ ms}` $$
 
-**ii.** $$ \text{BDP} = R \times d_{prop} = 10^9\text{ bps} \times 0.03\text{ s} = `30.000.000\text{ bits}` \text{ (ή 30 Mbits)} $$
+**ii.** $$ \text{BDP} = R \times d_{prop} = 10^9\text{ bps} \times 0.03\text{ s} = `30,000,000\text{ bits}` \text{ (or 30 Mbits)} $$
 
-**iii.** Ο χρόνος εκκένωσης της ουράς ($1.000.000\text{ Bytes} = 8.000.000\text{ bits}$) με ταχύτητα $1$ Gbps είναι:
-$$ d_{queue} = \frac{L_{queue}}{R_{out}} = \frac{8.000.000\text{ bits}}{10^9\text{ bps}} = 8 \times 10^{-3}\text{ s} = `8\text{ ms}` $$
+**iii.** Buffer draining time ($1,000,000\text{ Bytes} = 8,000,000\text{ bits}$) at rate $1$ Gbps is:
+$$ d_{queue} = \frac{L_{queue}}{R_{out}} = \frac{8,000,000\text{ bits}}{10^9\text{ bps}} = 8 \times 10^{-3}\text{ s} = `8\text{ ms}` $$

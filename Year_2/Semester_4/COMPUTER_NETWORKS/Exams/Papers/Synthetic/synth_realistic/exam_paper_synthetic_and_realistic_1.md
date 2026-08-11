@@ -1,67 +1,67 @@
-# Δίκτυα Υπολογιστών - Θέματα Εξετάσεων (Synthetic & Realistic Exam 1)
+# Computer Networks - Exam Questions (Synthetic & Realistic Exam 1)
 *Computer Networks - Synthetic & Realistic Exam 1*
 
-## Πληροφορίες Εξέτασης
-- **Ακαδημαϊκό Έτος:** .......................
-- **Διάρκεια Εξέτασης:** 2 ώρες και 15 λεπτά
+## Exam Information
+- **Academic Year:** .......................
+- **Exam Duration:** 2 hours and 15 minutes
 
-## Στοιχεία Φοιτητή
-- **Ονοματεπώνυμο:** ______________________________________________________
-- **Αριθμός Μητρώου (ΑΜ):** __________________
+## Student Data
+- **Full Name:** ______________________________________________________
+- **Registration Number (AM):** __________________
 
 ---
 
-## Μέρος Α: Ερωτήσεις Πολλαπλής Επιλογής & Θεωρίας (3 μονάδες)
+## Part A: Multiple Choice & Theory Questions (3 points)
 
-**1.** Ποιο από τα παρακάτω επίπεδα του μοντέλου OSI χρησιμοποιεί ως PDU το "Πλαίσιο" (Frame);
+**1.** Which of the following layers of the OSI model uses "Frame" as its PDU?
 - [ ] A. Physical Layer
 - [✓] B. Data Link Layer
 - [ ] C. Network Layer
 - [ ] D. Transport Layer
 
-*Αιτιολόγηση:* Το Data Link Layer (Επίπεδο 2) οργανώνει τα bits σε πλαίσια (frames) με επικεφαλίδες MAC. Το Network Layer χρησιμοποιεί πακέτα (packets/datagrams) και το Transport Layer τμήματα (segments).
+*Justification:* The Data Link Layer (Layer 2) organizes bits into frames with MAC headers. Network Layer uses packets/datagrams and Transport Layer uses segments.
 
-**2.** Σε ένα δίκτυο αστέρα (Star) που χρησιμοποιεί αποκλειστικά Switch, πόσα πεδία συγκρούσεων (collision domains) δημιουργούνται για 8 συνδεδεμένους υπολογιστές;
+**2.** In a Star network using exclusively Switches, how many collision domains are created for 8 connected computers?
 - [ ] A. 1
 - [✓] B. 8
 - [ ] C. 4
 - [ ] D. 0
 
-*Αιτιολόγηση:* Κάθε φυσική θύρα ενός Switch αποτελεί ξεχωριστό πεδίο συγκρούσεων (micro-segmentation). Με 8 υπολογιστές σε 8 θύρες, υπάρχουν 8 ξεχωριστά collision domains.
+*Justification:* Each physical port of a Switch constitutes a separate collision domain (micro-segmentation). With 8 computers on 8 ports, there are 8 separate collision domains.
 
-**3.** Η καθυστέρηση μετάδοσης ($d_{trans}$) ενός πακέτου μεγέθους $L = 2000$ bits σε μια ζεύξη με ρυθμό $R = 1$ Mbps είναι:
-- [ ] A. 0,5 ms
+**3.** Transmission delay ($d_{trans}$) of a packet of size $L = 2000$ bits on a link of rate $R = 1$ Mbps is:
+- [ ] A. 0.5 ms
 - [✓] B. 2 ms
 - [ ] C. 20 ms
-- [ ] D. 0,2 ms
+- [ ] D. 0.2 ms
 
-*Αιτιολόγηση:* $d_{trans} = \frac{L}{R} = \frac{2000}{10^6} = 2 \times 10^{-3}\text{ s} = 2\text{ ms}$.
+*Justification:* $d_{trans} = \frac{L}{R} = \frac{2000}{10^6} = 2 \times 10^{-3}\text{ s} = 2\text{ ms}$.
 
-**4.** Ποια από τις παρακάτω IP διευθύνσεις ανήκει στο ίδιο υποδίκτυο με την $192.168.5.130/25$;
+**4.** Which of the following IP addresses belongs to the same subnet as $192.168.5.130/25$?
 - [ ] A. 192.168.5.10
 - [✓] B. 192.168.5.200
 - [ ] C. 192.168.5.255
 - [ ] D. 192.168.5.126
 
-*Αιτιολόγηση:* Η μάσκα /25 σημαίνει $255.255.255.128$. Το block size είναι $256 - 128 = 128$. Άρα τα υποδίκτυα είναι .0 έως .127 και .128 έως .255. Το 192.168.5.130 ανήκει στο δεύτερο υποδίκτυο (128-255), όπως και το 192.168.5.200.
+*Justification:* Mask /25 means 255.255.255.128. Block size is 128. Subnets are .0 to .127 and .128 to .255. 192.168.5.130 belongs to the second subnet (128-255), as does 192.168.5.200.
 
-**5.** Επιλέξτε Σωστό (Σ) ή Λάθος (Λ):
-- **[✓] Σ** / [ ] Λ Στη μεταγωγή πακέτου (packet switching) χρησιμοποιείται στατιστική πολυπλεξία (statistical multiplexing).
-- [ ] Σ / **[✓] Λ** Ένας δρομολογητής (Router) διαχωρίζει τα πεδία συγκρούσεων (collision domains) αλλά όχι τα πεδία εκπομπής (broadcast domains).
-- **[✓] Σ** / [ ] Λ Το ARP Request αποστέλλεται ως Broadcast, ενώ το ARP Reply ως Unicast.
+**5.** Select True (T) or False (F):
+- **[✓] T** / [ ] F Packet switching uses statistical multiplexing.
+- [ ] T / **[✓] F** A Router separates collision domains but not broadcast domains.
+- **[✓] T** / [ ] F ARP Request is sent as Broadcast, while ARP Reply as Unicast.
 
-*Αιτιολόγηση:*
-- **Σ (Σωστό):** Στο packet switching οι πόροι δεσμεύονται δυναμικά, επιτρέποντας σε πολλούς χρήστες να μοιράζονται το εύρος ζώνης (statistical multiplexing).
-- **Λ (Λάθος):** Ο δρομολογητής διαχωρίζει τα broadcast domains (κάθε interface είναι ξεχωριστό). Τα collision domains τα διαχωρίζει ο Switch.
-- **Σ (Σωστό):** Το ARP Request είναι broadcast (FF-FF-FF-FF-FF-FF), ενώ το ARP Reply είναι unicast προς τον αιτούντα.
+*Justification:*
+- **T (True):** Packet switching allocates resources dynamically, allowing multiple users to share bandwidth (statistical multiplexing).
+- **F (False):** A router separates broadcast domains (each interface is separate). Switches separate collision domains.
+- **T (True):** ARP Request is broadcast, ARP Reply is unicast to requester.
 
 ---
 
-## Μέρος Β: Ασκήσεις και Δίκτυα (7 μονάδες)
+## Part B: Exercises and Networks (7 points)
 
-### Άσκηση 1 (2 μονάδες)
-**Υπολογισμός Καθυστερήσεων & RTT**
-Έστω το παρακάτω δίκτυο με δύο ζεύξεις σε σειρά:
+### Exercise 1 (2 points)
+**Delay & RTT Calculation**
+Consider the network below with two links in series:
 
 ```
 ( A ) ============ ( B ) ============ ( C )
@@ -69,31 +69,31 @@
        R1, L1, u1          R2, L2, u2
 ```
 
-Δίνονται: $R_1 = 10000$ bps, $L_1 = 100$ Km, $u_1 = 2,5 \times 10^8$ m/s, $R_2 = 20000$ bps, $L_2 = 50$ Km, $u_2 = 2,5 \times 10^8$ m/s. Το μέγεθος του πακέτου είναι $P = 1000$ bits.
+Given: $R_1 = 10000$ bps, $L_1 = 100$ Km, $u_1 = 2.5 \times 10^8$ m/s, $R_2 = 20000$ bps, $L_2 = 50$ Km, $u_2 = 2.5 \times 10^8$ m/s. Packet size is $P = 1000$ bits.
 
-**a.** Υπολογίστε τον χρόνο που χρειάζεται για την αποστολή ενός πακέτου από τον κόμβο A στον κόμβο C.
+**a.** Calculate the time required to send a packet from node A to node C.
 
 ---
-**Απάντηση:**
+**Answer:**
 $$t_{\text{total}} = d_{\text{trans1}} + d_{\text{prop1}} + d_{\text{trans2}} + d_{\text{prop2}}$$
-- $d_{\text{trans1}} = \frac{P}{R_1} = \frac{1000}{10000} = 0,1\text{ s}$
-- $d_{\text{prop1}} = \frac{L_1}{u_1} = \frac{100 \times 10^3}{2,5 \times 10^8} = 4 \times 10^{-4}\text{ s} = 0,4\text{ ms}$
-- $d_{\text{trans2}} = \frac{P}{R_2} = \frac{1000}{20000} = 0,05\text{ s}$
-- $d_{\text{prop2}} = \frac{L_2}{u_2} = \frac{50 \times 10^3}{2,5 \times 10^8} = 2 \times 10^{-4}\text{ s} = 0,2\text{ ms}$
+- $d_{\text{trans1}} = \frac{P}{R_1} = \frac{1000}{10000} = 0.1\text{ s}$
+- $d_{\text{prop1}} = \frac{L_1}{u_1} = \frac{100 \times 10^3}{2.5 \times 10^8} = 4 \times 10^{-4}\text{ s} = 0.4\text{ ms}$
+- $d_{\text{trans2}} = \frac{P}{R_2} = \frac{1000}{20000} = 0.05\text{ s}$
+- $d_{\text{prop2}} = \frac{L_2}{u_2} = \frac{50 \times 10^3}{2.5 \times 10^8} = 2 \times 10^{-4}\text{ s} = 0.2\text{ ms}$
 
-$$t_{\text{total}} = 0,1 + 0,0004 + 0,05 + 0,0002 = `0,1506\text{ s}`$$
+$$t_{\text{total}} = 0.1 + 0.0004 + 0.05 + 0.0002 = `0.1506\text{ s}`$$
 
-**b.** Υπολογίστε το RTT για ένα πακέτο που αποστέλλεται από τον A στον B και επιστρέφει αμέσως, αγνοώντας την καθυστέρηση επεξεργασίας.
-
----
-**Απάντηση:**
-$$\text{RTT}_{A-B} = 2 \times d_{\text{trans1}} + 2 \times d_{\text{prop1}} = 2 \times 0,1 + 2 \times 0,0004 = `0,2008\text{ s}`$$
+**b.** Calculate the RTT for a packet sent from A to B and returning immediately, ignoring processing delay.
 
 ---
+**Answer:**
+$$\text{RTT}_{A-B} = 2 \times d_{\text{trans1}} + 2 \times d_{\text{prop1}} = 2 \times 0.1 + 2 \times 0.0004 = `0.2008\text{ s}`$$
 
-### Άσκηση 2 (2.5 μονάδες)
-**Αλγόριθμος Dijkstra (Link State)**
-Έστω ο παρακάτω γράφος δικτύου. Εφαρμόστε τον αλγόριθμο του Dijkstra με κόμβο εκκίνησης τον **A** και βρείτε τα συντομότερα μονοπάτια προς όλους τους κόμβους.
+---
+
+### Exercise 2 (2.5 points)
+**Dijkstra Algorithm (Link State)**
+Consider the network graph below. Apply Dijkstra's algorithm with starting node **A** and find shortest paths to all nodes.
 
 ```
       (A) --- 2 --- (B) --- 4 --- (C)
@@ -103,7 +103,7 @@ $$\text{RTT}_{A-B} = 2 \times d_{\text{trans1}} + 2 \times d_{\text{prop1}} = 2 
       (D) --- 3 --- (E) --- 2 --- (F)
 ```
 
-| Βήμα | Επισκέφθηκε | B | C | D | E | F |
+| Step | Visited | B | C | D | E | F |
 |---|---|---|---|---|---|---|
 | 0 | A | `2(A)` | `\infty` | `5(A)` | `\infty` | `\infty` |
 | 1 | `A, B` | `**2(A)**` | `6(B)` | `5(A)` | `3(B)` | `\infty` |
@@ -112,42 +112,42 @@ $$\text{RTT}_{A-B} = 2 \times d_{\text{trans1}} + 2 \times d_{\text{prop1}} = 2 
 | 4 | `A, B, E, D, F` | `2(A)` | `6(B)` | `5(A)` | `3(B)` | `**5(E)**` |
 | 5 | `A, B, E, D, F, C` | `2(A)` | `**6(B)**` | `5(A)` | `3(B)` | `5(E)` |
 
-**Συντομότερα μονοπάτια από A:**
-- Προς **B**: $A \rightarrow B$ (Κόστος: `2`)
-- Προς **E**: $A \rightarrow B \rightarrow E$ (Κόστος: `3`)
-- Προς **D**: $A \rightarrow D$ (Κόστος: `5`)
-- Προς **F**: $A \rightarrow B \rightarrow E \rightarrow F$ (Κόστος: `5`)
-- Προς **C**: $A \rightarrow B \rightarrow C$ (Κόστος: `6`)
+**Shortest paths from A:**
+- To **B**: $A \rightarrow B$ (Cost: `2`)
+- To **E**: $A \rightarrow B \rightarrow E$ (Cost: `3`)
+- To **D**: $A \rightarrow D$ (Cost: `5`)
+- To **F**: $A \rightarrow B \rightarrow E \rightarrow F$ (Cost: `5`)
+- To **C**: $A \rightarrow B \rightarrow C$ (Cost: `6`)
 
 ---
 
-### Άσκηση 3 (2.5 μονάδες)
-**CSMA/CD & Κώδικας Hamming**
+### Exercise 3 (2.5 points)
+**CSMA/CD & Hamming Code**
 
-**a.** Ένα δίκτυο χρησιμοποιεί CSMA/CD με bandwidth $R = 10$ Mbps. Αν ο μέγιστος χρόνος διάδοσης είναι $t_{prop} = 25,6\ \mu\text{s}$, ποιο είναι το ελάχιστο μέγεθος πλαισίου σε Bytes;
+**a.** A network uses CSMA/CD with bandwidth $R = 10$ Mbps. If maximum propagation time is $t_{prop} = 25.6\ \mu\text{s}$, what is the minimum frame size in Bytes?
 
 ---
-**Απάντηση:**
-$$L_{\text{min}} \ge 2 \times t_{\text{prop}} \times R = 2 \times (25,6 \times 10^{-6}) \times (10 \times 10^6) = 512\text{ bits}$$
+**Answer:**
+$$L_{\text{min}} \ge 2 \times t_{\text{prop}} \times R = 2 \times (25.6 \times 10^{-6}) \times (10 \times 10^6) = 512\text{ bits}$$
 $$L_{\text{min}} = \frac{512}{8} = `64\text{ Bytes}`$$
 
-**b.** Αποστολέας στέλνει το μήνυμα `1011` εφαρμόζοντας τον κώδικα Hamming με **άρτια ισοτιμία (even parity)**. Ποιο είναι το τελικό μεταδιδόμενο μήνυμα;
+**b.** A sender transmits message `1011` using Hamming code with **even parity**. What is the final transmitted message?
 
 ---
-**Απάντηση:**
-Μήνυμα δεδομένων: $D = 1011$ ($d = 4$ bits).
-Αριθμός bits ισοτιμίας: $2^p \ge 4 + p + 1 \Rightarrow 2^p \ge p + 5$. Για $p=3$: $2^3 = 8 \ge 8$. Άρα $p = 3$.
-Συνολικό μήνυμα: $n = 4 + 3 = 7$ bits.
-Θέσεις ισοτιμίας: 1, 2, 4. Θέσεις δεδομένων: 3, 5, 6, 7.
+**Answer:**
+Data message: $D = 1011$ ($d = 4$ bits).
+Parity bits: $2^p \ge 4 + p + 1 \Rightarrow p = 3$.
+Total message: $n = 4 + 3 = 7$ bits.
+Parity positions: 1, 2, 4. Data positions: 3, 5, 6, 7.
 
-| Θέση | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| Position | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 |---|---|---|---|---|---|---|---|
 | Bit | $P_1$ | $P_2$ | $D_1$ | $P_4$ | $D_2$ | $D_3$ | $D_4$ |
-| Τιμή | `0` | `1` | `1` | `0` | `0` | `1` | `1` |
+| Value | `0` | `1` | `1` | `0` | `0` | `1` | `1` |
 
-Υπολογισμός (άρτια ισοτιμία):
-- **$P_1$ (θέσεις 1, 3, 5, 7):** $P_1 \oplus 1 \oplus 0 \oplus 1 = P_1 \oplus 0$. Για άρτιο αριθμό άσων: **$P_1 = 0$**.
-- **$P_2$ (θέσεις 2, 3, 6, 7):** $P_2 \oplus 1 \oplus 1 \oplus 1 = P_2 \oplus 1$. Για άρτιο αριθμό άσων: **$P_2 = 1$**.
-- **$P_4$ (θέσεις 4, 5, 6, 7):** $P_4 \oplus 0 \oplus 1 \oplus 1 = P_4 \oplus 0$. Για άρτιο αριθμό άσων: **$P_4 = 0$**.
+Calculation (even parity):
+- **$P_1$ (positions 1, 3, 5, 7):** $P_1 \oplus 1 \oplus 0 \oplus 1 = P_1 \oplus 0$. For even number of ones: **$P_1 = 0$**.
+- **$P_2$ (positions 2, 3, 6, 7):** $P_2 \oplus 1 \oplus 1 \oplus 1 = P_2 \oplus 1$. For even number of ones: **$P_2 = 1$**.
+- **$P_4$ (positions 4, 5, 6, 7):** $P_4 \oplus 0 \oplus 1 \oplus 1 = P_4 \oplus 0$. For even number of ones: **$P_4 = 0$**.
 
-Τελικό μεταδιδόμενο μήνυμα: **`0110011`**
+Final transmitted message: **`0110011`**

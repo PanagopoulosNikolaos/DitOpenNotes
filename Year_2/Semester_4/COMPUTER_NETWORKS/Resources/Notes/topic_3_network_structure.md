@@ -1,41 +1,41 @@
-# Δομή Δικτύου
+# Network Structure
 *Network Structure*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 
-- [Εισαγωγή](#εισαγωγή)
+- [Introduction](#introduction)
 - [Network Edge](#network-edge)
-  - [Clients και Servers](#clients-και-servers)
-  - [Δίκτυα πρόσβασης](#δίκτυα-πρόσβασης)
+  - [Clients and Servers](#clients-and-servers)
+  - [Access Networks](#access-networks)
 - [Network Core](#network-core)
-  - [Διασυνδεδεμένοι Routers](#διασυνδεδεμένοι-routers)
-  - [Δίκτυα δικτύων](#δίκτυα-δικτύων)
-- [Κόμβοι](#κόμβοι)
+  - [Interconnected Routers](#interconnected-routers)
+  - [Network of Networks](#network-of-networks)
+- [Nodes](#nodes)
   - [Routers, Switches, Modems](#routers-switches-modems)
-  - [Ενδιάμεσα κομβικά (δίκτυα πρόσβασης)](#ενδιάμεσα-κομβικά-δίκτυα-πρόσβασης)
-- [Αριθμητικό Παράδειγμα](#αριθμητικό-παράδειγμα)
-- [Συγκεντρωτικός Πίνακας](#συγκεντρωτικός-πίνακας)
-- [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+  - [Intermediate Nodes in Access Networks](#intermediate-nodes-in-access-networks)
+- [Worked Numerical Example](#worked-numerical-example)
+- [Summary Table](#summary-table)
+- [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Για να κατανοηθεί η λειτουργία του Διαδικτύου σε βάθος, είναι απαραίτητο πρώτα να κατανοηθεί η **δομή** του — δηλαδή ο τρόπος με τον οποίο χωρίζεται αρχιτεκτονικά σε επίπεδα και τμήματα. Η θεμελιώδης διάκριση είναι μεταξύ του **Network Edge** (άκρο δικτύου), όπου βρίσκονται οι τελικοί χρήστες και οι εφαρμογές τους, και του **Network Core** (πυρήνας δικτύου), που αποτελείται από τα διασυνδεδεμένα δίκτυα και τους routers που εξασφαλίζουν την προώθηση δεδομένων μεταξύ τους. Οι **κόμβοι** (nodes) — routers, switches, modems — είναι τα βασικά δομικά στοιχεία και στα δύο τμήματα, αναλαμβάνοντας διαφορετικές λειτουργίες ανάλογα με τη θέση τους. Η ενότητα αυτή συνδέεται άμεσα με τα προηγούμενα θέματα («Δίκτυο στο Έπακρο», «Το Διαδίκτυο») και αποτελεί το αρχιτεκτονικό πλαίσιο που κάνει κατανοητές τις τεχνολογίες πρόσβασης, τη μεταγωγή δεδομένων και τους αλγορίθμους δρομολόγησης που ακολουθούν.
+To understand the functioning of the Internet in depth, it is necessary to first grasp its **structure** — how it is architecturally divided into layers and segments. The fundamental distinction lies between the **Network Edge**, where end users and their applications reside, and the **Network Core**, consisting of interconnected networks and routers responsible for forwarding data between them. **Nodes** — routers, switches, modems — serve as basic structural building blocks in both domains, performing different functions depending on their location. This topic builds directly upon previous concepts ("Network Edge", "The Internet") and provides the architectural framework for access technologies, data switching, and routing algorithms.
 
 ---
 
 ## Network Edge
-*Το Άκρο του Δικτύου*
+*The Network Edge*
 
-Το **Network Edge** (άκρο δικτύου) ορίζεται ως το τμήμα του Διαδικτύου που βρίσκεται «στην άκρη» — εκεί όπου συνδέονται οι τελικοί χρήστες και οι εφαρμογές. Περιλαμβάνει τις **end systems** (τελικά συστήματα), δηλαδή κάθε συσκευή που παράγει ή καταναλώνει δεδομένα: υπολογιστές, smartphones, servers, IoT sensors, smart TVs και κάθε άλλη συσκευή που έχει IP διεύθυνση και συνδέεται στο Διαδίκτυο.
+The **Network Edge** is defined as the outer portion of the Internet — where end users and applications connect. It encompasses **end systems** (hosts), meaning any device generating or consuming data: computers, smartphones, servers, IoT sensors, smart TVs, and any other IP-addressable device connected to the Internet.
 
-**Αναλογία:** Αν το Διαδίκτυο ήταν ένα σύστημα αυτοκινητοδρόμων, το Network Edge θα ήταν τα σπίτια, τα κτίρια και τα εμπορικά κέντρα — οι αφετηρίες και οι προορισμοί των ταξιδιών. Ο Network Core θα ήταν το δίκτυο αυτοκινητοδρόμων που τα συνδέει.
+**Analogy:** If the Internet were a highway system, the Network Edge would be homes, office buildings, and shopping centers — the origins and destinations of trips. The Network Core would be the highway system connecting them.
 
 ```
-  Αρχιτεκτονική: Network Edge vs Network Core
+  Architecture: Network Edge vs Network Core
   ──────────────────────────────────────────────────────────────────────
                          ╔══════════════════════════════╗
                          ║       NETWORK CORE           ║
@@ -58,22 +58,22 @@
        NETWORK EDGE                                    NETWORK EDGE
 ```
 
-Το Network Edge χωρίζεται λειτουργικά σε δύο βασικές κατηγορίες: τα **clients** και τα **servers**, ενώ η φυσική σύνδεσή τους με τον Network Core επιτυγχάνεται μέσω των **δικτύων πρόσβασης** (access networks).
+The Network Edge is functionally divided into two primary categories: **clients** and **servers**, while their physical connection to the Network Core is achieved via **access networks**.
 
 ---
 
-### Clients και Servers
-*Πελάτες και Εξυπηρετητές*
+### Clients and Servers
+*Clients and Servers*
 
-#### Το Μοντέλο Client-Server
+#### The Client-Server Model
 
-Το **μοντέλο client-server** είναι η κυρίαρχη αρχιτεκτονική του σύγχρονου Διαδικτύου. Στο μοντέλο αυτό:
+The **client-server model** is the dominant architecture of the modern Internet:
 
-- Ο **client** (πελάτης) είναι το end system που **ξεκινά** μια αίτηση για υπηρεσία ή δεδομένα. Ο client αιτείται, λαμβάνει και εμφανίζει — δεν προσφέρει υπηρεσίες σε άλλους.
-- Ο **server** (εξυπηρετητής) είναι το end system που **περιμένει** αιτήσεις, τις επεξεργάζεται και αποστέλλει αποκρίσεις. Ένας server είναι πάντα διαθέσιμος (always-on) και γνωστός μέσω σταθερής (permanent) IP διεύθυνσης.
+- The **client** is the end system **initiating** a request for a service or data. The client requests, receives, and displays — it does not offer services to others.
+- The **server** is the end system **listening** for requests, processing them, and returning responses. A server is always-on and reachable via a permanent IP address.
 
 ```
-  Μοντέλο Client-Server
+  Client-Server Model
   ─────────────────────────────────────────────────────────────────
   [Client: Browser]                         [Server: Google.com]
          |                                           |
@@ -81,29 +81,29 @@
          |                                           |
          |<─── HTTP 200 OK + HTML/JSON ──────────────|
          |                                           |
-  (Αποδέχεται και εμφανίζει                  (Περιμένει αιτήσεις,
-   την απόκριση)                              επεξεργάζεται, απαντά)
+  (Accepts and displays                      (Listens, processes,
+   response)                                  responds)
 ```
 
-**Χαρακτηριστικά client:**
-- Ξεκινά επικοινωνία με τον server.
-- Μπορεί να συνδέεται διαλείπουσα (intermittently connected).
-- Συνήθως έχει δυναμική IP διεύθυνση (αλλάζει κατά τη σύνδεση).
-- Δεν επικοινωνεί **απευθείας** με άλλους clients (σε καθαρό client-server μοντέλο).
-- Παραδείγματα: browser, email client, mobile app.
+**Client Characteristics:**
+- Initiates communication with server.
+- May be intermittently connected.
+- Typically assigned dynamic IP addresses.
+- Does not communicate **directly** with other clients (in pure client-server model).
+- Examples: web browser, email client, mobile app.
 
-**Χαρακτηριστικά server:**
-- Πάντα ενεργός (24/7) για να εξυπηρετεί αιτήσεις.
-- Σταθερή (permanent) IP διεύθυνση ή DNS hostname.
-- Τυπικά φιλοξενείται σε **data centers** (κέντρα δεδομένων) για υψηλή διαθεσιμότητα, cooling και ισχύ.
-- Παραδείγματα: web server (Apache, Nginx), DNS server, email server (SMTP), database server.
+**Server Characteristics:**
+- Always-on (24/7 uptime) to serve requests.
+- Permanent IP address or DNS hostname.
+- Typically hosted in **data centers** for high availability, cooling, and power redundancy.
+- Examples: web server (Apache, Nginx), DNS server, email server (SMTP), database server.
 
-#### Data Centers: Η Φυσική Πλευρά των Servers
+#### Data Centers: The Physical Side of Servers
 
-Οι μεγάλες εταιρείες (Google, Amazon, Meta, Microsoft) διαχειρίζονται τεράστια **data centers** — κτίρια γεμάτα χιλιάδες servers. Το Amazon AWS, για παράδειγμα, λειτουργεί πάνω από 100 data centers παγκοσμίως. Αυτοί οι servers έχουν εξαιρετικά υψηλή συνδεσιμότητα (δεκάδες ή εκατοντάδες Gbps) με τον Network Core.
+Major companies (Google, Amazon, Meta, Microsoft) operate massive **data centers** — buildings housing thousands of servers. Amazon AWS, for example, operates over 100 data centers globally. These servers have ultra-high-speed connectivity (tens or hundreds of Gbps) to the Network Core.
 
 ```
-  Data Center: Φυσική Υποδομή Servers
+  Data Center Physical Infrastructure
   ──────────────────────────────────────────────────────────────
   ┌─────────────────────────────────────────────────────────┐
   │                     DATA CENTER                         │
@@ -123,37 +123,35 @@
                     [ISP / Internet Backbone]
 ```
 
-#### Peer-to-Peer (P2P) ως Εναλλακτική Αρχιτεκτονική
+#### Peer-to-Peer (P2P) as an Alternative Architecture
 
-Στο **Peer-to-Peer (P2P)** μοντέλο, κάθε end system (peer) λειτουργεί **ταυτόχρονα ως client και server** — προσφέρει και καταναλώνει πόρους. Δεν απαιτείται κεντρικός server.
+In the **Peer-to-Peer (P2P)** model, each end system (peer) acts **simultaneously as client and server** — sharing and consuming resources without a central server.
 
-| Χαρακτηριστικό | Client-Server | Peer-to-Peer (P2P) |
+| Characteristic | Client-Server | Peer-to-Peer (P2P) |
 |---|---|---|
-| Κεντρικός server | Ναι, always-on | Όχι απαραίτητος |
-| Επεκτασιμότητα | Περιορισμένη (bottleneck) | Υψηλή (αυξάνεται με peers) |
-| Αξιοπιστία | Εξαρτάται από server | Κατανεμημένη |
-| Παραδείγματα | HTTP, Email, DNS | BitTorrent, Blockchain |
-| Διαχείριση | Κεντρική (εύκολη) | Κατανεμημένη (πολύπλοκη) |
+| Central server | Yes, always-on | Not required |
+| Scalability | Limited (bottleneck) | High (increases with peers) |
+| Reliability | Server dependent | Distributed |
+| Examples | HTTP, Email, DNS | BitTorrent, Blockchain |
+| Management | Centralized (easy) | Distributed (complex) |
 
-**Exam Note:** Το P2P **επεκτείνεται αυτόματα** — όσο περισσότεροι peers εντάσσονται, τόσο αυξάνεται το συνολικό bandwidth που είναι διαθέσιμο. Στο client-server μοντέλο, η προσθήκη clients αυξάνει το φορτίο στον server.
+**Exam Note:** P2P **scales automatically** — as more peers join, total available bandwidth increases. In client-server models, adding clients increases server load.
 
 ---
 
-### Δίκτυα πρόσβασης
+### Access Networks
 *Access Networks*
 
-Τα **δίκτυα πρόσβασης** (access networks) είναι το τμήμα του δικτύου που συνδέει τα end systems (clients, servers) με τον **πρώτο router** (edge router) του δικτύου πυρήνα. Είναι, ουσιαστικά, η «τελευταία μίλια» (last mile) της σύνδεσης.
-
-**Κρίσιμη Ερώτηση:** Πώς συνδέονται τα end systems με το δίκτυο; Η απάντηση εξαρτάται από την κατηγορία του χρήστη:
+**Access networks** connect end systems (clients, servers) to the **edge router** of the core network ("last mile").
 
 ```
-  Τύποι Δικτύων Πρόσβασης
+  Access Network Types
   ─────────────────────────────────────────────────────────────────────
                         [Edge Router / ISP]
                                |
           ┌────────────────────┼─────────────────────┐
           |                    |                      |
-  [Οικιακό Δίκτυο]   [Εταιρικό Δίκτυο]    [Κινητό Δίκτυο]
+  [Residential Network][Enterprise Network]   [Mobile Network]
   DSL / HFC / FTTH    Ethernet LAN          4G / 5G
   ~10-1000 Mbps       ~1-100 Gbps           ~10-1000 Mbps
           |                    |                      |
@@ -162,419 +160,269 @@
   [PC][TV][Phone]   [PC][PC][Server]    [Phone][Tablet][IoT]
 ```
 
-#### Οικιακά Δίκτυα (Residential Access)
+#### Residential Access
+- **DSL (Digital Subscriber Line):** Copper telephone lines, asymmetric (ADSL).
+- **HFC (Hybrid Fiber-Coaxial):** Shared coaxial cable among neighbors.
+- **FTTH (Fiber to the Home):** Optical fiber directly into homes (fastest residential option).
+- **Wi-Fi (Wireless LAN):** Wireless connection within homes.
 
-Η τυπική οικιακή σύνδεση περιλαμβάνει:
-1. **DSL (Digital Subscriber Line):** Χρησιμοποιεί υπάρχουσα τηλεφωνική γραμμή χαλκού. Ασύμμετρο (ADSL): υψηλότερο download από upload.
-2. **HFC (Hybrid Fiber-Coaxial):** Κοινή χρήση ομοαξονικού καλωδίου με γειτονικά σπίτια (shared medium).
-3. **FTTH (Fiber to the Home):** Οπτική ίνα απευθείας στο σπίτι — η ταχύτερη οικιακή τεχνολογία.
-4. **Wi-Fi (Ασύρματο LAN):** Σύνδεση εντός σπιτιού από router/access point στις ασύρματες συσκευές.
+#### Enterprise/Institutional Access
+Uses **Ethernet** — high-speed wired LAN (100 Mbps to 100+ Gbps) with hierarchical Ethernet switches.
 
-#### Εταιρικά και Ιδρυματικά Δίκτυα (Enterprise/Institutional Access)
+#### Mobile/Wireless Access
+Cellular coverage via **base stations**. **4G LTE** and **5G NR** provide speeds from 10 to 1000+ Mbps.
 
-Χρησιμοποιούν **Ethernet** — ενσύρματο LAN υψηλής ταχύτητας (100 Mbps, 1 Gbps, 10 Gbps, έως 400 Gbps σε data centers). Τα end systems συνδέονται σε **Ethernet switches** που συνδέονται μεταξύ τους ιεραρχικά.
-
-#### Κινητά / Ασύρματα Δίκτυα (Mobile/Wireless Access)
-
-Η πρόσβαση γίνεται μέσω **κυψελών (cells)** — γεωγραφικές περιοχές κάλυψης μιας **base station** (σταθμός βάσης). Οι τεχνολογίες **4G LTE** και **5G NR** παρέχουν ταχύτητες 10-1000+ Mbps.
-
-**Key Distinction:** Στα οικιακά δίκτυα, η σύνδεση είναι συνήθως **dedicated** (DSL) ή **shared** (HFC). Στα κινητά δίκτυα, το φάσμα ραδιοσυχνοτήτων είναι πάντα **shared** μεταξύ χρηστών της ίδιας κυψέλης.
+**Key Distinction:** Residential lines are dedicated (DSL) or shared (HFC). Mobile radio spectrum is always **shared** among users in a cell.
 
 ---
 
 ## Network Core
-*Ο Πυρήνας του Δικτύου*
+*The Network Core*
 
-Ο **Network Core** (πυρήνας δικτύου) είναι το «εσωτερικό» του Διαδικτύου — το πλέγμα από διασυνδεδεμένους routers και δίκτυα που αναλαμβάνει τη μεταφορά δεδομένων σε μακρινές αποστάσεις. Σε αντίθεση με το Network Edge (όπου βρίσκονται οι τελικοί χρήστες), ο Network Core δεν εκτελεί εφαρμογές — αποκλειστικός ρόλος του είναι η **προώθηση (forwarding)** και η **δρομολόγηση (routing)** πακέτων με την ταχύτερη και αποδοτικότερη δυνατή μέθοδο.
+The **Network Core** is the mesh of interconnected routers and networks responsible for long-distance data transport. The core does not execute application software; its sole function is **forwarding** and **routing** packets as efficiently as possible.
 
-**Βασική Λειτουργία:** Κάθε router στον Network Core λαμβάνει ένα πακέτο εισόδου, εξετάζει την IP διεύθυνση προορισμού στην επικεφαλίδα (header) και το προωθεί στον κατάλληλο εξερχόμενο σύνδεσμο βάσει του **πίνακα δρομολόγησης (routing table)** που διατηρεί.
+```
+  Core Router Forwarding Process
+  ─────────────────────────────────────────────────────────────────
+  Incoming Packet (Destination IP: 198.51.100.45)
+          │
+          ▼
+  ┌────────────────────────────────────────────────────────┐
+  │ [Input Port] ──▶ [Forwarding Table Lookup]             │
+  │                  Matches 198.51.100.0/24 ──▶ Port 3    │
+  └───────────────────────────┬────────────────────────────┘
+                              │
+                              ▼
+                       [Output Port 3] ──▶ Next Hop Router
+```
 
 ---
 
-### Διασυνδεδεμένοι Routers
+### Interconnected Routers
 *Interconnected Routers*
 
-Ο Network Core αποτελείται από εκατοντάδες χιλιάδες **routers** παγκοσμίως, διασυνδεδεμένους με συνδέσμους υψηλής ταχύτητας (συνήθως οπτικές ίνες, εκατοντάδες Gbps έως Tbps). Η βασική μέθοδος λειτουργίας τους είναι η **μεταγωγή πακέτου (packet switching)**.
+The core relies on **packet switching** across hundreds of thousands of high-speed routers.
 
 #### Packet Switching: Store-and-Forward
 
-Στο **packet switching** (μεταγωγή πακέτου), κάθε πακέτο μεταδίδεται ανεξάρτητα. Κάθε router:
-1. **Λαμβάνει (store)** ολόκληρο το πακέτο — δεν μπορεί να το προωθήσει μέχρι να λάβει το τελευταίο bit.
-2. **Επεξεργάζεται** την επικεφαλίδα (header) — εξετάζει IP προορισμού.
-3. **Προωθεί (forward)** στον κατάλληλο εξερχόμενο σύνδεσμο.
+In packet switching, each router:
+1. **Stores** the entire packet before forwarding (cannot transmit until the final bit arrives).
+2. **Processes** the packet header (inspects destination IP).
+3. **Forwards** the packet to the output link.
 
-Αυτή η λογική ονομάζεται **store-and-forward** και εισάγει καθυστέρηση μετάδοσης σε κάθε hop.
+This **store-and-forward** principle introduces transmission delay at every hop.
 
 ```
-  Store-and-Forward Packet Switching (2 hops)
+  Store-and-Forward Packet Switching (2 Hops)
   ──────────────────────────────────────────────────────────────────
   [Host A]        [Router R1]        [Router R2]        [Host B]
       |                |                  |                  |
-  t=0 |── Πακέτο 1 ──>|                  |                  |
-      |                | (λαμβάνει        |                  |
-  t=L/R               |  ολόκληρο)       |                  |
-      |                |── Πακέτο 1 ────>|                  |
-      |                |                  | (λαμβάνει        |
-  t=2L/R              |                  |  ολόκληρο)       |
-      |                |                  |── Πακέτο 1 ────>|
+  t=0 |── Packet 1 ───>|                  |                  |
+      |                | (receives        |                  |
+  t=L/R               |  completely)     |                  |
+      |                |── Packet 1 ─────>|                  |
+      |                |                  | (receives        |
+  t=2L/R              |                  |  completely)     |
+      |                |                  |── Packet 1 ─────>|
   t=3L/R              |                  |                  |
 
-  Συνολική καθυστέρηση (χωρίς prop. delay): N * L/R
-  (N = αριθμός hops, L = μέγεθος πακέτου, R = bandwidth)
+  Total end-to-end transmission delay: N * L/R
 ```
 
-**Exam Note:** Το **store-and-forward** σημαίνει ότι ο router πρέπει να λάβει **ολόκληρο** το πακέτο πριν αρχίσει να το μεταδίδει στον επόμενο σύνδεσμο. Αυτό διακρίνεται από το **cut-through switching** που προωθεί χωρίς αναμονή, αλλά δεν μπορεί να ελέγξει σφάλματα.
+**Exam Note:** **Store-and-forward** requires receiving the **entire** packet before beginning transmission on the next link. It differs from **cut-through switching** which forwards immediately without error checking.
 
-#### Queuing και Packet Loss
+#### Queuing and Packet Loss
 
-Εάν ο ρυθμός άφιξης πακέτων υπερβαίνει την χωρητικότητα εξόδου ενός router, τα πακέτα αποθηκεύονται στην **ουρά (queue / buffer)**. Εάν η ουρά γεμίσει, τα νέα πακέτα **αποβάλλονται (dropped)** — αυτό είναι το **packet loss**.
+If packet arrival rate exceeds link output capacity, packets queue in buffers. If buffers fill completely, arriving packets are **dropped** — resulting in **packet loss**.
 
 ```
-  Queuing σε Router: Συμφόρηση
+  Router Queuing: Congestion
   ──────────────────────────────────────────────────────────────────
   [Link 1: 100 Mbps] ──\
   [Link 2: 100 Mbps] ───╬──> [Buffer/Queue] ──> [Link Out: 100 Mbps]
   [Link 3: 100 Mbps] ──/
-  (Σύνολο εισόδου: έως 300 Mbps, έξοδος: 100 Mbps → Συμφόρηση!)
-
-  Αν Buffer = 50 πακέτα και πληρωθεί:
-  Νέο πακέτο → DROP (packet loss)
+  (Total Inflow: up to 300 Mbps, Outflow: 100 Mbps → Congestion!)
 ```
 
-**Traffic Intensity (Ένταση Κυκλοφορίας):**
+**Traffic Intensity Formula:**
 
 $$\rho = \frac{L \cdot a}{R}$$
 
-- $L$ = μέγεθος πακέτου (bits)
-- $a$ = ρυθμός άφιξης πακέτων (packets/sec)
-- $R$ = χωρητικότητα συνδέσμου (bps)
+- $L$ = packet size (bits)
+- $a$ = packet arrival rate (packets/sec)
+- $R$ = link bandwidth (bps)
 
-Όταν $\rho \rightarrow 1$, η καθυστέρηση ουράς τείνει στο άπειρο. Όταν $\rho > 1$, packet loss είναι αναπόφευκτο.
+When $\rho \rightarrow 1$, queuing delay approaches infinity. When $\rho > 1$, packet loss is unavoidable.
 
-#### Forwarding vs Routing: Κρίσιμη Διάκριση
+#### Forwarding vs Routing: Critical Distinction
 
-| Έννοια | Ορισμός | Επίπεδο Απόφασης | Ταχύτητα |
+| Term | Definition | Decision Scope | Speed |
 |---|---|---|---|
-| **Forwarding** | Προώθηση πακέτου από εισερχόμενο σε εξερχόμενο interface | Τοπική (ανά router) | Nanoseconds (hardware) |
-| **Routing** | Υπολογισμός της βέλτιστης διαδρομής μεταξύ πηγής και προορισμού | Παγκόσμια (δίκτυο) | Seconds/Minutes (software) |
-
-**Αναλογία:** Το routing είναι σαν το GPS που σχεδιάζει τη διαδρομή, ενώ το forwarding είναι σαν τον οδηγό που στρίβει στο επόμενο φανάρι βάσει των οδηγιών.
+| **Forwarding** | Transferring packet from input to output interface | Local (per router) | Nanoseconds (hardware) |
+| **Routing** | Computing end-to-end paths across network | Global (network-wide) | Seconds/Minutes (software) |
 
 ---
 
-### Δίκτυα δικτύων
+### Network of Networks
 *Network of Networks*
 
-Το Διαδίκτυο δεν είναι ένα μόνο δίκτυο — είναι ένα **δίκτυο δικτύων** (network of networks). Κάθε επιμέρους δίκτυο που αποτελεί μέρος του Διαδικτύου διαχειρίζεται από έναν **ISP (Internet Service Provider)** — παροχέα υπηρεσιών Διαδικτύου.
-
-#### Ιεραρχία ISP
-
-Το παγκόσμιο Διαδίκτυο οργανώνεται σε τρία βασικά επίπεδα ISP:
+The Internet is a **network of networks** managed hierarchically by ISPs:
 
 ```
-  Ιεραρχία ISP: Network of Networks
+  ISP Hierarchy
   ──────────────────────────────────────────────────────────────────────
   ┌─────────────────────────────────────────────────────────────────┐
   │               TIER-1 ISPs (Global Backbone)                     │
-  │   AT&T, Lumen (CenturyLink), NTT, Deutsche Telekom, Telia       │
-  │   ─────────────────── Peering (δωρεάν) ────────────────────     │
+  │   AT&T, Lumen, NTT, Deutsche Telekom, Telia                      │
+  │   ─────────────────── Peering (free) ──────────────────────────  │
   └────────────────────────────┬────────────────────────────────────┘
-                               |  Transit (επί πληρωμή)
+                               |  Transit (paid)
           ┌────────────────────┼──────────────────────┐
           |                    |                       |
   ┌───────┴───────┐   ┌────────┴────────┐   ┌─────────┴──────┐
   │  TIER-2 ISP   │   │   TIER-2 ISP   │   │  TIER-2 ISP    │
   │ (Regional)    │   │  (Regional)     │   │  (Regional)    │
-  │ π.χ. Cosmote  │   │  π.χ. Vodafone  │   │  π.χ. Wind     │
   └───────┬───────┘   └────────┬────────┘   └─────────┬──────┘
           |                    |                        |
   ┌───────┴───────┐   ┌────────┴────────┐   ┌─────────┴──────┐
   │  TIER-3 /     │   │   TIER-3 /      │   │  TIER-3 /      │
-  │  Local ISP    │   │   Local ISP     │   │  Local ISP     │
-  │  (Τοπικοί)   │   │   (Τοπικοί)    │   │  (Τοπικοί)    │
+  │  Access ISP   │   │   Access ISP    │   │  Access ISP    │
   └───────┬───────┘   └────────┬────────┘   └─────────┬──────┘
           |                    |                        |
-       [Χρήστες]           [Χρήστες]               [Χρήστες]
+       [Users]              [Users]                  [Users]
 ```
 
-**Tier-1 ISPs:** Οι «ραχοκοκαλιές» του Διαδικτύου. Έχουν παγκόσμια κάλυψη, συνδέονται απευθείας μεταξύ τους μέσω **peering** (χωρίς πληρωμή) και δεν πληρώνουν κανέναν για transit. Παραδείγματα: AT&T, Lumen, NTT Communications, Deutsche Telekom.
-
-**Tier-2 ISPs:** Περιφερειακοί ISPs που αγοράζουν **transit** (πρόσβαση) από Tier-1 ISPs και κάνουν peering με άλλους Tier-2. Παραδείγματα: Cosmote, Vodafone, Wind (Ελλάδα).
-
-**Tier-3 / Access ISPs:** Τοπικοί ISPs που αγοράζουν transit από Tier-2 για να παρέχουν σύνδεση στους τελικούς χρήστες.
-
-#### Internet Exchange Points (IXP)
-
-Τα **IXP (Internet Exchange Points)** είναι φυσικές εγκαταστάσεις όπου πολλοί ISPs διαφορετικών επιπέδων **συνδέονται απευθείας** και ανταλλάσσουν traffic — χωρίς να χρειαστεί να διέλθουν από Tier-1 backbone. Αυτό μειώνει το κόστος και βελτιώνει την απόδοση.
-
-**Παράδειγμα:** Το **AMS-IX** (Amsterdam Internet Exchange) είναι ένα από τα μεγαλύτερα IXP παγκοσμίως, ανταλλάσσοντας εκατοντάδες Gbps traffic ημερησίως.
-
-#### Content Provider Networks
-
-Οι μεγάλες εταιρείες περιεχομένου (Google, Meta, Netflix, Amazon) έχουν αναπτύξει τα δικά τους **ιδιωτικά δίκτυα** (private backbones) που εκτείνονται παγκοσμίως. Αυτά συνδέονται απευθείας με πολλούς ISPs και IXPs, «παρακάμπτοντας» (bypass) τους Tier-1 ISPs για μεγάλο μέρος του traffic τους.
-
-```
-  Google Private Network (Απλοποιημένο)
-  ──────────────────────────────────────────────────────────────────
-  [Google Data Center EU] ──── [Google Backbone] ──── [Google DC US]
-           |                         |                       |
-        [IXP-AMS]               [IXP-NYC]               [IXP-SJC]
-           |                         |                       |
-      [ISP Europe]            [ISP East US]           [ISP West US]
-           |                         |                       |
-        [Users]                   [Users]                 [Users]
-```
+- **Tier-1 ISPs:** Global backbone. Interconnect via **peering** (free exchange) without paying transit.
+- **Tier-2 ISPs:** Regional providers buying **transit** from Tier-1 and peering with each other.
+- **Tier-3 / Access ISPs:** Local providers connecting end users to Tier-2 networks.
+- **IXP (Internet Exchange Point):** Physical facilities where ISPs interconnect directly to exchange traffic without Tier-1 transit.
+- **Content Provider Networks:** Private networks operated by Google, Meta, Netflix bypass Tier-1 backbones for direct ISP delivery.
 
 ---
 
-## Κόμβοι
+## Nodes
 *Network Nodes*
 
-Ο όρος **κόμβος** (node) αναφέρεται σε κάθε συσκευή που αποτελεί σημείο στο δίκτυο — είτε τελικό (end system) είτε ενδιάμεσο (intermediate). Στο πλαίσιο αυτής της ενότητας, εστιάζουμε στους **ενδιάμεσους κόμβους** που αποτελούν τη δομή του δικτύου: routers, switches και modems.
-
----
-
 ### Routers, Switches, Modems
-*Δρομολογητές, Μεταγωγείς, Αποδιαμορφωτές*
+*Routers, Switches, Modems*
 
-#### Router (Δρομολογητής)
-
-Ο **router** είναι η κεντρική συσκευή του Network Core. Λειτουργεί στο **Επίπεδο 3 (Network Layer)** του OSI model και είναι υπεύθυνος για τη **δρομολόγηση πακέτων** μεταξύ **διαφορετικών δικτύων** — δηλαδή, αποφασίζει σε ποιο εξερχόμενο interface (port) θα προωθήσει κάθε πακέτο βάσει της IP διεύθυνσης προορισμού.
-
-**Εσωτερική Αρχιτεκτονική Router:**
+#### Router
+Operates at **Layer 3 (Network Layer)**, routing packets between **different networks** using IP addresses and routing tables.
 
 ```
-  Εσωτερική Δομή Router (Απλοποιημένη)
+  Simplified Router Architecture
   ──────────────────────────────────────────────────────────────────
-  ┌──────────────────────────────────────────────────────────────┐
-  │                         ROUTER                               │
-  │                                                              │
-  │  Input Port 1 ──\                          /── Output Port 1 │
-  │  Input Port 2 ───╬──> [Switching Fabric] ──╬── Output Port 2 │
-  │  Input Port 3 ──/    (εσωτερικός bus/     \── Output Port 3 │
-  │                        crossbar/memory)                      │
-  │                                                              │
-  │  [Routing Processor]                                         │
-  │   - Τρέχει routing algorithms (OSPF, BGP)                   │
-  │   - Διατηρεί Routing Table                                   │
-  │                                                              │
-  │  Routing Table (παράδειγμα):                                 │
-  │  ┌─────────────────┬─────────────────┐                       │
-  │  │ Destination IP  │ Output Interface│                       │
-  │  ├─────────────────┼─────────────────┤                       │
-  │  │ 10.0.0.0/8      │ Port 1          │                       │
-  │  │ 172.16.0.0/12   │ Port 2          │                       │
-  │  │ 0.0.0.0/0       │ Port 3 (default)│                       │
-  │  └─────────────────┴─────────────────┘                       │
-  └──────────────────────────────────────────────────────────────┘
+  Input Ports ──▶ [Switching Fabric] ──▶ Output Ports
+                         ▲
+                         │
+                 [Routing Processor] (OSPF/BGP software)
 ```
 
-**Τύποι Routers:**
-- **Core Router:** Βρίσκεται στον Network Core, επεξεργάζεται εκατομμύρια πακέτα/δευτερόλεπτο. Παραδείγματα: Cisco CRS-X, Juniper PTX.
-- **Edge Router (Border Router):** Βρίσκεται στο σύνορο μεταξύ Network Core και Access Network. Ενώνει τον ISP με τον τελικό χρήστη ή με άλλο ISP.
-- **Home/SOHO Router:** Οικιακή συσκευή που συνδυάζει router, switch και Wi-Fi access point. Παραδείγματα: TP-Link, ASUS, Netgear.
+#### Switch
+Operates at **Layer 2 (Data Link Layer)**, forwarding frames between devices **within the same network (LAN)** using MAC addresses. Switch learns MAC locations dynamically in its **MAC Address Table (CAM Table)**.
 
-#### Switch (Μεταγωγέας)
+#### Modem
+Operates at **Layer 1 (Physical Layer)** performing signal modulation/demodulation between digital hosts and ISP transmission media (DSL, DOCSIS cable, optical PON).
 
-Ο **switch** (ή **network switch / μεταγωγέας**) λειτουργεί στο **Επίπεδο 2 (Data Link Layer)** και συνδέει συσκευές **εντός του ίδιου δικτύου (LAN)**. Χρησιμοποιεί **MAC addresses** (φυσικές διευθύνσεις υλικού) για να αποστείλει frames αποκλειστικά στον σωστό παραλήπτη.
+#### Router vs Switch vs Modem Comparison
 
-**Πώς μαθαίνει ο switch τις MAC διευθύνσεις; — MAC Address Table (CAM Table):**
-
-```
-  Switch Learning: Πώς λειτουργεί
-  ────────────────────────────────────────────────────────────────
-  [PC-A: MAC AA]──Port 1┐                    ┌Port 3──[PC-C: MAC CC]
-  [PC-B: MAC BB]──Port 2┤    [SWITCH]         ├Port 4──[PC-D: MAC DD]
-                        └────────────────────┘
-
-  Βήμα 1: PC-A στέλνει frame στο PC-C.
-  Βήμα 2: Switch βλέπει frame από Port 1 με src=AA → μαθαίνει: AA=Port1
-  Βήμα 3: Switch ψάχνει dst=CC στον πίνακα → αν δεν ξέρει, flood σε όλα τα ports.
-  Βήμα 4: Μόνο PC-C αποκρίνεται (src=CC από Port 3) → μαθαίνει: CC=Port3.
-  Βήμα 5: Επόμενη φορά, στέλνει απευθείας μόνο στο Port 3.
-```
-
-**Key Distinction:** Ο switch στέλνει frames **μόνο** στο port του παραλήπτη (unicast), ελαχιστοποιώντας την κυκλοφορία δικτύου. Ο παλαιός **hub** έστελνε σε **όλα** τα ports (broadcast) — αυτός ο λόγος κάνει τον switch πολύ πιο αποδοτικό.
-
-**Layer 3 Switch:** Ορισμένοι switches υψηλής απόδοσης μπορούν επίσης να εκτελούν δρομολόγηση Layer 3 (IP routing) — αυτοί ονομάζονται **Layer 3 switches** ή **multilayer switches** και συνηθίζονται σε enterprise networks.
-
-#### Modem (Αποδιαμορφωτής)
-
-Το **modem** (MOdulator-DEModulator) είναι η συσκευή που επιτελεί **μετατροπή σήματος** μεταξύ του ψηφιακού κόσμου του υπολογιστή και του αναλογικού ή ψηφιακού μέσου μετάδοσης του ISP. Λειτουργεί στο **Επίπεδο 1 (Physical Layer)**.
-
-```
-  Λειτουργία Modem: Η Γέφυρα Ψηφιακού-Αναλογικού
-  ────────────────────────────────────────────────────────────────
-  [Υπολογιστής]          [Modem]           [Τηλεφωνική Γραμμή / ISP]
-        |                    |                        |
-        |──01101001──>|  Modulate  |──~ σήμα ~──>|
-        |             |  (ψηφ→αναλ)|                 |
-        |             |            |                  |
-        |<──01101001──|  Demodulate|<──~ σήμα ~──|
-        |             | (αναλ→ψηφ) |                  |
-```
-
-**Τύποι Modem:**
-- **DSL Modem:** Χρησιμοποιεί ψηφιακή κωδικοποίηση (DMT — Discrete Multitone) στη τηλεφωνική γραμμή χαλκού. Διαχωρίζει τη φωνή (0-4 kHz) από τα δεδομένα (>25 kHz).
-- **Cable Modem (DOCSIS):** Μεταδίδει δεδομένα μέσω ομοαξονικού καλωδίου, μοιράζοντας το bandwidth με γειτονικά σπίτια.
-- **Fiber Modem (ONT — Optical Network Terminal):** Μετατρέπει οπτικά σήματα σε ηλεκτρικά για FTTH συνδέσεις.
-
-#### Συγκριτικός Πίνακας: Router vs Switch vs Modem
-
-| Χαρακτηριστικό | Router | Switch | Modem |
+| Property | Router | Switch | Modem |
 |---|---|---|---|
 | **OSI Layer** | Layer 3 (Network) | Layer 2 (Data Link) | Layer 1 (Physical) |
-| **Αναγνωριστικό** | IP Address | MAC Address | Δεν χρησιμοποιεί διεύθυνση |
-| **Πεδίο Εφαρμογής** | Μεταξύ δικτύων (inter-network) | Εντός δικτύου (intra-network LAN) | Σύνδεση με ISP |
-| **Βασική Λειτουργία** | Routing (δρομολόγηση) | Switching (μεταγωγή frames) | Modulation/Demodulation |
-| **Πρωτόκολλο** | IP, BGP, OSPF | Ethernet (IEEE 802.3) | DSL, DOCSIS, PON |
-| **Τοποθεσία** | Core και Edge | LAN (εντός δικτύου) | Gateway προς ISP |
-
-**Exam Note:** Ο router συνδέει **διαφορετικά** δίκτυα (π.χ. LAN με Internet). Ο switch συνδέει συσκευές **εντός** του ίδιου δικτύου. Το modem μετατρέπει σήματα για τη φυσική σύνδεση με τον ISP. Σε οικιακό περιβάλλον, συχνά τα τρία συνδυάζονται σε μία συσκευή.
+| **Identifier** | IP Address | MAC Address | No addressing |
+| **Scope** | Inter-network | Intra-network (LAN) | ISP connection |
+| **Primary Function** | Packet routing | Frame switching | Modulation/Demodulation |
 
 ---
 
-### Ενδιάμεσα κομβικά (δίκτυα πρόσβασης)
+### Intermediate Nodes in Access Networks
 *Intermediate Nodes in Access Networks*
 
-Τα **ενδιάμεσα κομβικά** σημεία των δικτύων πρόσβασης είναι οι κόμβοι που βρίσκονται μεταξύ του τελικού χρήστη και του edge router του ISP. Κάθε τεχνολογία πρόσβασης έχει τη δική της αρχιτεκτονική ενδιάμεσων κόμβων.
+Access networks use specialized intermediate nodes:
 
-#### DSL Access Network: Ενδιάμεσοι Κόμβοι
+#### DSL Access Network
+- **DSLAM (DSL Access Multiplexer):** Located at the ISP Central Office, aggregates hundreds of subscriber copper lines into a single fiber trunk toward the core.
 
-```
-  DSL Access Network: Αρχιτεκτονική
-  ────────────────────────────────────────────────────────────────────
-  [Οικία]                [Τηλεφωνικό Κέντρο (CO)]          [ISP]
-     |                           |                             |
-  [DSL Modem] ──χαλκός──> [DSLAM] ──οπτική ίνα──> [Edge Router]
-     |                  (DSL Access                     |
-  [Home Router]          Multiplexer)              [Internet]
-     |
-  [PC, TV, Tablet ...]
+#### HFC Access Network
+- **HFC Node:** Converts optical signals to coaxial RF signals for neighborhood distribution.
+- **CMTS (Cable Modem Termination System):** Located at cable headends, managing subscriber cable modems over a shared coaxial medium.
 
-  DSLAM: Συγκεντρώνει πολλές DSL γραμμές (εκατοντάδες χρήστες)
-         σε ένα κοινό ψηφιακό κανάλι προς τον ISP.
-```
-
-**DSLAM (DSL Access Multiplexer):** Το ενδιάμεσο κομβικό στοιχείο του DSL δικτύου που βρίσκεται στο τηλεφωνικό κέντρο (Central Office). Συγκεντρώνει εκατοντάδες DSL γραμμές από οικίες και τις πολυπλέκει σε έναν υψηλής ταχύτητας σύνδεσμο προς τον ISP.
-
-#### HFC (Hybrid Fiber-Coaxial) Access Network
-
-```
-  HFC Access Network: Αρχιτεκτονική
-  ────────────────────────────────────────────────────────────────────
-  [Οικία 1] ──\
-  [Οικία 2] ───╬── ομοαξονικό ──> [Node] ──οπτική ίνα──> [Cable Headend]
-  [Οικία 3] ──/  (shared medium)  (HFC    (fiber segment)  [CMTS]
-  ...                              Node)                    |
-  (500-2000 οικίες                                     [Edge Router]
-   στο ίδιο coax segment)                                   |
-                                                        [Internet]
-```
-
-**HFC Node:** Το ενδιάμεσο κομβικό σημείο που μετατρέπει το σήμα από οπτική ίνα (fiber) σε ομοαξονικό (coaxial) και αντίστροφα. Εξυπηρετεί 500-2000 οικίες.
-
-**CMTS (Cable Modem Termination System):** Αντίστοιχο του DSLAM για HFC — βρίσκεται στο cable headend και συγκεντρώνει πολλές καλωδιακές συνδέσεις.
-
-**Key Distinction:** Στο HFC, το ομοαξονικό τμήμα (coaxial segment) είναι **κοινόχρηστο (shared)** — άρα όλοι οι χρήστες της ίδιας γειτονιάς μοιράζονται το bandwidth. Στο DSL, η γραμμή χαλκού είναι **αποκλειστική (dedicated)** για κάθε χρήστη μέχρι το τηλεφωνικό κέντρο.
-
-#### FTTH (Fiber to the Home) Access Network
-
-```
-  FTTH Access Network (PON Architecture)
-  ────────────────────────────────────────────────────────────────────
-  [ISP / Telco CO]
-       |
-  [OLT (Optical Line Terminal)]
-       |
-  [Optical Fiber Backbone]
-       |
-  [Optical Splitter] ──── 1:32 ή 1:64
-  /    |    |    |    \
-[ONT] [ONT] [ONT] ... [ONT]   (Optical Network Terminal ανά σπίτι)
-  |     |     |          |
-[Οικ1][Οικ2][Οικ3]    [ΟικΝ]
-```
-
-**OLT (Optical Line Terminal):** Ο κεντρικός κόμβος στο τηλεφωνικό κέντρο που ελέγχει τη ροή δεδομένων σε ολόκληρο το PON (Passive Optical Network).
-
-**Optical Splitter:** Παθητική (passive) συσκευή που «χωρίζει» ένα ενιαίο οπτικό σήμα σε πολλαπλούς κλάδους (1:32 ή 1:64) χωρίς να χρειάζεται ηλεκτρική τροφοδοσία.
-
-**ONT (Optical Network Terminal):** Το «τερματικό» της οπτικής ίνας στο σπίτι του χρήστη — μετατρέπει τα οπτικά σήματα σε ηλεκτρικά (Ethernet) για τη σύνδεση με τον οικιακό router.
+#### FTTH Access Network (PON)
+- **OLT (Optical Line Terminal):** Central office equipment managing the PON network.
+- **Optical Splitter:** Passive device splitting single optical fibers to 32–64 subscriber fibers without electrical power.
+- **ONT (Optical Network Terminal):** Home subscriber terminal converting optical signals to Ethernet.
 
 ---
 
-## Αριθμητικό Παράδειγμα
-*Worked Numerical Example: End-to-End Delay σε Δίκτυο 3 Hops*
+## Worked Numerical Example
+*End-to-End Delay across 3 Hops*
 
-**Σενάριο:** Ένα πακέτο μεγέθους $L = 12.000$ bits αποστέλλεται από έναν client στο Network Edge σε έναν web server, διασχίζοντας 3 hops (2 core routers). Κάθε σύνδεσμος έχει:
+**Scenario:** A packet of size $L = 12,000$ bits is transmitted from a client across 3 hops (2 core routers) to a server.
 - Bandwidth: $R = 10 \text{ Mbps} = 10 \times 10^6 \text{ bps}$
-- Φυσική Απόσταση: $d = 500 \text{ km} = 5 \times 10^5 \text{ m}$
-- Ταχύτητα Διάδοσης: $s = 2 \times 10^8 \text{ m/s}$
-- Αγνοούμε queuing delay και processing delay.
+- Distance per hop: $d = 500 \text{ km} = 5 \times 10^5 \text{ m}$
+- Propagation Speed: $s = 2 \times 10^8 \text{ m/s}$
+- Ignore queuing and processing delays.
 
 ```
-  Τοπολογία:
+  Topology:
   [Client] ──R1──> [Core Router A] ──R2──> [Core Router B] ──R3──> [Server]
        hop 1                  hop 2                    hop 3
 ```
 
-**Βήμα 1: Καθυστέρηση Μετάδοσης ανά Hop ($d_{trans}$):**
+**Step 1: Transmission Delay per Hop ($d_{trans}$):**
 
-$$d_{trans} = \frac{L}{R} = \frac{12.000}{10 \times 10^6} = 1.2 \times 10^{-3} \text{ s} = 1.2 \text{ ms}$$
+$$d_{trans} = \frac{L}{R} = \frac{12,000}{10 \times 10^6} = 1.2 \times 10^{-3} \text{ s} = 1.2 \text{ ms}$$
 
-**Βήμα 2: Καθυστέρηση Διάδοσης ανά Hop ($d_{prop}$):**
+**Step 2: Propagation Delay per Hop ($d_{prop}$):**
 
 $$d_{prop} = \frac{d}{s} = \frac{5 \times 10^5}{2 \times 10^8} = 2.5 \times 10^{-3} \text{ s} = 2.5 \text{ ms}$$
 
-**Βήμα 3: Συνολική Καθυστέρηση (Store-and-Forward, $N = 3$ hops):**
+**Step 3: Total End-to-End Delay (Store-and-Forward, $N = 3$ hops):**
 
 $$d_{end\text{-}to\text{-}end} = N \cdot (d_{trans} + d_{prop}) = 3 \times (1.2 + 2.5) = 3 \times 3.7 = 11.1 \text{ ms}$$
 
-**Βήμα 4: Ανάλυση:**
+**Step 4: Component Breakdown:**
 
-| Συνιστώσα | Ανά Hop | Σύνολο (3 hops) | Ποσοστό |
+| Component | Per Hop | Total (3 hops) | Share |
 |---|---|---|---|
-| $d_{trans}$ (Μετάδοση) | 1.2 ms | 3.6 ms | 32% |
-| $d_{prop}$ (Διάδοση) | 2.5 ms | 7.5 ms | 68% |
-| **Σύνολο** | **3.7 ms** | **11.1 ms** | **100%** |
-
-**Παρατήρηση:** Σε αυτό το σενάριο, η καθυστέρηση διάδοσης ($d_{prop}$) κυριαρχεί επειδή το μέγεθος πακέτου είναι μικρό (12.000 bits) και το bandwidth υψηλό (10 Mbps). Αυτό είναι τυπικό για μικρά πακέτα σε σύγχρονα, υψηλής ταχύτητας δίκτυα.
+| $d_{trans}$ (Transmission) | 1.2 ms | 3.6 ms | 32% |
+| $d_{prop}$ (Propagation) | 2.5 ms | 7.5 ms | 68% |
+| **Total** | **3.7 ms** | **11.1 ms** | **100%** |
 
 ---
 
-## Συγκεντρωτικός Πίνακας
+## Summary Table
 
-| Έννοια | Ορισμός | Κύριο Χαρακτηριστικό |
+| Concept | Definition | Key Characteristic |
 |---|---|---|
-| **Network Edge** | Τμήμα δικτύου με τα end systems (clients, servers) | Εδώ βρίσκονται οι χρήστες και οι εφαρμογές |
-| **Network Core** | Πυρήνας διασυνδεδεμένων routers και δικτύων | Αποκλειστικά forwarding και routing πακέτων |
-| **Client** | End system που ξεκινά αιτήσεις για υπηρεσίες | Δυναμική IP, intermittent connectivity |
-| **Server** | End system που αποκρίνεται σε αιτήσεις | Always-on, permanent IP, data centers |
-| **Access Network** | Δίκτυο που συνδέει end systems με edge router | «Τελευταία μίλια» προς τον ISP |
-| **Router** | Προωθεί πακέτα μεταξύ διαφορετικών δικτύων | Layer 3, IP addresses, routing table |
-| **Switch** | Προωθεί frames εντός LAN | Layer 2, MAC addresses, MAC table |
-| **Modem** | Μετατρέπει σήματα για σύνδεση με ISP | Layer 1, modulation/demodulation |
-| **Packet Switching** | Ανεξάρτητη μεταφορά πακέτων από router σε router | Store-and-forward, statistical multiplexing |
-| **Store-and-Forward** | Router λαμβάνει ολόκληρο πακέτο πριν προωθήσει | Εισάγει καθυστέρηση $L/R$ ανά hop |
-| **Tier-1 ISP** | Παγκόσμιος ISP backbone, δεν πληρώνει transit | Peering με άλλους Tier-1 χωρίς κόστος |
-| **IXP** | Σημείο ανταλλαγής Internet traffic μεταξύ ISPs | Μειώνει κόστος και βελτιώνει latency |
-| **DSLAM** | Πολυπλεξεί DSL γραμμές στο τηλεφωνικό κέντρο | Ενδιάμεσος κόμβος DSL access network |
-| **CMTS** | Πολυπλεξεί HFC cable modem γραμμές | Ενδιάμεσος κόμβος HFC access network |
-| **OLT** | Κεντρικός κόμβος PON (FTTH) δικτύου | Ελέγχει ροή δεδομένων σε ολόκληρο το PON |
-| **Packet Loss** | Απώλεια πακέτων λόγω γεμάτης ουράς router | Εμφανίζεται όταν $\rho = L \cdot a / R > 1$ |
+| **Network Edge** | Network segment containing end systems | Users and applications reside here |
+| **Network Core** | Mesh of interconnected core routers | Dedicated to packet forwarding & routing |
+| **Client** | End system initiating service requests | Dynamic IP, intermittent connection |
+| **Server** | End system responding to requests | Always-on, static IP, data centers |
+| **Access Network** | Infrastructure connecting edge hosts to ISP | Last-mile connectivity |
+| **Router** | Forwards packets between different networks | Layer 3, IP addresses, routing tables |
+| **Switch** | Forwards frames within local network | Layer 2, MAC addresses, CAM table |
+| **Modem** | Converts signals for ISP physical medium | Layer 1, modulation/demodulation |
+| **Packet Switching** | Independent packet transport node-to-node | Store-and-forward, statistical multiplexing |
+| **Store-and-Forward** | Router receives full packet before forwarding | Adds $L/R$ delay per hop |
+| **Tier-1 ISP** | Global backbone ISP, pays no transit | Settlement-free peering |
+| **IXP** | Facility for direct ISP traffic exchange | Reduces latency and transit cost |
+| **DSLAM** | Aggregates DSL lines at central office | DSL access network node |
+| **CMTS** | Aggregates HFC cable lines at headend | Cable access network node |
+| **OLT** | Central PON node controlling FTTH network | Controls optical splitters and ONTs |
+| **Packet Loss** | Dropped packets due to full router buffers | Occurs when $\rho = L \cdot a / R > 1$ |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 
-- Το Διαδίκτυο χωρίζεται αρχιτεκτονικά σε **Network Edge** (τελικοί χρήστες, εφαρμογές) και **Network Core** (routers, forwarding, routing).
-- Στο **client-server** μοντέλο, ο client ξεκινά αιτήσεις και ο server (always-on, permanent IP) αποκρίνεται. Στο **P2P** μοντέλο, κάθε κόμβος είναι ταυτόχρονα client και server.
-- Τα **δίκτυα πρόσβασης** (DSL, HFC, FTTH, Ethernet, 4G/5G) είναι η «τελευταία μίλια» που συνδέει τα end systems με τον Network Core.
-- Ο **router** λειτουργεί στο Layer 3 (IP), ο **switch** στο Layer 2 (MAC) και το **modem** στο Layer 1 (Physical). Κάθε μία αναλαμβάνει διαφορετικό ρόλο στη δομή του δικτύου.
-- Το Διαδίκτυο είναι ένα **δίκτυο δικτύων** ιεραρχικά οργανωμένο: Tier-1 (global backbone) → Tier-2 (regional) → Tier-3/Access ISPs → τελικοί χρήστες.
-- Ο **Network Core** λειτουργεί αποκλειστικά με **packet switching** (store-and-forward): ο router λαμβάνει ολόκληρο το πακέτο, εξετάζει την IP επικεφαλίδα και το προωθεί.
-- **Forwarding** (τοπική απόφαση, hardware, nanoseconds) και **routing** (παγκόσμιος υπολογισμός βέλτιστης διαδρομής, software, seconds) είναι εννοιολογικά διαφορετικές — αλλά συμπληρωματικές — διαδικασίες.
-- Το **packet loss** εμφανίζεται όταν η ουρά (buffer) του router γεμίσει. Η πιθανότητα αυτού αυξάνεται καθώς η κυκλοφοριακή ένταση $\rho = L \cdot a / R$ πλησιάζει ή υπερβαίνει το 1.
-- Ενδιάμεσοι κόμβοι όπως **DSLAM** (DSL), **CMTS** (HFC), **OLT/Splitter/ONT** (FTTH) αποτελούν αναπόσπαστο μέρος των αντίστοιχων access networks — δεν είναι απλώς «καλώδια» αλλά εξελιγμένα δικτυακά στοιχεία.
-- Τα **IXP** (Internet Exchange Points) επιτρέπουν σε ISPs να ανταλλάσσουν traffic απευθείας, μειώνοντας κόστος και latency χωρίς να χρειαστεί transit μέσω Tier-1 backbone.
+- The Internet is architecturally divided into the **Network Edge** (end users, hosts) and the **Network Core** (routers, forwarding, routing).
+- In **client-server** models, clients initiate requests to an always-on server with a static IP. **P2P** models distribute roles equally across peers.
+- **Access networks** (DSL, HFC, FTTH, Ethernet, 4G/5G) constitute the last-mile connectivity to edge routers.
+- **Routers** operate at Layer 3 (IP), **switches** at Layer 2 (MAC), and **modems** at Layer 1 (Physical).
+- The Internet is a **network of networks** organized hierarchically: Tier-1 (global backbone) → Tier-2 (regional) → Tier-3/Access ISPs.
+- **Store-and-forward** packet switching requires receiving a complete packet before forwarding, introducing $L/R$ delay per hop.
+- **Forwarding** (local, hardware, nanoseconds) and **routing** (global path calculation, software, seconds) are distinct, complementary functions.
+- **Packet loss** occurs when router queues overflow when traffic intensity $\rho = L \cdot a / R > 1$.
+- Intermediate nodes such as **DSLAMs**, **CMTSs**, and **OLTs/Splitters** are specialized access network elements.
+- **IXPs** allow ISPs to exchange traffic directly, avoiding Tier-1 transit costs and lowering latency.
