@@ -1,44 +1,44 @@
-# ΑΡΧΕΣ ΓΛΩΣΣΩΝ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
-## ΕΠΑΝΑΛΗΠΤΙΚΗ ΕΞΕΤΑΣΗ ΣΕΠΤΕΜΒΡΙΟΥ 16/9/2024
-**Τμήμα Πληροφορικής και Τηλεπικοινωνιών**  
-**Πανεπιστήμιο Ιωαννίνων**  
+# PRINCIPLES OF PROGRAMMING LANGUAGES
+## RESIT EXAMINATION SEPTEMBER 16/9/2024
+**Department of Computer Science and Telecommunications**  
+**University of Ioannina**  
 **A**
 
 ---
 
-### Θέμα 1 - Α [1 μονάδα]
+### Topic 1 - A [1 point]
 
-**Α.** Δίνεται η γραμματική G με τους ακόλουθους κανόνες παραγωγής:
+**A.** Given the grammar G with the following production rules:
 ```
 S -> A | B
 A -> aA | a
 B -> aB | a
 ```
-όπου το αλφάβητο αποτελείται μόνο από το σύμβολο `a`. Να ελέγξετε αν η παραπάνω γραμματική είναι ασαφής.
+where the alphabet consists only of the symbol `a`. Check whether the above grammar is ambiguous.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Μια γραμματική είναι ασαφής εάν υπάρχει τουλάχιστον μία συμβολοσειρά στη γλώσσα της που μπορεί να παραχθεί με δύο διαφορετικές leftmost παραγωγές (ή συντακτικά δέντρα).
+A grammar is ambiguous if there exists at least one string in its language that can be derived by two different leftmost derivations (or parse trees).
 
-Έστω η συμβολοσειρά `a`.
+Consider the string `a`.
 
-**1η leftmost παραγωγή:**
-1. `S` => `A` (χρησιμοποιώντας τον κανόνα `S -> A`)
-2. `A` => `a` (χρησιμοποιώντας τον κανόνα `A -> a`)
+**1st leftmost derivation:**
+1. `S` => `A` (using the rule `S -> A`)
+2. `A` => `a` (using the rule `A -> a`)
 
-**2η leftmost παραγωγή:**
-1. `S` => `B` (χρησιμοποιώντας τον κανόνα `S -> B`)
-2. `B` => `a` (χρησιμοποιώντας τον κανόνα `B -> a`)
+**2nd leftmost derivation:**
+1. `S` => `B` (using the rule `S -> B`)
+2. `B` => `a` (using the rule `B -> a`)
 
-Εφόσον η συμβολοσειρά `a` έχει δύο διακριτές leftmost παραγωγές (και συνεπώς δύο διακριτά συντακτικά δέντρα), η γραμματική είναι ασαφής.
+Since the string `a` has two distinct leftmost derivations (and consequently two distinct parse trees), the grammar is ambiguous.
 
 ***
 
-### Θέμα 1 - Β [2 μονάδες]
+### Topic 1 - B [2 points]
 
-**Β.** Δίνεται ο ακόλουθος κώδικας:
+**B.** Given the following code:
 ```c
 #include <stdio.h>
 void fun(int a, int b[]) {
@@ -52,31 +52,31 @@ int main(void) {
     printf("%d %d\n", a, b[0]);
 }
 ```
-Τι πρόκειται να εμφανίσει κατά την εκτέλεσή του; Εξηγήστε αν παραβιάζεται η ορθογωνικότητα και γιατί;
+What will it display when executed? Explain whether orthogonality is violated and why.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Έξοδος του προγράμματος:**
-Κατά την εκτέλεση του προγράμματος θα εμφανιστεί:
+**Program output:**
+When the program is executed, it will display:
 ```
 0 1
 ```
 
-**Εξήγηση:**
-- Στη γλώσσα C, όλες οι παράμετροι μεταβιβάζονται με τιμή (**pass-by-value**).
-- Η μεταβλητή `a` είναι ένας απλός ακέραιος. Μεταβιβάζεται η τιμή της (`0`) στη συνάρτηση `fun`. Η ανάθεση `a = 1` μέσα στη συνάρτηση τροποποιεί την τοπική παράμετρο της συνάρτησης και δεν επηρεάζει την αρχική μεταβλητή `a` στη `main`. Συνεπώς, εκτυπώνεται `0`.
-- Ο πίνακας `b`, όταν μεταβιβάζεται σε συνάρτηση, υποβαθμίζεται αυτόματα σε δείκτη στο πρώτο του στοιχείο (**array-to-pointer decay**). Έτσι, η `fun` λαμβάνει τη διεύθυνση μνήμης του πίνακα. Η εντολή `b[0] = 1` τροποποιεί άμεσα τα δεδομένα στη συγκεκριμένη διεύθυνση μνήμης, επηρεάζοντας το στοιχείο του πίνακα στη `main`. Συνεπώς, εκτυπώνεται `1`.
+**Explanation:**
+- In the C language, all parameters are passed by value (**pass-by-value**).
+- The variable `a` is a simple integer. Its value (`0`) is passed to the function `fun`. The assignment `a = 1` inside the function modifies the function's local parameter and does not affect the original variable `a` in `main`. Therefore, `0` is printed.
+- The array `b`, when passed to a function, is automatically decayed into a pointer to its first element (**array-to-pointer decay**). Thus, `fun` receives the memory address of the array. The statement `b[0] = 1` directly modifies the data at that memory address, affecting the array element in `main`. Therefore, `1` is printed.
 
-**Παραβίαση της ορθογωνικότητας:**
-Ναι, παραβιάζεται η ορθογωνικότητα. Στη C, ενώ ο κανόνας είναι ότι η μεταβίβαση των ορισμάτων γίνεται με τιμή (pass-by-value), οι πίνακες αποτελούν εξαίρεση καθώς μεταβιβάζονται ως δείκτες (pass-by-pointer/reference) λόγω της αυτόματης υποβάθμισής τους. Αυτή η ασυνέπεια στη συμπεριφορά της μεταβίβασης παραμέτρων ανάλογα με τον τύπο δεδομένων (άλλος κανόνας για απλούς τύπους/δομές και άλλος για πίνακες) συνιστά παραβίαση της ορθογωνικότητας.
+**Violation of orthogonality:**
+Yes, orthogonality is violated. In C, although the rule is that arguments are passed by value (pass-by-value), arrays constitute an exception since they are passed as pointers (pass-by-pointer/reference) due to automatic decay. This inconsistency in parameter-passing behavior depending on the data type (one rule for simple types/structs and another for arrays) constitutes a violation of orthogonality.
 
 ---
 
-### Θέμα 2 - Α [1 μονάδα]
+### Topic 2 - A [1 point]
 
-**Α.** Έστω ο ακόλουθος κώδικας σε μια υποθετική γλώσσα προγραμματισμού:
+**A.** Consider the following code in a hypothetical programming language:
 ```javascript
 var x = 5;
 function A() {
@@ -88,30 +88,30 @@ function B() {
 }
 print(A());
 ```
-Υποθέτοντας ότι η γλώσσα χρησιμοποιεί είτε α) στατική εμβέλεια (static scoping) είτε β) δυναμική εμβέλεια (dynamic scoping), ποια θα είναι η έξοδος του προγράμματος σε κάθε περίπτωση και γιατί; Ποιος από τους δύο τρόπους εμβέλειας έχει επικρατήσει στις σύγχρονες γλώσσες προγραμματισμού;
+Assuming the language uses either a) static scoping or b) dynamic scoping, what will be the output of the program in each case and why? Which of the two scoping mechanisms has prevailed in modern programming languages?
 
 ***
 
-**Λύση:**
+**Solution:**
 
-* **α) Στατική εμβέλεια (Static scoping / Lexical scoping):**
-  Η επίλυση των ονομάτων βασίζεται στη δομή του πηγαίου κώδικα κατά το compile-time. Ο lexical parent της συνάρτησης `B` είναι το καθολικό (global) περιβάλλον στο οποίο ορίζεται. 
-  Όταν εκτελείται η `B()`, ψάχνει για τη μεταβλητή `x`. Καθώς δεν υπάρχει τοπικά στη `B`, ανατρέχει στον lexical parent της (το καθολικό περιβάλλον), όπου `x = 5`. Η τοπική δήλωση `var x = 10` εντός της `A` δεν επηρεάζει τη `B`.
-  Έξοδος: **`5`**.
+* **a) Static scoping (Static scoping / Lexical scoping):**
+  Name resolution is based on the structure of the source code at compile-time. The lexical parent of function `B` is the global environment in which it is defined.
+  When `B()` executes, it searches for the variable `x`. Since it does not exist locally in `B`, it refers to its lexical parent (the global environment), where `x = 5`. The local declaration `var x = 10` inside `A` does not affect `B`.
+  Output: **`5`**.
 
-* **β) Δυναμική εμβέλεια (Dynamic scoping):**
-  Η επίλυση των ονομάτων βασίζεται στη στοίβα κλήσεων (call stack) κατά το runtime.
-  Η συνάρτηση `B` καλείται από τη συνάρτηση `A` (η οποία με τη σειρά της κλήθηκε στο καθολικό περιβάλλον). Όταν η `B` ψάχνει για το `x`, αναζητά στη συνάρτηση που την κάλεσε, δηλαδή στην `A`. Στην `A`, η τοπική μεταβλητή `x` έχει την τιμή `10`.
-  Έξοδος: **`10`**.
+* **b) Dynamic scoping:**
+  Name resolution is based on the call stack at runtime.
+  Function `B` is called from function `A` (which in turn was called in the global environment). When `B` searches for `x`, it looks in the function that called it, namely `A`. In `A`, the local variable `x` has the value `10`.
+  Output: **`10`**.
 
-* **Επικράτηση στις σύγχρονες γλώσσες:**
-  Στις σύγχρονες γλώσσες προγραμματισμού έχει επικρατήσει σχεδόν καθολικά η **στατική εμβέλεια**. Αυτό συμβαίνει επειδή κάνει τον κώδικα πιο ευανάγνωστο και προβλέψιμο (ο προγραμματιστής μπορεί να προσδιορίσει την εμβέλεια των μεταβλητών κοιτάζοντας απλά τον κώδικα, χωρίς να χρειάζεται να γνωρίζει τη δυναμική ροή εκτέλεσης). Επιπλέον, διευκολύνει τον μεταγλωττιστή στον έλεγχο τύπων και στις βελτιστοποιήσεις διαχείρισης μνήμης.
+* **Prevalence in modern languages:**
+  In modern programming languages, **static scoping** has almost universally prevailed. This is because it makes code more readable and predictable (the programmer can determine the scope of variables simply by looking at the code, without needing to know the dynamic execution flow). Furthermore, it facilitates the compiler's type checking and memory management optimizations.
 
 ---
 
-### Θέμα 2 - Β [1 μονάδα]
+### Topic 2 - B [1 point]
 
-**Β.** Τι θα εμφανίσει ο ακόλουθος κώδικας στη γλώσσα C κατά την εκτέλεση;
+**B.** What will the following C code display when executed?
 ```c
 #include <stdio.h>
 void foo(int a) {
@@ -127,25 +127,25 @@ int main() {
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Έξοδος του προγράμματος:**
+**Program output:**
 ```
 2 1 1
 3 2 1
 4 3 1
 ```
 
-**Εξήγηση:**
-- Η μεταβλητή `a` είναι τυπική παράμετρος. Σε κάθε κλήση λαμβάνει την τρέχουσα τιμή του `x` (`1`, `2`, `3`). Αυξάνεται κατά 1 με την `a++` και εκτυπώνεται, άρα παίρνει διαδοχικά τις τιμές `2`, `3`, `4`.
-- Η μεταβλητή `b` είναι δηλωμένη ως `static`. Οι static τοπικές μεταβλητές στη C αρχικοποιούνται μόνο μία φορά (στην πρώτη κλήση της συνάρτησης) και διατηρούν την τιμή τους στη μνήμη μεταξύ των κλήσεων. Έτσι, η `b` αυξάνεται διαδοχικά: `0 -> 1` στην 1η κλήση, `1 -> 2` στη 2η κλήση, και `2 -> 3` στην 3η κλήση.
-- Η μεταβλητή `c` είναι αυτόματη (τοπική) μεταβλητή. Αρχικοποιείται σε `0` σε κάθε κλήση, αυξάνεται κατά 1 (`c++`), εκτυπώνεται ως `1` και η μνήμη της αποδεσμεύεται με την έξοδο από τη συνάρτηση. Έτσι, εκτυπώνει πάντα `1`.
+**Explanation:**
+- The variable `a` is a formal parameter. In each call it receives the current value of `x` (`1`, `2`, `3`). It is increased by 1 with `a++` and printed, thus taking the successive values `2`, `3`, `4`.
+- The variable `b` is declared `static`. Static local variables in C are initialized only once (on the first call of the function) and retain their value in memory between calls. Thus, `b` increases successively: `0 -> 1` on the 1st call, `1 -> 2` on the 2nd call, and `2 -> 3` on the 3rd call.
+- The variable `c` is an automatic (local) variable. It is initialized to `0` on each call, increased by 1 (`c++`), printed as `1`, and its memory is released upon exiting the function. Thus, it always prints `1`.
 
 ---
 
-### Θέμα 3 - Α [1 μονάδα]
+### Topic 3 - A [1 point]
 
-**Α.** Δίνεται ο ακόλουθος C++ κώδικας:
+**A.** Given the following C++ code:
 ```cpp
 #include <iostream>
 using namespace std;
@@ -163,29 +163,29 @@ int main() {
     ptr->show();
 }
 ```
-Τι θα εμφανίσει το πρόγραμμα όταν εκτελείται; Ποιος είναι ο ρόλος της λέξης κλειδί `virtual` στον κώδικα; Τι θα συμβεί αν αφαιρεθεί η λέξη `virtual` από τη δήλωση της συνάρτησης `show` στη κλάση `Base`;
+What will the program display when executed? What is the role of the `virtual` keyword in the code? What will happen if the `virtual` keyword is removed from the declaration of the `show` function in the `Base` class?
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Έξοδος του προγράμματος:**
-Το πρόγραμμα θα εμφανίσει:
+**Program output:**
+The program will display:
 ```
 Ioannina
 ```
 
-**Ρόλος της λέξης-κλειδί `virtual`:**
-Η λέξη-κλειδί `virtual` ενεργοποιεί τον **δυναμικό δεσμό (dynamic/late binding)**. Όταν μια συνάρτηση είναι virtual, η κλήση της μέσω ενός δείκτη βασικής κλάσης (εδώ `Base *ptr`) επιλύεται κατά το runtime με βάση τον πραγματικό τύπο του αντικειμένου στο οποίο δείχνει ο δείκτης (εδώ, το αντικείμενο `obj` είναι τύπου `Derived`). Επομένως, εκτελείται η υπερκαλυμμένη μέθοδος της παράγωγης κλάσης.
+**Role of the `virtual` keyword:**
+The `virtual` keyword enables **dynamic binding (late binding)**. When a function is virtual, calling it through a base class pointer (here `Base *ptr`) is resolved at runtime based on the actual type of the object the pointer points to (here, the object `obj` is of type `Derived`). Therefore, the overridden method of the derived class is executed.
 
-**Αν αφαιρεθεί η λέξη-κλειδί `virtual`:**
-Αν αφαιρεθεί η `virtual` από τη δήλωση της `show()` στη βασική κλάση `Base`, θα χρησιμοποιηθεί **στατικός δεσμός (static/early binding)** κατά το compile-time. Ο μεταγλωττιστής θα καθορίσει ποια συνάρτηση θα κληθεί με βάση τον τύπο του δείκτη `ptr` (που είναι `Base*`). Έτσι, θα κληθεί η `Base::show()` και το πρόγραμμα θα εκτυπώσει **`Arta`** αντί για `Ioannina`.
+**If the `virtual` keyword is removed:**
+If `virtual` is removed from the declaration of `show()` in the base class `Base`, **static binding (early binding)** is used at compile-time. The compiler will determine which function to call based on the type of the pointer `ptr` (which is `Base*`). Thus, `Base::show()` will be called and the program will print **`Arta`** instead of `Ioannina`.
 
 ---
 
-### Θέμα 3 - Β [1 μονάδα]
+### Topic 3 - B [1 point]
 
-**Β.** Γράψτε την κανονική έκφραση που αντιστοιχεί στο ακόλουθο διάγραμμα:
+**B.** Write the regular expression that corresponds to the following diagram:
 
 ```mermaid
 stateDiagram-v2
@@ -205,97 +205,97 @@ stateDiagram-v2
     digit --> [*]
 ```
 
-Γράψε 1 λεκτικό που θα εντόπιζε η συγκεκριμένη κανονική έκφραση.
+Write 1 string (token) that would be matched by this regular expression.
 
-Δίνεται ότι:
-* `^`    έναρξη γραμμής
-* `.`    οποιοσδήποτε χαρακτήρας
-* `\d`   ψηφίο
-* `\s`   «λευκός» χαρακτήρας (π.χ. διάστημα, tab)
+Given that:
+* `^`    start of line
+* `.`    any character
+* `\d`   digit
+* `\s`   whitespace character (e.g., space, tab)
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Κανονική Έκφραση (Regular Expression):**
-Ακολουθώντας τα βήματα του διαγράμματος κατάσταση-προς-κατάσταση:
+**Regular Expression:**
+Following the diagram state-by-state:
 1. `Start of line`: `^`
-2. `Char_Class` (χαρακτήρες `a-z`, `0-9` ή `_`) 2 έως 4 φορές: `[a-z0-9_]{2,4}`
+2. `Char_Class` (characters `a-z`, `0-9` or `_`) 2 to 4 times: `[a-z0-9_]{2,4}`
 3. `white space`: `\s`
 4. `any character`: `.`
 5. `digit`: `\d`
-6. `digit` αναδρομή (αυτο-σύνδεση 0 ή περισσότερες φορές): `\d*`
+6. `digit` recursion (self-loop 0 or more times): `\d*`
 
-Συνδυάζοντας τα παραπάνω, η κανονική έκφραση είναι:
+Combining the above, the regular expression is:
 `^[a-z0-9_]{2,4}\s.\d+`
 
-**Παράδειγμα λεκτικού που εντοπίζεται:**
-Ένα έγκυρο λεκτικό (string) που ταιριάζει με αυτήν την έκφραση είναι το:
+**Example string that is matched:**
+A valid string (token) that matches this expression is:
 `ab x1`
-*(Ανάλυση: `ab` ταιριάζει με το `[a-z0-9_]{2,4}`, ακολουθεί κενό διάστημα `\s`, οποιοσδήποτε χαρακτήρας `x` για το `.`, και το ψηφίο `1` για το `\d+`)*
+*(Analysis: `ab` matches `[a-z0-9_]{2,4}`, followed by a space `\s`, any character `x` for `.`, and the digit `1` for `\d+`)*
 
 ---
 
-### Θέμα 4 - Α [1 μονάδα]
+### Topic 4 - A [1 point]
 
-**Α.** Δίνεται η ακόλουθη συνάρτηση σε Haskell:
+**A.** Given the following function in Haskell:
 ```haskell
 fun :: Integer -> Integer
 fun x
     | x > 1 = x * fun (x-1)
     | otherwise 1
 ```
-1. Τι σημαίνει η πρώτη γραμμή της συνάρτησης;
-2. Τι θα επιστρέψει η κλήση της ως εξής: `fun 5`
+1. What does the first line of the function mean?
+2. What will the call `fun 5` return?
 
 ***
 
-**Λύση:**
+**Solution:**
 
-1. **Σημασία της πρώτης γραμμής (`fun :: Integer -> Integer`):**
-   Είναι η δήλωση τύπου (type signature) της συνάρτησης `fun`. Δηλώνει ότι η συνάρτηση δέχεται ως όρισμα μια τιμή τύπου `Integer` (ακέραιος αριθμός απεριόριστης ακρίβειας στη Haskell) και επιστρέφει μια τιμή επίσης τύπου `Integer`.
-2. **Τι θα επιστρέψει η κλήση `fun 5`:**
-   Η συνάρτηση υπολογίζει αναδρομικά το παραγοντικό του ορίσματος.
+1. **Meaning of the first line (`fun :: Integer -> Integer`):**
+   It is the type signature of the function `fun`. It declares that the function accepts as an argument a value of type `Integer` (arbitrary-precision integer in Haskell) and returns a value also of type `Integer`.
+2. **What the call `fun 5` will return:**
+   The function recursively computes the factorial of its argument.
    `fun 5` = 5 * `fun 4` = 5 * 4 * `fun 3` = 5 * 4 * 3 * `fun 2` = 5 * 4 * 3 * 2 * 1 = **`120`**.
 
 ---
 
-### Θέμα 4 - Β [2 μονάδες]
+### Topic 4 - B [2 points]
 
-**Β.** Δίνεται ο ακόλουθος ορισμός για το κατηγόρημα `foo/2` στη Prolog:
+**B.** Given the following definition for the `foo/2` predicate in Prolog:
 ```prolog
 foo([], 0).
 foo([_ | T], L) :-
     foo(T, TL),
     L is TL + 1.
 ```
-3. Περιγράψτε τη λειτουργία του κατηγορήματος `foo/2`.
-4. Δώστε 2 παραδείγματα όπου η χρήση του `foo/2` μπορεί να γίνει με διαφορετικό τρόπο.
-5. Εξηγήστε την υλοποίηση του `foo/2`, αναλύοντας τις 2 προτάσεις από τις οποίες αποτελείται.
+3. Describe the operation of the `foo/2` predicate.
+4. Give 2 examples where the use of `foo/2` can be done in a different way.
+5. Explain the implementation of `foo/2`, analyzing the 2 clauses it consists of.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-3. **Λειτουργία του κατηγορήματος `foo/2`:**
-   Το κατηγόρημα `foo/2` υπολογίζει το μήκος (δηλαδή τον αριθμό των στοιχείων) μιας δοθείσας λίστας. Το πρώτο όρισμα είναι η λίστα και το δεύτερο όρισμα είναι το μήκος της.
+3. **Operation of the `foo/2` predicate:**
+   The `foo/2` predicate computes the length (i.e., the number of elements) of a given list. The first argument is the list and the second argument is its length.
 
-4. **Δύο παραδείγματα με διαφορετική χρήση:**
-   Λόγω της δηλωτικής φύσης της Prolog, το κατηγόρημα μπορεί να χρησιμοποιηθεί με διάφορους τρόπους ανάλογα με το ποιες μεταβλητές είναι ελεύθερες ή δεσμευμένες:
-   - **Υπολογισμός μήκους (Εύρεση εξόδου):**
+4. **Two examples with different usage:**
+   Due to Prolog's declarative nature, the predicate can be used in various ways depending on which variables are free or bound:
+   - **Length computation (output finding):**
      `?- foo([a, b, c], L).`
-     *Αποτέλεσμα:* `L = 3.` (υπολογίζει το μήκος της λίστας)
-   - **Έλεγχος/Επαλήθευση ορθότητας:**
+     *Result:* `L = 3.` (computes the length of the list)
+   - **Checking/verifying correctness:**
      `?- foo([a, b, c], 3).`
-     *Αποτέλεσμα:* `true.` (επαληθεύει αν το μήκος της λίστας είναι πράγματι 3)
-   - **Δημιουργία λίστας συγκεκριμένου μήκους:**
+     *Result:* `true.` (verifies whether the length of the list is indeed 3)
+   - **Generating a list of a specific length:**
      `?- foo(L, 2).`
-     *Αποτέλεσμα:* `L = [_, _].` (δημιουργεί μια λίστα 2 στοιχείων με ελεύθερες μεταβλητές)
+     *Result:* `L = [_, _].` (creates a 2-element list with free variables)
 
-5. **Ανάλυση των 2 προτάσεων της υλοποίησης:**
-   - **Πρόταση 1 (`foo([], 0).`):**
-     Αποτελεί τη βάση της αναδρομής (base case). Δηλώνει ότι η κενή λίστα `[]` έχει μήκος 0.
-   - **Πρόταση 2 (`foo([_ | T], L) :- foo(T, TL), L is TL + 1.`):**
-     Είναι ο αναδρομικός κανόνας. Για μια μη κενή λίστα που αποτελείται από μια κεφαλή (την οποία αγνοούμε με το σύμβολο `_`) και μια ουρά `T`:
-     - Πρώτα καλείται αναδρομικά το `foo(T, TL)` για να υπολογιστεί το μήκος `TL` της ουράς της λίστας.
-     - Στη συνέχεια, το συνολικό μήκος `L` υπολογίζεται προσθέτοντας `1` στο μήκος της ουράς (`L is TL + 1`).
+5. **Analysis of the 2 clauses of the implementation:**
+   - **Clause 1 (`foo([], 0).`):**
+     It is the base case of the recursion. It declares that the empty list `[]` has length 0.
+   - **Clause 2 (`foo([_ | T], L) :- foo(T, TL), L is TL + 1.`):**
+     It is the recursive rule. For a non-empty list consisting of a head (which we ignore with the `_` symbol) and a tail `T`:
+     - First, `foo(T, TL)` is called recursively to compute the length `TL` of the tail of the list.
+     - Then, the total length `L` is computed by adding `1` to the length of the tail (`L is TL + 1`).

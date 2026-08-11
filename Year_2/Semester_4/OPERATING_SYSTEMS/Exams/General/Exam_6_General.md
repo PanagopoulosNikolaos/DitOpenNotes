@@ -1,168 +1,168 @@
-# Εξέταση 6 — Λειτουργικά Συστήματα
+# Exam 6 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Ιδεατή Μνήμη — Σελιδοποίηση, Τμηματοποίηση, Αλγόριθμοι Αντικατάστασης Σελίδων*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (10 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Τι είναι **page fault**;
-
-- α) Ένα σφάλμα προγραμματισμού που καταρρέει το σύστημα  
-- β) Η πρόσβαση σε σελίδα που δεν βρίσκεται στη φυσική μνήμη (RAM)  
-- γ) Υπέρβαση του ορίου μνήμης μιας διεργασίας  
-- δ) Σφάλμα στον πίνακα σελίδων
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Ποιος αλγόριθμος αντικατάστασης σελίδων **δεν υλοποιείται στην πράξη** και χρησιμοποιείται μόνο ως θεωρητικός δείκτης αναφοράς;
+## PART A — THEORY (50 units)
 
-- α) FIFO  
-- β) LRU  
-- γ) OPT (Optimal)  
-- δ) LFU
+*Topics: Virtual Memory — Paging, Segmentation, Page Replacement Algorithms*
 
 ---
 
-**3.** Τι είναι η **ανωμαλία του Belady (Belady's Anomaly)**;
+### A1. Multiple Choice Questions (10 units — 2 units each)
 
-- α) Ο αλγόριθμος LRU είναι χειρότερος από τον FIFO  
-- β) Αύξηση του πλήθους frames μπορεί να αυξήσει τον αριθμό page faults με FIFO  
-- γ) Ο OPT δεν ελαχιστοποιεί πάντα τα page faults  
-- δ) Ο LRU δεν μπορεί να υλοποιηθεί σε πολυεπεξεργαστικά συστήματα
+**Circle the letter of the correct answer.**
 
----
+**1.** What is a **page fault**?
 
-**4.** Στη **Τμηματοποίηση (Segmentation)**, η εικονική διεύθυνση εκφράζεται ως:
-
-- α) Μόνο ο αριθμός σελίδας (p)  
-- β) Ζεύγος (αριθμός τμήματος s, offset d)  
-- γ) Απόλυτη φυσική διεύθυνση  
-- δ) Αριθμός frame και offset
+- a) A programming error that crashes the system
+- b) Accessing a page that is not in physical memory (RAM)
+- c) Exceeding a process's memory limit
+- d) An error in the page table
 
 ---
 
-**5.** Ποια από τις παρακάτω ιδιότητες χαρακτηρίζει τη **Σελιδοποίηση (Paging)**;
+**2.** Which page replacement algorithm **is not implemented in practice** and is used only as a theoretical reference index?
 
-- α) Ορατή στον προγραμματιστή  
-- β) Μεταβλητό μέγεθος σελίδων  
-- γ) Δεν υπάρχει εξωτερικός κατακερματισμός  
-- δ) Φυσική μνήμη πρέπει να είναι συνεχόμενη
-
----
-
-### Α2. Ερωτήσεις Συμπλήρωσης (6 μονάδες — 1 μονάδα έκαστη)
-
-Συμπληρώστε με τη σωστή λέξη/φράση:
-
-1. Η μετατροπή εικονικής σε φυσική διεύθυνση γίνεται από το ________________.
-
-2. Στη Σελιδοποίηση, η εικονική διεύθυνση χωρίζεται σε __________ (αριθμός σελίδας) και __________ (offset).
-
-3. Ο αλγόριθμος LRU βασίζεται στην αρχή της ________________ τοπικότητας.
-
-4. Η Τμηματοποίηση παράγει ________________ κατακερματισμό αλλά όχι ________________ κατακερματισμό.
-
-5. Ένας πίνακας σελίδων (page table) περιέχει για κάθε σελίδα ένα __________ bit που δείχνει αν η σελίδα είναι στη μνήμη.
+- a) FIFO
+- b) LRU
+- c) OPT (Optimal)
+- d) LFU
 
 ---
 
-### Α3. Άσκηση Αλγορίθμων Αντικατάστασης (18 μονάδες)
+**3.** What is **Belady's Anomaly**?
 
-Δίνεται η σειρά αναφοράς σελίδων: **3 2 1 0 3 2 4 3 2 1 0 4**  
-Αριθμός frames: **3** (αρχικά κενά)
-
-**1. (6 μονάδες)** Εφαρμόστε τον αλγόριθμο **FIFO**. Δείξτε τα frames σε κάθε βήμα και μετρήστε τα page faults.
-
-**2. (6 μονάδες)** Εφαρμόστε τον αλγόριθμο **LRU**. Δείξτε τα frames και τη σειρά LRU σε κάθε βήμα. Μετρήστε τα page faults.
-
-**3. (6 μονάδες)** Εφαρμόστε τον αλγόριθμο **OPT**. Δείξτε ποια σελίδα εκτοπίζεται κάθε φορά. Μετρήστε τα page faults.
+- a) LRU is worse than FIFO
+- b) Increasing the number of frames can increase the number of page faults with FIFO
+- c) OPT does not always minimize page faults
+- d) LRU cannot be implemented in multiprocessor systems
 
 ---
 
-### Α4. Άσκηση Μετάφρασης Διευθύνσεων (8 μονάδες)
+**4.** In **Segmentation**, the virtual address is expressed as:
 
-**Άσκηση 1 (4 μονάδες):**  
-Μέγεθος σελίδας: 4 KB = $2^{12}$ bytes. Εικονική διεύθυνση 16-bit.  
-Ο πίνακας σελίδων έχει: σελίδα 0 → frame 5, σελίδα 1 → frame 2, σελίδα 2 → frame 8.
+- a) Only the page number (p)
+- b) A pair (segment number s, offset d)
+- c) An absolute physical address
+- d) Frame number and offset
 
-Μεταφράστε τις εικονικές διευθύνσεις: `0x1A20` και `0x0050`.
+---
 
-**Άσκηση 2 (4 μονάδες):**  
-Πίνακας τμήματος διεργασίας:
+**5.** Which of the following properties characterizes **Paging**?
 
-| Τμήμα | Base | Limit |
+- a) Visible to the programmer
+- b) Variable page size
+- c) No external fragmentation
+- d) Physical memory must be contiguous
+
+---
+
+### A2. Fill-in-the-Blank Questions (6 units — 1 unit each)
+
+Fill in with the correct word/phrase:
+
+1. The conversion from virtual to physical address is done by the ________________.
+
+2. In Paging, the virtual address is divided into __________ (page number) and __________ (offset).
+
+3. The LRU algorithm is based on the principle of ________________ locality.
+
+4. Segmentation produces ________________ fragmentation but not ________________ fragmentation.
+
+5. A page table contains for each page a __________ bit indicating whether the page is in memory.
+
+---
+
+### A3. Page Replacement Algorithm Exercise (18 units)
+
+Given the page reference string: **3 2 1 0 3 2 4 3 2 1 0 4**
+Number of frames: **3** (initially empty)
+
+**1. (6 units)** Apply the **FIFO** algorithm. Show the frames at each step and count the page faults.
+
+**2. (6 units)** Apply the **LRU** algorithm. Show the frames and the LRU order at each step. Count the page faults.
+
+**3. (6 units)** Apply the **OPT** algorithm. Show which page is evicted each time. Count the page faults.
+
+---
+
+### A4. Address Translation Exercise (8 units)
+
+**Exercise 1 (4 units):**
+Page size: 4 KB = $2^{12}$ bytes. 16-bit virtual address.
+The page table has: page 0 → frame 5, page 1 → frame 2, page 2 → frame 8.
+
+Translate the virtual addresses: `0x1A20` and `0x0050`.
+
+**Exercise 2 (4 units):**
+Process segment table:
+
+| Segment | Base | Limit |
 |:---|:---|:---|
 | 0 | 219 | 600 |
 | 1 | 2300 | 14 |
 | 2 | 90 | 100 |
 | 3 | 1327 | 580 |
 
-Μεταφράστε: (α) $\langle 0, 430 \rangle$, (β) $\langle 1, 10 \rangle$, (γ) $\langle 3, 600 \rangle$. Αιτιολογήστε κάθε αποτέλεσμα.
+Translate: (a) $\langle 0, 430 \rangle$, (b) $\langle 1, 10 \rangle$, (c) $\langle 3, 600 \rangle$. Justify each result.
 
 ---
 
-### Α5. Σύγκριση Σελιδοποίησης και Τμηματοποίησης (8 μονάδες)
+### A5. Paging vs Segmentation Comparison (8 units)
 
-Συμπληρώστε τον παρακάτω πίνακα σύγκρισης:
+Complete the following comparison table:
 
-| Χαρακτηριστικό | Σελιδοποίηση | Τμηματοποίηση |
+| Characteristic | Paging | Segmentation |
 |:---|:---|:---|
-| Ορατότητα στον προγραμματιστή | | |
-| Εσωτερικός κατακερματισμός | | |
-| Εξωτερικός κατακερματισμός | | |
-| Μέγεθος τμημάτων/σελίδων | | |
-| Χωρισμός code/data | | |
-| Δυνατότητα διαμοίρασης (sharing) | | |
-| Υπέρβαση φυσικής μνήμης | | |
-| Δυνατότητα ανάπτυξης (stack/heap) | | |
+| Visibility to programmer | | |
+| Internal fragmentation | | |
+| External fragmentation | | |
+| Partition/page size | | |
+| Code/data separation | | |
+| Sharing capability | | |
+| Physical memory overflow | | |
+| Growth capability (stack/heap) | | |
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+## PART B — Unix Laboratory / jsLinux (50 units)
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε.
+> **jsLinux Environment:** Write **exactly** the commands you would use.
 
 ---
 
-### Β1. Σύστημα Αρχείων — Εντολές Πλοήγησης (10 μονάδες)
+### B1. File System — Navigation Commands (10 units)
 
-**1. (5 μονάδες)** Εξηγήστε αναλυτικά τι κάνουν οι παρακάτω εντολές και δώστε παράδειγμα εξόδου κάθε μίας:  
-   α) `pwd`  
-   β) `cd ..`  
-   γ) `cd -`  
-   δ) `cd ~`  
-   ε) `ls -la | head -20`
+**1. (5 units)** Explain in detail what the following commands do and give an example output for each:
+   a) `pwd`
+   b) `cd ..`
+   c) `cd -`
+   d) `cd ~`
+   e) `ls -la | head -20`
 
-**2. (5 μονάδες)** Πλοηγηθείτε στο jsLinux:  
-   α) Βρείτε σε ποιον κατάλογο βρίσκεστε  
-   β) Πηγαίνετε στο `/var` αν υπάρχει, αλλιώς στο `/etc`  
-   γ) Εμφανίστε τον κατάλογο με λεπτομέρειες  
-   δ) Επιστρέψτε στον προηγούμενο κατάλογο χρησιμοποιώντας `cd -`  
-   ε) Επαληθεύστε ότι επιστρέψατε με `pwd`
+**2. (5 units)** Navigate in jsLinux:
+   a) Find which directory you are in
+   b) Go to `/var` if it exists, otherwise to `/etc`
+   c) Display the directory with details
+   d) Return to the previous directory using `cd -`
+   e) Verify you returned with `pwd`
 
 ---
 
-### Β2. Χαρακτηριστικά Αρχείων (15 μονάδες)
+### B2. File Characteristics (15 units)
 
-**1. (5 μονάδες)** Εξηγήστε τι αντιπροσωπεύει η κάθε στήλη της εξόδου `ls -l`:
+**1. (5 units)** Explain what each column of the `ls -l` output represents:
 
 ```
 drwxr-xr-x  3  root  root  4096  Jun 15 12:30  home
@@ -170,39 +170,39 @@ drwxr-xr-x  3  root  root  4096  Jun 15 12:30  home
 lrwxrwxrwx  1  root  root     7  Jun 10 08:00  lib -> usr/lib
 ```
 
-**2. (5 μονάδες)** Στο jsLinux, χρησιμοποιήστε `stat` σε κάποιο αρχείο (π.χ. `/etc/hostname`). Εξηγήστε τι πληροφορίες επιστρέφει, ιδιαίτερα: inode number, hard links, μέγεθος σε bytes, δικαιώματα σε octal.
+**2. (5 units)** In jsLinux, use `stat` on a file (e.g., `/etc/hostname`). Explain what information it returns, particularly: inode number, hard links, size in bytes, permissions in octal.
 
-**3. (5 μονάδες)** Τι είναι **inode**; Ποια πληροφορία **δεν** αποθηκεύεται στο inode; Ποια η σχέση inode με hard links;
+**3. (5 units)** What is an **inode**? What information is **not** stored in the inode? What is the relationship between inodes and hard links?
 
 ---
 
-### Β3. Επεξεργασία Κειμένου με Pipes (15 μονάδες)
+### B3. Text Processing with Pipes (15 units)
 
-**1. (5 μονάδες)** Χρησιμοποιώντας `cat /etc/passwd` και εντολές pipes, εμφανίστε:  
-   α) Τον αριθμό χρηστών στο σύστημα  
-   β) Μόνο τα usernames (1ο πεδίο)  
-   γ) Τα shells που χρησιμοποιούν οι χρήστες (τελευταίο πεδίο), ταξινομημένα χωρίς επαναλήψεις
+**1. (5 units)** Using `cat /etc/passwd` and pipe commands, display:
+   a) The number of users in the system
+   b) Only the usernames (first field)
+   c) The shells users use (last field), sorted without duplicates
 
-**2. (5 μονάδες)** Δημιουργήστε αρχείο `/tmp/numbers.txt` με αριθμούς 1–10 (ένας ανά γραμμή). Γράψτε pipeline που να εμφανίζει τους αριθμούς σε **αντίστροφη σειρά** και να τους αποθηκεύει σε `/tmp/reversed.txt`.
+**2. (5 units)** Create a file `/tmp/numbers.txt` with numbers 1–10 (one per line). Write a pipeline that displays the numbers in **reverse order** and saves them to `/tmp/reversed.txt`.
 
-**3. (5 μονάδες)** Εξηγήστε τι κάνει η εντολή:  
+**3. (5 units)** Explain what the command does:
    ```
    find /etc -name "*.conf" 2>/dev/null | xargs wc -l | sort -n | tail -5
    ```
-   Τι αναζητά; Πού ανακατευθύνει τα σφάλματα και γιατί; Τι εμφανίζει τελικά;
+   What does it search for? Where does it redirect errors and why? What does it ultimately display?
 
 ---
 
-### Β4. Σενάριο Πρακτικής Άσκησης (10 μονάδες)
+### B4. Practical Exercise Scenario (10 units)
 
-**Σενάριο:** Ανάλυση της χρήσης του filesystem στο jsLinux.
+**Scenario:** Analyzing filesystem usage in jsLinux.
 
-1. **(3 μονάδες)** Εμφανίστε τη συνολική χρήση δίσκου για κάθε κατάλογο στο `/` με την εντολή `du -sh /*` (ή ισοδύναμη). Τι κάνει η επιλογή `-s` και η `-h`;
+1. **(3 units)** Display the total disk usage for each directory in `/` with the command `du -sh /*` (or equivalent). What does the `-s` option do and what does `-h` do?
 
-2. **(4 μονάδες)** Χρησιμοποιήστε `df -h` για να δείτε τη χρήση του filesystem. Εξηγήστε τις στήλες που εμφανίζονται (Filesystem, Size, Used, Avail, Use%, Mounted on).
+2. **(4 units)** Use `df -h` to view filesystem usage. Explain the columns displayed (Filesystem, Size, Used, Avail, Use%, Mounted on).
 
-3. **(3 μονάδες)** Βρείτε τα 5 μεγαλύτερα αρχεία σε ολόκληρο το σύστημα (αγνοώντας σφάλματα δικαιωμάτων). Γράψτε την εντολή και εξηγήστε γιατί χρησιμοποιείτε `2>/dev/null`.
+3. **(3 units)** Find the 5 largest files in the entire system (ignoring permission errors). Write the command and explain why you use `2>/dev/null`.
 
 ---
 
-*Καλή επιτυχία!*
+*Good luck!*

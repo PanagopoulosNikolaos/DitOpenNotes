@@ -1,97 +1,100 @@
 # Exam Paper 2024 06 14 (Team B)
 
-**Ομάδα Β**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Α.Μ.:________________________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστικής**       Παρασκευή 14/06/2024
+**Team B**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Student ID:________________________________
+**COURSE: Probability & Statistics**       Friday 14/06/2024
 
-Οδηγίες:
-1. Γράψτε το ονοματεπώνυμό σας πάνω στα θέματα.
-2. Τα θέματα είναι ισοδύναμα
-3. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-4. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου
+Instructions:
+1. Write your full name on the exam sheet.
+2. All problems carry equal weight
+3. Hand in the question sheet along with your answer booklet.
+4. Use of pocket calculators is permitted; mobile phones are prohibited
 
-**ΘΕΜΑ 1:** Οι χρόνοι (σε λεπτά) που απαιτούνται σε ένα εργοστάσιο από 120 εργαζόμενους για την εκτέλεση μιας εργασίας δίνεται στον ακόλουθο πίνακα, μετά από ομαδοποίηση που έγινε.:
+**PROBLEM 1:** The times (in minutes) required by 120 workers in a factory to perform a task are given in the following table after grouping:
 
-| Χρόνοι (σε min) | Κέντρα $x_i$ | Αριθμός εργαζ. $f_i$ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
+| Times (in min) | Class Marks $x_i$ | Number of Workers $f_i$ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
 | --- | --- | --- | --- | --- | --- |
 | [20, 25) | | 10 | | 1050.625 | |
 | [25, 30) | | 22 | | 606.375 | |
 | [30, 35) | | 50 | | 3.125 | |
 | [35, 40) | | 28 | | 631.75 | |
 | [40, 45) | | 10 | | 950.625 | |
-| Σύνολα | | 120 | | 3242.5 | |
+| Total | | 120 | | 3242.5 | |
 
-a. Με τη βοήθεια του πίνακα, να υπολογίσετε το μέσο χρόνο ($\bar{x}$) για την εκτέλεση της εργασίας, το $1^o$ τεταρτημόριο και τη τυπική απόκλιση
-b. Σε ποιο διάστημα κυμαίνεται ο χρόνος εκτέλεσης της εργασίας για το 68% των εργαζομένων;
-c. Η διοίκηση αποφάσισε να δώσει μπόνους στο 25% των εργαζομένων με το μικρότερο χρόνο εκτέλεσης της εργασίας. Πόσο χρόνο πρέπει να έχει κάποιος εργαζόμενος για να πάρει το μπόνους;
-d. Ποιες εντολές πρέπει να δώσουμε στην R για να υπολογίσει το μέσο όρο των δεδομένων μας;
+a. Using the table, calculate the mean time ($\bar{x}$) for task completion, the 1st quartile ($Q_1$), and the standard deviation.
+b. Within what interval does the task completion time range for 68% of workers?
+c. Management decided to give a bonus to the 25% of workers with the shortest completion time. What is the maximum completion time a worker can have to receive the bonus?
+d. What commands should we give in R to calculate the mean of our data?
 
-**ΘΕΜΑ 2:** Σε μια βιομηχανία το 2% ενός προϊόντος είναι εκτός προδιαγραφών (ελαττωματικό). Επιλέγουμε τυχαία για έλεγχο 6 μονάδες του προϊόντος αυτού. Ποια η πιθανότητα
-i) ακριβώς μία μονάδα προϊόντος να είναι ελαττωματική
-ii) 2 ή περισσότερες μονάδες να είναι ελαττωματικές
-iii) Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος i;
+**PROBLEM 2:** In a manufacturing industry, 2% of a product is non-compliant (defective). We randomly select 6 units of this product for inspection. What is the probability that:
+i) exactly one product unit is defective
+ii) 2 or more units are defective
+iii) What command should we give in R to calculate the probability of question i)?
 
-**ΘΕΜΑ 3:** Από μελέτη σε μια επιχείρηση προέκυψε ότι το 60% των υπαλλήλων γνωρίζει την αγγλική γλώσσα ενώ ένα 75% των υπαλλήλων γνωρίζει ηλεκτρονικό υπολογιστή (Η/Υ). Τέλος, ένα ποσοστό 55% γνωρίζει αγγλική γλώσσα και Η/Υ. Επιλέγουμε στην τύχη έναν υπάλληλο, να βρεθούν οι πιθανότητες των παρακάτω ενδεχομένων
-Α. Ο υπάλληλος να διαθέτει τουλάχιστον ένα από τα παραπάνω προσόντα (αγγλική γλώσσα ή Η/Υ).
-Β. Ο υπάλληλος να διαθέτει μόνο το προσόν της γνώσης Η/Υ.
-C. Ο υπάλληλος να μη διαθέτει κανένα από τα δύο προσόντα.
-D. Δοθέντος ότι ο υπάλληλος γνωρίζει αγγλικά, ποια η πιθανότητα να γνωρίζει Η/Υ;
+**PROBLEM 3:** A study in a company revealed that 60% of employees know English, while 75% of employees are computer literate (PC). Finally, 55% know both English and PC. We select an employee at random; find the probabilities of the following events:
+A. The employee possesses at least one of the above qualifications (English or PC).
+B. The employee possesses only PC skills.
+C. The employee possesses neither of the two qualifications.
+D. Given that the employee knows English, what is the probability that they know PC?
 
-**ΘΕΜΑ 4:** Ένα εργοστάσιο κατασκευάζει ηλεκτρικά ψυγεία για τα οποία, ο χρόνος μέχρι την εμφάνιση της πρώτης βλάβης ακολουθεί την Κανονική Κατανομή με μέσο μ=15 έτη και τυπική απόκλιση σ=4 έτη. Ποια η πιθανότητα για ένα ηλεκτρικό ψυγείο
-i. η πρώτη βλάβη να εμφανιστεί μετά από 9 έτη
-ii. η πρώτη βλάβη να εμφανιστεί μεταξύ 13 και 17 έτη
-iii. ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος ii ;
-Δίνονται: $\Phi(0.5) = P(Z \le 0.5) = 0.69146$, $\Phi(1.5) = P(Z \le 1.5) = 0.93319$.
+**PROBLEM 4:** A factory manufactures electric refrigerators for which the time until the first failure follows a Normal distribution with mean $\mu=15$ years and standard deviation $\sigma=4$ years. What is the probability for an electric refrigerator that:
+i. the first failure occurs after 9 years
+ii. the first failure occurs between 13 and 17 years
+iii. what command should we give in R to calculate the probability of question ii)?
+Given: $\Phi(0.5) = P(Z \le 0.5) = 0.69146$, $\Phi(1.5) = P(Z \le 1.5) = 0.93319$.
 
-Καλή Επιτυχία!
+Good Luck!
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+## FORMULA SHEET
 
-**Πιθανότητες και Στατιστική (405)**
+**Probability and Statistics (405)**
 
-**Μέση τιμή:** 
-$\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
+**Mean:**
+$ar{X} = rac{1}{n} \sum_{i=1}^n X_i$, $ar{X} = rac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
-$s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
+**Variance:**
+^2 = rac{1}{n-1} \sum_{i=1}^n (x_i - ar{x})^2$, ^2 = rac{1}{n-1} \sum_{i=1}^k (X_i - ar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:**  = s / ar{x}$
 
-Αν $F_{(i-1)} \le \frac{N}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
+If {(i-1)} \le rac{N}{2} \le F_i$ then the **median** (for grouped data):
+ = x_{(i-1)} + rac{\delta}{f_i} \left( rac{N}{2} - F_{(i-1)} 
+ight)$
 
-Αν $F_{(i-1)} \le \frac{kN}{4} \le F_i$ τότε $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
+If {(i-1)} \le rac{kN}{4} \le F_i$ then  = x_{(i-1)} + rac{\delta}{f_i} \left( rac{kN}{4} - F_{(i-1)} 
+ight), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
+**Mode** (for grouped data):
+ = x_{(i-1)} + \delta rac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+(A) = rac{N(A)}{N(\Omega)}$,
+(A)$: number of favorable outcomes for event A
+(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
-I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
-$P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+**Properties:**
+I) (A') = 1 - P(A)$, II) (\emptyset) = 0$, III) (A) \le 1$
+IV) (A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If , A_2, \cdots, A_n$ are $ mutually exclusive events of the sample space $\Omega$, then:
+(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
+VI) If  \subseteq B$, then a) (B - A) = P(B) - P(A)$ and b) (A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
-$P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
+**Conditional Probability:**
+(A|B) = rac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
-$P(A \cap B) = P(A|B)P(B)$
+**Multiplication Rule:**
+(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
-$P(A \cap B) = P(A)P(B)$
+**Independent Events:**
+(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
-$P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
+If  \cap A_j = \emptyset, orall i 
+eq j$ and  \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
+(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
-$P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$
+**Bayes' Theorem:**
+(A_i | B) = rac{P(B \cap A_i)}{P(B)} = rac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

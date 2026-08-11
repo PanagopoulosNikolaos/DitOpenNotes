@@ -1,200 +1,200 @@
-# Εξέταση 2 — Λειτουργικά Συστήματα
+# Exam 2 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Σκοποί ΛΣ, Προστασία Υλικού, Dual-Mode, Διεργασίες*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (12 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Ποιο είναι το **mode bit** σε monitor mode;
-
-- α) bit = 1  
-- β) bit = 0  
-- γ) bit = -1  
-- δ) Δεν υπάρχει mode bit
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Ποιες εντολές χαρακτηρίζονται ως **προνομιούχες (privileged)**;
+## PART A — THEORY (50 units)
 
-- α) Μόνο οι εντολές I/O  
-- β) Μόνο η εντολή load timer  
-- γ) Εντολές I/O, load base/limit, load timer, εναλλαγή mode bit  
-- δ) Όλες οι εντολές Assembly
+*Topics: OS Purposes, Hardware Protection, Dual-Mode, Processes*
 
 ---
 
-**3.** Τι αποθηκεύεται στον **limit register** για προστασία μνήμης;
+### A1. Multiple Choice Questions (12 units — 2 units each)
 
-- α) Η μικρότερη αποδεκτή φυσική διεύθυνση μνήμης  
-- β) Το μέγεθος της αποδεκτής περιοχής μνήμης  
-- γ) Η διεύθυνση της τελευταίας εντολής που εκτελέστηκε  
-- δ) Ο αριθμός των διεργασιών σε αναμονή
+**Circle the letter of the correct answer.**
 
----
+**1.** What is the **mode bit** in monitor mode?
 
-**4.** Τι συμβαίνει όταν ο **Timer** φτάσει στο μηδέν;
-
-- α) Ο υπολογιστής κλείνει  
-- β) Παράγεται διακοπή (interrupt)  
-- γ) Η τρέχουσα διεργασία τερματίζεται οριστικά  
-- δ) Το mode bit αλλάζει αυτόματα σε user mode
+- a) bit = 1
+- b) bit = 0
+- c) bit = -1
+- d) There is no mode bit
 
 ---
 
-**5.** Ποιος είναι ο **τελικός ορισμός** ενός Λειτουργικού Συστήματος;
+**2.** Which commands are characterized as **privileged**?
 
-- α) Μόνο ο πυρήνας (Kernel)  
-- β) Το σύνολο των εφαρμογών που εκτελεί ο χρήστης  
-- γ) Συνδυασμός διαχειριστή πόρων, προγράμματος ελέγχου και πυρήνα  
-- δ) Μόνο τα drivers υλικού
-
----
-
-**6.** Τι ορίζεται ως **κλήση συστήματος (system call)**;
-
-- α) Κλήση από τον χρήστη για εκκίνηση του ΛΣ  
-- β) Μηχανισμός μέσω trap για παροχή υπηρεσιών ΛΣ σε πρόγραμμα χρήστη  
-- γ) Εντολή που εκτελείται μόνο σε user mode  
-- δ) Εντολή αντιγραφής δεδομένων μεταξύ επεξεργαστών
+- a) Only I/O commands
+- b) Only the load timer command
+- c) I/O commands, load base/limit, load timer, mode bit switching
+- d) All Assembly commands
 
 ---
 
-### Α2. Round Robin Ερωτήσεων (10 μονάδες — 2 μονάδες έκαστη)
+**3.** What is stored in the **limit register** for memory protection?
 
-Κάθε ερώτηση έχει **μια μόνο σωστή** απάντηση. Κυκλώστε την.
-
-**1.** Ποια είναι η σωστή σειρά σκοπών του ΛΣ;  
-α) Προστασία → Επικοινωνία → Διαχείριση → Εξέλιξη  
-β) Επικοινωνία → Προστασία → Εξέλιξη → Διαχείριση  
-γ) Διαχείριση → Επικοινωνία → Προστασία → Εξέλιξη  
-δ) Εξέλιξη → Διαχείριση → Προστασία → Επικοινωνία
-
-**2.** Σε ποια κατάσταση εκτελείται ο Compilers/Shell;  
-α) Monitor mode  
-β) Kernel mode  
-γ) User mode  
-δ) Privileged mode
-
-**3.** Τι παρέχει ο Kernel στους χρήστες ως υπηρεσία;  
-α) Μόνο εκτέλεση προγράμματος  
-β) Ανάπτυξη, εκτέλεση, πρόσβαση I/O, προσπέλαση αρχείων, ανίχνευση σφαλμάτων, λογιστική  
-γ) Μόνο διαχείριση αρχείων  
-δ) Μόνο ανίχνευση σφαλμάτων
-
-**4.** Ποιο επίπεδο ιεραρχίας ΛΣ (Layers) βρίσκεται στο user space;  
-α) Layer 0  
-β) Layer 2  
-γ) Layer 4  
-δ) Layer 13
-
-**5.** Ποιες είναι οι τρεις κατηγορίες εξέλιξης ΛΣ;  
-α) Υλικό, Λογισμικό, Ασφάλεια  
-β) Αναβαθμίσεις υλικού, Νέες υπηρεσίες, Διορθώσεις  
-γ) Νήματα, Διεργασίες, Αδιέξοδα  
-δ) Παράλληλα, Κατανεμημένα, Real-Time
+- a) The smallest acceptable physical memory address
+- b) The size of the acceptable memory region
+- c) The address of the last executed instruction
+- d) The number of processes in waiting
 
 ---
 
-### Α3. Ερωτήσεις Σύντομης Απάντησης (12 μονάδες — 4 μονάδες έκαστη)
+**4.** What happens when the **Timer** reaches zero?
 
-**1.** Ένα πρόγραμμα χρήστη εκτελείται (mode bit = 1). Εμφανίζεται hardware interrupt. Περιγράψτε **βήμα-βήμα** τι συμβαίνει στο σύστημα.
-
-**2.** base register = 200000, limit register = 80000. Ελέγξτε αν οι παρακάτω διευθύνσεις είναι **αποδεκτές**: (α) 250000, (β) 290000, (γ) 180000. Αιτιολογήστε.
-
-**3.** Εξηγήστε γιατί οι **εντολές I/O είναι προνομιούχες** και πώς ένα πρόγραμμα χρήστη μπορεί να εκτελέσει λειτουργίες I/O.
-
----
-
-### Α4. Άσκηση Ανάπτυξης (16 μονάδες)
-
-**Άσκηση (16 μονάδες):**  
-Ένα ΛΣ διαθέτει τους εξής πόρους για διεργασίες: CPU, Μνήμη, Συσκευές I/O. Το ΛΣ πρέπει να τους διαχειριστεί αποτελεσματικά.
-
-α) **(5 μονάδες)** Αναφέρατε και εξηγήστε τους **πέντε σκοπούς** του ΛΣ για τη διαχείριση μνήμης.
-
-β) **(5 μονάδες)** Περιγράψτε τον μηχανισμό **System Call για I/O** βήμα-βήμα, εξηγώντας τον ρόλο του interrupt vector table.
-
-γ) **(6 μονάδες)** Τι είναι η **Ιδεατή Μνήμη (Virtual Memory)** και πώς συμβάλλει στην απομόνωση διεργασιών; Αναφέρατε τον ρόλο του MMU και τι συμβαίνει σε **page fault**.
+- a) The computer shuts down
+- b) An interrupt is generated
+- c) The current process terminates permanently
+- d) The mode bit automatically changes to user mode
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+**5.** What is the **ultimate definition** of an Operating System?
+
+- a) Only the Kernel
+- b) The set of applications the user runs
+- c) Combination of resource manager, control program, and kernel
+- d) Only hardware drivers
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε.
+**6.** What is defined as a **system call**?
+
+- a) A call from the user to start the OS
+- b) A trap mechanism to provide OS services to a user program
+- c) A command that executes only in user mode
+- d) A data copy command between processors
 
 ---
 
-### Β1. Διαχείριση Αρχείων — Εντολές (10 μονάδες — 2 μονάδες έκαστη)
+### A2. Round Robin Questions (10 units — 2 units each)
 
-Γράψτε την εντολή για κάθε ενέργεια:
+Each question has **only one correct** answer. Circle it.
 
-1. Δημιουργία κενού αρχείου με όνομα `notes.txt`.
+**1.** What is the correct order of OS purposes?
+a) Protection → Communication → Management → Evolution
+b) Communication → Protection → Evolution → Management
+c) Management → Communication → Protection → Evolution
+d) Evolution → Management → Protection → Communication
 
-2. Αντιγραφή αρχείου `notes.txt` σε `notes_backup.txt`.
+**2.** In what mode do Compilers/Shell execute?
+a) Monitor mode
+b) Kernel mode
+c) User mode
+d) Privileged mode
 
-3. Μετονομασία (ή μετακίνηση) `notes.txt` σε `lecture_notes.txt`.
+**3.** What does the Kernel provide to users as a service?
+a) Only program execution
+b) Development, execution, I/O access, file traversal, error detection, accounting
+c) Only file management
+d) Only error detection
 
-4. Διαγραφή αρχείου `notes_backup.txt`.
+**4.** Which OS hierarchy level (Layers) is in user space?
+a) Layer 0
+b) Layer 2
+c) Layer 4
+d) Layer 13
 
-5. Δημιουργία δομής καταλόγων `projects/os/labs` με μία εντολή.
-
----
-
-### Β2. Εντολές Πληροφοριών Αρχείων (10 μονάδες)
-
-**1. (5 μονάδες)** Δείτε τα περιεχόμενα του τρέχοντος καταλόγου σε **λεπτομερή μορφή** (long listing), που να εμφανίζει επίσης τα **κρυφά αρχεία**. Εξηγήστε τις σημαντικές στήλες που εμφανίζονται (δικαιώματα, αρ. hard links, ιδιοκτήτης, μέγεθος, ημερομηνία, όνομα).
-
-**2. (5 μονάδες)** Στο jsLinux, τρέξτε `ls -la /` και αναφέρατε: (α) τουλάχιστον 5 καταλόγους που βλέπετε, (β) ποιος είναι ο ιδιοκτήτης τους και (γ) τι χαρακτηρίζει τα δικαιώματα ενός καταλόγου σε σχέση με ένα αρχείο.
-
----
-
-### Β3. Ανακατεύθυνση Εισόδου/Εξόδου (15 μονάδες)
-
-**1. (5 μονάδες)** Γράψτε μια εντολή που:  
-   - Παράγει λίστα αρχείων του `/etc`  
-   - Αποθηκεύει το αποτέλεσμα σε αρχείο `etc_list.txt` (αντικαθιστώντας ό,τι υπάρχει)  
-   - Στη συνέχεια **προσθέτει** (append) στο τέλος αυτού του αρχείου τη φράση `"Τέλος λίστας"`
-
-**2. (5 μονάδες)** Χρησιμοποιήστε **pipes** για να μετρήσετε πόσα αρχεία βρίσκονται στον κατάλογο `/etc`. Γράψτε την εντολή και εξηγήστε κάθε τμήμα του pipeline.
-
-**3. (5 μονάδες)** Ποια η διαφορά μεταξύ `>` και `>>` στην ανακατεύθυνση; Δώστε από ένα παράδειγμα χρήσης. Τι συμβαίνει αν το αρχείο δεν υπάρχει και στις δύο περιπτώσεις;
-
----
-
-### Β4. Σενάριο Πρακτικής Άσκησης (15 μονάδες)
-
-Στο jsLinux, ακολουθήστε το παρακάτω σενάριο και γράψτε τις εντολές:
-
-**Σενάριο:** Είστε ο διαχειριστής συστήματος και πρέπει να οργανώσετε τα αρχεία καταγραφής (logs) του συστήματος.
-
-1. **(3 μονάδες)** Δημιουργήστε έναν κατάλογο `~/system_logs` στον home σας.
-
-2. **(3 μονάδες)** Μέσα στον `system_logs`, δημιουργήστε δύο υποκαταλόγους: `daily` και `weekly`.
-
-3. **(3 μονάδες)** Δημιουργήστε ένα αρχείο `~/system_logs/daily/log_today.txt` με περιεχόμενο `"Log αρχείο ημέρας"`.
-
-4. **(3 μονάδες)** Αντιγράψτε το `log_today.txt` στον κατάλογο `weekly` με νέο όνομα `log_week.txt`.
-
-5. **(3 μονάδες)** Εμφανίστε το πλήρες δέντρο καταλόγων `system_logs` και επαληθεύστε την ορθότητα της δομής.
+**5.** What are the three categories of OS evolution?
+a) Hardware, Software, Security
+b) Hardware upgrades, New services, Fixes
+c) Threads, Processes, Deadlocks
+d) Parallel, Distributed, Real-Time
 
 ---
 
-*Καλή επιτυχία!*
+### A3. Short Answer Questions (12 units — 4 units each)
+
+**1.** A user program is executing (mode bit = 1). A hardware interrupt appears. Describe **step by step** what happens in the system.
+
+**2.** base register = 200000, limit register = 80000. Check if the following addresses are **acceptable**: (a) 250000, (b) 290000, (c) 180000. Justify.
+
+**3.** Explain why **I/O commands are privileged** and how a user program can execute I/O operations.
+
+---
+
+### A4. Development Exercise (16 units)
+
+**Exercise (16 units):**
+An OS has the following resources for processes: CPU, Memory, I/O Devices. The OS must manage them efficiently.
+
+a) **(5 units)** Describe and explain the **five purposes** of the OS for memory management.
+
+b) **(5 units)** Describe the **System Call mechanism for I/O** step by step, explaining the role of the interrupt vector table.
+
+c) **(6 units)** What is **Virtual Memory** and how does it contribute to process isolation? Describe the role of the MMU and what happens during a **page fault**.
+
+---
+
+## PART B — Unix Laboratory / jsLinux (50 units)
+
+---
+
+> **jsLinux Environment:** Write **exactly** the commands you would use.
+
+---
+
+### B1. File Management — Commands (10 units — 2 units each)
+
+Write the command for each action:
+
+1. Create an empty file named `notes.txt`.
+
+2. Copy the file `notes.txt` to `notes_backup.txt`.
+
+3. Rename (or move) `notes.txt` to `lecture_notes.txt`.
+
+4. Delete the file `notes_backup.txt`.
+
+5. Create a directory structure `projects/os/labs` with a single command.
+
+---
+
+### B2. File Information Commands (10 units)
+
+**1. (5 units)** View the contents of the current directory in **long listing** format, also showing **hidden files**. Explain the important columns displayed (permissions, hard links, owner, size, date, name).
+
+**2. (5 units)** In jsLinux, run `ls -la /` and list: (a) at least 5 directories you see, (b) who owns them, and (c) what characterizes directory permissions versus file permissions.
+
+---
+
+### B3. Input/Output Redirection (15 units)
+
+**1. (5 units)** Write a command that:
+   - Generates a file listing of `/etc`
+   - Saves the result to a file `etc_list.txt` (overwriting existing content)
+   - Then **appends** the phrase `"End of list"` to the end of this file
+
+**2. (5 units)** Use **pipes** to count how many files are in the `/etc` directory. Write the command and explain each part of the pipeline.
+
+**3. (5 units)** What is the difference between `>` and `>>` in redirection? Give one usage example. What happens if the file does not exist in both cases?
+
+---
+
+### B4. Practical Exercise Scenario (15 units)
+
+In jsLinux, follow the scenario below and write the commands:
+
+**Scenario:** You are the system administrator and need to organize the system log files.
+
+1. **(3 units)** Create a directory `~/system_logs` in your home.
+
+2. **(3 units)** Inside `system_logs`, create two subdirectories: `daily` and `weekly`.
+
+3. **(3 units)** Create a file `~/system_logs/daily/log_today.txt` with content `"Daily log file"`.
+
+4. **(3 units)** Copy `log_today.txt` to the `weekly` directory with a new name `log_week.txt`.
+
+5. **(3 units)** Display the complete `system_logs` directory tree and verify the correctness of the structure.
+
+---
+
+*Good luck!*

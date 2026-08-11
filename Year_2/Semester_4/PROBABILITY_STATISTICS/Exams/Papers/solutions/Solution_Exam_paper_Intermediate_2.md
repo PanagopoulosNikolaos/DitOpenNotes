@@ -1,23 +1,39 @@
 # Exam Paper Intermediate 2
 
-**Επίπεδο: Μεσαίο 2**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Α.Μ.:________________________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστική**          
+**Level: Intermediate 2**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Student ID:________________________________
+**COURSE: Probability & Statistics**          
 
-Οδηγίες:
-1. Γράψτε το ονοματεπώνυμό σας πάνω στα θέματα.
-2. Τα θέματα είναι ισοδύναμα.
-3. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-4. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου.
+Instructions:
+1. Write your full name on the exam sheet.
+2. All problems carry equal weight.
+3. Hand in the question sheet along with your answer booklet.
+4. Use of pocket calculators is permitted; mobile phones are prohibited.
 
-**ΘΕΜΑ 1:** Οι βαθμολογίες 12 φοιτητών σε ένα τεστ προόδου είναι:
+**PROBLEM 1:** Progress test scores of 12 students are:
 4, 5, 5, 6, 7, 7, 8, 8, 8, 9, 9, 10.
-a. Να υπολογίσετε τη μέση τιμή ($\bar{x}$), το $3^o$ τεταρτημόριο ($Q_3$) και την επικρατούσα τιμή ($T$).
-b. Να υπολογίσετε τη διακύμανση ($s^2$) και τον συντελεστή μεταβλητότητας ($CV$).
-c. Ποιες εντολές δίνουμε στην R για να υπολογίσουμε τη διακύμανση και τη μέση τιμή των δεδομένων αυτών;
+a. Calculate the mean ($\bar{x}$), 3rd quartile ($Q_3$), and mode ($T$).
+b. Calculate the variance ($s^2$) and coefficient of variation ($CV$).
+c. Which commands do we give in R to calculate the variance and mean of these data?
 
-### Λύση ΘΕΜΑΤΟΣ 1
+**PROBLEM 2:** A software has a 10% probability of encountering an error upon startup. We execute 10 independent software startups.
+i) What is the probability an error occurs in exactly 2 startups?
+ii) What is the probability an error occurs in at least 2 startups?
+iii) Which R command calculates the probability of question ii)?
+
+**PROBLEM 3:** For two events $A$ and $B$ of a sample space $\Omega$, given $P(A) = 0.6$, $P(B) = 0.5$, and $P(A \cap B) = 0.3$.
+A. Calculate $P(A \cup B)$ and $P(A \cap B')$.
+B. Calculate the conditional probability $P(A' | B')$.
+C. Are events $A$ and $B$ independent? Justify your answer.
+
+**PROBLEM 4:** Supermarket queue waiting time follows a Normal distribution with mean $\mu = 8$ minutes and standard deviation $\sigma = 2.5$ minutes.
+i. What is the probability a customer waits more than 13 minutes?
+ii. What is the probability a customer waits between 5.5 and 10.5 minutes?
+iii. Which R command calculates the probability a customer waits at most 6 minutes?
+Given: $\Phi(1) = P(Z \le 1) = 0.84134$, $\Phi(2) = P(Z \le 2) = 0.97725$.
+
+### Solution to Problem 1
 
 **Δεδομένα (ταξινομημένα):** 4, 5, 5, 6, 7, 7, 8, 8, 8, 9, 9, 10 — $n=12$
 
@@ -31,7 +47,7 @@ $$\bar{x} = \frac{4+5+5+6+7+7+8+8+8+9+9+10}{12} = \frac{86}{12} \approx \boxed{7
 
 $$Q_3 = x_{(9)} + 0.75 \cdot (x_{(10)} - x_{(9)}) = 8 + 0.75(9-8) = 8 + 0.75 = \boxed{8.75}$$
 
-**Επικρατούσα τιμή $T$**
+**Mode $T$**
 
 - Ο βαθμός 8 εμφανίζεται 3 φορές (περισσότερο από κάθε άλλο).
 
@@ -57,7 +73,7 @@ $$T = \boxed{8}$$
 
 $$s^2 = \frac{37.67}{11} \approx \boxed{3.424}$$
 
-**Συντελεστής μεταβλητότητας $CV$**
+**Coefficient of Variation $CV$**
 
 $$CV = \frac{s}{\bar{x}} = \frac{\sqrt{3.424}}{7.167} = \frac{1.851}{7.167} \approx \boxed{0.258 = 25.8\%}$$
 
@@ -78,9 +94,9 @@ i) Ποια είναι η πιθανότητα να παρουσιαστεί σ�
 ii) Ποια είναι η πιθανότητα να παρουσιαστεί σφάλμα σε τουλάχιστον 2 εκκινήσεις;
 iii) Ποια εντολή R υπολογίζει την πιθανότητα του ερωτήματος ii;
 
-### Λύση ΘΕΜΑΤΟΣ 2
+### Solution to Problem 2
 
-**Δεδομένα:** $X \sim B(n=10,\ p=0.10)$
+**Given Data:** $X \sim B(n=10,\ p=0.10)$
 
 $$P(X=k) = \binom{10}{k}(0.10)^k(0.90)^{10-k}$$
 
@@ -88,7 +104,7 @@ $$P(X=k) = \binom{10}{k}(0.10)^k(0.90)^{10-k}$$
 
 $$P(X=2) = \binom{10}{2}(0.10)^2(0.90)^8 = 45 \times 0.01 \times 0.4305 = \boxed{0.1937}$$
 
-- $0.90^8 = 0.4305$ (υπολογισμός).
+- $0.90^8 = 0.4305$ (calculation).
 
 **ii. $P(X \ge 2)$**
 
@@ -100,7 +116,7 @@ $$P(X=1) = 10 \times 0.10 \times (0.90)^9 = 10 \times 0.10 \times 0.3874 = 0.387
 
 $$P(X \ge 2) = 1 - 0.3487 - 0.3874 = \boxed{0.2639}$$
 
-**iii. Εντολή R για ερώτημα ii**
+**iii) R command for question ii)**
 
 ```r
 1 - pbinom(1, size = 10, prob = 0.10)
@@ -113,9 +129,9 @@ $$P(X \ge 2) = 1 - 0.3487 - 0.3874 = \boxed{0.2639}$$
 Β. Να υπολογίσετε τη δεσμευμένη πιθανότητα $P(A' | B')$.
 C. Είναι τα ενδεχόμενα $A$ και $B$ ανεξάρτητα; Να δικαιολογήσετε την απάντησή σας.
 
-### Λύση ΘΕΜΑΤΟΣ 3
+### Solution to Problem 3
 
-**Δεδομένα:** $P(A)=0.6$, $P(B)=0.5$, $P(A \cap B)=0.3$
+**Given Data:** $P(A)=0.6$, $P(B)=0.5$, $P(A \cap B)=0.3$
 
 **Α. $P(A \cup B)$ και $P(A \cap B')$**
 
@@ -151,9 +167,9 @@ ii. Ποια είναι η πιθανότητα ένας πελάτης να π�
 iii. Ποια εντολή R υπολογίζει την πιθανότητα ένας πελάτης να περιμένει το πολύ 6 λεπτά;
 Δίνονται: $\Phi(1) = P(Z \le 1) = 0.84134$, $\Phi(2) = P(Z \le 2) = 0.97725$.
 
-### Λύση ΘΕΜΑΤΟΣ 4
+### Solution to Problem 4
 
-**Δεδομένα:** $X \sim N(\mu=8,\ \sigma=2.5)$
+**Given Data:** $X \sim N(\mu=8,\ \sigma=2.5)$
 
 **i. $P(X > 13)$**
 
@@ -179,50 +195,52 @@ pnorm(6, mean = 8, sd = 2.5)
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+---
 
-**Πιθανότητες και Στατιστική (405)**
+## FORMULA SHEET
 
-**Μέση τιμή:** 
+**Probability and Statistics (405)**
+
+**Mean:**
 $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
+**Variance:**
 $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:** $CV = s / \bar{x}$
 
-Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
+If $F_{(i-1)} \le \frac{N}{2} \le F_i$ then the **median** (for grouped data):
+$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
 
-Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
+If $F_{(i-1)} \le \frac{kN}{4} \le F_i$ then $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+**Mode** (for grouped data):
+$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+$P(A) = \frac{N(A)}{N(\Omega)}$,
+$N(A)$: number of favorable outcomes for event A
+$N(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
+**Properties:**
 I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
+IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If $A_1, A_2, \cdots, A_n$ are $n$ mutually exclusive events of the sample space $\Omega$, then:
 $P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+VI) If $A \subseteq B$, then a) $P(B - A) = P(B) - P(A)$ and b) $P(A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
+**Conditional Probability:**
 $P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
+**Multiplication Rule:**
 $P(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
+**Independent Events:**
 $P(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
+If $A_i \cap A_j = \emptyset, \forall i \neq j$ and $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
 $P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
+**Bayes' Theorem:**
 $P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

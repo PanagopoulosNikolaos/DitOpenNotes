@@ -1,24 +1,53 @@
 # Exam Paper 2024 06 14 (Team C)
 
-**Ομάδα Γ**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Α.Μ.:________________________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστικής**       Παρασκευή 14/06/2024
+**Team C**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Student ID:________________________________
+**COURSE: Probability & Statistics**       Friday 14/06/2024
 
-Οδηγίες:
-1. Γράψτε το ονοματεπώνυμό σας πάνω στα θέματα.
-2. Τα θέματα είναι ισοδύναμα
-3. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-4. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου
+Instructions:
+1. Write your full name on the exam sheet.
+2. All problems carry equal weight
+3. Hand in the question sheet along with your answer booklet.
+4. Use of pocket calculators is permitted; mobile phones are prohibited
 
-**ΘΕΜΑ 1:** Σε μια βιομηχανία το 1% ενός προϊόντος είναι εκτός προδιαγραφών (ελαττωματικό). Επιλέγουμε τυχαία για έλεγχο 7 μονάδες του προϊόντος αυτού. Ποια η πιθανότητα
-a. ακριβώς μία μονάδα προϊόντος να είναι ελαττωματική
-b. 2 ή περισσότερες μονάδες να είναι ελαττωματικές
-c. Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος a;
+**PROBLEM 1:** In a manufacturing industry, 1% of a product is non-compliant (defective). We randomly select 7 units of this product for inspection. What is the probability that:
+a. exactly one product unit is defective
+b. 2 or more units are defective
+c. What command should we give in R to calculate the probability of question a)?
 
-### Λύση ΘΕΜΑΤΟΣ 1
+**PROBLEM 2:** In a survey conducted in a region regarding readership of various Sunday newspapers, 25% stated they read "Ta Nea", 35% "To Vima", and 5% stated they read both newspapers. A person is selected at random. Calculate the probability that they:
+A. read at least one of the two newspapers
+B. read neither of the two newspapers
+C. read only "Ta Nea"
+D. read "Ta Nea", given that they read "To Vima"
 
-**Δεδομένα:** $X \sim B(n=7,\ p=0.01)$
+**PROBLEM 3:** The service time required for bank customers at the teller follows a Normal distribution with mean $\mu=10$ min and standard deviation $\sigma=2$ min. What is the probability that a customer waits:
+i) more than 7 min
+ii) between 9 and 13 min
+iii) what command should we give in R to calculate the probability of question ii)?
+
+Given: $\Phi(0.5) = P(Z \le 0.5) = 0.69146$, $\Phi(1.5) = P(Z \le 1.5) = 0.93319$
+
+**PROBLEM 4:** The monthly salary of employees in a company is given in the following table:
+
+| Monthly Salary | Number of Employees | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
+| --- | --- | --- | --- | --- |
+| 1250 | 22 | | 2217737.5 | |
+| 1300 | 35 | | 2504468.75 | |
+| 1550 | 65 | | 19906.25 | |
+| 1800 | 38 | | 2054137.5 | |
+| 2000 | 20 | | 3741125 | |
+| Total | 180 | | 10537375 | |
+
+A. Calculate the mean monthly salary, the first quartile, and the standard deviation.
+B. What percentage of employees have a salary of at most 1300 €?
+C. Company management decided to grant an allowance to the 25% of employees with the lowest monthly salary. What maximum salary must an employee have to receive the allowance?
+D. What commands should we give in R to calculate the mode of our data?
+
+### Solution to Problem 1
+
+**Given Data:** $X \sim B(n=7,\ p=0.01)$
 
 $$P(X=k) = \binom{7}{k}(0.01)^k(0.99)^{7-k}$$
 
@@ -26,7 +55,7 @@ $$P(X=k) = \binom{7}{k}(0.01)^k(0.99)^{7-k}$$
 
 $$P(X=1) = \binom{7}{1}(0.01)^1(0.99)^6 = 7 \times 0.01 \times 0.9415 = \boxed{0.06590}$$
 
-- $0.99^6 = 0.9415$ (υπολογισμός).
+- $0.99^6 = 0.9415$ (calculation).
 
 **b. $P(X \ge 2)$**
 
@@ -52,18 +81,18 @@ dbinom(1, size = 7, prob = 0.01)
 C. να διαβάζει μόνο " τα Νέα "
 D. να διαβάζει "τα Νέα", δοθέντος ότι διαβάζει "το Βήμα"
 
-### Λύση ΘΕΜΑΤΟΣ 2
+### Solution to Problem 2
 
-**Δεδομένα:**
+**Given Data:**
 - $P(N) = 0.25$ (Νέα)
 - $P(B) = 0.35$ (Βήμα)
 - $P(N \cap B) = 0.05$
 
-**Α. $P(N \cup B)$ — τουλάχιστον μία εφημερίδα**
+**Α. $P(N \cup B)$ — at least one newspaper**
 
 $$P(N \cup B) = P(N) + P(B) - P(N \cap B) = 0.25 + 0.35 - 0.05 = \boxed{0.55}$$
 
-**Β. $P((N \cup B)')$ — καμία εφημερίδα**
+**Β. $P((N \cup B)')$ — neither newspaper**
 
 $$P((N \cup B)') = 1 - P(N \cup B) = 1 - 0.55 = \boxed{0.45}$$
 
@@ -84,9 +113,9 @@ iii) ποια εντολή πρέπει να δώσουμε στην R για ν
 
 Δίνονται: $\Phi(0.5) = P(Z \le 0.5) = 0.69146$, $\Phi(1.5) = P(Z \le 1.5) = 0.93319$
 
-### Λύση ΘΕΜΑΤΟΣ 3
+### Solution to Problem 3
 
-**Δεδομένα:** $X \sim N(\mu=10,\ \sigma=2)$
+**Given Data:** $X \sim N(\mu=10,\ \sigma=2)$
 
 **i. $P(X > 7)$**
 
@@ -106,7 +135,7 @@ $$= \Phi(1.5) - [1 - \Phi(0.5)] = 0.93319 - (1 - 0.69146)$$
 
 $$= 0.93319 - 0.30854 = \boxed{0.62465}$$
 
-**iii. Εντολή R για ερώτημα ii**
+**iii) R command for question ii)**
 
 ```r
 pnorm(13, mean = 10, sd = 2) - pnorm(9, mean = 10, sd = 2)
@@ -116,25 +145,25 @@ pnorm(13, mean = 10, sd = 2) - pnorm(9, mean = 10, sd = 2)
 
 **ΘΕΜΑ 4:** Ο μηνιαίος μισθός των υπαλλήλων μιας εταιρείας δίνεται στον παρακάτω πίνακα
 
-| Μηνιαίος Μισθος | Αριθμ. Υπαλλ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
+| Monthly Salary | Number of Employees | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
 | --- | --- | --- | --- | --- |
 | 1250 | 22 | | 2217737.5 | |
 | 1300 | 35 | | 2504468.75 | |
 | 1550 | 65 | | 19906.25 | |
 | 1800 | 38 | | 2054137.5 | |
 | 2000 | 20 | | 3741125 | |
-| Σύνολα | 180 | | 10537375 | |
+| Total | 180 | | 10537375 | |
 
 A. Να υπολογίσετε τον μέσο μηνιαίο μισθό, το πρώτο τεταρτημόριο και τη τυπική απόκλιση.
 B. Τι ποσοστό των εργαζομένων έχουν μισθό το πολύ 1300 €;
 C. Η διεύθυνση της εταιρείας αποφάσισε τη χορήγηση ενός επιδόματος στο 25% των υπαλλήλων της με τον μικρότερο μηνιαίο μισθό. Τι μισθό πρέπει να έχει κάποιος υπάλληλος για να πάρει το επίδομα;
 D. Ποιες εντολές πρέπει να δώσουμε στην R για να υπολογίσει την επικρατούσα τιμή των δεδομένων μας;
 
-### Λύση ΘΕΜΑΤΟΣ 4
+### Solution to Problem 4
 
 **Σημείωση:** Τα δεδομένα είναι μη-ομαδοποιημένα (διακριτές τιμές μισθού).
 
-**Συμπλήρωση πίνακα:**
+**Table Completion:**
 
 | $x_i$ | $f_i$ | $f_i x_i$ | $F_i$ |
 |---|---|---|---|
@@ -149,7 +178,7 @@ D. Ποιες εντολές πρέπει να δώσουμε στην R για 
 
 $$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{282150}{180} = \boxed{1567.50 \text{ €}}$$
 
-**Τυπική απόκλιση $s$**
+**Standard Deviation $s$**
 
 $$s^2 = \frac{\sum f_i(x_i - \bar{x})^2}{n-1} = \frac{10537375}{179} \approx 58869.47$$
 
@@ -176,7 +205,7 @@ $$\text{Όριο} = Q_1 = \boxed{1300 \text{ €}}$$
 **D. Εντολές R για επικρατούσα τιμή**
 
 ```r
-salaries <- c(...)        # εισαγωγή δεδομένων
+salaries <- c(...)        # data input
 # Η R δεν έχει ενσωματωμένη συνάρτηση mode· χρησιμοποιούμε:
 table(salaries)           # εμφάνιση συχνοτήτων
 names(which.max(table(salaries)))  # επικρατούσα τιμή
@@ -184,50 +213,52 @@ names(which.max(table(salaries)))  # επικρατούσα τιμή
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+---
 
-**Πιθανότητες και Στατιστική (405)**
+## FORMULA SHEET
 
-**Μέση τιμή:** 
+**Probability and Statistics (405)**
+
+**Mean:**
 $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
+**Variance:**
 $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:** $CV = s / \bar{x}$
 
-Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
+If $F_{(i-1)} \le \frac{N}{2} \le F_i$ then the **median** (for grouped data):
+$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
 
-Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
+If $F_{(i-1)} \le \frac{kN}{4} \le F_i$ then $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+**Mode** (for grouped data):
+$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+$P(A) = \frac{N(A)}{N(\Omega)}$,
+$N(A)$: number of favorable outcomes for event A
+$N(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
+**Properties:**
 I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
+IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If $A_1, A_2, \cdots, A_n$ are $n$ mutually exclusive events of the sample space $\Omega$, then:
 $P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+VI) If $A \subseteq B$, then a) $P(B - A) = P(B) - P(A)$ and b) $P(A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
+**Conditional Probability:**
 $P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
+**Multiplication Rule:**
 $P(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
+**Independent Events:**
 $P(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
+If $A_i \cap A_j = \emptyset, \forall i \neq j$ and $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
 $P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
+**Bayes' Theorem:**
 $P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

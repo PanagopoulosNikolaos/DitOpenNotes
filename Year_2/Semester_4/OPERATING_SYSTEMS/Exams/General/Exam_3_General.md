@@ -1,161 +1,161 @@
-# Εξέταση 3 — Λειτουργικά Συστήματα
+# Exam 3 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Διεργασίες, PCB, Καταστάσεις Διεργασίας, Αρχιτεκτονικές ΛΣ*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (12 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Τι είναι ένα **Process Control Block (PCB)**;
-
-- α) Ένας πίνακας που αποθηκεύει τα δεδομένα όλων των αρχείων  
-- β) Η δομή δεδομένων που περιέχει όλες τις πληροφορίες μιας διεργασίας  
-- γ) Μια ειδική CPU για εκτέλεση συστήματος  
-- δ) Ο αλγόριθμος επιλογής επόμενης διεργασίας
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Ποια κατάσταση **ΔΕΝ** ανήκει στο βασικό μοντέλο κατάστασης διεργασίας;
+## PART A — THEORY (50 units)
 
-- α) New  
-- β) Running  
-- γ) Blocked  
-- δ) Compiling
+*Topics: Processes, PCB, Process States, OS Architectures*
 
 ---
 
-**3.** Ποιος είναι ο **ρόλος του Dispatcher**;
+### A1. Multiple Choice Questions (12 units — 2 units each)
 
-- α) Δημιουργεί νέες διεργασίες  
-- β) Αποφασίζει ποια διεργασία θα εκτελεστεί επόμενη  
-- γ) Ελέγχει ποιοι χρήστες μπορούν να συνδεθούν  
-- δ) Διαχειρίζεται αρχεία στο δίσκο
+**Circle the letter of the correct answer.**
 
----
+**1.** What is a **Process Control Block (PCB)**?
 
-**4.** Τι είναι το **context switch**;
-
-- α) Η διαδικασία τερματισμού μιας διεργασίας  
-- β) Η αποθήκευση κατάστασης τρέχουσας διεργασίας και φόρτωση επόμενης  
-- γ) Η δημιουργία νέου νήματος (thread)  
-- δ) Η μεταφορά αρχείων μεταξύ καταλόγων
+- a) A table that stores data for all files
+- b) The data structure that contains all information about a process
+- c) A special CPU for system execution
+- d) The algorithm for selecting the next process
 
 ---
 
-**5.** Σε **μονολιθική αρχιτεκτονική** ΛΣ, όλες οι διαδικασίες του συστήματος:
+**2.** Which state does **NOT** belong to the basic process state model?
 
-- α) Εκτελούνται σε user mode  
-- β) Μπορούν να καλέσουν απευθείας η μία την άλλη μέσω παραμέτρων  
-- γ) Επικοινωνούν μόνο μέσω IPC  
-- δ) Τρέχουν σε ξεχωριστό user space
-
----
-
-**6.** Ποιο από τα παρακάτω είναι **πλεονέκτημα** της αρχιτεκτονικής **μικροπυρήνα (microkernel)**;
-
-- α) Υψηλή απόδοση λόγω άμεσης επικοινωνίας  
-- β) Αξιοπιστία — μικρό μέγεθος πυρήνα επιτρέπει ακριβή έλεγχο  
-- γ) Απλότητα χωρίς ανάγκη IPC  
-- δ) Όλες οι υπηρεσίες εκτελούνται στον πυρήνα
+- a) New
+- b) Running
+- c) Blocked
+- d) Compiling
 
 ---
 
-### Α2. Round Robin Ερωτήσεων (8 μονάδες — 2 μονάδες έκαστη)
+**3.** What is the **role of the Dispatcher**?
 
-**1.** Ποια από τις παρακάτω **ΔΕΝ** αποτελεί αιτία εναλλαγής εκτελούμενης διεργασίας;
-
-α) Διακοπή ρολογιού  
-β) Αλλαγή μεγέθους αρχείου  
-γ) Σφάλμα μνήμης  
-δ) Κλήση συστήματος (π.χ. άνοιγμα αρχείου)
-
-**2.** Σε ποια κατάσταση βρίσκεται μια διεργασία που αναμένει ολοκλήρωση I/O;
-
-α) Ready  
-β) Running  
-γ) Blocked  
-δ) Exit
-
-**3.** Ποιο είναι το κόστος του context switch για το σύστημα;
-
-α) Χρησιμοποιεί δίσκο  
-β) Είναι overhead — δεν παράγεται χρήσιμο έργο  
-γ) Δεν έχει κανένα κόστος  
-δ) Αυξάνει τη χρήση μνήμης κατακόρυφα
-
-**4.** Ποιος εκτελεί τον **long-term scheduling** σε ένα ΛΣ;
-
-α) Ο χρήστης χειροκίνητα  
-β) Το hardware  
-γ) Το ΛΣ — αποφασίζει αν νέα διεργασία εισέρχεται στο σύστημα  
-δ) Ο compiler
+- a) Creates new processes
+- b) Decides which process will execute next
+- c) Checks which users can connect
+- d) Manages files on disk
 
 ---
 
-### Α3. Ερωτήσεις Σύντομης Απάντησης (10 μονάδες)
+**4.** What is a **context switch**?
 
-**1. (4 μονάδες)** Ποια δεδομένα αποθηκεύονται στο **PCB** μιας διεργασίας; Αναφέρατε **τρεις** κατηγορίες και δώστε παραδείγματα.
-
-**2. (3 μονάδες)** Ποια η **διαφορά** μεταξύ νήματος (thread) και διεργασίας (process) ως προς: (α) χώρο διευθύνσεων, (β) κόστος δημιουργίας, (γ) κόστος context switch;
-
-**3. (3 μονάδες)** Περιγράψτε τι κάνουν οι συναρτήσεις Unix: `fork()`, `exec()`, `wait()`. Ποια η σχέση τους;
-
----
-
-### Α4. Άσκηση Ανάπτυξης (20 μονάδες)
-
-**Άσκηση 1 (10 μονάδες):**  
-Εξηγήστε **αναλυτικά** τη διαφορά μεταξύ:  
-α) Μονολιθικής αρχιτεκτονικής και Αρχιτεκτονικής Μικροπυρήνα (σχεδιασμός, πλεονεκτήματα, μειονεκτήματα).  
-β) Στρωματοποιημένης αρχιτεκτονικής: αναφέρατε τα 5 βασικά επίπεδα (Layer 0–4) και τη λειτουργία του καθενός.
-
-**Άσκηση 2 (10 μονάδες):**  
-Δίνεται το παρακάτω σενάριο: Μια εφαρμογή web server λαμβάνει ταυτόχρονα 10 αιτήματα χρηστών. Ο web server χρησιμοποιεί **νήματα (threads)** για να εξυπηρετήσει κάθε αίτημα.
-
-α) Γιατί επιλέγονται νήματα αντί για ξεχωριστές διεργασίες;  
-β) Τι μοιράζονται μεταξύ τους τα νήματα ενός web server;  
-γ) Ποιοι κίνδυνοι ανακύπτουν από την κοινή μνήμη μεταξύ νημάτων;  
-δ) Πώς βοηθά η **πολυνημάτωση** στην αξιοποίηση πολυπύρηνων επεξεργαστών;
+- a) The procedure of terminating a process
+- b) Saving current process state and loading the next one
+- c) Creating a new thread
+- d) Transferring files between directories
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+**5.** In a **monolithic** OS architecture, all system processes:
+
+- a) Execute in user mode
+- b) Can directly call each other through parameters
+- c) Communicate only through IPC
+- d) Run in separate user space
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε.
+**6.** Which of the following is an **advantage** of **microkernel** architecture?
+
+- a) High performance due to direct communication
+- b) Reliability — small kernel size allows precise control
+- c) Simplicity without need for IPC
+- d) All services execute in the kernel
 
 ---
 
-### Β1. Δικαιώματα Αρχείων — Θεωρία (10 μονάδες)
+### A2. Round Robin Questions (8 units — 2 units each)
 
-**1. (5 μονάδες)** Εξηγήστε τη σημασία της ακόλουθης εξόδου της εντολής `ls -l`:
+**1.** Which of the following is **NOT** a cause for changing the executing process?
+
+a) Clock interrupt
+b) File size change
+c) Memory fault
+d) System call (e.g., file open)
+
+**2.** In what state is a process waiting for I/O completion?
+
+a) Ready
+b) Running
+c) Blocked
+d) Exit
+
+**3.** What is the cost of context switch for the system?
+
+a) Uses disk
+b) It is overhead — no useful work is produced
+c) It has no cost
+d) It increases memory usage vertically
+
+**4.** Who performs **long-term scheduling** in an OS?
+
+a) The user manually
+b) The hardware
+c) The OS — decides whether a new process enters the system
+d) The compiler
+
+---
+
+### A3. Short Answer Questions (10 units)
+
+**1. (4 units)** What data is stored in the **PCB** of a process? List **three** categories and give examples.
+
+**2. (3 units)** What is the **difference** between a thread and a process in terms of: (a) address space, (b) creation cost, (c) context switch cost?
+
+**3. (3 units)** Describe what the Unix functions: `fork()`, `exec()`, `wait()` do. What is their relationship?
+
+---
+
+### A4. Development Exercise (20 units)
+
+**Exercise 1 (10 units):**
+Explain **in detail** the difference between:
+a) Monolithic Architecture and Microkernel Architecture (design, advantages, disadvantages).
+b) Layered Architecture: list the 5 basic layers (Layer 0–4) and the function of each.
+
+**Exercise 2 (10 units):**
+Given the following scenario: A web server application receives 10 simultaneous user requests. The web server uses **threads** to serve each request.
+
+a) Why are threads chosen instead of separate processes?
+b) What do threads of a web server share among themselves?
+c) What dangers arise from shared memory between threads?
+d) How does **multithreading** help in utilizing multi-core processors?
+
+---
+
+## PART B — Unix Laboratory / jsLinux (50 units)
+
+---
+
+> **jsLinux Environment:** Write **exactly** the commands you would use.
+
+---
+
+### B1. File Permissions — Theory (10 units)
+
+**1. (5 units)** Explain the meaning of the following `ls -l` output:
 
 ```
 -rwxr-x--x  1  alice  staff  4096  Jun 10 10:00  script.sh
 drwxr-xr-x  2  root   root   4096  Jun 10 09:00  configs/
 ```
 
-Για κάθε γραμμή, εξηγήστε: τον τύπο αρχείου, τα δικαιώματα για κάθε κατηγορία (owner, group, others) και τον ιδιοκτήτη.
+For each line, explain: the file type, the permissions for each category (owner, group, others), and the owner.
 
-**2. (5 μονάδες)** Συμπληρώστε τον παρακάτω πίνακα για την εντολή `chmod`:
+**2. (5 units)** Complete the following table for the `chmod` command:
 
-| Αριθμητική Τιμή | Συμβολική | Σημασία |
+| Numeric Value | Symbolic | Meaning |
 |:---|:---|:---|
 | `chmod 755 file` | | |
 | `chmod 644 file` | | |
@@ -165,56 +165,56 @@ drwxr-xr-x  2  root   root   4096  Jun 10 09:00  configs/
 
 ---
 
-### Β2. Εντολές Δικαιωμάτων (10 μονάδες — 2 μονάδες έκαστη)
+### B2. Permission Commands (10 units — 2 units each)
 
-Γράψτε την εντολή για κάθε ενέργεια:
+Write the command for each action:
 
-1. Δώστε στον **ιδιοκτήτη** δικαιώματα ανάγνωσης, εγγραφής και εκτέλεσης στο αρχείο `myfile.sh`.
+1. Give the **owner** read, write, and execute permissions on the file `myfile.sh`.
 
-2. Αφαιρέστε από **όλους** δικαίωμα εκτέλεσης στο αρχείο `data.txt`.
+2. Remove execute permission from **all** users for the file `data.txt`.
 
-3. Δώστε στον **ιδιοκτήτη** πλήρη δικαιώματα (rwx) και **στους άλλους** μόνο ανάγνωση (r).
+3. Give the **owner** full permissions (rwx) and **others** only read (r).
 
-4. Αλλάξτε τον ιδιοκτήτη του αρχείου `report.txt` σε χρήστη `student`.
+4. Change the owner of the file `report.txt` to user `student`.
 
-5. Αλλάξτε ομάδα του αρχείου `project.py` στην ομάδα `devteam`.
+5. Change the group of the file `project.py` to group `devteam`.
 
 ---
 
-### Β3. Σύνθετες Εντολές με Pipes (15 μονάδες)
+### B3. Complex Commands with Pipes (15 units)
 
-**1. (5 μονάδες)** Γράψτε pipeline που να:  
-   - Λαμβάνει τη λίστα αρχείων του `/etc`  
-   - Φιλτράρει μόνο αυτά που περιέχουν τη λέξη "conf"  
-   - Εμφανίζει πόσα είναι αυτά  
-   Εξηγήστε κάθε τμήμα.
+**1. (5 units)** Write a pipeline that:
+   - Receives the file listing of `/etc`
+   - Filters only those containing the word "conf"
+   - Displays how many there are
+   Explain each part.
 
-**2. (5 μονάδες)** Τρέξτε στο jsLinux την εντολή `ps` ή `ps aux` (αν υποστηρίζεται). Γράψτε pipeline για να:  
-   - Εμφανίσετε μόνο τις γραμμές που αφορούν τον τρέχοντα χρήστη  
-   - Ταξινομήσετε αλφαβητικά  
+**2. (5 units)** Run the `ps` or `ps aux` command (if supported) in jsLinux. Write a pipeline to:
+   - Display only lines belonging to the current user
+   - Sort alphabetically
 
-**3. (5 μονάδες)** Εξηγήστε τι κάνει η ακόλουθη εντολή βήμα-βήμα:  
+**3. (5 units)** Explain what the following command does step by step:
 ```
 ls -la | grep "^d" | wc -l
 ```
-Τι υπολογίζει τελικά; Δώστε ένα παράδειγμα πιθανής εξόδου.
+What does it ultimately calculate? Give an example of possible output.
 
 ---
 
-### Β4. Σενάριο Πρακτικής Άσκησης (15 μονάδες)
+### B4. Practical Exercise Scenario (15 units)
 
-**Σενάριο:** Οργάνωση workspace στο jsLinux για ένα εργαστηριακό project.
+**Scenario:** Organizing a workspace in jsLinux for a laboratory project.
 
-1. **(3 μονάδες)** Δημιουργήστε τη δομή: `~/workspace/os_project/{src,docs,tests}` με μία μόνο εντολή.
+1. **(3 units)** Create the structure: `~/workspace/os_project/{src,docs,tests}` with a single command.
 
-2. **(3 μονάδες)** Δημιουργήστε ένα εκτελέσιμο script `~/workspace/os_project/src/run.sh` και δώστε του δικαιώματα εκτέλεσης.
+2. **(3 units)** Create an executable script `~/workspace/os_project/src/run.sh` and give it execute permissions.
 
-3. **(3 μονάδες)** Αντιγράψτε αναδρομικά τον κατάλογο `src` στον κατάλογο `tests` με το όνομα `src_backup`.
+3. **(3 units)** Recursively copy the `src` directory to the `tests` directory with the name `src_backup`.
 
-4. **(3 μονάδες)** Χρησιμοποιήστε `ls -lR ~/workspace/os_project` για να δείτε όλη τη δομή. Εξηγήστε τι δείχνει η επιλογή `-R`.
+4. **(3 units)** Use `ls -lR ~/workspace/os_project` to view the entire structure. Explain what the `-R` option shows.
 
-5. **(3 μονάδες)** Διαγράψτε αναδρομικά τον κατάλογο `tests/src_backup`. Ποια εντολή χρησιμοποιείτε και γιατί χρειάζεται η επιλογή `-r` (ή `-rf`);
+5. **(3 units)** Recursively delete the `tests/src_backup` directory. What command do you use and why is the `-r` (or `-rf`) option needed?
 
 ---
 
-*Καλή επιτυχία!*
+*Good luck!*

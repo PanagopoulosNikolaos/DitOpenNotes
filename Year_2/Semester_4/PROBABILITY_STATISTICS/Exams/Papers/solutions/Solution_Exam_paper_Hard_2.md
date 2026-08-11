@@ -1,26 +1,44 @@
 # Exam Paper Hard 2
 
-**Επίπεδο: Δύσκολο 2**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Α.Μ.:________________________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστική**          
+**Level: Hard 2**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Student ID:________________________________
+**COURSE: Probability & Statistics**          
 
-Οδηγίες:
-1. Γράψτε το ονοματεπώνυμό σας πάνω στα θέματα.
-2. Τα θέματα είναι ισοδύναμα.
-3. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-4. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου.
+Instructions:
+1. Write your full name on the exam sheet.
+2. All problems carry equal weight.
+3. Hand in the question sheet along with your answer booklet.
+4. Use of pocket calculators is permitted; mobile phones are prohibited.
 
-**ΘΕΜΑ 1:** Σε μια έρευνα μελετήθηκαν οι επιδόσεις δύο διαφορετικών τμημάτων A και B ενός έτους.
-- Το τμήμα A έχει $n_1 = 40$ φοιτητές, με μέση βαθμολογία $\bar{x}_1 = 7.5$ και τυπική απόκλιση $s_1 = 1.2$.
-- Το τμήμα B έχει $n_2 = 60$ φοιτητές, με μέση βαθμολογία $\bar{x}_2 = 6.5$ και τυπική απόκλιση $s_2 = 1.5$.
-a. Να υπολογίσετε τη συνολική μέση βαθμολογία ($\bar{x}$) όλων των φοιτητών και των δύο τμημάτων μαζί.
-b. Να υπολογίσετε τη συνολική διακύμανση ($s^2$) και τη συνολική τυπική απόκλιση ($s$) της βαθμολογίας για το σύνολο των 100 φοιτητών.
-c. Ποιες εντολές R χρειάζονται για να συγκρίνουμε τις κατανομές των βαθμολογιών των δύο τμημάτων χρησιμοποιώντας θηκογράμματα (boxplots);
+**PROBLEM 1:** In a survey, the performance of two different class sections A and B of a cohort was studied.
+- Section A has $n_1 = 40$ students, with mean score $\bar{x}_1 = 7.5$ and standard deviation $s_1 = 1.2$.
+- Section B has $n_2 = 60$ students, with mean score $\bar{x}_2 = 6.5$ and standard deviation $s_2 = 1.5$.
+a. Calculate the overall mean score ($\bar{x}$) of all students in both sections combined.
+b. Calculate the combined variance ($s^2$) and combined standard deviation ($s$) of the scores for all 100 students.
+c. Which R commands are needed to compare the score distributions of the two sections using boxplots?
 
-### Λύση ΘΕΜΑΤΟΣ 1
+**PROBLEM 2:** In a game, we roll a fair die. If a 6 turns up, we win. We play the game 10 times (independent trials).
+i) What is the probability of winning at least 2 times?
+ii) If we know that we won at least once, what is the probability that we won exactly 2 times?
+iii) Which command in R calculates the probability of question ii)?
 
-**Δεδομένα:** $n_1=40$, $\bar{x}_1=7.5$, $s_1=1.2$; $n_2=60$, $\bar{x}_2=6.5$, $s_2=1.5$
+**PROBLEM 3:** A digital communication channel transmits binary digital signals (0 and 1). The probability of transmitting digit 0 is 0.45 and the probability of transmitting 1 is 0.55. Due to noise in the channel:
+- If 0 is transmitted, the probability of receiving it incorrectly as 1 is 0.10.
+- If 1 is transmitted, the probability of receiving it incorrectly as 0 is 0.15.
+A. What is the probability of receiving digit 1?
+B. If digit 1 is received, what is the probability that 0 was actually transmitted?
+C. What is the total probability of error during signal transmission in this channel?
+
+**PROBLEM 4:** A machine fills beverage bottles. The volume of beverage follows a Normal distribution with mean $\mu$ and standard deviation $\sigma$. It is known that 10% of bottles contain more than 334.8 ml, while 5% contain less than 318.5 ml.
+i. Find the parameters $\mu$ and $\sigma$ of the distribution.
+ii. If the nominal volume is 330 ml, what is the probability that a bottle contains less than the nominal volume?
+iii. Which R commands are needed to find the probability of question ii)?
+Given: For the standard normal variable $Z$, $P(Z \le 1.282) = 0.90$, $P(Z \le 1.645) = 0.95$, and $\Phi(-0.5) = 0.3085$.
+
+### Solution to Problem 1
+
+**Given Data:** $n_1=40$, $\bar{x}_1=7.5$, $s_1=1.2$; $n_2=60$, $\bar{x}_2=6.5$, $s_2=1.5$
 
 **a. Συνολική μέση βαθμολογία $\bar{x}$**
 
@@ -62,9 +80,9 @@ i) Ποια είναι η πιθανότητα να κερδίσουμε του�
 ii) Αν γνωρίζουμε ότι κερδίσαμε τουλάχιστον μία φορά, ποια είναι η πιθανότητα να κερδίσαμε ακριβώς 2 φορές;
 iii) Ποια εντολή στην R υπολογίζει την πιθανότητα του ερωτήματος ii;
 
-### Λύση ΘΕΜΑΤΟΣ 2
+### Solution to Problem 2
 
-**Δεδομένα:** $X \sim B(n=10,\ p=\frac{1}{6})$
+**Given Data:** $X \sim B(n=10,\ p=\frac{1}{6})$
 
 **i. $P(X \ge 2)$**
 
@@ -78,7 +96,7 @@ $$P(X \ge 2) = 1 - 0.1615 - 0.3230 = \boxed{0.5155}$$
 
 **ii. $P(X = 2 \mid X \ge 1)$**
 
-Χρησιμοποιείται ο ορισμός της δεσμευμένης πιθανότητας:
+Using the definition of conditional probability:
 
 $$P(X=2 \mid X \ge 1) = \frac{P(X=2 \cap X \ge 1)}{P(X \ge 1)} = \frac{P(X=2)}{P(X \ge 1)}$$
 
@@ -88,7 +106,7 @@ $$P(X \ge 1) = 1 - P(X=0) = 1 - 0.1615 = 0.8385$$
 
 $$P(X=2 \mid X \ge 1) = \frac{0.2907}{0.8385} \approx \boxed{0.3467}$$
 
-**iii. Εντολή R για ερώτημα ii**
+**iii) R command for question ii)**
 
 ```r
 dbinom(2, size = 10, prob = 1/6) / (1 - dbinom(0, size = 10, prob = 1/6))
@@ -103,7 +121,7 @@ dbinom(2, size = 10, prob = 1/6) / (1 - dbinom(0, size = 10, prob = 1/6))
 Β. Αν ληφθεί το ψηφίο 1, ποια είναι η πιθανότητα να έχει μεταδοθεί πράγματι το 0;
 C. Ποια είναι η συνολική πιθανότητα σφάλματος κατά τη μετάδοση σημάτων στο κανάλι αυτό;
 
-### Λύση ΘΕΜΑΤΟΣ 3
+### Solution to Problem 3
 
 **Ορισμός:**
 - $T_0$: μεταδίδεται 0, $P(T_0) = 0.45$
@@ -137,9 +155,9 @@ ii. Αν ο ονομαστικός όγκος είναι 330 ml, ποια είν
 iii. Ποιες εντολές R χρειάζονται για να βρούμε την πιθανότητα του ερωτήματος ii;
 Δίνονται: Για τη standard κανονική μεταβλητή $Z$, ισχύει $P(Z \le 1.282) = 0.90$, $P(Z \le 1.645) = 0.95$ και $\Phi(-0.5) = 0.3085$.
 
-### Λύση ΘΕΜΑΤΟΣ 4
+### Solution to Problem 4
 
-**Δεδομένα:** $X \sim N(\mu,\ \sigma)$
+**Given Data:** $X \sim N(\mu,\ \sigma)$
 
 **i. Εύρεση $\mu$ και $\sigma$**
 
@@ -179,50 +197,52 @@ pnorm(330, mean = 327.66, sd = 5.57)
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+---
 
-**Πιθανότητες και Στατιστική (405)**
+## FORMULA SHEET
 
-**Μέση τιμή:** 
+**Probability and Statistics (405)**
+
+**Mean:**
 $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
+**Variance:**
 $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:** $CV = s / \bar{x}$
 
-Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
+If $F_{(i-1)} \le \frac{N}{2} \le F_i$ then the **median** (for grouped data):
+$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
 
-Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
+If $F_{(i-1)} \le \frac{kN}{4} \le F_i$ then $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+**Mode** (for grouped data):
+$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+$P(A) = \frac{N(A)}{N(\Omega)}$,
+$N(A)$: number of favorable outcomes for event A
+$N(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
+**Properties:**
 I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
+IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If $A_1, A_2, \cdots, A_n$ are $n$ mutually exclusive events of the sample space $\Omega$, then:
 $P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+VI) If $A \subseteq B$, then a) $P(B - A) = P(B) - P(A)$ and b) $P(A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
+**Conditional Probability:**
 $P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
+**Multiplication Rule:**
 $P(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
+**Independent Events:**
 $P(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
+If $A_i \cap A_j = \emptyset, \forall i \neq j$ and $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
 $P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
+**Bayes' Theorem:**
 $P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

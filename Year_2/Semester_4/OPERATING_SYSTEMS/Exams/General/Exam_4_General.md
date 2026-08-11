@@ -1,128 +1,128 @@
-# Εξέταση 4 — Λειτουργικά Συστήματα
+# Exam 4 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Αμοιβαίος Αποκλεισμός, Σημαφόροι, Αδιέξοδο (Deadlock)*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (10 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Ποια από τις παρακάτω **δεν** είναι συνθήκη αδιεξόδου (deadlock);
-
-- α) Αμοιβαίος αποκλεισμός (Mutual Exclusion)  
-- β) Κατοχή και αναμονή (Hold and Wait)  
-- γ) Προεκχώρηση (Preemption)  
-- δ) Κυκλική αναμονή (Circular Wait)
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Τι κάνει η λειτουργία **P (wait)** ενός σημαφόρου;
+## PART A — THEORY (50 units)
 
-- α) Αυξάνει την τιμή του σημαφόρου κατά 1 και αποδεσμεύει μια διεργασία  
-- β) Αναμένει μέχρι ο σημαφόρος να γίνει > 0 και τον μειώνει κατά 1  
-- γ) Μηδενίζει τον σημαφόρο  
-- δ) Δημιουργεί νέο σημαφόρο
+*Topics: Mutual Exclusion, Semaphores, Deadlock*
 
 ---
 
-**3.** Σε ποια τιμή αρχικοποιείται ένας **δυαδικός σημαφόρος** για αμοιβαίο αποκλεισμό;
+### A1. Multiple Choice Questions (10 units — 2 units each)
 
-- α) 0  
-- β) 1  
-- γ) -1  
-- δ) Άπειρο
+**Circle the letter of the correct answer.**
 
----
+**1.** Which of the following is **not** a condition for deadlock?
 
-**4.** Τι περιγράφει ο **γράφος εκχώρησης πόρων (Resource Allocation Graph)**;
-
-- α) Τη σχέση μεταξύ χρηστών και αρχείων  
-- β) Τις απαιτήσεις και εκχωρήσεις πόρων μεταξύ διεργασιών  
-- γ) Τη δομή του filesystem  
-- δ) Τον αλγόριθμο δρομολόγησης
+- a) Mutual Exclusion
+- b) Hold and Wait
+- c) Preemption
+- d) Circular Wait
 
 ---
 
-**5.** Σε ποια στρατηγική αντιμετώπισης deadlock ανήκει ο **αλγόριθμος τραπεζίτη (Banker's Algorithm)**;
+**2.** What does the **P (wait)** operation of a semaphore do?
 
-- α) Πρόληψη (Prevention)  
-- β) Ανίχνευση (Detection)  
-- γ) Αποφυγή (Avoidance)  
-- δ) Επαναφορά (Recovery)
-
----
-
-### Α2. Round Robin Ερωτήσεων (10 μονάδες — 2 μονάδες έκαστη)
-
-Κυκλώστε τη σωστή απάντηση.
-
-**1.** Τι είναι **κρίσιμο τμήμα (critical section)**;  
-α) Ένα τμήμα κώδικα που δεν εκτελείται ποτέ  
-β) Ακολουθία εντολών που απαιτεί πρόσβαση σε διαμοιραζόμενους πόρους  
-γ) Η περιοχή μνήμης του kernel  
-δ) Η ουρά αναμονής του scheduler
-
-**2.** Ποιο από τα παρακάτω αποτελεί **μειονέκτημα** της απενεργοποίησης διακοπών για αμοιβαίο αποκλεισμό;  
-α) Δεν εγγυάται αμοιβαίο αποκλεισμό σε μονοεπεξεργαστικά συστήματα  
-β) Δεν εγγυάται αμοιβαίο αποκλεισμό σε πολυεπεξεργαστικά συστήματα  
-γ) Είναι πολύ αργό  
-δ) Χρειάζεται περισσότερη μνήμη
-
-**3.** Τι είναι **Priority Inversion** στο TAS (Test and Set);  
-α) Μια διεργασία χαμηλής προτεραιότητας μπλοκάρει μια υψηλής  
-β) Η υψηλής προτεραιότητας πάντα προηγείται  
-γ) Όλες οι διεργασίες έχουν ίδια προτεραιότητα  
-δ) Το σύστημα δεν υποστηρίζει προτεραιότητες
-
-**4.** Τι σημαίνει **ασφαλής κατάσταση** στον αλγόριθμο τραπεζίτη;  
-α) Όλες οι διεργασίες είναι blocked  
-β) Υπάρχει ακολουθία εκτέλεσης που επιτρέπει σε όλες τις διεργασίες να ολοκληρωθούν  
-γ) Οι πόροι έχουν κατανεμηθεί εξίσου  
-δ) Κανένας πόρος δεν είναι σε χρήση
-
-**5.** Πόσες από τις 4 συνθήκες αδιεξόδου πρέπει να ισχύουν **ταυτόχρονα** για να υπάρξει deadlock;  
-α) Τουλάχιστον 1  
-β) Τουλάχιστον 2  
-γ) Τουλάχιστον 3  
-δ) Και οι 4
+- a) Increases the semaphore value by 1 and releases a process
+- b) Waits until the semaphore becomes > 0 and decreases it by 1
+- c) Sets the semaphore to zero
+- d) Creates a new semaphore
 
 ---
 
-### Α3. Ερωτήσεις Σύντομης Απάντησης (10 μονάδες)
+**3.** What value is a **binary semaphore** initialized to for mutual exclusion?
 
-**1. (4 μονάδες)** Διεργασία A κρατά τον πόρο R1 και αναμένει τον R2. Διεργασία B κρατά τον R2 και αναμένει τον R1. Ελέγξτε αν ισχύουν **και οι 4 συνθήκες αδιεξόδου**. Τι συμπεράσματε;
-
-**2. (3 μονάδες)** Αν $Max = (7, 3, 4)$ και $Allocation = (3, 1, 2)$, υπολογίστε το $Need$ και εξηγήστε τι αντιπροσωπεύει.
-
-**3. (3 μονάδες)** Αναφέρατε τρεις **τεχνικές αποφυγής** αδιεξόδου στο πρόβλημα των συνδαιτυμόνων φιλοσόφων.
+- a) 0
+- b) 1
+- c) -1
+- d) Infinity
 
 ---
 
-### Α4. Άσκηση Ανάπτυξης (20 μονάδες)
+**4.** What does a **Resource Allocation Graph** describe?
 
-**Άσκηση 1 (10 μονάδες):**  
-Δίνεται το παρακάτω σενάριο με σημαφόρους:
+- a) The relationship between users and files
+- b) The requests and allocations of resources between processes
+- c) The filesystem structure
+- d) The scheduling algorithm
+
+---
+
+**5.** To which deadlock handling strategy does the **Banker's Algorithm** belong?
+
+- a) Prevention
+- b) Detection
+- c) Avoidance
+- d) Recovery
+
+---
+
+### A2. Round Robin Questions (10 units — 2 units each)
+
+Circle the correct answer.
+
+**1.** What is a **critical section**?
+a) A code section that never executes
+b) A sequence of instructions requiring access to shared resources
+c) The memory region of the kernel
+d) The waiting queue of the scheduler
+
+**2.** Which of the following is a **disadvantage** of disabling interrupts for mutual exclusion?
+a) It does not guarantee mutual exclusion in single-processor systems
+b) It does not guarantee mutual exclusion in multiprocessor systems
+c) It is very slow
+d) It requires more memory
+
+**3.** What is **Priority Inversion** in TAS (Test and Set)?
+a) A low-priority process blocks a high-priority one
+b) The high-priority always proceeds first
+c) All processes have equal priority
+d) The system does not support priorities
+
+**4.** What does a **safe state** mean in the Banker's Algorithm?
+a) All processes are blocked
+b) There exists an execution sequence that allows all processes to complete
+c) Resources have been allocated equally
+d) No resource is in use
+
+**5.** How many of the 4 deadlock conditions must hold **simultaneously** for deadlock to occur?
+a) At least 1
+b) At least 2
+c) At least 3
+d) All 4
+
+---
+
+### A3. Short Answer Questions (10 units)
+
+**1. (4 units)** Process A holds resource R1 and waits for R2. Process B holds R2 and waits for R1. Check if **all 4 deadlock conditions** apply. What do you conclude?
+
+**2. (3 units)** If $Max = (7, 3, 4)$ and $Allocation = (3, 1, 2)$, calculate $Need$ and explain what it represents.
+
+**3. (3 units)** List three **avoidance techniques** for deadlock in the Dining Philosophers problem.
+
+---
+
+### A4. Development Exercise (20 units)
+
+**Exercise 1 (10 units):**
+Given the following semaphore scenario:
 
 ```c
 Semaphore S1 = 1;
 Semaphore S2 = 0;
 ```
 
-**Διεργασία P1:**
+**Process P1:**
 ```c
 A;
 signal(S2);
@@ -130,7 +130,7 @@ wait(S1);
 B;
 ```
 
-**Διεργασία P2:**
+**Process P2:**
 ```c
 wait(S2);
 C;
@@ -138,41 +138,41 @@ signal(S1);
 D;
 ```
 
-α) **(3 μονάδες)** Σε ποια σειρά εκτελούνται τα τμήματα A, B, C, D; Εξηγήστε γιατί.  
-β) **(3 μονάδες)** Αν αντιστραφούν τα `wait(S1)` και `signal(S2)` στη P1, τι θα συμβεί;  
-γ) **(4 μονάδες)** Αν και οι δύο διεργασίες εκτελούν `wait(S1)` πριν από οτιδήποτε άλλο και έχουμε `S1 = 1`, τι συμβαίνει με τη δεύτερη;
+a) **(3 units)** In what order do sections A, B, C, D execute? Explain why.
+b) **(3 units)** If `wait(S1)` and `signal(S2)` are reversed in P1, what happens?
+c) **(4 units)** If both processes execute `wait(S1)` before anything else and we have `S1 = 1`, what happens with the second one?
 
-**Άσκηση 2 (10 μονάδες):**  
-Σύστημα με 3 τύπους πόρων A, B, C και 4 διεργασίες P0–P3:
+**Exercise 2 (10 units):**
+System with 3 resource types A, B, C and 4 processes P0–P3:
 
-| Διεργασία | Allocation (A,B,C) | Max (A,B,C) |
+| Process | Allocation (A,B,C) | Max (A,B,C) |
 |:---|:---|:---|
 | P0 | (0, 1, 0) | (7, 5, 3) |
 | P1 | (2, 0, 0) | (3, 2, 2) |
 | P2 | (3, 0, 2) | (9, 0, 2) |
 | P3 | (2, 1, 1) | (2, 2, 2) |
 
-Διαθέσιμοι πόροι Available = (3, 3, 2). Συνολικοί πόροι = (10, 5, 7).
+Available resources = (3, 3, 2). Total resources = (10, 5, 7).
 
-α) Υπολογίστε το $Need$ για κάθε διεργασία.  
-β) Ελέγξτε αν το σύστημα βρίσκεται σε **ασφαλή κατάσταση** εντοπίζοντας μια ασφαλή ακολουθία.  
-γ) Αν η P1 ζητήσει πρόσθετους πόρους (1, 0, 2), μπορεί να ικανοποιηθεί το αίτημα;
-
----
-
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+a) Calculate $Need$ for each process.
+b) Check if the system is in a **safe state** by finding a safe sequence.
+c) If P1 requests additional resources (1, 0, 2), can the request be satisfied?
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε.
+## PART B — Unix Laboratory / jsLinux (50 units)
 
 ---
 
-### Β1. Wildcards και Glob Patterns (15 μονάδες)
+> **jsLinux Environment:** Write **exactly** the commands you would use.
 
-**1. (5 μονάδες)** Εξηγήστε τη σημασία των παρακάτω wildcards στο Unix shell. Δώστε ένα παράδειγμα χρήσης για καθένα:
+---
 
-| Wildcard | Σημασία | Παράδειγμα |
+### B1. Wildcards and Glob Patterns (15 units)
+
+**1. (5 units)** Explain the meaning of the following wildcards in Unix shell. Give one usage example for each:
+
+| Wildcard | Meaning | Example |
 |:---|:---|:---|
 | `*` | | |
 | `?` | | |
@@ -180,51 +180,51 @@ D;
 | `[a-z]` | | |
 | `[!0-9]` | | |
 
-**2. (5 μονάδες)** Στο jsLinux, γράψτε εντολές που χρησιμοποιούν wildcards για να:  
-   α) Λίστα αρχείων που αρχίζουν με γράμμα `a` στον `/etc`  
-   β) Λίστα αρχείων με επέκταση `.conf` στον `/etc`  
-   γ) Λίστα αρχείων που έχουν ακριβώς 5 χαρακτήρες στο όνομά τους
+**2. (5 units)** In jsLinux, write commands using wildcards to:
+   a) List files starting with letter `a` in `/etc`
+   b) List files with extension `.conf` in `/etc`
+   c) List files with exactly 5 characters in their name
 
-**3. (5 μονάδες)** Τι εκτελεί η εντολή `rm -f /tmp/test[1-5].txt`; Ποια αρχεία θα διαγραφούν; Είναι ασφαλής χρήση; Αιτιολογήστε.
-
----
-
-### Β2. Εντολές Αναζήτησης (10 μονάδες)
-
-**1. (5 μονάδες)** Χρησιμοποιήστε την εντολή `find` στο jsLinux για να:  
-   α) Βρείτε όλα τα αρχεία `.txt` στο `/tmp`  
-   β) Βρείτε αρχεία που τροποποιήθηκαν τις τελευταίες 1 μέρα  
-   γ) Βρείτε αρχεία μεγαλύτερα από 100 bytes  
-
-**2. (5 μονάδες)** Εξηγήστε τη διαφορά μεταξύ `find` και `grep`. Δώστε ένα παράδειγμα όπου χρησιμοποιείτε και τα δύο σε pipeline για να βρείτε αρχεία που περιέχουν μια συγκεκριμένη λέξη.
+**3. (5 units)** What does the command `rm -f /tmp/test[1-5].txt` execute? Which files will be deleted? Is it safe to use? Justify.
 
 ---
 
-### Β3. Δικαιώματα και Ασφάλεια (10 μονάδες)
+### B2. Search Commands (10 units)
 
-**1. (5 μονάδες)** Στο jsLinux, δημιουργήστε ένα script αρχείο `secure_script.sh`. Ορίστε τα δικαιώματα ώστε:
-   - Ο ιδιοκτήτης να έχει πλήρη δικαιώματα (rwx)
-   - Η ομάδα να έχει μόνο ανάγνωση και εκτέλεση (r-x)
-   - Οι άλλοι να μην έχουν κανένα δικαίωμα (---)
+**1. (5 units)** Use the `find` command in jsLinux to:
+   a) Find all `.txt` files in `/tmp`
+   b) Find files modified in the last 1 day
+   c) Find files larger than 100 bytes
+
+**2. (5 units)** Explain the difference between `find` and `grep`. Give an example where you use both in a pipeline to find files containing a specific word.
+
+---
+
+### B3. Permissions and Security (10 units)
+
+**1. (5 units)** In jsLinux, create a script file `secure_script.sh`. Set permissions so that:
+   - The owner has full permissions (rwx)
+   - The group has only read and execute (r-x)
+   - Others have no permissions (---)
    
-   Γράψτε τις εντολές και επαληθεύστε με `ls -l`.
+   Write the commands and verify with `ls -l`.
 
-**2. (5 μονάδες)** Εξηγήστε τη σημασία της **umask** στο Unix. Αν η umask είναι `022`, ποια θα είναι τα δικαιώματα ενός νέου αρχείου και ενός νέου καταλόγου που δημιουργούνται; Δείξτε τον υπολογισμό.
-
----
-
-### Β4. Σενάριο Πρακτικής Άσκησης (15 μονάδες)
-
-**Σενάριο:** Διαχείριση αρχείων project με wildcards και δικαιώματα στο jsLinux.
-
-1. **(3 μονάδες)** Δημιουργήστε 5 αρχεία: `report_1.txt`, `report_2.txt`, `report_3.txt`, `draft_1.txt`, `draft_2.txt` στον κατάλογο `/tmp`.
-
-2. **(4 μονάδες)** Χρησιμοποιήστε **wildcards** για να αντιγράψετε μόνο τα αρχεία `report_*.txt` σε έναν νέο κατάλογο `/tmp/final_reports`.
-
-3. **(4 μονάδες)** Δώστε στα αρχεία `report_*.txt` στον `/tmp/final_reports` δικαιώματα `644`. Επαληθεύστε.
-
-4. **(4 μονάδες)** Εμφανίστε τα περιεχόμενα όλων των `report_*.txt` αρχείων **ταυτόχρονα** χρησιμοποιώντας wildcards. Στη συνέχεια, ανακατευθύνετε αυτήν την έξοδο σε ένα νέο αρχείο `combined_reports.txt`.
+**2. (5 units)** Explain the meaning of **umask** in Unix. If umask is `022`, what will be the permissions of a new file and a new directory created? Show the calculation.
 
 ---
 
-*Καλή επιτυχία!*
+### B4. Practical Exercise Scenario (15 units)
+
+**Scenario:** Project file management with wildcards and permissions in jsLinux.
+
+1. **(3 units)** Create 5 files: `report_1.txt`, `report_2.txt`, `report_3.txt`, `draft_1.txt`, `draft_2.txt` in the `/tmp` directory.
+
+2. **(4 units)** Use **wildcards** to copy only the `report_*.txt` files to a new directory `/tmp/final_reports`.
+
+3. **(4 units)** Give the `report_*.txt` files in `/tmp/final_reports` permissions `644`. Verify.
+
+4. **(4 units)** Display the contents of all `report_*.txt` files **simultaneously** using wildcards. Then, redirect this output to a new file `combined_reports.txt`.
+
+---
+
+*Good luck!*

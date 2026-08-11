@@ -1,99 +1,102 @@
 # Exam Paper 2026 06 09 (Team B)
 
-**Ομάδα Β**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Κωδικός Θέσης:_______________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστικής**       Τρίτη 09/06/2026
+**Team B**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Seat Code:_______________________
+**COURSE: Probability & Statistics**       Tuesday 09/06/2026
 
-Οδηγίες:
-1. Τα θέματα είναι ισοδύναμα
-2. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-3. Επιτρέπεται η χρήση αριθμομηχανής και όχι κινητού τηλεφώνου
+Instructions:
+1. All problems carry equal weight
+2. Hand in the question sheet along with your answer booklet.
+3. Use of pocket calculators is permitted; mobile phones are prohibited.
 
-**ΘΕΜΑ 1:** Ο παρακάτω πίνακας παρουσιάζει τον χρόνο (σε λεπτά) που χρειάστηκαν 200 χρήστες για να ολοκληρώσουν μια διαδικτυακή αγορά.
+**PROBLEM 1:** The following table shows the time (in minutes) taken by 200 users to complete an online purchase.
 
-| Χρόνος (λεπτά) | Κέντρα $x_i$ | Αριθμός νοικοκ. $f_i$ | $f_i x_i$ | $f_i (x_i - \bar{x})^2$ | $F_i$ |
+| Time (minutes) | Class Marks $x_i$ | Number of Users $f_i$ | $f_i x_i$ | $f_i (x_i - \bar{x})^2$ | $F_i$ |
 | --- | --- | --- | --- | --- | --- |
 | [0,4) | | 30 | | 1228.8 | |
 | [4,8) | | 60 | | 345.6 | |
 | [8,12) | | 70 | | 179.2 | |
 | [12,16) | | 40 | | 1254.4 | |
-| Σύνολα | | 200 | | 3008 | |
+| Total | | 200 | | 3008 | |
 
-i. Με τη βοήθεια του πίνακα, να υπολογίσετε το μέσο όρο ($\bar{x}$), το τρίτο τεταρτημόριο και τη τυπική απόκλιση του χρόνου ολοκλήρωσης.
-ii. Αν η εταιρεία θέλει να βελτιώσει την πλατφόρμα της για το 25% των χρηστών που καθυστερούν περισσότερο, ποιο είναι το ελάχιστο χρονικό όριο (σε λεπτά) πάνω από το οποίο ένας χρήστης θεωρείται ότι ανήκει σε αυτή την ομάδα;
-iii. Σε ποιο διάστημα τιμών αναμένεται να βρίσκεται ο χρόνος για το 95% των χρηστών, αν υποθέσουμε ότι η κατανομή των χρόνων είναι περίπου συμμετρική/καμπανοειδή;
-iv. Αν τα αρχικά, μη ομαδοποιημένα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `times`, γράψτε την εντολή για τον υπολογισμό της τυπικής απόκλισης.
+i. Using the table, calculate the mean ($\bar{x}$), third quartile ($Q_3$), and standard deviation of completion time.
+ii. If the company wants to improve its platform for the 25% of users with the longest delays, what is the minimum threshold time (in minutes) above which a user is considered part of this group?
+iii. Within what interval of values is the completion time expected to lie for 95% of users, assuming the distribution of times is approximately symmetric/bell-shaped?
+iv. If the original raw un-grouped data are stored in an R vector named `times`, write the command to calculate the standard deviation.
 
-**ΘΕΜΑ 2:** Σε έρευνα μεταξύ των φοιτητών της σχολής διαπιστώθηκε ότι: ποσοστό 20% χρησιμοποιεί το λογισμικό R, ποσοστό 15% χρησιμοποιεί το Python και ποσοστό 5% χρησιμοποιεί και τα δύο.
-Επιλέγεται τυχαία ένας φοιτητής. Να υπολογισθούν οι πιθανότητες:
-a) να χρησιμοποιεί τουλάχιστον ένα από τα δύο λογισμικά.
-b) να χρησιμοποιεί μόνο Python.
-c) να χρησιμοποιεί Python δεδομένου ότι δεν χρησιμοποιεί R.
-d) να μη χρησιμοποιεί κανένα από τα δύο.
+**PROBLEM 2:** A survey among department students revealed that: 20% use R software, 15% use Python, and 5% use both.
+A student is selected at random. Calculate the probabilities:
+a) that they use at least one of the two software packages.
+b) that they use only Python.
+c) that they use Python given that they do not use R.
+d) that they use neither of the two.
 
-**ΘΕΜΑ 3:** Σε μία εταιρεία τηλεπικοινωνιών πραγματοποιούνται καθημερινά έλεγχοι ποιότητας σε 20 τυχαία επιλεγμένες συνδέσεις. Μια σύνδεση χαρακτηρίζεται ως προβληματική ή μη προβληματική. Από προηγούμενες μετρήσεις είναι γνωστό ότι η πιθανότητα μία σύνδεση να είναι προβληματική είναι 0.08.
-Έστω $X$ ο αριθμός των προβληματικών συνδέσεων που θα βρεθούν στους 20 ελέγχους μιας ημέρας.
-a) Να περιγράψετε το είδος της τυχαίας μεταβλητής $X$. Ποια θεωρητική κατανομή θεωρείτε καταλληλότερη για τη μοντελοποίηση της $X$; Να αιτιολογήσετε την επιλογή σας.
-b) Να υπολογισθεί η πιθανότητα να βρεθούν το πολύ 2 προβληματικές συνδέσεις.
-c) Να υπολογισθεί η πιθανότητα να βρεθεί τουλάχιστον μία προβληματική σύνδεση.
-d) Να υπολογισθεί η αναμενόμενη τιμή και η τυπική απόκλιση της $X$.
-e) Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος c;
+**PROBLEM 3:** In a telecommunications company, daily quality checks are performed on 20 randomly selected connections. A connection is classified as faulty or non-faulty. From prior measurements it is known that the probability a connection is faulty is 0.08.
+Let $X$ be the number of faulty connections found in 20 daily checks.
+a) Describe the type of random variable $X$. Which theoretical distribution do you consider most suitable for modeling $X$? Justify your choice.
+b) Calculate the probability of finding at most 2 faulty connections.
+c) Calculate the probability of finding at least one faulty connection.
+d) Calculate the expected value and standard deviation of $X$.
+e) What command should we give in R to calculate the probability of question c)?
 
-**ΘΕΜΑ 4:** Ο χρόνος ζωής μιας συγκεκριμένης ηλεκτρονικής λυχνίας που κατασκευάζεται σε ένα εργοστάσιο ακολουθεί την Κανονική Κατανομή με μέση τιμή 800 ώρες και τυπική απόκλιση 40 ώρες. Επιλέγουμε τυχαία μία λυχνία.
-i. Ποια είναι η πιθανότητα ο χρόνος ζωής της λυχνίας να είναι μεταξύ 740 και 860 ωρών;
-ii. Ποια είναι η πιθανότητα η λυχνία να λειτουργήσει για περισσότερες από 720 ώρες;
-iii. Γράψτε την κατάλληλη εντολή στην R η οποία υπολογίζει την πιθανότητα του ερωτήματος i.
-Δίνονται: $P(Z \le 1.5) = 0.9332$, $P(Z \le 2) = 0.9772$
+**PROBLEM 4:** The lifespan of a specific electronic tube manufactured in a factory follows a Normal distribution with mean 800 hours and standard deviation 40 hours. We randomly select a tube.
+i. What is the probability that the tube lifespan is between 740 and 860 hours?
+ii. What is the probability that the tube operates for more than 720 hours?
+iii. Write the appropriate command in R that calculates the probability of question i).
+Given: $P(Z \le 1.5) = 0.9332$, $P(Z \le 2) = 0.9772$
 
-Καλή Επιτυχία!
+Good Luck!
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+## FORMULA SHEET
 
-**Πιθανότητες και Στατιστική (405)**
+**Probability and Statistics (405)**
 
-**Μέση τιμή:** 
-$\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
+**Mean:**
+$ar{X} = rac{1}{n} \sum_{i=1}^n X_i$, $ar{X} = rac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
-$s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
+**Variance:**
+^2 = rac{1}{n-1} \sum_{i=1}^n (x_i - ar{x})^2$, ^2 = rac{1}{n-1} \sum_{i=1}^k (X_i - ar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:**  = s / ar{x}$
 
-Αν $F_{(i-1)} \le \frac{N}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
+If {(i-1)} \le rac{N}{2} \le F_i$ then the **median** (for grouped data):
+ = x_{(i-1)} + rac{\delta}{f_i} \left( rac{N}{2} - F_{(i-1)} 
+ight)$
 
-Αν $F_{(i-1)} \le \frac{kN}{4} \le F_i$ τότε $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
+If {(i-1)} \le rac{kN}{4} \le F_i$ then  = x_{(i-1)} + rac{\delta}{f_i} \left( rac{kN}{4} - F_{(i-1)} 
+ight), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
+**Mode** (for grouped data):
+ = x_{(i-1)} + \delta rac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+(A) = rac{N(A)}{N(\Omega)}$,
+(A)$: number of favorable outcomes for event A
+(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
-I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
-$P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+**Properties:**
+I) (A') = 1 - P(A)$, II) (\emptyset) = 0$, III) (A) \le 1$
+IV) (A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If , A_2, \cdots, A_n$ are $ mutually exclusive events of the sample space $\Omega$, then:
+(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
+VI) If  \subseteq B$, then a) (B - A) = P(B) - P(A)$ and b) (A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
-$P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
+**Conditional Probability:**
+(A|B) = rac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
-$P(A \cap B) = P(A|B)P(B)$
+**Multiplication Rule:**
+(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
-$P(A \cap B) = P(A)P(B)$
+**Independent Events:**
+(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
-$P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
+If  \cap A_j = \emptyset, orall i 
+eq j$ and  \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
+(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
-$P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$
+**Bayes' Theorem:**
+(A_i | B) = rac{P(B \cap A_i)}{P(B)} = rac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

@@ -1,32 +1,32 @@
-# Εξέταση Θεωρίας - Ιούνιος 2023
+# Theory Examination - June 2023
 
-## ΘΕΜΑ 1 (1 μονάδα)
-(α) Εξηγήστε σε ποια ή ποιες καταστάσεις μπορεί να μεταβεί μια διεργασία που βρίσκεται σε κατάσταση αναστολής στη μνήμη και πότε.
-(β) Τι θα συμβεί όταν ένα πρόγραμμα καλέσει την μέθοδο `wait` σε μια δυαδική σημαφόρο S με τιμή 1; (δηλ. τι θα συμβεί στο πρόγραμμα και στην σημαφόρο)
+## QUESTION 1 (1 unit)
+(a) Explain in what state(s) a process that is in a suspended waiting state in memory can transition to, and when.
+(b) What will happen when a program calls the `wait` method on a binary semaphore S with value 1? (i.e., what will happen to the program and to the semaphore)
 
-## ΘΕΜΑ 2 (1 μονάδα)
-Ένα υπολογιστικό σύστημα χρησιμοποιεί λογικές διευθύνσεις των 16 bit και σελιδοποίηση (pagination) για υποστήριξη εικονικής μνήμης. Εξηγήστε:
-(i) Ποιος θα είναι ο αριθμός bit για τον καθορισμό της μετατόπισης (offset) στην σελίδα αν το μέγεθος κάθε σελίδας είναι 1024 bytes.
-(ii) Πόσες θέσεις θα πρέπει να έχει ο πίνακας σελίδων για να υποστηρίξει τον μέγιστο αριθμό σελίδων.
+## QUESTION 2 (1 unit)
+A computing system uses 16-bit logical addresses and paging to support virtual memory. Explain:
+(i) What will be the number of bits for specifying the offset in the page if the size of each page is 1024 bytes.
+(ii) How many entries the page table must have to support the maximum number of pages.
 
-## ΘΕΜΑ 3 (3 μονάδες α=1, β=2)
-Σε ένα υπολογιστικό σύστημα καταφθάνουν οι διεργασίες P1, P2, P3, P4 και P5 για εκτέλεση την χρονική στιγμή 0 με αυτή την σειρά.
-Οι χρόνοι καταιγισμού (CPU burst times) για τις πέντε διεργασίες είναι:
-P1=1, P2=3, P3=4, P4=3 και P5=1
+## QUESTION 3 (3 units: a=1, b=2)
+In a computing system, processes P1, P2, P3, P4 and P5 arrive for execution at time 0 in that order.
+The CPU burst times for the five processes are:
+P1=1, P2=3, P3=4, P4=3 and P5=1
 
-(α1) Συμπληρώστε το ακόλουθο διάγραμμα εκτέλεσης των πέντε διεργασιών όπως χρονοδρομολογούνται από τον αλγόριθμο «Συντομότερη Εργασία Πρώτη» (Shortest Job First) SJF. Σε κάθε στήλη του πίνακα αντιστοιχεί ένα millisecond.
+(a1) Complete the following execution diagram of the five processes as scheduled by the "Shortest Job First" (SJF) algorithm. Each column in the table corresponds to one millisecond.
 
-| Χρόνος | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| Time | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Εκτελούμενη Διεργασία | | | | | | | | | | | | |
+| Executing Process | | | | | | | | | | | | |
 
-(α2) Υπολογίστε τους χρόνους απόκρισης (response time) των διεργασιών και τον μέσο χρόνο απόκρισης.
+(a2) Calculate the response times of the processes and the average response time.
 
-(β1) Συμπληρώστε το ακόλουθο διάγραμμα εκτέλεσης των πέντε διεργασιών όπως χρονοδρομολογούνται από τον αλγόριθμο «Εκ Περιτροπής» (Round Robin) με κβάντο χρόνου δύο (2) μονάδες, δείχνοντας ποια είναι η εκτελούμενη διεργασία κάθε στιγμή και ποιες οι διεργασίες στην ουρά αναμονής. Σε κάθε στήλη του πίνακα αντιστοιχεί σε ένα millisecond.
+(b1) Complete the following execution diagram of the five processes as scheduled by the "Round Robin" algorithm with a time quantum of two (2) units, showing which process is executing at each moment and which processes are in the waiting queue. Each column in the table corresponds to one millisecond.
 
-| Χρόνος | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| Time | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Εκτελούμενη Διεργασία | | | | | | | | | | | | |
-| ΟΥΡΑ (Σημειώστε τις διεργασίες με τη σειρά που περιμένουν. Η πρώτη στην ουρά μπαίνει στην κορυφή) | | | | | | | | | | | | |
+| Executing Process | | | | | | | | | | | | |
+| QUEUE (Note the processes in the order they are waiting. The first in the queue enters at the top) | | | | | | | | | | | | |
 
-(β2) Υπολογίστε τους χρόνους αναμονής (waiting time) των διεργασιών και το μέσο χρόνο αναμονής.
+(b2) Calculate the waiting times of the processes and the average waiting time.

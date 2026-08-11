@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Αρχές Γλωσσών Προγραμματισμού - Quiz</title>
+<title>Principles of Programming Languages - Quiz</title>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
@@ -39,6 +39,7 @@ body { margin:0; padding:0; background-color:var(--bg-color); color:var(--text-m
 .node-button:hover:not(:disabled) { border-color:var(--accent-color); background-color:var(--accent-bg); }
 .node-button.active { border-color:var(--accent-color); background-color:var(--accent-color); color:var(--bg-color); box-shadow:0 0 0.8em rgba(139,92,246,0.4); }
 .node-button.correct { border-color:var(--success-color); background-color:var(--success-bg); color:var(--success-color); }
+.correct-fill { }
 .node-button.incorrect { border-color:var(--error-color); background-color:var(--error-bg); color:var(--error-color); }
 .sidebar-footer { margin-top:auto; display:flex; flex-direction:column; gap:0.5em; padding-top:1em; border-top:0.1em solid var(--border-color); }
 .sidebar-slab-btn { width:100%; padding:0.7em; border-radius:0.4em; border:0.1em solid var(--border-color); background-color:rgba(255,255,255,0.02); color:var(--text-main); font-size:0.85em; font-weight:600; cursor:pointer; transition:all 0.2s ease; text-align:center; font-family:inherit; }
@@ -85,59 +86,59 @@ code { background:rgba(255,255,255,0.06); padding:0.1em 0.3em; border-radius:0.2
 <body>
 <div class="app-workspace">
   <div class="sidebar">
-    <div class="sidebar-title">Ερωτήσεις</div>
+    <div class="sidebar-title">Questions</div>
     <ul id="nodes-container" class="nodes-grid"></ul>
     <div class="sidebar-footer">
-      <button id="home-btn" class="sidebar-slab-btn">Αρχή</button>
-      <button id="status-btn" class="sidebar-slab-btn" disabled>Αποτελέσματα</button>
+      <button id="home-btn" class="sidebar-slab-btn">Home</button>
+      <button id="status-btn" class="sidebar-slab-btn" disabled>Results</button>
     </div>
   </div>
   <div class="workspace-content">
     <div id="quiz-view">
       <div class="question-header">
-        <div class="topic-badge">ΑΡΧΕΣ ΓΛΩΣΣΩΝ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ</div>
+        <div class="topic-badge">PRINCIPLES OF PROGRAMMING LANGUAGES</div>
         <h2 id="question-text" class="question-text">...</h2>
       </div>
       <div id="options-box" class="options-container"></div>
       <div id="explanation-box" class="explanation-panel">
-        <div class="explanation-title">Εξήγηση</div>
+        <div class="explanation-title">Explanation</div>
         <p id="explanation-text" class="explanation-text"></p>
       </div>
       <div class="workspace-footer">
-        <button id="next-button" class="btn-primary">Επόμενο →</button>
+        <button id="next-button" class="btn-primary">Next →</button>
       </div>
     </div>
     <div id="report-view" class="report-view">
-      <h2 class="report-title">Αποτελέσματα</h2>
+      <h2 class="report-title">Results</h2>
       <div class="summary-card">
         <div id="score-display" class="score-number">0 / 0</div>
-        <div class="score-desc">Σωστές απαντήσεις</div>
-        <div class="click-hint">Κάντε κλικ στους κύκλους για να δείτε τις απαντήσεις</div>
+        <div class="score-desc">Correct answers</div>
+        <div class="click-hint">Click the circles to see the answers</div>
       </div>
       <div class="report-controls">
-        <button id="shuffle-button" class="btn-secondary">Ανακάτεμα</button>
-        <button id="retake-button" class="btn-primary">Επανάληψη</button>
+        <button id="shuffle-button" class="btn-secondary">Shuffle</button>
+        <button id="retake-button" class="btn-primary">Retake</button>
       </div>
     </div>
   </div>
 </div>
 <script>
 const quizquestions = [
-  // CH1 - Βασικές Έννοιες
+  // CH1 - Basic Concepts
   {
-    question: "Τι εμφανίζει ο παρακάτω κώδικας C;<br><pre>int x = 5;\nint a = x++;\nprintf(\"%d %d\", a, x);</pre>",
+    question: "What does the following C code display?<br><pre>int x = 5;\nint a = x++;\nprintf(\"%d %d\", a, x);</pre>",
     options: ["5 6", "6 6", "5 5", "6 5"],
     correctindex: 0,
-    explanation: "Ο postfix τελεστής x++ επιστρέφει πρώτα την τρέχουσα τιμή (5) και μετά αυξάνει το x κατά 1. Άρα a=5, x=6."
+    explanation: "The postfix operator x++ first returns the current value (5) and then increments x by 1. So a=5, x=6."
   },
   {
-    question: "Ποιες τιμές θεωρούνται <strong>ψευδείς</strong> (false) στη γλώσσα C;",
+    question: "Which values are considered <strong>false</strong> in the C language?",
     options: ["0, 0.0, 0.0f, NULL", "0, 1, NULL, 'a'", "-1, 0.0, 3.5, NULL", "0, false, '', None"],
     correctindex: 0,
-    explanation: "Στη C, ψευδείς τιμές είναι: 0, 0.0, 0.0f, NULL. Οι τιμές 1, -1, 3.5, 'a' κ.λπ. θεωρούνται αληθείς."
+    explanation: "In C, false values are: 0, 0.0, 0.0f, NULL. Values like 1, -1, 3.5, 'a' etc. are considered true."
   },
   {
-    question: "Ποια εντολή μεταγλώττισης GCC παράγει εκτελέσιμο με όνομα <code>my_program.exe</code> από το αρχείο <code>my_program.c</code>;",
+    question: "Which GCC compilation command produces an executable named <code>my_program.exe</code> from the file <code>my_program.c</code>?",
     options: [
       "gcc my_program.c -o my_program.exe",
       "gcc -compile my_program.c my_program.exe",
@@ -145,310 +146,310 @@ const quizquestions = [
       "gcc --output=my_program.exe my_program.c"
     ],
     correctindex: 0,
-    explanation: "Η σωστή σύνταξη είναι: gcc my_program.c -o my_program.exe. Η επιλογή -o καθορίζει το όνομα του εκτελέσιμου."
+    explanation: "The correct syntax is: gcc my_program.c -o my_program.exe. The -o option specifies the name of the executable."
   },
   {
-    question: "Τι σημαίνει «ορθογωνικότητα» (orthogonality) σε γλώσσα προγραμματισμού;",
+    question: "What does \"orthogonality\" mean in a programming language?",
     options: [
-      "Κάθε συνδυασμός χαρακτηριστικών της γλώσσας έχει νόημα και συμπεριφέρεται με συνεπή τρόπο",
-      "Η γλώσσα υποστηρίζει μόνο ορθογώνια δεδομένα όπως πίνακες",
-      "Η γλώσσα έχει ορθογώνια σύνταξη που διευκολύνει τον μεταγλωττιστή",
-      "Τα modules της γλώσσας είναι ανεξάρτητα το ένα από το άλλο"
+      "Every combination of language features is meaningful and behaves in a consistent way",
+      "The language supports only rectangular data such as arrays",
+      "The language has a rectangular syntax that facilitates the compiler",
+      "The modules of the language are independent from each other"
     ],
     correctindex: 0,
-    explanation: "Ορθογωνικότητα σημαίνει ότι κάθε συνδυασμός δυνατοτήτων λειτουργεί με ομοιόμορφο τρόπο. Π.χ. παραβιάζεται στη C όταν οι πίνακες δεν επιτρέπουν στοιχεία τύπου void ενώ άλλοι τύποι επιτρέπονται."
+    explanation: "Orthogonality means that every combination of features works in a uniform way. For example, it is violated in C when arrays do not allow void type elements while other types are allowed."
   },
-  // CH3 - Γραμματικές
+  // CH3 - Grammars
   {
-    question: "Δίνεται η γραμματική:<br><pre>S → AaBb\nA → Ab | b\nB → aB | a</pre>Ποιες από τις παρακάτω προτάσεις <strong>δεν</strong> ανήκουν στη γλώσσα;",
+    question: "Given the grammar:<br><pre>S → AaBb\nA → Ab | b\nB → aB | a</pre>Which of the following strings <strong>do not</strong> belong to the language?",
     options: [
-      "bbbab και bbaaaaaS",
-      "baab και bbaab",
-      "baab και bbbab",
-      "bbaaaaaS και bbaab"
+      "bbbab and bbaaaaaS",
+      "baab and bbaab",
+      "baab and bbbab",
+      "bbaaaaaS and bbaab"
     ],
     correctindex: 0,
-    explanation: "Η γραμματική παράγει προτάσεις: 1+ b, μετά a, μετά 1+ a, μετά b. Το 'bbbab' έχει μόνο ένα a, και το 'bbaaaaaS' περιέχει μη-τερματικό σύμβολο S."
-  },
-  {
-    question: "Τι σημαίνει ότι μια γραμματική είναι <strong>ασαφής</strong> (ambiguous);",
-    options: [
-      "Για την ίδια πρόταση μπορούν να παραχθούν δύο ή περισσότερα διαφορετικά δένδρα συντακτικής ανάλυσης",
-      "Η γραμματική δεν μπορεί να αναγνωρίσει καμία πρόταση",
-      "Η γραμματική έχει κανόνες που επικαλύπτονται μεταξύ τους",
-      "Η γραμματική χρησιμοποιεί αναδρομή αριστερά"
-    ],
-    correctindex: 0,
-    explanation: "Μια γραμματική είναι ασαφής όταν μια πρόταση της γλώσσας μπορεί να παραχθεί με περισσότερες από μία αριστερότερες παραγωγές, οδηγώντας σε διαφορετικά δένδρα συντακτικής ανάλυσης."
+    explanation: "The grammar produces strings: 1+ b, then a, then 1+ a, then b. The string 'bbbab' has only one a, and 'bbaaaaaS' contains a non-terminal symbol S."
   },
   {
-    question: "Τι επιλύει η διαφοροποίηση ανάμεσα σε <code>matched</code> και <code>unmatched</code> εντολές if σε μια γραμματική;",
+    question: "What does it mean for a grammar to be <strong>ambiguous</strong>?",
     options: [
-      "Το πρόβλημα dangling else (ξεκρέμαστο else)",
-      "Την αριστερή αναδρομή στη γραμματική",
-      "Την ασάφεια στις αριθμητικές εκφράσεις",
-      "Την υπερχείλιση στοίβας κατά τη συντακτική ανάλυση"
+      "For the same string, two or more different parse trees can be produced",
+      "The grammar cannot recognize any string",
+      "The grammar has rules that overlap with each other",
+      "The grammar uses left recursion"
     ],
     correctindex: 0,
-    explanation: "Το dangling else επιλύεται επιβάλλοντας κάθε else να αντιστοιχεί στο πλησιέστερο προηγούμενο if, μέσω της διάκρισης matched/unmatched εντολών."
+    explanation: "A grammar is ambiguous when a string of the language can be produced by more than one leftmost derivation, leading to different parse trees."
+  },
+  {
+    question: "What does the distinction between <code>matched</code> and <code>unmatched</code> if statements resolve in a grammar?",
+    options: [
+      "The dangling else problem",
+      "The left recursion in the grammar",
+      "The ambiguity in arithmetic expressions",
+      "The stack overflow during parsing"
+    ],
+    correctindex: 0,
+    explanation: "The dangling else is resolved by forcing every else to correspond to the nearest preceding if, through the distinction of matched/unmatched statements."
   },
   // CH5 - Binding / Scope
   {
-    question: "Τι είναι <strong>πρόσδεση</strong> (binding) σε γλώσσα προγραμματισμού;",
+    question: "What is <strong>binding</strong> in a programming language?",
     options: [
-      "Η συσχέτιση ενός αναγνωριστικού με μια οντότητα (τύπο, τιμή, διεύθυνση μνήμης)",
-      "Η διαδικασία δέσμευσης μνήμης κατά τη μεταγλώττιση",
-      "Η σύνδεση αρχείων αντικειμένου σε εκτελέσιμο",
-      "Η αντιστοίχιση παραμέτρων σε ορίσματα κατά την κλήση συνάρτησης"
+      "The association of an identifier with an entity (type, value, memory address)",
+      "The process of memory allocation during compilation",
+      "The linking of object files into an executable",
+      "The mapping of parameters to arguments during a function call"
     ],
     correctindex: 0,
-    explanation: "Binding είναι η συσχέτιση αναγνωριστικού με οντότητα. Μπορεί να είναι στατική (compile-time) ή δυναμική (runtime). Στη C η x προσδένεται στον τύπο int κατά τη μεταγλώττιση."
+    explanation: "Binding is the association of an identifier with an entity. It can be static (compile-time) or dynamic (runtime). In C, x is bound to the type int at compile time."
   },
   {
-    question: "Τι εμφανίζει ο κώδικας αν η γλώσσα υποστηρίζει <strong>στατική εμβέλεια</strong>;<br><pre>function outer(){\n  function inner2() { var y=x; print(y) }\n  var x = 16;\n  inner1(); // inner1 calls inner2, with local x=5\n}</pre>",
-    options: ["16", "5", "0", "Σφάλμα εκτέλεσης"],
+    question: "What does the code display if the language supports <strong>static scoping</strong>?<br><pre>function outer(){\n  function inner2() { var y=x; print(y) }\n  var x = 16;\n  inner1(); // inner1 calls inner2, with local x=5\n}</pre>",
+    options: ["16", "5", "0", "Runtime error"],
     correctindex: 0,
-    explanation: "Με στατική εμβέλεια η x της inner2 αναζητείται στο λεξικό περιβάλλον ορισμού της (η outer), όπου x=16. Με δυναμική εμβέλεια θα εκτυπωνόταν 5 (η τιμή στο περιβάλλον κλήσης)."
+    explanation: "With static scoping, the x of inner2 is looked up in its lexical definition environment (the outer), where x=16. With dynamic scoping, 5 would be printed (the value in the calling environment)."
   },
   {
-    question: "Ποια είναι η διαφορά μεταξύ <strong>εμβέλειας</strong> (scope) και <strong>διάρκειας ζωής</strong> (lifetime) μεταβλητής;",
+    question: "What is the difference between the <strong>scope</strong> and the <strong>lifetime</strong> of a variable?",
     options: [
-      "Scope = πού είναι ορατή η μεταβλητή · Lifetime = πόσο διαρκεί η ύπαρξή της στη μνήμη",
-      "Scope = πόσο διαρκεί η μεταβλητή · Lifetime = πού μπορεί να χρησιμοποιηθεί",
-      "Είναι συνώνυμες έννοιες",
-      "Scope αφορά τη μεταγλώττιση · Lifetime αφορά τη σύνδεση (linking)"
+      "Scope = where the variable is visible · Lifetime = how long its existence in memory lasts",
+      "Scope = how long the variable lasts · Lifetime = where it can be used",
+      "They are synonymous concepts",
+      "Scope concerns compilation · Lifetime concerns linking"
     ],
     correctindex: 0,
-    explanation: "Scope ορίζει το τμήμα κώδικα στο οποίο είναι ορατή η μεταβλητή. Lifetime είναι το χρονικό διάστημα που η μεταβλητή υπάρχει στη μνήμη κατά την εκτέλεση. Μια static τοπική μεταβλητή στη C έχει τοπικό scope αλλά lifetime ίσο με ολόκληρη την εκτέλεση."
+    explanation: "Scope defines the part of the code in which the variable is visible. Lifetime is the time interval during which the variable exists in memory during execution. A static local variable in C has local scope but a lifetime equal to the entire execution."
   },
   {
-    question: "Τι εκτυπώνει ο κώδικας Python;<br><pre>x = 10\ndef f(): x = 5; print('f:', x)\ndef g(): print('g:', x)\nf(); g(); print('main:', x)</pre>",
+    question: "What does the Python code print?<br><pre>x = 10\ndef f(): x = 5; print('f:', x)\ndef g(): print('g:', x)\nf(); g(); print('main:', x)</pre>",
     options: [
       "f: 5 / g: 10 / main: 10",
       "f: 10 / g: 10 / main: 10",
       "f: 5 / g: 5 / main: 5",
-      "Σφάλμα UnboundLocalError"
+      "UnboundLocalError"
     ],
     correctindex: 0,
-    explanation: "Η f() ορίζει τοπική x=5 (δεν αλλάζει την global). Η g() χρησιμοποιεί την global x=10. Επομένως: f:5, g:10, main:10."
+    explanation: "f() defines local x=5 (does not change the global). g() uses the global x=10. Therefore: f:5, g:10, main:10."
   },
   {
-    question: "Τι σημαίνει το αρκτικόλεξο <strong>LEGB</strong> στην Python;",
+    question: "What does the acronym <strong>LEGB</strong> mean in Python?",
     options: [
-      "Local, Enclosing, Global, Built-in — η σειρά αναζήτησης ονομάτων",
-      "List, Expression, Generator, Boolean — τύποι δεδομένων",
-      "Lambda, Exception, Generator, Binding — λειτουργίες Python",
-      "Local, External, Generic, Base — επίπεδα εμβέλειας"
+      "Local, Enclosing, Global, Built-in — the order of name lookup",
+      "List, Expression, Generator, Boolean — data types",
+      "Lambda, Exception, Generator, Binding — Python operations",
+      "Local, External, Generic, Base — scoping levels"
     ],
     correctindex: 0,
-    explanation: "LEGB: Local (τοπικό scope) → Enclosing (εξωτερικές συναρτήσεις) → Global (επίπεδο module) → Built-in (ενσωματωμένα ονόματα όπως print, len). Αυτή είναι η σειρά αναζήτησης μεταβλητών στην Python."
+    explanation: "LEGB: Local (local scope) → Enclosing (enclosing functions) → Global (module level) → Built-in (built-in names such as print, len). This is the order of variable lookup in Python."
   },
-  // CH6 - Τύποι Δεδομένων
+  // CH6 - Data Types
   {
-    question: "Γιατί η έκφραση <code>0.1 + 0.2 != 0.3</code> επιστρέφει <code>true</code> σε πιο πολλές γλώσσες;",
+    question: "Why does the expression <code>0.1 + 0.2 != 0.3</code> return <code>true</code> in many languages?",
     options: [
-      "Οι δεκαδικοί δεν αναπαρίστανται ακριβώς σε δυαδική κινητής υποδιαστολής (IEEE 754), με αποτέλεσμα σφάλματα στρογγυλοποίησης",
-      "Ο τελεστής != λειτουργεί διαφορετικά για floats",
-      "Οι τιμές 0.1 και 0.2 αποθηκεύονται ως ακέραιοι",
-      "Είναι bug του μεταγλωττιστή"
+      "Decimals are not represented exactly in binary floating-point (IEEE 754), resulting in rounding errors",
+      "The != operator works differently for floats",
+      "The values 0.1 and 0.2 are stored as integers",
+      "It is a compiler bug"
     ],
     correctindex: 0,
-    explanation: "Λόγω του προτύπου IEEE 754, τα 0.1 και 0.2 δεν αναπαρίστανται ακριβώς σε δυαδική μορφή. Το 0.1+0.2 δίνει 0.30000000000000004. Λύση: σύγκριση με fabs(a-b) < ε."
+    explanation: "Due to the IEEE 754 standard, 0.1 and 0.2 are not represented exactly in binary form. 0.1+0.2 gives 0.30000000000000004. Solution: compare with fabs(a-b) < ε."
   },
   {
-    question: "Τι είναι το <strong>IEEE 754</strong>;",
+    question: "What is <strong>IEEE 754</strong>?",
     options: [
-      "Διεθνές πρότυπο αναπαράστασης αριθμών κινητής υποδιαστολής στους υπολογιστές (sign, exponent, mantissa)",
-      "Πρωτόκολλο δικτύωσης για μεταφορά δυαδικών δεδομένων",
-      "Πρότυπο κωδικοποίησης χαρακτήρων (Unicode)",
-      "Αλγόριθμος συμπίεσης δεδομένων"
+      "International standard for floating-point number representation in computers (sign, exponent, mantissa)",
+      "Networking protocol for transferring binary data",
+      "Character encoding standard (Unicode)",
+      "Data compression algorithm"
     ],
     correctindex: 0,
-    explanation: "IEEE 754 ορίζει την αναπαράσταση floating-point: bit προσήμου, εκθέτης, και mantissa. Ορίζει επίσης float/double, κανόνες στρογγυλοποίησης και ειδικές τιμές (±∞, NaN)."
+    explanation: "IEEE 754 defines the floating-point representation: sign bit, exponent, and mantissa. It also defines float/double, rounding rules and special values (±∞, NaN)."
   },
   {
-    question: "Στη διαίρεση αριθμών κινητής υποδιαστολής, ποιο αποτέλεσμα επιστρέφει το IEEE 754 για <code>0.0 / 0.0</code>;",
+    question: "In floating-point division, what result does IEEE 754 return for <code>0,0 / 0,0</code>?",
     options: ["NaN (Not a Number)", "+∞ (Infinity)", "0.0", "Undefined Behavior"],
     correctindex: 0,
-    explanation: "Σύμφωνα με IEEE 754: 5/0 → +∞, -5/0 → -∞, 0/0 → NaN. Αντίθετα, ακέραια διαίρεση με μηδέν (int/int) είναι Undefined Behavior στη C."
+    explanation: "According to IEEE 754: 5/0 → +∞, -5/0 → -∞, 0/0 → NaN. In contrast, integer division by zero (int/int) is Undefined Behavior in C."
   },
   {
-    question: "Ποια είναι η διαφορά μεταξύ <code>struct</code> και <code>union</code> στη C;",
+    question: "What is the difference between <code>struct</code> and <code>union</code> in C?",
     options: [
-      "Στη struct κάθε πεδίο έχει δική του μνήμη · στην union όλα τα πεδία μοιράζονται την ίδια θέση μνήμης",
-      "Η struct επιτρέπει μόνο ακέραιους τύπους · η union επιτρέπει οποιοδήποτε τύπο",
-      "Η struct είναι δυναμική δομή · η union είναι στατική",
-      "Δεν υπάρχει διαφορά, είναι συνώνυμα"
+      "In struct each field has its own memory · in union all fields share the same memory location",
+      "Struct allows only integer types · union allows any type",
+      "Struct is a dynamic structure · union is static",
+      "There is no difference, they are synonyms"
     ],
     correctindex: 0,
-    explanation: "Στη struct κάθε μέλος έχει ξεχωριστή θέση μνήμης — μπορούν να συνυπάρχουν όλες οι τιμές. Στην union ένα μόνο μέλος μπορεί να αποθηκεύεται κάθε φορά, εξοικονομώντας μνήμη."
+    explanation: "In struct, each member has a separate memory location — all values can coexist. In union, only one member can be stored at a time, saving memory."
   },
   {
-    question: "Ποιο είναι το αποτέλεσμα του Python slice <code>L[::2]</code> για τη λίστα <code>L = [10, 20, 30, 40, 50]</code>;",
+    question: "What is the result of the Python slice <code>L[::2]</code> for the list <code>L = [10, 20, 30, 40, 50]</code>?",
     options: ["[10, 30, 50]", "[20, 40]", "[10, 20, 30, 40, 50]", "[50, 30, 10]"],
     correctindex: 0,
-    explanation: "L[::2] επιλέγει κάθε 2ο στοιχείο αρχίζοντας από το 0: L[0]=10, L[2]=30, L[4]=50 → [10, 30, 50]."
+    explanation: "L[::2] selects every 2nd element starting from 0: L[0]=10, L[2]=30, L[4]=50 → [10, 30, 50]."
   },
   {
-    question: "Πώς αντιδρά η <strong>Java</strong> σε πρόσβαση εκτός ορίων πίνακα (π.χ. δείκτης 5 σε πίνακα 4 στοιχείων);",
+    question: "How does <strong>Java</strong> react to out-of-bounds array access (e.g., index 5 in a 4-element array)?",
     options: [
-      "Εκτοξεύει εξαίρεση ArrayIndexOutOfBoundsException",
-      "Επιστρέφει 0 ή null σιωπηλά",
-      "Undefined Behavior — απροσδιόριστη συμπεριφορά",
-      "Τερματίζει το πρόγραμμα χωρίς μήνυμα"
+      "Throws ArrayIndexOutOfBoundsException",
+      "Silently returns 0 or null",
+      "Undefined Behavior — unspecified behavior",
+      "Terminates the program without a message"
     ],
     correctindex: 0,
-    explanation: "Η Java ελέγχει αυτόματα τα όρια πινάκων. Εκτός ορίων πρόσβαση → ArrayIndexOutOfBoundsException. Στη C το ίδιο δίνει Undefined Behavior."
+    explanation: "Java automatically checks array bounds. Out-of-bounds access → ArrayIndexOutOfBoundsException. In C, the same gives Undefined Behavior."
   },
   {
-    question: "Σε <strong>row-major</strong> αποθήκευση πίνακα 3×4, ποιο είναι το offset στοιχείου (1,2);",
+    question: "In <strong>row-major</strong> storage of a 3×4 array, what is the offset of element (1,2)?",
     options: ["6", "7", "5", "8"],
     correctindex: 0,
-    explanation: "Row-major offset = i*cols + j = 1*4 + 2 = 6. Για column-major θα ήταν j*rows + i = 2*3 + 1 = 7. C και Java χρησιμοποιούν row-major."
+    explanation: "Row-major offset = i*cols + j = 1*4 + 2 = 6. For column-major it would be j*rows + i = 2*3 + 1 = 7. C and Java use row-major."
   },
-  // CH7 - Εκφράσεις και Τελεστές
+  // CH7 - Expressions and Operators
   {
-    question: "Τι εκτυπώνει ο κώδικας C;<br><pre>int x = 5;\nint y = -x++;\nint z = --x;\nprintf(\"x=%d, y=%d, z=%d\", x, y, z);</pre>",
+    question: "What does the C code print?<br><pre>int x = 5;\nint y = -x++;\nint z = --x;\nprintf(\"x=%d, y=%d, z=%d\", x, y, z);</pre>",
     options: ["x=5, y=-5, z=5", "x=6, y=-6, z=5", "x=5, y=-6, z=4", "x=4, y=-5, z=4"],
     correctindex: 0,
-    explanation: "Ο ++ έχει μεγαλύτερη προτεραιότητα από τον μοναδιαίο -. Άρα -x++ ≡ -(x++): x++ επιστρέφει 5 (μετά x=6), y=-5. Μετά --x: x γίνεται 5 και z=5."
+    explanation: "The ++ has higher precedence than the unary -. So -x++ ≡ -(x++): x++ returns 5 (then x=6), y=-5. Then --x: x becomes 5 and z=5."
   },
   {
-    question: "Ποιο είναι το αποτέλεσμα της Python έκφρασης <code>2**2**3</code>;",
+    question: "What is the result of the Python expression <code>2**2**3</code>?",
     options: ["256", "64", "8", "512"],
     correctindex: 0,
-    explanation: "Ο τελεστής ** έχει δεξιά συσχέτιση. Άρα: 2**2**3 = 2**(2**3) = 2**8 = 256."
+    explanation: "The ** operator has right associativity. So: 2**2**3 = 2**(2**3) = 2**8 = 256."
   },
   {
-    question: "Τι εκτυπώνει ο κώδικας C;<br><pre>printf(\"%s\\n\", 4 <= 3 <= 5 ? \"true\" : \"false\");</pre>",
-    options: ["true", "false", "Σφάλμα μεταγλώττισης", "Undefined Behavior"],
+    question: "What does the C code print?<br><pre>printf(\"%s\\n\", 4 <= 3 <= 5 ? \"true\" : \"false\");</pre>",
+    options: ["true", "false", "Compilation error", "Undefined Behavior"],
     correctindex: 0,
-    explanation: "4 <= 3 αποτιμάται σε 0 (false), μετά 0 <= 5 αποτιμάται σε 1 (true). Άρα εκτυπώνεται 'true'. Αυτό είναι παγίδα — σωστό θα ήταν: 4 <= 3 && 3 <= 5 που δίνει false."
+    explanation: "4 <= 3 evaluates to 0 (false), then 0 <= 5 evaluates to 1 (true). So 'true' is printed. This is a trap — the correct form would be: 4 <= 3 && 3 <= 5, which gives false."
   },
   {
-    question: "Τι είναι η <strong>αναφορική διαφάνεια</strong> (referential transparency);",
+    question: "What is <strong>referential transparency</strong>?",
     options: [
-      "Μια συνάρτηση επιστρέφει πάντα το ίδιο αποτέλεσμα για τα ίδια ορίσματα, χωρίς παρενέργειες",
-      "Η δυνατότητα αναφοράς σε εξωτερικές μεταβλητές μέσω δεικτών",
-      "Η διαφάνεια της μνήμης σε έναν δείκτη",
-      "Ο βαθμός ορατότητας μεταβλητής σε διαφορετικά scopes"
+      "A function always returns the same result for the same arguments, without side effects",
+      "The ability to refer to external variables via pointers",
+      "The transparency of memory in a pointer",
+      "The degree of variable visibility across different scopes"
     ],
     correctindex: 0,
-    explanation: "Referential transparency: f(x) μπορεί να αντικατασταθεί από την τιμή της χωρίς αλλαγή συμπεριφοράς. Παραβιάζεται όταν η συνάρτηση έχει παρενέργειες (π.χ. μεταβάλλει global μεταβλητή)."
+    explanation: "Referential transparency: f(x) can be replaced by its value without changing behavior. It is violated when the function has side effects (e.g., modifies a global variable)."
   },
   // CH12 - OOP
   {
-    question: "Τι σημαίνει «<strong>στιγμιότυπο κλάσης</strong>» (class instance) στον αντικειμενοστραφή προγραμματισμό;",
-    options: ["Αντικείμενο", "Υποκλάση", "Αφηρημένη κλάση", "Μέθοδος"],
+    question: "What does \"<strong>class instance</strong>\" mean in object-oriented programming?",
+    options: ["Object", "Subclass", "Abstract class", "Method"],
     correctindex: 0,
-    explanation: "Το στιγμιότυπο (instance) κλάσης είναι ένα αντικείμενο — μια συγκεκριμένη δημιουργία (instantiation) μιας κλάσης με δική της κατάσταση."
+    explanation: "A class instance is an object — a specific creation (instantiation) of a class with its own state."
   },
   {
-    question: "Ποια είναι η διαφορά μεταξύ <code>__str__</code> και <code>__repr__</code> στην Python;",
+    question: "What is the difference between <code>__str__</code> and <code>__repr__</code> in Python?",
     options: [
-      "__str__ επιστρέφει ευανάγνωστη συμβολοσειρά · __repr__ επιστρέφει αναπαράσταση για αναπαραγωγή του αντικειμένου",
-      "__str__ χρησιμοποιείται μόνο για αριθμούς · __repr__ για συμβολοσειρές",
-      "__repr__ καλείται πρώτα · __str__ είναι εναλλακτικό",
-      "Είναι ισοδύναμες μέθοδοι"
+      "__str__ returns a human-readable string · __repr__ returns a representation for reproducing the object",
+      "__str__ is used only for numbers · __repr__ for strings",
+      "__repr__ is called first · __str__ is an alternative",
+      "They are equivalent methods"
     ],
     correctindex: 0,
-    explanation: "__str__ παρέχει φιλική εμφάνιση για τον χρήστη (print). __repr__ παρέχει αναπαράσταση που ιδανικά θα μπορούσε να επαναδημιουργήσει το αντικείμενο (REPL, debugging)."
+    explanation: "__str__ provides a user-friendly display (print). __repr__ provides a representation that ideally could recreate the object (REPL, debugging)."
   },
   {
-    question: "Τι εκτυπώνει ο κώδικας C++;<br><pre>class Base { public: virtual void show(){cout<<\"Arta\";} };\nclass Derived : public Base { public: void show() override {cout<<\"Ioannina\";} };\nBase *ptr = new Derived(); ptr->show();</pre>",
-    options: ["Ioannina", "Arta", "Σφάλμα μεταγλώττισης", "Undefined Behavior"],
+    question: "What does the C++ code print?<br><pre>class Base { public: virtual void show(){cout<<\"Arta\";} };\nclass Derived : public Base { public: void show() override {cout<<\"Ioannina\";} };\nBase *ptr = new Derived(); ptr->show();</pre>",
+    options: ["Ioannina", "Arta", "Compilation error", "Undefined Behavior"],
     correctindex: 0,
-    explanation: "Η λέξη virtual επιτρέπει late binding — ο pointer τύπου Base* δείχνει σε Derived, άρα κατά την εκτέλεση καλείται η έκδοση της Derived: 'Ioannina'. Χωρίς virtual θα εκτυπωνόταν 'Arta'."
+    explanation: "The virtual keyword enables late binding — the Base* pointer points to Derived, so at runtime the Derived version is called: 'Ioannina'. Without virtual, 'Arta' would be printed."
   },
   {
-    question: "Τι κάνει η λέξη <code>super()</code> στην Python όταν χρησιμοποιείται σε υποκλάση;",
+    question: "What does the <code>super()</code> keyword do in Python when used in a subclass?",
     options: [
-      "Καλεί τη μέθοδο της γονικής κλάσης",
-      "Δημιουργεί νέο αντικείμενο της γονικής κλάσης",
-      "Διαγράφει τις μεθόδους της γονικής κλάσης",
-      "Μετατρέπει το αντικείμενο στον τύπο της γονικής κλάσης"
+      "Calls the method of the parent class",
+      "Creates a new object of the parent class",
+      "Deletes the methods of the parent class",
+      "Converts the object to the type of the parent class"
     ],
     correctindex: 0,
-    explanation: "super().__init__(...) καλεί τον constructor της γονικής κλάσης. Χρησιμοποιείται για να αρχικοποιηθούν τα πεδία που ορίζονται στον γονέα."
+    explanation: "super().__init__(...) calls the constructor of the parent class. It is used to initialize the fields defined in the parent."
   },
   {
-    question: "Τι είναι μια <strong>αφηρημένη κλάση</strong> (abstract class);",
+    question: "What is an <strong>abstract class</strong>?",
     options: [
-      "Κλάση για την οποία δεν μπορούν να δημιουργηθούν αντικείμενα",
-      "Κλάση χωρίς πεδία δεδομένων",
-      "Κλάση που κληρονομεί από πολλές άλλες κλάσεις",
-      "Κλάση που δεν έχει κανέναν constructor"
+      "A class for which objects cannot be created",
+      "A class without data fields",
+      "A class that inherits from many other classes",
+      "A class that has no constructor"
     ],
     correctindex: 0,
-    explanation: "Αφηρημένη κλάση (abstract class) δεν μπορεί να δημιουργήσει απευθείας αντικείμενα. Χρησιμεύει ως βασική κλάση που ορίζει κοινή διεπαφή για τις υποκλάσεις της."
+    explanation: "An abstract class cannot directly create objects. It serves as a base class that defines a common interface for its subclasses."
   },
-  // CH14 - Εξαιρέσεις
+  // CH14 - Exceptions
   {
-    question: "Ποια εξαίρεση Python πιάνει τη διαίρεση με μηδέν;",
+    question: "Which Python exception catches division by zero?",
     options: ["ZeroDivisionError", "ArithmeticError", "ValueError", "RuntimeError"],
     correctindex: 0,
-    explanation: "Η ZeroDivisionError εκτοξεύεται όταν ο διαιρέτης είναι 0. Π.χ.: try: x = 1/0 → except ZeroDivisionError: ..."
+    explanation: "ZeroDivisionError is raised when the divisor is 0. E.g.: try: x = 1/0 → except ZeroDivisionError: ..."
   },
   {
-    question: "Ποια εξαίρεση Python εκτοξεύεται σε πρόσβαση λίστας με εκτός ορίων δείκτη;",
+    question: "Which Python exception is raised on list access with an out-of-bounds index?",
     options: ["IndexError", "KeyError", "ValueError", "OverflowError"],
     correctindex: 0,
-    explanation: "IndexError εκτοξεύεται όταν χρησιμοποιείται μη έγκυρος δείκτης για λίστα/tuple/string. KeyError εκτοξεύεται για μη υπάρχον κλειδί σε dictionary."
+    explanation: "IndexError is raised when an invalid index is used for a list/tuple/string. KeyError is raised for a non-existent key in a dictionary."
   },
   {
-    question: "Σε ποια σειρά εκτελούνται τα blocks σε ένα <code>try/except/finally</code> στην Python όταν ΔΕΝ υπάρχει εξαίρεση;",
+    question: "In what order are the blocks executed in a <code>try/except/finally</code> in Python when there is NO exception?",
     options: [
       "try → finally",
       "try → except → finally",
-      "try μόνο",
+      "try only",
       "finally → try"
     ],
     correctindex: 0,
-    explanation: "Όταν δεν υπάρχει εξαίρεση: εκτελείται try, παραλείπεται except, εκτελείται πάντα finally. Το finally εκτελείται ανεξάρτητα από το αν υπήρξε εξαίρεση."
+    explanation: "When there is no exception: try is executed, except is skipped, finally is always executed. finally runs regardless of whether an exception occurred."
   },
   // CH15 - Haskell
   {
-    question: "Τι σημαίνει η γραμμή τύπου Haskell: <code>foo :: [Int] -> Int</code>;",
+    question: "What does the Haskell type signature mean: <code>foo :: [Int] -> Int</code>?",
     options: [
-      "Η foo δέχεται λίστα ακεραίων και επιστρέφει έναν ακέραιο",
-      "Η foo μετατρέπει Int σε λίστα",
-      "Η foo δέχεται δύο Int και επιστρέφει Bool",
-      "Η foo είναι παραμετρικός τύπος"
+      "foo accepts a list of integers and returns an integer",
+      "foo converts Int to a list",
+      "foo accepts two Ints and returns Bool",
+      "foo is a parametric type"
     ],
     correctindex: 0,
-    explanation: "[Int] -> Int σημαίνει: δέχεται ως όρισμα μια λίστα ακεραίων και επιστρέφει έναν ακέραιο."
+    explanation: "[Int] -> Int means: it accepts a list of integers as an argument and returns an integer."
   },
   {
-    question: "Τι επιστρέφει η Haskell συνάρτηση <code>filter even [1..10]</code>;",
+    question: "What does the Haskell function <code>filter even [1..10]</code> return?",
     options: ["[2,4,6,8,10]", "[1,3,5,7,9]", "[1,2,3,4,5,6,7,8,9,10]", "[2,4,6,8]"],
     correctindex: 0,
-    explanation: "filter even [1..10] κρατά μόνο τα άρτια στοιχεία από 1 ως 10: [2,4,6,8,10]."
+    explanation: "filter even [1..10] keeps only the even elements from 1 to 10: [2,4,6,8,10]."
   },
   {
-    question: "Τι επιστρέφει στη Haskell: <code>take 5 [0,5..]</code>;",
+    question: "What does this return in Haskell: <code>take 5 [0,5..]</code>?",
     options: ["[0,5,10,15,20]", "[0,1,2,3,4]", "[5,10,15,20,25]", "[0,5,10,15]"],
     correctindex: 0,
-    explanation: "[0,5..] είναι άπειρη λίστα με βήμα 5 αρχίζοντας από 0. take 5 παίρνει τα πρώτα 5: [0,5,10,15,20]."
+    explanation: "[0,5..] is an infinite list with step 5 starting from 0. take 5 takes the first 5: [0,5,10,15,20]."
   },
   {
-    question: "Τι επιστρέφει στη Haskell: <code>map length [\"arta\", \"ioannina\", \"preveza\"]</code>;",
+    question: "What does this return in Haskell: <code>map length [\"arta\", \"ioannina\", \"preveza\"]</code>?",
     options: ["[4,8,7]", "[4,7,7]", "[3,8,6]", "[4,8,6]"],
     correctindex: 0,
-    explanation: "map εφαρμόζει length σε κάθε στοιχείο: length \"arta\"=4, length \"ioannina\"=8, length \"preveza\"=7 → [4,8,7]."
+    explanation: "map applies length to each element: length \"arta\"=4, length \"ioannina\"=8, length \"preveza\"=7 → [4,8,7]."
   },
   {
-    question: "Τι εκτελεί ο αλγόριθμος που υλοποιεί η Haskell συνάρτηση:<br><pre>foo [] = []\nfoo (x:xs) =\n  let left = foo [a | a <- xs, a <= x]\n      right = foo [a | a <- xs, a > x]\n  in left ++ [x] ++ right</pre>",
+    question: "What algorithm does the Haskell function implement?<br><pre>foo [] = []\nfoo (x:xs) =\n  let left = foo [a | a <- xs, a <= x]\n      right = foo [a | a <- xs, a > x]\n  in left ++ [x] ++ right</pre>",
     options: [
-      "Quicksort — ταξινόμηση λίστας σε αύξουσα σειρά",
+      "Quicksort — sorting a list in ascending order",
       "Merge sort",
-      "Αντιστροφή λίστας",
-      "Εύρεση μέγιστου στοιχείου"
+      "List reversal",
+      "Finding the maximum element"
     ],
     correctindex: 0,
-    explanation: "Η συνάρτηση υλοποιεί τον αλγόριθμο quicksort: επιλέγει pivot (x), χωρίζει σε μικρότερα/μεγαλύτερα, επαναλαμβάνει αναδρομικά."
+    explanation: "The function implements the quicksort algorithm: it selects a pivot (x), splits into smaller/larger, and repeats recursively."
   },
   {
-    question: "Πώς ορίζεται στη Haskell μια <strong>ανώνυμη συνάρτηση</strong> (lambda) που τετραγωνίζει τον αριθμό της;",
+    question: "How is an <strong>anonymous function</strong> (lambda) defined in Haskell that squares its number?",
     options: [
       "\\x -> x^2",
       "lambda x: x**2",
@@ -456,10 +457,10 @@ const quizquestions = [
       "(x) => x*x"
     ],
     correctindex: 0,
-    explanation: "Στη Haskell, οι lambda συναρτήσεις γράφονται ως: \\x -> έκφραση. Π.χ. \\x -> x^2 υψώνει στο τετράγωνο."
+    explanation: "In Haskell, lambda functions are written as: \\x -> expression. E.g., \\x -> x^2 squares."
   },
   {
-    question: "Τι επιστρέφει στη Haskell: <code>[a^2 | a <- [1..10], even a]</code>;",
+    question: "What does this return in Haskell: <code>[a^2 | a <- [1..10], even a]</code>?",
     options: [
       "[4,16,36,64,100]",
       "[1,4,9,16,25,36,49,64,81,100]",
@@ -467,22 +468,22 @@ const quizquestions = [
       "[2,4,6,8,10]"
     ],
     correctindex: 0,
-    explanation: "List comprehension: για κάθε άρτιο a από 1 ως 10, υπολογίζει a^2. Άρτια: 2,4,6,8,10 → τετράγωνα: 4,16,36,64,100."
+    explanation: "List comprehension: for each even a from 1 to 10, it computes a^2. Evens: 2,4,6,8,10 → squares: 4,16,36,64,100."
   },
   // CH16 - Prolog
   {
-    question: "Σε Prolog, ποια είναι η διαφορά μεταξύ <code>=</code> και <code>is</code>;",
+    question: "In Prolog, what is the difference between <code>=</code> and <code>is</code>?",
     options: [
-      "= κάνει unification (pattern matching) · is αποτιμά αριθμητικές εκφράσεις",
-      "= ελέγχει ισότητα τιμών · is ελέγχει δομική ισότητα",
-      "is ισοδυναμεί με = αλλά χρησιμοποιείται σε λίστες",
-      "Δεν υπάρχει διαφορά — είναι συνώνυμα"
+      "= performs unification (pattern matching) · is evaluates arithmetic expressions",
+      "= checks value equality · is checks structural equality",
+      "is is equivalent to = but used in lists",
+      "None of the above"
     ],
     correctindex: 0,
-    explanation: "= εκτελεί unification: X = 1+2 κάνει X=1+2 (ως δομή, όχι ως αριθμό). is αποτιμά τη δεξιά πλευρά: X is 1+2 κάνει X=3."
+    explanation: "= performs unification: X = 1+2 makes X=1+2 (as a structure, not as a number). is evaluates the right side: X is 1+2 makes X=3."
   },
   {
-    question: "Τι επιστρέφει το Prolog ερώτημα: <code>?- [H|T] = [1,2,3].</code>;",
+    question: "What does the Prolog query return: <code>?- [H|T] = [1,2,3].</code>?",
     options: [
       "H = 1, T = [2,3]",
       "H = [1], T = [2,3]",
@@ -490,46 +491,46 @@ const quizquestions = [
       "false"
     ],
     correctindex: 0,
-    explanation: "Το pattern [H|T] αντιστοιχεί σε λίστα με head H και tail T. Για [1,2,3]: H=1, T=[2,3]."
+    explanation: "The pattern [H|T] corresponds to a list with head H and tail T. For [1,2,3]: H=1, T=[2,3]."
   },
   {
-    question: "Τι κάνει το κατηγόρημα Prolog <code>append/3</code>;",
+    question: "What does the Prolog predicate <code>append/3</code> do?",
     options: [
-      "Συνενώνει δύο λίστες σε μία τρίτη (ή διαχωρίζει μια λίστα σε δύο μέρη)",
-      "Προσθέτει ένα στοιχείο στην αρχή λίστας",
-      "Υπολογίζει το μήκος λίστας",
-      "Ελέγχει αν ένα στοιχείο ανήκει σε λίστα"
+      "Concatenates two lists into a third (or splits a list into two parts)",
+      "Adds an element at the start of a list",
+      "Computes the length of a list",
+      "Checks if an element belongs to a list"
     ],
     correctindex: 0,
-    explanation: "append/3 μπορεί να: α) συνενώσει 2 λίστες, β) διαχωρίσει λίστα σε 2 μέρη, γ) ελέγξει αν λίστα είναι suffix άλλης. Π.χ.: append([1,2],[3,4],L) → L=[1,2,3,4]."
+    explanation: "append/3 can: a) concatenate 2 lists, b) split a list into 2 parts, c) check if a list is a suffix of another. E.g.: append([1,2],[3,4],L) → L=[1,2,3,4]."
   },
   {
-    question: "Τι εκτελεί το κατηγόρημα Prolog <code>foo/2</code>;<br><pre>foo([], 0).\nfoo([_ | T], L) :- foo(T, TL), L is TL + 1.</pre>",
+    question: "What does the Prolog predicate <code>foo/2</code> do?<br><pre>foo([], 0).\nfoo([_ | T], L) :- foo(T, TL), L is TL + 1.</pre>",
     options: [
-      "Υπολογίζει το μήκος μιας λίστας",
-      "Υπολογίζει το άθροισμα στοιχείων",
-      "Αντιστρέφει τη λίστα",
-      "Ελέγχει αν η λίστα είναι ταξινομημένη"
+      "Computes the length of a list",
+      "Computes the sum of elements",
+      "Reverses the list",
+      "Checks if the list is sorted"
     ],
     correctindex: 0,
-    explanation: "Βασική περίπτωση: κενή λίστα έχει μήκος 0. Αναδρομική: κάθε στοιχείο προσθέτει 1 στο μήκος της ουράς. Άρα foo υπολογίζει length."
+    explanation: "Base case: empty list has length 0. Recursive: each element adds 1 to the length of the tail. So foo computes length."
   },
   {
-    question: "Τι επιστρέφει το Prolog ερώτημα: <code>?- append(L1, L2, [1,2,3]).</code>;",
+    question: "What does the Prolog query return: <code>?- append(L1, L2, [1,2,3]).</code>?",
     options: [
-      "Όλοι οι δυνατοί τρόποι διαχωρισμού: L1=[], L2=[1,2,3] · L1=[1], L2=[2,3] · κ.ο.κ.",
+      "All possible splits: L1=[], L2=[1,2,3] · L1=[1], L2=[2,3] · etc.",
       "L1=[1,2,3], L2=[]",
-      "L1=[], L2=[1,2,3] μόνο",
+      "L1=[], L2=[1,2,3] only",
       "false"
     ],
     correctindex: 0,
-    explanation: "append/3 με άγνωστα L1, L2 δημιουργεί όλες τις δυνατές διαιρέσεις της λίστας [1,2,3] σε δύο μέρη: 4 λύσεις συνολικά."
+    explanation: "append/3 with unknown L1, L2 generates all possible divisions of the list [1,2,3] into two parts: 4 solutions in total."
   },
   {
-    question: "Τι τύπο πρότασης είναι η Prolog πρόταση: <code>friends(X,Y) :- likes(X,Y), likes(Y,X).</code>;",
-    options: ["Κανόνας (rule)", "Γεγονός (fact)", "Ερώτημα (query)", "Αξίωμα (axiom)"],
+    question: "What type of Prolog statement is the Prolog clause: <code>friends(X,Y) :- likes(X,Y), likes(Y,X).</code>?",
+    options: ["Rule", "Fact", "Query", "Axiom"],
     correctindex: 0,
-    explanation: "Μια πρόταση της μορφής Head :- Body είναι κανόνας: 'αν ισχύει το Body τότε ισχύει και το Head'. Γεγονός είναι πρόταση χωρίς body, ερώτημα αρχίζει με ?-."
+    explanation: "A clause of the form Head :- Body is a rule: 'if Body holds then Head holds'. A fact is a clause without a body, and a query starts with ?-."
   }
 ];
 
@@ -626,10 +627,10 @@ class QuizManager {
         btnel.disabled = true;
         if (idx === item.correctindex) {
           btnel.classList.add('correct');
-          btnel.insertAdjacentHTML('beforeend', '<span class="status-badge correct-badge">Σωστό</span>');
+          btnel.insertAdjacentHTML('beforeend', '<span class="status-badge correct-badge">Correct</span>');
         } else if (idx === ansdata.selectedindex) {
           btnel.classList.add('incorrect');
-          btnel.insertAdjacentHTML('beforeend', '<span class="status-badge incorrect-badge">Λάθος</span>');
+          btnel.insertAdjacentHTML('beforeend', '<span class="status-badge incorrect-badge">Wrong</span>');
         }
       }
       this.optionscontainer.appendChild(btnel);
@@ -649,12 +650,12 @@ class QuizManager {
     this.useranswers[this.currentindex] = { selectedindex: selectedidx, iscorrect };
     if (iscorrect) {
       optbuttons[selectedidx].classList.add('correct');
-      optbuttons[selectedidx].insertAdjacentHTML('beforeend', '<span class="status-badge correct-badge">Σωστό</span>');
+      optbuttons[selectedidx].insertAdjacentHTML('beforeend', '<span class="status-badge correct-badge">Correct</span>');
     } else {
       optbuttons[selectedidx].classList.add('incorrect');
-      optbuttons[selectedidx].insertAdjacentHTML('beforeend', '<span class="status-badge incorrect-badge">Λάθος</span>');
+      optbuttons[selectedidx].insertAdjacentHTML('beforeend', '<span class="status-badge incorrect-badge">Wrong</span>');
       optbuttons[correctidx].classList.add('correct');
-      optbuttons[correctidx].insertAdjacentHTML('beforeend', '<span class="status-badge correct-badge">Σωστό</span>');
+      optbuttons[correctidx].insertAdjacentHTML('beforeend', '<span class="status-badge correct-badge">Correct</span>');
     }
     optbuttons.forEach(btn => btn.disabled = true);
     const nodes = this.sidebargrid.querySelectorAll('.node-button');

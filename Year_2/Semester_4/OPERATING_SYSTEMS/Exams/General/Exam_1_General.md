@@ -1,186 +1,186 @@
-# Εξέταση 1 — Λειτουργικά Συστήματα
+# Exam 1 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (10 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Ποιο από τα παρακάτω αποτελεί τον ορισμό του **Πυρήνα (Kernel)** ενός Λειτουργικού Συστήματος;
-
-- α) Το σύνολο των εφαρμογών που εκτελούνται από τον χρήστη  
-- β) Το μοναδικό πρόγραμμα που εκτελείται συνεχώς καθ' όλη τη διάρκεια λειτουργίας του συστήματος  
-- γ) Ο μεταγλωττιστής που μεταφράζει κώδικα σε γλώσσα μηχανής  
-- δ) Το υλικό (hardware) του υπολογιστή
+## PART A — THEORY (50 units)
 
 ---
 
-**2.** Σε ποια εποχή εμφανίστηκε για πρώτη φορά ο **πολυπρογραμματισμός (multiprogramming)**;
+### A1. Multiple Choice Questions (10 units — 2 units each)
 
-- α) Αρχές 1940 — Σειριακή επεξεργασία  
-- β) Αρχές 1960 — Απλά Batch συστήματα  
-- γ) 1965–1980 — Πολυπρογραμματιζόμενα Batch συστήματα  
-- δ) 1980–1990 — Τέταρτη Γενιά (LSI)
+**Circle the letter of the correct answer.**
 
----
+**1.** Which of the following constitutes the definition of the **Kernel** of an Operating System?
 
-**3.** Ποια είναι η **κύρια διαφορά** μεταξύ πολυπρογραμματισμού και καταμερισμού χρόνου (time-sharing);
-
-- α) Ο πολυπρογραμματισμός χρησιμοποιεί πολλούς επεξεργαστές ενώ ο καταμερισμός χρόνου έναν  
-- β) Ο πολυπρογραμματισμός στοχεύει στη μεγιστοποίηση χρήσης CPU ενώ ο καταμερισμός χρόνου στην ελαχιστοποίηση χρόνου απόκρισης  
-- γ) Ο καταμερισμός χρόνου επεξεργάζεται μόνο batch εργασίες  
-- δ) Δεν υπάρχει ουσιαστική διαφορά
+- a) The set of applications executed by the user
+- b) The single program that executes continuously throughout the system's operation
+- c) The compiler that translates code to machine language
+- d) The computer hardware
 
 ---
 
-**4.** Ποιο χαρακτηριστικό υλικού απαιτείται από τον Monitor σε απλά Batch συστήματα για να **αποτραπεί η μονοπώληση** της CPU;
+**2.** In which era did **multiprogramming** first appear?
 
-- α) Μεγάλη χωρητικότητα δίσκου  
-- β) Χρονομετρητής (Timer)  
-- γ) Κάρτα γραφικών υψηλής ανάλυσης  
-- δ) Πολλαπλοί επεξεργαστές
-
----
-
-**5.** Τι σημαίνει ότι ένα ΛΣ αντιμετωπίζεται ως **"εκτεταμένη μηχανή" (extended/virtual machine)**;
-
-- α) Διαθέτει περισσότερη φυσική μνήμη από ό,τι εμφανίζεται  
-- β) Αποκρύπτει από τον χρήστη την πολυπλοκότητα του υλικού  
-- γ) Εκτελεί προγράμματα ταχύτερα από το υλικό  
-- δ) Παρέχει δυνατότητα εικονικοποίησης (virtualization)
+- a) Early 1940s — Serial processing
+- b) Early 1960s — Simple Batch systems
+- c) 1965–1980 — Multiprogrammed Batch systems
+- d) 1980–1990 — Fourth Generation (LSI)
 
 ---
 
-### Α2. Ερωτήσεις Σωστό/Λάθος (6 μονάδες — 1 μονάδα έκαστη)
+**3.** What is the **main difference** between multiprogramming and time-sharing?
 
-**Σημειώστε Σ (Σωστό) ή Λ (Λάθος) δίπλα σε κάθε πρόταση.**
-
-1. _____ Ο πυρήνας εκτελείται πάντα σε **user mode** για λόγους ασφαλείας.
-
-2. _____ Η CPU Utilization σε σύστημα μονοπρογραμματισμού με I/O-bound εργασία μπορεί να φτάσει μόλις το 3%.
-
-3. _____ Οι εντολές I/O είναι **προνομιούχες** και εκτελούνται μόνο σε monitor mode.
-
-4. _____ Σε σύστημα batch με Monitor, κάθε εργασία φορτώνει τον δικό της γλώσσα εντολών (JCL).
-
-5. _____ Το POSIX (Portable Operating System Interface) αποτελεί τυποποίηση ΛΣ που εμφανίστηκε μετά το 2000.
-
-6. _____ Τα κατανεμημένα ΛΣ (Distributed OS) εμφανίζονται ως παραδοσιακά συστήματα ενός επεξεργαστή στον χρήστη.
+- a) Multiprogramming uses multiple processors while time-sharing uses one
+- b) Multiprogramming aims to maximize CPU utilization while time-sharing aims to minimize response time
+- c) Time-sharing processes only batch jobs
+- d) There is no significant difference
 
 ---
 
-### Α3. Ερωτήσεις Αντιστοίχισης (8 μονάδες — 2 μονάδες έκαστη)
+**4.** What hardware feature is required by the Monitor in simple Batch systems to **prevent monopolization** of the CPU?
 
-**Αντιστοιχίστε κάθε στοιχείο της Στήλης Α με τη σωστή περιγραφή της Στήλης Β.**
+- a) Large disk capacity
+- b) Timer
+- c) High-resolution graphics card
+- d) Multiple processors
 
-| Στήλη Α | | Στήλη Β |
+---
+
+**5.** What does it mean that an OS is treated as an **"extended/virtual machine"**?
+
+- a) It has more physical memory than what appears
+- b) It hides the complexity of the hardware from the user
+- c) It executes programs faster than the hardware
+- d) It provides virtualization capability
+
+---
+
+### A2. True/False Questions (6 units — 1 unit each)
+
+**Mark T (True) or F (False) next to each statement.**
+
+1. _____ The kernel always executes in **user mode** for security reasons.
+
+2. _____ CPU Utilization in a single-programming system with I/O-bound tasks can reach as low as 3%.
+
+3. _____ I/O commands are **privileged** and execute only in monitor mode.
+
+4. _____ In a batch system with a Monitor, each job loads its own Job Control Language (JCL).
+
+5. _____ POSIX (Portable Operating System Interface) is an OS standard that appeared after 2000.
+
+6. _____ Distributed Operating Systems appear as traditional single-processor systems to the user.
+
+---
+
+### A3. Matching Questions (8 units — 2 units each)
+
+**Match each item in Column A with the correct description in Column B.**
+
+| Column A | | Column B |
 |:---|:---:|:---|
-| α) Batch Monitor | ___ | 1. Εξαλείφει τη σπατάλη CPU κατά την αναμονή I/O |
-| β) Πολυπρογραμματισμός | ___ | 2. Ομαδοποίηση εργασιών και έλεγχος εκτέλεσής τους |
-| γ) Time-Sharing | ___ | 3. Ελαχιστοποίηση χρόνου απόκρισης μέσω κβάντου χρόνου |
-| δ) Κατανεμημένο ΛΣ | ___ | 4. Πολλοί κόμβοι που εμφανίζονται ως ένα σύστημα |
+| a) Batch Monitor | ___ | 1. Eliminates CPU waste during I/O waiting |
+| b) Multiprogramming | ___ | 2. Grouping of jobs and execution control |
+| c) Time-Sharing | ___ | 3. Minimizing response time through time quantum |
+| d) Distributed OS | ___ | 4. Multiple nodes that appear as one system |
 
 ---
 
-### Α4. Ερωτήσεις Σύντομης Απάντησης (10 μονάδες — 5 μονάδες έκαστη)
+### A4. Short Answer Questions (10 units — 5 units each)
 
-**1.** Περιγράψτε τα **τέσσερα επίπεδα** ενός υπολογιστικού συστήματος και τον ρόλο καθενός στη λειτουργία του.
-
----
-
-**2.** Δίνεται το εξής παράδειγμα εκτέλεσης: Ανάγνωση εγγραφής από αρχείο: 0.0015 sec, Εκτέλεση 100 εντολών: 0.0001 sec, Εγγραφή εγγραφής σε αρχείο: 0.0015 sec. Υπολογίστε την **αξιοποίηση CPU** σε σύστημα μονοπρογραμματισμού και εξηγήστε τι προκαλεί τη χαμηλή τιμή.
+**1.** Describe the **four levels** of a computing system and the role of each in its operation.
 
 ---
 
-### Α5. Ασκήσεις Ανάπτυξης (16 μονάδες)
-
-**Άσκηση 1 (8 μονάδες):**  
-Ένα σύστημα Batch χρησιμοποιεί Monitor για την εκτέλεση εργασιών. Αναφέρατε και αναλύστε τα **τέσσερα χαρακτηριστικά υλικού** που απαιτούνται για τη λειτουργία του Monitor, εξηγώντας τον σκοπό του καθενός.
+**2.** Given the following execution example: Reading a record from file: 0.0015 sec, Executing 100 instructions: 0.0001 sec, Writing a record to file: 0.0015 sec. Calculate **CPU utilization** in a single-programming system and explain what causes the low value.
 
 ---
 
-**Άσκηση 2 (8 μονάδες):**  
-Συγκρίνετε **αναλυτικά** τις γενεές εξέλιξης των Λειτουργικών Συστημάτων από τη Σειριακή Επεξεργασία (1940s) έως τα Κατανεμημένα Συστήματα (1980–1990). Για κάθε γενεά αναφέρατε: (α) το κύριο πρόβλημα που αντιμετωπίζει, (β) τη λύση που προτείνει.
+### A5. Development Exercises (16 units)
+
+**Exercise 1 (8 units):**
+A Batch system uses a Monitor for job execution. Describe and analyze the **four required hardware characteristics** for the Monitor's operation, explaining the purpose of each.
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+**Exercise 2 (8 units):**
+**Detailed comparison** of the generations of Operating System evolution from Serial Processing (1940s) to Distributed Systems (1980–1990). For each generation mention: (a) the main problem it addresses, (b) the solution it proposes.
 
 ---
 
-> **Περιβάλλον:** Χρησιμοποιείτε το **jsLinux** (browser-based Linux terminal). Όλες οι εντολές εκτελούνται σε αυτό το περιβάλλον. Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε και περιγράψτε συνοπτικά τι κάνει η κάθε εντολή.
+## PART B — Unix Laboratory / jsLinux (50 units)
 
 ---
 
-### Β1. Βασικές Εντολές Συστήματος (10 μονάδες — 2 μονάδες έκαστη)
-
-Γράψτε την εντολή που εκτελεί κάθε μία από τις παρακάτω ενέργειες στο jsLinux:
-
-1. Εμφάνιση της **τρέχουσας ημερομηνίας και ώρας** του συστήματος.
-
-2. Εμφάνιση **ποιος χρήστης** είναι συνδεδεμένος αυτή τη στιγμή στο σύστημα.
-
-3. Εμφάνιση **ημερολογίου** του τρέχοντος μήνα.
-
-4. **Αλλαγή κωδικού** του τρέχοντος χρήστη.
-
-5. **Τερματισμός της συνεδρίας** (logout) από το terminal.
+> **Environment:** Use **jsLinux** (browser-based Linux terminal). All commands execute in this environment. Write **exactly** the commands you would use and briefly describe what each command does.
 
 ---
 
-### Β2. Δομή Συστήματος Αρχείων (10 μονάδες)
+### B1. Basic System Commands (10 units — 2 units each)
 
-Εξετάζοντας τη δομή του Unix filesystem, απαντήστε στα παρακάτω:
+Write the command that executes each of the following actions in jsLinux:
 
-**1. (4 μονάδες)** Στο jsLinux, ποια εντολή χρησιμοποιείτε για να δείτε τον **απόλυτο κατάλογο εργασίας** (absolute path of current directory); Ποιο είναι το αναμενόμενο αποτέλεσμα αν βρίσκεστε στον αρχικό κατάλογο του root χρήστη;
+1. Display the **current date and time** of the system.
 
-**2. (3 μονάδες)** Αναφέρατε τρεις **βασικούς καταλόγους** του Unix filesystem (π.χ. `/bin`, `/etc`) και εξηγήστε συνοπτικά τον σκοπό του καθενός.
+2. Display **which user** is currently logged in to the system.
 
-**3. (3 μονάδες)** Ποια είναι η διαφορά μεταξύ **απόλυτης διαδρομής** (absolute path) και **σχετικής διαδρομής** (relative path); Δώστε από ένα παράδειγμα για καθεμία.
+3. Display the **calendar** of the current month.
 
----
+4. **Change the password** of the current user.
 
-### Β3. Πρακτική Άσκηση — Πλοήγηση και Βασικές Εντολές (15 μονάδες)
-
-Στο jsLinux, εκτελέστε τα παρακάτω βήματα και γράψτε την εντολή για κάθε βήμα:
-
-1. **(2 μονάδες)** Δείτε τον τρέχοντα κατάλογο εργασίας.
-
-2. **(2 μονάδες)** Μεταβείτε στον κατάλογο `/tmp`.
-
-3. **(3 μονάδες)** Δημιουργήστε έναν νέο κατάλογο με όνομα `lab_exam` μέσα στο `/tmp`.
-
-4. **(3 μονάδες)** Μεταβείτε στον κατάλογο `lab_exam` που μόλις δημιουργήσατε.
-
-5. **(2 μονάδες)** Δείτε τα περιεχόμενα του `/etc` με λεπτομερή λίστα (long listing format).
-
-6. **(3 μονάδες)** Επιστρέψτε στον αρχικό κατάλογο (home directory) χρησιμοποιώντας **δύο διαφορετικούς τρόπους**.
+5. **End the session** (logout) from the terminal.
 
 ---
 
-### Β4. Δημιουργία Αρχείων και Περιεχόμενο (15 μονάδες)
+### B2. File System Structure (10 units)
 
-**1. (5 μονάδες)** Στο jsLinux, δημιουργήστε ένα αρχείο κειμένου με όνομα `info.txt` στον κατάλογο `/tmp/lab_exam` που να περιέχει τη φράση `"Λειτουργικά Συστήματα 2024"`. Γράψτε:
-   - α) Την εντολή για τη δημιουργία του αρχείου με το περιεχόμενο.
-   - β) Την εντολή για την εμφάνιση του περιεχομένου του αρχείου.
+Examining the Unix filesystem structure, answer the following:
 
-**2. (5 μονάδες)** Αντιγράψτε το αρχείο `info.txt` σε ένα νέο αρχείο με όνομα `backup_info.txt` στον **ίδιο κατάλογο**. Στη συνέχεια, εμφανίστε τη λίστα αρχείων του καταλόγου για να επαληθεύσετε την αντιγραφή.
+**1. (4 units)** In jsLinux, what command do you use to view the **absolute path of the current directory**? What is the expected result if you are in the root user's home directory?
 
-**3. (5 μονάδες)** Εξηγήστε ποια είναι η διαφορά μεταξύ των εντολών `cat`, `more` και `less` για προβολή αρχείων. Πότε προτιμάτε την κάθε μία;
+**2. (3 units)** List three **basic directories** of the Unix filesystem (e.g., `/bin`, `/etc`) and briefly explain the purpose of each.
+
+**3. (3 units)** What is the difference between **absolute path** and **relative path**? Give one example for each.
 
 ---
 
-*Καλή επιτυχία!*
+### B3. Practical Exercise — Navigation and Basic Commands (15 units)
+
+In jsLinux, execute the following steps and write the command for each step:
+
+1. **(2 units)** View the current working directory.
+
+2. **(2 units)** Navigate to the `/tmp` directory.
+
+3. **(3 units)** Create a new directory named `lab_exam` inside `/tmp`.
+
+4. **(3 units)** Navigate to the `lab_exam` directory you just created.
+
+5. **(2 units)** View the contents of `/etc` in long listing format.
+
+6. **(3 units)** Return to the home directory using **two different methods**.
+
+---
+
+### B4. File Creation and Content (15 units)
+
+**1. (5 units)** In jsLinux, create a text file named `info.txt` in the `/tmp/lab_exam` directory containing the phrase `"Operating Systems 2024"`. Write:
+   - a) The command to create the file with the content.
+   - b) The command to display the file content.
+
+**2. (5 units)** Copy the file `info.txt` to a new file named `backup_info.txt` in the **same directory**. Then, display the file listing of the directory to verify the copy.
+
+**3. (5 units)** Explain the difference between the commands `cat`, `more`, and `less` for viewing files. When would you prefer each one?
+
+---
+
+*Good luck!*

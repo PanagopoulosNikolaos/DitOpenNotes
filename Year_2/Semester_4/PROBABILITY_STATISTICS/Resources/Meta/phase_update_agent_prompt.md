@@ -247,7 +247,7 @@ if multi_part < 5:
     errors.append(f'Insufficient multi-part exercises: {multi_part} (minimum 5 required).')
 
 # Rule 9: At least 3 R command exercises.
-r_exercises = len(re.findall(r'[Rr] εντολή|[Rr] command|dbinom|pnorm|pbinom|dnorm|qnorm|dpois|ppois|dgeom|pgeom|dhyper|phyper|dexp|pexp|dgamma|pgamma|punif|qunif|pchisq|pt|pf|quantile|mean|median|var|sd|IQR|fivenum|table|which\\.max', content))
+r_exercises = len(re.findall(r'[Rr] command|dbinom|pnorm|pbinom|dnorm|qnorm|dpois|ppois|dgeom|pgeom|dhyper|phyper|dexp|pexp|dgamma|pgamma|punif|qunif|pchisq|pt|pf|quantile|mean|median|var|sd|IQR|fivenum|table|which\\.max', content))
 if r_exercises < 3:
     errors.append(f'Insufficient R command references: {r_exercises} (minimum 3 required).')
 

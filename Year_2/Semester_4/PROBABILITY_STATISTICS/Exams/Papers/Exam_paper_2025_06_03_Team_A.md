@@ -1,97 +1,100 @@
 # Exam Paper 2025 06 03 (Team A)
 
-**Ομάδα Α**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Κωδικός Θέσης:_______________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστικής**       Τρίτη 03/06/2025
+**Team A**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Seat Code:_______________________
+**COURSE: Probability & Statistics**       Tuesday 03/06/2025
 
-Οδηγίες:
-1. Τα θέματα είναι ισοδύναμα
-2. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-3. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου
+Instructions:
+1. All problems carry equal weight
+2. Hand in the question sheet along with your answer booklet.
+3. Use of pocket calculators is permitted; mobile phones are prohibited
 
-**ΘΕΜΑ 1:** Σε μια βιομηχανία το 2% ενός προϊόντος είναι εκτός προδιαγραφών (ελαττωματικό). Επιλέγουμε τυχαία για έλεγχο 6 μονάδες του προϊόντος αυτού. Ποια η πιθανότητα
-a. ακριβώς μία μονάδα προϊόντος να είναι ελαττωματική
-b. 2 ή περισσότερες μονάδες να είναι ελαττωματικές
-c. Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος a;
+**PROBLEM 1:** In a manufacturing industry, 2% of a product is non-compliant (defective). We randomly select 6 units of this product for inspection. What is the probability that:
+a. exactly one product unit is defective
+b. 2 or more units are defective
+c. What command should we give in R to calculate the probability of question a)?
 
-**ΘΕΜΑ 2:** Σε δημοσκόπηση που έγινε σε μία περιοχή σχετικά με την αναγνωσιμότητα διάφορων κυριακάτικων εντύπων, το 40% δήλωσε ότι διαβάζει "τα Νέα", το 25% "το Βήμα" και ένα 10% δήλωσε ότι διαβάζει και τις δύο εφημερίδες. Επιλέγουμε τυχαία ένα άτομο. Να υπολογισθεί η πιθανότητα:
-Α. να διαβάζει τουλάχιστον μία από τις δύο εφημερίδες
-Β. να μη διαβάζει καμία από τις δύο εφημερίδες
-C. να διαβάζει μόνο " τα Νέα "
-D. να διαβάζει "τα Νέα", δοθέντος ότι διαβάζει "το Βήμα"
+**PROBLEM 2:** In a survey conducted in a region regarding readership of various Sunday newspapers, 40% stated they read "Ta Nea", 25% "To Vima", and 10% stated they read both newspapers. A person is selected at random. Calculate the probability that they:
+A. read at least one of the two newspapers
+B. read neither of the two newspapers
+C. read only "Ta Nea"
+D. read "Ta Nea", given that they read "To Vima"
 
-**ΘΕΜΑ 3:** Ο χρόνος που απαιτείται από τους πελάτες μιας τράπεζας για να εξυπηρετηθούν από το ταμείο, ακολουθεί την Κανονική Κατανομή με μέση τιμή μ=12 min και απόκλιση σ=2 min. Ποια η πιθανότητα κάποιος πελάτης να περιμένει
-i) περισσότερο από 9 min
-ii) μεταξύ 11 και 15 min
-iii) ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος ii ;
+**PROBLEM 3:** The service time required for bank customers at the teller follows a Normal distribution with mean $\mu=12$ min and standard deviation $\sigma=2$ min. What is the probability that a customer waits:
+i) more than 9 min
+ii) between 11 and 15 min
+iii) what command should we give in R to calculate the probability of question ii)?
 
-Δίνονται: $\Phi(0.5) = P(Z \le 0.5) = 0.69146$, $\Phi(1.5) = P(Z \le 1.5) = 0.93319$
+Given: $\Phi(0.5) = P(Z \le 0.5) = 0.69146$, $\Phi(1.5) = P(Z \le 1.5) = 0.93319$
 
-**ΘΕΜΑ 4:** Ο μηνιαίος μισθός των υπαλλήλων μιας εταιρείας δίνεται στον παρακάτω πίνακα
+**PROBLEM 4:** The monthly salary of employees in a company is given in the following table:
 
-| Μηνιαίος Μισθος | Αριθμ. Υπαλλ $f_i$ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
+| Monthly Salary | Number of Employees $f_i$ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
 | --- | --- | --- | --- | --- |
 | 1250 | 25 | | 2673225 | |
 | 1300 | 40 | | 3069160 | |
 | 1550 | 65 | | 47385 | |
 | 1800 | 43 | | 2138347 | |
 | 2000 | 27 | | 4831083 | |
-| Σύνολα | 200 | | 12759200 | |
+| Total | 200 | | 12759200 | |
 
-A. Να υπολογίσετε τον μέσο μηνιαίο μισθό, το πρώτο τεταρτημόριο και τη τυπική απόκλιση.
-B. Τι ποσοστό των εργαζομένων έχουν μισθό το πολύ 1550 €;
-C. Η διεύθυνση της εταιρείας αποφάσισε τη χορήγηση ενός επιδόματος στο 25% των υπαλλήλων της με τον μικρότερο μηνιαίο μισθό. Τι μισθό πρέπει να έχει κάποιος υπάλληλος για να πάρει το επίδομα;
-D. Ποιες εντολές πρέπει να δώσουμε στην R για να υπολογίσει την επικρατούσα τιμή των δεδομένων μας;
+A. Calculate the mean monthly salary, the first quartile, and the standard deviation.
+B. What percentage of employees have a salary of at most 1550 €?
+C. Company management decided to grant an allowance to the 25% of employees with the lowest monthly salary. What maximum salary must an employee have to receive the allowance?
+D. What commands should we give in R to calculate the mode of our data?
 
-Καλή Επιτυχία!
+Good Luck!
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+## FORMULA SHEET
 
-**Πιθανότητες και Στατιστική (405)**
+**Probability and Statistics (405)**
 
-**Μέση τιμή:** 
-$\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
+**Mean:**
+$ar{X} = rac{1}{n} \sum_{i=1}^n X_i$, $ar{X} = rac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
-$s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
+**Variance:**
+^2 = rac{1}{n-1} \sum_{i=1}^n (x_i - ar{x})^2$, ^2 = rac{1}{n-1} \sum_{i=1}^k (X_i - ar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:**  = s / ar{x}$
 
-Αν $F_{(i-1)} \le \frac{N}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
+If {(i-1)} \le rac{N}{2} \le F_i$ then the **median** (for grouped data):
+ = x_{(i-1)} + rac{\delta}{f_i} \left( rac{N}{2} - F_{(i-1)} 
+ight)$
 
-Αν $F_{(i-1)} \le \frac{kN}{4} \le F_i$ τότε $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
+If {(i-1)} \le rac{kN}{4} \le F_i$ then  = x_{(i-1)} + rac{\delta}{f_i} \left( rac{kN}{4} - F_{(i-1)} 
+ight), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
+**Mode** (for grouped data):
+ = x_{(i-1)} + \delta rac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+(A) = rac{N(A)}{N(\Omega)}$,
+(A)$: number of favorable outcomes for event A
+(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
-I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
-$P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+**Properties:**
+I) (A') = 1 - P(A)$, II) (\emptyset) = 0$, III) (A) \le 1$
+IV) (A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If , A_2, \cdots, A_n$ are $ mutually exclusive events of the sample space $\Omega$, then:
+(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
+VI) If  \subseteq B$, then a) (B - A) = P(B) - P(A)$ and b) (A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
-$P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
+**Conditional Probability:**
+(A|B) = rac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
-$P(A \cap B) = P(A|B)P(B)$
+**Multiplication Rule:**
+(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
-$P(A \cap B) = P(A)P(B)$
+**Independent Events:**
+(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
-$P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
+If  \cap A_j = \emptyset, orall i 
+eq j$ and  \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
+(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
-$P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$
+**Bayes' Theorem:**
+(A_i | B) = rac{P(B \cap A_i)}{P(B)} = rac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

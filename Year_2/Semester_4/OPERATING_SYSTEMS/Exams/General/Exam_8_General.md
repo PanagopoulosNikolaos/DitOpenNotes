@@ -1,163 +1,163 @@
-# Εξέταση 8 — Λειτουργικά Συστήματα (Συνολική Επανάληψη)
+# Exam 8 — Operating Systems (Comprehensive Review)
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Αυτή η εξέταση καλύπτει **ολόκληρη την ύλη** του εξαμήνου. Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Συνολική Επανάληψη — Όλα τα κεφάλαια*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (16 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Ποιο ΛΣ χρησιμοποιεί **μονολιθική** αρχιτεκτονική (modular);
-
-- α) MINIX  
-- β) QNX  
-- γ) Linux  
-- δ) Windows NT (microkernel)
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). This examination covers **the entire** semester material. Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Ποιο από τα παρακάτω **δεν** αποτελεί συνθήκη αμοιβαίου αποκλεισμού;
+## PART A — THEORY (50 units)
 
-- α) Δύο διεργασίες δεν μπορούν να βρίσκονται ταυτόχρονα στο κρίσιμο τμήμα  
-- β) Μια διεργασία εκτός κρίσιμου τμήματος μπορεί να αναστείλει άλλη  
-- γ) Αποφυγή αδιεξόδου  
-- δ) Αποφυγή λιμοκτονίας
+*Topics: Comprehensive Review — All Chapters*
 
 ---
 
-**3.** Ποια κατηγορία αρχιτεκτονικής ΛΣ χαρακτηρίζεται από **εγγυημένους χρόνους απόκρισης**;
+### A1. Multiple Choice Questions (16 units — 2 units each)
 
-- α) Κατανεμημένα συστήματα  
-- β) Παράλληλα συστήματα SMP  
-- γ) Real-Time συστήματα  
-- δ) Μικροπυρήνας
+**Circle the letter of the correct answer.**
 
----
+**1.** Which OS uses **monolithic** architecture (modular)?
 
-**4.** Αν $Max=(5,2,3)$ και $Allocation=(2,1,1)$, ποιο είναι το $Need$;
-
-- α) $(7,3,4)$  
-- β) $(3,1,2)$  
-- γ) $(2,1,1)$  
-- δ) $(5,2,3)$
+- a) MINIX
+- b) QNX
+- c) Linux
+- d) Windows NT (microkernel)
 
 ---
 
-**5.** Ποια είναι η σωστή σχέση $WT$ (Waiting Time) και $TAT$ (Turnaround Time);
+**2.** Which of the following is **not** a condition for mutual exclusion?
 
-- α) $WT = TAT + \text{burst}$  
-- β) $TAT = WT - \text{burst}$  
-- γ) $WT = TAT - \text{burst}$  
-- δ) $WT = TAT \times \text{burst}$
-
----
-
-**6.** Ποιος αλγόριθμος αντικατάστασης σελίδων δεν επηρεάζεται από **ανωμαλία Belady**;
-
-- α) FIFO  
-- β) LRU  
-- γ) NRU (Not Recently Used)  
-- δ) Τυχαίος (Random)
+- a) Two processes cannot be in the critical section simultaneously
+- b) A process outside the critical section can suspend another
+- c) Deadlock avoidance
+- d) Starvation avoidance
 
 ---
 
-**7.** Στη **Συμμετρική Πολυεπεξεργασία (SMP)**, όλοι οι επεξεργαστές:
+**3.** Which OS architecture category is characterized by **guaranteed response times**?
 
-- α) Έχουν ξεχωριστή τοπική μνήμη  
-- β) Εκτελούν διαφορετικά αντίγραφα ΛΣ  
-- γ) Τρέχουν πανομοιότυπο αντίγραφο ΛΣ σε κοινή μνήμη  
-- δ) Δρομολογούνται από έναν master CPU
-
----
-
-**8.** Ποιο είναι το **βασικό πλεονέκτημα** της Σελιδοποίησης έναντι της Δυναμικής Τμηματοποίησης;
-
-- α) Μηδενικός εσωτερικός κατακερματισμός  
-- β) Ορατή δομή στον προγραμματιστή  
-- γ) Εξάλειψη εξωτερικού κατακερματισμού  
-- δ) Μεταβλητό μέγεθος μονάδων
+- a) Distributed systems
+- b) Parallel SMP systems
+- c) Real-Time systems
+- d) Microkernel
 
 ---
 
-### Α2. Round Robin Ερωτήσεων — Σύνδεση Εννοιών (10 μονάδες — 2 μονάδες έκαστη)
+**4.** If $Max=(5,2,3)$ and $Allocation=(2,1,1)$, what is $Need$?
 
-Κυκλώστε τη **μία** σωστή απάντηση.
-
-**1.** Ποια από τις παρακάτω εντολές Unix είναι **fork()**;  
-α) Αντικαθιστά την εικόνα μνήμης μιας διεργασίας με νέο πρόγραμμα  
-β) Δημιουργεί κλώνο διεργασίας  
-γ) Τερματίζει τη διεργασία  
-δ) Αναμένει τον τερματισμό θυγατρικής διεργασίας
-
-**2.** Ποια η αρχή λειτουργίας του **αλγορίθμου Dekker** (1η προσπάθεια);  
-α) Χρησιμοποιεί TAS (Test and Set)  
-β) Υλοποιεί αμοιβαίο αποκλεισμό μέσω αυστηρής εναλλαγής (strict alternation)  
-γ) Απενεργοποιεί διακοπές  
-δ) Χρησιμοποιεί σημαφόρους
-
-**3.** Τι αντιπροσωπεύει το **presence bit** στον πίνακα σελίδων;  
-α) Δικαιώματα πρόσβασης στη σελίδα  
-β) Αν η σελίδα βρίσκεται στη φυσική μνήμη  
-γ) Αν η σελίδα έχει τροποποιηθεί  
-δ) Ο αριθμός frame της σελίδας
-
-**4.** Ποιο κριτήριο δρομολόγησης **μεγιστοποιεί** ο αλγόριθμος SJF;  
-α) Throughput μόνο  
-β) Μέση αξιοποίηση CPU  
-γ) Ελαχιστοποίηση μέσου χρόνου αναμονής (minimum average waiting time)  
-δ) Fairness
-
-**5.** Ποιος ορισμός αντιστοιχεί στην **επαναφορά (recovery)** από αδιέξοδο;  
-α) Σπάσιμο μιας από τις 4 συνθήκες πριν συμβεί το deadlock  
-β) Παρακολούθηση κατάστασης για αποφυγή μη ασφαλών καταστάσεων  
-γ) Τερματισμός ή rollback διεργασιών μετά την ανίχνευση deadlock  
-δ) Επιτρεπτή εκχώρηση χωρίς επαλήθευση
+- a) $(7,3,4)$
+- b) $(3,1,2)$
+- c) $(2,1,1)$
+- d) $(5,2,3)$
 
 ---
 
-### Α3. Ασκήσεις Δρομολόγησης (14 μονάδες)
+**5.** What is the correct relationship between $WT$ (Waiting Time) and $TAT$ (Turnaround Time)?
 
-Δίνονται:
+- a) $WT = TAT + \text{burst}$
+- b) $TAT = WT - \text{burst}$
+- c) $WT = TAT - \text{burst}$
+- d) $WT = TAT \times \text{burst}$
 
-| Διεργασία | Άφιξη | Burst |
+---
+
+**6.** Which page replacement algorithm is not affected by **Belady's Anomaly**?
+
+- a) FIFO
+- b) LRU
+- c) NRU (Not Recently Used)
+- d) Random
+
+---
+
+**7.** In **Symmetric Multiprocessing (SMP)**, all processors:
+
+- a) Have separate local memory
+- b) Execute different copies of the OS
+- c) Run an identical copy of the OS in shared memory
+- d) Are routed by a master CPU
+
+---
+
+**8.** What is the **main advantage** of Paging over Dynamic Partitioning?
+
+- a) Zero internal fragmentation
+- b) Visible structure to the programmer
+- c) Elimination of external fragmentation
+- d) Variable unit size
+
+---
+
+### A2. Round Robin Questions — Concept Connection (10 units — 2 units each)
+
+Circle the **one** correct answer.
+
+**1.** Which of the following Unix commands is **fork()**?
+a) Replaces a process's memory image with a new program
+b) Creates a process clone
+c) Terminates a process
+d) Waits for a child process to terminate
+
+**2.** What is the operating principle of the **Dekker algorithm** (1st attempt)?
+a) Uses TAS (Test and Set)
+b) Implements mutual exclusion through strict alternation
+c) Disables interrupts
+d) Uses semaphores
+
+**3.** What does the **presence bit** represent in the page table?
+a) Access permissions to the page
+b) Whether the page is in physical memory
+c) Whether the page has been modified
+d) The frame number of the page
+
+**4.** Which scheduling criterion does the **SJF algorithm maximize**?
+a) Throughput only
+b) Average CPU utilization
+c) Minimum average waiting time
+d) Fairness
+
+**5.** Which definition corresponds to **recovery** from deadlock?
+a) Breaking one of the 4 conditions before deadlock occurs
+b) Monitoring state to avoid unsafe states
+c) Terminating or rolling back processes after deadlock detection
+d) Allowing allocation without verification
+
+---
+
+### A3. Scheduling Exercises (14 units)
+
+Given:
+
+| Process | Arrival | Burst |
 |:---|:---|:---|
 | P1 | 0 | 6 |
 | P2 | 2 | 4 |
 | P3 | 4 | 7 |
 | P4 | 6 | 2 |
 
-**1. (7 μονάδες) Round Robin, q = 2:**  
-Δείξτε αναλυτικό Gantt chart. Υπολογίστε:  
-- Χρόνο ολοκλήρωσης για κάθε διεργασία  
-- Turnaround Time για κάθε διεργασία  
-- Waiting Time για κάθε διεργασία  
-- Μέσο Turnaround Time  
-- Μέσο Waiting Time  
+**1. (7 units) Round Robin, q = 2:**
+Show a detailed Gantt chart. Calculate:
+- Completion time for each process
+- Turnaround Time for each process
+- Waiting Time for each process
+- Average Turnaround Time
+- Average Waiting Time
 
-**2. (7 μονάδες) SRTF (Shortest Remaining Time First):**  
-Δείξτε αναλυτικό Gantt chart και υπολογίστε μέσο Waiting Time και Turnaround Time. Συγκρίνετε με τα αποτελέσματα Round Robin.
+**2. (7 units) SRTF (Shortest Remaining Time First):**
+Show a detailed Gantt chart and calculate average Waiting Time and Turnaround Time. Compare with Round Robin results.
 
 ---
 
-### Α4. Ερωτήσεις Ανάπτυξης (10 μονάδες — 5 μονάδες έκαστη)
+### A4. Development Questions (10 units — 5 units each)
 
-**1.** Εξηγήστε πλήρως τη **ροή εκτέλεσης** που ακολουθεί το ΛΣ όταν συμβαίνει **page fault**. Αναφέρετε κάθε βήμα από τη στιγμή που η CPU παράγει την εικονική διεύθυνση έως την επανεκκίνηση της διεργασίας.
+**1.** Explain fully the **execution flow** that the OS follows when a **page fault** occurs. Mention each step from the moment the CPU produces the virtual address until the process restarts.
 
-**2.** Ένα σύστημα έχει 3 πόρους τύπου A (4 στιγμιότυπα), B (2 στιγμιότυπα) και C (3 στιγμιότυπα). Οι διεργασίες P1, P2, P3 έχουν:
+**2.** A system has 3 resource types A (4 instances), B (2 instances) and C (3 instances). Processes P1, P2, P3 have:
 
 | | Allocation (A,B,C) | Max (A,B,C) |
 |:---|:---|:---|
@@ -165,23 +165,23 @@
 | P2 | (2,1,0) | (4,1,3) |
 | P3 | (0,1,1) | (1,1,2) |
 
-Available = (1,0,1). Ελέγξτε αν υπάρχει ασφαλής ακολουθία. Αν όχι, ποιο πόρο αν αποδεσμεύσει το σύστημα θα οδηγήσει σε ασφαλή κατάσταση;
+Available = (1,0,1). Check if there is a safe sequence. If not, which resource release by the system would lead to a safe state?
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+## PART B — Unix Laboratory / jsLinux (50 units)
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές. Αυτό το μέρος είναι **ολικής επανάληψης** του εργαστηρίου Unix.
+> **jsLinux Environment:** Write **exactly** the commands. This section is a **comprehensive review** of the Unix laboratory.
 
 ---
 
-### Β1. Βασικές Εντολές — Συνολική Επανάληψη (10 μονάδες)
+### B1. Basic Commands — Comprehensive Review (10 units)
 
-Για κάθε μία από τις παρακάτω εντολές, γράψτε τη **σύνταξη**, εξηγήστε τι κάνει και δώστε ένα πρακτικό **παράδειγμα** εκτέλεσης στο jsLinux:
+For each of the following commands, write the **syntax**, explain what it does, and give a practical **example** of execution in jsLinux:
 
-| Εντολή | Σύνταξη | Τι κάνει | Παράδειγμα |
+| Command | Syntax | What it does | Example |
 |:---|:---|:---|:---|
 | `pwd` | | | |
 | `ls -la` | | | |
@@ -196,69 +196,69 @@ Available = (1,0,1). Ελέγξτε αν υπάρχει ασφαλής ακολ�
 
 ---
 
-### Β2. Δικαιώματα — Σύνθετο Σενάριο (10 μονάδες)
+### B2. Permissions — Complex Scenario (10 units)
 
-**Σενάριο:** Στο jsLinux, διαχείριση ασφαλούς καταλόγου με δικαιώματα.
+**Scenario:** In jsLinux, managing a secure directory with permissions.
 
-1. **(2 μονάδες)** Δημιουργήστε κατάλογο `~/secure_data` και αρχείο `private.key` μέσα σε αυτόν.
+1. **(2 units)** Create a directory `~/secure_data` and a file `private.key` inside it.
 
-2. **(3 μονάδες)** Ορίστε δικαιώματα ώστε **μόνο ο ιδιοκτήτης** να μπορεί να διαβάσει και εγγράψει το `private.key`, και **κανείς άλλος** να μην έχει καμία πρόσβαση. Γράψτε την εντολή και επαληθεύστε.
+2. **(3 units)** Set permissions so that **only the owner** can read and write `private.key`, and **no one else** has any access. Write the command and verify.
 
-3. **(3 μονάδες)** Ορίστε δικαιώματα στον κατάλογο `secure_data` ώστε: ιδιοκτήτης rwx, ομάδα r-x, άλλοι ---. Επαληθεύστε.
+3. **(3 units)** Set permissions on the `secure_data` directory so that: owner rwx, group r-x, others ---. Verify.
 
-4. **(2 μονάδες)** Εξηγήστε γιατί είναι σημαντικό να ορίζουμε αυστηρά δικαιώματα σε ευαίσθητα αρχεία. Ποιος κίνδυνος υπάρχει αν ένα private key είναι world-readable;
-
----
-
-### Β3. Σύνθετη Χρήση Wildcards, Pipes και Ανακατεύθυνσης (15 μονάδες)
-
-**1. (5 μονάδες)** Στο jsLinux, δημιουργήστε 10 αρχεία με εντολές: `file_01.log`, `file_02.log`, ..., `file_10.log` στον `/tmp`. Στη συνέχεια:  
-   α) Εμφανίστε μόνο αυτά που έχουν αριθμό από 1 έως 5 (χρησιμοποιώντας wildcard)  
-   β) Διαγράψτε τα αρχεία `file_08.log`, `file_09.log`, `file_10.log` με wildcards  
-   γ) Επαληθεύστε ότι απομένουν μόνο τα 7 αρχεία
-
-**2. (5 μονάδες)** Γράψτε pipeline που:  
-   α) Παίρνει τα ονόματα αρχείων `.log` στο `/tmp`  
-   β) Ταξινομεί αλφαβητικά  
-   γ) Αριθμεί τις γραμμές (hint: `nl` ή `cat -n`)  
-   δ) Αποθηκεύει το αποτέλεσμα σε `file_index.txt`
-
-**3. (5 μονάδες)** Γράψτε pipeline που να αναλύει το αρχείο `/etc/passwd`:  
-   α) Εξάγει τα UIDs (3ο πεδίο)  
-   β) Φιλτράρει μόνο UIDs >= 1000 (hint: `awk -F: '$3>=1000'`)  
-   γ) Ταξινομεί αριθμητικά  
-   δ) Εμφανίζει τον μεγαλύτερο UID  
-   Εξηγήστε κάθε τμήμα του pipeline.
+4. **(2 units)** Explain why it is important to set strict permissions on sensitive files. What danger exists if a private key is world-readable?
 
 ---
 
-### Β4. Σενάριο Ολικής Άσκησης (15 μονάδες)
+### B3. Complex Wildcards, Pipes, and Redirection Usage (15 units)
 
-**Σενάριο:** Ολική εφαρμογή δεξιοτήτων Unix στο jsLinux — διαχείριση project, αρχείων και δεδομένων.
+**1. (5 units)** In jsLinux, create 10 files with commands: `file_01.log`, `file_02.log`, ..., `file_10.log` in `/tmp`. Then:
+   a) Display only those with numbers from 1 to 5 (using wildcard)
+   b) Delete files `file_08.log`, `file_09.log`, `file_10.log` using wildcards
+   c) Verify that only 7 files remain
 
-**Μέρος I — Οργάνωση (5 μονάδες):**
+**2. (5 units)** Write a pipeline that:
+   a) Takes the `.log` filenames in `/tmp`
+   b) Sorts alphabetically
+   c) Numbers the lines (hint: `nl` or `cat -n`)
+   d) Saves the result to `file_index.txt`
 
-1. Δημιουργήστε τη δομή: `~/os_final/{config,data,output,archive}`
-2. Δημιουργήστε αρχεία: `config/settings.conf`, `config/users.txt`
-3. Γράψτε τα ονόματα τριών φανταστικών χρηστών στο `users.txt` (ένα ανά γραμμή)
-4. Δώστε δικαιώματα `600` στο `settings.conf`
-
-**Μέρος II — Επεξεργασία (5 μονάδες):**
-
-1. Εμφανίστε τους χρήστες από `users.txt` σε αλφαβητική σειρά
-2. Χρησιμοποιήστε `wc` για να μετρήσετε πόσοι χρήστες υπάρχουν
-3. Αντιγράψτε το `users.txt` στο `archive` με όνομα `users_backup_$(date +%Y%m%d).txt`  
-   *(Υπόδειξη: Στο jsLinux μπορεί να μην υποστηρίζεται date substitution — χρησιμοποιήστε απλό όνομα αν χρειαστεί)*
-4. Ανακατευθύνετε τη λίστα ταξινομημένων χρηστών στο `output/sorted_users.txt`
-
-**Μέρος III — Επαλήθευση και Καθαρισμός (5 μονάδες):**
-
-1. Εμφανίστε **ολόκληρο το δέντρο** καταλόγων `~/os_final` με `ls -lR`
-2. Βρείτε όλα τα αρχεία `.txt` στο `~/os_final` με `find`
-3. Εμφανίστε τα δικαιώματα κάθε αρχείου στο `config` με `ls -l`
-4. Δημιουργήστε ένα symbolic link `~/latest_output` που να δείχνει στο `~/os_final/output`
-5. Επαληθεύστε τον symbolic link με `ls -la ~/`
+**3. (5 units)** Write a pipeline that analyzes the `/etc/passwd` file:
+   a) Extracts UIDs (3rd field)
+   b) Filters only UIDs >= 1000 (hint: `awk -F: '$3>=1000'`)
+   c) Sorts numerically
+   d) Displays the largest UID
+   Explain each part of the pipeline.
 
 ---
 
-*Καλή επιτυχία στο εξάμηνο!*
+### B4. Comprehensive Exercise Scenario (15 units)
+
+**Scenario:** Complete application of Unix skills in jsLinux — managing projects, files, and data.
+
+**Part I — Organization (5 units):**
+
+1. Create the structure: `~/os_final/{config,data,output,archive}`
+2. Create files: `config/settings.conf`, `config/users.txt`
+3. Write the names of three fictional users in `users.txt` (one per line)
+4. Give permissions `600` to `settings.conf`
+
+**Part II — Processing (5 units):**
+
+1. Display the users from `users.txt` in alphabetical order
+2. Use `wc` to count how many users exist
+3. Copy `users.txt` to `archive` with name `users_backup_$(date +%Y%m%d).txt`
+   *(Hint: In jsLinux date substitution may not be supported — use a simple name if needed)*
+4. Redirect the sorted user list to `output/sorted_users.txt`
+
+**Part III — Verification and Cleanup (5 units):**
+
+1. Display the **complete directory tree** `~/os_final` with `ls -lR`
+2. Find all `.txt` files in `~/os_final` with `find`
+3. Display permissions of each file in `config` with `ls -l`
+4. Create a symbolic link `~/latest_output` pointing to `~/os_final/output`
+5. Verify the symbolic link with `ls -la ~/`
+
+---
+
+*Good luck in the semester!*

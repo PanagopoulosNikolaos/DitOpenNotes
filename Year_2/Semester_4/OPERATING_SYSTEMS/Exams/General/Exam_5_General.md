@@ -1,201 +1,201 @@
-# Εξέταση 5 — Λειτουργικά Συστήματα
+# Exam 5 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Διαχείριση Μνήμης — Τμηματοποίηση, Τοποθέτηση, Swapping*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (10 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Τι είναι ο **εσωτερικός κατακερματισμός (internal fragmentation)**;
-
-- α) Ελεύθεροι χώροι ανάμεσα στα τμήματα που δεν μπορούν να χρησιμοποιηθούν  
-- β) Σπαταλημένος χώρος μέσα σε ένα κατανεμημένο τμήμα που δεν χρησιμοποιεί η διεργασία  
-- γ) Χώρος που χρησιμοποιείται από τον πυρήνα  
-- δ) Μνήμη που βρίσκεται στο δίσκο
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Ποιος αλγόριθμος τοποθέτησης επιλέγει το **μικρότερο ελεύθερο τμήμα** που χωράει τη διεργασία;
+## PART A — THEORY (50 units)
 
-- α) First-Fit  
-- β) Next-Fit  
-- γ) Best-Fit  
-- δ) Worst-Fit
+*Topics: Memory Management — Partitioning, Placement, Swapping*
 
 ---
 
-**3.** Τι είναι η **Συμπίεση (Compaction)**;
+### A1. Multiple Choice Questions (10 units — 2 units each)
 
-- α) Ο αλγόριθμος Best-Fit  
-- β) Η τεχνική μετακίνησης διεργασιών ώστε όλος ο ελεύθερος χώρος να συγκεντρωθεί σε ένα συνεχόμενο τμήμα  
-- γ) Η διαίρεση μνήμης σε σελίδες σταθερού μεγέθους  
-- δ) Η μεταφορά διεργασιών στο δίσκο
+**Circle the letter of the correct answer.**
 
----
+**1.** What is **internal fragmentation**?
 
-**4.** Ο τύπος CPU Utilization = $1 - p^v$ αποδίδει:
-
-- α) Τη χρήση δίσκου σε σχέση με το πλήθος διεργασιών  
-- β) Την πιθανότητα τουλάχιστον μία από τις v διεργασίες να χρησιμοποιεί CPU  
-- γ) Τον αριθμό σελίδων που φορτώνονται ανά δευτερόλεπτο  
-- δ) Το κόστος context switch
+- a) Free spaces between partitions that cannot be used
+- b) Wasted space inside an allocated partition that the process does not use
+- c) Space used by the kernel
+- d) Memory located on disk
 
 ---
 
-**5.** Ποια τεχνική επιτρέπει εκτέλεση προγραμμάτων **μεγαλύτερων** από τη διαθέσιμη μνήμη σε μονοπρογραμματισμό;
+**2.** Which placement algorithm selects the **smallest free partition** that fits the process?
 
-- α) Swapping  
-- β) Paging  
-- γ) Overlays  
-- δ) Segmentation
-
----
-
-### Α2. Ερωτήσεις Σωστό/Λάθος (6 μονάδες — 1 μονάδα έκαστη)
-
-**Σημειώστε Σ (Σωστό) ή Λ (Λάθος).**
-
-1. _____ Η **Δυναμική Τμηματοποίηση** δεν παράγει εσωτερικό κατακερματισμό.
-
-2. _____ Ο αλγόριθμος **Best-Fit** τείνει να αφήνει πολύ μικρά αχρησιμοποίητα τμήματα.
-
-3. _____ Η **Σταθερή Τμηματοποίηση** με ίσα τμήματα παράγει εξωτερικό κατακερματισμό.
-
-4. _____ Το **Swapping** μετακινεί **ολόκληρη** τη διεργασία από RAM στο δίσκο.
-
-5. _____ Ο αλγόριθμος **First-Fit** σαρώνει από το τελευταίο σημείο εκχώρησης.
-
-6. _____ Με $v = 4$ διεργασίες και $p = 0.8$, η αξιοποίηση CPU ≈ 59%.
+- a) First-Fit
+- b) Next-Fit
+- c) Best-Fit
+- d) Worst-Fit
 
 ---
 
-### Α3. Άσκηση Αλγορίθμων Τοποθέτησης (14 μονάδες)
+**3.** What is **Compaction**?
 
-Δίνονται ελεύθερα τμήματα μνήμης (σε KB) με τη σειρά:  
+- a) The Best-Fit algorithm
+- b) The technique of moving processes so that all free space is concentrated in one contiguous partition
+- c) Dividing memory into fixed-size pages
+- d) Transferring processes to disk
+
+---
+
+**4.** The formula CPU Utilization = $1 - p^v$ gives:
+
+- a) Disk usage relative to number of processes
+- b) The probability that at least one of the v processes uses CPU
+- c) The number of pages loaded per second
+- d) The context switch cost
+
+---
+
+**5.** Which technique allows executing programs **larger** than available memory in single-programming?
+
+- a) Swapping
+- b) Paging
+- c) Overlays
+- d) Segmentation
+
+---
+
+### A2. True/False Questions (6 units — 1 unit each)
+
+**Mark T (True) or F (False).**
+
+1. _____ **Dynamic Partitioning** does not produce internal fragmentation.
+
+2. _____ The **Best-Fit** algorithm tends to leave very small unusable partitions.
+
+3. _____ **Fixed Partitioning** with equal partitions produces external fragmentation.
+
+4. _____ **Swapping** moves the **entire** process from RAM to disk.
+
+5. _____ The **First-Fit** algorithm scans from the last allocation point.
+
+6. _____ With $v = 4$ processes and $p = 0.8$, CPU utilization ≈ 59%.
+
+---
+
+### A3. Placement Algorithm Exercise (14 units)
+
+Given free memory partitions (in KB) in order:
 **[100, 500, 200, 300, 600]**
 
-Οι αιτήσεις διεργασιών φτάνουν στη σειρά: **212 KB, 417 KB, 112 KB, 426 KB**.  
-Το τελευταίο σημείο εκχώρησης (για Next-Fit) βρίσκεται **πριν** το τμήμα 200 KB.
+Process requests arrive in order: **212 KB, 417 KB, 112 KB, 426 KB**.
+The last allocation point (for Next-Fit) is **before** the 200 KB partition.
 
-**1. (4 μονάδες)** Εφαρμόστε **First-Fit**. Δείξτε τη λίστα ελεύθερων τμημάτων μετά από κάθε αίτηση.
+**1. (4 units)** Apply **First-Fit**. Show the free partition list after each request.
 
-**2. (4 μονάδες)** Εφαρμόστε **Best-Fit**. Δείξτε τη λίστα ελεύθερων τμημάτων μετά από κάθε αίτηση.
+**2. (4 units)** Apply **Best-Fit**. Show the free partition list after each request.
 
-**3. (3 μονάδες)** Εφαρμόστε **Next-Fit**. Δείξτε τη λίστα ελεύθερων τμημάτων μετά από κάθε αίτηση.
+**3. (3 units)** Apply **Next-Fit**. Show the free partition list after each request.
 
-**4. (3 μονάδες)** Συγκρίνετε τα αποτελέσματα των τριών αλγορίθμων. Ποιος κατάφερε να εξυπηρετήσει και τις 4 αιτήσεις και γιατί;
-
----
-
-### Α4. Ασκήσεις Ανάπτυξης (20 μονάδες)
-
-**Άσκηση 1 (8 μονάδες):**  
-Ένα σύστημα χρησιμοποιεί **σταθερή τμηματοποίηση** με 5 τμήματα ίσου μεγέθους 8 MB έκαστο. Οι διεργασίες που θέλουν να φορτωθούν έχουν μεγέθη: 2 MB, 7 MB, 5 MB, 3 MB, 8 MB.
-
-α) Υπολογίστε τον **εσωτερικό κατακερματισμό** για κάθε διεργασία και συνολικά.  
-β) Αν αντί για ίσα τμήματα χρησιμοποιηθούν άνισα (2 MB, 4 MB, 6 MB, 8 MB, 12 MB), ποια διεργασία πηγαίνει σε ποιο τμήμα με **single global queue**;  
-γ) Ποια μέθοδος (ίσα vs άνισα) δίνει λιγότερο εσωτερικό κατακερματισμό; Αιτιολογήστε.
-
-**Άσκηση 2 (12 μονάδες):**  
-Ένα σύστημα έχει $p = 0.7$ (70% πιθανότητα αναμονής I/O).
-
-α) **(4 μονάδες)** Πόσες διεργασίες ($v$) απαιτούνται για αξιοποίηση CPU τουλάχιστον 95%; Δείξτε τον υπολογισμό.
-
-β) **(4 μονάδες)** Εξηγήστε πώς η **Δυναμική Τμηματοποίηση** δημιουργεί **εξωτερικό κατακερματισμό** με ένα διάγραμμα.
-
-γ) **(4 μονάδες)** Τι είναι **Overlays** και πώς διαφέρουν από το **Swapping**; Ποια προβλήματα λύνουν και ποια δεν λύνουν;
+**4. (3 units)** Compare the results of the three algorithms. Which one managed to serve all 4 requests and why?
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+### A4. Development Exercises (20 units)
+
+**Exercise 1 (8 units):**
+A system uses **fixed partitioning** with 5 partitions of equal size 8 MB each. The processes that want to load have sizes: 2 MB, 7 MB, 5 MB, 3 MB, 8 MB.
+
+a) Calculate the **internal fragmentation** for each process and total.
+b) If unequal partitions (2 MB, 4 MB, 6 MB, 8 MB, 12 MB) are used instead of equal ones, which process goes to which partition with a **single global queue**?
+c) Which method (equal vs unequal) produces less internal fragmentation? Justify.
+
+**Exercise 2 (12 units):**
+A system has $p = 0.7$ (70% probability of I/O waiting).
+
+a) **(4 units)** How many processes ($v$) are required for at least 95% CPU utilization? Show the calculation.
+
+b) **(4 units)** Explain how **Dynamic Partitioning** creates **external fragmentation** with a diagram.
+
+c) **(4 units)** What are **Overlays** and how do they differ from **Swapping**? What problems do they solve and what problems don't they solve?
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε.
+## PART B — Unix Laboratory / jsLinux (50 units)
 
 ---
 
-### Β1. Προβολή Αρχείων και Σύνδεσμοι (15 μονάδες)
-
-**1. (5 μονάδες)** Εξηγήστε τη διαφορά μεταξύ **hard link** και **symbolic link (symlink)** στο Unix:  
-   α) Πώς δημιουργείται κάθε τύπος σύνδεσμου;  
-   β) Τι συμβαίνει αν διαγραφεί το αρχικό αρχείο;  
-   γ) Μπορεί ένα hard link να δείχνει σε κατάλογο;
-
-**2. (5 μονάδες)** Στο jsLinux:  
-   α) Δημιουργήστε ένα αρχείο `original.txt` με περιεχόμενο `"Αρχικό αρχείο"`  
-   β) Δημιουργήστε ένα **hard link** `hard_link.txt` που να δείχνει στο `original.txt`  
-   γ) Δημιουργήστε ένα **symbolic link** `soft_link.txt`  
-   δ) Εμφανίστε και τα τρία με `ls -li` και εξηγήστε τι παρατηρείτε στους inode numbers
-
-**3. (5 μονάδες)** Ποιες εντολές χρησιμοποιείτε για να προβάλετε περιεχόμενα αρχείων; Συγκρίνετε `cat`, `head`, `tail` και `less`. Δώστε παράδειγμα χρήσης `tail -n 5 /etc/passwd`.
+> **jsLinux Environment:** Write **exactly** the commands you would use.
 
 ---
 
-### Β2. Σύνθετα Pipelines (15 μονάδες)
+### B1. File Viewing and Links (15 units)
 
-Γράψτε και εξηγήστε τις παρακάτω εντολές στο jsLinux:
+**1. (5 units)** Explain the difference between **hard link** and **symbolic link (symlink)** in Unix:
+   a) How is each type of link created?
+   b) What happens if the original file is deleted?
+   c) Can a hard link point to a directory?
 
-**1. (5 μονάδες)** Pipeline που:  
-   - Διαβάζει το αρχείο `/etc/passwd`  
-   - Εξάγει μόνο τα usernames (1ο πεδίο, διαχωρισμένα με `:`)  
-   - Ταξινομεί αλφαβητικά  
-   - Αποθηκεύει σε `userlist.txt`  
-   *(Υπόδειξη: χρησιμοποιήστε `cut -d: -f1`)*
+**2. (5 units)** In jsLinux:
+   a) Create a file `original.txt` with content `"Original file"`
+   b) Create a **hard link** `hard_link.txt` pointing to `original.txt`
+   c) Create a **symbolic link** `soft_link.txt`
+   d) Display all three with `ls -li` and explain what you observe about the inode numbers
 
-**2. (5 μονάδες)** Εξηγήστε τι κάνει η εντολή:  
+**3. (5 units)** What commands do you use to view file contents? Compare `cat`, `head`, `tail`, and `less`. Give an example of using `tail -n 5 /etc/passwd`.
+
+---
+
+### B2. Complex Pipelines (15 units)
+
+Write and explain the following commands in jsLinux:
+
+**1. (5 units)** A pipeline that:
+   - Reads the file `/etc/passwd`
+   - Extracts only the usernames (first field, separated by `:`)
+   - Sorts alphabetically
+   - Saves to `userlist.txt`
+   *(Hint: use `cut -d: -f1`)*
+
+**2. (5 units)** Explain what the command does:
    ```
    cat /etc/passwd | cut -d: -f3 | sort -n | tail -1
    ```
-   Τι τύπο δεδομένων επεξεργάζεται το `cut`, και τι το `sort -n`;
+   What data type does `cut` process, and what does `sort -n` do?
 
-**3. (5 μονάδες)** Γράψτε pipeline που να εμφανίζει τα **10 μεγαλύτερα αρχεία** σε έναν κατάλογο, ταξινομημένα κατά μέγεθος. Εξηγήστε κάθε εντολή.
+**3. (5 units)** Write a pipeline that displays the **10 largest files** in a directory, sorted by size. Explain each command.
 
 ---
 
-### Β3. Ανακατεύθυνση και Σφάλματα (5 μονάδες)
+### B3. Redirection and Errors (5 units)
 
-**1. (3 μονάδες)** Τρέξτε στο jsLinux:  
+**1. (3 units)** Run in jsLinux:
    ```
    ls /nonexistent 2> errors.txt
    ls /etc >> output.txt 2>&1
-   ```  
-   Εξηγήστε τι κάνει η κάθε εντολή. Ποιο αρχείο περιέχει ποια έξοδο;
+   ```
+   Explain what each command does. Which file contains which output?
 
-**2. (2 μονάδες)** Πότε χρησιμοποιείτε `2>&1`; Ποια είναι η πρακτική του χρησιμότητα σε scripts παραγωγής;
-
----
-
-### Β4. Σενάριο Πρακτικής Άσκησης (15 μονάδες)
-
-**Σενάριο:** Ανάλυση αρχείων συστήματος και οργάνωση δεδομένων στο jsLinux.
-
-1. **(3 μονάδες)** Δημιουργήστε ένα αρχείο `/tmp/sample_data.txt` με 5 γραμμές κειμένου διαφορετικού μήκους χρησιμοποιώντας εντολές `echo` και `>>`.
-
-2. **(4 μονάδες)** Εμφανίστε:  
-   α) Πόσες γραμμές έχει το αρχείο (χρησιμοποιήστε `wc`)  
-   β) Πόσες λέξεις έχει  
-   γ) Πόσους χαρακτήρες έχει  
-
-3. **(4 μονάδες)** Χρησιμοποιώντας `grep`, βρείτε και εμφανίστε τις γραμμές που περιέχουν συγκεκριμένη λέξη από το `/tmp/sample_data.txt`. Ανακατευθύνετε τα αποτελέσματα σε νέο αρχείο `filtered.txt`.
-
-4. **(4 μονάδες)** Δημιουργήστε ένα **symbolic link** `data_link.txt` που να δείχνει στο `/tmp/sample_data.txt`. Επαληθεύστε με `ls -l` και εξηγήστε τι βλέπετε.
+**2. (2 units)** When do you use `2>&1`? What is its practical utility in production scripts?
 
 ---
 
-*Καλή επιτυχία!*
+### B4. Practical Exercise Scenario (15 units)
+
+**Scenario:** System file analysis and data organization in jsLinux.
+
+1. **(3 units)** Create a file `/tmp/sample_data.txt` with 5 lines of text of different lengths using `echo` and `>>` commands.
+
+2. **(4 units)** Display:
+   a) How many lines the file has (use `wc`)
+   b) How many words it has
+   c) How many characters it has
+
+3. **(4 units)** Using `grep`, find and display lines containing a specific word from `/tmp/sample_data.txt`. Redirect the results to a new file `filtered.txt`.
+
+4. **(4 units)** Create a **symbolic link** `data_link.txt` pointing to `/tmp/sample_data.txt`. Verify with `ls -l` and explain what you see.
+
+---
+
+*Good luck!*

@@ -1,215 +1,215 @@
-# Εξέταση 7 — Λειτουργικά Συστήματα
+# Exam 7 — Operating Systems
 
-**Τμήμα:** Πληροφορικής & Τηλεπικοινωνιών  
-**Διάρκεια:** 3 ώρες  
-**Μέγιστη Βαθμολογία:** 100 μονάδες
-
----
-
-> **Οδηγίες:**  
-> Η εξέταση αποτελείται από δύο μέρη. Το **Μέρος Α** εξετάζει τη θεωρία (50 μονάδες) και το **Μέρος Β** εξετάζει το εργαστήριο Unix μέσω jsLinux (50 μονάδες). Απαντήστε σε **όλες** τις ερωτήσεις. Δεν επιτρέπεται η χρήση βοηθητικού υλικού.
+**Department:** Computer Science & Telecommunications
+**Duration:** 3 hours
+**Maximum Score:** 100 units
 
 ---
 
-## ΜΕΡΟΣ Α — ΘΕΩΡΙΑ (50 μονάδες)
-
-*Θεματολογία: Δρομολόγηση Διεργασιών — FCFS, SJF, SRTF, Round Robin*
-
----
-
-### Α1. Ερωτήσεις Πολλαπλής Επιλογής (10 μονάδες — 2 μονάδες έκαστη)
-
-**Κυκλώστε το γράμμα της σωστής απάντησης.**
-
-**1.** Ποιος αλγόριθμος δρομολόγησης εγγυάται **μηδενική πιθανότητα λιμοκτονίας (starvation)**;
-
-- α) SJF  
-- β) SRTF  
-- γ) Round Robin  
-- δ) FCFS
+> **Instructions:**
+> The examination consists of two parts. **Part A** examines theory (50 units) and **Part B** examines the Unix laboratory through jsLinux (50 units). Answer **all** questions. The use of auxiliary materials is not permitted.
 
 ---
 
-**2.** Τι συμβαίνει στον αλγόριθμο Round Robin αν το **κβάντο χρόνου** γίνει πολύ μεγάλο;
+## PART A — THEORY (50 units)
 
-- α) Αυξάνεται ο αριθμός context switches  
-- β) Εκφυλίζεται σε FCFS  
-- γ) Εκφυλίζεται σε SJF  
-- δ) Εμφανίζεται λιμοκτονία
+*Topics: Process Scheduling — FCFS, SJF, SRTF, Round Robin*
 
 ---
 
-**3.** Ποιος ορισμός αντιστοιχεί στον **χρόνο στροφής (Turnaround Time)**;
+### A1. Multiple Choice Questions (10 units — 2 units each)
 
-- α) Χρόνος από την αίτηση έως την πρώτη εκτέλεση  
-- β) Χρόνος αναμονής στην ουρά έτοιμης κατάστασης  
-- γ) Συνολικός χρόνος από την υποβολή έως την ολοκλήρωση  
-- δ) Χρόνος εκτέλεσης CPU burst
+**Circle the letter of the correct answer.**
 
----
+**1.** Which scheduling algorithm guarantees **zero starvation** probability?
 
-**4.** Ποιος αλγόριθμος **παρακάμπτει** τη σειρά άφιξης για να επιλέξει τη διεργασία με τον ελάχιστο χρόνο εκτέλεσης;
-
-- α) FCFS  
-- β) Round Robin  
-- γ) SJF  
-- δ) POSIX scheduler
+- a) SJF
+- b) SRTF
+- c) Round Robin
+- d) FCFS
 
 ---
 
-**5.** Τι αντιμετωπίζει το **Virtual Round Robin** (VRR);
+**2.** What happens in the Round Robin algorithm if the **time quantum** becomes very large?
 
-- α) Λιμοκτονία διεργασιών χαμηλής προτεραιότητας  
-- β) Αδικία σε βάρος I/O-bound διεργασιών που βγαίνουν νωρίς από τη CPU  
-- γ) Υψηλό κόστος context switch  
-- δ) Αδυναμία εκτέλεσης σε πολυεπεξεργαστικά συστήματα
-
----
-
-### Α2. Round Robin Ερωτήσεων (8 μονάδες — 2 μονάδες έκαστη)
-
-**1.** Ο **long-term scheduler** αποφασίζει:  
-α) Ποια διεργασία εκτελείται επόμενη  
-β) Αν μια νέα διεργασία εισέρχεται στο σύστημα  
-γ) Ποιες διεργασίες μεταφέρονται στο δίσκο  
-δ) Πόσο κβάντο χρόνου λαμβάνει κάθε διεργασία
-
-**2.** Ποιο κριτήριο αξιολόγησης **ελαχιστοποιεί** ο αλγόριθμος SJF;  
-α) Throughput  
-β) Μέσος χρόνος απόκρισης  
-γ) Μέσος χρόνος αναμονής  
-δ) Χρόνος context switch
-
-**3.** Ποια είναι η κύρια **αδυναμία** του FCFS για διαδραστικά συστήματα;  
-α) Δεν υποστηρίζει πολλαπλές ουρές  
-β) CPU-bound διεργασίες μονοπωλούν την CPU, αφήνοντας I/O-bound διεργασίες να αναμένουν  
-γ) Δεν μπορεί να εκτελέσει πάνω από 10 διεργασίες  
-δ) Χρειάζεται γνώση των burst times εκ των προτέρων
-
-**4.** Ο **medium-term scheduler** συνδέεται κυρίως με:  
-α) Χρονοπρογραμματισμό CPU  
-β) Swapping — μεταφορά διεργασιών μεταξύ RAM και δίσκου  
-γ) Δημιουργία νέων διεργασιών  
-δ) Ανίχνευση αδιεξόδου
+- a) The number of context switches increases
+- b) It degenerates to FCFS
+- c) It degenerates to SJF
+- d) Starvation appears
 
 ---
 
-### Α3. Ασκήσεις Δρομολόγησης (22 μονάδες)
+**3.** Which definition corresponds to **Turnaround Time**?
 
-Δίνονται οι παρακάτω διεργασίες:
+- a) Time from request to first execution
+- b) Time waiting in the ready queue
+- c) Total time from submission to completion
+- d) CPU burst execution time
 
-| Διεργασία | Χρόνος Άφιξης | Χρόνος CPU (burst) |
+---
+
+**4.** Which algorithm **bypasses** the arrival order to select the process with the shortest execution time?
+
+- a) FCFS
+- b) Round Robin
+- c) SJF
+- d) POSIX scheduler
+
+---
+
+**5.** What does **Virtual Round Robin** (VRR) address?
+
+- a) Starvation of low-priority processes
+- b) Unfairness to I/O-bound processes that leave the CPU early
+- c) High context switch cost
+- d) Inability to execute in multiprocessor systems
+
+---
+
+### A2. Round Robin Questions (8 units — 2 units each)
+
+**1.** The **long-term scheduler** decides:
+a) Which process executes next
+b) Whether a new process enters the system
+c) Which processes are transferred to disk
+d) How much time quantum each process receives
+
+**2.** Which evaluation criterion does the **SJF algorithm minimize**?
+a) Throughput
+b) Average response time
+c) Average waiting time
+d) Context switch time
+
+**3.** What is the main **weakness** of FCFS for interactive systems?
+a) It does not support multiple queues
+b) CPU-bound processes monopolize the CPU, leaving I/O-bound processes waiting
+c) It cannot execute more than 10 processes
+d) It requires knowledge of burst times in advance
+
+**4.** The **medium-term scheduler** is mainly associated with:
+a) CPU scheduling
+b) Swapping — transferring processes between RAM and disk
+c) Creating new processes
+d) Deadlock detection
+
+---
+
+### A3. Scheduling Exercises (22 units)
+
+Given the following processes:
+
+| Process | Arrival Time | CPU Time (burst) |
 |:---|:---|:---|
 | P1 | 0 | 8 |
 | P2 | 1 | 4 |
 | P3 | 2 | 9 |
 | P4 | 3 | 5 |
 
-**1. (5 μονάδες) FCFS (Non-Preemptive):**  
-Δείξτε το **Gantt chart**, υπολογίστε για κάθε διεργασία: χρόνο ολοκλήρωσης, turnaround time, waiting time. Υπολογίστε μέσο turnaround time και μέσο waiting time.
+**1. (5 units) FCFS (Non-Preemptive):**
+Show the **Gantt chart**, calculate for each process: completion time, turnaround time, waiting time. Calculate average turnaround time and average waiting time.
 
-**2. (6 μονάδες) SJF (Non-Preemptive):**  
-Δείξτε το **Gantt chart** και υπολογίστε μέσο turnaround time και waiting time. Συγκρίνετε με το FCFS.
+**2. (6 units) SJF (Non-Preemptive):**
+Show the **Gantt chart** and calculate average turnaround time and waiting time. Compare with FCFS.
 
-**3. (6 μονάδες) SRTF (Preemptive SJF):**  
-Δείξτε το **Gantt chart** — σε κάθε νέα άφιξη συγκρίνετε τον χρόνο που απομένει. Υπολογίστε μέσο turnaround time και waiting time.
+**3. (6 units) SRTF (Preemptive SJF):**
+Show the **Gantt chart** — at each new arrival compare the remaining time. Calculate average turnaround time and waiting time.
 
-**4. (5 μονάδες) Round Robin με κβάντο q = 3:**  
-Δείξτε το **Gantt chart** ανά κβάντο. Υπολογίστε μέσο turnaround time και waiting time.
-
----
-
-### Α4. Ερώτηση Ανάπτυξης (10 μονάδες)
-
-Ένα πανεπιστημιακό σύστημα διαχειρίζεται τρεις κατηγορίες εργασιών:  
-- **Batch jobs** (μεταγλώττιση, εκτέλεση μεγάλων προγραμμάτων) — CPU-bound  
-- **Interactive jobs** (shell commands, editor) — I/O-bound, μικρά bursts  
-- **Real-time jobs** (αίτηση ιατρικής μέτρησης) — αυστηρά deadlines
-
-α) **(4 μονάδες)** Ποιον αλγόριθμο δρομολόγησης ή συνδυασμό αλγορίθμων προτείνετε για κάθε κατηγορία; Αιτιολογήστε.
-
-β) **(3 μονάδες)** Πώς επηρεάζει η **επιλογή κβάντου** στο Round Robin την απόδοση του συστήματος; Ποιο είναι το πρακτικό guideline;
-
-γ) **(3 μονάδες)** Τι είναι **dispatcher latency** και πού εμφανίζεται στον κύκλο context switch;
+**4. (5 units) Round Robin with quantum q = 3:**
+Show the **Gantt chart** by quantum. Calculate average turnaround time and waiting time.
 
 ---
 
-## ΜΕΡΟΣ Β — ΕΡΓΑΣΤΗΡΙΟ Unix / jsLinux (50 μονάδες)
+### A4. Development Question (10 units)
+
+A university system manages three categories of jobs:
+- **Batch jobs** (compilation, running large programs) — CPU-bound
+- **Interactive jobs** (shell commands, editor) — I/O-bound, small bursts
+- **Real-time jobs** (medical measurement request) — strict deadlines
+
+a) **(4 units)** Which scheduling algorithm or combination of algorithms do you recommend for each category? Justify.
+
+b) **(3 units)** How does **quantum selection** in Round Robin affect system performance? What is the practical guideline?
+
+c) **(3 units)** What is **dispatcher latency** and where does it appear in the context switch cycle?
 
 ---
 
-> **Περιβάλλον jsLinux:** Γράψτε **ακριβώς** τις εντολές που θα χρησιμοποιούσατε.
+## PART B — Unix Laboratory / jsLinux (50 units)
 
 ---
 
-### Β1. Διαχείριση Διεργασιών στο Unix (15 μονάδες)
-
-**1. (5 μονάδες)** Στο jsLinux, εκτελέστε τις παρακάτω εντολές και εξηγήστε τι εμφανίζουν:  
-   α) `ps` — ποιες στήλες βλέπετε; Τι σημαίνει PID, TTY, TIME, CMD;  
-   β) `ps aux` (αν υποστηρίζεται) — ποια επιπλέον πληροφορία εμφανίζει;  
-   γ) Τι είναι το **PID** και ποιο PID έχει πάντα ο πρώτος process (init/systemd);
-
-**2. (5 μονάδες)** Εξηγήστε τα παρακάτω σχετικά με εκτέλεση εργασιών στο Unix terminal:  
-   α) Τι συμβαίνει αν τερματίσετε μια εντολή με `Ctrl+C`;  
-   β) Τι κάνει το `Ctrl+Z`;  
-   γ) Ποια η διαφορά μεταξύ εκτέλεσης στο **foreground** και **background** (`&`);  
-   δ) Πώς επαναφέρετε μια διεργασία από background σε foreground;
-
-**3. (5 μονάδες)** Γράψτε εντολές για:  
-   α) Εκτέλεση `sleep 100` στο background  
-   β) Εμφάνιση background jobs  
-   γ) Τερματισμό της background διεργασίας `sleep` με PID (υποθέτουμε PID=1234)
+> **jsLinux Environment:** Write **exactly** the commands you would use.
 
 ---
 
-### Β2. Ανακατεύθυνση Ι/Ο — Σύνθετα Σενάρια (15 μονάδες)
+### B1. Process Management in Unix (15 units)
 
-**1. (5 μονάδες)** Σε ένα script (αλληλουχία εντολών) θέλετε να καταγράψετε **τόσο την κανονική έξοδο όσο και τα σφάλματα** σε ξεχωριστά αρχεία. Γράψτε:  
-   α) Εντολή που στέλνει stdout σε `out.log` και stderr σε `err.log`  
-   β) Εντολή που στέλνει και stdout και stderr σε ένα αρχείο `all.log`  
-   γ) Εξηγήστε τη σημασία της έκφρασης `2>&1`
+**1. (5 units)** In jsLinux, execute the following commands and explain what they display:
+   a) `ps` — which columns do you see? What do PID, TTY, TIME, CMD mean?
+   b) `ps aux` (if supported) — what additional information does it display?
+   c) What is **PID** and which PID does the first process (init/systemd) always have?
 
-**2. (5 μονάδες)** Το jsLinux διαθέτει `/dev/null`. Εξηγήστε:  
-   α) Τι είναι το `/dev/null`  
-   β) Γιατί χρησιμοποιείται συχνά `command > /dev/null 2>&1`  
-   γ) Δώστε ένα πρακτικό παράδειγμα όπου αυτό είναι χρήσιμο
+**2. (5 units)** Explain the following regarding job execution in Unix terminal:
+   a) What happens if you terminate a command with `Ctrl+C`?
+   b) What does `Ctrl+Z` do?
+   c) What is the difference between execution in **foreground** and **background** (`&`)?
+   d) How do you bring a process from background to foreground?
 
-**3. (5 μονάδες)** Δημιουργήστε ένα αρχείο `/tmp/test_data.txt` με 10 γραμμές αριθμών (χρησιμοποιώντας εντολές). Στη συνέχεια:  
-   α) Ταξινομήστε τους αριθμούς και αποθηκεύστε σε `sorted.txt`  
-   β) Εμφανίστε μόνο τους μοναδικούς αριθμούς (hint: `uniq`)  
-   γ) Μετρήστε πόσοι μοναδικοί αριθμοί υπάρχουν
+**3. (5 units)** Write commands for:
+   a) Executing `sleep 100` in the background
+   b) Displaying background jobs
+   c) Terminating the background `sleep` process by PID (assume PID=1234)
 
 ---
 
-### Β3. Pipes και Φίλτρα (10 μονάδες)
+### B2. I/O Redirection — Complex Scenarios (15 units)
 
-**1. (5 μονάδες)** Γράψτε pipeline για τις παρακάτω λειτουργίες:  
-   α) Εμφάνιση γραμμών του `/etc/passwd` που περιέχουν `/bin/sh`  
-   β) Μέτρηση γραμμών του αποτελέσματος (α)  
-   γ) Εμφάνιση μόνο 1ης και 3ης στήλης (πεδία) του `/etc/passwd`
+**1. (5 units)** In a script (command sequence), you want to record **both standard output and errors** in separate files. Write:
+   a) A command that sends stdout to `out.log` and stderr to `err.log`
+   b) A command that sends both stdout and stderr to one file `all.log`
+   c) Explain the meaning of the expression `2>&1`
 
-**2. (5 μονάδες)** Εξηγήστε την εντολή:  
+**2. (5 units)** jsLinux provides `/dev/null`. Explain:
+   a) What `/dev/null` is
+   b) Why `command > /dev/null 2>&1` is often used
+   c) Give a practical example where this is useful
+
+**3. (5 units)** Create a file `/tmp/test_data.txt` with 10 lines of numbers (using commands). Then:
+   a) Sort the numbers and save to `sorted.txt`
+   b) Display only the unique numbers (hint: `uniq`)
+   c) Count how many unique numbers exist
+
+---
+
+### B3. Pipes and Filters (10 units)
+
+**1. (5 units)** Write a pipeline for the following operations:
+   a) Display lines of `/etc/passwd` containing `/bin/sh`
+   b) Count the lines of result (a)
+   c) Display only the 1st and 3rd columns (fields) of `/etc/passwd`
+
+**2. (5 units)** Explain the command:
    ```
    who | awk '{print $1}' | sort | uniq -c | sort -rn
-   ```  
-   Ποιον σκοπό εξυπηρετεί; Αν δεν λειτουργεί το `who` στο jsLinux, πώς θα το αντικαθιστούσατε;
+   ```
+   What purpose does it serve? If `who` does not work in jsLinux, how would you replace it?
 
 ---
 
-### Β4. Σενάριο Πρακτικής Άσκησης (10 μονάδες)
+### B4. Practical Exercise Scenario (10 units)
 
-**Σενάριο:** Δημιουργία οργανωμένης δομής καταλόγων project και διαχείριση αρχείων στο jsLinux.
+**Scenario:** Creating an organized project directory structure and file management in jsLinux.
 
-1. **(2 μονάδες)** Δημιουργήστε τη δομή: `~/final_project/{bin,src,docs,tests,logs}`.
+1. **(2 units)** Create the structure: `~/final_project/{bin,src,docs,tests,logs}`.
 
-2. **(2 μονάδες)** Μέσα στο `src`, δημιουργήστε 3 αρχεία: `main.c`, `utils.c`, `config.h`.
+2. **(2 units)** Inside `src`, create 3 files: `main.c`, `utils.c`, `config.h`.
 
-3. **(2 μονάδες)** Αντιγράψτε όλα τα `.c` αρχεία από το `src` στο `tests` με wildcards.
+3. **(2 units)** Copy all `.c` files from `src` to `tests` using wildcards.
 
-4. **(2 μονάδες)** Δημιουργήστε ένα αρχείο `logs/run.log` και εκτελέστε μια εντολή που γράφει την τρέχουσα ημερομηνία στο αρχείο αυτό.
+4. **(2 units)** Create a file `logs/run.log` and execute a command that writes the current date to this file.
 
-5. **(2 μονάδες)** Εμφανίστε το δέντρο καταλόγων `~/final_project` και κάντε redirect την έξοδο σε `docs/project_structure.txt`.
+5. **(2 units)** Display the directory tree `~/final_project` and redirect the output to `docs/project_structure.txt`.
 
 ---
 
-*Καλή επιτυχία!*
+*Good luck!*

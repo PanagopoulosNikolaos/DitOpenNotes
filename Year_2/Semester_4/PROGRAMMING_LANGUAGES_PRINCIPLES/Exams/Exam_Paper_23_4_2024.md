@@ -1,13 +1,13 @@
-# ΑΡΧΕΣ ΓΛΩΣΣΩΝ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
-## Πρόοδος 23/4/2024
-**Τμήμα Πληροφορικής και Τηλεπικοινωνιών**  
-**Πανεπιστήμιο Ιωαννίνων**
+# PRINCIPLES OF PROGRAMMING LANGUAGES
+## MIDTERM EXAM 23/4/2024
+**Department of Computer Science and Telecommunications**  
+**University of Ioannina**
 
 ---
 
-### Θέμα 1 - Α [1]
+### Topic 1 - A [1]
 
-**Α.** Δείξτε ότι η ακόλουθη γραμματική είναι ασαφής:
+**A.** Show that the following grammar is ambiguous:
 ```
 <S> -> <A>
 <A> -> <A> + <A> | <id>
@@ -16,21 +16,21 @@
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Μια γραμματική ορίζεται ως ασαφής (ambiguous) εάν υπάρχει τουλάχιστον μία συμβολοσειρά στη γλώσσα της η οποία μπορεί να παραχθεί με περισσότερες από μία leftmost (ή rightmost) παραγωγές, ή ισοδύναμα, αν έχει περισσότερα από ένα συντακτικά δέντρα (parse trees).
+A grammar is defined as ambiguous if there exists at least one string in its language that can be derived by more than one leftmost (or rightmost) derivation, or equivalently, if it has more than one parse tree.
 
-Έστω η συμβολοσειρά `a + b + c`.
+Consider the string `a + b + c`.
 
-**1η leftmost παραγωγή (αντιστοιχεί στην ομαδοποίηση αριστερής προσεταιριστικότητας `(a + b) + c`):**
-1. `<S>` => `<A>` (μέσω `<S> -> <A>`)
-2. `<A>` => `<A> + <A>` (μέσω `<A> -> <A> + <A>`)
-3. `<A>` => `<A> + <A> + <A>` (αντικατάσταση του πρώτου `<A>` με `<A> + <A>`)
+**1st leftmost derivation (corresponds to left-associative grouping `(a + b) + c`):**
+1. `<S>` => `<A>` (via `<S> -> <A>`)
+2. `<A>` => `<A> + <A>` (via `<A> -> <A> + <A>`)
+3. `<A>` => `<A> + <A> + <A>` (replacing the first `<A>` with `<A> + <A>`)
 4. `<A>` => `<id> + <A> + <A>` => `a + <A> + <A>`
 5. `<A>` => `a + <id> + <A>` => `a + b + <A>`
 6. `<A>` => `a + b + <id>` => `a + b + c`
 
-Συντακτικό δέντρο 1:
+Parse tree 1:
 ```
       <S>
        |
@@ -45,15 +45,15 @@
  a   b
 ```
 
-**2η leftmost παραγωγή (αντιστοιχεί στην ομαδοποίηση δεξιάς προσεταιριστικότητας `a + (b + c)`):**
+**2nd leftmost derivation (corresponds to right-associative grouping `a + (b + c)`):**
 1. `<S>` => `<A>`
 2. `<A>` => `<A> + <A>`
 3. `<A>` => `<id> + <A>` => `a + <A>`
-4. `<A>` => `a + <A> + <A>` (αντικατάσταση του δεύτερου `<A>` με `<A> + <A>`)
+4. `<A>` => `a + <A> + <A>` (replacing the second `<A>` with `<A> + <A>`)
 5. `<A>` => `a + <id> + <A>` => `a + b + <A>`
 6. `<A>` => `a + b + <id>` => `a + b + c`
 
-Συντακτικό δέντρο 2:
+Parse tree 2:
 ```
       <S>
        |
@@ -68,13 +68,13 @@
         b   c
 ```
 
-Επειδή η συμβολοσειρά `a + b + c` παράγεται από δύο διαφορετικά συντακτικά δέντρα, η γραμματική είναι ασαφής.
+Because the string `a + b + c` is generated from two different parse trees, the grammar is ambiguous.
 
 ***
 
-### Θέμα 1 - Β [1]
+### Topic 1 - B [1]
 
-**Β.** Έστω ο ακόλουθος κώδικας σε μια υποθετική γλώσσα προγραμματισμού:
+**B.** Consider the following code in a hypothetical programming language:
 ```javascript
 function outer() {
     function inner1() {
@@ -90,29 +90,29 @@ function outer() {
 }
 outer()
 ```
-Τι θα εμφανιστεί κατά την εκτέλεση αν η γλώσσα προγραμματισμού διαθέτει α) στατική εμβέλεια, β) δυναμική εμβέλεια;
+What will be displayed when executed if the programming language has a) static scoping, b) dynamic scoping?
 
 ***
 
-**Λύση:**
+**Solution:**
 
-* **α) Στατική εμβέλεια (Static scoping / Lexical scoping):**
-  Στη στατική εμβέλεια, η επίλυση των ονομάτων (name binding) καθορίζεται κατά το χρόνο μεταγλώττισης/ανάλυσης με βάση τη χωρική διάταξη του πηγαίου κώδικα (φωλιάσματα). Η εμβέλεια μιας συνάρτησης είναι το περιβάλλον στο οποίο ορίστηκε.
-  Η συνάρτηση `inner2` ορίζεται μέσα στη συνάρτηση `outer`. Επομένως, ο lexical parent της `inner2` είναι η `outer`. 
-  Όταν εκτελείται η εντολή `var y = x;` μέσα στην `inner2`, αναζητείται η μεταβλητή `x`. Καθώς δεν υπάρχει τοπικά στην `inner2`, η αναζήτηση πηγαίνει στον lexical parent της, που είναι η `outer`. Εκεί η `x` έχει την τιμή `16`. Η τοπική δήλωση `var x = 5` στην `inner1` δεν επηρεάζει την `inner2` γιατί η `inner2` δεν είναι φωλιασμένη στην `inner1`.
-  Επομένως, θα εμφανιστεί: **`16`**.
+* **a) Static scoping (Static scoping / Lexical scoping):**
+  In static scoping, name resolution (name binding) is determined at compile/parse time based on the spatial layout of the source code (nesting). The scope of a function is the environment in which it was defined.
+  The function `inner2` is defined inside the function `outer`. Therefore, the lexical parent of `inner2` is `outer`.
+  When the statement `var y = x;` is executed inside `inner2`, the variable `x` is searched for. Since it does not exist locally in `inner2`, the search goes to its lexical parent, which is `outer`. There, `x` has the value `16`. The local declaration `var x = 5` in `inner1` does not affect `inner2` because `inner2` is not nested inside `inner1`.
+  Therefore, it will display: **`16`**.
 
-* **β) Δυναμική εμβέλεια (Dynamic scoping):**
-  Στη δυναμική εμβέλεια, η επίλυση των ονομάτων καθορίζεται κατά το χρόνο εκτέλεσης (runtime) με βάση τη στοίβα κλήσεων (call stack) των υποπρογραμμάτων.
-  Η ροή εκτέλεσης είναι: `outer()` -> καλεί την `inner1()` -> καλεί την `inner2()`.
-  Όταν η `inner2` αναζητά τη μεταβλητή `x`, επειδή δεν υπάρχει τοπικά, αναζητά στη συνάρτηση που την κάλεσε, δηλαδή στην `inner1`. Στην `inner1`, η μεταβλητή `x` έχει την τιμή `5`.
-  Επομένως, θα εμφανιστεί: **`5`**.
+* **b) Dynamic scoping:**
+  In dynamic scoping, name resolution is determined at runtime based on the call stack of the subroutines.
+  The execution flow is: `outer()` -> calls `inner1()` -> calls `inner2()`.
+  When `inner2` searches for the variable `x`, since it does not exist locally, it searches in the function that called it, namely `inner1`. In `inner1`, the variable `x` has the value `5`.
+  Therefore, it will display: **`5`**.
 
 ---
 
-### Θέμα 2 - Α [1]
+### Topic 2 - A [1]
 
-Δίνεται ο ακόλουθος κώδικας σε C που περιέχει 6 σημεία που ζητείται να συμπληρωθούν:
+Given the following C code that contains 6 points to be completed:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -122,42 +122,42 @@ struct my_struct {
     int y;
 };
 
-<[1] να συμπληρωθεί ο τύπος επιστροφής της συνάρτησης> fun1(int a) {
-    <[2] να συμπληρωθεί το σώμα της συνάρτησης>
+<[1] complete the return type of the function> fun1(int a) {
+    <[2] complete the body of the function>
 }
 
-<[3] να συμπληρωθεί ο τύπος επιστροφής της συνάρτησης> fun2(int a) {
-    <[4] να συμπληρωθεί το σώμα της συνάρτησης>
+<[3] complete the return type of the function> fun2(int a) {
+    <[4] complete the body of the function>
 }
 
 int main(void) {
     int a = 100;
-    <[5] να συμπληρωθεί η κλήση της συνάρτησης fun1>
+    <[5] complete the call to function fun1>
     printf("%d %d \n", r.x, r.y);
 
-    <[6] να συμπληρωθεί η κλήση της συνάρτησης fun2>
+    <[6] complete the call to function fun2>
     printf("%d %d \n", r2[0], r2[1]);
     free(r2);
 }
 ```
-Κατά την εκτέλεσή του ο κώδικας θα πρέπει να εμφανίζει:
+When executed, the code should display:
 ```
 101 101
 101 101
 ```
 
-**Α.** Συμπληρώστε στα σημεία [1] και [2] τη συνάρτηση `fun1` έτσι ώστε να επιστρέφει μια εγγραφή της δομής `my_struct` που κάθε πεδίο της να λαμβάνει την τιμή του ορίσματος της συνάρτησης `fun1`. Συμπληρώστε στο σημείο [5] την κλήση της συνάρτησης `fun1`.
+**A.** Complete points [1] and [2] for the `fun1` function so that it returns a record of the `my_struct` structure where each field takes the value of the argument of the `fun1` function. Complete point [5] with the call to the `fun1` function.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Συμπλήρωση των σημείων [1], [2] και [5]:
-- Στο σημείο **[1]**, ο τύπος επιστροφής της συνάρτησης είναι `struct my_struct`.
-- Στο σημείο **[2]**, δημιουργούμε τοπικά μια μεταβλητή τύπου `struct my_struct`, αναθέτουμε την τιμή `a` στα πεδία της και την επιστρέφουμε.
-- Στο σημείο **[5]**, καλούμε τη συνάρτηση `fun1(a + 1)` και αναθέτουμε το αποτέλεσμα στη μεταβλητή `struct my_struct r` (έτσι ώστε να τυπώσει `101 101`).
+Completing points [1], [2] and [5]:
+- At point **[1]**, the return type of the function is `struct my_struct`.
+- At point **[2]**, we locally create a variable of type `struct my_struct`, assign the value `a` to its fields and return it.
+- At point **[5]**, we call the function `fun1(a + 1)` and assign the result to the variable `struct my_struct r` (so that it prints `101 101`).
 
-Ο κώδικας για τη συνάρτηση `fun1` και την κλήση της:
+The code for the `fun1` function and its call:
 
 ```c
 /**
@@ -174,15 +174,15 @@ struct my_struct fun1(int a) {
     return temp_struct;
 }
 
-// Σημείο [5] στη main:
+// Point [5] in main:
 struct my_struct r = fun1(a + 1);
 ```
 
 ---
 
-### Θέμα 2 - Β [1]
+### Topic 2 - B [1]
 
-Δίνεται ο ακόλουθος κώδικας σε C που περιέχει 6 σημεία που ζητείται να συμπληρωθούν:
+Given the following C code that contains 6 points to be completed:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -192,42 +192,42 @@ struct my_struct {
     int y;
 };
 
-<[1] να συμπληρωθεί ο τύπος επιστροφής της συνάρτησης> fun1(int a) {
-    <[2] να συμπληρωθεί το σώμα της συνάρτησης>
+<[1] complete the return type of the function> fun1(int a) {
+    <[2] complete the body of the function>
 }
 
-<[3] να συμπληρωθεί ο τύπος επιστροφής της συνάρτησης> fun2(int a) {
-    <[4] να συμπληρωθεί το σώμα της συνάρτησης>
+<[3] complete the return type of the function> fun2(int a) {
+    <[4] complete the body of the function>
 }
 
 int main(void) {
     int a = 100;
-    <[5] να συμπληρωθεί η κλήση της συνάρτησης fun1>
+    <[5] complete the call to function fun1>
     printf("%d %d \n", r.x, r.y);
 
-    <[6] να συμπληρωθεί η κλήση της συνάρτησης fun2>
+    <[6] complete the call to function fun2>
     printf("%d %d \n", r2[0], r2[1]);
     free(r2);
 }
 ```
-Κατά την εκτέλεσή του ο κώδικας θα πρέπει να εμφανίζει:
+When executed, the code should display:
 ```
 101 101
 101 101
 ```
 
-**Β.** Συμπληρώστε στα σημεία [3] και [4] τη συνάρτηση `fun2` έτσι ώστε να επιστρέφει μια διάταξη δύο θέσεων με τιμή κάθε θέσης την τιμή του ορίσματος της `fun2`. Συμπληρώστε στο σημείο [6] την κλήση της συνάρτησης `fun2`.
+**B.** Complete points [3] and [4] for the `fun2` function so that it returns a two-position array with each position's value being the value of the argument of `fun2`. Complete point [6] with the call to the `fun2` function.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Συμπλήρωση των σημείων [3], [4] και [6]:
-- Στο σημείο **[3]**, ο τύπος επιστροφής της συνάρτησης είναι `int*` (δείκτης σε ακέραιο), καθώς στη C δεν επιτρέπεται η απευθείας επιστροφή πινάκων με τιμή.
-- Στο σημείο **[4]**, δεσμεύουμε δυναμικά μνήμη για έναν πίνακα 2 θέσεων ακεραίων χρησιμοποιώντας τη `malloc()`, αναθέτουμε την τιμή `a` στις θέσεις του πίνακα και επιστρέφουμε τον δείκτη.
-- Στο σημείο **[6]**, καλούμε τη συνάρτηση `fun2(a + 1)` και αναθέτουμε το αποτέλεσμα στη μεταβλητή `int *r2` (έτσι ώστε να τυπώσει `101 101`).
+Completing points [3], [4] and [6]:
+- At point **[3]**, the return type of the function is `int*` (pointer to integer), because in C direct return of arrays by value is not allowed.
+- At point **[4]**, we dynamically allocate memory for a 2-position integer array using `malloc()`, assign the value `a` to the array positions and return the pointer.
+- At point **[6]**, we call the function `fun2(a + 1)` and assign the result to the variable `int *r2` (so that it prints `101 101`).
 
-Ο κώδικας για τη συνάρτηση `fun2` και την κλήση της:
+The code for the `fun2` function and its call:
 
 ```c
 /**
@@ -246,15 +246,15 @@ int* fun2(int a) {
     return arr_ptr;
 }
 
-// Σημείο [6] στη main:
+// Point [6] in main:
 int *r2 = fun2(a + 1);
 ```
 
 ---
 
-### Θέμα 2 - Γ [1]
+### Topic 2 - C [1]
 
-Δίνεται ο ακόλουθος κώδικας σε C που περιέχει 6 σημεία που ζητείται να συμπληρωθούν:
+Given the following C code that contains 6 points to be completed:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -264,52 +264,52 @@ struct my_struct {
     int y;
 };
 
-<[1] να συμπληρωθεί ο τύπος επιστροφής της συνάρτησης> fun1(int a) {
-    <[2] να συμπληρωθεί το σώμα της συνάρτησης>
+<[1] complete the return type of the function> fun1(int a) {
+    <[2] complete the body of the function>
 }
 
-<[3] να συμπληρωθεί ο τύπος επιστροφής της συνάρτησης> fun2(int a) {
-    <[4] να συμπληρωθεί το σώμα της συνάρτησης>
+<[3] complete the return type of the function> fun2(int a) {
+    <[4] complete the body of the function>
 }
 
 int main(void) {
     int a = 100;
-    <[5] να συμπληρωθεί η κλήση της συνάρτησης fun1>
+    <[5] complete the call to function fun1>
     printf("%d %d \n", r.x, r.y);
 
-    <[6] να συμπληρωθεί η κλήση της συνάρτησης fun2>
+    <[6] complete the call to function fun2>
     printf("%d %d \n", r2[0], r2[1]);
     free(r2);
 }
 ```
 
-**Γ.** Σχολιάστε το πως σχετίζεται ο παραπάνω κώδικας με την έννοια της ορθογωνικότητας στις γλώσσες προγραμματισμού και τι ισχύει περί ορθογωνικότητας στη γλώσσα προγραμματισμού C.
+**C.** Comment on how the above code relates to the concept of orthogonality in programming languages and what holds regarding orthogonality in the C programming language.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Ορθογωνικότητα (Orthogonality):**
-Ορθογωνικότητα σε μια γλώσσα προγραμματισμού σημαίνει ότι ένα σχετικά μικρό σύνολο από θεμελιώδεις κατασκευές μπορεί να συνδυαστεί με ελεύθερους και προβλέψιμους τρόπους, χωρίς περιορισμούς που εξαρτώνται από το πλαίσιο (context).
+**Orthogonality:**
+Orthogonality in a programming language means that a relatively small set of fundamental constructs can be combined in free and predictable ways, without context-dependent restrictions.
 
-**Συσχέτιση με τον κώδικα και τη C:**
-Στον παραπάνω κώδικα παρατηρούμε μια σημαντική παραβίαση της ορθογωνικότητας στη γλώσσα C όσον αφορά τους τύπους δεδομένων και τις συναρτήσεις:
-1. **Διαφορετική μεταχείριση δομών και πινάκων:** Η C επιτρέπει σε μια συνάρτηση να επιστρέφει μια δομή (struct) απευθείας με τιμή (όπως στην `fun1`), αλλά **δεν** επιτρέπει την απευθείας επιστροφή ενός πίνακα (array) με τιμή. Για να επιστρέψουμε έναν πίνακα, αναγκαζόμαστε να χρησιμοποιήσουμε δείκτες και δυναμική δέσμευση μνήμης (όπως στην `fun2`).
-2. **Μεταβίβαση ορισμάτων:** Οι δομές μπορούν να μεταβιβαστούν σε συναρτήσεις είτε με τιμή είτε με αναφορά/δείκτη. Αντίθετα, οι πίνακες μεταβιβάζονται πάντα ως δείκτες στο πρώτο τους στοιχείο (array-to-pointer decay).
+**Relation to the code and C:**
+In the above code we observe a significant violation of orthogonality in the C language regarding data types and functions:
+1. **Different treatment of structs and arrays:** C allows a function to return a struct directly by value (as in `fun1`), but does **not** allow the direct return of an array by value. To return an array, we are forced to use pointers and dynamic memory allocation (as in `fun2`).
+2. **Argument passing:** Structs can be passed to functions either by value or by reference/pointer. In contrast, arrays are always passed as a pointer to their first element (array-to-pointer decay).
 
-Αυτές οι ασυνέπειες (όπου δομές και πίνακες, παρότι σύνθετοι τύποι δεδομένων, αντιμετωπίζονται εντελώς διαφορετικά) αποτελούν κλασικό παράδειγμα μη ορθογωνικού σχεδιασμού στη γλώσσα C.
+These inconsistencies (where structs and arrays, although composite data types, are treated completely differently) constitute a classic example of non-orthogonal design in the C language.
 
 ---
 
-### Θέμα 3 - Α [2]
+### Topic 3 - A [2]
 
-**Α.** Δημιουργήστε σε Python μια κλάση `Box` με μέλη δεδομένων το πλάτος (`width`), το μήκος (`length`) και το ύψος (`height`) ενός κουτιού. Υλοποιήστε τη μέθοδο κατασκευής `__init__` και τη μέθοδο `__str__` που θα εμφανίζει πληροφορίες για κάθε αντικείμενο τύπου `Box`. Προσθέστε μια μέθοδο με όνομα `volume` που να επιστρέφει τον όγκο του κουτιού. Δημιουργήστε ένα αντικείμενο `Box` με πλάτος 10cm, μήκος 15cm και ύψος 8cm και εμφανίστε το.
+**A.** Create a Python class `Box` with data members the width (`width`), length (`length`) and height (`height`) of a box. Implement the constructor method `__init__` and the `__str__` method that will display information about each `Box` object. Add a method named `volume` that returns the volume of the box. Create a `Box` object with width 10cm, length 15cm and height 8cm and display it.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Παρακάτω δίνεται ο κώδικας της κλάσης `Box` σε Python, ακολουθώντας τους κανόνες ονοματοδοσίας (PascalCase για την κλάση, camelCase για τις μεθόδους, snake_case για τις μεταβλητές) και την τεκμηρίωση Google Style:
+The code of the `Box` class in Python is given below, following the naming conventions (PascalCase for the class, camelCase for the methods, snake_case for the variables) and Google Style documentation:
 
 ```python
 class Box:
@@ -348,31 +348,31 @@ class Box:
         return self.width * self.length * self.height
 
 
-# Δημιουργία αντικειμένου Box με διαστάσεις 10x15x8
+# Create a Box object with dimensions 10x15x8
 box_object = Box(10.0, 15.0, 8.0)
 
-# Εμφάνιση του αντικειμένου
+# Display the object
 print(box_object)
 
-# Εμφάνιση του όγκου
+# Display the volume
 print(f"Volume: {box_object.volume()} cm^3")
 ```
 
 ---
 
-### Θέμα 3 - Β [1]
+### Topic 3 - B [1]
 
-**Β.** Γράψτε στην Python μια συνάρτηση με όνομα `all_digits` που να δέχεται ως όρισμα μια συμβολοσειρά και να ελέγχει αν περιέχει και τα δέκα ψηφία (0 έως και 9). Για παράδειγμα για τη συμβολοσειρά `"7a102ab134563v789zi360"` θα πρέπει να επιστρέφει `True`. Έστω ότι η συνάρτηση αυτή έχει τοποθετηθεί σε ένα αρχείο `utils.py`. Γράψτε τα περιεχόμενα του αρχείου `erotima.py` που να καλεί τη συνάρτηση `all_digits` για μια συμβολοσειρά και να επιστρέφει `True` και για μια άλλη συμβολοσειρά και να επιστρέφει `False`.
+**B.** Write in Python a function named `all_digits` that accepts a string as an argument and checks whether it contains all ten digits (0 through 9). For example, for the string `"7a102ab134563v789zi360"` it should return `True`. Suppose this function has been placed in a file `utils.py`. Write the contents of the file `erotima.py` that calls the `all_digits` function for one string and returns `True` and for another string returns `False`.
 
-Σημείωση: η μέθοδος `isdigit()` επιστρέφει `True` αν το καλών αντικείμενο αποτελείται από χαρακτήρες που είναι όλοι ψηφία, συνεπώς `"5".isdigit()` επιστρέφει `True`, ενώ `"a".isdigit()` επιστρέφει `False`.
+Note: the method `isdigit()` returns `True` if the calling object consists of characters that are all digits, so `"5".isdigit()` returns `True`, while `"a".isdigit()` returns `False`.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Παρακάτω δίνονται τα περιεχόμενα των δύο αρχείων. Για την τήρηση των κανόνων ονοματοδοσίας (Functions: `camelCase`), η συνάρτηση ορίζεται ως `allDigits` και παρέχεται ένα alias με το όνομα `all_digits`.
+The contents of the two files are given below. To comply with the naming conventions (Functions: `camelCase`), the function is defined as `allDigits` and an alias named `all_digits` is provided.
 
-**Περιεχόμενα αρχείου `utils.py`:**
+**Contents of file `utils.py`:**
 
 ```python
 def allDigits(input_string: str) -> bool:
@@ -391,7 +391,7 @@ def allDigits(input_string: str) -> bool:
 all_digits = allDigits
 ```
 
-**Περιεχόμενα αρχείου `erotima.py`:**
+**Contents of file `erotima.py`:**
 
 ```python
 from utils import allDigits
@@ -420,9 +420,9 @@ if __name__ == "__main__":
 
 ---
 
-### Θέμα 4 [2]
+### Topic 4 [2]
 
-Τι θα εμφανίσει κατά την εκτέλεση του ο ακόλουθος κώδικας C++; Ποια η σημασία του ορισμού της συνάρτησης `fun` της κλάσης `A` ως `virtual`;
+What will the following C++ code display when executed? What is the significance of defining the `fun` function of class `A` as `virtual`?
 ```cpp
 #include <iostream>
 using namespace std;
@@ -450,10 +450,10 @@ int main() {
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Έξοδος του προγράμματος:**
-Κατά την εκτέλεση του κώδικα θα εμφανιστεί:
+**Program output:**
+When the code is executed, it will display:
 ```
 A
 B
@@ -461,15 +461,15 @@ A
 A
 ```
 
-**Εξήγηση:**
+**Explanation:**
 1. `A *ref = new A(); ref->fun();`
-   Ο δείκτης `ref` είναι τύπου `A*` και δείχνει σε αντικείμενο της κλάσης `A`. Καλείται η `A::fun()`. Εκτυπώνεται **`A`**.
+   The pointer `ref` is of type `A*` and points to an object of class `A`. `A::fun()` is called. **`A`** is printed.
 2. `ref = new B(); ref->fun();`
-   Ο δείκτης `ref` τύπου `A*` τώρα δείχνει σε αντικείμενο της παράγωγης κλάσης `B`. Επειδή η `fun()` είναι δηλωμένη ως `virtual` στη βασική κλάση `A`, χρησιμοποιείται **δυναμικός δεσμός (dynamic binding)**. Κατά το runtime καλείται η μέθοδος της παράγωγης κλάσης, δηλαδή η `B::fun()`. Εκτυπώνεται **`B`**.
+   The pointer `ref` of type `A*` now points to an object of the derived class `B`. Because `fun()` is declared `virtual` in the base class `A`, **dynamic binding (late binding)** is used. At runtime the method of the derived class is called, namely `B::fun()`. **`B`** is printed.
 3. `A obj = A(); obj.fun();`
-   Το αντικείμενο `obj` είναι τύπου `A`. Καλείται απευθείας η `A::fun()`. Εκτυπώνεται **`A`**.
+   The object `obj` is of type `A`. `A::fun()` is called directly. **`A`** is printed.
 4. `obj = B(); obj.fun();`
-   Εδώ έχουμε ανάθεση ενός αντικειμένου τύπου `B` σε μια μεταβλητή τύπου `A`. Στη C++ αυτό προκαλεί **αποκοπή αντικειμένου (object slicing)**: το κομμάτι του αντικειμένου `B` που αφορά την παράγωγη κλάση αποκόπτεται/απορρίπτεται και αντιγράφεται μόνο το βασικό μέρος (τύπου `A`). Το `obj` παραμένει ένα κανονικό αντικείμενο τύπου `A` (όχι δείκτης ή αναφορά), επομένως δεν υφίσταται δυναμικός δεσμός και καλείται στατικά η `A::fun()`. Εκτυπώνεται **`A`**.
+   Here we have an assignment of an object of type `B` to a variable of type `A`. In C++ this causes **object slicing**: the part of the `B` object belonging to the derived class is cut off/discarded and only the base part (of type `A`) is copied. The `obj` remains a normal object of type `A` (not a pointer or reference), therefore dynamic binding does not apply and `A::fun()` is called statically. **`A`** is printed.
 
-**Σημασία της λέξης-κλειδί `virtual`:**
-Η λέξη-κλειδί `virtual` επιτρέπει τον **δυναμικό δεσμό (dynamic/late binding)** των μεθόδων. Αυτό σημαίνει ότι η απόφαση για το ποια συνάρτηση θα εκτελεστεί λαμβάνεται κατά το runtime με βάση τον πραγματικό τύπο του αντικειμένου στο οποίο δείχνει ο δείκτης ή η αναφορά, και όχι με βάση τον τύπο του ίδιου του δείκτη κατά το compile-time. Αυτό αποτελεί τη βάση για την υποστήριξη του **πολυμορφισμού (polymorphism)** στην C++.
+**Significance of the `virtual` keyword:**
+The `virtual` keyword enables **dynamic binding (late binding)** of methods. This means that the decision about which function will be executed is taken at runtime based on the actual type of the object the pointer or reference points to, and not based on the type of the pointer itself at compile-time. This constitutes the foundation for supporting **polymorphism** in C++.

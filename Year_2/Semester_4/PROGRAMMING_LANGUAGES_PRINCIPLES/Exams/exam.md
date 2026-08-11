@@ -1,58 +1,59 @@
-### Θέμα 1 - Α (0.5)
+### Topic 1 - A (0.5)
 
-**Α.** Απαντήστε με Σωστό ή Λάθος τις παρακάτω παραδοχές. Σε περίπτωση λάθους αιτιολογείστε την απάντησή σας για να πάρετε ολόκληρο το βαθμό:
-1. Η Python ανήκει στην οικογένεια των συναρτησιακών γλωσσών προγραμματισμού
-2. Ένα λέξημα είναι η συντακτική μονάδα χαμηλότερου επιπέδου της γλώσσας
-3. Στην Python οι ορισμοί των συναρτήσεων είναι εκτελέσιμοι
-4. Η C παρέχει μηχανισμούς χειρισμού εξαιρέσεων
-5. Η κεφαλίδα ενός υποπρογράμματος ορίζει τις ενέργειες που θα εκτελεί το υποπρόγραμμα
-6. Στην PHP η δήλωση των μεταβλητών γίνεται με το `var`
-
-***
-
-**Λύση:**
-
-1. **Λάθος.** Η Python είναι μια πολυπαραδειγματική (multi-paradigm) γλώσσα προγραμματισμού (κυρίως προστακτική και αντικειμενοστρεφής) και όχι αμιγώς συναρτησιακή.
-2. **Σωστό.** Σύμφωνα με τη θεωρία των γλωσσών προγραμματισμού, το λέξημα (lexeme) είναι η συντακτική μονάδα χαμηλότερου επιπέδου της γλώσσας (π.χ. ένα συγκεκριμένο όνομα μεταβλητής ή ένας τελεστής).
-3. **Σωστό.** Στην Python, η δήλωση `def` είναι εκτελέσιμη εντολή (statement) που εκτελείται κατά το runtime για να συνδέσει το όνομα της συνάρτησης με το αντίστοιχο αντικείμενο συνάρτησης.
-4. **Λάθος.** Η γλώσσα C δεν υποστηρίζει ενσωματωμένο μηχανισμό χειρισμού εξαιρέσεων (όπως `try/catch`). Η διαχείριση σφαλμάτων γίνεται μέσω των τιμών επιστροφής των συναρτήσεων ή βιβλιοθηκών (π.χ. `setjmp.h`).
-5. **Λάθος.** Η κεφαλίδα (header) ορίζει μόνο τη διεπαφή (interface) του υποπρογράμματος (όνομα, παραμέτρους, τύπο επιστροφής). Οι ενέργειες που εκτελεί το υποπρόγραμμα ορίζονται στο σώμα (body) του.
-6. **Λάθος.** Στην PHP, η δήλωση των μεταβλητών γίνεται με το πρόθεμα `$` (π.χ. `$x = 5`) και δεν χρησιμοποιείται η λέξη-κλειδί `var` για τοπικές μεταβλητές (το `var` χρησιμοποιείται για ιδιότητες κλάσεων σε παλαιότερες εκδόσεις).
+**A.** Answer with True or False the following statements. In case of an error, justify your answer to receive full credit:
+1. Python belongs to the family of functional programming languages
+2. A lexeme is the lowest-level syntactic unit of the language
+3. In Python, function definitions are executable
+4. C provides exception handling mechanisms
+5. The header of a subroutine defines the actions that the subroutine will execute
+6. In PHP, variable declaration is done with `var`
 
 ***
 
-### Θέμα 1 - Β (0.5)
+**Solution:**
 
-**Β.** Αντιστοιχίστε την κάθε έννοια με τον ορισμό της
+1. **False.** Python is a multi-paradigm programming language (mainly imperative and object-oriented) and not purely functional.
+2. **True.** According to programming language theory, the lexeme is the lowest-level syntactic unit of the language (e.g., a specific variable name or an operator).
+3. **True.** In Python, the `def` statement is an executable statement that runs at runtime to bind the function name to the corresponding function object.
+4. **False.** The C language does not support a built-in exception handling mechanism (like `try/catch`). Error handling is done via function return values or libraries (e.g., `setjmp.h`).
+5. **False.** The header defines only the interface of the subroutine (name, parameters, return type). The actions that the subroutine executes are defined in its body.
+6. **False.** In PHP, variable declaration is done with the `$` prefix (e.g., `$x = 5`) and the keyword `var` is not used for local variables (it is used for class properties in older versions).
 
-| Έννοια | Ορισμός |
+***
+
+### Topic 1 - B (0.5)
+
+**B.** Match each concept with its definition
+
+| Concept | Definition |
 | :--- | :--- |
-| 1. Μεταγλωττιστής | Α. Συμβιβαστική λύση ανάμεσα σε μεταγλωττιστές και καθαρούς διερμηνευτές |
-| 2. Υβριδικά συστήματα | Β. Η εκτέλεση γίνεται εντολή προς εντολή |
-| 3. JIT | Γ. Η εκτέλεση γίνεται αφού μεταφραστεί σε γλώσσα μηχανής |
-| 4. Διερμηνέας | Δ. Μεταφράζει το πρόγραμμα σε ενδιάμεση γλώσσα και στην εκτέλεση το μεταγλωττίζει |
+| 1. Compiler | A. Compromise solution between compilers and pure interpreters |
+| 2. Hybrid systems | B. Execution happens instruction by instruction |
+| 3. JIT | C. Execution happens after translation into machine language |
+| 4. Interpreter | D. Translates the program into an intermediate language and compiles it at execution time |
 
 ***
 
-**Λύση:**
+**Solution:**
 
-* **1** -> **Γ** (Μεταγλωττιστής: Η εκτέλεση γίνεται αφού μεταφραστεί σε γλώσσα μηχανής)
-* **2** -> **Α** (Υβριδικά συστήματα: Συμβιβαστική λύση ανάμεσα σε μεταγλωττιστές και καθαρούς διερμηνευτές)
-* **3** -> **Δ** (JIT: Μεταφράζει το πρόγραμμα σε ενδιάμεση γλώσσα και στην εκτέλεση το μεταγλωττίζει)
-* **4** -> **Β** (Διερμηνέας: Η εκτέλεση γίνεται εντολή προς εντολή)
+* **1** -> **C** (Compiler: Execution happens after translation into machine language)
+* **2** -> **A** (Hybrid systems: Compromise solution between compilers and pure interpreters)
+* **3** -> **D** (JIT: Translates the program into an intermediate language and compiles it at execution time)
+* **4** -> **B** (Interpreter: Execution happens instruction by instruction)
 
 ***
 
-### Θέμα 1 - Γ (0.5)
+### Topic 1 - C (0.5)
 
-**Γ.** Επιλέξτε την σωστή απάντηση. Αιτιολογείστε την απάντηση σας για να πάρετε ολόκληρο βαθμό
-1. Τι σημαίνουν τα `{}` στην κανονική έκφραση `a{5}`
-   * Α. 5 ή λιγότερα a
-   * Β. 5 a ακριβώς
-   * Γ. 5 ή περισσότερα a
-   * Δ. Τίποτα από τα παραπάνω
+**C.** Choose the correct answer. Justify your answer to receive full credit.
 
-2. Ποια θα είναι η τιμή του `x` στο τέλος του προγράμματος
+1. What do the `{}` mean in the regular expression `a{5}`?
+   * A. 5 or fewer a's
+   * B. Exactly 5 a's
+   * C. 5 or more a's
+   * D. None of the above
+
+2. What will be the value of `x` at the end of the program
    ```python
    x=1
    def cg():
@@ -61,12 +62,12 @@
    cg()
    print(x)
    ```
-   * Α. 2
-   * Β. 1
-   * Γ. 0
-   * Δ. Τίποτα από τα παραπάνω
+   * A. 2
+   * B. 1
+   * C. 0
+   * D. None of the above
 
-3. Ποια θα είναι η εκτύπωση του παρακάτω προγράμματος
+3. What will be the output of the following program
    ```python
    colors = {}
    def insert(items):
@@ -79,25 +80,25 @@
    insert('Red')
    print(len(colors))
    ```
-   *(Σημείωση: Στο αρχικό κείμενο υπήρχαν τυπογραφικά λάθη, όπως `if(items in colors:` χωρίς κλείσιμο παρένθεσης, και `color[items]=1` χωρίς `s`. Εδώ παρουσιάζεται η διορθωμένη μορφή που είναι εκτελέσιμη.)*
-   * Α. 3
-   * Β. 1
-   * Γ. 2
-   * Δ. Τίποτα από τα παραπάνω
+   *(Note: The original text contained typographical errors, such as `if(items in colors:` without a closing parenthesis, and `color[items]=1` without the `s`. The corrected, executable form is presented here.)*
+   * A. 3
+   * B. 1
+   * C. 2
+   * D. None of the above
 
 ***
 
-**Λύση:**
+**Solution:**
 
-1. **Β. 5 a ακριβώς.** Στις κανονικές εκφράσεις (regular expressions), η σύνταξη `{n}` υποδηλώνει ότι το προηγούμενο σύμβολο πρέπει να εμφανίζεται ακριβώς `n` φορές.
-2. **Α. 2.** Η δήλωση `global x` εντός της συνάρτησης `cg()` καθορίζει ότι η μεταβλητή `x` αναφέρεται στην καθολική (global) μεταβλητή `x` που ορίστηκε εξωτερικά. Επομένως, η εντολή `x=x+1` αυξάνει την τιμή της καθολικής μεταβλητής από `1` σε `2`.
-3. **Γ. 2.** Το λεξικό `colors` περιέχει μοναδικά κλειδιά για κάθε χρώμα. Μετά τις τρεις κλήσεις της `insert()`, το λεξικό θα έχει τη μορφή `{'Red': 2, 'Green': 1}`. Η συνάρτηση `len(colors)` επιστρέφει το πλήθος των κλειδιών του λεξικού, το οποίο είναι `2`.
+1. **B. Exactly 5 a's.** In regular expressions, the `{n}` syntax indicates that the preceding symbol must appear exactly `n` times.
+2. **A. 2.** The `global x` declaration inside `cg()` specifies that the variable `x` refers to the global variable `x` defined externally. Therefore, the statement `x=x+1` increases the value of the global variable from `1` to `2`.
+3. **C. 2.** The dictionary `colors` contains unique keys for each color. After the three calls to `insert()`, the dictionary will be `{'Red': 2, 'Green': 1}`. The function `len(colors)` returns the number of keys in the dictionary, which is `2`.
 
 ***
 
-### Θέμα 2 - Α (1)
+### Topic 2 - A (1)
 
-Έστω το παρακάτω υποπρόγραμμα σε python:
+Consider the following Python subroutine:
 ```python
 def calculate():
     num = 1
@@ -117,25 +118,25 @@ odd2 = calculate()
 print(odd2())
 ```
 
-**Α.** Περιγράψτε τι κάνει
+**A.** Describe what it does
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Ο κώδικας υλοποιεί έναν μηχανισμό **closure (κλείσιμο)** στην Python. 
+The code implements a **closure** mechanism in Python.
 
-1. Η εξωτερική συνάρτηση `calculate` ορίζει μια τοπική μεταβλητή `num = 1` και μια εσωτερική συνάρτηση `inner_func`.
-2. Η `inner_func` χρησιμοποιεί τη λέξη-κλειδί `nonlocal num` για να δηλώσει ότι η μεταβλητή `num` δεν είναι τοπική της ίδιας, αλλά ανήκει στην εμβέλεια της αμέσως εξωτερικής συνάρτησης (`calculate`). Έτσι, μπορεί να διαβάσει και να τροποποιήσει την τιμή της.
-3. Η `calculate` επιστρέφει το αντικείμενο της συνάρτησης `inner_func` (χωρίς να το καλέσει).
-4. Το αντικείμενο `odd` που επιστρέφεται «θυμάται» το περιβάλλον στο οποίο δημιουργήθηκε και τη συγκεκριμένη μεταβλητή `num`. Κάθε φορά που καλείται η `odd()`, αυξάνει την τιμή της `num` κατά `2` και την επιστρέφει, παράγοντας διαδοχικά περιττούς αριθμούς.
-5. Κάθε νέα κλήση της `calculate()` (π.χ. `odd2 = calculate()`) δημιουργεί μια νέα, ανεξάρτητη εμβέλεια με τη δική της ξεχωριστή μεταβλητή `num` αρχικοποιημένη στο `1`.
+1. The outer function `calculate` defines a local variable `num = 1` and an inner function `inner_func`.
+2. `inner_func` uses the `nonlocal num` keyword to declare that `num` is not local to itself but belongs to the scope of the immediately enclosing function (`calculate`). Thus, it can read and modify its value.
+3. `calculate` returns the function object `inner_func` (without calling it).
+4. The returned `odd` object "remembers" the environment in which it was created and the specific `num` variable. Each time `odd()` is called, it increases `num` by `2` and returns it, producing successive odd numbers.
+5. Each new call to `calculate()` (e.g., `odd2 = calculate()`) creates a new, independent scope with its own separate `num` variable initialized to `1`.
 
 ***
 
-### Θέμα 2 - Β (1)
+### Topic 2 - B (1)
 
-Έστω το παρακάτω υποπρόγραμμα σε python:
+Consider the following Python subroutine:
 ```python
 def calculate():
     num = 1
@@ -155,13 +156,13 @@ odd2 = calculate()
 print(odd2())
 ```
 
-**Β.** Τι θα εκτυπώσει όταν εκτελεστεί;
+**B.** What will it print when executed?
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Όταν εκτελεστεί, το πρόγραμμα θα εκτυπώσει:
+When executed, the program will print:
 ```
 3
 5
@@ -169,26 +170,26 @@ print(odd2())
 3
 ```
 
-**Ανάλυση:**
-- `odd = calculate()`: Δημιουργείται το πρώτο closure με `num = 1`.
-- `print(odd())`: Η `inner_func` αυξάνει το `num` κατά `2` (`1 + 2 = 3`) και εκτυπώνεται το `3`.
-- `print(odd())`: Η `inner_func` αυξάνει το ήδη υπάρχον `num` κατά `2` (`3 + 2 = 5`) και εκτυπώνεται το `5`.
-- `print(odd())`: Η `inner_func` αυξάνει το `num` κατά `2` (`5 + 2 = 7`) και εκτυπώνεται το `7`.
-- `odd2 = calculate()`: Δημιουργείται ένα νέο, ανεξάρτητο closure με νέα μεταβλητή `num = 1`.
-- `print(odd2())`: Η `inner_func` αυξάνει το νέο `num` κατά `2` (`1 + 2 = 3`) και εκτυπώνεται το `3`.
+**Analysis:**
+- `odd = calculate()`: The first closure is created with `num = 1`.
+- `print(odd())`: `inner_func` increases `num` by `2` (`1 + 2 = 3`) and prints `3`.
+- `print(odd())`: `inner_func` increases the already existing `num` by `2` (`3 + 2 = 5`) and prints `5`.
+- `print(odd())`: `inner_func` increases `num` by `2` (`5 + 2 = 7`) and prints `7`.
+- `odd2 = calculate()`: A new, independent closure is created with a new `num = 1`.
+- `print(odd2())`: `inner_func` increases the new `num` by `2` (`1 + 2 = 3`) and prints `3`.
 
 ***
 
-### Θέμα 3 (3.5)
+### Topic 3 (3.5)
 
-Γράψτε μια συνάρτηση σε Python που να ελέγχει αν μια φράση είναι παντόγραμμα. 
-Σημείωση: Παντόγραμμα είναι μια λέξη όταν περιλαμβάνει και τα 24 γράμματα του Ελληνικού αλφαβήτου.
+Write a Python function that checks whether a phrase is a pangram.
+Note: A pangram is a word that contains all 24 letters of the Greek alphabet.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Παρακάτω δίνεται η συνάρτηση `isPangram` σε Python, η οποία ελέγχει αν μια φράση περιέχει και τα 24 γράμματα του ελληνικού αλφαβήτου. Για σωστή λειτουργία, η συνάρτηση μετατρέπει τους χαρακτήρες σε πεζούς, αφαιρεί τους τόνους και τα διακριτικά, και αντιστοιχεί το τελικό σίγμα «ς» στο κανονικό σίγμα «σ».
+The `isPangram` function in Python is given below, which checks whether a phrase contains all 24 letters of the Greek alphabet. For correct operation, the function converts characters to lowercase, removes accents and diacritics, and maps the final sigma «ς» to the normal sigma «σ».
 
 ```python
 def isPangram(phrase: str) -> bool:
@@ -226,22 +227,22 @@ def isPangram(phrase: str) -> bool:
 
 ***
 
-### Θέμα 4 - Α (3)
+### Topic 4 - A (3)
 
-**Α.** Δημιουργήστε την παραγωγή σε EBNF για την αναγνώριση μιας ταχυδρομικής διεύθυνσης της μορφής:
+**A.** Create the EBNF grammar for recognizing a postal address of the form:
 ```
-Όνομα Επώνυμο
-Αρ. οδός
-Πόλη
-Χώρα
-Τ.Κ.
+Name Surname
+Street number
+City
+Country
+Postal code
 ```
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Παρακάτω παρουσιάζεται ο ορισμός της γραμματικής σε EBNF για την αναγνώριση της ταχυδρομικής διεύθυνσης:
+The EBNF grammar definition for recognizing the postal address is presented below:
 
 ```ebnf
 address         = name_line newline street_line newline city_line newline country_line newline zip_line

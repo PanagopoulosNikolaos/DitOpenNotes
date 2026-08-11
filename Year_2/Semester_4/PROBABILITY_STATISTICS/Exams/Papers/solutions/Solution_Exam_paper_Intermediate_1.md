@@ -1,33 +1,48 @@
 # Exam Paper Intermediate 1
 
-**Επίπεδο: Μεσαίο 1**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Α.Μ.:________________________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστική**          
+**Level: Intermediate 1**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Student ID:________________________________
+**COURSE: Probability & Statistics**          
 
-Οδηγίες:
-1. Γράψτε το ονοματεπώνυμό σας πάνω στα θέματα.
-2. Τα θέματα είναι ισοδύναμα.
-3. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-4. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου.
+Instructions:
+1. Write your full name on the exam sheet.
+2. All problems carry equal weight.
+3. Hand in the question sheet along with your answer booklet.
+4. Use of pocket calculators is permitted; mobile phones are prohibited.
 
-**ΘΕΜΑ 1:** Οι εβδομαδιαίες ώρες μελέτης 80 φοιτητών για ένα δύσκολο μάθημα δίνονται στον ακόλουθο πίνακα μετά από ομαδοποίηση:
+**PROBLEM 1:** The weekly study hours of 80 students for a difficult course are given in the following table after grouping:
 
-| Ώρες Μελέτης | Κέντρα $x_i$ | Αριθμός φοιτ. $f_i$ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
+| Study Hours | Class Marks $x_i$ | Number of Students $f_i$ | $f_i x_i$ | $f_i(x_i - \bar{x})^2$ | $F_i$ |
 | --- | --- | --- | --- | --- | --- |
 | [5, 10) | | 12 | | | |
 | [10, 15) | | 20 | | | |
 | [15, 20) | | 30 | | | |
 | [20, 25) | | 18 | | | |
-| Σύνολα | | 80 | | | |
+| Total | | 80 | | | |
 
-a. Να συμπληρώσετε τα κενά του πίνακα και να υπολογίσετε τη μέση τιμή ($\bar{x}$) των ωρών μελέτης και τη διάμεσο ($M$).
-b. Να υπολογίσετε την τυπική απόκλιση ($s$).
-c. Ποιες εντολές πρέπει να δώσουμε στην R για να υπολογίσει το πρώτο τεταρτημόριο ($Q_1$);
+a. Fill in the blanks of the table and calculate the mean ($\bar{x}$) of study hours and the median ($M$).
+b. Calculate the standard deviation ($s$).
+c. Which commands should we give in R to calculate the first quartile ($Q_1$)?
 
-### Λύση ΘΕΜΑΤΟΣ 1
+**PROBLEM 2:** In a production line, 5% of components are defective. We randomly select 8 components. What is the probability:
+i) Exactly 2 components are defective?
+ii) At most 1 component is defective?
+iii) What R command calculates the probability of question ii)?
 
-**Συμπλήρωση πίνακα:**
+**PROBLEM 3:** In a factory, three machines $M_1, M_2, M_3$ produce 40%, 35%, and 25% of total production respectively. Defect rates for each machine are 2%, 3%, and 4% respectively. We randomly select a product from the warehouse.
+A. What is the probability that the product is defective?
+B. If the selected product is defective, what is the probability it was produced by machine $M_1$?
+
+**PROBLEM 4:** Patient waiting time in a hospital emergency room follows a Normal distribution with mean $\mu = 45$ minutes and standard deviation $\sigma = 10$ minutes.
+i. What is the probability a patient waits more than 55 minutes?
+ii. What is the probability a patient waits between 35 and 65 minutes?
+iii. What R command do we give to find the probability a patient waits less than 30 minutes?
+Given: $\Phi(1) = P(Z \le 1) = 0.8413$, $\Phi(2) = P(Z \le 2) = 0.9772$.
+
+### Solution to Problem 1
+
+**Table Completion:**
 
 | Ώρες | $x_i$ | $f_i$ | $f_i x_i$ | $F_i$ |
 |---|---|---|---|---|
@@ -35,7 +50,7 @@ c. Ποιες εντολές πρέπει να δώσουμε στην R για 
 | [10, 15) | 12.5 | 20 | 250  | 32 |
 | [15, 20) | 17.5 | 30 | 525  | 62 |
 | [20, 25) | 22.5 | 18 | 405  | 80 |
-| Σύνολα   |      | 80 | 1270 |    |
+| Total    |      | 80 | 1270 |    |
 
 **a. Μέση τιμή $\bar{x}$**
 
@@ -57,7 +72,7 @@ $$s^2 = \frac{\sum f_i(x_i-\bar{x})^2}{n-1} = \frac{1938.74}{79} \approx 24.54$$
 
 $$s = \sqrt{24.54} \approx \boxed{4.95 \text{ ώρες}}$$
 
-**Διάμεσος $M_e$**
+**Median $M_e$**
 
 - $n/2 = 40$. Έχουμε $F_2 = 32 < 40 \le 62 = F_3$, άρα η διάμεσος βρίσκεται στην κλάση $[15, 20)$.
 
@@ -66,7 +81,7 @@ $$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w = 15 + \lef
 **c. Εντολές R για $Q_1$**
 
 ```r
-hours <- c(...)           # εισαγωγή δεδομένων
+hours <- c(...)           # data input
 quantile(hours, 0.25)     # 1ο τεταρτημόριο
 ```
 
@@ -77,9 +92,9 @@ i) Ακριβώς 2 εξαρτήματα να είναι ελαττωματικ�
 ii) Το πολύ 1 εξάρτημα να είναι ελαττωματικό;
 iii) Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος ii;
 
-### Λύση ΘΕΜΑΤΟΣ 2
+### Solution to Problem 2
 
-**Δεδομένα:** $X \sim B(n=8,\ p=0.05)$
+**Given Data:** $X \sim B(n=8,\ p=0.05)$
 
 $$P(X=k) = \binom{8}{k}(0.05)^k(0.95)^{8-k}$$
 
@@ -99,7 +114,7 @@ $$P(X=1) = 8 \times 0.05 \times (0.95)^7 = 8 \times 0.05 \times 0.6983 = 0.2793$
 
 $$P(X \le 1) = 0.6634 + 0.2793 = \boxed{0.9427}$$
 
-**iii. Εντολή R για ερώτημα ii**
+**iii) R command for question ii)**
 
 ```r
 pbinom(1, size = 8, prob = 0.05)
@@ -111,9 +126,9 @@ pbinom(1, size = 8, prob = 0.05)
 Α. Ποια είναι η πιθανότητα το προϊόν να είναι ελαττωματικό;
 Β. Αν το επιλεγμένο προϊόν είναι ελαττωματικό, ποια είναι η πιθανότητα να έχει παραχθεί από τη μηχανή $M_1$;
 
-### Λύση ΘΕΜΑΤΟΣ 3
+### Solution to Problem 3
 
-**Δεδομένα:**
+**Given Data:**
 
 | Μηχανή | $P(M_i)$ | $P(E \mid M_i)$ |
 |---|---|---|
@@ -143,9 +158,9 @@ ii. Ποια είναι η πιθανότητα ένας ασθενής να π�
 iii. Ποια εντολή δίνουμε στην R για να βρούμε την πιθανότητα ένας ασθενής να περιμένει λιγότερο από 30 λεπτά;
 Δίνεται: $\Phi(1) = P(Z \le 1) = 0.8413$, $\Phi(2) = P(Z \le 2) = 0.9772$.
 
-### Λύση ΘΕΜΑΤΟΣ 4
+### Solution to Problem 4
 
-**Δεδομένα:** $X \sim N(\mu=45,\ \sigma=10)$
+**Given Data:** $X \sim N(\mu=45,\ \sigma=10)$
 
 **i. $P(X > 55)$**
 
@@ -169,50 +184,52 @@ pnorm(30, mean = 45, sd = 10)
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+---
 
-**Πιθανότητες και Στατιστική (405)**
+## FORMULA SHEET
 
-**Μέση τιμή:** 
+**Probability and Statistics (405)**
+
+**Mean:**
 $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
+**Variance:**
 $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:** $CV = s / \bar{x}$
 
-Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
+If $F_{(i-1)} \le \frac{N}{2} \le F_i$ then the **median** (for grouped data):
+$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
 
-Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
+If $F_{(i-1)} \le \frac{kN}{4} \le F_i$ then $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+**Mode** (for grouped data):
+$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+$P(A) = \frac{N(A)}{N(\Omega)}$,
+$N(A)$: number of favorable outcomes for event A
+$N(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
+**Properties:**
 I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
+IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If $A_1, A_2, \cdots, A_n$ are $n$ mutually exclusive events of the sample space $\Omega$, then:
 $P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+VI) If $A \subseteq B$, then a) $P(B - A) = P(B) - P(A)$ and b) $P(A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
+**Conditional Probability:**
 $P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
+**Multiplication Rule:**
 $P(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
+**Independent Events:**
 $P(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
+If $A_i \cap A_j = \emptyset, \forall i \neq j$ and $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
 $P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
+**Bayes' Theorem:**
 $P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$

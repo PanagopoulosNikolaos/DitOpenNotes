@@ -1,49 +1,49 @@
-# ΑΡΧΕΣ ΓΛΩΣΣΩΝ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΥ
-## ΕΠΑΝΑΛΗΠΤΙΚΗ ΕΞΕΤΑΣΗ ΙΟΥΝΙΟΥ 16/9/2024
-**Τμήμα Πληροφορικής και Τηλεπικοινωνιών**  
-**Πανεπιστήμιο Ιωαννίνων**  
+# PRINCIPLES OF PROGRAMMING LANGUAGES
+## RESIT EXAMINATION JUNE 16/9/2024
+**Department of Computer Science and Telecommunications**  
+**University of Ioannina**  
 **B**
 
 ---
 
-### Θέμα 1 - Α [1 μονάδα]
+### Topic 1 - A [1 point]
 
-**Α.** Δίνεται η ακόλουθη γραμματική:
+**A.** Given the following grammar:
 ```
 E -> E + T | T
 T -> T * F | F
 F -> (E) | a | b
 ```
-Καταγράψτε μια αριστερότερη παραγωγή που οδηγεί στην έκφραση `a * (a+b)`.
+Record a leftmost derivation that leads to the expression `a * (a+b)`.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Η αριστερότερη παραγωγή (leftmost derivation) για την έκφραση `a * (a+b)` είναι η εξής:
-1. `E` => `T` (μέσω του κανόνα `E -> T`)
-2. `T` => `T * F` (μέσω του κανόνα `T -> T * F`)
-3. `T` => `F * F` (μέσω του κανόνα `T -> F`)
-4. `F` => `a * F` (μέσω του κανόνα `F -> a`)
-5. `F` => `a * (E)` (μέσω του κανόνα `F -> (E)`)
-6. `E` => `a * (E + T)` (μέσω του κανόνα `E -> E + T`)
-7. `E` => `a * (T + T)` (μέσω του κανόνα `E -> T`)
-8. `T` => `a * (F + T)` (μέσω του κανόνα `T -> F`)
-9. `F` => `a * (a + T)` (μέσω του κανόνα `F -> a`)
-10. `T` => `a * (a + F)` (μέσω του κανόνα `T -> F`)
-11. `F` => `a * (a + b)` (μέσω του κανόνα `F -> b`)
+The leftmost derivation for the expression `a * (a+b)` is as follows:
+1. `E` => `T` (via the rule `E -> T`)
+2. `T` => `T * F` (via the rule `T -> T * F`)
+3. `T` => `F * F` (via the rule `T -> F`)
+4. `F` => `a * F` (via the rule `F -> a`)
+5. `F` => `a * (E)` (via the rule `F -> (E)`)
+6. `E` => `a * (E + T)` (via the rule `E -> E + T`)
+7. `E` => `a * (T + T)` (via the rule `E -> T`)
+8. `T` => `a * (F + T)` (via the rule `T -> F`)
+9. `F` => `a * (a + T)` (via the rule `F -> a`)
+10. `T` => `a * (a + F)` (via the rule `T -> F`)
+11. `F` => `a * (a + b)` (via the rule `F -> b`)
 
 ---
 
-### Θέμα 1 - Β [2 μονάδες]
+### Topic 1 - B [2 points]
 
-**Β.** Γράψτε ένα πρόγραμμα στη γλώσσα C που να δημιουργεί δυναμικά έναν πίνακα 2 x 3 ακέραιων αριθμών, χρησιμοποιώντας δυναμική κατανομή μνήμης με τη `malloc`. Στη συνέχεια να ζητά από τον χρήστη να εισάγει τιμείς για όλα τα στοιχεία του πίνακα, να εκτυπώνει τον πίνακα στην οθόνη σε 2 γραμμές και 3 στήλες. Τέλος, να αποδεσμεύει τη μνήμη όταν δεν χρειάζεται πλέον.
+**B.** Write a program in the C language that dynamically creates a 2 x 3 integer array, using dynamic memory allocation with `malloc`. Then it should ask the user to enter values for all elements of the array, and print the array on the screen in 2 rows and 3 columns. Finally, it should free the memory when it is no longer needed.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-Παρακάτω δίνεται ο κώδικας σε C, ακολουθώντας τους κανόνες ονοματοδοσίας (snake_case για μεταβλητές) και την τεκμηρίωση Google Style:
+The C code is given below, following the naming conventions (snake_case for variables) and Google Style documentation:
 
 ```c
 #include <stdio.h>
@@ -55,19 +55,19 @@ F -> (E) | a | b
  *   int: Execution status (0 for success, 1 for allocation error).
  */
 int main(void) {
-    // Δυναμική δέσμευση μνήμης για πίνακα 2 γραμμών
+    // Dynamic memory allocation for a 2-row array
     int **matrix_ptr = (int **)malloc(2 * sizeof(int *));
     if (matrix_ptr == NULL) {
         printf("Memory allocation failed.\n");
         return 1;
     }
 
-    // Δέσμευση 3 στηλών για κάθε γραμμή
+    // Allocate 3 columns for each row
     for (int r_idx = 0; r_idx < 2; r_idx++) {
         matrix_ptr[r_idx] = (int *)malloc(3 * sizeof(int));
         if (matrix_ptr[r_idx] == NULL) {
             printf("Memory allocation failed.\n");
-            // Αποδέσμευση προηγούμενης μνήμης σε περίπτωση αποτυχίας
+            // Free previously allocated memory in case of failure
             for (int j = 0; j < r_idx; j++) {
                 free(matrix_ptr[j]);
             }
@@ -76,13 +76,13 @@ int main(void) {
         }
     }
 
-    // Εισαγωγή τιμών από το χρήστη
+    // Read values from the user
     for (int r_idx = 0; r_idx < 2; r_idx++) {
         for (int c_idx = 0; c_idx < 3; c_idx++) {
             printf("Enter value for element [%d][%d]: ", r_idx, c_idx);
             if (scanf("%d", &matrix_ptr[r_idx][c_idx]) != 1) {
                 printf("Invalid input.\n");
-                // Καθαρισμός και έξοδος
+                // Clean up and exit
                 for (int j = 0; j < 2; j++) {
                     free(matrix_ptr[j]);
                 }
@@ -92,7 +92,7 @@ int main(void) {
         }
     }
 
-    // Εκτύπωση πίνακα σε μορφή 2 γραμμών και 3 στηλών
+    // Print the array in 2 rows and 3 columns format
     printf("\nThe matrix is:\n");
     for (int r_idx = 0; r_idx < 2; r_idx++) {
         for (int c_idx = 0; c_idx < 3; c_idx++) {
@@ -101,7 +101,7 @@ int main(void) {
         printf("\n");
     }
 
-    // Αποδέσμευση δεσμευμένης μνήμης
+    // Free the allocated memory
     for (int r_idx = 0; r_idx < 2; r_idx++) {
         free(matrix_ptr[r_idx]);
     }
@@ -113,9 +113,9 @@ int main(void) {
 
 ---
 
-### Θέμα 2 [2 μονάδες]
+### Topic 2 [2 points]
 
-Δίνεται ο ακόλουθος κώδικας σε Python:
+Given the following code in Python:
 ```python
 def calculate_average(numbers):
     total = 0
@@ -127,15 +127,15 @@ def calculate_average(numbers):
 
 grades = [85, 90, 78, 92, 88]
 average = calculate_average(grades)
-print(f"Ο μέσος όρος των βαθμών είναι: {average:.2f}")
+print(f"The average of the grades is: {average:.2f}")
 ```
-Μετατρέψτε τον παραπάνω κώδικα σε C. Στη λύση σας, επισημάνετε πώς οι διαφορές στην πρόσδεση τύπων επηρεάζουν τη δομή και τη σύνταξη του κώδικα.
+Convert the above code to C. In your solution, point out how the differences in type binding affect the structure and syntax of the code.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Κώδικας σε C:**
+**Code in C:**
 
 ```c
 #include <stdio.h>
@@ -167,28 +167,28 @@ int main(void) {
     int grades_arr[] = {85, 90, 78, 92, 88};
     int arr_size = sizeof(grades_arr) / sizeof(grades_arr[0]);
     double avg_val = calculateAverage(grades_arr, arr_size);
-    printf("Ο μέσος όρος των βαθμών είναι: %.2f\n", avg_val);
+    printf("The average of the grades is: %.2f\n", avg_val);
     return 0;
 }
 ```
 
-**Επίδραση της πρόσδεσης τύπων (Type Binding) στη δομή και τη σύνταξη:**
+**Impact of Type Binding on structure and syntax:**
 
-1. **Στατική vs Δυναμική Πρόσδεση Τύπων (Static vs Dynamic Type Binding):**
-   - Στην **Python**, η πρόσδεση τύπων είναι δυναμική. Οι τύποι των μεταβλητών (όπως η παράμετρος `numbers`) προσδιορίζονται κατά το runtime. Έτσι η Python συνάρτηση μπορεί να δεχτεί οποιοδήποτε iterable (π.χ. λίστα με ακεραίους ή float) χωρίς αλλαγές στον κώδικα.
-   - Στη **C**, η πρόσδεση είναι στατική (compile-time). Πρέπει να δηλώσουμε ρητά τον τύπο της παραμέτρου ως πίνακα ακεραίων `const int numbers[]` και τον τύπο επιστροφής ως `double`.
-2. **Μέγεθος Πινάκων:**
-   - Στην Python, τα αντικείμενα λίστας γνωρίζουν το μέγεθός τους (π.χ. μέσω της `len()`).
-   - Στη C, οι πίνακες δεν φέρουν πληροφορίες για το μέγεθός τους όταν μεταβιβάζονται ως παράμετροι (decay to pointer). Επομένως, είμαστε υποχρεωμένοι να περάσουμε το μέγεθος του πίνακα ως ξεχωριστή παράμετρο `size` στη συνάρτηση.
-3. **Διαίρεση και Δεκαδικό Αποτέλεσμα:**
-   - Στην Python 3, ο τελεστής `/` επιστρέφει πάντα `float` (πραγματικό αριθμό) ακόμα και αν διαιρεί ακεραίους.
-   - Στη C, ο τελεστής `/` μεταξύ ακεραίων εκτελεί ακέραια διαίρεση (αποκόπτοντας το δεκαδικό μέρος). Για να επιτύχουμε σωστό δεκαδικό αποτέλεσμα, η μεταβλητή αθροίσματος δηλώνεται ως `double total_val`, ώστε η διαίρεση `total_val / count_val` να πραγματοποιηθεί ως διαίρεση κινητής υποδιαστολής.
+1. **Static vs Dynamic Type Binding:**
+   - In **Python**, type binding is dynamic. The types of variables (such as the `numbers` parameter) are determined at runtime. Thus the Python function can accept any iterable (e.g., a list of integers or floats) without changes to the code.
+   - In **C**, binding is static (compile-time). We must explicitly declare the parameter type as an integer array `const int numbers[]` and the return type as `double`.
+2. **Array Size:**
+   - In Python, list objects know their size (e.g., via `len()`).
+   - In C, arrays do not carry size information when passed as parameters (decay to pointer). Therefore, we are forced to pass the array size as a separate `size` parameter to the function.
+3. **Division and Decimal Result:**
+   - In Python 3, the `/` operator always returns a `float` (real number) even when dividing integers.
+   - In C, the `/` operator between integers performs integer division (truncating the decimal part). To achieve a correct decimal result, the sum variable is declared as `double total_val`, so that the division `total_val / count_val` is performed as floating-point division.
 
 ---
 
-### Θέμα 3 - Α [1 μονάδα]
+### Topic 3 - A [1 point]
 
-**Α.** Τι θα προκύψει ως αποτέλεσμα από τα ακόλουθα comprehensions της Python;
+**A.** What will be the result of the following Python comprehensions?
 1. `[x**2 for x in [1,2,3,4]]`
 2. `{w: len(w) for w in ['hello', 'world', 'python', 'comprehension']}`
 3. `[element for row in [[1, 2], [3, 4], [5, 6]] for element in row]`
@@ -196,22 +196,22 @@ int main(void) {
 
 ***
 
-**Λύση:**
+**Solution:**
 
 1. **`[1, 4, 9, 16]`**
-   *(Υπολογίζει το τετράγωνο κάθε ακέραιου αριθμού στη λίστα `[1, 2, 3, 4]`)*
+   *(Computes the square of each integer in the list `[1, 2, 3, 4]`)*
 2. **`{'hello': 5, 'world': 5, 'python': 6, 'comprehension': 13}`**
-   *(Δημιουργεί ένα λεξικό - dict comprehension - με κλειδιά τις λέξεις της λίστας και τιμές τα αντίστοιχα μήκη τους)*
+   *(Creates a dictionary - dict comprehension - with the list words as keys and their corresponding lengths as values)*
 3. **`[1, 2, 3, 4, 5, 6]`**
-   *(Επιπεδοποιεί - flattens - τη λίστα από λίστες σε μια ενιαία μονοδιάστατη λίστα)*
+   *(Flattens the list of lists into a single one-dimensional list)*
 4. **`[0, 2, 4, 6, 8]`**
-   *(Φιλτράρει τους άρτιους αριθμούς από το εύρος τιμών `range(10)`, δηλαδή από το 0 έως και το 9)*
+   *(Filters the even numbers from the range `range(10)`, i.e., from 0 up to and including 9)*
 
 ---
 
-### Θέμα 3 - Β [1 μονάδα]
+### Topic 3 - B [1 point]
 
-**Β.** Γράψτε την κανονική έκφραση που αντιστοιχεί στο ακόλουθο διάγραμμα:
+**B.** Write the regular expression that corresponds to the following diagram:
 
 ```mermaid
 stateDiagram-v2
@@ -231,39 +231,39 @@ stateDiagram-v2
     Char_Class --> [*]
 ```
 
-Γράψε 1 λεκτικό που θα εντόπιζε η συγκεκριμένη κανονική έκφραση.
+Write 1 string (token) that would be matched by this regular expression.
 
-Δίνεται ότι:
-* `^`    έναρξη γραμμής
-* `.`    οποιοσδήποτε χαρακτήρας
-* `\d`   ψηφίο
-* `\s`   «λευκός» χαρακτήρας (π.χ. διάστημα, tab)
+Given that:
+* `^`    start of line
+* `.`    any character
+* `\d`   digit
+* `\s`   whitespace character (e.g., space, tab)
 
 ***
 
-**Λύση:**
+**Solution:**
 
-**Κανονική Έκφραση (Regular Expression):**
-Αναλύοντας το διάγραμμα κατάσταση-προς-κατάσταση:
+**Regular Expression:**
+Analyzing the diagram state-by-state:
 1. `Start of line`: `^`
-2. `digit` ακολουθούμενο από αναδρομή `digit` (1 ή περισσότερες φορές): `\d+`
-3. `any character` ακολουθούμενο από αναδρομή `any character` (1 ή περισσότερες φορές): `.+`
+2. `digit` followed by `digit` recursion (1 or more times): `\d+`
+3. `any character` followed by `any character` recursion (1 or more times): `.+`
 4. `white space`: `\s`
-5. `Char_Class` (που αποτελείται από τους χαρακτήρες `X-Z` ή `1-3`, δηλαδή `[X-Z1-3]`) το πολύ 2 φορές: `[X-Z1-3]{0,2}`
+5. `Char_Class` (consisting of characters `X-Z` or `1-3`, i.e., `[X-Z1-3]`) at most 2 times: `[X-Z1-3]{0,2}`
 
-Συνδυάζοντας τα παραπάνω, η κανονική έκφραση είναι:
+Combining the above, the regular expression is:
 `^\d+.+\s[X-Z1-3]{0,2}`
 
-**Παράδειγμα λεκτικού που εντοπίζεται:**
-Ένα έγκυρο λεκτικό (string) που ταιριάζει με αυτήν την έκφραση είναι το:
+**Example string that is matched:**
+A valid string (token) that matches this expression is:
 `123abcde X2`
-*(Ανάλυση: `123` για το `\d+`, `abcde` για το `.+`, κενό διάστημα `\s`, και `X2` για το `[X-Z1-3]{0,2}`)*
+*(Analysis: `123` for `\d+`, `abcde` for `.+`, a space `\s`, and `X2` for `[X-Z1-3]{0,2}`)*
 
 ---
 
-### Θέμα 4 - Α [1 μονάδα]
+### Topic 4 - A [1 point]
 
-**Α.** Στη Haskell, ποια θα είναι τα αποτελέσματα των ακόλουθων εντολών στο ghci;
+**A.** In Haskell, what will be the results of the following commands in ghci?
 1. `"Arta" !! 2`
 2. `"Arta" ++ "Ioannina"`
 3. `map (\x -> x * x) [1, 2, 3]`
@@ -272,24 +272,24 @@ stateDiagram-v2
 
 ***
 
-**Λύση:**
+**Solution:**
 
 1. **`'t'`**  
-   *(Επιστρέφει το στοιχείο της συμβολοσειράς/λίστας στη θέση με δείκτη 2 - με αρίθμηση από το 0: 'A'=0, 'r'=1, 't'=2)*
+   *(Returns the element of the string/list at index 2 - zero-based: 'A'=0, 'r'=1, 't'=2)*
 2. **`"ArtaIoannina"`**  
-   *(Συνενώνει τις δύο συμβολοσειρές/λίστες)*
+   *(Concatenates the two strings/lists)*
 3. **`[1, 4, 9]`**  
-   *(Εφαρμόζει την ανώνυμη συνάρτηση τετραγώνου `\x -> x * x` σε κάθε στοιχείο της λίστας)*
+   *(Applies the square anonymous function `\x -> x * x` to each element of the list)*
 4. **`[6, 11, 16]`**  
-   *(Αυξάνει κάθε στοιχείο της λίστας κατά 1 μέσω μερικής εφαρμογής του τελεστή πρόσθεσης `(+1)`)*
+   *(Increases each element of the list by 1 via partial application of the addition operator `(+1)`)*
 5. **`[10, 11, 12, 13, 14]`**  
-   *(Λαμβάνει τα πρώτα 5 στοιχεία της άπειρης λίστας `[10..]` που ξεκινάει από το 10)*
+   *(Takes the first 5 elements of the infinite list `[10..]` starting at 10)*
 
 ---
 
-### Θέμα 4 - Β [2 μονάδες]
+### Topic 4 - B [2 points]
 
-**Β.** Δίνεται ο ακόλουθος ορισμός για το κατηγόρημα `nth0/3` της Prolog:
+**B.** Given the following definition for the `nth0/3` predicate in Prolog:
 ```prolog
 nth0(0, [Element|_], Element).
 nth0(Index, [_|Tail], Element) :-
@@ -297,33 +297,33 @@ nth0(Index, [_|Tail], Element) :-
     NewIndex is Index - 1,
     nth0(NewIndex, Tail, Element).
 ```
-* Περιγράψτε τη λειτουργία του κατηγορήματος `nth0/3`.
-* Δώστε 2 παραδείγματα όπου η χρήση του `nth0/3` μπορεί να γίνει με διαφορετικό τρόπο.
-* Εξηγήστε την υλοποίηση του `nth0/3`, αναλύοντας τις 2 προτάσεις από τις οποίες αποτελείται.
+* Describe the operation of the `nth0/3` predicate.
+* Give 2 examples where the use of `nth0/3` can be done in a different way.
+* Explain the implementation of `nth0/3`, analyzing the 2 clauses it consists of.
 
 ***
 
-**Λύση:**
+**Solution:**
 
-* **Λειτουργία του κατηγορήματος `nth0/3`:**
-  Συσχετίζει ένα στοιχείο (`Element`) με τη θέση/δείκτη του (`Index`) μέσα σε μια λίστα, χρησιμοποιώντας αρίθμηση που ξεκινάει από το 0.
+* **Operation of the `nth0/3` predicate:**
+  Relates an element (`Element`) to its position/index (`Index`) inside a list, using zero-based numbering.
 
-* **Δύο παραδείγματα με διαφορετική χρήση:**
-  - **Εύρεση στοιχείου σε συγκεκριμένο δείκτη (Εύρεση εξόδου):**
+* **Two examples with different usage:**
+  - **Finding an element at a specific index (output finding):**
     `?- nth0(2, [a, b, c, d], Element).`
-    *Αποτέλεσμα:* `Element = c.` (βρίσκει ποιο στοιχείο είναι στη θέση 2)
-  - **Εύρεση του δείκτη ενός στοιχείου (Αναζήτηση):**
+    *Result:* `Element = c.` (finds which element is at position 2)
+  - **Finding the index of an element (search):**
     `?- nth0(Index, [a, b, c, d], c).`
-    *Αποτέλεσμα:* `Index = 2.` (βρίσκει σε ποια θέση βρίσκεται το στοιχείο `c`)
-  - **Έλεγχος/Επαλήθευση ορθότητας:**
+    *Result:* `Index = 2.` (finds at which position the element `c` is)
+  - **Checking/verifying correctness:**
     `?- nth0(1, [a, b, c], b).`
-    *Αποτέλεσμα:* `true.` (επαληθεύει αν το στοιχείο στη θέση 1 είναι πράγματι το `b`)
+    *Result:* `true.` (verifies whether the element at position 1 is indeed `b`)
 
-* **Ανάλυση των 2 προτάσεων της υλοποίησης:**
-  - **Πρόταση 1 (`nth0(0, [Element|_], Element).`):**
-    Είναι η βάση της αναδρομής. Δηλώνει ότι στη θέση `0` της λίστας βρίσκεται η κεφαλή της λίστας (`Element`), ενώ η ουρά της λίστας αγνοείται.
-  - **Πρόταση 2 (`nth0(Index, [_|Tail], Element) :- Index > 0, NewIndex is Index - 1, nth0(NewIndex, Tail, Element).`):**
-    Είναι ο αναδρομικός κανόνας. Για να βρούμε το στοιχείο `Element` στη θέση `Index` (όπου `Index > 0`):
-    - Αγνοούμε την κεφαλή της λίστας (χρησιμοποιώντας το `_`).
-    - Μειώνουμε τον δείκτη κατά 1 (`NewIndex is Index - 1`).
-    - Αναζητούμε αναδρομικά το στοιχείο `Element` στη νέα θέση `NewIndex` μέσα στην ουρά της λίστας (`Tail`).
+* **Analysis of the 2 clauses of the implementation:**
+  - **Clause 1 (`nth0(0, [Element|_], Element).`):**
+    It is the base case of the recursion. It declares that at position `0` of the list is the head of the list (`Element`), while the tail of the list is ignored.
+  - **Clause 2 (`nth0(Index, [_|Tail], Element) :- Index > 0, NewIndex is Index - 1, nth0(NewIndex, Tail, Element).`):**
+    It is the recursive rule. To find the element `Element` at position `Index` (where `Index > 0`):
+    - We ignore the head of the list (using `_`).
+    - We decrease the index by 1 (`NewIndex is Index - 1`).
+    - We recursively search for the element `Element` at the new position `NewIndex` inside the tail of the list (`Tail`).

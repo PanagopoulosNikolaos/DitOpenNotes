@@ -1,22 +1,38 @@
 # Exam Paper Easy
 
-**Επίπεδο: Εύκολο**
-**ΠΑΝΕΠΙΣΤΗΜΙΟ ΙΩΑΝΝΙΝΩΝ**                   Ονοματεπώνυμο:_______________________
-**Τμήμα Πληροφορικής & Τηλεπικοινωνιών**    Α.Μ.:________________________________
-**ΜΑΘΗΜΑ: Πιθανότητες & Στατιστική**          
+**Level: Easy**
+**UNIVERSITY OF IOANNINA**                   Full Name:_______________________
+**Department of Computer Science & Telecommunications**    Student ID:________________________________
+**COURSE: Probability & Statistics**          
 
-Οδηγίες:
-1. Γράψτε το ονοματεπώνυμό σας πάνω στα θέματα.
-2. Τα θέματα είναι ισοδύναμα.
-3. Παραδώσετε τα θέματα μαζί με την κόλλα σας.
-4. Επιτρέπεται η χρήση υπολογιστή τσέπης και όχι κινητού τηλεφώνου.
+Instructions:
+1. Write your full name on the exam sheet.
+2. All problems carry equal weight.
+3. Hand in the question sheet along with your answer booklet.
+4. Use of pocket calculators is permitted; mobile phones are prohibited.
 
-**ΘΕΜΑ 1:** Οι βαθμοί 10 φοιτητών στις εξετάσεις ενός μαθήματος είναι: 5, 6, 7, 7, 8, 8, 8, 9, 9, 10.
-a. Να υπολογίσετε τη μέση τιμή ($\bar{x}$), τη διάμεσο ($M$), την επικρατούσα τιμή ($T$) και το πρώτο τεταρτημόριο ($Q_1$).
-b. Να υπολογίσετε το εύρος των βαθμών και την τυπική απόκλιση ($s$).
-c. Ποια εντολή δίνουμε στην R για να εισάγουμε τα δεδομένα αυτά σε ένα διάνυσμα με όνομα `grades` και ποια εντολή για να υπολογίσουμε τη διάμεσο;
+**PROBLEM 1:** The exam scores of 10 students in a course are: 5, 6, 7, 7, 8, 8, 8, 9, 9, 10.
+a. Calculate the mean ($\bar{x}$), median ($M$), mode ($T$), and first quartile ($Q_1$).
+b. Calculate the range of scores and the standard deviation ($s$).
+c. What command do we give in R to input these data into a vector named `grades` and what command to calculate the median?
 
-### Λύση ΘΕΜΑΤΟΣ 1
+**PROBLEM 2:** A diagnostic test for a disease has a 0.10 probability of giving a false positive result in healthy people. We randomly select 5 healthy people and test them.
+i) What is the probability that none of them shows a false positive result?
+ii) What is the probability that at least one shows a false positive result?
+iii) What command should we give in R to calculate the probability of question i)?
+
+**PROBLEM 3:** Let $A$ and $B$ be two events of a sample space $\Omega$ with $P(A) = 0.5$ and $P(B) = 0.4$.
+A. If $A$ and $B$ are mutually exclusive (disjoint), calculate the probability $P(A \cup B)$ and $P(A \cap B)$.
+B. If $A$ and $B$ are independent events, calculate the probability $P(A \cap B)$, $P(A \cup B)$, and $P(A | B)$.
+C. Find $P(A' \cap B')$ in the case where $A$ and $B$ are independent.
+
+**PROBLEM 4:** The weight of apples of a certain variety follows a Normal distribution with mean $\mu = 150$ grams and standard deviation $\sigma = 15$ grams. What is the probability that a randomly selected apple:
+i. Weighs less than 165 grams?
+ii. Weighs between 135 and 165 grams?
+iii. What command should we give in R to calculate the probability of question i)?
+Given: $\Phi(1) = P(Z \le 1) = 0.8413$.
+
+### Solution to Problem 1
 
 **Δεδομένα (ταξινομημένα):** 5, 6, 7, 7, 8, 8, 8, 9, 9, 10 — $n=10$
 
@@ -24,13 +40,13 @@ c. Ποια εντολή δίνουμε στην R για να εισάγουμ�
 
 $$\bar{x} = \frac{5+6+7+7+8+8+8+9+9+10}{10} = \frac{77}{10} = \boxed{7.7}$$
 
-**Διάμεσος $M_e$**
+**Median $M_e$**
 
 - $n=10$ (άρτιο), η διάμεσος είναι ο μέσος των τιμών στη θέση 5 και 6.
 
 $$M_e = \frac{x_{(5)} + x_{(6)}}{2} = \frac{8 + 8}{2} = \boxed{8}$$
 
-**Επικρατούσα τιμή $T$**
+**Mode $T$**
 
 - Ο βαθμός 8 εμφανίζεται 3 φορές (περισσότερο από κάθε άλλο).
 
@@ -46,7 +62,7 @@ $$Q_1 = x_{(2)} + 0.75 \cdot (x_{(3)} - x_{(2)}) = 6 + 0.75(7-6) = 6 + 0.75 = \b
 
 $$\text{Εύρος} = x_{\max} - x_{\min} = 10 - 5 = \boxed{5}$$
 
-**Τυπική απόκλιση $s$**
+**Standard Deviation $s$**
 
 | $x_i$ | $x_i - \bar{x}$ | $(x_i - \bar{x})^2$ |
 |---|---|---|
@@ -78,9 +94,9 @@ i) Ποια είναι η πιθανότητα κανένας από αυτού�
 ii) Ποια είναι η πιθανότητα τουλάχιστον ένας να εμφανίσει ψευδώς θετικό αποτέλεσμα;
 iii) Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσουμε την πιθανότητα του ερωτήματος i;
 
-### Λύση ΘΕΜΑΤΟΣ 2
+### Solution to Problem 2
 
-**Δεδομένα:** $X \sim B(n=5,\ p=0.10)$
+**Given Data:** $X \sim B(n=5,\ p=0.10)$
 
 $$P(X=k) = \binom{5}{k}(0.10)^k(0.90)^{5-k}$$
 
@@ -107,7 +123,7 @@ dbinom(0, size = 5, prob = 0.10)
 Β. Εάν τα $A$ και $B$ είναι ανεξάρτητα ενδεχόμενα, να υπολογίσετε την πιθανότητα $P(A \cap B)$, $P(A \cup B)$ και $P(A | B)$.
 C. Να βρεθεί η $P(A' \cap B')$ στην περίπτωση που τα $A$ και $B$ είναι ανεξάρτητα.
 
-### Λύση ΘΕΜΑΤΟΣ 3
+### Solution to Problem 3
 
 **Α. Ξένα ενδεχόμενα ($A \cap B = \emptyset$)**
 
@@ -145,9 +161,9 @@ ii. Να ζυγίζει μεταξύ 135 και 165 γραμμάρια;
 iii. Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος i;
 Δίνεται: $\Phi(1) = P(Z \le 1) = 0.8413$.
 
-### Λύση ΘΕΜΑΤΟΣ 4
+### Solution to Problem 4
 
-**Δεδομένα:** $X \sim N(\mu=150,\ \sigma=15)$
+**Given Data:** $X \sim N(\mu=150,\ \sigma=15)$
 
 **i. $P(X < 165)$**
 
@@ -173,50 +189,52 @@ pnorm(165, mean = 150, sd = 15)
 
 ---
 
-## ΤΥΠΟΛΟΓΙΟ
+---
 
-**Πιθανότητες και Στατιστική (405)**
+## FORMULA SHEET
 
-**Μέση τιμή:** 
+**Probability and Statistics (405)**
+
+**Mean:**
 $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$, $\bar{X} = \frac{1}{n} \sum_{i=1}^k X_i f_i$
 
-**Διακύμανση:** 
+**Variance:**
 $s^2 = \frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2$, $s^2 = \frac{1}{n-1} \sum_{i=1}^k (X_i - \bar{X})^2 \cdot f_i$
 
-**Συντελεστής μεταβλητότητας:** $CV = s / \bar{x}$
+**Coefficient of variation:** $CV = s / \bar{x}$
 
-Αν $F_{i-1} \le \frac{n}{2} \le F_i$ τότε η **διάμεσος** (για ομαδοποιημένα δεδομένα)
-$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w$
+If $F_{(i-1)} \le \frac{N}{2} \le F_i$ then the **median** (for grouped data):
+$M = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{N}{2} - F_{(i-1)} \right)$
 
-Αν $F_{i-1} \le \frac{k \cdot n}{4} \le F_i$ τότε $Q_k = L + \left( \frac{\frac{k \cdot n}{4} - F_{i-1}}{f_i} \right) \cdot w, \quad k = 1, 2, 3$
+If $F_{(i-1)} \le \frac{kN}{4} \le F_i$ then $Q_k = x_{(i-1)} + \frac{\delta}{f_i} \left( \frac{kN}{4} - F_{(i-1)} \right), \quad k = 1, 2, 3$
 
-**Επικρατούσα τιμή** (για ομαδοποιημένα δεδομένα)
-$M_o = L + \left( \frac{f_i - f_{i-1}}{(f_i - f_{i-1}) + (f_i - f_{i+1})} \right) \cdot w$
+**Mode** (for grouped data):
+$T = x_{(i-1)} + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$
 
-**Κλασικός ορισμός πιθανότητας:**
-$P(A) = \frac{N(A)}{N(\Omega)}$, 
-$N(A)$: πλήθος ευνοϊκών περιπτώσεων ενδεχομένου Α
-$N(\Omega)$: πλήθος δυνατών περιπτώσεων
+**Classical definition of probability:**
+$P(A) = \frac{N(A)}{N(\Omega)}$,
+$N(A)$: number of favorable outcomes for event A
+$N(\Omega)$: total number of possible outcomes
 
-**Ιδιότητες**
+**Properties:**
 I) $P(A') = 1 - P(A)$, II) $P(\emptyset) = 0$, III) $P(A) \le 1$
-IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Προσθετικός Νόμος)
-V) Εάν $A_1, A_2, \cdots, A_n$ είναι $n$ ξένα ανά δύο ενδεχόμενα του δειγματικού χώρου $\Omega$, τότε 
+IV) $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ .....(Additive Law)
+V) If $A_1, A_2, \cdots, A_n$ are $n$ mutually exclusive events of the sample space $\Omega$, then:
 $P(A_1 \cup A_2 \cup \cdots \cup A_n) = P(A_1) + P(A_2) + \cdots + P(A_n)$.
-VI) Εάν $A \subseteq B$, τότε α) $P(B - A) = P(B) - P(A)$ και β) $P(A) \le P(B)$
+VI) If $A \subseteq B$, then a) $P(B - A) = P(B) - P(A)$ and b) $P(A) \le P(B)$
 
-**Δεσμευμένη Πιθανότητα:**
+**Conditional Probability:**
 $P(A|B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$
 
-**Πολλαπλασιαστικός Κανόνας:**
+**Multiplication Rule:**
 $P(A \cap B) = P(A|B)P(B)$
 
-**Ανεξάρτητα Ενδεχόμενα:**
+**Independent Events:**
 $P(A \cap B) = P(A)P(B)$
 
-Αν $A_i \cap A_j = \emptyset, \forall i \neq j$ και $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ τότε
-**Ολική Πιθανότητα**
+If $A_i \cap A_j = \emptyset, \forall i \neq j$ and $A_1 \cup A_2 \cup \ldots \cup A_n = \Omega$ then:
+**Law of Total Probability:**
 $P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$
 
-**Τύπος Bayes**
+**Bayes' Theorem:**
 $P(A_i | B) = \frac{P(B \cap A_i)}{P(B)} = \frac{P(B|A_i)P(A_i)}{\sum_{k=1}^n P(B|A_k)P(A_k)}$
