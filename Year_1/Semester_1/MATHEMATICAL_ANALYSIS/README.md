@@ -4,7 +4,7 @@
 This course provides an introduction to the fundamental concepts of mathematical analysis, including limits, continuity, derivatives, and integrals.
 
 ## Course Code
-101 (ΜΑΘΗΜΑΤΙΚΗ ΑΝΑΛΥΣΗ)
+101 (Mathematical Analysis)
 
 ## Prerequisites
 None

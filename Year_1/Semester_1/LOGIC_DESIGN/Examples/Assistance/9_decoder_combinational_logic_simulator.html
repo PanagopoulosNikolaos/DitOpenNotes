@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Βήμα-Βήμα: mi,x,y,z → A,B,C (Απλοποιημένο)</title>
+  <title>Step-by-Step: mi,x,y,z → A,B,C (Simplified)</title>
   <style>
     :root{
       --bg:#0c0f14;--panel:#121722;--text:#e8eefc;--muted:#9bb0d0;--accent:#4cc9f0;
@@ -66,8 +66,8 @@
 <body>
   <div class="container">
     <div class="header-flex">
-      <h1>Από mi,x,y,z σε A,B,C (Απλοποιημένο)</h1>
-      <button id="toggle-view-btn" class="btn">Αναλυτική Εξήγηση</button>
+      <h1>From mi,x,y,z to A,B,C (Simplified)</h1>
+      <button id="toggle-view-btn" class="btn">Detailed Explanation</button>
     </div>
 
     <!-- Page 1: Interactive Simulation -->
@@ -75,32 +75,32 @@
       <div class="panel controls">
         <div class="grid-3">
           <div>
-            <div style="margin-bottom:6px;color:#b9cff2">Ταχύτητα</div>
-            <button class="btn speed active" data-ms="800">Κανονική</button>
-            <button class="btn speed" data-ms="1500">Αργή</button>
-            <button class="btn speed" data-ms="400">Γρήγορη</button>
+            <div style="margin-bottom:6px;color:#b9cff2">Speed</div>
+            <button class="btn speed active" data-ms="800">Normal</button>
+            <button class="btn speed" data-ms="1500">Slow</button>
+            <button class="btn speed" data-ms="400">Fast</button>
           </div>
           <div>
-            <div style="margin-bottom:6px;color:#b9cff2">Έλεγχος</div>
-            <button id="play" class="btn play">▶ Έναρξη</button>
-            <button id="pause" class="btn">⏸ Παύση</button>
-            <button id="step" class="btn">➤ Βήμα</button>
-            <button id="reset" class="btn">🔄 Επαναφορά</button>
+            <div style="margin-bottom:6px;color:#b9cff2">Control</div>
+            <button id="play" class="btn play">▶ Start</button>
+            <button id="pause" class="btn">⏸ Pause</button>
+            <button id="step" class="btn">➤ Step</button>
+            <button id="reset" class="btn">🔄 Reset</button>
           </div>
           <div class="status">
-            Σειρά: mi=<span id="mi"></span> | xyz=<span id="xyz"></span><br>
-            Στάδιο: <span id="stageName"></span>
+            Row: mi=<span id="mi"></span> | xyz=<span id="xyz"></span><br>
+            Stage: <span id="stageName"></span>
           </div>
         </div>
-        <div class="explain" id="explain">Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.</div>
+        <div class="explain" id="explain">Press 'Start' to begin the simulation.</div>
       </div>
 
-      <div class="panel"> <table id="tt"> <thead> <tr> <th>mi</th><th>x</th><th>y</th><th>z</th> <th>v</th><th>Κανόνας</th><th>f(v)</th><th>f(v)₂</th> <th>A</th><th>B</th><th>C</th> </tr> </thead> <tbody></tbody> </table> </div>
+      <div class="panel"> <table id="tt"> <thead> <tr> <th>mi</th><th>x</th><th>y</th><th>z</th> <th>v</th><th>Rule</th><th>f(v)</th><th>f(v)₂</th> <th>A</th><th>B</th><th>C</th> </tr> </thead> <tbody></tbody> </table> </div>
       <div class="panel"> <div class="eq"> A = Σm(3,6,7), B = Σm(1,2,4,5), C = Σm(0,2,5,7) </div> <div class="kpi"> <span class="tag">A ⇐ D3,D6,D7</span> <span class="tag">B ⇐ D1,D2,D4,D5</span> <span class="tag">C ⇐ D0,D2,D5,D7</span> </div> </div>
       <div class="panel"> <svg viewBox="0 0 1000 580"> <rect x="150" y="100" width="210" height="380" rx="12" class="decoder"/> <text x="255" y="125" class="label big" text-anchor="middle">3→8 DECODER</text> <text x="55" y="170" class="label">x</text> <text x="55" y="210" class="label">y</text> <text x="55" y="250" class="label">z</text> <line id="wx" x1="80" y1="165" x2="150" y2="165" class="wire"/> <line id="wy" x1="80" y1="205" x2="150" y2="205" class="wire"/> <line id="wz" x1="80" y1="245" x2="150" y2="245" class="wire"/> <g id="Douts"></g> <path d="M650,220 C670,220 680,230 690,240 C680,250 670,260 650,260 C655,250 655,230 650,220 Z" class="orgate"/> <text x="700" y="245" class="label big">OR→B</text> <path d="M650,320 C670,320 680,330 690,340 C680,350 670,360 650,360 C655,350 655,330 650,320 Z" class="orgate"/> <text x="700" y="345" class="label big">OR→A</text> <path d="M650,420 C670,420 680,430 690,440 C680,450 670,460 650,460 C655,450 655,430 650,420 Z" class="orgate"/> <text x="700" y="445" class="label big">OR→C</text> <rect id="boxB" x="800" y="220" width="80" height="40" class="outbox"/> <text x="840" y="244" class="label big" text-anchor="middle">B</text> <line id="woutB" x1="690" y1="240" x2="800" y2="240" class="wire"/> <rect id="boxA" x="800" y="320" width="80" height="40" class="outbox"/> <text x="840" y="344" class="label big" text-anchor="middle">A</text> <line id="woutA" x1="690" y1="340" x2="800" y2="340" class="wire"/> <rect id="boxC" x="800" y="420" width="80" height="40" class="outbox"/> <text x="840" y="444" class="label big" text-anchor="middle">C</text> <line id="woutC" x1="690" y1="440" x2="800" y2="440" class="wire"/> <g id="wires"></g> </svg> </div>
     </div>
 
-    <div id="explanation-page" style="display: none;"> <div class="panel"> <h2>Αναλυτικός Υπολογισμός (Απλοποιημένος)</h2> <p>Αυτή η σελίδα περιγράφει τους υπολογισμούς για κάθε γραμμή του πίνακα αληθείας με απλό τρόπο.</p> <div id="explanation-content"></div> </div> </div>
+    <div id="explanation-page" style="display: none;"> <div class="panel"> <h2>Detailed Calculation (Simplified)</h2> <p>This page describes the calculations for each row of the truth table in a simple way.</p> <div id="explanation-content"></div> </div> </div>
   </div>
 
 <script>
@@ -110,7 +110,7 @@
       {mi:4, x:1,y:0,z:0}, {mi:5, x:1,y:0,z:1}, {mi:6, x:1,y:1,z:0}, {mi:7, x:1,y:1,z:1}
     ];
     const minterms = { A: [3,6,7], B: [1,2,4,5], C: [0,2,5,7] };
-    const stages = ["Επιλογή Κανόνα", "Υπολογισμός Εξόδου", "Ανάθεση A, B, C"];
+    const stages = ["Rule Selection", "Output Calculation", "Assign A, B, C"];
 
     // --- DOM ELEMENTS ---
     const ttBody = document.querySelector('#tt tbody'), miEl = document.getElementById('mi'), xyzEl = document.getElementById('xyz');
@@ -169,15 +169,15 @@
         const fbin = pad3(f);
         const [A, B, C] = fbin.split('');
         html += `<hr>
-                <h2>Γραμμή mi = ${row.mi} (xyz = ${row.x}${row.y}${row.z})</h2>
-                <h3>1. Προσδιορισμός Κανόνα</h3>
-                <p>Η δυαδική είσοδος <code>${row.x}${row.y}${row.z}</code> αντιστοιχεί στη δεκαδική τιμή <b>${v}</b>.</p>
-                <p>Επειδή ${v} ${usePlus1 ? 'είναι στην περιοχή [0-3]' : 'είναι στην περιοχή [4-7]'}, εφαρμόζεται ο κανόνας: <b>${ruleText}</b>.</p>
-                <h3>2. Υπολογισμός Εξόδου</h3>
-                <p>Εκτελούμε την πράξη: <code>${v} ${ruleText} = ${f}</code>.</p>
-                <p>Το αποτέλεσμα ${f} σε τριψήφιο δυαδικό είναι <code>${fbin}</code>.</p>
-                <h3>3. Ανάθεση A, B, C</h3>
-                <p>Από το δυαδικό αποτέλεσμα <code>${A}${B}${C}</code>, οι έξοδοι είναι:</p>
+                <h2>Row mi = ${row.mi} (xyz = ${row.x}${row.y}${row.z})</h2>
+                <h3>1. Rule Determination</h3>
+                <p>The binary input <code>${row.x}${row.y}${row.z}</code> corresponds to the decimal value <b>${v}</b>.</p>
+                <p>Because ${v} ${usePlus1 ? 'is in the range [0-3]' : 'is in the range [4-7]'}, the rule applied is: <b>${ruleText}</b>.</p>
+                <h3>2. Output Calculation</h3>
+                <p>We perform the operation: <code>${v} ${ruleText} = ${f}</code>.</p>
+                <p>The result ${f} in three-digit binary is <code>${fbin}</code>.</p>
+                <h3>3. Assign A, B, C</h3>
+                <p>From the binary result <code>${A}${B}${C}</code>, the outputs are:</p>
                 <p><b>A = ${A}</b>, <b>B = ${B}</b>, <b>C = ${C}</b></p>`;
       });
       explanationContent.innerHTML = html;
@@ -211,16 +211,16 @@
       const highlightCell = (cell, value) => { cell.textContent = value; cell.classList.add('cell-hl'); };
 
       if (stage === 0) {
-        explainEl.textContent = `xyz=${r.x}${r.y}${r.z} → v=${v}. Επειδή ${v}≤3, ο κανόνας είναι +1.`;
-        if (v > 3) explainEl.textContent = `xyz=${r.x}${r.y}${r.z} → v=${v}. Επειδή ${v}>3, ο κανόνας είναι -2.`;
+        explainEl.textContent = `xyz=${r.x}${r.y}${r.z} → v=${v}. Since ${v}≤3, the rule is +1.`;
+        if (v > 3) explainEl.textContent = `xyz=${r.x}${r.y}${r.z} → v=${v}. Since ${v}>3, the rule is -2.`;
         highlightCell(cells.v, v);
         highlightCell(cells.rule, rule);
       } else if (stage === 1) {
-        explainEl.textContent = `Πράξη: ${v} ${rule} = ${f}. Δυαδική μορφή: ${fbin}.`;
+        explainEl.textContent = `Operation: ${v} ${rule} = ${f}. Binary form: ${fbin}.`;
         highlightCell(cells.f, f);
         highlightCell(cells.fbin, fbin);
       } else if (stage === 2) {
-        explainEl.textContent = `Από ${fbin} → A=${A}, B=${B}, C=${C}.`;
+        explainEl.textContent = `From ${fbin} → A=${A}, B=${B}, C=${C}.`;
         [cells.A, cells.B, cells.C].forEach(c => c.classList.add('cell-hl'));
         cells.A.textContent = A; cells.B.textContent = B; cells.C.textContent = C;
         cells.A.className += A ? ' bit1' : ' bit0';
@@ -243,13 +243,13 @@
     function start() {
       if (playing) return;
       playing = true;
-      btnPlay.classList.replace('play', 'pause'); btnPlay.textContent = '⏸ Εκτέλεση';
+      btnPlay.classList.replace('play', 'pause'); btnPlay.textContent = '⏸ Execute';
       updateRowStage();
       timer = setInterval(next, delay);
     }
     function pause() {
       playing = false;
-      btnPlay.classList.replace('pause', 'play'); btnPlay.textContent = '▶ Έναρξη';
+      btnPlay.classList.replace('pause', 'play'); btnPlay.textContent = '▶ Start';
       clearInterval(timer); timer = null;
     }
     function reset() {
@@ -258,8 +258,8 @@
       buildTable();
       clearHighlights();
       updateRowStage();
-      explainEl.textContent = `Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.`;
-      stageEl.textContent = "Αναμονή"; miEl.textContent = "-"; xyzEl.textContent = "---";
+      explainEl.textContent = `Press 'Start' to begin the simulation.`;
+      stageEl.textContent = "Waiting"; miEl.textContent = "-"; xyzEl.textContent = "---";
     }
 
     // --- EVENT LISTENERS ---
@@ -277,7 +277,7 @@
       const isSimVisible = simPage.style.display !== 'none';
       simPage.style.display = isSimVisible ? 'none' : 'block';
       expPage.style.display = isSimVisible ? 'block' : 'none';
-      toggleBtn.textContent = isSimVisible ? 'Επιστροφή στην Προσομοίωση' : 'Αναλυτική Εξήγηση';
+      toggleBtn.textContent = isSimVisible ? 'Return to Simulation' : 'Detailed Explanation';
       if (!isSimVisible) reset();
     });
 

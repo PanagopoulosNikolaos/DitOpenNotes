@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -228,7 +228,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔄 Μετατροπή Πίνακα Καταστάσεων σε Διάγραμμα Καταστάσεων</h1>
+        <h1>🔄 State Table to State Diagram Converter</h1>
         
         <div class="controls">
             <button onclick="startTutorial()">📚 Tutorial Mode</button>
@@ -238,23 +238,23 @@
         </div>
 
         <div class="info-box">
-            <h3>💡 Οδηγίες:</h3>
-            <p>Κάντε κλικ σε μια γραμμή του πίνακα για να δείτε πώς μεταφράζεται σε μετάβαση στο διάγραμμα!</p>
+            <h3>💡 Instructions:</h3>
+            <p>Click a row in the table to see how it translates into a transition in the diagram!</p>
         </div>
 
         <div class="main-content">
             <div class="section table-section">
-                <h2>📊 Πίνακας Καταστάσεων</h2>
+                <h2>📊 State Table</h2>
                 <table id="stateTable">
                     <thead>
                         <tr>
-                            <th>Παρούσα A</th>
-                            <th>Παρούσα B</th>
-                            <th>Κατάσταση</th>
-                            <th>Είσοδος X</th>
-                            <th>Επόμενη A+</th>
-                            <th>Επόμενη B+</th>
-                            <th>Επόμενη Κατάσταση</th>
+                            <th>Present A</th>
+                            <th>Present B</th>
+                            <th>State</th>
+                            <th>Input X</th>
+                            <th>Next A+</th>
+                            <th>Next B+</th>
+                            <th>Next State</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -265,25 +265,25 @@
                 <div class="legend">
                     <div class="legend-item">
                         <div class="legend-circle" style="background-color: #4CAF50;"></div>
-                        <span>S0 (00) - Αρχική</span>
+                        <span>S0 (00) - Initial</span>
                     </div>
                     <div class="legend-item">
                         <div class="legend-circle" style="background-color: #2196F3;"></div>
-                        <span>S1 (01) - '1' βρέθηκε</span>
+                        <span>S1 (01) - '1' found</span>
                     </div>
                     <div class="legend-item">
                         <div class="legend-circle" style="background-color: #FF9800;"></div>
-                        <span>S2 (10) - '10' βρέθηκε</span>
+                        <span>S2 (10) - '10' found</span>
                     </div>
                     <div class="legend-item">
                         <div class="legend-circle" style="background-color: #9C27B0;"></div>
-                        <span>S3 (11) - '101' βρέθηκε!</span>
+                        <span>S3 (11) - '101' found!</span>
                     </div>
                 </div>
             </div>
 
             <div class="section diagram-section">
-                <h2>📈 Διάγραμμα Καταστάσεων</h2>
+                <h2>📈 State Diagram</h2>
                 <svg id="stateDiagram" viewBox="0 0 600 400">
                     <!-- Arrow marker definition -->
                     <defs>
@@ -559,29 +559,29 @@
         function updateInfoBox(row) {
             const infoBox = document.querySelector('.info-box');
             infoBox.innerHTML = `
-                <h3>🎯 Μετάβαση που επιλέχθηκε:</h3>
-                <p><strong>Από κατάσταση:</strong> ${row.state} (${row.A}${row.B})</p>
-                <p><strong>Με είσοδο:</strong> X = ${row.X}</p>
-                <p><strong>Σε κατάσταση:</strong> ${row.nextState} (${row.nextA}${row.nextB})</p>
-                <p><strong>Σημασία:</strong> ${getTransitionMeaning(row)}</p>
+                <h3>🎯 Selected Transition:</h3>
+                <p><strong>From state:</strong> ${row.state} (${row.A}${row.B})</p>
+                <p><strong>With input:</strong> X = ${row.X}</p>
+                <p><strong>To state:</strong> ${row.nextState} (${row.nextA}${row.nextB})</p>
+                <p><strong>Meaning:</strong> ${getTransitionMeaning(row)}</p>
             `;
         }
 
         // Get meaning of transition
         function getTransitionMeaning(row) {
             const meanings = {
-                'S0-S0-0': 'Παραμονή στην αρχική κατάσταση (δεν ξεκίνησε η ακολουθία)',
-                'S0-S1-1': 'Βρέθηκε το πρώτο "1" - ξεκινά η ακολουθία',
-                'S1-S2-0': 'Βρέθηκε το "0" μετά το "1" - έχουμε "10"',
-                'S1-S1-1': 'Νέο "1" - επανεκκίνηση της ακολουθίας',
-                'S2-S0-0': 'Λάθος bit - επιστροφή στην αρχή',
-                'S2-S3-1': '✅ Βρέθηκε η πλήρης ακολουθία "101"!',
-                'S3-S0-0': 'Μετά την ανίχνευση, επιστροφή στην αρχή',
-                'S3-S1-1': 'Μετά την ανίχνευση, νέο "1" - νέα αναζήτηση'
+                'S0-S0-0': 'Remain in initial state (sequence has not started)',
+                'S0-S1-1': 'First "1" found - sequence starts',
+                'S1-S2-0': '"0" found after "1" - we have "10"',
+                'S1-S1-1': 'New "1" - sequence restarts',
+                'S2-S0-0': 'Wrong bit - return to start',
+                'S2-S3-1': '✅ Complete sequence "101" found!',
+                'S3-S0-0': 'After detection, return to start',
+                'S3-S1-1': 'After detection, new "1" - new search'
             };
             
             const key = `${row.state}-${row.nextState}-${row.X}`;
-            return meanings[key] || 'Μετάβαση';
+            return meanings[key] || 'Transition';
         }
 
         // Animate all transitions in sequence
@@ -639,33 +639,33 @@
         let tutorialStep = 0;
         const tutorialSteps = [
             {
-                title: 'Καλώς ήρθατε στο Tutorial!',
-                text: 'Θα μάθουμε πώς μετατρέπουμε έναν πίνακα καταστάσεων σε διάγραμμα.',
+                title: 'Welcome to the Tutorial!',
+                text: 'Let\'s learn how to convert a state table to a state diagram.',
                 highlight: null
             },
             {
-                title: 'Βήμα 1: Ο Πίνακας Καταστάσεων',
-                text: 'Κάθε γραμμή του πίνακα δείχνει μια μετάβαση. Οι στήλες A,B δείχνουν την τρέχουσα κατάσταση.',
+                title: 'Step 1: The State Table',
+                text: 'Each row of the table shows a transition. The columns A,B show the current state.',
                 highlight: 'table'
             },
             {
-                title: 'Βήμα 2: Αντιστοίχιση Καταστάσεων',
+                title: 'Step 2: State Mapping',
                 text: 'AB=00 → S0, AB=01 → S1, AB=10 → S2, AB=11 → S3',
                 highlight: 'states'
             },
             {
-                title: 'Βήμα 3: Ανάγνωση Μετάβασης',
-                text: 'Για κάθε γραμμή: Βλέπουμε την τρέχουσα κατάσταση (A,B), την είσοδο X, και την επόμενη κατάσταση (A+,B+).',
+                title: 'Step 3: Reading a Transition',
+                text: 'For each row: We see the current state (A,B), the input X, and the next state (A+,B+).',
                 highlight: 'row0'
             },
             {
-                title: 'Βήμα 4: Σχεδίαση στο Διάγραμμα',
-                text: 'Η μετάβαση σχεδιάζεται ως βέλος από την τρέχουσα στην επόμενη κατάσταση με ετικέτα την είσοδο X.',
+                title: 'Step 4: Drawing on the Diagram',
+                text: 'The transition is drawn as an arrow from the current to the next state with the input X as label.',
                 highlight: 'transition0'
             },
             {
-                title: 'Ολοκλήρωση!',
-                text: 'Τώρα μπορείτε να κάνετε κλικ σε οποιαδήποτε γραμμή για να δείτε την αντίστοιχη μετάβαση!',
+                title: 'Complete!',
+                text: 'Now you can click on any row to see the corresponding transition!',
                 highlight: null
             }
         ];

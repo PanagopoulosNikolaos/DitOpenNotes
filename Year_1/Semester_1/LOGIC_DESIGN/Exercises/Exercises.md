@@ -1,3 +1,1 @@
-[[1_University_Notes/Εξάμηνο 1ο/Λογική_Σχεδίαση/Exercises/Loren_Λογική_Σχεδίαση_2η_Εργασία/Loren_Λογική_Σχεδίαση_2η_Εργασία]]
-
-[[1_University_Notes/Εξάμηνο 1ο/Λογική_Σχεδίαση/Exercises/Nick_Λογική_Σχεδίαση_2η_Εργασία/Nick_Λογική_Σχεδίαση_2η_Εργασία]]
+[[Nick_Logic_Design_2nd_Assignment/Nick_Logic_Design_2nd_Assignment]]

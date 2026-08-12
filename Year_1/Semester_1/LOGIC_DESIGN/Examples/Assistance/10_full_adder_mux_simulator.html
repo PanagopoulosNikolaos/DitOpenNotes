@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Βήμα-Βήμα: Πλήρης Αθροιστής με δύο 4:1 MUX</title>
+  <title>Step-by-Step: Full Adder with two 4:1 MUX</title>
   <style>
     :root{
       --bg:#0c0f14;--panel:#121722;--text:#e8eefc;--muted:#9bb0d0;--accent:#4cc9f0;
@@ -77,8 +77,8 @@
 <body>
   <div class="container">
     <div class="header-flex">
-      <h1>Πλήρης Αθροιστής με δύο 4:1 MUX</h1>
-      <button id="toggle-view-btn" class="btn">Αναλυτική Εξήγηση</button>
+      <h1>Full Adder with two 4:1 MUX</h1>
+      <button id="toggle-view-btn" class="btn">Detailed Explanation</button>
     </div>
 
     <!-- Page 1: Interactive Simulation -->
@@ -86,24 +86,24 @@
       <div class="panel controls">
         <div class="grid-3">
           <div>
-            <div style="margin-bottom:6px;color:#b9cff2">Ταχύτητα</div>
-            <button class="btn speed active" data-ms="1000">Κανονική</button>
-            <button class="btn speed" data-ms="1800">Αργή</button>
-            <button class="btn speed" data-ms="500">Γρήγορη</button>
+            <div style="margin-bottom:6px;color:#b9cff2">Speed</div>
+            <button class="btn speed active" data-ms="1000">Normal</button>
+            <button class="btn speed" data-ms="1800">Slow</button>
+            <button class="btn speed" data-ms="500">Fast</button>
           </div>
           <div>
-            <div style="margin-bottom:6px;color:#b9cff2">Έλεγχος</div>
-            <button id="play" class="btn play">▶ Έναρξη</button>
-            <button id="pause" class="btn">⏸ Παύση</button>
-            <button id="step" class="btn">➤ Βήμα</button>
-            <button id="reset" class="btn">🔄 Επαναφορά</button>
+            <div style="margin-bottom:6px;color:#b9cff2">Control</div>
+            <button id="play" class="btn play">▶ Start</button>
+            <button id="pause" class="btn">⏸ Pause</button>
+            <button id="step" class="btn">➤ Step</button>
+            <button id="reset" class="btn">🔄 Reset</button>
           </div>
           <div class="status">
-            Είσοδοι: a=<span id="a-val"></span> b=<span id="b-val"></span> cin=<span id="cin-val"></span><br>
-            Στάδιο: <span id="stageName"></span>
+            Inputs: a=<span id="a-val"></span> b=<span id="b-val"></span> cin=<span id="cin-val"></span><br>
+            Stage: <span id="stageName"></span>
           </div>
         </div>
-        <div class="explain" id="explain">Πατήστε 'Έναρξη' για να ξεκινήσει η προσομοίωση.</div>
+        <div class="explain" id="explain">Press 'Start' to begin the simulation.</div>
         <div class="select-info">
           Select: S1=a, S0=b → <span id="select-info">ab=00 → D0</span>
         </div>
@@ -235,7 +235,7 @@
           <text x="580" y="465" class="label big" text-anchor="middle">C</text>
           
           <!-- Truth table reference -->
-          <text x="650" y="150" class="label">Πίνακας Αληθείας:</text>
+          <text x="650" y="150" class="label">Truth Table:</text>
           <text x="650" y="170" class="label small">ab=00: S=cin, C=0</text>
           <text x="650" y="185" class="label small">ab=01: S=cin′, C=cin</text>
           <text x="650" y="200" class="label small">ab=10: S=cin′, C=cin</text>
@@ -248,8 +248,8 @@
     <!-- Page 2: Detailed Explanation -->
     <div id="explanation-page" style="display: none;">
       <div class="panel">
-        <h2>Αναλυτική Εξήγηση Πλήρους Αθροιστή με 4:1 MUX</h2>
-        <p>Αυτή η σελίδα εξηγεί πώς υλοποιείται ο πλήρης αθροιστής χρησιμοποιώντας δύο πολυπλέκτες 4:1.</p>
+        <h2>Detailed Explanation of Full Adder with 4:1 MUX</h2>
+        <p>This page explains how the full adder is implemented using two 4:1 multiplexers.</p>
         <div id="explanation-content"></div>
       </div>
     </div>
@@ -264,7 +264,7 @@
       {a:1, b:1, cin:0, S:0, C:1}, {a:1, b:1, cin:1, S:1, C:1}
     ];
     
-    const stages = ["Επιλογή Εισόδων", "MUX Selection", "Υπολογισμός Εξόδων"];
+    const stages = ["Input Selection", "MUX Selection", "Output Calculation"];
     
     // --- DOM ELEMENTS ---
     const ttBody = document.querySelector('#tt tbody');
@@ -324,33 +324,33 @@
     }
     
     function generateExplanation() {
-      let html = '<h3>Αρχή Λειτουργίας</h3>';
-      html += '<p>Ο πλήρης αθροιστής υλοποιείται με δύο 4:1 πολυπλέκτες:</p>';
+      let html = '<h3>Operating Principle</h3>';
+      html += '<p>The full adder is implemented with two 4:1 multiplexers:</p>';
       html += '<ul>';
-      html += '<li><b>Επιλογές (Select):</b> S1=a, S0=b</li>';
+      html += '<li><b>Selects:</b> S1=a, S0=b</li>';
       html += '<li><b>Sum MUX:</b> D0=cin, D1=cin′, D2=cin′, D3=cin</li>';
       html += '<li><b>Carry MUX:</b> D0=0, D1=cin, D2=cin, D3=1</li>';
       html += '</ul>';
       
-      html += '<h3>Ανάλυση για κάθε περίπτωση ab:</h3>';
+      html += '<h3>Analysis for each ab case:</h3>';
       
       const cases = [
-        {ab: '00', desc: 'Όταν a=0, b=0: S=cin, C=0'},
-        {ab: '01', desc: 'Όταν a=0, b=1: S=cin′, C=cin'},
-        {ab: '10', desc: 'Όταν a=1, b=0: S=cin′, C=cin'},
-        {ab: '11', desc: 'Όταν a=1, b=1: S=cin, C=1'}
+        {ab: '00', desc: 'When a=0, b=0: S=cin, C=0'},
+        {ab: '01', desc: 'When a=0, b=1: S=cin′, C=cin'},
+        {ab: '10', desc: 'When a=1, b=0: S=cin′, C=cin'},
+        {ab: '11', desc: 'When a=1, b=1: S=cin, C=1'}
       ];
       
       cases.forEach(c => {
-        html += `<h4>Περίπτωση ab=${c.ab}</h4>`;
+        html += `<h4>Case ab=${c.ab}</h4>`;
         html += `<p>${c.desc}</p>`;
       });
       
-      html += '<h3>Απόδειξη ορθότητας</h3>';
-      html += '<p>Η υλοποίηση παράγει τις σωστές εξισώσεις:</p>';
+      html += '<h3>Proof of correctness</h3>';
+      html += '<p>The implementation produces the correct equations:</p>';
       html += '<ul>';
-      html += '<li><b>S = a ⊕ b ⊕ cin</b> (XOR των τριών εισόδων)</li>';
-      html += '<li><b>C = ab + acin + bcin</b> (carry-out του πλήρους αθροιστή)</li>';
+      html += '<li><b>S = a ⊕ b ⊕ cin</b> (XOR of the three inputs)</li>';
+      html += '<li><b>C = ab + acin + bcin</b> (carry-out of the full adder)</li>';
       html += '</ul>';
       
       explanationContent.innerHTML = html;
@@ -394,9 +394,9 @@
       if (row.cin) document.getElementById('wire-cin').classList.add('active');
       
       if (stage === 0) {
-        explainEl.textContent = `Εισόδους: a=${row.a}, b=${row.b}, cin=${row.cin}`;
+        explainEl.textContent = `Inputs: a=${row.a}, b=${row.b}, cin=${row.cin}`;
       } else if (stage === 1) {
-        explainEl.textContent = `Select ab=${row.a}${row.b} επιλέγει D${select} από κάθε MUX`;
+        explainEl.textContent = `Select ab=${row.a}${row.b} selects D${select} from each MUX`;
         
         // Highlight selected D inputs
         document.getElementById(`sum-d${select}`).classList.add('active');
@@ -410,7 +410,7 @@
         const S = sumInputs[select];
         const C = carryInputs[select];
         
-        explainEl.textContent = `Αποτελέσματα: S=${S}, C=${C}`;
+        explainEl.textContent = `Results: S=${S}, C=${C}`;
         
         // Fill in results
         tr.children[6].textContent = S;
@@ -442,7 +442,7 @@
       if (playing) return;
       playing = true;
       btnPlay.classList.replace('play', 'pause');
-      btnPlay.textContent = '⏸ Εκτέλεση';
+      btnPlay.textContent = '⏸ Execute';
       updateSimulation();
       timer = setInterval(next, delay);
     }
@@ -450,7 +450,7 @@
     function pause() {
       playing = false;
       btnPlay.classList.replace('pause', 'play');
-      btnPlay.textContent = '▶ Έναρξη';
+      btnPlay.textContent = '▶ Start';
       clearInterval(timer);
       timer = null;
     }
@@ -461,8 +461,8 @@
       stage = 0;
       buildTable();
       clearHighlights();
-      explainEl.textContent = 'Πατήστε \'Έναρξη\' για να ξεκινήσει η προσομοίωση.';
-      stageEl.textContent = "Αναμονή";
+      explainEl.textContent = 'Press \'Start\' to begin the simulation.';
+      stageEl.textContent = "Waiting";
       aVal.textContent = "-";
       bVal.textContent = "-";
       cinVal.textContent = "-";
@@ -489,7 +489,7 @@
       const isSimVisible = simPage.style.display !== 'none';
       simPage.style.display = isSimVisible ? 'none' : 'block';
       expPage.style.display = isSimVisible ? 'block' : 'none';
-      toggleBtn.textContent = isSimVisible ? 'Επιστροφή στην Προσομοίωση' : 'Αναλυτική Εξήγηση';
+      toggleBtn.textContent = isSimVisible ? 'Return to Simulation' : 'Detailed Explanation';
       if (!isSimVisible) reset();
     });
     
