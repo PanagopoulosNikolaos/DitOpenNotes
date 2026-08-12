@@ -7,6 +7,7 @@ All projects and available code are licensed under the MIT license.
 ## Table of Contents
 
 - [Repository Structure](#repository-structure)
+- [Repository Branches](#repository-branches)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [License](#license)
@@ -68,6 +69,14 @@ The repository is organized by academic year and semester. Each course directory
 - `Resources/` - Additional resources
 - `Exams/` - Exam papers and solutions
 - `README.md` - Course-specific information
+
+## Repository Branches
+
+The repository maintains two primary branches to serve different language requirements:
+
+- `main` - Primary default branch featuring all course notes, exercise solutions, exam materials, and documentation in English.
+- `lang/el` - Localized branch containing course materials, lecture guides, and notes in Greek.
+
 
 ## Getting Started
 
