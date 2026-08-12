@@ -17,10 +17,10 @@
 A **Random Variable (RV)** $X$ is a formal mathematical function that maps outcomes from a sample space $\Omega$ to real numbers ($X: \Omega \to \mathbb{R}$). A random variable is classified as **discrete** if its support $S_X = \{x \in \mathbb{R} : P(X = x) > 0\}$ is finite or countably infinite (such as the set of non-negative integers $\mathbb{N}_0$).
 
 ```
-Sample Space Ω (Outcomes)        Real Line R (Values)
+Sample Space $\Omega$ (Outcomes)   Real Line $R$ (Values)
 +-----------------------+        +-------------------+
-|  Outcome ω1 (Success) | ------>|  X(ω1) = 1        |
-|  Outcome ω2 (Failure) | ------>|  X(ω2) = 0        |
+|  Outcome $\omega_1$ (Success) | ------>|  X($\omega_1$) = 1 |
+|  Outcome $\omega_2$ (Failure) | ------>|  X($\omega_2$) = 0 |
 +-----------------------+        +-------------------+
 ```
 

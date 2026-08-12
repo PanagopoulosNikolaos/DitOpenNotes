@@ -20,11 +20,11 @@ D) $-B_0^2/2\mu_0$
 Question 4. Polarization in a dielectric material expresses the density of the permanent or induced ....................................................................
 
 Exercise 1. 3 points
-According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where ρ is the charge density. If $\vec{D}=x^2z\hat{x}+\frac{3}{y}\hat{y}$, calculate the charge density ρ.
+According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where $\rho$ is the charge density. If $\vec{D}=x^2z\hat{x}+\frac{3}{y}\hat{y}$, calculate the charge density $\rho$.
 
 Exercise 2. 3 points
 The electric field of a sinusoidal plane electromagnetic wave propagating in a vacuum is given by:
-$\vec{E}=30\cos(ky-10^{11}t)\hat{z}$ a) What is the wavelength λ and the frequency f of the wave? b) Write the oscillation vector of the magnetic induction $\vec{B}$. c) Calculate the Poynting vector $\vec{S}$ and the intensity I of the wave.
+$\vec{E}=30\cos(ky-10^{11}t)\hat{z}$ a) What is the wavelength $\lambda$ and the frequency f of the wave? b) Write the oscillation vector of the magnetic induction $\vec{B}$. c) Calculate the Poynting vector $\vec{S}$ and the intensity I of the wave.
 
 Formula sheet for both exercises:
 The equations of the electric and magnetic fields for a wave propagating in the x direction are:

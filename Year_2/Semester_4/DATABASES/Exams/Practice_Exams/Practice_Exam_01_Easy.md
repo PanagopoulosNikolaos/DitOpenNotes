@@ -1,26 +1,26 @@
 # Exam 1: Basic Database Concepts (Level: Easy)
 
-Ερώτηση Πολλαπλής Επιλογής 1, Ποια από τις παρακάτω εντολές ανήκει στη Γλώσσα Ορισμού Δεδομένων (DDL);
+Multiple Choice Question 1: Which of the following commands belongs to the Data Definition Language (DDL)?
 [ ] 1. SELECT
 [ ] 2. INSERT
 [✅] 3. CREATE TABLE
 [ ] 4. UPDATE
 ---
 *solution:*
-Η εντολή CREATE TABLE χρησιμοποιείται για τον ορισμό του σχήματος της βάσης δεδομένων και ανήκει στην DDL. Οι υπόλοιπες εντολές ανήκουν στη Γλώσσα Χειρισμού Δεδομένων (DML).
+The CREATE TABLE command is used to define the database schema and belongs to the DDL. The remaining commands belong to the Data Manipulation Language (DML).
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 2, Ποιο από τα παρακάτω εξασφαλίζει τη μοναδικότητα μιας εγγραφής σε έναν πίνακα;
-[✅] 1. Πρωτεύον Κλειδί (Primary Key)
-[ ] 2. Ξένο Κλειδί (Foreign Key)
-[ ] 3. Ευρετήριο (Index)
-[ ] 4. Όλα τα παραπάνω
+Multiple Choice Question 2: Which of the following ensures the uniqueness of a record in a table?
+[✅] 1. Primary Key
+[ ] 2. Foreign Key
+[ ] 3. Index
+[ ] 4. All of the above
 ---
 *solution:*
-Το Πρωτεύον Κλειδί χρησιμοποιείται για τη μοναδική ταυτοποίηση κάθε εγγραφής σε έναν πίνακα, ενώ το Ξένο Κλειδί χρησιμοποιείται για τη διασύνδεση μεταξύ πινάκων.
+The Primary Key is used to uniquely identify each record in a table, while the Foreign Key is used for interconnecting tables.
 ---
 
-Άσκηση 3, Δίνεται η σχέση "Φοιτητής" και "Τμήμα". Ένας φοιτητής ανήκει σε ένα μόνο τμήμα, ενώ ένα τμήμα έχει πολλούς φοιτητές. Γράψτε τις εντολές SQL (CREATE TABLE) για τη δημιουργία των δύο πινάκων, συμπεριλαμβάνοντας το ξένο κλειδί.
+Exercise 3: Given the relations "Student" and "Department". A student belongs to exactly one department, while a department has many students. Write the SQL commands (CREATE TABLE) to create the two tables, including the foreign key.
 ---
 *solution:*
 ```sql
@@ -38,7 +38,7 @@ CREATE TABLE Student (
 ```
 ---
 
-Άσκηση 4, Γράψτε ένα ερώτημα SQL που να επιστρέφει το όνομα των φοιτητών (από τον πίνακα Student) που ανήκουν στο τμήμα με dept_id ίσο με 5.
+Exercise 4: Write an SQL query that returns the names of the students (from the Student table) who belong to the department with dept_id equal to 5.
 ---
 *solution:*
 ```sql

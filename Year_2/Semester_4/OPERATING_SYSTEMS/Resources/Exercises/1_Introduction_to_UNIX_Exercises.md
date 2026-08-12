@@ -1,52 +1,52 @@
-# Ασκήσεις — Εισαγωγή στο UNIX και Linux
+# Exercises — Introduction to UNIX and Linux
 
-**Βασισμένες σε:** `1_Introduction_to_UNIX.md`  
-**Αριθμός ασκήσεων:** 30
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Τι είναι ένα Λειτουργικό Σύστημα και ποιοι είναι οι τέσσερις βασικοί τομείς που διαχειρίζεται;
+**Based on:** `1_Introduction_to_UNIX.md`  
+**Number of exercises:** 30
 
 ---
 
-### Άσκηση 2
-Εξηγήστε τη φιλοσοφία του UNIX «όλα είναι αρχεία» (everything is a file). Δώστε δύο παραδείγματα πόρων που αντιμετωπίζονται ως αρχεία.
+## Part A — Theory
+
+### Exercise 1
+What is an Operating System and what are the four basic domains it manages?
 
 ---
 
-### Άσκηση 3
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
-
-1. Το UNIX δημιουργήθηκε το 1969 από τον Kenneth Thompson στα Bell Labs.
-2. Η μετάβαση του UNIX στη γλώσσα C το 1973 αύξησε την εξάρτησή του από μία συγκεκριμένη αρχιτεκτονική υλικού.
-3. Η φιλοσοφία «κάνε ένα πράγμα και κάν' το καλά» ενθαρρύνει μικρά, εξειδικευμένα προγράμματα.
-4. Το Linux δημιουργήθηκε από τη Sun Microsystems.
-5. Το JSLinux επιτρέπει εκμάθηση τερματικού χωρίς τοπική εγκατάσταση Linux.
+### Exercise 2
+Explain the UNIX philosophy "everything is a file". Give two examples of resources that are treated as files.
 
 ---
 
-### Άσκηση 4
-Κυκλώστε τη σωστή απάντηση: Ποιο από τα παρακάτω είναι **εμπορικό** UNIX;
+### Exercise 3
+Mark **T** (True) or **F** (False):
 
-- α) FreeBSD  
-- β) Linux  
-- γ) Solaris  
-- δ) JSLinux
-
----
-
-### Άσκηση 5
-Αναφέρετε τέσσερα βασικά χαρακτηριστικά του UNIX (multi-user, multi-tasking, κ.λπ.) και εξηγήστε σύντομα το καθένα.
+1. UNIX was created in 1969 by Kenneth Thompson at Bell Labs.
+2. The transition of UNIX to the C language in 1973 increased its dependence on a specific hardware architecture.
+3. The philosophy "do one thing and do it well" encourages small, specialized programs.
+4. Linux was created by Sun Microsystems.
+5. JSLinux allows learning the terminal without a local Linux installation.
 
 ---
 
-### Άσκηση 6
-Συμπληρώστε τον πίνακα ιδιοτήτων λογαριασμού χρήστη:
+### Exercise 4
+Circle the correct answer: Which of the following is a **commercial** UNIX?
 
-| Ιδιότητα | Περιγραφή |
+- a) FreeBSD  
+- b) Linux  
+- c) Solaris  
+- d) JSLinux
+
+---
+
+### Exercise 5
+Mention four basic characteristics of UNIX (multi-user, multi-tasking, etc.) and briefly explain each one.
+
+---
+
+### Exercise 6
+Complete the user account properties table:
+
+| Property | Description |
 | :--- | :--- |
 | `username` | |
 | `userid` (UID) | |
@@ -56,130 +56,130 @@
 
 ---
 
-### Άσκηση 7
-Ποια είναι η τιμή UID του χρήστη root και γιατί είναι σημαντική;
+### Exercise 7
+What is the UID value of the root user and why is it important?
 
 ---
 
-### Άσκηση 8
-Σε ποιον κατάλογο αποθηκεύονται συνήθως οι κωδικοί πρόσβασης των χρηστών (σε κρυπτογραφημένη μορφή);
+### Exercise 8
+In which directory are user passwords usually stored (in encrypted form)?
 
 ---
 
-### Άσκηση 9
-Σχεδιάστε (ή περιγράψτε με λίστα) την ιεραρχική δομή του συστήματος αρχείων UNIX, ξεκινώντας από τη ρίζα `/`. Αναφέρετε τουλάχιστον πέντε σημαντικούς καταλόγους και το περιεχόμενό τους.
+### Exercise 9
+Draw (or describe with a list) the hierarchical structure of the UNIX file system, starting from the root `/`. Mention at least five important directories and their contents.
 
 ---
 
-### Άσκηση 10
-Ποια είναι η διαφορά μεταξύ των συμβόλων `$` και `#` στην προτροπή (prompt) του shell;
+### Exercise 10
+What is the difference between the symbols `$` and `#` in the shell prompt?
 
 ---
 
-### Άσκηση 11
-Γιατί ο κωδικός πρόσβασης δεν εμφανίζεται στην οθόνη κατά την είσοδο στο σύστημα;
+### Exercise 11
+Why is the password not displayed on the screen during login to the system?
 
 ---
 
-### Άσκηση 12
-Αναφέρετε τρεις τρόπους τερματισμού της συνεδρίας (logout) σε σύστημα UNIX.
+### Exercise 12
+Mention three ways to end a session (logout) on a UNIX system.
 
 ---
 
-## Μέρος Β — Εργαστήριο
+## Part B — Laboratory
 
-### Άσκηση 13
-Δώστε την εντολή UNIX για αλλαγή του κωδικού πρόσβασης του τρέχοντος χρήστη.
-
----
-
-### Άσκηση 14
-Ο χρήστης root θέλει να αλλάξει τον κωδικό του χρήστη `student1`. Ποια είναι η πλήρης εντολή;
+### Exercise 13
+Give the UNIX command to change the password of the current user.
 
 ---
 
-### Άσκηση 15
-Δώστε την εντολή για εμφάνιση της τρέχουσας ημερομηνίας και ώρας του συστήματος.
+### Exercise 14
+The root user wants to change the password of user `student1`. What is the full command?
 
 ---
 
-### Άσκηση 16
-Δώστε την εντολή για εμφάνιση του ημερολογίου του μήνα Μαΐου 2024.
+### Exercise 15
+Give the command to display the current date and time of the system.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για εμφάνιση του ημερολογίου ολόκληρου του έτους 2025.
+### Exercise 16
+Give the command to display the calendar of the month of May 2024.
 
 ---
 
-### Άσκηση 18
-Ποια εντολή εμφανίζει τη λίστα όλων των χρηστών που είναι συνδεδεμένοι στο σύστημα, μαζί με το τερματικό και την ώρα σύνδεσης;
+### Exercise 17
+Give the command to display the calendar of the entire year 2025.
 
 ---
 
-### Άσκηση 19
-Ποια εντολή εμφανίζει μόνο το όνομα του τρέχοντος χρήστη;
+### Exercise 18
+Which command displays the list of all users who are logged into the system, along with their terminal and login time?
 
 ---
 
-### Άσκηση 20
-Ποια είναι η διαφορά μεταξύ των εντολών `whoami` και `who am i`;
+### Exercise 19
+Which command displays only the name of the current user?
 
 ---
 
-### Άσκηση 21
-Μετά την επιτυχή σύνδεση, σε ποιον κατάλογο τοποθετείται αυτόματα ο χρήστης; Δώστε ένα τυπικό παράδειγμα διαδρομής.
+### Exercise 20
+What is the difference between the commands `whoami` and `who am i`?
 
 ---
 
-### Άσκηση 22
-Ποιος κατάλογος χρησιμοποιείται για προσωρινά αρχεία που συχνά διαγράφονται κατά την επανεκκίνηση;
+### Exercise 21
+After a successful login, in which directory is the user automatically placed? Give a typical example path.
 
 ---
 
-### Άσκηση 23
-Ποιος κατάλογος περιέχει τα αρχεία ρυθμίσεων του συστήματος (configuration files);
+### Exercise 22
+Which directory is used for temporary files that are often deleted during reboot?
 
 ---
 
-### Άσκηση 24
-Σε περιβάλλον QEMU/JSLinux, ποια εντολή απαιτεί δικαιώματα root για ασφαλή τερματισμό της εικονικής μηχανής;
+### Exercise 23
+Which directory contains the system configuration files?
 
 ---
 
-### Άσκηση 25
-Εξηγήστε τι σημαίνει η έννοια «chaining programs» στη φιλοσοφία UNIX. Δώστε ένα απλό παράδειγμα (χωρίς ακόμα να χρησιμοποιήσετε pipes — μόνο ως έννοια).
+### Exercise 24
+In a QEMU/JSLinux environment, which command requires root privileges for a safe shutdown of the virtual machine?
 
 ---
 
-## Μέρος Γ — Σύνθετες Ερωτήσεις
-
-### Άσκηση 26
-Ένας νέος φοιτητής συνδέεται για πρώτη φορά σε σύστημα Linux. Περιγράψτε βήμα-βήμα τη διαδικασία από την εμφάνιση της προτροπής `login:` μέχρι την εμφάνιση του shell prompt.
+### Exercise 25
+Explain what the concept of "chaining programs" means in the UNIX philosophy. Give a simple example (without using pipes yet — only as a concept).
 
 ---
 
-### Άσκηση 27
-Συγκρίνετε τα Windows, macOS και UNIX/Linux ως προς: (α) φιλοσοφία σχεδιασμού, (β) πολυχρηστικότητα, (γ) ανοικτού κώδικα vs εμπορικό μοντέλο.
+## Part C — Complex Questions
+
+### Exercise 26
+A new student logs in for the first time to a Linux system. Describe step-by-step the process from the appearance of the `login:` prompt to the appearance of the shell prompt.
 
 ---
 
-### Άσκηση 28
-Γιατί η μετάβαση του UNIX από assembly σε C το 1973 θεωρείται καθοριστική για την εξάπλωσή του σε διαφορετικές αρχιτεκτονικές;
+### Exercise 27
+Compare Windows, macOS and UNIX/Linux with respect to: (a) design philosophy, (b) multi-user support, (c) open source vs commercial model.
 
 ---
 
-### Άσκηση 29
-Ο χρήστης `maria` έχει UID=1001, GID=100, home directory `/home/maria` και shell `/bin/bash`. Εξηγήστε τι σημαίνει καθεμία από αυτές τις ιδιότητες κατά την εκκίνηση μιας συνεδρίας.
+### Exercise 28
+Why is the transition of UNIX from assembly to C in 1973 considered decisive for its spread across different architectures?
 
 ---
 
-### Άσκηση 30
-Σημειώστε **Σ** ή **Λ** και αιτιολογήστε σύντομα:
+### Exercise 29
+The user `maria` has UID=1001, GID=100, home directory `/home/maria` and shell `/bin/bash`. Explain what each of these properties means when starting a session.
 
-1. Οι κωδικοί πρόσβασης στο UNIX είναι case-insensitive.
-2. Το `/root` είναι ο home directory του superuser.
-3. Το BusyBox χρησιμοποιείται σε ελαφριά περιβάλλοντα όπως το JSLinux.
-4. Η εντολή `passwd` μπορεί να εκτελεστεί χωρίς διαδραστική επιβεβαίωση σε όλα τα συστήματα.
-5. Το `/bin` περιέχει αρχεία ρυθμίσεων του συστήματος.
+---
+
+### Exercise 30
+Mark **T** or **F** and briefly justify:
+
+1. Passwords in UNIX are case-insensitive.
+2. `/root` is the home directory of the superuser.
+3. BusyBox is used in lightweight environments such as JSLinux.
+4. The `passwd` command can be executed without interactive confirmation on all systems.
+5. `/bin` contains system configuration files.

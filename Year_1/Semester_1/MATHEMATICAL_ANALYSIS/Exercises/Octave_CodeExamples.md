@@ -77,7 +77,7 @@ Dy = (sym)
   15*x + 2*cos(x)
 ```
 
-**Problem/Function:** Find the 3rd derivative of $$f(x) = 2\sin(x) + 3x^5$$ and then evaluate the result at $$x = π$$.
+**Problem/Function:** Find the 3rd derivative of $$f(x) = 2\sin(x) + 3x^5$$ and then evaluate the result at $$x = \pi$$.
 
 **MATLAB/Octave Code:**
 ```matlab
@@ -359,7 +359,7 @@ ans = 5
 ans = 0.64350
 ```
 
-**Problem:** Convert the complex number from polar to Cartesian form: $$r = 5$$, $$θ = π/4$$.
+**Problem:** Convert the complex number from polar to Cartesian form: $$r = 5$$, $$\theta = \pi/4$$.
 
 **MATLAB/Octave Code:**
 ```matlab

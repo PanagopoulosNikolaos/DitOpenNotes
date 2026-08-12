@@ -1,50 +1,50 @@
-# Γλώσσα SQL: Ορισμός Δεδομένων (DDL — Data Definition Language)
+# SQL Language: Data Definition (DDL — Data Definition Language)
 *SQL Language: Data Definition Language*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Διαχείριση Βάσεων Δεδομένων](#διαχείριση-βάσεων-δεδομένων)
+1. [Introduction](#introduction)
+2. [Database Management](#database-management)
    - [CREATE DATABASE / SCHEMA](#create-database--schema)
    - [DROP DATABASE](#drop-database)
    - [USE](#use)
    - [SHOW DATABASES](#show-databases)
-3. [Διαχείριση Πινάκων (Δομή/Σχήμα)](#διαχείριση-πινάκων-δομήσχήμα)
+3. [Table Management (Structure/Schema)](#table-management-structureschema)
    - [CREATE TABLE](#create-table)
    - [DROP TABLE](#drop-table)
    - [DESCRIBE / EXPLAIN](#describe--explain)
-4. [Τροποποίηση Σχήματος Πίνακα (ALTER TABLE)](#τροποποίηση-σχήματος-πίνακα-alter-table)
+4. [Modifying the Table Schema (ALTER TABLE)](#modifying-the-table-schema-alter-table)
    - [ADD](#add)
    - [MODIFY](#modify)
    - [CHANGE](#change)
    - [DROP COLUMN](#drop-column)
-5. [Συγκριτικός Πίνακας: Εντολές DDL](#συγκριτικός-πίνακας-εντολές-ddl)
-6. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-7. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+5. [Comparative Table: DDL Commands](#comparative-table-ddl-commands)
+6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+7. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Η **Data Definition Language (DDL)** είναι το υποσύνολο της γλώσσας SQL που χρησιμοποιείται αποκλειστικά για τον **ορισμό, τη δημιουργία, τη μετατροπή και την καταστροφή** των δομών μιας βάσης δεδομένων — δηλαδή των βάσεων (databases/schemas) και των πινάκων (tables). Σε αντίθεση με την DML (Data Manipulation Language) που χειρίζεται τα **δεδομένα** μέσα στους πίνακες, η DDL ορίζει το **σχήμα** (schema) — τον σκελετό πάνω στον οποίο θα αποθηκευτούν τα δεδομένα. Η εκτέλεση κάθε DDL εντολής συνεπάγεται αυτόματη δέσμευση (implicit `COMMIT`) στο MySQL, πράγμα που σημαίνει ότι οι αλλαγές δομής είναι **μόνιμες και μη αναστρέψιμες** χωρίς αντίγραφα ασφαλείας. Η κατανόηση της DDL είναι θεμελιώδης, καθώς συνδέει τη λογική σχεδίαση (Βήμα 3 του κύκλου ζωής) με την πραγματική υλοποίηση στο DBMS.
+**Data Definition Language (DDL)** is the subset of the SQL language used exclusively for the **definition, creation, alteration, and destruction** of a database's structures — namely the databases (databases/schemas) and the tables. In contrast to DML (Data Manipulation Language), which handles the **data** inside tables, DDL defines the **schema** — the skeleton on which the data will be stored. Executing any DDL statement entails an automatic commit (implicit `COMMIT`) in MySQL, which means that structural changes are **permanent and irreversible** without backups. Understanding DDL is fundamental, as it links logical design (Step 3 of the lifecycle) with the actual implementation in the DBMS.
 
 ---
 
-## Διαχείριση Βάσεων Δεδομένων
+## Database Management
 *Database Management*
 
-Πριν από τη δημιουργία οποιουδήποτε πίνακα, απαιτείται η ύπαρξη μιας **βάσης δεδομένων** (database ή schema) που θα τον περιέχει. Η βάση δεδομένων λειτουργεί ως **χώρος ονομάτων** (namespace) — απομονώνει τους πίνακες και τα αντικείμενα ενός έργου από άλλα έργα που εκτελούνται στον ίδιο MySQL Server.
+Before creating any table, a **database** (database or schema) that will contain it must exist. The database acts as a **namespace** — it isolates the tables and objects of one project from other projects running on the same MySQL Server.
 
-**Αναλογία**: Η βάση δεδομένων είναι σαν ένα **φάκελο αρχείων** σε έναν υπολογιστή — ο MySQL Server είναι ο σκληρός δίσκος, κάθε βάση είναι ένας ξεχωριστός φάκελος, και οι πίνακες είναι τα έγγραφα μέσα στον φάκελο.
+**Analogy**: The database is like a **file folder** on a computer — the MySQL Server is the hard disk, each database is a separate folder, and the tables are the documents inside the folder.
 
 ```text
   MySQL Server
   |
-  +-- university_db/          <-- Βάση Δεδομένων (DATABASE)
-  |   +-- Foititis             <-- Πίνακας (TABLE)
+  +-- university_db/          <-- Database (DATABASE)
+  |   +-- Foititis             <-- Table (TABLE)
   |   +-- Mathima
   |   +-- Tmima
   |
@@ -57,21 +57,21 @@
 ---
 
 ### CREATE DATABASE / SCHEMA
-*Δημιουργία Νέας Βάσης Δεδομένων*
+*Creating a New Database*
 
-Η εντολή `CREATE DATABASE` (ή συνώνυμα `CREATE SCHEMA`) δημιουργεί μια **νέα, κενή βάση δεδομένων** στον MySQL Server. Μετά τη δημιουργία, η βάση δεν περιέχει κανέναν πίνακα.
+The `CREATE DATABASE` statement (or its synonym `CREATE SCHEMA`) creates a **new, empty database** on the MySQL Server. After creation, the database contains no tables.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 CREATE DATABASE database_name;
--- Ή ισοδύναμα:
+-- Or equivalently:
 CREATE SCHEMA schema_name;
 ```
 
-**Παράδειγμα — Δημιουργία βάσης πανεπιστημίου:**
+**Example — Creating a university database:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SHOW DATABASES;
@@ -86,13 +86,13 @@ CREATE SCHEMA schema_name;
   4 rows in set (0.00 sec)
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 CREATE DATABASE university_db;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SHOW DATABASES;
@@ -108,80 +108,80 @@ CREATE DATABASE university_db;
   5 rows in set (0.00 sec)
 ```
 
-**Ασφαλής δημιουργία με `IF NOT EXISTS`:**
+**Safe creation with `IF NOT EXISTS`:**
 
 ```sql
--- Αποτρέπει σφάλμα εάν η βάση υπάρχει ήδη
+-- Prevents an error if the database already exists
 CREATE DATABASE IF NOT EXISTS university_db;
 ```
 
-**Exam Note:** Στην MySQL, `DATABASE` και `SCHEMA` είναι **απολύτως συνώνυμα** — οι δύο εντολές παράγουν ακριβώς το ίδιο αποτέλεσμα. Σε άλλα DBMS (π.χ. PostgreSQL), `DATABASE` και `SCHEMA` έχουν διαφορετική σημασία.
+**Exam Note:** In MySQL, `DATABASE` and `SCHEMA` are **completely synonymous** — the two statements produce exactly the same result. In other DBMSs (e.g., PostgreSQL), `DATABASE` and `SCHEMA` have different meanings.
 
 ---
 
 ### DROP DATABASE
-*Ολική Διαγραφή Βάσης Δεδομένων*
+*Total Deletion of a Database*
 
-Η εντολή `DROP DATABASE` **καταστρέφει ολοσχερώς** μια βάση δεδομένων μαζί με **όλους τους πίνακες, τα δεδομένα και τα αντικείμενα** που περιέχει. Η ενέργεια αυτή είναι **μόνιμη και αμετάκλητη** — δεν υπάρχει `UNDO`.
+The `DROP DATABASE` statement **completely destroys** a database along with **all the tables, data, and objects** it contains. This action is **permanent and irrevocable** — there is no `UNDO`.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DROP DATABASE database_name;
--- Ή ισοδύναμα:
+-- Or equivalently:
 DROP SCHEMA schema_name;
 ```
 
-**Παράδειγμα — Διαγραφή βάσης:**
+**Example — Deleting a database:**
 
 ```sql
 DROP DATABASE university_db;
 ```
 
-**Ασφαλής διαγραφή με `IF EXISTS`:**
+**Safe deletion with `IF EXISTS`:**
 
 ```sql
--- Αποτρέπει σφάλμα εάν η βάση δεν υπάρχει
+-- Prevents an error if the database does not exist
 DROP DATABASE IF EXISTS university_db;
 ```
 
-**Συγκριτικός Πίνακας: `CREATE DATABASE` vs `DROP DATABASE`:**
+**Comparative Table: `CREATE DATABASE` vs `DROP DATABASE`:**
 
-| Χαρακτηριστικό | `CREATE DATABASE` | `DROP DATABASE` |
+| Characteristic | `CREATE DATABASE` | `DROP DATABASE` |
 |---|---|---|
-| **Σκοπός** | Δημιουργεί νέα, κενή ΒΔ | Καταστρέφει υπάρχουσα ΒΔ |
-| **Προϋπόθεση** | Η ΒΔ δεν πρέπει να υπάρχει ήδη | Η ΒΔ πρέπει να υπάρχει |
-| **Αποτέλεσμα σε δεδομένα** | Δεν επηρεάζει | Διαγράφει όλα τα δεδομένα και πίνακες |
-| **Αναστρεψιμότητα** | Αναστρέψιμη με `DROP` | Μη αναστρέψιμη |
-| **Ασφαλής παραλλαγή** | `CREATE DATABASE IF NOT EXISTS` | `DROP DATABASE IF EXISTS` |
+| **Purpose** | Creates a new, empty database | Destroys an existing database |
+| **Precondition** | The database must not already exist | The database must exist |
+| **Effect on data** | No effect | Deletes all data and tables |
+| **Reversibility** | Reversible with `DROP` | Irreversible |
+| **Safe variant** | `CREATE DATABASE IF NOT EXISTS` | `DROP DATABASE IF EXISTS` |
 
-**Key Distinction:** Η `DROP DATABASE` είναι η **πιο καταστροφική** DDL εντολή — διαγράφει ολόκληρη η βάση με όλα τα περιεχόμενά της. Στα παραγωγικά περιβάλλοντα (production), απαιτείται πάντα αντίγραφο ασφαλείας (backup) πριν την εκτέλεσή της.
+**Key Distinction:** `DROP DATABASE` is the **most destructive** DDL statement — it deletes the entire database with all its contents. In production environments, a backup is always required before executing it.
 
 ---
 
 ### USE
-*Επιλογή Ενεργής Βάσης Δεδομένων για το Τρέχον Session*
+*Selecting the Active Database for the Current Session*
 
-Η εντολή `USE` ορίζει ποια βάση δεδομένων θα χρησιμοποιηθεί ως **προεπιλεγμένο πλαίσιο εργασίας** για τις επόμενες εντολές SQL του τρέχοντος session. Χωρίς `USE`, κάθε αναφορά σε πίνακα πρέπει να προσδιορίζει ρητά τη βάση δεδομένων (π.χ. `university_db.Foititis`).
+The `USE` statement sets which database will be used as the **default working context** for the subsequent SQL statements of the current session. Without `USE`, every reference to a table must explicitly specify the database (e.g., `university_db.Foititis`).
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 USE database_name;
 ```
 
-**Παράδειγμα — Επιλογή ενεργής βάσης και χρήση της:**
+**Example — Selecting the active database and using it:**
 
 ```sql
--- Ορισμός ενεργής βάσης
+-- Setting the active database
 USE university_db;
 
--- Από εδώ και πέρα, όλες οι εντολές αναφέρονται στη university_db
--- χωρίς να χρειάζεται πλήρης προσδιορισμός (fully qualified name)
-SELECT * FROM Foititis;  -- Ισοδύναμο με: SELECT * FROM university_db.Foititis
+-- From now on, all statements refer to university_db
+-- without needing a fully qualified name
+SELECT * FROM Foititis;  -- Equivalent to: SELECT * FROM university_db.Foititis
 ```
 
-**Επαλήθευση ενεργής βάσης:**
+**Verifying the active database:**
 
 ```sql
 SELECT DATABASE();
@@ -196,22 +196,22 @@ SELECT DATABASE();
   1 row in set (0.00 sec)
 ```
 
-**Exam Note:** Η `USE` επηρεάζει **μόνο το τρέχον session** (σύνδεση) — δεν αλλάζει τις ρυθμίσεις άλλων χρηστών ή συνδέσεων. Κάθε νέο session ξεκινά χωρίς ενεργή βάση δεδομένων.
+**Exam Note:** `USE` affects **only the current session** (connection) — it does not change the settings of other users or connections. Every new session starts without an active database.
 
 ---
 
 ### SHOW DATABASES
-*Προβολή Όλων των Διαθέσιμων Βάσεων Δεδομένων*
+*Viewing All Available Databases*
 
-Η εντολή `SHOW DATABASES` επιστρέφει λίστα με **όλες τις βάσεις δεδομένων** που υπάρχουν στον τρέχοντα MySQL Server και στις οποίες ο τρέχων χρήστης έχει δικαίωμα πρόσβασης.
+The `SHOW DATABASES` statement returns a list of **all the databases** that exist on the current MySQL Server and to which the current user has access rights.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 SHOW DATABASES;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +--------------------+
@@ -227,37 +227,37 @@ SHOW DATABASES;
   6 rows in set (0.00 sec)
 ```
 
-**Σύντομος οδηγός ροής εργασίας — Δημιουργία και χρήση νέας βάσης:**
+**Brief workflow guide — Creating and using a new database:**
 
 ```sql
--- Βήμα 1: Έλεγχος υπαρχουσών βάσεων
+-- Step 1: Check existing databases
 SHOW DATABASES;
 
--- Βήμα 2: Δημιουργία νέας βάσης
+-- Step 2: Create a new database
 CREATE DATABASE university_db;
 
--- Βήμα 3: Επιλογή ως ενεργής
+-- Step 3: Select as active
 USE university_db;
 
--- Βήμα 4: Επαλήθευση
+-- Step 4: Verify
 SELECT DATABASE();
 ```
 
 ---
 
-## Διαχείριση Πινάκων (Δομή/Σχήμα)
+## Table Management (Structure/Schema)
 *Table Management (Structure/Schema)*
 
-Ο **πίνακας** (table) είναι η θεμελιώδης δομή αποθήκευσης δεδομένων στο σχεσιακό μοντέλο. Κάθε πίνακας αποτελείται από **στήλες** (columns/attributes) με συγκεκριμένους τύπους δεδομένων και **γραμμές** (rows/tuples) που περιέχουν τα πραγματικά δεδομένα. Η DDL παρέχει εντολές για τη **δημιουργία**, **καταστροφή** και **επιθεώρηση** της δομής των πινάκων.
+The **table** is the fundamental data storage structure in the relational model. Each table consists of **columns** (attributes) with specific data types and **rows** (tuples) that contain the actual data. DDL provides statements for the **creation**, **destruction**, and **inspection** of table structures.
 
 ---
 
 ### CREATE TABLE
-*Δημιουργία Πίνακα, Ορισμός Πεδίων, Τύπων και Primary Key*
+*Creating a Table, Defining Fields, Types, and the Primary Key*
 
-Η εντολή `CREATE TABLE` είναι η **κεντρική DDL εντολή** — ορίζει το σχήμα ενός νέου πίνακα: τα ονόματα των στηλών, τους τύπους δεδομένων τους, τους περιορισμούς (constraints) και τα κλειδιά.
+The `CREATE TABLE` statement is the **central DDL statement** — it defines the schema of a new table: the column names, their data types, the constraints, and the keys.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 CREATE TABLE table_name (
@@ -268,49 +268,49 @@ CREATE TABLE table_name (
 );
 ```
 
-**Βασικοί τύποι δεδομένων (Data Types) στη MySQL:**
+**Basic data types (Data Types) in MySQL:**
 
-| Κατηγορία | Τύπος | Περιγραφή | Παράδειγμα Χρήσης |
+| Category | Type | Description | Usage Example |
 |---|---|---|---|
-| **Ακέραιοι** | `INT` / `INTEGER` | Ακέραιος 32-bit (-2.1Β έως 2.1Β) | ΑΜ φοιτητή, ηλικία |
-| **Ακέραιοι** | `TINYINT` | Ακέραιος 8-bit (0-255 ή -128 έως 127) | Ενεργός/ανενεργός (0/1) |
-| **Ακέραιοι** | `BIGINT` | Ακέραιος 64-bit | Αριθμοί συναλλαγών |
-| **Δεκαδικοί** | `DECIMAL(p,s)` | Ακριβής δεκαδικός, p ψηφία, s δεκαδικά | Βαθμός (4,2), χρηματικά ποσά |
-| **Δεκαδικοί** | `FLOAT` / `DOUBLE` | Κινητής υποδιαστολής (προσεγγιστικός) | Επιστημονικές τιμές |
-| **Κείμενο** | `VARCHAR(n)` | Μεταβλητού μήκους έως n χαρακτήρες | Ονόματα, email |
-| **Κείμενο** | `CHAR(n)` | Σταθερού μήκους n χαρακτήρες | Κωδικοί (π.χ. κωδ. χώρας) |
-| **Κείμενο** | `TEXT` | Μεγάλο κείμενο (έως 65.535 χαρ.) | Περιγραφές, σχόλια |
-| **Ημερομηνία** | `DATE` | Ημερομηνία (YYYY-MM-DD) | Ημερομηνία γέννησης |
-| **Ημερομηνία** | `DATETIME` | Ημερομηνία και ώρα | Χρονική σήμανση εγγραφής |
-| **Ημερομηνία** | `YEAR` | Έτος 4 ψηφίων | Ακαδημαϊκό έτος |
+| **Integers** | `INT` / `INTEGER` | 32-bit integer (-2.1B to 2.1B) | Student ID, age |
+| **Integers** | `TINYINT` | 8-bit integer (0-255 or -128 to 127) | Active/inactive (0/1) |
+| **Integers** | `BIGINT` | 64-bit integer | Transaction numbers |
+| **Decimals** | `DECIMAL(p,s)` | Exact decimal, p digits, s decimal places | Grade (4,2), monetary amounts |
+| **Decimals** | `FLOAT` / `DOUBLE` | Floating-point (approximate) | Scientific values |
+| **Text** | `VARCHAR(n)` | Variable length up to n characters | Names, emails |
+| **Text** | `CHAR(n)` | Fixed length of n characters | Codes (e.g., country code) |
+| **Text** | `TEXT` | Large text (up to 65,535 chars) | Descriptions, comments |
+| **Date** | `DATE` | Date (YYYY-MM-DD) | Date of birth |
+| **Date** | `DATETIME` | Date and time | Record timestamp |
+| **Date** | `YEAR` | 4-digit year | Academic year |
 
-**Βασικοί περιορισμοί (Constraints):**
+**Basic constraints:**
 
-| Constraint | Σκοπός |
+| Constraint | Purpose |
 |---|---|
-| `NOT NULL` | Η στήλη δεν επιτρέπει NULL τιμές |
-| `UNIQUE` | Κάθε τιμή στη στήλη πρέπει να είναι μοναδική |
-| `DEFAULT value` | Ορίζει προεπιλεγμένη τιμή εάν δεν δοθεί τιμή |
-| `PRIMARY KEY` | Μοναδική ταυτοποίηση κάθε γραμμής — `NOT NULL` + `UNIQUE` |
-| `FOREIGN KEY` | Αναφορά σε Primary Key άλλου πίνακα |
-| `AUTO_INCREMENT` | Αυτόματη αύξηση τιμής (συνήθως για PK) |
-| `CHECK (condition)` | Επαληθεύει ότι η τιμή ικανοποιεί κάποια συνθήκη |
+| `NOT NULL` | The column does not allow NULL values |
+| `UNIQUE` | Every value in the column must be unique |
+| `DEFAULT value` | Sets a default value if no value is given |
+| `PRIMARY KEY` | Unique identification of each row — `NOT NULL` + `UNIQUE` |
+| `FOREIGN KEY` | Reference to the Primary Key of another table |
+| `AUTO_INCREMENT` | Automatic value increment (usually for PK) |
+| `CHECK (condition)` | Verifies that the value satisfies some condition |
 
-**Παράδειγμα — Δημιουργία πίνακα Τμήμα:**
+**Example — Creating the Department table:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SHOW TABLES;
   Empty set (0.00 sec)
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 USE university_db;
 
--- Δημιουργία πίνακα Τμήμα (referenced table — δημιουργείται πρώτος)
+-- Creating the Department table (referenced table - created first)
 CREATE TABLE Tmima (
     dept_id    INT           NOT NULL AUTO_INCREMENT,
     onoma      VARCHAR(100)  NOT NULL,
@@ -318,7 +318,7 @@ CREATE TABLE Tmima (
     CONSTRAINT pk_tmima PRIMARY KEY (dept_id)
 );
 
--- Δημιουργία πίνακα Φοιτητής (με Foreign Key προς Τμήμα)
+-- Creating the Student table (with Foreign Key to Department)
 CREATE TABLE Foititis (
     am         INT           NOT NULL,
     onoma      VARCHAR(50)   NOT NULL,
@@ -332,7 +332,7 @@ CREATE TABLE Foititis (
 );
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SHOW TABLES;
@@ -345,7 +345,7 @@ CREATE TABLE Foititis (
   2 rows in set (0.00 sec)
 ```
 
-**Σχεσιακό Σχήμα που αντιστοιχεί στους παραπάνω πίνακες:**
+**Relational schema corresponding to the tables above:**
 
 ```text
   Tmima(<u>dept_id</u>, onoma, tilefono)
@@ -354,72 +354,72 @@ CREATE TABLE Foititis (
                                              Foreign Key -> Tmima(dept_id)
 ```
 
-**Key Distinction:** Η σειρά δημιουργίας πινάκων είναι κρίσιμη όταν υπάρχουν Foreign Keys. Ο **referenced πίνακας** (αυτός που αναφέρεται) πρέπει να δημιουργηθεί **πριν** από τον referencing (αυτόν που κάνει την αναφορά). Στο παράδειγμα: `Tmima` πρέπει να δημιουργηθεί **πριν** τον `Foititis`.
+**Key Distinction:** The order of table creation is critical when Foreign Keys exist. The **referenced table** (the one being referenced) must be created **before** the referencing one (the one making the reference). In the example: `Tmima` must be created **before** `Foititis`.
 
 ---
 
 ### DROP TABLE
-*Οριστική Διαγραφή Πίνακα*
+*Permanent Deletion of a Table*
 
-Η εντολή `DROP TABLE` **καταστρέφει οριστικά** έναν πίνακα μαζί με **όλα τα δεδομένα** που περιέχει. Η ενέργεια αυτή είναι **μη αναστρέψιμη**.
+The `DROP TABLE` statement **permanently destroys** a table along with **all the data** it contains. This action is **irreversible**.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DROP TABLE table_name;
 ```
 
-**Ασφαλής διαγραφή με `IF EXISTS`:**
+**Safe deletion with `IF EXISTS`:**
 
 ```sql
--- Αποτρέπει σφάλμα εάν ο πίνακας δεν υπάρχει
+-- Prevents an error if the table does not exist
 DROP TABLE IF EXISTS Foititis;
 ```
 
-**Παράδειγμα — Σωστή σειρά διαγραφής με Foreign Keys:**
+**Example — Correct deletion order with Foreign Keys:**
 
 ```sql
--- Λάθος σειρά: θα αποτύχει λόγω Foreign Key constraint
--- DROP TABLE Tmima;  -- ERROR: Ο Foititis εξαρτάται από τον Tmima
+-- Wrong order: will fail due to Foreign Key constraint
+-- DROP TABLE Tmima;  -- ERROR: Foititis depends on Tmima
 
--- Σωστή σειρά: διαγραφή των referencing πινάκων πρώτα
-DROP TABLE IF EXISTS Foititis;  -- Πρώτα ο πίνακας με τον FK
-DROP TABLE IF EXISTS Tmima;     -- Μετά ο referenced πίνακας
+-- Correct order: delete the referencing tables first
+DROP TABLE IF EXISTS Foititis;  -- First the table with the FK
+DROP TABLE IF EXISTS Tmima;     -- Then the referenced table
 ```
 
-**Συγκριτικός Πίνακας: `DROP TABLE` vs `DELETE FROM`:**
+**Comparative Table: `DROP TABLE` vs `DELETE FROM`:**
 
-| Χαρακτηριστικό | `DROP TABLE` | `DELETE FROM table` |
+| Characteristic | `DROP TABLE` | `DELETE FROM table` |
 |---|---|---|
-| **Κατηγορία SQL** | DDL | DML |
-| **Τι καταστρέφει** | Τον πίνακα ΚΑΙ τα δεδομένα | Μόνο τα δεδομένα (γραμμές) |
-| **Δομή πίνακα** | Διαγράφεται | Παραμένει άθικτη |
-| **Αναστρεψιμότητα** | Μη αναστρέψιμη | Αναστρέψιμη μέσω `ROLLBACK` (εντός transaction) |
-| **Χρήση** | Permanent removal | Εκκαθάριση δεδομένων |
+| **SQL category** | DDL | DML |
+| **What it destroys** | The table AND the data | Only the data (rows) |
+| **Table structure** | Deleted | Remains intact |
+| **Reversibility** | Irreversible | Reversible via `ROLLBACK` (within a transaction) |
+| **Use** | Permanent removal | Data clearing |
 
 ---
 
 ### DESCRIBE / EXPLAIN
-*Προβολή Σχήματος / Metadata του Πίνακα*
+*Viewing the Table's Schema / Metadata*
 
-Οι εντολές `DESCRIBE` (ή `DESC`) και `EXPLAIN` επιστρέφουν πληροφορίες για τη **δομή ενός πίνακα**: τα ονόματα των στηλών, τους τύπους δεδομένων, τους περιορισμούς και τις προεπιλεγμένες τιμές τους.
+The `DESCRIBE` (or `DESC`) and `EXPLAIN` statements return information about a **table's structure**: the column names, the data types, the constraints, and their default values.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DESCRIBE table_name;
--- Ή ισοδύναμα:
+-- Or equivalently:
 DESC table_name;
 EXPLAIN table_name;
 ```
 
-**Παράδειγμα — Επιθεώρηση δομής πίνακα `Foititis`:**
+**Example — Inspecting the structure of table `Foititis`:**
 
 ```sql
 DESCRIBE Foititis;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-----------+--------------+------+-----+---------+-------+
@@ -435,58 +435,58 @@ DESCRIBE Foititis;
   6 rows in set (0.00 sec)
 ```
 
-**Ερμηνεία στηλών αποτελέσματος:**
+**Interpretation of the result columns:**
 
-| Στήλη Αποτελέσματος | Σημασία |
+| Result Column | Meaning |
 |---|---|
-| **Field** | Όνομα στήλης |
-| **Type** | Τύπος δεδομένων |
-| **Null** | `YES` = επιτρέπεται NULL, `NO` = NOT NULL |
+| **Field** | Column name |
+| **Type** | Data type |
+| **Null** | `YES` = NULL allowed, `NO` = NOT NULL |
 | **Key** | `PRI` = Primary Key, `UNI` = UNIQUE, `MUL` = Foreign Key / Non-unique Index |
-| **Default** | Προεπιλεγμένη τιμή (NULL αν δεν ορίστηκε) |
-| **Extra** | Πρόσθετες πληροφορίες (π.χ. `auto_increment`) |
+| **Default** | Default value (NULL if not set) |
+| **Extra** | Additional information (e.g., `auto_increment`) |
 
-**Exam Note:** Το `DESCRIBE` είναι εντολή **επιθεώρησης μεταδεδομένων** (metadata) — δεν επιστρέφει τα δεδομένα του πίνακα αλλά τη **δομή** του. Για να δει κανείς τα δεδομένα, απαιτείται η `SELECT`.
+**Exam Note:** `DESCRIBE` is a **metadata inspection** statement — it does not return the table's data but its **structure**. To see the data, `SELECT` is required.
 
 ---
 
-## Τροποποίηση Σχήματος Πίνακα (ALTER TABLE)
+## Modifying the Table Schema (ALTER TABLE)
 *Modifying the Table Schema*
 
-Η εντολή `ALTER TABLE` επιτρέπει την **τροποποίηση της δομής ενός υπάρχοντος πίνακα** χωρίς να χρειαστεί να τον διαγράψουμε και να τον ξαναδημιουργήσουμε. Είναι ιδιαίτερα χρήσιμη σε παραγωγικά περιβάλλοντα όπου ο πίνακας περιέχει ήδη δεδομένα.
+The `ALTER TABLE` statement allows the **modification of an existing table's structure** without having to drop it and recreate it. It is especially useful in production environments where the table already contains data.
 
-**Αναλογία**: Η `ALTER TABLE` είναι σαν μια ανακαίνιση κτιρίου εν χρήσει — προσθέτουμε ή αφαιρούμε δωμάτια ενώ το κτίριο παραμένει σε λειτουργία. Η `DROP TABLE` + `CREATE TABLE` θα αντιστοιχούσε στην κατεδάφιση και ανοικοδόμηση εξ αρχής.
+**Analogy**: `ALTER TABLE` is like renovating a building in use — we add or remove rooms while the building remains operational. `DROP TABLE` + `CREATE TABLE` would correspond to demolishing and rebuilding from scratch.
 
 ```text
-  ALTER TABLE εντολές:
+  ALTER TABLE clauses:
   
   +------------------+-----------------------------------------+
-  |     Λέξη Κλειδί  |  Ενέργεια                               |
+  |     Keyword      |  Action                                 |
   +------------------+-----------------------------------------+
-  | ADD              | Προσθήκη νέας στήλης (στο τέλος)        |
-  | MODIFY           | Αλλαγή τύπου/constraints υπάρχουσας στήλης|
-  | CHANGE           | Μετονομασία + αλλαγή τύπου στήλης       |
-  | DROP COLUMN      | Αφαίρεση στήλης (και των δεδομένων της) |
+  | ADD              | Adds a new column (at the end)          |
+  | MODIFY           | Changes type/constraints of a column    |
+  | CHANGE           | Renames + changes the column type       |
+  | DROP COLUMN      | Removes a column (and its data)         |
   +------------------+-----------------------------------------+
 ```
 
 ---
 
 ### ADD
-*Προσθήκη Νέας Στήλης στο Τέλος*
+*Adding a New Column at the End*
 
-Η ρήτρα `ADD` προσθέτει μια **νέα στήλη** στο τέλος του πίνακα. Οι υπάρχουσες γραμμές λαμβάνουν αυτόματα `NULL` στη νέα στήλη (ή την τιμή `DEFAULT` εάν ορίστηκε).
+The `ADD` clause adds a **new column** at the end of the table. Existing rows automatically receive `NULL` in the new column (or the `DEFAULT` value if one was set).
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     ADD column_name datatype [constraints];
 ```
 
-**Παράδειγμα — Προσθήκη στήλης `tilefono` στον πίνακα `Foititis`:**
+**Example — Adding column `tilefono` to table `Foititis`:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> DESCRIBE Foititis;
@@ -502,14 +502,14 @@ ALTER TABLE table_name
   +-----------+--------------+------+-----+---------+-------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 ALTER TABLE Foititis
     ADD tilefono VARCHAR(15);
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> DESCRIBE Foititis;
@@ -522,211 +522,211 @@ ALTER TABLE Foititis
   | email     | varchar(100) | YES  | UNI | NULL    |       |
   | hmerominia| date         | YES  |     | NULL    |       |
   | dept_id   | int          | NO   | MUL | NULL    |       |
-  | tilefono  | varchar(15)  | YES  |     | NULL    |       |  <-- Νέα στήλη
+  | tilefono  | varchar(15)  | YES  |     | NULL    |       |  <-- New column
   +-----------+--------------+------+-----+---------+-------+
 ```
 
-**Προσθήκη στήλης με DEFAULT τιμή:**
+**Adding a column with a DEFAULT value:**
 
 ```sql
--- Η νέα στήλη λαμβάνει τιμή 1 (ενεργός) για τις υπάρχουσες γραμμές
+-- The new column receives the value 1 (active) for the existing rows
 ALTER TABLE Foititis
     ADD energos TINYINT DEFAULT 1;
 ```
 
-**Exam Note:** Η `ADD` τοποθετεί τη νέα στήλη **πάντα στο τέλος** του πίνακα. Για τοποθέτηση σε συγκεκριμένη θέση, χρησιμοποιείται η σύνταξη `ADD column_name datatype AFTER other_column` ή `ADD column_name datatype FIRST`.
+**Exam Note:** `ADD` always places the new column **at the end** of the table. To place it at a specific position, the syntax `ADD column_name datatype AFTER other_column` or `ADD column_name datatype FIRST` is used.
 
 ---
 
 ### MODIFY
-*Αλλαγή του Τύπου Δεδομένων μιας Υπάρχουσας Στήλης*
+*Changing the Data Type of an Existing Column*
 
-Η ρήτρα `MODIFY` αλλάζει τον **τύπο δεδομένων** ή/και τους **περιορισμούς** (constraints) μιας υπάρχουσας στήλης, **χωρίς να αλλάξει το όνομά της**.
+The `MODIFY` clause changes the **data type** and/or the **constraints** of an existing column, **without changing its name**.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     MODIFY column_name new_datatype [new_constraints];
 ```
 
-**Παράδειγμα — Επέκταση `VARCHAR` στήλης `onoma`:**
+**Example — Extending the `VARCHAR` column `onoma`:**
 
-**Κατάσταση πριν:** `onoma VARCHAR(50) NOT NULL`
+**Before:** `onoma VARCHAR(50) NOT NULL`
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Επέκταση ορίου χαρακτήρων από 50 σε 100
+-- Extending the character limit from 50 to 100
 ALTER TABLE Foititis
     MODIFY onoma VARCHAR(100) NOT NULL;
 ```
 
-**Κατάσταση μετά:** `onoma VARCHAR(100) NOT NULL`
+**After:** `onoma VARCHAR(100) NOT NULL`
 
-**Παράδειγμα — Προσθήκη DEFAULT τιμής σε υπάρχουσα στήλη:**
+**Example — Adding a DEFAULT value to an existing column:**
 
 ```sql
--- Ορισμός προεπιλεγμένης τιμής στη στήλη tilefono
+-- Setting a default value in the tilefono column
 ALTER TABLE Foititis
     MODIFY tilefono VARCHAR(15) DEFAULT 'N/A';
 ```
 
-**Exam Note:** Κατά τη χρήση `MODIFY`, **πρέπει να επαναδηλωθεί ο πλήρης ορισμός** της στήλης (τύπος + constraints). Εάν παραληφθεί κάποιος υπάρχων constraint (π.χ. `NOT NULL`), **αυτός θα αφαιρεθεί** από τη στήλη.
+**Exam Note:** When using `MODIFY`, **the full definition** of the column (type + constraints) **must be restated**. If an existing constraint (e.g., `NOT NULL`) is omitted, **it will be removed** from the column.
 
 ---
 
 ### CHANGE
-*Μετονομασία Στήλης με Ταυτόχρονη Δήλωση Νέου Τύπου*
+*Renaming a Column with a Simultaneous Declaration of a New Type*
 
-Η ρήτρα `CHANGE` επιτρέπει **ταυτόχρονη αλλαγή ονόματος ΚΑΙ τύπου** μιας στήλης. Απαιτεί πάντα τη δήλωση και ονόματος και τύπου, ακόμα και εάν αλλάζει μόνο το ένα.
+The `CHANGE` clause allows the **simultaneous change of a column's name AND type**. It always requires declaring both the name and the type, even if only one of them changes.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     CHANGE old_column_name new_column_name new_datatype [constraints];
 ```
 
-**Παράδειγμα — Μετονομασία `onoma` σε `prwto_onoma` με νέο τύπο:**
+**Example — Renaming `onoma` to `prwto_onoma` with a new type:**
 
-**Κατάσταση πριν:** `onoma VARCHAR(100) NOT NULL`
+**Before:** `onoma VARCHAR(100) NOT NULL`
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Μετονομασία και αλλαγή τύπου ταυτόχρονα
+-- Renaming and changing the type simultaneously
 ALTER TABLE Foititis
     CHANGE onoma prwto_onoma VARCHAR(80) NOT NULL;
 ```
 
-**Κατάσταση μετά:** `prwto_onoma VARCHAR(80) NOT NULL`
+**After:** `prwto_onoma VARCHAR(80) NOT NULL`
 
-**Παράδειγμα — Μόνο μετονομασία (τύπος δεν αλλάζει):**
+**Example — Renaming only (the type does not change):**
 
 ```sql
--- Ακόμα και αν δεν αλλάζει ο τύπος, πρέπει να δηλωθεί εκ νέου
+-- Even if the type does not change, it must be declared again
 ALTER TABLE Foititis
     CHANGE tilefono arithmos_tilefonou VARCHAR(15) DEFAULT 'N/A';
 ```
 
-**Συγκριτικός Πίνακας: `MODIFY` vs `CHANGE`:**
+**Comparative Table: `MODIFY` vs `CHANGE`:**
 
-| Χαρακτηριστικό | `MODIFY` | `CHANGE` |
+| Characteristic | `MODIFY` | `CHANGE` |
 |---|---|---|
-| **Αλλαγή ονόματος στήλης** | Δεν υποστηρίζεται | Υποστηρίζεται |
-| **Αλλαγή τύπου δεδομένων** | Υποστηρίζεται | Υποστηρίζεται |
-| **Αλλαγή constraints** | Υποστηρίζεται | Υποστηρίζεται |
-| **Σύνταξη** | `MODIFY col_name new_type` | `CHANGE old_name new_name new_type` |
-| **Απαίτηση νέου ονόματος** | Όχι (χρησιμοποιεί το ίδιο) | Ναι (πάντα απαιτείται) |
+| **Changing the column name** | Not supported | Supported |
+| **Changing the data type** | Supported | Supported |
+| **Changing constraints** | Supported | Supported |
+| **Syntax** | `MODIFY col_name new_type` | `CHANGE old_name new_name new_type` |
+| **Requirement of a new name** | No (uses the same one) | Yes (always required) |
 
-**Key Distinction:** Η `CHANGE` απαιτεί τη δήλωση του **νέου ορισμού** της στήλης (τύπος + constraints) ανεξάρτητα από το αν αλλάζει κάτι. Εάν δεν επαναδηλωθεί ο τύπος, η εντολή θα αποτύχει συντακτικά.
+**Key Distinction:** `CHANGE` requires declaring the **new definition** of the column (type + constraints) regardless of whether anything changes. If the type is not restated, the statement will fail syntactically.
 
 ---
 
 ### DROP COLUMN
-*Αφαίρεση Στήλης — Προκαλεί Απώλεια Δεδομένων*
+*Removing a Column — Causes Data Loss*
 
-Η ρήτρα `DROP COLUMN` **αφαιρεί μόνιμα** μια στήλη από τον πίνακα μαζί με **όλα τα δεδομένα** που περιείχε η στήλη αυτή σε κάθε γραμμή. Η ενέργεια είναι **μη αναστρέψιμη**.
+The `DROP COLUMN` clause **permanently removes** a column from the table along with **all the data** that column contained in every row. The action is **irreversible**.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     DROP COLUMN column_name;
 ```
 
-**Παράδειγμα — Αφαίρεση στήλης `tilefono`:**
+**Example — Removing column `tilefono`:**
 
-**Κατάσταση πριν (για όλες τις γραμμές):**
+**Before (for all rows):**
 
 ```text
   +----+---------+---------+---------------------+------------+---------+-----------+
   | am | onoma   | eponymo | email               | hmerominia | dept_id | tilefono  |
   +----+---------+---------+---------------------+------------+---------+-----------+
-  |  1 | Αλέξης  | Νικολόπ | alex@example.com    | 2001-05-10 |       1 | 694123456 |
-  |  2 | Ελένη   | Παπαδη  | eleni@example.com   | 2002-09-15 |       2 | NULL      |
+  |  1 | Alexis  | Nikolop | alex@example.com    | 2001-05-10 |       1 | 694123456 |
+  |  2 | Eleni   | Papadi  | eleni@example.com   | 2002-09-15 |       2 | NULL      |
   +----+---------+---------+---------------------+------------+---------+-----------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 ALTER TABLE Foititis
     DROP COLUMN tilefono;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   +----+---------+---------+---------------------+------------+---------+
   | am | onoma   | eponymo | email               | hmerominia | dept_id |
   +----+---------+---------+---------------------+------------+---------+
-  |  1 | Αλέξης  | Νικολόπ | alex@example.com    | 2001-05-10 |       1 |
-  |  2 | Ελένη   | Παπαδη  | eleni@example.com   | 2002-09-15 |       2 |
+  |  1 | Alexis  | Nikolop | alex@example.com    | 2001-05-10 |       1 |
+  |  2 | Eleni   | Papadi  | eleni@example.com   | 2002-09-15 |       2 |
   +----+---------+---------+---------------------+------------+---------+
 ```
 
-Τα δεδομένα στήλης `tilefono` (694123456, NULL) **χάθηκαν μόνιμα**.
+The data of column `tilefono` (694123456, NULL) was **permanently lost**.
 
-**Exam Note:** Η `DROP COLUMN` είναι η μόνη `ALTER TABLE` ρήτρα που προκαλεί **απώλεια δεδομένων** — όλα τα δεδομένα της αφαιρούμενης στήλης σε κάθε γραμμή του πίνακα διαγράφονται μόνιμα. Απαιτείται πάντα επαλήθευση και αντίγραφο ασφαλείας πριν από την εκτέλεσή της.
+**Exam Note:** `DROP COLUMN` is the only `ALTER TABLE` clause that causes **data loss** — all the data of the removed column in every row of the table is permanently deleted. Verification and a backup are always required before executing it.
 
 ---
 
-## Συγκριτικός Πίνακας: Εντολές DDL
+## Comparative Table: DDL Commands
 *Comparative Table: DDL Commands*
 
-| Εντολή | Κατηγορία | Επηρεάζει | Αντιστρέψιμη; | Κίνδυνος Απώλειας Δεδομένων |
+| Command | Category | Affects | Reversible? | Risk of Data Loss |
 |---|---|---|---|---|
-| `CREATE DATABASE` | Database | Δημιουργεί νέα ΒΔ | Ναι (με `DROP DATABASE`) | Όχι |
-| `DROP DATABASE` | Database | Καταστρέφει ΒΔ + περιεχόμενο | Όχι | Ναι (ολόκληρη η ΒΔ) |
-| `USE` | Session | Ενεργή ΒΔ τρέχοντος session | Ναι (νέα `USE`) | Όχι |
-| `SHOW DATABASES` | Metadata | Εμφάνιση λίστας ΒΔ | — (μόνο ανάγνωση) | Όχι |
-| `CREATE TABLE` | Table | Δημιουργεί νέο πίνακα | Ναι (με `DROP TABLE`) | Όχι |
-| `DROP TABLE` | Table | Καταστρέφει πίνακα + δεδομένα | Όχι | Ναι (ο πίνακας) |
-| `DESCRIBE` / `EXPLAIN` | Metadata | Εμφάνιση δομής πίνακα | — (μόνο ανάγνωση) | Όχι |
-| `ALTER TABLE ... ADD` | Table Schema | Προσθέτει νέα στήλη | Ναι (με `DROP COLUMN`) | Όχι |
-| `ALTER TABLE ... MODIFY` | Table Schema | Αλλάζει τύπο/constraints στήλης | Μερικώς | Δυνητικά (εάν τύπος ασύμβατος) |
-| `ALTER TABLE ... CHANGE` | Table Schema | Μετονομάζει + αλλάζει τύπο στήλης | Μερικώς | Δυνητικά (εάν τύπος ασύμβατος) |
-| `ALTER TABLE ... DROP COLUMN` | Table Schema | Αφαιρεί στήλη και δεδομένα της | Όχι | Ναι (η στήλη) |
+| `CREATE DATABASE` | Database | Creates a new database | Yes (with `DROP DATABASE`) | No |
+| `DROP DATABASE` | Database | Destroys database + contents | No | Yes (the entire database) |
+| `USE` | Session | Active database of the current session | Yes (new `USE`) | No |
+| `SHOW DATABASES` | Metadata | Displays list of databases | — (read-only) | No |
+| `CREATE TABLE` | Table | Creates a new table | Yes (with `DROP TABLE`) | No |
+| `DROP TABLE` | Table | Destroys table + data | No | Yes (the table) |
+| `DESCRIBE` / `EXPLAIN` | Metadata | Displays table structure | — (read-only) | No |
+| `ALTER TABLE ... ADD` | Table Schema | Adds a new column | Yes (with `DROP COLUMN`) | No |
+| `ALTER TABLE ... MODIFY` | Table Schema | Changes column type/constraints | Partially | Potentially (if the type is incompatible) |
+| `ALTER TABLE ... CHANGE` | Table Schema | Renames + changes column type | Partially | Potentially (if the type is incompatible) |
+| `ALTER TABLE ... DROP COLUMN` | Table Schema | Removes column and its data | No | Yes (the column) |
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **DDL** (Data Definition Language) | Υποσύνολο SQL για ορισμό δομών ΒΔ | Implicit `COMMIT` — αλλαγές είναι μόνιμες |
-| **CREATE DATABASE** | Δημιουργεί νέα, κενή βάση δεδομένων | Συνώνυμο με `CREATE SCHEMA` στη MySQL |
-| **DROP DATABASE** | Καταστρέφει βάση + όλα τα περιεχόμενα | Μη αναστρέψιμη — διαγράφει πίνακες και δεδομένα |
-| **USE** | Ορίζει ενεργή ΒΔ για το τρέχον session | Επηρεάζει μόνο τη συγκεκριμένη σύνδεση |
-| **SHOW DATABASES** | Επιστρέφει λίστα διαθέσιμων ΒΔ | Εμφανίζει μόνο τις ΒΔ με δικαίωμα πρόσβασης |
-| **CREATE TABLE** | Δημιουργεί νέο πίνακα με ορισμένο σχήμα | Απαιτεί τα referenced tables να υπάρχουν ήδη |
-| **DROP TABLE** | Καταστρέφει πίνακα και τα δεδομένα του | Διαφέρει από `DELETE FROM` (διατηρεί δομή) |
-| **DESCRIBE / DESC** | Εμφανίζει metadata/δομή πίνακα | Δείχνει τύπους, keys, NULL, DEFAULT |
-| **ALTER TABLE ADD** | Προσθέτει νέα στήλη στο τέλος πίνακα | Υπάρχουσες γραμμές: τιμή NULL ή DEFAULT |
-| **ALTER TABLE MODIFY** | Αλλάζει τύπο/constraints υπάρχουσας στήλης | Πρέπει να επαναδηλωθεί ο πλήρης ορισμός |
-| **ALTER TABLE CHANGE** | Μετονομάζει + αλλάζει τύπο στήλης | Απαιτεί πάντα δήλωση νέου ονόματος ΚΑΙ τύπου |
-| **ALTER TABLE DROP COLUMN** | Αφαιρεί στήλη μόνιμα | Προκαλεί απώλεια δεδομένων — μη αναστρέψιμη |
-| **Constraint (NOT NULL)** | Αποτρέπει NULL τιμές σε στήλη | Παραβίαση προκαλεί σφάλμα κατά INSERT/UPDATE |
-| **Constraint (UNIQUE)** | Εξασφαλίζει μοναδικότητα τιμών | Επιτρέπει ΕΝΑ NULL (σε αντίθεση με `PRIMARY KEY`) |
-| **Constraint (DEFAULT)** | Ορίζει τιμή εάν δεν δοθεί | Εφαρμόζεται κατά INSERT χωρίς τιμή για τη στήλη |
-| **AUTO_INCREMENT** | Αυτόματη αύξηση ακέραιας τιμής | Συνήθως για Primary Key — MySQL-specific feature |
-| **Implicit COMMIT** | Αυτόματη μόνιμη δέσμευση DDL εντολών | Δεν μπορεί να γίνει `ROLLBACK` σε DDL |
+| **DDL** (Data Definition Language) | Subset of SQL for defining database structures | Implicit `COMMIT` — changes are permanent |
+| **CREATE DATABASE** | Creates a new, empty database | Synonym for `CREATE SCHEMA` in MySQL |
+| **DROP DATABASE** | Destroys the database + all its contents | Irreversible — deletes tables and data |
+| **USE** | Sets the active database for the current session | Affects only that specific connection |
+| **SHOW DATABASES** | Returns a list of available databases | Displays only the databases with access rights |
+| **CREATE TABLE** | Creates a new table with a defined schema | Requires the referenced tables to already exist |
+| **DROP TABLE** | Destroys the table and its data | Differs from `DELETE FROM` (preserves structure) |
+| **DESCRIBE / DESC** | Displays table metadata/structure | Shows types, keys, NULL, DEFAULT |
+| **ALTER TABLE ADD** | Adds a new column at the end of the table | Existing rows: NULL or DEFAULT value |
+| **ALTER TABLE MODIFY** | Changes the type/constraints of an existing column | The full definition must be restated |
+| **ALTER TABLE CHANGE** | Renames + changes the column type | Always requires declaring a new name AND type |
+| **ALTER TABLE DROP COLUMN** | Permanently removes a column | Causes data loss — irreversible |
+| **Constraint (NOT NULL)** | Prevents NULL values in a column | Violation causes an error during INSERT/UPDATE |
+| **Constraint (UNIQUE)** | Ensures uniqueness of values | Allows ONE NULL (unlike `PRIMARY KEY`) |
+| **Constraint (DEFAULT)** | Sets a value if none is given | Applied during INSERT without a value for the column |
+| **AUTO_INCREMENT** | Automatic increment of an integer value | Usually for the Primary Key — MySQL-specific feature |
+| **Implicit COMMIT** | Automatic permanent commit of DDL statements | `ROLLBACK` cannot be performed on DDL |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Η **DDL** (Data Definition Language) αφορά τον **ορισμό δομών** — βάσεων δεδομένων και πινάκων — και όχι τη διαχείριση των δεδομένων που αυτές περιέχουν. Για δεδομένα χρησιμοποιείται η DML.
-- Κάθε DDL εντολή εκτελεί **implicit `COMMIT`** στη MySQL — οι δομικές αλλαγές είναι μόνιμες και δεν μπορούν να αναιρεθούν με `ROLLBACK`.
-- Η `CREATE DATABASE` και `CREATE SCHEMA` είναι **ακριβώς συνώνυμες** στη MySQL — παράγουν ταυτόσημο αποτέλεσμα.
-- Η σειρά **δημιουργίας και διαγραφής πινάκων** με Foreign Keys είναι κρίσιμη: **πρώτα δημιουργείται ο referenced, πρώτα διαγράφεται ο referencing**.
-- Η `DROP DATABASE` και `DROP TABLE` είναι **μη αναστρέψιμες** — καταστρέφουν δεδομένα και δομές μόνιμα. Απαιτείται πάντα αντίγραφο ασφαλείας.
-- Η `ALTER TABLE` επιτρέπει τροποποίηση **υπάρχοντος** πίνακα. Οι τέσσερις βασικές ρήτρες είναι: `ADD`, `MODIFY`, `CHANGE`, `DROP COLUMN`.
-- **Key Distinction:** `MODIFY` αλλάζει τύπο/constraints **χωρίς μετονομασία**, ενώ `CHANGE` επιτρέπει **ταυτόχρονη μετονομασία ΚΑΙ αλλαγή τύπου** — και οι δύο απαιτούν πλήρη επαναδήλωση του ορισμού της στήλης.
-- Η `ALTER TABLE ... DROP COLUMN` είναι η μόνη `ALTER TABLE` ρήτρα που **προκαλεί απώλεια δεδομένων** — τα δεδομένα της στήλης διαγράφονται μόνιμα από κάθε γραμμή.
-- **Exam Note:** Η εντολή `DESCRIBE` (ή `DESC`) εμφανίζει το **σχήμα/metadata** του πίνακα — δεν επιστρέφει δεδομένα. Για δεδομένα χρησιμοποιείται `SELECT * FROM table_name`.
-- Κατά τη χρήση `MODIFY` ή `CHANGE`, εάν **παραληφθεί υπάρχων constraint** (π.χ. `NOT NULL`) στον νέο ορισμό, αυτός **αφαιρείται αυτόματα** — είναι συχνό λάθος.
+- **DDL** (Data Definition Language) concerns the **definition of structures** — databases and tables — not the management of the data they contain. DML is used for data.
+- Every DDL statement performs an **implicit `COMMIT`** in MySQL — structural changes are permanent and cannot be undone with `ROLLBACK`.
+- `CREATE DATABASE` and `CREATE SCHEMA` are **exactly synonymous** in MySQL — they produce an identical result.
+- The order of **creating and dropping tables** with Foreign Keys is critical: **the referenced table is created first, the referencing one is dropped first**.
+- `DROP DATABASE` and `DROP TABLE` are **irreversible** — they permanently destroy data and structures. A backup is always required.
+- `ALTER TABLE` allows modifying an **existing** table. The four basic clauses are: `ADD`, `MODIFY`, `CHANGE`, `DROP COLUMN`.
+- **Key Distinction:** `MODIFY` changes type/constraints **without renaming**, while `CHANGE` allows **simultaneous renaming AND type change** — both require fully restating the column definition.
+- `ALTER TABLE ... DROP COLUMN` is the only `ALTER TABLE` clause that **causes data loss** — the column's data is permanently deleted from every row.
+- **Exam Note:** The `DESCRIBE` (or `DESC`) statement displays the **schema/metadata** of the table — it does not return data. For data, `SELECT * FROM table_name` is used.
+- When using `MODIFY` or `CHANGE`, if an **existing constraint** (e.g., `NOT NULL`) is **omitted** from the new definition, it is **automatically removed** — this is a common mistake.

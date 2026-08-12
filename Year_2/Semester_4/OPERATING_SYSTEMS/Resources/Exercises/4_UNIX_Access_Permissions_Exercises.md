@@ -1,241 +1,241 @@
-# Ασκήσεις — Δικαιώματα Πρόσβασης UNIX
+# Exercises — UNIX Access Permissions
 
-**Βασισμένες σε:** `4_UNIX_Access_Permissions.md`  
-**Αριθμός ασκήσεων:** 35
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Εξηγήστε το μοντέλο δικαιωμάτων UNIX: User (Owner), Group, Other. Τι σημαίνουν τα `r`, `w`, `x` για **αρχεία** και τι για **καταλόγους**;
+**Based on:** `4_UNIX_Access_Permissions.md`  
+**Number of exercises:** 35
 
 ---
 
-### Άσκηση 2
-Μετατρέψτε τα ακόλουθα σε αριθμητική (οκταδική) μορφή:
+## Part A — Theory
 
-(α) `rwxr-xr-x`  
-(β) `rw-r--r--`  
-(γ) `rwx------`  
-(δ) `r--rwxw-x`
+### Exercise 1
+Explain the UNIX permissions model: User (Owner), Group, Other. What do `r`, `w`, `x` mean for **files** and what for **directories**?
 
 ---
 
-### Άσκηση 3
-Μετατρέψτε τα ακόλουθα από αριθμητική σε συμβολική μορφή:
+### Exercise 2
+Convert the following to numeric (octal) form:
 
-(α) `755`  
-(β) `644`  
-(β) `700`  
-(δ) `72`
-
----
-
-### Άσκηση 4
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
-
-1. Για να εισέλθουμε σε κατάλογο με `cd`, απαιτείται δικαίωμα εκτέλεσης (`x`).
-2. Για να δούμε τα ονόματα αρχείων με `ls`, απαιτείται δικαίωμα ανάγνωσης (`r`) στον κατάλογο.
-3. Για `ls -l` σε κατάλογο, αρκεί μόνο το δικαίωμα `r`.
-4. Για δημιουργία αρχείου σε κατάλογο, απαιτούνται `w` και `x` στον κατάλογο.
-5. Μόνο ο ιδιοκτήτης μπορεί να αλλάξει δικαιώματα με `chmod`.
+(a) `rwxr-xr-x`  
+(b) `rw-r--r--`  
+(c) `rwx------`  
+(d) `r--rwxw-x`
 
 ---
 
-### Άσκηση 5
-Εξηγήστε τη διαφορά μεταξύ αριθμητικής (οκταδικής) και συμβολικής σημειογραφίας στο `chmod`. Δώστε ένα παράδειγμα για καθεμία.
+### Exercise 3
+Convert the following from numeric to symbolic form:
+
+(a) `755`  
+(b) `644`  
+(b) `700`  
+(d) `72`
 
 ---
 
-### Άσκηση 6
-Τι κάνουν οι εντολές;
+### Exercise 4
+Mark **T** (True) or **F** (False):
 
-(α) `chmod u+x script.sh`  
-(β) `chmod go-w file.txt`  
-(γ) `chmod a+r public.txt`  
-(δ) `chmod g=rx shared_dir/`
-
----
-
-### Άσκηση 7
-Εξηγήστε τη λειτουργία των εντολών `chown` και `chgrp`. Πότε απαιτούνται δικαιώματα root;
+1. To enter a directory with `cd`, execute permission (`x`) is required.
+2. To see file names with `ls`, read permission (`r`) on the directory is required.
+3. For `ls -l` on a directory, only the `r` permission is sufficient.
+4. To create a file in a directory, `w` and `x` on the directory are required.
+5. Only the owner can change permissions with `chmod`.
 
 ---
 
-### Άσκηση 8
-Τι είναι το `umask` και πώς υπολογίζονται τα προεπιλεγμένα δικαιώματα νέων αρχείων και καταλόγων;
+### Exercise 5
+Explain the difference between numeric (octal) and symbolic notation in `chmod`. Give one example for each.
 
 ---
 
-### Άσκηση 9
-Αν το `umask` είναι `022`, ποια θα είναι τα προεπιλεγμένα δικαιώματα για:
+### Exercise 6
+What do the commands do?
 
-(α) νέο αρχείο  
-(β) νέο κατάλογο
-
----
-
-### Άσκηση 10
-Αν το `umask` οριστεί σε `027`, ποια θα είναι τα προεπιλεγμένα δικαιώματα για νέο αρχείο και νέο κατάλογο;
+(a) `chmod u+x script.sh`  
+(b) `chmod go-w file.txt`  
+(c) `chmod a+r public.txt`  
+(d) `chmod g=rx shared_dir/`
 
 ---
 
-## Μέρος Β — Εργαστήριο
-
-### Άσκηση 11
-Θέλετε να ορίσετε στο `script.sh` δικαιώματα `rwxr-xr-x`. Ποια είναι η εντολή `chmod` με αριθμητική σημειογραφία;
+### Exercise 7
+Explain the function of the `chown` and `chgrp` commands. When are root privileges required?
 
 ---
 
-### Άσκηση 12
-Θέλετε στο `document.txt` δικαιώματα `rw-r--r--`. Δώστε την εντολή.
+### Exercise 8
+What is `umask` and how are the default permissions of new files and directories calculated?
 
 ---
 
-### Άσκηση 13
-Θέλετε στον κατάλογο `private_folder/` δικαιώματα `rwx------`. Δώστε την εντολή.
+### Exercise 9
+If the `umask` is `022`, what will be the default permissions for:
+
+(a) a new file  
+(b) a new directory
 
 ---
 
-### Άσκηση 14
-Θέλετε να εξασφαλίσετε ότι στο αρχείο `photo` (ιδιοκτησία σας) έχετε ανάγνωση, εγγραφή και εκτέλεση, ενώ όλοι οι υπόλοιποι έχουν μόνο εγγραφή. Δώστε την εντολή με αριθμητική σημειογραφία.
+### Exercise 10
+If the `umask` is set to `027`, what will be the default permissions for a new file and a new directory?
 
 ---
 
-### Άσκηση 15
-Δώστε την εντολή για προσθήκη δικαιώματος εκτέλεσης μόνο για τον ιδιοκτήτη του `run.sh`.
+## Part B — Laboratory
+
+### Exercise 11
+You want to set `rwxr-xr-x` permissions on `script.sh`. What is the `chmod` command in numeric notation?
 
 ---
 
-### Άσκηση 16
-Δώστε την εντολή για αφαίρεση δικαιώματος εγγραφής από group και others στο `secret.txt`.
+### Exercise 12
+You want `rw-r--r--` permissions on `document.txt`. Give the command.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για αλλαγή ιδιοκτήτη του `report.txt` σε `user2`.
+### Exercise 13
+You want `rwx------` permissions on the directory `private_folder/`. Give the command.
 
 ---
 
-### Άσκηση 18
-Δώστε την εντολή για αλλαγή ιδιοκτήτη σε `user2` και ομάδας σε `finance` για το `report.txt`.
+### Exercise 14
+You want to ensure that on the file `photo` (your ownership) you have read, write and execute, while everyone else has only write. Give the command in numeric notation.
 
 ---
 
-### Άσκηση 19
-Δώστε την εντολή για αναδρομική αλλαγή ιδιοκτήτη όλων των αρχείων στον `project_dir/` σε `user2`.
+### Exercise 15
+Give the command to add execute permission only for the owner of `run.sh`.
 
 ---
 
-### Άσκηση 20
-Δώστε την εντολή για εμφάνιση του τρέχοντος `umask`.
+### Exercise 16
+Give the command to remove write permission from group and others on `secret.txt`.
 
 ---
 
-### Άσκηση 21
-Δώστε την εντολή για ορισμό `umask` ώστε τα νέα αρχεία να έχουν `640` και οι κατάλογοι `750`.
+### Exercise 17
+Give the command to change the owner of `report.txt` to `user2`.
 
 ---
 
-## Μέρος Γ — Ανάλυση Δικαιωμάτων
+### Exercise 18
+Give the command to change the owner to `user2` and the group to `finance` for `report.txt`.
 
-### Άσκηση 22
-Στην έξοδο `ls -l` εμφανίζεται:
+---
+
+### Exercise 19
+Give the command to recursively change the owner of all files in `project_dir/` to `user2`.
+
+---
+
+### Exercise 20
+Give the command to display the current `umask`.
+
+---
+
+### Exercise 21
+Give the command to set the `umask` so that new files have `640` and directories `750`.
+
+---
+
+## Part C — Permissions Analysis
+
+### Exercise 22
+In the `ls -l` output the following appears:
 
 ```text
 -r--rwxw-x 1 ray green 12 March 15 11:54 grades
 ```
 
-Συμπληρώστε **Σωστό** ή **Λάθος**:
+Mark **True** or **False**:
 
-(α) Η ομάδα `green` μπορεί να τροποποιήσει το `grades`.  
-(β) Ο `ray` μπορεί να τροποποιήσει τα περιεχόμενα του `grades`.  
-(γ) Μόνο κάποιος εκτός της ομάδας `green` μπορεί να δει τα περιεχόμενα.  
-(δ) Μόνο η ομάδα και ο ιδιοκτήτης μπορούν να τροποποιήσουν το `grades`.
+(a) The group `green` can modify `grades`.  
+(b) `ray` can modify the contents of `grades`.  
+(c) Only someone outside the group `green` can see the contents.  
+(d) Only the group and the owner can modify `grades`.
 
 ---
 
-### Άσκηση 23
-Στην έξοδο `ls -l`:
+### Exercise 23
+In the `ls -l` output:
 
 ```text
 drwxr-x--- 3 alice staff 4096 Jun 1 14:00 shared/
 ```
 
-(α) Μπορεί ο χρήστης `bob` (όχι alice, όχι staff) να εκτελέσει `cd shared`;  
-(β) Μπορεί μέλος της ομάδας `staff` να δει τα ονόματα αρχείων με `ls shared`;  
-(γ) Μπορεί ο `alice` να δημιουργήσει νέο αρχείο μέσα στον `shared`;
+(a) Can the user `bob` (not alice, not staff) run `cd shared`?  
+(b) Can a member of the group `staff` see the file names with `ls shared`?  
+(c) Can `alice` create a new file inside `shared`?
 
 ---
 
-### Άσκηση 24
-Ένας κατάλογος έχει δικαιώματα `dr--r--r--`. Μπορεί ένας χρήστης με δικαίωμα ανάγνωσης να εκτελέσει `ls` μέσα στον κατάλογο; Μπορεί να εκτελέσει `cd`; Εξηγήστε.
+### Exercise 24
+A directory has `dr--r--r--` permissions. Can a user with read permission run `ls` inside the directory? Can the user run `cd`? Explain.
 
 ---
 
-### Άσκηση 25
-Ένα αρχείο έχει `rwxrwxrwx`. Είναι αυτό καλή πρακτική ασφαλείας; Γιατί;
+### Exercise 25
+A file has `rwxrwxrwx`. Is this a good security practice? Why?
 
 ---
 
-### Άσκηση 26
-Υπολογίστε την αριθμητική τιμή: ο ιδιοκτήτης έχει `rw-`, η ομάδα `r--`, οι άλλοι `---`.
+### Exercise 26
+Calculate the numeric value: the owner has `rw-`, the group `r--`, others `---`.
 
 ---
 
-### Άσκηση 27
-Ποια εντολή `chmod` (συμβολική) ορίζει ακριβώς `u=rwx,g=rx,o=` στο `file`;
+### Exercise 27
+Which `chmod` command (symbolic) sets exactly `u=rwx,g=rx,o=` on `file`?
 
 ---
 
-## Μέρος Δ — Σύνθετες Ερωτήσεις
+## Part D — Complex Questions
 
-### Άσκηση 28
-Εξηγήστε γιατί τα δικαιώματα ενός καταλόγου επηρεάζουν τη δυνατότητα πρόσβασης στα αρχεία μέσα σε αυτόν, ακόμα κι αν τα ίδια τα αρχεία έχουν ευρύτερα δικαιώματα.
-
----
-
-### Άσκηση 29
-Ένας διαχειριστής θέλει κοινόχρηστο κατάλογο όπου όλα τα μέλη της ομάδας `dev` μπορούν να διαβάζουν, γράφουν και να μπαίνουν, ενώ οι υπόλοιποι δεν έχουν κανένα δικαίωμα. Ποια δικαιώματα ορίζει και ποια εντολή `chmod` χρησιμοποιεί;
+### Exercise 28
+Explain why the permissions of a directory affect the ability to access the files inside it, even if the files themselves have broader permissions.
 
 ---
 
-### Άσκηση 30
-Σημειώστε **Σ** ή **Λ**:
-
-1. Η εντολή `chgrp finance report.txt` αλλάζει μόνο την ομάδα.
-2. Το root μπορεί πάντα να αλλάξει δικαιώματα οποιουδήποτε αρχείου.
-3. Το `umask 0022` και `umask 022` είναι ισοδύναμα σε πολλά συστήματα.
-4. Τα δικαιώματα `r=4, w=2, x=1` ισχύουν για κάθε τριάδα (user, group, other).
-5. Η `chmod` μπορεί να αλλάξει τον ιδιοκτήτη αρχείου.
+### Exercise 29
+An administrator wants a shared directory where all members of the group `dev` can read, write and enter, while everyone else has no permissions at all. What permissions does the administrator set and which `chmod` command does the administrator use?
 
 ---
 
-### Άσκηση 31
-Κυκλώστε τη σωστή απάντηση: Ποια εντολή αλλάζει **μόνο** την ομάδα ενός αρχείου;
+### Exercise 30
+Mark **T** or **F**:
 
-- α) `chown`  
-- β) `chgrp`  
-- γ) `chmod`  
-- δ) `umask`
-
----
-
-### Άσκηση 32
-Ένα script πρέπει να εκτελείται μόνο από τον ιδιοκτήτη, αλλά όλοι πρέπει να μπορούν να το διαβάζουν. Ποια δικαιώματα (`rwxrwxrwx` μορφή και αριθμητικά) ορίζετε;
+1. The command `chgrp finance report.txt` changes only the group.
+2. Root can always change the permissions of any file.
+3. `umask 0022` and `umask 022` are equivalent on many systems.
+4. The permissions `r=4, w=2, x=1` apply to each triplet (user, group, other).
+5. `chmod` can change the owner of a file.
 
 ---
 
-### Άσκηση 33
-Περιγράψτε τη ροή: νέος χρήστης δημιουργεί αρχείο `notes.txt` με προεπιλεγμένο `umask 022`. Ποια δικαιώματα θα εμφανίσει το `ls -l`; Πώς τα αλλάζει σε `rw-------` με μία εντολή;
+### Exercise 31
+Circle the correct answer: Which command changes **only** the group of a file?
+
+- a) `chown`  
+- b) `chgrp`  
+- c) `chmod`  
+- d) `umask`
 
 ---
 
-### Άσκηση 34
-Σε σύστημα multi-user, γιατί το UNIX χρησιμοποιεί ομάδες (groups) εκτός από ιδιοκτήτη και others; Δώστε παράδειγμα εφαρμογής σε εργαστηριακό έργο.
+### Exercise 32
+A script must be executable only by the owner, but everyone must be able to read it. What permissions (`rwxrwxrwx` form and numeric) do you set?
 
 ---
 
-### Άσκηση 35
-Από τη στιγμή που εμφανίζεται η γραμμή `drwxrwxrwt` στον κατάλογο `/tmp`, εξηγήστε (γενικά) τι σημαίνει το `t` (sticky bit) και γιατί είναι σημαντικό σε κοινόχρηστους καταλόγους.
+### Exercise 33
+Describe the flow: a new user creates the file `notes.txt` with default `umask 022`. What permissions will `ls -l` show? How does the user change them to `rw-------` with one command?
+
+---
+
+### Exercise 34
+In a multi-user system, why does UNIX use groups in addition to owner and others? Give an example of application in a laboratory project.
+
+---
+
+### Exercise 35
+Given that the line `drwxrwxrwt` appears on the `/tmp` directory, explain (in general) what the `t` (sticky bit) means and why it is important in shared directories.

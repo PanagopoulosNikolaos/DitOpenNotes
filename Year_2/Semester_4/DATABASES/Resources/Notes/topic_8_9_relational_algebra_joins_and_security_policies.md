@@ -1,91 +1,91 @@
-# Σχεσιακή Άλγεβρα, JOINs & Πολιτικές Ασφάλειας
+# Relational Algebra, JOINs & Security Policies
 *Relational Algebra, JOINs & Security Policies*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Καρτεσιανό Γινόμενο](#καρτεσιανό-γινόμενο)
-3. [Φυσική Σύνδεση](#φυσική-σύνδεση)
-4. [Η Συνένωση (JOIN)](#η-συνένωση-join)
-   - [Θεματική Συνένωση (θ-Join)](#θεματική-συνένωση-θ-join)
-   - [Συνένωση Ισότητας (Equi-Join)](#συνένωση-ισότητας-equi-join)
-   - [Εσωτερική Συνένωση (Inner Join)](#εσωτερική-συνένωση-inner-join)
-   - [Εξωτερική Συνένωση (Outer Join)](#εξωτερική-συνένωση-outer-join)
-5. [Εμφωλευμένα Ερωτήματα](#εμφωλευμένα-ερωτήματα)
-6. [Απειλές Ασφάλειας & Κυβερνοασφάλεια](#απειλές-ασφάλειας--κυβερνοασφάλεια)
-   - [Σπάσιμο Κωδικών (Password Cracking)](#σπάσιμο-κωδικών-password-cracking)
-   - [Κοινωνική Μηχανική (Social Engineering)](#κοινωνική-μηχανική-social-engineering)
-7. [Πολιτικές Ασφάλειας Πληροφοριών](#πολιτικές-ασφάλειας-πληροφοριών)
-   - [Ασφάλεια Λογισμικού](#ασφάλεια-λογισμικού)
-   - [Ασφάλεια Δεδομένων](#ασφάλεια-δεδομένων)
-   - [Πολιτική Ασφάλειας για τα Συνθηματικά (Passwords)](#πολιτική-ασφάλειας-για-τα-συνθηματικά-passwords)
-8. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-9. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Cartesian Product](#cartesian-product)
+3. [Natural Join](#natural-join)
+4. [The Join Operation (JOIN)](#the-join-operation-join)
+   - [Theta Join ($\theta$-Join)](#theta-join--join)
+   - [Equality Join (Equi-Join)](#equality-join-equi-join)
+   - [Inner Join](#inner-join)
+   - [Outer Join](#outer-join)
+5. [Nested Queries](#nested-queries)
+6. [Security Threats & Cybersecurity](#security-threats--cybersecurity)
+   - [Password Cracking](#password-cracking)
+   - [Social Engineering](#social-engineering)
+7. [Information Security Policies](#information-security-policies)
+   - [Software Security](#software-security)
+   - [Data Security](#data-security)
+   - [Security Policy for Passwords](#security-policy-for-passwords)
+8. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+9. [Key Takeaways](#key-takeaways)
 10. [Solved Exercises](#solved-exercises)
 11. [Exam Tip: JOIN Mechanics & Safety Policies](#exam-tip-join-mechanics--safety-policies)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Το παρόν έγγραφο καλύπτει τις προχωρημένες πράξεις της **Σχεσιακής Άλγεβρας** (Relational Algebra), εστιάζοντας στο **Καρτεσιανό Γινόμενο** (Cartesian Product), στη **Φυσική Σύνδεση** (Natural Join) και στις διάφορες μορφές **Συνενώσεων** (JOINs) στην SQL. Επιπλέον, εξετάζει τις θεμελιώδεις έννοιες της **Ασφάλειας Πληροφοριακών Συστημάτων** (Information Systems Security), τις μεθόδους **Σπασίματος Κωδικών** (Password Cracking), την απειλή της **Κοινωνικής Μηχανικής** (Social Engineering) και τη σημασία των **Πολιτικών Ασφάλειας** (Security Policies) για τη διασφάλιση των δεδομένων. Οι έννοιες αυτές συνδέουν τη μαθηματική θεωρία των βάσεων δεδομένων με την πρακτική σχεδίαση ερωτημάτων και την ασφάλεια σε πραγματικά περιβάλλοντα.
+This document covers the advanced operations of **Relational Algebra**, focusing on the **Cartesian Product**, the **Natural Join**, and the various forms of **JOINs** in SQL. Furthermore, it examines the fundamental concepts of **Information Systems Security**, the methods of **Password Cracking**, the threat of **Social Engineering**, and the importance of **Security Policies** for safeguarding data. These concepts link the mathematical theory of databases with practical query design and security in real-world environments.
 
 ---
 
-## Καρτεσιανό Γινόμενο
+## Cartesian Product
 *Cartesian Product*
 
-Το **Καρτεσιανό Γινόμενο (Cartesian Product)**, το οποίο συμβολίζεται με $R \times S$, είναι μια διμελής πράξη της σχεσιακής άλγεβρας που συνδυάζει κάθε πλειάδα μιας σχέσης $R$ με κάθε πλειάδα μιας σχέσης $S$. Το σχήμα της σχέσης εξόδου περιλαμβάνει όλα τα γνωρίσματα και των δύο σχέσεων.
+The **Cartesian Product**, denoted by $R \times S$, is a binary operation of relational algebra that combines every tuple of a relation $R$ with every tuple of a relation $S$. The schema of the output relation includes all the attributes of both relations.
 
-**Αναλογία**: Είναι παρόμοιο με ένα μενού εστιατορίου που περιλαμβάνει $3$ ορεκτικά και $4$ κυρίως πιάτα. Ο συνδυασμός "όλα-με-όλα" παράγει $12$ δυνατές επιλογές γευμάτων, ανεξάρτητα από το αν ταιριάζουν γευστικά μεταξύ τους.
+**Analogy**: It is similar to a restaurant menu that includes $3$ appetizers and $4$ main courses. The "everything-with-everything" combination produces $12$ possible meal choices, regardless of whether they match well in taste.
 
-**Βασικοί Κανόνες**:
-- Αν η σχέση $R$ έχει πληθικότητα $|R| = m$ και η σχέση $S$ έχει πληθικότητα $|S| = n$, το αποτέλεσμα $R \times S$ θα έχει $m \times n$ πλειάδες.
-- Αν προκύψει σύγκρουση ονομάτων γνωρισμάτων (π.χ. στήλη `cust_name` και στους δύο πίνακες), η επίλυση γίνεται με τη χρήση του πλήρους ονόματος της σχέσης ως πρόθεμα: `Customer.cust_name` και `Deposit.cust_name`.
+**Basic rules**:
+- If relation $R$ has cardinality $|R| = m$ and relation $S$ has cardinality $|S| = n$, the result $R \times S$ will have $m \times n$ tuples.
+- If an attribute-name conflict arises (e.g., the column `cust_name` in both tables), it is resolved by using the full relation name as a prefix: `Customer.cust_name` and `Deposit.cust_name`.
 
 ```text
-Σχήμα Καρτεσιανού Γινομένου:
+Cartesian Product Schema:
 Customer(cust_name, street, cust_city)   X   Deposit(br_name, acc_number, cust_name, balance)
   |
   v
 Result(Customer.cust_name, street, cust_city, br_name, acc_number, Deposit.cust_name, balance)
 ```
 
-| Χαρακτηριστικό | Καρτεσιανό Γινόμενο |
+| Characteristic | Cartesian Product |
 |:---|:---|
-| **Σύμβολο** | $\times$ |
-| **SQL Υλοποίηση** | `CROSS JOIN` ή `FROM Table1, Table2` |
-| **Πληθικότητα** | $|R| \times \|S\|$ |
-| **Διπλότυπες Στήλες** | Διατηρούνται και οι δύο με πρόθεμα πίνακα |
+| **Symbol** | $\times$ |
+| **SQL Implementation** | `CROSS JOIN` or `FROM Table1, Table2` |
+| **Cardinality** | $|R| \times \|S\|$ |
+| **Duplicate Columns** | Both are retained with a table prefix |
 
 ---
 
-## Φυσική Σύνδεση
+## Natural Join
 *Natural Join*
 
-Η **Φυσική Σύνδεση (Natural Join)**, η οποία συμβολίζεται με $R \bowtie S$, συνενώνει δύο σχέσεις χρησιμοποιώντας αυτόματα την ισότητα σε όλα τα κοινά γνωρίσματα (στήλες με το ίδιο όνομα). Στο αποτέλεσμα, η κοινή στήλη εμφανίζεται μόνο μία φορά, αποφεύγοντας τη διπλή εμφάνιση.
+The **Natural Join**, denoted by $R \bowtie S$, joins two relations by automatically using equality on all common attributes (columns with the same name). In the result, the common column appears only once, avoiding duplication.
 
-**Αναλογία**: Είναι σαν να ταιριάζουμε κομμάτια παζλ. Αν έχουμε μια κάρτα με στοιχεία βιβλίου και μια κάρτα με στοιχεία συγγραφέα, τις συνδέουμε μόνο αν το όνομα του συγγραφέα συμπίπτει απόλυτα, απορρίπτοντας τις ασύνδετες κάρτες.
+**Analogy**: It is like matching puzzle pieces. If we have a card with book details and a card with author details, we connect them only if the author's name matches exactly, discarding the unrelated cards.
 
-**Μαθηματικός Ορισμός**:
+**Mathematical Definition**:
 $$
 R \bowtie S = \sigma_{R.A_1 = S.A_1 \land \dots \land R.A_k = S.A_k}(R \times S)
 $$
-όπου $A_1, \dots, A_k$ είναι τα κοινά γνωρίσματα των σχέσεων $R$ και $S$.
+where $A_1, \dots, A_k$ are the common attributes of relations $R$ and $S$.
 
 ```text
-Σχήμα Φυσικής Σύνδεσης:
+Natural Join Schema:
 R(A, B)   bowtie   S(B, C)
   |
   v
-Result(A, B, C)  <-- Το κοινό γνώρισμα B εμφανίζεται μόνο μία φορά
+Result(A, B, C)  <-- The common attribute B appears only once
 ```
 
 ```sql
--- Φυσική Σύνδεση στην SQL
+-- Natural Join in SQL
 SELECT * 
 FROM Customer 
 NATURAL JOIN Deposit;
@@ -93,32 +93,32 @@ NATURAL JOIN Deposit;
 
 ---
 
-## Η Συνένωση (JOIN)
+## The Join Operation (JOIN)
 *The Join Operation*
 
-Η **Συνένωση (Join)** αποτελεί την πιο συχνά χρησιμοποιούμενη πράξη συνδυασμού πινάκων. Επιτρέπει τον προσδιορισμό ρητών συνθηκών σύνδεσης, οι οποίες μπορεί να βασίζονται σε ισότητα ή άλλους τελεστές σύγκρισης.
+The **Join** is the most frequently used table-combining operation. It allows specifying explicit join conditions, which may be based on equality or other comparison operators.
 
 ---
 
-### Θεματική Συνένωση (θ-Join)
+### Theta Join ($\theta$-Join)
 *Theta Join*
 
-Η **Θεματική Συνένωση (Theta Join)**, η οποία συμβολίζεται με $R \bowtie_{\theta} S$, είναι η γενικότερη μορφή συνένωσης. Συνδυάζει πλειάδες από το $R$ και το $S$ για τις οποίες ισχύει μια γενική συνθήκη $\theta$. Η συνθήκη αυτή μπορεί να περιλαμβάνει τελεστές όπως $=, >, <, \neq, \geq, \leq$.
+The **Theta Join**, denoted by $R \bowtie_{\theta} S$, is the most general form of join. It combines tuples from $R$ and $S$ for which a general condition $\theta$ holds. This condition can involve operators such as $=, >, <, \neq, \geq, \leq$.
 
-**Μαθηματικός Ορισμός**:
+**Mathematical Definition**:
 $$
 R \bowtie_{\theta} S = \sigma_{\theta}(R \times S)
 $$
 
 ---
 
-### Συνένωση Ισότητας (Equi-Join)
+### Equality Join (Equi-Join)
 *Equi-Join*
 
-Η **Συνένωση Ισότητας (Equi-Join)** είναι μια ειδική περίπτωση της Θεματικής Συνένωσης όπου η συνθήκη $\theta$ περιλαμβάνει αποκλειστικά τελεστές ισότητας ($=$). Σε αντίθεση με τη φυσική σύνδεση, η συνένωση ισότητας διατηρεί και τις δύο στήλες σύνδεσης στο τελικό αποτέλεσμα.
+The **Equi-Join** is a special case of the Theta Join where the condition $\theta$ involves exclusively equality operators ($=$). Unlike the natural join, the equi-join retains both join columns in the final result.
 
 ```sql
--- Συνένωση Ισότητας στην SQL
+-- Equi-Join in SQL
 SELECT * 
 FROM Customer 
 JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
@@ -126,15 +126,15 @@ JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
 
 ---
 
-### Εσωτερική Συνένωση (Inner Join)
+### Inner Join
 *Inner Join*
 
-Ο όρος `JOIN` στην SQL αποτελεί συντόμευση για την **Εσωτερική Συνένωση (Inner Join)**. Επιστρέφει μόνο τις εγγραφές που έχουν αντίστοιχη τιμή και στους δύο πίνακες βάσει της συνθήκης `ON`.
+The term `JOIN` in SQL is shorthand for the **Inner Join**. It returns only the records that have a matching value in both tables based on the `ON` condition.
 
-**Αναλογία**: Σε μια λίστα φοιτητών και μια λίστα εγγραφών σε εργαστήρια, ένα Inner Join θα επιστρέψει μόνο τους φοιτητές που έχουν εγγραφεί σε τουλάχιστον ένα εργαστήριο.
+**Analogy**: Given a list of students and a list of lab registrations, an Inner Join will return only the students who are registered in at least one lab.
 
 ```sql
--- Inner Join στην SQL me ON
+-- Inner Join in SQL with ON
 SELECT Customer.cust_name, Borrow.amount
 FROM Customer
 INNER JOIN Borrow ON Customer.cust_name = Borrow.cust_name;
@@ -142,13 +142,13 @@ INNER JOIN Borrow ON Customer.cust_name = Borrow.cust_name;
 
 ---
 
-### Εξωτερική Συνένωση (Outer Join)
+### Outer Join
 *Outer Join*
 
-Η **Εξωτερική Συνένωση (Outer Join)** επιτρέπει τη διατήρηση των πλειάδων που δεν έχουν αντιστοιχία στη σχέση σύνδεσης, συμπληρώνοντας τα κενά πεδία με την τιμή `NULL`.
+The **Outer Join** allows keeping the tuples that have no match in the joined relation, filling the empty fields with the value `NULL`.
 
-#### Left Outer Join ($\$)
-Διατηρεί όλες τις πλειάδες της αριστερής σχέσης. Αν δεν υπάρχει αντιστοιχία στη δεξιά, οι στήλες της δεξιάς συμπληρώνονται με `NULL`.
+#### Left Outer Join ($\⟕$)
+It retains all the tuples of the left relation. If there is no match on the right, the right-side columns are filled with `NULL`.
 
 ```sql
 SELECT * 
@@ -157,7 +157,7 @@ LEFT OUTER JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
 ```
 
 #### Right Outer Join ($\⟖$)
-Διατηρεί όλες τις πλειάδες της δεξιάς σχέσης. Αν δεν υπάρχει αντιστοιχία στην αριστερή, οι στήλες της αριστερής συμπληρώνονται με `NULL`.
+It retains all the tuples of the right relation. If there is no match on the left, the left-side columns are filled with `NULL`.
 
 ```sql
 SELECT Borrow.loan_number, Borrow.amount, Customer.cust_name 
@@ -167,174 +167,174 @@ RIGHT OUTER JOIN Customer ON Borrow.cust_name = Customer.cust_name;
 
 ---
 
-### Συγκριτικός Πίνακας Ειδών JOIN
+### Comparative Table of JOIN Types
 
-| Τύπος JOIN | Συνθήκη Σύνδεσης | Διατήρηση Κοινών Στηλών | Μη Ταιριασμένες Γραμμές |
+| JOIN Type | Join Condition | Common Column Retention | Unmatched Rows |
 |:---|:---|:---|:---|
-| **Θεματική Συνένωση ($\bowtie_{\theta}$)** | Οποιαδήποτε ($=, >, <, \dots$) | Ναι (Διπλές στήλες) | Όχι |
-| **Συνένωση Ισότητας (Equi-Join)** | Μόνο ισότητα ($=$) | Ναι (Διπλές στήλες) | Όχι |
-| **Φυσική Σύνδεση ($\bowtie$)** | Αυτόματη ισότητα κοινών στηλών | Όχι (Συγχώνευση στηλών) | Όχι |
-| **Left Outer Join ($\$)** | Οποιαδήποτε συνθήκη ισότητας | Ναι (Διπλές στήλες) | Ναι (Από αριστερό πίνακα) |
-| **Right Outer Join ($\$)** | Οποιαδήποτε συνθήκη ισότητας | Ναι (Διπλές στήλες) | Ναι (Από δεξιό πίνακα) |
+| **Theta Join ($\bowtie_{\theta}$)** | Any ($=, >, <, \dots$) | Yes (Duplicate columns) | No |
+| **Equi-Join** | Only equality ($=$) | Yes (Duplicate columns) | No |
+| **Natural Join ($\bowtie$)** | Automatic equality of common columns | No (Column merging) | No |
+| **Left Outer Join ($\⟕$)** | Any equality condition | Yes (Duplicate columns) | Yes (From the left table) |
+| **Right Outer Join ($\⟖$)** | Any equality condition | Yes (Duplicate columns) | Yes (From the right table) |
 
 ---
 
-## Εμφωλευμένα Ερωτήματα
+## Nested Queries
 *Nested Queries*
 
-Πολλές φορές η χρήση σύνδεσης πινάκων δεν είναι απαραίτητη, καθώς η πληροφορία μπορεί να ανακτηθεί με **Εμφωλευμένα Ερωτήματα (Subqueries)**. Ένα subquery εκτελείται εσωτερικά και επιστρέφει μια λίστα τιμών που χρησιμοποιείται από το εξωτερικό ερώτημα (συνήθως με τον τελεστή `IN`).
+Often, using a table join is not necessary, as the information can be retrieved with **Nested Queries (Subqueries)**. A subquery executes internally and returns a list of values used by the outer query (usually with the `IN` operator).
 
-**Αναλογία**: Είναι σαν να ψάχνουμε για βιβλία συγκεκριμένων συγγραφέων. Πρώτα εκτελούμε την εσωτερική αναζήτηση για να βρούμε τα ID των συγγραφέων που γεννήθηκαν στην Αθήνα, και μετά χρησιμοποιούμε αυτή τη λίστα για να ανακτήσουμε τα βιβλία τους.
+**Analogy**: It is like searching for books by specific authors. First, we run the inner search to find the IDs of authors born in Athens, and then we use that list to retrieve their books.
 
 ```sql
--- Εμφωλευμένο ερώτημα στην SQL
+-- Nested query in SQL
 SELECT acc_no 
 FROM Deposit
 WHERE br_name IN (
     SELECT br_name 
     FROM branch 
-    WHERE Br_city = 'Αθήνα'
+    WHERE Br_city = 'Athens'
 );
 ```
 
 ---
 
-## Απειλές Ασφάλειας & Κυβερνοασφάλεια
+## Security Threats & Cybersecurity
 *Security Threats & Cybersecurity*
 
-Ως **Απειλή (Threat)** ορίζεται οποιοδήποτε γεγονός ή ενέργεια μπορεί να οδηγήσει σε απώλεια, καταστροφή δεδομένων ή υλική ζημιά στην υποδομή ενός Πληροφοριακού Συστήματος (ΠΣ).
+A **Threat** is defined as any event or action that can lead to loss, data destruction, or physical damage to the infrastructure of an Information System (IS).
 
-**Κατηγορίες Απειλών**:
-1. **Φυσικές Καταστροφές**: Πυρκαγιές, πλημμύρες, σεισμοί.
-2. **Τυχαίες Απειλές**: Ανθρώπινα λάθη, αστοχία υλικού.
-3. **Σκόπιμες (Μη Φυσικές) Απειλές**: Κακόβουλο λογισμικό (Malware), επιθέσεις DoS, Phishing κ.λπ.
+**Categories of Threats**:
+1. **Natural Disasters**: Fires, floods, earthquakes.
+2. **Accidental Threats**: Human errors, hardware failure.
+3. **Deliberate (Non-Physical) Threats**: Malicious software (Malware), DoS attacks, Phishing, etc.
 
 ---
 
-### Σπάσιμο Κωδικών (Password Cracking)
+### Password Cracking
 *Password Cracking*
 
-Το **Σπάσιμο Κωδικών (Password Cracking)** είναι η διαδικασία απόκτησης μη εξουσιοδοτημένης πρόσβασης με την εύρεση ή αποκρυπτογράφηση κωδικών πρόσβασης.
+**Password Cracking** is the process of gaining unauthorized access by finding or decrypting passwords.
 
-**Τεχνικές Cracking**:
-- **Dictionary Attack (Επίθεση Λεξικού)**: Χρήση προκαθορισμένης λίστας κοινών λέξεων για σύγκριση με τα hashes των κωδικών.
-- **Brute Force Attack (Επίθεση Ωμής Βίας)**: Δοκιμή όλων των δυνατών συνδυασμών χαρακτήρων και συμβόλων με τη χρήση αλγορίθμων.
-- **Rainbow Table Attack**: Χρήση προ-υπολογισμένων πινάκων αντιστοίχισης (pre-computed hashes) για την εύρεση της αρχικής τιμής ενός hash (π.χ. MD5).
-- **Guess (Εικασία)**: Δοκιμή προφανών κωδικών (π.χ. `admin`, `123456`, `password`).
-- **Spidering**: Συλλογή πληροφοριών από ιστότοπους και κοινωνικά δίκτυα της εταιρείας για τη δημιουργία στοχευμένων λιστών λέξεων.
+**Cracking techniques**:
+- **Dictionary Attack**: Use of a predefined list of common words to compare against the hashes of the passwords.
+- **Brute Force Attack**: Trying all possible combinations of characters and symbols using algorithms.
+- **Rainbow Table Attack**: Use of pre-computed mapping tables (pre-computed hashes) to find the original value of a hash (e.g., MD5).
+- **Guess**: Trying obvious passwords (e.g., `admin`, `123456`, `password`).
+- **Spidering**: Collecting information from the company's websites and social networks to build targeted word lists.
 
-| Τεχνική | Μηχανισμός | Πλεονέκτημα | Μειονέκτημα |
+| Technique | Mechanism | Advantage | Disadvantage |
 |:---|:---|:---|:---|
-| **Dictionary** | Δοκιμή έτοιμων λέξεων | Γρήγορη εκτέλεση | Αποτυγχάνει σε τυχαίους κωδικούς |
-| **Brute Force** | Δοκιμή όλων των συνδυασμών | Εγγυημένο αποτέλεσμα | Απαιτεί τεράστιο χρόνο |
-| **Rainbow Table** | Αναζήτηση σε προ-υπολογισμένα hashes | Σχεδόν ακαριαία εύρεση | Απαιτεί τεράστιο χώρο αποθήκευσης |
+| **Dictionary** | Testing ready-made words | Fast execution | Fails on random passwords |
+| **Brute Force** | Testing all combinations | Guaranteed result | Requires enormous time |
+| **Rainbow Table** | Search in pre-computed hashes | Almost instantaneous discovery | Requires enormous storage space |
 
 ---
 
-### Κοινωνική Μηχανική (Social Engineering)
+### Social Engineering
 *Social Engineering*
 
-Η **Κοινωνική Μηχανική (Social Engineering)** είναι η τέχνη του χειρισμού και της εξαπάτησης των χρηστών ενός συστήματος με σκοπό την απόσπαση εμπιστευτικών πληροφοριών (π.χ. κωδικών πρόσβασης).
+**Social Engineering** is the art of manipulating and deceiving the users of a system in order to extract confidential information (e.g., passwords).
 
-**Αναλογία**: Είναι σαν ένας απατεώνας να προσποιηθεί τον τεχνικό της εταιρείας ύδρευσης για να μπει στο σπίτι σας, αντί να προσπαθήσει να παραβιάσει την κλειδαριά της πόρτας.
+**Analogy**: It is like a con artist pretending to be a technician from the water company to get into your house, instead of trying to break the door lock.
 
-**Ο Κύκλος της Κοινωνικής Μηχανικής**:
+**The Social Engineering Cycle**:
 ```text
   +--------------------------------+
-  |  1. Συγκέντρωση Πληροφοριών    | (Gather Info)
+  |  1. Information Gathering      | (Gather Info)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |    2. Σχεδιασμός Επίθεσης      | (Plan Attack)
+  |    2. Plan Attack              | (Plan Attack)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |    3. Απόκτηση Εργαλείων       | (Acquire Tools)
+  |    3. Acquire Tools            | (Acquire Tools)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |          4. Επίθεση            | (Attack)
+  |          4. Attack             | (Attack)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |  5. Χρήση Αποκτηθείσας Γνώσης  | (Use Knowledge)
+  |  5. Use Acquired Knowledge     | (Use Knowledge)
   +--------------------------------+
 ```
 
-**Κοινές Τεχνικές**:
-- **Phishing (Ηλεκτρονικό Ψάρεμα)**: Αποστολή ψευδών email που μιμούνται έμπιστους οργανισμούς για την υποκλοπή στοιχείων.
-- **Tailgating**: Η φυσική είσοδος σε προστατευμένο χώρο ακολουθώντας στενά έναν εξουσιοδοτημένο υπάλληλο.
-- **Familiarity Exploit**: Η ανάπτυξη φιλικών σχέσεων με το θύμα πριν την επίθεση.
-- **Intimidating Circumstances**: Η χρήση απειλών ή εκφοβισμού για τον εξαναγκασμό του χρήστη σε παροχή πληροφοριών.
-- **Exploiting Human Curiosity/Greed**: Δελεασμός χρηστών με υποσχέσεις χρημάτων ή η σκόπιμη εγκατάλειψη μολυσμένων USB flash drives σε κοινόχρηστους χώρους.
+**Common techniques**:
+- **Phishing**: Sending fake emails that mimic trusted organizations to steal credentials.
+- **Tailgating**: Physical entry into a secured area by closely following an authorized employee.
+- **Familiarity Exploit**: Developing friendly relations with the victim before the attack.
+- **Intimidating Circumstances**: Using threats or intimidation to coerce the user into providing information.
+- **Exploiting Human Curiosity/Greed**: Luring users with promises of money or deliberately leaving infected USB flash drives in common areas.
 
 ---
 
-## Πολιτικές Ασφάλειας Πληροφοριών
+## Information Security Policies
 *Information Security Policies*
 
-Μια **Πολιτική Ασφάλειας (Security Policy)** είναι ένα επίσημο έγγραφο που περιλαμβάνει κανόνες, οδηγίες, διαδικασίες και ρόλους για την προστασία των Πληροφοριακών Συστημάτων ενός οργανισμού.
+A **Security Policy** is a formal document that includes rules, guidelines, procedures, and roles for protecting an organization's Information Systems.
 
 ---
 
-### Ασφάλεια Λογισμικού
-- Απαγόρευση εγκατάστασης λογισμικού χωρίς άδεια χρήσης ή έγκριση του υπευθύνου ασφάλειας.
-- Η τροποποίηση λογισμικού πρέπει να εκτελείται πρώτα σε δοκιμαστικό περιβάλλον (staging) και μετά σε παραγωγή (production).
-- Υποχρεωτική εγκατάσταση anti-malware λογισμικού σε διακομιστές (servers) και σταθμούς εργασίας.
-- Άμεση απομόνωση και καθαρισμός σταθμών εργασίας σε περίπτωση μόλυνσης.
+### Software Security
+- Prohibition of installing software without a license or the security officer's approval.
+- Software modifications must first be performed in a staging environment and then in production.
+- Mandatory installation of anti-malware software on servers and workstations.
+- Immediate isolation and cleaning of workstations in case of infection.
 
 ---
 
-### Ασφάλεια Δεδομένων
-- Απαγόρευση αποστολής μη κρυπτογραφημένων δεδομένων μέσω διαδικτύου.
-- Τήρηση τακτικών αντιγράφων ασφαλείας (backup) και φύλαξή τους σε ασφαλές, φυσικά προστατευμένο μέρος.
-- Προστασία των φυσικών μέσων αποθήκευσης που περιέχουν εμπιστευτικά δεδομένα.
+### Data Security
+- Prohibition of sending unencrypted data over the internet.
+- Maintaining regular backups and storing them in a safe, physically protected location.
+- Protecting the physical storage media that contain confidential data.
 
 ---
 
-### Πολιτική Ασφάλειας για τα Συνθηματικά (Passwords)
-- **Χαρακτηριστικά Ισχυρού Password**:
-  - Μήκος τουλάχιστον $15$ χαρακτήρων.
-  - Χρήση κεφαλαίων, μικρών, αριθμών και συμβόλων.
-  - Να μην αποτελεί λέξη λεξικού σε καμία γλώσσα και να μη βασίζεται σε προσωπικές πληροφορίες.
-  - Να μην αποθηκεύεται online ή σε αρχεία απλού κειμένου.
-- **Κανόνες Διαχείρισης**:
-  - Αλλαγή κωδικών χρηστών τουλάχιστον κάθε $6$ μήνες.
-  - Απαγόρευση κοινής χρήσης κωδικών για λογαριασμούς με υψηλά προνόμια.
-  - Απαγόρευση αποκάλυψης κωδικού μέσω τηλεφώνου, email, σε προϊσταμένους, συναδέλφους ή φόρμες ασφαλείας.
+### Security Policy for Passwords
+- **Characteristics of a strong password**:
+  - Length of at least $15$ characters.
+  - Use of uppercase, lowercase, numbers, and symbols.
+  - Must not be a dictionary word in any language and must not be based on personal information.
+  - Must not be stored online or in plain-text files.
+- **Management rules**:
+  - Change of user passwords at least every $6$ months.
+  - Prohibition of sharing passwords for accounts with high privileges.
+  - Prohibition of disclosing a password by phone, email, to supervisors, colleagues, or security forms.
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Κρίσιμος Κανόνας / Χαρακτηριστικό |
+| Concept | Definition | Critical Rule / Characteristic |
 |:---|:---|:---|
-| **Καρτεσιανό Γινόμενο ($R \times S$)** | Συνδυασμός όλων των πλειάδων του $R$ με του $S$ | Παράγει $\|R\| \times \|S\|$ εγγραφές |
-| **Φυσική Σύνδεση ($R \bowtie S$)** | Σύνδεση με βάση την ισότητα κοινών γνωρισμάτων | Συγχωνεύει τις κοινές στήλες σε μία |
-| **Θεματική Συνένωση ($R \bowtie_{\theta} S$)** | Σύνδεση βάσει μιας γενικής συνθήκης $\theta$ | Υλοποιείται ως $\sigma_{\theta}(R \times S)$ |
-| **Left Outer Join ($\$)** | Σύνδεση που διατηρεί όλα τα αριστερά στοιχεία | Συμπληρώνει με `NULL` τα μη ταιριαστά δεξιά |
-| **Right Outer Join ($\$)** | Σύνδεση που διατηρεί όλα τα δεξιά στοιχεία | Συμπληρώνει με `NULL` τα μη ταιριαστά αριστερά |
-| **Απειλή (Threat)** | Γεγονός που προκαλεί απώλεια/ζημιά στο ΠΣ | Μπορεί να είναι φυσική, τυχαία ή σκόπιμη |
-| **Dictionary Attack** | Επίθεση σπασίματος με προκαθορισμένες λέξεις | Βασίζεται σε έτοιμα λεξικά κωδικών |
-| **Social Engineering** | Χειραγώγηση χρηστών για απόσπαση κωδικών | Εκμεταλλεύεται την ανθρώπινη εμπιστοσύνη/άγνοια |
-| **Security Policy** | Σύνολο κανόνων προστασίας του ΠΣ | Αποτελεί νομική και επιχειρησιακή υποχρέωση |
+| **Cartesian Product ($R \times S$)** | Combination of all tuples of $R$ with those of $S$ | Produces $\|R\| \times \|S\|$ records |
+| **Natural Join ($R \bowtie S$)** | Join based on equality of common attributes | Merges the common columns into one |
+| **Theta Join ($R \bowtie_{\theta} S$)** | Join based on a general condition $\theta$ | Implemented as $\sigma_{\theta}(R \times S)$ |
+| **Left Outer Join ($\⟕$)** | Join that retains all left-side elements | Fills unmatched right-side entries with `NULL` |
+| **Right Outer Join ($\⟖$)** | Join that retains all right-side elements | Fills unmatched left-side entries with `NULL` |
+| **Threat** | Event that causes loss/damage to the IS | Can be natural, accidental, or deliberate |
+| **Dictionary Attack** | Cracking attack with predefined words | Based on ready-made password dictionaries |
+| **Social Engineering** | Manipulation of users to extract passwords | Exploits human trust/ignorance |
+| **Security Policy** | Set of rules for protecting the IS | Constitutes a legal and operational obligation |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Το **Καρτεσιανό Γινόμενο** συνδυάζει όλα τα στοιχεία δύο πινάκων, δημιουργώντας μια μεγάλη σχέση με διπλότυπες στήλες.
-- Η **Φυσική Σύνδεση** εκτελεί αυτόματα έλεγχο ισότητας στα κοινά πεδία και διατηρεί μόνο μία φορά την κοινή στήλη.
-- Οι **Εξωτερικές Συνενώσεις (Outer Joins)** αποτρέπουν την απώλεια πληροφοριών για εγγραφές χωρίς αντιστοιχία, εισάγοντας τιμές `NULL`.
-- Τα **Εμφωλευμένα Ερωτήματα** προσφέρουν εναλλακτική μέθοδο ανάκτησης δεδομένων χωρίς τη χρήση ρητών συνενώσεων.
-- Η **Ασφάλεια Πληροφοριών** απειλείται τόσο από τεχνικές μεθόδους (Password Cracking) όσο και από ανθρώπινες αδυναμίες (Social Engineering).
-- Οι **Πολιτικές Ασφάλειας** πρέπει να εφαρμόζονται αυστηρά σε επίπεδο λογισμικού, δεδομένων και διαχείρισης κωδικών πρόσβασης (minimum 15 χαρακτήρες, αλλαγή ανά 6 μήνες).
+- The **Cartesian Product** combines all elements of two tables, producing a large relation with duplicate columns.
+- The **Natural Join** automatically performs an equality check on the common fields and retains the common column only once.
+- **Outer Joins** prevent information loss for records without a match by introducing `NULL` values.
+- **Nested Queries** offer an alternative method of data retrieval without using explicit joins.
+- **Information Security** is threatened both by technical methods (Password Cracking) and by human weaknesses (Social Engineering).
+- **Security Policies** must be strictly enforced at the software, data, and password-management levels (minimum 15 characters, change every 6 months).
 
 ---
 
@@ -342,113 +342,113 @@ WHERE br_name IN (
 
 ### Exercise 1: Cartesian Product Calculation
 **Problem:**
-Δίνονται οι σχέσεις $R$ (Πελάτες) και $S$ (Καταθέσεις):
+The relations $R$ (Customers) and $S$ (Deposits) are given:
 $$
-R = \{ (\text{'Πέτρου'}, \text{'Αθήνα'}), (\text{'Παύλου'}, \text{'Λάρισα'}) \}
+R = \{ (\text{'Petrou'}, \text{'Athens'}), (\text{'Pavlou'}, \text{'Larisa'}) \}
 $$
 $$
-S = \{ (1100, \text{'Πέτρου'}), (756, \text{'Παύλου'}) \}
+S = \{ (1100, \text{'Petrou'}), (756, \text{'Pavlou'}) \}
 $$
-Υπολογίστε το Καρτεσιανό Γινόμενο $R \times S$ και σχεδιάστε τον πίνακα εξόδου.
+Compute the Cartesian Product $R \times S$ and draw the output table.
 
 **Solution:**
-1. Προσδιορίζουμε τα σχήματα των σχέσεων:
+1. We determine the schemas of the relations:
    - $R(\text{cust\_name}, \text{cust\_city})$
    - $S(\text{acc\_no}, \text{cust\_name})$
-2. Το σχήμα του αποτελέσματος θα είναι:
+2. The schema of the result will be:
    - $Result(R.\text{cust\_name}, \text{cust\_city}, \text{acc\_no}, S.\text{cust\_name})$
-3. Συνδυάζουμε κάθε γραμμή του $R$ με κάθε γραμμή του $S$ (συνολικά $2 \times 2 = 4$ γραμμές):
-   - Row 1: $(\text{'Πέτρου'}, \text{'Αθήνα'})$ με $(1100, \text{'Πέτρου'})$
-   - Row 2: $(\text{'Πέτρου'}, \text{'Αθήνα'})$ με $(756, \text{'Παύλου'})$
-   - Row 3: $(\text{'Παύλου'}, \text{'Λάρισα'})$ με $(1100, \text{'Πέτρου'})$
-   - Row 4: $(\text{'Παύλου'}, \text{'Λάρισα'})$ με $(756, \text{'Παύλου'})$
+3. We combine each row of $R$ with each row of $S$ (in total $2 \times 2 = 4$ rows):
+   - Row 1: $(\text{'Petrou'}, \text{'Athens'})$ with $(1100, \text{'Petrou'})$
+   - Row 2: $(\text{'Petrou'}, \text{'Athens'})$ with $(756, \text{'Pavlou'})$
+   - Row 3: $(\text{'Pavlou'}, \text{'Larisa'})$ with $(1100, \text{'Petrou'})$
+   - Row 4: $(\text{'Pavlou'}, \text{'Larisa'})$ with $(756, \text{'Pavlou'})$
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | R.cust_name | cust_city | acc_no | S.cust_name |
 |:---|:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 | Πέτρου |
-| Πέτρου | Αθήνα | 756 | Παύλου |
-| Παύλου | Λάρισα | 1100 | Πέτρου |
-| Παύλου | Λάρισα | 756 | Παύλου |
+| Petrou | Athens | 1100 | Petrou |
+| Petrou | Athens | 756 | Pavlou |
+| Pavlou | Larisa | 1100 | Petrou |
+| Pavlou | Larisa | 756 | Pavlou |
 
 ---
 
 ### Exercise 2: Natural Join Application
 **Problem:**
-Χρησιμοποιώντας τις σχέσεις $R$ και $S$ από το Exercise 1, υπολογίστε τη Φυσική Σύνδεση $R \bowtie S$.
+Using the relations $R$ and $S$ from Exercise 1, compute the Natural Join $R \bowtie S$.
 
 **Solution:**
-1. Εντοπίζουμε το κοινό γνώρισμα των δύο πινάκων, το οποίο είναι το `cust_name`.
-2. Από το Καρτεσιανό Γινόμενο του Exercise 1, κρατάμε μόνο τις γραμμές όπου $R.\text{cust\_name} = S.\text{cust\_name}$:
-   - Line 1: $\text{'Πέτρου'} = \text{'Πέτρου'}$ (Δεκτή)
-   - Line 2: $\text{'Πέτρου'} \neq \text{'Παύλου'}$ (Απορρίπτεται)
-   - Line 3: $\text{'Παύλου'} \neq \text{'Πέτρου'}$ (Απορρίπτεται)
-   - Line 4: $\text{'Παύλου'} = \text{'Παύλου'}$ (Δεκτή)
-3. Συγχωνεύουμε την κοινή στήλη `cust_name` σε μία.
+1. We identify the common attribute of the two tables, which is `cust_name`.
+2. From the Cartesian Product of Exercise 1, we keep only the rows where $R.\text{cust\_name} = S.\text{cust\_name}$:
+   - Line 1: $\text{'Petrou'} = \text{'Petrou'}$ (Accepted)
+   - Line 2: $\text{'Petrou'} \neq \text{'Pavlou'}$ (Rejected)
+   - Line 3: $\text{'Pavlou'} \neq \text{'Petrou'}$ (Rejected)
+   - Line 4: $\text{'Pavlou'} = \text{'Pavlou'}$ (Accepted)
+3. We merge the common column `cust_name` into one.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | cust_name | cust_city | acc_no |
 |:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 |
-| Παύλου | Λάρισα | 756 |
+| Petrou | Athens | 1100 |
+| Pavlou | Larisa | 756 |
 
 ---
 
 ### Exercise 3: Equi-Join SQL Translation
 **Problem:**
-Γράψτε το SQL ερώτημα που εκτελεί τη συνένωση ισότητας των πινάκων `Customer(cust_name, cust_city)` και `Deposit(acc_no, cust_name)` στη στήλη `cust_name` και δείξτε τη δομή του αποτελέσματος.
+Write the SQL query that performs the equi-join of the tables `Customer(cust_name, cust_city)` and `Deposit(acc_no, cust_name)` on the column `cust_name`, and show the structure of the result.
 
 **Solution:**
-1. Το ερώτημα SQL χρησιμοποιεί τη σύνταξη `JOIN ... ON ...`:
+1. The SQL query uses the `JOIN ... ON ...` syntax:
 ```sql
 SELECT * 
 FROM Customer 
 JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
 ```
-2. Η έξοδος διατηρεί και τις δύο στήλες `cust_name` των πινάκων.
+2. The output retains both `cust_name` columns of the tables.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | Customer.cust_name | cust_city | acc_no | Deposit.cust_name |
 |:---|:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 | Πέτρου |
-| Παύλου | Λάρισα | 756 | Παύλου |
+| Petrou | Athens | 1100 | Petrou |
+| Pavlou | Larisa | 756 | Pavlou |
 
 ---
 
 ### Exercise 4: Left Outer Join Computation
 **Problem:**
-Δίνονται οι πίνακες:
-- `Customer(cust_name, cust_city)` με εγγραφές: `('Πέτρου', 'Αθήνα')`, `('Παύλου', 'Λάρισα')`, `('Αντώνης', 'Θεσσαλονίκη')`
-- `Deposit(acc_no, cust_name)` με εγγραφές: `(1100, 'Πέτρου')`, `(756, 'Παύλου')`
+The following tables are given:
+- `Customer(cust_name, cust_city)` with records: `('Petrou', 'Athens')`, `('Pavlou', 'Larisa')`, `('Antonis', 'Thessaloniki')`
+- `Deposit(acc_no, cust_name)` with records: `(1100, 'Petrou')`, `(756, 'Pavlou')`
 
-Υπολογίστε το Left Outer Join των πινάκων `Customer` και `Deposit` στη στήλη `cust_name`.
+Compute the Left Outer Join of the tables `Customer` and `Deposit` on the column `cust_name`.
 
 **Solution:**
-1. Το Left Outer Join διατηρεί όλες τις εγγραφές του αριστερού πίνακα (`Customer`).
-2. Για τις εγγραφές `Πέτρου` και `Παύλου` υπάρχει αντιστοιχία στον πίνακα `Deposit`, οπότε συμπληρώνονται κανονικά.
-3. Για την εγγραφή `Αντώνης` δεν υπάρχει αντίστοιχη εγγραφή στο `Deposit`. Συνεπώς, τα πεδία του `Deposit` (`acc_no`, `Deposit.cust_name`) παίρνουν την τιμή `NULL`.
+1. The Left Outer Join retains all the records of the left table (`Customer`).
+2. For the records `Petrou` and `Pavlou` there is a match in the `Deposit` table, so they are filled in normally.
+3. For the record `Antonis` there is no corresponding record in `Deposit`. Consequently, the `Deposit` fields (`acc_no`, `Deposit.cust_name`) take the value `NULL`.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | Customer.cust_name | cust_city | acc_no | Deposit.cust_name |
 |:---|:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 | Πέτρου |
-| Παύλου | Λάρισα | 756 | Παύλου |
-| Αντώνης | Θεσσαλονίκη | NULL | NULL |
+| Petrou | Athens | 1100 | Petrou |
+| Pavlou | Larisa | 756 | Pavlou |
+| Antonis | Thessaloniki | NULL | NULL |
 
 ---
 
 ### Exercise 5: Multiple Table Join Query
 **Problem:**
-Δίνονται οι πίνακες:
+The following tables are given:
 - `Customer(cust_name, cust_city)`
 - `Deposit(acc_no, br_name, cust_name, balance)`
 - `Branch(br_name, br_city)`
 
-Γράψτε ένα ερώτημα SQL για την εύρεση των ονομάτων των πελατών και των υπολοίπων τους, οι οποίοι έχουν κατάθεση σε υποκατάστημα που βρίσκεται σε **διαφορετική** πόλη από την πόλη διαμονής τους.
+Write an SQL query to find the names of customers and their balances who have a deposit in a branch located in a **different** city from their city of residence.
 
 **Solution:**
-1. Πρέπει να συνδέσουμε τον πίνακα `Customer` με τον `Deposit` (μέσω του `cust_name`) και τον πίνακα `Deposit` με τον `Branch` (μέσω του `br_name`).
-2. Προσθέτουμε τη συνθήκη φιλτραρίσματος `Customer.cust_city <> Branch.br_city`.
+1. We must join the `Customer` table with `Deposit` (via `cust_name`) and the `Deposit` table with `Branch` (via `br_name`).
+2. We add the filtering condition `Customer.cust_city <> Branch.br_city`.
 
 ```sql
 SELECT Customer.cust_name, Deposit.balance
@@ -462,36 +462,36 @@ WHERE Customer.cust_city <> Branch.br_city;
 
 ### Exercise 6: Right Outer Join Analysis
 **Problem:**
-Δίνονται οι πίνακες `Borrow(loan_number, amount, cust_name)` με εγγραφή `(L-101, 1000, 'Γιώργος')` και `Customer(cust_name, street, cust_city)` με εγγραφές `('Γιώργος', 'Πατησίων 10', 'Αθήνα')`, `('Μαρία', 'Τρικούπη 12', 'Πάτρα')`.
+The tables `Borrow(loan_number, amount, cust_name)` with record `(L-101, 1000, 'Giorgos')` and `Customer(cust_name, street, cust_city)` with records `('Giorgos', 'Patision 10', 'Athens')`, `('Maria', 'Trikoupi 12', 'Patra')` are given.
 
-Υπολογίστε το αποτέλεσμα του Right Outer Join του `Borrow` με τον `Customer` στη στήλη `cust_name`.
+Compute the result of the Right Outer Join of `Borrow` with `Customer` on the column `cust_name`.
 
 **Solution:**
-1. Το Right Outer Join διατηρεί όλες τις εγγραφές του δεξιού πίνακα (`Customer`).
-2. Για τον `Γιώργο` υπάρχει αντιστοιχία, οπότε συνδέεται με το δάνειο `L-101`.
-3. Για τη `Μαρία` δεν υπάρχει δάνειο στον πίνακα `Borrow`. Τα πεδία `loan_number` και `amount` συμπληρώνονται με `NULL`.
+1. The Right Outer Join retains all the records of the right table (`Customer`).
+2. For `Giorgos` there is a match, so it is linked to the loan `L-101`.
+3. For `Maria` there is no loan in the `Borrow` table. The `loan_number` and `amount` fields are filled with `NULL`.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | loan_number | amount | cust_name | street | cust_city |
 |:---|:---|:---|:---|:---|
-| L-101 | 1000 | Γιώργος | Πατησίων 10 | Αθήνα |
-| NULL | NULL | Μαρία | Τρικούπη 12 | Πάτρα |
+| L-101 | 1000 | Giorgos | Patision 10 | Athens |
+| NULL | NULL | Maria | Trikoupi 12 | Patra |
 
 ---
 
 ### Exercise 7: Nested Subquery Translation
 **Problem:**
-Μετατρέψτε το ακόλουθο ερώτημα σύνδεσης (JOIN) σε ισοδύναμο ερώτημα με χρήση εμφωλευμένου ερωτήματος (subquery):
+Convert the following join (JOIN) query into an equivalent query using a nested subquery:
 ```sql
 SELECT DISTINCT Deposit.cust_name
 FROM Deposit
 JOIN Branch ON Deposit.br_name = Branch.br_name
-WHERE Branch.br_city = 'Αθήνα';
+WHERE Branch.br_city = 'Athens';
 ```
 
 **Solution:**
-1. Το εσωτερικό ερώτημα (subquery) πρέπει να ανακτήσει τα ονόματα των υποκαταστημάτων (`br_name`) που βρίσκονται στην πόλη 'Αθήνα'.
-2. Το εξωτερικό ερώτημα θα επιλέξει τα ονόματα πελατών από τον πίνακα `Deposit` των οποίων το υποκατάστημα περιλαμβάνεται στη λίστα του subquery.
+1. The inner query (subquery) must retrieve the names of the branches (`br_name`) located in the city 'Athens'.
+2. The outer query will select the names of customers from the `Deposit` table whose branch is included in the subquery's list.
 
 ```sql
 SELECT DISTINCT cust_name
@@ -499,7 +499,7 @@ FROM Deposit
 WHERE br_name IN (
     SELECT br_name
     FROM Branch
-    WHERE br_city = 'Αθήνα'
+    WHERE br_city = 'Athens'
 );
 ```
 
@@ -507,27 +507,27 @@ WHERE br_name IN (
 
 ### Exercise 8: Natural Join vs. Theta Join Equivalence
 **Problem:**
-Αποδείξτε μαθηματικά χρησιμοποιώντας τη σχεσιακή άλγεβρα ότι η Φυσική Σύνδεση $R \bowtie S$ για τις σχέσεις $R(A, B)$ και $S(B, C)$ είναι ισοδύναμη με μια πράξη προβολής επί μιας θεματικής συνένωσης (Theta Join).
+Prove mathematically using relational algebra that the Natural Join $R \bowtie S$ for the relations $R(A, B)$ and $S(B, C)$ is equivalent to a projection operation over a Theta Join.
 
 **Solution:**
-1. Η Θεματική Σύνδεση με συνθήκη ισότητας στο κοινό γνώρισμα $B$ ορίζεται ως:
+1. The Theta Join with an equality condition on the common attribute $B$ is defined as:
    $$ R \bowtie_{R.B = S.B} S = \sigma_{R.B = S.B}(R \times S) $$
-   Η σχέση αυτή έχει γνωρίσματα $(A, R.B, S.B, C)$.
-2. Η Φυσική Σύνδεση $R \bowtie S$ έχει γνωρίσματα $(A, B, C)$, όπου η διπλή στήλη του $B$ έχει συγχωνευθεί.
-3. Για να καταστήσουμε τις δύο εκφράσεις ταυτόσημες, εφαρμόζουμε προβολή ($\pi$) στο αποτέλεσμα της θεματικής συνένωσης για να απορρίψουμε τη μία εκ των δύο στηλών $B$ (π.χ. την $S.B$) και να μετονομάσουμε την άλλη σε $B$:
+   This relation has the attributes $(A, R.B, S.B, C)$.
+2. The Natural Join $R \bowtie S$ has the attributes $(A, B, C)$, where the duplicate $B$ column has been merged.
+3. To make the two expressions identical, we apply projection ($\pi$) to the result of the Theta Join to discard one of the two $B$ columns (e.g., $S.B$) and rename the other to $B$:
    $$ R \bowtie S = \pi_{A, R.B \text{ AS } B, C}(\sigma_{R.B = S.B}(R \times S)) $$
-   Συνεπώς, η Φυσική Σύνδεση είναι μια εξειδικευμένη μορφή Θεματικής Σύνδεσης που ακολουθείται από προβολή.
+   Therefore, the Natural Join is a specialized form of Theta Join followed by a projection.
 
 ---
 
 ## Exam Tip: JOIN Mechanics & Safety Policies
 
 > **[Key Insight]**
-> **Exam Tip - JOINs**: Στις εξετάσεις, όταν ζητείται η διαφορά μεταξύ `NATURAL JOIN` και `JOIN ... ON` (Equi-join):
-> 1. Το `NATURAL JOIN` συγχωνεύει αυτόματα τις στήλες με ίδιο όνομα και επιστρέφει την κοινή στήλη **μόνο μία φορά**.
-> 2. Το `JOIN ... ON` διατηρεί **και τις δύο στήλες** στο αποτέλεσμα, προσθέτοντας το όνομα του πίνακα ως πρόθεμα. Αν ζητηθεί η μετατροπή φυσικής σύνδεσης σε γενική συνένωση, πρέπει να χρησιμοποιηθεί ρητή προβολή (`SELECT`) των επιμέρους στηλών για να αποφευχθεί η διπλή εμφάνιση.
+> **Exam Tip - JOINs**: In exams, when the difference between `NATURAL JOIN` and `JOIN ... ON` (Equi-join) is asked:
+> 1. `NATURAL JOIN` automatically merges columns with the same name and returns the common column **only once**.
+> 2. `JOIN ... ON` retains **both columns** in the result, adding the table name as a prefix. If the conversion of a natural join into a general join is requested, an explicit projection (`SELECT`) of the individual columns must be used to avoid duplication.
 > 
-> **Exam Tip - Security Policies**: Σε ερωτήσεις θεωρίας σχετικά με την ασφάλεια κωδικών, να θυμάστε τους εξής "χρυσούς κανόνες":
-> - Ελάχιστο μήκος κωδικού: **15 χαρακτήρες** (όχι 8 ή 10).
-> - Συχνότητα αλλαγής: **Κάθε 6 μήνες** (τουλάχιστον).
-> - Η **Ακεραιότητα Οντοτήτων** (Entity Integrity) αφορά αποκλειστικά το Primary Key (όχι NULL), ενώ η **Αναφορική Ακεραιότητα** (Referential Integrity) αφορά το Foreign Key (πρέπει να δείχνει σε υπαρκτή εγγραφή). Μην τις μπερδεύετε!
+> **Exam Tip - Security Policies**: In theory questions about password security, remember the following "golden rules":
+> - Minimum password length: **15 characters** (not 8 or 10).
+> - Change frequency: **Every 6 months** (at least).
+> - **Entity Integrity** concerns exclusively the Primary Key (not NULL), while **Referential Integrity** concerns the Foreign Key (it must point to an existing record). Do not confuse them!

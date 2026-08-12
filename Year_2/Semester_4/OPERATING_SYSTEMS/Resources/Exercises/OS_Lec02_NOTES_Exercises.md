@@ -1,210 +1,210 @@
-# Ασκήσεις — Κεφάλαιο 2: Σκοποί και Εξέλιξη ΛΣ
+# Exercises — Chapter 2: Purposes and Evolution of OS
 
-**Βασισμένες σε:** `OS_Lec02_NOTES.md`  
-**Αριθμός ασκήσεων:** 35
-
----
-
-## Μέρος Α — Σκοποί ΛΣ
-
-### Άσκηση 1
-Αναφέρετε τους τέσσερις κεντρικούς σκοπούς ενός ΛΣ και περιγράψτε σύντομα καθέναν.
+**Based on:** `OS_Lec02_NOTES.md`  
+**Number of exercises:** 35
 
 ---
 
-### Άσκηση 2
-Εξηγήστε τη λειτουργία dual-mode (user mode / monitor mode). Τι είναι το mode bit;
+## Part A — OS Purposes
+
+### Exercise 1
+State the four central purposes of an OS and briefly describe each one.
 
 ---
 
-### Άσκηση 3
-Τι συμβαίνει σε interrupt ή fault όσον αφορά τη λειτουργία της CPU;
+### Exercise 2
+Explain the dual-mode operation (user mode / monitor mode). What is the mode bit?
 
 ---
 
-### Άσκηση 4
-Αναφέρετε πέντε προνομιούχες (privileged) εντολές που αναφέρονται στις σημειώσεις.
+### Exercise 3
+What happens on an interrupt or fault with respect to CPU operation?
 
 ---
 
-### Άσκηση 5
-Περιγράψτε τη ροή μιας system call για εκτέλεση I/O από πρόγραμμα χρήστη (4 βήματα).
+### Exercise 4
+State five privileged instructions mentioned in the notes.
 
 ---
 
-### Άσκηση 6
-Εξηγήστε τη λειτουργία των καταχωρητών base και limit για προστασία μνήμης.
+### Exercise 5
+Describe the flow of a system call for executing I/O from a user program (4 steps).
 
 ---
 
-### Άσκηση 7
-Έστω base = 1000, limit = 500. Ποιες λογικές διευθύνσεις είναι έγκυρες; Τι συμβαίνει για διεύθυνση 1600;
+### Exercise 6
+Explain the operation of the base and limit registers for memory protection.
 
 ---
 
-### Άσκηση 8
-Πώς λειτουργεί ο χρονιστής (timer) για προστασία CPU; Γιατί η φόρτωσή του είναι προνομιούχα εντολή;
+### Exercise 7
+Suppose base = 1000, limit = 500. Which logical addresses are valid? What happens for address 1600?
 
 ---
 
-### Άσκηση 9
-Αναφέρετε τις παρεχόμενες υπηρεσίες του ΛΣ προς τα προγράμματα χρηστών (τουλάχιστον 6).
+### Exercise 8
+How does the timer work to protect the CPU? Why is loading it a privileged instruction?
 
 ---
 
-### Άσκηση 10
-Εξηγήστε τις πέντε βασικές ευθύνες του ΛΣ στη διαχείριση μνήμης.
+### Exercise 9
+State the services provided by the OS to user programs (at least 6).
 
 ---
 
-## Μέρος Β — Διεργασίες, Μνήμη, Δρομολόγηση
-
-### Άσκηση 11
-Ορίστε διεργασία και αναφέρετε τα πεδία ενός πίνακα διεργασιών.
+### Exercise 10
+Explain the five main responsibilities of the OS in memory management.
 
 ---
 
-### Άσκηση 12
-Περιγράψτε την οργάνωση μνήμης διεργασίας (text, data, stack).
+## Part B — Processes, Memory, Scheduling
+
+### Exercise 11
+Define process and state the fields of a process table.
 
 ---
 
-### Άσκηση 13
-Αναφέρετε πέντε λόγους δημιουργίας σφαλμάτων σε διεργασίες.
+### Exercise 12
+Describe the memory organization of a process (text, data, stack).
 
 ---
 
-### Άσκηση 14
-Εξηγήστε σελιδοποίηση (paging): λογική διεύθυνση 16 bit, μέγεθος σελίδας 1024 bytes. Υπολογίστε: (α) bits offset, (β) μέγεθος πίνακα σελίδων.
+### Exercise 13
+State five reasons for the creation of errors in processes.
 
 ---
 
-### Άσκηση 15
-Λογική διεύθυνση 0x3A4F, μέγεθος σελίδας 4KB (4096 bytes). Υπολογίστε αριθμό σελίδας και offset.
+### Exercise 14
+Explain paging: logical address of 16 bits, page size of 1024 bytes. Calculate: (a) offset bits, (b) size of the page table.
 
 ---
 
-### Άσκηση 16
-Τι είναι η ιδεατή μνήμη (virtual memory) και ποια προβλήματα λύνει;
+### Exercise 15
+Logical address 0x3A4F, page size 4KB (4096 bytes). Calculate the page number and offset.
 
 ---
 
-### Άσκηση 17
-Αναφέρετε τέσσερα κριτήρια δρομολόγησης (scheduling criteria).
+### Exercise 16
+What is virtual memory and what problems does it solve?
 
 ---
 
-### Άσκηση 18
-Εξηγήστε πολυπρογραμματισμό ως τεχνική αύξησης CPU utilization. Ποια είναι τα trade-offs στον βαθμό πολυπρογραμματισμού;
+### Exercise 17
+State four scheduling criteria.
 
 ---
 
-## Μέρος Γ — Ασφάλεια και Δομή
-
-### Άσκηση 19
-Αναφέρετε τρεις πτυχές προστασίας και ασφάλειας πληροφοριών που καλύπτει το ΛΣ.
+### Exercise 18
+Explain multiprogramming as a technique for increasing CPU utilization. What are the trade-offs in the degree of multiprogramming?
 
 ---
 
-### Άσκηση 20
-Ποια προβλήματα προκύπτουν από αύξηση μεγέθους ΛΣ; Ποια σχεδιαστική τάση αντιμετωπίζει modular σχεδίαση;
+## Part C — Security and Structure
+
+### Exercise 19
+State three aspects of protection and information security covered by the OS.
 
 ---
 
-### Άσκηση 21
-Περιγράψτε την ιεραρχία σχεδίασης ΛΣ (hardware → kernel → system calls → utilities → applications).
+### Exercise 20
+What problems arise from increasing the size of an OS? Which design trend does modular design address?
 
 ---
 
-### Άσκηση 22
-Αναφέρετε τρεις εξελίξεις υλικού, λογισμικού και αρχιτεκτονικής ΛΣ στα σύγχρονα συστήματα.
+### Exercise 21
+Describe the OS design hierarchy (hardware → kernel → system calls → utilities → applications).
 
 ---
 
-## Μέρος Δ — Ασκήσεις Εφαρμογής
-
-### Άσκηση 23
-**Dual-Mode:** Πρόγραμμα χρήστη εκτελείται κανονικά. Συμβαίνει page fault. Περιγράψτε τις αλλαγές mode και ποιος χειρίζεται το σφάλμα.
+### Exercise 22
+State three hardware, software, and OS architecture developments in modern systems.
 
 ---
 
-### Άσκηση 24
-**Προστασία Μνήμης:** base=2000, limit=300. Ελέγξτε αν επιτρέπεται πρόσβαση στις διευθύνσεις 2100, 2299, 2300, 1999.
+## Part D — Application Exercises
+
+### Exercise 23
+**Dual-Mode:** A user program runs normally. A page fault occurs. Describe the mode changes and who handles the fault.
 
 ---
 
-### Άσκηση 25
-**System Call I/O:** Σχεδιάστε τη ροή από `read()` σε user program μέχρι επιστροφής δεδομένων.
+### Exercise 24
+**Memory Protection:** base=2000, limit=300. Check whether access is allowed to addresses 2100, 2299, 2300, 1999.
 
 ---
 
-### Άσκηση 26
-**Σελιδοποίηση:** Σελίδα 3, offset 256, μέγεθος σελίδας 512 bytes. Υπολογίστε λογική διεύθυνση.
+### Exercise 25
+**System Call I/O:** Design the flow from `read()` in a user program to the return of data.
 
 ---
 
-### Άσκηση 27
-**Deadlock:** Διεργασία P κατέχει εκτυπωτή και ζητά plotter. Διεργασία Q κατέχει plotter και ζητά εκτυπωτή. Είναι αυτό αδιέξοδο; Γιατί;
+### Exercise 26
+**Paging:** Page 3, offset 256, page size 512 bytes. Calculate the logical address.
 
 ---
 
-### Άσκηση 28
-**Ιεραρχία ΛΣ:** Ταξινομήστε σε επίπεδα: `ls`, kernel scheduler, `malloc` wrapper, device driver, shell.
+### Exercise 27
+**Deadlock:** Process P holds a printer and requests a plotter. Process Q holds a plotter and requests a printer. Is this a deadlock? Why?
 
 ---
 
-## Μέρος Ε — Σωστό/Λάθος και Πολλαπλή Επιλογή
-
-### Άσκηση 29
-Σημειώστε **Σ** ή **Λ**:
-
-1. Οι εντολές I/O εκτελούνται μόνο σε monitor mode.
-2. Σε monitor mode το ΛΣ έχει απεριόριστη πρόσβαση στη μνήμη.
-3. Το microkernel είναι πάντα ταχύτερο από monolithic kernel.
-4. Ο timer μειώνεται κατά 1 με κάθε clock tick.
-5. Η σελιδοποίηση επιτρέπει μη συνεχή φυσική μνήμη.
+### Exercise 28
+**OS Hierarchy:** Classify into layers: `ls`, kernel scheduler, `malloc` wrapper, device driver, shell.
 
 ---
 
-### Άσκηση 30
-Κυκλώστε τη σωστή απάντηση: Ποια εντολή είναι privileged;
+## Part E — True/False and Multiple Choice
 
-- α) ADD  
-- β) LOAD base register  
-- γ) MOV  
-- δ) PUSH
+### Exercise 29
+Mark **T** or **F**:
 
----
-
-### Άσκηση 31
-Ποιος καταχωρητής ορίζει το μέγεθος της αποδεκτής περιοχής μνήμης;
-
-- α) Program Counter  
-- β) Stack Pointer  
-- γ) Limit register  
-- δ) Mode register
+1. I/O instructions are executed only in monitor mode.
+2. In monitor mode the OS has unlimited access to memory.
+3. A microkernel is always faster than a monolithic kernel.
+4. The timer is decremented by 1 with each clock tick.
+5. Paging allows non-contiguous physical memory.
 
 ---
 
-### Άσκηση 32
-Εξηγήστε τη διαφορά system programs και application programs στο πλαίσιο επικοινωνίας ΛΣ-χρήστη.
+### Exercise 30
+Circle the correct answer: Which instruction is privileged?
+
+- a) ADD  
+- b) LOAD base register  
+- c) MOV  
+- d) PUSH
 
 ---
 
-### Άσκηση 33
-Τι είναι ο μικροπρογραμματισμός (microprogramming) και πώς σχετίζεται με επίπεδα αφαίρεσης;
+### Exercise 31
+Which register defines the size of the acceptable memory region?
+
+- a) Program Counter  
+- b) Stack Pointer  
+- c) Limit register  
+- d) Mode register
 
 ---
 
-### Άσκηση 34
-Σενάριο: Δύο διεργασίες μοιράζονται εκτυπωτή. Ποιος σκοπός του ΛΣ (I–IV) εμπλέκεται κυρίως και πώς;
+### Exercise 32
+Explain the difference between system programs and application programs in the context of OS-user communication.
 
 ---
 
-### Άσκηση 35
-Συμπληρώστε τον πίνακα:
+### Exercise 33
+What is microprogramming and how does it relate to abstraction levels?
 
-| Έννοια | Σύντομος ορισμός |
+---
+
+### Exercise 34
+Scenario: Two processes share a printer. Which OS purpose (I–IV) is mainly involved and how?
+
+---
+
+### Exercise 35
+Complete the table:
+
+| Concept | Brief definition |
 | :--- | :--- |
 | Trap | |
 | Interrupt vector | |

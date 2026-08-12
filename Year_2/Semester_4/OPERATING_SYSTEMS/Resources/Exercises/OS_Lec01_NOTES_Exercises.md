@@ -1,69 +1,69 @@
-# Ασκήσεις — Κεφάλαιο 1: Εισαγωγή στα Λειτουργικά Συστήματα
+# Exercises — Chapter 1: Introduction to Operating Systems
 
-**Βασισμένες σε:** `OS_Lec01_NOTES.md`  
-**Αριθμός ασκήσεων:** 30
-
----
-
-## Μέρος Α — Ορισμοί και Στοιχεία ΥΣ
-
-### Άσκηση 1
-Ορίστε Λειτουργικό Σύστημα και αναφέρετε τους τέσσερις βασικούς στόχους του.
+**Based on:** `OS_Lec01_NOTES.md`  
+**Number of exercises:** 30
 
 ---
 
-### Άσκηση 2
-Εξηγήστε τις δύο προσεγγίσεις ορισμού του ΛΣ: «εκτεταμένη μηχανή» και «διαχειριστής πόρων». Δώστε ένα παράδειγμα για καθεμία.
+## Part A — Definitions and OS Fundamentals
+
+### Exercise 1
+Define the Operating System and state its four main objectives.
 
 ---
 
-### Άσκηση 3
-Ποια είναι η διαφορά μεταξύ Λειτουργικού Συστήματος και Πυρήνα (Kernel);
+### Exercise 2
+Explain the two approaches to defining the OS: "extended machine" and "resource manager". Give one example for each.
 
 ---
 
-### Άσκηση 4
-Αναφέρετε τα τέσσερα επίπεδα ενός Υπολογιστικού Συστήματος και περιγράψτε σύντομα το καθένα.
+### Exercise 3
+What is the difference between an Operating System and a Kernel?
 
 ---
 
-### Άσκηση 5
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
-
-1. Ο πυρήνας είναι το μόνο πρόγραμμα που τρέχει συνεχώς όσο το ΥΣ είναι ενεργό.
-2. Το υλικό (hardware) αποτελεί μέρος του Λειτουργικού Συστήματος.
-3. Τα DBMS ανήκουν στα προγράμματα εφαρμογών.
-4. Το ΛΣ εκτελείται πάντα σε user mode για ασφάλεια.
-5. Οι χρήστες μπορεί να είναι άνθρωποι, μηχανήματα ή άλλοι υπολογιστές.
+### Exercise 4
+State the four layers of a Computer System and briefly describe each one.
 
 ---
 
-## Μέρος Β — Ιστορική Εξέλιξη
+### Exercise 5
+Mark **T** (True) or **F** (False):
 
-### Άσκηση 6
-Ποια ήταν τα κύρια προβλήματα της σειριακής επεξεργασίας (1940s) πριν την εμφάνιση ΛΣ;
+1. The kernel is the only program that runs continuously while the OS is active.
+2. The hardware is part of the Operating System.
+3. DBMS belong to application programs.
+4. The OS always runs in user mode for security.
+5. Users can be humans, machines, or other computers.
 
 ---
 
-### Άσκηση 7
-Εξηγήστε τον ρόλο του Monitor στα απλά μαζικά (batch) συστήματα. Τι είναι το JCL;
+## Part B — Historical Evolution
+
+### Exercise 6
+What were the main problems of serial processing (1940s) before the advent of OS?
 
 ---
 
-### Άσκηση 8
-Συμπληρώστε τον πίνακα απαιτούμενων χαρακτηριστικών υλικού για τον Monitor:
+### Exercise 7
+Explain the role of the Monitor in simple batch systems. What is JCL?
 
-| Χαρακτηριστικό | Σκοπός |
+---
+
+### Exercise 8
+Complete the table of required hardware features for the Monitor:
+
+| Feature | Purpose |
 | :--- | :--- |
-| Προστασία μνήμης | |
-| Χρονομετρητής | |
-| Προνομιούχες εντολές | |
-| Διακοπές | |
+| Memory protection | |
+| Timer | |
+| Privileged instructions | |
+| Interrupts | |
 
 ---
 
-### Άσκηση 9
-Υπολογίστε τη χρησιμοποίηση CPU (CPU Utilization) για την παρακάτω εργασία σε σύστημα μονοπρογραμματισμού:
+### Exercise 9
+Calculate the CPU Utilization for the following job in a uniprogramming system:
 
 ```
 Read one record   → 0.0015 sec
@@ -73,135 +73,135 @@ Write one record  → 0.0015 sec
 
 ---
 
-### Άσκηση 10
-Εξηγήστε γιατί αναπτύχθηκε ο πολυπρογραμματισμός (1965–1980). Ποια λειτουργία του ΛΣ επιτρέπει αξιοποίηση CPU έως 100%;
+### Exercise 10
+Explain why multiprogramming (1965–1980) was developed. Which OS function allows CPU utilization of up to 100%?
 
 ---
 
-### Άσκηση 11
-Συγκρίνετε **πολυπρογραμματισμό** και **καταμερισμό χρόνου** ως προς: στόχο, τρόπο εισαγωγής εργασιών, τύπο εργασίας.
+### Exercise 11
+Compare **multiprogramming** and **time sharing** with respect to: objective, way of job submission, type of job.
 
 ---
 
-### Άσκηση 12
-Τι είναι το κβάντο (quantum) σε συστήματα καταμερισμού χρόνου και πώς εκμεταλλεύεται τον χρόνο ανθρώπινης αντίδρασης;
+### Exercise 12
+What is the quantum in time-sharing systems and how does it exploit human reaction time?
 
 ---
 
-### Άσκηση 13
-Αναφέρετε τα χαρακτηριστικά της Τέταρτης Γενιάς ΛΣ (1980–1990): LSI, δίκτυα, κατανεμημένα συστήματα, πραγματικού χρόνου.
+### Exercise 13
+State the characteristics of the Fourth Generation of OS (1980–1990): LSI, networks, distributed systems, real-time.
 
 ---
 
-### Άσκηση 14
-Τι είναι το POSIX και πότε εμφανίστηκε; Τι είναι το middleware (2000+);
+### Exercise 14
+What is POSIX and when did it appear? What is middleware (2000+)?
 
 ---
 
-## Μέρος Γ — Ερωτήσεις Πολλαπλής Επιλογής
+## Part C — Multiple-Choice Questions
 
-### Άσκηση 15
-Ποιο από τα παρακάτω αποτελεί τον ορισμό του Πυρήνα;
+### Exercise 15
+Which of the following constitutes the definition of the Kernel?
 
-- α) Το σύνολο εφαρμογών χρήστη  
-- β) Το μοναδικό πρόγραμμα που εκτελείται συνεχώς  
-- γ) Ο μεταγλωττιστής  
-- δ) Το υλικό
-
----
-
-### Άσκηση 16
-Σε ποια εποχή εμφανίστηκε ο πολυπρογραμματισμός;
-
-- α) Αρχές 1940  
-- β) Αρχές 1960  
-- γ) 1965–1980  
-- δ) 1980–1990
+- a) The set of user applications  
+- b) The only program that runs continuously  
+- c) The compiler  
+- d) The hardware
 
 ---
 
-### Άσκηση 17
-Ποια είναι η κύρια διαφορά πολυπρογραμματισμού και καταμερισμού χρόνου;
+### Exercise 16
+In which era did multiprogramming appear?
 
-- α) Ο πολυπρογραμματισμός χρησιμοποιεί πολλούς CPU  
-- β) Ο πολυπρογραμματισμός στοχεύει στη μεγιστοποίηση χρήσης CPU, ο καταμερισμός χρόνου στην ελαχιστοποίηση χρόνου απόκρισης  
-- γ) Ο καταμερισμός χρόνου επεξεργάζεται μόνο batch εργασίες  
-- δ) Δεν υπάρχει διαφορά
-
----
-
-### Άσκηση 18
-Τι σημαίνει ότι το ΛΣ αντιμετωπίζεται ως «εκτεταμένη μηχανή»;
-
-- α) Έχει περισσότερη φυσική μνήμη  
-- β) Αποκρύπτει την πολυπλοκότητα του υλικού  
-- γ) Εκτελεί προγράμματα ταχύτερα  
-- δ) Παρέχει virtualization
+- a) Early 1940s  
+- b) Early 1960s  
+- c) 1965–1980  
+- d) 1980–1990
 
 ---
 
-## Μέρος Δ — Σύνθετες Ερωτήσεις
+### Exercise 17
+What is the main difference between multiprogramming and time sharing?
 
-### Άσκηση 19
-Ταξινομήστε χρονολογικά: Time-Sharing, Σειριακή επεξεργασία, Linux, Multiprogramming Batch, LSI/Distributed OS.
-
----
-
-### Άσκηση 20
-Αναφέρετε τέσσερις λειτουργίες του ΛΣ που απαιτούνται για πολυπρογραμματισμό (διαχείριση μνήμης, διεργασιών, κ.λπ.).
+- a) Multiprogramming uses multiple CPUs  
+- b) Multiprogramming aims to maximize CPU usage, time sharing aims to minimize response time  
+- c) Time sharing processes only batch jobs  
+- d) There is no difference
 
 ---
 
-### Άσκηση 21
-Τι μετράει η «ρυθμοαπόδοση» (throughput) και πώς σχετίζεται με τα μεγέθη απόδοσης ΛΣ;
+### Exercise 18
+What does it mean that the OS is treated as an "extended machine"?
+
+- a) It has more physical memory  
+- b) It hides the complexity of the hardware  
+- c) It executes programs faster  
+- d) It provides virtualization
 
 ---
 
-### Άσκηση 22
-Εξηγήστε τη σχέση εξάρτησης ΛΣ και αρχιτεκτονικής ΥΣ. Γιατί το DOS επιτρέπει μόνο μία διεργασία;
+## Part D — Complex Questions
+
+### Exercise 19
+Sort chronologically: Time-Sharing, Serial processing, Linux, Multiprogramming Batch, LSI/Distributed OS.
 
 ---
 
-### Άσκηση 23
-Περιγράψτε τη διαφορά batch jobs και interactive χρηστών στο πλαίσιο της ιστορικής εξέλιξης.
+### Exercise 20
+State four OS functions required for multiprogramming (memory management, process management, etc.).
 
 ---
 
-### Άσκηση 24
-Σημειώστε **Σ** ή **Λ** και διορθώστε:
-
-1. Η CPU Utilization σε μονοπρογραμματισμό με I/O-bound εργασία μπορεί να φτάσει 3%.
-2. Σε batch με Monitor, κάθε εργασία φορτώνει δικό της JCL.
-3. Το Linux εμφανίστηκε την περίοδο 1990–2000.
-4. Τα κατανεμημένα ΛΣ εμφανίζονται ως παραδοσιακά συστήματα ενός επεξεργαστή.
-5. Οι διακοπές (interrupts) χρησιμοποιούνται μόνο σε σύγχρονα ΛΣ.
+### Exercise 21
+What does "throughput" measure and how does it relate to OS performance metrics?
 
 ---
 
-### Άσκηση 25
-Αναφέρετε τη θεωρία και το εργαστήριο (Unix) που καλύπτει το μάθημα σύμφωνα με τις σημειώσεις.
+### Exercise 22
+Explain the dependency relationship between the OS and the hardware architecture. Why does DOS allow only one process?
 
 ---
 
-### Άσκηση 26
-Γιατί οι ακριβείς μηχανές της δεκαετίας 1960 οδήγησαν στην ανάπτυξη batch συστημάτων;
+### Exercise 23
+Describe the difference between batch jobs and interactive users in the context of historical evolution.
 
 ---
 
-### Άσκηση 27
-Εξηγήστε πώς τα χαρακτηριστικά υλικού (διακοπές, I/O, DMA) αποτελούν βάση πολυπρογραμματιζόμενων συστημάτων.
+### Exercise 24
+Mark **T** or **F** and correct:
+
+1. CPU Utilization in uniprogramming with an I/O-bound job can reach 3%.
+2. In batch with Monitor, each job loads its own JCL.
+3. Linux appeared in the period 1990–2000.
+4. Distributed OS appear as traditional single-processor systems.
+5. Interrupts are used only in modern OS.
 
 ---
 
-### Άσκηση 28
-Ποιος είναι ο μέσος χρόνος απόκρισης και γιατί ελαχιστοποιείται στον καταμερισμό χρόνου;
+### Exercise 25
+State the theory and the laboratory (Unix) covered by the course according to the notes.
 
 ---
 
-### Άσκηση 29
-Συμπληρώστε: «Kernel ___ ΛΣ» — εξηγήστε τη σχέση.
+### Exercise 26
+Why did the expensive machines of the 1960s lead to the development of batch systems?
 
 ---
 
-### Άσκηση 30
-Σενάριο: Ένα σύστημα batch επεξεργάζεται 100 εργασίες/ώρα. Ένα σύστημα time-sharing εξυπηρετεί 20 χρήστες με quantum 100ms. Συγκρίνετε ποιο σύστημα επιλέγετε για: (α) επιστημονικούς υπολογισμούς overnight, (β) διαδραστικό terminal lab.
+### Exercise 27
+Explain how hardware features (interrupts, I/O, DMA) form the basis of multiprogrammable systems.
+
+---
+
+### Exercise 28
+What is the average response time and why is it minimized in time sharing?
+
+---
+
+### Exercise 29
+Complete: "Kernel ___ OS" — explain the relationship.
+
+---
+
+### Exercise 30
+Scenario: A batch system processes 100 jobs/hour. A time-sharing system serves 20 users with a quantum of 100ms. Compare which system you choose for: (a) overnight scientific computations, (b) interactive terminal lab.

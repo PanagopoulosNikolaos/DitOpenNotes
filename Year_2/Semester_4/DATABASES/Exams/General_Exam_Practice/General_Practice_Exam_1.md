@@ -1,23 +1,23 @@
-**Θέμα:**
+**Topic:**
 
-Ένα εκπαιδευτικό ίδρυμα διατηρεί πληροφορίες σχετικά με τους καθηγητές, τις σχολές και τα εκπαιδευτικά προγράμματα που προσφέρει.
+An educational institution maintains information about the professors, the faculties and the educational programs it offers.
 
-Κάθε σχολή έχει έναν μοναδικό κωδικό, ένα μοναδικό όνομα και έναν συγκεκριμένο καθηγητή που τη διευθύνει. Καταγράφεται η ημερομηνία ανάληψης καθηκόντων του διευθυντή. Οι σχολές διαθέτουν εγκαταστάσεις που βρίσκονται σε διάφορες γεωγραφικές περιοχές.
+Each faculty has a unique code, a unique name and a specific professor who heads it. The date the head took office is recorded. The faculties have facilities located in various geographic areas.
 
-Κάθε σχολή προσφέρει πολλά εκπαιδευτικά προγράμματα. Κάθε πρόγραμμα έχει έναν μοναδικό αριθμό, μια μοναδική ονομασία και πραγματοποιείται σε συγκεκριμένο χώρο.
+Each faculty offers many educational programs. Each program has a unique number, a unique title and takes place in a specific venue.
 
-Για κάθε καθηγητή καταγράφονται τα εξής στοιχεία: όνομα, επώνυμο, αριθμός ταυτότητας, ειδικότητα, διεύθυνση κατοικίας, μηνιαίες αποδοχές, φύλο και ημερομηνία γέννησης. Κάθε καθηγητής ανήκει σε μία συγκεκριμένη σχολή, αλλά μπορεί να συμμετέχει στην υλοποίηση πολλών εκπαιδευτικών προγραμμάτων, ακόμα και αν αυτά εποπτεύονται από άλλες σχολές. Καταγράφεται ο αριθμός ωρών απασχόλησης ανά εβδομάδα του καθηγητή σε κάθε πρόγραμμα.
+For each professor, the following data are recorded: first name, last name, ID number, specialty, residential address, monthly salary, gender and date of birth. Each professor belongs to a specific faculty, but may participate in the implementation of many educational programs, even if those are supervised by other faculties. The number of hours per week that the professor works in each program is recorded.
 
-Για κάθε καθηγητή καταγράφονται επίσης τα εξαρτώμενα μέλη της οικογένειάς του. Τα στοιχεία που διατηρούνται είναι: όνομα, φύλο, ημερομηνία γέννησης και η συγγενική τους σχέση.
+For each professor, the dependent members of his/her family are also recorded. The data kept are: name, gender, date of birth and their family relationship.
 
-**Ερωτήματα:**
+**Questions:**
 
-* **Α (4 μονάδες):** Βρείτε οντότητες, γνωρίσματα, κλειδιά και σχέσεις.
-* **Β (3 μονάδες):** Σχεδιάστε το διάγραμμα E-R για αυτή τη βάση δεδομένων. Είστε ελεύθεροι (μέσα στο πλαίσιο που ορίζεται από τις παραπάνω προδιαγραφές) να κάνετε όποιες επιλογές θεωρείτε σκόπιμες, δίνοντας την αιτιολόγηση που θεωρείτε ορθή.
-* **Γ (3 μονάδες):** Ακολούθως δείξτε τη δομή των πινάκων με τους οποίους θα υλοποιηθεί η βάση δεδομένων σύμφωνα με το διάγραμμα που φτιάξατε. Οι πίνακες πρέπει να γραφούν στην παρακάτω μορφή, ενώ πρέπει να δείξετε με υπογράμμιση το πρωτεύον κλειδί του καθενός.
+* **A (4 points):** Find the entities, attributes, keys and relationships.
+* **B (3 points):** Draw the E-R diagram for this database. You are free (within the framework defined by the above specifications) to make any choices you consider appropriate, providing the rationale you consider correct.
+* **C (3 points):** Then show the structure of the tables with which the database will be implemented according to the diagram you drew. The tables must be written in the following format, and you must show the primary key of each one with underlining.
 
-**Φοιτητής**
-| Αριθμός Μητρώου | Ονοματεπώνυμο | Εξάμηνο | Τηλέφωνο |
+**Student**
+| Registration Number | Full Name | Semester | Phone |
 |---|---|---|---|
 
-**Καλή επιτυχία!**
+**Good luck!**

@@ -20,11 +20,11 @@ C) None exit
 D) As many exit as enter
 
 Exercise 1. 3 points
-According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where ρ is the charge density. If $\vec{D}=-x\hat{x}+z^2y\hat{z}$, calculate the charge density ρ.
+According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where $\rho$ is the charge density. If $\vec{D}=-x\hat{x}+z^2y\hat{z}$, calculate the charge density $\rho$.
 
 Exercise 2. 3 points
 The electric field of a sinusoidal plane electromagnetic wave propagating in a vacuum is given by:
-$\vec{E}=60\cos(kx-3\cdot 10^9 t)\hat{y}$ a) What is the wavelength λ and the frequency f of the wave? b) Write the oscillation vector of the magnetic induction $\vec{B}$. c) Calculate the Poynting vector $\vec{S}$ and the intensity I of the wave.
+$\vec{E}=60\cos(kx-3\cdot 10^9 t)\hat{y}$ a) What is the wavelength $\lambda$ and the frequency f of the wave? b) Write the oscillation vector of the magnetic induction $\vec{B}$. c) Calculate the Poynting vector $\vec{S}$ and the intensity I of the wave.
 
 Formula sheet for both exercises:
 The equations of the electric and magnetic fields for a wave propagating in the x direction are:

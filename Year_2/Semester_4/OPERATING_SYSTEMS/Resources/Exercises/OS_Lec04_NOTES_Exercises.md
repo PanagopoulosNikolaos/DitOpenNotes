@@ -1,123 +1,123 @@
-# Ασκήσεις — Κεφάλαιο 4: Αρχιτεκτονικές ΛΣ
+# Exercises — Chapter 4: OS Architectures
 
-**Βασισμένες σε:** `OS_Lec04_NOTES.md`  
-**Αριθμός ασκήσεων:** 30
-
----
-
-## Μέρος Α — Μονολιθικά και Στρωματοποιημένα
-
-### Άσκηση 1
-Ορίστε μονολιθικό σύστημα. Ποια είναι τα πλεονεκτήματα και μειονεκτήματα;
+**Based on:** `OS_Lec04_NOTES.md`  
+**Number of exercises:** 30
 
 ---
 
-### Άσκηση 2
-Περιγράψτε τα 4 βήματα κλήσης συστήματος σε μονολιθική αρχιτεκτονική.
+## Part A — Monolithic and Layered
+
+### Exercise 1
+Define monolithic system. What are the advantages and disadvantages?
 
 ---
 
-### Άσκηση 3
-Εξηγήστε τη στρωματοποιημένη αρχιτεκτονική. Γιατί η throughput μπορεί να είναι χαμηλότερη;
+### Exercise 2
+Describe the 4 steps of a system call in a monolithic architecture.
 
 ---
 
-### Άσκηση 4
-Συμπληρώστε τον πίνακα επιπέδων (Layer 0–4) και τη θέση τους (user/kernel space).
+### Exercise 3
+Explain the layered architecture. Why can throughput be lower?
 
 ---
 
-### Άσκηση 5
-Σημειώστε **Σ** ή **Λ**:
-
-1. Σε μονολιθικό ΛΣ κάθε διαδικασία μπορεί να καλέσει οποιαδήποτε άλλη απευθείας.
-2. Σε layered architecture κάθε επίπεδο επικοινωνεί μόνο με γειτονικά επίπεδα.
-3. Το Linux kernel είναι καθαρά microkernel.
-4. Η απουσία δομής στα monolithic κάνει το σύστημα δυσκολοσυντήρητο.
-5. Το MINIX χρησιμοποιεί microkernel.
+### Exercise 4
+Complete the table of layers (Layer 0–4) and their location (user/kernel space).
 
 ---
 
-## Μέρος Β — Μικροπυρήνας και Νήματα
+### Exercise 5
+Mark **T** or **F**:
 
-### Άσκηση 6
-Ορίστε αρχιτεκτονική μικροπυρήνα. Τι τρέχει σε kernel space vs user space;
-
----
-
-### Άσκηση 7
-Περιγράψτε τη ροή επικοινωνίας client-server στο microkernel (3 βήματα).
-
----
-
-### Άσκηση 8
-Αναφέρετε τέσσερα πλεονεκτήματα μικροπυρήνα.
+1. In a monolithic OS every procedure can directly call any other.
+2. In a layered architecture each layer communicates only with adjacent layers.
+3. The Linux kernel is purely a microkernel.
+4. The lack of structure in monolithic systems makes them hard to maintain.
+5. MINIX uses a microkernel.
 
 ---
 
-### Άσκηση 9
-Ορίστε νήμα (thread). Τι περιλαμβάνει ένα νήμα;
+## Part B — Microkernel and Threads
+
+### Exercise 6
+Define microkernel architecture. What runs in kernel space vs user space?
 
 ---
 
-### Άσκηση 10
-Συγκρίνετε διεργασία και νήμα: χώρος διευθύνσεων, κόστος δημιουργίας, κόστος context switch, επικοινωνία.
+### Exercise 7
+Describe the client-server communication flow in the microkernel (3 steps).
 
 ---
 
-### Άσκηση 11
-Εξηγήστε τη διαφορά user-level threads και kernel-level threads.
+### Exercise 8
+State four advantages of the microkernel.
 
 ---
 
-### Άσκηση 12
-Τι είναι hyper-threading (Intel) και ποιος ο στόχος του;
+### Exercise 9
+Define thread. What does a thread include?
 
 ---
 
-### Άσκηση 13
-Αναφέρετε παραδείγματα APIs νημάτων (Pthreads, Java threads).
+### Exercise 10
+Compare process and thread: address space, creation cost, context switch cost, communication.
 
 ---
 
-## Μέρος Γ — Πολυεπεξεργασία και Ειδικά Συστήματα
-
-### Άσκηση 14
-Ορίστε σύστημα πολυεπεξεργασίας. Αναφέρετε κατηγορίες και τοπολογίες διασύνδεσης.
+### Exercise 11
+Explain the difference between user-level threads and kernel-level threads.
 
 ---
 
-### Άσκηση 15
-Συγκρίνετε SMP (Symmetric Multiprocessing) και ασύμμετρη πολυεπεξεργασία.
+### Exercise 12
+What is hyper-threading (Intel) and what is its goal?
 
 ---
 
-### Άσκηση 16
-Ορίστε παράλληλο σύστημα. Ποια τα πλεονεκτήματα;
+### Exercise 13
+State examples of thread APIs (Pthreads, Java threads).
 
 ---
 
-### Άσκηση 17
-Διακρίνετε hard real-time και soft real-time συστήματα. Δώστε παράδειγμα για καθένα.
+## Part C — Multiprocessing and Special Systems
+
+### Exercise 14
+Define a multiprocessing system. State the categories and interconnection topologies.
 
 ---
 
-### Άσκηση 18
-Ορίστε κατανεμημένο σύστημα. Τι αποκρύπτει από τον χρήστη;
+### Exercise 15
+Compare SMP (Symmetric Multiprocessing) and asymmetric multiprocessing.
 
 ---
 
-### Άσκηση 19
-Αναφέρετε τρία χαρακτηριστικά κατανεμημένων συστημάτων.
+### Exercise 16
+Define a parallel system. What are its advantages?
 
 ---
 
-## Μέρος Δ — Συγκριτική Ανάλυση και Εφαρμογές
+### Exercise 17
+Distinguish hard real-time and soft real-time systems. Give an example for each.
 
-### Άσκηση 20
-Συμπληρώστε τον πίνακα:
+---
 
-| Αρχιτεκτονική | Ταχύτητα | Συντηρησιμότητα | Ασφάλεια/Αξιοπιστία |
+### Exercise 18
+Define a distributed system. What does it hide from the user?
+
+---
+
+### Exercise 19
+State three characteristics of distributed systems.
+
+---
+
+## Part D — Comparative Analysis and Applications
+
+### Exercise 20
+Complete the table:
+
+| Architecture | Speed | Maintainability | Security/Reliability |
 | :--- | :--- | :--- | :--- |
 | Monolithic | | | |
 | Layered | | | |
@@ -125,55 +125,55 @@
 
 ---
 
-### Άσκηση 21
-**Αναγνώριση:** Ένα ΛΣ όπου file system και scheduler τρέχουν ως servers σε user space. Ποια αρχιτεκτονική;
+### Exercise 21
+**Identification:** An OS where the file system and scheduler run as servers in user space. Which architecture?
 
 ---
 
-### Άσκηση 22
-**Βήματα System Call:** Ταξινομήστε: trap, επιστροφή ελέγχου, εντοπισμός service procedure, προσδιορισμός αριθμού εξυπηρέτησης.
+### Exercise 22
+**System Call Steps:** Sort: trap, return of control, locating the service procedure, determining the service number.
 
 ---
 
-### Άσκηση 23
-**Στρωματοποίηση:** Μια αίτηση I/O περνά από Layer 4 → 3 → 2 → 1 → 0. Εξηγήστε γιατί αυξάνεται latency.
+### Exercise 23
+**Layering:** An I/O request passes through Layer 4 → 3 → 2 → 1 → 0. Explain why latency increases.
 
 ---
 
-### Άσκηση 24
-**Νήμα vs Διεργασία:** Εφαρμογή web server με 100 ταυτόχρονες συνδέσεις — προτιμάτε 100 διεργασίες ή 1 διεργασία με 100 νήματα; Γιατί;
+### Exercise 24
+**Thread vs Process:** A web server application with 100 concurrent connections — would you prefer 100 processes or 1 process with 100 threads? Why?
 
 ---
 
-### Άσκηση 25
-**Real-Time:** Σύστημα ελέγχου αντιβαλλομένων φαρμάκων σε νοσοκομείο — hard ή soft RT; Αιτιολογήστε.
+### Exercise 25
+**Real-Time:** A system controlling the dispensing of medication in a hospital — hard or soft RT? Justify.
 
 ---
 
-### Άσκηση 26
-**SMP vs Ασύμμετρη:** Σε ποιο μοντέλο όλοι οι CPU μοιράζονται την ίδια ουρά διεργασιών;
+### Exercise 26
+**SMP vs Asymmetric:** In which model do all CPUs share the same process queue?
 
 ---
 
-### Άσκηση 27
-**Κατανεμημένα vs Παράλληλα:** Ποια η βασική διαφορά ως προς το αν ο χρήστης αντιλαμβάνεται πολλαπλούς υπολογιστές;
+### Exercise 27
+**Distributed vs Parallel:** What is the basic difference with respect to whether the user perceives multiple computers?
 
 ---
 
-### Άσκηση 28
-Κυκλώστε τη σωστή απάντηση: Ποιο ΛΣ χρησιμοποιεί microkernel;
+### Exercise 28
+Circle the correct answer: Which OS uses a microkernel?
 
-- α) Linux (monolithic modular)  
-- β) Windows NT πλήρως  
-- γ) MINIX  
-- δ) DOS
-
----
-
-### Άσκηση 29
-Εξηγήστε τις δύο λύσεις επίλυσης περιορισμών στο microkernel (servers σε kernel mode vs policy στους servers).
+- a) Linux (monolithic modular)  
+- b) Windows NT fully  
+- c) MINIX  
+- d) DOS
 
 ---
 
-### Άσκηση 30
-Σενάριο εξέτασης: Δίνονται χαρακτηριστικά — «μία διεργασία, πολλά νήματα, κοινός χώρος διευθύνσεων, χαμηλό κόστος εναλλαγής». Τι αρχιτεκτονική/έννοια περιγράφεται;
+### Exercise 29
+Explain the two solutions for resolving the limitations of the microkernel (servers in kernel mode vs policy in the servers).
+
+---
+
+### Exercise 30
+Exam scenario: Given the characteristics — "one process, many threads, shared address space, low switching cost". What architecture/concept is described?

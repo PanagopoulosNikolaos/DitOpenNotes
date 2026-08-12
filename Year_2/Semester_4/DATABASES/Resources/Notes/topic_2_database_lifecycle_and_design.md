@@ -1,149 +1,149 @@
-# Κύκλος Ζωής & Σχεδιασμός Βάσης Δεδομένων
+# Database Life Cycle & Database Design
 *Database Life Cycle & Database Design*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Βήμα 1: Συλλογή & Ανάλυση Απαιτήσεων](#βήμα-1-συλλογή--ανάλυση-απαιτήσεων)
-   - [Καθορισμός Αναγκών Χρηστών και Οργανισμού](#καθορισμός-αναγκών-χρηστών-και-οργανισμού)
-   - [Αποτύπωση Επιχειρησιακών Λειτουργιών και Προδιαγραφών](#αποτύπωση-επιχειρησιακών-λειτουργιών-και-προδιαγραφών)
-3. [Βήμα 2: Εννοιολογική Σχεδίαση](#βήμα-2-εννοιολογική-σχεδίαση)
-   - [Δημιουργία Μοντέλου Οντοτήτων-Συχετίσεων (ER Model)](#δημιουργία-μοντέλου-οντοτήτων-συχετίσεων-er-model)
-   - [Σχηματική Οπτικοποίηση της Λογικής Δομής](#σχηματική-οπτικοποίηση-της-λογικής-δομής)
-4. [Βήμα 3: Λογική Σχεδίαση](#βήμα-3-λογική-σχεδίαση)
-   - [Μετάβαση στο Σχεσιακό Μοντέλο Δεδομένων](#μετάβαση-στο-σχεσιακό-μοντέλο-δεδομένων)
-   - [Μετατροπή Εννοιολογικού Μοντέλου σε Εξαρτημένους Πίνακες](#μετατροπή-εννοιολογικού-μοντέλου-σε-εξαρτημένους-πίνακες)
-5. [Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση](#βήμα-4-φυσική-σχεδίαση--υλοποίηση)
-   - [Εσωτερική Οργάνωση Αρχείων στο Σύστημα](#εσωτερική-οργάνωση-αρχείων-στο-σύστημα)
-   - [Προγραμματισμός με SQL και Δημιουργία Φυσικών Δομών](#προγραμματισμός-με-sql-και-δημιουργία-φυσικών-δομών)
-6. [Συγκριτικός Πίνακας: Τα 4 Βήματα του Κύκλου Ζωής](#συγκριτικός-πίνακας-τα-4-βήματα-του-κύκλου-ζωής)
-7. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-8. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Step 1: Requirements Collection & Analysis](#step-1-requirements-collection-analysis)
+   - [Defining User and Organizational Needs](#defining-user-and-organizational-needs)
+   - [Documenting Business Functions and Specifications](#documenting-business-functions-and-specifications)
+3. [Step 2: Conceptual Design](#step-2-conceptual-design)
+   - [Creating the Entity-Relationship Model](#creating-the-entity-relationship-model)
+   - [Schematic Visualization of the Logical Structure](#schematic-visualization-of-the-logical-structure)
+4. [Step 3: Logical Design](#step-3-logical-design)
+   - [Transition to the Relational Data Model](#transition-to-the-relational-data-model)
+   - [Converting the Conceptual Model into Dependent Tables](#converting-the-conceptual-model-into-dependent-tables)
+5. [Step 4: Physical Design & Implementation](#step-4-physical-design-implementation)
+   - [Internal File Organization in the System](#internal-file-organization-in-the-system)
+   - [SQL Programming and Physical Structure Creation](#sql-programming-and-physical-structure-creation)
+6. [Comparative Table: The 4 Steps of the Database Life Cycle](#comparative-table-the-4-steps-of-the-database-life-cycle)
+7. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+8. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Ο **Κύκλος Ζωής Βάσης Δεδομένων** (Database Life Cycle — DBLC) είναι η δομημένη, επαναληπτική διαδικασία σχεδιασμού, ανάπτυξης και συντήρησης μιας βάσης δεδομένων, από την αρχική ανάλυση αναγκών έως την πλήρη φυσική υλοποίηση. Η ύπαρξη ενός τυποποιημένου κύκλου εξασφαλίζει ότι η βάση δεδομένων ανταποκρίνεται στις πραγματικές επιχειρησιακές απαιτήσεις, είναι δομικά ορθή και εφαρμόσιμη αποδοτικά στο επιλεγμένο σύστημα. Η αδυναμία τήρησης αυτής της διαδικασίας οδηγεί σε πλεονασμό δεδομένων, ασυνέπειες και μη επεκτάσιμα σχήματα. Η μελέτη του κύκλου ζωής αποτελεί θεμέλιο για την κατανόηση του ER Model, του Relational Model και της SQL που αναλύονται στα επόμενα θέματα.
+The **Database Life Cycle (DBLC)** is the structured, iterative process of designing, developing and maintaining a database, from the initial needs analysis to the full physical implementation. The existence of a standardized cycle ensures that the database meets the real business requirements, is structurally sound and can be implemented efficiently on the chosen system. Failure to follow this process leads to data redundancy, inconsistencies and non-scalable schemas. The study of the life cycle is the foundation for understanding the ER Model, the Relational Model and SQL, which are analyzed in the following topics.
 
 ---
 
-## Βήμα 1: Συλλογή & Ανάλυση Απαιτήσεων
+## Step 1: Requirements Collection & Analysis
 *Step 1: Requirements Collection & Analysis*
 
-Το πρώτο βήμα αποτελεί το **θεμέλιο** ολόκληρης της διαδικασίας σχεδιασμού. Χωρίς σαφή και πλήρη κατανόηση των αναγκών του οργανισμού και των χρηστών, οποιοδήποτε μοντέλο δεδομένων παραχθεί αργότερα θα είναι ελλιπές ή λανθασμένο. Σε αυτό το βήμα ο σχεδιαστής δεν ασχολείται ακόμα με τεχνικές λεπτομέρειες (πίνακες, τύπους δεδομένων), αλλά με την **κατανόηση του τι πρέπει να κάνει το σύστημα**.
+The first step is the **foundation** of the entire design process. Without a clear and complete understanding of the needs of the organization and its users, any data model produced later will be incomplete or wrong. In this step, the designer is not yet concerned with technical details (tables, data types), but with **understanding what the system must do**.
 
-**Αναλογία**: Είναι σαν τον αρχιτέκτονα που, πριν σχεδιάσει ένα κτίριο, συνομιλεί με τους μελλοντικούς ενοίκους για να μάθει πόσα δωμάτια χρειάζονται, τι χρήση θα έχουν, ποια άτομα θα έχουν πρόσβαση και ποιες είναι οι πρακτικές ανάγκες της καθημερινής λειτουργίας.
+**Analogy**: It is like the architect who, before designing a building, talks with the future occupants to learn how many rooms they need, what use they will have, which people will have access and what the practical needs of daily operation are.
 
 ```text
   +--------------------------------------------------+
-  |         ΒΗΜΑ 1: ΑΝΑΛΥΣΗ ΑΠΑΙΤΗΣΕΩΝ              |
+  |          STEP 1: REQUIREMENTS ANALYSIS           |
   +--------------------------------------------------+
   |                                                  |
-  |  Συνεντεύξεις                                    |
-  |  με Χρήστες  --->  [ Έγγραφο Απαιτήσεων ]       |
+  |  Interviews                                      |
+  |  With Users  --->  [ Requirements Document ]     |
   |                              |                   |
-  |  Ανάλυση           Λειτουργικές Απαιτήσεις       |
-  |  Επιχειρησιακών    Μη-Λειτουργικές Απαιτήσεις   |
-  |  Διαδικασιών       Περιορισμοί Δεδομένων         |
+  |  Analysis         Functional Requirements        |
+  |  of Business    Non-Functional Requirements      |
+  |  Processes            Data Constraints           |
   |                                                  |
   +--------------------------------------------------+
 ```
 
-### Καθορισμός Αναγκών Χρηστών και Οργανισμού
+### Defining User and Organizational Needs
 *Defining User and Organizational Needs*
 
-**Ανάλυση Απαιτήσεων (Requirements Analysis)** είναι η συστηματική συλλογή και τεκμηρίωση των αναγκών όλων των ενδιαφερόμενων μερών (stakeholders) — χρηστών, διαχειριστών και οργανισμού — που θα χρησιμοποιήσουν ή θα επηρεαστούν από τη βάση δεδομένων.
+**Requirements Analysis** is the systematic collection and documentation of the needs of all stakeholders — users, administrators and the organization — who will use or be affected by the database.
 
-Οι βασικές τεχνικές συλλογής απαιτήσεων περιλαμβάνουν:
+The basic requirements collection techniques include:
 
-- **Συνεντεύξεις (Interviews)**: Άμεση επικοινωνία με τελικούς χρήστες και υπεύθυνους τμημάτων για κατανόηση των αναγκών τους.
-- **Παρατήρηση (Observation)**: Παρακολούθηση της υπάρχουσας ροής εργασίας για εντοπισμό αδυναμιών.
-- **Ανάλυση Υπαρχόντων Εγγράφων**: Μελέτη εντύπων, αναφορών και αρχείων που χρησιμοποιεί ήδη ο οργανισμός.
-- **Ερωτηματολόγια (Questionnaires)**: Συστηματική συλλογή απόψεων από μεγάλο αριθμό χρηστών.
+- **Interviews**: Direct communication with end users and department heads to understand their needs.
+- **Observation**: Monitoring the existing workflow to identify weaknesses.
+- **Analysis of Existing Documents**: Studying the forms, reports and files that the organization already uses.
+- **Questionnaires**: Systematic collection of opinions from a large number of users.
 
-Οι απαιτήσεις διακρίνονται σε δύο κατηγορίες:
+Requirements are divided into two categories:
 
-| Κατηγορία | Ορισμός | Παραδείγματα |
+| Category | Definition | Examples |
 |---|---|---|
-| **Λειτουργικές Απαιτήσεις** (Functional) | Τι πρέπει να κάνει το σύστημα | Αποθήκευση παραγγελιών, αναζήτηση πελατών, δημιουργία αναφορών |
-| **Μη-Λειτουργικές Απαιτήσεις** (Non-functional) | Πώς πρέπει να το κάνει | Χρόνος απόκρισης < 2 δευτ., 500 ταυτόχρονοι χρήστες, 99.9% διαθεσιμότητα |
+| **Functional Requirements** | What the system must do | Storing orders, customer search, generating reports |
+| **Non-functional Requirements** | How it must do it | Response time < 2 sec, 500 concurrent users, 99.9% availability |
 
-**Exam Note:** Η ανάλυση απαιτήσεων είναι αμιγώς **εννοιολογική φάση** — δεν λαμβάνεται καμία απόφαση για τεχνολογία, DBMS ή δομή πινάκων σε αυτό το στάδιο.
+**Exam Note:** Requirements analysis is a purely **conceptual phase** — no decision about technology, DBMS or table structure is made at this stage.
 
 ---
 
-### Αποτύπωση Επιχειρησιακών Λειτουργιών και Προδιαγραφών
+### Documenting Business Functions and Specifications
 *Documenting Business Functions and Specifications*
 
-**Επιχειρησιακές Λειτουργίες (Business Functions)** είναι οι διαδικασίες που εκτελεί ο οργανισμός και οι οποίες δημιουργούν, τροποποιούν ή χρησιμοποιούν δεδομένα. Η αποτύπωσή τους ορίζει το εύρος (scope) της βάσης δεδομένων.
+**Business Functions** are the processes performed by the organization that create, modify or use data. Documenting them defines the scope of the database.
 
-**Παράδειγμα — Πανεπιστημιακό Σύστημα**:
+**Example — University System**:
 
 ```text
-  ΕΠΙΧΕΙΡΗΣΙΑΚΕΣ ΛΕΙΤΟΥΡΓΙΕΣ:
+  BUSINESS OPERATIONS:
   
-  1. Εγγραφή Φοιτητών
-     - Ποια δεδομένα δημιουργούνται; Αρχείο φοιτητή, αριθμός μητρώου
-     - Ποιοι χρήστες εμπλέκονται; Γραμματεία (εισαγωγή), Φοιτητής (ανάγνωση)
+  1. Student Registration
+     - What data is created? Student file, registration number
+     - Which users are involved? Secretariat (entry), Student (read)
   
-  2. Δήλωση Μαθημάτων
-     - Ποια δεδομένα δημιουργούνται; Δήλωση ανά εξάμηνο, αντιστοίχηση φοιτητή-μαθήματος
-     - Ποιοι χρήστες εμπλέκονται; Φοιτητής (δήλωση), Καθηγητής (έλεγχος)
+  2. Course Enrollment
+     - What data is created? Enrollment per semester, student-course mapping
+     - Which users are involved? Student (enrollment), Professor (check)
   
-  3. Καταχώρηση Βαθμών
-     - Ποια δεδομένα δημιουργούνται; Βαθμός ανά φοιτητή ανά μάθημα
-     - Ποιοι χρήστες εμπλέκονται; Καθηγητής (εισαγωγή), Γραμματεία (επαλήθευση)
+  3. Grade Entry
+     - What data is created? Grade per student per course
+     - Which users are involved? Professor (entry), Secretariat (verification)
 ```
 
-Το αποτέλεσμα αυτής της φάσης είναι ένα **Έγγραφο Προδιαγραφών Απαιτήσεων** (Requirements Specification Document) που περιέχει:
+The result of this phase is a **Requirements Specification Document** that contains:
 
-- Λίστα όλων των **οντοτήτων** (entities) που πρέπει να αποθηκευτούν (π.χ. Φοιτητής, Μάθημα, Καθηγητής).
-- Λίστα **σχέσεων** μεταξύ αυτών (π.χ. «φοιτητής παρακολουθεί μάθημα»).
-- **Περιορισμοί δεδομένων** (π.χ. ο βαθμός πρέπει να είναι μεταξύ 0 και 10).
-- Απαιτούμενες **λειτουργίες** (CRUD: Create, Read, Update, Delete).
+- A list of all **entities** that must be stored (e.g. Student, Course, Professor).
+- A list of **relationships** between them (e.g. "a student attends a course").
+- **Data constraints** (e.g. the grade must be between 0 and 10).
+- The required **operations** (CRUD: Create, Read, Update, Delete).
 
 ---
 
-## Βήμα 2: Εννοιολογική Σχεδίαση
+## Step 2: Conceptual Design
 *Step 2: Conceptual Design*
 
-Η εννοιολογική σχεδίαση μετατρέπει τις απαιτήσεις που συλλέχθηκαν στο Βήμα 1 σε ένα **υψηλού επιπέδου, τεχνολογικά ανεξάρτητο μοντέλο** που περιγράφει τη λογική δομή των δεδομένων. Ο σχεδιαστής δεν ασχολείται ακόμα με συγκεκριμένο DBMS ή με SQL — το μοντέλο που παράγεται πρέπει να είναι κατανοητό τόσο από τεχνικούς όσο και από μη-τεχνικούς ενδιαφερόμενους.
+Conceptual design converts the requirements collected in Step 1 into a **high-level, technology-independent model** that describes the logical structure of the data. The designer is not yet concerned with a specific DBMS or SQL — the model produced must be understandable by both technical and non-technical stakeholders.
 
-**Αναλογία**: Η εννοιολογική σχεδίαση είναι σαν το αρχιτεκτονικό σχέδιο (blueprint) ενός κτιρίου — δείχνει τα δωμάτια, τις πόρτες και τις συνδέσεις χωρίς να καθορίζει ακόμα το είδος του τσιμέντου ή της ηλεκτρολογικής εγκατάστασης.
+**Analogy**: Conceptual design is like the blueprint of a building — it shows the rooms, doors and connections without yet specifying the type of cement or the electrical installation.
 
-### Δημιουργία Μοντέλου Οντοτήτων-Συχετίσεων (ER Model)
+### Creating the Entity-Relationship Model
 *Creating the Entity-Relationship Model*
 
-**Μοντέλο Οντοτήτων-Σχέσεων** (Entity-Relationship Model — ER Model) είναι ένα εννοιολογικό εργαλείο μοντελοποίησης δεδομένων που αναπαριστά τα δεδομένα ενός οργανισμού ως σύνολο **οντοτήτων** (entities), **γνωρισμάτων** (attributes) και **σχέσεων** (relationships) μεταξύ τους.
+The **Entity-Relationship Model (ER Model)** is a conceptual data modeling tool that represents the data of an organization as a set of **entities**, **attributes** and **relationships** between them.
 
-Τα τρία βασικά δομικά στοιχεία του ER Model:
+The three basic structural components of the ER Model:
 
-| Στοιχείο | Σύμβολο (Chen Notation) | Περιγραφή |
+| Component | Symbol (Chen Notation) | Description |
 |---|---|---|
-| **Οντότητα (Entity)** | Ορθογώνιο | Κάτι με ανεξάρτητη ύπαρξη για το οποίο αποθηκεύονται δεδομένα |
-| **Γνώρισμα (Attribute)** | Ελλειψοειδές | Χαρακτηριστικό/ιδιότητα μιας οντότητας |
-| **Σχέση (Relationship)** | Ρόμβος | Σύνδεση/αλληλεπίδραση μεταξύ δύο ή περισσότερων οντοτήτων |
+| **Entity** | Rectangle | Something with independent existence for which data is stored |
+| **Attribute** | Ellipse | Characteristic/property of an entity |
+| **Relationship** | Rhombus | Connection/interaction between two or more entities |
 
-**Exam Note:** Το ER Model είναι **τεχνολογικά ανεξάρτητο** — δεν αναφέρεται σε συγκεκριμένο DBMS, γλώσσα ή δομή αποθήκευσης. Σχεδιάζεται για να επικοινωνεί τη λογική δομή, όχι την υλοποίηση.
+**Exam Note:** The ER Model is **technology-independent** — it does not refer to a specific DBMS, language or storage structure. It is designed to communicate the logical structure, not the implementation.
 
 ---
 
-### Σχηματική Οπτικοποίηση της Λογικής Δομής
+### Schematic Visualization of the Logical Structure
 *Schematic Visualization of the Logical Structure*
 
-Η παραγωγή του **ER Διαγράμματος** (ER Diagram — ERD) είναι το κύριο παραδοτέο της φάσης αυτής. Το ERD αναπαριστά γραφικά όλες τις οντότητες, τα γνωρίσματά τους και τις σχέσεις μεταξύ τους.
+The production of the **ER Diagram (ERD)** is the main deliverable of this phase. The ERD graphically represents all entities, their attributes and the relationships between them.
 
-**Παράδειγμα ERD — Πανεπιστημιακό Σύστημα**:
+**ERD Example — University System**:
 
 ```text
   +----------------+                    +----------------+
-  |   ΦΟΙΤΗΤΗΣ     |                    |    ΜΑΘΗΜΑ      |
+  |   STUDENT     |                    |    COURSE      |
   +----------------+       N:M          +----------------+
-  | am (PK)        |<>---( Δηλώνει )-->| course_id (PK) |
+  | am (PK)        |<>---( Enrolls )-->| course_id (PK) |
   | onoma          |                    | titlos         |
   | eponymo        |                    | didaktikes_mon |
   | email          |                    +----------------+
@@ -151,10 +151,10 @@
           |                                    1:N
           |                                     |
          1:N                           +----------------+
-          |                            |   ΤΜΗΜΑ        |
+          |                            |   DEPARTMENT   |
           |                            +----------------+
   +----------------+                   | dept_id (PK)   |
-  |   ΕΓΓΡΑΦΗ      |                   | onoma_tmimatos |
+  |  REGISTRATION  |                   | onoma_tmimatos |
   +----------------+                   +----------------+
   | am (FK)        |
   | course_id (FK) |
@@ -163,153 +163,153 @@
   +----------------+
 ```
 
-Τα χαρακτηριστικά που αποτυπώνονται στο ERD είναι:
+The characteristics captured in the ERD are:
 
-- **Πληθικότητα (Cardinality)**: 1:1, 1:N, N:M — ο αριθμός των στιγμιοτύπων κάθε οντότητας που συμμετέχουν στη σχέση.
-- **Συμμετοχή (Participation)**: Ολική (total — κάθε στιγμιότυπο συμμετέχει) ή μερική (partial — δεν είναι υποχρεωτικό).
-- **Κλειδιά (Keys)**: Τα γνωρίσματα που αναγνωρίζουν μοναδικά κάθε στιγμιότυπο.
+- **Cardinality**: 1:1, 1:N, N:M — the number of instances of each entity that participate in the relationship.
+- **Participation**: Total (every instance participates) or partial (not mandatory).
+- **Keys**: The attributes that uniquely identify each instance.
 
-**Key Distinction:** Το ERD αποτελεί τη «γέφυρα» μεταξύ της ανάλυσης απαιτήσεων (Βήμα 1) και της λογικής σχεδίασης (Βήμα 3). Είναι το μοντέλο που κοινοποιείται στους πελάτες/χρήστες για επικύρωση πριν τη μετάβαση στη λογική σχεδίαση.
+**Key Distinction:** The ERD is the "bridge" between requirements analysis (Step 1) and logical design (Step 3). It is the model shared with clients/users for validation before proceeding to logical design.
 
 ---
 
-## Βήμα 3: Λογική Σχεδίαση
+## Step 3: Logical Design
 *Step 3: Logical Design*
 
-Η λογική σχεδίαση μεταφράζει το εννοιολογικό μοντέλο (ERD) στο **Σχεσιακό Μοντέλο Δεδομένων** (Relational Data Model), το οποίο αποτελεί τη βάση για τη μετέπειτα υλοποίηση με SQL. Σε αυτό το βήμα, ο σχεδιαστής αρχίζει να σκέφτεται σε όρους πινάκων, στηλών και κλειδιών, ενώ παράλληλα εφαρμόζει **Κανονικοποίηση (Normalization)** για να εξαλείψει πλεονασμό.
+Logical design translates the conceptual model (ERD) into the **Relational Data Model**, which is the basis for the subsequent implementation with SQL. In this step, the designer begins to think in terms of tables, columns and keys, while applying **Normalization** to eliminate redundancy.
 
-**Αναλογία**: Αν το ERD είναι το αρχιτεκτονικό σχέδιο, η λογική σχεδίαση είναι η μετατροπή του σε λεπτομερή τεχνικά σχέδια (structural drawings) που κατευθύνουν την κατασκευή.
+**Analogy**: If the ERD is the architectural plan, logical design is its conversion into detailed structural drawings that guide construction.
 
-### Μετάβαση στο Σχεσιακό Μοντέλο Δεδομένων
+### Transition to the Relational Data Model
 *Transition to the Relational Data Model*
 
-**Σχεσιακό Μοντέλο Δεδομένων** (Relational Data Model) είναι ένα μοντέλο οργάνωσης δεδομένων βασισμένο στην έννοια της **σχέσης** (relation) — ένας μαθηματικός όρος που αντιστοιχεί πρακτικά σε έναν **πίνακα** (table) με γραμμές (tuples/rows) και στήλες (attributes/columns).
+The **Relational Data Model** is a data organization model based on the concept of the **relation** — a mathematical term that practically corresponds to a **table** with rows (tuples/rows) and columns (attributes/columns).
 
-Οι κανόνες μετατροπής ER σε Σχεσιακό Μοντέλο είναι:
+The rules for converting ER to the Relational Model are:
 
-| Στοιχείο ER Model | Αντιστοίχηση στο Σχεσιακό Μοντέλο |
+| ER Model Component | Mapping to the Relational Model |
 |---|---|
-| **Ισχυρή Οντότητα** | Νέος πίνακας με Primary Key |
-| **Ασθενής Οντότητα** | Νέος πίνακας με σύνθετο Primary Key (ιδιο PK + FK γονικής οντότητας) |
-| **Σχέση 1:1** | Foreign Key σε έναν από τους δύο πίνακες |
-| **Σχέση 1:N** | Foreign Key στην πλευρά του N |
-| **Σχέση N:M** | Νέος ενδιάμεσος πίνακας (junction/bridge table) με Foreign Keys και από τους δύο πίνακες |
-| **Απλό Γνώρισμα** | Στήλη στον πίνακα |
-| **Πολύτιμο Γνώρισμα** | Ξεχωριστός πίνακας με FK στον αρχικό πίνακα |
-| **Παραγόμενο Γνώρισμα** | Συνήθως δεν αποθηκεύεται — υπολογίζεται μέσω Query |
+| **Strong Entity** | New table with Primary Key |
+| **Weak Entity** | New table with a composite Primary Key (own PK + FK of the parent entity) |
+| **1:1 Relationship** | Foreign Key in one of the two tables |
+| **1:N Relationship** | Foreign Key on the N side |
+| **N:M Relationship** | New intermediate table (junction/bridge table) with Foreign Keys from both tables |
+| **Simple Attribute** | Column in the table |
+| **Multivalued Attribute** | Separate table with FK to the original table |
+| **Derived Attribute** | Usually not stored — computed via a Query |
 
-**Exam Note:** Ο κανόνας για σχέσεις **N:M** είναι εξαιρετικά σημαντικός — το Σχεσιακό Μοντέλο **δεν υποστηρίζει άμεσα** σχέσεις πολλά-προς-πολλά. Πάντα απαιτείται ενδιάμεσος πίνακας.
+**Exam Note:** The rule for **N:M** relationships is extremely important — the Relational Model **does not directly support** many-to-many relationships. An intermediate table is always required.
 
 ---
 
-### Μετατροπή Εννοιολογικού Μοντέλου σε Εξαρτημένους Πίνακες
+### Converting the Conceptual Model into Dependent Tables
 *Converting the Conceptual Model into Dependent Tables*
 
-Η μετατροπή του ERD του πανεπιστημιακού παραδείγματος στο Σχεσιακό Μοντέλο:
+The conversion of the ERD of the university example into the Relational Model:
 
 ```text
-  ER DIAGRAM (Βήμα 2):
-  ΦΟΙΤΗΤΗΣ ---( N:M Δηλώνει )--- ΜΑΘΗΜΑ
+  ER DIAGRAM (Step 2):
+  STUDENT ---( N:M Enrolls )--- COURSE
 
-  ΣΧΕΣΙΑΚΟ ΜΟΝΤΕΛΟ (Βήμα 3):
+  RELATIONAL MODEL (Step 3):
   
-  Φοιτητης(<u>am</u>, onoma, eponymo, email, dept_id#)
+  Foititis(<u>am</u>, onoma, eponymo, email, dept_id#)
   Mathima(<u>course_id</u>, titlos, didaktikes_mon, dept_id#)
   Dilosi(<u>am#, course_id#</u>, vathmos, etosvathmos)
          \_______________________________________/
-              Ενδιάμεσος πίνακας για N:M
+              Intermediate table for N:M
 ```
 
-Στο σχεσιακό σχήμα χρησιμοποιείται η σύμβαση:
-- `<u>πεδίο</u>` — Primary Key (υπογράμμιση)
-- `πεδίο#` — Foreign Key
+In the relational schema, the convention used is:
+- `<u>field</u>` — Primary Key (underlined)
+- `field#` — Foreign Key
 
-**Κανονικοποίηση (Normalization)** εφαρμόζεται σε αυτό το βήμα για να εξασφαλιστεί ότι κάθε πίνακας:
+**Normalization** is applied in this step to ensure that each table:
 
-1. Βρίσκεται στην **1η Κανονική Μορφή (1NF)**: Κάθε στήλη περιέχει ατομικές τιμές.
-2. Βρίσκεται στη **2η Κανονική Μορφή (2NF)**: Κανένα μη-κλειδί γνώρισμα δεν εξαρτάται μερικώς από το PK.
-3. Βρίσκεται στη **3η Κανονική Μορφή (3NF)**: Κανένα μη-κλειδί γνώρισμα δεν εξαρτάται μεταβατικά από το PK.
+1. Is in **First Normal Form (1NF)**: Every column contains atomic values.
+2. Is in **Second Normal Form (2NF)**: No non-key attribute depends partially on the PK.
+3. Is in **Third Normal Form (3NF)**: No non-key attribute depends transitively on the PK.
 
 ```text
-  ΠΑΡΑΒΑΣΗ 2NF (Παράδειγμα):
-  Παραγγελια_Προιον(παρ_id, προιον_id, τιμη_προιοντος, ποσοτητα)
+  2NF VIOLATION (Example):
+  Order_Product(order_id, product_id, product_price, quantity)
                      [__________________PK_________________]
   
-  Πρόβλημα: η τιμή_προιοντος εξαρτάται ΜΟΝΟ από το προιον_id,
-             όχι από το συνδυασμό (παρ_id, προιον_id).
+  Problem: product_price depends ONLY on product_id,
+             not on the combination (order_id, product_id).
   
-  ΛΥΣΗ — Διαχωρισμός:
-  Παραγγελια_Προιον(παρ_id, προιον_id#, ποσοτητα)
-  Προιον(προιον_id, τιμη_προιοντος, περιγραφη)
+  SOLUTION — Decomposition:
+  Order_Product(order_id, product_id#, quantity)
+  Product(product_id, product_price, description)
 ```
 
 ---
 
-## Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση
+## Step 4: Physical Design & Implementation
 *Step 4: Physical Design & Implementation*
 
-Η φυσική σχεδίαση αφορά τη **μετάφραση** του λογικού σχήματος (Βήμα 3) σε συγκεκριμένες δομές αποθήκευσης και κώδικα SQL για ένα **συγκεκριμένο DBMS** (π.χ. MySQL, PostgreSQL). Σε αυτό το βήμα λαμβάνονται αποφάσεις για απόδοση (performance), αποθήκευση (storage) και ασφάλεια (security).
+Physical design concerns the **translation** of the logical schema (Step 3) into specific storage structures and SQL code for a **specific DBMS** (e.g. MySQL, PostgreSQL). In this step, decisions are made about performance, storage and security.
 
-**Αναλογία**: Η φυσική σχεδίαση είναι η πραγματική **κατασκευή** του κτιρίου βάσει των τεχνικών σχεδίων — επιλέγονται υλικά, τοποθετούνται τοίχοι και εγκαθίστανται συστήματα.
+**Analogy**: Physical design is the actual **construction** of the building based on the technical drawings — materials are chosen, walls are placed and systems are installed.
 
-### Εσωτερική Οργάνωση Αρχείων στο Σύστημα
+### Internal File Organization in the System
 *Internal File Organization in the System*
 
-Η **Εσωτερική Οργάνωση Δεδομένων** αναφέρεται στον τρόπο με τον οποίο το DBMS αποθηκεύει τα δεδομένα στον δίσκο σε επίπεδο αρχείων. Αυτές οι αποφάσεις επηρεάζουν άμεσα την απόδοση ανάκτησης δεδομένων.
+**Internal Data Organization** refers to the way the DBMS stores data on disk at the file level. These decisions directly affect data retrieval performance.
 
-Βασικές τεχνικές οργάνωσης:
+Basic organization techniques:
 
-| Τεχνική Οργάνωσης | Περιγραφή | Κατάλληλη Χρήση |
+| Organization Technique | Description | Suitable Use |
 |---|---|---|
-| **Heap File** (Ανορθωτή οργάνωση) | Εγγραφές αποθηκεύονται χωρίς συγκεκριμένη ταξινόμηση | Μαζική φόρτωση δεδομένων, σπάνια αναζήτηση |
-| **Sequential File** (Ακολουθιακή) | Εγγραφές ταξινομημένες κατά ένα κλειδί | Αναζητήσεις εύρους (range queries) |
-| **Hash File** (Κατακερματισμός) | Χρήση hash function για άμεση εύρεση εγγραφής | Αναζητήσεις ισότητας (equality queries) |
-| **B-Tree / B+Tree Index** | Δεντρική δομή για ταχύτατη αναζήτηση | Ευρετηρίαση σε OLTP συστήματα |
+| **Heap File** (unordered organization) | Records stored without a specific order | Bulk data loading, infrequent search |
+| **Sequential File** | Records sorted by a key | Range queries |
+| **Hash File** | Uses a hash function for direct record lookup | Equality queries |
+| **B-Tree / B+Tree Index** | Tree structure for very fast search | Indexing in OLTP systems |
 
-**Indexes (Ευρετήρια)** αποτελούν βασικό εργαλείο βελτιστοποίησης:
+**Indexes** are a basic optimization tool:
 
 ```text
-  ΠΙΝΑΚΑΣ χωρίς Index:            ΠΙΝΑΚΑΣ με Index (B+Tree):
+  TABLE without Index:            TABLE with Index (B+Tree):
   
-  am  | onoma   | vathmos         Index στο "am":
-  ----|---------|--------              Root: [500]
-   1  | Αλέξης  |   7.5              /              \
-  ...                             [250]            [750]
-  250 | Ελένη   |   8.0           /   \            /    \
-  ...                           ...  ...         ...    ...
-  500 | Νίκος   |   6.0
+  am  | name    | grade         Index on "am":
+  ----|---------|-------             Root: [500]
+   1  | Alexis  |   7.5              /              \
+  ...                              [250]            [750]
+  250 | Eleni   |   8.0           /   \            /    \
+  ...                            ...  ...         ...    ...
+  500 | Nikos   |   6.0
   ...
-  999 | Μαρία   |   9.0
+  999 | Maria   |   9.0
   
-  Αναζήτηση am=500: Σάρωση 999 εγγραφών   Αναζήτηση am=500: 3 βήματα (log n)
+  Search am=500: Scan 999 records   Search am=500: 3 steps (log n)
 ```
 
-**Exam Note:** Η δημιουργία Index επιταχύνει τις αναζητήσεις (`SELECT`) αλλά επιβραδύνει τις εισαγωγές/τροποποιήσεις (`INSERT/UPDATE`) λόγω ενημέρωσης της δεντρικής δομής. Η ισορροπία μεταξύ read και write performance είναι κρίσιμη απόφαση φυσικής σχεδίασης.
+**Exam Note:** Creating an Index speeds up searches (`SELECT`) but slows down insertions/modifications (`INSERT/UPDATE`) because the tree structure must be updated. The balance between read and write performance is a critical physical design decision.
 
 ---
 
-### Προγραμματισμός με SQL και Δημιουργία Φυσικών Δομών
+### SQL Programming and Physical Structure Creation
 *SQL Programming and Physical Structure Creation*
 
-Σε αυτό το τελευταίο υπο-βήμα, το λογικό σχήμα μετατρέπεται σε **εκτελέσιμο κώδικα SQL** (DDL — Data Definition Language) που δημιουργεί τις πραγματικές δομές στο DBMS.
+In this final sub-step, the logical schema is converted into **executable SQL code** (DDL — Data Definition Language) that creates the actual structures in the DBMS.
 
-**Παράδειγμα DDL — Δημιουργία Βάσης Πανεπιστημίου**:
+**DDL Example — Creating a University Database**:
 
-**Αρχική κατάσταση** (δεν υπάρχουν πίνακες):
+**Initial state** (no tables exist):
 
 ```text
   mysql> SHOW TABLES;
   Empty set (0.00 sec)
 ```
 
-**Εκτέλεση DDL**:
+**Executing the DDL**:
 
 ```sql
--- Δημιουργία βάσης δεδομένων πανεπιστημίου
+-- Creating a university database
 CREATE DATABASE university_db;
 USE university_db;
 
--- Δημιουργία πίνακα Τμήμα (δεν εξαρτάται από άλλον πίνακα — δημιουργείται πρώτος)
+-- Creating the Department table (does not depend on another table - created first)
 CREATE TABLE Tmima (
     dept_id   INT           NOT NULL,
     onoma     VARCHAR(100)  NOT NULL,
@@ -317,7 +317,7 @@ CREATE TABLE Tmima (
     CONSTRAINT pk_tmima PRIMARY KEY (dept_id)
 );
 
--- Δημιουργία πίνακα Φοιτητής (εξαρτάται από Τμήμα μέσω Foreign Key)
+-- Creating the Student table (depends on Department via Foreign Key)
 CREATE TABLE Foititis (
     am        INT           NOT NULL,
     onoma     VARCHAR(50)   NOT NULL,
@@ -329,7 +329,7 @@ CREATE TABLE Foititis (
         REFERENCES Tmima(dept_id)
 );
 
--- Δημιουργία πίνακα Μάθημα
+-- Creating the Course table
 CREATE TABLE Mathima (
     course_id       INT          NOT NULL,
     titlos          VARCHAR(150) NOT NULL,
@@ -340,7 +340,7 @@ CREATE TABLE Mathima (
         REFERENCES Tmima(dept_id)
 );
 
--- Δημιουργία ενδιάμεσου πίνακα Δήλωση (για N:M σχέση Φοιτητή-Μαθήματος)
+-- Creating the intermediate Enrollment table (for the N:M Student-Course relationship)
 CREATE TABLE Dilosi (
     am          INT   NOT NULL,
     course_id   INT   NOT NULL,
@@ -354,7 +354,7 @@ CREATE TABLE Dilosi (
 );
 ```
 
-**Κατάσταση μετά την εκτέλεση**:
+**State after execution**:
 
 ```text
   mysql> SHOW TABLES;
@@ -369,91 +369,91 @@ CREATE TABLE Dilosi (
   4 rows in set (0.00 sec)
 ```
 
-**Δημιουργία Index για βελτίωση απόδοσης**:
+**Creating an Index to improve performance**:
 
 ```sql
--- Δημιουργία index στο eponymo για γρήγορη αναζήτηση φοιτητών βάσει επωνύμου
+-- Creating an index on eponymo for fast search of students by surname
 CREATE INDEX idx_foititis_eponymo ON Foititis(eponymo);
 
--- Σύνθετο index για αναζήτηση δηλώσεων βάσει έτους
+-- Composite index for searching enrollments by year
 CREATE INDEX idx_dilosi_etos ON Dilosi(etosvathmos, am);
 ```
 
-**Key Distinction:** Η σειρά δημιουργίας πινάκων είναι κρίσιμη όταν υπάρχουν Foreign Keys — ο **πίνακας που αναφέρεται** (referenced table) πρέπει να δημιουργηθεί **πριν** από τον πίνακα που τον αναφέρει (referencing table). Στο παράδειγμα: `Tmima → Foititis/Mathima → Dilosi`.
+**Key Distinction:** The order of table creation is critical when Foreign Keys exist — the **referenced table** must be created **before** the table that references it. In the example: `Tmima → Foititis/Mathima → Dilosi`.
 
 ---
 
-## Συγκριτικός Πίνακας: Τα 4 Βήματα του Κύκλου Ζωής
+## Comparative Table: The 4 Steps of the Database Life Cycle
 *Comparative Table: The 4 Steps of the Database Life Cycle*
 
-| Βήμα | Φάση | Εισερχόμενο | Εξερχόμενο | Εργαλεία / Τεχνικές |
+| Step | Phase | Input | Output | Tools / Techniques |
 |---|---|---|---|---|
-| **Βήμα 1** | Συλλογή & Ανάλυση Απαιτήσεων | Συνεντεύξεις, έγγραφα, παρατήρηση | Έγγραφο Προδιαγραφών Απαιτήσεων | Συνεντεύξεις, ερωτηματολόγια, UML Use Cases |
-| **Βήμα 2** | Εννοιολογική Σχεδίαση | Έγγραφο Απαιτήσεων | ER Diagram (ERD) | Chen Notation, Crow's Foot Notation |
-| **Βήμα 3** | Λογική Σχεδίαση | ERD | Σχεσιακό Σχήμα (Relational Schema) | Κανόνες μετατροπής ER→Relational, Normalization |
-| **Βήμα 4** | Φυσική Σχεδίαση & Υλοποίηση | Σχεσιακό Σχήμα | SQL DDL scripts, φυσικές δομές αποθήκευσης | SQL, Indexes, Partitioning, Query Optimization |
+| **Step 1** | Requirements Collection & Analysis | Interviews, documents, observation | Requirements Specification Document | Interviews, questionnaires, UML Use Cases |
+| **Step 2** | Conceptual Design | Requirements Document | ER Diagram (ERD) | Chen Notation, Crow's Foot Notation |
+| **Step 3** | Logical Design | ERD | Relational Schema | ER-to-Relational conversion rules, Normalization |
+| **Step 4** | Physical Design & Implementation | Relational Schema | SQL DDL scripts, physical storage structures | SQL, Indexes, Partitioning, Query Optimization |
 
 ```text
-  ΚΥΚΛΟΣ ΖΩΗΣ ΒΑΣΗΣ ΔΕΔΟΜΕΝΩΝ:
+  DATABASE LIFE CYCLE:
   
-  [ Απαιτήσεις ]
+  [ Requirements ]
        |
-       | Βήμα 1: Ανάλυση
+       | Step 1: Analysis
        v
-  [ Έγγραφο Απαιτήσεων ]
+  [ Requirements Document ]
        |
-       | Βήμα 2: Εννοιολογική Σχεδίαση
+       | Step 2: Conceptual Design
        v
   [ ER Diagram ]
        |
-       | Βήμα 3: Λογική Σχεδίαση
+       | Step 3: Logical Design
        v
-  [ Σχεσιακό Σχήμα ]
+  [ Relational Schema ]
        |
-       | Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση
+       | Step 4: Physical Design & Implementation
        v
-  [ Λειτουργική Βάση Δεδομένων ]
+  [ Operational Database ]
        |
-       | Συντήρηση / Εξέλιξη
-       |-----> Επιστροφή στο Βήμα 1 (Νέες Απαιτήσεις)
+       | Maintenance / Evolution
+       |-----> Return to Step 1 (New Requirements)
 ```
 
-**Exam Note:** Ο κύκλος ζωής είναι **επαναληπτικός** (iterative) — νέες απαιτήσεις ή αλλαγές στον οργανισμό οδηγούν σε επανέναρξη της διαδικασίας, ειδικά των βημάτων 1 και 2.
+**Exam Note:** The life cycle is **iterative** — new requirements or changes in the organization lead to a restart of the process, especially steps 1 and 2.
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **Κύκλος Ζωής ΒΔ** (DBLC) | Επαναληπτική διαδικασία σχεδιασμού, ανάπτυξης και συντήρησης ΒΔ | Αποτελείται από 4 κύρια βήματα |
-| **Ανάλυση Απαιτήσεων** | Συλλογή και τεκμηρίωση αναγκών χρηστών και οργανισμού | Εννοιολογική φάση — δεν αφορά τεχνική υλοποίηση |
-| **Λειτουργικές Απαιτήσεις** | Τι πρέπει να κάνει το σύστημα | Ορίζουν τις λειτουργίες CRUD |
-| **Μη-Λειτουργικές Απαιτήσεις** | Πώς πρέπει να λειτουργεί το σύστημα | Χρόνος απόκρισης, διαθεσιμότητα, κλιμακωσιμότητα |
-| **ER Model** | Εννοιολογικό μοντέλο με Οντότητες, Γνωρίσματα και Σχέσεις | Τεχνολογικά ανεξάρτητο |
-| **ERD** | Γραφική αναπαράσταση του ER Model | Χρησιμοποιεί ορθογώνια, ελλειψοειδή, ρόμβους |
-| **Σχεσιακό Μοντέλο** | Οργάνωση δεδομένων σε πίνακες (σχέσεις) | Πίνακας = Σχέση, Γραμμή = Πλειάδα, Στήλη = Γνώρισμα |
-| **Κανονικοποίηση** | Διαδικασία εξάλειψης πλεονασμού και εξαρτήσεων | Εφαρμόζεται στη λογική σχεδίαση (1NF, 2NF, 3NF) |
-| **Junction Table** | Ενδιάμεσος πίνακας για αναπαράσταση N:M σχέσης | Απαραίτητος — το σχεσιακό μοντέλο δεν υποστηρίζει άμεσα N:M |
-| **DDL** (Data Definition Language) | Υποσύνολο SQL για ορισμό δομών ΒΔ | `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE` |
-| **Index** | Δομή δεδομένων που επιταχύνει αναζητήσεις | Επιταχύνει SELECT, επιβραδύνει INSERT/UPDATE |
-| **Heap File** | Αδιατύπωτη αποθήκευση εγγραφών χωρίς ταξινόμηση | Κατάλληλο για μαζικές εισαγωγές |
-| **B+Tree Index** | Ισορροπημένη δεντρική δομή για ευρετηρίαση | O(log n) χρόνος αναζήτησης |
-| **Referential Integrity** | Ακεραιότητα αναφοράς μέσω Foreign Keys | Ο referenced πίνακας δημιουργείται πρώτος |
+| **DB Life Cycle** (DBLC) | Iterative process of designing, developing and maintaining a DB | Consists of 4 main steps |
+| **Requirements Analysis** | Collection and documentation of user and organizational needs | Conceptual phase — not about technical implementation |
+| **Functional Requirements** | What the system must do | Define the CRUD operations |
+| **Non-functional Requirements** | How the system must behave | Response time, availability, scalability |
+| **ER Model** | Conceptual model with Entities, Attributes and Relationships | Technology-independent |
+| **ERD** | Graphical representation of the ER Model | Uses rectangles, ellipses, rhombuses |
+| **Relational Model** | Organization of data into tables (relations) | Table = Relation, Row = Tuple, Column = Attribute |
+| **Normalization** | Process of eliminating redundancy and dependencies | Applied in logical design (1NF, 2NF, 3NF) |
+| **Junction Table** | Intermediate table for representing an N:M relationship | Necessary — the relational model does not directly support N:M |
+| **DDL** (Data Definition Language) | Subset of SQL for defining DB structures | `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE` |
+| **Index** | Data structure that speeds up searches | Speeds up SELECT, slows down INSERT/UPDATE |
+| **Heap File** | Unordered storage of records without sorting | Suitable for bulk inserts |
+| **B+Tree Index** | Balanced tree structure for indexing | O(log n) search time |
+| **Referential Integrity** | Referential integrity via Foreign Keys | The referenced table is created first |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Ο **Κύκλος Ζωής Βάσης Δεδομένων** ακολουθεί 4 διακριτά βήματα: Ανάλυση Απαιτήσεων → Εννοιολογική Σχεδίαση → Λογική Σχεδίαση → Φυσική Σχεδίαση & Υλοποίηση.
-- **Βήμα 1 (Ανάλυση Απαιτήσεων)** είναι εντελώς εννοιολογικό — δεν λαμβάνεται καμία τεχνική απόφαση, μόνο κατανοούνται οι ανάγκες του οργανισμού.
-- **Βήμα 2 (Εννοιολογική Σχεδίαση)** παράγει το **ER Diagram** — τεχνολογικά ανεξάρτητο μοντέλο που αποτυπώνει Οντότητες, Γνωρίσματα και Σχέσεις.
-- **Βήμα 3 (Λογική Σχεδίαση)** μετατρέπει το ERD σε **Σχεσιακό Σχήμα** εφαρμόζοντας τους κανόνες μετατροπής και Κανονικοποίηση (1NF/2NF/3NF).
-- **Σχέσεις N:M** στο ER Model μετατρέπονται **πάντα** σε ενδιάμεσο πίνακα (junction table) στο Σχεσιακό Μοντέλο — αυτό είναι θεμελιώδης κανόνας.
-- **Βήμα 4 (Φυσική Σχεδίαση)** υλοποιεί το σχήμα με SQL DDL για συγκεκριμένο DBMS, λαμβάνοντας αποφάσεις για Indexes, τύπους αρχείων και βελτιστοποίηση απόδοσης.
-- Η **σειρά δημιουργίας πινάκων** με Foreign Keys είναι κρίσιμη: ο referenced πίνακας πρέπει να δημιουργηθεί **πρώτος** για να μην παραβιαστεί η αναφορική ακεραιότητα.
-- **Indexes** επιταχύνουν τις αναζητήσεις (O(log n) με B+Tree), αλλά επιβαρύνουν τις εισαγωγές/ενημερώσεις — η ισορροπία αυτή είναι κεντρική απόφαση φυσικής σχεδίασης.
-- Ο κύκλος ζωής είναι **επαναληπτικός**: νέες επιχειρησιακές ανάγκες οδηγούν σε επανέναρξη από το Βήμα 1.
-- **Key Distinction:** Η εννοιολογική σχεδίαση αφορά το **τι** αποθηκεύεται, η λογική σχεδίαση το **πώς** οργανώνεται, και η φυσική σχεδίαση το **πού** και **με ποια απόδοση** αποθηκεύεται.
+- The **Database Life Cycle** follows 4 distinct steps: Requirements Analysis → Conceptual Design → Logical Design → Physical Design & Implementation.
+- **Step 1 (Requirements Analysis)** is entirely conceptual — no technical decision is made, only the needs of the organization are understood.
+- **Step 2 (Conceptual Design)** produces the **ER Diagram** — a technology-independent model that captures Entities, Attributes and Relationships.
+- **Step 3 (Logical Design)** converts the ERD into a **Relational Schema** by applying the conversion rules and Normalization (1NF/2NF/3NF).
+- **N:M relationships** in the ER Model are **always** converted into an intermediate table (junction table) in the Relational Model — this is a fundamental rule.
+- **Step 4 (Physical Design)** implements the schema with SQL DDL for a specific DBMS, making decisions about Indexes, file types and performance optimization.
+- The **order of table creation** with Foreign Keys is critical: the referenced table must be created **first** so that referential integrity is not violated.
+- **Indexes** speed up searches (O(log n) with B+Tree), but burden insertions/updates — this balance is a central physical design decision.
+- The life cycle is **iterative**: new business needs lead to a restart from Step 1.
+- **Key Distinction:** Conceptual design concerns **what** is stored, logical design **how** it is organized, and physical design **where** and **with what performance** it is stored.

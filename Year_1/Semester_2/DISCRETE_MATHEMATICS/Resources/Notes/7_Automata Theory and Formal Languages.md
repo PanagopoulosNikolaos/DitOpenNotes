@@ -3,18 +3,18 @@
 ## 1. Formal Languages
 
 ### Alphabets, Strings, and Languages
-- **Alphabet (Σ)**: A finite, non-empty set of symbols. For example, `Σ = {0, 1}` is the binary alphabet.
-- **String (or Word)**: A finite sequence of symbols from an alphabet. `ε` denotes the **empty string**, which has a length of 0.
-- **Σ***: The set of all possible strings that can be formed from the alphabet `Σ`, including the empty string.
-- **Formal Language (L)**: Any subset of `Σ*`. It is a set of strings chosen from `Σ*`.
+- **Alphabet (\Sigma)**: A finite, non-empty set of symbols. For example, `\Sigma = {0, 1}` is the binary alphabet.
+- **String (or Word)**: A finite sequence of symbols from an alphabet. `\varepsilon` denotes the **empty string**, which has a length of 0.
+- **\Sigma***: The set of all possible strings that can be formed from the alphabet `\Sigma`, including the empty string.
+- **Formal Language (L)**: Any subset of `\Sigma*`. It is a set of strings chosen from `\Sigma*`.
 
 ```mermaid
 graph TD
-    A[Alphabet Σ] --> B[Symbols];
+    A[Alphabet \Sigma] --> B[Symbols];
     B --> C[String w];
     C --> D{Set of all strings};
-    D --> E[Σ*];
-    E --> F[Formal Language L ⊆ Σ*];
+    D --> E[\Sigma*];
+    E --> F[Formal Language L \subseteq \Sigma*];
 ```
 
 ## 2. Regular Expressions (Regex)
@@ -26,7 +26,7 @@ A **regular expression** is a sequence of characters that specifies a search pat
 Let `R` and `S` be regular expressions. The fundamental operations are:
 - **Concatenation (`RS`)**: A string that matches `R` followed by a string that matches `S`.
 - **Union / Alternation (`R | S` or `R + S`)**: Matches either a string that matches `R` or a string that matches `S`.
-- **Kleene Star (`R*`)**: Matches zero or more occurrences of strings that match `R`. This always includes the empty string `ε`.
+- **Kleene Star (`R*`)**: Matches zero or more occurrences of strings that match `R`. This always includes the empty string `\varepsilon`.
 - **Kleene Plus (`R+`)**: Matches one or more occurrences of strings that match `R`. `R+` is equivalent to `RR*`.
 
 ### Operator Precedence
@@ -57,17 +57,17 @@ A **finite automaton** (or finite state machine) is an abstract computational mo
 
 ### Deterministic Finite Automata (DFA)
 
-A DFA is a 5-tuple `M = (Q, Σ, δ, q₀, F)` where:
+A DFA is a 5-tuple `M = (Q, \Sigma, \delta, q₀, F)` where:
 - `Q`: A finite set of **states**.
-- `Σ`: A finite set of input symbols (the **alphabet**).
-- `δ`: The **transition function**, `δ: Q × Σ → Q`. For a given state and symbol, it returns a single next state.
+- `\Sigma`: A finite set of input symbols (the **alphabet**).
+- `\delta`: The **transition function**, `\delta: Q × \Sigma → Q`. For a given state and symbol, it returns a single next state.
 - `q₀`: The **start state** (`q₀ ∈ Q`).
 - `F`: A set of **accept (or final) states** (`F ⊆ Q`).
 
 ### How a DFA Works
 1.  The machine starts in the start state `q₀`.
 2.  It reads the input string one symbol at a time, from left to right.
-3.  For each symbol, it transitions to a new state using the transition function `δ`.
+3.  For each symbol, it transitions to a new state using the transition function `\delta`.
 4.  After the last symbol is read, if the machine is in an accept state (`F`), the string is **accepted**. Otherwise, it is **rejected**.
 
 A key property of a DFA is that for any given state and input symbol, there is **exactly one** state to transition to.
@@ -75,14 +75,14 @@ A key property of a DFA is that for any given state and input symbol, there is *
 ### Example DFA
 Let's design a DFA that accepts all binary strings ending in `0`.
 - `Q = {q₀, q₁}`
-- `Σ = {0, 1}`
+- `\Sigma = {0, 1}`
 - `q₀` is the start state.
 - `F = {q₁}`
-- `δ` is defined as:
-  - `δ(q₀, 0) = q₁`
-  - `δ(q₀, 1) = q₀`
-  - `δ(q₁, 0) = q₁`
-  - `δ(q₁, 1) = q₀`
+- `\delta` is defined as:
+  - `\delta(q₀, 0) = q₁`
+  - `\delta(q₀, 1) = q₀`
+  - `\delta(q₁, 0) = q₁`
+  - `\delta(q₁, 1) = q₀`
 
 ```mermaid
 graph TD

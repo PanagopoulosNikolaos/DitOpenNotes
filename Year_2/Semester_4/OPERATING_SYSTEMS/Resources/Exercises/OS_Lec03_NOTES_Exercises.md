@@ -1,190 +1,190 @@
-# Ασκήσεις — Κεφάλαιο 3: Διεργασίες
+# Exercises — Chapter 3: Processes
 
-**Βασισμένες σε:** `OS_Lec03_NOTES.md`  
-**Αριθμός ασκήσεων:** 32
-
----
-
-## Μέρος Α — Βασικές Έννοιες
-
-### Άσκηση 1
-Τι είναι διεργασία και πώς διαφέρει από πρόγραμμα; Χρησιμοποιήστε την αναλογία παρτιτούρας/εκτέλεσης.
+**Based on:** `OS_Lec03_NOTES.md`  
+**Number of exercises:** 32
 
 ---
 
-### Άσκηση 2
-Περιγράψτε τον χώρο διευθύνσεων διεργασίας: text region, data region, stack region.
+## Part A — Basic Concepts
+
+### Exercise 1
+What is a process and how does it differ from a program? Use the sheet music/performance analogy.
 
 ---
 
-### Άσκηση 3
-Γιατί η διαχείριση διεργασιών είναι κρίσιμη; Αναφέρετε πέντε στόχους του ΛΣ.
+### Exercise 2
+Describe the process address space: text region, data region, stack region.
 
 ---
 
-### Άσκηση 4
-Σχεδιάστε (ή περιγράψτε) τις βασικές καταστάσεις διεργασίας και τις μεταβάσεις: New, Ready, Running, Blocked, Exit.
+### Exercise 3
+Why is process management critical? State five goals of the OS.
 
 ---
 
-### Άσκηση 5
-Τι προκαλεί τις μεταβάσεις Running → Ready και Running → Blocked;
+### Exercise 4
+Draw (or describe) the basic process states and their transitions: New, Ready, Running, Blocked, Exit.
 
 ---
 
-### Άσκηση 6
-Εξηγήστε τις καταστάσεις Ready/Suspend και Blocked/Suspend. Πότε χρησιμοποιούνται;
+### Exercise 5
+What causes the Running → Ready and Running → Blocked transitions?
 
 ---
 
-### Άσκηση 7
-Ποια διεργασία σε κατάσταση αναστολής (Waiting/Blocked) στη μνήμη μπορεί να μεταβεί σε Ready ή σε Suspended Waiting; Πότε;
+### Exercise 6
+Explain the Ready/Suspend and Blocked/Suspend states. When are they used?
 
 ---
 
-## Μέρος Β — Schedulers και PCB
-
-### Άσκηση 8
-Συγκρίνετε long-term, short-term και medium-term scheduler ως προς ρόλο και χρήση.
+### Exercise 7
+Which process in the Waiting/Blocked state in memory can transition to Ready or to Suspended Waiting? When?
 
 ---
 
-### Άσκηση 9
-Τι είναι ο dispatcher και ποια είναι η σχέση του με το κβάντο χρόνου;
+## Part B — Schedulers and PCB
+
+### Exercise 8
+Compare long-term, short-term, and medium-term schedulers with respect to role and usage.
 
 ---
 
-### Άσκηση 10
-Περιγράψτε τις ουρές Ready queue και Blocked queue.
+### Exercise 9
+What is the dispatcher and what is its relationship to the time quantum?
 
 ---
 
-### Άσκηση 11
-Τι είναι το PCB (Process Control Block) και ποια πεδία περιέχει (ομαδοποιημένα σε: διαχείριση διεργασιών, μνήμη, αρχεία);
+### Exercise 10
+Describe the Ready queue and the Blocked queue.
 
 ---
 
-### Άσκηση 12
-Γιατί η εικόνα διεργασίας δεν είναι απαραίτητα σε συνεχείς θέσεις μνήμης;
+### Exercise 11
+What is the PCB (Process Control Block) and what fields does it contain (grouped into: process management, memory, files)?
 
 ---
 
-### Άσκηση 13
-Τι είναι ο πίνακας διεργασιών (process table) και πώς συνδέεται με το PID;
+### Exercise 12
+Why is the process image not necessarily in contiguous memory locations?
 
 ---
 
-## Μέρος Γ — Context Switch και Unix
-
-### Άσκηση 14
-Αναφέρετε πέντε λόγους εναλλαγής εκτελούμενης διεργασίας.
+### Exercise 13
+What is the process table and how is it linked to the PID?
 
 ---
 
-### Άσκηση 15
-Περιγράψτε τα 6 βήματα που εκτελεί το ΛΣ όταν μια διεργασία φεύγει από Running.
+## Part C — Context Switch and Unix
+
+### Exercise 14
+State five reasons for switching the executing process.
 
 ---
 
-### Άσκηση 16
-Τι είναι context switch και γιατί θεωρείται overhead;
+### Exercise 15
+Describe the 6 steps the OS performs when a process leaves Running.
 
 ---
 
-### Άσκηση 17
-Εξηγήστε τις συναρτήσεις Unix: `fork()`, `exec()`, `exit()`, `wait()`. Πώς συνδέονται στον κύκλο ζωής διεργασίας;
+### Exercise 16
+What is a context switch and why is it considered overhead?
 
 ---
 
-### Άσκηση 18
-Μετά από `fork()`, τι κοινό έχουν γονική και θυγατρική διεργασία; Τι διαφέρει;
+### Exercise 17
+Explain the Unix functions: `fork()`, `exec()`, `exit()`, `wait()`. How are they linked in the process lifecycle?
 
 ---
 
-### Άσκηση 19
-Γιατί η `exec()` δεν δημιουργεί νέα διεργασία αλλά αντικαθιστά την εικόνα μνήμης;
+### Exercise 18
+After `fork()`, what do the parent and child processes share? What differs?
 
 ---
 
-## Μέρος Δ — Ασκήσεις Εφαρμογής
-
-### Άσκηση 20
-Διεργασία P εκτελείται. Λήγει το κβάντο χρόνου πριν ζητήσει I/O. Σε ποια κατάσταση μεταβαίνει και σε ποια ουρά;
+### Exercise 19
+Why does `exec()` not create a new process but replace the memory image?
 
 ---
 
-### Άσκηση 21
-Διεργασία P εκτελείται και καλεί `read()` για αρχείο στο δίσκο. Περιγράψτε τη μετάβαση κατάστασης.
+## Part D — Application Exercises
+
+### Exercise 20
+Process P is running. The time quantum expires before it requests I/O. Which state does it transition to and to which queue?
 
 ---
 
-### Άσκηση 22
-Η κύρια μνήμη είναι πλήρης. Μια διεργασία σε Ready πρέπει να μεταφερθεί στο δίσκο. Σε ποια suspend κατάσταση μεταβαίνει;
+### Exercise 21
+Process P is running and calls `read()` for a file on disk. Describe the state transition.
 
 ---
 
-### Άσκηση 23
-Σημειώστε **Σ** ή **Λ**:
-
-1. Το PCB αποθηκεύει τον Program Counter.
-2. Ο short-term scheduler ελέγχει τον βαθμό πολυπρογραμματισμού.
-3. Το context switch παράγει χρήσιμο έργο για τον χρήστη.
-4. Η `wait()` επιτρέπει στη γονική να περιμένει τερματισμό απογόνου.
-5. Η `fork()` επιστρέφει 0 στη θυγατρική διεργασία.
+### Exercise 22
+Main memory is full. A process in Ready must be moved to disk. Which suspend state does it transition to?
 
 ---
 
-### Άσκηση 24
-Κυκλώστε τη σωστή απάντηση: Ποιος scheduler επιλέγει ποια διεργασία εκτελείται **άμεσα** στη CPU;
+### Exercise 23
+Mark **T** or **F**:
 
-- α) Long-term  
-- β) Medium-term  
-- γ) Short-term  
-- δ) I/O scheduler
+1. The PCB stores the Program Counter.
+2. The short-term scheduler controls the degree of multiprogramming.
+3. A context switch produces useful work for the user.
+4. `wait()` allows the parent to wait for the termination of a child.
+5. `fork()` returns 0 to the child process.
 
 ---
 
-### Άσκηση 25
-Συμπληρώστε τον πίνακα αιτίων δημιουργίας διεργασίας:
+### Exercise 24
+Circle the correct answer: Which scheduler selects which process runs **immediately** on the CPU?
 
-| Αιτία | Παράδειγμα |
+- a) Long-term  
+- b) Medium-term  
+- c) Short-term  
+- d) I/O scheduler
+
+---
+
+### Exercise 25
+Complete the table of process creation causes:
+
+| Cause | Example |
 | :--- | :--- |
-| Υποβολή νέας εργασίας | |
-| Σύνδεση νέου χρήστη | |
-| Αίτηση υπηρεσίας | |
-| Δημιουργία από υπάρχουσα | |
+| Submission of a new job | |
+| Login of a new user | |
+| Request for a service | |
+| Creation by an existing process | |
 
 ---
 
-### Άσκηση 26
-Περιγράψτε σενάριο: χρήστης εκτελεί `./myprogram` στο shell. Ποια system calls/συναρτήσεις εμπλέκονται;
+### Exercise 26
+Describe a scenario: a user runs `./myprogram` in the shell. Which system calls/functions are involved?
 
 ---
 
-### Άσκηση 27
-Διεργασία σε Blocked ολοκληρώνεται I/O. Σε ποια κατάσταση μεταβαίνει; Ποιος scheduler την επιλέγει για CPU;
+### Exercise 27
+A process in Blocked completes its I/O. Which state does it transition to? Which scheduler selects it for the CPU?
 
 ---
 
-### Άσκηση 28
-Εξηγήστε τη διαφορά «αποθήκευση πλαισίου επεξεργαστή στο PCB» vs «επαναφορά πλαισίου από PCB».
+### Exercise 28
+Explain the difference between "saving the processor context in the PCB" vs "restoring the context from the PCB".
 
 ---
 
-### Άσκηση 29
-Γιατί το medium-term scheduler χρησιμοποιείται κυρίως σε time-sharing συστήματα;
+### Exercise 29
+Why is the medium-term scheduler used mainly in time-sharing systems?
 
 ---
 
-### Άσκηση 30
-Απαντήστε στις 8 «πιθανές ερωτήσεις εξέτασης» που αναφέρονται στο τέλος των σημειώσεων (μία πρόταση η καθεμία).
+### Exercise 30
+Answer the 8 "possible exam questions" mentioned at the end of the notes (one sentence each).
 
 ---
 
-### Άσκηση 31
-Σενάριο: 3 διεργασίες στην Ready queue, η CPU είναι ελεύθερη. Περιγράψτε ρόλο short-term scheduler και dispatcher.
+### Exercise 31
+Scenario: 3 processes are in the Ready queue, the CPU is free. Describe the role of the short-term scheduler and the dispatcher.
 
 ---
 
-### Άσκηση 32
-Συγκρίνετε overhead context switch με overhead system call. Ποιο είναι συνήθως μεγαλύτερο και γιατί;
+### Exercise 32
+Compare context switch overhead with system call overhead. Which is usually larger and why?

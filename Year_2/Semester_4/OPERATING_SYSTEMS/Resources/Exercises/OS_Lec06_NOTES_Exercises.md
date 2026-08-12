@@ -1,134 +1,134 @@
-# Ασκήσεις — Κεφάλαιο 6: Αδιέξοδο (Deadlock)
+# Exercises — Chapter 6: Deadlock
 
-**Βασισμένες σε:** `OS_Lec06_NOTES.md`  
-**Αριθμός ασκήσεων:** 35
-
----
-
-## Μέρος Α — Βασικές Έννοιες
-
-### Άσκηση 1
-Ορίστε αδιέξοδο (deadlock). Γιατί εμφανίζεται σε πολυπρογραμματιστικά συστήματα;
+**Based on:** `OS_Lec06_NOTES.md`  
+**Number of exercises:** 35
 
 ---
 
-### Άσκηση 2
-Διακρίνετε προεκχωρούμενους και μη προεκχωρούμενους πόρους. Δώστε δύο παραδείγματα για καθένα.
+## Part A — Basic Concepts
+
+### Exercise 1
+Define deadlock. Why does it occur in multiprogramming systems?
 
 ---
 
-### Άσκηση 3
-Διακρίνετε επαναχρησιμοποιήσιμους και καταναλώσιμους πόρους.
+### Exercise 2
+Distinguish preemptable and non-preemptable resources. Give two examples for each.
 
 ---
 
-### Άσκηση 4
-Περιγράψτε τον κύκλο χρήσης πόρου: request, use, release.
+### Exercise 3
+Distinguish reusable and consumable resources.
 
 ---
 
-### Άσκηση 5
-Εξηγήστε το κλασικό μοτίβο αδιεξόδου: P κατέχει A ζητά B, Q κατέχει B ζητά A.
+### Exercise 4
+Describe the resource usage cycle: request, use, release.
 
 ---
 
-## Μέρος Β — Γράφοι και Συνθήκες
-
-### Άσκηση 6
-Εξηγήστε τον συμβολισμό γράφου εκχώρησης: $P_i \rightarrow R_j$ και $R_j \rightarrow P_i$.
+### Exercise 5
+Explain the classic deadlock pattern: P holds A requests B, Q holds B requests A.
 
 ---
 
-### Άσκηση 7
-Αν ο γράφος **δεν** περιέχει κύκλο, υπάρχει αδιέξοδο; Αν περιέχει κύκλο και ένα στιγμιότυπο ανά τύπο πόρου;
+## Part B — Graphs and Conditions
+
+### Exercise 6
+Explain the allocation graph notation: $P_i \rightarrow R_j$ and $R_j \rightarrow P_i$.
 
 ---
 
-### Άσκηση 8
-Αναφέρετε και εξηγήστε τις **4 αναγκαίες συνθήκες** αδιεξόδου.
+### Exercise 7
+If the graph **does not** contain a cycle, is there a deadlock? If it contains a cycle and one instance per resource type?
 
 ---
 
-### Άσκηση 9
-Για πρόληψη αδιεξόδου, ποια συνθήκη πρέπει να παραβιαστεί; Δώστε μία τεχνική για καθεμία.
+### Exercise 8
+State and explain the **4 necessary conditions** for deadlock.
 
 ---
 
-### Άσκηση 10
-Εξηγήστε παραβίαση κυκλικής αναμονής με αύξουσα σειρά πόρων ($R_1 < R_2 < R_3$).
+### Exercise 9
+For deadlock prevention, which condition must be violated? Give one technique for each.
 
 ---
 
-## Μέρος Γ — Στρατηγικές Αντιμετώπισης
-
-### Άσκηση 11
-Συγκρίνετε prevention, avoidance, detection & recovery, χειροκίνητη μεσολάβηση.
+### Exercise 10
+Explain breaking circular wait by increasing resource order ($R_1 < R_2 < R_3$).
 
 ---
 
-### Άσκηση 12
-Τι είναι ασφαλής vs μη ασφαλής κατάσταση στο πλαίσιο αποφυγής;
+## Part C — Handling Strategies
+
+### Exercise 11
+Compare prevention, avoidance, detection & recovery, manual intervention.
 
 ---
 
-### Άσκηση 13
-Ορίστε: $Need[i,j] = Max[i,j] - Allocation[i,j]$. Γιατί χρειάζεται ο πίνακας Max;
+### Exercise 12
+What is a safe vs unsafe state in the context of avoidance?
 
 ---
 
-### Άσκηση 14
-Περιγράψτε τα βήματα του αλγορίθμου ασφάλειας (safety algorithm).
+### Exercise 13
+Define: $Need[i,j] = Max[i,j] - Allocation[i,j]$. Why is the Max matrix needed?
 
 ---
 
-### Άσκηση 15
-Ποια η διαφορά ανίχνευσης από αλγόριθμο ασφάλειας;
+### Exercise 14
+Describe the steps of the safety algorithm.
 
 ---
 
-### Άσκηση 16
-Αναφέρετε τέσσερις στρατηγικές επαναφοράς όταν ανιχνευθεί αδιέξοδο.
+### Exercise 15
+What is the difference between detection and the safety algorithm?
 
 ---
 
-### Άσκηση 17
-Αναφέρετε πέντε κριτήρια επιλογής διεργασίας για τερματισμό.
+### Exercise 16
+State four recovery strategies when a deadlock is detected.
 
 ---
 
-## Μέρος Δ — Dining Philosophers
-
-### Άσκηση 18
-Περιγράψτε το πρόβλημα των συνδαιτυμόνων φιλοσόφων. Τι μοντελοποιεί;
+### Exercise 17
+State five criteria for selecting a process to terminate.
 
 ---
 
-### Άσκηση 19
-Γιατί η αφελής λύση με wait(fork[i]) wait(fork[i+1]) οδηγεί σε αδιέξοδο;
+## Part D — Dining Philosophers
+
+### Exercise 18
+Describe the dining philosophers problem. What does it model?
 
 ---
 
-### Άσκηση 20
-Αναφέρετε τρεις τεχνικές αποφυγής (επιπλέον πηρούνι, max 4 φιλόσοφοι, άρτιοι/περιττοί).
+### Exercise 19
+Why does the naive solution with wait(fork[i]) wait(fork[i+1]) lead to deadlock?
 
 ---
 
-### Άσκηση 21
-Εξηγήστε τη λύση με σημαφόρο `room=4`. Γιατί σπάει η κυκλική αναμονή;
+### Exercise 20
+State three avoidance techniques (extra fork, max 4 philosophers, odd/even).
 
 ---
 
-## Μέρος Ε — Αριθμητικές Ασκήσεις
-
-### Άσκηση 22
-Διαθέσιμη μνήμη 200KB. $P_1$ ζητά 80KB μετά 60KB. $P_2$ ζητά 70KB μετά 80KB. Αν ικανοποιηθούν πρώτα τα αρχικά αιτήματα, εξηγήστε γιατί μπλοκάρουν.
+### Exercise 21
+Explain the solution with the semaphore `room=4`. Why does it break circular wait?
 
 ---
 
-### Άσκηση 23
-**Αλγόριθμος Τραπεζίτη — Ασφάλεια**
+## Part E — Numerical Exercises
 
-Έστω 3 διεργασίες, 1 τύπος πόρου (tape drives):
+### Exercise 22
+Available memory of 200KB. $P_1$ requests 80KB then 60KB. $P_2$ requests 70KB then 80KB. If the initial requests are satisfied first, explain why they block.
+
+---
+
+### Exercise 23
+**Banker's Algorithm — Safety**
+
+Suppose 3 processes, 1 resource type (tape drives):
 
 | | Max | Allocation |
 | :--- | :--- | :--- |
@@ -136,82 +136,82 @@
 | P1 | 3 | 2 |
 | P2 | 9 | 2 |
 
-Available = 3. Υπάρχει ασφαλής ακολουθία; Υπολογίστε Need και δείξτε τα βήματα.
+Available = 3. Is there a safe sequence? Calculate Need and show the steps.
 
 ---
 
-### Άσκηση 24
-Με τα δεδομένα της Άσκησης 23, μπορεί να εκχωρηθεί αίτημα 1 επιπλέον drive στη P0; Εφαρμόστε έλεγχο ασφάλειας.
+### Exercise 24
+With the data of Exercise 23, can a request for 1 additional drive by P0 be granted? Apply the safety check.
 
 ---
 
-### Άσκηση 25
-Σχεδιάστε γράφο εκχώρησης για: P1 → R1 (αίτηση), R2 → P1 (εκχώρηση), P2 → R2 (αίτηση), R1 → P2 (εκχώρηση). Υπάρχει κύκλος;
+### Exercise 25
+Draw an allocation graph for: P1 → R1 (request), R2 → P1 (allocation), P2 → R2 (request), R1 → P2 (allocation). Is there a cycle?
 
 ---
 
-### Άσκηση 26
-Σημειώστε **Σ** ή **Λ**:
+### Exercise 26
+Mark **T** or **F**:
 
-1. Κύκλος σε γράφο σημαίνει πάντα αδιέξοδο.
-2. Η μνήμη είναι συνήθως προεκχωρούμενος πόρος.
-3. Ο εκτυπωτής είναι μη προεκχωρούμενος πόρος.
-4. Η πρόληψη με printer daemon παραβιάζει αμοιβαίο αποκλεισμό.
-5. Μη ασφαλής κατάσταση σημαίνει βέβαιο αδιέξοδο.
-
----
-
-### Άσκηση 27
-Κυκλώστε τη σωστή απάντηση: Ποια προσέγγιση επιτρέπει εκχωρήσεις και ελέγχει περιοδικά αν υπάρχει αδιέξοδο;
-
-- α) Prevention  
-- β) Avoidance  
-- γ) Detection & recovery  
-- δ) Ignore
+1. A cycle in a graph always means deadlock.
+2. Memory is usually a preemptable resource.
+3. A printer is a non-preemptable resource.
+4. Prevention with a printer daemon violates mutual exclusion.
+5. An unsafe state means certain deadlock.
 
 ---
 
-### Άσκηση 28
-Εξηγήστε γιατί η απαίτηση «όλοι οι πόροι εκ των προτέρων» (hold and wait prevention) μειώνει αξιοποίηση πόρων.
+### Exercise 27
+Circle the correct answer: Which approach allows allocations and periodically checks whether a deadlock exists?
+
+- a) Prevention  
+- b) Avoidance  
+- c) Detection & recovery  
+- d) Ignore
 
 ---
 
-### Άσκηση 29
-Σενάριο: 4 διεργασίες, 2 εκτυπωτές. Κάθε διεργασία χρειάζεται 1 εκτυπωτή για εκτύπωση και 1 scanner (μοναδικός) για σάρωση. Μπορεί να προκύψει αδιέξοδο; Σχεδιάστε.
+### Exercise 28
+Explain why the requirement "all resources in advance" (hold and wait prevention) reduces resource utilization.
 
 ---
 
-### Άσκηση 30
-Συμπληρώστε τον πίνακα:
+### Exercise 29
+Scenario: 4 processes, 2 printers. Each process needs 1 printer for printing and 1 scanner (unique) for scanning. Can deadlock occur? Draw it.
 
-| Έννοια | Σύντομος ορισμός |
+---
+
+### Exercise 30
+Complete the table:
+
+| Concept | Brief definition |
 | :--- | :--- |
-| Αμοιβαίος αποκλεισμός | |
-| Κατοχή και αναμονή | |
-| Μη προεκχώρηση | |
-| Κυκλική αναμονή | |
+| Mutual exclusion | |
+| Hold and wait | |
+| No preemption | |
+| Circular wait | |
 
 ---
 
-### Άσκηση 31
-Πώς σχετίζεται το αδιέξοδο με λανθασμένη χρήση σημαφόρων (από κεφάλαιο αμοιβαίου αποκλεισμού);
+### Exercise 31
+How does deadlock relate to incorrect semaphore usage (from the mutual exclusion chapter)?
 
 ---
 
-### Άσκηση 32
-Αποφυγή vs Ανίχνευση: ποιο έχει μεγαλύτερο runtime overhead και γιατί;
+### Exercise 32
+Avoidance vs Detection: which has greater runtime overhead and why?
 
 ---
 
-### Άσκηση 33
-**Σενάριο εξέτασης:** P κατέχει εκτυπωτή, περιμένει αρχείο. Q κατέχει αρχείο, περιμένει εκτυπωτή. Ποιες συνθήκες ισχύουν; Είναι αδιέξοδο;
+### Exercise 33
+**Exam scenario:** P holds a printer, waits for a file. Q holds a file, waits for a printer. Which conditions hold? Is it a deadlock?
 
 ---
 
-### Άσκηση 34
-Προτείνετε λύση πρόληψης για σενάριο δύο διεργασιών και δύο μη προεκχωρούμενων πόρων A, B.
+### Exercise 34
+Propose a prevention solution for a scenario of two processes and two non-preemptable resources A, B.
 
 ---
 
-### Άσκηση 35
-Συγκρίνετε starvation και deadlock στο πρόβλημα των φιλοσόφων. Μπορεί να υπάρξει το ένα χωρίς το άλλο;
+### Exercise 35
+Compare starvation and deadlock in the philosophers problem. Can one exist without the other?

@@ -4,48 +4,48 @@
 
 # Operating Systems — Chapter 1: Introduction
 
-The first chapter introduces the fundamental concepts of Operating Systems (OS): their definition, the elements of a computing system, their historical evolution from serial processing to modern distributed systems, and the basic characteristics for multiprogramming and time sharing. It forms a necessary foundation for all subsequent chapters on processes, memory management, and scheduling.
+The first chapter introduces the fundamental concepts of Operating Systems (OS): their definition, the components of a computer system, their historical evolution from serial processing to modern distributed systems, and the basic features for multiprogramming and time-sharing. It constitutes the necessary foundation for all subsequent chapters on processes, memory management, and scheduling.
 
 ---
 
-## 1. Definition of an Operating System
+## 1. Definition of the Operating System
 
 ### 1.1 What is an OS
 
-An Operating System (OS) is a program that acts as an **intermediary** between the users of a Computing System (CS) and its hardware.
+An Operating System (OS) is a program that acts as an **intermediary** between the users of the Computer System (CS) and its hardware.
 
 **Goals of an OS:**
 - Execution of user programs
 - Ease of use of the CS
 - Effective / efficient use of hardware and peripherals
-- Protection of programs and data of various users
+- Protection of programs and data of different users
 
-### 1.2 Definition Attempts
+### 1.2 Attempts at Definition
 
 | Approach | Description | Example |
 | :--- | :--- | :--- |
-| Extended / virtual machine | Hides the complexity of the hardware from the user/programmer | Simplified file/directory management, interrupt handling |
-| Resource allocator | Distributes the system's resources among applications | Correct printing order of a shared printer, memory management & protection in multi-user environments |
+| Extended machine (extended/virtual machine) | Hides from the user/programmer the complexity of the hardware | Simplified file/directory management, interrupt handling |
+| Resource allocator | Distributes the system's resources among applications | Correct print order of a shared printer, memory management & protection in multiuser environments |
 
 ### 1.3 Final Definition
 
 The OS is ultimately defined as a combination of:
-- **Resource allocator** — distributes resource assignment
+- **Resource allocator**
 - **Control program**: controls the execution of user programs and the operation of I/O devices
-- **Kernel**: the only program that runs **continuously** while the CS is in operation — all others are additional services or applications
+- **Kernel**: the only program that runs **continuously** while the CS is in operation — everything else is additional services or applications
 
-> **[Key Insight]** The kernel is the core of the OS — it never terminates while the system is running. Anything executed outside the kernel is considered a user application.
+> **[Key Insight]** The Kernel is the core of the OS — it never terminates during system operation. Anything executed outside the kernel is considered a user application.
 
 ---
 
-## 2. Elements of Computing Systems
+## 2. Components of Computer Systems
 
-A CS consists of four levels:
+A CS consists of four layers:
 
-1. **Hardware:** Provides basic computing resources — processor (CPU), memory, I/O devices.
+1. **Hardware:** Provides the basic computing resources — CPU, memory, I/O devices.
 2. **Operating System:** Controls and coordinates the use of hardware among application programs and users.
-3. **Application Programs:** Determine the ways resources are used to solve computing problems (e.g., compilers, DBMS, business applications).
-4. **Users:** People, machines, other computers.
+3. **Application Programs:** Define the ways of using resources to solve computing problems (e.g., compilers, DBMS, business applications).
+4. **Users:** Humans, machines, other computers.
 
 **Typical CS hardware includes:** CPU, disk controller, USB controller, graphics adapter, memory, disks, mouse, keyboard, printer, monitor.
 
@@ -58,37 +58,37 @@ A CS consists of four levels:
 There was no OS. Users interacted directly with the hardware.
 
 **Problems:**
-- **Scheduling:** Waste of time; programs left unfinished due to large block time
-- **Setup time:** A single program (job) loaded a compiler + high-level program, saved object code, loaded it and linked it with libraries — a time-consuming process
+- **Scheduling:** Waste of time, programs that stalled halfway due to a large block of time
+- **Setup time:** A single program (job) loaded the compiler + the high-level program, stored the object code, loaded it and linked it with libraries — a time-consuming process
 
 ### 3.2 Evolution II — Simple Batch Systems / Batch Process (early–mid 1960s)
 
-**Reason for development:** Very expensive machines → reducing dead time.
+**Reason for development:** Very expensive machines → reduction of idle time.
 
 **Central idea — Monitor:**
 - Software that controls the programs being executed
-- Groups jobs (batching)
-- Permanently present in main memory
-- After each job ends, control returns to the monitor
+- Groups jobs together (batching)
+- Permanently resident in main memory
+- After the end of each job, control returns to the monitor
 
 **Job Control Language (JCL):** Command language addressed to the monitor (which compiler, which data).
 
-**Hardware features required for the Monitor:**
+**Required hardware features for the Monitor:**
 
 | Feature | Purpose |
 | :--- | :--- |
-| Memory protection | Prevents the user program from modifying the monitor's area |
-| Timer | Prevents a single job from monopolizing the system |
+| Memory protection | Prevention of modification of the monitor's area by the user program |
+| Timer | Avoidance of system monopolization by a single job |
 | Privileged instructions | Executed only by the monitor, mainly for I/O |
-| Interrupts | Mechanisms for granting/retrieving control |
+| Interrupts | Mechanisms for granting/reclaiming control |
 
 ### 3.3 Evolution III — Multiprogrammed Batch Systems (1965–1980)
 
 **Reason for development:** The processor remained idle due to the speed difference with I/O devices.
 
-**Single-programming problem:** When a job was waiting for I/O, the CPU stayed idle.
+**Problem of uniprogramming:** When a job waited for I/O, the CPU remained idle.
 
-**Waste example:**
+**Example of waste:**
 ```
 Read one record from file   →  0.0015 sec
 Execute 100 instructions    →  0.0001 sec
@@ -98,19 +98,19 @@ CPU Utilization = 0.0001 / 0.0031 ≈ 3.2%
 ```
 
 **Solution — Multiprogramming:**
-- Memory partitioned into segments, one for each process
+- Partitioning of memory into segments, one for each process
 - When a process waits for I/O, the CPU serves another process
-- CPU utilization up to 100% possible
+- Possibility of using the CPU up to 100%
 - **Requirement:** protection against memory overlaps through hardware
 
 **OS features for multiprogramming:**
 
 | Function | Description |
 | :--- | :--- |
-| Memory management | Splits memory into segments and protects each segment from interference |
-| Process management | Selects which processes acquire memory space |
-| CPU scheduling | Selects which process runs among those loaded in memory |
-| Resource allocation | Prevents interaction between running processes |
+| Memory management | Splitting of memory into segments, protection of each segment from interference |
+| Process management | Selection of which processes acquire space in memory |
+| CPU scheduling | Selection of which loaded process is executed from those in memory |
+| Resource allocation | Avoidance of interaction between executing processes |
 
 **OS performance measures:**
 - Average resource utilization
@@ -124,29 +124,29 @@ CPU Utilization = 0.0001 / 0.0031 ≈ 3.2%
 
 ### 3.4 Time-Sharing Systems
 
-**They emerged** from user complaints about waiting hours/days for results from batch systems.
+**Arose** from user complaints about waiting hours/days for results from batch systems.
 
 **Operating principle:**
-- Each user connects via a terminal
-- The CPU serves each user program in turn with a short **quantum** or computing **burst**
-- Exploits the relatively slow human reaction time to create the illusion of parallel service
+- Each user connects through a terminal
+- The CPU serves each user program in turn with a short **quantum** or computational **burst**
+- Exploits the relatively slow human reaction time for the illusion of parallel service
 
-**Multiprogramming vs Time Sharing comparison:**
+**Comparison of Multiprogramming vs Time-Sharing:**
 
-| Criterion | Multiprogramming | Time Sharing |
+| Criterion | Multiprogramming | Time-Sharing |
 | :--- | :--- | :--- |
-| Goal | Maximize processor usage | Minimize response time |
+| Goal | Maximization of processor usage | Minimization of response time |
 | Command input | Via Job Control Language (JCL) | Directly from a terminal |
 | Job type | Batch jobs | Interactive users |
 
 ### 3.5 Evolution IV — Fourth Generation (1980–1990)
 
-- Emergence of **LSI** integrated circuits
+- Appearance of **LSI** type integrated circuits
 - User-friendly OS
 - **Network OS:** each computer runs its own OS
 - **Distributed OS:**
   - Appear as traditional single-processor systems
-  - Users do not care where their programs run or where their files are located
+  - Users do not care where their programs are executed or where their files are located
   - Allow execution on different processors simultaneously
   - Require complex scheduling algorithms
 - **Real-time systems** (e.g., airline reservations)
@@ -154,8 +154,8 @@ CPU Utilization = 0.0001 / 0.0031 ≈ 3.2%
 ### 3.6 Modern Developments (1990+)
 
 **1990–2000:**
-- Sharp increase in hardware performance (MIPS)
-- World Wide Web → increase in distributed processing, need to integrate network processes
+- Leaps in hardware performance (MIPS)
+- World Wide Web → increase in distributed processing, need to integrate web-based processes
 - Establishment of object-oriented technology
 - Spread of open-source technology
 - Emergence of **Linux**
@@ -165,15 +165,15 @@ CPU Utilization = 0.0001 / 0.0031 ≈ 3.2%
 - **Web services:** applications published on the Internet through high-speed connections
 - Improved network architectures + increase in parallel processing
 - **POSIX** (Portable Operating System Interface): OS standardization
-- Computing on portable devices (PDAs, mobile phones)
+- Computing on portable devices (PDA, mobile phones)
 
 ---
 
 ## 4. OS and CS Architecture
 
-- OS have a **dependency** relationship with CS architecture
+- OS have a relationship of **dependence** with the architecture of CS
 - Hardware developments enabled new functions → led to OS evolution
-- Initially: only one process runs at a time (e.g., DOS)
+- Initially: only one process is executed at a time (e.g., DOS)
 
 ---
 
@@ -187,13 +187,13 @@ CPU Utilization = 0.0001 / 0.0031 ≈ 3.2%
 - Mutual exclusion
 - Deadlock
 - Memory management
-- Virtual memory
+- Virtual Memory
 - Process scheduling
 
 ### Laboratory (Unix)
 - User accounts — System login
-- File system — Pathnames
-- File system navigation
+- File system — Path names
+- Navigation of the file system
 - File management
 - File attributes
 - I/O redirection
@@ -203,23 +203,23 @@ CPU Utilization = 0.0001 / 0.0031 ≈ 3.2%
 
 ## Exam Tip: Key Distinctions for the Exam
 
-1. **Kernel vs OS:** The kernel is the only program that always runs — it is not the same as the entire OS.
+1. **Kernel vs OS:** The kernel is the only program that always runs — it is not identical to the entire OS.
 
-2. **Monoprogramming vs Multiprogramming:** The key is CPU usage during I/O wait. In monoprogramming the CPU stays idle; in multiprogramming it executes another process.
+2. **Uniprogramming vs Multiprogramming:** The key is CPU usage during I/O wait. In uniprogramming the CPU remains idle; in multiprogramming it executes another process.
 
-3. **Multiprogramming vs Time Sharing:** Multiprogramming = maximizing CPU usage (batch). Time sharing = minimizing response time (interactive).
+3. **Multiprogramming vs Time-Sharing:** Multiprogramming = maximization of CPU usage (batch). Time-sharing = minimization of response time (interactive).
 
 4. **Historical milestones:** Serial (1940s) → Batch/Monitor (1960s) → Multiprogramming (1965–1980) → Time-Sharing → LSI/Distributed (1980–1990) → Linux/Internet (1990+) → POSIX/Mobile (2000+).
 
-5. **CPU Utilization calculation:** $\text{CPU Util} = \frac{t_{\text{CPU}}}{t_{\text{total}}}$ — in the slide example: $\frac{0.0001}{0.0031} \approx 3.2\%$ for monoprogramming with an I/O-bound job.
+5. **CPU Utilization calculation:** $\text{CPU Util} = \frac{t_{\text{CPU}}}{t_{\text{total}}}$ — in the slide example: $\frac{0.0001}{0.0031} \approx 3.2\%$ for uniprogramming with an I/O-bound job.
 
 ---
 # OS_Lec02_NOTES.md
 ---
 
-# Operating Systems — Chapter 2: OS Purposes and Evolution
+# Operating Systems — Chapter 2: Purposes and Evolution of OS
 
-This chapter covers the four basic purposes of an Operating System (OS): hardware protection, user communication, resource management, and the capability for evolution. It additionally examines the important OS evolution points (processes, memory, security, scheduling, structure) and the characteristics of modern OS. The material belongs to the Department of Information Technology & Telecommunications, TEI of Epirus.
+This chapter covers the four basic purposes of an Operating System (OS): hardware protection, communication with the user, resource management, and evolvability. It additionally examines the important evolution points of OS (processes, memory, security, scheduling, structure) and the features of modern OS. The material belongs to the Department of Informatics & Telecommunications Technology, TEI of Epirus.
 
 ---
 
@@ -227,12 +227,12 @@ This chapter covers the four basic purposes of an Operating System (OS): hardwar
 
 OS implement four central purposes:
 
-| #   | Purpose                                 | Summary                                                               |
-| :-- | :-------------------------------------- | :-------------------------------------------------------------------- |
-| I   | Hardware protection                     | dual-mode, I/O, memory, CPU                                            |
-| II  | User communication                      | abstraction of complexity, provision of services                      |
-| III | Resource management, utilization, control | controlled allocation of CPU, memory, I/O                            |
-| IV  | Capability and ease of evolution        | support for new hardware, new services, fixes                         |
+| #   | Purpose                                 | Summary                                                              |
+| :-- | :-------------------------------------- | :------------------------------------------------------------------ |
+| I   | Hardware protection                     | dual-mode, I/O, memory, CPU                                         |
+| II  | Communication with the user             | abstraction of complexity, provision of services                    |
+| III | Management, utilization and control of resources | controlled allocation of CPU, memory, I/O                  |
+| IV  | Evolvability and ease of evolution      | support for new hardware, new services, fixes                       |
 
 ---
 
@@ -240,7 +240,7 @@ OS implement four central purposes:
 
 ### 2.1 Dual-Mode Operation
 
-Shared resources require the OS to ensure that a faulty program does not affect other programs.
+Shared resources require the OS to ensure that an erroneous program will not affect other programs.
 
 The OS supports **two modes of operation**:
 
@@ -249,9 +249,9 @@ The OS supports **two modes of operation**:
 
 **Mode bit mechanism:**
 
-- A hardware bit indicates the current mode: `0` = monitor, `1` = user.
-- On every interrupt or fault, the hardware automatically switches to **monitor mode**.
-- **Privileged instructions** execute **only** in monitor mode.
+- A bit in hardware indicates the current state: `0` = monitor, `1` = user.
+- At every interrupt or fault the hardware automatically switches to **monitor mode**.
+- **Privileged instructions** are executed **only** in monitor mode.
 
 ```
       Interrupt / fault
@@ -260,7 +260,7 @@ monitor ←────────────── user
          set user mode
 ```
 
-> **[Key Insight]** The user/monitor mode separation is the fundamental mechanism on which every other form of protection (I/O, memory, CPU) is based.
+> **[Key Insight]** The user/monitor mode distinction is the fundamental mechanism on which every other form of protection (I/O, memory, CPU) is based.
 
 ### 2.2 Kernel Protection
 
@@ -275,25 +275,25 @@ monitor ←────────────── user
 
 **Execution of I/O operations by a user program (System Call flow):**
 
-1. The user program issues a **system call** — usually via a **trap** to a designated location in the interrupt vector.
+1. The user program issues a **system call** — usually through a **trap** to a designated location of the interrupt vector.
 2. Control passes through the interrupt vector to an OS **service routine**; the mode bit is set to monitor mode.
-3. The monitor verifies the parameters and executes the request.
-4. Control returns to the instruction after the system call (user mode).
+3. The monitor verifies the parameters, performs the request.
+4. It returns control to the instruction after the system call (user mode).
 
 ### 2.4 Memory Protection
 
-Two registers define the acceptable address range for each program:
+Two registers are used that define the acceptable address range for each program:
 
-| Register         | Contents                                          |
-| :--------------- | :------------------------------------------------ |
-| **base register**  | Smallest acceptable physical memory address       |
-| **limit register** | Size of the acceptable memory region              |
+| Register            | Content                                  |
+| :------------------ | :--------------------------------------- |
+| **base register**   | Smallest acceptable physical memory address |
+| **limit register**  | Size of the acceptable memory region     |
 
 - Memory outside `[base, base + limit)` is **protected**.
-- In monitor mode the OS has **unlimited** access to the entire memory.
+- In monitor mode the OS has **unrestricted** access to the entire memory.
 - The `load` instructions for the base & limit registers are **privileged**.
 
-**Logical → physical address translation:**
+**Conversion of logical → physical address:**
 
 ```
 CPU address → [base ≤ address ≤ base+limit] → YES → memory access
@@ -302,21 +302,21 @@ CPU address → [base ≤ address ≤ base+limit] → YES → memory access
 
 ### 2.5 CPU Protection
 
-- **Timer:** interrupts the computer after a specified period, ensuring the OS maintains control.
-  - Decremented by 1 on each **clock tick**.
+- **Timer:** interrupts the computer after a specified period, ensuring that the OS retains control.
+  - Decremented by 1 at every **clock tick**.
   - When it reaches **0** → an interrupt is generated.
-- Used in **time sharing** systems and for computing the current time.
+- Used in **time-sharing** systems and for computing the current time.
 - Loading the timer is a **privileged instruction**.
 
-> **[Exam Tip: Privileged Instructions]** Exams commonly ask "which instructions are privileged?". Answer: **I/O instructions**, **load base/limit**, **load timer**, **switching the mode bit**. No user program can execute them directly.
+> **[Exam Tip: Privileged Instructions]** In exams the question "which instructions are privileged?" is common. Answer: **I/O instructions**, **load base/limit**, **load timer**, **switching the mode bit**. No user program can execute them directly.
 
 ---
 
-## 3. II. User Communication
+## 3. II. Communication with the User
 
 ### 3.1 Abstraction Layers
 
-The OS intervenes between hardware and user by hiding complexity:
+The OS intervenes between hardware and user hiding complexity:
 
 ```
 End User / Programmer
@@ -331,7 +331,7 @@ Computer Hardware
 ```
 
 - **Hardware level:** Machine language, Microprogramming, Physical devices.
-- **OS:** Runs in **kernel mode**. Covers hardware details from the programmer.
+- **OS:** Runs in **kernel mode**. Hides hardware details from the programmer.
 - **Compilers/Interpreters/Shell:** Run in **user mode**.
 
 ### 3.2 Microprogramming
@@ -339,11 +339,11 @@ Computer Hardware
 - **Microprogram:** an interpreter that receives machine language instructions (`ADD`, `MOVE`, `JUMP`) and translates them into small steps.
 - Stored in **ROM memory**.
 - The instruction set it interprets = **Machine Language** (not part of the hardware).
-- Typical machine language size: **50–300 instructions**.
+- Typical size of a machine language: **50–300 instructions**.
 
 ### 3.3 OS Kernel
 
-The part of the OS containing the **most frequently used functions** and other OS parts currently in use, all in **main memory**.
+The part of the OS that contains the **most frequently used functions** and other OS parts currently in use, all in **main memory**.
 
 ### 3.4 Provided Services
 
@@ -354,7 +354,7 @@ The OS provides users with:
 - Access to I/O devices
 - Controlled access to files
 - Access system
-- Error detection and hiding
+- Error detection and concealment
 - Accounting (usage statistics)
 
 ---
@@ -365,29 +365,29 @@ The OS provides **controlled allocation** of processors, memories, and I/O devic
 
 **Control Mechanism:**
 
-- The OS operates as ordinary software but with a different goal.
-- It guides the processor in the use of other resources.
-- It grants and **reclaims** control of the processor.
+- The OS operates as ordinary software but with a different purpose.
+- Directs the processor in the use of other resources.
+- Allocates and **reclaims** control of the processor.
 
 ---
 
-## 5. IV. OS Evolution Capability and Ease
+## 5. IV. Evolvability and Ease of OS Evolution
 
-| Category            | Examples                                                      |
-| :------------------ | :------------------------------------------------------------ |
-| Hardware upgrades   | Paging of memory segments, graphics terminals                |
-| New services        | Use of windows, statistics tools                             |
-| Fixes               | Bug fixes, updates                                           |
+| Category              | Examples                                                   |
+| :-------------------- | :--------------------------------------------------------- |
+| Hardware upgrades     | Paging of memory segments, graphics terminals              |
+| New services          | Use of windows, statistical tools                          |
+| Fixes                 | Bug fixes, updates                                         |
 
 ---
 
-## 6. Important OS Evolution Points
+## 6. Important Evolution Points of OS
 
 Five central evolution axes:
 
 1. Processes
 2. Memory management
-3. Information protection and security
+3. Protection and security of information
 4. Scheduling and resource management
 5. System structure
 
@@ -397,44 +397,44 @@ Five central evolution axes:
 
 ### 7.1 Definitions
 
-- **Process:** a program or program instance executing on a computer.
-- **Alternative definition:** the entity that can be assigned to and executed on a processor.
+- **Process:** A program or instance of a program executing on a computer.
+- **Alternative definition:** The entity that can be assigned to and executed on a processor.
 
 ### 7.2 Process Table
 
-- Each process's information is stored in a **process table** — a **linked list** structure with processes as nodes.
+- Information about each process is stored in a **process table** — a **linked list** structure with the processes as nodes.
 - A **suspended process** consists of:
-  - **Its address space** — memory image.
-  - **Its information** — a record in the process table.
+  - **Its address space** — the memory image.
+  - **Its information** — an entry in the process table.
 
 ### 7.3 Process Memory Organization
 
 Each memory block of a process contains:
 
 - The executable program (code)
-- The required data
+- The data required (data)
 - The **execution context** (process state)
-- OS management information (e.g., priority)
+- Management information from the OS (e.g., priority)
 - Processor information (e.g., register contents, program counter)
 
 ### 7.4 Process Management
 
 - Each process is registered in a **process list** maintained by the OS.
-- The **process index register** points to the process currently in control.
+- The **process index register** points to the process that has control at that moment.
 - Interrupted processes store their register contents in their own execution context.
-- **Context switch:** saving the current process's information + loading the next process.
-- A process is either **executing** or **waiting**.
+- **Context switch:** saving the information of the current process + loading the next process.
+- A process is either **running** or **waiting**.
 
-### 7.5 Causes of Errors
+### 7.5 Causes of Fault Creation
 
-| Cause                                 | Description                                                                                      |
-| :------------------------------------ | :----------------------------------------------------------------------------------------------- |
-| Inaccurate synchronization            | Interrupt signals not handled correctly by the signaling mechanism                              |
-| Failed mutual exclusion               | Simultaneous access to a shared resource by multiple users/programs                             |
-| Undefined program behavior            | Programs interfering by rewriting common memory regions · dependence on scheduling order         |
-| Deadlocks                             | Two or more programs mutually waiting for each other to release a resource                      |
+| Cause                              | Description                                                                               |
+| :--------------------------------- | :---------------------------------------------------------------------------------------- |
+| Inaccurate synchronization         | Interrupt signals are not handled correctly by the signaling mechanism                   |
+| Failed mutual exclusion            | Simultaneous access to a shared resource by many users / programs                         |
+| Undefined program behavior         | Programs interfere by rewriting common memory regions · dependence on scheduling order   |
+| Deadlocks                          | Two or more programs mutually wait for each other to release a resource                  |
 
-> **[Key Insight]** Process errors appear only after **rare and specific sequences of actions**, making them extremely hard to track down. Detecting an error **does not** automatically define its cause.
+> **[Key Insight]** Process faults appear only after **rare and specific sequences of actions**, which makes them extremely difficult to locate. Detecting a fault **does not** automatically define its cause.
 
 ---
 
@@ -442,27 +442,27 @@ Each memory block of a process contains:
 
 ### 8.1 Five Basic OS Responsibilities
 
-| Responsibility                             | Summary                                                         |
-| :----------------------------------------- | :-------------------------------------------------------------- |
-| Process isolation                          | Each process in a separate, protected space                    |
-| Automatic placement & management           | Memory limits, memory map                                      |
-| Support for modular programming            | Dynamic memory allocation / management                         |
-| Protection & access control                | Prohibition of unauthorized access                             |
-| Long-term storage                          | Data retention beyond process lifetime                         |
+| Responsibility                             | Summary                                                          |
+| :------------------------------------------ | :-------------------------------------------------------------- |
+| Process isolation                           | Each process in a separate, protected space                    |
+| Automatic placement & management            | Memory bounds, memory map                                      |
+| Support for modular programming             | Dynamic memory allocation / management                         |
+| Access protection & control                 | Prohibition of unauthorized access                            |
+| Long-term storage                           | Retention of data beyond the lifetime of a process             |
 
-Implemented via: **Virtual Memory** and **File System**.
+Implemented through: **Virtual Memory** and **File System**.
 
 ### 8.2 Virtual Memory
 
-- Allows programs to address physical memory **logically**, independently of available size.
-- Addresses the requirement of multiple jobs to be **simultaneously** in main memory.
+- Allows programs to address physical memory **logically**, independently of the available size.
+- Addresses the requirement of multiple jobs to reside **simultaneously** in main memory.
 
-### 8.3 Memory Paging
+### 8.3 Paging
 
-- Memory is divided into fixed-size **pages** (e.g., 4 KB).
+- Memory is divided into **pages** of fixed size (e.g., 4 KB).
 - Each page can be placed **anywhere** in main memory.
-- Each program references a **virtual address** → the paging system converts it to a **real (physical) address**.
-- Pages not in main memory are transferred from **secondary storage** (disk) — all pages are kept on disk.
+- Each program references a **virtual address** → the paging system converts it into a **real address**.
+- Pages that are not in main memory are brought from **secondary** storage (disk) — all pages are kept on disk.
 
 **Addressing flow:**
 
@@ -474,20 +474,20 @@ Processor → Virtual Address → Memory Management Unit (MMU)
                           Disk Address → Secondary Memory
 ```
 
-- Each process obtains a **unique, non-overlapping** virtual memory → **isolation**.
-- Partial page loading **minimizes** main memory occupancy.
+- Each process acquires **unique, non-overlapping** virtual memory → **isolation**.
+- Partial page loading **minimizes** the holding of main memory.
 
-> **[Exam Tip: Virtual vs Physical Address]** The processor always issues **virtual** addresses. The conversion to physical is done by the **MMU** (Memory Management Unit) in cooperation with the OS. If the page is not loaded → **page fault** → the OS loads it from disk.
+> **[Exam Tip: Virtual vs Physical Address]** The processor always issues **virtual** addresses. The conversion to physical addresses is done by the **MMU** (Memory Management Unit) in cooperation with the OS. If the page is not loaded → **page fault** → the OS loads it from disk.
 
 ---
 
-## 9. III. Information Protection and Security
+## 9. III. Protection and Security of Information
 
-| Mechanism                         | Purpose                                                                               |
-| :-------------------------------- | :------------------------------------------------------------------------------------ |
-| **Access control**                | Regulates user access to the system                                                   |
-| **Information flow control**      | Regulates the flow of data in the system                                              |
-| **Authentication**                | Verifies that security mechanisms run according to security policies                  |
+| Mechanism                       | Purpose                                                                            |
+| :------------------------------ | :--------------------------------------------------------------------------------- |
+| **Access control**              | Regulating user access to the system                                              |
+| **Information flow control**    | Regulating the flow of data in the system                                         |
+| **Authentication**              | Verifying that security mechanisms are executed according to security policies    |
 
 ---
 
@@ -495,48 +495,48 @@ Processor → Virtual Address → Memory Management Unit (MMU)
 
 ### 10.1 Scheduling Criteria
 
-- **Impartiality** — priority classes.
+- **Fairness** — priority classes.
 - **Differential response** — dynamic scheduling decisions.
 - **Efficiency:**
-  - Maximize throughput
-  - Minimize response time
-  - Serve many users
+  - Maximization of throughput
+  - Minimization of response time
+  - Service of many users
 
 ### 10.2 Multiprogramming
 
 The OS maintains multiple **queues**:
 
-| Queue                          | Content                                                                 |
-| :----------------------------- | :---------------------------------------------------------------------- |
-| **Short-term queue**           | Processes in main memory, ready to run                                 |
-| **Long-term queue**            | New processes waiting to use the processor                             |
-| **I/O device queues**          | Processes waiting for an I/O device                                    |
+| Queue                      | Content                                                            |
+| :------------------------- | :----------------------------------------------------------------- |
+| **Short-term queue**       | Processes in main memory, ready to be executed                    |
+| **Long-term queue**        | New processes waiting to use the processor                        |
+| **I/O device queues**      | Processes waiting for an I/O device                               |
 
 **Short-term scheduler (dispatcher)** — selection strategies:
-- **Round-robin** (cyclic service)
+- **Round-robin**
 - **Priority levels**
 
 ---
 
 ## 11. V. System Structure
 
-### 11.1 Problems from OS Size Growth
+### 11.1 Problems from OS Size Increase
 
-- Delayed time-to-delivery
+- Delayed delivery
 - Non-obvious programming errors
 - Reduced performance
 
 ### 11.2 Design Trends
 
-- **Modular programming** (modular design)
-- Minimizing the interface between parts
-- Use of **hierarchical layers** (layered architecture)
+- **Modular design**
+- Minimization of the interface between parts
+- Use of **layered architecture**
 
 ### 11.3 OS Design Hierarchy
 
 Each level:
 - Performs a **subset** of functions.
-- Relies on the previous one for primary functions.
+- Relies on the previous one for primitive operations.
 - Provides services to the higher level.
 
 The **lowest** levels operate on a smaller time scale, interacting directly with the hardware.
@@ -561,13 +561,13 @@ The **lowest** levels operate on a smaller time scale, interacting directly with
 
 ---
 
-## 12. Characteristics of Modern OS
+## 12. Features of Modern OS
 
 ### 12.1 Hardware Evolution
 
-- Multiple processors (multi-processor)
+- Many processors (multi-processor)
 - High-speed network connections
-- Many large-capacity storage devices
+- Many and large-capacity storage devices
 
 ### 12.2 Software Evolution
 
@@ -577,106 +577,105 @@ The **lowest** levels operate on a smaller time scale, interacting directly with
 
 ### 12.3 OS Architecture Evolution
 
-| Feature                                     | Summary                                                            |
-| :------------------------------------------ | :----------------------------------------------------------------- |
-| Microkernel architecture                    | Minimal kernel · services in user space                            |
-| Multithreading                              | Many threads within a single process                               |
-| Multiprocessing systems                     | Multiple processors in a shared system                             |
-| Parallel systems                            | Concurrent execution of computations                                |
-| Real-time systems                           | Guaranteed response times                                          |
-| Distributed systems                         | Many nodes that appear as a single system                          |
+| Feature                                  | Summary                                                          |
+| :--------------------------------------- | :--------------------------------------------------------------- |
+| Microkernel architecture                 | Minimal kernel · services in user space                        |
+| Multithreading                           | Many threads within a single process                            |
+| Multiprocessing systems                  | Many processors in a common system                              |
+| Parallel systems                         | Simultaneous execution of computations                           |
+| Real-time systems                        | Guaranteed response times                                       |
+| Distributed systems                      | Many nodes that appear as a single system                       |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Dual-Mode Operation — What happens on interrupt
+### Exercise 1: Dual-Mode Operation — What happens on an interrupt
 
-**Problem:** A user program is running (mode bit = 1). A hardware interrupt occurs. Describe step-by-step what happens.
+**Problem:** A user program is executing (mode bit = 1). A hardware interrupt occurs. Describe step by step what happens.
 
 **Solution:**
 1. The hardware detects the interrupt.
 2. The hardware automatically sets the mode bit to `0` (monitor mode).
-3. Control is transferred via the **interrupt vector table** to the relevant OS service routine (ISR).
+3. Control is transferred through the **interrupt vector table** to the relevant OS service routine (ISR).
 4. The OS (monitor mode) executes the ISR.
-5. Upon completion, the OS sets mode bit = `1` (user mode) and returns control to the program.
+5. Upon completion, the OS sets the mode bit = `1` (user mode) and returns control to the program.
 
 ---
 
-### Exercise 2: Memory Protection — Bounds Check Example
+### Exercise 2: Memory Protection — Bounds Checking Example
 
-**Problem:** base register = 300040, limit register = 120900. Is access to address 400000 acceptable? What about address 250000?
+**Problem:** base register = 300040, limit register = 120900. Is access to address 400000 acceptable? And to address 250000?
 
 **Solution:**
 - Acceptable range: `[300040, 300040 + 120900)` = `[300040, 420940)`.
-- Address 400000: `300040 ≤ 400000 < 420940` → **ACCEPTED**.
-- Address 250000: `250000 < 300040` → **NOT ACCEPTED** → trap to the OS (addressing error).
+- Address 400000: `300040 ≤ 400000 < 420940` → **ACCEPTABLE**.
+- Address 250000: `250000 < 300040` → **NOT ACCEPTABLE** → trap to the OS (addressing error).
 
 ---
 
 ### Exercise 3: System Call for I/O
 
-**Problem:** A user program wants to read data from disk. Why can it not execute the I/O instruction directly, and how does it achieve it?
+**Problem:** A user program wants to read data from disk. Why can it not execute an I/O instruction directly and how does it achieve it?
 
 **Solution:**
-1. I/O instructions are **privileged** → they execute only in monitor mode.
+1. I/O instructions are **privileged** → they are executed only in monitor mode.
 2. The user program executes a **system call** (trap) with the appropriate parameters.
-3. The trap redirects control to the OS (monitor mode) via the interrupt vector.
+3. The trap redirects control to the OS (monitor mode) through the interrupt vector.
 4. The OS verifies the parameters and executes the I/O instruction.
 5. The result is returned to the program · mode bit → user mode.
 
 ---
 
-### Exercise 4: Paging — Virtual to Physical Translation
+### Exercise 4: Paging — Virtual to Physical Conversion
 
-**Problem:** Page size 4 KB. A process references virtual address 0x00005A00. How are the page number and offset calculated?
+**Problem:** Page size 4 KB. A process references virtual address 0x00005A00. How are the page number and the offset computed?
 
 **Solution:**
-- Page size: $4096 = 2^{12}$ bytes → the **12 LSBs** of the address are the offset.
+- Page size: $4096 = 2^{12}$ bytes → the **12 LSB** of the address are the offset.
 - Virtual address: `0x00005A00` = `0b 0000 0000 0000 0000 0101 1010 0000 0000`
-- Page number: bits 12 and above = `0x5` = page 5.
-- Offset: the 12 LSBs = `0xA00` = 2560 (bytes within the page).
+- Page number: the bits 12 and above = `0x5` = page 5.
+- Offset: the 12 LSB = `0xA00` = 2560 (bytes within the page).
 - The MMU consults the page table for page 5 → finds the physical page → adds the offset → physical address.
 
 ---
 
-### Exercise 5: Deadlock — Scenario Identification
+### Exercise 5: Deadlock — Scenario Recognition
 
 **Problem:** Process A holds resource R1 and waits for R2. Process B holds R2 and waits for R1. What happens?
 
 **Solution:**
 1. A holds R1, waits for R2.
 2. B holds R2, waits for R1.
-3. Neither process can proceed without the other releasing its resource.
-
-4. **Deadlock** — the system needs intervention (e.g., terminating a process or preempting a resource).
+3. No process can proceed without the other releasing the resource.
+4. **Deadlock** — the system needs intervention (e.g., termination of a process or resource preemption).
 
 ---
 
-### Exercise 6: OS Hierarchy — Function Classification
+### Exercise 6: OS Hierarchy — Classification of Functions
 
-**Problem:** To which hierarchy level do the following functions belong: (a) file storage, (b) interrupt handling, (c) user process creation, (d) shell command invocation?
+**Problem:** At which hierarchy level do the following functions belong: (a) file storage, (b) interrupt handling, (c) user process creation, (d) shell command invocation?
 
 **Solution:**
 
-| Function                       | Level | Name          |
-| :----------------------------- | :---- | :------------ |
-| (a) File storage               | 9     | File system   |
-| (b) Interrupt handling         | 4     | Interrupts    |
-| (c) Process creation           | 12    | User processes|
-| (d) Shell command              | 13    | Shell         |
+| Function              | Level | Name          |
+| :-------------------- | :---- | :------------ |
+| (a) File storage      | 9     | File system   |
+| (b) Interrupt handling | 4    | Interrupts    |
+| (c) Process creation  | 12    | User processes |
+| (d) Shell command     | 13    | Shell         |
 
 ---
 
 ## Exam Tip: Key Concepts for Exams
 
 **1. Dual-mode & Privileged Instructions:**
-The privileged instructions are: I/O instructions, loading base/limit registers, loading the timer, modifying the mode bit. None execute in user mode.
+Privileged instructions are: I/O instructions, loading base/limit registers, loading the timer, modifying the mode bit. None is executed in user mode.
 
 **2. System Call vs Interrupt:**
 - **Interrupt:** asynchronous event from hardware.
-- **System Call (trap):** synchronous request from software for OS service.
-Both lead to a user → monitor mode transition.
+- **System Call (trap):** synchronous request from software for an OS service.
+Both lead to a transition from user → monitor mode.
 
 **3. Base/Limit Registers:**
 If `address < base` or `address ≥ base + limit` → **addressing error** → trap to the OS.
@@ -685,276 +684,276 @@ If `address < base` or `address ≥ base + limit` → **addressing error** → t
 Save: PC, registers, process state in the process table. Load: the corresponding items of the next process.
 
 **5. Paging:**
-`virtual address = (page number, offset)`. The MMU converts the page number to a physical frame number via the page table. Page fault = the page is not in main memory.
+`virtual address = (page number, offset)`. The MMU converts the page number to a physical frame number through the page table. Page fault = the page is not in main memory.
 
 **6. Deadlock — 4 Coffman Conditions (Supplementary):**
 
 > **[Supplementary]**
-> A deadlock arises only when the 4 Coffman conditions hold **simultaneously**:
+> A deadlock occurs only when the 4 Coffman conditions hold **simultaneously**:
 > 1. **Mutual Exclusion** — the resource is used exclusively.
-> 2. **Hold and Wait** — a holder keeps a resource while waiting for another.
-> 3. **No Preemption** — resources are not forcibly removed.
+> 2. **Hold and Wait** — the holder holds a resource and waits for another.
+> 3. **No Preemption** — resources cannot be forcibly removed.
 > 4. **Circular Wait** — a circular chain of waiting among processes.
 
 ---
 # OS_Lec03_NOTES.md
 ---
 
-# Λειτουργικά Συστήματα — Κεφάλαιο 3: Διεργασίες
+# Operating Systems — Chapter 3: Processes
 
-## Τι είναι διεργασία
-- Διεργασία (process) = πρόγραμμα σε εκτέλεση.
-- Αποτελεί επίσης ασύγχρονη δραστηριότητα που παρακολουθείται από το λειτουργικό σύστημα.
-- Το λειτουργικό σύστημα συνδέει κάθε διεργασία με μια δομή δεδομένων, τον περιγραφέα διεργασίας ή μπλοκ ελέγχου διεργασίας (PCB).
-- Αναλογία: το πρόγραμμα είναι σαν παρτιτούρα, ενώ η διεργασία είναι η πραγματική εκτέλεση του «κομματιού».
+## What is a process
+- A process = a program in execution.
+- It is also an asynchronous activity monitored by the operating system.
+- The operating system associates each process with a data structure, the process descriptor or Process Control Block (PCB).
+- Analogy: the program is like a musical score, while the process is the actual performance of the "piece".
 
-## Χώρος διευθύνσεων διεργασίας
-Κάθε διεργασία έχει δικό της χώρο διευθύνσεων, που περιλαμβάνει:
-- **Text region**: τον εκτελέσιμο κώδικα.
-- **Data region**: μεταβλητές και δυναμικά δεσμευμένη μνήμη.
-- **Stack region**: τοπικές μεταβλητές και πληροφορίες ενεργών κλήσεων διαδικασιών.
+## Process address space
+Each process has its own address space, which includes:
+- **Text region**: the executable code.
+- **Data region**: variables and dynamically allocated memory.
+- **Stack region**: local variables and information of active procedure calls.
 
-## Γιατί η διαχείριση διεργασιών είναι κρίσιμη
-- Είναι βασικό αντικείμενο κάθε λειτουργικού συστήματος.
-- Το ΛΣ διατηρεί για κάθε διεργασία πληροφορίες για:
-  - την κατάστασή της,
-  - τους πόρους που κατέχει,
-  - τον τρόπο με τον οποίο μπορεί να την ελέγχει.
-- Το ΛΣ πρέπει να:
-  - παρεμβάλει την εκτέλεση πολλών διεργασιών,
-  - μεγιστοποιεί τη χρήση της CPU,
-  - ελαχιστοποιεί τον χρόνο απόκρισης,
-  - κατανέμει πόρους με πολιτική που αποφεύγει αδιέξοδα,
-  - υποστηρίζει επικοινωνία και δημιουργία διεργασιών.
+## Why process management is critical
+- It is a core subject of every operating system.
+- The OS maintains for each process information about:
+  - its state,
+  - the resources it holds,
+  - the way in which it can control it.
+- The OS must:
+  - interleave the execution of many processes,
+  - maximize CPU utilization,
+  - minimize response time,
+  - allocate resources with a policy that avoids deadlocks,
+  - support communication and creation of processes.
 
-## Βασικές καταστάσεις διεργασίας
-### 3 βασικές καταστάσεις
-- **Running**: η διεργασία εκτελείται στη CPU.
-- **Ready**: είναι έτοιμη να εκτελεστεί, αλλά περιμένει CPU.
-- **Blocked**: δεν μπορεί να συνεχίσει μέχρι να συμβεί κάποιο εξωτερικό γεγονός.
+## Basic process states
+### 3 basic states
+- **Running**: the process is executing on the CPU.
+- **Ready**: it is ready to execute, but waiting for the CPU.
+- **Blocked**: it cannot continue until some external event occurs.
 
-### Επεκταμένο μοντέλο
-- **New**: μόλις δημιουργήθηκε.
-- **Exit**: ολοκληρώθηκε και αποδεσμεύθηκε από το ΛΣ.
+### Extended model
+- **New**: just created.
+- **Exit**: completed and released by the OS.
 
-## Μεταβάσεις καταστάσεων
-Σημαντικές μεταβάσεις:
-- **New → Ready**: η διεργασία εισάγεται στο σύστημα όταν επιτρέπεται από τα όρια του συστήματος.
-- **Running → Ready**: εξαντλεί το επιτρεπτό χρονικό όριο εκτέλεσης.
-- **Running → Blocked**: ζητά υπηρεσία/ΙΟ που δεν μπορεί να εκτελεστεί άμεσα.
-- **Blocked → Ready**: ολοκληρώνεται το γεγονός που περίμενε, π.χ. Ι/Ο.
-- **Running → Exit**: τερματισμός διεργασίας.
+## State transitions
+Important transitions:
+- **New → Ready**: the process is admitted into the system when allowed by the system limits.
+- **Running → Ready**: it exhausts the allowed execution time limit.
+- **Running → Blocked**: it requests a service/I/O that cannot be performed immediately.
+- **Blocked → Ready**: the event it was waiting for completes, e.g., I/O.
+- **Running → Exit**: process termination.
 
-## Dispatcher και κβάντο χρόνου
-- Οι νέες διεργασίες εισέρχονται στη λίστα έτοιμων διεργασιών.
-- Όταν η CPU γίνει διαθέσιμη, ο **dispatcher** αναθέτει την πρώτη κατάλληλη διεργασία για εκτέλεση.
-- Για να μη μονοπωλείται η CPU, το ΛΣ χρησιμοποιεί διακοπή χρονιστή.
-- Το προκαθορισμένο χρονικό διάστημα εκτέλεσης λέγεται **κβάντο χρόνου**.
-- Αν λήξει το κβάντο χωρίς η διεργασία να παραδώσει μόνη της τη CPU, το ΛΣ τη μεταφέρει από Running σε Ready και δίνει τη CPU σε άλλη διεργασία.
-- Αν ζητήσει Ι/Ο πριν λήξει το κβάντο, μεταβαίνει σε Blocked.
+## Dispatcher and time quantum
+- New processes enter the ready list.
+- When the CPU becomes available, the **dispatcher** assigns the first suitable process for execution.
+- So that the CPU is not monopolized, the OS uses a timer interrupt.
+- The predefined execution time interval is called the **time quantum**.
+- If the quantum expires without the process surrendering the CPU on its own, the OS moves it from Running to Ready and gives the CPU to another process.
+- If it requests I/O before the quantum expires, it transitions to Blocked.
 
-## Διεργασίες σε αναστολή (suspend)
-Όταν η κύρια μνήμη δεν επαρκεί ή όταν απαιτείται καλύτερη αξιοποίηση πόρων:
-- κάποιες διεργασίες μεταφέρονται στον δίσκο,
-- δημιουργούνται δύο επιπλέον καταστάσεις:
+## Suspended processes
+When main memory is insufficient or when better resource utilization is required:
+- some processes are moved to disk,
+- two additional states are created:
   - **Blocked/Suspend**
   - **Ready/Suspend**
 
-Αυτό χρησιμοποιείται επειδή ο επεξεργαστής είναι πολύ ταχύτερος από τις συσκευές Ε/Ε και μπορεί να προκύψει κατάσταση όπου πολλές διεργασίες περιμένουν Ι/Ο.
+This is used because the processor is much faster than the I/O devices and a situation can arise where many processes wait for I/O.
 
-## Χρονοδρομολογητές
-Το ΛΣ χρησιμοποιεί διαφορετικούς schedulers:
+## Schedulers
+The OS uses different schedulers:
 - **Long-term scheduler (job scheduler)**:
-  - επιλέγει ποιες διεργασίες θα μπουν στην ουρά ready,
-  - ελέγχει τον βαθμό πολυπρογραμματισμού.
+  - selects which processes will enter the ready queue,
+  - controls the degree of multiprogramming.
 - **Short-term scheduler (CPU scheduler)**:
-  - επιλέγει ποια διεργασία θα εκτελεστεί αμέσως μετά στη CPU.
+  - selects which process will be executed next on the CPU.
 - **Medium-term scheduler**:
-  - χρησιμοποιείται ιδιαίτερα σε time-sharing συστήματα,
-  - μετακινεί περιοδικά διεργασίες από/προς τη μνήμη.
+  - used particularly in time-sharing systems,
+  - periodically moves processes to/from memory.
 
-## Ουρές διεργασιών
-Οι διεργασίες οργανώνονται σε ουρές όπως:
-- **Ready queue**: διεργασίες έτοιμες για CPU.
-- **Blocked queue**: διεργασίες που περιμένουν γεγονός ή ολοκλήρωση Ι/Ο.
+## Process queues
+Processes are organized into queues such as:
+- **Ready queue**: processes ready for the CPU.
+- **Blocked queue**: processes waiting for an event or completion of I/O.
 
-Ο χρονοδρομολογητής επιλέγει διεργασίες από αυτές τις ουρές.
+The scheduler selects processes from these queues.
 
 ## PCB — Process Control Block
-### Ρόλος
-- Όταν δημιουργείται νέα διεργασία, το ΛΣ της εκχωρεί μοναδικό **PID**.
-- Στη συνέχεια δημιουργεί το **PCB**.
-- Το PCB περιέχει όλες τις απαραίτητες πληροφορίες για τη διαχείριση και τον έλεγχο της διεργασίας.
-- Αποτελεί βασικό μέρος της εικόνας διεργασίας μαζί με πρόγραμμα, δεδομένα και στοίβα.
+### Role
+- When a new process is created, the OS assigns it a unique **PID**.
+- It then creates the **PCB**.
+- The PCB contains all the necessary information for managing and controlling the process.
+- It is a basic part of the process image together with the program, data, and stack.
 
-### Σημαντική ιδέα
-- Η εικόνα διεργασίας δεν είναι απαραίτητα αποθηκευμένη σε συνεχόμενες θέσεις μνήμης.
-- Σε μια χρονική στιγμή, μέρος της μπορεί να βρίσκεται στην κύρια μνήμη και άλλο μέρος στη δευτερεύουσα.
+### Important idea
+- The process image is not necessarily stored in contiguous memory locations.
+- At a given moment, part of it may reside in main memory and another part in secondary storage.
 
-## Πίνακας διεργασιών
-- Το ΛΣ υλοποιεί πίνακα διεργασιών (**process table**).
-- Υπάρχει μία καταχώρηση για κάθε διεργασία.
-- Οι καταχωρήσεις αποθηκεύουν την κατάστασή της ώστε να μπορεί να συνεχίσει μετά από διακοπή ή εναλλαγή.
+## Process table
+- The OS implements a **process table**.
+- There is one entry for each process.
+- The entries store its state so that it can continue after an interrupt or a switch.
 
-## Πεδία που αποθηκεύονται για μια διεργασία
-### 1. Διαχείριση διεργασιών
-- Καταχωρητές
-- Δείκτης εντολών προγράμματος (Program Counter)
-- Λέξη κατάστασης προγράμματος
-- Δείκτης στοίβας
-- Κατάσταση διεργασίας
-- Χρόνος εκκίνησης διεργασίας
-- Χρόνος χρήσης CPU
-- Χρόνος CPU θυγατρικών διεργασιών
-- Χρόνος επόμενης εγρήγορσης
-- Δείκτης ουράς μηνυμάτων
+## Fields stored for a process
+### 1. Process management
+- Registers
+- Program Counter
+- Program status word
+- Stack pointer
+- Process state
+- Process start time
+- CPU time used
+- CPU time of child processes
+- Time of next wakeup
+- Message queue pointer
 
-### 2. Διαχείριση μνήμης / ταυτότητας
-- Δείκτης σε τμήμα κειμένου
-- Δείκτης σε τμήμα δεδομένων
-- Κατάσταση εξόδου
-- Κατάσταση σήματος
-- Ταυτότητα διεργασίας
-- Γονική διεργασία
-- Ομάδα διεργασιών
-- Πραγματική και λειτουργική ταυτότητα χρήστη/ομάδας
-- Χάρτης δυαδικών ψηφίων για σήματα
+### 2. Memory management / identity
+- Pointer to text segment
+- Pointer to data segment
+- Exit status
+- Signal status
+- Process identity
+- Parent process
+- Process group
+- Real and effective user/group identity
+- Bitmap for signals
 
-### 3. Διαχείριση αρχείων
-- Μάσκα δικαιωμάτων
-- Πρωταρχική διαδρομή
-- Διαδρομή εργασίας
-- Περιγραφείς αρχείων
-- Λειτουργική ταυτότητα χρήστη και ομάδας
-- Παράμετροι κλήσεων συστήματος
-- Διάφοροι ενδείκτες
+### 3. File management
+- Permission mask
+- Root path
+- Working path
+- File descriptors
+- Effective user and group identity
+- System call parameters
+- Various indicators
 
-## Αλλαγή διεργασίας και context switch
-### Λόγοι εναλλαγής εκτελούμενης διεργασίας
-- Διακοπή ρολογιού: εξάντληση κβάντου χρόνου.
-- Διακοπή Ε/Ε.
-- Σφάλμα μνήμης.
-- Trap (παγίδευση λόγω σφάλματος).
-- Κλήση συστήματος, π.χ. άνοιγμα αρχείου.
+## Process change and context switch
+### Reasons for switching the executing process
+- Clock interrupt: exhaustion of the time quantum.
+- I/O interrupt.
+- Memory fault.
+- Trap.
+- System call, e.g., opening a file.
 
-### Τι κάνει το ΛΣ στην αλλαγή κατάστασης
-Όταν μια διεργασία φεύγει από την κατάσταση Running:
-1. Αποθηκεύει το πλαίσιο του επεξεργαστή στο PCB (PC και άλλοι καταχωρητές).
-2. Μετακινεί το PCB στην κατάλληλη ουρά.
-3. Επιλέγει νέα διεργασία προς εκτέλεση.
-4. Ενημερώνει το PCB της νέας διεργασίας.
-5. Ενημερώνει δομές διαχείρισης μνήμης.
-6. Επαναφέρει το αποθηκευμένο πλαίσιο της νέας διεργασίας.
+### What the OS does on a state change
+When a process leaves the Running state:
+1. It saves the processor context in the PCB (PC and other registers).
+2. It moves the PCB to the appropriate queue.
+3. It selects a new process for execution.
+4. It updates the PCB of the new process.
+5. It updates memory management structures.
+6. It restores the saved context of the new process.
 
 ### Context switch
-- Η CPU αποθηκεύει την κατάσταση της παλιάς διεργασίας και φορτώνει της νέας.
-- Ο χρόνος αυτός είναι **overhead**: δεν παράγεται χρήσιμο έργο.
-- Το κόστος εξαρτάται από την υποστήριξη του υλικού.
+- The CPU saves the state of the old process and loads that of the new one.
+- This time is **overhead**: no useful work is produced.
+- The cost depends on the hardware support.
 
-## Υπηρεσίες ΛΣ για διεργασίες
-- Τα πολυπρογραμματιστικά ΛΣ παρέχουν system calls για διαχείριση διεργασιών.
-- Οι υπηρεσίες αυτές μπορούν να ενεργοποιηθούν:
-  - άμεσα, μέσω κλήσεων supervisor μέσα στον κώδικα,
-  - έμμεσα, μέσω εντολών στο τερματικό που μεταφράζονται σε κλήσεις συστήματος.
-- Παρότι τα ΛΣ διαφέρουν στη σχεδίαση, παρέχουν παρόμοιο βασικό σύνολο λειτουργιών για διεργασίες.
+## OS services for processes
+- Multiprogrammed OS provide system calls for process management.
+- These services can be activated:
+  - directly, through supervisor calls within the code,
+  - indirectly, through terminal commands that are translated into system calls.
+- Although OS differ in design, they provide a similar basic set of functions for processes.
 
-## Δημιουργία διεργασιών
-Το ΛΣ όταν δημιουργεί νέα διεργασία:
-- δημιουργεί τις αναγκαίες δομές δεδομένων,
-- της εκχωρεί μνήμη,
-- την εντάσσει στο σύστημα.
+## Process creation
+When the OS creates a new process:
+- it creates the necessary data structures,
+- allocates memory to it,
+- admits it into the system.
 
-### Συνήθεις αιτίες δημιουργίας
-- Υποβολή νέας εργασίας.
-- Σύνδεση νέου χρήστη.
-- Αίτηση υπηρεσίας από εφαρμογή.
-- Δημιουργία από υπάρχουσα διεργασία.
+### Common causes of creation
+- Submission of a new job.
+- Login of a new user.
+- Service request from an application.
+- Creation by an existing process.
 
 ## Unix: fork, exec, exit, wait
 ### fork()
-- Δημιουργεί νέα θυγατρική διεργασία ως κλώνο της γονικής.
-- Η θυγατρική:
-  - έχει εικονικό αντίγραφο της εικονικής μνήμης του γονέα,
-  - εκτελεί αρχικά το ίδιο πρόγραμμα,
-  - ξεκινά με ίδιες τιμές καταχωρητών.
+- Creates a new child process as a clone of the parent.
+- The child:
+  - has a virtual copy of the parent's virtual memory,
+  - initially executes the same program,
+  - starts with the same register values.
 
 ### exec()
-- Αντικαθιστά την εικόνα μνήμης της καλούμενης διεργασίας με νέο πρόγραμμα.
-- Μεταφέρει τον έλεγχο στο νέο πρόγραμμα.
+- Replaces the memory image of the calling process with a new program.
+- Transfers control to the new program.
 
 ### exit(status)
-- Τερματίζει τη διεργασία.
+- Terminates the process.
 
 ### wait(&status)
-- Η γονική διεργασία περιμένει τον τερματισμό ή άλλη αλλαγή κατάστασης απογόνου.
+- The parent process waits for the termination or another state change of a descendant.
 
-## Πιθανές ερωτήσεις εξέτασης
-1. Τι είναι διεργασία και πώς διαφέρει από πρόγραμμα;
-2. Ποιες είναι οι βασικές καταστάσεις διεργασίας;
-3. Τι προκαλεί τις μεταβάσεις Running → Ready και Running → Blocked;
-4. Ποιος είναι ο ρόλος του dispatcher;
-5. Τι είναι το PCB και ποια δεδομένα περιέχει;
-6. Τι είναι το context switch και γιατί θεωρείται overhead;
-7. Ποια η διαφορά long-term, short-term και medium-term scheduler;
-8. Ποια είναι η σχέση των fork(), exec(), exit(), wait() στο Unix;
+## Possible exam questions
+1. What is a process and how does it differ from a program?
+2. What are the basic process states?
+3. What causes the Running → Ready and Running → Blocked transitions?
+4. What is the role of the dispatcher?
+5. What is the PCB and what data does it contain?
+6. What is a context switch and why is it considered overhead?
+7. What is the difference between the long-term, short-term, and medium-term scheduler?
+8. What is the relationship of fork(), exec(), exit(), wait() in Unix?
 
-## Σύντομη περίληψη για διάβασμα
-- Διεργασία = πρόγραμμα σε εκτέλεση με δικό του χώρο διευθύνσεων και PCB.
-- Βασικές καταστάσεις: New, Ready, Running, Blocked, Exit, και σε ορισμένα μοντέλα Suspend καταστάσεις.
-- Το ΛΣ χρησιμοποιεί scheduler, dispatcher, ουρές και χρονικά κβάντα για να μοιράζει τη CPU.
-- Το PCB και ο process table κρατούν όλη την απαραίτητη πληροφορία για την επανεκκίνηση/συνέχιση μιας διεργασίας.
-- Η εναλλαγή διεργασιών απαιτεί context switch, που έχει κόστος.
-- Στο Unix, ο κύκλος δημιουργίας/εκτέλεσης/τερματισμού συνδέεται στενά με τις fork(), exec(), wait(), exit().
+## Short summary for revision
+- Process = a program in execution with its own address space and PCB.
+- Basic states: New, Ready, Running, Blocked, Exit, and in some models Suspend states.
+- The OS uses a scheduler, dispatcher, queues, and time quanta to share the CPU.
+- The PCB and the process table hold all the necessary information for restarting/continuing a process.
+- Process switching requires a context switch, which has a cost.
+- In Unix, the creation/execution/termination cycle is closely linked with fork(), exec(), wait(), exit().
 
 ---
 # OS_Lec04_NOTES.md
 ---
 
-# Αρχιτεκτονικές Λειτουργικών Συστημάτων (Κεφάλαιο 4)
+# Operating Systems Architectures (Chapter 4)
 
-Το κεφάλαιο αυτό καλύπτει τις κύριες αρχιτεκτονικές με τις οποίες σχεδιάζονται και υλοποιούνται τα σύγχρονα Λειτουργικά Συστήματα (ΛΣ). Εξετάζονται οκτώ αρχιτεκτονικές κατηγορίες — από τα μονολιθικά συστήματα έως τα κατανεμημένα — με έμφαση στα χαρακτηριστικά, τα πλεονεκτήματα, και τις αδυναμίες κάθε προσέγγισης. Η κατανόησή τους είναι θεμελιώδης για τη μελέτη του σχεδιασμού λογισμικού συστημάτων και τη διαχείριση υπολογιστικών πόρων.
+This chapter covers the main architectures with which modern Operating Systems (OS) are designed and implemented. Eight architectural categories are examined — from monolithic systems to distributed ones — with emphasis on the features, advantages, and weaknesses of each approach. Understanding them is fundamental for the study of systems software design and the management of computing resources.
 
 ---
 
-## 1. Μονολιθικά Συστήματα (Monolithic Systems)
+## 1. Monolithic Systems
 
-### Ορισμός και Χαρακτηριστικά
+### Definition and Features
 
-Τα μονολιθικά συστήματα αποτελούν την απλούστερη αρχιτεκτονική ΛΣ: **δεν υπάρχει εσωτερική δομή ή διαχωρισμός**. Το σύνολο του ΛΣ είναι μια συλλογή διαδικασιών όπου κάθε μία μπορεί να καλέσει οποιαδήποτε άλλη απευθείας.
+Monolithic systems constitute the simplest OS architecture: **there is no internal structure or separation**. The entire OS is a collection of procedures where each one can call any other directly.
 
-- Η επικοινωνία μεταξύ διαδικασιών γίνεται μέσω **παραμέτρων**.
-- Κάθε διαδικασία είναι **ορατή** σε οποιαδήποτε άλλη (δεν υπάρχει απόκρυψη πληροφορίας).
+- Communication between procedures is done through **parameters**.
+- Each procedure is **visible** to any other (there is no information hiding).
 
-### Δομή Μονολιθικής Οργάνωσης
+### Structure of Monolithic Organization
 
-| Συστατικό | Ρόλος |
+| Component | Role |
 | :--- | :--- |
-| Κύριο πρόγραμμα | Ζητά την ενεργοποίηση διαδικασιών εξυπηρέτησης |
-| Διαδικασίες εξυπηρέτησης | Υλοποιούν τις κλήσεις συστήματος (system calls) |
-| Βοηθητικά προγράμματα | Υποστηρίζουν τις διαδικασίες εξυπηρέτησης |
+| Main program | Requests the invocation of service procedures |
+| Service procedures | Implement the system calls |
+| Utility programs | Support the service procedures |
 
-### Υλοποίηση Κλήσης Συστήματος (System Call)
+### System Call Implementation
 
-Σε μονολιθικά συστήματα, η κλήση συστήματος ακολουθεί τα παρακάτω βήματα:
+In monolithic systems, the system call follows the following steps:
 
-1. Το πρόγραμμα χρήστη δημιουργεί μια **παγίδα** (trap) στον πυρήνα — εκτελείται ειδική εντολή ή kernel call.
-2. Το ΛΣ προσδιορίζει τον **αριθμό εξυπηρέτησης** που ζητήθηκε.
-3. Το ΛΣ εντοπίζει και καλεί την **διαδικασία εξυπηρέτησης**.
-4. Ο έλεγχος **επιστρέφεται** στο πρόγραμμα χρήστη.
+1. The user program creates a **trap** to the kernel — a special instruction or kernel call is executed.
+2. The OS determines the **service number** requested.
+3. The OS locates and calls the **service procedure**.
+4. Control is **returned** to the user program.
 
-> **[Key Insight]** Η απουσία δομής κάνει τα μονολιθικά συστήματα γρήγορα (χωρίς επιπλέον επίπεδα), αλλά δυσκολοσυντήρητα και ευάλωτα: ένα σφάλμα οπουδήποτε μπορεί να καταρρίψει ολόκληρο το σύστημα.
+> **[Key Insight]** The absence of structure makes monolithic systems fast (no additional layers), but difficult to maintain and vulnerable: a fault anywhere can bring down the entire system.
 
 ---
 
-## 2. Στρωματοποιημένη Αρχιτεκτονική (Layered Architecture)
+## 2. Layered Architecture
 
-### Ορισμός και Αρχή Λειτουργίας
+### Definition and Operating Principle
 
-Η στρωματοποιημένη αρχιτεκτονική βελτιώνει τον σχεδιασμό ομαδοποιώντας συστατικά που υλοποιούν **παρόμοιες λειτουργίες** σε επίπεδα (layers). Κάθε επίπεδο επικοινωνεί **μόνο με τα γειτονικά** (άνω και κάτω).
+Layered architecture improves design by grouping components that implement **similar functions** into layers. Each layer communicates **only with its neighbors** (above and below).
 
-### Δομή Επιπέδων
+### Layer Structure
 
-| Επίπεδο | Λειτουργία | Χώρος |
+| Layer | Function | Space |
 | :--- | :--- | :--- |
 | Layer 4 | User Applications | User space |
 | Layer 3 | I/O Management | Kernel space |
@@ -962,399 +961,399 @@ Save: PC, registers, process state in the process table. Load: the corresponding
 | Layer 1 | Memory Management | Kernel space |
 | Layer 0 | Processor Allocation & Process Scheduling | Kernel space |
 
-### Πλεονεκτήματα και Μειονεκτήματα
+### Advantages and Disadvantages
 
-**Πλεονεκτήματα:**
-- Σαφής οργάνωση και modular σχεδιασμός.
-- Ευκολία εντοπισμού σφαλμάτων — κάθε επίπεδο ελέγχεται ανεξάρτητα.
+**Advantages:**
+- Clear organization and modular design.
+- Ease of error detection — each layer is tested independently.
 
-**Μειονεκτήματα:**
-- Οι απαιτήσεις των διεργασιών **διαπερνούν πολλά επίπεδα** πριν ολοκληρωθούν → αυξημένη καθυστέρηση.
-- Η **ρυθμοαπόδοση (throughput)** μπορεί να είναι χαμηλότερη σε σχέση με τα μονολιθικά συστήματα.
-- Απαιτούνται επιπλέον μέθοδοι για τη **μεταβίβαση και τον έλεγχο δεδομένων**.
+**Disadvantages:**
+- The requirements of processes **cross many layers** before completing → increased delay.
+- **Throughput** can be lower compared to monolithic systems.
+- Additional methods are required for **data transfer and control**.
 
 ---
 
-## 3. Αρχιτεκτονική Μικροπυρήνα (Microkernel Architecture)
+## 3. Microkernel Architecture
 
-### Ορισμός
+### Definition
 
-Ο **μικροπυρήνας** αναθέτει ελάχιστες λειτουργίες στον πυρήνα και μεταφέρει τις υπόλοιπες σε **εξυπηρετητές (servers)** που τρέχουν σε κατάσταση χρήστη (user mode).
+The **microkernel** assigns minimal functions to the kernel and moves the rest to **servers** running in user mode.
 
-| Στοιχείο | Τοποθεσία | Παράδειγμα |
+| Component | Location | Example |
 | :--- | :--- | :--- |
-| IPC, Memory management, Synchronization | Kernel space | Πυρήνας |
-| File system, Process scheduler, Device manager | User space | Εξυπηρετητές |
-| Applications | User space | Εφαρμογές χρήστη |
+| IPC, Memory management, Synchronization | Kernel space | Kernel |
+| File system, Process scheduler, Device manager | User space | Servers |
+| Applications | User space | User applications |
 
-### Μηχανισμός Λειτουργίας
+### Operating Mechanism
 
-1. Η διεργασία χρήστη (**client process**) στέλνει απαίτηση στη διεργασία εξυπηρετητή (**server process**).
-2. Ο server επιτελεί τη λειτουργία και επιστρέφει απάντηση.
-3. Ο **μικροπυρήνας** διαχειρίζεται την επικοινωνία μέσω **IPC (Inter-Process Communication)**.
+1. The user process (**client process**) sends a request to the server process.
+2. The server performs the function and returns a response.
+3. The **microkernel** manages the communication through **IPC (Inter-Process Communication)**.
 
-### Τρόποι Επίλυσης Περιορισμών
+### Ways of Resolving Limitations
 
-- **Λύση 1:** Κρίσιμοι servers τρέχουν σε κατάσταση πυρήνα με πλήρη πρόσβαση στο υλικό, αλλά συνεχίζουν να επικοινωνούν με τις άλλες διεργασίες.
-- **Λύση 2:** Στοιχειώδης μηχανισμός προστίθεται στον πυρήνα, αλλά η **πολιτική αποφάσεων** παραμένει στους εξυπηρετητές.
+- **Solution 1:** Critical servers run in kernel mode with full access to the hardware, but continue to communicate with the other processes.
+- **Solution 2:** A basic mechanism is added to the kernel, but the **decision policy** remains with the servers.
 
-### Πλεονεκτήματα Μικροπυρήνα
+### Microkernel Advantages
 
-| Πλεονέκτημα | Εξήγηση |
+| Advantage | Explanation |
 | :--- | :--- |
-| Επεκτασιμότητα | Προσθήκη/αφαίρεση υπηρεσιών χωρίς επανασύνταξη πυρήνα |
-| Μεταφερσιμότητα | Οι αλλαγές για νέο επεξεργαστή γίνονται μόνο στον μικροπυρήνα |
-| Αντικειμενοστραφής σχεδιασμός | Τα συστατικά είναι αντικείμενα με σαφείς διεπαφές |
-| Αξιοπιστία | Μικρό μέγεθος πυρήνα → δυνατότητα ακριβούς ελέγχου (testing) |
+| Extensibility | Addition/removal of services without recompiling the kernel |
+| Portability | Changes for a new processor are made only in the microkernel |
+| Object-oriented design | The components are objects with clear interfaces |
+| Reliability | Small kernel size → possibility of accurate testing |
 
-> **[Key Insight]** Ο Linux kernel είναι **μονολιθικός** (αλλά modular), ενώ το MINIX και το QNX χρησιμοποιούν αρχιτεκτονική μικροπυρήνα. Η επιλογή επηρεάζει άμεσα την απόδοση και την ασφάλεια.
+> **[Key Insight]** The Linux kernel is **monolithic** (but modular), while MINIX and QNX use a microkernel architecture. The choice directly affects performance and security.
 
 ---
 
-## 4. Νήματα — Πολυνημάτωση (Threads — Multithreading)
+## 4. Threads — Multithreading
 
-### Ορισμός Νήματος
+### Definition of a Thread
 
-Ένα **νήμα (thread)** είναι η μικρότερη μονάδα εκτέλεσης εντολών στον επεξεργαστή. Περιλαμβάνει:
-- **Μετρητή προγράμματος (Program Counter)**
-- **Δείκτη στοίβας (Stack Pointer)**
-- **Δική του περιοχή δεδομένων**
+A **thread** is the smallest unit of instruction execution on the processor. It includes:
+- **Program Counter**
+- **Stack Pointer**
+- **Its own data region**
 
-Μια **διεργασία (process)** είναι μια συλλογή νημάτων μαζί με τους συσχετιζόμενους πόρους του συστήματος.
+A **process** is a collection of threads together with the associated system resources.
 
-### Νήματα vs Διεργασίες
+### Threads vs Processes
 
-| Χαρακτηριστικό | Διεργασία | Νήμα |
+| Feature | Process | Thread |
 | :--- | :--- | :--- |
-| Χώρος διευθύνσεων | Ιδιωτικός | Κοινός (εντός διεργασίας) |
-| Δεδομένα / Κώδικας / Αρχεία | Ιδιωτικά | Διαμοιραζόμενα |
-| Κόστος δημιουργίας | Υψηλό (kernel call) | Χαμηλό (user space) |
-| Κόστος εναλλαγής πλαισίου | Υψηλό | Χαμηλό |
-| Επικοινωνία/Συγχρονισμός | Kernel call | Παρακολούθηση μεταβλητής |
+| Address space | Private | Shared (within a process) |
+| Data / Code / Files | Private | Shared |
+| Creation cost | High (kernel call) | Low (user space) |
+| Context switch cost | High | Low |
+| Communication/Synchronization | Kernel call | Variable monitoring |
 
-### Νήματα Χρήστη vs Νήματα Πυρήνα
+### User-Level Threads vs Kernel-Level Threads
 
-**Νήματα Χρήστη (User-Level Threads):**
-- Διαχείριση από **βιβλιοθήκη χρήστη** (π.χ. POSIX Pthreads, Win32 threads, Solaris threads).
-- Ο πυρήνας **δεν γνωρίζει** τα νήματα χρήστη — δρομολογεί μόνο διεργασίες.
-- Ο προγραμματιστής χειρίζεται δημιουργία, διαγραφή, συγχρονισμό, δρομολόγηση.
+**User-Level Threads:**
+- Managed by a **user library** (e.g., POSIX Pthreads, Win32 threads, Solaris threads).
+- The kernel **does not know** about user threads — it schedules only processes.
+- The programmer handles creation, deletion, synchronization, scheduling.
 
-**Νήματα Πυρήνα (Kernel-Level Threads):**
-- Υποστηρίζονται **απευθείας από τον πυρήνα** (π.χ. Linux, Windows XP/2000, Solaris lightweight processes).
-- Η εναλλαγή μεταξύ νημάτων πυρήνα στην ίδια διεργασία: αλλάζουν τιμές καταχωρητών, PC, stack pointers — **όχι** οι πληροφορίες διαχείρισης μνήμης.
-- Ο πυρήνας χρησιμοποιεί αλγορίθμους δρομολόγησης διεργασιών για τη διαχείρισή τους.
+**Kernel-Level Threads:**
+- Supported **directly by the kernel** (e.g., Linux, Windows XP/2000, Solaris lightweight processes).
+- Switching between kernel threads of the same process: register values, PC, stack pointers change — **not** the memory management information.
+- The kernel uses process scheduling algorithms to manage them.
 
 ### Hyper-Threading (Intel)
 
-Η Intel υλοποιεί την τεχνολογία **hyper-threading** που αυξάνει τον ρυθμό εναλλαγής μεταξύ νημάτων σε ένα σύστημα με έναν φυσικό πυρήνα, εμφανίζοντάς τον σαν να διαθέτει πολλαπλούς επεξεργαστές. Στόχος: ενίσχυση του πολυδιεργασιακού χαρακτήρα.
+Intel implements the **hyper-threading** technology which increases the rate of switching between threads on a system with one physical core, making it appear as if it had multiple processors. Goal: enhancement of the multiprocessing character.
 
-### Παραδείγματα Νημάτων
+### Thread Examples
 
-| Τύπος | Παράδειγμα | Σημείωση |
+| Type | Example | Note |
 | :--- | :--- | :--- |
-| POSIX Pthreads | `pthread_create()`, `pthread_join()` | Πρότυπο IEEE, κυρίως UNIX/Linux |
-| Java threads | `Thread` class / `Runnable` | Υποστηρίζονται από JVM |
+| POSIX Pthreads | `pthread_create()`, `pthread_join()` | IEEE standard, mainly UNIX/Linux |
+| Java threads | `Thread` class / `Runnable` | Supported by the JVM |
 
-### Πλεονεκτήματα Νημάτων
+### Thread Advantages
 
-- Δημιουργία χωρίς αντικατάσταση ολόκληρης της διεργασίας.
-- Το μεγαλύτερο μέρος του έργου δημιουργίας γίνεται στο **user space**.
-- Συγχρονισμός μέσω παρακολούθησης μεταβλητής (χωρίς kernel call).
-- Χρήσιμα σε εφαρμογές με **ανεξάρτητες, μη σειριακές εργασίες** (π.χ. web servers, browsers).
+- Creation without replacing the entire process.
+- Most of the creation work is done in **user space**.
+- Synchronization through variable monitoring (without a kernel call).
+- Useful in applications with **independent, non-sequential tasks** (e.g., web servers, browsers).
 
-> **[Key Insight]** Παράδειγμα Web browser: ένα νήμα ανακτά HTML, ένα δεύτερο φορτώνει εικόνες/video, ένα τρίτο εμφανίζει τη σελίδα — όλα σε κοινή μνήμη.
+> **[Key Insight]** Web browser example: one thread retrieves HTML, a second loads images/video, a third displays the page — all in shared memory.
 
 ---
 
-## 5. Συστήματα Πολυεπεξεργασίας (Multiprocessing Systems)
+## 5. Multiprocessing Systems
 
-### Ορισμός
+### Definition
 
-**Πολυεπεξεργασία** είναι η χρήση πολλαπλών ταυτόχρονων επεξεργαστών/διεργασιών σε ένα σύστημα.
+**Multiprocessing** is the use of multiple concurrent processors/processes in a system.
 
-### Κατηγορίες Συστημάτων Πολυεπεξεργασίας
+### Categories of Multiprocessing Systems
 
-| Κατηγορία | Χαρακτηριστικά | Παράδειγμα διασύνδεσης |
+| Category | Features | Interconnection example |
 | :--- | :--- | :--- |
-| Συμπαγώς συνδεδεμένα | Πολλαπλές CPUs στο ίδιο bus, κοινή ή ιεραρχική μνήμη | Shared memory bus |
-| Χαλαρά συνδεδεμένα | Κάθε CPU έχει τοπική μνήμη, επικοινωνούν μέσω δικτύου | Gigabit Ethernet, τηλεφωνικές γραμμές |
+| Tightly coupled | Multiple CPUs on the same bus, shared or hierarchical memory | Shared memory bus |
+| Loosely coupled | Each CPU has local memory, they communicate through a network | Gigabit Ethernet, telephone lines |
 
-### Τοπολογίες Διασύνδεσης
+### Interconnection Topologies
 
-- **Κοινός Δίαυλος (Shared Bus):** Όλες οι CPUs και η μνήμη συνδέονται σε ένα bus — απλό αλλά bottleneck σε υψηλό φορτίο.
-- **Grid:** Κάθε επεξεργαστής συνδέεται με τους γείτονές του σε πλέγμα 2D.
-- **Hypercube:** Κάθε επεξεργαστής συνδέεται με $\log_2 N$ γείτονες — υψηλή συνδεσιμότητα, χαμηλή διάμετρος.
+- **Shared Bus:** All CPUs and memory are connected to one bus — simple but a bottleneck under high load.
+- **Grid:** Each processor connects to its neighbors in a 2D grid.
+- **Hypercube:** Each processor connects to $\log_2 N$ neighbors — high connectivity, low diameter.
 
 ---
 
-## 6. Παράλληλα Συστήματα (Parallel Systems)
+## 6. Parallel Systems
 
-### Ορισμός
+### Definition
 
-Τα παράλληλα συστήματα είναι συστήματα **πολυεπεξεργασίας** με περισσότερους από έναν επεξεργαστές που επικοινωνούν μεταξύ τους για κοινό υπολογιστικό στόχο.
+Parallel systems are **multiprocessing** systems with more than one processor that communicate with each other for a common computing goal.
 
-### Κατηγορίες
+### Categories
 
-| Κατηγορία | Αρκτικόλεξο | Περιγραφή |
+| Category | Acronym | Description |
 | :--- | :--- | :--- |
-| Συμμετρική Πολυεπεξεργασία | SMP | Όλοι οι CPUs ισότιμοι, κοινή μνήμη, ίδιο ΛΣ |
-| Συστοιχίες SMP | SMP Clusters | Ομάδες SMP συνδεδεμένες μεταξύ τους |
-| Μαζικά Παράλληλα | MPP | Πλήθος επεξεργαστών με τοπική μνήμη ο καθένας |
+| Symmetric Multiprocessing | SMP | All CPUs equal, shared memory, same OS |
+| SMP Clusters | SMP Clusters | Groups of SMPs interconnected |
+| Massively Parallel | MPP | A large number of processors, each with local memory |
 
-**Κριτήρια διάκρισης:**
-- Είδος διασύνδεσης επεξεργαστών.
-- Είδος διασύνδεσης μεταξύ επεξεργαστών και μνημών.
+**Distinguishing criteria:**
+- Type of processor interconnection.
+- Type of interconnection between processors and memories.
 
-### Συμμετρική Πολυεπεξεργασία (SMP) — Λεπτομέρειες
+### Symmetric Multiprocessing (SMP) — Details
 
-- Δύο ή περισσότεροι επεξεργαστές **στην ίδια μητρική πλακέτα**.
-- Συντονίζονται μέσω **διαύλου συστήματος**.
-- Κάθε CPU τρέχει **πανομοιότυπο αντίγραφο** του ΛΣ.
-- **Αυτόματη εξισορρόπηση φορτίου** μεταξύ των CPUs.
-- Βασικοί περιορισμοί: λογισμικό και υποστήριξη από το ΛΣ.
+- Two or more processors **on the same motherboard**.
+- Coordinated through the **system bus**.
+- Each CPU runs an **identical copy** of the OS.
+- **Automatic load balancing** among the CPUs.
+- Main limitations: software and OS support.
 
-### Ασύμμετρη Πολυεπεξεργασία
+### Asymmetric Multiprocessing
 
-- Ο **πρωτεύων (master) επεξεργαστής** δρομολογεί και αναθέτει διεργασίες στους **slave** επεξεργαστές.
-- Κάθε slave αναλαμβάνει συγκεκριμένη διεργασία.
-- Συνηθισμένη σε **πολύ μεγάλα συστήματα**.
+- The **master processor** schedules and assigns processes to the **slave** processors.
+- Each slave undertakes a specific process.
+- Common in **very large systems**.
 
-### Πλεονεκτήματα Παράλληλων Συστημάτων
+### Parallel System Advantages
 
-- Υψηλές επιδόσεις
-- Οικονομία κλίμακας
-- Αυξημένη αξιοπιστία
-- Διαθεσιμότητα
-- Επεκτασιμότητα
-- Κλιμάκωση (scalability)
+- High performance
+- Economy of scale
+- Increased reliability
+- Availability
+- Extensibility
+- Scalability
 
 ---
 
-## 7. Συστήματα Πραγματικού Χρόνου (Real-Time Systems)
+## 7. Real-Time Systems
 
-### Ορισμός
+### Definition
 
-Συστήματα με **αυστηρούς χρονικούς περιορισμούς** που χρησιμοποιούνται ως συσκευή ελέγχου σε εξειδικευμένες εφαρμογές (βιομηχανικός έλεγχος, ιατρική, επιστημονικά πειράματα).
+Systems with **strict timing constraints** used as control devices in specialized applications (industrial control, medicine, scientific experiments).
 
-### Κατηγορίες
+### Categories
 
-| Κατηγορία | Χαρακτηριστικά | Χρήση |
+| Category | Features | Use |
 | :--- | :--- | :--- |
-| Hard Real-Time | Αυστηρές προθεσμίες, περιορισμένη δευτερεύουσα μνήμη, δεδομένα σε RAM/ROM | Βιομηχανικός έλεγχος, robotics |
-| Soft Real-Time | Ευέλικτες προθεσμίες, δεν απαιτεί εξαντλητική πραγματικού χρόνου εγγύηση | Multimedia, Virtual Reality |
+| Hard Real-Time | Strict deadlines, limited secondary storage, data in RAM/ROM | Industrial control, robotics |
+| Soft Real-Time | Flexible deadlines, does not require exhaustive real-time guarantee | Multimedia, Virtual Reality |
 
-> **[Key Insight]** Σε **Hard Real-Time** συστήματα, η υπέρβαση μιας προθεσμίας θεωρείται αποτυχία του συστήματος. Σε **Soft Real-Time**, μια μικρή καθυστέρηση είναι ανεκτή (π.χ. dropped frame σε video).
-
----
-
-## 8. Κατανεμημένα Συστήματα (Distributed Systems)
-
-### Ορισμός
-
-Συστήματα που κατανέμουν τη διαδικασία υπολογισμών σε **πολλούς φυσικούς επεξεργαστές — υπολογιστές**, καθένας με δική του κύρια και δευτερεύουσα μνήμη και στοιχεία I/O. Παρέχουν στον χρήστη την ψευδαίσθηση **ενός μοναδικού χώρου μνήμης**.
-
-### Τι Αποκρύπτουν τα Κατανεμημένα Συστήματα
-
-- Τον **τρόπο πρόσβασης** σε έναν πόρο.
-- **Το χώρο** όπου βρίσκεται ο πόρος.
-- Τη **διαμοίραση** πόρων από ανταγωνιστικούς χρήστες.
-- Τη **μετακίνηση** πόρου κατά τη χρήση του.
-- Τις **διαφορές** στην αναπαράσταση δεδομένων (data representation).
-
-### Χαρακτηριστικά Κατανεμημένων Συστημάτων
-
-**Πλεονεκτήματα:**
-- Διαμοίραση πόρων
-- Αύξηση ταχύτητας υπολογισμού
-- Αξιοπιστία
-- Δυνατότητες επικοινωνίας
-
-**Μειονεκτήματα:**
-- Ασφάλεια και προστασία (κύριο ζήτημα)
+> **[Key Insight]** In **Hard Real-Time** systems, missing a deadline is considered a system failure. In **Soft Real-Time**, a small delay is tolerable (e.g., a dropped frame in video).
 
 ---
 
-## Συγκριτική Ανάλυση Αρχιτεκτονικών
+## 8. Distributed Systems
 
-| Αρχιτεκτονική | Δομή | Απόδοση | Αξιοπιστία | Πολυπλοκότητα |
+### Definition
+
+Systems that distribute the computation process across **many physical processors — computers**, each with its own main and secondary memory and I/O components. They provide the user with the illusion of **a single memory space**.
+
+### What Distributed Systems Hide
+
+- The **way of accessing** a resource.
+- **The location** where the resource resides.
+- The **sharing** of resources by competing users.
+- The **migration** of a resource during its use.
+- The **differences** in data representation.
+
+### Features of Distributed Systems
+
+**Advantages:**
+- Resource sharing
+- Increase of computation speed
+- Reliability
+- Communication capabilities
+
+**Disadvantages:**
+- Security and protection (main issue)
+
+---
+
+## Comparative Analysis of Architectures
+
+| Architecture | Structure | Performance | Reliability | Complexity |
 | :--- | :--- | :--- | :--- | :--- |
-| Μονολιθική | Καμία | Υψηλή | Χαμηλή | Χαμηλή |
-| Στρωματοποιημένη | Επίπεδα | Μέτρια | Μέτρια | Μέτρια |
-| Μικροπυρήνας | Client-Server (user mode) | Χαμηλότερη (IPC overhead) | Υψηλή | Υψηλή |
-| Νήματα / Multithreading | Εντός διεργασίας | Υψηλή | Μέτρια | Μέτρια |
-| SMP | Πολλαπλοί CPUs, κοινή μνήμη | Πολύ υψηλή | Υψηλή | Υψηλή |
-| Παράλληλα (MPP) | Κατανεμημένη μνήμη | Πολύ υψηλή | Πολύ υψηλή | Πολύ υψηλή |
-| Real-Time | Εξειδικευμένος χρονοπρογραμματισμός | Ντετερμινιστική | Κρίσιμη | Υψηλή |
-| Κατανεμημένα | Πολλοί ανεξάρτητοι κόμβοι | Κλιμακώσιμη | Πολύ υψηλή | Πολύ υψηλή |
+| Monolithic | None | High | Low | Low |
+| Layered | Layers | Moderate | Moderate | Moderate |
+| Microkernel | Client-Server (user mode) | Lower (IPC overhead) | High | High |
+| Threads / Multithreading | Within a process | High | Moderate | Moderate |
+| SMP | Multiple CPUs, shared memory | Very high | High | High |
+| Parallel (MPP) | Distributed memory | Very high | Very high | Very high |
+| Real-Time | Specialized scheduling | Deterministic | Critical | High |
+| Distributed | Many independent nodes | Scalable | Very high | Very high |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Αναγνώριση Αρχιτεκτονικής
+### Exercise 1: Architecture Recognition
 
-**Problem:** Ένα ΛΣ αποτελείται από μια συλλογή διαδικασιών όπου κάθε μία μπορεί να καλέσει απευθείας οποιαδήποτε άλλη μέσω παραμέτρων. Ποια αρχιτεκτονική περιγράφεται;
+**Problem:** An OS consists of a collection of procedures where each one can directly call any other through parameters. Which architecture is described?
 
 **Solution:**
-1. Δεν υπάρχει εσωτερική δομή ή διαχωρισμός → αποκλείουμε στρωματοποιημένη και μικροπυρήνα.
-2. Κάθε διαδικασία ορατή σε οποιαδήποτε άλλη → χαρακτηριστικό μονολιθικής.
-3. **Απάντηση: Μονολιθική αρχιτεκτονική.**
+1. There is no internal structure or separation → we rule out layered and microkernel.
+2. Each procedure is visible to any other → a characteristic of monolithic.
+3. **Answer: Monolithic architecture.**
 
 ---
 
-### Exercise 2: Βήματα Κλήσης Συστήματος
+### Exercise 2: System Call Steps
 
-**Problem:** Περιγράψτε με σειρά τα βήματα που ακολουθεί μια κλήση συστήματος σε μονολιθικό ΛΣ όταν ένα πρόγραμμα χρήστη ζητά ανάγνωση αρχείου.
+**Problem:** Describe in order the steps that a system call follows in a monolithic OS when a user program requests a file read.
 
 **Solution:**
-1. Το πρόγραμμα εκτελεί ειδική εντολή → **παγίδα (trap)** στον πυρήνα.
-2. Το ΛΣ λαμβάνει τον αριθμό εξυπηρέτησης (π.χ. `read = 0`).
-3. Το ΛΣ εντοπίζει την αντίστοιχη διαδικασία εξυπηρέτησης.
-4. Η διαδικασία εκτελείται, διαβάζει τα δεδομένα.
-5. Ο έλεγχος επιστρέφεται στο πρόγραμμα χρήστη με το αποτέλεσμα.
+1. The program executes a special instruction → **trap** to the kernel.
+2. The OS receives the service number (e.g., `read = 0`).
+3. The OS locates the corresponding service procedure.
+4. The procedure executes, reads the data.
+5. Control is returned to the user program with the result.
 
 ---
 
-### Exercise 3: Επίπεδα Στρωματοποιημένης Αρχιτεκτονικής
+### Exercise 3: Layered Architecture Levels
 
-**Problem:** Σε μια στρωματοποιημένη αρχιτεκτονική 5 επιπέδων (Layer 0–4), ποια επίπεδα βρίσκονται σε kernel space και ποια σε user space;
+**Problem:** In a 5-level layered architecture (Layer 0–4), which levels are in kernel space and which in user space?
 
 **Solution:**
-1. Layer 4: **User space** (User applications — απευθείας αλληλεπίδραση χρήστη).
+1. Layer 4: **User space** (User applications — direct user interaction).
 2. Layer 0–3: **Kernel space** (Processor scheduling, Memory management, Message interpreter, I/O management).
-3. Η γραμμή διαχωρισμού user/kernel βρίσκεται μεταξύ Layer 3 και Layer 4.
+3. The user/kernel dividing line is between Layer 3 and Layer 4.
 
 ---
 
-### Exercise 4: Μικροπυρήνας — Ροή Επικοινωνίας
+### Exercise 4: Microkernel — Communication Flow
 
-**Problem:** Σε μια αρχιτεκτονική μικροπυρήνα, μια εφαρμογή ζητά πρόσβαση στο σύστημα αρχείων. Περιγράψτε τη ροή.
+**Problem:** In a microkernel architecture, an application requests access to the file system. Describe the flow.
 
 **Solution:**
-1. Η εφαρμογή (client process) στέλνει αίτημα μέσω της **System Call Interface**.
-2. Το αίτημα φτάνει στον **File System server** (user space).
-3. Ο server επικοινωνεί με τον μικροπυρήνα μέσω **IPC**.
-4. Ο μικροπυρήνας χρησιμοποιεί **Memory Management** ή **Synchronization** αν απαιτείται.
-5. Η απάντηση επιστρέφεται αντίστροφα: μικροπυρήνας → File System server → εφαρμογή.
+1. The application (client process) sends a request through the **System Call Interface**.
+2. The request reaches the **File System server** (user space).
+3. The server communicates with the microkernel through **IPC**.
+4. The microkernel uses **Memory Management** or **Synchronization** if required.
+5. The response is returned in reverse: microkernel → File System server → application.
 
 ---
 
-### Exercise 5: Σύγκριση Νήματος και Διεργασίας
+### Exercise 5: Thread vs Process Comparison
 
-**Problem:** Γιατί η εναλλαγή πλαισίου (context switch) μεταξύ νημάτων είναι φθηνότερη από εναλλαγή μεταξύ διεργασιών;
+**Problem:** Why is a context switch between threads cheaper than a switch between processes?
 
 **Solution:**
-1. Κατά την εναλλαγή **διεργασιών**: αλλάζει **ολόκληρος ο χώρος διευθύνσεων**, οι πίνακες μνήμης, τα ανοιχτά αρχεία.
-2. Κατά την εναλλαγή **νημάτων** της ίδιας διεργασίας: αλλάζουν μόνο οι **καταχωρητές, το PC, και ο stack pointer**.
-3. Ο χώρος διευθύνσεων, δεδομένα, κώδικας, αρχεία **παραμένουν κοινά** → δεν χρειάζεται επαναφόρτωση.
-4. **Συμπέρασμα:** Η εναλλαγή νήματος έχει πολύ μικρότερο overhead.
+1. During **process** switching: the **entire address space**, memory tables, open files change.
+2. During **thread** switching within the same process: only the **registers, the PC, and the stack pointer** change.
+3. The address space, data, code, files **remain shared** → no reload is needed.
+4. **Conclusion:** Thread switching has much lower overhead.
 
 ---
 
 ### Exercise 6: Hard vs Soft Real-Time
 
-**Problem:** Μια εφαρμογή ελέγχου αεροσκάφους και ένα σύστημα αναπαραγωγής video τρέχουν σε real-time ΛΣ. Ποιο είναι Hard και ποιο Soft; Αιτιολογήστε.
+**Problem:** An aircraft control application and a video playback system run on a real-time OS. Which is Hard and which is Soft? Justify.
 
 **Solution:**
-1. **Έλεγχος αεροσκάφους → Hard Real-Time.** Η αποτυχία τήρησης της προθεσμίας (π.χ. καθυστέρηση σε εντολή ελιγμού) μπορεί να οδηγήσει σε καταστροφή. Μηδενική ανοχή καθυστέρησης.
-2. **Αναπαραγωγή video → Soft Real-Time.** Ένα dropped frame δεν αποτελεί κρίσιμη αποτυχία — απλώς υποβαθμίζει την εμπειρία χρήστη.
+1. **Aircraft control → Hard Real-Time.** Failure to meet the deadline (e.g., delay in a maneuver command) can lead to disaster. Zero tolerance for delay.
+2. **Video playback → Soft Real-Time.** A dropped frame is not a critical failure — it merely degrades the user experience.
 
 ---
 
-### Exercise 7: SMP vs Ασύμμετρη Πολυεπεξεργασία
+### Exercise 7: SMP vs Asymmetric Multiprocessing
 
-**Problem:** Σε ποιο σενάριο προτιμάται η ασύμμετρη πολυεπεξεργασία έναντι της SMP;
+**Problem:** In which scenario is asymmetric multiprocessing preferred over SMP?
 
 **Solution:**
-1. **SMP:** Όλοι οι CPUs ισότιμοι, μοιράζονται φορτίο αυτόματα → κατάλληλο για γενικής χρήσης συστήματα.
-2. **Ασύμμετρη:** Ο master CPU αναθέτει εργασίες σε slaves → κατάλληλο για **πολύ μεγάλα συστήματα** όπου ο συντονισμός είναι κρίσιμος και οι διεργασίες μπορούν να εξειδικευτούν.
-3. **Απάντηση:** Σε πολύ μεγάλες εγκαταστάσεις (mainframes, high-performance computing) όπου η εξειδίκευση CPUs αυξάνει την αποδοτικότητα.
+1. **SMP:** All CPUs are equal, share the load automatically → suitable for general-purpose systems.
+2. **Asymmetric:** The master CPU assigns jobs to slaves → suitable for **very large systems** where coordination is critical and processes can be specialized.
+3. **Answer:** In very large installations (mainframes, high-performance computing) where CPU specialization increases efficiency.
 
 ---
 
-### Exercise 8: Κατανεμημένα vs Παράλληλα Συστήματα
+### Exercise 8: Distributed vs Parallel Systems
 
-**Problem:** Ποια η ουσιαστική διαφορά μεταξύ κατανεμημένων και παράλληλων συστημάτων;
+**Problem:** What is the essential difference between distributed and parallel systems?
 
 **Solution:**
-1. **Παράλληλα συστήματα:** Πολλοί επεξεργαστές **στενά συνδεδεμένοι**, συνήθως κοινή ή ιεραρχική μνήμη, στόχος η ταυτόχρονη εκτέλεση για υψηλές επιδόσεις.
-2. **Κατανεμημένα συστήματα:** Πολλοί **ανεξάρτητοι υπολογιστές** με δική τους μνήμη, επικοινωνούν μέσω δικτύου. Ο χρήστης βλέπει ένα ενιαίο σύστημα.
-3. **Κλειδί:** Στα κατανεμημένα, το σύστημα **αποκρύπτει** την ετερογένεια (τοποθεσία πόρου, μορφή δεδομένων κλπ). Στα παράλληλα, η εστίαση είναι η **ταχύτητα** εκτέλεσης.
+1. **Parallel systems:** Many **tightly coupled** processors, usually shared or hierarchical memory, goal of simultaneous execution for high performance.
+2. **Distributed systems:** Many **independent computers** with their own memory, communicating through a network. The user sees a single system.
+3. **Key:** In distributed systems, the system **hides** heterogeneity (resource location, data format, etc.). In parallel systems, the focus is on the **speed** of execution.
 
 ---
 
-## Exam Tip: Ταξινόμηση Αρχιτεκτονικών σε Ερωτήσεις
+## Exam Tip: Classification of Architectures in Questions
 
-**Συχνά λάθη στις εξετάσεις:**
+**Common exam mistakes:**
 
-1. **Σύγχυση Multithreading με Multiprocessing:** Τα νήματα μοιράζονται χώρο διευθύνσεων εντός **μιας** διεργασίας. Η πολυεπεξεργασία χρησιμοποιεί **πολλούς CPUs**.
+1. **Confusing Multithreading with Multiprocessing:** Threads share an address space within **one** process. Multiprocessing uses **multiple CPUs**.
 
-2. **Hard vs Soft Real-Time:** Το κριτήριο είναι η **συνέπεια** αποτυχίας προθεσμίας — κρίσιμη (hard) ή ανεκτή (soft).
+2. **Hard vs Soft Real-Time:** The criterion is the **severity** of a deadline failure — critical (hard) or tolerable (soft).
 
-3. **Μονολιθικός vs Μικροπυρήνας:** Στον μονολιθικό **ΟΛΑ** τρέχουν σε kernel mode. Στον μικροπυρήνα **μόνο** IPC, memory management, synchronization βρίσκονται στον πυρήνα.
+3. **Monolithic vs Microkernel:** In monolithic **ALL** run in kernel mode. In microkernel **only** IPC, memory management, synchronization reside in the kernel.
 
-4. **Κατανεμημένα vs Παράλληλα:** Στα κατανεμημένα κάθε κόμβος έχει **ξεχωριστή μνήμη** και επικοινωνεί μέσω δικτύου. Στα παράλληλα SMP η μνήμη είναι **κοινή**.
+4. **Distributed vs Parallel:** In distributed systems each node has **separate memory** and communicates through a network. In parallel SMP systems the memory is **shared**.
 
-**Μνημονικό για τη στρωματοποιημένη αρχιτεκτονική (Layer 0→4):**
+**Mnemonic for the layered architecture (Layer 0→4):**
 > **P**rocessor → **M**emory → **M**essage → **I**/O → **U**ser
-> (**P**apa **M**aria **M**ageireuei **I**talika **U**perba)
+> (**P**rocessors **M**anage **M**essages **I**n **U**nison)
 
 ---
 # OS_Lec05_NOTES.md
 ---
 
-# Αμοιβαίος Αποκλεισμός (Mutual Exclusion)
+# Mutual Exclusion
 
-## Εισαγωγή
-Ο αμοιβαίος αποκλεισμός είναι η αποτροπή μιας διεργασίας από την εκτέλεση μιας ενέργειας που επιτελεί ταυτοχρόνως κάποια άλλη διεργασία. Απαιτείται για την προστασία κοινών πόρων ώστε να αποτρέπονται παρενέργειες λόγω ανταγωνισμού.
-
----
-
-## Κρίσιμα Τμήματα (Critical Sections)
-Ένα κρίσιμο τμήμα είναι μια ακολουθία εντολών που απαιτεί πρόσβαση σε διαμοιραζόμενους πόρους. Η αποτελεσματικότητα της πολυεπεξεργασίας εξαρτάται από το μήκος του κρίσιμου τμήματος, το οποίο πρέπει να είναι όσο το δυνατόν μικρότερο.
-
-### Συνθήκες για Αμοιβαίο Αποκλεισμό
-Για τη σωστή συνεργασία παράλληλων διεργασιών, απαιτούνται οι εξής συνθήκες:
-1. Δύο διεργασίες δεν μπορούν να βρίσκονται ταυτόχρονα στα κρίσιμα τμήματά τους.
-2. Καμία υπόθεση δεν επιτρέπεται για την ταχύτητα ή το πλήθος των επεξεργαστών.
-3. Μια διεργασία εκτός κρίσιμου τμήματος δεν μπορεί να αναστείλει άλλη διεργασία.
-4. Αποφυγή αδιεξόδου (deadlock).
-5. Πρόοδος: Μόνο μία διεργασία πρέπει να επιτύχει είσοδο αν πολλές το προσπαθούν.
-6. Αποφυγή λιμοκτονίας (starvation): Καμία επ' αόριστον αναμονή.
-7. Ελάχιστη επιβάρυνση κατά την είσοδο όταν δεν υπάρχει ανταγωνισμός.
-8. Παραμονή στο κρίσιμο τμήμα μόνο για ορισμένο χρονικό διάστημα.
+## Introduction
+Mutual exclusion is the prevention of a process from executing an action that some other process is simultaneously performing. It is required for the protection of shared resources so that side effects due to competition are prevented.
 
 ---
 
-## Υλοποίηση: Προσεγγίσεις Λογισμικού
+## Critical Sections
+A critical section is a sequence of instructions that requires access to shared resources. The effectiveness of multiprocessing depends on the length of the critical section, which must be as short as possible.
 
-Οι λύσεις λογισμικού (π.χ. Αλγόριθμος Dekker) εναποθέτουν την ευθύνη στον προγραμματιστή, διατάσσοντας σειριακά τις προσβάσεις. Δεν υπάρχει υποστήριξη από το υλικό.
+### Conditions for Mutual Exclusion
+For the correct cooperation of parallel processes, the following conditions are required:
+1. Two processes cannot be simultaneously in their critical sections.
+2. No assumption is allowed about the speed or the number of processors.
+3. A process outside a critical section cannot suspend another process.
+4. Avoidance of deadlock.
+5. Progress: Only one process must succeed in entering if many are trying.
+6. Avoidance of starvation: No indefinite waiting.
+7. Minimal overhead upon entry when there is no competition.
+8. Staying in the critical section only for a certain time period.
 
-### Αλγόριθμος του Dekker
-Στηρίζεται στο ότι σε μια θέση μνήμης επιτρέπεται μία πρόσβαση κάθε φορά.
+---
 
-**1η Προσπάθεια (Αυστηρή Εναλλαγή)**
-Υλοποιεί τον αμοιβαίο αποκλεισμό αλλά προκαλεί ενεργό αναμονή (busy waiting).
+## Implementation: Software Approaches
+
+Software solutions (e.g., Dekker's Algorithm) place the responsibility on the programmer, ordering the accesses serially. There is no hardware support.
+
+### Dekker's Algorithm
+It relies on the fact that only one access at a time is allowed to a memory location.
+
+**1st Attempt (Strict Alternation)**
+It implements mutual exclusion but causes busy waiting.
 
 ```c
-/* Διεργασία 0 */
+/* Process 0 */
 while (turn != 0) do
     nothing;
 <critical section>
 turn = 1;
 ```
 
-**2η Προσπάθεια (Πίνακας Σημαιών - Flags)**
-Αποτυγχάνει διότι μια διεργασία μπορεί να αλλάξει την κατάστασή της αφού ελεγχθεί από την άλλη, οδηγώντας και τις δύο ταυτόχρονα στο κρίσιμο τμήμα.
+**2nd Attempt (Flag Array - Flags)**
+It fails because a process can change its state after being checked by the other, leading both simultaneously into the critical section.
 
 ---
 
-## Υλοποίηση: Υποστήριξη Υλικού
+## Implementation: Hardware Support
 
-Τα προβλήματα του λογισμικού (ενεργός αναμονή, πολυπλοκότητα) λύνονται μέσω εντολών υλικού ειδικού σκοπού.
+The problems of software (busy waiting, complexity) are solved through special-purpose hardware instructions.
 
-### Α. Απενεργοποίηση Διακοπών
-Αποτρέπει την εναλλαγή διεργασιών.
+### A. Disabling Interrupts
+Prevents process switching.
 
 ```c
 while (true) {
@@ -1364,11 +1363,11 @@ while (true) {
     /* remainder */;
 }
 ```
-*   **Πλεονέκτημα:** Χρήσιμο για τον πυρήνα του συστήματος.
-*   **Μειονέκτημα:** Υψηλό κόστος, δεν εγγυάται αμοιβαίο αποκλεισμό σε πολυεπεξεργαστικά συστήματα (μόνο ένας επεξεργαστής επηρεάζεται).
+*   **Advantage:** Useful for the system kernel.
+*   **Disadvantage:** High cost, does not guarantee mutual exclusion in multiprocessor systems (only one processor is affected).
 
-### Β. Ειδικές Εντολές Μηχανής (Test and Set)
-Οι σύγχρονοι επεξεργαστές παρέχουν ατομικές εντολές (`TAS`, `xchg`) που διαβάζουν και τροποποιούν μια θέση μνήμης σε έναν αδιαίρετο κύκλο μηχανής.
+### B. Special Machine Instructions (Test and Set)
+Modern processors provide atomic instructions (`TAS`, `xchg`) that read and modify a memory location in a single indivisible machine cycle.
 
 ```c
 int TAS(int* lock) {
@@ -1380,7 +1379,7 @@ int TAS(int* lock) {
 ```
 
 ```c
-/* Χρήση TAS για αμοιβαίο αποκλεισμό */
+/* Use of TAS for mutual exclusion */
 var lock = false; /* shared */
 while (TAS(&lock) == true) do
     nothing;
@@ -1389,32 +1388,32 @@ lock = false;
 <remainder>
 ```
 
-| Πλεονεκτήματα | Μειονεκτήματα |
+| Advantages | Disadvantages |
 | :--- | :--- |
-| Εφαρμογή σε πολλαπλές διεργασίες και επεξεργαστές | Απασχόληση ενεργούς αναμονής (busy waiting) |
-| Απλή επαλήθευση | Πιθανότητα λιμοκτονίας |
-| Υποστήριξη πολλαπλών κρίσιμων τμημάτων | Πιθανότητα αδιεξόδου (Priority Inversion) |
+| Applicable to multiple processes and processors | Busy waiting |
+| Simple verification | Possibility of starvation |
+| Support for multiple critical sections | Possibility of deadlock (Priority Inversion) |
 
-> **[Key Insight]** Το αδιέξοδο (Priority Inversion) συμβαίνει όταν μια διεργασία χαμηλής προτεραιότητας στο κρίσιμο τμήμα διακοπεί από μια διεργασία υψηλής προτεραιότητας. Η υψηλής προτεραιότητας μπαίνει σε ενεργό αναμονή περιμένοντας τον πόρο, αποτρέποντας τη χαμηλής προτεραιότητας από το να ολοκληρώσει και να τον αποδεσμεύσει.
+> **[Key Insight]** The deadlock (Priority Inversion) occurs when a low-priority process in the critical section is interrupted by a high-priority process. The high-priority one enters busy waiting waiting for the resource, preventing the low-priority one from completing and releasing it.
 
 ---
 
-## Σημαφόροι (Semaphores)
+## Semaphores
 
-Οι σημαφόροι εξαλείφουν την ενεργό αναμονή μέσω μηχανισμών αναστολής εκτέλεσης (`sleep` / `wakeup`).
-Είναι ειδικές μεταβλητές συγχρονισμού που λαμβάνουν μη αρνητικές ακέραιες τιμές και διαθέτουν ουρά αναμονής.
+Semaphores eliminate busy waiting through execution suspension mechanisms (`sleep` / `wakeup`).
+They are special synchronization variables that take non-negative integer values and have a waiting queue.
 
-### Ατομικές Λειτουργίες
-*   **P (wait):** Αναμένει να γίνει ο σημαφόρος $>0$ και τον μειώνει κατά $1$. Αν είναι $0$, η διεργασία μπλοκάρεται στην ουρά. Καλείται *πριν* το κρίσιμο τμήμα.
-*   **V (signal):** Αυξάνει τον σημαφόρο κατά $1$. Απεγκλωβίζει μία διεργασία από την ουρά του σημαφόρου. Καλείται *μετά* το κρίσιμο τμήμα.
+### Atomic Operations
+*   **P (wait):** Waits for the semaphore to become $>0$ and decrements it by $1$. If it is $0$, the process blocks in the queue. It is called *before* the critical section.
+*   **V (signal):** Increments the semaphore by $1$. It unblocks one process from the semaphore's queue. It is called *after* the critical section.
 
-### Είδη Σημαφόρων
-1. **Δυαδικοί (Binary Semaphores):** Τιμές $0$ και $1$. Ιδανικοί για αμοιβαίο αποκλεισμό.
-2. **Μετρητές (Counting Semaphores):** Οποιαδήποτε μη αρνητική τιμή. Χρησιμοποιούνται για διαχείριση περιορισμένων πόρων.
+### Types of Semaphores
+1. **Binary Semaphores:** Values $0$ and $1$. Ideal for mutual exclusion.
+2. **Counting Semaphores:** Any non-negative value. Used for the management of limited resources.
 
-> **[Exam Tip]** Κατά το σχεδιασμό λύσεων αμοιβαίου αποκλεισμού, ένας δυαδικός σημαφόρος αρχικοποιείται πάντα σε $1$. Όταν χρησιμοποιείται σημαφόρος για *συγχρονισμό εκτέλεσης* μεταξύ δύο διεργασιών, αρχικοποιείται σε $0$.
+> **[Exam Tip]** When designing mutual exclusion solutions, a binary semaphore is always initialized to $1$. When a semaphore is used for *execution synchronization* between two processes, it is initialized to $0$.
 
-### Παράδειγμα: Αμοιβαίος Αποκλεισμός
+### Example: Mutual Exclusion
 ```c
 Semaphore Q = 1; /* shared */
 
@@ -1424,407 +1423,407 @@ signal(Q);
 <remainder>
 ```
 
-### Παράδειγμα: Συγχρονισμός Εκτέλεσης
-Η Διεργασία 2 πρέπει να εκτελεστεί μετά τη Διεργασία 1.
+### Example: Execution Synchronization
+Process 2 must execute after Process 1.
 ```c
 Semaphore flag = 0;
 ```
 
-**Διεργασία 1 (P1):**
+**Process 1 (P1):**
 ```c
 A;
 signal(flag);
 ```
 
-**Διεργασία 2 (P2):**
+**Process 2 (P2):**
 ```c
 wait(flag);
 B;
 ```
 
-> **[Key Insight]** Λανθασμένη χρήση σημαφόρων (π.χ. αντίστροφη κλήση των `wait`) μπορεί να προκαλέσει αδιέξοδο (Deadlock), όπου δύο διεργασίες περιμένουν εσαεί η μία το `signal` της άλλης.
+> **[Key Insight]** Incorrect use of semaphores (e.g., calling the `wait` operations in reverse order) can cause a Deadlock, where two processes wait indefinitely for each other's `signal`.
 
 ---
 # OS_Lec06_NOTES.md
 ---
 
-# Λειτουργικά Συστήματα — Κεφάλαιο 6: Αδιέξοδο
+# Operating Systems — Chapter 6: Deadlock
 
-Το αδιέξοδο (deadlock) είναι μία από τις βασικές έννοιες στα λειτουργικά συστήματα και αφορά την επ' αόριστον αναμονή ενός συνόλου διεργασιών λόγω ανταγωνισμού για πόρους. Το κεφάλαιο καλύπτει ορισμούς, κατηγορίες πόρων, γράφους εκχώρησης, τις 4 αναγκαίες συνθήκες αδιεξόδου, τις βασικές στρατηγικές αντιμετώπισης και το κλασικό πρόβλημα των συνδαιτυμόνων φιλοσόφων.
+Deadlock is one of the fundamental concepts in operating systems and concerns the indefinite waiting of a set of processes due to competition for resources. The chapter covers definitions, resource categories, resource allocation graphs, the 4 necessary conditions for deadlock, the basic handling strategies, and the classic dining philosophers problem.
 
 ---
 
-## 1. Βασικές έννοιες
+## 1. Basic concepts
 
-### Ορισμός αδιεξόδου
+### Definition of deadlock
 
-Αδιέξοδο είναι η μόνιμη ή επ' αόριστον αναμονή ενός συνόλου διεργασιών που είτε συναγωνίζονται για πόρους του συστήματος είτε επικοινωνούν μεταξύ τους.
+Deadlock is the permanent or indefinite waiting of a set of processes that either compete for system resources or communicate with each other.
 
-### Γιατί εμφανίζεται
+### Why it occurs
 
-Σε ένα σύστημα πολυπρογραμματισμού, οι συνολικές απαιτήσεις των ενεργών διεργασιών συνήθως υπερβαίνουν τους διαθέσιμους πόρους. Το αδιέξοδο εμφανίζεται όταν δύο ή περισσότερες διεργασίες έχουν συγκρουόμενες ανάγκες για πόρους και καμία δεν μπορεί να συνεχίσει.
+In a multiprogramming system, the total demands of active processes usually exceed the available resources. Deadlock occurs when two or more processes have conflicting needs for resources and none can continue.
 
-### Στόχος του σχεδιασμού
+### Design goal
 
-Βασικός στόχος είναι να σχεδιάζονται συστήματα όπου το αδιέξοδο δεν μπορεί να συμβεί ή όπου μπορεί να εντοπίζεται και να αποκαθίσταται με ελεγχόμενο τρόπο.
+The basic goal is to design systems where deadlock cannot happen or where it can be detected and recovered from in a controlled manner.
 
 > **[Key Insight]**
-> Το πρόβλημα δεν είναι απλώς η έλλειψη πόρων, αλλά η συγκεκριμένη ακολουθία δέσμευσης και αναμονής πόρων από πολλές διεργασίες.
+> The problem is not simply the lack of resources, but the specific sequence of resource acquisition and waiting by many processes.
 
 ---
 
-## 2. Είδη πόρων
+## 2. Types of resources
 
-### Προεκχωρούμενοι πόροι
+### Preemptable resources
 
-Προεκχωρούμενοι (preemptable) είναι οι πόροι που μπορούν να αφαιρεθούν από μια διεργασία χωρίς να προκαλέσουν αποτυχία.
+Preemptable resources are those that can be taken away from a process without causing failure.
 
-Παραδείγματα:
+Examples:
 
-- Χώρος μνήμης σε ορισμένα μοντέλα διαχείρισης.
-- Καταχωρητές CPU σε περιβάλλοντα όπου η κατάσταση αποθηκεύεται και επαναφέρεται.
+- Memory space in certain management models.
+- CPU registers in environments where state is saved and restored.
 
-### Μη προεκχωρούμενοι πόροι
+### Nonpreemptable resources
 
-Μη προεκχωρούμενοι (nonpreemptable) είναι οι πόροι που δεν μπορούν να αφαιρεθούν χωρίς ανεπιθύμητες συνέπειες ή αποτυχία της διεργασίας.
+Nonpreemptable resources are those that cannot be taken away without undesirable consequences or failure of the process.
 
-Παραδείγματα:
+Examples:
 
-- Εκτυπωτές.
+- Printers.
 - Tape drives.
 - CD recorders.
-- Συσκευές εισόδου/εξόδου με κρίσιμη κατάσταση.
+- Input/output devices with critical state.
 
-Οι μη προεκχωρούμενοι πόροι είναι οι βασικοί υπεύθυνοι για την εμφάνιση αδιεξόδων.
+Nonpreemptable resources are the main cause of deadlock occurrence.
 
-### Κύκλος χρήσης πόρου
+### Resource usage cycle
 
-Η χρήση ενός πόρου από μία διεργασία ακολουθεί συνήθως την ακολουθία:
+The use of a resource by a process usually follows the sequence:
 
-1. Απαίτηση (`request`).
-2. Χρήση.
-3. Απελευθέρωση (`release`).
+1. Request.
+2. Use.
+3. Release.
 
-Αν η απαίτηση δεν ικανοποιηθεί, η διεργασία είτε αναστέλλεται είτε αποτυγχάνει με μήνυμα λάθους.
+If the request is not satisfied, the process is either suspended or fails with an error message.
 
-### Επαναχρησιμοποιήσιμοι πόροι
+### Reusable resources
 
-Οι επαναχρησιμοποιήσιμοι πόροι μπορούν να χρησιμοποιούνται με ασφάλεια από μία διεργασία κάθε χρονική στιγμή και μετά να επιστρέφονται για χρήση από άλλες διεργασίες.
+Reusable resources can be safely used by one process at a time and then returned for use by other processes.
 
-Παραδείγματα:
+Examples:
 
-- Επεξεργαστές.
-- I/O κανάλια.
-- Κύρια μνήμη.
-- Δευτερεύουσα μνήμη.
-- Αρχεία.
-- Βάσεις δεδομένων.
-- Σημαφόροι.
+- Processors.
+- I/O channels.
+- Main memory.
+- Secondary storage.
+- Files.
+- Databases.
+- Semaphores.
 
-Το αδιέξοδο εδώ προκύπτει όταν μια διεργασία κρατά έναν πόρο και ζητά άλλον.
+Deadlock here arises when a process holds a resource and requests another.
 
-### Καταναλώσιμοι πόροι
+### Consumable resources
 
-Οι καταναλώσιμοι πόροι παράγονται και καταστρέφονται κατά τη χρήση τους. Όταν δεσμευθούν, παύουν να υπάρχουν ως διαθέσιμοι πόροι.
+Consumable resources are produced and destroyed during their use. Once consumed, they cease to exist as available resources.
 
-Παραδείγματα:
+Examples:
 
-- Διακοπές (`interrupts`).
-- Σήματα (`signals`).
-- Μηνύματα.
-- Πληροφορίες σε I/O buffers.
+- Interrupts.
+- Signals.
+- Messages.
+- Information in I/O buffers.
 
-Σε αυτήν την κατηγορία αδιέξοδο μπορεί να συμβεί, για παράδειγμα, όταν ένα μήνυμα που αποστέλλεται από μία διεργασία δεν παραλαμβάνεται από άλλη.
-
----
-
-## 3. Παραδείγματα αδιεξόδου
-
-### Κλασικό μοτίβο
-
-Αν η διεργασία $P$ δεσμεύσει πρώτα τον πόρο $A$ και μετά ζητήσει τον $B$, ενώ η διεργασία $Q$ δεσμεύσει πρώτα τον $B$ και μετά ζητήσει τον $A$, μπορεί να δημιουργηθεί αδιέξοδο.
-
-Αυτό συμβαίνει επειδή:
-
-- Η $P$ περιμένει πόρο που κρατά η $Q$.
-- Η $Q$ περιμένει πόρο που κρατά η $P$.
-- Καμία δεν μπορεί να προχωρήσει για να απελευθερώσει τον πόρο που κατέχει.
-
-### Παράδειγμα με μνήμη
-
-Έστω διαθέσιμη κύρια μνήμη $200	ext{KB}$ και δύο διεργασίες:
-
-- $P_1$: ζητά $80	ext{KB}$ και μετά $60	ext{KB}$.
-- $P_2$: ζητά $70	ext{KB}$ και μετά $80	ext{KB}$.
-
-Αν πρώτα ικανοποιηθούν τα πρώτα αιτήματα, δεσμεύονται $150	ext{KB}$ και απομένουν $50	ext{KB}$. Τότε κανένα από τα δεύτερα αιτήματα δεν μπορεί να ικανοποιηθεί, άρα οι διεργασίες μπλοκάρουν.
-
-Η περίπτωση αυτή λύνεται ευκολότερα επειδή η μνήμη θεωρείται προεκχωρούμενος πόρος.
+In this category, deadlock can occur, for example, when a message sent by one process is not received by another.
 
 ---
 
-## 4. Γράφοι εκχώρησης πόρων
+## 3. Examples of deadlock
 
-Οι γράφοι εκχώρησης πόρων είναι εργαλείο μοντελοποίησης της κατάστασης πόρων και διεργασιών.
+### Classic pattern
 
-### Συμβολισμός
+If process $P$ first acquires resource $A$ and then requests $B$, while process $Q$ first acquires $B$ and then requests $A$, a deadlock can arise.
 
-- Κόμβος διεργασίας: $P_i$.
-- Κόμβος τύπου πόρου: $R_j$.
-- Ακμή απαίτησης: $P_i \rightarrow R_j$.
-- Ακμή εκχώρησης: $R_j \rightarrow P_i$.
+This happens because:
 
-### Ερμηνεία
+- $P$ waits for a resource held by $Q$.
+- $Q$ waits for a resource held by $P$.
+- Neither can proceed to release the resource it holds.
 
-- Αν υπάρχει ακμή από διεργασία προς πόρο, η διεργασία ζητά ένα στιγμιότυπο του πόρου.
-- Αν υπάρχει ακμή από πόρο προς διεργασία, ένα στιγμιότυπο του πόρου έχει εκχωρηθεί στη διεργασία.
+### Example with memory
 
-### Σχέση κύκλων και αδιεξόδου
+Assume available main memory of $200\text{KB}$ and two processes:
 
-- Αν ο γράφος **δεν** περιέχει κύκλο, τότε **δεν** υπάρχει αδιέξοδο.
-- Αν ο γράφος περιέχει κύκλο και υπάρχει μόνο ένα στιγμιότυπο ανά τύπο πόρου, τότε υπάρχει αδιέξοδο.
-- Αν ο γράφος περιέχει κύκλο και υπάρχουν πολλαπλά στιγμιότυπα ανά τύπο πόρου, τότε υπάρχει μόνο πιθανότητα αδιεξόδου, όχι βεβαιότητα.
+- $P_1$: requests $80\text{KB}$ and then $60\text{KB}$.
+- $P_2$: requests $70\text{KB}$ and then $80\text{KB}$.
+
+If the first requests are satisfied first, $150\text{KB}$ are allocated and $50\text{KB}$ remain. Then none of the second requests can be satisfied, so the processes block.
+
+This case is solved more easily because memory is considered a preemptable resource.
+
+---
+
+## 4. Resource allocation graphs
+
+Resource allocation graphs are a tool for modeling the state of resources and processes.
+
+### Notation
+
+- Process node: $P_i$.
+- Resource type node: $R_j$.
+- Request edge: $P_i \rightarrow R_j$.
+- Assignment edge: $R_j \rightarrow P_i$.
+
+### Interpretation
+
+- If there is an edge from a process to a resource, the process requests an instance of the resource.
+- If there is an edge from a resource to a process, an instance of the resource has been assigned to the process.
+
+### Relationship between cycles and deadlock
+
+- If the graph **does not** contain a cycle, then there is **no** deadlock.
+- If the graph contains a cycle and there is only one instance per resource type, then there is a deadlock.
+- If the graph contains a cycle and there are multiple instances per resource type, then there is only a possibility of deadlock, not a certainty.
 
 > **[Key Insight]**
-> Κύκλος σε γράφο εκχώρησης δεν σημαίνει πάντα αδιέξοδο. Η κρίσιμη λεπτομέρεια είναι αν κάθε τύπος πόρου έχει ένα ή περισσότερα στιγμιότυπα.
+> A cycle in a resource allocation graph does not always mean deadlock. The critical detail is whether each resource type has one or more instances.
 
 ---
 
-## 5. Οι 4 αναγκαίες συνθήκες αδιεξόδου
+## 5. The 4 necessary conditions for deadlock
 
-Αδιέξοδο μπορεί να συμβεί μόνο αν ισχύουν **ταυτόχρονα** και οι τέσσερις παρακάτω συνθήκες.
+Deadlock can occur only if the following four conditions hold **simultaneously**.
 
-### 5.1 Αμοιβαίος αποκλεισμός
+### 5.1 Mutual exclusion
 
-Κάθε πόρος είτε είναι διαθέσιμος είτε ανήκει αποκλειστικά σε μία μόνο διεργασία.
+Each resource is either available or belongs exclusively to only one process.
 
-### 5.2 Κατοχή και αναμονή
+### 5.2 Hold and wait
 
-Μία διεργασία μπορεί να κρατά ήδη κάποιους πόρους και ταυτόχρονα να περιμένει επιπλέον πόρους.
+A process can already hold some resources and simultaneously wait for additional resources.
 
-### 5.3 Μη προεκχώρηση
+### 5.3 No preemption
 
-Οι πόροι δεν μπορούν να αφαιρεθούν βίαια από τη διεργασία που τους κατέχει.
+Resources cannot be forcibly taken away from the process holding them.
 
-### 5.4 Κυκλική αναμονή
+### 5.4 Circular wait
 
-Υπάρχει κλειστή αλυσίδα διεργασιών όπου κάθε διεργασία περιμένει πόρο που κατέχεται από την επόμενη.
+There is a closed chain of processes where each process waits for a resource held by the next.
 
-### Βασικό συμπέρασμα
+### Basic conclusion
 
-Για να προληφθεί το αδιέξοδο, αρκεί να παραβιαστεί έστω **μία** από τις τέσσερις αναγκαίες συνθήκες.
-
----
-
-## 6. Προσεγγίσεις αντιμετώπισης
-
-Υπάρχουν τέσσερις βασικές προσεγγίσεις:
-
-1. Πρόληψη (`prevention`).
-2. Αποφυγή (`avoidance`).
-3. Ανίχνευση και επαναφορά (`detection & recovery`).
-4. Χειροκίνητη μεσολάβηση.
-
-### 6.1 Πρόληψη
-
-Στην πρόληψη σχεδιάζουμε το σύστημα έτσι ώστε να παραβιάζεται τουλάχιστον μία από τις τέσσερις αναγκαίες συνθήκες.
-
-#### Παραβίαση αμοιβαίου αποκλεισμού
-
-Στόχος είναι να μειωθούν οι περιπτώσεις αποκλειστικής χρήσης πόρων.
-
-Παράδειγμα:
-
-- Για εκτυπωτή, αντί να τον χρησιμοποιούν άμεσα πολλές διεργασίες, χρησιμοποιείται `printer daemon` και ουρά εκτύπωσης.
-
-Περιορισμός: δεν μπορούν όλοι οι πόροι να μετατραπούν πρακτικά σε κοινόχρηστους.
-
-#### Παραβίαση κατοχής και αναμονής
-
-Δύο βασικές τεχνικές:
-
-- Η διεργασία ζητά **όλους** τους πόρους πριν ξεκινήσει.
-- Αν χρειαστεί νέους πόρους αργότερα, αποδεσμεύει πρώτα όσους ήδη κατέχει και επαναζητά το πλήρες σύνολο.
-
-Μειονεκτήματα:
-
-- Συνήθως δεν είναι γνωστές από πριν όλες οι απαιτήσεις.
-- Μπορεί να δημιουργηθεί παρατεταμένη στέρηση.
-- Πόροι μένουν δεσμευμένοι χωρίς να χρησιμοποιούνται συνεχώς.
-
-#### Παραβίαση μη προεκχώρησης
-
-Αν είναι δυνατόν, αφαιρείται προσωρινά ένας πόρος από μια διεργασία και δίνεται αλλού.
-
-Εφαρμόζεται μόνο σε πόρους των οποίων η κατάσταση μπορεί να αποθηκευτεί και να αποκατασταθεί αργότερα.
-
-Παραδείγματα όπου **δεν** είναι πρακτικό:
-
-- Εγγραφή σε CD.
-- Πολλές φυσικές συσκευές I/O.
-
-#### Παραβίαση κυκλικής αναμονής
-
-Ορίζεται μια γραμμική διάταξη των πόρων και επιβάλλεται οι διεργασίες να ζητούν πόρους μόνο με αύξουσα σειρά.
-
-Παράδειγμα:
-
-- Αν $R_1 < R_2 < R_3$, μία διεργασία μπορεί να ζητήσει $R_1$ και μετά $R_3$, αλλά όχι $R_3$ και μετά $R_1$.
-
-### 6.2 Αποφυγή
-
-Στην αποφυγή το σύστημα επιτρέπει τις πρώτες τρεις συνθήκες, αλλά αποφασίζει δυναμικά αν μια νέα εκχώρηση θα μπορούσε να οδηγήσει αργότερα σε αδιέξοδο.
-
-Απαιτείται πρόσθετη πληροφορία εκ των προτέρων, κυρίως το μέγιστο πλήθος πόρων που μπορεί να ζητήσει κάθε διεργασία.
-
-Κύρια ιδέα:
-
-- Εκχώρησε πόρους μόνο αν το σύστημα παραμένει σε **ασφαλή κατάσταση**.
-
-### 6.3 Ανίχνευση και επαναφορά
-
-Σε αυτήν την προσέγγιση το σύστημα εκχωρεί πόρους όποτε μπορεί και περιοδικά ελέγχει αν έχει δημιουργηθεί αδιέξοδο.
-
-Αν εντοπιστεί αδιέξοδο, εφαρμόζεται επαναφορά μέσω:
-
-- Τερματισμού διεργασιών.
-- Προεκχώρησης πόρων.
-- Επιστροφής σε προηγούμενα checkpoints.
-
-### 6.4 Χειροκίνητη μεσολάβηση
-
-Σε ορισμένα πρακτικά συστήματα, ο διαχειριστής απλώς επανεκκινεί το σύστημα όταν η κατάσταση μοιάζει ανεξέλεγκτη ή υπερβολικά αργή.
+To prevent deadlock, it suffices to violate at least **one** of the four necessary conditions.
 
 ---
 
-## 7. Αλγόριθμος του τραπεζίτη
+## 6. Handling approaches
 
-Ο αλγόριθμος του τραπεζίτη είναι η κλασική τεχνική αποφυγής αδιεξόδου για συστήματα με πολλαπλά στιγμιότυπα πόρων.
+There are four basic approaches:
 
-### Βασικές έννοιες
+1. Prevention.
+2. Avoidance.
+3. Detection & recovery.
+4. Manual intervention.
 
-- **Κατάσταση συστήματος:** η τρέχουσα εκχώρηση πόρων στις διεργασίες.
-- **Ασφαλής κατάσταση:** υπάρχει τουλάχιστον μία ακολουθία ολοκλήρωσης διεργασιών χωρίς αδιέξοδο.
-- **Μη ασφαλής κατάσταση:** δεν υπάρχει εγγυημένη ασφαλής ακολουθία. Αυτό δεν σημαίνει βέβαιο αδιέξοδο, αλλά υπαρκτή πιθανότητα.
+### 6.1 Prevention
 
-### Παραδοχές
+In prevention we design the system so that at least one of the four necessary conditions is violated.
 
-Ο αλγόριθμος υποθέτει ότι:
+#### Violating mutual exclusion
 
-- Υπάρχουν πολλαπλά στιγμιότυπα πόρων.
-- Κάθε διεργασία δηλώνει εκ των προτέρων τη μέγιστη απαίτησή της.
-- Μια διεργασία που λαμβάνει όλους τους πόρους της θα τους επιστρέψει σε πεπερασμένο χρόνο.
-- Ο αριθμός πόρων είναι σταθερός.
-- Οι σημαντικές διεργασίες είναι ανεξάρτητες.
-- Καμία διεργασία δεν τερματίζει ενώ κρατά πόρους.
+The goal is to reduce the cases of exclusive resource use.
 
-### Δομές δεδομένων
+Example:
 
-Έστω $n$ διεργασίες και $m$ τύποι πόρων.
+- For a printer, instead of many processes using it directly, a `printer daemon` and a print queue are used.
 
-- `Available[j]`: διαθέσιμα στιγμιότυπα του πόρου $R_j$.
-- `Max[i,j]`: μέγιστη απαίτηση της διεργασίας $P_i$ για πόρο $R_j$.
-- `Allocation[i,j]`: στιγμιότυπα του πόρου $R_j$ που έχουν ήδη εκχωρηθεί στη $P_i$.
-- `Need[i,j]`: επιπλέον στιγμιότυπα του $R_j$ που μπορεί να χρειαστεί η $P_i$.
+Limitation: not all resources can be practically converted into shared ones.
 
-Ορίζεται:
+#### Violating hold and wait
+
+Two basic techniques:
+
+- The process requests **all** its resources before it starts.
+- If it needs new resources later, it first releases those it already holds and re-requests the full set.
+
+Disadvantages:
+
+- Usually not all requirements are known in advance.
+- Prolonged deprivation can arise.
+- Resources remain allocated without being used continuously.
+
+#### Violating no preemption
+
+If possible, a resource is temporarily taken from a process and given elsewhere.
+
+It applies only to resources whose state can be saved and restored later.
+
+Examples where it is **not** practical:
+
+- Writing to a CD.
+- Many physical I/O devices.
+
+#### Violating circular wait
+
+A linear ordering of resources is defined and processes are required to request resources only in increasing order.
+
+Example:
+
+- If $R_1 < R_2 < R_3$, a process may request $R_1$ and then $R_3$, but not $R_3$ and then $R_1$.
+
+### 6.2 Avoidance
+
+In avoidance the system allows the first three conditions, but decides dynamically whether a new allocation could later lead to a deadlock.
+
+Additional advance information is required, mainly the maximum number of resources each process may request.
+
+Main idea:
+
+- Allocate resources only if the system remains in a **safe state**.
+
+### 6.3 Detection and recovery
+
+In this approach the system allocates resources whenever it can and periodically checks whether a deadlock has formed.
+
+If a deadlock is detected, recovery is applied through:
+
+- Termination of processes.
+- Preemption of resources.
+- Rolling back to previous checkpoints.
+
+### 6.4 Manual intervention
+
+In some practical systems, the administrator simply restarts the system when the situation seems out of control or excessively slow.
+
+---
+
+## 7. Banker's algorithm
+
+The banker's algorithm is the classic deadlock avoidance technique for systems with multiple resource instances.
+
+### Basic concepts
+
+- **System state:** the current allocation of resources to processes.
+- **Safe state:** there is at least one completion sequence of processes without deadlock.
+- **Unsafe state:** there is no guaranteed safe sequence. This does not mean certain deadlock, but a real possibility.
+
+### Assumptions
+
+The algorithm assumes that:
+
+- There are multiple resource instances.
+- Each process declares its maximum demand in advance.
+- A process that receives all its resources will return them in finite time.
+- The number of resources is fixed.
+- The significant processes are independent.
+- No process terminates while holding resources.
+
+### Data structures
+
+Let $n$ processes and $m$ resource types.
+
+- `Available[j]`: available instances of resource $R_j$.
+- `Max[i,j]`: maximum demand of process $P_i$ for resource $R_j$.
+- `Allocation[i,j]`: instances of resource $R_j$ already assigned to $P_i$.
+- `Need[i,j]`: additional instances of $R_j$ that $P_i$ may need.
+
+It is defined:
 
 $$
 Need[i,j] = Max[i,j] - Allocation[i,j]
 $$
 
-### Κριτήριο ασφαλούς ακολουθίας
+### Criterion of a safe sequence
 
-Μια ακολουθία $\langle P_1, P_2, \dots, P_n \rangle$ είναι ασφαλής αν για κάθε διεργασία της σειράς, οι υπόλοιπες ανάγκες της μπορούν να ικανοποιηθούν από τους τρέχοντες διαθέσιμους πόρους μαζί με τους πόρους που θα επιστραφούν από τις προηγούμενες διεργασίες.
+A sequence $\langle P_1, P_2, \dots, P_n \rangle$ is safe if for every process in the sequence, its remaining needs can be satisfied from the currently available resources together with the resources that will be returned by the preceding processes.
 
-### Βήματα αλγορίθμου ασφάλειας
+### Steps of the safety algorithm
 
-1. Βρες διεργασία $P_i$ με $Need[i,j] \leq Available[j]$ για κάθε $j$.
-2. Υπόθεσε ότι η διεργασία ολοκληρώνεται.
-3. Επέστρεψε τους πόρους της:
+1. Find a process $P_i$ with $Need[i,j] \leq Available[j]$ for every $j$.
+2. Assume that the process completes.
+3. Return its resources:
    $$
    Available[j] = Available[j] + Allocation[i,j]
    $$
-4. Σημείωσέ τη ως ολοκληρωμένη.
-5. Επανάλαβε μέχρι είτε να ολοκληρωθούν όλες οι διεργασίες είτε να μην μπορεί να βρεθεί άλλη κατάλληλη διεργασία.
+4. Mark it as completed.
+5. Repeat until either all processes complete or no other suitable process can be found.
 
-Αν ολοκληρωθούν όλες, η κατάσταση είναι ασφαλής.
+If all complete, the state is safe.
 
 ---
 
-## 8. Ανίχνευση αδιεξόδου
+## 8. Deadlock detection
 
-Η ανίχνευση μοιάζει αλγοριθμικά με τον έλεγχο ασφαλείας, αλλά η λογική είναι διαφορετική: εδώ το σύστημα **δεν** απορρίπτει εκ των προτέρων εκχωρήσεις, αλλά ελέγχει αν το αδιέξοδο έχει ήδη συμβεί.
+Detection is algorithmically similar to the safety check, but the logic is different: here the system **does not** reject allocations in advance, but checks whether deadlock has already occurred.
 
-### Δομές δεδομένων
+### Data structures
 
-Χρησιμοποιούνται:
+Used:
 
 - `Available`
 - `Allocation`
 - `Need`
 
-### Βήματα
+### Steps
 
-1. Βρες γραμμή $i$ όπου $Need[i,j] \leq Available[j]$ για όλα τα $j$.
-2. Αν δεν υπάρχει τέτοια γραμμή, οι μη σημειωμένες διεργασίες είναι σε αδιέξοδο.
-3. Αλλιώς, θεώρησε ότι η διεργασία ολοκληρώνεται και επιστρέφει τους πόρους της.
-4. Επανάλαβε.
+1. Find a row $i$ where $Need[i,j] \leq Available[j]$ for all $j$.
+2. If no such row exists, the unmarked processes are in deadlock.
+3. Otherwise, consider that the process completes and returns its resources.
+4. Repeat.
 
-### Κόστος και πρακτική
+### Cost and practice
 
-Η ανίχνευση αποφεύγει τον συνεχή περιορισμό πρόσβασης σε πόρους, αλλά απαιτεί περιοδικούς ελέγχους και στρατηγική ανάκαμψης.
+Detection avoids the continuous restriction of resource access, but requires periodic checks and a recovery strategy.
 
-Στην πράξη, πολλά λειτουργικά συστήματα δεν εφαρμόζουν αυστηρή καθολική ανίχνευση, αλλά χρησιμοποιούν συνδυασμούς τεχνικών όπως:
+In practice, many operating systems do not apply strict global detection, but use combinations of techniques such as:
 
 - Quotas.
-- Σχεδιαστικούς περιορισμούς.
-- Συμβάσεις χρήσης σημαφόρων και πόρων.
-- Αποτυχία διεργασίας όταν δεν μπορεί να αποκτήσει κρίσιμο πόρο.
+- Design constraints.
+- Conventions for the use of semaphores and resources.
+- Process failure when it cannot acquire a critical resource.
 
-### Στρατηγικές επαναφοράς
+### Recovery strategies
 
-Όταν ανιχνευθεί αδιέξοδο, μπορούν να εφαρμοστούν:
+When a deadlock is detected, the following can be applied:
 
-- Τερματισμός όλων των διεργασιών σε αδιέξοδο.
-- Διαδοχικός τερματισμός μέχρι να σπάσει ο κύκλος.
+- Termination of all processes in deadlock.
+- Successive termination until the cycle is broken.
 - Checkpoint/rollback.
-- Διαδοχική προεκχώρηση πόρων.
+- Successive resource preemption.
 
-### Κριτήρια επιλογής διεργασίας για τερματισμό
+### Criteria for selecting a process for termination
 
-Συνήθη κριτήρια:
+Common criteria:
 
-- Μικρότερος χρόνος CPU που έχει ήδη καταναλωθεί.
-- Μικρότερο πλήθος παραγόμενων γραμμών εξόδου.
-- Μεγαλύτερος εκτιμώμενος χρόνος που απομένει.
-- Μικρότερο πλήθος δεσμευμένων πόρων.
-- Μικρότερη προτεραιότητα.
+- Smaller CPU time already consumed.
+- Smaller number of output lines produced.
+- Larger estimated remaining time.
+- Smaller number of allocated resources.
+- Lower priority.
 
 ---
 
-## 9. Πρόβλημα συνδαιτυμόνων φιλοσόφων
+## 9. Dining philosophers problem
 
-### Περιγραφή
+### Description
 
-Πέντε φιλόσοφοι κάθονται γύρω από ένα κυκλικό τραπέζι. Κάθε φιλόσοφος εναλλάσσεται ανάμεσα σε σκέψη και φαγητό. Για να φάει χρειάζεται δύο πηρούνια: το αριστερό και το δεξί του.
+Five philosophers sit around a circular table. Each philosopher alternates between thinking and eating. To eat, he needs two forks: his left and his right one.
 
-Το πρόβλημα μοντελοποιεί:
+The problem models:
 
-- Κάθε φιλόσοφο ως διεργασία.
-- Κάθε πηρούνι ως διαμοιραζόμενο πόρο.
+- Each philosopher as a process.
+- Each fork as a shared resource.
 
-### Τι δείχνει
+### What it shows
 
-Το πρόβλημα χρησιμοποιείται για να αναδειχθεί η δυσκολία εκχώρησης πόρων χωρίς:
+The problem is used to highlight the difficulty of resource allocation without:
 
-- Αδιέξοδο.
-- Παρατεταμένη στέρηση (`starvation`).
-- Άσκοπη μείωση παραλληλίας.
+- Deadlock.
+- Prolonged starvation.
+- Pointless reduction of parallelism.
 
-### Αφελής λύση που αποτυγχάνει
+### Naive solution that fails
 
-Αν κάθε φιλόσοφος εκτελεί:
+If each philosopher executes:
 
 ```c
 wait(fork[i]);
@@ -1834,19 +1833,19 @@ signal(fork[(i+1) mod 5]);
 signal(fork[i]);
 ```
 
-μπορεί όλοι να πάρουν από ένα πηρούνι και να περιμένουν για πάντα το δεύτερο.
+all of them can pick up one fork and wait forever for the second one.
 
-### Τεχνικές αποφυγής
+### Avoidance techniques
 
-Από το υλικό προκύπτουν οι εξής λύσεις:
+The following solutions emerge from the material:
 
-- Προσθήκη ενός ακόμη πηρουνιού.
-- Το πολύ 4 φιλόσοφοι στο τραπέζι ταυτόχρονα.
-- Διαφορετική σειρά λήψης πηρουνιών για άρτιους και περιττούς φιλοσόφους.
-- Απόκτηση πηρουνιών μόνο όταν και τα δύο είναι διαθέσιμα.
-- Μη συμμετρικός σχεδιασμός πρωτοκόλλου.
+- Adding one more fork.
+- At most 4 philosophers at the table simultaneously.
+- Different fork acquisition order for even and odd philosophers.
+- Acquiring forks only when both are available.
+- Non-symmetric protocol design.
 
-### Λύση με σημαφόρο `room`
+### Solution with the `room` semaphore
 
 ```c
 semaphore fork[5] = {1};
@@ -1864,156 +1863,156 @@ while (true) {
 }
 ```
 
-Η ιδέα είναι ότι επιτρέπονται το πολύ 4 φιλόσοφοι να επιχειρούν ταυτόχρονα να φάνε, οπότε σπάει η δυνατότητα πλήρους κυκλικής αναμονής.
+The idea is that at most 4 philosophers are allowed to attempt eating simultaneously, so the possibility of a full circular wait is broken.
 
 ---
 
-## 10. Σύνδεση εννοιών
+## 10. Connection of concepts
 
-| Έννοια | Ρόλος |
+| Concept | Role |
 | :--- | :--- |
-| Αμοιβαίος αποκλεισμός | Κάποιος πόρος δεν μοιράζεται ταυτόχρονα |
-| Κατοχή και αναμονή | Διεργασία κρατά πόρους ενώ ζητά άλλους |
-| Μη προεκχώρηση | Οι πόροι δεν αφαιρούνται βίαια |
-| Κυκλική αναμονή | Κλειστός κύκλος εξάρτησης διεργασιών |
-| Πρόληψη | Σπάει μία από τις 4 συνθήκες |
-| Αποφυγή | Επιτρέπει εκχωρήσεις μόνο αν η κατάσταση παραμένει ασφαλής |
-| Ανίχνευση | Ελέγχει αν το αδιέξοδο υπάρχει ήδη |
-| Επαναφορά | Τερματισμός, rollback ή προεκχώρηση για αποδέσμευση |
-| Dining philosophers | Κλασικό πρότυπο μοντελοποίησης αδιεξόδου και starvation |
+| Mutual exclusion | A resource is not shared simultaneously |
+| Hold and wait | A process holds resources while requesting others |
+| No preemption | Resources are not forcibly taken away |
+| Circular wait | Closed cycle of process dependency |
+| Prevention | Breaks one of the 4 conditions |
+| Avoidance | Allows allocations only if the state remains safe |
+| Detection | Checks whether the deadlock already exists |
+| Recovery | Termination, rollback, or preemption for release |
+| Dining philosophers | Classic model of deadlock and starvation |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Έλεγχος συνθηκών αδιεξόδου
+### Exercise 1: Checking deadlock conditions
 
-**Problem:** Μια διεργασία κρατά έναν εκτυπωτή και περιμένει πρόσβαση σε αρχείο που κατέχεται από δεύτερη διεργασία, ενώ η δεύτερη περιμένει τον εκτυπωτή. Ποιες συνθήκες αδιεξόδου ισχύουν;
-
-**Solution:**
-
-1. Ο εκτυπωτής και το αρχείο θεωρούνται αποκλειστικοί πόροι, άρα ισχύει αμοιβαίος αποκλεισμός.
-2. Κάθε διεργασία κρατά έναν πόρο και περιμένει άλλον, άρα ισχύει κατοχή και αναμονή.
-3. Οι πόροι δεν αφαιρούνται βίαια, άρα ισχύει μη προεκχώρηση.
-4. Η πρώτη περιμένει πόρο της δεύτερης και η δεύτερη πόρο της πρώτης, άρα υπάρχει κυκλική αναμονή.
-5. Εφόσον ισχύουν και οι 4 συνθήκες, το σύστημα βρίσκεται σε αδιέξοδο.
-
-### Exercise 2: Γράφος εκχώρησης από περιγραφή
-
-**Problem:** Δίνονται τα εξής: η διεργασία $P_1$ απαιτεί τον πόρο $R_1$, η διεργασία $P_2$ απαιτεί τον πόρο $R_3$, ο πόρος $R_1$ εκχωρείται στη $P_2$, ο $R_2$ εκχωρείται στη $P_1$ και ο $R_3$ εκχωρείται στη $P_1$. Να περιγραφεί ο γράφος και να ελεγχθεί αν υπάρχει αδιέξοδο.
+**Problem:** A process holds a printer and waits for access to a file held by a second process, while the second waits for the printer. Which deadlock conditions hold?
 
 **Solution:**
 
-1. Οι ακμές απαίτησης είναι $P_1 \rightarrow R_1$ και $P_2 \rightarrow R_3$.
-2. Οι ακμές εκχώρησης είναι $R_1 \rightarrow P_2$, $R_2 \rightarrow P_1$, $R_3 \rightarrow P_1$.
-3. Η $P_1$ περιμένει τον $R_1$, ο οποίος ανήκει στη $P_2$.
-4. Η $P_2$ περιμένει τον $R_3$, ο οποίος ανήκει στη $P_1$.
-5. Δημιουργείται κύκλος $P_1 \rightarrow R_1 \rightarrow P_2 \rightarrow R_3 \rightarrow P_1$.
-6. Αν υπάρχει ένα στιγμιότυπο ανά πόρο, τότε υπάρχει αδιέξοδο.
+1. The printer and the file are considered exclusive resources, so mutual exclusion holds.
+2. Each process holds a resource and waits for another, so hold and wait holds.
+3. The resources are not forcibly taken away, so no preemption holds.
+4. The first waits for a resource of the second and the second for a resource of the first, so there is circular wait.
+5. Since all 4 conditions hold, the system is in a deadlock.
+
+### Exercise 2: Allocation graph from a description
+
+**Problem:** Given the following: process $P_1$ requests resource $R_1$, process $P_2$ requests resource $R_3$, resource $R_1$ is assigned to $P_2$, $R_2$ is assigned to $P_1$, and $R_3$ is assigned to $P_1$. Describe the graph and check whether there is a deadlock.
+
+**Solution:**
+
+1. The request edges are $P_1 \rightarrow R_1$ and $P_2 \rightarrow R_3$.
+2. The assignment edges are $R_1 \rightarrow P_2$, $R_2 \rightarrow P_1$, $R_3 \rightarrow P_1$.
+3. $P_1$ waits for $R_1$, which belongs to $P_2$.
+4. $P_2$ waits for $R_3$, which belongs to $P_1$.
+5. A cycle is formed: $P_1 \rightarrow R_1 \rightarrow P_2 \rightarrow R_3 \rightarrow P_1$.
+6. If there is one instance per resource, then there is a deadlock.
 
 ### Exercise 3: Tape drives
 
-**Problem:** Το σύστημα έχει 6 όμοια tape drives και $n$ διεργασίες. Κάθε διεργασία μπορεί να ζητήσει μέχρι 2 tape drives. Για ποια τιμή του $n$ το σύστημα είναι απαλλαγμένο από αδιέξοδο;
+**Problem:** The system has 6 identical tape drives and $n$ processes. Each process may request up to 2 tape drives. For which value of $n$ is the system deadlock-free?
 
 **Solution:**
 
-1. Για να υπάρχει εγγύηση απουσίας αδιεξόδου, πρέπει να υπάρχει πάντα δυνατότητα τουλάχιστον μία διεργασία να πάρει και το δεύτερο tape drive που ίσως χρειάζεται.
-2. Στη χειρότερη περίπτωση, κάθε διεργασία κρατά 1 tape drive και περιμένει άλλο 1.
-3. Αν υπάρχουν $n$ διεργασίες, τότε στη χειρότερη περίπτωση δεσμεύονται $n$ drives.
-4. Για να μπορέσει κάποια διεργασία να ολοκληρώσει, πρέπει να υπάρχει τουλάχιστον 1 ελεύθερο drive.
-5. Άρα απαιτείται $n \leq 5$.
-6. Για $n = 6$, όλες οι διεργασίες μπορούν να κρατούν από 1 drive και να περιμένουν άλλο 1, άρα είναι δυνατή η κυκλική αναμονή.
+1. For a guarantee of deadlock absence, there must always be the possibility of at least one process getting the second tape drive it may need.
+2. In the worst case, each process holds 1 tape drive and waits for another 1.
+3. If there are $n$ processes, then in the worst case $n$ drives are allocated.
+4. For some process to complete, at least 1 drive must be free.
+5. Therefore $n \leq 5$ is required.
+6. For $n = 6$, all processes can hold 1 drive each and wait for another 1, so circular wait is possible.
 
-### Exercise 4: Παράδειγμα μνήμης
+### Exercise 4: Memory example
 
-**Problem:** Η $P_1$ ζητά $80\text{KB}$ και μετά $60\text{KB}$, ενώ η $P_2$ ζητά $70\text{KB}$ και μετά $80\text{KB}$. Η συνολική διαθέσιμη μνήμη είναι $200\text{KB}$. Να εξεταστεί αν μπορεί να δημιουργηθεί αδιέξοδο.
-
-**Solution:**
-
-1. Ικανοποιούμε το πρώτο αίτημα της $P_1$: απομένουν $120\text{KB}$.
-2. Ικανοποιούμε το πρώτο αίτημα της $P_2$: απομένουν $50\text{KB}$.
-3. Η $P_1$ ζητά επιπλέον $60\text{KB}$, αλλά δεν υπάρχουν αρκετά διαθέσιμα.
-4. Η $P_2$ ζητά επιπλέον $80\text{KB}$, αλλά επίσης δεν υπάρχουν αρκετά διαθέσιμα.
-5. Και οι δύο μπλοκάρουν στη δεύτερη απαίτηση.
-6. Το πρόβλημα επιλύεται με προεκχώρηση μνήμης, επειδή η μνήμη μπορεί να ανακληθεί/ανακατανεμηθεί ευκολότερα από άλλους πόρους.
-
-### Exercise 5: Υπολογισμός πίνακα Need
-
-**Problem:** Αν για μία διεργασία ισχύει $Max = (6,1,2)$ και $Allocation = (2,1,1)$, να βρεθεί το $Need$.
+**Problem:** $P_1$ requests $80\text{KB}$ and then $60\text{KB}$, while $P_2$ requests $70\text{KB}$ and then $80\text{KB}$. The total available memory is $200\text{KB}$. Examine whether a deadlock can be created.
 
 **Solution:**
 
-1. Χρησιμοποιούμε τον τύπο:
+1. We satisfy the first request of $P_1$: $120\text{KB}$ remain.
+2. We satisfy the first request of $P_2$: $50\text{KB}$ remain.
+3. $P_1$ requests an additional $60\text{KB}$, but there are not enough available.
+4. $P_2$ requests an additional $80\text{KB}$, but again there are not enough available.
+5. Both block on the second request.
+6. The problem is solved with memory preemption, because memory can be recalled/reallocated more easily than other resources.
+
+### Exercise 5: Computing the Need matrix
+
+**Problem:** If for a process $Max = (6,1,2)$ and $Allocation = (2,1,1)$, find $Need$.
+
+**Solution:**
+
+1. We use the formula:
    $$
    Need = Max - Allocation
    $$
-2. Υπολογίζουμε ανα συνιστώσα:
+2. We compute per component:
    $$
    Need = (6-2, 1-1, 2-1)
    $$
-3. Άρα:
+3. Hence:
    $$
    Need = (4,0,1)
    $$
-4. Η διεργασία χρειάζεται ακόμη 4 μονάδες του πρώτου πόρου, 0 του δεύτερου και 1 του τρίτου για να ολοκληρωθεί.
+4. The process still needs 4 units of the first resource, 0 of the second, and 1 of the third to complete.
 
-### Exercise 6: Έλεγχος ασφαλούς ακολουθίας
+### Exercise 6: Checking a safe sequence
 
-**Problem:** Έστω $Available = (0,1,1)$ και από το παράδειγμα του κεφαλαίου προκύπτει ότι μία ασφαλής ακολουθία είναι $P_2 \rightarrow P_1 \rightarrow P_3 \rightarrow P_4$. Τι σημαίνει αυτό;
-
-**Solution:**
-
-1. Η ύπαρξη αυτής της ακολουθίας σημαίνει ότι το σύστημα είναι σε ασφαλή κατάσταση.
-2. Πρώτα μπορεί να ολοκληρωθεί η $P_2$ με τους διαθέσιμους πόρους.
-3. Μετά την ολοκλήρωσή της, επιστρέφει τους πόρους της και αυξάνει το `Available`.
-4. Έτσι γίνεται εφικτή η ολοκλήρωση της $P_1$, μετά της $P_3$ και τέλος της $P_4$.
-5. Επομένως, παρότι οι διαθέσιμοι πόροι αρχικά είναι λίγοι, υπάρχει σειρά εκτέλεσης που αποφεύγει το αδιέξοδο.
-
-### Exercise 7: Πρόληψη μέσω διάταξης πόρων
-
-**Problem:** Έστω ότι υπάρχουν πόροι $R_1 < R_2 < R_3$. Μπορεί μια διεργασία να ζητήσει πρώτα $R_2$ και μετά $R_1$;
+**Problem:** Let $Available = (0,1,1)$ and from the chapter example a safe sequence is $P_2 \rightarrow P_1 \rightarrow P_3 \rightarrow P_4$. What does this mean?
 
 **Solution:**
 
-1. Αν εφαρμόζεται πολιτική γραμμικής αρίθμησης πόρων, οι αιτήσεις πρέπει να ακολουθούν αύξουσα σειρά.
-2. Η αίτηση πρώτα για $R_2$ και μετά για $R_1$ παραβιάζει αυτήν την πολιτική.
-3. Η παραβίαση θα μπορούσε να επιτρέψει δημιουργία κύκλου αναμονής με άλλες διεργασίες.
-4. Άρα η αίτηση δεν επιτρέπεται.
-5. Ο στόχος είναι να αποκλειστεί η συνθήκη της κυκλικής αναμονής.
+1. The existence of this sequence means that the system is in a safe state.
+2. First, $P_2$ can complete with the available resources.
+3. After its completion, it returns its resources and increases `Available`.
+4. This makes the completion of $P_1$, then $P_3$, and finally $P_4$ feasible.
+5. Therefore, although the initially available resources are few, there is an execution order that avoids deadlock.
 
-### Exercise 8: Dining philosophers με room = 4
+### Exercise 7: Prevention through resource ordering
 
-**Problem:** Γιατί η χρήση σημαφόρου `room = 4` αποτρέπει το αδιέξοδο στο πρόβλημα των φιλοσόφων;
+**Problem:** Suppose there are resources $R_1 < R_2 < R_3$. Can a process request $R_2$ first and then $R_1$?
 
 **Solution:**
 
-1. Χωρίς περιορισμό, και οι 5 φιλόσοφοι μπορούν να πάρουν ταυτόχρονα από ένα πηρούνι.
-2. Τότε ο καθένας περιμένει το δεύτερο και δημιουργείται πλήρης κύκλος αναμονής.
-3. Με `room = 4`, το πολύ 4 φιλόσοφοι προσπαθούν ταυτόχρονα να αποκτήσουν πηρούνια.
-4. Άρα πάντα μένει τουλάχιστον ένας εκτός διαδικασίας απόκτησης, γεγονός που σπάει τη δυνατότητα να σχηματιστεί κύκλος 5-μελών.
-5. Έτσι το αδιέξοδο αποφεύγεται.
+1. If a linear resource numbering policy is applied, requests must follow increasing order.
+2. Requesting $R_2$ first and then $R_1$ violates this policy.
+3. The violation could allow the creation of a waiting cycle with other processes.
+4. Therefore the request is not allowed.
+5. The goal is to preclude the circular wait condition.
+
+### Exercise 8: Dining philosophers with room = 4
+
+**Problem:** Why does the use of the `room = 4` semaphore prevent deadlock in the philosophers problem?
+
+**Solution:**
+
+1. Without restriction, all 5 philosophers can simultaneously pick up one fork.
+2. Then each waits for the second and a full waiting cycle is created.
+3. With `room = 4`, at most 4 philosophers attempt to acquire forks simultaneously.
+4. So at least one always remains outside the acquisition process, which breaks the possibility of forming a 5-member cycle.
+5. Thus deadlock is avoided.
 
 ---
 
-## Exam Tip: Γρήγορος τρόπος αναγνώρισης
+## Exam Tip: Quick recognition method
 
-Σε θέματα θεωρίας, ο ταχύτερος έλεγχος είναι ο εξής:
+In theory questions, the fastest check is the following:
 
-1. Ρώτησε αν υπάρχει αποκλειστική χρήση πόρων.
-2. Έλεγξε αν κάποια διεργασία κρατά πόρους ενώ ζητά άλλους.
-3. Έλεγξε αν οι πόροι αφαιρούνται βίαια ή όχι.
-4. Αναζήτησε κύκλο αναμονής.
+1. Ask whether there is exclusive resource use.
+2. Check whether some process holds resources while requesting others.
+3. Check whether resources are forcibly taken away or not.
+4. Look for a waiting cycle.
 
-Αν απαντώνται **ναι** και στα 4, τότε έχεις αδιέξοδο ή τις ακριβείς προϋποθέσεις για να συμβεί.
+If the answer is **yes** to all 4, then you have a deadlock or the exact preconditions for it to occur.
 
 > **[Key Insight]**
-> Στις ασκήσεις με γράφους, πρώτα ελέγχεις για κύκλο και αμέσως μετά για το πλήθος στιγμιοτύπων ανά τύπο πόρου. Αυτά τα δύο βήματα λύνουν σχεδόν όλο το ερώτημα.
+> In graph exercises, first check for a cycle and immediately after for the number of instances per resource type. These two steps solve almost the entire question.
 
 ---
 # OS_Lec07_NOTES.md
 ---
 
-# Κεφάλαιο 7 — Διαχείριση Μνήμης (Memory Management)
+# Chapter 7 — Memory Management
 
 This file covers the core concepts of main memory management as presented in Chapter 7 of the Operating Systems course. Topics include memory manager design, management strategies, fixed and dynamic partitioning, fragmentation, placement algorithms, and swapping. The material falls under **Type C — Engineering and Applied Science Topics**.
 
@@ -2056,21 +2055,21 @@ Three orthogonal strategy categories govern when, where, and which data occupies
 
 | Strategy Class | Purpose |
 | :--- | :--- |
-| **Fetch strategy** (Προσκόμισης) | Decides *when* the next program/data segment is moved from secondary to primary memory |
-| **Placement strategy** (Τοποθέτησης) | Decides *where* in main memory the incoming segment is placed |
-| **Replacement strategy** (Επανατοποθέτησης) | Decides *which* segment to evict when main memory is full |
+| **Fetch strategy** | Decides *when* the next program/data segment is moved from secondary to primary memory |
+| **Placement strategy** | Decides *where* in main memory the incoming segment is placed |
+| **Replacement strategy** | Decides *which* segment to evict when main memory is full |
 
 ---
 
 ## 4. Memory Allocation Types
 
-### 4.1 Contiguous Allocation (Συνεχόμενη Εκχώρηση)
+### 4.1 Contiguous Allocation
 
 The entire program is placed in adjacent memory locations.
 - Used in early computing systems.
 - If a program is larger than available memory, the system cannot execute it.
 
-### 4.2 Non-Contiguous Allocation (Μη Συνεχόμενη Εκχώρηση)
+### 4.2 Non-Contiguous Allocation
 
 The program is divided into pieces (pages or segments) placed in non-adjacent slots of main memory.
 - Enables use of memory regions too small for an entire program.
@@ -2081,7 +2080,7 @@ The program is divided into pieces (pages or segments) placed in non-adjacent sl
 
 ## 5. Basic Memory Management
 
-### 5.1 Monoprogramming (Μονοπρογραμματισμός)
+### 5.1 Monoprogramming
 
 One user monopolizes all system resources. Three simple physical memory layouts exist:
 
@@ -2101,7 +2100,7 @@ Layout A             Layout B             Layout C
 
 Memory protection is not a concern in monoprogramming — only one process runs at a time.
 
-### 5.2 Overlays (Επικαλύψεις)
+### 5.2 Overlays
 
 A technique enabling execution of programs larger than the available memory partition.
 
@@ -2166,14 +2165,14 @@ $$
 
 ---
 
-## 7. Fixed Partitioning (Τμηματοποίηση Σταθερού Μεγέθους)
+## 7. Fixed Partitioning
 
 Memory is divided into a fixed number of partitions at system boot time. The number and sizes of partitions do not change during operation.
 
 - Each process occupies exactly **one partition**.
 - Maximum degree of multiprogramming = number of partitions.
 
-### 7.1 Equal-Size Partitions (Ίσα Τμήματα)
+### 7.1 Equal-Size Partitions
 
 All partitions have the same size.
 
@@ -2206,7 +2205,7 @@ Before loading:         After loading Process 1 (small):
 - Extremely inefficient memory use due to internal fragmentation.
 - Small processes waste large partition space.
 
-### 7.2 Unequal-Size Partitions (Άνισα Τμήματα)
+### 7.2 Unequal-Size Partitions
 
 Partitions have different sizes (e.g., 2 MB, 6 MB, 8 MB, 12 MB). This reduces internal fragmentation compared to equal-size partitions.
 
@@ -2223,16 +2222,16 @@ Partitions have different sizes (e.g., 2 MB, 6 MB, 8 MB, 12 MB). This reduces in
 
 ---
 
-## 8. Fragmentation (Κατακερματισμός)
+## 8. Fragmentation
 
 | Type | Definition | Cause | Visibility |
 | :--- | :--- | :--- | :--- |
-| **Internal** (εσωτερικός) | Allocated memory inside a partition that is not used by the process | Allocated block must be $\geq$ requested size | Visible only to the process holding the partition |
-| **External** (εξωτερικός) | Free memory outside all partitions that cannot satisfy any pending request despite sufficient total free space | Memory requests vary in size; free blocks become scattered | Visible to the OS / system-wide |
+| **Internal** | Allocated memory inside a partition that is not used by the process | Allocated block must be $\geq$ requested size | Visible only to the process holding the partition |
+| **External** | Free memory outside all partitions that cannot satisfy any pending request despite sufficient total free space | Memory requests vary in size; free blocks become scattered | Visible to the OS / system-wide |
 
 ---
 
-## 9. Dynamic Partitioning (Δυναμική Τμηματοποίηση)
+## 9. Dynamic Partitioning
 
 Partitions are created at runtime with exactly the size required by each process. The number and sizes of partitions vary throughout system operation.
 
@@ -2260,7 +2259,7 @@ Initial:                After P2 exits:        After P4 exits:
 +----------+            +----------+           +----------+
 ```
 
-**Solution — Compaction (Συμπίεση):**
+**Solution — Compaction:**
 Shift all processes toward one end of memory so all free space coalesces into one contiguous block.
 
 **Compaction costs:**
@@ -2269,7 +2268,7 @@ Shift all processes toward one end of memory so all free space coalesces into on
 
 ---
 
-## 10. Placement Algorithms (Αλγόριθμοι Τοποθέτησης)
+## 10. Placement Algorithms
 
 When a process requests memory, the OS must select which free block to allocate. The three standard algorithms apply to dynamic partitioning.
 
@@ -2307,7 +2306,7 @@ Scan memory **from the point of the last allocation**; allocate the **next** fre
 
 ---
 
-## 11. Swapping (Εναλλαγή)
+## 11. Swapping
 
 Swapping is the technique of temporarily moving an entire process from main memory to a **backing store** (secondary storage, typically a disk partition or swap file), freeing its memory for other processes.
 
@@ -2448,7 +2447,7 @@ Allocate 16K there. Remaining fragment: $36 - 16 = 20K$.
 
 ---
 
-### Exercise 4: Dynamic Partitioning — First-Fit (Άσκηση 2 from slides)
+### Exercise 4: Dynamic Partitioning — First-Fit (Exercise 2 from slides)
 
 **Problem:**
 Free memory blocks (in order): 100KB, 500KB, 200KB, 300KB, 600KB.
@@ -2480,7 +2479,7 @@ Free list: [100, 176, 200, 300, 183] (unchanged)
 
 ---
 
-### Exercise 5: Dynamic Partitioning — Best-Fit (Άσκηση 2 from slides)
+### Exercise 5: Dynamic Partitioning — Best-Fit (Exercise 2 from slides)
 
 **Problem:** Same initial free list and requests as Exercise 4. Apply **Best-Fit**.
 
@@ -2512,7 +2511,7 @@ All requests satisfied.
 
 ---
 
-### Exercise 6: Dynamic Partitioning — Next-Fit (Άσκηση 2 from slides)
+### Exercise 6: Dynamic Partitioning — Next-Fit (Exercise 2 from slides)
 
 **Problem:** Same initial free list [100, 500, 200, 300, 600]. Last allocation was before the **200KB block**. Apply **Next-Fit**.
 
@@ -2541,7 +2540,7 @@ Free list: [100, 388, 200, 88, 183] (unchanged)
 
 ---
 
-### Exercise 7: Placement Algorithm 1 (Άσκηση 1 from slides)
+### Exercise 7: Placement Algorithm 1 (Exercise 1 from slides)
 
 **Problem:**
 Memory image (left to right = low to high address). Shaded = occupied, white = free, black = last allocation point (12KB was last placed there).
@@ -4553,11 +4552,11 @@ ln <target_file> <link_name>
 
 In UNIX, every command-line program automatically opens three standard streams (files) when it runs:
 
-| Stream Name | File Descriptor | Default Device | Purpose |
-|-------------|-----------------|----------------|---------|
-| **Standard Input (`stdin`)** | 0 | Keyboard | Where the program reads input from. |
-| **Standard Output (`stdout`)**| 1 | Terminal Screen | Where the program sends its normal output. |
-| **Standard Error (`stderr`)** | 2 | Terminal Screen | Where the program sends error and diagnostic messages. |
+| Stream Name                    | File Descriptor | Default Device  | Purpose                                                |
+| ------------------------------ | --------------- | --------------- | ------------------------------------------------------ |
+| **Standard Input (`stdin`)**   | 0               | Keyboard        | Where the program reads input from.                    |
+| **Standard Output (`stdout`)** | 1               | Terminal Screen | Where the program sends its normal output.             |
+| **Standard Error (`stderr`)**  | 2               | Terminal Screen | Where the program sends error and diagnostic messages. |
 
 I/O Redirection allows you to detach these streams from their default devices and connect them to files or other programs.
 

@@ -1,47 +1,47 @@
 # Exam 7: Relational Algebra, JOINs & Security Policies
 
-Ερώτηση Πολλαπλής Επιλογής 1, Ποια από τις παρακάτω δηλώσεις είναι σωστή για τη Φυσική Σύνδεση (Natural Join);
-[ ] 1. Διατηρεί διπλές τις στήλες των κοινών γνωρισμάτων.
-[✅] 2. Συγχωνεύει αυτόματα τις στήλες με ίδιο όνομα και επιστρέφει την κοινή στήλη μία φορά.
-[ ] 3. Επιστρέφει όλους τους δυνατούς συνδυασμούς πλειάδων, όπως το Καρτεσιανό Γινόμενο.
-[ ] 4. Συμπληρώνει με NULL τις γραμμές που δεν ταιριάζουν.
+Multiple Choice Question 1. Which of the following statements is correct about the Natural Join;
+[ ] 1. It retains duplicate columns for the common attributes.
+[✅] 2. It automatically merges columns with the same name and returns the common column once.
+[ ] 3. It returns all possible combinations of tuples, like the Cartesian Product.
+[ ] 4. It fills unmatched rows with NULL.
 ---
 *solution:*
-Η Φυσική Σύνδεση εκτελεί αυτόματα έλεγχο ισότητας στα κοινά πεδία και συγχωνεύει την κοινή στήλη αποτρέποντας τη διπλή της εμφάνιση.
+The Natural Join automatically performs an equality check on the common fields and merges the common column, preventing its duplicate appearance.
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 2, Ποια τεχνική σπασίματος κωδικών χρησιμοποιεί προ-υπολογισμένους πίνακες αντιστοίχισης (pre-computed hashes) για την εύρεση της αρχικής τιμής ενός hash;
+Multiple Choice Question 2. Which password cracking technique uses pre-computed lookup tables (pre-computed hashes) to find the original value of a hash;
 [ ] 1. Dictionary Attack
 [ ] 2. Brute Force Attack
 [✅] 3. Rainbow Table Attack
 [ ] 4. Phishing
 ---
 *solution:*
-Οι Rainbow Tables επιτρέπουν τη σχεδόν ακαριαία αναζήτηση hashes χρησιμοποιώντας έτοιμους, προ-υπολογισμένους πίνακες για την ταύτιση με τους κωδικούς.
+Rainbow Tables allow almost instantaneous hash lookup by using ready-made, pre-computed tables to match against passwords.
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 3, Μια απειλή Κοινωνικής Μηχανικής (Social Engineering) βασίζεται κυρίως σε:
-[ ] 1. Αδυναμίες του υλικού (Hardware bugs).
-[ ] 2. Αλγορίθμους κρυπτογράφησης με ελαττώματα.
-[✅] 3. Χειραγώγηση και εξαπάτηση των χρηστών του συστήματος.
-[ ] 4. Δοκιμή όλων των συνδυασμών χαρακτήρων.
+Multiple Choice Question 3. A Social Engineering threat is based mainly on:
+[ ] 1. Hardware bugs.
+[ ] 2. Cryptography algorithms with flaws.
+[✅] 3. Manipulation and deception of the system's users.
+[ ] 4. Testing all combinations of characters.
 ---
 *solution:*
-Η Κοινωνική Μηχανική εκμεταλλεύεται ανθρώπινες αδυναμίες, εμπιστοσύνη ή άγνοια, ώστε να αποσπάσει ευαίσθητα δεδομένα (π.χ. μέσω Phishing ή Tailgating).
+Social Engineering exploits human weaknesses, trust or ignorance in order to extract sensitive data (e.g., through Phishing or Tailgating).
 ---
 
-Άσκηση 4, Δίνονται οι πίνακες Πελάτης(Κωδικός, Όνομα) με 5 εγγραφές και Παραγγελία(Κωδ_Παραγγελίας, Κωδ_Πελάτη) με 10 εγγραφές. Πόσες εγγραφές θα επιστρέψει το Καρτεσιανό Γινόμενο (CROSS JOIN) των δύο πινάκων;
+Exercise 4. Given the tables Customer(Code, Name) with 5 records and Order(Order_Code, Customer_Code) with 10 records. How many records will the Cartesian Product (CROSS JOIN) of the two tables return;
 ---
 *solution:*
-Το Καρτεσιανό Γινόμενο συνδυάζει κάθε εγγραφή του πρώτου πίνακα με κάθε εγγραφή του δεύτερου πίνακα.
-Επομένως: 5 εγγραφές * 10 εγγραφές = 50 εγγραφές.
+The Cartesian Product combines each record of the first table with each record of the second table.
+Therefore: 5 records * 10 records = 50 records.
 ---
 
-Άσκηση 5, Σύμφωνα με τις πολιτικές ασφάλειας πληροφοριών, ποια είναι τα βασικά χαρακτηριστικά ενός "Ισχυρού Password" όσον αφορά το μήκος και τη συχνότητα αλλαγής;
+Exercise 5. According to information security policies, what are the basic characteristics of a "Strong Password" regarding length and frequency of change;
 ---
 *solution:*
-Βάσει των χρυσών κανόνων της πολιτικής ασφαλείας:
-- Ελάχιστο μήκος κωδικού: Τουλάχιστον 15 χαρακτήρες.
-- Συχνότητα αλλαγής: Υποχρεωτική αλλαγή τουλάχιστον κάθε 6 μήνες.
-(Επιπλέον: πρέπει να περιέχει συνδυασμό κεφαλαίων, μικρών, αριθμών και συμβόλων, και να μην αποτελεί λέξη λεξικού).
+Based on the golden rules of the security policy:
+- Minimum password length: At least 15 characters.
+- Change frequency: Mandatory change at least every 6 months.
+(Additionally: it must contain a combination of uppercase letters, lowercase letters, numbers and symbols, and must not be a dictionary word).
 ---

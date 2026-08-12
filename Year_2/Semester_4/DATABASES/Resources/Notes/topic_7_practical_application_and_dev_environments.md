@@ -1,55 +1,55 @@
-# Πρακτική Εφαρμογή & Περιβάλλοντα Ανάπτυξης
+# Practical Application & Development Environments
 *Practical Application & Development Environments*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Εργαλεία, Συστήματα & Αρχιτεκτονική](#εργαλεία-συστήματα--αρχιτεκτονική)
+1. [Introduction](#introduction)
+2. [Tools, Systems & Architecture](#tools-systems--architecture)
    - [MySQL Server](#mysql-server)
    - [MySQL Workbench](#mysql-workbench)
    - [XAMPP & phpMyAdmin](#xampp--phpmyadmin)
-   - [Συγκριτικός Πίνακας: Εργαλεία Διαχείρισης](#συγκριτικός-πίνακας-εργαλεία-διαχείρισης)
-3. [Υλοποίηση σε Πραγματικές Συνθήκες](#υλοποίηση-σε-πραγματικές-συνθήκες)
-   - [Προσδιορισμός Κατάλληλων Τύπων Δεδομένων](#προσδιορισμός-κατάλληλων-τύπων-δεδομένων)
-   - [Υλοποίηση Περιορισμών (NOT NULL, UNIQUE, DEFAULT)](#υλοποίηση-περιορισμών-not-null-unique-default)
-   - [Σύνδεση Πινάκων μέσω Ξένων Κλειδιών (FOREIGN KEY ... REFERENCES)](#σύνδεση-πινάκων-μέσω-ξένων-κλειδιών-foreign-key--references)
-   - [Διαχείριση Σχέσεων "Πολλά-προς-Πολλά" (Ενδιάμεσος Πίνακας)](#διαχείριση-σχέσεων-πολλά-προς-πολλά-ενδιάμεσος-πίνακας)
-4. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-5. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+   - [Comparative Table: Management Tools](#comparative-table-management-tools)
+3. [Implementation in Real-World Conditions](#implementation-in-real-world-conditions)
+   - [Determining Appropriate Data Types](#determining-appropriate-data-types)
+   - [Implementing Constraints (NOT NULL, UNIQUE, DEFAULT)](#implementing-constraints-not-null-unique-default)
+   - [Connecting Tables via Foreign Keys (FOREIGN KEY ... REFERENCES)](#connecting-tables-via-foreign-keys-foreign-key--references)
+   - [Managing "Many-to-Many" Relationships (Junction Table)](#managing-many-to-many-relationships-junction-table)
+4. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+5. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Η θεωρητική γνώση των μοντέλων δεδομένων, της Σχεσιακής Άλγεβρας και της SQL αποκτά πλήρη αξία μόνο όταν εφαρμοστεί σε πραγματικό λογισμικό. Στο πλαίσιο του μαθήματος, το κυρίαρχο σύστημα υλοποίησης είναι το **MySQL** — ένα από τα πιο διαδεδομένα ανοιχτού κώδικα **Relational Database Management Systems (RDBMS)** παγκοσμίως. Η πρακτική αυτή ενότητα καλύπτει τόσο τα **εργαλεία** (MySQL Server, MySQL Workbench, XAMPP, phpMyAdmin) όσο και τις **αποφάσεις σχεδιασμού** που λαμβάνει ο διαχειριστής ΒΔ κατά την υλοποίηση: επιλογή τύπων δεδομένων, ορισμό περιορισμών, δήλωση Ξένων Κλειδιών και χειρισμό σχέσεων N:M μέσω ενδιάμεσων πινάκων. Η ικανότητα να μεταφράζεται ένα ER διάγραμμα ή ένα Σχεσιακό Σχήμα σε λειτουργική MySQL βάση δεδομένων αποτελεί θεμελιώδη δεξιότητα κάθε μηχανικού λογισμικού.
+The theoretical knowledge of data models, Relational Algebra, and SQL gains full value only when applied to real software. In the context of this course, the dominant implementation system is **MySQL** — one of the most widely used open-source **Relational Database Management Systems (RDBMS)** worldwide. This practical section covers both the **tools** (MySQL Server, MySQL Workbench, XAMPP, phpMyAdmin) and the **design decisions** the database administrator makes during implementation: choosing data types, defining constraints, declaring Foreign Keys, and handling N:M relationships through junction tables. The ability to translate an ER diagram or a Relational Schema into a functional MySQL database is a fundamental skill for every software engineer.
 
 ---
 
-## Εργαλεία, Συστήματα & Αρχιτεκτονική
+## Tools, Systems & Architecture
 *Tools, Systems & Architecture*
 
-Η αρχιτεκτονική ενός συστήματος MySQL βασίζεται στο μοντέλο **client-server**: ο **MySQL Server** εκτελείται στο παρασκήνιο ως υπηρεσία (service/daemon) που διαχειρίζεται τα δεδομένα, ενώ διάφορα **client εργαλεία** συνδέονται σε αυτόν για να εκτελέσουν ερωτήματα και διαχειριστικές εργασίες.
+The architecture of a MySQL system is based on the **client-server** model: the **MySQL Server** runs in the background as a service (service/daemon) that manages the data, while various **client tools** connect to it to run queries and administrative tasks.
 
 ```text
-  Αρχιτεκτονική Client-Server MySQL:
+  MySQL Client-Server Architecture:
 
-  +---------------------+        TCP/IP ή Socket        +---------------------+
+  +---------------------+        TCP/IP or Socket      +---------------------+
   |     CLIENT TOOLS    |  <-------------------------->  |    MySQL Server     |
   +---------------------+                               +---------------------+
   |  mysql CLI          |                               |  - Query Engine     |
   |  MySQL Workbench    |                               |  - Storage Engine   |
   |  phpMyAdmin         |                               |    (InnoDB)         |
-  |  Εφαρμογή (PHP/     |                               |  - Buffer Pool      |
+  |  Application (PHP/  |                               |  - Buffer Pool      |
   |  Python/Java)       |                               |  - Log Files        |
   +---------------------+                               +---------------------+
                                                                |
                                                         +------+------+
-                                                        |  Δεδομένα  |
-                                                        |  (Αρχεία   |
-                                                        |  Δίσκου)   |
+                                                        |  Data      |
+                                                        |  (Disk     |
+                                                        |  Files)    |
                                                         +------------+
 ```
 
@@ -58,20 +58,20 @@
 ### MySQL Server
 *The Backend Database Management System*
 
-Ο **MySQL Server** είναι ο πυρήνας (backend) του συστήματος — η διεργασία που **αποθηκεύει, οργανώνει και εξυπηρετεί** τα δεδομένα. Εκτελείται συνεχώς ως **υπηρεσία** του λειτουργικού συστήματος και ακούει για εισερχόμενες συνδέσεις από clients (από προεπιλογή στη θύρα **3306**). Δεν έχει γραφικό περιβάλλον — η αλληλεπίδραση γίνεται μέσω SQL εντολών που αποστέλλονται από ένα client.
+The **MySQL Server** is the core (backend) of the system — the process that **stores, organizes, and serves** the data. It runs continuously as a **service** of the operating system and listens for incoming connections from clients (by default on port **3306**). It has no graphical interface — interaction takes place through SQL statements sent by a client.
 
-**Κύρια χαρακτηριστικά:**
-- Υποστηρίζει πολλαπλούς ταυτόχρονους χρήστες (**Concurrency**) μέσω transaction management.
-- Χρησιμοποιεί κατά κύριο λόγο τη **Storage Engine InnoDB**, η οποία υποστηρίζει Foreign Keys, Transactions και ACID εγγυήσεις.
-- Διαχειρίζεται δικαιώματα πρόσβασης (**privileges**) ανά χρήστη και ανά βάση δεδομένων.
+**Main features:**
+- Supports multiple concurrent users (**Concurrency**) through transaction management.
+- Primarily uses the **InnoDB Storage Engine**, which supports Foreign Keys, Transactions, and ACID guarantees.
+- Manages access rights (**privileges**) per user and per database.
 
-**Σύνδεση μέσω γραμμής εντολών (mysql CLI):**
+**Connecting via the command line (mysql CLI):**
 
 ```sql
--- Σύνδεση ως root χρήστης στον τοπικό MySQL Server
+-- Connecting as root user to the local MySQL Server
 mysql -u root -p
 
--- Αφού συνδεθεί, εμφάνιση διαθέσιμων βάσεων
+-- After connecting, display the available databases
 SHOW DATABASES;
 ```
 
@@ -89,21 +89,21 @@ SHOW DATABASES;
   5 rows in set (0.00 sec)
 ```
 
-**Exam Note:** Οι βάσεις `information_schema`, `mysql`, `performance_schema` και `sys` είναι **συστημικές βάσεις** που δημιουργούνται αυτόματα από τον MySQL Server. Δεν πρέπει ποτέ να τροποποιηθούν χειροκίνητα.
+**Exam Note:** The databases `information_schema`, `mysql`, `performance_schema`, and `sys` are **system databases** created automatically by the MySQL Server. They must never be modified manually.
 
 ---
 
 ### MySQL Workbench
 *Graphical Database Management Environment / GUI Client*
 
-Το **MySQL Workbench** είναι το επίσημο **γραφικό περιβάλλον (GUI)** που παρέχει η Oracle για τη διαχείριση MySQL Server. Συνδυάζει σε ένα εργαλείο:
-- **SQL Editor**: Σύνταξη και εκτέλεση SQL ερωτημάτων με syntax highlighting και αυτόματη συμπλήρωση.
-- **Visual Schema Designer (EER Diagram)**: Οπτική σχεδίαση και τροποποίηση σχημάτων βάσεων δεδομένων — δημιουργία πινάκων, ορισμός σχέσεων με drag-and-drop.
-- **Server Administration**: Διαχείριση χρηστών, δικαιωμάτων, status του server και log files.
-- **Data Export / Import**: Εισαγωγή και εξαγωγή δεδομένων σε μορφές SQL dump, CSV κ.ά.
+**MySQL Workbench** is the official **graphical environment (GUI)** provided by Oracle for managing MySQL Server. It combines in a single tool:
+- **SQL Editor**: Writing and executing SQL queries with syntax highlighting and autocompletion.
+- **Visual Schema Designer (EER Diagram)**: Visual design and modification of database schemas — creating tables, defining relationships with drag-and-drop.
+- **Server Administration**: Managing users, privileges, server status, and log files.
+- **Data Export / Import**: Importing and exporting data in SQL dump, CSV, and other formats.
 
 ```text
-  MySQL Workbench — Περιοχές Εργασίας:
+  MySQL Workbench — Work Areas:
 
   +-----------------------------------------------------------+
   |                    MySQL Workbench                        |
@@ -120,230 +120,230 @@ SHOW DATABASES;
   +------------------+----------------------------------------+
 ```
 
-**Αναλογία**: Το MySQL Workbench είναι σαν ένα **cockpit αεροπλάνου** — παρέχει όλες τις πληροφορίες και τα χειριστήρια σε ένα γραφικό περιβάλλον, ενώ ο MySQL Server είναι οι κινητήρες που πραγματικά εκτελούν τη δουλειά.
+**Analogy**: MySQL Workbench is like an **airplane cockpit** — it provides all the information and controls in a graphical environment, while the MySQL Server is the engines that actually do the work.
 
 ---
 
 ### XAMPP & phpMyAdmin
 *Web-Based Management Package and Services*
 
-Το **XAMPP** (X = Cross-platform, A = Apache, M = MariaDB/MySQL, P = PHP, P = Perl) είναι ένα **πακέτο εγκατάστασης** που ενσωματώνει σε ένα installer:
-- **Apache HTTP Server**: Web server για εξυπηρέτηση PHP εφαρμογών.
+**XAMPP** (X = Cross-platform, A = Apache, M = MariaDB/MySQL, P = PHP, P = Perl) is an **installation package** that bundles in one installer:
+- **Apache HTTP Server**: Web server for serving PHP applications.
 - **MySQL / MariaDB**: Relational database server.
 - **PHP**: Server-side scripting language.
-- **phpMyAdmin**: Web-based εργαλείο διαχείρισης MySQL μέσω browser.
+- **phpMyAdmin**: Web-based tool for managing MySQL through a browser.
 
-Το **phpMyAdmin** είναι μια PHP εφαρμογή που εκτελείται στον Apache και παρέχει **πλήρη διαχείριση MySQL μέσω web browser**, χωρίς εγκατάσταση επιπλέον λογισμικού. Είναι ιδανικό για web hosting περιβάλλοντα όπου δεν υπάρχει άμεση πρόσβαση CLI.
+**phpMyAdmin** is a PHP application that runs on Apache and provides **full MySQL management through a web browser**, without installing additional software. It is ideal for web hosting environments where there is no direct CLI access.
 
 ```text
-  XAMPP Stack — Αρχιτεκτονική:
+  XAMPP Stack — Architecture:
 
   Browser (Client)
        |
-       | HTTP Request (π.χ. http://localhost/phpmyadmin)
+       | HTTP Request (e.g., http://localhost/phpmyadmin)
        v
   +--------------------+
-  |   Apache Server    |  <-- Εκτελεί PHP scripts
+  |   Apache Server    |  <-- Runs PHP scripts
   +--------------------+
        |
-       | MySQL Protocol (θύρα 3306)
+       | MySQL Protocol (port 3306)
        v
   +--------------------+
-  |  MySQL / MariaDB   |  <-- Αποθηκεύει τα δεδομένα
+  |  MySQL / MariaDB   |  <-- Stores the data
   +--------------------+
 
-  Η phpMyAdmin είναι ένα σύνολο PHP αρχείων στον Apache
-  που δρουν ως web-based MySQL client.
+  phpMyAdmin is a set of PHP files on Apache
+  that act as a web-based MySQL client.
 ```
 
-**Key Distinction:** Το XAMPP χρησιμοποιείται συχνά για **τοπική ανάπτυξη (localhost)** web εφαρμογών, ενώ σε περιβάλλον παραγωγής (production) τα στοιχεία (Apache, MySQL, PHP) εγκαθίστανται και διαμορφώνονται χωριστά για λόγους ασφάλειας και απόδοσης.
+**Key Distinction:** XAMPP is often used for **local development (localhost)** of web applications, while in a production environment the components (Apache, MySQL, PHP) are installed and configured separately for security and performance reasons.
 
 ---
 
-### Συγκριτικός Πίνακας: Εργαλεία Διαχείρισης
+### Comparative Table: Management Tools
 *Comparative Table: Management Tools*
 
-| Χαρακτηριστικό | MySQL Server (CLI) | MySQL Workbench | phpMyAdmin |
+| Characteristic | MySQL Server (CLI) | MySQL Workbench | phpMyAdmin |
 |---|---|---|---|
-| **Τύπος** | CLI / Backend Service | Desktop GUI Client | Web-based GUI Client |
-| **Διεπαφή** | Γραμμή εντολών | Γραφική (Desktop App) | Browser |
-| **Εγκατάσταση** | Μόνο | Χωριστά (requires Server) | Μέρος XAMPP ή standalone |
-| **Σχεδίαση ER** | Όχι | Ναι (Visual EER Designer) | Περιορισμένα |
-| **Κατάλληλο για** | Scripting, automation | Ανάπτυξη, σχεδίαση | Web hosting, γρήγορη πρόσβαση |
-| **Απαιτεί PHP/Apache** | Όχι | Όχι | Ναι |
-| **Import/Export** | mysqldump CLI | Ναι (GUI) | Ναι (GUI) |
+| **Type** | CLI / Backend Service | Desktop GUI Client | Web-based GUI Client |
+| **Interface** | Command line | Graphical (Desktop App) | Browser |
+| **Installation** | Only | Separately (requires Server) | Part of XAMPP or standalone |
+| **ER design** | No | Yes (Visual EER Designer) | Limited |
+| **Suitable for** | Scripting, automation | Development, design | Web hosting, quick access |
+| **Requires PHP/Apache** | No | No | Yes |
+| **Import/Export** | mysqldump CLI | Yes (GUI) | Yes (GUI) |
 
 ---
 
-## Υλοποίηση σε Πραγματικές Συνθήκες
+## Implementation in Real-World Conditions
 *Implementation in Real-World Conditions*
 
-Η υλοποίηση ενός Σχεσιακού Σχήματος σε MySQL απαιτεί πέρα από τη γνώση σύνταξης SQL και μια σειρά από **αποφάσεις σχεδιασμού** που επηρεάζουν την ακεραιότητα, την απόδοση και τη συντηρησιμότητα της βάσης. Οι κρίσιμες αποφάσεις αφορούν: ποιος **τύπος δεδομένων** ταιριάζει σε κάθε πεδίο, ποιοι **περιορισμοί** (constraints) διασφαλίζουν την ποιότητα των δεδομένων, και πώς υλοποιούνται οι **σχέσεις** μεταξύ πινάκων.
+Implementing a Relational Schema in MySQL requires, beyond knowledge of SQL syntax, a series of **design decisions** that affect the integrity, performance, and maintainability of the database. The critical decisions concern: which **data type** fits each field, which **constraints** ensure data quality, and how the **relationships** between tables are implemented.
 
 ---
 
-### Προσδιορισμός Κατάλληλων Τύπων Δεδομένων
+### Determining Appropriate Data Types
 *Determining Appropriate Data Types*
 
-Ο **τύπος δεδομένων** (data type) κάθε στήλης ορίζει το **είδος και το εύρος των τιμών** που μπορεί να αποθηκεύσει. Η επιλογή του σωστού τύπου είναι κρίσιμη: ένας τύπος πολύ μεγάλος σπαταλά αποθηκευτικό χώρο, ενώ ένας πολύ μικρός μπορεί να μην χωρέσει τα δεδομένα και να προκαλέσει σφάλμα ή απώλεια πληροφορίας.
+The **data type** of each column defines the **kind and range of values** it can store. Choosing the correct type is critical: a type that is too large wastes storage space, while one that is too small may not fit the data and can cause an error or loss of information.
 
-**Κύριες κατηγορίες τύπων δεδομένων MySQL:**
+**Main categories of MySQL data types:**
 
-| Κατηγορία | Τύπος | Αποθήκευση / Εύρος | Τυπική Χρήση |
+| Category | Type | Storage / Range | Typical Use |
 |---|---|---|---|
-| **Ακέραιοι** | `TINYINT` | 1 byte, -128 έως 127 (ή 0-255 UNSIGNED) | Boolean flags, μικρές κατηγορίες |
-| | `SMALLINT` | 2 bytes, -32,768 έως 32,767 | Μικροί αριθμοί |
-| | `INT` / `INTEGER` | 4 bytes, ~-2.1 δισ. έως 2.1 δισ. | IDs, ποσότητες, counts |
-| | `BIGINT` | 8 bytes, ~-9.2 · 10¹⁸ έως 9.2 · 10¹⁸ | Πολύ μεγάλοι αριθμοί, timestamps |
-| **Δεκαδικοί** | `FLOAT` | 4 bytes | Κατά προσέγγιση δεκαδικά |
-| | `DOUBLE` | 8 bytes | Επιστημονικοί υπολογισμοί |
-| | `DECIMAL(M,D)` | Μεταβλητό | Χρηματικά ποσά (ακριβής αναπαράσταση) |
-| **Κείμενο** | `CHAR(N)` | Σταθερό N bytes (1-255) | Κωδικοί σταθερού μήκους (π.χ. ISO χώρας) |
-| | `VARCHAR(N)` | Μεταβλητό, έως N bytes (1-65535) | Ονόματα, emails, τίτλοι |
-| | `TEXT` | Έως 65,535 bytes | Μεγάλα κείμενα (περιγραφές, σχόλια) |
-| **Ημερομηνία/Ώρα** | `DATE` | 3 bytes, `YYYY-MM-DD` | Ημερομηνία γέννησης, έναρξης |
-| | `DATETIME` | 8 bytes, `YYYY-MM-DD HH:MM:SS` | Χρονοσφραγίδα γεγονότος |
-| | `TIMESTAMP` | 4 bytes, αυτόματη ενημέρωση UTC | Τελευταία τροποποίηση εγγραφής |
-| | `TIME` | 3 bytes, `HH:MM:SS` | Διάρκεια, ωράριο |
-| **Λογικός** | `BOOLEAN` / `TINYINT(1)` | 1 byte (0 = FALSE, 1 = TRUE) | Σημαίες κατάστασης |
+| **Integers** | `TINYINT` | 1 byte, -128 to 127 (or 0-255 UNSIGNED) | Boolean flags, small categories |
+| | `SMALLINT` | 2 bytes, -32,768 to 32,767 | Small numbers |
+| | `INT` / `INTEGER` | 4 bytes, ~-2.1 billion to 2.1 billion | IDs, quantities, counts |
+| | `BIGINT` | 8 bytes, ~-9.2 · 10¹⁸ to 9.2 · 10¹⁸ | Very large numbers, timestamps |
+| **Decimals** | `FLOAT` | 4 bytes | Approximate decimals |
+| | `DOUBLE` | 8 bytes | Scientific calculations |
+| | `DECIMAL(M,D)` | Variable | Monetary amounts (exact representation) |
+| **Text** | `CHAR(N)` | Fixed N bytes (1-255) | Fixed-length codes (e.g., country ISO) |
+| | `VARCHAR(N)` | Variable, up to N bytes (1-65535) | Names, emails, titles |
+| | `TEXT` | Up to 65,535 bytes | Large texts (descriptions, comments) |
+| **Date/Time** | `DATE` | 3 bytes, `YYYY-MM-DD` | Birth date, start date |
+| | `DATETIME` | 8 bytes, `YYYY-MM-DD HH:MM:SS` | Event timestamp |
+| | `TIMESTAMP` | 4 bytes, automatic UTC update | Last record modification |
+| | `TIME` | 3 bytes, `HH:MM:SS` | Duration, schedule |
+| **Boolean** | `BOOLEAN` / `TINYINT(1)` | 1 byte (0 = FALSE, 1 = TRUE) | Status flags |
 
-**Παράδειγμα — Δημιουργία πίνακα `Foititis` με επιλεγμένους τύπους:**
+**Example — Creating table `Foititis` with selected types:**
 
 ```sql
 CREATE TABLE Foititis (
-    -- INT: ακέραιος αριθμητικός Αριθμός Μητρώου, μέχρι ~2 δισ.
+    -- INT: integer Registration Number, up to ~2 billion
     am           INT            NOT NULL,
-    -- VARCHAR(50): μεταβλητού μήκους κείμενο, έως 50 χαρακτήρες
+    -- VARCHAR(50): variable-length text, up to 50 characters
     onoma        VARCHAR(50)    NOT NULL,
     eponymo      VARCHAR(50)    NOT NULL,
-    -- VARCHAR(100): email μπορεί να είναι μεγαλύτερο
+    -- VARCHAR(100): email may be longer
     email        VARCHAR(100),
-    -- DATE: αποθηκεύει μόνο ημερομηνία χωρίς ώρα
+    -- DATE: stores only the date without time
     hmerominia   DATE,
-    -- INT: Foreign Key προς dept_id του πίνακα Tmima
+    -- INT: Foreign Key to dept_id of the Tmima table
     dept_id      INT            NOT NULL,
     PRIMARY KEY (am)
 );
 ```
 
-**Σύγκριση `CHAR` vs `VARCHAR`:**
+**Comparison of `CHAR` vs `VARCHAR`:**
 
-| Χαρακτηριστικό | `CHAR(N)` | `VARCHAR(N)` |
+| Characteristic | `CHAR(N)` | `VARCHAR(N)` |
 |---|---|---|
-| **Μήκος αποθήκευσης** | Πάντα N bytes (συμπληρώνεται με κενά) | Πραγματικό μήκος + 1-2 bytes overhead |
-| **Απόδοση** | Ταχύτερο για σταθερό μήκος | Αποδοτικότερο για μεταβλητό μήκος |
-| **Κατάλληλο για** | Κωδικοί χώρας (`GR`, `US`), ΑΦΜ | Ονόματα, emails, διευθύνσεις |
+| **Storage length** | Always N bytes (padded with spaces) | Actual length + 1-2 bytes overhead |
+| **Performance** | Faster for fixed length | More efficient for variable length |
+| **Suitable for** | Country codes (`GR`, `US`), tax ID | Names, emails, addresses |
 
-**Exam Note:** Για χρηματικά ποσά, **ποτέ** δεν χρησιμοποιείται `FLOAT` ή `DOUBLE` λόγω αποσφαλμάτωσης κινητής υποδιαστολής (floating-point rounding errors). Χρησιμοποιείται `DECIMAL(10, 2)` (π.χ. 10 ψηφία συνολικά, 2 δεκαδικά) για ακριβή αναπαράσταση.
+**Exam Note:** For monetary amounts, `FLOAT` or `DOUBLE` is **never** used because of floating-point rounding errors. `DECIMAL(10, 2)` (e.g., 10 digits in total, 2 decimal places) is used for exact representation.
 
 ---
 
-### Υλοποίηση Περιορισμών (NOT NULL, UNIQUE, DEFAULT)
+### Implementing Constraints (NOT NULL, UNIQUE, DEFAULT)
 *Implementing Constraints*
 
-Οι **περιορισμοί (Constraints)** είναι κανόνες που επιβάλλει η MySQL αυτόματα σε κάθε `INSERT` ή `UPDATE`, διασφαλίζοντας την **ακεραιότητα των δεδομένων** (data integrity). Ορίζονται κατά τη δημιουργία (`CREATE TABLE`) ή προστίθενται αργότερα (`ALTER TABLE`).
+**Constraints** are rules that MySQL enforces automatically on every `INSERT` or `UPDATE`, ensuring **data integrity**. They are defined at creation time (`CREATE TABLE`) or added later (`ALTER TABLE`).
 
-**Κύριοι περιορισμοί:**
+**Main constraints:**
 
-| Περιορισμός | Σκοπός | Παραβίαση |
+| Constraint | Purpose | Violation |
 |---|---|---|
-| `NOT NULL` | Απαγορεύει NULL τιμές σε μια στήλη | `ERROR 1048: Column cannot be null` |
-| `UNIQUE` | Διασφαλίζει μοναδικότητα τιμών (NULL επιτρέπεται) | `ERROR 1062: Duplicate entry` |
-| `DEFAULT value` | Ορίζει προεπιλεγμένη τιμή αν δεν δοθεί | — (δεν προκαλεί σφάλμα) |
-| `PRIMARY KEY` | `NOT NULL` + `UNIQUE` + index | `ERROR 1062` ή `ERROR 1048` |
-| `CHECK (expr)` | Επαληθεύει λογική συνθήκη (MySQL 8.0.16+) | `ERROR 3819: Check constraint violated` |
+| `NOT NULL` | Prohibits NULL values in a column | `ERROR 1048: Column cannot be null` |
+| `UNIQUE` | Ensures uniqueness of values (NULL allowed) | `ERROR 1062: Duplicate entry` |
+| `DEFAULT value` | Sets a default value if none is given | — (does not cause an error) |
+| `PRIMARY KEY` | `NOT NULL` + `UNIQUE` + index | `ERROR 1062` or `ERROR 1048` |
+| `CHECK (expr)` | Verifies a logical condition (MySQL 8.0.16+) | `ERROR 3819: Check constraint violated` |
 
-**Παράδειγμα — Πίνακας `Mathima` με πολλαπλούς περιορισμούς:**
+**Example — Table `Mathima` with multiple constraints:**
 
 ```sql
 CREATE TABLE Mathima (
-    -- PRIMARY KEY: NOT NULL + UNIQUE αυτόματα
+    -- PRIMARY KEY: NOT NULL + UNIQUE automatically
     mathima_id   INT           NOT NULL AUTO_INCREMENT,
-    -- NOT NULL: ο τίτλος είναι υποχρεωτικός
+    -- NOT NULL: the title is mandatory
     titlos       VARCHAR(100)  NOT NULL,
-    -- UNIQUE: ο κωδικός μαθήματος πρέπει να είναι μοναδικός
+    -- UNIQUE: the course code must be unique
     kodikos      VARCHAR(10)   NOT NULL UNIQUE,
-    -- DEFAULT: αν δεν δοθούν μονάδες ECTS, θεωρούνται 5
+    -- DEFAULT: if no ECTS credits are given, they are considered 5
     ects         TINYINT       NOT NULL DEFAULT 5,
-    -- NULL επιτρέπεται: η περιγραφή είναι προαιρετική
+    -- NULL allowed: the description is optional
     perigrafi    TEXT,
-    -- CHECK: οι μονάδες ECTS πρέπει να είναι μεταξύ 1 και 30
+    -- CHECK: the ECTS credits must be between 1 and 30
     CONSTRAINT chk_ects CHECK (ects BETWEEN 1 AND 30),
     PRIMARY KEY (mathima_id)
 );
 ```
 
-**Επίδειξη συμπεριφοράς περιορισμών:**
+**Demonstration of constraint behavior:**
 
-**Κατάσταση πριν:**
+**Before:**
 ```text
   mysql> SELECT * FROM Mathima;
   Empty set (0.00 sec)
 ```
 
-**Επιτυχής εισαγωγή (με DEFAULT):**
+**Successful insertion (with DEFAULT):**
 ```sql
--- Δεν δίνεται τιμή για ects — λαμβάνει DEFAULT 5
+-- No value is given for ects - it receives DEFAULT 5
 INSERT INTO Mathima (titlos, kodikos)
-VALUES ('Βάσεις Δεδομένων', 'CS301');
+VALUES ('Databases', 'CS301');
 ```
 
-**Κατάσταση μετά:**
+**After:**
 ```text
   mysql> SELECT * FROM Mathima;
   +------------+------------------+---------+------+-----------+
   | mathima_id | titlos           | kodikos | ects | perigrafi |
   +------------+------------------+---------+------+-----------+
-  |          1 | Βάσεις Δεδομένων | CS301   |    5 | NULL      |
+  |          1 | Databases        | CS301   |    5 | NULL      |
   +------------+------------------+---------+------+-----------+
 ```
 
-**Παραβίαση NOT NULL:**
+**NOT NULL violation:**
 ```sql
--- Δεν δίνεται τιμή για titlos (NOT NULL) — σφάλμα
+-- No value is given for titlos (NOT NULL) - error
 INSERT INTO Mathima (kodikos) VALUES ('CS302');
 -- ERROR 1364 (HY000): Field 'titlos' doesn't have a default value
 ```
 
-**Παραβίαση UNIQUE:**
+**UNIQUE violation:**
 ```sql
--- Ο κωδικός 'CS301' υπάρχει ήδη — παραβίαση UNIQUE
+-- The code 'CS301' already exists - UNIQUE violation
 INSERT INTO Mathima (titlos, kodikos)
-VALUES ('Άλλο Μάθημα', 'CS301');
+VALUES ('Another Course', 'CS301');
 -- ERROR 1062 (23000): Duplicate entry 'CS301' for key 'mathima.kodikos'
 ```
 
-**Παραβίαση CHECK:**
+**CHECK violation:**
 ```sql
--- ects = 50 υπερβαίνει το CHECK constraint (1-30)
+-- ects = 50 exceeds the CHECK constraint (1-30)
 INSERT INTO Mathima (titlos, kodikos, ects)
-VALUES ('Μάθημα Τεστ', 'CS399', 50);
+VALUES ('Test Course', 'CS399', 50);
 -- ERROR 3819 (HY000): Check constraint 'chk_ects' is violated.
 ```
 
-**Key Distinction:** Η `UNIQUE` constraint επιτρέπει **πολλαπλές NULL τιμές** στην ίδια στήλη (η NULL δεν θεωρείται ίση με καμία τιμή, ούτε με άλλη NULL). Αντίθετα, η `PRIMARY KEY` **δεν επιτρέπει** καμία NULL τιμή.
+**Key Distinction:** The `UNIQUE` constraint allows **multiple NULL values** in the same column (NULL is not considered equal to any value, nor to another NULL). In contrast, `PRIMARY KEY` **does not allow** any NULL value.
 
 ---
 
-### Σύνδεση Πινάκων μέσω Ξένων Κλειδιών (FOREIGN KEY ... REFERENCES)
+### Connecting Tables via Foreign Keys (FOREIGN KEY ... REFERENCES)
 *Connecting Tables via Foreign Keys*
 
-Το **Ξένο Κλειδί (Foreign Key)** είναι ο μηχανισμός με τον οποίο η MySQL επιβάλλει **Αναφορική Ακεραιότητα (Referential Integrity)** μεταξύ δύο πινάκων. Διασφαλίζει ότι κάθε τιμή στη στήλη-FK του **θυγατρικού πίνακα (child table)** αντιστοιχεί σε μια υπάρχουσα τιμή στον **γονικό πίνακα (parent table)**.
+The **Foreign Key** is the mechanism by which MySQL enforces **Referential Integrity** between two tables. It ensures that every value in the FK column of the **child table** corresponds to an existing value in the **parent table**.
 
-**Κανόνες Αναφορικής Ακεραιότητας:**
-- Δεν μπορεί να εισαχθεί εγγραφή στο child με τιμή FK που δεν υπάρχει στον parent.
-- Δεν μπορεί να διαγραφεί εγγραφή από τον parent αν υπάρχουν child εγγραφές που την αναφέρουν.
+**Referential Integrity rules:**
+- No record can be inserted into the child with an FK value that does not exist in the parent.
+- No record can be deleted from the parent if child records reference it.
 
-**Σύνταξη δήλωσης FOREIGN KEY:**
+**FOREIGN KEY declaration syntax:**
 
 ```sql
--- Inline ορισμός (για απλές FK)
+-- Inline definition (for simple FKs)
 CREATE TABLE child_table (
     fk_column   INT,
     FOREIGN KEY (fk_column) REFERENCES parent_table (pk_column)
 );
 
--- Ορισμός με όνομα constraint (προτεινόμενος — πιο αναγνώσιμος)
+-- Definition with a constraint name (recommended - more readable)
 CREATE TABLE child_table (
     fk_column   INT,
     CONSTRAINT fk_child_parent
@@ -354,16 +354,16 @@ CREATE TABLE child_table (
 );
 ```
 
-**Παράδειγμα — Σχέση `Foititis` → `Tmima` (N:1):**
+**Example — Relationship `Foititis` → `Tmima` (N:1):**
 
 ```text
-  Σχεσιακό Σχήμα:
+  Relational Schema:
   Tmima(<u>dept_id</u>, onoma_tmimatos, sxoli)
   Foititis(<u>am</u>, onoma, eponymo, email, hmerominia, #dept_id)
 
-  ER Αναπαράσταση:
+  ER Representation:
   +-------------+            1:N           +------------+
-  |    TMIMA    |  <>---( Ανήκει σε )---<  |  FOITITIS  |
+  |    TMIMA    |  <>---( Belongs to )---<  |  FOITITIS  |
   +-------------+                          +------------+
   | dept_id(PK) |                          | am (PK)    |
   | onoma_tmim. |                          | onoma      |
@@ -372,10 +372,10 @@ CREATE TABLE child_table (
                                            +------------+
 ```
 
-**Δημιουργία πινάκων με FOREIGN KEY:**
+**Creating tables with a FOREIGN KEY:**
 
 ```sql
--- Βήμα 1: Πρώτα ο γονικός πίνακας (parent)
+-- Step 1: First the parent table
 CREATE TABLE Tmima (
     dept_id        INT          NOT NULL AUTO_INCREMENT,
     onoma_tmimatos VARCHAR(100) NOT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE Tmima (
     PRIMARY KEY (dept_id)
 );
 
--- Βήμα 2: Μετά ο θυγατρικός πίνακας (child) με FK
+-- Step 2: Then the child table with FK
 CREATE TABLE Foititis (
     am           INT          NOT NULL,
     onoma        VARCHAR(50)  NOT NULL,
@@ -392,23 +392,23 @@ CREATE TABLE Foititis (
     hmerominia   DATE,
     dept_id      INT          NOT NULL,
     PRIMARY KEY (am),
-    -- Ορισμός Foreign Key με ρητό όνομα constraint
+    -- Defining the Foreign Key with an explicit constraint name
     CONSTRAINT fk_foititis_tmima
         FOREIGN KEY (dept_id)
         REFERENCES Tmima (dept_id)
-        ON DELETE RESTRICT   -- Αποτρέπει διαγραφή τμήματος με φοιτητές
-        ON UPDATE CASCADE    -- Αν αλλάξει το dept_id στο Tmima, ενημερώνεται αυτόματα
+        ON DELETE RESTRICT   -- Prevents deleting a department with students
+        ON UPDATE CASCADE    -- If dept_id changes in Tmima, it is updated automatically
 );
 ```
 
-**Επίδειξη Αναφορικής Ακεραιότητας:**
+**Demonstration of Referential Integrity:**
 
-**Εισαγωγή δεδομένων:**
+**Inserting data:**
 ```sql
--- Εισαγωγή τμημάτων στον parent
+-- Inserting departments into the parent
 INSERT INTO Tmima (onoma_tmimatos, sxoli)
-VALUES ('Πληροφορική', 'Θετικών Επιστημών'),
-       ('Μαθηματικά',  'Θετικών Επιστημών');
+VALUES ('Informatics', 'Sciences'),
+       ('Mathematics',  'Sciences');
 ```
 
 ```text
@@ -416,77 +416,77 @@ VALUES ('Πληροφορική', 'Θετικών Επιστημών'),
   +---------+-------------------+-------------------+
   | dept_id | onoma_tmimatos    | sxoli             |
   +---------+-------------------+-------------------+
-  |       1 | Πληροφορική       | Θετικών Επιστημών |
-  |       2 | Μαθηματικά        | Θετικών Επιστημών |
+  |       1 | Informatics      | Sciences         |
+  |       2 | Mathematics      | Sciences         |
   +---------+-------------------+-------------------+
 ```
 
 ```sql
--- Επιτυχής εισαγωγή: dept_id=1 υπάρχει στο Tmima
+-- Successful insertion: dept_id=1 exists in Tmima
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10001, 'Αλέξης', 'Νικολόπουλος', 1);
+VALUES (10001, 'Alexis', 'Nikolopoulos', 1);
 ```
 
-**Παραβίαση FK — εισαγωγή με ανύπαρκτο dept_id:**
+**FK violation — insertion with a non-existent dept_id:**
 ```sql
--- ΑΠΟΤΥΧΙΑ: dept_id=99 δεν υπάρχει στον πίνακα Tmima
+-- FAILURE: dept_id=99 does not exist in the Tmima table
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10002, 'Ελένη', 'Παπαδοπούλου', 99);
+VALUES (10002, 'Eleni', 'Papadopoulou', 99);
 -- ERROR 1452 (23000): Cannot add or update a child row:
 -- a foreign key constraint fails (`university_db`.`Foititis`,
 -- CONSTRAINT `fk_foititis_tmima` FOREIGN KEY (`dept_id`)
 -- REFERENCES `Tmima` (`dept_id`))
 ```
 
-**Παραβίαση FK — διαγραφή parent με εξαρτώμενα children:**
+**FK violation — deleting a parent with dependent children:**
 ```sql
--- ΑΠΟΤΥΧΙΑ: το τμήμα 1 έχει φοιτητές — ON DELETE RESTRICT
+-- FAILURE: department 1 has students - ON DELETE RESTRICT
 DELETE FROM Tmima WHERE dept_id = 1;
 -- ERROR 1451 (23000): Cannot delete or update a parent row:
 -- a foreign key constraint fails
 ```
 
-**Επιλογές ON DELETE / ON UPDATE:**
+**ON DELETE / ON UPDATE options:**
 
-| Επιλογή | Συμπεριφορά κατά διαγραφή/ενημέρωση γονικής εγγραφής |
+| Option | Behavior upon deletion/update of a parent record |
 |---|---|
-| `RESTRICT` (default) | Αποτρέπει την ενέργεια — επιστρέφει σφάλμα |
-| `CASCADE` | Διαδίδει την αλλαγή αυτόματα στα children |
-| `SET NULL` | Θέτει την FK στήλη σε NULL (η στήλη πρέπει να επιτρέπει NULL) |
-| `NO ACTION` | Παρόμοιο με RESTRICT (ελέγχεται στο τέλος transaction) |
-| `SET DEFAULT` | Θέτει DEFAULT τιμή (σπάνια υποστηρίζεται από InnoDB) |
+| `RESTRICT` (default) | Prevents the action — returns an error |
+| `CASCADE` | Propagates the change automatically to the children |
+| `SET NULL` | Sets the FK column to NULL (the column must allow NULL) |
+| `NO ACTION` | Similar to RESTRICT (checked at the end of the transaction) |
+| `SET DEFAULT` | Sets a DEFAULT value (rarely supported by InnoDB) |
 
-**Exam Note:** Η σειρά δημιουργίας πινάκων έχει σημασία: **πρώτα ο γονικός (parent), μετά ο θυγατρικός (child)**. Αντίστροφα, κατά τη **διαγραφή**: **πρώτα ο child, μετά ο parent**. Επίσης, η MySQL απαιτεί το Storage Engine **InnoDB** (και όχι MyISAM) για την υποστήριξη Foreign Keys.
+**Exam Note:** The order of table creation matters: **first the parent, then the child**. Conversely, when **deleting**: **first the child, then the parent**. Also, MySQL requires the **InnoDB** Storage Engine (not MyISAM) to support Foreign Keys.
 
 ---
 
-### Διαχείριση Σχέσεων "Πολλά-προς-Πολλά" (Ενδιάμεσος Πίνακας)
+### Managing "Many-to-Many" Relationships (Junction Table)
 *Managing Many-to-Many Relationships via Junction Table*
 
-Οι σχέσεις **N:M (Πολλά-προς-Πολλά)** δεν μπορούν να υλοποιηθούν άμεσα στο Σχεσιακό Μοντέλο. Η λύση είναι η **ανάλυσή τους σε δύο σχέσεις 1:N** μέσω ενός **ενδιάμεσου πίνακα (junction table / associative table / bridge table)**, που περιέχει τα Foreign Keys και των δύο πινάκων.
+**N:M (Many-to-Many)** relationships cannot be implemented directly in the Relational Model. The solution is to **break them down into two 1:N relationships** through a **junction table (associative table / bridge table)**, which contains the Foreign Keys of both tables.
 
-**Το πρόβλημα της N:M σχέσης:**
+**The problem of the N:M relationship:**
 
-Έστω ότι ένας φοιτητής εγγράφεται σε πολλά μαθήματα, και κάθε μάθημα έχει πολλούς φοιτητές.
+Suppose a student enrolls in many courses, and each course has many students.
 
 ```text
-  ER Διάγραμμα (N:M):
+  ER Diagram (N:M):
   +------------+     N:M          +------------+
-  |  FOITITIS  |<>--( Εγγράφεται )--<>|  MATHIMA   |
-  +------------+    σε            +------------+
+  |  FOITITIS  |<>--( Registers )--<>|  MATHIMA   |
+  +------------+    in            +------------+
   | am (PK)    |                  | mathima_id |
   | onoma      |                  | titlos     |
   +------------+                  +------------+
 
-  ΠΡΟΒΛΗΜΑ: Δεν μπορεί να υλοποιηθεί με μία μόνο FK στήλη —
-  ούτε ο Foititis μπορεί να έχει πολλές τιμές dept_id,
-  ούτε το Mathima μπορεί να έχει πολλές τιμές am σε μία στήλη.
+  PROBLEM: It cannot be implemented with a single FK column —
+  neither can Foititis have many dept_id values,
+  nor can Mathima have many am values in one column.
 ```
 
-**Λύση — Ανάλυση σε δύο 1:N μέσω ενδιάμεσου πίνακα:**
+**Solution — Decomposition into two 1:N relationships through a junction table:**
 
 ```text
-  Μετά ανάλυση:
+  After decomposition:
 
   +------------+   1:N   +-------------------+   N:1   +------------+
   |  FOITITIS  |<--------| EGGRAFI (Junction) |-------->|  MATHIMA   |
@@ -497,54 +497,54 @@ DELETE FROM Tmima WHERE dept_id = 1;
                           | vathmos           |
                           +-------------------+
 
-  Σχεσιακό Σχήμα:
+  Relational Schema:
   Foititis(<u>am</u>, onoma, eponymo, dept_id)
   Mathima(<u>mathima_id</u>, titlos, kodikos, ects)
   Eggrafi(<u>am</u>, <u>mathima_id</u>, hmerominia_eggrafis, vathmos)
            ^FK→Foititis  ^FK→Mathima
 ```
 
-**Δημιουργία ενδιάμεσου πίνακα `Eggrafi`:**
+**Creating the junction table `Eggrafi`:**
 
 ```sql
--- Βήμα 1: Γονικοί πίνακες (Foititis και Mathima υπάρχουν ήδη)
+-- Step 1: Parent tables (Foititis and Mathima already exist)
 
--- Βήμα 2: Ο ενδιάμεσος πίνακας με Σύνθετο Primary Key
+-- Step 2: The intermediate table with a Composite Primary Key
 CREATE TABLE Eggrafi (
-    -- FK προς Foititis
+    -- FK to Foititis
     am                  INT  NOT NULL,
-    -- FK προς Mathima
+    -- FK to Mathima
     mathima_id          INT  NOT NULL,
-    -- Επιπλέον γνωρίσματα της σχέσης (relationship attributes)
+    -- Additional attributes of the relationship (relationship attributes)
     hmerominia_eggrafis DATE,
     vathmos             DECIMAL(4, 2),
-    -- Σύνθετο Primary Key: ο συνδυασμός am+mathima_id είναι μοναδικός
+    -- Composite Primary Key: the am+mathima_id combination is unique
     PRIMARY KEY (am, mathima_id),
-    -- FK προς Foititis
+    -- FK to Foititis
     CONSTRAINT fk_eggrafi_foititis
         FOREIGN KEY (am)
         REFERENCES Foititis (am)
-        ON DELETE CASCADE,   -- Αν διαγραφεί φοιτητής, διαγράφονται οι εγγραφές του
-    -- FK προς Mathima
+        ON DELETE CASCADE,   -- If a student is deleted, their records are deleted
+    -- FK to Mathima
     CONSTRAINT fk_eggrafi_mathima
         FOREIGN KEY (mathima_id)
         REFERENCES Mathima (mathima_id)
-        ON DELETE RESTRICT   -- Δεν μπορεί να διαγραφεί μάθημα με εγγεγραμμένους φοιτητές
+        ON DELETE RESTRICT   -- A course with enrolled students cannot be deleted
 );
 ```
 
-**Εισαγωγή δεδομένων στον ενδιάμεσο πίνακα:**
+**Inserting data into the junction table:**
 
 ```sql
--- Φοιτητής am=10001 εγγράφεται στο μάθημα mathima_id=1
+-- Student am=10001 enrolls in course mathima_id=1
 INSERT INTO Eggrafi (am, mathima_id, hmerominia_eggrafis)
 VALUES (10001, 1, '2024-10-01');
 
--- Ο ίδιος φοιτητής εγγράφεται και σε δεύτερο μάθημα
+-- The same student enrolls in a second course
 INSERT INTO Eggrafi (am, mathima_id, hmerominia_eggrafis)
 VALUES (10001, 2, '2024-10-01');
 
--- Άλλος φοιτητής στο ίδιο μάθημα
+-- Another student in the same course
 INSERT INTO Eggrafi (am, mathima_id, hmerominia_eggrafis)
 VALUES (10002, 1, '2024-10-02');
 ```
@@ -560,10 +560,10 @@ VALUES (10002, 1, '2024-10-02');
   +-------+------------+--------------------+---------+
 ```
 
-**Ανάκτηση δεδομένων μέσω JOIN:**
+**Retrieving data via JOIN:**
 
 ```sql
--- Ποια μαθήματα παρακολουθεί ο φοιτητής am=10001;
+-- Which courses does student am=10001 attend?
 SELECT f.onoma, f.eponymo, m.titlos, m.kodikos, e.hmerominia_eggrafis
 FROM   Eggrafi e
 JOIN   Foititis f  ON e.am         = f.am
@@ -575,58 +575,58 @@ WHERE  e.am = 10001;
   +--------+--------------+------------------+---------+--------------------+
   | onoma  | eponymo      | titlos           | kodikos | hmerominia_eggraf. |
   +--------+--------------+------------------+---------+--------------------+
-  | Αλέξης | Νικολόπουλος | Βάσεις Δεδομένων | CS301   | 2024-10-01         |
-  | Αλέξης | Νικολόπουλος | Αλγόριθμοι       | CS201   | 2024-10-01         |
+  | Alexis | Nikolopoulos | Databases        | CS301   | 2024-10-01         |
+  | Alexis | Nikolopoulos | Algorithms       | CS201   | 2024-10-01         |
   +--------+--------------+------------------+---------+--------------------+
 ```
 
-**Αποτροπή διπλής εγγραφής (ο ίδιος φοιτητής στο ίδιο μάθημα):**
+**Preventing duplicate enrollment (the same student in the same course):**
 
 ```sql
--- Προσπάθεια διπλής εγγραφής: am=10001, mathima_id=1 υπάρχει ήδη
+-- Attempting a duplicate enrollment: am=10001, mathima_id=1 already exists
 INSERT INTO Eggrafi (am, mathima_id)
 VALUES (10001, 1);
 -- ERROR 1062 (23000): Duplicate entry '10001-1' for key 'Eggrafi.PRIMARY'
--- Το Σύνθετο PK αποτρέπει την διπλή εγγραφή αυτόματα.
+-- The Composite PK prevents the duplicate enrollment automatically.
 ```
 
-**Key Distinction:** Στον ενδιάμεσο πίνακα, το **Σύνθετο Primary Key** `(am, mathima_id)` εκτελεί διπλό ρόλο: (1) εγγυάται ότι κάθε συνδυασμός φοιτητή-μαθήματος εμφανίζεται **το πολύ μία φορά**, και (2) αποτελεί αυτόματα **index** για ταχύτερες αναζητήσεις βάσει και των δύο πεδίων.
+**Key Distinction:** In the junction table, the **Composite Primary Key** `(am, mathima_id)` plays a dual role: (1) it guarantees that every student-course combination appears **at most once**, and (2) it automatically acts as an **index** for faster lookups based on both fields.
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Κύριο Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **MySQL Server** | Το backend RDBMS που αποθηκεύει και εξυπηρετεί δεδομένα | Εκτελείται ως service, ακούει στη θύρα 3306 |
-| **MySQL Workbench** | Επίσημο desktop GUI client για MySQL | Περιλαμβάνει SQL editor, Visual EER designer, server admin |
-| **XAMPP** | Cross-platform πακέτο (Apache + MySQL/MariaDB + PHP) | Για τοπική ανάπτυξη web εφαρμογών (localhost) |
-| **phpMyAdmin** | Web-based GUI για MySQL μέσω browser | Τρέχει ως PHP εφαρμογή στον Apache |
-| **InnoDB** | Storage engine της MySQL | Υποστηρίζει Foreign Keys, Transactions, ACID |
-| **Τύπος Δεδομένων** | Ορίζει το είδος και εύρος τιμών μιας στήλης | Λανθασμένος τύπος → σπατάλη χώρου ή απώλεια δεδομένων |
-| **NOT NULL** | Constraint που απαγορεύει NULL τιμές | Παραβίαση → `ERROR 1048` |
-| **UNIQUE** | Constraint μοναδικότητας τιμών (NULL επιτρέπεται) | Παραβίαση → `ERROR 1062` |
-| **DEFAULT** | Ορίζει αυτόματη τιμή αν δεν παρασχεθεί | Δεν προκαλεί σφάλμα — εφαρμόζεται σιωπηλά |
-| **FOREIGN KEY** | Στήλη που αναφέρεται σε Primary Key άλλου πίνακα | Επιβάλλει Αναφορική Ακεραιότητα |
-| **ON DELETE CASCADE** | Διαδίδει τη διαγραφή στα child records | Προσοχή: μαζική αυτόματη διαγραφή |
-| **ON DELETE RESTRICT** | Αποτρέπει διαγραφή parent αν υπάρχουν children | Προεπιλογή — ασφαλέστερη επιλογή |
-| **Junction Table** | Ενδιάμεσος πίνακας για υλοποίηση N:M σχέσης | Φέρει Σύνθετο PK από τα δύο FK |
-| **Σύνθετο Primary Key** | PK αποτελούμενο από δύο ή περισσότερες στήλες | Χρησιμοποιείται στον ενδιάμεσο πίνακα N:M |
-| **AUTO_INCREMENT** | Αυτόματη αύξηση ακέραιου PK | Η MySQL αναθέτει την επόμενη διαθέσιμη τιμή |
+| **MySQL Server** | The backend RDBMS that stores and serves data | Runs as a service, listens on port 3306 |
+| **MySQL Workbench** | Official desktop GUI client for MySQL | Includes SQL editor, Visual EER designer, server admin |
+| **XAMPP** | Cross-platform package (Apache + MySQL/MariaDB + PHP) | For local development of web applications (localhost) |
+| **phpMyAdmin** | Web-based GUI for MySQL through a browser | Runs as a PHP application on Apache |
+| **InnoDB** | MySQL's storage engine | Supports Foreign Keys, Transactions, ACID |
+| **Data Type** | Defines the kind and range of values of a column | Wrong type → wasted space or data loss |
+| **NOT NULL** | Constraint that prohibits NULL values | Violation → `ERROR 1048` |
+| **UNIQUE** | Constraint of value uniqueness (NULL allowed) | Violation → `ERROR 1062` |
+| **DEFAULT** | Sets an automatic value if none is provided | Does not cause an error — applied silently |
+| **FOREIGN KEY** | Column that references the Primary Key of another table | Enforces Referential Integrity |
+| **ON DELETE CASCADE** | Propagates the deletion to child records | Caution: mass automatic deletion |
+| **ON DELETE RESTRICT** | Prevents deletion of the parent if children exist | Default — the safest option |
+| **Junction Table** | Intermediate table for implementing an N:M relationship | Carries a Composite PK of the two FKs |
+| **Composite Primary Key** | PK composed of two or more columns | Used in the N:M junction table |
+| **AUTO_INCREMENT** | Automatic increment of an integer PK | MySQL assigns the next available value |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Ο **MySQL Server** είναι το backend σύστημα που εκτελείται ως service· τα εργαλεία (Workbench, phpMyAdmin, CLI) είναι απλώς **clients** που συνδέονται σε αυτόν.
-- Το **MySQL Workbench** προσφέρει οπτικό σχεδιασμό σχημάτων (EER Diagrams) και είναι το κύριο εργαλείο ανάπτυξης· το **XAMPP/phpMyAdmin** στοχεύει σε web περιβάλλοντα και γρήγορη πρόσβαση μέσω browser.
-- Η σωστή επιλογή **τύπου δεδομένων** είναι κρίσιμη: `INT` για IDs, `VARCHAR` για μεταβλητού μήκους κείμενα, `DATE` για ημερομηνίες, `DECIMAL` (όχι `FLOAT`) για χρηματικά ποσά.
-- Ο συνδυασμός `NOT NULL`, `UNIQUE` και `DEFAULT` ορίζει τους κανόνες ποιότητας δεδομένων σε επίπεδο στήλης και επιβάλλεται αυτόματα από τη μηχανή κατά κάθε εγγραφή.
-- Η δήλωση `FOREIGN KEY ... REFERENCES` με **ρητό όνομα constraint** είναι βέλτιστη πρακτική — διευκολύνει την αποσφαλμάτωση όταν εμφανίζεται σφάλμα παραβίασης FK.
-- Η **Αναφορική Ακεραιότητα** απαιτεί αυστηρή σειρά δημιουργίας πινάκων: **πρώτα ο parent, μετά ο child**· και αντίστροφα για τη διαγραφή.
-- Η `ON DELETE CASCADE` είναι ισχυρή αλλά επικίνδυνη — μια διαγραφή γονικής εγγραφής μπορεί να διαγράψει αυτόματα **δεκάδες ή χιλιάδες** child εγγραφές. Η `ON DELETE RESTRICT` είναι ο ασφαλέστερος προεπιλεγμένος κανόνας.
-- Οι σχέσεις **N:M δεν υλοποιούνται ποτέ άμεσα** — αναλύονται πάντα σε δύο 1:N μέσω **ενδιάμεσου πίνακα** με **Σύνθετο Primary Key**.
-- Ο ενδιάμεσος πίνακας μπορεί να φέρει **επιπλέον γνωρίσματα** της ίδιας της σχέσης (π.χ. ημερομηνία εγγραφής, βαθμός) που δεν ανήκουν στους αρχικούς πίνακες.
-- Η MySQL απαιτεί **InnoDB** storage engine (όχι MyISAM) για την υποστήριξη Foreign Keys· ο έλεγχος γίνεται με `SHOW CREATE TABLE table_name;`.
+- The **MySQL Server** is the backend system that runs as a service; the tools (Workbench, phpMyAdmin, CLI) are merely **clients** that connect to it.
+- **MySQL Workbench** offers visual schema design (EER Diagrams) and is the main development tool; **XAMPP/phpMyAdmin** targets web environments and quick access through a browser.
+- Choosing the correct **data type** is critical: `INT` for IDs, `VARCHAR` for variable-length text, `DATE` for dates, `DECIMAL` (not `FLOAT`) for monetary amounts.
+- The combination of `NOT NULL`, `UNIQUE`, and `DEFAULT` defines the data quality rules at the column level and is enforced automatically by the engine on every write.
+- The `FOREIGN KEY ... REFERENCES` declaration with an **explicit constraint name** is best practice — it facilitates debugging when an FK violation error appears.
+- **Referential Integrity** requires a strict order of table creation: **first the parent, then the child**; and the reverse for deletion.
+- `ON DELETE CASCADE` is powerful but dangerous — deleting a parent record can automatically delete **dozens or thousands** of child records. `ON DELETE RESTRICT` is the safest default rule.
+- **N:M relationships are never implemented directly** — they are always decomposed into two 1:N relationships through a **junction table** with a **Composite Primary Key**.
+- The junction table can carry **additional attributes** of the relationship itself (e.g., enrollment date, grade) that do not belong to the original tables.
+- MySQL requires the **InnoDB** storage engine (not MyISAM) to support Foreign Keys; the check is done with `SHOW CREATE TABLE table_name;`.

@@ -1,29 +1,29 @@
-# Ασκήσεις — Προβολή Αρχείων και Σύνδεσμοι UNIX
+# Exercises — UNIX File Viewing and Links
 
-**Βασισμένες σε:** `5_UNIX_File_Viewing_and_Linking.md`  
-**Αριθμός ασκήσεων:** 28
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Ποια είναι η βασική διαφορά μεταξύ `cat`, `less` και `more`; Πότε προτιμάμε το `less`;
+**Based on:** `5_UNIX_File_Viewing_and_Linking.md`  
+**Number of exercises:** 28
 
 ---
 
-### Άσκηση 2
-Εξηγήστε τη λειτουργία των εντολών `head` και `tail`. Ποια είναι η προεπιλεγμένη συμπεριφορά τους;
+## Part A — Theory
+
+### Exercise 1
+What is the basic difference between `cat`, `less` and `more`? When do we prefer `less`?
 
 ---
 
-### Άσκηση 3
-Τι κάνει η επιλογή `-f` της εντολής `tail` και σε ποιες περιπτώσεις είναι χρήσιμη;
+### Exercise 2
+Explain the function of the `head` and `tail` commands. What is their default behavior?
 
 ---
 
-### Άσκηση 4
-Ερμηνεύστε την έξοδο της εντολής `wc report.txt`:
+### Exercise 3
+What does the `-f` option of the `tail` command do and in which cases is it useful?
+
+---
+
+### Exercise 4
+Interpret the output of the `wc report.txt` command:
 
 ```text
   45  130  850 report.txt
@@ -31,148 +31,148 @@
 
 ---
 
-### Άσκηση 5
-Εξηγήστε τις επιλογές `-l`, `-w`, `-c` της εντολής `wc`.
+### Exercise 5
+Explain the `-l`, `-w`, `-c` options of the `wc` command.
 
 ---
 
-### Άσκηση 6
-Ποια είναι η διαφορά μεταξύ `sort`, `sort -r`, `sort -n` και `sort -u`;
+### Exercise 6
+What is the difference between `sort`, `sort -r`, `sort -n` and `sort -u`?
 
 ---
 
-### Άσκηση 7
-Εξηγήστε τη διαφορά μεταξύ **συμβολικού** (soft) και **σκληρού** (hard) συνδέσμου.
+### Exercise 7
+Explain the difference between a **symbolic** (soft) and a **hard** link.
 
 ---
 
-### Άσκηση 8
-Συμπληρώστε τον πίνακα:
+### Exercise 8
+Complete the table:
 
-| Χαρακτηριστικό | Hard Link | Symbolic Link |
+| Feature | Hard Link | Symbolic Link |
 | :--- | :--- | :--- |
-| Διασχίζει file systems; | | |
-| Μπορεί να δείχνει σε κατάλογο; | | |
-| Τι συμβαίνει αν διαγραφεί το αρχικό αρχείο; | | |
-| Εντολή δημιουργίας | | |
+| Crosses file systems? | | |
+| Can point to a directory? | | |
+| What happens if the original file is deleted? | | |
+| Creation command | | |
 
 ---
 
-### Άσκηση 9
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
+### Exercise 9
+Mark **T** (True) or **F** (False):
 
-1. Η `cat -n` αριθμεί τις γραμμές εξόδου.
-2. Ο hard link μοιράζεται το ίδιο inode με το αρχικό αρχείο.
-3. Αν διαγραφεί το αρχικό αρχείο, ο symbolic link συνεχίζει να λειτουργεί κανονικά.
-4. Η `tail -n 5` εμφανίζει τις τελευταίες 5 γραμμές.
-5. Η `sort -n` ταξινομεί αριθμητικά (π.χ. το 10 μετά το 2).
-
----
-
-## Μέρος Β — Εργαστήριο
-
-### Άσκηση 10
-Δώστε την εντολή για εμφάνιση του περιεχομένου του `readme.txt` στην οθόνη.
+1. `cat -n` numbers the output lines.
+2. A hard link shares the same inode as the original file.
+3. If the original file is deleted, the symbolic link continues to work normally.
+4. `tail -n 5` displays the last 5 lines.
+5. `sort -n` sorts numerically (e.g., 10 after 2).
 
 ---
 
-### Άσκηση 11
-Δώστε την εντολή για εμφάνιση των περιεχομένων των `file1.txt` και `file2.txt` το ένα μετά το άλλο.
+## Part B — Laboratory
+
+### Exercise 10
+Give the command to display the contents of `readme.txt` on the screen.
 
 ---
 
-### Άσκηση 12
-Δώστε την εντολή για προβολή του `large_log.txt` μία οθόνη τη φορά με δυνατότητα κύλισης.
+### Exercise 11
+Give the command to display the contents of `file1.txt` and `file2.txt` one after the other.
 
 ---
 
-### Άσκηση 13
-Ποια πλήκτρα χρησιμοποιούνται στο `less` για: (α) κύλιση μίας οθόνης κάτω, (β) κύλιση μίας οθόνης πάνω, (γ) έξοδο;
+### Exercise 12
+Give the command to view `large_log.txt` one screen at a time with scrolling capability.
 
 ---
 
-### Άσκηση 14
-Δώστε την εντολή για εμφάνιση των πρώτων 20 γραμμών του `data.txt`.
+### Exercise 13
+Which keys are used in `less` for: (a) scrolling one screen down, (b) scrolling one screen up, (c) exiting?
 
 ---
 
-### Άσκηση 15
-Δώστε την εντολή για εμφάνιση των τελευταίων 15 γραμμών του `log.txt`.
+### Exercise 14
+Give the command to display the first 20 lines of `data.txt`.
 
 ---
 
-### Άσκηση 16
-Δώστε την εντολή για παρακολούθηση σε πραγματικό χρόνο νέων γραμμών που προστίθενται στο `/var/log/syslog`.
+### Exercise 15
+Give the command to display the last 15 lines of `log.txt`.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για μέτρηση μόνο του αριθμού γραμμών στο `file.txt`.
+### Exercise 16
+Give the command to monitor in real time new lines added to `/var/log/syslog`.
 
 ---
 
-### Άσκηση 18
-Δώστε την εντολή για ταξινόμηση του `data.txt` σε φθίνουσα αλφαβητική σειρά.
+### Exercise 17
+Give the command to count only the number of lines in `file.txt`.
 
 ---
 
-### Άσκηση 19
-Δώστε την εντολή για ταξινόμηση αριθμητική και αφαίρεση διπλότυπων γραμμών από το `numbers.txt`.
+### Exercise 18
+Give the command to sort `data.txt` in descending alphabetical order.
 
 ---
 
-### Άσκηση 20
-Δώστε την εντολή για δημιουργία συμβολικού συνδέσμου `myapp.conf` που δείχνει στο `/etc/nginx/sites-available/myapp.conf`.
+### Exercise 19
+Give the command to sort numerically and remove duplicate lines from `numbers.txt`.
 
 ---
 
-### Άσκηση 21
-Δώστε την εντολή για δημιουργία σκληρού συνδέσμου `backup_link` προς το `original.txt`.
+### Exercise 20
+Give the command to create a symbolic link `myapp.conf` pointing to `/etc/nginx/sites-available/myapp.conf`.
 
 ---
 
-## Μέρος Γ — Σύνθετες Ερωτήσεις
-
-### Άσκηση 22
-Γιατί η `cat` δεν είναι κατάλληλη για πολύ μεγάλα αρχεία; Ποια εναλλακτική προτείνετε;
+### Exercise 21
+Give the command to create a hard link `backup_link` to `original.txt`.
 
 ---
 
-### Άσκηση 23
-Πώς εμφανίζεται ένας symbolic link στην έξοδο `ls -l`; Δώστε ένα παράδειγμα γραμμής.
+## Part C — Complex Questions
+
+### Exercise 22
+Why is `cat` not suitable for very large files? Which alternative do you suggest?
 
 ---
 
-### Άσκηση 24
-Ένας symbolic link δείχνει σε αρχείο που διαγράφηκε. Πώς ονομάζεται αυτή η κατάσταση και τι συμβαίνει όταν προσπαθήσετε να διαβάσετε το link;
+### Exercise 23
+How does a symbolic link appear in the `ls -l` output? Give an example line.
 
 ---
 
-### Άσκηση 25
-Έχετε αρχείο `scores.txt` με 1000 γραμμές. Θέλετε να δείτε τις γραμμές 990–1000. Ποια εντολή(ές) χρησιμοποιείτε;
+### Exercise 24
+A symbolic link points to a file that was deleted. What is this state called and what happens when you try to read the link?
 
 ---
 
-### Άσκηση 26
-Κυκλώστε τη σωστή απάντηση: Ποια εντολή **δεν** αλλάζει το περιεχόμενο του αρχικού αρχείου;
-
-- α) `cat file.txt`  
-- β) `ln file.txt hardlink`  
-- γ) `ln -s file.txt symlink`  
-- δ) `head file.txt`
+### Exercise 25
+You have a file `scores.txt` with 1000 lines. You want to see lines 990–1000. Which command(s) do you use?
 
 ---
 
-### Άσκηση 27
-Εξηγήστε πότε θα προτιμούσατε hard link αντί για symbolic link και αντίστροφα.
+### Exercise 26
+Circle the correct answer: Which command does **not** change the content of the original file?
+
+- a) `cat file.txt`  
+- b) `ln file.txt hardlink`  
+- c) `ln -s file.txt symlink`  
+- d) `head file.txt`
 
 ---
 
-### Άσκηση 28
-Σημειώστε **Σ** ή **Λ** και αιτιολογήστε:
+### Exercise 27
+Explain when you would prefer a hard link instead of a symbolic link and vice versa.
 
-1. Δύο hard links στο ίδιο αρχείο έχουν τον ίδιο αριθμό inode.
-2. Η `wc -lw file.txt` μετρά γραμμές και λέξεις χωρίς να εμφανίζει το όνομα αρχείου αν χρησιμοποιηθεί ανακατεύθυνση εισόδου.
-3. Η `sort` τροποποιεί πάντα το αρχικό αρχείο.
-4. Η `cat -A` βοηθά στον εντοπισμό κρυφών χαρακτήρων (tabs, τέλη γραμμής).
-5. Οι symbolic links εμφανίζονται με `l` στην πρώτη στήλη του `ls -l`.
+---
+
+### Exercise 28
+Mark **T** or **F** and justify:
+
+1. Two hard links to the same file have the same inode number.
+2. `wc -lw file.txt` counts lines and words without displaying the file name if input redirection is used.
+3. `sort` always modifies the original file.
+4. `cat -A` helps detect hidden characters (tabs, line endings).
+5. Symbolic links appear with `l` in the first column of `ls -l`.

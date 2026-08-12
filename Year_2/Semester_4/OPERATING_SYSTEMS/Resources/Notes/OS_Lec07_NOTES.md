@@ -1,4 +1,4 @@
-# Κεφάλαιο 7 — Διαχείριση Μνήμης (Memory Management)
+# Chapter 7 — Memory Management
 
 This file covers the core concepts of main memory management as presented in Chapter 7 of the Operating Systems course. Topics include memory manager design, management strategies, fixed and dynamic partitioning, fragmentation, placement algorithms, and swapping. The material falls under **Type C — Engineering and Applied Science Topics**.
 
@@ -41,21 +41,21 @@ Three orthogonal strategy categories govern when, where, and which data occupies
 
 | Strategy Class | Purpose |
 | :--- | :--- |
-| **Fetch strategy** (Προσκόμισης) | Decides *when* the next program/data segment is moved from secondary to primary memory |
-| **Placement strategy** (Τοποθέτησης) | Decides *where* in main memory the incoming segment is placed |
-| **Replacement strategy** (Επανατοποθέτησης) | Decides *which* segment to evict when main memory is full |
+| **Fetch strategy** | Decides *when* the next program/data segment is moved from secondary to primary memory |
+| **Placement strategy** | Decides *where* in main memory the incoming segment is placed |
+| **Replacement strategy** | Decides *which* segment to evict when main memory is full |
 
 ---
 
 ## 4. Memory Allocation Types
 
-### 4.1 Contiguous Allocation (Συνεχόμενη Εκχώρηση)
+### 4.1 Contiguous Allocation
 
 The entire program is placed in adjacent memory locations.
 - Used in early computing systems.
 - If a program is larger than available memory, the system cannot execute it.
 
-### 4.2 Non-Contiguous Allocation (Μη Συνεχόμενη Εκχώρηση)
+### 4.2 Non-Contiguous Allocation
 
 The program is divided into pieces (pages or segments) placed in non-adjacent slots of main memory.
 - Enables use of memory regions too small for an entire program.
@@ -66,7 +66,7 @@ The program is divided into pieces (pages or segments) placed in non-adjacent sl
 
 ## 5. Basic Memory Management
 
-### 5.1 Monoprogramming (Μονοπρογραμματισμός)
+### 5.1 Monoprogramming
 
 One user monopolizes all system resources. Three simple physical memory layouts exist:
 
@@ -86,7 +86,7 @@ Layout A             Layout B             Layout C
 
 Memory protection is not a concern in monoprogramming — only one process runs at a time.
 
-### 5.2 Overlays (Επικαλύψεις)
+### 5.2 Overlays
 
 A technique enabling execution of programs larger than the available memory partition.
 
@@ -151,14 +151,14 @@ $$
 
 ---
 
-## 7. Fixed Partitioning (Τμηματοποίηση Σταθερού Μεγέθους)
+## 7. Fixed Partitioning
 
 Memory is divided into a fixed number of partitions at system boot time. The number and sizes of partitions do not change during operation.
 
 - Each process occupies exactly **one partition**.
 - Maximum degree of multiprogramming = number of partitions.
 
-### 7.1 Equal-Size Partitions (Ίσα Τμήματα)
+### 7.1 Equal-Size Partitions
 
 All partitions have the same size.
 
@@ -191,7 +191,7 @@ Before loading:         After loading Process 1 (small):
 - Extremely inefficient memory use due to internal fragmentation.
 - Small processes waste large partition space.
 
-### 7.2 Unequal-Size Partitions (Άνισα Τμήματα)
+### 7.2 Unequal-Size Partitions
 
 Partitions have different sizes (e.g., 2 MB, 6 MB, 8 MB, 12 MB). This reduces internal fragmentation compared to equal-size partitions.
 
@@ -208,16 +208,16 @@ Partitions have different sizes (e.g., 2 MB, 6 MB, 8 MB, 12 MB). This reduces in
 
 ---
 
-## 8. Fragmentation (Κατακερματισμός)
+## 8. Fragmentation
 
 | Type | Definition | Cause | Visibility |
 | :--- | :--- | :--- | :--- |
-| **Internal** (εσωτερικός) | Allocated memory inside a partition that is not used by the process | Allocated block must be $\geq$ requested size | Visible only to the process holding the partition |
-| **External** (εξωτερικός) | Free memory outside all partitions that cannot satisfy any pending request despite sufficient total free space | Memory requests vary in size; free blocks become scattered | Visible to the OS / system-wide |
+| **Internal** | Allocated memory inside a partition that is not used by the process | Allocated block must be $\geq$ requested size | Visible only to the process holding the partition |
+| **External** | Free memory outside all partitions that cannot satisfy any pending request despite sufficient total free space | Memory requests vary in size; free blocks become scattered | Visible to the OS / system-wide |
 
 ---
 
-## 9. Dynamic Partitioning (Δυναμική Τμηματοποίηση)
+## 9. Dynamic Partitioning
 
 Partitions are created at runtime with exactly the size required by each process. The number and sizes of partitions vary throughout system operation.
 
@@ -245,7 +245,7 @@ Initial:                After P2 exits:        After P4 exits:
 +----------+            +----------+           +----------+
 ```
 
-**Solution — Compaction (Συμπίεση):**
+**Solution — Compaction:**
 Shift all processes toward one end of memory so all free space coalesces into one contiguous block.
 
 **Compaction costs:**
@@ -254,7 +254,7 @@ Shift all processes toward one end of memory so all free space coalesces into on
 
 ---
 
-## 10. Placement Algorithms (Αλγόριθμοι Τοποθέτησης)
+## 10. Placement Algorithms
 
 When a process requests memory, the OS must select which free block to allocate. The three standard algorithms apply to dynamic partitioning.
 
@@ -292,7 +292,7 @@ Scan memory **from the point of the last allocation**; allocate the **next** fre
 
 ---
 
-## 11. Swapping (Εναλλαγή)
+## 11. Swapping
 
 Swapping is the technique of temporarily moving an entire process from main memory to a **backing store** (secondary storage, typically a disk partition or swap file), freeing its memory for other processes.
 
@@ -433,7 +433,7 @@ Allocate 16K there. Remaining fragment: $36 - 16 = 20K$.
 
 ---
 
-### Exercise 4: Dynamic Partitioning — First-Fit (Άσκηση 2 from slides)
+### Exercise 4: Dynamic Partitioning — First-Fit (Exercise 2 from slides)
 
 **Problem:**
 Free memory blocks (in order): 100KB, 500KB, 200KB, 300KB, 600KB.
@@ -465,7 +465,7 @@ Free list: [100, 176, 200, 300, 183] (unchanged)
 
 ---
 
-### Exercise 5: Dynamic Partitioning — Best-Fit (Άσκηση 2 from slides)
+### Exercise 5: Dynamic Partitioning — Best-Fit (Exercise 2 from slides)
 
 **Problem:** Same initial free list and requests as Exercise 4. Apply **Best-Fit**.
 
@@ -497,7 +497,7 @@ All requests satisfied.
 
 ---
 
-### Exercise 6: Dynamic Partitioning — Next-Fit (Άσκηση 2 from slides)
+### Exercise 6: Dynamic Partitioning — Next-Fit (Exercise 2 from slides)
 
 **Problem:** Same initial free list [100, 500, 200, 300, 600]. Last allocation was before the **200KB block**. Apply **Next-Fit**.
 
@@ -526,7 +526,7 @@ Free list: [100, 388, 200, 88, 183] (unchanged)
 
 ---
 
-### Exercise 7: Placement Algorithm 1 (Άσκηση 1 from slides)
+### Exercise 7: Placement Algorithm 1 (Exercise 1 from slides)
 
 **Problem:**
 Memory image (left to right = low to high address). Shaded = occupied, white = free, black = last allocation point (12KB was last placed there).

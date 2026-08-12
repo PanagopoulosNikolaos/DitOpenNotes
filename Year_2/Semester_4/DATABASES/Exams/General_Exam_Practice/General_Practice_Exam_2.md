@@ -1,26 +1,26 @@
-**Βάσεις Δεδομένων πρώτη πρόοδος**
-**Πανεπιστήμιο Ιωαννίνων 27/4/2026**
+**Databases first progress test**
+**University of Ioannina 27/4/2026**
 
-**Θέμα:**
+**Topic:**
 
-Ένα ερευνητικό ίδρυμα διατηρεί πληροφορίες σχετικά με τους ερευνητές, τις ερευνητικές μονάδες και τα ερευνητικά έργα που υλοποιεί.
+A research institute maintains information about the researchers, the research units and the research projects it implements.
 
-Κάθε ερευνητική μονάδα έχει έναν μοναδικό κωδικό, ένα μοναδικό όνομα και έναν συγκεκριμένο ερευνητή που είναι επιστημονικά υπεύθυνος για αυτήν. Για κάθε υπεύθυνο καταγράφεται η ημερομηνία ανάληψης καθηκόντων. Οι ερευνητικές μονάδες διαθέτουν εγκαταστάσεις που βρίσκονται σε διάφορες γεωγραφικές περιοχές.
+Each research unit has a unique code, a unique name and a specific researcher who is scientifically responsible for it. For each person in charge, the date of taking office is recorded. The research units have facilities located in various geographic areas.
 
-Κάθε ερευνητική μονάδα υλοποιεί πολλά ερευνητικά έργα. Κάθε έργο έχει έναν μοναδικό αριθμό, μια μοναδική ονομασία και πραγματοποιείται σε συγκεκριμένο χώρο.
+Each research unit implements many research projects. Each project has a unique number, a unique title and takes place in a specific venue.
 
-Για κάθε ερευνητή καταγράφονται τα εξής στοιχεία: όνομα, επώνυμο, αριθμός ταυτότητας, επιστημονικό πεδίο, διεύθυνση κατοικίας, μηνιαίες αποδοχές, φύλο και ημερομηνία γέννησης. Κάθε ερευνητής ανήκει σε μία συγκεκριμένη ερευνητική μονάδα, αλλά μπορεί να συμμετέχει στην υλοποίηση πολλών ερευνητικών έργων, ακόμη και αν αυτά υλοποιούνται από άλλες μονάδες. Για κάθε συμμετοχή καταγράφεται ο αριθμός ωρών απασχόλησης ανά εβδομάδα.
+For each researcher, the following data are recorded: first name, last name, ID number, scientific field, residential address, monthly salary, gender and date of birth. Each researcher belongs to a specific research unit, but may participate in the implementation of many research projects, even if those are implemented by other units. For each participation, the number of working hours per week is recorded.
 
-Για κάθε ερευνητή καταγράφονται επίσης τα εξαρτώμενα μέλη της οικογένειάς του. Τα στοιχεία που διατηρούνται είναι: όνομα, φύλο, ημερομηνία γέννησης και η συγγενική τους σχέση.
+For each researcher, the dependent members of his/her family are also recorded. The data kept are: name, gender, date of birth and their family relationship.
 
-**Ερωτήματα:**
+**Questions:**
 
-* **Α (5 μονάδες):** Στο παραπάνω κείμενο να εντοπίσετε:
-  * οντότητες (και το είδος),
-  * γνωρίσματα (και το είδος),
-  * κλειδιά (πόσα είναι σε κάθε οντότητα, το είδος, και την τελική σας επιλογή για το πρωτεύον κλειδί),
-  * σχέσεις και λόγο πληθικότητας (Θα πρέπει να αιτιολογήσετε τις επιλογές σας, χωρίς αιτιολόγηση δεν λαμβάνεται υπόψη η απάντηση. Γράψτε και τυχόν δικές σας παραδοχές).
+* **A (5 points):** In the above text, identify:
+  * entities (and their type),
+  * attributes (and their type),
+  * keys (how many each entity has, their type, and your final choice for the primary key),
+  * relationships and the reason for their cardinality (You must justify your choices; without justification the answer is not taken into account. Also write any assumptions of your own).
 
-* **Β (5 μονάδες):** Σχεδιάστε το διάγραμμα E-R για αυτή τη βάση δεδομένων. Είστε ελεύθεροι (μέσα στο πλαίσιο που ορίζεται από τις παραπάνω προδιαγραφές) να κάνετε όποιες επιλογές θεωρείτε σκόπιμες, δίνοντας την αιτιολόγηση που θεωρείτε ορθή.
+* **B (5 points):** Draw the E-R diagram for this database. You are free (within the framework defined by the above specifications) to make any choices you consider appropriate, providing the rationale you consider correct.
 
-**Καλή επιτυχία!**
+**Good luck!**

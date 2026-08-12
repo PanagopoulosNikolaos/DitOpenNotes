@@ -217,11 +217,11 @@ $$42 = 21 \times 2 + 0$$
 **Problem:** Find the Euler characteristic of a cube (polyhedron with 8 vertices, 12 edges, and 6 faces).
 
 **Solution:**
-Euler's formula: $V - E + F = χ$
+Euler's formula: $V - E + F = \chi$
 
 $$8 - 12 + 6 = 2$$
 
-**Answer:** χ = 2
+**Answer:** $\chi = 2$
 
 ---
 

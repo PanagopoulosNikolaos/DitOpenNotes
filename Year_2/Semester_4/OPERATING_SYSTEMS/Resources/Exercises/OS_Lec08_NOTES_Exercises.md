@@ -1,115 +1,115 @@
-# Ασκήσεις — Κεφάλαιο 8: Ιδεατή Μνήμη (Virtual Memory)
+# Exercises — Chapter 8: Virtual Memory
 
-**Βασισμένες σε:** `OS_Lec08_NOTES.md`  
-**Αριθμός ασκήσεων:** 35
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Γιατί χρειάζεται ιδεατή μνήμη; Αναφέρετε τρία προβλήματα που λύνει.
+**Based on:** `OS_Lec08_NOTES.md`  
+**Number of exercises:** 35
 
 ---
 
-### Άσκηση 2
-Διακρίνετε εικονική (λογική) και φυσική διεύθυνση. Τι είναι address translation;
+## Part A — Theory
+
+### Exercise 1
+Why is virtual memory needed? State three problems it solves.
 
 ---
 
-### Άσκηση 3
-Εξηγήστε σελιδοποίηση (paging): σελίδα, πλαίσιο (frame), πίνακας σελίδων.
+### Exercise 2
+Distinguish virtual (logical) and physical address. What is address translation?
 
 ---
 
-### Άσκηση 4
-Λογικές διευθύνσεις 16 bit, μέγεθος σελίδας 1024 bytes. Υπολογίστε: (α) bits offset, (β) μέγεθος πίνακα σελίδων.
+### Exercise 3
+Explain paging: page, frame, page table.
 
 ---
 
-### Άσκηση 5
-Λογική διεύθυνση 0x4B2A, μέγεθος σελίδας 1KB (1024 bytes). Υπολογίστε αριθμό σελίδας και offset (δεκαεξαδικά και δεκαδικά).
+### Exercise 4
+Logical addresses of 16 bits, page size of 1024 bytes. Calculate: (a) offset bits, (b) size of the page table.
 
 ---
 
-### Άσκηση 6
-Τι είναι page fault; Περιγράψτε τα βήματα χειρισμού από το ΛΣ.
+### Exercise 5
+Logical address 0x4B2A, page size 1KB (1024 bytes). Calculate the page number and offset (hexadecimal and decimal).
 
 ---
 
-### Άσκηση 7
-Αναφέρετε ιδιότητες σελιδοποίησης (εσωτερικός κατακερματισμός, εξωτερικός, κ.λπ.).
+### Exercise 6
+What is a page fault? Describe the handling steps performed by the OS.
 
 ---
 
-### Άσκηση 8
-Εξηγήστε τμηματοποίηση (segmentation): segment table, base, limit.
+### Exercise 7
+State the properties of paging (internal fragmentation, external, etc.).
 
 ---
 
-### Άσκηση 9
-Συγκρίνετε paging και segmentation (μέγεθος μονάδας, fragmentation, κ.λπ.).
+### Exercise 8
+Explain segmentation: segment table, base, limit.
 
 ---
 
-## Μέρος Β — Αλγόριθμοι Αντικατάστασης Σελίδων
-
-### Άσκηση 10
-Περιγράψτε FIFO, OPT, LRU. Ποια ο βέλτιστος και γιατί δεν είναι πρακτικός;
+### Exercise 9
+Compare paging and segmentation (unit size, fragmentation, etc.).
 
 ---
 
-### Άσκηση 11
-Εξηγήστε τη διαφορά FIFO queue vs LRU stack στην υλοποίηση.
+## Part B — Page Replacement Algorithms
+
+### Exercise 10
+Describe FIFO, OPT, LRU. Which is optimal and why is it not practical?
 
 ---
 
-### Άσκηση 12
-Τι είναι Belady's anomaly και σε ποιον αλγόριθμο εμφανίζεται;
+### Exercise 11
+Explain the difference between a FIFO queue and an LRU stack in implementation.
 
 ---
 
-## Μέρος Γ — Υπολογιστικές Ασκήσεις
-
-### Άσκηση 13
-**Μετατροπή διεύθυνσης:** Σελίδα 5, offset 200, μέγεθος σελίδας 512 bytes. Υπολογίστε λογική διεύθυνση.
+### Exercise 12
+What is Belady's anomaly and in which algorithm does it occur?
 
 ---
 
-### Άσκηση 14
-**Πίνακας σελίδων:** Λογική διεύθυνση 3500, page size 4KB. Σελίδα; Offset; Αν frame 7, ποια η φυσική διεύθυνση;
+## Part C — Computational Exercises
+
+### Exercise 13
+**Address translation:** Page 5, offset 200, page size 512 bytes. Calculate the logical address.
 
 ---
 
-### Άσκηση 15
-**FIFO — 4 πλαίσια**
+### Exercise 14
+**Page table:** Logical address 3500, page size 4KB. Page? Offset? If frame 7, what is the physical address?
+
+---
+
+### Exercise 15
+**FIFO — 4 frames**
 
 Reference string: `7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1`
 
-Συμπληρώστε πίνακα σελίδων και μετρήστε page faults.
+Complete the page table and count the page faults.
 
 ---
 
-### Άσκηση 16
-Με το ίδιο reference string της Άσκησης 15, εφαρμόστε **OPT** (4 πλαίσια).
+### Exercise 16
+With the same reference string as Exercise 15, apply **OPT** (4 frames).
 
 ---
 
-### Άσκηση 17
-Με το ίδιο reference string, εφαρμόστε **LRU** (4 πλαίσια).
+### Exercise 17
+With the same reference string, apply **LRU** (4 frames).
 
 ---
 
-### Άσκηση 18
-**Σύντομο sequence — 3 πλαίσια**
+### Exercise 18
+**Short sequence — 3 frames**
 
 Reference: `1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5`
 
-Συγκρίνετε page faults για FIFO και LRU.
+Compare the page faults for FIFO and LRU.
 
 ---
 
-### Άσκηση 19
+### Exercise 19
 **Segmentation:** Segment table:
 
 | Segment | Base | Limit |
@@ -118,103 +118,103 @@ Reference: `1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5`
 | 1 | 6300 | 400 |
 | 2 | 4300 | 400 |
 
-Λογική διεύθυνση (segment=1, offset=200). Υπολογίστε φυσική. Είναι έγκυρη;
+Logical address (segment=1, offset=200). Calculate the physical address. Is it valid?
 
 ---
 
-### Άσκηση 20
-Λογική διεύθυνση (segment=2, offset=500) με τον πίνακα της Άσκησης 19. Τι συμβαίνει;
+### Exercise 20
+Logical address (segment=2, offset=500) with the table of Exercise 19. What happens?
 
 ---
 
-### Άσκηση 21
-**Page table lookup:** Page size 8KB. Logical address 0x00005000. Page number και offset;
+### Exercise 21
+**Page table lookup:** Page size 8KB. Logical address 0x00005000. Page number and offset?
 
 ---
 
-### Άσκηση 22
-Σύστημα 32-bit addresses, page size 4KB. Πόσες σελίδες μέγιστα; Πόσα bits για page number;
+### Exercise 22
+System with 32-bit addresses, page size 4KB. How many pages maximum? How many bits for the page number?
 
 ---
 
-## Μέρος Δ — Σύγκριση και Σωστό/Λάθος
+## Part D — Comparison and True/False
 
-### Άσκηση 23
-Σημειώστε **Σ** ή **Λ**:
+### Exercise 23
+Mark **T** or **F**:
 
-1. Η σελιδοποίηση έχει εσωτερικό κατακερματισμό.
-2. Το segmentation έχει εξωτερικό κατακερματισμό.
-3. Το page fault είναι πάντα σφάλμα που τερματίζει τη διεργασία.
-4. Το LRU απαιτεί hardware support ή προσέγγιση.
-5. Περισσότερα πλαίσια σημαίνουν πάντα λιγότερα page faults.
-
----
-
-### Άσκηση 24
-Κυκλώστε τη σωστή απάντηση: Ποιος αλγόριθμος αντικαθιστά τη σελίδα που **δεν θα χρησιμοποιηθεί για το μεγαλύτερο διάστημα στο μέλλον**;
-
-- α) FIFO  
-- β) OPT  
-- γ) LRU  
-- δ) Random
+1. Paging has internal fragmentation.
+2. Segmentation has external fragmentation.
+3. A page fault is always an error that terminates the process.
+4. LRU requires hardware support or an approximation.
+5. More frames always mean fewer page faults.
 
 ---
 
-### Άσκηση 25
-Γιατί η paging επιτρέπει μη συνεχή φυσική μνήμη;
+### Exercise 24
+Circle the correct answer: Which algorithm replaces the page that **will not be used for the longest time in the future**?
+
+- a) FIFO  
+- b) OPT  
+- c) LRU  
+- d) Random
 
 ---
 
-### Άσκηση 26
-Περιγράψτε τα βήματα address translation σε paging (5 βήματα από τις σημειώσεις).
+### Exercise 25
+Why does paging allow non-contiguous physical memory?
 
 ---
 
-### Άσκηση 27
-**OPT tie-breaking:** Δύο σελίδες δεν ξαναχρησιμοποιούνται ποτέ. Ποια αντικαθίσταται;
+### Exercise 26
+Describe the steps of address translation in paging (5 steps from the notes).
 
 ---
 
-### Άσκηση 28
-Σύγκρινε page faults για 3 vs 4 frames με LRU στο string `1,2,3,4,1,2,5,1,2,3,4,5`.
+### Exercise 27
+**OPT tie-breaking:** Two pages are never used again. Which one is replaced?
 
 ---
 
-### Άσκηση 29
-Εξηγήστε demand paging vs prepaging.
+### Exercise 28
+Compare page faults for 3 vs 4 frames with LRU on the string `1,2,3,4,1,2,5,1,2,3,4,5`.
 
 ---
 
-### Άσκηση 30
-Πώς σχετίζεται το page fault με context switch και I/O;
+### Exercise 29
+Explain demand paging vs prepaging.
 
 ---
 
-### Άσκηση 31
-**Σενάριο:** Διεργασία 8GB εικονική μνήμη, 16GB RAM, page size 4KB. Εξηγήστε πώς εκτελείται χωρίς 8GB φυσικής μνήμης.
+### Exercise 30
+How does a page fault relate to context switch and I/O?
 
 ---
 
-### Άσκηση 32
-Υπολογίστε μέγεθος page table (entries) για 20-bit logical address, 1KB pages.
+### Exercise 31
+**Scenario:** A process with 8GB virtual memory, 16GB RAM, page size 4KB. Explain how it executes without 8GB of physical memory.
 
 ---
 
-### Άσκηση 33
-Συμπληρώστε one-liners:
+### Exercise 32
+Calculate the size of the page table (entries) for a 20-bit logical address, 1KB pages.
 
-| Θέμα | Paging | Segmentation |
+---
+
+### Exercise 33
+Complete the one-liners:
+
+| Topic | Paging | Segmentation |
 | :--- | :--- | :--- |
-| Μονάδα | | |
+| Unit | | |
 | Fragmentation | | |
 | Table entry | | |
 
 ---
 
-### Άσκηση 34
-Reference string: `0,1,2,0,1,3,0,1,2,3`. 3 frames. Εμφανίζεται Belady's anomaly με FIFO αν αυξήσουμε σε 4 frames; Ελέγξτε.
+### Exercise 34
+Reference string: `0,1,2,0,1,3,0,1,2,3`. 3 frames. Does Belady's anomaly appear with FIFO if we increase to 4 frames? Check.
 
 ---
 
-### Άσκηση 35
-Συνδυαστική: 16-bit addresses, 2KB pages. (α) Offset bits, (β) page table size, (γ) physical address για logical 0x3C00 αν frame=10.
+### Exercise 35
+Combined: 16-bit addresses, 2KB pages. (a) Offset bits, (b) page table size, (c) physical address for logical 0x3C00 if frame=10.

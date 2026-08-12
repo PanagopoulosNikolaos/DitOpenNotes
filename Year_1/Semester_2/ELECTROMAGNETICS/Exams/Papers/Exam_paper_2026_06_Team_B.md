@@ -20,11 +20,11 @@ C) Parallel to the magnetic field vector
 D) Parallel to the polarization vector
 
 Exercise 1. 3 points
-According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where ρ is the charge density. If $\vec{D}=x^2\hat{x}-zy\hat{z}$, calculate the charge density ρ.
+According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where $\rho$ is the charge density. If $\vec{D}=x^2\hat{x}-zy\hat{z}$, calculate the charge density $\rho$.
 
 Exercise 2. 3 points
 The magnetic field of a sinusoidal plane electromagnetic wave propagating in a vacuum is given by:
-$\vec{B}=3\cos(100\pi z-\omega t)\hat{y}$ a) What is the wavelength λ and the frequency f of the wave? b) Write the oscillation vector of the Electric field $\vec{E}$. c) Calculate the Poynting vector $\vec{S}$ and the intensity I of the wave.
+$\vec{B}=3\cos(100\pi z-\omega t)\hat{y}$ a) What is the wavelength $\lambda$ and the frequency f of the wave? b) Write the oscillation vector of the Electric field $\vec{E}$. c) Calculate the Poynting vector $\vec{S}$ and the intensity I of the wave.
 
 Formula sheet for both exercises:
 The equations of the electric and magnetic fields for a wave propagating in the x direction are:

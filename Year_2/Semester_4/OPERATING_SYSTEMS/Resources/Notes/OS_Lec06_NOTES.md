@@ -1,380 +1,380 @@
-# Λειτουργικά Συστήματα — Κεφάλαιο 6: Αδιέξοδο
+# Operating Systems — Chapter 6: Deadlock
 
-Το αδιέξοδο (deadlock) είναι μία από τις βασικές έννοιες στα λειτουργικά συστήματα και αφορά την επ' αόριστον αναμονή ενός συνόλου διεργασιών λόγω ανταγωνισμού για πόρους. Το κεφάλαιο καλύπτει ορισμούς, κατηγορίες πόρων, γράφους εκχώρησης, τις 4 αναγκαίες συνθήκες αδιεξόδου, τις βασικές στρατηγικές αντιμετώπισης και το κλασικό πρόβλημα των συνδαιτυμόνων φιλοσόφων.
+Deadlock is one of the fundamental concepts in operating systems and concerns the indefinite waiting of a set of processes due to competition for resources. The chapter covers definitions, resource categories, resource allocation graphs, the 4 necessary conditions for deadlock, the basic handling strategies, and the classic dining philosophers problem.
 
 ---
 
-## 1. Βασικές έννοιες
+## 1. Basic concepts
 
-### Ορισμός αδιεξόδου
+### Definition of deadlock
 
-Αδιέξοδο είναι η μόνιμη ή επ' αόριστον αναμονή ενός συνόλου διεργασιών που είτε συναγωνίζονται για πόρους του συστήματος είτε επικοινωνούν μεταξύ τους.
+Deadlock is the permanent or indefinite waiting of a set of processes that either compete for system resources or communicate with each other.
 
-### Γιατί εμφανίζεται
+### Why it occurs
 
-Σε ένα σύστημα πολυπρογραμματισμού, οι συνολικές απαιτήσεις των ενεργών διεργασιών συνήθως υπερβαίνουν τους διαθέσιμους πόρους. Το αδιέξοδο εμφανίζεται όταν δύο ή περισσότερες διεργασίες έχουν συγκρουόμενες ανάγκες για πόρους και καμία δεν μπορεί να συνεχίσει.
+In a multiprogramming system, the total demands of active processes usually exceed the available resources. Deadlock occurs when two or more processes have conflicting needs for resources and none can continue.
 
-### Στόχος του σχεδιασμού
+### Design goal
 
-Βασικός στόχος είναι να σχεδιάζονται συστήματα όπου το αδιέξοδο δεν μπορεί να συμβεί ή όπου μπορεί να εντοπίζεται και να αποκαθίσταται με ελεγχόμενο τρόπο.
+The basic goal is to design systems where deadlock cannot happen or where it can be detected and recovered from in a controlled manner.
 
 > **[Key Insight]**
-> Το πρόβλημα δεν είναι απλώς η έλλειψη πόρων, αλλά η συγκεκριμένη ακολουθία δέσμευσης και αναμονής πόρων από πολλές διεργασίες.
+> The problem is not simply the lack of resources, but the specific sequence of resource acquisition and waiting by many processes.
 
 ---
 
-## 2. Είδη πόρων
+## 2. Types of resources
 
-### Προεκχωρούμενοι πόροι
+### Preemptable resources
 
-Προεκχωρούμενοι (preemptable) είναι οι πόροι που μπορούν να αφαιρεθούν από μια διεργασία χωρίς να προκαλέσουν αποτυχία.
+Preemptable resources are those that can be taken away from a process without causing failure.
 
-Παραδείγματα:
+Examples:
 
-- Χώρος μνήμης σε ορισμένα μοντέλα διαχείρισης.
-- Καταχωρητές CPU σε περιβάλλοντα όπου η κατάσταση αποθηκεύεται και επαναφέρεται.
+- Memory space in certain management models.
+- CPU registers in environments where state is saved and restored.
 
-### Μη προεκχωρούμενοι πόροι
+### Nonpreemptable resources
 
-Μη προεκχωρούμενοι (nonpreemptable) είναι οι πόροι που δεν μπορούν να αφαιρεθούν χωρίς ανεπιθύμητες συνέπειες ή αποτυχία της διεργασίας.
+Nonpreemptable resources are those that cannot be taken away without undesirable consequences or failure of the process.
 
-Παραδείγματα:
+Examples:
 
-- Εκτυπωτές.
+- Printers.
 - Tape drives.
 - CD recorders.
-- Συσκευές εισόδου/εξόδου με κρίσιμη κατάσταση.
+- Input/output devices with critical state.
 
-Οι μη προεκχωρούμενοι πόροι είναι οι βασικοί υπεύθυνοι για την εμφάνιση αδιεξόδων.
+Nonpreemptable resources are the main cause of deadlock occurrence.
 
-### Κύκλος χρήσης πόρου
+### Resource usage cycle
 
-Η χρήση ενός πόρου από μία διεργασία ακολουθεί συνήθως την ακολουθία:
+The use of a resource by a process usually follows the sequence:
 
-1. Απαίτηση (`request`).
-2. Χρήση.
-3. Απελευθέρωση (`release`).
+1. Request.
+2. Use.
+3. Release.
 
-Αν η απαίτηση δεν ικανοποιηθεί, η διεργασία είτε αναστέλλεται είτε αποτυγχάνει με μήνυμα λάθους.
+If the request is not satisfied, the process is either suspended or fails with an error message.
 
-### Επαναχρησιμοποιήσιμοι πόροι
+### Reusable resources
 
-Οι επαναχρησιμοποιήσιμοι πόροι μπορούν να χρησιμοποιούνται με ασφάλεια από μία διεργασία κάθε χρονική στιγμή και μετά να επιστρέφονται για χρήση από άλλες διεργασίες.
+Reusable resources can be safely used by one process at a time and then returned for use by other processes.
 
-Παραδείγματα:
+Examples:
 
-- Επεξεργαστές.
-- I/O κανάλια.
-- Κύρια μνήμη.
-- Δευτερεύουσα μνήμη.
-- Αρχεία.
-- Βάσεις δεδομένων.
-- Σημαφόροι.
+- Processors.
+- I/O channels.
+- Main memory.
+- Secondary storage.
+- Files.
+- Databases.
+- Semaphores.
 
-Το αδιέξοδο εδώ προκύπτει όταν μια διεργασία κρατά έναν πόρο και ζητά άλλον.
+Deadlock here arises when a process holds a resource and requests another.
 
-### Καταναλώσιμοι πόροι
+### Consumable resources
 
-Οι καταναλώσιμοι πόροι παράγονται και καταστρέφονται κατά τη χρήση τους. Όταν δεσμευθούν, παύουν να υπάρχουν ως διαθέσιμοι πόροι.
+Consumable resources are produced and destroyed during their use. Once consumed, they cease to exist as available resources.
 
-Παραδείγματα:
+Examples:
 
-- Διακοπές (`interrupts`).
-- Σήματα (`signals`).
-- Μηνύματα.
-- Πληροφορίες σε I/O buffers.
+- Interrupts.
+- Signals.
+- Messages.
+- Information in I/O buffers.
 
-Σε αυτήν την κατηγορία αδιέξοδο μπορεί να συμβεί, για παράδειγμα, όταν ένα μήνυμα που αποστέλλεται από μία διεργασία δεν παραλαμβάνεται από άλλη.
-
----
-
-## 3. Παραδείγματα αδιεξόδου
-
-### Κλασικό μοτίβο
-
-Αν η διεργασία $P$ δεσμεύσει πρώτα τον πόρο $A$ και μετά ζητήσει τον $B$, ενώ η διεργασία $Q$ δεσμεύσει πρώτα τον $B$ και μετά ζητήσει τον $A$, μπορεί να δημιουργηθεί αδιέξοδο.
-
-Αυτό συμβαίνει επειδή:
-
-- Η $P$ περιμένει πόρο που κρατά η $Q$.
-- Η $Q$ περιμένει πόρο που κρατά η $P$.
-- Καμία δεν μπορεί να προχωρήσει για να απελευθερώσει τον πόρο που κατέχει.
-
-### Παράδειγμα με μνήμη
-
-Έστω διαθέσιμη κύρια μνήμη $200	ext{KB}$ και δύο διεργασίες:
-
-- $P_1$: ζητά $80	ext{KB}$ και μετά $60	ext{KB}$.
-- $P_2$: ζητά $70	ext{KB}$ και μετά $80	ext{KB}$.
-
-Αν πρώτα ικανοποιηθούν τα πρώτα αιτήματα, δεσμεύονται $150	ext{KB}$ και απομένουν $50	ext{KB}$. Τότε κανένα από τα δεύτερα αιτήματα δεν μπορεί να ικανοποιηθεί, άρα οι διεργασίες μπλοκάρουν.
-
-Η περίπτωση αυτή λύνεται ευκολότερα επειδή η μνήμη θεωρείται προεκχωρούμενος πόρος.
+In this category, deadlock can occur, for example, when a message sent by one process is not received by another.
 
 ---
 
-## 4. Γράφοι εκχώρησης πόρων
+## 3. Examples of deadlock
 
-Οι γράφοι εκχώρησης πόρων είναι εργαλείο μοντελοποίησης της κατάστασης πόρων και διεργασιών.
+### Classic pattern
 
-### Συμβολισμός
+If process $P$ first acquires resource $A$ and then requests $B$, while process $Q$ first acquires $B$ and then requests $A$, a deadlock can arise.
 
-- Κόμβος διεργασίας: $P_i$.
-- Κόμβος τύπου πόρου: $R_j$.
-- Ακμή απαίτησης: $P_i \rightarrow R_j$.
-- Ακμή εκχώρησης: $R_j \rightarrow P_i$.
+This happens because:
 
-### Ερμηνεία
+- $P$ waits for a resource held by $Q$.
+- $Q$ waits for a resource held by $P$.
+- Neither can proceed to release the resource it holds.
 
-- Αν υπάρχει ακμή από διεργασία προς πόρο, η διεργασία ζητά ένα στιγμιότυπο του πόρου.
-- Αν υπάρχει ακμή από πόρο προς διεργασία, ένα στιγμιότυπο του πόρου έχει εκχωρηθεί στη διεργασία.
+### Example with memory
 
-### Σχέση κύκλων και αδιεξόδου
+Assume available main memory of $200\text{KB}$ and two processes:
 
-- Αν ο γράφος **δεν** περιέχει κύκλο, τότε **δεν** υπάρχει αδιέξοδο.
-- Αν ο γράφος περιέχει κύκλο και υπάρχει μόνο ένα στιγμιότυπο ανά τύπο πόρου, τότε υπάρχει αδιέξοδο.
-- Αν ο γράφος περιέχει κύκλο και υπάρχουν πολλαπλά στιγμιότυπα ανά τύπο πόρου, τότε υπάρχει μόνο πιθανότητα αδιεξόδου, όχι βεβαιότητα.
+- $P_1$: requests $80\text{KB}$ and then $60\text{KB}$.
+- $P_2$: requests $70\text{KB}$ and then $80\text{KB}$.
+
+If the first requests are satisfied first, $150\text{KB}$ are allocated and $50\text{KB}$ remain. Then none of the second requests can be satisfied, so the processes block.
+
+This case is solved more easily because memory is considered a preemptable resource.
+
+---
+
+## 4. Resource allocation graphs
+
+Resource allocation graphs are a tool for modeling the state of resources and processes.
+
+### Notation
+
+- Process node: $P_i$.
+- Resource type node: $R_j$.
+- Request edge: $P_i \rightarrow R_j$.
+- Assignment edge: $R_j \rightarrow P_i$.
+
+### Interpretation
+
+- If there is an edge from a process to a resource, the process requests an instance of the resource.
+- If there is an edge from a resource to a process, an instance of the resource has been assigned to the process.
+
+### Relationship between cycles and deadlock
+
+- If the graph **does not** contain a cycle, then there is **no** deadlock.
+- If the graph contains a cycle and there is only one instance per resource type, then there is a deadlock.
+- If the graph contains a cycle and there are multiple instances per resource type, then there is only a possibility of deadlock, not a certainty.
 
 > **[Key Insight]**
-> Κύκλος σε γράφο εκχώρησης δεν σημαίνει πάντα αδιέξοδο. Η κρίσιμη λεπτομέρεια είναι αν κάθε τύπος πόρου έχει ένα ή περισσότερα στιγμιότυπα.
+> A cycle in a resource allocation graph does not always mean deadlock. The critical detail is whether each resource type has one or more instances.
 
 ---
 
-## 5. Οι 4 αναγκαίες συνθήκες αδιεξόδου
+## 5. The 4 necessary conditions for deadlock
 
-Αδιέξοδο μπορεί να συμβεί μόνο αν ισχύουν **ταυτόχρονα** και οι τέσσερις παρακάτω συνθήκες.
+Deadlock can occur only if the following four conditions hold **simultaneously**.
 
-### 5.1 Αμοιβαίος αποκλεισμός
+### 5.1 Mutual exclusion
 
-Κάθε πόρος είτε είναι διαθέσιμος είτε ανήκει αποκλειστικά σε μία μόνο διεργασία.
+Each resource is either available or belongs exclusively to only one process.
 
-### 5.2 Κατοχή και αναμονή
+### 5.2 Hold and wait
 
-Μία διεργασία μπορεί να κρατά ήδη κάποιους πόρους και ταυτόχρονα να περιμένει επιπλέον πόρους.
+A process can already hold some resources and simultaneously wait for additional resources.
 
-### 5.3 Μη προεκχώρηση
+### 5.3 No preemption
 
-Οι πόροι δεν μπορούν να αφαιρεθούν βίαια από τη διεργασία που τους κατέχει.
+Resources cannot be forcibly taken away from the process holding them.
 
-### 5.4 Κυκλική αναμονή
+### 5.4 Circular wait
 
-Υπάρχει κλειστή αλυσίδα διεργασιών όπου κάθε διεργασία περιμένει πόρο που κατέχεται από την επόμενη.
+There is a closed chain of processes where each process waits for a resource held by the next.
 
-### Βασικό συμπέρασμα
+### Basic conclusion
 
-Για να προληφθεί το αδιέξοδο, αρκεί να παραβιαστεί έστω **μία** από τις τέσσερις αναγκαίες συνθήκες.
-
----
-
-## 6. Προσεγγίσεις αντιμετώπισης
-
-Υπάρχουν τέσσερις βασικές προσεγγίσεις:
-
-1. Πρόληψη (`prevention`).
-2. Αποφυγή (`avoidance`).
-3. Ανίχνευση και επαναφορά (`detection & recovery`).
-4. Χειροκίνητη μεσολάβηση.
-
-### 6.1 Πρόληψη
-
-Στην πρόληψη σχεδιάζουμε το σύστημα έτσι ώστε να παραβιάζεται τουλάχιστον μία από τις τέσσερις αναγκαίες συνθήκες.
-
-#### Παραβίαση αμοιβαίου αποκλεισμού
-
-Στόχος είναι να μειωθούν οι περιπτώσεις αποκλειστικής χρήσης πόρων.
-
-Παράδειγμα:
-
-- Για εκτυπωτή, αντί να τον χρησιμοποιούν άμεσα πολλές διεργασίες, χρησιμοποιείται `printer daemon` και ουρά εκτύπωσης.
-
-Περιορισμός: δεν μπορούν όλοι οι πόροι να μετατραπούν πρακτικά σε κοινόχρηστους.
-
-#### Παραβίαση κατοχής και αναμονής
-
-Δύο βασικές τεχνικές:
-
-- Η διεργασία ζητά **όλους** τους πόρους πριν ξεκινήσει.
-- Αν χρειαστεί νέους πόρους αργότερα, αποδεσμεύει πρώτα όσους ήδη κατέχει και επαναζητά το πλήρες σύνολο.
-
-Μειονεκτήματα:
-
-- Συνήθως δεν είναι γνωστές από πριν όλες οι απαιτήσεις.
-- Μπορεί να δημιουργηθεί παρατεταμένη στέρηση.
-- Πόροι μένουν δεσμευμένοι χωρίς να χρησιμοποιούνται συνεχώς.
-
-#### Παραβίαση μη προεκχώρησης
-
-Αν είναι δυνατόν, αφαιρείται προσωρινά ένας πόρος από μια διεργασία και δίνεται αλλού.
-
-Εφαρμόζεται μόνο σε πόρους των οποίων η κατάσταση μπορεί να αποθηκευτεί και να αποκατασταθεί αργότερα.
-
-Παραδείγματα όπου **δεν** είναι πρακτικό:
-
-- Εγγραφή σε CD.
-- Πολλές φυσικές συσκευές I/O.
-
-#### Παραβίαση κυκλικής αναμονής
-
-Ορίζεται μια γραμμική διάταξη των πόρων και επιβάλλεται οι διεργασίες να ζητούν πόρους μόνο με αύξουσα σειρά.
-
-Παράδειγμα:
-
-- Αν $R_1 < R_2 < R_3$, μία διεργασία μπορεί να ζητήσει $R_1$ και μετά $R_3$, αλλά όχι $R_3$ και μετά $R_1$.
-
-### 6.2 Αποφυγή
-
-Στην αποφυγή το σύστημα επιτρέπει τις πρώτες τρεις συνθήκες, αλλά αποφασίζει δυναμικά αν μια νέα εκχώρηση θα μπορούσε να οδηγήσει αργότερα σε αδιέξοδο.
-
-Απαιτείται πρόσθετη πληροφορία εκ των προτέρων, κυρίως το μέγιστο πλήθος πόρων που μπορεί να ζητήσει κάθε διεργασία.
-
-Κύρια ιδέα:
-
-- Εκχώρησε πόρους μόνο αν το σύστημα παραμένει σε **ασφαλή κατάσταση**.
-
-### 6.3 Ανίχνευση και επαναφορά
-
-Σε αυτήν την προσέγγιση το σύστημα εκχωρεί πόρους όποτε μπορεί και περιοδικά ελέγχει αν έχει δημιουργηθεί αδιέξοδο.
-
-Αν εντοπιστεί αδιέξοδο, εφαρμόζεται επαναφορά μέσω:
-
-- Τερματισμού διεργασιών.
-- Προεκχώρησης πόρων.
-- Επιστροφής σε προηγούμενα checkpoints.
-
-### 6.4 Χειροκίνητη μεσολάβηση
-
-Σε ορισμένα πρακτικά συστήματα, ο διαχειριστής απλώς επανεκκινεί το σύστημα όταν η κατάσταση μοιάζει ανεξέλεγκτη ή υπερβολικά αργή.
+To prevent deadlock, it suffices to violate at least **one** of the four necessary conditions.
 
 ---
 
-## 7. Αλγόριθμος του τραπεζίτη
+## 6. Handling approaches
 
-Ο αλγόριθμος του τραπεζίτη είναι η κλασική τεχνική αποφυγής αδιεξόδου για συστήματα με πολλαπλά στιγμιότυπα πόρων.
+There are four basic approaches:
 
-### Βασικές έννοιες
+1. Prevention.
+2. Avoidance.
+3. Detection & recovery.
+4. Manual intervention.
 
-- **Κατάσταση συστήματος:** η τρέχουσα εκχώρηση πόρων στις διεργασίες.
-- **Ασφαλής κατάσταση:** υπάρχει τουλάχιστον μία ακολουθία ολοκλήρωσης διεργασιών χωρίς αδιέξοδο.
-- **Μη ασφαλής κατάσταση:** δεν υπάρχει εγγυημένη ασφαλής ακολουθία. Αυτό δεν σημαίνει βέβαιο αδιέξοδο, αλλά υπαρκτή πιθανότητα.
+### 6.1 Prevention
 
-### Παραδοχές
+In prevention we design the system so that at least one of the four necessary conditions is violated.
 
-Ο αλγόριθμος υποθέτει ότι:
+#### Violating mutual exclusion
 
-- Υπάρχουν πολλαπλά στιγμιότυπα πόρων.
-- Κάθε διεργασία δηλώνει εκ των προτέρων τη μέγιστη απαίτησή της.
-- Μια διεργασία που λαμβάνει όλους τους πόρους της θα τους επιστρέψει σε πεπερασμένο χρόνο.
-- Ο αριθμός πόρων είναι σταθερός.
-- Οι σημαντικές διεργασίες είναι ανεξάρτητες.
-- Καμία διεργασία δεν τερματίζει ενώ κρατά πόρους.
+The goal is to reduce the cases of exclusive resource use.
 
-### Δομές δεδομένων
+Example:
 
-Έστω $n$ διεργασίες και $m$ τύποι πόρων.
+- For a printer, instead of many processes using it directly, a `printer daemon` and a print queue are used.
 
-- `Available[j]`: διαθέσιμα στιγμιότυπα του πόρου $R_j$.
-- `Max[i,j]`: μέγιστη απαίτηση της διεργασίας $P_i$ για πόρο $R_j$.
-- `Allocation[i,j]`: στιγμιότυπα του πόρου $R_j$ που έχουν ήδη εκχωρηθεί στη $P_i$.
-- `Need[i,j]`: επιπλέον στιγμιότυπα του $R_j$ που μπορεί να χρειαστεί η $P_i$.
+Limitation: not all resources can be practically converted into shared ones.
 
-Ορίζεται:
+#### Violating hold and wait
+
+Two basic techniques:
+
+- The process requests **all** its resources before it starts.
+- If it needs new resources later, it first releases those it already holds and re-requests the full set.
+
+Disadvantages:
+
+- Usually not all requirements are known in advance.
+- Prolonged deprivation can arise.
+- Resources remain allocated without being used continuously.
+
+#### Violating no preemption
+
+If possible, a resource is temporarily taken from a process and given elsewhere.
+
+It applies only to resources whose state can be saved and restored later.
+
+Examples where it is **not** practical:
+
+- Writing to a CD.
+- Many physical I/O devices.
+
+#### Violating circular wait
+
+A linear ordering of resources is defined and processes are required to request resources only in increasing order.
+
+Example:
+
+- If $R_1 < R_2 < R_3$, a process may request $R_1$ and then $R_3$, but not $R_3$ and then $R_1$.
+
+### 6.2 Avoidance
+
+In avoidance the system allows the first three conditions, but decides dynamically whether a new allocation could later lead to a deadlock.
+
+Additional advance information is required, mainly the maximum number of resources each process may request.
+
+Main idea:
+
+- Allocate resources only if the system remains in a **safe state**.
+
+### 6.3 Detection and recovery
+
+In this approach the system allocates resources whenever it can and periodically checks whether a deadlock has formed.
+
+If a deadlock is detected, recovery is applied through:
+
+- Termination of processes.
+- Preemption of resources.
+- Rolling back to previous checkpoints.
+
+### 6.4 Manual intervention
+
+In some practical systems, the administrator simply restarts the system when the situation seems out of control or excessively slow.
+
+---
+
+## 7. Banker's algorithm
+
+The banker's algorithm is the classic deadlock avoidance technique for systems with multiple resource instances.
+
+### Basic concepts
+
+- **System state:** the current allocation of resources to processes.
+- **Safe state:** there is at least one completion sequence of processes without deadlock.
+- **Unsafe state:** there is no guaranteed safe sequence. This does not mean certain deadlock, but a real possibility.
+
+### Assumptions
+
+The algorithm assumes that:
+
+- There are multiple resource instances.
+- Each process declares its maximum demand in advance.
+- A process that receives all its resources will return them in finite time.
+- The number of resources is fixed.
+- The significant processes are independent.
+- No process terminates while holding resources.
+
+### Data structures
+
+Let $n$ processes and $m$ resource types.
+
+- `Available[j]`: available instances of resource $R_j$.
+- `Max[i,j]`: maximum demand of process $P_i$ for resource $R_j$.
+- `Allocation[i,j]`: instances of resource $R_j$ already assigned to $P_i$.
+- `Need[i,j]`: additional instances of $R_j$ that $P_i$ may need.
+
+It is defined:
 
 $$
 Need[i,j] = Max[i,j] - Allocation[i,j]
 $$
 
-### Κριτήριο ασφαλούς ακολουθίας
+### Criterion of a safe sequence
 
-Μια ακολουθία $\langle P_1, P_2, \dots, P_n \rangle$ είναι ασφαλής αν για κάθε διεργασία της σειράς, οι υπόλοιπες ανάγκες της μπορούν να ικανοποιηθούν από τους τρέχοντες διαθέσιμους πόρους μαζί με τους πόρους που θα επιστραφούν από τις προηγούμενες διεργασίες.
+A sequence $\langle P_1, P_2, \dots, P_n \rangle$ is safe if for every process in the sequence, its remaining needs can be satisfied from the currently available resources together with the resources that will be returned by the preceding processes.
 
-### Βήματα αλγορίθμου ασφάλειας
+### Steps of the safety algorithm
 
-1. Βρες διεργασία $P_i$ με $Need[i,j] \leq Available[j]$ για κάθε $j$.
-2. Υπόθεσε ότι η διεργασία ολοκληρώνεται.
-3. Επέστρεψε τους πόρους της:
+1. Find a process $P_i$ with $Need[i,j] \leq Available[j]$ for every $j$.
+2. Assume that the process completes.
+3. Return its resources:
    $$
    Available[j] = Available[j] + Allocation[i,j]
    $$
-4. Σημείωσέ τη ως ολοκληρωμένη.
-5. Επανάλαβε μέχρι είτε να ολοκληρωθούν όλες οι διεργασίες είτε να μην μπορεί να βρεθεί άλλη κατάλληλη διεργασία.
+4. Mark it as completed.
+5. Repeat until either all processes complete or no other suitable process can be found.
 
-Αν ολοκληρωθούν όλες, η κατάσταση είναι ασφαλής.
+If all complete, the state is safe.
 
 ---
 
-## 8. Ανίχνευση αδιεξόδου
+## 8. Deadlock detection
 
-Η ανίχνευση μοιάζει αλγοριθμικά με τον έλεγχο ασφαλείας, αλλά η λογική είναι διαφορετική: εδώ το σύστημα **δεν** απορρίπτει εκ των προτέρων εκχωρήσεις, αλλά ελέγχει αν το αδιέξοδο έχει ήδη συμβεί.
+Detection is algorithmically similar to the safety check, but the logic is different: here the system **does not** reject allocations in advance, but checks whether deadlock has already occurred.
 
-### Δομές δεδομένων
+### Data structures
 
-Χρησιμοποιούνται:
+Used:
 
 - `Available`
 - `Allocation`
 - `Need`
 
-### Βήματα
+### Steps
 
-1. Βρες γραμμή $i$ όπου $Need[i,j] \leq Available[j]$ για όλα τα $j$.
-2. Αν δεν υπάρχει τέτοια γραμμή, οι μη σημειωμένες διεργασίες είναι σε αδιέξοδο.
-3. Αλλιώς, θεώρησε ότι η διεργασία ολοκληρώνεται και επιστρέφει τους πόρους της.
-4. Επανάλαβε.
+1. Find a row $i$ where $Need[i,j] \leq Available[j]$ for all $j$.
+2. If no such row exists, the unmarked processes are in deadlock.
+3. Otherwise, consider that the process completes and returns its resources.
+4. Repeat.
 
-### Κόστος και πρακτική
+### Cost and practice
 
-Η ανίχνευση αποφεύγει τον συνεχή περιορισμό πρόσβασης σε πόρους, αλλά απαιτεί περιοδικούς ελέγχους και στρατηγική ανάκαμψης.
+Detection avoids the continuous restriction of resource access, but requires periodic checks and a recovery strategy.
 
-Στην πράξη, πολλά λειτουργικά συστήματα δεν εφαρμόζουν αυστηρή καθολική ανίχνευση, αλλά χρησιμοποιούν συνδυασμούς τεχνικών όπως:
+In practice, many operating systems do not apply strict global detection, but use combinations of techniques such as:
 
 - Quotas.
-- Σχεδιαστικούς περιορισμούς.
-- Συμβάσεις χρήσης σημαφόρων και πόρων.
-- Αποτυχία διεργασίας όταν δεν μπορεί να αποκτήσει κρίσιμο πόρο.
+- Design constraints.
+- Conventions for the use of semaphores and resources.
+- Process failure when it cannot acquire a critical resource.
 
-### Στρατηγικές επαναφοράς
+### Recovery strategies
 
-Όταν ανιχνευθεί αδιέξοδο, μπορούν να εφαρμοστούν:
+When a deadlock is detected, the following can be applied:
 
-- Τερματισμός όλων των διεργασιών σε αδιέξοδο.
-- Διαδοχικός τερματισμός μέχρι να σπάσει ο κύκλος.
+- Termination of all processes in deadlock.
+- Successive termination until the cycle is broken.
 - Checkpoint/rollback.
-- Διαδοχική προεκχώρηση πόρων.
+- Successive resource preemption.
 
-### Κριτήρια επιλογής διεργασίας για τερματισμό
+### Criteria for selecting a process for termination
 
-Συνήθη κριτήρια:
+Common criteria:
 
-- Μικρότερος χρόνος CPU που έχει ήδη καταναλωθεί.
-- Μικρότερο πλήθος παραγόμενων γραμμών εξόδου.
-- Μεγαλύτερος εκτιμώμενος χρόνος που απομένει.
-- Μικρότερο πλήθος δεσμευμένων πόρων.
-- Μικρότερη προτεραιότητα.
+- Smaller CPU time already consumed.
+- Smaller number of output lines produced.
+- Larger estimated remaining time.
+- Smaller number of allocated resources.
+- Lower priority.
 
 ---
 
-## 9. Πρόβλημα συνδαιτυμόνων φιλοσόφων
+## 9. Dining philosophers problem
 
-### Περιγραφή
+### Description
 
-Πέντε φιλόσοφοι κάθονται γύρω από ένα κυκλικό τραπέζι. Κάθε φιλόσοφος εναλλάσσεται ανάμεσα σε σκέψη και φαγητό. Για να φάει χρειάζεται δύο πηρούνια: το αριστερό και το δεξί του.
+Five philosophers sit around a circular table. Each philosopher alternates between thinking and eating. To eat, he needs two forks: his left and his right one.
 
-Το πρόβλημα μοντελοποιεί:
+The problem models:
 
-- Κάθε φιλόσοφο ως διεργασία.
-- Κάθε πηρούνι ως διαμοιραζόμενο πόρο.
+- Each philosopher as a process.
+- Each fork as a shared resource.
 
-### Τι δείχνει
+### What it shows
 
-Το πρόβλημα χρησιμοποιείται για να αναδειχθεί η δυσκολία εκχώρησης πόρων χωρίς:
+The problem is used to highlight the difficulty of resource allocation without:
 
-- Αδιέξοδο.
-- Παρατεταμένη στέρηση (`starvation`).
-- Άσκοπη μείωση παραλληλίας.
+- Deadlock.
+- Prolonged starvation.
+- Pointless reduction of parallelism.
 
-### Αφελής λύση που αποτυγχάνει
+### Naive solution that fails
 
-Αν κάθε φιλόσοφος εκτελεί:
+If each philosopher executes:
 
 ```c
 wait(fork[i]);
@@ -384,19 +384,19 @@ signal(fork[(i+1) mod 5]);
 signal(fork[i]);
 ```
 
-μπορεί όλοι να πάρουν από ένα πηρούνι και να περιμένουν για πάντα το δεύτερο.
+all of them can pick up one fork and wait forever for the second one.
 
-### Τεχνικές αποφυγής
+### Avoidance techniques
 
-Από το υλικό προκύπτουν οι εξής λύσεις:
+The following solutions emerge from the material:
 
-- Προσθήκη ενός ακόμη πηρουνιού.
-- Το πολύ 4 φιλόσοφοι στο τραπέζι ταυτόχρονα.
-- Διαφορετική σειρά λήψης πηρουνιών για άρτιους και περιττούς φιλοσόφους.
-- Απόκτηση πηρουνιών μόνο όταν και τα δύο είναι διαθέσιμα.
-- Μη συμμετρικός σχεδιασμός πρωτοκόλλου.
+- Adding one more fork.
+- At most 4 philosophers at the table simultaneously.
+- Different fork acquisition order for even and odd philosophers.
+- Acquiring forks only when both are available.
+- Non-symmetric protocol design.
 
-### Λύση με σημαφόρο `room`
+### Solution with the `room` semaphore
 
 ```c
 semaphore fork[5] = {1};
@@ -414,147 +414,147 @@ while (true) {
 }
 ```
 
-Η ιδέα είναι ότι επιτρέπονται το πολύ 4 φιλόσοφοι να επιχειρούν ταυτόχρονα να φάνε, οπότε σπάει η δυνατότητα πλήρους κυκλικής αναμονής.
+The idea is that at most 4 philosophers are allowed to attempt eating simultaneously, so the possibility of a full circular wait is broken.
 
 ---
 
-## 10. Σύνδεση εννοιών
+## 10. Connection of concepts
 
-| Έννοια | Ρόλος |
+| Concept | Role |
 | :--- | :--- |
-| Αμοιβαίος αποκλεισμός | Κάποιος πόρος δεν μοιράζεται ταυτόχρονα |
-| Κατοχή και αναμονή | Διεργασία κρατά πόρους ενώ ζητά άλλους |
-| Μη προεκχώρηση | Οι πόροι δεν αφαιρούνται βίαια |
-| Κυκλική αναμονή | Κλειστός κύκλος εξάρτησης διεργασιών |
-| Πρόληψη | Σπάει μία από τις 4 συνθήκες |
-| Αποφυγή | Επιτρέπει εκχωρήσεις μόνο αν η κατάσταση παραμένει ασφαλής |
-| Ανίχνευση | Ελέγχει αν το αδιέξοδο υπάρχει ήδη |
-| Επαναφορά | Τερματισμός, rollback ή προεκχώρηση για αποδέσμευση |
-| Dining philosophers | Κλασικό πρότυπο μοντελοποίησης αδιεξόδου και starvation |
+| Mutual exclusion | A resource is not shared simultaneously |
+| Hold and wait | A process holds resources while requesting others |
+| No preemption | Resources are not forcibly taken away |
+| Circular wait | Closed cycle of process dependency |
+| Prevention | Breaks one of the 4 conditions |
+| Avoidance | Allows allocations only if the state remains safe |
+| Detection | Checks whether the deadlock already exists |
+| Recovery | Termination, rollback, or preemption for release |
+| Dining philosophers | Classic model of deadlock and starvation |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Έλεγχος συνθηκών αδιεξόδου
+### Exercise 1: Checking deadlock conditions
 
-**Problem:** Μια διεργασία κρατά έναν εκτυπωτή και περιμένει πρόσβαση σε αρχείο που κατέχεται από δεύτερη διεργασία, ενώ η δεύτερη περιμένει τον εκτυπωτή. Ποιες συνθήκες αδιεξόδου ισχύουν;
-
-**Solution:**
-
-1. Ο εκτυπωτής και το αρχείο θεωρούνται αποκλειστικοί πόροι, άρα ισχύει αμοιβαίος αποκλεισμός.
-2. Κάθε διεργασία κρατά έναν πόρο και περιμένει άλλον, άρα ισχύει κατοχή και αναμονή.
-3. Οι πόροι δεν αφαιρούνται βίαια, άρα ισχύει μη προεκχώρηση.
-4. Η πρώτη περιμένει πόρο της δεύτερης και η δεύτερη πόρο της πρώτης, άρα υπάρχει κυκλική αναμονή.
-5. Εφόσον ισχύουν και οι 4 συνθήκες, το σύστημα βρίσκεται σε αδιέξοδο.
-
-### Exercise 2: Γράφος εκχώρησης από περιγραφή
-
-**Problem:** Δίνονται τα εξής: η διεργασία $P_1$ απαιτεί τον πόρο $R_1$, η διεργασία $P_2$ απαιτεί τον πόρο $R_3$, ο πόρος $R_1$ εκχωρείται στη $P_2$, ο $R_2$ εκχωρείται στη $P_1$ και ο $R_3$ εκχωρείται στη $P_1$. Να περιγραφεί ο γράφος και να ελεγχθεί αν υπάρχει αδιέξοδο.
+**Problem:** A process holds a printer and waits for access to a file held by a second process, while the second waits for the printer. Which deadlock conditions hold?
 
 **Solution:**
 
-1. Οι ακμές απαίτησης είναι $P_1 \rightarrow R_1$ και $P_2 \rightarrow R_3$.
-2. Οι ακμές εκχώρησης είναι $R_1 \rightarrow P_2$, $R_2 \rightarrow P_1$, $R_3 \rightarrow P_1$.
-3. Η $P_1$ περιμένει τον $R_1$, ο οποίος ανήκει στη $P_2$.
-4. Η $P_2$ περιμένει τον $R_3$, ο οποίος ανήκει στη $P_1$.
-5. Δημιουργείται κύκλος $P_1 \rightarrow R_1 \rightarrow P_2 \rightarrow R_3 \rightarrow P_1$.
-6. Αν υπάρχει ένα στιγμιότυπο ανά πόρο, τότε υπάρχει αδιέξοδο.
+1. The printer and the file are considered exclusive resources, so mutual exclusion holds.
+2. Each process holds a resource and waits for another, so hold and wait holds.
+3. The resources are not forcibly taken away, so no preemption holds.
+4. The first waits for a resource of the second and the second for a resource of the first, so there is circular wait.
+5. Since all 4 conditions hold, the system is in a deadlock.
+
+### Exercise 2: Allocation graph from a description
+
+**Problem:** Given the following: process $P_1$ requests resource $R_1$, process $P_2$ requests resource $R_3$, resource $R_1$ is assigned to $P_2$, $R_2$ is assigned to $P_1$, and $R_3$ is assigned to $P_1$. Describe the graph and check whether there is a deadlock.
+
+**Solution:**
+
+1. The request edges are $P_1 \rightarrow R_1$ and $P_2 \rightarrow R_3$.
+2. The assignment edges are $R_1 \rightarrow P_2$, $R_2 \rightarrow P_1$, $R_3 \rightarrow P_1$.
+3. $P_1$ waits for $R_1$, which belongs to $P_2$.
+4. $P_2$ waits for $R_3$, which belongs to $P_1$.
+5. A cycle is formed: $P_1 \rightarrow R_1 \rightarrow P_2 \rightarrow R_3 \rightarrow P_1$.
+6. If there is one instance per resource, then there is a deadlock.
 
 ### Exercise 3: Tape drives
 
-**Problem:** Το σύστημα έχει 6 όμοια tape drives και $n$ διεργασίες. Κάθε διεργασία μπορεί να ζητήσει μέχρι 2 tape drives. Για ποια τιμή του $n$ το σύστημα είναι απαλλαγμένο από αδιέξοδο;
+**Problem:** The system has 6 identical tape drives and $n$ processes. Each process may request up to 2 tape drives. For which value of $n$ is the system deadlock-free?
 
 **Solution:**
 
-1. Για να υπάρχει εγγύηση απουσίας αδιεξόδου, πρέπει να υπάρχει πάντα δυνατότητα τουλάχιστον μία διεργασία να πάρει και το δεύτερο tape drive που ίσως χρειάζεται.
-2. Στη χειρότερη περίπτωση, κάθε διεργασία κρατά 1 tape drive και περιμένει άλλο 1.
-3. Αν υπάρχουν $n$ διεργασίες, τότε στη χειρότερη περίπτωση δεσμεύονται $n$ drives.
-4. Για να μπορέσει κάποια διεργασία να ολοκληρώσει, πρέπει να υπάρχει τουλάχιστον 1 ελεύθερο drive.
-5. Άρα απαιτείται $n \leq 5$.
-6. Για $n = 6$, όλες οι διεργασίες μπορούν να κρατούν από 1 drive και να περιμένουν άλλο 1, άρα είναι δυνατή η κυκλική αναμονή.
+1. For a guarantee of deadlock absence, there must always be the possibility of at least one process getting the second tape drive it may need.
+2. In the worst case, each process holds 1 tape drive and waits for another 1.
+3. If there are $n$ processes, then in the worst case $n$ drives are allocated.
+4. For some process to complete, at least 1 drive must be free.
+5. Therefore $n \leq 5$ is required.
+6. For $n = 6$, all processes can hold 1 drive each and wait for another 1, so circular wait is possible.
 
-### Exercise 4: Παράδειγμα μνήμης
+### Exercise 4: Memory example
 
-**Problem:** Η $P_1$ ζητά $80\text{KB}$ και μετά $60\text{KB}$, ενώ η $P_2$ ζητά $70\text{KB}$ και μετά $80\text{KB}$. Η συνολική διαθέσιμη μνήμη είναι $200\text{KB}$. Να εξεταστεί αν μπορεί να δημιουργηθεί αδιέξοδο.
-
-**Solution:**
-
-1. Ικανοποιούμε το πρώτο αίτημα της $P_1$: απομένουν $120\text{KB}$.
-2. Ικανοποιούμε το πρώτο αίτημα της $P_2$: απομένουν $50\text{KB}$.
-3. Η $P_1$ ζητά επιπλέον $60\text{KB}$, αλλά δεν υπάρχουν αρκετά διαθέσιμα.
-4. Η $P_2$ ζητά επιπλέον $80\text{KB}$, αλλά επίσης δεν υπάρχουν αρκετά διαθέσιμα.
-5. Και οι δύο μπλοκάρουν στη δεύτερη απαίτηση.
-6. Το πρόβλημα επιλύεται με προεκχώρηση μνήμης, επειδή η μνήμη μπορεί να ανακληθεί/ανακατανεμηθεί ευκολότερα από άλλους πόρους.
-
-### Exercise 5: Υπολογισμός πίνακα Need
-
-**Problem:** Αν για μία διεργασία ισχύει $Max = (6,1,2)$ και $Allocation = (2,1,1)$, να βρεθεί το $Need$.
+**Problem:** $P_1$ requests $80\text{KB}$ and then $60\text{KB}$, while $P_2$ requests $70\text{KB}$ and then $80\text{KB}$. The total available memory is $200\text{KB}$. Examine whether a deadlock can be created.
 
 **Solution:**
 
-1. Χρησιμοποιούμε τον τύπο:
+1. We satisfy the first request of $P_1$: $120\text{KB}$ remain.
+2. We satisfy the first request of $P_2$: $50\text{KB}$ remain.
+3. $P_1$ requests an additional $60\text{KB}$, but there are not enough available.
+4. $P_2$ requests an additional $80\text{KB}$, but again there are not enough available.
+5. Both block on the second request.
+6. The problem is solved with memory preemption, because memory can be recalled/reallocated more easily than other resources.
+
+### Exercise 5: Computing the Need matrix
+
+**Problem:** If for a process $Max = (6,1,2)$ and $Allocation = (2,1,1)$, find $Need$.
+
+**Solution:**
+
+1. We use the formula:
    $$
    Need = Max - Allocation
    $$
-2. Υπολογίζουμε ανα συνιστώσα:
+2. We compute per component:
    $$
    Need = (6-2, 1-1, 2-1)
    $$
-3. Άρα:
+3. Hence:
    $$
    Need = (4,0,1)
    $$
-4. Η διεργασία χρειάζεται ακόμη 4 μονάδες του πρώτου πόρου, 0 του δεύτερου και 1 του τρίτου για να ολοκληρωθεί.
+4. The process still needs 4 units of the first resource, 0 of the second, and 1 of the third to complete.
 
-### Exercise 6: Έλεγχος ασφαλούς ακολουθίας
+### Exercise 6: Checking a safe sequence
 
-**Problem:** Έστω $Available = (0,1,1)$ και από το παράδειγμα του κεφαλαίου προκύπτει ότι μία ασφαλής ακολουθία είναι $P_2 \rightarrow P_1 \rightarrow P_3 \rightarrow P_4$. Τι σημαίνει αυτό;
-
-**Solution:**
-
-1. Η ύπαρξη αυτής της ακολουθίας σημαίνει ότι το σύστημα είναι σε ασφαλή κατάσταση.
-2. Πρώτα μπορεί να ολοκληρωθεί η $P_2$ με τους διαθέσιμους πόρους.
-3. Μετά την ολοκλήρωσή της, επιστρέφει τους πόρους της και αυξάνει το `Available`.
-4. Έτσι γίνεται εφικτή η ολοκλήρωση της $P_1$, μετά της $P_3$ και τέλος της $P_4$.
-5. Επομένως, παρότι οι διαθέσιμοι πόροι αρχικά είναι λίγοι, υπάρχει σειρά εκτέλεσης που αποφεύγει το αδιέξοδο.
-
-### Exercise 7: Πρόληψη μέσω διάταξης πόρων
-
-**Problem:** Έστω ότι υπάρχουν πόροι $R_1 < R_2 < R_3$. Μπορεί μια διεργασία να ζητήσει πρώτα $R_2$ και μετά $R_1$;
+**Problem:** Let $Available = (0,1,1)$ and from the chapter example a safe sequence is $P_2 \rightarrow P_1 \rightarrow P_3 \rightarrow P_4$. What does this mean?
 
 **Solution:**
 
-1. Αν εφαρμόζεται πολιτική γραμμικής αρίθμησης πόρων, οι αιτήσεις πρέπει να ακολουθούν αύξουσα σειρά.
-2. Η αίτηση πρώτα για $R_2$ και μετά για $R_1$ παραβιάζει αυτήν την πολιτική.
-3. Η παραβίαση θα μπορούσε να επιτρέψει δημιουργία κύκλου αναμονής με άλλες διεργασίες.
-4. Άρα η αίτηση δεν επιτρέπεται.
-5. Ο στόχος είναι να αποκλειστεί η συνθήκη της κυκλικής αναμονής.
+1. The existence of this sequence means that the system is in a safe state.
+2. First, $P_2$ can complete with the available resources.
+3. After its completion, it returns its resources and increases `Available`.
+4. This makes the completion of $P_1$, then $P_3$, and finally $P_4$ feasible.
+5. Therefore, although the initially available resources are few, there is an execution order that avoids deadlock.
 
-### Exercise 8: Dining philosophers με room = 4
+### Exercise 7: Prevention through resource ordering
 
-**Problem:** Γιατί η χρήση σημαφόρου `room = 4` αποτρέπει το αδιέξοδο στο πρόβλημα των φιλοσόφων;
+**Problem:** Suppose there are resources $R_1 < R_2 < R_3$. Can a process request $R_2$ first and then $R_1$?
 
 **Solution:**
 
-1. Χωρίς περιορισμό, και οι 5 φιλόσοφοι μπορούν να πάρουν ταυτόχρονα από ένα πηρούνι.
-2. Τότε ο καθένας περιμένει το δεύτερο και δημιουργείται πλήρης κύκλος αναμονής.
-3. Με `room = 4`, το πολύ 4 φιλόσοφοι προσπαθούν ταυτόχρονα να αποκτήσουν πηρούνια.
-4. Άρα πάντα μένει τουλάχιστον ένας εκτός διαδικασίας απόκτησης, γεγονός που σπάει τη δυνατότητα να σχηματιστεί κύκλος 5-μελών.
-5. Έτσι το αδιέξοδο αποφεύγεται.
+1. If a linear resource numbering policy is applied, requests must follow increasing order.
+2. Requesting $R_2$ first and then $R_1$ violates this policy.
+3. The violation could allow the creation of a waiting cycle with other processes.
+4. Therefore the request is not allowed.
+5. The goal is to preclude the circular wait condition.
+
+### Exercise 8: Dining philosophers with room = 4
+
+**Problem:** Why does the use of the `room = 4` semaphore prevent deadlock in the philosophers problem?
+
+**Solution:**
+
+1. Without restriction, all 5 philosophers can simultaneously pick up one fork.
+2. Then each waits for the second and a full waiting cycle is created.
+3. With `room = 4`, at most 4 philosophers attempt to acquire forks simultaneously.
+4. So at least one always remains outside the acquisition process, which breaks the possibility of forming a 5-member cycle.
+5. Thus deadlock is avoided.
 
 ---
 
-## Exam Tip: Γρήγορος τρόπος αναγνώρισης
+## Exam Tip: Quick recognition method
 
-Σε θέματα θεωρίας, ο ταχύτερος έλεγχος είναι ο εξής:
+In theory questions, the fastest check is the following:
 
-1. Ρώτησε αν υπάρχει αποκλειστική χρήση πόρων.
-2. Έλεγξε αν κάποια διεργασία κρατά πόρους ενώ ζητά άλλους.
-3. Έλεγξε αν οι πόροι αφαιρούνται βίαια ή όχι.
-4. Αναζήτησε κύκλο αναμονής.
+1. Ask whether there is exclusive resource use.
+2. Check whether some process holds resources while requesting others.
+3. Check whether resources are forcibly taken away or not.
+4. Look for a waiting cycle.
 
-Αν απαντώνται **ναι** και στα 4, τότε έχεις αδιέξοδο ή τις ακριβείς προϋποθέσεις για να συμβεί.
+If the answer is **yes** to all 4, then you have a deadlock or the exact preconditions for it to occur.
 
 > **[Key Insight]**
-> Στις ασκήσεις με γράφους, πρώτα ελέγχεις για κύκλο και αμέσως μετά για το πλήθος στιγμιοτύπων ανά τύπο πόρου. Αυτά τα δύο βήματα λύνουν σχεδόν όλο το ερώτημα.
+> In graph exercises, first check for a cycle and immediately after for the number of instances per resource type. These two steps solve almost the entire question.

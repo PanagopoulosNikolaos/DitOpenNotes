@@ -1,167 +1,167 @@
-# Ασκήσεις — Πλοήγηση στο Σύστημα Αρχείων UNIX
+# Exercises — Navigation in the UNIX File System
 
-**Βασισμένες σε:** `2_UNIX_File_System_Navigation.md`  
-**Αριθμός ασκήσεων:** 30
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Τι είναι το σύστημα αρχείων και ποια είναι η βασική του δομή στο UNIX;
+**Based on:** `2_UNIX_File_System_Navigation.md`  
+**Number of exercises:** 30
 
 ---
 
-### Άσκηση 2
-Συμπληρώστε τον πίνακα τύπων αρχείων UNIX:
+## Part A — Theory
 
-| Σύμβολο | Τύπος Αρχείου |
+### Exercise 1
+What is the file system and what is its basic structure in UNIX?
+
+---
+
+### Exercise 2
+Complete the table of UNIX file types:
+
+| Symbol | File Type |
 | :--- | :--- |
 | `-` | |
 | `d` | |
 | `l` | |
-| `c` ή `b` | |
-| `p` ή `s` | |
+| `c` or `b` | |
+| `p` or `s` | |
 
 ---
 
-### Άσκηση 3
-Εξηγήστε τη διαφορά μεταξύ **απόλυτης** και **σχετικής** διαδρομής (pathname). Δώστε από ένα παράδειγμα για καθεμία.
+### Exercise 3
+Explain the difference between an **absolute** and a **relative** pathname. Give one example for each.
 
 ---
 
-### Άσκηση 4
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
+### Exercise 4
+Mark **T** (True) or **F** (False):
 
-1. Μια απόλυτη διαδρομή ξεκινά πάντα με `/`.
-2. Μια σχετική διαδρομή εξαρτάται από τον τρέχοντα κατάλογο εργασίας (CWD).
-3. Το σύμβολο `..` αναφέρεται στον τρέχοντα κατάλογο.
-4. Το σύμβολο `~` αναφέρεται στον home directory του τρέχοντος χρήστη.
-5. Η διαδρομή `/etc/passwd` είναι σχετική.
-
----
-
-### Άσκηση 5
-Ο τρέχων κατάλογος εργασίας είναι `/home/student/projects`. Ποια είναι η απόλυτη διαδρομή που αντιστοιχεί σε κάθε σχετική διαδρομή;
-
-(α) `report.txt`  
-(β) `./docs/readme.md`  
-(γ) `../shared/data.csv`  
-(δ) `../../etc/hosts`
+1. An absolute path always starts with `/`.
+2. A relative path depends on the current working directory (CWD).
+3. The symbol `..` refers to the current directory.
+4. The symbol `~` refers to the home directory of the current user.
+5. The path `/etc/passwd` is relative.
 
 ---
 
-### Άσκηση 6
-Αναφέρετε τη λειτουργία των καταλόγων `/bin`, `/dev`, `/etc`, `/home`, `/tmp`, `/var`, `/usr`.
+### Exercise 5
+The current working directory is `/home/student/projects`. What is the absolute path corresponding to each relative path?
+
+(a) `report.txt`  
+(b) `./docs/readme.md`  
+(c) `../shared/data.csv`  
+(d) `../../etc/hosts`
 
 ---
 
-### Άσκηση 7
-Τι εμφανίζει η εντολή `pwd` και γιατί είναι χρήσιμη πριν από εντολές `cd`;
+### Exercise 6
+Mention the function of the directories `/bin`, `/dev`, `/etc`, `/home`, `/tmp`, `/var`, `/usr`.
 
 ---
 
-### Άσκηση 8
-Εξηγήστε τη διαφορά μεταξύ `mkdir` και `mkdir -p`. Γιατί χρειάζεται η επιλογή `-p`;
+### Exercise 7
+What does the `pwd` command display and why is it useful before `cd` commands?
 
 ---
 
-### Άσκηση 9
-Γιατί η εντολή `rmdir` αποτυγχάνει αν ο κατάλογος δεν είναι κενός; Ποια εντολή χρησιμοποιείται για διαγραφή μη κενών καταλόγων;
+### Exercise 8
+Explain the difference between `mkdir` and `mkdir -p`. Why is the `-p` option needed?
 
 ---
 
-### Άσκηση 10
-Τι κάνει η εντολή `cd -`;
+### Exercise 9
+Why does the `rmdir` command fail if the directory is not empty? Which command is used to delete non-empty directories?
 
 ---
 
-## Μέρος Β — Εργαστήριο
-
-### Άσκηση 11
-Ο τρέχων κατάλογός σας είναι `/home/user1/documents`. Δώστε την εντολή για μετάβαση στον κατάλογο `/etc` χρησιμοποιώντας **απόλυτη** διαδρομή.
+### Exercise 10
+What does the `cd -` command do?
 
 ---
 
-### Άσκηση 12
-Ο τρέχων κατάλογός σας είναι `/home/user1/documents`. Δώστε την εντολή για μετάβαση στον κατάλογο `/etc` χρησιμοποιώντας **σχετική** διαδρομή.
+## Part B — Laboratory
+
+### Exercise 11
+Your current directory is `/home/user1/documents`. Give the command to move to the `/etc` directory using an **absolute** path.
 
 ---
 
-### Άσκηση 13
-Ο τρέχων κατάλογός σας είναι `/local/home/student/project1`. Θέλετε να δημιουργήσετε τον κατάλογο `student1` μέσα στον `/local/home/teacher`. Δώστε την πλήρη εντολή με **σχετικό** όνομα διαδρομής.
+### Exercise 12
+Your current directory is `/home/user1/documents`. Give the command to move to the `/etc` directory using a **relative** path.
 
 ---
 
-### Άσκηση 14
-Ο τρέχων κατάλογός σας είναι `/home/paul/data`. Δώστε την εντολή για μετάβαση στον `/home/peter/files` με σχετική διαδρομή.
+### Exercise 13
+Your current directory is `/local/home/student/project1`. You want to create the directory `student1` inside `/local/home/teacher`. Give the full command with a **relative** pathname.
 
 ---
 
-### Άσκηση 15
-Δώστε την εντολή για δημιουργία του καταλόγου `projects/python/scripts` όταν δεν υπάρχουν οι γονικοί κατάλογοι `projects` και `python`.
+### Exercise 14
+Your current directory is `/home/paul/data`. Give the command to move to `/home/peter/files` with a relative path.
 
 ---
 
-### Άσκηση 16
-Δώστε την εντολή για δημιουργία του καταλόγου `backup` στον `/tmp` χρησιμοποιώντας απόλυτη διαδρομή.
+### Exercise 15
+Give the command to create the directory `projects/python/scripts` when the parent directories `projects` and `python` do not exist.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για διαγραφή του **κενού** καταλόγου `old_empty` στον τρέχοντα κατάλογο.
+### Exercise 16
+Give the command to create the directory `backup` in `/tmp` using an absolute path.
 
 ---
 
-### Άσκηση 18
-Δώστε την εντολή για επιστροφή στον home directory του τρέχοντος χρήστη με τον συντομότερο τρόπο.
+### Exercise 17
+Give the command to delete the **empty** directory `old_empty` in the current directory.
 
 ---
 
-### Άσκηση 19
-Μετά από μια σειρά εντολών `cd`, θέλετε να επιστρέψετε στον προηγούμενο κατάλογο εργασίας. Ποια εντολή χρησιμοποιείτε;
+### Exercise 18
+Give the command to return to the home directory of the current user in the shortest way.
 
 ---
 
-### Άσκηση 20
-Ο τρέχων κατάλογος είναι `/var/www/html`. Δώστε την εντολή για μετάβαση δύο επιπέδων πάνω (στον `/var`).
+### Exercise 19
+After a series of `cd` commands, you want to return to the previous working directory. Which command do you use?
 
 ---
 
-## Μέρος Γ — Σύνθετες Ερωτήσεις
-
-### Άσκηση 21
-Περιγράψτε τη ροή εργασίας (workflow) πλοήγησης στο σύστημα αρχείων: ποιες εντολές χρησιμοποιείτε και σε ποια σειρά;
+### Exercise 20
+The current directory is `/var/www/html`. Give the command to move two levels up (to `/var`).
 
 ---
 
-### Άσκηση 22
-Ο τρέχων κατάλογος είναι `/home/alice/work/reports/2024`. Χωρίς να χρησιμοποιήσετε απόλυτη διαδρομή, δώστε την εντολή `cd` για μετάβαση στον κατάλογο `/home/bob/files`.
+## Part C — Complex Questions
+
+### Exercise 21
+Describe the file system navigation workflow: which commands do you use and in what order?
 
 ---
 
-### Άσκηση 23
-Εξηγήστε γιατί η φιλοσοφία «όλα είναι αρχεία» του UNIX σχετίζεται με την ύπαρξη ειδικών αρχείων (`c`, `b`) στον κατάλογο `/dev`.
+### Exercise 22
+The current directory is `/home/alice/work/reports/2024`. Without using an absolute path, give the `cd` command to move to the directory `/home/bob/files`.
 
 ---
 
-### Άσκηση 24
-Κυκλώστε τη σωστή απάντηση: Ποιο σύμβολο αναφέρεται στον **γονικό** κατάλογο;
-
-- α) `.`  
-- β) `..`  
-- γ) `~`  
-- δ) `/`
+### Exercise 23
+Explain why the "everything is a file" philosophy of UNIX is related to the existence of special files (`c`, `b`) in the `/dev` directory.
 
 ---
 
-### Άσκηση 25
-Ένας χρήστης εκτελεί `mkdir projects/subdir` ενώ δεν υπάρχει ο κατάλογος `projects`. Τι μήνυμα λάθους θα εμφανιστεί και πώς το διορθώνει;
+### Exercise 24
+Circle the correct answer: Which symbol refers to the **parent** directory?
+
+- a) `.`  
+- b) `..`  
+- c) `~`  
+- d) `/`
 
 ---
 
-### Άσκηση 26
-Σχεδιάστε ένα διάγραμμα δέντρου (tree) για τη δομή:
+### Exercise 25
+A user runs `mkdir projects/subdir` while the `projects` directory does not exist. What error message will be displayed and how does the user fix it?
+
+---
+
+### Exercise 26
+Draw a tree diagram for the structure:
 
 ```
 /home/student/
@@ -174,32 +174,32 @@
 
 ---
 
-### Άσκηση 27
-Από τον κατάλογο `/home/student/scripts`, ποια σχετική διαδρομή οδηγεί στο αρχείο `notes.txt` που βρίσκεται στον `docs`;
+### Exercise 27
+From the directory `/home/student/scripts`, which relative path leads to the file `notes.txt` located in `docs`?
 
 ---
 
-### Άσκηση 28
-Σημειώστε **Σ** ή **Λ** και διορθώστε τα λανθασμένα:
+### Exercise 28
+Mark **T** or **F** and correct the false statements:
 
-1. Τα pipes (`p`) και sockets (`s`) χρησιμοποιούνται για επικοινωνία μεταξύ διεργασιών.
-2. Ο συμβολικός σύνδεσμος (`l`) αποθηκεύει τα δεδομένα του αρχείου απευθείας.
-3. Ο κατάλογος `/tmp` είναι κατάλληλος για μόνιμη αποθήκευση σημαντικών δεδομένων.
-4. Η εντολή `cd documents` μετακινεί τον χρήστη στον υποκατάλογο `documents` του CWD.
-5. Η ρίζα του συστήματος αρχείων αντιπροσωπεύεται από το σύμβολο `\`.
+1. Pipes (`p`) and sockets (`s`) are used for communication between processes.
+2. A symbolic link (`l`) stores the file data directly.
+3. The `/tmp` directory is suitable for permanent storage of important data.
+4. The `cd documents` command moves the user to the `documents` subdirectory of the CWD.
+5. The root of the file system is represented by the symbol `\`.
 
 ---
 
-### Άσκηση 29
-Ένας φοιτητής θέλει να δημιουργήσει τη δομή:
+### Exercise 29
+A student wants to create the structure:
 
 ```
 ~/semester4/os/lab1/
 ```
 
-Δώστε τη σειρά εντολών (μία ή περισσότερες) για να το επιτύχει από οποιονδήποτε κατάλογο.
+Give the sequence of commands (one or more) to achieve this from any directory.
 
 ---
 
-### Άσκηση 30
-Εξηγήστε γιατί η κατανόηση της διαφοράς CWD / απόλυτης / σχετικής διαδρομής είναι κρίσιμη σε εξετάσεις εργαστηρίου UNIX. Δώστε ένα παράδειγμα λάθους που μπορεί να γίνει αν δεν γνωρίζουμε τον CWD.
+### Exercise 30
+Explain why understanding the difference CWD / absolute / relative path is critical in UNIX laboratory exams. Give an example of a mistake that can be made if the CWD is not known.

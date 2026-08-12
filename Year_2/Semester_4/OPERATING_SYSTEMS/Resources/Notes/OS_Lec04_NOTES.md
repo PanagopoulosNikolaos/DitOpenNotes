@@ -1,48 +1,48 @@
-# Αρχιτεκτονικές Λειτουργικών Συστημάτων (Κεφάλαιο 4)
+# Operating Systems Architectures (Chapter 4)
 
-Το κεφάλαιο αυτό καλύπτει τις κύριες αρχιτεκτονικές με τις οποίες σχεδιάζονται και υλοποιούνται τα σύγχρονα Λειτουργικά Συστήματα (ΛΣ). Εξετάζονται οκτώ αρχιτεκτονικές κατηγορίες — από τα μονολιθικά συστήματα έως τα κατανεμημένα — με έμφαση στα χαρακτηριστικά, τα πλεονεκτήματα, και τις αδυναμίες κάθε προσέγγισης. Η κατανόησή τους είναι θεμελιώδης για τη μελέτη του σχεδιασμού λογισμικού συστημάτων και τη διαχείριση υπολογιστικών πόρων.
+This chapter covers the main architectures with which modern Operating Systems (OS) are designed and implemented. Eight architectural categories are examined — from monolithic systems to distributed ones — with emphasis on the features, advantages, and weaknesses of each approach. Understanding them is fundamental for the study of systems software design and the management of computing resources.
 
 ---
 
-## 1. Μονολιθικά Συστήματα (Monolithic Systems)
+## 1. Monolithic Systems
 
-### Ορισμός και Χαρακτηριστικά
+### Definition and Features
 
-Τα μονολιθικά συστήματα αποτελούν την απλούστερη αρχιτεκτονική ΛΣ: **δεν υπάρχει εσωτερική δομή ή διαχωρισμός**. Το σύνολο του ΛΣ είναι μια συλλογή διαδικασιών όπου κάθε μία μπορεί να καλέσει οποιαδήποτε άλλη απευθείας.
+Monolithic systems constitute the simplest OS architecture: **there is no internal structure or separation**. The entire OS is a collection of procedures where each one can call any other directly.
 
-- Η επικοινωνία μεταξύ διαδικασιών γίνεται μέσω **παραμέτρων**.
-- Κάθε διαδικασία είναι **ορατή** σε οποιαδήποτε άλλη (δεν υπάρχει απόκρυψη πληροφορίας).
+- Communication between procedures is done through **parameters**.
+- Each procedure is **visible** to any other (there is no information hiding).
 
-### Δομή Μονολιθικής Οργάνωσης
+### Structure of Monolithic Organization
 
-| Συστατικό | Ρόλος |
+| Component | Role |
 | :--- | :--- |
-| Κύριο πρόγραμμα | Ζητά την ενεργοποίηση διαδικασιών εξυπηρέτησης |
-| Διαδικασίες εξυπηρέτησης | Υλοποιούν τις κλήσεις συστήματος (system calls) |
-| Βοηθητικά προγράμματα | Υποστηρίζουν τις διαδικασίες εξυπηρέτησης |
+| Main program | Requests the invocation of service procedures |
+| Service procedures | Implement the system calls |
+| Utility programs | Support the service procedures |
 
-### Υλοποίηση Κλήσης Συστήματος (System Call)
+### System Call Implementation
 
-Σε μονολιθικά συστήματα, η κλήση συστήματος ακολουθεί τα παρακάτω βήματα:
+In monolithic systems, the system call follows the following steps:
 
-1. Το πρόγραμμα χρήστη δημιουργεί μια **παγίδα** (trap) στον πυρήνα — εκτελείται ειδική εντολή ή kernel call.
-2. Το ΛΣ προσδιορίζει τον **αριθμό εξυπηρέτησης** που ζητήθηκε.
-3. Το ΛΣ εντοπίζει και καλεί την **διαδικασία εξυπηρέτησης**.
-4. Ο έλεγχος **επιστρέφεται** στο πρόγραμμα χρήστη.
+1. The user program creates a **trap** to the kernel — a special instruction or kernel call is executed.
+2. The OS determines the **service number** requested.
+3. The OS locates and calls the **service procedure**.
+4. Control is **returned** to the user program.
 
-> **[Key Insight]** Η απουσία δομής κάνει τα μονολιθικά συστήματα γρήγορα (χωρίς επιπλέον επίπεδα), αλλά δυσκολοσυντήρητα και ευάλωτα: ένα σφάλμα οπουδήποτε μπορεί να καταρρίψει ολόκληρο το σύστημα.
+> **[Key Insight]** The absence of structure makes monolithic systems fast (no additional layers), but difficult to maintain and vulnerable: a fault anywhere can bring down the entire system.
 
 ---
 
-## 2. Στρωματοποιημένη Αρχιτεκτονική (Layered Architecture)
+## 2. Layered Architecture
 
-### Ορισμός και Αρχή Λειτουργίας
+### Definition and Operating Principle
 
-Η στρωματοποιημένη αρχιτεκτονική βελτιώνει τον σχεδιασμό ομαδοποιώντας συστατικά που υλοποιούν **παρόμοιες λειτουργίες** σε επίπεδα (layers). Κάθε επίπεδο επικοινωνεί **μόνο με τα γειτονικά** (άνω και κάτω).
+Layered architecture improves design by grouping components that implement **similar functions** into layers. Each layer communicates **only with its neighbors** (above and below).
 
-### Δομή Επιπέδων
+### Layer Structure
 
-| Επίπεδο | Λειτουργία | Χώρος |
+| Layer | Function | Space |
 | :--- | :--- | :--- |
 | Layer 4 | User Applications | User space |
 | Layer 3 | I/O Management | Kernel space |
@@ -50,339 +50,339 @@
 | Layer 1 | Memory Management | Kernel space |
 | Layer 0 | Processor Allocation & Process Scheduling | Kernel space |
 
-### Πλεονεκτήματα και Μειονεκτήματα
+### Advantages and Disadvantages
 
-**Πλεονεκτήματα:**
-- Σαφής οργάνωση και modular σχεδιασμός.
-- Ευκολία εντοπισμού σφαλμάτων — κάθε επίπεδο ελέγχεται ανεξάρτητα.
+**Advantages:**
+- Clear organization and modular design.
+- Ease of error detection — each layer is tested independently.
 
-**Μειονεκτήματα:**
-- Οι απαιτήσεις των διεργασιών **διαπερνούν πολλά επίπεδα** πριν ολοκληρωθούν → αυξημένη καθυστέρηση.
-- Η **ρυθμοαπόδοση (throughput)** μπορεί να είναι χαμηλότερη σε σχέση με τα μονολιθικά συστήματα.
-- Απαιτούνται επιπλέον μέθοδοι για τη **μεταβίβαση και τον έλεγχο δεδομένων**.
+**Disadvantages:**
+- The requirements of processes **cross many layers** before completing → increased delay.
+- **Throughput** can be lower compared to monolithic systems.
+- Additional methods are required for **data transfer and control**.
 
 ---
 
-## 3. Αρχιτεκτονική Μικροπυρήνα (Microkernel Architecture)
+## 3. Microkernel Architecture
 
-### Ορισμός
+### Definition
 
-Ο **μικροπυρήνας** αναθέτει ελάχιστες λειτουργίες στον πυρήνα και μεταφέρει τις υπόλοιπες σε **εξυπηρετητές (servers)** που τρέχουν σε κατάσταση χρήστη (user mode).
+The **microkernel** assigns minimal functions to the kernel and moves the rest to **servers** running in user mode.
 
-| Στοιχείο | Τοποθεσία | Παράδειγμα |
+| Component | Location | Example |
 | :--- | :--- | :--- |
-| IPC, Memory management, Synchronization | Kernel space | Πυρήνας |
-| File system, Process scheduler, Device manager | User space | Εξυπηρετητές |
-| Applications | User space | Εφαρμογές χρήστη |
+| IPC, Memory management, Synchronization | Kernel space | Kernel |
+| File system, Process scheduler, Device manager | User space | Servers |
+| Applications | User space | User applications |
 
-### Μηχανισμός Λειτουργίας
+### Operating Mechanism
 
-1. Η διεργασία χρήστη (**client process**) στέλνει απαίτηση στη διεργασία εξυπηρετητή (**server process**).
-2. Ο server επιτελεί τη λειτουργία και επιστρέφει απάντηση.
-3. Ο **μικροπυρήνας** διαχειρίζεται την επικοινωνία μέσω **IPC (Inter-Process Communication)**.
+1. The user process (**client process**) sends a request to the server process.
+2. The server performs the function and returns a response.
+3. The **microkernel** manages the communication through **IPC (Inter-Process Communication)**.
 
-### Τρόποι Επίλυσης Περιορισμών
+### Ways of Resolving Limitations
 
-- **Λύση 1:** Κρίσιμοι servers τρέχουν σε κατάσταση πυρήνα με πλήρη πρόσβαση στο υλικό, αλλά συνεχίζουν να επικοινωνούν με τις άλλες διεργασίες.
-- **Λύση 2:** Στοιχειώδης μηχανισμός προστίθεται στον πυρήνα, αλλά η **πολιτική αποφάσεων** παραμένει στους εξυπηρετητές.
+- **Solution 1:** Critical servers run in kernel mode with full access to the hardware, but continue to communicate with the other processes.
+- **Solution 2:** A basic mechanism is added to the kernel, but the **decision policy** remains with the servers.
 
-### Πλεονεκτήματα Μικροπυρήνα
+### Microkernel Advantages
 
-| Πλεονέκτημα | Εξήγηση |
+| Advantage | Explanation |
 | :--- | :--- |
-| Επεκτασιμότητα | Προσθήκη/αφαίρεση υπηρεσιών χωρίς επανασύνταξη πυρήνα |
-| Μεταφερσιμότητα | Οι αλλαγές για νέο επεξεργαστή γίνονται μόνο στον μικροπυρήνα |
-| Αντικειμενοστραφής σχεδιασμός | Τα συστατικά είναι αντικείμενα με σαφείς διεπαφές |
-| Αξιοπιστία | Μικρό μέγεθος πυρήνα → δυνατότητα ακριβούς ελέγχου (testing) |
+| Extensibility | Addition/removal of services without recompiling the kernel |
+| Portability | Changes for a new processor are made only in the microkernel |
+| Object-oriented design | The components are objects with clear interfaces |
+| Reliability | Small kernel size → possibility of accurate testing |
 
-> **[Key Insight]** Ο Linux kernel είναι **μονολιθικός** (αλλά modular), ενώ το MINIX και το QNX χρησιμοποιούν αρχιτεκτονική μικροπυρήνα. Η επιλογή επηρεάζει άμεσα την απόδοση και την ασφάλεια.
+> **[Key Insight]** The Linux kernel is **monolithic** (but modular), while MINIX and QNX use a microkernel architecture. The choice directly affects performance and security.
 
 ---
 
-## 4. Νήματα — Πολυνημάτωση (Threads — Multithreading)
+## 4. Threads — Multithreading
 
-### Ορισμός Νήματος
+### Definition of a Thread
 
-Ένα **νήμα (thread)** είναι η μικρότερη μονάδα εκτέλεσης εντολών στον επεξεργαστή. Περιλαμβάνει:
-- **Μετρητή προγράμματος (Program Counter)**
-- **Δείκτη στοίβας (Stack Pointer)**
-- **Δική του περιοχή δεδομένων**
+A **thread** is the smallest unit of instruction execution on the processor. It includes:
+- **Program Counter**
+- **Stack Pointer**
+- **Its own data region**
 
-Μια **διεργασία (process)** είναι μια συλλογή νημάτων μαζί με τους συσχετιζόμενους πόρους του συστήματος.
+A **process** is a collection of threads together with the associated system resources.
 
-### Νήματα vs Διεργασίες
+### Threads vs Processes
 
-| Χαρακτηριστικό | Διεργασία | Νήμα |
+| Feature | Process | Thread |
 | :--- | :--- | :--- |
-| Χώρος διευθύνσεων | Ιδιωτικός | Κοινός (εντός διεργασίας) |
-| Δεδομένα / Κώδικας / Αρχεία | Ιδιωτικά | Διαμοιραζόμενα |
-| Κόστος δημιουργίας | Υψηλό (kernel call) | Χαμηλό (user space) |
-| Κόστος εναλλαγής πλαισίου | Υψηλό | Χαμηλό |
-| Επικοινωνία/Συγχρονισμός | Kernel call | Παρακολούθηση μεταβλητής |
+| Address space | Private | Shared (within a process) |
+| Data / Code / Files | Private | Shared |
+| Creation cost | High (kernel call) | Low (user space) |
+| Context switch cost | High | Low |
+| Communication/Synchronization | Kernel call | Variable monitoring |
 
-### Νήματα Χρήστη vs Νήματα Πυρήνα
+### User-Level Threads vs Kernel-Level Threads
 
-**Νήματα Χρήστη (User-Level Threads):**
-- Διαχείριση από **βιβλιοθήκη χρήστη** (π.χ. POSIX Pthreads, Win32 threads, Solaris threads).
-- Ο πυρήνας **δεν γνωρίζει** τα νήματα χρήστη — δρομολογεί μόνο διεργασίες.
-- Ο προγραμματιστής χειρίζεται δημιουργία, διαγραφή, συγχρονισμό, δρομολόγηση.
+**User-Level Threads:**
+- Managed by a **user library** (e.g., POSIX Pthreads, Win32 threads, Solaris threads).
+- The kernel **does not know** about user threads — it schedules only processes.
+- The programmer handles creation, deletion, synchronization, scheduling.
 
-**Νήματα Πυρήνα (Kernel-Level Threads):**
-- Υποστηρίζονται **απευθείας από τον πυρήνα** (π.χ. Linux, Windows XP/2000, Solaris lightweight processes).
-- Η εναλλαγή μεταξύ νημάτων πυρήνα στην ίδια διεργασία: αλλάζουν τιμές καταχωρητών, PC, stack pointers — **όχι** οι πληροφορίες διαχείρισης μνήμης.
-- Ο πυρήνας χρησιμοποιεί αλγορίθμους δρομολόγησης διεργασιών για τη διαχείρισή τους.
+**Kernel-Level Threads:**
+- Supported **directly by the kernel** (e.g., Linux, Windows XP/2000, Solaris lightweight processes).
+- Switching between kernel threads of the same process: register values, PC, stack pointers change — **not** the memory management information.
+- The kernel uses process scheduling algorithms to manage them.
 
 ### Hyper-Threading (Intel)
 
-Η Intel υλοποιεί την τεχνολογία **hyper-threading** που αυξάνει τον ρυθμό εναλλαγής μεταξύ νημάτων σε ένα σύστημα με έναν φυσικό πυρήνα, εμφανίζοντάς τον σαν να διαθέτει πολλαπλούς επεξεργαστές. Στόχος: ενίσχυση του πολυδιεργασιακού χαρακτήρα.
+Intel implements the **hyper-threading** technology which increases the rate of switching between threads on a system with one physical core, making it appear as if it had multiple processors. Goal: enhancement of the multiprocessing character.
 
-### Παραδείγματα Νημάτων
+### Thread Examples
 
-| Τύπος | Παράδειγμα | Σημείωση |
+| Type | Example | Note |
 | :--- | :--- | :--- |
-| POSIX Pthreads | `pthread_create()`, `pthread_join()` | Πρότυπο IEEE, κυρίως UNIX/Linux |
-| Java threads | `Thread` class / `Runnable` | Υποστηρίζονται από JVM |
+| POSIX Pthreads | `pthread_create()`, `pthread_join()` | IEEE standard, mainly UNIX/Linux |
+| Java threads | `Thread` class / `Runnable` | Supported by the JVM |
 
-### Πλεονεκτήματα Νημάτων
+### Thread Advantages
 
-- Δημιουργία χωρίς αντικατάσταση ολόκληρης της διεργασίας.
-- Το μεγαλύτερο μέρος του έργου δημιουργίας γίνεται στο **user space**.
-- Συγχρονισμός μέσω παρακολούθησης μεταβλητής (χωρίς kernel call).
-- Χρήσιμα σε εφαρμογές με **ανεξάρτητες, μη σειριακές εργασίες** (π.χ. web servers, browsers).
+- Creation without replacing the entire process.
+- Most of the creation work is done in **user space**.
+- Synchronization through variable monitoring (without a kernel call).
+- Useful in applications with **independent, non-sequential tasks** (e.g., web servers, browsers).
 
-> **[Key Insight]** Παράδειγμα Web browser: ένα νήμα ανακτά HTML, ένα δεύτερο φορτώνει εικόνες/video, ένα τρίτο εμφανίζει τη σελίδα — όλα σε κοινή μνήμη.
+> **[Key Insight]** Web browser example: one thread retrieves HTML, a second loads images/video, a third displays the page — all in shared memory.
 
 ---
 
-## 5. Συστήματα Πολυεπεξεργασίας (Multiprocessing Systems)
+## 5. Multiprocessing Systems
 
-### Ορισμός
+### Definition
 
-**Πολυεπεξεργασία** είναι η χρήση πολλαπλών ταυτόχρονων επεξεργαστών/διεργασιών σε ένα σύστημα.
+**Multiprocessing** is the use of multiple concurrent processors/processes in a system.
 
-### Κατηγορίες Συστημάτων Πολυεπεξεργασίας
+### Categories of Multiprocessing Systems
 
-| Κατηγορία | Χαρακτηριστικά | Παράδειγμα διασύνδεσης |
+| Category | Features | Interconnection example |
 | :--- | :--- | :--- |
-| Συμπαγώς συνδεδεμένα | Πολλαπλές CPUs στο ίδιο bus, κοινή ή ιεραρχική μνήμη | Shared memory bus |
-| Χαλαρά συνδεδεμένα | Κάθε CPU έχει τοπική μνήμη, επικοινωνούν μέσω δικτύου | Gigabit Ethernet, τηλεφωνικές γραμμές |
+| Tightly coupled | Multiple CPUs on the same bus, shared or hierarchical memory | Shared memory bus |
+| Loosely coupled | Each CPU has local memory, they communicate through a network | Gigabit Ethernet, telephone lines |
 
-### Τοπολογίες Διασύνδεσης
+### Interconnection Topologies
 
-- **Κοινός Δίαυλος (Shared Bus):** Όλες οι CPUs και η μνήμη συνδέονται σε ένα bus — απλό αλλά bottleneck σε υψηλό φορτίο.
-- **Grid:** Κάθε επεξεργαστής συνδέεται με τους γείτονές του σε πλέγμα 2D.
-- **Hypercube:** Κάθε επεξεργαστής συνδέεται με $\log_2 N$ γείτονες — υψηλή συνδεσιμότητα, χαμηλή διάμετρος.
+- **Shared Bus:** All CPUs and memory are connected to one bus — simple but a bottleneck under high load.
+- **Grid:** Each processor connects to its neighbors in a 2D grid.
+- **Hypercube:** Each processor connects to $\log_2 N$ neighbors — high connectivity, low diameter.
 
 ---
 
-## 6. Παράλληλα Συστήματα (Parallel Systems)
+## 6. Parallel Systems
 
-### Ορισμός
+### Definition
 
-Τα παράλληλα συστήματα είναι συστήματα **πολυεπεξεργασίας** με περισσότερους από έναν επεξεργαστές που επικοινωνούν μεταξύ τους για κοινό υπολογιστικό στόχο.
+Parallel systems are **multiprocessing** systems with more than one processor that communicate with each other for a common computing goal.
 
-### Κατηγορίες
+### Categories
 
-| Κατηγορία | Αρκτικόλεξο | Περιγραφή |
+| Category | Acronym | Description |
 | :--- | :--- | :--- |
-| Συμμετρική Πολυεπεξεργασία | SMP | Όλοι οι CPUs ισότιμοι, κοινή μνήμη, ίδιο ΛΣ |
-| Συστοιχίες SMP | SMP Clusters | Ομάδες SMP συνδεδεμένες μεταξύ τους |
-| Μαζικά Παράλληλα | MPP | Πλήθος επεξεργαστών με τοπική μνήμη ο καθένας |
+| Symmetric Multiprocessing | SMP | All CPUs equal, shared memory, same OS |
+| SMP Clusters | SMP Clusters | Groups of SMPs interconnected |
+| Massively Parallel | MPP | A large number of processors, each with local memory |
 
-**Κριτήρια διάκρισης:**
-- Είδος διασύνδεσης επεξεργαστών.
-- Είδος διασύνδεσης μεταξύ επεξεργαστών και μνημών.
+**Distinguishing criteria:**
+- Type of processor interconnection.
+- Type of interconnection between processors and memories.
 
-### Συμμετρική Πολυεπεξεργασία (SMP) — Λεπτομέρειες
+### Symmetric Multiprocessing (SMP) — Details
 
-- Δύο ή περισσότεροι επεξεργαστές **στην ίδια μητρική πλακέτα**.
-- Συντονίζονται μέσω **διαύλου συστήματος**.
-- Κάθε CPU τρέχει **πανομοιότυπο αντίγραφο** του ΛΣ.
-- **Αυτόματη εξισορρόπηση φορτίου** μεταξύ των CPUs.
-- Βασικοί περιορισμοί: λογισμικό και υποστήριξη από το ΛΣ.
+- Two or more processors **on the same motherboard**.
+- Coordinated through the **system bus**.
+- Each CPU runs an **identical copy** of the OS.
+- **Automatic load balancing** among the CPUs.
+- Main limitations: software and OS support.
 
-### Ασύμμετρη Πολυεπεξεργασία
+### Asymmetric Multiprocessing
 
-- Ο **πρωτεύων (master) επεξεργαστής** δρομολογεί και αναθέτει διεργασίες στους **slave** επεξεργαστές.
-- Κάθε slave αναλαμβάνει συγκεκριμένη διεργασία.
-- Συνηθισμένη σε **πολύ μεγάλα συστήματα**.
+- The **master processor** schedules and assigns processes to the **slave** processors.
+- Each slave undertakes a specific process.
+- Common in **very large systems**.
 
-### Πλεονεκτήματα Παράλληλων Συστημάτων
+### Parallel System Advantages
 
-- Υψηλές επιδόσεις
-- Οικονομία κλίμακας
-- Αυξημένη αξιοπιστία
-- Διαθεσιμότητα
-- Επεκτασιμότητα
-- Κλιμάκωση (scalability)
+- High performance
+- Economy of scale
+- Increased reliability
+- Availability
+- Extensibility
+- Scalability
 
 ---
 
-## 7. Συστήματα Πραγματικού Χρόνου (Real-Time Systems)
+## 7. Real-Time Systems
 
-### Ορισμός
+### Definition
 
-Συστήματα με **αυστηρούς χρονικούς περιορισμούς** που χρησιμοποιούνται ως συσκευή ελέγχου σε εξειδικευμένες εφαρμογές (βιομηχανικός έλεγχος, ιατρική, επιστημονικά πειράματα).
+Systems with **strict timing constraints** used as control devices in specialized applications (industrial control, medicine, scientific experiments).
 
-### Κατηγορίες
+### Categories
 
-| Κατηγορία | Χαρακτηριστικά | Χρήση |
+| Category | Features | Use |
 | :--- | :--- | :--- |
-| Hard Real-Time | Αυστηρές προθεσμίες, περιορισμένη δευτερεύουσα μνήμη, δεδομένα σε RAM/ROM | Βιομηχανικός έλεγχος, robotics |
-| Soft Real-Time | Ευέλικτες προθεσμίες, δεν απαιτεί εξαντλητική πραγματικού χρόνου εγγύηση | Multimedia, Virtual Reality |
+| Hard Real-Time | Strict deadlines, limited secondary storage, data in RAM/ROM | Industrial control, robotics |
+| Soft Real-Time | Flexible deadlines, does not require exhaustive real-time guarantee | Multimedia, Virtual Reality |
 
-> **[Key Insight]** Σε **Hard Real-Time** συστήματα, η υπέρβαση μιας προθεσμίας θεωρείται αποτυχία του συστήματος. Σε **Soft Real-Time**, μια μικρή καθυστέρηση είναι ανεκτή (π.χ. dropped frame σε video).
-
----
-
-## 8. Κατανεμημένα Συστήματα (Distributed Systems)
-
-### Ορισμός
-
-Συστήματα που κατανέμουν τη διαδικασία υπολογισμών σε **πολλούς φυσικούς επεξεργαστές — υπολογιστές**, καθένας με δική του κύρια και δευτερεύουσα μνήμη και στοιχεία I/O. Παρέχουν στον χρήστη την ψευδαίσθηση **ενός μοναδικού χώρου μνήμης**.
-
-### Τι Αποκρύπτουν τα Κατανεμημένα Συστήματα
-
-- Τον **τρόπο πρόσβασης** σε έναν πόρο.
-- **Το χώρο** όπου βρίσκεται ο πόρος.
-- Τη **διαμοίραση** πόρων από ανταγωνιστικούς χρήστες.
-- Τη **μετακίνηση** πόρου κατά τη χρήση του.
-- Τις **διαφορές** στην αναπαράσταση δεδομένων (data representation).
-
-### Χαρακτηριστικά Κατανεμημένων Συστημάτων
-
-**Πλεονεκτήματα:**
-- Διαμοίραση πόρων
-- Αύξηση ταχύτητας υπολογισμού
-- Αξιοπιστία
-- Δυνατότητες επικοινωνίας
-
-**Μειονεκτήματα:**
-- Ασφάλεια και προστασία (κύριο ζήτημα)
+> **[Key Insight]** In **Hard Real-Time** systems, missing a deadline is considered a system failure. In **Soft Real-Time**, a small delay is tolerable (e.g., a dropped frame in video).
 
 ---
 
-## Συγκριτική Ανάλυση Αρχιτεκτονικών
+## 8. Distributed Systems
 
-| Αρχιτεκτονική | Δομή | Απόδοση | Αξιοπιστία | Πολυπλοκότητα |
+### Definition
+
+Systems that distribute the computation process across **many physical processors — computers**, each with its own main and secondary memory and I/O components. They provide the user with the illusion of **a single memory space**.
+
+### What Distributed Systems Hide
+
+- The **way of accessing** a resource.
+- **The location** where the resource resides.
+- The **sharing** of resources by competing users.
+- The **migration** of a resource during its use.
+- The **differences** in data representation.
+
+### Features of Distributed Systems
+
+**Advantages:**
+- Resource sharing
+- Increase of computation speed
+- Reliability
+- Communication capabilities
+
+**Disadvantages:**
+- Security and protection (main issue)
+
+---
+
+## Comparative Analysis of Architectures
+
+| Architecture | Structure | Performance | Reliability | Complexity |
 | :--- | :--- | :--- | :--- | :--- |
-| Μονολιθική | Καμία | Υψηλή | Χαμηλή | Χαμηλή |
-| Στρωματοποιημένη | Επίπεδα | Μέτρια | Μέτρια | Μέτρια |
-| Μικροπυρήνας | Client-Server (user mode) | Χαμηλότερη (IPC overhead) | Υψηλή | Υψηλή |
-| Νήματα / Multithreading | Εντός διεργασίας | Υψηλή | Μέτρια | Μέτρια |
-| SMP | Πολλαπλοί CPUs, κοινή μνήμη | Πολύ υψηλή | Υψηλή | Υψηλή |
-| Παράλληλα (MPP) | Κατανεμημένη μνήμη | Πολύ υψηλή | Πολύ υψηλή | Πολύ υψηλή |
-| Real-Time | Εξειδικευμένος χρονοπρογραμματισμός | Ντετερμινιστική | Κρίσιμη | Υψηλή |
-| Κατανεμημένα | Πολλοί ανεξάρτητοι κόμβοι | Κλιμακώσιμη | Πολύ υψηλή | Πολύ υψηλή |
+| Monolithic | None | High | Low | Low |
+| Layered | Layers | Moderate | Moderate | Moderate |
+| Microkernel | Client-Server (user mode) | Lower (IPC overhead) | High | High |
+| Threads / Multithreading | Within a process | High | Moderate | Moderate |
+| SMP | Multiple CPUs, shared memory | Very high | High | High |
+| Parallel (MPP) | Distributed memory | Very high | Very high | Very high |
+| Real-Time | Specialized scheduling | Deterministic | Critical | High |
+| Distributed | Many independent nodes | Scalable | Very high | Very high |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Αναγνώριση Αρχιτεκτονικής
+### Exercise 1: Architecture Recognition
 
-**Problem:** Ένα ΛΣ αποτελείται από μια συλλογή διαδικασιών όπου κάθε μία μπορεί να καλέσει απευθείας οποιαδήποτε άλλη μέσω παραμέτρων. Ποια αρχιτεκτονική περιγράφεται;
+**Problem:** An OS consists of a collection of procedures where each one can directly call any other through parameters. Which architecture is described?
 
 **Solution:**
-1. Δεν υπάρχει εσωτερική δομή ή διαχωρισμός → αποκλείουμε στρωματοποιημένη και μικροπυρήνα.
-2. Κάθε διαδικασία ορατή σε οποιαδήποτε άλλη → χαρακτηριστικό μονολιθικής.
-3. **Απάντηση: Μονολιθική αρχιτεκτονική.**
+1. There is no internal structure or separation → we rule out layered and microkernel.
+2. Each procedure is visible to any other → a characteristic of monolithic.
+3. **Answer: Monolithic architecture.**
 
 ---
 
-### Exercise 2: Βήματα Κλήσης Συστήματος
+### Exercise 2: System Call Steps
 
-**Problem:** Περιγράψτε με σειρά τα βήματα που ακολουθεί μια κλήση συστήματος σε μονολιθικό ΛΣ όταν ένα πρόγραμμα χρήστη ζητά ανάγνωση αρχείου.
+**Problem:** Describe in order the steps that a system call follows in a monolithic OS when a user program requests a file read.
 
 **Solution:**
-1. Το πρόγραμμα εκτελεί ειδική εντολή → **παγίδα (trap)** στον πυρήνα.
-2. Το ΛΣ λαμβάνει τον αριθμό εξυπηρέτησης (π.χ. `read = 0`).
-3. Το ΛΣ εντοπίζει την αντίστοιχη διαδικασία εξυπηρέτησης.
-4. Η διαδικασία εκτελείται, διαβάζει τα δεδομένα.
-5. Ο έλεγχος επιστρέφεται στο πρόγραμμα χρήστη με το αποτέλεσμα.
+1. The program executes a special instruction → **trap** to the kernel.
+2. The OS receives the service number (e.g., `read = 0`).
+3. The OS locates the corresponding service procedure.
+4. The procedure executes, reads the data.
+5. Control is returned to the user program with the result.
 
 ---
 
-### Exercise 3: Επίπεδα Στρωματοποιημένης Αρχιτεκτονικής
+### Exercise 3: Layered Architecture Levels
 
-**Problem:** Σε μια στρωματοποιημένη αρχιτεκτονική 5 επιπέδων (Layer 0–4), ποια επίπεδα βρίσκονται σε kernel space και ποια σε user space;
+**Problem:** In a 5-level layered architecture (Layer 0–4), which levels are in kernel space and which in user space?
 
 **Solution:**
-1. Layer 4: **User space** (User applications — απευθείας αλληλεπίδραση χρήστη).
+1. Layer 4: **User space** (User applications — direct user interaction).
 2. Layer 0–3: **Kernel space** (Processor scheduling, Memory management, Message interpreter, I/O management).
-3. Η γραμμή διαχωρισμού user/kernel βρίσκεται μεταξύ Layer 3 και Layer 4.
+3. The user/kernel dividing line is between Layer 3 and Layer 4.
 
 ---
 
-### Exercise 4: Μικροπυρήνας — Ροή Επικοινωνίας
+### Exercise 4: Microkernel — Communication Flow
 
-**Problem:** Σε μια αρχιτεκτονική μικροπυρήνα, μια εφαρμογή ζητά πρόσβαση στο σύστημα αρχείων. Περιγράψτε τη ροή.
+**Problem:** In a microkernel architecture, an application requests access to the file system. Describe the flow.
 
 **Solution:**
-1. Η εφαρμογή (client process) στέλνει αίτημα μέσω της **System Call Interface**.
-2. Το αίτημα φτάνει στον **File System server** (user space).
-3. Ο server επικοινωνεί με τον μικροπυρήνα μέσω **IPC**.
-4. Ο μικροπυρήνας χρησιμοποιεί **Memory Management** ή **Synchronization** αν απαιτείται.
-5. Η απάντηση επιστρέφεται αντίστροφα: μικροπυρήνας → File System server → εφαρμογή.
+1. The application (client process) sends a request through the **System Call Interface**.
+2. The request reaches the **File System server** (user space).
+3. The server communicates with the microkernel through **IPC**.
+4. The microkernel uses **Memory Management** or **Synchronization** if required.
+5. The response is returned in reverse: microkernel → File System server → application.
 
 ---
 
-### Exercise 5: Σύγκριση Νήματος και Διεργασίας
+### Exercise 5: Thread vs Process Comparison
 
-**Problem:** Γιατί η εναλλαγή πλαισίου (context switch) μεταξύ νημάτων είναι φθηνότερη από εναλλαγή μεταξύ διεργασιών;
+**Problem:** Why is a context switch between threads cheaper than a switch between processes?
 
 **Solution:**
-1. Κατά την εναλλαγή **διεργασιών**: αλλάζει **ολόκληρος ο χώρος διευθύνσεων**, οι πίνακες μνήμης, τα ανοιχτά αρχεία.
-2. Κατά την εναλλαγή **νημάτων** της ίδιας διεργασίας: αλλάζουν μόνο οι **καταχωρητές, το PC, και ο stack pointer**.
-3. Ο χώρος διευθύνσεων, δεδομένα, κώδικας, αρχεία **παραμένουν κοινά** → δεν χρειάζεται επαναφόρτωση.
-4. **Συμπέρασμα:** Η εναλλαγή νήματος έχει πολύ μικρότερο overhead.
+1. During **process** switching: the **entire address space**, memory tables, open files change.
+2. During **thread** switching within the same process: only the **registers, the PC, and the stack pointer** change.
+3. The address space, data, code, files **remain shared** → no reload is needed.
+4. **Conclusion:** Thread switching has much lower overhead.
 
 ---
 
 ### Exercise 6: Hard vs Soft Real-Time
 
-**Problem:** Μια εφαρμογή ελέγχου αεροσκάφους και ένα σύστημα αναπαραγωγής video τρέχουν σε real-time ΛΣ. Ποιο είναι Hard και ποιο Soft; Αιτιολογήστε.
+**Problem:** An aircraft control application and a video playback system run on a real-time OS. Which is Hard and which is Soft? Justify.
 
 **Solution:**
-1. **Έλεγχος αεροσκάφους → Hard Real-Time.** Η αποτυχία τήρησης της προθεσμίας (π.χ. καθυστέρηση σε εντολή ελιγμού) μπορεί να οδηγήσει σε καταστροφή. Μηδενική ανοχή καθυστέρησης.
-2. **Αναπαραγωγή video → Soft Real-Time.** Ένα dropped frame δεν αποτελεί κρίσιμη αποτυχία — απλώς υποβαθμίζει την εμπειρία χρήστη.
+1. **Aircraft control → Hard Real-Time.** Failure to meet the deadline (e.g., delay in a maneuver command) can lead to disaster. Zero tolerance for delay.
+2. **Video playback → Soft Real-Time.** A dropped frame is not a critical failure — it merely degrades the user experience.
 
 ---
 
-### Exercise 7: SMP vs Ασύμμετρη Πολυεπεξεργασία
+### Exercise 7: SMP vs Asymmetric Multiprocessing
 
-**Problem:** Σε ποιο σενάριο προτιμάται η ασύμμετρη πολυεπεξεργασία έναντι της SMP;
+**Problem:** In which scenario is asymmetric multiprocessing preferred over SMP?
 
 **Solution:**
-1. **SMP:** Όλοι οι CPUs ισότιμοι, μοιράζονται φορτίο αυτόματα → κατάλληλο για γενικής χρήσης συστήματα.
-2. **Ασύμμετρη:** Ο master CPU αναθέτει εργασίες σε slaves → κατάλληλο για **πολύ μεγάλα συστήματα** όπου ο συντονισμός είναι κρίσιμος και οι διεργασίες μπορούν να εξειδικευτούν.
-3. **Απάντηση:** Σε πολύ μεγάλες εγκαταστάσεις (mainframes, high-performance computing) όπου η εξειδίκευση CPUs αυξάνει την αποδοτικότητα.
+1. **SMP:** All CPUs are equal, share the load automatically → suitable for general-purpose systems.
+2. **Asymmetric:** The master CPU assigns jobs to slaves → suitable for **very large systems** where coordination is critical and processes can be specialized.
+3. **Answer:** In very large installations (mainframes, high-performance computing) where CPU specialization increases efficiency.
 
 ---
 
-### Exercise 8: Κατανεμημένα vs Παράλληλα Συστήματα
+### Exercise 8: Distributed vs Parallel Systems
 
-**Problem:** Ποια η ουσιαστική διαφορά μεταξύ κατανεμημένων και παράλληλων συστημάτων;
+**Problem:** What is the essential difference between distributed and parallel systems?
 
 **Solution:**
-1. **Παράλληλα συστήματα:** Πολλοί επεξεργαστές **στενά συνδεδεμένοι**, συνήθως κοινή ή ιεραρχική μνήμη, στόχος η ταυτόχρονη εκτέλεση για υψηλές επιδόσεις.
-2. **Κατανεμημένα συστήματα:** Πολλοί **ανεξάρτητοι υπολογιστές** με δική τους μνήμη, επικοινωνούν μέσω δικτύου. Ο χρήστης βλέπει ένα ενιαίο σύστημα.
-3. **Κλειδί:** Στα κατανεμημένα, το σύστημα **αποκρύπτει** την ετερογένεια (τοποθεσία πόρου, μορφή δεδομένων κλπ). Στα παράλληλα, η εστίαση είναι η **ταχύτητα** εκτέλεσης.
+1. **Parallel systems:** Many **tightly coupled** processors, usually shared or hierarchical memory, goal of simultaneous execution for high performance.
+2. **Distributed systems:** Many **independent computers** with their own memory, communicating through a network. The user sees a single system.
+3. **Key:** In distributed systems, the system **hides** heterogeneity (resource location, data format, etc.). In parallel systems, the focus is on the **speed** of execution.
 
 ---
 
-## Exam Tip: Ταξινόμηση Αρχιτεκτονικών σε Ερωτήσεις
+## Exam Tip: Classification of Architectures in Questions
 
-**Συχνά λάθη στις εξετάσεις:**
+**Common exam mistakes:**
 
-1. **Σύγχυση Multithreading με Multiprocessing:** Τα νήματα μοιράζονται χώρο διευθύνσεων εντός **μιας** διεργασίας. Η πολυεπεξεργασία χρησιμοποιεί **πολλούς CPUs**.
+1. **Confusing Multithreading with Multiprocessing:** Threads share an address space within **one** process. Multiprocessing uses **multiple CPUs**.
 
-2. **Hard vs Soft Real-Time:** Το κριτήριο είναι η **συνέπεια** αποτυχίας προθεσμίας — κρίσιμη (hard) ή ανεκτή (soft).
+2. **Hard vs Soft Real-Time:** The criterion is the **severity** of a deadline failure — critical (hard) or tolerable (soft).
 
-3. **Μονολιθικός vs Μικροπυρήνας:** Στον μονολιθικό **ΟΛΑ** τρέχουν σε kernel mode. Στον μικροπυρήνα **μόνο** IPC, memory management, synchronization βρίσκονται στον πυρήνα.
+3. **Monolithic vs Microkernel:** In monolithic **ALL** run in kernel mode. In microkernel **only** IPC, memory management, synchronization reside in the kernel.
 
-4. **Κατανεμημένα vs Παράλληλα:** Στα κατανεμημένα κάθε κόμβος έχει **ξεχωριστή μνήμη** και επικοινωνεί μέσω δικτύου. Στα παράλληλα SMP η μνήμη είναι **κοινή**.
+4. **Distributed vs Parallel:** In distributed systems each node has **separate memory** and communicates through a network. In parallel SMP systems the memory is **shared**.
 
-**Μνημονικό για τη στρωματοποιημένη αρχιτεκτονική (Layer 0→4):**
+**Mnemonic for the layered architecture (Layer 0→4):**
 > **P**rocessor → **M**emory → **M**essage → **I**/O → **U**ser
-> (**P**apa **M**aria **M**ageireuei **I**talika **U**perba)
+> (**P**rocessors **M**anage **M**essages **I**n **U**nison)

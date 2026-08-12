@@ -88,7 +88,7 @@
 
         <div>
           <div class="big">Sigma notation</div>
-          <div id="sigma" class="mono pill">f(x,y,z) = Σ( )</div>
+          <div id="sigma" class="mono pill">f(x,y,z) = &Sigma;( )</div>
         </div>
 
         <div>
@@ -157,7 +157,7 @@
   const foundTerms = [];
 
   function updateSigma(){
-    sigma.textContent = `f(x,y,z) = Σ(${foundIdx.join(", ")})`;
+    sigma.textContent = `f(x,y,z) = &Sigma;(${foundIdx.join(", ")})`;
   }
   function updateExpanded(){
     expanded.textContent = `f(x,y,z) = ${foundTerms.join(" + ")}`;

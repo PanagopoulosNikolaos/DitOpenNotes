@@ -189,7 +189,7 @@ Note: A pangram is a word that contains all 24 letters of the Greek alphabet.
 
 **Solution:**
 
-The `isPangram` function in Python is given below, which checks whether a phrase contains all 24 letters of the Greek alphabet. For correct operation, the function converts characters to lowercase, removes accents and diacritics, and maps the final sigma «ς» to the normal sigma «σ».
+The `isPangram` function in Python is given below, which checks whether a phrase contains all 24 letters of the Greek alphabet. For correct operation, the function converts characters to lowercase, removes accents and diacritics, and maps the final sigma $\varsigma$ to the normal sigma $\sigma$.
 
 ```python
 def isPangram(phrase: str) -> bool:

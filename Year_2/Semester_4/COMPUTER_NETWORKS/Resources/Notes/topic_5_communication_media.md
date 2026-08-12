@@ -103,8 +103,8 @@
   ╚═══════════════════════════════════════════════════╝
 ```
 
-- **75 Ω (RG-6, RG-11):** Standard for cable TV (CATV) and HFC last-mile broadband (DOCSIS).
-- **50 Ω (RG-8, RG-58):** Specialized RF radio communication.
+- **75 $\Omega$ (RG-6, RG-11):** Standard for cable TV (CATV) and HFC last-mile broadband (DOCSIS).
+- **50 $\Omega$ (RG-8, RG-58):** Specialized RF radio communication.
 
 **Coaxial vs Twisted Pair:**
 - **Superior EMI Shielding:** Central conductor rests inside a metallic Faraday cage.
@@ -116,7 +116,7 @@
 
 ### Copper Comparison Table
 
-| Property | Twisted Pair (UTP Cat6a) | Coaxial (75Ω RG-6) |
+| Property | Twisted Pair (UTP Cat6a) | Coaxial (75 $\Omega$ RG-6) |
 |---|---|---|
 | **Typical Use** | Ethernet LAN, DSL | HFC, cable TV |
 | **Max Speed** | 10 Gbps (100 m) | Gbps+ (DOCSIS 3.1) |
@@ -156,7 +156,7 @@ Light stays trapped inside the fiber core due to **total internal reflection**: 
   Condition: n1 > n2  ⟹ Total internal reflection
 ```
 
-**Single-Mode Fiber (SMF)** uses semiconductor **lasers** to inject light into an 8–10 μm core.
+**Single-Mode Fiber (SMF)** uses semiconductor **lasers** to inject light into an 8–10 $\mu m$ core.
 
 ---
 
@@ -166,11 +166,11 @@ Light stays trapped inside the fiber core due to **total internal reflection**: 
   Single-Mode Fiber Optic Structure (SMF)
   ────────────────────────────────────────────────────────────────
   ╔════════════════════════════════════════════════════════╗
-  ║  Outer Buffer Coating (250–900 μm)                     ║  ← Mechanical protection
+  ║  Outer Buffer Coating (250–900 $\mu m$)              ║  ← Mechanical protection
   ║  ┌──────────────────────────────────────────────────┐  ║
-  ║  │  Cladding (125 μm outer diameter)                │  ║  ← Low n, reflection
+  ║  │  Cladding (125 $\mu m$ outer diameter)           │  ║  ← Low n, reflection
   ║  │  ┌────────────────────────────────────────────┐  │  ║
-  ║  │  │  Core (~8-10 μm diameter)                    │  │  ║  ← Carries laser light
+  ║  │  │  Core (~8-10 $\mu m$ diameter)              │  │  ║  ← Carries laser light
   ║  │  └────────────────────────────────────────────┘  │  ║
   ║  └──────────────────────────────────────────────────┘  ║
   ╚════════════════════════════════════════════════════════╝
@@ -178,8 +178,8 @@ Light stays trapped inside the fiber core due to **total internal reflection**: 
 
 | Parameter | Value |
 |---|---|
-| Core diameter | ~8–10 μm |
-| Cladding diameter | 125 μm |
+| Core diameter | ~8–10 $\mu m$ |
+| Cladding diameter | 125 $\mu m$ |
 | Light source | Laser |
 | Operating Wavelengths | 1310 nm (O-band) and 1550 nm (C-band) |
 | Attenuation @ 1310 nm | ~0.35 dB/km |
@@ -197,7 +197,7 @@ Light stays trapped inside the fiber core due to **total internal reflection**: 
 
 | Property | Single-Mode (SMF) | Multi-Mode (MMF) |
 |---|---|---|
-| Core Diameter | ~8–10 μm | ~50–62.5 μm |
+| Core Diameter | ~8–10 $\mu m$ | ~50–62.5 $\mu m$ |
 | Light Modes | 1 | Many (100+) |
 | Light Source | Laser | LED or VCSEL |
 | Modal Dispersion | None | Significant |
@@ -215,12 +215,12 @@ Light stays trapped inside the fiber core due to **total internal reflection**: 
 ```
   DWDM Concept
   ────────────────────────────────────────────────────────────────
-  [Laser λ1 = 1530.33 nm] ─────┐
-  [Laser λ2 = 1531.12 nm] ─────┤
-  [Laser λ3 = 1531.90 nm] ─────┤  [Multiplexer]═══════[SMF]═══════[Demultiplexer]
-  [Laser λ4 = 1532.68 nm] ─────┤                                        │
-        ...                    ┤                                   λ1..λN channels
-  [Laser λN = 1561.42 nm] ─────┘
+  [Laser $\lambda_1$ = 1530.33 nm] ─────┐
+  [Laser $\lambda_2$ = 1531.12 nm] ─────┤
+  [Laser $\lambda_3$ = 1531.90 nm] ─────┤  [Multiplexer]═══════[SMF]═══════[Demultiplexer]
+  [Laser $\lambda_4$ = 1532.68 nm] ─────┤                                        │
+        ...                    ┤                                   $\lambda_1$..$\lambda_N$ channels
+  [Laser $\lambda_N$ = 1561.42 nm] ─────┘
 
   Capacity: 80–160 channels × 100 Gbps/channel = 8–16+ Tbps per fiber
 ```

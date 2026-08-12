@@ -1,190 +1,190 @@
-# Ασκήσεις — Κεφάλαιο 7: Διαχείριση Μνήμης
+# Exercises — Chapter 7: Memory Management
 
-**Βασισμένες σε:** `OS_Lec07_NOTES.md`  
-**Αριθμός ασκήσεων:** 32
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Ποιος είναι ο ρόλος του memory manager και ποιες πέντε βασικές ευθύνες έχει;
+**Based on:** `OS_Lec07_NOTES.md`  
+**Number of exercises:** 32
 
 ---
 
-### Άσκηση 2
-Διακρίνετε συνεχόμενη (contiguous) και μη συνεχόμενη (non-contiguous) εκχώρηση μνήμης.
+## Part A — Theory
+
+### Exercise 1
+What is the role of the memory manager and what five main responsibilities does it have?
 
 ---
 
-### Άσκηση 3
-Εξηγήστε μονοπρογραμματισμό: πλεονεκτήματα, μειονεκτήματα, χρήση overlays.
+### Exercise 2
+Distinguish contiguous and non-contiguous memory allocation.
 
 ---
 
-### Άσκηση 4
-Γιατί αναπτύχθηκε η διαχείριση μνήμης για πολυπρογραμματισμό;
+### Exercise 3
+Explain uniprogramming: advantages, disadvantages, use of overlays.
 
 ---
 
-### Άσκηση 5
-Δώστε τον τύπο CPU utilization και εξηγήστε τα $p_i$ (ποσοστό χρόνου διεργασίας i στην CPU).
+### Exercise 4
+Why was memory management for multiprogramming developed?
 
 ---
 
-### Άσκηση 6
-Τι είναι εσωτερικός και εξωτερικός κατακερματισμός (fragmentation);
+### Exercise 5
+Give the CPU utilization formula and explain the $p_i$ (percentage of time of process i on the CPU).
 
 ---
 
-### Άσκηση 7
-Διακρίνετε τμηματοποίηση σταθερού μεγέθους (ίσα vs άνισα τμήματα) και δυναμική τμηματοποίηση.
+### Exercise 6
+What is internal and external fragmentation?
 
 ---
 
-### Άσκηση 8
-Εξηγήστε swapping: τι μεταφέρεται, πότε, ποιος scheduler σχετίζεται.
+### Exercise 7
+Distinguish fixed-size partitioning (equal vs unequal segments) and dynamic partitioning.
 
 ---
 
-## Μέρος Β — Αλγόριθμοι Τοποθέτησης
-
-### Άσκηση 9
-Περιγράψτε First-Fit, Best-Fit, Next-Fit. Ποια τα πλεονεκτήματα/μειονεκτήματα;
+### Exercise 8
+Explain swapping: what is transferred, when, which scheduler is involved.
 
 ---
 
-### Άσκηση 10
-Γιατί το Best-Fit μπορεί να αφήνει πολλά μικρά unusable holes;
+## Part B — Placement Algorithms
+
+### Exercise 9
+Describe First-Fit, Best-Fit, Next-Fit. What are the advantages/disadvantages?
 
 ---
 
-### Άσκηση 11
-Ποια είναι οι περιορισμοί του swapping (π.χ. πολυπρογραμματισμός, pinned pages);
+### Exercise 10
+Why can Best-Fit leave many small unusable holes?
 
 ---
 
-## Μέρος Γ — Υπολογιστικές Ασκήσεις
-
-### Άσκηση 12
-**CPU Utilization:** 3 διεργασίες, καθεμία χρειάζεται 20% CPU. $n=2$ διεργασίες στη μνήμη. Υπολογίστε CPU utilization.
+### Exercise 11
+What are the limitations of swapping (e.g., multiprogramming, pinned pages)?
 
 ---
 
-### Άσκηση 13
-**CPU Utilization:** 4 διεργασίες με $p_1=0.1$, $p_2=0.2$, $p_3=0.3$, $p_4=0.4$. Βαθμός πολυπρογραμματισμού $n=3$. Υπολογίστε $1 - (1-p_1)(1-p_2)(1-p_3)$.
+## Part C — Computational Exercises
+
+### Exercise 12
+**CPU Utilization:** 3 processes, each needs 20% CPU. $n=2$ processes in memory. Calculate the CPU utilization.
 
 ---
 
-### Άσκηση 14
-**Εσωτερικός κατακερματισμός:** Τμήματα 4KB. Διεργασία 2.5KB. Πόσα bytes σπαταλώνται ανά διεργασία; Για 10 διεργασίες;
+### Exercise 13
+**CPU Utilization:** 4 processes with $p_1=0.1$, $p_2=0.2$, $p_3=0.3$, $p_4=0.4$. Degree of multiprogramming $n=3$. Calculate $1 - (1-p_1)(1-p_2)(1-p_3)$.
 
 ---
 
-### Άσκηση 15
-**Ίσα τμήματα:** Μνήμη 1MB, 4 ίσα τμήματα. Μέγιστος αριθμός διεργασιών; Μέγιστο μέγεθος διεργασίας ανά τμήμα;
+### Exercise 14
+**Internal fragmentation:** 4KB partitions. A 2.5KB process. How many bytes are wasted per process? For 10 processes?
 
 ---
 
-### Άσκηση 16
-**Δυναμική τμηματοποίηση — First-Fit**
-
-Αρχική μνήμη: ένα block 640KB. Αιτήματα (σειρά): 100, 170, 40, 190, 20, 500, 160, 104 (σε KB). Σχεδιάστε την κατάσταση μετά από κάθε αίτημα.
+### Exercise 15
+**Equal partitions:** 1MB memory, 4 equal partitions. Maximum number of processes? Maximum process size per partition?
 
 ---
 
-### Άσκηση 17
-Με τα ίδια δεδομένα της Άσκησης 16, εφαρμόστε **Best-Fit**.
+### Exercise 16
+**Dynamic partitioning — First-Fit**
+
+Initial memory: one 640KB block. Requests (in order): 100, 170, 40, 190, 20, 500, 160, 104 (in KB). Draw the state after each request.
 
 ---
 
-### Άσκηση 18
-Με τα ίδια δεδομένα, εφαρμόστε **Next-Fit** (ξεκινώντας από την αρχή).
+### Exercise 17
+With the same data as Exercise 16, apply **Best-Fit**.
 
 ---
 
-### Άσκηση 19
-Μετά την Άσκηση 16, απελευθερώνεται η διεργασία 160KB. Πόσα holes υπάρχουν; Ποιος αλγόριθμος επηρεάζεται περισσότερο από εξωτερικό κατακερματισμό;
+### Exercise 18
+With the same data, apply **Next-Fit** (starting from the beginning).
 
 ---
 
-### Άσκηση 20
-**Trade-offs:** Αυξάνεται ο βαθμός πολυπρογραμματισμού. Περιγράψτε αντίκτυπο σε throughput, response time, swapping overhead.
+### Exercise 19
+After Exercise 16, the 160KB process is released. How many holes are there? Which algorithm is most affected by external fragmentation?
 
 ---
 
-## Μέρος Δ — Σωστό/Λάθος και Σύνθετες
-
-### Άσκηση 21
-Σημειώστε **Σ** ή **Λ**:
-
-1. Στο μονοπρογραμματισμό η μνήμη χρησιμοποιείται αποδοτικά για πολυπρογραμματισμό.
-2. Τα overlays επιτρέπουν προγράμματα μεγαλύτερα από τη φυσική μνήμη.
-3. Ο εσωτερικός κατακερματισμός εμφανίζεται σε fixed partitioning.
-4. Το swapping μεταφέρει ολόκληρη τη διεργασία στον δίσκο.
-5. Το Next-Fit ξεκινά αναζήτηση από την τελευταία επιτυχή τοποθέτηση.
+### Exercise 20
+**Trade-offs:** The degree of multiprogramming increases. Describe the impact on throughput, response time, swapping overhead.
 
 ---
 
-### Άσκηση 22
-Κυκλώστε τη σωστή απάντηση: Ποιος αλγόριθμος επιλέγει το **μικρότερο** επαρκές hole;
+## Part D — True/False and Complex
 
-- α) First-Fit  
-- β) Best-Fit  
-- γ) Worst-Fit  
-- δ) Next-Fit
+### Exercise 21
+Mark **T** or **F**:
 
----
-
-### Άσκηση 23
-Εξηγήστε γιατί άνισα fixed partitions μειώνουν εσωτερικό κατακερματισμό για mixed workloads.
+1. In uniprogramming, memory is used efficiently for multiprogramming.
+2. Overlays allow programs larger than physical memory.
+3. Internal fragmentation occurs in fixed partitioning.
+4. Swapping transfers the entire process to disk.
+5. Next-Fit starts the search from the last successful placement.
 
 ---
 
-### Άσκηση 24
-Σενάριο: Μνήμη 256KB, διεργασίες 50KB, 120KB, 30KB, 80KB. Χρησιμοποιείται equal partitioning 64KB. Πόσες χωράνε; Πόσος εσωτερικός κατακερματισμός;
+### Exercise 22
+Circle the correct answer: Which algorithm selects the **smallest** sufficient hole?
+
+- a) First-Fit  
+- b) Best-Fit  
+- c) Worst-Fit  
+- d) Next-Fit
 
 ---
 
-### Άσκηση 25
-Πώς σχετίζεται ο medium-term scheduler με swapping;
+### Exercise 23
+Explain why unequal fixed partitions reduce internal fragmentation for mixed workloads.
 
 ---
 
-### Άσκηση 26
-Συμπληρώστε:
+### Exercise 24
+Scenario: 256KB memory, processes of 50KB, 120KB, 30KB, 80KB. Equal partitioning of 64KB is used. How many fit? How much internal fragmentation?
 
-| Στρατηγία | Εσωτερικός κατακερματισμός | Εξωτερικός κατακερματισμός |
+---
+
+### Exercise 25
+How does the medium-term scheduler relate to swapping?
+
+---
+
+### Exercise 26
+Complete:
+
+| Strategy | Internal fragmentation | External fragmentation |
 | :--- | :--- | :--- |
 | Fixed equal | | |
 | Dynamic | | |
 
 ---
 
-### Άσκηση 27
-Γιατί η δυναμική τμηματοποίηση δεν λύνει πλήρως το πρόβλημα μεγέθους προγραμμάτων μεγαλύτερων από τη μνήμη;
+### Exercise 27
+Why does dynamic partitioning not fully solve the problem of programs larger than memory?
 
 ---
 
-### Άσκηση 28
-**Overlays:** Πρόγραμμα 200KB, μνήμη 100KB, modules 60KB+80KB+70KB (μόνο ένα module τη φορά). Είναι εφικτό; Περιγράψτε.
+### Exercise 28
+**Overlays:** A 200KB program, 100KB memory, modules 60KB+80KB+70KB (only one module at a time). Is it feasible? Describe.
 
 ---
 
-### Άσκηση 29
-Υπολογίστε CPU util για μονοπρογραμματισμό με I/O: CPU 0.0001s, I/O read 0.0015s, I/O write 0.0015s ανά record.
+### Exercise 29
+Calculate CPU util for uniprogramming with I/O: CPU 0.0001s, I/O read 0.0015s, I/O write 0.0015s per record.
 
 ---
 
-### Άσκηση 30
-Σύγκρινε trade-off: degree of multiprogramming = 1 vs n = όλες οι διεργασίες στη μνήμη.
+### Exercise 30
+Compare the trade-off: degree of multiprogramming = 1 vs n = all processes in memory.
 
 ---
 
-### Άσκηση 31
-Περιγράψτε πώς η επιλογή αλγορίθμου τοποθέτησης επηρεάζει τον χρόνο αναζήτησης hole.
+### Exercise 31
+Describe how the choice of placement algorithm affects hole search time.
 
 ---
 
-### Άσκηση 32
-Σενάριο εξέτασης: 5 αιτήματα μνήμης, 3 αποδεσμεύσεις, δώστε τελική κατάσταση holes για First-Fit και Best-Fit (δημιουργήστε δικά σας μεγέθη και λύστε).
+### Exercise 32
+Exam scenario: 5 memory requests, 3 releases, give the final hole state for First-Fit and Best-Fit (create your own sizes and solve).

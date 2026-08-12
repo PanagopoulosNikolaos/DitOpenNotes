@@ -35,9 +35,9 @@ iii. What command should we give in R to calculate the probability of question i
 
 ### Solution to Problem 1
 
-Ο Προσθετικός Νόμος γενικά: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+The Additive Law in general: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
 
-**i. Α, Β ξένα ($A \cap B = \emptyset$)**
+**i. A, B disjoint ($A \cap B = \emptyset$)**
 
 $$P(A \cap B) = 0$$
 
@@ -45,9 +45,9 @@ $$P(A \cup B) = P(A) + P(B) \Rightarrow 0.6 = a + 0.4$$
 
 $$a = \boxed{0.2}$$
 
-- Για ξένα ενδεχόμενα η τομή είναι κενή, οπότε ο προσθετικός νόμος απλοποιείται.
+- For disjoint events the intersection is empty, so the additive law is simplified.
 
-**ii. Α, Β ανεξάρτητα**
+**ii. A, B independent**
 
 $$P(A \cap B) = P(A) \cdot P(B) = a \cdot 0.4$$
 
@@ -55,37 +55,37 @@ $$0.6 = a + 0.4 - 0.4a \Rightarrow 0.6 - 0.4 = a - 0.4a$$
 
 $$0.2 = 0.6a \Rightarrow a = \frac{0.2}{0.6} = \boxed{\frac{1}{3} \approx 0.333}$$
 
-- Αντικαθιστούμε $P(A \cap B) = 0.4a$ στον προσθετικό νόμο και λύνουμε ως προς $a$.
+- We substitute $P(A \cap B) = 0.4a$ into the additive law and solve for $a$.
 
-**iii. $B \subset A$ (το Β περιέχεται στο Α)**
+**iii. $B \subset A$ (B is contained in A)**
 
-Όταν $B \subseteq A$: $A \cup B = A$ και $A \cap B = B$.
+When $B \subseteq A$: $A \cup B = A$ and $A \cap B = B$.
 
 $$P(A \cup B) = P(A) \Rightarrow 0.6 = a$$
 
 $$a = \boxed{0.6}$$
 
-- Εφόσον το Β είναι υποσύνολο του Α, η ένωσή τους ταυτίζεται με το Α.
+- Since B is a subset of A, their union coincides with A.
 
 ---
 
-**ΘΕΜΑ 2:** Ο χρόνος που χρειάζεται ένας φοιτητής για να προετοιμαστεί στο μάθημα της Στατιστικής, στις εξετάσεις του Σεπτεμβρίου, βρέθηκε ότι προσεγγιστικά ακολουθεί την κανονική κατανομή με μέση τιμή μ=25 ώρες και τυπική απόκλιση σ=5 ώρες.
-Α. Να υπολογιστεί το ποσοστό των φοιτητών οι οποίοι δαπανούν στην επανάληψη περισσότερες από 15 ώρες.
-Β. Να υπολογιστεί το ποσοστό των φοιτητών οι οποίοι δαπανούν στην επανάληψη από 20 μέχρι 25 ώρες.
-C. Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος Β);
-Δίνονται: $P(Z \le 1) = 0.8413$, $P(Z \le 2) = 0.9772$.
+**PROBLEM 2:** The time required for a student to prepare for the Statistics course for the September exams was found to approximately follow the normal distribution with mean $\mu=25$ hours and standard deviation $\sigma=5$ hours.
+A. Calculate the percentage of students who spend more than 15 hours on review.
+B. Calculate the percentage of students who spend between 20 and 25 hours on review.
+C. What command should we give in R to calculate the probability of question B)?
+Given: $P(Z \le 1) = 0.8413$, $P(Z \le 2) = 0.9772$.
 
 ### Solution to Problem 2
 
 **Given Data:** $X \sim N(\mu=25,\ \sigma=5)$
 
-**Α. $P(X > 15)$**
+**A. $P(X > 15)$**
 
 $$z = \frac{15 - 25}{5} = \frac{-10}{5} = -2$$
 
 $$P(X > 15) = P(Z > -2) = P(Z \le 2) = 0.9772 = \boxed{97.72\%}$$
 
-**Β. $P(20 \le X \le 25)$**
+**B. $P(20 \le X \le 25)$**
 
 $$z_1 = \frac{20 - 25}{5} = -1, \qquad z_2 = \frac{25 - 25}{5} = 0$$
 
@@ -93,9 +93,9 @@ $$P(20 \le X \le 25) = P(-1 \le Z \le 0) = P(Z \le 0) - P(Z \le -1)$$
 
 $$= 0.5 - [1 - P(Z \le 1)] = 0.5 - (1 - 0.8413) = 0.5 - 0.1587 = \boxed{0.3413 = 34.13\%}$$
 
-- Χρησιμοποιείται ότι $P(Z \le 0) = 0.5$ λόγω συμμετρίας και $P(Z \le -1) = 1 - P(Z \le 1)$.
+- It is used that $P(Z \le 0) = 0.5$ due to symmetry and $P(Z \le -1) = 1 - P(Z \le 1)$.
 
-**C. Εντολή R για ερώτημα Β**
+**C. R command for question B**
 
 ```r
 pnorm(25, mean = 25, sd = 5) - pnorm(20, mean = 25, sd = 5)
@@ -103,23 +103,23 @@ pnorm(25, mean = 25, sd = 5) - pnorm(20, mean = 25, sd = 5)
 
 ---
 
-**ΘΕΜΑ 3:** Τα ύψη 11 μαθητών ενός Τμήματος είναι (σε εκατοστά):
+**PROBLEM 3:** The heights of 11 students in a class are (in cm):
 160, 162, 168, 168, 170, 173, 175, 178, 182, 185, 186.
-i. Να υπολογισθούν: το μέσο ύψος ($\bar{x}$) των μαθητών, το 3ο τεταρτημόριο ($Q_3$) και η τυπική απόκλιση ($s$).
-ii. Η διεύθυνση αποφάσισε ότι το 25% των μαθητών του Τμήματος με το μεγαλύτερο ύψος θα λάβει μέρος στην παρέλαση. Τι ύψος πρέπει να έχει κάποιος μαθητής για να λάβει μέρος στην παρέλαση;
-iii. Ποιες εντολές πρέπει να δώσουμε στην R για να υπολογίσει την επικρατούσα τιμή των δεδομένων μας;
+i. Calculate: the mean height ($\bar{x}$) of the students, the 3rd quartile ($Q_3$), and the standard deviation ($s$).
+ii. The management decided that the 25% of the students of the class with the greatest height will take part in the parade. What height must a student have to take part in the parade?
+iii. What commands should we give in R to calculate the mode of our data?
 
 ### Solution to Problem 3
 
-**Δεδομένα (ταξινομημένα):** 160, 162, 168, 168, 170, 173, 175, 178, 182, 185, 186 — $n=11$
+**Data (sorted):** 160, 162, 168, 168, 170, 173, 175, 178, 182, 185, 186 — $n=11$
 
-**i. Μέση τιμή $\bar{x}$**
+**i. Mean $\bar{x}$**
 
 $$\bar{x} = \frac{160+162+168+168+170+173+175+178+182+185+186}{11} = \frac{1907}{11} = \boxed{173.36 \text{ cm}}$$
 
-**3ο Τεταρτημόριο $Q_3$**
+**3rd quartile $Q_3$**
 
-Θέση $Q_3$: $\frac{3(n+1)}{4} = \frac{3 \times 12}{4} = 9$η θέση.
+Position of $Q_3$: $\frac{3(n+1)}{4} = \frac{3 \times 12}{4} = 9$th position.
 
 $$Q_3 = x_{(9)} = \boxed{182 \text{ cm}}$$
 
@@ -140,17 +140,17 @@ $$s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2$$
 | 182 | 8.64   | 74.65  |
 | 185 | 11.64  | 135.49 |
 | 186 | 12.64  | 159.77 |
-| **Σύνολο** | | **770.55** |
+| **Total** | | **770.55** |
 
 $$s^2 = \frac{770.55}{10} = 77.055, \qquad s = \sqrt{77.055} \approx \boxed{8.78 \text{ cm}}$$
 
-**ii. Ύψος για συμμετοχή στην παρέλαση**
+**ii. Height for participation in the parade**
 
-Το ανώτερο 25% αντιστοιχεί σε ύψη πάνω από το $Q_3$:
+The top 25% corresponds to heights above $Q_3$:
 
-$$\text{Όριο} = Q_3 = \boxed{182 \text{ cm}}$$
+$$\text{Cutoff} = Q_3 = \boxed{182 \text{ cm}}$$
 
-**iii. Εντολές R για επικρατούσα τιμή**
+**iii. R commands for the mode**
 
 ```r
 heights <- c(160, 162, 168, 168, 170, 173, 175, 178, 182, 185, 186)
@@ -159,10 +159,10 @@ names(which.max(table(heights)))
 
 ---
 
-**ΘΕΜΑ 4:** Ένα φαρμακευτικό εργαστήριο αναφέρει ότι ένα φάρμακο προκαλεί αρνητικές παρενέργειες σε 3 στους 100 ασθενείς. Για να επιβεβαιώσει αυτήν την υπόθεση, ένα άλλο εργαστήριο επιλέγει τυχαία 5 άτομα που έχουν καταναλώσει το φάρμακο.
-i. Βρείτε την πιθανότητα τουλάχιστον δύο ασθενείς να εμφάνισαν παρενέργειες
-ii. Ποιος είναι ο μέσος αριθμός ασθενών που το εργαστήριο πρέπει να αναμένει ότι θα εμφανίσει παρενέργειες εάν επιλέξει 100 ασθενείς τυχαία;
-iii. Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος i;
+**PROBLEM 4:** A pharmaceutical laboratory reports that a medication causes adverse side effects in 3 out of 100 patients. To verify this hypothesis, another laboratory randomly selects 5 individuals who have consumed the medication.
+i. Find the probability that at least two patients experienced side effects.
+ii. What is the expected number of patients that the laboratory should expect to experience side effects if it selects 100 patients at random?
+iii. What command should we give in R to calculate the probability of question i)?
 
 ### Solution to Problem 4
 
@@ -178,13 +178,13 @@ $$P(X=1) = \binom{5}{1}(0.03)(0.97)^4 = 5 \times 0.03 \times 0.8853 = 0.1328$$
 
 $$P(X \ge 2) = 1 - 0.8587 - 0.1328 = \boxed{0.0085}$$
 
-**ii. Μέσος αριθμός για $n = 100$**
+**ii. Expected number for $n = 100$**
 
-$$E[X] = n \cdot p = 100 \times 0.03 = \boxed{3 \text{ ασθενείς}}$$
+$$E[X] = n \cdot p = 100 \times 0.03 = \boxed{3 \text{ patients}}$$
 
-- Ο μέσος της διωνυμικής κατανομής δίνεται από τον τύπο $\mu = np$.
+- The mean of the binomial distribution is given by the formula $\mu = np$.
 
-**iii. Εντολή R για ερώτημα i**
+**iii. R command for question i**
 
 ```r
 1 - pbinom(1, size = 5, prob = 0.03)

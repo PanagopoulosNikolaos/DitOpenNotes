@@ -45,22 +45,22 @@ Given: For the standard normal variable $Z$, $\Phi(1.645) = P(Z \le 1.645) = 0.9
 
 ### Solution to Problem 1
 
-**a. Εύρεση αγνώστου $x$**
+**a. Finding the unknown $x$**
 
 $$\sum f_i = 100 \Rightarrow 15 + x + 40 + 20 + 5 = 100 \Rightarrow x = \boxed{20}$$
 
 **Table Completion:**
 
-| Ενοίκιο | $x_i$ | $f_i$ | $f_i x_i$ | $F_i$ |
+| Rent | $x_i$ | $f_i$ | $f_i x_i$ | $F_i$ |
 |---|---|---|---|---|
 | [300, 400) | 350 | 15 | 5250  | 15  |
 | [400, 500) | 450 | 20 | 9000  | 35  |
 | [500, 600) | 550 | 40 | 22000 | 75  |
 | [600, 700) | 650 | 20 | 13000 | 95  |
 | [700, 800) | 750 | 5  | 3750  | 100 |
-| Σύνολα     |     | 100| 53000 |     |
+| Totals     |     | 100| 53000 |     |
 
-**b. Μέση τιμή $\bar{x}$**
+**b. Mean $\bar{x}$**
 
 $$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{53000}{100} = \boxed{530 \text{ €}}$$
 
@@ -73,17 +73,17 @@ $$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{53000}{100} = \boxed{530 \text{ €}}
 | 550 | 20   | 400   | 16000   |
 | 650 | 120  | 14400 | 288000  |
 | 750 | 220  | 48400 | 242000  |
-| **Σύνολο** | | | **1160000** |
+| **Total** | | | **1160000** |
 
 $$s^2 = \frac{1160000}{99} \approx 11717.17, \qquad s = \sqrt{11717.17} \approx \boxed{108.25 \text{ €}}$$
 
 **Median $M_e$**
 
-- $n/2 = 50$. Έχουμε $F_2 = 35 < 50 \le 75 = F_3$, άρα η διάμεσος βρίσκεται στην κλάση $[500, 600)$.
+- $n/2 = 50$. We have $F_2 = 35 < 50 \le 75 = F_3$, so the median lies in the class $[500, 600)$.
 
 $$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w = 500 + \left( \frac{50 - 35}{40} \right) \cdot 100 = 500 + 37.5 = \boxed{537.50 \text{ €}}$$
 
-**c. Εντολές R για μέση τιμή**
+**c. R commands for the mean**
 
 ```r
 mean(rent)
@@ -91,16 +91,16 @@ mean(rent)
 
 ---
 
-**ΘΕΜΑ 2:** Ένα σύστημα ασφαλείας έχει πιθανότητα αποτυχίας $p=0.08$ σε κάθε απόπειρα παραβίασης.
-i) Αν πραγματοποιηθούν 15 ανεξάρτητες απόπειρες παραβίασης, ποια είναι η πιθανότητα να αποτύχει το σύστημα σε τουλάχιστον 3 από αυτές;
-ii) Πόσες τουλάχιστον ανεξάρτητες απόπειρες παραβίασης πρέπει να γίνουν ώστε η πιθανότητα να εμφανιστεί τουλάχιστον μία αποτυχία του συστήματος να είναι μεγαλύτερη από 99%;
-iii) Γράψτε τις R εντολές για τον υπολογισμό των πιθανοτήτων των ερωτημάτων i και ii.
+**PROBLEM 2:** A security system has a failure probability of $p=0.08$ on each breach attempt.
+i) If 15 independent breach attempts occur, what is the probability that the system fails in at least 3 of them?
+ii) How many independent breach attempts must take place at minimum so that the probability of at least one system failure is greater than 99%?
+iii) Write the R commands for calculating the probabilities of questions i and ii.
 
 ### Solution to Problem 2
 
 **Given Data:** $p = 0.08$
 
-**i. $P(X \ge 3)$ για $n=15$, $X \sim B(15,\ 0.08)$**
+**i. $P(X \ge 3)$ for $n=15$, $X \sim B(15,\ 0.08)$**
 
 $$P(X \ge 3) = 1 - P(X=0) - P(X=1) - P(X=2)$$
 
@@ -112,48 +112,48 @@ $$P(X=2) = \binom{15}{2}(0.08)^2(0.92)^{13} = 105 \times 0.0064 \times 0.3383 = 
 
 $$P(X \ge 3) = 1 - 0.2863 - 0.3726 - 0.2273 = \boxed{0.1138}$$
 
-**ii. Ελάχιστο $n$ ώστε $P(X \ge 1) > 0.99$**
+**ii. Minimum $n$ such that $P(X \ge 1) > 0.99$**
 
 $$P(X \ge 1) = 1 - P(X=0) = 1 - (0.92)^n > 0.99$$
 
 $$(0.92)^n < 0.01$$
 
-Λαμβάνοντας λογαρίθμους:
+Taking logarithms:
 
 $$n \cdot \ln(0.92) < \ln(0.01) \Rightarrow n > \frac{\ln(0.01)}{\ln(0.92)} = \frac{-4.6052}{-0.08338} \approx 55.24$$
 
 $$n_{\min} = \boxed{56}$$
 
-- Ο αριθμός στρογγυλοποιείται προς τα πάνω γιατί απαιτείται αυστηρή ανισότητα.
+- The number is rounded up because a strict inequality is required.
 
-**iii. Εντολές R**
+**iii. R commands**
 
 ```r
-# Ερώτημα i
+# Question i
 1 - pbinom(2, size = 15, prob = 0.08)
 
-# Ερώτημα ii
+# Question ii
 n <- 1
 while ((1 - (0.92)^n) <= 0.99) n <- n + 1
 n
-# ή: ceiling(log(0.01) / log(0.92))
+# or: ceiling(log(0.01) / log(0.92))
 ```
 
 ---
 
-**ΘΕΜΑ 3:** Σε ένα ιατρικό κέντρο, το 2% των εξεταζόμενων έχει μια σπάνια πάθηση. Ένα διαγνωστικό τεστ ανιχνεύει την πάθηση με πιθανότητα 98% (ευαισθησία), αλλά δίνει ψευδώς θετικό αποτέλεσμα στο 3% των υγιών ατόμων (δηλαδή η ειδικότητα είναι 97%).
-A. Ποια είναι η πιθανότητα ένα τυχαίο άτομο να βρεθεί θετικό στο τεστ;
-B. Αν ένα άτομο βρεθεί θετικό στο τεστ, ποια είναι η πιθανότητα να πάσχει πράγματι;
-C. Αν ένα άτομο βρεθεί αρνητικό στο τεστ, ποια είναι η πιθανότητα να είναι υγιές;
-D. Είναι τα ενδεχόμενα «το άτομο πάσχει» και «το τεστ είναι θετικό» ανεξάρτητα; Δικαιολογήστε την απάντησή σας.
+**PROBLEM 3:** In a medical center, 2% of patients examined have a rare condition. A diagnostic test detects the condition with 98% probability (sensitivity), but yields a false positive result in 3% of healthy individuals (i.e., specificity of 97%).
+A. What is the probability that a random individual tests positive?
+B. If an individual tests positive, what is the probability that they actually have the condition?
+C. If an individual tests negative, what is the probability that they are healthy?
+D. Are the events "the individual has the condition" and "the test is positive" independent? Justify your answer.
 
 ### Solution to Problem 3
 
-**Ορισμός ενδεχομένων:**
-- $P$ = άτομο πάσχει: $P(P) = 0.02$, $P(P') = 0.98$
-- $T^+$ = τεστ θετικό: $P(T^+ | P) = 0.98$, $P(T^+ | P') = 0.03$
+**Definition of events:**
+- $P$ = the individual has the condition: $P(P) = 0.02$, $P(P') = 0.98$
+- $T^+$ = test positive: $P(T^+ | P) = 0.98$, $P(T^+ | P') = 0.03$
 
-**A. Ολική πιθανότητα $P(T^+)$**
+**A. Total probability $P(T^+)$**
 
 $$P(T^+) = P(T^+|P) \cdot P(P) + P(T^+|P') \cdot P(P')$$
 
@@ -163,9 +163,9 @@ $$= 0.98 \times 0.02 + 0.03 \times 0.98 = 0.0196 + 0.0294 = \boxed{0.0490}$$
 
 $$P(P \mid T^+) = \frac{P(T^+|P) \cdot P(P)}{P(T^+)} = \frac{0.98 \times 0.02}{0.0490} = \frac{0.0196}{0.0490} = \boxed{0.40}$$
 
-- Παρόλο που η ευαισθησία είναι υψηλή (98%), η χαμηλή επιπολασμός (2%) οδηγεί σε μόλις 40% θετική προγνωστική αξία.
+- Although the sensitivity is high (98%), the low prevalence (2%) leads to a positive predictive value of only 40%.
 
-**C. $P(P' | T^-)$ — αρνητική προγνωστική αξία**
+**C. $P(P' | T^-)$ — negative predictive value**
 
 $$P(T^-) = 1 - P(T^+) = 1 - 0.0490 = 0.9510$$
 
@@ -173,49 +173,49 @@ $$P(T^- | P) = 1 - 0.98 = 0.02, \qquad P(T^- | P') = 1 - 0.03 = 0.97$$
 
 $$P(P' \mid T^-) = \frac{P(T^-|P') \cdot P(P')}{P(T^-)} = \frac{0.97 \times 0.98}{0.9510} = \frac{0.9506}{0.9510} \approx \boxed{0.9996}$$
 
-**D. Ανεξαρτησία;**
+**D. Independence?**
 
-Για ανεξαρτησία απαιτείται: $P(P \cap T^+) = P(P) \cdot P(T^+)$
+For independence it is required that: $P(P \cap T^+) = P(P) \cdot P(T^+)$
 
 $$P(P \cap T^+) = P(T^+|P) \cdot P(P) = 0.98 \times 0.02 = 0.0196$$
 
 $$P(P) \cdot P(T^+) = 0.02 \times 0.049 = 0.00098$$
 
-$$0.0196 \ne 0.00098 \Rightarrow \text{τα ενδεχόμενα } \textbf{δεν είναι ανεξάρτητα.}$$
+$$0.0196 \ne 0.00098 \Rightarrow \text{the events } \textbf{are not independent.}$$
 
 ---
 
-**ΘΕΜΑ 4:** Το βάρος των συσκευασιών καφέ που παράγει μια μηχανή ακολουθεί την Κανονική Κατανομή με μέση τιμή $\mu = 250$ γραμμάρια και τυπική απόκλιση $\sigma$ γραμμάρια.
-i. Αν είναι γνωστό ότι το 5% των συσκευασιών ζυγίζει λιγότερο από 241.8 γραμμάρια, υπολογίστε την τυπική απόκλιση $\sigma$.
-ii. Με την τυπική απόκλιση που βρήκατε, ποια είναι η πιθανότητα μια συσκευασία να ζυγίζει μεταξύ 245 και 255 γραμμάρια;
-iii. Ποια εντολή R βρίσκει το βάρος κάτω από το οποίο βρίσκεται το 10% των συσκευασιών;
-Δίνονται: Για τη standard κανονική μεταβλητή $Z$, ισχύει $\Phi(1.645) = P(Z \le 1.645) = 0.95$ και $\Phi(1.2) = 0.8849$.
+**PROBLEM 4:** The weight of coffee packages produced by a machine follows the Normal distribution with mean $\mu = 250$ grams and standard deviation $\sigma$ grams.
+i. If it is known that 5% of packages weigh less than 241.8 grams, calculate the standard deviation $\sigma$.
+ii. With the standard deviation found, what is the probability that a package weighs between 245 and 255 grams?
+iii. Which R command finds the weight below which 10% of packages fall?
+Given: For the standard normal variable $Z$, $\Phi(1.645) = P(Z \le 1.645) = 0.95$ and $\Phi(1.2) = 0.8849$.
 
 ### Solution to Problem 4
 
 **Given Data:** $X \sim N(\mu=250,\ \sigma=?)$
 
-**i. Εύρεση $\sigma$**
+**i. Finding $\sigma$**
 
 $$P(X < 241.8) = 0.05 \Rightarrow P\!\left(Z < \frac{241.8 - 250}{\sigma}\right) = 0.05$$
 
-- Το 5ο εκατοστημόριο της τυπικής κανονικής αντιστοιχεί σε $z_{0.05} = -1.645$ (λόγω συμμετρίας: $\Phi(-1.645) = 0.05$).
+- The 5th percentile of the standard normal corresponds to $z_{0.05} = -1.645$ (by symmetry: $\Phi(-1.645) = 0.05$).
 
 $$\frac{241.8 - 250}{\sigma} = -1.645 \Rightarrow \frac{-8.2}{\sigma} = -1.645$$
 
-$$\sigma = \frac{8.2}{1.645} = \boxed{5 \text{ γρ.}}$$
+$$\sigma = \frac{8.2}{1.645} = \boxed{5 \text{ g.}}$$
 
-**ii. $P(245 \le X \le 255)$ με $\sigma = 5$**
+**ii. $P(245 \le X \le 255)$ with $\sigma = 5$**
 
 $$z_1 = \frac{245 - 250}{5} = -1, \qquad z_2 = \frac{255 - 250}{5} = 1$$
 
 $$P(245 \le X \le 255) = P(-1 \le Z \le 1) = 2\Phi(1) - 1$$
 
-- Χρησιμοποιούμε $\Phi(1.2) = 0.8849$; ωστόσο εδώ χρειαζόμαστε $\Phi(1)$. Το $z=1$ δεν δίνεται άμεσα, οπότε σημειώνουμε ότι από τον εμπειρικό κανόνα $P(\mu \pm \sigma) \approx 0.6826$.
+- We use $\Phi(1.2) = 0.8849$; however, here we need $\Phi(1)$. The value $z=1$ is not given directly, so we note that from the empirical rule $P(\mu \pm \sigma) \approx 0.6826$.
 
 $$P(245 \le X \le 255) \approx \boxed{0.6826}$$
 
-**iii. Εντολή R για 10ο εκατοστημόριο**
+**iii. R command for the 10th percentile**
 
 ```r
 qnorm(0.10, mean = 250, sd = 5)

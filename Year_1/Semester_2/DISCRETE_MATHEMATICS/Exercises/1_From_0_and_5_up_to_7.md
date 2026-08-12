@@ -277,9 +277,9 @@ Verify Euler's formula for the following planar graph.
 **Basic Operators:**
 *   **Concatenation:** The expression `rs` describes the set of strings resulting from concatenating a string from the language of `r` with a string from the language of `s`.
 *   **Union/Alternation:** The expression `r|s` (or `r+s` in older notations) describes the set of strings that belong to either the language of `r` or the language of `s`.
-*   **Kleene Star:** The expression `r*` describes the set of strings resulting from concatenating zero or more strings from the language of `r`. It includes the empty string `ε`.
+*   **Kleene Star:** The expression `r*` describes the set of strings resulting from concatenating zero or more strings from the language of `r`. It includes the empty string `\varepsilon`.
 *   **Kleene Plus:** The expression `r+` describes the set of strings resulting from concatenating one or more strings from the language of `r`. It holds that $r^+ = rr^*$.
-*   **Empty String:** The symbol `ε` (epsilon) represents the string of zero length.
+*   **Empty String:** The symbol `\varepsilon` (epsilon) represents the string of zero length.
 
 ---
 
@@ -320,9 +320,9 @@ Write regular expressions that describe the following regular sets:
 #### **Exercise 7.2**
 State which of the strings `beer`, `beter` and `better` belong to the regular set.
 
-**a. `be(ε|t)er`**
-*   **Analysis:** The expression `(ε|t)` means "the empty string or the letter t". Therefore, the expression matches `be` + (nothing) + `er` or `be` + `t` + `er`.
-*   `beer`: Matches (by choosing `ε`).
+**a. `be(\varepsilon|t)er`**
+*   **Analysis:** The expression `(\varepsilon|t)` means "the empty string or the letter t". Therefore, the expression matches `be` + (nothing) + `er` or `be` + `t` + `er`.
+*   `beer`: Matches (by choosing `\varepsilon`).
 *   `beter`: Matches (by choosing `t`).
 *   `better`: Does not match.
 *   **Strings that belong:** `{beer, beter}`

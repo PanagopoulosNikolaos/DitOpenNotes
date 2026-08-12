@@ -1,427 +1,427 @@
-# Test Prep: Ερωτήσεις Εξάσκησης για τις Εξετάσεις Πιθανοτήτων & Στατιστικής (405)
+# Test Prep: Practice Questions for the Probability & Statistics Exams (405)
 
-Κάθε ενότητα αντιστοιχεί σε μια ενότητα του `Complete_Exam_Theory_Guide.md`. Κάθε ερώτηση είναι εξεταστικού τύπου (όπως στα πραγματικά θέματα 2023–2026) και συνοδεύεται από τον απαραίτητο τύπο σε μορφή σημείωσης.
+Each unit corresponds to a section of `Complete_Exam_Theory_Guide.md`. Each question is of exam type (as in the real exam papers 2023–2026) and is accompanied by the necessary formula in note form.
 
 ---
 
-## Ενότητα 1: Θεωρία Πιθανοτήτων & Αξιώματα (Κλασικός Ορισμός)
+## Unit 1: Probability Theory & Axioms (Classical Definition)
 
-### Ερώτηση 1.1
-Ένα κουτί περιέχει 10 κόκκινες, 15 μπλε και 5 πράσινες σφαίρες. Επιλέγουμε τυχαία μία σφαίρα. Να βρεθεί η πιθανότητα η σφαίρα να είναι μπλε.
+### Question 1.1
+A box contains 10 red, 15 blue, and 5 green balls. We select one ball at random. Find the probability that the ball is blue.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A) = \frac{N(A)}{N(\Omega)}$$
 
-### Ερώτηση 1.2
-Ρίχνουμε ταυτόχρονα δύο ζάρια. Να βρεθεί η πιθανότητα το άθροισμα των ενδείξεων να είναι 7.
+### Question 1.2
+We roll two dice simultaneously. Find the probability that the sum of the outcomes is 7.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A) = \frac{N(A)}{N(\Omega)}$$
 
-### Ερώτηση 1.3
-Για ένα ενδεχόμενο $A$ ισχύει $P(A) = 0.3$. Να υπολογισθεί η πιθανότητα του συμπληρωματικού ενδεχομένου $A'$.
+### Question 1.3
+For an event $A$ we have $P(A) = 0.3$. Compute the probability of the complementary event $A'$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A') = 1 - P(A)$$
 
-### Ερώτηση 1.4
-Σε μια τάξη 50 μαθητών, τα 30 είναι κορίτσια. Επιλέγουμε τυχαία έναν μαθητή. Να βρεθεί η πιθανότητα να είναι αγόρι.
+### Question 1.4
+In a class of 50 students, 30 are girls. We select a student at random. Find the probability that it is a boy.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A) = \frac{N(A)}{N(\Omega)}, \quad P(A') = 1 - P(A)$$
 
-### Ερώτηση 1.5
-Ρίχνουμε ένα νόμισμα τρεις φορές. Να βρεθεί η πιθανότητα να φέρουμε τουλάχιστον μία κορώνα.
+### Question 1.5
+We toss a coin three times. Find the probability of getting at least one heads.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A') = 1 - P(A)$$
 
-### Ερώτηση 1.6
-Από μια τράπουλα με 52 φύλλα τραβάμε τυχαία ένα φύλλο. Να βρεθεί η πιθανότητα να είναι άσος.
+### Question 1.6
+From a deck of 52 cards we draw one card at random. Find the probability that it is an ace.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A) = \frac{N(A)}{N(\Omega)}$$
 
-### Ερώτηση 1.7
-Δίνονται δύο ξένα ενδεχόμενα $A$, $B$ με $P(A) = 0.5$ και $P(B) = 0.4$. Να ελεγχθεί αν είναι δυνατόν να ισχύει $P(A \cup B) = 0.7$. Να αιτιολογήσετε την απάντησή σας.
+### Question 1.7
+Two disjoint events $A$, $B$ are given with $P(A) = 0.5$ and $P(B) = 0.4$. Check whether it is possible that $P(A \cup B) = 0.7$. Justify your answer.
 
-> **Τύπος:**
-> Αν $A \cap B = \emptyset$: $P(A \cup B) = P(A) + P(B)$
-> Πρέπει πάντα: $P(A \cup B) \le 1$
+> **Formula:**
+> If $A \cap B = \emptyset$: $P(A \cup B) = P(A) + P(B)$
+> It must always hold: $P(A \cup B) \le 1$
 
-### Ερώτηση 1.8
-Ρίχνουμε ένα ζάρι. Να βρεθεί η πιθανότητα να έρθει ζυγός αριθμός ή αριθμός μεγαλύτερος του 4.
+### Question 1.8
+We roll a die. Find the probability of getting an even number or a number greater than 4.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cup B) = \frac{N(A \cup B)}{N(\Omega)}$$
 
-### Ερώτηση 1.9
-Ένα δοχείο περιέχει 3 άσπρες και 7 μαύρες μπάλες. Παίρνουμε ταυτόχρονα 2 μπάλες. Να βρεθεί η πιθανότητα και οι δύο να είναι άσπρες.
+### Question 1.9
+A container holds 3 white and 7 black balls. We take 2 balls at the same time. Find the probability that both are white.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A) = \frac{N(A)}{N(\Omega)}, \quad N(A) = \binom{3}{2}, \quad N(\Omega) = \binom{10}{2}$$
 
-### Ερώτηση 1.10
-Δίνονται $P(A) = 0.6$ και $P(A \cap B) = 0.2$. Να βρεθεί η πιθανότητα να συμβεί το $A$ αλλά όχι το $B$, δηλαδή $P(A \cap B')$.
+### Question 1.10
+$P(A) = 0.6$ and $P(A \cap B) = 0.2$ are given. Find the probability that $A$ occurs but not $B$, i.e., $P(A \cap B')$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cap B') = P(A) - P(A \cap B)$$
 
 ---
 
-## Ενότητα 2: Πράξεις Ενδεχομένων & Ταυτότητες (Ένωση, Τομή, De Morgan)
+## Unit 2: Event Operations & Identities (Union, Intersection, De Morgan)
 
-### Ερώτηση 2.1
-Σε δημοσκόπηση, το 30% των ερωτηθέντων διαβάζει την εφημερίδα Α, το 25% την εφημερίδα Β και το 10% διαβάζει και τις δύο. Επιλέγουμε τυχαία ένα άτομο. Να βρεθεί η πιθανότητα να διαβάζει τουλάχιστον μία από τις δύο εφημερίδες.
+### Question 2.1
+In a survey, 30% of respondents read newspaper A, 25% read newspaper B, and 10% read both. We select a person at random. Find the probability that they read at least one of the two newspapers.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
-### Ερώτηση 2.2
-Με τα δεδομένα της Ερώτησης 2.1, να βρεθεί η πιθανότητα ένα τυχαίο άτομο να διαβάζει μόνο την εφημερίδα Α.
+### Question 2.2
+Using the data of Question 2.1, find the probability that a random person reads only newspaper A.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cap B') = P(A) - P(A \cap B)$$
 
-### Ερώτηση 2.3
-Με τα δεδομένα της Ερώτησης 2.1, να βρεθεί η πιθανότητα ένα τυχαίο άτομο να μη διαβάζει καμία από τις δύο εφημερίδες.
+### Question 2.3
+Using the data of Question 2.1, find the probability that a random person reads neither of the two newspapers.
 
-> **Τύπος:**
-> $$P(A' \cap B') = 1 - P(A \cup B) \quad \text{(Νόμος De Morgan)}$$
+> **Formula:**
+> $$P(A' \cap B') = 1 - P(A \cup B) \quad \text{(De Morgan's Law)}$$
 
-### Ερώτηση 2.4
-Με τα δεδομένα της Ερώτησης 2.1, να βρεθεί η πιθανότητα ένα τυχαίο άτομο να διαβάζει και τις δύο εφημερίδες.
+### Question 2.4
+Using the data of Question 2.1, find the probability that a random person reads both newspapers.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cap B) = P(A) + P(B) - P(A \cup B)$$
 
-### Ερώτηση 2.5
-Με τα δεδομένα της Ερώτησης 2.1, να βρεθεί η πιθανότητα ένα τυχαίο άτομο να διαβάζει ακριβώς μία από τις δύο εφημερίδες.
+### Question 2.5
+Using the data of Question 2.1, find the probability that a random person reads exactly one of the two newspapers.
 
-> **Τύπος:**
-> $$P(\text{ακριβώς μία}) = P(A) + P(B) - 2P(A \cap B)$$
+> **Formula:**
+> $$P(\text{exactly one}) = P(A) + P(B) - 2P(A \cap B)$$
 
-### Ερώτηση 2.6
-Δίνονται $P(A) = 0.5$, $P(B) = 0.4$ και $P(A \cup B) = 0.8$. Να υπολογισθεί η $P(A \cap B)$.
+### Question 2.6
+$P(A) = 0.5$, $P(B) = 0.4$ and $P(A \cup B) = 0.8$ are given. Compute $P(A \cap B)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cap B) = P(A) + P(B) - P(A \cup B)$$
 
-### Ερώτηση 2.7
-Δίνεται $P(A) = 0.6$ και $P(A \cap B) = 0.15$. Να υπολογισθεί η $P(A \cap B')$.
+### Question 2.7
+$P(A) = 0.6$ and $P(A \cap B) = 0.15$ are given. Compute $P(A \cap B')$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cap B') = P(A) - P(A \cap B)$$
 
-### Ερώτηση 2.8
-Δίνεται $P(B) = 0.7$ και $P(A \cap B) = 0.2$. Να υπολογισθεί η $P(B \cap A')$, δηλαδή η πιθανότητα να συμβεί το $B$ αλλά όχι το $A$.
+### Question 2.8
+$P(B) = 0.7$ and $P(A \cap B) = 0.2$ are given. Compute $P(B \cap A')$, i.e., the probability that $B$ occurs but not $A$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B \cap A') = P(B) - P(A \cap B)$$
 
-### Ερώτηση 2.9
-Δίνεται $P(A \cup B) = 0.75$. Να υπολογισθεί η πιθανότητα να μη συμβεί κανένα από τα δύο ενδεχόμενα.
+### Question 2.9
+$P(A \cup B) = 0.75$ is given. Compute the probability that neither of the two events occurs.
 
-> **Τύπος:**
-> $$P(A' \cap B') = 1 - P(A \cup B) \quad \text{(Νόμος De Morgan)}$$
+> **Formula:**
+> $$P(A' \cap B') = 1 - P(A \cup B) \quad \text{(De Morgan's Law)}$$
 
-### Ερώτηση 2.10
-Αν $A \subseteq B$, με $P(B) = 0.8$ και $P(A) = 0.3$, να υπολογισθεί η $P(B \setminus A) = P(B \cap A')$.
+### Question 2.10
+If $A \subseteq B$, with $P(B) = 0.8$ and $P(A) = 0.3$, compute $P(B \setminus A) = P(B \cap A')$.
 
-> **Τύπος:**
-> Αν $A \subseteq B$: $P(B \setminus A) = P(B) - P(A)$ και $P(A) \le P(B)$
+> **Formula:**
+> If $A \subseteq B$: $P(B \setminus A) = P(B) - P(A)$ and $P(A) \le P(B)$
 
 ---
 
-## Ενότητα 3: Δεσμευμένη Πιθανότητα & Ανεξαρτησία
+## Unit 3: Conditional Probability & Independence
 
-### Ερώτηση 3.1
-Δίνονται $P(A \cap B) = 0.12$ και $P(B) = 0.4$. Να υπολογισθεί η δεσμευμένη πιθανότητα $P(A \mid B)$.
+### Question 3.1
+$P(A \cap B) = 0.12$ and $P(B) = 0.4$ are given. Compute the conditional probability $P(A \mid B)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad P(B) > 0$$
 
-### Ερώτηση 3.2
-Σε μια σχολή, το 60% των φοιτητών γνωρίζει τη γλώσσα C, το 70% τη Java και το 50% γνωρίζει και τις δύο. Επιλέγουμε τυχαία έναν φοιτητή. Δοθέντος ότι γνωρίζει C, να βρεθεί η πιθανότητα να γνωρίζει και Java.
+### Question 3.2
+In a department, 60% of students know the C language, 70% know Java, and 50% know both. We select a student at random. Given that they know C, find the probability that they also know Java.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
 
-### Ερώτηση 3.3
-Τα ενδεχόμενα $A$ και $B$ είναι ανεξάρτητα με $P(A) = 0.5$ και $P(B) = 0.3$. Να υπολογισθεί η $P(A \cap B)$.
+### Question 3.3
+Events $A$ and $B$ are independent with $P(A) = 0.5$ and $P(B) = 0.3$. Compute $P(A \cap B)$.
 
-> **Τύπος:**
-> Αν $A$, $B$ ανεξάρτητα: $P(A \cap B) = P(A) \cdot P(B)$
+> **Formula:**
+> If $A$, $B$ independent: $P(A \cap B) = P(A) \cdot P(B)$
 
-### Ερώτηση 3.4
-Τα ενδεχόμενα $A$ και $B$ είναι ανεξάρτητα με $P(A) = 0.4$ και $P(B) = 0.5$. Να υπολογισθεί η $P(A \cup B)$.
+### Question 3.4
+Events $A$ and $B$ are independent with $P(A) = 0.4$ and $P(B) = 0.5$. Compute $P(A \cup B)$.
 
-> **Τύπος:**
-> Αν $A$, $B$ ανεξάρτητα: $P(A \cup B) = P(A) + P(B) - P(A)P(B)$
+> **Formula:**
+> If $A$, $B$ independent: $P(A \cup B) = P(A) + P(B) - P(A)P(B)$
 
-### Ερώτηση 3.5
-Δίνονται $P(A) = 0.2$, $P(B) = 0.3$ και $P(A \cap B) = 0.06$. Να εξετασθεί αν τα ενδεχόμενα $A$ και $B$ είναι ανεξάρτητα.
+### Question 3.5
+$P(A) = 0.2$, $P(B) = 0.3$ and $P(A \cap B) = 0.06$ are given. Examine whether events $A$ and $B$ are independent.
 
-> **Τύπος:**
-> Ανεξάρτητα αν $P(A \cap B) = P(A) \cdot P(B)$. Ξένα αν $P(A \cap B) = 0$.
+> **Formula:**
+> Independent if $P(A \cap B) = P(A) \cdot P(B)$. Disjoint if $P(A \cap B) = 0$.
 
-### Ερώτηση 3.6
-Δίνονται $P(A \mid B) = 0.4$ και $P(B) = 0.3$. Να υπολογισθεί η $P(A \cap B)$ χρησιμοποιώντας τον πολλαπλασιαστικό κανόνα.
+### Question 3.6
+$P(A \mid B) = 0.4$ and $P(B) = 0.3$ are given. Compute $P(A \cap B)$ using the multiplication rule.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cap B) = P(A \mid B) \cdot P(B)$$
 
-### Ερώτηση 3.7
-Δίνονται $P(A) = 0.6$, $P(B) = 0.4$ και $P(A \cap B) = 0.24$. Να υπολογισθεί η $P(B \mid A)$ και να εξετασθεί αν τα $A$, $B$ είναι ανεξάρτητα.
+### Question 3.7
+$P(A) = 0.6$, $P(B) = 0.4$ and $P(A \cap B) = 0.24$ are given. Compute $P(B \mid A)$ and examine whether $A$ and $B$ are independent.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
-> Ανεξάρτητα αν $P(B \mid A) = P(B)$ (ή $P(A \cap B) = P(A)P(B)$).
+> Independent if $P(B \mid A) = P(B)$ (or $P(A \cap B) = P(A)P(B)$).
 
-### Ερώτηση 3.8
-Δίνονται $P(A) = 0.7$ και $P(A \cap B) = 0.21$. Να υπολογισθεί η δεσμευμένη πιθανότητα $P(B \mid A')$.
+### Question 3.8
+$P(A) = 0.7$ and $P(A \cap B) = 0.21$ are given. Compute the conditional probability $P(B \mid A')$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B \mid A') = \frac{P(B \cap A')}{P(A')} = \frac{P(B) - P(A \cap B)}{1 - P(A)}$$
 
-### Ερώτηση 3.9
-Δίνονται $P(A) = 0.3$ και $P(B) = 0.6$ με $A \cap B = \emptyset$. Να εξετασθεί αν τα $A$ και $B$ μπορούν να είναι ανεξάρτητα. Να αιτιολογήσετε.
+### Question 3.9
+$P(A) = 0.3$ and $P(B) = 0.6$ are given with $A \cap B = \emptyset$. Examine whether $A$ and $B$ can be independent. Justify your answer.
 
-> **Τύπος:**
-> Ξένα: $P(A \cap B) = 0$. Ανεξάρτητα: $P(A \cap B) = P(A)P(B)$.
-> Ξένα με $P(A), P(B) > 0$ δεν είναι ποτέ ανεξάρτητα.
+> **Formula:**
+> Disjoint: $P(A \cap B) = 0$. Independent: $P(A \cap B) = P(A)P(B)$.
+> Disjoint events with $P(A), P(B) > 0$ are never independent.
 
-### Ερώτηση 3.10
-Δίνεται $P(B \mid A') = 0.5$ και $P(A') = 0.4$. Να υπολογισθεί η $P(B \cap A')$.
+### Question 3.10
+$P(B \mid A') = 0.5$ and $P(A') = 0.4$ are given. Compute $P(B \cap A')$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B \cap A') = P(B \mid A') \cdot P(A')$$
 
 ---
 
-## Ενότητα 4: Ολική Πιθανότητα & Τύπος Bayes
+## Unit 4: Total Probability & Bayes' Formula
 
-### Ερώτηση 4.1
-Ένα εργοστάσιο έχει τρεις μηχανές Μ1, Μ2, Μ3. Η Μ1 παράγει το 50% των προϊόντων με 2% ελαττωματικά, η Μ2 το 30% με 3% ελαττωματικά και η Μ3 το 20% με 4% ελαττωματικά. Επιλέγουμε τυχαία ένα προϊόν. Να βρεθεί η πιθανότητα να είναι ελαττωματικό.
+### Question 4.1
+A factory has three machines M1, M2, M3. M1 produces 50% of the products with 2% defective, M2 produces 30% with 3% defective, and M3 produces 20% with 4% defective. We select a product at random. Find the probability that it is defective.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B) = \sum_{k=1}^{n} P(B \mid A_k) P(A_k)$$
 
-### Ερώτηση 4.2
-Με τα δεδομένα της Ερώτησης 4.1, δοθέντος ότι το επιλεγμένο προϊόν είναι ελαττωματικό, να βρεθεί η πιθανότητα να προήλθε από τη μηχανή Μ1.
+### Question 4.2
+Using the data of Question 4.1, given that the selected product is defective, find the probability that it came from machine M1.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A_i \mid B) = \frac{P(B \mid A_i) P(A_i)}{\sum_{k=1}^{n} P(B \mid A_k) P(A_k)}$$
 
-### Ερώτηση 4.3
-Έχουμε δύο κάλπες. Η κάλπη Α περιέχει 3 άσπρες και 4 μαύρες σφαίρες, ενώ η κάλπη Β περιέχει 5 άσπρες και 2 μαύρες. Ρίχνουμε ένα νόμισμα για να επιλέξουμε κάλπη και στη συνέχεια τραβάμε μία σφαίρα. Να βρεθεί η πιθανότητα η σφαίρα να είναι άσπρη.
+### Question 4.3
+We have two urns. Urn A contains 3 white and 4 black balls, while urn B contains 5 white and 2 black. We toss a coin to choose an urn and then draw one ball. Find the probability that the ball is white.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B) = \sum_{k=1}^{n} P(B \mid A_k) P(A_k)$$
 
-### Ερώτηση 4.4
-Με τα δεδομένα της Ερώτησης 4.3, δοθέντος ότι η σφαίρα που τραβήχτηκε είναι άσπρη, να βρεθεί η πιθανότητα να επιλέχθηκε η κάλπη Α.
+### Question 4.4
+Using the data of Question 4.3, given that the ball drawn is white, find the probability that urn A was chosen.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A_i \mid B) = \frac{P(B \mid A_i) P(A_i)}{\sum_{k=1}^{n} P(B \mid A_k) P(A_k)}$$
 
-### Ερώτηση 4.5
-Το 1% του πληθυσμού πάσχει από μια ασθένεια. Ένα τεστ είναι θετικό με πιθανότητα 95% αν ο εξεταζόμενος πάσχει και θετικό με πιθανότητα 2% αν δεν πάσχει. Να βρεθεί η πιθανότητα ένα τυχαίο άτομο να έχει θετικό αποτέλεσμα.
+### Question 4.5
+1% of the population suffers from a disease. A test is positive with probability 95% if the person has the disease and positive with probability 2% if they do not. Find the probability that a random person has a positive result.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B) = \sum_{k=1}^{n} P(B \mid A_k) P(A_k)$$
 
-### Ερώτηση 4.6
-Με τα δεδομένα της Ερώτησης 4.5, δοθέντος ότι ένα άτομο έχει θετικό αποτέλεσμα, να βρεθεί η πιθανότητα να πάσχει όντως από την ασθένεια.
+### Question 4.6
+Using the data of Question 4.5, given that a person has a positive result, find the probability that they actually have the disease.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A_i \mid B) = \frac{P(B \mid A_i) P(A_i)}{\sum_{k=1}^{n} P(B \mid A_k) P(A_k)}$$
 
-### Ερώτηση 4.7
-Τα ενδεχόμενα $A_1$, $A_2$ αποτελούν διαμέριση του δειγματικού χώρου με $P(A_1) = 0.6$, $P(B \mid A_1) = 0.3$ και $P(B \mid A_2) = 0.4$. Να υπολογισθεί η $P(B)$.
+### Question 4.7
+Events $A_1$, $A_2$ form a partition of the sample space with $P(A_1) = 0.6$, $P(B \mid A_1) = 0.3$ and $P(B \mid A_2) = 0.4$. Compute $P(B)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B) = P(B \mid A_1) P(A_1) + P(B \mid A_2) P(A_2)$$
 
-### Ερώτηση 4.8
-Με τα δεδομένα της Ερώτησης 4.7, να υπολογισθεί η δεσμευμένη πιθανότητα $P(A_1 \mid B)$.
+### Question 4.8
+Using the data of Question 4.7, compute the conditional probability $P(A_1 \mid B)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A_1 \mid B) = \frac{P(B \mid A_1) P(A_1)}{P(B)}$$
 
-### Ερώτηση 4.9
-Το 40% των φοιτητών διαβάζει τις σημειώσεις του μαθήματος. Από αυτούς που διαβάζουν, το 80% περνά το μάθημα, ενώ από τους υπόλοιπους περνά μόνο το 50%. Να βρεθεί η πιθανότητα ένας τυχαίος φοιτητής να περάσει το μάθημα.
+### Question 4.9
+40% of students read the course notes. Of those who read, 80% pass the course, while of the remaining only 50% pass. Find the probability that a random student passes the course.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(B) = P(B \mid A) P(A) + P(B \mid A') P(A')$$
 
-### Ερώτηση 4.10
-Με τα δεδομένα της Ερώτησης 4.9, δοθέντος ότι ένας φοιτητής πέρασε το μάθημα, να βρεθεί η πιθανότητα να είχε διαβάσει τις σημειώσεις.
+### Question 4.10
+Using the data of Question 4.9, given that a student passed the course, find the probability that they had read the notes.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)}$$
 
 ---
 
-## Ενότητα 5: Παραμετρικές Ασκήσεις Πιθανοτήτων
+## Unit 5: Parametric Probability Exercises
 
-### Ερώτηση 5.1
-Αν $P(A) = a$, $P(B) = 0.4$ και $P(A \cup B) = 0.6$, να βρεθεί το $a$ όταν τα $A$ και $B$ είναι ξένα ενδεχόμενα.
+### Question 5.1
+If $P(A) = a$, $P(B) = 0.4$ and $P(A \cup B) = 0.6$, find $a$ when $A$ and $B$ are disjoint events.
 
-> **Τύπος:**
-> Ξένα: $P(A \cup B) = P(A) + P(B) \implies a = P(A \cup B) - P(B)$
+> **Formula:**
+> Disjoint: $P(A \cup B) = P(A) + P(B) \implies a = P(A \cup B) - P(B)$
 
-### Ερώτηση 5.2
-Αν $P(A) = a$, $P(B) = 0.4$ και $P(A \cup B) = 0.6$, να βρεθεί το $a$ όταν τα $A$ και $B$ είναι ανεξάρτητα ενδεχόμενα.
+### Question 5.2
+If $P(A) = a$, $P(B) = 0.4$ and $P(A \cup B) = 0.6$, find $a$ when $A$ and $B$ are independent events.
 
-> **Τύπος:**
-> Ανεξάρτητα: $P(A \cup B) = a + b - ab \implies a = \frac{P(A \cup B) - b}{1 - b}$
+> **Formula:**
+> Independent: $P(A \cup B) = a + b - ab \implies a = \frac{P(A \cup B) - b}{1 - b}$
 
-### Ερώτηση 5.3
-Αν $P(A) = a$, $P(B) = 0.4$ και $P(A \cup B) = 0.6$, να βρεθεί το $a$ όταν ισχύει $B \subset A$.
+### Question 5.3
+If $P(A) = a$, $P(B) = 0.4$ and $P(A \cup B) = 0.6$, find $a$ when $B \subset A$.
 
-> **Τύπος:**
-> Αν $B \subset A$: $P(A \cup B) = P(A) = a$
+> **Formula:**
+> If $B \subset A$: $P(A \cup B) = P(A) = a$
 
-### Ερώτηση 5.4
-Αν $P(A) = 0.2$, $P(B) = b$ και τα $A$, $B$ είναι ξένα με $P(A \cup B) = 0.5$, να βρεθεί το $b$.
+### Question 5.4
+If $P(A) = 0.2$, $P(B) = b$ and $A$, $B$ are disjoint with $P(A \cup B) = 0.5$, find $b$.
 
-> **Τύπος:**
-> Ξένα: $P(A \cup B) = P(A) + P(B) \implies b = P(A \cup B) - P(A)$
+> **Formula:**
+> Disjoint: $P(A \cup B) = P(A) + P(B) \implies b = P(A \cup B) - P(A)$
 
-### Ερώτηση 5.5
-Αν $P(A) = a$, $P(B) = 0.3$, τα $A$, $B$ είναι ανεξάρτητα και $P(A \cup B) = 0.58$, να βρεθεί το $a$.
+### Question 5.5
+If $P(A) = a$, $P(B) = 0.3$, $A$ and $B$ are independent and $P(A \cup B) = 0.58$, find $a$.
 
-> **Τύπος:**
-> Ανεξάρτητα: $P(A \cup B) = a + b - ab \implies a = \frac{P(A \cup B) - b}{1 - b}$
+> **Formula:**
+> Independent: $P(A \cup B) = a + b - ab \implies a = \frac{P(A \cup B) - b}{1 - b}$
 
-### Ερώτηση 5.6
-Αν $P(A) = 0.25$, $P(B) = b$ και $B \subset A$ με $P(A \cup B) = 0.25$, τι συμπεραίνετε για το $b$; Να αιτιολογήσετε.
+### Question 5.6
+If $P(A) = 0.25$, $P(B) = b$ and $B \subset A$ with $P(A \cup B) = 0.25$, what do you conclude about $b$? Justify your answer.
 
-> **Τύπος:**
-> Αν $B \subset A$: $P(A \cup B) = P(A)$ και $P(B) \le P(A)$
+> **Formula:**
+> If $B \subset A$: $P(A \cup B) = P(A)$ and $P(B) \le P(A)$
 
-### Ερώτηση 5.7
-Τα $A$ και $B$ είναι ανεξάρτητα με $P(A) = 0.3$ και $P(B) = 0.5$. Να υπολογισθούν οι $P(A \cup B)$ και $P(A \cap B')$.
+### Question 5.7
+$A$ and $B$ are independent with $P(A) = 0.3$ and $P(B) = 0.5$. Compute $P(A \cup B)$ and $P(A \cap B')$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cup B) = P(A) + P(B) - P(A)P(B)$$
 > $$P(A \cap B') = P(A) - P(A \cap B)$$
 
-### Ερώτηση 5.8
-Δίνονται $P(A \cup B) = 0.7$, $P(A \cap B) = 0.1$ και $P(B) = 0.5$. Να υπολογισθεί η $P(A)$.
+### Question 5.8
+$P(A \cup B) = 0.7$, $P(A \cap B) = 0.1$ and $P(B) = 0.5$ are given. Compute $P(A)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(A \cup B) = P(A) + P(B) - P(A \cap B) \implies P(A) = P(A \cup B) - P(B) + P(A \cap B)$$
 
-### Ερώτηση 5.9
-Τα $A$, $B$ είναι ξένα με $P(A) = 0.4$ και $P(B) = 0.3$. Να υπολογισθούν οι $P(A \cup B)$ και $P(A' \cap B')$.
+### Question 5.9
+$A$ and $B$ are disjoint with $P(A) = 0.4$ and $P(B) = 0.3$. Compute $P(A \cup B)$ and $P(A' \cap B')$.
 
-> **Τύπος:**
-> Ξένα: $P(A \cup B) = P(A) + P(B)$
+> **Formula:**
+> Disjoint: $P(A \cup B) = P(A) + P(B)$
 > $$P(A' \cap B') = 1 - P(A \cup B)$$
 
-### Ερώτηση 5.10
-Δίνονται $P(A) = a$, $P(B) = 0.6$ και $P(A \cup B) = 0.8$. Για ποια τιμή του $a$ τα ενδεχόμενα είναι ξένα;
+### Question 5.10
+$P(A) = a$, $P(B) = 0.6$ and $P(A \cup B) = 0.8$ are given. For which value of $a$ are the events disjoint?
 
-> **Τύπος:**
-> Ξένα: $P(A \cup B) = P(A) + P(B) \implies a = P(A \cup B) - P(B)$
+> **Formula:**
+> Disjoint: $P(A \cup B) = P(A) + P(B) \implies a = P(A \cup B) - P(B)$
 
 ---
 
-## Ενότητα 6: Οργάνωση Δεδομένων & Πίνακες Συχνοτήτων
+## Unit 6: Data Organization & Frequency Tables
 
-### Ερώτηση 6.1
-Δίνεται ο πίνακας ομαδοποίησης με κλάσεις $[0, 10)$, $[10, 20)$, $[20, 30)$ και συχνότητες $f_i = 5, 12, 8$ αντίστοιχα. Να βρεθούν τα κέντρα $x_i$ κάθε κλάσης.
+### Question 6.1
+A grouping table is given with classes $[0, 10)$, $[10, 20)$, $[20, 30)$ and frequencies $f_i = 5, 12, 8$ respectively. Find the midpoints $x_i$ of each class.
 
-> **Τύπος:**
+> **Formula:**
 > $$x_i = \frac{L_i + U_i}{2}$$
 
-### Ερώτηση 6.2
-Με τα δεδομένα της Ερώτησης 6.1, να συμπληρωθεί η στήλη $f_i x_i$ και να υπολογισθεί το $\sum f_i x_i$.
+### Question 6.2
+Using the data of Question 6.1, complete the column $f_i x_i$ and compute $\sum f_i x_i$.
 
-> **Τύπος:**
+> **Formula:**
 > $$f_i x_i = f_i \cdot \frac{L_i + U_i}{2}, \quad \sum_{i=1}^{k} f_i x_i$$
 
-### Ερώτηση 6.3
-Με τα δεδομένα της Ερώτησης 6.1, να υπολογισθούν οι σχετικές συχνότητες $h_i$ κάθε κλάσης.
+### Question 6.3
+Using the data of Question 6.1, compute the relative frequencies $h_i$ of each class.
 
-> **Τύπος:**
+> **Formula:**
 > $$h_i = \frac{f_i}{N}, \quad N = \sum_{i=1}^{k} f_i, \quad \sum_{i=1}^{k} h_i = 1$$
 
-### Ερώτηση 6.4
-Με τα δεδομένα της Ερώτησης 6.1, να υπολογισθούν οι αθροιστικές συχνότητες $F_i$.
+### Question 6.4
+Using the data of Question 6.1, compute the cumulative frequencies $F_i$.
 
-> **Τύπος:**
+> **Formula:**
 > $$F_i = \sum_{j=1}^{i} f_j = F_{i-1} + f_i, \quad F_k = N$$
 
-### Ερώτηση 6.5
-Με τα δεδομένα της Ερώτησης 6.1, να υπολογισθούν οι αθροιστικές σχετικές συχνότητες $H_i$.
+### Question 6.5
+Using the data of Question 6.1, compute the cumulative relative frequencies $H_i$.
 
-> **Τύπος:**
+> **Formula:**
 > $$H_i = \frac{F_i}{N} = \sum_{j=1}^{i} h_j, \quad H_k = 1$$
 
-### Ερώτηση 6.6
-Ο χρόνος ολοκλήρωσης μιας εργασίας για 20 εργαζόμενους ομαδοποιήθηκε στις κλάσεις $[0,5)$, $[5,10)$, $[10,15)$ με συχνότητες $4, 10, 6$. Σε ποια κλάση βρίσκεται η διάμεσος;
+### Question 6.6
+The completion time of a task for 20 workers was grouped into the classes $[0,5)$, $[5,10)$, $[10,15)$ with frequencies $4, 10, 6$. In which class is the median located?
 
-> **Τύπος:**
-> Εύρεση κλάσης με $F_{i-1} < \frac{N}{2} \le F_i$
+> **Formula:**
+> Find the class with $F_{i-1} < \frac{N}{2} \le F_i$
 
-### Ερώτηση 6.7
-Δίνεται πίνακας με κλάσεις $[20, 25)$, $[25, 30)$, $[30, 35)$ και συχνότητες $10, 22, 50$. Να προσδιορισθεί το πλάτος κλάσης $\delta$ και τα κέντρα $x_i$.
+### Question 6.7
+A table is given with classes $[20, 25)$, $[25, 30)$, $[30, 35)$ and frequencies $10, 22, 50$. Determine the class width $\delta$ and the midpoints $x_i$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\delta = U_i - L_i, \quad x_i = \frac{L_i + U_i}{2}$$
 
-### Ερώτηση 6.8
-Για ομαδοποιημένα δεδομένα 100 παρατηρήσεων δίνονται οι αθροιστικές συχνότητες $F_3 = 45$ και $F_4 = 70$. Να βρεθεί το ποσοστό των παρατηρήσεων που βρίσκονται στις δύο πρώτες κλάσεις.
+### Question 6.8
+For grouped data of 100 observations, the cumulative frequencies $F_3 = 45$ and $F_4 = 70$ are given. Find the percentage of observations located in the first two classes.
 
-> **Τύπος:**
+> **Formula:**
 > $$h = \frac{f}{N}, \quad f = F_k - F_{k-1}$$
 
-### Ερώτηση 6.9
-Σε πίνακα με 5 κλάσεις οι συχνότητες είναι $f_1 = 8$, $f_2 = 12$, $f_3 = 20$, $f_4 = 15$, $f_5 = 5$. Να υπολογισθεί η σχετική συχνότητα της τρίτης κλάσης.
+### Question 6.9
+In a table with 5 classes the frequencies are $f_1 = 8$, $f_2 = 12$, $f_3 = 20$, $f_4 = 15$, $f_5 = 5$. Compute the relative frequency of the third class.
 
-> **Τύπος:**
+> **Formula:**
 > $$h_i = \frac{f_i}{N}, \quad N = \sum f_i$$
 
-### Ερώτηση 6.10
-Δίνεται μερικώς συμπληρωμένος πίνακας με κλάσεις $[0,4)$, $[4,8)$, $[8,12)$, $[12,16)$ και συχνότητες $30, 60, 70, 40$. Να συμπληρωθούν πλήρως οι στήλες $x_i$, $f_i x_i$, $F_i$.
+### Question 6.10
+A partially completed table is given with classes $[0,4)$, $[4,8)$, $[8,12)$, $[12,16)$ and frequencies $30, 60, 70, 40$. Fully complete the columns $x_i$, $f_i x_i$, $F_i$.
 
-> **Τύπος:**
+> **Formula:**
 > $$x_i = \frac{L_i + U_i}{2}, \quad f_i x_i, \quad F_i = F_{i-1} + f_i$$
 
 ---
 
-## Ενότητα 7: Μέτρα Κεντρικής Τάσης (Μέσος, Διάμεσος, Τεταρτημόρια, Επικρατούσα)
+## Unit 7: Measures of Central Tendency (Mean, Median, Quartiles, Mode)
 
-### Ερώτηση 7.1
-Τα ύψη 11 μαθητών είναι: 160, 162, 168, 168, 170, 173, 175, 178, 182, 185, 186 (σε cm). Να υπολογισθεί το μέσο ύψος $\bar{x}$.
+### Question 7.1
+The heights of 11 students are: 160, 162, 168, 168, 170, 173, 175, 178, 182, 185, 186 (in cm). Compute the average height $\bar{x}$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$$
 
-### Ερώτηση 7.2
-Με τα δεδομένα της Ερώτησης 7.1, να υπολογισθεί η διάμεσος $M$.
+### Question 7.2
+Using the data of Question 7.1, compute the median $M$.
 
-> **Τύπος:**
-> Διατεταγμένα δεδομένα. Αν $n$ περιττό: $M = x_{\left(\frac{n+1}{2}\right)}$.
+> **Formula:**
+> Ordered data. If $n$ is odd: $M = x_{\left(\frac{n+1}{2}\right)}$.
 
-### Ερώτηση 7.3
-Με τα δεδομένα της Ερώτησης 7.1, να υπολογισθεί το τρίτο τεταρτημόριο $Q_3$ για ασυνεχή δεδομένα.
+### Question 7.3
+Using the data of Question 7.1, compute the third quartile $Q_3$ for discrete data.
 
-> **Τύπος:**
-> $Q_3$: η τιμή στη θέση $\frac{3(n+1)}{4}$ της διατεταγμένης σειράς (ή με τη σύμβαση της διάμεσου του άνω μισού).
+> **Formula:**
+> $Q_3$: the value at position $\frac{3(n+1)}{4}$ of the ordered series (or with the median-of-the-upper-half convention).
 
-### Ερώτηση 7.4
-Με τα δεδομένα της Ερώτησης 7.1, να βρεθεί η επικρατούσα τιμή $T$.
+### Question 7.4
+Using the data of Question 7.1, find the mode $T$.
 
-> **Τύπος:**
-> Επικρατούσα τιμή: η τιμή με τη μεγαλύτερη συχνότητα εμφάνισης.
+> **Formula:**
+> Mode: the value with the highest frequency of occurrence.
 
-### Ερώτηση 7.5
-Ο μηνιαίος μισθός 180 υπαλλήλων δίνεται στον πίνακα:
-| Μισθός | $f_i$ |
+### Question 7.5
+The monthly salary of 180 employees is given in the table:
+| Salary | $f_i$ |
 |---|---|
 | 1250 | 22 |
 | 1300 | 35 |
@@ -429,884 +429,884 @@
 | 1800 | 38 |
 | 2000 | 20 |
 
-Να υπολογισθεί ο μέσος μηνιαίος μισθός.
+Compute the average monthly salary.
 
-> **Τύπος:**
+> **Formula:**
 > $$\bar{x} = \frac{1}{N} \sum_{i=1}^{k} f_i x_i$$
 
-### Ερώτηση 7.6
-Με τα δεδομένα της Ερώτησης 7.5, να υπολογισθεί η διάμεσος $M$. (Ο μισθός δίνεται ως μεμονωμένη τιμή, όχι διάστημα.)
+### Question 7.6
+Using the data of Question 7.5, compute the median $M$. (The salary is given as a single value, not an interval.)
 
-> **Τύπος:**
-> Εύρεση κλάσης με $F_{i-1} < \frac{N}{2} \le F_i$ και γραμμική παρεμβολή:
+> **Formula:**
+> Find the class with $F_{i-1} < \frac{N}{2} \le F_i$ and apply linear interpolation:
 > $$M = L_i + \frac{\delta}{f_i}\left(\frac{N}{2} - F_{i-1}\right)$$
 
-### Ερώτηση 7.7
-Με τα δεδομένα της Ερώτησης 7.5, να υπολογισθεί το πρώτο τεταρτημόριο $Q_1$ (όριο για το χαμηλότερο 25%).
+### Question 7.7
+Using the data of Question 7.5, compute the first quartile $Q_1$ (boundary for the lowest 25%).
 
-> **Τύπος:**
-> Εύρεση κλάσης με $F_{i-1} < \frac{1 \cdot N}{4} \le F_i$:
+> **Formula:**
+> Find the class with $F_{i-1} < \frac{1 \cdot N}{4} \le F_i$:
 > $$Q_1 = L_i + \frac{\delta}{f_i}\left(\frac{N}{4} - F_{i-1}\right)$$
 
-### Ερώτηση 7.8
-Ο χρόνος ολοκλήρωσης μιας διαδικτυακής αγοράς για 200 χρήστες δίνεται στον πίνακα:
-| Χρόνος | $f_i$ |
+### Question 7.8
+The completion time of an online purchase for 200 users is given in the table:
+| Time | $f_i$ |
 |---|---|
 | [0,4) | 30 |
 | [4,8) | 60 |
 | [8,12) | 70 |
 | [12,16) | 40 |
 
-Η εταιρεία θέλει να βελτιώσει την πλατφόρμα για το 25% των χρηστών με τον μεγαλύτερο χρόνο. Να βρεθεί το χρονικό όριο.
+The company wants to improve the platform for the 25% of users with the longest time. Find the time boundary.
 
-> **Τύπος:**
-> Το όριο είναι το $Q_3$: κλάση με $F_{i-1} < \frac{3N}{4} \le F_i$:
+> **Formula:**
+> The boundary is $Q_3$: class with $F_{i-1} < \frac{3N}{4} \le F_i$:
 > $$Q_3 = L_i + \frac{\delta}{f_i}\left(\frac{3N}{4} - F_{i-1}\right)$$
 
-### Ερώτηση 7.9
-Δίνεται πίνακας ομαδοποιημένων δεδομένων με κλάσεις $[0,10)$, $[10,20)$, $[20,30)$, $[30,40)$ και συχνότητες $5, 15, 20, 10$. Να υπολογισθεί η επικρατούσα τιμή $T$.
+### Question 7.9
+A grouped data table is given with classes $[0,10)$, $[10,20)$, $[20,30)$, $[30,40)$ and frequencies $5, 15, 20, 10$. Compute the mode $T$.
 
-> **Τύπος:**
+> **Formula:**
 > $$T = L_i + \delta \frac{\Delta_1}{\Delta_1 + \Delta_2}$$
-> όπου $\Delta_1 = f_i - f_{i-1}$ και $\Delta_2 = f_i - f_{i+1}$ για την κλάση με το μεγαλύτερο $f_i$.
+> where $\Delta_1 = f_i - f_{i-1}$ and $\Delta_2 = f_i - f_{i+1}$ for the class with the largest $f_i$.
 
-### Ερώτηση 7.10
-Δίνεται πίνακας συχνοτήτων:
-| Κλάση | $f_i$ |
+### Question 7.10
+A frequency table is given:
+| Class | $f_i$ |
 |---|---|
 | [10, 20) | 8 |
 | [20, 30) | 12 |
 | [30, 40) | 20 |
 | [40, 50) | 10 |
 
-Να υπολογισθούν ο μέσος $\bar{x}$, η διάμεσος $M$ και το $Q_1$.
+Compute the mean $\bar{x}$, the median $M$, and $Q_1$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\bar{x} = \frac{\sum f_i x_i}{N}$$
 > $$M = L_i + \frac{\delta}{f_i}\left(\frac{N}{2} - F_{i-1}\right), \quad Q_1 = L_i + \frac{\delta}{f_i}\left(\frac{N}{4} - F_{i-1}\right)$$
 
 ---
 
-## Ενότητα 8: Μέτρα Διασποράς (Διακύμανση, Τυπική Απόκλιση, CV)
+## Unit 8: Measures of Dispersion (Variance, Standard Deviation, CV)
 
-### Ερώτηση 8.1
-Δίνονται τα δεδομένα: 2, 4, 6, 8, 10. Να υπολογισθεί η δειγματική διακύμανση $s^2$.
+### Question 8.1
+The data 2, 4, 6, 8, 10 are given. Compute the sample variance $s^2$.
 
-> **Τύπος:**
+> **Formula:**
 > $$s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$
 
-### Ερώτηση 8.2
-Με τα δεδομένα της Ερώτησης 8.1, να υπολογισθεί η τυπική απόκλιση $s$.
+### Question 8.2
+Using the data of Question 8.1, compute the standard deviation $s$.
 
-> **Τύπος:**
+> **Formula:**
 > $$s = \sqrt{s^2}$$
 
-### Ερώτηση 8.3
-Για ομαδοποιημένα δεδομένα 120 εργαζομένων δίνεται $\sum f_i (x_i - \bar{x})^2 = 3242.5$. Να υπολογισθούν η διακύμανση και η τυπική απόκλιση.
+### Question 8.3
+For grouped data of 120 workers, $\sum f_i (x_i - \bar{x})^2 = 3242.5$ is given. Compute the variance and the standard deviation.
 
-> **Τύπος:**
+> **Formula:**
 > $$s^2 = \frac{1}{N-1} \sum_{i=1}^{k} f_i (x_i - \bar{x})^2, \quad s = \sqrt{s^2}$$
 
-### Ερώτηση 8.4
-Δίνονται $\bar{x} = 50$ και $s = 5$. Να υπολογισθεί ο συντελεστής μεταβλητότητας $CV$ ως ποσοστό.
+### Question 8.4
+$\bar{x} = 50$ and $s = 5$ are given. Compute the coefficient of variation $CV$ as a percentage.
 
-> **Τύπος:**
+> **Formula:**
 > $$CV = \frac{s}{\bar{x}}, \quad CV\% = \frac{s}{\bar{x}} \cdot 100\%$$
 
-### Ερώτηση 8.5
-Ομάδα Α: $\bar{x} = 100$, $s = 10$. Ομάδα Β: $\bar{x} = 80$, $s = 12$. Ποια ομάδα παρουσιάζει μεγαλύτερη σχετική μεταβλητότητα;
+### Question 8.5
+Group A: $\bar{x} = 100$, $s = 10$. Group B: $\bar{x} = 80$, $s = 12$. Which group exhibits greater relative variability?
 
-> **Τύπος:**
-> Σύγκριση με $CV = \frac{s}{\bar{x}}$ (αδιάστατο μέτρο).
+> **Formula:**
+> Compare using $CV = \frac{s}{\bar{x}}$ (a dimensionless measure).
 
-### Ερώτηση 8.6
-Δίνεται $s^2 = 16$. Να υπολογισθεί η τυπική απόκλιση $s$.
+### Question 8.6
+$s^2 = 16$ is given. Compute the standard deviation $s$.
 
-> **Τύπος:**
+> **Formula:**
 > $$s = \sqrt{s^2}$$
 
-### Ερώτηση 8.7
-Τμήμα Α: $\bar{x} = 70$, $s = 5$. Τμήμα Β: $\bar{x} = 65$, $s = 4$. Ποιο τμήμα έχει μεγαλύτερη ομοιογένεια βαθμολογιών; Να αιτιολογήσετε με το $CV$.
+### Question 8.7
+Department A: $\bar{x} = 70$, $s = 5$. Department B: $\bar{x} = 65$, $s = 4$. Which department has greater homogeneity of grades? Justify using the $CV$.
 
-> **Τύπος:**
-> $$CV = \frac{s}{\bar{x}}$$ — μικρότερο $CV$ σημαίνει μεγαλύτερη ομοιογένεια.
+> **Formula:**
+> $$CV = \frac{s}{\bar{x}}$$ — a smaller $CV$ means greater homogeneity.
 
-### Ερώτηση 8.8
-Δίνεται πίνακας ομαδοποιημένων δεδομένων με στήλη $f_i (x_i - \bar{x})^2$ και σύνολο $\sum f_i (x_i - \bar{x})^2 = 137188$, με $N = 300$. Να υπολογισθεί η τυπική απόκλιση.
+### Question 8.8
+A grouped data table is given with column $f_i (x_i - \bar{x})^2$ and total $\sum f_i (x_i - \bar{x})^2 = 137188$, with $N = 300$. Compute the standard deviation.
 
-> **Τύπος:**
+> **Formula:**
 > $$s = \sqrt{\frac{\sum f_i (x_i - \bar{x})^2}{N-1}}$$
 
-### Ερώτηση 8.9
-Δίνονται τα δεδομένα: 3, 3, 5, 7, 9. Να υπολογισθεί η διακύμανση χρησιμοποιώντας τον συνοπτικό τύπο $\sum x_i^2 - n\bar{x}^2$.
+### Question 8.9
+The data 3, 3, 5, 7, 9 are given. Compute the variance using the shortcut formula $\sum x_i^2 - n\bar{x}^2$.
 
-> **Τύπος:**
+> **Formula:**
 > $$s^2 = \frac{1}{n-1}\left[\sum_{i=1}^{n} x_i^2 - n \bar{x}^2\right]$$
 
-### Ερώτηση 8.10
-Για 10 παρατηρήσεις δίνονται $\sum x_i = 100$ και $\sum x_i^2 = 1200$. Να υπολογισθούν το $\bar{x}$ και η δειγματική τυπική απόκλιση $s$.
+### Question 8.10
+For 10 observations, $\sum x_i = 100$ and $\sum x_i^2 = 1200$ are given. Compute $\bar{x}$ and the sample standard deviation $s$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\bar{x} = \frac{\sum x_i}{n}, \quad s^2 = \frac{1}{n-1}\left[\sum x_i^2 - n \bar{x}^2\right]$$
 
 ---
 
-## Ενότητα 9: Εμπειρικός Κανόνας (68-95-99.7)
+## Unit 9: Empirical Rule (68-95-99.7)
 
-### Ερώτηση 9.1
-Μια μεταβλητή ακολουθεί περίπου κανονική κατανομή με $\bar{x} = 100$ και $s = 10$. Σε ποιο διάστημα αναμένεται να βρίσκεται το 68% των τιμών;
+### Question 9.1
+A variable approximately follows a normal distribution with $\bar{x} = 100$ and $s = 10$. In which interval is 68% of the values expected to lie?
 
-> **Τύπος:**
+> **Formula:**
 > $$[\bar{x} - s, \; \bar{x} + s]$$
 
-### Ερώτηση 9.2
-Με τα δεδομένα της Ερώτησης 9.1, σε ποιο διάστημα αναμένεται να βρίσκεται το 95% των τιμών;
+### Question 9.2
+Using the data of Question 9.1, in which interval is 95% of the values expected to lie?
 
-> **Τύπος:**
+> **Formula:**
 > $$[\bar{x} - 2s, \; \bar{x} + 2s]$$
 
-### Ερώτηση 9.3
-Με τα δεδομένα της Ερώτησης 9.1, σε ποιο διάστημα αναμένεται να βρίσκεται το 99.7% των τιμών;
+### Question 9.3
+Using the data of Question 9.1, in which interval is 99.7% of the values expected to lie?
 
-> **Τύπος:**
+> **Formula:**
 > $$[\bar{x} - 3s, \; \bar{x} + 3s]$$
 
-### Ερώτηση 9.4
-Για συμμετρική καμπανοειδή κατανομή, τι ποσοστό των τιμών βρίσκεται εντός του διαστήματος $[\bar{x} - 2s, \; \bar{x} + 2s]$;
+### Question 9.4
+For a symmetric bell-shaped distribution, what percentage of the values lies within the interval $[\bar{x} - 2s, \; \bar{x} + 2s]$?
 
-> **Τύπος:**
-> Εμπειρικός κανόνας: εντός $\bar{x} \pm 2s$ βρίσκεται περίπου το 95%.
+> **Formula:**
+> Empirical rule: approximately 95% lies within $\bar{x} \pm 2s$.
 
-### Ερώτηση 9.5
-Ο χρόνος ζωής μιας μπαταρίας έχει $\bar{x} = 48$ ώρες και $s = 4$ ώρες. Τι ποσοστό των μπαταριών έχει διάρκεια ζωής μεταξύ 40 και 56 ωρών;
+### Question 9.5
+The lifetime of a battery has $\bar{x} = 48$ hours and $s = 4$ hours. What percentage of batteries has a lifetime between 40 and 56 hours?
 
-> **Τύπος:**
-> $40 = 48 - 2 \cdot 4$ και $56 = 48 + 2 \cdot 4$ → διάστημα $\bar{x} \pm 2s$ → 95%.
+> **Formula:**
+> $40 = 48 - 2 \cdot 4$ and $56 = 48 + 2 \cdot 4$ → interval $\bar{x} \pm 2s$ → 95%.
 
-### Ερώτηση 9.6
-Με τα δεδομένα της Ερώτησης 9.5, τι ποσοστό των μπαταριών έχει διάρκεια ζωής μεταξύ 44 και 52 ωρών;
+### Question 9.6
+Using the data of Question 9.5, what percentage of batteries has a lifetime between 44 and 52 hours?
 
-> **Τύπος:**
-> $44 = 48 - 4$ και $52 = 48 + 4$ → διάστημα $\bar{x} \pm s$ → 68%.
+> **Formula:**
+> $44 = 48 - 4$ and $52 = 48 + 4$ → interval $\bar{x} \pm s$ → 68%.
 
-### Ερώτηση 9.7
-Η βαθμολογία σε ένα διαγωνισμό έχει $\bar{x} = 60$ και $s = 8$. Να βρεθεί το διάστημα που περιέχει περίπου το 95% των βαθμολογιών.
+### Question 9.7
+The score in a competition has $\bar{x} = 60$ and $s = 8$. Find the interval that contains approximately 95% of the scores.
 
-> **Τύπος:**
+> **Formula:**
 > $$[\bar{x} - 2s, \; \bar{x} + 2s]$$
 
-### Ερώτηση 9.8
-Για μια καμπανοειδή κατανομή, το 95% των τιμών βρίσκεται στο διάστημα $[50, 70]$. Να βρεθούν το $\bar{x}$ και το $s$.
+### Question 9.8
+For a bell-shaped distribution, 95% of the values lies in the interval $[50, 70]$. Find $\bar{x}$ and $s$.
 
-> **Τύπος:**
+> **Formula:**
 > $\bar{x} = \frac{70 + 50}{2}$, $2s = \frac{70 - 50}{2}$ → $s = 5$.
 
-### Ερώτηση 9.9
-Με τα $\bar{x}$ και $s$ που βρήκατε στην Ερώτηση 9.8, να βρεθεί το διάστημα για το 68% των τιμών.
+### Question 9.9
+Using the $\bar{x}$ and $s$ you found in Question 9.8, find the interval for 68% of the values.
 
-> **Τύπος:**
+> **Formula:**
 > $$[\bar{x} - s, \; \bar{x} + s]$$
 
-### Ερώτηση 9.10
-Ο χρόνος ολοκλήρωσης έχει $\bar{x} = 30$ λεπτά και $s = 5$ λεπτά. Σε ποιο διάστημα αναμένεται να βρίσκεται σχεδόν το σύνολο (99.7%) των χρόνων;
+### Question 9.10
+The completion time has $\bar{x} = 30$ minutes and $s = 5$ minutes. In which interval is almost the entire set (99.7%) of the times expected to lie?
 
-> **Τύπος:**
+> **Formula:**
 > $$[\bar{x} - 3s, \; \bar{x} + 3s]$$
 
 ---
 
-## Ενότητα 10: Διακριτές Τυχαίες Μεταβλητές (PMF, CDF, Μέση Τιμή, Διακύμανση)
+## Unit 10: Discrete Random Variables (PMF, CDF, Expected Value, Variance)
 
-### Ερώτηση 10.1
-Δίνεται η κατανομή πιθανότητας της διακριτής τ.μ. $X$:
+### Question 10.1
+The probability distribution of the discrete r.v. $X$ is given:
 | $x$ | 1 | 2 | 3 | 4 |
 |---|---|---|---|---|
 | $P(X=x)$ | 0.2 | 0.3 | 0.4 | 0.1 |
 
-Να εξετασθεί αν πρόκειται για έγκυρη συνάρτηση πιθανότητας.
+Examine whether it is a valid probability mass function.
 
-> **Τύπος:**
-> Έγκυρη PMF αν $0 \le p(x_i) \le 1$ και $\sum_{i} p(x_i) = 1$.
+> **Formula:**
+> A valid PMF if $0 \le p(x_i) \le 1$ and $\sum_{i} p(x_i) = 1$.
 
-### Ερώτηση 10.2
-Με τα δεδομένα της Ερώτησης 10.1, να υπολογισθεί η αναμενόμενη τιμή $E[X]$.
+### Question 10.2
+Using the data of Question 10.1, compute the expected value $E[X]$.
 
-> **Τύπος:**
+> **Formula:**
 > $$E[X] = \sum_{i} x_i \cdot P(X = x_i)$$
 
-### Ερώτηση 10.3
-Με τα δεδομένα της Ερώτησης 10.1, να υπολογισθούν η διακύμανση $\text{Var}(X)$ και η τυπική απόκλιση $\sigma$.
+### Question 10.3
+Using the data of Question 10.1, compute the variance $\text{Var}(X)$ and the standard deviation $\sigma$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Var}(X) = E[X^2] - (E[X])^2, \quad \sigma = \sqrt{\text{Var}(X)}$$
 
-### Ερώτηση 10.4
-Ρίχνουμε ένα ζάρι και έστω $X$ η ένδειξη. Να υπολογισθεί η $E[X]$.
+### Question 10.4
+We roll a die and let $X$ be the outcome. Compute $E[X]$.
 
-> **Τύπος:**
+> **Formula:**
 > $$E[X] = \sum_{i=1}^{6} x_i \cdot \frac{1}{6}$$
 
-### Ερώτηση 10.5
-Για μια διακριτή τ.μ. $X$ δίνονται $E[X] = 5$ και $E[X^2] = 30$. Να υπολογισθεί η $\text{Var}(X)$.
+### Question 10.5
+For a discrete r.v. $X$, $E[X] = 5$ and $E[X^2] = 30$ are given. Compute $\text{Var}(X)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Var}(X) = E[X^2] - (E[X])^2$$
 
-### Ερώτηση 10.6
-Με τα δεδομένα της Ερώτησης 10.1, να υπολογισθεί η αθροιστική συνάρτηση $F(2) = P(X \le 2)$.
+### Question 10.6
+Using the data of Question 10.1, compute the cumulative function $F(2) = P(X \le 2)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$F(x) = P(X \le x) = \sum_{x_i \le x} p(x_i)$$
 
-### Ερώτηση 10.7
-Δίνονται $E[X] = 4$ και $\text{Var}(X) = 9$. Να υπολογισθούν οι $E[2X + 3]$ και $\text{Var}(2X + 3)$.
+### Question 10.7
+$E[X] = 4$ and $\text{Var}(X) = 9$ are given. Compute $E[2X + 3]$ and $\text{Var}(2X + 3)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$E[aX + b] = aE[X] + b, \quad \text{Var}(aX + b) = a^2 \text{Var}(X)$$
 
-### Ερώτηση 10.8
-Δίνεται $P(X = k) = \frac{k}{10}$ για $k = 1, 2, 3, 4$. Να εξετασθεί αν αποτελεί έγκυρη PMF και να υπολογισθεί η $E[X]$.
+### Question 10.8
+$P(X = k) = \frac{k}{10}$ is given for $k = 1, 2, 3, 4$. Examine whether it is a valid PMF and compute $E[X]$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\sum_{k=1}^{4} \frac{k}{10} = \frac{10}{10} = 1, \quad E[X] = \sum k \cdot p(k)$$
 
-### Ερώτηση 10.9
-Δίνεται $P(X = 1) = c$, $P(X = 2) = 2c$, $P(X = 3) = 3c$. Να βρεθεί η τιμή της σταθεράς $c$ ώστε να είναι έγκυρη PMF.
+### Question 10.9
+$P(X = 1) = c$, $P(X = 2) = 2c$, $P(X = 3) = 3c$ are given. Find the value of the constant $c$ so that it is a valid PMF.
 
-> **Τύπος:**
+> **Formula:**
 > $$\sum_{i} p(x_i) = 1 \implies c + 2c + 3c = 1$$
 
-### Ερώτηση 10.10
-Με την τιμή του $c$ που βρήκατε στην Ερώτηση 10.9, να υπολογισθεί η $E[X]$.
+### Question 10.10
+Using the value of $c$ you found in Question 10.9, compute $E[X]$.
 
-> **Τύπος:**
+> **Formula:**
 > $$E[X] = \sum_{i} x_i \cdot P(X = x_i)$$
 
 ---
 
-## Ενότητα 11: Διωνυμική Κατανομή
+## Unit 11: Binomial Distribution
 
-### Ερώτηση 11.1
-Σε μια βιομηχανία το 2% ενός προϊόντος είναι εκτός προδιαγραφών. Επιλέγουμε τυχαία 6 μονάδες. Να βρεθεί η πιθανότητα ακριβώς μία μονάδα να είναι ελαττωματική.
+### Question 11.1
+In a factory, 2% of a product is out of specification. We select 6 units at random. Find the probability that exactly one unit is defective.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$$
 
-### Ερώτηση 11.2
-Με τα δεδομένα της Ερώτησης 11.1, να βρεθεί η πιθανότητα 2 ή περισσότερες μονάδες να είναι ελαττωματικές.
+### Question 11.2
+Using the data of Question 11.1, find the probability that 2 or more units are defective.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X \ge 2) = 1 - P(X = 0) - P(X = 1) = 1 - (1-p)^n - \binom{n}{1} p (1-p)^{n-1}$$
 
-### Ερώτηση 11.3
-Σε μια βιομηχανία το 1% ενός προϊόντος είναι ελαττωματικό. Επιλέγουμε 7 μονάδες. Να βρεθεί η πιθανότητα ακριβώς μία να είναι ελαττωματική.
+### Question 11.3
+In a factory, 1% of a product is defective. We select 7 units. Find the probability that exactly one is defective.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X = 1) = \binom{7}{1} p (1-p)^{6}$$
 
-### Ερώτηση 11.4
-Με τα δεδομένα της Ερώτησης 11.3, να βρεθεί η πιθανότητα τουλάχιστον δύο μονάδες να είναι ελαττωματικές.
+### Question 11.4
+Using the data of Question 11.3, find the probability that at least two units are defective.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X \ge 2) = 1 - P(X \le 1)$$
 
-### Ερώτηση 11.5
-Έστω $X \sim \text{Bin}(10, 0.3)$. Να υπολογισθεί η $P(X \le 2)$.
+### Question 11.5
+Let $X \sim \text{Bin}(10, 0.3)$. Compute $P(X \le 2)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X \le k) = \sum_{j=0}^{k} \binom{n}{j} p^j (1-p)^{n-j}$$
 
-### Ερώτηση 11.6
-Έστω $X \sim \text{Bin}(20, 0.08)$. Να υπολογισθούν η αναμενόμενη τιμή $E[X]$ και η τυπική απόκλιση $\sigma$.
+### Question 11.6
+Let $X \sim \text{Bin}(20, 0.08)$. Compute the expected value $E[X]$ and the standard deviation $\sigma$.
 
-> **Τύπος:**
+> **Formula:**
 > $$E[X] = np, \quad \sigma = \sqrt{np(1-p)}$$
 
-### Ερώτηση 11.7
-Ένα φάρμακο προκαλεί παρενέργειες σε 3 στους 100 ασθενείς. Επιλέγονται τυχαία 5 ασθενείς. Να βρεθεί η πιθανότητα κανένας να μην εμφανίσει παρενέργειες.
+### Question 11.7
+A drug causes side effects in 3 out of 100 patients. Five patients are selected at random. Find the probability that none of them experiences side effects.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X = 0) = (1-p)^n$$
 
-### Ερώτηση 11.8
-Με το ποσοστό της Ερώτησης 11.7, ποιος είναι ο αναμενόμενος αριθμός ασθενών με παρενέργειες αν επιλεγούν 100 ασθενείς;
+### Question 11.8
+Using the percentage of Question 11.7, what is the expected number of patients with side effects if 100 patients are selected?
 
-> **Τύπος:**
+> **Formula:**
 > $$E[X] = np = 100 \times 0.03$$
 
-### Ερώτηση 11.9
-Έστω $X$ ο αριθμός των προβληματικών συνδέσεων σε 20 τυχαίους ελέγχους με πιθανότητα προβληματικής σύνδεσης $p = 0.08$. Να αναφέρετε και να αιτιολογήσετε τις τέσσερις συνθήκες υπό τις οποίες η $X$ ακολουθεί διωνυμική κατανομή.
+### Question 11.9
+Let $X$ be the number of problematic connections in 20 random checks with probability of a problematic connection $p = 0.08$. State and justify the four conditions under which $X$ follows a binomial distribution.
 
-> **Τύπος:**
-> Συνθήκες: (1) σταθερός αριθμός δοκιμών $n$, (2) δύο μόνο δυνατά αποτελέσματα, (3) σταθερή πιθανότητα $p$, (4) ανεξαρτησία δοκιμών.
+> **Formula:**
+> Conditions: (1) fixed number of trials $n$, (2) only two possible outcomes, (3) constant probability $p$, (4) independence of trials.
 
-### Ερώτηση 11.10
-Έστω $X \sim \text{Bin}(12, 0.25)$. Να υπολογισθεί η πιθανότητα $P(X \ge 1)$.
+### Question 11.10
+Let $X \sim \text{Bin}(12, 0.25)$. Compute the probability $P(X \ge 1)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X \ge 1) = 1 - P(X = 0) = 1 - (1-p)^n$$
 
 ---
 
-## Ενότητα 12: Συνεχείς Τυχαίες Μεταβλητές & Συνάρτηση Πυκνότητας
+## Unit 12: Continuous Random Variables & Density Function
 
-### Ερώτηση 12.1
-Για μια συνεχή τυχαία μεταβλητή $X$, να υπολογισθεί η $P(X = 5)$.
+### Question 12.1
+For a continuous random variable $X$, compute $P(X = 5)$.
 
-> **Τύπος:**
-> Για συνεχή $X$: $P(X = c) = 0$ για κάθε συγκεκριμένη τιμή $c$.
+> **Formula:**
+> For a continuous $X$: $P(X = c) = 0$ for every specific value $c$.
 
-### Ερώτηση 12.2
-Δίνεται η συνάρτηση πυκνότητας $f(x) = c x$ για $0 \le x \le 2$ και $f(x) = 0$ αλλού. Να βρεθεί η σταθερά $c$.
+### Question 12.2
+The density function $f(x) = c x$ for $0 \le x \le 2$ and $f(x) = 0$ elsewhere is given. Find the constant $c$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\int_{-\infty}^{+\infty} f(x) \, dx = 1 \implies \int_{0}^{2} c x \, dx = 1$$
 
-### Ερώτηση 12.3
-Με τη σταθερά $c$ της Ερώτησης 12.2, να υπολογισθεί η $P(1 \le X \le 1.5)$.
+### Question 12.3
+Using the constant $c$ of Question 12.2, compute $P(1 \le X \le 1.5)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(a \le X \le b) = \int_{a}^{b} f(x) \, dx$$
 
-### Ερώτηση 12.4
-Να εξηγήσετε γιατί για μια συνεχή τυχαία μεταβλητή ισχύει $P(a \le X \le b) = P(a < X \le b) = P(a \le X < b)$.
+### Question 12.4
+Explain why, for a continuous random variable, $P(a \le X \le b) = P(a < X \le b) = P(a \le X < b)$ holds.
 
-> **Τύπος:**
-> Επειδή $P(X = a) = P(X = b) = 0$, τα άκρα των διαστημάτων δεν επηρεάζουν την πιθανότητα.
+> **Formula:**
+> Because $P(X = a) = P(X = b) = 0$, the endpoints of the intervals do not affect the probability.
 
-### Ερώτηση 12.5
-Δίνεται $f(x) = \frac{1}{4}$ για $0 \le x \le 4$ (ομοιόμορφη κατανομή). Να υπολογισθεί η $P(1 \le X \le 3)$.
+### Question 12.5
+$f(x) = \frac{1}{4}$ for $0 \le x \le 4$ (uniform distribution) is given. Compute $P(1 \le X \le 3)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(1 \le X \le 3) = \int_{1}^{3} \frac{1}{4} \, dx$$
 
-### Ερώτηση 12.6
-Με τα δεδομένα της Ερώτησης 12.5, να υπολογισθεί η $P(X > 2)$.
+### Question 12.6
+Using the data of Question 12.5, compute $P(X > 2)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X > 2) = \int_{2}^{4} \frac{1}{4} \, dx$$
 
-### Ερώτηση 12.7
-Να αναφέρετε τη βασική διαφορά μεταξύ συνάρτησης πιθανότητας (PMF) διακριτής μεταβλητής και συνάρτησης πυκνότητας (PDF) συνεχούς μεταβλητής.
+### Question 12.7
+State the fundamental difference between the probability mass function (PMF) of a discrete variable and the probability density function (PDF) of a continuous variable.
 
-> **Τύπος:**
-> PMF δίνει $P(X = x)$ απευθείας. PDF δίνει πυκνότητα: η πιθανότητα είναι εμβαδόν $\int f(x)dx$, και $P(X = c) = 0$.
+> **Formula:**
+> The PMF gives $P(X = x)$ directly. The PDF gives density: the probability is the area $\int f(x)dx$, and $P(X = c) = 0$.
 
-### Ερώτηση 12.8
-Δίνεται $f(x) = 3x^2$ για $0 \le x \le 1$ και $0$ αλλού. Να εξετασθεί αν αποτελεί έγκυρη συνάρτηση πυκνότητας.
+### Question 12.8
+$f(x) = 3x^2$ for $0 \le x \le 1$ and $0$ elsewhere is given. Examine whether it is a valid density function.
 
-> **Τύπος:**
-> Έγκυρη PDF αν $f(x) \ge 0$ και $\int_{-\infty}^{+\infty} f(x) \, dx = 1$.
+> **Formula:**
+> A valid PDF if $f(x) \ge 0$ and $\int_{-\infty}^{+\infty} f(x) \, dx = 1$.
 
-### Ερώτηση 12.9
-Με τα δεδομένα της Ερώτησης 12.8, να υπολογισθεί η $P(X \le 0.5)$.
+### Question 12.9
+Using the data of Question 12.8, compute $P(X \le 0.5)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X \le 0.5) = \int_{0}^{0.5} 3x^2 \, dx$$
 
-### Ερώτηση 12.10
-Να ερμηνεύσετε γεωμετρικά την πιθανότητα $P(a \le X \le b)$ για μια συνεχή τυχαία μεταβλητή.
+### Question 12.10
+Interpret geometrically the probability $P(a \le X \le b)$ for a continuous random variable.
 
-> **Τύπος:**
-> Το εμβαδόν κάτω από την καμπύλη $y = f(x)$ μεταξύ των κατακόρυφων ευθειών $x = a$ και $x = b$.
+> **Formula:**
+> The area under the curve $y = f(x)$ between the vertical lines $x = a$ and $x = b$.
 
 ---
 
-## Ενότητα 13: Η Κανονική Κατανομή (Ιδιότητες)
+## Unit 13: The Normal Distribution (Properties)
 
-### Ερώτηση 13.1
-Έστω $X \sim N(\mu, \sigma^2)$. Τι ισχύει για τη μέση τιμή, τη διάμεσο και την επικρατούσα τιμή της κανονικής κατανομής;
+### Question 13.1
+Let $X \sim N(\mu, \sigma^2)$. What holds for the mean, the median, and the mode of the normal distribution?
 
-> **Τύπος:**
+> **Formula:**
 > $$\bar{x} = M = T = \mu$$
 
-### Ερώτηση 13.2
-Για την κανονική κατανομή, γύρω από ποια τιμή είναι συμμετρική η καμπύλη πυκνότητας;
+### Question 13.2
+For the normal distribution, around which value is the density curve symmetric?
 
-> **Τύπος:**
-> Συμμετρική γύρω από τη μέση τιμή $\mu$.
+> **Formula:**
+> Symmetric around the mean $\mu$.
 
-### Ερώτηση 13.3
-Ποιο είναι το συνολικό εμβαδόν κάτω από την καμπύλη της κανονικής κατανομής;
+### Question 13.3
+What is the total area under the curve of the normal distribution?
 
-> **Τύπος:**
+> **Formula:**
 > $$\int_{-\infty}^{+\infty} f(x) \, dx = 1$$
 
-### Ερώτηση 13.4
-Για την κανονική κατανομή, τι ποσοστό των τιμών βρίσκεται μεταξύ $\mu - \sigma$ και $\mu + \sigma$;
+### Question 13.4
+For the normal distribution, what percentage of the values lies between $\mu - \sigma$ and $\mu + \sigma$?
 
-> **Τύπος:**
+> **Formula:**
 > $P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.6826$ (68%).
 
-### Ερώτηση 13.5
-Έστω $X \sim N(10, 4)$. Να προσδιορισθούν η μέση τιμή $\mu$, η διακύμανση $\sigma^2$ και η τυπική απόκλιση $\sigma$.
+### Question 13.5
+Let $X \sim N(10, 4)$. Determine the mean $\mu$, the variance $\sigma^2$, and the standard deviation $\sigma$.
 
-> **Τύπος:**
-> Στη συμβολισμό $N(\mu, \sigma^2)$: το δεύτερο όρισμα είναι η διακύμανση. $\sigma = \sqrt{\sigma^2}$.
+> **Formula:**
+> In the notation $N(\mu, \sigma^2)$: the second argument is the variance. $\sigma = \sqrt{\sigma^2}$.
 
-### Ερώτηση 13.6
-Έστω $X \sim N(50, 25)$. Να υπολογισθούν οι $E[X]$, $\text{Var}(X)$ και $\sigma$.
+### Question 13.6
+Let $X \sim N(50, 25)$. Compute $E[X]$, $\text{Var}(X)$ and $\sigma$.
 
-> **Τύπος:**
+> **Formula:**
 > $E[X] = \mu = 50$, $\text{Var}(X) = \sigma^2 = 25$, $\sigma = \sqrt{25} = 5$.
 
-### Ερώτηση 13.7
-Γιατί η κανονική κατανομή ονομάζεται "καμπανοειδής";
+### Question 13.7
+Why is the normal distribution called "bell-shaped"?
 
-> **Τύπος:**
-> Γιατί η γραφική παράσταση της συνάρτησης πυκνότητας έχει σχήμα καμπάνας, συμμετρική γύρω από το $\mu$.
+> **Formula:**
+> Because the graph of the density function is bell-shaped, symmetric around $\mu$.
 
-### Ερώτηση 13.8
-Έστω $X \sim N(\mu, \sigma^2)$. Να υπολογισθεί η $P(X < \mu)$.
+### Question 13.8
+Let $X \sim N(\mu, \sigma^2)$. Compute $P(X < \mu)$.
 
-> **Τύπος:**
-> Λόγω συμμετρίας: $P(X < \mu) = P(X > \mu) = 0.5$.
+> **Formula:**
+> By symmetry: $P(X < \mu) = P(X > \mu) = 0.5$.
 
-### Ερώτηση 13.9
-Έστω $X \sim N(100, 64)$. Να υπολογισθεί η $P(X > 100)$.
+### Question 13.9
+Let $X \sim N(100, 64)$. Compute $P(X > 100)$.
 
-> **Τύπος:**
+> **Formula:**
 > $P(X > \mu) = 0.5$.
 
-### Ερώτηση 13.10
-Έστω $Z \sim N(0, 1)$. Να υπολογισθεί το $\Phi(0) = P(Z \le 0)$.
+### Question 13.10
+Let $Z \sim N(0, 1)$. Compute $\Phi(0) = P(Z \le 0)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\Phi(0) = 0.5$$
 
 ---
 
-## Ενότητα 14: Τυποποίηση Z & Τυπική Κανονική Κατανομή
+## Unit 14: Z-Standardization & the Standard Normal Distribution
 
-### Ερώτηση 14.1
-Έστω $X \sim N(48, 16)$. Να μετατραπεί η τιμή $x = 39$ σε τιμή $z$.
+### Question 14.1
+Let $X \sim N(48, 16)$. Convert the value $x = 39$ to a $z$ value.
 
-> **Τύπος:**
+> **Formula:**
 > $$Z = \frac{X - \mu}{\sigma}$$
 
-### Ερώτηση 14.2
-Έστω $X \sim N(48, 16)$. Να υπολογισθεί η $P(39 \le X \le 57)$. Δίνονται $\Phi(2.25) = 0.98778$ και $\Phi(1.5) = 0.93319$.
+### Question 14.2
+Let $X \sim N(48, 16)$. Compute $P(39 \le X \le 57)$. Given $\Phi(2.25) = 0.98778$ and $\Phi(1.5) = 0.93319$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(a \le X \le b) = \Phi\left(\frac{b-\mu}{\sigma}\right) - \Phi\left(\frac{a-\mu}{\sigma}\right)$$
 
-### Ερώτηση 14.3
-Έστω $X \sim N(15, 4)$. Να υπολογισθεί η $P(X > 9)$. Δίνεται $\Phi(1.5) = 0.93319$.
+### Question 14.3
+Let $X \sim N(15, 4)$. Compute $P(X > 9)$. Given $\Phi(1.5) = 0.93319$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X > a) = 1 - \Phi\left(\frac{a-\mu}{\sigma}\right) = \Phi\left(-\frac{a-\mu}{\sigma}\right)$$
 
-### Ερώτηση 14.4
-Έστω $X \sim N(10, 4)$. Να υπολογισθεί η $P(9 \le X \le 13)$. Δίνονται $\Phi(0.5) = 0.69146$ και $\Phi(1.5) = 0.93319$.
+### Question 14.4
+Let $X \sim N(10, 4)$. Compute $P(9 \le X \le 13)$. Given $\Phi(0.5) = 0.69146$ and $\Phi(1.5) = 0.93319$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(9 \le X \le 13) = \Phi(1.5) - \Phi(0.5)$$
 
-### Ερώτηση 14.5
-Έστω $X \sim N(25, 25)$. Να υπολογισθεί η $P(X > 15)$. Δίνεται $\Phi(2) = 0.9772$.
+### Question 14.5
+Let $X \sim N(25, 25)$. Compute $P(X > 15)$. Given $\Phi(2) = 0.9772$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X > 15) = 1 - \Phi(2)$$
 
-### Ερώτηση 14.6
-Έστω $X \sim N(25, 25)$. Να υπολογισθεί η $P(20 \le X \le 25)$. Δίνεται $\Phi(1) = 0.8413$.
+### Question 14.6
+Let $X \sim N(25, 25)$. Compute $P(20 \le X \le 25)$. Given $\Phi(1) = 0.8413$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(20 \le X \le 25) = \Phi(1) - \Phi(0) = \Phi(1) - 0.5$$
 
-### Ερώτηση 14.7
-Δίνεται $\Phi(1.5) = 0.93319$. Να υπολογισθεί το $\Phi(-1.5) = P(Z \le -1.5)$.
+### Question 14.7
+Given $\Phi(1.5) = 0.93319$. Compute $\Phi(-1.5) = P(Z \le -1.5)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\Phi(-z) = 1 - \Phi(z)$$
 
-### Ερώτηση 14.8
-Έστω $X \sim N(800, 1600)$. Να υπολογισθεί η $P(740 \le X \le 860)$. Δίνονται $\Phi(1.5) = 0.9332$ και $\Phi(2) = 0.9772$.
+### Question 14.8
+Let $X \sim N(800, 1600)$. Compute $P(740 \le X \le 860)$. Given $\Phi(1.5) = 0.9332$ and $\Phi(2) = 0.9772$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(740 \le X \le 860) = \Phi(1.5) - \Phi(-1.5) = \Phi(1.5) - (1 - \Phi(1.5))$$
 
-### Ερώτηση 14.9
-Έστω $X \sim N(12, 4)$. Να υπολογισθούν οι $P(X > 9)$ και $P(11 \le X \le 15)$. Δίνονται $\Phi(0.5) = 0.69146$ και $\Phi(1.5) = 0.93319$.
+### Question 14.9
+Let $X \sim N(12, 4)$. Compute $P(X > 9)$ and $P(11 \le X \le 15)$. Given $\Phi(0.5) = 0.69146$ and $\Phi(1.5) = 0.93319$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(X > 9) = 1 - \Phi(1.5), \quad P(11 \le X \le 15) = \Phi(1.5) - \Phi(0.5)$$
 
-### Ερώτηση 14.10
-Δίνονται $\Phi(0.5) = 0.69146$ και $\Phi(1.5) = 0.93319$. Να υπολογισθεί η $P(-1.5 \le Z \le 0.5)$.
+### Question 14.10
+Given $\Phi(0.5) = 0.69146$ and $\Phi(1.5) = 0.93319$. Compute $P(-1.5 \le Z \le 0.5)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(z_1 \le Z \le z_2) = \Phi(z_2) - \Phi(z_1) = \Phi(0.5) - (1 - \Phi(1.5))$$
 
 ---
 
-## Ενότητα 15: Ποσοστιαία Σημεία & Αντίστροφο Πρόβλημα (Inverse Quantile)
+## Unit 15: Percentage Points & the Inverse Problem (Inverse Quantile)
 
-### Ερώτηση 15.1
-Έστω $X \sim N(100, 100)$. Να βρεθεί η τιμή $x_0$ τέτοια ώστε $P(X \le x_0) = 0.75$. Δίνεται $z_{0.75} = 0.67$.
+### Question 15.1
+Let $X \sim N(100, 100)$. Find the value $x_0$ such that $P(X \le x_0) = 0.75$. Given $z_{0.75} = 0.67$.
 
-> **Τύπος:**
+> **Formula:**
 > $$x_0 = \mu + z \cdot \sigma$$
 
-### Ερώτηση 15.2
-Έστω $X \sim N(50, 25)$. Να βρεθεί η τιμή $x_0$ που υπερβαίνει το κορυφαίο 10% των τιμών. Δίνεται $z_{0.90} = 1.28$.
+### Question 15.2
+Let $X \sim N(50, 25)$. Find the value $x_0$ that exceeds the top 10% of the values. Given $z_{0.90} = 1.28$.
 
-> **Τύπος:**
-> Κορυφαίο 10%: $P(X > x_0) = 0.10$, άρα $P(X \le x_0) = 0.90$:
+> **Formula:**
+> Top 10%: $P(X > x_0) = 0.10$, hence $P(X \le x_0) = 0.90$:
 > $$x_0 = \mu + z_{0.90} \cdot \sigma$$
 
-### Ερώτηση 15.3
-Έστω $X \sim N(100, 64)$. Να βρεθεί το ανώτερο όριο του χαμηλότερου 25% των τιμών ($Q_1$). Δίνεται $z_{0.25} = -0.67$.
+### Question 15.3
+Let $X \sim N(100, 64)$. Find the upper boundary of the lowest 25% of the values ($Q_1$). Given $z_{0.25} = -0.67$.
 
-> **Τύπος:**
+> **Formula:**
 > $$Q_1 = \mu + z_{0.25} \cdot \sigma$$
 
-### Ερώτηση 15.4
-Έστω $X \sim N(100, 64)$. Να βρεθεί το κατώτερο όριο του ανώτερου 25% των τιμών ($Q_3$). Δίνεται $z_{0.75} = 0.67$.
+### Question 15.4
+Let $X \sim N(100, 64)$. Find the lower boundary of the top 25% of the values ($Q_3$). Given $z_{0.75} = 0.67$.
 
-> **Τύπος:**
+> **Formula:**
 > $$Q_3 = \mu + z_{0.75} \cdot \sigma$$
 
-### Ερώτηση 15.5
-Ο χρόνος εξυπηρέτησης ακολουθεί $N(12, 4)$. Η διεύθυνση θέλει να δώσει προτεραιότητα στο 25% των πελατών με τον μεγαλύτερο χρόνο αναμονής. Να βρεθεί το όριο. Δίνεται $z_{0.75} = 0.67$.
+### Question 15.5
+The service time follows $N(12, 4)$. Management wants to give priority to the 25% of customers with the longest waiting time. Find the boundary. Given $z_{0.75} = 0.67$.
 
-> **Τύπος:**
-> Το όριο είναι το $Q_3 = \mu + z_{0.75} \cdot \sigma$.
+> **Formula:**
+> The boundary is $Q_3 = \mu + z_{0.75} \cdot \sigma$.
 
-### Ερώτηση 15.6
-Έστω $X \sim N(48, 16)$. Να βρεθεί η τιμή $x_0$ ώστε $P(X > x_0) = 0.1587$. Δίνεται $\Phi(1) = 0.8413$.
+### Question 15.6
+Let $X \sim N(48, 16)$. Find the value $x_0$ such that $P(X > x_0) = 0.1587$. Given $\Phi(1) = 0.8413$.
 
-> **Τύπος:**
+> **Formula:**
 > $P(X \le x_0) = 1 - 0.1587 = 0.8413 = \Phi(1)$:
 > $$x_0 = \mu + 1 \cdot \sigma$$
 
-### Ερώτηση 15.7
-Έστω $X \sim N(800, 1600)$. Να βρεθεί η τιμή κάτω από την οποία βρίσκεται το χαμηλότερο 2.5% των τιμών. Δίνεται $z_{0.025} = -1.96$.
+### Question 15.7
+Let $X \sim N(800, 1600)$. Find the value below which the lowest 2.5% of the values lies. Given $z_{0.025} = -1.96$.
 
-> **Τύπος:**
+> **Formula:**
 > $$x_0 = \mu + z_{0.025} \cdot \sigma$$
 
-### Ερώτηση 15.8
-Για μια κανονική κατανομή, το 5% των τιμών υπερβαίνει το 60 και η μέση τιμή είναι $\mu = 50$. Να βρεθεί η τυπική απόκλιση $\sigma$. Δίνεται $z_{0.95} = 1.645$.
+### Question 15.8
+For a normal distribution, 5% of the values exceeds 60 and the mean is $\mu = 50$. Find the standard deviation $\sigma$. Given $z_{0.95} = 1.645$.
 
-> **Τύπος:**
+> **Formula:**
 > $P(X > 60) = 0.05 \implies z = \frac{60 - \mu}{\sigma} = 1.645 \implies \sigma = \frac{60 - \mu}{1.645}$
 
-### Ερώτηση 15.9
-Έστω $X \sim N(15, 16)$. Να βρεθεί η τιμή $x_0$ ώστε $P(X \le x_0) = 0.9772$. Δίνεται $\Phi(2) = 0.9772$.
+### Question 15.9
+Let $X \sim N(15, 16)$. Find the value $x_0$ such that $P(X \le x_0) = 0.9772$. Given $\Phi(2) = 0.9772$.
 
-> **Τύπος:**
+> **Formula:**
 > $$x_0 = \mu + 2 \cdot \sigma$$
 
-### Ερώτηση 15.10
-Έστω $X \sim N(50, 100)$. Να υπολογισθούν το $Q_1$ και το $Q_3$. Δίνονται $z_{0.25} = -0.67$, $z_{0.75} = 0.67$.
+### Question 15.10
+Let $X \sim N(50, 100)$. Compute $Q_1$ and $Q_3$. Given $z_{0.25} = -0.67$, $z_{0.75} = 0.67$.
 
-> **Τύπος:**
+> **Formula:**
 > $$Q_1 = \mu + z_{0.25} \cdot \sigma, \quad Q_3 = \mu + z_{0.75} \cdot \sigma$$
 
 ---
 
-## Ενότητα 16: Κεντρικό Οριακό Θεώρημα & Δειγματικές Κατανομές
+## Unit 16: Central Limit Theorem & Sampling Distributions
 
-### Ερώτηση 16.1
-Να διατυπώσετε το Κεντρικό Οριακό Θεώρημα (ΚΟΘ).
+### Question 16.1
+State the Central Limit Theorem (CLT).
 
-> **Τύπος:**
-> Για ανεξάρτητες, ομοιόμορφα κατανεμημένες τ.μ. με μέση τιμή $\mu$ και διακύμανση $\sigma^2$, για $n \ge 30$:
+> **Formula:**
+> For independent, identically distributed r.v.s with mean $\mu$ and variance $\sigma^2$, for $n \ge 30$:
 > $$\bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right)$$
 
-### Ερώτηση 16.2
-Έστω μια τ.μ. $X$ με $\mu = 50$ και $\sigma = 10$. Παίρνουμε τυχαίο δείγμα μεγέθους $n = 36$. Να προσδιορισθεί η κατανομή του δειγματικού μέσου $\bar{X}$.
+### Question 16.2
+Let a r.v. $X$ have $\mu = 50$ and $\sigma = 10$. We take a random sample of size $n = 36$. Determine the distribution of the sample mean $\bar{X}$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right)$$
 
-### Ερώτηση 16.3
-Με τα δεδομένα της Ερώτησης 16.2, να υπολογισθεί η $P(\bar{X} < 52)$ εκφράζοντας το αποτέλεσμα μέσω της τυπικής κανονικής.
+### Question 16.3
+Using the data of Question 16.2, compute $P(\bar{X} < 52)$, expressing the result in terms of the standard normal.
 
-> **Τύπος:**
+> **Formula:**
 > $$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \sim N(0, 1)$$
 
-### Ερώτηση 16.4
-Ο χρόνος φόρτωσης μιας ιστοσελίδας έχει $\mu = 30$ sec και $\sigma = 6$ sec. Από δείγμα $n = 100$, να υπολογισθεί η $P(\bar{X} < 29)$ εκφράζοντας το αποτέλεσμα μέσω $\Phi$.
+### Question 16.4
+The loading time of a web page has $\mu = 30$ sec and $\sigma = 6$ sec. From a sample of $n = 100$, compute $P(\bar{X} < 29)$, expressing the result in terms of $\Phi$.
 
-> **Τύπος:**
+> **Formula:**
 > $$Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}}, \quad P(\bar{X} < 29) = \Phi\left(\frac{29 - 30}{6/10}\right)$$
 
-### Ερώτηση 16.5
-Έστω $X$ με $\mu = 5$ και $\sigma = 2$. Για δείγμα $n = 50$, να προσδιορισθεί η κατανομή του αθροίσματος $S_n = \sum_{i=1}^{n} X_i$.
+### Question 16.5
+Let $X$ have $\mu = 5$ and $\sigma = 2$. For a sample of $n = 50$, determine the distribution of the sum $S_n = \sum_{i=1}^{n} X_i$.
 
-> **Τύπος:**
+> **Formula:**
 > $$S_n \sim N(n\mu, n\sigma^2)$$
 
-### Ερώτηση 16.6
-Με τα δεδομένα της Ερώτησης 16.5, να υπολογισθεί η $P(S_n < 260)$ εκφράζοντας το αποτέλεσμα μέσω της τυπικής κανονικής.
+### Question 16.6
+Using the data of Question 16.5, compute $P(S_n < 260)$, expressing the result in terms of the standard normal.
 
-> **Τύπος:**
+> **Formula:**
 > $$Z = \frac{S_n - n\mu}{\sigma\sqrt{n}} \sim N(0, 1)$$
 
-### Ερώτηση 16.7
-Γιατί το ΚΟΘ προσεγγίζει την κατανομή του δειγματικού μέσου με κανονική για μεγάλο $n$; Ποια είναι η συνήθης τιμή κατωφλίου;
+### Question 16.7
+Why does the CLT approximate the distribution of the sample mean by a normal distribution for large $n$? What is the usual threshold value?
 
-> **Τύπος:**
-> Ο δειγματικός μέσος τείνει σε κανονική κατανομή όσο αυξάνει το $n$, ανεξαρτήτως της κατανομής του πληθυσμού. Συνήθως $n \ge 30$.
+> **Formula:**
+> The sample mean tends toward a normal distribution as $n$ increases, regardless of the population distribution. Usually $n \ge 30$.
 
-### Ερώτηση 16.8
-Έστω $X$ με $\mu = 100$ και $\sigma = 8$. Για δείγμα $n = 64$, να υπολογισθεί το τυπικό σφάλμα του μέσου $\sigma_{\bar{X}} = \sigma / \sqrt{n}$.
+### Question 16.8
+Let $X$ have $\mu = 100$ and $\sigma = 8$. For a sample of $n = 64$, compute the standard error of the mean $\sigma_{\bar{X}} = \sigma / \sqrt{n}$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$$
 
-### Ερώτηση 16.9
-Με τα δεδομένα της Ερώτησης 16.8, να υπολογισθεί η $P(\bar{X} > 101)$. Δίνεται $\Phi(1) = 0.8413$.
+### Question 16.9
+Using the data of Question 16.8, compute $P(\bar{X} > 101)$. Given $\Phi(1) = 0.8413$.
 
-> **Τύπος:**
+> **Formula:**
 > $$P(\bar{X} > 101) = 1 - \Phi(1)$$
 
-### Ερώτηση 16.10
-Ποια είναι η διακύμανση του δειγματικού μέσου $\bar{X}$ για δείγμα μεγέθους $n$ από πληθυσμό με διακύμανση $\sigma^2$;
+### Question 16.10
+What is the variance of the sample mean $\bar{X}$ for a sample of size $n$ from a population with variance $\sigma^2$?
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Var}(\bar{X}) = \frac{\sigma^2}{n}$$
 
 ---
 
-## Ενότητα 17: Διμεταβλητές Κατανομές & Γραμμικοί Συνδυασμοί
+## Unit 17: Bivariate Distributions & Linear Combinations
 
-### Ερώτηση 17.1
-Να δοθεί ο ορισμός της συνδιακύμανσης $\text{Cov}(X, Y)$.
+### Question 17.1
+Give the definition of the covariance $\text{Cov}(X, Y)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Cov}(X, Y) = E[(X - \mu_X)(Y - \mu_Y)] = E[XY] - E[X]E[Y]$$
 
-### Ερώτηση 17.2
-Αν οι τυχαίες μεταβλητές $X$ και $Y$ είναι ανεξάρτητες, ποια είναι η τιμή της $\text{Cov}(X, Y)$;
+### Question 17.2
+If the random variables $X$ and $Y$ are independent, what is the value of $\text{Cov}(X, Y)$?
 
-> **Τύπος:**
-> Αν $X$, $Y$ ανεξάρτητες: $\text{Cov}(X, Y) = 0$.
+> **Formula:**
+> If $X$, $Y$ independent: $\text{Cov}(X, Y) = 0$.
 
-### Ερώτηση 17.3
-Δίνονται $E[X] = 3$, $E[Y] = 4$ και $E[XY] = 13$. Να υπολογισθεί η $\text{Cov}(X, Y)$.
+### Question 17.3
+$E[X] = 3$, $E[Y] = 4$ and $E[XY] = 13$ are given. Compute $\text{Cov}(X, Y)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Cov}(X, Y) = E[XY] - E[X]E[Y]$$
 
-### Ερώτηση 17.4
-Δίνονται $\text{Cov}(X, Y) = 6$, $\sigma_X = 2$ και $\sigma_Y = 3$. Να υπολογισθεί ο συντελεστής συσχέτισης $\rho_{XY}$.
+### Question 17.4
+$\text{Cov}(X, Y) = 6$, $\sigma_X = 2$ and $\sigma_Y = 3$ are given. Compute the correlation coefficient $\rho_{XY}$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}, \quad -1 \le \rho \le 1$$
 
-### Ερώτηση 17.5
-Οι $X$ και $Y$ είναι ανεξάρτητες με $\text{Var}(X) = 4$ και $\text{Var}(Y) = 9$. Να υπολογισθεί η $\text{Var}(2X + 3Y)$.
+### Question 17.5
+$X$ and $Y$ are independent with $\text{Var}(X) = 4$ and $\text{Var}(Y) = 9$. Compute $\text{Var}(2X + 3Y)$.
 
-> **Τύπος:**
-> Αν $X$, $Y$ ανεξάρτητες:
+> **Formula:**
+> If $X$, $Y$ independent:
 > $$\text{Var}(aX + bY) = a^2 \text{Var}(X) + b^2 \text{Var}(Y)$$
 
-### Ερώτηση 17.6
-Οι $X$ και $Y$ έχουν $\text{Var}(X) = 4$, $\text{Var}(Y) = 9$ και $\text{Cov}(X, Y) = 2$. Να υπολογισθεί η $\text{Var}(2X + 3Y)$.
+### Question 17.6
+$X$ and $Y$ have $\text{Var}(X) = 4$, $\text{Var}(Y) = 9$ and $\text{Cov}(X, Y) = 2$. Compute $\text{Var}(2X + 3Y)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Var}(aX + bY) = a^2 \text{Var}(X) + b^2 \text{Var}(Y) + 2ab \text{Cov}(X, Y)$$
 
-### Ερώτηση 17.7
-Δίνεται $\rho_{XY} = -0.8$. Τι συμπεραίνετε για τη σχέση των $X$ και $Y$;
+### Question 17.7
+Given $\rho_{XY} = -0.8$. What do you conclude about the relationship between $X$ and $Y$?
 
-> **Τύπος:**
-> Ισχυρή αρνητική γραμμική συσχέτιση: όταν το $X$ αυξάνεται, το $Y$ τείνει να μειώνεται.
+> **Formula:**
+> Strong negative linear correlation: when $X$ increases, $Y$ tends to decrease.
 
-### Ερώτηση 17.8
-Οι $X$ και $Y$ είναι ανεξάρτητες με $\text{Var}(X) = 5$ και $\text{Var}(Y) = 7$. Να υπολογισθεί η $\text{Var}(X + Y)$.
+### Question 17.8
+$X$ and $Y$ are independent with $\text{Var}(X) = 5$ and $\text{Var}(Y) = 7$. Compute $\text{Var}(X + Y)$.
 
-> **Τύπος:**
+> **Formula:**
 > $$\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y)$$
 
-### Ερώτηση 17.9
-Δίνονται $E[X] = 10$ και $E[Y] = 20$. Να υπολογισθεί η $E[3X - 2Y]$.
+### Question 17.9
+$E[X] = 10$ and $E[Y] = 20$ are given. Compute $E[3X - 2Y]$.
 
-> **Τύπος:**
+> **Formula:**
 > $$E[aX + bY] = aE[X] + bE[Y]$$
 
-### Ερώτηση 17.10
-Αν $\rho_{XY} = 0$, συνεπάγεται ότι οι $X$ και $Y$ είναι ανεξάρτητες; Να αιτιολογήσετε.
+### Question 17.10
+If $\rho_{XY} = 0$, does it imply that $X$ and $Y$ are independent? Justify your answer.
 
-> **Τύπος:**
-> Όχι πάντα. Μηδενική συσχέτιση δεν συνεπάγεται ανεξαρτησία (εκτός από διμεταβλητή κανονική). Η ανεξαρτησία συνεπάγεται $\rho = 0$, αλλά το αντίστροφο δεν ισχύει γενικά.
+> **Formula:**
+> Not always. Zero correlation does not imply independence (except for the bivariate normal). Independence implies $\rho = 0$, but the converse does not hold in general.
 
 ---
 
-## Ενότητα 18: Εντολές R - Περιγραφική Στατιστική
+## Unit 18: R Commands - Descriptive Statistics
 
-### Ερώτηση 18.1
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει τον μέσο όρο;
+### Question 18.1
+The data are stored in an R vector named `x`. Which command computes the mean?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > mean(x)
 > ```
 
-### Ερώτηση 18.2
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει τη διάμεσο;
+### Question 18.2
+The data are stored in an R vector named `x`. Which command computes the median?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > median(x)
 > ```
 
-### Ερώτηση 18.3
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει τη δειγματική τυπική απόκλιση;
+### Question 18.3
+The data are stored in an R vector named `x`. Which command computes the sample standard deviation?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > sd(x)
 > ```
 
-### Ερώτηση 18.4
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει το πρώτο τεταρτημόριο $Q_1$;
+### Question 18.4
+The data are stored in an R vector named `x`. Which command computes the first quartile $Q_1$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > quantile(x, probs = 0.25)
 > ```
 
-### Ερώτηση 18.5
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει το τρίτο τεταρτημόριο $Q_3$;
+### Question 18.5
+The data are stored in an R vector named `x`. Which command computes the third quartile $Q_3$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > quantile(x, probs = 0.75)
 > ```
 
-### Ερώτηση 18.6
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει την επικρατούσα τιμή;
+### Question 18.6
+The data are stored in an R vector named `x`. Which command computes the mode?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > names(which.max(table(x)))
 > ```
 
-### Ερώτηση 18.7
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει τη δειγματική διακύμανση;
+### Question 18.7
+The data are stored in an R vector named `x`. Which command computes the sample variance?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > var(x)
 > ```
 
-### Ερώτηση 18.8
-Τα αρχικά, μη ομαδοποιημένα δεδομένα χρόνων είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `times`. Να γράψετε την εντολή υπολογισμού της τυπικής απόκλισης.
+### Question 18.8
+The original, ungrouped time data are stored in an R vector named `times`. Write the command to compute the standard deviation.
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > sd(times)
 > ```
 
-### Ερώτηση 18.9
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή εμφανίζει τα συνοπτικά στατιστικά (Min, $Q_1$, Διάμεσο, Μέσο, $Q_3$, Max);
+### Question 18.9
+The data are stored in an R vector named `x`. Which command displays the summary statistics (Min, $Q_1$, Median, Mean, $Q_3$, Max)?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > summary(x)
 > ```
 
-### Ερώτηση 18.10
-Τα δεδομένα είναι αποθηκευμένα σε ένα διάνυσμα της R με όνομα `x`. Ποια εντολή υπολογίζει και τα τρία τεταρτημόρια ταυτόχρονα;
+### Question 18.10
+The data are stored in an R vector named `x`. Which command computes all three quartiles at the same time?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > quantile(x, probs = c(0.25, 0.50, 0.75))
 > ```
 
 ---
 
-## Ενότητα 19: Εντολές R - Διωνυμική Κατανομή
+## Unit 19: R Commands - Binomial Distribution
 
-### Ερώτηση 19.1
-Έστω $X \sim \text{Bin}(6, 0.02)$. Ποια εντολή της R υπολογίζει την $P(X = 1)$;
+### Question 19.1
+Let $X \sim \text{Bin}(6, 0.02)$. Which R command computes $P(X = 1)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > dbinom(1, size = 6, prob = 0.02)
 > ```
 
-### Ερώτηση 19.2
-Έστω $X \sim \text{Bin}(6, 0.02)$. Ποια εντολή της R υπολογίζει την $P(X \ge 2)$;
+### Question 19.2
+Let $X \sim \text{Bin}(6, 0.02)$. Which R command computes $P(X \ge 2)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > 1 - pbinom(1, size = 6, prob = 0.02)
 > ```
 
-### Ερώτηση 19.3
-Έστω $X \sim \text{Bin}(6, 0.02)$. Ποια εναλλακτική εντολή της R με το όρισμα `lower.tail` υπολογίζει την $P(X \ge 2)$;
+### Question 19.3
+Let $X \sim \text{Bin}(6, 0.02)$. Which alternative R command with the `lower.tail` argument computes $P(X \ge 2)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pbinom(1, size = 6, prob = 0.02, lower.tail = FALSE)
 > ```
 
-### Ερώτηση 19.4
-Έστω $X \sim \text{Bin}(10, 0.3)$. Ποια εντολή της R υπολογίζει την $P(X \le 2)$;
+### Question 19.4
+Let $X \sim \text{Bin}(10, 0.3)$. Which R command computes $P(X \le 2)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pbinom(2, size = 10, prob = 0.3)
 > ```
 
-### Ερώτηση 19.5
-Έστω $X \sim \text{Bin}(8, 0.2)$. Ποια εντολή της R υπολογίζει την $P(X < 3)$;
+### Question 19.5
+Let $X \sim \text{Bin}(8, 0.2)$. Which R command computes $P(X < 3)$?
 
-> **Τύπος:**
+> **Formula:**
 > $P(X < 3) = P(X \le 2)$:
 > ```r
 > pbinom(2, size = 8, prob = 0.2)
 > ```
 
-### Ερώτηση 19.6
-Έστω $X \sim \text{Bin}(10, 0.4)$. Ποια εντολή της R υπολογίζει την $P(X > 4)$;
+### Question 19.6
+Let $X \sim \text{Bin}(10, 0.4)$. Which R command computes $P(X > 4)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > 1 - pbinom(4, size = 10, prob = 0.4)
 > ```
-> ή
+> or
 > ```r
 > pbinom(4, size = 10, prob = 0.4, lower.tail = FALSE)
 > ```
 
-### Ερώτηση 19.7
-Έστω $X \sim \text{Bin}(5, 0.03)$. Ποια εντολή της R υπολογίζει την $P(X = 0)$;
+### Question 19.7
+Let $X \sim \text{Bin}(5, 0.03)$. Which R command computes $P(X = 0)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > dbinom(0, size = 5, prob = 0.03)
 > ```
 
-### Ερώτηση 19.8
-Έστω $X \sim \text{Bin}(20, 0.5)$. Ποια εντολή της R βρίσκει τη μικρότερη τιμή $k$ τέτοια ώστε $P(X \le k) \ge 0.9$;
+### Question 19.8
+Let $X \sim \text{Bin}(20, 0.5)$. Which R command finds the smallest value $k$ such that $P(X \le k) \ge 0.9$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > qbinom(0.9, size = 20, prob = 0.5)
 > ```
 
-### Ερώτηση 19.9
-Έστω $X \sim \text{Bin}(12, 0.25)$. Ποια εντολή της R υπολογίζει την $P(X \ge 1)$;
+### Question 19.9
+Let $X \sim \text{Bin}(12, 0.25)$. Which R command computes $P(X \ge 1)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > 1 - dbinom(0, size = 12, prob = 0.25)
 > ```
-> ή
+> or
 > ```r
 > 1 - pbinom(0, size = 12, prob = 0.25)
 > ```
 
-### Ερώτηση 19.10
-Ποια συνάρτηση της R χρησιμοποιείται για τον υπολογισμό σημειακής πιθανότητας $P(X = k)$ της διωνυμικής κατανομής και ποια για αθροιστικής $P(X \le k)$;
+### Question 19.10
+Which R function is used to compute the point probability $P(X = k)$ of the binomial distribution and which one for the cumulative $P(X \le k)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > dbinom(k, size = n, prob = p)   # P(X = k)
 > pbinom(k, size = n, prob = p)   # P(X <= k)
@@ -1314,87 +1314,87 @@
 
 ---
 
-## Ενότητα 20: Εντολές R - Κανονική Κατανομή
+## Unit 20: R Commands - Normal Distribution
 
-### Ερώτηση 20.1
-Έστω $X \sim N(\mu, \sigma^2)$. Ποια εντολή της R υπολογίζει την $P(X \le x)$;
+### Question 20.1
+Let $X \sim N(\mu, \sigma^2)$. Which R command computes $P(X \le x)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pnorm(x, mean = mu, sd = sigma)
 > ```
 
-### Ερώτηση 20.2
-Έστω $X \sim N(\mu, \sigma^2)$. Ποια εντολή της R υπολογίζει την $P(X > a)$;
+### Question 20.2
+Let $X \sim N(\mu, \sigma^2)$. Which R command computes $P(X > a)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > 1 - pnorm(a, mean = mu, sd = sigma)
 > ```
 
-### Ερώτηση 20.3
-Έστω $X \sim N(\mu, \sigma^2)$. Ποια εντολή της R υπολογίζει την $P(a \le X \le b)$;
+### Question 20.3
+Let $X \sim N(\mu, \sigma^2)$. Which R command computes $P(a \le X \le b)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pnorm(b, mean = mu, sd = sigma) - pnorm(a, mean = mu, sd = sigma)
 > ```
 
-### Ερώτηση 20.4
-Έστω $X \sim N(\mu, \sigma^2)$. Ποια εντολή της R με το όρισμα `lower.tail` υπολογίζει την $P(X > a)$;
+### Question 20.4
+Let $X \sim N(\mu, \sigma^2)$. Which R command with the `lower.tail` argument computes $P(X > a)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pnorm(a, mean = mu, sd = sigma, lower.tail = FALSE)
 > ```
 
-### Ερώτηση 20.5
-Έστω $X \sim N(\mu, \sigma^2)$. Ποια εντολή της R βρίσκει την τιμή $x_0$ τέτοια ώστε $P(X \le x_0) = p$;
+### Question 20.5
+Let $X \sim N(\mu, \sigma^2)$. Which R command finds the value $x_0$ such that $P(X \le x_0) = p$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > qnorm(p, mean = mu, sd = sigma)
 > ```
 
-### Ερώτηση 20.6
-Έστω $X \sim N(48, 4)$. Ποια εντολή της R υπολογίζει την $P(39 \le X \le 57)$;
+### Question 20.6
+Let $X \sim N(48, 4)$. Which R command computes $P(39 \le X \le 57)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pnorm(57, mean = 48, sd = 4) - pnorm(39, mean = 48, sd = 4)
 > ```
-> Προσοχή: ως `sd` δίνεται η τυπική απόκλιση $\sigma = 4$, όχι η διακύμανση.
+> Caution: the value passed as `sd` is the standard deviation $\sigma = 4$, not the variance.
 
-### Ερώτηση 20.7
-Έστω $X \sim N(15, 4)$. Ποια εντολή της R υπολογίζει την $P(X > 9)$;
+### Question 20.7
+Let $X \sim N(15, 4)$. Which R command computes $P(X > 9)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > 1 - pnorm(9, mean = 15, sd = 4)
 > ```
 
-### Ερώτηση 20.8
-Έστω $X \sim N(\mu, \sigma^2)$. Η διεύθυνση θέλει το όριο για το ανώτερο 25% των τιμών. Ποια εντολή της R δίνει το όριο αυτό;
+### Question 20.8
+Let $X \sim N(\mu, \sigma^2)$. Management wants the boundary for the top 25% of the values. Which R command gives this boundary?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > qnorm(0.75, mean = mu, sd = sigma)
 > ```
 
-### Ερώτηση 20.9
-Έστω $X \sim N(12, 2)$. Ποια εντολή της R υπολογίζει την $P(11 \le X \le 15)$;
+### Question 20.9
+Let $X \sim N(12, 2)$. Which R command computes $P(11 \le X \le 15)$?
 
-> **Τύπος:**
+> **Formula:**
 > ```r
 > pnorm(15, mean = 12, sd = 2) - pnorm(11, mean = 12, sd = 2)
 > ```
 
-### Ερώτηση 20.10
-Για τον υπολογισμό πιθανοτήτων κανονικής κατανομής στην R, γιατί πρέπει να δίνεται η τυπική απόκλιση στα ορίσματα `sd` και όχι η διακύμανση;
+### Question 20.10
+For computing normal distribution probabilities in R, why must the standard deviation be given in the `sd` argument and not the variance?
 
-> **Τύπος:**
-> Η `pnorm` (και η `qnorm`) δέχονται την παράμετρο `sd = σ` (τυπική απόκλιση). Αν δοθεί διακύμανση $\sigma^2$, το αποτέλεσμα θα είναι λάθος. Αν είναι γνωστή η $\sigma^2$, χρησιμοποιείται `sd = sqrt(sigma^2)`.
+> **Formula:**
+> `pnorm` (and `qnorm`) accept the parameter `sd = σ` (standard deviation). If the variance $\sigma^2$ is given, the result will be wrong. If $\sigma^2$ is known, use `sd = sqrt(sigma^2)`.
 
 ---
 
-*Τέλος test_prep.md — 200 ερωτήσεις εξάσκησης (20 ενότητες x 10 ερωτήσεις).*
+*End of test_prep.md — 200 practice questions (20 units x 10 questions).*

@@ -1,175 +1,175 @@
-# Μοντέλο Οντοτήτων-Συσχετίσεων (E-R)
+# Entity-Relationship Model (E-R)
 *Entity-Relationship Model*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Οντότητες (Entities)](#οντότητες-entities)
-   - [Ισχυρές Οντότητες (Strong Entities)](#ισχυρές-οντότητες-strong-entities)
-   - [Ασθενείς Οντότητες (Weak Entities)](#ασθενείς-οντότητες-weak-entities)
-   - [Συγκριτικός Πίνακας: Ισχυρές vs. Ασθενείς Οντότητες](#συγκριτικός-πίνακας-ισχυρές-vs-ασθενείς-οντότητες)
-3. [Γνωρίσματα (Attributes)](#γνωρίσματα-attributes)
-   - [Απλά και Σύνθετα Γνωρίσματα](#απλά-και-σύνθετα-γνωρίσματα)
-   - [Μονότιμα και Πλειότιμα Γνωρίσματα](#μονότιμα-και-πλειότιμα-γνωρίσματα)
-   - [Παραγόμενα Γνωρίσματα](#παραγόμενα-γνωρίσματα)
-   - [Γνωρίσματα Κλειδί (Key Attributes)](#γνωρίσματα-κλειδί-key-attributes)
-   - [Συγκριτικός Πίνακας Τύπων Γνωρισμάτων](#συγκριτικός-πίνακας-τύπων-γνωρισμάτων)
-4. [Συσχετίσεις (Relationships)](#συσχετίσεις-relationships)
-   - [Βαθμός Συσχέτισης (Degree)](#βαθμός-συσχέτισης-degree)
-   - [Αναπαράσταση με Ρόμβους](#αναπαράσταση-με-ρόμβους)
-5. [Περιορισμοί Πληθικότητας (Cardinality Constraints)](#περιορισμοί-πληθικότητας-cardinality-constraints)
-   - [Ένα-προς-Ένα (1:1)](#ένα-προς-ένα-11)
-   - [Ένα-προς-Πολλά (1:N)](#ένα-προς-πολλά-1n)
-   - [Πολλά-προς-Πολλά (N:M)](#πολλά-προς-πολλά-nm)
-   - [Συγκριτικός Πίνακας Πληθικότητας](#συγκριτικός-πίνακας-πληθικότητας)
-6. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-7. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Entities](#entities)
+   - [Strong Entities](#strong-entities)
+   - [Weak Entities](#weak-entities)
+   - [Comparative Table: Strong vs. Weak Entities](#comparative-table-strong-vs-weak-entities)
+3. [Attributes](#attributes)
+   - [Simple and Composite Attributes](#simple-and-composite-attributes)
+   - [Single-Valued and Multi-Valued Attributes](#single-valued-and-multi-valued-attributes)
+   - [Derived Attributes](#derived-attributes)
+   - [Key Attributes](#key-attributes)
+   - [Comparative Table of Attribute Types](#comparative-table-of-attribute-types)
+4. [Relationships](#relationships)
+   - [Degree of Relationship](#degree-of-relationship)
+   - [Representation with Diamonds](#representation-with-diamonds)
+5. [Cardinality Constraints](#cardinality-constraints)
+   - [One-to-One](#one-to-one)
+   - [One-to-Many](#one-to-many)
+   - [Many-to-Many](#many-to-many)
+   - [Comparative Table of Cardinality](#comparative-table-of-cardinality)
+6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+7. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Το **Μοντέλο Οντοτήτων-Συσχετίσεων** (Entity-Relationship Model — E-R Model) είναι το κυρίαρχο εργαλείο της **Εννοιολογικής Σχεδίασης** (Conceptual Design) στον κύκλο ζωής μιας βάσης δεδομένων. Αναπτύχθηκε από τον Peter Chen το 1976 και χρησιμεύει ως γέφυρα ανάμεσα στις επιχειρησιακές απαιτήσεις (business requirements) και την τελική υλοποίηση σε σχεσιακό μοντέλο. Το E-R διάγραμμα (ERD) αποτυπώνει γραφικά τις οντότητες του κόσμου που μοντελοποιείται, τα χαρακτηριστικά τους και τις συσχετίσεις μεταξύ τους, χωρίς να δεσμεύεται σε τεχνικές λεπτομέρειες υλοποίησης. Η κατανόηση του E-R μοντέλου είναι απαραίτητη προϋπόθεση για τη μετάβαση στο Σχεσιακό Μοντέλο (Relational Model) και τη συγγραφή σωστών σχημάτων SQL.
+The **Entity-Relationship Model (E-R Model)** is the dominant tool of **Conceptual Design** in the life cycle of a database. It was developed by Peter Chen in 1976 and serves as a bridge between business requirements and the final implementation in the relational model. The E-R diagram (ERD) graphically captures the entities of the modeled world, their characteristics and the relationships between them, without committing to technical implementation details. Understanding the E-R model is a necessary prerequisite for the transition to the Relational Model and for writing correct SQL schemas.
 
 ---
 
-## Οντότητες (Entities)
+## Entities
 *Entities*
 
-Μια **Οντότητα (Entity)** είναι οποιοδήποτε αντικείμενο — πραγματικό ή αφηρημένο — για το οποίο θέλουμε να αποθηκεύσουμε δεδομένα στη βάση δεδομένων. Κάθε οντότητα αντιπροσωπεύει μια κατηγορία (τύπο), ενώ κάθε συγκεκριμένη εγγραφή αποτελεί μια **στιγμιότυπο (instance)** αυτής.
+An **Entity** is any object — real or abstract — for which we want to store data in the database. Each entity represents a category (type), while each specific record is an **instance** of it.
 
-**Αναλογία**: Ο τύπος οντότητας `ΦΟΙΤΗΤΗΣ` είναι σαν το **εκμαγείο** (καλούπι), ενώ ο συγκεκριμένος φοιτητής "Νικόλαος Παναγόπουλος" είναι το **χυτό αντικείμενο** (instance). Το διάγραμμα ορίζει το καλούπι — η βάση αποθηκεύει τα αντικείμενα.
+**Analogy**: The entity type `STUDENT` is like the **mold** (casting), while the specific student "Nikolaos Panagopoulos" is the **cast object** (instance). The diagram defines the mold — the database stores the objects.
 
-Στο ERD, οι οντότητες αναπαρίστανται ως **ορθογώνια** και διακρίνονται σε δύο κατηγορίες ανάλογα με το αν η ύπαρξή τους εξαρτάται από άλλη οντότητα.
+In the ERD, entities are represented as **rectangles** and are divided into two categories depending on whether their existence depends on another entity.
 
 ---
 
-### Ισχυρές Οντότητες (Strong Entities)
+### Strong Entities
 *Strong (Regular) Entities*
 
-Μια **Ισχυρή Οντότητα (Strong Entity)** είναι μια οντότητα που έχει **ανεξάρτητη ύπαρξη** — δεν εξαρτάται από καμία άλλη οντότητα για να υπάρξει και διαθέτει το δικό της **Primary Key** που τη μοναδικοποιεί πλήρως.
+A **Strong Entity** is an entity that has **independent existence** — it does not depend on any other entity to exist and has its own **Primary Key** that uniquely identifies it.
 
-**Χαρακτηριστικά**:
-- Αναπαρίσταται ως **απλό ορθογώνιο** στο ERD.
-- Διαθέτει ένα ή περισσότερα γνωρίσματα που σχηματίζουν Primary Key.
-- Μπορεί να υπάρξει ανεξάρτητα από οποιαδήποτε άλλη οντότητα στη βάση.
+**Characteristics**:
+- Represented as a **simple rectangle** in the ERD.
+- Has one or more attributes that form a Primary Key.
+- Can exist independently of any other entity in the database.
 
-**Παράδειγμα**: Η οντότητα `ΦΟΙΤΗΤΗΣ` με Primary Key `ΑΜ` (Αριθμός Μητρώου) είναι ισχυρή — κάθε φοιτητής υπάρχει ανεξάρτητα.
+**Example**: The entity `STUDENT` with Primary Key `AM` (Registration Number) is strong — every student exists independently.
 
 ```text
   +------------------+
-  |     ΦΟΙΤΗΤΗΣ     |   <-- Απλό ορθογώνιο = Ισχυρή Οντότητα
+  |     STUDENT      |   <-- Simple rectangle = Strong Entity
   +------------------+
-  |  ΑΜ (PK)         |
-  |  Επώνυμο         |
-  |  Όνομα           |
-  |  Ημ. Γέννησης    |
+  |  AM (PK)         |
+  |  Surname         |
+  |  Name            |
+  |  Date of Birth   |
   +------------------+
 ```
 
-**Exam Note:** Κάθε Ισχυρή Οντότητα **πρέπει** να διαθέτει Primary Key. Χωρίς Primary Key, μια οντότητα δεν μπορεί να είναι ισχυρή.
+**Exam Note:** Every Strong Entity **must** have a Primary Key. Without a Primary Key, an entity cannot be strong.
 
 ---
 
-### Ασθενείς Οντότητες (Weak Entities)
+### Weak Entities
 *Weak Entities*
 
-Μια **Ασθενής Οντότητα (Weak Entity)** είναι μια οντότητα που **δεν μπορεί να υπάρξει ανεξάρτητα** — εξαρτάται υπαρξιακά από μια ισχυρή οντότητα (την **οντότητα-ιδιοκτήτη** ή Identifying Entity). Δεν διαθέτει αρκετά γνωρίσματα για να σχηματίσει Primary Key από μόνη της.
+A **Weak Entity** is an entity that **cannot exist independently** — it is existentially dependent on a strong entity (the **owner entity** or Identifying Entity). It does not have enough attributes to form a Primary Key on its own.
 
-**Χαρακτηριστικά**:
-- Αναπαρίσταται ως **διπλό ορθογώνιο** στο ERD.
-- Η αναγνώρισή της γίνεται μέσω **Partial Key** (μερικό κλειδί — υπογραμμισμένο με διακεκομμένη γραμμή) σε συνδυασμό με το Primary Key της οντότητας-ιδιοκτήτη.
-- Η συσχέτιση με την οντότητα-ιδιοκτήτη αποκαλείται **Identifying Relationship** και αναπαρίσταται με **διπλό ρόμβο**.
-- Αν η οντότητα-ιδιοκτήτης διαγραφεί, η ασθενής οντότητα διαγράφεται επίσης (cascading delete).
+**Characteristics**:
+- Represented as a **double rectangle** in the ERD.
+- Its identification is done through a **Partial Key** (partial key — underlined with a dashed line) combined with the Primary Key of the owner entity.
+- The relationship with the owner entity is called an **Identifying Relationship** and is represented by a **double rhombus**.
+- If the owner entity is deleted, the weak entity is also deleted (cascading delete).
 
-**Αναλογία**: Τα `ΕΞΑΡΤΩΜΕΝΑ` ενός υπαλλήλου (π.χ. παιδιά που δικαιούνται ασφαλιστικό πρόγραμμα) είναι ασθενής οντότητα — δεν έχει νόημα να αποθηκεύουμε στοιχεία παιδιών χωρίς τον αντίστοιχο υπάλληλο.
+**Analogy**: The `DEPENDENTS` (dependents) of an employee (e.g. children entitled to an insurance plan) form a weak entity — it makes no sense to store children's data without the corresponding employee.
 
 ```text
   +==================+           +==================+
-  ||   ΥΠΑΛΛΗΛΟΣ    ||           ||  ΕΞΑΡΤΩΜΕΝΟ    ||   <-- Διπλό ορθογώνιο
+  ||   EMPLOYEE     ||           ||   DEPENDENT     ||   <-- Double rectangle
   +==================+           +==================+
-  |  ΑΦΜ (PK)        |           |  Όνομα (Partial Key)|
-  |  Επώνυμο         |           |  Ημ. Γέννησης    |
-  +==================+           |  Σχέση           |
+  |  AFM (PK)        |           |  Name (Partial Key)|
+  |  Surname         |           |  Date of Birth   |
+  +==================+           |  Relationship     |
               |                  +==================+
               |    <<=======>>
               |  Identifying Relationship
-              |  (Διπλός Ρόμβος)
+              |  (Double Rhombus)
 ```
 
-**Key Distinction:** Η ασθενής οντότητα χρειάζεται το **Partial Key + το PK της γονικής οντότητας** για να σχηματιστεί το πλήρες της αναγνωριστικό (Composite Key στον πίνακα).
+**Key Distinction:** A weak entity needs the **Partial Key + the PK of the parent entity** to form its complete identifier (Composite Key in the table).
 
 ---
 
-### Συγκριτικός Πίνακας: Ισχυρές vs. Ασθενείς Οντότητες
+### Comparative Table: Strong vs. Weak Entities
 
-| Χαρακτηριστικό | Ισχυρή Οντότητα | Ασθενής Οντότητα |
+| Characteristic | Strong Entity | Weak Entity |
 |---|---|---|
-| **Ύπαρξη** | Ανεξάρτητη | Εξαρτημένη από Identifying Entity |
-| **Primary Key** | Διαθέτει δικό της PK | Διαθέτει μόνο Partial Key |
-| **Αναπαράσταση ERD** | Απλό ορθογώνιο | Διπλό ορθογώνιο |
-| **Συσχέτιση** | Απλός ρόμβος | Διπλός ρόμβος (Identifying Relationship) |
-| **Διαγραφή γονέα** | Δεν επηρεάζεται | Cascading delete |
-| **Παράδειγμα** | `ΦΟΙΤΗΤΗΣ`, `ΤΜΗΜΑ` | `ΕΞΑΡΤΩΜΕΝΟ`, `ΑΝΤΙΤΥΠΟ_ΒΙΒΛΙΟΥ` |
+| **Existence** | Independent | Dependent on Identifying Entity |
+| **Primary Key** | Has its own PK | Has only a Partial Key |
+| **ERD Representation** | Simple rectangle | Double rectangle |
+| **Relationship** | Simple rhombus | Double rhombus (Identifying Relationship) |
+| **Parent deletion** | Not affected | Cascading delete |
+| **Example** | `STUDENT`, `DEPARTMENT` | `DEPENDENT`, `BOOK_COPY` |
 
 ---
 
-## Γνωρίσματα (Attributes)
+## Attributes
 *Attributes*
 
-Ένα **Γνώρισμα (Attribute)** είναι μια ιδιότητα ή χαρακτηριστικό που περιγράφει μια οντότητα ή μια συσχέτιση. Κάθε γνώρισμα αντιστοιχεί σε μια στήλη (column) στον τελικό σχεσιακό πίνακα. Στο ERD, τα γνωρίσματα αναπαρίστανται ως **ελλείψεις (ovals)** που συνδέονται με γραμμή στην αντίστοιχη οντότητα.
+An **Attribute** is a property or characteristic that describes an entity or a relationship. Each attribute corresponds to a column in the final relational table. In the ERD, attributes are represented as **ovals** connected by a line to the corresponding entity.
 
 ---
 
-### Απλά και Σύνθετα Γνωρίσματα
+### Simple and Composite Attributes
 *Simple and Composite Attributes*
 
-**Απλό Γνώρισμα (Simple / Atomic Attribute)** είναι ένα γνώρισμα που **δεν μπορεί να διαιρεθεί** σε μικρότερα, πιο θεμελιώδη γνωρίσματα.
+A **Simple (Atomic) Attribute** is an attribute that **cannot be divided** into smaller, more fundamental attributes.
 
-- **Παραδείγματα**: `ΑΦΜ`, `Ηλικία`, `Μισθός`, `ΑΜ`.
-- Αποθηκεύεται ως **μία ατομική τιμή** στη βάση.
+- **Examples**: `AFM`, `Age`, `Salary`, `AM`.
+- Stored as **a single atomic value** in the database.
 
-**Σύνθετο Γνώρισμα (Composite Attribute)** είναι ένα γνώρισμα που **αποτελείται από πολλά επιμέρους γνωρίσματα**, καθένα από τα οποία έχει ανεξάρτητη σημασία.
+A **Composite Attribute** is an attribute that **consists of many constituent attributes**, each of which has independent meaning.
 
-- **Παράδειγμα**: Το `Ονοματεπώνυμο` αποτελείται από `Όνομα` + `Επώνυμο`. Η Διεύθυνση (`Οδός`, `Αριθμός`, `Πόλη`, `ΤΚ`) είναι κλασικό παράδειγμα σύνθετου γνωρίσματος.
+- **Example**: The `FullName` (full name) consists of `Name` (first name) + `Surname` (last name). The Address (`Street`, `Number`, `City`, `ZIP`) is a classic example of a composite attribute.
 
 ```text
-  Σύνθετο Γνώρισμα: Διεύθυνση
+  Composite Attribute: Address
   
-           ( Διεύθυνση )       <-- Σύνθετο
+           ( Address )         <-- Composite
           /      |      \
-     (Οδός)  (Αρ.)   (Πόλη)   <-- Απλά επιμέρους γνωρίσματα
+     (Street)  (No.)  (City)   <-- Simple sub-attributes
 ```
 
-**Exam Note:** Στη μετατροπή σε σχεσιακό μοντέλο, τα σύνθετα γνωρίσματα συνήθως **αποσυντίθενται** στα επιμέρους τους (π.χ. `first_name`, `last_name` αντί για `full_name`), για καλύτερες δυνατότητες αναζήτησης και κανονικοποίησης.
+**Exam Note:** When converting to the relational model, composite attributes are usually **decomposed** into their constituent parts (e.g. `first_name`, `last_name` instead of `full_name`), for better search capabilities and normalization.
 
 ---
 
-### Μονότιμα και Πλειότιμα Γνωρίσματα
+### Single-Valued and Multi-Valued Attributes
 *Single-Valued and Multi-Valued Attributes*
 
-**Μονότιμο Γνώρισμα (Single-Valued Attribute)** παίρνει **μία και μόνο τιμή** για κάθε στιγμιότυπο οντότητας.
+A **Single-Valued Attribute** takes **exactly one value** for each entity instance.
 
-- **Παράδειγμα**: `ΑΦΜ` — κάθε υπάλληλος έχει έναν μόνο ΑΦΜ.
+- **Example**: `AFM` — every employee has a single AFM.
 
-**Πλειότιμο Γνώρισμα (Multi-Valued Attribute)** μπορεί να λάβει **πολλές τιμές** για ένα μόνο στιγμιότυπο οντότητας. Αναπαρίσταται ως **διπλή έλλειψη** στο ERD.
+A **Multi-Valued Attribute** can take **many values** for a single entity instance. It is represented as a **double ellipse** in the ERD.
 
-- **Παράδειγμα**: `Τηλέφωνα` ενός υπαλλήλου — ένας υπάλληλος μπορεί να έχει κινητό, οικίας και εργασίας.
-- **Παράδειγμα**: `Ειδικότητες` ενός ιατρού — ένας γιατρός μπορεί να είναι και Καρδιολόγος και Παθολόγος.
+- **Example**: The `Phones` (phones) of an employee — one employee can have mobile, home and work phones.
+- **Example**: The `Specialties` (specialties) of a doctor — a doctor can be both a Cardiologist and an Internist.
 
 ```text
-  Μονότιμο:           Πλειότιμο:
+  Single-valued:      Multi-valued:
   
-   ( ΑΦΜ )             (( Τηλέφωνα ))   <-- Διπλή έλλειψη
+   ( AFM )             (( Phones ))   <-- Double ellipse
 ```
 
-**Key Distinction:** Τα πλειότιμα γνωρίσματα **δεν μπορούν να αποθηκευτούν απευθείας** σε ένα σχεσιακό πίνακα χωρίς παραβίαση της 1NF (First Normal Form). Η λύση είναι η δημιουργία **ξεχωριστού πίνακα** για το πλειότιμο γνώρισμα, συνδεδεμένου με Foreign Key.
+**Key Distinction:** Multi-valued attributes **cannot be stored directly** in a relational table without violating 1NF (First Normal Form). The solution is to create a **separate table** for the multi-valued attribute, linked with a Foreign Key.
 
 ```sql
--- Μετατροπή πλειότιμου γνωρίσματος σε ξεχωριστό πίνακα
+-- Converting a multi-valued attribute into a separate table
 CREATE TABLE employee_phones (
     emp_afm   VARCHAR(9)  NOT NULL,
     phone_num VARCHAR(15) NOT NULL,
@@ -180,269 +180,269 @@ CREATE TABLE employee_phones (
 
 ---
 
-### Παραγόμενα Γνωρίσματα
+### Derived Attributes
 *Derived Attributes*
 
-**Παραγόμενο Γνώρισμα (Derived Attribute)** είναι ένα γνώρισμα του οποίου η τιμή **υπολογίζεται από άλλα γνωρίσματα** ή δεδομένα που ήδη υπάρχουν στη βάση. Αναπαρίσταται ως **διακεκομμένη έλλειψη** στο ERD.
+A **Derived Attribute** is an attribute whose value is **computed from other attributes** or data already present in the database. It is represented as a **dashed ellipse** in the ERD.
 
-- **Παράδειγμα 1**: `Ηλικία` — υπολογίζεται από `Ημερομηνία_Γέννησης` και την τρέχουσα ημερομηνία.
-- **Παράδειγμα 2**: `Διάρκεια_Απασχόλησης` — υπολογίζεται από `Ημερομηνία_Πρόσληψης` και σήμερα.
-- **Παράδειγμα 3**: `Συνολικός_Μισθός_Τμήματος` — υπολογίζεται ως άθροισμα μισθών του τμήματος.
+- **Example 1**: `Age` (age) — computed from `Birth_Date` (birth date) and the current date.
+- **Example 2**: `Employment_Duration` (length of employment) — computed from `Hire_Date` (hire date) and today.
+- **Example 3**: `Total_Department_Salary` (total department salary) — computed as the sum of the department's salaries.
 
 ```text
-  Αποθηκευμένο:        Παραγόμενο:
+  Stored:              Derived:
   
-  ( Ημ_Γέννησης )  -->  (- - Ηλικία - -)   <-- Διακεκομμένη έλλειψη
+  ( Birth_Date )  -->  (- - Age - -)   <-- Dashed ellipse
 ```
 
-**Exam Note:** Τα παραγόμενα γνωρίσματα συνήθως **δεν αποθηκεύονται** στη βάση δεδομένων — υπολογίζονται κατά την εκτέλεση ερωτήματος για αποφυγή πλεονασμού. Αποθηκεύονται μόνο αν ο υπολογισμός τους είναι υπολογιστικά δαπανηρός (π.χ. με materialized views).
+**Exam Note:** Derived attributes are usually **not stored** in the database — they are computed at query time to avoid redundancy. They are stored only if their computation is computationally expensive (e.g. with materialized views).
 
 ```sql
--- Παράδειγμα: Υπολογισμός παραγόμενου γνωρίσματος Ηλικία κατά το ερώτημα
+-- Example: Computing the derived attribute Age during the query
 SELECT first_name,
        last_name,
        birth_date,
-       TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age  -- Παραγόμενο
+       TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age  -- Derived
 FROM employees;
 ```
 
 ---
 
-### Γνωρίσματα Κλειδί (Key Attributes)
+### Key Attributes
 *Key Attributes*
 
-Ένα **Γνώρισμα Κλειδί (Key Attribute)** είναι ένα γνώρισμα (ή σύνολο γνωρισμάτων) που μοναδικά αναγνωρίζει κάθε στιγμιότυπο μιας οντότητας. Στο ERD αναπαρίσταται με **υπογραμμισμένο** όνομα εντός της έλλειψης.
+A **Key Attribute** is an attribute (or set of attributes) that uniquely identifies each instance of an entity. In the ERD it is represented with an **underlined** name inside the ellipse.
 
-- Αντιστοιχεί στο **Primary Key** του σχεσιακού μοντέλου.
-- Για ασθενείς οντότητες, χρησιμοποιείται το **Partial Key** (διακεκομμένη υπογράμμιση).
+- Corresponds to the **Primary Key** of the relational model.
+- For weak entities, the **Partial Key** is used (dashed underline).
 
 ```text
-  Γνώρισμα Κλειδί Ισχυρής Οντότητας:    Partial Key Ασθενούς:
+  Key Attribute of a Strong Entity:       Weak Entity Partial Key:
 
-   ( __ΑΦΜ__ )                            ( _ _ Όνομα _ _ )
+   ( __AFM__ )                            ( _ _ Name _ _ )
 ```
 
 ---
 
-### Συγκριτικός Πίνακας Τύπων Γνωρισμάτων
+### Comparative Table of Attribute Types
 
-| Τύπος Γνωρίσματος | Ορισμός | Αναπαράσταση ERD | Παράδειγμα |
+| Attribute Type | Definition | ERD Representation | Example |
 |---|---|---|---|
-| **Απλό (Simple)** | Αδιαίρετο, ατομικό | Απλή έλλειψη | `ΑΦΜ`, `Μισθός` |
-| **Σύνθετο (Composite)** | Αποτελείται από επιμέρους γνωρίσματα | Έλλειψη με υποελλείψεις | `Διεύθυνση` |
-| **Μονότιμο (Single-Valued)** | Μία τιμή ανά οντότητα | Απλή έλλειψη | `ΑΔΤ` |
-| **Πλειότιμο (Multi-Valued)** | Πολλές τιμές ανά οντότητα | Διπλή έλλειψη | `Τηλέφωνα` |
-| **Παραγόμενο (Derived)** | Υπολογίζεται από άλλα γνωρίσματα | Διακεκομμένη έλλειψη | `Ηλικία` |
-| **Κλειδί (Key)** | Μοναδικά αναγνωρίζει οντότητα | Έλλειψη με υπογράμμιση | `ΑΜ`, `ΑΦΜ` |
-| **Partial Key** | Μερική αναγνώριση ασθενούς οντότητας | Διακεκομμένη υπογράμμιση | `Όνομα` σε `ΕΞΑΡΤΩΜΕΝΟ` |
+| **Simple** | Indivisible, atomic | Simple ellipse | `AFM`, `Salary` |
+| **Composite** | Consists of constituent attributes | Ellipse with sub-ellipses | `Address` |
+| **Single-Valued** | One value per entity | Simple ellipse | `ID_Card` |
+| **Multi-Valued** | Many values per entity | Double ellipse | `Phones` |
+| **Derived** | Computed from other attributes | Dashed ellipse | `Age` |
+| **Key** | Uniquely identifies an entity | Ellipse with underline | `AM`, `AFM` |
+| **Partial Key** | Partial identification of a weak entity | Dashed underline | `Name` in `DEPENDENT` |
 
 ---
 
-## Συσχετίσεις (Relationships)
+## Relationships
 *Relationships*
 
-Μια **Συσχέτιση (Relationship)** αναπαριστά μια **σύνδεση ή αλληλεπίδραση** μεταξύ δύο ή περισσότερων οντοτήτων. Στο ERD, αναπαρίσταται ως **ρόμβος (diamond)**, που συνδέεται με γραμμές προς τις εμπλεκόμενες οντότητες.
+A **Relationship** represents a **connection or interaction** between two or more entities. In the ERD, it is represented as a **rhombus (diamond)**, connected with lines to the involved entities.
 
-Κάθε συσχέτιση χαρακτηρίζεται από:
-- **Βαθμό (Degree)**: Πόσες οντότητες συμμετέχουν.
-- **Πληθικότητα (Cardinality)**: Πόσα στιγμιότυπα μιας οντότητας συνδέονται με πόσα στιγμιότυπα άλλης.
-- **Συμμετοχή (Participation)**: Ολική (total) ή Μερική (partial) — αν κάθε στιγμιότυπο οντότητας πρέπει απαραίτητα να συμμετέχει στη συσχέτιση.
+Each relationship is characterized by:
+- **Degree**: How many entities participate.
+- **Cardinality**: How many instances of one entity are connected to how many instances of another.
+- **Participation**: Total or partial — whether every entity instance must necessarily participate in the relationship.
 
 ---
 
-### Βαθμός Συσχέτισης (Degree)
+### Degree of Relationship
 *Degree of Relationship*
 
-Ο **Βαθμός (Degree)** μιας συσχέτισης ορίζεται από τον **αριθμό των τύπων οντοτήτων** που συμμετέχουν σε αυτήν.
+The **Degree** of a relationship is defined by the **number of entity types** that participate in it.
 
-#### Μοναδιαία / Αναδρομική Συσχέτιση (Unary / Recursive — Degree 1)
+#### Unary / Recursive Relationship (Degree 1)
 
-Συνδέει **μία οντότητα με τον ίδιο της τον τύπο** (αυτοσυσχέτιση). Χρησιμοποιείται για ιεραρχικές δομές εντός της ίδιας οντότητας.
+Connects **one entity with its own type** (self-relationship). Used for hierarchical structures within the same entity.
 
-- **Παράδειγμα**: Ένας `ΥΠΑΛΛΗΛΟΣ` επιβλέπει άλλους `ΥΠΑΛΛΗΛΟΥΣ` (διευθυντής → υφιστάμενοι).
+- **Example**: An `EMPLOYEE` (employee) supervises other `EMPLOYEES` (employees) (manager → subordinates).
 
 ```text
                     +-----------+
-              +---->| ΥΠΑΛΛΗΛΟΣ |<---+
+              +---->| EMPLOYEE  |<---+
               |     +-----------+    |
               |           |          |
-              |     < Επιβλέπει >    |
+              |     < Supervises >   |
               |           |          |
               +-----------+----------+
-                  (Αναδρομική Συσχέτιση)
+                  (Recursive Relationship)
 ```
 
-#### Δυαδική Συσχέτιση (Binary — Degree 2)
+#### Binary Relationship (Degree 2)
 
-Η πιο συνηθισμένη — συνδέει **δύο διαφορετικούς τύπους οντοτήτων**.
+The most common — connects **two different entity types**.
 
-- **Παράδειγμα**: `ΦΟΙΤΗΤΗΣ` — `Εγγράφεται` — `ΜΑΘΗΜΑ`.
+- **Example**: `STUDENT` — `Registers` — `COURSE`.
 
 ```text
   +-----------+              +-----------+
-  | ΦΟΙΤΗΤΗΣ |---< Εγγράφεται >---| ΜΑΘΗΜΑ   |
+  | STUDENT   |---< Registers >---| COURSE    |
   +-----------+              +-----------+
 ```
 
-#### Τριαδική Συσχέτιση (Ternary — Degree 3)
+#### Ternary Relationship (Degree 3)
 
-Συνδέει **τρεις τύπους οντοτήτων** ταυτόχρονα. Χρησιμοποιείται όταν η σχέση εξαρτάται και από τις τρεις οντότητες — δεν μπορεί να αποδοθεί με ζεύγη δυαδικών συσχετίσεων.
+Connects **three entity types** simultaneously. Used when the relationship depends on all three entities — it cannot be represented with pairs of binary relationships.
 
-- **Παράδειγμα**: `ΙΑΤΡΟΣ` — `ΑΣΘΕΝΗΣ` — `ΦΑΡΜΑΚΟ` μέσω της συσχέτισης `Συνταγογραφεί` — ποιος γιατρός συνταγογραφεί ποιο φάρμακο σε ποιον ασθενή.
+- **Example**: `DOCTOR` — `PATIENT` — `MEDICINE` through the relationship `Prescribes` — which doctor prescribes which drug to which patient.
 
 ```text
          +-----------+
-         |  ΙΑΤΡΟΣ   |
+         |  DOCTOR   |
          +-----------+
                \
                 \
-           < Συνταγογραφεί >
-               /        \
-              /            \
+           < Prescribes >
+                /        \
+               /            \
   +-----------+            +-----------+
-  |  ΑΣΘΕΝΗΣ |            |  ΦΑΡΜΑΚΟ  |
+  |  PATIENT  |            |  MEDICINE |
   +-----------+            +-----------+
 ```
 
-| Βαθμός | Ονομασία | Παράδειγμα |
+| Degree | Name | Example |
 |---|---|---|
-| 1 | Unary / Recursive | `ΥΠΑΛΛΗΛΟΣ` επιβλέπει `ΥΠΑΛΛΗΛΟ` |
-| 2 | Binary | `ΦΟΙΤΗΤΗΣ` εγγράφεται σε `ΜΑΘΗΜΑ` |
-| 3 | Ternary | `ΙΑΤΡΟΣ` συνταγογραφεί `ΦΑΡΜΑΚΟ` σε `ΑΣΘΕΝΗ` |
+| 1 | Unary / Recursive | `EMPLOYEE` supervises `EMPLOYEE` |
+| 2 | Binary | `STUDENT` registers in `COURSE` |
+| 3 | Ternary | `DOCTOR` prescribes `MEDICINE` to `PATIENT` |
 
 ---
 
-### Αναπαράσταση με Ρόμβους
+### Representation with Diamonds
 *Representation with Diamonds*
 
-Στο ERD, οι συσχετίσεις αναπαρίστανται ως ρόμβοι που συνδέονται με γραμμές στις εμπλεκόμενες οντότητες:
+In the ERD, relationships are represented as rhombuses connected with lines to the involved entities:
 
-- **Απλός ρόμβος**: Κανονική συσχέτιση μεταξύ ισχυρών οντοτήτων.
-- **Διπλός ρόμβος**: Identifying Relationship (συσχέτιση αναγνώρισης) μεταξύ ισχυρής και ασθενούς οντότητας.
+- **Simple rhombus**: Normal relationship between strong entities.
+- **Double rhombus**: Identifying Relationship between a strong and a weak entity.
 
 ```text
-  Κανονική Συσχέτιση (Απλός Ρόμβος):
+  Normal Relationship (Simple Rhombus):
 
-  +-----------+          +-----------+
-  | ΤΜΗΜΑ     |---< Απασχολεί >---| ΥΠΑΛΛΗΛΟΣ |
-  +-----------+          +-----------+
+  +------------+          +-----------+
+  | DEPARTMENT |---< Employs >---| EMPLOYEE  |
+  +------------+          +-----------+
 
-  Identifying Relationship (Διπλός Ρόμβος):
+  Identifying Relationship (Double Rhombus):
 
   +============+          +============+
-  || ΥΠΑΛΛΗΛΟΣ||=<<= Έχει =>>==|| ΕΞΑΡΤΩΜΕΝΟ||
+  ||  EMPLOYEE  ||=<<= Has =>>==||  DEPENDENT ||
   +============+          +============+
 ```
 
-**Exam Note:** Ο **διπλός ρόμβος** χρησιμοποιείται **αποκλειστικά** για την Identifying Relationship που συνδέει μια ισχυρή οντότητα με μια ασθενή. Κάθε άλλη συσχέτιση χρησιμοποιεί απλό ρόμβο.
+**Exam Note:** The **double rhombus** is used **exclusively** for the Identifying Relationship that links a strong entity with a weak one. Every other relationship uses a simple rhombus.
 
 ---
 
-## Περιορισμοί Πληθικότητας (Cardinality Constraints)
+## Cardinality Constraints
 *Cardinality Constraints*
 
-Οι **Περιορισμοί Πληθικότητας (Cardinality Constraints)** ορίζουν τον **μέγιστο αριθμό στιγμιότυπων** μιας οντότητας που μπορούν να συνδεθούν με ένα μόνο στιγμιότυπο μιας άλλης οντότητας μέσω μιας συσχέτισης. Αποτελούν έναν από τους πιο κρίσιμους περιορισμούς στο σχεδιασμό ER διαγράμματος.
+**Cardinality Constraints** define the **maximum number of instances** of one entity that can be connected to a single instance of another entity through a relationship. They constitute one of the most critical constraints in ER diagram design.
 
-Στο ERD αναγράφονται ως ετικέτες `1`, `N` ή `M` στις γραμμές που συνδέουν οντότητες με συσχετίσεις.
+In the ERD they are written as labels `1`, `N` or `M` on the lines connecting entities with relationships.
 
 ---
 
-### Ένα-προς-Ένα (1:1)
+### One-to-One
 *One-to-One*
 
-Στη συσχέτιση **1:1**, κάθε στιγμιότυπο της οντότητας Α συνδέεται με **το πολύ ένα** στιγμιότυπο της οντότητας Β, και αντίστροφα.
+In a **1:1** relationship, each instance of entity A is connected to **at most one** instance of entity B, and vice versa.
 
-**Αναλογία**: Κάθε χώρα έχει έναν πρωθυπουργό και κάθε πρωθυπουργός κυβερνά μία χώρα.
+**Analogy**: Every country has one prime minister and every prime minister governs one country.
 
-**Παράδειγμα Βάσης Δεδομένων**: `ΥΠΑΛΛΗΛΟΣ` διαχειρίζεται `ΤΜΗΜΑ` (κάθε τμήμα έχει έναν διευθυντή, κάθε διευθυντής διαχειρίζεται ένα τμήμα).
+**Database Example**: `EMPLOYEE` manages `DEPARTMENT` (every department has one manager, every manager manages one department).
 
 ```text
   +-----------+    1          1    +-----------+
-  | ΥΠΑΛΛΗΛΟΣ |---<Διαχειρίζεται>---| ΤΜΗΜΑ    |
+  | EMPLOYEE  |---<Administers>---| DEPARTMENT|
   +-----------+                   +-----------+
 ```
 
-**Υλοποίηση στο Σχεσιακό Μοντέλο**: Το Foreign Key μπορεί να τοποθετηθεί σε οποιονδήποτε από τους δύο πίνακες. Συνήθως τοποθετείται στον πίνακα με την ολική συμμετοχή.
+**Implementation in the Relational Model**: The Foreign Key can be placed in either of the two tables. It is usually placed in the table with total participation.
 
 ```sql
--- Υλοποίηση 1:1: Το dept_manager_afm στον πίνακα ΤΜΗΜΑ
+-- 1:1 Implementation: dept_manager_afm in the DEPARTMENT table
 CREATE TABLE departments (
     dept_id          INT         PRIMARY KEY,
     dept_name        VARCHAR(50) NOT NULL,
-    dept_manager_afm VARCHAR(9)  UNIQUE,  -- UNIQUE εξασφαλίζει 1:1
+    dept_manager_afm VARCHAR(9)  UNIQUE,  -- UNIQUE ensures 1:1
     FOREIGN KEY (dept_manager_afm) REFERENCES employees(afm)
 );
 ```
 
 ---
 
-### Ένα-προς-Πολλά (1:N)
+### One-to-Many
 *One-to-Many*
 
-Στη συσχέτιση **1:N**, κάθε στιγμιότυπο της οντότητας Α συνδέεται με **πολλά** στιγμιότυπα της οντότητας Β, αλλά κάθε στιγμιότυπο του Β συνδέεται με **ένα και μόνο** στιγμιότυπο του Α.
+In a **1:N** relationship, each instance of entity A is connected to **many** instances of entity B, but each instance of B is connected to **one and only one** instance of A.
 
-**Αναλογία**: Ένας καθηγητής διδάσκει πολλά μαθήματα, αλλά κάθε μάθημα (σε μια συγκεκριμένη σχολή) έχει έναν υπεύθυνο καθηγητή.
+**Analogy**: One professor teaches many courses, but each course (in a specific school) has one responsible professor.
 
-**Παράδειγμα Βάσης Δεδομένων**: Ένα `ΤΜΗΜΑ` απασχολεί πολλούς `ΥΠΑΛΛΗΛΟΥΣ`, αλλά κάθε `ΥΠΑΛΛΗΛΟΣ` ανήκει σε ένα `ΤΜΗΜΑ`.
+**Database Example**: One `DEPARTMENT` employs many `EMPLOYEES`, but every `EMPLOYEE` belongs to one `DEPARTMENT`.
 
 ```text
   +-----------+    1          N    +-----------+
-  |  ΤΜΗΜΑ   |---< Απασχολεί >---| ΥΠΑΛΛΗΛΟΣ |
+  | DEPARTMENT|---< Employs >---| EMPLOYEE  |
   +-----------+                   +-----------+
 ```
 
-**Υλοποίηση στο Σχεσιακό Μοντέλο**: Το Foreign Key τοποθετείται στη **μεριά του "Ν"** (στον πίνακα που έχει πολλές εγγραφές). Αυτός είναι ο πιο συνηθισμένος τύπος συσχέτισης.
+**Implementation in the Relational Model**: The Foreign Key is placed on the **"N" side** (in the table that has many records). This is the most common type of relationship.
 
 ```sql
--- Υλοποίηση 1:N: dept_id (FK) στον πίνακα ΥΠΑΛΛΗΛΟΣ
+-- 1:N Implementation: dept_id (FK) in the EMPLOYEE table
 CREATE TABLE employees (
     afm       VARCHAR(9)  PRIMARY KEY,
     last_name VARCHAR(50) NOT NULL,
-    dept_id   INT         NOT NULL,  -- Foreign Key στη μεριά του N
+    dept_id   INT         NOT NULL,  -- Foreign Key on the N side
     FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
 );
 ```
 
-**Πίνακας κατάστασης:**
+**State table:**
 
 | dept_id | dept_name | | afm       | last_name | dept_id |
 |---------|-----------|---|-----------|-----------|---------|
-| 10      | Λογιστήριο | | 111111111 | Παπάς     | 10      |
-| 20      | Πληροφορικής | | 222222222 | Νίκος    | 10      |
-| | | | 333333333 | Αλέξης    | 20      |
+| 10      | Accounting | | 111111111 | Papas     | 10      |
+| 20      | Computer Science | | 222222222 | Nikos    | 10      |
+| | | | 333333333 | Alexis    | 20      |
 
 ---
 
-### Πολλά-προς-Πολλά (N:M)
+### Many-to-Many
 *Many-to-Many*
 
-Στη συσχέτιση **N:M**, κάθε στιγμιότυπο της οντότητας Α συνδέεται με **πολλά** στιγμιότυπα της οντότητας Β, και κάθε στιγμιότυπο του Β συνδέεται επίσης με **πολλά** στιγμιότυπα του Α.
+In an **N:M** relationship, each instance of entity A is connected to **many** instances of entity B, and each instance of B is also connected to **many** instances of A.
 
-**Αναλογία**: Ένας φοιτητής παρακολουθεί πολλά μαθήματα, και κάθε μάθημα παρακολουθείται από πολλούς φοιτητές.
+**Analogy**: One student attends many courses, and each course is attended by many students.
 
-**Παράδειγμα Βάσης Δεδομένων**: `ΦΟΙΤΗΤΗΣ` — `Εγγράφεται` — `ΜΑΘΗΜΑ`.
+**Database Example**: `STUDENT` — `Registers` — `COURSE`.
 
 ```text
   +-----------+    N          M    +-----------+
-  | ΦΟΙΤΗΤΗΣ |---< Εγγράφεται >---| ΜΑΘΗΜΑ   |
+  | STUDENT   |---< Registers >---| COURSE    |
   +-----------+                   +-----------+
 ```
 
-**Υλοποίηση στο Σχεσιακό Μοντέλο**: Οι N:M συσχετίσεις **δεν μπορούν να υλοποιηθούν άμεσα** στο σχεσιακό μοντέλο. Απαιτείται η δημιουργία ενός **ενδιάμεσου πίνακα (junction table / associative table)** που περιέχει τα Foreign Keys και από τους δύο πίνακες ως Composite Primary Key.
+**Implementation in the Relational Model**: N:M relationships **cannot be implemented directly** in the relational model. It is necessary to create an **intermediate table (junction table / associative table)** that contains the Foreign Keys from both tables as a Composite Primary Key.
 
 ```text
   +-----------+       +--------------------+       +-----------+
-  | ΦΟΙΤΗΤΗΣ |       |   ΕΓΓΡΑΦΗ          |       |  ΜΑΘΗΜΑ  |
+  | STUDENT   |       |   REGISTRATION     |       |  COURSE   |
   +-----------+       +--------------------+       +-----------+
   | am (PK)   |<------| am (FK, PK)        |       | course_id |
   | eponymo   |       | course_id (FK, PK) |------>| (PK)      |
-  | onoma     |       | hm_eggrafis        |       | titlos    |
-  +-----------+       | bathmologia        |       +-----------+
+  | onoma     |       | enroll_date        |       | titlos    |
+  +-----------+       | grade              |       +-----------+
                       +--------------------+
 ```
 
 ```sql
--- Υλοποίηση N:M: Ενδιάμεσος πίνακας ΕΓΓΡΑΦΗ
+-- N:M Implementation: Intermediate REGISTRATION table
 CREATE TABLE enrollments (
     student_am INT  NOT NULL,
     course_id  INT  NOT NULL,
@@ -454,95 +454,95 @@ CREATE TABLE enrollments (
 );
 ```
 
-**Exam Note:** Κάθε N:M συσχέτιση **απαιτεί ενδιάμεσο πίνακα** στη μετατροπή σε σχεσιακό μοντέλο. Ο ενδιάμεσος πίνακας μπορεί επίσης να έχει **δικά του γνωρίσματα** (π.χ. `grade`, `enroll_date` στην `ΕΓΓΡΑΦΗ`), τα οποία δεν ανήκουν σε καμία από τις δύο οντότητες αλλά στη **συσχέτιση** καθεαυτή.
+**Exam Note:** Every N:M relationship **requires an intermediate table** in the conversion to the relational model. The intermediate table can also have **its own attributes** (e.g. `grade`, `enroll_date` in `REGISTRATION`), which belong to neither of the two entities but to the **relationship** itself.
 
 ---
 
-### Συγκριτικός Πίνακας Πληθικότητας
+### Comparative Table of Cardinality
 
-| Πληθικότητα | Περιγραφή | Υλοποίηση στο Σχεσιακό Μοντέλο | Παράδειγμα |
+| Cardinality | Description | Implementation in the Relational Model | Example |
 |---|---|---|---|
-| **1:1** | Ένα A ↔ ένα B | FK σε έναν από τους δύο πίνακες (με UNIQUE) | Υπάλληλος ↔ Γραφείο |
-| **1:N** | Ένα A ↔ πολλά B | FK στον πίνακα του "N" | Τμήμα → Υπάλληλοι |
-| **N:M** | Πολλά A ↔ πολλά B | Ενδιάμεσος πίνακας με Composite PK | Φοιτητές ↔ Μαθήματα |
+| **1:1** | One A ↔ one B | FK in one of the two tables (with UNIQUE) | Employee ↔ Office |
+| **1:N** | One A ↔ many B | FK in the table of the "N" side | Department → Employees |
+| **N:M** | Many A ↔ many B | Intermediate table with Composite PK | Students ↔ Courses |
 
 ---
 
-## Ολοκληρωμένο Παράδειγμα ERD
+## Complete ERD Example
 *Complete ERD Example*
 
-Το παρακάτω διάγραμμα συνδυάζει όλες τις έννοιες που αναλύθηκαν — ισχυρές και ασθενείς οντότητες, διάφορους τύπους γνωρισμάτων, και όλους τους τύπους πληθικότητας:
+The following diagram combines all the concepts analyzed — strong and weak entities, various attribute types, and all types of cardinality:
 
 ```text
-                         ( __ΑΦΜ__ )  ( Επώνυμο )  ( Όνομα )
+                         ( __AFM__ )  ( Surname )  ( Name )
                               \           |           /
-  ( Τηλέφωνα )                \          |          /
+  ( Phones )                  \          |          /
        ||                  +============+
-  (( Τηλέφωνα ))-----------|  ΥΠΑΛΛΗΛΟΣ |
+  (( Phones ))-----------|  EMPLOYEE  |
                             +============+
                                  |   \
                          1       |    \      N
-                        (Ανήκει σε)  (Διαχειρίζεται)
+                        (Belongs to)  (Manages)
                               |          \
                               v    1      v
                          +-----------+  +-----------+
-                         |   ΤΜΗΜΑ   |  |  ΤΜΗΜΑ   |  (ίδια οντότητα)
+                         | DEPARTMENT|  | DEPARTMENT|  (same entity)
                          +-----------+  +-----------+
                               |
-                    (( Έχει )) <-- Identifying Relationship (Διπλός Ρόμβος)
+                    (( Has )) <-- Identifying Relationship (Double Rhombus)
                               |
                          +============+
-                         ||ΕΞΑΡΤΩΜΕΝΟ||  <-- Ασθενής Οντότητα
+                         ||  DEPENDENT ||  <-- Weak Entity
                          +============+
-                         | _ Όνομα _  |  <-- Partial Key
-                         | Σχέση      |
+                         | _ Name _   |  <-- Partial Key
+                         | Relation   |
                          +============+
 
 
-  ΦΟΙΤΗΤΗΣ --- (N) --- < Εγγράφεται > --- (M) --- ΜΑΘΗΜΑ
+  STUDENT --- (N) --- < Registers > --- (M) --- COURSE
      |                       |
-  ( __ΑΜ__ )          ( Ημ. Εγγραφής )  <-- Γνώρισμα Συσχέτισης
-  ( Επώνυμο )         ( Βαθμολογία )
-  (- Ηλικία -)  <-- Παραγόμενο
+  ( __AM__ )          ( Registration Date )  <-- Relationship Attribute
+  ( Surname )         ( Grade )
+  (- Age -)  <-- Derived
 ```
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **Οντότητα (Entity)** | Αντικείμενο για το οποίο αποθηκεύονται δεδομένα | Αναπαράσταση ως ορθογώνιο στο ERD |
-| **Ισχυρή Οντότητα** | Ανεξάρτητη ύπαρξη, διαθέτει δικό της PK | Απλό ορθογώνιο |
-| **Ασθενής Οντότητα** | Εξαρτημένη ύπαρξη, διαθέτει μόνο Partial Key | Διπλό ορθογώνιο, Identifying Relationship |
-| **Γνώρισμα (Attribute)** | Ιδιότητα οντότητας ή συσχέτισης | Αναπαράσταση ως έλλειψη |
-| **Απλό Γνώρισμα** | Αδιαίρετο γνώρισμα | Ατομική τιμή |
-| **Σύνθετο Γνώρισμα** | Αποτελείται από επιμέρους γνωρίσματα | Αποσυντίθεται στο σχεσιακό μοντέλο |
-| **Μονότιμο Γνώρισμα** | Μία τιμή ανά οντότητα | Κανονική έλλειψη |
-| **Πλειότιμο Γνώρισμα** | Πολλές τιμές ανά οντότητα | Διπλή έλλειψη — απαιτεί ξεχωριστό πίνακα |
-| **Παραγόμενο Γνώρισμα** | Υπολογίζεται από άλλα γνωρίσματα | Διακεκομμένη έλλειψη — συνήθως δεν αποθηκεύεται |
-| **Γνώρισμα Κλειδί** | Μοναδική αναγνώριση οντότητας | Υπογραμμισμένο στο ERD |
-| **Partial Key** | Μερική αναγνώριση ασθενούς οντότητας | Διακεκομμένη υπογράμμιση |
-| **Συσχέτιση (Relationship)** | Σύνδεση μεταξύ οντοτήτων | Αναπαράσταση ως ρόμβος |
-| **Βαθμός (Degree)** | Αριθμός οντοτήτων στη συσχέτιση | Unary (1), Binary (2), Ternary (3) |
-| **Πληθικότητα 1:1** | Ένα στιγμιότυπο ↔ ένα στιγμιότυπο | FK με UNIQUE περιορισμό |
-| **Πληθικότητα 1:N** | Ένα στιγμιότυπο ↔ πολλά στιγμιότυπα | FK στη μεριά του N |
-| **Πληθικότητα N:M** | Πολλά ↔ πολλά | Ενδιάμεσος πίνακας με Composite PK |
-| **Identifying Relationship** | Συσχέτιση αναγνώρισης ασθενούς-ισχυρής | Διπλός ρόμβος |
+| **Entity** | Object for which data is stored | Represented as a rectangle in the ERD |
+| **Strong Entity** | Independent existence, has its own PK | Simple rectangle |
+| **Weak Entity** | Dependent existence, has only a Partial Key | Double rectangle, Identifying Relationship |
+| **Attribute** | Property of an entity or relationship | Represented as an ellipse |
+| **Simple Attribute** | Indivisible attribute | Atomic value |
+| **Composite Attribute** | Consists of constituent attributes | Decomposed in the relational model |
+| **Single-Valued Attribute** | One value per entity | Normal ellipse |
+| **Multi-Valued Attribute** | Many values per entity | Double ellipse — requires a separate table |
+| **Derived Attribute** | Computed from other attributes | Dashed ellipse — usually not stored |
+| **Key Attribute** | Unique identification of an entity | Underlined in the ERD |
+| **Partial Key** | Partial identification of a weak entity | Dashed underline |
+| **Relationship** | Connection between entities | Represented as a rhombus |
+| **Degree** | Number of entities in the relationship | Unary (1), Binary (2), Ternary (3) |
+| **Cardinality 1:1** | One instance ↔ one instance | FK with UNIQUE constraint |
+| **Cardinality 1:N** | One instance ↔ many instances | FK on the N side |
+| **Cardinality N:M** | Many ↔ many | Intermediate table with Composite PK |
+| **Identifying Relationship** | Identification relationship between weak and strong | Double rhombus |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Το **E-R Μοντέλο** είναι το εργαλείο της εννοιολογικής σχεδίασης — αποτυπώνει τη λογική δομή της πραγματικότητας χωρίς τεχνικές λεπτομέρειες υλοποίησης.
-- **Ισχυρές Οντότητες** διαθέτουν ανεξάρτητη ύπαρξη και δικό τους Primary Key (απλό ορθογώνιο). **Ασθενείς Οντότητες** εξαρτώνται υπαρξιακά από άλλη οντότητα και αναπαρίστανται με διπλό ορθογώνιο.
-- Τα **Πλειότιμα Γνωρίσματα** (διπλή έλλειψη) παραβιάζουν την 1NF — απαιτούν ξεχωριστό πίνακα στο σχεσιακό μοντέλο.
-- Τα **Παραγόμενα Γνωρίσματα** (διακεκομμένη έλλειψη) δεν αποθηκεύονται συνήθως — υπολογίζονται κατά την εκτέλεση ερωτήματος.
-- **Key Distinction:** Ο βαθμός (degree) αναφέρεται στον αριθμό οντοτήτων στη συσχέτιση, ενώ η πληθικότητα (cardinality) αναφέρεται στον αριθμό στιγμιότυπων που συνδέονται.
-- Η πληθικότητα **1:N** είναι η πιο συχνή στη σχεδίαση βάσεων δεδομένων — υλοποιείται με Foreign Key στον πίνακα της "πολλαπλής" πλευράς.
-- Κάθε **N:M συσχέτιση** μετατρέπεται σε ενδιάμεσο πίνακα (junction table) κατά τη μετατροπή στο σχεσιακό μοντέλο — ο ενδιάμεσος πίνακας μπορεί να έχει δικά του γνωρίσματα.
-- Ο **Identifying Relationship** (διπλός ρόμβος) χρησιμοποιείται αποκλειστικά για να συνδέσει ασθενή με ισχυρή οντότητα — η διαγραφή της ισχυρής προκαλεί cascading delete.
-- **Exam Note:** Στο ERD, η πληθικότητα αναγράφεται πάντα δίπλα στις οντότητες — το "1" κοντά στην οντότητα που συμμετέχει με ένα στιγμιότυπο, το "N" ή "M" κοντά στην οντότητα που συμμετέχει με πολλά.
-- Η σωστή αναγνώριση τύπων οντοτήτων, γνωρισμάτων και πληθικότητας στο E-R διάγραμμα **καθορίζει άμεσα** την ορθότητα του σχεσιακού σχήματος και της τελικής SQL υλοποίησης.
+- The **E-R Model** is the tool of conceptual design — it captures the logical structure of reality without technical implementation details.
+- **Strong Entities** have independent existence and their own Primary Key (simple rectangle). **Weak Entities** depend existentially on another entity and are represented with a double rectangle.
+- **Multi-Valued Attributes** (double ellipse) violate 1NF — they require a separate table in the relational model.
+- **Derived Attributes** (dashed ellipse) are usually not stored — they are computed at query time.
+- **Key Distinction:** The degree refers to the number of entities in the relationship, while the cardinality refers to the number of instances connected.
+- **1:N** cardinality is the most common in database design — implemented with a Foreign Key in the table of the "many" side.
+- Every **N:M relationship** is converted into an intermediate table (junction table) during the conversion to the relational model — the intermediate table can have its own attributes.
+- The **Identifying Relationship** (double rhombus) is used exclusively to link a weak entity with a strong one — deleting the strong entity causes a cascading delete.
+- **Exam Note:** In the ERD, the cardinality is always written next to the entities — "1" near the entity that participates with one instance, "N" or "M" near the entity that participates with many.
+- Correct identification of entity types, attributes and cardinality in the E-R diagram **directly determines** the correctness of the relational schema and of the final SQL implementation.

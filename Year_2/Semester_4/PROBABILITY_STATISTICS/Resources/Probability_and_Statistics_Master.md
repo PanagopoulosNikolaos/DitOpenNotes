@@ -2227,14 +2227,14 @@ Phase 2 builds the formal set-theoretic foundation of Probability Theory:
 Conditional probability evaluates the likelihood of an event $A$ occurring given that another event $B$ has already taken place ($P(B) > 0$). When we condition on $B$, the universal sample space $\Omega$ shrinks to $B$. Outcome elements outside $B$ become impossible and are discarded. The relevant subset of $A$ within this restricted universe is precisely the intersection $A \cap B$.
 
 ```
-Universal Sample Space Ω:
+Universal Sample Space $\Omega$:
 +------------------------------------+
 |  A only     | A ∩ B  |  B only     |
 |             |        |             |
 +-------------+--------+-------------+
                  ^^^^^^
          Conditioning on B shrinks
-         the sample space from Ω to B.
+         the sample space from $\Omega$ to $B$.
 ```
 
 Mathematically, conditional probability behaves as a true probability measure on the restricted sample space $B$. It satisfies all three Kolmogorov Axioms:
@@ -2919,7 +2919,7 @@ A collection of events $\{B_1, B_2, \dots, B_n\}$ forms a **partition** of the s
 3. $P(B_i) > 0$ for all $i = 1, \dots, n$.
 
 ```
-Partition of Ω into B_1, B_2, B_3, B_4:
+Partition of $\Omega$ into $B_1$, $B_2$, $B_3$, $B_4$:
 +------------------------------------+
 |  B_1   |   B_2   |   B_3  |  B_4   |
 |     +--+---------+--------+--+     |
@@ -3490,10 +3490,10 @@ Final Answer:
 A **Random Variable (RV)** $X$ is a formal mathematical function that maps outcomes from a sample space $\Omega$ to real numbers ($X: \Omega \to \mathbb{R}$). A random variable is classified as **discrete** if its support $S_X = \{x \in \mathbb{R} : P(X = x) > 0\}$ is finite or countably infinite (such as the set of non-negative integers $\mathbb{N}_0$).
 
 ```
-Sample Space Ω (Outcomes)        Real Line R (Values)
+Sample Space $\Omega$ (Outcomes)   Real Line $R$ (Values)
 +-----------------------+        +-------------------+
-|  Outcome ω1 (Success) | ------>|  X(ω1) = 1        |
-|  Outcome ω2 (Failure) | ------>|  X(ω2) = 0        |
+|  Outcome $\omega_1$ (Success) | ------>|  X($\omega_1$) = 1 |
+|  Outcome $\omega_2$ (Failure) | ------>|  X($\omega_2$) = 0 |
 +-----------------------+        +-------------------+
 ```
 

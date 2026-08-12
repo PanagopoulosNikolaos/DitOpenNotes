@@ -1,32 +1,32 @@
 # Exam 6: Image to Markdown & Exam Simulation (Extracted Exercise)
 
-Άσκηση 1: Οντότητες, γνωρίσματα, κλειδιά και σχέσεις, Αναλύστε το κείμενο (Ένα εκπαιδευτικό ίδρυμα διατηρεί πληροφορίες σχετικά με τους καθηγητές, τις σχολές και τα εκπαιδευτικά προγράμματα...) και καταγράψτε τις οντότητες, τα γνωρίσματά τους, τα πρωτεύοντα κλειδιά και τις σχέσεις μεταξύ τους.
+Exercise 1: Entities, attributes, keys and relationships. Analyze the text (An educational institution maintains information about professors, faculties and educational programs...) and record the entities, their attributes, their primary keys and the relationships among them.
 ---
 *solution:*
-**Οντότητες και Γνωρίσματα:**
-1. **Σχολή (Ισχυρή Οντότητα)**
-   - Γνωρίσματα: **κωδικός (Πρωτεύον Κλειδί)**, όνομα, γεωγραφικές περιοχές (Πλειότιμο γνώρισμα).
-2. **Καθηγητής (Ισχυρή Οντότητα)**
-   - Γνωρίσματα: όνομα, επώνυμο, **αριθμός ταυτότητας (Πρωτεύον Κλειδί)**, ειδικότητα, διεύθυνση κατοικίας, μηνιαίες αποδοχές, φύλο, ημερομηνία γέννησης.
-3. **Εκπαιδευτικό Πρόγραμμα (Ισχυρή Οντότητα)**
-   - Γνωρίσματα: **αριθμός (Πρωτεύον Κλειδί)**, ονομασία, χώρος.
-4. **Εξαρτώμενο Μέλος (Ασθενής Οντότητα)**
-   - Γνωρίσματα: **όνομα (Μερικό Κλειδί)**, φύλο, ημερομηνία γέννησης, συγγενική σχέση.
+**Entities and Attributes:**
+1. **Faculty (Strong Entity)**
+   - Attributes: **code (Primary Key)**, name, geographic areas (Multivalued attribute).
+2. **Professor (Strong Entity)**
+   - Attributes: first name, last name, **ID number (Primary Key)**, specialty, residential address, monthly salary, gender, date of birth.
+3. **Educational Program (Strong Entity)**
+   - Attributes: **number (Primary Key)**, title, venue.
+4. **Dependent Member (Weak Entity)**
+   - Attributes: **name (Partial Key)**, gender, date of birth, family relationship.
 
-**Σχέσεις:**
-1. **Διευθύνει (1:1):** Σχολή - Καθηγητής. Γνώρισμα σχέσης: *ημερομηνία ανάληψης*.
-2. **Προσφέρει (1:N):** Σχολή - Πρόγραμμα. (Κάθε σχολή προσφέρει πολλά προγράμματα).
-3. **Ανήκει (1:N):** Σχολή - Καθηγητής. (Κάθε καθηγητής ανήκει σε μία σχολή).
-4. **Συμμετέχει (M:N):** Καθηγητής - Πρόγραμμα. Γνώρισμα σχέσης: *αριθμός ωρών απασχόλησης*.
-5. **Έχει (1:N):** Καθηγητής - Εξαρτώμενο Μέλος. (Σχέση ταυτοποίησης για την ασθενή οντότητα).
+**Relationships:**
+1. **Heads (1:1):** Faculty - Professor. Relationship attribute: *date of appointment*.
+2. **Offers (1:N):** Faculty - Program. (Each faculty offers many programs).
+3. **Belongs (1:N):** Faculty - Professor. (Each professor belongs to one faculty).
+4. **Participates (M:N):** Professor - Program. Relationship attribute: *number of working hours*.
+5. **Has (1:N):** Professor - Dependent Member. (Identifying relationship for the weak entity).
 ---
 
-Άσκηση 2: Σχεδιασμός διαγράμματος E-R, Σχεδιάστε το διάγραμμα E-R για αυτή τη βάση δεδομένων δίνοντας την αιτιολόγηση που θεωρείτε ορθή.
+Exercise 2: E-R diagram design. Draw the E-R diagram for this database, providing the rationale you consider correct.
 ---
 *solution:*
-*Αιτιολόγηση σχεδιαστικών επιλογών:*
-- Το "Εξαρτώμενο Μέλος" σχεδιάζεται ως Ασθενής Οντότητα, καθώς εξαρτάται υπαρξιακά από τον "Καθηγητή". Το μερικό κλειδί του είναι το "όνομα".
-- Οι γεωγραφικές περιοχές στη "Σχολή" υποδηλώνονται ως πλειότιμο γνώρισμα, καθώς το κείμενο αναφέρει ότι οι εγκαταστάσεις βρίσκονται σε "διάφορες γεωγραφικές περιοχές".
+*Rationale for design choices:*
+- The "Dependent Member" is designed as a Weak Entity, since it depends existentially on the "Professor". Its partial key is the "name".
+- The geographic areas in the "Faculty" are indicated as a multivalued attribute, since the text states that the facilities are located in "various geographic areas".
 
 ```mermaid
 erDiagram
@@ -65,19 +65,19 @@ erDiagram
 ```
 ---
 
-Άσκηση 3: Δομή των πινάκων, Δείξτε τη δομή των πινάκων με τους οποίους θα υλοποιηθεί η βάση δεδομένων σύμφωνα με το διάγραμμα που φτιάξατε. Υπογραμμίστε το πρωτεύον κλειδί του καθενός (χρήση <u>...</u>).
+Exercise 3: Table structure. Show the structure of the tables with which the database will be implemented according to the diagram you drew. Underline the primary key of each one (use <u>...</u>).
 ---
 *solution:*
-1. Σχολή(<u>κωδικός</u>, όνομα, διευθυντής_ΑΔΤ, ημερ_ανάληψης)
-   *(Όπου το διευθυντής_ΑΔΤ είναι Ξένο Κλειδί προς τον Καθηγητή).*
-2. Σχολή_Περιοχές(<u>σχολή_κωδικός, γεωγραφική_περιοχή</u>)
-   *(Ο πίνακας δημιουργείται λόγω του πλειότιμου γνωρίσματος).*
-3. Καθηγητής(<u>αριθμός_ταυτότητας</u>, όνομα, επώνυμο, ειδικότητα, διεύθυνση_κατοικίας, μηνιαίες_αποδοχές, φύλο, ημερομηνία_γέννησης, σχολή_κωδικός)
-   *(Το σχολή_κωδικός είναι Ξένο Κλειδί για τη σχέση "ανήκει").*
-4. Πρόγραμμα(<u>αριθμός</u>, ονομασία, χώρος, σχολή_κωδικός)
-   *(Το σχολή_κωδικός είναι Ξένο Κλειδί για τη σχέση "προσφέρει").*
-5. Συμμετοχή_Σε_Πρόγραμμα(<u>αριθμός_ταυτότητας_καθηγητή, πρόγραμμα_αριθμός</u>, ώρες_απασχόλησης)
-   *(Ενδιάμεσος πίνακας για τη σχέση M:N).*
-6. Εξαρτώμενο_Μέλος(<u>αριθμός_ταυτότητας_καθηγητή, όνομα_μέλους</u>, φύλο, ημερομηνία_γέννησης, συγγενική_σχέση)
-   *(Ο συνδυασμός ΑΔΤ του καθηγητή και του ονόματος του μέλους αποτελεί το Πρωτεύον Κλειδί της ασθενούς οντότητας).*
+1. Faculty(<u>code</u>, name, director_ID, date_of_appointment)
+   *(Where director_ID is a Foreign Key referencing the Professor).*
+2. Faculty_Areas(<u>faculty_code, geographic_area</u>)
+   *(The table is created because of the multivalued attribute).*
+3. Professor(<u>ID_number</u>, first_name, last_name, specialty, residential_address, monthly_salary, gender, date_of_birth, faculty_code)
+   *(The faculty_code is a Foreign Key for the "belongs" relationship).*
+4. Program(<u>number</u>, title, venue, faculty_code)
+   *(The faculty_code is a Foreign Key for the "offers" relationship).*
+5. Program_Enrollment(<u>professor_ID_number, program_number</u>, working_hours)
+   *(Intermediate table for the M:N relationship).*
+6. Dependent_Member(<u>professor_ID_number, member_name</u>, gender, date_of_birth, family_relationship)
+   *(The combination of the professor's ID and the member's name constitutes the Primary Key of the weak entity).*
 ---

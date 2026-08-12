@@ -1,29 +1,29 @@
 # Exam 5: Advanced Database Administration (Level: Advanced)
 
-Ερώτηση Πολλαπλής Επιλογής 1, Τι προσφέρει κατά κύριο λόγο η δημιουργία ενός Δείκτη (Index) σε έναν πίνακα;
-[✅] 1. Αύξηση της ταχύτητας των ερωτημάτων ανάκτησης (SELECT).
-[ ] 2. Αύξηση της ταχύτητας των εντολών εισαγωγής (INSERT).
-[ ] 3. Μείωση του απαιτούμενου αποθηκευτικού χώρου.
-[ ] 4. Κρυπτογράφηση των δεδομένων του πίνακα.
+Multiple Choice Question 1: What does the creation of an Index on a table mainly provide?
+[✅] 1. Increase in the speed of retrieval queries (SELECT).
+[ ] 2. Increase in the speed of insertion commands (INSERT).
+[ ] 3. Reduction of the required storage space.
+[ ] 4. Encryption of the table data.
 ---
 *solution:*
-Τα ευρετήρια (indexes) βελτιώνουν δραματικά την ταχύτητα αναζήτησης και ανάκτησης εγγραφών, αλλά προσθέτουν μια μικρή καθυστέρηση στις εντολές INSERT/UPDATE/DELETE και καταλαμβάνουν επιπλέον χώρο αποθήκευσης.
+Indexes dramatically improve the speed of searching and retrieving records, but they add a small delay to INSERT/UPDATE/DELETE commands and occupy additional storage space.
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 2, Στο εννοιολογικό μοντέλο ER, πώς αντιμετωπίζονται οι "ασθενείς οντότητες" (weak entities) κατά τη μετάβαση στο σχεσιακό μοντέλο;
-[✅] 1. Αποκτούν πρωτεύον κλειδί που αποτελείται από το κλειδί της ισχυρής οντότητας συν το δικό τους μερικό κλειδί.
-[ ] 2. Ενσωματώνονται ως απλά γνωρίσματα στον πίνακα της ισχυρής οντότητας.
-[ ] 3. Αγνοούνται κατά τη μετατροπή σε πίνακες.
-[ ] 4. Δημιουργείται πίνακας μόνο αν έχουν σχέση πολλά-προς-πολλά.
+Multiple Choice Question 2: In the conceptual ER model, how are "weak entities" handled during the transition to the relational model?
+[✅] 1. They obtain a primary key composed of the strong entity's key plus their own partial key.
+[ ] 2. They are incorporated as simple attributes in the strong entity's table.
+[ ] 3. They are ignored during the conversion to tables.
+[ ] 4. A table is created only if they have a many-to-many relationship.
 ---
 *solution:*
-Στις ασθενείς οντότητες, το πρωτεύον κλειδί δημιουργείται συνδυάζοντας το ξένο κλειδί της ισχυρής (εξαρτώσας) οντότητας και το δικό τους μερικό κλειδί (partial key).
+In weak entities, the primary key is created by combining the foreign key of the strong (owner) entity and their own partial key.
 ---
 
-Άσκηση 3, Πώς θα μετατρέπατε σε πίνακες την εξής απαίτηση: Μια παραγγελία (Order) αφορά πολλά προϊόντα (Product) και ένα προϊόν μπορεί να βρίσκεται σε πολλές παραγγελίες. Σε κάθε παραγγελία, καταγράφεται και η ποσότητα του εκάστοτε προϊόντος. Δώστε τα CREATE TABLE με τα κλειδιά.
+Exercise 3: How would you convert the following requirement into tables: An order (Order) involves many products (Product) and a product can be in many orders. In each order, the quantity of the respective product is also recorded. Provide the CREATE TABLE commands with the keys.
 ---
 *solution:*
-Η σχέση είναι M:N. Πρέπει να δημιουργηθεί τρίτος πίνακας σύνδεσης που θα κρατάει την "ποσότητα".
+The relationship is M:N. A third junction table must be created that holds the "quantity".
 ```sql
 CREATE TABLE OrderTbl (
     order_id INT PRIMARY KEY,
@@ -46,10 +46,10 @@ CREATE TABLE Order_Details (
 ```
 ---
 
-Άσκηση 4, Γράψτε μια SQL εντολή χρησιμοποιώντας το CASCADE που να διασφαλίζει ότι αν διαγραφεί ένα προϊόν, θα διαγραφούν αυτόματα και οι αντίστοιχες εγγραφές του πίνακα Order_Details.
+Exercise 4: Write an SQL command using CASCADE that ensures that if a product is deleted, the corresponding records of the Order_Details table are deleted automatically.
 ---
 *solution:*
-Το ON DELETE CASCADE ορίζεται κατά τη δημιουργία του Ξένου Κλειδιού. Αν θέλουμε να το προσθέσουμε εκ των υστέρων σε υπάρχοντα πίνακα:
+ON DELETE CASCADE is defined during the creation of the Foreign Key. If we want to add it afterwards to an existing table:
 ```sql
 ALTER TABLE Order_Details
 ADD CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE;

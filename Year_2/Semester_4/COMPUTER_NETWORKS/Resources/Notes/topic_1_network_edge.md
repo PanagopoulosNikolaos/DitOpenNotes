@@ -370,8 +370,8 @@ FTTH is **100 times** faster than typical DSL (10 Mbps) for the same file transf
 
 **Optical fiber** transmits data as pulses of **light** inside glass or plastic fibers. Immune to electromagnetic interference and allows long distances without repeaters.
 
-- **Single-Mode Fiber (SMF):** Thin core (~9 μm), uses laser. For long distances (intercontinental links, > 100 km).
-- **Multi-Mode Fiber (MMF):** Thicker core (~50-62.5 μm), uses LED. For short distances (data centers, buildings).
+- **Single-Mode Fiber (SMF):** Thin core (~9 $\mu m$), uses laser. For long distances (intercontinental links, > 100 km).
+- **Multi-Mode Fiber (MMF):** Thicker core (~50-62.5 $\mu m$), uses LED. For short distances (data centers, buildings).
 - **Speeds:** 10 Gbps – Tbps (Terabits per second).
 
 ```
@@ -379,7 +379,7 @@ FTTH is **100 times** faster than typical DSL (10 Mbps) for the same file transf
   ─────────────────────────────────────
   | Jacket (outer) |
   | Cladding (reflection) |
-  | Core (light beam, ~9 μm) |
+  | Core (light beam, ~9 $\mu m$) |
      → → → → → → → → (light pulses)
 ```
 

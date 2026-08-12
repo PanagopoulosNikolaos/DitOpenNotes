@@ -36,7 +36,7 @@
 
 The electric field of a sinusoidal plane electromagnetic wave propagating in a vacuum is given by the relation:
 
-E = 5cos(7x10¹²y - ωt)ẑ
+E = 5cos(7x10¹²y - \omega t)ẑ
 
 Find:
 
@@ -47,11 +47,11 @@ D) The intensity I of the wave.
 
 Given:
 *   c = 3x10⁸ m/s
-*   μ₀ = 4πx10⁻⁷ T·m/A
+*   \mu_0 = 4\pi x10⁻⁷ T·m/A
 
 **Exercise 2: Conductor Properties**
 
-A cylindrical conductor made of a material with specific conductivity σ = 5.8 x 10⁷ S/m has a radius of 2 mm and a length of 50 m. A voltage of 10 V is applied across its ends.
+A cylindrical conductor made of a material with specific conductivity \sigma = 5.8 x 10⁷ S/m has a radius of 2 mm and a length of 50 m. A voltage of 10 V is applied across its ends.
 
 Calculate:
 
@@ -88,8 +88,8 @@ Given:
 A parallel-plate capacitor has plates with an area of 250 cm² and a separation of 3 mm.
 
 A) Calculate its capacitance in a vacuum.
-B) A dielectric material with a dielectric constant κ = 4.5 is inserted between the plates. What is the new capacitance?
+B) A dielectric material with a dielectric constant \kappa = 4.5 is inserted between the plates. What is the new capacitance?
 C) If the capacitor with the dielectric is connected to a 100 V source, what is the charge stored on the plates?
 
 Given:
-*   Permittivity of free space ε₀ = 8.854 x 10⁻¹² F/m
+*   Permittivity of free space \varepsilon_0 = 8.854 x 10⁻¹² F/m

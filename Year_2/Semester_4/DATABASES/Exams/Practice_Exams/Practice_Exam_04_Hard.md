@@ -1,37 +1,37 @@
 # Exam 4: Normalization & Advanced SQL (Level: Hard)
 
-Ερώτηση Πολλαπλής Επιλογής 1, Ποια είναι η διαφορά μεταξύ της εντολής DELETE και TRUNCATE;
-[ ] 1. Καμία διαφορά, κάνουν το ίδιο ακριβώς πράγμα.
-[ ] 2. Η DELETE είναι DDL ενώ η TRUNCATE είναι DML.
-[✅] 3. Η DELETE είναι DML και επιτρέπει το ROLLBACK, ενώ η TRUNCATE είναι DDL και δεν επιτρέπει ROLLBACK.
-[ ] 4. Η TRUNCATE διαγράφει και τη δομή του πίνακα (DROP).
+Multiple Choice Question 1: What is the difference between the DELETE and TRUNCATE commands?
+[ ] 1. No difference, they do exactly the same thing.
+[ ] 2. DELETE is DDL while TRUNCATE is DML.
+[✅] 3. DELETE is DML and allows ROLLBACK, while TRUNCATE is DDL and does not allow ROLLBACK.
+[ ] 4. TRUNCATE also deletes the structure of the table (DROP).
 ---
 *solution:*
-Η TRUNCATE αδειάζει γρήγορα τα δεδομένα, επαναφέρει τα auto-increments και δεν καταγράφεται πλήρως στο transaction log, καθιστώντας την DDL, σε αντίθεση με τη DELETE (DML) που σβήνει εγγραφές ανά γραμμή και επιτρέπει επαναφορά.
+TRUNCATE quickly empties the data, resets the auto-increments, and is not fully recorded in the transaction log, making it DDL, in contrast to DELETE (DML), which deletes records row by row and allows rollback.
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 2, Ένας πίνακας βρίσκεται σε μορφή BCNF εάν:
-[✅] 1. Βρίσκεται σε 3NF και για κάθε εξάρτηση X -> Y, το X είναι υπερκλειδί.
-[ ] 2. Βρίσκεται σε 2NF και δεν έχει μεταβατικές εξαρτήσεις.
-[ ] 3. Τα δεδομένα του είναι οργανωμένα σε μορφή δέντρου (NoSQL).
-[ ] 4. Όλα τα γνωρίσματα είναι ατομικά.
+Multiple Choice Question 2: A table is in BCNF if:
+[✅] 1. It is in 3NF and for every dependency X -> Y, X is a superkey.
+[ ] 2. It is in 2NF and has no transitive dependencies.
+[ ] 3. Its data is organized in a tree structure (NoSQL).
+[ ] 4. All attributes are atomic.
 ---
 *solution:*
-Η μορφή Boyce-Codd (BCNF) είναι αυστηρότερη από την 3NF. Απαιτεί κάθε ορίζουσα (X) μιας μη-τετριμμένης συναρτησιακής εξάρτησης (X -> Y) να είναι υποψήφιο κλειδί ή υπερκλειδί.
+The Boyce-Codd form (BCNF) is stricter than 3NF. It requires every determinant (X) of a non-trivial functional dependency (X -> Y) to be a candidate key or a superkey.
 ---
 
-Άσκηση 3, Δίνεται η σχέση Σ(Κ, Λ, Μ, Ν) και οι εξαρτήσεις F={ΚΛ -> Μ, Μ -> Ν}. Ο πίνακας είναι σε 1NF. Σε ποια κανονική μορφή βρίσκεται και πώς θα διασπαστεί για να φτάσει σε BCNF;
+Exercise 3: Given the relation Σ(Κ, Λ, Μ, Ν) and the dependencies F={ΚΛ -> Μ, Μ -> Ν}. The table is in 1NF. In which normal form is it, and how should it be decomposed to reach BCNF?
 ---
 *solution:*
-- Κλειδί είναι το {Κ, Λ} (αφού (ΚΛ)+ = {Κ, Λ, Μ, Ν}).
-- Η εξάρτηση Μ -> Ν είναι μεταβατική εξάρτηση, αφού το Μ δεν είναι κλειδί. Άρα δεν είναι σε 3NF (ούτε σε BCNF).
-- Βρίσκεται σε 2NF, διότι κανένα υποσύνολο του κλειδιού {Κ, Λ} δεν καθορίζει από μόνο του τα μη κλειδιά.
-- Διάσπαση σε BCNF:
-  Δημιουργούμε μια σχέση για την προβληματική εξάρτηση Μ -> Ν: Σ1(Μ, Ν) με πρωτεύον κλειδί το Μ.
-  Αφαιρούμε το Ν από την αρχική σχέση: Σ2(Κ, Λ, Μ) με πρωτεύον κλειδί το (Κ, Λ).
+- The key is {Κ, Λ} (since (ΚΛ)+ = {Κ, Λ, Μ, Ν}).
+- The dependency Μ -> Ν is a transitive dependency, since Μ is not a key. Therefore it is not in 3NF (nor in BCNF).
+- It is in 2NF, because no subset of the key {Κ, Λ} by itself determines the non-key attributes.
+- Decomposition into BCNF:
+  Create a relation for the problematic dependency Μ -> Ν: Σ1(Μ, Ν) with primary key Μ.
+  Remove Ν from the original relation: Σ2(Κ, Λ, Μ) with primary key (Κ, Λ).
 ---
 
-Άσκηση 4, Δίνονται οι πίνακες Employee(emp_id, emp_name, salary, dept_id) και Department(dept_id, dept_name). Γράψτε ένα ερώτημα SQL που να βρίσκει το όνομα και το μισθό των υπαλλήλων που παίρνουν τον υψηλότερο μισθό στο τμήμα τους (χρήση συσχετιζόμενου υποερωτήματος - correlated subquery).
+Exercise 4: Given the tables Employee(emp_id, emp_name, salary, dept_id) and Department(dept_id, dept_name). Write an SQL query that finds the name and salary of the employees who earn the highest salary in their department (using a correlated subquery).
 ---
 *solution:*
 ```sql

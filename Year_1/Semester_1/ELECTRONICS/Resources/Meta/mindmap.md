@@ -23,7 +23,7 @@
 ### 1.4 Potential - Potential Difference - Voltage
 - 1.4.1 Principle of minimum energy
 - 1.4.2 Definition of potential V = E/q
-- 1.4.3 Voltage as potential difference ΔV
+- 1.4.3 Voltage as potential difference $\Delta V$
 
 ### 1.5 Electric Circuit & Conventional Current Direction
 - 1.5.1 Conditions for current flow
@@ -45,7 +45,7 @@
 ### 1.8 Capacitors
 - 1.8.1 Capacitance C = Q/V
 - 1.8.2 Capacitor energy (electric field)
-- 1.8.3 Time constant τ = R*C
+- 1.8.3 Time constant $\tau = R \cdot C$
 - 1.8.4 Dielectric and dielectric strength
 - 1.8.5 Series and parallel connections
 
@@ -118,17 +118,17 @@
 ### 2.6 Kirchhoff's Rules
 - 2.6.1 Definitions: branch, node, loop
 - 2.6.2 Reference direction and polarity
-- 2.6.3 1st Rule (currents): ΣI = 0
-- 2.6.4 2nd Rule (voltages): ΣV = 0
+- 2.6.3 1st Rule (currents): $\sum I = 0$
+- 2.6.4 2nd Rule (voltages): $\sum V = 0$
 
 ### 2.7 Mesh Analysis Method (M.A.M.)
 - 2.7.1 Number of independent loops: b - n + 1
-- 2.7.2 Matrix form: R11*I1 + R12*I2 = ΣV1
+- 2.7.2 Matrix form: $R_{11} I_1 + R_{12} I_2 = \sum V_1$
 - 2.7.3 Suitable for circuits with many voltage sources
 
 ### 2.8 Nodal Analysis Method (M.N.)
 - 2.8.1 Number of equations: n - 1
-- 2.8.2 Matrix form: G11*V1 + G12*V2 = ΣI1
+- 2.8.2 Matrix form: $G_{11} V_1 + G_{12} V_2 = \sum I_1$
 - 2.8.3 Suitable for circuits with many current sources
 
 ### 2.9 Maximum Power Transfer Theorem
@@ -268,8 +268,8 @@
 
 ### 4.2 Electrical Characteristics
 - 4.2.1 No bias: depletion region, 0.6-0.7V barrier (Si)
-- 4.2.2 Forward bias: narrows, low resistance (50-100Ω)
-- 4.2.3 Reverse bias: widens, high resistance (>10kΩ)
+- 4.2.2 Forward bias: narrows, low resistance ($50-100\ \Omega$)
+- 4.2.3 Reverse bias: widens, high resistance ($>10\ \text{k}\Omega$)
 - 4.2.4 Threshold voltage VT (0.7V Si, 0.2V Ge)
 - 4.2.5 Diode as switch (closed/open)
 
@@ -280,7 +280,7 @@
 - 4.3.4 Breakdown region (destructive for common diodes)
 
 ### 4.4 Characteristic Equation
-- 4.4.1 Shockley equation: ID = Is * exp(VD / (ηVT))
+- 4.4.1 Shockley equation: $I_D = I_s \cdot \exp(V_D / (\eta V_T))$
 - 4.4.2 Thermal voltage VT
 
 ### 4.5 Load Line and Operating Point
@@ -337,7 +337,7 @@
 - 5.5.1 Cavity with polished surfaces
 
 ### 5.6 Photodiode
-- 5.6.1 Reverse bias + illumination = current Iλ
+- 5.6.1 Reverse bias + illumination = current $I_\lambda$
 
 ### 5.7 Phototransistor
 
@@ -386,7 +386,7 @@
 ### 6.8 Smoothing Filters
 - 6.8.1 Capacitor smoothing
 - 6.8.2 Inductor smoothing
-- 6.8.3 Stabilization factor γ
+- 6.8.3 Stabilization factor $\gamma$
 
 ### 6.9 Zener Regulator
 - 6.9.1 Line
@@ -445,9 +445,9 @@
 - 7.7.4 Breakdown
 
 ### 7.8 Parameters
-- 7.8.1 βDC = IC/IB, αDC = IC/IE
-- 7.8.2 Relationships: α = β/(β+1), β = α/(1-α)
-- 7.8.3 IC = β*IB, IE = (β+1)*IB
+- 7.8.1 $\beta_{DC} = I_C/I_B$, $\alpha_{DC} = I_C/I_E$
+- 7.8.2 Relationships: $\alpha = \beta/(\beta+1)$, $\beta = \alpha/(1-\alpha)$
+- 7.8.3 $I_C = \beta \cdot I_B$, $I_E = (\beta+1) \cdot I_B$
 - 7.8.4 Early effect, VA voltage
 
 ### 7.9 Applications
@@ -486,7 +486,7 @@
 - 8.3.3.3 Maintains stable Q
 
 #### 8.3.4 Dual-Supply Emitter Biasing
-- 8.3.4.1 Stable Q independent of β
+- 8.3.4.1 Stable Q independent of $\beta$
 - 8.3.4.2 IB negligible
 
 #### 8.3.5 Emitter Feedback Biasing
@@ -522,7 +522,7 @@
 - 9.4.1 Notation (DC: capitals, AC: lowercase)
 - 9.4.2 DC and AC superposition
 - 9.4.3 Transconductance gm = IC/VT
-- 9.4.4 Input resistance rπ' = β/gm
+- 9.4.4 Input resistance $r_\pi' = \beta / g_m$
 - 9.4.5 Emitter resistance re' = VT/IE
 
 ### 9.5 DC Analysis of Amplifiers

@@ -1,29 +1,29 @@
 # Exam 2: Relational Theory & Basic SQL (Level: Medium)
 
-Ερώτηση Πολλαπλής Επιλογής 1, Ποια μορφή κανονικοποίησης απαιτεί την εξάλειψη των μερικών εξαρτήσεων (partial dependencies);
+Multiple Choice Question 1: Which normalization form requires the elimination of partial dependencies?
 [ ] 1. 1NF
 [✅] 2. 2NF
 [ ] 3. 3NF
 [ ] 4. BCNF
 ---
 *solution:*
-Η Δεύτερη Κανονική Μορφή (2NF) ορίζει ότι ένας πίνακας πρέπει να είναι σε 1NF και όλα τα μη-κλειδιά γνωρίσματα να εξαρτώνται πλήρως από το πρωτεύον κλειδί, εξαλείφοντας τις μερικές εξαρτήσεις.
+The Second Normal Form (2NF) states that a table must be in 1NF and all non-key attributes must depend fully on the primary key, eliminating partial dependencies.
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 2, Ποιο είδος JOIN επιστρέφει μόνο τις εγγραφές που έχουν αντιστοιχία και στους δύο πίνακες;
+Multiple Choice Question 2: Which type of JOIN returns only the records that have a match in both tables?
 [✅] 1. INNER JOIN
 [ ] 2. LEFT JOIN
 [ ] 3. RIGHT JOIN
 [ ] 4. FULL OUTER JOIN
 ---
 *solution:*
-Το INNER JOIN συνενώνει τους πίνακες διατηρώντας μόνο τις γραμμές που ικανοποιούν τη συνθήκη ένωσης.
+The INNER JOIN combines the tables keeping only the rows that satisfy the join condition.
 ---
 
-Άσκηση 3, Έστω οι πίνακες Course(course_id, title) και Student(student_id, name). Η σχέση μεταξύ φοιτητών και μαθημάτων είναι πολλά-προς-πολλά (M:N). Δείξτε τον σχεσιακό μετασχηματισμό σε SQL CREATE TABLE εντολές.
+Exercise 3: Given the tables Course(course_id, title) and Student(student_id, name). The relationship between students and courses is many-to-many (M:N). Show the relational transformation into SQL CREATE TABLE commands.
 ---
 *solution:*
-Σε σχέσεις πολλά-προς-πολλά δημιουργείται ένας ενδιάμεσος πίνακας.
+In many-to-many relationships an intermediate table is created.
 ```sql
 CREATE TABLE Course (
     course_id INT PRIMARY KEY,
@@ -45,7 +45,7 @@ CREATE TABLE Enrollment (
 ```
 ---
 
-Άσκηση 4, Βάσει του σχήματος της Άσκησης 3, γράψτε ερώτημα SQL που επιστρέφει το πλήθος των φοιτητών που έχουν εγγραφεί σε κάθε μάθημα (να εμφανίζεται το course_id και το πλήθος).
+Exercise 4: Based on the schema of Exercise 3, write an SQL query that returns the number of students enrolled in each course (displaying the course_id and the count).
 ---
 *solution:*
 ```sql

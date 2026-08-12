@@ -1,171 +1,171 @@
-# Ασκήσεις — Δρομολόγηση Διεργασιών (CPU Scheduling)
+# Exercises — Process Scheduling (CPU Scheduling)
 
-**Βασισμένες σε:** `OS_Lec09_NOTES.md`  
-**Αριθμός ασκήσεων:** 38
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Ορίστε: turnaround time, waiting time, response time, throughput, CPU utilization.
+**Based on:** `OS_Lec09_NOTES.md`  
+**Number of exercises:** 38
 
 ---
 
-### Άσκηση 2
-Διακρίνετε long-term, medium-term, short-term scheduling.
+## Part A — Theory
+
+### Exercise 1
+Define: turnaround time, waiting time, response time, throughput, CPU utilization.
 
 ---
 
-### Άσκηση 3
-Διακρίνετε preemptive και non-preemptive scheduling. Ποια αλγόριθμοι ανήκουν σε κάθε κατηγορία;
+### Exercise 2
+Distinguish long-term, medium-term, short-term scheduling.
 
 ---
 
-### Άσκηση 4
-Τι είναι CPU-I/O burst cycle; Γιατί επηρεάζει τη δρομολόγηση;
+### Exercise 3
+Distinguish preemptive and non-preemptive scheduling. Which algorithms belong to each category?
 
 ---
 
-### Άσκηση 5
-Εξηγήστε priority scheduling και το πρόβλημα starvation. Τι είναι aging;
+### Exercise 4
+What is the CPU-I/O burst cycle? Why does it affect scheduling?
 
 ---
 
-### Άσκηση 6
-Συγκρίνετε FCFS, SJF, SRTF, Round Robin (preemption, starvation, use case).
+### Exercise 5
+Explain priority scheduling and the starvation problem. What is aging?
 
 ---
 
-### Άσκηση 7
-Τι είναι time quantum στο RR; Ποια τα trade-offs μικρού vs μεγάλου quantum;
+### Exercise 6
+Compare FCFS, SJF, SRTF, Round Robin (preemption, starvation, use case).
 
 ---
 
-### Άσκηση 8
-Γιατί το RR ευνοεί CPU-bound έναντι I/O-bound; Τι είναι Virtual Round Robin;
+### Exercise 7
+What is the time quantum in RR? What are the trade-offs of a small vs large quantum?
 
 ---
 
-### Άσκηση 9
-Γιατί το SJF είναι βέλτιστο για μέσο waiting time αλλά δύσκολο στην πράξη;
+### Exercise 8
+Why does RR favor CPU-bound over I/O-bound? What is Virtual Round Robin?
 
 ---
 
-### Άσκηση 10
-Δώστε τον τύπο εκθετικού μέσου για εκτίμηση CPU burst: $\tau_{n+1} = \alpha t_n + (1-\alpha)\tau_n$.
+### Exercise 9
+Why is SJF optimal for average waiting time but difficult in practice?
 
 ---
 
-## Μέρος Β — Υπολογιστικές Ασκήσεις (Άφιξη t=0)
+### Exercise 10
+Give the exponential average formula for estimating the CPU burst: $\tau_{n+1} = \alpha t_n + (1-\alpha)\tau_n$.
 
-### Άσκηση 11
+---
+
+## Part B — Computational Exercises (Arrival t=0)
+
+### Exercise 11
 **FCFS**
 
-Διεργασίες P1–P5, burst: P1=1, P2=3, P3=4, P4=3, P5=1 (άφιξη 0, σειρά P1..P5).
+Processes P1–P5, burst: P1=1, P2=3, P3=4, P4=3, P5=1 (arrival 0, order P1..P5).
 
-(α) Συμπληρώστε διάγραμμα Gantt.  
-(β) Υπολογίστε turnaround, waiting, response για καθεμία.  
-(γ) Μέσος waiting time.
-
----
-
-### Άσκηση 12
-**SJF (non-preemptive)** — ίδιο σύνολο διεργασιών με Άσκηση 11.
-
-(α) Διάγραμμα Gantt.  
-(β) Response times.  
-(γ) Μέσος response time.
+(a) Complete the Gantt chart.  
+(b) Calculate turnaround, waiting, response for each.  
+(c) Average waiting time.
 
 ---
 
-### Άσκηση 13
-**Round Robin, q=2** — ίδιο σύνολο.
+### Exercise 12
+**SJF (non-preemptive)** — same set of processes as Exercise 11.
 
-(α) Διάγραμμα Gantt (ανά ms).  
-(β) Ουρά αναμονής ανά χρονική στιγμή (όπως στο 2023 exam).  
-(γ) Waiting times και μέσος waiting time.
-
----
-
-### Άσκηση 14
-**Round Robin, q=1** — ίδιο σύνολο. Συγκρίνετε context switches με q=2.
+(a) Gantt chart.  
+(b) Response times.  
+(c) Average response time.
 
 ---
 
-### Άσκηση 15
-**SRTF** — bursts P1=8, P2=4, P3=9, P4=5, άφιξη t=0.
+### Exercise 13
+**Round Robin, q=2** — same set.
 
-Διάγραμμα Gantt και waiting times.
+(a) Gantt chart (per ms).  
+(b) Waiting queue at each time instant (as in the 2023 exam).  
+(c) Waiting times and average waiting time.
 
 ---
 
-## Μέρος Γ — Διαφορετικοί Χρόνοι Άφιξης
+### Exercise 14
+**Round Robin, q=1** — same set. Compare context switches with q=2.
 
-### Άσκηση 16
+---
+
+### Exercise 15
+**SRTF** — bursts P1=8, P2=4, P3=9, P4=5, arrival t=0.
+
+Gantt chart and waiting times.
+
+---
+
+## Part C — Different Arrival Times
+
+### Exercise 16
 P1 burst=8 (t=0), P2 burst=4 (t=1), P3 burst=9 (t=2), P4 burst=5 (t=3).
 
-(α) SJF non-preemptive — Gantt.  
-(β) SRTF — Gantt.  
-(γ) Συγκρίνετε waiting times P1.
+(a) SJF non-preemptive — Gantt.  
+(b) SRTF — Gantt.  
+(c) Compare the waiting times of P1.
 
 ---
 
-### Άσκηση 17
-Με δεδομένα Άσκησης 16, RR με q=3. Υπολογίστε response time της P2.
+### Exercise 17
+With the data of Exercise 16, RR with q=3. Calculate the response time of P2.
 
 ---
 
-### Άσκηση 18
-4 διεργασίες: P1(24), P2(3), P3(3), άφιξη 0. FCFS vs SJF — πίνακας waiting times.
+### Exercise 18
+4 processes: P1(24), P2(3), P3(3), arrival 0. FCFS vs SJF — table of waiting times.
 
 ---
 
-### Άσκηση 19
-P1(10,t=0), P2(1,t=1), P3(2,t=2). SRTF: πόσες preemptions; Τελικός μέσος waiting;
+### Exercise 19
+P1(10,t=0), P2(1,t=1), P3(2,t=2). SRTF: how many preemptions? Final average waiting?
 
 ---
 
-## Μέρος Δ — Σύγκριση και Ανάλυση
+## Part D — Comparison and Analysis
 
-### Άσκηση 20
-Σημειώστε **Σ** ή **Λ**:
+### Exercise 20
+Mark **T** or **F**:
 
-1. Το FCFS είναι preemptive.
-2. Το SJF δίνει ελάχιστο μέσο waiting time για δεδομένο σύνολο.
-3. Το RR δεν προκαλεί starvation.
-4. Όταν όλες οι διεργασίες φτάνουν ταυτόχρονα, SRTF = SJF.
-5. Μεγάλο quantum στο RR το καθιστά παρόμοιο με FCFS.
-
----
-
-### Άσκηση 21
-Κυκλώστε τη σωστή απάντηση: Ποιος αλγόριθμος είναι κατάλληλος για interactive time-sharing;
-
-- α) FCFS  
-- β) SJF  
-- γ) Round Robin  
-- δ) Batch priority
+1. FCFS is preemptive.
+2. SJF gives the minimum average waiting time for a given set.
+3. RR does not cause starvation.
+4. When all processes arrive simultaneously, SRTF = SJF.
+5. A large quantum in RR makes it similar to FCFS.
 
 ---
 
-### Άσκηση 22
-Γιατί το context switch overhead αυξάνεται με μικρό quantum στο RR;
+### Exercise 21
+Circle the correct answer: Which algorithm is suitable for interactive time-sharing?
+
+- a) FCFS  
+- b) SJF  
+- c) Round Robin  
+- d) Batch priority
 
 ---
 
-### Άσκηση 23
-**Βελτιστοποίηση:** RR με q=100ms, bursts 5ms. Τι πρόβλημα παρατηρείτε;
+### Exercise 22
+Why does context switch overhead increase with a small quantum in RR?
 
 ---
 
-### Άσκηση 24
-Υπολογίστε $\tau_3$ αν $\alpha=0.5$, $t_1=10$, $t_2=6$, $\tau_1=\tau_2=8$.
+### Exercise 23
+**Optimization:** RR with q=100ms, bursts of 5ms. What problem do you observe?
 
 ---
 
-### Άσκηση 25
-Συμπληρώστε πίνακα:
+### Exercise 24
+Calculate $\tau_3$ if $\alpha=0.5$, $t_1=10$, $t_2=6$, $\tau_1=\tau_2=8$.
+
+---
+
+### Exercise 25
+Complete the table:
 
 | Algorithm | Preemptive | Starvation | Min avg waiting |
 | :--- | :--- | :--- | :--- |
@@ -176,67 +176,67 @@ P1(10,t=0), P2(1,t=1), P3(2,t=2). SRTF: πόσες preemptions; Τελικός �
 
 ---
 
-### Άσκηση 26
-**Σενάριο 2023 exam:** P1=1, P2=3, P3=4, P4=3, P5=1, SJF. Επαληθεύστε: response times 0,2,8,5,1 και μέσος 3.2 ms.
+### Exercise 26
+**2023 exam scenario:** P1=1, P2=3, P3=4, P4=3, P5=1, SJF. Verify: response times 0,2,8,5,1 and average 3.2 ms.
 
 ---
 
-### Άσκηση 27
-**Σενάριο 2023 exam:** ίδιες διεργασίες, RR q=2. Επαληθεύστε waiting times και μέσο 5.8 ms.
+### Exercise 27
+**2023 exam scenario:** same processes, RR q=2. Verify waiting times and average 5.8 ms.
 
 ---
 
-### Άσκηση 28
-Waiting time = Completion - Arrival - Burst. Δείξτε τον υπολογισμό για P2 στο RR q=2 (Άσκηση 13).
+### Exercise 28
+Waiting time = Completion - Arrival - Burst. Show the calculation for P2 in RR q=2 (Exercise 13).
 
 ---
 
-### Άσκηση 29
-Response time = χρόνος πρώτης εκτέλεσης - arrival. Διαφορά από waiting time;
+### Exercise 29
+Response time = time of first execution - arrival. Difference from waiting time?
 
 ---
 
-### Άσκηση 30
-5 διεργασίες, bursts 10,1,2,1,1. SJF. Ποια διεργασία παθαίνει starvation αν συνεχώς φτάνουν νέες με burst 1;
+### Exercise 30
+5 processes, bursts 10,1,2,1,1. SJF. Which process suffers starvation if new processes with burst 1 keep arriving?
 
 ---
 
-### Άσκηση 31
+### Exercise 31
 Priority: P1(prio 3, burst 10), P2(prio 1, burst 1), P3(prio 2, burst 2), non-preemptive. Gantt;
 
 ---
 
-### Άσκηση 32
-Πώς το aging αντιμετωπίζει starvation σε priority scheduling;
+### Exercise 32
+How does aging address starvation in priority scheduling?
 
 ---
 
-### Άσκηση 33
-**Exam tip:** Συνηθισμένα λάθη — (α) ξεχνούν preemption στο SRTF, (β) λάθος ουρά στο RR. Δώστε παράδειγμα για καθένα.
+### Exercise 33
+**Exam tip:** Common mistakes — (a) forgetting preemption in SRTF, (b) wrong queue in RR. Give an example for each.
 
 ---
 
-### Άσκηση 34
-8 διεργασίες, burst 6,8,7,3, μόνο αυτές 4. FCFS vs SJF — ποια έχει μικρότερο $\sum$ waiting;
+### Exercise 34
+8 processes, bursts 6,8,7,3, only these 4. FCFS vs SJF — which has the smaller $\sum$ waiting?
 
 ---
 
-### Άσκηση 35
-RR q=4, bursts 24,3,3. Πόσες φορές η P2 μπαίνει στην ουρά; Συγκρίνετε με FCFS για response της P2.
+### Exercise 35
+RR q=4, bursts 24,3,3. How many times does P2 enter the queue? Compare with FCFS for the response of P2.
 
 ---
 
-### Άσκηση 36
-Επιλέξτε κατάλληλο αλγόριθμο: (α) batch overnight jobs, (β) web server, (γ) real-time hard deadlines, (δ) known burst times batch.
+### Exercise 36
+Choose the appropriate algorithm: (a) batch overnight jobs, (b) web server, (c) real-time with hard deadlines, (d) batch with known burst times.
 
 ---
 
-### Άσκηση 37
-Σχεδιάστε Gantt για 3 διεργασίες RR q=2 χειροκίνητα και ελέγξτε waiting: P1(5), P2(3), P3(1).
+### Exercise 37
+Draw a Gantt chart for 3 processes with RR q=2 by hand and check the waiting: P1(5), P2(3), P3(1).
 
 ---
 
-### Άσκηση 38
-Συνδυαστική εξέτασης: 5 διεργασίες, bursts 2,1,8,4,5, άφιξη 0.
+### Exercise 38
+Combined exam exercise: 5 processes, bursts 2,1,8,4,5, arrival 0.
 
-Υπολογίστε μέσο waiting για FCFS, SJF, RR(q=2) και συγκρίνετε ποιος αλγόριθμος προτιμάται για batch vs interactive.
+Calculate the average waiting for FCFS, SJF, RR(q=2) and compare which algorithm is preferred for batch vs interactive.

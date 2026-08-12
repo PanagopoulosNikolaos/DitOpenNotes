@@ -29,7 +29,7 @@
 *Solve the following problems, showing all your work, including formulas and substitutions.*
 
 **Exercise 3 (0.6 points)**
-Two point charges, Q₁ = +5 μC and Q₂ = -2 μC, are located on the x-axis at x = 0 m and x = 3 m, respectively. Determine the magnitude and direction of the net electrostatic force on a third charge, Q₃ = +1 μC, placed at x = 6 m.
+Two point charges, Q₁ = +5 \mu C and Q₂ = -2 \mu C, are located on the x-axis at x = 0 m and x = 3 m, respectively. Determine the magnitude and direction of the net electrostatic force on a third charge, Q₃ = +1 \mu C, placed at x = 6 m.
 
 **Exercise 4 (0.6 points)**
 A long, straight cylindrical conductor with a radius of R = 4 cm carries a total current of I = 50 A, uniformly distributed over its cross-section. Calculate the magnitude of the magnetic field (B) at a distance of:
@@ -37,7 +37,7 @@ a) r = 2 cm from the center of the conductor.
 b) r = 8 cm from the center of the conductor.
 
 **Exercise 5 (0.6 points)**
-A parallel-plate capacitor is made of two circular plates, each with a radius of 10 cm, separated by a distance of 1.0 mm. The space between the plates is filled with a dielectric material with a dielectric constant κ = 4. Calculate the capacitance of the capacitor.
+A parallel-plate capacitor is made of two circular plates, each with a radius of 10 cm, separated by a distance of 1.0 mm. The space between the plates is filled with a dielectric material with a dielectric constant \kappa = 4. Calculate the capacitance of the capacitor.
 
 **Exercise 6 (0.6 points)**
 An electron is accelerated from rest through a potential difference of 2500 V. It then enters a region with a uniform magnetic field of B = 0.5 T, with its velocity perpendicular to the field lines. Calculate:
@@ -47,16 +47,16 @@ b) The magnitude of the magnetic force exerted on the electron.
 
 **Exercise 7 (0.6 points)**
 The electric field of a sinusoidal plane electromagnetic wave propagating in a vacuum is given by the equation:
-**E** = 5 cos(2x10⁷x - ωt) **ŷ** (V/m)
+**E** = 5 cos(2x10⁷x - \omega t) **ŷ** (V/m)
 Find:
-a) The wavelength (λ) and the angular frequency (ω) of the wave.
+a) The wavelength (\lambda) and the angular frequency (\omega) of the wave.
 b) The equation describing the corresponding magnetic field vector **B**.
 
 **Exercise 8 (0.6 points)**
 Using the wave from Exercise 7, calculate:
 a) The magnitude of the Poynting vector (**S**) as a function of time.
 b) The average intensity (I) of the wave.
-(μ₀ = 4π x 10⁻⁷ T·m/A, c = 3 x 10⁸ m/s).
+( \mu_0 = 4\pi x 10⁻⁷ T·m/A, c = 3 x 10⁸ m/s).
 
 **Exercise 9 (0.6 points)**
 A beam of light travels from glass (n₁ = 1.50) into water (n₂ = 1.33). The angle of incidence in the glass is 35°.
@@ -64,7 +64,7 @@ a) Calculate the angle of refraction in the water.
 b) Determine the critical angle for total internal reflection at the glass-water interface.
 
 **Exercise 10 (0.6 points)**
-A uniform linear charge distribution with a linear charge density of λ = 3.0 nC/m is stretched along the entire x-axis. Calculate the magnitude and direction of the electric field at a point P located on the y-axis at y = 4.0 m.
+A uniform linear charge distribution with a linear charge density of \lambda = 3.0 nC/m is stretched along the entire x-axis. Calculate the magnitude and direction of the electric field at a point P located on the y-axis at y = 4.0 m.
 
 **Exercise 11 (0.6 points)**
 A rectangular loop of wire with dimensions 5.0 cm by 10.0 cm is placed in a uniform magnetic field of B = 0.2 T. The loop carries a current of I = 2.0 A. Calculate the magnitude of the torque exerted on the loop when the angle between the magnetic field and the normal to the plane of the loop is 30°.

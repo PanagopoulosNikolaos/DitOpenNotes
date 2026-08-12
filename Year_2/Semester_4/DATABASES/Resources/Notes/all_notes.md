@@ -2,46 +2,46 @@
 # topic_1_introduction_and_basic_concepts.md
 ---
 
-# Εισαγωγή & Βασικές Έννοιες
+# Introduction & Basic Concepts
 *Introduction & Basic Concepts*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Δεδομένα, Πληροφορία και Γνώση](#δεδομένα-πληροφορία-και-γνώση)
-   - [Επεξεργασία Ακατέργαστων Δεδομένων (Data)](#επεξεργασία-ακατέργαστων-δεδομένων-data)
-   - [Παραγωγή Πληροφορίας (Information)](#παραγωγή-πληροφορίας-information)
-   - [Δημιουργία Γνώσης για Λήψη Αποφάσεων (Knowledge)](#δημιουργία-γνώσης-για-λήψη-αποφάσεων-knowledge)
-3. [Πληροφοριακά Συστήματα (ΠΣ)](#πληροφοριακά-συστήματα-πσ)
-   - [Υλικό (Hardware)](#υλικό-hardware)
-   - [Λογισμικό (Software)](#λογισμικό-software)
-   - [Δεδομένα (Data)](#δεδομένα-data)
-   - [Διαδικασίες (Processes)](#διαδικασίες-processes)
-   - [Άνθρωποι (People)](#άνθρωποι-people)
-4. [Συστήματα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ / DBMS)](#συστήματα-διαχείρισης-βάσεων-δεδομένων-σδβδ--dbms)
-   - [Αποθήκευση, Ανάκτηση και Αποδοτική Διαχείριση](#αποθήκευση-ανάκτηση-και-αποδοτική-διαχείριση)
-   - [Προστασία Δεδομένων και Πολιτικές Ασφαλείας](#προστασία-δεδομένων-και-πολιτικές-ασφαλείας)
-   - [Ταυτόχρονη Πρόσβαση (Concurrency)](#ταυτόχρονη-πρόσβαση-concurrency)
-   - [Ελαχιστοποίηση Πλεονασμού και Ασυνέπειας Δεδομένων](#ελαχιστοποίηση-πλεονασμού-και-ασυνέπειας-δεδομένων)
-5. [Συγκριτικός Πίνακας: DBMS vs. Συστήματα Αρχείων](#συγκριτικός-πίνακας-dbms-vs-συστήματα-αρχείων)
-6. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-7. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Data, Information and Knowledge](#data-information-and-knowledge)
+   - [Processing of Raw Data](#processing-of-raw-data)
+   - [Production of Information](#production-of-information)
+   - [Creation of Knowledge for Decision-Making](#creation-of-knowledge-for-decision-making)
+3. [Information Systems (IS)](#information-systems-is)
+   - [Hardware](#hardware)
+   - [Software](#software)
+   - [Data](#data)
+   - [Processes](#processes)
+   - [People](#people)
+4. [Database Management Systems (DBMS)](#database-management-systems-dbms)
+   - [Storage, Retrieval and Efficient Management](#storage-retrieval-and-efficient-management)
+   - [Data Protection and Security Policies](#data-protection-and-security-policies)
+   - [Concurrent Access](#concurrent-access)
+   - [Minimization of Data Redundancy and Inconsistency](#minimization-of-data-redundancy-and-inconsistency)
+5. [Comparative Table: DBMS vs. File Systems](#comparative-table-dbms-vs-file-systems)
+6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+7. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Οι Βάσεις Δεδομένων αποτελούν τον ακρογωνιαίο λίθο της σύγχρονης πληροφορικής υποδομής, καθώς κάθε σύστημα που χειρίζεται δεδομένα — από ηλεκτρονικά καταστήματα μέχρι ιατρικά αρχεία — βασίζεται στις αρχές τους. Η ανάγκη για δομημένη, αξιόπιστη και ταχεία πρόσβαση σε μεγάλες ποσότητες δεδομένων οδήγησε στη μετάβαση από τα παραδοσιακά συστήματα αρχείων (file-based systems) στα σύγχρονα Συστήματα Διαχείρισης Βάσεων Δεδομένων (DBMS). Η κατανόηση της ιεραρχίας Δεδομένων → Πληροφορία → Γνώση, της δομής των Πληροφοριακών Συστημάτων και των θεμελιωδών χαρακτηριστικών ενός DBMS είναι απαραίτητη πριν από οποιαδήποτε μελέτη σχεδιασμού ή ερωτημάτων βάσεων δεδομένων.
+Databases form the cornerstone of modern computing infrastructure, since every system that handles data — from e-commerce stores to medical records — relies on their principles. The need for structured, reliable and fast access to large volumes of data led to the transition from traditional file-based systems to modern Database Management Systems (DBMS). Understanding the Data → Information → Knowledge hierarchy, the structure of Information Systems and the fundamental characteristics of a DBMS is essential before any study of database design or querying.
 
 ---
 
-## Δεδομένα, Πληροφορία και Γνώση
+## Data, Information and Knowledge
 *Data, Information and Knowledge*
 
-Η κατανόηση της διαφοράς μεταξύ δεδομένων, πληροφορίας και γνώσης είναι θεμελιώδης. Οι τρεις αυτές έννοιες σχηματίζουν μια ιεραρχία — κάθε επόμενο επίπεδο πηγαίνει από το ακατέργαστο και αδιάρθρωτο στο ερμηνευμένο και εφαρμόσιμο.
+Understanding the difference between data, information and knowledge is fundamental. These three concepts form a hierarchy — each successive level moves from the raw and unstructured to the interpreted and applicable.
 
 ```text
   Ακατέργαστα γεγονότα / συμβάντα
@@ -65,45 +65,45 @@
      [ ΑΠΟΦΑΣΗ / ACTION ]
 ```
 
-### Επεξεργασία Ακατέργαστων Δεδομένων (Data)
+### Processing of Raw Data
 *Processing of Raw Data*
 
-**Δεδομένο (Data)** είναι ένα ακατέργαστο, αδιερμήνευτο γεγονός ή συμβάν που καταγράφεται χωρίς πλαίσιο ή σημασία. Αντιστοιχεί σε αριθμούς, χαρακτήρες, εικόνες, ήχους ή οποιαδήποτε άλλη ακατέργαστη καταγραφή.
+**Data** is a raw, uninterpreted fact or event recorded without context or meaning. It corresponds to numbers, characters, images, sounds or any other raw recording.
 
-- **Χαρακτηριστικά**: Δεν έχει νόημα από μόνο του, είναι αντικειμενικό και ανεπεξέργαστο.
-- **Παραδείγματα**: `37`, `Αθήνα`, `2024-05-01`, `912345678`, `85`.
+- **Characteristics**: Has no meaning on its own; it is objective and unprocessed.
+- **Examples**: `37`, `Αθήνα`, `2024-05-01`, `912345678`, `85`.
 
-**Αναλογία**: Φανταστείτε μια αποθήκη βιβλιοθήκης με χιλιάδες χαρτιά πεσμένα τυχαία στο πάτωμα. Κάθε χαρτί έχει γραμμένο έναν αριθμό ή μια λέξη — αυτά είναι τα δεδομένα. Δεν γνωρίζουμε ακόμα τι σημαίνουν.
+**Analogy**: Imagine a library warehouse with thousands of papers scattered randomly on the floor. Each paper has a number or a word written on it — these are the data. We do not yet know what they mean.
 
-**Key Distinction:** Τα δεδομένα από μόνα τους δεν μπορούν να χρησιμοποιηθούν για τη λήψη αποφάσεων. Χρειάζεται επεξεργασία για να αποκτήσουν νόημα.
+**Key Distinction:** Data on their own cannot be used for decision-making. Processing is needed for them to acquire meaning.
 
 ---
 
-### Παραγωγή Πληροφορίας (Information)
+### Production of Information
 *Production of Information*
 
-**Πληροφορία (Information)** είναι το αποτέλεσμα της επεξεργασίας, οργάνωσης ή ερμηνείας των δεδομένων με τρόπο που αποδίδει νόημα και χρησιμότητα σε έναν παραλήπτη.
+**Information** is the result of processing, organizing or interpreting data in a way that attributes meaning and usefulness to a recipient.
 
-- **Χαρακτηριστικά**: Έχει πλαίσιο, σκοπό και νόημα. Απαντά σε ερωτήσεις του τύπου "ποιος", "τι", "πότε", "πού".
-- **Παράδειγμα**: Τα δεδομένα `85` (βαθμός), `Νικόλαος Παναγόπουλος` (φοιτητής), `Βάσεις Δεδομένων` (μάθημα) μαζί παράγουν την πληροφορία: "Ο φοιτητής Νικόλαος Παναγόπουλος έλαβε βαθμό 85 στο μάθημα Βάσεις Δεδομένων."
+- **Characteristics**: Has context, purpose and meaning. Answers questions of the type "who", "what", "when", "where".
+- **Example**: The data `85` (grade), `Νικόλαος Παναγόπουλος` (student), `Βάσεις Δεδομένων` (course) together produce the information: "The student Νικόλαος Παναγόπουλος received a grade of 85 in the course Βάσεις Δεδομένων."
 
-| Δεδομένα (Data) | Πληροφορία (Information) |
+| Data | Information |
 |---|---|
-| `85` | Βαθμός φοιτητή σε συγκεκριμένο μάθημα |
-| `37` | Θερμοκρασία σε Κελσίου για σήμερα στην Αθήνα |
-| `2024-05-01` | Ημερομηνία εξέτασης για το μάθημα Βάσεις Δεδομένων |
+| `85` | Student's grade in a specific course |
+| `37` | Temperature in Celsius for Athens today |
+| `2024-05-01` | Examination date for the course Βάσεις Δεδομένων |
 
-**Exam Note:** Η πληροφορία δεν είναι απλώς "περισσότερα δεδομένα" — είναι δεδομένα με **πλαίσιο και σκοπό**. Αυτή είναι η θεμελιώδης διαφορά.
+**Exam Note:** Information is not simply "more data" — it is data with **context and purpose**. This is the fundamental difference.
 
 ---
 
-### Δημιουργία Γνώσης για Λήψη Αποφάσεων (Knowledge)
+### Creation of Knowledge for Decision-Making
 *Creation of Knowledge for Decision-Making*
 
-**Γνώση (Knowledge)** είναι η εφαρμογή πληροφοριών μέσω εμπειρίας, ανάλυσης και συμφραζομένων (context), με αποτέλεσμα να καθίσταται δυνατή η λήψη τεκμηριωμένων αποφάσεων.
+**Knowledge** is the application of information through experience, analysis and context, with the result that well-informed decisions can be made.
 
-- **Χαρακτηριστικά**: Είναι συμφραζόμενη, δυναμική και βασίζεται σε συσσωρευμένη εμπειρία.
-- **Παράδειγμα**: Αφού αναλύσουμε βαθμούς πολλών φοιτητών (πληροφορία), γνωρίζουμε ότι "φοιτητές που δεν έχουν παρακολουθήσει τα εργαστήρια αποτυγχάνουν στις εξετάσεις", οπότε λαμβάνεται η απόφαση να γίνει υποχρεωτική η παρακολούθηση.
+- **Characteristics**: Contextual, dynamic and based on accumulated experience.
+- **Example**: After analyzing the grades of many students (information), we know that "students who have not attended the laboratories fail the exams", so the decision is made to make attendance mandatory.
 
 ```text
   Δεδομένα:   37, 38, 36, 39, 40  (θερμοκρασίες)
@@ -117,14 +117,14 @@
 
 ---
 
-## Πληροφοριακά Συστήματα (ΠΣ)
+## Information Systems (IS)
 *Information Systems (IS)*
 
-Ένα **Πληροφοριακό Σύστημα (ΠΣ)** (Information System) είναι ένα οργανωμένο σύνολο αλληλοσυνδεδεμένων στοιχείων που συλλέγει, αποθηκεύει, επεξεργάζεται και διαδίδει πληροφορίες για την υποστήριξη της λήψης αποφάσεων και του ελέγχου ενός οργανισμού.
+An **Information System (IS)** is an organized set of interconnected components that collects, stores, processes and disseminates information to support decision-making and control within an organization.
 
-**Αναλογία**: Ένα ΠΣ λειτουργεί σαν το νευρικό σύστημα ενός οργανισμού — συλλέγει σήματα (δεδομένα) από το περιβάλλον, τα επεξεργάζεται και στέλνει εντολές (πληροφορία) στα κατάλληλα τμήματα για δράση.
+**Analogy**: An IS operates like the nervous system of an organization — it collects signals (data) from the environment, processes them and sends commands (information) to the appropriate departments for action.
 
-Τα πέντε βασικά συστατικά ενός ΠΣ είναι:
+The five basic components of an IS are:
 
 ```text
   +--------------------------------------------------+
@@ -140,71 +140,82 @@
   +--------------------------------------------------+
 ```
 
-### Υλικό (Hardware)
+### Hardware
 *Hardware*
 
-**Υλικό (Hardware)** είναι το σύνολο των φυσικών, απτών συσκευών που αποτελούν την υποδομή του πληροφοριακού συστήματος.
+**Hardware** is the set of physical, tangible devices that constitute the infrastructure of the information system.
 
-- Servers, σταθμοί εργασίας (workstations), δικτυακές συσκευές (routers, switches).
-- Μέσα αποθήκευσης: HDD, SSD, NAS (Network-Attached Storage), cloud storage.
-- Περιφερειακές συσκευές εισόδου/εξόδου (εκτυπωτές, σαρωτές, οθόνες).
+- Servers, workstations, network devices (routers, switches).
+- Storage media: HDD, SSD, NAS (Network-Attached Storage), cloud storage.
+- Peripheral input/output devices (printers, scanners, monitors).
 
-**Exam Note:** Το hardware είναι το **φυσικό στρώμα** του ΠΣ — χωρίς αυτό, τίποτα άλλο δεν μπορεί να λειτουργήσει.
+**Exam Note:** Hardware is the **physical layer** of the IS — without it, nothing else can function.
 
 ---
 
-### Λογισμικό (Software)
+### Software
 *Software*
 
-**Λογισμικό (Software)** είναι το σύνολο των προγραμμάτων, εφαρμογών και λειτουργικών συστημάτων που ελέγχουν το υλικό και επεξεργάζονται τα δεδομένα.
+**Software** is the set of programs, applications and operating systems that control the hardware and process the data.
 
-- **Λογισμικό Συστήματος**: Λειτουργικά συστήματα (Linux, Windows Server), drivers.
-- **Λογισμικό Εφαρμογών**: Λογισμικό διαχείρισης ERP, CRM, εφαρμογές ιστού.
+- **System Software**: Operating systems (Linux, Windows Server), drivers.
+- **Application Software**: ERP, CRM management software, web applications.
 - **DBMS Software**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.
 
 ---
 
-### Δεδομένα (Data)
+### Data
 *Data*
 
-Στο πλαίσιο των ΠΣ, τα **Δεδομένα** αποτελούν τον πυρήνα του συστήματος — είναι η πρώτη ύλη που αποθηκεύεται, οργανώνεται, επεξεργάζεται και ανακτάται.
+In the context of IS, **Data** constitute the core of the system — they are the raw material that is stored, organized, processed and retrieved.
 
-- Δομημένα δεδομένα (structured): Αποθηκεύονται σε πίνακες (tables) με σαφές σχήμα.
-- Ημι-δομημένα (semi-structured): XML, JSON αρχεία.
-- Αδόμητα (unstructured): Εικόνες, βίντεο, email, έγγραφα κειμένου.
+- Structured data: Stored in tables with a clear schema.
+- Semi-structured: XML, JSON files.
+- Unstructured: Images, videos, emails, text documents.
 
 ---
 
-### Διαδικασίες (Processes)
+### Processes
 *Processes*
 
-**Διαδικασίες (Processes)** είναι τα σύνολα κανόνων, πολιτικών και διαδικαστικών βημάτων που ορίζουν πώς συλλέγονται, αποθηκεύονται, επεξεργάζονται και διανέμονται τα δεδομένα εντός του οργανισμού.
+**Processes** are the sets of rules, policies and procedural steps that define how data are collected, stored, processed and distributed within the organization.
 
-- Περιλαμβάνουν διαδικασίες εισαγωγής δεδομένων (data entry procedures), διαδικασίες δημιουργίας αντιγράφων ασφαλείας (backup procedures), και ροές εργασίας (workflows).
-- **Exam Note:** Χωρίς καλά ορισμένες διαδικασίες, ακόμα και το καλύτερο υλικό και λογισμικό δεν μπορεί να παράγει αξιόπιστα αποτελέσματα.
+- They include data entry procedures, backup procedures, and workflows.
+- **Exam Note:** Without well-defined processes, even the best hardware and software cannot produce reliable results.
 
 ---
 
-### Άνθρωποι (People)
+### People
 *People — Users & Administrators*
 
-**Άνθρωποι (People)** είναι ένα από τα πιο κρίσιμα στοιχεία του ΠΣ. Διακρίνονται σε δύο βασικές κατηγορίες:
+**People** are one of the most critical components of the IS. They are distinguished into two basic categories:
 
-| Ρόλος | Περιγραφή | Αρμοδιότητες |
+| Role | Description | Responsibilities |
 |---|---|---|
-| **Χρήστες (Users)** | Άτομα που αλληλεπιδρούν καθημερινά με το σύστημα | Εισαγωγή δεδομένων, εκτέλεση ερωτημάτων, ανάγνωση αναφορών |
-| **Διαχειριστές (Administrators / DBA)** | Database Administrators — ειδικευμένοι τεχνικοί | Εγκατάσταση, ρύθμιση, συντήρηση, ασφάλεια, backup/restore |
+| **Users** | Individuals who interact daily with the system | Data entry, executing queries, reading reports |
+| **Administrators / DBA** | Database Administrators — specialized technicians | Installation, configuration, maintenance, security, backup/restore |
 
-**Database Administrator (DBA)** είναι ο ρόλος που φέρει την ευθύνη για την εύρυθμη λειτουργία, την απόδοση, την ασφάλεια και την ακεραιότητα της βάσης δεδομένων.
+**Database Administrator (DBA)** is the role responsible for the smooth operation, performance, security and integrity of the database.
 
 ---
 
-## Συστήματα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ / DBMS)
+## Database Management Systems (DBMS)
 *Database Management Systems*
 
-**Σύστημα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ)** (Database Management System — DBMS) είναι ένα σύνολο λογισμικού που επιτρέπει τη δημιουργία, συντήρηση, ανάκτηση και διαχείριση βάσεων δεδομένων με αποδοτικό, ασφαλή και οργανωμένο τρόπο.
+**Database Management System (DBMS)** is a set of software that enables the creation, maintenance, retrieval and management of databases in an efficient, secure and organized manner.
 
-**Αναλογία**: Ένα DBMS είναι σαν έναν βιβλιοθηκάριο σε μια τεράστια βιβλιοθήκη: γνωρίζει πού βρίσκεται κάθε βιβλίο (δεδομένο), εξυπηρετεί πολλούς χρήστες ταυτόχρονα, φροντίζει να μην υπάρχουν διπλές εγγραφές του ίδιου βιβλίου, και εξασφαλίζει ότι μόνο εξουσιοδοτημένα άτομα έχουν πρόσβαση σε ευαίσθητο υλικό.
+**Analogy**: A DBMS is like a librarian in a huge library: it knows where every book (datum) is, serves many users simultaneously, ensures there are no duplicate copies of the same book, and guarantees that only authorized individuals have access to sensitive material.
+
+The four basic characteristics of a DBMS are analyzed below:
+
+### Storage, Retrieval and Efficient Management
+*Storage, Retrieval and Efficient Management*
+
+A DBMS provides mechanisms for:
+
+- **Storage**: Data are stored in a structured form (tables, indexes) on disk, in a way that allows fast access.
+- **Retrieval**: Through the SQL query language, the user can retrieve specific data accurately.
+- **Efficient Management**: The Query Optimizer selects the optimal execution plan for each query, minimizing response time.
 
 ```text
   +----------------------------------------------------------+
@@ -240,19 +251,19 @@ FROM students
 WHERE grade >= 50;
 ```
 
-**Exam Note:** Η αποδοτική ανάκτηση διαφοροποιεί ένα DBMS από ένα απλό σύστημα αρχείων. Τα Indexes επιταχύνουν τις αναζητήσεις αποφεύγοντας πλήρη σάρωση πίνακα (full table scan).
+**Exam Note:** Efficient retrieval is what differentiates a DBMS from a simple file system. Indexes speed up searches by avoiding full table scans.
 
 ---
 
-### Προστασία Δεδομένων και Πολιτικές Ασφαλείας
+### Data Protection and Security Policies
 *Data Protection and Security Policies*
 
-Ένα DBMS διαθέτει ενσωματωμένους μηχανισμούς ασφαλείας:
+A DBMS has built-in security mechanisms:
 
-- **Authentication**: Επαλήθευση ταυτότητας χρήστη (username/password, roles).
-- **Authorization**: Έλεγχος δικαιωμάτων πρόσβασης ανά χρήστη ή ρόλο (GRANT/REVOKE στη SQL).
-- **Encryption**: Κρυπτογράφηση δεδομένων κατά την αποθήκευση (at rest) και τη μεταφορά (in transit).
-- **Audit Logs**: Καταγραφή όλων των ενεργειών για σκοπούς ελέγχου (auditing).
+- **Authentication**: User identity verification (username/password, roles).
+- **Authorization**: Access-rights control per user or role (GRANT/REVOKE in SQL).
+- **Encryption**: Data encryption at rest and in transit.
+- **Audit Logs**: Logging of all actions for auditing purposes.
 
 ```sql
 -- Παραχώρηση δικαιωμάτων ανάγνωσης σε συγκεκριμένο χρήστη
@@ -262,28 +273,28 @@ GRANT SELECT ON students TO 'professor_user'@'localhost';
 REVOKE SELECT ON students FROM 'professor_user'@'localhost';
 ```
 
-| Μηχανισμός Ασφαλείας | Λειτουργία |
+| Security Mechanism | Function |
 |---|---|
-| Authentication | Επαλήθευση ταυτότητας χρήστη |
-| Authorization (GRANT/REVOKE) | Καθορισμός δικαιωμάτων ανά χρήστη/ρόλο |
-| Views | Περιορισμός ορατότητας δεδομένων |
-| Encryption | Προστασία δεδομένων από μη εξουσιοδοτημένη ανάγνωση |
-| Backup & Recovery | Ανάκτηση δεδομένων μετά από αποτυχία |
+| Authentication | User identity verification |
+| Authorization (GRANT/REVOKE) | Definition of permissions per user/role |
+| Views | Restricting data visibility |
+| Encryption | Protecting data from unauthorized reading |
+| Backup & Recovery | Data recovery after failure |
 
 ---
 
-### Ταυτόχρονη Πρόσβαση (Concurrency)
+### Concurrent Access
 *Concurrent Access*
 
-**Ταυτόχρονη Πρόσβαση (Concurrency Control)** είναι η ικανότητα του DBMS να επιτρέπει σε πολλαπλούς χρήστες να προσπελαύνουν και να τροποποιούν δεδομένα **ταυτόχρονα**, χωρίς να προκύπτουν ασυνέπειες.
+**Concurrency Control** is the ability of the DBMS to allow multiple users to access and modify data **simultaneously**, without inconsistencies arising.
 
-**Αναλογία**: Φανταστείτε δύο ταμίες τράπεζας που εξυπηρετούν ταυτόχρονα δύο πελάτες που θέλουν να κάνουν ανάληψη από τον ίδιο λογαριασμό. Χωρίς Concurrency Control, και οι δύο ταμίες θα έβλεπαν το αρχικό υπόλοιπο και θα εγκρίνουν και τις δύο αναλήψεις — αν και το υπόλοιπο επαρκεί μόνο για τη μία. Το DBMS αποτρέπει αυτό το σενάριο.
+**Analogy**: Imagine two bank tellers simultaneously serving two customers who want to withdraw from the same account. Without Concurrency Control, both tellers would see the initial balance and approve both withdrawals — even though the balance suffices only for one. The DBMS prevents this scenario.
 
-Βασικοί μηχανισμοί Concurrency Control:
+Basic Concurrency Control mechanisms:
 
-- **Transactions**: Ομαδοποίηση λειτουργιών σε ατομικές μονάδες.
-- **Locking**: Κλείδωμα εγγραφών κατά την τροποποίησή τους.
-- **MVCC** (Multi-Version Concurrency Control): Τεχνική που επιτρέπει ανάγνωση χωρίς αναμονή.
+- **Transactions**: Grouping operations into atomic units.
+- **Locking**: Locking records while they are being modified.
+- **MVCC** (Multi-Version Concurrency Control): A technique that allows reading without waiting.
 
 ```text
   Χρήστης Α                Χρήστης Β
@@ -299,16 +310,16 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
                            COMMIT
 ```
 
-**Key Distinction:** Τα παραδοσιακά συστήματα αρχείων (file systems) δεν διαθέτουν ενσωματωμένο Concurrency Control — αυτό αποτελεί κύριο πλεονέκτημα των DBMS.
+**Key Distinction:** Traditional file systems do not have built-in Concurrency Control — this is a major advantage of DBMS.
 
 ---
 
-### Ελαχιστοποίηση Πλεονασμού και Ασυνέπειας Δεδομένων
+### Minimization of Data Redundancy and Inconsistency
 *Minimization of Data Redundancy and Inconsistency*
 
-**Πλεονασμός Δεδομένων (Data Redundancy)** εμφανίζεται όταν τα ίδια δεδομένα αποθηκεύονται σε πολλαπλές θέσεις. Αυτό οδηγεί σε **Ασυνέπεια Δεδομένων (Data Inconsistency)** — διαφορετικά αντίγραφα αποκλίνουν μεταξύ τους.
+**Data Redundancy** occurs when the same data are stored in multiple locations. This leads to **Data Inconsistency** — different copies diverge from each other.
 
-**Παράδειγμα Προβλήματος (File-Based System)**:
+**Example of the Problem (File-Based System)**:
 ```text
   Αρχείο Μαθητών:      | ID | Όνομα      | Τμήμα    | Τηλ. Τμήματος |
   ----------------------|----|------------|----------|----------------|
@@ -320,7 +331,7 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
                         | ΠΛΗ   | 210-9999999 |  <-- ΑΣΥΝΕΠΕΙΑ!
 ```
 
-**Λύση μέσω DBMS — Κανονικοποίηση (Normalization)**:
+**Solution via DBMS — Normalization**:
 ```text
   Πίνακας Φοιτητές:    | student_id | name     | dept_id |
                         |------------|----------|---------|
@@ -332,104 +343,104 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
                         |   10    | ΠΛΗ       | 210-1234567 |
 ```
 
-Τώρα το τηλέφωνο αποθηκεύεται **μόνο μία φορά**. Αν αλλάξει, ενημερώνεται σε ένα μόνο σημείο.
+Now the phone number is stored **only once**. If it changes, it is updated in a single place.
 
-**Exam Note:** Η **Κανονικοποίηση (Normalization)** είναι η διαδικασία σχεδιασμού σχεσιακών πινάκων με σκοπό την ελαχιστοποίηση πλεονασμού και την εξαλείφει ασυνέπειας. Συνδέεται άμεσα με τις Κανονικές Μορφές (Normal Forms): 1NF, 2NF, 3NF, BCNF.
+**Exam Note:** **Normalization** is the process of designing relational tables with the aim of minimizing redundancy and eliminating inconsistency. It is directly related to the Normal Forms: 1NF, 2NF, 3NF, BCNF.
 
 ---
 
-## Συγκριτικός Πίνακας: DBMS vs. Συστήματα Αρχείων
+## Comparative Table: DBMS vs. File Systems
 *Comparative Table: DBMS vs. File Processing Systems*
 
-| Χαρακτηριστικό | DBMS | Σύστημα Αρχείων (File System) |
+| Characteristic | DBMS | File System |
 |---|---|---|
-| **Πλεονασμός Δεδομένων** | Ελαχιστοποιείται μέσω κανονικοποίησης | Υψηλός — πολλαπλά αντίγραφα |
-| **Ασυνέπεια Δεδομένων** | Αποτρέπεται από τους περιορισμούς ακεραιότητας | Συχνή — διαφορετικά αρχεία αποκλίνουν |
-| **Ταυτόχρονη Πρόσβαση** | Ενσωματωμένος Concurrency Control | Δύσκολη ή ανύπαρκτη |
-| **Ασφάλεια Δεδομένων** | Λεπτομερής έλεγχος πρόσβασης (GRANT/REVOKE) | Βασισμένη μόνο στο OS |
-| **Ανεξαρτησία Δεδομένων** | Υψηλή (logical & physical separation) | Χαμηλή (δομή δεδομένων δεμένη με τον κώδικα) |
-| **Ανάκτηση μετά από Αποτυχία** | Αυτοματοποιημένη μέσω Transaction Logs | Χειροκίνητη, επιρρεπής σε σφάλματα |
-| **Ακεραιότητα Δεδομένων** | Επιβάλλεται μέσω περιορισμών (Constraints) | Η εφαρμογή φέρει την ευθύνη |
-| **Υποστήριξη Queries** | Ισχυρή γλώσσα ερωτημάτων (SQL) | Απαιτεί custom κώδικα |
-| **Κλιμακωσιμότητα** | Υψηλή — διαχειρίζεται TB δεδομένων | Περιορισμένη |
+| **Data Redundancy** | Minimized through normalization | High — multiple copies |
+| **Data Inconsistency** | Prevented by integrity constraints | Frequent — different files diverge |
+| **Concurrent Access** | Built-in Concurrency Control | Difficult or nonexistent |
+| **Data Security** | Detailed access control (GRANT/REVOKE) | Based only on the OS |
+| **Data Independence** | High (logical & physical separation) | Low (data structure tied to code) |
+| **Recovery after Failure** | Automated via Transaction Logs | Manual, error-prone |
+| **Data Integrity** | Enforced through constraints | The application bears the responsibility |
+| **Query Support** | Powerful query language (SQL) | Requires custom code |
+| **Scalability** | High — manages TB of data | Limited |
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό |
+| Concept | Definition | Key Characteristic |
 |---|---|---|
-| **Δεδομένο (Data)** | Ακατέργαστο, αδιερμήνευτο γεγονός ή μέτρηση | Αντικειμενικό, χωρίς πλαίσιο |
-| **Πληροφορία (Information)** | Επεξεργασμένα δεδομένα με νόημα και πλαίσιο | Απαντά σε "ποιος/τι/πότε/πού" |
-| **Γνώση (Knowledge)** | Πληροφορία εμπλουτισμένη με εμπειρία και ανάλυση | Βάση για λήψη αποφάσεων |
-| **ΠΣ (Information System)** | Σύνολο Hardware + Software + Data + Processes + People | Υποστηρίζει οργανωτικές αποφάσεις |
-| **DBMS** | Λογισμικό διαχείρισης βάσεων δεδομένων | Αποθήκευση, ανάκτηση, ασφάλεια, concurrency |
-| **DBA** | Database Administrator | Συντήρηση, ασφάλεια, απόδοση DBMS |
-| **Concurrency Control** | Διαχείριση ταυτόχρονης πρόσβασης πολλών χρηστών | Αποτρέπει ασυνέπειες σε ταυτόχρονες συναλλαγές |
-| **Data Redundancy** | Αποθήκευση ίδιων δεδομένων σε πολλαπλές θέσεις | Οδηγεί σε Data Inconsistency |
-| **Normalization** | Διαδικασία σχεδιασμού για μείωση πλεονασμού | Εφαρμόζει Κανονικές Μορφές (1NF–BCNF) |
-| **Transaction** | Ατομική μονάδα εργασίας στο DBMS | Ακολουθεί τις ιδιότητες ACID |
+| **Data** | Raw, uninterpreted fact or measurement | Objective, without context |
+| **Information** | Processed data with meaning and context | Answers "who/what/when/where" |
+| **Knowledge** | Information enriched with experience and analysis | Basis for decision-making |
+| **IS (Information System)** | Set of Hardware + Software + Data + Processes + People | Supports organizational decisions |
+| **DBMS** | Database management software | Storage, retrieval, security, concurrency |
+| **DBA** | Database Administrator | Maintenance, security, DBMS performance |
+| **Concurrency Control** | Management of concurrent access by many users | Prevents inconsistencies in concurrent transactions |
+| **Data Redundancy** | Storing the same data in multiple locations | Leads to Data Inconsistency |
+| **Normalization** | Design process to reduce redundancy | Applies Normal Forms (1NF–BCNF) |
+| **Transaction** | Atomic unit of work in the DBMS | Follows the ACID properties |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- **Data → Information → Knowledge**: Η ιεραρχία αυτή περιγράφει πώς τα ακατέργαστα γεγονότα μετατρέπονται σε εργαλεία λήψης αποφάσεων μέσω επεξεργασίας και ερμηνείας.
-- Ένα **Πληροφοριακό Σύστημα** αποτελείται από πέντε αλληλεξαρτώμενα στοιχεία: Hardware, Software, Data, Processes, People — η αφαίρεση οποιουδήποτε υποβαθμίζει το σύνολο.
-- Ένα **DBMS** υπερτερεί σαφώς των παραδοσιακών συστημάτων αρχείων σε ανεξαρτησία δεδομένων, ασφάλεια, concurrency και ακεραιότητα.
-- Το **Concurrency Control** είναι κρίσιμο σε πολυχρηστικά περιβάλλοντα — χωρίς αυτό, ταυτόχρονες εγγραφές μπορούν να οδηγήσουν σε καταστροφική απώλεια δεδομένων.
-- Ο **πλεονασμός δεδομένων** δεν είναι απλώς σπατάλη χώρου — οδηγεί σε ασυνέπεια, δυσκολία συντήρησης και αναξιόπιστα αποτελέσματα ερωτημάτων.
-- Η **Κανονικοποίηση** είναι η βασική τεχνική για την εξαλείφει του πλεονασμού — συνδέεται άμεσα με τον σχεδιασμό της σχεσιακής βάσης δεδομένων.
-- Ο **DBA** (Database Administrator) είναι υπεύθυνος για την ασφάλεια, τη συντήρηση και την απόδοση του DBMS — ο ρόλος αυτός είναι διακριτός από τον απλό χρήστη.
-- Η **ασφάλεια** σε ένα DBMS υλοποιείται σε πολλά επίπεδα: Authentication, Authorization (GRANT/REVOKE), Encryption και Audit Logs.
-- **Key Distinction:** Η διαφορά Data vs. Information δεν είναι ποσοτική αλλά ποιοτική — το πλαίσιο (context) και η ερμηνεία είναι αυτά που μετατρέπουν δεδομένα σε πληροφορία.
-- Τα DBMS χρησιμοποιούνται σε κρίσιμα συστήματα (τράπεζες, νοσοκομεία, e-commerce) ακριβώς επειδή παρέχουν εγγυήσεις **ακεραιότητας, ασφαλείας και αξιοπιστίας** που τα απλά συστήματα αρχείων δεν μπορούν να προσφέρουν.
+- **Data → Information → Knowledge**: This hierarchy describes how raw facts are transformed into decision-making tools through processing and interpretation.
+- An **Information System** consists of five interdependent components: Hardware, Software, Data, Processes, People — removing any of them degrades the whole.
+- A **DBMS** clearly surpasses traditional file systems in data independence, security, concurrency and integrity.
+- **Concurrency Control** is critical in multi-user environments — without it, concurrent writes can lead to catastrophic data loss.
+- **Data redundancy** is not just a waste of space — it leads to inconsistency, maintenance difficulty and unreliable query results.
+- **Normalization** is the basic technique for eliminating redundancy — it is directly related to relational database design.
+- The **DBA** (Database Administrator) is responsible for the security, maintenance and performance of the DBMS — this role is distinct from that of the ordinary user.
+- **Security** in a DBMS is implemented at many levels: Authentication, Authorization (GRANT/REVOKE), Encryption and Audit Logs.
+- **Key Distinction:** The Data vs. Information difference is not quantitative but qualitative — context and interpretation are what turn data into information.
+- DBMS are used in critical systems (banks, hospitals, e-commerce) precisely because they provide **integrity, security and reliability** guarantees that simple file systems cannot offer.
 
 ---
 # topic_2_database_lifecycle_and_design.md
 ---
 
-# Κύκλος Ζωής & Σχεδιασμός Βάσης Δεδομένων
+# Database Life Cycle & Database Design
 *Database Life Cycle & Database Design*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Βήμα 1: Συλλογή & Ανάλυση Απαιτήσεων](#βήμα-1-συλλογή--ανάλυση-απαιτήσεων)
-   - [Καθορισμός Αναγκών Χρηστών και Οργανισμού](#καθορισμός-αναγκών-χρηστών-και-οργανισμού)
-   - [Αποτύπωση Επιχειρησιακών Λειτουργιών και Προδιαγραφών](#αποτύπωση-επιχειρησιακών-λειτουργιών-και-προδιαγραφών)
-3. [Βήμα 2: Εννοιολογική Σχεδίαση](#βήμα-2-εννοιολογική-σχεδίαση)
-   - [Δημιουργία Μοντέλου Οντοτήτων-Συχετίσεων (ER Model)](#δημιουργία-μοντέλου-οντοτήτων-συχετίσεων-er-model)
-   - [Σχηματική Οπτικοποίηση της Λογικής Δομής](#σχηματική-οπτικοποίηση-της-λογικής-δομής)
-4. [Βήμα 3: Λογική Σχεδίαση](#βήμα-3-λογική-σχεδίαση)
-   - [Μετάβαση στο Σχεσιακό Μοντέλο Δεδομένων](#μετάβαση-στο-σχεσιακό-μοντέλο-δεδομένων)
-   - [Μετατροπή Εννοιολογικού Μοντέλου σε Εξαρτημένους Πίνακες](#μετατροπή-εννοιολογικού-μοντέλου-σε-εξαρτημένους-πίνακες)
-5. [Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση](#βήμα-4-φυσική-σχεδίαση--υλοποίηση)
-   - [Εσωτερική Οργάνωση Αρχείων στο Σύστημα](#εσωτερική-οργάνωση-αρχείων-στο-σύστημα)
-   - [Προγραμματισμός με SQL και Δημιουργία Φυσικών Δομών](#προγραμματισμός-με-sql-και-δημιουργία-φυσικών-δομών)
-6. [Συγκριτικός Πίνακας: Τα 4 Βήματα του Κύκλου Ζωής](#συγκριτικός-πίνακας-τα-4-βήματα-του-κύκλου-ζωής)
-7. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-8. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Step 1: Requirements Collection & Analysis](#step-1-requirements-collection--analysis)
+   - [Defining User and Organizational Needs](#defining-user-and-organizational-needs)
+   - [Documenting Business Functions and Specifications](#documenting-business-functions-and-specifications)
+3. [Step 2: Conceptual Design](#step-2-conceptual-design)
+   - [Creating the Entity-Relationship Model](#creating-the-entity-relationship-model)
+   - [Schematic Visualization of the Logical Structure](#schematic-visualization-of-the-logical-structure)
+4. [Step 3: Logical Design](#step-3-logical-design)
+   - [Transition to the Relational Data Model](#transition-to-the-relational-data-model)
+   - [Converting the Conceptual Model into Dependent Tables](#converting-the-conceptual-model-into-dependent-tables)
+5. [Step 4: Physical Design & Implementation](#step-4-physical-design--implementation)
+   - [Internal File Organization in the System](#internal-file-organization-in-the-system)
+   - [SQL Programming and Physical Structure Creation](#sql-programming-and-physical-structure-creation)
+6. [Comparative Table: The 4 Steps of the Database Life Cycle](#comparative-table-the-4-steps-of-the-database-life-cycle)
+7. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+8. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Ο **Κύκλος Ζωής Βάσης Δεδομένων** (Database Life Cycle — DBLC) είναι η δομημένη, επαναληπτική διαδικασία σχεδιασμού, ανάπτυξης και συντήρησης μιας βάσης δεδομένων, από την αρχική ανάλυση αναγκών έως την πλήρη φυσική υλοποίηση. Η ύπαρξη ενός τυποποιημένου κύκλου εξασφαλίζει ότι η βάση δεδομένων ανταποκρίνεται στις πραγματικές επιχειρησιακές απαιτήσεις, είναι δομικά ορθή και εφαρμόσιμη αποδοτικά στο επιλεγμένο σύστημα. Η αδυναμία τήρησης αυτής της διαδικασίας οδηγεί σε πλεονασμό δεδομένων, ασυνέπειες και μη επεκτάσιμα σχήματα. Η μελέτη του κύκλου ζωής αποτελεί θεμέλιο για την κατανόηση του ER Model, του Relational Model και της SQL που αναλύονται στα επόμενα θέματα.
+The **Database Life Cycle (DBLC)** is the structured, iterative process of designing, developing and maintaining a database, from the initial needs analysis to full physical implementation. The existence of a standardized cycle ensures that the database meets the real business requirements, is structurally correct and can be applied efficiently on the chosen system. Failure to follow this process leads to data redundancy, inconsistencies and non-extensible schemas. Studying the life cycle is the foundation for understanding the ER Model, the Relational Model and SQL, which are analyzed in the following topics.
 
 ---
 
-## Βήμα 1: Συλλογή & Ανάλυση Απαιτήσεων
+## Step 1: Requirements Collection & Analysis
 *Step 1: Requirements Collection & Analysis*
 
-Το πρώτο βήμα αποτελεί το **θεμέλιο** ολόκληρης της διαδικασίας σχεδιασμού. Χωρίς σαφή και πλήρη κατανόηση των αναγκών του οργανισμού και των χρηστών, οποιοδήποτε μοντέλο δεδομένων παραχθεί αργότερα θα είναι ελλιπές ή λανθασμένο. Σε αυτό το βήμα ο σχεδιαστής δεν ασχολείται ακόμα με τεχνικές λεπτομέρειες (πίνακες, τύπους δεδομένων), αλλά με την **κατανόηση του τι πρέπει να κάνει το σύστημα**.
+The first step is the **foundation** of the entire design process. Without a clear and complete understanding of the needs of the organization and its users, any data model produced later will be incomplete or wrong. In this step the designer does not yet deal with technical details (tables, data types), but with **understanding what the system must do**.
 
-**Αναλογία**: Είναι σαν τον αρχιτέκτονα που, πριν σχεδιάσει ένα κτίριο, συνομιλεί με τους μελλοντικούς ενοίκους για να μάθει πόσα δωμάτια χρειάζονται, τι χρήση θα έχουν, ποια άτομα θα έχουν πρόσβαση και ποιες είναι οι πρακτικές ανάγκες της καθημερινής λειτουργίας.
+**Analogy**: It is like the architect who, before designing a building, talks with the future occupants to learn how many rooms they need, what use they will have, which people will have access, and what the practical needs of everyday operation are.
 
 ```text
   +--------------------------------------------------+
@@ -446,33 +457,33 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
   +--------------------------------------------------+
 ```
 
-### Καθορισμός Αναγκών Χρηστών και Οργανισμού
+### Defining User and Organizational Needs
 *Defining User and Organizational Needs*
 
-**Ανάλυση Απαιτήσεων (Requirements Analysis)** είναι η συστηματική συλλογή και τεκμηρίωση των αναγκών όλων των ενδιαφερόμενων μερών (stakeholders) — χρηστών, διαχειριστών και οργανισμού — που θα χρησιμοποιήσουν ή θα επηρεαστούν από τη βάση δεδομένων.
+**Requirements Analysis** is the systematic collection and documentation of the needs of all stakeholders — users, administrators and the organization — who will use or be affected by the database.
 
-Οι βασικές τεχνικές συλλογής απαιτήσεων περιλαμβάνουν:
+The basic requirements-gathering techniques include:
 
-- **Συνεντεύξεις (Interviews)**: Άμεση επικοινωνία με τελικούς χρήστες και υπεύθυνους τμημάτων για κατανόηση των αναγκών τους.
-- **Παρατήρηση (Observation)**: Παρακολούθηση της υπάρχουσας ροής εργασίας για εντοπισμό αδυναμιών.
-- **Ανάλυση Υπαρχόντων Εγγράφων**: Μελέτη εντύπων, αναφορών και αρχείων που χρησιμοποιεί ήδη ο οργανισμός.
-- **Ερωτηματολόγια (Questionnaires)**: Συστηματική συλλογή απόψεων από μεγάλο αριθμό χρηστών.
+- **Interviews**: Direct communication with end users and department heads to understand their needs.
+- **Observation**: Monitoring the existing workflow to identify weaknesses.
+- **Analysis of Existing Documents**: Studying the forms, reports and files the organization already uses.
+- **Questionnaires**: Systematic collection of opinions from a large number of users.
 
-Οι απαιτήσεις διακρίνονται σε δύο κατηγορίες:
+Requirements are divided into two categories:
 
-| Κατηγορία | Ορισμός | Παραδείγματα |
+| Category | Definition | Examples |
 |---|---|---|
-| **Λειτουργικές Απαιτήσεις** (Functional) | Τι πρέπει να κάνει το σύστημα | Αποθήκευση παραγγελιών, αναζήτηση πελατών, δημιουργία αναφορών |
-| **Μη-Λειτουργικές Απαιτήσεις** (Non-functional) | Πώς πρέπει να το κάνει | Χρόνος απόκρισης < 2 δευτ., 500 ταυτόχρονοι χρήστες, 99.9% διαθεσιμότητα |
+| **Functional Requirements** | What the system must do | Storing orders, customer search, report generation |
+| **Non-functional Requirements** | How it must do it | Response time < 2 sec, 500 concurrent users, 99.9% availability |
 
-**Exam Note:** Η ανάλυση απαιτήσεων είναι αμιγώς **εννοιολογική φάση** — δεν λαμβάνεται καμία απόφαση για τεχνολογία, DBMS ή δομή πινάκων σε αυτό το στάδιο.
+**Exam Note:** Requirements analysis is a purely **conceptual phase** — no decision about technology, DBMS or table structure is taken at this stage.
 
 ---
 
-### Αποτύπωση Επιχειρησιακών Λειτουργιών και Προδιαγραφών
+### Documenting Business Functions and Specifications
 *Documenting Business Functions and Specifications*
 
-**Επιχειρησιακές Λειτουργίες (Business Functions)** είναι οι διαδικασίες που εκτελεί ο οργανισμός και οι οποίες δημιουργούν, τροποποιούν ή χρησιμοποιούν δεδομένα. Η αποτύπωσή τους ορίζει το εύρος (scope) της βάσης δεδομένων.
+**Business Functions** are the processes the organization performs that create, modify or use data. Documenting them defines the scope of the database.
 
 **Παράδειγμα — Πανεπιστημιακό Σύστημα**:
 
@@ -492,43 +503,43 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
      - Ποιοι χρήστες εμπλέκονται; Καθηγητής (εισαγωγή), Γραμματεία (επαλήθευση)
 ```
 
-Το αποτέλεσμα αυτής της φάσης είναι ένα **Έγγραφο Προδιαγραφών Απαιτήσεων** (Requirements Specification Document) που περιέχει:
+The result of this phase is a **Requirements Specification Document** that contains:
 
-- Λίστα όλων των **οντοτήτων** (entities) που πρέπει να αποθηκευτούν (π.χ. Φοιτητής, Μάθημα, Καθηγητής).
-- Λίστα **σχέσεων** μεταξύ αυτών (π.χ. «φοιτητής παρακολουθεί μάθημα»).
-- **Περιορισμοί δεδομένων** (π.χ. ο βαθμός πρέπει να είναι μεταξύ 0 και 10).
-- Απαιτούμενες **λειτουργίες** (CRUD: Create, Read, Update, Delete).
+- A list of all the **entities** that must be stored (e.g. Student, Course, Professor).
+- A list of **relationships** between them (e.g. "student attends course").
+- **Data constraints** (e.g. the grade must be between 0 and 10).
+- The required **operations** (CRUD: Create, Read, Update, Delete).
 
 ---
 
-## Βήμα 2: Εννοιολογική Σχεδίαση
+## Step 2: Conceptual Design
 *Step 2: Conceptual Design*
 
-Η εννοιολογική σχεδίαση μετατρέπει τις απαιτήσεις που συλλέχθηκαν στο Βήμα 1 σε ένα **υψηλού επιπέδου, τεχνολογικά ανεξάρτητο μοντέλο** που περιγράφει τη λογική δομή των δεδομένων. Ο σχεδιαστής δεν ασχολείται ακόμα με συγκεκριμένο DBMS ή με SQL — το μοντέλο που παράγεται πρέπει να είναι κατανοητό τόσο από τεχνικούς όσο και από μη-τεχνικούς ενδιαφερόμενους.
+Conceptual design transforms the requirements collected in Step 1 into a **high-level, technology-independent model** that describes the logical structure of the data. The designer does not yet deal with a specific DBMS or SQL — the model produced must be understandable by both technical and non-technical stakeholders.
 
-**Αναλογία**: Η εννοιολογική σχεδίαση είναι σαν το αρχιτεκτονικό σχέδιο (blueprint) ενός κτιρίου — δείχνει τα δωμάτια, τις πόρτες και τις συνδέσεις χωρίς να καθορίζει ακόμα το είδος του τσιμέντου ή της ηλεκτρολογικής εγκατάστασης.
+**Analogy**: Conceptual design is like the blueprint of a building — it shows the rooms, doors and connections without yet specifying the type of cement or electrical installation.
 
-### Δημιουργία Μοντέλου Οντοτήτων-Συχετίσεων (ER Model)
+### Creating the Entity-Relationship Model
 *Creating the Entity-Relationship Model*
 
-**Μοντέλο Οντοτήτων-Σχέσεων** (Entity-Relationship Model — ER Model) είναι ένα εννοιολογικό εργαλείο μοντελοποίησης δεδομένων που αναπαριστά τα δεδομένα ενός οργανισμού ως σύνολο **οντοτήτων** (entities), **γνωρισμάτων** (attributes) και **σχέσεων** (relationships) μεταξύ τους.
+**Entity-Relationship Model** (ER Model) is a conceptual data-modeling tool that represents the data of an organization as a set of **entities**, **attributes** and **relationships** between them.
 
-Τα τρία βασικά δομικά στοιχεία του ER Model:
+The three basic building blocks of the ER Model:
 
-| Στοιχείο | Σύμβολο (Chen Notation) | Περιγραφή |
+| Element | Symbol (Chen Notation) | Description |
 |---|---|---|
-| **Οντότητα (Entity)** | Ορθογώνιο | Κάτι με ανεξάρτητη ύπαρξη για το οποίο αποθηκεύονται δεδομένα |
-| **Γνώρισμα (Attribute)** | Ελλειψοειδές | Χαρακτηριστικό/ιδιότητα μιας οντότητας |
-| **Σχέση (Relationship)** | Ρόμβος | Σύνδεση/αλληλεπίδραση μεταξύ δύο ή περισσότερων οντοτήτων |
+| **Entity** | Rectangle | Something with independent existence for which data are stored |
+| **Attribute** | Ellipse | A characteristic/property of an entity |
+| **Relationship** | Diamond | A connection/interaction between two or more entities |
 
-**Exam Note:** Το ER Model είναι **τεχνολογικά ανεξάρτητο** — δεν αναφέρεται σε συγκεκριμένο DBMS, γλώσσα ή δομή αποθήκευσης. Σχεδιάζεται για να επικοινωνεί τη λογική δομή, όχι την υλοποίηση.
+**Exam Note:** The ER Model is **technology-independent** — it does not refer to a specific DBMS, language or storage structure. It is designed to communicate the logical structure, not the implementation.
 
 ---
 
-### Σχηματική Οπτικοποίηση της Λογικής Δομής
+### Schematic Visualization of the Logical Structure
 *Schematic Visualization of the Logical Structure*
 
-Η παραγωγή του **ER Διαγράμματος** (ER Diagram — ERD) είναι το κύριο παραδοτέο της φάσης αυτής. Το ERD αναπαριστά γραφικά όλες τις οντότητες, τα γνωρίσματά τους και τις σχέσεις μεταξύ τους.
+Producing the **ER Diagram** (ERD) is the main deliverable of this phase. The ERD graphically represents all entities, their attributes and the relationships between them.
 
 **Παράδειγμα ERD — Πανεπιστημιακό Σύστημα**:
 

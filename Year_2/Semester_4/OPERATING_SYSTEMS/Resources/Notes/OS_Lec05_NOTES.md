@@ -1,55 +1,55 @@
-# Αμοιβαίος Αποκλεισμός (Mutual Exclusion)
+# Mutual Exclusion
 
-## Εισαγωγή
-Ο αμοιβαίος αποκλεισμός είναι η αποτροπή μιας διεργασίας από την εκτέλεση μιας ενέργειας που επιτελεί ταυτοχρόνως κάποια άλλη διεργασία. Απαιτείται για την προστασία κοινών πόρων ώστε να αποτρέπονται παρενέργειες λόγω ανταγωνισμού.
-
----
-
-## Κρίσιμα Τμήματα (Critical Sections)
-Ένα κρίσιμο τμήμα είναι μια ακολουθία εντολών που απαιτεί πρόσβαση σε διαμοιραζόμενους πόρους. Η αποτελεσματικότητα της πολυεπεξεργασίας εξαρτάται από το μήκος του κρίσιμου τμήματος, το οποίο πρέπει να είναι όσο το δυνατόν μικρότερο.
-
-### Συνθήκες για Αμοιβαίο Αποκλεισμό
-Για τη σωστή συνεργασία παράλληλων διεργασιών, απαιτούνται οι εξής συνθήκες:
-1. Δύο διεργασίες δεν μπορούν να βρίσκονται ταυτόχρονα στα κρίσιμα τμήματά τους.
-2. Καμία υπόθεση δεν επιτρέπεται για την ταχύτητα ή το πλήθος των επεξεργαστών.
-3. Μια διεργασία εκτός κρίσιμου τμήματος δεν μπορεί να αναστείλει άλλη διεργασία.
-4. Αποφυγή αδιεξόδου (deadlock).
-5. Πρόοδος: Μόνο μία διεργασία πρέπει να επιτύχει είσοδο αν πολλές το προσπαθούν.
-6. Αποφυγή λιμοκτονίας (starvation): Καμία επ' αόριστον αναμονή.
-7. Ελάχιστη επιβάρυνση κατά την είσοδο όταν δεν υπάρχει ανταγωνισμός.
-8. Παραμονή στο κρίσιμο τμήμα μόνο για ορισμένο χρονικό διάστημα.
+## Introduction
+Mutual exclusion is the prevention of a process from executing an action that some other process is simultaneously performing. It is required for the protection of shared resources so that side effects due to competition are prevented.
 
 ---
 
-## Υλοποίηση: Προσεγγίσεις Λογισμικού
+## Critical Sections
+A critical section is a sequence of instructions that requires access to shared resources. The effectiveness of multiprocessing depends on the length of the critical section, which must be as short as possible.
 
-Οι λύσεις λογισμικού (π.χ. Αλγόριθμος Dekker) εναποθέτουν την ευθύνη στον προγραμματιστή, διατάσσοντας σειριακά τις προσβάσεις. Δεν υπάρχει υποστήριξη από το υλικό.
+### Conditions for Mutual Exclusion
+For the correct cooperation of parallel processes, the following conditions are required:
+1. Two processes cannot be simultaneously in their critical sections.
+2. No assumption is allowed about the speed or the number of processors.
+3. A process outside a critical section cannot suspend another process.
+4. Avoidance of deadlock.
+5. Progress: Only one process must succeed in entering if many are trying.
+6. Avoidance of starvation: No indefinite waiting.
+7. Minimal overhead upon entry when there is no competition.
+8. Staying in the critical section only for a certain time period.
 
-### Αλγόριθμος του Dekker
-Στηρίζεται στο ότι σε μια θέση μνήμης επιτρέπεται μία πρόσβαση κάθε φορά.
+---
 
-**1η Προσπάθεια (Αυστηρή Εναλλαγή)**
-Υλοποιεί τον αμοιβαίο αποκλεισμό αλλά προκαλεί ενεργό αναμονή (busy waiting).
+## Implementation: Software Approaches
+
+Software solutions (e.g., Dekker's Algorithm) place the responsibility on the programmer, ordering the accesses serially. There is no hardware support.
+
+### Dekker's Algorithm
+It relies on the fact that only one access at a time is allowed to a memory location.
+
+**1st Attempt (Strict Alternation)**
+It implements mutual exclusion but causes busy waiting.
 
 ```c
-/* Διεργασία 0 */
+/* Process 0 */
 while (turn != 0) do
     nothing;
 <critical section>
 turn = 1;
 ```
 
-**2η Προσπάθεια (Πίνακας Σημαιών - Flags)**
-Αποτυγχάνει διότι μια διεργασία μπορεί να αλλάξει την κατάστασή της αφού ελεγχθεί από την άλλη, οδηγώντας και τις δύο ταυτόχρονα στο κρίσιμο τμήμα.
+**2nd Attempt (Flag Array - Flags)**
+It fails because a process can change its state after being checked by the other, leading both simultaneously into the critical section.
 
 ---
 
-## Υλοποίηση: Υποστήριξη Υλικού
+## Implementation: Hardware Support
 
-Τα προβλήματα του λογισμικού (ενεργός αναμονή, πολυπλοκότητα) λύνονται μέσω εντολών υλικού ειδικού σκοπού.
+The problems of software (busy waiting, complexity) are solved through special-purpose hardware instructions.
 
-### Α. Απενεργοποίηση Διακοπών
-Αποτρέπει την εναλλαγή διεργασιών.
+### A. Disabling Interrupts
+Prevents process switching.
 
 ```c
 while (true) {
@@ -59,11 +59,11 @@ while (true) {
     /* remainder */;
 }
 ```
-*   **Πλεονέκτημα:** Χρήσιμο για τον πυρήνα του συστήματος.
-*   **Μειονέκτημα:** Υψηλό κόστος, δεν εγγυάται αμοιβαίο αποκλεισμό σε πολυεπεξεργαστικά συστήματα (μόνο ένας επεξεργαστής επηρεάζεται).
+*   **Advantage:** Useful for the system kernel.
+*   **Disadvantage:** High cost, does not guarantee mutual exclusion in multiprocessor systems (only one processor is affected).
 
-### Β. Ειδικές Εντολές Μηχανής (Test and Set)
-Οι σύγχρονοι επεξεργαστές παρέχουν ατομικές εντολές (`TAS`, `xchg`) που διαβάζουν και τροποποιούν μια θέση μνήμης σε έναν αδιαίρετο κύκλο μηχανής.
+### B. Special Machine Instructions (Test and Set)
+Modern processors provide atomic instructions (`TAS`, `xchg`) that read and modify a memory location in a single indivisible machine cycle.
 
 ```c
 int TAS(int* lock) {
@@ -75,7 +75,7 @@ int TAS(int* lock) {
 ```
 
 ```c
-/* Χρήση TAS για αμοιβαίο αποκλεισμό */
+/* Use of TAS for mutual exclusion */
 var lock = false; /* shared */
 while (TAS(&lock) == true) do
     nothing;
@@ -84,32 +84,32 @@ lock = false;
 <remainder>
 ```
 
-| Πλεονεκτήματα | Μειονεκτήματα |
+| Advantages | Disadvantages |
 | :--- | :--- |
-| Εφαρμογή σε πολλαπλές διεργασίες και επεξεργαστές | Απασχόληση ενεργούς αναμονής (busy waiting) |
-| Απλή επαλήθευση | Πιθανότητα λιμοκτονίας |
-| Υποστήριξη πολλαπλών κρίσιμων τμημάτων | Πιθανότητα αδιεξόδου (Priority Inversion) |
+| Applicable to multiple processes and processors | Busy waiting |
+| Simple verification | Possibility of starvation |
+| Support for multiple critical sections | Possibility of deadlock (Priority Inversion) |
 
-> **[Key Insight]** Το αδιέξοδο (Priority Inversion) συμβαίνει όταν μια διεργασία χαμηλής προτεραιότητας στο κρίσιμο τμήμα διακοπεί από μια διεργασία υψηλής προτεραιότητας. Η υψηλής προτεραιότητας μπαίνει σε ενεργό αναμονή περιμένοντας τον πόρο, αποτρέποντας τη χαμηλής προτεραιότητας από το να ολοκληρώσει και να τον αποδεσμεύσει.
+> **[Key Insight]** The deadlock (Priority Inversion) occurs when a low-priority process in the critical section is interrupted by a high-priority process. The high-priority one enters busy waiting waiting for the resource, preventing the low-priority one from completing and releasing it.
 
 ---
 
-## Σημαφόροι (Semaphores)
+## Semaphores
 
-Οι σημαφόροι εξαλείφουν την ενεργό αναμονή μέσω μηχανισμών αναστολής εκτέλεσης (`sleep` / `wakeup`).
-Είναι ειδικές μεταβλητές συγχρονισμού που λαμβάνουν μη αρνητικές ακέραιες τιμές και διαθέτουν ουρά αναμονής.
+Semaphores eliminate busy waiting through execution suspension mechanisms (`sleep` / `wakeup`).
+They are special synchronization variables that take non-negative integer values and have a waiting queue.
 
-### Ατομικές Λειτουργίες
-*   **P (wait):** Αναμένει να γίνει ο σημαφόρος $>0$ και τον μειώνει κατά $1$. Αν είναι $0$, η διεργασία μπλοκάρεται στην ουρά. Καλείται *πριν* το κρίσιμο τμήμα.
-*   **V (signal):** Αυξάνει τον σημαφόρο κατά $1$. Απεγκλωβίζει μία διεργασία από την ουρά του σημαφόρου. Καλείται *μετά* το κρίσιμο τμήμα.
+### Atomic Operations
+*   **P (wait):** Waits for the semaphore to become $>0$ and decrements it by $1$. If it is $0$, the process blocks in the queue. It is called *before* the critical section.
+*   **V (signal):** Increments the semaphore by $1$. It unblocks one process from the semaphore's queue. It is called *after* the critical section.
 
-### Είδη Σημαφόρων
-1. **Δυαδικοί (Binary Semaphores):** Τιμές $0$ και $1$. Ιδανικοί για αμοιβαίο αποκλεισμό.
-2. **Μετρητές (Counting Semaphores):** Οποιαδήποτε μη αρνητική τιμή. Χρησιμοποιούνται για διαχείριση περιορισμένων πόρων.
+### Types of Semaphores
+1. **Binary Semaphores:** Values $0$ and $1$. Ideal for mutual exclusion.
+2. **Counting Semaphores:** Any non-negative value. Used for the management of limited resources.
 
-> **[Exam Tip]** Κατά το σχεδιασμό λύσεων αμοιβαίου αποκλεισμού, ένας δυαδικός σημαφόρος αρχικοποιείται πάντα σε $1$. Όταν χρησιμοποιείται σημαφόρος για *συγχρονισμό εκτέλεσης* μεταξύ δύο διεργασιών, αρχικοποιείται σε $0$.
+> **[Exam Tip]** When designing mutual exclusion solutions, a binary semaphore is always initialized to $1$. When a semaphore is used for *execution synchronization* between two processes, it is initialized to $0$.
 
-### Παράδειγμα: Αμοιβαίος Αποκλεισμός
+### Example: Mutual Exclusion
 ```c
 Semaphore Q = 1; /* shared */
 
@@ -119,22 +119,22 @@ signal(Q);
 <remainder>
 ```
 
-### Παράδειγμα: Συγχρονισμός Εκτέλεσης
-Η Διεργασία 2 πρέπει να εκτελεστεί μετά τη Διεργασία 1.
+### Example: Execution Synchronization
+Process 2 must execute after Process 1.
 ```c
 Semaphore flag = 0;
 ```
 
-**Διεργασία 1 (P1):**
+**Process 1 (P1):**
 ```c
 A;
 signal(flag);
 ```
 
-**Διεργασία 2 (P2):**
+**Process 2 (P2):**
 ```c
 wait(flag);
 B;
 ```
 
-> **[Key Insight]** Λανθασμένη χρήση σημαφόρων (π.χ. αντίστροφη κλήση των `wait`) μπορεί να προκαλέσει αδιέξοδο (Deadlock), όπου δύο διεργασίες περιμένουν εσαεί η μία το `signal` της άλλης.
+> **[Key Insight]** Incorrect use of semaphores (e.g., calling the `wait` operations in reverse order) can cause a Deadlock, where two processes wait indefinitely for each other's `signal`.

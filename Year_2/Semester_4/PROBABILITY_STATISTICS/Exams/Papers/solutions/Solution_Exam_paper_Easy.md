@@ -34,33 +34,33 @@ Given: $\Phi(1) = P(Z \le 1) = 0.8413$.
 
 ### Solution to Problem 1
 
-**Δεδομένα (ταξινομημένα):** 5, 6, 7, 7, 8, 8, 8, 9, 9, 10 — $n=10$
+**Data (sorted):** 5, 6, 7, 7, 8, 8, 8, 9, 9, 10 — $n=10$
 
-**a. Μέση τιμή $\bar{x}$**
+**a. Mean $\bar{x}$**
 
 $$\bar{x} = \frac{5+6+7+7+8+8+8+9+9+10}{10} = \frac{77}{10} = \boxed{7.7}$$
 
 **Median $M_e$**
 
-- $n=10$ (άρτιο), η διάμεσος είναι ο μέσος των τιμών στη θέση 5 και 6.
+- $n=10$ (even), the median is the average of the values in positions 5 and 6.
 
 $$M_e = \frac{x_{(5)} + x_{(6)}}{2} = \frac{8 + 8}{2} = \boxed{8}$$
 
 **Mode $T$**
 
-- Ο βαθμός 8 εμφανίζεται 3 φορές (περισσότερο από κάθε άλλο).
+- The grade 8 appears 3 times (more than any other).
 
 $$T = \boxed{8}$$
 
-**Πρώτο τεταρτημόριο $Q_1$**
+**First quartile $Q_1$**
 
-- Θέση $Q_1$: $\frac{n+1}{4} = \frac{11}{4} = 2.75$, δηλαδή μεταξύ 2ης και 3ης τιμής.
+- Position of $Q_1$: $\frac{n+1}{4} = \frac{11}{4} = 2.75$, i.e., between the 2nd and 3rd values.
 
 $$Q_1 = x_{(2)} + 0.75 \cdot (x_{(3)} - x_{(2)}) = 6 + 0.75(7-6) = 6 + 0.75 = \boxed{6.75}$$
 
-**b. Εύρος**
+**b. Range**
 
-$$\text{Εύρος} = x_{\max} - x_{\min} = 10 - 5 = \boxed{5}$$
+$$\text{Range} = x_{\max} - x_{\min} = 10 - 5 = \boxed{5}$$
 
 **Standard Deviation $s$**
 
@@ -76,11 +76,11 @@ $$\text{Εύρος} = x_{\max} - x_{\min} = 10 - 5 = \boxed{5}$$
 | 9  | 1.3  | 1.69 |
 | 9  | 1.3  | 1.69 |
 | 10 | 2.3  | 5.29 |
-| **Σύνολο** | | **20.10** |
+| **Total** | | **20.10** |
 
 $$s^2 = \frac{20.10}{9} \approx 2.233, \qquad s = \sqrt{2.233} \approx \boxed{1.494}$$
 
-**c. Εντολές R**
+**c. R commands**
 
 ```r
 grades <- c(5, 6, 7, 7, 8, 8, 8, 9, 9, 10)
@@ -89,10 +89,10 @@ median(grades)
 
 ---
 
-**ΘΕΜΑ 2:** Ένα διαγνωστικό τεστ για μια ασθένεια έχει πιθανότητα 0.10 να δώσει ψευδώς θετικό αποτέλεσμα σε υγιείς ανθρώπους. Επιλέγουμε τυχαία 5 υγιείς ανθρώπους και τους υποβάλλουμε στο τεστ.
-i) Ποια είναι η πιθανότητα κανένας από αυτούς να μην εμφανίσει ψευδώς θετικό αποτέλεσμα;
-ii) Ποια είναι η πιθανότητα τουλάχιστον ένας να εμφανίσει ψευδώς θετικό αποτέλεσμα;
-iii) Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσουμε την πιθανότητα του ερωτήματος i;
+**PROBLEM 2:** A diagnostic test for a disease has a 0.10 probability of giving a false positive result in healthy people. We randomly select 5 healthy people and subject them to the test.
+i) What is the probability that none of them shows a false positive result?
+ii) What is the probability that at least one shows a false positive result?
+iii) What command should we give in R to calculate the probability of question i)?
 
 ### Solution to Problem 2
 
@@ -108,9 +108,9 @@ $$P(X=0) = (0.90)^5 = \boxed{0.5905}$$
 
 $$P(X \ge 1) = 1 - P(X=0) = 1 - 0.5905 = \boxed{0.4095}$$
 
-- Ο συμπληρωματικός κανόνας αποφεύγει την άθροιση πολλαπλών όρων.
+- The complement rule avoids summing multiple terms.
 
-**iii. Εντολή R για ερώτημα i**
+**iii. R command for question i**
 
 ```r
 dbinom(0, size = 5, prob = 0.10)
@@ -118,22 +118,22 @@ dbinom(0, size = 5, prob = 0.10)
 
 ---
 
-**ΘΕΜΑ 3:** Έστω δύο ενδεχόμενα $A$ και $B$ ενός δειγματικού χώρου $\Omega$ με $P(A) = 0.5$ και $P(B) = 0.4$.
-Α. Εάν τα $A$ και $B$ είναι ασυμβίβαστα (ξένα) μεταξύ τους, να υπολογίσετε την πιθανότητα $P(A \cup B)$ και την $P(A \cap B)$.
-Β. Εάν τα $A$ και $B$ είναι ανεξάρτητα ενδεχόμενα, να υπολογίσετε την πιθανότητα $P(A \cap B)$, $P(A \cup B)$ και $P(A | B)$.
-C. Να βρεθεί η $P(A' \cap B')$ στην περίπτωση που τα $A$ και $B$ είναι ανεξάρτητα.
+**PROBLEM 3:** Let $A$ and $B$ be two events of a sample space $\Omega$ with $P(A) = 0.5$ and $P(B) = 0.4$.
+A. If $A$ and $B$ are mutually exclusive (disjoint), calculate the probability $P(A \cup B)$ and $P(A \cap B)$.
+B. If $A$ and $B$ are independent events, calculate the probability $P(A \cap B)$, $P(A \cup B)$, and $P(A | B)$.
+C. Find $P(A' \cap B')$ in the case where $A$ and $B$ are independent.
 
 ### Solution to Problem 3
 
-**Α. Ξένα ενδεχόμενα ($A \cap B = \emptyset$)**
+**A. Disjoint events ($A \cap B = \emptyset$)**
 
 $$P(A \cap B) = \boxed{0}$$
 
 $$P(A \cup B) = P(A) + P(B) = 0.5 + 0.4 = \boxed{0.9}$$
 
-- Ξένα ενδεχόμενα δεν έχουν κοινά στοιχεία, οπότε η τομή τους είναι κενή.
+- Disjoint events have no common elements, so their intersection is empty.
 
-**Β. Ανεξάρτητα ενδεχόμενα**
+**B. Independent events**
 
 $$P(A \cap B) = P(A) \cdot P(B) = 0.5 \times 0.4 = \boxed{0.20}$$
 
@@ -141,25 +141,25 @@ $$P(A \cup B) = 0.5 + 0.4 - 0.20 = \boxed{0.70}$$
 
 $$P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \frac{0.20}{0.4} = \boxed{0.50}$$
 
-- Για ανεξάρτητα ενδεχόμενα ισχύει $P(A|B) = P(A)$, που επιβεβαιώνεται εδώ.
+- For independent events it holds that $P(A|B) = P(A)$, which is confirmed here.
 
-**C. $P(A' \cap B')$ — ούτε A ούτε B (ανεξάρτητα)**
+**C. $P(A' \cap B')$ — neither A nor B (independent)**
 
-Χρησιμοποιείται ο νόμος De Morgan: $A' \cap B' = (A \cup B)'$
+De Morgan's law is used: $A' \cap B' = (A \cup B)'$
 
 $$P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.70 = \boxed{0.30}$$
 
-Εναλλακτικά, αφού τα Α και Β ανεξάρτητα, τα $A'$ και $B'$ επίσης ανεξάρτητα:
+Alternatively, since $A$ and $B$ are independent, $A'$ and $B'$ are also independent:
 
 $$P(A' \cap B') = P(A') \cdot P(B') = 0.5 \times 0.6 = 0.30 \checkmark$$
 
 ---
 
-**ΘΕΜΑ 4:** Το βάρος των μήλων μιας συγκεκριμένης ποικιλίας ακολουθεί την Κανονική Κατανομή με μέσο $\mu = 150$ γραμμάρια και τυπική απόκλιση $\sigma = 15$ γραμμάρια. Ποια είναι η πιθανότητα ένα τυχαία επιλεγμένο μήλο:
-i. Να ζυγίζει λιγότερο από 165 γραμμάρια;
-ii. Να ζυγίζει μεταξύ 135 και 165 γραμμάρια;
-iii. Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος i;
-Δίνεται: $\Phi(1) = P(Z \le 1) = 0.8413$.
+**PROBLEM 4:** The weight of apples of a certain variety follows the Normal distribution with mean $\mu = 150$ grams and standard deviation $\sigma = 15$ grams. What is the probability that a randomly selected apple:
+i. Weighs less than 165 grams?
+ii. Weighs between 135 and 165 grams?
+iii. What command should we give in R to calculate the probability of question i)?
+Given: $\Phi(1) = P(Z \le 1) = 0.8413$.
 
 ### Solution to Problem 4
 
@@ -179,9 +179,9 @@ $$P(135 \le X \le 165) = P(-1 \le Z \le 1) = P(Z \le 1) - P(Z \le -1)$$
 
 $$= \Phi(1) - [1 - \Phi(1)] = 2\Phi(1) - 1 = 2(0.8413) - 1 = \boxed{0.6826}$$
 
-- Η κατανομή είναι συμμετρική ως προς το μηδέν, οπότε $P(Z \le -1) = 1 - \Phi(1)$.
+- The distribution is symmetric about zero, so $P(Z \le -1) = 1 - \Phi(1)$.
 
-**iii. Εντολή R για ερώτημα i**
+**iii. R command for question i**
 
 ```r
 pnorm(165, mean = 150, sd = 15)

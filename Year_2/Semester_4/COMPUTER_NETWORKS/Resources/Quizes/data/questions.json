@@ -346,7 +346,7 @@
       "options": [
         "Single-mode carries electric current, while Multimode carries light.",
         "Multimode uses lasers for intercontinental links and Single-mode uses LEDs for local LANs.",
-        "Single-mode has a very narrow core (~9 μm), uses lasers, and is suited for long distances, while Multimode has a thicker core (~50-62.5 μm), uses LEDs, and is suited for short distances (e.g. data centers).",
+        "Single-mode has a very narrow core (~9 $\mu m$), uses lasers, and is suited for long distances, while Multimode has a thicker core (~50-62.5 $\mu m$), uses LEDs, and is suited for short distances (e.g. data centers).",
         "There is no core difference, only outer cable colors change."
       ],
       "correct_index": 2,
@@ -1265,13 +1265,13 @@
     {
       "question": "Which coaxial cable type (based on impedance) is typically used for broadband Internet (DOCSIS) and CATV?",
       "options": [
-        "50 Ω (RG-8, RG-58)",
-        "75 Ω (RG-6, RG-11)",
-        "100 Ω (Cat6)",
-        "125 Ω (Single-mode)"
+        "50 $\Omega$ (RG-8, RG-58)",
+        "75 $\Omega$ (RG-6, RG-11)",
+        "100 $\Omega$ (Cat6)",
+        "125 $\Omega$ (Single-mode)"
       ],
       "correct_index": 1,
-      "explanation": "75 Ω cables (RG-6, RG-11) are standard for RF signals in CATV and broadband HFC/DOCSIS."
+      "explanation": "75 $\Omega$ cables (RG-6, RG-11) are standard for RF signals in CATV and broadband HFC/DOCSIS."
     },
     {
       "question": "What is the main advantage of coaxial cable compared to twisted pair?",
@@ -1326,7 +1326,7 @@
         "To achieve modal dispersion during transmission"
       ],
       "correct_index": 2,
-      "explanation": "SMF narrow core (~8-10 μm) requires tightly focused light beam produced only by semiconductor laser."
+      "explanation": "SMF narrow core (~8-10 $\mu m$) requires tightly focused light beam produced only by semiconductor laser."
     },
     {
       "question": "Why are wavelengths 1310 nm and 1550 nm widely used in optical fiber communications?",
@@ -1370,7 +1370,7 @@
         "Cannot carry laser signal, only LED"
       ],
       "correct_index": 2,
-      "explanation": "MMF wider core (~50-62.5 μm) allows multiple light modes propagating at different angles, causing modal dispersion."
+      "explanation": "MMF wider core (~50-62.5 $\mu m$) allows multiple light modes propagating at different angles, causing modal dispersion."
     }
   ],
   "6": [

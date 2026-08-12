@@ -35,25 +35,25 @@ Given: $\Phi(1) = P(Z \le 1) = 0.84134$, $\Phi(2) = P(Z \le 2) = 0.97725$.
 
 ### Solution to Problem 1
 
-**Δεδομένα (ταξινομημένα):** 4, 5, 5, 6, 7, 7, 8, 8, 8, 9, 9, 10 — $n=12$
+**Data (sorted):** 4, 5, 5, 6, 7, 7, 8, 8, 8, 9, 9, 10 — $n=12$
 
-**a. Μέση τιμή $\bar{x}$**
+**a. Mean $\bar{x}$**
 
 $$\bar{x} = \frac{4+5+5+6+7+7+8+8+8+9+9+10}{12} = \frac{86}{12} \approx \boxed{7.167}$$
 
-**3ο Τεταρτημόριο $Q_3$**
+**3rd quartile $Q_3$**
 
-- Θέση $Q_3$: $\frac{3(n+1)}{4} = \frac{3 \times 13}{4} = 9.75$, δηλαδή μεταξύ 9ης και 10ης τιμής.
+- Position of $Q_3$: $\frac{3(n+1)}{4} = \frac{3 \times 13}{4} = 9.75$, i.e., between the 9th and 10th values.
 
 $$Q_3 = x_{(9)} + 0.75 \cdot (x_{(10)} - x_{(9)}) = 8 + 0.75(9-8) = 8 + 0.75 = \boxed{8.75}$$
 
 **Mode $T$**
 
-- Ο βαθμός 8 εμφανίζεται 3 φορές (περισσότερο από κάθε άλλο).
+- The grade 8 appears 3 times (more than any other).
 
 $$T = \boxed{8}$$
 
-**b. Διακύμανση $s^2$**
+**b. Variance $s^2$**
 
 | $x_i$ | $x_i - \bar{x}$ | $(x_i - \bar{x})^2$ |
 |---|---|---|
@@ -69,7 +69,7 @@ $$T = \boxed{8}$$
 | 9  | 1.833  | 3.36  |
 | 9  | 1.833  | 3.36  |
 | 10 | 2.833  | 8.03  |
-| **Σύνολο** | | **37.67** |
+| **Total** | | **37.67** |
 
 $$s^2 = \frac{37.67}{11} \approx \boxed{3.424}$$
 
@@ -77,22 +77,22 @@ $$s^2 = \frac{37.67}{11} \approx \boxed{3.424}$$
 
 $$CV = \frac{s}{\bar{x}} = \frac{\sqrt{3.424}}{7.167} = \frac{1.851}{7.167} \approx \boxed{0.258 = 25.8\%}$$
 
-- Ο CV εκφράζει τη διασπορά ως ποσοστό του μέσου, επιτρέπει σύγκριση μεταξύ διαφορετικών συνόλων δεδομένων.
+- The CV expresses the spread as a percentage of the mean, allowing comparison between different data sets.
 
-**c. Εντολές R**
+**c. R commands**
 
 ```r
 scores <- c(4, 5, 5, 6, 7, 7, 8, 8, 8, 9, 9, 10)
-var(scores)      # διακύμανση
-mean(scores)     # μέση τιμή
+var(scores)      # variance
+mean(scores)     # mean
 ```
 
 ---
 
-**ΘΕΜΑ 2:** Ένα λογισμικό έχει πιθανότητα 10% να παρουσιάσει σφάλμα κατά την εκκίνησή του. Εκτελούμε 10 ανεξάρτητες εκκινήσεις του λογισμικού.
-i) Ποια είναι η πιθανότητα να παρουσιαστεί σφάλμα σε ακριβώς 2 εκκινήσεις;
-ii) Ποια είναι η πιθανότητα να παρουσιαστεί σφάλμα σε τουλάχιστον 2 εκκινήσεις;
-iii) Ποια εντολή R υπολογίζει την πιθανότητα του ερωτήματος ii;
+**PROBLEM 2:** A software has a 10% probability of encountering an error upon startup. We execute 10 independent software startups.
+i) What is the probability an error occurs in exactly 2 startups?
+ii) What is the probability an error occurs in at least 2 startups?
+iii) Which R command calculates the probability of question ii)?
 
 ### Solution to Problem 2
 
@@ -124,48 +124,48 @@ $$P(X \ge 2) = 1 - 0.3487 - 0.3874 = \boxed{0.2639}$$
 
 ---
 
-**ΘΕΜΑ 3:** Για δύο ενδεχόμενα $A$ και $B$ ενός δειγματικού χώρου $\Omega$ δίνονται $P(A) = 0.6$, $P(B) = 0.5$ και $P(A \cap B) = 0.3$.
-Α. Να υπολογίσετε την $P(A \cup B)$ και την $P(A \cap B')$.
-Β. Να υπολογίσετε τη δεσμευμένη πιθανότητα $P(A' | B')$.
-C. Είναι τα ενδεχόμενα $A$ και $B$ ανεξάρτητα; Να δικαιολογήσετε την απάντησή σας.
+**PROBLEM 3:** For two events $A$ and $B$ of a sample space $\Omega$, given $P(A) = 0.6$, $P(B) = 0.5$, and $P(A \cap B) = 0.3$.
+A. Calculate $P(A \cup B)$ and $P(A \cap B')$.
+B. Calculate the conditional probability $P(A' | B')$.
+C. Are events $A$ and $B$ independent? Justify your answer.
 
 ### Solution to Problem 3
 
 **Given Data:** $P(A)=0.6$, $P(B)=0.5$, $P(A \cap B)=0.3$
 
-**Α. $P(A \cup B)$ και $P(A \cap B')$**
+**A. $P(A \cup B)$ and $P(A \cap B')$**
 
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0.6 + 0.5 - 0.3 = \boxed{0.8}$$
 
 $$P(A \cap B') = P(A) - P(A \cap B) = 0.6 - 0.3 = \boxed{0.3}$$
 
-- Η $P(A \cap B')$ αφαιρεί από το Α τον τμήμα που αλληλεπικαλύπτεται με το Β.
+- $P(A \cap B')$ removes from $A$ the part that overlaps with $B$.
 
-**Β. $P(A' | B')$**
+**B. $P(A' | B')$**
 
 $$P(B') = 1 - P(B) = 0.5$$
 
-$$P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.8 = 0.2 \quad \text{(νόμος De Morgan)}$$
+$$P(A' \cap B') = 1 - P(A \cup B) = 1 - 0.8 = 0.2 \quad \text{(De Morgan's law)}$$
 
 $$P(A' \mid B') = \frac{P(A' \cap B')}{P(B')} = \frac{0.2}{0.5} = \boxed{0.4}$$
 
-**C. Ανεξαρτησία;**
+**C. Independence?**
 
-Για ανεξαρτησία απαιτείται: $P(A \cap B) = P(A) \cdot P(B)$
+For independence it is required that: $P(A \cap B) = P(A) \cdot P(B)$
 
 $$P(A) \cdot P(B) = 0.6 \times 0.5 = 0.30$$
 
-$$P(A \cap B) = 0.30 = P(A) \cdot P(B) \Rightarrow \textbf{Τα Α και Β είναι ανεξάρτητα.}$$
+$$P(A \cap B) = 0.30 = P(A) \cdot P(B) \Rightarrow \textbf{A and B are independent.}$$
 
-- Η ισότητα επιβεβαιώνεται αριθμητικά, άρα η γνώση του ενός δεν επηρεάζει την πιθανότητα του άλλου.
+- The equality is confirmed numerically, so knowledge of one does not affect the probability of the other.
 
 ---
 
-**ΘΕΜΑ 4:** Ο χρόνος αναμονής σε μια ουρά σούπερ μάρκετ ακολουθεί την Κανονική Κατανομή με μέσο $\mu = 8$ λεπτά και τυπική απόκλιση $\sigma = 2.5$ λεπτά.
-i. Ποια είναι η πιθανότητα ένας πελάτης να περιμένει περισσότερο από 13 λεπτά;
-ii. Ποια είναι η πιθανότητα ένας πελάτης να περιμένει μεταξύ 5.5 και 10.5 λεπτά;
-iii. Ποια εντολή R υπολογίζει την πιθανότητα ένας πελάτης να περιμένει το πολύ 6 λεπτά;
-Δίνονται: $\Phi(1) = P(Z \le 1) = 0.84134$, $\Phi(2) = P(Z \le 2) = 0.97725$.
+**PROBLEM 4:** The waiting time in a supermarket queue follows the Normal distribution with mean $\mu = 8$ minutes and standard deviation $\sigma = 2.5$ minutes.
+i. What is the probability that a customer waits more than 13 minutes?
+ii. What is the probability that a customer waits between 5.5 and 10.5 minutes?
+iii. Which R command calculates the probability that a customer waits at most 6 minutes?
+Given: $\Phi(1) = P(Z \le 1) = 0.84134$, $\Phi(2) = P(Z \le 2) = 0.97725$.
 
 ### Solution to Problem 4
 
@@ -185,9 +185,9 @@ $$P(5.5 \le X \le 10.5) = P(-1 \le Z \le 1) = P(Z \le 1) - P(Z \le -1)$$
 
 $$= \Phi(1) - [1 - \Phi(1)] = 2\Phi(1) - 1 = 2(0.84134) - 1 = \boxed{0.68268}$$
 
-- Το διάστημα $[\mu-\sigma, \mu+\sigma]$ περιέχει περίπου 68.3% των παρατηρήσεων (εμπειρικός κανόνας).
+- The interval $[\mu-\sigma, \mu+\sigma]$ contains approximately 68.3% of the observations (empirical rule).
 
-**iii. Εντολή R για $P(X \le 6)$**
+**iii. R command for $P(X \le 6)$**
 
 ```r
 pnorm(6, mean = 8, sd = 2.5)

@@ -1,173 +1,173 @@
-# Ασκήσεις — Αμοιβαίος Αποκλεισμός (Mutual Exclusion)
+# Exercises — Mutual Exclusion
 
-**Βασισμένες σε:** `OS_Lec05_NOTES.md`  
-**Αριθμός ασκήσεων:** 30
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Ορίστε αμοιβαίο αποκλεισμό και κρίσιμο τμήμα (critical section).
+**Based on:** `OS_Lec05_NOTES.md`  
+**Number of exercises:** 30
 
 ---
 
-### Άσκηση 2
-Αναφέρετε τις 8 συνθήκες για σωστό αμοιβαίο αποκλεισμό (από τις σημειώσεις).
+## Part A — Theory
+
+### Exercise 1
+Define mutual exclusion and critical section.
 
 ---
 
-### Άσκηση 3
-Εξηγήστε γιατί το μήκος του κρίσιμου τμήματος πρέπει να είναι όσο το δυνατόν μικρότερο.
+### Exercise 2
+State the 8 conditions for correct mutual exclusion (from the notes).
 
 ---
 
-### Άσκηση 4
-Γιατί ο αλγόριθμος Dekker (1η προσπάθεια — αυστηρή εναλλαγή) προκαλεί busy waiting;
+### Exercise 3
+Explain why the length of the critical section must be as short as possible.
 
 ---
 
-### Άσκηση 5
-Γιατί η 2η προσπάθεια Dekker (πίνακας σημαιών) αποτυγχάνει;
+### Exercise 4
+Why does the Dekker algorithm (1st attempt — strict alternation) cause busy waiting?
 
 ---
 
-## Μέρος Β — Υλοποίηση
-
-### Άσκηση 6
-Εξηγήστε απενεργοποίηση διακοπών ως τεχνική αμοιβαίου αποκλεισμού. Πλεονεκτήματα και μειονεκτήματα.
+### Exercise 5
+Why does the 2nd Dekker attempt (flag array) fail?
 
 ---
 
-### Άσκηση 7
-Περιγράψτε τη λειτουργία Test-and-Set (TAS). Γιατί είναι ατομική;
+## Part B — Implementation
+
+### Exercise 6
+Explain disabling interrupts as a mutual exclusion technique. Advantages and disadvantages.
 
 ---
 
-### Άσκηση 8
-Δώστε ψευδοκώδικα χρήσης TAS για αμοιβαίο αποκλεισμό.
+### Exercise 7
+Describe the Test-and-Set (TAS) operation. Why is it atomic?
 
 ---
 
-### Άσκηση 9
-Τι είναι Priority Inversion και πώς σχετίζεται με TAS;
+### Exercise 8
+Give pseudocode using TAS for mutual exclusion.
 
 ---
 
-### Άσκηση 10
-Εξηγήστε σημαφόρους: τι είναι, τι κάνουν οι λειτουργίες P (wait) και V (signal).
+### Exercise 9
+What is Priority Inversion and how does it relate to TAS?
 
 ---
 
-### Άσκηση 11
-Διακρίνετε δυαδικούς και μετρητές σημαφόρους. Πότε χρησιμοποιείται καθένας;
+### Exercise 10
+Explain semaphores: what they are, what the operations P (wait) and V (signal) do.
 
 ---
 
-### Άσκηση 12
-**Exam Tip:** Με τι τιμή αρχικοποιείται δυαδικός σημαφόρος για αμοιβαίο αποκλεισμό; Με τι τιμή για συγχρονισμό εκτέλεσης (P2 μετά P1);
+### Exercise 11
+Distinguish binary and counting semaphores. When is each used?
 
 ---
 
-## Μέρος Γ — Ασκήσεις Εφαρμογής
-
-### Άσκηση 13
-Δύο διεργασίες μοιράζονται μεταβλητή `counter`. Χωρίς αμοιβαίο αποκλεισμό, γιατί το αποτέλεσμα μπορεί να είναι λανθασμένο;
+### Exercise 12
+**Exam Tip:** With what value is a binary semaphore initialized for mutual exclusion? With what value for execution synchronization (P2 after P1)?
 
 ---
 
-### Άσκηση 14
-Γράψτε ψευδοκώδικα αμοιβαίου αποκλεισμού με δυαδικό σημαφόρο Q=1.
+## Part C — Application Exercises
+
+### Exercise 13
+Two processes share a `counter` variable. Without mutual exclusion, why can the result be incorrect?
 
 ---
 
-### Άσκηση 15
-Γράψτε ψευδοκώδικα ώστε η Διεργασία 2 να εκτελεί B μόνο αφού η Διεργασία 1 ολοκληρώσει A (σημαφόρος flag=0).
+### Exercise 14
+Write pseudocode for mutual exclusion with a binary semaphore Q=1.
 
 ---
 
-### Άσκηση 16
-Τι θα συμβεί όταν ένα πρόγραμμα καλέσει `wait` σε δυαδική σηματοφόρο S με τιμή 1;
+### Exercise 15
+Write pseudocode so that Process 2 executes B only after Process 1 completes A (semaphore flag=0).
 
 ---
 
-### Άσκηση 17
-Τι θα συμβεί όταν καλέσει `wait` σε S με τιμή 0;
+### Exercise 16
+What happens when a program calls `wait` on a binary semaphore S with value 1?
 
 ---
 
-### Άσκηση 18
-Τι θα συμβεί όταν καλέσει `signal` σε S με τιμή 0 και ουρά αναμονής κενή;
+### Exercise 17
+What happens when it calls `wait` on S with value 0?
 
 ---
 
-### Άσκηση 19
-Σημειώστε **Σ** ή **Λ**:
-
-1. Οι σημαφόροι εξαλείφουν την ενεργό αναμονή μέσω sleep/wakeup.
-2. Η απενεργοποίηση διακοπών εγγυάται αμοιβαίο αποκλεισμό σε SMP.
-3. Το TAS μπορεί να προκαλέσει λιμοκτονία.
-4. Λανθασμένη σειρά wait/signal μπορεί να προκαλέσει deadlock.
-5. Οι μετρητές σημαφόροι παίρνουν μόνο τιμές 0 και 1.
+### Exercise 18
+What happens when it calls `signal` on S with value 0 and an empty waiting queue?
 
 ---
 
-### Άσκηση 20
-Κυκλώστε τη σωστή απάντηση: Ποια λειτουργία καλείται **πριν** το κρίσιμο τμήμα;
+### Exercise 19
+Mark **T** or **F**:
 
-- α) signal (V)  
-- β) wait (P)  
-- γ) TAS return  
-- δ) enable interrupts
-
----
-
-## Μέρος Δ — Σύνθετες Ερωτήσεις
-
-### Άσκηση 21
-Συγκρίνετε λογισμικές λύσεις (Dekker) με υποστήριξη υλικού (TAS, σημαφόροι).
+1. Semaphores eliminate busy waiting through sleep/wakeup.
+2. Disabling interrupts guarantees mutual exclusion on SMP.
+3. TAS can cause starvation.
+4. An incorrect wait/signal order can cause deadlock.
+5. Counting semaphores take only the values 0 and 1.
 
 ---
 
-### Άσκηση 22
-Περιγράψτε σενάριο όπου counting semaphore με τιμή 3 διαχειρίζεται pool 3 buffer slots.
+### Exercise 20
+Circle the correct answer: Which operation is called **before** the critical section?
+
+- a) signal (V)  
+- b) wait (P)  
+- c) TAS return  
+- d) enable interrupts
 
 ---
 
-### Άσκηση 23
-Δύο διεργασίες: P1 κάνει wait(A) wait(B), P2 κάνει wait(B) wait(A). Μπορεί να προκύψει deadlock με σημαφόρους; Εξηγήστε.
+## Part D — Complex Questions
+
+### Exercise 21
+Compare software solutions (Dekker) with hardware support (TAS, semaphores).
 
 ---
 
-### Άσκηση 24
-Γιατί οι σημαφόροι Dijkstra θεωρούνται καλύτεροι από TAS για πολυπρογραμματιστικά περιβάλλοντα;
+### Exercise 22
+Describe a scenario where a counting semaphore with value 3 manages a pool of 3 buffer slots.
 
 ---
 
-### Άσκηση 25
-Εξηγήστε τη διαφορά busy waiting και blocking wait.
+### Exercise 23
+Two processes: P1 does wait(A) wait(B), P2 does wait(B) wait(A). Can deadlock occur with semaphores? Explain.
 
 ---
 
-### Άσκηση 26
-Πόσες διεργασίες μπορούν ταυτόχρονα στο κρίσιμο τμήμα με δυαδικό σημαφόρο; Με counting semaphore τιμής N;
+### Exercise 24
+Why are Dijkstra's semaphores considered better than TAS for multiprogramming environments?
 
 ---
 
-### Άσκηση 27
-Σενάριο Producer-Consumer με ένα slot: ποια αρχικοποίηση σημαφόρων (empty, full, mutex);
+### Exercise 25
+Explain the difference between busy waiting and blocking wait.
 
 ---
 
-### Άσκηση 28
-Αναλύστε: «Μόνο μία διεργασία πρέπει να επιτύχει είσοδο αν πολλές το προσπαθούν» — ποια συνθήκη αμοιβαίου αποκλεισμού;
+### Exercise 26
+How many processes can be in the critical section simultaneously with a binary semaphore? With a counting semaphore of value N?
 
 ---
 
-### Άσκηση 29
-Περιγράψτε πώς η παραβίαση «καμία υπόθεση για ταχύτητα επεξεργαστών» επηρεάζει τον αλγόριθμο Dekker.
+### Exercise 27
+Producer-Consumer scenario with one slot: what semaphore initialization (empty, full, mutex)?
 
 ---
 
-### Άσκηση 30
-Συνδυαστική άσκηση: Χρησιμοποιήστε σημαφόρους για αμοιβαίο αποκλεισμό σε 3 διεργασίες που ενημερώνουν κοινό log file. Περιγράψτε τη δομή (χωρίς πλήρη κώδικα).
+### Exercise 28
+Analyze: "Only one process must succeed in entering if many try" — which mutual exclusion condition?
+
+---
+
+### Exercise 29
+Describe how the violation of "no assumption about processor speeds" affects the Dekker algorithm.
+
+---
+
+### Exercise 30
+Combined exercise: Use semaphores for mutual exclusion among 3 processes that update a common log file. Describe the structure (without full code).

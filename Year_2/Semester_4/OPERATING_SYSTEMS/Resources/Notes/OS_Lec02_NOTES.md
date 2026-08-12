@@ -1,38 +1,38 @@
-# Λειτουργικά Συστήματα — Κεφάλαιο 2: Σκοποί και Εξέλιξη ΛΣ
+# Operating Systems — Chapter 2: Purposes and Evolution of OS
 
-Το κεφάλαιο αυτό καλύπτει τους τέσσερις βασικούς σκοπούς ενός Λειτουργικού Συστήματος (ΛΣ): προστασία υλικού, επικοινωνία με τον χρήστη, διαχείριση πόρων, και ικανότητα εξέλιξης. Επιπλέον εξετάζει τα σημαντικά σημεία εξέλιξης των ΛΣ (διεργασίες, μνήμη, ασφάλεια, δρομολόγηση, δομή) και τα χαρακτηριστικά των σύγχρονων ΛΣ. Το υλικό ανήκει στο Τμήμα Τεχνολογίας Πληροφορικής & Τηλεπικοινωνιών, ΤΕΙ Ηπείρου.
-
----
-
-## 1. Σκοποί και Λειτουργίες των ΛΣ
-
-Τα ΛΣ υλοποιούν τέσσερις κεντρικούς σκοπούς:
-
-| #   | Σκοπός                                   | Σύνοψη                                                                 |
-| :-- | :--------------------------------------- | :--------------------------------------------------------------------- |
-| I   | Προστασία υλικού                         | dual-mode, I/O, μνήμη, CPU                                             |
-| II  | Επικοινωνία με τον χρήστη                | αφαίρεση πολυπλοκότητας, παροχή υπηρεσιών                             |
-| III | Διαχείριση, αξιοποίηση και έλεγχος πόρων | ελεγχόμενη κατανομή CPU, μνήμης, I/O                                  |
-| IV  | Ικανότητα και ευκολία εξέλιξης           | υποστήριξη νέου υλικού, νέων υπηρεσιών, διορθώσεων                    |
+This chapter covers the four basic purposes of an Operating System (OS): hardware protection, communication with the user, resource management, and evolvability. It additionally examines the important evolution points of OS (processes, memory, security, scheduling, structure) and the features of modern OS. The material belongs to the Department of Informatics & Telecommunications Technology, TEI of Epirus.
 
 ---
 
-## 2. Ι. Προστασία Υλικού
+## 1. Purposes and Functions of OS
 
-### 2.1 Λειτουργία Dual-Mode
+OS implement four central purposes:
 
-Οι διαμοιραζόμενοι πόροι απαιτούν από το ΛΣ να εξασφαλίσει ότι ένα λανθασμένο πρόγραμμα δεν θα επηρεάσει άλλα προγράμματα.
+| #   | Purpose                                 | Summary                                                              |
+| :-- | :-------------------------------------- | :------------------------------------------------------------------ |
+| I   | Hardware protection                     | dual-mode, I/O, memory, CPU                                         |
+| II  | Communication with the user             | abstraction of complexity, provision of services                    |
+| III | Management, utilization and control of resources | controlled allocation of CPU, memory, I/O                  |
+| IV  | Evolvability and ease of evolution      | support for new hardware, new services, fixes                       |
 
-Το ΛΣ υποστηρίζει **δύο καταστάσεις λειτουργίας**:
+---
 
-- **User mode** — εκτέλεση εκ μέρους του χρήστη.
-- **Monitor mode** (= supervisor mode = system mode) — εκτέλεση εκ μέρους του ΛΣ.
+## 2. I. Hardware Protection
 
-**Μηχανισμός mode bit:**
+### 2.1 Dual-Mode Operation
 
-- Ένα bit στο υλικό δείχνει την τρέχουσα κατάσταση: `0` = monitor, `1` = user.
-- Σε κάθε διακοπή (interrupt) ή λάθος (fault) το υλικό εναλλάσσεται αυτόματα σε **monitor mode**.
-- **Privileged instructions** (προνομιούχες εντολές) εκτελούνται **μόνο** σε monitor mode.
+Shared resources require the OS to ensure that an erroneous program will not affect other programs.
+
+The OS supports **two modes of operation**:
+
+- **User mode** — execution on behalf of the user.
+- **Monitor mode** (= supervisor mode = system mode) — execution on behalf of the OS.
+
+**Mode bit mechanism:**
+
+- A bit in hardware indicates the current state: `0` = monitor, `1` = user.
+- At every interrupt or fault the hardware automatically switches to **monitor mode**.
+- **Privileged instructions** are executed **only** in monitor mode.
 
 ```
       Interrupt / fault
@@ -41,63 +41,63 @@ monitor ←────────────── user
          set user mode
 ```
 
-> **[Key Insight]** Ο διαχωρισμός user/monitor mode είναι ο θεμελιώδης μηχανισμός πάνω στον οποίο βασίζεται κάθε άλλη μορφή προστασίας (I/O, μνήμη, CPU).
+> **[Key Insight]** The user/monitor mode distinction is the fundamental mechanism on which every other form of protection (I/O, memory, CPU) is based.
 
-### 2.2 Προστασία Πυρήνα (Kernel Protection)
+### 2.2 Kernel Protection
 
-- Το **mode register bit** δείχνει αν η CPU εκτελεί πρόγραμμα χρήστη ή βρίσκεται σε **kernel mode**.
-- Ορισμένες εντολές και προσπελάσεις δεδομένων είναι δυνατές **μόνο σε kernel mode**.
-- Η κύρια μνήμη χωρίζεται σε περιοχές: OS code, OS data, Program A, Program B, code library.
+- The **mode register bit** indicates whether the CPU is executing a user program or is in **kernel mode**.
+- Certain instructions and data accesses are possible **only in kernel mode**.
+- Main memory is divided into regions: OS code, OS data, Program A, Program B, code library.
 
-### 2.3 Προστασία I/O
+### 2.3 I/O Protection
 
-- **Όλες** οι εντολές I/O είναι προνομιούχες.
-- Εξασφαλίζεται ότι ένα πρόγραμμα χρήστη δεν μπορεί να αποκτήσει έλεγχο του υπολογιστή σε monitor mode (π.χ. δεν μπορεί να τροποποιήσει τον **πίνακα διανυσμάτων διακοπών** — interrupt vector table).
+- **All** I/O instructions are privileged.
+- It is ensured that a user program cannot gain control of the computer in monitor mode (e.g., it cannot modify the **interrupt vector table**).
 
-**Εκτέλεση λειτουργιών I/O από πρόγραμμα χρήστη (System Call flow):**
+**Execution of I/O operations by a user program (System Call flow):**
 
-1. Πρόγραμμα χρήστη εκδίδει **κλήση συστήματος (system call)** — συνήθως μέσω **trap** σε καθορισμένη θέση του interrupt vector.
-2. Ο έλεγχος περνά μέσω του interrupt vector σε **ρουτίνα εξυπηρέτησης** του ΛΣ· το mode bit τίθεται σε monitor mode.
-3. Ο monitor επαληθεύει τις παραμέτρους, εκτελεί την απαίτηση.
-4. Επιστρέφει τον έλεγχο στην εντολή μετά τη system call (user mode).
+1. The user program issues a **system call** — usually through a **trap** to a designated location of the interrupt vector.
+2. Control passes through the interrupt vector to an OS **service routine**; the mode bit is set to monitor mode.
+3. The monitor verifies the parameters, performs the request.
+4. It returns control to the instruction after the system call (user mode).
 
-### 2.4 Προστασία Μνήμης
+### 2.4 Memory Protection
 
-Χρησιμοποιούνται δύο καταχωρητές που ορίζουν το αποδεκτό εύρος διευθύνσεων για κάθε πρόγραμμα:
+Two registers are used that define the acceptable address range for each program:
 
-| Καταχωρητής        | Περιεχόμενο                                |
-| :----------------- | :----------------------------------------- |
-| **base register**  | Μικρότερη αποδεκτή φυσική διεύθυνση μνήμης |
-| **limit register** | Μέγεθος της αποδεκτής περιοχής μνήμης      |
+| Register            | Content                                  |
+| :------------------ | :--------------------------------------- |
+| **base register**   | Smallest acceptable physical memory address |
+| **limit register**  | Size of the acceptable memory region     |
 
-- Μνήμη εκτός `[base, base + limit)` είναι **προστατευμένη**.
-- Σε monitor mode το ΛΣ έχει **απεριόριστη** πρόσβαση σε ολόκληρη τη μνήμη.
-- Οι εντολές `load` για τους καταχωρητές base & limit είναι **προνομιούχες**.
+- Memory outside `[base, base + limit)` is **protected**.
+- In monitor mode the OS has **unrestricted** access to the entire memory.
+- The `load` instructions for the base & limit registers are **privileged**.
 
-**Μετατροπή λογικής → φυσικής διεύθυνσης:**
+**Conversion of logical → physical address:**
 
 ```
 CPU address → [base ≤ address ≤ base+limit] → YES → memory access
                                              → NO  → trap to OS (addressing error)
 ```
 
-### 2.5 Προστασία CPU
+### 2.5 CPU Protection
 
-- **Timer (Χρονιστής):** διακόπτει τον υπολογιστή μετά από καθορισμένη περίοδο, εξασφαλίζοντας ότι το ΛΣ διατηρεί τον έλεγχο.
-  - Μειώνεται κατά 1 με κάθε **clock tick**.
-  - Όταν φτάσει **0** → παράγεται διακοπή.
-- Χρησιμοποιείται σε συστήματα **καταμερισμού χρόνου (time sharing)** και για υπολογισμό τρέχουσας ώρας.
-- Η φόρτωση (load) του timer είναι **προνομιούχος εντολή**.
+- **Timer:** interrupts the computer after a specified period, ensuring that the OS retains control.
+  - Decremented by 1 at every **clock tick**.
+  - When it reaches **0** → an interrupt is generated.
+- Used in **time-sharing** systems and for computing the current time.
+- Loading the timer is a **privileged instruction**.
 
-> **[Exam Tip: Προνομιούχες Εντολές]** Στις εξετάσεις συνηθίζεται η ερώτηση "ποιες εντολές είναι privileged;". Απάντηση: **I/O εντολές**, **load base/limit**, **load timer**, **εναλλαγή mode bit**. Κανένα πρόγραμμα χρήστη δεν μπορεί να τις εκτελέσει απευθείας.
+> **[Exam Tip: Privileged Instructions]** In exams the question "which instructions are privileged?" is common. Answer: **I/O instructions**, **load base/limit**, **load timer**, **switching the mode bit**. No user program can execute them directly.
 
 ---
 
-## 3. ΙΙ. Επικοινωνία με τον Χρήστη
+## 3. II. Communication with the User
 
-### 3.1 Επίπεδα Αφαίρεσης (Abstraction Layers)
+### 3.1 Abstraction Layers
 
-Το ΛΣ παρεμβάλλεται μεταξύ υλικού και χρήστη αποκρύπτοντας πολυπλοκότητα:
+The OS intervenes between hardware and user hiding complexity:
 
 ```
 End User / Programmer
@@ -111,141 +111,141 @@ Operating System
 Computer Hardware
 ```
 
-- **Υλικό επίπεδο:** Γλώσσα μηχανής, Μικροπρογραμματισμός, Φυσικές συσκευές.
-- **ΛΣ:** Τρέχει σε **kernel mode**. Καλύπτει τις λεπτομέρειες υλικού από τον προγραμματιστή.
-- **Compilers/Interpreters/Shell:** Τρέχουν σε **user mode**.
+- **Hardware level:** Machine language, Microprogramming, Physical devices.
+- **OS:** Runs in **kernel mode**. Hides hardware details from the programmer.
+- **Compilers/Interpreters/Shell:** Run in **user mode**.
 
-### 3.2 Μικροπρογραμματισμός
+### 3.2 Microprogramming
 
-- **Μικροπρόγραμμα:** διερμηνευτής που λαμβάνει εντολές γλώσσας μηχανής (`ADD`, `MOVE`, `JUMP`) και τις μεταφράζει σε μικρά βήματα.
-- Τοποθετείται σε **μνήμη ROM**.
-- Το σύνολο εντολών που διερμηνεύει = **Γλώσσα Μηχανής** (δεν είναι μέρος του υλικού).
-- Τυπικό μέγεθος γλώσσας μηχανής: **50–300 εντολές**.
+- **Microprogram:** an interpreter that receives machine language instructions (`ADD`, `MOVE`, `JUMP`) and translates them into small steps.
+- Stored in **ROM memory**.
+- The instruction set it interprets = **Machine Language** (not part of the hardware).
+- Typical size of a machine language: **50–300 instructions**.
 
-### 3.3 Πυρήνας ΛΣ (Kernel)
+### 3.3 OS Kernel
 
-Τμήμα του ΛΣ που περιέχει τις **πιο συχνά χρησιμοποιούμενες συναρτήσεις** και άλλα τμήματα ΛΣ σε τρέχουσα χρήση, όλα στην **κύρια μνήμη**.
+The part of the OS that contains the **most frequently used functions** and other OS parts currently in use, all in **main memory**.
 
-### 3.4 Παρεχόμενες Υπηρεσίες
+### 3.4 Provided Services
 
-Το ΛΣ παρέχει στους χρήστες:
+The OS provides users with:
 
-- Ανάπτυξη προγράμματος
-- Εκτέλεση προγράμματος
-- Προσπέλαση σε συσκευές I/O
-- Ελεγχόμενη προσπέλαση σε αρχεία
-- Σύστημα προσπέλασης
-- Ανίχνευση σφάλματος και απόκρυψη
-- Λογιστική (στατιστικά χρήσης)
-
----
-
-## 4. ΙΙΙ. Διαχείριση Πόρων
-
-Το ΛΣ παρέχει **ελεγχόμενη κατανομή** επεξεργαστών, μνημών και συσκευών I/O ανάμεσα σε ανταγωνιζόμενα προγράμματα.
-
-**Μηχανισμός Ελέγχου:**
-
-- Το ΛΣ λειτουργεί ως συνηθισμένο λογισμικό αλλά με διαφορετικό στόχο.
-- Καθοδηγεί τον επεξεργαστή στη χρήση άλλων πόρων.
-- Εκχωρεί και **επανακτά** τον έλεγχο του επεξεργαστή.
+- Program development
+- Program execution
+- Access to I/O devices
+- Controlled access to files
+- Access system
+- Error detection and concealment
+- Accounting (usage statistics)
 
 ---
 
-## 5. IV. Ικανότητα και Ευκολία Εξέλιξης ΛΣ
+## 4. III. Resource Management
 
-| Κατηγορία               | Παραδείγματα                                                |
-| :---------------------- | :---------------------------------------------------------- |
-| Αναβαθμίσεις υλικού     | Σελιδοποίηση τμημάτων μνήμης, τερματικά γραφικών           |
-| Νέες υπηρεσίες          | Χρήση παραθύρων (windows), στατιστικά εργαλεία             |
-| Διορθώσεις              | Bug fixes, ανανεώσεις (updates)                             |
+The OS provides **controlled allocation** of processors, memories, and I/O devices among competing programs.
 
----
+**Control Mechanism:**
 
-## 6. Σημαντικά Σημεία Εξέλιξης ΛΣ
-
-Πέντε κεντρικοί άξονες εξέλιξης:
-
-1. Διεργασίες
-2. Διαχείριση μνήμης
-3. Προστασία και ασφάλεια πληροφοριών
-4. Δρομολόγηση και διαχείριση πόρων
-5. Δομή συστήματος
+- The OS operates as ordinary software but with a different purpose.
+- Directs the processor in the use of other resources.
+- Allocates and **reclaims** control of the processor.
 
 ---
 
-## 7. Ι. Διεργασίες (Processes)
+## 5. IV. Evolvability and Ease of OS Evolution
 
-### 7.1 Ορισμοί
-
-- **Διεργασία (process):** Πρόγραμμα ή στιγμιότυπο προγράμματος που εκτελείται σε Η/Υ.
-- **Εναλλακτικός ορισμός:** Η οντότητα που μπορεί να ανατεθεί και να εκτελεστεί σε έναν επεξεργαστή.
-
-### 7.2 Πίνακας Διεργασιών
-
-- Πληροφορίες κάθε διεργασίας αποθηκεύονται σε **πίνακα διεργασιών** (process table) — δομή **συνδεδεμένης λίστας (linked list)** με κόμβους τις διεργασίες.
-- Μια **ανασταλμένη διεργασία** αποτελείται από:
-  - **Χώρο διευθύνσεών της** — εικόνα μνήμης (memory image).
-  - **Πληροφορίες της** — εγγραφή στον πίνακα διεργασιών.
-
-### 7.3 Οργάνωση Μνήμης Διεργασίας
-
-Κάθε τμήμα μνήμης (memory block) μιας διεργασίας περιέχει:
-
-- Το εκτελέσιμο πρόγραμμα (code)
-- Τα δεδομένα που απαιτούνται (data)
-- Το **περιεχόμενο εκτέλεσης** (execution context / κατάσταση διεργασίας)
-- Πληροφορίες διαχείρισης από το ΛΣ (π.χ. προτεραιότητα)
-- Πληροφορίες επεξεργαστή (π.χ. περιεχόμενο καταχωρητών, program counter)
-
-### 7.4 Διαχείριση Διεργασιών
-
-- Κάθε διεργασία εγγράφεται σε **λίστα διεργασιών** που συντηρεί το ΛΣ.
-- Ο **καταχωρητής δείκτη διεργασίας** (process index register) δείχνει τη διεργασία που έχει τον έλεγχο εκείνη τη στιγμή.
-- Διακοπείσες διεργασίες αποθηκεύουν το περιεχόμενο καταχωρητών τους στο δικό τους execution context.
-- **Εναλλαγή διεργασίας (context switch):** αποθήκευση πληροφοριών τρέχουσας + φόρτωση επόμενης διεργασίας.
-- Μια διεργασία είναι είτε **σε εκτέλεση** είτε **σε αναμονή**.
-
-### 7.5 Λόγοι Δημιουργίας Σφαλμάτων
-
-| Αιτία                              | Περιγραφή                                                                                         |
-| :--------------------------------- | :------------------------------------------------------------------------------------------------ |
-| Ανακριβής συγχρονισμός             | Σήματα διακοπών δεν διαχειρίζονται σωστά από τον μηχανισμό σηματοδότησης                          |
-| Αποτυχημένος αμοιβαίος αποκλεισμός | Ταυτόχρονη πρόσβαση σε διαμοιραζόμενο πόρο από πολλούς χρήστες / προγράμματα                      |
-| Ακαθόριστη λειτουργία προγράμματος | Προγράμματα παρεμβαίνουν επανεγγράφοντας κοινές περιοχές μνήμης · εξάρτηση από σειρά δρομολόγησης |
-| Αδιέξοδα (deadlocks)               | Δύο ή περισσότερα προγράμματα αναμένουν αμοιβαία το ένα το άλλο για να αποδεσμευτεί πόρος         |
-
-> **[Key Insight]** Τα σφάλματα διεργασιών εμφανίζονται μόνο μετά από **σπάνιες και συγκεκριμένες αλληλουχίες ενεργειών**, γεγονός που τα καθιστά εξαιρετικά δυσεντόπιστα. Η ανίχνευση ενός σφάλματος **δεν** ορίζει αυτόματα την αιτία του.
+| Category              | Examples                                                   |
+| :-------------------- | :--------------------------------------------------------- |
+| Hardware upgrades     | Paging of memory segments, graphics terminals              |
+| New services          | Use of windows, statistical tools                          |
+| Fixes                 | Bug fixes, updates                                         |
 
 ---
 
-## 8. ΙΙ. Διαχείριση Μνήμης
+## 6. Important Evolution Points of OS
 
-### 8.1 Πέντε Βασικές Ευθύνες ΛΣ
+Five central evolution axes:
 
-| Ευθύνη                                     | Σύνοψη                                                         |
-| :----------------------------------------- | :------------------------------------------------------------- |
-| Απομόνωση διεργασίας                       | Κάθε διεργασία σε ξεχωριστό, προστατευμένο χώρο               |
-| Αυτόματη τοποθέτηση & διαχείριση           | Όρια μνήμης, χάρτης μνήμης                                    |
-| Υποστήριξη σπονδυλωτού προγραμματισμού    | Δυναμική παραχώρηση / διαχείριση μνήμης                       |
-| Προστασία & έλεγχος προσπέλασης           | Απαγόρευση μη εξουσιοδοτημένης πρόσβασης                     |
-| Μακροπρόθεσμη αποθήκευση                  | Διατήρηση δεδομένων πέρα από τη διάρκεια ζωής διεργασίας      |
+1. Processes
+2. Memory management
+3. Protection and security of information
+4. Scheduling and resource management
+5. System structure
 
-Υλοποιούνται μέσω: **Ιδεατής Μνήμης (Virtual Memory)** και **Συστήματος Αρχείων (File System)**.
+---
 
-### 8.2 Ιδεατή Μνήμη (Virtual Memory)
+## 7. I. Processes
 
-- Επιτρέπει σε προγράμματα να διευθυνσιοδοτούν τη φυσική μνήμη **λογικά**, ανεξάρτητα από το διαθέσιμο μέγεθος.
-- Αντιμετωπίζει την απαίτηση πολλαπλών εργασιών να βρίσκονται **ταυτόχρονα** στην κεντρική μνήμη.
+### 7.1 Definitions
 
-### 8.3 Σελιδοποίηση Μνήμης (Paging)
+- **Process:** A program or instance of a program executing on a computer.
+- **Alternative definition:** The entity that can be assigned to and executed on a processor.
 
-- Η μνήμη διαιρείται σε **σελίδες (pages)** σταθερού μεγέθους (π.χ. 4 KB).
-- Κάθε σελίδα μπορεί να τοποθετηθεί **οπουδήποτε** στην κύρια μνήμη.
-- Κάθε πρόγραμμα αναφέρει **εικονική διεύθυνση (virtual address)** → το σύστημα σελιδοποίησης την μετατρέπει σε **φυσική (real address)**.
-- Σελίδες που δεν βρίσκονται στην κύρια μνήμη μεταφέρονται από τη **δευτερεύουσα** (δίσκος) — όλες οι σελίδες διατηρούνται στο δίσκο.
+### 7.2 Process Table
 
-**Ροή διευθυνσιοδότησης:**
+- Information about each process is stored in a **process table** — a **linked list** structure with the processes as nodes.
+- A **suspended process** consists of:
+  - **Its address space** — the memory image.
+  - **Its information** — an entry in the process table.
+
+### 7.3 Process Memory Organization
+
+Each memory block of a process contains:
+
+- The executable program (code)
+- The data required (data)
+- The **execution context** (process state)
+- Management information from the OS (e.g., priority)
+- Processor information (e.g., register contents, program counter)
+
+### 7.4 Process Management
+
+- Each process is registered in a **process list** maintained by the OS.
+- The **process index register** points to the process that has control at that moment.
+- Interrupted processes store their register contents in their own execution context.
+- **Context switch:** saving the information of the current process + loading the next process.
+- A process is either **running** or **waiting**.
+
+### 7.5 Causes of Fault Creation
+
+| Cause                              | Description                                                                               |
+| :--------------------------------- | :---------------------------------------------------------------------------------------- |
+| Inaccurate synchronization         | Interrupt signals are not handled correctly by the signaling mechanism                   |
+| Failed mutual exclusion            | Simultaneous access to a shared resource by many users / programs                         |
+| Undefined program behavior         | Programs interfere by rewriting common memory regions · dependence on scheduling order   |
+| Deadlocks                          | Two or more programs mutually wait for each other to release a resource                  |
+
+> **[Key Insight]** Process faults appear only after **rare and specific sequences of actions**, which makes them extremely difficult to locate. Detecting a fault **does not** automatically define its cause.
+
+---
+
+## 8. II. Memory Management
+
+### 8.1 Five Basic OS Responsibilities
+
+| Responsibility                             | Summary                                                          |
+| :------------------------------------------ | :-------------------------------------------------------------- |
+| Process isolation                           | Each process in a separate, protected space                    |
+| Automatic placement & management            | Memory bounds, memory map                                      |
+| Support for modular programming             | Dynamic memory allocation / management                         |
+| Access protection & control                 | Prohibition of unauthorized access                            |
+| Long-term storage                           | Retention of data beyond the lifetime of a process             |
+
+Implemented through: **Virtual Memory** and **File System**.
+
+### 8.2 Virtual Memory
+
+- Allows programs to address physical memory **logically**, independently of the available size.
+- Addresses the requirement of multiple jobs to reside **simultaneously** in main memory.
+
+### 8.3 Paging
+
+- Memory is divided into **pages** of fixed size (e.g., 4 KB).
+- Each page can be placed **anywhere** in main memory.
+- Each program references a **virtual address** → the paging system converts it into a **real address**.
+- Pages that are not in main memory are brought from **secondary** storage (disk) — all pages are kept on disk.
+
+**Addressing flow:**
 
 ```
 Processor → Virtual Address → Memory Management Unit (MMU)
@@ -255,74 +255,74 @@ Processor → Virtual Address → Memory Management Unit (MMU)
                           Disk Address → Secondary Memory
 ```
 
-- Κάθε διεργασία αποκτά **μοναδική, μη επικαλυπτόμενη** ιδεατή μνήμη → **απομόνωση**.
-- Η μερική φόρτωση σελίδων **ελαχιστοποιεί** την κατοχή κύριας μνήμης.
+- Each process acquires **unique, non-overlapping** virtual memory → **isolation**.
+- Partial page loading **minimizes** the holding of main memory.
 
-> **[Exam Tip: Virtual vs Physical Address]** Ο επεξεργαστής εκδίδει πάντα **εικονικές** διευθύνσεις. Η μετατροπή σε φυσικές γίνεται από το **MMU** (Memory Management Unit) σε συνεργασία με το ΛΣ. Αν η σελίδα δεν είναι φορτωμένη → **page fault** → ΛΣ τη φορτώνει από δίσκο.
-
----
-
-## 9. ΙΙΙ. Προστασία και Ασφάλεια Πληροφοριών
-
-| Μηχανισμός                    | Σκοπός                                                                              |
-| :---------------------------- | :---------------------------------------------------------------------------------- |
-| **Έλεγχος προσπέλασης**       | Ρύθμιση πρόσβασης χρηστών στο σύστημα                                              |
-| **Έλεγχος ροής πληροφοριών**  | Ρύθμιση ροής δεδομένων στο σύστημα                                                 |
-| **Πιστοποίηση (Authentication)** | Επαλήθευση ότι μηχανισμοί ασφαλείας εκτελούνται σύμφωνα με τις πολιτικές ασφαλείας |
+> **[Exam Tip: Virtual vs Physical Address]** The processor always issues **virtual** addresses. The conversion to physical addresses is done by the **MMU** (Memory Management Unit) in cooperation with the OS. If the page is not loaded → **page fault** → the OS loads it from disk.
 
 ---
 
-## 10. IV. Δρομολόγηση και Διαχείριση Πόρων
+## 9. III. Protection and Security of Information
 
-### 10.1 Κριτήρια Δρομολόγησης
-
-- **Αμεροληψία** — κλάσεις προτεραιότητας.
-- **Διαφορική απόκριση** — δυναμικές αποφάσεις δρομολόγησης.
-- **Αποτελεσματικότητα:**
-  - Μεγιστοποίηση απόδοσης (throughput)
-  - Ελαχιστοποίηση χρόνου απόκρισης (response time)
-  - Εξυπηρέτηση πολλών χρηστών
-
-### 10.2 Πολυπρογραμματισμός (Multiprogramming)
-
-Το ΛΣ διατηρεί πολλαπλές **ουρές** (queues):
-
-| Ουρά                          | Περιεχόμενο                                                             |
-| :---------------------------- | :---------------------------------------------------------------------- |
-| **Βραχυπρόθεσμη ουρά**        | Διεργασίες στην κύρια μνήμη, έτοιμες να εκτελεστούν                   |
-| **Μακροπρόθεσμη ουρά**        | Νέες διεργασίες που περιμένουν να χρησιμοποιήσουν τον επεξεργαστή     |
-| **Ουρές συσκευών I/O**        | Διεργασίες που αναμένουν συσκευή I/O                                   |
-
-**Βραχυπρόθεσμος δρομολογητής (dispatcher)** — στρατηγικές επιλογής:
-- **Round-robin** (εκ περιτροπής εξυπηρέτηση)
-- **Επίπεδα προτεραιότητας** (priority levels)
+| Mechanism                       | Purpose                                                                            |
+| :------------------------------ | :--------------------------------------------------------------------------------- |
+| **Access control**              | Regulating user access to the system                                              |
+| **Information flow control**    | Regulating the flow of data in the system                                         |
+| **Authentication**              | Verifying that security mechanisms are executed according to security policies    |
 
 ---
 
-## 11. V. Δομή Συστήματος
+## 10. IV. Scheduling and Resource Management
 
-### 11.1 Προβλήματα από Αύξηση Μεγέθους ΛΣ
+### 10.1 Scheduling Criteria
 
-- Καθυστερημένη χρονική παράδοση
-- Μη εμφανή προγραμματιστικά λάθη
-- Μειωμένη απόδοση
+- **Fairness** — priority classes.
+- **Differential response** — dynamic scheduling decisions.
+- **Efficiency:**
+  - Maximization of throughput
+  - Minimization of response time
+  - Service of many users
 
-### 11.2 Σχεδιαστικές Τάσεις
+### 10.2 Multiprogramming
 
-- **Σπονδυλωτός προγραμματισμός** (modular design)
-- Ελαχιστοποίηση του interface μεταξύ τμημάτων
-- Χρήση **ιεραρχικών επιπέδων** (layered architecture)
+The OS maintains multiple **queues**:
 
-### 11.3 Ιεραρχία Σχεδίασης ΛΣ
+| Queue                      | Content                                                            |
+| :------------------------- | :----------------------------------------------------------------- |
+| **Short-term queue**       | Processes in main memory, ready to be executed                    |
+| **Long-term queue**        | New processes waiting to use the processor                        |
+| **I/O device queues**      | Processes waiting for an I/O device                               |
 
-Κάθε επίπεδο:
-- Εκτελεί ένα **υποσύνολο** λειτουργιών.
-- Βασίζεται στο προηγούμενο για πρωταρχικές λειτουργίες.
-- Παρέχει υπηρεσίες στο υψηλότερο επίπεδο.
+**Short-term scheduler (dispatcher)** — selection strategies:
+- **Round-robin**
+- **Priority levels**
 
-Τα **χαμηλότερα** επίπεδα λειτουργούν σε μικρότερη χρονική κλίμακα, αλληλεπιδρώντας άμεσα με το υλικό.
+---
 
-**Ιεραρχία (από κατώτερο προς ανώτερο):**
+## 11. V. System Structure
+
+### 11.1 Problems from OS Size Increase
+
+- Delayed delivery
+- Non-obvious programming errors
+- Reduced performance
+
+### 11.2 Design Trends
+
+- **Modular design**
+- Minimization of the interface between parts
+- Use of **layered architecture**
+
+### 11.3 OS Design Hierarchy
+
+Each level:
+- Performs a **subset** of functions.
+- Relies on the previous one for primitive operations.
+- Provides services to the higher level.
+
+The **lowest** levels operate on a smaller time scale, interacting directly with the hardware.
+
+**Hierarchy (from lowest to highest):**
 
 | Level | Name                  | Objects                                           | Example Operations                              |
 | :---- | :-------------------- | :------------------------------------------------ | :---------------------------------------------- |
@@ -342,136 +342,136 @@ Processor → Virtual Address → Memory Management Unit (MMU)
 
 ---
 
-## 12. Χαρακτηριστικά Σύγχρονων ΛΣ
+## 12. Features of Modern OS
 
-### 12.1 Εξέλιξη Υλικού
+### 12.1 Hardware Evolution
 
-- Πολλοί επεξεργαστές (multi-processor)
-- Υψηλή ταχύτητα συνδέσεων δικτύου
-- Πολλές και μεγάλης χωρητικότητας συσκευές αποθήκευσης
+- Many processors (multi-processor)
+- High-speed network connections
+- Many and large-capacity storage devices
 
-### 12.2 Εξέλιξη Λογισμικού
+### 12.2 Software Evolution
 
-- Πολυμεσικές εφαρμογές
-- Πρόσβαση στο διαδίκτυο
-- Μοντέλο πελάτη / εξυπηρέτη (client/server)
+- Multimedia applications
+- Internet access
+- Client/server model
 
-### 12.3 Εξέλιξη Αρχιτεκτονικής ΛΣ
+### 12.3 OS Architecture Evolution
 
-| Χαρακτηριστικό                              | Σύνοψη                                                             |
-| :------------------------------------------ | :----------------------------------------------------------------- |
-| Αρχιτεκτονική μικροπυρήνα (microkernel)     | Ελάχιστο kernel · υπηρεσίες σε user space                        |
-| Πολυνημάτωση (multithreading)               | Πολλά νήματα εντός μιας διεργασίας                                |
-| Συστήματα πολυεπεξεργασίας                  | Πολλοί επεξεργαστές σε κοινό σύστημα                              |
-| Παράλληλα συστήματα                         | Ταυτόχρονη εκτέλεση υπολογισμών                                   |
-| Συστήματα πραγματικού χρόνου (real-time)    | Εγγυημένοι χρόνοι απόκρισης                                       |
-| Κατανεμημένα ΛΣ (distributed systems)      | Πολλοί κόμβοι που φαίνονται ως ενιαίο σύστημα                    |
+| Feature                                  | Summary                                                          |
+| :--------------------------------------- | :--------------------------------------------------------------- |
+| Microkernel architecture                 | Minimal kernel · services in user space                        |
+| Multithreading                           | Many threads within a single process                            |
+| Multiprocessing systems                  | Many processors in a common system                              |
+| Parallel systems                         | Simultaneous execution of computations                           |
+| Real-time systems                        | Guaranteed response times                                       |
+| Distributed systems                      | Many nodes that appear as a single system                       |
 
 ---
 
 ## Solved Exercises
 
-### Exercise 1: Λειτουργία Dual-Mode — Τι συμβαίνει σε interrupt
+### Exercise 1: Dual-Mode Operation — What happens on an interrupt
 
-**Problem:** Ένα πρόγραμμα χρήστη εκτελείται (mode bit = 1). Εμφανίζεται hardware interrupt. Περιγράψτε βήμα-βήμα τι συμβαίνει.
+**Problem:** A user program is executing (mode bit = 1). A hardware interrupt occurs. Describe step by step what happens.
 
 **Solution:**
-1. Το υλικό ανιχνεύει το interrupt.
-2. Το υλικό αυτόματα θέτει το mode bit σε `0` (monitor mode).
-3. Ο έλεγχος μεταφέρεται μέσω του **interrupt vector table** στη σχετική ρουτίνα εξυπηρέτησης (ISR) του ΛΣ.
-4. Το ΛΣ (monitor mode) εκτελεί την ISR.
-5. Μετά την ολοκλήρωση, το ΛΣ θέτει mode bit = `1` (user mode) και επιστρέφει τον έλεγχο στο πρόγραμμα.
+1. The hardware detects the interrupt.
+2. The hardware automatically sets the mode bit to `0` (monitor mode).
+3. Control is transferred through the **interrupt vector table** to the relevant OS service routine (ISR).
+4. The OS (monitor mode) executes the ISR.
+5. Upon completion, the OS sets the mode bit = `1` (user mode) and returns control to the program.
 
 ---
 
-### Exercise 2: Προστασία Μνήμης — Παράδειγμα Ελέγχου Ορίων
+### Exercise 2: Memory Protection — Bounds Checking Example
 
-**Problem:** base register = 300040, limit register = 120900. Είναι αποδεκτή η πρόσβαση στη διεύθυνση 400000; Και στη διεύθυνση 250000;
+**Problem:** base register = 300040, limit register = 120900. Is access to address 400000 acceptable? And to address 250000?
 
 **Solution:**
-- Αποδεκτό εύρος: `[300040, 300040 + 120900)` = `[300040, 420940)`.
-- Διεύθυνση 400000: `300040 ≤ 400000 < 420940` → **ΑΠΟΔΕΚΤΗ**.
-- Διεύθυνση 250000: `250000 < 300040` → **ΜΗ ΑΠΟΔΕΚΤΗ** → trap στο ΛΣ (addressing error).
+- Acceptable range: `[300040, 300040 + 120900)` = `[300040, 420940)`.
+- Address 400000: `300040 ≤ 400000 < 420940` → **ACCEPTABLE**.
+- Address 250000: `250000 < 300040` → **NOT ACCEPTABLE** → trap to the OS (addressing error).
 
 ---
 
-### Exercise 3: System Call για I/O
+### Exercise 3: System Call for I/O
 
-**Problem:** Ένα πρόγραμμα χρήστη θέλει να διαβάσει δεδομένα από δίσκο. Γιατί δεν μπορεί να εκτελέσει I/O εντολή απευθείας και πώς το πετυχαίνει;
+**Problem:** A user program wants to read data from disk. Why can it not execute an I/O instruction directly and how does it achieve it?
 
 **Solution:**
-1. Οι εντολές I/O είναι **προνομιούχες** → εκτελούνται μόνο σε monitor mode.
-2. Το πρόγραμμα χρήστη εκτελεί **system call** (trap) με τις κατάλληλες παραμέτρους.
-3. Το trap ανακατευθύνει τον έλεγχο στο ΛΣ (monitor mode) μέσω του interrupt vector.
-4. Το ΛΣ επαληθεύει τις παραμέτρους και εκτελεί την I/O εντολή.
-5. Αποτέλεσμα επιστρέφεται στο πρόγραμμα · mode bit → user mode.
+1. I/O instructions are **privileged** → they are executed only in monitor mode.
+2. The user program executes a **system call** (trap) with the appropriate parameters.
+3. The trap redirects control to the OS (monitor mode) through the interrupt vector.
+4. The OS verifies the parameters and executes the I/O instruction.
+5. The result is returned to the program · mode bit → user mode.
 
 ---
 
-### Exercise 4: Σελιδοποίηση — Μετατροπή Εικονικής σε Φυσική
+### Exercise 4: Paging — Virtual to Physical Conversion
 
-**Problem:** Σελίδα μεγέθους 4 KB. Μια διεργασία αναφέρει εικονική διεύθυνση 0x00005A00. Πώς υπολογίζεται ο αριθμός σελίδας και η offset;
+**Problem:** Page size 4 KB. A process references virtual address 0x00005A00. How are the page number and the offset computed?
 
 **Solution:**
-- Μέγεθος σελίδας: $4096 = 2^{12}$ bytes → τα **12 LSB** της διεύθυνσης είναι η offset.
-- Εικονική διεύθυνση: `0x00005A00` = `0b 0000 0000 0000 0000 0101 1010 0000 0000`
-- Page number: τα bits 12 και άνω = `0x5` = σελίδα 5.
-- Offset: τα 12 LSB = `0xA00` = 2560 (bytes μέσα στη σελίδα).
-- Το MMU ανατρέχει στον πίνακα σελίδων για τη σελίδα 5 → βρίσκει τη φυσική σελίδα → προσθέτει offset → φυσική διεύθυνση.
+- Page size: $4096 = 2^{12}$ bytes → the **12 LSB** of the address are the offset.
+- Virtual address: `0x00005A00` = `0b 0000 0000 0000 0000 0101 1010 0000 0000`
+- Page number: the bits 12 and above = `0x5` = page 5.
+- Offset: the 12 LSB = `0xA00` = 2560 (bytes within the page).
+- The MMU consults the page table for page 5 → finds the physical page → adds the offset → physical address.
 
 ---
 
-### Exercise 5: Deadlock — Αναγνώριση Σεναρίου
+### Exercise 5: Deadlock — Scenario Recognition
 
-**Problem:** Διεργασία A κρατά τον πόρο R1 και αναμένει τον R2. Διεργασία B κρατά τον R2 και αναμένει τον R1. Τι συμβαίνει;
+**Problem:** Process A holds resource R1 and waits for R2. Process B holds R2 and waits for R1. What happens?
 
 **Solution:**
-1. A κρατά R1, αναμένει R2.
-2. B κρατά R2, αναμένει R1.
-3. Καμία διεργασία δεν μπορεί να προχωρήσει χωρίς να αποδεσμεύσει η άλλη τον πόρο.
-4. **Αδιέξοδο (deadlock)** — το σύστημα χρειάζεται παρέμβαση (π.χ. τερματισμός μιας διεργασίας ή preemption πόρου).
+1. A holds R1, waits for R2.
+2. B holds R2, waits for R1.
+3. No process can proceed without the other releasing the resource.
+4. **Deadlock** — the system needs intervention (e.g., termination of a process or resource preemption).
 
 ---
 
-### Exercise 6: Ιεραρχία ΛΣ — Κατάταξη Λειτουργιών
+### Exercise 6: OS Hierarchy — Classification of Functions
 
-**Problem:** Σε ποιο επίπεδο ιεραρχίας ανήκουν οι παρακάτω λειτουργίες: (a) αποθήκευση αρχείου, (b) χειρισμός interrupt, (c) δημιουργία user process, (d) κλήση shell εντολής;
+**Problem:** At which hierarchy level do the following functions belong: (a) file storage, (b) interrupt handling, (c) user process creation, (d) shell command invocation?
 
 **Solution:**
 
-| Λειτουργία              | Επίπεδο | Όνομα          |
-| :---------------------- | :------ | :------------- |
-| (a) Αποθήκευση αρχείου  | 9       | File system    |
-| (b) Χειρισμός interrupt | 4       | Interrupts     |
-| (c) Δημιουργία process  | 12      | User processes |
-| (d) Shell εντολή        | 13      | Shell          |
+| Function              | Level | Name          |
+| :-------------------- | :---- | :------------ |
+| (a) File storage      | 9     | File system   |
+| (b) Interrupt handling | 4    | Interrupts    |
+| (c) Process creation  | 12    | User processes |
+| (d) Shell command     | 13    | Shell         |
 
 ---
 
-## Exam Tip: Βασικές Έννοιες για Εξετάσεις
+## Exam Tip: Key Concepts for Exams
 
 **1. Dual-mode & Privileged Instructions:**
-Οι προνομιούχες εντολές είναι: I/O εντολές, φόρτωση base/limit registers, φόρτωση timer, τροποποίηση mode bit. Καμία δεν εκτελείται σε user mode.
+Privileged instructions are: I/O instructions, loading base/limit registers, loading the timer, modifying the mode bit. None is executed in user mode.
 
 **2. System Call vs Interrupt:**
-- **Interrupt:** ασύγχρονο γεγονός από υλικό.
-- **System Call (trap):** σύγχρονο αίτημα από λογισμικό για υπηρεσία ΛΣ.
-Και οι δύο οδηγούν σε μετάβαση user → monitor mode.
+- **Interrupt:** asynchronous event from hardware.
+- **System Call (trap):** synchronous request from software for an OS service.
+Both lead to a transition from user → monitor mode.
 
 **3. Base/Limit Registers:**
-Αν `address < base` ή `address ≥ base + limit` → **addressing error** → trap στο ΛΣ.
+If `address < base` or `address ≥ base + limit` → **addressing error** → trap to the OS.
 
 **4. Context Switch:**
-Αποθήκευση: PC, registers, κατάσταση διεργασίας στον πίνακα διεργασιών. Φόρτωση: αντίστοιχα στοιχεία επόμενης διεργασίας.
+Save: PC, registers, process state in the process table. Load: the corresponding items of the next process.
 
 **5. Paging:**
-`virtual address = (page number, offset)`. MMU μετατρέπει page number σε physical frame number μέσω page table. Page fault = η σελίδα δεν είναι στην κύρια μνήμη.
+`virtual address = (page number, offset)`. The MMU converts the page number to a physical frame number through the page table. Page fault = the page is not in main memory.
 
-**6. Deadlock — 4 Συνθήκες Coffman (Supplementary):**
+**6. Deadlock — 4 Coffman Conditions (Supplementary):**
 
 > **[Supplementary]**
-> Ένα deadlock προκύπτει μόνο όταν ισχύουν **ταυτόχρονα** οι 4 συνθήκες Coffman:
-> 1. **Mutual Exclusion** — ο πόρος χρησιμοποιείται αποκλειστικά.
-> 2. **Hold and Wait** — ο κάτοχος κρατά πόρο και αναμένει άλλον.
-> 3. **No Preemption** — οι πόροι δεν αφαιρούνται βίαια.
-> 4. **Circular Wait** — κυκλική αλυσίδα αναμονής μεταξύ διεργασιών.
+> A deadlock occurs only when the 4 Coffman conditions hold **simultaneously**:
+> 1. **Mutual Exclusion** — the resource is used exclusively.
+> 2. **Hold and Wait** — the holder holds a resource and waits for another.
+> 3. **No Preemption** — resources cannot be forcibly removed.
+> 4. **Circular Wait** — a circular chain of waiting among processes.

@@ -32,14 +32,14 @@ C) From the north pole to the south pole
 D) From the north pole to infinity
 
 Exercise 1. 3 points
-According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where ρ is the charge density.
-If $\vec{D}=5z\hat{x}+12y^3\hat{y}+0.3\hat{z}$, calculate the charge density ρ.
+According to Gauss's law for the electric displacement $\vec{D}$, it holds that $\vec{\nabla}\cdot\vec{D}=\rho$, where $\rho$ is the charge density.
+If $\vec{D}=5z\hat{x}+12y^3\hat{y}+0.3\hat{z}$, calculate the charge density $\rho$.
 Given that $\vec{\nabla}=\frac{\partial}{\partial x}\hat{x}+\frac{\partial}{\partial y}\hat{y}+\frac{\partial}{\partial z}\hat{z}$ and that the inner product of two vectors $\vec{a}$ and $\vec{b}$ is given by:
 $\vec{a} = a_x\hat{x} + a_y\hat{y} + a_z\hat{z}$, $\vec{b} = b_x\hat{x} + b_y\hat{y} + b_z\hat{z}$, $\vec{a}\cdot\vec{b} = a_xb_x + a_yb_y + a_zb_z$
 
 Exercise 2. 3 points
 The electric field of a sinusoidal plane electromagnetic wave propagating in a vacuum is given by:
-$\vec{E}=1.5\cos(10^{-8}z-\omega t)\hat{y}$ a) What is the wavelength λ and the frequency f of the wave? b) Calculate the Poynting vector $\vec{S}$. c) Calculate the intensity I of the radiation.
+$\vec{E}=1.5\cos(10^{-8}z-\omega t)\hat{y}$ a) What is the wavelength $\lambda$ and the frequency f of the wave? b) Calculate the Poynting vector $\vec{S}$. c) Calculate the intensity I of the radiation.
 Given that the equations of the electric and magnetic fields for a wave propagating in the x direction are:
 $\vec{E}=E_0\cos(kx-\omega t)\hat{y}$ and $\vec{B}=B_0\cos(kx-\omega t)\hat{z}$.
 Also, $\vec{S}=\frac{1}{\mu_0}\vec{E}\times\vec{B}$, $I = \bar{S}$, $k=2\pi/\lambda$, $\omega=2\pi f$, $c=\lambda f$, $E_0=cB_0$, $c=3\times 10^8 m/s$, $\mu_0=4\pi\times 10^{-7} Tm/A$

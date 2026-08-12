@@ -1,288 +1,288 @@
-# Εισαγωγή & Βασικές Έννοιες
+# Introduction & Basic Concepts
 *Introduction & Basic Concepts*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Δεδομένα, Πληροφορία και Γνώση](#δεδομένα-πληροφορία-και-γνώση)
-   - [Επεξεργασία Ακατέργαστων Δεδομένων (Data)](#επεξεργασία-ακατέργαστων-δεδομένων-data)
-   - [Παραγωγή Πληροφορίας (Information)](#παραγωγή-πληροφορίας-information)
-   - [Δημιουργία Γνώσης για Λήψη Αποφάσεων (Knowledge)](#δημιουργία-γνώσης-για-λήψη-αποφάσεων-knowledge)
-3. [Πληροφοριακά Συστήματα (ΠΣ)](#πληροφοριακά-συστήματα-πσ)
-   - [Υλικό (Hardware)](#υλικό-hardware)
-   - [Λογισμικό (Software)](#λογισμικό-software)
-   - [Δεδομένα (Data)](#δεδομένα-data)
-   - [Διαδικασίες (Processes)](#διαδικασίες-processes)
-   - [Άνθρωποι (People)](#άνθρωποι-people)
-4. [Συστήματα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ / DBMS)](#συστήματα-διαχείρισης-βάσεων-δεδομένων-σδβδ--dbms)
-   - [Αποθήκευση, Ανάκτηση και Αποδοτική Διαχείριση](#αποθήκευση-ανάκτηση-και-αποδοτική-διαχείριση)
-   - [Προστασία Δεδομένων και Πολιτικές Ασφαλείας](#προστασία-δεδομένων-και-πολιτικές-ασφαλείας)
-   - [Ταυτόχρονη Πρόσβαση (Concurrency)](#ταυτόχρονη-πρόσβαση-concurrency)
-   - [Ελαχιστοποίηση Πλεονασμού και Ασυνέπειας Δεδομένων](#ελαχιστοποίηση-πλεονασμού-και-ασυνέπειας-δεδομένων)
-5. [Συγκριτικός Πίνακας: DBMS vs. Συστήματα Αρχείων](#συγκριτικός-πίνακας-dbms-vs-συστήματα-αρχείων)
-6. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-7. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Data, Information and Knowledge](#data-information-and-knowledge)
+   - [Processing of Raw Data](#processing-of-raw-data)
+   - [Production of Information](#production-of-information)
+   - [Creation of Knowledge for Decision-Making](#creation-of-knowledge-for-decision-making)
+3. [Information Systems (IS)](#information-systems-is)
+   - [Hardware](#hardware)
+   - [Software](#software)
+   - [Data](#data)
+   - [Processes](#processes)
+   - [People](#people)
+4. [Database Management Systems (DBMS)](#database-management-systems-dbms)
+   - [Storage, Retrieval and Efficient Management](#storage-retrieval-and-efficient-management)
+   - [Data Protection and Security Policies](#data-protection-and-security-policies)
+   - [Concurrent Access](#concurrent-access)
+   - [Minimization of Data Redundancy and Inconsistency](#minimization-of-data-redundancy-and-inconsistency)
+5. [Comparative Table: DBMS vs. File Processing Systems](#comparative-table-dbms-vs-file-processing-systems)
+6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+7. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Οι Βάσεις Δεδομένων αποτελούν τον ακρογωνιαίο λίθο της σύγχρονης πληροφορικής υποδομής, καθώς κάθε σύστημα που χειρίζεται δεδομένα — από ηλεκτρονικά καταστήματα μέχρι ιατρικά αρχεία — βασίζεται στις αρχές τους. Η ανάγκη για δομημένη, αξιόπιστη και ταχεία πρόσβαση σε μεγάλες ποσότητες δεδομένων οδήγησε στη μετάβαση από τα παραδοσιακά συστήματα αρχείων (file-based systems) στα σύγχρονα Συστήματα Διαχείρισης Βάσεων Δεδομένων (DBMS). Η κατανόηση της ιεραρχίας Δεδομένων → Πληροφορία → Γνώση, της δομής των Πληροφοριακών Συστημάτων και των θεμελιωδών χαρακτηριστικών ενός DBMS είναι απαραίτητη πριν από οποιαδήποτε μελέτη σχεδιασμού ή ερωτημάτων βάσεων δεδομένων.
+Databases constitute the cornerstone of modern computing infrastructure, as every system that handles data — from e-commerce stores to medical records — relies on their principles. The need for structured, reliable and rapid access to large volumes of data led to the transition from traditional file-based systems to modern Database Management Systems (DBMS). Understanding the hierarchy Data → Information → Knowledge, the structure of Information Systems and the fundamental characteristics of a DBMS is necessary before any study of database design or queries.
 
 ---
 
-## Δεδομένα, Πληροφορία και Γνώση
+## Data, Information and Knowledge
 *Data, Information and Knowledge*
 
-Η κατανόηση της διαφοράς μεταξύ δεδομένων, πληροφορίας και γνώσης είναι θεμελιώδης. Οι τρεις αυτές έννοιες σχηματίζουν μια ιεραρχία — κάθε επόμενο επίπεδο πηγαίνει από το ακατέργαστο και αδιάρθρωτο στο ερμηνευμένο και εφαρμόσιμο.
+Understanding the difference between data, information and knowledge is fundamental. These three concepts form a hierarchy — each successive level moves from the raw and unstructured to the interpreted and actionable.
 
 ```text
-  Ακατέργαστα γεγονότα / συμβάντα
+  Raw facts / events
             |
             v
-      [ ΔΕΔΟΜΕΝΑ (Data) ]
+      [ DATA ]
             |
-    Επεξεργασία / Ερμηνεία
-            |
-            v
-     [ ΠΛΗΡΟΦΟΡΙΑ (Information) ]
-            |
-    Εμπειρία / Ανάλυση / Συμφραζόμενα
+    Processing / Interpretation
             |
             v
-       [ ΓΝΩΣΗ (Knowledge) ]
+     [ INFORMATION ]
             |
-    Εφαρμογή στη λήψη αποφάσεων
+    Experience / Analysis / Context
             |
             v
-     [ ΑΠΟΦΑΣΗ / ACTION ]
+       [ KNOWLEDGE ]
+            |
+    Application to decision-making
+            |
+            v
+     [ DECISION / ACTION ]
 ```
 
-### Επεξεργασία Ακατέργαστων Δεδομένων (Data)
+### Processing of Raw Data
 *Processing of Raw Data*
 
-**Δεδομένο (Data)** είναι ένα ακατέργαστο, αδιερμήνευτο γεγονός ή συμβάν που καταγράφεται χωρίς πλαίσιο ή σημασία. Αντιστοιχεί σε αριθμούς, χαρακτήρες, εικόνες, ήχους ή οποιαδήποτε άλλη ακατέργαστη καταγραφή.
+**Data** is a raw, uninterpreted fact or event that is recorded without context or meaning. It corresponds to numbers, characters, images, sounds or any other raw record.
 
-- **Χαρακτηριστικά**: Δεν έχει νόημα από μόνο του, είναι αντικειμενικό και ανεπεξέργαστο.
-- **Παραδείγματα**: `37`, `Αθήνα`, `2024-05-01`, `912345678`, `85`.
+- **Characteristics**: It has no meaning on its own; it is objective and unprocessed.
+- **Examples**: `37`, `Athens`, `2024-05-01`, `912345678`, `85`.
 
-**Αναλογία**: Φανταστείτε μια αποθήκη βιβλιοθήκης με χιλιάδες χαρτιά πεσμένα τυχαία στο πάτωμα. Κάθε χαρτί έχει γραμμένο έναν αριθμό ή μια λέξη — αυτά είναι τα δεδομένα. Δεν γνωρίζουμε ακόμα τι σημαίνουν.
+**Analogy**: Imagine a library warehouse with thousands of papers scattered randomly on the floor. Each paper has a number or a word written on it — these are the data. We do not yet know what they mean.
 
-**Key Distinction:** Τα δεδομένα από μόνα τους δεν μπορούν να χρησιμοποιηθούν για τη λήψη αποφάσεων. Χρειάζεται επεξεργασία για να αποκτήσουν νόημα.
+**Key Distinction:** Data by themselves cannot be used for decision-making. Processing is needed for them to acquire meaning.
 
 ---
 
-### Παραγωγή Πληροφορίας (Information)
+### Production of Information
 *Production of Information*
 
-**Πληροφορία (Information)** είναι το αποτέλεσμα της επεξεργασίας, οργάνωσης ή ερμηνείας των δεδομένων με τρόπο που αποδίδει νόημα και χρησιμότητα σε έναν παραλήπτη.
+**Information** is the result of processing, organizing or interpreting data in a way that gives meaning and usefulness to a recipient.
 
-- **Χαρακτηριστικά**: Έχει πλαίσιο, σκοπό και νόημα. Απαντά σε ερωτήσεις του τύπου "ποιος", "τι", "πότε", "πού".
-- **Παράδειγμα**: Τα δεδομένα `85` (βαθμός), `Νικόλαος Παναγόπουλος` (φοιτητής), `Βάσεις Δεδομένων` (μάθημα) μαζί παράγουν την πληροφορία: "Ο φοιτητής Νικόλαος Παναγόπουλος έλαβε βαθμό 85 στο μάθημα Βάσεις Δεδομένων."
+- **Characteristics**: It has context, purpose and meaning. It answers questions of the type "who", "what", "when", "where".
+- **Example**: The data `85` (grade), `Nikolaos Panagopoulos` (student), `Databases` (course) together produce the information: "Student Nikolaos Panagopoulos received a grade of 85 in the course Databases."
 
-| Δεδομένα (Data) | Πληροφορία (Information) |
+| Data | Information |
 |---|---|
-| `85` | Βαθμός φοιτητή σε συγκεκριμένο μάθημα |
-| `37` | Θερμοκρασία σε Κελσίου για σήμερα στην Αθήνα |
-| `2024-05-01` | Ημερομηνία εξέτασης για το μάθημα Βάσεις Δεδομένων |
+| `85` | Student's grade in a specific course |
+| `37` | Temperature in Celsius for today in Athens |
+| `2024-05-01` | Exam date for the Databases course |
 
-**Exam Note:** Η πληροφορία δεν είναι απλώς "περισσότερα δεδομένα" — είναι δεδομένα με **πλαίσιο και σκοπό**. Αυτή είναι η θεμελιώδης διαφορά.
+**Exam Note:** Information is not simply "more data" — it is data with **context and purpose**. This is the fundamental difference.
 
 ---
 
-### Δημιουργία Γνώσης για Λήψη Αποφάσεων (Knowledge)
+### Creation of Knowledge for Decision-Making
 *Creation of Knowledge for Decision-Making*
 
-**Γνώση (Knowledge)** είναι η εφαρμογή πληροφοριών μέσω εμπειρίας, ανάλυσης και συμφραζομένων (context), με αποτέλεσμα να καθίσταται δυνατή η λήψη τεκμηριωμένων αποφάσεων.
+**Knowledge** is the application of information through experience, analysis and context, enabling informed decision-making.
 
-- **Χαρακτηριστικά**: Είναι συμφραζόμενη, δυναμική και βασίζεται σε συσσωρευμένη εμπειρία.
-- **Παράδειγμα**: Αφού αναλύσουμε βαθμούς πολλών φοιτητών (πληροφορία), γνωρίζουμε ότι "φοιτητές που δεν έχουν παρακολουθήσει τα εργαστήρια αποτυγχάνουν στις εξετάσεις", οπότε λαμβάνεται η απόφαση να γίνει υποχρεωτική η παρακολούθηση.
+- **Characteristics**: It is contextual, dynamic and based on accumulated experience.
+- **Example**: After analyzing the grades of many students (information), we know that "students who have not attended the laboratories fail the exams", so the decision is made to make attendance mandatory.
 
 ```text
-  Δεδομένα:   37, 38, 36, 39, 40  (θερμοκρασίες)
+  Data:   37, 38, 36, 39, 40  (temperatures)
        |
-  Πληροφορία: Η θερμοκρασία στην Αθήνα αυξάνεται κάθε καλοκαίρι
+  Information: The temperature in Athens is increasing every summer
        |
-  Γνώση:      Κλιματική αλλαγή επηρεάζει τη Μεσόγειο
+  Knowledge:      Climate change affects the Mediterranean
        |
-  Απόφαση:    Εφαρμογή μέτρων μείωσης εκπομπών CO2
+  Decision:    Implementation of measures to reduce CO2 emissions
 ```
 
 ---
 
-## Πληροφοριακά Συστήματα (ΠΣ)
+## Information Systems (IS)
 *Information Systems (IS)*
 
-Ένα **Πληροφοριακό Σύστημα (ΠΣ)** (Information System) είναι ένα οργανωμένο σύνολο αλληλοσυνδεδεμένων στοιχείων που συλλέγει, αποθηκεύει, επεξεργάζεται και διαδίδει πληροφορίες για την υποστήριξη της λήψης αποφάσεων και του ελέγχου ενός οργανισμού.
+An **Information System (IS)** is an organized set of interconnected components that collects, stores, processes and disseminates information to support decision-making and the control of an organization.
 
-**Αναλογία**: Ένα ΠΣ λειτουργεί σαν το νευρικό σύστημα ενός οργανισμού — συλλέγει σήματα (δεδομένα) από το περιβάλλον, τα επεξεργάζεται και στέλνει εντολές (πληροφορία) στα κατάλληλα τμήματα για δράση.
+**Analogy**: An IS acts like the nervous system of an organization — it collects signals (data) from the environment, processes them and sends commands (information) to the appropriate departments for action.
 
-Τα πέντε βασικά συστατικά ενός ΠΣ είναι:
+The five basic components of an IS are:
 
 ```text
   +--------------------------------------------------+
-  |         ΠΛΗΡΟΦΟΡΙΑΚΟ ΣΥΣΤΗΜΑ (ΠΣ)               |
+  |             INFORMATION SYSTEM (IS)              |
   +--------------------------------------------------+
   |                                                  |
-  |  [ ΥΛΙΚΟ ]   [ ΛΟΓΙΣΜΙΚΟ ]   [ ΔΕΔΟΜΕΝΑ ]       |
+  |  [ HARDWARE ]   [ SOFTWARE ]   [ DATA ]          |
   |  Hardware      Software         Data             |
   |                                                  |
-  |      [ ΔΙΑΔΙΚΑΣΙΕΣ ]    [ ΑΝΘΡΩΠΟΙ ]            |
+  |      [ PROCESSES ]    [ PEOPLE ]                 |
   |         Processes           People               |
   |                                                  |
   +--------------------------------------------------+
 ```
 
-### Υλικό (Hardware)
+### Hardware
 *Hardware*
 
-**Υλικό (Hardware)** είναι το σύνολο των φυσικών, απτών συσκευών που αποτελούν την υποδομή του πληροφοριακού συστήματος.
+**Hardware** is the set of physical, tangible devices that make up the infrastructure of the information system.
 
-- Servers, σταθμοί εργασίας (workstations), δικτυακές συσκευές (routers, switches).
-- Μέσα αποθήκευσης: HDD, SSD, NAS (Network-Attached Storage), cloud storage.
-- Περιφερειακές συσκευές εισόδου/εξόδου (εκτυπωτές, σαρωτές, οθόνες).
+- Servers, workstations, network devices (routers, switches).
+- Storage media: HDD, SSD, NAS (Network-Attached Storage), cloud storage.
+- Peripheral input/output devices (printers, scanners, monitors).
 
-**Exam Note:** Το hardware είναι το **φυσικό στρώμα** του ΠΣ — χωρίς αυτό, τίποτα άλλο δεν μπορεί να λειτουργήσει.
+**Exam Note:** Hardware is the **physical layer** of the IS — without it, nothing else can function.
 
 ---
 
-### Λογισμικό (Software)
+### Software
 *Software*
 
-**Λογισμικό (Software)** είναι το σύνολο των προγραμμάτων, εφαρμογών και λειτουργικών συστημάτων που ελέγχουν το υλικό και επεξεργάζονται τα δεδομένα.
+**Software** is the set of programs, applications and operating systems that control the hardware and process the data.
 
-- **Λογισμικό Συστήματος**: Λειτουργικά συστήματα (Linux, Windows Server), drivers.
-- **Λογισμικό Εφαρμογών**: Λογισμικό διαχείρισης ERP, CRM, εφαρμογές ιστού.
+- **System Software**: Operating systems (Linux, Windows Server), drivers.
+- **Application Software**: ERP management software, CRM, web applications.
 - **DBMS Software**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.
 
 ---
 
-### Δεδομένα (Data)
+### Data
 *Data*
 
-Στο πλαίσιο των ΠΣ, τα **Δεδομένα** αποτελούν τον πυρήνα του συστήματος — είναι η πρώτη ύλη που αποθηκεύεται, οργανώνεται, επεξεργάζεται και ανακτάται.
+In the context of IS, **Data** constitutes the core of the system — it is the raw material that is stored, organized, processed and retrieved.
 
-- Δομημένα δεδομένα (structured): Αποθηκεύονται σε πίνακες (tables) με σαφές σχήμα.
-- Ημι-δομημένα (semi-structured): XML, JSON αρχεία.
-- Αδόμητα (unstructured): Εικόνες, βίντεο, email, έγγραφα κειμένου.
+- Structured data: Stored in tables with a clear schema.
+- Semi-structured data: XML, JSON files.
+- Unstructured data: Images, videos, email, text documents.
 
 ---
 
-### Διαδικασίες (Processes)
+### Processes
 *Processes*
 
-**Διαδικασίες (Processes)** είναι τα σύνολα κανόνων, πολιτικών και διαδικαστικών βημάτων που ορίζουν πώς συλλέγονται, αποθηκεύονται, επεξεργάζονται και διανέμονται τα δεδομένα εντός του οργανισμού.
+**Processes** are the sets of rules, policies and procedural steps that define how data is collected, stored, processed and distributed within the organization.
 
-- Περιλαμβάνουν διαδικασίες εισαγωγής δεδομένων (data entry procedures), διαδικασίες δημιουργίας αντιγράφων ασφαλείας (backup procedures), και ροές εργασίας (workflows).
-- **Exam Note:** Χωρίς καλά ορισμένες διαδικασίες, ακόμα και το καλύτερο υλικό και λογισμικό δεν μπορεί να παράγει αξιόπιστα αποτελέσματα.
+- They include data entry procedures, backup procedures, and workflows.
+- **Exam Note:** Without well-defined processes, even the best hardware and software cannot produce reliable results.
 
 ---
 
-### Άνθρωποι (People)
+### People
 *People — Users & Administrators*
 
-**Άνθρωποι (People)** είναι ένα από τα πιο κρίσιμα στοιχεία του ΠΣ. Διακρίνονται σε δύο βασικές κατηγορίες:
+**People** are one of the most critical components of the IS. They are divided into two main categories:
 
-| Ρόλος | Περιγραφή | Αρμοδιότητες |
+| Role | Description | Responsibilities |
 |---|---|---|
-| **Χρήστες (Users)** | Άτομα που αλληλεπιδρούν καθημερινά με το σύστημα | Εισαγωγή δεδομένων, εκτέλεση ερωτημάτων, ανάγνωση αναφορών |
-| **Διαχειριστές (Administrators / DBA)** | Database Administrators — ειδικευμένοι τεχνικοί | Εγκατάσταση, ρύθμιση, συντήρηση, ασφάλεια, backup/restore |
+| **Users** | Individuals who interact with the system on a daily basis | Data entry, executing queries, reading reports |
+| **Administrators (DBA)** | Database Administrators — specialized technicians | Installation, configuration, maintenance, security, backup/restore |
 
-**Database Administrator (DBA)** είναι ο ρόλος που φέρει την ευθύνη για την εύρυθμη λειτουργία, την απόδοση, την ασφάλεια και την ακεραιότητα της βάσης δεδομένων.
+The **Database Administrator (DBA)** is the role responsible for the smooth operation, performance, security and integrity of the database.
 
 ---
 
-## Συστήματα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ / DBMS)
+## Database Management Systems (DBMS)
 *Database Management Systems*
 
-**Σύστημα Διαχείρισης Βάσεων Δεδομένων (ΣΔΒΔ)** (Database Management System — DBMS) είναι ένα σύνολο λογισμικού που επιτρέπει τη δημιουργία, συντήρηση, ανάκτηση και διαχείριση βάσεων δεδομένων με αποδοτικό, ασφαλή και οργανωμένο τρόπο.
+A **Database Management System (DBMS)** is a set of software that enables the creation, maintenance, retrieval and management of databases in an efficient, secure and organized manner.
 
-**Αναλογία**: Ένα DBMS είναι σαν έναν βιβλιοθηκάριο σε μια τεράστια βιβλιοθήκη: γνωρίζει πού βρίσκεται κάθε βιβλίο (δεδομένο), εξυπηρετεί πολλούς χρήστες ταυτόχρονα, φροντίζει να μην υπάρχουν διπλές εγγραφές του ίδιου βιβλίου, και εξασφαλίζει ότι μόνο εξουσιοδοτημένα άτομα έχουν πρόσβαση σε ευαίσθητο υλικό.
+**Analogy**: A DBMS is like a librarian in a huge library: it knows where each book (data) is located, serves many users simultaneously, ensures there are no duplicate records of the same book, and guarantees that only authorized individuals have access to sensitive material.
 
 ```text
   +----------------------------------------------------------+
   |                   DBMS Architecture                      |
   +----------------------------------------------------------+
   |                                                          |
-  |   [ Εφαρμογή / Application ]                            |
+  |   [ Application ]                                        |
   |              |                                           |
   |              v                                           |
-  |   [ DBMS Engine (Query Processor, Transaction Mgr) ]    |
+  |   [ DBMS Engine (Query Processor, Transaction Mgr) ]     |
   |              |                                           |
   |              v                                           |
-  |   [ Αποθηκευμένα Δεδομένα / Stored Data (Disk) ]       |
+  |   [ Stored Data (Disk) ]                                 |
   |                                                          |
   +----------------------------------------------------------+
 ```
 
-Τα τέσσερα βασικά χαρακτηριστικά ενός DBMS αναλύονται παρακάτω:
+The four basic characteristics of a DBMS are analyzed below:
 
-### Αποθήκευση, Ανάκτηση και Αποδοτική Διαχείριση
+### Storage, Retrieval and Efficient Management
 *Storage, Retrieval and Efficient Management*
 
-Ένα DBMS παρέχει μηχανισμούς για:
+A DBMS provides mechanisms for:
 
-- **Αποθήκευση (Storage)**: Τα δεδομένα αποθηκεύονται σε δομημένη μορφή (πίνακες, ευρετήρια — indexes) στο δίσκο, με τρόπο που επιτρέπει γρήγορη πρόσβαση.
-- **Ανάκτηση (Retrieval)**: Μέσω της γλώσσας SQL (Query Language), ο χρήστης μπορεί να ανακτά συγκεκριμένα δεδομένα με ακρίβεια.
-- **Αποδοτική Διαχείριση**: Ο Query Optimizer επιλέγει το βέλτιστο σχέδιο εκτέλεσης (execution plan) για κάθε ερώτημα, ελαχιστοποιώντας το χρόνο απόκρισης.
+- **Storage**: Data is stored in structured form (tables, indexes) on disk, in a way that allows fast access.
+- **Retrieval**: Through the SQL query language, the user can retrieve specific data with precision.
+- **Efficient Management**: The Query Optimizer selects the optimal execution plan for each query, minimizing response time.
 
 ```sql
--- Παράδειγμα ερωτήματος ανάκτησης δεδομένων
+-- Example of a data retrieval query
 SELECT first_name, last_name, grade
 FROM students
 WHERE grade >= 50;
 ```
 
-**Exam Note:** Η αποδοτική ανάκτηση διαφοροποιεί ένα DBMS από ένα απλό σύστημα αρχείων. Τα Indexes επιταχύνουν τις αναζητήσεις αποφεύγοντας πλήρη σάρωση πίνακα (full table scan).
+**Exam Note:** Efficient retrieval differentiates a DBMS from a simple file system. Indexes speed up searches by avoiding a full table scan.
 
 ---
 
-### Προστασία Δεδομένων και Πολιτικές Ασφαλείας
+### Data Protection and Security Policies
 *Data Protection and Security Policies*
 
-Ένα DBMS διαθέτει ενσωματωμένους μηχανισμούς ασφαλείας:
+A DBMS has built-in security mechanisms:
 
-- **Authentication**: Επαλήθευση ταυτότητας χρήστη (username/password, roles).
-- **Authorization**: Έλεγχος δικαιωμάτων πρόσβασης ανά χρήστη ή ρόλο (GRANT/REVOKE στη SQL).
-- **Encryption**: Κρυπτογράφηση δεδομένων κατά την αποθήκευση (at rest) και τη μεταφορά (in transit).
-- **Audit Logs**: Καταγραφή όλων των ενεργειών για σκοπούς ελέγχου (auditing).
+- **Authentication**: Verification of user identity (username/password, roles).
+- **Authorization**: Control of access rights per user or role (GRANT/REVOKE in SQL).
+- **Encryption**: Encryption of data at rest and in transit.
+- **Audit Logs**: Recording of all actions for auditing purposes.
 
 ```sql
--- Παραχώρηση δικαιωμάτων ανάγνωσης σε συγκεκριμένο χρήστη
+-- Granting read permissions to a specific user
 GRANT SELECT ON students TO 'professor_user'@'localhost';
 
--- Ανάκληση δικαιωμάτων
+-- Revoking permissions
 REVOKE SELECT ON students FROM 'professor_user'@'localhost';
 ```
 
-| Μηχανισμός Ασφαλείας | Λειτουργία |
+| Security Mechanism | Function |
 |---|---|
-| Authentication | Επαλήθευση ταυτότητας χρήστη |
-| Authorization (GRANT/REVOKE) | Καθορισμός δικαιωμάτων ανά χρήστη/ρόλο |
-| Views | Περιορισμός ορατότητας δεδομένων |
-| Encryption | Προστασία δεδομένων από μη εξουσιοδοτημένη ανάγνωση |
-| Backup & Recovery | Ανάκτηση δεδομένων μετά από αποτυχία |
+| Authentication | Verification of user identity |
+| Authorization (GRANT/REVOKE) | Definition of rights per user/role |
+| Views | Restriction of data visibility |
+| Encryption | Protection of data from unauthorized reading |
+| Backup & Recovery | Data recovery after failure |
 
 ---
 
-### Ταυτόχρονη Πρόσβαση (Concurrency)
+### Concurrent Access
 *Concurrent Access*
 
-**Ταυτόχρονη Πρόσβαση (Concurrency Control)** είναι η ικανότητα του DBMS να επιτρέπει σε πολλαπλούς χρήστες να προσπελαύνουν και να τροποποιούν δεδομένα **ταυτόχρονα**, χωρίς να προκύπτουν ασυνέπειες.
+**Concurrency Control** is the ability of the DBMS to allow multiple users to access and modify data **concurrently**, without inconsistencies arising.
 
-**Αναλογία**: Φανταστείτε δύο ταμίες τράπεζας που εξυπηρετούν ταυτόχρονα δύο πελάτες που θέλουν να κάνουν ανάληψη από τον ίδιο λογαριασμό. Χωρίς Concurrency Control, και οι δύο ταμίες θα έβλεπαν το αρχικό υπόλοιπο και θα εγκρίνουν και τις δύο αναλήψεις — αν και το υπόλοιπο επαρκεί μόνο για τη μία. Το DBMS αποτρέπει αυτό το σενάριο.
+**Analogy**: Imagine two bank tellers simultaneously serving two customers who want to withdraw from the same account. Without Concurrency Control, both tellers would see the initial balance and approve both withdrawals — even though the balance suffices only for one. The DBMS prevents this scenario.
 
-Βασικοί μηχανισμοί Concurrency Control:
+Basic Concurrency Control mechanisms:
 
-- **Transactions**: Ομαδοποίηση λειτουργιών σε ατομικές μονάδες.
-- **Locking**: Κλείδωμα εγγραφών κατά την τροποποίησή τους.
-- **MVCC** (Multi-Version Concurrency Control): Τεχνική που επιτρέπει ανάγνωση χωρίς αναμονή.
+- **Transactions**: Grouping operations into atomic units.
+- **Locking**: Locking records while they are being modified.
+- **MVCC** (Multi-Version Concurrency Control): A technique that allows reading without waiting.
 
 ```text
-  Χρήστης Α                Χρήστης Β
+  User A                  User B
   --------                 --------
   READ balance = 1000      READ balance = 1000
   WRITE balance = 500      WRITE balance = 700   <-- CONFLICT!
@@ -295,90 +295,90 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
                            COMMIT
 ```
 
-**Key Distinction:** Τα παραδοσιακά συστήματα αρχείων (file systems) δεν διαθέτουν ενσωματωμένο Concurrency Control — αυτό αποτελεί κύριο πλεονέκτημα των DBMS.
+**Key Distinction:** Traditional file systems do not have built-in Concurrency Control — this is a major advantage of DBMS.
 
 ---
 
-### Ελαχιστοποίηση Πλεονασμού και Ασυνέπειας Δεδομένων
+### Minimization of Data Redundancy and Inconsistency
 *Minimization of Data Redundancy and Inconsistency*
 
-**Πλεονασμός Δεδομένων (Data Redundancy)** εμφανίζεται όταν τα ίδια δεδομένα αποθηκεύονται σε πολλαπλές θέσεις. Αυτό οδηγεί σε **Ασυνέπεια Δεδομένων (Data Inconsistency)** — διαφορετικά αντίγραφα αποκλίνουν μεταξύ τους.
+**Data Redundancy** occurs when the same data is stored in multiple locations. This leads to **Data Inconsistency** — different copies diverge from one another.
 
-**Παράδειγμα Προβλήματος (File-Based System)**:
+**Problem Example (File-Based System)**:
 ```text
-  Αρχείο Μαθητών:      | ID | Όνομα      | Τμήμα    | Τηλ. Τμήματος |
-  ----------------------|----|------------|----------|----------------|
-                        |  1 | Α. Παπάς   | ΠΛΗ      | 210-1234567   |
-                        |  2 | Β. Νίκος   | ΠΛΗ      | 210-1234567   |
+  Student File:        | ID | Name        | Dept.     | Dept. Phone    |
+  ----------------------|----|-------------|-----------|----------------|
+                        |  1 | A. Papas    | CS        | 210-1234567    |
+                        |  2 | B. Nikos    | CS        | 210-1234567    |
 
-  Αρχείο Τμημάτων:     | Τμήμα | Τηλέφωνο    |
-  ---------------------|-------|-------------|
-                        | ΠΛΗ   | 210-9999999 |  <-- ΑΣΥΝΕΠΕΙΑ!
+  Department File:     | Dept.   | Phone          |
+  ---------------------|---------|---------------|
+                        | CS      | 210-9999999   |  <-- INCONSISTENCY!
 ```
 
-**Λύση μέσω DBMS — Κανονικοποίηση (Normalization)**:
+**Solution via DBMS — Normalization**:
 ```text
-  Πίνακας Φοιτητές:    | student_id | name     | dept_id |
+  Students Table:       | student_id | name     | dept_id |
                         |------------|----------|---------|
-                        |     1      | Α. Παπάς |   10    |
-                        |     2      | Β. Νίκος |   10    |
+                        |     1      | A. Papas |   10    |
+                        |     2      | B. Nikos |   10    |
 
-  Πίνακας Τμήματα:     | dept_id | dept_name | phone       |
-                        |---------|-----------|-------------|
-                        |   10    | ΠΛΗ       | 210-1234567 |
+  Departments Table:    | dept_id | dept_name | phone       |
+                        |---------|-----------|------------|
+                        |   10    | CS        | 210-1234567 |
 ```
 
-Τώρα το τηλέφωνο αποθηκεύεται **μόνο μία φορά**. Αν αλλάξει, ενημερώνεται σε ένα μόνο σημείο.
+Now the phone number is stored **only once**. If it changes, it is updated in a single place.
 
-**Exam Note:** Η **Κανονικοποίηση (Normalization)** είναι η διαδικασία σχεδιασμού σχεσιακών πινάκων με σκοπό την ελαχιστοποίηση πλεονασμού και την εξαλείφει ασυνέπειας. Συνδέεται άμεσα με τις Κανονικές Μορφές (Normal Forms): 1NF, 2NF, 3NF, BCNF.
+**Exam Note:** **Normalization** is the process of designing relational tables with the aim of minimizing redundancy and eliminating inconsistency. It is directly related to the Normal Forms: 1NF, 2NF, 3NF, BCNF.
 
 ---
 
-## Συγκριτικός Πίνακας: DBMS vs. Συστήματα Αρχείων
+## Comparative Table: DBMS vs. File Processing Systems
 *Comparative Table: DBMS vs. File Processing Systems*
 
-| Χαρακτηριστικό | DBMS | Σύστημα Αρχείων (File System) |
+| Feature | DBMS | File System |
 |---|---|---|
-| **Πλεονασμός Δεδομένων** | Ελαχιστοποιείται μέσω κανονικοποίησης | Υψηλός — πολλαπλά αντίγραφα |
-| **Ασυνέπεια Δεδομένων** | Αποτρέπεται από τους περιορισμούς ακεραιότητας | Συχνή — διαφορετικά αρχεία αποκλίνουν |
-| **Ταυτόχρονη Πρόσβαση** | Ενσωματωμένος Concurrency Control | Δύσκολη ή ανύπαρκτη |
-| **Ασφάλεια Δεδομένων** | Λεπτομερής έλεγχος πρόσβασης (GRANT/REVOKE) | Βασισμένη μόνο στο OS |
-| **Ανεξαρτησία Δεδομένων** | Υψηλή (logical & physical separation) | Χαμηλή (δομή δεδομένων δεμένη με τον κώδικα) |
-| **Ανάκτηση μετά από Αποτυχία** | Αυτοματοποιημένη μέσω Transaction Logs | Χειροκίνητη, επιρρεπής σε σφάλματα |
-| **Ακεραιότητα Δεδομένων** | Επιβάλλεται μέσω περιορισμών (Constraints) | Η εφαρμογή φέρει την ευθύνη |
-| **Υποστήριξη Queries** | Ισχυρή γλώσσα ερωτημάτων (SQL) | Απαιτεί custom κώδικα |
-| **Κλιμακωσιμότητα** | Υψηλή — διαχειρίζεται TB δεδομένων | Περιορισμένη |
+| **Data Redundancy** | Minimized through normalization | High — multiple copies |
+| **Data Inconsistency** | Prevented by integrity constraints | Frequent — different files diverge |
+| **Concurrent Access** | Built-in Concurrency Control | Difficult or non-existent |
+| **Data Security** | Detailed access control (GRANT/REVOKE) | Based only on the OS |
+| **Data Independence** | High (logical & physical separation) | Low (data structure tied to the code) |
+| **Recovery after Failure** | Automated via Transaction Logs | Manual, error-prone |
+| **Data Integrity** | Enforced through constraints | The application carries the responsibility |
+| **Query Support** | Powerful query language (SQL) | Requires custom code |
+| **Scalability** | High — handles TB of data | Limited |
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό |
+| Concept | Definition | Key Characteristic |
 |---|---|---|
-| **Δεδομένο (Data)** | Ακατέργαστο, αδιερμήνευτο γεγονός ή μέτρηση | Αντικειμενικό, χωρίς πλαίσιο |
-| **Πληροφορία (Information)** | Επεξεργασμένα δεδομένα με νόημα και πλαίσιο | Απαντά σε "ποιος/τι/πότε/πού" |
-| **Γνώση (Knowledge)** | Πληροφορία εμπλουτισμένη με εμπειρία και ανάλυση | Βάση για λήψη αποφάσεων |
-| **ΠΣ (Information System)** | Σύνολο Hardware + Software + Data + Processes + People | Υποστηρίζει οργανωτικές αποφάσεις |
-| **DBMS** | Λογισμικό διαχείρισης βάσεων δεδομένων | Αποθήκευση, ανάκτηση, ασφάλεια, concurrency |
-| **DBA** | Database Administrator | Συντήρηση, ασφάλεια, απόδοση DBMS |
-| **Concurrency Control** | Διαχείριση ταυτόχρονης πρόσβασης πολλών χρηστών | Αποτρέπει ασυνέπειες σε ταυτόχρονες συναλλαγές |
-| **Data Redundancy** | Αποθήκευση ίδιων δεδομένων σε πολλαπλές θέσεις | Οδηγεί σε Data Inconsistency |
-| **Normalization** | Διαδικασία σχεδιασμού για μείωση πλεονασμού | Εφαρμόζει Κανονικές Μορφές (1NF–BCNF) |
-| **Transaction** | Ατομική μονάδα εργασίας στο DBMS | Ακολουθεί τις ιδιότητες ACID |
+| **Data** | Raw, uninterpreted fact or measurement | Objective, without context |
+| **Information** | Processed data with meaning and context | Answers "who/what/when/where" |
+| **Knowledge** | Information enriched with experience and analysis | Basis for decision-making |
+| **IS (Information System)** | Set of Hardware + Software + Data + Processes + People | Supports organizational decisions |
+| **DBMS** | Database management software | Storage, retrieval, security, concurrency |
+| **DBA** | Database Administrator | Maintenance, security, DBMS performance |
+| **Concurrency Control** | Management of concurrent access by multiple users | Prevents inconsistencies in concurrent transactions |
+| **Data Redundancy** | Storage of the same data in multiple locations | Leads to Data Inconsistency |
+| **Normalization** | Design process for reducing redundancy | Applies Normal Forms (1NF–BCNF) |
+| **Transaction** | Atomic unit of work in the DBMS | Follows the ACID properties |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- **Data → Information → Knowledge**: Η ιεραρχία αυτή περιγράφει πώς τα ακατέργαστα γεγονότα μετατρέπονται σε εργαλεία λήψης αποφάσεων μέσω επεξεργασίας και ερμηνείας.
-- Ένα **Πληροφοριακό Σύστημα** αποτελείται από πέντε αλληλεξαρτώμενα στοιχεία: Hardware, Software, Data, Processes, People — η αφαίρεση οποιουδήποτε υποβαθμίζει το σύνολο.
-- Ένα **DBMS** υπερτερεί σαφώς των παραδοσιακών συστημάτων αρχείων σε ανεξαρτησία δεδομένων, ασφάλεια, concurrency και ακεραιότητα.
-- Το **Concurrency Control** είναι κρίσιμο σε πολυχρηστικά περιβάλλοντα — χωρίς αυτό, ταυτόχρονες εγγραφές μπορούν να οδηγήσουν σε καταστροφική απώλεια δεδομένων.
-- Ο **πλεονασμός δεδομένων** δεν είναι απλώς σπατάλη χώρου — οδηγεί σε ασυνέπεια, δυσκολία συντήρησης και αναξιόπιστα αποτελέσματα ερωτημάτων.
-- Η **Κανονικοποίηση** είναι η βασική τεχνική για την εξαλείφει του πλεονασμού — συνδέεται άμεσα με τον σχεδιασμό της σχεσιακής βάσης δεδομένων.
-- Ο **DBA** (Database Administrator) είναι υπεύθυνος για την ασφάλεια, τη συντήρηση και την απόδοση του DBMS — ο ρόλος αυτός είναι διακριτός από τον απλό χρήστη.
-- Η **ασφάλεια** σε ένα DBMS υλοποιείται σε πολλά επίπεδα: Authentication, Authorization (GRANT/REVOKE), Encryption και Audit Logs.
-- **Key Distinction:** Η διαφορά Data vs. Information δεν είναι ποσοτική αλλά ποιοτική — το πλαίσιο (context) και η ερμηνεία είναι αυτά που μετατρέπουν δεδομένα σε πληροφορία.
-- Τα DBMS χρησιμοποιούνται σε κρίσιμα συστήματα (τράπεζες, νοσοκομεία, e-commerce) ακριβώς επειδή παρέχουν εγγυήσεις **ακεραιότητας, ασφαλείας και αξιοπιστίας** που τα απλά συστήματα αρχείων δεν μπορούν να προσφέρουν.
+- **Data → Information → Knowledge**: This hierarchy describes how raw facts are transformed into decision-making tools through processing and interpretation.
+- An **Information System** consists of five interdependent components: Hardware, Software, Data, Processes, People — removing any one of them degrades the whole.
+- A **DBMS** clearly outperforms traditional file systems in data independence, security, concurrency and integrity.
+- **Concurrency Control** is critical in multi-user environments — without it, concurrent writes can lead to catastrophic data loss.
+- **Data redundancy** is not simply a waste of space — it leads to inconsistency, maintenance difficulty and unreliable query results.
+- **Normalization** is the basic technique for eliminating redundancy — it is directly linked to relational database design.
+- The **DBA** (Database Administrator) is responsible for the security, maintenance and performance of the DBMS — this role is distinct from that of the ordinary user.
+- **Security** in a DBMS is implemented at many levels: Authentication, Authorization (GRANT/REVOKE), Encryption and Audit Logs.
+- **Key Distinction:** The difference between Data and Information is not quantitative but qualitative — context and interpretation are what transform data into information.
+- DBMS are used in critical systems (banks, hospitals, e-commerce) precisely because they provide guarantees of **integrity, security and reliability** that simple file systems cannot offer.

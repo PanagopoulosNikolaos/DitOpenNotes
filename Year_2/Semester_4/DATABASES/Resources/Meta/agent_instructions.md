@@ -7,7 +7,7 @@ Your objective is to generate comprehensive, high-quality study notes for the Da
 ## Input Modes
 
 ### Mode A: PDF-Based Generation
-When given a PDF file from `DATABASES/Lectures/` (e.g., `Διάλεξη 1 - Βάσεις δεδομένων.pdf` or `Εργαστήριο 1.pdf`):
+When given a PDF file from `DATABASES/Lectures/` (e.g., `Lecture_1_Databases.pdf` or `Lab_1.pdf`):
 1. Extract all key concepts, definitions, rules, SQL commands, and exercises from the PDF.
 2. Structure the notes to follow the PDF's flow, making sure to expand on any brief or vague points.
 3. Supplement with web search to provide rich examples, clear explanations of SQL syntax, or visual ASCII diagrams.
@@ -34,9 +34,9 @@ You must produce **exactly one Markdown file** per lecture/laboratory PDF or per
 
 | Source Material | Output File |
 |---|---|
-| Διάλεξη 1 - Βάσεις δεδομένων.pdf | `DATABASES/Resources/Notes/lecture_1_vases_dedomenon.md` |
-| Διάλεξη 3 - Εννοιολογική Σχεδίαση...pdf | `DATABASES/Resources/Notes/lecture_3_ennoiologiki_schediasi.md` |
-| Εργαστήριο 1.pdf | `DATABASES/Resources/Notes/lab_1_notes.md` |
+| Lecture_1_Databases.pdf | `DATABASES/Resources/Notes/lecture_1_vases_dedomenon.md` |
+| Lecture_3_Conceptual_Design_and_ER_Model.pdf | `DATABASES/Resources/Notes/lecture_3_ennoiologiki_schediasi.md` |
+| Lab_1.pdf | `DATABASES/Resources/Notes/lab_1_notes.md` |
 | Mindmap: Eisagogi & Basikes Ennoies (Topic 1) | `DATABASES/Resources/Notes/topic_1_eisagogi_kai_vasikes_ennoies.md` |
 | Mindmap: Montelo Ontotiton-Sychetiseon (Topic 3) | `DATABASES/Resources/Notes/topic_3_montelo_ontotiton_sychetiseon_er.md` |
 
@@ -50,7 +50,7 @@ Every generated file must follow this internal structure, strictly in this order
 Use the Greek topic or lecture name as the `# H1` heading, followed immediately by an English subtitle in italics.
 
 ```markdown
-# Εισαγωγή & Βασικές Έννοιες
+# Introduction & Basic Concepts
 *Introduction & Basic Concepts*
 ```
 
@@ -95,7 +95,7 @@ A short bulleted list (5-10 bullets) of the most important facts, rules, design 
 - Never write raw Unicode math symbols. Always use LaTeX.
 
 ### 3. Clarity and Flow
-- Write explanations in Greek, but use English for standard technical terms (e.g., "Primary Key", "Foreign Key", "Join", "Query", "Transaction", "ACID", "Index", "Normal Form").
+- Write explanations in English, using standard technical terms (e.g., "Primary Key", "Foreign Key", "Join", "Query", "Transaction", "ACID", "Index", "Normal Form") as-is.
 - Highlight exam-critical points using a **bold label** such as **"Exam Note:"** or **"Key Distinction:"**.
 
 ### 4. Diagrams and Schema Layouts
@@ -127,7 +127,7 @@ A short bulleted list (5-10 bullets) of the most important facts, rules, design 
 - **SQL Examples with Visual Tables**: When documenting DDL/DML/DQL, always provide the input table state, the SQL query block, and the resulting table state.
 - **Relational Algebra Equivalence**: For relational algebra sections, show the query in both algebraic notation and its SQL equivalent.
 - **Normalization Walks**: For normalization topics, show step-by-step how a relation is decomposed, listing all functional dependencies (FDs), identifying candidate keys, and showing why a relation violates a normal form (1NF, 2NF, 3NF, BCNF) and how it is resolved.
-- **Greek subtopic headers are required**: Use the exact Greek names from `mindmap.md` or the PDF lecture names as your `## H2` section headings, followed by the English translation in italics on the next line.
+- **English subtopic headers are required**: Use the English topic names from `mindmap.md` or the PDF lecture names as your `## H2` section headings.
 
 ---
 
@@ -135,4 +135,4 @@ A short bulleted list (5-10 bullets) of the most important facts, rules, design 
 - Emojis are not allowed and may not be used in any way.
 - If you spot any emojis, ask whether they are needed; if the answer is no, remove them.
 - Do not fabricate SQL standards or database engine features.
-- All file content must be in Greek for prose explanations, with English used for technical terms, SQL commands, and diagrams.
+- All file content must be in English, with technical terms, SQL commands, and diagrams in standard form.

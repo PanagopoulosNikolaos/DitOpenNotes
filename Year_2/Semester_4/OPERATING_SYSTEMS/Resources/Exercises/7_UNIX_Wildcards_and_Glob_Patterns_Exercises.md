@@ -1,204 +1,204 @@
-# Ασκήσεις — Wildcards και Glob Patterns UNIX
+# Exercises — UNIX Wildcards and Glob Patterns
 
-**Βασισμένες σε:** `7_UNIX_Wildcards_and_Glob_Patterns.md`  
-**Αριθμός ασκήσεων:** 32
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Τι είναι το globbing και ποιος το εκτελεί — η εντολή ή το shell;
+**Based on:** `7_UNIX_Wildcards_and_Glob_Patterns.md`  
+**Number of exercises:** 32
 
 ---
 
-### Άσκηση 2
-Εξηγήστε τη λειτουργία των wildcards `*`, `?` και `[...]`. Δώστε ένα παράδειγμα για καθένα.
+## Part A — Theory
+
+### Exercise 1
+What is globbing and who performs it — the command or the shell?
 
 ---
 
-### Άσκηση 3
-Ποια είναι η διαφορά μεταξύ `*` και `?`; Ποια αρχεία ταιριάζουν στο `file?.txt` και ποια **όχι**;
+### Exercise 2
+Explain the function of the wildcards `*`, `?` and `[...]`. Give one example for each.
 
 ---
 
-### Άσκηση 4
-Εξηγήστε τη negation σε character classes: `[!...]` και `[^...]`. Τι ταιριάζει στο `[!0-9]*`;
+### Exercise 3
+What is the difference between `*` and `?`? Which files match `file?.txt` and which do **not**?
 
 ---
 
-### Άσκηση 5
-Γιατί το `rm *` **δεν** διαγράφει κρυφά αρχεία (αρχεία που ξεκινούν με `.`); Πώς τα συμπεριλαμβάνουμε;
+### Exercise 4
+Explain negation in character classes: `[!...]` and `[^...]`. What does `[!0-9]*` match?
 
 ---
 
-### Άσκηση 6
-Εξηγήστε γιατί τα wildcards δεν διασχίζουν όρια καταλόγων (`/`). Τι ταιριάζει στο `*/*.txt`;
+### Exercise 5
+Why does `rm *` **not** delete hidden files (files starting with `.`)? How do we include them?
 
 ---
 
-### Άσκηση 7
-Πώς «αποφεύγουμε» την ερμηνεία wildcard όταν θέλουμε κυριολεκτικό `*` ή `?` στο όνομα αρχείου;
+### Exercise 6
+Explain why wildcards do not cross directory boundaries (`/`). What does `*/*.txt` match?
 
 ---
 
-### Άσκηση 8
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
-
-1. Το `*` ταιριάζει με μηδέν ή περισσότερους χαρακτήρες.
-2. Το `?` ταιριάζει με ακριβώς έναν χαρακτήρα.
-3. Το `ls *.txt` ταιριάζει και το `report.csv`.
-4. Το `rm doc*` διαγράφει αρχεία που ξεκινούν με `doc`.
-5. Τα single quotes `'...'` αποτρέπουν το globbing.
+### Exercise 7
+How do we "avoid" wildcard interpretation when we want a literal `*` or `?` in a file name?
 
 ---
 
-## Μέρος Β — Αντιστοίχιση Προτύπων
+### Exercise 8
+Mark **T** (True) or **F** (False):
 
-### Άσκηση 9
-Ποια από τα παρακάτω αρχεία ταιριάζουν στο `*.txt`;
+1. `*` matches zero or more characters.
+2. `?` matches exactly one character.
+3. `ls *.txt` also matches `report.csv`.
+4. `rm doc*` deletes files starting with `doc`.
+5. Single quotes `'...'` prevent globbing.
+
+---
+
+## Part B — Pattern Matching
+
+### Exercise 9
+Which of the following files match `*.txt`?
 
 `report.txt`, `data.csv`, `notes.TXT`, `file.txt.bak`, `tmp`
 
 ---
 
-### Άσκηση 10
-Ποια ταιριάζουν στο `file?.txt`;
+### Exercise 10
+Which match `file?.txt`?
 
 `file1.txt`, `file10.txt`, `fileA.txt`, `file.txt`, `file_.txt`
 
 ---
 
-### Άσκηση 11
-Ποια ταιριάζουν στο `??-report`;
+### Exercise 11
+Which match `??-report`?
 
 `Q3-report`, `01-report`, `1-report`, `2024-report`
 
 ---
 
-### Άσκηση 12
-Ποια ταιριάζουν στο `file[123].txt`;
+### Exercise 12
+Which match `file[123].txt`?
 
 `file1.txt`, `file2.txt`, `file4.txt`, `file12.txt`
 
 ---
 
-### Άσκηση 13
-Ποια ταιριάζουν στο `[0-9][0-9]_data.csv`;
+### Exercise 13
+Which match `[0-9][0-9]_data.csv`?
 
 `14_data.csv`, `1_data.csv`, `99_data.csv`, `abc_data.csv`
 
 ---
 
-### Άσκηση 14
-Ποια ταιριάζουν στο `[!0-9]*`;
+### Exercise 14
+Which match `[!0-9]*`?
 
 `report.txt`, `1file.txt`, `data.csv`, `.hidden`
 
 ---
 
-## Μέρος Γ — Εργαστήριο
+## Part C — Laboratory
 
-### Άσκηση 15
-Δώστε την εντολή για εμφάνιση όλων των αρχείων που τελειώνουν σε `.txt` στον τρέχοντα κατάλογο.
-
----
-
-### Άσκηση 16
-Δώστε την εντολή για διαγραφή όλων των αρχείων που ξεκινούν με `doc`.
+### Exercise 15
+Give the command to display all files ending in `.txt` in the current directory.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για αντιγραφή όλων των αρχείων που περιέχουν τη λέξη `backup` οπουδήποτε στο όνομά τους στον `/tmp/`.
+### Exercise 16
+Give the command to delete all files starting with `doc`.
 
 ---
 
-### Άσκηση 18
-Δώστε την εντολή για διαγραφή αρχείων του τρέχοντος καταλόγου που ξεκινούν με `grade`, τελειώνουν σε `.tmp` και αποτελούνται **συνολικά** από 15 χαρακτήρες.
+### Exercise 17
+Give the command to copy all files containing the word `backup` anywhere in their name to `/tmp/`.
 
 ---
 
-### Άσκηση 19
-Δώστε την εντολή για μετακίνηση αρχείων με ακριβώς 3 χαρακτήρες στο όνομά τους στον κατάλογο `archives/`.
+### Exercise 18
+Give the command to delete files in the current directory that start with `grade`, end in `.tmp` and consist of **a total** of 15 characters.
 
 ---
 
-### Άσκηση 20
-Δώστε την εντολή για ορισμό δικαιωμάτων εκτέλεσης στα `script_v2.sh`, `script_v3.sh`, `script_v4.sh`, `script_v5.sh` (χωρίς να επηρεαστούν άλλες εκδόσεις).
+### Exercise 19
+Give the command to move files with exactly 3 characters in their name to the `archives/` directory.
 
 ---
 
-### Άσκηση 21
-Δώστε την εντολή για διαγραφή μηνιαίων logs του 2022: `log_file_2022_01.log` έως `log_file_2022_12.log`.
+### Exercise 20
+Give the command to set execute permissions on `script_v2.sh`, `script_v3.sh`, `script_v4.sh`, `script_v5.sh` (without affecting other versions).
 
 ---
 
-### Άσκηση 22
-Δώστε την εντολή για εμφάνιση κρυφών αρχείων στον τρέχοντα κατάλογο.
+### Exercise 21
+Give the command to delete the monthly logs of 2022: `log_file_2022_01.log` to `log_file_2022_12.log`.
 
 ---
 
-### Άσκηση 23
-Δώστε την εντολή για διαγραφή αρχείου με κυριολεκτικό όνομα `file*.txt` (όχι glob pattern).
+### Exercise 22
+Give the command to display hidden files in the current directory.
 
 ---
 
-### Άσκηση 24
-Δώστε εντολές για οργάνωση φακέλου downloads:
-
-- Μετακίνηση εικόνων (`.jpg`, `.png`, `.gif`) στο `~/Pictures/`
-- Μετακίνηση εγγράφων (`.pdf`, `.doc`, `.docx`) στο `~/Documents/`
+### Exercise 23
+Give the command to delete a file with the literal name `file*.txt` (not a glob pattern).
 
 ---
 
-## Μέρος Δ — Σύνθετες Ερωτήσεις
+### Exercise 24
+Give commands to organize a downloads folder:
 
-### Άσκηση 25
-Ο τρέχων κατάλογος περιέχει: `grade12345.tmp`, `grade123456.tmp`, `gradeABCDE.tmp`. Ποια από αυτά ταιριάζουν στο `grade??????.tmp` (6 ερωτηματικά);
-
----
-
-### Άσκηση 26
-Τι συμβαίνει αν εκτελεστεί `rm *` σε κατάλογο που περιέχει μόνο κρυφά αρχεία `.bashrc` και `.profile`; Εξηγήστε.
+- Move images (`.jpg`, `.png`, `.gif`) to `~/Pictures/`
+- Move documents (`.pdf`, `.doc`, `.docx`) to `~/Documents/`
 
 ---
 
-### Άσκηση 27
-Εξηγήστε γιατί το `cp *backup* /tmp/` ταιριάζει το `mybackup.zip` αλλά όχι απαραίτητα το `back_up.zip`.
+## Part D — Complex Questions
+
+### Exercise 25
+The current directory contains: `grade12345.tmp`, `grade123456.tmp`, `gradeABCDE.tmp`. Which of these match `grade??????.tmp` (6 question marks)?
 
 ---
 
-### Άσκηση 28
-Κυκλώστε τη σωστή απάντηση: Ποιο pattern ταιριάζει αρχεία `.log` που ξεκινούν με πεζό γράμμα;
-
-- α) `[A-Z]*.log`  
-- β) `[a-z]*.log`  
-- γ) `[a-Z]*.log`  
-- δ) `*.log`
+### Exercise 26
+What happens if `rm *` is executed in a directory containing only the hidden files `.bashrc` and `.profile`? Explain.
 
 ---
 
-### Άσκηση 29
-Σχεδιάστε σενάριο όπου η χρήση wildcard χωρίς προσοχή οδηγεί σε ακούσια διαγραφή σημαντικών αρχείων. Πώς το αποφεύγουμε;
+### Exercise 27
+Explain why `cp *backup* /tmp/` matches `mybackup.zip` but not necessarily `back_up.zip`.
 
 ---
 
-### Άσκηση 30
-Δώστε την εντολή για εμφάνιση αρχείων `.txt` που βρίσκονται **ακριβώς ένα επίπεδο** κάτω από τον τρέχοντα κατάλογο.
+### Exercise 28
+Circle the correct answer: Which pattern matches `.log` files starting with a lowercase letter?
+
+- a) `[A-Z]*.log`  
+- b) `[a-z]*.log`  
+- c) `[a-Z]*.log`  
+- d) `*.log`
 
 ---
 
-### Άσκηση 31
-Σημειώστε **Σ** ή **Λ**:
-
-1. Το globbing γίνεται πριν εκτελεστεί η εντολή.
-2. Το `ls *` ταιριάζει και καταλόγους.
-3. Το `[A-Z]*` ταιριάζει αρχεία που ξεκινούν με κεφαλαίο γράμμα.
-4. Το `rm 'file?.txt'` διαγράφει αρχεία που ταιριάζουν στο pattern `file?.txt`.
-5. Τα wildcards λειτουργούν μέσα σε quotes διπλών εισαγωγικών `"..."` για όλους τους χαρακτήρες.
+### Exercise 29
+Design a scenario where the careless use of a wildcard leads to the accidental deletion of important files. How do we avoid it?
 
 ---
 
-### Άσκηση 32
-Ένας φοιτητής θέλει να διαγράψει όλα τα αρχεία `temp` ακολουθούμενα από ακριβώς ένα ψηφίο (π.χ. `temp1`, `temp9`) αλλά όχι `temp10`. Ποιο pattern χρησιμοποιεί και ποια η εντολή;
+### Exercise 30
+Give the command to display `.txt` files located **exactly one level** below the current directory.
+
+---
+
+### Exercise 31
+Mark **T** or **F**:
+
+1. Globbing happens before the command is executed.
+2. `ls *` matches directories too.
+3. `[A-Z]*` matches files starting with an uppercase letter.
+4. `rm 'file?.txt'` deletes files that match the pattern `file?.txt`.
+5. Wildcards work inside double quotes `"..."` for all characters.
+
+---
+
+### Exercise 32
+A student wants to delete all `temp` files followed by exactly one digit (e.g., `temp1`, `temp9`) but not `temp10`. Which pattern does the student use and what is the command?

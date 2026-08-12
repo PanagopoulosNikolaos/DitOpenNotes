@@ -144,4 +144,4 @@ Consider the graph corresponding to the topology of a network. The number next t
 ---
 
 ### B)
-A network uses CSMA/CD and has a bandwidth of 10 Mbps. If the maximum propagation time (including delays) is 25.6 μs, what is the minimum frame size?
+A network uses CSMA/CD and has a bandwidth of 10 Mbps. If the maximum propagation time (including delays) is 25.6 $\mu s$, what is the minimum frame size?

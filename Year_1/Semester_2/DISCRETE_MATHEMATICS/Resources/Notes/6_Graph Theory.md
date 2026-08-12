@@ -109,7 +109,7 @@ graph TD
 ### Properties
 - Unlike Euler paths, there is no simple necessary and sufficient condition for the existence of Hamiltonian paths/cycles.
 - Finding a Hamiltonian cycle is an **NP-complete problem**, meaning it is computationally hard to solve for large graphs.
-- **Dirac's Theorem (Sufficient Condition)**: If a graph `G` with `n ≥ 3` vertices has a minimum degree `δ(G) ≥ n/2`, then `G` has a Hamiltonian cycle.
+- **Dirac's Theorem (Sufficient Condition)**: If a graph `G` with `n ≥ 3` vertices has a minimum degree `\delta(G) ≥ n/2`, then `G` has a Hamiltonian cycle.
 
 ```mermaid
 graph TD

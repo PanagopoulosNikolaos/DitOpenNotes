@@ -1,190 +1,190 @@
-# Ασκήσεις — Ανακατεύθυνση I/O και Διασωλήνωση UNIX
+# Exercises — UNIX I/O Redirection and Pipes
 
-**Βασισμένες σε:** `6_UNIX_IO_Redirection_and_Pipes.md`  
-**Αριθμός ασκήσεων:** 30
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Περιγράψτε τα τρία τυπικά streams (ροές) I/O στο UNIX: stdin, stdout, stderr. Ποια είναι τα file descriptors τους;
+**Based on:** `6_UNIX_IO_Redirection_and_Pipes.md`  
+**Number of exercises:** 30
 
 ---
 
-### Άσκηση 2
-Εξηγήστε τη διαφορά μεταξύ `>` και `>>`. Δώστε παράδειγμα για καθεμία.
+## Part A — Theory
+
+### Exercise 1
+Describe the three standard I/O streams in UNIX: stdin, stdout, stderr. What are their file descriptors?
 
 ---
 
-### Άσκηση 3
-Γιατί τα μηνύματα λάθους (stderr) δεν ανακατευθύνονται αυτόματα όταν χρησιμοποιούμε `command > file`;
+### Exercise 2
+Explain the difference between `>` and `>>`. Give an example for each.
 
 ---
 
-### Άσκηση 4
-Εξηγήστε τη σημειογραφία `2>&1`. Τι σημαίνει το `2>`;
+### Exercise 3
+Why are error messages (stderr) not redirected automatically when using `command > file`?
 
 ---
 
-### Άσκηση 5
-Ποια είναι η διαφορά μεταξύ `wc -l data.txt` και `wc -l < data.txt` ως προς την έξοδο;
+### Exercise 4
+Explain the notation `2>&1`. What does `2>` mean?
 
 ---
 
-### Άσκηση 6
-Εξηγήστε τη λειτουργία του pipe (`|`). Γιατί θεωρείται ισχυρό εργαλείο στη φιλοσοφία UNIX;
+### Exercise 5
+What is the difference between `wc -l data.txt` and `wc -l < data.txt` in terms of output?
 
 ---
 
-### Άσκηση 7
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
-
-1. Το stdin έχει file descriptor 0.
-2. Η ανακατεύθυνση `>` αντικαθιστά το περιεχόμενο υπάρχοντος αρχείου.
-3. Η `ls /nonexistent 2> errors.txt` αποθηκεύει μόνο τα σφάλματα.
-4. Το pipe δημιουργεί προσωρινό αρχείο στο δίσκο για τη μεταφορά δεδομένων.
-5. Η σύντομη μορφή `command &> file` ανακατευθύνει stdout και stderr.
+### Exercise 6
+Explain the function of the pipe (`|`). Why is it considered a powerful tool in the UNIX philosophy?
 
 ---
 
-## Μέρος Β — Εργαστήριο
+### Exercise 7
+Mark **T** (True) or **F** (False):
 
-### Άσκηση 8
-Δώστε την εντολή για αποθήκευση της εξόδου `Hello, World!` στο αρχείο `greeting.txt` (χρησιμοποιώντας `echo`).
-
----
-
-### Άσκηση 9
-Δώστε την εντολή για αποθήκευση της εξόδου της `ls -l` στο `directory_listing.txt`.
-
----
-
-### Άσκηση 10
-Το `greeting.txt` υπάρχει ήδη. Δώστε την εντολή για **προσθήκη** της γραμμής `New line of text` στο τέλος του, χωρίς αντικατάσταση του υπάρχοντος περιεχομένου.
+1. stdin has file descriptor 0.
+2. The `>` redirection replaces the contents of an existing file.
+3. `ls /nonexistent 2> errors.txt` saves only the errors.
+4. The pipe creates a temporary file on disk to transfer data.
+5. The short form `command &> file` redirects stdout and stderr.
 
 ---
 
-### Άσκηση 11
-Δώστε την εντολή ώστε τα σφάλματα της `ls /nonexistent_directory` να αποθηκευτούν στο `errors.txt`.
+## Part B — Laboratory
+
+### Exercise 8
+Give the command to save the output `Hello, World!` to the file `greeting.txt` (using `echo`).
 
 ---
 
-### Άσκηση 12
-Δώστε την εντολή ώστε **και** η κανονική έξοδος **και** τα σφάλματα της `find / -name "*.conf"` να αποθηκευτούν στο `output_and_errors.txt` (κλασική σημειογραφία `2>&1`).
+### Exercise 9
+Give the command to save the output of `ls -l` to `directory_listing.txt`.
 
 ---
 
-### Άσκηση 13
-Δώστε την εντολή για μέτρηση γραμμών του `data.txt` χρησιμοποιώντας ανακατεύθυνση εισόδου.
+### Exercise 10
+The file `greeting.txt` already exists. Give the command to **append** the line `New line of text` to its end, without replacing the existing content.
 
 ---
 
-### Άσκηση 14
-Δώστε την εντολή για προβολή της εξόδου `ls -l /etc` μέσω `less`.
+### Exercise 11
+Give the command so that the errors of `ls /nonexistent_directory` are saved to `errors.txt`.
 
 ---
 
-### Άσκηση 15
-Δώστε την εντολή για μέτρηση του αριθμού αρχείων στον τρέχοντα κατάλογο (μία καταχώρηση ανά γραμμή).
+### Exercise 12
+Give the command so that **both** the normal output **and** the errors of `find / -name "*.conf"` are saved to `output_and_errors.txt` (classic `2>&1` notation).
 
 ---
 
-### Άσκηση 16
-Δώστε την εντολή για εύρεση διεργασιών που περιέχουν τη λέξη `python` (χρησιμοποιώντας `ps` και `grep`).
+### Exercise 13
+Give the command to count the lines of `data.txt` using input redirection.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για αποθήκευση στο `lines.out` του αριθμού λέξεων και χαρακτήρων των **τελευταίων 5 γραμμών** του `file.txt`.
+### Exercise 14
+Give the command to view the output of `ls -l /etc` through `less`.
 
 ---
 
-### Άσκηση 18
-Δώστε την εντολή για ταξινόμηση του περιεχομένου του `names.txt` και αποθήκευση του αποτελέσματος στο `sorted_names.txt`.
+### Exercise 15
+Give the command to count the number of files in the current directory (one entry per line).
 
 ---
 
-### Άσκηση 19
-Δώστε την εντολή για εμφάνιση των 10 πιο συχνών λέξεων στο `document.txt` (υπόδειξη: `tr`, `sort`, `uniq -c`, `sort -nr`, `head`).
+### Exercise 16
+Give the command to find processes containing the word `python` (using `ps` and `grep`).
 
 ---
 
-### Άσκηση 20
-Δώστε την εντολή ώστε η `date` να γράψει την τρέχουσα ημερομηνία στο `log.txt` και ταυτόχρονα να την εμφανίσει στην οθόνη (υπόδειξη: `tee`).
+### Exercise 17
+Give the command to save to `lines.out` the number of words and characters of the **last 5 lines** of `file.txt`.
 
 ---
 
-## Μέρος Γ — Σύνθετες Ερωτήσεις
+### Exercise 18
+Give the command to sort the contents of `names.txt` and save the result to `sorted_names.txt`.
 
-### Άσκηση 21
-Αναλύστε τη σύνθετη εντολή:
+---
+
+### Exercise 19
+Give the command to display the 10 most frequent words in `document.txt` (hint: `tr`, `sort`, `uniq -c`, `sort -nr`, `head`).
+
+---
+
+### Exercise 20
+Give the command so that `date` writes the current date to `log.txt` and simultaneously displays it on the screen (hint: `tee`).
+
+---
+
+## Part C — Complex Questions
+
+### Exercise 21
+Analyze the complex command:
 
 ```sh
 cat access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -10
 ```
 
-Τι κάνει κάθε στάδιο του pipeline;
+What does each stage of the pipeline do?
 
 ---
 
-### Άσκηση 22
-Τι θα συμβεί αν εκτελεστεί:
+### Exercise 22
+What will happen if the following is executed:
 
 ```sh
 echo "first" > file.txt
 echo "second" > file.txt
 ```
 
-Ποια είναι η διαφορά αν αντικατασταθεί το δεύτερο `>` με `>>`;
+What is the difference if the second `>` is replaced with `>>`?
 
 ---
 
-### Άσκηση 23
-Η εντολή `grep "error" log.txt > results.txt 2> grep_errors.txt` τι αποθηκεύει σε κάθε αρχείο;
+### Exercise 23
+The command `grep "error" log.txt > results.txt 2> grep_errors.txt` what does it save to each file?
 
 ---
 
-### Άσκηση 24
-Γιατί η φιλοσοφία «chaining programs» του UNIX υλοποιείται ιδανικά με pipes αντί για προσωρινά αρχεία;
+### Exercise 24
+Why is the "chaining programs" philosophy of UNIX ideally implemented with pipes instead of temporary files?
 
 ---
 
-### Άσκηση 25
-Κυκλώστε τη σωστή απάντηση: Ποια εντολή μετρά γραμμές **χωρίς** να εμφανίζει το όνομα αρχείου στην έξοδο;
+### Exercise 25
+Circle the correct answer: Which command counts lines **without** displaying the file name in the output?
 
-- α) `wc -l data.txt`  
-- β) `wc -l < data.txt`  
-- γ) `cat data.txt | wc`  
-- δ) β) και γ)
-
----
-
-### Άσκηση 26
-Σχεδιάστε διάγραμμα ροής για: `ls -l | grep ".txt" | wc -l`
+- a) `wc -l data.txt`  
+- b) `wc -l < data.txt`  
+- c) `cat data.txt | wc`  
+- d) b) and c)
 
 ---
 
-### Άσκηση 27
-Ένας φοιτητής θέλει να αποθηκεύσει την έξοδο της `cal 2026` στο `calendar.txt` και τυχόν σφάλματα στο `cal_errors.txt`. Δώστε την εντολή.
+### Exercise 26
+Draw a flow diagram for: `ls -l | grep ".txt" | wc -l`
 
 ---
 
-### Άσκηση 28
-Σημειώστε **Σ** ή **Λ**:
-
-1. Σε pipeline, η έξοδος της τελευταίας εντολής εμφανίζεται στην οθόνη εκτός αν ανακατευθυνθεί.
-2. Το `2>&1` πρέπει να τοποθετείται μετά το `>` για σωστή ανακατεύθυνση και των δύο streams.
-3. Η ανακατεύθυνση εισόδου `<` τροφοδοτεί αρχείο ως stdin.
-4. Το stderr έχει file descriptor 3.
-5. Η `command &> file` είναι ισοδύναμη με `command > file 2>&1` σε bash.
+### Exercise 27
+A student wants to save the output of `cal 2026` to `calendar.txt` and any errors to `cal_errors.txt`. Give the command.
 
 ---
 
-### Άσκηση 29
-Περιγράψτε βήμα-βήμα τι συμβαίνει όταν εκτελείται `sort < unsorted.txt | head -5 > top5.txt`.
+### Exercise 28
+Mark **T** or **F**:
+
+1. In a pipeline, the output of the last command is displayed on the screen unless it is redirected.
+2. `2>&1` must be placed after `>` for the correct redirection of both streams.
+3. Input redirection `<` feeds a file as stdin.
+4. stderr has file descriptor 3.
+5. `command &> file` is equivalent to `command > file 2>&1` in bash.
 
 ---
 
-### Άσκηση 30
-Δώστε μία εντολή (ή pipeline) που: (1) διαβάζει το `grades.txt`, (2) ταξινομεί τις γραμμές αριθμητικά, (3) εμφανίζει τις 3 μικρότερες τιμές, (4) αποθηκεύει το αποτέλεσμα στο `bottom3.txt`.
+### Exercise 29
+Describe step by step what happens when `sort < unsorted.txt | head -5 > top5.txt` is executed.
+
+---
+
+### Exercise 30
+Give one command (or pipeline) that: (1) reads `grades.txt`, (2) sorts the lines numerically, (3) displays the 3 smallest values, (4) saves the result to `bottom3.txt`.

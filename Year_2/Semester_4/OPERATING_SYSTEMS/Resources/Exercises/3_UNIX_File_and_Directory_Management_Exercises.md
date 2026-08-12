@@ -1,21 +1,21 @@
-# Ασκήσεις — Διαχείριση Αρχείων και Καταλόγων UNIX
+# Exercises — UNIX File and Directory Management
 
-**Βασισμένες σε:** `3_UNIX_File_and_Directory_Management.md`  
-**Αριθμός ασκήσεων:** 32
-
----
-
-## Μέρος Α — Θεωρία
-
-### Άσκηση 1
-Εξηγήστε γιατί η εντολή `rm` στο UNIX είναι επικίνδυνη σε σύγκριση με το «Κάδος Ανακύκλωσης» σε γραφικά περιβάλλοντα.
+**Based on:** `3_UNIX_File_and_Directory_Management.md`  
+**Number of exercises:** 32
 
 ---
 
-### Άσκηση 2
-Συμπληρώστε τον πίνακα επιλογών της εντολής `rm`:
+## Part A — Theory
 
-| Επιλογή | Περιγραφή |
+### Exercise 1
+Explain why the `rm` command in UNIX is dangerous compared to the "Recycle Bin" in graphical environments.
+
+---
+
+### Exercise 2
+Complete the table of options of the `rm` command:
+
+| Option | Description |
 | :--- | :--- |
 | `-i` | |
 | `-r` / `-R` | |
@@ -23,184 +23,184 @@
 
 ---
 
-### Άσκηση 3
-Ποια είναι η διαφορά μεταξύ `rmdir` και `rm -r`; Πότε χρησιμοποιείται καθεμία;
+### Exercise 3
+What is the difference between `rmdir` and `rm -r`? When is each one used?
 
 ---
 
-### Άσκηση 4
-Σημειώστε **Σ** (Σωστό) ή **Λ** (Λάθος):
+### Exercise 4
+Mark **T** (True) or **F** (False):
 
-1. Η εντολή `cp` απαιτεί την επιλογή `-r` για αντιγραφή καταλόγων.
-2. Η εντολή `mv` απαιτεί την επιλογή `-r` για μετακίνηση καταλόγων.
-3. Η `mv` μπορεί να χρησιμοποιηθεί για μετονομασία αρχείου.
-4. Η `cp` αντικαθιστά σιωπηλά υπάρχον αρχείο στον προορισμό εκ προεπιλογής.
-5. Η εντολή `rm -rf /` είναι ασφαλής σε περιβάλλον εκπαίδευσης.
+1. The `cp` command requires the `-r` option to copy directories.
+2. The `mv` command requires the `-r` option to move directories.
+3. `mv` can be used to rename a file.
+4. `cp` silently replaces an existing file in the destination by default.
+5. The command `rm -rf /` is safe in an educational environment.
 
 ---
 
-### Άσκηση 5
-Ερμηνεύστε την έξοδο της εντολής `ls -l`:
+### Exercise 5
+Interpret the output of the `ls -l` command:
 
 ```text
 -rw-r--r-- 1 user group 1024 Oct 24 10:00 document.txt
 drwxr-xr-x 2 user group 4096 Oct 24 10:05 my_folder
 ```
 
-Αναφέρετε τι σημαίνει κάθε πεδίο.
+Mention what each field means.
 
 ---
 
-### Άσκηση 6
-Τι σημαίνει ο αριθμός `2` στη γραμμή `drwxr-xr-x 2 user group ... my_folder`;
+### Exercise 6
+What does the number `2` mean in the line `drwxr-xr-x 2 user group ... my_folder`?
 
 ---
 
-### Άσκηση 7
-Εξηγήστε τη λειτουργία των επιλογών `-l`, `-a`, `-h`, `-R`, `-t` της εντολής `ls`.
+### Exercise 7
+Explain the function of the options `-l`, `-a`, `-h`, `-R`, `-t` of the `ls` command.
 
 ---
 
-### Άσκηση 8
-Ποια είναι η διαφορά μεταξύ `ls -lh` και `ls -lt`;
+### Exercise 8
+What is the difference between `ls -lh` and `ls -lt`?
 
 ---
 
-## Μέρος Β — Εργαστήριο
+## Part B — Laboratory
 
-### Άσκηση 9
-Δώστε την εντολή για διαγραφή του αρχείου `report.txt` στον τρέχοντα κατάλογο.
-
----
-
-### Άσκηση 10
-Δώστε την εντολή για διαγραφή του αρχείου `important_data.csv` με επιβεβαίωση πριν από κάθε διαγραφή.
+### Exercise 9
+Give the command to delete the file `report.txt` in the current directory.
 
 ---
 
-### Άσκηση 11
-Δώστε την εντολή για διαγραφή του καταλόγου `old_project/` και όλων των περιεχομένων του.
+### Exercise 10
+Give the command to delete the file `important_data.csv` with confirmation before each deletion.
 
 ---
 
-### Άσκηση 12
-Δώστε την εντολή για αντιγραφή του `original.txt` σε `backup.txt` στον ίδιο κατάλογο.
+### Exercise 11
+Give the command to delete the directory `old_project/` and all its contents.
 
 ---
 
-### Άσκηση 13
-Δώστε την εντολή για αντιγραφή του `original.txt` στον κατάλογο `/tmp/`.
+### Exercise 12
+Give the command to copy `original.txt` to `backup.txt` in the same directory.
 
 ---
 
-### Άσκηση 14
-Δώστε την εντολή για αντιγραφή των αρχείων `file1.txt` και `file2.txt` στον κατάλογο `/backup_dir/`.
+### Exercise 13
+Give the command to copy `original.txt` to the `/tmp/` directory.
 
 ---
 
-### Άσκηση 15
-Δώστε την εντολή για αντιγραφή ολόκληρου του καταλόγου `project_source/` στον `project_backup/`.
+### Exercise 14
+Give the command to copy the files `file1.txt` and `file2.txt` to the `/backup_dir/` directory.
 
 ---
 
-### Άσκηση 16
-Δώστε την εντολή για μετονομασία του `old_name.txt` σε `new_name.txt`.
+### Exercise 15
+Give the command to copy the entire directory `project_source/` to `project_backup/`.
 
 ---
 
-### Άσκηση 17
-Δώστε την εντολή για μετακίνηση του `data.csv` στον `/home/user/archives/`.
+### Exercise 16
+Give the command to rename `old_name.txt` to `new_name.txt`.
 
 ---
 
-### Άσκηση 18
-Δώστε την εντολή για μετακίνηση και ταυτόχρονη μετονομασία: το `/tmp/download.zip` να μεταφερθεί ως `/home/user/software_v2.zip`.
+### Exercise 17
+Give the command to move `data.csv` to `/home/user/archives/`.
 
 ---
 
-### Άσκηση 19
-Δώστε την εντολή για μετακίνηση του καταλόγου `global` (στον τρέχοντα κατάλογο) στον `/local`.
+### Exercise 18
+Give the command to move and rename simultaneously: `/tmp/download.zip` should be moved as `/home/user/software_v2.zip`.
 
 ---
 
-### Άσκηση 20
-Δώστε την εντολή για εμφάνιση όλων των αρχείων (συμπεριλαμβανομένων των κρυφών) σε μορφή λίστας με λεπτομέρειες.
+### Exercise 19
+Give the command to move the directory `global` (in the current directory) to `/local`.
 
 ---
 
-### Άσκηση 21
-Δώστε την εντολή για αναδρομική εμφάνιση όλων των αρχείων και υποκαταλόγων του τρέχοντος καταλόγου σε μορφή λίστας με λεπτομέρειες, συμπεριλαμβανομένων των κρυφών.
+### Exercise 20
+Give the command to display all files (including hidden ones) in list format with details.
 
 ---
 
-### Άσκηση 22
-Τι θα συμβεί αν εκτελεστεί η εντολή `ls -Rla .` σε σύστημα UNIX; Απαντήστε αναλυτικά.
+### Exercise 21
+Give the command to recursively display all files and subdirectories of the current directory in list format with details, including hidden ones.
 
 ---
 
-### Άσκηση 23
-Δώστε την εντολή για εμφάνιση περιεχομένων καταλόγου ταξινομημένων κατά χρόνο τροποποίησης (νεότερα πρώτα), με ανθρωποαναγνώσιμα μεγέθη.
+### Exercise 22
+What will happen if the command `ls -Rla .` is executed on a UNIX system? Answer in detail.
 
 ---
 
-## Μέρος Γ — Σύνθετες Ερωτήσεις
-
-### Άσκηση 24
-Θέλετε να αντιγράψετε τον κατάλογο `src/` στον `dst/` αλλά να αποφύγετε ακούσια αντικατάσταση υπαρχόντων αρχείων. Ποια επιλογή της `cp` χρησιμοποιείτε;
+### Exercise 23
+Give the command to display directory contents sorted by modification time (newest first), with human-readable sizes.
 
 ---
 
-### Άσκηση 25
-Εξηγήστε γιατί η `mv` δεν χρειάζεται `-r` ενώ η `cp` τη χρειάζεται για καταλόγους.
+## Part C — Complex Questions
+
+### Exercise 24
+You want to copy the directory `src/` to `dst/` but avoid accidentally overwriting existing files. Which option of `cp` do you use?
 
 ---
 
-### Άσκηση 26
-Ένας χρήστης εκτελεί `rm -ri old_project/`. Περιγράψτε τη συμπεριφορά της εντολής βήμα-βήμα.
+### Exercise 25
+Explain why `mv` does not need `-r` while `cp` needs it for directories.
 
 ---
 
-### Άσκηση 27
-Στην έξοδο `ls -l`, εμφανίζεται:
+### Exercise 26
+A user runs `rm -ri old_project/`. Describe the behavior of the command step by step.
+
+---
+
+### Exercise 27
+In the `ls -l` output, the following appears:
 
 ```text
 lrwxrwxrwx 1 user user 20 Jun 10 09:00 link -> /etc/hosts
 ```
 
-Τι τύπος αρχείου είναι το `link` και τι σημαίνει το `->`;
+What file type is `link` and what does the `->` mean?
 
 ---
 
-### Άσκηση 28
-Κυκλώστε τη σωστή απάντηση: Ποια εντολή **δεν** αλλάζει τον αριθμό inode του αρχείου;
+### Exercise 28
+Circle the correct answer: Which command does **not** change the inode number of the file?
 
-- α) `cp original.txt copy.txt`  
-- β) `mv old.txt new.txt`  
-- γ) `rm old.txt`  
-- δ) `ln original.txt hardlink`
-
----
-
-### Άσκηση 29
-Δώστε τη σειρά εντολών για: (1) δημιουργία καταλόγου `backup`, (2) αντιγραφή όλων των `.txt` αρχείων του τρέχοντος καταλόγου στον `backup`, (3) εμφάνιση περιεχομένων του `backup` σε μορφή λίστας.
+- a) `cp original.txt copy.txt`  
+- b) `mv old.txt new.txt`  
+- c) `rm old.txt`  
+- d) `ln original.txt hardlink`
 
 ---
 
-### Άσκηση 30
-Σημειώστε **Σ** ή **Λ**:
-
-1. Η επιλογή `-v` της `cp` εμφανίζει το όνομα κάθε αντιγραφόμενου αρχείου.
-2. Η `ls` χωρίς ορίσματα εμφανίζει τα περιεχόμενα του τρέχοντος καταλόγου.
-3. Η `rm -f` ζητά πάντα επιβεβαίωση πριν τη διαγραφή.
-4. Το πρώτο χαρακτήρας στη στήλη δικαιωμάτων του `ls -l` δείχνει τον τύπο αρχείου.
-5. Η `mv` μπορεί να μετακινήσει αρχεία μόνο εντός του ίδιου καταλόγου.
+### Exercise 29
+Give the sequence of commands for: (1) creating a `backup` directory, (2) copying all `.txt` files of the current directory to `backup`, (3) displaying the contents of `backup` in list format.
 
 ---
 
-### Άσκηση 31
-Ο τρέχων κατάλογος περιέχει 50 αρχεία. Θέλετε να δείτε μόνο τα 5 πιο πρόσφατα τροποποιημένα σε μορφή λίστας. Ποια εντολή χρησιμοποιείτε; (Υπόδειξη: συνδυάστε `ls` με `head`.)
+### Exercise 30
+Mark **T** or **F**:
+
+1. The `-v` option of `cp` displays the name of each copied file.
+2. `ls` without arguments displays the contents of the current directory.
+3. `rm -f` always asks for confirmation before deleting.
+4. The first character in the permissions column of `ls -l` indicates the file type.
+5. `mv` can move files only within the same directory.
 
 ---
 
-### Άσκηση 32
-Εξηγήστε τι σημαίνει η προειδοποίηση για `rm -rf /` και γιατί ακόμα και έμπειροι διαχειριστές μπορεί να την εκτελέσουν κατά λάθος. Προτείνετε μια πρακτική ασφαλείας.
+### Exercise 31
+The current directory contains 50 files. You want to see only the 5 most recently modified in list format. Which command do you use? (Hint: combine `ls` with `head`.)
+
+---
+
+### Exercise 32
+Explain what the warning about `rm -rf /` means and why even experienced administrators may run it by mistake. Suggest a security practice.

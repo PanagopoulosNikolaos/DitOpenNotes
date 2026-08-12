@@ -360,7 +360,7 @@ To prevent redundant queries, DNS servers **cache** responses for a duration spe
   ║  ┌──────────────────────────────────────────────┐   ║
   ║  │  Cladding (low refractive index n)           │   ║
   ║  │  ┌──────────────────────────────────────┐   │   ║
-  ║  │  │  Core (~9 μm for SMF)                │   │   ║
+  ║  │  │  Core (~9 $\mu m$ for SMF)          │   │   ║
   ║  │  │  → → → [light pulses (laser)] → →    │   │   ║
   ║  │  └──────────────────────────────────────┘   │   ║
   ║  └──────────────────────────────────────────────┘   ║
@@ -371,8 +371,8 @@ To prevent redundant queries, DNS servers **cache** responses for a duration spe
 
 | Type | Core Diameter | Light Source | Distance | Application |
 |---|---|---|---|---|
-| **Single-mode (SMF)** | ~9 μm | Laser | >100 km | Submarine cables, ISP backbone |
-| **Multi-mode (MMF)** | ~50-62.5 μm | LED | <2 km | Data centers, intra-building |
+| **Single-mode (SMF)** | ~9 $\mu m$ | Laser | >100 km | Submarine cables, ISP backbone |
+| **Multi-mode (MMF)** | ~50-62.5 $\mu m$ | LED | <2 km | Data centers, intra-building |
 
 **Key Distinction:** SMF (single-mode fiber) has a narrower core so only one light mode travels — eliminating **modal dispersion** and allowing transmission over vastly greater distances without amplification.
 
@@ -616,8 +616,8 @@ During data transfer, each layer of the TCP/IP stack **appends** its own header 
 | **UDP** | Connectionless, unreliable protocol | Faster, streaming/DNS/gaming |
 | **DNS** | Domain name to IP translation | Internet "phonebook" |
 | **HTTP/HTTPS** | Web content transfer protocol | HTTPS = HTTP + TLS encryption |
-| **Single-mode Fiber** | Fiber, ~9 μm core, laser | Tbps, hundreds of km without repeaters |
-| **Multi-mode Fiber** | Fiber, ~50 μm core, LED | Short distance (<2 km), data centers |
+| **Single-mode Fiber** | Fiber, ~9 $\mu m$ core, laser | Tbps, hundreds of km without repeaters |
+| **Multi-mode Fiber** | Fiber, ~50 $\mu m$ core, LED | Short distance (<2 km), data centers |
 | **GEO Satellite** | Orbit ~36,000 km, stationary | Latency 500-700 ms, global coverage (3 sats) |
 | **LEO Satellite** | Orbit 500-2,000 km, constellation | Latency 20-50 ms, requires many satellites |
 | **Transmission Delay** | $d_{trans} = L/R$ | Depends on packet size + bandwidth |

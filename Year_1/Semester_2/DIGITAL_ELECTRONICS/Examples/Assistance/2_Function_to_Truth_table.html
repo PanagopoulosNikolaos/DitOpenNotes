@@ -73,8 +73,8 @@
           <div>
             <label>Options</label>
             <div class="row">
-              <label><input type="checkbox" id="showSigma" checked /> Show Σ (minterm indices)</label>
-              <label><input type="checkbox" id="showPi" checked /> Show Π (maxterm indices)</label>
+              <label><input type="checkbox" id="showSigma" checked /> Show &Sigma; (minterm indices)</label>
+              <label><input type="checkbox" id="showPi" checked /> Show &Pi; (maxterm indices)</label>
             </div>
           </div>
         </div>
@@ -471,8 +471,8 @@ const QuineMcCluskey = {
                           <div class="badge warn">Zeros: ${total-ones}</div>`;
       
       let idxHTML = '';
-      if (showSigma.checked) idxHTML += `<div class="badge">Σ (minterms): ${mintermIndices.join(', ')}</div> `;
-      if (showPi.checked) idxHTML += `<div class="badge">Π (maxterms): ${maxtermIndices.join(', ')}</div>`;
+      if (showSigma.checked) idxHTML += `<div class="badge">&Sigma; (minterms): ${mintermIndices.join(', ')}</div> `;
+      if (showPi.checked) idxHTML += `<div class="badge">&Pi; (maxterms): ${maxtermIndices.join(', ')}</div>`;
       indicesEl.innerHTML = idxHTML;
 
       // Minterm / Maxterm Info

@@ -1,37 +1,37 @@
 # Exam 3: Intermediate Database Concepts (Level: Intermediate)
 
-Ερώτηση Πολλαπλής Επιλογής 1, Ποια από τις παρακάτω ιδιότητες των συναλλαγών (ACID) εγγυάται ότι μια συναλλαγή εκτελείται πλήρως ή καθόλου;
-[✅] 1. Ατομικότητα (Atomicity)
-[ ] 2. Συνέπεια (Consistency)
-[ ] 3. Απομόνωση (Isolation)
-[ ] 4. Ανθεκτικότητα (Durability)
+Multiple Choice Question 1: Which of the following transaction (ACID) properties guarantees that a transaction is executed completely or not at all?
+[✅] 1. Atomicity
+[ ] 2. Consistency
+[ ] 3. Isolation
+[ ] 4. Durability
 ---
 *solution:*
-Η Ατομικότητα διασφαλίζει ότι όλες οι λειτουργίες μιας συναλλαγής ολοκληρώνονται επιτυχώς, αλλιώς η βάση δεδομένων επιστρέφει στην αρχική της κατάσταση (Rollback).
+Atomicity ensures that all the operations of a transaction complete successfully; otherwise the database returns to its initial state (Rollback).
 ---
 
-Ερώτηση Πολλαπλής Επιλογής 2, Η λειτουργία LEFT OUTER JOIN μεταξύ του πίνακα Α (αριστερά) και Β (δεξιά) θα επιστρέψει:
-[ ] 1. Μόνο τις κοινές εγγραφές.
-[✅] 2. Όλες τις εγγραφές του Α και τις ταιριαστές από τον Β (όπου δεν ταιριάζουν, βάζει NULL).
-[ ] 3. Όλες τις εγγραφές του Β και τις ταιριαστές από τον Α.
-[ ] 4. Όλες τις εγγραφές και των δύο πινάκων ανεξαρτήτως αντιστοίχισης.
+Multiple Choice Question 2: The LEFT OUTER JOIN operation between table A (left) and B (right) will return:
+[ ] 1. Only the common records.
+[✅] 2. All the records of A and the matching ones from B (where there is no match, it inserts NULL).
+[ ] 3. All the records of B and the matching ones from A.
+[ ] 4. All the records of both tables regardless of matching.
 ---
 *solution:*
-Το LEFT OUTER JOIN διατηρεί όλες τις πλειάδες της αριστερής σχέσης. Αν δεν υπάρχει αντιστοιχία στη δεξιά, οι στήλες της συμπληρώνονται με NULL.
+The LEFT OUTER JOIN keeps all the tuples of the left relation. If there is no match in the right relation, its columns are filled with NULL.
 ---
 
-Άσκηση 3, Δίνεται η σχέση R(A, B, C, D) και οι συναρτησιακές εξαρτήσεις: F = {A -> B, B -> C, C -> D}. Βρείτε το υποψήφιο κλειδί της σχέσης R.
+Exercise 3: Given the relation R(A, B, C, D) and the functional dependencies: F = {A -> B, B -> C, C -> D}. Find the candidate key of the relation R.
 ---
 *solution:*
-Εξετάζουμε το κλείσιμο του γνωρίσματος A:
-A+ = {A} (βάσει ανακλαστικότητας)
-A+ = {A, B} (λόγω A -> B)
-A+ = {A, B, C} (λόγω B -> C)
-A+ = {A, B, C, D} (λόγω C -> D)
-Εφόσον το A προσδιορίζει όλα τα γνωρίσματα της σχέσης, το {A} είναι το υποψήφιο κλειδί.
+We examine the closure of attribute A:
+A+ = {A} (based on reflexivity)
+A+ = {A, B} (due to A -> B)
+A+ = {A, B, C} (due to B -> C)
+A+ = {A, B, C, D} (due to C -> D)
+Since A determines all the attributes of the relation, {A} is the candidate key.
 ---
 
-Άσκηση 4, Γράψτε ένα SQL ερώτημα που να βρίσκει τα ονόματα των τμημάτων (πίνακας Department) που δεν έχουν κανένα φοιτητή (πίνακας Student), κάνοντας χρήση του LEFT JOIN ή εμφωλευμένου ερωτήματος.
+Exercise 4: Write an SQL query that finds the names of the departments (Department table) that have no students (Student table), using a LEFT JOIN or a subquery.
 ---
 *solution:*
 ```sql
@@ -40,7 +40,7 @@ FROM Department d
 LEFT JOIN Student s ON d.dept_id = s.dept_id
 WHERE s.student_id IS NULL;
 ```
-Εναλλακτικά με χρήση εμφωλευμένου ερωτήματος:
+Alternatively, using a subquery:
 ```sql
 SELECT dept_name
 FROM Department

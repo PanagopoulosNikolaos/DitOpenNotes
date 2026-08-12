@@ -351,14 +351,14 @@
 <body>
     <div class="main-container">
         <h1>4-bit D Flip-Flop Register Simulator</h1>
-        <p class="subtitle">Καταχωρητής 4-bit με D Flip-Flops - Προσομοίωση Κυματομορφών</p>
+        <p class="subtitle">4-bit Register with D Flip-Flops - Waveform Simulation</p>
 
         <!-- Circuit Visualization -->
         <div class="circuit-container">
-            <h2>Circuit Diagram - Διάγραμμα Κυκλώματος</h2>
+            <h2>Circuit Diagram</h2>
             <div class="info-box">
-                <p><strong>Περιγραφή:</strong> Το κύκλωμα αποτελείται από 4 D Flip-Flops με κοινή είσοδο ρολογιού (CLK) και μηδενισμού (R). 
-                Τα δεδομένα από τις εισόδους I₀-I₃ μεταφέρονται στις εξόδους A₀-A₃ κατά την άνοδο του παλμού του ρολογιού.</p>
+                <p><strong>Description:</strong> The circuit consists of 4 D Flip-Flops with a common clock input (CLK) and reset (R). 
+                Data from inputs I₀-I₃ is transferred to outputs A₀-A₃ on the rising edge of the clock pulse.</p>
             </div>
             
             <div class="flip-flop-row">
@@ -398,10 +398,10 @@
 
         <!-- Control Panel -->
         <div class="control-panel">
-            <h2>Control Panel - Πίνακας Ελέγχου</h2>
+            <h2>Control Panel</h2>
             
             <div class="control-section">
-                <h3>Data Inputs - Είσοδοι Δεδομένων (I₀-I₃)</h3>
+                <h3>Data Inputs (I₀-I₃)</h3>
                 <div class="input-controls">
                     <div class="input-toggle" id="input3" onclick="toggleInput(3)">I₃ = 0</div>
                     <div class="input-toggle" id="input2" onclick="toggleInput(2)">I₂ = 0</div>
@@ -411,7 +411,7 @@
             </div>
 
             <div class="control-section">
-                <h3>Clock & Reset Controls - Έλεγχος Ρολογιού & Μηδενισμού</h3>
+                <h3>Clock & Reset Controls</h3>
                 <div class="clock-control">
                     <button onclick="pulseClockManual()">Manual Clock Pulse</button>
                     <div class="clock-display" id="clockDisplay">LOW</div>
@@ -420,7 +420,7 @@
             </div>
 
             <div class="control-section">
-                <h3>Simulation Controls - Έλεγχος Προσομοίωσης</h3>
+                <h3>Simulation Controls</h3>
                 <div class="simulation-controls">
                     <button onclick="startSimulation()" id="startBtn">Start Auto Clock</button>
                     <button onclick="stopSimulation()" id="stopBtn" disabled>Stop</button>
@@ -465,7 +465,7 @@
 
         <!-- Waveform Display -->
         <div class="waveform-section">
-            <h2>Waveform Display - Απεικόνιση Κυματομορφών</h2>
+            <h2>Waveform Display</h2>
             <div class="legend">
                 <div class="legend-item">
                     <div class="legend-color" style="background: #ff6b6b;"></div>

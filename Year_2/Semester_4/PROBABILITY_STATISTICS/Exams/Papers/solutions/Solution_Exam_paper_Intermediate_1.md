@@ -44,7 +44,7 @@ Given: $\Phi(1) = P(Z \le 1) = 0.8413$, $\Phi(2) = P(Z \le 2) = 0.9772$.
 
 **Table Completion:**
 
-| Ώρες | $x_i$ | $f_i$ | $f_i x_i$ | $F_i$ |
+| Hours | $x_i$ | $f_i$ | $f_i x_i$ | $F_i$ |
 |---|---|---|---|---|
 | [5, 10)  | 7.5  | 12 | 90   | 12 |
 | [10, 15) | 12.5 | 20 | 250  | 32 |
@@ -52,11 +52,11 @@ Given: $\Phi(1) = P(Z \le 1) = 0.8413$, $\Phi(2) = P(Z \le 2) = 0.9772$.
 | [20, 25) | 22.5 | 18 | 405  | 80 |
 | Total    |      | 80 | 1270 |    |
 
-**a. Μέση τιμή $\bar{x}$**
+**a. Mean $\bar{x}$**
 
-$$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{1270}{80} = \boxed{15.875 \text{ ώρες}}$$
+$$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{1270}{80} = \boxed{15.875 \text{ hours}}$$
 
-**Τυπική απόκλιση — συμπλήρωση στήλης $f_i(x_i-\bar{x})^2$:**
+**Standard deviation — completing the column $f_i(x_i-\bar{x})^2$:**
 
 | $x_i$ | $x_i - \bar{x}$ | $(x_i-\bar{x})^2$ | $f_i(x_i-\bar{x})^2$ |
 |---|---|---|---|
@@ -64,33 +64,33 @@ $$\bar{x} = \frac{\sum f_i x_i}{n} = \frac{1270}{80} = \boxed{15.875 \text{ ώρ
 | 12.5 | -3.375 | 11.39 | 227.81 |
 | 17.5 | 1.625  | 2.64  | 79.22  |
 | 22.5 | 6.625  | 43.89 | 790.03 |
-| **Σύνολο** | | | **1938.74** |
+| **Total** | | | **1938.74** |
 
-**b. Τυπική απόκλιση $s$**
+**b. Standard deviation $s$**
 
 $$s^2 = \frac{\sum f_i(x_i-\bar{x})^2}{n-1} = \frac{1938.74}{79} \approx 24.54$$
 
-$$s = \sqrt{24.54} \approx \boxed{4.95 \text{ ώρες}}$$
+$$s = \sqrt{24.54} \approx \boxed{4.95 \text{ hours}}$$
 
 **Median $M_e$**
 
-- $n/2 = 40$. Έχουμε $F_2 = 32 < 40 \le 62 = F_3$, άρα η διάμεσος βρίσκεται στην κλάση $[15, 20)$.
+- $n/2 = 40$. We have $F_2 = 32 < 40 \le 62 = F_3$, so the median lies in the class $[15, 20)$.
 
-$$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w = 15 + \left( \frac{40 - 32}{30} \right) \cdot 5 = 15 + 1.333 \approx \boxed{16.33 \text{ ώρες}}$$
+$$M_e = L + \left( \frac{\frac{n}{2} - F_{i-1}}{f_i} \right) \cdot w = 15 + \left( \frac{40 - 32}{30} \right) \cdot 5 = 15 + 1.333 \approx \boxed{16.33 \text{ hours}}$$
 
-**c. Εντολές R για $Q_1$**
+**c. R commands for $Q_1$**
 
 ```r
 hours <- c(...)           # data input
-quantile(hours, 0.25)     # 1ο τεταρτημόριο
+quantile(hours, 0.25)     # 1st quartile
 ```
 
 ---
 
-**ΘΕΜΑ 2:** Σε μια γραμμή παραγωγής, το 5% των εξαρτημάτων είναι ελαττωματικά. Επιλέγουμε τυχαία 8 εξαρτήματα. Ποια είναι η πιθανότητα:
-i) Ακριβώς 2 εξαρτήματα να είναι ελαττωματικά;
-ii) Το πολύ 1 εξάρτημα να είναι ελαττωματικό;
-iii) Ποια εντολή πρέπει να δώσουμε στην R για να υπολογίσει την πιθανότητα του ερωτήματος ii;
+**PROBLEM 2:** In a production line, 5% of components are defective. We randomly select 8 components. What is the probability:
+i) Exactly 2 components are defective?
+ii) At most 1 component is defective?
+iii) What R command calculates the probability of question ii)?
 
 ### Solution to Problem 2
 
@@ -102,7 +102,7 @@ $$P(X=k) = \binom{8}{k}(0.05)^k(0.95)^{8-k}$$
 
 $$P(X=2) = \binom{8}{2}(0.05)^2(0.95)^6 = 28 \times 0.0025 \times 0.7351 = \boxed{0.0515}$$
 
-- $0.95^6 = 0.7351$ (διαδοχικός πολλαπλασιασμός).
+- $0.95^6 = 0.7351$ (successive multiplication).
 
 **ii. $P(X \le 1)$**
 
@@ -122,21 +122,21 @@ pbinom(1, size = 8, prob = 0.05)
 
 ---
 
-**ΘΕΜΑ 3:** Σε ένα εργοστάσιο, τρεις μηχανές $M_1, M_2, M_3$ παράγουν το 40%, 35% και 25% της συνολικής παραγωγής αντίστοιχα. Τα ποσοστά ελαττωματικών προϊόντων που παράγει η κάθε μηχανή είναι 2%, 3% και 4% αντίστοιχα. Επιλέγουμε τυχαία ένα προϊόν από την αποθήκη.
-Α. Ποια είναι η πιθανότητα το προϊόν να είναι ελαττωματικό;
-Β. Αν το επιλεγμένο προϊόν είναι ελαττωματικό, ποια είναι η πιθανότητα να έχει παραχθεί από τη μηχανή $M_1$;
+**PROBLEM 3:** In a factory, three machines $M_1, M_2, M_3$ produce 40%, 35%, and 25% of total production respectively. The defect rates of the products produced by each machine are 2%, 3%, and 4% respectively. We randomly select a product from the warehouse.
+A. What is the probability that the product is defective?
+B. If the selected product is defective, what is the probability it was produced by machine $M_1$?
 
 ### Solution to Problem 3
 
 **Given Data:**
 
-| Μηχανή | $P(M_i)$ | $P(E \mid M_i)$ |
+| Machine | $P(M_i)$ | $P(E \mid M_i)$ |
 |---|---|---|
 | $M_1$ | 0.40 | 0.02 |
 | $M_2$ | 0.35 | 0.03 |
 | $M_3$ | 0.25 | 0.04 |
 
-**Α. $P(E)$ — Ολική Πιθανότητα**
+**A. $P(E)$ — Total Probability**
 
 $$P(E) = P(E|M_1)P(M_1) + P(E|M_2)P(M_2) + P(E|M_3)P(M_3)$$
 
@@ -144,19 +144,19 @@ $$= 0.02 \times 0.40 + 0.03 \times 0.35 + 0.04 \times 0.25$$
 
 $$= 0.008 + 0.0105 + 0.01 = \boxed{0.0285}$$
 
-**Β. $P(M_1 | E)$ — Τύπος Bayes**
+**B. $P(M_1 | E)$ — Bayes' Theorem**
 
 $$P(M_1 \mid E) = \frac{P(E|M_1) \cdot P(M_1)}{P(E)} = \frac{0.02 \times 0.40}{0.0285} = \frac{0.008}{0.0285} \approx \boxed{0.2807}$$
 
-- Ο τύπος Bayes αντιστρέφει την αιτιότητα: από το γεγονός (ελαττωματικό) υπολογίζει την πιθανότητα της αιτίας (ποια μηχανή).
+- Bayes' theorem reverses the causal direction: given the effect (defective), it computes the probability of the cause (which machine).
 
 ---
 
-**ΘΕΜΑ 4:** Ο χρόνος αναμονής των ασθενών στα επείγοντα ενός νοσοκομείου ακολουθεί την Κανονική Κατανομή με μέση τιμή $\mu = 45$ λεπτά και τυπική απόκλιση $\sigma = 10$ λεπτά.
-i. Ποια είναι η πιθανότητα ένας ασθενής να περιμένει περισσότερο από 55 λεπτά;
-ii. Ποια είναι η πιθανότητα ένας ασθενής να περιμένει μεταξύ 35 και 65 λεπτά;
-iii. Ποια εντολή δίνουμε στην R για να βρούμε την πιθανότητα ένας ασθενής να περιμένει λιγότερο από 30 λεπτά;
-Δίνεται: $\Phi(1) = P(Z \le 1) = 0.8413$, $\Phi(2) = P(Z \le 2) = 0.9772$.
+**PROBLEM 4:** The waiting time of patients in the emergency room of a hospital follows the Normal distribution with mean $\mu = 45$ minutes and standard deviation $\sigma = 10$ minutes.
+i. What is the probability that a patient waits more than 55 minutes?
+ii. What is the probability that a patient waits between 35 and 65 minutes?
+iii. What command do we give in R to find the probability that a patient waits less than 30 minutes?
+Given: $\Phi(1) = P(Z \le 1) = 0.8413$, $\Phi(2) = P(Z \le 2) = 0.9772$.
 
 ### Solution to Problem 4
 
@@ -176,7 +176,7 @@ $$P(35 \le X \le 65) = P(-1 \le Z \le 2) = P(Z \le 2) - P(Z \le -1)$$
 
 $$= \Phi(2) - [1 - \Phi(1)] = 0.9772 - (1 - 0.8413) = 0.9772 - 0.1587 = \boxed{0.8185}$$
 
-**iii. Εντολή R για $P(X < 30)$**
+**iii. R command for $P(X < 30)$**
 
 ```r
 pnorm(30, mean = 45, sd = 10)

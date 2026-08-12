@@ -1,205 +1,205 @@
-# Λειτουργικά Συστήματα — Κεφάλαιο 3: Διεργασίες
+# Operating Systems — Chapter 3: Processes
 
-## Τι είναι διεργασία
-- Διεργασία (process) = πρόγραμμα σε εκτέλεση.
-- Αποτελεί επίσης ασύγχρονη δραστηριότητα που παρακολουθείται από το λειτουργικό σύστημα.
-- Το λειτουργικό σύστημα συνδέει κάθε διεργασία με μια δομή δεδομένων, τον περιγραφέα διεργασίας ή μπλοκ ελέγχου διεργασίας (PCB).
-- Αναλογία: το πρόγραμμα είναι σαν παρτιτούρα, ενώ η διεργασία είναι η πραγματική εκτέλεση του «κομματιού».
+## What is a process
+- A process = a program in execution.
+- It is also an asynchronous activity monitored by the operating system.
+- The operating system associates each process with a data structure, the process descriptor or Process Control Block (PCB).
+- Analogy: the program is like a musical score, while the process is the actual performance of the "piece".
 
-## Χώρος διευθύνσεων διεργασίας
-Κάθε διεργασία έχει δικό της χώρο διευθύνσεων, που περιλαμβάνει:
-- **Text region**: τον εκτελέσιμο κώδικα.
-- **Data region**: μεταβλητές και δυναμικά δεσμευμένη μνήμη.
-- **Stack region**: τοπικές μεταβλητές και πληροφορίες ενεργών κλήσεων διαδικασιών.
+## Process address space
+Each process has its own address space, which includes:
+- **Text region**: the executable code.
+- **Data region**: variables and dynamically allocated memory.
+- **Stack region**: local variables and information of active procedure calls.
 
-## Γιατί η διαχείριση διεργασιών είναι κρίσιμη
-- Είναι βασικό αντικείμενο κάθε λειτουργικού συστήματος.
-- Το ΛΣ διατηρεί για κάθε διεργασία πληροφορίες για:
-  - την κατάστασή της,
-  - τους πόρους που κατέχει,
-  - τον τρόπο με τον οποίο μπορεί να την ελέγχει.
-- Το ΛΣ πρέπει να:
-  - παρεμβάλει την εκτέλεση πολλών διεργασιών,
-  - μεγιστοποιεί τη χρήση της CPU,
-  - ελαχιστοποιεί τον χρόνο απόκρισης,
-  - κατανέμει πόρους με πολιτική που αποφεύγει αδιέξοδα,
-  - υποστηρίζει επικοινωνία και δημιουργία διεργασιών.
+## Why process management is critical
+- It is a core subject of every operating system.
+- The OS maintains for each process information about:
+  - its state,
+  - the resources it holds,
+  - the way in which it can control it.
+- The OS must:
+  - interleave the execution of many processes,
+  - maximize CPU utilization,
+  - minimize response time,
+  - allocate resources with a policy that avoids deadlocks,
+  - support communication and creation of processes.
 
-## Βασικές καταστάσεις διεργασίας
-### 3 βασικές καταστάσεις
-- **Running**: η διεργασία εκτελείται στη CPU.
-- **Ready**: είναι έτοιμη να εκτελεστεί, αλλά περιμένει CPU.
-- **Blocked**: δεν μπορεί να συνεχίσει μέχρι να συμβεί κάποιο εξωτερικό γεγονός.
+## Basic process states
+### 3 basic states
+- **Running**: the process is executing on the CPU.
+- **Ready**: it is ready to execute, but waiting for the CPU.
+- **Blocked**: it cannot continue until some external event occurs.
 
-### Επεκταμένο μοντέλο
-- **New**: μόλις δημιουργήθηκε.
-- **Exit**: ολοκληρώθηκε και αποδεσμεύθηκε από το ΛΣ.
+### Extended model
+- **New**: just created.
+- **Exit**: completed and released by the OS.
 
-## Μεταβάσεις καταστάσεων
-Σημαντικές μεταβάσεις:
-- **New → Ready**: η διεργασία εισάγεται στο σύστημα όταν επιτρέπεται από τα όρια του συστήματος.
-- **Running → Ready**: εξαντλεί το επιτρεπτό χρονικό όριο εκτέλεσης.
-- **Running → Blocked**: ζητά υπηρεσία/ΙΟ που δεν μπορεί να εκτελεστεί άμεσα.
-- **Blocked → Ready**: ολοκληρώνεται το γεγονός που περίμενε, π.χ. Ι/Ο.
-- **Running → Exit**: τερματισμός διεργασίας.
+## State transitions
+Important transitions:
+- **New → Ready**: the process is admitted into the system when allowed by the system limits.
+- **Running → Ready**: it exhausts the allowed execution time limit.
+- **Running → Blocked**: it requests a service/I/O that cannot be performed immediately.
+- **Blocked → Ready**: the event it was waiting for completes, e.g., I/O.
+- **Running → Exit**: process termination.
 
-## Dispatcher και κβάντο χρόνου
-- Οι νέες διεργασίες εισέρχονται στη λίστα έτοιμων διεργασιών.
-- Όταν η CPU γίνει διαθέσιμη, ο **dispatcher** αναθέτει την πρώτη κατάλληλη διεργασία για εκτέλεση.
-- Για να μη μονοπωλείται η CPU, το ΛΣ χρησιμοποιεί διακοπή χρονιστή.
-- Το προκαθορισμένο χρονικό διάστημα εκτέλεσης λέγεται **κβάντο χρόνου**.
-- Αν λήξει το κβάντο χωρίς η διεργασία να παραδώσει μόνη της τη CPU, το ΛΣ τη μεταφέρει από Running σε Ready και δίνει τη CPU σε άλλη διεργασία.
-- Αν ζητήσει Ι/Ο πριν λήξει το κβάντο, μεταβαίνει σε Blocked.
+## Dispatcher and time quantum
+- New processes enter the ready list.
+- When the CPU becomes available, the **dispatcher** assigns the first suitable process for execution.
+- So that the CPU is not monopolized, the OS uses a timer interrupt.
+- The predefined execution time interval is called the **time quantum**.
+- If the quantum expires without the process surrendering the CPU on its own, the OS moves it from Running to Ready and gives the CPU to another process.
+- If it requests I/O before the quantum expires, it transitions to Blocked.
 
-## Διεργασίες σε αναστολή (suspend)
-Όταν η κύρια μνήμη δεν επαρκεί ή όταν απαιτείται καλύτερη αξιοποίηση πόρων:
-- κάποιες διεργασίες μεταφέρονται στον δίσκο,
-- δημιουργούνται δύο επιπλέον καταστάσεις:
+## Suspended processes
+When main memory is insufficient or when better resource utilization is required:
+- some processes are moved to disk,
+- two additional states are created:
   - **Blocked/Suspend**
   - **Ready/Suspend**
 
-Αυτό χρησιμοποιείται επειδή ο επεξεργαστής είναι πολύ ταχύτερος από τις συσκευές Ε/Ε και μπορεί να προκύψει κατάσταση όπου πολλές διεργασίες περιμένουν Ι/Ο.
+This is used because the processor is much faster than the I/O devices and a situation can arise where many processes wait for I/O.
 
-## Χρονοδρομολογητές
-Το ΛΣ χρησιμοποιεί διαφορετικούς schedulers:
+## Schedulers
+The OS uses different schedulers:
 - **Long-term scheduler (job scheduler)**:
-  - επιλέγει ποιες διεργασίες θα μπουν στην ουρά ready,
-  - ελέγχει τον βαθμό πολυπρογραμματισμού.
+  - selects which processes will enter the ready queue,
+  - controls the degree of multiprogramming.
 - **Short-term scheduler (CPU scheduler)**:
-  - επιλέγει ποια διεργασία θα εκτελεστεί αμέσως μετά στη CPU.
+  - selects which process will be executed next on the CPU.
 - **Medium-term scheduler**:
-  - χρησιμοποιείται ιδιαίτερα σε time-sharing συστήματα,
-  - μετακινεί περιοδικά διεργασίες από/προς τη μνήμη.
+  - used particularly in time-sharing systems,
+  - periodically moves processes to/from memory.
 
-## Ουρές διεργασιών
-Οι διεργασίες οργανώνονται σε ουρές όπως:
-- **Ready queue**: διεργασίες έτοιμες για CPU.
-- **Blocked queue**: διεργασίες που περιμένουν γεγονός ή ολοκλήρωση Ι/Ο.
+## Process queues
+Processes are organized into queues such as:
+- **Ready queue**: processes ready for the CPU.
+- **Blocked queue**: processes waiting for an event or completion of I/O.
 
-Ο χρονοδρομολογητής επιλέγει διεργασίες από αυτές τις ουρές.
+The scheduler selects processes from these queues.
 
 ## PCB — Process Control Block
-### Ρόλος
-- Όταν δημιουργείται νέα διεργασία, το ΛΣ της εκχωρεί μοναδικό **PID**.
-- Στη συνέχεια δημιουργεί το **PCB**.
-- Το PCB περιέχει όλες τις απαραίτητες πληροφορίες για τη διαχείριση και τον έλεγχο της διεργασίας.
-- Αποτελεί βασικό μέρος της εικόνας διεργασίας μαζί με πρόγραμμα, δεδομένα και στοίβα.
+### Role
+- When a new process is created, the OS assigns it a unique **PID**.
+- It then creates the **PCB**.
+- The PCB contains all the necessary information for managing and controlling the process.
+- It is a basic part of the process image together with the program, data, and stack.
 
-### Σημαντική ιδέα
-- Η εικόνα διεργασίας δεν είναι απαραίτητα αποθηκευμένη σε συνεχόμενες θέσεις μνήμης.
-- Σε μια χρονική στιγμή, μέρος της μπορεί να βρίσκεται στην κύρια μνήμη και άλλο μέρος στη δευτερεύουσα.
+### Important idea
+- The process image is not necessarily stored in contiguous memory locations.
+- At a given moment, part of it may reside in main memory and another part in secondary storage.
 
-## Πίνακας διεργασιών
-- Το ΛΣ υλοποιεί πίνακα διεργασιών (**process table**).
-- Υπάρχει μία καταχώρηση για κάθε διεργασία.
-- Οι καταχωρήσεις αποθηκεύουν την κατάστασή της ώστε να μπορεί να συνεχίσει μετά από διακοπή ή εναλλαγή.
+## Process table
+- The OS implements a **process table**.
+- There is one entry for each process.
+- The entries store its state so that it can continue after an interrupt or a switch.
 
-## Πεδία που αποθηκεύονται για μια διεργασία
-### 1. Διαχείριση διεργασιών
-- Καταχωρητές
-- Δείκτης εντολών προγράμματος (Program Counter)
-- Λέξη κατάστασης προγράμματος
-- Δείκτης στοίβας
-- Κατάσταση διεργασίας
-- Χρόνος εκκίνησης διεργασίας
-- Χρόνος χρήσης CPU
-- Χρόνος CPU θυγατρικών διεργασιών
-- Χρόνος επόμενης εγρήγορσης
-- Δείκτης ουράς μηνυμάτων
+## Fields stored for a process
+### 1. Process management
+- Registers
+- Program Counter
+- Program status word
+- Stack pointer
+- Process state
+- Process start time
+- CPU time used
+- CPU time of child processes
+- Time of next wakeup
+- Message queue pointer
 
-### 2. Διαχείριση μνήμης / ταυτότητας
-- Δείκτης σε τμήμα κειμένου
-- Δείκτης σε τμήμα δεδομένων
-- Κατάσταση εξόδου
-- Κατάσταση σήματος
-- Ταυτότητα διεργασίας
-- Γονική διεργασία
-- Ομάδα διεργασιών
-- Πραγματική και λειτουργική ταυτότητα χρήστη/ομάδας
-- Χάρτης δυαδικών ψηφίων για σήματα
+### 2. Memory management / identity
+- Pointer to text segment
+- Pointer to data segment
+- Exit status
+- Signal status
+- Process identity
+- Parent process
+- Process group
+- Real and effective user/group identity
+- Bitmap for signals
 
-### 3. Διαχείριση αρχείων
-- Μάσκα δικαιωμάτων
-- Πρωταρχική διαδρομή
-- Διαδρομή εργασίας
-- Περιγραφείς αρχείων
-- Λειτουργική ταυτότητα χρήστη και ομάδας
-- Παράμετροι κλήσεων συστήματος
-- Διάφοροι ενδείκτες
+### 3. File management
+- Permission mask
+- Root path
+- Working path
+- File descriptors
+- Effective user and group identity
+- System call parameters
+- Various indicators
 
-## Αλλαγή διεργασίας και context switch
-### Λόγοι εναλλαγής εκτελούμενης διεργασίας
-- Διακοπή ρολογιού: εξάντληση κβάντου χρόνου.
-- Διακοπή Ε/Ε.
-- Σφάλμα μνήμης.
-- Trap (παγίδευση λόγω σφάλματος).
-- Κλήση συστήματος, π.χ. άνοιγμα αρχείου.
+## Process change and context switch
+### Reasons for switching the executing process
+- Clock interrupt: exhaustion of the time quantum.
+- I/O interrupt.
+- Memory fault.
+- Trap.
+- System call, e.g., opening a file.
 
-### Τι κάνει το ΛΣ στην αλλαγή κατάστασης
-Όταν μια διεργασία φεύγει από την κατάσταση Running:
-1. Αποθηκεύει το πλαίσιο του επεξεργαστή στο PCB (PC και άλλοι καταχωρητές).
-2. Μετακινεί το PCB στην κατάλληλη ουρά.
-3. Επιλέγει νέα διεργασία προς εκτέλεση.
-4. Ενημερώνει το PCB της νέας διεργασίας.
-5. Ενημερώνει δομές διαχείρισης μνήμης.
-6. Επαναφέρει το αποθηκευμένο πλαίσιο της νέας διεργασίας.
+### What the OS does on a state change
+When a process leaves the Running state:
+1. It saves the processor context in the PCB (PC and other registers).
+2. It moves the PCB to the appropriate queue.
+3. It selects a new process for execution.
+4. It updates the PCB of the new process.
+5. It updates memory management structures.
+6. It restores the saved context of the new process.
 
 ### Context switch
-- Η CPU αποθηκεύει την κατάσταση της παλιάς διεργασίας και φορτώνει της νέας.
-- Ο χρόνος αυτός είναι **overhead**: δεν παράγεται χρήσιμο έργο.
-- Το κόστος εξαρτάται από την υποστήριξη του υλικού.
+- The CPU saves the state of the old process and loads that of the new one.
+- This time is **overhead**: no useful work is produced.
+- The cost depends on the hardware support.
 
-## Υπηρεσίες ΛΣ για διεργασίες
-- Τα πολυπρογραμματιστικά ΛΣ παρέχουν system calls για διαχείριση διεργασιών.
-- Οι υπηρεσίες αυτές μπορούν να ενεργοποιηθούν:
-  - άμεσα, μέσω κλήσεων supervisor μέσα στον κώδικα,
-  - έμμεσα, μέσω εντολών στο τερματικό που μεταφράζονται σε κλήσεις συστήματος.
-- Παρότι τα ΛΣ διαφέρουν στη σχεδίαση, παρέχουν παρόμοιο βασικό σύνολο λειτουργιών για διεργασίες.
+## OS services for processes
+- Multiprogrammed OS provide system calls for process management.
+- These services can be activated:
+  - directly, through supervisor calls within the code,
+  - indirectly, through terminal commands that are translated into system calls.
+- Although OS differ in design, they provide a similar basic set of functions for processes.
 
-## Δημιουργία διεργασιών
-Το ΛΣ όταν δημιουργεί νέα διεργασία:
-- δημιουργεί τις αναγκαίες δομές δεδομένων,
-- της εκχωρεί μνήμη,
-- την εντάσσει στο σύστημα.
+## Process creation
+When the OS creates a new process:
+- it creates the necessary data structures,
+- allocates memory to it,
+- admits it into the system.
 
-### Συνήθεις αιτίες δημιουργίας
-- Υποβολή νέας εργασίας.
-- Σύνδεση νέου χρήστη.
-- Αίτηση υπηρεσίας από εφαρμογή.
-- Δημιουργία από υπάρχουσα διεργασία.
+### Common causes of creation
+- Submission of a new job.
+- Login of a new user.
+- Service request from an application.
+- Creation by an existing process.
 
 ## Unix: fork, exec, exit, wait
 ### fork()
-- Δημιουργεί νέα θυγατρική διεργασία ως κλώνο της γονικής.
-- Η θυγατρική:
-  - έχει εικονικό αντίγραφο της εικονικής μνήμης του γονέα,
-  - εκτελεί αρχικά το ίδιο πρόγραμμα,
-  - ξεκινά με ίδιες τιμές καταχωρητών.
+- Creates a new child process as a clone of the parent.
+- The child:
+  - has a virtual copy of the parent's virtual memory,
+  - initially executes the same program,
+  - starts with the same register values.
 
 ### exec()
-- Αντικαθιστά την εικόνα μνήμης της καλούμενης διεργασίας με νέο πρόγραμμα.
-- Μεταφέρει τον έλεγχο στο νέο πρόγραμμα.
+- Replaces the memory image of the calling process with a new program.
+- Transfers control to the new program.
 
 ### exit(status)
-- Τερματίζει τη διεργασία.
+- Terminates the process.
 
 ### wait(&status)
-- Η γονική διεργασία περιμένει τον τερματισμό ή άλλη αλλαγή κατάστασης απογόνου.
+- The parent process waits for the termination or another state change of a descendant.
 
-## Πιθανές ερωτήσεις εξέτασης
-1. Τι είναι διεργασία και πώς διαφέρει από πρόγραμμα;
-2. Ποιες είναι οι βασικές καταστάσεις διεργασίας;
-3. Τι προκαλεί τις μεταβάσεις Running → Ready και Running → Blocked;
-4. Ποιος είναι ο ρόλος του dispatcher;
-5. Τι είναι το PCB και ποια δεδομένα περιέχει;
-6. Τι είναι το context switch και γιατί θεωρείται overhead;
-7. Ποια η διαφορά long-term, short-term και medium-term scheduler;
-8. Ποια είναι η σχέση των fork(), exec(), exit(), wait() στο Unix;
+## Possible exam questions
+1. What is a process and how does it differ from a program?
+2. What are the basic process states?
+3. What causes the Running → Ready and Running → Blocked transitions?
+4. What is the role of the dispatcher?
+5. What is the PCB and what data does it contain?
+6. What is a context switch and why is it considered overhead?
+7. What is the difference between the long-term, short-term, and medium-term scheduler?
+8. What is the relationship of fork(), exec(), exit(), wait() in Unix?
 
-## Σύντομη περίληψη για διάβασμα
-- Διεργασία = πρόγραμμα σε εκτέλεση με δικό του χώρο διευθύνσεων και PCB.
-- Βασικές καταστάσεις: New, Ready, Running, Blocked, Exit, και σε ορισμένα μοντέλα Suspend καταστάσεις.
-- Το ΛΣ χρησιμοποιεί scheduler, dispatcher, ουρές και χρονικά κβάντα για να μοιράζει τη CPU.
-- Το PCB και ο process table κρατούν όλη την απαραίτητη πληροφορία για την επανεκκίνηση/συνέχιση μιας διεργασίας.
-- Η εναλλαγή διεργασιών απαιτεί context switch, που έχει κόστος.
-- Στο Unix, ο κύκλος δημιουργίας/εκτέλεσης/τερματισμού συνδέεται στενά με τις fork(), exec(), wait(), exit().
+## Short summary for revision
+- Process = a program in execution with its own address space and PCB.
+- Basic states: New, Ready, Running, Blocked, Exit, and in some models Suspend states.
+- The OS uses a scheduler, dispatcher, queues, and time quanta to share the CPU.
+- The PCB and the process table hold all the necessary information for restarting/continuing a process.
+- Process switching requires a context switch, which has a cost.
+- In Unix, the creation/execution/termination cycle is closely linked with fork(), exec(), wait(), exit().
