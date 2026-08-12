@@ -89,29 +89,29 @@ Translate the diagram of Exercise 2 into tables. For each table, specify: Primar
 
 *solution:*
 
-1. `Κλινική`(**αριθμός_μητρώου**, <u>όνομα</u>, <u>οδός</u>, <u>αριθμός</u>, <u>πόλη</u>, <u>*διευθυντής_ΑΜΚΑ*</u>, <u>επίδομα_διεύθυνσης</u>)
-   - <u>*διευθυντής_ΑΜΚΑ*</u> → FK to `Ιατρός`. Encapsulates the "heads" relationship (1:1) together with the relationship attribute.
+1. `Clinic`(**clinic_id**, <u>name</u>, <u>street</u>, <u>number</u>, <u>city</u>, <u>*director_ssn*</u>, <u>director_allowance</u>)
+   - <u>*director_ssn*</u> → FK to `Physician`. Encapsulates the "heads" relationship (1:1) together with the relationship attribute.
 
-2. `Κλινική_Τηλέφωνα`(**αριθμός_μητρώου**, **τηλέφωνο**)
-   - Represents the multivalued attribute. <u>*αριθμός_μητρώου*</u> → FK to `Κλινική`.
+2. `Clinic_Phone`(**clinic_id**, **phone_number**)
+   - Represents the multivalued attribute. <u>*clinic_id*</u> → FK to `Clinic`.
 
-3. `Ιατρός`(**ΑΜΚΑ**, <u>όνομα</u>, <u>επώνυμο</u>, <u>ημερ_πρόσληψης</u>, <u>ειδικότητα</u>, <u>*κλινική_ΑΜ*</u>, <u>*μέντορας_ΑΜΚΑ*</u>)
-   - <u>*κλινική_ΑΜ*</u> → FK to `Κλινική` ("belongs" relationship, 1:N).
-   - <u>*μέντορας_ΑΜΚΑ*</u> → self-referencing FK to `Ιατρός` (recursive relationship 1:N, nullable).
+3. `Physician`(**ssn**, <u>first_name</u>, <u>last_name</u>, <u>hire_date</u>, <u>specialty</u>, <u>*clinic_id*</u>, <u>*mentor_ssn*</u>)
+   - <u>*clinic_id*</u> → FK to `Clinic` ("belongs" relationship, 1:N).
+   - <u>*mentor_ssn*</u> → self-referencing FK to `Physician` (recursive relationship 1:N, nullable).
 
-4. `Ασθενής`(**ΑΜΚΑ**, <u>ονοματεπώνυμο</u>, <u>ομάδα_αίματος</u>, <u>ημερ_γέννησης</u>)
+4. `Patient`(**ssn**, <u>full_name</u>, <u>blood_type</u>, <u>date_of_birth</u>)
 
-5. `Συγγενικό_Πρόσωπο`(**ασθενής_ΑΜΚΑ**, **ΑΔΤ**, <u>όνομα</u>, <u>τηλέφωνο</u>)
-   - Composite PK due to the weak entity. <u>*ασθενής_ΑΜΚΑ*</u> → FK to `Ασθενής`.
+5. `Relative`(**patient_ssn**, **id_number**, <u>first_name</u>, <u>phone_number</u>)
+   - Composite PK due to the weak entity. <u>*patient_ssn*</u> → FK to `Patient`.
 
-6. `Θάλαμος`(**κλινική_ΑΜ**, **αριθμός_θαλάμου**, <u>χωρητικότητα</u>)
-   - Composite PK due to the weak entity. <u>*κλινική_ΑΜ*</u> → FK to `Κλινική`.
+6. `Ward`(**clinic_id**, **ward_number**, <u>capacity</u>)
+   - Composite PK due to the weak entity. <u>*clinic_id*</u> → FK to `Clinic`.
 
-7. `Εξέταση`(**ιατρός_ΑΜΚΑ**, **ασθενής_ΑΜΚΑ**, **ημερομηνία**, **ώρα**, <u>διάγνωση</u>)
+7. `Examination`(**physician_ssn**, **patient_ssn**, **date**, **time**, <u>diagnosis</u>)
    - Intermediate table for the M:N relationship. The composite PK ensures that the same pair (physician, patient) may have multiple examinations on different date/time.
 
-8. `Νοσηλεία`(**ασθενής_ΑΜΚΑ**, **κλινική_ΑΜ**, **αριθμός_θαλάμου**, **ημερ_εισαγωγής**, <u>ημερ_εξιτηρίου</u>)
-   - Intermediate table for the M:N relationship. The FK to `Θάλαμος` is composite (κλινική_ΑΜ + αριθμός_θαλάμου), so both parts are carried over. The **ημερ_εισαγωγής** in the key allows re-hospitalization in the same ward.
+8. `Hospitalization`(**patient_ssn**, **clinic_id**, **ward_number**, **admission_date**, <u>discharge_date</u>)
+   - Intermediate table for the M:N relationship. The FK to `Ward` is composite (clinic_id + ward_number), so both parts are carried over. The **admission_date** in the key allows re-hospitalization in the same ward.
 
 ***
 ***
@@ -120,16 +120,16 @@ Translate the diagram of Exercise 2 into tables. For each table, specify: Primar
 
 **E-commerce schema (applies to Exercises 4–7):**
 
-`Πελάτης`(**Κωδ_Πελάτη**, <u>Όνομα</u>, <u>Επώνυμο</u>, <u>Πόλη</u>)
-`Παραγγελία`(**Κωδ_Παραγγελίας**, <u>Ημερομηνία</u>, <u>*Πελάτης_Κωδικός*</u>)
-`Προϊόν`(**Κωδ_Προϊόντος**, <u>Περιγραφή</u>, <u>Τιμή</u>, <u>Κατηγορία</u>)
-`Περιλαμβάνει`(**Κωδ_Παραγγελίας**, **Κωδ_Προϊόντος**, <u>Ποσότητα</u>)
+`Customer`(**customer_id**, <u>first_name</u>, <u>last_name</u>, <u>city</u>)
+`Order`(**order_id**, <u>order_date</u>, <u>*customer_id*</u>)
+`Product`(**product_id**, <u>description</u>, <u>unit_price</u>, <u>category</u>)
+`Order_Item`(**order_id**, **product_id**, <u>quantity</u>)
 
 ***
 
 ### Exercise 4: Relational Algebra
 
-Write the Relational Algebra expression that returns the <u>Name</u> and the <u>Last Name</u> of all customers who have purchased at least one product from the category `'Smartphones'`.
+Write the Relational Algebra expression that returns the <u>First Name</u> and the <u>Last Name</u> of all customers who have purchased at least one product from the category `'Smartphones'`.
 
 ***
 
@@ -137,15 +137,15 @@ Write the Relational Algebra expression that returns the <u>Name</u> and the <u>
 
 **Step by step:**
 
-- **R1** = $\sigma$\_\{Κατηγορία = 'Smartphones'\}(`Προϊόν`) — Filtering of products
-- **R2** = R1 ⨝ `Περιλαμβάνει` — Finding the orders that contain them
-- **R3** = R2 ⨝ `Παραγγελία` — Finding the customer codes
-- **R4** = R3 ⨝ `Πελάτης` — Bringing the names
-- **Result** = $\pi$\_\{Όνομα, Επώνυμο\}(R4)
+- **R1** = $\sigma_{\text{category} = \text{'Smartphones'}}(`Product`)$ — Filtering of products
+- **R2** = R1 ⨝ `Order_Item` — Finding the orders that contain them
+- **R3** = R2 ⨝ `Order` — Finding the customer codes
+- **R4** = R3 ⨝ `Customer` — Bringing the names
+- **Result** = $\pi_{\text{first\_name, last\_name}}$(R4)
 
 **In summary (single expression):**
 
-$$\pi_{\text{Όνομα, Επώνυμο}}\bigl(\text{Πελάτης} \bowtie \text{Παραγγελία} \bowtie \text{Περιλαμβάνει} \bowtie \sigma_{\text{Κατηγορία}=\text{'Smartphones'}}(\text{Προϊόν})\bigr)$$
+$$\pi_{\text{first\_name, last\_name}}\bigl(\text{Customer} \bowtie \text{Order} \bowtie \text{Order\_Item} \bowtie \sigma_{\text{category}=\text{'Smartphones'}}(\text{Product})\bigr)$$
 
 > **Observation:** The result may contain duplicates (the same customer may have purchased Smartphones in multiple orders). If uniqueness is required, it is applied implicitly by the semantics of Relational Algebra (sets), so no additional operation is required.
 
@@ -163,23 +163,23 @@ Write an SQL query that returns the <u>Name</u>, the <u>Last Name</u> and the **
 
 ```sql
 SELECT
-    p.Όνομα,
-    p.Επώνυμο,
-    SUM(per.Ποσότητα * pro.Τιμή) AS Συνολικό_Ποσό
+    c.first_name,
+    c.last_name,
+    SUM(oi.quantity * p.unit_price) AS total_amount
 FROM
-    Πελάτης       p
-    INNER JOIN Παραγγελία    par ON p.Κωδ_Πελάτη       = par.Πελάτης_Κωδικός
-    INNER JOIN Περιλαμβάνει per ON par.Κωδ_Παραγγελίας = per.Κωδ_Παραγγελίας
-    INNER JOIN Προϊόν        pro ON per.Κωδ_Προϊόντος   = pro.Κωδ_Προϊόντος
+    Customer   c
+    INNER JOIN `Order`    o  ON c.customer_id = o.customer_id
+    INNER JOIN Order_Item oi ON o.order_id    = oi.order_id
+    INNER JOIN Product    p  ON oi.product_id = p.product_id
 GROUP BY
-    p.Κωδ_Πελάτη, p.Όνομα, p.Επώνυμο
+    c.customer_id, c.first_name, c.last_name
 HAVING
-    SUM(per.Ποσότητα * pro.Τιμή) > 2500
+    SUM(oi.quantity * p.unit_price) > 2500
 ORDER BY
-    Συνολικό_Ποσό DESC;
+    total_amount DESC;
 ```
 
-> **Why `Κωδ_Πελάτη` in the `GROUP BY`;** The `GROUP BY` must include the PK so that customers with the same name/last name but a different code are not confused. The `HAVING` filters *after* the grouping, in contrast to the `WHERE`, which filters before.
+> **Why `customer_id` in the `GROUP BY`;** The `GROUP BY` must include the PK so that customers with the same name/last name but a different code are not confused. The `HAVING` filters *after* the grouping, in contrast to the `WHERE`, which filters before.
 
 ***
 
@@ -187,7 +187,7 @@ ORDER BY
 
 Given the unnormalized table:
 
-`Ανάθεση_Υπαλλήλου`(**Κωδ_Υπαλλήλου**, **Κωδ_Υποκαταστήματος**, <u>Όνομα_Υπαλλήλου</u>, <u>Βαθμίδα_Υπαλλήλου</u>, <u>Διεύθυνση_Υποκαταστήματος</u>, <u>Ώρες_Απασχόλησης</u>)
+`Employee_Assignment`(**employee_id**, **branch_id**, <u>employee_name</u>, <u>employee_rank</u>, <u>branch_address</u>, <u>working_hours</u>)
 
 **Questions:**
 1. Which **Functional Dependencies** hold;
@@ -199,18 +199,18 @@ Given the unnormalized table:
 *solution:*
 
 **1. Functional Dependencies:**
-- **Κωδ_Υπαλλήλου** → <u>Όνομα_Υπαλλήλου</u>, <u>Βαθμίδα_Υπαλλήλου</u>
-- **Κωδ_Υποκαταστήματος** → <u>Διεύθυνση_Υποκαταστήματος</u>
-- {**Κωδ_Υπαλλήλου**, **Κωδ_Υποκαταστήματος**} → <u>Ώρες_Απασχόλησης</u>
+- **employee_id** → <u>employee_name</u>, <u>employee_rank</u>
+- **branch_id** → <u>branch_address</u>
+- {**employee_id**, **branch_id**} → <u>working_hours</u>
 
 **2. Normal Form:**
-The table is in **1NF** (all fields are atomic), but **NOT in 2NF** due to **partial dependencies**: the <u>Όνομα_Υπαλλήλου</u> / <u>Βαθμίδα</u> depend only on the **Κωδ_Υπαλλήλου**, and the <u>Διεύθυνση_Υποκαταστήματος</u> only on the **Κωδ_Υποκαταστήματος** — not on the whole composite key.
+The table is in **1NF** (all fields are atomic), but **NOT in 2NF** due to **partial dependencies**: the <u>employee_name</u> / <u>employee_rank</u> depend only on the **employee_id**, and the <u>branch_address</u> only on the **branch_id** — not on the whole composite key.
 
 **3. Decomposition into 3NF:**
 
-- `Υπάλληλος`(**Κωδ_Υπαλλήλου**, <u>Όνομα_Υπαλλήλου</u>, <u>Βαθμίδα_Υπαλλήλου</u>)
-- `Υποκατάστημα`(**Κωδ_Υποκαταστήματος**, <u>Διεύθυνση_Υποκαταστήματος</u>)
-- `Ανάθεση`(**Κωδ_Υπαλλήλου**, **Κωδ_Υποκαταστήματος**, <u>Ώρες_Απασχόλησης</u>)
+- `Employee`(**employee_id**, <u>employee_name</u>, <u>employee_rank</u>)
+- `Branch`(**branch_id**, <u>branch_address</u>)
+- `Assignment`(**employee_id**, **branch_id**, <u>working_hours</u>)
 
 In each table, every non-key attribute depends **fully, directly and only** on the (entire) key → 3NF ✓.
 
@@ -229,22 +229,22 @@ Using the same e-commerce schema, write an SQL query that returns the **Name** a
 The classic way to express "for every X, Y holds" in SQL is through **double negation** (`NOT EXISTS ... NOT EXISTS`):
 
 ```sql
--- Πελάτες για τους οποίους ΔΕΝ υπάρχει κατηγορία
--- από την οποία ΔΕΝ έχουν αγοράσει
-SELECT p.Όνομα, p.Επώνυμο
-FROM Πελάτης p
+-- Customers for whom there is NO category
+-- from which they have NOT purchased
+SELECT c.first_name, c.last_name
+FROM Customer c
 WHERE NOT EXISTS (
-    -- Κατηγορία που ο πελάτης ΔΕΝ έχει αγοράσει
-    SELECT DISTINCT pro.Κατηγορία
-    FROM Προϊόν pro
+    -- Category that the customer has NOT purchased from
+    SELECT DISTINCT p.category
+    FROM Product p
     WHERE NOT EXISTS (
-        -- Έλεγχος αν ο πελάτης έχει αγοράσει από αυτή την κατηγορία
+        -- Check if the customer has purchased from this category
         SELECT 1
-        FROM Παραγγελία       par
-             INNER JOIN Περιλαμβάνει per ON par.Κωδ_Παραγγελίας = per.Κωδ_Παραγγελίας
-             INNER JOIN Προϊόν        pi  ON per.Κωδ_Προϊόντος   = pi.Κωδ_Προϊόντος
-        WHERE par.Πελάτης_Κωδικός = p.Κωδ_Πελάτη
-          AND pi.Κατηγορία = pro.Κατηγορία
+        FROM `Order`       o
+             INNER JOIN Order_Item oi ON o.order_id = oi.order_id
+             INNER JOIN Product    pi ON oi.product_id = pi.product_id
+        WHERE o.customer_id = c.customer_id
+          AND pi.category = p.category
     )
 );
 ```
@@ -252,13 +252,13 @@ WHERE NOT EXISTS (
 **Alternative (with COUNT):**
 
 ```sql
-SELECT p.Όνομα, p.Επώνυμο
-FROM Πελάτης p
-     INNER JOIN Παραγγελία    par ON p.Κωδ_Πελάτη         = par.Πελάτης_Κωδικός
-     INNER JOIN Περιλαμβάνει per ON par.Κωδ_Παραγγελίας   = per.Κωδ_Παραγγελίας
-     INNER JOIN Προϊόν        pro ON per.Κωδ_Προϊόντος     = pro.Κωδ_Προϊόντος
-GROUP BY p.Κωδ_Πελάτη, p.Όνομα, p.Επώνυμο
-HAVING COUNT(DISTINCT pro.Κατηγορία) = (SELECT COUNT(DISTINCT Κατηγορία) FROM Προϊόν);
+SELECT c.first_name, c.last_name
+FROM Customer c
+     INNER JOIN `Order`    o  ON c.customer_id = o.customer_id
+     INNER JOIN Order_Item oi ON o.order_id    = oi.order_id
+     INNER JOIN Product    p  ON oi.product_id = p.product_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+HAVING COUNT(DISTINCT p.category) = (SELECT COUNT(DISTINCT category) FROM Product);
 ```
 
 > **Which one do we prefer;** The `COUNT` version is usually more readable and efficient. The `NOT EXISTS` version is the *semantically direct* translation of the "universal quantification" (∀) logic into SQL.
@@ -269,11 +269,11 @@ HAVING COUNT(DISTINCT pro.Κατηγορία) = (SELECT COUNT(DISTINCT Κατη�
 
 Given the teaching table of a university (already in 3NF):
 
-`Διδασκαλία`(**Φοιτητής**, **Μάθημα**, <u>Καθηγητής</u>)
+`Teaching`(**Student**, **Course**, <u>Professor</u>)
 
 The following additional information (semantic constraints) holds:
-- Each **Καθηγητής** teaches exactly **one Μάθημα**.
-- Each **Φοιτητής** in a **Μάθημα** may have many Καθηγητές (e.g., section leaders/laboratory).
+- Each **Professor** teaches exactly **one Course**.
+- Each **Student** in a **Course** may have many Professors (e.g., section leaders/laboratory).
 
 **Questions:**
 1. Which **Functional Dependencies** hold;
@@ -285,24 +285,24 @@ The following additional information (semantic constraints) holds:
 *solution:*
 
 **1. Functional Dependencies:**
-- {**Φοιτητής**, **Μάθημα**} → <u>Καθηγητής</u> — (a student in a course has a specific professor)
-- {**Φοιτητής**, **Καθηγητής**} → **Μάθημα** — (the professor teaches exactly one course)
-- **Καθηγητής** → **Μάθημα** — (critical: each professor belongs to exactly one course)
+- {**Student**, **Course**} → <u>Professor</u> — (a student in a course has a specific professor)
+- {**Student**, **Professor**} → **Course** — (the professor teaches exactly one course)
+- **Professor** → **Course** — (critical: each professor belongs to exactly one course)
 
-The candidate keys are: `{Φοιτητής, Μάθημα}` and `{Φοιτητής, Καθηγητής}`.
+The candidate keys are: `{Student, Course}` and `{Student, Professor}`.
 
 **2. 3NF YES, BCNF NO:**
 BCNF definition: for every non-trivial FD **X → Y**, **X must be a superkey**.
 
-The dependency **Καθηγητής → Μάθημα** violates BCNF: **Καθηγητής** is not a superkey (it does not alone determine the student). However, it does not violate 3NF because **Μάθημα** is a *prime attribute* (part of some candidate key).
+The dependency **Professor → Course** violates BCNF: **Professor** is not a superkey (it does not alone determine the student). However, it does not violate 3NF because **Course** is a *prime attribute* (part of some candidate key).
 
 > **The classic "trick":** 3NF allows FDs from a non-superkey to a prime attribute. BCNF does not allow it at all.
 
 **3. Decomposition into BCNF:**
 
-- `Καθηγητής_Μάθημα`(**Καθηγητής**, <u>Μάθημα</u>)
-- `Εγγραφή`(**Φοιτητής**, **Καθηγητής**)
+- `Professor_Course`(**Professor**, <u>Course</u>)
+- `Enrollment`(**Student**, **Professor**)
 
-**Lossless join check:** Yes — the two tables are connected through **Καθηγητής** (common attribute, superkey in `Καθηγητής_Μάθημα`) → it satisfies the lossless-join decomposition criterion.
+**Lossless join check:** Yes — the two tables are connected through **Professor** (common attribute, superkey in `Professor_Course`) → it satisfies the lossless-join decomposition criterion.
 
-**Dependency preservation check:** **NOT fully** — the dependency `{Φοιτητής, Μάθημα} → Καθηγητής` cannot be checked in a single table (it requires a join). This is the classic BCNF trade-off: **always lossless, but does not guarantee dependency preservation**.
+**Dependency preservation check:** **NOT fully** — the dependency `{Student, Course} → Professor` cannot be checked in a single table (it requires a join). This is the classic BCNF trade-off: **always lossless, but does not guarantee dependency preservation**.

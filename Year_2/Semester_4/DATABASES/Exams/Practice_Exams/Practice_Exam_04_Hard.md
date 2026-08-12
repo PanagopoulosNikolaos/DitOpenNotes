@@ -20,15 +20,15 @@ Multiple Choice Question 2: A table is in BCNF if:
 The Boyce-Codd form (BCNF) is stricter than 3NF. It requires every determinant (X) of a non-trivial functional dependency (X -> Y) to be a candidate key or a superkey.
 ---
 
-Exercise 3: Given the relation Σ(Κ, Λ, Μ, Ν) and the dependencies F={ΚΛ -> Μ, Μ -> Ν}. The table is in 1NF. In which normal form is it, and how should it be decomposed to reach BCNF?
+Exercise 3: Given the relation R(K, L, M, N) and the dependencies F={KL -> M, M -> N}. The table is in 1NF. In which normal form is it, and how should it be decomposed to reach BCNF?
 ---
 *solution:*
-- The key is {Κ, Λ} (since (ΚΛ)+ = {Κ, Λ, Μ, Ν}).
-- The dependency Μ -> Ν is a transitive dependency, since Μ is not a key. Therefore it is not in 3NF (nor in BCNF).
-- It is in 2NF, because no subset of the key {Κ, Λ} by itself determines the non-key attributes.
+- The key is {K, L} (since (KL)+ = {K, L, M, N}).
+- The dependency M -> N is a transitive dependency, since M is not a key. Therefore it is not in 3NF (nor in BCNF).
+- It is in 2NF, because no subset of the key {K, L} by itself determines the non-key attributes.
 - Decomposition into BCNF:
-  Create a relation for the problematic dependency Μ -> Ν: Σ1(Μ, Ν) with primary key Μ.
-  Remove Ν from the original relation: Σ2(Κ, Λ, Μ) with primary key (Κ, Λ).
+  Create a relation for the problematic dependency M -> N: R1(M, N) with primary key M.
+  Remove N from the original relation: R2(K, L, M) with primary key (K, L).
 ---
 
 Exercise 4: Given the tables Employee(emp_id, emp_name, salary, dept_id) and Department(dept_id, dept_name). Write an SQL query that finds the name and salary of the employees who earn the highest salary in their department (using a correlated subquery).

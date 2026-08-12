@@ -30,37 +30,37 @@ Exercise 2: E-R diagram design. Draw the E-R diagram for this database, providin
 
 ```mermaid
 erDiagram
-    ΣΧΟΛΗ ||--|{ ΚΑΘΗΓΗΤΗΣ : "ανηκει"
-    ΣΧΟΛΗ ||--|| ΚΑΘΗΓΗΤΗΣ : "διευθυνει"
-    ΣΧΟΛΗ ||--|{ ΠΡΟΓΡΑΜΜΑ : "προσφερει"
-    ΚΑΘΗΓΗΤΗΣ }|--|{ ΠΡΟΓΡΑΜΜΑ : "συμμετεχει"
-    ΚΑΘΗΓΗΤΗΣ ||--|{ ΕΞΑΡΤΩΜΕΝΟ_ΜΕΛΟΣ : "εχει"
+    FACULTY ||--|{ PROFESSOR : "belongs_to"
+    FACULTY ||--|| PROFESSOR : "manages"
+    FACULTY ||--|{ PROGRAM : "offers"
+    PROFESSOR }|--|{ PROGRAM : "participates_in"
+    PROFESSOR ||--|{ DEPENDENT_MEMBER : "has"
 
-    ΣΧΟΛΗ {
-        string κωδικος PK
-        string ονομα
-        string περιοχες_εγκαταστασεων
+    FACULTY {
+        string code PK
+        string name
+        string facility_areas
     }
-    ΚΑΘΗΓΗΤΗΣ {
-        string αριθμος_ταυτοτητας PK
-        string ονομα
-        string επωνυμο
-        string ειδικοτητα
-        string διευθυνση
-        float αποδοχες
-        string φυλο
-        date ημερ_γεννησης
+    PROFESSOR {
+        string id_number PK
+        string first_name
+        string last_name
+        string specialty
+        string address
+        float salary
+        string gender
+        date date_of_birth
     }
-    ΠΡΟΓΡΑΜΜΑ {
-        string αριθμος PK
-        string ονομασια
-        string χωρος
+    PROGRAM {
+        string number PK
+        string title
+        string venue
     }
-    ΕΞΑΡΤΩΜΕΝΟ_ΜΕΛΟΣ {
-        string ονομα
-        string φυλο
-        date ημερ_γεννησης
-        string συγγενικη_σχεση
+    DEPENDENT_MEMBER {
+        string name
+        string gender
+        date date_of_birth
+        string relationship
     }
 ```
 ---

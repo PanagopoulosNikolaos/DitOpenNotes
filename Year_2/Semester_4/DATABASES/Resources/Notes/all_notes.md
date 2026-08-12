@@ -26,7 +26,7 @@
    - [Data Protection and Security Policies](#data-protection-and-security-policies)
    - [Concurrent Access](#concurrent-access)
    - [Minimization of Data Redundancy and Inconsistency](#minimization-of-data-redundancy-and-inconsistency)
-5. [Comparative Table: DBMS vs. File Systems](#comparative-table-dbms-vs-file-systems)
+5. [Comparative Table: DBMS vs. File Processing Systems](#comparative-table-dbms-vs-file-processing-systems)
 6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
 7. [Key Takeaways](#key-takeaways)
 
@@ -34,64 +34,64 @@
 
 ## Introduction
 
-Databases form the cornerstone of modern computing infrastructure, since every system that handles data — from e-commerce stores to medical records — relies on their principles. The need for structured, reliable and fast access to large volumes of data led to the transition from traditional file-based systems to modern Database Management Systems (DBMS). Understanding the Data → Information → Knowledge hierarchy, the structure of Information Systems and the fundamental characteristics of a DBMS is essential before any study of database design or querying.
+Databases constitute the cornerstone of modern computing infrastructure, as every system that handles data — from e-commerce stores to medical records — relies on their principles. The need for structured, reliable and rapid access to large volumes of data led to the transition from traditional file-based systems to modern Database Management Systems (DBMS). Understanding the hierarchy Data → Information → Knowledge, the structure of Information Systems and the fundamental characteristics of a DBMS is necessary before any study of database design or queries.
 
 ---
 
 ## Data, Information and Knowledge
 *Data, Information and Knowledge*
 
-Understanding the difference between data, information and knowledge is fundamental. These three concepts form a hierarchy — each successive level moves from the raw and unstructured to the interpreted and applicable.
+Understanding the difference between data, information and knowledge is fundamental. These three concepts form a hierarchy — each successive level moves from the raw and unstructured to the interpreted and actionable.
 
 ```text
-  Ακατέργαστα γεγονότα / συμβάντα
+  Raw facts / events
             |
             v
-      [ ΔΕΔΟΜΕΝΑ (Data) ]
+      [ DATA ]
             |
-    Επεξεργασία / Ερμηνεία
-            |
-            v
-     [ ΠΛΗΡΟΦΟΡΙΑ (Information) ]
-            |
-    Εμπειρία / Ανάλυση / Συμφραζόμενα
+    Processing / Interpretation
             |
             v
-       [ ΓΝΩΣΗ (Knowledge) ]
+     [ INFORMATION ]
             |
-    Εφαρμογή στη λήψη αποφάσεων
+    Experience / Analysis / Context
             |
             v
-     [ ΑΠΟΦΑΣΗ / ACTION ]
+       [ KNOWLEDGE ]
+            |
+    Application to decision-making
+            |
+            v
+     [ DECISION / ACTION ]
 ```
 
 ### Processing of Raw Data
 *Processing of Raw Data*
 
-**Data** is a raw, uninterpreted fact or event recorded without context or meaning. It corresponds to numbers, characters, images, sounds or any other raw recording.
+**Data** is a raw, uninterpreted fact or event that is recorded without context or meaning. It corresponds to numbers, characters, images, sounds or any other raw record.
 
-- **Characteristics**: Has no meaning on its own; it is objective and unprocessed.
-- **Examples**: `37`, `Αθήνα`, `2024-05-01`, `912345678`, `85`.
+- **Characteristics**: It has no meaning on its own; it is objective and unprocessed.
+- **Examples**: `37`, `Athens`, `2024-05-01`, `912345678`, `85`.
 
 **Analogy**: Imagine a library warehouse with thousands of papers scattered randomly on the floor. Each paper has a number or a word written on it — these are the data. We do not yet know what they mean.
 
-**Key Distinction:** Data on their own cannot be used for decision-making. Processing is needed for them to acquire meaning.
+**Key Distinction:** Data by themselves cannot be used for decision-making. Processing is needed for them to acquire meaning.
 
 ---
 
 ### Production of Information
 *Production of Information*
 
-**Information** is the result of processing, organizing or interpreting data in a way that attributes meaning and usefulness to a recipient.
+**Information** is the result of processing, organizing or interpreting data in a way that gives meaning and usefulness to a recipient.
 
-- **Characteristics**: Has context, purpose and meaning. Answers questions of the type "who", "what", "when", "where".
-- **Example**: The data `85` (grade), `Νικόλαος Παναγόπουλος` (student), `Βάσεις Δεδομένων` (course) together produce the information: "The student Νικόλαος Παναγόπουλος received a grade of 85 in the course Βάσεις Δεδομένων."
+- **Characteristics**: It has context, purpose and meaning. It answers questions of the type "who", "what", "when", "where".
+- **Example**: The data `85` (grade), `Nikolaos Panagopoulos` (student), `Databases` (course) together produce the information: "Student Nikolaos Panagopoulos received a grade of 85 in the course Databases."
 
 | Data | Information |
 |---|---|
 | `85` | Student's grade in a specific course |
-| `37` | Temperature in Celsius for Athens today |
-| `2024-05-01` | Examination date for the course Βάσεις Δεδομένων |
+| `37` | Temperature in Celsius for today in Athens |
+| `2024-05-01` | Exam date for the Databases course |
 
 **Exam Note:** Information is not simply "more data" — it is data with **context and purpose**. This is the fundamental difference.
 
@@ -100,19 +100,19 @@ Understanding the difference between data, information and knowledge is fundamen
 ### Creation of Knowledge for Decision-Making
 *Creation of Knowledge for Decision-Making*
 
-**Knowledge** is the application of information through experience, analysis and context, with the result that well-informed decisions can be made.
+**Knowledge** is the application of information through experience, analysis and context, enabling informed decision-making.
 
-- **Characteristics**: Contextual, dynamic and based on accumulated experience.
+- **Characteristics**: It is contextual, dynamic and based on accumulated experience.
 - **Example**: After analyzing the grades of many students (information), we know that "students who have not attended the laboratories fail the exams", so the decision is made to make attendance mandatory.
 
 ```text
-  Δεδομένα:   37, 38, 36, 39, 40  (θερμοκρασίες)
+  Data:   37, 38, 36, 39, 40  (temperatures)
        |
-  Πληροφορία: Η θερμοκρασία στην Αθήνα αυξάνεται κάθε καλοκαίρι
+  Information: The temperature in Athens is increasing every summer
        |
-  Γνώση:      Κλιματική αλλαγή επηρεάζει τη Μεσόγειο
+  Knowledge:      Climate change affects the Mediterranean
        |
-  Απόφαση:    Εφαρμογή μέτρων μείωσης εκπομπών CO2
+  Decision:    Implementation of measures to reduce CO2 emissions
 ```
 
 ---
@@ -120,21 +120,21 @@ Understanding the difference between data, information and knowledge is fundamen
 ## Information Systems (IS)
 *Information Systems (IS)*
 
-An **Information System (IS)** is an organized set of interconnected components that collects, stores, processes and disseminates information to support decision-making and control within an organization.
+An **Information System (IS)** is an organized set of interconnected components that collects, stores, processes and disseminates information to support decision-making and the control of an organization.
 
-**Analogy**: An IS operates like the nervous system of an organization — it collects signals (data) from the environment, processes them and sends commands (information) to the appropriate departments for action.
+**Analogy**: An IS acts like the nervous system of an organization — it collects signals (data) from the environment, processes them and sends commands (information) to the appropriate departments for action.
 
 The five basic components of an IS are:
 
 ```text
   +--------------------------------------------------+
-  |         ΠΛΗΡΟΦΟΡΙΑΚΟ ΣΥΣΤΗΜΑ (ΠΣ)               |
+  |             INFORMATION SYSTEM (IS)              |
   +--------------------------------------------------+
   |                                                  |
-  |  [ ΥΛΙΚΟ ]   [ ΛΟΓΙΣΜΙΚΟ ]   [ ΔΕΔΟΜΕΝΑ ]       |
+  |  [ HARDWARE ]   [ SOFTWARE ]   [ DATA ]          |
   |  Hardware      Software         Data             |
   |                                                  |
-  |      [ ΔΙΑΔΙΚΑΣΙΕΣ ]    [ ΑΝΘΡΩΠΟΙ ]            |
+  |      [ PROCESSES ]    [ PEOPLE ]                 |
   |         Processes           People               |
   |                                                  |
   +--------------------------------------------------+
@@ -143,7 +143,7 @@ The five basic components of an IS are:
 ### Hardware
 *Hardware*
 
-**Hardware** is the set of physical, tangible devices that constitute the infrastructure of the information system.
+**Hardware** is the set of physical, tangible devices that make up the infrastructure of the information system.
 
 - Servers, workstations, network devices (routers, switches).
 - Storage media: HDD, SSD, NAS (Network-Attached Storage), cloud storage.
@@ -159,7 +159,7 @@ The five basic components of an IS are:
 **Software** is the set of programs, applications and operating systems that control the hardware and process the data.
 
 - **System Software**: Operating systems (Linux, Windows Server), drivers.
-- **Application Software**: ERP, CRM management software, web applications.
+- **Application Software**: ERP management software, CRM, web applications.
 - **DBMS Software**: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server.
 
 ---
@@ -167,18 +167,18 @@ The five basic components of an IS are:
 ### Data
 *Data*
 
-In the context of IS, **Data** constitute the core of the system — they are the raw material that is stored, organized, processed and retrieved.
+In the context of IS, **Data** constitutes the core of the system — it is the raw material that is stored, organized, processed and retrieved.
 
 - Structured data: Stored in tables with a clear schema.
-- Semi-structured: XML, JSON files.
-- Unstructured: Images, videos, emails, text documents.
+- Semi-structured data: XML, JSON files.
+- Unstructured data: Images, videos, email, text documents.
 
 ---
 
 ### Processes
 *Processes*
 
-**Processes** are the sets of rules, policies and procedural steps that define how data are collected, stored, processed and distributed within the organization.
+**Processes** are the sets of rules, policies and procedural steps that define how data is collected, stored, processed and distributed within the organization.
 
 - They include data entry procedures, backup procedures, and workflows.
 - **Exam Note:** Without well-defined processes, even the best hardware and software cannot produce reliable results.
@@ -188,23 +188,39 @@ In the context of IS, **Data** constitute the core of the system — they are th
 ### People
 *People — Users & Administrators*
 
-**People** are one of the most critical components of the IS. They are distinguished into two basic categories:
+**People** are one of the most critical components of the IS. They are divided into two main categories:
 
 | Role | Description | Responsibilities |
 |---|---|---|
-| **Users** | Individuals who interact daily with the system | Data entry, executing queries, reading reports |
-| **Administrators / DBA** | Database Administrators — specialized technicians | Installation, configuration, maintenance, security, backup/restore |
+| **Users** | Individuals who interact with the system on a daily basis | Data entry, executing queries, reading reports |
+| **Administrators (DBA)** | Database Administrators — specialized technicians | Installation, configuration, maintenance, security, backup/restore |
 
-**Database Administrator (DBA)** is the role responsible for the smooth operation, performance, security and integrity of the database.
+The **Database Administrator (DBA)** is the role responsible for the smooth operation, performance, security and integrity of the database.
 
 ---
 
 ## Database Management Systems (DBMS)
 *Database Management Systems*
 
-**Database Management System (DBMS)** is a set of software that enables the creation, maintenance, retrieval and management of databases in an efficient, secure and organized manner.
+A **Database Management System (DBMS)** is a set of software that enables the creation, maintenance, retrieval and management of databases in an efficient, secure and organized manner.
 
-**Analogy**: A DBMS is like a librarian in a huge library: it knows where every book (datum) is, serves many users simultaneously, ensures there are no duplicate copies of the same book, and guarantees that only authorized individuals have access to sensitive material.
+**Analogy**: A DBMS is like a librarian in a huge library: it knows where each book (data) is located, serves many users simultaneously, ensures there are no duplicate records of the same book, and guarantees that only authorized individuals have access to sensitive material.
+
+```text
+  +----------------------------------------------------------+
+  |                   DBMS Architecture                      |
+  +----------------------------------------------------------+
+  |                                                          |
+  |   [ Application ]                                        |
+  |              |                                           |
+  |              v                                           |
+  |   [ DBMS Engine (Query Processor, Transaction Mgr) ]     |
+  |              |                                           |
+  |              v                                           |
+  |   [ Stored Data (Disk) ]                                 |
+  |                                                          |
+  +----------------------------------------------------------+
+```
 
 The four basic characteristics of a DBMS are analyzed below:
 
@@ -213,45 +229,18 @@ The four basic characteristics of a DBMS are analyzed below:
 
 A DBMS provides mechanisms for:
 
-- **Storage**: Data are stored in a structured form (tables, indexes) on disk, in a way that allows fast access.
-- **Retrieval**: Through the SQL query language, the user can retrieve specific data accurately.
+- **Storage**: Data is stored in structured form (tables, indexes) on disk, in a way that allows fast access.
+- **Retrieval**: Through the SQL query language, the user can retrieve specific data with precision.
 - **Efficient Management**: The Query Optimizer selects the optimal execution plan for each query, minimizing response time.
 
-```text
-  +----------------------------------------------------------+
-  |                   DBMS Architecture                      |
-  +----------------------------------------------------------+
-  |                                                          |
-  |   [ Εφαρμογή / Application ]                            |
-  |              |                                           |
-  |              v                                           |
-  |   [ DBMS Engine (Query Processor, Transaction Mgr) ]    |
-  |              |                                           |
-  |              v                                           |
-  |   [ Αποθηκευμένα Δεδομένα / Stored Data (Disk) ]       |
-  |                                                          |
-  +----------------------------------------------------------+
-```
-
-Τα τέσσερα βασικά χαρακτηριστικά ενός DBMS αναλύονται παρακάτω:
-
-### Αποθήκευση, Ανάκτηση και Αποδοτική Διαχείριση
-*Storage, Retrieval and Efficient Management*
-
-Ένα DBMS παρέχει μηχανισμούς για:
-
-- **Αποθήκευση (Storage)**: Τα δεδομένα αποθηκεύονται σε δομημένη μορφή (πίνακες, ευρετήρια — indexes) στο δίσκο, με τρόπο που επιτρέπει γρήγορη πρόσβαση.
-- **Ανάκτηση (Retrieval)**: Μέσω της γλώσσας SQL (Query Language), ο χρήστης μπορεί να ανακτά συγκεκριμένα δεδομένα με ακρίβεια.
-- **Αποδοτική Διαχείριση**: Ο Query Optimizer επιλέγει το βέλτιστο σχέδιο εκτέλεσης (execution plan) για κάθε ερώτημα, ελαχιστοποιώντας το χρόνο απόκρισης.
-
 ```sql
--- Παράδειγμα ερωτήματος ανάκτησης δεδομένων
+-- Example of a data retrieval query
 SELECT first_name, last_name, grade
 FROM students
 WHERE grade >= 50;
 ```
 
-**Exam Note:** Efficient retrieval is what differentiates a DBMS from a simple file system. Indexes speed up searches by avoiding full table scans.
+**Exam Note:** Efficient retrieval differentiates a DBMS from a simple file system. Indexes speed up searches by avoiding a full table scan.
 
 ---
 
@@ -260,25 +249,25 @@ WHERE grade >= 50;
 
 A DBMS has built-in security mechanisms:
 
-- **Authentication**: User identity verification (username/password, roles).
-- **Authorization**: Access-rights control per user or role (GRANT/REVOKE in SQL).
-- **Encryption**: Data encryption at rest and in transit.
-- **Audit Logs**: Logging of all actions for auditing purposes.
+- **Authentication**: Verification of user identity (username/password, roles).
+- **Authorization**: Control of access rights per user or role (GRANT/REVOKE in SQL).
+- **Encryption**: Encryption of data at rest and in transit.
+- **Audit Logs**: Recording of all actions for auditing purposes.
 
 ```sql
--- Παραχώρηση δικαιωμάτων ανάγνωσης σε συγκεκριμένο χρήστη
+-- Granting read permissions to a specific user
 GRANT SELECT ON students TO 'professor_user'@'localhost';
 
--- Ανάκληση δικαιωμάτων
+-- Revoking permissions
 REVOKE SELECT ON students FROM 'professor_user'@'localhost';
 ```
 
 | Security Mechanism | Function |
 |---|---|
-| Authentication | User identity verification |
-| Authorization (GRANT/REVOKE) | Definition of permissions per user/role |
-| Views | Restricting data visibility |
-| Encryption | Protecting data from unauthorized reading |
+| Authentication | Verification of user identity |
+| Authorization (GRANT/REVOKE) | Definition of rights per user/role |
+| Views | Restriction of data visibility |
+| Encryption | Protection of data from unauthorized reading |
 | Backup & Recovery | Data recovery after failure |
 
 ---
@@ -286,7 +275,7 @@ REVOKE SELECT ON students FROM 'professor_user'@'localhost';
 ### Concurrent Access
 *Concurrent Access*
 
-**Concurrency Control** is the ability of the DBMS to allow multiple users to access and modify data **simultaneously**, without inconsistencies arising.
+**Concurrency Control** is the ability of the DBMS to allow multiple users to access and modify data **concurrently**, without inconsistencies arising.
 
 **Analogy**: Imagine two bank tellers simultaneously serving two customers who want to withdraw from the same account. Without Concurrency Control, both tellers would see the initial balance and approve both withdrawals — even though the balance suffices only for one. The DBMS prevents this scenario.
 
@@ -297,7 +286,7 @@ Basic Concurrency Control mechanisms:
 - **MVCC** (Multi-Version Concurrency Control): A technique that allows reading without waiting.
 
 ```text
-  Χρήστης Α                Χρήστης Β
+  User A                  User B
   --------                 --------
   READ balance = 1000      READ balance = 1000
   WRITE balance = 500      WRITE balance = 700   <-- CONFLICT!
@@ -317,30 +306,30 @@ Basic Concurrency Control mechanisms:
 ### Minimization of Data Redundancy and Inconsistency
 *Minimization of Data Redundancy and Inconsistency*
 
-**Data Redundancy** occurs when the same data are stored in multiple locations. This leads to **Data Inconsistency** — different copies diverge from each other.
+**Data Redundancy** occurs when the same data is stored in multiple locations. This leads to **Data Inconsistency** — different copies diverge from one another.
 
-**Example of the Problem (File-Based System)**:
+**Problem Example (File-Based System)**:
 ```text
-  Αρχείο Μαθητών:      | ID | Όνομα      | Τμήμα    | Τηλ. Τμήματος |
-  ----------------------|----|------------|----------|----------------|
-                        |  1 | Α. Παπάς   | ΠΛΗ      | 210-1234567   |
-                        |  2 | Β. Νίκος   | ΠΛΗ      | 210-1234567   |
+  Student File:        | ID | Name        | Dept.     | Dept. Phone    |
+  ----------------------|----|-------------|-----------|----------------|
+                        |  1 | A. Papas    | CS        | 210-1234567    |
+                        |  2 | B. Nikos    | CS        | 210-1234567    |
 
-  Αρχείο Τμημάτων:     | Τμήμα | Τηλέφωνο    |
-  ---------------------|-------|-------------|
-                        | ΠΛΗ   | 210-9999999 |  <-- ΑΣΥΝΕΠΕΙΑ!
+  Department File:     | Dept.   | Phone          |
+  ---------------------|---------|---------------|
+                        | CS      | 210-9999999   |  <-- INCONSISTENCY!
 ```
 
 **Solution via DBMS — Normalization**:
 ```text
-  Πίνακας Φοιτητές:    | student_id | name     | dept_id |
+  Students Table:       | student_id | name     | dept_id |
                         |------------|----------|---------|
-                        |     1      | Α. Παπάς |   10    |
-                        |     2      | Β. Νίκος |   10    |
+                        |     1      | A. Papas |   10    |
+                        |     2      | B. Nikos |   10    |
 
-  Πίνακας Τμήματα:     | dept_id | dept_name | phone       |
-                        |---------|-----------|-------------|
-                        |   10    | ΠΛΗ       | 210-1234567 |
+  Departments Table:    | dept_id | dept_name | phone       |
+                        |---------|-----------|------------|
+                        |   10    | CS        | 210-1234567 |
 ```
 
 Now the phone number is stored **only once**. If it changes, it is updated in a single place.
@@ -349,20 +338,20 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 
 ---
 
-## Comparative Table: DBMS vs. File Systems
+## Comparative Table: DBMS vs. File Processing Systems
 *Comparative Table: DBMS vs. File Processing Systems*
 
-| Characteristic | DBMS | File System |
+| Feature | DBMS | File System |
 |---|---|---|
 | **Data Redundancy** | Minimized through normalization | High — multiple copies |
 | **Data Inconsistency** | Prevented by integrity constraints | Frequent — different files diverge |
-| **Concurrent Access** | Built-in Concurrency Control | Difficult or nonexistent |
+| **Concurrent Access** | Built-in Concurrency Control | Difficult or non-existent |
 | **Data Security** | Detailed access control (GRANT/REVOKE) | Based only on the OS |
-| **Data Independence** | High (logical & physical separation) | Low (data structure tied to code) |
+| **Data Independence** | High (logical & physical separation) | Low (data structure tied to the code) |
 | **Recovery after Failure** | Automated via Transaction Logs | Manual, error-prone |
-| **Data Integrity** | Enforced through constraints | The application bears the responsibility |
+| **Data Integrity** | Enforced through constraints | The application carries the responsibility |
 | **Query Support** | Powerful query language (SQL) | Requires custom code |
-| **Scalability** | High — manages TB of data | Limited |
+| **Scalability** | High — handles TB of data | Limited |
 
 ---
 
@@ -377,9 +366,9 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 | **IS (Information System)** | Set of Hardware + Software + Data + Processes + People | Supports organizational decisions |
 | **DBMS** | Database management software | Storage, retrieval, security, concurrency |
 | **DBA** | Database Administrator | Maintenance, security, DBMS performance |
-| **Concurrency Control** | Management of concurrent access by many users | Prevents inconsistencies in concurrent transactions |
-| **Data Redundancy** | Storing the same data in multiple locations | Leads to Data Inconsistency |
-| **Normalization** | Design process to reduce redundancy | Applies Normal Forms (1NF–BCNF) |
+| **Concurrency Control** | Management of concurrent access by multiple users | Prevents inconsistencies in concurrent transactions |
+| **Data Redundancy** | Storage of the same data in multiple locations | Leads to Data Inconsistency |
+| **Normalization** | Design process for reducing redundancy | Applies Normal Forms (1NF–BCNF) |
 | **Transaction** | Atomic unit of work in the DBMS | Follows the ACID properties |
 
 ---
@@ -388,15 +377,15 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 *Key Takeaways*
 
 - **Data → Information → Knowledge**: This hierarchy describes how raw facts are transformed into decision-making tools through processing and interpretation.
-- An **Information System** consists of five interdependent components: Hardware, Software, Data, Processes, People — removing any of them degrades the whole.
-- A **DBMS** clearly surpasses traditional file systems in data independence, security, concurrency and integrity.
+- An **Information System** consists of five interdependent components: Hardware, Software, Data, Processes, People — removing any one of them degrades the whole.
+- A **DBMS** clearly outperforms traditional file systems in data independence, security, concurrency and integrity.
 - **Concurrency Control** is critical in multi-user environments — without it, concurrent writes can lead to catastrophic data loss.
-- **Data redundancy** is not just a waste of space — it leads to inconsistency, maintenance difficulty and unreliable query results.
-- **Normalization** is the basic technique for eliminating redundancy — it is directly related to relational database design.
+- **Data redundancy** is not simply a waste of space — it leads to inconsistency, maintenance difficulty and unreliable query results.
+- **Normalization** is the basic technique for eliminating redundancy — it is directly linked to relational database design.
 - The **DBA** (Database Administrator) is responsible for the security, maintenance and performance of the DBMS — this role is distinct from that of the ordinary user.
 - **Security** in a DBMS is implemented at many levels: Authentication, Authorization (GRANT/REVOKE), Encryption and Audit Logs.
-- **Key Distinction:** The Data vs. Information difference is not quantitative but qualitative — context and interpretation are what turn data into information.
-- DBMS are used in critical systems (banks, hospitals, e-commerce) precisely because they provide **integrity, security and reliability** guarantees that simple file systems cannot offer.
+- **Key Distinction:** The difference between Data and Information is not quantitative but qualitative — context and interpretation are what transform data into information.
+- DBMS are used in critical systems (banks, hospitals, e-commerce) precisely because they provide guarantees of **integrity, security and reliability** that simple file systems cannot offer.
 
 ---
 # topic_2_database_lifecycle_and_design.md
@@ -411,7 +400,7 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 *Table of Contents*
 
 1. [Introduction](#introduction)
-2. [Step 1: Requirements Collection & Analysis](#step-1-requirements-collection--analysis)
+2. [Step 1: Requirements Collection & Analysis](#step-1-requirements-collection-analysis)
    - [Defining User and Organizational Needs](#defining-user-and-organizational-needs)
    - [Documenting Business Functions and Specifications](#documenting-business-functions-and-specifications)
 3. [Step 2: Conceptual Design](#step-2-conceptual-design)
@@ -420,7 +409,7 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 4. [Step 3: Logical Design](#step-3-logical-design)
    - [Transition to the Relational Data Model](#transition-to-the-relational-data-model)
    - [Converting the Conceptual Model into Dependent Tables](#converting-the-conceptual-model-into-dependent-tables)
-5. [Step 4: Physical Design & Implementation](#step-4-physical-design--implementation)
+5. [Step 4: Physical Design & Implementation](#step-4-physical-design-implementation)
    - [Internal File Organization in the System](#internal-file-organization-in-the-system)
    - [SQL Programming and Physical Structure Creation](#sql-programming-and-physical-structure-creation)
 6. [Comparative Table: The 4 Steps of the Database Life Cycle](#comparative-table-the-4-steps-of-the-database-life-cycle)
@@ -431,28 +420,28 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 
 ## Introduction
 
-The **Database Life Cycle (DBLC)** is the structured, iterative process of designing, developing and maintaining a database, from the initial needs analysis to full physical implementation. The existence of a standardized cycle ensures that the database meets the real business requirements, is structurally correct and can be applied efficiently on the chosen system. Failure to follow this process leads to data redundancy, inconsistencies and non-extensible schemas. Studying the life cycle is the foundation for understanding the ER Model, the Relational Model and SQL, which are analyzed in the following topics.
+The **Database Life Cycle (DBLC)** is the structured, iterative process of designing, developing and maintaining a database, from the initial needs analysis to the full physical implementation. The existence of a standardized cycle ensures that the database meets the real business requirements, is structurally sound and can be implemented efficiently on the chosen system. Failure to follow this process leads to data redundancy, inconsistencies and non-scalable schemas. The study of the life cycle is the foundation for understanding the ER Model, the Relational Model and SQL, which are analyzed in the following topics.
 
 ---
 
 ## Step 1: Requirements Collection & Analysis
 *Step 1: Requirements Collection & Analysis*
 
-The first step is the **foundation** of the entire design process. Without a clear and complete understanding of the needs of the organization and its users, any data model produced later will be incomplete or wrong. In this step the designer does not yet deal with technical details (tables, data types), but with **understanding what the system must do**.
+The first step is the **foundation** of the entire design process. Without a clear and complete understanding of the needs of the organization and its users, any data model produced later will be incomplete or wrong. In this step, the designer is not yet concerned with technical details (tables, data types), but with **understanding what the system must do**.
 
-**Analogy**: It is like the architect who, before designing a building, talks with the future occupants to learn how many rooms they need, what use they will have, which people will have access, and what the practical needs of everyday operation are.
+**Analogy**: It is like the architect who, before designing a building, talks with the future occupants to learn how many rooms they need, what use they will have, which people will have access and what the practical needs of daily operation are.
 
 ```text
   +--------------------------------------------------+
-  |         ΒΗΜΑ 1: ΑΝΑΛΥΣΗ ΑΠΑΙΤΗΣΕΩΝ              |
+  |          STEP 1: REQUIREMENTS ANALYSIS           |
   +--------------------------------------------------+
   |                                                  |
-  |  Συνεντεύξεις                                    |
-  |  με Χρήστες  --->  [ Έγγραφο Απαιτήσεων ]       |
+  |  Interviews                                      |
+  |  With Users  --->  [ Requirements Document ]     |
   |                              |                   |
-  |  Ανάλυση           Λειτουργικές Απαιτήσεις       |
-  |  Επιχειρησιακών    Μη-Λειτουργικές Απαιτήσεις   |
-  |  Διαδικασιών       Περιορισμοί Δεδομένων         |
+  |  Analysis         Functional Requirements        |
+  |  of Business    Non-Functional Requirements      |
+  |  Processes            Data Constraints           |
   |                                                  |
   +--------------------------------------------------+
 ```
@@ -462,51 +451,51 @@ The first step is the **foundation** of the entire design process. Without a cle
 
 **Requirements Analysis** is the systematic collection and documentation of the needs of all stakeholders — users, administrators and the organization — who will use or be affected by the database.
 
-The basic requirements-gathering techniques include:
+The basic requirements collection techniques include:
 
 - **Interviews**: Direct communication with end users and department heads to understand their needs.
 - **Observation**: Monitoring the existing workflow to identify weaknesses.
-- **Analysis of Existing Documents**: Studying the forms, reports and files the organization already uses.
+- **Analysis of Existing Documents**: Studying the forms, reports and files that the organization already uses.
 - **Questionnaires**: Systematic collection of opinions from a large number of users.
 
 Requirements are divided into two categories:
 
 | Category | Definition | Examples |
 |---|---|---|
-| **Functional Requirements** | What the system must do | Storing orders, customer search, report generation |
+| **Functional Requirements** | What the system must do | Storing orders, customer search, generating reports |
 | **Non-functional Requirements** | How it must do it | Response time < 2 sec, 500 concurrent users, 99.9% availability |
 
-**Exam Note:** Requirements analysis is a purely **conceptual phase** — no decision about technology, DBMS or table structure is taken at this stage.
+**Exam Note:** Requirements analysis is a purely **conceptual phase** — no decision about technology, DBMS or table structure is made at this stage.
 
 ---
 
 ### Documenting Business Functions and Specifications
 *Documenting Business Functions and Specifications*
 
-**Business Functions** are the processes the organization performs that create, modify or use data. Documenting them defines the scope of the database.
+**Business Functions** are the processes performed by the organization that create, modify or use data. Documenting them defines the scope of the database.
 
-**Παράδειγμα — Πανεπιστημιακό Σύστημα**:
+**Example — University System**:
 
 ```text
-  ΕΠΙΧΕΙΡΗΣΙΑΚΕΣ ΛΕΙΤΟΥΡΓΙΕΣ:
+  BUSINESS OPERATIONS:
   
-  1. Εγγραφή Φοιτητών
-     - Ποια δεδομένα δημιουργούνται; Αρχείο φοιτητή, αριθμός μητρώου
-     - Ποιοι χρήστες εμπλέκονται; Γραμματεία (εισαγωγή), Φοιτητής (ανάγνωση)
+  1. Student Registration
+     - What data is created? Student file, registration number
+     - Which users are involved? Secretariat (entry), Student (read)
   
-  2. Δήλωση Μαθημάτων
-     - Ποια δεδομένα δημιουργούνται; Δήλωση ανά εξάμηνο, αντιστοίχηση φοιτητή-μαθήματος
-     - Ποιοι χρήστες εμπλέκονται; Φοιτητής (δήλωση), Καθηγητής (έλεγχος)
+  2. Course Enrollment
+     - What data is created? Enrollment per semester, student-course mapping
+     - Which users are involved? Student (enrollment), Professor (check)
   
-  3. Καταχώρηση Βαθμών
-     - Ποια δεδομένα δημιουργούνται; Βαθμός ανά φοιτητή ανά μάθημα
-     - Ποιοι χρήστες εμπλέκονται; Καθηγητής (εισαγωγή), Γραμματεία (επαλήθευση)
+  3. Grade Entry
+     - What data is created? Grade per student per course
+     - Which users are involved? Professor (entry), Secretariat (verification)
 ```
 
 The result of this phase is a **Requirements Specification Document** that contains:
 
-- A list of all the **entities** that must be stored (e.g. Student, Course, Professor).
-- A list of **relationships** between them (e.g. "student attends course").
+- A list of all **entities** that must be stored (e.g. Student, Course, Professor).
+- A list of **relationships** between them (e.g. "a student attends a course").
 - **Data constraints** (e.g. the grade must be between 0 and 10).
 - The required **operations** (CRUD: Create, Read, Update, Delete).
 
@@ -515,22 +504,22 @@ The result of this phase is a **Requirements Specification Document** that conta
 ## Step 2: Conceptual Design
 *Step 2: Conceptual Design*
 
-Conceptual design transforms the requirements collected in Step 1 into a **high-level, technology-independent model** that describes the logical structure of the data. The designer does not yet deal with a specific DBMS or SQL — the model produced must be understandable by both technical and non-technical stakeholders.
+Conceptual design converts the requirements collected in Step 1 into a **high-level, technology-independent model** that describes the logical structure of the data. The designer is not yet concerned with a specific DBMS or SQL — the model produced must be understandable by both technical and non-technical stakeholders.
 
-**Analogy**: Conceptual design is like the blueprint of a building — it shows the rooms, doors and connections without yet specifying the type of cement or electrical installation.
+**Analogy**: Conceptual design is like the blueprint of a building — it shows the rooms, doors and connections without yet specifying the type of cement or the electrical installation.
 
 ### Creating the Entity-Relationship Model
 *Creating the Entity-Relationship Model*
 
-**Entity-Relationship Model** (ER Model) is a conceptual data-modeling tool that represents the data of an organization as a set of **entities**, **attributes** and **relationships** between them.
+The **Entity-Relationship Model (ER Model)** is a conceptual data modeling tool that represents the data of an organization as a set of **entities**, **attributes** and **relationships** between them.
 
-The three basic building blocks of the ER Model:
+The three basic structural components of the ER Model:
 
-| Element | Symbol (Chen Notation) | Description |
+| Component | Symbol (Chen Notation) | Description |
 |---|---|---|
-| **Entity** | Rectangle | Something with independent existence for which data are stored |
-| **Attribute** | Ellipse | A characteristic/property of an entity |
-| **Relationship** | Diamond | A connection/interaction between two or more entities |
+| **Entity** | Rectangle | Something with independent existence for which data is stored |
+| **Attribute** | Ellipse | Characteristic/property of an entity |
+| **Relationship** | Rhombus | Connection/interaction between two or more entities |
 
 **Exam Note:** The ER Model is **technology-independent** — it does not refer to a specific DBMS, language or storage structure. It is designed to communicate the logical structure, not the implementation.
 
@@ -539,15 +528,15 @@ The three basic building blocks of the ER Model:
 ### Schematic Visualization of the Logical Structure
 *Schematic Visualization of the Logical Structure*
 
-Producing the **ER Diagram** (ERD) is the main deliverable of this phase. The ERD graphically represents all entities, their attributes and the relationships between them.
+The production of the **ER Diagram (ERD)** is the main deliverable of this phase. The ERD graphically represents all entities, their attributes and the relationships between them.
 
-**Παράδειγμα ERD — Πανεπιστημιακό Σύστημα**:
+**ERD Example — University System**:
 
 ```text
   +----------------+                    +----------------+
-  |   ΦΟΙΤΗΤΗΣ     |                    |    ΜΑΘΗΜΑ      |
+  |   STUDENT     |                    |    COURSE      |
   +----------------+       N:M          +----------------+
-  | am (PK)        |<>---( Δηλώνει )-->| course_id (PK) |
+  | am (PK)        |<>---( Enrolls )-->| course_id (PK) |
   | onoma          |                    | titlos         |
   | eponymo        |                    | didaktikes_mon |
   | email          |                    +----------------+
@@ -555,10 +544,10 @@ Producing the **ER Diagram** (ERD) is the main deliverable of this phase. The ER
           |                                    1:N
           |                                     |
          1:N                           +----------------+
-          |                            |   ΤΜΗΜΑ        |
+          |                            |   DEPARTMENT   |
           |                            +----------------+
   +----------------+                   | dept_id (PK)   |
-  |   ΕΓΓΡΑΦΗ      |                   | onoma_tmimatos |
+  |  REGISTRATION  |                   | onoma_tmimatos |
   +----------------+                   +----------------+
   | am (FK)        |
   | course_id (FK) |
@@ -567,153 +556,153 @@ Producing the **ER Diagram** (ERD) is the main deliverable of this phase. The ER
   +----------------+
 ```
 
-Τα χαρακτηριστικά που αποτυπώνονται στο ERD είναι:
+The characteristics captured in the ERD are:
 
-- **Πληθικότητα (Cardinality)**: 1:1, 1:N, N:M — ο αριθμός των στιγμιοτύπων κάθε οντότητας που συμμετέχουν στη σχέση.
-- **Συμμετοχή (Participation)**: Ολική (total — κάθε στιγμιότυπο συμμετέχει) ή μερική (partial — δεν είναι υποχρεωτικό).
-- **Κλειδιά (Keys)**: Τα γνωρίσματα που αναγνωρίζουν μοναδικά κάθε στιγμιότυπο.
+- **Cardinality**: 1:1, 1:N, N:M — the number of instances of each entity that participate in the relationship.
+- **Participation**: Total (every instance participates) or partial (not mandatory).
+- **Keys**: The attributes that uniquely identify each instance.
 
-**Key Distinction:** Το ERD αποτελεί τη «γέφυρα» μεταξύ της ανάλυσης απαιτήσεων (Βήμα 1) και της λογικής σχεδίασης (Βήμα 3). Είναι το μοντέλο που κοινοποιείται στους πελάτες/χρήστες για επικύρωση πριν τη μετάβαση στη λογική σχεδίαση.
+**Key Distinction:** The ERD is the "bridge" between requirements analysis (Step 1) and logical design (Step 3). It is the model shared with clients/users for validation before proceeding to logical design.
 
 ---
 
-## Βήμα 3: Λογική Σχεδίαση
+## Step 3: Logical Design
 *Step 3: Logical Design*
 
-Η λογική σχεδίαση μεταφράζει το εννοιολογικό μοντέλο (ERD) στο **Σχεσιακό Μοντέλο Δεδομένων** (Relational Data Model), το οποίο αποτελεί τη βάση για τη μετέπειτα υλοποίηση με SQL. Σε αυτό το βήμα, ο σχεδιαστής αρχίζει να σκέφτεται σε όρους πινάκων, στηλών και κλειδιών, ενώ παράλληλα εφαρμόζει **Κανονικοποίηση (Normalization)** για να εξαλείψει πλεονασμό.
+Logical design translates the conceptual model (ERD) into the **Relational Data Model**, which is the basis for the subsequent implementation with SQL. In this step, the designer begins to think in terms of tables, columns and keys, while applying **Normalization** to eliminate redundancy.
 
-**Αναλογία**: Αν το ERD είναι το αρχιτεκτονικό σχέδιο, η λογική σχεδίαση είναι η μετατροπή του σε λεπτομερή τεχνικά σχέδια (structural drawings) που κατευθύνουν την κατασκευή.
+**Analogy**: If the ERD is the architectural plan, logical design is its conversion into detailed structural drawings that guide construction.
 
-### Μετάβαση στο Σχεσιακό Μοντέλο Δεδομένων
+### Transition to the Relational Data Model
 *Transition to the Relational Data Model*
 
-**Σχεσιακό Μοντέλο Δεδομένων** (Relational Data Model) είναι ένα μοντέλο οργάνωσης δεδομένων βασισμένο στην έννοια της **σχέσης** (relation) — ένας μαθηματικός όρος που αντιστοιχεί πρακτικά σε έναν **πίνακα** (table) με γραμμές (tuples/rows) και στήλες (attributes/columns).
+The **Relational Data Model** is a data organization model based on the concept of the **relation** — a mathematical term that practically corresponds to a **table** with rows (tuples/rows) and columns (attributes/columns).
 
-Οι κανόνες μετατροπής ER σε Σχεσιακό Μοντέλο είναι:
+The rules for converting ER to the Relational Model are:
 
-| Στοιχείο ER Model | Αντιστοίχηση στο Σχεσιακό Μοντέλο |
+| ER Model Component | Mapping to the Relational Model |
 |---|---|
-| **Ισχυρή Οντότητα** | Νέος πίνακας με Primary Key |
-| **Ασθενής Οντότητα** | Νέος πίνακας με σύνθετο Primary Key (ιδιο PK + FK γονικής οντότητας) |
-| **Σχέση 1:1** | Foreign Key σε έναν από τους δύο πίνακες |
-| **Σχέση 1:N** | Foreign Key στην πλευρά του N |
-| **Σχέση N:M** | Νέος ενδιάμεσος πίνακας (junction/bridge table) με Foreign Keys και από τους δύο πίνακες |
-| **Απλό Γνώρισμα** | Στήλη στον πίνακα |
-| **Πολύτιμο Γνώρισμα** | Ξεχωριστός πίνακας με FK στον αρχικό πίνακα |
-| **Παραγόμενο Γνώρισμα** | Συνήθως δεν αποθηκεύεται — υπολογίζεται μέσω Query |
+| **Strong Entity** | New table with Primary Key |
+| **Weak Entity** | New table with a composite Primary Key (own PK + FK of the parent entity) |
+| **1:1 Relationship** | Foreign Key in one of the two tables |
+| **1:N Relationship** | Foreign Key on the N side |
+| **N:M Relationship** | New intermediate table (junction/bridge table) with Foreign Keys from both tables |
+| **Simple Attribute** | Column in the table |
+| **Multivalued Attribute** | Separate table with FK to the original table |
+| **Derived Attribute** | Usually not stored — computed via a Query |
 
-**Exam Note:** Ο κανόνας για σχέσεις **N:M** είναι εξαιρετικά σημαντικός — το Σχεσιακό Μοντέλο **δεν υποστηρίζει άμεσα** σχέσεις πολλά-προς-πολλά. Πάντα απαιτείται ενδιάμεσος πίνακας.
+**Exam Note:** The rule for **N:M** relationships is extremely important — the Relational Model **does not directly support** many-to-many relationships. An intermediate table is always required.
 
 ---
 
-### Μετατροπή Εννοιολογικού Μοντέλου σε Εξαρτημένους Πίνακες
+### Converting the Conceptual Model into Dependent Tables
 *Converting the Conceptual Model into Dependent Tables*
 
-Η μετατροπή του ERD του πανεπιστημιακού παραδείγματος στο Σχεσιακό Μοντέλο:
+The conversion of the ERD of the university example into the Relational Model:
 
 ```text
-  ER DIAGRAM (Βήμα 2):
-  ΦΟΙΤΗΤΗΣ ---( N:M Δηλώνει )--- ΜΑΘΗΜΑ
+  ER DIAGRAM (Step 2):
+  STUDENT ---( N:M Enrolls )--- COURSE
 
-  ΣΧΕΣΙΑΚΟ ΜΟΝΤΕΛΟ (Βήμα 3):
+  RELATIONAL MODEL (Step 3):
   
-  Φοιτητης(<u>am</u>, onoma, eponymo, email, dept_id#)
+  Foititis(<u>am</u>, onoma, eponymo, email, dept_id#)
   Mathima(<u>course_id</u>, titlos, didaktikes_mon, dept_id#)
   Dilosi(<u>am#, course_id#</u>, vathmos, etosvathmos)
          \_______________________________________/
-              Ενδιάμεσος πίνακας για N:M
+              Intermediate table for N:M
 ```
 
-Στο σχεσιακό σχήμα χρησιμοποιείται η σύμβαση:
-- `<u>πεδίο</u>` — Primary Key (υπογράμμιση)
-- `πεδίο#` — Foreign Key
+In the relational schema, the convention used is:
+- `<u>field</u>` — Primary Key (underlined)
+- `field#` — Foreign Key
 
-**Κανονικοποίηση (Normalization)** εφαρμόζεται σε αυτό το βήμα για να εξασφαλιστεί ότι κάθε πίνακας:
+**Normalization** is applied in this step to ensure that each table:
 
-1. Βρίσκεται στην **1η Κανονική Μορφή (1NF)**: Κάθε στήλη περιέχει ατομικές τιμές.
-2. Βρίσκεται στη **2η Κανονική Μορφή (2NF)**: Κανένα μη-κλειδί γνώρισμα δεν εξαρτάται μερικώς από το PK.
-3. Βρίσκεται στη **3η Κανονική Μορφή (3NF)**: Κανένα μη-κλειδί γνώρισμα δεν εξαρτάται μεταβατικά από το PK.
+1. Is in **First Normal Form (1NF)**: Every column contains atomic values.
+2. Is in **Second Normal Form (2NF)**: No non-key attribute depends partially on the PK.
+3. Is in **Third Normal Form (3NF)**: No non-key attribute depends transitively on the PK.
 
 ```text
-  ΠΑΡΑΒΑΣΗ 2NF (Παράδειγμα):
-  Παραγγελια_Προιον(παρ_id, προιον_id, τιμη_προιοντος, ποσοτητα)
+  2NF VIOLATION (Example):
+  Order_Product(order_id, product_id, product_price, quantity)
                      [__________________PK_________________]
   
-  Πρόβλημα: η τιμή_προιοντος εξαρτάται ΜΟΝΟ από το προιον_id,
-             όχι από το συνδυασμό (παρ_id, προιον_id).
+  Problem: product_price depends ONLY on product_id,
+             not on the combination (order_id, product_id).
   
-  ΛΥΣΗ — Διαχωρισμός:
-  Παραγγελια_Προιον(παρ_id, προιον_id#, ποσοτητα)
-  Προιον(προιον_id, τιμη_προιοντος, περιγραφη)
+  SOLUTION — Decomposition:
+  Order_Product(order_id, product_id#, quantity)
+  Product(product_id, product_price, description)
 ```
 
 ---
 
-## Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση
+## Step 4: Physical Design & Implementation
 *Step 4: Physical Design & Implementation*
 
-Η φυσική σχεδίαση αφορά τη **μετάφραση** του λογικού σχήματος (Βήμα 3) σε συγκεκριμένες δομές αποθήκευσης και κώδικα SQL για ένα **συγκεκριμένο DBMS** (π.χ. MySQL, PostgreSQL). Σε αυτό το βήμα λαμβάνονται αποφάσεις για απόδοση (performance), αποθήκευση (storage) και ασφάλεια (security).
+Physical design concerns the **translation** of the logical schema (Step 3) into specific storage structures and SQL code for a **specific DBMS** (e.g. MySQL, PostgreSQL). In this step, decisions are made about performance, storage and security.
 
-**Αναλογία**: Η φυσική σχεδίαση είναι η πραγματική **κατασκευή** του κτιρίου βάσει των τεχνικών σχεδίων — επιλέγονται υλικά, τοποθετούνται τοίχοι και εγκαθίστανται συστήματα.
+**Analogy**: Physical design is the actual **construction** of the building based on the technical drawings — materials are chosen, walls are placed and systems are installed.
 
-### Εσωτερική Οργάνωση Αρχείων στο Σύστημα
+### Internal File Organization in the System
 *Internal File Organization in the System*
 
-Η **Εσωτερική Οργάνωση Δεδομένων** αναφέρεται στον τρόπο με τον οποίο το DBMS αποθηκεύει τα δεδομένα στον δίσκο σε επίπεδο αρχείων. Αυτές οι αποφάσεις επηρεάζουν άμεσα την απόδοση ανάκτησης δεδομένων.
+**Internal Data Organization** refers to the way the DBMS stores data on disk at the file level. These decisions directly affect data retrieval performance.
 
-Βασικές τεχνικές οργάνωσης:
+Basic organization techniques:
 
-| Τεχνική Οργάνωσης | Περιγραφή | Κατάλληλη Χρήση |
+| Organization Technique | Description | Suitable Use |
 |---|---|---|
-| **Heap File** (Ανορθωτή οργάνωση) | Εγγραφές αποθηκεύονται χωρίς συγκεκριμένη ταξινόμηση | Μαζική φόρτωση δεδομένων, σπάνια αναζήτηση |
-| **Sequential File** (Ακολουθιακή) | Εγγραφές ταξινομημένες κατά ένα κλειδί | Αναζητήσεις εύρους (range queries) |
-| **Hash File** (Κατακερματισμός) | Χρήση hash function για άμεση εύρεση εγγραφής | Αναζητήσεις ισότητας (equality queries) |
-| **B-Tree / B+Tree Index** | Δεντρική δομή για ταχύτατη αναζήτηση | Ευρετηρίαση σε OLTP συστήματα |
+| **Heap File** (unordered organization) | Records stored without a specific order | Bulk data loading, infrequent search |
+| **Sequential File** | Records sorted by a key | Range queries |
+| **Hash File** | Uses a hash function for direct record lookup | Equality queries |
+| **B-Tree / B+Tree Index** | Tree structure for very fast search | Indexing in OLTP systems |
 
-**Indexes (Ευρετήρια)** αποτελούν βασικό εργαλείο βελτιστοποίησης:
+**Indexes** are a basic optimization tool:
 
 ```text
-  ΠΙΝΑΚΑΣ χωρίς Index:            ΠΙΝΑΚΑΣ με Index (B+Tree):
+  TABLE without Index:            TABLE with Index (B+Tree):
   
-  am  | onoma   | vathmos         Index στο "am":
-  ----|---------|--------              Root: [500]
-   1  | Αλέξης  |   7.5              /              \
-  ...                             [250]            [750]
-  250 | Ελένη   |   8.0           /   \            /    \
-  ...                           ...  ...         ...    ...
-  500 | Νίκος   |   6.0
+  am  | name    | grade         Index on "am":
+  ----|---------|-------             Root: [500]
+   1  | Alexis  |   7.5              /              \
+  ...                              [250]            [750]
+  250 | Eleni   |   8.0           /   \            /    \
+  ...                            ...  ...         ...    ...
+  500 | Nikos   |   6.0
   ...
-  999 | Μαρία   |   9.0
+  999 | Maria   |   9.0
   
-  Αναζήτηση am=500: Σάρωση 999 εγγραφών   Αναζήτηση am=500: 3 βήματα (log n)
+  Search am=500: Scan 999 records   Search am=500: 3 steps (log n)
 ```
 
-**Exam Note:** Η δημιουργία Index επιταχύνει τις αναζητήσεις (`SELECT`) αλλά επιβραδύνει τις εισαγωγές/τροποποιήσεις (`INSERT/UPDATE`) λόγω ενημέρωσης της δεντρικής δομής. Η ισορροπία μεταξύ read και write performance είναι κρίσιμη απόφαση φυσικής σχεδίασης.
+**Exam Note:** Creating an Index speeds up searches (`SELECT`) but slows down insertions/modifications (`INSERT/UPDATE`) because the tree structure must be updated. The balance between read and write performance is a critical physical design decision.
 
 ---
 
-### Προγραμματισμός με SQL και Δημιουργία Φυσικών Δομών
+### SQL Programming and Physical Structure Creation
 *SQL Programming and Physical Structure Creation*
 
-Σε αυτό το τελευταίο υπο-βήμα, το λογικό σχήμα μετατρέπεται σε **εκτελέσιμο κώδικα SQL** (DDL — Data Definition Language) που δημιουργεί τις πραγματικές δομές στο DBMS.
+In this final sub-step, the logical schema is converted into **executable SQL code** (DDL — Data Definition Language) that creates the actual structures in the DBMS.
 
-**Παράδειγμα DDL — Δημιουργία Βάσης Πανεπιστημίου**:
+**DDL Example — Creating a University Database**:
 
-**Αρχική κατάσταση** (δεν υπάρχουν πίνακες):
+**Initial state** (no tables exist):
 
 ```text
   mysql> SHOW TABLES;
   Empty set (0.00 sec)
 ```
 
-**Εκτέλεση DDL**:
+**Executing the DDL**:
 
 ```sql
--- Δημιουργία βάσης δεδομένων πανεπιστημίου
+-- Creating a university database
 CREATE DATABASE university_db;
 USE university_db;
 
--- Δημιουργία πίνακα Τμήμα (δεν εξαρτάται από άλλον πίνακα — δημιουργείται πρώτος)
+-- Creating the Department table (does not depend on another table - created first)
 CREATE TABLE Tmima (
     dept_id   INT           NOT NULL,
     onoma     VARCHAR(100)  NOT NULL,
@@ -721,7 +710,7 @@ CREATE TABLE Tmima (
     CONSTRAINT pk_tmima PRIMARY KEY (dept_id)
 );
 
--- Δημιουργία πίνακα Φοιτητής (εξαρτάται από Τμήμα μέσω Foreign Key)
+-- Creating the Student table (depends on Department via Foreign Key)
 CREATE TABLE Foititis (
     am        INT           NOT NULL,
     onoma     VARCHAR(50)   NOT NULL,
@@ -733,7 +722,7 @@ CREATE TABLE Foititis (
         REFERENCES Tmima(dept_id)
 );
 
--- Δημιουργία πίνακα Μάθημα
+-- Creating the Course table
 CREATE TABLE Mathima (
     course_id       INT          NOT NULL,
     titlos          VARCHAR(150) NOT NULL,
@@ -744,7 +733,7 @@ CREATE TABLE Mathima (
         REFERENCES Tmima(dept_id)
 );
 
--- Δημιουργία ενδιάμεσου πίνακα Δήλωση (για N:M σχέση Φοιτητή-Μαθήματος)
+-- Creating the intermediate Enrollment table (for the N:M Student-Course relationship)
 CREATE TABLE Dilosi (
     am          INT   NOT NULL,
     course_id   INT   NOT NULL,
@@ -758,7 +747,7 @@ CREATE TABLE Dilosi (
 );
 ```
 
-**Κατάσταση μετά την εκτέλεση**:
+**State after execution**:
 
 ```text
   mysql> SHOW TABLES;
@@ -773,271 +762,271 @@ CREATE TABLE Dilosi (
   4 rows in set (0.00 sec)
 ```
 
-**Δημιουργία Index για βελτίωση απόδοσης**:
+**Creating an Index to improve performance**:
 
 ```sql
--- Δημιουργία index στο eponymo για γρήγορη αναζήτηση φοιτητών βάσει επωνύμου
+-- Creating an index on eponymo for fast search of students by surname
 CREATE INDEX idx_foititis_eponymo ON Foititis(eponymo);
 
--- Σύνθετο index για αναζήτηση δηλώσεων βάσει έτους
+-- Composite index for searching enrollments by year
 CREATE INDEX idx_dilosi_etos ON Dilosi(etosvathmos, am);
 ```
 
-**Key Distinction:** Η σειρά δημιουργίας πινάκων είναι κρίσιμη όταν υπάρχουν Foreign Keys — ο **πίνακας που αναφέρεται** (referenced table) πρέπει να δημιουργηθεί **πριν** από τον πίνακα που τον αναφέρει (referencing table). Στο παράδειγμα: `Tmima → Foititis/Mathima → Dilosi`.
+**Key Distinction:** The order of table creation is critical when Foreign Keys exist — the **referenced table** must be created **before** the table that references it. In the example: `Tmima → Foititis/Mathima → Dilosi`.
 
 ---
 
-## Συγκριτικός Πίνακας: Τα 4 Βήματα του Κύκλου Ζωής
+## Comparative Table: The 4 Steps of the Database Life Cycle
 *Comparative Table: The 4 Steps of the Database Life Cycle*
 
-| Βήμα | Φάση | Εισερχόμενο | Εξερχόμενο | Εργαλεία / Τεχνικές |
+| Step | Phase | Input | Output | Tools / Techniques |
 |---|---|---|---|---|
-| **Βήμα 1** | Συλλογή & Ανάλυση Απαιτήσεων | Συνεντεύξεις, έγγραφα, παρατήρηση | Έγγραφο Προδιαγραφών Απαιτήσεων | Συνεντεύξεις, ερωτηματολόγια, UML Use Cases |
-| **Βήμα 2** | Εννοιολογική Σχεδίαση | Έγγραφο Απαιτήσεων | ER Diagram (ERD) | Chen Notation, Crow's Foot Notation |
-| **Βήμα 3** | Λογική Σχεδίαση | ERD | Σχεσιακό Σχήμα (Relational Schema) | Κανόνες μετατροπής ER→Relational, Normalization |
-| **Βήμα 4** | Φυσική Σχεδίαση & Υλοποίηση | Σχεσιακό Σχήμα | SQL DDL scripts, φυσικές δομές αποθήκευσης | SQL, Indexes, Partitioning, Query Optimization |
+| **Step 1** | Requirements Collection & Analysis | Interviews, documents, observation | Requirements Specification Document | Interviews, questionnaires, UML Use Cases |
+| **Step 2** | Conceptual Design | Requirements Document | ER Diagram (ERD) | Chen Notation, Crow's Foot Notation |
+| **Step 3** | Logical Design | ERD | Relational Schema | ER-to-Relational conversion rules, Normalization |
+| **Step 4** | Physical Design & Implementation | Relational Schema | SQL DDL scripts, physical storage structures | SQL, Indexes, Partitioning, Query Optimization |
 
 ```text
-  ΚΥΚΛΟΣ ΖΩΗΣ ΒΑΣΗΣ ΔΕΔΟΜΕΝΩΝ:
+  DATABASE LIFE CYCLE:
   
-  [ Απαιτήσεις ]
+  [ Requirements ]
        |
-       | Βήμα 1: Ανάλυση
+       | Step 1: Analysis
        v
-  [ Έγγραφο Απαιτήσεων ]
+  [ Requirements Document ]
        |
-       | Βήμα 2: Εννοιολογική Σχεδίαση
+       | Step 2: Conceptual Design
        v
   [ ER Diagram ]
        |
-       | Βήμα 3: Λογική Σχεδίαση
+       | Step 3: Logical Design
        v
-  [ Σχεσιακό Σχήμα ]
+  [ Relational Schema ]
        |
-       | Βήμα 4: Φυσική Σχεδίαση & Υλοποίηση
+       | Step 4: Physical Design & Implementation
        v
-  [ Λειτουργική Βάση Δεδομένων ]
+  [ Operational Database ]
        |
-       | Συντήρηση / Εξέλιξη
-       |-----> Επιστροφή στο Βήμα 1 (Νέες Απαιτήσεις)
+       | Maintenance / Evolution
+       |-----> Return to Step 1 (New Requirements)
 ```
 
-**Exam Note:** Ο κύκλος ζωής είναι **επαναληπτικός** (iterative) — νέες απαιτήσεις ή αλλαγές στον οργανισμό οδηγούν σε επανέναρξη της διαδικασίας, ειδικά των βημάτων 1 και 2.
+**Exam Note:** The life cycle is **iterative** — new requirements or changes in the organization lead to a restart of the process, especially steps 1 and 2.
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **Κύκλος Ζωής ΒΔ** (DBLC) | Επαναληπτική διαδικασία σχεδιασμού, ανάπτυξης και συντήρησης ΒΔ | Αποτελείται από 4 κύρια βήματα |
-| **Ανάλυση Απαιτήσεων** | Συλλογή και τεκμηρίωση αναγκών χρηστών και οργανισμού | Εννοιολογική φάση — δεν αφορά τεχνική υλοποίηση |
-| **Λειτουργικές Απαιτήσεις** | Τι πρέπει να κάνει το σύστημα | Ορίζουν τις λειτουργίες CRUD |
-| **Μη-Λειτουργικές Απαιτήσεις** | Πώς πρέπει να λειτουργεί το σύστημα | Χρόνος απόκρισης, διαθεσιμότητα, κλιμακωσιμότητα |
-| **ER Model** | Εννοιολογικό μοντέλο με Οντότητες, Γνωρίσματα και Σχέσεις | Τεχνολογικά ανεξάρτητο |
-| **ERD** | Γραφική αναπαράσταση του ER Model | Χρησιμοποιεί ορθογώνια, ελλειψοειδή, ρόμβους |
-| **Σχεσιακό Μοντέλο** | Οργάνωση δεδομένων σε πίνακες (σχέσεις) | Πίνακας = Σχέση, Γραμμή = Πλειάδα, Στήλη = Γνώρισμα |
-| **Κανονικοποίηση** | Διαδικασία εξάλειψης πλεονασμού και εξαρτήσεων | Εφαρμόζεται στη λογική σχεδίαση (1NF, 2NF, 3NF) |
-| **Junction Table** | Ενδιάμεσος πίνακας για αναπαράσταση N:M σχέσης | Απαραίτητος — το σχεσιακό μοντέλο δεν υποστηρίζει άμεσα N:M |
-| **DDL** (Data Definition Language) | Υποσύνολο SQL για ορισμό δομών ΒΔ | `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE` |
-| **Index** | Δομή δεδομένων που επιταχύνει αναζητήσεις | Επιταχύνει SELECT, επιβραδύνει INSERT/UPDATE |
-| **Heap File** | Αδιατύπωτη αποθήκευση εγγραφών χωρίς ταξινόμηση | Κατάλληλο για μαζικές εισαγωγές |
-| **B+Tree Index** | Ισορροπημένη δεντρική δομή για ευρετηρίαση | O(log n) χρόνος αναζήτησης |
-| **Referential Integrity** | Ακεραιότητα αναφοράς μέσω Foreign Keys | Ο referenced πίνακας δημιουργείται πρώτος |
+| **DB Life Cycle** (DBLC) | Iterative process of designing, developing and maintaining a DB | Consists of 4 main steps |
+| **Requirements Analysis** | Collection and documentation of user and organizational needs | Conceptual phase — not about technical implementation |
+| **Functional Requirements** | What the system must do | Define the CRUD operations |
+| **Non-functional Requirements** | How the system must behave | Response time, availability, scalability |
+| **ER Model** | Conceptual model with Entities, Attributes and Relationships | Technology-independent |
+| **ERD** | Graphical representation of the ER Model | Uses rectangles, ellipses, rhombuses |
+| **Relational Model** | Organization of data into tables (relations) | Table = Relation, Row = Tuple, Column = Attribute |
+| **Normalization** | Process of eliminating redundancy and dependencies | Applied in logical design (1NF, 2NF, 3NF) |
+| **Junction Table** | Intermediate table for representing an N:M relationship | Necessary — the relational model does not directly support N:M |
+| **DDL** (Data Definition Language) | Subset of SQL for defining DB structures | `CREATE TABLE`, `ALTER TABLE`, `DROP TABLE` |
+| **Index** | Data structure that speeds up searches | Speeds up SELECT, slows down INSERT/UPDATE |
+| **Heap File** | Unordered storage of records without sorting | Suitable for bulk inserts |
+| **B+Tree Index** | Balanced tree structure for indexing | O(log n) search time |
+| **Referential Integrity** | Referential integrity via Foreign Keys | The referenced table is created first |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Ο **Κύκλος Ζωής Βάσης Δεδομένων** ακολουθεί 4 διακριτά βήματα: Ανάλυση Απαιτήσεων → Εννοιολογική Σχεδίαση → Λογική Σχεδίαση → Φυσική Σχεδίαση & Υλοποίηση.
-- **Βήμα 1 (Ανάλυση Απαιτήσεων)** είναι εντελώς εννοιολογικό — δεν λαμβάνεται καμία τεχνική απόφαση, μόνο κατανοούνται οι ανάγκες του οργανισμού.
-- **Βήμα 2 (Εννοιολογική Σχεδίαση)** παράγει το **ER Diagram** — τεχνολογικά ανεξάρτητο μοντέλο που αποτυπώνει Οντότητες, Γνωρίσματα και Σχέσεις.
-- **Βήμα 3 (Λογική Σχεδίαση)** μετατρέπει το ERD σε **Σχεσιακό Σχήμα** εφαρμόζοντας τους κανόνες μετατροπής και Κανονικοποίηση (1NF/2NF/3NF).
-- **Σχέσεις N:M** στο ER Model μετατρέπονται **πάντα** σε ενδιάμεσο πίνακα (junction table) στο Σχεσιακό Μοντέλο — αυτό είναι θεμελιώδης κανόνας.
-- **Βήμα 4 (Φυσική Σχεδίαση)** υλοποιεί το σχήμα με SQL DDL για συγκεκριμένο DBMS, λαμβάνοντας αποφάσεις για Indexes, τύπους αρχείων και βελτιστοποίηση απόδοσης.
-- Η **σειρά δημιουργίας πινάκων** με Foreign Keys είναι κρίσιμη: ο referenced πίνακας πρέπει να δημιουργηθεί **πρώτος** για να μην παραβιαστεί η αναφορική ακεραιότητα.
-- **Indexes** επιταχύνουν τις αναζητήσεις (O(log n) με B+Tree), αλλά επιβαρύνουν τις εισαγωγές/ενημερώσεις — η ισορροπία αυτή είναι κεντρική απόφαση φυσικής σχεδίασης.
-- Ο κύκλος ζωής είναι **επαναληπτικός**: νέες επιχειρησιακές ανάγκες οδηγούν σε επανέναρξη από το Βήμα 1.
-- **Key Distinction:** Η εννοιολογική σχεδίαση αφορά το **τι** αποθηκεύεται, η λογική σχεδίαση το **πώς** οργανώνεται, και η φυσική σχεδίαση το **πού** και **με ποια απόδοση** αποθηκεύεται.
+- The **Database Life Cycle** follows 4 distinct steps: Requirements Analysis → Conceptual Design → Logical Design → Physical Design & Implementation.
+- **Step 1 (Requirements Analysis)** is entirely conceptual — no technical decision is made, only the needs of the organization are understood.
+- **Step 2 (Conceptual Design)** produces the **ER Diagram** — a technology-independent model that captures Entities, Attributes and Relationships.
+- **Step 3 (Logical Design)** converts the ERD into a **Relational Schema** by applying the conversion rules and Normalization (1NF/2NF/3NF).
+- **N:M relationships** in the ER Model are **always** converted into an intermediate table (junction table) in the Relational Model — this is a fundamental rule.
+- **Step 4 (Physical Design)** implements the schema with SQL DDL for a specific DBMS, making decisions about Indexes, file types and performance optimization.
+- The **order of table creation** with Foreign Keys is critical: the referenced table must be created **first** so that referential integrity is not violated.
+- **Indexes** speed up searches (O(log n) with B+Tree), but burden insertions/updates — this balance is a central physical design decision.
+- The life cycle is **iterative**: new business needs lead to a restart from Step 1.
+- **Key Distinction:** Conceptual design concerns **what** is stored, logical design **how** it is organized, and physical design **where** and **with what performance** it is stored.
 
 ---
 # topic_3_entity_relationship_model.md
 ---
 
-# Μοντέλο Οντοτήτων-Συσχετίσεων (E-R)
+# Entity-Relationship Model (E-R)
 *Entity-Relationship Model*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Οντότητες (Entities)](#οντότητες-entities)
-   - [Ισχυρές Οντότητες (Strong Entities)](#ισχυρές-οντότητες-strong-entities)
-   - [Ασθενείς Οντότητες (Weak Entities)](#ασθενείς-οντότητες-weak-entities)
-   - [Συγκριτικός Πίνακας: Ισχυρές vs. Ασθενείς Οντότητες](#συγκριτικός-πίνακας-ισχυρές-vs-ασθενείς-οντότητες)
-3. [Γνωρίσματα (Attributes)](#γνωρίσματα-attributes)
-   - [Απλά και Σύνθετα Γνωρίσματα](#απλά-και-σύνθετα-γνωρίσματα)
-   - [Μονότιμα και Πλειότιμα Γνωρίσματα](#μονότιμα-και-πλειότιμα-γνωρίσματα)
-   - [Παραγόμενα Γνωρίσματα](#παραγόμενα-γνωρίσματα)
-   - [Γνωρίσματα Κλειδί (Key Attributes)](#γνωρίσματα-κλειδί-key-attributes)
-   - [Συγκριτικός Πίνακας Τύπων Γνωρισμάτων](#συγκριτικός-πίνακας-τύπων-γνωρισμάτων)
-4. [Συσχετίσεις (Relationships)](#συσχετίσεις-relationships)
-   - [Βαθμός Συσχέτισης (Degree)](#βαθμός-συσχέτισης-degree)
-   - [Αναπαράσταση με Ρόμβους](#αναπαράσταση-με-ρόμβους)
-5. [Περιορισμοί Πληθικότητας (Cardinality Constraints)](#περιορισμοί-πληθικότητας-cardinality-constraints)
-   - [Ένα-προς-Ένα (1:1)](#ένα-προς-ένα-11)
-   - [Ένα-προς-Πολλά (1:N)](#ένα-προς-πολλά-1n)
-   - [Πολλά-προς-Πολλά (N:M)](#πολλά-προς-πολλά-nm)
-   - [Συγκριτικός Πίνακας Πληθικότητας](#συγκριτικός-πίνακας-πληθικότητας)
-6. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-7. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Entities](#entities)
+   - [Strong Entities](#strong-entities)
+   - [Weak Entities](#weak-entities)
+   - [Comparative Table: Strong vs. Weak Entities](#comparative-table-strong-vs-weak-entities)
+3. [Attributes](#attributes)
+   - [Simple and Composite Attributes](#simple-and-composite-attributes)
+   - [Single-Valued and Multi-Valued Attributes](#single-valued-and-multi-valued-attributes)
+   - [Derived Attributes](#derived-attributes)
+   - [Key Attributes](#key-attributes)
+   - [Comparative Table of Attribute Types](#comparative-table-of-attribute-types)
+4. [Relationships](#relationships)
+   - [Degree of Relationship](#degree-of-relationship)
+   - [Representation with Diamonds](#representation-with-diamonds)
+5. [Cardinality Constraints](#cardinality-constraints)
+   - [One-to-One](#one-to-one)
+   - [One-to-Many](#one-to-many)
+   - [Many-to-Many](#many-to-many)
+   - [Comparative Table of Cardinality](#comparative-table-of-cardinality)
+6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+7. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Το **Μοντέλο Οντοτήτων-Συσχετίσεων** (Entity-Relationship Model — E-R Model) είναι το κυρίαρχο εργαλείο της **Εννοιολογικής Σχεδίασης** (Conceptual Design) στον κύκλο ζωής μιας βάσης δεδομένων. Αναπτύχθηκε από τον Peter Chen το 1976 και χρησιμεύει ως γέφυρα ανάμεσα στις επιχειρησιακές απαιτήσεις (business requirements) και την τελική υλοποίηση σε σχεσιακό μοντέλο. Το E-R διάγραμμα (ERD) αποτυπώνει γραφικά τις οντότητες του κόσμου που μοντελοποιείται, τα χαρακτηριστικά τους και τις συσχετίσεις μεταξύ τους, χωρίς να δεσμεύεται σε τεχνικές λεπτομέρειες υλοποίησης. Η κατανόηση του E-R μοντέλου είναι απαραίτητη προϋπόθεση για τη μετάβαση στο Σχεσιακό Μοντέλο (Relational Model) και τη συγγραφή σωστών σχημάτων SQL.
+The **Entity-Relationship Model (E-R Model)** is the dominant tool of **Conceptual Design** in the life cycle of a database. It was developed by Peter Chen in 1976 and serves as a bridge between business requirements and the final implementation in the relational model. The E-R diagram (ERD) graphically captures the entities of the modeled world, their characteristics and the relationships between them, without committing to technical implementation details. Understanding the E-R model is a necessary prerequisite for the transition to the Relational Model and for writing correct SQL schemas.
 
 ---
 
-## Οντότητες (Entities)
+## Entities
 *Entities*
 
-Μια **Οντότητα (Entity)** είναι οποιοδήποτε αντικείμενο — πραγματικό ή αφηρημένο — για το οποίο θέλουμε να αποθηκεύσουμε δεδομένα στη βάση δεδομένων. Κάθε οντότητα αντιπροσωπεύει μια κατηγορία (τύπο), ενώ κάθε συγκεκριμένη εγγραφή αποτελεί μια **στιγμιότυπο (instance)** αυτής.
+An **Entity** is any object — real or abstract — for which we want to store data in the database. Each entity represents a category (type), while each specific record is an **instance** of it.
 
-**Αναλογία**: Ο τύπος οντότητας `ΦΟΙΤΗΤΗΣ` είναι σαν το **εκμαγείο** (καλούπι), ενώ ο συγκεκριμένος φοιτητής "Νικόλαος Παναγόπουλος" είναι το **χυτό αντικείμενο** (instance). Το διάγραμμα ορίζει το καλούπι — η βάση αποθηκεύει τα αντικείμενα.
+**Analogy**: The entity type `STUDENT` is like the **mold** (casting), while the specific student "Nikolaos Panagopoulos" is the **cast object** (instance). The diagram defines the mold — the database stores the objects.
 
-Στο ERD, οι οντότητες αναπαρίστανται ως **ορθογώνια** και διακρίνονται σε δύο κατηγορίες ανάλογα με το αν η ύπαρξή τους εξαρτάται από άλλη οντότητα.
+In the ERD, entities are represented as **rectangles** and are divided into two categories depending on whether their existence depends on another entity.
 
 ---
 
-### Ισχυρές Οντότητες (Strong Entities)
+### Strong Entities
 *Strong (Regular) Entities*
 
-Μια **Ισχυρή Οντότητα (Strong Entity)** είναι μια οντότητα που έχει **ανεξάρτητη ύπαρξη** — δεν εξαρτάται από καμία άλλη οντότητα για να υπάρξει και διαθέτει το δικό της **Primary Key** που τη μοναδικοποιεί πλήρως.
+A **Strong Entity** is an entity that has **independent existence** — it does not depend on any other entity to exist and has its own **Primary Key** that uniquely identifies it.
 
-**Χαρακτηριστικά**:
-- Αναπαρίσταται ως **απλό ορθογώνιο** στο ERD.
-- Διαθέτει ένα ή περισσότερα γνωρίσματα που σχηματίζουν Primary Key.
-- Μπορεί να υπάρξει ανεξάρτητα από οποιαδήποτε άλλη οντότητα στη βάση.
+**Characteristics**:
+- Represented as a **simple rectangle** in the ERD.
+- Has one or more attributes that form a Primary Key.
+- Can exist independently of any other entity in the database.
 
-**Παράδειγμα**: Η οντότητα `ΦΟΙΤΗΤΗΣ` με Primary Key `ΑΜ` (Αριθμός Μητρώου) είναι ισχυρή — κάθε φοιτητής υπάρχει ανεξάρτητα.
+**Example**: The entity `STUDENT` with Primary Key `AM` (Registration Number) is strong — every student exists independently.
 
 ```text
   +------------------+
-  |     ΦΟΙΤΗΤΗΣ     |   <-- Απλό ορθογώνιο = Ισχυρή Οντότητα
+  |     STUDENT      |   <-- Simple rectangle = Strong Entity
   +------------------+
-  |  ΑΜ (PK)         |
-  |  Επώνυμο         |
-  |  Όνομα           |
-  |  Ημ. Γέννησης    |
+  |  AM (PK)         |
+  |  Surname         |
+  |  Name            |
+  |  Date of Birth   |
   +------------------+
 ```
 
-**Exam Note:** Κάθε Ισχυρή Οντότητα **πρέπει** να διαθέτει Primary Key. Χωρίς Primary Key, μια οντότητα δεν μπορεί να είναι ισχυρή.
+**Exam Note:** Every Strong Entity **must** have a Primary Key. Without a Primary Key, an entity cannot be strong.
 
 ---
 
-### Ασθενείς Οντότητες (Weak Entities)
+### Weak Entities
 *Weak Entities*
 
-Μια **Ασθενής Οντότητα (Weak Entity)** είναι μια οντότητα που **δεν μπορεί να υπάρξει ανεξάρτητα** — εξαρτάται υπαρξιακά από μια ισχυρή οντότητα (την **οντότητα-ιδιοκτήτη** ή Identifying Entity). Δεν διαθέτει αρκετά γνωρίσματα για να σχηματίσει Primary Key από μόνη της.
+A **Weak Entity** is an entity that **cannot exist independently** — it is existentially dependent on a strong entity (the **owner entity** or Identifying Entity). It does not have enough attributes to form a Primary Key on its own.
 
-**Χαρακτηριστικά**:
-- Αναπαρίσταται ως **διπλό ορθογώνιο** στο ERD.
-- Η αναγνώρισή της γίνεται μέσω **Partial Key** (μερικό κλειδί — υπογραμμισμένο με διακεκομμένη γραμμή) σε συνδυασμό με το Primary Key της οντότητας-ιδιοκτήτη.
-- Η συσχέτιση με την οντότητα-ιδιοκτήτη αποκαλείται **Identifying Relationship** και αναπαρίσταται με **διπλό ρόμβο**.
-- Αν η οντότητα-ιδιοκτήτης διαγραφεί, η ασθενής οντότητα διαγράφεται επίσης (cascading delete).
+**Characteristics**:
+- Represented as a **double rectangle** in the ERD.
+- Its identification is done through a **Partial Key** (partial key — underlined with a dashed line) combined with the Primary Key of the owner entity.
+- The relationship with the owner entity is called an **Identifying Relationship** and is represented by a **double rhombus**.
+- If the owner entity is deleted, the weak entity is also deleted (cascading delete).
 
-**Αναλογία**: Τα `ΕΞΑΡΤΩΜΕΝΑ` ενός υπαλλήλου (π.χ. παιδιά που δικαιούνται ασφαλιστικό πρόγραμμα) είναι ασθενής οντότητα — δεν έχει νόημα να αποθηκεύουμε στοιχεία παιδιών χωρίς τον αντίστοιχο υπάλληλο.
+**Analogy**: The `DEPENDENTS` (dependents) of an employee (e.g. children entitled to an insurance plan) form a weak entity — it makes no sense to store children's data without the corresponding employee.
 
 ```text
   +==================+           +==================+
-  ||   ΥΠΑΛΛΗΛΟΣ    ||           ||  ΕΞΑΡΤΩΜΕΝΟ    ||   <-- Διπλό ορθογώνιο
+  ||   EMPLOYEE     ||           ||   DEPENDENT     ||   <-- Double rectangle
   +==================+           +==================+
-  |  ΑΦΜ (PK)        |           |  Όνομα (Partial Key)|
-  |  Επώνυμο         |           |  Ημ. Γέννησης    |
-  +==================+           |  Σχέση           |
+  |  AFM (PK)        |           |  Name (Partial Key)|
+  |  Surname         |           |  Date of Birth   |
+  +==================+           |  Relationship     |
               |                  +==================+
               |    <<=======>>
               |  Identifying Relationship
-              |  (Διπλός Ρόμβος)
+              |  (Double Rhombus)
 ```
 
-**Key Distinction:** Η ασθενής οντότητα χρειάζεται το **Partial Key + το PK της γονικής οντότητας** για να σχηματιστεί το πλήρες της αναγνωριστικό (Composite Key στον πίνακα).
+**Key Distinction:** A weak entity needs the **Partial Key + the PK of the parent entity** to form its complete identifier (Composite Key in the table).
 
 ---
 
-### Συγκριτικός Πίνακας: Ισχυρές vs. Ασθενείς Οντότητες
+### Comparative Table: Strong vs. Weak Entities
 
-| Χαρακτηριστικό | Ισχυρή Οντότητα | Ασθενής Οντότητα |
+| Characteristic | Strong Entity | Weak Entity |
 |---|---|---|
-| **Ύπαρξη** | Ανεξάρτητη | Εξαρτημένη από Identifying Entity |
-| **Primary Key** | Διαθέτει δικό της PK | Διαθέτει μόνο Partial Key |
-| **Αναπαράσταση ERD** | Απλό ορθογώνιο | Διπλό ορθογώνιο |
-| **Συσχέτιση** | Απλός ρόμβος | Διπλός ρόμβος (Identifying Relationship) |
-| **Διαγραφή γονέα** | Δεν επηρεάζεται | Cascading delete |
-| **Παράδειγμα** | `ΦΟΙΤΗΤΗΣ`, `ΤΜΗΜΑ` | `ΕΞΑΡΤΩΜΕΝΟ`, `ΑΝΤΙΤΥΠΟ_ΒΙΒΛΙΟΥ` |
+| **Existence** | Independent | Dependent on Identifying Entity |
+| **Primary Key** | Has its own PK | Has only a Partial Key |
+| **ERD Representation** | Simple rectangle | Double rectangle |
+| **Relationship** | Simple rhombus | Double rhombus (Identifying Relationship) |
+| **Parent deletion** | Not affected | Cascading delete |
+| **Example** | `STUDENT`, `DEPARTMENT` | `DEPENDENT`, `BOOK_COPY` |
 
 ---
 
-## Γνωρίσματα (Attributes)
+## Attributes
 *Attributes*
 
-Ένα **Γνώρισμα (Attribute)** είναι μια ιδιότητα ή χαρακτηριστικό που περιγράφει μια οντότητα ή μια συσχέτιση. Κάθε γνώρισμα αντιστοιχεί σε μια στήλη (column) στον τελικό σχεσιακό πίνακα. Στο ERD, τα γνωρίσματα αναπαρίστανται ως **ελλείψεις (ovals)** που συνδέονται με γραμμή στην αντίστοιχη οντότητα.
+An **Attribute** is a property or characteristic that describes an entity or a relationship. Each attribute corresponds to a column in the final relational table. In the ERD, attributes are represented as **ovals** connected by a line to the corresponding entity.
 
 ---
 
-### Απλά και Σύνθετα Γνωρίσματα
+### Simple and Composite Attributes
 *Simple and Composite Attributes*
 
-**Απλό Γνώρισμα (Simple / Atomic Attribute)** είναι ένα γνώρισμα που **δεν μπορεί να διαιρεθεί** σε μικρότερα, πιο θεμελιώδη γνωρίσματα.
+A **Simple (Atomic) Attribute** is an attribute that **cannot be divided** into smaller, more fundamental attributes.
 
-- **Παραδείγματα**: `ΑΦΜ`, `Ηλικία`, `Μισθός`, `ΑΜ`.
-- Αποθηκεύεται ως **μία ατομική τιμή** στη βάση.
+- **Examples**: `AFM`, `Age`, `Salary`, `AM`.
+- Stored as **a single atomic value** in the database.
 
-**Σύνθετο Γνώρισμα (Composite Attribute)** είναι ένα γνώρισμα που **αποτελείται από πολλά επιμέρους γνωρίσματα**, καθένα από τα οποία έχει ανεξάρτητη σημασία.
+A **Composite Attribute** is an attribute that **consists of many constituent attributes**, each of which has independent meaning.
 
-- **Παράδειγμα**: Το `Ονοματεπώνυμο` αποτελείται από `Όνομα` + `Επώνυμο`. Η Διεύθυνση (`Οδός`, `Αριθμός`, `Πόλη`, `ΤΚ`) είναι κλασικό παράδειγμα σύνθετου γνωρίσματος.
+- **Example**: The `FullName` (full name) consists of `Name` (first name) + `Surname` (last name). The Address (`Street`, `Number`, `City`, `ZIP`) is a classic example of a composite attribute.
 
 ```text
-  Σύνθετο Γνώρισμα: Διεύθυνση
+  Composite Attribute: Address
   
-           ( Διεύθυνση )       <-- Σύνθετο
+           ( Address )         <-- Composite
           /      |      \
-     (Οδός)  (Αρ.)   (Πόλη)   <-- Απλά επιμέρους γνωρίσματα
+     (Street)  (No.)  (City)   <-- Simple sub-attributes
 ```
 
-**Exam Note:** Στη μετατροπή σε σχεσιακό μοντέλο, τα σύνθετα γνωρίσματα συνήθως **αποσυντίθενται** στα επιμέρους τους (π.χ. `first_name`, `last_name` αντί για `full_name`), για καλύτερες δυνατότητες αναζήτησης και κανονικοποίησης.
+**Exam Note:** When converting to the relational model, composite attributes are usually **decomposed** into their constituent parts (e.g. `first_name`, `last_name` instead of `full_name`), for better search capabilities and normalization.
 
 ---
 
-### Μονότιμα και Πλειότιμα Γνωρίσματα
+### Single-Valued and Multi-Valued Attributes
 *Single-Valued and Multi-Valued Attributes*
 
-**Μονότιμο Γνώρισμα (Single-Valued Attribute)** παίρνει **μία και μόνο τιμή** για κάθε στιγμιότυπο οντότητας.
+A **Single-Valued Attribute** takes **exactly one value** for each entity instance.
 
-- **Παράδειγμα**: `ΑΦΜ` — κάθε υπάλληλος έχει έναν μόνο ΑΦΜ.
+- **Example**: `AFM` — every employee has a single AFM.
 
-**Πλειότιμο Γνώρισμα (Multi-Valued Attribute)** μπορεί να λάβει **πολλές τιμές** για ένα μόνο στιγμιότυπο οντότητας. Αναπαρίσταται ως **διπλή έλλειψη** στο ERD.
+A **Multi-Valued Attribute** can take **many values** for a single entity instance. It is represented as a **double ellipse** in the ERD.
 
-- **Παράδειγμα**: `Τηλέφωνα` ενός υπαλλήλου — ένας υπάλληλος μπορεί να έχει κινητό, οικίας και εργασίας.
-- **Παράδειγμα**: `Ειδικότητες` ενός ιατρού — ένας γιατρός μπορεί να είναι και Καρδιολόγος και Παθολόγος.
+- **Example**: The `Phones` (phones) of an employee — one employee can have mobile, home and work phones.
+- **Example**: The `Specialties` (specialties) of a doctor — a doctor can be both a Cardiologist and an Internist.
 
 ```text
-  Μονότιμο:           Πλειότιμο:
+  Single-valued:      Multi-valued:
   
-   ( ΑΦΜ )             (( Τηλέφωνα ))   <-- Διπλή έλλειψη
+   ( AFM )             (( Phones ))   <-- Double ellipse
 ```
 
-**Key Distinction:** Τα πλειότιμα γνωρίσματα **δεν μπορούν να αποθηκευτούν απευθείας** σε ένα σχεσιακό πίνακα χωρίς παραβίαση της 1NF (First Normal Form). Η λύση είναι η δημιουργία **ξεχωριστού πίνακα** για το πλειότιμο γνώρισμα, συνδεδεμένου με Foreign Key.
+**Key Distinction:** Multi-valued attributes **cannot be stored directly** in a relational table without violating 1NF (First Normal Form). The solution is to create a **separate table** for the multi-valued attribute, linked with a Foreign Key.
 
 ```sql
--- Μετατροπή πλειότιμου γνωρίσματος σε ξεχωριστό πίνακα
+-- Converting a multi-valued attribute into a separate table
 CREATE TABLE employee_phones (
     emp_afm   VARCHAR(9)  NOT NULL,
     phone_num VARCHAR(15) NOT NULL,
@@ -1048,269 +1037,269 @@ CREATE TABLE employee_phones (
 
 ---
 
-### Παραγόμενα Γνωρίσματα
+### Derived Attributes
 *Derived Attributes*
 
-**Παραγόμενο Γνώρισμα (Derived Attribute)** είναι ένα γνώρισμα του οποίου η τιμή **υπολογίζεται από άλλα γνωρίσματα** ή δεδομένα που ήδη υπάρχουν στη βάση. Αναπαρίσταται ως **διακεκομμένη έλλειψη** στο ERD.
+A **Derived Attribute** is an attribute whose value is **computed from other attributes** or data already present in the database. It is represented as a **dashed ellipse** in the ERD.
 
-- **Παράδειγμα 1**: `Ηλικία` — υπολογίζεται από `Ημερομηνία_Γέννησης` και την τρέχουσα ημερομηνία.
-- **Παράδειγμα 2**: `Διάρκεια_Απασχόλησης` — υπολογίζεται από `Ημερομηνία_Πρόσληψης` και σήμερα.
-- **Παράδειγμα 3**: `Συνολικός_Μισθός_Τμήματος` — υπολογίζεται ως άθροισμα μισθών του τμήματος.
+- **Example 1**: `Age` (age) — computed from `Birth_Date` (birth date) and the current date.
+- **Example 2**: `Employment_Duration` (length of employment) — computed from `Hire_Date` (hire date) and today.
+- **Example 3**: `Total_Department_Salary` (total department salary) — computed as the sum of the department's salaries.
 
 ```text
-  Αποθηκευμένο:        Παραγόμενο:
+  Stored:              Derived:
   
-  ( Ημ_Γέννησης )  -->  (- - Ηλικία - -)   <-- Διακεκομμένη έλλειψη
+  ( Birth_Date )  -->  (- - Age - -)   <-- Dashed ellipse
 ```
 
-**Exam Note:** Τα παραγόμενα γνωρίσματα συνήθως **δεν αποθηκεύονται** στη βάση δεδομένων — υπολογίζονται κατά την εκτέλεση ερωτήματος για αποφυγή πλεονασμού. Αποθηκεύονται μόνο αν ο υπολογισμός τους είναι υπολογιστικά δαπανηρός (π.χ. με materialized views).
+**Exam Note:** Derived attributes are usually **not stored** in the database — they are computed at query time to avoid redundancy. They are stored only if their computation is computationally expensive (e.g. with materialized views).
 
 ```sql
--- Παράδειγμα: Υπολογισμός παραγόμενου γνωρίσματος Ηλικία κατά το ερώτημα
+-- Example: Computing the derived attribute Age during the query
 SELECT first_name,
        last_name,
        birth_date,
-       TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age  -- Παραγόμενο
+       TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age  -- Derived
 FROM employees;
 ```
 
 ---
 
-### Γνωρίσματα Κλειδί (Key Attributes)
+### Key Attributes
 *Key Attributes*
 
-Ένα **Γνώρισμα Κλειδί (Key Attribute)** είναι ένα γνώρισμα (ή σύνολο γνωρισμάτων) που μοναδικά αναγνωρίζει κάθε στιγμιότυπο μιας οντότητας. Στο ERD αναπαρίσταται με **υπογραμμισμένο** όνομα εντός της έλλειψης.
+A **Key Attribute** is an attribute (or set of attributes) that uniquely identifies each instance of an entity. In the ERD it is represented with an **underlined** name inside the ellipse.
 
-- Αντιστοιχεί στο **Primary Key** του σχεσιακού μοντέλου.
-- Για ασθενείς οντότητες, χρησιμοποιείται το **Partial Key** (διακεκομμένη υπογράμμιση).
+- Corresponds to the **Primary Key** of the relational model.
+- For weak entities, the **Partial Key** is used (dashed underline).
 
 ```text
-  Γνώρισμα Κλειδί Ισχυρής Οντότητας:    Partial Key Ασθενούς:
+  Key Attribute of a Strong Entity:       Weak Entity Partial Key:
 
-   ( __ΑΦΜ__ )                            ( _ _ Όνομα _ _ )
+   ( __AFM__ )                            ( _ _ Name _ _ )
 ```
 
 ---
 
-### Συγκριτικός Πίνακας Τύπων Γνωρισμάτων
+### Comparative Table of Attribute Types
 
-| Τύπος Γνωρίσματος | Ορισμός | Αναπαράσταση ERD | Παράδειγμα |
+| Attribute Type | Definition | ERD Representation | Example |
 |---|---|---|---|
-| **Απλό (Simple)** | Αδιαίρετο, ατομικό | Απλή έλλειψη | `ΑΦΜ`, `Μισθός` |
-| **Σύνθετο (Composite)** | Αποτελείται από επιμέρους γνωρίσματα | Έλλειψη με υποελλείψεις | `Διεύθυνση` |
-| **Μονότιμο (Single-Valued)** | Μία τιμή ανά οντότητα | Απλή έλλειψη | `ΑΔΤ` |
-| **Πλειότιμο (Multi-Valued)** | Πολλές τιμές ανά οντότητα | Διπλή έλλειψη | `Τηλέφωνα` |
-| **Παραγόμενο (Derived)** | Υπολογίζεται από άλλα γνωρίσματα | Διακεκομμένη έλλειψη | `Ηλικία` |
-| **Κλειδί (Key)** | Μοναδικά αναγνωρίζει οντότητα | Έλλειψη με υπογράμμιση | `ΑΜ`, `ΑΦΜ` |
-| **Partial Key** | Μερική αναγνώριση ασθενούς οντότητας | Διακεκομμένη υπογράμμιση | `Όνομα` σε `ΕΞΑΡΤΩΜΕΝΟ` |
+| **Simple** | Indivisible, atomic | Simple ellipse | `AFM`, `Salary` |
+| **Composite** | Consists of constituent attributes | Ellipse with sub-ellipses | `Address` |
+| **Single-Valued** | One value per entity | Simple ellipse | `ID_Card` |
+| **Multi-Valued** | Many values per entity | Double ellipse | `Phones` |
+| **Derived** | Computed from other attributes | Dashed ellipse | `Age` |
+| **Key** | Uniquely identifies an entity | Ellipse with underline | `AM`, `AFM` |
+| **Partial Key** | Partial identification of a weak entity | Dashed underline | `Name` in `DEPENDENT` |
 
 ---
 
-## Συσχετίσεις (Relationships)
+## Relationships
 *Relationships*
 
-Μια **Συσχέτιση (Relationship)** αναπαριστά μια **σύνδεση ή αλληλεπίδραση** μεταξύ δύο ή περισσότερων οντοτήτων. Στο ERD, αναπαρίσταται ως **ρόμβος (diamond)**, που συνδέεται με γραμμές προς τις εμπλεκόμενες οντότητες.
+A **Relationship** represents a **connection or interaction** between two or more entities. In the ERD, it is represented as a **rhombus (diamond)**, connected with lines to the involved entities.
 
-Κάθε συσχέτιση χαρακτηρίζεται από:
-- **Βαθμό (Degree)**: Πόσες οντότητες συμμετέχουν.
-- **Πληθικότητα (Cardinality)**: Πόσα στιγμιότυπα μιας οντότητας συνδέονται με πόσα στιγμιότυπα άλλης.
-- **Συμμετοχή (Participation)**: Ολική (total) ή Μερική (partial) — αν κάθε στιγμιότυπο οντότητας πρέπει απαραίτητα να συμμετέχει στη συσχέτιση.
+Each relationship is characterized by:
+- **Degree**: How many entities participate.
+- **Cardinality**: How many instances of one entity are connected to how many instances of another.
+- **Participation**: Total or partial — whether every entity instance must necessarily participate in the relationship.
 
 ---
 
-### Βαθμός Συσχέτισης (Degree)
+### Degree of Relationship
 *Degree of Relationship*
 
-Ο **Βαθμός (Degree)** μιας συσχέτισης ορίζεται από τον **αριθμό των τύπων οντοτήτων** που συμμετέχουν σε αυτήν.
+The **Degree** of a relationship is defined by the **number of entity types** that participate in it.
 
-#### Μοναδιαία / Αναδρομική Συσχέτιση (Unary / Recursive — Degree 1)
+#### Unary / Recursive Relationship (Degree 1)
 
-Συνδέει **μία οντότητα με τον ίδιο της τον τύπο** (αυτοσυσχέτιση). Χρησιμοποιείται για ιεραρχικές δομές εντός της ίδιας οντότητας.
+Connects **one entity with its own type** (self-relationship). Used for hierarchical structures within the same entity.
 
-- **Παράδειγμα**: Ένας `ΥΠΑΛΛΗΛΟΣ` επιβλέπει άλλους `ΥΠΑΛΛΗΛΟΥΣ` (διευθυντής → υφιστάμενοι).
+- **Example**: An `EMPLOYEE` (employee) supervises other `EMPLOYEES` (employees) (manager → subordinates).
 
 ```text
                     +-----------+
-              +---->| ΥΠΑΛΛΗΛΟΣ |<---+
+              +---->| EMPLOYEE  |<---+
               |     +-----------+    |
               |           |          |
-              |     < Επιβλέπει >    |
+              |     < Supervises >   |
               |           |          |
               +-----------+----------+
-                  (Αναδρομική Συσχέτιση)
+                  (Recursive Relationship)
 ```
 
-#### Δυαδική Συσχέτιση (Binary — Degree 2)
+#### Binary Relationship (Degree 2)
 
-Η πιο συνηθισμένη — συνδέει **δύο διαφορετικούς τύπους οντοτήτων**.
+The most common — connects **two different entity types**.
 
-- **Παράδειγμα**: `ΦΟΙΤΗΤΗΣ` — `Εγγράφεται` — `ΜΑΘΗΜΑ`.
+- **Example**: `STUDENT` — `Registers` — `COURSE`.
 
 ```text
   +-----------+              +-----------+
-  | ΦΟΙΤΗΤΗΣ |---< Εγγράφεται >---| ΜΑΘΗΜΑ   |
+  | STUDENT   |---< Registers >---| COURSE    |
   +-----------+              +-----------+
 ```
 
-#### Τριαδική Συσχέτιση (Ternary — Degree 3)
+#### Ternary Relationship (Degree 3)
 
-Συνδέει **τρεις τύπους οντοτήτων** ταυτόχρονα. Χρησιμοποιείται όταν η σχέση εξαρτάται και από τις τρεις οντότητες — δεν μπορεί να αποδοθεί με ζεύγη δυαδικών συσχετίσεων.
+Connects **three entity types** simultaneously. Used when the relationship depends on all three entities — it cannot be represented with pairs of binary relationships.
 
-- **Παράδειγμα**: `ΙΑΤΡΟΣ` — `ΑΣΘΕΝΗΣ` — `ΦΑΡΜΑΚΟ` μέσω της συσχέτισης `Συνταγογραφεί` — ποιος γιατρός συνταγογραφεί ποιο φάρμακο σε ποιον ασθενή.
+- **Example**: `DOCTOR` — `PATIENT` — `MEDICINE` through the relationship `Prescribes` — which doctor prescribes which drug to which patient.
 
 ```text
          +-----------+
-         |  ΙΑΤΡΟΣ   |
+         |  DOCTOR   |
          +-----------+
                \
                 \
-           < Συνταγογραφεί >
-               /        \
-              /            \
+           < Prescribes >
+                /        \
+               /            \
   +-----------+            +-----------+
-  |  ΑΣΘΕΝΗΣ |            |  ΦΑΡΜΑΚΟ  |
+  |  PATIENT  |            |  MEDICINE |
   +-----------+            +-----------+
 ```
 
-| Βαθμός | Ονομασία | Παράδειγμα |
+| Degree | Name | Example |
 |---|---|---|
-| 1 | Unary / Recursive | `ΥΠΑΛΛΗΛΟΣ` επιβλέπει `ΥΠΑΛΛΗΛΟ` |
-| 2 | Binary | `ΦΟΙΤΗΤΗΣ` εγγράφεται σε `ΜΑΘΗΜΑ` |
-| 3 | Ternary | `ΙΑΤΡΟΣ` συνταγογραφεί `ΦΑΡΜΑΚΟ` σε `ΑΣΘΕΝΗ` |
+| 1 | Unary / Recursive | `EMPLOYEE` supervises `EMPLOYEE` |
+| 2 | Binary | `STUDENT` registers in `COURSE` |
+| 3 | Ternary | `DOCTOR` prescribes `MEDICINE` to `PATIENT` |
 
 ---
 
-### Αναπαράσταση με Ρόμβους
+### Representation with Diamonds
 *Representation with Diamonds*
 
-Στο ERD, οι συσχετίσεις αναπαρίστανται ως ρόμβοι που συνδέονται με γραμμές στις εμπλεκόμενες οντότητες:
+In the ERD, relationships are represented as rhombuses connected with lines to the involved entities:
 
-- **Απλός ρόμβος**: Κανονική συσχέτιση μεταξύ ισχυρών οντοτήτων.
-- **Διπλός ρόμβος**: Identifying Relationship (συσχέτιση αναγνώρισης) μεταξύ ισχυρής και ασθενούς οντότητας.
+- **Simple rhombus**: Normal relationship between strong entities.
+- **Double rhombus**: Identifying Relationship between a strong and a weak entity.
 
 ```text
-  Κανονική Συσχέτιση (Απλός Ρόμβος):
+  Normal Relationship (Simple Rhombus):
 
-  +-----------+          +-----------+
-  | ΤΜΗΜΑ     |---< Απασχολεί >---| ΥΠΑΛΛΗΛΟΣ |
-  +-----------+          +-----------+
+  +------------+          +-----------+
+  | DEPARTMENT |---< Employs >---| EMPLOYEE  |
+  +------------+          +-----------+
 
-  Identifying Relationship (Διπλός Ρόμβος):
+  Identifying Relationship (Double Rhombus):
 
   +============+          +============+
-  || ΥΠΑΛΛΗΛΟΣ||=<<= Έχει =>>==|| ΕΞΑΡΤΩΜΕΝΟ||
+  ||  EMPLOYEE  ||=<<= Has =>>==||  DEPENDENT ||
   +============+          +============+
 ```
 
-**Exam Note:** Ο **διπλός ρόμβος** χρησιμοποιείται **αποκλειστικά** για την Identifying Relationship που συνδέει μια ισχυρή οντότητα με μια ασθενή. Κάθε άλλη συσχέτιση χρησιμοποιεί απλό ρόμβο.
+**Exam Note:** The **double rhombus** is used **exclusively** for the Identifying Relationship that links a strong entity with a weak one. Every other relationship uses a simple rhombus.
 
 ---
 
-## Περιορισμοί Πληθικότητας (Cardinality Constraints)
+## Cardinality Constraints
 *Cardinality Constraints*
 
-Οι **Περιορισμοί Πληθικότητας (Cardinality Constraints)** ορίζουν τον **μέγιστο αριθμό στιγμιότυπων** μιας οντότητας που μπορούν να συνδεθούν με ένα μόνο στιγμιότυπο μιας άλλης οντότητας μέσω μιας συσχέτισης. Αποτελούν έναν από τους πιο κρίσιμους περιορισμούς στο σχεδιασμό ER διαγράμματος.
+**Cardinality Constraints** define the **maximum number of instances** of one entity that can be connected to a single instance of another entity through a relationship. They constitute one of the most critical constraints in ER diagram design.
 
-Στο ERD αναγράφονται ως ετικέτες `1`, `N` ή `M` στις γραμμές που συνδέουν οντότητες με συσχετίσεις.
+In the ERD they are written as labels `1`, `N` or `M` on the lines connecting entities with relationships.
 
 ---
 
-### Ένα-προς-Ένα (1:1)
+### One-to-One
 *One-to-One*
 
-Στη συσχέτιση **1:1**, κάθε στιγμιότυπο της οντότητας Α συνδέεται με **το πολύ ένα** στιγμιότυπο της οντότητας Β, και αντίστροφα.
+In a **1:1** relationship, each instance of entity A is connected to **at most one** instance of entity B, and vice versa.
 
-**Αναλογία**: Κάθε χώρα έχει έναν πρωθυπουργό και κάθε πρωθυπουργός κυβερνά μία χώρα.
+**Analogy**: Every country has one prime minister and every prime minister governs one country.
 
-**Παράδειγμα Βάσης Δεδομένων**: `ΥΠΑΛΛΗΛΟΣ` διαχειρίζεται `ΤΜΗΜΑ` (κάθε τμήμα έχει έναν διευθυντή, κάθε διευθυντής διαχειρίζεται ένα τμήμα).
+**Database Example**: `EMPLOYEE` manages `DEPARTMENT` (every department has one manager, every manager manages one department).
 
 ```text
   +-----------+    1          1    +-----------+
-  | ΥΠΑΛΛΗΛΟΣ |---<Διαχειρίζεται>---| ΤΜΗΜΑ    |
+  | EMPLOYEE  |---<Administers>---| DEPARTMENT|
   +-----------+                   +-----------+
 ```
 
-**Υλοποίηση στο Σχεσιακό Μοντέλο**: Το Foreign Key μπορεί να τοποθετηθεί σε οποιονδήποτε από τους δύο πίνακες. Συνήθως τοποθετείται στον πίνακα με την ολική συμμετοχή.
+**Implementation in the Relational Model**: The Foreign Key can be placed in either of the two tables. It is usually placed in the table with total participation.
 
 ```sql
--- Υλοποίηση 1:1: Το dept_manager_afm στον πίνακα ΤΜΗΜΑ
+-- 1:1 Implementation: dept_manager_afm in the DEPARTMENT table
 CREATE TABLE departments (
     dept_id          INT         PRIMARY KEY,
     dept_name        VARCHAR(50) NOT NULL,
-    dept_manager_afm VARCHAR(9)  UNIQUE,  -- UNIQUE εξασφαλίζει 1:1
+    dept_manager_afm VARCHAR(9)  UNIQUE,  -- UNIQUE ensures 1:1
     FOREIGN KEY (dept_manager_afm) REFERENCES employees(afm)
 );
 ```
 
 ---
 
-### Ένα-προς-Πολλά (1:N)
+### One-to-Many
 *One-to-Many*
 
-Στη συσχέτιση **1:N**, κάθε στιγμιότυπο της οντότητας Α συνδέεται με **πολλά** στιγμιότυπα της οντότητας Β, αλλά κάθε στιγμιότυπο του Β συνδέεται με **ένα και μόνο** στιγμιότυπο του Α.
+In a **1:N** relationship, each instance of entity A is connected to **many** instances of entity B, but each instance of B is connected to **one and only one** instance of A.
 
-**Αναλογία**: Ένας καθηγητής διδάσκει πολλά μαθήματα, αλλά κάθε μάθημα (σε μια συγκεκριμένη σχολή) έχει έναν υπεύθυνο καθηγητή.
+**Analogy**: One professor teaches many courses, but each course (in a specific school) has one responsible professor.
 
-**Παράδειγμα Βάσης Δεδομένων**: Ένα `ΤΜΗΜΑ` απασχολεί πολλούς `ΥΠΑΛΛΗΛΟΥΣ`, αλλά κάθε `ΥΠΑΛΛΗΛΟΣ` ανήκει σε ένα `ΤΜΗΜΑ`.
+**Database Example**: One `DEPARTMENT` employs many `EMPLOYEES`, but every `EMPLOYEE` belongs to one `DEPARTMENT`.
 
 ```text
   +-----------+    1          N    +-----------+
-  |  ΤΜΗΜΑ   |---< Απασχολεί >---| ΥΠΑΛΛΗΛΟΣ |
+  | DEPARTMENT|---< Employs >---| EMPLOYEE  |
   +-----------+                   +-----------+
 ```
 
-**Υλοποίηση στο Σχεσιακό Μοντέλο**: Το Foreign Key τοποθετείται στη **μεριά του "Ν"** (στον πίνακα που έχει πολλές εγγραφές). Αυτός είναι ο πιο συνηθισμένος τύπος συσχέτισης.
+**Implementation in the Relational Model**: The Foreign Key is placed on the **"N" side** (in the table that has many records). This is the most common type of relationship.
 
 ```sql
--- Υλοποίηση 1:N: dept_id (FK) στον πίνακα ΥΠΑΛΛΗΛΟΣ
+-- 1:N Implementation: dept_id (FK) in the EMPLOYEE table
 CREATE TABLE employees (
     afm       VARCHAR(9)  PRIMARY KEY,
     last_name VARCHAR(50) NOT NULL,
-    dept_id   INT         NOT NULL,  -- Foreign Key στη μεριά του N
+    dept_id   INT         NOT NULL,  -- Foreign Key on the N side
     FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
 );
 ```
 
-**Πίνακας κατάστασης:**
+**State table:**
 
 | dept_id | dept_name | | afm       | last_name | dept_id |
 |---------|-----------|---|-----------|-----------|---------|
-| 10      | Λογιστήριο | | 111111111 | Παπάς     | 10      |
-| 20      | Πληροφορικής | | 222222222 | Νίκος    | 10      |
-| | | | 333333333 | Αλέξης    | 20      |
+| 10      | Accounting | | 111111111 | Papas     | 10      |
+| 20      | Computer Science | | 222222222 | Nikos    | 10      |
+| | | | 333333333 | Alexis    | 20      |
 
 ---
 
-### Πολλά-προς-Πολλά (N:M)
+### Many-to-Many
 *Many-to-Many*
 
-Στη συσχέτιση **N:M**, κάθε στιγμιότυπο της οντότητας Α συνδέεται με **πολλά** στιγμιότυπα της οντότητας Β, και κάθε στιγμιότυπο του Β συνδέεται επίσης με **πολλά** στιγμιότυπα του Α.
+In an **N:M** relationship, each instance of entity A is connected to **many** instances of entity B, and each instance of B is also connected to **many** instances of A.
 
-**Αναλογία**: Ένας φοιτητής παρακολουθεί πολλά μαθήματα, και κάθε μάθημα παρακολουθείται από πολλούς φοιτητές.
+**Analogy**: One student attends many courses, and each course is attended by many students.
 
-**Παράδειγμα Βάσης Δεδομένων**: `ΦΟΙΤΗΤΗΣ` — `Εγγράφεται` — `ΜΑΘΗΜΑ`.
+**Database Example**: `STUDENT` — `Registers` — `COURSE`.
 
 ```text
   +-----------+    N          M    +-----------+
-  | ΦΟΙΤΗΤΗΣ |---< Εγγράφεται >---| ΜΑΘΗΜΑ   |
+  | STUDENT   |---< Registers >---| COURSE    |
   +-----------+                   +-----------+
 ```
 
-**Υλοποίηση στο Σχεσιακό Μοντέλο**: Οι N:M συσχετίσεις **δεν μπορούν να υλοποιηθούν άμεσα** στο σχεσιακό μοντέλο. Απαιτείται η δημιουργία ενός **ενδιάμεσου πίνακα (junction table / associative table)** που περιέχει τα Foreign Keys και από τους δύο πίνακες ως Composite Primary Key.
+**Implementation in the Relational Model**: N:M relationships **cannot be implemented directly** in the relational model. It is necessary to create an **intermediate table (junction table / associative table)** that contains the Foreign Keys from both tables as a Composite Primary Key.
 
 ```text
   +-----------+       +--------------------+       +-----------+
-  | ΦΟΙΤΗΤΗΣ |       |   ΕΓΓΡΑΦΗ          |       |  ΜΑΘΗΜΑ  |
+  | STUDENT   |       |   REGISTRATION     |       |  COURSE   |
   +-----------+       +--------------------+       +-----------+
   | am (PK)   |<------| am (FK, PK)        |       | course_id |
   | eponymo   |       | course_id (FK, PK) |------>| (PK)      |
-  | onoma     |       | hm_eggrafis        |       | titlos    |
-  +-----------+       | bathmologia        |       +-----------+
+  | onoma     |       | enroll_date        |       | titlos    |
+  +-----------+       | grade              |       +-----------+
                       +--------------------+
 ```
 
 ```sql
--- Υλοποίηση N:M: Ενδιάμεσος πίνακας ΕΓΓΡΑΦΗ
+-- N:M Implementation: Intermediate REGISTRATION table
 CREATE TABLE enrollments (
     student_am INT  NOT NULL,
     course_id  INT  NOT NULL,
@@ -1322,174 +1311,174 @@ CREATE TABLE enrollments (
 );
 ```
 
-**Exam Note:** Κάθε N:M συσχέτιση **απαιτεί ενδιάμεσο πίνακα** στη μετατροπή σε σχεσιακό μοντέλο. Ο ενδιάμεσος πίνακας μπορεί επίσης να έχει **δικά του γνωρίσματα** (π.χ. `grade`, `enroll_date` στην `ΕΓΓΡΑΦΗ`), τα οποία δεν ανήκουν σε καμία από τις δύο οντότητες αλλά στη **συσχέτιση** καθεαυτή.
+**Exam Note:** Every N:M relationship **requires an intermediate table** in the conversion to the relational model. The intermediate table can also have **its own attributes** (e.g. `grade`, `enroll_date` in `REGISTRATION`), which belong to neither of the two entities but to the **relationship** itself.
 
 ---
 
-### Συγκριτικός Πίνακας Πληθικότητας
+### Comparative Table of Cardinality
 
-| Πληθικότητα | Περιγραφή | Υλοποίηση στο Σχεσιακό Μοντέλο | Παράδειγμα |
+| Cardinality | Description | Implementation in the Relational Model | Example |
 |---|---|---|---|
-| **1:1** | Ένα A ↔ ένα B | FK σε έναν από τους δύο πίνακες (με UNIQUE) | Υπάλληλος ↔ Γραφείο |
-| **1:N** | Ένα A ↔ πολλά B | FK στον πίνακα του "N" | Τμήμα → Υπάλληλοι |
-| **N:M** | Πολλά A ↔ πολλά B | Ενδιάμεσος πίνακας με Composite PK | Φοιτητές ↔ Μαθήματα |
+| **1:1** | One A ↔ one B | FK in one of the two tables (with UNIQUE) | Employee ↔ Office |
+| **1:N** | One A ↔ many B | FK in the table of the "N" side | Department → Employees |
+| **N:M** | Many A ↔ many B | Intermediate table with Composite PK | Students ↔ Courses |
 
 ---
 
-## Ολοκληρωμένο Παράδειγμα ERD
+## Complete ERD Example
 *Complete ERD Example*
 
-Το παρακάτω διάγραμμα συνδυάζει όλες τις έννοιες που αναλύθηκαν — ισχυρές και ασθενείς οντότητες, διάφορους τύπους γνωρισμάτων, και όλους τους τύπους πληθικότητας:
+The following diagram combines all the concepts analyzed — strong and weak entities, various attribute types, and all types of cardinality:
 
 ```text
-                         ( __ΑΦΜ__ )  ( Επώνυμο )  ( Όνομα )
+                         ( __AFM__ )  ( Surname )  ( Name )
                               \           |           /
-  ( Τηλέφωνα )                \          |          /
+  ( Phones )                  \          |          /
        ||                  +============+
-  (( Τηλέφωνα ))-----------|  ΥΠΑΛΛΗΛΟΣ |
+  (( Phones ))-----------|  EMPLOYEE  |
                             +============+
                                  |   \
                          1       |    \      N
-                        (Ανήκει σε)  (Διαχειρίζεται)
+                        (Belongs to)  (Manages)
                               |          \
                               v    1      v
                          +-----------+  +-----------+
-                         |   ΤΜΗΜΑ   |  |  ΤΜΗΜΑ   |  (ίδια οντότητα)
+                         | DEPARTMENT|  | DEPARTMENT|  (same entity)
                          +-----------+  +-----------+
                               |
-                    (( Έχει )) <-- Identifying Relationship (Διπλός Ρόμβος)
+                    (( Has )) <-- Identifying Relationship (Double Rhombus)
                               |
                          +============+
-                         ||ΕΞΑΡΤΩΜΕΝΟ||  <-- Ασθενής Οντότητα
+                         ||  DEPENDENT ||  <-- Weak Entity
                          +============+
-                         | _ Όνομα _  |  <-- Partial Key
-                         | Σχέση      |
+                         | _ Name _   |  <-- Partial Key
+                         | Relation   |
                          +============+
 
 
-  ΦΟΙΤΗΤΗΣ --- (N) --- < Εγγράφεται > --- (M) --- ΜΑΘΗΜΑ
+  STUDENT --- (N) --- < Registers > --- (M) --- COURSE
      |                       |
-  ( __ΑΜ__ )          ( Ημ. Εγγραφής )  <-- Γνώρισμα Συσχέτισης
-  ( Επώνυμο )         ( Βαθμολογία )
-  (- Ηλικία -)  <-- Παραγόμενο
+  ( __AM__ )          ( Registration Date )  <-- Relationship Attribute
+  ( Surname )         ( Grade )
+  (- Age -)  <-- Derived
 ```
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **Οντότητα (Entity)** | Αντικείμενο για το οποίο αποθηκεύονται δεδομένα | Αναπαράσταση ως ορθογώνιο στο ERD |
-| **Ισχυρή Οντότητα** | Ανεξάρτητη ύπαρξη, διαθέτει δικό της PK | Απλό ορθογώνιο |
-| **Ασθενής Οντότητα** | Εξαρτημένη ύπαρξη, διαθέτει μόνο Partial Key | Διπλό ορθογώνιο, Identifying Relationship |
-| **Γνώρισμα (Attribute)** | Ιδιότητα οντότητας ή συσχέτισης | Αναπαράσταση ως έλλειψη |
-| **Απλό Γνώρισμα** | Αδιαίρετο γνώρισμα | Ατομική τιμή |
-| **Σύνθετο Γνώρισμα** | Αποτελείται από επιμέρους γνωρίσματα | Αποσυντίθεται στο σχεσιακό μοντέλο |
-| **Μονότιμο Γνώρισμα** | Μία τιμή ανά οντότητα | Κανονική έλλειψη |
-| **Πλειότιμο Γνώρισμα** | Πολλές τιμές ανά οντότητα | Διπλή έλλειψη — απαιτεί ξεχωριστό πίνακα |
-| **Παραγόμενο Γνώρισμα** | Υπολογίζεται από άλλα γνωρίσματα | Διακεκομμένη έλλειψη — συνήθως δεν αποθηκεύεται |
-| **Γνώρισμα Κλειδί** | Μοναδική αναγνώριση οντότητας | Υπογραμμισμένο στο ERD |
-| **Partial Key** | Μερική αναγνώριση ασθενούς οντότητας | Διακεκομμένη υπογράμμιση |
-| **Συσχέτιση (Relationship)** | Σύνδεση μεταξύ οντοτήτων | Αναπαράσταση ως ρόμβος |
-| **Βαθμός (Degree)** | Αριθμός οντοτήτων στη συσχέτιση | Unary (1), Binary (2), Ternary (3) |
-| **Πληθικότητα 1:1** | Ένα στιγμιότυπο ↔ ένα στιγμιότυπο | FK με UNIQUE περιορισμό |
-| **Πληθικότητα 1:N** | Ένα στιγμιότυπο ↔ πολλά στιγμιότυπα | FK στη μεριά του N |
-| **Πληθικότητα N:M** | Πολλά ↔ πολλά | Ενδιάμεσος πίνακας με Composite PK |
-| **Identifying Relationship** | Συσχέτιση αναγνώρισης ασθενούς-ισχυρής | Διπλός ρόμβος |
+| **Entity** | Object for which data is stored | Represented as a rectangle in the ERD |
+| **Strong Entity** | Independent existence, has its own PK | Simple rectangle |
+| **Weak Entity** | Dependent existence, has only a Partial Key | Double rectangle, Identifying Relationship |
+| **Attribute** | Property of an entity or relationship | Represented as an ellipse |
+| **Simple Attribute** | Indivisible attribute | Atomic value |
+| **Composite Attribute** | Consists of constituent attributes | Decomposed in the relational model |
+| **Single-Valued Attribute** | One value per entity | Normal ellipse |
+| **Multi-Valued Attribute** | Many values per entity | Double ellipse — requires a separate table |
+| **Derived Attribute** | Computed from other attributes | Dashed ellipse — usually not stored |
+| **Key Attribute** | Unique identification of an entity | Underlined in the ERD |
+| **Partial Key** | Partial identification of a weak entity | Dashed underline |
+| **Relationship** | Connection between entities | Represented as a rhombus |
+| **Degree** | Number of entities in the relationship | Unary (1), Binary (2), Ternary (3) |
+| **Cardinality 1:1** | One instance ↔ one instance | FK with UNIQUE constraint |
+| **Cardinality 1:N** | One instance ↔ many instances | FK on the N side |
+| **Cardinality N:M** | Many ↔ many | Intermediate table with Composite PK |
+| **Identifying Relationship** | Identification relationship between weak and strong | Double rhombus |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Το **E-R Μοντέλο** είναι το εργαλείο της εννοιολογικής σχεδίασης — αποτυπώνει τη λογική δομή της πραγματικότητας χωρίς τεχνικές λεπτομέρειες υλοποίησης.
-- **Ισχυρές Οντότητες** διαθέτουν ανεξάρτητη ύπαρξη και δικό τους Primary Key (απλό ορθογώνιο). **Ασθενείς Οντότητες** εξαρτώνται υπαρξιακά από άλλη οντότητα και αναπαρίστανται με διπλό ορθογώνιο.
-- Τα **Πλειότιμα Γνωρίσματα** (διπλή έλλειψη) παραβιάζουν την 1NF — απαιτούν ξεχωριστό πίνακα στο σχεσιακό μοντέλο.
-- Τα **Παραγόμενα Γνωρίσματα** (διακεκομμένη έλλειψη) δεν αποθηκεύονται συνήθως — υπολογίζονται κατά την εκτέλεση ερωτήματος.
-- **Key Distinction:** Ο βαθμός (degree) αναφέρεται στον αριθμό οντοτήτων στη συσχέτιση, ενώ η πληθικότητα (cardinality) αναφέρεται στον αριθμό στιγμιότυπων που συνδέονται.
-- Η πληθικότητα **1:N** είναι η πιο συχνή στη σχεδίαση βάσεων δεδομένων — υλοποιείται με Foreign Key στον πίνακα της "πολλαπλής" πλευράς.
-- Κάθε **N:M συσχέτιση** μετατρέπεται σε ενδιάμεσο πίνακα (junction table) κατά τη μετατροπή στο σχεσιακό μοντέλο — ο ενδιάμεσος πίνακας μπορεί να έχει δικά του γνωρίσματα.
-- Ο **Identifying Relationship** (διπλός ρόμβος) χρησιμοποιείται αποκλειστικά για να συνδέσει ασθενή με ισχυρή οντότητα — η διαγραφή της ισχυρής προκαλεί cascading delete.
-- **Exam Note:** Στο ERD, η πληθικότητα αναγράφεται πάντα δίπλα στις οντότητες — το "1" κοντά στην οντότητα που συμμετέχει με ένα στιγμιότυπο, το "N" ή "M" κοντά στην οντότητα που συμμετέχει με πολλά.
-- Η σωστή αναγνώριση τύπων οντοτήτων, γνωρισμάτων και πληθικότητας στο E-R διάγραμμα **καθορίζει άμεσα** την ορθότητα του σχεσιακού σχήματος και της τελικής SQL υλοποίησης.
+- The **E-R Model** is the tool of conceptual design — it captures the logical structure of reality without technical implementation details.
+- **Strong Entities** have independent existence and their own Primary Key (simple rectangle). **Weak Entities** depend existentially on another entity and are represented with a double rectangle.
+- **Multi-Valued Attributes** (double ellipse) violate 1NF — they require a separate table in the relational model.
+- **Derived Attributes** (dashed ellipse) are usually not stored — they are computed at query time.
+- **Key Distinction:** The degree refers to the number of entities in the relationship, while the cardinality refers to the number of instances connected.
+- **1:N** cardinality is the most common in database design — implemented with a Foreign Key in the table of the "many" side.
+- Every **N:M relationship** is converted into an intermediate table (junction table) during the conversion to the relational model — the intermediate table can have its own attributes.
+- The **Identifying Relationship** (double rhombus) is used exclusively to link a weak entity with a strong one — deleting the strong entity causes a cascading delete.
+- **Exam Note:** In the ERD, the cardinality is always written next to the entities — "1" near the entity that participates with one instance, "N" or "M" near the entity that participates with many.
+- Correct identification of entity types, attributes and cardinality in the E-R diagram **directly determines** the correctness of the relational schema and of the final SQL implementation.
 
 ---
 # topic_4_relational_model_and_relational_algebra.md
 ---
 
-# Σχεσιακό Μοντέλο & Σχεσιακή Άλγεβρα
+# Relational Model & Relational Algebra
 *Relational Model & Relational Algebra*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Βασικά Στοιχεία Σχεσιακού Μοντέλου](#βασικά-στοιχεία-σχεσιακού-μοντέλου)
-   - [Σχέσεις (Relations / Tables)](#σχέσεις-relations--tables)
-   - [Πλειάδες (Tuples / Rows)](#πλειάδες-tuples--rows)
-   - [Γνωρίσματα (Attributes / Columns)](#γνωρίσματα-attributes--columns)
-   - [Πεδία Ορισμού (Domains)](#πεδία-ορισμού-domains)
-   - [Συγκριτικός Πίνακας Βασικών Εννοιών](#συγκριτικός-πίνακας-βασικών-εννοιών)
-3. [Περιορισμοί και Κλειδιά](#περιορισμοί-και-κλειδιά)
-   - [Υποψήφια Κλειδιά (Candidate Keys)](#υποψήφια-κλειδιά-candidate-keys)
-   - [Πρωτεύον Κλειδί (Primary Key)](#πρωτεύον-κλειδί-primary-key)
-   - [Ξένο Κλειδί (Foreign Key)](#ξένο-κλειδί-foreign-key)
-   - [Ακεραιότητα Οντοτήτων και Αναφορική Ακεραιότητα](#ακεραιότητα-οντοτήτων-και-αναφορική-ακεραιότητα)
-   - [Συγκριτικός Πίνακας Κλειδιών](#συγκριτικός-πίνακας-κλειδιών)
-4. [Πράξεις Σχεσιακής Άλγεβρας](#πράξεις-σχεσιακής-άλγεβρας)
-   - [Πράξεις Θεωρίας Συνόλων](#πράξεις-θεωρίας-συνόλων)
-   - [Ειδικές Σχεσιακές Πράξεις](#ειδικές-σχεσιακές-πράξεις)
-   - [Συνενώσεις (Joins)](#συνενώσεις-joins)
-5. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-6. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Basic Elements of the Relational Model](#basic-elements-of-the-relational-model)
+   - [Relations](#relations)
+   - [Tuples](#tuples)
+   - [Attributes](#attributes)
+   - [Domains](#domains)
+   - [Comparison Table of Basic Concepts](#comparison-table-of-basic-concepts)
+3. [Constraints and Keys](#constraints-and-keys)
+   - [Candidate Keys](#candidate-keys)
+   - [Primary Key](#primary-key)
+   - [Foreign Key](#foreign-key)
+   - [Entity Integrity and Referential Integrity](#entity-integrity-and-referential-integrity)
+   - [Comparative Table of Keys](#comparative-table-of-keys)
+4. [Relational Algebra Operations](#relational-algebra-operations)
+   - [Set-Theoretic Operations](#set-theoretic-operations)
+   - [Specific Relational Operations](#specific-relational-operations)
+   - [Join Operations](#join-operations)
+5. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+6. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Το **Σχεσιακό Μοντέλο Δεδομένων** (Relational Data Model) αποτελεί το θεμέλιο της σύγχρονης τεχνολογίας βάσεων δεδομένων. Προτάθηκε από τον Edgar F. Codd το 1970 και βασίζεται στη μαθηματική θεωρία των συνόλων και της σχεσιακής άλγεβρας, παρέχοντας ένα τυπικό, ακριβές πλαίσιο για την οργάνωση και τον χειρισμό δεδομένων. Είναι το αποτέλεσμα της **Λογικής Σχεδίασης** (Logical Design) — της φάσης κατά την οποία το Μοντέλο Οντοτήτων-Συσχετίσεων (E-R) μετατρέπεται σε πίνακες, κλειδιά και περιορισμούς. Η κατανόηση του σχεσιακού μοντέλου και της **Σχεσιακής Άλγεβρας** (Relational Algebra) είναι απαραίτητη για τη συγγραφή σωστών SQL ερωτημάτων και για την κατανόηση του τρόπου με τον οποίο ο Βελτιστοποιητής Ερωτημάτων (Query Optimizer) εκτελεί εσωτερικά τις αναζητήσεις.
+The **Relational Data Model** is the foundation of modern database technology. It was proposed by Edgar F. Codd in 1970 and is based on the mathematical theory of sets and relational algebra, providing a formal, precise framework for organizing and manipulating data. It is the result of **Logical Design** — the phase in which the Entity-Relationship Model (E-R) is converted into tables, keys and constraints. Understanding the relational model and **Relational Algebra** is necessary for writing correct SQL queries and for understanding how the Query Optimizer executes searches internally.
 
 ---
 
-## Βασικά Στοιχεία Σχεσιακού Μοντέλου
+## Basic Elements of the Relational Model
 *Basic Elements of the Relational Model*
 
-Το σχεσιακό μοντέλο οργανώνει τα δεδομένα σε **σχέσεις** (relations), οι οποίες αντιστοιχούν στους γνώριμους πίνακες (tables) της SQL. Κάθε σχέση είναι ένα μαθηματικό σύνολο — χωρίς διπλότυπες εγγραφές και χωρίς ορισμένη σειρά γραμμών. Οι τέσσερις βασικές έννοιες που ορίζουν μια σχέση είναι: σχέσεις, πλειάδες, γνωρίσματα και πεδία ορισμού.
+The relational model organizes data into **relations**, which correspond to the familiar tables of SQL. Each relation is a mathematical set — without duplicate records and without a defined order of rows. The four basic concepts that define a relation are: relations, tuples, attributes and domains.
 
 ---
 
-### Σχέσεις (Relations / Tables)
+### Relations
 *Relations*
 
-Μια **Σχέση (Relation)** είναι ένα **ονομαζόμενο σύνολο πλειάδων** που μοιράζονται τον ίδιο τύπο δομής (ίδια γνωρίσματα). Στην πρακτική εφαρμογή αντιστοιχεί στον **Πίνακα (Table)** της SQL.
+A **Relation** is a **named set of tuples** that share the same type of structure (the same attributes). In practical application it corresponds to the **Table** of SQL.
 
-**Χαρακτηριστικά**:
-- Κάθε σχέση έχει μοναδικό **όνομα** εντός της βάσης δεδομένων.
-- Οι πλειάδες (γραμμές) δεν έχουν ορισμένη σειρά — ένα σύνολο είναι ανεξάρτητο από τη σειρά των στοιχείων του.
-- Δεν επιτρέπονται **διπλότυπες πλειάδες** (duplicate rows) — κάθε γραμμή πρέπει να είναι μοναδική.
-- Κάθε στήλη (γνώρισμα) έχει μοναδικό όνομα εντός της σχέσης.
+**Characteristics**:
+- Each relation has a unique **name** within the database.
+- Tuples (rows) have no defined order — a set is independent of the order of its elements.
+- **Duplicate tuples** (duplicate rows) are not allowed — every row must be unique.
+- Each column (attribute) has a unique name within the relation.
 
-**Αναλογία**: Μια σχέση είναι σαν ένα φύλλο λογιστικού πίνακα (spreadsheet) όπου κάθε γραμμή αντιστοιχεί σε ένα αντικείμενο του πραγματικού κόσμου και κάθε στήλη στην ιδιότητά του. Η κρίσιμη διαφορά: το spreadsheet δέχεται διπλότυπες γραμμές, ενώ η σχέση δεν επιτρέπει.
+**Analogy**: A relation is like a spreadsheet where each row corresponds to an object of the real world and each column to one of its properties. The critical difference: the spreadsheet accepts duplicate rows, while a relation does not.
 
 ```text
-  Σχέση: EMPLOYEES
+  Relation: EMPLOYEES
   +-------+----------+-----------+---------+
   | emp_id | last_name | first_name | dept_id |
   +-------+----------+-----------+---------+
-  |   1   | Παπάς    | Γιώργης   |   10    |
-  |   2   | Νίκος    | Αλέξης    |   20    |
-  |   3   | Κώστας   | Δημήτρης  |   10    |
+  |   1   | Papas    | Giorgis   |   10    |
+  |   2   | Nikos    | Alexis    |   20    |
+  |   3   | Kostas   | Dimitris  |   10    |
   +-------+----------+-----------+---------+
-  ^Πλειάδες (Tuples / Rows)^
-  ^Γνωρίσματα (Attributes / Columns)^
+  ^Tuples (Rows)^
+  ^Attributes (Columns)^
 ```
 
 ```sql
--- Δημιουργία σχέσης στην SQL
+-- Creating a relation in SQL
 CREATE TABLE employees (
     emp_id     INT         PRIMARY KEY,
     last_name  VARCHAR(50) NOT NULL,
@@ -1500,362 +1489,362 @@ CREATE TABLE employees (
 
 ---
 
-### Πλειάδες (Tuples / Rows)
+### Tuples
 *Tuples*
 
-Μια **Πλειάδα (Tuple)** είναι μια **ενιαία εγγραφή** σε μια σχέση — δηλαδή μια γραμμή του πίνακα. Κάθε πλειάδα περιέχει μια τιμή για κάθε γνώρισμα της σχέσης, και κάθε τιμή πρέπει να ανήκει στο αντίστοιχο πεδίο ορισμού (domain).
+A **Tuple** is a **single record** in a relation — that is, a row of the table. Each tuple contains a value for each attribute of the relation, and every value must belong to the corresponding domain.
 
-**Χαρακτηριστικά**:
-- Κάθε πλειάδα είναι **μοναδική** εντός της σχέσης.
-- Η **σειρά** των πλειάδων δεν έχει σημασία στο σχεσιακό μοντέλο.
-- Κάθε τιμή σε μια πλειάδα είναι **ατομική** (atomic) — δεν επιτρέπονται επαναλαμβανόμενες ομάδες (1NF).
+**Characteristics**:
+- Every tuple is **unique** within the relation.
+- The **order** of tuples is not significant in the relational model.
+- Every value in a tuple is **atomic** — repeating groups are not allowed (1NF).
 
-**Αναλογία**: Μια πλειάδα είναι η καρτέλα ενός μαθητή στο αρχείο της γραμματείας — μοναδική εγγραφή με όλες τις πληροφορίες γι' αυτόν.
+**Analogy**: A tuple is the card of a student in the registry office file — a unique record with all the information about them.
 
-**Exam Note:** Το σύνολο των πλειάδων μιας σχέσης σε συγκεκριμένη χρονική στιγμή αποκαλείται **Extension** (επέκταση ή στιγμιότυπο), ενώ το σχήμα (δομή) της σχέσης αποκαλείται **Intension** (εντατική περιγραφή ή σχήμα).
+**Exam Note:** The set of tuples of a relation at a specific point in time is called the **Extension** (extension or instance), while the schema (structure) of the relation is called the **Intension** (intensive description or schema).
 
 ---
 
-### Γνωρίσματα (Attributes / Columns)
+### Attributes
 *Attributes*
 
-Ένα **Γνώρισμα (Attribute)** είναι η **στήλη (column)** μιας σχέσης — αντιστοιχεί σε μια ιδιότητα του αντικειμένου που περιγράφει η σχέση. Κάθε γνώρισμα έχει:
+An **Attribute** is the **column** of a relation — it corresponds to a property of the object described by the relation. Each attribute has:
 
-- Μοναδικό **όνομα** εντός της σχέσης.
-- Ένα **πεδίο ορισμού (domain)** που ορίζει τις αποδεκτές τιμές.
-- **Μία και μόνο τιμή ανά πλειάδα** (ατομική τιμή — ιδιότητα 1NF).
+- A unique **name** within the relation.
+- A **domain** that defines the acceptable values.
+- **One and only one value per tuple** (atomic value — 1NF property).
 
-**Βαθμός (Degree) σχέσης**: Ο αριθμός των γνωρισμάτων μιας σχέσης. Μια σχέση με 4 γνωρίσματα έχει βαθμό 4.
+**Degree of a relation**: The number of attributes of a relation. A relation with 4 attributes has degree 4.
 
 ```text
-  Σχέση EMPLOYEES — Βαθμός: 4
+  Relation EMPLOYEES — Degree: 4
   +--------+-----------+------------+---------+
-  | emp_id | last_name | first_name | dept_id |   <-- 4 Γνωρίσματα
+  | emp_id | last_name | first_name | dept_id |   <-- 4 Attributes
   +--------+-----------+------------+---------+
   | ...    | ...       | ...        | ...     |
   +--------+-----------+------------+---------+
 ```
 
-**Key Distinction:** Στο E-R μοντέλο τα γνωρίσματα αναπαρίστανται ως ελλείψεις. Στο σχεσιακό μοντέλο αποτελούν τις **στήλες** του πίνακα — η μετάβαση από ελλείψεις σε στήλες είναι μέρος της Λογικής Σχεδίασης.
+**Key Distinction:** In the E-R model, attributes are represented as ovals. In the relational model they constitute the **columns** of the table — the transition from ovals to columns is part of Logical Design.
 
 ---
 
-### Πεδία Ορισμού (Domains)
+### Domains
 *Domains*
 
-Ένα **Πεδίο Ορισμού (Domain)** είναι το **σύνολο των επιτρεπτών τιμών** που μπορεί να πάρει ένα γνώρισμα. Λειτουργεί ως σημασιολογικός και τυπικός περιορισμός ακεραιότητας.
+A **Domain** is the **set of permitted values** that an attribute can take. It acts as a semantic and formal integrity constraint.
 
-**Παραδείγματα**:
-- Το domain του γνωρίσματος `dept_id` είναι θετικοί ακέραιοι (`INT > 0`).
-- Το domain του `grade` μπορεί να ορισθεί ως δεκαδικοί αριθμοί στο διάστημα `[0.0, 10.0]`.
-- Το domain του `gender` μπορεί να ορισθεί ως `{'M', 'F', 'Other'}`.
+**Examples**:
+- The domain of the attribute `dept_id` is positive integers (`INT > 0`).
+- The domain of `grade` can be defined as decimal numbers in the interval `[0.0, 10.0]`.
+- The domain of `gender` can be defined as `{'M', 'F', 'Other'}`.
 
-**Αναλογία**: Το domain είναι σαν τα κριτήρια αποδοχής μιας φόρμας — ο τύπος δεδομένων ορίζει το "τι", το domain ορίζει επιπλέον το "ποιες τιμές είναι λογικά αποδεκτές".
+**Analogy**: The domain is like the acceptance criteria of a form — the data type defines "what", while the domain additionally defines "which values are logically acceptable".
 
 ```sql
--- Υλοποίηση domain με CHECK constraint
+-- Implementing a domain with a CHECK constraint
 CREATE TABLE students (
     student_am  INT            PRIMARY KEY,
-    grade       DECIMAL(4, 2)  CHECK (grade >= 0.0 AND grade <= 10.0),  -- Domain ορισμός
-    gender      CHAR(1)        CHECK (gender IN ('M', 'F', 'O'))        -- Domain ορισμός
+    grade       DECIMAL(4, 2)  CHECK (grade >= 0.0 AND grade <= 10.0),  -- Domain definition
+    gender      CHAR(1)        CHECK (gender IN ('M', 'F', 'O'))        -- Domain definition
 );
 ```
 
-**Exam Note:** Δύο γνωρίσματα από διαφορετικές σχέσεις μπορούν να συγκριθούν **μόνο αν** έχουν **συμβατά domains** — π.χ. δύο γνωρίσματα τύπου `INT` που αναπαριστούν ταυτότητες είναι συγκρίσιμα ακόμα και αν έχουν διαφορετικά ονόματα.
+**Exam Note:** Two attributes from different relations can be compared **only if** they have **compatible domains** — e.g. two attributes of type `INT` representing identifiers are comparable even if they have different names.
 
 ---
 
-### Συγκριτικός Πίνακας Βασικών Εννοιών
+### Comparison Table of Basic Concepts
 *Comparison Table: Formal vs. SQL Terminology*
 
-| Τυπική Ορολογία (Σχεσιακό Μοντέλο) | SQL Ορολογία | Περιγραφή |
+| Formal Terminology (Relational Model) | SQL Terminology | Description |
 |---|---|---|
-| **Σχέση (Relation)** | Table | Ένα σύνολο πλειάδων με κοινή δομή |
-| **Πλειάδα (Tuple)** | Row / Record | Μια μοναδική εγγραφή στη σχέση |
-| **Γνώρισμα (Attribute)** | Column / Field | Μια ιδιότητα/χαρακτηριστικό της σχέσης |
-| **Πεδίο Ορισμού (Domain)** | Data Type + Constraint | Σύνολο αποδεκτών τιμών γνωρίσματος |
-| **Βαθμός (Degree)** | Number of columns | Αριθμός γνωρισμάτων σχέσης |
-| **Πληθικότητα (Cardinality)** | Number of rows | Αριθμός πλειάδων σχέσης |
-| **Σχήμα Σχέσης (Relation Schema)** | Table Definition | Το όνομα + τα γνωρίσματα της σχέσης |
+| **Relation** | Table | A set of tuples with a common structure |
+| **Tuple** | Row / Record | A unique record in the relation |
+| **Attribute** | Column / Field | A property/characteristic of the relation |
+| **Domain** | Data Type + Constraint | Set of acceptable attribute values |
+| **Degree** | Number of columns | Number of attributes of a relation |
+| **Cardinality** | Number of rows | Number of tuples of a relation |
+| **Relation Schema** | Table Definition | The name + the attributes of the relation |
 
 ---
 
-## Περιορισμοί και Κλειδιά
+## Constraints and Keys
 *Constraints and Keys*
 
-Οι **Περιορισμοί (Constraints)** είναι κανόνες που εξασφαλίζουν την **ακεραιότητα (integrity)** και την **ορθότητα** των δεδομένων μιας βάσης δεδομένων. Τα **Κλειδιά (Keys)** αποτελούν ειδική κατηγορία περιορισμών που αφορούν στην αναγνώριση και σύνδεση πλειάδων. Χωρίς σωστά ορισμένα κλειδιά, η βάση δεδομένων δεν μπορεί να εγγυηθεί μοναδικότητα, αναφορική ακεραιότητα, ή ορθές συνενώσεις.
+**Constraints** are rules that ensure the **integrity** and **correctness** of the data of a database. **Keys** are a special category of constraints that concern the identification and linking of tuples. Without properly defined keys, the database cannot guarantee uniqueness, referential integrity, or correct joins.
 
 ---
 
-### Υποψήφια Κλειδιά (Candidate Keys)
+### Candidate Keys
 *Candidate Keys*
 
-Ένα **Υποψήφιο Κλειδί (Candidate Key)** είναι ένα **ελάχιστο σύνολο γνωρισμάτων** που μοναδικά αναγνωρίζει κάθε πλειάδα σε μια σχέση. Λέγεται "ελάχιστο" διότι η αφαίρεση οποιουδήποτε γνωρίσματος από αυτό το σύνολο καταστρέφει την ιδιότητα μοναδικότητας.
+A **Candidate Key** is a **minimal set of attributes** that uniquely identifies every tuple in a relation. It is called "minimal" because removing any attribute from this set destroys the uniqueness property.
 
-**Ιδιότητες Candidate Key**:
-- **Μοναδικότητα (Uniqueness)**: Δεν υπάρχουν δύο πλειάδες με τις ίδιες τιμές για το key.
-- **Ελαχιστότητα (Minimality)**: Κανένα γνώρισμα του key δεν είναι πλεονάζον.
+**Candidate Key properties**:
+- **Uniqueness**: There are no two tuples with the same values for the key.
+- **Minimality**: No attribute of the key is redundant.
 
-**Παράδειγμα**: Στη σχέση `STUDENTS(student_am, afm, last_name, email)`:
-- `student_am` είναι Candidate Key (μοναδικός Αριθμός Μητρώου).
-- `afm` είναι Candidate Key (μοναδικός ΑΦΜ).
-- `email` είναι Candidate Key (αν ορισθεί ως μοναδικό).
-- `last_name` **δεν είναι** Candidate Key (μπορεί να υπάρχουν ομώνυμοι φοιτητές).
+**Example**: In the relation `STUDENTS(student_am, afm, last_name, email)`:
+- `student_am` is a Candidate Key (unique Registration Number).
+- `afm` is a Candidate Key (unique tax ID).
+- `email` is a Candidate Key (if defined as unique).
+- `last_name` is **not** a Candidate Key (there may be students with the same name).
 
 ```text
   STUDENTS
   +------------+----------+-----------+--------------------+
   | student_am | afm      | last_name | email              |
   +------------+----------+-----------+--------------------+
-  | 10001      | 123456789| Παπάς     | papas@uni.gr       |
-  | 10002      | 987654321| Νίκος     | nikos@uni.gr       |
+  | 10001      | 123456789| Papas     | papas@uni.gr       |
+  | 10002      | 987654321| Nikos     | nikos@uni.gr       |
   +------------+----------+-----------+--------------------+
   
   Candidate Keys: {student_am}, {afm}, {email}
-  ΟΧΙ Candidate Key: {last_name}  -- Δεν είναι μοναδικό
+  NOT a Candidate Key: {last_name}  -- Not unique
 ```
 
-**Key Distinction:** Κάθε σχέση μπορεί να έχει **πολλαπλά Candidate Keys**. Από αυτά επιλέγεται **ένα** ως Primary Key. Τα υπόλοιπα ονομάζονται **Alternate Keys** και υλοποιούνται με `UNIQUE` constraint.
+**Key Distinction:** Every relation can have **multiple Candidate Keys**. From these, **one** is selected as the Primary Key. The rest are called **Alternate Keys** and are implemented with the `UNIQUE` constraint.
 
 ---
 
-### Πρωτεύον Κλειδί (Primary Key)
+### Primary Key
 *Primary Key*
 
-Το **Πρωτεύον Κλειδί (Primary Key — PK)** είναι το **επιλεγμένο Candidate Key** που ορίζεται ως ο κύριος αναγνωριστής κάθε πλειάδας σε μια σχέση. Η επιλογή γίνεται από τον σχεδιαστή της βάσης δεδομένων και ορίζεται ρητά στη DDL.
+The **Primary Key (PK)** is the **selected Candidate Key** defined as the main identifier of every tuple in a relation. The selection is made by the database designer and is explicitly defined in the DDL.
 
-**Κανόνες Primary Key**:
-- Τιμές PK πρέπει να είναι **μοναδικές** για κάθε πλειάδα.
-- Τιμές PK **δεν μπορούν να είναι NULL** (Κανόνας Ακεραιότητας Οντοτήτων).
-- Δεν πρέπει να αλλάζει τιμή με την πάροδο του χρόνου (stability).
+**Primary Key rules**:
+- PK values must be **unique** for every tuple.
+- PK values **cannot be NULL** (Entity Integrity rule).
+- The value must not change over time (stability).
 
-**Αναλογία**: Ο ΑΦΜ ενός πολίτη είναι Primary Key — μοναδικός, σταθερός, και δεν μπορεί να είναι κενός. Το ονοματεπώνυμο, αντίθετα, δεν είναι αξιόπιστο PK διότι μπορεί να αλλάξει (γάμος) ή να υπάρχουν ομώνυμοι.
+**Analogy**: The tax ID (AFM) of a citizen is a Primary Key — unique, stable, and cannot be empty. The full name, on the other hand, is not a reliable PK because it can change (marriage) or there may be people with the same name.
 
 ```sql
--- Απλό Primary Key
+-- Simple Primary Key
 CREATE TABLE departments (
-    dept_id   INT         PRIMARY KEY,          -- Ένα γνώρισμα
+    dept_id   INT         PRIMARY KEY,          -- One attribute
     dept_name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Σύνθετο Primary Key (Composite PK)
+-- Composite Primary Key
 CREATE TABLE enrollments (
     student_am  INT  NOT NULL,
     course_id   INT  NOT NULL,
     grade       DECIMAL(4, 2),
-    PRIMARY KEY (student_am, course_id)         -- Composite: δύο γνωρίσματα μαζί
+    PRIMARY KEY (student_am, course_id)         -- Composite: two attributes together
 );
 ```
 
-Στα σχήματα σχέσεων, το Primary Key υπογραμμίζεται:
+In relation schemas, the Primary Key is underlined:
 
 `Employee(<u>emp_id</u>, last_name, first_name, #dept_id)`
 
 ---
 
-### Ξένο Κλειδί (Foreign Key)
+### Foreign Key
 *Foreign Key*
 
-Το **Ξένο Κλειδί (Foreign Key — FK)** είναι ένα γνώρισμα (ή σύνολο γνωρισμάτων) μιας σχέσης που **αναφέρεται στο Primary Key άλλης (ή της ίδιας) σχέσης**, δημιουργώντας γέφυρα σύνδεσης μεταξύ των πινάκων.
+The **Foreign Key (FK)** is an attribute (or set of attributes) of a relation that **refers to the Primary Key of another (or the same) relation**, creating a connection bridge between tables.
 
-**Ιδιότητες Foreign Key**:
-- Κάθε τιμή FK πρέπει να **υπάρχει στη σχέση αναφοράς** ως τιμή PK, ή να είναι `NULL` (αν επιτρέπεται).
-- Καθορίζει τη **Αναφορική Ακεραιότητα (Referential Integrity)** της βάσης δεδομένων.
-- Μπορεί να αναφέρεται σε **οποιοδήποτε Candidate Key**, όχι μόνο στο PK (σπανιότερα).
+**Foreign Key properties**:
+- Every FK value must **exist in the referenced relation** as a PK value, or be `NULL` (if allowed).
+- Determines the **Referential Integrity** of the database.
+- Can refer to **any Candidate Key**, not only the PK (more rarely).
 
-**Αναλογία**: Ο κωδικός τμήματος (`dept_id`) σε έναν υπάλληλο λειτουργεί σαν δείκτης σε βιβλίο — δείχνει σε ένα συγκεκριμένο τμήμα που υπάρχει στον πίνακα `DEPARTMENTS`. Αν το τμήμα δεν υπάρχει, ο δείκτης είναι σπασμένος.
+**Analogy**: The department code (`dept_id`) of an employee acts like an index in a book — it points to a specific department that exists in the `DEPARTMENTS` table. If the department does not exist, the pointer is broken.
 
 ```text
   DEPARTMENTS                          EMPLOYEES
   +-------+---------+                 +--------+-----------+--------+
   | dept_id| dept_name|                | emp_id | last_name | dept_id|
   +-------+---------+                 +--------+-----------+--------+
-  |  10   | Λογιστήριο|        +------>|   1   | Παπάς     |  10    |
-  |  20   | ΙΤ      |         |       |   2   | Νίκος     |  20    |
-  +-------+---------+         |       |   3   | Αλέξης    |  10    |
-  ^Primary Key^               |       +--------+-----------+--------+
-                              |                              ^
-                              +------ Foreign Key ----------+
+  |  10   | Accounting|       +------>|   1   | Papas     |  10    |
+  |  20   | IT      |        |       |   2   | Nikos     |  20    |
+  +-------+---------+        |       |   3   | Alexis    |  10    |
+  ^Primary Key^              |       +--------+-----------+--------+
+                             |                              ^
+                             +------ Foreign Key ----------+
 ```
 
 ```sql
--- Ορισμός Foreign Key
+-- Defining a Foreign Key
 CREATE TABLE employees (
     emp_id    INT         PRIMARY KEY,
     last_name VARCHAR(50) NOT NULL,
     dept_id   INT         NOT NULL,
     FOREIGN KEY (dept_id) REFERENCES departments(dept_id)
-        ON DELETE RESTRICT       -- Αποτρέπει διαγραφή αν υπάρχουν εξαρτημένες εγγραφές
-        ON UPDATE CASCADE        -- Ενημερώνει αυτόματα το FK αν αλλάξει το PK
+        ON DELETE RESTRICT       -- Prevents deletion if dependent records exist
+        ON UPDATE CASCADE        -- Automatically updates the FK if the PK changes
 );
 ```
 
-Στα σχήματα σχέσεων, το Foreign Key σημειώνεται με `#`:
+In relation schemas, the Foreign Key is marked with `#`:
 
 `Employee(<u>emp_id</u>, last_name, first_name, #dept_id)`
 
 ---
 
-### Ακεραιότητα Οντοτήτων και Αναφορική Ακεραιότητα
+### Entity Integrity and Referential Integrity
 *Entity Integrity and Referential Integrity*
 
-Δύο θεμελιώδεις κανόνες ακεραιότητας του σχεσιακού μοντέλου διασφαλίζουν την αξιοπιστία των δεδομένων:
+Two fundamental integrity rules of the relational model ensure the reliability of the data:
 
-#### Ακεραιότητα Οντοτήτων (Entity Integrity)
+#### Entity Integrity
 
-**Κανόνας**: Κανένα γνώρισμα που αποτελεί μέρος του **Primary Key** δεν μπορεί να έχει τιμή `NULL`.
+**Rule**: No attribute that is part of the **Primary Key** can have a `NULL` value.
 
-- **Αιτιολόγηση**: Το PK είναι ο μοναδικός αναγνωριστής μιας πλειάδας. Αν είναι `NULL`, η πλειάδα δεν μπορεί να αναγνωριστεί, οπότε η ύπαρξή της δεν έχει νόημα.
-- **Παράδειγμα παραβίασης**: `INSERT INTO employees VALUES (NULL, 'Παπάς', 10)` — απαγορεύεται από κάθε DBMS.
-
-```sql
--- Η βάση δεδομένων απορρίπτει αυτόματα NULL τιμές σε PK
-INSERT INTO departments VALUES (NULL, 'Νέο Τμήμα');  -- ERROR: Column 'dept_id' cannot be null
-```
-
-#### Αναφορική Ακεραιότητα (Referential Integrity)
-
-**Κανόνας**: Κάθε τιμή ενός **Foreign Key** πρέπει να υπάρχει ως τιμή Primary Key στη σχέση αναφοράς, ή να είναι `NULL`.
-
-- **Αιτιολόγηση**: Ένα FK που δείχνει σε ανύπαρκτη εγγραφή δημιουργεί "ορφανή εγγραφή" (dangling reference), η οποία αλλοιώνει τα αποτελέσματα Joins.
-- **Παράδειγμα παραβίασης**: Προσθήκη υπαλλήλου με `dept_id = 99` ενώ το τμήμα 99 δεν υπάρχει.
+- **Rationale**: The PK is the unique identifier of a tuple. If it is `NULL`, the tuple cannot be identified, so its existence has no meaning.
+- **Violation example**: `INSERT INTO employees VALUES (NULL, 'Papas', 10)` — prohibited by every DBMS.
 
 ```sql
--- Παραβίαση Αναφορικής Ακεραιότητας
-INSERT INTO employees VALUES (5, 'Κώστας', 99);
--- ERROR: Foreign key constraint fails: dept_id=99 δεν υπάρχει στο DEPARTMENTS
+-- The DBMS automatically rejects NULL values in a PK
+INSERT INTO departments VALUES (NULL, 'New Department');  -- ERROR: Column 'dept_id' cannot be null
 ```
 
-**Exam Note:** Η **Ακεραιότητα Οντοτήτων** αφορά αποκλειστικά το **PK** (όχι NULL). Η **Αναφορική Ακεραιότητα** αφορά το **FK** (πρέπει να υπάρχει η αναφορά). Οι δύο κανόνες είναι ανεξάρτητοι μεταξύ τους.
+#### Referential Integrity
+
+**Rule**: Every value of a **Foreign Key** must exist as a Primary Key value in the referenced relation, or be `NULL`.
+
+- **Rationale**: An FK that points to a non-existent record creates an "orphan record" (dangling reference), which corrupts the results of Joins.
+- **Violation example**: Adding an employee with `dept_id = 99` while department 99 does not exist.
+
+```sql
+-- Referential Integrity Violation
+INSERT INTO employees VALUES (5, 'Kostas', 99);
+-- ERROR: Foreign key constraint fails: dept_id=99 does not exist in DEPARTMENTS
+```
+
+**Exam Note:** **Entity Integrity** concerns exclusively the **PK** (no NULL). **Referential Integrity** concerns the **FK** (the reference must exist). The two rules are independent of each other.
 
 ---
 
-### Συγκριτικός Πίνακας Κλειδιών
+### Comparative Table of Keys
 
-| Τύπος Κλειδιού | Ορισμός | Τιμή NULL; | Πολλαπλά; | SQL Υλοποίηση |
+| Key Type | Definition | NULL value? | Multiple? | SQL Implementation |
 |---|---|---|---|---|
-| **Candidate Key** | Ελάχιστο σύνολο γνωρισμάτων μοναδικότητας | Εξαρτάται | Ναι (πολλά ανά σχέση) | `UNIQUE NOT NULL` |
-| **Primary Key (PK)** | Το επιλεγμένο Candidate Key | Ποτέ | Όχι (ένα ανά σχέση) | `PRIMARY KEY` |
-| **Alternate Key** | Candidate Key που δεν επιλέχθηκε ως PK | Συνήθως όχι | Ναι | `UNIQUE` |
-| **Foreign Key (FK)** | Γνώρισμα που αναφέρεται σε PK άλλης σχέσης | Επιτρέπεται | Ναι (πολλά ανά σχέση) | `FOREIGN KEY ... REFERENCES` |
-| **Composite Key** | Κλειδί από συνδυασμό πολλών γνωρισμάτων | Τμηματικά όχι | Ναι | `PRIMARY KEY (col1, col2)` |
-| **Surrogate Key** | Τεχνητός αναγνωριστής (π.χ. auto-increment) | Ποτέ | Όχι | `INT AUTO_INCREMENT PRIMARY KEY` |
+| **Candidate Key** | Minimal set of uniqueness attributes | Depends | Yes (many per relation) | `UNIQUE NOT NULL` |
+| **Primary Key (PK)** | The selected Candidate Key | Never | No (one per relation) | `PRIMARY KEY` |
+| **Alternate Key** | Candidate Key not selected as PK | Usually not | Yes | `UNIQUE` |
+| **Foreign Key (FK)** | Attribute referring to the PK of another relation | Allowed | Yes (many per relation) | `FOREIGN KEY ... REFERENCES` |
+| **Composite Key** | Key from a combination of multiple attributes | Partially not | Yes | `PRIMARY KEY (col1, col2)` |
+| **Surrogate Key** | Artificial identifier (e.g. auto-increment) | Never | No | `INT AUTO_INCREMENT PRIMARY KEY` |
 
 ---
 
-## Πράξεις Σχεσιακής Άλγεβρας
+## Relational Algebra Operations
 *Relational Algebra Operations*
 
-Η **Σχεσιακή Άλγεβρα (Relational Algebra)** είναι ένα **τυπικό σύστημα πράξεων** που δέχεται ως είσοδο μία ή δύο σχέσεις και παράγει μια νέα σχέση ως έξοδο. Αποτελεί τη **θεωρητική βάση** για την επεξεργασία ερωτημάτων (Query Processing) — ο Βελτιστοποιητής Ερωτημάτων (Query Optimizer) κάθε DBMS μεταφράζει εσωτερικά τα SQL ερωτήματα σε εκφράσεις σχεσιακής άλγεβρας.
+**Relational Algebra** is a **formal system of operations** that takes one or two relations as input and produces a new relation as output. It constitutes the **theoretical basis** for Query Processing — the Query Optimizer of every DBMS internally translates SQL queries into relational algebra expressions.
 
-Οι πράξεις διακρίνονται σε τρεις κατηγορίες:
-1. **Πράξεις Θεωρίας Συνόλων**: Ένωση, Τομή, Διαφορά, Καρτεσιανό Γινόμενο.
-2. **Ειδικές Σχεσιακές Πράξεις**: Επιλογή, Προβολή.
-3. **Συνενώσεις (Joins)**: Εσωτερική Συνένωση και παραλλαγές.
+The operations are divided into three categories:
+1. **Set-Theoretic Operations**: Union, Intersection, Difference, Cartesian Product.
+2. **Specific Relational Operations**: Selection, Projection.
+3. **Joins**: Inner Join and its variants.
 
 ---
 
-### Πράξεις Θεωρίας Συνόλων
+### Set-Theoretic Operations
 *Set-Theoretic Operations*
 
-Αυτές οι πράξεις προέρχονται από τη θεωρία συνόλων. Η **Ένωση**, η **Τομή** και η **Διαφορά** απαιτούν **συμβατές σχέσεις (union-compatible)** — ίδιο αριθμό γνωρισμάτων με συμβατά domains.
+These operations originate from set theory. **Union**, **Intersection** and **Difference** require **union-compatible relations** — the same number of attributes with compatible domains.
 
-#### Ένωση (Union — $\cup$)
+#### Union ($\cup$)
 
-Η **Ένωση** δύο σχέσεων $R$ και $S$ παράγει μια νέα σχέση που περιέχει **όλες τις πλειάδες** που ανήκουν σε τουλάχιστον μία από τις δύο σχέσεις. Τα διπλότυπα αφαιρούνται αυτόματα.
+The **Union** of two relations $R$ and $S$ produces a new relation that contains **all the tuples** that belong to at least one of the two relations. Duplicates are removed automatically.
 
 $$R \cup S = \{t \mid t \in R \lor t \in S\}$$
 
-**Παράδειγμα**: Εύρεση όλων των υπαλλήλων που εργάζονται σε τμήμα 10 Ή σε τμήμα 20.
+**Example**: Finding all employees who work in department 10 OR in department 20.
 
 ```text
-  R (Τμήμα 10)          S (Τμήμα 20)          R ∪ S
+  R (Dept 10)            S (Dept 20)            R ∪ S
   +------+------+       +------+------+       +------+------+
   | id   | name |       | id   | name |       | id   | name |
   +------+------+       +------+------+       +------+------+
-  |  1   | Α    |       |  3   | Γ    |  -->  |  1   | Α    |
-  |  2   | Β    |       |  1   | Α    |       |  2   | Β    |  <- Διπλότυπο αφαιρείται
-  +------+------+       +------+------+       |  3   | Γ    |
+  |  1   | A    |       |  3   | C    |  -->  |  1   | A    |
+  |  2   | B    |       |  1   | A    |       |  2   | B    |  <- Duplicate removed
+  +------+------+       +------+------+       |  3   | C    |
                                               +------+------+
 ```
 
 ```sql
--- SQL υλοποίηση Ένωσης (αφαιρεί διπλότυπα)
+-- SQL implementation of Union (removes duplicates)
 SELECT emp_id, last_name FROM dept_10_employees
 UNION
 SELECT emp_id, last_name FROM dept_20_employees;
 
--- UNION ALL: διατηρεί διπλότυπα (πιο γρήγορο αν δεν χρειάζεται dedup)
+-- UNION ALL: keeps duplicates (faster if dedup is not needed)
 SELECT emp_id, last_name FROM dept_10_employees
 UNION ALL
 SELECT emp_id, last_name FROM dept_20_employees;
 ```
 
-#### Τομή (Intersection — $\cap$)
+#### Intersection ($\cap$)
 
-Η **Τομή** δύο σχέσεων $R$ και $S$ παράγει μια νέα σχέση που περιέχει **μόνο τις πλειάδες** που ανήκουν **και στις δύο** σχέσεις ταυτόχρονα.
+The **Intersection** of two relations $R$ and $S$ produces a new relation that contains **only the tuples** that belong to **both** relations simultaneously.
 
 $$R \cap S = \{t \mid t \in R \land t \in S\}$$
 
-**Παράδειγμα**: Εύρεση υπαλλήλων που εργάζονται ταυτόχρονα σε project Α ΚΑΙ σε project Β.
+**Example**: Finding employees who work simultaneously in project A AND in project B.
 
 ```text
   R (Project A)         S (Project B)         R ∩ S
   +------+------+       +------+------+       +------+------+
-  |  1   | Α    |       |  2   | Β    |  -->  |  2   | Β    |  <- Κοινή πλειάδα
-  |  2   | Β    |       |  2   | Β    |       +------+------+
-  |  3   | Γ    |       |  4   | Δ    |
+  |  1   | A    |       |  2   | B    |  -->  |  2   | B    |  <- Common tuple
+  |  2   | B    |       |  2   | B    |       +------+------+
+  |  3   | C    |       |  4   | D    |
   +------+------+       +------+------+
 ```
 
 ```sql
--- SQL υλοποίηση Τομής
+-- SQL implementation of Intersection
 SELECT emp_id, last_name FROM project_a_employees
 INTERSECT
 SELECT emp_id, last_name FROM project_b_employees;
 ```
 
-#### Διαφορά (Difference — $-$)
+#### Difference ($-$)
 
-Η **Διαφορά** $R - S$ παράγει μια νέα σχέση με τις πλειάδες που **ανήκουν στο $R$ αλλά ΟΧΙ στο $S$**. Η πράξη δεν είναι αντικατασταθέσιμη — $R - S \neq S - R$.
+The **Difference** $R - S$ produces a new relation with the tuples that **belong to $R$ but NOT to $S$**. The operation is not commutative — $R - S \neq S - R$.
 
 $$R - S = \{t \mid t \in R \land t \notin S\}$$
 
-**Παράδειγμα**: Εύρεση φοιτητών που έχουν εγγραφεί στο μάθημα Α αλλά ΟΧΙ στο μάθημα Β.
+**Example**: Finding students who enrolled in course A but NOT in course B.
 
 ```text
-  R (Μάθημα Α)          S (Μάθημα Β)          R - S
+  R (Course A)          S (Course B)          R - S
   +------+------+       +------+------+       +------+------+
-  |  1   | Α    |       |  2   | Β    |  -->  |  1   | Α    |
-  |  2   | Β    |       |  4   | Δ    |       |  3   | Γ    |
-  |  3   | Γ    |       +------+------+       +------+------+
+  |  1   | A    |       |  2   | B    |  -->  |  1   | A    |
+  |  2   | B    |       |  4   | D    |       |  3   | C    |
+  |  3   | C    |       +------+------+       +------+------+
   +------+------+
 ```
 
 ```sql
--- SQL υλοποίηση Διαφοράς
+-- SQL implementation of Difference
 SELECT student_am, last_name FROM course_a_students
 EXCEPT
 SELECT student_am, last_name FROM course_b_students;
 
--- Εναλλακτική με NOT IN (ευρύτερη υποστήριξη σε MySQL)
+-- Alternative with NOT IN (broader support in MySQL)
 SELECT student_am, last_name
 FROM   course_a_students
 WHERE  student_am NOT IN (SELECT student_am FROM course_b_students);
 ```
 
-#### Καρτεσιανό Γινόμενο (Cartesian Product — $\times$)
+#### Cartesian Product ($\times$)
 
-Το **Καρτεσιανό Γινόμενο** $R \times S$ παράγει μια νέα σχέση που περιέχει **κάθε δυνατό συνδυασμό** μιας πλειάδας από το $R$ με μια πλειάδα από το $S$.
+The **Cartesian Product** $R \times S$ produces a new relation that contains **every possible combination** of a tuple from $R$ with a tuple from $S$.
 
 $$R \times S = \{(r, s) \mid r \in R \land s \in S\}$$
 
-**Μέγεθος αποτελέσματος**: Αν $|R| = m$ και $|S| = n$, τότε $|R \times S| = m \times n$ πλειάδες.
+**Size of the result**: If $|R| = m$ and $|S| = n$, then $|R \times S| = m \times n$ tuples.
 
-**Exam Note:** Το Καρτεσιανό Γινόμενο **σπάνια χρησιμοποιείται μόνο του** — παράγει πλεονάζοντες συνδυασμούς χωρίς νόημα. Γίνεται χρήσιμο όταν συνδυαστεί με Επιλογή ($\sigma$) για να σχηματιστεί ένα **Join**. Στην SQL, το `FROM R, S` χωρίς `WHERE` παράγει Καρτεσιανό Γινόμενο.
+**Exam Note:** The Cartesian Product is **rarely used on its own** — it produces redundant, meaningless combinations. It becomes useful when combined with Selection ($\sigma$) to form a **Join**. In SQL, `FROM R, S` without `WHERE` produces a Cartesian Product.
 
 ```text
-  R (2 πλειάδες)        S (3 πλειάδες)        R × S (2×3 = 6 πλειάδες)
+  R (2 tuples)           S (3 tuples)           R × S (2×3 = 6 tuples)
   +----+----+          +----+----+            +----+----+----+----+
   | A  | B  |          | C  | D  |            | A  | B  | C  | D  |
   +----+----+          +----+----+            +----+----+----+----+
@@ -1869,116 +1858,116 @@ $$R \times S = \{(r, s) \mid r \in R \land s \in S\}$$
 ```
 
 ```sql
--- SQL υλοποίηση Καρτεσιανού Γινομένου (αποφεύγεται στην πράξη)
-SELECT * FROM employees, departments;           -- Παλιά σύνταξη
-SELECT * FROM employees CROSS JOIN departments; -- Σύγχρονη σύνταξη
+-- SQL implementation of Cartesian Product (avoided in practice)
+SELECT * FROM employees, departments;           -- Old syntax
+SELECT * FROM employees CROSS JOIN departments; -- Modern syntax
 ```
 
 ---
 
-### Ειδικές Σχεσιακές Πράξεις
+### Specific Relational Operations
 *Specific Relational Operations*
 
-Αυτές οι πράξεις ορίζονται στη βάση του σχεσιακού μοντέλου και δεν έχουν άμεσο αντίστοιχο στη θεωρία συνόλων.
+These operations are defined on the basis of the relational model and have no direct counterpart in set theory.
 
-#### Επιλογή (Selection — $\sigma$)
+#### Selection ($\sigma$)
 
-Η **Επιλογή** είναι μια **οριζόντια** λειτουργία που επιστρέφει τις πλειάδες μιας σχέσης που **ικανοποιούν κάποια συνθήκη** (predicate). Δεν αλλάζει τις στήλες — επιλέγει γραμμές.
+**Selection** is a **horizontal** operation that returns the tuples of a relation that **satisfy some condition** (predicate). It does not change the columns — it selects rows.
 
 $$\sigma_{\text{predicate}}(R)$$
 
-**Παραδείγματα**:
+**Examples**:
 
 $$\sigma_{\text{dept\_id} = 10}(\text{EMPLOYEES})$$
 
 $$\sigma_{\text{grade} \geq 5.0 \land \text{grade} \leq 10.0}(\text{ENROLLMENTS})$$
 
 ```text
-  EMPLOYEES (αρχική)                 σ_{dept_id=10}(EMPLOYEES)
+  EMPLOYEES (initial)          $\sigma$_{dept_id=10}(EMPLOYEES)
   +------+----------+--------+       +------+----------+--------+
   | id   | name     |dept_id |  -->  | id   | name     |dept_id |
   +------+----------+--------+       +------+----------+--------+
-  |  1   | Παπάς    |  10    |       |  1   | Παπάς    |  10    |
-  |  2   | Νίκος    |  20    |       |  3   | Αλέξης   |  10    |
-  |  3   | Αλέξης   |  10    |       +------+----------+--------+
+  |  1   | Papas    |  10    |       |  1   | Papas    |  10    |
+  |  2   | Nikos    |  20    |       |  3   | Alexis   |  10    |
+  |  3   | Alexis   |  10    |       +------+----------+--------+
   +------+----------+--------+
 ```
 
 ```sql
--- SQL υλοποίηση Επιλογής: η WHERE ρήτρα
+-- SQL implementation of Selection: the WHERE clause
 SELECT * FROM employees WHERE dept_id = 10;
 
--- Σύνθετη συνθήκη επιλογής
+-- Composite selection condition
 SELECT * FROM enrollments WHERE grade >= 5.0 AND grade <= 10.0;
 ```
 
-**Αντιστοιχία Σχεσιακής Άλγεβρας — SQL**:
+**Relational Algebra — SQL correspondence**:
 
-| Σχεσιακή Άλγεβρα | SQL |
+| Relational Algebra | SQL |
 |---|---|
 | $\sigma_{\text{condition}}(R)$ | `SELECT * FROM R WHERE condition` |
 
-#### Προβολή (Projection — $\pi$)
+#### Projection ($\pi$)
 
-Η **Προβολή** είναι μια **κατακόρυφη** λειτουργία που επιστρέφει **συγκεκριμένες στήλες** (γνωρίσματα) μιας σχέσης, αφαιρώντας τις υπόλοιπες. Αφαιρεί επίσης διπλότυπες πλειάδες που μπορεί να προκύψουν.
+**Projection** is a **vertical** operation that returns **specific columns** (attributes) of a relation, removing the rest. It also removes duplicate tuples that may arise.
 
 $$\pi_{\text{attr\_list}}(R)$$
 
-**Παράδειγμα**: Προβολή μόνο ονομάτων και τμημάτων από `EMPLOYEES`:
+**Example**: Projecting only names and departments from `EMPLOYEES`:
 
 $$\pi_{\text{last\_name, dept\_id}}(\text{EMPLOYEES})$$
 
 ```text
-  EMPLOYEES (αρχική)                 π_{last_name, dept_id}(EMPLOYEES)
+  EMPLOYEES (initial)          $\pi$_{last_name, dept_id}(EMPLOYEES)
   +------+----------+--------+       +----------+--------+
   | id   | name     |dept_id |  -->  | name     |dept_id |
   +------+----------+--------+       +----------+--------+
-  |  1   | Παπάς    |  10    |       | Παπάς    |  10    |
-  |  2   | Νίκος    |  20    |       | Νίκος    |  20    |
-  |  3   | Αλέξης   |  10    |       | Αλέξης   |  10    |
+  |  1   | Papas    |  10    |       | Papas    |  10    |
+  |  2   | Nikos    |  20    |       | Nikos    |  20    |
+  |  3   | Alexis   |  10    |       | Alexis   |  10    |
   +------+----------+--------+       +----------+--------+
 ```
 
 ```sql
--- SQL υλοποίηση Προβολής: ορισμός στηλών στο SELECT
+-- SQL implementation of Projection: specifying columns in SELECT
 SELECT last_name, dept_id FROM employees;
 
--- Με διαφορετικό όνομα (alias)
+-- With a different name (alias)
 SELECT last_name AS surname, dept_id AS department FROM employees;
 ```
 
-**Σύνδυασμός Επιλογής και Προβολής**:
+**Combination of Selection and Projection**:
 
 $$\pi_{\text{last\_name}}(\sigma_{\text{dept\_id}=10}(\text{EMPLOYEES}))$$
 
 ```sql
--- Συνδυασμός Projection + Selection
+-- Combination of Projection + Selection
 SELECT last_name FROM employees WHERE dept_id = 10;
 ```
 
-**Αντιστοιχία Σχεσιακής Άλγεβρας — SQL**:
+**Relational Algebra — SQL correspondence**:
 
-| Σχεσιακή Άλγεβρα | SQL |
+| Relational Algebra | SQL |
 |---|---|
 | $\pi_{\text{col1, col2}}(R)$ | `SELECT col1, col2 FROM R` |
 | $\pi_{\text{cols}}(\sigma_{\text{cond}}(R))$ | `SELECT cols FROM R WHERE cond` |
 
 ---
 
-### Συνενώσεις (Joins)
+### Join Operations
 *Join Operations*
 
-Η **Συνένωση (Join)** είναι η πιο σημαντική πράξη της σχεσιακής άλγεβρας για πρακτικές εφαρμογές — επιτρέπει τον **συνδυασμό δεδομένων** από δύο ή περισσότερες σχέσεις βάσει μιας συνθήκης σύνδεσης.
+The **Join** is the most important relational algebra operation for practical applications — it allows the **combination of data** from two or more relations based on a join condition.
 
-#### Εσωτερική Συνένωση (Inner Join — $\bowtie$)
+#### Inner Join ($\bowtie$)
 
-Η **Εσωτερική Συνένωση (Inner Join)** επιστρέφει **μόνο τις πλειάδες** που έχουν **ταιριαστές τιμές** και στις δύο σχέσεις. Πλειάδες χωρίς αντιστοιχία αποκλείονται από το αποτέλεσμα.
+The **Inner Join** returns **only the tuples** that have **matching values** in both relations. Tuples without a match are excluded from the result.
 
-**Τυπικός ορισμός** (ως ειδική περίπτωση Καρτεσιανού Γινομένου + Επιλογής):
+**Formal definition** (as a special case of Cartesian Product + Selection):
 
 $$R \bowtie_{\theta} S = \sigma_{\theta}(R \times S)$$
 
-**Παράδειγμα**: Εύρεση ονόματος υπαλλήλου και του τμήματός του:
+**Example**: Finding an employee's name and their department:
 
 $$\text{EMPLOYEES} \bowtie_{\text{EMPLOYEES.dept\_id = DEPARTMENTS.dept\_id}} \text{DEPARTMENTS}$$
 
@@ -1987,9 +1976,9 @@ $$\text{EMPLOYEES} \bowtie_{\text{EMPLOYEES.dept\_id = DEPARTMENTS.dept\_id}} \t
   +------+----------+--------+       +--------+-----------+
   | id   | name     |dept_id |       |dept_id | dept_name |
   +------+----------+--------+       +--------+-----------+
-  |  1   | Παπάς    |  10    |       |   10   | Λογιστήριο|
-  |  2   | Νίκος    |  20    |       |   20   | ΙΤ        |
-  |  3   | Αλέξης   |  10    |       |   30   | Νομικό    |
+  |  1   | Papas    |  10    |       |   10   | Accounting|
+  |  2   | Nikos    |  20    |       |   20   | IT        |
+  |  3   | Alexis   |  10    |       |   30   | Legal     |
   +------+----------+--------+       +--------+-----------+
   
   EMPLOYEES INNER JOIN DEPARTMENTS ON EMPLOYEES.dept_id = DEPARTMENTS.dept_id:
@@ -1997,38 +1986,38 @@ $$\text{EMPLOYEES} \bowtie_{\text{EMPLOYEES.dept\_id = DEPARTMENTS.dept\_id}} \t
   +------+----------+--------+--------+-----------+
   | id   | name     |dept_id |dept_id | dept_name |
   +------+----------+--------+--------+-----------+
-  |  1   | Παπάς    |  10    |   10   | Λογιστήριο|   <- Ταίριασε
-  |  2   | Νίκος    |  20    |   20   | ΙΤ        |   <- Ταίριασε
-  |  3   | Αλέξης   |  10    |   10   | Λογιστήριο|   <- Ταίριασε
+  |  1   | Papas    |  10    |   10   | Accounting|   <- Matched
+  |  2   | Nikos    |  20    |   20   | IT        |   <- Matched
+  |  3   | Alexis   |  10    |   10   | Accounting|   <- Matched
   +------+----------+--------+--------+-----------+
-  Το τμήμα "Νομικό" (dept_id=30) δεν εμφανίζεται — κανείς υπάλληλος δεν ανήκει σε αυτό.
+  The department "Legal" (dept_id=30) does not appear — no employee belongs to it.
 ```
 
 ```sql
--- SQL υλοποίηση Inner Join (σύγχρονη σύνταξη)
+-- SQL implementation of Inner Join (modern syntax)
 SELECT e.emp_id,
        e.last_name,
        d.dept_name
 FROM   employees  AS e
 INNER JOIN departments AS d ON e.dept_id = d.dept_id;
 
--- Εναλλακτική παλιά σύνταξη (αποθαρρύνεται)
+-- Alternative old syntax (discouraged)
 SELECT e.emp_id, e.last_name, d.dept_name
 FROM   employees e, departments d
 WHERE  e.dept_id = d.dept_id;
 ```
 
-**Αντιστοιχία Σχεσιακής Άλγεβρας — SQL**:
+**Relational Algebra — SQL correspondence**:
 
-| Σχεσιακή Άλγεβρα | SQL |
+| Relational Algebra | SQL |
 |---|---|
-| $R \bowtie_{\theta} S$ | `SELECT ... FROM R INNER JOIN S ON θ` |
+| $R \bowtie_{\theta} S$ | `SELECT ... FROM R INNER JOIN S ON $\theta$` |
 
-**Key Distinction:** Το Inner Join επιστρέφει **μόνο** πλειάδες με αντιστοιχία και στις δύο πλευρές. Για πλειάδες χωρίς αντιστοιχία (π.χ. τμήμα χωρίς υπαλλήλους, ή υπάλληλος χωρίς τμήμα), απαιτούνται τα **Outer Joins** (`LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER JOIN`) — έννοιες που επεκτείνουν το βασικό σχεσιακό μοντέλο.
+**Key Distinction:** The Inner Join returns **only** tuples with a match on both sides. For tuples without a match (e.g. a department without employees, or an employee without a department), the **Outer Joins** (`LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER JOIN`) are required — concepts that extend the basic relational model.
 
 ```sql
--- LEFT OUTER JOIN: Επιστρέφει ΌΛΟΥΣ τους υπαλλήλους,
--- ακόμα κι αν δεν έχουν αντίστοιχο τμήμα
+-- LEFT OUTER JOIN: Returns ALL employees,
+-- even if they do not have a corresponding department
 SELECT e.emp_id,
        e.last_name,
        d.dept_name
@@ -2036,112 +2025,112 @@ FROM   employees  AS e
 LEFT JOIN departments AS d ON e.dept_id = d.dept_id;
 ```
 
-**Συνδυασμός πολλαπλών πράξεων** — Παράδειγμα σύνθετου ερωτήματος:
+**Combination of multiple operations** — Example of a complex query:
 
-Εύρεση ονομάτων υπαλλήλων του τμήματος "ΙΤ" με μισθό άνω των 2000:
+Finding the names of employees of the "IT" department with a salary above 2000:
 
-$$\pi_{\text{last\_name, first\_name}}(\sigma_{\text{dept\_name='ΙΤ'} \land \text{salary}>2000}(\text{EMPLOYEES} \bowtie \text{DEPARTMENTS}))$$
+$$\pi_{\text{last\_name, first\_name}}(\sigma_{\text{dept\_name='IT'} \land \text{salary}>2000}(\text{EMPLOYEES} \bowtie \text{DEPARTMENTS}))$$
 
 ```sql
 SELECT   e.last_name,
          e.first_name
 FROM     employees    AS e
 INNER JOIN departments AS d ON e.dept_id = d.dept_id
-WHERE    d.dept_name = 'ΙΤ'
+WHERE    d.dept_name = 'IT'
   AND    e.salary    > 2000;
 ```
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **Σχέση (Relation)** | Ονομαζόμενο σύνολο πλειάδων κοινής δομής | Αντιστοιχεί στον SQL Table — χωρίς διπλότυπα |
-| **Πλειάδα (Tuple)** | Μία μοναδική εγγραφή σε σχέση | Αντιστοιχεί στο SQL Row — αναλλοίωτη σειρά |
-| **Γνώρισμα (Attribute)** | Ιδιότητα/χαρακτηριστικό σχέσης | Αντιστοιχεί στο SQL Column — ατομική τιμή |
-| **Domain** | Σύνολο επιτρεπτών τιμών γνωρίσματος | Υλοποιείται με data type + CHECK constraint |
-| **Candidate Key** | Ελάχιστο σύνολο μοναδικής ταυτοποίησης | Πολλά ανά σχέση — ένα γίνεται PK |
-| **Primary Key (PK)** | Το επιλεγμένο Candidate Key | Ποτέ NULL — μοναδικός αναγνωριστής πλειάδας |
-| **Foreign Key (FK)** | Γνώρισμα που αναφέρεται σε PK άλλης σχέσης | Γέφυρα σύνδεσης πινάκων — αναφορική ακεραιότητα |
-| **Ακεραιότητα Οντοτήτων** | PK ποτέ NULL | Θεμελιώδης κανόνας ακεραιότητας σχεσιακού μοντέλου |
-| **Αναφορική Ακεραιότητα** | FK πρέπει να αναφέρεται σε υπαρκτό PK | Αποτρέπει "ορφανές εγγραφές" |
-| **Ένωση ($\cup$)** | Όλες οι πλειάδες R ή S (union-compatible) | Αφαιρεί διπλότυπα — `UNION` στην SQL |
-| **Τομή ($\cap$)** | Μόνο κοινές πλειάδες R και S | `INTERSECT` στην SQL |
-| **Διαφορά ($-$)** | Πλειάδες R που δεν υπάρχουν στο S | Μη αντικατασταθέσιμη — `EXCEPT` στην SQL |
-| **Καρτεσιανό Γινόμενο ($\times$)** | Κάθε συνδυασμός πλειάδων R και S | $\|R\| \times \|S\|$ πλειάδες — `CROSS JOIN` |
-| **Επιλογή ($\sigma$)** | Οριζόντια φιλτράρισμα πλειάδων | Αντιστοιχεί στο `WHERE` της SQL |
-| **Προβολή ($\pi$)** | Κατακόρυφη επιλογή γνωρισμάτων | Αντιστοιχεί στο `SELECT col1, col2` |
-| **Inner Join ($\bowtie$)** | Συνένωση πλειάδων με κοινές τιμές | Αποκλείει πλειάδες χωρίς αντιστοιχία |
+| **Relation** | Named set of tuples with a common structure | Corresponds to the SQL Table — no duplicates |
+| **Tuple** | A unique record in a relation | Corresponds to the SQL Row — order is not significant |
+| **Attribute** | Property/characteristic of a relation | Corresponds to the SQL Column — atomic value |
+| **Domain** | Set of permitted attribute values | Implemented with data type + CHECK constraint |
+| **Candidate Key** | Minimal set for unique identification | Many per relation — one becomes PK |
+| **Primary Key (PK)** | The selected Candidate Key | Never NULL — unique identifier of a tuple |
+| **Foreign Key (FK)** | Attribute referring to the PK of another relation | Bridge linking tables — referential integrity |
+| **Entity Integrity** | PK never NULL | Fundamental integrity rule of the relational model |
+| **Referential Integrity** | FK must refer to an existing PK | Prevents "orphan records" |
+| **Union ($\cup$)** | All tuples of R or S (union-compatible) | Removes duplicates — `UNION` in SQL |
+| **Intersection ($\cap$)** | Only tuples common to R and S | `INTERSECT` in SQL |
+| **Difference ($-$)** | Tuples of R not present in S | Not commutative — `EXCEPT` in SQL |
+| **Cartesian Product ($\times$)** | Every combination of tuples of R and S | $\|R\| \times \|S\|$ tuples — `CROSS JOIN` |
+| **Selection ($\sigma$)** | Horizontal filtering of tuples | Corresponds to the `WHERE` of SQL |
+| **Projection ($\pi$)** | Vertical selection of attributes | Corresponds to `SELECT col1, col2` |
+| **Inner Join ($\bowtie$)** | Joining tuples with common values | Excludes tuples without a match |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Το **Σχεσιακό Μοντέλο** οργανώνει τα δεδομένα σε σχέσεις (πίνακες) αποτελούμενες από πλειάδες (γραμμές) και γνωρίσματα (στήλες) — κάθε τιμή πρέπει να ανήκει στο Domain του γνωρίσματός της.
-- **Key Distinction:** Σχέση = μαθηματικό σύνολο (χωρίς σειρά, χωρίς διπλότυπα). Table = SQL υλοποίηση (δέχεται διπλότυπα αν δεν υπάρχει PK/UNIQUE).
-- Κάθε σχέση μπορεί να έχει **πολλαπλά Candidate Keys** — ένα επιλέγεται ως **Primary Key** (ποτέ NULL). Τα υπόλοιπα γίνονται **Alternate Keys** με `UNIQUE`.
-- Η **Ακεραιότητα Οντοτήτων** απαγορεύει NULL τιμές στο PK. Η **Αναφορική Ακεραιότητα** εξασφαλίζει ότι κάθε FK αναφέρεται σε υπαρκτό PK.
-- Η **Σχεσιακή Άλγεβρα** είναι η θεωρητική βάση της SQL — κάθε SQL ερώτημα μεταφράζεται εσωτερικά σε εκφράσεις σχεσιακής άλγεβρας από τον Query Optimizer.
-- Οι **Πράξεις Θεωρίας Συνόλων** (Ένωση, Τομή, Διαφορά) απαιτούν **union-compatible σχέσεις** — ίδιος αριθμός γνωρισμάτων με συμβατά domains.
-- Το **Καρτεσιανό Γινόμενο** $R \times S$ παράγει $|R| \times |S|$ πλειάδες — σπάνια χρήσιμο μόνο του, είναι η βάση για την κατανόηση του Join.
-- Η **Επιλογή ($\sigma$)** φιλτράρει **γραμμές** (οριζόντια), η **Προβολή ($\pi$)** φιλτράρει **στήλες** (κατακόρυφα). Ο συνδυασμός τους αντιστοιχεί στο `SELECT col FROM table WHERE cond` της SQL.
-- **Exam Note:** Το **Inner Join** επιστρέφει μόνο πλειάδες με αντιστοιχία και στις δύο σχέσεις. Πλειάδες χωρίς αντιστοιχία (π.χ. τμήμα χωρίς υπαλλήλους) αποκλείονται — για αυτές απαιτούνται τα Outer Joins.
-- Η **σωστή χρήση κλειδιών** (PK, FK, Candidate Keys) και η τήρηση των κανόνων ακεραιότητας είναι η βάση για μια αξιόπιστη, συνεπή βάση δεδομένων χωρίς ορφανές ή αντιφατικές εγγραφές.
+- The **Relational Model** organizes data into relations (tables) consisting of tuples (rows) and attributes (columns) — every value must belong to the Domain of its attribute.
+- **Key Distinction:** Relation = mathematical set (no order, no duplicates). Table = SQL implementation (accepts duplicates if no PK/UNIQUE exists).
+- Every relation can have **multiple Candidate Keys** — one is selected as the **Primary Key** (never NULL). The rest become **Alternate Keys** with `UNIQUE`.
+- **Entity Integrity** prohibits NULL values in the PK. **Referential Integrity** ensures that every FK refers to an existing PK.
+- **Relational Algebra** is the theoretical basis of SQL — every SQL query is internally translated into relational algebra expressions by the Query Optimizer.
+- **Set-Theoretic Operations** (Union, Intersection, Difference) require **union-compatible relations** — the same number of attributes with compatible domains.
+- The **Cartesian Product** $R \times S$ produces $|R| \times |S|$ tuples — rarely useful on its own, it is the basis for understanding the Join.
+- **Selection ($\sigma$)** filters **rows** (horizontally), **Projection ($\pi$)** filters **columns** (vertically). Their combination corresponds to `SELECT col FROM table WHERE cond` in SQL.
+- **Exam Note:** The **Inner Join** returns only tuples with a match in both relations. Tuples without a match (e.g. a department without employees) are excluded — the Outer Joins are required for them.
+- The **correct use of keys** (PK, FK, Candidate Keys) and adherence to the integrity rules is the basis for a reliable, consistent database without orphaned or contradictory records.
 
 ---
 # topic_5_sql_data_definition_language_ddl.md
 ---
 
-# Γλώσσα SQL: Ορισμός Δεδομένων (DDL — Data Definition Language)
+# SQL Language: Data Definition (DDL — Data Definition Language)
 *SQL Language: Data Definition Language*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Διαχείριση Βάσεων Δεδομένων](#διαχείριση-βάσεων-δεδομένων)
+1. [Introduction](#introduction)
+2. [Database Management](#database-management)
    - [CREATE DATABASE / SCHEMA](#create-database--schema)
    - [DROP DATABASE](#drop-database)
    - [USE](#use)
    - [SHOW DATABASES](#show-databases)
-3. [Διαχείριση Πινάκων (Δομή/Σχήμα)](#διαχείριση-πινάκων-δομήσχήμα)
+3. [Table Management (Structure/Schema)](#table-management-structureschema)
    - [CREATE TABLE](#create-table)
    - [DROP TABLE](#drop-table)
    - [DESCRIBE / EXPLAIN](#describe--explain)
-4. [Τροποποίηση Σχήματος Πίνακα (ALTER TABLE)](#τροποποίηση-σχήματος-πίνακα-alter-table)
+4. [Modifying the Table Schema (ALTER TABLE)](#modifying-the-table-schema-alter-table)
    - [ADD](#add)
    - [MODIFY](#modify)
    - [CHANGE](#change)
    - [DROP COLUMN](#drop-column)
-5. [Συγκριτικός Πίνακας: Εντολές DDL](#συγκριτικός-πίνακας-εντολές-ddl)
-6. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-7. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+5. [Comparative Table: DDL Commands](#comparative-table-ddl-commands)
+6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+7. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Η **Data Definition Language (DDL)** είναι το υποσύνολο της γλώσσας SQL που χρησιμοποιείται αποκλειστικά για τον **ορισμό, τη δημιουργία, τη μετατροπή και την καταστροφή** των δομών μιας βάσης δεδομένων — δηλαδή των βάσεων (databases/schemas) και των πινάκων (tables). Σε αντίθεση με την DML (Data Manipulation Language) που χειρίζεται τα **δεδομένα** μέσα στους πίνακες, η DDL ορίζει το **σχήμα** (schema) — τον σκελετό πάνω στον οποίο θα αποθηκευτούν τα δεδομένα. Η εκτέλεση κάθε DDL εντολής συνεπάγεται αυτόματη δέσμευση (implicit `COMMIT`) στο MySQL, πράγμα που σημαίνει ότι οι αλλαγές δομής είναι **μόνιμες και μη αναστρέψιμες** χωρίς αντίγραφα ασφαλείας. Η κατανόηση της DDL είναι θεμελιώδης, καθώς συνδέει τη λογική σχεδίαση (Βήμα 3 του κύκλου ζωής) με την πραγματική υλοποίηση στο DBMS.
+**Data Definition Language (DDL)** is the subset of the SQL language used exclusively for the **definition, creation, alteration, and destruction** of a database's structures — namely the databases (databases/schemas) and the tables. In contrast to DML (Data Manipulation Language), which handles the **data** inside tables, DDL defines the **schema** — the skeleton on which the data will be stored. Executing any DDL statement entails an automatic commit (implicit `COMMIT`) in MySQL, which means that structural changes are **permanent and irreversible** without backups. Understanding DDL is fundamental, as it links logical design (Step 3 of the lifecycle) with the actual implementation in the DBMS.
 
 ---
 
-## Διαχείριση Βάσεων Δεδομένων
+## Database Management
 *Database Management*
 
-Πριν από τη δημιουργία οποιουδήποτε πίνακα, απαιτείται η ύπαρξη μιας **βάσης δεδομένων** (database ή schema) που θα τον περιέχει. Η βάση δεδομένων λειτουργεί ως **χώρος ονομάτων** (namespace) — απομονώνει τους πίνακες και τα αντικείμενα ενός έργου από άλλα έργα που εκτελούνται στον ίδιο MySQL Server.
+Before creating any table, a **database** (database or schema) that will contain it must exist. The database acts as a **namespace** — it isolates the tables and objects of one project from other projects running on the same MySQL Server.
 
-**Αναλογία**: Η βάση δεδομένων είναι σαν ένα **φάκελο αρχείων** σε έναν υπολογιστή — ο MySQL Server είναι ο σκληρός δίσκος, κάθε βάση είναι ένας ξεχωριστός φάκελος, και οι πίνακες είναι τα έγγραφα μέσα στον φάκελο.
+**Analogy**: The database is like a **file folder** on a computer — the MySQL Server is the hard disk, each database is a separate folder, and the tables are the documents inside the folder.
 
 ```text
   MySQL Server
   |
-  +-- university_db/          <-- Βάση Δεδομένων (DATABASE)
-  |   +-- Foititis             <-- Πίνακας (TABLE)
+  +-- university_db/          <-- Database (DATABASE)
+  |   +-- Foititis             <-- Table (TABLE)
   |   +-- Mathima
   |   +-- Tmima
   |
@@ -2154,21 +2143,21 @@ WHERE    d.dept_name = 'ΙΤ'
 ---
 
 ### CREATE DATABASE / SCHEMA
-*Δημιουργία Νέας Βάσης Δεδομένων*
+*Creating a New Database*
 
-Η εντολή `CREATE DATABASE` (ή συνώνυμα `CREATE SCHEMA`) δημιουργεί μια **νέα, κενή βάση δεδομένων** στον MySQL Server. Μετά τη δημιουργία, η βάση δεν περιέχει κανέναν πίνακα.
+The `CREATE DATABASE` statement (or its synonym `CREATE SCHEMA`) creates a **new, empty database** on the MySQL Server. After creation, the database contains no tables.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 CREATE DATABASE database_name;
--- Ή ισοδύναμα:
+-- Or equivalently:
 CREATE SCHEMA schema_name;
 ```
 
-**Παράδειγμα — Δημιουργία βάσης πανεπιστημίου:**
+**Example — Creating a university database:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SHOW DATABASES;
@@ -2183,13 +2172,13 @@ CREATE SCHEMA schema_name;
   4 rows in set (0.00 sec)
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 CREATE DATABASE university_db;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SHOW DATABASES;
@@ -2205,80 +2194,80 @@ CREATE DATABASE university_db;
   5 rows in set (0.00 sec)
 ```
 
-**Ασφαλής δημιουργία με `IF NOT EXISTS`:**
+**Safe creation with `IF NOT EXISTS`:**
 
 ```sql
--- Αποτρέπει σφάλμα εάν η βάση υπάρχει ήδη
+-- Prevents an error if the database already exists
 CREATE DATABASE IF NOT EXISTS university_db;
 ```
 
-**Exam Note:** Στην MySQL, `DATABASE` και `SCHEMA` είναι **απολύτως συνώνυμα** — οι δύο εντολές παράγουν ακριβώς το ίδιο αποτέλεσμα. Σε άλλα DBMS (π.χ. PostgreSQL), `DATABASE` και `SCHEMA` έχουν διαφορετική σημασία.
+**Exam Note:** In MySQL, `DATABASE` and `SCHEMA` are **completely synonymous** — the two statements produce exactly the same result. In other DBMSs (e.g., PostgreSQL), `DATABASE` and `SCHEMA` have different meanings.
 
 ---
 
 ### DROP DATABASE
-*Ολική Διαγραφή Βάσης Δεδομένων*
+*Total Deletion of a Database*
 
-Η εντολή `DROP DATABASE` **καταστρέφει ολοσχερώς** μια βάση δεδομένων μαζί με **όλους τους πίνακες, τα δεδομένα και τα αντικείμενα** που περιέχει. Η ενέργεια αυτή είναι **μόνιμη και αμετάκλητη** — δεν υπάρχει `UNDO`.
+The `DROP DATABASE` statement **completely destroys** a database along with **all the tables, data, and objects** it contains. This action is **permanent and irrevocable** — there is no `UNDO`.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DROP DATABASE database_name;
--- Ή ισοδύναμα:
+-- Or equivalently:
 DROP SCHEMA schema_name;
 ```
 
-**Παράδειγμα — Διαγραφή βάσης:**
+**Example — Deleting a database:**
 
 ```sql
 DROP DATABASE university_db;
 ```
 
-**Ασφαλής διαγραφή με `IF EXISTS`:**
+**Safe deletion with `IF EXISTS`:**
 
 ```sql
--- Αποτρέπει σφάλμα εάν η βάση δεν υπάρχει
+-- Prevents an error if the database does not exist
 DROP DATABASE IF EXISTS university_db;
 ```
 
-**Συγκριτικός Πίνακας: `CREATE DATABASE` vs `DROP DATABASE`:**
+**Comparative Table: `CREATE DATABASE` vs `DROP DATABASE`:**
 
-| Χαρακτηριστικό | `CREATE DATABASE` | `DROP DATABASE` |
+| Characteristic | `CREATE DATABASE` | `DROP DATABASE` |
 |---|---|---|
-| **Σκοπός** | Δημιουργεί νέα, κενή ΒΔ | Καταστρέφει υπάρχουσα ΒΔ |
-| **Προϋπόθεση** | Η ΒΔ δεν πρέπει να υπάρχει ήδη | Η ΒΔ πρέπει να υπάρχει |
-| **Αποτέλεσμα σε δεδομένα** | Δεν επηρεάζει | Διαγράφει όλα τα δεδομένα και πίνακες |
-| **Αναστρεψιμότητα** | Αναστρέψιμη με `DROP` | Μη αναστρέψιμη |
-| **Ασφαλής παραλλαγή** | `CREATE DATABASE IF NOT EXISTS` | `DROP DATABASE IF EXISTS` |
+| **Purpose** | Creates a new, empty database | Destroys an existing database |
+| **Precondition** | The database must not already exist | The database must exist |
+| **Effect on data** | No effect | Deletes all data and tables |
+| **Reversibility** | Reversible with `DROP` | Irreversible |
+| **Safe variant** | `CREATE DATABASE IF NOT EXISTS` | `DROP DATABASE IF EXISTS` |
 
-**Key Distinction:** Η `DROP DATABASE` είναι η **πιο καταστροφική** DDL εντολή — διαγράφει ολόκληρη η βάση με όλα τα περιεχόμενά της. Στα παραγωγικά περιβάλλοντα (production), απαιτείται πάντα αντίγραφο ασφαλείας (backup) πριν την εκτέλεσή της.
+**Key Distinction:** `DROP DATABASE` is the **most destructive** DDL statement — it deletes the entire database with all its contents. In production environments, a backup is always required before executing it.
 
 ---
 
 ### USE
-*Επιλογή Ενεργής Βάσης Δεδομένων για το Τρέχον Session*
+*Selecting the Active Database for the Current Session*
 
-Η εντολή `USE` ορίζει ποια βάση δεδομένων θα χρησιμοποιηθεί ως **προεπιλεγμένο πλαίσιο εργασίας** για τις επόμενες εντολές SQL του τρέχοντος session. Χωρίς `USE`, κάθε αναφορά σε πίνακα πρέπει να προσδιορίζει ρητά τη βάση δεδομένων (π.χ. `university_db.Foititis`).
+The `USE` statement sets which database will be used as the **default working context** for the subsequent SQL statements of the current session. Without `USE`, every reference to a table must explicitly specify the database (e.g., `university_db.Foititis`).
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 USE database_name;
 ```
 
-**Παράδειγμα — Επιλογή ενεργής βάσης και χρήση της:**
+**Example — Selecting the active database and using it:**
 
 ```sql
--- Ορισμός ενεργής βάσης
+-- Setting the active database
 USE university_db;
 
--- Από εδώ και πέρα, όλες οι εντολές αναφέρονται στη university_db
--- χωρίς να χρειάζεται πλήρης προσδιορισμός (fully qualified name)
-SELECT * FROM Foititis;  -- Ισοδύναμο με: SELECT * FROM university_db.Foititis
+-- From now on, all statements refer to university_db
+-- without needing a fully qualified name
+SELECT * FROM Foititis;  -- Equivalent to: SELECT * FROM university_db.Foititis
 ```
 
-**Επαλήθευση ενεργής βάσης:**
+**Verifying the active database:**
 
 ```sql
 SELECT DATABASE();
@@ -2293,22 +2282,22 @@ SELECT DATABASE();
   1 row in set (0.00 sec)
 ```
 
-**Exam Note:** Η `USE` επηρεάζει **μόνο το τρέχον session** (σύνδεση) — δεν αλλάζει τις ρυθμίσεις άλλων χρηστών ή συνδέσεων. Κάθε νέο session ξεκινά χωρίς ενεργή βάση δεδομένων.
+**Exam Note:** `USE` affects **only the current session** (connection) — it does not change the settings of other users or connections. Every new session starts without an active database.
 
 ---
 
 ### SHOW DATABASES
-*Προβολή Όλων των Διαθέσιμων Βάσεων Δεδομένων*
+*Viewing All Available Databases*
 
-Η εντολή `SHOW DATABASES` επιστρέφει λίστα με **όλες τις βάσεις δεδομένων** που υπάρχουν στον τρέχοντα MySQL Server και στις οποίες ο τρέχων χρήστης έχει δικαίωμα πρόσβασης.
+The `SHOW DATABASES` statement returns a list of **all the databases** that exist on the current MySQL Server and to which the current user has access rights.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 SHOW DATABASES;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +--------------------+
@@ -2324,37 +2313,37 @@ SHOW DATABASES;
   6 rows in set (0.00 sec)
 ```
 
-**Σύντομος οδηγός ροής εργασίας — Δημιουργία και χρήση νέας βάσης:**
+**Brief workflow guide — Creating and using a new database:**
 
 ```sql
--- Βήμα 1: Έλεγχος υπαρχουσών βάσεων
+-- Step 1: Check existing databases
 SHOW DATABASES;
 
--- Βήμα 2: Δημιουργία νέας βάσης
+-- Step 2: Create a new database
 CREATE DATABASE university_db;
 
--- Βήμα 3: Επιλογή ως ενεργής
+-- Step 3: Select as active
 USE university_db;
 
--- Βήμα 4: Επαλήθευση
+-- Step 4: Verify
 SELECT DATABASE();
 ```
 
 ---
 
-## Διαχείριση Πινάκων (Δομή/Σχήμα)
+## Table Management (Structure/Schema)
 *Table Management (Structure/Schema)*
 
-Ο **πίνακας** (table) είναι η θεμελιώδης δομή αποθήκευσης δεδομένων στο σχεσιακό μοντέλο. Κάθε πίνακας αποτελείται από **στήλες** (columns/attributes) με συγκεκριμένους τύπους δεδομένων και **γραμμές** (rows/tuples) που περιέχουν τα πραγματικά δεδομένα. Η DDL παρέχει εντολές για τη **δημιουργία**, **καταστροφή** και **επιθεώρηση** της δομής των πινάκων.
+The **table** is the fundamental data storage structure in the relational model. Each table consists of **columns** (attributes) with specific data types and **rows** (tuples) that contain the actual data. DDL provides statements for the **creation**, **destruction**, and **inspection** of table structures.
 
 ---
 
 ### CREATE TABLE
-*Δημιουργία Πίνακα, Ορισμός Πεδίων, Τύπων και Primary Key*
+*Creating a Table, Defining Fields, Types, and the Primary Key*
 
-Η εντολή `CREATE TABLE` είναι η **κεντρική DDL εντολή** — ορίζει το σχήμα ενός νέου πίνακα: τα ονόματα των στηλών, τους τύπους δεδομένων τους, τους περιορισμούς (constraints) και τα κλειδιά.
+The `CREATE TABLE` statement is the **central DDL statement** — it defines the schema of a new table: the column names, their data types, the constraints, and the keys.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 CREATE TABLE table_name (
@@ -2365,49 +2354,49 @@ CREATE TABLE table_name (
 );
 ```
 
-**Βασικοί τύποι δεδομένων (Data Types) στη MySQL:**
+**Basic data types (Data Types) in MySQL:**
 
-| Κατηγορία | Τύπος | Περιγραφή | Παράδειγμα Χρήσης |
+| Category | Type | Description | Usage Example |
 |---|---|---|---|
-| **Ακέραιοι** | `INT` / `INTEGER` | Ακέραιος 32-bit (-2.1Β έως 2.1Β) | ΑΜ φοιτητή, ηλικία |
-| **Ακέραιοι** | `TINYINT` | Ακέραιος 8-bit (0-255 ή -128 έως 127) | Ενεργός/ανενεργός (0/1) |
-| **Ακέραιοι** | `BIGINT` | Ακέραιος 64-bit | Αριθμοί συναλλαγών |
-| **Δεκαδικοί** | `DECIMAL(p,s)` | Ακριβής δεκαδικός, p ψηφία, s δεκαδικά | Βαθμός (4,2), χρηματικά ποσά |
-| **Δεκαδικοί** | `FLOAT` / `DOUBLE` | Κινητής υποδιαστολής (προσεγγιστικός) | Επιστημονικές τιμές |
-| **Κείμενο** | `VARCHAR(n)` | Μεταβλητού μήκους έως n χαρακτήρες | Ονόματα, email |
-| **Κείμενο** | `CHAR(n)` | Σταθερού μήκους n χαρακτήρες | Κωδικοί (π.χ. κωδ. χώρας) |
-| **Κείμενο** | `TEXT` | Μεγάλο κείμενο (έως 65.535 χαρ.) | Περιγραφές, σχόλια |
-| **Ημερομηνία** | `DATE` | Ημερομηνία (YYYY-MM-DD) | Ημερομηνία γέννησης |
-| **Ημερομηνία** | `DATETIME` | Ημερομηνία και ώρα | Χρονική σήμανση εγγραφής |
-| **Ημερομηνία** | `YEAR` | Έτος 4 ψηφίων | Ακαδημαϊκό έτος |
+| **Integers** | `INT` / `INTEGER` | 32-bit integer (-2.1B to 2.1B) | Student ID, age |
+| **Integers** | `TINYINT` | 8-bit integer (0-255 or -128 to 127) | Active/inactive (0/1) |
+| **Integers** | `BIGINT` | 64-bit integer | Transaction numbers |
+| **Decimals** | `DECIMAL(p,s)` | Exact decimal, p digits, s decimal places | Grade (4,2), monetary amounts |
+| **Decimals** | `FLOAT` / `DOUBLE` | Floating-point (approximate) | Scientific values |
+| **Text** | `VARCHAR(n)` | Variable length up to n characters | Names, emails |
+| **Text** | `CHAR(n)` | Fixed length of n characters | Codes (e.g., country code) |
+| **Text** | `TEXT` | Large text (up to 65,535 chars) | Descriptions, comments |
+| **Date** | `DATE` | Date (YYYY-MM-DD) | Date of birth |
+| **Date** | `DATETIME` | Date and time | Record timestamp |
+| **Date** | `YEAR` | 4-digit year | Academic year |
 
-**Βασικοί περιορισμοί (Constraints):**
+**Basic constraints:**
 
-| Constraint | Σκοπός |
+| Constraint | Purpose |
 |---|---|
-| `NOT NULL` | Η στήλη δεν επιτρέπει NULL τιμές |
-| `UNIQUE` | Κάθε τιμή στη στήλη πρέπει να είναι μοναδική |
-| `DEFAULT value` | Ορίζει προεπιλεγμένη τιμή εάν δεν δοθεί τιμή |
-| `PRIMARY KEY` | Μοναδική ταυτοποίηση κάθε γραμμής — `NOT NULL` + `UNIQUE` |
-| `FOREIGN KEY` | Αναφορά σε Primary Key άλλου πίνακα |
-| `AUTO_INCREMENT` | Αυτόματη αύξηση τιμής (συνήθως για PK) |
-| `CHECK (condition)` | Επαληθεύει ότι η τιμή ικανοποιεί κάποια συνθήκη |
+| `NOT NULL` | The column does not allow NULL values |
+| `UNIQUE` | Every value in the column must be unique |
+| `DEFAULT value` | Sets a default value if no value is given |
+| `PRIMARY KEY` | Unique identification of each row — `NOT NULL` + `UNIQUE` |
+| `FOREIGN KEY` | Reference to the Primary Key of another table |
+| `AUTO_INCREMENT` | Automatic value increment (usually for PK) |
+| `CHECK (condition)` | Verifies that the value satisfies some condition |
 
-**Παράδειγμα — Δημιουργία πίνακα Τμήμα:**
+**Example — Creating the Department table:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SHOW TABLES;
   Empty set (0.00 sec)
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 USE university_db;
 
--- Δημιουργία πίνακα Τμήμα (referenced table — δημιουργείται πρώτος)
+-- Creating the Department table (referenced table - created first)
 CREATE TABLE Tmima (
     dept_id    INT           NOT NULL AUTO_INCREMENT,
     onoma      VARCHAR(100)  NOT NULL,
@@ -2415,7 +2404,7 @@ CREATE TABLE Tmima (
     CONSTRAINT pk_tmima PRIMARY KEY (dept_id)
 );
 
--- Δημιουργία πίνακα Φοιτητής (με Foreign Key προς Τμήμα)
+-- Creating the Student table (with Foreign Key to Department)
 CREATE TABLE Foititis (
     am         INT           NOT NULL,
     onoma      VARCHAR(50)   NOT NULL,
@@ -2429,7 +2418,7 @@ CREATE TABLE Foititis (
 );
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SHOW TABLES;
@@ -2442,7 +2431,7 @@ CREATE TABLE Foititis (
   2 rows in set (0.00 sec)
 ```
 
-**Σχεσιακό Σχήμα που αντιστοιχεί στους παραπάνω πίνακες:**
+**Relational schema corresponding to the tables above:**
 
 ```text
   Tmima(<u>dept_id</u>, onoma, tilefono)
@@ -2451,72 +2440,72 @@ CREATE TABLE Foititis (
                                              Foreign Key -> Tmima(dept_id)
 ```
 
-**Key Distinction:** Η σειρά δημιουργίας πινάκων είναι κρίσιμη όταν υπάρχουν Foreign Keys. Ο **referenced πίνακας** (αυτός που αναφέρεται) πρέπει να δημιουργηθεί **πριν** από τον referencing (αυτόν που κάνει την αναφορά). Στο παράδειγμα: `Tmima` πρέπει να δημιουργηθεί **πριν** τον `Foititis`.
+**Key Distinction:** The order of table creation is critical when Foreign Keys exist. The **referenced table** (the one being referenced) must be created **before** the referencing one (the one making the reference). In the example: `Tmima` must be created **before** `Foititis`.
 
 ---
 
 ### DROP TABLE
-*Οριστική Διαγραφή Πίνακα*
+*Permanent Deletion of a Table*
 
-Η εντολή `DROP TABLE` **καταστρέφει οριστικά** έναν πίνακα μαζί με **όλα τα δεδομένα** που περιέχει. Η ενέργεια αυτή είναι **μη αναστρέψιμη**.
+The `DROP TABLE` statement **permanently destroys** a table along with **all the data** it contains. This action is **irreversible**.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DROP TABLE table_name;
 ```
 
-**Ασφαλής διαγραφή με `IF EXISTS`:**
+**Safe deletion with `IF EXISTS`:**
 
 ```sql
--- Αποτρέπει σφάλμα εάν ο πίνακας δεν υπάρχει
+-- Prevents an error if the table does not exist
 DROP TABLE IF EXISTS Foititis;
 ```
 
-**Παράδειγμα — Σωστή σειρά διαγραφής με Foreign Keys:**
+**Example — Correct deletion order with Foreign Keys:**
 
 ```sql
--- Λάθος σειρά: θα αποτύχει λόγω Foreign Key constraint
--- DROP TABLE Tmima;  -- ERROR: Ο Foititis εξαρτάται από τον Tmima
+-- Wrong order: will fail due to Foreign Key constraint
+-- DROP TABLE Tmima;  -- ERROR: Foititis depends on Tmima
 
--- Σωστή σειρά: διαγραφή των referencing πινάκων πρώτα
-DROP TABLE IF EXISTS Foititis;  -- Πρώτα ο πίνακας με τον FK
-DROP TABLE IF EXISTS Tmima;     -- Μετά ο referenced πίνακας
+-- Correct order: delete the referencing tables first
+DROP TABLE IF EXISTS Foititis;  -- First the table with the FK
+DROP TABLE IF EXISTS Tmima;     -- Then the referenced table
 ```
 
-**Συγκριτικός Πίνακας: `DROP TABLE` vs `DELETE FROM`:**
+**Comparative Table: `DROP TABLE` vs `DELETE FROM`:**
 
-| Χαρακτηριστικό | `DROP TABLE` | `DELETE FROM table` |
+| Characteristic | `DROP TABLE` | `DELETE FROM table` |
 |---|---|---|
-| **Κατηγορία SQL** | DDL | DML |
-| **Τι καταστρέφει** | Τον πίνακα ΚΑΙ τα δεδομένα | Μόνο τα δεδομένα (γραμμές) |
-| **Δομή πίνακα** | Διαγράφεται | Παραμένει άθικτη |
-| **Αναστρεψιμότητα** | Μη αναστρέψιμη | Αναστρέψιμη μέσω `ROLLBACK` (εντός transaction) |
-| **Χρήση** | Permanent removal | Εκκαθάριση δεδομένων |
+| **SQL category** | DDL | DML |
+| **What it destroys** | The table AND the data | Only the data (rows) |
+| **Table structure** | Deleted | Remains intact |
+| **Reversibility** | Irreversible | Reversible via `ROLLBACK` (within a transaction) |
+| **Use** | Permanent removal | Data clearing |
 
 ---
 
 ### DESCRIBE / EXPLAIN
-*Προβολή Σχήματος / Metadata του Πίνακα*
+*Viewing the Table's Schema / Metadata*
 
-Οι εντολές `DESCRIBE` (ή `DESC`) και `EXPLAIN` επιστρέφουν πληροφορίες για τη **δομή ενός πίνακα**: τα ονόματα των στηλών, τους τύπους δεδομένων, τους περιορισμούς και τις προεπιλεγμένες τιμές τους.
+The `DESCRIBE` (or `DESC`) and `EXPLAIN` statements return information about a **table's structure**: the column names, the data types, the constraints, and their default values.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DESCRIBE table_name;
--- Ή ισοδύναμα:
+-- Or equivalently:
 DESC table_name;
 EXPLAIN table_name;
 ```
 
-**Παράδειγμα — Επιθεώρηση δομής πίνακα `Foititis`:**
+**Example — Inspecting the structure of table `Foititis`:**
 
 ```sql
 DESCRIBE Foititis;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-----------+--------------+------+-----+---------+-------+
@@ -2532,58 +2521,58 @@ DESCRIBE Foititis;
   6 rows in set (0.00 sec)
 ```
 
-**Ερμηνεία στηλών αποτελέσματος:**
+**Interpretation of the result columns:**
 
-| Στήλη Αποτελέσματος | Σημασία |
+| Result Column | Meaning |
 |---|---|
-| **Field** | Όνομα στήλης |
-| **Type** | Τύπος δεδομένων |
-| **Null** | `YES` = επιτρέπεται NULL, `NO` = NOT NULL |
+| **Field** | Column name |
+| **Type** | Data type |
+| **Null** | `YES` = NULL allowed, `NO` = NOT NULL |
 | **Key** | `PRI` = Primary Key, `UNI` = UNIQUE, `MUL` = Foreign Key / Non-unique Index |
-| **Default** | Προεπιλεγμένη τιμή (NULL αν δεν ορίστηκε) |
-| **Extra** | Πρόσθετες πληροφορίες (π.χ. `auto_increment`) |
+| **Default** | Default value (NULL if not set) |
+| **Extra** | Additional information (e.g., `auto_increment`) |
 
-**Exam Note:** Το `DESCRIBE` είναι εντολή **επιθεώρησης μεταδεδομένων** (metadata) — δεν επιστρέφει τα δεδομένα του πίνακα αλλά τη **δομή** του. Για να δει κανείς τα δεδομένα, απαιτείται η `SELECT`.
+**Exam Note:** `DESCRIBE` is a **metadata inspection** statement — it does not return the table's data but its **structure**. To see the data, `SELECT` is required.
 
 ---
 
-## Τροποποίηση Σχήματος Πίνακα (ALTER TABLE)
+## Modifying the Table Schema (ALTER TABLE)
 *Modifying the Table Schema*
 
-Η εντολή `ALTER TABLE` επιτρέπει την **τροποποίηση της δομής ενός υπάρχοντος πίνακα** χωρίς να χρειαστεί να τον διαγράψουμε και να τον ξαναδημιουργήσουμε. Είναι ιδιαίτερα χρήσιμη σε παραγωγικά περιβάλλοντα όπου ο πίνακας περιέχει ήδη δεδομένα.
+The `ALTER TABLE` statement allows the **modification of an existing table's structure** without having to drop it and recreate it. It is especially useful in production environments where the table already contains data.
 
-**Αναλογία**: Η `ALTER TABLE` είναι σαν μια ανακαίνιση κτιρίου εν χρήσει — προσθέτουμε ή αφαιρούμε δωμάτια ενώ το κτίριο παραμένει σε λειτουργία. Η `DROP TABLE` + `CREATE TABLE` θα αντιστοιχούσε στην κατεδάφιση και ανοικοδόμηση εξ αρχής.
+**Analogy**: `ALTER TABLE` is like renovating a building in use — we add or remove rooms while the building remains operational. `DROP TABLE` + `CREATE TABLE` would correspond to demolishing and rebuilding from scratch.
 
 ```text
-  ALTER TABLE εντολές:
+  ALTER TABLE clauses:
   
   +------------------+-----------------------------------------+
-  |     Λέξη Κλειδί  |  Ενέργεια                               |
+  |     Keyword      |  Action                                 |
   +------------------+-----------------------------------------+
-  | ADD              | Προσθήκη νέας στήλης (στο τέλος)        |
-  | MODIFY           | Αλλαγή τύπου/constraints υπάρχουσας στήλης|
-  | CHANGE           | Μετονομασία + αλλαγή τύπου στήλης       |
-  | DROP COLUMN      | Αφαίρεση στήλης (και των δεδομένων της) |
+  | ADD              | Adds a new column (at the end)          |
+  | MODIFY           | Changes type/constraints of a column    |
+  | CHANGE           | Renames + changes the column type       |
+  | DROP COLUMN      | Removes a column (and its data)         |
   +------------------+-----------------------------------------+
 ```
 
 ---
 
 ### ADD
-*Προσθήκη Νέας Στήλης στο Τέλος*
+*Adding a New Column at the End*
 
-Η ρήτρα `ADD` προσθέτει μια **νέα στήλη** στο τέλος του πίνακα. Οι υπάρχουσες γραμμές λαμβάνουν αυτόματα `NULL` στη νέα στήλη (ή την τιμή `DEFAULT` εάν ορίστηκε).
+The `ADD` clause adds a **new column** at the end of the table. Existing rows automatically receive `NULL` in the new column (or the `DEFAULT` value if one was set).
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     ADD column_name datatype [constraints];
 ```
 
-**Παράδειγμα — Προσθήκη στήλης `tilefono` στον πίνακα `Foititis`:**
+**Example — Adding column `tilefono` to table `Foititis`:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> DESCRIBE Foititis;
@@ -2599,14 +2588,14 @@ ALTER TABLE table_name
   +-----------+--------------+------+-----+---------+-------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 ALTER TABLE Foititis
     ADD tilefono VARCHAR(15);
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> DESCRIBE Foititis;
@@ -2619,258 +2608,258 @@ ALTER TABLE Foititis
   | email     | varchar(100) | YES  | UNI | NULL    |       |
   | hmerominia| date         | YES  |     | NULL    |       |
   | dept_id   | int          | NO   | MUL | NULL    |       |
-  | tilefono  | varchar(15)  | YES  |     | NULL    |       |  <-- Νέα στήλη
+  | tilefono  | varchar(15)  | YES  |     | NULL    |       |  <-- New column
   +-----------+--------------+------+-----+---------+-------+
 ```
 
-**Προσθήκη στήλης με DEFAULT τιμή:**
+**Adding a column with a DEFAULT value:**
 
 ```sql
--- Η νέα στήλη λαμβάνει τιμή 1 (ενεργός) για τις υπάρχουσες γραμμές
+-- The new column receives the value 1 (active) for the existing rows
 ALTER TABLE Foititis
     ADD energos TINYINT DEFAULT 1;
 ```
 
-**Exam Note:** Η `ADD` τοποθετεί τη νέα στήλη **πάντα στο τέλος** του πίνακα. Για τοποθέτηση σε συγκεκριμένη θέση, χρησιμοποιείται η σύνταξη `ADD column_name datatype AFTER other_column` ή `ADD column_name datatype FIRST`.
+**Exam Note:** `ADD` always places the new column **at the end** of the table. To place it at a specific position, the syntax `ADD column_name datatype AFTER other_column` or `ADD column_name datatype FIRST` is used.
 
 ---
 
 ### MODIFY
-*Αλλαγή του Τύπου Δεδομένων μιας Υπάρχουσας Στήλης*
+*Changing the Data Type of an Existing Column*
 
-Η ρήτρα `MODIFY` αλλάζει τον **τύπο δεδομένων** ή/και τους **περιορισμούς** (constraints) μιας υπάρχουσας στήλης, **χωρίς να αλλάξει το όνομά της**.
+The `MODIFY` clause changes the **data type** and/or the **constraints** of an existing column, **without changing its name**.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     MODIFY column_name new_datatype [new_constraints];
 ```
 
-**Παράδειγμα — Επέκταση `VARCHAR` στήλης `onoma`:**
+**Example — Extending the `VARCHAR` column `onoma`:**
 
-**Κατάσταση πριν:** `onoma VARCHAR(50) NOT NULL`
+**Before:** `onoma VARCHAR(50) NOT NULL`
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Επέκταση ορίου χαρακτήρων από 50 σε 100
+-- Extending the character limit from 50 to 100
 ALTER TABLE Foititis
     MODIFY onoma VARCHAR(100) NOT NULL;
 ```
 
-**Κατάσταση μετά:** `onoma VARCHAR(100) NOT NULL`
+**After:** `onoma VARCHAR(100) NOT NULL`
 
-**Παράδειγμα — Προσθήκη DEFAULT τιμής σε υπάρχουσα στήλη:**
+**Example — Adding a DEFAULT value to an existing column:**
 
 ```sql
--- Ορισμός προεπιλεγμένης τιμής στη στήλη tilefono
+-- Setting a default value in the tilefono column
 ALTER TABLE Foititis
     MODIFY tilefono VARCHAR(15) DEFAULT 'N/A';
 ```
 
-**Exam Note:** Κατά τη χρήση `MODIFY`, **πρέπει να επαναδηλωθεί ο πλήρης ορισμός** της στήλης (τύπος + constraints). Εάν παραληφθεί κάποιος υπάρχων constraint (π.χ. `NOT NULL`), **αυτός θα αφαιρεθεί** από τη στήλη.
+**Exam Note:** When using `MODIFY`, **the full definition** of the column (type + constraints) **must be restated**. If an existing constraint (e.g., `NOT NULL`) is omitted, **it will be removed** from the column.
 
 ---
 
 ### CHANGE
-*Μετονομασία Στήλης με Ταυτόχρονη Δήλωση Νέου Τύπου*
+*Renaming a Column with a Simultaneous Declaration of a New Type*
 
-Η ρήτρα `CHANGE` επιτρέπει **ταυτόχρονη αλλαγή ονόματος ΚΑΙ τύπου** μιας στήλης. Απαιτεί πάντα τη δήλωση και ονόματος και τύπου, ακόμα και εάν αλλάζει μόνο το ένα.
+The `CHANGE` clause allows the **simultaneous change of a column's name AND type**. It always requires declaring both the name and the type, even if only one of them changes.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     CHANGE old_column_name new_column_name new_datatype [constraints];
 ```
 
-**Παράδειγμα — Μετονομασία `onoma` σε `prwto_onoma` με νέο τύπο:**
+**Example — Renaming `onoma` to `prwto_onoma` with a new type:**
 
-**Κατάσταση πριν:** `onoma VARCHAR(100) NOT NULL`
+**Before:** `onoma VARCHAR(100) NOT NULL`
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Μετονομασία και αλλαγή τύπου ταυτόχρονα
+-- Renaming and changing the type simultaneously
 ALTER TABLE Foititis
     CHANGE onoma prwto_onoma VARCHAR(80) NOT NULL;
 ```
 
-**Κατάσταση μετά:** `prwto_onoma VARCHAR(80) NOT NULL`
+**After:** `prwto_onoma VARCHAR(80) NOT NULL`
 
-**Παράδειγμα — Μόνο μετονομασία (τύπος δεν αλλάζει):**
+**Example — Renaming only (the type does not change):**
 
 ```sql
--- Ακόμα και αν δεν αλλάζει ο τύπος, πρέπει να δηλωθεί εκ νέου
+-- Even if the type does not change, it must be declared again
 ALTER TABLE Foititis
     CHANGE tilefono arithmos_tilefonou VARCHAR(15) DEFAULT 'N/A';
 ```
 
-**Συγκριτικός Πίνακας: `MODIFY` vs `CHANGE`:**
+**Comparative Table: `MODIFY` vs `CHANGE`:**
 
-| Χαρακτηριστικό | `MODIFY` | `CHANGE` |
+| Characteristic | `MODIFY` | `CHANGE` |
 |---|---|---|
-| **Αλλαγή ονόματος στήλης** | Δεν υποστηρίζεται | Υποστηρίζεται |
-| **Αλλαγή τύπου δεδομένων** | Υποστηρίζεται | Υποστηρίζεται |
-| **Αλλαγή constraints** | Υποστηρίζεται | Υποστηρίζεται |
-| **Σύνταξη** | `MODIFY col_name new_type` | `CHANGE old_name new_name new_type` |
-| **Απαίτηση νέου ονόματος** | Όχι (χρησιμοποιεί το ίδιο) | Ναι (πάντα απαιτείται) |
+| **Changing the column name** | Not supported | Supported |
+| **Changing the data type** | Supported | Supported |
+| **Changing constraints** | Supported | Supported |
+| **Syntax** | `MODIFY col_name new_type` | `CHANGE old_name new_name new_type` |
+| **Requirement of a new name** | No (uses the same one) | Yes (always required) |
 
-**Key Distinction:** Η `CHANGE` απαιτεί τη δήλωση του **νέου ορισμού** της στήλης (τύπος + constraints) ανεξάρτητα από το αν αλλάζει κάτι. Εάν δεν επαναδηλωθεί ο τύπος, η εντολή θα αποτύχει συντακτικά.
+**Key Distinction:** `CHANGE` requires declaring the **new definition** of the column (type + constraints) regardless of whether anything changes. If the type is not restated, the statement will fail syntactically.
 
 ---
 
 ### DROP COLUMN
-*Αφαίρεση Στήλης — Προκαλεί Απώλεια Δεδομένων*
+*Removing a Column — Causes Data Loss*
 
-Η ρήτρα `DROP COLUMN` **αφαιρεί μόνιμα** μια στήλη από τον πίνακα μαζί με **όλα τα δεδομένα** που περιείχε η στήλη αυτή σε κάθε γραμμή. Η ενέργεια είναι **μη αναστρέψιμη**.
+The `DROP COLUMN` clause **permanently removes** a column from the table along with **all the data** that column contained in every row. The action is **irreversible**.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 ALTER TABLE table_name
     DROP COLUMN column_name;
 ```
 
-**Παράδειγμα — Αφαίρεση στήλης `tilefono`:**
+**Example — Removing column `tilefono`:**
 
-**Κατάσταση πριν (για όλες τις γραμμές):**
+**Before (for all rows):**
 
 ```text
   +----+---------+---------+---------------------+------------+---------+-----------+
   | am | onoma   | eponymo | email               | hmerominia | dept_id | tilefono  |
   +----+---------+---------+---------------------+------------+---------+-----------+
-  |  1 | Αλέξης  | Νικολόπ | alex@example.com    | 2001-05-10 |       1 | 694123456 |
-  |  2 | Ελένη   | Παπαδη  | eleni@example.com   | 2002-09-15 |       2 | NULL      |
+  |  1 | Alexis  | Nikolop | alex@example.com    | 2001-05-10 |       1 | 694123456 |
+  |  2 | Eleni   | Papadi  | eleni@example.com   | 2002-09-15 |       2 | NULL      |
   +----+---------+---------+---------------------+------------+---------+-----------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 ALTER TABLE Foititis
     DROP COLUMN tilefono;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   +----+---------+---------+---------------------+------------+---------+
   | am | onoma   | eponymo | email               | hmerominia | dept_id |
   +----+---------+---------+---------------------+------------+---------+
-  |  1 | Αλέξης  | Νικολόπ | alex@example.com    | 2001-05-10 |       1 |
-  |  2 | Ελένη   | Παπαδη  | eleni@example.com   | 2002-09-15 |       2 |
+  |  1 | Alexis  | Nikolop | alex@example.com    | 2001-05-10 |       1 |
+  |  2 | Eleni   | Papadi  | eleni@example.com   | 2002-09-15 |       2 |
   +----+---------+---------+---------------------+------------+---------+
 ```
 
-Τα δεδομένα στήλης `tilefono` (694123456, NULL) **χάθηκαν μόνιμα**.
+The data of column `tilefono` (694123456, NULL) was **permanently lost**.
 
-**Exam Note:** Η `DROP COLUMN` είναι η μόνη `ALTER TABLE` ρήτρα που προκαλεί **απώλεια δεδομένων** — όλα τα δεδομένα της αφαιρούμενης στήλης σε κάθε γραμμή του πίνακα διαγράφονται μόνιμα. Απαιτείται πάντα επαλήθευση και αντίγραφο ασφαλείας πριν από την εκτέλεσή της.
+**Exam Note:** `DROP COLUMN` is the only `ALTER TABLE` clause that causes **data loss** — all the data of the removed column in every row of the table is permanently deleted. Verification and a backup are always required before executing it.
 
 ---
 
-## Συγκριτικός Πίνακας: Εντολές DDL
+## Comparative Table: DDL Commands
 *Comparative Table: DDL Commands*
 
-| Εντολή | Κατηγορία | Επηρεάζει | Αντιστρέψιμη; | Κίνδυνος Απώλειας Δεδομένων |
+| Command | Category | Affects | Reversible? | Risk of Data Loss |
 |---|---|---|---|---|
-| `CREATE DATABASE` | Database | Δημιουργεί νέα ΒΔ | Ναι (με `DROP DATABASE`) | Όχι |
-| `DROP DATABASE` | Database | Καταστρέφει ΒΔ + περιεχόμενο | Όχι | Ναι (ολόκληρη η ΒΔ) |
-| `USE` | Session | Ενεργή ΒΔ τρέχοντος session | Ναι (νέα `USE`) | Όχι |
-| `SHOW DATABASES` | Metadata | Εμφάνιση λίστας ΒΔ | — (μόνο ανάγνωση) | Όχι |
-| `CREATE TABLE` | Table | Δημιουργεί νέο πίνακα | Ναι (με `DROP TABLE`) | Όχι |
-| `DROP TABLE` | Table | Καταστρέφει πίνακα + δεδομένα | Όχι | Ναι (ο πίνακας) |
-| `DESCRIBE` / `EXPLAIN` | Metadata | Εμφάνιση δομής πίνακα | — (μόνο ανάγνωση) | Όχι |
-| `ALTER TABLE ... ADD` | Table Schema | Προσθέτει νέα στήλη | Ναι (με `DROP COLUMN`) | Όχι |
-| `ALTER TABLE ... MODIFY` | Table Schema | Αλλάζει τύπο/constraints στήλης | Μερικώς | Δυνητικά (εάν τύπος ασύμβατος) |
-| `ALTER TABLE ... CHANGE` | Table Schema | Μετονομάζει + αλλάζει τύπο στήλης | Μερικώς | Δυνητικά (εάν τύπος ασύμβατος) |
-| `ALTER TABLE ... DROP COLUMN` | Table Schema | Αφαιρεί στήλη και δεδομένα της | Όχι | Ναι (η στήλη) |
+| `CREATE DATABASE` | Database | Creates a new database | Yes (with `DROP DATABASE`) | No |
+| `DROP DATABASE` | Database | Destroys database + contents | No | Yes (the entire database) |
+| `USE` | Session | Active database of the current session | Yes (new `USE`) | No |
+| `SHOW DATABASES` | Metadata | Displays list of databases | — (read-only) | No |
+| `CREATE TABLE` | Table | Creates a new table | Yes (with `DROP TABLE`) | No |
+| `DROP TABLE` | Table | Destroys table + data | No | Yes (the table) |
+| `DESCRIBE` / `EXPLAIN` | Metadata | Displays table structure | — (read-only) | No |
+| `ALTER TABLE ... ADD` | Table Schema | Adds a new column | Yes (with `DROP COLUMN`) | No |
+| `ALTER TABLE ... MODIFY` | Table Schema | Changes column type/constraints | Partially | Potentially (if the type is incompatible) |
+| `ALTER TABLE ... CHANGE` | Table Schema | Renames + changes column type | Partially | Potentially (if the type is incompatible) |
+| `ALTER TABLE ... DROP COLUMN` | Table Schema | Removes column and its data | No | Yes (the column) |
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **DDL** (Data Definition Language) | Υποσύνολο SQL για ορισμό δομών ΒΔ | Implicit `COMMIT` — αλλαγές είναι μόνιμες |
-| **CREATE DATABASE** | Δημιουργεί νέα, κενή βάση δεδομένων | Συνώνυμο με `CREATE SCHEMA` στη MySQL |
-| **DROP DATABASE** | Καταστρέφει βάση + όλα τα περιεχόμενα | Μη αναστρέψιμη — διαγράφει πίνακες και δεδομένα |
-| **USE** | Ορίζει ενεργή ΒΔ για το τρέχον session | Επηρεάζει μόνο τη συγκεκριμένη σύνδεση |
-| **SHOW DATABASES** | Επιστρέφει λίστα διαθέσιμων ΒΔ | Εμφανίζει μόνο τις ΒΔ με δικαίωμα πρόσβασης |
-| **CREATE TABLE** | Δημιουργεί νέο πίνακα με ορισμένο σχήμα | Απαιτεί τα referenced tables να υπάρχουν ήδη |
-| **DROP TABLE** | Καταστρέφει πίνακα και τα δεδομένα του | Διαφέρει από `DELETE FROM` (διατηρεί δομή) |
-| **DESCRIBE / DESC** | Εμφανίζει metadata/δομή πίνακα | Δείχνει τύπους, keys, NULL, DEFAULT |
-| **ALTER TABLE ADD** | Προσθέτει νέα στήλη στο τέλος πίνακα | Υπάρχουσες γραμμές: τιμή NULL ή DEFAULT |
-| **ALTER TABLE MODIFY** | Αλλάζει τύπο/constraints υπάρχουσας στήλης | Πρέπει να επαναδηλωθεί ο πλήρης ορισμός |
-| **ALTER TABLE CHANGE** | Μετονομάζει + αλλάζει τύπο στήλης | Απαιτεί πάντα δήλωση νέου ονόματος ΚΑΙ τύπου |
-| **ALTER TABLE DROP COLUMN** | Αφαιρεί στήλη μόνιμα | Προκαλεί απώλεια δεδομένων — μη αναστρέψιμη |
-| **Constraint (NOT NULL)** | Αποτρέπει NULL τιμές σε στήλη | Παραβίαση προκαλεί σφάλμα κατά INSERT/UPDATE |
-| **Constraint (UNIQUE)** | Εξασφαλίζει μοναδικότητα τιμών | Επιτρέπει ΕΝΑ NULL (σε αντίθεση με `PRIMARY KEY`) |
-| **Constraint (DEFAULT)** | Ορίζει τιμή εάν δεν δοθεί | Εφαρμόζεται κατά INSERT χωρίς τιμή για τη στήλη |
-| **AUTO_INCREMENT** | Αυτόματη αύξηση ακέραιας τιμής | Συνήθως για Primary Key — MySQL-specific feature |
-| **Implicit COMMIT** | Αυτόματη μόνιμη δέσμευση DDL εντολών | Δεν μπορεί να γίνει `ROLLBACK` σε DDL |
+| **DDL** (Data Definition Language) | Subset of SQL for defining database structures | Implicit `COMMIT` — changes are permanent |
+| **CREATE DATABASE** | Creates a new, empty database | Synonym for `CREATE SCHEMA` in MySQL |
+| **DROP DATABASE** | Destroys the database + all its contents | Irreversible — deletes tables and data |
+| **USE** | Sets the active database for the current session | Affects only that specific connection |
+| **SHOW DATABASES** | Returns a list of available databases | Displays only the databases with access rights |
+| **CREATE TABLE** | Creates a new table with a defined schema | Requires the referenced tables to already exist |
+| **DROP TABLE** | Destroys the table and its data | Differs from `DELETE FROM` (preserves structure) |
+| **DESCRIBE / DESC** | Displays table metadata/structure | Shows types, keys, NULL, DEFAULT |
+| **ALTER TABLE ADD** | Adds a new column at the end of the table | Existing rows: NULL or DEFAULT value |
+| **ALTER TABLE MODIFY** | Changes the type/constraints of an existing column | The full definition must be restated |
+| **ALTER TABLE CHANGE** | Renames + changes the column type | Always requires declaring a new name AND type |
+| **ALTER TABLE DROP COLUMN** | Permanently removes a column | Causes data loss — irreversible |
+| **Constraint (NOT NULL)** | Prevents NULL values in a column | Violation causes an error during INSERT/UPDATE |
+| **Constraint (UNIQUE)** | Ensures uniqueness of values | Allows ONE NULL (unlike `PRIMARY KEY`) |
+| **Constraint (DEFAULT)** | Sets a value if none is given | Applied during INSERT without a value for the column |
+| **AUTO_INCREMENT** | Automatic increment of an integer value | Usually for the Primary Key — MySQL-specific feature |
+| **Implicit COMMIT** | Automatic permanent commit of DDL statements | `ROLLBACK` cannot be performed on DDL |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Η **DDL** (Data Definition Language) αφορά τον **ορισμό δομών** — βάσεων δεδομένων και πινάκων — και όχι τη διαχείριση των δεδομένων που αυτές περιέχουν. Για δεδομένα χρησιμοποιείται η DML.
-- Κάθε DDL εντολή εκτελεί **implicit `COMMIT`** στη MySQL — οι δομικές αλλαγές είναι μόνιμες και δεν μπορούν να αναιρεθούν με `ROLLBACK`.
-- Η `CREATE DATABASE` και `CREATE SCHEMA` είναι **ακριβώς συνώνυμες** στη MySQL — παράγουν ταυτόσημο αποτέλεσμα.
-- Η σειρά **δημιουργίας και διαγραφής πινάκων** με Foreign Keys είναι κρίσιμη: **πρώτα δημιουργείται ο referenced, πρώτα διαγράφεται ο referencing**.
-- Η `DROP DATABASE` και `DROP TABLE` είναι **μη αναστρέψιμες** — καταστρέφουν δεδομένα και δομές μόνιμα. Απαιτείται πάντα αντίγραφο ασφαλείας.
-- Η `ALTER TABLE` επιτρέπει τροποποίηση **υπάρχοντος** πίνακα. Οι τέσσερις βασικές ρήτρες είναι: `ADD`, `MODIFY`, `CHANGE`, `DROP COLUMN`.
-- **Key Distinction:** `MODIFY` αλλάζει τύπο/constraints **χωρίς μετονομασία**, ενώ `CHANGE` επιτρέπει **ταυτόχρονη μετονομασία ΚΑΙ αλλαγή τύπου** — και οι δύο απαιτούν πλήρη επαναδήλωση του ορισμού της στήλης.
-- Η `ALTER TABLE ... DROP COLUMN` είναι η μόνη `ALTER TABLE` ρήτρα που **προκαλεί απώλεια δεδομένων** — τα δεδομένα της στήλης διαγράφονται μόνιμα από κάθε γραμμή.
-- **Exam Note:** Η εντολή `DESCRIBE` (ή `DESC`) εμφανίζει το **σχήμα/metadata** του πίνακα — δεν επιστρέφει δεδομένα. Για δεδομένα χρησιμοποιείται `SELECT * FROM table_name`.
-- Κατά τη χρήση `MODIFY` ή `CHANGE`, εάν **παραληφθεί υπάρχων constraint** (π.χ. `NOT NULL`) στον νέο ορισμό, αυτός **αφαιρείται αυτόματα** — είναι συχνό λάθος.
+- **DDL** (Data Definition Language) concerns the **definition of structures** — databases and tables — not the management of the data they contain. DML is used for data.
+- Every DDL statement performs an **implicit `COMMIT`** in MySQL — structural changes are permanent and cannot be undone with `ROLLBACK`.
+- `CREATE DATABASE` and `CREATE SCHEMA` are **exactly synonymous** in MySQL — they produce an identical result.
+- The order of **creating and dropping tables** with Foreign Keys is critical: **the referenced table is created first, the referencing one is dropped first**.
+- `DROP DATABASE` and `DROP TABLE` are **irreversible** — they permanently destroy data and structures. A backup is always required.
+- `ALTER TABLE` allows modifying an **existing** table. The four basic clauses are: `ADD`, `MODIFY`, `CHANGE`, `DROP COLUMN`.
+- **Key Distinction:** `MODIFY` changes type/constraints **without renaming**, while `CHANGE` allows **simultaneous renaming AND type change** — both require fully restating the column definition.
+- `ALTER TABLE ... DROP COLUMN` is the only `ALTER TABLE` clause that **causes data loss** — the column's data is permanently deleted from every row.
+- **Exam Note:** The `DESCRIBE` (or `DESC`) statement displays the **schema/metadata** of the table — it does not return data. For data, `SELECT * FROM table_name` is used.
+- When using `MODIFY` or `CHANGE`, if an **existing constraint** (e.g., `NOT NULL`) is **omitted** from the new definition, it is **automatically removed** — this is a common mistake.
 
 ---
 # topic_6_sql_data_manipulation_and_query_language_dml_dql.md
 ---
 
-# Γλώσσα SQL: Χειρισμός & Ερωτήματα (DML & DQL)
+# SQL Language: Data Manipulation & Queries (DML & DQL)
 *SQL Language: Data Manipulation & Data Query Language*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Χειρισμός Δεδομένων (DML — Data Manipulation Language)](#χειρισμός-δεδομένων-dml--data-manipulation-language)
+1. [Introduction](#introduction)
+2. [Data Manipulation (DML — Data Manipulation Language)](#data-manipulation-dml--data-manipulation-language)
    - [INSERT INTO](#insert-into)
    - [UPDATE ... SET ... WHERE](#update--set--where)
    - [DELETE FROM ... WHERE](#delete-from--where)
-   - [Συγκριτικός Πίνακας: Εντολές DML](#συγκριτικός-πίνακας-εντολές-dml)
-3. [Ερωτήματα & Ανάκτηση (DQL — Data Query Language)](#ερωτήματα--ανάκτηση-dql--data-query-language)
-   - [Βασική Δομή SELECT](#βασική-δομή-select)
-   - [Προβολή Συγκεκριμένων Στηλών ή Συνόλου (*)](#προβολή-συγκεκριμένων-στηλών-ή-συνόλου-)
-   - [Φιλτράρισμα: Τελεστές Σύγκρισης και Λογικοί Τελεστές](#φιλτράρισμα-τελεστές-σύγκρισης-και-λογικοί-τελεστές)
-4. [Συγκριτικός Πίνακας: DDL vs DML vs DQL](#συγκριτικός-πίνακας-ddl-vs-dml-vs-dql)
-5. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-6. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+   - [Comparative Table: DML Commands](#comparative-table-dml-commands)
+3. [Queries & Retrieval (DQL — Data Query Language)](#queries--retrieval-dql--data-query-language)
+   - [Basic SELECT Structure](#basic-select-structure)
+   - [Column Projection or Full Row Selection (*)](#column-projection-or-full-row-selection-)
+   - [Filtering: Comparison Operators and Logical Operators](#filtering-comparison-operators-and-logical-operators)
+4. [Comparative Table: DDL vs DML vs DQL](#comparative-table-ddl-vs-dml-vs-dql)
+5. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+6. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Αφού η **DDL** (Data Definition Language) ορίσει το σχήμα — τη δομή των πινάκων, τις στήλες και τα κλειδιά — το επόμενο κρίσιμο βήμα είναι η **πλήρωση και χειρισμός των δεδομένων** που αυτοί θα περιέχουν. Αυτός ο ρόλος ανήκει σε δύο συμπληρωματικά υποσύνολα της SQL: την **DML (Data Manipulation Language)** και την **DQL (Data Query Language)**. Η DML αφορά τη **γραφή** — εισαγωγή, ενημέρωση και διαγραφή εγγραφών — ενώ η DQL αφορά την **ανάγνωση** — την ανάκτηση πληροφορίας από τη βάση μέσω ερωτημάτων. Η κατανόηση και των δύο είναι απαραίτητη: μια βάση δεδομένων χωρίς δεδομένα δεν έχει αξία, και δεδομένα χωρίς τη δυνατότητα αναζήτησης και φιλτραρίσματος δεν είναι χρηστικά.
+Once **DDL** (Data Definition Language) defines the schema — the structure of the tables, the columns, and the keys — the next critical step is the **populating and manipulation of the data** these will contain. This role belongs to two complementary subsets of SQL: **DML (Data Manipulation Language)** and **DQL (Data Query Language)**. DML concerns **writing** — inserting, updating, and deleting records — while DQL concerns **reading** — retrieving information from the database through queries. Understanding both is essential: a database without data has no value, and data without the ability to search and filter is not useful.
 
 ---
 
-## Χειρισμός Δεδομένων (DML — Data Manipulation Language)
+## Data Manipulation (DML — Data Manipulation Language)
 *Data Manipulation Language*
 
-Η **DML** περιλαμβάνει τις εντολές SQL που **τροποποιούν τα δεδομένα** μέσα σε έναν ήδη υπάρχοντα πίνακα. Σε αντίθεση με την DDL που αλλάζει τη **δομή** (σχήμα), η DML αλλάζει τα **περιεχόμενα** (εγγραφές). Οι DML εντολές **δεν** εκτελούν implicit `COMMIT` από προεπιλογή — μπορούν να χρησιμοποιηθούν εντός **Transactions** και να αναιρεθούν με `ROLLBACK`, εφόσον δεν έχει εκδοθεί ρητό `COMMIT`.
+**DML** includes the SQL statements that **modify the data** inside an already existing table. In contrast to DDL, which changes the **structure** (schema), DML changes the **contents** (records). DML statements **do not** perform an implicit `COMMIT` by default — they can be used within **transactions** and undone with `ROLLBACK`, as long as an explicit `COMMIT` has not been issued.
 
-**Αναλογία**: Αν ο πίνακας είναι ένα κενό φύλλο χαρτιού (δομή από DDL), η DML είναι η **στυλό που γράφει, διορθώνει ή σβήνει** τα δεδομένα σε αυτό.
+**Analogy**: If the table is a blank sheet of paper (structure from DDL), DML is the **pen that writes, corrects, or erases** the data on it.
 
 ```text
-  SQL Υποσύνολα:
+  SQL Subsets:
 
   +---------------------------------------+
   |                  SQL                  |
@@ -2881,120 +2870,120 @@ ALTER TABLE Foititis
   | DROP     | UPDATE   |                 |
   | ALTER    | DELETE   |                 |
   +----------+----------+-----------------+
-  | Δομή ΒΔ  | Δεδομένα | Ανάκτηση       |
+  | Structure| Data     | Retrieval       |
   +----------+----------+-----------------+
 ```
 
 ---
 
 ### INSERT INTO
-*Εισαγωγή Νέων Εγγραφών/Πλειάδων σε έναν Πίνακα*
+*Inserting New Records/Tuples into a Table*
 
-Η εντολή `INSERT INTO` προσθέτει **μία ή περισσότερες νέες εγγραφές (γραμμές/πλειάδες)** σε έναν υπάρχοντα πίνακα. Κάθε νέα εγγραφή πρέπει να σέβεται τους περιορισμούς (constraints) που ορίστηκαν κατά τη δημιουργία του πίνακα — `NOT NULL`, `UNIQUE`, `FOREIGN KEY` κ.ά.
+The `INSERT INTO` statement adds **one or more new records (rows/tuples)** to an existing table. Every new record must respect the constraints defined when the table was created — `NOT NULL`, `UNIQUE`, `FOREIGN KEY`, etc.
 
-**Βασική σύνταξη — Ρητός ορισμός στηλών (Προτεινόμενος τρόπος):**
+**Basic syntax — Explicit column definition (Recommended way):**
 
 ```sql
 INSERT INTO table_name (column1, column2, ...)
 VALUES (value1, value2, ...);
 ```
 
-**Βασική σύνταξη — Χωρίς ορισμό στηλών (Πλήρης σειρά τιμών):**
+**Basic syntax — Without column definition (Full value order):**
 
 ```sql
 INSERT INTO table_name
 VALUES (value1, value2, ...);
 ```
 
-**Παράδειγμα — Εισαγωγή εγγραφής στον πίνακα `Foititis`:**
+**Example — Inserting a record into table `Foititis`:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SELECT * FROM Foititis;
   Empty set (0.00 sec)
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Εισαγωγή φοιτητή με ρητό ορισμό στηλών (ασφαλής μέθοδος)
+-- Inserting a student with explicit column definition (safe method)
 INSERT INTO Foititis (am, onoma, eponymo, email, hmerominia, dept_id)
-VALUES (10001, 'Αλέξης', 'Νικολόπουλος', 'alex@uni.gr', '2001-05-10', 1);
+VALUES (10001, 'Alexis', 'Nikolopoulos', 'alex@uni.gr', '2001-05-10', 1);
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SELECT * FROM Foititis;
   +-------+--------+--------------+-----------+------------+---------+
   | am    | onoma  | eponymo      | email     | hmerominia | dept_id |
   +-------+--------+--------------+-----------+------------+---------+
-  | 10001 | Αλέξης | Νικολόπουλος | alex@uni.gr| 2001-05-10 |       1 |
+  | 10001 | Alexis | Nikolopoulos | alex@uni.gr| 2001-05-10 |       1 |
   +-------+--------+--------------+-----------+------------+---------+
   1 row in set (0.00 sec)
 ```
 
-**Εισαγωγή πολλαπλών εγγραφών σε μία εντολή:**
+**Inserting multiple records in one statement:**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Εισαγωγή πολλαπλών πλειάδων ταυτόχρονα (πιο αποδοτικό από πολλές μεμονωμένες INSERT)
+-- Inserting multiple tuples simultaneously (more efficient than many individual INSERTs)
 INSERT INTO Foititis (am, onoma, eponymo, email, hmerominia, dept_id)
 VALUES
-    (10002, 'Ελένη',   'Παπαδοπούλου', 'eleni@uni.gr',  '2002-09-15', 2),
-    (10003, 'Νίκος',   'Κωστόπουλος',  'nikos@uni.gr',  '2000-03-22', 1),
-    (10004, 'Μαρία',   'Σταυρίδου',    'maria@uni.gr',  '2003-01-30', 3);
+    (10002, 'Eleni',   'Papadopoulou', 'eleni@uni.gr',  '2002-09-15', 2),
+    (10003, 'Nikos',   'Kostopoulos',  'nikos@uni.gr',  '2000-03-22', 1),
+    (10004, 'Maria',   'Stavridou',    'maria@uni.gr',  '2003-01-30', 3);
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SELECT * FROM Foititis;
   +-------+--------+--------------+--------------+------------+---------+
   | am    | onoma  | eponymo      | email        | hmerominia | dept_id |
   +-------+--------+--------------+--------------+------------+---------+
-  | 10001 | Αλέξης | Νικολόπουλος | alex@uni.gr  | 2001-05-10 |       1 |
-  | 10002 | Ελένη  | Παπαδοπούλου | eleni@uni.gr | 2002-09-15 |       2 |
-  | 10003 | Νίκος  | Κωστόπουλος  | nikos@uni.gr | 2000-03-22 |       1 |
-  | 10004 | Μαρία  | Σταυρίδου    | maria@uni.gr | 2003-01-30 |       3 |
+  | 10001 | Alexis | Nikolopoulos | alex@uni.gr  | 2001-05-10 |       1 |
+  | 10002 | Eleni  | Papadopoulou | eleni@uni.gr | 2002-09-15 |       2 |
+  | 10003 | Nikos  | Kostopoulos  | nikos@uni.gr | 2000-03-22 |       1 |
+  | 10004 | Maria  | Stavridou    | maria@uni.gr | 2003-01-30 |       3 |
   +-------+--------+--------------+--------------+------------+---------+
   4 rows in set (0.00 sec)
 ```
 
-**Εισαγωγή με παράλειψη προαιρετικών στηλών:**
+**Insertion omitting optional columns:**
 
 ```sql
--- Η στήλη hmerominia δεν δίνεται — λαμβάνει NULL αυτόματα
+-- The hmerominia column is not provided - it receives NULL automatically
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10005, 'Γιώργος', 'Αντωνίου', 1);
+VALUES (10005, 'Giorgos', 'Antoniou', 1);
 ```
 
-**Exam Note:** Η σύνταξη **χωρίς** ορισμό στηλών (`INSERT INTO table VALUES (...)`) απαιτεί να δοθούν τιμές για **κάθε στήλη** του πίνακα, **με την ακριβή σειρά** όπως ορίστηκε κατά τη δημιουργία του. Παράλειψη έστω και μιας τιμής προκαλεί σφάλμα. Η σύνταξη **με** ορισμό στηλών είναι πάντα ασφαλέστερη και πιο αναγνώσιμη.
+**Exam Note:** The syntax **without** a column definition (`INSERT INTO table VALUES (...)`) requires values for **every column** of the table, **in the exact order** in which they were defined at creation. Omitting even one value causes an error. The syntax **with** a column definition is always safer and more readable.
 
-**Key Distinction:** Η `INSERT INTO` παραβιάζει τους constraints σε πραγματικό χρόνο:
+**Key Distinction:** `INSERT INTO` violates constraints in real time:
 
 ```sql
--- Παραβίαση PRIMARY KEY (am=10001 υπάρχει ήδη)
+-- PRIMARY KEY violation (am=10001 already exists)
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10001, 'Άλλος', 'Φοιτητής', 2);
+VALUES (10001, 'Other', 'Student', 2);
 -- ERROR 1062 (23000): Duplicate entry '10001' for key 'PRIMARY'
 
--- Παραβίαση FOREIGN KEY (dept_id=99 δεν υπάρχει στον πίνακα Tmima)
+-- FOREIGN KEY violation (dept_id=99 does not exist in table Tmima)
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10006, 'Τεστ', 'Φοιτητής', 99);
+VALUES (10006, 'Test', 'Student', 99);
 -- ERROR 1452: Cannot add or update a child row: a foreign key constraint fails
 ```
 
 ---
 
 ### UPDATE ... SET ... WHERE
-*Ενημέρωση/Τροποποίηση Υπαρχόντων Δεδομένων*
+*Updating/Modifying Existing Data*
 
-Η εντολή `UPDATE` **τροποποιεί τιμές σε υπάρχουσες εγγραφές** ενός πίνακα. Η ρήτρα `SET` ορίζει ποια στήλη αλλάζει και σε ποια τιμή, ενώ η ρήτρα `WHERE` καθορίζει **ποιες γραμμές** θα επηρεαστούν. Χωρίς `WHERE`, η εντολή επηρεάζει **όλες** τις γραμμές του πίνακα.
+The `UPDATE` statement **modifies values in existing records** of a table. The `SET` clause defines which column changes and to which value, while the `WHERE` clause determines **which rows** will be affected. Without `WHERE`, the statement affects **all** the rows of the table.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 UPDATE table_name
@@ -3004,76 +2993,76 @@ SET    column1 = value1,
 WHERE  condition;
 ```
 
-**Παράδειγμα — Ενημέρωση email ενός συγκεκριμένου φοιτητή:**
+**Example — Updating the email of a specific student:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SELECT am, onoma, email FROM Foititis WHERE am = 10001;
   +-------+--------+-------------+
   | am    | onoma  | email       |
   +-------+--------+-------------+
-  | 10001 | Αλέξης | alex@uni.gr |
+  | 10001 | Alexis | alex@uni.gr |
   +-------+--------+-------------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Ενημέρωση email μόνο του φοιτητή με am=10001
+-- Updating the email of only the student with am=10001
 UPDATE Foititis
 SET    email = 'alexniko@newmail.gr'
 WHERE  am = 10001;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SELECT am, onoma, email FROM Foititis WHERE am = 10001;
   +-------+--------+--------------------+
   | am    | onoma  | email              |
   +-------+--------+--------------------+
-  | 10001 | Αλέξης | alexniko@newmail.gr|
+  | 10001 | Alexis | alexniko@newmail.gr|
   +-------+--------+--------------------+
 ```
 
-**Ενημέρωση πολλαπλών στηλών ταυτόχρονα:**
+**Updating multiple columns simultaneously:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SELECT am, eponymo, dept_id FROM Foititis WHERE am = 10003;
   +-------+--------------+---------+
   | am    | eponymo      | dept_id |
   +-------+--------------+---------+
-  | 10003 | Κωστόπουλος  |       1 |
+  | 10003 | Kostopoulos  |       1 |
   +-------+--------------+---------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Ταυτόχρονη αλλαγή επωνύμου και τμήματος
+-- Simultaneous change of surname and department
 UPDATE Foititis
-SET    eponymo = 'Κωστόπουλος-Νέος',
+SET    eponymo = 'Kostopoulos-New',
        dept_id = 2
 WHERE  am = 10003;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SELECT am, eponymo, dept_id FROM Foititis WHERE am = 10003;
   +-------+------------------+---------+
   | am    | eponymo          | dept_id |
   +-------+------------------+---------+
-  | 10003 | Κωστόπουλος-Νέος |       2 |
+  | 10003 | Kostopoulos-New |       2 |
   +-------+------------------+---------+
 ```
 
-**Ενημέρωση πολλαπλών γραμμών με κοινή συνθήκη:**
+**Updating multiple rows with a common condition:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SELECT am, dept_id FROM Foititis;
@@ -3082,21 +3071,21 @@ WHERE  am = 10003;
   +-------+---------+
   | 10001 |       1 |
   | 10002 |       2 |
-  | 10003 |       2 |  (μετά την προηγούμενη ενημέρωση)
+  | 10003 |       2 |  (after the previous update)
   | 10004 |       3 |
   +-------+---------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Μεταφορά ΟΛΩΝ των φοιτητών του τμήματος 2 στο τμήμα 4
+-- Moving ALL students of department 2 to department 4
 UPDATE Foititis
 SET    dept_id = 4
 WHERE  dept_id = 2;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SELECT am, dept_id FROM Foititis;
@@ -3104,158 +3093,158 @@ WHERE  dept_id = 2;
   | am    | dept_id |
   +-------+---------+
   | 10001 |       1 |
-  | 10002 |       4 |  <-- Άλλαξε
-  | 10003 |       4 |  <-- Άλλαξε
+  | 10002 |       4 |  <-- Changed
+  | 10003 |       4 |  <-- Changed
   | 10004 |       3 |
   +-------+---------+
 ```
 
-**Επικίνδυνο παράδειγμα — UPDATE χωρίς WHERE:**
+**Dangerous example — UPDATE without WHERE:**
 
 ```sql
--- ΠΡΟΣΟΧΗ: Χωρίς WHERE, επηρεάζονται ΟΛΕΣ οι γραμμές του πίνακα
+-- WARNING: Without WHERE, ALL rows of the table are affected
 UPDATE Foititis
 SET    dept_id = 1;
--- Αποτέλεσμα: ΟΛΟΙ οι φοιτητές μεταφέρονται στο τμήμα 1
+-- Result: ALL students are moved to department 1
 ```
 
-**Exam Note:** Η παράλειψη της `WHERE` σε μια `UPDATE` εντολή είναι ένα από τα πιο **κοινά και καταστροφικά λάθη** — επηρεάζει κάθε γραμμή του πίνακα. Πριν από κάθε `UPDATE`, συνιστάται η εκτέλεση ενός αντίστοιχου `SELECT` με την ίδια `WHERE` συνθήκη για να επαληθευτεί ότι επιλέγονται οι σωστές γραμμές.
+**Exam Note:** Omitting `WHERE` in an `UPDATE` statement is one of the most **common and destructive mistakes** — it affects every row of the table. Before any `UPDATE`, it is recommended to run a corresponding `SELECT` with the same `WHERE` condition to verify that the correct rows are selected.
 
 ---
 
 ### DELETE FROM ... WHERE
-*Διαγραφή Συγκεκριμένων Εγγραφών Βάσει Συνθήκης*
+*Deleting Specific Records Based on a Condition*
 
-Η εντολή `DELETE FROM` **διαγράφει εγγραφές (γραμμές/πλειάδες)** από έναν πίνακα. Η ρήτρα `WHERE` καθορίζει ποιες γραμμές θα διαγραφούν. Χωρίς `WHERE`, διαγράφονται **όλες** οι εγγραφές (το σχήμα του πίνακα παραμένει). Σε αντίθεση με την `DROP TABLE`, ο πίνακας **συνεχίζει να υπάρχει** μετά τη `DELETE`.
+The `DELETE FROM` statement **deletes records (rows/tuples)** from a table. The `WHERE` clause determines which rows will be deleted. Without `WHERE`, **all** records are deleted (the table's schema remains). Unlike `DROP TABLE`, the table **continues to exist** after `DELETE`.
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 DELETE FROM table_name
 WHERE  condition;
 ```
 
-**Παράδειγμα — Διαγραφή ενός συγκεκριμένου φοιτητή:**
+**Example — Deleting a specific student:**
 
-**Κατάσταση πριν:**
+**Before:**
 
 ```text
   mysql> SELECT am, onoma, eponymo FROM Foititis;
   +-------+--------+-----------------+
   | am    | onoma  | eponymo         |
   +-------+--------+-----------------+
-  | 10001 | Αλέξης | Νικολόπουλος    |
-  | 10002 | Ελένη  | Παπαδοπούλου    |
-  | 10003 | Νίκος  | Κωστόπουλος-Νέος|
-  | 10004 | Μαρία  | Σταυρίδου       |
+  | 10001 | Alexis | Nikolopoulos    |
+  | 10002 | Eleni  | Papadopoulou    |
+  | 10003 | Nikos  | Kostopoulos-New|
+  | 10004 | Maria  | Stavridou       |
   +-------+--------+-----------------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Διαγραφή μόνο του φοιτητή με am=10003
+-- Deleting only the student with am=10003
 DELETE FROM Foititis
 WHERE  am = 10003;
 ```
 
-**Κατάσταση μετά:**
+**After:**
 
 ```text
   mysql> SELECT am, onoma, eponymo FROM Foititis;
   +-------+--------+--------------+
   | am    | onoma  | eponymo      |
   +-------+--------+--------------+
-  | 10001 | Αλέξης | Νικολόπουλος |
-  | 10002 | Ελένη  | Παπαδοπούλου |
-  | 10004 | Μαρία  | Σταυρίδου    |
+  | 10001 | Alexis | Nikolopoulos |
+  | 10002 | Eleni  | Papadopoulou |
+  | 10004 | Maria  | Stavridou    |
   +-------+--------+--------------+
   3 rows in set (0.00 sec)
 ```
 
-**Διαγραφή με σύνθετη συνθήκη:**
+**Deletion with a compound condition:**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Διαγραφή φοιτητών που ανήκουν στο τμήμα 4
+-- Deleting students who belong to department 4
 DELETE FROM Foititis
 WHERE  dept_id = 4;
 ```
 
-**Διαγραφή όλων των εγγραφών (χωρίς WHERE):**
+**Deleting all records (without WHERE):**
 
 ```sql
--- Διαγράφει ΟΛΕΣ τις εγγραφές — ο πίνακας παραμένει κενός (δομή ανέπαφη)
+-- Deletes ALL records - the table remains empty (structure intact)
 DELETE FROM Foititis;
 ```
 
-**Ο παραπάνω κώδικας έχει το ίδιο αποτέλεσμα με:**
+**The code above has the same result as:**
 
 ```sql
--- TRUNCATE: Πιο γρήγορο για εκκαθάριση ολόκληρου πίνακα
--- (δεν μπορεί να ανακτηθεί με ROLLBACK — συμπεριφέρεται ως DDL)
+-- TRUNCATE: Faster for clearing an entire table
+-- (cannot be recovered with ROLLBACK - behaves like DDL)
 TRUNCATE TABLE Foititis;
 ```
 
-**Παραβίαση Αναφορικής Ακεραιότητας κατά τη DELETE:**
+**Referential Integrity Violation during DELETE:**
 
 ```sql
--- Προσπάθεια διαγραφής τμήματος που έχει φοιτητές
+-- Attempting to delete a department that has students
 DELETE FROM Tmima
 WHERE  dept_id = 1;
 -- ERROR 1451: Cannot delete or update a parent row:
 -- a foreign key constraint fails (Foititis.dept_id REFERENCES Tmima.dept_id)
 ```
 
-**Συγκριτικός Πίνακας: `DELETE FROM` vs `DROP TABLE` vs `TRUNCATE`:**
+**Comparative Table: `DELETE FROM` vs `DROP TABLE` vs `TRUNCATE`:**
 
-| Χαρακτηριστικό | `DELETE FROM` | `DROP TABLE` | `TRUNCATE TABLE` |
+| Characteristic | `DELETE FROM` | `DROP TABLE` | `TRUNCATE TABLE` |
 |---|---|---|---|
-| **Κατηγορία SQL** | DML | DDL | DDL (συμπεριφορά) |
-| **Δομή πίνακα** | Παραμένει | Διαγράφεται | Παραμένει |
-| **Δεδομένα** | Επιλεκτική / Ολική διαγραφή | Ολική διαγραφή | Ολική διαγραφή |
-| **WHERE δυνατή;** | Ναι | Όχι | Όχι |
-| **ROLLBACK δυνατό;** | Ναι (εντός transaction) | Όχι | Όχι |
-| **Ταχύτητα** | Αργό (γραμμή-γραμμή) | Γρήγορο | Πολύ γρήγορο |
-| **AUTO_INCREMENT reset** | Όχι | — | Ναι |
+| **SQL category** | DML | DDL | DDL (behavior) |
+| **Table structure** | Remains | Deleted | Remains |
+| **Data** | Selective / Full deletion | Full deletion | Full deletion |
+| **WHERE possible?** | Yes | No | No |
+| **ROLLBACK possible?** | Yes (within a transaction) | No | No |
+| **Speed** | Slow (row by row) | Fast | Very fast |
+| **AUTO_INCREMENT reset** | No | — | Yes |
 
-**Key Distinction:** Η `DELETE FROM table` (χωρίς `WHERE`) και η `TRUNCATE TABLE table` αδειάζουν και οι δύο τον πίνακα από δεδομένα. Ωστόσο, η `DELETE` είναι DML και υποστηρίζει `ROLLBACK`, ενώ η `TRUNCATE` συμπεριφέρεται ως DDL (implicit `COMMIT`) και είναι πιο γρήγορη καθώς δεν καταγράφει την κάθε διαγραφή χωριστά.
+**Key Distinction:** `DELETE FROM table` (without `WHERE`) and `TRUNCATE TABLE table` both empty the table of data. However, `DELETE` is DML and supports `ROLLBACK`, while `TRUNCATE` behaves like DDL (implicit `COMMIT`) and is faster because it does not log each deletion separately.
 
 ---
 
-### Συγκριτικός Πίνακας: Εντολές DML
+### Comparative Table: DML Commands
 *Comparative Table: DML Commands*
 
-| Εντολή | Ενέργεια | Απαιτεί WHERE; | Επηρεάζει Γραμμές | Επηρεάζει Δομή |
+| Command | Action | Requires WHERE? | Affects Rows | Affects Structure |
 |---|---|---|---|---|
-| `INSERT INTO` | Προσθέτει νέες εγγραφές | Όχι | Νέες γραμμές | Όχι |
-| `UPDATE ... SET` | Τροποποιεί υπάρχουσες τιμές | Συνιστάται (χωρίς → ολική ενημέρωση) | Υπάρχουσες γραμμές | Όχι |
-| `DELETE FROM` | Διαγράφει υπάρχουσες εγγραφές | Συνιστάται (χωρίς → ολική διαγραφή) | Υπάρχουσες γραμμές | Όχι |
+| `INSERT INTO` | Adds new records | No | New rows | No |
+| `UPDATE ... SET` | Modifies existing values | Recommended (without → full update) | Existing rows | No |
+| `DELETE FROM` | Deletes existing records | Recommended (without → full deletion) | Existing rows | No |
 
 ---
 
-## Ερωτήματα & Ανάκτηση (DQL — Data Query Language)
+## Queries & Retrieval (DQL — Data Query Language)
 *Data Query Language*
 
-Η **DQL** (ή πιο συνήθως αναφέρεται ως τμήμα της DML) περιλαμβάνει κατά βάση την εντολή `SELECT` — την **πιο συχνά χρησιμοποιούμενη εντολή** ολόκληρης της SQL. Η `SELECT` **δεν τροποποιεί** τα δεδομένα — ανακτά και παρουσιάζει πληροφορία από έναν ή περισσότερους πίνακες βάσει κριτηρίων. Η σχέση μεταξύ `SELECT` και Σχεσιακής Άλγεβρας είναι άμεση: η `WHERE` αντιστοιχεί στην **Επιλογή** ($\sigma$) και η λίστα στηλών στην **Προβολή** ($\pi$).
+**DQL** (or more commonly referred to as part of DML) essentially includes the `SELECT` statement — the **most frequently used statement** of the entire SQL language. `SELECT` **does not modify** the data — it retrieves and presents information from one or more tables based on criteria. The relationship between `SELECT` and Relational Algebra is direct: `WHERE` corresponds to **Selection** ($\sigma$) and the column list to **Projection** ($\pi$).
 
-**Αναλογία**: Η `SELECT` είναι σαν μια **ερώτηση** που κάνει κανείς σε έναν βιβλιοθηκάριο — ορίζει τι θέλει να δει (στήλες), από πού (πίνακες) και υπό ποιες προϋποθέσεις (φίλτρα). Ο βιβλιοθηκάριος επιστρέφει αποτελέσματα χωρίς να αλλάξει τίποτα στα βιβλία.
+**Analogy**: `SELECT` is like a **question** one asks a librarian — it defines what one wants to see (columns), from where (tables), and under what conditions (filters). The librarian returns results without changing anything in the books.
 
 ---
 
-### Βασική Δομή SELECT
+### Basic SELECT Structure
 *Basic SELECT Structure*
 
-Η βασική δομή ενός `SELECT` ερωτήματος αποτελείται από τρεις θεμελιώδεις ρήτρες που απαντούν σε τρεις ερωτήσεις:
+The basic structure of a `SELECT` query consists of three fundamental clauses that answer three questions:
 
-| Ρήτρα | Ερώτηση που απαντά | Αντιστοιχία Σχεσιακής Άλγεβρας |
+| Clause | Question it answers | Relational Algebra Correspondence |
 |---|---|---|
-| `SELECT` | **Τι** ανακτώ; (ποιες στήλες) | Προβολή $\pi$ |
-| `FROM` | **Από πού** ανακτώ; (ποιος πίνακας) | Σχέση $R$ |
-| `WHERE` | **Με ποιους όρους**; (ποιες γραμμές) | Επιλογή $\sigma$ |
+| `SELECT` | **What** do I retrieve? (which columns) | Projection $\pi$ |
+| `FROM` | **From where** do I retrieve? (which table) | Relation $R$ |
+| `WHERE` | **Under what conditions**? (which rows) | Selection $\sigma$ |
 
-**Βασική σύνταξη:**
+**Basic syntax:**
 
 ```sql
 SELECT column1, column2, ...
@@ -3263,130 +3252,130 @@ FROM   table_name
 WHERE  condition;
 ```
 
-**Γενική μορφή ερωτήματος — Αντιστοιχία με Σχεσιακή Άλγεβρα:**
+**General query form — Correspondence with Relational Algebra:**
 
 $$\pi_{\text{column1, column2}}(\sigma_{\text{condition}}(\text{table\_name}))$$
 
 ```sql
--- SQL αντίστοιχο
+-- SQL equivalent
 SELECT column1, column2
 FROM   table_name
 WHERE  condition;
 ```
 
-**Παράδειγμα — Ανάκτηση ονόματος και επωνύμου ΟΛΩΝ των φοιτητών:**
+**Example — Retrieving the first and last name of ALL students:**
 
-**Κατάσταση πίνακα:**
+**Table state:**
 
 ```text
   Foititis:
   +-------+--------+--------------+--------------+------------+---------+
   | am    | onoma  | eponymo      | email        | hmerominia | dept_id |
   +-------+--------+--------------+--------------+------------+---------+
-  | 10001 | Αλέξης | Νικολόπουλος | alex@uni.gr  | 2001-05-10 |       1 |
-  | 10002 | Ελένη  | Παπαδοπούλου | eleni@uni.gr | 2002-09-15 |       4 |
-  | 10004 | Μαρία  | Σταυρίδου    | maria@uni.gr | 2003-01-30 |       3 |
+  | 10001 | Alexis | Nikolopoulos | alex@uni.gr  | 2001-05-10 |       1 |
+  | 10002 | Eleni  | Papadopoulou | eleni@uni.gr | 2002-09-15 |       4 |
+  | 10004 | Maria  | Stavridou    | maria@uni.gr | 2003-01-30 |       3 |
   +-------+--------+--------------+--------------+------------+---------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Επιλογή συγκεκριμένων στηλών από ΟΛΕΣ τις γραμμές
+-- Selecting specific columns from ALL rows
 SELECT onoma, eponymo
 FROM   Foititis;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +--------+--------------+
   | onoma  | eponymo      |
   +--------+--------------+
-  | Αλέξης | Νικολόπουλος |
-  | Ελένη  | Παπαδοπούλου |
-  | Μαρία  | Σταυρίδου    |
+  | Alexis | Nikolopoulos |
+  | Eleni  | Papadopoulou |
+  | Maria  | Stavridou    |
   +--------+--------------+
   3 rows in set (0.00 sec)
 ```
 
-**Χρήση alias (AS) για μετονομασία στηλών στο αποτέλεσμα:**
+**Using an alias (AS) to rename columns in the result:**
 
 ```sql
--- Το alias αλλάζει μόνο το όνομα στήλης στο αποτέλεσμα — δεν αλλάζει τη βάση
-SELECT onoma    AS "Όνομα Φοιτητή",
-       eponymo  AS "Επώνυμο",
-       dept_id  AS "Τμήμα"
+-- The alias changes only the column name in the result - it does not change the database
+SELECT onoma    AS "Student Name",
+       eponymo  AS "Surname",
+       dept_id  AS "Department"
 FROM   Foititis;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +----------------+--------------+-------+
-  | Όνομα Φοιτητή | Επώνυμο      | Τμήμα |
+  | Student Name   | Surname       | Dept. |
   +----------------+--------------+-------+
-  | Αλέξης        | Νικολόπουλος |     1 |
-  | Ελένη         | Παπαδοπούλου |     4 |
-  | Μαρία         | Σταυρίδου    |     3 |
+  | Alexis         | Nikolopoulos |     1 |
+  | Eleni          | Papadopoulou |     4 |
+  | Maria          | Stavridou    |     3 |
   +----------------+--------------+-------+
 ```
 
 ---
 
-### Προβολή Συγκεκριμένων Στηλών ή Συνόλου (*)
+### Column Projection or Full Row Selection (*)
 *Column Projection or Full Row Selection*
 
-Η `SELECT` προσφέρει δύο βασικές επιλογές για τις στήλες που επιστρέφονται: **ρητή επιλογή συγκεκριμένων στηλών** ή χρήση του **μπαλαντέρ `*`** που επιστρέφει όλες τις στήλες.
+`SELECT` offers two basic options for the columns that are returned: **explicit selection of specific columns** or the use of the **wildcard `*`**, which returns all columns.
 
-**Σύνταξη `SELECT *` — Επιλογή όλων των στηλών:**
+**`SELECT *` syntax — Selecting all columns:**
 
 ```sql
 SELECT *
 FROM   table_name;
 ```
 
-**Παράδειγμα — Πλήρης προβολή πίνακα `Foititis`:**
+**Example — Full projection of table `Foititis`:**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
 SELECT *
 FROM   Foititis;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+--------+--------------+--------------+------------+---------+
   | am    | onoma  | eponymo      | email        | hmerominia | dept_id |
   +-------+--------+--------------+--------------+------------+---------+
-  | 10001 | Αλέξης | Νικολόπουλος | alex@uni.gr  | 2001-05-10 |       1 |
-  | 10002 | Ελένη  | Παπαδοπούλου | eleni@uni.gr | 2002-09-15 |       4 |
-  | 10004 | Μαρία  | Σταυρίδου    | maria@uni.gr | 2003-01-30 |       3 |
+  | 10001 | Alexis | Nikolopoulos | alex@uni.gr  | 2001-05-10 |       1 |
+  | 10002 | Eleni  | Papadopoulou | eleni@uni.gr | 2002-09-15 |       4 |
+  | 10004 | Maria  | Stavridou    | maria@uni.gr | 2003-01-30 |       3 |
   +-------+--------+--------------+--------------+------------+---------+
 ```
 
-**Σύγκριση `SELECT *` vs Συγκεκριμένες Στήλες:**
+**Comparison of `SELECT *` vs Specific Columns:**
 
-| Κριτήριο | `SELECT *` | `SELECT col1, col2` |
+| Criterion | `SELECT *` | `SELECT col1, col2` |
 |---|---|---|
-| **Αναγνωσιμότητα κώδικα** | Χαμηλή (δεν φαίνεται τι αναμένεται) | Υψηλή (σαφής πρόθεση) |
-| **Απόδοση** | Χαμηλότερη (μεταφέρονται περιττές στήλες) | Υψηλότερη (μόνο τα απαραίτητα δεδομένα) |
-| **Ανθεκτικότητα σε αλλαγές σχήματος** | Ευάλωτη (νέες στήλες εμφανίζονται αυτόματα) | Ανθεκτική (σταθερό αποτέλεσμα) |
-| **Χρήση** | Γρήγορη εξερεύνηση / debugging | Παραγωγικός κώδικας |
+| **Code readability** | Low (it is not clear what is expected) | High (clear intent) |
+| **Performance** | Lower (unnecessary columns are transferred) | Higher (only the necessary data) |
+| **Resilience to schema changes** | Vulnerable (new columns appear automatically) | Resilient (stable result) |
+| **Use** | Quick exploration / debugging | Production code |
 
-**Χρήση `DISTINCT` — Αποφυγή διπλότυπων:**
+**Using `DISTINCT` — Avoiding duplicates:**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Εμφανίζει μόνο τα μοναδικά τμήματα που έχουν φοιτητές
+-- Displays only the unique departments that have students
 SELECT DISTINCT dept_id
 FROM   Foititis;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +---------+
@@ -3399,219 +3388,219 @@ FROM   Foititis;
   3 rows in set (0.00 sec)
 ```
 
-**Exam Note:** Το `SELECT *` είναι χρήσιμο για γρήγορη εξερεύνηση δεδομένων και debugging, αλλά **αποφεύγεται στον παραγωγικό κώδικα** — επιστρέφει περιττά δεδομένα, επηρεάζει την απόδοση και μπορεί να προκαλέσει απρόσμενα αποτελέσματα αν αλλάξει το σχήμα.
+**Exam Note:** `SELECT *` is useful for quick data exploration and debugging, but it is **avoided in production code** — it returns unnecessary data, affects performance, and can produce unexpected results if the schema changes.
 
 ---
 
-### Φιλτράρισμα: Τελεστές Σύγκρισης και Λογικοί Τελεστές
+### Filtering: Comparison Operators and Logical Operators
 *Filtering: Comparison Operators and Logical Operators*
 
-Η ρήτρα `WHERE` φιλτράρει τις γραμμές βάσει **συνθηκών** που χτίζονται με **Τελεστές Σύγκρισης** (Comparison Operators) και **Λογικούς Τελεστές** (Logical Operators). Μόνο οι γραμμές για τις οποίες η συνθήκη αποτιμάται σε `TRUE` συμπεριλαμβάνονται στο αποτέλεσμα.
+The `WHERE` clause filters rows based on **conditions** built with **Comparison Operators** and **Logical Operators**. Only the rows for which the condition evaluates to `TRUE` are included in the result.
 
-**Τελεστές Σύγκρισης (Comparison Operators):**
+**Comparison Operators:**
 
-| Τελεστής | Σημασία | Παράδειγμα |
+| Operator | Meaning | Example |
 |---|---|---|
-| `=` | Ισότητα | `dept_id = 1` |
-| `!=` ή `<>` | Ανισότητα | `dept_id != 2` |
-| `>` | Μεγαλύτερο από | `am > 10002` |
-| `<` | Μικρότερο από | `am < 10003` |
-| `>=` | Μεγαλύτερο ή ίσο | `am >= 10002` |
-| `<=` | Μικρότερο ή ίσο | `am <= 10003` |
-| `BETWEEN a AND b` | Μεταξύ δύο τιμών (inclusive) | `am BETWEEN 10001 AND 10003` |
-| `IN (v1, v2, ...)` | Ανήκει σε σύνολο τιμών | `dept_id IN (1, 3)` |
-| `IS NULL` | Η τιμή είναι NULL | `email IS NULL` |
-| `IS NOT NULL` | Η τιμή δεν είναι NULL | `hmerominia IS NOT NULL` |
-| `LIKE 'pattern'` | Ταίριασμα μοτίβου (% = πολλοί χαρακτήρες, _ = ένας) | `eponymo LIKE 'Παπα%'` |
+| `=` | Equality | `dept_id = 1` |
+| `!=` or `<>` | Inequality | `dept_id != 2` |
+| `>` | Greater than | `am > 10002` |
+| `<` | Less than | `am < 10003` |
+| `>=` | Greater than or equal | `am >= 10002` |
+| `<=` | Less than or equal | `am <= 10003` |
+| `BETWEEN a AND b` | Between two values (inclusive) | `am BETWEEN 10001 AND 10003` |
+| `IN (v1, v2, ...)` | Belongs to a set of values | `dept_id IN (1, 3)` |
+| `IS NULL` | The value is NULL | `email IS NULL` |
+| `IS NOT NULL` | The value is not NULL | `hmerominia IS NOT NULL` |
+| `LIKE 'pattern'` | Pattern matching (% = many characters, _ = one) | `eponymo LIKE 'Papa%'` |
 
-**Λογικοί Τελεστές (Logical Operators):**
+**Logical Operators:**
 
-| Τελεστής | Σημασία | Αποτέλεσμα `TRUE` |
+| Operator | Meaning | Result `TRUE` |
 |---|---|---|
-| `AND` | Λογικό ΚΑΙ | Και οι δύο συνθήκες είναι `TRUE` |
-| `OR` | Λογικό Ή | Τουλάχιστον μία συνθήκη είναι `TRUE` |
-| `NOT` | Άρνηση | Η συνθήκη είναι `FALSE` |
+| `AND` | Logical AND | Both conditions are `TRUE` |
+| `OR` | Logical OR | At least one condition is `TRUE` |
+| `NOT` | Negation | The condition is `FALSE` |
 
-**Παράδειγμα 1 — Φίλτρο ισότητας `=`:**
+**Example 1 — Equality filter `=`:**
 
-**Κατάσταση πίνακα:**
+**Table state:**
 
 ```text
-  Foititis (πλήρης):
+  Foititis (full):
   +-------+--------+--------------+------------+---------+
   | am    | onoma  | eponymo      | hmerominia | dept_id |
   +-------+--------+--------------+------------+---------+
-  | 10001 | Αλέξης | Νικολόπουλος | 2001-05-10 |       1 |
-  | 10002 | Ελένη  | Παπαδοπούλου | 2002-09-15 |       4 |
-  | 10004 | Μαρία  | Σταυρίδου    | 2003-01-30 |       3 |
+  | 10001 | Alexis | Nikolopoulos | 2001-05-10 |       1 |
+  | 10002 | Eleni  | Papadopoulou | 2002-09-15 |       4 |
+  | 10004 | Maria  | Stavridou    | 2003-01-30 |       3 |
   +-------+--------+--------------+------------+---------+
 ```
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Ανάκτηση φοιτητών που ανήκουν στο τμήμα 1
+-- Retrieving students who belong to department 1
 SELECT am, onoma, eponymo
 FROM   Foititis
 WHERE  dept_id = 1;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+--------+--------------+
   | am    | onoma  | eponymo      |
   +-------+--------+--------------+
-  | 10001 | Αλέξης | Νικολόπουλος |
+  | 10001 | Alexis | Nikolopoulos |
   +-------+--------+--------------+
   1 row in set (0.00 sec)
 ```
 
-**Παράδειγμα 2 — Τελεστής `>` (μεγαλύτερο από):**
+**Example 2 — The `>` operator (greater than):**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Ανάκτηση φοιτητών με am μεγαλύτερο του 10001
+-- Retrieving students with am greater than 10001
 SELECT am, onoma, eponymo
 FROM   Foititis
 WHERE  am > 10001;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+--------+--------------+
   | am    | onoma  | eponymo      |
   +-------+--------+--------------+
-  | 10002 | Ελένη  | Παπαδοπούλου |
-  | 10004 | Μαρία  | Σταυρίδου    |
+  | 10002 | Eleni  | Papadopoulou |
+  | 10004 | Maria  | Stavridou    |
   +-------+--------+--------------+
 ```
 
-**Παράδειγμα 3 — Τελεστής `AND` (και οι δύο συνθήκες):**
+**Example 3 — The `AND` operator (both conditions):**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Φοιτητές του τμήματος 1 που γεννήθηκαν πριν το 2002
+-- Students of department 1 who were born before 2002
 SELECT am, onoma, hmerominia, dept_id
 FROM   Foititis
 WHERE  dept_id = 1
   AND  hmerominia < '2002-01-01';
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+--------+------------+---------+
   | am    | onoma  | hmerominia | dept_id |
   +-------+--------+------------+---------+
-  | 10001 | Αλέξης | 2001-05-10 |       1 |
+  | 10001 | Alexis | 2001-05-10 |       1 |
   +-------+--------+------------+---------+
 ```
 
-**Παράδειγμα 4 — Τελεστής `OR` (τουλάχιστον μία συνθήκη):**
+**Example 4 — The `OR` operator (at least one condition):**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Φοιτητές που ανήκουν στο τμήμα 1 Ή στο τμήμα 3
+-- Students who belong to department 1 OR department 3
 SELECT am, onoma, dept_id
 FROM   Foititis
 WHERE  dept_id = 1
     OR dept_id = 3;
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+--------+---------+
   | am    | onoma  | dept_id |
   +-------+--------+---------+
-  | 10001 | Αλέξης |       1 |
-  | 10004 | Μαρία  |       3 |
+  | 10001 | Alexis |       1 |
+  | 10004 | Maria  |       3 |
   +-------+--------+---------+
 ```
 
-**Ισοδύναμο με `IN`:**
+**Equivalent to `IN`:**
 
 ```sql
--- Συντομότερη γραφή για πολλαπλές τιμές OR
+-- Shorter notation for multiple OR values
 SELECT am, onoma, dept_id
 FROM   Foititis
 WHERE  dept_id IN (1, 3);
 ```
 
-**Παράδειγμα 5 — Τελεστής `NOT` (άρνηση):**
+**Example 5 — The `NOT` operator (negation):**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Φοιτητές που ΔΕΝ ανήκουν στο τμήμα 1
+-- Students who do NOT belong to department 1
 SELECT am, onoma, dept_id
 FROM   Foititis
 WHERE  NOT dept_id = 1;
--- Ισοδύναμο: WHERE dept_id != 1  ή  WHERE dept_id <> 1
+-- Equivalent: WHERE dept_id != 1  or  WHERE dept_id <> 1
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+-------+---------+
   | am    | onoma | dept_id |
   +-------+-------+---------+
-  | 10002 | Ελένη |       4 |
-  | 10004 | Μαρία |       3 |
+  | 10002 | Eleni |       4 |
+  | 10004 | Maria |       3 |
   +-------+-------+---------+
 ```
 
-**Παράδειγμα 6 — Συνδυασμός `AND`, `OR` και παρενθέσεις:**
+**Example 6 — Combination of `AND`, `OR`, and parentheses:**
 
 ```sql
--- Φοιτητές που (ανήκουν στο τμήμα 1 ΚΑΙ γεννήθηκαν μετά το 2000)
--- Ή ανήκουν στο τμήμα 3
+-- Students who (belong to department 1 AND were born after 2000)
+-- Or belong to department 3
 SELECT am, onoma, eponymo, hmerominia, dept_id
 FROM   Foititis
 WHERE  (dept_id = 1 AND hmerominia > '2000-01-01')
     OR dept_id = 3;
 ```
 
-**Exam Note:** Κατά τη χρήση `AND` και `OR` στην ίδια `WHERE`, η **σειρά προτεραιότητας** είναι κρίσιμη: το `AND` αξιολογείται **πριν** το `OR`. Η χρήση **παρενθέσεων** για ρητό ορισμό της σειράς αξιολόγησης θεωρείται βέλτιστη πρακτική και αποτρέπει λογικά λάθη.
+**Exam Note:** When using `AND` and `OR` in the same `WHERE`, the **precedence order** is critical: `AND` is evaluated **before** `OR`. Using **parentheses** to explicitly define the evaluation order is considered best practice and prevents logical errors.
 
-**Παράδειγμα 7 — Τελεστής `LIKE` για αναζήτηση μοτίβου:**
+**Example 7 — The `LIKE` operator for pattern search:**
 
-**Εκτέλεση:**
+**Execution:**
 
 ```sql
--- Φοιτητές με επώνυμο που αρχίζει από 'Παπα'
+-- Students whose surname starts with 'Papa'
 SELECT am, onoma, eponymo
 FROM   Foititis
-WHERE  eponymo LIKE 'Παπα%';
+WHERE  eponymo LIKE 'Papa%';
 ```
 
-**Αποτέλεσμα:**
+**Result:**
 
 ```text
   +-------+-------+--------------+
   | am    | onoma | eponymo      |
   +-------+-------+--------------+
-  | 10002 | Ελένη | Παπαδοπούλου |
+  | 10002 | Eleni | Papadopoulou |
   +-------+-------+--------------+
 ```
 
-**Παράδειγμα 8 — Τελεστής `IS NULL`:**
+**Example 8 — The `IS NULL` operator:**
 
 ```sql
--- Φοιτητές για τους οποίους δεν έχει καταχωρηθεί email
+-- Students for whom an email has not been recorded
 SELECT am, onoma
 FROM   Foititis
 WHERE  email IS NULL;
 ```
 
-**Αντιστοιχία Σχεσιακής Άλγεβρας — SQL (σύνοψη):**
+**Relational Algebra — SQL correspondence (summary):**
 
-| Σχεσιακή Άλγεβρα | SQL |
+| Relational Algebra | SQL |
 |---|---|
 | $\sigma_{\text{dept\_id}=1}(\text{Foititis})$ | `SELECT * FROM Foititis WHERE dept_id = 1` |
 | $\pi_{\text{onoma, eponymo}}(\text{Foititis})$ | `SELECT onoma, eponymo FROM Foititis` |
@@ -3620,120 +3609,120 @@ WHERE  email IS NULL;
 
 ---
 
-## Συγκριτικός Πίνακας: DDL vs DML vs DQL
+## Comparative Table: DDL vs DML vs DQL
 *Comparative Table: DDL vs DML vs DQL*
 
-| Χαρακτηριστικό | DDL | DML | DQL |
+| Characteristic | DDL | DML | DQL |
 |---|---|---|---|
-| **Ονομασία** | Data Definition Language | Data Manipulation Language | Data Query Language |
-| **Σκοπός** | Ορισμός/τροποποίηση δομών | Χειρισμός δεδομένων | Ανάκτηση δεδομένων |
-| **Κύριες Εντολές** | `CREATE`, `DROP`, `ALTER` | `INSERT`, `UPDATE`, `DELETE` | `SELECT` |
-| **Τι τροποποιεί** | Σχήμα (δομή) ΒΔ | Δεδομένα (εγγραφές) | Τίποτα (μόνο ανάγνωση) |
-| **Implicit COMMIT** | Ναι (MySQL) | Όχι | Δεν εφαρμόζεται |
-| **ROLLBACK δυνατό;** | Όχι | Ναι (εντός transaction) | Δεν εφαρμόζεται |
-| **Κίνδυνος απώλειας** | Υψηλός (DROP) | Μεσαίος (DELETE χωρίς WHERE) | Κανένας |
-| **Αντιστοιχία Σχ. Άλγεβρας** | Ορισμός σχέσης | Τροποποίηση πλειάδων | $\sigma$, $\pi$, $\bowtie$ |
+| **Name** | Data Definition Language | Data Manipulation Language | Data Query Language |
+| **Purpose** | Defining/modifying structures | Manipulating data | Retrieving data |
+| **Main statements** | `CREATE`, `DROP`, `ALTER` | `INSERT`, `UPDATE`, `DELETE` | `SELECT` |
+| **What it modifies** | Database schema (structure) | Data (records) | Nothing (read-only) |
+| **Implicit COMMIT** | Yes (MySQL) | No | Not applicable |
+| **ROLLBACK possible?** | No | Yes (within a transaction) | Not applicable |
+| **Risk of loss** | High (DROP) | Medium (DELETE without WHERE) | None |
+| **Relational Algebra correspondence** | Relation definition | Tuple modification | $\sigma$, $\pi$, $\bowtie$ |
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Βασικό Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **DML** (Data Manipulation Language) | Υποσύνολο SQL για χειρισμό δεδομένων | `INSERT`, `UPDATE`, `DELETE` — υποστηρίζει `ROLLBACK` |
-| **DQL** (Data Query Language) | Υποσύνολο SQL για ανάκτηση δεδομένων | `SELECT` — δεν τροποποιεί δεδομένα |
-| **INSERT INTO** | Εισάγει νέες εγγραφές σε πίνακα | Σέβεται constraints (PK, FK, NOT NULL) |
-| **UPDATE ... SET** | Τροποποιεί τιμές υπαρχουσών εγγραφών | Χωρίς `WHERE` ενημερώνει ΟΛΕΣ τις γραμμές |
-| **DELETE FROM** | Διαγράφει εγγραφές από πίνακα | Χωρίς `WHERE` διαγράφει ΟΛΕΣ τις γραμμές — δομή παραμένει |
-| **SELECT** | Ανακτά δεδομένα από πίνακα/ες | Η πιο συχνή εντολή SQL — αντιστοιχεί σε $\pi$ + $\sigma$ |
-| **FROM** | Ορίζει τον πίνακα/ες πηγής | Υποχρεωτική ρήτρα κάθε `SELECT` |
-| **WHERE** | Φιλτράρει γραμμές βάσει συνθήκης | Αντιστοιχεί στην Επιλογή $\sigma$ της Σχεσιακής Άλγεβρας |
-| **SELECT \*** | Επιλέγει όλες τις στήλες | Χρήσιμο για debugging — αποφεύγεται στον παραγωγικό κώδικα |
-| **SELECT DISTINCT** | Επιστρέφει μοναδικές τιμές | Αφαιρεί διπλότυπες γραμμές από το αποτέλεσμα |
-| **Τελεστής `=`** | Ισότητα στη `WHERE` | Διαφέρει από `IS NULL` — το `= NULL` δεν λειτουργεί |
-| **Τελεστής `>`/`<`** | Σύγκριση μεγέθους | Εφαρμόζεται σε αριθμούς, ημερομηνίες, κείμενο (αλφαριθμητικά) |
-| **Τελεστής `AND`** | Λογικό ΚΑΙ | Υψηλότερη προτεραιότητα από `OR` — χρήση παρενθέσεων συνιστάται |
-| **Τελεστής `OR`** | Λογικό Ή | Επιστρέφει γραμμές όπου έστω μία συνθήκη είναι `TRUE` |
-| **Τελεστής `NOT`** | Λογική Άρνηση | Αντιστρέφει το αποτέλεσμα της συνθήκης |
-| **Τελεστής `IN`** | Ανήκει σε σύνολο τιμών | Συντομογραφία πολλαπλών `OR` ισοτήτων |
-| **Τελεστής `LIKE`** | Αναζήτηση βάσει μοτίβου | `%` = πολλοί χαρακτήρες, `_` = ένας χαρακτήρας |
-| **Τελεστής `IS NULL`** | Έλεγχος για NULL τιμή | Το `= NULL` είναι λανθασμένο — χρησιμοποιείται πάντα `IS NULL` |
-| **Alias (`AS`)** | Μετονομασία στήλης στο αποτέλεσμα | Δεν αλλάζει το σχήμα — μόνο την παρουσίαση |
-| **`TRUNCATE TABLE`** | Διαγράφει ΟΛΕΣ τις εγγραφές γρήγορα | Συμπεριφέρεται ως DDL — δεν υποστηρίζει `ROLLBACK` |
+| **DML** (Data Manipulation Language) | Subset of SQL for manipulating data | `INSERT`, `UPDATE`, `DELETE` — supports `ROLLBACK` |
+| **DQL** (Data Query Language) | Subset of SQL for retrieving data | `SELECT` — does not modify data |
+| **INSERT INTO** | Inserts new records into a table | Respects constraints (PK, FK, NOT NULL) |
+| **UPDATE ... SET** | Modifies values of existing records | Without `WHERE` updates ALL rows |
+| **DELETE FROM** | Deletes records from a table | Without `WHERE` deletes ALL rows — structure remains |
+| **SELECT** | Retrieves data from table(s) | The most frequent SQL statement — corresponds to $\pi$ + $\sigma$ |
+| **FROM** | Defines the source table(s) | Mandatory clause of every `SELECT` |
+| **WHERE** | Filters rows based on a condition | Corresponds to the Selection $\sigma$ of Relational Algebra |
+| **SELECT \*** | Selects all columns | Useful for debugging — avoided in production code |
+| **SELECT DISTINCT** | Returns unique values | Removes duplicate rows from the result |
+| **The `=` operator** | Equality in `WHERE` | Differs from `IS NULL` — `= NULL` does not work |
+| **The `>`/`<` operators** | Size comparison | Applies to numbers, dates, text (alphanumeric) |
+| **The `AND` operator** | Logical AND | Higher precedence than `OR` — parentheses recommended |
+| **The `OR` operator** | Logical OR | Returns rows where at least one condition is `TRUE` |
+| **The `NOT` operator** | Logical negation | Inverts the result of the condition |
+| **The `IN` operator** | Belongs to a set of values | Shorthand for multiple `OR` equalities |
+| **The `LIKE` operator** | Pattern-based search | `%` = many characters, `_` = one character |
+| **The `IS NULL` operator** | Check for a NULL value | `= NULL` is wrong — `IS NULL` is always used |
+| **Alias (`AS`)** | Renames a column in the result | Does not change the schema — only the presentation |
+| **`TRUNCATE TABLE`** | Quickly deletes ALL records | Behaves like DDL — does not support `ROLLBACK` |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Η **DML** (INSERT, UPDATE, DELETE) χειρίζεται τα **δεδομένα** μέσα στους πίνακες — δεν αλλάζει τη δομή/σχήμα τους. Σε αντίθεση με τη DDL, οι DML εντολές **υποστηρίζουν** `ROLLBACK` εντός transactions.
-- Η εντολή `INSERT INTO` με **ρητό ορισμό στηλών** (`INSERT INTO table (col1, col2) VALUES (v1, v2)`) είναι πάντα ασφαλέστερη από τη σύνταξη χωρίς στήλες — δεν εξαρτάται από τη σειρά στηλών και επιτρέπει παράλειψη προαιρετικών πεδίων.
-- **Exam Note:** Χωρίς ρήτρα `WHERE`, η `UPDATE` ενημερώνει και η `DELETE` διαγράφει **κάθε γραμμή** του πίνακα — πρόκειται για ένα από τα πιο κοινά και καταστροφικά λάθη. Η εκτέλεση αντίστοιχου `SELECT` πριν από την `UPDATE`/`DELETE` είναι βέλτιστη πρακτική.
-- Η `SELECT` αντιστοιχεί στον **συνδυασμό Προβολής ($\pi$) και Επιλογής ($\sigma$)** της Σχεσιακής Άλγεβρας: η λίστα στηλών υλοποιεί την Προβολή, η `WHERE` υλοποιεί την Επιλογή.
-- Η ρήτρα `WHERE` χτίζεται με **Τελεστές Σύγκρισης** (`=`, `>`, `<`, `>=`, `<=`, `!=`) και **Λογικούς Τελεστές** (`AND`, `OR`, `NOT`). Η σειρά προτεραιότητας είναι: `NOT` > `AND` > `OR` — η χρήση παρενθέσεων εξαλείφει αμφιβολίες.
-- **Key Distinction:** `DELETE FROM table` (χωρίς `WHERE`) αδειάζει τα δεδομένα αλλά **διατηρεί τη δομή** του πίνακα, ενώ `DROP TABLE` καταστρέφει και τα δεδομένα και τη δομή. Το `TRUNCATE TABLE` αδειάζει γρήγορα όπως η `DELETE` χωρίς `WHERE`, αλλά συμπεριφέρεται ως DDL (δεν υποστηρίζει `ROLLBACK`).
-- Το `SELECT *` είναι χρήσιμο για γρήγορη εξερεύνηση, αλλά **αποφεύγεται στον παραγωγικό κώδικα** — επιβαρύνει την απόδοση και κρύβει ποιες στήλες χρησιμοποιούνται πραγματικά.
-- **Key Distinction:** Για έλεγχο NULL τιμής χρησιμοποιείται **πάντα** `IS NULL` ή `IS NOT NULL` — η σύνταξη `= NULL` δεν λειτουργεί σωστά στη SQL, διότι το `NULL` δεν είναι τιμή αλλά κατάσταση απουσίας τιμής.
-- Ο τελεστής `IN (v1, v2, ...)` είναι ισοδύναμος με πολλαπλές `OR` ισότητες και προτιμάται για **συντομότερο και πιο αναγνώσιμο κώδικα** όταν ελέγχονται πολλές τιμές.
-- **Exam Note:** Η `SELECT` (DQL) είναι η **μόνη εντολή που δεν τροποποιεί** τα δεδομένα — είναι αμιγώς αναγνωστική. Κάθε `INSERT`, `UPDATE` και `DELETE` τροποποιεί τον πίνακα και αφήνει μόνιμο αποτύπωμα (εκτός `ROLLBACK`).
+- **DML** (INSERT, UPDATE, DELETE) handles the **data** inside the tables — it does not change their structure/schema. Unlike DDL, DML statements **support** `ROLLBACK` within transactions.
+- The `INSERT INTO` statement with **explicit column definition** (`INSERT INTO table (col1, col2) VALUES (v1, v2)`) is always safer than the syntax without columns — it does not depend on the column order and allows omitting optional fields.
+- **Exam Note:** Without a `WHERE` clause, `UPDATE` updates and `DELETE` deletes **every row** of the table — this is one of the most common and destructive mistakes. Running a corresponding `SELECT` before the `UPDATE`/`DELETE` is best practice.
+- `SELECT` corresponds to the **combination of Projection ($\pi$) and Selection ($\sigma$)** of Relational Algebra: the column list implements the Projection, the `WHERE` implements the Selection.
+- The `WHERE` clause is built with **Comparison Operators** (`=`, `>`, `<`, `>=`, `<=`, `!=`) and **Logical Operators** (`AND`, `OR`, `NOT`). The precedence order is: `NOT` > `AND` > `OR` — using parentheses eliminates ambiguity.
+- **Key Distinction:** `DELETE FROM table` (without `WHERE`) empties the data but **preserves the table's structure**, while `DROP TABLE` destroys both the data and the structure. `TRUNCATE TABLE` empties quickly like `DELETE` without `WHERE`, but behaves like DDL (does not support `ROLLBACK`).
+- `SELECT *` is useful for quick exploration, but it is **avoided in production code** — it burdens performance and hides which columns are actually used.
+- **Key Distinction:** For checking a NULL value, `IS NULL` or `IS NOT NULL` is **always** used — the `= NULL` syntax does not work correctly in SQL, because `NULL` is not a value but a state of the absence of a value.
+- The `IN (v1, v2, ...)` operator is equivalent to multiple `OR` equalities and is preferred for **shorter and more readable code** when checking many values.
+- **Exam Note:** `SELECT` (DQL) is the **only statement that does not modify** data — it is purely read-only. Every `INSERT`, `UPDATE`, and `DELETE` modifies the table and leaves a permanent mark (except with `ROLLBACK`).
 
 ---
 # topic_7_practical_application_and_dev_environments.md
 ---
 
-# Πρακτική Εφαρμογή & Περιβάλλοντα Ανάπτυξης
+# Practical Application & Development Environments
 *Practical Application & Development Environments*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Εργαλεία, Συστήματα & Αρχιτεκτονική](#εργαλεία-συστήματα--αρχιτεκτονική)
+1. [Introduction](#introduction)
+2. [Tools, Systems & Architecture](#tools-systems--architecture)
    - [MySQL Server](#mysql-server)
    - [MySQL Workbench](#mysql-workbench)
    - [XAMPP & phpMyAdmin](#xampp--phpmyadmin)
-   - [Συγκριτικός Πίνακας: Εργαλεία Διαχείρισης](#συγκριτικός-πίνακας-εργαλεία-διαχείρισης)
-3. [Υλοποίηση σε Πραγματικές Συνθήκες](#υλοποίηση-σε-πραγματικές-συνθήκες)
-   - [Προσδιορισμός Κατάλληλων Τύπων Δεδομένων](#προσδιορισμός-κατάλληλων-τύπων-δεδομένων)
-   - [Υλοποίηση Περιορισμών (NOT NULL, UNIQUE, DEFAULT)](#υλοποίηση-περιορισμών-not-null-unique-default)
-   - [Σύνδεση Πινάκων μέσω Ξένων Κλειδιών (FOREIGN KEY ... REFERENCES)](#σύνδεση-πινάκων-μέσω-ξένων-κλειδιών-foreign-key--references)
-   - [Διαχείριση Σχέσεων "Πολλά-προς-Πολλά" (Ενδιάμεσος Πίνακας)](#διαχείριση-σχέσεων-πολλά-προς-πολλά-ενδιάμεσος-πίνακας)
-4. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-5. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+   - [Comparative Table: Management Tools](#comparative-table-management-tools)
+3. [Implementation in Real-World Conditions](#implementation-in-real-world-conditions)
+   - [Determining Appropriate Data Types](#determining-appropriate-data-types)
+   - [Implementing Constraints (NOT NULL, UNIQUE, DEFAULT)](#implementing-constraints-not-null-unique-default)
+   - [Connecting Tables via Foreign Keys (FOREIGN KEY ... REFERENCES)](#connecting-tables-via-foreign-keys-foreign-key--references)
+   - [Managing "Many-to-Many" Relationships (Junction Table)](#managing-many-to-many-relationships-junction-table)
+4. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+5. [Key Takeaways](#key-takeaways)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Η θεωρητική γνώση των μοντέλων δεδομένων, της Σχεσιακής Άλγεβρας και της SQL αποκτά πλήρη αξία μόνο όταν εφαρμοστεί σε πραγματικό λογισμικό. Στο πλαίσιο του μαθήματος, το κυρίαρχο σύστημα υλοποίησης είναι το **MySQL** — ένα από τα πιο διαδεδομένα ανοιχτού κώδικα **Relational Database Management Systems (RDBMS)** παγκοσμίως. Η πρακτική αυτή ενότητα καλύπτει τόσο τα **εργαλεία** (MySQL Server, MySQL Workbench, XAMPP, phpMyAdmin) όσο και τις **αποφάσεις σχεδιασμού** που λαμβάνει ο διαχειριστής ΒΔ κατά την υλοποίηση: επιλογή τύπων δεδομένων, ορισμό περιορισμών, δήλωση Ξένων Κλειδιών και χειρισμό σχέσεων N:M μέσω ενδιάμεσων πινάκων. Η ικανότητα να μεταφράζεται ένα ER διάγραμμα ή ένα Σχεσιακό Σχήμα σε λειτουργική MySQL βάση δεδομένων αποτελεί θεμελιώδη δεξιότητα κάθε μηχανικού λογισμικού.
+The theoretical knowledge of data models, Relational Algebra, and SQL gains full value only when applied to real software. In the context of this course, the dominant implementation system is **MySQL** — one of the most widely used open-source **Relational Database Management Systems (RDBMS)** worldwide. This practical section covers both the **tools** (MySQL Server, MySQL Workbench, XAMPP, phpMyAdmin) and the **design decisions** the database administrator makes during implementation: choosing data types, defining constraints, declaring Foreign Keys, and handling N:M relationships through junction tables. The ability to translate an ER diagram or a Relational Schema into a functional MySQL database is a fundamental skill for every software engineer.
 
 ---
 
-## Εργαλεία, Συστήματα & Αρχιτεκτονική
+## Tools, Systems & Architecture
 *Tools, Systems & Architecture*
 
-Η αρχιτεκτονική ενός συστήματος MySQL βασίζεται στο μοντέλο **client-server**: ο **MySQL Server** εκτελείται στο παρασκήνιο ως υπηρεσία (service/daemon) που διαχειρίζεται τα δεδομένα, ενώ διάφορα **client εργαλεία** συνδέονται σε αυτόν για να εκτελέσουν ερωτήματα και διαχειριστικές εργασίες.
+The architecture of a MySQL system is based on the **client-server** model: the **MySQL Server** runs in the background as a service (service/daemon) that manages the data, while various **client tools** connect to it to run queries and administrative tasks.
 
 ```text
-  Αρχιτεκτονική Client-Server MySQL:
+  MySQL Client-Server Architecture:
 
-  +---------------------+        TCP/IP ή Socket        +---------------------+
+  +---------------------+        TCP/IP or Socket      +---------------------+
   |     CLIENT TOOLS    |  <-------------------------->  |    MySQL Server     |
   +---------------------+                               +---------------------+
   |  mysql CLI          |                               |  - Query Engine     |
   |  MySQL Workbench    |                               |  - Storage Engine   |
   |  phpMyAdmin         |                               |    (InnoDB)         |
-  |  Εφαρμογή (PHP/     |                               |  - Buffer Pool      |
+  |  Application (PHP/  |                               |  - Buffer Pool      |
   |  Python/Java)       |                               |  - Log Files        |
   +---------------------+                               +---------------------+
                                                                |
                                                         +------+------+
-                                                        |  Δεδομένα  |
-                                                        |  (Αρχεία   |
-                                                        |  Δίσκου)   |
+                                                        |  Data      |
+                                                        |  (Disk     |
+                                                        |  Files)    |
                                                         +------------+
 ```
 
@@ -3742,20 +3731,20 @@ WHERE  email IS NULL;
 ### MySQL Server
 *The Backend Database Management System*
 
-Ο **MySQL Server** είναι ο πυρήνας (backend) του συστήματος — η διεργασία που **αποθηκεύει, οργανώνει και εξυπηρετεί** τα δεδομένα. Εκτελείται συνεχώς ως **υπηρεσία** του λειτουργικού συστήματος και ακούει για εισερχόμενες συνδέσεις από clients (από προεπιλογή στη θύρα **3306**). Δεν έχει γραφικό περιβάλλον — η αλληλεπίδραση γίνεται μέσω SQL εντολών που αποστέλλονται από ένα client.
+The **MySQL Server** is the core (backend) of the system — the process that **stores, organizes, and serves** the data. It runs continuously as a **service** of the operating system and listens for incoming connections from clients (by default on port **3306**). It has no graphical interface — interaction takes place through SQL statements sent by a client.
 
-**Κύρια χαρακτηριστικά:**
-- Υποστηρίζει πολλαπλούς ταυτόχρονους χρήστες (**Concurrency**) μέσω transaction management.
-- Χρησιμοποιεί κατά κύριο λόγο τη **Storage Engine InnoDB**, η οποία υποστηρίζει Foreign Keys, Transactions και ACID εγγυήσεις.
-- Διαχειρίζεται δικαιώματα πρόσβασης (**privileges**) ανά χρήστη και ανά βάση δεδομένων.
+**Main features:**
+- Supports multiple concurrent users (**Concurrency**) through transaction management.
+- Primarily uses the **InnoDB Storage Engine**, which supports Foreign Keys, Transactions, and ACID guarantees.
+- Manages access rights (**privileges**) per user and per database.
 
-**Σύνδεση μέσω γραμμής εντολών (mysql CLI):**
+**Connecting via the command line (mysql CLI):**
 
 ```sql
--- Σύνδεση ως root χρήστης στον τοπικό MySQL Server
+-- Connecting as root user to the local MySQL Server
 mysql -u root -p
 
--- Αφού συνδεθεί, εμφάνιση διαθέσιμων βάσεων
+-- After connecting, display the available databases
 SHOW DATABASES;
 ```
 
@@ -3773,21 +3762,21 @@ SHOW DATABASES;
   5 rows in set (0.00 sec)
 ```
 
-**Exam Note:** Οι βάσεις `information_schema`, `mysql`, `performance_schema` και `sys` είναι **συστημικές βάσεις** που δημιουργούνται αυτόματα από τον MySQL Server. Δεν πρέπει ποτέ να τροποποιηθούν χειροκίνητα.
+**Exam Note:** The databases `information_schema`, `mysql`, `performance_schema`, and `sys` are **system databases** created automatically by the MySQL Server. They must never be modified manually.
 
 ---
 
 ### MySQL Workbench
 *Graphical Database Management Environment / GUI Client*
 
-Το **MySQL Workbench** είναι το επίσημο **γραφικό περιβάλλον (GUI)** που παρέχει η Oracle για τη διαχείριση MySQL Server. Συνδυάζει σε ένα εργαλείο:
-- **SQL Editor**: Σύνταξη και εκτέλεση SQL ερωτημάτων με syntax highlighting και αυτόματη συμπλήρωση.
-- **Visual Schema Designer (EER Diagram)**: Οπτική σχεδίαση και τροποποίηση σχημάτων βάσεων δεδομένων — δημιουργία πινάκων, ορισμός σχέσεων με drag-and-drop.
-- **Server Administration**: Διαχείριση χρηστών, δικαιωμάτων, status του server και log files.
-- **Data Export / Import**: Εισαγωγή και εξαγωγή δεδομένων σε μορφές SQL dump, CSV κ.ά.
+**MySQL Workbench** is the official **graphical environment (GUI)** provided by Oracle for managing MySQL Server. It combines in a single tool:
+- **SQL Editor**: Writing and executing SQL queries with syntax highlighting and autocompletion.
+- **Visual Schema Designer (EER Diagram)**: Visual design and modification of database schemas — creating tables, defining relationships with drag-and-drop.
+- **Server Administration**: Managing users, privileges, server status, and log files.
+- **Data Export / Import**: Importing and exporting data in SQL dump, CSV, and other formats.
 
 ```text
-  MySQL Workbench — Περιοχές Εργασίας:
+  MySQL Workbench — Work Areas:
 
   +-----------------------------------------------------------+
   |                    MySQL Workbench                        |
@@ -3804,230 +3793,230 @@ SHOW DATABASES;
   +------------------+----------------------------------------+
 ```
 
-**Αναλογία**: Το MySQL Workbench είναι σαν ένα **cockpit αεροπλάνου** — παρέχει όλες τις πληροφορίες και τα χειριστήρια σε ένα γραφικό περιβάλλον, ενώ ο MySQL Server είναι οι κινητήρες που πραγματικά εκτελούν τη δουλειά.
+**Analogy**: MySQL Workbench is like an **airplane cockpit** — it provides all the information and controls in a graphical environment, while the MySQL Server is the engines that actually do the work.
 
 ---
 
 ### XAMPP & phpMyAdmin
 *Web-Based Management Package and Services*
 
-Το **XAMPP** (X = Cross-platform, A = Apache, M = MariaDB/MySQL, P = PHP, P = Perl) είναι ένα **πακέτο εγκατάστασης** που ενσωματώνει σε ένα installer:
-- **Apache HTTP Server**: Web server για εξυπηρέτηση PHP εφαρμογών.
+**XAMPP** (X = Cross-platform, A = Apache, M = MariaDB/MySQL, P = PHP, P = Perl) is an **installation package** that bundles in one installer:
+- **Apache HTTP Server**: Web server for serving PHP applications.
 - **MySQL / MariaDB**: Relational database server.
 - **PHP**: Server-side scripting language.
-- **phpMyAdmin**: Web-based εργαλείο διαχείρισης MySQL μέσω browser.
+- **phpMyAdmin**: Web-based tool for managing MySQL through a browser.
 
-Το **phpMyAdmin** είναι μια PHP εφαρμογή που εκτελείται στον Apache και παρέχει **πλήρη διαχείριση MySQL μέσω web browser**, χωρίς εγκατάσταση επιπλέον λογισμικού. Είναι ιδανικό για web hosting περιβάλλοντα όπου δεν υπάρχει άμεση πρόσβαση CLI.
+**phpMyAdmin** is a PHP application that runs on Apache and provides **full MySQL management through a web browser**, without installing additional software. It is ideal for web hosting environments where there is no direct CLI access.
 
 ```text
-  XAMPP Stack — Αρχιτεκτονική:
+  XAMPP Stack — Architecture:
 
   Browser (Client)
        |
-       | HTTP Request (π.χ. http://localhost/phpmyadmin)
+       | HTTP Request (e.g., http://localhost/phpmyadmin)
        v
   +--------------------+
-  |   Apache Server    |  <-- Εκτελεί PHP scripts
+  |   Apache Server    |  <-- Runs PHP scripts
   +--------------------+
        |
-       | MySQL Protocol (θύρα 3306)
+       | MySQL Protocol (port 3306)
        v
   +--------------------+
-  |  MySQL / MariaDB   |  <-- Αποθηκεύει τα δεδομένα
+  |  MySQL / MariaDB   |  <-- Stores the data
   +--------------------+
 
-  Η phpMyAdmin είναι ένα σύνολο PHP αρχείων στον Apache
-  που δρουν ως web-based MySQL client.
+  phpMyAdmin is a set of PHP files on Apache
+  that act as a web-based MySQL client.
 ```
 
-**Key Distinction:** Το XAMPP χρησιμοποιείται συχνά για **τοπική ανάπτυξη (localhost)** web εφαρμογών, ενώ σε περιβάλλον παραγωγής (production) τα στοιχεία (Apache, MySQL, PHP) εγκαθίστανται και διαμορφώνονται χωριστά για λόγους ασφάλειας και απόδοσης.
+**Key Distinction:** XAMPP is often used for **local development (localhost)** of web applications, while in a production environment the components (Apache, MySQL, PHP) are installed and configured separately for security and performance reasons.
 
 ---
 
-### Συγκριτικός Πίνακας: Εργαλεία Διαχείρισης
+### Comparative Table: Management Tools
 *Comparative Table: Management Tools*
 
-| Χαρακτηριστικό | MySQL Server (CLI) | MySQL Workbench | phpMyAdmin |
+| Characteristic | MySQL Server (CLI) | MySQL Workbench | phpMyAdmin |
 |---|---|---|---|
-| **Τύπος** | CLI / Backend Service | Desktop GUI Client | Web-based GUI Client |
-| **Διεπαφή** | Γραμμή εντολών | Γραφική (Desktop App) | Browser |
-| **Εγκατάσταση** | Μόνο | Χωριστά (requires Server) | Μέρος XAMPP ή standalone |
-| **Σχεδίαση ER** | Όχι | Ναι (Visual EER Designer) | Περιορισμένα |
-| **Κατάλληλο για** | Scripting, automation | Ανάπτυξη, σχεδίαση | Web hosting, γρήγορη πρόσβαση |
-| **Απαιτεί PHP/Apache** | Όχι | Όχι | Ναι |
-| **Import/Export** | mysqldump CLI | Ναι (GUI) | Ναι (GUI) |
+| **Type** | CLI / Backend Service | Desktop GUI Client | Web-based GUI Client |
+| **Interface** | Command line | Graphical (Desktop App) | Browser |
+| **Installation** | Only | Separately (requires Server) | Part of XAMPP or standalone |
+| **ER design** | No | Yes (Visual EER Designer) | Limited |
+| **Suitable for** | Scripting, automation | Development, design | Web hosting, quick access |
+| **Requires PHP/Apache** | No | No | Yes |
+| **Import/Export** | mysqldump CLI | Yes (GUI) | Yes (GUI) |
 
 ---
 
-## Υλοποίηση σε Πραγματικές Συνθήκες
+## Implementation in Real-World Conditions
 *Implementation in Real-World Conditions*
 
-Η υλοποίηση ενός Σχεσιακού Σχήματος σε MySQL απαιτεί πέρα από τη γνώση σύνταξης SQL και μια σειρά από **αποφάσεις σχεδιασμού** που επηρεάζουν την ακεραιότητα, την απόδοση και τη συντηρησιμότητα της βάσης. Οι κρίσιμες αποφάσεις αφορούν: ποιος **τύπος δεδομένων** ταιριάζει σε κάθε πεδίο, ποιοι **περιορισμοί** (constraints) διασφαλίζουν την ποιότητα των δεδομένων, και πώς υλοποιούνται οι **σχέσεις** μεταξύ πινάκων.
+Implementing a Relational Schema in MySQL requires, beyond knowledge of SQL syntax, a series of **design decisions** that affect the integrity, performance, and maintainability of the database. The critical decisions concern: which **data type** fits each field, which **constraints** ensure data quality, and how the **relationships** between tables are implemented.
 
 ---
 
-### Προσδιορισμός Κατάλληλων Τύπων Δεδομένων
+### Determining Appropriate Data Types
 *Determining Appropriate Data Types*
 
-Ο **τύπος δεδομένων** (data type) κάθε στήλης ορίζει το **είδος και το εύρος των τιμών** που μπορεί να αποθηκεύσει. Η επιλογή του σωστού τύπου είναι κρίσιμη: ένας τύπος πολύ μεγάλος σπαταλά αποθηκευτικό χώρο, ενώ ένας πολύ μικρός μπορεί να μην χωρέσει τα δεδομένα και να προκαλέσει σφάλμα ή απώλεια πληροφορίας.
+The **data type** of each column defines the **kind and range of values** it can store. Choosing the correct type is critical: a type that is too large wastes storage space, while one that is too small may not fit the data and can cause an error or loss of information.
 
-**Κύριες κατηγορίες τύπων δεδομένων MySQL:**
+**Main categories of MySQL data types:**
 
-| Κατηγορία | Τύπος | Αποθήκευση / Εύρος | Τυπική Χρήση |
+| Category | Type | Storage / Range | Typical Use |
 |---|---|---|---|
-| **Ακέραιοι** | `TINYINT` | 1 byte, -128 έως 127 (ή 0-255 UNSIGNED) | Boolean flags, μικρές κατηγορίες |
-| | `SMALLINT` | 2 bytes, -32,768 έως 32,767 | Μικροί αριθμοί |
-| | `INT` / `INTEGER` | 4 bytes, ~-2.1 δισ. έως 2.1 δισ. | IDs, ποσότητες, counts |
-| | `BIGINT` | 8 bytes, ~-9.2 · 10¹⁸ έως 9.2 · 10¹⁸ | Πολύ μεγάλοι αριθμοί, timestamps |
-| **Δεκαδικοί** | `FLOAT` | 4 bytes | Κατά προσέγγιση δεκαδικά |
-| | `DOUBLE` | 8 bytes | Επιστημονικοί υπολογισμοί |
-| | `DECIMAL(M,D)` | Μεταβλητό | Χρηματικά ποσά (ακριβής αναπαράσταση) |
-| **Κείμενο** | `CHAR(N)` | Σταθερό N bytes (1-255) | Κωδικοί σταθερού μήκους (π.χ. ISO χώρας) |
-| | `VARCHAR(N)` | Μεταβλητό, έως N bytes (1-65535) | Ονόματα, emails, τίτλοι |
-| | `TEXT` | Έως 65,535 bytes | Μεγάλα κείμενα (περιγραφές, σχόλια) |
-| **Ημερομηνία/Ώρα** | `DATE` | 3 bytes, `YYYY-MM-DD` | Ημερομηνία γέννησης, έναρξης |
-| | `DATETIME` | 8 bytes, `YYYY-MM-DD HH:MM:SS` | Χρονοσφραγίδα γεγονότος |
-| | `TIMESTAMP` | 4 bytes, αυτόματη ενημέρωση UTC | Τελευταία τροποποίηση εγγραφής |
-| | `TIME` | 3 bytes, `HH:MM:SS` | Διάρκεια, ωράριο |
-| **Λογικός** | `BOOLEAN` / `TINYINT(1)` | 1 byte (0 = FALSE, 1 = TRUE) | Σημαίες κατάστασης |
+| **Integers** | `TINYINT` | 1 byte, -128 to 127 (or 0-255 UNSIGNED) | Boolean flags, small categories |
+| | `SMALLINT` | 2 bytes, -32,768 to 32,767 | Small numbers |
+| | `INT` / `INTEGER` | 4 bytes, ~-2.1 billion to 2.1 billion | IDs, quantities, counts |
+| | `BIGINT` | 8 bytes, ~-9.2 · 10¹⁸ to 9.2 · 10¹⁸ | Very large numbers, timestamps |
+| **Decimals** | `FLOAT` | 4 bytes | Approximate decimals |
+| | `DOUBLE` | 8 bytes | Scientific calculations |
+| | `DECIMAL(M,D)` | Variable | Monetary amounts (exact representation) |
+| **Text** | `CHAR(N)` | Fixed N bytes (1-255) | Fixed-length codes (e.g., country ISO) |
+| | `VARCHAR(N)` | Variable, up to N bytes (1-65535) | Names, emails, titles |
+| | `TEXT` | Up to 65,535 bytes | Large texts (descriptions, comments) |
+| **Date/Time** | `DATE` | 3 bytes, `YYYY-MM-DD` | Birth date, start date |
+| | `DATETIME` | 8 bytes, `YYYY-MM-DD HH:MM:SS` | Event timestamp |
+| | `TIMESTAMP` | 4 bytes, automatic UTC update | Last record modification |
+| | `TIME` | 3 bytes, `HH:MM:SS` | Duration, schedule |
+| **Boolean** | `BOOLEAN` / `TINYINT(1)` | 1 byte (0 = FALSE, 1 = TRUE) | Status flags |
 
-**Παράδειγμα — Δημιουργία πίνακα `Foititis` με επιλεγμένους τύπους:**
+**Example — Creating table `Foititis` with selected types:**
 
 ```sql
 CREATE TABLE Foititis (
-    -- INT: ακέραιος αριθμητικός Αριθμός Μητρώου, μέχρι ~2 δισ.
+    -- INT: integer Registration Number, up to ~2 billion
     am           INT            NOT NULL,
-    -- VARCHAR(50): μεταβλητού μήκους κείμενο, έως 50 χαρακτήρες
+    -- VARCHAR(50): variable-length text, up to 50 characters
     onoma        VARCHAR(50)    NOT NULL,
     eponymo      VARCHAR(50)    NOT NULL,
-    -- VARCHAR(100): email μπορεί να είναι μεγαλύτερο
+    -- VARCHAR(100): email may be longer
     email        VARCHAR(100),
-    -- DATE: αποθηκεύει μόνο ημερομηνία χωρίς ώρα
+    -- DATE: stores only the date without time
     hmerominia   DATE,
-    -- INT: Foreign Key προς dept_id του πίνακα Tmima
+    -- INT: Foreign Key to dept_id of the Tmima table
     dept_id      INT            NOT NULL,
     PRIMARY KEY (am)
 );
 ```
 
-**Σύγκριση `CHAR` vs `VARCHAR`:**
+**Comparison of `CHAR` vs `VARCHAR`:**
 
-| Χαρακτηριστικό | `CHAR(N)` | `VARCHAR(N)` |
+| Characteristic | `CHAR(N)` | `VARCHAR(N)` |
 |---|---|---|
-| **Μήκος αποθήκευσης** | Πάντα N bytes (συμπληρώνεται με κενά) | Πραγματικό μήκος + 1-2 bytes overhead |
-| **Απόδοση** | Ταχύτερο για σταθερό μήκος | Αποδοτικότερο για μεταβλητό μήκος |
-| **Κατάλληλο για** | Κωδικοί χώρας (`GR`, `US`), ΑΦΜ | Ονόματα, emails, διευθύνσεις |
+| **Storage length** | Always N bytes (padded with spaces) | Actual length + 1-2 bytes overhead |
+| **Performance** | Faster for fixed length | More efficient for variable length |
+| **Suitable for** | Country codes (`GR`, `US`), tax ID | Names, emails, addresses |
 
-**Exam Note:** Για χρηματικά ποσά, **ποτέ** δεν χρησιμοποιείται `FLOAT` ή `DOUBLE` λόγω αποσφαλμάτωσης κινητής υποδιαστολής (floating-point rounding errors). Χρησιμοποιείται `DECIMAL(10, 2)` (π.χ. 10 ψηφία συνολικά, 2 δεκαδικά) για ακριβή αναπαράσταση.
+**Exam Note:** For monetary amounts, `FLOAT` or `DOUBLE` is **never** used because of floating-point rounding errors. `DECIMAL(10, 2)` (e.g., 10 digits in total, 2 decimal places) is used for exact representation.
 
 ---
 
-### Υλοποίηση Περιορισμών (NOT NULL, UNIQUE, DEFAULT)
+### Implementing Constraints (NOT NULL, UNIQUE, DEFAULT)
 *Implementing Constraints*
 
-Οι **περιορισμοί (Constraints)** είναι κανόνες που επιβάλλει η MySQL αυτόματα σε κάθε `INSERT` ή `UPDATE`, διασφαλίζοντας την **ακεραιότητα των δεδομένων** (data integrity). Ορίζονται κατά τη δημιουργία (`CREATE TABLE`) ή προστίθενται αργότερα (`ALTER TABLE`).
+**Constraints** are rules that MySQL enforces automatically on every `INSERT` or `UPDATE`, ensuring **data integrity**. They are defined at creation time (`CREATE TABLE`) or added later (`ALTER TABLE`).
 
-**Κύριοι περιορισμοί:**
+**Main constraints:**
 
-| Περιορισμός | Σκοπός | Παραβίαση |
+| Constraint | Purpose | Violation |
 |---|---|---|
-| `NOT NULL` | Απαγορεύει NULL τιμές σε μια στήλη | `ERROR 1048: Column cannot be null` |
-| `UNIQUE` | Διασφαλίζει μοναδικότητα τιμών (NULL επιτρέπεται) | `ERROR 1062: Duplicate entry` |
-| `DEFAULT value` | Ορίζει προεπιλεγμένη τιμή αν δεν δοθεί | — (δεν προκαλεί σφάλμα) |
-| `PRIMARY KEY` | `NOT NULL` + `UNIQUE` + index | `ERROR 1062` ή `ERROR 1048` |
-| `CHECK (expr)` | Επαληθεύει λογική συνθήκη (MySQL 8.0.16+) | `ERROR 3819: Check constraint violated` |
+| `NOT NULL` | Prohibits NULL values in a column | `ERROR 1048: Column cannot be null` |
+| `UNIQUE` | Ensures uniqueness of values (NULL allowed) | `ERROR 1062: Duplicate entry` |
+| `DEFAULT value` | Sets a default value if none is given | — (does not cause an error) |
+| `PRIMARY KEY` | `NOT NULL` + `UNIQUE` + index | `ERROR 1062` or `ERROR 1048` |
+| `CHECK (expr)` | Verifies a logical condition (MySQL 8.0.16+) | `ERROR 3819: Check constraint violated` |
 
-**Παράδειγμα — Πίνακας `Mathima` με πολλαπλούς περιορισμούς:**
+**Example — Table `Mathima` with multiple constraints:**
 
 ```sql
 CREATE TABLE Mathima (
-    -- PRIMARY KEY: NOT NULL + UNIQUE αυτόματα
+    -- PRIMARY KEY: NOT NULL + UNIQUE automatically
     mathima_id   INT           NOT NULL AUTO_INCREMENT,
-    -- NOT NULL: ο τίτλος είναι υποχρεωτικός
+    -- NOT NULL: the title is mandatory
     titlos       VARCHAR(100)  NOT NULL,
-    -- UNIQUE: ο κωδικός μαθήματος πρέπει να είναι μοναδικός
+    -- UNIQUE: the course code must be unique
     kodikos      VARCHAR(10)   NOT NULL UNIQUE,
-    -- DEFAULT: αν δεν δοθούν μονάδες ECTS, θεωρούνται 5
+    -- DEFAULT: if no ECTS credits are given, they are considered 5
     ects         TINYINT       NOT NULL DEFAULT 5,
-    -- NULL επιτρέπεται: η περιγραφή είναι προαιρετική
+    -- NULL allowed: the description is optional
     perigrafi    TEXT,
-    -- CHECK: οι μονάδες ECTS πρέπει να είναι μεταξύ 1 και 30
+    -- CHECK: the ECTS credits must be between 1 and 30
     CONSTRAINT chk_ects CHECK (ects BETWEEN 1 AND 30),
     PRIMARY KEY (mathima_id)
 );
 ```
 
-**Επίδειξη συμπεριφοράς περιορισμών:**
+**Demonstration of constraint behavior:**
 
-**Κατάσταση πριν:**
+**Before:**
 ```text
   mysql> SELECT * FROM Mathima;
   Empty set (0.00 sec)
 ```
 
-**Επιτυχής εισαγωγή (με DEFAULT):**
+**Successful insertion (with DEFAULT):**
 ```sql
--- Δεν δίνεται τιμή για ects — λαμβάνει DEFAULT 5
+-- No value is given for ects - it receives DEFAULT 5
 INSERT INTO Mathima (titlos, kodikos)
-VALUES ('Βάσεις Δεδομένων', 'CS301');
+VALUES ('Databases', 'CS301');
 ```
 
-**Κατάσταση μετά:**
+**After:**
 ```text
   mysql> SELECT * FROM Mathima;
   +------------+------------------+---------+------+-----------+
   | mathima_id | titlos           | kodikos | ects | perigrafi |
   +------------+------------------+---------+------+-----------+
-  |          1 | Βάσεις Δεδομένων | CS301   |    5 | NULL      |
+  |          1 | Databases        | CS301   |    5 | NULL      |
   +------------+------------------+---------+------+-----------+
 ```
 
-**Παραβίαση NOT NULL:**
+**NOT NULL violation:**
 ```sql
--- Δεν δίνεται τιμή για titlos (NOT NULL) — σφάλμα
+-- No value is given for titlos (NOT NULL) - error
 INSERT INTO Mathima (kodikos) VALUES ('CS302');
 -- ERROR 1364 (HY000): Field 'titlos' doesn't have a default value
 ```
 
-**Παραβίαση UNIQUE:**
+**UNIQUE violation:**
 ```sql
--- Ο κωδικός 'CS301' υπάρχει ήδη — παραβίαση UNIQUE
+-- The code 'CS301' already exists - UNIQUE violation
 INSERT INTO Mathima (titlos, kodikos)
-VALUES ('Άλλο Μάθημα', 'CS301');
+VALUES ('Another Course', 'CS301');
 -- ERROR 1062 (23000): Duplicate entry 'CS301' for key 'mathima.kodikos'
 ```
 
-**Παραβίαση CHECK:**
+**CHECK violation:**
 ```sql
--- ects = 50 υπερβαίνει το CHECK constraint (1-30)
+-- ects = 50 exceeds the CHECK constraint (1-30)
 INSERT INTO Mathima (titlos, kodikos, ects)
-VALUES ('Μάθημα Τεστ', 'CS399', 50);
+VALUES ('Test Course', 'CS399', 50);
 -- ERROR 3819 (HY000): Check constraint 'chk_ects' is violated.
 ```
 
-**Key Distinction:** Η `UNIQUE` constraint επιτρέπει **πολλαπλές NULL τιμές** στην ίδια στήλη (η NULL δεν θεωρείται ίση με καμία τιμή, ούτε με άλλη NULL). Αντίθετα, η `PRIMARY KEY` **δεν επιτρέπει** καμία NULL τιμή.
+**Key Distinction:** The `UNIQUE` constraint allows **multiple NULL values** in the same column (NULL is not considered equal to any value, nor to another NULL). In contrast, `PRIMARY KEY` **does not allow** any NULL value.
 
 ---
 
-### Σύνδεση Πινάκων μέσω Ξένων Κλειδιών (FOREIGN KEY ... REFERENCES)
+### Connecting Tables via Foreign Keys (FOREIGN KEY ... REFERENCES)
 *Connecting Tables via Foreign Keys*
 
-Το **Ξένο Κλειδί (Foreign Key)** είναι ο μηχανισμός με τον οποίο η MySQL επιβάλλει **Αναφορική Ακεραιότητα (Referential Integrity)** μεταξύ δύο πινάκων. Διασφαλίζει ότι κάθε τιμή στη στήλη-FK του **θυγατρικού πίνακα (child table)** αντιστοιχεί σε μια υπάρχουσα τιμή στον **γονικό πίνακα (parent table)**.
+The **Foreign Key** is the mechanism by which MySQL enforces **Referential Integrity** between two tables. It ensures that every value in the FK column of the **child table** corresponds to an existing value in the **parent table**.
 
-**Κανόνες Αναφορικής Ακεραιότητας:**
-- Δεν μπορεί να εισαχθεί εγγραφή στο child με τιμή FK που δεν υπάρχει στον parent.
-- Δεν μπορεί να διαγραφεί εγγραφή από τον parent αν υπάρχουν child εγγραφές που την αναφέρουν.
+**Referential Integrity rules:**
+- No record can be inserted into the child with an FK value that does not exist in the parent.
+- No record can be deleted from the parent if child records reference it.
 
-**Σύνταξη δήλωσης FOREIGN KEY:**
+**FOREIGN KEY declaration syntax:**
 
 ```sql
--- Inline ορισμός (για απλές FK)
+-- Inline definition (for simple FKs)
 CREATE TABLE child_table (
     fk_column   INT,
     FOREIGN KEY (fk_column) REFERENCES parent_table (pk_column)
 );
 
--- Ορισμός με όνομα constraint (προτεινόμενος — πιο αναγνώσιμος)
+-- Definition with a constraint name (recommended - more readable)
 CREATE TABLE child_table (
     fk_column   INT,
     CONSTRAINT fk_child_parent
@@ -4038,16 +4027,16 @@ CREATE TABLE child_table (
 );
 ```
 
-**Παράδειγμα — Σχέση `Foititis` → `Tmima` (N:1):**
+**Example — Relationship `Foititis` → `Tmima` (N:1):**
 
 ```text
-  Σχεσιακό Σχήμα:
+  Relational Schema:
   Tmima(<u>dept_id</u>, onoma_tmimatos, sxoli)
   Foititis(<u>am</u>, onoma, eponymo, email, hmerominia, #dept_id)
 
-  ER Αναπαράσταση:
+  ER Representation:
   +-------------+            1:N           +------------+
-  |    TMIMA    |  <>---( Ανήκει σε )---<  |  FOITITIS  |
+  |    TMIMA    |  <>---( Belongs to )---<  |  FOITITIS  |
   +-------------+                          +------------+
   | dept_id(PK) |                          | am (PK)    |
   | onoma_tmim. |                          | onoma      |
@@ -4056,10 +4045,10 @@ CREATE TABLE child_table (
                                            +------------+
 ```
 
-**Δημιουργία πινάκων με FOREIGN KEY:**
+**Creating tables with a FOREIGN KEY:**
 
 ```sql
--- Βήμα 1: Πρώτα ο γονικός πίνακας (parent)
+-- Step 1: First the parent table
 CREATE TABLE Tmima (
     dept_id        INT          NOT NULL AUTO_INCREMENT,
     onoma_tmimatos VARCHAR(100) NOT NULL,
@@ -4067,7 +4056,7 @@ CREATE TABLE Tmima (
     PRIMARY KEY (dept_id)
 );
 
--- Βήμα 2: Μετά ο θυγατρικός πίνακας (child) με FK
+-- Step 2: Then the child table with FK
 CREATE TABLE Foititis (
     am           INT          NOT NULL,
     onoma        VARCHAR(50)  NOT NULL,
@@ -4076,23 +4065,23 @@ CREATE TABLE Foititis (
     hmerominia   DATE,
     dept_id      INT          NOT NULL,
     PRIMARY KEY (am),
-    -- Ορισμός Foreign Key με ρητό όνομα constraint
+    -- Defining the Foreign Key with an explicit constraint name
     CONSTRAINT fk_foititis_tmima
         FOREIGN KEY (dept_id)
         REFERENCES Tmima (dept_id)
-        ON DELETE RESTRICT   -- Αποτρέπει διαγραφή τμήματος με φοιτητές
-        ON UPDATE CASCADE    -- Αν αλλάξει το dept_id στο Tmima, ενημερώνεται αυτόματα
+        ON DELETE RESTRICT   -- Prevents deleting a department with students
+        ON UPDATE CASCADE    -- If dept_id changes in Tmima, it is updated automatically
 );
 ```
 
-**Επίδειξη Αναφορικής Ακεραιότητας:**
+**Demonstration of Referential Integrity:**
 
-**Εισαγωγή δεδομένων:**
+**Inserting data:**
 ```sql
--- Εισαγωγή τμημάτων στον parent
+-- Inserting departments into the parent
 INSERT INTO Tmima (onoma_tmimatos, sxoli)
-VALUES ('Πληροφορική', 'Θετικών Επιστημών'),
-       ('Μαθηματικά',  'Θετικών Επιστημών');
+VALUES ('Informatics', 'Sciences'),
+       ('Mathematics',  'Sciences');
 ```
 
 ```text
@@ -4100,77 +4089,77 @@ VALUES ('Πληροφορική', 'Θετικών Επιστημών'),
   +---------+-------------------+-------------------+
   | dept_id | onoma_tmimatos    | sxoli             |
   +---------+-------------------+-------------------+
-  |       1 | Πληροφορική       | Θετικών Επιστημών |
-  |       2 | Μαθηματικά        | Θετικών Επιστημών |
+  |       1 | Informatics      | Sciences         |
+  |       2 | Mathematics      | Sciences         |
   +---------+-------------------+-------------------+
 ```
 
 ```sql
--- Επιτυχής εισαγωγή: dept_id=1 υπάρχει στο Tmima
+-- Successful insertion: dept_id=1 exists in Tmima
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10001, 'Αλέξης', 'Νικολόπουλος', 1);
+VALUES (10001, 'Alexis', 'Nikolopoulos', 1);
 ```
 
-**Παραβίαση FK — εισαγωγή με ανύπαρκτο dept_id:**
+**FK violation — insertion with a non-existent dept_id:**
 ```sql
--- ΑΠΟΤΥΧΙΑ: dept_id=99 δεν υπάρχει στον πίνακα Tmima
+-- FAILURE: dept_id=99 does not exist in the Tmima table
 INSERT INTO Foititis (am, onoma, eponymo, dept_id)
-VALUES (10002, 'Ελένη', 'Παπαδοπούλου', 99);
+VALUES (10002, 'Eleni', 'Papadopoulou', 99);
 -- ERROR 1452 (23000): Cannot add or update a child row:
 -- a foreign key constraint fails (`university_db`.`Foititis`,
 -- CONSTRAINT `fk_foititis_tmima` FOREIGN KEY (`dept_id`)
 -- REFERENCES `Tmima` (`dept_id`))
 ```
 
-**Παραβίαση FK — διαγραφή parent με εξαρτώμενα children:**
+**FK violation — deleting a parent with dependent children:**
 ```sql
--- ΑΠΟΤΥΧΙΑ: το τμήμα 1 έχει φοιτητές — ON DELETE RESTRICT
+-- FAILURE: department 1 has students - ON DELETE RESTRICT
 DELETE FROM Tmima WHERE dept_id = 1;
 -- ERROR 1451 (23000): Cannot delete or update a parent row:
 -- a foreign key constraint fails
 ```
 
-**Επιλογές ON DELETE / ON UPDATE:**
+**ON DELETE / ON UPDATE options:**
 
-| Επιλογή | Συμπεριφορά κατά διαγραφή/ενημέρωση γονικής εγγραφής |
+| Option | Behavior upon deletion/update of a parent record |
 |---|---|
-| `RESTRICT` (default) | Αποτρέπει την ενέργεια — επιστρέφει σφάλμα |
-| `CASCADE` | Διαδίδει την αλλαγή αυτόματα στα children |
-| `SET NULL` | Θέτει την FK στήλη σε NULL (η στήλη πρέπει να επιτρέπει NULL) |
-| `NO ACTION` | Παρόμοιο με RESTRICT (ελέγχεται στο τέλος transaction) |
-| `SET DEFAULT` | Θέτει DEFAULT τιμή (σπάνια υποστηρίζεται από InnoDB) |
+| `RESTRICT` (default) | Prevents the action — returns an error |
+| `CASCADE` | Propagates the change automatically to the children |
+| `SET NULL` | Sets the FK column to NULL (the column must allow NULL) |
+| `NO ACTION` | Similar to RESTRICT (checked at the end of the transaction) |
+| `SET DEFAULT` | Sets a DEFAULT value (rarely supported by InnoDB) |
 
-**Exam Note:** Η σειρά δημιουργίας πινάκων έχει σημασία: **πρώτα ο γονικός (parent), μετά ο θυγατρικός (child)**. Αντίστροφα, κατά τη **διαγραφή**: **πρώτα ο child, μετά ο parent**. Επίσης, η MySQL απαιτεί το Storage Engine **InnoDB** (και όχι MyISAM) για την υποστήριξη Foreign Keys.
+**Exam Note:** The order of table creation matters: **first the parent, then the child**. Conversely, when **deleting**: **first the child, then the parent**. Also, MySQL requires the **InnoDB** Storage Engine (not MyISAM) to support Foreign Keys.
 
 ---
 
-### Διαχείριση Σχέσεων "Πολλά-προς-Πολλά" (Ενδιάμεσος Πίνακας)
+### Managing "Many-to-Many" Relationships (Junction Table)
 *Managing Many-to-Many Relationships via Junction Table*
 
-Οι σχέσεις **N:M (Πολλά-προς-Πολλά)** δεν μπορούν να υλοποιηθούν άμεσα στο Σχεσιακό Μοντέλο. Η λύση είναι η **ανάλυσή τους σε δύο σχέσεις 1:N** μέσω ενός **ενδιάμεσου πίνακα (junction table / associative table / bridge table)**, που περιέχει τα Foreign Keys και των δύο πινάκων.
+**N:M (Many-to-Many)** relationships cannot be implemented directly in the Relational Model. The solution is to **break them down into two 1:N relationships** through a **junction table (associative table / bridge table)**, which contains the Foreign Keys of both tables.
 
-**Το πρόβλημα της N:M σχέσης:**
+**The problem of the N:M relationship:**
 
-Έστω ότι ένας φοιτητής εγγράφεται σε πολλά μαθήματα, και κάθε μάθημα έχει πολλούς φοιτητές.
+Suppose a student enrolls in many courses, and each course has many students.
 
 ```text
-  ER Διάγραμμα (N:M):
+  ER Diagram (N:M):
   +------------+     N:M          +------------+
-  |  FOITITIS  |<>--( Εγγράφεται )--<>|  MATHIMA   |
-  +------------+    σε            +------------+
+  |  FOITITIS  |<>--( Registers )--<>|  MATHIMA   |
+  +------------+    in            +------------+
   | am (PK)    |                  | mathima_id |
   | onoma      |                  | titlos     |
   +------------+                  +------------+
 
-  ΠΡΟΒΛΗΜΑ: Δεν μπορεί να υλοποιηθεί με μία μόνο FK στήλη —
-  ούτε ο Foititis μπορεί να έχει πολλές τιμές dept_id,
-  ούτε το Mathima μπορεί να έχει πολλές τιμές am σε μία στήλη.
+  PROBLEM: It cannot be implemented with a single FK column —
+  neither can Foititis have many dept_id values,
+  nor can Mathima have many am values in one column.
 ```
 
-**Λύση — Ανάλυση σε δύο 1:N μέσω ενδιάμεσου πίνακα:**
+**Solution — Decomposition into two 1:N relationships through a junction table:**
 
 ```text
-  Μετά ανάλυση:
+  After decomposition:
 
   +------------+   1:N   +-------------------+   N:1   +------------+
   |  FOITITIS  |<--------| EGGRAFI (Junction) |-------->|  MATHIMA   |
@@ -4181,54 +4170,54 @@ DELETE FROM Tmima WHERE dept_id = 1;
                           | vathmos           |
                           +-------------------+
 
-  Σχεσιακό Σχήμα:
+  Relational Schema:
   Foititis(<u>am</u>, onoma, eponymo, dept_id)
   Mathima(<u>mathima_id</u>, titlos, kodikos, ects)
   Eggrafi(<u>am</u>, <u>mathima_id</u>, hmerominia_eggrafis, vathmos)
            ^FK→Foititis  ^FK→Mathima
 ```
 
-**Δημιουργία ενδιάμεσου πίνακα `Eggrafi`:**
+**Creating the junction table `Eggrafi`:**
 
 ```sql
--- Βήμα 1: Γονικοί πίνακες (Foititis και Mathima υπάρχουν ήδη)
+-- Step 1: Parent tables (Foititis and Mathima already exist)
 
--- Βήμα 2: Ο ενδιάμεσος πίνακας με Σύνθετο Primary Key
+-- Step 2: The intermediate table with a Composite Primary Key
 CREATE TABLE Eggrafi (
-    -- FK προς Foititis
+    -- FK to Foititis
     am                  INT  NOT NULL,
-    -- FK προς Mathima
+    -- FK to Mathima
     mathima_id          INT  NOT NULL,
-    -- Επιπλέον γνωρίσματα της σχέσης (relationship attributes)
+    -- Additional attributes of the relationship (relationship attributes)
     hmerominia_eggrafis DATE,
     vathmos             DECIMAL(4, 2),
-    -- Σύνθετο Primary Key: ο συνδυασμός am+mathima_id είναι μοναδικός
+    -- Composite Primary Key: the am+mathima_id combination is unique
     PRIMARY KEY (am, mathima_id),
-    -- FK προς Foititis
+    -- FK to Foititis
     CONSTRAINT fk_eggrafi_foititis
         FOREIGN KEY (am)
         REFERENCES Foititis (am)
-        ON DELETE CASCADE,   -- Αν διαγραφεί φοιτητής, διαγράφονται οι εγγραφές του
-    -- FK προς Mathima
+        ON DELETE CASCADE,   -- If a student is deleted, their records are deleted
+    -- FK to Mathima
     CONSTRAINT fk_eggrafi_mathima
         FOREIGN KEY (mathima_id)
         REFERENCES Mathima (mathima_id)
-        ON DELETE RESTRICT   -- Δεν μπορεί να διαγραφεί μάθημα με εγγεγραμμένους φοιτητές
+        ON DELETE RESTRICT   -- A course with enrolled students cannot be deleted
 );
 ```
 
-**Εισαγωγή δεδομένων στον ενδιάμεσο πίνακα:**
+**Inserting data into the junction table:**
 
 ```sql
--- Φοιτητής am=10001 εγγράφεται στο μάθημα mathima_id=1
+-- Student am=10001 enrolls in course mathima_id=1
 INSERT INTO Eggrafi (am, mathima_id, hmerominia_eggrafis)
 VALUES (10001, 1, '2024-10-01');
 
--- Ο ίδιος φοιτητής εγγράφεται και σε δεύτερο μάθημα
+-- The same student enrolls in a second course
 INSERT INTO Eggrafi (am, mathima_id, hmerominia_eggrafis)
 VALUES (10001, 2, '2024-10-01');
 
--- Άλλος φοιτητής στο ίδιο μάθημα
+-- Another student in the same course
 INSERT INTO Eggrafi (am, mathima_id, hmerominia_eggrafis)
 VALUES (10002, 1, '2024-10-02');
 ```
@@ -4244,10 +4233,10 @@ VALUES (10002, 1, '2024-10-02');
   +-------+------------+--------------------+---------+
 ```
 
-**Ανάκτηση δεδομένων μέσω JOIN:**
+**Retrieving data via JOIN:**
 
 ```sql
--- Ποια μαθήματα παρακολουθεί ο φοιτητής am=10001;
+-- Which courses does student am=10001 attend?
 SELECT f.onoma, f.eponymo, m.titlos, m.kodikos, e.hmerominia_eggrafis
 FROM   Eggrafi e
 JOIN   Foititis f  ON e.am         = f.am
@@ -4259,154 +4248,154 @@ WHERE  e.am = 10001;
   +--------+--------------+------------------+---------+--------------------+
   | onoma  | eponymo      | titlos           | kodikos | hmerominia_eggraf. |
   +--------+--------------+------------------+---------+--------------------+
-  | Αλέξης | Νικολόπουλος | Βάσεις Δεδομένων | CS301   | 2024-10-01         |
-  | Αλέξης | Νικολόπουλος | Αλγόριθμοι       | CS201   | 2024-10-01         |
+  | Alexis | Nikolopoulos | Databases        | CS301   | 2024-10-01         |
+  | Alexis | Nikolopoulos | Algorithms       | CS201   | 2024-10-01         |
   +--------+--------------+------------------+---------+--------------------+
 ```
 
-**Αποτροπή διπλής εγγραφής (ο ίδιος φοιτητής στο ίδιο μάθημα):**
+**Preventing duplicate enrollment (the same student in the same course):**
 
 ```sql
--- Προσπάθεια διπλής εγγραφής: am=10001, mathima_id=1 υπάρχει ήδη
+-- Attempting a duplicate enrollment: am=10001, mathima_id=1 already exists
 INSERT INTO Eggrafi (am, mathima_id)
 VALUES (10001, 1);
 -- ERROR 1062 (23000): Duplicate entry '10001-1' for key 'Eggrafi.PRIMARY'
--- Το Σύνθετο PK αποτρέπει την διπλή εγγραφή αυτόματα.
+-- The Composite PK prevents the duplicate enrollment automatically.
 ```
 
-**Key Distinction:** Στον ενδιάμεσο πίνακα, το **Σύνθετο Primary Key** `(am, mathima_id)` εκτελεί διπλό ρόλο: (1) εγγυάται ότι κάθε συνδυασμός φοιτητή-μαθήματος εμφανίζεται **το πολύ μία φορά**, και (2) αποτελεί αυτόματα **index** για ταχύτερες αναζητήσεις βάσει και των δύο πεδίων.
+**Key Distinction:** In the junction table, the **Composite Primary Key** `(am, mathima_id)` plays a dual role: (1) it guarantees that every student-course combination appears **at most once**, and (2) it automatically acts as an **index** for faster lookups based on both fields.
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Κύριο Χαρακτηριστικό / Κανόνας |
+| Concept | Definition | Key Characteristic / Rule |
 |---|---|---|
-| **MySQL Server** | Το backend RDBMS που αποθηκεύει και εξυπηρετεί δεδομένα | Εκτελείται ως service, ακούει στη θύρα 3306 |
-| **MySQL Workbench** | Επίσημο desktop GUI client για MySQL | Περιλαμβάνει SQL editor, Visual EER designer, server admin |
-| **XAMPP** | Cross-platform πακέτο (Apache + MySQL/MariaDB + PHP) | Για τοπική ανάπτυξη web εφαρμογών (localhost) |
-| **phpMyAdmin** | Web-based GUI για MySQL μέσω browser | Τρέχει ως PHP εφαρμογή στον Apache |
-| **InnoDB** | Storage engine της MySQL | Υποστηρίζει Foreign Keys, Transactions, ACID |
-| **Τύπος Δεδομένων** | Ορίζει το είδος και εύρος τιμών μιας στήλης | Λανθασμένος τύπος → σπατάλη χώρου ή απώλεια δεδομένων |
-| **NOT NULL** | Constraint που απαγορεύει NULL τιμές | Παραβίαση → `ERROR 1048` |
-| **UNIQUE** | Constraint μοναδικότητας τιμών (NULL επιτρέπεται) | Παραβίαση → `ERROR 1062` |
-| **DEFAULT** | Ορίζει αυτόματη τιμή αν δεν παρασχεθεί | Δεν προκαλεί σφάλμα — εφαρμόζεται σιωπηλά |
-| **FOREIGN KEY** | Στήλη που αναφέρεται σε Primary Key άλλου πίνακα | Επιβάλλει Αναφορική Ακεραιότητα |
-| **ON DELETE CASCADE** | Διαδίδει τη διαγραφή στα child records | Προσοχή: μαζική αυτόματη διαγραφή |
-| **ON DELETE RESTRICT** | Αποτρέπει διαγραφή parent αν υπάρχουν children | Προεπιλογή — ασφαλέστερη επιλογή |
-| **Junction Table** | Ενδιάμεσος πίνακας για υλοποίηση N:M σχέσης | Φέρει Σύνθετο PK από τα δύο FK |
-| **Σύνθετο Primary Key** | PK αποτελούμενο από δύο ή περισσότερες στήλες | Χρησιμοποιείται στον ενδιάμεσο πίνακα N:M |
-| **AUTO_INCREMENT** | Αυτόματη αύξηση ακέραιου PK | Η MySQL αναθέτει την επόμενη διαθέσιμη τιμή |
+| **MySQL Server** | The backend RDBMS that stores and serves data | Runs as a service, listens on port 3306 |
+| **MySQL Workbench** | Official desktop GUI client for MySQL | Includes SQL editor, Visual EER designer, server admin |
+| **XAMPP** | Cross-platform package (Apache + MySQL/MariaDB + PHP) | For local development of web applications (localhost) |
+| **phpMyAdmin** | Web-based GUI for MySQL through a browser | Runs as a PHP application on Apache |
+| **InnoDB** | MySQL's storage engine | Supports Foreign Keys, Transactions, ACID |
+| **Data Type** | Defines the kind and range of values of a column | Wrong type → wasted space or data loss |
+| **NOT NULL** | Constraint that prohibits NULL values | Violation → `ERROR 1048` |
+| **UNIQUE** | Constraint of value uniqueness (NULL allowed) | Violation → `ERROR 1062` |
+| **DEFAULT** | Sets an automatic value if none is provided | Does not cause an error — applied silently |
+| **FOREIGN KEY** | Column that references the Primary Key of another table | Enforces Referential Integrity |
+| **ON DELETE CASCADE** | Propagates the deletion to child records | Caution: mass automatic deletion |
+| **ON DELETE RESTRICT** | Prevents deletion of the parent if children exist | Default — the safest option |
+| **Junction Table** | Intermediate table for implementing an N:M relationship | Carries a Composite PK of the two FKs |
+| **Composite Primary Key** | PK composed of two or more columns | Used in the N:M junction table |
+| **AUTO_INCREMENT** | Automatic increment of an integer PK | MySQL assigns the next available value |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Ο **MySQL Server** είναι το backend σύστημα που εκτελείται ως service· τα εργαλεία (Workbench, phpMyAdmin, CLI) είναι απλώς **clients** που συνδέονται σε αυτόν.
-- Το **MySQL Workbench** προσφέρει οπτικό σχεδιασμό σχημάτων (EER Diagrams) και είναι το κύριο εργαλείο ανάπτυξης· το **XAMPP/phpMyAdmin** στοχεύει σε web περιβάλλοντα και γρήγορη πρόσβαση μέσω browser.
-- Η σωστή επιλογή **τύπου δεδομένων** είναι κρίσιμη: `INT` για IDs, `VARCHAR` για μεταβλητού μήκους κείμενα, `DATE` για ημερομηνίες, `DECIMAL` (όχι `FLOAT`) για χρηματικά ποσά.
-- Ο συνδυασμός `NOT NULL`, `UNIQUE` και `DEFAULT` ορίζει τους κανόνες ποιότητας δεδομένων σε επίπεδο στήλης και επιβάλλεται αυτόματα από τη μηχανή κατά κάθε εγγραφή.
-- Η δήλωση `FOREIGN KEY ... REFERENCES` με **ρητό όνομα constraint** είναι βέλτιστη πρακτική — διευκολύνει την αποσφαλμάτωση όταν εμφανίζεται σφάλμα παραβίασης FK.
-- Η **Αναφορική Ακεραιότητα** απαιτεί αυστηρή σειρά δημιουργίας πινάκων: **πρώτα ο parent, μετά ο child**· και αντίστροφα για τη διαγραφή.
-- Η `ON DELETE CASCADE` είναι ισχυρή αλλά επικίνδυνη — μια διαγραφή γονικής εγγραφής μπορεί να διαγράψει αυτόματα **δεκάδες ή χιλιάδες** child εγγραφές. Η `ON DELETE RESTRICT` είναι ο ασφαλέστερος προεπιλεγμένος κανόνας.
-- Οι σχέσεις **N:M δεν υλοποιούνται ποτέ άμεσα** — αναλύονται πάντα σε δύο 1:N μέσω **ενδιάμεσου πίνακα** με **Σύνθετο Primary Key**.
-- Ο ενδιάμεσος πίνακας μπορεί να φέρει **επιπλέον γνωρίσματα** της ίδιας της σχέσης (π.χ. ημερομηνία εγγραφής, βαθμός) που δεν ανήκουν στους αρχικούς πίνακες.
-- Η MySQL απαιτεί **InnoDB** storage engine (όχι MyISAM) για την υποστήριξη Foreign Keys· ο έλεγχος γίνεται με `SHOW CREATE TABLE table_name;`.
+- The **MySQL Server** is the backend system that runs as a service; the tools (Workbench, phpMyAdmin, CLI) are merely **clients** that connect to it.
+- **MySQL Workbench** offers visual schema design (EER Diagrams) and is the main development tool; **XAMPP/phpMyAdmin** targets web environments and quick access through a browser.
+- Choosing the correct **data type** is critical: `INT` for IDs, `VARCHAR` for variable-length text, `DATE` for dates, `DECIMAL` (not `FLOAT`) for monetary amounts.
+- The combination of `NOT NULL`, `UNIQUE`, and `DEFAULT` defines the data quality rules at the column level and is enforced automatically by the engine on every write.
+- The `FOREIGN KEY ... REFERENCES` declaration with an **explicit constraint name** is best practice — it facilitates debugging when an FK violation error appears.
+- **Referential Integrity** requires a strict order of table creation: **first the parent, then the child**; and the reverse for deletion.
+- `ON DELETE CASCADE` is powerful but dangerous — deleting a parent record can automatically delete **dozens or thousands** of child records. `ON DELETE RESTRICT` is the safest default rule.
+- **N:M relationships are never implemented directly** — they are always decomposed into two 1:N relationships through a **junction table** with a **Composite Primary Key**.
+- The junction table can carry **additional attributes** of the relationship itself (e.g., enrollment date, grade) that do not belong to the original tables.
+- MySQL requires the **InnoDB** storage engine (not MyISAM) to support Foreign Keys; the check is done with `SHOW CREATE TABLE table_name;`.
 
 ---
 # topic_8_9_relational_algebra_joins_and_security_policies.md
 ---
 
-# Σχεσιακή Άλγεβρα, JOINs & Πολιτικές Ασφάλειας
+# Relational Algebra, JOINs & Security Policies
 *Relational Algebra, JOINs & Security Policies*
 
 ---
 
-## Πίνακας Περιεχομένων
+## Table of Contents
 *Table of Contents*
 
-1. [Εισαγωγή](#εισαγωγή)
-2. [Καρτεσιανό Γινόμενο](#καρτεσιανό-γινόμενο)
-3. [Φυσική Σύνδεση](#φυσική-σύνδεση)
-4. [Η Συνένωση (JOIN)](#η-συνένωση-join)
-   - [Θεματική Συνένωση (θ-Join)](#θεματική-συνένωση-θ-join)
-   - [Συνένωση Ισότητας (Equi-Join)](#συνένωση-ισότητας-equi-join)
-   - [Εσωτερική Συνένωση (Inner Join)](#εσωτερική-συνένωση-inner-join)
-   - [Εξωτερική Συνένωση (Outer Join)](#εξωτερική-συνένωση-outer-join)
-5. [Εμφωλευμένα Ερωτήματα](#εμφωλευμένα-ερωτήματα)
-6. [Απειλές Ασφάλειας & Κυβερνοασφάλεια](#απειλές-ασφάλειας--κυβερνοασφάλεια)
-   - [Σπάσιμο Κωδικών (Password Cracking)](#σπάσιμο-κωδικών-password-cracking)
-   - [Κοινωνική Μηχανική (Social Engineering)](#κοινωνική-μηχανική-social-engineering)
-7. [Πολιτικές Ασφάλειας Πληροφοριών](#πολιτικές-ασφάλειας-πληροφοριών)
-   - [Ασφάλεια Λογισμικού](#ασφάλεια-λογισμικού)
-   - [Ασφάλεια Δεδομένων](#ασφάλεια-δεδομένων)
-   - [Πολιτική Ασφάλειας για τα Συνθηματικά (Passwords)](#πολιτική-ασφάλειας-για-τα-συνθηματικά-passwords)
-8. [Πίνακας Βασικών Εννοιών](#πίνακας-βασικών-εννοιών)
-9. [Βασικά Συμπεράσματα](#βασικά-συμπεράσματα)
+1. [Introduction](#introduction)
+2. [Cartesian Product](#cartesian-product)
+3. [Natural Join](#natural-join)
+4. [The Join Operation (JOIN)](#the-join-operation-join)
+   - [Theta Join ($\theta$-Join)](#theta-join--join)
+   - [Equality Join (Equi-Join)](#equality-join-equi-join)
+   - [Inner Join](#inner-join)
+   - [Outer Join](#outer-join)
+5. [Nested Queries](#nested-queries)
+6. [Security Threats & Cybersecurity](#security-threats--cybersecurity)
+   - [Password Cracking](#password-cracking)
+   - [Social Engineering](#social-engineering)
+7. [Information Security Policies](#information-security-policies)
+   - [Software Security](#software-security)
+   - [Data Security](#data-security)
+   - [Security Policy for Passwords](#security-policy-for-passwords)
+8. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+9. [Key Takeaways](#key-takeaways)
 10. [Solved Exercises](#solved-exercises)
 11. [Exam Tip: JOIN Mechanics & Safety Policies](#exam-tip-join-mechanics--safety-policies)
 
 ---
 
-## Εισαγωγή
+## Introduction
 
-Το παρόν έγγραφο καλύπτει τις προχωρημένες πράξεις της **Σχεσιακής Άλγεβρας** (Relational Algebra), εστιάζοντας στο **Καρτεσιανό Γινόμενο** (Cartesian Product), στη **Φυσική Σύνδεση** (Natural Join) και στις διάφορες μορφές **Συνενώσεων** (JOINs) στην SQL. Επιπλέον, εξετάζει τις θεμελιώδεις έννοιες της **Ασφάλειας Πληροφοριακών Συστημάτων** (Information Systems Security), τις μεθόδους **Σπασίματος Κωδικών** (Password Cracking), την απειλή της **Κοινωνικής Μηχανικής** (Social Engineering) και τη σημασία των **Πολιτικών Ασφάλειας** (Security Policies) για τη διασφάλιση των δεδομένων. Οι έννοιες αυτές συνδέουν τη μαθηματική θεωρία των βάσεων δεδομένων με την πρακτική σχεδίαση ερωτημάτων και την ασφάλεια σε πραγματικά περιβάλλοντα.
+This document covers the advanced operations of **Relational Algebra**, focusing on the **Cartesian Product**, the **Natural Join**, and the various forms of **JOINs** in SQL. Furthermore, it examines the fundamental concepts of **Information Systems Security**, the methods of **Password Cracking**, the threat of **Social Engineering**, and the importance of **Security Policies** for safeguarding data. These concepts link the mathematical theory of databases with practical query design and security in real-world environments.
 
 ---
 
-## Καρτεσιανό Γινόμενο
+## Cartesian Product
 *Cartesian Product*
 
-Το **Καρτεσιανό Γινόμενο (Cartesian Product)**, το οποίο συμβολίζεται με $R \times S$, είναι μια διμελής πράξη της σχεσιακής άλγεβρας που συνδυάζει κάθε πλειάδα μιας σχέσης $R$ με κάθε πλειάδα μιας σχέσης $S$. Το σχήμα της σχέσης εξόδου περιλαμβάνει όλα τα γνωρίσματα και των δύο σχέσεων.
+The **Cartesian Product**, denoted by $R \times S$, is a binary operation of relational algebra that combines every tuple of a relation $R$ with every tuple of a relation $S$. The schema of the output relation includes all the attributes of both relations.
 
-**Αναλογία**: Είναι παρόμοιο με ένα μενού εστιατορίου που περιλαμβάνει $3$ ορεκτικά και $4$ κυρίως πιάτα. Ο συνδυασμός "όλα-με-όλα" παράγει $12$ δυνατές επιλογές γευμάτων, ανεξάρτητα από το αν ταιριάζουν γευστικά μεταξύ τους.
+**Analogy**: It is similar to a restaurant menu that includes $3$ appetizers and $4$ main courses. The "everything-with-everything" combination produces $12$ possible meal choices, regardless of whether they match well in taste.
 
-**Βασικοί Κανόνες**:
-- Αν η σχέση $R$ έχει πληθικότητα $|R| = m$ και η σχέση $S$ έχει πληθικότητα $|S| = n$, το αποτέλεσμα $R \times S$ θα έχει $m \times n$ πλειάδες.
-- Αν προκύψει σύγκρουση ονομάτων γνωρισμάτων (π.χ. στήλη `cust_name` και στους δύο πίνακες), η επίλυση γίνεται με τη χρήση του πλήρους ονόματος της σχέσης ως πρόθεμα: `Customer.cust_name` και `Deposit.cust_name`.
+**Basic rules**:
+- If relation $R$ has cardinality $|R| = m$ and relation $S$ has cardinality $|S| = n$, the result $R \times S$ will have $m \times n$ tuples.
+- If an attribute-name conflict arises (e.g., the column `cust_name` in both tables), it is resolved by using the full relation name as a prefix: `Customer.cust_name` and `Deposit.cust_name`.
 
 ```text
-Σχήμα Καρτεσιανού Γινομένου:
+Cartesian Product Schema:
 Customer(cust_name, street, cust_city)   X   Deposit(br_name, acc_number, cust_name, balance)
   |
   v
 Result(Customer.cust_name, street, cust_city, br_name, acc_number, Deposit.cust_name, balance)
 ```
 
-| Χαρακτηριστικό | Καρτεσιανό Γινόμενο |
+| Characteristic | Cartesian Product |
 |:---|:---|
-| **Σύμβολο** | $\times$ |
-| **SQL Υλοποίηση** | `CROSS JOIN` ή `FROM Table1, Table2` |
-| **Πληθικότητα** | $|R| \times \|S\|$ |
-| **Διπλότυπες Στήλες** | Διατηρούνται και οι δύο με πρόθεμα πίνακα |
+| **Symbol** | $\times$ |
+| **SQL Implementation** | `CROSS JOIN` or `FROM Table1, Table2` |
+| **Cardinality** | $|R| \times \|S\|$ |
+| **Duplicate Columns** | Both are retained with a table prefix |
 
 ---
 
-## Φυσική Σύνδεση
+## Natural Join
 *Natural Join*
 
-Η **Φυσική Σύνδεση (Natural Join)**, η οποία συμβολίζεται με $R \bowtie S$, συνενώνει δύο σχέσεις χρησιμοποιώντας αυτόματα την ισότητα σε όλα τα κοινά γνωρίσματα (στήλες με το ίδιο όνομα). Στο αποτέλεσμα, η κοινή στήλη εμφανίζεται μόνο μία φορά, αποφεύγοντας τη διπλή εμφάνιση.
+The **Natural Join**, denoted by $R \bowtie S$, joins two relations by automatically using equality on all common attributes (columns with the same name). In the result, the common column appears only once, avoiding duplication.
 
-**Αναλογία**: Είναι σαν να ταιριάζουμε κομμάτια παζλ. Αν έχουμε μια κάρτα με στοιχεία βιβλίου και μια κάρτα με στοιχεία συγγραφέα, τις συνδέουμε μόνο αν το όνομα του συγγραφέα συμπίπτει απόλυτα, απορρίπτοντας τις ασύνδετες κάρτες.
+**Analogy**: It is like matching puzzle pieces. If we have a card with book details and a card with author details, we connect them only if the author's name matches exactly, discarding the unrelated cards.
 
-**Μαθηματικός Ορισμός**:
+**Mathematical Definition**:
 $$
 R \bowtie S = \sigma_{R.A_1 = S.A_1 \land \dots \land R.A_k = S.A_k}(R \times S)
 $$
-όπου $A_1, \dots, A_k$ είναι τα κοινά γνωρίσματα των σχέσεων $R$ και $S$.
+where $A_1, \dots, A_k$ are the common attributes of relations $R$ and $S$.
 
 ```text
-Σχήμα Φυσικής Σύνδεσης:
+Natural Join Schema:
 R(A, B)   bowtie   S(B, C)
   |
   v
-Result(A, B, C)  <-- Το κοινό γνώρισμα B εμφανίζεται μόνο μία φορά
+Result(A, B, C)  <-- The common attribute B appears only once
 ```
 
 ```sql
--- Φυσική Σύνδεση στην SQL
+-- Natural Join in SQL
 SELECT * 
 FROM Customer 
 NATURAL JOIN Deposit;
@@ -4414,32 +4403,32 @@ NATURAL JOIN Deposit;
 
 ---
 
-## Η Συνένωση (JOIN)
+## The Join Operation (JOIN)
 *The Join Operation*
 
-Η **Συνένωση (Join)** αποτελεί την πιο συχνά χρησιμοποιούμενη πράξη συνδυασμού πινάκων. Επιτρέπει τον προσδιορισμό ρητών συνθηκών σύνδεσης, οι οποίες μπορεί να βασίζονται σε ισότητα ή άλλους τελεστές σύγκρισης.
+The **Join** is the most frequently used table-combining operation. It allows specifying explicit join conditions, which may be based on equality or other comparison operators.
 
 ---
 
-### Θεματική Συνένωση (θ-Join)
+### Theta Join ($\theta$-Join)
 *Theta Join*
 
-Η **Θεματική Συνένωση (Theta Join)**, η οποία συμβολίζεται με $R \bowtie_{\theta} S$, είναι η γενικότερη μορφή συνένωσης. Συνδυάζει πλειάδες από το $R$ και το $S$ για τις οποίες ισχύει μια γενική συνθήκη $\theta$. Η συνθήκη αυτή μπορεί να περιλαμβάνει τελεστές όπως $=, >, <, \neq, \geq, \leq$.
+The **Theta Join**, denoted by $R \bowtie_{\theta} S$, is the most general form of join. It combines tuples from $R$ and $S$ for which a general condition $\theta$ holds. This condition can involve operators such as $=, >, <, \neq, \geq, \leq$.
 
-**Μαθηματικός Ορισμός**:
+**Mathematical Definition**:
 $$
 R \bowtie_{\theta} S = \sigma_{\theta}(R \times S)
 $$
 
 ---
 
-### Συνένωση Ισότητας (Equi-Join)
+### Equality Join (Equi-Join)
 *Equi-Join*
 
-Η **Συνένωση Ισότητας (Equi-Join)** είναι μια ειδική περίπτωση της Θεματικής Συνένωσης όπου η συνθήκη $\theta$ περιλαμβάνει αποκλειστικά τελεστές ισότητας ($=$). Σε αντίθεση με τη φυσική σύνδεση, η συνένωση ισότητας διατηρεί και τις δύο στήλες σύνδεσης στο τελικό αποτέλεσμα.
+The **Equi-Join** is a special case of the Theta Join where the condition $\theta$ involves exclusively equality operators ($=$). Unlike the natural join, the equi-join retains both join columns in the final result.
 
 ```sql
--- Συνένωση Ισότητας στην SQL
+-- Equi-Join in SQL
 SELECT * 
 FROM Customer 
 JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
@@ -4447,15 +4436,15 @@ JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
 
 ---
 
-### Εσωτερική Συνένωση (Inner Join)
+### Inner Join
 *Inner Join*
 
-Ο όρος `JOIN` στην SQL αποτελεί συντόμευση για την **Εσωτερική Συνένωση (Inner Join)**. Επιστρέφει μόνο τις εγγραφές που έχουν αντίστοιχη τιμή και στους δύο πίνακες βάσει της συνθήκης `ON`.
+The term `JOIN` in SQL is shorthand for the **Inner Join**. It returns only the records that have a matching value in both tables based on the `ON` condition.
 
-**Αναλογία**: Σε μια λίστα φοιτητών και μια λίστα εγγραφών σε εργαστήρια, ένα Inner Join θα επιστρέψει μόνο τους φοιτητές που έχουν εγγραφεί σε τουλάχιστον ένα εργαστήριο.
+**Analogy**: Given a list of students and a list of lab registrations, an Inner Join will return only the students who are registered in at least one lab.
 
 ```sql
--- Inner Join στην SQL me ON
+-- Inner Join in SQL with ON
 SELECT Customer.cust_name, Borrow.amount
 FROM Customer
 INNER JOIN Borrow ON Customer.cust_name = Borrow.cust_name;
@@ -4463,13 +4452,13 @@ INNER JOIN Borrow ON Customer.cust_name = Borrow.cust_name;
 
 ---
 
-### Εξωτερική Συνένωση (Outer Join)
+### Outer Join
 *Outer Join*
 
-Η **Εξωτερική Συνένωση (Outer Join)** επιτρέπει τη διατήρηση των πλειάδων που δεν έχουν αντιστοιχία στη σχέση σύνδεσης, συμπληρώνοντας τα κενά πεδία με την τιμή `NULL`.
+The **Outer Join** allows keeping the tuples that have no match in the joined relation, filling the empty fields with the value `NULL`.
 
-#### Left Outer Join ($\$)
-Διατηρεί όλες τις πλειάδες της αριστερής σχέσης. Αν δεν υπάρχει αντιστοιχία στη δεξιά, οι στήλες της δεξιάς συμπληρώνονται με `NULL`.
+#### Left Outer Join ($\⟕$)
+It retains all the tuples of the left relation. If there is no match on the right, the right-side columns are filled with `NULL`.
 
 ```sql
 SELECT * 
@@ -4478,7 +4467,7 @@ LEFT OUTER JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
 ```
 
 #### Right Outer Join ($\⟖$)
-Διατηρεί όλες τις πλειάδες της δεξιάς σχέσης. Αν δεν υπάρχει αντιστοιχία στην αριστερή, οι στήλες της αριστερής συμπληρώνονται με `NULL`.
+It retains all the tuples of the right relation. If there is no match on the left, the left-side columns are filled with `NULL`.
 
 ```sql
 SELECT Borrow.loan_number, Borrow.amount, Customer.cust_name 
@@ -4488,174 +4477,174 @@ RIGHT OUTER JOIN Customer ON Borrow.cust_name = Customer.cust_name;
 
 ---
 
-### Συγκριτικός Πίνακας Ειδών JOIN
+### Comparative Table of JOIN Types
 
-| Τύπος JOIN | Συνθήκη Σύνδεσης | Διατήρηση Κοινών Στηλών | Μη Ταιριασμένες Γραμμές |
+| JOIN Type | Join Condition | Common Column Retention | Unmatched Rows |
 |:---|:---|:---|:---|
-| **Θεματική Συνένωση ($\bowtie_{\theta}$)** | Οποιαδήποτε ($=, >, <, \dots$) | Ναι (Διπλές στήλες) | Όχι |
-| **Συνένωση Ισότητας (Equi-Join)** | Μόνο ισότητα ($=$) | Ναι (Διπλές στήλες) | Όχι |
-| **Φυσική Σύνδεση ($\bowtie$)** | Αυτόματη ισότητα κοινών στηλών | Όχι (Συγχώνευση στηλών) | Όχι |
-| **Left Outer Join ($\$)** | Οποιαδήποτε συνθήκη ισότητας | Ναι (Διπλές στήλες) | Ναι (Από αριστερό πίνακα) |
-| **Right Outer Join ($\$)** | Οποιαδήποτε συνθήκη ισότητας | Ναι (Διπλές στήλες) | Ναι (Από δεξιό πίνακα) |
+| **Theta Join ($\bowtie_{\theta}$)** | Any ($=, >, <, \dots$) | Yes (Duplicate columns) | No |
+| **Equi-Join** | Only equality ($=$) | Yes (Duplicate columns) | No |
+| **Natural Join ($\bowtie$)** | Automatic equality of common columns | No (Column merging) | No |
+| **Left Outer Join ($\⟕$)** | Any equality condition | Yes (Duplicate columns) | Yes (From the left table) |
+| **Right Outer Join ($\⟖$)** | Any equality condition | Yes (Duplicate columns) | Yes (From the right table) |
 
 ---
 
-## Εμφωλευμένα Ερωτήματα
+## Nested Queries
 *Nested Queries*
 
-Πολλές φορές η χρήση σύνδεσης πινάκων δεν είναι απαραίτητη, καθώς η πληροφορία μπορεί να ανακτηθεί με **Εμφωλευμένα Ερωτήματα (Subqueries)**. Ένα subquery εκτελείται εσωτερικά και επιστρέφει μια λίστα τιμών που χρησιμοποιείται από το εξωτερικό ερώτημα (συνήθως με τον τελεστή `IN`).
+Often, using a table join is not necessary, as the information can be retrieved with **Nested Queries (Subqueries)**. A subquery executes internally and returns a list of values used by the outer query (usually with the `IN` operator).
 
-**Αναλογία**: Είναι σαν να ψάχνουμε για βιβλία συγκεκριμένων συγγραφέων. Πρώτα εκτελούμε την εσωτερική αναζήτηση για να βρούμε τα ID των συγγραφέων που γεννήθηκαν στην Αθήνα, και μετά χρησιμοποιούμε αυτή τη λίστα για να ανακτήσουμε τα βιβλία τους.
+**Analogy**: It is like searching for books by specific authors. First, we run the inner search to find the IDs of authors born in Athens, and then we use that list to retrieve their books.
 
 ```sql
--- Εμφωλευμένο ερώτημα στην SQL
+-- Nested query in SQL
 SELECT acc_no 
 FROM Deposit
 WHERE br_name IN (
     SELECT br_name 
     FROM branch 
-    WHERE Br_city = 'Αθήνα'
+    WHERE Br_city = 'Athens'
 );
 ```
 
 ---
 
-## Απειλές Ασφάλειας & Κυβερνοασφάλεια
+## Security Threats & Cybersecurity
 *Security Threats & Cybersecurity*
 
-Ως **Απειλή (Threat)** ορίζεται οποιοδήποτε γεγονός ή ενέργεια μπορεί να οδηγήσει σε απώλεια, καταστροφή δεδομένων ή υλική ζημιά στην υποδομή ενός Πληροφοριακού Συστήματος (ΠΣ).
+A **Threat** is defined as any event or action that can lead to loss, data destruction, or physical damage to the infrastructure of an Information System (IS).
 
-**Κατηγορίες Απειλών**:
-1. **Φυσικές Καταστροφές**: Πυρκαγιές, πλημμύρες, σεισμοί.
-2. **Τυχαίες Απειλές**: Ανθρώπινα λάθη, αστοχία υλικού.
-3. **Σκόπιμες (Μη Φυσικές) Απειλές**: Κακόβουλο λογισμικό (Malware), επιθέσεις DoS, Phishing κ.λπ.
+**Categories of Threats**:
+1. **Natural Disasters**: Fires, floods, earthquakes.
+2. **Accidental Threats**: Human errors, hardware failure.
+3. **Deliberate (Non-Physical) Threats**: Malicious software (Malware), DoS attacks, Phishing, etc.
 
 ---
 
-### Σπάσιμο Κωδικών (Password Cracking)
+### Password Cracking
 *Password Cracking*
 
-Το **Σπάσιμο Κωδικών (Password Cracking)** είναι η διαδικασία απόκτησης μη εξουσιοδοτημένης πρόσβασης με την εύρεση ή αποκρυπτογράφηση κωδικών πρόσβασης.
+**Password Cracking** is the process of gaining unauthorized access by finding or decrypting passwords.
 
-**Τεχνικές Cracking**:
-- **Dictionary Attack (Επίθεση Λεξικού)**: Χρήση προκαθορισμένης λίστας κοινών λέξεων για σύγκριση με τα hashes των κωδικών.
-- **Brute Force Attack (Επίθεση Ωμής Βίας)**: Δοκιμή όλων των δυνατών συνδυασμών χαρακτήρων και συμβόλων με τη χρήση αλγορίθμων.
-- **Rainbow Table Attack**: Χρήση προ-υπολογισμένων πινάκων αντιστοίχισης (pre-computed hashes) για την εύρεση της αρχικής τιμής ενός hash (π.χ. MD5).
-- **Guess (Εικασία)**: Δοκιμή προφανών κωδικών (π.χ. `admin`, `123456`, `password`).
-- **Spidering**: Συλλογή πληροφοριών από ιστότοπους και κοινωνικά δίκτυα της εταιρείας για τη δημιουργία στοχευμένων λιστών λέξεων.
+**Cracking techniques**:
+- **Dictionary Attack**: Use of a predefined list of common words to compare against the hashes of the passwords.
+- **Brute Force Attack**: Trying all possible combinations of characters and symbols using algorithms.
+- **Rainbow Table Attack**: Use of pre-computed mapping tables (pre-computed hashes) to find the original value of a hash (e.g., MD5).
+- **Guess**: Trying obvious passwords (e.g., `admin`, `123456`, `password`).
+- **Spidering**: Collecting information from the company's websites and social networks to build targeted word lists.
 
-| Τεχνική | Μηχανισμός | Πλεονέκτημα | Μειονέκτημα |
+| Technique | Mechanism | Advantage | Disadvantage |
 |:---|:---|:---|:---|
-| **Dictionary** | Δοκιμή έτοιμων λέξεων | Γρήγορη εκτέλεση | Αποτυγχάνει σε τυχαίους κωδικούς |
-| **Brute Force** | Δοκιμή όλων των συνδυασμών | Εγγυημένο αποτέλεσμα | Απαιτεί τεράστιο χρόνο |
-| **Rainbow Table** | Αναζήτηση σε προ-υπολογισμένα hashes | Σχεδόν ακαριαία εύρεση | Απαιτεί τεράστιο χώρο αποθήκευσης |
+| **Dictionary** | Testing ready-made words | Fast execution | Fails on random passwords |
+| **Brute Force** | Testing all combinations | Guaranteed result | Requires enormous time |
+| **Rainbow Table** | Search in pre-computed hashes | Almost instantaneous discovery | Requires enormous storage space |
 
 ---
 
-### Κοινωνική Μηχανική (Social Engineering)
+### Social Engineering
 *Social Engineering*
 
-Η **Κοινωνική Μηχανική (Social Engineering)** είναι η τέχνη του χειρισμού και της εξαπάτησης των χρηστών ενός συστήματος με σκοπό την απόσπαση εμπιστευτικών πληροφοριών (π.χ. κωδικών πρόσβασης).
+**Social Engineering** is the art of manipulating and deceiving the users of a system in order to extract confidential information (e.g., passwords).
 
-**Αναλογία**: Είναι σαν ένας απατεώνας να προσποιηθεί τον τεχνικό της εταιρείας ύδρευσης για να μπει στο σπίτι σας, αντί να προσπαθήσει να παραβιάσει την κλειδαριά της πόρτας.
+**Analogy**: It is like a con artist pretending to be a technician from the water company to get into your house, instead of trying to break the door lock.
 
-**Ο Κύκλος της Κοινωνικής Μηχανικής**:
+**The Social Engineering Cycle**:
 ```text
   +--------------------------------+
-  |  1. Συγκέντρωση Πληροφοριών    | (Gather Info)
+  |  1. Information Gathering      | (Gather Info)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |    2. Σχεδιασμός Επίθεσης      | (Plan Attack)
+  |    2. Plan Attack              | (Plan Attack)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |    3. Απόκτηση Εργαλείων       | (Acquire Tools)
+  |    3. Acquire Tools            | (Acquire Tools)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |          4. Επίθεση            | (Attack)
+  |          4. Attack             | (Attack)
   +--------------------------------+
                   |
                   v
   +--------------------------------+
-  |  5. Χρήση Αποκτηθείσας Γνώσης  | (Use Knowledge)
+  |  5. Use Acquired Knowledge     | (Use Knowledge)
   +--------------------------------+
 ```
 
-**Κοινές Τεχνικές**:
-- **Phishing (Ηλεκτρονικό Ψάρεμα)**: Αποστολή ψευδών email που μιμούνται έμπιστους οργανισμούς για την υποκλοπή στοιχείων.
-- **Tailgating**: Η φυσική είσοδος σε προστατευμένο χώρο ακολουθώντας στενά έναν εξουσιοδοτημένο υπάλληλο.
-- **Familiarity Exploit**: Η ανάπτυξη φιλικών σχέσεων με το θύμα πριν την επίθεση.
-- **Intimidating Circumstances**: Η χρήση απειλών ή εκφοβισμού για τον εξαναγκασμό του χρήστη σε παροχή πληροφοριών.
-- **Exploiting Human Curiosity/Greed**: Δελεασμός χρηστών με υποσχέσεις χρημάτων ή η σκόπιμη εγκατάλειψη μολυσμένων USB flash drives σε κοινόχρηστους χώρους.
+**Common techniques**:
+- **Phishing**: Sending fake emails that mimic trusted organizations to steal credentials.
+- **Tailgating**: Physical entry into a secured area by closely following an authorized employee.
+- **Familiarity Exploit**: Developing friendly relations with the victim before the attack.
+- **Intimidating Circumstances**: Using threats or intimidation to coerce the user into providing information.
+- **Exploiting Human Curiosity/Greed**: Luring users with promises of money or deliberately leaving infected USB flash drives in common areas.
 
 ---
 
-## Πολιτικές Ασφάλειας Πληροφοριών
+## Information Security Policies
 *Information Security Policies*
 
-Μια **Πολιτική Ασφάλειας (Security Policy)** είναι ένα επίσημο έγγραφο που περιλαμβάνει κανόνες, οδηγίες, διαδικασίες και ρόλους για την προστασία των Πληροφοριακών Συστημάτων ενός οργανισμού.
+A **Security Policy** is a formal document that includes rules, guidelines, procedures, and roles for protecting an organization's Information Systems.
 
 ---
 
-### Ασφάλεια Λογισμικού
-- Απαγόρευση εγκατάστασης λογισμικού χωρίς άδεια χρήσης ή έγκριση του υπευθύνου ασφάλειας.
-- Η τροποποίηση λογισμικού πρέπει να εκτελείται πρώτα σε δοκιμαστικό περιβάλλον (staging) και μετά σε παραγωγή (production).
-- Υποχρεωτική εγκατάσταση anti-malware λογισμικού σε διακομιστές (servers) και σταθμούς εργασίας.
-- Άμεση απομόνωση και καθαρισμός σταθμών εργασίας σε περίπτωση μόλυνσης.
+### Software Security
+- Prohibition of installing software without a license or the security officer's approval.
+- Software modifications must first be performed in a staging environment and then in production.
+- Mandatory installation of anti-malware software on servers and workstations.
+- Immediate isolation and cleaning of workstations in case of infection.
 
 ---
 
-### Ασφάλεια Δεδομένων
-- Απαγόρευση αποστολής μη κρυπτογραφημένων δεδομένων μέσω διαδικτύου.
-- Τήρηση τακτικών αντιγράφων ασφαλείας (backup) και φύλαξή τους σε ασφαλές, φυσικά προστατευμένο μέρος.
-- Προστασία των φυσικών μέσων αποθήκευσης που περιέχουν εμπιστευτικά δεδομένα.
+### Data Security
+- Prohibition of sending unencrypted data over the internet.
+- Maintaining regular backups and storing them in a safe, physically protected location.
+- Protecting the physical storage media that contain confidential data.
 
 ---
 
-### Πολιτική Ασφάλειας για τα Συνθηματικά (Passwords)
-- **Χαρακτηριστικά Ισχυρού Password**:
-  - Μήκος τουλάχιστον $15$ χαρακτήρων.
-  - Χρήση κεφαλαίων, μικρών, αριθμών και συμβόλων.
-  - Να μην αποτελεί λέξη λεξικού σε καμία γλώσσα και να μη βασίζεται σε προσωπικές πληροφορίες.
-  - Να μην αποθηκεύεται online ή σε αρχεία απλού κειμένου.
-- **Κανόνες Διαχείρισης**:
-  - Αλλαγή κωδικών χρηστών τουλάχιστον κάθε $6$ μήνες.
-  - Απαγόρευση κοινής χρήσης κωδικών για λογαριασμούς με υψηλά προνόμια.
-  - Απαγόρευση αποκάλυψης κωδικού μέσω τηλεφώνου, email, σε προϊσταμένους, συναδέλφους ή φόρμες ασφαλείας.
+### Security Policy for Passwords
+- **Characteristics of a strong password**:
+  - Length of at least $15$ characters.
+  - Use of uppercase, lowercase, numbers, and symbols.
+  - Must not be a dictionary word in any language and must not be based on personal information.
+  - Must not be stored online or in plain-text files.
+- **Management rules**:
+  - Change of user passwords at least every $6$ months.
+  - Prohibition of sharing passwords for accounts with high privileges.
+  - Prohibition of disclosing a password by phone, email, to supervisors, colleagues, or security forms.
 
 ---
 
-## Πίνακας Βασικών Εννοιών
+## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
-| Έννοια | Ορισμός | Κρίσιμος Κανόνας / Χαρακτηριστικό |
+| Concept | Definition | Critical Rule / Characteristic |
 |:---|:---|:---|
-| **Καρτεσιανό Γινόμενο ($R \times S$)** | Συνδυασμός όλων των πλειάδων του $R$ με του $S$ | Παράγει $\|R\| \times \|S\|$ εγγραφές |
-| **Φυσική Σύνδεση ($R \bowtie S$)** | Σύνδεση με βάση την ισότητα κοινών γνωρισμάτων | Συγχωνεύει τις κοινές στήλες σε μία |
-| **Θεματική Συνένωση ($R \bowtie_{\theta} S$)** | Σύνδεση βάσει μιας γενικής συνθήκης $\theta$ | Υλοποιείται ως $\sigma_{\theta}(R \times S)$ |
-| **Left Outer Join ($\$)** | Σύνδεση που διατηρεί όλα τα αριστερά στοιχεία | Συμπληρώνει με `NULL` τα μη ταιριαστά δεξιά |
-| **Right Outer Join ($\$)** | Σύνδεση που διατηρεί όλα τα δεξιά στοιχεία | Συμπληρώνει με `NULL` τα μη ταιριαστά αριστερά |
-| **Απειλή (Threat)** | Γεγονός που προκαλεί απώλεια/ζημιά στο ΠΣ | Μπορεί να είναι φυσική, τυχαία ή σκόπιμη |
-| **Dictionary Attack** | Επίθεση σπασίματος με προκαθορισμένες λέξεις | Βασίζεται σε έτοιμα λεξικά κωδικών |
-| **Social Engineering** | Χειραγώγηση χρηστών για απόσπαση κωδικών | Εκμεταλλεύεται την ανθρώπινη εμπιστοσύνη/άγνοια |
-| **Security Policy** | Σύνολο κανόνων προστασίας του ΠΣ | Αποτελεί νομική και επιχειρησιακή υποχρέωση |
+| **Cartesian Product ($R \times S$)** | Combination of all tuples of $R$ with those of $S$ | Produces $\|R\| \times \|S\|$ records |
+| **Natural Join ($R \bowtie S$)** | Join based on equality of common attributes | Merges the common columns into one |
+| **Theta Join ($R \bowtie_{\theta} S$)** | Join based on a general condition $\theta$ | Implemented as $\sigma_{\theta}(R \times S)$ |
+| **Left Outer Join ($\⟕$)** | Join that retains all left-side elements | Fills unmatched right-side entries with `NULL` |
+| **Right Outer Join ($\⟖$)** | Join that retains all right-side elements | Fills unmatched left-side entries with `NULL` |
+| **Threat** | Event that causes loss/damage to the IS | Can be natural, accidental, or deliberate |
+| **Dictionary Attack** | Cracking attack with predefined words | Based on ready-made password dictionaries |
+| **Social Engineering** | Manipulation of users to extract passwords | Exploits human trust/ignorance |
+| **Security Policy** | Set of rules for protecting the IS | Constitutes a legal and operational obligation |
 
 ---
 
-## Βασικά Συμπεράσματα
+## Key Takeaways
 *Key Takeaways*
 
-- Το **Καρτεσιανό Γινόμενο** συνδυάζει όλα τα στοιχεία δύο πινάκων, δημιουργώντας μια μεγάλη σχέση με διπλότυπες στήλες.
-- Η **Φυσική Σύνδεση** εκτελεί αυτόματα έλεγχο ισότητας στα κοινά πεδία και διατηρεί μόνο μία φορά την κοινή στήλη.
-- Οι **Εξωτερικές Συνενώσεις (Outer Joins)** αποτρέπουν την απώλεια πληροφοριών για εγγραφές χωρίς αντιστοιχία, εισάγοντας τιμές `NULL`.
-- Τα **Εμφωλευμένα Ερωτήματα** προσφέρουν εναλλακτική μέθοδο ανάκτησης δεδομένων χωρίς τη χρήση ρητών συνενώσεων.
-- Η **Ασφάλεια Πληροφοριών** απειλείται τόσο από τεχνικές μεθόδους (Password Cracking) όσο και από ανθρώπινες αδυναμίες (Social Engineering).
-- Οι **Πολιτικές Ασφάλειας** πρέπει να εφαρμόζονται αυστηρά σε επίπεδο λογισμικού, δεδομένων και διαχείρισης κωδικών πρόσβασης (minimum 15 χαρακτήρες, αλλαγή ανά 6 μήνες).
+- The **Cartesian Product** combines all elements of two tables, producing a large relation with duplicate columns.
+- The **Natural Join** automatically performs an equality check on the common fields and retains the common column only once.
+- **Outer Joins** prevent information loss for records without a match by introducing `NULL` values.
+- **Nested Queries** offer an alternative method of data retrieval without using explicit joins.
+- **Information Security** is threatened both by technical methods (Password Cracking) and by human weaknesses (Social Engineering).
+- **Security Policies** must be strictly enforced at the software, data, and password-management levels (minimum 15 characters, change every 6 months).
 
 ---
 
@@ -4663,113 +4652,113 @@ WHERE br_name IN (
 
 ### Exercise 1: Cartesian Product Calculation
 **Problem:**
-Δίνονται οι σχέσεις $R$ (Πελάτες) και $S$ (Καταθέσεις):
+The relations $R$ (Customers) and $S$ (Deposits) are given:
 $$
-R = \{ (\text{'Πέτρου'}, \text{'Αθήνα'}), (\text{'Παύλου'}, \text{'Λάρισα'}) \}
+R = \{ (\text{'Petrou'}, \text{'Athens'}), (\text{'Pavlou'}, \text{'Larisa'}) \}
 $$
 $$
-S = \{ (1100, \text{'Πέτρου'}), (756, \text{'Παύλου'}) \}
+S = \{ (1100, \text{'Petrou'}), (756, \text{'Pavlou'}) \}
 $$
-Υπολογίστε το Καρτεσιανό Γινόμενο $R \times S$ και σχεδιάστε τον πίνακα εξόδου.
+Compute the Cartesian Product $R \times S$ and draw the output table.
 
 **Solution:**
-1. Προσδιορίζουμε τα σχήματα των σχέσεων:
+1. We determine the schemas of the relations:
    - $R(\text{cust\_name}, \text{cust\_city})$
    - $S(\text{acc\_no}, \text{cust\_name})$
-2. Το σχήμα του αποτελέσματος θα είναι:
+2. The schema of the result will be:
    - $Result(R.\text{cust\_name}, \text{cust\_city}, \text{acc\_no}, S.\text{cust\_name})$
-3. Συνδυάζουμε κάθε γραμμή του $R$ με κάθε γραμμή του $S$ (συνολικά $2 \times 2 = 4$ γραμμές):
-   - Row 1: $(\text{'Πέτρου'}, \text{'Αθήνα'})$ με $(1100, \text{'Πέτρου'})$
-   - Row 2: $(\text{'Πέτρου'}, \text{'Αθήνα'})$ με $(756, \text{'Παύλου'})$
-   - Row 3: $(\text{'Παύλου'}, \text{'Λάρισα'})$ με $(1100, \text{'Πέτρου'})$
-   - Row 4: $(\text{'Παύλου'}, \text{'Λάρισα'})$ με $(756, \text{'Παύλου'})$
+3. We combine each row of $R$ with each row of $S$ (in total $2 \times 2 = 4$ rows):
+   - Row 1: $(\text{'Petrou'}, \text{'Athens'})$ with $(1100, \text{'Petrou'})$
+   - Row 2: $(\text{'Petrou'}, \text{'Athens'})$ with $(756, \text{'Pavlou'})$
+   - Row 3: $(\text{'Pavlou'}, \text{'Larisa'})$ with $(1100, \text{'Petrou'})$
+   - Row 4: $(\text{'Pavlou'}, \text{'Larisa'})$ with $(756, \text{'Pavlou'})$
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | R.cust_name | cust_city | acc_no | S.cust_name |
 |:---|:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 | Πέτρου |
-| Πέτρου | Αθήνα | 756 | Παύλου |
-| Παύλου | Λάρισα | 1100 | Πέτρου |
-| Παύλου | Λάρισα | 756 | Παύλου |
+| Petrou | Athens | 1100 | Petrou |
+| Petrou | Athens | 756 | Pavlou |
+| Pavlou | Larisa | 1100 | Petrou |
+| Pavlou | Larisa | 756 | Pavlou |
 
 ---
 
 ### Exercise 2: Natural Join Application
 **Problem:**
-Χρησιμοποιώντας τις σχέσεις $R$ και $S$ από το Exercise 1, υπολογίστε τη Φυσική Σύνδεση $R \bowtie S$.
+Using the relations $R$ and $S$ from Exercise 1, compute the Natural Join $R \bowtie S$.
 
 **Solution:**
-1. Εντοπίζουμε το κοινό γνώρισμα των δύο πινάκων, το οποίο είναι το `cust_name`.
-2. Από το Καρτεσιανό Γινόμενο του Exercise 1, κρατάμε μόνο τις γραμμές όπου $R.\text{cust\_name} = S.\text{cust\_name}$:
-   - Line 1: $\text{'Πέτρου'} = \text{'Πέτρου'}$ (Δεκτή)
-   - Line 2: $\text{'Πέτρου'} \neq \text{'Παύλου'}$ (Απορρίπτεται)
-   - Line 3: $\text{'Παύλου'} \neq \text{'Πέτρου'}$ (Απορρίπτεται)
-   - Line 4: $\text{'Παύλου'} = \text{'Παύλου'}$ (Δεκτή)
-3. Συγχωνεύουμε την κοινή στήλη `cust_name` σε μία.
+1. We identify the common attribute of the two tables, which is `cust_name`.
+2. From the Cartesian Product of Exercise 1, we keep only the rows where $R.\text{cust\_name} = S.\text{cust\_name}$:
+   - Line 1: $\text{'Petrou'} = \text{'Petrou'}$ (Accepted)
+   - Line 2: $\text{'Petrou'} \neq \text{'Pavlou'}$ (Rejected)
+   - Line 3: $\text{'Pavlou'} \neq \text{'Petrou'}$ (Rejected)
+   - Line 4: $\text{'Pavlou'} = \text{'Pavlou'}$ (Accepted)
+3. We merge the common column `cust_name` into one.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | cust_name | cust_city | acc_no |
 |:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 |
-| Παύλου | Λάρισα | 756 |
+| Petrou | Athens | 1100 |
+| Pavlou | Larisa | 756 |
 
 ---
 
 ### Exercise 3: Equi-Join SQL Translation
 **Problem:**
-Γράψτε το SQL ερώτημα που εκτελεί τη συνένωση ισότητας των πινάκων `Customer(cust_name, cust_city)` και `Deposit(acc_no, cust_name)` στη στήλη `cust_name` και δείξτε τη δομή του αποτελέσματος.
+Write the SQL query that performs the equi-join of the tables `Customer(cust_name, cust_city)` and `Deposit(acc_no, cust_name)` on the column `cust_name`, and show the structure of the result.
 
 **Solution:**
-1. Το ερώτημα SQL χρησιμοποιεί τη σύνταξη `JOIN ... ON ...`:
+1. The SQL query uses the `JOIN ... ON ...` syntax:
 ```sql
 SELECT * 
 FROM Customer 
 JOIN Deposit ON Customer.cust_name = Deposit.cust_name;
 ```
-2. Η έξοδος διατηρεί και τις δύο στήλες `cust_name` των πινάκων.
+2. The output retains both `cust_name` columns of the tables.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | Customer.cust_name | cust_city | acc_no | Deposit.cust_name |
 |:---|:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 | Πέτρου |
-| Παύλου | Λάρισα | 756 | Παύλου |
+| Petrou | Athens | 1100 | Petrou |
+| Pavlou | Larisa | 756 | Pavlou |
 
 ---
 
 ### Exercise 4: Left Outer Join Computation
 **Problem:**
-Δίνονται οι πίνακες:
-- `Customer(cust_name, cust_city)` με εγγραφές: `('Πέτρου', 'Αθήνα')`, `('Παύλου', 'Λάρισα')`, `('Αντώνης', 'Θεσσαλονίκη')`
-- `Deposit(acc_no, cust_name)` με εγγραφές: `(1100, 'Πέτρου')`, `(756, 'Παύλου')`
+The following tables are given:
+- `Customer(cust_name, cust_city)` with records: `('Petrou', 'Athens')`, `('Pavlou', 'Larisa')`, `('Antonis', 'Thessaloniki')`
+- `Deposit(acc_no, cust_name)` with records: `(1100, 'Petrou')`, `(756, 'Pavlou')`
 
-Υπολογίστε το Left Outer Join των πινάκων `Customer` και `Deposit` στη στήλη `cust_name`.
+Compute the Left Outer Join of the tables `Customer` and `Deposit` on the column `cust_name`.
 
 **Solution:**
-1. Το Left Outer Join διατηρεί όλες τις εγγραφές του αριστερού πίνακα (`Customer`).
-2. Για τις εγγραφές `Πέτρου` και `Παύλου` υπάρχει αντιστοιχία στον πίνακα `Deposit`, οπότε συμπληρώνονται κανονικά.
-3. Για την εγγραφή `Αντώνης` δεν υπάρχει αντίστοιχη εγγραφή στο `Deposit`. Συνεπώς, τα πεδία του `Deposit` (`acc_no`, `Deposit.cust_name`) παίρνουν την τιμή `NULL`.
+1. The Left Outer Join retains all the records of the left table (`Customer`).
+2. For the records `Petrou` and `Pavlou` there is a match in the `Deposit` table, so they are filled in normally.
+3. For the record `Antonis` there is no corresponding record in `Deposit`. Consequently, the `Deposit` fields (`acc_no`, `Deposit.cust_name`) take the value `NULL`.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | Customer.cust_name | cust_city | acc_no | Deposit.cust_name |
 |:---|:---|:---|:---|
-| Πέτρου | Αθήνα | 1100 | Πέτρου |
-| Παύλου | Λάρισα | 756 | Παύλου |
-| Αντώνης | Θεσσαλονίκη | NULL | NULL |
+| Petrou | Athens | 1100 | Petrou |
+| Pavlou | Larisa | 756 | Pavlou |
+| Antonis | Thessaloniki | NULL | NULL |
 
 ---
 
 ### Exercise 5: Multiple Table Join Query
 **Problem:**
-Δίνονται οι πίνακες:
+The following tables are given:
 - `Customer(cust_name, cust_city)`
 - `Deposit(acc_no, br_name, cust_name, balance)`
 - `Branch(br_name, br_city)`
 
-Γράψτε ένα ερώτημα SQL για την εύρεση των ονομάτων των πελατών και των υπολοίπων τους, οι οποίοι έχουν κατάθεση σε υποκατάστημα που βρίσκεται σε **διαφορετική** πόλη από την πόλη διαμονής τους.
+Write an SQL query to find the names of customers and their balances who have a deposit in a branch located in a **different** city from their city of residence.
 
 **Solution:**
-1. Πρέπει να συνδέσουμε τον πίνακα `Customer` με τον `Deposit` (μέσω του `cust_name`) και τον πίνακα `Deposit` με τον `Branch` (μέσω του `br_name`).
-2. Προσθέτουμε τη συνθήκη φιλτραρίσματος `Customer.cust_city <> Branch.br_city`.
+1. We must join the `Customer` table with `Deposit` (via `cust_name`) and the `Deposit` table with `Branch` (via `br_name`).
+2. We add the filtering condition `Customer.cust_city <> Branch.br_city`.
 
 ```sql
 SELECT Customer.cust_name, Deposit.balance
@@ -4783,36 +4772,36 @@ WHERE Customer.cust_city <> Branch.br_city;
 
 ### Exercise 6: Right Outer Join Analysis
 **Problem:**
-Δίνονται οι πίνακες `Borrow(loan_number, amount, cust_name)` με εγγραφή `(L-101, 1000, 'Γιώργος')` και `Customer(cust_name, street, cust_city)` με εγγραφές `('Γιώργος', 'Πατησίων 10', 'Αθήνα')`, `('Μαρία', 'Τρικούπη 12', 'Πάτρα')`.
+The tables `Borrow(loan_number, amount, cust_name)` with record `(L-101, 1000, 'Giorgos')` and `Customer(cust_name, street, cust_city)` with records `('Giorgos', 'Patision 10', 'Athens')`, `('Maria', 'Trikoupi 12', 'Patra')` are given.
 
-Υπολογίστε το αποτέλεσμα του Right Outer Join του `Borrow` με τον `Customer` στη στήλη `cust_name`.
+Compute the result of the Right Outer Join of `Borrow` with `Customer` on the column `cust_name`.
 
 **Solution:**
-1. Το Right Outer Join διατηρεί όλες τις εγγραφές του δεξιού πίνακα (`Customer`).
-2. Για τον `Γιώργο` υπάρχει αντιστοιχία, οπότε συνδέεται με το δάνειο `L-101`.
-3. Για τη `Μαρία` δεν υπάρχει δάνειο στον πίνακα `Borrow`. Τα πεδία `loan_number` και `amount` συμπληρώνονται με `NULL`.
+1. The Right Outer Join retains all the records of the right table (`Customer`).
+2. For `Giorgos` there is a match, so it is linked to the loan `L-101`.
+3. For `Maria` there is no loan in the `Borrow` table. The `loan_number` and `amount` fields are filled with `NULL`.
 
-*Πίνακας Αποτελέσματος:*
+*Result table:*
 | loan_number | amount | cust_name | street | cust_city |
 |:---|:---|:---|:---|:---|
-| L-101 | 1000 | Γιώργος | Πατησίων 10 | Αθήνα |
-| NULL | NULL | Μαρία | Τρικούπη 12 | Πάτρα |
+| L-101 | 1000 | Giorgos | Patision 10 | Athens |
+| NULL | NULL | Maria | Trikoupi 12 | Patra |
 
 ---
 
 ### Exercise 7: Nested Subquery Translation
 **Problem:**
-Μετατρέψτε το ακόλουθο ερώτημα σύνδεσης (JOIN) σε ισοδύναμο ερώτημα με χρήση εμφωλευμένου ερωτήματος (subquery):
+Convert the following join (JOIN) query into an equivalent query using a nested subquery:
 ```sql
 SELECT DISTINCT Deposit.cust_name
 FROM Deposit
 JOIN Branch ON Deposit.br_name = Branch.br_name
-WHERE Branch.br_city = 'Αθήνα';
+WHERE Branch.br_city = 'Athens';
 ```
 
 **Solution:**
-1. Το εσωτερικό ερώτημα (subquery) πρέπει να ανακτήσει τα ονόματα των υποκαταστημάτων (`br_name`) που βρίσκονται στην πόλη 'Αθήνα'.
-2. Το εξωτερικό ερώτημα θα επιλέξει τα ονόματα πελατών από τον πίνακα `Deposit` των οποίων το υποκατάστημα περιλαμβάνεται στη λίστα του subquery.
+1. The inner query (subquery) must retrieve the names of the branches (`br_name`) located in the city 'Athens'.
+2. The outer query will select the names of customers from the `Deposit` table whose branch is included in the subquery's list.
 
 ```sql
 SELECT DISTINCT cust_name
@@ -4820,7 +4809,7 @@ FROM Deposit
 WHERE br_name IN (
     SELECT br_name
     FROM Branch
-    WHERE br_city = 'Αθήνα'
+    WHERE br_city = 'Athens'
 );
 ```
 
@@ -4828,28 +4817,28 @@ WHERE br_name IN (
 
 ### Exercise 8: Natural Join vs. Theta Join Equivalence
 **Problem:**
-Αποδείξτε μαθηματικά χρησιμοποιώντας τη σχεσιακή άλγεβρα ότι η Φυσική Σύνδεση $R \bowtie S$ για τις σχέσεις $R(A, B)$ και $S(B, C)$ είναι ισοδύναμη με μια πράξη προβολής επί μιας θεματικής συνένωσης (Theta Join).
+Prove mathematically using relational algebra that the Natural Join $R \bowtie S$ for the relations $R(A, B)$ and $S(B, C)$ is equivalent to a projection operation over a Theta Join.
 
 **Solution:**
-1. Η Θεματική Σύνδεση με συνθήκη ισότητας στο κοινό γνώρισμα $B$ ορίζεται ως:
+1. The Theta Join with an equality condition on the common attribute $B$ is defined as:
    $$ R \bowtie_{R.B = S.B} S = \sigma_{R.B = S.B}(R \times S) $$
-   Η σχέση αυτή έχει γνωρίσματα $(A, R.B, S.B, C)$.
-2. Η Φυσική Σύνδεση $R \bowtie S$ έχει γνωρίσματα $(A, B, C)$, όπου η διπλή στήλη του $B$ έχει συγχωνευθεί.
-3. Για να καταστήσουμε τις δύο εκφράσεις ταυτόσημες, εφαρμόζουμε προβολή ($\pi$) στο αποτέλεσμα της θεματικής συνένωσης για να απορρίψουμε τη μία εκ των δύο στηλών $B$ (π.χ. την $S.B$) και να μετονομάσουμε την άλλη σε $B$:
+   This relation has the attributes $(A, R.B, S.B, C)$.
+2. The Natural Join $R \bowtie S$ has the attributes $(A, B, C)$, where the duplicate $B$ column has been merged.
+3. To make the two expressions identical, we apply projection ($\pi$) to the result of the Theta Join to discard one of the two $B$ columns (e.g., $S.B$) and rename the other to $B$:
    $$ R \bowtie S = \pi_{A, R.B \text{ AS } B, C}(\sigma_{R.B = S.B}(R \times S)) $$
-   Συνεπώς, η Φυσική Σύνδεση είναι μια εξειδικευμένη μορφή Θεματικής Σύνδεσης που ακολουθείται από προβολή.
+   Therefore, the Natural Join is a specialized form of Theta Join followed by a projection.
 
 ---
 
 ## Exam Tip: JOIN Mechanics & Safety Policies
 
 > **[Key Insight]**
-> **Exam Tip - JOINs**: Στις εξετάσεις, όταν ζητείται η διαφορά μεταξύ `NATURAL JOIN` και `JOIN ... ON` (Equi-join):
-> 1. Το `NATURAL JOIN` συγχωνεύει αυτόματα τις στήλες με ίδιο όνομα και επιστρέφει την κοινή στήλη **μόνο μία φορά**.
-> 2. Το `JOIN ... ON` διατηρεί **και τις δύο στήλες** στο αποτέλεσμα, προσθέτοντας το όνομα του πίνακα ως πρόθεμα. Αν ζητηθεί η μετατροπή φυσικής σύνδεσης σε γενική συνένωση, πρέπει να χρησιμοποιηθεί ρητή προβολή (`SELECT`) των επιμέρους στηλών για να αποφευχθεί η διπλή εμφάνιση.
+> **Exam Tip - JOINs**: In exams, when the difference between `NATURAL JOIN` and `JOIN ... ON` (Equi-join) is asked:
+> 1. `NATURAL JOIN` automatically merges columns with the same name and returns the common column **only once**.
+> 2. `JOIN ... ON` retains **both columns** in the result, adding the table name as a prefix. If the conversion of a natural join into a general join is requested, an explicit projection (`SELECT`) of the individual columns must be used to avoid duplication.
 > 
-> **Exam Tip - Security Policies**: Σε ερωτήσεις θεωρίας σχετικά με την ασφάλεια κωδικών, να θυμάστε τους εξής "χρυσούς κανόνες":
-> - Ελάχιστο μήκος κωδικού: **15 χαρακτήρες** (όχι 8 ή 10).
-> - Συχνότητα αλλαγής: **Κάθε 6 μήνες** (τουλάχιστον).
-> - Η **Ακεραιότητα Οντοτήτων** (Entity Integrity) αφορά αποκλειστικά το Primary Key (όχι NULL), ενώ η **Αναφορική Ακεραιότητα** (Referential Integrity) αφορά το Foreign Key (πρέπει να δείχνει σε υπαρκτή εγγραφή). Μην τις μπερδεύετε!
+> **Exam Tip - Security Policies**: In theory questions about password security, remember the following "golden rules":
+> - Minimum password length: **15 characters** (not 8 or 10).
+> - Change frequency: **Every 6 months** (at least).
+> - **Entity Integrity** concerns exclusively the Primary Key (not NULL), while **Referential Integrity** concerns the Foreign Key (it must point to an existing record). Do not confuse them!
 

@@ -1393,7 +1393,7 @@ Let $X \sim N(12, 2)$. Which R command computes $P(11 \le X \le 15)$?
 For computing normal distribution probabilities in R, why must the standard deviation be given in the `sd` argument and not the variance?
 
 > **Formula:**
-> `pnorm` (and `qnorm`) accept the parameter `sd = σ` (standard deviation). If the variance $\sigma^2$ is given, the result will be wrong. If $\sigma^2$ is known, use `sd = sqrt(sigma^2)`.
+> `pnorm` (and `qnorm`) accept the parameter `sd = \sigma` (standard deviation). If the variance $\sigma^2$ is given, the result will be wrong. If $\sigma^2$ is known, use `sd = sqrt(sigma^2)`.
 
 ---
 
