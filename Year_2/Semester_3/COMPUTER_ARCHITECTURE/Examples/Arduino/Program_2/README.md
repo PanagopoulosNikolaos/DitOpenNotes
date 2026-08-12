@@ -19,7 +19,7 @@ arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Program_2.ino
 
 - Arduino Uno
 - LED
-- 220Ω resistor
+- 220 Ohm resistor
 - Jumper wires
 - Breadboard
 

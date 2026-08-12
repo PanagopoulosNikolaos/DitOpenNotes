@@ -356,7 +356,7 @@
                     <div class="control-group group-param">
                         <h4 style="margin-top:0; color:#10b981;">📊 Amplitude Operations</h4>
                         
-                        <label>Scale Factor β <span class="val-display" id="dispBeta">1.0</span></label>
+                        <label>Scale Factor &beta; <span class="val-display" id="dispBeta">1.0</span></label>
                         <input type="range" id="sliderBeta" min="0.2" max="2.5" step="0.1" value="1">
                         
                         <label style="margin-top:10px;">Shift x₀ <span class="val-display" id="dispX0">0</span></label>
@@ -406,7 +406,7 @@
                     </li>
                     <li class="prop-item">
                         <span>Period T₀</span>
-                        <span class="prop-val" id="propT0">2π</span>
+                        <span class="prop-val" id="propT0">2&pi;</span>
                     </li>
                     <li class="prop-item">
                         <span>Frequency f</span>
@@ -426,7 +426,7 @@
                 </div>
 
                 <div class="control-group group-param">
-                    <label>Analysis Interval <span class="val-display" id="dispInterval">[-2π, 2π]</span></label>
+                    <label>Analysis Interval <span class="val-display" id="dispInterval">[-2&pi;, 2&pi;]</span></label>
                     <div style="display:flex; gap:10px; margin-bottom:10px;">
                         <input type="number" id="inputTstart" value="-6.28" placeholder="t_start" style="width:50%;">
                         <input type="number" id="inputTend" value="6.28" placeholder="t_end" style="width:50%;">
@@ -521,7 +521,7 @@
         const signals = {
             'sine': {
                 func: (t) => Math.sin(Math.PI * t),
-                name: 'Sine Wave x(t) = sin(πt)',
+                name: 'Sine Wave x(t) = sin(&pi;t)',
                 causal: false,
                 periodic: true,
                 period: 2,
@@ -530,7 +530,7 @@
             },
             'cosine': {
                 func: (t) => Math.cos(Math.PI * t),
-                name: 'Cosine Wave x(t) = cos(πt)',
+                name: 'Cosine Wave x(t) = cos(&pi;t)',
                 causal: false,
                 periodic: true,
                 period: 2,

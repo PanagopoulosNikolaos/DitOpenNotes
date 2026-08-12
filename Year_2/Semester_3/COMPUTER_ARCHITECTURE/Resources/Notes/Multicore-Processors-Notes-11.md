@@ -21,8 +21,8 @@
 
 | Period | Technology Size |
 |----------|---------------------|
-| 1971 | 10 μm |
-| 1984 | 1 μm |
+| 1971 | 10 µm |
+| 1984 | 1 µm |
 | 1990 | 600 nm |
 | 2001 | 130 nm |
 | 2005 | 65 nm |
@@ -853,7 +853,7 @@ graph LR
 ### 10.3 Future Trends
 
 **i. Process Technology:**
-- From 10 μm (1971) → 2 nm (2024)
+- From 10 µm (1971) → 2 nm (2024)
 - Moore's Law continues (at slower pace)
 
 **ii. Architectural Innovations:**

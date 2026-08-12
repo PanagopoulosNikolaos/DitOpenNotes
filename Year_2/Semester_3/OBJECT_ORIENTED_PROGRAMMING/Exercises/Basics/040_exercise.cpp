@@ -10,7 +10,7 @@
  * 
  * Formulas:
  * - Rectangle: area = length*width, perimeter = 2*(length+width)
- * - Circle: area = π*r², perimeter = 2*π*r
+ * - Circle: area = pi*r², perimeter = 2*pi*r
  * - Triangle: area = √(s*(s-a)*(s-b)*(s-c)) where s = (a+b+c)/2, perimeter = a+b+c
  */
 

@@ -279,7 +279,7 @@
                     <button onclick="selectSignal('step')" id="btnStep">Step u(t)</button>
                     <button onclick="selectSignal('ramp')" id="btnRamp">Ramp r(t)</button>
                     <button onclick="selectSignal('exp')" id="btnExp">Exponential</button>
-                    <button onclick="selectSignal('impulse')" id="btnImpulse">Impulse δ(t)</button>
+                    <button onclick="selectSignal('impulse')" id="btnImpulse">Impulse &delta;(t)</button>
                     <button onclick="selectSignal('sinc')" id="btnSinc">Sinc</button>
                 </div>
             </div>
@@ -389,7 +389,7 @@
             </div>
             <div style="background:rgba(250,158,11,0.1); padding:12px; border-radius:6px; border-left:3px solid #f59e0b;">
                 <strong>Periodic Signals</strong>
-                <p style="margin-top:8px; font-size:0.9em;">x(t) = x(t+T). Fundamental period T₀ = 2π/ω₀. Power signals always.</p>
+                <p style="margin-top:8px; font-size:0.9em;">x(t) = x(t+T). Fundamental period T₀ = 2&pi;/&omega;₀. Power signals always.</p>
             </div>
             <div style="background:rgba(74,222,128,0.1); padding:12px; border-radius:6px; border-left:3px solid #4ade80;">
                 <strong>Aperiodic Signals</strong>
@@ -403,12 +403,12 @@
         <div style="margin-top: 15px;">
             <p><strong>Unit Step u(t):</strong> u(t) = {0 for t&lt;0, 1 for t≥0}. Causal, power signal, non-periodic.</p>
             <p style="margin-top:10px;"><strong>Unit Ramp r(t):</strong> r(t) = t·u(t) = {0 for t&lt;0, t for t≥0}. Causal, non-power signal.</p>
-            <p style="margin-top:10px;"><strong>Unit Impulse δ(t):</strong> Dirac delta. ∫δ(t)dt = 1. Energy signal. Shifting property: ∫x(t)δ(t-t₀)dt = x(t₀).</p>
-            <p style="margin-top:10px;"><strong>Rectangular Pulse:</strong> Π(t) = {A for |t|≤a, 0 otherwise}. Even, energy signal, aperiodic.</p>
-            <p style="margin-top:10px;"><strong>Triangle Pulse:</strong> Λ(t) = {A(1-|t|/a) for |t|≤a, 0 otherwise}. Even, energy signal, aperiodic.</p>
-            <p style="margin-top:10px;"><strong>Exponential:</strong> x(t) = Ae^(st). Real s→exponential growth/decay. Complex s→oscillation with envelope.</p>
-            <p style="margin-top:10px;"><strong>Sinusoid:</strong> x(t) = A·cos(ω₀t+φ). Periodic T₀=2π/ω₀. Power signal. φ is phase (radians).</p>
-            <p style="margin-top:10px;"><strong>Sinc Function:</strong> sinc(t) = sin(πt)/(πt) for t≠0, 1 for t=0. Even, energy signal, oscillatory.</p>
+            <p style="margin-top:10px;"><strong>Unit Impulse &delta;(t):</strong> Dirac delta. &int;&delta;(t)dt = 1. Energy signal. Shifting property: &int;x(t)&delta;(t-t₀)dt = x(t₀).</p>
+            <p style="margin-top:10px;"><strong>Rectangular Pulse:</strong> &Pi;(t) = {A for |t|&le;a, 0 otherwise}. Even, energy signal, aperiodic.</p>
+            <p style="margin-top:10px;"><strong>Triangle Pulse:</strong> &Lambda;(t) = {A(1-|t|/a) for |t|&le;a, 0 otherwise}. Even, energy signal, aperiodic.</p>
+            <p style="margin-top:10px;"><strong>Exponential:</strong> x(t) = Ae^(st). Real s&rarr;exponential growth/decay. Complex s&rarr;oscillation with envelope.</p>
+            <p style="margin-top:10px;"><strong>Sinusoid:</strong> x(t) = A&middot;cos(&omega;₀t+&phi;). Periodic T₀=2&pi;/&omega;₀. Power signal. &phi; is phase (radians).</p>
+            <p style="margin-top:10px;"><strong>Sinc Function:</strong> sinc(t) = sin(&pi;t)/(&pi;t) for t&ne;0, 1 for t=0. Even, energy signal, oscillatory.</p>
         </div>
     </div>
 </div>
@@ -432,9 +432,9 @@
     const signals = {
         'sine': {
             name: 'Sine Wave',
-            params: { freq: { min: 0.5, max: 3, step: 0.1, default: 1, label: 'Frequency (ω₀)' }, phase: { min: 0, max: 2*Math.PI, step: 0.1, default: 0, label: 'Phase (φ)' } },
+            params: { freq: { min: 0.5, max: 3, step: 0.1, default: 1, label: 'Frequency (&omega;₀)' }, phase: { min: 0, max: 2*Math.PI, step: 0.1, default: 0, label: 'Phase (&phi;)' } },
             func: (t, p) => Math.sin(p.freq * t + p.phase),
-            props: { class: 'Power', period: 'Periodic (T=2π/ω₀)', causal: 'Non-Causal', sym: 'Odd', energy: '∞', bounded: 'Yes [-1,1]' }
+            props: { class: 'Power', period: 'Periodic (T=2&pi;/&omega;₀)', causal: 'Non-Causal', sym: 'Odd', energy: '∞', bounded: 'Yes [-1,1]' }
         },
         'rect': {
             name: 'Rectangular Pulse',
@@ -462,12 +462,12 @@
         },
         'exp': {
             name: 'Exponential',
-            params: { decay: { min: -2, max: 0, step: 0.1, default: -1, label: 'Decay (σ)' } },
+            params: { decay: { min: -2, max: 0, step: 0.1, default: -1, label: 'Decay (&sigma;)' } },
             func: (t, p) => (t >= 0) ? Math.exp(p.decay * t) : 0,
-            props: { class: 'Energy', period: 'Aperiodic', causal: 'Causal', sym: 'Neither', energy: '-1/(2σ)', bounded: 'Yes' }
+            props: { class: 'Energy', period: 'Aperiodic', causal: 'Causal', sym: 'Neither', energy: '-1/(2&sigma;)', bounded: 'Yes' }
         },
         'impulse': {
-            name: 'Impulse δ(t)',
+            name: 'Impulse &delta;(t)',
             params: { shift: { min: -2, max: 2, step: 0.1, default: 0, label: 'Position (t₀)' } },
             func: (t, p) => (Math.abs(t - p.shift) < 0.05) ? 10 : 0,
             props: { class: 'Energy', period: 'Aperiodic', causal: 'Causal if t₀ ≥ 0, otherwise Non-Causal', sym: 'Neither', energy: '1', bounded: 'Yes' }

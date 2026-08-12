@@ -87,7 +87,7 @@ Creates a linked list of elements with the same hash at the same table position.
 **Advantages:**
 - Simple implementation
 - The table never fills up - there is no element limit
-- Efficient for high load factor (λ)
+- Efficient for high load factor (lambda)
 - Easy element deletion
 
 **Disadvantages:**
@@ -106,7 +106,7 @@ Applies a secondary hash function continuously until an empty slot is found. Inc
 
 **Disadvantages:**
 - The table fills up (limited size)
-- Worse performance with high λ
+- Worse performance with high load factor (lambda)
 - For double hashing: requires additional hash computation
 - More complex deletion
 

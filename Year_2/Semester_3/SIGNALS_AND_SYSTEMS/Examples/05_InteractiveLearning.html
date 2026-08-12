@@ -250,7 +250,7 @@
                 </div>
 
                 <div class="control-group">
-                    <label>Time Delay (τ) <span class="val-display" id="dispDelay">0</span></label>
+                    <label>Time Delay (&tau;) <span class="val-display" id="dispDelay">0</span></label>
                     <input type="range" id="sliderDelay" min="-3" max="3" step="0.1" value="0">
                     <small style="color:#64748b;">Tests time-invariance (shifts t)</small>
                 </div>
@@ -339,13 +339,13 @@
 
                 <div style="font-size:0.85em; color:#cbd5e1; line-height:1.6;">
                     <strong style="color:var(--accent);">Linearity:</strong><br>
-                    α·x₁(t) + β·x₂(t) → α·y₁(t) + β·y₂(t)<br><br>
+                    &alpha;&middot;x₁(t) + &beta;&middot;x₂(t) &rarr; &alpha;&middot;y₁(t) + &beta;&middot;y₂(t)<br><br>
 
                     <strong style="color:var(--accent);">Time Invariance:</strong><br>
-                    x(t-t₀) → y(t-t₀) (shift in = shift out)<br><br>
+                    x(t-t₀) &rarr; y(t-t₀) (shift in = shift out)<br><br>
 
                     <strong style="color:var(--accent);">Causality:</strong><br>
-                    y(t) depends only on x(τ), τ ≤ t<br><br>
+                    y(t) depends only on x(&tau;), &tau; &le; t<br><br>
 
                     <strong style="color:var(--accent);">BIBO Stability:</strong><br>
                     |x(t)| ≤ M → |y(t)| ≤ N

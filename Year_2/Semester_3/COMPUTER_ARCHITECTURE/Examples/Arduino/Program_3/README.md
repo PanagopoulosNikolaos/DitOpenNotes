@@ -24,7 +24,7 @@ This program reads a temperature value from the serial input and controls two LE
 - Arduino Uno
 - Green LED connected to pin 7
 - Red LED connected to pin 8
-- 220Ω resistors for each LED
+- 220 Ohm resistors for each LED
 - Jumper wires
 - Breadboard
 

@@ -470,7 +470,7 @@ mindmap
 ### 9.3 Modern Trends
 
 **Architectural Convergence:**
-- i. Modern x86 processors use **micro-ops (μ-ops)** RISC-like internally
+- i. Modern x86 processors use **micro-ops (u-ops)** RISC-like internally
 - ii. ARM processors incorporate complex instructions (e.g. NEON SIMD)
 - iii. Hybrid approaches for optimal performance
 

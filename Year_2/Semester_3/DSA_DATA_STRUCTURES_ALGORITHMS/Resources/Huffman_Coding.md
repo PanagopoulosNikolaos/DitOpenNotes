@@ -740,7 +740,7 @@ graph TD
 The average code length is calculated as:
 
 ```
-L = Σ (p(i) × l(i))
+L = SUM (p(i) * l(i))
 ```
 
 Where:

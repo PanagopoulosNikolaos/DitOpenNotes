@@ -20,7 +20,7 @@
 - **Hash Table**: Data structure that stores key-value pairs
 - **Hash Function**: Converts keys to table indices
 - **Collision**: When two keys map to the same index
-- **Load Factor**: α = n/m where n = number of elements, m = table size
+- **Load Factor**: alpha = n/m where n = number of elements, m = table size
 
 ### Hash Table Visualization
 
@@ -585,28 +585,28 @@ graph TD
 | Operation | Average Case | Worst Case |
 |-----------|--------------|------------|
 | Insertion | O(1)         | O(n)       |
-| Search    | O(1 + α)     | O(n)       |
-| Deletion  | O(1 + α)     | O(n)       |
+| Search    | O(1 + alpha) | O(n)       |
+| Deletion  | O(1 + alpha) | O(n)       |
 
-Where α = n/m (load factor)
+Where alpha = n/m (load factor)
 
 ### Open Addressing
 
 | Operation | Average Case | Worst Case |
 |-----------|--------------|------------|
-| Insertion | O(1/(1-α))   | O(n)       |
-| Search    | O(1/(1-α))   | O(n)       |
-| Deletion  | O(1/(1-α))   | O(n)       |
+| Insertion | O(1/(1-alpha))| O(n)       |
+| Search    | O(1/(1-alpha))| O(n)       |
+| Deletion  | O(1/(1-alpha))| O(n)       |
 
-**Note**: For α < 0.7, performance remains good.
+**Note**: For alpha < 0.7, performance remains good.
 
 ### Load Factor Analysis
 
 ```
-α = 0.5:  Average number of probes ≈ 1.5
-α = 0.75: Average number of probes ≈ 4
-α = 0.9:  Average number of probes ≈ 10
-α ≥ 1:    Rehashing required
+alpha = 0.5:  Average number of probes ≈ 1.5
+alpha = 0.75: Average number of probes ≈ 4
+alpha = 0.9:  Average number of probes ≈ 10
+alpha ≥ 1:    Rehashing required
 ```
 
 ---
@@ -971,6 +971,6 @@ Maximum: 4
 ### Key Points
 
 1. **Good hash function**: Uniform distribution
-2. **Load factor**: Maintain α < 0.75
+2. **Load factor**: Maintain alpha < 0.75
 3. **Method selection**: Chaining vs Open Addressing
 4. **Rehashing**: When the table is full
