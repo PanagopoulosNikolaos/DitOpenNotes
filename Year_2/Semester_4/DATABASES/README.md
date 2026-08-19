@@ -27,3 +27,7 @@
 - Υλοποίηση διαχείρισης συναλλαγών
 - Σχεδίαση σχήματος βάσης δεδομένων
 - Εφαρμογή αρχών ασφάλειας βάσεων δεδομένων
+
+## Οδηγοί Προετοιμασίας Εξετάσεων
+- [Complete_Exam_Theory_Guide.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Resources/Notes/Complete_Exam_Theory_Guide.md) - Πλήρης Θεωρητικός & Μεθοδολογικός Οδηγός Εξετάσεων (Μοντέλο ER, Κανόνες Μετατροπής σε Πίνακες 1-10, Σχεσιακή Άλγεβρα, SQL DDL/DML, Κανονικοποίηση, Συνταγές Επίλυσης & 20 Παγίδες).
+- [test_prep.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Resources/Notes/test_prep.md) - Test Prep: 70+ Θεματικές Ερωτήσεις με Κανόνες & Πλήρεις Υποδειγματικές Λύσεις Παλαιών (Past Exam 1, 2) και 8 Ρεαλιστικών Εξετάσεων.
