@@ -22,9 +22,15 @@
    - [Data Protection and Security Policies](#data-protection-and-security-policies)
    - [Concurrent Access](#concurrent-access)
    - [Minimization of Data Redundancy and Inconsistency](#minimization-of-data-redundancy-and-inconsistency)
-5. [Comparative Table: DBMS vs. File Processing Systems](#comparative-table-dbms-vs-file-processing-systems)
-6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
-7. [Key Takeaways](#key-takeaways)
+5. [Database Architecture: ANSI/SPARC Three-Schema Architecture](#database-architecture-ansisparc-three-schema-architecture)
+   - [External Level](#external-level)
+   - [Conceptual Level](#conceptual-level)
+   - [Internal Level](#internal-level)
+   - [Mappings Between Levels](#mappings-between-levels)
+   - [Logical and Physical Data Independence](#logical-and-physical-data-independence)
+6. [Comparative Table: DBMS vs. File Processing Systems](#comparative-table-dbms-vs-file-processing-systems)
+7. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+8. [Key Takeaways](#key-takeaways)
 
 ---
 
@@ -334,6 +340,85 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 
 ---
 
+## Database Architecture: ANSI/SPARC Three-Schema Architecture
+*Database Architecture: ANSI/SPARC Three-Schema Architecture*
+
+The **ANSI/SPARC three-schema architecture** (also called the **three-level architecture**) is the standard framework for describing the structure of a DBMS. It separates the database into **three levels of abstraction**, each serving a different user group, and defines **mappings** between them. This separation is the mechanism that delivers **data independence**.
+
+```text
+  +---------------------------------------------------------+
+  |                     EXTERNAL LEVEL                      |
+  |   (View 1)   (View 2)   (View 3)   ...   (View n)       |
+  +-------------------------+-------------------------------+
+                            |
+                External / Conceptual Mapping
+                            |
+                            v
+  +---------------------------------------------------------+
+  |                   CONCEPTUAL LEVEL                      |
+  |   (Logical schema: entities, relations, constraints)    |
+  +-------------------------+-------------------------------+
+                            |
+                Conceptual / Internal Mapping
+                            |
+                            v
+  +---------------------------------------------------------+
+  |                    INTERNAL LEVEL                       |
+  |   (Physical schema: files, indexes, storage structures) |
+  +---------------------------------------------------------+
+```
+
+### External Level
+*External Level (View Level)*
+
+The **External Level** is the **highest** level — it describes **how each user group sees** the database. Each user or application interacts only with the portion of the database that concerns them, through **views**.
+
+- Different users may have **different views** of the same data (a payroll clerk sees salaries, a receptionist sees only names and phones).
+- Views can **hide** sensitive columns or rows, contributing to security.
+- Implemented in SQL with `CREATE VIEW`.
+
+### Conceptual Level
+*Conceptual Level (Logical Level)*
+
+The **Conceptual Level** is the **middle** level — it describes **what data is stored** and the relationships between them, for the entire database, **independently of physical storage details**.
+
+- It corresponds to the **relational schema**: tables, attributes, primary/foreign keys and integrity constraints.
+- It is the result of **Logical Design** (the E-R model converted to relations).
+- There is exactly **one** conceptual schema for a database.
+
+### Internal Level
+*Internal Level (Physical Level)*
+
+The **Internal Level** is the **lowest** level — it describes **how data is physically stored** on the storage media.
+
+- It defines **file organizations, indexes (B-trees, hash indexes), record placement** and access paths.
+- It is managed by the DBMS and is largely **invisible to users**.
+- The **DBA** tunes this level to optimize performance.
+
+### Mappings Between Levels
+*Mappings Between Levels*
+
+The three levels are connected by two types of mappings:
+
+- **External/Conceptual Mapping**: connects each view to the conceptual schema.
+- **Conceptual/Internal Mapping**: connects the conceptual schema to the physical schema.
+
+These mappings are what enable **data independence**: a change at one level does not require changes at the level above it.
+
+### Logical and Physical Data Independence
+*Logical and Physical Data Independence*
+
+**Data Independence** is the ability to change the schema at one level **without** having to change the schema at the next higher level. The three-schema architecture provides two types:
+
+| Type | Definition | Absorbed change | Example |
+|---|---|---|---|
+| **Logical Data Independence** | The external schema is unaffected by changes in the **conceptual schema** | Adding/removing a table, column or constraint | Adding a `phone` column to `EMPLOYEES` — existing applications do not change |
+| **Physical Data Independence** | The conceptual schema is unaffected by changes in the **internal (physical) schema** | Reorganizing files, adding/removing indexes, changing storage | Adding an index to speed up a query — tables and views do not change |
+
+**Key Distinction:** Physical independence is **easier to achieve** and is handled entirely by the DBMS. Logical independence is **harder**, because changing the logical structure may invalidate existing views.
+
+---
+
 ## Comparative Table: DBMS vs. File Processing Systems
 *Comparative Table: DBMS vs. File Processing Systems*
 
@@ -366,6 +451,9 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 | **Data Redundancy** | Storage of the same data in multiple locations | Leads to Data Inconsistency |
 | **Normalization** | Design process for reducing redundancy | Applies Normal Forms (1NF–BCNF) |
 | **Transaction** | Atomic unit of work in the DBMS | Follows the ACID properties |
+| **Three-Schema Architecture** | ANSI/SPARC separation into external, conceptual, internal levels | Enables data independence |
+| **Logical Data Independence** | External schema unaffected by conceptual changes | Harder to achieve |
+| **Physical Data Independence** | Conceptual schema unaffected by physical changes | Handled by the DBMS |
 
 ---
 
@@ -382,3 +470,6 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 - **Security** in a DBMS is implemented at many levels: Authentication, Authorization (GRANT/REVOKE), Encryption and Audit Logs.
 - **Key Distinction:** The difference between Data and Information is not quantitative but qualitative — context and interpretation are what transform data into information.
 - DBMS are used in critical systems (banks, hospitals, e-commerce) precisely because they provide guarantees of **integrity, security and reliability** that simple file systems cannot offer.
+- The **ANSI/SPARC three-schema architecture** splits the database into **External**, **Conceptual** and **Internal** levels, connected by mappings.
+- **Logical data independence** isolates views from changes to the conceptual schema; **physical data independence** isolates the conceptual schema from changes to physical storage.
+- **Key Distinction:** Logical independence is more difficult to guarantee than physical independence, because changing the logical structure can invalidate existing views.

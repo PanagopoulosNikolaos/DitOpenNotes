@@ -18,11 +18,13 @@
    - [Primary Key](#primary-key)
    - [Foreign Key](#foreign-key)
    - [Entity Integrity and Referential Integrity](#entity-integrity-and-referential-integrity)
+   - [Referential Actions: ON DELETE / ON UPDATE](#referential-actions-on-delete--on-update)
    - [Comparative Table of Keys](#comparative-table-of-keys)
 4. [Relational Algebra Operations](#relational-algebra-operations)
    - [Set-Theoretic Operations](#set-theoretic-operations)
    - [Specific Relational Operations](#specific-relational-operations)
    - [Join Operations](#join-operations)
+   - [Division](#division)
 5. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
 6. [Key Takeaways](#key-takeaways)
 
@@ -306,6 +308,43 @@ INSERT INTO employees VALUES (5, 'Kostas', 99);
 ```
 
 **Exam Note:** **Entity Integrity** concerns exclusively the **PK** (no NULL). **Referential Integrity** concerns the **FK** (the reference must exist). The two rules are independent of each other.
+
+---
+
+### Referential Actions: ON DELETE / ON UPDATE
+*Referential Actions: ON DELETE / ON UPDATE*
+
+When a **referenced** primary key is **deleted** or **updated**, the DBMS must decide what happens to the foreign keys that point to it. This decision is specified by **referential actions** in the `FOREIGN KEY` clause.
+
+| Action | Behavior on DELETE/UPDATE of the parent | Typical use |
+|---|---|---|
+| **`CASCADE`** | The change propagates to the dependent rows — they are **deleted or updated automatically** | Strong/weak (identifying) relationships; composition where the child cannot exist alone |
+| **`SET NULL`** | The foreign key of dependent rows is set to `NULL` | Optional relationships where the child may survive without the parent (FK must allow `NULL`) |
+| **`RESTRICT`** | The operation is **rejected** if dependent rows exist | Protecting master data from accidental deletion |
+| **`NO ACTION`** | Like `RESTRICT`, but checked **after** the statement | Standard SQL default; allows deferred checks |
+| **`SET DEFAULT`** | The foreign key is set to its **default value** | Rare; used when a valid fallback row exists |
+
+```sql
+-- Full referential-action examples
+CREATE TABLE enrollments (
+    student_am INT NOT NULL,
+    course_id  INT NOT NULL,
+    PRIMARY KEY (student_am, course_id),
+    FOREIGN KEY (student_am) REFERENCES students(am)
+        ON DELETE CASCADE     -- deleting a student removes their enrollments
+        ON UPDATE CASCADE,    -- changing the AM propagates to enrollments
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        ON DELETE RESTRICT    -- a course with enrollments cannot be deleted
+        ON UPDATE CASCADE
+);
+```
+
+**Selection guidance**:
+- **Identifying/weak entity** (child cannot exist alone) → `ON DELETE CASCADE`.
+- **Optional association** (child may become parentless) → `ON DELETE SET NULL`.
+- **Master/aggregate data** that must never be orphaned or silently removed → `ON DELETE RESTRICT`.
+
+**Key Distinction:** `CASCADE`, `SET NULL` and `SET DEFAULT` **modify** the dependent rows to preserve referential integrity, while `RESTRICT` and `NO ACTION` **block** the operation. `CASCADE` is the most dangerous to apply carelessly because a single parent deletion can erase many related rows.
 
 ---
 
@@ -632,6 +671,67 @@ WHERE    d.dept_name = 'IT'
 
 ---
 
+### Division
+*Division*
+
+The **Division** operator, denoted $R \div S$, answers **"for all"** queries — tuples of $R$ that are related to **every** tuple of $S$. It is the one standard relational algebra operation that cannot be expressed by a single SQL keyword and must be expressed through a **double negation** (`NOT EXISTS`/`NOT IN`).
+
+**Formal definition**: Let $R(A, B)$ and $S(B)$. The division $R \div S$ returns the values of $A$ such that the corresponding set of $B$ values in $R$ **contains** the entire set $S$.
+
+$$R \div S = \{t[A] \mid t \in R \land S \subseteq \{u[B] \mid u \in R \land u[A] = t[A]\}\}$$
+
+**Requirements**: The attribute set of $S$ must be a **proper subset** of the attribute set of $R$. The result has only the attributes $A = R - S$.
+
+**Worked Example**: Find the passengers who have booked **all** flights departing from `ATH`.
+
+```text
+   R = BOOKINGS(passenger, flight)       S = ATH_FLIGHTS(flight)
+   +-----------+--------+                +--------+
+   | passenger | flight |                | flight |
+   +-----------+--------+                +--------+
+   |  Maria    |  OA101 |                |  OA101 |
+   |  Maria    |  OA202 |                |  OA202 |
+   |  Kostas   |  OA101 |                +--------+
+   |  Kostas   |  OA202 |
+   |  Kostas   |  A3303 |
+   +-----------+--------+
+
+   BOOKINGS ÷ ATH_FLIGHTS:
+   +-----------+
+   | passenger |
+   +-----------+
+   |  Maria    |  <- has BOTH OA101 and OA202
+   |  Kostas   |  <- has BOTH OA101 and OA202 (and more)
+   +-----------+
+```
+
+**Equivalent SQL pattern** — via double negation:
+
+```sql
+SELECT passenger
+FROM   bookings
+WHERE  NOT EXISTS (
+    SELECT 1
+    FROM   ath_flights
+    WHERE  NOT EXISTS (
+        SELECT 1
+        FROM   bookings AS b
+        WHERE  b.passenger = bookings.passenger
+          AND  b.flight    = ath_flights.flight
+    )
+);
+```
+
+**Relational Algebra — SQL correspondence**:
+
+| Relational Algebra | SQL |
+|---|---|
+| $R \div S$ | Double `NOT EXISTS` (or `NOT IN`) with a correlated subquery |
+
+**Exam Note:** Division is the tool for **"for all"** queries: *"entities that participate in **all** instances of a related set"* (e.g. members who borrowed all books of a publisher, passengers on all ATH flights). It can be derived from the set-theoretic identity $R \div S = \pi_A(R) - \pi_A\big((\pi_A(R) \times S) - R\big)$.
+
+---
+
 ## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
@@ -653,6 +753,8 @@ WHERE    d.dept_name = 'IT'
 | **Selection ($\sigma$)** | Horizontal filtering of tuples | Corresponds to the `WHERE` of SQL |
 | **Projection ($\pi$)** | Vertical selection of attributes | Corresponds to `SELECT col1, col2` |
 | **Inner Join ($\bowtie$)** | Joining tuples with common values | Excludes tuples without a match |
+| **Division (÷)** | Tuples related to **all** tuples of another relation | Answers "for all" queries — double `NOT EXISTS` |
+| **Referential Actions** | Behavior of FK on parent delete/update | `CASCADE`, `SET NULL`, `RESTRICT`, `NO ACTION`, `SET DEFAULT` |
 
 ---
 
@@ -669,3 +771,6 @@ WHERE    d.dept_name = 'IT'
 - **Selection ($\sigma$)** filters **rows** (horizontally), **Projection ($\pi$)** filters **columns** (vertically). Their combination corresponds to `SELECT col FROM table WHERE cond` in SQL.
 - **Exam Note:** The **Inner Join** returns only tuples with a match in both relations. Tuples without a match (e.g. a department without employees) are excluded — the Outer Joins are required for them.
 - The **correct use of keys** (PK, FK, Candidate Keys) and adherence to the integrity rules is the basis for a reliable, consistent database without orphaned or contradictory records.
+- **Division ($\div$)** answers **"for all"** queries — tuples related to every tuple of a set — and is expressed in SQL through a double `NOT EXISTS` (or `NOT IN`) pattern.
+- **Referential actions** decide what happens to foreign keys when the referenced row is deleted or updated: `CASCADE` propagates the change, `SET NULL` orphans the child, and `RESTRICT` blocks the operation.
+- **Key Distinction:** `CASCADE`/`SET NULL`/`SET DEFAULT` modify dependent rows to preserve integrity; `RESTRICT`/`NO ACTION` reject the operation entirely.

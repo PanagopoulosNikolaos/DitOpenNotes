@@ -25,8 +25,13 @@
    - [One-to-Many](#one-to-many)
    - [Many-to-Many](#many-to-many)
    - [Comparative Table of Cardinality](#comparative-table-of-cardinality)
-6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
-7. [Key Takeaways](#key-takeaways)
+6. [Participation Constraints (Total vs Partial)](#participation-constraints-total-vs-partial)
+7. [Relationship Attributes](#relationship-attributes)
+8. [Multiple Relationships Between the Same Entity Pair](#multiple-relationships-between-the-same-entity-pair)
+9. [Specialization / Generalization (ISA)](#specialization--generalization-isa)
+10. [Complete ERD Example](#complete-erd-example)
+11. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+12. [Key Takeaways](#key-takeaways)
 
 ---
 
@@ -468,6 +473,155 @@ CREATE TABLE enrollments (
 
 ---
 
+## Participation Constraints (Total vs Partial)
+*Participation Constraints*
+
+**Participation constraints** define the **minimum number** of relationship instances in which an entity instance **must** participate. They complement the **cardinality ratio**, which defines the maximum.
+
+| Type | Meaning | ERD Notation | FK column in mapping |
+|---|---|---|---|
+| **Total (mandatory)** | **Every** instance of the entity **must** participate in the relationship | **Double line** connecting entity to relationship | `NOT NULL` |
+| **Partial (optional)** | **Some** instances participate, others do not | **Single line** | `NULL` allowed |
+
+**Analogy**: In a school, "every student is enrolled in a department" is total participation — there is no student without a department. "A student is the president of a club" is partial — only some students hold this role.
+
+**Example**: In `DEPARTMENT` — `Employs` — `EMPLOYEE`:
+- An `EMPLOYEE` **must** belong to exactly one `DEPARTMENT` → **total participation** (double line on the `EMPLOYEE` side).
+- A `DEPARTMENT` **may or may not** have employees → **partial participation** (single line on the `DEPARTMENT` side).
+
+```text
+   +-----------+                   +-----------+
+   | DEPARTMENT|---< Employs >=====| EMPLOYEE  |
+   +-----------+                   +-----------+
+        |                              ||
+     single line                    double line
+   (partial — may have            (total — every employee
+    zero employees)                must have a department)
+```
+
+**Effect on mapping**: The foreign key `dept_id` in the `EMPLOYEE` table must be `NOT NULL` because of total participation; it would be allowed to be `NULL` only under partial participation.
+
+**Key Distinction:** Cardinality answers "how **many** instances **can** participate" (maximum), while participation answers "**whether** every instance **must** participate" (minimum). Total participation combined with `1:N` produces a `NOT NULL` foreign key; total participation in `1:1` determines **where** the foreign key is placed.
+
+---
+
+## Relationship Attributes
+*Relationship Attributes*
+
+A **relationship attribute** is a property that belongs **to the relationship itself**, not to any single participating entity. It describes something about the **connection** between the entities.
+
+- Occur **mainly in N:M** and sometimes in **1:N** relationships.
+- In the ERD they are attached to the **rhombus**, not to an entity.
+- In the relational mapping they land in the **junction table** (for N:M) or in the "many" side table (for 1:N).
+
+**Examples**:
+- `STUDENT` — `Registers` — `COURSE` (N:M): `grade` and `enroll_date` describe the registration, not the student or the course alone.
+- `EMPLOYEE` — `Works_on` — `PROJECT` (N:M): `hours_per_week` describes how many hours that employee devotes to that project.
+- `ACTOR` — `Plays_in` — `MOVIE` (N:M): `role_name` describes the role in that specific movie.
+
+```text
+   +-----------+              +-----------+
+   |  STUDENT  |---< Registers >---|  COURSE   |
+   +-----------+      |            +-----------+
+                   ( grade )      <-- Relationship attributes
+                   ( enroll_date )
+```
+
+```sql
+-- Relationship attributes land in the junction table
+CREATE TABLE enrollments (
+    student_am INT          NOT NULL,
+    course_id  INT          NOT NULL,
+    grade      DECIMAL(4,2),
+    enroll_date DATE,
+    PRIMARY KEY (student_am, course_id),
+    FOREIGN KEY (student_am) REFERENCES students(am),
+    FOREIGN KEY (course_id)  REFERENCES courses(course_id)
+);
+```
+
+**Exam Note:** When an attribute cannot logically belong to either entity alone (e.g. `grade` is not a property of the student nor of the course, but of the pair), it is a relationship attribute and must be placed in the junction table during mapping.
+
+---
+
+## Multiple Relationships Between the Same Entity Pair
+*Multiple Relationships Between the Same Entity Pair*
+
+The **same pair of entity types** can be connected by **two or more distinct relationships**, each carrying its own meaning and usually its own **role label**.
+
+- Each relationship is modeled as a **separate rhombus** with a distinct name.
+- In the ERD, **role labels** on the connecting lines clarify the different roles each entity plays.
+- In the relational mapping, each relationship produces its **own foreign key(s)** — the two relationships map to **two separate FK columns** (or two junction tables for N:M).
+
+**Example 1 — Airports**: The entity `FLIGHT` is connected to `AIRPORT` twice: once for the **departure** airport and once for the **arrival** airport.
+
+```text
+                    < Departure >  (role: departure_airport)
+                  /               \
+   +-----------+                   +-----------+
+   |  FLIGHT   |                   |  AIRPORT  |
+   +-----------+                   +-----------+
+                  \               /
+                    < Arrival >  (role: arrival_airport)
+```
+
+```sql
+-- Mapping to two separate foreign keys
+CREATE TABLE flights (
+    flight_id             INT PRIMARY KEY,
+    departure_airport_code VARCHAR(3) NOT NULL,
+    arrival_airport_code   VARCHAR(3) NOT NULL,
+    FOREIGN KEY (departure_airport_code) REFERENCES airports(code),
+    FOREIGN KEY (arrival_airport_code)   REFERENCES airports(code)
+);
+```
+
+**Example 2 — Sports**: `TEAM` participates in `MATCH` twice, as the **home** team and as the **away** team; the two roles map to `home_team_id` and `away_team_id`.
+
+**Key Distinction:** Two roles of the same entity in one relationship is **not** the same as a recursive (unary) relationship. Here the entity pair is the same type pair, but each role is a distinct, named relationship that produces a distinct foreign key.
+
+---
+
+## Specialization / Generalization (ISA)
+*Specialization / Generalization (ISA)*
+
+**Specialization** (top-down) and **Generalization** (bottom-up) model **subtype relationships** between entity sets, known as **ISA hierarchies**. A **supertype** (parent) is split into **subtypes** (children) that inherit its attributes and add their own.
+
+- **Specialization**: start from a general entity (e.g. `EMPLOYEE`) and define specialized subtypes (`SECRETARY`, `TECHNICIAN`, `MANAGER`).
+- **Generalization**: start from specific entities (`CAR`, `MOTORCYCLE`) and abstract them into a general supertype (`VEHICLE`).
+- In the ERD, the relationship is drawn with a **triangle** labeled **ISA**.
+- The supertype's primary key becomes the primary key of each subtype (the subtype **does not** get a new, unrelated identifier).
+
+**Example**: A `MEDIA_TITLE` supertype splits into the subtypes `MOVIE` and `SERIES`; both inherit `title_id`, `title`, `release_year`, while `MOVIE` adds `duration` and `SERIES` adds `season_count`.
+
+```text
+                      +-------------+
+                      | MEDIA_TITLE |  <-- Supertype
+                      +-------------+
+                           /   \
+                     ISA  /     \  ISA
+                         v       v
+                  +---------+ +---------+
+                  |  MOVIE  | | SERIES  |  <-- Subtypes
+                  +---------+ +---------+
+```
+
+**Constraints** (each is independent):
+
+| Constraint | Question it answers | Options |
+|---|---|---|
+| **Total vs Partial** | Must **every** supertype instance belong to a subtype? | Total (double line) — every member has a subtype; Partial (single line) — some members remain generic |
+| **Disjoint vs Overlapping** | Can an instance belong to **more than one** subtype? | Disjoint (d) — exactly one; Overlapping (o) — may belong to several |
+
+**Mapping to the relational model** — three main options:
+1. **One table per class** (supertype table plus one table per subtype, linked by the shared PK). Best for total, disjoint hierarchies.
+2. **One table per subtype** (no supertype table; subtype tables duplicate inherited attributes). Suitable when the supertype has no standalone instances.
+3. **Single table with a type discriminator** (one wide table with all attributes plus a `type` column). Simple but may produce many `NULL`s.
+
+**Key Distinction:** Specialization/Generalization describes an **"is-a"** relationship (subtype *is a* supertype), in contrast to ordinary relationships which describe an **"has-a"/association** between distinct entities.
+
+---
+
 ## Complete ERD Example
 *Complete ERD Example*
 
@@ -530,6 +684,11 @@ The following diagram combines all the concepts analyzed — strong and weak ent
 | **Cardinality 1:N** | One instance ↔ many instances | FK on the N side |
 | **Cardinality N:M** | Many ↔ many | Intermediate table with Composite PK |
 | **Identifying Relationship** | Identification relationship between weak and strong | Double rhombus |
+| **Participation (Total)** | Every entity instance must participate | Double line — FK becomes `NOT NULL` |
+| **Participation (Partial)** | Some instances participate | Single line — FK may be `NULL` |
+| **Relationship Attribute** | Property of the relationship itself | Lands in the junction table (N:M) |
+| **Multiple Relationships** | Same entity pair linked by two distinct relationships | Two separate foreign keys / junction tables |
+| **Specialization/Generalization (ISA)** | Supertype/subtype hierarchy | Triangle labeled ISA — "is-a" relationship |
 
 ---
 
@@ -546,3 +705,7 @@ The following diagram combines all the concepts analyzed — strong and weak ent
 - The **Identifying Relationship** (double rhombus) is used exclusively to link a weak entity with a strong one — deleting the strong entity causes a cascading delete.
 - **Exam Note:** In the ERD, the cardinality is always written next to the entities — "1" near the entity that participates with one instance, "N" or "M" near the entity that participates with many.
 - Correct identification of entity types, attributes and cardinality in the E-R diagram **directly determines** the correctness of the relational schema and of the final SQL implementation.
+- **Participation** answers "must every instance participate?" — **total** (double line) makes the mapped foreign key `NOT NULL`, **partial** (single line) allows `NULL`.
+- **Relationship attributes** (e.g. `grade`, `hours_per_week`, `role_name`) belong to the relationship, not to a single entity, and land in the junction table when the relationship is N:M.
+- The **same entity pair** can be connected by two distinct, role-labeled relationships (e.g. departure/arrival airports, home/away teams); each maps to its own foreign key.
+- **Specialization/Generalization (ISA)** models subtype hierarchies with a triangle, and supports independent constraints: **total/partial** and **disjoint/overlapping**.

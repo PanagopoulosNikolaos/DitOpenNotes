@@ -26,9 +26,15 @@
    - [Data Protection and Security Policies](#data-protection-and-security-policies)
    - [Concurrent Access](#concurrent-access)
    - [Minimization of Data Redundancy and Inconsistency](#minimization-of-data-redundancy-and-inconsistency)
-5. [Comparative Table: DBMS vs. File Processing Systems](#comparative-table-dbms-vs-file-processing-systems)
-6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
-7. [Key Takeaways](#key-takeaways)
+5. [Database Architecture: ANSI/SPARC Three-Schema Architecture](#database-architecture-ansisparc-three-schema-architecture)
+   - [External Level](#external-level)
+   - [Conceptual Level](#conceptual-level)
+   - [Internal Level](#internal-level)
+   - [Mappings Between Levels](#mappings-between-levels)
+   - [Logical and Physical Data Independence](#logical-and-physical-data-independence)
+6. [Comparative Table: DBMS vs. File Processing Systems](#comparative-table-dbms-vs-file-processing-systems)
+7. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+8. [Key Takeaways](#key-takeaways)
 
 ---
 
@@ -338,6 +344,85 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 
 ---
 
+## Database Architecture: ANSI/SPARC Three-Schema Architecture
+*Database Architecture: ANSI/SPARC Three-Schema Architecture*
+
+The **ANSI/SPARC three-schema architecture** (also called the **three-level architecture**) is the standard framework for describing the structure of a DBMS. It separates the database into **three levels of abstraction**, each serving a different user group, and defines **mappings** between them. This separation is the mechanism that delivers **data independence**.
+
+```text
+  +---------------------------------------------------------+
+  |                     EXTERNAL LEVEL                      |
+  |   (View 1)   (View 2)   (View 3)   ...   (View n)       |
+  +-------------------------+-------------------------------+
+                            |
+                External / Conceptual Mapping
+                            |
+                            v
+  +---------------------------------------------------------+
+  |                   CONCEPTUAL LEVEL                      |
+  |   (Logical schema: entities, relations, constraints)    |
+  +-------------------------+-------------------------------+
+                            |
+                Conceptual / Internal Mapping
+                            |
+                            v
+  +---------------------------------------------------------+
+  |                    INTERNAL LEVEL                       |
+  |   (Physical schema: files, indexes, storage structures) |
+  +---------------------------------------------------------+
+```
+
+### External Level
+*External Level (View Level)*
+
+The **External Level** is the **highest** level — it describes **how each user group sees** the database. Each user or application interacts only with the portion of the database that concerns them, through **views**.
+
+- Different users may have **different views** of the same data (a payroll clerk sees salaries, a receptionist sees only names and phones).
+- Views can **hide** sensitive columns or rows, contributing to security.
+- Implemented in SQL with `CREATE VIEW`.
+
+### Conceptual Level
+*Conceptual Level (Logical Level)*
+
+The **Conceptual Level** is the **middle** level — it describes **what data is stored** and the relationships between them, for the entire database, **independently of physical storage details**.
+
+- It corresponds to the **relational schema**: tables, attributes, primary/foreign keys and integrity constraints.
+- It is the result of **Logical Design** (the E-R model converted to relations).
+- There is exactly **one** conceptual schema for a database.
+
+### Internal Level
+*Internal Level (Physical Level)*
+
+The **Internal Level** is the **lowest** level — it describes **how data is physically stored** on the storage media.
+
+- It defines **file organizations, indexes (B-trees, hash indexes), record placement** and access paths.
+- It is managed by the DBMS and is largely **invisible to users**.
+- The **DBA** tunes this level to optimize performance.
+
+### Mappings Between Levels
+*Mappings Between Levels*
+
+The three levels are connected by two types of mappings:
+
+- **External/Conceptual Mapping**: connects each view to the conceptual schema.
+- **Conceptual/Internal Mapping**: connects the conceptual schema to the physical schema.
+
+These mappings are what enable **data independence**: a change at one level does not require changes at the level above it.
+
+### Logical and Physical Data Independence
+*Logical and Physical Data Independence*
+
+**Data Independence** is the ability to change the schema at one level **without** having to change the schema at the next higher level. The three-schema architecture provides two types:
+
+| Type | Definition | Absorbed change | Example |
+|---|---|---|---|
+| **Logical Data Independence** | The external schema is unaffected by changes in the **conceptual schema** | Adding/removing a table, column or constraint | Adding a `phone` column to `EMPLOYEES` — existing applications do not change |
+| **Physical Data Independence** | The conceptual schema is unaffected by changes in the **internal (physical) schema** | Reorganizing files, adding/removing indexes, changing storage | Adding an index to speed up a query — tables and views do not change |
+
+**Key Distinction:** Physical independence is **easier to achieve** and is handled entirely by the DBMS. Logical independence is **harder**, because changing the logical structure may invalidate existing views.
+
+---
+
 ## Comparative Table: DBMS vs. File Processing Systems
 *Comparative Table: DBMS vs. File Processing Systems*
 
@@ -370,6 +455,9 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 | **Data Redundancy** | Storage of the same data in multiple locations | Leads to Data Inconsistency |
 | **Normalization** | Design process for reducing redundancy | Applies Normal Forms (1NF–BCNF) |
 | **Transaction** | Atomic unit of work in the DBMS | Follows the ACID properties |
+| **Three-Schema Architecture** | ANSI/SPARC separation into external, conceptual, internal levels | Enables data independence |
+| **Logical Data Independence** | External schema unaffected by conceptual changes | Harder to achieve |
+| **Physical Data Independence** | Conceptual schema unaffected by physical changes | Handled by the DBMS |
 
 ---
 
@@ -386,6 +474,9 @@ Now the phone number is stored **only once**. If it changes, it is updated in a 
 - **Security** in a DBMS is implemented at many levels: Authentication, Authorization (GRANT/REVOKE), Encryption and Audit Logs.
 - **Key Distinction:** The difference between Data and Information is not quantitative but qualitative — context and interpretation are what transform data into information.
 - DBMS are used in critical systems (banks, hospitals, e-commerce) precisely because they provide guarantees of **integrity, security and reliability** that simple file systems cannot offer.
+- The **ANSI/SPARC three-schema architecture** splits the database into **External**, **Conceptual** and **Internal** levels, connected by mappings.
+- **Logical data independence** isolates views from changes to the conceptual schema; **physical data independence** isolates the conceptual schema from changes to physical storage.
+- **Key Distinction:** Logical independence is more difficult to guarantee than physical independence, because changing the logical structure can invalidate existing views.
 
 ---
 # topic_2_database_lifecycle_and_design.md
@@ -882,8 +973,13 @@ CREATE INDEX idx_dilosi_etos ON Dilosi(etosvathmos, am);
    - [One-to-Many](#one-to-many)
    - [Many-to-Many](#many-to-many)
    - [Comparative Table of Cardinality](#comparative-table-of-cardinality)
-6. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
-7. [Key Takeaways](#key-takeaways)
+6. [Participation Constraints (Total vs Partial)](#participation-constraints-total-vs-partial)
+7. [Relationship Attributes](#relationship-attributes)
+8. [Multiple Relationships Between the Same Entity Pair](#multiple-relationships-between-the-same-entity-pair)
+9. [Specialization / Generalization (ISA)](#specialization--generalization-isa)
+10. [Complete ERD Example](#complete-erd-example)
+11. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
+12. [Key Takeaways](#key-takeaways)
 
 ---
 
@@ -1325,6 +1421,155 @@ CREATE TABLE enrollments (
 
 ---
 
+## Participation Constraints (Total vs Partial)
+*Participation Constraints*
+
+**Participation constraints** define the **minimum number** of relationship instances in which an entity instance **must** participate. They complement the **cardinality ratio**, which defines the maximum.
+
+| Type | Meaning | ERD Notation | FK column in mapping |
+|---|---|---|---|
+| **Total (mandatory)** | **Every** instance of the entity **must** participate in the relationship | **Double line** connecting entity to relationship | `NOT NULL` |
+| **Partial (optional)** | **Some** instances participate, others do not | **Single line** | `NULL` allowed |
+
+**Analogy**: In a school, "every student is enrolled in a department" is total participation — there is no student without a department. "A student is the president of a club" is partial — only some students hold this role.
+
+**Example**: In `DEPARTMENT` — `Employs` — `EMPLOYEE`:
+- An `EMPLOYEE` **must** belong to exactly one `DEPARTMENT` → **total participation** (double line on the `EMPLOYEE` side).
+- A `DEPARTMENT` **may or may not** have employees → **partial participation** (single line on the `DEPARTMENT` side).
+
+```text
+   +-----------+                   +-----------+
+   | DEPARTMENT|---< Employs >=====| EMPLOYEE  |
+   +-----------+                   +-----------+
+        |                              ||
+     single line                    double line
+   (partial — may have            (total — every employee
+    zero employees)                must have a department)
+```
+
+**Effect on mapping**: The foreign key `dept_id` in the `EMPLOYEE` table must be `NOT NULL` because of total participation; it would be allowed to be `NULL` only under partial participation.
+
+**Key Distinction:** Cardinality answers "how **many** instances **can** participate" (maximum), while participation answers "**whether** every instance **must** participate" (minimum). Total participation combined with `1:N` produces a `NOT NULL` foreign key; total participation in `1:1` determines **where** the foreign key is placed.
+
+---
+
+## Relationship Attributes
+*Relationship Attributes*
+
+A **relationship attribute** is a property that belongs **to the relationship itself**, not to any single participating entity. It describes something about the **connection** between the entities.
+
+- Occur **mainly in N:M** and sometimes in **1:N** relationships.
+- In the ERD they are attached to the **rhombus**, not to an entity.
+- In the relational mapping they land in the **junction table** (for N:M) or in the "many" side table (for 1:N).
+
+**Examples**:
+- `STUDENT` — `Registers` — `COURSE` (N:M): `grade` and `enroll_date` describe the registration, not the student or the course alone.
+- `EMPLOYEE` — `Works_on` — `PROJECT` (N:M): `hours_per_week` describes how many hours that employee devotes to that project.
+- `ACTOR` — `Plays_in` — `MOVIE` (N:M): `role_name` describes the role in that specific movie.
+
+```text
+   +-----------+              +-----------+
+   |  STUDENT  |---< Registers >---|  COURSE   |
+   +-----------+      |            +-----------+
+                   ( grade )      <-- Relationship attributes
+                   ( enroll_date )
+```
+
+```sql
+-- Relationship attributes land in the junction table
+CREATE TABLE enrollments (
+    student_am INT          NOT NULL,
+    course_id  INT          NOT NULL,
+    grade      DECIMAL(4,2),
+    enroll_date DATE,
+    PRIMARY KEY (student_am, course_id),
+    FOREIGN KEY (student_am) REFERENCES students(am),
+    FOREIGN KEY (course_id)  REFERENCES courses(course_id)
+);
+```
+
+**Exam Note:** When an attribute cannot logically belong to either entity alone (e.g. `grade` is not a property of the student nor of the course, but of the pair), it is a relationship attribute and must be placed in the junction table during mapping.
+
+---
+
+## Multiple Relationships Between the Same Entity Pair
+*Multiple Relationships Between the Same Entity Pair*
+
+The **same pair of entity types** can be connected by **two or more distinct relationships**, each carrying its own meaning and usually its own **role label**.
+
+- Each relationship is modeled as a **separate rhombus** with a distinct name.
+- In the ERD, **role labels** on the connecting lines clarify the different roles each entity plays.
+- In the relational mapping, each relationship produces its **own foreign key(s)** — the two relationships map to **two separate FK columns** (or two junction tables for N:M).
+
+**Example 1 — Airports**: The entity `FLIGHT` is connected to `AIRPORT` twice: once for the **departure** airport and once for the **arrival** airport.
+
+```text
+                    < Departure >  (role: departure_airport)
+                  /               \
+   +-----------+                   +-----------+
+   |  FLIGHT   |                   |  AIRPORT  |
+   +-----------+                   +-----------+
+                  \               /
+                    < Arrival >  (role: arrival_airport)
+```
+
+```sql
+-- Mapping to two separate foreign keys
+CREATE TABLE flights (
+    flight_id             INT PRIMARY KEY,
+    departure_airport_code VARCHAR(3) NOT NULL,
+    arrival_airport_code   VARCHAR(3) NOT NULL,
+    FOREIGN KEY (departure_airport_code) REFERENCES airports(code),
+    FOREIGN KEY (arrival_airport_code)   REFERENCES airports(code)
+);
+```
+
+**Example 2 — Sports**: `TEAM` participates in `MATCH` twice, as the **home** team and as the **away** team; the two roles map to `home_team_id` and `away_team_id`.
+
+**Key Distinction:** Two roles of the same entity in one relationship is **not** the same as a recursive (unary) relationship. Here the entity pair is the same type pair, but each role is a distinct, named relationship that produces a distinct foreign key.
+
+---
+
+## Specialization / Generalization (ISA)
+*Specialization / Generalization (ISA)*
+
+**Specialization** (top-down) and **Generalization** (bottom-up) model **subtype relationships** between entity sets, known as **ISA hierarchies**. A **supertype** (parent) is split into **subtypes** (children) that inherit its attributes and add their own.
+
+- **Specialization**: start from a general entity (e.g. `EMPLOYEE`) and define specialized subtypes (`SECRETARY`, `TECHNICIAN`, `MANAGER`).
+- **Generalization**: start from specific entities (`CAR`, `MOTORCYCLE`) and abstract them into a general supertype (`VEHICLE`).
+- In the ERD, the relationship is drawn with a **triangle** labeled **ISA**.
+- The supertype's primary key becomes the primary key of each subtype (the subtype **does not** get a new, unrelated identifier).
+
+**Example**: A `MEDIA_TITLE` supertype splits into the subtypes `MOVIE` and `SERIES`; both inherit `title_id`, `title`, `release_year`, while `MOVIE` adds `duration` and `SERIES` adds `season_count`.
+
+```text
+                      +-------------+
+                      | MEDIA_TITLE |  <-- Supertype
+                      +-------------+
+                           /   \
+                     ISA  /     \  ISA
+                         v       v
+                  +---------+ +---------+
+                  |  MOVIE  | | SERIES  |  <-- Subtypes
+                  +---------+ +---------+
+```
+
+**Constraints** (each is independent):
+
+| Constraint | Question it answers | Options |
+|---|---|---|
+| **Total vs Partial** | Must **every** supertype instance belong to a subtype? | Total (double line) — every member has a subtype; Partial (single line) — some members remain generic |
+| **Disjoint vs Overlapping** | Can an instance belong to **more than one** subtype? | Disjoint (d) — exactly one; Overlapping (o) — may belong to several |
+
+**Mapping to the relational model** — three main options:
+1. **One table per class** (supertype table plus one table per subtype, linked by the shared PK). Best for total, disjoint hierarchies.
+2. **One table per subtype** (no supertype table; subtype tables duplicate inherited attributes). Suitable when the supertype has no standalone instances.
+3. **Single table with a type discriminator** (one wide table with all attributes plus a `type` column). Simple but may produce many `NULL`s.
+
+**Key Distinction:** Specialization/Generalization describes an **"is-a"** relationship (subtype *is a* supertype), in contrast to ordinary relationships which describe an **"has-a"/association** between distinct entities.
+
+---
+
 ## Complete ERD Example
 *Complete ERD Example*
 
@@ -1387,6 +1632,11 @@ The following diagram combines all the concepts analyzed — strong and weak ent
 | **Cardinality 1:N** | One instance ↔ many instances | FK on the N side |
 | **Cardinality N:M** | Many ↔ many | Intermediate table with Composite PK |
 | **Identifying Relationship** | Identification relationship between weak and strong | Double rhombus |
+| **Participation (Total)** | Every entity instance must participate | Double line — FK becomes `NOT NULL` |
+| **Participation (Partial)** | Some instances participate | Single line — FK may be `NULL` |
+| **Relationship Attribute** | Property of the relationship itself | Lands in the junction table (N:M) |
+| **Multiple Relationships** | Same entity pair linked by two distinct relationships | Two separate foreign keys / junction tables |
+| **Specialization/Generalization (ISA)** | Supertype/subtype hierarchy | Triangle labeled ISA — "is-a" relationship |
 
 ---
 
@@ -1403,6 +1653,10 @@ The following diagram combines all the concepts analyzed — strong and weak ent
 - The **Identifying Relationship** (double rhombus) is used exclusively to link a weak entity with a strong one — deleting the strong entity causes a cascading delete.
 - **Exam Note:** In the ERD, the cardinality is always written next to the entities — "1" near the entity that participates with one instance, "N" or "M" near the entity that participates with many.
 - Correct identification of entity types, attributes and cardinality in the E-R diagram **directly determines** the correctness of the relational schema and of the final SQL implementation.
+- **Participation** answers "must every instance participate?" — **total** (double line) makes the mapped foreign key `NOT NULL`, **partial** (single line) allows `NULL`.
+- **Relationship attributes** (e.g. `grade`, `hours_per_week`, `role_name`) belong to the relationship, not to a single entity, and land in the junction table when the relationship is N:M.
+- The **same entity pair** can be connected by two distinct, role-labeled relationships (e.g. departure/arrival airports, home/away teams); each maps to its own foreign key.
+- **Specialization/Generalization (ISA)** models subtype hierarchies with a triangle, and supports independent constraints: **total/partial** and **disjoint/overlapping**.
 
 ---
 # topic_4_relational_model_and_relational_algebra.md
@@ -1428,11 +1682,13 @@ The following diagram combines all the concepts analyzed — strong and weak ent
    - [Primary Key](#primary-key)
    - [Foreign Key](#foreign-key)
    - [Entity Integrity and Referential Integrity](#entity-integrity-and-referential-integrity)
+   - [Referential Actions: ON DELETE / ON UPDATE](#referential-actions-on-delete--on-update)
    - [Comparative Table of Keys](#comparative-table-of-keys)
 4. [Relational Algebra Operations](#relational-algebra-operations)
    - [Set-Theoretic Operations](#set-theoretic-operations)
    - [Specific Relational Operations](#specific-relational-operations)
    - [Join Operations](#join-operations)
+   - [Division](#division)
 5. [Summary Table of Key Concepts](#summary-table-of-key-concepts)
 6. [Key Takeaways](#key-takeaways)
 
@@ -1716,6 +1972,43 @@ INSERT INTO employees VALUES (5, 'Kostas', 99);
 ```
 
 **Exam Note:** **Entity Integrity** concerns exclusively the **PK** (no NULL). **Referential Integrity** concerns the **FK** (the reference must exist). The two rules are independent of each other.
+
+---
+
+### Referential Actions: ON DELETE / ON UPDATE
+*Referential Actions: ON DELETE / ON UPDATE*
+
+When a **referenced** primary key is **deleted** or **updated**, the DBMS must decide what happens to the foreign keys that point to it. This decision is specified by **referential actions** in the `FOREIGN KEY` clause.
+
+| Action | Behavior on DELETE/UPDATE of the parent | Typical use |
+|---|---|---|
+| **`CASCADE`** | The change propagates to the dependent rows — they are **deleted or updated automatically** | Strong/weak (identifying) relationships; composition where the child cannot exist alone |
+| **`SET NULL`** | The foreign key of dependent rows is set to `NULL` | Optional relationships where the child may survive without the parent (FK must allow `NULL`) |
+| **`RESTRICT`** | The operation is **rejected** if dependent rows exist | Protecting master data from accidental deletion |
+| **`NO ACTION`** | Like `RESTRICT`, but checked **after** the statement | Standard SQL default; allows deferred checks |
+| **`SET DEFAULT`** | The foreign key is set to its **default value** | Rare; used when a valid fallback row exists |
+
+```sql
+-- Full referential-action examples
+CREATE TABLE enrollments (
+    student_am INT NOT NULL,
+    course_id  INT NOT NULL,
+    PRIMARY KEY (student_am, course_id),
+    FOREIGN KEY (student_am) REFERENCES students(am)
+        ON DELETE CASCADE     -- deleting a student removes their enrollments
+        ON UPDATE CASCADE,    -- changing the AM propagates to enrollments
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+        ON DELETE RESTRICT    -- a course with enrollments cannot be deleted
+        ON UPDATE CASCADE
+);
+```
+
+**Selection guidance**:
+- **Identifying/weak entity** (child cannot exist alone) → `ON DELETE CASCADE`.
+- **Optional association** (child may become parentless) → `ON DELETE SET NULL`.
+- **Master/aggregate data** that must never be orphaned or silently removed → `ON DELETE RESTRICT`.
+
+**Key Distinction:** `CASCADE`, `SET NULL` and `SET DEFAULT` **modify** the dependent rows to preserve referential integrity, while `RESTRICT` and `NO ACTION` **block** the operation. `CASCADE` is the most dangerous to apply carelessly because a single parent deletion can erase many related rows.
 
 ---
 
@@ -2042,6 +2335,67 @@ WHERE    d.dept_name = 'IT'
 
 ---
 
+### Division
+*Division*
+
+The **Division** operator, denoted $R \div S$, answers **"for all"** queries — tuples of $R$ that are related to **every** tuple of $S$. It is the one standard relational algebra operation that cannot be expressed by a single SQL keyword and must be expressed through a **double negation** (`NOT EXISTS`/`NOT IN`).
+
+**Formal definition**: Let $R(A, B)$ and $S(B)$. The division $R \div S$ returns the values of $A$ such that the corresponding set of $B$ values in $R$ **contains** the entire set $S$.
+
+$$R \div S = \{t[A] \mid t \in R \land S \subseteq \{u[B] \mid u \in R \land u[A] = t[A]\}\}$$
+
+**Requirements**: The attribute set of $S$ must be a **proper subset** of the attribute set of $R$. The result has only the attributes $A = R - S$.
+
+**Worked Example**: Find the passengers who have booked **all** flights departing from `ATH`.
+
+```text
+   R = BOOKINGS(passenger, flight)       S = ATH_FLIGHTS(flight)
+   +-----------+--------+                +--------+
+   | passenger | flight |                | flight |
+   +-----------+--------+                +--------+
+   |  Maria    |  OA101 |                |  OA101 |
+   |  Maria    |  OA202 |                |  OA202 |
+   |  Kostas   |  OA101 |                +--------+
+   |  Kostas   |  OA202 |
+   |  Kostas   |  A3303 |
+   +-----------+--------+
+
+   BOOKINGS ÷ ATH_FLIGHTS:
+   +-----------+
+   | passenger |
+   +-----------+
+   |  Maria    |  <- has BOTH OA101 and OA202
+   |  Kostas   |  <- has BOTH OA101 and OA202 (and more)
+   +-----------+
+```
+
+**Equivalent SQL pattern** — via double negation:
+
+```sql
+SELECT passenger
+FROM   bookings
+WHERE  NOT EXISTS (
+    SELECT 1
+    FROM   ath_flights
+    WHERE  NOT EXISTS (
+        SELECT 1
+        FROM   bookings AS b
+        WHERE  b.passenger = bookings.passenger
+          AND  b.flight    = ath_flights.flight
+    )
+);
+```
+
+**Relational Algebra — SQL correspondence**:
+
+| Relational Algebra | SQL |
+|---|---|
+| $R \div S$ | Double `NOT EXISTS` (or `NOT IN`) with a correlated subquery |
+
+**Exam Note:** Division is the tool for **"for all"** queries: *"entities that participate in **all** instances of a related set"* (e.g. members who borrowed all books of a publisher, passengers on all ATH flights). It can be derived from the set-theoretic identity $R \div S = \pi_A(R) - \pi_A\big((\pi_A(R) \times S) - R\big)$.
+
+---
+
 ## Summary Table of Key Concepts
 *Summary Table of Key Concepts*
 
@@ -2063,6 +2417,8 @@ WHERE    d.dept_name = 'IT'
 | **Selection ($\sigma$)** | Horizontal filtering of tuples | Corresponds to the `WHERE` of SQL |
 | **Projection ($\pi$)** | Vertical selection of attributes | Corresponds to `SELECT col1, col2` |
 | **Inner Join ($\bowtie$)** | Joining tuples with common values | Excludes tuples without a match |
+| **Division (÷)** | Tuples related to **all** tuples of another relation | Answers "for all" queries — double `NOT EXISTS` |
+| **Referential Actions** | Behavior of FK on parent delete/update | `CASCADE`, `SET NULL`, `RESTRICT`, `NO ACTION`, `SET DEFAULT` |
 
 ---
 
@@ -2079,6 +2435,9 @@ WHERE    d.dept_name = 'IT'
 - **Selection ($\sigma$)** filters **rows** (horizontally), **Projection ($\pi$)** filters **columns** (vertically). Their combination corresponds to `SELECT col FROM table WHERE cond` in SQL.
 - **Exam Note:** The **Inner Join** returns only tuples with a match in both relations. Tuples without a match (e.g. a department without employees) are excluded — the Outer Joins are required for them.
 - The **correct use of keys** (PK, FK, Candidate Keys) and adherence to the integrity rules is the basis for a reliable, consistent database without orphaned or contradictory records.
+- **Division ($\div$)** answers **"for all"** queries — tuples related to every tuple of a set — and is expressed in SQL through a double `NOT EXISTS` (or `NOT IN`) pattern.
+- **Referential actions** decide what happens to foreign keys when the referenced row is deleted or updated: `CASCADE` propagates the change, `SET NULL` orphans the child, and `RESTRICT` blocks the operation.
+- **Key Distinction:** `CASCADE`/`SET NULL`/`SET DEFAULT` modify dependent rows to preserve integrity; `RESTRICT`/`NO ACTION` reject the operation entirely.
 
 ---
 # topic_5_sql_data_definition_language_ddl.md
