@@ -36,6 +36,13 @@ Exams/
         └── exam_paper_synthetic_and_realistic_8.md # Professional Sports League Federation
 ```
 
+## Master Exam Guides & Theory Handbooks
+
+| Master Guide | Purpose | Key Content |
+| :--- | :--- | :--- |
+| [Complete_Exam_Theory_Guide.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Resources/Notes/Complete_Exam_Theory_Guide.md) | Theoretical & Methodological Guide | Conceptual modeling, 7-step mapping algorithm, Relational Algebra, SQL, Normalization, Transactions, Security, Recipes & Traps |
+| [test_prep.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Resources/Notes/test_prep.md) | Comprehensive Practice & Solved Exams | 160 thematic drill questions across 16 units + 10 full 10/10 model solutions for past and realistic exam papers |
+
 ---
 
 ## Past Examination Papers
