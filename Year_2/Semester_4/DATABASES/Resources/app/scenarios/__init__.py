@@ -3,6 +3,9 @@
 from models.registry import scenario_registry
 from .research_institute import createResearchInstituteScenario
 from .university_portal import createUniversityPortalScenario
+from .hospital_management import createHospitalManagementScenario
+from .maritime_shipping import createMaritimeShippingScenario
+from .airline_management import createAirlineManagementScenario
 
 
 def initializeScenarios() -> None:
@@ -11,9 +14,21 @@ def initializeScenarios() -> None:
     research_scenario = createResearchInstituteScenario()
     scenario_registry.registerScenario(research_scenario, set_as_default=True)
 
-    # Register Scenario 2
+    # Register Scenario 2: University Portal
     university_scenario = createUniversityPortalScenario()
     scenario_registry.registerScenario(university_scenario, set_as_default=False)
+
+    # Register Scenario 3: Hospital Management (Exam Paper 1)
+    hospital_scenario = createHospitalManagementScenario()
+    scenario_registry.registerScenario(hospital_scenario, set_as_default=False)
+
+    # Register Scenario 4: Maritime Shipping (Exam Paper 2)
+    maritime_scenario = createMaritimeShippingScenario()
+    scenario_registry.registerScenario(maritime_scenario, set_as_default=False)
+
+    # Register Scenario 5: Airline Operations (Exam Paper 3)
+    airline_scenario = createAirlineManagementScenario()
+    scenario_registry.registerScenario(airline_scenario, set_as_default=False)
 
 
 # Auto-initialize on import
@@ -22,5 +37,8 @@ initializeScenarios()
 __all__ = [
     "createResearchInstituteScenario",
     "createUniversityPortalScenario",
+    "createHospitalManagementScenario",
+    "createMaritimeShippingScenario",
+    "createAirlineManagementScenario",
     "initializeScenarios",
 ]

@@ -36,7 +36,7 @@ def renderHeader(current_scenario: Scenario, on_scenario_change: Callable[[str],
             ).props(
                 "outlined dense dark options-dense options-dark"
             ).classes(
-                "w-72 bg-[#201f1d] text-[#f4f1ea] text-xs rounded-lg border border-[rgba(224,107,58,0.4)]"
+                "w-80 md:w-96 bg-[#201f1d] text-[#f4f1ea] text-xs rounded-lg border border-[rgba(224,107,58,0.4)]"
             )
 
             # Course Badge
