@@ -6,6 +6,9 @@ from .university_portal import createUniversityPortalScenario
 from .hospital_management import createHospitalManagementScenario
 from .maritime_shipping import createMaritimeShippingScenario
 from .airline_management import createAirlineManagementScenario
+from .banking_management import createBankingManagementScenario
+from .hotel_management import createHotelManagementScenario
+from .streaming_platform import createStreamingPlatformScenario
 
 
 def initializeScenarios() -> None:
@@ -30,6 +33,18 @@ def initializeScenarios() -> None:
     airline_scenario = createAirlineManagementScenario()
     scenario_registry.registerScenario(airline_scenario, set_as_default=False)
 
+    # Register Scenario 6: Banking Management (Exam Paper 4)
+    banking_scenario = createBankingManagementScenario()
+    scenario_registry.registerScenario(banking_scenario, set_as_default=False)
+
+    # Register Scenario 7: Hotel Resort Management (Exam Paper 5)
+    hotel_scenario = createHotelManagementScenario()
+    scenario_registry.registerScenario(hotel_scenario, set_as_default=False)
+
+    # Register Scenario 8: Streaming Platform (Exam Paper 6)
+    streaming_scenario = createStreamingPlatformScenario()
+    scenario_registry.registerScenario(streaming_scenario, set_as_default=False)
+
 
 # Auto-initialize on import
 initializeScenarios()
@@ -40,5 +55,8 @@ __all__ = [
     "createHospitalManagementScenario",
     "createMaritimeShippingScenario",
     "createAirlineManagementScenario",
+    "createBankingManagementScenario",
+    "createHotelManagementScenario",
+    "createStreamingPlatformScenario",
     "initializeScenarios",
 ]
