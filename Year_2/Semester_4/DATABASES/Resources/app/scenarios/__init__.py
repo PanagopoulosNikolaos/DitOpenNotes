@@ -9,6 +9,8 @@ from .airline_management import createAirlineManagementScenario
 from .banking_management import createBankingManagementScenario
 from .hotel_management import createHotelManagementScenario
 from .streaming_platform import createStreamingPlatformScenario
+from .library_management import createLibraryManagementScenario
+from .sports_league import createSportsLeagueScenario
 
 
 def initializeScenarios() -> None:
@@ -45,6 +47,14 @@ def initializeScenarios() -> None:
     streaming_scenario = createStreamingPlatformScenario()
     scenario_registry.registerScenario(streaming_scenario, set_as_default=False)
 
+    # Register Scenario 9: Municipal Library Network (Exam Paper 7)
+    library_scenario = createLibraryManagementScenario()
+    scenario_registry.registerScenario(library_scenario, set_as_default=False)
+
+    # Register Scenario 10: Sports League Federation (Exam Paper 8)
+    sports_scenario = createSportsLeagueScenario()
+    scenario_registry.registerScenario(sports_scenario, set_as_default=False)
+
 
 # Auto-initialize on import
 initializeScenarios()
@@ -58,5 +68,7 @@ __all__ = [
     "createBankingManagementScenario",
     "createHotelManagementScenario",
     "createStreamingPlatformScenario",
+    "createLibraryManagementScenario",
+    "createSportsLeagueScenario",
     "initializeScenarios",
 ]
