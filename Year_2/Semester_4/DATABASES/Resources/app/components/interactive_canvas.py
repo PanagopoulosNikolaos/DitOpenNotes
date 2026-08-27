@@ -211,6 +211,73 @@ ui.add_head_html(
             }, 150);
         }
 
+        function downloadStandaloneHTML() {
+            const title = document.querySelector('h1')?.innerText || 'Οδηγός Ανάλυσης Μοντέλου Ε-Ρ';
+            const subTitle = document.querySelector('header label')?.innerText || '';
+            const printSections = document.querySelectorAll('.print-section');
+            let sectionsHTML = '';
+
+            printSections.forEach(sec => {
+                const clone = sec.cloneNode(true);
+                clone.querySelectorAll('.no-print').forEach(el => el.remove());
+                sectionsHTML += `<div class="section-wrapper">${clone.outerHTML}</div>`;
+            });
+
+            const fullHTML = `<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+        body { background-color: #141413; color: #f4f1ea; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; line-height: 1.5; margin: 0; padding: 24px; }
+        .header-banner { border-bottom: 2px solid rgba(224, 107, 58, 0.4); padding-bottom: 12px; margin-bottom: 20px; }
+        .header-banner h1 { margin: 0; font-size: 22px; color: #f59e0b; }
+        .glass-panel { background: #1c1b1a; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        h2, h3 { color: #fdba74; margin-top: 0; }
+        .attr-card-container, .rel-card-container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .attr-card { background: #1e231e; border: 1px solid rgba(16,185,129,0.3); padding: 10px; border-radius: 6px; }
+        .attr-card-rel { grid-column: span 2; background: #231e21; border: 1px solid rgba(244,63,94,0.3); padding: 10px; border-radius: 6px; }
+        .rel-card { background: #251d20; border: 1px solid rgba(244,63,94,0.3); padding: 10px; border-radius: 6px; }
+        .dark-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        .dark-table th, .dark-table td { border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; font-size: 12px; text-align: left; }
+        .dark-table th { background: rgba(255,255,255,0.08); color: #fde68a; }
+        #er-svg-canvas { width: 100%; height: 500px; background: #121211; border: 1px solid rgba(224,107,58,0.4); border-radius: 8px; }
+        pre, code { font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-word; }
+        .sql-code-container { background: #10100f; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 8px; }
+        @media print {
+            @page { size: A4 portrait; margin: 6mm 8mm; }
+            body { padding: 0; font-size: 8.5pt; background: #141413 !important; color: #f4f1ea !important; }
+            .attr-card-container, .rel-card-container { gap: 6px; }
+            .attr-card, .rel-card { padding: 4px 8px; }
+            #er-svg-canvas { height: 440px !important; }
+            .dark-table th, .dark-table td { padding: 3px 5px; font-size: 7.5pt; }
+            .sql-code-container pre { font-size: 7.5pt; line-height: 1.25; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-banner">
+        <h1>${title}</h1>
+        <p style="color:#b5b0a4; margin: 4px 0 0 0; font-size: 12px;">${subTitle}</p>
+    </div>
+    ${sectionsHTML}
+</body>
+</html>`;
+
+            const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `ER_Model_Report_${new Date().toISOString().slice(0,10)}.html`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             updateCanvasHighlights();
         });

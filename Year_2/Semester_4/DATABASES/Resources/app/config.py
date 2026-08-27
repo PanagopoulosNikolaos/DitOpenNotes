@@ -439,6 +439,17 @@ body::before {
         width: 100% !important;
     }
 
+    /* Reset Quasar and NiceGUI root flex containers to block layout for paged media print */
+    #q-app, .q-layout, .q-page-container, .q-page, main, .nicegui-column {
+        display: block !important;
+        position: static !important;
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        flex: none !important;
+        float: none !important;
+    }
+
     body::before {
         display: none !important;
     }
@@ -658,8 +669,8 @@ body::before {
     .print-sql-ddl {
         page-break-before: auto !important;
         break-before: auto !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
         margin-top: 0 !important;
         overflow: visible !important;
         width: 100% !important;
@@ -676,6 +687,8 @@ body::before {
         overflow: visible !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
     }
 
     .print-sql-ddl pre,
