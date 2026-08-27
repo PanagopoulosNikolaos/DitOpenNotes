@@ -415,4 +415,289 @@ body::before {
 .er-node:hover {
     filter: drop-shadow(0 6px 16px rgba(224, 107, 58, 0.3));
 }
+
+/* Print and A4 PDF Export Styles */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 5mm 8mm 5mm 8mm;
+    }
+
+    *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    html, body {
+        background-color: #141413 !important;
+        background-image: none !important;
+        color: #f4f1ea !important;
+        font-size: 8.5pt !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    body::before {
+        display: none !important;
+    }
+
+    /* Hide UI navigation, headers, footers, toolbars, and fluff */
+    header, nav, .q-header, .q-footer, .no-print {
+        display: none !important;
+    }
+
+    /* Keep headings with their following content to prevent orphan titles */
+    h1, h2, h3, h4, .section-title, .print-header-banner {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        margin-top: 2px !important;
+        margin-bottom: 4px !important;
+    }
+
+    h2 {
+        font-size: 11pt !important;
+    }
+
+    h3 {
+        font-size: 10pt !important;
+    }
+
+    /* Spacing container resets for print */
+    .space-y-10 > :not([hidden]) ~ :not([hidden]),
+    .space-y-4 > :not([hidden]) ~ :not([hidden]),
+    .gap-6 {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        gap: 6px !important;
+    }
+
+    .glass-panel, .glass-panel-accent {
+        background: #1c1b1a !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 6px 10px !important;
+        border-radius: 6px !important;
+        margin-bottom: 6px !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    /* Section Flow: Pack together naturally without forcing new pages */
+    .print-section {
+        display: block !important;
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        margin: 0 0 6px 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Indivisible card blocks that must never be cut mid-way */
+    .print-avoid-break,
+    .attr-card,
+    .attr-card-rel,
+    .rel-card {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .dark-table {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    .dark-table tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    /* Single Section Print Filtering */
+    body[data-print-target="canvas"] .print-section:not(.print-canvas),
+    body[data-print-target="attributes"] .print-section:not(.print-attributes),
+    body[data-print-target="keys"] .print-section:not(.print-keys),
+    body[data-print-target="relationships"] .print-section:not(.print-relationships),
+    body[data-print-target="er-diagram"] .print-section:not(.print-er-diagram),
+    body[data-print-target="sql-ddl"] .print-section:not(.print-sql-ddl) {
+        display: none !important;
+    }
+
+    /* Section 1: Interactive Canvas Print Layout */
+    .print-canvas #canvas-text {
+        background: #1a1918 !important;
+        padding: 6px 10px !important;
+        font-size: 8.5pt !important;
+        line-height: 1.35 !important;
+        color: #f4f1ea !important;
+        border-radius: 6px !important;
+    }
+
+    .print-canvas p {
+        margin: 2px 0 !important;
+    }
+
+    .print-canvas .highlight-box {
+        padding: 1px 3px !important;
+        font-size: 8.5pt !important;
+    }
+
+    .print-canvas .tag-label {
+        font-size: 6pt !important;
+        padding: 0px 2px !important;
+    }
+
+    /* Section 2: Attributes Print Layout */
+    .print-attributes .attr-card-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .print-attributes .attr-card {
+        margin-bottom: 0 !important;
+        padding: 4px 8px !important;
+        background: #1e231e !important;
+        border: 1px solid rgba(16, 185, 129, 0.3) !important;
+        border-radius: 5px !important;
+    }
+
+    .print-attributes .attr-card-rel {
+        grid-column: span 2 !important;
+        margin-bottom: 0 !important;
+        padding: 4px 8px !important;
+        background: #231e21 !important;
+        border: 1px solid rgba(244, 63, 94, 0.3) !important;
+        border-radius: 5px !important;
+    }
+
+    .print-attributes ul {
+        margin: 1px 0 0 0 !important;
+        padding-left: 8px !important;
+    }
+
+    .print-attributes li {
+        font-size: 7.5pt !important;
+        margin-bottom: 1px !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Section 3: Keys Analysis Table Layout */
+    .print-keys .dark-table {
+        font-size: 7.5pt !important;
+        margin: 2px 0 !important;
+        background: #191817 !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+    .print-keys .dark-table th {
+        padding: 3px 5px !important;
+        font-size: 7.5pt !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .print-keys .dark-table td {
+        padding: 3px 5px !important;
+        font-size: 7pt !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Section 4: Relationships & Cardinalities Layout */
+    .print-relationships .rel-card-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .print-relationships .rel-card {
+        margin-bottom: 0 !important;
+        padding: 4px 8px !important;
+        border-radius: 5px !important;
+    }
+
+    .print-relationships p,
+    .print-relationships div,
+    .print-relationships span {
+        font-size: 7.5pt !important;
+        line-height: 1.2 !important;
+    }
+
+    /* Section 5: ER Diagram SVG Layout */
+    .print-er-diagram {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-top: 0 !important;
+        margin-bottom: 4px !important;
+    }
+
+    .print-er-diagram #er-svg-canvas {
+        height: 420px !important;
+        max-height: 50vh !important;
+        width: 100% !important;
+        background-color: #121211 !important;
+        border: 1px solid rgba(224, 107, 58, 0.4) !important;
+        border-radius: 6px !important;
+    }
+
+    /* Target specific single section overrides */
+    body[data-print-target="er-diagram"] .print-er-diagram #er-svg-canvas {
+        height: 540px !important;
+        max-height: 75vh !important;
+    }
+
+    /* Section 6: SQL DDL Schema Layout */
+    .print-sql-ddl {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-top: 0 !important;
+        overflow: visible !important;
+        width: 100% !important;
+    }
+
+    .print-sql-ddl .sql-code-container,
+    .print-sql-ddl .q-card,
+    .print-sql-ddl .nicegui-code {
+        background: #10100f !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 6px !important;
+        padding: 6px 10px !important;
+        margin: 2px 0 !important;
+        overflow: visible !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .print-sql-ddl pre,
+    .print-sql-ddl code {
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 7.5pt !important;
+        line-height: 1.25 !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+        color: #f4f1ea !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+
+    body[data-print-target="sql-ddl"] .print-sql-ddl pre,
+    body[data-print-target="sql-ddl"] .print-sql-ddl code {
+        font-size: 8pt !important;
+        line-height: 1.3 !important;
+    }
+}
 """
+
+

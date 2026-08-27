@@ -82,15 +82,19 @@ def buildApp() -> None:
     @ui.page("/")
     def mainPage() -> None:
         """Root page handler rendering header and reactive content."""
-        # Top Header
         current_scenario = scenario_registry.getScenario(er_app.current_scenario_id)
         content_container = ui.column().classes("w-full gap-0 p-0 items-center")
 
         def handleScenarioSwitch(new_id: str) -> None:
             """Handles scenario selection event."""
             er_app.selectScenario(new_id, content_container)
+            new_scenario = scenario_registry.getScenario(new_id)
+            if new_scenario:
+                header_refs["subtitle_label"].set_text(new_scenario.subtitle)
+                header_refs["course_label"].set_text(new_scenario.course_tag)
 
-        renderHeader(current_scenario, handleScenarioSwitch)
+        # Top Header (Direct page child)
+        header_refs = renderHeader(current_scenario, handleScenarioSwitch)
 
         # Main Dynamic Content Area
         with content_container:

@@ -44,21 +44,24 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
 
     full_canvas_body_html = "".join(paragraphs_html_list)
 
-    with ui.column().classes("w-full glass-panel gap-0 p-0 overflow-hidden border border-[rgba(224,107,58,0.25)]"):
-        # Header with filters
+    with ui.column().classes("w-full glass-panel gap-0 p-0 overflow-hidden border border-[rgba(224,107,58,0.25)] print-section print-canvas no-break-before"):
+        # Header with filters (Interactive) and Print Banner
         with ui.row().classes(
             "w-full bg-[#121211] p-5 justify-between items-center flex-wrap gap-4 border-b border-[rgba(255,255,255,0.08)]"
         ):
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
-                    ui.html('<i class="fa-solid fa-highlighter text-[#f59e0b] text-lg"></i>')
+                    ui.html('<i class="fa-solid fa-highlighter text-[#f59e0b] text-lg no-print"></i>')
                     ui.html('<h2 class="text-lg md:text-xl font-bold text-[#f4f1ea] m-0">Διαδραστικό Canvas Κειμένου Απαιτήσεων</h2>')
                 ui.label(
+                    f"Σενάριο: {scenario.title} — {scenario.subtitle}"
+                ).classes("text-xs text-[#fdba74] font-medium hidden print:block")
+                ui.label(
                     "Κάντε κλικ στα φίλτρα για να εμφανίσετε/αποκρύψετε επιμέρους στοιχεία ή επιλέξτε Καθαρό Κείμενο."
-                ).classes("text-xs text-[#78756d]")
+                ).classes("text-xs text-[#78756d] no-print")
 
-            # Interactive Filter Buttons (Presets + Category Toggles)
-            with ui.row().classes("items-center gap-2 flex-wrap text-xs"):
+            # Interactive Filter Buttons (Presets + Category Toggles - hidden in print)
+            with ui.row().classes("items-center gap-2 flex-wrap text-xs no-print"):
                 # sanitize=False keeps inline onclick handlers; content is static trusted markup.
                 ui.html(
                     """
@@ -84,9 +87,9 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
                     sanitize=False,
                 )
 
-        # Legend Bar
+        # Legend Bar (hidden in print)
         with ui.row().classes(
-            "w-full bg-[#171615] px-4 py-2.5 border-b border-[rgba(255,255,255,0.06)] text-xs flex-wrap gap-4 justify-center"
+            "w-full bg-[#171615] px-4 py-2.5 border-b border-[rgba(255,255,255,0.06)] text-xs flex-wrap gap-4 justify-center no-print"
         ):
             ui.html(
                 """
@@ -179,6 +182,33 @@ ui.add_head_html(
                 activeCategories.add(cat);
             }
             updateCanvasHighlights();
+        }
+
+        function printERSection(target) {
+            if (!target || target === 'all') {
+                document.body.removeAttribute('data-print-target');
+            } else {
+                document.body.setAttribute('data-print-target', target);
+            }
+
+            // Ensure all highlight categories are enabled for clean print output
+            const prevCategories = new Set(activeCategories);
+            activeCategories = new Set(['entity', 'key', 'attr', 'rel']);
+            updateCanvasHighlights();
+
+            // Reset ER Diagram zoom and center before printing
+            if (typeof resetERZoom === 'function') {
+                resetERZoom();
+            }
+
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => {
+                    document.body.removeAttribute('data-print-target');
+                    activeCategories = prevCategories;
+                    updateCanvasHighlights();
+                }, 500);
+            }, 150);
         }
 
         document.addEventListener('DOMContentLoaded', () => {

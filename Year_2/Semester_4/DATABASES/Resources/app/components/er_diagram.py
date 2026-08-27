@@ -40,19 +40,19 @@ def renderERDiagram(scenario: Scenario) -> None:
     tables_json = json.dumps(tables_data).replace("'", "&#39;")
     edges_json = json.dumps(edges_data).replace("'", "&#39;")
 
-    with ui.column().classes("w-full glass-panel gap-4"):
+    with ui.column().classes("w-full glass-panel gap-4 print-section print-er-diagram"):
         # Header with controls
         with ui.row().classes("w-full justify-between items-center flex-wrap gap-4 border-b border-[rgba(255,255,255,0.08)] pb-4"):
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
-                    ui.html('<i class="fa-solid fa-diagram-project text-[#e06b3a] text-xl"></i>')
+                    ui.html('<i class="fa-solid fa-diagram-project text-[#e06b3a] text-xl no-print"></i>')
                     ui.html('<h2 class="text-xl font-bold text-[#f4f1ea] m-0">Σχεδίαση Διαγράμματος Ε-Ρ (Crow\'s Foot / Relational Schema)</h2>')
                 ui.label(
                     "Πλήρης γραφική αναπαράσταση της Βάσης Δεδομένων με χρήση Crow's Foot Notation (Zoom, Pan, Dragging)."
-                ).classes("text-xs text-[#b5b0a4]")
+                ).classes("text-xs text-[#b5b0a4] no-print")
 
             # Control buttons
-            with ui.row().classes("items-center gap-2 flex-wrap text-xs"):
+            with ui.row().classes("items-center gap-2 flex-wrap text-xs no-print"):
                 ui.html(
                     """
                     <button onclick="zoomER(1.2)" class="btn-secondary" title="Μεγέθυνση"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
@@ -74,7 +74,7 @@ def renderERDiagram(scenario: Scenario) -> None:
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-400 rounded-sm"></span> FK</span>
                     <span class="flex items-center gap-1.5"><i class="fa-solid fa-code-branch text-[#f59e0b]"></i> Σχέσεις</span>
                 </div>
-                <div class="absolute bottom-3 right-3 z-10 bg-[#171615]/85 text-[#78756d] px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 border border-[rgba(255,255,255,0.06)]">
+                <div class="absolute bottom-3 right-3 z-10 bg-[#171615]/85 text-[#78756d] px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 border border-[rgba(255,255,255,0.06)] no-print">
                     <i class="fa-solid fa-hand-pointer text-[#e06b3a]"></i> Drag για μετακίνηση • Scroll για Zoom
                 </div>
                 """

@@ -9,7 +9,7 @@ def renderMethodologyCards() -> None:
     Returns:
         None
     """
-    with ui.column().classes("w-full glass-panel gap-4"):
+    with ui.column().classes("w-full glass-panel gap-4 no-print"):
         with ui.row().classes("items-center gap-3"):
             ui.html('<i class="fa-solid fa-compass text-[#e06b3a] text-xl"></i>')
             ui.html('<h2 class="text-xl font-bold text-[#f4f1ea] m-0">Πώς Αναλύουμε Οποιοδήποτε Κείμενο (Βήμα-Βήμα)</h2>')

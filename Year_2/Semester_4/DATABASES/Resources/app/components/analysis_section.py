@@ -14,12 +14,12 @@ def renderAnalysisSection(scenario: Scenario) -> None:
         None
     """
     with ui.column().classes("w-full gap-6"):
-        with ui.row().classes("items-center gap-3"):
+        with ui.row().classes("items-center gap-3 no-print"):
             ui.html('<i class="fa-solid fa-magnifying-glass-chart text-[#e06b3a] text-xl"></i>')
             ui.html('<h2 class="text-xl md:text-2xl font-bold text-[#f4f1ea] m-0">Αναλυτική Αιτιολόγηση Αναγνώρισης Στοιχείων</h2>')
 
-        # 1. Entities & Types
-        with ui.column().classes("w-full glass-panel gap-4"):
+        # 1. Entities & Types (Excluded from Print)
+        with ui.column().classes("w-full glass-panel gap-4 no-print"):
             with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3 w-full"):
                 ui.html('<i class="fa-solid fa-cubes text-blue-400"></i>')
                 ui.html('<h3 class="text-lg font-bold text-[#93c5fd] m-0">1. Οντότητες & Είδος</h3>')
@@ -34,17 +34,17 @@ def renderAnalysisSection(scenario: Scenario) -> None:
                             ui.label(f"({ent.entity_type})").classes("text-xs text-[#b5b0a4]")
                         ui.html(f'<p class="text-xs text-[#b5b0a4] leading-relaxed m-0"><strong>Αιτιολογία:</strong> {ent.justification}</p>')
 
-        # 2. Attributes & Types (Complete for all entities!)
-        with ui.column().classes("w-full glass-panel gap-4"):
+        # 2. Attributes & Types (Included in Print)
+        with ui.column().classes("w-full glass-panel gap-4 print-section print-attributes"):
             with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3 w-full"):
-                ui.html('<i class="fa-solid fa-list-check text-emerald-400"></i>')
+                ui.html('<i class="fa-solid fa-list-check text-emerald-400 no-print"></i>')
                 ui.html('<h3 class="text-lg font-bold text-[#86efac] m-0">2. Γνωρίσματα & Είδος</h3>')
 
-            with ui.column().classes("space-y-4 w-full"):
+            with ui.column().classes("space-y-4 w-full attr-card-container"):
                 for ent in scenario.entities:
-                    with ui.column().classes("p-4 rounded-xl bg-[#1e231e] border border-[rgba(16,185,129,0.25)] gap-2 w-full"):
+                    with ui.column().classes("p-4 rounded-xl bg-[#1e231e] border border-[rgba(16,185,129,0.25)] gap-2 w-full attr-card print-avoid-break"):
                         with ui.row().classes("items-center gap-2"):
-                            ui.html('<i class="fa-solid fa-cube text-emerald-400 text-xs"></i>')
+                            ui.html('<i class="fa-solid fa-cube text-emerald-400 text-xs no-print"></i>')
                             ui.label(f"{ent.name}:").classes("font-bold text-[#86efac] text-sm")
 
                         with ui.element("ul").classes("list-disc list-inside text-xs text-[#b5b0a4] space-y-1.5 m-0 pl-1"):
@@ -62,9 +62,9 @@ def renderAnalysisSection(scenario: Scenario) -> None:
 
                 # Relationship Attributes
                 if scenario.relationship_attributes:
-                    with ui.column().classes("p-4 rounded-xl bg-[#231e21] border border-[rgba(244,63,94,0.25)] gap-2 w-full"):
+                    with ui.column().classes("p-4 rounded-xl bg-[#231e21] border border-[rgba(244,63,94,0.25)] gap-2 w-full attr-card-rel print-avoid-break"):
                         with ui.row().classes("items-center gap-2"):
-                            ui.html('<i class="fa-solid fa-link text-rose-400 text-xs"></i>')
+                            ui.html('<i class="fa-solid fa-link text-rose-400 text-xs no-print"></i>')
                             ui.label("Γνωρίσματα Σχέσεων (Relationship Attributes):").classes("font-bold text-[#fda4af] text-sm")
 
                         with ui.element("ul").classes("list-disc list-inside text-xs text-[#b5b0a4] space-y-1.5 m-0 pl-1"):
@@ -75,10 +75,10 @@ def renderAnalysisSection(scenario: Scenario) -> None:
                                 )
                                 ui.html(f"<li>{item_html}</li>")
 
-        # 3. Keys Analysis Table
-        with ui.column().classes("w-full glass-panel gap-4"):
+        # 3. Keys Analysis Table (Included in Print)
+        with ui.column().classes("w-full glass-panel gap-4 print-section print-keys"):
             with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3 w-full"):
-                ui.html('<i class="fa-solid fa-key text-[#f59e0b]"></i>')
+                ui.html('<i class="fa-solid fa-key text-[#f59e0b] no-print"></i>')
                 ui.html('<h3 class="text-lg font-bold text-[#fde68a] m-0">3. Ανάλυση Κλειδιών & Τελική Επιλογή Πρωτεύοντος Κλειδιού (PK)</h3>')
 
             # Render Table
@@ -115,17 +115,17 @@ def renderAnalysisSection(scenario: Scenario) -> None:
                 """
             )
 
-        # 4. Relationships, Cardinalities & Justifications
-        with ui.column().classes("w-full glass-panel gap-4"):
+        # 4. Relationships, Cardinalities & Justifications (Included in Print)
+        with ui.column().classes("w-full glass-panel gap-4 print-section print-relationships"):
             with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3 w-full"):
-                ui.html('<i class="fa-solid fa-code-branch text-rose-400"></i>')
+                ui.html('<i class="fa-solid fa-code-branch text-rose-400 no-print"></i>')
                 ui.html('<h3 class="text-lg font-bold text-[#fda4af] m-0">4. Σχέσεις, Λόγοι Πληθικότητας & Αιτιολογήσεις</h3>')
 
-            with ui.column().classes("space-y-4 w-full"):
+            with ui.column().classes("space-y-4 w-full rel-card-container"):
                 for rel in scenario.relationships:
                     rel_bg = "bg-[#251f2d] border-purple-500/40" if "Ταυτοποιούσα" in rel.relationship_type else "bg-[#251d20] border-rose-500/30"
                     badge_color = "text-purple-300" if "Ταυτοποιούσα" in rel.relationship_type else "text-rose-300"
-                    with ui.column().classes(f"p-4 rounded-xl border {rel_bg} gap-2 w-full"):
+                    with ui.column().classes(f"p-4 rounded-xl border {rel_bg} gap-2 w-full rel-card print-avoid-break"):
                         with ui.row().classes("items-center justify-between flex-wrap gap-2 w-full border-b border-[rgba(255,255,255,0.06)] pb-2"):
                             with ui.row().classes("items-center gap-2"):
                                 ui.label(f"{rel.letter_id}) Σχέση: {rel.name}").classes(f"font-bold {badge_color} text-sm md:text-base")
@@ -144,8 +144,8 @@ def renderAnalysisSection(scenario: Scenario) -> None:
 
                         ui.html(f'<p class="text-xs text-[#b5b0a4] leading-relaxed m-0"><strong>Αιτιολογία:</strong> {rel.justification}</p>')
 
-        # 5. Assumptions
-        with ui.column().classes("w-full p-5 rounded-xl bg-[#1c1b1a] border border-[rgba(255,255,255,0.08)] gap-3"):
+        # 5. Assumptions (Excluded from Print)
+        with ui.column().classes("w-full p-5 rounded-xl bg-[#1c1b1a] border border-[rgba(255,255,255,0.08)] gap-3 no-print"):
             with ui.row().classes("items-center gap-2"):
                 ui.html('<i class="fa-solid fa-clipboard-check text-[#f59e0b] text-sm"></i>')
                 ui.label("Παραδοχές Σχεδιασμού (Design Assumptions)").classes("font-bold text-[#f4f1ea] text-sm")
