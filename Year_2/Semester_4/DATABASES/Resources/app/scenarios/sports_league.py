@@ -704,21 +704,21 @@ def createSportsLeagueScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Team to Head Coach (1:1)
-        EREdge("M 260 80 L 460 80", "start-one", "end-one", "ΕΠΙΚΕΦΑΛΗΣ (1:1)", 360, 70),
+        EREdge("M 260 80 L 460 80", "start-one-mandatory", "end-one-optional", "ΕΠΙΚΕΦΑΛΗΣ (1:1)", 360, 70),
         # Team to Colors (1:N)
-        EREdge("M 260 120 L 860 120", "start-one", "end-many", "ΕΧΕΙ_ΧΡΩΜΑΤΑ (1:N)", 560, 110),
+        EREdge("M 260 120 L 860 120", "start-one-mandatory", "end-many-optional", "ΕΧΕΙ_ΧΡΩΜΑΤΑ (1:N)", 560, 110),
         # Team to Athletes (1:N)
-        EREdge("M 160 250 L 160 360", "start-one", "end-many", "ΣΥΜΒΟΛΑΙΟ (1:N)", 175, 300),
+        EREdge("M 160 250 L 160 360", "start-one-mandatory", "end-many-optional", "ΣΥΜΒΟΛΑΙΟ (1:N)", 175, 300),
         # Athlete to Injuries (1:N identifying)
-        EREdge("M 260 390 L 460 390", "start-one", "end-many", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 360, 380),
+        EREdge("M 260 390 L 460 390", "start-one-mandatory", "end-many-optional", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 360, 380),
         # Athlete to Events (1:N)
-        EREdge("M 260 440 L 860 440", "start-one", "end-many", "ΠΡΟΚΑΛΕΣΕ (1:N)", 560, 430),
+        EREdge("M 260 440 L 860 440", "start-one-optional", "end-many-optional", "ΠΡΟΚΑΛΕΣΕ (1:N)", 560, 430),
         # Team to Match (Home, 1:N)
-        EREdge("M 160 250 L 460 650", "start-one", "end-many", "ΓΗΠΕΔΟΥΧΟΣ (1:N)", 280, 500),
+        EREdge("M 160 250 L 460 650", "start-one-mandatory", "end-many-optional", "ΓΗΠΕΔΟΥΧΟΣ (1:N)", 280, 500),
         # Team to Match (Away, 1:N)
-        EREdge("M 200 250 L 500 630", "start-one", "end-many", "ΦΙΛΟΞΕΝΟΥΜΕΝΗ (1:N)", 340, 540),
+        EREdge("M 200 250 L 500 630", "start-one-mandatory", "end-many-optional", "ΦΙΛΟΞΕΝΟΥΜΕΝΗ (1:N)", 340, 540),
         # Match to Events (1:N identifying)
-        EREdge("M 660 650 L 860 480", "start-one", "end-many", "ΠΕΡΙΛΑΜΒΑΝΕΙ (1:N)", 780, 570),
+        EREdge("M 660 650 L 860 480", "start-one-mandatory", "end-many-optional", "ΠΕΡΙΛΑΜΒΑΝΕΙ (1:N)", 780, 570),
     ]
 
     # 9. Relational Conversion Justifications

@@ -68,11 +68,15 @@ def renderERDiagram(scenario: Scenario) -> None:
             # Top Legend Overlay
             ui.html(
                 """
-                <div class="absolute top-3 left-3 z-10 bg-[#171615]/85 backdrop-blur-md text-[#f4f1ea] p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] text-xs flex flex-wrap gap-3 no-print">
+                <div class="absolute top-3 left-3 z-10 bg-[#171615]/90 backdrop-blur-md text-[#f4f1ea] p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] text-xs flex flex-wrap items-center gap-3 no-print shadow-lg">
                     <span class="flex items-center gap-1.5"><i class="fa-solid fa-table text-blue-400"></i> Πίνακας</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#e06b3a] rounded-sm"></span> PK</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-400 rounded-sm"></span> FK</span>
-                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-code-branch text-[#f59e0b]"></i> Σχέσεις</span>
+                    <span class="h-3 w-px bg-white/20"></span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Ακριβώς Ένα (Υποχρεωτικό 1)">|| 1..1</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Μηδέν ή Ένα (Προαιρετικό 1)">O| 0..1</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Ένα ή Πολλά (Υποχρεωτικά Πολλά)">&gt;| 1..N</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Μηδέν ή Πολλά (Προαιρετικά Πολλά)">&gt;O 0..N</span>
                 </div>
                 <div class="absolute bottom-3 right-3 z-10 bg-[#171615]/85 text-[#78756d] px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 border border-[rgba(255,255,255,0.06)] no-print">
                     <i class="fa-solid fa-hand-pointer text-[#e06b3a]"></i> Drag για μετακίνηση • Scroll για Zoom
@@ -87,25 +91,76 @@ def renderERDiagram(scenario: Scenario) -> None:
                      onmousedown="startERDrag(event)" onwheel="handleERWheel(event)"
                      data-tables='{tables_json}' data-edges='{edges_json}'>
                     <defs>
-                        <!-- End One Marker -->
-                        <marker id="end-one" markerWidth="16" markerHeight="16" refX="16" refY="8" orient="auto">
-                            <line x1="10" y1="2" x2="10" y2="14" stroke="#e06b3a" stroke-width="2" />
-                            <line x1="16" y1="2" x2="16" y2="14" stroke="#e06b3a" stroke-width="2" />
+                        <!-- 1..1 (Mandatory One): || -->
+                        <marker id="start-one-mandatory" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <line x1="2" y1="2" x2="2" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <line x1="8" y1="2" x2="8" y2="14" stroke="#e06b3a" stroke-width="2" />
                         </marker>
-                        <!-- Start One Marker -->
-                        <marker id="start-one" markerWidth="16" markerHeight="16" refX="0" refY="8" orient="auto">
-                            <line x1="0" y1="2" x2="0" y2="14" stroke="#e06b3a" stroke-width="2" />
-                            <line x1="6" y1="2" x2="6" y2="14" stroke="#e06b3a" stroke-width="2" />
+                        <marker id="start-one" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <line x1="2" y1="2" x2="2" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <line x1="8" y1="2" x2="8" y2="14" stroke="#e06b3a" stroke-width="2" />
                         </marker>
-                        <!-- End Many Marker -->
-                        <marker id="end-many" markerWidth="16" markerHeight="16" refX="16" refY="8" orient="auto">
-                            <line x1="8" y1="2" x2="8" y2="14" stroke="#f59e0b" stroke-width="2" />
-                            <path d="M16,8 L6,2 M16,8 L6,14 M16,8 L6,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                        <marker id="end-one-mandatory" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
+                            <line x1="18" y1="2" x2="18" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <line x1="12" y1="2" x2="12" y2="14" stroke="#e06b3a" stroke-width="2" />
                         </marker>
-                        <!-- Start Many Marker -->
-                        <marker id="start-many" markerWidth="16" markerHeight="16" refX="0" refY="8" orient="auto">
-                            <line x1="8" y1="2" x2="8" y2="14" stroke="#f59e0b" stroke-width="2" />
-                            <path d="M0,8 L10,2 M0,8 L10,14 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                        <marker id="end-one" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
+                            <line x1="18" y1="2" x2="18" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <line x1="12" y1="2" x2="12" y2="14" stroke="#e06b3a" stroke-width="2" />
+                        </marker>
+
+                        <!-- 0..1 (Optional One): O| / |O -->
+                        <marker id="start-one-optional" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <line x1="2" y1="2" x2="2" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                        </marker>
+                        <marker id="start-zero-one" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <line x1="2" y1="2" x2="2" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                        </marker>
+                        <marker id="end-one-optional" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
+                            <line x1="18" y1="2" x2="18" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                        </marker>
+                        <marker id="end-zero-one" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
+                            <line x1="18" y1="2" x2="18" y2="14" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                        </marker>
+
+                        <!-- 1..N (Mandatory Many): |< / >| -->
+                        <marker id="start-many-mandatory" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <path d="M0,2 L10,8 M0,14 L10,8 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                            <line x1="14" y1="2" x2="14" y2="14" stroke="#f59e0b" stroke-width="2" />
+                        </marker>
+                        <marker id="start-many" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <path d="M0,2 L10,8 M0,14 L10,8 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                            <line x1="14" y1="2" x2="14" y2="14" stroke="#f59e0b" stroke-width="2" />
+                        </marker>
+                        <marker id="end-many-mandatory" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
+                            <line x1="6" y1="2" x2="6" y2="14" stroke="#f59e0b" stroke-width="2" />
+                            <path d="M20,2 L10,8 M20,14 L10,8 M20,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                        </marker>
+                        <marker id="end-many" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
+                            <line x1="6" y1="2" x2="6" y2="14" stroke="#f59e0b" stroke-width="2" />
+                            <path d="M20,2 L10,8 M20,14 L10,8 M20,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                        </marker>
+
+                        <!-- 0..N (Optional Many): O< / >O -->
+                        <marker id="start-many-optional" markerWidth="24" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <path d="M0,2 L10,8 M0,14 L10,8 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                            <circle cx="17" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                        </marker>
+                        <marker id="start-zero-many" markerWidth="24" markerHeight="16" refX="0" refY="8" orient="auto">
+                            <path d="M0,2 L10,8 M0,14 L10,8 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                            <circle cx="17" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                        </marker>
+                        <marker id="end-many-optional" markerWidth="24" markerHeight="16" refX="24" refY="8" orient="auto">
+                            <circle cx="7" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                            <path d="M24,2 L14,8 M24,14 L14,8 M24,8 L14,8" stroke="#f59e0b" stroke-width="2" fill="none" />
+                        </marker>
+                        <marker id="end-zero-many" markerWidth="24" markerHeight="16" refX="24" refY="8" orient="auto">
+                            <circle cx="7" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                            <path d="M24,2 L14,8 M24,14 L14,8 M24,8 L14,8" stroke="#f59e0b" stroke-width="2" fill="none" />
                         </marker>
                     </defs>
                     <g id="er-svg-viewport"></g>
@@ -327,7 +382,7 @@ ui.add_head_html(
         }
 
         function resetERZoom() {
-            zoomScale = 0.8;
+            zoomScale = 0.9;
             panX = 12;
             panY = 0;
             updateTransform();

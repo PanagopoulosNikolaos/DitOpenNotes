@@ -759,27 +759,27 @@ def createBankingManagementScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Branch directs Employee (1:1)
-        EREdge("M 250 80 L 450 80", "start-one", "end-one", "ΔΙΕΥΘΥΝΕΙ (1:1)", 350, 70),
+        EREdge("M 250 80 L 450 80", "start-one-mandatory", "end-one-optional", "ΔΙΕΥΘΥΝΕΙ (1:1)", 350, 70),
         # Branch employs Employees (1:N)
-        EREdge("M 250 120 L 450 120", "start-one", "end-many", "ΕΡΓΑΖΕΤΑΙ_ΣΕ (1:N)", 350, 135),
+        EREdge("M 250 120 L 450 120", "start-one-mandatory", "end-many-optional", "ΕΡΓΑΖΕΤΑΙ_ΣΕ (1:N)", 350, 135),
         # Employee recursive supervisor (1:N)
-        EREdge("M 650 90 C 720 30, 720 170, 650 150", "start-one", "end-many", "ΕΠΟΠΤΕΥΕΙ (1:N)", 730, 100),
+        EREdge("M 650 90 C 720 30, 720 170, 650 150", "start-one-optional", "end-many-optional", "ΕΠΟΠΤΕΥΕΙ (1:N)", 730, 100),
         # Branch opens Accounts (1:N)
-        EREdge("M 150 210 L 150 390", "start-one", "end-many", "ΑΝΟΙΓΕΤΑΙ_ΣΕ (1:N)", 165, 300),
+        EREdge("M 150 210 L 150 390", "start-one-mandatory", "end-many-optional", "ΑΝΟΙΓΕΤΑΙ_ΣΕ (1:N)", 165, 300),
         # Account contains Movements (1:N identifying)
-        EREdge("M 150 530 L 150 640", "start-one", "end-many", "ΕΚΤΕΛΕΙΤΑΙ_ΣΕ (1:N)", 165, 585),
+        EREdge("M 150 530 L 150 640", "start-one-mandatory", "end-many-optional", "ΕΚΤΕΛΕΙΤΑΙ_ΣΕ (1:N)", 165, 585),
         # Account to Co-holders (1:N)
-        EREdge("M 250 430 L 450 430", "start-one", "end-many", "ΣΥΝΔΙΚΑΙΟΥΧΟΣ (1:N)", 350, 420),
+        EREdge("M 250 430 L 450 430", "start-one-mandatory", "end-many-optional", "ΣΥΝΔΙΚΑΙΟΥΧΟΣ (1:N)", 350, 420),
         # Customer to Co-holders (1:N)
-        EREdge("M 850 160 L 650 430", "start-one", "end-many", "ΚΑΤΕΧΕΙ (1:N)", 750, 300),
+        EREdge("M 850 160 L 650 430", "start-one-mandatory", "end-many-optional", "ΚΑΤΕΧΕΙ (1:N)", 750, 300),
         # Customer to Phone numbers (1:N)
-        EREdge("M 950 310 L 950 430", "start-one", "end-many", "ΕΧΕΙ_ΤΗΛΕΦΩΝΟ (1:N)", 965, 370),
+        EREdge("M 950 310 L 950 430", "start-one-mandatory", "end-many-optional", "ΕΧΕΙ_ΤΗΛΕΦΩΝΟ (1:N)", 965, 370),
         # Branch issues Loans (1:N)
-        EREdge("M 200 210 L 450 670", "start-one", "end-many", "ΧΟΡΗΓΕΙΤΑΙ_ΑΠΟ (1:N)", 310, 480),
+        EREdge("M 200 210 L 450 670", "start-one-mandatory", "end-many-optional", "ΧΟΡΗΓΕΙΤΑΙ_ΑΠΟ (1:N)", 310, 480),
         # Loan to Borrowers (1:N)
-        EREdge("M 650 680 L 850 680", "start-one", "end-many", "ΔΑΝΕΙΟΛΗΠΤΗΣ (1:N)", 750, 670),
+        EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-optional", "ΔΑΝΕΙΟΛΗΠΤΗΣ (1:N)", 750, 670),
         # Customer to Borrowers (1:N)
-        EREdge("M 950 310 L 950 640", "start-one", "end-many", "ΛΑΜΒΑΝΕΙ_ΔΑΝΕΙΟ (1:N)", 965, 520),
+        EREdge("M 950 310 L 950 640", "start-one-mandatory", "end-many-optional", "ΛΑΜΒΑΝΕΙ_ΔΑΝΕΙΟ (1:N)", 965, 520),
     ]
 
     # 9. Relational Conversion Justifications

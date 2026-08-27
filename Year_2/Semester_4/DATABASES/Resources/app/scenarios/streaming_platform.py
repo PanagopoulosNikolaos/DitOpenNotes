@@ -702,21 +702,21 @@ def createStreamingPlatformScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Media to Series (ISA)
-        EREdge("M 250 80 L 450 80", "start-one", "end-one", "ISA (ΣΕΙΡΑ)", 350, 70),
+        EREdge("M 250 80 L 450 80", "start-one-mandatory", "end-one-mandatory", "ISA (ΣΕΙΡΑ)", 350, 70),
         # Media to Movie (ISA)
-        EREdge("M 150 250 L 150 370", "start-one", "end-one", "ISA (ΤΑΙΝΙΑ)", 165, 310),
+        EREdge("M 150 250 L 150 370", "start-one-mandatory", "end-one-mandatory", "ISA (ΤΑΙΝΙΑ)", 165, 310),
         # Series to Episodes (1:N identifying)
-        EREdge("M 650 80 L 850 80", "start-one", "end-many", "ΠΕΡΙΕΧΕΙ (1:N)", 750, 70),
+        EREdge("M 650 80 L 850 80", "start-one-mandatory", "end-many-optional", "ΠΕΡΙΕΧΕΙ (1:N)", 750, 70),
         # Media to Participation (1:N)
-        EREdge("M 250 180 L 450 400", "start-one", "end-many", "ΣΥΜΜΕΤΟΧΗ (1:N)", 340, 290),
+        EREdge("M 250 180 L 450 400", "start-one-mandatory", "end-many-optional", "ΣΥΜΜΕΤΟΧΗ (1:N)", 340, 290),
         # Creator to Participation (1:N)
-        EREdge("M 850 410 L 650 410", "start-one", "end-many", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 750, 400),
+        EREdge("M 850 410 L 650 410", "start-one-mandatory", "end-many-optional", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 750, 400),
         # Subscriber to Profile (1:N identifying)
-        EREdge("M 250 680 L 450 680", "start-one", "end-many", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 350, 670),
+        EREdge("M 250 680 L 450 680", "start-one-mandatory", "end-many-optional", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 350, 670),
         # Profile to History (1:N)
-        EREdge("M 650 680 L 850 680", "start-one", "end-many", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 750, 670),
+        EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-optional", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 750, 670),
         # Media to History (1:N)
-        EREdge("M 250 120 L 850 660", "start-one", "end-many", "ΠΡΟΒΟΛΗ (1:N)", 550, 390),
+        EREdge("M 250 120 L 850 660", "start-one-mandatory", "end-many-optional", "ΠΡΟΒΟΛΗ (1:N)", 550, 390),
     ]
 
     # 9. Relational Conversion Justifications
