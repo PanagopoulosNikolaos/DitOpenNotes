@@ -744,7 +744,7 @@ def createLibraryManagementScenario() -> Scenario:
             id="t-copy",
             label="ANTITYPO",
             x=60,
-            y=350,
+            y=400,
             attrs=[
                 ERTableAttr("isbn", pk=True, fk=True),
                 ERTableAttr("copy_number", pk=True),
@@ -785,7 +785,7 @@ def createLibraryManagementScenario() -> Scenario:
             id="t-member",
             label="MELOS",
             x=60,
-            y=630,
+            y=680,
             attrs=[
                 ERTableAttr("card_number", pk=True),
                 ERTableAttr("adt"),
@@ -805,7 +805,7 @@ def createLibraryManagementScenario() -> Scenario:
             id="t-loan",
             label="DANEISMOS",
             x=460,
-            y=630,
+            y=680,
             attrs=[
                 ERTableAttr("loan_id", pk=True),
                 ERTableAttr("card_number", fk=True),
@@ -821,7 +821,7 @@ def createLibraryManagementScenario() -> Scenario:
             id="t-reservation",
             label="KRATISI",
             x=860,
-            y=630,
+            y=680,
             attrs=[
                 ERTableAttr("reservation_id", pk=True),
                 ERTableAttr("card_number", fk=True),
@@ -837,27 +837,27 @@ def createLibraryManagementScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Branch manages Staff (1:1)
-        EREdge("M 260 80 L 460 80", "start-one", "end-one", "ΔΙΕΥΘΥΝΕΙ (1:1)", 360, 70),
+        EREdge("M 320 80 L 460 80", "start-one", "end-one", "ΔΙΕΥΘΥΝΕΙ (1:1)", 390, 70),
         # Branch employs Staff (1:N)
-        EREdge("M 260 120 L 460 120", "start-one", "end-many", "ΑΠΑΣΧΟΛΕΙ (1:N)", 360, 140),
+        EREdge("M 320 120 L 460 120", "start-one", "end-many", "ΑΠΑΣΧΟΛΕΙ (1:N)", 390, 140),
         # Author to Book Authorship (1:N)
         EREdge("M 960 250 L 960 350", "start-one", "end-many", "ΣΥΓΓΡΑΦΕΙ (1:N)", 975, 300),
         # Book Title to Book Authorship (1:N)
-        EREdge("M 660 380 L 860 380", "start-one", "end-many", "ΕΧΕΙ_ΣΥΓΓΡΑΦΕΙΣ (1:N)", 760, 370),
+        EREdge("M 720 380 L 860 380", "start-one", "end-many", "ΕΧΕΙ_ΣΥΓΓΡΑΦΕΙΣ (1:N)", 790, 370),
         # Book Title to Copies (1:N identifying)
-        EREdge("M 460 380 L 260 380", "start-one", "end-many", "ΕΧΕΙ_ΑΝΤΙΤΥΠΑ (1:N)", 360, 370),
+        EREdge("M 460 410 L 320 410", "start-one", "end-many", "ΕΧΕΙ_ΑΝΤΙΤΥΠΑ (1:N)", 390, 400),
         # Branch to Copies (1:N)
-        EREdge("M 160 250 L 160 350", "start-one", "end-many", "ΣΤΕΓΑΖΕΙ (1:N)", 175, 300),
+        EREdge("M 190 378 L 190 400", "start-one", "end-many", "ΣΤΕΓΑΖΕΙ (1:N)", 205, 390),
         # Member to Loan (1:N)
-        EREdge("M 260 670 L 460 670", "start-one", "end-many", "ΔΑΝΕΙΖΕΤΑΙ (1:N)", 360, 660),
+        EREdge("M 320 700 L 460 700", "start-one", "end-many", "ΔΑΝΕΙΖΕΤΑΙ (1:N)", 390, 690),
         # Copy to Loan (1:N)
-        EREdge("M 160 550 L 460 660", "start-one", "end-many", "ΑΦΟΡΑ_ΑΝΤΙΤΥΠΟ (1:N)", 310, 600),
+        EREdge("M 320 520 L 460 690", "start-one", "end-many", "ΑΦΟΡΑ_ΑΝΤΙΤΥΠΟ (1:N)", 390, 600),
         # Member to Reservation (1:N)
-        EREdge("M 260 720 L 860 720", "start-one", "end-many", "ΥΠΟΒΑΛΛΕΙ (1:N)", 560, 740),
+        EREdge("M 320 740 L 860 740", "start-one", "end-many", "ΥΠΟΒΑΛΛΕΙ (1:N)", 590, 755),
         # Book Title to Reservation (1:N)
-        EREdge("M 660 480 L 860 630", "start-one", "end-many", "ΚΡΑΤΗΣΗ_ΤΙΤΛΟΥ (1:N)", 760, 550),
+        EREdge("M 720 480 L 860 690", "start-one", "end-many", "ΚΡΑΤΗΣΗ_ΤΙΤΛΟΥ (1:N)", 790, 585),
         # Branch to Reservation (1:N)
-        EREdge("M 260 160 L 860 650", "start-one", "end-many", "ΠΑΡΑΛΑΒΗ_ΣΕ (1:N)", 560, 410),
+        EREdge("M 320 160 L 860 700", "start-one", "end-many", "ΠΑΡΑΛΑΒΗ_ΣΕ (1:N)", 590, 430),
     ]
 
     # 9. Relational Conversion Justifications

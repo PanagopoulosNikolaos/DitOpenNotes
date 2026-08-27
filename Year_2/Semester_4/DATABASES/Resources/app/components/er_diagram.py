@@ -327,7 +327,7 @@ ui.add_head_html(
         }
 
         function resetERZoom() {
-            zoomScale = 1;
+            zoomScale = 0.8;
             panX = 0;
             panY = 0;
             updateTransform();

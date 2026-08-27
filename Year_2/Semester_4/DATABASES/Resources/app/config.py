@@ -240,7 +240,16 @@ body::before {
     border: 1px double rgba(217, 70, 239, 0.55);
 }
 
-.badge-rel {
+.badge-attr-derived {
+    background-color: rgba(6, 182, 212, 0.20);
+    color: #67e8f9;
+    border: 1px dotted rgba(6, 182, 212, 0.55);
+}
+
+.badge-rel,
+.badge-rel-11,
+.badge-rel-1n,
+.badge-rel-nm {
     background-color: rgba(244, 63, 94, 0.20);
     color: #fda4af;
     border: 1px solid rgba(244, 63, 94, 0.45);

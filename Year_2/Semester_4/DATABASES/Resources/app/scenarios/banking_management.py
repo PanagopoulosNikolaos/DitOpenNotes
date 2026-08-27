@@ -722,7 +722,7 @@ def createBankingManagementScenario() -> Scenario:
             id="t-account-holder",
             label="SYNDIKAIUXOS_LOGARIASMOU",
             x=450,
-            y=390,
+            y=430,
             attrs=[
                 ERTableAttr("iban", pk=True, fk=True),
                 ERTableAttr("afm", pk=True, fk=True),

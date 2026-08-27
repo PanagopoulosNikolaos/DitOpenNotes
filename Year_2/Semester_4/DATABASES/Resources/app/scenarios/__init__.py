@@ -11,6 +11,7 @@ from .hotel_management import createHotelManagementScenario
 from .streaming_platform import createStreamingPlatformScenario
 from .library_management import createLibraryManagementScenario
 from .sports_league import createSportsLeagueScenario
+from .past_exam_1 import createPastExam1Scenario
 
 
 def initializeScenarios() -> None:
@@ -18,6 +19,10 @@ def initializeScenarios() -> None:
     # Register Scenario 1 (Default)
     research_scenario = createResearchInstituteScenario()
     scenario_registry.registerScenario(research_scenario, set_as_default=True)
+
+    # Register Past Exam 1 Scenario
+    past_exam_1_scenario = createPastExam1Scenario()
+    scenario_registry.registerScenario(past_exam_1_scenario, set_as_default=False)
 
     # Register Scenario 2: University Portal
     university_scenario = createUniversityPortalScenario()
@@ -61,6 +66,7 @@ initializeScenarios()
 
 __all__ = [
     "createResearchInstituteScenario",
+    "createPastExam1Scenario",
     "createUniversityPortalScenario",
     "createHospitalManagementScenario",
     "createMaritimeShippingScenario",

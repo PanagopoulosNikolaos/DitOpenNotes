@@ -690,7 +690,7 @@ def createHotelManagementScenario() -> Scenario:
             id="t-inspection",
             label="ELEGXOS_DOMATIOU",
             x=450,
-            y=370,
+            y=340,
             attrs=[
                 ERTableAttr("hotel_id", pk=True, fk=True),
                 ERTableAttr("room_number", pk=True, fk=True),
@@ -704,7 +704,7 @@ def createHotelManagementScenario() -> Scenario:
             id="t-employee",
             label="YPALLILOS",
             x=850,
-            y=370,
+            y=340,
             attrs=[
                 ERTableAttr("amy", pk=True),
                 ERTableAttr("onomateponymo"),
@@ -733,7 +733,7 @@ def createHotelManagementScenario() -> Scenario:
             id="t-guest-phone",
             label="TILEFONO_EPISKEPTI",
             x=850,
-            y=640,
+            y=600,
             attrs=[
                 ERTableAttr("passport_id", pk=True, fk=True),
                 ERTableAttr("tilefono", pk=True),
@@ -743,7 +743,7 @@ def createHotelManagementScenario() -> Scenario:
             id="t-booking",
             label="KRATISI",
             x=450,
-            y=640,
+            y=600,
             attrs=[
                 ERTableAttr("booking_id", pk=True),
                 ERTableAttr("hmer_kratisis"),
@@ -762,7 +762,7 @@ def createHotelManagementScenario() -> Scenario:
             id="t-service",
             label="YPIRESIA",
             x=50,
-            y=640,
+            y=500,
             attrs=[
                 ERTableAttr("service_id", pk=True),
                 ERTableAttr("perigrafi"),
@@ -772,8 +772,8 @@ def createHotelManagementScenario() -> Scenario:
         ERTable(
             id="t-service-charge",
             label="XREOSI_YPIRESIAS",
-            x=250,
-            y=490,
+            x=50,
+            y=660,
             attrs=[
                 ERTableAttr("booking_id", pk=True, fk=True),
                 ERTableAttr("service_id", pk=True, fk=True),
@@ -787,27 +787,27 @@ def createHotelManagementScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Resort directs Employee (1:1)
-        EREdge("M 250 80 L 850 390", "start-one", "end-one", "ΔΙΕΥΘΥΝΕΙ (1:1)", 550, 240),
+        EREdge("M 310 80 L 850 360", "start-one", "end-one", "ΔΙΕΥΘΥΝΕΙ (1:1)", 550, 240),
         # Resort employs Employees (1:N)
-        EREdge("M 250 120 L 850 420", "start-one", "end-many", "ΑΠΑΣΧΟΛΕΙ (1:N)", 550, 280),
+        EREdge("M 310 120 L 850 400", "start-one", "end-many", "ΑΠΑΣΧΟΛΕΙ (1:N)", 550, 280),
         # Resort has Rooms (1:N identifying)
-        EREdge("M 250 100 L 450 100", "start-one", "end-many", "ΔΙΑΘΕΤΕΙ (1:N)", 350, 90),
+        EREdge("M 310 100 L 450 100", "start-one", "end-many", "ΔΙΑΘΕΤΕΙ (1:N)", 380, 90),
         # Resort has Amenities (1:N multi-value)
-        EREdge("M 150 280 L 150 370", "start-one", "end-many", "ΠΑΡΟΧΗ (1:N)", 165, 330),
+        EREdge("M 180 350 L 180 370", "start-one", "end-many", "ΠΑΡΟΧΗ (1:N)", 195, 360),
         # Room to Inspection (1:N)
-        EREdge("M 550 260 L 550 370", "start-one", "end-many", "ΕΛΕΓΧΟΣ (1:N)", 565, 315),
+        EREdge("M 580 294 L 580 340", "start-one", "end-many", "ΕΛΕΓΧΟΣ (1:N)", 595, 315),
         # Employee to Inspection (1:N)
-        EREdge("M 850 410 L 650 410", "start-one", "end-many", "ΕΚΤΕΛΕΙ (1:N)", 750, 400),
+        EREdge("M 850 370 L 710 370", "start-one", "end-many", "ΕΚΤΕΛΕΙ (1:N)", 780, 360),
         # Room to Booking (1:N)
-        EREdge("M 550 260 L 550 640", "start-one", "end-many", "ΔΕΣΜΕΥΕΤΑΙ (1:N)", 565, 450),
+        EREdge("M 580 556 L 580 600", "start-one", "end-many", "ΔΕΣΜΕΥΕΤΑΙ (1:N)", 595, 575),
         # Guest to Booking (1:N)
-        EREdge("M 900 280 L 650 670", "start-one", "end-many", "ΠΡΑΓΜΑΤΟΠΟΙΕΙ (1:N)", 780, 520),
+        EREdge("M 850 200 L 710 650", "start-one", "end-many", "ΠΡΑΓΜΑΤΟΠΟΙΕΙ (1:N)", 780, 520),
         # Guest to Phone (1:N)
-        EREdge("M 950 280 L 950 640", "start-one", "end-many", "ΤΗΛΕΦΩΝΟ (1:N)", 965, 460),
+        EREdge("M 980 294 L 980 600", "start-one", "end-many", "ΤΗΛΕΦΩΝΟ (1:N)", 995, 460),
         # Booking to Service Charge (1:N)
-        EREdge("M 450 660 L 350 590", "start-one", "end-many", "ΧΡΕΩΣΗ (1:N)", 400, 620),
+        EREdge("M 450 680 L 310 680", "start-one", "end-many", "ΧΡΕΩΣΗ (1:N)", 380, 670),
         # Service to Service Charge (1:N)
-        EREdge("M 150 640 L 250 570", "start-one", "end-many", "ΠΑΡΕΧΕΤΑΙ (1:N)", 200, 600),
+        EREdge("M 180 632 L 180 660", "start-one", "end-many", "ΠΑΡΕΧΕΤΑΙ (1:N)", 195, 645),
     ]
 
     # 9. Relational Conversion Justifications
