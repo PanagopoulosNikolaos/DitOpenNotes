@@ -7,6 +7,7 @@ from .analysis_section import renderAnalysisSection
 from .methodology_table import renderMethodologyTable
 from .er_diagram import renderERDiagram
 from .relational_sql import renderRelationalAndSQL
+from .theory_page import renderTheoryPage
 
 __all__ = [
     "renderHeader",
@@ -16,4 +17,6 @@ __all__ = [
     "renderMethodologyTable",
     "renderERDiagram",
     "renderRelationalAndSQL",
+    "renderTheoryPage",
 ]
+

@@ -18,6 +18,7 @@ from components import (
     renderMethodologyTable,
     renderERDiagram,
     renderRelationalAndSQL,
+    renderTheoryPage,
 )
 
 
@@ -30,10 +31,10 @@ class ERApp:
         self.current_scenario_id = default_scenario.id if default_scenario else "research_institute"
 
     def selectScenario(self, scenario_id: str, content_container: ui.column) -> None:
-        """Switches the active scenario and re-renders the main content area.
+        """Switches the active scenario or theory page and re-renders the content area.
 
         Args:
-            scenario_id (str): The ID of the scenario to switch to.
+            scenario_id (str): The ID of the scenario or 'theory' to switch to.
             content_container (ui.column): The container element holding dynamic content.
 
         Returns:
@@ -43,10 +44,16 @@ class ERApp:
         content_container.clear()
         with content_container:
             self.renderScenarioContent()
-        ui.run_javascript("setTimeout(() => { if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); if (typeof initERDiagram === 'function') initERDiagram(); }, 50);")
+        ui.run_javascript(
+            "setTimeout(() => { if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); if (typeof initERDiagram === 'function') initERDiagram(); }, 50);"
+        )
 
     def renderScenarioContent(self) -> None:
-        """Renders the active scenario content sections."""
+        """Renders the active scenario content sections or the compiled theory page."""
+        if self.current_scenario_id == "theory":
+            renderTheoryPage()
+            return
+
         scenario = scenario_registry.getScenario(self.current_scenario_id)
         if not scenario:
             ui.label("Το επιλεγμένο σενάριο δεν βρέθηκε.").classes("text-red-400 p-4")
@@ -88,17 +95,22 @@ def buildApp() -> None:
         def handleScenarioSwitch(new_id: str) -> None:
             """Handles scenario selection event."""
             er_app.selectScenario(new_id, content_container)
-            new_scenario = scenario_registry.getScenario(new_id)
-            if new_scenario:
-                header_refs["subtitle_label"].set_text(new_scenario.subtitle)
-                header_refs["course_label"].set_text(new_scenario.course_tag)
+            if new_id == "theory":
+                header_refs["subtitle_label"].set_text("Πλήρης Θεωρία, Μεθοδολογία & Συμβολισμοί Crow's Foot")
+                header_refs["course_label"].set_text("Θεωρία / Οδηγός")
+            else:
+                new_scenario = scenario_registry.getScenario(new_id)
+                if new_scenario:
+                    header_refs["subtitle_label"].set_text(new_scenario.subtitle)
+                    header_refs["course_label"].set_text(new_scenario.course_tag)
 
         # Top Header (Direct page child)
-        header_refs = renderHeader(current_scenario, handleScenarioSwitch)
+        header_refs = renderHeader(current_scenario, er_app.current_scenario_id, handleScenarioSwitch)
 
         # Main Dynamic Content Area
         with content_container:
             er_app.renderScenarioContent()
+
 
 
 buildApp()

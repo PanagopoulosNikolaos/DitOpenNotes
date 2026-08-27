@@ -68,7 +68,7 @@ def renderERDiagram(scenario: Scenario) -> None:
             # Top Legend Overlay
             ui.html(
                 """
-                <div class="absolute top-3 left-3 z-10 bg-[#171615]/85 backdrop-blur-md text-[#f4f1ea] p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] text-xs flex flex-wrap gap-3">
+                <div class="absolute top-3 left-3 z-10 bg-[#171615]/85 backdrop-blur-md text-[#f4f1ea] p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] text-xs flex flex-wrap gap-3 no-print">
                     <span class="flex items-center gap-1.5"><i class="fa-solid fa-table text-blue-400"></i> Πίνακας</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#e06b3a] rounded-sm"></span> PK</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-400 rounded-sm"></span> FK</span>
@@ -328,7 +328,7 @@ ui.add_head_html(
 
         function resetERZoom() {
             zoomScale = 0.8;
-            panX = 0;
+            panX = 12;
             panY = 0;
             updateTransform();
         }
