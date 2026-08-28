@@ -167,6 +167,110 @@ def _renderCrowsFootSection() -> None:
                         "• Διχάλα / Πόδι Κόρακα (<): Μέγιστο = N ή M (Πολλά στιγμιότυπα / Many)"
                     ).classes("text-xs text-[#b5b0a4] leading-relaxed")
 
+        # Official Crow's Foot Connection Reference (7 Variants from Standard / Official Notation)
+        with ui.column().classes("w-full gap-4"):
+            with ui.row().classes("items-center gap-2"):
+                ui.html('<i class="fa-solid fa-diagram-project text-[#e06b3a]"></i>')
+                ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Επίσημος Οδηγός Συνδέσεων & Ακροδεκτών Crow\'s Foot (7 Παραλλαγές)</h3>')
+            ui.label(
+                "Ο παρακάτω πίνακας παρουσιάζει τόσο τις απλοποιημένες συνδέσεις γενικής χρήσης "
+                "όσο και τις αναλυτικές συνδέσεις Information Engineering (IE) με πλήρη αποτύπωση Modality και Cardinality:"
+            ).classes("text-xs text-[#b5b0a4]")
+
+            with ui.grid().classes("grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full"):
+                _renderOfficialSymbolCard(
+                    title="One to One",
+                    greek_name="Απλό Ένα προς Ένα",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Απλή συνεχής γραμμή 1:1 χωρίς αναλυτική απεικόνιση προαιρετικότητας (Generic One-to-One).",
+                    color_class="border-blue-500",
+                )
+                _renderOfficialSymbolCard(
+                    title="One to Many (Mandatory)",
+                    greek_name="Απλό Ένα προς Πολλά (Υποχρεωτικό)",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="35" y1="12" x2="35" y2="38" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="120" y1="25" x2="145" y2="12" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="120" y1="25" x2="145" y2="38" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Κλασική απλοποιημένη σύνδεση 1:N με μονό τικ στο 1 και διχάλα στα Πολλά (Simple 1:N).",
+                    color_class="border-emerald-500",
+                )
+                _renderOfficialSymbolCard(
+                    title="Many",
+                    greek_name="Απλό Πολλά (Generic Crow's Foot)",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="15" y1="12" x2="40" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="15" y1="38" x2="40" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Απλό άκρο πολλών (Many) χωρίς διαχωρισμό μεταξύ μηδενικής ή υποχρεωτικής συμμετοχής.",
+                    color_class="border-amber-500",
+                )
+                _renderOfficialSymbolCard(
+                    title="One and Only One (Mandatory)",
+                    greek_name="Ακριβώς Ένα (1..1 - Υποχρεωτικό)",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="28" y1="12" x2="28" y2="38" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="42" y1="12" x2="42" y2="38" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Δύο κάθετες γραμμές (||): Υποχρεωτική συμμετοχή σε ακριβώς 1 στιγμιότυπο (Modality: 1, Cardinality: 1).",
+                    color_class="border-emerald-500",
+                )
+                _renderOfficialSymbolCard(
+                    title="One or More (Mandatory)",
+                    greek_name="Ένα ή Περισσότερα (1..N - Υποχρεωτικό)",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="15" y1="12" x2="38" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="15" y1="38" x2="38" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="48" y1="12" x2="48" y2="38" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Διχάλα με κάθετη γραμμή (>|): Υποχρεωτική συμμετοχή σε τουλάχιστον 1 στιγμιότυπο (Modality: 1, Cardinality: N).",
+                    color_class="border-[#e06b3a]",
+                )
+                _renderOfficialSymbolCard(
+                    title="Zero or one (Optional)",
+                    greek_name="Μηδέν ή Ένα (0..1 - Προαιρετικό)",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <circle cx="28" cy="25" r="6" fill="#1c1b1a" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="46" y1="12" x2="46" y2="38" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Κύκλος με κάθετη γραμμή (O|): Προαιρετική συμμετοχή σε το πολύ 1 στιγμιότυπο (Modality: 0, Cardinality: 1).",
+                    color_class="border-slate-500",
+                )
+                _renderOfficialSymbolCard(
+                    title="Zero or Many (Optional)",
+                    greek_name="Μηδέν ή Πολλά (0..N - Προαιρετικό)",
+                    svg_markup="""
+                    <svg viewBox="0 0 160 50" class="w-full h-12">
+                        <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="15" y1="12" x2="38" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <line x1="15" y1="38" x2="38" y2="25" stroke="#e06b3a" stroke-width="2.5" />
+                        <circle cx="50" cy="25" r="6" fill="#1c1b1a" stroke="#e06b3a" stroke-width="2.5" />
+                    </svg>
+                    """,
+                    desc="Διχάλα με κύκλο (>O): Προαιρετική συμμετοχή σε 0 έως πολλά στιγμιότυπα (Modality: 0, Cardinality: N).",
+                    color_class="border-blue-500",
+                )
+
         # 4 Fundamental Endpoints Cards with SVGs
         with ui.column().classes("w-full gap-4"):
             ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Τα 4 Βασικά Άκρα Crow\'s Foot (Endpoints)</h3>')
@@ -436,6 +540,24 @@ def _renderCrowsFootSection() -> None:
                         </div>
                         """
                     )
+
+
+def _renderOfficialSymbolCard(
+    title: str,
+    greek_name: str,
+    svg_markup: str,
+    desc: str,
+    color_class: str,
+) -> None:
+    """Renders a card for the official reference connection types."""
+    with ui.column().classes(
+        f"p-4 rounded-xl bg-[#201f1d] border-t-4 {color_class} border border-[rgba(255,255,255,0.06)] gap-2 justify-between"
+    ):
+        with ui.column().classes("gap-1"):
+            ui.label(title).classes("font-bold text-[#f4f1ea] text-sm")
+            ui.label(greek_name).classes("text-xs text-[#e06b3a] font-semibold")
+        ui.html(svg_markup)
+        ui.label(desc).classes("text-[11px] text-[#b5b0a4] leading-relaxed border-t border-[rgba(255,255,255,0.06)] pt-2")
 
 
 def _renderEndpointCard(

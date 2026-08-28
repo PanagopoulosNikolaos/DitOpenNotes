@@ -551,7 +551,7 @@ def createSportsLeagueScenario() -> Scenario:
             cardinality="1:N",
             participation="Ολική για Αθλητή (1,1), Ολική για Ομάδα (1,N)",
             relationship_type="Κανονική Σχέση",
-            attributes=["jersey_number", "hmer_enarxis", "hmer_lixis", "etisie_apodoxes"],
+            attributes=["jersey_number", "hmer_enarxis_symvolaiou", "hmer_lixis_symvolaiou", "etisies_apodoxes"],
             justification="Κάθε παίκτης δεσμεύεται με συμβόλαιο σε 1 ομάδα. Κάθε ομάδα διαθέτει ρόστερ πολλών παικτών.",
         ),
         Relationship(
@@ -676,7 +676,7 @@ def createSportsLeagueScenario() -> Scenario:
                 ERTableAttr("jersey_number"),
                 ERTableAttr("hmer_enarxis_symvolaiou"),
                 ERTableAttr("hmer_lixis_symvolaiou"),
-                ERTableAttr("etisie_apodoxes"),
+                ERTableAttr("etisies_apodoxes"),
             ],
         ),
         ERTable(
@@ -728,21 +728,21 @@ def createSportsLeagueScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Team to Head Coach (1:1)
-        EREdge("M 320 80 L 460 80", "start-one-optional", "end-one-mandatory", "ΕΠΙΚΕΦΑΛΗΣ (1:1)", 390, 70),
+        EREdge("M 320 80 L 460 80", "start-one-mandatory", "end-one-optional", "ΕΠΙΚΕΦΑΛΗΣ (1:1)", 390, 70),
         # Team to Colors (1:N)
         EREdge("M 320 120 L 860 120", "start-one-mandatory", "end-many-mandatory", "ΕΧΕΙ_ΧΡΩΜΑΤΑ (1:N)", 590, 110),
         # Team to Athletes (1:N)
         EREdge("M 190 294 L 190 360", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΒΟΛΑΙΟ (1:N)", 205, 330),
         # Athlete to Injuries (1:N identifying)
-        EREdge("M 320 400 L 460 400", "start-one-mandatory", "end-many-optional", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 390, 390),
+        EREdge("M 320 400 L 460 400", "start-one-optional", "end-many-mandatory", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 390, 390),
         # Athlete to Events (1:N routed under injury table)
-        EREdge("M 320 580 L 860 580 L 860 548", "start-one-mandatory", "end-many-optional", "ΠΡΟΚΑΛΕΣΕ (1:N)", 590, 570),
+        EREdge("M 320 580 L 860 580 L 860 548", "start-one-optional", "end-many-mandatory", "ΠΡΟΚΑΛΕΣΕ (1:N)", 590, 570),
         # Team to Match (Home, 1:N routed around athlete table)
-        EREdge("M 320 200 L 400 200 L 400 660 L 460 660", "start-one-mandatory", "end-many-optional", "ΓΗΠΕΔΟΥΧΟΣ (1:N)", 390, 430),
+        EREdge("M 320 200 L 400 200 L 400 660 L 460 660", "start-one-optional", "end-many-mandatory", "ΓΗΠΕΔΟΥΧΟΣ (1:N)", 390, 430),
         # Team to Match (Away, 1:N routed around athlete table)
-        EREdge("M 320 230 L 420 230 L 420 700 L 460 700", "start-one-mandatory", "end-many-optional", "ΦΙΛΟΞΕΝΟΥΜΕΝΗ (1:N)", 410, 470),
+        EREdge("M 320 230 L 420 230 L 420 700 L 460 700", "start-one-optional", "end-many-mandatory", "ΦΙΛΟΞΕΝΟΥΜΕΝΗ (1:N)", 410, 470),
         # Match to Events (1:N identifying)
-        EREdge("M 720 650 L 860 480", "start-one-mandatory", "end-many-optional", "ΠΕΡΙΛΑΜΒΑΝΕΙ (1:N)", 780, 570),
+        EREdge("M 720 650 L 860 480", "start-one-optional", "end-many-mandatory", "ΠΕΡΙΛΑΜΒΑΝΕΙ (1:N)", 780, 570),
     ]
 
     # 9. Relational Conversion Justifications
@@ -822,7 +822,7 @@ CREATE TABLE ATHLITIS (
     jersey_number INT NOT NULL CHECK (jersey_number BETWEEN 1 AND 99),
     hmer_enarxis_symvolaiou DATE NOT NULL,
     hmer_lixis_symvolaiou DATE NOT NULL,
-    etisie_apodoxes DECIMAL(12, 2) NOT NULL CHECK (etisie_apodoxes >= 0),
+    etisies_apodoxes DECIMAL(12, 2) NOT NULL CHECK (etisies_apodoxes >= 0),
     FOREIGN KEY (team_id) REFERENCES OMADA(team_id) ON DELETE RESTRICT,
     CHECK (hmer_lixis_symvolaiou > hmer_enarxis_symvolaiou)
 );

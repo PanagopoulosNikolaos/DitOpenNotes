@@ -166,7 +166,7 @@ def createStreamingPlatformScenario() -> Scenario:
                     category="entity",
                     tag_label="ΑΣΘΕΝΗΣ ΟΝΤΟΤΗΤΑ",
                     badge_class="badge-entity-weak",
-                    tooltip="Υπαρξιακή Εξάρτηση: Προσδιορίζουσα οντότητα είναι η ΤΗΛΕΟΠΤΙΚΗ_ΣΕΙΡΑ.",
+                    tooltip="Υπαρκτική Εξάρτηση: Προσδιορίζουσα οντότητα είναι η ΤΗΛΕΟΠΤΙΚΗ_ΣΕΙΡΑ.",
                 ),
                 TextSegment(text="."),
             ],
@@ -572,6 +572,7 @@ def createStreamingPlatformScenario() -> Scenario:
         "Οι γλώσσες ήχου και υπότιτλων αποθηκεύονται σε ξεχωριστούς σχεσιακούς πίνακες 1:N για πλήρη κανονικοποίηση 1NF.",
         "Οι τρόποι πληρωμής συνδρομητή εξάγονται σε ανεξάρτητο πίνακα TROPOS_PLIROMIS.",
         "Το ιστορικό θεάσεων υποστηρίζει τόσο ταινίες (season_number = NULL, episode_number = NULL) όσο και επεισόδια σειρών.",
+        "Στον πίνακα SYMMETOXH_SYNTELESTH το γνώρισμα idiotita συμμετέχει στο σύνθετο Primary Key ώστε ένας συντελεστής να μπορεί να έχει πολλαπλούς ρόλους (π.χ. σκηνοθέτης & ηθοποιός) στο ίδιο έργο.",
     ]
 
     # 7. ER Diagram Tables
@@ -739,21 +740,21 @@ def createStreamingPlatformScenario() -> Scenario:
         # Series to Episodes (1:N identifying)
         EREdge("M 710 80 L 850 80", "start-one-mandatory", "end-many-mandatory", "ΠΕΡΙΕΧΕΙ (1:N)", 780, 70),
         # Media to Audio Languages (1:N multivalued)
-        EREdge("M 180 236 L 180 260", "start-one-mandatory", "end-many-optional", "ΓΛΩΣΣΑ_ΗΧΟΥ (1:N)", 205, 248),
+        EREdge("M 180 236 L 180 260", "start-one-mandatory", "end-many-mandatory", "ΓΛΩΣΣΑ_ΗΧΟΥ (1:N)", 205, 248),
         # Media to Subtitles (1:N multivalued)
-        EREdge("M 310 160 L 450 240", "start-one-mandatory", "end-many-optional", "ΥΠΟΤΙΤΛΟΙ (1:N)", 380, 195),
+        EREdge("M 310 160 L 450 240", "start-one-mandatory", "end-many-mandatory", "ΥΠΟΤΙΤΛΟΙ (1:N)", 380, 195),
         # Media to Participation (1:N)
         EREdge("M 310 180 L 450 400", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΜΕΤΟΧΗ (1:N)", 380, 290),
         # Creator to Participation (1:N)
-        EREdge("M 850 410 L 710 410", "start-one-mandatory", "end-many-optional", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 780, 400),
+        EREdge("M 850 410 L 710 410", "start-one-optional", "end-many-mandatory", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 780, 400),
         # Subscriber to Profile (1:N identifying)
         EREdge("M 310 680 L 450 680", "start-one-mandatory", "end-many-mandatory", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 380, 670),
         # Subscriber to Payment methods (1:N multivalued)
-        EREdge("M 180 828 L 180 880", "start-one-mandatory", "end-many-optional", "ΠΛΗΡΩΜΗ (1:N)", 205, 854),
+        EREdge("M 180 828 L 180 880", "start-one-mandatory", "end-many-mandatory", "ΠΛΗΡΩΜΗ (1:N)", 205, 854),
         # Profile to History (1:N)
-        EREdge("M 710 680 L 850 680", "start-one-mandatory", "end-many-optional", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 780, 670),
+        EREdge("M 710 680 L 850 680", "start-one-optional", "end-many-mandatory", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 780, 670),
         # Media to History (1:N)
-        EREdge("M 310 120 L 850 660", "start-one-mandatory", "end-many-optional", "ΠΡΟΒΟΛΗ (1:N)", 580, 390),
+        EREdge("M 310 120 L 850 660", "start-one-optional", "end-many-mandatory", "ΠΡΟΒΟΛΗ (1:N)", 580, 390),
     ]
 
     # 9. Relational Conversion Justifications
@@ -906,7 +907,7 @@ CREATE TABLE ISTORIKO_THEASIS (
     PRIMARY KEY (email, profile_name, isan, hmerominia_ora_enarksis),
     FOREIGN KEY (email, profile_name) REFERENCES PROFIL_XRHSTH(email, profile_name) ON DELETE CASCADE,
     FOREIGN KEY (isan) REFERENCES ERGO(isan) ON DELETE CASCADE,
-    FOREIGN KEY (isan, season_number, episode_number) REFERENCES EPEISODIO(isan, season_number, episode_number) ON DELETE SET NULL
+    FOREIGN KEY (isan, season_number, episode_number) REFERENCES EPEISODIO(isan, season_number, episode_number) ON DELETE CASCADE
 );"""
 
     return Scenario(

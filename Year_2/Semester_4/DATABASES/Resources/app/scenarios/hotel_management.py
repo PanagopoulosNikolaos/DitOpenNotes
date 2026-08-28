@@ -787,27 +787,27 @@ def createHotelManagementScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Resort directs Employee (1:1)
-        EREdge("M 310 80 L 850 360", "start-one-optional", "end-one-mandatory", "ΔΙΕΥΘΥΝΕΙ (1:1)", 550, 240),
+        EREdge("M 310 80 L 850 360", "start-one-mandatory", "end-one-optional", "ΔΙΕΥΘΥΝΕΙ (1:1)", 550, 240),
         # Resort employs Employees (1:N)
         EREdge("M 310 120 L 850 400", "start-one-mandatory", "end-many-mandatory", "ΑΠΑΣΧΟΛΕΙ (1:N)", 550, 280),
         # Resort has Rooms (1:N identifying)
         EREdge("M 310 100 L 450 100", "start-one-mandatory", "end-many-mandatory", "ΔΙΑΘΕΤΕΙ (1:N)", 380, 90),
         # Resort has Amenities (1:N multi-value)
-        EREdge("M 180 350 L 180 370", "start-one-mandatory", "end-many-optional", "ΠΑΡΟΧΗ (1:N)", 195, 360),
+        EREdge("M 180 350 L 180 370", "start-one-mandatory", "end-many-mandatory", "ΠΑΡΟΧΗ (1:N)", 195, 360),
         # Room to Inspection (1:N)
-        EREdge("M 580 294 L 580 340", "start-one-mandatory", "end-many-optional", "ΕΛΕΓΧΟΣ (1:N)", 595, 315),
+        EREdge("M 580 294 L 580 340", "start-one-optional", "end-many-mandatory", "ΕΛΕΓΧΟΣ (1:N)", 595, 315),
         # Employee to Inspection (1:N)
-        EREdge("M 850 370 L 710 370", "start-one-mandatory", "end-many-optional", "ΕΚΤΕΛΕΙ (1:N)", 780, 360),
+        EREdge("M 850 370 L 710 370", "start-one-optional", "end-many-mandatory", "ΕΚΤΕΛΕΙ (1:N)", 780, 360),
         # Room to Booking (1:N)
-        EREdge("M 450 170 L 400 170 L 400 650 L 450 650", "start-one-mandatory", "end-many-optional", "ΔΕΣΜΕΥΕΤΑΙ (1:N)", 385, 410),
+        EREdge("M 450 170 L 400 170 L 400 650 L 450 650", "start-one-optional", "end-many-mandatory", "ΔΕΣΜΕΥΕΤΑΙ (1:N)", 385, 410),
         # Guest to Booking (1:N)
-        EREdge("M 850 200 L 710 650", "start-one-mandatory", "end-many-optional", "ΠΡΑΓΜΑΤΟΠΟΙΕΙ (1:N)", 780, 520),
+        EREdge("M 850 200 L 710 650", "start-one-optional", "end-many-mandatory", "ΠΡΑΓΜΑΤΟΠΟΙΕΙ (1:N)", 780, 520),
         # Guest to Phone (1:N)
-        EREdge("M 980 294 L 980 600", "start-one-mandatory", "end-many-optional", "ΤΗΛΕΦΩΝΟ (1:N)", 995, 460),
+        EREdge("M 980 294 L 980 600", "start-one-optional", "end-many-mandatory", "ΤΗΛΕΦΩΝΟ (1:N)", 995, 460),
         # Booking to Service Charge (1:N)
-        EREdge("M 450 680 L 310 680", "start-one-mandatory", "end-many-optional", "ΧΡΕΩΣΗ (1:N)", 380, 670),
+        EREdge("M 450 680 L 310 680", "start-one-optional", "end-many-mandatory", "ΧΡΕΩΣΗ (1:N)", 380, 670),
         # Service to Service Charge (1:N)
-        EREdge("M 180 632 L 180 660", "start-one-mandatory", "end-many-optional", "ΠΑΡΕΧΕΤΑΙ (1:N)", 195, 645),
+        EREdge("M 180 632 L 180 660", "start-one-optional", "end-many-mandatory", "ΠΑΡΕΧΕΤΑΙ (1:N)", 195, 645),
     ]
 
     # 9. Relational Conversion Justifications

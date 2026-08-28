@@ -375,13 +375,13 @@ def createPastExam1Scenario() -> Scenario:
     ]
 
     er_edges = [
-        EREdge(path="M 310,120 L 450,120", marker_start="end-one", marker_end="start-many", label="ΠΡΟΣΦΕΡΕΙ", lx=380, ly=110),
-        EREdge(path="M 180,240 L 180,340", marker_start="end-one", marker_end="start-many", label="ΔΙΑΘΕΤΕΙ", lx=190, ly=290),
-        EREdge(path="M 310,180 L 450,420", marker_start="start-one", marker_end="end-one", label="ΔΙΕΥΘΥΝΕΙ", lx=380, ly=300),
-        EREdge(path="M 310,140 L 450,400", marker_start="end-one", marker_end="start-many", label="ΑΝΗΚΕΙ", lx=370, ly=260),
-        EREdge(path="M 710,120 L 850,120", marker_start="end-one", marker_end="start-many", label="ΠΡΟΓΡΑΜΜΑ", lx=780, ly=110),
-        EREdge(path="M 710,420 L 850,160", marker_start="end-one", marker_end="start-many", label="ΣΥΜΜΕΤΟΧΗ", lx=780, ly=290),
-        EREdge(path="M 710,480 L 850,480", marker_start="end-one", marker_end="start-many", label="ΕΧΕΙ_ΕΞΑΡΤΩΜΕΝΟ", lx=780, ly=470),
+        EREdge(path="M 310,120 L 450,120", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΠΡΟΣΦΕΡΕΙ", lx=380, ly=110),
+        EREdge(path="M 180,240 L 180,340", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΔΙΑΘΕΤΕΙ", lx=190, ly=290),
+        EREdge(path="M 310,180 L 450,420", marker_start="start-one-mandatory", marker_end="end-one-optional", label="ΔΙΕΥΘΥΝΕΙ", lx=380, ly=300),
+        EREdge(path="M 310,140 L 450,400", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΑΝΗΚΕΙ", lx=370, ly=260),
+        EREdge(path="M 710,120 L 850,120", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΠΡΟΓΡΑΜΜΑ", lx=780, ly=110),
+        EREdge(path="M 710,420 L 850,160", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΣΥΜΜΕΤΟΧΗ", lx=780, ly=290),
+        EREdge(path="M 710,480 L 850,480", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΕΧΕΙ_ΕΞΑΡΤΩΜΕΝΟ", lx=780, ly=470),
     ]
 
     relational_justifications = [
