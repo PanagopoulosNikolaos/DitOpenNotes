@@ -720,7 +720,7 @@ def createBankingManagementScenario() -> Scenario:
         ),
         ERTable(
             id="t-account-holder",
-            label="SYNDIKAIUXOS_LOGARIASMOU",
+            label="SYNDIKAIOUXOS_LOGARIASMOU",
             x=450,
             y=430,
             attrs=[
@@ -769,17 +769,17 @@ def createBankingManagementScenario() -> Scenario:
         # Account contains Movements (1:N identifying)
         EREdge("M 150 530 L 150 640", "start-one-optional", "end-many-mandatory", "ΕΚΤΕΛΕΙΤΑΙ_ΣΕ (1:N)", 165, 585),
         # Account to Co-holders (1:N)
-        EREdge("M 250 430 L 450 430", "start-one-mandatory", "end-many-mandatory", "ΣΥΝΔΙΚΑΙΟΥΧΟΣ (1:N)", 350, 420),
+        EREdge("M 310 430 L 450 430", "start-one-mandatory", "end-many-mandatory", "ΣΥΝΔΙΚΑΙΟΥΧΟΣ (1:N)", 380, 420),
         # Customer to Co-holders (1:N)
-        EREdge("M 850 160 L 650 430", "start-one-optional", "end-many-mandatory", "ΚΑΤΕΧΕΙ (1:N)", 750, 300),
+        EREdge("M 850 160 L 710 430", "start-one-optional", "end-many-mandatory", "ΚΑΤΕΧΕΙ (1:N)", 780, 300),
         # Customer to Phone numbers (1:N)
-        EREdge("M 950 310 L 950 430", "start-one-optional", "end-many-mandatory", "ΕΧΕΙ_ΤΗΛΕΦΩΝΟ (1:N)", 965, 370),
+        EREdge("M 980 378 L 980 430", "start-one-optional", "end-many-mandatory", "ΕΧΕΙ_ΤΗΛΕΦΩΝΟ (1:N)", 995, 400),
         # Branch issues Loans (1:N)
         EREdge("M 200 210 L 450 670", "start-one-optional", "end-many-mandatory", "ΧΟΡΗΓΕΙΤΑΙ_ΑΠΟ (1:N)", 310, 480),
         # Loan to Borrowers (1:N)
         EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-mandatory", "ΔΑΝΕΙΟΛΗΠΤΗΣ (1:N)", 750, 670),
-        # Customer to Borrowers (1:N)
-        EREdge("M 950 310 L 950 640", "start-one-optional", "end-many-mandatory", "ΛΑΜΒΑΝΕΙ_ΔΑΝΕΙΟ (1:N)", 965, 520),
+        # Customer to Borrowers (1:N routed around phone table)
+        EREdge("M 1110 200 L 1140 200 L 1140 680 L 1110 680", "start-one-optional", "end-many-mandatory", "ΛΑΜΒΑΝΕΙ_ΔΑΝΕΙΟ (1:N)", 1150, 440),
     ]
 
     # 9. Relational Conversion Justifications
@@ -802,7 +802,7 @@ def createBankingManagementScenario() -> Scenario:
         RelationalJustification(
             title="4. Μετατροπή Συσχετίσεων N:M (ΚΑΤΕΧΕΙ_ΛΟΓΑΡΙΑΣΜΟ, ΣΥΝΔΕΕΤΑΙ_ΜΕ_ΔΑΝΕΙΟΛΗΠΤΗ)",
             color_class="border-amber-500",
-            description="Δημιουργούνται οι πίνακες σύνδεσης SYNDIKAIUXOS_LOGARIASMOU (με σύνθετο PK iban + afm και τα γνωρίσματα σχέσης) και DANEIOLIPTIS (με σύνθετο PK loan_number + afm).",
+            description="Δημιουργούνται οι πίνακες σύνδεσης SYNDIKAIOUXOS_LOGARIASMOU (με σύνθετο PK iban + afm και τα γνωρίσματα σχέσης) και DANEIOLIPTIS (με σύνθετο PK loan_number + afm).",
         ),
         RelationalJustification(
             title="5. Μετατροπή Πλειότιμου Γνωρίσματος (ΤΗΛΕΦΩΝΑ_ΠΕΛΑΤΗ)",
@@ -894,8 +894,8 @@ CREATE TABLE KINISI_LOGARIASMOU (
     FOREIGN KEY (iban) REFERENCES LOGARIASMOS(iban) ON DELETE CASCADE
 );
 
--- 7. Junction Table: SYNDIKAIUXOS_LOGARIASMOU (N:M)
-CREATE TABLE SYNDIKAIUXOS_LOGARIASMOU (
+-- 7. Junction Table: SYNDIKAIOUXOS_LOGARIASMOU (N:M)
+CREATE TABLE SYNDIKAIOUXOS_LOGARIASMOU (
     iban VARCHAR(34) NOT NULL,
     afm VARCHAR(9) NOT NULL,
     idiotita_dikaiouxou VARCHAR(30) NOT NULL CHECK (idiotita_dikaiouxou IN ('Κύριος Δικαιούχος', 'Συνδικαιούχος')),

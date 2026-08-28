@@ -375,7 +375,7 @@ def createMaritimeShippingScenario() -> Scenario:
             justification="Προγραμματισμένο εμπορικό δρομολόγιο με μοναδικό κωδικό Voyage Code.",
             attributes=[
                 Attribute(name="Κωδικός_Ταξιδιού", attr_type="Απλό, Μονότιμο, Primary Key", is_pk=True),
-                Attribute(name="Προγραμματισμένη_Απόπλους_ETD", attr_type="Απλό, Μονότιμο"),
+                Attribute(name="Προγραμματισμένος_Απόπλους_ETD", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Προγραμματισμένος_Κατάπλους_ETA", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Πραγματική_Άφιξη", attr_type="Απλό, Μονότιμο (Nullable)"),
                 Attribute(name="Είδος_Φορτίου", attr_type="Απλό, Μονότιμο"),

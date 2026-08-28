@@ -502,14 +502,34 @@ def createHotelManagementScenario() -> Scenario:
             justification="Ημερομηνία κατά την οποία ο Γενικός Διευθυντής ανέλαβε τη διοίκηση της μονάδας.",
         ),
         RelationshipAttribute(
-            name="hmer_elegxou, katastasi_etoimotitas, paratiriseis_vlavon",
+            name="hmer_elegxou",
             relationship_name="ΕΛΕΓΧΟΣ_ΚΑΘΑΡΙΣΜΟΣ (ΔΩΜΑΤΙΟ - ΥΠΑΛΛΗΛΟΣ)",
-            justification="Χρονοσφραγίδα επιθεώρησης, κατάσταση ετοιμότητας ('Έτοιμο', 'Υπό Καθαρισμό', 'Εκτός Λειτουργίας', 'Επισκευάστηκε') και τεχνικές παρατηρήσεις.",
+            justification="Χρονοσφραγίδα επιθεώρησης και ελέγχου του δωματίου.",
         ),
         RelationshipAttribute(
-            name="hmer_paroxis, posotita, synoliko_poso",
+            name="katastasi_etoimotitas",
+            relationship_name="ΕΛΕΓΧΟΣ_ΚΑΘΑΡΙΣΜΟΣ (ΔΩΜΑΤΙΟ - ΥΠΑΛΛΗΛΟΣ)",
+            justification="Κατάσταση ετοιμότητας ('Έτοιμο', 'Υπό Καθαρισμό', 'Εκτός Λειτουργίας', 'Επισκευάστηκε').",
+        ),
+        RelationshipAttribute(
+            name="paratiriseis_vlavon",
+            relationship_name="ΕΛΕΓΧΟΣ_ΚΑΘΑΡΙΣΜΟΣ (ΔΩΜΑΤΙΟ - ΥΠΑΛΛΗΛΟΣ)",
+            justification="Τεχνικές παρατηρήσεις και αναφορές βλαβών προς αποκατάσταση.",
+        ),
+        RelationshipAttribute(
+            name="hmer_paroxis",
             relationship_name="ΧΡΕΩΣΗ_ΥΠΗΡΕΣΙΑΣ (ΚΡΑΤΗΣΗ - ΥΠΗΡΕΣΙΑ)",
-            justification="Χρονοσφραγίδα παροχής έξτρα υπηρεσίας, ποσότητα και υπολογιζόμενο ποσό χρέωσης στην κράτηση.",
+            justification="Χρονοσφραγίδα παροχής της έξτρα υπηρεσίας στον πελάτη.",
+        ),
+        RelationshipAttribute(
+            name="posotita",
+            relationship_name="ΧΡΕΩΣΗ_ΥΠΗΡΕΣΙΑΣ (ΚΡΑΤΗΣΗ - ΥΠΗΡΕΣΙΑ)",
+            justification="Αριθμός μονάδων/ποσότητα της παρεχόμενης υπηρεσίας.",
+        ),
+        RelationshipAttribute(
+            name="synoliko_poso",
+            relationship_name="ΧΡΕΩΣΗ_ΥΠΗΡΕΣΙΑΣ (ΚΡΑΤΗΣΗ - ΥΠΗΡΕΣΙΑ)",
+            justification="Υπολογιζόμενο συνολικό ποσό χρέωσης στην κράτηση διαμονής.",
         ),
     ]
 

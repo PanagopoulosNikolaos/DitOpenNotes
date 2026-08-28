@@ -446,14 +446,44 @@ def createStreamingPlatformScenario() -> Scenario:
     # 3. Relationship Attributes
     relationship_attributes = [
         RelationshipAttribute(
-            name="idiotita, onoma_rolou, symfonitheisa_amoivi",
+            name="idiotita",
             relationship_name="ΣΥΜΜΕΤΟΧΗ_ΣΥΝΤΕΛΕΣΤΗ (ΕΡΓΟ - ΣΥΝΤΕΛΕΣΤΗΣ)",
-            justification="Ιδιότητα συμμετοχής (π.χ. 'Σκηνοθέτης', 'Ηθοποιός'), όνομα χαρακτήρα και αμοιβή στον πίνακα σύνδεσης.",
+            justification="Ιδιότητα συμμετοχής (π.χ. 'Σκηνοθέτης', 'Σεναριογράφος', 'Πρωταγωνιστής').",
         ),
         RelationshipAttribute(
-            name="hmerominia_ora_enarksis, xroniki_proodos_sec, is_completed, rating_stars, hmer_axiologisis",
+            name="onoma_rolou",
+            relationship_name="ΣΥΜΜΕΤΟΧΗ_ΣΥΝΤΕΛΕΣΤΗ (ΕΡΓΟ - ΣΥΝΤΕΛΕΣΤΗΣ)",
+            justification="Όνομα ρόλου / χαρακτήρα που υποδύεται ο ηθοποιός στο σενάριο.",
+        ),
+        RelationshipAttribute(
+            name="symfonitheisa_amoivi",
+            relationship_name="ΣΥΜΜΕΤΟΧΗ_ΣΥΝΤΕΛΕΣΤΗ (ΕΡΓΟ - ΣΥΝΤΕΛΕΣΤΗΣ)",
+            justification="Συμφωνηθείσα οικονομική αμοιβή συμμετοχής του συντελεστή στο έργο.",
+        ),
+        RelationshipAttribute(
+            name="hmerominia_ora_enarksis",
             relationship_name="ΙΣΤΟΡΙΚΟ_ΘΕΑΣΗΣ (ΠΡΟΦΙΛ_ΧΡΗΣΤΗ - ΕΡΓΟ/ΕΠΕΙΣΟΔΙΟ)",
-            justification="Χρονοσφραγίδα αναπαραγωγής, σημείο παύσης (resume point), ένδειξη ολοκλήρωσης, αστέρια βαθμολογίας και ημερομηνία κριτικής.",
+            justification="Ακριβής χρονοσφραγίδα έναρξης αναπαραγωγής του περιεχομένου.",
+        ),
+        RelationshipAttribute(
+            name="xroniki_proodos_sec",
+            relationship_name="ΙΣΤΟΡΙΚΟ_ΘΕΑΣΗΣ (ΠΡΟΦΙΛ_ΧΡΗΣΤΗ - ΕΡΓΟ/ΕΠΕΙΣΟΔΙΟ)",
+            justification="Χρονική πρόοδος αναπαραγωγής σε δευτερόλεπτα (resume point).",
+        ),
+        RelationshipAttribute(
+            name="is_completed",
+            relationship_name="ΙΣΤΟΡΙΚΟ_ΘΕΑΣΗΣ (ΠΡΟΦΙΛ_ΧΡΗΣΤΗ - ΕΡΓΟ/ΕΠΕΙΣΟΔΙΟ)",
+            justification="Λογική ένδειξη ολοκλήρωσης της θέασης του έργου/επεισοδίου.",
+        ),
+        RelationshipAttribute(
+            name="rating_stars",
+            relationship_name="ΙΣΤΟΡΙΚΟ_ΘΕΑΣΗΣ (ΠΡΟΦΙΛ_ΧΡΗΣΤΗ - ΕΡΓΟ/ΕΠΕΙΣΟΔΙΟ)",
+            justification="Βαθμολογία αξιολόγησης από τον χρήστη (1 έως 5 αστέρια).",
+        ),
+        RelationshipAttribute(
+            name="hmer_axiologisis",
+            relationship_name="ΙΣΤΟΡΙΚΟ_ΘΕΑΣΗΣ (ΠΡΟΦΙΛ_ΧΡΗΣΤΗ - ΕΡΓΟ/ΕΠΕΙΣΟΔΙΟ)",
+            justification="Ημερομηνία υποβολής της κριτικής / βαθμολογίας.",
         ),
     ]
 
@@ -592,6 +622,41 @@ def createStreamingPlatformScenario() -> Scenario:
             ],
         ),
         ERTable(
+            id="t-movie",
+            label="TAINIA",
+            x=50,
+            y=340,
+            attrs=[
+                ERTableAttr("isan", pk=True, fk=True),
+                ERTableAttr("diarkeia_lepta"),
+            ],
+        ),
+        ERTable(
+            id="t-subscriber",
+            label="SYNDROMITIS",
+            x=50,
+            y=520,
+            attrs=[
+                ERTableAttr("email", pk=True),
+                ERTableAttr("username"),
+                ERTableAttr("password_hash"),
+                ERTableAttr("hmer_eggrafis"),
+                ERTableAttr("xora_xreosis"),
+                ERTableAttr("syndromitiko_paketo"),
+            ],
+        ),
+        ERTable(
+            id="t-payment-method",
+            label="TROPOS_PLIROMIS",
+            x=50,
+            y=800,
+            attrs=[
+                ERTableAttr("email", pk=True, fk=True),
+                ERTableAttr("typos_pliromis", pk=True),
+                ERTableAttr("stoixeia_pliromis", pk=True),
+            ],
+        ),
+        ERTable(
             id="t-series",
             label="TILEOPTIKI_SEIRA",
             x=450,
@@ -599,6 +664,53 @@ def createStreamingPlatformScenario() -> Scenario:
             attrs=[
                 ERTableAttr("isan", pk=True, fk=True),
                 ERTableAttr("synolo_sezon"),
+            ],
+        ),
+        ERTable(
+            id="t-audio-lang",
+            label="GLOSSA_HXOU",
+            x=450,
+            y=180,
+            attrs=[
+                ERTableAttr("isan", pk=True, fk=True),
+                ERTableAttr("glossa_hxou", pk=True),
+            ],
+        ),
+        ERTable(
+            id="t-subtitle-lang",
+            label="GLOSSA_YPOTITLON",
+            x=450,
+            y=310,
+            attrs=[
+                ERTableAttr("isan", pk=True, fk=True),
+                ERTableAttr("glossa_ypotitlon", pk=True),
+            ],
+        ),
+        ERTable(
+            id="t-participation",
+            label="SYMMETOXH_SYNTELESTH",
+            x=450,
+            y=440,
+            attrs=[
+                ERTableAttr("isan", pk=True, fk=True),
+                ERTableAttr("am_syntelesti", pk=True, fk=True),
+                ERTableAttr("idiotita", pk=True),
+                ERTableAttr("onoma_rolou"),
+                ERTableAttr("symfonitheisa_amoivi"),
+            ],
+        ),
+        ERTable(
+            id="t-profile",
+            label="PROFIL_XRHSTH",
+            x=450,
+            y=690,
+            attrs=[
+                ERTableAttr("email", pk=True, fk=True),
+                ERTableAttr("profile_name", pk=True),
+                ERTableAttr("avatar"),
+                ERTableAttr("glossa_diepafis"),
+                ERTableAttr("is_kids"),
+                ERTableAttr("parental_pin"),
             ],
         ),
         ERTable(
@@ -616,33 +728,10 @@ def createStreamingPlatformScenario() -> Scenario:
             ],
         ),
         ERTable(
-            id="t-movie",
-            label="TAINIA",
-            x=50,
-            y=370,
-            attrs=[
-                ERTableAttr("isan", pk=True, fk=True),
-                ERTableAttr("diarkeia_lepta"),
-            ],
-        ),
-        ERTable(
-            id="t-participation",
-            label="SYMMETOXH_SYNTELESTH",
-            x=450,
-            y=370,
-            attrs=[
-                ERTableAttr("isan", pk=True, fk=True),
-                ERTableAttr("am_syntelesti", pk=True, fk=True),
-                ERTableAttr("idiotita", pk=True),
-                ERTableAttr("onoma_rolou"),
-                ERTableAttr("symfonitheisa_amoivi"),
-            ],
-        ),
-        ERTable(
             id="t-creator",
             label="SYNTELESTIS",
             x=850,
-            y=370,
+            y=440,
             attrs=[
                 ERTableAttr("am_syntelesti", pk=True),
                 ERTableAttr("onomateponymo"),
@@ -653,38 +742,10 @@ def createStreamingPlatformScenario() -> Scenario:
             ],
         ),
         ERTable(
-            id="t-subscriber",
-            label="SYNDROMITIS",
-            x=50,
-            y=640,
-            attrs=[
-                ERTableAttr("email", pk=True),
-                ERTableAttr("username"),
-                ERTableAttr("password_hash"),
-                ERTableAttr("hmer_eggrafis"),
-                ERTableAttr("xora_xreosis"),
-                ERTableAttr("syndromitiko_paketo"),
-            ],
-        ),
-        ERTable(
-            id="t-profile",
-            label="PROFIL_XRHSTH",
-            x=450,
-            y=640,
-            attrs=[
-                ERTableAttr("email", pk=True, fk=True),
-                ERTableAttr("profile_name", pk=True),
-                ERTableAttr("avatar"),
-                ERTableAttr("glossa_diepafis"),
-                ERTableAttr("is_kids"),
-                ERTableAttr("parental_pin"),
-            ],
-        ),
-        ERTable(
             id="t-history",
             label="ISTORIKO_THEASIS",
             x=850,
-            y=640,
+            y=710,
             attrs=[
                 ERTableAttr("email", pk=True, fk=True),
                 ERTableAttr("profile_name", pk=True, fk=True),
@@ -698,37 +759,6 @@ def createStreamingPlatformScenario() -> Scenario:
                 ERTableAttr("hmer_axiologisis"),
             ],
         ),
-        ERTable(
-            id="t-audio-lang",
-            label="GLOSSA_HXOU",
-            x=50,
-            y=260,
-            attrs=[
-                ERTableAttr("isan", pk=True, fk=True),
-                ERTableAttr("glossa_hxou", pk=True),
-            ],
-        ),
-        ERTable(
-            id="t-subtitle-lang",
-            label="GLOSSA_YPOTITLON",
-            x=450,
-            y=240,
-            attrs=[
-                ERTableAttr("isan", pk=True, fk=True),
-                ERTableAttr("glossa_ypotitlon", pk=True),
-            ],
-        ),
-        ERTable(
-            id="t-payment-method",
-            label="TROPOS_PLIROMIS",
-            x=50,
-            y=880,
-            attrs=[
-                ERTableAttr("email", pk=True, fk=True),
-                ERTableAttr("typos_pliromis", pk=True),
-                ERTableAttr("stoixeia_pliromis", pk=True),
-            ],
-        ),
     ]
 
     # 8. ER Diagram Edges
@@ -736,25 +766,25 @@ def createStreamingPlatformScenario() -> Scenario:
         # Media to Series (ISA)
         EREdge("M 310 80 L 450 80", "start-one-mandatory", "end-one-mandatory", "ISA (ΣΕΙΡΑ)", 380, 70),
         # Media to Movie (ISA)
-        EREdge("M 180 236 L 180 370", "start-one-mandatory", "end-one-mandatory", "ISA (ΤΑΙΝΙΑ)", 195, 310),
+        EREdge("M 180 266 L 180 340", "start-one-mandatory", "end-one-mandatory", "ISA (ΤΑΙΝΙΑ)", 195, 300),
         # Series to Episodes (1:N identifying)
         EREdge("M 710 80 L 850 80", "start-one-mandatory", "end-many-mandatory", "ΠΕΡΙΕΧΕΙ (1:N)", 780, 70),
         # Media to Audio Languages (1:N multivalued)
-        EREdge("M 180 236 L 180 260", "start-one-mandatory", "end-many-mandatory", "ΓΛΩΣΣΑ_ΗΧΟΥ (1:N)", 205, 248),
+        EREdge("M 310 160 L 450 200", "start-one-mandatory", "end-many-mandatory", "ΓΛΩΣΣΑ_ΗΧΟΥ (1:N)", 380, 170),
         # Media to Subtitles (1:N multivalued)
-        EREdge("M 310 160 L 450 240", "start-one-mandatory", "end-many-mandatory", "ΥΠΟΤΙΤΛΟΙ (1:N)", 380, 195),
+        EREdge("M 310 210 L 450 330", "start-one-mandatory", "end-many-mandatory", "ΥΠΟΤΙΤΛΟΙ (1:N)", 380, 260),
         # Media to Participation (1:N)
-        EREdge("M 310 180 L 450 400", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΜΕΤΟΧΗ (1:N)", 380, 290),
+        EREdge("M 310 240 L 450 460", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΜΕΤΟΧΗ (1:N)", 380, 340),
         # Creator to Participation (1:N)
-        EREdge("M 850 410 L 710 410", "start-one-optional", "end-many-mandatory", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 780, 400),
+        EREdge("M 850 480 L 710 480", "start-one-optional", "end-many-mandatory", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 780, 470),
         # Subscriber to Profile (1:N identifying)
-        EREdge("M 310 680 L 450 680", "start-one-mandatory", "end-many-mandatory", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 380, 670),
+        EREdge("M 310 630 L 450 710", "start-one-mandatory", "end-many-mandatory", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 380, 660),
         # Subscriber to Payment methods (1:N multivalued)
-        EREdge("M 180 828 L 180 880", "start-one-mandatory", "end-many-mandatory", "ΠΛΗΡΩΜΗ (1:N)", 205, 854),
+        EREdge("M 180 736 L 180 800", "start-one-mandatory", "end-many-mandatory", "ΠΛΗΡΩΜΗ (1:N)", 195, 768),
         # Profile to History (1:N)
-        EREdge("M 710 680 L 850 680", "start-one-optional", "end-many-mandatory", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 780, 670),
-        # Media to History (1:N)
-        EREdge("M 310 120 L 850 660", "start-one-optional", "end-many-mandatory", "ΠΡΟΒΟΛΗ (1:N)", 580, 390),
+        EREdge("M 710 740 L 850 740", "start-one-optional", "end-many-mandatory", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 780, 730),
+        # Media to History (1:N routed around profile and subscriber)
+        EREdge("M 310 250 L 390 250 L 390 980 L 850 980", "start-one-optional", "end-many-mandatory", "ΠΡΟΒΟΛΗ (1:N)", 590, 970),
     ]
 
     # 9. Relational Conversion Justifications

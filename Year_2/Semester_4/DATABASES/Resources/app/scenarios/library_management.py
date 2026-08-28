@@ -514,9 +514,14 @@ def createLibraryManagementScenario() -> Scenario:
             justification="Ημερομηνία έναρξης άσκησης καθηκόντων διευθυντή παραρτήματος.",
         ),
         RelationshipAttribute(
-            name="seira_syggrafea, rolos_symvolis",
+            name="seira_syggrafea",
             relationship_name="ΣΥΓΓΡΑΦΗ (ΣΥΓΓΡΑΦΕΑΣ - ΒΙΒΛΙΟΓΡΑΦΙΚΟΣ_ΤΙΤΛΟΣ)",
-            justification="Σειρά εμφάνισης των συγγραφέων (π.χ. 1ος συγγραφέας, επιμελητής).",
+            justification="Σειρά αναγραφής/εμφάνισης του συγγραφέα στην έκδοση (π.χ. 1ος συγγραφέας).",
+        ),
+        RelationshipAttribute(
+            name="rolos_symvolis",
+            relationship_name="ΣΥΓΓΡΑΦΗ (ΣΥΓΓΡΑΦΕΑΣ - ΒΙΒΛΙΟΓΡΑΦΙΚΟΣ_ΤΙΤΛΟΣ)",
+            justification="Ρόλος συμβολής (π.χ. 'Κύριος Συγγραφέας', 'Επιμελητής', 'Μεταφραστής').",
         ),
     ]
 
@@ -741,18 +746,27 @@ def createLibraryManagementScenario() -> Scenario:
             ],
         ),
         ERTable(
-            id="t-copy",
-            label="ANTITYPO",
+            id="t-schedule",
+            label="ORARIO_LEITOURGIAS",
             x=60,
-            y=400,
+            y=420,
+            attrs=[
+                ERTableAttr("branch_id", pk=True, fk=True),
+                ERTableAttr("imera", pk=True),
+                ERTableAttr("ora_enarxis"),
+                ERTableAttr("ora_lixis"),
+            ],
+        ),
+        ERTable(
+            id="t-book-author",
+            label="SYGGRAFI_TITLOU",
+            x=860,
+            y=270,
             attrs=[
                 ERTableAttr("isbn", pk=True, fk=True),
-                ERTableAttr("copy_number", pk=True),
-                ERTableAttr("barcode"),
-                ERTableAttr("katastasi_fysiki"),
-                ERTableAttr("diathesimotita"),
-                ERTableAttr("thesi_rafi"),
-                ERTableAttr("branch_id", fk=True),
+                ERTableAttr("author_id", pk=True, fk=True),
+                ERTableAttr("seira_syggrafea"),
+                ERTableAttr("rolos_symvolis"),
             ],
         ),
         ERTable(
@@ -770,35 +784,18 @@ def createLibraryManagementScenario() -> Scenario:
             ],
         ),
         ERTable(
-            id="t-book-author",
-            label="SYGGRAFI_TITLOU",
-            x=860,
-            y=350,
+            id="t-copy",
+            label="ANTITYPO",
+            x=60,
+            y=620,
             attrs=[
                 ERTableAttr("isbn", pk=True, fk=True),
-                ERTableAttr("author_id", pk=True, fk=True),
-                ERTableAttr("seira_syggrafea"),
-                ERTableAttr("rolos_symvolis"),
-            ],
-        ),
-        ERTable(
-            id="t-member",
-            label="MELOS",
-            x=60,
-            y=680,
-            attrs=[
-                ERTableAttr("card_number", pk=True),
-                ERTableAttr("adt"),
-                ERTableAttr("onoma"),
-                ERTableAttr("eponymo"),
-                ERTableAttr("hmer_gennisis"),
-                ERTableAttr("odos"),
-                ERTableAttr("arithmos"),
-                ERTableAttr("tk"),
-                ERTableAttr("poli"),
-                ERTableAttr("email"),
-                ERTableAttr("hmer_eggrafis"),
-                ERTableAttr("katastasi_melous"),
+                ERTableAttr("copy_number", pk=True),
+                ERTableAttr("barcode"),
+                ERTableAttr("katastasi_fysiki"),
+                ERTableAttr("diathesimotita"),
+                ERTableAttr("thesi_rafi"),
+                ERTableAttr("branch_id", fk=True),
             ],
         ),
         ERTable(
@@ -833,22 +830,30 @@ def createLibraryManagementScenario() -> Scenario:
             ],
         ),
         ERTable(
-            id="t-schedule",
-            label="ORARIO_LEITOURGIAS",
+            id="t-member",
+            label="MELOS",
             x=60,
-            y=260,
+            y=910,
             attrs=[
-                ERTableAttr("branch_id", pk=True, fk=True),
-                ERTableAttr("imera", pk=True),
-                ERTableAttr("ora_enarxis"),
-                ERTableAttr("ora_lixis"),
+                ERTableAttr("card_number", pk=True),
+                ERTableAttr("adt"),
+                ERTableAttr("onoma"),
+                ERTableAttr("eponymo"),
+                ERTableAttr("hmer_gennisis"),
+                ERTableAttr("odos"),
+                ERTableAttr("arithmos"),
+                ERTableAttr("tk"),
+                ERTableAttr("poli"),
+                ERTableAttr("email"),
+                ERTableAttr("hmer_eggrafis"),
+                ERTableAttr("katastasi_melous"),
             ],
         ),
         ERTable(
             id="t-member-phone",
             label="TILEFONA_MELOUS",
             x=60,
-            y=1120,
+            y=1330,
             attrs=[
                 ERTableAttr("card_number", pk=True, fk=True),
                 ERTableAttr("tilefono", pk=True),
@@ -863,27 +868,27 @@ def createLibraryManagementScenario() -> Scenario:
         # Branch employs Staff (1:N)
         EREdge("M 320 120 L 460 120", "start-one-mandatory", "end-many-mandatory", "ΑΠΑΣΧΟΛΕΙ (1:N)", 390, 140),
         # Branch Schedule (1:N multivalued)
-        EREdge("M 190 238 L 190 260", "start-one-mandatory", "end-many-mandatory", "ΩΡΑΡΙΟ (1:N)", 205, 250),
+        EREdge("M 190 378 L 190 420", "start-one-mandatory", "end-many-mandatory", "ΩΡΑΡΙΟ (1:N)", 205, 399),
         # Author to Book Authorship (1:N)
-        EREdge("M 960 250 L 960 350", "start-one-optional", "end-many-mandatory", "ΣΥΓΓΡΑΦΕΙ (1:N)", 975, 300),
+        EREdge("M 990 210 L 990 270", "start-one-optional", "end-many-mandatory", "ΣΥΓΓΡΑΦΕΙ (1:N)", 1005, 240),
         # Book Title to Book Authorship (1:N)
         EREdge("M 720 380 L 860 380", "start-one-mandatory", "end-many-mandatory", "ΕΧΕΙ_ΣΥΓΓΡΑΦΕΙΣ (1:N)", 790, 370),
         # Book Title to Copies (1:N identifying)
-        EREdge("M 460 410 L 320 410", "start-one-optional", "end-many-mandatory", "ΕΧΕΙ_ΑΝΤΙΤΥΠΑ (1:N)", 390, 400),
+        EREdge("M 460 460 L 320 660", "start-one-optional", "end-many-mandatory", "ΕΧΕΙ_ΑΝΤΙΤΥΠΑ (1:N)", 390, 550),
         # Branch to Copies (1:N)
-        EREdge("M 190 238 L 190 400", "start-one-optional", "end-many-mandatory", "ΣΤΕΓΑΖΕΙ (1:N)", 205, 390),
+        EREdge("M 60 200 L 30 200 L 30 650 L 60 650", "start-one-optional", "end-many-mandatory", "ΣΤΕΓΑΖΕΙ (1:N)", 20, 425),
         # Member to Loan (1:N)
-        EREdge("M 320 700 L 460 700", "start-one-optional", "end-many-mandatory", "ΔΑΝΕΙΖΕΤΑΙ (1:N)", 390, 690),
+        EREdge("M 320 950 L 460 740", "start-one-optional", "end-many-mandatory", "ΔΑΝΕΙΖΕΤΑΙ (1:N)", 390, 835),
         # Copy to Loan (1:N)
-        EREdge("M 320 520 L 460 690", "start-one-optional", "end-many-mandatory", "ΑΦΟΡΑ_ΑΝΤΙΤΥΠΟ (1:N)", 390, 600),
+        EREdge("M 320 720 L 460 720", "start-one-optional", "end-many-mandatory", "ΑΦΟΡΑ_ΑΝΤΙΤΥΠΟ (1:N)", 390, 710),
         # Member to Reservation (1:N routed around loan)
-        EREdge("M 320 740 L 390 740 L 390 980 L 800 980 L 800 740 L 860 740", "start-one-optional", "end-many-mandatory", "ΥΠΟΒΑΛΛΕΙ (1:N)", 595, 970),
+        EREdge("M 320 980 L 400 980 L 400 1000 L 820 1000 L 820 740 L 860 740", "start-one-optional", "end-many-mandatory", "ΥΠΟΒΑΛΛΕΙ (1:N)", 610, 990),
         # Member to Phone (1:N)
-        EREdge("M 190 1064 L 190 1120", "start-one-optional", "end-many-mandatory", "ΤΗΛΕΦΩΝΑ (1:N)", 205, 1090),
+        EREdge("M 190 1294 L 190 1330", "start-one-optional", "end-many-mandatory", "ΤΗΛΕΦΩΝΑ (1:N)", 205, 1312),
         # Book Title to Reservation (1:N)
-        EREdge("M 720 480 L 860 690", "start-one-optional", "end-many-mandatory", "ΚΡΑΤΗΣΗ_ΤΙΤΛΟΥ (1:N)", 790, 585),
+        EREdge("M 720 480 L 860 700", "start-one-optional", "end-many-mandatory", "ΚΡΑΤΗΣΗ_ΤΙΤΛΟΥ (1:N)", 790, 585),
         # Branch to Reservation (1:N)
-        EREdge("M 320 160 L 860 700", "start-one-optional", "end-many-mandatory", "ΠΑΡΑΛΑΒΗ_ΣΕ (1:N)", 590, 430),
+        EREdge("M 320 200 L 860 720", "start-one-optional", "end-many-mandatory", "ΠΑΡΑΛΑΒΗ_ΣΕ (1:N)", 590, 460),
     ]
 
     # 9. Relational Conversion Justifications

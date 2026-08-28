@@ -732,7 +732,7 @@ def createSportsLeagueScenario() -> Scenario:
         # Team to Colors (1:N)
         EREdge("M 320 120 L 860 120", "start-one-mandatory", "end-many-mandatory", "ΕΧΕΙ_ΧΡΩΜΑΤΑ (1:N)", 590, 110),
         # Team to Athletes (1:N)
-        EREdge("M 190 294 L 190 360", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΒΟΛΑΙΟ (1:N)", 205, 330),
+        EREdge("M 190 322 L 190 360", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΒΟΛΑΙΟ (1:N)", 205, 341),
         # Athlete to Injuries (1:N identifying)
         EREdge("M 320 400 L 460 400", "start-one-optional", "end-many-mandatory", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 390, 390),
         # Athlete to Events (1:N routed under injury table)
