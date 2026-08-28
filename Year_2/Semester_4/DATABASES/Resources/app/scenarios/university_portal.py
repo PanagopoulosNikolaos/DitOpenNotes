@@ -271,28 +271,28 @@ def createUniversityPortalScenario() -> Scenario:
 
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="Τμήμα",
+            entity_name="ΤΜΗΜΑ",
             key_count="2",
             key_types="Υποψήφια: {Κωδικός_Τμήματος}, {Όνομα_Τμήματος}",
             final_pk_selection="Κωδικός_Τμήματος",
             justification="Σύντομος τεχνητός κωδικός.",
         ),
         KeyAnalysisRow(
-            entity_name="Καθηγητής",
+            entity_name="ΚΑΘΗΓΗΤΗΣ",
             key_count="1",
             key_types="Υποψήφιο: {ΑΦΜ}",
             final_pk_selection="ΑΦΜ",
             justification="Κρατικό μοναδικό αναγνωριστικό φορολογικού μητρώου.",
         ),
         KeyAnalysisRow(
-            entity_name="Μάθημα",
+            entity_name="ΜΑΘΗΜΑ",
             key_count="1",
             key_types="Υποψήφιο: {Κωδικός_Μαθήματος}",
             final_pk_selection="Κωδικός_Μαθήματος",
             justification="Σταθερός κωδικός προγράμματος σπουδών.",
         ),
         KeyAnalysisRow(
-            entity_name="Φοιτητής",
+            entity_name="ΦΟΙΤΗΤΗΣ",
             key_count="1",
             key_types="Υποψήφιο: {Αριθμός_Μητρώου}",
             final_pk_selection="Αριθμός_Μητρώου",
@@ -433,7 +433,7 @@ def createUniversityPortalScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,220 L 450,220",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Ανήκει (1:N)",
             lx=380,
@@ -441,7 +441,7 @@ def createUniversityPortalScenario() -> Scenario:
         ),
         EREdge(
             path="M 180,290 L 180,380 L 980,380 L 980,290",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Προσφέρει (1:N)",
             lx=580,
@@ -449,7 +449,7 @@ def createUniversityPortalScenario() -> Scenario:
         ),
         EREdge(
             path="M 710,150 L 850,190",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Διδάσκει (1:N)",
             lx=780,

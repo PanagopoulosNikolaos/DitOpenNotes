@@ -523,21 +523,21 @@ def createHospitalManagementScenario() -> Scenario:
     # 4. Keys Analysis Table
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="Κλινική",
+            entity_name="ΚΛΙΝΙΚΗ",
             key_count="2",
             key_types="Υποψήφια: {Κωδικός_Κλινικής}, {Όνομα_Κλινικής}",
             final_pk_selection="Κωδικός_Κλινικής",
             justification="Σύντομος τεχνητός κωδικός σταθερού μήκους.",
         ),
         KeyAnalysisRow(
-            entity_name="Ιατρός",
+            entity_name="ΙΑΤΡΟΣ",
             key_count="2",
             key_types="Υποψήφια: {ΑΜΙ}, {ΑΦΜ}",
             final_pk_selection="ΑΜΙ",
             justification="Εσωτερικός αναγνωριστικός αριθμός ιατρικού μητρώου.",
         ),
         KeyAnalysisRow(
-            entity_name="Εξαρτώμενο Μέλος",
+            entity_name="ΕΞΑΡΤΩΜΕΝΟ_ΜΕΛΟΣ",
             key_count="0 (Ασθενής)",
             key_types="Μερικό Κλειδί: {Όνομα_Μέλους}",
             final_pk_selection="Σύνθετο PK: {Ιατρός.ΑΜΙ, Όνομα_Μέλους}",
@@ -545,14 +545,14 @@ def createHospitalManagementScenario() -> Scenario:
             is_weak=True,
         ),
         KeyAnalysisRow(
-            entity_name="Ασθενής",
+            entity_name="ΑΣΘΕΝΗΣ",
             key_count="2",
             key_types="Υποψήφια: {ΑΜΚΑ}, {ΑΔΤ}",
             final_pk_selection="ΑΜΚΑ",
             justification="Μοναδικός αριθμός κοινωνικής ασφάλισης για κάθε πολίτη/ασθενή.",
         ),
         KeyAnalysisRow(
-            entity_name="Νοσηλεία",
+            entity_name="ΝΟΣΗΛΕΙΑ",
             key_count="0 (Ασθενής)",
             key_types="Μερικό Κλειδί: {Αύξων_Αριθμός_Εισαγωγής}",
             final_pk_selection="Σύνθετο PK: {Ασθενής.ΑΜΚΑ, Αύξων_Αριθμός_Εισαγωγής}",
@@ -560,7 +560,7 @@ def createHospitalManagementScenario() -> Scenario:
             is_weak=True,
         ),
         KeyAnalysisRow(
-            entity_name="Φάρμακο",
+            entity_name="ΦΑΡΜΑΚΟ",
             key_count="2",
             key_types="Υποψήφια: {Κωδικός_ΕΟΦ}, {Εμπορική_Ονομασία}",
             final_pk_selection="Κωδικός_ΕΟΦ",
@@ -802,7 +802,7 @@ def createHospitalManagementScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,200 L 450,200",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Υπηρετεί (1:N)",
             lx=380,
@@ -842,7 +842,7 @@ def createHospitalManagementScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,240 L 310,360 L 850,360",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Φιλοξενεί (1:N)",
             lx=580,

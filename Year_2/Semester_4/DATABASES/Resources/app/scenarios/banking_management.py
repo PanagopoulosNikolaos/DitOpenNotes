@@ -129,7 +129,7 @@ def createBankingManagementScenario() -> Scenario:
                     is_highlight=True,
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
-                    badge_class="badge-attr-composite",
+                    badge_class="badge-attr-simple",
                     tooltip="Γνώρισμα Συσχέτισης: Ενσωματώνεται στον πίνακα ΚΑΤΑΣΤΗΜΑ ως Foreign Key attribute.",
                 ),
                 TextSegment(text=". Ένας υπάλληλος μπορεί να διευθύνει το πολύ ένα κατάστημα."),
@@ -286,7 +286,7 @@ def createBankingManagementScenario() -> Scenario:
                     is_highlight=True,
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
-                    badge_class="badge-attr-composite",
+                    badge_class="badge-attr-simple",
                     tooltip="Γνώρισμα Συσχέτισης N:M: Αποθηκεύεται στον πίνακα ΣΥΝΔΙΚΑΙΟΥΧΟΣ_ΛΟΓΑΡΙΑΣΜΟΥ.",
                 ),
                 TextSegment(text=" και η "),
@@ -295,7 +295,7 @@ def createBankingManagementScenario() -> Scenario:
                     is_highlight=True,
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
-                    badge_class="badge-attr-composite",
+                    badge_class="badge-attr-simple",
                     tooltip="Γνώρισμα Συσχέτισης N:M: Αποθηκεύεται στον πίνακα ΣΥΝΔΙΚΑΙΟΥΧΟΣ_ΛΟΓΑΡΙΑΣΜΟΥ.",
                 ),
                 TextSegment(text="."),
@@ -490,35 +490,35 @@ def createBankingManagementScenario() -> Scenario:
     # 4. Keys Analysis Table
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="ΚΑΤΑΣΤΗΜΑ",
+            entity_name="ΚΑΤΑΣΤΗΜΑ (Branch)",
             key_count="2 Υποψήφια",
             key_types="Υποψήφια: {branch_code}, {branch_name}",
             final_pk_selection="branch_code",
             justification="Μικρό, σταθερό, αριθμητικό αναγνωριστικό βέλτιστο για Primary Key και Foreign Key δεικτοδότηση.",
         ),
         KeyAnalysisRow(
-            entity_name="ΥΠΑΛΛΗΛΟΣ",
+            entity_name="ΥΠΑΛΛΗΛΟΣ (Staff / Employee)",
             key_count="2 Υποψήφια",
             key_types="Υποψήφια: {amy}, {afm}",
             final_pk_selection="amy",
             justification="Ο εσωτερικός αριθμός μητρώου (ΑΜΥ) είναι συμπαγής και δεν αλλάζει, ενώ το ΑΦΜ προστατεύεται ως Unique Candidate Key.",
         ),
         KeyAnalysisRow(
-            entity_name="ΠΕΛΑΤΗΣ",
+            entity_name="ΠΕΛΑΤΗΣ (Customer)",
             key_count="2 Υποψήφια",
             key_types="Υποψήφια: {afm}, {adt}",
             final_pk_selection="afm",
             justification="Το ΑΦΜ αποτελεί το επίσημο, αναλλοίωτο φορολογικό αναγνωριστικό σε όλα τα τραπεζικά ιδρύματα (το ΑΔΤ μπορεί να αντικατασταθεί).",
         ),
         KeyAnalysisRow(
-            entity_name="ΤΡΑΠΕΖΙΚΟΣ_ΛΟΓΑΡΙΑΣΜΟΣ",
+            entity_name="ΤΡΑΠΕΖΙΚΟΣ_ΛΟΓΑΡΙΑΣΜΟΣ (Bank Account)",
             key_count="1 Υποψήφιο",
             key_types="Υποψήφιο: {iban}",
             final_pk_selection="iban",
             justification="Ο παγκόσμιος κωδικός IBAN ταυτοποιεί μονοσήμαντα κάθε λογαριασμό διεθνώς.",
         ),
         KeyAnalysisRow(
-            entity_name="ΚΙΝΗΣΗ_ΛΟΓΑΡΙΑΣΜΟΥ",
+            entity_name="ΚΙΝΗΣΗ_ΛΟΓΑΡΙΑΣΜΟΥ (Account Transaction)",
             key_count="Ασθενής (1 Μερικό)",
             key_types="Μερικό Κλειδί: {arithmos_kinisis}",
             final_pk_selection="(iban, arithmos_kinisis)",
@@ -526,7 +526,7 @@ def createBankingManagementScenario() -> Scenario:
             is_weak=True,
         ),
         KeyAnalysisRow(
-            entity_name="ΔΑΝΕΙΟ",
+            entity_name="ΔΑΝΕΙΟ (Loan)",
             key_count="1 Υποψήφιο",
             key_types="Υποψήφιο: {loan_number}",
             final_pk_selection="loan_number",
@@ -765,9 +765,9 @@ def createBankingManagementScenario() -> Scenario:
         # Employee recursive supervisor (1:N)
         EREdge("M 650 90 C 720 30, 720 170, 650 150", "start-one-optional", "end-many-optional", "ΕΠΟΠΤΕΥΕΙ (1:N)", 730, 100),
         # Branch opens Accounts (1:N)
-        EREdge("M 150 210 L 150 390", "start-one-optional", "end-many-mandatory", "ΑΝΟΙΓΕΤΑΙ_ΣΕ (1:N)", 165, 300),
+        EREdge("M 150 210 L 150 390", "start-one-mandatory", "end-many-mandatory", "ΑΝΟΙΓΕΤΑΙ_ΣΕ (1:N)", 165, 300),
         # Account contains Movements (1:N identifying)
-        EREdge("M 150 530 L 150 640", "start-one-optional", "end-many-mandatory", "ΕΚΤΕΛΕΙΤΑΙ_ΣΕ (1:N)", 165, 585),
+        EREdge("M 150 530 L 150 640", "start-one-mandatory", "end-many-mandatory", "ΕΚΤΕΛΕΙΤΑΙ_ΣΕ (1:N)", 165, 585),
         # Account to Co-holders (1:N)
         EREdge("M 310 430 L 450 430", "start-one-mandatory", "end-many-mandatory", "ΣΥΝΔΙΚΑΙΟΥΧΟΣ (1:N)", 380, 420),
         # Customer to Co-holders (1:N)
@@ -775,7 +775,7 @@ def createBankingManagementScenario() -> Scenario:
         # Customer to Phone numbers (1:N)
         EREdge("M 980 378 L 980 430", "start-one-optional", "end-many-mandatory", "ΕΧΕΙ_ΤΗΛΕΦΩΝΟ (1:N)", 995, 400),
         # Branch issues Loans (1:N)
-        EREdge("M 200 210 L 450 670", "start-one-optional", "end-many-mandatory", "ΧΟΡΗΓΕΙΤΑΙ_ΑΠΟ (1:N)", 310, 480),
+        EREdge("M 200 210 L 450 670", "start-one-mandatory", "end-many-mandatory", "ΧΟΡΗΓΕΙΤΑΙ_ΑΠΟ (1:N)", 310, 480),
         # Loan to Borrowers (1:N)
         EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-mandatory", "ΔΑΝΕΙΟΛΗΠΤΗΣ (1:N)", 750, 670),
         # Customer to Borrowers (1:N routed around phone table)

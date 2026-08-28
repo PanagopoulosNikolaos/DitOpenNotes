@@ -345,7 +345,7 @@ def createResearchInstituteScenario() -> Scenario:
     # 4. Keys Analysis Table
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="Ερευνητική Μονάδα",
+            entity_name="ΕΡΕΥΝΗΤΙΚΗ ΜΟΝΑΔΑ",
             key_count="2",
             key_types="Υποψήφια: {Κωδικός_Μονάδας}, {Όνομα_Μονάδας}",
             final_pk_selection="Κωδικός_Μονάδας",
@@ -353,7 +353,7 @@ def createResearchInstituteScenario() -> Scenario:
             is_weak=False,
         ),
         KeyAnalysisRow(
-            entity_name="Ερευνητικό Έργο",
+            entity_name="ΕΡΕΥΝΗΤΙΚΟ ΕΡΓΟ",
             key_count="2",
             key_types="Υποψήφια: {Αριθμός_Έργου}, {Ονομασία_Έργου}",
             final_pk_selection="Αριθμός_Έργου",
@@ -361,7 +361,7 @@ def createResearchInstituteScenario() -> Scenario:
             is_weak=False,
         ),
         KeyAnalysisRow(
-            entity_name="Ερευνητής",
+            entity_name="ΕΡΕΥΝΗΤΗΣ",
             key_count="1",
             key_types="Υποψήφιο: {ΑΔΤ}",
             final_pk_selection="ΑΔΤ",
@@ -369,7 +369,7 @@ def createResearchInstituteScenario() -> Scenario:
             is_weak=False,
         ),
         KeyAnalysisRow(
-            entity_name="Εξαρτώμενο Μέλος",
+            entity_name="ΕΞΑΡΤΩΜΕΝΟ ΜΕΛΟΣ",
             key_count="0 (Ασθενής Οντότητα / Μερικό Κλειδί)",
             key_types="Μερικό Κλειδί: {Όνομα_Μέλους}",
             final_pk_selection="{ΑΔΤ_Ερευνητή, Όνομα_Μέλους}",
@@ -541,7 +541,7 @@ def createResearchInstituteScenario() -> Scenario:
     er_edges = [
         EREdge(
             path="M 180,150 L 180,25 L 940,25 L 940,150",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Υλοποιεί (1:N)",
             lx=560,
@@ -557,7 +557,7 @@ def createResearchInstituteScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,270 L 430,270",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Ανήκει (1:N)",
             lx=370,

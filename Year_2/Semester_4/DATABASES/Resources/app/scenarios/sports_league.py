@@ -142,7 +142,7 @@ def createSportsLeagueScenario() -> Scenario:
                     is_highlight=True,
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
-                    badge_class="badge-attr-composite",
+                    badge_class="badge-attr-simple",
                     tooltip="Γνώρισμα Συσχέτισης: Αποθηκεύεται στον σχεσιακό πίνακα OMADA.",
                 ),
                 TextSegment(text="."),

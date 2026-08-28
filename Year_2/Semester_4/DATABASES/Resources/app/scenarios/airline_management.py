@@ -450,21 +450,21 @@ def createAirlineManagementScenario() -> Scenario:
     # 4. Keys Analysis Table
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="Αεροδρόμιο",
+            entity_name="ΑΕΡΟΔΡΟΜΙΟ",
             key_count="2",
             key_types="Υποψήφια: {Κωδικός_IATA}, {Επίσημη_Ονομασία}",
             final_pk_selection="Κωδικός_IATA",
             justification="Διεθνής πρότυπος 3ψήφιος αλφαριθμητικός κωδικός.",
         ),
         KeyAnalysisRow(
-            entity_name="Προγραμματισμένη Πτήση",
+            entity_name="ΠΡΟΓΡΑΜΜΑΤΙΣΜΕΝΗ_ΠΤΗΣΗ",
             key_count="1",
             key_types="Υποψήφιο: {Αριθμός_Πτήσης}",
             final_pk_selection="Αριθμός_Πτήσης",
             justification="Μοναδικός κωδικός δρομολογίου (π.χ. OA315).",
         ),
         KeyAnalysisRow(
-            entity_name="Στιγμιότυπο Πτήσης",
+            entity_name="ΣΤΙΓΜΙΟΤΥΠΟ_ΠΤΗΣΗΣ",
             key_count="0 (Ασθενής)",
             key_types="Μερικό Κλειδί: {Ημερομηνία_Πτήσης}",
             final_pk_selection="Σύνθετο PK: {Προγραμματισμένη_Πτήση.Αριθμός_Πτήσης, Ημερομηνία_Πτήσης}",
@@ -472,28 +472,28 @@ def createAirlineManagementScenario() -> Scenario:
             is_weak=True,
         ),
         KeyAnalysisRow(
-            entity_name="Αεροσκάφος",
+            entity_name="ΑΕΡΟΣΚΑΦΟΣ",
             key_count="2",
             key_types="Υποψήφια: {Σειριακός_Αριθμός_MSN}, {Αριθμός_Νηολογίου_Tail_No}",
             final_pk_selection="Σειριακός_Αριθμός_MSN",
             justification="Μοναδικός σειριακός αριθμός κατασκευαστή.",
         ),
         KeyAnalysisRow(
-            entity_name="Πλήρωμα",
+            entity_name="ΠΛΗΡΩΜΑ",
             key_count="2",
             key_types="Υποψήφια: {ΑΜΕ}, {ΑΔΤ}",
             final_pk_selection="ΑΜΕ",
             justification="Εσωτερικός αριθμός υπαλληλικού μητρώου αεροπορικής εταιρείας.",
         ),
         KeyAnalysisRow(
-            entity_name="Επιβάτης",
+            entity_name="ΕΠΙΒΑΤΗΣ",
             key_count="2",
             key_types="Υποψήφια: {Αριθμός_Διαβατηρίου}, {Email}",
             final_pk_selection="Αριθμός_Διαβατηρίου",
             justification="Επίσημο διεθνές ταξιδιωτικό έγγραφο.",
         ),
         KeyAnalysisRow(
-            entity_name="Κράτηση Εισιτηρίου",
+            entity_name="ΚΡΑΤΗΣΗ_ΕΙΣΙΤΗΡΙΟΥ",
             key_count="1",
             key_types="Υποψήφιο: {Κωδικός_PNR}",
             final_pk_selection="Κωδικός_PNR",
@@ -738,7 +738,7 @@ def createAirlineManagementScenario() -> Scenario:
         ),
         EREdge(
             path="M 580,260 L 580,380",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Εκτέλεση (1:N)",
             lx=580,
@@ -746,7 +746,7 @@ def createAirlineManagementScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,540 L 450,480",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Σκάφος (1:N)",
             lx=380,

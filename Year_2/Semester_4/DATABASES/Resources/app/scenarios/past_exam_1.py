@@ -96,7 +96,7 @@ def createPastExam1Scenario() -> Scenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="2. <strong>Εκπαιδευτικά Προγράμματα:</strong> Κάθε σχολή προσφέρει πολλά προγράμματα. Κάtea πρόγραμμα έχει "),
+                TextSegment(text="2. <strong>Εκπαιδευτικά Προγράμματα:</strong> Κάθε σχολή προσφέρει πολλά προγράμματα. Κάθε πρόγραμμα έχει "),
                 TextSegment(text="μοναδικό αριθμό", is_highlight=True, category="key", tag_label="PK", badge_class="badge-key-pk"),
                 TextSegment(text=", "),
                 TextSegment(text="μοναδική ονομασία", is_highlight=True, category="key", tag_label="CANDIDATE KEY", badge_class="badge-key-candidate"),
@@ -147,7 +147,7 @@ def createPastExam1Scenario() -> Scenario:
                 TextSegment(text=" και "),
                 TextSegment(text="συγγενική σχέση", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=". Κάθε εξαρτώμενο μέλος "),
-                TextSegment(text="συνδέεται με έναν συγκεκριμένο καθηγητή", is_highlight=True, category="entity", tag_label="ΑΣΘΕΝΗΣ ΟΝΤΟΤΗΤΑ", badge_class="badge-entity-weak"),
+                TextSegment(text="συνδέεται με έναν συγκεκριμένο καθηγητή", is_highlight=True, category="rel", tag_label="ΤΑΥΤΟΠΟΙΟΥΣΑ 1:N", badge_class="badge-rel"),
                 TextSegment(text="."),
             ],
             accent_border_color=None,
@@ -172,7 +172,7 @@ def createPastExam1Scenario() -> Scenario:
             owner_entity="ΣΧΟΛΗ",
             justification="Γεωγραφική περιοχή εγκατάστασης της σχολής. Εξαρτάται υπαρκτικά από τη Σχολή.",
             attributes=[
-                Attribute(name="Γεωγραφική_Περιοχή", attr_type="Μερικό Κλειδί (Partial Key)", is_partial=True, is_pk=True),
+                Attribute(name="Γεωγραφική_Περιοχή", attr_type="Μερικό Κλειδί (Partial Key)", is_partial=True, is_pk=False),
             ],
         ),
         Entity(
@@ -210,7 +210,7 @@ def createPastExam1Scenario() -> Scenario:
             owner_entity="ΚΑΘΗΓΗΤΗΣ",
             justification="Μέλος οικογένειας καθηγητή. Εξαρτάται υπαρκτικά από τον Καθηγητή (Owner Entity).",
             attributes=[
-                Attribute(name="Όνομα_Μέλους", attr_type="Μερικό Κλειδί (Partial Key)", is_partial=True, is_pk=True),
+                Attribute(name="Όνομα_Μέλους", attr_type="Μερικό Κλειδί (Partial Key)", is_partial=True, is_pk=False),
                 Attribute(name="Φύλο", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Ημερ_Γέννησης", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Συγγενική_Σχέση", attr_type="Απλό, Μονότιμο"),

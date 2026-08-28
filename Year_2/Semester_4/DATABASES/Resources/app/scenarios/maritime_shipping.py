@@ -434,6 +434,16 @@ def createMaritimeShippingScenario() -> Scenario:
     # 3. Relationship Attributes
     relationship_attributes = [
         RelationshipAttribute(
+            name="Ημερομηνία_Επιβίβασης",
+            relationship_name="ΝΑΥΤΟΛΟΓΗΣΗ (N:M)",
+            justification="Προσδιορίζει την ημερομηνία έναρξης της ναυτολόγησης στο συγκεκριμένο πλοίο.",
+        ),
+        RelationshipAttribute(
+            name="Ημερομηνία_Απόλυσης",
+            relationship_name="ΝΑΥΤΟΛΟΓΗΣΗ (N:M)",
+            justification="Προσδιορίζει την ημερομηνία λήξης της ναυτολόγησης στο συγκεκριμένο πλοίο.",
+        ),
+        RelationshipAttribute(
             name="Βαθμός_Θέση_Καθήκοντος",
             relationship_name="ΝΑΥΤΟΛΟΓΗΣΗ (N:M)",
             justification="Περιγράφει τον ρόλο του ναυτικού στη συγκεκριμένη σύμβαση ναυτολόγησης.",
@@ -448,42 +458,42 @@ def createMaritimeShippingScenario() -> Scenario:
     # 4. Keys Analysis Table
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="Πλοίο",
+            entity_name="ΠΛΟΙΟ",
             key_count="2",
             key_types="Υποψήφια: {Αριθμός_IMO}, {Call_Sign}",
             final_pk_selection="Αριθμός_IMO",
             justification="Μοναδικός παγκόσμιος 7ψήφιος κωδικός που παραμένει αμετάβλητος καθ' όλη τη διάρκεια ζωής του πλοίου.",
         ),
         KeyAnalysisRow(
-            entity_name="Λιμάνι",
+            entity_name="ΛΙΜΑΝΙ",
             key_count="2",
             key_types="Υποψήφια: {Κωδικός_UN_LOCODE}, {Επίσημη_Ονομασία}",
             final_pk_selection="Κωδικός_UN_LOCODE",
             justification="Διεθνής πρότυπος κωδικός 5 χαρακτήρων.",
         ),
         KeyAnalysisRow(
-            entity_name="Ταξίδι",
+            entity_name="ΤΑΞΙΔΙ",
             key_count="1",
             key_types="Υποψήφιο: {Κωδικός_Ταξιδιού}",
             final_pk_selection="Κωδικός_Ταξιδιού",
             justification="Μοναδικός επιχειρησιακός κωδικός δρομολογίου.",
         ),
         KeyAnalysisRow(
-            entity_name="Ναυτικός",
+            entity_name="ΝΑΥΤΙΚΟΣ",
             key_count="2",
             key_types="Υποψήφια: {Αριθμός_Ναυτικού_Φυλλαδίου}, {Αριθμός_Διαβατηρίου}",
             final_pk_selection="Αριθμός_Ναυτικού_Φυλλαδίου",
             justification="Επίσημο ναυτικό έγγραφο ταυτοποίησης μέλους πληρώματος.",
         ),
         KeyAnalysisRow(
-            entity_name="Σύμβαση Ναυτολόγησης",
+            entity_name="ΣΥΜΒΑΣΗ_ΝΑΥΤΟΛΟΓΗΣΗΣ",
             key_count="1 (Σύνθετο)",
             key_types="Σύνθετο: {Αριθμός_Ναυτικού_Φυλλαδίου, Αριθμός_IMO, Ημερομηνία_Επιβίβασης}",
             final_pk_selection="{Αριθμός_Ναυτικού_Φυλλαδίου, Αριθμός_IMO, Ημερομηνία_Επιβίβασης}",
             justification="Επιτρέπει στον ίδιο ναυτικό να ναυτολογηθεί επανειλημμένα στο ίδιο πλοίο σε διαφορετικές ημερομηνίες.",
         ),
         KeyAnalysisRow(
-            entity_name="Επιθεώρηση Ασφαλείας",
+            entity_name="ΕΠΙΘΕΩΡΗΣΗ_ΑΣΦΑΛΕΙΑΣ",
             key_count="0 (Ασθενής)",
             key_types="Μερικό Κλειδί: {Αύξων_Αριθμός_Επιθεώρησης}",
             final_pk_selection="Σύνθετο PK: {Πλοίο.Αριθμός_IMO, Αύξων_Αριθμός_Επιθεώρησης}",
@@ -695,7 +705,7 @@ def createMaritimeShippingScenario() -> Scenario:
     er_edges = [
         EREdge(
             path="M 310,120 L 450,120",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Εκτελεί (1:N)",
             lx=380,
@@ -727,7 +737,7 @@ def createMaritimeShippingScenario() -> Scenario:
         ),
         EREdge(
             path="M 980,440 L 980,480",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="STCW (1:N)",
             lx=980,
