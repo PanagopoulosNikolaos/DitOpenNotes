@@ -595,7 +595,7 @@ def createHospitalManagementScenario() -> Scenario:
             name="ΕΠΟΠΤΕΥΕΙ",
             connected_entities="Ιατρός (Επόπτης) <-> Ιατρός (Ειδικευόμενος)",
             cardinality="1:N",
-            participation="Μερική για Επόπτη, Μερική/Ολική για Ειδικευόμενο",
+            participation="Μερική για Επόπτη (0,N), Ολική για Ειδικευόμενο (1,1)",
             relationship_type="Αναδρομική Σχέση (Recursive)",
             attributes=[],
             justification="Ένας έμπειρος ιατρός καθοδηγεί πολλούς ειδικευόμενους, κάθε ειδικευόμενος έχει 1 επόπτη.",
@@ -785,11 +785,20 @@ def createHospitalManagementScenario() -> Scenario:
     er_edges = [
         EREdge(
             path="M 310,120 L 450,120",
-            marker_start="start-one-mandatory",
-            marker_end="end-one-optional",
+            marker_start="start-one-optional",
+            marker_end="end-one-mandatory",
             label="Διευθύνει (1:1)",
             lx=380,
             ly=110,
+        ),
+        # Doctor recursive supervisor (1:N)
+        EREdge(
+            path="M 710,90 C 770,30 770,170 710,150",
+            marker_start="start-one-optional",
+            marker_end="end-many-optional",
+            label="Εποπτεύει (1:N)",
+            lx=780,
+            ly=100,
         ),
         EREdge(
             path="M 310,200 L 450,200",
@@ -808,28 +817,28 @@ def createHospitalManagementScenario() -> Scenario:
             ly=320,
         ),
         EREdge(
-            path="M 580,500 L 580,540",
+            path="M 580,490 L 580,540",
             marker_start="start-one-mandatory",
             marker_end="end-many-optional",
             label="Τηλέφωνα (1:N)",
             lx=580,
-            ly=520,
+            ly=515,
         ),
         EREdge(
-            path="M 580,630 L 580,680",
+            path="M 710,350 L 750,350 L 750,720 L 710,720",
             marker_start="start-one-mandatory",
             marker_end="end-many-optional",
             label="Εξαρτώμενα (1:N)",
-            lx=580,
-            ly=655,
+            lx=760,
+            ly=535,
         ),
         EREdge(
-            path="M 980,280 L 980,350",
+            path="M 980,294 L 980,350",
             marker_start="start-one-mandatory",
             marker_end="end-many-optional",
             label="Εισαγωγή (1:N)",
             lx=980,
-            ly=315,
+            ly=322,
         ),
         EREdge(
             path="M 310,240 L 310,360 L 850,360",
@@ -840,12 +849,12 @@ def createHospitalManagementScenario() -> Scenario:
             ly=360,
         ),
         EREdge(
-            path="M 980,560 L 980,640",
+            path="M 980,594 L 980,640",
             marker_start="start-one-mandatory",
             marker_end="end-many-optional",
             label="Χορήγηση (1:N)",
             lx=980,
-            ly=600,
+            ly=617,
         ),
         EREdge(
             path="M 310,680 L 850,680",
@@ -889,8 +898,8 @@ CREATE TABLE KLINIKI (
     onoma_klinikis VARCHAR(100) NOT NULL UNIQUE,
     orofos INT NOT NULL,
     thlefono_grammateias VARCHAR(20) NOT NULL,
-    diefthyntis_ami VARCHAR(15),
-    hmer_analipsis_diefthynsis DATE
+    diefthyntis_ami VARCHAR(15) NOT NULL UNIQUE,
+    hmer_analipsis_diefthynsis DATE NOT NULL
 );
 
 -- 2. Multivalued Attribute: PTERIGA_KLINIKIS
@@ -987,7 +996,7 @@ CREATE TABLE CHORIGISI_FARMAKOU (
     sychnotita_24h INT NOT NULL,
     hmer_enarxis DATE NOT NULL,
     hmer_lixis DATE,
-    PRIMARY KEY (amka, arithmos_eisagogis, kodikos_eof, hmer_enarxis),
+    PRIMARY KEY (amka, arithmos_eisagogis, kodikos_eof),
     FOREIGN KEY (amka, arithmos_eisagogis) REFERENCES NOSILEIA(amka, arithmos_eisagogis) ON DELETE CASCADE,
     FOREIGN KEY (kodikos_eof) REFERENCES FARMAKO(kodikos_eof),
     FOREIGN KEY (therapon_ami) REFERENCES IATROS(ami)

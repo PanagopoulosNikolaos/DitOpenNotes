@@ -85,12 +85,12 @@ def createAirlineManagementScenario() -> Scenario:
             segments=[
                 TextSegment(text="1. <strong>Αεροδρόμια (Airports):</strong> Κάθε αεροδρόμιο χαρακτηρίζεται από έναν "),
                 TextSegment(
-                    text="μοναδικό τριψήφιο κωδικό IATA (π.χ. ATH, LHR)",
+                    text="μοναδικό τριγράμματο κωδικό IATA (π.χ. ATH, LHR)",
                     is_highlight=True,
                     category="key",
                     tag_label="PK",
                     badge_class="badge-key-pk",
-                    tooltip="Πρωτεύον Κλειδί (Primary Key): Διεθνής 3ψήφιος κωδικός IATA.",
+                    tooltip="Πρωτεύον Κλειδί (Primary Key): Διεθνής τριγράμματος κωδικός IATA.",
                 ),
                 TextSegment(text=", την "),
                 TextSegment(
@@ -319,7 +319,7 @@ def createAirlineManagementScenario() -> Scenario:
                 ),
                 TextSegment(text=" για συγκεκριμένες πτήσεις. Κάθε κράτηση εισιτηρίου έχει έναν "),
                 TextSegment(
-                    text="μοναδικό εξαψήφιο κωδικό κράτησης (PNR)",
+                    text="μοναδικό εξαψήφιο αλφαριθμητικό κωδικό κράτησης (PNR)",
                     is_highlight=True,
                     category="key",
                     tag_label="PK",
@@ -783,6 +783,15 @@ def createAirlineManagementScenario() -> Scenario:
             label="Κράτηση Πτήσης (1:N)",
             lx=580,
             ly=645,
+        ),
+        # Pilot Mentor recursive relationship (1:N)
+        EREdge(
+            path="M 1110,100 C 1180,40 1180,200 1110,160",
+            marker_start="start-one-optional",
+            marker_end="end-many-optional",
+            label="Μέντορας (1:N)",
+            lx=1185,
+            ly=120,
         ),
     ]
 

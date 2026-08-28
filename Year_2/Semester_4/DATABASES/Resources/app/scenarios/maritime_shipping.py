@@ -728,7 +728,7 @@ def createMaritimeShippingScenario() -> Scenario:
         EREdge(
             path="M 980,440 L 980,480",
             marker_start="start-one-mandatory",
-            marker_end="end-many-optional",
+            marker_end="end-many-mandatory",
             label="STCW (1:N)",
             lx=980,
             ly=460,
@@ -759,11 +759,20 @@ def createMaritimeShippingScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,80 L 850,80",
-            marker_start="start-one-mandatory",
-            marker_end="end-one-optional",
+            marker_start="start-one-optional",
+            marker_end="end-one-mandatory",
             label="Πλοίαρχος (1:1)",
             lx=580,
             ly=70,
+        ),
+        # Sailor Mentor recursive relationship (1:N)
+        EREdge(
+            path="M 1110,100 C 1170,40 1170,180 1110,140",
+            marker_start="start-one-optional",
+            marker_end="end-many-optional",
+            label="Μέντορας (1:N)",
+            lx=1180,
+            ly=110,
         ),
     ]
 
@@ -843,7 +852,7 @@ CREATE TABLE PLOIO (
     simaia VARCHAR(50) NOT NULL,
     dwt DECIMAL(12, 2) NOT NULL,
     typos_ploiou VARCHAR(50) NOT NULL,
-    ploiarchos_filadio VARCHAR(20),
+    ploiarchos_filadio VARCHAR(20) NOT NULL UNIQUE,
     FOREIGN KEY (ploiarchos_filadio) REFERENCES NAYTIKOS(arithmos_filadiou)
 );
 

@@ -608,7 +608,7 @@ def createLibraryManagementScenario() -> Scenario:
             name="ΣΥΓΓΡΑΦΗ (Authorship)",
             connected_entities="ΣΥΓΓΡΑΦΕΑΣ <-> ΒΙΒΛΙΟΓΡΑΦΙΚΟΣ_ΤΙΤΛΟΣ",
             cardinality="N:M",
-            participation="Ολική για Τίτλο (1,N), Μερική για Συγγραφέα (1,N)",
+            participation="Ολική για Τίτλο (1,N), Μερική για Συγγραφέα (0,N)",
             relationship_type="Κανονική Σχέση (Junction)",
             attributes=["seira_syggrafea", "rolos_symvolis"],
             justification="Ένα βιβλίο μπορεί να γραφτεί από πολλούς συγγραφείς και ένας συγγραφέας μπορεί να έχει συγγράψει πολλά βιβλία.",
@@ -832,28 +832,54 @@ def createLibraryManagementScenario() -> Scenario:
                 ERTableAttr("katastasi_aitimatos"),
             ],
         ),
+        ERTable(
+            id="t-schedule",
+            label="ORARIO_LEITOURGIAS",
+            x=60,
+            y=260,
+            attrs=[
+                ERTableAttr("branch_id", pk=True, fk=True),
+                ERTableAttr("imera", pk=True),
+                ERTableAttr("ora_enarxis"),
+                ERTableAttr("ora_lixis"),
+            ],
+        ),
+        ERTable(
+            id="t-member-phone",
+            label="TILEFONA_MELOUS",
+            x=60,
+            y=1120,
+            attrs=[
+                ERTableAttr("card_number", pk=True, fk=True),
+                ERTableAttr("tilefono", pk=True),
+            ],
+        ),
     ]
 
     # 8. ER Diagram Edges
     er_edges = [
         # Branch manages Staff (1:1)
-        EREdge("M 320 80 L 460 80", "start-one-mandatory", "end-one-optional", "ΔΙΕΥΘΥΝΕΙ (1:1)", 390, 70),
+        EREdge("M 320 80 L 460 80", "start-one-optional", "end-one-mandatory", "ΔΙΕΥΘΥΝΕΙ (1:1)", 390, 70),
         # Branch employs Staff (1:N)
-        EREdge("M 320 120 L 460 120", "start-one-mandatory", "end-many-optional", "ΑΠΑΣΧΟΛΕΙ (1:N)", 390, 140),
+        EREdge("M 320 120 L 460 120", "start-one-mandatory", "end-many-mandatory", "ΑΠΑΣΧΟΛΕΙ (1:N)", 390, 140),
+        # Branch Schedule (1:N multivalued)
+        EREdge("M 190 238 L 190 260", "start-one-mandatory", "end-many-optional", "ΩΡΑΡΙΟ (1:N)", 205, 250),
         # Author to Book Authorship (1:N)
         EREdge("M 960 250 L 960 350", "start-one-mandatory", "end-many-optional", "ΣΥΓΓΡΑΦΕΙ (1:N)", 975, 300),
         # Book Title to Book Authorship (1:N)
-        EREdge("M 720 380 L 860 380", "start-one-mandatory", "end-many-optional", "ΕΧΕΙ_ΣΥΓΓΡΑΦΕΙΣ (1:N)", 790, 370),
+        EREdge("M 720 380 L 860 380", "start-one-mandatory", "end-many-mandatory", "ΕΧΕΙ_ΣΥΓΓΡΑΦΕΙΣ (1:N)", 790, 370),
         # Book Title to Copies (1:N identifying)
         EREdge("M 460 410 L 320 410", "start-one-mandatory", "end-many-optional", "ΕΧΕΙ_ΑΝΤΙΤΥΠΑ (1:N)", 390, 400),
         # Branch to Copies (1:N)
-        EREdge("M 190 378 L 190 400", "start-one-mandatory", "end-many-optional", "ΣΤΕΓΑΖΕΙ (1:N)", 205, 390),
+        EREdge("M 190 238 L 190 400", "start-one-mandatory", "end-many-optional", "ΣΤΕΓΑΖΕΙ (1:N)", 205, 390),
         # Member to Loan (1:N)
         EREdge("M 320 700 L 460 700", "start-one-mandatory", "end-many-optional", "ΔΑΝΕΙΖΕΤΑΙ (1:N)", 390, 690),
         # Copy to Loan (1:N)
         EREdge("M 320 520 L 460 690", "start-one-mandatory", "end-many-optional", "ΑΦΟΡΑ_ΑΝΤΙΤΥΠΟ (1:N)", 390, 600),
-        # Member to Reservation (1:N)
-        EREdge("M 320 740 L 860 740", "start-one-mandatory", "end-many-optional", "ΥΠΟΒΑΛΛΕΙ (1:N)", 590, 755),
+        # Member to Reservation (1:N routed around loan)
+        EREdge("M 320 740 L 390 740 L 390 980 L 800 980 L 800 740 L 860 740", "start-one-mandatory", "end-many-optional", "ΥΠΟΒΑΛΛΕΙ (1:N)", 595, 970),
+        # Member to Phone (1:N)
+        EREdge("M 190 1064 L 190 1120", "start-one-mandatory", "end-many-optional", "ΤΗΛΕΦΩΝΑ (1:N)", 205, 1090),
         # Book Title to Reservation (1:N)
         EREdge("M 720 480 L 860 690", "start-one-mandatory", "end-many-optional", "ΚΡΑΤΗΣΗ_ΤΙΤΛΟΥ (1:N)", 790, 585),
         # Branch to Reservation (1:N)
@@ -903,7 +929,7 @@ CREATE TABLE VIVLIOTHIKONOMOS (
     eponymo VARCHAR(50) NOT NULL,
     eidikotita VARCHAR(60) NOT NULL,
     tilefono VARCHAR(20) NOT NULL,
-    branch_id VARCHAR(10) -- Will be referenced by FK after branch table creation
+    branch_id VARCHAR(10) NOT NULL -- Will be referenced by FK after branch table creation
 );
 
 -- 2. Entity: PARARTIMA (Library Branches)
@@ -1030,7 +1056,6 @@ CREATE TABLE KRATISI (
     katastasi_aitimatos VARCHAR(30) NOT NULL DEFAULT 'Σε αναμονή' CHECK (
         katastasi_aitimatos IN ('Σε αναμονή', 'Ειδοποιήθηκε το μέλος', 'Ολοκληρώθηκε', 'Ακυρώθηκε')
     ),
-    PRIMARY KEY (reservation_id),
     FOREIGN KEY (card_number) REFERENCES MELOS(card_number) ON DELETE CASCADE,
     FOREIGN KEY (isbn) REFERENCES TITLOS_VIVLIOU(isbn) ON DELETE CASCADE,
     FOREIGN KEY (branch_id) REFERENCES PARARTIMA(branch_id) ON DELETE RESTRICT

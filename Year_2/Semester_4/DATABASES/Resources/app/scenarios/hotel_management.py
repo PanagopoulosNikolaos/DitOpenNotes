@@ -317,7 +317,7 @@ def createHotelManagementScenario() -> Scenario:
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
                     badge_class="badge-attr-composite",
-                    tooltip="Γνώρισμα Συσχέτισης / Discriminator: Χρονοσφραγίδα ελέγχου δωματίου.",
+                    tooltip="Γνώρισμα Συσχέτισης: Χρονοσφραγίδα ελέγχου δωματίου.",
                 ),
                 TextSegment(text=", η "),
                 TextSegment(
@@ -372,7 +372,7 @@ def createHotelManagementScenario() -> Scenario:
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
                     badge_class="badge-attr-composite",
-                    tooltip="Γνώρισμα Συσχέτισης / Discriminator: Χρονοσφραγίδα παροχής υπηρεσίας.",
+                    tooltip="Γνώρισμα Συσχέτισης: Χρονοσφραγίδα παροχής υπηρεσίας.",
                 ),
                 TextSegment(text=", η "),
                 TextSegment(
@@ -504,7 +504,7 @@ def createHotelManagementScenario() -> Scenario:
         RelationshipAttribute(
             name="hmer_elegxou, katastasi_etoimotitas, paratiriseis_vlavon",
             relationship_name="ΕΛΕΓΧΟΣ_ΚΑΘΑΡΙΣΜΟΣ (ΔΩΜΑΤΙΟ - ΥΠΑΛΛΗΛΟΣ)",
-            justification="Χρονοσφραγίδα επιθεώρησης, κατάσταση ετοιμότητας ('Καθαρό', 'Υπό Συντήρηση') και τεχνικές παρατηρήσεις.",
+            justification="Χρονοσφραγίδα επιθεώρησης, κατάσταση ετοιμότητας ('Έτοιμο', 'Υπό Καθαρισμό', 'Εκτός Λειτουργίας', 'Επισκευάστηκε') και τεχνικές παρατηρήσεις.",
         ),
         RelationshipAttribute(
             name="hmer_paroxis, posotita, synoliko_poso",
@@ -787,11 +787,11 @@ def createHotelManagementScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Resort directs Employee (1:1)
-        EREdge("M 310 80 L 850 360", "start-one-mandatory", "end-one-optional", "ΔΙΕΥΘΥΝΕΙ (1:1)", 550, 240),
+        EREdge("M 310 80 L 850 360", "start-one-optional", "end-one-mandatory", "ΔΙΕΥΘΥΝΕΙ (1:1)", 550, 240),
         # Resort employs Employees (1:N)
-        EREdge("M 310 120 L 850 400", "start-one-mandatory", "end-many-optional", "ΑΠΑΣΧΟΛΕΙ (1:N)", 550, 280),
+        EREdge("M 310 120 L 850 400", "start-one-mandatory", "end-many-mandatory", "ΑΠΑΣΧΟΛΕΙ (1:N)", 550, 280),
         # Resort has Rooms (1:N identifying)
-        EREdge("M 310 100 L 450 100", "start-one-mandatory", "end-many-optional", "ΔΙΑΘΕΤΕΙ (1:N)", 380, 90),
+        EREdge("M 310 100 L 450 100", "start-one-mandatory", "end-many-mandatory", "ΔΙΑΘΕΤΕΙ (1:N)", 380, 90),
         # Resort has Amenities (1:N multi-value)
         EREdge("M 180 350 L 180 370", "start-one-mandatory", "end-many-optional", "ΠΑΡΟΧΗ (1:N)", 195, 360),
         # Room to Inspection (1:N)
@@ -799,7 +799,7 @@ def createHotelManagementScenario() -> Scenario:
         # Employee to Inspection (1:N)
         EREdge("M 850 370 L 710 370", "start-one-mandatory", "end-many-optional", "ΕΚΤΕΛΕΙ (1:N)", 780, 360),
         # Room to Booking (1:N)
-        EREdge("M 580 556 L 580 600", "start-one-mandatory", "end-many-optional", "ΔΕΣΜΕΥΕΤΑΙ (1:N)", 595, 575),
+        EREdge("M 450 170 L 400 170 L 400 650 L 450 650", "start-one-mandatory", "end-many-optional", "ΔΕΣΜΕΥΕΤΑΙ (1:N)", 385, 410),
         # Guest to Booking (1:N)
         EREdge("M 850 200 L 710 650", "start-one-mandatory", "end-many-optional", "ΠΡΑΓΜΑΤΟΠΟΙΕΙ (1:N)", 780, 520),
         # Guest to Phone (1:N)
@@ -852,7 +852,7 @@ CREATE TABLE YPALLILOS (
     eidikotita VARCHAR(50) NOT NULL CHECK (eidikotita IN ('Καθαριότητα', 'Συντήρηση', 'Reception', 'Chef', 'Διοίκηση')),
     misthos DECIMAL(10, 2) NOT NULL CHECK (misthos > 0),
     tilefono VARCHAR(20) NOT NULL,
-    hotel_id VARCHAR(10)
+    hotel_id VARCHAR(10) NOT NULL
 );
 
 -- 2. Entity: XENODOXEIO
@@ -929,7 +929,7 @@ CREATE TABLE KRATISI (
     room_number VARCHAR(10) NOT NULL,
     CHECK (check_out > check_in),
     FOREIGN KEY (passport_id) REFERENCES EPISKEPTIS(passport_id) ON DELETE CASCADE,
-    FOREIGN KEY (hotel_id, room_number) REFERENCES DOMATIO(hotel_id, room_number)
+    FOREIGN KEY (hotel_id, room_number) REFERENCES DOMATIO(hotel_id, room_number) ON DELETE RESTRICT
 );
 
 -- 8. Entity: YPIRESIA

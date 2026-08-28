@@ -551,10 +551,10 @@ def createBankingManagementScenario() -> Scenario:
             name="ΕΡΓΑΖΕΤΑΙ_ΣΕ (Works In)",
             connected_entities="ΚΑΤΑΣΤΗΜΑ <-> ΥΠΑΛΛΗΛΟΣ",
             cardinality="1:N",
-            participation="Ολική για Υπάλληλο (1,1), Μερική/Ολική για Κατάστημα (1,N)",
+            participation="Ολική για Υπάλληλο (1,1), Ολική για Κατάστημα (1,N)",
             relationship_type="Κανονική Σχέση",
             attributes=[],
-            justification="Κάθε υπάλληλος ανήκει υποχρεωτικά σε ένα κατάστημα. Ένα κατάστημα απασχολεί πολλαπλούς υπαλλήλους.",
+            justification="Κάθε υπάλληλος ανήκει υποχρεωτικά σε ένα κατάστημα. Ένα κατάστημα απασχολεί υποχρεωτικά υπαλλήλους.",
         ),
         Relationship(
             letter_id="γ",
@@ -759,9 +759,9 @@ def createBankingManagementScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Branch directs Employee (1:1)
-        EREdge("M 250 80 L 450 80", "start-one-mandatory", "end-one-optional", "ΔΙΕΥΘΥΝΕΙ (1:1)", 350, 70),
+        EREdge("M 310 80 L 450 80", "start-one-optional", "end-one-mandatory", "ΔΙΕΥΘΥΝΕΙ (1:1)", 380, 70),
         # Branch employs Employees (1:N)
-        EREdge("M 250 120 L 450 120", "start-one-mandatory", "end-many-optional", "ΕΡΓΑΖΕΤΑΙ_ΣΕ (1:N)", 350, 135),
+        EREdge("M 310 120 L 450 120", "start-one-mandatory", "end-many-mandatory", "ΕΡΓΑΖΕΤΑΙ_ΣΕ (1:N)", 380, 135),
         # Employee recursive supervisor (1:N)
         EREdge("M 650 90 C 720 30, 720 170, 650 150", "start-one-optional", "end-many-optional", "ΕΠΟΠΤΕΥΕΙ (1:N)", 730, 100),
         # Branch opens Accounts (1:N)
@@ -777,7 +777,7 @@ def createBankingManagementScenario() -> Scenario:
         # Branch issues Loans (1:N)
         EREdge("M 200 210 L 450 670", "start-one-mandatory", "end-many-optional", "ΧΟΡΗΓΕΙΤΑΙ_ΑΠΟ (1:N)", 310, 480),
         # Loan to Borrowers (1:N)
-        EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-optional", "ΔΑΝΕΙΟΛΗΠΤΗΣ (1:N)", 750, 670),
+        EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-mandatory", "ΔΑΝΕΙΟΛΗΠΤΗΣ (1:N)", 750, 670),
         # Customer to Borrowers (1:N)
         EREdge("M 950 310 L 950 640", "start-one-mandatory", "end-many-optional", "ΛΑΜΒΑΝΕΙ_ΔΑΝΕΙΟ (1:N)", 965, 520),
     ]
@@ -828,7 +828,7 @@ CREATE TABLE YPALLILOS (
     diefthynsi_odos VARCHAR(50) NOT NULL,
     diefthynsi_arithmos VARCHAR(10) NOT NULL,
     diefthynsi_poli VARCHAR(50) NOT NULL,
-    branch_code VARCHAR(10),
+    branch_code VARCHAR(10) NOT NULL,
     supervisor_amy VARCHAR(15),
     FOREIGN KEY (supervisor_amy) REFERENCES YPALLILOS(amy) ON DELETE SET NULL
 );

@@ -68,7 +68,7 @@ def createSportsLeagueScenario() -> Scenario:
                     badge_class="badge-entity-strong",
                     tooltip="Ισχυρή Οντότητα (Strong Entity): Προγραμματισμένος αγώνας με μοναδικό Match ID μεταξύ δύο ομάδων.",
                 ),
-                TextSegment(text=" και των "),
+                TextSegment(text=", των "),
                 TextSegment(
                     text="στατιστικών συμβάντων αγώνα",
                     is_highlight=True,
@@ -76,6 +76,15 @@ def createSportsLeagueScenario() -> Scenario:
                     tag_label="ΑΣΘΕΝΗΣ ΟΝΤΟΤΗΤΑ",
                     badge_class="badge-entity-weak",
                     tooltip="Ασθενής Οντότητα (Weak Entity): Κρίσιμο συμβάν εντός αγώνα (γκολ, κάρτα, αλλαγή) που προσδιορίζεται από τον αγώνα.",
+                ),
+                TextSegment(text=" και των "),
+                TextSegment(
+                    text="περιστατικών τραυματισμού",
+                    is_highlight=True,
+                    category="entity",
+                    tag_label="ΑΣΘΕΝΗΣ ΟΝΤΟΤΗΤΑ",
+                    badge_class="badge-entity-weak",
+                    tooltip="Ασθενής Οντότητα (Weak Entity): Ιατρικό ιστορικό τραυματισμών αθλητή.",
                 ),
                 TextSegment(text="."),
             ],
@@ -454,9 +463,24 @@ def createSportsLeagueScenario() -> Scenario:
             justification="Ημερομηνία ανάληψης της τεχνικής ηγεσίας της ομάδας.",
         ),
         RelationshipAttribute(
-            name="jersey_number, hmer_enarxis, hmer_lixis, etisie_apodoxes",
+            name="jersey_number",
             relationship_name="ΣΥΜΒΟΛΑΙΟ_ΑΘΛΗΤΗ (ΟΜΑΔΑ - ΑΘΛΗΤΗΣ)",
-            justification="Στοιχεία επαγγελματικού συμβολαίου: αριθμός φανέλας, διάρκεια και ετήσιες αποδοχές.",
+            justification="Αριθμός φανέλας του αθλητή στην ομάδα.",
+        ),
+        RelationshipAttribute(
+            name="hmer_enarxis_symvolaiou",
+            relationship_name="ΣΥΜΒΟΛΑΙΟ_ΑΘΛΗΤΗ (ΟΜΑΔΑ - ΑΘΛΗΤΗΣ)",
+            justification="Ημερομηνία έναρξης ισχύος του επαγγελματικού συμβολαίου.",
+        ),
+        RelationshipAttribute(
+            name="hmer_lixis_symvolaiou",
+            relationship_name="ΣΥΜΒΟΛΑΙΟ_ΑΘΛΗΤΗ (ΟΜΑΔΑ - ΑΘΛΗΤΗΣ)",
+            justification="Ημερομηνία λήξης του επαγγελματικού συμβολαίου.",
+        ),
+        RelationshipAttribute(
+            name="etisies_apodoxes",
+            relationship_name="ΣΥΜΒΟΛΑΙΟ_ΑΘΛΗΤΗ (ΟΜΑΔΑ - ΑΘΛΗΤΗΣ)",
+            justification="Συμφωνηθείσες ετήσιες οικονομικές αποδοχές του αθλητή.",
         ),
     ]
 
@@ -704,21 +728,21 @@ def createSportsLeagueScenario() -> Scenario:
     # 8. ER Diagram Edges
     er_edges = [
         # Team to Head Coach (1:1)
-        EREdge("M 260 80 L 460 80", "start-one-mandatory", "end-one-optional", "ΕΠΙΚΕΦΑΛΗΣ (1:1)", 360, 70),
+        EREdge("M 320 80 L 460 80", "start-one-optional", "end-one-mandatory", "ΕΠΙΚΕΦΑΛΗΣ (1:1)", 390, 70),
         # Team to Colors (1:N)
-        EREdge("M 260 120 L 860 120", "start-one-mandatory", "end-many-optional", "ΕΧΕΙ_ΧΡΩΜΑΤΑ (1:N)", 560, 110),
+        EREdge("M 320 120 L 860 120", "start-one-mandatory", "end-many-mandatory", "ΕΧΕΙ_ΧΡΩΜΑΤΑ (1:N)", 590, 110),
         # Team to Athletes (1:N)
-        EREdge("M 160 250 L 160 360", "start-one-mandatory", "end-many-optional", "ΣΥΜΒΟΛΑΙΟ (1:N)", 175, 300),
+        EREdge("M 190 294 L 190 360", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΒΟΛΑΙΟ (1:N)", 205, 330),
         # Athlete to Injuries (1:N identifying)
-        EREdge("M 260 390 L 460 390", "start-one-mandatory", "end-many-optional", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 360, 380),
-        # Athlete to Events (1:N)
-        EREdge("M 260 440 L 860 440", "start-one-optional", "end-many-optional", "ΠΡΟΚΑΛΕΣΕ (1:N)", 560, 430),
-        # Team to Match (Home, 1:N)
-        EREdge("M 160 250 L 460 650", "start-one-mandatory", "end-many-optional", "ΓΗΠΕΔΟΥΧΟΣ (1:N)", 280, 500),
-        # Team to Match (Away, 1:N)
-        EREdge("M 200 250 L 500 630", "start-one-mandatory", "end-many-optional", "ΦΙΛΟΞΕΝΟΥΜΕΝΗ (1:N)", 340, 540),
+        EREdge("M 320 400 L 460 400", "start-one-mandatory", "end-many-optional", "ΤΡΑΥΜΑΤΙΣΜΟΙ (1:N)", 390, 390),
+        # Athlete to Events (1:N routed under injury table)
+        EREdge("M 320 580 L 860 580 L 860 548", "start-one-mandatory", "end-many-optional", "ΠΡΟΚΑΛΕΣΕ (1:N)", 590, 570),
+        # Team to Match (Home, 1:N routed around athlete table)
+        EREdge("M 320 200 L 400 200 L 400 660 L 460 660", "start-one-mandatory", "end-many-optional", "ΓΗΠΕΔΟΥΧΟΣ (1:N)", 390, 430),
+        # Team to Match (Away, 1:N routed around athlete table)
+        EREdge("M 320 230 L 420 230 L 420 700 L 460 700", "start-one-mandatory", "end-many-optional", "ΦΙΛΟΞΕΝΟΥΜΕΝΗ (1:N)", 410, 470),
         # Match to Events (1:N identifying)
-        EREdge("M 660 650 L 860 480", "start-one-mandatory", "end-many-optional", "ΠΕΡΙΛΑΜΒΑΝΕΙ (1:N)", 780, 570),
+        EREdge("M 720 650 L 860 480", "start-one-mandatory", "end-many-optional", "ΠΕΡΙΛΑΜΒΑΝΕΙ (1:N)", 780, 570),
     ]
 
     # 9. Relational Conversion Justifications
@@ -770,9 +794,9 @@ CREATE TABLE OMADA (
     etos_idrysis INT NOT NULL CHECK (etos_idrysis >= 1850),
     gipedo_stadio VARCHAR(100) NOT NULL,
     xoritikotita INT NOT NULL CHECK (xoritikotita > 0),
-    head_coach_id VARCHAR(15) UNIQUE,
-    hmer_enarxis_thiteias DATE,
-    FOREIGN KEY (head_coach_id) REFERENCES PROPONITIS(coach_id) ON DELETE SET NULL
+    head_coach_id VARCHAR(15) NOT NULL UNIQUE,
+    hmer_enarxis_thiteias DATE NOT NULL,
+    FOREIGN KEY (head_coach_id) REFERENCES PROPONITIS(coach_id) ON DELETE RESTRICT
 );
 
 -- 3. Multi-valued Attribute: XROMA_OMADAS

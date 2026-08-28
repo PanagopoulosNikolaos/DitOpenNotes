@@ -370,9 +370,9 @@ def createResearchInstituteScenario() -> Scenario:
         ),
         KeyAnalysisRow(
             entity_name="Εξαρτώμενο Μέλος",
-            key_count="0 (Αυτοτελή)",
-            key_types="Μερικό Κλειδί: {Όνομα}",
-            final_pk_selection="{ΑΔΤ_Ερευνητή, Όνομα}",
+            key_count="0 (Ασθενής Οντότητα / Μερικό Κλειδί)",
+            key_types="Μερικό Κλειδί: {Όνομα_Μέλους}",
+            final_pk_selection="{ΑΔΤ_Ερευνητή, Όνομα_Μέλους}",
             justification="Σύνθετο Πρωτεύον Κλειδί στη σχεσιακή υλοποίηση (συνδυασμός PK ιδιοκτήτη + Partial Key).",
             is_weak=True,
         ),
@@ -549,8 +549,8 @@ def createResearchInstituteScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,200 L 430,200",
-            marker_start="start-one-mandatory",
-            marker_end="end-one-optional",
+            marker_start="start-one-optional",
+            marker_end="end-one-mandatory",
             label="Υπεύθυνος (1:1)",
             lx=370,
             ly=190,
@@ -572,12 +572,12 @@ def createResearchInstituteScenario() -> Scenario:
             ly=365,
         ),
         EREdge(
-            path="M 560,450 L 560,530",
+            path="M 560,506 L 560,530",
             marker_start="start-one-mandatory",
             marker_end="end-many-optional",
             label="Διατηρεί (1:N)",
             lx=560,
-            ly=490,
+            ly=518,
         ),
         EREdge(
             path="M 690,430 L 750,430 L 750,440 L 810,440",
@@ -643,7 +643,7 @@ def createResearchInstituteScenario() -> Scenario:
 CREATE TABLE EREVNTIKI_MONADA (
     kodikos_monadas INT PRIMARY KEY,
     onoma_monadas VARCHAR(120) NOT NULL UNIQUE,
-    ypefthynos_adt VARCHAR(20) NOT NULL,
+    ypefthynos_adt VARCHAR(20) NOT NULL UNIQUE,
     hmer_analipsis_ypefth DATE NOT NULL
 );
 

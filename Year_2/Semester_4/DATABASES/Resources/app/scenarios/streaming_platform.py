@@ -166,7 +166,7 @@ def createStreamingPlatformScenario() -> Scenario:
                     category="entity",
                     tag_label="ΑΣΘΕΝΗΣ ΟΝΤΟΤΗΤΑ",
                     badge_class="badge-entity-weak",
-                    tooltip="Υπαρκτική Εξάρτηση: Προσδιορίζουσα οντότητα είναι η ΤΗΛΕΟΠΤΙΚΗ_ΣΕΙΡΑ.",
+                    tooltip="Υπαρξιακή Εξάρτηση: Προσδιορίζουσα οντότητα είναι η ΤΗΛΕΟΠΤΙΚΗ_ΣΕΙΡΑ.",
                 ),
                 TextSegment(text="."),
             ],
@@ -306,7 +306,7 @@ def createStreamingPlatformScenario() -> Scenario:
                     category="attr",
                     tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
                     badge_class="badge-attr-composite",
-                    tooltip="Γνώρισμα Συσχέτισης / Discriminator: Χρονοσφραγίδα έναρξης προβολής.",
+                    tooltip="Γνώρισμα Συσχέτισης: Χρονοσφραγίδα έναρξης προβολής.",
                 ),
                 TextSegment(text=", η "),
                 TextSegment(
@@ -423,7 +423,7 @@ def createStreamingPlatformScenario() -> Scenario:
                 Attribute("password_hash", "Απλό / Μονότιμο", notes="Κρυπτογραφημένος κωδικός πρόσβασης"),
                 Attribute("hmer_eggrafis", "Απλό / Μονότιμο", notes="Ημερομηνία δημιουργίας συνδρομής"),
                 Attribute("xora_xreosis", "Απλό / Μονότιμο", notes="Χώρα τιμολόγησης"),
-                Attribute("synomilitiko_paketo", "Απλό / Μονότιμο", notes="Πακέτο συνδρομής ('Basic', 'Standard HD', 'Premium 4K')"),
+                Attribute("syndromitiko_paketo", "Απλό / Μονότιμο", notes="Πακέτο συνδρομής ('Basic', 'Standard HD', 'Premium 4K')"),
                 Attribute("tropoi_pliromis", "Πλειότιμο", notes="Πολλαπλές μέθοδοι πληρωμής (Πίνακας TROPOS_PLIROMIS)"),
             ],
         ),
@@ -662,7 +662,7 @@ def createStreamingPlatformScenario() -> Scenario:
                 ERTableAttr("password_hash"),
                 ERTableAttr("hmer_eggrafis"),
                 ERTableAttr("xora_xreosis"),
-                ERTableAttr("synomilitiko_paketo"),
+                ERTableAttr("syndromitiko_paketo"),
             ],
         ),
         ERTable(
@@ -697,26 +697,63 @@ def createStreamingPlatformScenario() -> Scenario:
                 ERTableAttr("hmer_axiologisis"),
             ],
         ),
+        ERTable(
+            id="t-audio-lang",
+            label="GLOSSA_HXOU",
+            x=50,
+            y=260,
+            attrs=[
+                ERTableAttr("isan", pk=True, fk=True),
+                ERTableAttr("glossa_hxou", pk=True),
+            ],
+        ),
+        ERTable(
+            id="t-subtitle-lang",
+            label="GLOSSA_YPOTITLON",
+            x=450,
+            y=240,
+            attrs=[
+                ERTableAttr("isan", pk=True, fk=True),
+                ERTableAttr("glossa_ypotitlon", pk=True),
+            ],
+        ),
+        ERTable(
+            id="t-payment-method",
+            label="TROPOS_PLIROMIS",
+            x=50,
+            y=880,
+            attrs=[
+                ERTableAttr("email", pk=True, fk=True),
+                ERTableAttr("typos_pliromis", pk=True),
+                ERTableAttr("stoixeia_pliromis", pk=True),
+            ],
+        ),
     ]
 
     # 8. ER Diagram Edges
     er_edges = [
         # Media to Series (ISA)
-        EREdge("M 250 80 L 450 80", "start-one-mandatory", "end-one-mandatory", "ISA (ΣΕΙΡΑ)", 350, 70),
+        EREdge("M 310 80 L 450 80", "start-one-mandatory", "end-one-mandatory", "ISA (ΣΕΙΡΑ)", 380, 70),
         # Media to Movie (ISA)
-        EREdge("M 150 250 L 150 370", "start-one-mandatory", "end-one-mandatory", "ISA (ΤΑΙΝΙΑ)", 165, 310),
+        EREdge("M 180 236 L 180 370", "start-one-mandatory", "end-one-mandatory", "ISA (ΤΑΙΝΙΑ)", 195, 310),
         # Series to Episodes (1:N identifying)
-        EREdge("M 650 80 L 850 80", "start-one-mandatory", "end-many-optional", "ΠΕΡΙΕΧΕΙ (1:N)", 750, 70),
+        EREdge("M 710 80 L 850 80", "start-one-mandatory", "end-many-mandatory", "ΠΕΡΙΕΧΕΙ (1:N)", 780, 70),
+        # Media to Audio Languages (1:N multivalued)
+        EREdge("M 180 236 L 180 260", "start-one-mandatory", "end-many-optional", "ΓΛΩΣΣΑ_ΗΧΟΥ (1:N)", 205, 248),
+        # Media to Subtitles (1:N multivalued)
+        EREdge("M 310 160 L 450 240", "start-one-mandatory", "end-many-optional", "ΥΠΟΤΙΤΛΟΙ (1:N)", 380, 195),
         # Media to Participation (1:N)
-        EREdge("M 250 180 L 450 400", "start-one-mandatory", "end-many-optional", "ΣΥΜΜΕΤΟΧΗ (1:N)", 340, 290),
+        EREdge("M 310 180 L 450 400", "start-one-mandatory", "end-many-mandatory", "ΣΥΜΜΕΤΟΧΗ (1:N)", 380, 290),
         # Creator to Participation (1:N)
-        EREdge("M 850 410 L 650 410", "start-one-mandatory", "end-many-optional", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 750, 400),
+        EREdge("M 850 410 L 710 410", "start-one-mandatory", "end-many-optional", "ΣΥΜΜΕΤΕΧΕΙ (1:N)", 780, 400),
         # Subscriber to Profile (1:N identifying)
-        EREdge("M 250 680 L 450 680", "start-one-mandatory", "end-many-optional", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 350, 670),
+        EREdge("M 310 680 L 450 680", "start-one-mandatory", "end-many-mandatory", "ΔΗΜΙΟΥΡΓΕΙ (1:N)", 380, 670),
+        # Subscriber to Payment methods (1:N multivalued)
+        EREdge("M 180 828 L 180 880", "start-one-mandatory", "end-many-optional", "ΠΛΗΡΩΜΗ (1:N)", 205, 854),
         # Profile to History (1:N)
-        EREdge("M 650 680 L 850 680", "start-one-mandatory", "end-many-optional", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 750, 670),
+        EREdge("M 710 680 L 850 680", "start-one-mandatory", "end-many-optional", "ΠΑΡΑΚΟΛΟΥΘΕΙ (1:N)", 780, 670),
         # Media to History (1:N)
-        EREdge("M 250 120 L 850 660", "start-one-mandatory", "end-many-optional", "ΠΡΟΒΟΛΗ (1:N)", 550, 390),
+        EREdge("M 310 120 L 850 660", "start-one-mandatory", "end-many-optional", "ΠΡΟΒΟΛΗ (1:N)", 580, 390),
     ]
 
     # 9. Relational Conversion Justifications
@@ -830,7 +867,7 @@ CREATE TABLE SYNDROMITIS (
     password_hash VARCHAR(255) NOT NULL,
     hmer_eggrafis DATE NOT NULL,
     xora_xreosis VARCHAR(50) NOT NULL,
-    synomilitiko_paketo VARCHAR(30) NOT NULL CHECK (synomilitiko_paketo IN ('Basic', 'Standard HD', 'Premium 4K'))
+    syndromitiko_paketo VARCHAR(30) NOT NULL CHECK (syndromitiko_paketo IN ('Basic', 'Standard HD', 'Premium 4K'))
 );
 
 -- 10. Multi-valued Attribute: TROPOS_PLIROMIS
@@ -868,7 +905,8 @@ CREATE TABLE ISTORIKO_THEASIS (
     hmer_axiologisis DATE,
     PRIMARY KEY (email, profile_name, isan, hmerominia_ora_enarksis),
     FOREIGN KEY (email, profile_name) REFERENCES PROFIL_XRHSTH(email, profile_name) ON DELETE CASCADE,
-    FOREIGN KEY (isan) REFERENCES ERGO(isan) ON DELETE CASCADE
+    FOREIGN KEY (isan) REFERENCES ERGO(isan) ON DELETE CASCADE,
+    FOREIGN KEY (isan, season_number, episode_number) REFERENCES EPEISODIO(isan, season_number, episode_number) ON DELETE SET NULL
 );"""
 
     return Scenario(

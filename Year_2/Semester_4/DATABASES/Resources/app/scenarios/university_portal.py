@@ -96,7 +96,7 @@ def createUniversityPortalScenario() -> Scenario:
                     category="rel",
                     tag_label="ΣΧΕΣΗ 1:1",
                     badge_class="badge-rel",
-                    tooltip="Σχέση 1:1 (Τμήμα - Καθηγητής): Κάθε τμήμα έχει 1 πρόεδρο, κάθε καθηγητής προεδρεύει σε 1 τμήμα.",
+                    tooltip="Σχέση 1:1 (Τμήμα - Καθηγητής): Κάθε τμήμα έχει υποχρεωτικά 1 πρόεδρο (ολική), ένας καθηγητής μπορεί να είναι πρόεδρος σε το πολύ 1 τμήμα (μερική).",
                 ),
                 TextSegment(text=" με καταγραφή της "),
                 TextSegment(
@@ -326,7 +326,7 @@ def createUniversityPortalScenario() -> Scenario:
             name="ΠΡΟΣΦΕΡΕΙ",
             connected_entities="Τμήμα <-> Μάθημα",
             cardinality="1:N",
-            participation="Ολική για Μάθημα",
+            participation="Ολική για Μάθημα, Μερική για Τμήμα",
             relationship_type="Κανονική Σχέση",
             attributes=[],
             justification="Κάθε μάθημα ανήκει στο πρόγραμμα σπουδών 1 τμήματος.",
@@ -425,8 +425,8 @@ def createUniversityPortalScenario() -> Scenario:
     er_edges = [
         EREdge(
             path="M 310,180 L 450,140",
-            marker_start="start-one-mandatory",
-            marker_end="end-one-optional",
+            marker_start="start-one-optional",
+            marker_end="end-one-mandatory",
             label="Πρόεδρος (1:1)",
             lx=380,
             ly=150,
@@ -449,7 +449,7 @@ def createUniversityPortalScenario() -> Scenario:
         ),
         EREdge(
             path="M 710,150 L 850,190",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-optional",
             label="Διδάσκει (1:N)",
             lx=780,
@@ -490,8 +490,8 @@ def createUniversityPortalScenario() -> Scenario:
 CREATE TABLE TMIMA (
     kodikos_tmimatos INT PRIMARY KEY,
     onoma_tmimatos VARCHAR(100) NOT NULL UNIQUE,
-    proedros_afm VARCHAR(15),
-    hmer_enarxis_thiteias DATE
+    proedros_afm VARCHAR(15) NOT NULL UNIQUE,
+    hmer_enarxis_thiteias DATE NOT NULL
 );
 
 CREATE TABLE KATHIGITIS (
@@ -510,7 +510,7 @@ CREATE TABLE MATHIMA (
     titlos VARCHAR(150) NOT NULL,
     ects INT NOT NULL,
     kodikos_tmimatos INT NOT NULL,
-    didaskon_afm VARCHAR(15),
+    didaskon_afm VARCHAR(15) NOT NULL,
     FOREIGN KEY (kodikos_tmimatos) REFERENCES TMIMA(kodikos_tmimatos),
     FOREIGN KEY (didaskon_afm) REFERENCES KATHIGITIS(afm)
 );
