@@ -205,7 +205,9 @@ def createResearchInstituteScenario() -> Scenario:
                     badge_class="badge-rel",
                     tooltip="Σχέση N:M μεταξύ Ερευνητή & Έργου: Πολλοί ερευνητές εργάζονται σε πολλά έργα.",
                 ),
-                TextSegment(text=" στην υλοποίηση πολλών ερευνητικών έργων. Για κάθε συμμετοχή καταγράφεται ο "),
+                TextSegment(
+                    text=" στην υλοποίηση πολλών ερευνητικών έργων, ακόμη και αν αυτά υλοποιούνται από άλλες μονάδες. Για κάθε συμμετοχή καταγράφεται ο "
+                ),
                 TextSegment(
                     text="αριθμός ωρών απασχόλησης ανά εβδομάδα",
                     is_highlight=True,
@@ -564,20 +566,20 @@ def createResearchInstituteScenario() -> Scenario:
             ly=260,
         ),
         EREdge(
-            path="M 180,280 L 180,450",
+            path="M 180,310 L 180,450",
             marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Εγκαταστάσεις (1:N)",
             lx=180,
-            ly=365,
+            ly=380,
         ),
         EREdge(
-            path="M 560,506 L 560,530",
+            path="M 560,434 L 560,530",
             marker_start="start-one-optional",
             marker_end="end-many-mandatory",
             label="Διατηρεί (1:N)",
             lx=560,
-            ly=518,
+            ly=482,
         ),
         EREdge(
             path="M 690,430 L 750,430 L 750,440 L 810,440",
@@ -588,12 +590,12 @@ def createResearchInstituteScenario() -> Scenario:
             ly=415,
         ),
         EREdge(
-            path="M 940,280 L 940,420",
+            path="M 940,310 L 940,420",
             marker_start="start-one-optional",
             marker_end="end-many-mandatory",
             label="Αφορά (1:N)",
             lx=940,
-            ly=350,
+            ly=365,
         ),
     ]
 

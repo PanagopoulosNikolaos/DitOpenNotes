@@ -379,7 +379,6 @@ def createStreamingPlatformScenario() -> Scenario:
             justification="Εξειδίκευση της οντότητας ΕΡΓΟ για παραγωγές πολλαπλών επεισοδίων και κύκλων.",
             attributes=[
                 Attribute("isan", "Απλό / Μονότιμο", is_pk=True, is_fk=False, notes="ISAN σειράς (PK & FK στο ΕΡΓΟ)"),
-                Attribute("synolo_sezon", "Απλό / Μονότιμο", notes="Συνολικός αριθμός παραχθέντων κύκλων"),
             ],
         ),
         Entity(
@@ -652,8 +651,7 @@ def createStreamingPlatformScenario() -> Scenario:
             y=800,
             attrs=[
                 ERTableAttr("email", pk=True, fk=True),
-                ERTableAttr("typos_pliromis", pk=True),
-                ERTableAttr("stoixeia_pliromis", pk=True),
+                ERTableAttr("tropos_pliromis", pk=True),
             ],
         ),
         ERTable(
@@ -663,7 +661,6 @@ def createStreamingPlatformScenario() -> Scenario:
             y=50,
             attrs=[
                 ERTableAttr("isan", pk=True, fk=True),
-                ERTableAttr("synolo_sezon"),
             ],
         ),
         ERTable(
@@ -807,7 +804,7 @@ def createStreamingPlatformScenario() -> Scenario:
         RelationalJustification(
             title="4. Μετατροπή Πλειότιμων Γνωρισμάτων (ΓΛΩΣΣΕΣ_ΗΧΟΥ, ΓΛΩΣΣΕΣ_ΥΠΟΤΙΤΛΩΝ, ΤΡΟΠΟΙ_ΠΛΗΡΩΜΗΣ)",
             color_class="border-purple-500",
-            description="Τα πλειότιμα γνωρίσματα αναλύονται στους σχεσιακούς πίνακες GLOSSA_HXOU (isan, glossa_hxou), GLOSSA_YPOTITLON (isan, glossa_ypotitlon) και TROPOS_PLIROMIS (email, typos_pliromis, stoixeia_pliromis).",
+            description="Τα πλειότιμα γνωρίσματα αναλύονται στους σχεσιακούς πίνακες GLOSSA_HXOU (isan, glossa_hxou), GLOSSA_YPOTITLON (isan, glossa_ypotitlon) και TROPOS_PLIROMIS (email, tropos_pliromis).",
         ),
     ]
 
@@ -853,7 +850,6 @@ CREATE TABLE TAINIA (
 -- 5. Subclass Entity: TILEOPTIKI_SEIRA
 CREATE TABLE TILEOPTIKI_SEIRA (
     isan VARCHAR(30) PRIMARY KEY,
-    synolo_sezon INT NOT NULL DEFAULT 1 CHECK (synolo_sezon > 0),
     FOREIGN KEY (isan) REFERENCES ERGO(isan) ON DELETE CASCADE
 );
 
@@ -904,9 +900,8 @@ CREATE TABLE SYNDROMITIS (
 -- 10. Multi-valued Attribute: TROPOS_PLIROMIS
 CREATE TABLE TROPOS_PLIROMIS (
     email VARCHAR(100) NOT NULL,
-    typos_pliromis VARCHAR(30) NOT NULL CHECK (typos_pliromis IN ('Credit Card', 'Debit Card', 'PayPal', 'Direct Debit')),
-    stoixeia_pliromis VARCHAR(100) NOT NULL,
-    PRIMARY KEY (email, typos_pliromis, stoixeia_pliromis),
+    tropos_pliromis VARCHAR(50) NOT NULL,
+    PRIMARY KEY (email, tropos_pliromis),
     FOREIGN KEY (email) REFERENCES SYNDROMITIS(email) ON DELETE CASCADE
 );
 

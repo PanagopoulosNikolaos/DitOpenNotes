@@ -513,16 +513,6 @@ def createLibraryManagementScenario() -> Scenario:
             relationship_name="ΔΙΕΥΘΥΝΕΙ (ΠΑΡΑΡΤΗΜΑ - ΒΙΒΛΙΟΘΗΚΟΝΟΜΟΣ)",
             justification="Ημερομηνία έναρξης άσκησης καθηκόντων διευθυντή παραρτήματος.",
         ),
-        RelationshipAttribute(
-            name="seira_syggrafea",
-            relationship_name="ΣΥΓΓΡΑΦΗ (ΣΥΓΓΡΑΦΕΑΣ - ΒΙΒΛΙΟΓΡΑΦΙΚΟΣ_ΤΙΤΛΟΣ)",
-            justification="Σειρά αναγραφής/εμφάνισης του συγγραφέα στην έκδοση (π.χ. 1ος συγγραφέας).",
-        ),
-        RelationshipAttribute(
-            name="rolos_symvolis",
-            relationship_name="ΣΥΓΓΡΑΦΗ (ΣΥΓΓΡΑΦΕΑΣ - ΒΙΒΛΙΟΓΡΑΦΙΚΟΣ_ΤΙΤΛΟΣ)",
-            justification="Ρόλος συμβολής (π.χ. 'Κύριος Συγγραφέας', 'Επιμελητής', 'Μεταφραστής').",
-        ),
     ]
 
     # 4. Keys Analysis Table
@@ -615,7 +605,7 @@ def createLibraryManagementScenario() -> Scenario:
             cardinality="N:M",
             participation="Ολική για Τίτλο (1,N), Μερική για Συγγραφέα (0,N)",
             relationship_type="Κανονική Σχέση (Junction)",
-            attributes=["seira_syggrafea", "rolos_symvolis"],
+            attributes=[],
             justification="Ένα βιβλίο μπορεί να γραφτεί από πολλούς συγγραφείς και ένας συγγραφέας μπορεί να έχει συγγράψει πολλά βιβλία.",
         ),
         Relationship(
@@ -765,8 +755,6 @@ def createLibraryManagementScenario() -> Scenario:
             attrs=[
                 ERTableAttr("isbn", pk=True, fk=True),
                 ERTableAttr("author_id", pk=True, fk=True),
-                ERTableAttr("seira_syggrafea"),
-                ERTableAttr("rolos_symvolis"),
             ],
         ),
         ERTable(
@@ -901,7 +889,7 @@ def createLibraryManagementScenario() -> Scenario:
         RelationalJustification(
             title="2. Μετατροπή Συσχέτισης N:M (ΣΥΓΓΡΑΦΗ)",
             color_class="border-amber-500",
-            description="Η συσχέτιση N:M μεταξύ ΣΥΓΓΡΑΦΕΑ και ΒΙΒΛΙΟΓΡΑΦΙΚΟΥ ΤΙΤΛΟΥ μετατρέπεται στον ενδιάμεσο πίνακα SYGGRAFI_TITLOU με σύνθετο Primary Key (isbn, author_id) και τα γνωρίσματα της σχέσης.",
+            description="Η συσχέτιση N:M μεταξύ ΣΥΓΓΡΑΦΕΑ και ΒΙΒΛΙΟΓΡΑΦΙΚΟΥ ΤΙΤΛΟΥ μετατρέπεται στον ενδιάμεσο πίνακα SYGGRAFI_TITLOU με σύνθετο Primary Key (isbn, author_id).",
         ),
         RelationalJustification(
             title="3. Μετατροπή Συσχέτισης 1:1 (ΔΙΕΥΘΥΝΕΙ)",
@@ -990,8 +978,6 @@ CREATE TABLE SYGGRAFEAS (
 CREATE TABLE SYGGRAFI_TITLOU (
     isbn VARCHAR(20) NOT NULL,
     author_id VARCHAR(15) NOT NULL,
-    seira_syggrafea INT NOT NULL DEFAULT 1 CHECK (seira_syggrafea > 0),
-    rolos_symvolis VARCHAR(50) DEFAULT 'Κύριος Συγγραφέας',
     PRIMARY KEY (isbn, author_id),
     FOREIGN KEY (isbn) REFERENCES TITLOS_VIVLIOU(isbn) ON DELETE CASCADE,
     FOREIGN KEY (author_id) REFERENCES SYGGRAFEAS(author_id) ON DELETE CASCADE

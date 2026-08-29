@@ -109,19 +109,17 @@ def createPastExam1Scenario() -> Scenario:
         Paragraph(
             segments=[
                 TextSegment(text="3. <strong>Καθηγητές & Διδασκαλία:</strong> Για κάθε καθηγητή καταγράφονται: "),
-                TextSegment(text="ΑΔΤ", is_highlight=True, category="key", tag_label="PK", badge_class="badge-key-pk"),
-                TextSegment(text=", "),
-                TextSegment(text="ΑΦΜ", is_highlight=True, category="key", tag_label="CANDIDATE KEY", badge_class="badge-key-candidate"),
-                TextSegment(text=", "),
                 TextSegment(text="όνομα", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
                 TextSegment(text="επώνυμο", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
+                TextSegment(text="αριθμός ταυτότητας", is_highlight=True, category="key", tag_label="PK", badge_class="badge-key-pk"),
+                TextSegment(text=", "),
                 TextSegment(text="ειδικότητα", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
-                TextSegment(text="διεύθυνση", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="διεύθυνση κατοικίας", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
-                TextSegment(text="μισθός", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="μηνιαίες αποδοχές", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
                 TextSegment(text="φύλο", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
                 TextSegment(text=" και "),
@@ -193,7 +191,6 @@ def createPastExam1Scenario() -> Scenario:
             justification="Φυσικό πρόσωπο διδακτικού προσωπικού με μοναδικό ΑΔΤ.",
             attributes=[
                 Attribute(name="ΑΔΤ", attr_type="Απλό, Μονότιμο", is_pk=True),
-                Attribute(name="ΑΦΜ", attr_type="Απλό, Μονότιμο", is_candidate=True),
                 Attribute(name="Όνομα", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Επώνυμο", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Ειδικότητα", attr_type="Απλό, Μονότιμο"),
@@ -258,10 +255,10 @@ def createPastExam1Scenario() -> Scenario:
         ),
         KeyAnalysisRow(
             entity_name="ΚΑΘΗΓΗΤΗΣ",
-            key_count="2 Υποψήφια",
-            key_types="Υποψήφια: {ΑΔΤ}, {ΑΦΜ}",
+            key_count="1 Μοναδικό",
+            key_types="Υποψήφιο: {ΑΔΤ}",
             final_pk_selection="ΑΔΤ",
-            justification="Μοναδικός Αριθμός Δελτίου Ταυτότητας.",
+            justification="Μοναδικός Αριθμός Δελτίου Ταυτότητας (αριθμός ταυτότητας).",
             is_weak=False,
         ),
         KeyAnalysisRow(
@@ -375,7 +372,6 @@ def createPastExam1Scenario() -> Scenario:
             y=340,
             attrs=[
                 ERTableAttr(name="ΑΔΤ", pk=True),
-                ERTableAttr(name="ΑΦΜ"),
                 ERTableAttr(name="Όνομα"),
                 ERTableAttr(name="Επώνυμο"),
                 ERTableAttr(name="Ειδικότητα"),
@@ -413,13 +409,13 @@ def createPastExam1Scenario() -> Scenario:
     ]
 
     er_edges = [
-        EREdge(path="M 310,120 L 450,120", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΠΡΟΣΦΕΡΕΙ", lx=380, ly=110),
+        EREdge(path="M 310,120 L 450,120", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΠΡΟΣΦΕΡΕΙ", lx=380, ly=110),
         EREdge(path="M 180,240 L 180,340", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΔΙΑΘΕΤΕΙ", lx=190, ly=290),
         EREdge(path="M 310,180 L 450,420", marker_start="start-one-mandatory", marker_end="end-one-optional", label="ΔΙΕΥΘΥΝΕΙ", lx=380, ly=300),
-        EREdge(path="M 310,140 L 450,400", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΑΝΗΚΕΙ", lx=370, ly=260),
-        EREdge(path="M 710,120 L 850,120", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΠΡΟΓΡΑΜΜΑ", lx=780, ly=110),
-        EREdge(path="M 710,420 L 850,160", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΣΥΜΜΕΤΟΧΗ", lx=780, ly=290),
-        EREdge(path="M 710,480 L 850,480", marker_start="start-one-optional", marker_end="end-many-mandatory", label="ΕΧΕΙ_ΕΞΑΡΤΩΜΕΝΟ", lx=780, ly=470),
+        EREdge(path="M 310,140 L 450,400", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΑΝΗΚΕΙ", lx=370, ly=260),
+        EREdge(path="M 710,120 L 850,120", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΠΡΟΓΡΑΜΜΑ", lx=780, ly=110),
+        EREdge(path="M 710,420 L 850,160", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΣΥΜΜΕΤΟΧΗ", lx=780, ly=290),
+        EREdge(path="M 710,480 L 850,480", marker_start="start-one-mandatory", marker_end="end-many-mandatory", label="ΕΧΕΙ_ΕΞΑΡΤΩΜΕΝΟ", lx=780, ly=470),
     ]
 
     relational_justifications = [
@@ -471,7 +467,6 @@ CREATE TABLE EKPAIDEUTIKO_PROGRAMMA (
 
 CREATE TABLE KATHIGITIS (
     adt VARCHAR(15) PRIMARY KEY,
-    afm VARCHAR(15) NOT NULL UNIQUE,
     onoma VARCHAR(50) NOT NULL,
     eponymo VARCHAR(50) NOT NULL,
     eidikotita VARCHAR(80),
