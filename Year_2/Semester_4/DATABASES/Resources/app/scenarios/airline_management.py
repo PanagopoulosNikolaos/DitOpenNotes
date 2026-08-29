@@ -77,7 +77,25 @@ def createAirlineManagementScenario() -> Scenario:
                     badge_class="badge-entity-strong",
                     tooltip="Ισχυρή Οντότητα (Strong Entity): Προσωπικό πτήσεων με αριθμό μητρώου ΑΜΕ.",
                 ),
-                TextSegment(text=" και του συστήματος κρατήσεων επιβατών."),
+                TextSegment(text=", των "),
+                TextSegment(
+                    text="επιβατών",
+                    is_highlight=True,
+                    category="entity",
+                    tag_label="ΟΝΤΟΤΗΤΑ",
+                    badge_class="badge-entity-strong",
+                    tooltip="Ισχυρή Οντότητα (Strong Entity): Φυσικό πρόσωπο ταξιδιώτη με αριθμό διαβατηρίου.",
+                ),
+                TextSegment(text=" και των "),
+                TextSegment(
+                    text="κρατήσεων εισιτηρίων",
+                    is_highlight=True,
+                    category="entity",
+                    tag_label="ΣΥΣΧΕΤΙΣΤΙΚΗ ΟΝΤΟΤΗΤΑ",
+                    badge_class="badge-entity-strong",
+                    tooltip="Συσχετιστική Οντότητα (Associative Entity): Ηλεκτρονική κράτηση εισιτηρίου με μοναδικό κωδικό PNR.",
+                ),
+                TextSegment(text="."),
             ],
             accent_border_color=None,
         ),
@@ -114,7 +132,7 @@ def createAirlineManagementScenario() -> Scenario:
                     badge_class="badge-attr-multi",
                     tooltip="Πλειότιμο Γνώρισμα (Multi-valued): Εξάγεται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ.",
                 ),
-                TextSegment(text=", για τους οποίους καταγράφονται τα διακριτικά μήκη και ονομασίες τους."),
+                TextSegment(text=", για τους οποίους καταγράφονται τα διακριτικά μήκη και οι ονομασίες τους."),
             ],
             accent_border_color="border-blue-500",
         ),
@@ -161,7 +179,16 @@ def createAirlineManagementScenario() -> Scenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="3. <strong>Στιγμιότυπα Πτήσεων (Flight Instances / Actual Flights):</strong> Ένα προγραμματισμένο δρομολόγιο εκτελείται σε συγκεκριμένες ημερομηνίες. Κάθε συγκεκριμένη πτήση προσδιορίζεται από τον αριθμό πτήσης και την "),
+                TextSegment(text="3. <strong>Στιγμιότυπα Πτήσεων (Flight Instances / Actual Flights):</strong> Ένα προγραμματισμένο δρομολόγιο "),
+                TextSegment(
+                    text="εκτελείται",
+                    is_highlight=True,
+                    category="rel",
+                    tag_label="ΤΑΥΤΟΠΟΙΟΥΣΑ 1:N",
+                    badge_class="badge-rel",
+                    tooltip="Ταυτοποιούσα Σχέση 1:N (Προγραμματισμένη Πτήση -> Στιγμιότυπο Πτήσης): Ολική συμμετοχή στιγμιοτύπου.",
+                ),
+                TextSegment(text=" σε συγκεκριμένες ημερομηνίες. Κάθε συγκεκριμένη πτήση προσδιορίζεται από τον αριθμό πτήσης και την "),
                 TextSegment(
                     text="ημερομηνία πτήσης (Flight Date)",
                     is_highlight=True,
@@ -352,7 +379,12 @@ def createAirlineManagementScenario() -> Scenario:
                 Attribute(name="Επίσημη_Ονομασία", attr_type="Απλό, Μονότιμο, Candidate Key", is_candidate=True),
                 Attribute(name="Πόλη", attr_type="Απλό, Μονότιμο"),
                 Attribute(name="Χώρα", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Διάδρομοι_Προσγείωσης", attr_type="Πλειότιμο (Multi-valued)", notes="Εξάγεται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ"),
+                Attribute(
+                    name="Διάδρομοι_Προσγείωσης",
+                    attr_type="Σύνθετο Πλειότιμο (Composite Multi-valued)",
+                    components=["Όνομα_Διαδρόμου", "Μήκος_Μέτρα"],
+                    notes="Εξάγεται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ",
+                ),
             ],
         ),
         Entity(
@@ -577,10 +609,12 @@ def createAirlineManagementScenario() -> Scenario:
 
     # 6. Assumptions
     assumptions = [
-        "Πλειότιμα Γνωρίσματα: Οι διάδρομοι προσγείωσης/απογείωσης αεροδρομίων υλοποιούνται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ.",
-        "Στιγμιότυπο Πτήσης: Υλοποιείται ως ασθενής οντότητα με σύνθετο PK {Αριθμός_Πτήσης, Ημερομηνία_Πτήσης}.",
-        "Κράτηση Εισιτηρίου: Διαθέτει μοναδικό κωδικό PNR ως πρωτεύον κλειδί, με foreign keys προς τον Επιβάτη και το Στιγμιότυπο Πτήσης.",
-        "Ανάθεση Πληρώματος: Συνδέει μέλη πληρώματος με συγκεκριμένα στιγμιότυπα πτήσεων, καταγράφοντας τον ρόλο ανάθεσης.",
+        "Πλειότιμα Γνωρίσματα: Οι διάδρομοι προσγείωσης/απογείωσης αεροδρομίων υλοποιούνται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ με σύνθετο πρωτεύον κλειδί {iata_code, onoma_diadromou}.",
+        "Στιγμιότυπο Πτήσης: Υλοποιείται ως ασθενής οντότητα με σύνθετο PK {Αριθμός_Πτήσης, Ημερομηνία_Πτήσης} και εξάρτηση ταυτοποίησης από το δρομολόγιο.",
+        "Κράτηση Εισιτηρίου: Διαθέτει μοναδικό κωδικό PNR ως πρωτεύον κλειδί, με Foreign Keys προς τον Επιβάτη και το συγκεκριμένο Στιγμιότυπο Πτήσης.",
+        "Ανάθεση Πληρώματος: Συνδέει μέλη πληρώματος με συγκεκριμένα στιγμιότυπα πτήσεων (N:M), καταγράφοντας τον ειδικό ρόλο ανάθεσης στη συγκεκριμένη πτήση.",
+        "Εκπαίδευση Πιλότων: Υλοποιείται ως αναδρομική συσχέτιση 1:N (Self-Referencing) στον πίνακα ΠΛΗΡΩΜΑ μέσω του προαιρετικού γνωρίσματος mentor_ame.",
+        "Αεροδρόμια Αναχώρησης & Άφιξης: Κάθε προγραμματισμένη πτήση συνδέει υποχρεωτικά δύο διακριτά αεροδρόμια (departure_iata != arrival_iata).",
     ]
 
     # 7. ER Table Nodes for SVG Crow's Foot Diagram
@@ -714,7 +748,7 @@ def createAirlineManagementScenario() -> Scenario:
     er_edges = [
         EREdge(
             path="M 310,100 L 450,80",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Αναχώρηση (1:N)",
             lx=380,
@@ -722,27 +756,27 @@ def createAirlineManagementScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,140 L 450,120",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Άφιξη (1:N)",
             lx=380,
             ly=135,
         ),
         EREdge(
-            path="M 180,220 L 180,300",
+            path="M 180,240 L 180,300",
             marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Διάδρομοι (1:N)",
             lx=180,
-            ly=260,
+            ly=270,
         ),
         EREdge(
-            path="M 580,260 L 580,380",
+            path="M 580,294 L 580,380",
             marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Εκτέλεση (1:N)",
             lx=580,
-            ly=320,
+            ly=337,
         ),
         EREdge(
             path="M 310,540 L 450,480",
@@ -750,19 +784,19 @@ def createAirlineManagementScenario() -> Scenario:
             marker_end="end-many-mandatory",
             label="Σκάφος (1:N)",
             lx=380,
-            ly=520,
+            ly=510,
         ),
         EREdge(
-            path="M 980,300 L 980,380",
-            marker_start="start-one-optional",
+            path="M 980,322 L 980,380",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Ανάθεση (1:N)",
             lx=980,
-            ly=340,
+            ly=351,
         ),
         EREdge(
             path="M 710,480 L 850,480",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Πτήση-Πλήρωμα (1:N)",
             lx=780,
@@ -770,19 +804,19 @@ def createAirlineManagementScenario() -> Scenario:
         ),
         EREdge(
             path="M 310,750 L 450,750",
-            marker_start="start-one-optional",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Κράτηση Επιβάτη (1:N)",
             lx=380,
             ly=735,
         ),
         EREdge(
-            path="M 580,590 L 580,700",
-            marker_start="start-one-optional",
+            path="M 580,624 L 580,700",
+            marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
             label="Κράτηση Πτήσης (1:N)",
             lx=580,
-            ly=645,
+            ly=662,
         ),
         # Pilot Mentor recursive relationship (1:N)
         EREdge(
@@ -800,22 +834,32 @@ def createAirlineManagementScenario() -> Scenario:
         RelationalJustification(
             title="1. Διπλή Συσχέτιση Αεροδρομίου - Πτήσης:",
             color_class="text-blue-400",
-            description="Η ΠΡΟΓΡΑΜΜΑΤΙΣΜΕΝΗ_ΠΤΗΣΗ περιλαμβάνει δύο ξεχωριστά Foreign Keys προς τον πίνακα ΑΕΡΟΔΡΟΜΙΟ (departure_iata και arrival_iata).",
+            description="Η ΠΡΟΓΡΑΜΜΑΤΙΣΜΕΝΗ_ΠΤΗΣΗ περιλαμβάνει δύο ξεχωριστά Foreign Keys προς τον πίνακα ΑΕΡΟΔΡΟΜΙΟ (departure_iata και arrival_iata) για τον προσδιορισμό αεροδρομίου αναχώρησης και προορισμού.",
         ),
         RelationalJustification(
             title="2. Ασθενής Οντότητα Στιγμιοτύπων Πτήσεων:",
             color_class="text-purple-400",
-            description="Το ΣΤΙΓΜΙΟΤΥΠΟ_ΠΤΗΣΗΣ έχει σύνθετο PK {Αριθμός_Πτήσης, Ημερομηνία_Πτήσης} και εξαρτάται υπαρκτικά από το προγραμματισμένο δρομολόγιο.",
+            description="Το ΣΤΙΓΜΙΟΤΥΠΟ_ΠΤΗΣΗΣ έχει σύνθετο PK {flight_number, flight_date} και εξαρτάται υπαρκτικά και ταυτοποιητικά από το προγραμματισμένο δρομολόγιο (ON DELETE CASCADE).",
         ),
         RelationalJustification(
             title="3. Συσχετιστική Οντότητα Κρατήσεων:",
             color_class="text-emerald-400",
-            description="Ο πίνακας ΚΡΑΤΗΣΗ_ΕΙΣΙΤΗΡΙΟΥ έχει αυτόνομο PK το PNR και FKs προς τον Επιβάτη και το Στιγμιότυπο Πτήσης.",
+            description="Ο πίνακας ΚΡΑΤΗΣΗ_ΕΙΣΙΤΗΡΙΟΥ έχει αυτόνομο PK το PNR και Foreign Keys προς τον Επιβάτη (passport_number) και το Στιγμιότυπο Πτήσης (flight_number, flight_date).",
         ),
         RelationalJustification(
             title="4. Πλειότιμα Γνωρίσματα (1NF):",
             color_class="text-amber-400",
-            description="Οι διάδρομοι προσγείωσης διασπώνται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ με σύνθετο PK {iata_code, onoma_diadromou}.",
+            description="Οι διάδρομοι προσγείωσης διασπώνται στον πίνακα ΔΙΑΔΡΟΜΟΣ_ΑΕΡΟΔΡΟΜΙΟΥ με σύνθετο PK {iata_code, onoma_diadromou} και FK προς το αεροδρόμιο.",
+        ),
+        RelationalJustification(
+            title="5. Αναδρομική Σχέση Εκπαίδευσης Πιλότων (1:N):",
+            color_class="text-cyan-400",
+            description="Στον πίνακα ΠΛΗΡΩΜΑ εισάγεται το προαιρετικό Foreign Key mentor_ame που αναφέρεται στο πρωτεύον κλειδί ame του ίδιου πίνακα (Self-Referencing FK).",
+        ),
+        RelationalJustification(
+            title="6. Συσχετιστικός Πίνακας Ανάθεσης Πληρωμάτων (N:M):",
+            color_class="text-rose-400",
+            description="Η σχέση N:M υλοποιείται στον πίνακα ANATHESI_PLIROMATOS με σύνθετο PK {flight_number, flight_date, ame} και το περιγραφικό γνώρισμα rolos_ptisis.",
         ),
     ]
 
