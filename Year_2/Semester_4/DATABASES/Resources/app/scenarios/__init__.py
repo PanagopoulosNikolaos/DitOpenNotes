@@ -1,17 +1,17 @@
 """Scenarios package initialization and auto-registration."""
 
 from models.registry import scenario_registry
-from .research_institute import createResearchInstituteScenario
+from .past_exam_1_educational_institution import createPastExam1Scenario
+from .past_exam_2_research_institute import createResearchInstituteScenario
 from .university_portal import createUniversityPortalScenario
-from .hospital_management import createHospitalManagementScenario
-from .maritime_shipping import createMaritimeShippingScenario
-from .airline_management import createAirlineManagementScenario
-from .banking_management import createBankingManagementScenario
-from .hotel_management import createHotelManagementScenario
-from .streaming_platform import createStreamingPlatformScenario
-from .library_management import createLibraryManagementScenario
-from .sports_league import createSportsLeagueScenario
-from .past_exam_1 import createPastExam1Scenario
+from .synth_exam_1_hospital import createHospitalManagementScenario
+from .synth_exam_2_maritime_shipping import createMaritimeShippingScenario
+from .synth_exam_3_airline import createAirlineManagementScenario
+from .synth_exam_4_banking import createBankingManagementScenario
+from .synth_exam_5_hotel import createHotelManagementScenario
+from .synth_exam_6_streaming import createStreamingPlatformScenario
+from .synth_exam_7_library import createLibraryManagementScenario
+from .synth_exam_8_sports_league import createSportsLeagueScenario
 
 
 def initializeScenarios() -> None:
