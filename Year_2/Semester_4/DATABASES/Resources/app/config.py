@@ -660,8 +660,8 @@ body::before {
     }
 
     .print-er-diagram #er-svg-canvas {
-        height: 420px !important;
-        max-height: 50vh !important;
+        height: 520px !important;
+        max-height: 520px !important;
         width: 100% !important;
         background-color: #121211 !important;
         border: 1px solid rgba(224, 107, 58, 0.4) !important;
@@ -671,7 +671,7 @@ body::before {
     /* Target specific single section overrides */
     body[data-print-target="er-diagram"] .print-er-diagram #er-svg-canvas {
         height: 540px !important;
-        max-height: 75vh !important;
+        max-height: 540px !important;
     }
 
     /* Section 6: SQL DDL Schema Layout */

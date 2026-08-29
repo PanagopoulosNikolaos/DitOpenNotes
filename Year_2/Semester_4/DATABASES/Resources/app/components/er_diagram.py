@@ -87,7 +87,7 @@ def renderERDiagram(scenario: Scenario) -> None:
             # SVG Canvas storing diagram data in data-attributes with inline event handlers
             ui.html(
                 f"""
-                <svg id="er-svg-canvas" class="w-full h-[620px]" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet"
+                <svg id="er-svg-canvas" class="w-full h-[670px]" viewBox="0 0 1200 1100" preserveAspectRatio="xMidYMid meet"
                      onmousedown="startERDrag(event)" onwheel="handleERWheel(event)"
                      data-tables='{tables_json}' data-edges='{edges_json}'>
                     <defs>
@@ -382,8 +382,8 @@ ui.add_head_html(
         }
 
         function resetERZoom() {
-            zoomScale = 0.9;
-            panX = 12;
+            zoomScale = 1.0;
+            panX = 0;
             panY = 0;
             updateTransform();
         }

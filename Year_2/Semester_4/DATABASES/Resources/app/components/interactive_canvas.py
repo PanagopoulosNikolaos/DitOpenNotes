@@ -252,7 +252,7 @@ ui.add_head_html(
             body { padding: 0; font-size: 8.5pt; background: #141413 !important; color: #f4f1ea !important; }
             .attr-card-container, .rel-card-container { gap: 6px; }
             .attr-card, .rel-card { padding: 4px 8px; }
-            #er-svg-canvas { height: 440px !important; }
+            #er-svg-canvas { height: 520px !important; }
             .dark-table th, .dark-table td { padding: 3px 5px; font-size: 7.5pt; }
             .sql-code-container pre { font-size: 7.5pt; line-height: 1.25; }
         }
