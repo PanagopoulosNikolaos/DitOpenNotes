@@ -41,21 +41,96 @@ KATEX_HEAD_HTML = """
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 <script>
 function renderAllLatex() {
-    if (typeof renderMathInElement === 'function') {
-        renderMathInElement(document.body, {
-            delimiters: [
-                {left: '$$', right: '$$', display: true},
-                {left: '$', right: '$', display: false},
-                {left: '\\\\[', right: '\\\\]', display: true},
-                {left: '\\\\(', right: '\\\\)', display: false}
-            ],
-            throwOnError: false
+    if (typeof renderMathInElement !== 'function') return;
+    
+    // Target scoped containers only to prevent corrupting Vue 3 virtual DOM reconciliation
+    const targets = document.querySelectorAll('.latex-target, .formula-box, #interactive-text-canvas, .analysis-content, .step-content');
+    if (targets && targets.length > 0) {
+        targets.forEach(el => {
+            try {
+                renderMathInElement(el, {
+                    delimiters: [
+                        {left: '$$$', right: '$$$', display: false},
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\\\[', right: '\\\\]', display: true},
+                        {left: '\\\\(', right: '\\\\)', display: false}
+                    ],
+                    throwOnError: false
+                });
+            } catch (err) {
+                console.warn('KaTeX render error:', err);
+            }
         });
+    } else {
+        const root = document.getElementById('main-content-area');
+        if (root) {
+            try {
+                renderMathInElement(root, {
+                    delimiters: [
+                        {left: '$$$', right: '$$$', display: false},
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\\\[', right: '\\\\]', display: true},
+                        {left: '\\\\(', right: '\\\\)', display: false}
+                    ],
+                    throwOnError: false
+                });
+            } catch (err) {}
+        }
     }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(renderAllLatex, 150);
 });
+
+// Interactive canvas highlight filter controller (loaded once at startup)
+window.activeCategories = {
+    delay: true, device: true, protocol: true, routing: true, error_check: true
+};
+
+function updateCanvasHighlights() {
+    const badges = document.querySelectorAll('#interactive-text-canvas .highlight-badge');
+    badges.forEach(badge => {
+        const cat = badge.getAttribute('data-category');
+        const badgeCls = badge.getAttribute('data-badge-class') || 'hl-' + cat;
+        if (window.activeCategories[cat]) {
+            badge.classList.add('highlight-active', badgeCls);
+            badge.style.opacity = '1';
+            badge.style.border = '';
+        } else {
+            badge.classList.remove('highlight-active', badgeCls);
+            badge.style.opacity = '0.4';
+            badge.style.border = '1px dashed rgba(255,255,255,0.15)';
+        }
+    });
+}
+
+function toggleCategory(cat) {
+    window.activeCategories[cat] = !window.activeCategories[cat];
+    const btn = document.querySelector(`button[data-category="${cat}"]`);
+    if (btn) {
+        window.activeCategories[cat] ? btn.classList.add('active') : btn.classList.remove('active');
+    }
+    updateCanvasHighlights();
+}
+
+function setFilterMode(mode) {
+    const isAll = (mode === 'all');
+    for (let cat in window.activeCategories) {
+        window.activeCategories[cat] = isAll;
+        const btn = document.querySelector(`button[data-category="${cat}"]`);
+        if (btn) { isAll ? btn.classList.add('active') : btn.classList.remove('active'); }
+    }
+    const allBtn  = document.querySelector('button[data-filter="all"]');
+    const noneBtn = document.querySelector('button[data-filter="none"]');
+    if (allBtn && noneBtn) {
+        if (isAll) { allBtn.classList.add('active');  noneBtn.classList.remove('active'); }
+        else       { allBtn.classList.remove('active'); noneBtn.classList.add('active'); }
+    }
+    updateCanvasHighlights();
+}
 </script>
 """
 
@@ -125,6 +200,48 @@ body::before {
     z-index: -1;
 }
 
+/* Quasar Component Enhancements & Hitbox Normalization */
+.q-btn {
+    text-transform: none !important;
+    font-family: 'Outfit', sans-serif !important;
+    cursor: pointer !important;
+}
+
+.q-btn .q-btn__wrapper {
+    padding: 0.35rem 0.85rem !important;
+    min-height: unset !important;
+    width: 100% !important;
+}
+
+.q-btn .q-btn__content {
+    width: 100% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+}
+
+.q-btn .q-icon {
+    font-size: 1.15em !important;
+}
+
+.q-field--dark .q-field__control {
+    background: #201f1d !important;
+    border-radius: var(--r-sm) !important;
+}
+
+.q-menu {
+    background: #1c1b1a !important;
+    border: 1px solid rgba(224, 107, 58, 0.35) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75) !important;
+    border-radius: var(--r-md) !important;
+}
+
+.q-item--dark.q-item--active, .q-item--dark:hover {
+    background: rgba(224, 107, 58, 0.2) !important;
+    color: #fed7aa !important;
+}
+
 /* Glassmorphism Card Container */
 .glass-panel {
     background: var(--surface);
@@ -164,8 +281,8 @@ body::before {
     z-index: 50;
     backdrop-filter: blur(20px) saturate(1.5);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
-    background: rgba(20, 20, 19, 0.85);
-    border-bottom: 1px solid var(--border);
+    background: rgba(20, 20, 19, 0.92);
+    border-bottom: 1px solid var(--border-accent);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -320,21 +437,23 @@ body::before {
     padding: 1rem 1.25rem;
     transition: all 0.2s ease;
     cursor: pointer;
+    width: 100%;
 }
 
 .option-card:hover {
     background: var(--surface-2);
-    border-color: rgba(224, 107, 58, 0.3);
+    border-color: rgba(224, 107, 58, 0.4);
+    transform: translateY(-1px);
 }
 
 .option-card.correct {
-    background: rgba(16, 185, 129, 0.12);
-    border-color: var(--green-ok);
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: var(--green-ok) !important;
 }
 
 .option-card.incorrect {
-    background: rgba(239, 68, 68, 0.12);
-    border-color: var(--red-err);
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: var(--red-err) !important;
 }
 
 /* Calculation Steps Timeline */

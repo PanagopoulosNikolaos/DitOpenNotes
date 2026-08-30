@@ -7,11 +7,11 @@ Organized into two primary main modules:
 Includes full LaTeX math rendering support via KaTeX.
 """
 
-from typing import Optional
 from nicegui import ui, app
 import config
 from models.registry import scenario_registry
 import scenarios  # Initializes and registers all scenarios
+from components.header import _BTN_ACTIVE_CLASSES, _BTN_IDLE_CLASSES
 from components import (
     renderHeader,
     renderMethodologyCards,
@@ -44,16 +44,28 @@ class NetworkingApp:
         Returns:
             None
         """
+        if new_mode not in ("study", "exams") or new_mode == self.current_mode:
+            return
+
         self.current_mode = new_mode
-        # Update dropdown options in header
         sub_options = scenario_registry.getStudyOptions() if new_mode == "study" else scenario_registry.getExamOptions()
         current_sub = self.current_study_sub_id if new_mode == "study" else self.current_exam_sub_id
 
+        # Update select options and active value
         header_refs["sub_select"].set_options(sub_options)
         header_refs["sub_select"].set_value(current_sub)
 
+        # Update mode toggle button styling cleanly without destroying Quasar root classes
+        is_study = (new_mode == "study")
+        if is_study:
+            header_refs["study_btn"].classes(remove=_BTN_IDLE_CLASSES, add=_BTN_ACTIVE_CLASSES)
+            header_refs["exam_btn"].classes(remove=_BTN_ACTIVE_CLASSES, add=_BTN_IDLE_CLASSES)
+        else:
+            header_refs["study_btn"].classes(remove=_BTN_ACTIVE_CLASSES, add=_BTN_IDLE_CLASSES)
+            header_refs["exam_btn"].classes(remove=_BTN_IDLE_CLASSES, add=_BTN_ACTIVE_CLASSES)
+
         self.updateHeaderLabels(header_refs)
-        self.renderCurrentView(content_container)
+        self.renderCurrentView(content_container, header_refs)
 
     def setSubModule(self, new_sub_id: str, content_container: ui.column, header_refs: dict) -> None:
         """Switches the active sub-module within the current mode.
@@ -66,13 +78,16 @@ class NetworkingApp:
         Returns:
             None
         """
+        if not new_sub_id:
+            return
+
         if self.current_mode == "study":
             self.current_study_sub_id = new_sub_id
         else:
             self.current_exam_sub_id = new_sub_id
 
         self.updateHeaderLabels(header_refs)
-        self.renderCurrentView(content_container)
+        self.renderCurrentView(content_container, header_refs)
 
     def updateHeaderLabels(self, header_refs: dict) -> None:
         """Updates header subtitle and badge according to current mode and sub-module."""
@@ -87,14 +102,21 @@ class NetworkingApp:
                 header_refs["subtitle_label"].set_text(scenario.subtitle)
                 header_refs["badge_label"].set_text(f"Exams: {scenario.course_tag}")
 
-    def renderCurrentView(self, content_container: ui.column) -> None:
+    def renderCurrentView(self, content_container: ui.column, header_refs: dict) -> None:
         """Renders the active Study notes sub-module or Exam scenario into the container."""
         content_container.clear()
         with content_container:
             if self.current_mode == "study":
+                def onStudySubChange(sub_id: str) -> None:
+                    """Syncs internal tab clicks back to app state and header dropdown."""
+                    if sub_id:
+                        self.current_study_sub_id = sub_id
+                        header_refs["sub_select"].set_value(sub_id)
+                        self.updateHeaderLabels(header_refs)
+
                 renderTheoryPage(
                     self.current_study_sub_id,
-                    on_sub_change=lambda sub: None,
+                    on_sub_change=onStudySubChange,
                 )
             else:
                 scenario = scenario_registry.getScenario(self.current_exam_sub_id)
@@ -102,7 +124,7 @@ class NetworkingApp:
                     ui.label("Το επιλεγμένο θέμα εξέτασης δεν βρέθηκε.").classes("text-red-400 p-4")
                     return
 
-                with ui.column().classes("w-full max-w-6xl mx-auto px-4 py-8 space-y-10"):
+                with ui.column().classes("w-full max-w-6xl mx-auto px-4 py-6 space-y-8 latex-target"):
                     # SECTION 1: Methodology Quick Formula Cards
                     renderMethodologyCards()
 
@@ -122,18 +144,18 @@ class NetworkingApp:
                     # SECTION 6: Embedded Interactive Calculators
                     renderCalculators()
 
-        # Trigger client-side LaTeX and highlights update
+        # Re-trigger LaTeX rendering and highlight sync after DOM update
         ui.run_javascript(
             "setTimeout(() => {"
             " if (typeof renderAllLatex === 'function') renderAllLatex();"
             " if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights();"
-            "}, 60);"
+            "}, 80);"
         )
 
 
 def buildApp() -> None:
     """Builds the main NiceGUI web page layout, LaTeX headers, and routes."""
-    # Inject KaTeX LaTeX CDN and custom styles
+    # Inject KaTeX LaTeX CDN, canvas JS, and custom styles — all once at startup
     ui.add_head_html(config.KATEX_HEAD_HTML, shared=True)
     ui.add_head_html(f"<style>{config.CUSTOM_CSS}</style>", shared=True)
 
@@ -142,17 +164,17 @@ def buildApp() -> None:
     @ui.page("/")
     def mainPage() -> None:
         """Root page handler rendering header and reactive container."""
-        content_container = ui.column().classes("w-full gap-0 p-0 items-center")
+        content_container = ui.column().classes("w-full gap-0 p-0 items-center min-h-screen")
         current_scenario = scenario_registry.getScenario(net_app.current_exam_sub_id)
 
-        header_refs = {}
+        header_refs: dict = {}
 
         def handleModeSwitch(mode: str) -> None:
             """Handles mode switch event (study vs exams)."""
             net_app.setMode(mode, content_container, header_refs)
 
         def handleSubSwitch(sub_id: str) -> None:
-            """Handles sub-module switch event."""
+            """Handles sub-module switch event triggered by the header dropdown."""
             net_app.setSubModule(sub_id, content_container, header_refs)
 
         # Header with dual mode selector and sub-module dropdown
@@ -166,7 +188,7 @@ def buildApp() -> None:
         header_refs.update(header_refs_dict)
 
         # Initial Render
-        net_app.renderCurrentView(content_container)
+        net_app.renderCurrentView(content_container, header_refs)
 
 
 buildApp()

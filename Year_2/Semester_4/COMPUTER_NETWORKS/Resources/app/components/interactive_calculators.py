@@ -13,7 +13,7 @@ from nicegui import ui
 
 def renderNodalDelayCalculator() -> None:
     """Renders the interactive End-to-End Nodal and Pipelining Delay calculator."""
-    with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-5"):
+    with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-5 latex-target"):
         with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3"):
             ui.html('<i class="fa-solid fa-calculator text-[#e06b3a] text-lg"></i>')
             ui.html('<h3 class="text-lg font-bold m-0 text-[#f4f1ea]">Διαδραστικός Υπολογιστής Καθυστερήσεων (Delay Calculator)</h3>')
@@ -27,31 +27,31 @@ def renderNodalDelayCalculator() -> None:
         with ui.grid().classes("grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full text-xs"):
             with ui.column().classes("gap-1"):
                 ui.label("Μέγεθος Πακέτου L (bits)").classes("font-semibold text-[#fed7aa]")
-                packet_size_input = ui.number(value=10000, min=1, step=1000).classes("w-full")
+                packet_size_input = ui.number(value=10000, min=1, step=1000).props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Ρυθμός Μετάδοσης R (Mbps)").classes("font-semibold text-[#fed7aa]")
-                bandwidth_input = ui.number(value=10, min=0.1, step=1).classes("w-full")
+                bandwidth_input = ui.number(value=10, min=0.1, step=1).props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Μήκος Ζεύξης d (km)").classes("font-semibold text-[#fed7aa]")
-                distance_input = ui.number(value=1000, min=0, step=50).classes("w-full")
+                distance_input = ui.number(value=1000, min=0, step=50).props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Ταχύτητα Διάδοσης s (x10^8 m/s)").classes("font-semibold text-[#fed7aa]")
-                speed_input = ui.number(value=2.0, min=1.0, max=3.0, step=0.1).classes("w-full")
+                speed_input = ui.number(value=2.0, min=1.0, max=3.0, step=0.1).props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Αριθμός Ζεύξεων N (Hops)").classes("font-semibold text-[#fed7aa]")
-                hops_input = ui.number(value=3, min=1, max=20, step=1).classes("w-full")
+                hops_input = ui.number(value=3, min=1, max=20, step=1).props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Αριθμός Πακέτων P").classes("font-semibold text-[#fed7aa]")
-                packets_input = ui.number(value=1, min=1, max=1000, step=1).classes("w-full")
+                packets_input = ui.number(value=1, min=1, max=1000, step=1).props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Καθυστέρηση Επεξεργασίας d_proc (ms)").classes("font-semibold text-[#fed7aa]")
-                proc_delay_input = ui.number(value=0.0, min=0.0, step=0.5).classes("w-full")
+                proc_delay_input = ui.number(value=0.0, min=0.0, step=0.5).props("outlined dense dark").classes("w-full font-mono")
 
         # Results Output Container
         results_container = ui.column().classes("w-full gap-4 mt-2")
@@ -138,7 +138,7 @@ def renderNodalDelayCalculator() -> None:
         packets_input.on_value_change(updateDelayResults)
         proc_delay_input.on_value_change(updateDelayResults)
 
-        # Initial render
+        # Initial calculation render
         updateDelayResults()
 
 
@@ -184,7 +184,7 @@ def calculateCrcDivision(data_bits: str, generator_bits: str) -> Tuple[str, List
 
 def renderCrcCalculator() -> None:
     """Renders the interactive CRC Generator and XOR division stepper."""
-    with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-5"):
+    with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-5 latex-target"):
         with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3"):
             ui.html('<i class="fa-solid fa-shield-halved text-[#f59e0b] text-lg"></i>')
             ui.html('<h3 class="text-lg font-bold m-0 text-[#f4f1ea]">Διαδραστικός Υπολογιστής CRC (Modulo-2 XOR Division)</h3>')
@@ -197,11 +197,11 @@ def renderCrcCalculator() -> None:
         with ui.grid().classes("grid-cols-1 md:grid-cols-2 gap-4 w-full text-xs"):
             with ui.column().classes("gap-1"):
                 ui.label("Δεδομένα D (Binary String)").classes("font-semibold text-[#fed7aa]")
-                data_input = ui.input(value="11010011101100").classes("w-full font-mono")
+                data_input = ui.input(value="11010011101100").props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("Γεννήτορας G (Binary String, π.χ. 10011 για x^4 + x + 1)").classes("font-semibold text-[#fed7aa]")
-                gen_input = ui.input(value="10011").classes("w-full font-mono")
+                gen_input = ui.input(value="10011").props("outlined dense dark").classes("w-full font-mono")
 
         crc_results = ui.column().classes("w-full gap-4 mt-2")
 
@@ -234,7 +234,7 @@ def renderCrcCalculator() -> None:
 
 def renderSubnetCalculator() -> None:
     """Renders the interactive IPv4 Subnet and Longest Prefix Match calculator."""
-    with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-5"):
+    with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-5 latex-target"):
         with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3"):
             ui.html('<i class="fa-solid fa-network-wired text-blue-400 text-lg"></i>')
             ui.html('<h3 class="text-lg font-bold m-0 text-[#f4f1ea]">Διαδραστικός Υπολογιστής Υποδικτύωσης & LPM (Subnetting)</h3>')
@@ -247,11 +247,11 @@ def renderSubnetCalculator() -> None:
         with ui.grid().classes("grid-cols-1 md:grid-cols-2 gap-4 w-full text-xs"):
             with ui.column().classes("gap-1"):
                 ui.label("IPv4 Διεύθυνση (π.χ. 192.168.5.130)").classes("font-semibold text-[#fed7aa]")
-                ip_input = ui.input(value="192.168.5.130").classes("w-full font-mono")
+                ip_input = ui.input(value="192.168.5.130").props("outlined dense dark").classes("w-full font-mono")
 
             with ui.column().classes("gap-1"):
                 ui.label("CIDR Μάσκα / Prefix (0-32)").classes("font-semibold text-[#fed7aa]")
-                cidr_input = ui.number(value=25, min=0, max=32, step=1).classes("w-full font-mono")
+                cidr_input = ui.number(value=25, min=0, max=32, step=1).props("outlined dense dark").classes("w-full font-mono")
 
         subnet_results = ui.column().classes("w-full gap-4 mt-2")
 
@@ -316,7 +316,7 @@ def renderSubnetCalculator() -> None:
 
 def renderCalculators() -> None:
     """Renders the full suite of interactive networking calculators."""
-    with ui.column().classes("w-full gap-8"):
+    with ui.column().classes("w-full gap-8 latex-target"):
         renderNodalDelayCalculator()
         renderCrcCalculator()
         renderSubnetCalculator()
