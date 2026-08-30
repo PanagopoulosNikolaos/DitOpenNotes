@@ -1,7 +1,7 @@
-"""Theme configuration and styling rules for the Computer Networks application.
+"""Theme configuration, LaTeX support, and styling rules for Computer Networks application.
 
-This module provides design tokens, color constants, and custom CSS
-adhering to the Orange and Dark Soft design specification.
+Provides design tokens, color constants, custom CSS, and KaTeX mathematical
+rendering support adhering to the Orange and Dark Soft design specification.
 """
 
 # Color tokens from the Orange and Dark Soft design specification
@@ -34,6 +34,30 @@ RED_ERR = "#ef4444"
 RED_LIGHT = "#f87171"
 BLUE_ACTION = "#4f8ec9"
 BLUE_HOVER = "#62a1dc"
+
+KATEX_HEAD_HTML = """
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script>
+function renderAllLatex() {
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\\\[', right: '\\\\]', display: true},
+                {left: '\\\\(', right: '\\\\)', display: false}
+            ],
+            throwOnError: false
+        });
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(renderAllLatex, 150);
+});
+</script>
+"""
 
 CUSTOM_CSS = """
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
@@ -159,6 +183,21 @@ body::before {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* KaTeX Custom Math Styling */
+.katex {
+    font-size: 1.05em !important;
+    color: #fed7aa !important;
+}
+
+.katex-display {
+    margin: 0.75rem 0 !important;
+    padding: 0.5rem 1rem !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 8px !important;
+    border-left: 3px solid var(--accent) !important;
+    overflow-x: auto !important;
 }
 
 /* Interactive Text Highlighter & Badges */

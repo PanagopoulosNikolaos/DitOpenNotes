@@ -1,5 +1,6 @@
-"""Master Theory and Study Guide component for Computer Networks."""
+"""Master Theory and Study Guide component for Computer Networks with LaTeX support."""
 
+from typing import Callable, Optional
 from nicegui import ui
 from theory import (
     renderTopic1NetworkEdge,
@@ -16,11 +17,15 @@ from .methodology_table import renderMethodologyTable
 from .interactive_calculators import renderCalculators
 
 
-def renderTheoryPage(active_topic_id: str = "theory_full_prep") -> None:
-    """Renders the comprehensive Computer Networks theory handbook and study guide.
+def renderTheoryPage(
+    active_sub_id: str = "theory_full_prep",
+    on_sub_change: Optional[Callable[[str], None]] = None,
+) -> None:
+    """Renders the comprehensive Computer Networks study handbook with notes sub-modules.
 
     Args:
-        active_topic_id (str): The ID of the specific theory topic to display initially.
+        active_sub_id (str): The ID of the specific study submodule to display initially.
+        on_sub_change (Optional[Callable[[str], None]]): Callback when sub-module is switched.
 
     Returns:
         None
@@ -35,66 +40,68 @@ def renderTheoryPage(active_topic_id: str = "theory_full_prep") -> None:
                 with ui.column().classes("gap-0"):
                     ui.html(
                         '<h1 class="text-2xl md:text-3xl font-black gradient-title m-0">'
-                        "Πλήρης Θεωρητικός Οδηγός & Μεθοδολογία Δικτύων Υπολογιστών"
+                        "Study Module: Θεωρητικός Οδηγός & Σημειώσεις Μαθήματος"
                         "</h1>"
                     )
                     ui.label(
-                        "Ολοκληρωμένο εκπαιδευτικό εγχειρίδιο 7 θεματικών ενοτήτων, τυπολόγιο, συγκριτικοί πίνακες "
-                        "και ενσωματωμένοι διαδραστικοί υπολογιστές."
+                        "Ολοκληρωμένο εκπαιδευτικό υλικό 7 θεματικών ενοτήτων με υποστήριξη LaTeX, συγκριτικούς πίνακες "
+                        "και ενσωματωμένους διαδραστικούς υπολογιστές."
                     ).classes("text-sm text-[#b5b0a4] mt-1")
 
         # Quick Reference Methodology Cards
         renderMethodologyCards()
 
         # Topic Selector Tabs
-        topics = [
-            ("theory_full_prep", "Πλήρης Οδηγός Εξετάσεων", "graduation-cap"),
-            ("topic_1_network_edge", "1. Network Edge", "laptop-code"),
+        study_tabs = [
+            ("theory_full_prep", "Πλήρης Οδηγός Εξετάσεων (Cheat Sheet)", "graduation-cap"),
+            ("topic_1_network_edge", "1. Network Edge & P2P", "laptop-code"),
             ("topic_2_the_internet", "2. Internet & Protocols", "globe"),
-            ("topic_3_network_structure", "3. Network Structure", "diagram-project"),
-            ("topic_4_access_technologies", "4. Access Tech", "wifi"),
-            ("topic_5_communication_media", "5. Media (UTP/Fiber)", "cable-car"),
-            ("topic_6_data_switching_and_routing", "6. Switching & Routing", "route"),
+            ("topic_3_network_structure", "3. Network Structure & ISPs", "diagram-project"),
+            ("topic_4_access_technologies", "4. Access Tech (FTTH/5G)", "wifi"),
+            ("topic_5_communication_media", "5. Media (UTP/Fiber/LEO)", "cable-car"),
+            ("topic_6_data_switching_and_routing", "6. Switching & 4 Delays", "route"),
             ("topic_7_basic_networking_issues", "7. Addressing & CRC", "microchip"),
-            ("calculators", "Διαδραστικοί Υπολογιστές", "calculator"),
+            ("study_calculators", "Διαδραστικοί Υπολογιστές", "calculator"),
         ]
 
         topic_container = ui.column().classes("w-full gap-6")
 
-        def showTopic(topic_id: str) -> None:
-            """Renders the selected theory topic into the container."""
+        def showStudyTopic(sub_id: str) -> None:
+            """Renders the selected study submodule into the container."""
             topic_container.clear()
             with topic_container:
-                if topic_id == "theory_full_prep":
+                if sub_id in ("theory_full_prep", "study_full_prep"):
                     renderTheoryExamFullPrep()
                     renderMethodologyTable()
-                elif topic_id == "topic_1_network_edge":
+                elif sub_id == "topic_1_network_edge":
                     renderTopic1NetworkEdge()
-                elif topic_id == "topic_2_the_internet":
+                elif sub_id == "topic_2_the_internet":
                     renderTopic2TheInternet()
-                elif topic_id == "topic_3_network_structure":
+                elif sub_id == "topic_3_network_structure":
                     renderTopic3NetworkStructure()
-                elif topic_id == "topic_4_access_technologies":
+                elif sub_id == "topic_4_access_technologies":
                     renderTopic4AccessTechnologies()
-                elif topic_id == "topic_5_communication_media":
+                elif sub_id == "topic_5_communication_media":
                     renderTopic5CommunicationMedia()
-                elif topic_id == "topic_6_data_switching_and_routing":
+                elif sub_id == "topic_6_data_switching_and_routing":
                     renderTopic6DataSwitchingAndRouting()
-                elif topic_id == "topic_7_basic_networking_issues":
+                elif sub_id == "topic_7_basic_networking_issues":
                     renderTopic7BasicNetworkingIssues()
-                elif topic_id == "calculators":
+                elif sub_id in ("study_calculators", "calculators"):
                     renderCalculators()
+
+            ui.run_javascript("if (typeof renderAllLatex === 'function') setTimeout(renderAllLatex, 50);")
 
         # Tabs Header
         with ui.row().classes("w-full gap-2 flex-wrap bg-[#141413] p-2.5 rounded-2xl border border-[rgba(255,255,255,0.08)]"):
-            for tid, label, icon in topics:
-                is_active = (tid == active_topic_id)
-                btn_cls = "bg-[rgba(224,107,58,0.2)] text-[#fed7aa] border-[#e06b3a]" if is_active else "bg-[#201f1d] text-[#b5b0a4] border-transparent"
+            for tid, label, icon in study_tabs:
+                is_active = (tid == active_sub_id)
+                btn_cls = "bg-[rgba(224,107,58,0.25)] text-[#fed7aa] border-[#e06b3a]" if is_active else "bg-[#201f1d] text-[#b5b0a4] border-transparent"
                 ui.button(
                     f"{label}",
                     icon=icon,
-                    on_click=lambda _, t=tid: showTopic(t),
+                    on_click=lambda _, t=tid: (showStudyTopic(t), on_sub_change(t) if on_sub_change else None),
                 ).props("flat dense").classes(f"text-xs font-semibold px-3 py-1.5 rounded-xl border {btn_cls} hover:text-[#f4f1ea] transition-all")
 
-        # Initial Topic Render
-        showTopic(active_topic_id)
+        # Initial Submodule Render
+        showStudyTopic(active_sub_id)
