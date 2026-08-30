@@ -37,14 +37,29 @@ BLUE_HOVER = "#62a1dc"
 
 KATEX_HEAD_HTML = """
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 <script>
 function renderAllLatex() {
-    if (typeof renderMathInElement !== 'function') return;
+    if (typeof renderMathInElement !== 'function') {
+        setTimeout(renderAllLatex, 100);
+        return;
+    }
     
-    // Target scoped containers only to prevent corrupting Vue 3 virtual DOM reconciliation
-    const targets = document.querySelectorAll('.latex-target, .formula-box, #interactive-text-canvas, .analysis-content, .step-content');
+    // Target scoped containers to prevent corrupting Vue 3 virtual DOM reconciliation
+    const selectors = [
+        '.latex-target',
+        '.theory-section',
+        '.theory-card',
+        '.formula-box',
+        '#interactive-text-canvas',
+        '.analysis-content',
+        '.step-content',
+        '.nicegui-markdown',
+        '.q-card'
+    ];
+    
+    const targets = document.querySelectorAll(selectors.join(', '));
     if (targets && targets.length > 0) {
         targets.forEach(el => {
             try {
@@ -56,6 +71,7 @@ function renderAllLatex() {
                         {left: '\\\\[', right: '\\\\]', display: true},
                         {left: '\\\\(', right: '\\\\)', display: false}
                     ],
+                    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
                     throwOnError: false
                 });
             } catch (err) {
@@ -63,7 +79,7 @@ function renderAllLatex() {
             }
         });
     } else {
-        const root = document.getElementById('main-content-area');
+        const root = document.getElementById('main-content-area') || document.body;
         if (root) {
             try {
                 renderMathInElement(root, {
@@ -74,6 +90,7 @@ function renderAllLatex() {
                         {left: '\\\\[', right: '\\\\]', display: true},
                         {left: '\\\\(', right: '\\\\)', display: false}
                     ],
+                    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
                     throwOnError: false
                 });
             } catch (err) {}
@@ -82,7 +99,9 @@ function renderAllLatex() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(renderAllLatex, 150);
+    setTimeout(renderAllLatex, 100);
+    setTimeout(renderAllLatex, 300);
+    setTimeout(renderAllLatex, 700);
 });
 
 // Interactive canvas highlight filter controller (loaded once at startup)

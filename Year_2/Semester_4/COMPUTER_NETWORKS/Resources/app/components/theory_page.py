@@ -113,7 +113,8 @@ def renderTheoryPage(
                     renderCalculators()
 
             ui.run_javascript(
-                "if (typeof renderAllLatex === 'function') setTimeout(renderAllLatex, 80);"
+                "setTimeout(() => { if (typeof renderAllLatex === 'function') renderAllLatex(); }, 60);"
+                "setTimeout(() => { if (typeof renderAllLatex === 'function') renderAllLatex(); }, 220);"
             )
 
         # Tabs Header Navigation Bar
