@@ -249,7 +249,7 @@ def _renderCrowsFootSection() -> None:
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
-                        <circle cx="28" cy="25" r="6" fill="#1c1b1a" stroke="#e06b3a" stroke-width="2.5" />
+                        <circle cx="28" cy="25" r="6" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2.5" class="svg-marker-circle" />
                         <line x1="46" y1="12" x2="46" y2="38" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
@@ -264,7 +264,7 @@ def _renderCrowsFootSection() -> None:
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
                         <line x1="15" y1="12" x2="38" y2="25" stroke="#e06b3a" stroke-width="2.5" />
                         <line x1="15" y1="38" x2="38" y2="25" stroke="#e06b3a" stroke-width="2.5" />
-                        <circle cx="50" cy="25" r="6" fill="#1c1b1a" stroke="#e06b3a" stroke-width="2.5" />
+                        <circle cx="50" cy="25" r="6" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2.5" class="svg-marker-circle" />
                     </svg>
                     """,
                     desc="Διχάλα με κύκλο (>O): Προαιρετική συμμετοχή σε 0 έως πολλά στιγμιότυπα (Modality: 0, Cardinality: N).",
@@ -287,7 +287,7 @@ def _renderCrowsFootSection() -> None:
                         <!-- Line -->
                         <line x1="10" y1="35" x2="130" y2="35" stroke="#e06b3a" stroke-width="2.5" />
                         <!-- Circle (Modality 0) -->
-                        <circle cx="100" cy="35" r="7" fill="#1c1b1a" stroke="#e06b3a" stroke-width="2.5" />
+                        <circle cx="100" cy="35" r="7" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2.5" class="svg-marker-circle" />
                         <!-- Perpendicular Bar (Cardinality 1) -->
                         <line x1="120" y1="20" x2="120" y2="50" stroke="#e06b3a" stroke-width="2.5" />
                         <!-- Target Entity Edge -->
@@ -331,7 +331,7 @@ def _renderCrowsFootSection() -> None:
                         <!-- Line -->
                         <line x1="10" y1="35" x2="130" y2="35" stroke="#e06b3a" stroke-width="2.5" />
                         <!-- Circle (Modality 0) -->
-                        <circle cx="85" cy="35" r="7" fill="#1c1b1a" stroke="#e06b3a" stroke-width="2.5" />
+                        <circle cx="85" cy="35" r="7" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2.5" class="svg-marker-circle" />
                         <!-- Crow's Foot Fork (Cardinality N) -->
                         <line x1="105" y1="35" x2="130" y2="18" stroke="#e06b3a" stroke-width="2.5" />
                         <line x1="105" y1="35" x2="130" y2="52" stroke="#e06b3a" stroke-width="2.5" />
@@ -661,13 +661,13 @@ def _generateConnectionSvg(left_type: str, right_type: str) -> str:
     elif left_type == "one-optional":
         left_elements = """
         <line x1="30" y1="12" x2="30" y2="28" stroke="#e06b3a" stroke-width="2" />
-        <circle cx="45" cy="20" r="5" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+        <circle cx="45" cy="20" r="5" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" class="svg-marker-circle" />
         """
     elif left_type == "many-optional":
         left_elements = """
         <line x1="15" y1="10" x2="35" y2="20" stroke="#e06b3a" stroke-width="2" />
         <line x1="15" y1="30" x2="35" y2="20" stroke="#e06b3a" stroke-width="2" />
-        <circle cx="48" cy="20" r="5" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+        <circle cx="48" cy="20" r="5" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" class="svg-marker-circle" />
         """
     elif left_type == "many-mandatory":
         left_elements = """
@@ -685,12 +685,12 @@ def _generateConnectionSvg(left_type: str, right_type: str) -> str:
         """
     elif right_type == "one-optional":
         right_elements = """
-        <circle cx="175" cy="20" r="5" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+        <circle cx="175" cy="20" r="5" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" class="svg-marker-circle" />
         <line x1="190" y1="12" x2="190" y2="28" stroke="#e06b3a" stroke-width="2" />
         """
     elif right_type == "many-optional":
         right_elements = """
-        <circle cx="172" cy="20" r="5" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+        <circle cx="172" cy="20" r="5" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" class="svg-marker-circle" />
         <line x1="185" y1="20" x2="205" y2="10" stroke="#e06b3a" stroke-width="2" />
         <line x1="185" y1="20" x2="205" y2="30" stroke="#e06b3a" stroke-width="2" />
         """

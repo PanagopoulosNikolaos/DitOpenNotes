@@ -56,7 +56,7 @@ class ERApp:
 
         scenario = scenario_registry.getScenario(self.current_scenario_id)
         if not scenario:
-            ui.label("Το επιλεγμένο σενάριο δεν βρέθηκε.").classes("text-red-400 p-4")
+            ui.label("Το επιλεγμένο σενάριο δεν βρέθηκε.").classes("text-red-500 p-4")
             return
 
         with ui.column().classes("w-full max-w-6xl mx-auto px-4 py-8 space-y-10"):
@@ -81,14 +81,18 @@ class ERApp:
 
 def buildApp() -> None:
     """Builds the main NiceGUI web page layout and routes."""
-    # Inject design tokens and custom styles
+    # Inject design tokens, custom styles, and theme switcher logic
     ui.add_head_html(f"<style>{config.CUSTOM_CSS}</style>", shared=True)
+    ui.add_head_html(config.THEME_HEAD_SCRIPT, shared=True)
 
     er_app = ERApp()
 
     @ui.page("/")
     def mainPage() -> None:
         """Root page handler rendering header and reactive content."""
+        # Initialize default light theme mode
+        ui.dark_mode(value=False)
+
         current_scenario = scenario_registry.getScenario(er_app.current_scenario_id)
         content_container = ui.column().classes("w-full gap-0 p-0 items-center")
 
@@ -112,7 +116,6 @@ def buildApp() -> None:
             er_app.renderScenarioContent()
 
 
-
 buildApp()
 
 if __name__ in {"__main__", "__mp_main__"}:
@@ -120,5 +123,5 @@ if __name__ in {"__main__", "__mp_main__"}:
         title="Οδηγός Ανάλυσης ER & Διαδραστικό Canvas",
         port=8080,
         reload=False,
-        dark=True,
+        dark=False,
     )

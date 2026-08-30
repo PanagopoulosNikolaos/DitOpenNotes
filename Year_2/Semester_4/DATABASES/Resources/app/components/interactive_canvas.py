@@ -16,7 +16,7 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
     paragraphs_html_list = []
     for p in scenario.paragraphs:
         border_style = (
-            "border-left: 3px solid #e06b3a; padding-left: 14px; margin: 16px 0;"
+            "border-left: 3px solid var(--accent); padding-left: 14px; margin: 16px 0;"
             if p.accent_border_color
             else "margin: 16px 0;"
         )
@@ -27,7 +27,7 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
             else:
                 tooltip_attr = f'title="{seg.tooltip}"' if seg.tooltip else ""
                 tag_html = (
-                    f'<span class="tag-label bg-[rgba(0,0,0,0.5)]">{seg.tag_label}</span>'
+                    f'<span class="tag-label">{seg.tag_label}</span>'
                     if seg.tag_label
                     else ""
                 )
@@ -44,21 +44,21 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
 
     full_canvas_body_html = "".join(paragraphs_html_list)
 
-    with ui.column().classes("w-full glass-panel gap-0 p-0 overflow-hidden border border-[rgba(224,107,58,0.25)] print-section print-canvas no-break-before"):
+    with ui.column().classes("w-full glass-panel gap-0 p-0 overflow-hidden border border-[var(--border-accent)] print-section print-canvas no-break-before"):
         # Header with filters (Interactive) and Print Banner
         with ui.row().classes(
-            "w-full bg-[#121211] p-5 justify-between items-center flex-wrap gap-4 border-b border-[rgba(255,255,255,0.08)]"
+            "w-full bg-[var(--canvas-header-bg)] p-5 justify-between items-center flex-wrap gap-4 border-b border-[var(--border)]"
         ):
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-highlighter text-[#f59e0b] text-lg no-print"></i>')
-                    ui.html('<h2 class="text-lg md:text-xl font-bold text-[#f4f1ea] m-0">Διαδραστικό Canvas Κειμένου Απαιτήσεων</h2>')
+                    ui.html('<h2 class="text-lg md:text-xl font-bold text-[var(--text-1)] m-0">Διαδραστικό Canvas Κειμένου Απαιτήσεων</h2>')
                 ui.label(
                     f"Σενάριο: {scenario.title} — {scenario.subtitle}"
-                ).classes("text-xs text-[#fdba74] font-medium hidden print:block")
+                ).classes("text-xs text-[var(--accent)] font-medium hidden print:block")
                 ui.label(
                     "Κάντε κλικ στα φίλτρα για να εμφανίσετε/αποκρύψετε επιμέρους στοιχεία ή επιλέξτε Καθαρό Κείμενο."
-                ).classes("text-xs text-[#78756d] no-print")
+                ).classes("text-xs text-[var(--text-3)] no-print")
 
             # Interactive Filter Buttons (Presets + Category Toggles - hidden in print)
             with ui.row().classes("items-center gap-2 flex-wrap text-xs no-print"):
@@ -72,16 +72,16 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
                         <i class="fa-solid fa-file-lines mr-1"></i> Καθαρό Κείμενο
                     </button>
                     <button onclick="toggleCategory('entity')" class="filter-chip active" data-category="entity" title="Εναλλαγή εμφάνισης Οντοτήτων">
-                        <i class="fa-solid fa-cube mr-1 text-blue-400"></i> Οντότητες
+                        <i class="fa-solid fa-cube mr-1 text-blue-500"></i> Οντότητες
                     </button>
                     <button onclick="toggleCategory('key')" class="filter-chip active" data-category="key" title="Εναλλαγή εμφάνισης Κλειδιών">
-                        <i class="fa-solid fa-key mr-1 text-amber-400"></i> Κλειδιά
+                        <i class="fa-solid fa-key mr-1 text-amber-500"></i> Κλειδιά
                     </button>
                     <button onclick="toggleCategory('attr')" class="filter-chip active" data-category="attr" title="Εναλλαγή εμφάνισης Γνωρισμάτων">
-                        <i class="fa-solid fa-tag mr-1 text-emerald-400"></i> Γνωρίσματα
+                        <i class="fa-solid fa-tag mr-1 text-emerald-500"></i> Γνωρίσματα
                     </button>
                     <button onclick="toggleCategory('rel')" class="filter-chip active" data-category="rel" title="Εναλλαγή εμφάνισης Σχέσεων">
-                        <i class="fa-solid fa-code-branch mr-1 text-rose-400"></i> Σχέσεις
+                        <i class="fa-solid fa-code-branch mr-1 text-rose-500"></i> Σχέσεις
                     </button>
                     """,
                     sanitize=False,
@@ -89,27 +89,28 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
 
         # Legend Bar (hidden in print)
         with ui.row().classes(
-            "w-full bg-[#171615] px-4 py-2.5 border-b border-[rgba(255,255,255,0.06)] text-xs flex-wrap gap-4 justify-center no-print"
+            "w-full bg-[var(--canvas-legend-bg)] px-4 py-2.5 border-b border-[var(--border)] text-xs flex-wrap gap-4 justify-center no-print"
         ):
             ui.html(
                 """
-                <span class="inline-flex items-center text-[#93c5fd] gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Ισχυρή Οντότητα</span>
-                <span class="inline-flex items-center text-[#d8b4fe] gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Ασθενής Οντότητα</span>
-                <span class="inline-flex items-center text-[#fdba74] gap-1.5"><span class="w-2.5 h-2.5 bg-[#e06b3a] rounded-sm"></span> Πρωτεύον Κλειδί (PK)</span>
-                <span class="inline-flex items-center text-[#86efac] gap-1.5"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Απλό/Σύνθετο Γνώρισμα</span>
-                <span class="inline-flex items-center text-[#f0abfc] gap-1.5"><span class="w-2.5 h-2.5 bg-fuchsia-500 rounded-sm"></span> Πλειότιμο Γνώρισμα</span>
-                <span class="inline-flex items-center text-[#fda4af] gap-1.5"><span class="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Σχέση / Πληθικότητα</span>
+                <span class="inline-flex items-center text-blue-600 dark:text-[#93c5fd] gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Ισχυρή Οντότητα</span>
+                <span class="inline-flex items-center text-purple-600 dark:text-[#d8b4fe] gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Ασθενής Οντότητα</span>
+                <span class="inline-flex items-center text-orange-600 dark:text-[#fdba74] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-[#e06b3a] rounded-sm"></span> Πρωτεύον Κλειδί (PK)</span>
+                <span class="inline-flex items-center text-emerald-600 dark:text-[#86efac] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Απλό/Σύνθετο Γνώρισμα</span>
+                <span class="inline-flex items-center text-fuchsia-600 dark:text-[#f0abfc] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-fuchsia-500 rounded-sm"></span> Πλειότιμο Γνώρισμα</span>
+                <span class="inline-flex items-center text-rose-600 dark:text-[#fda4af] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Σχέση / Πληθικότητα</span>
                 """
             )
 
         # Full Contiguous Text Container
         ui.html(
             f"""
-            <div id="canvas-text" class="p-6 md:p-8 space-y-4 bg-[#1a1918] text-base md:text-lg leading-relaxed text-[#f4f1ea] w-full">
+            <div id="canvas-text" class="p-6 md:p-8 space-y-4 bg-[var(--canvas-bg)] text-base md:text-lg leading-relaxed text-[var(--text-1)] w-full">
                 {full_canvas_body_html}
             </div>
             """
         )
+
 
 # Register global head script for filter state management
 ui.add_head_html(
@@ -232,24 +233,24 @@ ui.add_head_html(
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-        body { background-color: #141413; color: #f4f1ea; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; line-height: 1.5; margin: 0; padding: 24px; }
+        body { background-color: #ffffff; color: #18181b; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; line-height: 1.5; margin: 0; padding: 24px; }
         .header-banner { border-bottom: 2px solid rgba(224, 107, 58, 0.4); padding-bottom: 12px; margin-bottom: 20px; }
-        .header-banner h1 { margin: 0; font-size: 22px; color: #f59e0b; }
-        .glass-panel { background: #1c1b1a; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        h2, h3 { color: #fdba74; margin-top: 0; }
+        .header-banner h1 { margin: 0; font-size: 22px; color: #c2410c; }
+        .glass-panel { background: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        h2, h3 { color: #9a3412; margin-top: 0; }
         .attr-card-container, .rel-card-container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        .attr-card { background: #1e231e; border: 1px solid rgba(16,185,129,0.3); padding: 10px; border-radius: 6px; }
-        .attr-card-rel { grid-column: span 2; background: #231e21; border: 1px solid rgba(244,63,94,0.3); padding: 10px; border-radius: 6px; }
-        .rel-card { background: #251d20; border: 1px solid rgba(244,63,94,0.3); padding: 10px; border-radius: 6px; }
+        .attr-card { background: #f0fdf4; border: 1px solid #86efac; padding: 10px; border-radius: 6px; color: #065f46; }
+        .attr-card-rel { grid-column: span 2; background: #fff1f2; border: 1px solid #fda4af; padding: 10px; border-radius: 6px; color: #9f1239; }
+        .rel-card { background: #fff1f2; border: 1px solid #fda4af; padding: 10px; border-radius: 6px; }
         .dark-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-        .dark-table th, .dark-table td { border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; font-size: 12px; text-align: left; }
-        .dark-table th { background: rgba(255,255,255,0.08); color: #fde68a; }
-        #er-svg-canvas { width: 100%; height: 500px; background: #121211; border: 1px solid rgba(224,107,58,0.4); border-radius: 8px; }
+        .dark-table th, .dark-table td { border: 1px solid #d1d5db; padding: 6px 10px; font-size: 12px; text-align: left; }
+        .dark-table th { background: #f3f4f6; color: #111827; }
+        #er-svg-canvas { width: 100%; height: 500px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; }
         pre, code { font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-word; }
-        .sql-code-container { background: #10100f; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 8px; }
+        .sql-code-container { background: #f8fafc; border: 1px solid #d1d5db; padding: 14px; border-radius: 8px; color: #0f172a; }
         @media print {
             @page { size: A4 portrait; margin: 6mm 8mm; }
-            body { padding: 0; font-size: 8.5pt; background: #141413 !important; color: #f4f1ea !important; }
+            body { padding: 0; font-size: 8.5pt; background: #ffffff !important; color: #18181b !important; }
             .attr-card-container, .rel-card-container { gap: 6px; }
             .attr-card, .rel-card { padding: 4px 8px; }
             #er-svg-canvas { height: 520px !important; }
@@ -261,7 +262,7 @@ ui.add_head_html(
 <body>
     <div class="header-banner">
         <h1>${title}</h1>
-        <p style="color:#b5b0a4; margin: 4px 0 0 0; font-size: 12px;">${subTitle}</p>
+        <p style="color:#52525b; margin: 4px 0 0 0; font-size: 12px;">${subTitle}</p>
     </div>
     ${sectionsHTML}
 </body>

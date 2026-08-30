@@ -11,16 +11,16 @@ def renderMethodologyTable() -> None:
     """
     with ui.column().classes("w-full glass-panel gap-4 no-print"):
         with ui.row().classes("items-center gap-3"):
-            ui.html('<i class="fa-solid fa-table text-[#e06b3a] text-xl"></i>')
-            ui.html('<h2 class="text-xl md:text-2xl font-bold text-[#f4f1ea] m-0">Γενικός Οδηγός Αναγνώρισης (Μεθοδολογικός Πίνακας)</h2>')
+            ui.html('<i class="fa-solid fa-table text-[var(--accent)] text-xl"></i>')
+            ui.html('<h2 class="text-xl md:text-2xl font-bold text-[var(--text-1)] m-0">Γενικός Οδηγός Αναγνώρισης (Μεθοδολογικός Πίνακας)</h2>')
 
         ui.label(
             "Χρησιμοποιήστε τον παρακάτω κανόνα για την ανάλυση οποιουδήποτε γραπτού κειμένου απαιτήσεων:"
-        ).classes("text-xs text-[#b5b0a4]")
+        ).classes("text-xs text-[var(--text-2)]")
 
         table_content = """
         <div class="overflow-x-auto w-full">
-            <table class="dark-table">
+            <table class="dark-table shadow-sm">
                 <thead>
                     <tr>
                         <th style="width: 25%;">Στοιχείο προς Αναγνώριση</th>
@@ -30,8 +30,8 @@ def renderMethodologyTable() -> None:
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="font-bold text-blue-300">
-                            <i class="fa-solid fa-cube mr-1 text-blue-400"></i> Οντότητες (Entities)
+                        <td class="font-bold text-blue-600 dark:text-blue-300">
+                            <i class="fa-solid fa-cube mr-1 text-blue-500"></i> Οντότητες (Entities)
                         </td>
                         <td>
                             Συνήθως <strong>κύρια ουσιαστικά</strong> που περιγράφουν αντικείμενα, πρόσωπα, οργανισμούς ή έννοιες με αυτοτελή υπόσταση.
@@ -42,8 +42,8 @@ def renderMethodologyTable() -> None:
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-emerald-300">
-                            <i class="fa-solid fa-tag mr-1 text-emerald-400"></i> Γνωρίσματα (Attributes)
+                        <td class="font-bold text-emerald-600 dark:text-emerald-300">
+                            <i class="fa-solid fa-tag mr-1 text-emerald-500"></i> Γνωρίσματα (Attributes)
                         </td>
                         <td>
                             <strong>Χαρακτηριστικά, ιδιότητες ή πληροφορίες</strong> που αναφέρονται ότι καταγράφονται/διατηρούνται για μια οντότητα ή σχέση.
@@ -57,8 +57,8 @@ def renderMethodologyTable() -> None:
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-amber-300">
-                            <i class="fa-solid fa-key mr-1 text-amber-400"></i> Κλειδιά (Keys)
+                        <td class="font-bold text-amber-600 dark:text-amber-300">
+                            <i class="fa-solid fa-key mr-1 text-amber-500"></i> Κλειδιά (Keys)
                         </td>
                         <td>
                             Φράσεις όπως <em>«μοναδικός κωδικός»</em>, <em>«αριθμός ταυτότητας»</em>, <em>«μοναδικό όνομα»</em>, <em>«ΑΦΜ»</em>.
@@ -70,8 +70,8 @@ def renderMethodologyTable() -> None:
                         </td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-rose-300">
-                            <i class="fa-solid fa-code-branch mr-1 text-rose-400"></i> Σχέσεις & Πληθικότητα
+                        <td class="font-bold text-rose-600 dark:text-rose-300">
+                            <i class="fa-solid fa-code-branch mr-1 text-rose-500"></i> Σχέσεις & Πληθικότητα
                         </td>
                         <td>
                             <strong>Ρήματα ή ρηματικές φράσεις</strong> που συνδέουν οντότητες (π.χ. «ανήκει», «υλοποιεί», «συμμετέχει», «είναι υπεύθυνος»).

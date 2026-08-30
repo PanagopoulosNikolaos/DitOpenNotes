@@ -42,14 +42,14 @@ def renderERDiagram(scenario: Scenario) -> None:
 
     with ui.column().classes("w-full glass-panel gap-4 print-section print-er-diagram"):
         # Header with controls
-        with ui.row().classes("w-full justify-between items-center flex-wrap gap-4 border-b border-[rgba(255,255,255,0.08)] pb-4"):
+        with ui.row().classes("w-full justify-between items-center flex-wrap gap-4 border-b border-[var(--border)] pb-4"):
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
-                    ui.html('<i class="fa-solid fa-diagram-project text-[#e06b3a] text-xl no-print"></i>')
-                    ui.html('<h2 class="text-xl font-bold text-[#f4f1ea] m-0">Σχεδίαση Διαγράμματος Ε-Ρ (Crow\'s Foot / Relational Schema)</h2>')
+                    ui.html('<i class="fa-solid fa-diagram-project text-[var(--accent)] text-xl no-print"></i>')
+                    ui.html('<h2 class="text-xl font-bold text-[var(--text-1)] m-0">Σχεδίαση Διαγράμματος Ε-Ρ (Crow\'s Foot / Relational Schema)</h2>')
                 ui.label(
                     "Πλήρης γραφική αναπαράσταση της Βάσης Δεδομένων με χρήση Crow's Foot Notation (Zoom, Pan, Dragging)."
-                ).classes("text-xs text-[#b5b0a4] no-print")
+                ).classes("text-xs text-[var(--text-2)] no-print")
 
             # Control buttons
             with ui.row().classes("items-center gap-2 flex-wrap text-xs no-print"):
@@ -64,22 +64,22 @@ def renderERDiagram(scenario: Scenario) -> None:
                 )
 
         # Diagram Container
-        with ui.element("div").classes("relative w-full rounded-2xl overflow-hidden border border-[rgba(224,107,58,0.3)] shadow-inner bg-[#121211]"):
+        with ui.element("div").classes("relative w-full rounded-2xl overflow-hidden border border-[var(--border-accent)] shadow-inner bg-[var(--svg-canvas-bg)]"):
             # Top Legend Overlay
             ui.html(
                 """
-                <div class="absolute top-3 left-3 z-10 bg-[#171615]/90 backdrop-blur-md text-[#f4f1ea] p-2.5 rounded-xl border border-[rgba(255,255,255,0.08)] text-xs flex flex-wrap items-center gap-3 no-print shadow-lg">
-                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-table text-blue-400"></i> Πίνακας</span>
+                <div class="absolute top-3 left-3 z-10 bg-[var(--header-bg)] backdrop-blur-md text-[var(--text-1)] p-2.5 rounded-xl border border-[var(--border)] text-xs flex flex-wrap items-center gap-3 no-print shadow-lg">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-table text-blue-500"></i> Πίνακας</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#e06b3a] rounded-sm"></span> PK</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-400 rounded-sm"></span> FK</span>
-                    <span class="h-3 w-px bg-white/20"></span>
+                    <span class="h-3 w-px bg-[var(--border)]"></span>
                     <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Ακριβώς Ένα (Υποχρεωτικό 1)">|| 1..1</span>
                     <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Μηδέν ή Ένα (Προαιρετικό 1)">O| 0..1</span>
                     <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Ένα ή Πολλά (Υποχρεωτικά Πολλά)">&gt;| 1..N</span>
                     <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Μηδέν ή Πολλά (Προαιρετικά Πολλά)">&gt;O 0..N</span>
                 </div>
-                <div class="absolute bottom-3 right-3 z-10 bg-[#171615]/85 text-[#78756d] px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 border border-[rgba(255,255,255,0.06)] no-print">
-                    <i class="fa-solid fa-hand-pointer text-[#e06b3a]"></i> Drag για μετακίνηση • Scroll για Zoom
+                <div class="absolute bottom-3 right-3 z-10 bg-[var(--header-bg)] backdrop-blur-sm text-[var(--text-3)] px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 border border-[var(--border)] no-print shadow-md">
+                    <i class="fa-solid fa-hand-pointer text-[var(--accent)]"></i> Drag για μετακίνηση • Scroll για Zoom
                 </div>
                 """
             )
@@ -112,19 +112,19 @@ def renderERDiagram(scenario: Scenario) -> None:
                         <!-- 0..1 (Optional One): O| / |O -->
                         <marker id="start-one-optional" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
                             <line x1="2" y1="2" x2="2" y2="14" stroke="#e06b3a" stroke-width="2" />
-                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" />
                         </marker>
                         <marker id="start-zero-one" markerWidth="20" markerHeight="16" refX="0" refY="8" orient="auto">
                             <line x1="2" y1="2" x2="2" y2="14" stroke="#e06b3a" stroke-width="2" />
-                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" />
                         </marker>
                         <marker id="end-one-optional" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
                             <line x1="18" y1="2" x2="18" y2="14" stroke="#e06b3a" stroke-width="2" />
-                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" />
                         </marker>
                         <marker id="end-zero-one" markerWidth="20" markerHeight="16" refX="20" refY="8" orient="auto">
                             <line x1="18" y1="2" x2="18" y2="14" stroke="#e06b3a" stroke-width="2" />
-                            <circle cx="10" cy="8" r="4" fill="#121211" stroke="#e06b3a" stroke-width="2" />
+                            <circle cx="10" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2" />
                         </marker>
 
                         <!-- 1..N (Mandatory Many): |< / >| -->
@@ -148,18 +148,18 @@ def renderERDiagram(scenario: Scenario) -> None:
                         <!-- 0..N (Optional Many): O< / >O -->
                         <marker id="start-many-optional" markerWidth="24" markerHeight="16" refX="0" refY="8" orient="auto">
                             <path d="M0,2 L10,8 M0,14 L10,8 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
-                            <circle cx="17" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                            <circle cx="17" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#f59e0b" stroke-width="2" />
                         </marker>
                         <marker id="start-zero-many" markerWidth="24" markerHeight="16" refX="0" refY="8" orient="auto">
                             <path d="M0,2 L10,8 M0,14 L10,8 M0,8 L10,8" stroke="#f59e0b" stroke-width="2" fill="none" />
-                            <circle cx="17" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                            <circle cx="17" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#f59e0b" stroke-width="2" />
                         </marker>
                         <marker id="end-many-optional" markerWidth="24" markerHeight="16" refX="24" refY="8" orient="auto">
-                            <circle cx="7" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                            <circle cx="7" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#f59e0b" stroke-width="2" />
                             <path d="M24,2 L14,8 M24,14 L14,8 M24,8 L14,8" stroke="#f59e0b" stroke-width="2" fill="none" />
                         </marker>
                         <marker id="end-zero-many" markerWidth="24" markerHeight="16" refX="24" refY="8" orient="auto">
-                            <circle cx="7" cy="8" r="4" fill="#121211" stroke="#f59e0b" stroke-width="2" />
+                            <circle cx="7" cy="8" r="4" class="svg-marker-circle" fill="var(--svg-canvas-bg, #ffffff)" stroke="#f59e0b" stroke-width="2" />
                             <path d="M24,2 L14,8 M24,14 L14,8 M24,8 L14,8" stroke="#f59e0b" stroke-width="2" fill="none" />
                         </marker>
                     </defs>
@@ -225,6 +225,30 @@ ui.add_head_html(
             const erTables = JSON.parse(tablesRaw);
             const erEdges = JSON.parse(edgesRaw);
 
+            // Determine active theme colors
+            const isDark = document.body.classList.contains('theme-dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+
+            const nodeBg = isDark ? '#1c1b1a' : '#ffffff';
+            const nodeBorder = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.14)';
+            const headerBg = isDark ? '#26211e' : '#f4f4f5';
+            const headerBorder = isDark ? 'rgba(224, 107, 58, 0.4)' : 'rgba(224, 107, 58, 0.5)';
+            const headerTitleColor = isDark ? '#f4f1ea' : '#18181b';
+            const rowAltBg = isDark ? 'rgba(255, 255, 255, 0.025)' : 'rgba(0, 0, 0, 0.025)';
+            const attrTextColor = isDark ? '#f4f1ea' : '#18181b';
+            const attrMutedColor = isDark ? '#b5b0a4' : '#52525b';
+            const pkColor = isDark ? '#fdba74' : '#c2410c';
+            const fkColor = isDark ? '#94a3b8' : '#64748b';
+            const edgeStroke = isDark ? '#b5b0a4' : '#4b5563';
+            const edgeLabelBg = isDark ? '#141413' : '#ffffff';
+            const edgeLabelBorder = isDark ? 'rgba(224, 107, 58, 0.4)' : 'rgba(224, 107, 58, 0.5)';
+            const edgeLabelText = isDark ? '#f4f1ea' : '#18181b';
+
+            // Update SVG Marker circle fill colors
+            const markerCircles = document.querySelectorAll('.svg-marker-circle');
+            markerCircles.forEach(c => {
+                c.setAttribute('fill', isDark ? '#121211' : '#ffffff');
+            });
+
             viewport.innerHTML = '';
 
             erTables.forEach(t => {
@@ -239,7 +263,7 @@ ui.add_head_html(
                 const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
                 path.setAttribute('d', edge.path);
                 path.setAttribute('fill', 'none');
-                path.setAttribute('stroke', '#b5b0a4');
+                path.setAttribute('stroke', edgeStroke);
                 path.setAttribute('stroke-width', '2');
                 path.setAttribute('marker-start', `url(#${edge.markerStart})`);
                 path.setAttribute('marker-end', `url(#${edge.markerEnd})`);
@@ -252,8 +276,8 @@ ui.add_head_html(
                     rect.setAttribute('y', edge.ly - 10);
                     rect.setAttribute('width', textWidth + 16);
                     rect.setAttribute('height', '20');
-                    rect.setAttribute('fill', '#141413');
-                    rect.setAttribute('stroke', 'rgba(224,107,58,0.4)');
+                    rect.setAttribute('fill', edgeLabelBg);
+                    rect.setAttribute('stroke', edgeLabelBorder);
                     rect.setAttribute('stroke-width', '1');
                     rect.setAttribute('rx', '6');
                     viewport.appendChild(rect);
@@ -261,7 +285,7 @@ ui.add_head_html(
                     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                     text.setAttribute('x', edge.lx);
                     text.setAttribute('y', edge.ly + 4);
-                    text.setAttribute('fill', '#f4f1ea');
+                    text.setAttribute('fill', edgeLabelText);
                     text.setAttribute('font-size', '11px');
                     text.setAttribute('font-weight', '600');
                     text.setAttribute('text-anchor', 'middle');
@@ -283,8 +307,8 @@ ui.add_head_html(
                 bgRect.setAttribute('width', TABLE_WIDTH);
                 bgRect.setAttribute('height', tbl.h);
                 bgRect.setAttribute('rx', '10');
-                bgRect.setAttribute('fill', '#1c1b1a');
-                bgRect.setAttribute('stroke', 'rgba(255, 255, 255, 0.12)');
+                bgRect.setAttribute('fill', nodeBg);
+                bgRect.setAttribute('stroke', nodeBorder);
                 bgRect.setAttribute('stroke-width', '1.5');
                 g.appendChild(bgRect);
 
@@ -295,8 +319,8 @@ ui.add_head_html(
                 headerRect.setAttribute('width', TABLE_WIDTH);
                 headerRect.setAttribute('height', HEADER_HEIGHT);
                 headerRect.setAttribute('rx', '10');
-                headerRect.setAttribute('fill', '#26211e');
-                headerRect.setAttribute('stroke', 'rgba(224, 107, 58, 0.4)');
+                headerRect.setAttribute('fill', headerBg);
+                headerRect.setAttribute('stroke', headerBorder);
                 headerRect.setAttribute('stroke-width', '1');
                 g.appendChild(headerRect);
 
@@ -306,7 +330,7 @@ ui.add_head_html(
                     headerSquare.setAttribute('y', HEADER_HEIGHT - 8);
                     headerSquare.setAttribute('width', TABLE_WIDTH);
                     headerSquare.setAttribute('height', '8');
-                    headerSquare.setAttribute('fill', '#26211e');
+                    headerSquare.setAttribute('fill', headerBg);
                     g.appendChild(headerSquare);
                 }
 
@@ -314,7 +338,7 @@ ui.add_head_html(
                 const titleText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                 titleText.setAttribute('x', TABLE_WIDTH / 2);
                 titleText.setAttribute('y', HEADER_HEIGHT / 2 + 1);
-                titleText.setAttribute('fill', '#f4f1ea');
+                titleText.setAttribute('fill', headerTitleColor);
                 titleText.setAttribute('font-size', '13px');
                 titleText.setAttribute('font-weight', '800');
                 titleText.setAttribute('text-anchor', 'middle');
@@ -333,7 +357,7 @@ ui.add_head_html(
                             rowBg.setAttribute('y', rowY);
                             rowBg.setAttribute('width', TABLE_WIDTH - 2);
                             rowBg.setAttribute('height', ROW_HEIGHT);
-                            rowBg.setAttribute('fill', 'rgba(255, 255, 255, 0.025)');
+                            rowBg.setAttribute('fill', rowAltBg);
                             g.appendChild(rowBg);
                         }
 
@@ -342,7 +366,7 @@ ui.add_head_html(
                             const keyTag = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                             keyTag.setAttribute('x', '14');
                             keyTag.setAttribute('y', rowY + 18);
-                            keyTag.setAttribute('fill', attr.pk ? '#e06b3a' : '#78756d');
+                            keyTag.setAttribute('fill', attr.pk ? pkColor : fkColor);
                             keyTag.setAttribute('font-size', '11px');
                             keyTag.setAttribute('font-weight', '800');
                             keyTag.textContent = (attr.pk && attr.fk) ? 'PK, FK' : (attr.pk ? 'PK' : 'FK');
@@ -353,7 +377,7 @@ ui.add_head_html(
                         const attrText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
                         attrText.setAttribute('x', '65');
                         attrText.setAttribute('y', rowY + 18);
-                        attrText.setAttribute('fill', attr.pk ? '#f4f1ea' : '#b5b0a4');
+                        attrText.setAttribute('fill', attr.pk ? (isDark ? '#fdba74' : '#9a3412') : (attr.fk ? attrTextColor : attrMutedColor));
                         attrText.setAttribute('font-size', '12px');
                         if (attr.pk) {
                             attrText.setAttribute('font-weight', '700');
