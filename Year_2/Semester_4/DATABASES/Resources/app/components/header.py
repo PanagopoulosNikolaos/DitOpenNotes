@@ -50,7 +50,7 @@ def renderHeader(
                 value=current_scenario_id,
                 on_change=lambda e: on_scenario_change(e.value),
             ).props(
-                "outlined dense options-dense"
+                'outlined dense options-dense popup-content-class="app-select-popup"'
             ).classes(
                 "w-80 md:w-96 bg-[var(--input-bg)] text-[var(--text-1)] text-xs rounded-lg border border-[var(--border-accent)] shadow-sm"
             )

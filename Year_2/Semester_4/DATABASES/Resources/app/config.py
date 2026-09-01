@@ -645,6 +645,103 @@ body.theme-light .border-\[rgba\(255\,255\,255\,0\.04\)\] {
     border-color: var(--border) !important;
 }
 
+/* Quasar Select Dropdown, Menu & Dialog Theming (Light & Dark Support) */
+.q-menu,
+.q-select__popup,
+.app-select-popup,
+.q-dialog__inner > div {
+    background-color: var(--menu-bg) !important;
+    background: var(--menu-bg) !important;
+    color: var(--text-1) !important;
+    border: 1px solid var(--border-accent) !important;
+    border-radius: var(--r-sm) !important;
+    box-shadow: var(--shadow-lg) !important;
+    backdrop-filter: blur(16px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+}
+
+.q-menu .q-item,
+.q-select__popup .q-item,
+.app-select-popup .q-item {
+    color: var(--text-1) !important;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif !important;
+    font-size: 0.84rem !important;
+    transition: background-color 0.18s ease, color 0.18s ease;
+    padding: 8px 14px !important;
+    min-height: 38px !important;
+}
+
+.q-menu .q-item:hover,
+.q-menu .q-item.q-manual-focusable--focused,
+.q-select__popup .q-item:hover,
+.q-select__popup .q-item.q-manual-focusable--focused,
+.app-select-popup .q-item:hover,
+.app-select-popup .q-item.q-manual-focusable--focused {
+    background-color: var(--surface-hover) !important;
+    color: var(--text-1) !important;
+}
+
+.q-menu .q-item.q-item--active,
+.q-select__popup .q-item.q-item--active,
+.app-select-popup .q-item.q-item--active,
+.q-menu .q-item.q-item--active .q-item__label,
+.q-select__popup .q-item.q-item--active .q-item__label,
+.app-select-popup .q-item.q-item--active .q-item__label {
+    background-color: rgba(224, 107, 58, 0.18) !important;
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+}
+
+.q-menu .q-item__label,
+.q-select__popup .q-item__label,
+.app-select-popup .q-item__label {
+    color: inherit !important;
+}
+
+.q-menu .q-item__label--caption,
+.q-select__popup .q-item__label--caption,
+.app-select-popup .q-item__label--caption {
+    color: var(--text-2) !important;
+}
+
+/* Quasar Select Field Controls */
+.q-field--outlined .q-field__control {
+    background-color: var(--input-bg) !important;
+    border-color: var(--border-accent) !important;
+    color: var(--text-1) !important;
+    border-radius: var(--r-sm) !important;
+}
+
+.q-field--outlined .q-field__control::before {
+    border-color: var(--border-accent) !important;
+}
+
+.q-field--outlined:hover .q-field__control::before {
+    border-color: var(--accent) !important;
+}
+
+.q-field--outlined.q-field--focused .q-field__control::after {
+    border-color: var(--accent) !important;
+}
+
+.q-field__native,
+.q-field__input {
+    color: var(--text-1) !important;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif !important;
+    font-size: 0.84rem !important;
+    font-weight: 500 !important;
+}
+
+.q-field__marginal,
+.q-field__append {
+    color: var(--text-2) !important;
+}
+
+.q-field--focused .q-field__marginal,
+.q-field--focused .q-field__append {
+    color: var(--accent) !important;
+}
+
 /* ==========================================================================
    INK-SAVING PRINT & A4 PDF EXPORT STYLES (ALWAYS CLEAN WHITE)
    ========================================================================== */
@@ -982,9 +1079,16 @@ THEME_HEAD_SCRIPT = """
         if (isDark) {
             document.body.classList.add('theme-dark');
             document.body.classList.remove('theme-light');
+            document.body.classList.add('body--dark');
         } else {
             document.body.classList.add('theme-light');
             document.body.classList.remove('theme-dark');
+            document.body.classList.remove('body--dark');
+        }
+        if (window.Quasar && window.Quasar.Dark) {
+            try {
+                window.Quasar.Dark.set(isDark);
+            } catch (e) {}
         }
         localStorage.setItem('app_theme', isDark ? 'dark' : 'light');
 
