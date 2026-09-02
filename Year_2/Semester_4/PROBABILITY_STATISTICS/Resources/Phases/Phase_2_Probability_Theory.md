@@ -995,12 +995,12 @@ cat("nPr:", nPr, "\n")
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 3 (Ασυνεχή γεγονότα, ανεξάρτητα συμβάντα, πράξεις συνόλου, νόμος του De Morgan $P(A' \cap B')$) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 (Ορισμοί της θεωρίας συνόλων, αμοιβαία αποκλειόμενα έναντι ανεξάρτητων γεγονότων, $P(A \cup B)$ κανόνας προσθήκης) | **1/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 2 (μετάφραση διαγράμματος Venn, πιθανότητα ένωσης και συμπληρώματος) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 2 (Ορισμός υπολογισμού πιθανοτήτων, ασύνδετων γεγονότων και συμπληρώματος) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 2 (Πράξεις θεωρίας συνόλων, μετάφραση φράσεων "τουλάχιστον ένα", "κανένα") | **2/5** |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 2 (Αλγεβρικές αποδείξεις των σχέσεων συνόλων και οι νόμοι του De Morgan) | **3/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md)$) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 (Ορισμοί της θεωρίας συνόλων, αμοιβαία αποκλειόμενα έναντι ανεξάρτητων γεγονότων, $P(A \cup B)$ κανόνας προσθήκης) | **1/5** |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 2 (μετάφραση διαγράμματος Venn, πιθανότητα ένωσης και συμπληρώματος) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 2 (Ορισμός υπολογισμού πιθανοτήτων, ασύνδετων γεγονότων και συμπληρώματος) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 2 (Πράξεις θεωρίας συνόλων, μετάφραση φράσεων "τουλάχιστον ένα", "κανένα") | **2/5** |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | **3/5** |
 
 ---
 

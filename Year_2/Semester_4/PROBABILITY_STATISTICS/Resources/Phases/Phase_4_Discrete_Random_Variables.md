@@ -1186,17 +1186,17 @@ $$\text{Correct } Var_{[\mu s^2]} = 10,000,000,000\,[\mu s^2]$$
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία | Βασικά θέματα που καλύπτονται |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 3 | **1/5** | Βασικοί υπολογισμοί διωνυμικής κατανομής (παρέχονται $n, p$). |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 3 | **1/5** | Απλή διωνυμική μοντελοποίηση. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 2 | **2/5** | Διωνυμική κατανομή PMF και προσδοκία. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 4 | **2/5** | Τυπικές εφαρμογές διωνυμικών πιθανοτήτων. |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική πιθανότητα PMF και ουράς. |
-| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | Ερώτηση 1 | **2/5** | Υπολογισμοί διωνυμικής κατανομής. |
-| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική μοντελοποίηση και αξιολόγηση παραμέτρων. || [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική αξιολόγηση κατανομής. |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική μοντελοποίηση ελαττωμάτων λογισμικού. |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 2 | **3/5** | Μεγαλύτερο μέγεθος δοκιμής Μοντελοποίηση διωνυμικής κατανομής. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 2 | **4/5** | Εκτίμηση διωνυμικού μεγέθους δοκιμής $n$ μέσω λογαριθμικών ανισοτήτων. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 2 | **5/5** | Υπό όρους Διωνυμική πιθανότητα $P(X = k \mid X \ge m)$. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md)| **1/5** | Βασικοί υπολογισμοί διωνυμικής κατανομής (παρέχονται $n, p$). |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 3 | **1/5** | Απλή διωνυμική μοντελοποίηση. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md)| **2/5** | Διωνυμική κατανομή PMF και προσδοκία. |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 4 | **2/5** | Τυπικές εφαρμογές διωνυμικών πιθανοτήτων. |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική πιθανότητα PMF και ουράς. |
+| [Exam_paper_2024_06_14_Team_C.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | Ερώτηση 1 | **2/5** | Υπολογισμοί διωνυμικής κατανομής. |
+| [Exam_paper_2025_06_03_Team_A.md](../../Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική μοντελοποίηση και αξιολόγηση παραμέτρων. || [Exam_paper_2026_06_09_Team_A.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική αξιολόγηση κατανομής. |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική μοντελοποίηση ελαττωμάτων λογισμικού. |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md)| Μεγαλύτερο μέγεθος δοκιμής Μοντελοποίηση διωνυμικής κατανομής. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) Ερώτηση 2 | **4/5** | Εκτίμηση διωνυμικού μεγέθους δοκιμής $n$ μέσω λογαριθμικών ανισοτήτων. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) Ερώτηση 2 | **5/5** | Υπό όρους Διωνυμική πιθανότητα $P(X = k \mid X \ge m)$. |
 
 ---
 

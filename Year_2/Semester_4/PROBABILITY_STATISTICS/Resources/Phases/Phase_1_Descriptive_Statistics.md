@@ -1002,14 +1002,14 @@ cat("Mean Y:", mean(y), "\nSD Y:", sd(y), "\n")
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 1 (Μη ομαδοποιημένα στατιστικά, μέσος όρος, διάμεσος, διακύμανση δείγματος) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 1 (Μη ομαδοποιημένος πίνακας δεδομένων, μέσος όρος, διακύμανση, τυπική απόκλιση) | **1/5** |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 1 (Ομαδοποιημένος πίνακας συχνοτήτων, κανόνας Sturges, ομαδοποιημένος μέσος όρος, παρεμβαλλόμενος διάμεσος) | **2/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 1 (Ομαδοποιημένη κατανομή συχνότητας, ομαδοποιημένη διακύμανση, υπολογισμός τρόπου λειτουργίας) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 1 (ομαδοποιημένος πίνακας συχνοτήτων 5 τάξεων, ομαδοποιημένος μέσος όρος και διακύμανση) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 1 (Ομαδικός πίνακας συχνοτήτων, εκατοστιαία παρεμβολή) | **2/5** |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 1 (Ομαδοποιημένα δεδομένα με συχνότητα που λείπει $f_i$ επίλυση εξίσωσης) | **4/5** |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 1 (Συγκεντρωμένα στατιστικά στοιχεία σε πολλαπλά σύνολα δεδομένων, συνολικός συγκεντρωτικός μέσος όρος και διακύμανση) | **5/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 1 (Μη ομαδοποιημένος πίνακας δεδομένων, μέσος όρος, διακύμανση, τυπική απόκλιση) | **1/5** |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md) | **2/5** |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 1 (Ομαδοποιημένη κατανομή συχνότητας, ομαδοποιημένη διακύμανση, υπολογισμός τρόπου λειτουργίας) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 1 (ομαδοποιημένος πίνακας συχνοτήτων 5 τάξεων, ομαδοποιημένος μέσος όρος και διακύμανση) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 1 (Ομαδικός πίνακας συχνοτήτων, εκατοστιαία παρεμβολή) | **2/5** |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) Ερώτηση 1 (Ομαδοποιημένα δεδομένα με συχνότητα που λείπει $f_i$ επίλυση εξίσωσης) | **4/5** |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) Ερώτηση 1 (Συγκεντρωμένα στατιστικά στοιχεία σε πολλαπλά σύνολα δεδομένων, συνολικός συγκεντρωτικός μέσος όρος και διακύμανση) | **5/5** |
 
 ---
 

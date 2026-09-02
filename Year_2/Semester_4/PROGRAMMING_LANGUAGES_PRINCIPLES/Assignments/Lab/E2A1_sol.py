@@ -32,7 +32,7 @@ class TestHammingDistance(unittest.TestCase):
     Unit tests for the Hamming distance calculation function.
     """
 
-    def test_HD(self):
+    def testHd(self):
         """
         Executes various test cases to verify Hamming distance accuracy.
         """

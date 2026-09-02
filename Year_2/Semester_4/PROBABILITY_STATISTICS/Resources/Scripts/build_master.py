@@ -35,6 +35,15 @@ def getPhaseFiles(phases_dir: str) -> list:
 
     # Sorts by phase number extracted from filename; Phase_5B sorts after Phase_5.
     def sortKey(path: str) -> float:
+        """
+        Extracts sort order key from phase file path.
+
+        Args:
+            path (str): File path of the phase markdown document.
+
+        Returns:
+            float: Numerical sort key representation.
+        """
         filename = os.path.basename(path)
         match = re.search(r'Phase_(\d+)([A-Z]?)', filename)
         if match:
@@ -156,7 +165,8 @@ def main() -> None:
     # Resolves paths relative to the script's location in Resources/Scripts/.
     resources_dir = os.path.dirname(base_dir)
     phases_dir = os.path.join(resources_dir, "Phases")
-    output_file = os.path.join(resources_dir, "Probability_and_Statistics_Master.md")
+    notes_dir = os.path.join(resources_dir, "Notes")
+    output_file = os.path.join(notes_dir, "Probability_and_Statistics_Master.md")
 
     print(f"Scanning for phase files in: {phases_dir}")
     phase_files = getPhaseFiles(phases_dir)

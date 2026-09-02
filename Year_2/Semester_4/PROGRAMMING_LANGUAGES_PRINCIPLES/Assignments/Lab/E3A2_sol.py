@@ -176,33 +176,33 @@ class TestReExamples(unittest.TestCase):
     Verifies the accuracy of all text analysis functions against the source text.
     """
 
-    def test_q1(self):
+    def testQ1(self):
         """Validates unique word count across different implementation methods."""
         self.assertEqual(q1(), 70)
         self.assertEqual(q1Alt1(), 70)
         self.assertEqual(q1Alt2(), 70)
 
-    def test_q2(self):
+    def testQ2(self):
         """Validates 'h...e' word count."""
         self.assertEqual(q2(), 2)
 
-    def test_q3(self):
+    def testQ3(self):
         """Validates specific word length count."""
         self.assertEqual(q3(), 12)
 
-    def test_q4(self):
+    def testQ4(self):
         """Validates 'as' substring count."""
         self.assertEqual(q4(), 2)
 
-    def test_q5(self):
+    def testQ5(self):
         """Validates 'as' or 'sa' permutation count."""
         self.assertEqual(q5(), 3)
 
-    def test_q6(self):
+    def testQ6(self):
         """Validates start/end character match count."""
         self.assertEqual(q6(), 3)
 
-    def test_q7(self):
+    def testQ7(self):
         """Validates start/end pair match count."""
         self.assertEqual(q7(), 1)
 

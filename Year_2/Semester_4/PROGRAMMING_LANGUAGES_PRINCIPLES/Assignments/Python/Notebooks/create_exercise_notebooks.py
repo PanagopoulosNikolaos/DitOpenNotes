@@ -5,8 +5,17 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 
-def make_notebook(topic: str, exercises: list[str]) -> dict:
-    """Create a Jupyter notebook dict with nice Markdown + empty code cells."""
+def makeNotebook(topic: str, exercises: list[str]) -> dict:
+    """
+    Creates a Jupyter notebook structure with markdown descriptions and code cells.
+
+    Args:
+        topic (str): The subject matter title for the notebook.
+        exercises (list[str]): List of markdown strings for individual exercise prompts.
+
+    Returns:
+        dict: Notebook JSON dictionary structure.
+    """
     cells = [
         {
             "cell_type": "markdown",
@@ -658,12 +667,15 @@ NOTEBOOKS = [
 ]
 
 def main():
+    """
+    Generates configured Jupyter notebooks for general exercises and exam simulations.
+    """
     for folder, topic, exercises in NOTEBOOKS:
         path = BASE / folder / f"{folder}.ipynb"
         path.parent.mkdir(parents=True, exist_ok=True)
-        notebook = make_notebook(topic, exercises)
+        notebook = makeNotebook(topic, exercises)
         path.write_text(json.dumps(notebook, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        print(f"✓ Wrote {path} ({len(exercises)} exercises)")
+        print(f"[OK] Wrote {path} ({len(exercises)} exercises)")
 
 if __name__ == "__main__":
     main()

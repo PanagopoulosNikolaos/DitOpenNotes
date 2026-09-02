@@ -38,7 +38,7 @@ class TestEApproximation(unittest.TestCase):
     error margin from Euler's number.
     """
 
-    def test_e_approximation(self):
+    def testEApproximation(self):
         """
         Validates that eApprox(1,000,000) is approximately equal to 2.718.
         """

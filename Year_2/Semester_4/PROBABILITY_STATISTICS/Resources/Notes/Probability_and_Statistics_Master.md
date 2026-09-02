@@ -1,6 +1,6 @@
 # Probability and Statistics - Master Notes
 
-*Generated: 2026-08-09*
+*Generated: 2026-09-03*
 
 ---
 
@@ -1102,14 +1102,14 @@ cat("Mean Y:", mean(y), "\nSD Y:", sd(y), "\n")
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 1 (Μη ομαδοποιημένα στατιστικά, μέσος όρος, διάμεσος, διακύμανση δείγματος) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 1 (Μη ομαδοποιημένος πίνακας δεδομένων, μέσος όρος, διακύμανση, τυπική απόκλιση) | **1/5** |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 1 (Ομαδοποιημένος πίνακας συχνοτήτων, κανόνας Sturges, ομαδοποιημένος μέσος όρος, παρεμβαλλόμενος διάμεσος) | **2/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 1 (Ομαδοποιημένη κατανομή συχνότητας, ομαδοποιημένη διακύμανση, υπολογισμός τρόπου λειτουργίας) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 1 (ομαδοποιημένος πίνακας συχνοτήτων 5 τάξεων, ομαδοποιημένος μέσος όρος και διακύμανση) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 1 (Ομαδικός πίνακας συχνοτήτων, εκατοστιαία παρεμβολή) | **2/5** |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 1 (Ομαδοποιημένα δεδομένα με συχνότητα που λείπει $f_i$ επίλυση εξίσωσης) | **4/5** |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 1 (Συγκεντρωμένα στατιστικά στοιχεία σε πολλαπλά σύνολα δεδομένων, συνολικός συγκεντρωτικός μέσος όρος και διακύμανση) | **5/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 1 (Μη ομαδοποιημένος πίνακας δεδομένων, μέσος όρος, διακύμανση, τυπική απόκλιση) | **1/5** |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md) | **2/5** |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 1 (Ομαδοποιημένη κατανομή συχνότητας, ομαδοποιημένη διακύμανση, υπολογισμός τρόπου λειτουργίας) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 1 (ομαδοποιημένος πίνακας συχνοτήτων 5 τάξεων, ομαδοποιημένος μέσος όρος και διακύμανση) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 1 (Ομαδικός πίνακας συχνοτήτων, εκατοστιαία παρεμβολή) | **2/5** |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) Ερώτηση 1 (Ομαδοποιημένα δεδομένα με συχνότητα που λείπει $f_i$ επίλυση εξίσωσης) | **4/5** |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) Ερώτηση 1 (Συγκεντρωμένα στατιστικά στοιχεία σε πολλαπλά σύνολα δεδομένων, συνολικός συγκεντρωτικός μέσος όρος και διακύμανση) | **5/5** |
 
 ---
 
@@ -2122,12 +2122,12 @@ cat("nPr:", nPr, "\n")
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 3 (Ασυνεχή γεγονότα, ανεξάρτητα συμβάντα, πράξεις συνόλου, νόμος του De Morgan $P(A' \cap B')$) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 (Ορισμοί της θεωρίας συνόλων, αμοιβαία αποκλειόμενα έναντι ανεξάρτητων γεγονότων, $P(A \cup B)$ κανόνας προσθήκης) | **1/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 2 (μετάφραση διαγράμματος Venn, πιθανότητα ένωσης και συμπληρώματος) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 2 (Ορισμός υπολογισμού πιθανοτήτων, ασύνδετων γεγονότων και συμπληρώματος) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 2 (Πράξεις θεωρίας συνόλων, μετάφραση φράσεων "τουλάχιστον ένα", "κανένα") | **2/5** |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 2 (Αλγεβρικές αποδείξεις των σχέσεων συνόλων και οι νόμοι του De Morgan) | **3/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md)$) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 (Ορισμοί της θεωρίας συνόλων, αμοιβαία αποκλειόμενα έναντι ανεξάρτητων γεγονότων, $P(A \cup B)$ κανόνας προσθήκης) | **1/5** |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 2 (μετάφραση διαγράμματος Venn, πιθανότητα ένωσης και συμπληρώματος) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 2 (Ορισμός υπολογισμού πιθανοτήτων, ασύνδετων γεγονότων και συμπληρώματος) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 2 (Πράξεις θεωρίας συνόλων, μετάφραση φράσεων "τουλάχιστον ένα", "κανένα") | **2/5** |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | **3/5** |
 
 ---
 
@@ -3309,12 +3309,12 @@ $$\sigma_{\mu s} = 200\,[\mu s] \implies \text{Var}_{\mu s}(T) = (200)^2 = 40,00
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία | Βασικά θέματα που καλύπτονται |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 2 | **1/5** | Πιθανότητα βασικού συνόλου, ανεξάρτητα vs ασύνδετα γεγονότα. |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 | **1/5** | Ορίστε σχέσεις, δοκιμάζοντας την ανεξαρτησία βασικών γεγονότων. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 3 | **2/5** | Βασικές πιθανότητες βάσει συνόλου, βασικά στοιχεία πιθανοτήτων υπό όρους. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 3 | **2/5** | Νόμος Συνολικών Πιθανοτήτων & Θεώρημα Bayes (πρόβλημα 3 εργοστασίων). || [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 3 | **3/5** | Υπό όρους παραγωγές πιθανοτήτων, ανεξαρτησία γεγονότος δοκιμής. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 3 | **4/5** | Θεώρημα Bayes με ευαισθησία, ειδικότητα και χαμηλό βασικό ρυθμό. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 3 | **5/5** | Μοντελοποίηση δυαδικού συμμετρικού καναλιού επικοινωνίας Bayes. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md)| **1/5** | Πιθανότητα βασικού συνόλου, ανεξάρτητα vs ασύνδετα γεγονότα. |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 | **1/5** | Ορίστε σχέσεις, δοκιμάζοντας την ανεξαρτησία βασικών γεγονότων. |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 3 | **2/5** | Βασικές πιθανότητες βάσει συνόλου, βασικά στοιχεία πιθανοτήτων υπό όρους. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md)| **2/5** | Νόμος Συνολικών Πιθανοτήτων & Θεώρημα Bayes (πρόβλημα 3 εργοστασίων). || [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md)| Υπό όρους παραγωγές πιθανοτήτων, ανεξαρτησία γεγονότος δοκιμής. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) Ερώτηση 3 | **4/5** | Θεώρημα Bayes με ευαισθησία, ειδικότητα και χαμηλό βασικό ρυθμό. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) Ερώτηση 3 | **5/5** | Μοντελοποίηση δυαδικού συμμετρικού καναλιού επικοινωνίας Bayes. |
 
 ---
 
@@ -4522,17 +4522,17 @@ $$\text{Correct } Var_{[\mu s^2]} = 10,000,000,000\,[\mu s^2]$$
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία | Βασικά θέματα που καλύπτονται |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 3 | **1/5** | Βασικοί υπολογισμοί διωνυμικής κατανομής (παρέχονται $n, p$). |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 3 | **1/5** | Απλή διωνυμική μοντελοποίηση. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 2 | **2/5** | Διωνυμική κατανομή PMF και προσδοκία. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 4 | **2/5** | Τυπικές εφαρμογές διωνυμικών πιθανοτήτων. |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική πιθανότητα PMF και ουράς. |
-| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | Ερώτηση 1 | **2/5** | Υπολογισμοί διωνυμικής κατανομής. |
-| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική μοντελοποίηση και αξιολόγηση παραμέτρων. || [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική αξιολόγηση κατανομής. |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική μοντελοποίηση ελαττωμάτων λογισμικού. |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 2 | **3/5** | Μεγαλύτερο μέγεθος δοκιμής Μοντελοποίηση διωνυμικής κατανομής. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 2 | **4/5** | Εκτίμηση διωνυμικού μεγέθους δοκιμής $n$ μέσω λογαριθμικών ανισοτήτων. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 2 | **5/5** | Υπό όρους Διωνυμική πιθανότητα $P(X = k \mid X \ge m)$. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md)| **1/5** | Βασικοί υπολογισμοί διωνυμικής κατανομής (παρέχονται $n, p$). |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 3 | **1/5** | Απλή διωνυμική μοντελοποίηση. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md)| **2/5** | Διωνυμική κατανομή PMF και προσδοκία. |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 4 | **2/5** | Τυπικές εφαρμογές διωνυμικών πιθανοτήτων. |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική πιθανότητα PMF και ουράς. |
+| [Exam_paper_2024_06_14_Team_C.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | Ερώτηση 1 | **2/5** | Υπολογισμοί διωνυμικής κατανομής. |
+| [Exam_paper_2025_06_03_Team_A.md](../../Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική μοντελοποίηση και αξιολόγηση παραμέτρων. || [Exam_paper_2026_06_09_Team_A.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | Ερώτηση 1 | **2/5** | Διωνυμική αξιολόγηση κατανομής. |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Ερώτηση 3 | **2/5** | Διωνυμική μοντελοποίηση ελαττωμάτων λογισμικού. |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md)| Μεγαλύτερο μέγεθος δοκιμής Μοντελοποίηση διωνυμικής κατανομής. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) Ερώτηση 2 | **4/5** | Εκτίμηση διωνυμικού μεγέθους δοκιμής $n$ μέσω λογαριθμικών ανισοτήτων. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) Ερώτηση 2 | **5/5** | Υπό όρους Διωνυμική πιθανότητα $P(X = k \mid X \ge m)$. |
 
 ---
 
@@ -5434,16 +5434,16 @@ $$P(\mu \pm \sigma) \approx 68.27\%, \quad P(\mu \pm 2\sigma) \approx 95.45\%, \
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δοκιμασμένα θέματα Φάσης 5 | Δυσκολία |
 |---|---|---|---|
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | ΘΕΜΑ 4 (parts i, ii, iii) | Κανονική κατανομή, βαθμολογία Z, $P(X < x)$, $P(a \le X \le b)$, R `pnorm()` | 1/5 |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση βαθμολογίας Z | 1/5 |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα διαστήματος, εντολή R | 2/5 |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | ΘΕΜΑ 3 | Κανονική κατανομή, τυποποίηση, πίνακας Z | 2/5 || [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | ΘΕΜΑ 4 | Υπολογισμοί κανονικών πιθανοτήτων | 2/5 |
-| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | ΘΕΜΑ 1 | Κανονική κατανομή, βαθμολογία Z, πιθανότητα μιας ουράς | 2/5 |
-| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, R `pnorm()` | 2/5 |
-| [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα, R `pnorm()` | 2/5 |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση | 2/5 |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) ΘΕΜΑ 4 | Κανονική κατανομή με μία άγνωστη παράμετρο (επίλυση για $\sigma$ από εκατοστημόριο) | 4/5 |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) ΘΕΜΑ 4 | Κανονική με δύο άγνωστες παραμέτρους (λύστε σύστημα εξισώσεων για $\mu$ και $\sigma$) | 5/5 |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Κανονική κατανομή, βαθμολογία Z, $P(X < x)$, $P(a \le X \le b)$, R `pnorm()` | 1/5 |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση βαθμολογίας Z | 1/5 |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md)| Κανονική κατανομή, πιθανότητα διαστήματος, εντολή R | 2/5 |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | ΘΕΜΑ 3 | Κανονική κατανομή, τυποποίηση, πίνακας Z | 2/5 || [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | ΘΕΜΑ 4 | Υπολογισμοί κανονικών πιθανοτήτων | 2/5 |
+| [Exam_paper_2024_06_14_Team_C.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | ΘΕΜΑ 1 | Κανονική κατανομή, βαθμολογία Z, πιθανότητα μιας ουράς | 2/5 |
+| [Exam_paper_2025_06_03_Team_A.md](../../Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, R `pnorm()` | 2/5 |
+| [Exam_paper_2026_06_09_Team_A.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα, R `pnorm()` | 2/5 |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση | 2/5 |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) ΘΕΜΑ 4 | Κανονική κατανομή με μία άγνωστη παράμετρο (επίλυση για $\sigma$ από εκατοστημόριο) | 4/5 |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) ΘΕΜΑ 4 | Κανονική με δύο άγνωστες παραμέτρους (λύστε σύστημα εξισώσεων για $\mu$ και $\sigma$) | 5/5 |
 
 ---
 

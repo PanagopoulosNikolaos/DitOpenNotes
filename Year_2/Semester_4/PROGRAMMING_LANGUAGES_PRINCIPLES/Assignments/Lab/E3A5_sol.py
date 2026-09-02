@@ -85,21 +85,21 @@ class TestPasswords(unittest.TestCase):
     Uses specific input file data to ensure the results match expected counts (660 and 530).
     """
 
-    def test_part_a(self):
+    def testPartA(self):
         """Validates that exactly 660 passwords pass the Part A criteria."""
         path = "aoc2020_d2_input.txt"
         if os.path.exists(path):
             self.assertEqual(validatePasswordsPartA(path), 660)
         else:
-            print(f"Skipping test_part_a: {path} not found.")
+            print(f"Skipping testPartA: {path} not found.")
 
-    def test_part_b(self):
+    def testPartB(self):
         """Validates that exactly 530 passwords pass the Part B criteria."""
         path = "aoc2020_d2_input.txt"
         if os.path.exists(path):
             self.assertEqual(validatePasswordsPartB(path), 530)
         else:
-            print(f"Skipping test_part_b: {path} not found.")
+            print(f"Skipping testPartB: {path} not found.")
 
 
 if __name__ == "__main__":

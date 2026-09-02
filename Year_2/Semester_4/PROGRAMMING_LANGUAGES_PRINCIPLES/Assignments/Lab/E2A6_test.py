@@ -26,7 +26,7 @@ def hammingDistance(s, t):
     return mismatch_count
 
 
-def test_HD():
+def testHd():
     """
     Test suite for Hamming distance using the pytest framework.
 

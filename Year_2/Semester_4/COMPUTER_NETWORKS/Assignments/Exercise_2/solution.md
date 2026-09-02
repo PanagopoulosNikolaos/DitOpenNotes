@@ -64,7 +64,7 @@
 # Μέρος 2: Δημιουργία Δικτύου
 ## 1. Μόνο Switch
 
-![image.png](Exercise_2/images/switch_only_network.png)
+![image.png](images/switch_only_network.png)
 
 Η τοπολογία αποτελείται από 4 PC συνδεδεμένα μέσω 3 switches (Switch0, Switch1, Switch2) σε αλυσίδα. Κάθε PC βρίσκεται σε διαφορετικό subnet.
 
@@ -78,7 +78,7 @@
 
 Παρόλο που χρησιμοποιούνται 3 switches σε αλυσίδα, αυτό δεν αλλάζει τη συμπεριφορά — τα switches δεν μπορούν να δρομολογήσουν μεταξύ subnets.
 
-![image.png](Exercise_2/images/switch_only_network_shell.png)
+![image.png](images/switch_only_network_shell.png)
 
 ### Γιατί η επικοινωνία απέτυχε
 
@@ -92,7 +92,7 @@
 
 ## 2. Router Προστέθηκε
 
-![image.png](Exercise_2/images/router_network.png)
+![image.png](images/router_network.png)
 
 Προστέθηκε ένας **Cisco 1941 Router** (Router0) ανάμεσα στα δύο switches. Τα 4 PC αναδιοργανώθηκαν σε **2 subnet groups**, καθένα με το δικό του default gateway που δείχνει στο αντίστοιχο interface του router.
 
@@ -108,7 +108,7 @@
 | CopyPC2 | `192.168.2.10` | `255.255.255.0` | `192.168.2.1` |
 | CopyPC3 | `192.168.2.11` | `255.255.255.0` | `192.168.2.1` |
 
-![image.png](Exercise_2/images/router_network_shell.png)
+![image.png](images/router_network_shell.png)
 
 ### Γιατί η επικοινωνία πέτυχε
 

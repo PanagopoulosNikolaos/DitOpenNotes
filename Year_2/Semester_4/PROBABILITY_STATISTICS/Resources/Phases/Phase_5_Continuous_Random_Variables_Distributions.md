@@ -882,16 +882,16 @@ $$P(\mu \pm \sigma) \approx 68.27\%, \quad P(\mu \pm 2\sigma) \approx 95.45\%, \
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δοκιμασμένα θέματα Φάσης 5 | Δυσκολία |
 |---|---|---|---|
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | ΘΕΜΑ 4 (parts i, ii, iii) | Κανονική κατανομή, βαθμολογία Z, $P(X < x)$, $P(a \le X \le b)$, R `pnorm()` | 1/5 |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση βαθμολογίας Z | 1/5 |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα διαστήματος, εντολή R | 2/5 |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | ΘΕΜΑ 3 | Κανονική κατανομή, τυποποίηση, πίνακας Z | 2/5 || [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | ΘΕΜΑ 4 | Υπολογισμοί κανονικών πιθανοτήτων | 2/5 |
-| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | ΘΕΜΑ 1 | Κανονική κατανομή, βαθμολογία Z, πιθανότητα μιας ουράς | 2/5 |
-| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, R `pnorm()` | 2/5 |
-| [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα, R `pnorm()` | 2/5 |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση | 2/5 |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) ΘΕΜΑ 4 | Κανονική κατανομή με μία άγνωστη παράμετρο (επίλυση για $\sigma$ από εκατοστημόριο) | 4/5 |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) ΘΕΜΑ 4 | Κανονική με δύο άγνωστες παραμέτρους (λύστε σύστημα εξισώσεων για $\mu$ και $\sigma$) | 5/5 |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Κανονική κατανομή, βαθμολογία Z, $P(X < x)$, $P(a \le X \le b)$, R `pnorm()` | 1/5 |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση βαθμολογίας Z | 1/5 |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md)| Κανονική κατανομή, πιθανότητα διαστήματος, εντολή R | 2/5 |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | ΘΕΜΑ 3 | Κανονική κατανομή, τυποποίηση, πίνακας Z | 2/5 || [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | ΘΕΜΑ 4 | Υπολογισμοί κανονικών πιθανοτήτων | 2/5 |
+| [Exam_paper_2024_06_14_Team_C.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | ΘΕΜΑ 1 | Κανονική κατανομή, βαθμολογία Z, πιθανότητα μιας ουράς | 2/5 |
+| [Exam_paper_2025_06_03_Team_A.md](../../Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, R `pnorm()` | 2/5 |
+| [Exam_paper_2026_06_09_Team_A.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | ΘΕΜΑ 4 | Κανονική κατανομή, πιθανότητα, R `pnorm()` | 2/5 |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | ΘΕΜΑ 4 | Πιθανότητα κανονικής κατανομής, τυποποίηση | 2/5 |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) ΘΕΜΑ 4 | Κανονική κατανομή με μία άγνωστη παράμετρο (επίλυση για $\sigma$ από εκατοστημόριο) | 4/5 |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) ΘΕΜΑ 4 | Κανονική με δύο άγνωστες παραμέτρους (λύστε σύστημα εξισώσεων για $\mu$ και $\sigma$) | 5/5 |
 
 ---
 

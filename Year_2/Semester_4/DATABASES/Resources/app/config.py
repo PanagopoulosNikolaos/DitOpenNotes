@@ -5,7 +5,7 @@ switching logic adhering to the Orange Light (default) and Soft Dark specificati
 """
 
 # Color tokens for Light and Dark themes
-CUSTOM_CSS = """
+CUSTOM_CSS = r"""
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 

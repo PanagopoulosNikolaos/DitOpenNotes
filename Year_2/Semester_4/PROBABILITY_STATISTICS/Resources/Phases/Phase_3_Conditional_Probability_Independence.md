@@ -1164,12 +1164,12 @@ $$\sigma_{\mu s} = 200\,[\mu s] \implies \text{Var}_{\mu s}(T) = (200)^2 = 40,00
 
 | Εξεταστικό Χαρτί | Σχετικές Ερωτήσεις | Δυσκολία | Βασικά θέματα που καλύπτονται |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Ea | Ερώτηση 2 | **1/5** | Πιθανότητα βασικού συνόλου, ανεξάρτητα vs ασύνδετα γεγονότα. |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 | **1/5** | Ορίστε σχέσεις, δοκιμάζοντας την ανεξαρτησία βασικών γεγονότων. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/Dit OpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Ερώτηση 3 | **2/5** | Βασικές πιθανότητες βάσει συνόλου, βασικά στοιχεία πιθανοτήτων υπό όρους. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper._1 | Ερώτηση 3 | **2/5** | Νόμος Συνολικών Πιθανοτήτων & Θεώρημα Bayes (πρόβλημα 3 εργοστασίων). || [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Examd_teper. Ερώτηση 3 | **3/5** | Υπό όρους παραγωγές πιθανοτήτων, ανεξαρτησία γεγονότος δοκιμής. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_1md_H) Ερώτηση 3 | **4/5** | Θεώρημα Bayes με ευαισθησία, ειδικότητα και χαμηλό βασικό ρυθμό. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_2paper_H) Ερώτηση 3 | **5/5** | Μοντελοποίηση δυαδικού συμμετρικού καναλιού επικοινωνίας Bayes. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md)| **1/5** | Πιθανότητα βασικού συνόλου, ανεξάρτητα vs ασύνδετα γεγονότα. |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Ερώτηση 2 | **1/5** | Ορίστε σχέσεις, δοκιμάζοντας την ανεξαρτησία βασικών γεγονότων. |
+| [Exam_paper_2023_06_12.md](../../Exams/Papers/Exam_paper_2023_06_12.md) | Ερώτηση 3 | **2/5** | Βασικές πιθανότητες βάσει συνόλου, βασικά στοιχεία πιθανοτήτων υπό όρους. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md)| **2/5** | Νόμος Συνολικών Πιθανοτήτων & Θεώρημα Bayes (πρόβλημα 3 εργοστασίων). || [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md)| Υπό όρους παραγωγές πιθανοτήτων, ανεξαρτησία γεγονότος δοκιμής. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) Ερώτηση 3 | **4/5** | Θεώρημα Bayes με ευαισθησία, ειδικότητα και χαμηλό βασικό ρυθμό. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) Ερώτηση 3 | **5/5** | Μοντελοποίηση δυαδικού συμμετρικού καναλιού επικοινωνίας Bayes. |
 
 ---
 

@@ -21,6 +21,9 @@ def calculateDelay(packet_size_bytes, rate_kbps, distance_km, prop_speed):
 propagation_speed = 2.8e8 # Speed 
 
 def printTables():
+    """
+    Prints calculated and measured delay tables for network analysis.
+    """
     #========================================================================================================
     # Table 1-1: Delay vs. Distance (R = 512 Kbps, L = 100 Bytes)
 

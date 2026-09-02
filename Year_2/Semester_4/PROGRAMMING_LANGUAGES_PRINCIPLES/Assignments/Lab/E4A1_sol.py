@@ -57,7 +57,7 @@ def runExercise():
         year_val = int(parts[0].strip())
         brand_val = parts[1].strip()
         model_val = parts[2].strip()
-        door_val = 
+        door_val = int(parts[3].strip()) if len(parts) > 3 and parts[3].strip() else 4
             
         car_objects.append(Car(brand_val, model_val, year_val, door_val))
 

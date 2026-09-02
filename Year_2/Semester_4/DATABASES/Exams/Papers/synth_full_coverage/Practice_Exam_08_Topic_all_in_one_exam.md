@@ -79,7 +79,7 @@
 
 *solution:*
 
-![hospital-er-diagram-1](../assets/diagrams/hospital-er-diagram-1.png)
+![hospital-er-diagram-1](../../images/hospital-er-diagram-1.png)
 
 ### Άσκηση 3: Μετάφραση σε Σχεσιακό Μοντέλο
 

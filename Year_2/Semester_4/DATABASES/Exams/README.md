@@ -1,60 +1,66 @@
-# Εξετάσεις Βάσεων Δεδομένων & Συγκεντρωτικά Τελικά
+# Εξετάσεις Βάσεων Δεδομένων
 
-Καλώς ορίσατε στο **Κέντρο Ετοιμάσεως για Εξετάσεις**. Αυτός ο φάκελος περιέχει θεματικές εξάσκησης, συγκεντρωτικές ψεύτικες τελικές εξετάσεις, και αυτοματοποιημένους σενάριους συγκέντρωσης.
+Ο κατάλογος αυτός περιέχει θέματα παλαιότερων εξετάσεων, συνθετικά θέματα πλήρους κάλυψης ύλης, ρεαλιστικά σενάρια εξετάσεων και βοηθητικά διαγράμματα.
 
 ---
 
-## Δομή Φακέλου
+## Δομή Καταλόγου
 
 ```
 Exams/
-├── README.md                           # Κύριος κατάλογος και οδηγός χρήσης (αυτό το αρχείο)
-├── general_exam_subjects.md            # Λεπτομερής περιγραφή θεμάτων και μορφής εξέτασης
-├── combine_notes.py                    # Σενάριο κατασκευής για all_exams.md
-├── all_exams.md                        # Συγκεντρωτικό ελεγδοτικό έγγραφο
-├── Practice_Exams/                     # Θεματικές εξάσκησης
-│   ├── Practice_Exam_01_Easy.md        # Βαθμός: Εύκολο (Βασικά DDL & SQL)
-│   ├── Practice_Exam_02_Medium.md      # Βαθμός: Μεσαίος (2NF, INNER JOINs)
-│   ├── Practice_Exam_03_Intermediate.md# Βαθμός: Μεσητικός (ACID, Outer JOINs, FDs)
-│   ├── Practice_Exam_04_Hard.md        # Βαθμός: Δυσκολος (3NF/BCNF, Correlated Subqueries)
-│   ├── Practice_Exam_05_Advanced.md    # Βαθμός: Προχωρημένος (Indexes, Weak Entities, CASCADE)
-│   ├── Practice_Exam_06_Image_Translation.md # Μετατροπή εικόνας σε διάγραμμα ER & σχέμα
-│   ├── Practice_Exam_07_Topic_8_9.md    # Natural JOINs, Rainbow Tables, Social Engineering, Ασφάλεια
-│   └── Practice_Exam_08_Topic_all_in_one_exam.md # Πλήρης ενότητα All-In-One Εξέταση
-├── Synthetic_Finals/                   # Συγκεντρωτικές ψεύτικες τελικές εξετάσεις (15–20 Παραδείγματα)
-│   └── (Synthetic_Exam_01.md ... Synthetic_Exam_20.md)
-└── images/                             # Σχήματα ER και αποδείξεις υπερκεφαλίδας
-    ├── Exam_paper_null_null_null.png   # Πρότυπο σελίδας τελικής εξέτασης
-    └── hospital-er-diagram-1.png         # Λύση σχεδίου ER νοσοκομείου
+├── README.md                           # Οδηγός καταλόγου εξετάσεων
+├── practice_exam_01.md                 # Πρότυπο επαναληπτικό διαγώνισμα προσομοίωσης
+├── Papers/                             # Θέματα εξετάσεων
+│   ├── Past_Exam_1_educational_institution.md # Παλαιό θέμα 1 (Εκπαιδευτικό Ίδρυμα)
+│   ├── Past_Exam_2_research_institute.md     # Παλαιό θέμα 2 (Ερευνητικό Ινστιτούτο)
+│   ├── synth_full_coverage/            # Συνθετικά θέματα διαβαθμισμένης δυσκολίας
+│   │   ├── Practice_Exam_01_Easy.md
+│   │   ├── Practice_Exam_02_Medium.md
+│   │   ├── Practice_Exam_03_Intermediate.md
+│   │   ├── Practice_Exam_04_Hard.md
+│   │   ├── Practice_Exam_05_Advanced.md
+│   │   ├── Practice_Exam_06_Image_Translation.md
+│   │   ├── Practice_Exam_07_Topic_8_9.md
+│   │   └── Practice_Exam_08_Topic_all_in_one_exam.md
+│   └── synth_realistic/                # Ρεαλιστικά σενάρια επιχειρησιακών βάσεων
+│       ├── synth_exam_1_hospital.md
+│       ├── synth_exam_2_maritime_shipping.md
+│       ├── synth_exam_3_airline.md
+│       ├── synth_exam_4_banking.md
+│       ├── synth_exam_5_hotel.md
+│       ├── synth_exam_6_streaming.md
+│       ├── synth_exam_7_library.md
+│       └── synth_exam_8_sports_league.md
+└── images/                             # Διαγράμματα και εικόνες θεμάτων
+    ├── Exam_paper_27_4_2026.png
+    ├── exam_paper_template.png
+    └── hospital-er-diagram-1.png
 ```
 
 ---
 
-## Κατάλογος Εξάσκησης
+## Θέματα Πλήρους Κάλυψης (synth_full_coverage)
 
-| Αρχείο Εξέτασης | Βαθμός Δύσκολης | Κύρια Θέματα |
+| Αρχείο Εξέτασης | Βαθμός Δυσκολίας | Κύρια Θέματα |
 | :--- | :--- | :--- |
-| [Practice_Exam_01_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_01_Easy.md) | Εύκολο | DDL, Πρωτεύοντα Κλειδιά, Ξένα Κλειδιά, Απλός SELECT |
-| [Practice_Exam_02_Medium.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_02_Medium.md) | Μεσαίος | 2NF Κανονικοποίηση, INNER JOINs, M:N Σχεδιασμός |
-| [Practice_Exam_03_Intermediate.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_03_Intermediate.md) | Μεσητικός | ACID Ακμιοποίηση, LEFT JOINs, Κλειδιοποίηση Λειτουργικών Εξαρτήσεων |
-| [Practice_Exam_04_Hard.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_04_Hard.md) | Δυσκολος | TRUNCATE vs DELETE, BCNF Αποσύνθεση, Correlated Subqueries |
-| [Practice_Exam_05_Advanced.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_05_Advanced.md) | Προχωρημένος | Indexes, Weak Entities, M:N Junction Tables, CASCADE |
-| [Practice_Exam_06_Image_Translation.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_06_Image_Translation.md) | Εξάχθηκε | Μετάφραση εξάσκησης, Mermaid διάγραμμα ER, σχέμα σχεσιακής δομής |
-| [Practice_Exam_07_Topic_8_9.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_07_Topic_8_9.md) | Ειδικευμένος | Natural JOIN, Rainbow Tables, Social Engineering, Ασφάλεια |
-| [Practice_Exam_08_Topic_all_in_one_exam.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Practice_Exams/Practice_Exam_08_Topic_all_in_one_exam.md) | Πλήρης | Πλήρης ενότητα All-In-One (Μέρος Α: ER & Σχέμα, Μέρος Β: SQL & BCNF) |
+| [Practice_Exam_01_Easy.md](Papers/synth_full_coverage/Practice_Exam_01_Easy.md) | Εύκολο | DDL, Πρωτεύοντα Κλειδιά, Ξένα Κλειδιά, Απλός SELECT |
+| [Practice_Exam_02_Medium.md](Papers/synth_full_coverage/Practice_Exam_02_Medium.md) | Μεσαίο | 2NF Κανονικοποίηση, INNER JOINs, M:N Σχεδιασμός |
+| [Practice_Exam_03_Intermediate.md](Papers/synth_full_coverage/Practice_Exam_03_Intermediate.md) | Ενδιάμεσο | ACID Ιδιότητες, LEFT JOINs, Λειτουργικές Εξαρτήσεις |
+| [Practice_Exam_04_Hard.md](Papers/synth_full_coverage/Practice_Exam_04_Hard.md) | Δύσκολο | TRUNCATE vs DELETE, BCNF Αποσύνθεση, Συσχετισμένα Υποερωτήματα |
+| [Practice_Exam_05_Advanced.md](Papers/synth_full_coverage/Practice_Exam_05_Advanced.md) | Προχωρημένο | Ευρετήρια (Indexes), Ασθενείς Οντότητες, CASCADE |
+| [Practice_Exam_06_Image_Translation.md](Papers/synth_full_coverage/Practice_Exam_06_Image_Translation.md) | Ειδικό | Μετατροπή διάγραμμα ER σε σχεσιακό σχήμα |
+| [Practice_Exam_07_Topic_8_9.md](Papers/synth_full_coverage/Practice_Exam_07_Topic_8_9.md) | Ειδικό | Natural JOINs, Ασφάλεια και Πολιτικές Πρόσβασης |
+| [Practice_Exam_08_Topic_all_in_one_exam.md](Papers/synth_full_coverage/Practice_Exam_08_Topic_all_in_one_exam.md) | Πλήρες | Συνθετικό θέμα εφ' όλης της ύλης |
 
 ---
 
-## Συγκεντρωτικές Τελικές Εξετάσεις (15–20 Ψεύτικες Εξετάσεις)
+## Ρεαλιστικά Σενάρια Εξετάσεων (synth_realistic)
 
-Οι συγκεντρωτικές ψεύτικες εξετάσεις πρέπει να τοποθεταίονται στον φάκελο `Synthetic_Finals/` ακολουθώντας την ονομαστική συνθετεία `Synthetic_Exam_XX.md`. Κάθε συγκεντρωτική εξέταση ακολουθεί τη μορφή της τυπικής τελικής εξέτασης.
-
----
-
-## Συγκέντρωση Όλων των Εξετάσεων
-
-Για την ενοποίηση όλων των εξασκήσεων και των συγκεντρωτικών ψεύτικων εξετάσεων σε ένα ενιαίο ενιαίο αρχείο (`all_exams.md`), εκτελέστε το `combine_notes.py`:
-
-```bash
-python combine_notes.py
-```
+* [synth_exam_1_hospital.md](Papers/synth_realistic/synth_exam_1_hospital.md) - Βάση Δεδομένων Νοσοκομείου
+* [synth_exam_2_maritime_shipping.md](Papers/synth_realistic/synth_exam_2_maritime_shipping.md) - Ναυτιλιακές Μεταφορές
+* [synth_exam_3_airline.md](Papers/synth_realistic/synth_exam_3_airline.md) - Αεροπορική Εταιρεία
+* [synth_exam_4_banking.md](Papers/synth_realistic/synth_exam_4_banking.md) - Τραπεζικό Σύστημα
+* [synth_exam_5_hotel.md](Papers/synth_realistic/synth_exam_5_hotel.md) - Ξενοδοχειακή Μονάδα
+* [synth_exam_6_streaming.md](Papers/synth_realistic/synth_exam_6_streaming.md) - Υπηρεσία Streaming Πολυμέσων
+* [synth_exam_7_library.md](Papers/synth_realistic/synth_exam_7_library.md) - Βιβλιοθήκη & Δανεισμός
+* [synth_exam_8_sports_league.md](Papers/synth_realistic/synth_exam_8_sports_league.md) - Αθλητικό Πρωτάθλημα
