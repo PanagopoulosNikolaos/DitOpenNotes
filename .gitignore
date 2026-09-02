@@ -460,3 +460,4 @@ public
 
 # pnpm
 .pnpm-store/
+scripts/make_app.md
