@@ -6,6 +6,7 @@
 #include <climits>
 #include <functional>
 #include <algorithm>
+#include <unordered_set>
 
 /**
  * @brief Graph algorithms for shortest paths, minimum spanning trees, and maximum flow.

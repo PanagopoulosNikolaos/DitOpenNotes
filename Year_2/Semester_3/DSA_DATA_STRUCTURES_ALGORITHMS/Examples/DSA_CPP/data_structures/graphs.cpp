@@ -6,6 +6,7 @@
 #include <list>
 #include <algorithm>
 #include <climits>
+#include <stack>
 #include <memory>
 
 /**

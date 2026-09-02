@@ -3,6 +3,14 @@ import serial
 import time
 
 def main():
+    """Manages serial communication with Arduino to send temperature values.
+
+    Args:
+        None.
+
+    Returns:
+        None.
+    """
     # Establish serial connection
     try:
         ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
@@ -18,7 +26,10 @@ def main():
     print("The Arduino will prompt for temperature values every 10 seconds.")
     
     # Clear any initial data in the buffer
-    ser.flushInput()
+    if hasattr(ser, 'reset_input_buffer'):
+        ser.reset_input_buffer()
+    else:
+        ser.flushInput()
 
     try:
         while True:

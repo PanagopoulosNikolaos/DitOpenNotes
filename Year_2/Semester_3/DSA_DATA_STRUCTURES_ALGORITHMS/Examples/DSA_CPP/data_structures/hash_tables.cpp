@@ -156,13 +156,26 @@ public:
         throw std::out_of_range("Key not found");
     }
 
-    bool contains(const K& key) const {
-        try {
-            get(key);
-            return true;
-        } catch (const std::out_of_range&) {
-            return false;
+    const V& get(const K& key) const {
+        size_t bucketIndex = _hash(key);
+        const auto& bucket = _buckets[bucketIndex];
+        for (const auto& kvp : bucket) {
+            if (kvp.key == key) {
+                return kvp.value;
+            }
         }
+        throw std::out_of_range("Key not found");
+    }
+
+    bool contains(const K& key) const {
+        size_t bucketIndex = _hash(key);
+        const auto& bucket = _buckets[bucketIndex];
+        for (const auto& kvp : bucket) {
+            if (kvp.key == key) {
+                return true;
+            }
+        }
+        return false;
     }
 
     std::vector<K> keys() const {
@@ -316,13 +329,17 @@ public:
         }
     }
 
-    bool contains(const K& key) const {
-        try {
-            get(key);
-            return true;
-        } catch (const std::out_of_range&) {
-            return false;
+    const V& get(const K& key) const {
+        size_t index = _findSlot(key);
+        if (_occupied[index] && !_deleted[index] && *_keys[index] == key) {
+            return *_values[index];
         }
+        throw std::out_of_range("Key not found");
+    }
+
+    bool contains(const K& key) const {
+        size_t index = _findSlot(key);
+        return _occupied[index] && !_deleted[index] && *_keys[index] == key;
     }
 
     void print() const {

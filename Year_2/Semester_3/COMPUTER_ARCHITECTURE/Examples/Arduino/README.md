@@ -1,6 +1,6 @@
 # Αρχιτεκτονική Υπολογιστών - Έργα Arduino
 
-## Πρόγραμμα_1: Αναβοσβήμα LED με Σειριακή Εξαγωγή
+## Πρόγραμμα_1: Αναβόσβημα LED με Σειριακή Εξαγωγή
 
 Ένα απλό σχέδιο Arduino που αναβοσβήνει το ενσωματωμένο LED σε ένα Arduino Uno αποστέλνοντας μηνύματα κατάστασης στη σειριακή οθόνη παρακολούθησης.
 
@@ -19,9 +19,9 @@
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
 
-Προσθήκη του καταλόγου bin στο PATH:
+Προσθήκη του καταλόγου bin στο PATH (προσαρμόστε ανάλογα με τον κατάλογο εγκατάστασης):
 ```bash
-export PATH="$PATH:$HOME/Documents/University_Code/Semester_3/COMPUTER_ARCHITECTURE/bin"
+export PATH="$PATH:$HOME/bin"
 ```
 
 #### 2. Εγκατάσταση Πλατφόρμας Arduino AVR
@@ -46,9 +46,9 @@ Port         Protocol Type              Board Name  FQBN            Core
 /dev/ttyACM0 serial   Serial Port (USB) Arduino Uno arduino:avr:uno arduino:avr
 ```
 
-### Μεταγλάττεση και Μεταφόρτωση
+### Μεταγλώττιση και Μεταφόρτωση
 
-#### Μεταγλάττεση του Σχεδίου
+#### Μεταγλώττιση του Σχεδίου
 
 ```bash
 cd Program_1

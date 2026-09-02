@@ -94,7 +94,9 @@ def fib_slow(n):
 
 
 # With memoization - O(n) time, O(n) space
-def fib_fast(n, memo={}):
+def fib_fast(n, memo=None):
+    if memo is None:
+        memo = {}
     if n in memo:
         return memo[n]
     if n <= 1:

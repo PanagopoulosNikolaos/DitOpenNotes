@@ -33,14 +33,14 @@ public:
         : PaymentMethod(id), card_number(card) {}
 
     bool processPayment(double amount) override {
-        std::cout << "[CreditCard] Xrewsi " << amount << " EUR stin karta ****" 
+        std::cout << "[CreditCard] Χρέωση " << amount << " EUR στην κάρτα ****" 
                   << card_number.substr(card_number.length() - 4) << "\n";
         return true;
     }
 
     void printReceipt(double amount) const override {
-        std::cout << "Apodeixi [CreditCard] TxID: " << transaction_id 
-                  << " | Poso: " << amount << " EUR\n";
+        std::cout << "Απόδειξη [CreditCard] TxID: " << transaction_id 
+                  << " | Ποσό: " << amount << " EUR\n";
     }
 };
 
@@ -53,13 +53,33 @@ public:
         : PaymentMethod(id), email(mail) {}
 
     bool processPayment(double amount) override {
-        std::cout << "[PayPal] Plirwmi " << amount << " EUR meso logariasmou: " << email << "\n";
+        std::cout << "[PayPal] Πληρωμή " << amount << " EUR μέσω λογαριασμού: " << email << "\n";
         return true;
     }
 
     void printReceipt(double amount) const override {
-        std::cout << "Apodeixi [PayPal] TxID: " << transaction_id 
-                  << " | Email: " << email << " | Poso: " << amount << " EUR\n";
+        std::cout << "Απόδειξη [PayPal] TxID: " << transaction_id 
+                  << " | Email: " << email << " | Ποσό: " << amount << " EUR\n";
+    }
+};
+
+class CryptoPayment : public PaymentMethod {
+private:
+    std::string wallet_address;
+
+public:
+    CryptoPayment(const std::string& id, const std::string& wallet)
+        : PaymentMethod(id), wallet_address(wallet) {}
+
+    bool processPayment(double amount) override {
+        std::cout << "[Crypto] Μεταφορά ισότιμου ποσού " << amount 
+                  << " EUR στο πορτοφόλι " << wallet_address.substr(0, 6) << "..." << "\n";
+        return true;
+    }
+
+    void printReceipt(double amount) const override {
+        std::cout << "Απόδειξη [Crypto] TxID: " << transaction_id 
+                  << " | Διεύθυνση: " << wallet_address << " | Ποσό: " << amount << " EUR\n";
     }
 };
 
@@ -67,8 +87,9 @@ int main() {
     std::vector<std::unique_ptr<PaymentMethod>> payments;
     payments.push_back(std::make_unique<CreditCardPayment>("TX1001", "1234567890123456"));
     payments.push_back(std::make_unique<PayPalPayment>("TX1002", "student@dit.gr"));
+    payments.push_back(std::make_unique<CryptoPayment>("TX1003", "0x71C...B29"));
 
-    double amounts[] = {49.99, 120.00};
+    double amounts[] = {49.99, 120.00, 350.50};
 
     for (size_t i = 0; i < payments.size(); ++i) {
         if (payments[i]->processPayment(amounts[i])) {
