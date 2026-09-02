@@ -16,7 +16,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 04_transpose_inverse_determinant
+% >> run("04_transpose_inverse_determinant.m")
 
 % Clear the workspace and command window
 clear; clc;

@@ -407,9 +407,12 @@ U = \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix},\quad
 L = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
 $$
 
-Έλεγχος: $LU = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
+Έλεγχος:
+$$
+LU = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}
 \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}
-= \begin{bmatrix} 2 & 1 \\ 4 & 5 \end{bmatrix} = A$.
+= \begin{bmatrix} 2 & 1 \\ 4 & 5 \end{bmatrix} = A
+$$
 
 Λύνουμε το $L\mathbf{y} = \mathbf{b}$:
 

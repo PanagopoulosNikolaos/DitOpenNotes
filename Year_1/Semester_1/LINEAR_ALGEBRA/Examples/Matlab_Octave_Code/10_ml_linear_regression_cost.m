@@ -22,7 +22,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 10_ml_linear_regression_cost
+% >> run("10_ml_linear_regression_cost.m")
 
 % Clear the workspace and command window
 clear; clc;

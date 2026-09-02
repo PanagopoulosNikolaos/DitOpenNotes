@@ -20,15 +20,24 @@
 
 #include <stdio.h>
 
-int main() {
-    // Declare a character array to store the name
+/**
+ * Demonstrates string input and output in C.
+ *
+ * Args:
+ *     None.
+ *
+ * Returns:
+ *     int: Exit status code 0 on successful execution.
+ */
+int main(void) {
     char name[50];
 
-    // Prompt the user to enter their name
     printf("Enter your name: ");
-    scanf("%s", name);
+    // Limits input to 49 characters to ensure null terminator fits safely.
+    if (scanf("%49s", name) != 1) {
+        return 1;
+    }
 
-    // Print a greeting message
     printf("Hello, %s! Welcome to C programming.\n", name);
 
     return 0;

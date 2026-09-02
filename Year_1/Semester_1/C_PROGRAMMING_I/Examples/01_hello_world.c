@@ -1,26 +1,20 @@
 /*
- * -----------------------------------------------------------------------------
- *
- *  Exercise 1: Hello, World!
- *
- *  Task:
- *  Write a C program that prints the message "Hello, World!" to the console.
- *
- *  Instructions:
- *  1. Include the standard input/output library (stdio.h).
- *  2. Define the main function.
- *  3. Use the printf function to display the message.
- *  4. Ensure the main function returns 0 to indicate successful execution.
- *
- * -----------------------------------------------------------------------------
+ * Exercise 01: Hello World
  */
 
 #include <stdio.h>
 
-int main() {
-    // Print the message "Hello, World!" to the console
+/**
+ * Prints a greeting message to standard output.
+ *
+ * Args:
+ *     None.
+ *
+ * Returns:
+ *     int: Exit status code 0 on successful execution.
+ */
+int main(void) {
+    // Outputs the greeting string to stdout.
     printf("Hello, World!\n");
-
-    // Return 0 to indicate successful execution
     return 0;
 }

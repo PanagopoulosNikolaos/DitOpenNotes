@@ -21,7 +21,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 06_plotting_basics
+% >> run("06_plotting_basics.m")
 
 % Clear the workspace and command window
 clear; clc;

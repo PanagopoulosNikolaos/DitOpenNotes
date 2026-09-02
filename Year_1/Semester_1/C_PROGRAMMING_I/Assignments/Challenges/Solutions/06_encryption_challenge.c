@@ -1,34 +1,38 @@
 #include <stdio.h>
 
-int main() {
-    char message[100], ch;
-    int i, key;
+/**
+ * Encrypts a plaintext message using the Caesar cipher algorithm.
+ *
+ * Args:
+ *     None.
+ *
+ * Returns:
+ *     int: Exit status code 0 on successful execution.
+ */
+int main(void) {
+    char message[100];
+    int key;
 
     printf("Enter a message to encrypt: ");
-    fgets(message, sizeof(message), stdin);
+    if (fgets(message, sizeof(message), stdin) == NULL) {
+        return 1;
+    }
 
     printf("Enter key: ");
-    scanf("%d", &key);
+    if (scanf("%d", &key) != 1) {
+        return 1;
+    }
 
-    for (i = 0; message[i] != '\0'; ++i) {
-        ch = message[i];
+    // Normalizes shift to standard alphabet range [0, 25].
+    int shift = (key % 26 + 26) % 26;
+
+    for (int i = 0; message[i] != '\0'; ++i) {
+        char ch = message[i];
 
         if (ch >= 'a' && ch <= 'z') {
-            ch = ch + key;
-
-            if (ch > 'z') {
-                ch = ch - 'z' + 'a' - 1;
-            }
-
-            message[i] = ch;
+            message[i] = (char)('a' + (ch - 'a' + shift) % 26);
         } else if (ch >= 'A' && ch <= 'Z') {
-            ch = ch + key;
-
-            if (ch > 'Z') {
-                ch = ch - 'Z' + 'A' - 1;
-            }
-
-            message[i] = ch;
+            message[i] = (char)('A' + (ch - 'A' + shift) % 26);
         }
     }
 

@@ -38,3 +38,9 @@
    $$r_\pi = \frac{\beta}{g_m} = \frac{120}{0.07692} \approx 1560\ \Omega = 1.56\text{ k}\Omega$$
 2. Εάν ο εκπομπός παρακάμπτεται από πυκνωτή $C_E$ στο AC:
    $$A_v = -g_m (R_C \parallel R_L) = -76.92 \times \left(\frac{2 \times 10}{2 + 10}\right)\text{ k}\Omega = -76.92 \times 1.667\text{ k}\Omega \approx -128.2$$
+
+---
+
+## Αρχείο Θεμάτων Προηγούμενων Ετών
+- [Θέματα Εξετάσεων 25/01/2021 (Ομάδα Β - Μέρος 1)](Papers/images/Exam_paper_2021_01_25_part_1_Team_B.png)
+- [Θέματα Εξετάσεων 25/01/2021 (Ομάδα Β - Μέρος 2)](Papers/images/Exam_paper_2021_01_25_part_2_Team_B.png)

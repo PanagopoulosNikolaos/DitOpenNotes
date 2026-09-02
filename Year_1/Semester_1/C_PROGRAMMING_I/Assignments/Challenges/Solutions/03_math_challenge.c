@@ -1,19 +1,26 @@
 #include <stdio.h>
 #include <math.h>
 
-int main() {
-    double number;
-    float float_number;
+/**
+ * Computes square root, exponential, and power functions from math.h.
+ *
+ * Args:
+ *     None.
+ *
+ * Returns:
+ *     int: Exit status code 0 on success, 1 on input error.
+ */
+int main(void) {
+    double num;
 
     printf("Enter a number: ");
-    scanf("%lf", &number);
+    if (scanf("%lf", &num) != 1) {
+        return 1;
+    }
 
-    printf("The square root of %.2lf is %.2lf\n", number, sqrt(number));
-
-    printf("Enter a float number: ");
-    scanf("%f", &float_number);
-
-    printf("The rounded value of %.2f is %.0f\n", float_number, round(float_number));
+    // Computes mathematical transformations via libm.
+    printf("Square root of %.2f is %.2f\n", num, sqrt(num));
+    printf("%.2f raised to the power 2 is %.2f\n", num, pow(num, 2));
 
     return 0;
 }

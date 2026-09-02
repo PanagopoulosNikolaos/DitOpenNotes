@@ -88,3 +88,9 @@ void print_available_flights(Flight flights[], int count, int min_seats) {
     }
 }
 ```
+
+---
+
+## Αρχείο Θεμάτων Προηγούμενων Ετών
+- [Θέματα Εξετάσεων Ιανουαρίου 2020](Papers/images/Exam_paper_2020_01_null.png)
+- [Θέματα Εξετάσεων Δεκεμβρίου 2022](Papers/images/Exam_paper_2022_12_null.png)

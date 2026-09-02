@@ -15,8 +15,8 @@
 % -----------------------------------------------------------------------------
 
 % To run this script in Octave, open Octave, navigate to the directory
-% containing this file, and type the filename without the .m extension, like so:
-% >> 01_vectors_and_matrices
+% containing this file, and use the run command (since script names start with digits):
+% >> run("01_vectors_and_matrices.m")
 
 % Clear the workspace and command window
 clear; clc;

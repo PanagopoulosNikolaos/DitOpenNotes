@@ -17,7 +17,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 02_matrix_operations
+% >> run("02_matrix_operations.m")
 
 % Clear the workspace and command window
 clear; clc;

@@ -180,12 +180,15 @@ $A^{-1} \mod 26$: $\det(A) = 3\cdot2 - 1\cdot5 = 6 - 5 = 1$, η οποία εί�
 
 $A^{-1} = \begin{bmatrix} 2 & -1 \\ -5 & 3 \end{bmatrix} \mod 26 = \begin{bmatrix} 2 & 25 \\ 21 & 3 \end{bmatrix}$.
 
-Αποκρυπτογράφηση: $\mathbf{p} = A^{-1}\mathbf{c} = \begin{bmatrix} 2 & 25 \\ 21 & 3 \end{bmatrix}
+Αποκρυπτογράφηση:
+$$
+\mathbf{p} = A^{-1}\mathbf{c} = \begin{bmatrix} 2 & 25 \\ 21 & 3 \end{bmatrix}
 \begin{pmatrix} 3 \\ 25 \end{pmatrix}
 = \begin{pmatrix} 2\cdot3 + 25\cdot25 \\ 21\cdot3 + 3\cdot25 \end{pmatrix}
 = \begin{pmatrix} 6 + 625 \\ 63 + 75 \end{pmatrix}
 = \begin{pmatrix} 631 \\ 138 \end{pmatrix}
-\mod 26$.
+\pmod{26}
+$$
 
 $631 \mod 26 = 631 - 24\cdot26 = 631 - 624 = 7$.
 $138 \mod 26 = 138 - 5\cdot26 = 138 - 130 = 8$.
@@ -206,14 +209,18 @@ $\mathbf{x}(t) = P e^{Dt} P^{-1} \mathbf{x}(0)$.
 
 $e^{Dt} = \begin{bmatrix} e^{3t} & 0 \\ 0 & e^{t} \end{bmatrix}$.
 
-$P^{-1} \mathbf{x}(0) = \begin{bmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & -\frac{1}{2} \end{bmatrix}
+$$
+P^{-1} \mathbf{x}(0) = \begin{bmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & -\frac{1}{2} \end{bmatrix}
 \begin{pmatrix} 1 \\ 0 \end{pmatrix}
-= \begin{pmatrix} \frac{1}{2} \\ \frac{1}{2} \end{pmatrix}$.
+= \begin{pmatrix} \frac{1}{2} \\ \frac{1}{2} \end{pmatrix}
+$$
 
 $e^{Dt} P^{-1} \mathbf{x}(0) = \begin{pmatrix} \frac{1}{2}e^{3t} \\ \frac{1}{2}e^{t} \end{pmatrix}$.
 
-$\mathbf{x}(t) = P \begin{pmatrix} \frac{1}{2}e^{3t} \\ \frac{1}{2}e^{t} \end{pmatrix}
-= \begin{pmatrix} \frac{1}{2}e^{3t} + \frac{1}{2}e^{t} \\ \frac{1}{2}e^{3t} - \frac{1}{2}e^{t} \end{pmatrix}$.
+$$
+\mathbf{x}(t) = P \begin{pmatrix} \frac{1}{2}e^{3t} \\ \frac{1}{2}e^{t} \end{pmatrix}
+= \begin{pmatrix} \frac{1}{2}e^{3t} + \frac{1}{2}e^{t} \\ \frac{1}{2}e^{3t} - \frac{1}{2}e^{t} \end{pmatrix}
+$$
 
 **Λύση:** $x_1(t) = \frac{1}{2}(e^{3t} + e^{t})$, $x_2(t) = \frac{1}{2}(e^{3t} - e^{t})$.
 
@@ -241,21 +248,27 @@ Laplacian: $L = D - A = \begin{bmatrix} 1 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 1 
 Ξεκινώντας από $\mathbf{x}^{(0)} = (1, 0)$, υπολογίστε το $\mathbf{x}^{(3)} = P^3 \mathbf{x}^{(0)}$ για $P = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}$.
 
 **Λύση:**
-$\mathbf{x}^{(1)} = P\mathbf{x}^{(0)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}
+$$
+\mathbf{x}^{(1)} = P\mathbf{x}^{(0)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}
 \begin{pmatrix} 1 \\ 0 \end{pmatrix}
-= \begin{pmatrix} 0.7 \\ 0.3 \end{pmatrix}$.
+= \begin{pmatrix} 0.7 \\ 0.3 \end{pmatrix}
+$$
 
-$\mathbf{x}^{(2)} = P\mathbf{x}^{(1)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}
+$$
+\mathbf{x}^{(2)} = P\mathbf{x}^{(1)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}
 \begin{pmatrix} 0.7 \\ 0.3 \end{pmatrix}
 = \begin{pmatrix} 0.7\cdot0.7 + 0.2\cdot0.3 \\ 0.3\cdot0.7 + 0.8\cdot0.3 \end{pmatrix}
 = \begin{pmatrix} 0.49 + 0.06 \\ 0.21 + 0.24 \end{pmatrix}
-= \begin{pmatrix} 0.55 \\ 0.45 \end{pmatrix}$.
+= \begin{pmatrix} 0.55 \\ 0.45 \end{pmatrix}
+$$
 
-$\mathbf{x}^{(3)} = P\mathbf{x}^{(2)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}
+$$
+\mathbf{x}^{(3)} = P\mathbf{x}^{(2)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \end{bmatrix}
 \begin{pmatrix} 0.55 \\ 0.45 \end{pmatrix}
 = \begin{pmatrix} 0.7\cdot0.55 + 0.2\cdot0.45 \\ 0.3\cdot0.55 + 0.8\cdot0.45 \end{pmatrix}
 = \begin{pmatrix} 0.385 + 0.090 \\ 0.165 + 0.360 \end{pmatrix}
-= \begin{pmatrix} 0.475 \\ 0.525 \end{pmatrix}$.
+= \begin{pmatrix} 0.475 \\ 0.525 \end{pmatrix}
+$$
 
 Η κατανομή συγκλίνει προς το $(0.4, 0.6)$.
 
@@ -269,17 +282,24 @@ $\mathbf{x}^{(3)} = P\mathbf{x}^{(2)} = \begin{bmatrix} 0.7 & 0.2 \\ 0.3 & 0.8 \
 **Λύση:**
 $A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}$, $\mathbf{b} = \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}$.
 
-$A^\mathsf{T} A = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}
+$$
+A^\mathsf{T} A = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}
 \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \end{bmatrix}
-= \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}$.
+= \begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}
+$$
 
-$A^\mathsf{T} \mathbf{b} = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}
+$$
+A^\mathsf{T} \mathbf{b} = \begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}
 \begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}
-= \begin{pmatrix} 6 \\ 8 \end{pmatrix}$.
+= \begin{pmatrix} 6 \\ 8 \end{pmatrix}
+$$
 
-Λύνουμε το $\begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}
+Λύνουμε το σύστημα:
+$$
+\begin{bmatrix} 3 & 3 \\ 3 & 5 \end{bmatrix}
 \begin{pmatrix} \beta_0 \\ \beta_1 \end{pmatrix}
-= \begin{pmatrix} 6 \\ 8 \end{pmatrix}$.
+= \begin{pmatrix} 6 \\ 8 \end{pmatrix}
+$$
 
 Από την πρώτη: $3\beta_0 + 3\beta_1 = 6 \Rightarrow \beta_0 + \beta_1 = 2$.
 Δεύτερη: $3\beta_0 + 5\beta_1 = 8$.
@@ -304,8 +324,11 @@ $$
 M = \begin{bmatrix} 0 & 0.5 \\ 1 & 0.5 \end{bmatrix}
 $$
 
-Πίνακας με απόσβεση: $P = 0.85M + 0.15 \cdot \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
-= 0.85 \begin{bmatrix} 0 & 0.5 \\ 1 & 0.5 \end{bmatrix} + 0.075 \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$.
+Πίνακας με απόσβεση:
+$$
+P = 0.85M + 0.15 \cdot \frac{1}{2} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+= 0.85 \begin{bmatrix} 0 & 0.5 \\ 1 & 0.5 \end{bmatrix} + 0.075 \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+$$
 
 $$
 P = \begin{bmatrix} 0.075 & 0.5 \\ 0.925 & 0.5 \end{bmatrix}

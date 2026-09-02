@@ -18,7 +18,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 07_multiple_plots_and_styles
+% >> run("07_multiple_plots_and_styles.m")
 
 % Clear the workspace and command window
 clear; clc;

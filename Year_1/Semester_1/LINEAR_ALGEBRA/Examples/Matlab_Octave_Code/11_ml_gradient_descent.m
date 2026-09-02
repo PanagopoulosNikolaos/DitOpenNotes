@@ -23,7 +23,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 11_ml_gradient_descent
+% >> run("11_ml_gradient_descent.m")
 
 % Clear the workspace and command window
 clear; clc;

@@ -1,46 +1,30 @@
 /*
- * -----------------------------------------------------------------------------
- *
- *  Exercise 2: Variables and Data Types
- *
- *  Task:
- *  Write a C program that declares and initializes variables of different
- *  data types (int, float, double, char) and then prints their values to the
- *  console.
- *
- *  Instructions:
- *  1. Include the stdio.h library.
- *  2. In the main function, declare and initialize the following variables:
- *     - An integer `age` with the value 25.
- *     - A float `height` with the value 1.75.
- *     - A double `pi` with the value 3.14159265359.
- *     - A char `initial` with the value 'J'.
- *  3. Use printf to display the values of these variables with appropriate
- *     labels.
- *
- * -----------------------------------------------------------------------------
+ * Exercise 02: Variables and Data Types
  */
 
 #include <stdio.h>
 
-int main() {
-    // Declare and initialize an integer variable
-    int age = 25;
+/**
+ * Demonstrates primitive data types and format specifiers in C.
+ *
+ * Args:
+ *     None.
+ *
+ * Returns:
+ *     int: Exit status code 0 on successful execution.
+ */
+int main(void) {
+    // Initializes primitive variables with sample values.
+    int integer_var = 10;
+    float float_var = 3.14f;
+    double double_var = 3.1415926535;
+    char char_var = 'A';
 
-    // Declare and initialize a float variable
-    float height = 1.75;
-
-    // Declare and initialize a double variable
-    double pi = 3.14159265359;
-
-    // Declare and initialize a char variable
-    char initial = 'J';
-
-    // Print the values of the variables
-    printf("Age: %d\n", age);
-    printf("Height: %.2f meters\n", height);
-    printf("Pi: %lf\n", pi);
-    printf("Initial: %c\n", initial);
+    // Prints variable values with corresponding type specifiers.
+    printf("Integer: %d\n", integer_var);
+    printf("Float: %f\n", float_var);
+    printf("Double: %lf\n", double_var);
+    printf("Character: %c\n", char_var);
 
     return 0;
 }

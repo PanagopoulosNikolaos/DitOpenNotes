@@ -19,7 +19,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 12_ml_normal_equation
+% >> run("12_ml_normal_equation.m")
 
 % Clear the workspace and command window
 clear; clc;

@@ -197,8 +197,10 @@ $\mathbf{q}_2 = \frac{1}{3\sqrt{5}/5} \left(\frac{6}{5}, -\frac{3}{5}\right) = \
 
 $Q = \begin{bmatrix} \frac{1}{\sqrt{5}} & \frac{2}{\sqrt{5}} \\ \frac{2}{\sqrt{5}} & -\frac{1}{\sqrt{5}} \end{bmatrix}$.
 
-$R = Q^\mathsf{T} A = \begin{bmatrix} \|v_1\| & \mathbf{q}_1 \cdot \mathbf{a}_2 \\ 0 & \|v_2\| \end{bmatrix}
-= \begin{bmatrix} \sqrt{5} & \frac{4}{\sqrt{5}} \\ 0 & \frac{3\sqrt{5}}{5} \end{bmatrix}$.
+$$
+R = Q^\mathsf{T} A = \begin{bmatrix} \|v_1\| & \mathbf{q}_1 \cdot \mathbf{a}_2 \\ 0 & \|v_2\| \end{bmatrix}
+= \begin{bmatrix} \sqrt{5} & \frac{4}{\sqrt{5}} \\ 0 & \frac{3\sqrt{5}}{5} \end{bmatrix}
+$$
 
 ---
 
@@ -230,9 +232,12 @@ SVD: $A = I \cdot \Sigma \cdot I^\mathsf{T}$, που είναι τετριμμέ
 Βρείτε την SVD του $A = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}$.
 
 **Λύση:**
-Ο $A$ είναι $3 \times 2$. Υπολογίζουμε $A^\mathsf{T} A = \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}
+Ο $A$ είναι $3 \times 2$. Υπολογίζουμε:
+$$
+A^\mathsf{T} A = \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}
 \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}
-= \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$.
+= \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}
+$$
 
 Ιδιοτιμές του $A^\mathsf{T} A$: $\lambda_1 = 3$, $\lambda_2 = 1$. Ιδιάζουσες τιμές: $\sigma_1 = \sqrt{3}$, $\sigma_2 = 1$.
 
@@ -242,14 +247,18 @@ $V = \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2
 
 Υπολογίζουμε τον $U$ από τη σχέση $U = A V \Sigma^{-1}$:
 
-$\mathbf{u}_1 = \frac{1}{\sqrt{3}} A \mathbf{v}_1 = \frac{1}{\sqrt{3}} \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}
+$$
+\mathbf{u}_1 = \frac{1}{\sqrt{3}} A \mathbf{v}_1 = \frac{1}{\sqrt{3}} \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}
 \begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{pmatrix}
 = \frac{1}{\sqrt{3}} \begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ \frac{2}{\sqrt{2}} \end{pmatrix}
-= \begin{pmatrix} \frac{1}{\sqrt{6}} \\ \frac{1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \end{pmatrix}$.
+= \begin{pmatrix} \frac{1}{\sqrt{6}} \\ \frac{1}{\sqrt{6}} \\ \frac{2}{\sqrt{6}} \end{pmatrix}
+$$
 
-$\mathbf{u}_2 = \frac{1}{1} A \mathbf{v}_2 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}
+$$
+\mathbf{u}_2 = \frac{1}{1} A \mathbf{v}_2 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}
 \begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \end{pmatrix}
-= \begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \\ 0 \end{pmatrix}$.
+= \begin{pmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}} \\ 0 \end{pmatrix}
+$$
 
 Το $\mathbf{u}_3$ είναι ένα οποιοδήποτε μοναδιαίο διάνυσμα ορθογώνιο στα $\mathbf{u}_1$ και $\mathbf{u}_2$· παρατηρούμε ότι $\mathbf{u}_3 = \left(\frac{1}{\sqrt{3}}, \frac{1}{\sqrt{3}}, -\frac{1}{\sqrt{3}}\right)$.
 
@@ -274,18 +283,23 @@ $\mathbf{u}_2 = \left(\frac{1}{\sqrt{2}}, -\frac{1}{\sqrt{2}}\right)$.
 
 $\Sigma^+ = \begin{bmatrix} \frac{1}{2} & 0 \\ 0 & 0 \end{bmatrix}$.
 
-$A^+ = V \Sigma^+ U^\mathsf{T} = \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{bmatrix}
+$$
+A^+ = V \Sigma^+ U^\mathsf{T} = \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{bmatrix}
 \begin{bmatrix} \frac{1}{2} & 0 \\ 0 & 0 \end{bmatrix}
 \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \end{bmatrix}
-= \frac{1}{4} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$.
+= \frac{1}{4} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+$$
 
-Έλεγχος: $A A^+ A = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
+Έλεγχος:
+$$
+A A^+ A = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
 \frac{1}{4} \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
 \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
 = \frac{1}{4} \begin{bmatrix} 2 & 2 \\ 2 & 2 \end{bmatrix}
 \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}
 = \frac{1}{4} \begin{bmatrix} 4 & 4 \\ 4 & 4 \end{bmatrix}
-= \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} = A$.
+= \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix} = A
+$$
 
 ---
 
@@ -308,9 +322,12 @@ $\ell_{11}\ell_{21} = 2 \Rightarrow 2\ell_{21} = 2 \Rightarrow \ell_{21} = 1$.
 
 $\ell_{21}^2 + \ell_{22}^2 = 5 \Rightarrow 1 + \ell_{22}^2 = 5 \Rightarrow \ell_{22}^2 = 4 \Rightarrow \ell_{22} = 2$.
 
-$L = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}$, και $LL^\mathsf{T} = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}
+$L = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}$, και:
+$$
+LL^\mathsf{T} = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}
 \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}
-= \begin{bmatrix} 4 & 2 \\ 2 & 5 \end{bmatrix} = A$.
+= \begin{bmatrix} 4 & 2 \\ 2 & 5 \end{bmatrix} = A
+$$
 
 ---
 

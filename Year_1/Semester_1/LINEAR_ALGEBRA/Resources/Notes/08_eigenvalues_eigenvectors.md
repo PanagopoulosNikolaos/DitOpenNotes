@@ -146,15 +146,20 @@ $v_1 + v_2 = 0 \Rightarrow v_2 = -v_1$. Ιδιοδιάνυσμα: $\mathbf{v}_2 
 **Λύση:**
 Από την Άσκηση 1, $P = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$, $D = \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix}$.
 
-Υπολογίζουμε $P^{-1} = \frac{1}{-2} \begin{bmatrix} -1 & -1 \\ -1 & 1 \end{bmatrix}
-= \begin{bmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & -\frac{1}{2} \end{bmatrix}$.
+$$
+P^{-1} = \frac{1}{-2} \begin{bmatrix} -1 & -1 \\ -1 & 1 \end{bmatrix}
+= \begin{bmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & -\frac{1}{2} \end{bmatrix}
+$$
 
-Επαλήθευση: $PDP^{-1} = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
+Επαλήθευση:
+$$
+PDP^{-1} = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
 \begin{bmatrix} 3 & 0 \\ 0 & 1 \end{bmatrix}
 \begin{bmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & -\frac{1}{2} \end{bmatrix}
 = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
 \begin{bmatrix} \frac{3}{2} & \frac{3}{2} \\ \frac{1}{2} & -\frac{1}{2} \end{bmatrix}
-= \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix} = A$.
+= \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix} = A
+$$
 
 ---
 
@@ -224,8 +229,10 @@ $v_2 = 0$, $v_3 = 0$, $v_1$ ελεύθερο. Τα ιδιοδιανύσματα 
 **Λύση:**
 Ο $A$ είναι συμμετρικός, οπότε είναι ορθογώνια διαγωνοποιήσιμος.
 
-Χαρακτηριστικό πολυώνυμο: $\det(A - \lambda I) = (7-\lambda)(4-\lambda) - 4 = \lambda^2 - 11\lambda + 24
-= (\lambda - 8)(\lambda - 3)$.
+Χαρακτηριστικό πολυώνυμο:
+$$
+\det(A - \lambda I) = (7-\lambda)(4-\lambda) - 4 = \lambda^2 - 11\lambda + 24 = (\lambda - 8)(\lambda - 3)
+$$
 
 $\lambda_1 = 8$, $\lambda_2 = 3$.
 

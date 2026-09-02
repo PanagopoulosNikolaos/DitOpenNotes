@@ -19,7 +19,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 08_eigenvalues_and_eigenvectors
+% >> run("08_eigenvalues_and_eigenvectors.m")
 
 % Clear the workspace and command window
 clear; clc;

@@ -19,7 +19,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 03_special_matrices_and_indexing
+% >> run("03_special_matrices_and_indexing.m")
 
 % Clear the workspace and command window
 clear; clc;

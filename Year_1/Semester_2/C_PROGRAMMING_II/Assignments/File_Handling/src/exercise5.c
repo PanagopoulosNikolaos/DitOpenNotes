@@ -17,7 +17,7 @@ int main() {
         return -1;
     }
     for (int i = 1; i < 6; i++){
-        size_t written = fprintf(file, "%d\n", i);
+        int written = fprintf(file, "%d\n", i);
         if (written < 0){
             printf("error writing to file");
             fclose(file);

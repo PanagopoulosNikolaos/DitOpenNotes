@@ -21,7 +21,7 @@ int main() {
     struct Product p1 = {101, "Laptop", 1200.50};
 
     // Open a file in binary write mode
-    FILE *fp = fopen("product.bat", "wb");
+    FILE *fp = fopen("product.dat", "wb");
     if (fp == NULL) {
         perror("Error opening file");
         return 1;
@@ -33,7 +33,7 @@ int main() {
     // Close the file
     fclose(fp);
 
-    printf("Product data written to product.bat successfully.\n");
+    printf("Product data written to product.dat successfully.\n");
 
     return 0;
 }

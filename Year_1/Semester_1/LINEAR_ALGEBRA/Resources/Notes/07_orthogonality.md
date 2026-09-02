@@ -250,21 +250,31 @@ $\det(Q) = \cos^2\theta + \sin^2\theta = 1$, επιβεβαιώνοντας ότ
 **Λύση:**
 Έστω $A = \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 0 & 1 \end{bmatrix}$.
 
-Υπολογίζουμε $A^\mathsf{T} A = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}
+Υπολογίζουμε:
+$$
+A^\mathsf{T} A = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}
 \begin{bmatrix} 1 & 0 \\ 1 & 1 \\ 0 & 1 \end{bmatrix}
-= \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$.
+= \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}
+$$
 
-Υπολογίζουμε $(A^\mathsf{T} A)^{-1} = \frac{1}{4 - 1} \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}
-= \frac{1}{3} \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}$.
+$$
+(A^\mathsf{T} A)^{-1} = \frac{1}{4 - 1} \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}
+= \frac{1}{3} \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}
+$$
 
-Υπολογίζουμε $A^\mathsf{T} \mathbf{b} = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}
+$$
+A^\mathsf{T} \mathbf{b} = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}
 \begin{pmatrix} 1 \\ 0 \\ 2 \end{pmatrix}
-= \begin{pmatrix} 1 \\ 2 \end{pmatrix}$.
+= \begin{pmatrix} 1 \\ 2 \end{pmatrix}
+$$
 
-Συντελεστές ελαχίστων τετραγώνων: $\hat{\mathbf{x}} = (A^\mathsf{T} A)^{-1} A^\mathsf{T} \mathbf{b}
+Συντελεστές ελαχίστων τετραγώνων:
+$$
+\hat{\mathbf{x}} = (A^\mathsf{T} A)^{-1} A^\mathsf{T} \mathbf{b}
 = \frac{1}{3} \begin{bmatrix} 2 & -1 \\ -1 & 2 \end{bmatrix}
 \begin{pmatrix} 1 \\ 2 \end{pmatrix}
-= \frac{1}{3} \begin{pmatrix} 0 \\ 3 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$.
+= \frac{1}{3} \begin{pmatrix} 0 \\ 3 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+$$
 
 Προβολή: $\text{proj}_W(\mathbf{v}) = A\hat{\mathbf{x}} = 0 \cdot (1, 1, 0) + 1 \cdot (0, 1, 1) = (0, 1, 1)$.
 
@@ -340,8 +350,10 @@ $\mathbf{q}_2 = \frac{1}{\sqrt{6}/2} \left(\frac{1}{2}, -\frac{1}{2}, 1\right) =
 
 Τότε $Q = \begin{bmatrix} \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{6}} \\ \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{6}} \\ 0 & \frac{2}{\sqrt{6}} \end{bmatrix}$.
 
-$R = Q^\mathsf{T} A = \begin{bmatrix} \|v_1\| & \mathbf{q}_1 \cdot \mathbf{a}_2 \\ 0 & \|v_2\| \end{bmatrix}
-= \begin{bmatrix} \sqrt{2} & \frac{1}{\sqrt{2}} \\ 0 & \frac{\sqrt{6}}{2} \end{bmatrix}$.
+$$
+R = Q^\mathsf{T} A = \begin{bmatrix} \|v_1\| & \mathbf{q}_1 \cdot \mathbf{a}_2 \\ 0 & \|v_2\| \end{bmatrix}
+= \begin{bmatrix} \sqrt{2} & \frac{1}{\sqrt{2}} \\ 0 & \frac{\sqrt{6}}{2} \end{bmatrix}
+$$
 
 ---
 

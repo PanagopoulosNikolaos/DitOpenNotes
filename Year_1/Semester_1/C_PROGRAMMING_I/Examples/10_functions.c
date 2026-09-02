@@ -1,45 +1,43 @@
 /*
- * -----------------------------------------------------------------------------
- *
- *  Exercise 10: Functions
- *
- *  Task:
- *  Write a C program that uses a function to find the maximum of two numbers.
- *
- *  Instructions:
- *  1. Include the stdio.h library.
- *  2. Define a function `findMax` that takes two integer arguments and
- *     returns the larger of the two.
- *  3. In the main function, prompt the user to enter two numbers.
- *  4. Call the `findMax` function with the user's input.
- *  5. Print the result returned by the function.
- *
- * -----------------------------------------------------------------------------
+ * Exercise 10: Functions
  */
 
 #include <stdio.h>
 
-// Function to find the maximum of two integers
+/**
+ * Finds the maximum of two given integers.
+ *
+ * Args:
+ *     a (int): First operand.
+ *     b (int): Second operand.
+ *
+ * Returns:
+ *     int: The greater of the two integers.
+ */
 int findMax(int a, int b) {
-    if (a > b) {
-        return a;
-    } else {
-        return b;
-    }
+    return (a > b) ? a : b;
 }
 
-int main() {
+/**
+ * Prompts user for two numbers and prints their maximum.
+ *
+ * Args:
+ *     None.
+ *
+ * Returns:
+ *     int: Exit status code 0 on success, 1 on input error.
+ */
+int main(void) {
     int num1, num2;
 
-    // Prompt the user to enter two numbers
     printf("Enter two integers: ");
-    scanf("%d %d", &num1, &num2);
+    if (scanf("%d %d", &num1, &num2) != 2) {
+        return 1;
+    }
 
-    // Call the findMax function and store the result
-    int max = findMax(num1, num2);
-
-    // Print the maximum number
-    printf("The maximum of %d and %d is %d.\n", num1, num2, max);
+    // Delegates comparison to pure helper function.
+    int max_val = findMax(num1, num2);
+    printf("The maximum of %d and %d is %d.\n", num1, num2, max_val);
 
     return 0;
 }

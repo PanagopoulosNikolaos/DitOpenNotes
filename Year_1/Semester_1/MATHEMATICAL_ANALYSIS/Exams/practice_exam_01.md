@@ -62,6 +62,16 @@ $$g(x) = \frac{x^2 - 4}{x - 1}$$
 2. Μιγαδικός $z = 1 + i\sqrt{3}$:
    Μέτρο $|z| = \sqrt{1 + 3} = 2$.
    Όρισμα $\theta = \arctan(\sqrt{3}) = \frac{\pi}{3}$.
-   Τριγωνομετρική μορφή: $z = 2\left(\cos \frac{\pi}{3} + i \sin \frac{\pi}{3}\right)$.
-   Από θεώρημα De Moivre:
    $$z^6 = 2^6 \left(\cos(6 \cdot \frac{\pi}{3}) + i \sin(6 \cdot \frac{\pi}{3})\right) = 64(\cos(2\pi) + i\sin(2\pi)) = 64(1 + 0) = 64$$
+
+---
+
+## Αρχείο Θεμάτων και Λυμένων Εξετάσεων
+- [Λυμένο Τελικό Διαγώνισμα 2024-2025](exam_2024_2025_finals_solved.md)
+- [Ολοκληρωμένο Τεστ Προετοιμασίας Εξετάσεων (870+ γραμμές λύσεων)](preptest_01_comprehensive_exam_solutions.md)
+- [Θέματα Εξετάσεων 14/09/2023 - Ομάδα Α](Papers/images/Exam_paper_2023_09_14_Team_A.png)
+- [Θέματα Εξετάσεων 29/01/2025 - Ομάδα D](Papers/images/Exam_paper_2025_01_29_Team_D.png)
+- [Θέματα Εξετάσεων 29/01/2025](Papers/images/Exam_paper_2025_01_29_Team_null.png)
+- [Θέματα Εξετάσεων 10/09/2025 - Ομάδα D](Papers/images/Exam_paper_2025_09_10_Team_D.png)
+- [Θέματα Εξετάσεων Ιανουαρίου 2026 - Μέρος 1](Papers/images/Exam_paper_2026_01_null_part_1_Team_null.png)
+- [Θέματα Εξετάσεων Ιανουαρίου 2026 - Μέρος 2](Papers/images/Exam_paper_2026_01_null_part_2_Team_null.png)

@@ -27,7 +27,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 09_ml_data_representation
+% >> run("09_ml_data_representation.m")
 
 % Clear the workspace and command window
 clear; clc;

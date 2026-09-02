@@ -19,7 +19,7 @@
 % -----------------------------------------------------------------------------
 
 % To run this script, type its name in the Octave command window:
-% >> 05_solving_linear_systems
+% >> run("05_solving_linear_systems.m")
 
 % Clear the workspace and command window
 clear; clc;
