@@ -21,7 +21,7 @@ int main() {
     struct Product p_read;
 
     // Open the file in binary read mode
-    FILE *fp = fopen("product.bat", "rb");
+    FILE *fp = fopen("product.dat", "rb");
     if (fp == NULL) {
         perror("Error opening file");
         return 1;

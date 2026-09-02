@@ -15,12 +15,8 @@ echo "Αναμονή για την εκκίνηση του server..."
 # Ενδέχεται να χρειαστεί να προσαρμόσετε αυτή τη διάρκεια ανάλογα με την ταχύτητα του συστήματος σας
 sleep 3
 
-echo "Άνοιγμα του $STREAMLIT_URL στον περιηγητή Brave..."
-# Προσπάθεια ανοίγματος του URL στο Brave
-# Αυτό υποθέτει ότι το 'brave-browser' είναι η εντολή για την εκκίνηση του Brave στο σύστημά σας.
-# Αν το Brave εκτελείται ήδη, ενδέχεται να ανοίξει μια νέα καρτέλα ή να χρησιμοποιήσει υπάρχον παράθυρο
-# ανάλογα με τις ρυθμίσεις του.
-brave-browser "$STREAMLIT_URL"
+echo "Opening $STREAMLIT_URL in default system browser..."
+xdg-open "$STREAMLIT_URL" 2>/dev/null || python3 -m webbrowser "$STREAMLIT_URL" 2>/dev/null || echo "Please open $STREAMLIT_URL in your browser."
 
 echo "--------------------------------------------------------------------"
 echo "Η εφαρμογή Streamlit εκτελείται. Πρόσβαση στο $STREAMLIT_PID"

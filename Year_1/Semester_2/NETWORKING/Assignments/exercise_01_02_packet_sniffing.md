@@ -4,22 +4,22 @@
 
 Ο πίνακας του Πρωτοκόλλου Επίλυσης Διευθύνσεων (ARP) αντιστοιχίζει διευθύνσεις IP σε διευθύνσεις MAC στο τοπικό σας δίκτυο. Δείτε πώς μπορείτε να τον προβάλετε:
 
-```JavaScript
+```bash
 arp -a # or arp
 ```
 
 Παράδειγμα εξόδου που εμφανίζει διευθύνσεις IP και τις αντίστοιχες διευθύνσεις MAC:
 
 ```Shell
-┌─[]─[root@parrot]─[/home/ice]
+┌─[]─[student@linux]─[~]
 └──╼ \#arp
 Address                  HWtype  HWaddress           Flags Mask            Iface
-172.21.0.2               ether   00:17:08:ff:60:73   C                     wlp4s0
-172.21.0.1               ether   32:eb:45:fc:5a:34   C                     wlp4s0
-┌─[root@parrot]─[/home/ice]
+192.168.1.10               ether   00:11:22:33:44:55   C                     wlp4s0
+192.168.1.1               ether   00:aa:bb:cc:dd:ee   C                     wlp4s0
+┌─[student@linux]─[~]
 └──╼ \#arp -a
-? (172.21.0.2) at 00:17:08:ff:60:73 [ether] on wlp4s0
-? (172.21.0.1) at 32:eb:45:fc:5a:34 [ether] on wlp4s0
+? (192.168.1.10) at 00:11:22:33:44:55 [ether] on wlp4s0
+? (192.168.1.1) at 00:aa:bb:cc:dd:ee [ether] on wlp4s0
 ```
 
 # Εργαστηριακή Άσκηση: Σύλληψη Πακέτων με tcpdump
@@ -30,7 +30,7 @@ Address                  HWtype  HWaddress           Flags Mask            Iface
 
 Αυτή η εντολή συλλαμβάνει πακέτα για 23 δευτερόλεπτα στη διεπαφή wlp4s0:
 
-```JavaScript
+```bash
 timeout 23s tcpdump -i wlp4s0 -s 0 -w capture.pcap 'tcp port 80 or tcp port 443'
 ```
 
@@ -44,8 +44,8 @@ timeout 23s tcpdump -i wlp4s0 -s 0 -w capture.pcap 'tcp port 80 or tcp port 443'
 
 ### 2. Ανάλυση Αιτημάτων HTTP GET
 
-```JavaScript
-tcpdump -r capture.pcap -n -A | grep -B3 -A10 "GET"
+```bash
+timeout 23s capture.pcap -n -A | grep -B3 -A10 "GET"
 ```
 
 Επεξήγηση σημαιών:

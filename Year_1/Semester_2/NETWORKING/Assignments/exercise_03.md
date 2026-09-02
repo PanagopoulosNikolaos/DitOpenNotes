@@ -12,7 +12,7 @@
   
 
 ```Python
-┌─[ice@parrot]─[~]
+┌─[student@linux]─[~]
 └──╼ $dig A example.com +short && dig MX example.com +short
 96.7.128.198
 23.192.228.80
@@ -24,7 +24,7 @@
 ```
 
 ```Python
-┌─[ice@parrot]─[~]
+┌─[student@linux]─[~]
 └──╼ $nslookup -type=MX example.com
 Server:		195.130.72.1
 Address:	195.130.72.1#53
@@ -53,7 +53,7 @@ b.iana-servers.net	has AAAA address 2001:500:8d::53
     ```
     
     ```Python
-    ┌─[ice@parrot]─[~]
+    ┌─[student@linux]─[~]
     └──╼ $dig -x 8.8.8.8 +noall +answer
     8.8.8.8.in-addr.arpa.	82537	IN	PTR	dns.google.
     ```
@@ -135,8 +135,8 @@ tshark -r dns_capture.pcap -Y "dns"
    14  13.652586 195.130.72.1 → 172.16.3.244 DNS 239 Standard query response 0x1195 MX example.com MX 0 <Root> NS b.iana-servers.net NS a.iana-servers.net A 199.43.135.53 AAAA 2001:500:8f::53 A 199.43.133.53 AAAA 2001:500:8d::53 OPT
    15  13.677262 172.16.3.244 → 195.130.72.1 DNS 100 Standard query 0xa69c NS example.com OPT
    16  13.679713 195.130.72.1 → 172.16.3.244 DNS 224 Standard query response 0xa69c NS example.com NS a.iana-servers.net NS b.iana-servers.net A 199.43.135.53 AAAA 2001:500:8f::53 A 199.43.133.53 AAAA 2001:500:8d::53 OPT
-   17  26.439082 172.16.3.244 → 195.130.72.1 DNS 83 Standard query 0x9b68 A www1.bobmovies.us
-   18  26.439143 172.16.3.244 → 195.130.72.1 DNS 83 Standard query 0xa41d HTTPS www1.bobmovies.us
+   17  26.439082 172.16.3.244 → 195.130.72.1 DNS 83 Standard query 0x9b68 A portal.example.edu
+   18  26.439143 172.16.3.244 → 195.130.72.1 DNS 83 Standard query 0xa41d HTTPS portal.example.edu
 ```
 
   
@@ -226,7 +226,7 @@ Warning: interface names might be incorrect
 Πλήρης και ολοκληρωμένη ανάλυση:
 
 ```Python
-┌─[ice@parrot]─[~]
+┌─[student@linux]─[~]
 └──╼ $tshark -r dns_capture.pcap -Y "dns" -T fields \
   -e frame.number \
   -e frame.time \
@@ -256,8 +256,8 @@ Warning: interface names might be incorrect
 14	Apr 29, 2025 11:42:47.131052000 EEST	195.130.72.1	172.16.3.244	DNS	53	34182			1	example.com	15	1	199.43.135.53,199.43.133.53
 15	Apr 29, 2025 11:42:47.155728000 EEST	172.16.3.244	195.130.72.1	DNS	4291253			0	example.com	2	0	
 16	Apr 29, 2025 11:42:47.158179000 EEST	195.130.72.1	172.16.3.244	DNS	53	42912			1	example.com	2	2	199.43.135.53,199.43.133.53
-17	Apr 29, 2025 11:42:59.917548000 EEST	172.16.3.244	195.130.72.1	DNS	2020653			0	www1.bobmovies.us	1	0	
-18	Apr 29, 2025 11:42:59.917609000 EEST	172.16.3.244	195.130.72.1	DNS	3171	53			0	www1.bobmovies.us	65	0	
+17	Apr 29, 2025 11:42:59.917548000 EEST	172.16.3.244	195.130.72.1	DNS	2020653			0	portal.example.edu	1	0	
+18	Apr 29, 2025 11:42:59.917609000 EEST	172.16.3.244	195.130.72.1	DNS	3171	53			0	portal.example.edu	65	0	
  
 ```
 

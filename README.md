@@ -34,8 +34,7 @@ This repository was cleaned up to reduce size. PDFs, compiled data, old commit h
 │   └── Semester_2
 │       ├── C_PROGRAMMING_II (204)
 │       ├── DIGITAL_ELECTRONICS (205)
-│       ├── DISCREET_MATHEMATICS (203)
-│       ├── ELECTROMAGNETICS (201)
+│       ├── DISCRETE_MATHEMATICS (203)
 │       └── NETWORKING (202)
 ├── Year_2
 │   ├── Semester_3

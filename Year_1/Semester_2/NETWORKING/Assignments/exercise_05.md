@@ -3,7 +3,7 @@
 ```
 sudo iwconfig
 
-wlp4s0    IEEE 802.11  ESSID:"uoi open"
+wlp4s0    IEEE 802.11  ESSID:"campus-wifi"
 ```
 
 - Η τρέχουσα ταχύτητα σύνδεσής σας.
@@ -18,18 +18,18 @@ sudo iwconfig
 ```
 sudo iwconfig
 
-D4:4F:67:03:F6:70
+00:1A:2B:3C:4D:5E
 ```
 
 - Ο κατασκευαστής του προσαρμογέα δικτύου σας.
 ```
-D4:4F:67 # # HUAWEI TECHNOLOGIES CO.,LTD
+00:1A:2B # # NETWORK VENDOR CORP
 ```
 
 - Τα πρωτόκολλα δικτύου που είναι τρέχοντα συνδεδεμένα στον προσαρμογέα σας.
 ```
 netstat -ap
-# tcp        0      0 172.16.4.108:51834      104.18.26.48:https      ESTABLISHED 3333/brave --type=u
+# tcp        0      0 192.168.1.50:51834      104.18.26.48:https      ESTABLISHED 1234/web-browser
 
 ```
 
@@ -40,7 +40,7 @@ sudo ifconfig
 
 ```shell
 wlp4s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-````
+```
 
 - Η συνολική ποσότητα δεδομένων (τόσο μεταδιδόμενων όσο και λαμβανόμενων) από τον προσαρμογέα δικτύου σας.
 ```
@@ -49,7 +49,7 @@ ip -s link show dev wlp4s0
 
 ```
 3: wlp4s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DORMANT group default qlen 1000
-     link/ether f8:54:f6:bf:d1:6e brd ff:ff:ff:ff:ff:ff
+     link/ether 00:1A:2B:3C:4D:5E brd ff:ff:ff:ff:ff:ff
      RX:  bytes packets errors dropped  missed    mcast         
        22858337    42522       0       120        0          0  
      TX:  bytes packets errors dropped carrier collsns         
@@ -69,7 +69,7 @@ udp       ESTAB     0          0                     172.16.4.108:57352         
 udp       ESTAB     0          0          172.16.4.108%wlp4s0:68                  172.16.0.1:67     
 udp       ESTAB     0          0                     172.16.4.108:48660           104.21.59.235:443   
 tcp       ESTAB     0          0                     172.16.4.108:46192           172.67.40.104:443   
-tcp       ESTAB     0          0                     172.16.4.108:51834            104.18.26.48:443   
+tcp       ESTAB     0          0                     192.168.1.50:51834            104.18.26.48:443   
 tcp       ESTAB     0          0                     172.16.4.108:44392           172.67.185.109:443  
 ```
 
@@ -434,7 +434,7 @@ Total: 1460 + 20 + 20 + 14 = 1514 bytes
 # Με tcpdump:
 2) Ποια η IP διεύθυνση του server. Εξηγήστε με ποια εντολή βρήκατε την IP;
 ```shell
-┌─[]─[ice@parrot]─[~/Desktop/captures/TCP_COMMUNICATIONS]
+┌─[]─[student@linux]─[~/Desktop/captures/TCP_COMMUNICATIONS]
 └──╼ $tcpdump -r capture.pcap -n -vv | grep "gaia.cs.umass.edu"
 reading from file capture.pcap, link-type EN10MB (Ethernet), snapshot length 262144
     172.21.2.48.18626 > 194.177.210.210.53: [udp sum ok] 53211+ A? gaia.cs.umass.edu. (35)
@@ -449,7 +449,7 @@ reading from file capture.pcap, link-type EN10MB (Ethernet), snapshot length 262
 ```
  ### matches!
  ```shell
- ┌─[ice@parrot]─[~/Desktop/captures/TCP_COMMUNICATIONS]
+ ┌─[student@linux]─[~/Desktop/captures/TCP_COMMUNICATIONS]
 └──╼ $nslookup gaia.cs.umass.edu
 ;; communications error to 83.212.2.77#53: timed out
 ;; communications error to 83.212.2.77#53: timed out
@@ -468,7 +468,7 @@ Address: 128.119.245.12
 
 3) Ποιος ο αριθµός ακολουθίας του TCP segment SYN που χρησιµοποιείται για την εκκίνηση της σύνδεσης TCP µεταξύ του client και του gaia.cs.umass.edu
 ```shell
-┌─[ice@parrot]─[~/Desktop/captures/TCP_COMMUNICATIONS]
+┌─[student@linux]─[~/Desktop/captures/TCP_COMMUNICATIONS]
 └──╼ $tcpdump -r capture.pcap -nn 'tcp[tcpflags] == tcp-syn'
 reading from file capture.pcap, link-type EN10MB (Ethernet), snapshot length 262144
 21:28:54.157411 IP 172.21.2.48.53444 > 128.119.245.12.80: Flags [S], seq 3692277765, win 64240, options [mss 1460,sackOK,TS val 1264061003 ecr 0,nop,wscale 7], length 0
@@ -560,7 +560,7 @@ tshark -r capture_original.pcap -Y tcp -T fields -e tcp.window_size
 
 - Η έξοδος της εντολής θα είναι μια λίστα αριθμών που αντιπροσωπεύουν το μέγεθος παραθύρου TCP για κάθε πακέτο TCP στο αρχείο καταγραφής
 
-```shel
+```shell
 19
 830
 19
