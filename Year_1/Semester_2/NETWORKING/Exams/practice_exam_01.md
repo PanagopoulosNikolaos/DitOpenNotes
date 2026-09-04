@@ -1,0 +1,136 @@
+# Practice Exam 01: Computer Networking and Telecommunications
+
+## Context and Grounding
+This practice exam assesses core knowledge across the network stack, from data link and physical concepts to IP routing, TCP transport reliability, and application protocols. It includes complete worked solutions and an analytical grading rubric.
+
+---
+
+## Part 1: Architecture, Layering, and Link Layer (25 Points)
+
+### Question 1.1 (10 Points)
+Explain the role of the Address Resolution Protocol (ARP).
+1. When host A (`192.168.1.10`) wants to send an IP datagram to host B (`192.168.1.50`) on the same subnet and does not know B's MAC address, describe the exact ARP request and ARP reply exchange.
+2. Is the ARP request broadcast or unicast? Is the ARP reply broadcast or unicast?
+3. What mechanism prevents hosts from constantly broadcasting ARP requests for every transmitted packet?
+
+### Question 1.2 (15 Points)
+Compare the functions of a Layer 2 Switch and a Layer 3 Router:
+1. Which addresses do each inspect to make forwarding decisions?
+2. How does each handle broadcast frames?
+3. What is a collision domain versus a broadcast domain, and how do switches and routers isolate them?
+
+---
+
+## Part 2: Network Layer and Subnetting (40 Points)
+
+### Question 2.1 (20 Points)
+An ISP allocates the IPv4 address block `198.51.100.0/24` to a small college campus. The network administrator must create subnets for four distinct faculties:
+* Faculty of Engineering: 60 hosts
+* Faculty of Science: 55 hosts
+* Faculty of Arts: 25 hosts
+* Administration: 10 hosts
+1. Design an optimal VLSM addressing scheme for these four subnets.
+2. For each subnet, specify the Network Address, Subnet Mask in dotted decimal, CIDR prefix, First Usable Host, Last Usable Host, and Broadcast Address.
+3. How many unused host addresses remain in the original `/24` allocation?
+
+### Question 2.2 (20 Points)
+Given the following routing table on Router R1:
+
+| Destination Network | Gateway (Next Hop) | Interface |
+|---|---|---|
+| `10.0.0.0/8` | `192.168.10.1` | `eth0` |
+| `10.128.0.0/9` | `192.168.20.1` | `eth1` |
+| `10.130.0.0/16` | `192.168.30.1` | `eth2` |
+| `10.130.40.0/24` | `192.168.40.1` | `eth3` |
+| `0.0.0.0/0` | `172.16.1.1` | `wan0` |
+
+Indicate which interface Router R1 uses to forward datagrams with the following destination IP addresses, showing binary matching where applicable:
+1. Datagram 1: `10.130.40.85`
+2. Datagram 2: `10.130.55.22`
+3. Datagram 3: `10.140.1.5`
+4. Datagram 4: `172.20.1.1`
+
+---
+
+## Part 3: Transport and Application Layers (35 Points)
+
+### Question 3.1 (20 Points)
+Host A initiates a TCP connection to Host B.
+1. Host A sends a `SYN` segment with `seq = 1000`. What is the value of the `ACK` flag and acknowledgment number field in this segment?
+2. Host B responds with `SYN-ACK`. If Host B's initial sequence number is `5000`, what sequence number and acknowledgment number are contained in this response?
+3. Host A sends the final `ACK`. What are its sequence and acknowledgment numbers? Can this segment carry application data?
+4. If Host A sends an HTTP `GET` request of length 450 bytes immediately following the handshake, what will be the sequence number of this segment and what acknowledgment number will Host B return?
+
+### Question 3.2 (15 Points)
+Explain the complete iterative DNS resolution process when a client host requests the IPv4 address for `www.cs.uoi.gr`, assuming all local caches are cold. List each entity contacted in sequence.
+
+---
+
+## Complete Worked Solutions and Scoring Breakdown
+
+### Solution 1.1
+1. ARP Exchange:
+   * Host A generates an ARP Request asking: *"Who has IP 192.168.1.50? Tell 192.168.1.10 at MAC_A"*.
+   * Host B receives the frame, records A's MAC into its cache, and sends an ARP Reply: *"192.168.1.50 is at MAC_B"*.
+2. Transmission modes:
+   * ARP Request is transmitted as a **Layer 2 Broadcast** (`ff:ff:ff:ff:ff:ff`) so every device on the segment inspects it.
+   * ARP Reply is transmitted as a **Layer 2 Unicast** addressed directly to Host A's MAC address (`MAC_A`).
+3. Prevention of flooding:
+   * The **ARP Cache (Table)** stores resolved (IP, MAC) mappings for a configurable duration (typically 2 to 20 minutes). Subsequent packets to Host B retrieve `MAC_B` from memory without network transmissions.
+
+### Solution 1.2
+1. Addresses inspected:
+   * Layer 2 Switch: Physical MAC addresses from Ethernet frame headers.
+   * Layer 3 Router: Logical IP addresses from IPv4/IPv6 packet headers.
+2. Broadcast handling:
+   * Switch floods broadcast frames out all active ports in the same VLAN except the ingress port.
+   * Router drops (does not forward) Layer 2 broadcast frames, containing broadcasts within the local subnet.
+3. Domain isolation:
+   * **Collision Domain**: Network segment where simultaneous packet transmissions interfere. Each individual switch port creates a dedicated, isolated collision domain.
+   * **Broadcast Domain**: All devices that receive a broadcast frame generated by any device within the group. Routers divide networks into separate broadcast domains.
+
+### Solution 2.1
+Sorted requirements:
+1. **Engineering (60 hosts)**: Needs $2^H - 2 \ge 60 \implies H = 6$ ($2^6 - 2 = 62$). Mask $/26$ (`255.255.255.192`). Block size 64.
+   * Network: `198.51.100.0/26`
+   * Usable Range: `198.51.100.1` to `198.51.100.62`
+   * Broadcast: `198.51.100.63`
+2. **Science (55 hosts)**: Needs $H = 6$ ($62$ hosts). Mask $/26$. Block size 64. Next available: `198.51.100.64`.
+   * Network: `198.51.100.64/26`
+   * Usable Range: `198.51.100.65` to `198.51.100.126`
+   * Broadcast: `198.51.100.127`
+3. **Arts (25 hosts)**: Needs $2^H - 2 \ge 25 \implies H = 5$ ($30$ hosts). Mask $/27$ (`255.255.255.224`). Block size 32. Next available: `198.51.100.128`.
+   * Network: `198.51.100.128/27`
+   * Usable Range: `198.51.100.129` to `198.51.100.158`
+   * Broadcast: `198.51.100.159`
+4. **Administration (10 hosts)**: Needs $2^H - 2 \ge 10 \implies H = 4$ ($14$ hosts). Mask $/28$ (`255.255.255.240`). Block size 16. Next available: `198.51.100.160`.
+   * Network: `198.51.100.160/28`
+   * Usable Range: `198.51.100.161` to `198.51.100.174`
+   * Broadcast: `198.51.100.175`
+5. Unused addresses: Addresses from `198.51.100.176` to `198.51.100.255` remain unallocated ($256 - 176 = 80\text{ addresses}$).
+
+### Solution 2.2
+Using Longest Prefix Match:
+1. **`10.130.40.85`**: Matches `/8`, `/9`, `/16`, and `/24`. Longest match is `10.130.40.0/24`. **Interface:** `eth3` (Next Hop `192.168.40.1`).
+2. **`10.130.55.22`**: Matches `/8`, `/9`, and `/16`. Does not match `/24`. Longest match is `10.130.0.0/16`. **Interface:** `eth2` (Next Hop `192.168.30.1`).
+3. **`10.140.1.5`**: Matches `/8` and `/9` ($10.128.0.0/9$ spans $10.128.0.0 \dots 10.255.255.255$). Longest match is `10.128.0.0/9`. **Interface:** `eth1` (Next Hop `192.168.20.1`).
+4. **`172.20.1.1`**: Does not match any `10.*` routes. Matches only default route `0.0.0.0/0`. **Interface:** `wan0` (Next Hop `172.16.1.1`).
+
+### Solution 3.1
+1. First segment: `SYN = 1`, `ACK = 0`. The acknowledgment number field is invalid / ignored.
+2. Second segment: `SYN = 1`, `ACK = 1`. `seq = 5000`, `ack = 1001` (acknowledges receipt of A's SYN).
+3. Third segment: `SYN = 0`, `ACK = 1`. `seq = 1001`, `ack = 5001`. Yes, this segment may carry application payload data.
+4. HTTP request segment:
+   * Transmitted with `seq = 1001`.
+   * Length is 450 bytes, so byte range transmitted is $[1001, 1450]$.
+   * Host B returns `ack = 1451`, acknowledging receipt through byte 1450.
+
+### Solution 3.2
+Sequence of queries:
+1. Client issues recursive query to **Local Recursive DNS Resolver** (e.g., ISP or university DNS server).
+2. Local Resolver issues iterative query to a **Root Nameserver** (`.`): Root replies with referral to the `.gr` TLD nameserver.
+3. Local Resolver queries the **`.gr` TLD Nameserver**: TLD replies with referral to the authoritative nameservers for `uoi.gr`.
+4. Local Resolver queries the **`uoi.gr` Nameserver**: Replies with referral or delegation to `cs.uoi.gr`.
+5. Local Resolver queries the **`cs.uoi.gr` Authoritative Nameserver**: Returns the `A` record containing the IP address for `www.cs.uoi.gr`.
+6. Local Resolver caches the record and returns the IP address to the Client.
+
