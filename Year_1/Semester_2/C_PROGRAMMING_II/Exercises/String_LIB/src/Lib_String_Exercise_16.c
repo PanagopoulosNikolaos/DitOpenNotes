@@ -28,7 +28,7 @@ int main() {
 
 void numberToWords(char *input) {
     char *temp = strdup(input);
-    char *token, *start, output[1000] = "";
+    char *token, output[1000] = "";
     int i, len;
     
     // Tokenize by spaces

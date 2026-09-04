@@ -228,23 +228,23 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔄 State Table to State Diagram Converter</h1>
+        <h1>State Table to State Diagram Converter</h1>
         
         <div class="controls">
-            <button onclick="startTutorial()">📚 Tutorial Mode</button>
-            <button onclick="animateAllTransitions()">▶️ Animate All</button>
-            <button onclick="clearHighlights()">🔄 Clear</button>
-            <button onclick="toggleAutoMode()" id="autoModeBtn">🤖 Auto Mode: OFF</button>
+            <button onclick="startTutorial()">Tutorial Mode</button>
+            <button onclick="animateAllTransitions()"> Animate All</button>
+            <button onclick="clearHighlights()">Clear</button>
+            <button onclick="toggleAutoMode()" id="autoModeBtn">Auto Mode: OFF</button>
         </div>
 
         <div class="info-box">
-            <h3>💡 Instructions:</h3>
+            <h3>Instructions:</h3>
             <p>Click on a row in the table to see how it translates into a transition on the state diagram!</p>
         </div>
 
         <div class="main-content">
             <div class="section table-section">
-                <h2>📊 State Table</h2>
+                <h2>State Table</h2>
                 <table id="stateTable">
                     <thead>
                         <tr>
@@ -283,7 +283,7 @@
             </div>
 
             <div class="section diagram-section">
-                <h2>📈 State Diagram</h2>
+                <h2>State Diagram</h2>
                 <svg id="stateDiagram" viewBox="0 0 600 400">
                     <!-- Arrow marker definition -->
                     <defs>
@@ -559,7 +559,7 @@
         function updateInfoBox(row) {
             const infoBox = document.querySelector('.info-box');
             infoBox.innerHTML = `
-                <h3>🎯 Selected Transition:</h3>
+                <h3>Selected Transition:</h3>
                 <p><strong>From state:</strong> ${row.state} (${row.A}${row.B})</p>
                 <p><strong>With input:</strong> X = ${row.X}</p>
                 <p><strong>To state:</strong> ${row.nextState} (${row.nextA}${row.nextB})</p>
@@ -575,7 +575,7 @@
                 'S1-S2-0': '"0" found after "1" - we have "10"',
                 'S1-S1-1': 'New "1" - restart sequence',
                 'S2-S0-0': 'Incorrect bit - return to start',
-                'S2-S3-1': '✅ Full sequence "101" found!',
+                'S2-S3-1': 'Full sequence "101" found!',
                 'S3-S0-0': 'After detection, return to start',
                 'S3-S1-1': 'After detection, new "1" - new search'
             };
@@ -607,11 +607,11 @@
             const btn = document.getElementById('autoModeBtn');
             
             if (autoMode) {
-                btn.textContent = '🤖 Auto Mode: ON';
+                btn.textContent = 'Auto Mode: ON';
                 btn.classList.add('active');
                 startAutoMode();
             } else {
-                btn.textContent = '🤖 Auto Mode: OFF';
+                btn.textContent = 'Auto Mode: OFF';
                 btn.classList.remove('active');
                 stopAutoMode();
             }

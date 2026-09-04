@@ -82,10 +82,10 @@
           </div>
           <div>
             <div style="margin-bottom:6px;color:#b9cff2">Control</div>
-            <button id="play" class="btn play">▶ Start</button>
-            <button id="pause" class="btn">⏸ Pause</button>
-            <button id="step" class="btn">➤ Step</button>
-            <button id="reset" class="btn">🔄 Reset</button>
+            <button id="play" class="btn play"> Start</button>
+            <button id="pause" class="btn">Pause</button>
+            <button id="step" class="btn">Step</button>
+            <button id="reset" class="btn">Reset</button>
           </div>
           <div class="status">
             Row: mi=<span id="mi"></span> | xyz=<span id="xyz"></span><br>
@@ -243,13 +243,13 @@
     function start() {
       if (playing) return;
       playing = true;
-      btnPlay.classList.replace('play', 'pause'); btnPlay.textContent = '⏸ Running';
+      btnPlay.classList.replace('play', 'pause'); btnPlay.textContent = 'Running';
       updateRowStage();
       timer = setInterval(next, delay);
     }
     function pause() {
       playing = false;
-      btnPlay.classList.replace('pause', 'play'); btnPlay.textContent = '▶ Start';
+      btnPlay.classList.replace('pause', 'play'); btnPlay.textContent = ' Start';
       clearInterval(timer); timer = null;
     }
     function reset() {
