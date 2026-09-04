@@ -26,6 +26,13 @@ a.out
 core
 *.stackdump
 *.dSYM/
+*.d
+*.idb
+*.pdb
+*.ilk
+*.gcno
+*.gcda
+*.gcov
 
 # Common build directories (anywhere in tree)
 build/
@@ -101,9 +108,130 @@ copilot/*
 .antigravitycli/
 .antigravitycli/*
 Year_2/Semester_4/OPERATING_SYSTEMS/Resources/Notes/all_OS_notes.pdf
-__pycache__/*
-*/__pycache__/*
+# ==========================================
+# Python
+# ==========================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
+# Distribution / packaging
+.Python
+develop-eggs/
+eggs/
+.eggs/
+parts/
+sdist/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-Year_2/Semester_4/COMPUTER_NETWORKS/Resources/Quizes/__pycache__/quiz_app.cpython-314.pyc
+# PyInstaller / cx_Freeze
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Type checking / IDE cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ipynb_checkpoints/
+
+# ==========================================
+# Java
+# ==========================================
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Build tools (Maven / Gradle)
+.gradle/
+target/
+
+# ==========================================
+# Prolog
+# ==========================================
+# Compiled Prolog files and saved execution states
+*.qlf
+*.wam
+*.po
+*.wic
+*.prc
+.saved_state
+
+# ==========================================
+# Haskell
+# ==========================================
+# GHC compilation files
+*.hi
+*.dyn_hi
+*.dump-*
+*.dyn_o
+*.prof
+*.aux
+*.hp
+*.eventlog
+*.hie
+
+# Cabal & Stack build artifacts
+dist-newstyle/
+.cabal-sandbox/
+cabal.sandbox.config
+*.cabal-copy*
+.stack-work/
+.ghc.environment.*
+
 Year_2/Semester_4/DATABASES/Resources/app
+
+temp/*
+Excalidraw/*
+scripts/make_app.md
