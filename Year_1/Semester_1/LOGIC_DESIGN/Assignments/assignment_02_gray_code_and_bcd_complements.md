@@ -1,4 +1,6 @@
-*## Codes and Conversions
+# Assignment 02: Gray Code and BCD Complements
+
+## Codes and Conversions
 
 ### Exercise Materials
 
@@ -144,9 +146,18 @@ The conversion from Gray to binary is performed as follows:
 
 With the IC 7486 (Quad 2-input XOR Gate), we can implement the required XOR gates.
 
-![[/image 39.png|image 39.png]]
+#### IC 7486 Pin Configuration
+| Pin | Function | Connection |
+|:---|:---|:---|
+| 1, 2 | Gate 1 Inputs | G2, B3 |
+| 3 | Gate 1 Output | B2 |
+| 4, 5 | Gate 2 Inputs | G1, B2 |
+| 6 | Gate 2 Output | B1 |
+| 7 | Ground | GND (0V) |
+| 9, 10 | Gate 3 Inputs | G0, B1 |
+| 8 | Gate 3 Output | B0 |
+| 14 | Supply Voltage | VCC (+5V) |
 
-![[/image 1 6.png|image 1 6.png]]
 
 ---
 
@@ -356,10 +367,14 @@ graph TD
     class AND1 and;
 ```
 
----
+### Laboratory Implementation Summary
 
-![[/image 2 6.png|image 2 6.png]]
+| IC Model | Function | Gates Used | Inputs Connected | Output Connected |
+|:---|:---|:---|:---|:---|
+| IC 7404 | Hex Inverters | 4 NOT gates | D0, D1, D2, D3 | C0, NOT(D1), NOT(D2), NOT(D3) |
+| IC 7432 | Quad 2-input OR | 2 OR gates | (D0, D1), (OR1_out, D2) | OR1_out, OR2_out |
+| IC 7408 | Quad 2-input AND | 1 AND gate | D3, OR2_out | Error LED |
+| IC 7486 | Quad 2-input XOR | 3 XOR gates | (G2, B3), (G1, B2), (G0, B1) | B2, B1, B0 |
 
----
+All power pins (Pin 14 = VCC +5V) and ground pins (Pin 7 = GND 0V) must be decoupled with 0.1 uF ceramic capacitors.
 
-![[/image 3 4.png|image 3 4.png]]*
