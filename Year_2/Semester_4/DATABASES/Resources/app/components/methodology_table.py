@@ -12,10 +12,10 @@ def renderMethodologyTable() -> None:
     with ui.column().classes("w-full glass-panel gap-4 no-print"):
         with ui.row().classes("items-center gap-3"):
             ui.html('<i class="fa-solid fa-table text-[var(--accent)] text-xl"></i>')
-            ui.html('<h2 class="text-xl md:text-2xl font-bold text-[var(--text-1)] m-0">Γενικός Οδηγός Αναγνώρισης (Μεθοδολογικός Πίνακας)</h2>')
+            ui.html('<h2 class="text-xl md:text-2xl font-bold text-[var(--text-1)] m-0">General Identification Guide (Methodology Matrix)</h2>')
 
         ui.label(
-            "Χρησιμοποιήστε τον παρακάτω κανόνα για την ανάλυση οποιουδήποτε γραπτού κειμένου απαιτήσεων:"
+            "Use the following rules to systematically extract ER model constructs from any requirements text:"
         ).classes("text-xs text-[var(--text-2)]")
 
         table_content = """
@@ -23,62 +23,62 @@ def renderMethodologyTable() -> None:
             <table class="dark-table shadow-sm">
                 <thead>
                     <tr>
-                        <th style="width: 25%;">Στοιχείο προς Αναγνώριση</th>
-                        <th style="width: 35%;">Πώς το εντοπίζουμε στο κείμενο</th>
-                        <th style="width: 40%;">Κανόνες & Κατηγοριοποίηση</th>
+                        <th style="width: 25%;">Modeling Element</th>
+                        <th style="width: 35%;">Textual Indicators & Clues</th>
+                        <th style="width: 40%;">Classification & Extraction Rules</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="font-bold text-blue-600 dark:text-blue-300">
-                            <i class="fa-solid fa-cube mr-1 text-blue-500"></i> Οντότητες (Entities)
+                            <i class="fa-solid fa-cube mr-1 text-blue-500"></i> Entities
                         </td>
                         <td>
-                            Συνήθως <strong>κύρια ουσιαστικά</strong> που περιγράφουν αντικείμενα, πρόσωπα, οργανισμούς ή έννοιες με αυτοτελή υπόσταση.
+                            Typically <strong>nouns</strong> describing autonomous objects, persons, organizations, or concepts with independent existence.
                         </td>
                         <td>
-                            • <strong>Ισχυρή (Strong):</strong> Έχει δικό της μονοσήμαντο αναγνωριστικό.<br>
-                            • <strong>Ασθενής (Weak):</strong> Δεν έχει πλήρες δικό της κλειδί και εξαρτάται υπαρκτικά από μια οντότητα-ιδιοκτήτη (Owner).
+                            • <strong>Strong:</strong> Possesses its own unique identifier (primary key).<br>
+                            • <strong>Weak:</strong> Lacks a complete primary key; existence-dependent on an owner entity.
                         </td>
                     </tr>
                     <tr>
                         <td class="font-bold text-emerald-600 dark:text-emerald-300">
-                            <i class="fa-solid fa-tag mr-1 text-emerald-500"></i> Γνωρίσματα (Attributes)
+                            <i class="fa-solid fa-tag mr-1 text-emerald-500"></i> Attributes
                         </td>
                         <td>
-                            <strong>Χαρακτηριστικά, ιδιότητες ή πληροφορίες</strong> που αναφέρονται ότι καταγράφονται/διατηρούνται για μια οντότητα ή σχέση.
+                            <strong>Characteristics, properties, or data points</strong> recorded or maintained for an entity or relationship.
                         </td>
                         <td>
-                            • <strong>Απλό (Atomic):</strong> Δεν διασπάται (π.χ. Φύλο).<br>
-                            • <strong>Σύνθετο (Composite):</strong> Διασπάται σε επιμέρους στοιχεία (π.χ. Διεύθυνση).<br>
-                            • <strong>Μονότιμο:</strong> 1 τιμή ανά στιγμιότυπο.<br>
-                            • <strong>Πλειότιμο (Multi-valued):</strong> Πολλαπλές τιμές (π.χ. Τηλέφωνα, Εγκαταστάσεις).<br>
-                            • <strong>Παράγωγο:</strong> Υπολογίζεται από άλλα στοιχεία (π.χ. Ηλικία).
+                            • <strong>Simple (Atomic):</strong> Cannot be further subdivided (e.g., Gender).<br>
+                            • <strong>Composite:</strong> Can be divided into smaller sub-components (e.g., Address).<br>
+                            • <strong>Single-valued:</strong> Exactly one value per entity instance.<br>
+                            • <strong>Multivalued:</strong> Multiple values per entity instance (e.g., Phone Numbers, Facility Locations).<br>
+                            • <strong>Derived:</strong> Computable from other stored attributes (e.g., Age from BirthDate).
                         </td>
                     </tr>
                     <tr>
                         <td class="font-bold text-amber-600 dark:text-amber-300">
-                            <i class="fa-solid fa-key mr-1 text-amber-500"></i> Κλειδιά (Keys)
+                            <i class="fa-solid fa-key mr-1 text-amber-500"></i> Keys
                         </td>
                         <td>
-                            Φράσεις όπως <em>«μοναδικός κωδικός»</em>, <em>«αριθμός ταυτότητας»</em>, <em>«μοναδικό όνομα»</em>, <em>«ΑΦΜ»</em>.
+                            Phrases such as <em>"unique code"</em>, <em>"ID number"</em>, <em>"unique name"</em>, <em>"SSN"</em>, <em>"tax number"</em>.
                         </td>
                         <td>
-                            • <strong>Υποψήφια (Candidate):</strong> Όλα τα εναλλακτικά μοναδικά πεδία.<br>
-                            • <strong>Πρωτεύον (Primary Key - PK):</strong> Η τελική επιλογή μας.<br>
-                            • <strong>Μερικό (Partial Key):</strong> Διακρίνει στιγμιότυπα ασθενούς οντότητας στον ίδιο ιδιοκτήτη.
+                            • <strong>Candidate Keys:</strong> All minimal superkeys capable of uniquely identifying tuples.<br>
+                            • <strong>Primary Key (PK):</strong> The designated candidate key chosen for entity identification.<br>
+                            • <strong>Partial Key (Discriminator):</strong> Uniquely identifies weak entity instances sharing the same owner.
                         </td>
                     </tr>
                     <tr>
                         <td class="font-bold text-rose-600 dark:text-rose-300">
-                            <i class="fa-solid fa-code-branch mr-1 text-rose-500"></i> Σχέσεις & Πληθικότητα
+                            <i class="fa-solid fa-code-branch mr-1 text-rose-500"></i> Relationships & Cardinality
                         </td>
                         <td>
-                            <strong>Ρήματα ή ρηματικές φράσεις</strong> που συνδέουν οντότητες (π.χ. «ανήκει», «υλοποιεί», «συμμετέχει», «είναι υπεύθυνος»).
+                            <strong>Verbs or verbal phrases</strong> connecting entities (e.g., "belongs to", "manages", "enrolled in", "participates in").
                         </td>
                         <td>
-                            • <strong>Λόγοι Πληθικότητας:</strong> 1:1, 1:N, N:M (εξετάζουμε και τις δύο κατευθύνσεις: <em>1 A πόσα B; / 1 B πόσα A;</em>).<br>
-                            • <strong>Συμμετοχή:</strong> Ολική (υποχρεωτική - διπλή γραμμή) ή Μερική (προαιρετική - απλή γραμμή).
+                            • <strong>Cardinality Ratios:</strong> 1:1, 1:N, N:M (evaluate both directions: <em>1 A associates with how many B? / 1 B associates with how many A?</em>).<br>
+                            • <strong>Participation:</strong> Total (mandatory — double line) or Partial (optional — single line).
                         </td>
                     </tr>
                 </tbody>

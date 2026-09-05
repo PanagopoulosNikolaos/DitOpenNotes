@@ -12,7 +12,7 @@ def renderMethodologyCards() -> None:
     with ui.column().classes("w-full glass-panel gap-4 no-print"):
         with ui.row().classes("items-center gap-3"):
             ui.html('<i class="fa-solid fa-compass text-[var(--accent)] text-xl"></i>')
-            ui.html('<h2 class="text-xl font-bold text-[var(--text-1)] m-0">Πώς Αναλύουμε Οποιοδήποτε Κείμενο (Βήμα-Βήμα)</h2>')
+            ui.html('<h2 class="text-xl font-bold text-[var(--text-1)] m-0">How to Analyze Any Requirements Text (Step-by-Step)</h2>')
 
         with ui.grid().classes("grid-cols-1 md:grid-cols-4 gap-4 w-full"):
             # Step 1: Entities
@@ -21,10 +21,10 @@ def renderMethodologyCards() -> None:
             ):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-cube text-blue-500 text-sm"></i>')
-                    ui.label("1. Οντότητες (Entities)").classes("font-bold text-blue-600 dark:text-blue-300 text-sm")
+                    ui.label("1. Entities").classes("font-bold text-blue-600 dark:text-blue-300 text-sm")
                 ui.label(
-                    "Ψάχνουμε κύρια ουσιαστικά (πρόσωπα, αντικείμενα, έννοιες) που έχουν αυτόνομη "
-                    "υπόσταση και για τα οποία διατηρούμε πληροφορίες."
+                    "Identify major nouns (people, objects, concepts) that have autonomous "
+                    "existence and about which data is maintained."
                 ).classes("text-xs text-[var(--text-2)] leading-relaxed")
 
             # Step 2: Attributes
@@ -33,10 +33,10 @@ def renderMethodologyCards() -> None:
             ):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-tag text-emerald-500 text-sm"></i>')
-                    ui.label("2. Γνωρίσματα (Attributes)").classes("font-bold text-emerald-600 dark:text-emerald-300 text-sm")
+                    ui.label("2. Attributes").classes("font-bold text-emerald-600 dark:text-emerald-300 text-sm")
                 ui.label(
-                    "Εντοπίζουμε τις ιδιότητες / χαρακτηριστικά των οντοτήτων. Διακρίνουμε σε "
-                    "Απλά, Σύνθετα, Πλειότιμα ή Παράγωγα."
+                    "Identify properties and characteristics of entities. Classify them into "
+                    "Simple, Composite, Multivalued, or Derived."
                 ).classes("text-xs text-[var(--text-2)] leading-relaxed")
 
             # Step 3: Keys
@@ -45,10 +45,10 @@ def renderMethodologyCards() -> None:
             ):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-key text-amber-500 text-sm"></i>')
-                    ui.label("3. Κλειδιά (Keys)").classes("font-bold text-amber-600 dark:text-amber-300 text-sm")
+                    ui.label("3. Keys").classes("font-bold text-amber-600 dark:text-amber-300 text-sm")
                 ui.label(
-                    "Ψάχνουμε λέξεις όπως «μοναδικός κωδικός», «ΑΔΤ». Επιλέγουμε το Πρωτεύον Κλειδί (PK) "
-                    "και εντοπίζουμε τα Μερικά Κλειδιά."
+                    "Look for terms like 'unique code', 'ID', 'SSN'. Select Primary Keys (PK) "
+                    "and identify Partial Keys for weak entities."
                 ).classes("text-xs text-[var(--text-2)] leading-relaxed")
 
             # Step 4: Relationships
@@ -57,8 +57,8 @@ def renderMethodologyCards() -> None:
             ):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-code-branch text-rose-500 text-sm"></i>')
-                    ui.label("4. Σχέσεις & Πληθικότητα").classes("font-bold text-rose-600 dark:text-rose-300 text-sm")
+                    ui.label("4. Relationships & Cardinalities").classes("font-bold text-rose-600 dark:text-rose-300 text-sm")
                 ui.label(
-                    "Ψάχνουμε ρήματα που συνδέουν οντότητες. Εξετάζουμε και τις δύο κατευθύνσεις "
-                    "για τους λόγους 1:1, 1:N, N:M."
+                    "Identify verbs linking entities. Analyze both directions to determine "
+                    "cardinality ratios (1:1, 1:N, N:M) and participation constraints."
                 ).classes("text-xs text-[var(--text-2)] leading-relaxed")

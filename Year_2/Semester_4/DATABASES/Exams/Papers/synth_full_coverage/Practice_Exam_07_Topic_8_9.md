@@ -2,7 +2,7 @@
 
 Multiple Choice Question 1. Which of the following statements is correct about the Natural Join;
 [ ] 1. It retains duplicate columns for the common attributes.
-[✅] 2. It automatically merges columns with the same name and returns the common column once.
+[✓] 2. It automatically merges columns with the same name and returns the common column once.
 [ ] 3. It returns all possible combinations of tuples, like the Cartesian Product.
 [ ] 4. It fills unmatched rows with NULL.
 ---
@@ -13,7 +13,7 @@ The Natural Join automatically performs an equality check on the common fields a
 Multiple Choice Question 2. Which password cracking technique uses pre-computed lookup tables (pre-computed hashes) to find the original value of a hash;
 [ ] 1. Dictionary Attack
 [ ] 2. Brute Force Attack
-[✅] 3. Rainbow Table Attack
+[✓] 3. Rainbow Table Attack
 [ ] 4. Phishing
 ---
 *solution:*
@@ -23,7 +23,7 @@ Rainbow Tables allow almost instantaneous hash lookup by using ready-made, pre-c
 Multiple Choice Question 3. A Social Engineering threat is based mainly on:
 [ ] 1. Hardware bugs.
 [ ] 2. Cryptography algorithms with flaws.
-[✅] 3. Manipulation and deception of the system's users.
+[✓] 3. Manipulation and deception of the system's users.
 [ ] 4. Testing all combinations of characters.
 ---
 *solution:*

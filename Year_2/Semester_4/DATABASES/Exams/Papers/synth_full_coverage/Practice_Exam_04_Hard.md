@@ -3,7 +3,7 @@
 Multiple Choice Question 1: What is the difference between the DELETE and TRUNCATE commands?
 [ ] 1. No difference, they do exactly the same thing.
 [ ] 2. DELETE is DDL while TRUNCATE is DML.
-[✅] 3. DELETE is DML and allows ROLLBACK, while TRUNCATE is DDL and does not allow ROLLBACK.
+[✓] 3. DELETE is DML and allows ROLLBACK, while TRUNCATE is DDL and does not allow ROLLBACK.
 [ ] 4. TRUNCATE also deletes the structure of the table (DROP).
 ---
 *solution:*
@@ -11,7 +11,7 @@ TRUNCATE quickly empties the data, resets the auto-increments, and is not fully 
 ---
 
 Multiple Choice Question 2: A table is in BCNF if:
-[✅] 1. It is in 3NF and for every dependency X -> Y, X is a superkey.
+[✓] 1. It is in 3NF and for every dependency X -> Y, X is a superkey.
 [ ] 2. It is in 2NF and has no transitive dependencies.
 [ ] 3. Its data is organized in a tree structure (NoSQL).
 [ ] 4. All attributes are atomic.

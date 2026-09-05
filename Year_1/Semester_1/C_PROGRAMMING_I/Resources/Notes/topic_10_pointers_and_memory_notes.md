@@ -1,4 +1,6 @@
-# Study Notes: Pointers, Addressing, and Memory Models in C
+# Topic 10: Pointers and Memory Models (Advanced)
+
+> Advanced companion to Topic 9 (Pointer Basics): physical addressing, decay, pointer arithmetic scaling, const rules, and function pointers.
 
 ## 1. Physical Architecture and Virtual Addressing
 Modern computer architectures abstract physical RAM via virtual address spaces managed by the Memory Management Unit (MMU). In a 64-bit user-space process on Linux:

@@ -95,7 +95,7 @@ class NetworkingApp:
             options = scenario_registry.getStudyOptions()
             title = options.get(self.current_study_sub_id, "Study Module")
             header_refs["subtitle_label"].set_text(f"Study Module: {title}")
-            header_refs["badge_label"].set_text("Ενότητα: Study")
+            header_refs["badge_label"].set_text("Module: Study")
         else:
             scenario = scenario_registry.getScenario(self.current_exam_sub_id)
             if scenario:
@@ -121,7 +121,7 @@ class NetworkingApp:
             else:
                 scenario = scenario_registry.getScenario(self.current_exam_sub_id)
                 if not scenario:
-                    ui.label("Το επιλεγμένο θέμα εξέτασης δεν βρέθηκε.").classes("text-red-400 p-4")
+                    ui.label("The selected exam scenario was not found.").classes("text-red-400 p-4")
                     return
 
                 with ui.column().classes("w-full max-w-6xl mx-auto px-4 py-6 space-y-8 latex-target"):
@@ -195,7 +195,7 @@ buildApp()
 
 if __name__ in {"__main__", "__mp_main__"}:
     ui.run(
-        title="Δίκτυα Υπολογιστών: Interactive Learning & Exams",
+        title="Computer Networks: Interactive Learning & Exams",
         port=8081,
         reload=False,
         dark=True,

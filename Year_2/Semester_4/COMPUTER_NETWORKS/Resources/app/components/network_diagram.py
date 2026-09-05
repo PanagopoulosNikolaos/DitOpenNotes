@@ -132,8 +132,8 @@ def renderNetworkDiagram(scenario: NetworkScenario) -> None:
             with ui.row().classes("items-center gap-2"):
                 ui.html('<i class="fa-solid fa-diagram-project text-[#e06b3a] text-xl"></i>')
                 with ui.column().classes("gap-0"):
-                    ui.html('<h2 class="text-xl font-bold gradient-title m-0">Διαδραστική Τοπολογία Δικτύου</h2>')
-                    ui.label(f"Απεικόνιση {len(scenario.nodes)} κόμβων και {len(scenario.links)} ζεύξεων μετάδοσης").classes("text-xs text-[#b5b0a4]")
+                    ui.html('<h2 class="text-xl font-bold gradient-title m-0">Interactive Network Topology</h2>')
+                    ui.label(f"Displaying {len(scenario.nodes)} nodes and {len(scenario.links)} transmission links").classes("text-xs text-[#b5b0a4]")
 
         svg_content = generateSvgTopology(scenario)
         with ui.column().classes("w-full p-4 rounded-xl bg-[#141413] border border-[rgba(255,255,255,0.06)] overflow-x-auto items-center"):

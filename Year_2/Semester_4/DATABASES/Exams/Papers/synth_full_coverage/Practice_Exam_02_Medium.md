@@ -2,7 +2,7 @@
 
 Multiple Choice Question 1: Which normalization form requires the elimination of partial dependencies?
 [ ] 1. 1NF
-[✅] 2. 2NF
+[✓] 2. 2NF
 [ ] 3. 3NF
 [ ] 4. BCNF
 ---
@@ -11,7 +11,7 @@ The Second Normal Form (2NF) states that a table must be in 1NF and all non-key 
 ---
 
 Multiple Choice Question 2: Which type of JOIN returns only the records that have a match in both tables?
-[✅] 1. INNER JOIN
+[✓] 1. INNER JOIN
 [ ] 2. LEFT JOIN
 [ ] 3. RIGHT JOIN
 [ ] 4. FULL OUTER JOIN

@@ -3,7 +3,7 @@
 Multiple Choice Question 1: Which of the following commands belongs to the Data Definition Language (DDL)?
 [ ] 1. SELECT
 [ ] 2. INSERT
-[✅] 3. CREATE TABLE
+[✓] 3. CREATE TABLE
 [ ] 4. UPDATE
 ---
 *solution:*
@@ -11,7 +11,7 @@ The CREATE TABLE command is used to define the database schema and belongs to th
 ---
 
 Multiple Choice Question 2: Which of the following ensures the uniqueness of a record in a table?
-[✅] 1. Primary Key
+[✓] 1. Primary Key
 [ ] 2. Foreign Key
 [ ] 3. Index
 [ ] 4. All of the above

@@ -1,7 +1,7 @@
 # Exam 3: Intermediate Database Concepts (Level: Intermediate)
 
 Multiple Choice Question 1: Which of the following transaction (ACID) properties guarantees that a transaction is executed completely or not at all?
-[✅] 1. Atomicity
+[✓] 1. Atomicity
 [ ] 2. Consistency
 [ ] 3. Isolation
 [ ] 4. Durability
@@ -12,7 +12,7 @@ Atomicity ensures that all the operations of a transaction complete successfully
 
 Multiple Choice Question 2: The LEFT OUTER JOIN operation between table A (left) and B (right) will return:
 [ ] 1. Only the common records.
-[✅] 2. All the records of A and the matching ones from B (where there is no match, it inserts NULL).
+[✓] 2. All the records of A and the matching ones from B (where there is no match, it inserts NULL).
 [ ] 3. All the records of B and the matching ones from A.
 [ ] 4. All the records of both tables regardless of matching.
 ---

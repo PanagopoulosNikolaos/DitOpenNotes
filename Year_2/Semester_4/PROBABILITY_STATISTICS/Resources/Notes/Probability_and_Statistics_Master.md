@@ -1119,14 +1119,14 @@ cat("Mean Y:", mean(y), "\nSD Y:", sd(y), "\n")
 
 | Exam Paper | Relevant Questions | Difficulty |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 1 (Ungrouped stats, mean, median, sample variance) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 1 (Ungrouped data table, mean, variance, standard deviation) | **1/5** |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_1.md) | Question 1 (Grouped frequency table, Sturges' rule, grouped mean, interpolated median) | **2/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 1 (Grouped frequency distribution, grouped variance, mode calculation) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 1 (5-class grouped frequency table, grouped mean and variance) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 1 (Grouped frequency table, percentile interpolation) | **2/5** |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_1.md) | Question 1 (Grouped data with missing frequency $f_i$ equation solving) | **4/5** |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_2.md) | Question 1 (Pooled statistics across multiple datasets, overall pooled mean and variance) | **5/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Question 1 (Ungrouped stats, mean, median, sample variance) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 1 (Ungrouped data table, mean, variance, standard deviation) | **1/5** |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md) | Question 1 (Grouped frequency table, Sturges' rule, grouped mean, interpolated median) | **2/5** |
+| [Exam_paper_2023_06_12_Team_null.md](../../Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 1 (Grouped frequency distribution, grouped variance, mode calculation) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 1 (5-class grouped frequency table, grouped mean and variance) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 1 (Grouped frequency table, percentile interpolation) | **2/5** |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) | Question 1 (Grouped data with missing frequency $f_i$ equation solving) | **4/5** |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) | Question 1 (Pooled statistics across multiple datasets, overall pooled mean and variance) | **5/5** |
 
 ---
 
@@ -2186,12 +2186,12 @@ cat("nPr:", nPr, "\n")
 
 | Exam Paper | Relevant Questions | Difficulty |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 3 (Disjoint events, independent events, set operations, De Morgan's Law $P(A' \cap B')$) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 (Set theory definitions, mutually exclusive vs independent events, $P(A \cup B)$ addition rule) | **1/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 2 (Venn diagram translation, union and complement probability) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 2 (Set probability calculation, disjoint events and complement) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 2 (Set theory operations, phrase translation "at least one", "neither") | **2/5** |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_2.md) | Question 2 (Algebraic proofs of set relationships and De Morgan's laws) | **3/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Question 3 (Disjoint events, independent events, set operations, De Morgan's Law $P(A' \cap B')$) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 (Set theory definitions, mutually exclusive vs independent events, $P(A \cup B)$ addition rule) | **1/5** |
+| [Exam_paper_2023_06_12_Team_null.md](../../Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 2 (Venn diagram translation, union and complement probability) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 2 (Set probability calculation, disjoint events and complement) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 2 (Set theory operations, phrase translation "at least one", "neither") | **2/5** |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | Question 2 (Algebraic proofs of set relationships and De Morgan's laws) | **3/5** |
 
 ---
 
@@ -3445,13 +3445,13 @@ Final Answer:
 
 | Exam Paper | Relevant Questions | Difficulty | Core Topics Covered |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 2 | **1/5** | Basic set probability, independent vs disjoint events. |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 | **1/5** | Set relations, testing independence of basic events. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 3 | **2/5** | Set-based probability, conditional probability basics. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_1.md) | Question 3 | **2/5** | Law of Total Probability & Bayes' Theorem (3-factory problem). |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_2.md) | Question 3 | **3/5** | Conditional probability derivations, testing event independence. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_1.md) | Question 3 | **4/5** | Bayes' Theorem with sensitivity, specificity, and low base rate. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_2.md) | Question 3 | **5/5** | Binary symmetric communication channel Bayes modeling. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Question 2 | **1/5** | Basic set probability, independent vs disjoint events. |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 | **1/5** | Set relations, testing independence of basic events. |
+| [Exam_paper_2023_06_12_Team_null.md](../../Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 3 | **2/5** | Set-based probability, conditional probability basics. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md) | Question 3 | **2/5** | Law of Total Probability & Bayes' Theorem (3-factory problem). |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | Question 3 | **3/5** | Conditional probability derivations, testing event independence. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) | Question 3 | **4/5** | Bayes' Theorem with sensitivity, specificity, and low base rate. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) | Question 3 | **5/5** | Binary symmetric communication channel Bayes modeling. |
 
 ---
 
@@ -4696,18 +4696,18 @@ Final Answer:
 
 | Exam Paper | Relevant Questions | Difficulty | Core Topics Covered |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 3 | **1/5** | Basic Binomial distribution calculations ($n, p$ provided). |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 3 | **1/5** | Straightforward Binomial modeling. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_1.md) | Question 2 | **2/5** | Binomial distribution PMF and expectation. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 4 | **2/5** | Standard Binomial probability applications. |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 3 | **2/5** | Binomial PMF and tail probability. |
-| [Exam_paper_2024_06_14_Team_C.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | Question 1 | **2/5** | Binomial distribution calculations. |
-| [Exam_paper_2025_06_03_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | Question 1 | **2/5** | Binomial modeling and parameter evaluation. |
-| [Exam_paper_2026_06_09_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | Question 1 | **2/5** | Binomial distribution evaluation. |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 3 | **2/5** | Software defect binomial modeling. |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_2.md) | Question 2 | **3/5** | Larger trial size Binomial distribution modeling. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_1.md) | Question 2 | **4/5** | Binomial trial size $n$ estimation via logarithm inequalities. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_2.md) | Question 2 | **5/5** | Conditional Binomial probability $P(X = k \mid X \ge m)$. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Question 3 | **1/5** | Basic Binomial distribution calculations ($n, p$ provided). |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 3 | **1/5** | Straightforward Binomial modeling. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md) | Question 2 | **2/5** | Binomial distribution PMF and expectation. |
+| [Exam_paper_2023_06_12_Team_null.md](../../Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 4 | **2/5** | Standard Binomial probability applications. |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 3 | **2/5** | Binomial PMF and tail probability. |
+| [Exam_paper_2024_06_14_Team_C.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_C.md) | Question 1 | **2/5** | Binomial distribution calculations. |
+| [Exam_paper_2025_06_03_Team_A.md](../../Exams/Papers/Exam_paper_2025_06_03_Team_A.md) | Question 1 | **2/5** | Binomial modeling and parameter evaluation. |
+| [Exam_paper_2026_06_09_Team_A.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_A.md) | Question 1 | **2/5** | Binomial distribution evaluation. |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 3 | **2/5** | Software defect binomial modeling. |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | Question 2 | **3/5** | Larger trial size Binomial distribution modeling. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) | Question 2 | **4/5** | Binomial trial size $n$ estimation via logarithm inequalities. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) | Question 2 | **5/5** | Conditional Binomial probability $P(X = k \mid X \ge m)$. |
 
 ---
 

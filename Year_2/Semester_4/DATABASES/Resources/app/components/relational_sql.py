@@ -18,7 +18,7 @@ def renderRelationalAndSQL(scenario: Scenario) -> None:
         with ui.column().classes("w-full glass-panel gap-4 no-print"):
             with ui.row().classes("items-center gap-2 border-b border-[var(--border)] pb-3 w-full"):
                 ui.html('<i class="fa-solid fa-pen-nib text-[var(--accent)]"></i>')
-                ui.html('<h3 class="text-lg font-bold text-[var(--text-1)] m-0">Αιτιολόγηση Σχεδιαστικών Επιλογών (Crow\'s Foot / Relational)</h3>')
+                ui.html('<h3 class="text-lg font-bold text-[var(--text-1)] m-0">Design Decision Rationale (Crow\'s Foot / Relational)</h3>')
 
             with ui.grid().classes("grid-cols-1 md:grid-cols-2 gap-4 w-full"):
                 for just in scenario.relational_justifications:
@@ -32,10 +32,10 @@ def renderRelationalAndSQL(scenario: Scenario) -> None:
                 with ui.row().classes("w-full justify-between items-center flex-wrap gap-2 border-b border-[var(--border)] pb-3"):
                     with ui.row().classes("items-center gap-2"):
                         ui.html('<i class="fa-solid fa-database text-[#f59e0b] no-print"></i>')
-                        ui.html('<h3 class="text-lg font-bold text-amber-600 dark:text-[#fde68a] m-0">Σχεσιακή Υλοποίηση: SQL DDL Schema</h3>')
+                        ui.html('<h3 class="text-lg font-bold text-amber-600 dark:text-[#fde68a] m-0">Relational Implementation: SQL DDL Schema</h3>')
 
                     ui.button(
-                        "Αντιγραφή SQL",
+                        "Copy SQL",
                         icon="content_copy",
                         on_click=lambda: ui.run_javascript(f"navigator.clipboard.writeText({repr(scenario.sql_ddl)});"),
                     ).props("outline dense").classes(

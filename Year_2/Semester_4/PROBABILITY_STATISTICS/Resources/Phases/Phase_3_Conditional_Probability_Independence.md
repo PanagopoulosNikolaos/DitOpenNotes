@@ -1235,13 +1235,13 @@ Final Answer:
 
 | Exam Paper | Relevant Questions | Difficulty | Core Topics Covered |
 | :--- | :--- | :---: | :--- |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 2 | **1/5** | Basic set probability, independent vs disjoint events. |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 | **1/5** | Set relations, testing independence of basic events. |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 3 | **2/5** | Set-based probability, conditional probability basics. |
-| [Exam_paper_Intermediate_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_1.md) | Question 3 | **2/5** | Law of Total Probability & Bayes' Theorem (3-factory problem). |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_2.md) | Question 3 | **3/5** | Conditional probability derivations, testing event independence. |
-| [Exam_paper_Hard_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_1.md) | Question 3 | **4/5** | Bayes' Theorem with sensitivity, specificity, and low base rate. |
-| [Exam_paper_Hard_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Hard_2.md) | Question 3 | **5/5** | Binary symmetric communication channel Bayes modeling. |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Question 2 | **1/5** | Basic set probability, independent vs disjoint events. |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 | **1/5** | Set relations, testing independence of basic events. |
+| [Exam_paper_2023_06_12_Team_null.md](../../Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 3 | **2/5** | Set-based probability, conditional probability basics. |
+| [Exam_paper_Intermediate_1.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_1.md) | Question 3 | **2/5** | Law of Total Probability & Bayes' Theorem (3-factory problem). |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | Question 3 | **3/5** | Conditional probability derivations, testing event independence. |
+| [Exam_paper_Hard_1.md](../../Exams/Papers/synthetic/Exam_paper_Hard_1.md) | Question 3 | **4/5** | Bayes' Theorem with sensitivity, specificity, and low base rate. |
+| [Exam_paper_Hard_2.md](../../Exams/Papers/synthetic/Exam_paper_Hard_2.md) | Question 3 | **5/5** | Binary symmetric communication channel Bayes modeling. |
 
 ---
 

@@ -64,8 +64,7 @@ Where:
 # Part 2: Network Creation
 ## 1. Switch Only
 
-![image.png](Exercise_2/images/switch_only_network.png)
-
+![image.png](images/switch_only_network.png)
 The topology consists of 4 PCs connected via 3 switches (Switch0, Switch1, Switch2) in a chain. Each PC is in a different subnet.
 
 | **Device** | **IP Address** | **Subnet Mask** | **Default Gateway** |
@@ -78,9 +77,8 @@ The topology consists of 4 PCs connected via 3 switches (Switch0, Switch1, Switc
 
 Even though 3 switches are used in a chain, this does not change the behavior — switches cannot route between subnets.
 
-![image.png](Exercise_2/images/switch_only_network_shell.png)
+![image.png](images/switch_only_network_shell.png)
 
-### Why Communication Failed
 
 The switch operates at **Layer 2 (Data Link)** and forwards frames based solely on **MAC addresses** — it has no concept of IP routing. Since the four PCs are in **different subnets**, PC0 treats PC1 as a remote host and tries to send the packet to its Default Gateway (`192.168.1.1`). However, there is no router in the topology, so the packet is dropped — result: **100% packet loss**.
 
@@ -92,10 +90,9 @@ If all PCs shared the **same subnet** (e.g. `192.168.1.10`–`192.168.1.13 /24`)
 
 ## 2. Router Added
 
-![image.png](Exercise_2/images/router_network.png)
+![image.png](images/router_network.png)
 
 A **Cisco 1941 Router** (Router0) was added between the two switches. The 4 PCs were reorganized into **2 subnet groups**, each with its own default gateway pointing to the corresponding router interface.
-
 - **Subnet 1** (`192.168.1.0/24`): CopyPC0, CopyPC1 → gateway `192.168.1.1` (Router Gig0/0)
 - **Subnet 2** (`192.168.2.0/24`): CopyPC2, CopyPC3 → gateway `192.168.2.1` (Router Gig0/1)
 
@@ -108,11 +105,10 @@ A **Cisco 1941 Router** (Router0) was added between the two switches. The 4 PCs 
 | CopyPC2 | `192.168.2.10` | `255.255.255.0` | `192.168.2.1` |
 | CopyPC3 | `192.168.2.11` | `255.255.255.0` | `192.168.2.1` |
 
-![image.png](Exercise_2/images/router_network_shell.png)
+![image.png](images/router_network_shell.png)
 
 ### Why Communication Succeeded
 
-The ping was sent from **CopyPC1** (`192.168.1.11`) to **CopyPC3** (`192.168.2.11`) — cross-subnet ping. CopyPC1 forwarded the packet to its default gateway (Router Gig0/0 at `192.168.1.1`). The router then routed it to subnet `192.168.2.0/24` via Gig0/1, successfully reaching CopyPC3.
 
 ---
 

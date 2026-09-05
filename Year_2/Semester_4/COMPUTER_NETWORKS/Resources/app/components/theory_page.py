@@ -44,12 +44,12 @@ def renderTheoryPage(
                 with ui.column().classes("gap-0"):
                     ui.html(
                         '<h1 class="text-xl md:text-2xl font-black gradient-title m-0">'
-                        "Study Module: Θεωρητικός Οδηγός & Σημειώσεις Μαθήματος"
+                        "Study Module: Theory Guide & Course Notes"
                         "</h1>"
                     )
                     ui.label(
-                        "Ολοκληρωμένο εκπαιδευτικό υλικό 7 θεματικών ενοτήτων με υποστήριξη LaTeX, συγκριτικούς πίνακες "
-                        "και ενσωματωμένους διαδραστικούς υπολογιστές."
+                        "Comprehensive learning material covering 7 thematic units with LaTeX math support, "
+                        "comparative tables, and embedded interactive calculators."
                     ).classes("text-xs text-[#b5b0a4] mt-1")
 
         # Quick Reference Methodology Cards
@@ -57,7 +57,7 @@ def renderTheoryPage(
 
         # Topic Selector Tabs
         study_tabs = [
-            ("theory_full_prep", "Πλήρης Οδηγός (Cheat Sheet)", "fa-solid fa-graduation-cap"),
+            ("theory_full_prep", "Full Guide (Cheat Sheet)", "fa-solid fa-graduation-cap"),
             ("topic_1_network_edge", "1. Edge & P2P", "fa-solid fa-laptop-code"),
             ("topic_2_the_internet", "2. Internet & Protocols", "fa-solid fa-globe"),
             ("topic_3_network_structure", "3. ISPs & Structure", "fa-solid fa-diagram-project"),
@@ -65,7 +65,7 @@ def renderTheoryPage(
             ("topic_5_communication_media", "5. Media & Links", "fa-solid fa-network-wired"),
             ("topic_6_data_switching_and_routing", "6. Switching & 4 Delays", "fa-solid fa-route"),
             ("topic_7_basic_networking_issues", "7. Addressing & CRC", "fa-solid fa-microchip"),
-            ("study_calculators", "Υπολογιστές", "fa-solid fa-calculator"),
+            ("study_calculators", "Calculators", "fa-solid fa-calculator"),
         ]
 
         topic_container = ui.column().classes("w-full gap-6 latex-target")

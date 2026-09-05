@@ -1,7 +1,7 @@
 # Exam 5: Advanced Database Administration (Level: Advanced)
 
 Multiple Choice Question 1: What does the creation of an Index on a table mainly provide?
-[✅] 1. Increase in the speed of retrieval queries (SELECT).
+[✓] 1. Increase in the speed of retrieval queries (SELECT).
 [ ] 2. Increase in the speed of insertion commands (INSERT).
 [ ] 3. Reduction of the required storage space.
 [ ] 4. Encryption of the table data.
@@ -11,7 +11,7 @@ Indexes dramatically improve the speed of searching and retrieving records, but 
 ---
 
 Multiple Choice Question 2: In the conceptual ER model, how are "weak entities" handled during the transition to the relational model?
-[✅] 1. They obtain a primary key composed of the strong entity's key plus their own partial key.
+[✓] 1. They obtain a primary key composed of the strong entity's key plus their own partial key.
 [ ] 2. They are incorporated as simple attributes in the strong entity's table.
 [ ] 3. They are ignored during the conversion to tables.
 [ ] 4. A table is created only if they have a many-to-many relationship.

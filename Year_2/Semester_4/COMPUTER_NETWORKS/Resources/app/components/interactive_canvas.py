@@ -52,35 +52,35 @@ def renderInteractiveCanvas(scenario: NetworkScenario) -> None:
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-highlighter text-[#f59e0b] text-lg"></i>')
-                    ui.html('<h2 class="text-lg md:text-xl font-bold text-[#f4f1ea] m-0">Διαδραστικό Canvas Εκφώνησης & Παραμέτρων</h2>')
+                    ui.html('<h2 class="text-lg md:text-xl font-bold text-[#f4f1ea] m-0">Interactive Problem Statement & Parameter Canvas</h2>')
                 ui.label(
-                    "Επιλέξτε φίλτρα κατηγορίας για δυναμική επισήμανση παραμέτρων καθυστέρησης, συσκευών, πρωτοκόλλων και αλγορίθμων."
+                    "Select category filters to dynamically highlight delay parameters, devices, protocols, and routing algorithms."
                 ).classes("text-xs text-[#78756d]")
 
             # Interactive Filter Buttons
             with ui.row().classes("items-center gap-2 flex-wrap text-xs"):
                 ui.html(
                     """
-                    <button onclick="setFilterMode('all')" class="filter-chip active" data-filter="all" title="Εμφάνιση όλων των επισημάνσεων">
-                        <i class="fa-solid fa-layer-group"></i> Όλα
+                    <button onclick="setFilterMode('all')" class="filter-chip active" data-filter="all" title="Show all highlights">
+                        <i class="fa-solid fa-layer-group"></i> All
                     </button>
-                    <button onclick="setFilterMode('none')" class="filter-chip" data-filter="none" title="Καθαρό κείμενο χωρίς επισημάνσεις">
-                        <i class="fa-solid fa-file-lines"></i> Καθαρό Κείμενο
+                    <button onclick="setFilterMode('none')" class="filter-chip" data-filter="none" title="Plain text without highlights">
+                        <i class="fa-solid fa-file-lines"></i> Plain Text
                     </button>
-                    <button onclick="toggleCategory('delay')" class="filter-chip active" data-category="delay" title="Καθυστερήσεις & Μεγέθη">
-                        <i class="fa-solid fa-stopwatch text-orange-400"></i> Καθυστερήσεις
+                    <button onclick="toggleCategory('delay')" class="filter-chip active" data-category="delay" title="Delays & Sizes">
+                        <i class="fa-solid fa-stopwatch text-orange-400"></i> Delays
                     </button>
-                    <button onclick="toggleCategory('device')" class="filter-chip active" data-category="device" title="Συσκευές & Τοπολογίες">
-                        <i class="fa-solid fa-server text-amber-400"></i> Συσκευές
+                    <button onclick="toggleCategory('device')" class="filter-chip active" data-category="device" title="Devices & Topologies">
+                        <i class="fa-solid fa-server text-amber-400"></i> Devices
                     </button>
-                    <button onclick="toggleCategory('protocol')" class="filter-chip active" data-category="protocol" title="Πρωτόκολλα & Επίπεδα">
-                        <i class="fa-solid fa-diagram-project text-blue-400"></i> Πρωτόκολλα
+                    <button onclick="toggleCategory('protocol')" class="filter-chip active" data-category="protocol" title="Protocols & Layers">
+                        <i class="fa-solid fa-diagram-project text-blue-400"></i> Protocols
                     </button>
-                    <button onclick="toggleCategory('routing')" class="filter-chip active" data-category="routing" title="Δρομολόγηση & Μεταγωγή">
-                        <i class="fa-solid fa-route text-emerald-400"></i> Δρομολόγηση
+                    <button onclick="toggleCategory('routing')" class="filter-chip active" data-category="routing" title="Routing & Switching">
+                        <i class="fa-solid fa-route text-emerald-400"></i> Routing
                     </button>
-                    <button onclick="toggleCategory('error_check')" class="filter-chip active" data-category="error_check" title="Έλεγχος Σφαλμάτων & CRC">
-                        <i class="fa-solid fa-shield-halved text-red-400"></i> Έλεγχος Σφαλμάτων
+                    <button onclick="toggleCategory('error_check')" class="filter-chip active" data-category="error_check" title="Error Checking & CRC">
+                        <i class="fa-solid fa-shield-halved text-red-400"></i> Error Checking
                     </button>
                     """,
                     tag="div",

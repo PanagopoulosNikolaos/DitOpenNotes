@@ -32,11 +32,11 @@ def renderHeader(
     """
     is_study = (current_mode == "study")
     initial_subtitle = (
-        "Πλήρης Θεωρία, Σημειώσεις Μαθήματος & Διαδραστικοί Υπολογιστές"
+        "Complete Theory, Course Notes & Interactive Calculators"
         if is_study
-        else (current_scenario.subtitle if current_scenario else "Θέματα Εξετάσεων με Αναλυτικές Βήμα-προς-Βήμα Λύσεις")
+        else (current_scenario.subtitle if current_scenario else "Exam Scenarios with Detailed Step-by-Step Solutions")
     )
-    initial_badge = "Ενότητα: Study" if is_study else (current_scenario.course_tag if current_scenario else "Ενότητα: Exams")
+    initial_badge = "Module: Study" if is_study else (current_scenario.course_tag if current_scenario else "Module: Exams")
 
     with ui.header().classes(
         "w-full bg-[#141413]/95 backdrop-blur-md border-b border-[rgba(224,107,58,0.25)] "
@@ -46,7 +46,7 @@ def renderHeader(
         with ui.row().classes("items-center gap-3.5"):
             ui.html('<i class="fa-solid fa-network-wired text-[#e06b3a] text-2xl"></i>')
             with ui.column().classes("gap-0"):
-                ui.html('<h1 class="gradient-title text-lg md:text-xl font-extrabold m-0 tracking-wide">Δίκτυα Υπολογιστών: Interactive Learning & Exams</h1>')
+                ui.html('<h1 class="gradient-title text-lg md:text-xl font-extrabold m-0 tracking-wide">Computer Networks: Interactive Learning & Exams</h1>')
                 subtitle_label = ui.label(initial_subtitle).classes("text-xs text-[#b5b0a4] font-medium")
 
         # Center / Right Navigation Controls
@@ -54,7 +54,7 @@ def renderHeader(
             # Main Module Toggle Buttons (Study vs Exams)
             with ui.row().classes("p-1 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.08)] gap-1.5 items-center"):
                 study_btn = ui.button(
-                    "Study (Σημειώσεις)",
+                    "Study (Notes)",
                     icon="menu_book",
                     on_click=lambda: on_mode_change("study"),
                 ).props("flat dense no-caps").classes(
@@ -63,7 +63,7 @@ def renderHeader(
                 )
 
                 exam_btn = ui.button(
-                    "Exams (Θέματα & Λύσεις)",
+                    "Exams (Papers & Solutions)",
                     icon="school",
                     on_click=lambda: on_mode_change("exams"),
                 ).props("flat dense no-caps").classes(
@@ -98,7 +98,7 @@ def renderHeader(
 
             # Print Page Action Button
             print_btn = ui.button(
-                "Εκτύπωση / PDF",
+                "Print / PDF",
                 icon="print",
                 on_click=lambda: ui.run_javascript("window.print();"),
             ).props("outline dense no-caps").classes(

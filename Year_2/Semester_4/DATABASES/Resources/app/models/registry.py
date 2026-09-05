@@ -68,7 +68,7 @@ class ScenarioRegistry:
             Dict[str, str]: Mapping from scenario_id to title, ending with the theory guide.
         """
         options = {s.id: f"{s.title} ({s.course_tag})" for s in self._scenarios.values()}
-        options["theory"] = "Θεωρία & Μεθοδολογία ER (Οδηγός Crow's Foot)"
+        options["theory"] = "ER Theory & Methodology (Crow's Foot Guide)"
         return options
 
 

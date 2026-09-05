@@ -70,15 +70,15 @@ class ScenarioRegistry:
             Dict[str, str]: Mapping from study sub-module ID to display title.
         """
         return {
-            "theory_full_prep": "Πλήρης Οδηγός Προετοιμασίας Εξετάσεων (Cheat Sheet)",
-            "topic_1_network_edge": "Θέμα 1: Δίκτυο στο Έπακρο (Network Edge & P2P)",
-            "topic_2_the_internet": "Θέμα 2: Το Διαδίκτυο & Πρωτόκολλα (OSI vs TCP/IP)",
-            "topic_3_network_structure": "Θέμα 3: Δομή του Δικτύου (ISPs, IXPs, Peering)",
-            "topic_4_access_technologies": "Θέμα 4: Τεχνολογίες Πρόσβασης (DSL, FTTH, 5G)",
-            "topic_5_communication_media": "Θέμα 5: Μέσα Επικοινωνίας (UTP, Οπτικές Ίνες, LEO)",
-            "topic_6_data_switching_and_routing": "Θέμα 6: Μεταγωγή Δεδομένων & 4 Καθυστερήσεις",
-            "topic_7_basic_networking_issues": "Θέμα 7: Διευθυνσιοδότηση, ARP, Dijkstra, CRC",
-            "study_calculators": "Διαδραστικοί Υπολογιστές (Delays, CRC, Subnetting)",
+            "theory_full_prep": "Full Exam Preparation Guide (Cheat Sheet)",
+            "topic_1_network_edge": "Topic 1: Network Edge (Network Edge & P2P)",
+            "topic_2_the_internet": "Topic 2: The Internet & Protocols (OSI vs TCP/IP)",
+            "topic_3_network_structure": "Topic 3: Network Structure (ISPs, IXPs, Peering)",
+            "topic_4_access_technologies": "Topic 4: Access Technologies (DSL, FTTH, 5G)",
+            "topic_5_communication_media": "Topic 5: Communication Media (UTP, Optical Fibers, LEO)",
+            "topic_6_data_switching_and_routing": "Topic 6: Data Switching & 4 Delay Types",
+            "topic_7_basic_networking_issues": "Topic 7: Addressing, ARP, Dijkstra, CRC",
+            "study_calculators": "Interactive Calculators (Delays, CRC, Subnetting)",
         }
 
     def getExamOptions(self) -> Dict[str, str]:

@@ -1041,12 +1041,12 @@ cat("nPr:", nPr, "\n")
 
 | Exam Paper | Relevant Questions | Difficulty |
 | :--- | :--- | :---: |
-| [Exam_paper_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Easy.md) | Question 3 (Disjoint events, independent events, set operations, De Morgan's Law $P(A' \cap B')$) | **1/5** |
-| [Exam_paper_2024_09_06_Team_A.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 (Set theory definitions, mutually exclusive vs independent events, $P(A \cup B)$ addition rule) | **1/5** |
-| [Exam_paper_2023_06_12_Team_null.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 2 (Venn diagram translation, union and complement probability) | **2/5** |
-| [Exam_paper_2024_06_14_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 2 (Set probability calculation, disjoint events and complement) | **2/5** |
-| [Exam_paper_2026_06_09_Team_B.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 2 (Set theory operations, phrase translation "at least one", "neither") | **2/5** |
-| [Exam_paper_Intermediate_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/PROBABILITY_STATISTICS/Exams/Papers/Exam_paper_Intermediate_2.md) | Question 2 (Algebraic proofs of set relationships and De Morgan's laws) | **3/5** |
+| [Exam_paper_Easy.md](../../Exams/Papers/synthetic/Exam_paper_Easy.md) | Question 3 (Disjoint events, independent events, set operations, De Morgan's Law $P(A' \cap B')$) | **1/5** |
+| [Exam_paper_2024_09_06_Team_A.md](../../Exams/Papers/Exam_paper_2024_09_06_Team_A.md) | Question 2 (Set theory definitions, mutually exclusive vs independent events, $P(A \cup B)$ addition rule) | **1/5** |
+| [Exam_paper_2023_06_12_Team_null.md](../../Exams/Papers/Exam_paper_2023_06_12_Team_null.md) | Question 2 (Venn diagram translation, union and complement probability) | **2/5** |
+| [Exam_paper_2024_06_14_Team_B.md](../../Exams/Papers/Exam_paper_2024_06_14_Team_B.md) | Question 2 (Set probability calculation, disjoint events and complement) | **2/5** |
+| [Exam_paper_2026_06_09_Team_B.md](../../Exams/Papers/Exam_paper_2026_06_09_Team_B.md) | Question 2 (Set theory operations, phrase translation "at least one", "neither") | **2/5** |
+| [Exam_paper_Intermediate_2.md](../../Exams/Papers/synthetic/Exam_paper_Intermediate_2.md) | Question 2 (Algebraic proofs of set relationships and De Morgan's laws) | **3/5** |
 
 ---
 

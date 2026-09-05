@@ -17,7 +17,7 @@ class TextSegment:
     text: str
     is_highlight: bool = False
     category: str = "all"  # entity, key, attr, rel
-    tag_label: Optional[str] = None  # e.g., 'ΟΝΤΟΤΗΤΑ', 'PK', 'ΣΧΕΣΗ 1:N'
+    tag_label: Optional[str] = None  # e.g., 'ENTITY', 'PK', 'RELATIONSHIP 1:N'
     badge_class: Optional[str] = None  # CSS class for badge styling
     tooltip: Optional[str] = None  # Detailed explanation on hover
 
@@ -33,7 +33,7 @@ class Paragraph:
 class Attribute:
     """Represents an entity or relationship attribute."""
     name: str
-    attr_type: str  # 'Απλό / Μονότιμο', 'Σύνθετο', 'Πλειότιμο', 'Παράγωγο'
+    attr_type: str  # 'Simple / Single-valued', 'Composite', 'Multivalued', 'Derived'
     is_pk: bool = False
     is_candidate: bool = False
     is_partial: bool = False
@@ -46,7 +46,7 @@ class Attribute:
 class Entity:
     """Represents an ER entity definition with justifications."""
     name: str
-    entity_type: str  # 'Ισχυρή Οντότητα' (Strong) or 'Ασθενής Οντότητα' (Weak)
+    entity_type: str  # 'Strong Entity' or 'Weak Entity'
     is_weak: bool = False
     owner_entity: Optional[str] = None
     justification: str = ""
@@ -75,12 +75,12 @@ class KeyAnalysisRow:
 @dataclass
 class Relationship:
     """Represents a relationship between entities."""
-    letter_id: str  # e.g. 'α', 'β', 'γ'
+    letter_id: str  # e.g. 'a', 'b', 'c' or '1', '2', '3'
     name: str
-    connected_entities: str  # e.g. 'Ερευνητής <-> Ερευνητική Μονάδα'
+    connected_entities: str  # e.g. 'Researcher <-> Research Unit'
     cardinality: str  # e.g. '1:1', '1:N', 'N:M'
-    participation: str  # e.g. 'Ολική για Μονάδα, Μερική για Ερευνητή'
-    relationship_type: str = "Κανονική Σχέση"  # or 'Ταυτοποιούσα Σχέση'
+    participation: str  # e.g. 'Total for Unit, Partial for Researcher'
+    relationship_type: str = "Regular Relationship"  # or 'Identifying Relationship'
     attributes: List[str] = field(default_factory=list)
     justification: str = ""
 

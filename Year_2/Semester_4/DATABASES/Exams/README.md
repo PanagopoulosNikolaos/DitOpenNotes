@@ -40,8 +40,8 @@ Exams/
 
 | Master Guide | Purpose | Key Content |
 | :--- | :--- | :--- |
-| [Complete_Exam_Theory_Guide.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Resources/Notes/Complete_Exam_Theory_Guide.md) | Theoretical & Methodological Guide | Conceptual modeling, 7-step mapping algorithm, Relational Algebra, SQL, Normalization, Transactions, Security, Recipes & Traps |
-| [test_prep.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Resources/Notes/test_prep.md) | Comprehensive Practice & Solved Exams | 160 thematic drill questions across 16 units + 10 full 10/10 model solutions for past and realistic exam papers |
+| [Complete_Exam_Theory_Guide.md](../Resources/Notes/Complete_Exam_Theory_Guide.md) | Theoretical & Methodological Guide | Conceptual modeling, 7-step mapping algorithm, Relational Algebra, SQL, Normalization, Transactions, Security, Recipes & Traps |
+| [test_prep.md](../Resources/Notes/test_prep.md) | Comprehensive Practice & Solved Exams | 160 thematic drill questions across 16 units + 10 full 10/10 model solutions for past and realistic exam papers |
 
 ---
 
@@ -49,8 +49,8 @@ Exams/
 
 | Exam File | Academic Context | Core Topics |
 | :--- | :--- | :--- |
-| [Past_Exam_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/Past_Exam_1.md) | Educational Institution | Entities, Attributes, Keys, Relationships, ER Diagram, Relational Tables |
-| [Past_Exam_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/Past_Exam_2.md) | University of Ioannina (27/4/2026) | Research Units, Researchers, Projects, Cardinality Rationale, ER Diagram |
+| [Past_Exam_1.md](Papers/Past_Exam_1.md) | Educational Institution | Entities, Attributes, Keys, Relationships, ER Diagram, Relational Tables |
+| [Past_Exam_2.md](Papers/Past_Exam_2.md) | University of Ioannina (27/4/2026) | Research Units, Researchers, Projects, Cardinality Rationale, ER Diagram |
 
 ---
 
@@ -58,14 +58,14 @@ Exams/
 
 | Exam File | Difficulty Level | Core Topics Covered |
 | :--- | :--- | :--- |
-| [Practice_Exam_01_Easy.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_01_Easy.md) | Easy | DDL, Primary Keys, Foreign Keys, Simple SELECT |
-| [Practice_Exam_02_Medium.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_02_Medium.md) | Medium | 2NF Normalization, INNER JOINs, M:N Relational Mapping |
-| [Practice_Exam_03_Intermediate.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_03_Intermediate.md) | Intermediate | ACID Atomicity, LEFT JOINs, Functional Dependency Closures |
-| [Practice_Exam_04_Hard.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_04_Hard.md) | Hard | TRUNCATE vs DELETE, BCNF Decomposition, Correlated Subqueries |
-| [Practice_Exam_05_Advanced.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_05_Advanced.md) | Advanced | Indexes, Weak Entities, M:N Junction Tables, CASCADE |
-| [Practice_Exam_06_Image_Translation.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_06_Image_Translation.md) | Extracted | Exam Paper Translation, Mermaid ER Diagrams, Relational Schema |
-| [Practice_Exam_07_Topic_8_9.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_07_Topic_8_9.md) | Specialized | Natural JOIN, Rainbow Tables, Social Engineering, Security |
-| [Practice_Exam_08_Topic_all_in_one_exam.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_full_coverage/Practice_Exam_08_Topic_all_in_one_exam.md) | Full Comprehensive | All-In-One Exam (Part A: ER & Schema, Part B: SQL & BCNF) |
+| [Practice_Exam_01_Easy.md](Papers/synth_full_coverage/Practice_Exam_01_Easy.md) | Easy | DDL, Primary Keys, Foreign Keys, Simple SELECT |
+| [Practice_Exam_02_Medium.md](Papers/synth_full_coverage/Practice_Exam_02_Medium.md) | Medium | 2NF Normalization, INNER JOINs, M:N Relational Mapping |
+| [Practice_Exam_03_Intermediate.md](Papers/synth_full_coverage/Practice_Exam_03_Intermediate.md) | Intermediate | ACID Atomicity, LEFT JOINs, Functional Dependency Closures |
+| [Practice_Exam_04_Hard.md](Papers/synth_full_coverage/Practice_Exam_04_Hard.md) | Hard | TRUNCATE vs DELETE, BCNF Decomposition, Correlated Subqueries |
+| [Practice_Exam_05_Advanced.md](Papers/synth_full_coverage/Practice_Exam_05_Advanced.md) | Advanced | Indexes, Weak Entities, M:N Junction Tables, CASCADE |
+| [Practice_Exam_06_Image_Translation.md](Papers/synth_full_coverage/Practice_Exam_06_Image_Translation.md) | Extracted | Exam Paper Translation, Mermaid ER Diagrams, Relational Schema |
+| [Practice_Exam_07_Topic_8_9.md](Papers/synth_full_coverage/Practice_Exam_07_Topic_8_9.md) | Specialized | Natural JOIN, Rainbow Tables, Social Engineering, Security |
+| [Practice_Exam_08_Topic_all_in_one_exam.md](Papers/synth_full_coverage/Practice_Exam_08_Topic_all_in_one_exam.md) | Full Comprehensive | All-In-One Exam (Part A: ER & Schema, Part B: SQL & BCNF) |
 
 ---
 
@@ -73,11 +73,11 @@ Exams/
 
 | Exam Paper | Domain Scenario | Key Database Modeling Concepts |
 | :--- | :--- | :--- |
-| [exam_paper_synthetic_and_realistic_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_1.md) | University Hospital System | Clinics, Doctors, Dependents, Patients, Admissions, Medications |
-| [exam_paper_synthetic_and_realistic_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_2.md) | University Academic System | Departments, Professors, Students, Courses, Enrollments, Prerequisites |
-| [exam_paper_synthetic_and_realistic_3.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_3.md) | Commercial Airline Fleet | Airports, Flight Routes, Aircraft Fleet, Flight Instances, Crew, Bookings |
-| [exam_paper_synthetic_and_realistic_4.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_4.md) | Luxury Hotel Resort Chain | Hotel Properties, Rooms, Employees, Guests, Reservations, Services |
-| [exam_paper_synthetic_and_realistic_5.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_5.md) | E-Commerce Retail Platform | Product Categories, Inventory, Suppliers, Customers, Orders, Payments |
-| [exam_paper_synthetic_and_realistic_6.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_6.md) | On-Demand Streaming Platform | Media Titles, TV Episodes, Contributors, Profiles, Watch History, Reviews |
-| [exam_paper_synthetic_and_realistic_7.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_7.md) | Public Library Network | Branches, Book Titles, Authors, Physical Copies, Members, Loans, Holds |
-| [exam_paper_synthetic_and_realistic_8.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_8.md) | Professional Sports League | Teams, Coaches, Athletes, Contracts, Matches, Match Events, Injuries |
+| [exam_paper_synthetic_and_realistic_1.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_1.md) | University Hospital System | Clinics, Doctors, Dependents, Patients, Admissions, Medications |
+| [exam_paper_synthetic_and_realistic_2.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_2.md) | University Academic System | Departments, Professors, Students, Courses, Enrollments, Prerequisites |
+| [exam_paper_synthetic_and_realistic_3.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_3.md) | Commercial Airline Fleet | Airports, Flight Routes, Aircraft Fleet, Flight Instances, Crew, Bookings |
+| [exam_paper_synthetic_and_realistic_4.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_4.md) | Luxury Hotel Resort Chain | Hotel Properties, Rooms, Employees, Guests, Reservations, Services |
+| [exam_paper_synthetic_and_realistic_5.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_5.md) | E-Commerce Retail Platform | Product Categories, Inventory, Suppliers, Customers, Orders, Payments |
+| [exam_paper_synthetic_and_realistic_6.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_6.md) | On-Demand Streaming Platform | Media Titles, TV Episodes, Contributors, Profiles, Watch History, Reviews |
+| [exam_paper_synthetic_and_realistic_7.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_7.md) | Public Library Network | Branches, Book Titles, Authors, Physical Copies, Members, Loans, Holds |
+| [exam_paper_synthetic_and_realistic_8.md](Papers/synth_realistic/exam_paper_synthetic_and_realistic_8.md) | Professional Sports League | Teams, Coaches, Athletes, Contracts, Matches, Match Events, Injuries |

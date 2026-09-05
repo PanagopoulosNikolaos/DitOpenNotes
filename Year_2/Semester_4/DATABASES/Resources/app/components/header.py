@@ -24,12 +24,12 @@ def renderHeader(
     initial_subtitle = (
         current_scenario.subtitle
         if current_scenario
-        else "Πλήρης Θεωρία, Μεθοδολογία & Συμβολισμοί Crow's Foot"
+        else "Complete Theory, Methodology & Crow's Foot Notations"
     )
     initial_course_tag = (
         current_scenario.course_tag
         if current_scenario
-        else "Θεωρία / Οδηγός"
+        else "Theory / Guide"
     )
 
     with ui.header().classes(
@@ -39,7 +39,7 @@ def renderHeader(
         with ui.row().classes("items-center gap-4"):
             ui.html('<i class="fa-solid fa-diagram-project text-[var(--accent)] text-2xl"></i>')
             with ui.column().classes("gap-0"):
-                ui.html('<h1 class="gradient-title text-xl md:text-2xl font-black">Οδηγός Ανάλυσης Μοντέλου Ε-Ρ</h1>')
+                ui.html('<h1 class="gradient-title text-xl md:text-2xl font-black">E-R Model Analysis Guide</h1>')
                 subtitle_label = ui.label(initial_subtitle).classes("text-xs text-[var(--text-2)]")
 
         with ui.row().classes("items-center gap-3 flex-wrap"):
@@ -65,46 +65,46 @@ def renderHeader(
             # Switchable Theme Button (Light/Dark Toggle)
             ui.html(
                 """
-                <button id="theme-toggle-btn" onclick="toggleAppTheme()" class="btn-secondary" title="Εναλλαγή Φωτεινού / Σκοτεινού Θέματος">
+                <button id="theme-toggle-btn" onclick="toggleAppTheme()" class="btn-secondary" title="Toggle Light / Dark Theme">
                     <i class="fa-solid fa-moon text-[#71717a]"></i>
-                    <span class="theme-btn-label">Σκοτεινό</span>
+                    <span class="theme-btn-label">Dark</span>
                 </button>
                 """,
                 sanitize=False,
             )
 
             # Print / PDF Export Menu
-            with ui.button("Εκτύπωση / PDF", icon="print").props("outline dense").classes(
+            with ui.button("Print / PDF", icon="print").props("outline dense").classes(
                 "text-xs text-[var(--accent)] border-[var(--border-accent)] hover:bg-[var(--surface-hover)] font-bold shadow-sm"
             ):
                 with ui.menu().classes("bg-[var(--menu-bg)] text-[var(--text-1)] border border-[var(--border-accent)] shadow-xl"):
                     ui.menu_item(
-                        "Εκτύπωση Όλων (A4 PDF)",
+                        "Print All (A4 PDF)",
                         on_click=lambda: ui.run_javascript("printERSection('all');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)] font-bold text-[var(--accent)]")
                     ui.separator().classes("bg-[var(--border)]")
                     ui.menu_item(
-                        "1. Canvas Κειμένου Απαιτήσεων",
+                        "1. Requirements Text Canvas",
                         on_click=lambda: ui.run_javascript("printERSection('canvas');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
                     ui.menu_item(
-                        "2. Γνωρίσματα & Είδος",
+                        "2. Attributes & Classification",
                         on_click=lambda: ui.run_javascript("printERSection('attributes');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
                     ui.menu_item(
-                        "3. Ανάλυση Κλειδιών & PK",
+                        "3. Key Analysis & PK",
                         on_click=lambda: ui.run_javascript("printERSection('keys');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
                     ui.menu_item(
-                        "4. Σχέσεις & Πληθικότητες",
+                        "4. Relationships & Cardinalities",
                         on_click=lambda: ui.run_javascript("printERSection('relationships');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
                     ui.menu_item(
-                        "5. Διάγραμμα Crow's Foot",
+                        "5. Crow's Foot Diagram",
                         on_click=lambda: ui.run_javascript("printERSection('er-diagram');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
                     ui.menu_item(
-                        "6. Σχεσιακή Υλοποίηση (SQL DDL)",
+                        "6. Relational Implementation (SQL DDL)",
                         on_click=lambda: ui.run_javascript("printERSection('sql-ddl');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
 

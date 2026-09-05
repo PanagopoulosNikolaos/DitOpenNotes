@@ -56,7 +56,7 @@ class ERApp:
 
         scenario = scenario_registry.getScenario(self.current_scenario_id)
         if not scenario:
-            ui.label("Το επιλεγμένο σενάριο δεν βρέθηκε.").classes("text-red-500 p-4")
+            ui.label("The selected scenario was not found.").classes("text-red-500 p-4")
             return
 
         with ui.column().classes("w-full max-w-6xl mx-auto px-4 py-8 space-y-10"):
@@ -100,8 +100,8 @@ def buildApp() -> None:
             """Handles scenario selection event."""
             er_app.selectScenario(new_id, content_container)
             if new_id == "theory":
-                header_refs["subtitle_label"].set_text("Πλήρης Θεωρία, Μεθοδολογία & Συμβολισμοί Crow's Foot")
-                header_refs["course_label"].set_text("Θεωρία / Οδηγός")
+                header_refs["subtitle_label"].set_text("Complete Theory, Methodology & Crow's Foot Notations")
+                header_refs["course_label"].set_text("Theory / Guide")
             else:
                 new_scenario = scenario_registry.getScenario(new_id)
                 if new_scenario:
@@ -120,7 +120,7 @@ buildApp()
 
 if __name__ in {"__main__", "__mp_main__"}:
     ui.run(
-        title="Οδηγός Ανάλυσης ER & Διαδραστικό Canvas",
+        title="ER Analysis Guide & Interactive Canvas",
         port=8080,
         reload=False,
         dark=False,

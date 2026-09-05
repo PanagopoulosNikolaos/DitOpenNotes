@@ -31,37 +31,37 @@ def createScenario() -> NetworkScenario:
     paragraphs = [
         Paragraph(
             segments=[
-                TextSegment(text="Το αρχειακό γραπτό εξέτασης "),
+                TextSegment(text="The archival examination paper "),
                 TextSegment(
-                    text="Δίκτυα Υπολογιστών (Comprehensive Archive)",
+                    text="Computer Networks (Comprehensive Archive)",
                     is_highlight=True,
                     category="protocol",
-                    tag_label="ΑΡΧΕΙΟ",
-                    tooltip="Συγκεντρωτική εξέταση όλων των ενοτήτων του μαθήματος",
+                    tag_label="ARCHIVE",
+                    tooltip="Comprehensive examination across all course modules",
                 ),
-                TextSegment(text=" περιλαμβάνει πλήρη ανάλυση της "),
+                TextSegment(text=" provides an exhaustive analysis of "),
                 TextSegment(
-                    text="Κομβικής Καθυστέρησης d_nodal = d_proc + d_queue + d_trans + d_prop",
+                    text="Nodal Delay d_nodal = d_proc + d_queue + d_trans + d_prop",
                     is_highlight=True,
                     category="delay",
                     tag_label="4 DELAYS",
-                    tooltip="Ανάλυση των 4 συνιστωσών καθυστέρησης",
+                    tooltip="Analysis of the 4 nodal delay components",
                 ),
-                TextSegment(text=", υπολογισμό του "),
+                TextSegment(text=", evaluation of the "),
                 TextSegment(
                     text="BDP (Bandwidth-Delay Product)",
                     is_highlight=True,
                     category="delay",
                     tag_label="BDP",
-                    tooltip="Χωρητικότητα ζεύξης σε bits",
+                    tooltip="Link capacity in bits",
                 ),
-                TextSegment(text=" και διαμόρφωση πρωτοκόλλου "),
+                TextSegment(text=" and configuration of "),
                 TextSegment(
-                    text="OSPF σε Single Area",
+                    text="OSPF in a Single Area",
                     is_highlight=True,
                     category="routing",
                     tag_label="OSPF",
-                    tooltip="Διαμόρφωση Open Shortest Path First",
+                    tooltip="Open Shortest Path First routing configuration",
                 ),
                 TextSegment(text="."),
             ],
@@ -69,33 +69,33 @@ def createScenario() -> NetworkScenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="Στο δεύτερο μέρος αναλύεται η δρομολόγηση μεταξύ "),
+                TextSegment(text="The second section analyzes inter-domain routing between "),
                 TextSegment(
-                    text="Αυτόνομων Συστημάτων (BGP)",
+                    text="Autonomous Systems (BGP)",
                     is_highlight=True,
                     category="routing",
                     tag_label="BGP",
                     tooltip="Hot Potato routing vs shortest AS path",
                 ),
-                TextSegment(text=", υπολογισμοί "),
+                TextSegment(text=", calculations of "),
                 TextSegment(
-                    text="RTT με ενδιάμεση επεξεργασία d_proc = 0.02 ms",
+                    text="RTT with intermediate processing d_proc = 0.02 ms",
                     is_highlight=True,
                     category="delay",
                     tag_label="RTT",
-                    tooltip="Χρόνος αποστολής και επιστροφής πακέτων",
+                    tooltip="Round-trip time with nodal processing",
                 ),
-                TextSegment(text=", εκτέλεση αλγορίθμου "),
+                TextSegment(text=", execution of the "),
                 TextSegment(
-                    text="Dijkstra σε τοπολογία 11 κόμβων",
+                    text="Dijkstra algorithm on an 11-node topology",
                     is_highlight=True,
                     category="routing",
                     tag_label="DIJKSTRA LSA",
-                    tooltip="Συντομότερο μονοπάτι από κόμβο a σε κόμβο k",
+                    tooltip="Shortest path calculation from node a to node k",
                 ),
-                TextSegment(text=" και εύρεση "),
+                TextSegment(text=" and determination of the "),
                 TextSegment(
-                    text="Ελάχιστου Πλαισίου CSMA/CD",
+                    text="CSMA/CD Minimum Frame Size",
                     is_highlight=True,
                     category="error_check",
                     tag_label="CSMA/CD",
@@ -109,78 +109,78 @@ def createScenario() -> NetworkScenario:
     questions = [
         ExamQuestion(
             question_number=1,
-            title="Ανάλυση των 4 Συνιστωσών Καθυστέρησης (Nodal Delays)",
+            title="Analysis of the 4 Nodal Delay Components",
             question_type="Theory Analysis",
-            prompt_text="Ορίστε αναλυτικά τη συνολική καθυστέρηση από άκρο σε άκρο (end-to-end delay) ως μαθηματική έκφραση και εξηγήστε λεπτομερώς τα 4 επιμέρους σύμβολα.",
+            prompt_text="Formulate the total end-to-end nodal delay as a mathematical expression and explain each of the 4 constituent terms in detail.",
             detailed_justification=(
-                "Η συνολική καθυστέρηση ισούται με: **d_nodal = d_proc + d_queue + d_trans + d_prop**\n\n"
-                "1. **d_proc (Processing Delay):** Χρόνος ελέγχου επικεφαλίδας, επιλογής θύρας εξόδου και ανίχνευσης σφαλμάτων bits (συνήθως μs).\n"
-                "2. **d_queue (Queuing Delay):** Χρόνος αναμονής στην ουρά εξόδου μέχρι να ελευθερωθεί ο δίαυλος μετάδοσης. Εξαρτάται από την ένταση κίνησης.\n"
-                "3. **d_trans (Transmission Delay):** d_trans = L / R, όπου L το μέγεθος του πακέτου σε bits και R το bandwidth σε bps.\n"
-                "4. **d_prop (Propagation Delay):** d_prop = d / s, όπου d το φυσικό μήκος της ζεύξης και s η ταχύτητα διάδοσης στο μέσο (π.χ. 2*10^8 m/s)."
+                "Total nodal delay is expressed as: **d_nodal = d_proc + d_queue + d_trans + d_prop**\n\n"
+                "1. **d_proc (Processing Delay):** Time spent inspecting packet headers, resolving the output port via forwarding table lookups, and verifying checksum integrity (typically microseconds).\n"
+                "2. **d_queue (Queuing Delay):** Waiting time spent inside router buffer queues until the transmission link becomes idle. Depends directly on network traffic intensity and arrival distribution.\n"
+                "3. **d_trans (Transmission Delay):** d_trans = L / R, where L represents packet length in bits and R represents channel bandwidth in bps.\n"
+                "4. **d_prop (Propagation Delay):** d_prop = d / s, where d is physical link distance and s is signal propagation velocity in the transmission medium (e.g. 2*10^8 m/s in copper/fiber)."
             ),
             common_pitfalls=[
-                "Σύγχυση μετάδοσης (L/R) με διάδοση (d/s).",
-                "Παράλειψη της καθυστέρησης ουράς ή επεξεργασίας.",
+                "Confusing transmission delay (L/R) with propagation delay (d/s).",
+                "Omitting queuing or processing delay when evaluating real-world routers.",
             ],
         ),
         ExamQuestion(
             question_number=2,
-            title="Υπολογισμός Bandwidth-Delay Product (BDP)",
+            title="Bandwidth-Delay Product (BDP) Calculation",
             question_type="Calculations",
-            prompt_text="Έστω ζεύξη με Bandwidth R = 1000 KB/s και Delay D = 5 ms. Ποιος είναι ο μέγιστος αριθμός bits που μπορούν να βρίσκονται 'εν πτήσει' πάνω στη ζεύξη;",
+            prompt_text="Consider a link with Bandwidth R = 1000 KB/s and one-way delay D = 5 ms. What is the maximum number of bits that can be 'in flight' across the link simultaneously?",
             calculation_steps=[
                 CalculationStep(
                     step_number=1,
-                    title="Μετατροπή Μονάδων Bandwidth και Delay",
+                    title="Unit Conversion for Bandwidth and Delay",
                     formula="R = 1000 KB/s = 1000 * 8000 bps = 8,000,000 bps, D = 5 ms = 0.005 s",
                     substitution="BDP = R * D",
                     result="8,000,000 bps * 0.005 s",
-                    rationale="Το γινόμενο εύρους ζώνης-καθυστέρησης ορίζει τη χωρητικότητα του αγωγού σε bits.",
+                    rationale="The Bandwidth-Delay Product defines the physical bit capacity of the transmission pipeline.",
                 ),
                 CalculationStep(
                     step_number=2,
-                    title="Τελικός Υπολογισμός Bits και Bytes",
+                    title="Final Calculation in Bits and Bytes",
                     formula="BDP = 40,000 bits",
                     substitution="40,000 bits / 8 bits per byte",
                     result="5,000 Bytes (5 KB)",
-                    rationale="Αν ο αποστολέας θέλει να κρατήσει τη ζεύξη 100% απασχολημένη, το παράθυρο αποστολής πρέπει να είναι τουλάχιστον 5 KB.",
+                    rationale="To maintain 100% link utilization, the sender's window must be sized to at least 5 KB.",
                 ),
             ],
-            detailed_justification="Το BDP αντιπροσωπεύει τον όγκο δεδομένων που 'γεμίζει' το φυσικό καλώδιο. Στα δίκτυα υψηλής ταχύτητας και μεγάλης απόστασης (Long Fat Networks - LFN), το BDP είναι πολύ μεγάλο.",
+            detailed_justification="The BDP represents the volume of data required to fill the physical medium. In high-speed long-distance links (Long Fat Networks - LFNs), the BDP is exceptionally large.",
         ),
         ExamQuestion(
             question_number=3,
-            title="Υπολογισμός RTT με Ενδιάμεση Επεξεργασία (A -> C -> A)",
+            title="Multi-hop RTT Calculation with Intermediate Processing (A -> C -> A)",
             question_type="Calculations",
-            prompt_text="Έστω 2 διαδοχικές ζεύξεις (A-B και B-C) με R1 = R2 = 10 Mbps, L1 = 100 km, L2 = 50 km, u = 2.5 * 10^8 m/s. Πακέτο L = 10.000 bits αποστέλλεται από το A στο C και επιστρέφει αμέσως. Κάθε κόμβος έχει d_proc = 0.02 ms. Υπολογίστε το συνολικό RTT.",
+            prompt_text="Consider 2 consecutive links (A-B and B-C) with R1 = R2 = 10 Mbps, L1 = 100 km, L2 = 50 km, and propagation speed u = 2.5 * 10^8 m/s. A packet of size L = 10,000 bits is sent from A to C and immediately echoed back. Each node incurs processing delay d_proc = 0.02 ms. Calculate the total RTT.",
             calculation_steps=[
                 CalculationStep(
                     step_number=1,
-                    title="Καθυστέρηση Μετάδοσης ανά Ζεύξη",
+                    title="Transmission Delay per Hop",
                     formula="d_trans = L / R = 10,000 / (10 * 10^6)",
                     substitution="10,000 / 10,000,000",
                     result="1 ms",
-                    rationale="Απαιτείται 1 ms για τη μετάδοση του πακέτου σε κάθε hop.",
+                    rationale="Transmitting the packet takes 1 ms at each hop.",
                 ),
                 CalculationStep(
                     step_number=2,
-                    title="Καθυστερήσεις Διάδοσης",
+                    title="Propagation Delays",
                     formula="d_prop1 = 100,000m / 2.5*10^8 = 0.4 ms, d_prop2 = 50,000m / 2.5*10^8 = 0.2 ms",
                     substitution="d_prop_oneway = 0.4 + 0.2",
-                    result="0.6 ms μονής κατεύθυνσης",
-                    rationale="Συνολική διάδοση μετάβασης και επιστροφής = 2 * 0.6 = 1.2 ms.",
+                    result="0.6 ms one-way",
+                    rationale="Total round-trip propagation delay across both links = 2 * 0.6 = 1.2 ms.",
                 ),
                 CalculationStep(
                     step_number=3,
-                    title="Συνολικό RTT",
+                    title="Total Round-Trip Time (RTT)",
                     formula="RTT = 4 * d_trans + 2 * d_prop_oneway + d_proc_total",
-                    substitution="4 * 1.0ms + 2 * 0.6ms + 3 * 0.02ms (στους ενδιάμεσους κόμβους)",
+                    substitution="4 * 1.0ms + 2 * 0.6ms + 3 * 0.02ms (at intermediate/terminal hops)",
                     result="5.26 ms",
-                    rationale="Το πακέτο μεταδίδεται 4 φορές (A->B, B->C, C->B, B->A) και διαδίδεται 2 φορές σε κάθε ζεύξη.",
+                    rationale="The packet is transmitted 4 times (A->B, B->C, C->B, B->A) and propagates twice across each link.",
                 ),
             ],
-            detailed_justification="Στο RTT προσμετρώνται όλες οι μεταδόσεις Store-and-Forward τόσο στη διαδρομή μετάβασης όσο και στη διαδρομή επιστροφής.",
+            detailed_justification="The RTT must account for all Store-and-Forward transmissions along both the outbound path and the return path, plus processing delays at all intermediate forwarding nodes.",
         ),
     ]
 
@@ -197,18 +197,18 @@ def createScenario() -> NetworkScenario:
 
     return NetworkScenario(
         id="exam_past_archive",
-        title="Θέματα Εξετάσεων (Comprehensive Archive)",
+        title="Exam Questions (Comprehensive Archive)",
         subtitle="4 Nodal Delays, BDP Product, OSPF, BGP Routing & Multi-hop RTT",
         course_tag="Past Exam",
-        duration_info="2 ώρες και 15 λεπτά",
+        duration_info="2 hours and 15 minutes",
         paragraphs=paragraphs,
         questions=questions,
         nodes=nodes,
         links=links,
         methodology_summary=[
             "1. d_nodal = d_proc + d_queue + d_trans + d_prop.",
-            "2. BDP = Bandwidth * Delay (Μέγιστα bits εν πτήσει).",
-            "3. RTT πολλαπλών hops = Σ(d_trans_go + d_trans_back) + 2*Σ(d_prop) + Σ(d_proc).",
+            "2. BDP = Bandwidth * Delay (Maximum in-flight bits).",
+            "3. Multi-hop RTT = Sum(d_trans_out + d_trans_back) + 2*Sum(d_prop) + Sum(d_proc).",
         ],
         calculator_type="delay",
     )

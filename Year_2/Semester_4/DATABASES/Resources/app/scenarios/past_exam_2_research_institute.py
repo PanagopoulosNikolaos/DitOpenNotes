@@ -31,83 +31,83 @@ def createResearchInstituteScenario() -> Scenario:
     paragraphs = [
         Paragraph(
             segments=[
-                TextSegment(text="Ένα ερευνητικό ίδρυμα διατηρεί πληροφορίες σχετικά με τους "),
+                TextSegment(text="A research institute maintains information about the "),
                 TextSegment(
-                    text="ερευνητές",
+                    text="researchers",
                     is_highlight=True,
                     category="entity",
-                    tag_label="ΟΝΤΟΤΗΤΑ",
+                    tag_label="ENTITY",
                     badge_class="badge-entity-strong",
-                    tooltip="Ισχυρή Οντότητα (Strong Entity): Φυσικό πρόσωπο με αυτόνομη υπόσταση και ΑΔΤ.",
+                    tooltip="Strong Entity: Natural person with autonomous existence and ID number.",
                 ),
-                TextSegment(text=", τις "),
+                TextSegment(text=", the "),
                 TextSegment(
-                    text="ερευνητικές μονάδες",
+                    text="research units",
                     is_highlight=True,
                     category="entity",
-                    tag_label="ΟΝΤΟΤΗΤΑ",
+                    tag_label="ENTITY",
                     badge_class="badge-entity-strong",
-                    tooltip="Ισχυρή Οντότητα (Strong Entity): Αυτοτελές διοικητικό τμήμα με μοναδικό κωδικό.",
+                    tooltip="Strong Entity: Autonomous administrative department with a unique code.",
                 ),
-                TextSegment(text=" και τα "),
+                TextSegment(text=" and the "),
                 TextSegment(
-                    text="ερευνητικά έργα",
+                    text="research projects",
                     is_highlight=True,
                     category="entity",
-                    tag_label="ΟΝΤΟΤΗΤΑ",
+                    tag_label="ENTITY",
                     badge_class="badge-entity-strong",
-                    tooltip="Ισχυρή Οντότητα (Strong Entity): Αυτοτελής δραστηριότητα με μοναδικό αριθμό.",
+                    tooltip="Strong Entity: Autonomous project with a unique number.",
                 ),
-                TextSegment(text=" που υλοποιεί."),
+                TextSegment(text=" it implements."),
             ],
             accent_border_color=None,
         ),
         Paragraph(
             segments=[
-                TextSegment(text="Κάθε <strong>ερευνητική μονάδα</strong> έχει έναν "),
+                TextSegment(text="Each <strong>research unit</strong> has a "),
                 TextSegment(
-                    text="μοναδικό κωδικό",
+                    text="unique code",
                     is_highlight=True,
                     category="key",
                     tag_label="PK",
                     badge_class="badge-key-pk",
-                    tooltip="Πρωτεύον Κλειδί (Primary Key): Μοναδικός τεχνητός αναγνωριστικός κωδικός.",
+                    tooltip="Primary Key: Unique artificial identifier code.",
                 ),
-                TextSegment(text=", ένα "),
+                TextSegment(text=", a "),
                 TextSegment(
-                    text="μοναδικό όνομα",
+                    text="unique name",
                     is_highlight=True,
                     category="key",
                     tag_label="CANDIDATE KEY",
                     badge_class="badge-key-candidate",
-                    tooltip="Υποψήφιο Κλειδί (Candidate Key): Εναλλακτικό μοναδικό αλφαριθμητικό πεδίο.",
+                    tooltip="Candidate Key: Alternative unique alphanumeric name.",
                 ),
-                TextSegment(text=" και έναν συγκεκριμένο ερευνητή που είναι "),
+                TextSegment(text=" and a specific researcher who is "),
                 TextSegment(
-                    text="επιστημονικά υπεύθυνος",
+                    text="scientifically responsible",
                     is_highlight=True,
                     category="rel",
-                    tag_label="ΣΧΕΣΗ 1:1",
+                    tag_label="RELATIONSHIP 1:1",
                     badge_class="badge-rel",
-                    tooltip="Σχέση 1:1 μεταξύ Ερευνητή & Μονάδας (Ολική συμμετοχή μονάδας, μερική ερευνητή).",
+                    tooltip="1:1 Relationship between Researcher & Unit (Total participation for unit, partial for researcher).",
                 ),
-                TextSegment(text=" για αυτήν. Για κάθε υπεύθυνο καταγράφεται η "),
+                TextSegment(text=" for it. For each person in charge, the "),
                 TextSegment(
-                    text="ημερομηνία ανάληψης καθηκόντων",
+                    text="date of taking office",
                     is_highlight=True,
                     category="attr",
-                    tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
+                    tag_label="REL ATTRIBUTE",
                     badge_class="badge-attr-simple",
-                    tooltip="Γνώρισμα Σχέσης: Περιγράφει πότε ανέλαβε καθήκοντα ο υπεύθυνος στη συγκεκριμένη μονάδα.",
+                    tooltip="Relationship Attribute: Describes when the supervisor took office in the specific unit.",
                 ),
-                TextSegment(text=". Οι ερευνητικές μονάδες διαθέτουν "),
+                TextSegment(text=" is recorded. The research units have "),
                 TextSegment(
-                    text="εγκαταστάσεις σε διάφορες γεωγραφικές περιοχές",
+                    text="facilities located in various geographic areas",
                     is_highlight=True,
                     category="attr",
-                    tag_label="ΠΛΕΙΟΤΙΜΟ",
+                    tag_label="MULTIVALUED",
                     badge_class="badge-attr-multi",
-                    tooltip="Πλειότιμο Γνώρισμα (Multi-valued): Μία μονάδα μπορεί να έχει πολλαπλές εγκαταστάσεις.",
+                    tooltip="Multivalued Attribute: A unit can have multiple facility locations.",
                 ),
                 TextSegment(text="."),
             ],
@@ -115,41 +115,41 @@ def createResearchInstituteScenario() -> Scenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="Κάθε ερευνητική μονάδα "),
+                TextSegment(text="Each research unit "),
                 TextSegment(
-                    text="υλοποιεί",
+                    text="implements",
                     is_highlight=True,
                     category="rel",
-                    tag_label="ΣΧΕΣΗ 1:N",
+                    tag_label="RELATIONSHIP 1:N",
                     badge_class="badge-rel",
-                    tooltip="Σχέση 1:N μεταξύ Μονάδας & Έργων (Μία μονάδα υλοποιεί πολλά έργα, κάθε έργο ανήκει σε 1 μονάδα).",
+                    tooltip="1:N Relationship between Unit & Projects (A unit implements many projects, each project belongs to 1 unit).",
                 ),
-                TextSegment(text=" πολλά ερευνητικά έργα. Κάθε έργο έχει έναν "),
+                TextSegment(text=" many research projects. Each project has a "),
                 TextSegment(
-                    text="μοναδικό αριθμό",
+                    text="unique number",
                     is_highlight=True,
                     category="key",
                     tag_label="PK",
                     badge_class="badge-key-pk",
-                    tooltip="Πρωτεύον Κλειδί (Primary Key): Μοναδικό αναγνωριστικό αριθμητικό πεδίο έργου.",
+                    tooltip="Primary Key: Unique numeric identifier for the project.",
                 ),
-                TextSegment(text=", μια "),
+                TextSegment(text=", a "),
                 TextSegment(
-                    text="μοναδική ονομασία",
+                    text="unique title",
                     is_highlight=True,
                     category="key",
                     tag_label="CANDIDATE KEY",
                     badge_class="badge-key-candidate",
-                    tooltip="Υποψήφιο Κλειδί (Candidate Key): Εναλλακτικό μοναδικό όνομα έργου.",
+                    tooltip="Candidate Key: Alternative unique project title.",
                 ),
-                TextSegment(text=" και πραγματοποιείται σε "),
+                TextSegment(text=" and takes place in a "),
                 TextSegment(
-                    text="συγκεκριμένο χώρο",
+                    text="specific venue",
                     is_highlight=True,
                     category="attr",
-                    tag_label="ΓΝΩΡΙΣΜΑ",
+                    tag_label="ATTRIBUTE",
                     badge_class="badge-attr-simple",
-                    tooltip="Απλό Μονότιμο Γνώρισμα: Περιγράφει τον χώρο υλοποίησης του έργου.",
+                    tooltip="Simple Single-valued Attribute: Describes the location/facility where the project is conducted.",
                 ),
                 TextSegment(text="."),
             ],
@@ -157,64 +157,64 @@ def createResearchInstituteScenario() -> Scenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="Για κάθε ερευνητή καταγράφονται τα εξής στοιχεία: "),
-                TextSegment(text="όνομα", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="For each researcher, the following data are recorded: "),
+                TextSegment(text="first name", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
-                TextSegment(text="επώνυμο", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="last name", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
                 TextSegment(
-                    text="αριθμός ταυτότητας (ΑΔΤ)",
+                    text="ID number",
                     is_highlight=True,
                     category="key",
                     tag_label="PK",
                     badge_class="badge-key-pk",
-                    tooltip="Πρωτεύον Κλειδί (Primary Key): Μοναδικό φυσικό/κρατικό αναγνωριστικό ερευνητή.",
+                    tooltip="Primary Key: Unique national identification card number.",
                 ),
                 TextSegment(text=", "),
-                TextSegment(text="επιστημονικό πεδίο", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="scientific field", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
                 TextSegment(
-                    text="διεύθυνση κατοικίας",
+                    text="residential address",
                     is_highlight=True,
                     category="attr",
-                    tag_label="ΣΥΝΘΕΤΟ",
+                    tag_label="COMPOSITE",
                     badge_class="badge-attr-composite",
-                    tooltip="Σύνθετο Γνώρισμα (Composite): Διασπάται σε Οδός, Αριθμός, ΤΚ, Πόλη.",
+                    tooltip="Composite Attribute: Decomposed into Street, Number, Postal Code, City.",
                 ),
                 TextSegment(text=", "),
-                TextSegment(text="μηνιαίες αποδοχές", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="monthly salary", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
-                TextSegment(text="φύλο", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
-                TextSegment(text=" και "),
-                TextSegment(text="ημερομηνία γέννησης", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
-                TextSegment(text=". Κάθε ερευνητής "),
+                TextSegment(text="gender", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
+                TextSegment(text=" and "),
+                TextSegment(text="date of birth", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
+                TextSegment(text=". Each researcher "),
                 TextSegment(
-                    text="ανήκει",
+                    text="belongs",
                     is_highlight=True,
                     category="rel",
-                    tag_label="ΣΧΕΣΗ 1:N",
+                    tag_label="RELATIONSHIP 1:N",
                     badge_class="badge-rel",
-                    tooltip="Σχέση 1:N (Μονάδα -> Ερευνητής): Κάθε ερευνητής ανήκει σε 1 μονάδα, η μονάδα απασχολεί πολλούς.",
+                    tooltip="1:N Relationship (Unit -> Researcher): Each researcher belongs to 1 unit; the unit employs many.",
                 ),
-                TextSegment(text=" σε μία συγκεκριμένη ερευνητική μονάδα, αλλά μπορεί να "),
+                TextSegment(text=" to a specific research unit, but may "),
                 TextSegment(
-                    text="συμμετέχει",
+                    text="participate",
                     is_highlight=True,
                     category="rel",
-                    tag_label="ΣΧΕΣΗ N:M",
+                    tag_label="RELATIONSHIP N:M",
                     badge_class="badge-rel",
-                    tooltip="Σχέση N:M μεταξύ Ερευνητή & Έργου: Πολλοί ερευνητές εργάζονται σε πολλά έργα.",
+                    tooltip="N:M Relationship between Researcher & Project: Multiple researchers work on multiple projects.",
                 ),
                 TextSegment(
-                    text=" στην υλοποίηση πολλών ερευνητικών έργων, ακόμη και αν αυτά υλοποιούνται από άλλες μονάδες. Για κάθε συμμετοχή καταγράφεται ο "
+                    text=" in the implementation of many research projects, even if those are implemented by other units. For each participation, the "
                 ),
                 TextSegment(
-                    text="αριθμός ωρών απασχόλησης ανά εβδομάδα",
+                    text="number of working hours per week",
                     is_highlight=True,
                     category="attr",
-                    tag_label="ΓΝΩΡΙΣΜΑ ΣΧΕΣΗΣ",
+                    tag_label="REL ATTRIBUTE",
                     badge_class="badge-attr-simple",
-                    tooltip="Γνώρισμα Σχέσης: Εξαρτάται ταυτόχρονα από τον συγκεκριμένο ερευνητή και το έργο.",
+                    tooltip="Relationship Attribute: Depends jointly on the researcher and the project.",
                 ),
                 TextSegment(text="."),
             ],
@@ -222,30 +222,30 @@ def createResearchInstituteScenario() -> Scenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="Για κάθε ερευνητή καταγράφονται επίσης τα "),
+                TextSegment(text="For each researcher, the "),
                 TextSegment(
-                    text="εξαρτώμενα μέλη",
+                    text="dependent members",
                     is_highlight=True,
                     category="entity",
-                    tag_label="ΑΣΘΕΝΗΣ ΟΝΤΟΤΗΤΑ",
+                    tag_label="WEAK ENTITY",
                     badge_class="badge-entity-weak",
-                    tooltip="Ασθενής Οντότητα (Weak Entity): Εξαρτάται υπαρκτικά από τον Ερευνητή και δεν έχει αυτόνομο PK.",
+                    tooltip="Weak Entity: Existence-dependent on the Researcher, without an independent PK.",
                 ),
-                TextSegment(text=" της οικογένειάς του. Τα στοιχεία που διατηρούνται είναι: "),
+                TextSegment(text=" of his/her family are also recorded. The data kept are: "),
                 TextSegment(
-                    text="όνομα",
+                    text="name",
                     is_highlight=True,
                     category="key",
                     tag_label="PARTIAL KEY",
                     badge_class="badge-key-partial",
-                    tooltip="Μερικό Κλειδί (Partial Key / Discriminator): Διακρίνει τα μέλη της ίδιας οικογένειας.",
+                    tooltip="Partial Key (Discriminator): Distinguishes members of the same family.",
                 ),
                 TextSegment(text=", "),
-                TextSegment(text="φύλο", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="gender", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
                 TextSegment(text=", "),
-                TextSegment(text="ημερομηνία γέννησης", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
-                TextSegment(text=" και "),
-                TextSegment(text="συγγενική σχέση", is_highlight=True, category="attr", tag_label="ΓΝΩΡΙΣΜΑ", badge_class="badge-attr-simple"),
+                TextSegment(text="date of birth", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
+                TextSegment(text=" and "),
+                TextSegment(text="family relationship", is_highlight=True, category="attr", tag_label="ATTRIBUTE", badge_class="badge-attr-simple"),
                 TextSegment(text="."),
             ],
             accent_border_color="border-purple-500",
@@ -255,77 +255,77 @@ def createResearchInstituteScenario() -> Scenario:
     # 2. Entity Definitions with Justifications & Full Attributes Breakdown
     entities = [
         Entity(
-            name="ΕΡΕΥΝΗΤΙΚΗ ΜΟΝΑΔΑ",
-            entity_type="Ισχυρή Οντότητα (Strong Entity)",
+            name="RESEARCH_UNIT",
+            entity_type="Strong Entity",
             is_weak=False,
             justification=(
-                "Περιγράφει αυτοτελές διοικητικό/οργανωτικό τμήμα του ιδρύματος. "
-                "Είναι ισχυρή διότι διαθέτει δικό της μοναδικό αναγνωριστικό (Κωδικός_Μονάδας) "
-                "και δεν εξαρτάται υπαρκτικά από άλλη οντότητα."
+                "Describes an autonomous administrative/organizational department of the institute. "
+                "It is strong because it possesses its own unique identifier (unit_code) "
+                "and is not existence-dependent on another entity."
             ),
             attributes=[
-                Attribute(name="Κωδικός_Μονάδας", attr_type="Απλό, Μονότιμο, Γνώρισμα-Κλειδί (Primary Key)", is_pk=True),
-                Attribute(name="Όνομα_Μονάδας", attr_type="Απλό, Μονότιμο, Υποψήφιο Κλειδί (Candidate Key)", is_candidate=True),
+                Attribute(name="unit_code", attr_type="Simple, Single-valued (Primary Key)", is_pk=True),
+                Attribute(name="unit_name", attr_type="Simple, Single-valued (Candidate Key)", is_candidate=True),
                 Attribute(
-                    name="Εγκαταστάσεις / Γεωγραφικές Περιοχές",
-                    attr_type="Πλειότιμο Γνώρισμα (Multi-valued)",
-                    notes="Το κείμενο αναφέρει «σε διάφορες γεωγραφικές περιοχές», άρα μία μονάδα έχει πολλαπλές εγκαταστάσεις.",
+                    name="facilities",
+                    attr_type="Multivalued Attribute",
+                    notes="The problem text notes 'facilities located in various geographic areas', thus a unit has multiple facility locations.",
                 ),
             ],
         ),
         Entity(
-            name="ΕΡΕΥΝΗΤΙΚΟ ΕΡΓΟ",
-            entity_type="Ισχυρή Οντότητα (Strong Entity)",
+            name="RESEARCH_PROJECT",
+            entity_type="Strong Entity",
             is_weak=False,
             justification=(
-                "Αυτοτελής οντότητα που περιγράφει ένα ερευνητικό project με δικό της μοναδικό "
-                "αναγνωριστικό (Αριθμός_Έργου) και αυτόνομη υπόσταση."
+                "Autonomous entity describing a research project with its own unique "
+                "identifier (project_number) and independent existence."
             ),
             attributes=[
-                Attribute(name="Αριθμός_Έργου", attr_type="Απλό, Μονότιμο, Γνώρισμα-Κλειδί (Primary Key)", is_pk=True),
-                Attribute(name="Ονομασία_Έργου", attr_type="Απλό, Μονότιμο, Υποψήφιο Κλειδί (Candidate Key)", is_candidate=True),
-                Attribute(name="Χώρος_Πραγματοποίησης", attr_type="Απλό, Μονότιμο Γνώρισμα", notes="Προσδιορίζει την τοποθεσία/εργαστήριο διεξαγωγής."),
+                Attribute(name="project_number", attr_type="Simple, Single-valued (Primary Key)", is_pk=True),
+                Attribute(name="project_title", attr_type="Simple, Single-valued (Candidate Key)", is_candidate=True),
+                Attribute(name="venue", attr_type="Simple, Single-valued", notes="Specifies the implementation location/laboratory."),
             ],
         ),
         Entity(
-            name="ΕΡΕΥΝΗΤΗΣ",
-            entity_type="Ισχυρή Οντότητα (Strong Entity)",
+            name="RESEARCHER",
+            entity_type="Strong Entity",
             is_weak=False,
             justification=(
-                "Φυσικό πρόσωπο που εργάζεται στο ίδρυμα με αυτοτελή υπόσταση και παγκόσμια "
-                "μοναδικό κρατικό αναγνωριστικό (ΑΔΤ)."
+                "Natural person working at the institute with autonomous existence and a globally "
+                "unique national ID number (id_number)."
             ),
             attributes=[
-                Attribute(name="ΑΔΤ", attr_type="Απλό, Μονότιμο, Γνώρισμα-Κλειδί (Primary Key)", is_pk=True),
-                Attribute(name="Όνομα", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Επώνυμο", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Επιστημονικό Πεδίο", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Μηνιαίες Αποδοχές", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Φύλο", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Ημερομηνία Γέννησης", attr_type="Απλό, Μονότιμο"),
+                Attribute(name="id_number", attr_type="Simple, Single-valued (Primary Key)", is_pk=True),
+                Attribute(name="first_name", attr_type="Simple, Single-valued"),
+                Attribute(name="last_name", attr_type="Simple, Single-valued"),
+                Attribute(name="scientific_field", attr_type="Simple, Single-valued"),
+                Attribute(name="monthly_salary", attr_type="Simple, Single-valued"),
+                Attribute(name="gender", attr_type="Simple, Single-valued"),
+                Attribute(name="birth_date", attr_type="Simple, Single-valued"),
                 Attribute(
-                    name="Διεύθυνση Κατοικίας",
-                    attr_type="Σύνθετο Γνώρισμα (Composite)",
-                    components=["Οδός", "Αριθμός", "ΤΚ", "Πόλη"],
-                    notes="Αναλύεται στα επιμέρους ατομικά γνωρίσματα κατά τη σχεδίαση.",
+                    name="residential_address",
+                    attr_type="Composite Attribute",
+                    components=["street", "number", "postal_code", "city"],
+                    notes="Decomposed into atomic attributes during relational schema design.",
                 ),
             ],
         ),
         Entity(
-            name="ΕΞΑΡΤΩΜΕΝΟ ΜΕΛΟΣ",
-            entity_type="Ασθενής Οντότητα (Weak Entity)",
+            name="DEPENDENT",
+            entity_type="Weak Entity",
             is_weak=True,
-            owner_entity="ΕΡΕΥΝΗΤΗΣ",
+            owner_entity="RESEARCHER",
             justification=(
-                "Ασθενής οντότητα καθώς δεν διαθέτει δικό της πλήρες μοναδικό κλειδί "
-                "(το όνομα μόνο του δεν εξασφαλίζει μοναδικότητα πανελλαδικά) και εξαρτάται υπαρκτικά "
-                "από τον Ερευνητή (αν διαγραφεί ο ερευνητής, διαγράφονται και τα εξαρτώμενα μέλη)."
+                "Weak entity lacking a complete independent key "
+                "(name alone is not globally unique) and existence-dependent "
+                "on RESEARCHER (deleting the researcher cascades to dependents)."
             ),
             attributes=[
-                Attribute(name="Όνομα_Μέλους", attr_type="Απλό, Μονότιμο, Μερικό Κλειδί / Διακριτικό (Partial Key)", is_partial=True),
-                Attribute(name="Φύλο", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Ημερομηνία Γέννησης", attr_type="Απλό, Μονότιμο"),
-                Attribute(name="Συγγενική Σχέση", attr_type="Απλό, Μονότιμο"),
+                Attribute(name="dependent_name", attr_type="Partial Key (Discriminator)", is_partial=True),
+                Attribute(name="gender", attr_type="Simple, Single-valued"),
+                Attribute(name="birth_date", attr_type="Simple, Single-valued"),
+                Attribute(name="family_relationship", attr_type="Simple, Single-valued"),
             ],
         ),
     ]
@@ -333,49 +333,49 @@ def createResearchInstituteScenario() -> Scenario:
     # 3. Relationship Attributes
     relationship_attributes = [
         RelationshipAttribute(
-            name="Ημερομηνία_Ανάληψης_Καθηκόντων",
-            relationship_name="ΥΠΕΥΘΥΝΟΣ (1:1)",
-            justification="Περιγράφει τη χρονική στιγμή που ο συγκεκριμένος ερευνητής ανέλαβε ως υπεύθυνος στη συγκεκριμένη μονάδα.",
+            name="date_appointed",
+            relationship_name="HEADED_BY (1:1)",
+            justification="Records the timestamp when the specific researcher was appointed head of the unit.",
         ),
         RelationshipAttribute(
-            name="Ώρες_Απασχόλησης_Ανά_Εβδομάδα",
-            relationship_name="ΣΥΜΜΕΤΕΧΕΙ (N:M)",
-            justification="Εξαρτάται ταυτόχρονα από το ζεύγος (Ερευνητής, Έργο), καθώς ο ίδιος ερευνητής αφιερώνει διαφορετικές ώρες σε κάθε έργο.",
+            name="weekly_hours",
+            relationship_name="PARTICIPATES_IN (N:M)",
+            justification="Jointly depends on the pair (Researcher, Project), as a researcher commits different hours to each project.",
         ),
     ]
 
     # 4. Keys Analysis Table
     keys_analysis = [
         KeyAnalysisRow(
-            entity_name="ΕΡΕΥΝΗΤΙΚΗ ΜΟΝΑΔΑ",
+            entity_name="RESEARCH_UNIT",
             key_count="2",
-            key_types="Υποψήφια: {Κωδικός_Μονάδας}, {Όνομα_Μονάδας}",
-            final_pk_selection="Κωδικός_Μονάδας",
-            justification="Προτιμάται ο σύντομος, σταθερός αριθμητικός/αλφαριθμητικός τεχνητός κωδικός έναντι του ευμετάβλητου ονόματος.",
+            key_types="Candidates: {unit_code}, {unit_name}",
+            final_pk_selection="unit_code",
+            justification="Compact, stable artificial numeric/alphanumeric code preferred over mutable name.",
             is_weak=False,
         ),
         KeyAnalysisRow(
-            entity_name="ΕΡΕΥΝΗΤΙΚΟ ΕΡΓΟ",
+            entity_name="RESEARCH_PROJECT",
             key_count="2",
-            key_types="Υποψήφια: {Αριθμός_Έργου}, {Ονομασία_Έργου}",
-            final_pk_selection="Αριθμός_Έργου",
-            justification="Σύντομο, μοναδικό αναγνωριστικό που δεν μεταβάλλεται κατά τη διάρκεια ζωής του έργου.",
+            key_types="Candidates: {project_number}, {project_title}",
+            final_pk_selection="project_number",
+            justification="Short, unique identifier unchanged throughout the project lifecycle.",
             is_weak=False,
         ),
         KeyAnalysisRow(
-            entity_name="ΕΡΕΥΝΗΤΗΣ",
+            entity_name="RESEARCHER",
             key_count="1",
-            key_types="Υποψήφιο: {ΑΔΤ}",
-            final_pk_selection="ΑΔΤ",
-            justification="Επίσημο κρατικό μοναδικό αναγνωριστικό φυσικού προσώπου.",
+            key_types="Candidate: {id_number}",
+            final_pk_selection="id_number",
+            justification="Official government-issued unique person identification number.",
             is_weak=False,
         ),
         KeyAnalysisRow(
-            entity_name="ΕΞΑΡΤΩΜΕΝΟ ΜΕΛΟΣ",
-            key_count="0 (Ασθενής Οντότητα / Μερικό Κλειδί)",
-            key_types="Μερικό Κλειδί: {Όνομα_Μέλους}",
-            final_pk_selection="{ΑΔΤ_Ερευνητή, Όνομα_Μέλους}",
-            justification="Σύνθετο Πρωτεύον Κλειδί στη σχεσιακή υλοποίηση (συνδυασμός PK ιδιοκτήτη + Partial Key).",
+            entity_name="DEPENDENT",
+            key_count="0 (Weak Entity / Partial Key)",
+            key_types="Partial Key: {dependent_name}",
+            final_pk_selection="{researcher_id, dependent_name}",
+            justification="Composite Primary Key in relational mapping (combines Owner PK + Partial Key).",
             is_weak=True,
         ),
     ]
@@ -383,158 +383,158 @@ def createResearchInstituteScenario() -> Scenario:
     # 5. Relationships & Cardinalities
     relationships = [
         Relationship(
-            letter_id="α",
-            name="ΥΠΕΥΘΥΝΟΣ",
-            connected_entities="Ερευνητής <-> Ερευνητική Μονάδα",
+            letter_id="a",
+            name="HEADED_BY",
+            connected_entities="Researcher <-> Research Unit",
             cardinality="1:1",
-            participation="Ολική για Μονάδα, Μερική για Ερευνητή",
-            relationship_type="Κανονική Σχέση",
-            attributes=["Ημερομηνία_Ανάληψης_Καθηκόντων"],
+            participation="Total for Unit, Partial for Researcher",
+            relationship_type="Regular Relationship",
+            attributes=["date_appointed"],
             justification=(
-                "• Μονάδα -> Ερευνητής (1): «έναν συγκεκριμένο ερευνητή που είναι επιστημονικά υπεύθυνος». "
-                "• Ερευνητής -> Μονάδα (1): Παραδοχή ότι ένας ερευνητής διευθύνει το πολύ μία μονάδα."
+                "• Unit -> Researcher (1): 'a specific researcher who is scientifically responsible for it'. "
+                "• Researcher -> Unit (1): Design assumption that a researcher heads at most 1 unit."
             ),
         ),
         Relationship(
-            letter_id="β",
-            name="ΥΛΟΠΟΙΕΙ",
-            connected_entities="Ερευνητική Μονάδα <-> Ερευνητικό Έργο",
+            letter_id="b",
+            name="IMPLEMENTS",
+            connected_entities="Research Unit <-> Research Project",
             cardinality="1:N",
-            participation="Ολική για το Έργο",
-            relationship_type="Κανονική Σχέση",
+            participation="Total for Project",
+            relationship_type="Regular Relationship",
             attributes=[],
             justification=(
-                "• Μονάδα -> Έργο (N): «Κάθε ερευνητική μονάδα υλοποιεί πολλά ερευνητικά έργα». "
-                "• Έργο -> Μονάδα (1): Κάθε έργο υπάγεται σε 1 υπεύθυνη μονάδα υλοποίησης."
+                "• Unit -> Project (N): 'Each research unit implements many research projects'. "
+                "• Project -> Unit (1): Each project is administered by 1 managing research unit."
             ),
         ),
         Relationship(
-            letter_id="γ",
-            name="ΑΝΗΚΕΙ / ΑΠΑΣΧΟΛΕΙ",
-            connected_entities="Ερευνητής <-> Ερευνητική Μονάδα",
+            letter_id="c",
+            name="BELONGS_TO",
+            connected_entities="Researcher <-> Research Unit",
             cardinality="1:N",
-            participation="Ολική για τον Ερευνητή",
-            relationship_type="Κανονική Σχέση",
+            participation="Total for Researcher",
+            relationship_type="Regular Relationship",
             attributes=[],
             justification=(
-                "• Ερευνητής -> Μονάδα (1): «Κάθε ερευνητής ανήκει σε μία συγκεκριμένη ερευνητική μονάδα». "
-                "• Μονάδα -> Ερευνητής (N): Μία μονάδα απασχολεί πολλούς ερευνητές."
+                "• Researcher -> Unit (1): 'Each researcher belongs to a specific research unit'. "
+                "• Unit -> Researcher (N): A unit employs multiple researchers."
             ),
         ),
         Relationship(
-            letter_id="δ",
-            name="ΣΥΜΜΕΤΕΧΕΙ",
-            connected_entities="Ερευνητής <-> Ερευνητικό Έργο",
+            letter_id="d",
+            name="PARTICIPATES_IN",
+            connected_entities="Researcher <-> Research Project",
             cardinality="N:M",
-            participation="Μερική και για τις δύο πλευρές",
-            relationship_type="Κανονική Σχέση (Junction)",
-            attributes=["Ώρες_Απασχόλησης_Ανά_Εβδομάδα"],
+            participation="Partial for both sides",
+            relationship_type="Regular Relationship (Junction)",
+            attributes=["weekly_hours"],
             justification=(
-                "• Ερευνητής -> Έργο (M): «μπορεί να συμμετέχει στην υλοποίηση πολλών ερευνητικών έργων». "
-                "• Έργο -> Ερευνητής (N): Ένα έργο υλοποιείται από ομάδα πολλών ερευνητών."
+                "• Researcher -> Project (M): 'may participate in the implementation of many research projects'. "
+                "• Project -> Researcher (N): A project is implemented by a team of multiple researchers."
             ),
         ),
         Relationship(
-            letter_id="ε",
-            name="ΔΙΑΤΗΡΕΙ / ΕΧΕΙ",
-            connected_entities="Ερευνητής <-> Εξαρτώμενο Μέλος",
+            letter_id="e",
+            name="HAS_DEPENDENT",
+            connected_entities="Researcher <-> Dependent",
             cardinality="1:N",
-            participation="Ολική για το Εξαρτώμενο Μέλος",
-            relationship_type="Ταυτοποιούσα Σχέση (Identifying Relationship)",
+            participation="Total for Dependent",
+            relationship_type="Identifying Relationship",
             attributes=[],
             justification=(
-                "Ένας ερευνητής μπορεί να έχει 0, 1 ή N εξαρτώμενα μέλη. "
-                "Κάθε μέλος ανήκει υποχρεωτικά σε 1 συγκεκριμένο ερευνητή-κηδεμόνα."
+                "A researcher may have 0, 1, or N dependents. "
+                "Each dependent belongs mandatorily to 1 specific researcher-guardian."
             ),
         ),
     ]
 
     # 6. Design Assumptions
     assumptions = [
-        "Διεύθυνση Κατοικίας: Υποθέτουμε ότι αναλύεται σε επιμέρους γνωρίσματα (Οδός, Αριθμός, ΤΚ, Πόλη) κατά τη σχεδίαση, άρα θεωρείται σύνθετο γνώρισμα.",
-        "Επιστημονικό Πεδίο: Υποθέτουμε ότι κάθε ερευνητής δηλώνει ένα κύριο επιστημονικό πεδίο (μονότιμο).",
-        "Επιστημονικά Υπεύθυνος: Υποθέτουμε ότι ένας ερευνητής δεν μπορεί να είναι υπεύθυνος σε περισσότερες από μία μονάδες ταυτόχρονα (λόγος 1:1).",
-        "Εγκαταστάσεις Μονάδας: Εξάγονται σε ξεχωριστό πίνακα (ΕΓΚΑΤΑΣΤΑΣΗ_ΜΟΝΑΔΑΣ) για εξασφάλιση 1ης Κανονικής Μορφής (1NF).",
+        "Residential Address: Assumed to be decomposed into atomic attributes (Street, Number, Postal Code, City), hence modeled as composite.",
+        "Scientific Field: Assumed that each researcher declares one primary scientific field (single-valued).",
+        "Scientific Supervisor: Assumed that a researcher cannot be head of more than one unit simultaneously (1:1 ratio).",
+        "Unit Facilities: Extracted into a separate table (UNIT_FACILITY) to satisfy First Normal Form (1NF).",
     ]
 
     # 7. ER Diagram Tables
     er_tables = [
         ERTable(
             id="unit",
-            label="ΕΡΕΥΝΗΤΙΚΗ_ΜΟΝΑΔΑ",
+            label="RESEARCH_UNIT",
             x=50,
             y=150,
             attrs=[
-                ERTableAttr(name="Κωδικός_Μονάδας", pk=True),
-                ERTableAttr(name="Όνομα_Μονάδας"),
-                ERTableAttr(name="Υπεύθυνος_ΑΔΤ", fk=True),
-                ERTableAttr(name="Ημερ_Ανάληψης_Υπευθ"),
+                ERTableAttr(name="unit_code", pk=True),
+                ERTableAttr(name="unit_name"),
+                ERTableAttr(name="head_id", fk=True),
+                ERTableAttr(name="date_appointed"),
             ],
         ),
         ERTable(
             id="facility",
-            label="ΕΓΚΑΤΑΣΤΑΣΗ_ΜΟΝΑΔΑΣ",
+            label="UNIT_FACILITY",
             x=50,
             y=450,
             attrs=[
-                ERTableAttr(name="Κωδικός_Μονάδας", pk=True, fk=True),
-                ERTableAttr(name="Τοποθεσία_Εγκατάστασης", pk=True),
+                ERTableAttr(name="unit_code", pk=True, fk=True),
+                ERTableAttr(name="facility_location", pk=True),
             ],
         ),
         ERTable(
             id="researcher",
-            label="ΕΡΕΥΝΗΤΗΣ",
+            label="RESEARCHER",
             x=430,
             y=50,
             attrs=[
-                ERTableAttr(name="ΑΔΤ", pk=True),
-                ERTableAttr(name="Όνομα"),
-                ERTableAttr(name="Επώνυμο"),
-                ERTableAttr(name="Επιστημονικό_Πεδίο"),
-                ERTableAttr(name="Μηνιαίες_Αποδοχές"),
-                ERTableAttr(name="Φύλο"),
-                ERTableAttr(name="Ημερ_Γέννησης"),
-                ERTableAttr(name="Οδός_Κατοικίας"),
-                ERTableAttr(name="Αριθμός_Κατοικίας"),
-                ERTableAttr(name="ΤΚ_Κατοικίας"),
-                ERTableAttr(name="Πόλη_Κατοικίας"),
-                ERTableAttr(name="Κωδ_Μονάδας_Ανήκει", fk=True),
+                ERTableAttr(name="id_number", pk=True),
+                ERTableAttr(name="first_name"),
+                ERTableAttr(name="last_name"),
+                ERTableAttr(name="scientific_field"),
+                ERTableAttr(name="monthly_salary"),
+                ERTableAttr(name="gender"),
+                ERTableAttr(name="birth_date"),
+                ERTableAttr(name="street"),
+                ERTableAttr(name="street_number"),
+                ERTableAttr(name="postal_code"),
+                ERTableAttr(name="city"),
+                ERTableAttr(name="unit_code", fk=True),
             ],
         ),
         ERTable(
             id="dependent",
-            label="ΕΞΑΡΤΩΜΕΝΟ_ΜΕΛΟΣ",
+            label="DEPENDENT",
             x=430,
             y=530,
             attrs=[
-                ERTableAttr(name="Ερευνητής_ΑΔΤ", pk=True, fk=True),
-                ERTableAttr(name="Όνομα_Μέλους", pk=True),
-                ERTableAttr(name="Φύλο"),
-                ERTableAttr(name="Ημερ_Γέννησης"),
-                ERTableAttr(name="Συγγενική_Σχέση"),
+                ERTableAttr(name="researcher_id", pk=True, fk=True),
+                ERTableAttr(name="dependent_name", pk=True),
+                ERTableAttr(name="gender"),
+                ERTableAttr(name="birth_date"),
+                ERTableAttr(name="family_relationship"),
             ],
         ),
         ERTable(
             id="project",
-            label="ΕΡΕΥΝΗΤΙΚΟ_ΕΡΓΟ",
+            label="RESEARCH_PROJECT",
             x=810,
             y=150,
             attrs=[
-                ERTableAttr(name="Αριθμός_Έργου", pk=True),
-                ERTableAttr(name="Ονομασία_Έργου"),
-                ERTableAttr(name="Χώρος_Πραγματοποίησης"),
-                ERTableAttr(name="Κωδ_Μονάδας_Υλοπ", fk=True),
+                ERTableAttr(name="project_number", pk=True),
+                ERTableAttr(name="project_title"),
+                ERTableAttr(name="venue"),
+                ERTableAttr(name="managing_unit_code", fk=True),
             ],
         ),
         ERTable(
             id="participation",
-            label="ΣΥΜΜΕΤΟΧΗ_ΕΡΓΟΥ",
+            label="PROJECT_PARTICIPATION",
             x=810,
             y=420,
             attrs=[
-                ERTableAttr(name="Ερευνητής_ΑΔΤ", pk=True, fk=True),
-                ERTableAttr(name="Αριθμός_Έργου", pk=True, fk=True),
-                ERTableAttr(name="Ώρες_Απασχόλησης"),
+                ERTableAttr(name="researcher_id", pk=True, fk=True),
+                ERTableAttr(name="project_number", pk=True, fk=True),
+                ERTableAttr(name="weekly_hours"),
             ],
         ),
     ]
@@ -545,7 +545,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 180,150 L 180,25 L 940,25 L 940,150",
             marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
-            label="Υλοποιεί (1:N)",
+            label="Implements (1:N)",
             lx=560,
             ly=25,
         ),
@@ -553,7 +553,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 310,200 L 430,200",
             marker_start="start-one-mandatory",
             marker_end="end-one-optional",
-            label="Υπεύθυνος (1:1)",
+            label="Headed by (1:1)",
             lx=370,
             ly=190,
         ),
@@ -561,7 +561,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 310,270 L 430,270",
             marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
-            label="Ανήκει (1:N)",
+            label="Belongs to (1:N)",
             lx=370,
             ly=260,
         ),
@@ -569,7 +569,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 180,310 L 180,450",
             marker_start="start-one-mandatory",
             marker_end="end-many-mandatory",
-            label="Εγκαταστάσεις (1:N)",
+            label="Facilities (1:N)",
             lx=180,
             ly=380,
         ),
@@ -577,7 +577,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 560,434 L 560,530",
             marker_start="start-one-optional",
             marker_end="end-many-mandatory",
-            label="Διατηρεί (1:N)",
+            label="Maintains (1:N)",
             lx=560,
             ly=482,
         ),
@@ -585,7 +585,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 690,430 L 750,430 L 750,440 L 810,440",
             marker_start="start-one-optional",
             marker_end="end-many-mandatory",
-            label="Συμμετέχει (1:N)",
+            label="Participates (1:N)",
             lx=750,
             ly=415,
         ),
@@ -593,7 +593,7 @@ def createResearchInstituteScenario() -> Scenario:
             path="M 940,310 L 940,420",
             marker_start="start-one-optional",
             marker_end="end-many-mandatory",
-            label="Αφορά (1:N)",
+            label="Concerns (1:N)",
             lx=940,
             ly=365,
         ),
@@ -602,36 +602,36 @@ def createResearchInstituteScenario() -> Scenario:
     # 9. Relational Justifications
     relational_justifications = [
         RelationalJustification(
-            title="1. Επιλογή Συμβολισμού Crow's Foot:",
+            title="1. Crow's Foot Notation Selection:",
             color_class="text-blue-400",
             description=(
-                "Απεικονίζει άμεσα τη σχεσιακή δομή (πίνακες). Οι οντότητες εμφανίζονται με τα γνωρίσματά τους "
-                "ως στήλες και σαφή διαχωρισμό των Primary Keys (PK) και Foreign Keys (FK)."
+                "Directly represents the relational table schema. Entities appear with their attributes "
+                "as columns, providing a clear distinction between Primary Keys (PK) and Foreign Keys (FK)."
             ),
         ),
         RelationalJustification(
-            title="2. Επίλυση Σχέσεων N:M (Junction Tables):",
+            title="2. N:M Relationships Resolution (Junction Tables):",
             color_class="text-purple-400",
             description=(
-                "Η σχέση ΣΥΜΜΕΤΕΧΕΙ μεταξύ Ερευνητή και Έργου διασπάστηκε στον ενδιάμεσο πίνακα "
-                "ΣΥΜΜΕΤΟΧΗ_ΕΡΓΟΥ με σύνθετο Πρωτεύον Κλειδί που αποτελείται από τα δύο Ξένα Κλειδιά, "
-                "φιλοξενώντας και το γνώρισμα Ώρες_Απασχόλησης."
+                "The PARTICIPATES_IN relationship between Researcher and Project is decomposed into the intermediate "
+                "PROJECT_PARTICIPATION table with a composite Primary Key composed of both Foreign Keys, "
+                "also hosting the weekly_hours attribute."
             ),
         ),
         RelationalJustification(
-            title="3. Πλειότιμα Γνωρίσματα (Multivalued):",
+            title="3. Multivalued Attributes Handling:",
             color_class="text-emerald-400",
             description=(
-                "Το πλειότιμο γνώρισμα Εγκαταστάσεις εξήχθη σε ξεχωριστό πίνακα ΕΓΚΑΤΑΣΤΑΣΗ_ΜΟΝΑΔΑΣ, "
-                "εξασφαλίζοντας την 1η Κανονική Μορφή (1NF). Συνδέεται με την Ερευνητική Μονάδα με σχέση 1:N."
+                "The multivalued attribute facilities is extracted into a separate table UNIT_FACILITY, "
+                "ensuring First Normal Form (1NF). It connects to RESEARCH_UNIT via a 1:N relationship."
             ),
         ),
         RelationalJustification(
-            title="4. Τοποθέτηση Ξένων Κλειδιών (FKs):",
+            title="4. Foreign Keys (FK) Placement:",
             color_class="text-rose-400",
             description=(
-                "Στις σχέσεις 1:N (όπως Ανήκει και Διατηρεί), το FK τοποθετήθηκε στην πλευρά του 'N'. "
-                "Στη σχέση 1:1 (Υπεύθυνος), το FK τοποθετήθηκε στη Μονάδα, μαζί με την Ημερομηνία_Ανάληψης."
+                "In 1:N relationships (such as Belongs to and Maintains), the FK is placed on the 'N' side. "
+                "In the 1:1 relationship (Headed by), the FK is placed in RESEARCH_UNIT together with date_appointed."
             ),
         ),
     ]
@@ -641,86 +641,86 @@ def createResearchInstituteScenario() -> Scenario:
 -- SQL DDL Schema: Research Institute Database (Chen -> Relational)
 -- ==========================================================
 
--- 1. Table: ΕΡΕΥΝΗΤΙΚΗ_ΜΟΝΑΔΑ
-CREATE TABLE EREVNTIKI_MONADA (
-    kodikos_monadas INT PRIMARY KEY,
-    onoma_monadas VARCHAR(120) NOT NULL UNIQUE,
-    ypefthynos_adt VARCHAR(20) NOT NULL UNIQUE,
-    hmer_analipsis_ypefth DATE NOT NULL
+-- 1. Table: RESEARCH_UNIT
+CREATE TABLE RESEARCH_UNIT (
+    unit_code INT PRIMARY KEY,
+    unit_name VARCHAR(120) NOT NULL UNIQUE,
+    head_id VARCHAR(20) NOT NULL UNIQUE,
+    date_appointed DATE NOT NULL
 );
 
--- 2. Table: ΕΓΚΑΤΑΣΤΑΣΗ_ΜΟΝΑΔΑΣ (Multivalued Attribute Extraction)
-CREATE TABLE EGKATASTASI_MONADAS (
-    kodikos_monadas INT NOT NULL,
-    topothesia_egkatastasis VARCHAR(150) NOT NULL,
-    PRIMARY KEY (kodikos_monadas, topothesia_egkatastasis),
-    FOREIGN KEY (kodikos_monadas) REFERENCES EREVNTIKI_MONADA(kodikos_monadas) 
+-- 2. Table: UNIT_FACILITY (Multivalued Attribute Extraction)
+CREATE TABLE UNIT_FACILITY (
+    unit_code INT NOT NULL,
+    facility_location VARCHAR(150) NOT NULL,
+    PRIMARY KEY (unit_code, facility_location),
+    FOREIGN KEY (unit_code) REFERENCES RESEARCH_UNIT(unit_code) 
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 3. Table: ΕΡΕΥΝΗΤΗΣ
-CREATE TABLE EREVNTIS (
-    adt VARCHAR(20) PRIMARY KEY,
-    onoma VARCHAR(50) NOT NULL,
-    eponymo VARCHAR(50) NOT NULL,
-    epistimoniko_pedio VARCHAR(100) NOT NULL,
-    miniaies_apodoches DECIMAL(10, 2) NOT NULL,
-    fylo CHAR(1) CHECK (fylo IN ('M', 'F', 'O')),
-    hmer_gennisis DATE NOT NULL,
-    odos_katoikias VARCHAR(80),
-    arithmos_katoikias VARCHAR(10),
-    tk_katoikias VARCHAR(10),
-    poli_katoikias VARCHAR(50),
-    kod_monadas_anikei INT NOT NULL,
-    FOREIGN KEY (kod_monadas_anikei) REFERENCES EREVNTIKI_MONADA(kodikos_monadas)
+-- 3. Table: RESEARCHER
+CREATE TABLE RESEARCHER (
+    id_number VARCHAR(20) PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    scientific_field VARCHAR(100) NOT NULL,
+    monthly_salary DECIMAL(10, 2) NOT NULL,
+    gender CHAR(1) CHECK (gender IN ('M', 'F', 'O')),
+    birth_date DATE NOT NULL,
+    street VARCHAR(80),
+    street_number VARCHAR(10),
+    postal_code VARCHAR(10),
+    city VARCHAR(50),
+    unit_code INT NOT NULL,
+    FOREIGN KEY (unit_code) REFERENCES RESEARCH_UNIT(unit_code)
         ON UPDATE CASCADE
 );
 
--- Add Circular Foreign Key for Υπεύθυνος 1:1
-ALTER TABLE EREVNTIKI_MONADA
-    ADD CONSTRAINT fk_monada_ypefthynos
-    FOREIGN KEY (ypefthynos_adt) REFERENCES EREVNTIS(adt)
+-- Add Circular Foreign Key for Headed by 1:1
+ALTER TABLE RESEARCH_UNIT
+    ADD CONSTRAINT fk_unit_head
+    FOREIGN KEY (head_id) REFERENCES RESEARCHER(id_number)
         ON UPDATE CASCADE;
 
--- 4. Table: ΕΞΑΡΤΩΜΕΝΟ_ΜΕΛΟΣ (Weak Entity)
-CREATE TABLE EXARTOMENO_MELOS (
-    erevntis_adt VARCHAR(20) NOT NULL,
-    onoma_melous VARCHAR(50) NOT NULL,
-    fylo CHAR(1) CHECK (fylo IN ('M', 'F', 'O')),
-    hmer_gennisis DATE NOT NULL,
-    syngeniki_schesi VARCHAR(50) NOT NULL,
-    PRIMARY KEY (erevntis_adt, onoma_melous),
-    FOREIGN KEY (erevntis_adt) REFERENCES EREVNTIS(adt)
+-- 4. Table: DEPENDENT (Weak Entity)
+CREATE TABLE DEPENDENT (
+    researcher_id VARCHAR(20) NOT NULL,
+    dependent_name VARCHAR(50) NOT NULL,
+    gender CHAR(1) CHECK (gender IN ('M', 'F', 'O')),
+    birth_date DATE NOT NULL,
+    family_relationship VARCHAR(50) NOT NULL,
+    PRIMARY KEY (researcher_id, dependent_name),
+    FOREIGN KEY (researcher_id) REFERENCES RESEARCHER(id_number)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- 5. Table: ΕΡΕΥΝΗΤΙΚΟ_ΕΡΓΟ
-CREATE TABLE EREVNTIKO_ERGO (
-    arithmos_ergou INT PRIMARY KEY,
-    onomasia_ergou VARCHAR(150) NOT NULL UNIQUE,
-    choros_pragmatopoiisis VARCHAR(100) NOT NULL,
-    kod_monadas_ylop INT NOT NULL,
-    FOREIGN KEY (kod_monadas_ylop) REFERENCES EREVNTIKI_MONADA(kodikos_monadas)
+-- 5. Table: RESEARCH_PROJECT
+CREATE TABLE RESEARCH_PROJECT (
+    project_number INT PRIMARY KEY,
+    project_title VARCHAR(150) NOT NULL UNIQUE,
+    venue VARCHAR(100) NOT NULL,
+    managing_unit_code INT NOT NULL,
+    FOREIGN KEY (managing_unit_code) REFERENCES RESEARCH_UNIT(unit_code)
         ON UPDATE CASCADE
 );
 
--- 6. Table: ΣΥΜΜΕΤΟΧΗ_ΕΡΓΟΥ (N:M Junction Table)
-CREATE TABLE SYMMETOCHI_ERGOU (
-    erevntis_adt VARCHAR(20) NOT NULL,
-    arithmos_ergou INT NOT NULL,
-    ores_apascholisis DECIMAL(5, 2) NOT NULL DEFAULT 0.0,
-    PRIMARY KEY (erevntis_adt, arithmos_ergou),
-    FOREIGN KEY (erevntis_adt) REFERENCES EREVNTIS(adt)
+-- 6. Table: PROJECT_PARTICIPATION (N:M Junction Table)
+CREATE TABLE PROJECT_PARTICIPATION (
+    researcher_id VARCHAR(20) NOT NULL,
+    project_number INT NOT NULL,
+    weekly_hours DECIMAL(5, 2) NOT NULL DEFAULT 0.0,
+    PRIMARY KEY (researcher_id, project_number),
+    FOREIGN KEY (researcher_id) REFERENCES RESEARCHER(id_number)
         ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (arithmos_ergou) REFERENCES EREVNTIKO_ERGO(arithmos_ergou)
+    FOREIGN KEY (project_number) REFERENCES RESEARCH_PROJECT(project_number)
         ON DELETE CASCADE ON UPDATE CASCADE
 );"""
 
     return Scenario(
         id="research_institute",
-        title="Ερευνητικό Ίδρυμα & Έργα",
-        subtitle="Διαδραστικό Canvas Αναγνώρισης Στοιχείων, Μεθοδολογία & Πλήρες Διάγραμμα E-R",
-        course_tag="Βάσεις Δεδομένων (Μάθημα 404)",
+        title="Research Institute & Projects",
+        subtitle="Interactive Requirements Canvas, Methodology & Complete E-R Diagram",
+        course_tag="Database Systems (Course 404)",
         paragraphs=paragraphs,
         entities=entities,
         relationship_attributes=relationship_attributes,

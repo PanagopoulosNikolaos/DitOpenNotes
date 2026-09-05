@@ -79,7 +79,7 @@ Design the E-R diagram of Exercise 1 in **Mermaid.js**. Render with clarity:
 
 *solution:*
 
-![hospital-er-diagram-1](../assets/diagrams/hospital-er-diagram-1.png)
+![hospital-er-diagram-1](../../images/hospital-er-diagram-1.png)
 
 ### Exercise 3: Translation to the Relational Model
 

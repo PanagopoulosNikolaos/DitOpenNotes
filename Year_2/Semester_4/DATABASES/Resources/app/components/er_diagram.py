@@ -46,19 +46,19 @@ def renderERDiagram(scenario: Scenario) -> None:
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-diagram-project text-[var(--accent)] text-xl no-print"></i>')
-                    ui.html('<h2 class="text-xl font-bold text-[var(--text-1)] m-0">Σχεδίαση Διαγράμματος Ε-Ρ (Crow\'s Foot / Relational Schema)</h2>')
+                    ui.html('<h2 class="text-xl font-bold text-[var(--text-1)] m-0">E-R Diagram Design (Crow\'s Foot / Relational Schema)</h2>')
                 ui.label(
-                    "Πλήρης γραφική αναπαράσταση της Βάσης Δεδομένων με χρήση Crow's Foot Notation (Zoom, Pan, Dragging)."
+                    "Complete graphical representation of the database schema using Crow's Foot Notation (Zoom, Pan, Dragging)."
                 ).classes("text-xs text-[var(--text-2)] no-print")
 
             # Control buttons
             with ui.row().classes("items-center gap-2 flex-wrap text-xs no-print"):
                 ui.html(
                     """
-                    <button onclick="zoomER(1.2)" class="btn-secondary" title="Μεγέθυνση"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                    <button onclick="zoomER(0.8)" class="btn-secondary" title="Σμίκρυνση"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-                    <button onclick="resetERZoom()" class="btn-secondary"><i class="fa-solid fa-arrows-to-dot"></i> Επαναφορά</button>
-                    <button onclick="toggleERAttributes()" id="toggle-attr-btn" class="btn-secondary"><i class="fa-solid fa-eye"></i> Απόκρυψη Γνωρισμάτων</button>
+                    <button onclick="zoomER(1.2)" class="btn-secondary" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button onclick="zoomER(0.8)" class="btn-secondary" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <button onclick="resetERZoom()" class="btn-secondary"><i class="fa-solid fa-arrows-to-dot"></i> Reset</button>
+                    <button onclick="toggleERAttributes()" id="toggle-attr-btn" class="btn-secondary"><i class="fa-solid fa-eye"></i> Hide Attributes</button>
                     """,
                     sanitize=False,
                 )
@@ -69,17 +69,17 @@ def renderERDiagram(scenario: Scenario) -> None:
             ui.html(
                 """
                 <div class="absolute top-3 left-3 z-10 bg-[var(--header-bg)] backdrop-blur-md text-[var(--text-1)] p-2.5 rounded-xl border border-[var(--border)] text-xs flex flex-wrap items-center gap-3 no-print shadow-lg">
-                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-table text-blue-500"></i> Πίνακας</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-table text-blue-500"></i> Table</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-[#e06b3a] rounded-sm"></span> PK</span>
                     <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-slate-400 rounded-sm"></span> FK</span>
                     <span class="h-3 w-px bg-[var(--border)]"></span>
-                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Ακριβώς Ένα (Υποχρεωτικό 1)">|| 1..1</span>
-                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Μηδέν ή Ένα (Προαιρετικό 1)">O| 0..1</span>
-                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Ένα ή Πολλά (Υποχρεωτικά Πολλά)">&gt;| 1..N</span>
-                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Μηδέν ή Πολλά (Προαιρετικά Πολλά)">&gt;O 0..N</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Exactly One (Mandatory 1)">|| 1..1</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#e06b3a] font-bold" title="Zero or One (Optional 1)">O| 0..1</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="One or Many (Mandatory Many)">&gt;| 1..N</span>
+                    <span class="flex items-center gap-1 text-[11px] font-mono text-[#f59e0b] font-bold" title="Zero or Many (Optional Many)">&gt;O 0..N</span>
                 </div>
                 <div class="absolute bottom-3 right-3 z-10 bg-[var(--header-bg)] backdrop-blur-sm text-[var(--text-3)] px-3 py-1.5 rounded-lg text-xs flex items-center gap-2 border border-[var(--border)] no-print shadow-md">
-                    <i class="fa-solid fa-hand-pointer text-[var(--accent)]"></i> Drag για μετακίνηση • Scroll για Zoom
+                    <i class="fa-solid fa-hand-pointer text-[var(--accent)]"></i> Drag to pan • Scroll to zoom
                 </div>
                 """
             )
@@ -417,8 +417,8 @@ ui.add_head_html(
             const btn = document.getElementById('toggle-attr-btn');
             if (btn) {
                 btn.innerHTML = showAttributes ?
-                    '<i class="fa-solid fa-eye"></i> Απόκρυψη Γνωρισμάτων' :
-                    '<i class="fa-solid fa-eye-slash"></i> Εμφάνιση Γνωρισμάτων';
+                    '<i class="fa-solid fa-eye"></i> Hide Attributes' :
+                    '<i class="fa-solid fa-eye-slash"></i> Show Attributes';
             }
             initERDiagram();
         }

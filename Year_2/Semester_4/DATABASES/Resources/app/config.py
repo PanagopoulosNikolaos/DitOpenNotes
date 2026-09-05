@@ -1101,7 +1101,7 @@ THEME_HEAD_SCRIPT = """
                 icon.className = isDark ? 'fa-solid fa-sun text-[#f59e0b]' : 'fa-solid fa-moon text-[#71717a]';
             }
             if (label) {
-                label.textContent = isDark ? 'Φωτεινό' : 'Σκοτεινό';
+                label.textContent = isDark ? 'Light' : 'Dark';
             }
         }
 

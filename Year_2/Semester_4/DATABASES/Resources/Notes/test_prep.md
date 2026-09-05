@@ -2,7 +2,7 @@
 
 This test preparation guide is organized into two sections:
 - **Part I: Thematic Drill Units (Units 1–16)**: 160 exam-type practice questions covering every theoretical and computational sub-topic, each accompanied by rule notes and complete solutions.
-- **Part II: Complete Solved Real Exam Papers**: Full 10/10 model solutions for [Past_Exam_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/Past_Exam_1.md), [Past_Exam_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/Past_Exam_2.md), and all 8 realistic scenario exam papers from [synth_realistic/](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic).
+- **Part II: Complete Solved Real Exam Papers**: Full 10/10 model solutions for [Past_Exam_1.md](../../Exams/Papers/Past_Exam_1.md), [Past_Exam_2.md](../../Exams/Papers/Past_Exam_2.md), and all 8 realistic scenario exam papers from [synth_realistic/](../../Exams/Papers/synth_realistic).
 
 ---
 
@@ -2368,7 +2368,7 @@ REVOKE INSERT ON Hospital_DB.Admission FROM 'nurse_jane'@'%';
 
 ---
 
-## Solved Paper 1: Educational Institution ([Past_Exam_1.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/Past_Exam_1.md))
+## Solved Paper 1: Educational Institution ([Past_Exam_1.md](../../Exams/Papers/Past_Exam_1.md))
 
 ### Problem Text Recap
 *An educational institution maintains information about professors, faculties, and educational programs. Each faculty has a unique code, name, a director professor (with date assumed office), and multi-location facilities. Each faculty offers many programs (unique number, title, venue). For each professor: first name, last name, ID number (PK), specialty, address, monthly salary, gender, birth date. Each professor belongs to a faculty, participates in multiple programs (weekly hours recorded), and has dependent family members (name, gender, birth date, relationship).*
@@ -2520,7 +2520,7 @@ erDiagram
 
 ---
 
-## Solved Paper 2: Research Institute ([Past_Exam_2.md](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/Past_Exam_2.md))
+## Solved Paper 2: Research Institute ([Past_Exam_2.md](../../Exams/Papers/Past_Exam_2.md))
 
 ### Question A (5 Points): Conceptual Analysis
 
@@ -2597,7 +2597,7 @@ erDiagram
 
 ---
 
-## Solved Paper 3: University Hospital Management System ([synth_realistic_1](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_1.md))
+## Solved Paper 3: University Hospital Management System ([synth_realistic_1](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_1.md))
 
 ### Questions A & B: Conceptual Analysis & ER Diagram
 *   **Entities:** `CLINIC` (Strong), `DOCTOR` (Strong), `PATIENT` (Strong), `MEDICATION` (Strong), `HOSPITALIZATION` (Weak, owned by `PATIENT`), `DEPENDENT` (Weak, owned by `DOCTOR`).
@@ -2665,7 +2665,7 @@ erDiagram
 
 ---
 
-## Solved Paper 4: University Academic System ([synth_realistic_2](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_2.md))
+## Solved Paper 4: University Academic System ([synth_realistic_2](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_2.md))
 
 ### Relational Schema Summary
 *   **Department:** $\underline{\text{Dept\_Code}}$, `Dept_Name (UQ)`, `Building`, `Phone`, `Chair_Prof_AM (FK, UQ)`, `Appointment_Date`.
@@ -2681,7 +2681,7 @@ erDiagram
 
 ---
 
-## Solved Paper 5: Commercial Airline Fleet ([synth_realistic_3](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_3.md))
+## Solved Paper 5: Commercial Airline Fleet ([synth_realistic_3](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_3.md))
 
 ### Relational Schema Summary
 *   **Airport:** $\underline{\text{IATA\_Code}}$ (PK), `Airport_Name`, `City`, `Country`, `TimeZone_Offset`, `Manager_Emp_ID (FK, UQ)`, `Manager_Start_Date`.
@@ -2698,7 +2698,7 @@ erDiagram
 
 ---
 
-## Solved Paper 6: Luxury Hotel Resort Chain ([synth_realistic_4](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_4.md))
+## Solved Paper 6: Luxury Hotel Resort Chain ([synth_realistic_4](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_4.md))
 
 ### Relational Schema Summary
 *   **Hotel_Property:** $\underline{\text{Hotel\_Code}}$ (PK), `Hotel_Name`, `Star_Rating`, `Street`, `Number`, `Postal_Code`, `City`, `Country`, `Phone`, `Manager_Emp_ID (FK, UQ)`, `Manager_Start_Date`.
@@ -2714,7 +2714,7 @@ erDiagram
 
 ---
 
-## Solved Paper 7: E-Commerce Retail Platform ([synth_realistic_5](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_5.md))
+## Solved Paper 7: E-Commerce Retail Platform ([synth_realistic_5](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_5.md))
 
 ### Relational Schema Summary
 *   **Product_Category:** $\underline{\text{Category\_Code}}$ (PK), `Category_Name`, `Description`, `Parent_Category_Code (FK, Recursive)`, `Manager_Emp_ID (FK, UQ)`, `Appointment_Date`.
@@ -2731,7 +2731,7 @@ erDiagram
 
 ---
 
-## Solved Paper 8: Digital Video Streaming Platform ([synth_realistic_6](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_6.md))
+## Solved Paper 8: Digital Video Streaming Platform ([synth_realistic_6](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_6.md))
 
 ### Relational Schema Summary
 *   **Media_Title:** $\underline{\text{ISAN}}$ (PK), `Original_Title`, `Release_Year`, `Maturity_Rating`, `Primary_Genre`, `Synopsis`, `Title_Type ('Movie'/'Series')`, `Runtime_Minutes (Null for Series)`.
@@ -2747,7 +2747,7 @@ erDiagram
 
 ---
 
-## Solved Paper 9: Metropolitan Municipal Library ([synth_realistic_7](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_7.md))
+## Solved Paper 9: Metropolitan Municipal Library ([synth_realistic_7](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_7.md))
 
 ### Relational Schema Summary
 *   **Library_Branch:** $\underline{\text{Branch\_ID}}$ (PK), `Branch_Name (UQ)`, `Street`, `Number`, `Postal_Code`, `Neighborhood`, `Phone`, `Seating_Capacity`, `Head_Librarian_ID (FK, UQ)`, `Appointment_Date`.
@@ -2762,7 +2762,7 @@ erDiagram
 
 ---
 
-## Solved Paper 10: Professional Sports League Federation ([synth_realistic_8](file:///home/ice/Documents/CodeHub/GitHub-Projects/Public/DitOpenNotes/Year_2/Semester_4/DATABASES/Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_8.md))
+## Solved Paper 10: Professional Sports League Federation ([synth_realistic_8](../../Exams/Papers/synth_realistic/exam_paper_synthetic_and_realistic_8.md))
 
 ### Relational Schema Summary
 *   **Sports_Team:** $\underline{\text{Team\_ID}}$ (PK), `Official_Name (UQ)`, `Home_City`, `Founding_Year`, `Stadium_Name`, `Seating_Capacity`, `Head_Coach_ID (FK, UQ)`, `Coach_Contract_Start`.

@@ -22,12 +22,12 @@ def renderTheoryPage() -> None:
                 with ui.column().classes("gap-0"):
                     ui.html(
                         '<h1 class="text-2xl md:text-3xl font-black gradient-title m-0">'
-                        "Πλήρης Θεωρητικός Οδηγός & Μεθοδολογία Σχεδίασης ER"
+                        "Complete Theoretical Guide & ER Design Methodology"
                         "</h1>"
                     )
                     ui.label(
-                        "Ολοκληρωμένο εγχειρίδιο ανάλυσης απαιτήσεων, αναγνώρισης οντοτήτων/σχέσεων, "
-                        "συμβολισμών Crow's Foot και κανόνων μετατροπής σε σχεσιακό σχήμα."
+                        "Comprehensive handbook for requirements analysis, entity/relationship identification, "
+                        "Crow's Foot notation, and relational schema transformation rules."
                     ).classes("text-sm text-[#b5b0a4] mt-1")
 
             with ui.row().classes("gap-3 flex-wrap text-xs"):
@@ -35,25 +35,25 @@ def renderTheoryPage() -> None:
                     "items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#201f1d] border border-[rgba(255,255,255,0.08)] text-[#f4f1ea]"
                 ):
                     ui.html('<i class="fa-solid fa-layer-group text-blue-400"></i>')
-                    ui.label("4 Βασικά Στάδια Ανάλυσης")
+                    ui.label("4 Core Analysis Steps")
 
                 with ui.row().classes(
                     "items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#201f1d] border border-[rgba(255,255,255,0.08)] text-[#f4f1ea]"
                 ):
                     ui.html('<i class="fa-solid fa-table text-emerald-400"></i>')
-                    ui.label("Πίνακας Αναγνώρισης")
+                    ui.label("Recognition Matrix")
 
                 with ui.row().classes(
                     "items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#201f1d] border border-[rgba(255,255,255,0.08)] text-[#f4f1ea]"
                 ):
                     ui.html('<i class="fa-solid fa-code-branch text-[#e06b3a]"></i>')
-                    ui.label("Συμβολισμοί Crow's Foot")
+                    ui.label("Crow's Foot Notation")
 
                 with ui.row().classes(
                     "items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#201f1d] border border-[rgba(255,255,255,0.08)] text-[#f4f1ea]"
                 ):
                     ui.html('<i class="fa-solid fa-database text-amber-400"></i>')
-                    ui.label("7 Κανόνες Μετατροπής σε SQL")
+                    ui.label("7 Relational Mapping Rules")
 
         # SECTION 1: Step-by-Step Methodology Cards
         with ui.column().classes("w-full gap-4"):
@@ -63,50 +63,50 @@ def renderTheoryPage() -> None:
             with ui.column().classes("w-full glass-panel p-6 rounded-2xl gap-4"):
                 with ui.row().classes("items-center gap-2 border-b border-[rgba(255,255,255,0.08)] pb-3"):
                     ui.html('<i class="fa-solid fa-lightbulb text-[#f59e0b] text-lg"></i>')
-                    ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Πρακτικές Οδηγίες & Παγίδες κατά την Ανάλυση</h3>')
+                    ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Practical Guidelines & Traps During Analysis</h3>')
 
                 with ui.grid().classes("grid-cols-1 md:grid-cols-2 gap-4 w-full text-xs leading-relaxed"):
                     # Card 1: Entities vs Attributes
                     with ui.column().classes("p-4 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                         with ui.row().classes("items-center gap-2"):
                             ui.html('<i class="fa-solid fa-scale-balanced text-blue-400"></i>')
-                            ui.label("Οντότητα ή Γνώρισμα;").classes("font-bold text-blue-300")
+                            ui.label("Entity or Attribute?").classes("font-bold text-blue-300")
                         ui.label(
-                            "Κανόνας: Εάν μια έννοια έχει δικά της χαρακτηριστικά (π.χ. ένα Τμήμα έχει όνομα, τηλέφωνο, διεύθυνση), "
-                            "τότε είναι ΟΝΤΟΤΗΤΑ. Εάν είναι μια απλή τιμή χωρίς επιπλέον ιδιότητες (π.χ. ηλικία, κατάσταση), είναι ΓΝΩΡΙΣΜΑ."
+                            "Rule: If a concept has its own attributes (e.g., a Department has a name, phone, address), "
+                            "it is an ENTITY. If it is a simple atomic value without independent properties (e.g., age, status), it is an ATTRIBUTE."
                         ).classes("text-[#b5b0a4]")
 
                     # Card 2: Relationship Direction
                     with ui.column().classes("p-4 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                         with ui.row().classes("items-center gap-2"):
                             ui.html('<i class="fa-solid fa-arrows-left-right text-rose-400"></i>')
-                            ui.label("Αμφίδρομη Διερεύνηση Πληθικότητας").classes("font-bold text-rose-300")
+                            ui.label("Bidirectional Cardinality Investigation").classes("font-bold text-rose-300")
                         ui.label(
-                            "Κανόνας: Για να βρούμε τον λόγο πληθικότητας θέτουμε ΠΑΝΤΑ δύο ερωτήματα:\n"
-                            "1) Για 1 στιγμιότυπο του Α, πόσα Β μπορούν να συνδεθούν; (min, max)\n"
-                            "2) Για 1 στιγμιότυπο του Β, πόσα Α μπορούν να συνδεθούν; (min, max)"
+                            "Rule: To determine the cardinality ratio, ALWAYS ask two questions:\n"
+                            "1) For 1 instance of A, how many instances of B can be associated? (min, max)\n"
+                            "2) For 1 instance of B, how many instances of A can be associated? (min, max)"
                         ).classes("text-[#b5b0a4]")
 
                     # Card 3: Relationship Attributes
                     with ui.column().classes("p-4 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                         with ui.row().classes("items-center gap-2"):
                             ui.html('<i class="fa-solid fa-link text-emerald-400"></i>')
-                            ui.label("Γνωρίσματα σε Συσχέτιση (Relationship Attributes)").classes("font-bold text-emerald-300")
+                            ui.label("Relationship Attributes").classes("font-bold text-emerald-300")
                         ui.label(
-                            "Κανόνας: Όταν μια πληροφορία προκύπτει ΜΟΝΟ από τον συνδυασμό δύο οντοτήτων "
-                            "(π.χ. ο βαθμός ενός Φοιτητή σε ένα Μάθημα, ή οι ώρες απασχόλησης ενός Υπαλλήλου σε ένα Έργο), "
-                            "το γνώρισμα τοποθετείται πάνω στη ΣΧΕΣΗ και όχι σε μεμονωμένη οντότητα."
+                            "Rule: When information arises ONLY from the combination of two entities "
+                            "(e.g., a Student's grade in a Course, or an Employee's hours on a Project), "
+                            "the attribute belongs to the RELATIONSHIP and not to an individual entity."
                         ).classes("text-[#b5b0a4]")
 
                     # Card 4: Weak Entities & Partial Keys
                     with ui.column().classes("p-4 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                         with ui.row().classes("items-center gap-2"):
                             ui.html('<i class="fa-solid fa-fingerprint text-amber-400"></i>')
-                            ui.label("Ασθενείς Οντότητες & Μερικά Κλειδιά").classes("font-bold text-amber-300")
+                            ui.label("Weak Entities & Partial Keys").classes("font-bold text-amber-300")
                         ui.label(
-                            "Κανόνας: Μια οντότητα είναι ασθενής (Weak Entity) όταν δεν διαθέτει δικό της μοναδικό αναγνωριστικό "
-                            "και εξαρτάται υπαρκτικά από μια ισχυρή οντότητα (Owner). Το κλειδί της σχηματίζεται συνδυάζοντας "
-                            "το PK του Owner με το Μερικό Κλειδί (Partial Key / Discriminator) της ίδιας."
+                            "Rule: An entity is weak (Weak Entity) when it lacks its own independent unique identifier "
+                            "and is existence-dependent on a strong owner entity (Owner). Its primary key is formed by combining "
+                            "the Owner's PK with its own Partial Key (Discriminator)."
                         ).classes("text-[#b5b0a4]")
 
         # SECTION 2: General Methodology Table
@@ -131,67 +131,67 @@ def _renderCrowsFootSection() -> None:
             with ui.column().classes("gap-0"):
                 ui.html(
                     '<h2 class="text-xl md:text-2xl font-bold text-[#f4f1ea] m-0">'
-                    "Συμβολισμοί Crow's Foot (Οδηγός Ακροδεκτών & Συσχετίσεων)"
+                    "Crow's Foot Notation (Endpoints & Relationships Guide)"
                     "</h2>"
                 )
                 ui.label(
-                    "Ανάλυση όλων των πιθανών συμβόλων στα άκρα των σχέσεων, ερμηνεία Modality / Cardinality "
-                    "και πλήρης κατάλογος συνδυασμών (0:1, 1:1, 1:N, 0:M, 1:M, N:M)."
+                    "Analysis of all relationship endpoint symbols, interpretation of Modality / Cardinality, "
+                    "and a comprehensive catalog of combinations (0:1, 1:1, 1:N, 0:M, 1:M, N:M)."
                 ).classes("text-xs text-[#b5b0a4] mt-1")
 
         # Anatomy of Crow's Foot Endpoint
         with ui.column().classes("w-full p-5 rounded-xl bg-[#171615] border border-[rgba(224,107,58,0.25)] gap-3"):
             with ui.row().classes("items-center gap-2"):
                 ui.html('<i class="fa-solid fa-circle-info text-[#e06b3a]"></i>')
-                ui.html('<h3 class="text-base font-bold text-[#f4f1ea] m-0">Ανατομία ενός Άκρου Crow\'s Foot (Διπλό Σύμβολο)</h3>')
+                ui.html('<h3 class="text-base font-bold text-[#f4f1ea] m-0">Anatomy of a Crow\'s Foot Endpoint (Dual Symbol)</h3>')
             ui.label(
-                "Στο μοντέλο Crow's Foot, κάθε άκρο σύνδεσης περιλαμβάνει δύο διακριτά σύμβολα που διαβάζονται από μέσα προς τα έξω:"
+                "In Crow's Foot notation, each connection endpoint consists of two distinct symbols read from inside out:"
             ).classes("text-xs text-[#b5b0a4]")
 
             with ui.grid().classes("grid-cols-1 md:grid-cols-2 gap-4 w-full mt-2"):
                 with ui.column().classes("p-4 rounded-lg bg-[#201f1d] border-l-4 border-amber-500 gap-1"):
-                    ui.label("1. Εσωτερικό Σύμβολο = Modality (Ελάχιστη Συμμετοχή / Minimum)").classes(
+                    ui.label("1. Inner Symbol = Modality (Minimum Participation)").classes(
                         "font-bold text-amber-300 text-xs"
                     )
                     ui.label(
-                        "• Κύκλος (O): Ελάχιστο = 0 (Προαιρετική Συμμετοχή / Optional)\n"
-                        "• Κάθετη Γραμμή (|): Ελάχιστο = 1 (Υποχρεωτική Συμμετοχή / Mandatory)"
+                        "• Circle (O): Minimum = 0 (Optional Participation)\n"
+                        "• Vertical Bar (|): Minimum = 1 (Mandatory Participation)"
                     ).classes("text-xs text-[#b5b0a4] leading-relaxed")
 
                 with ui.column().classes("p-4 rounded-lg bg-[#201f1d] border-l-4 border-[#e06b3a] gap-1"):
-                    ui.label("2. Εξωτερικό Σύμβολο = Cardinality (Μέγιστη Πληθικότητα / Maximum)").classes(
+                    ui.label("2. Outer Symbol = Cardinality (Maximum Ratio)").classes(
                         "font-bold text-[#fdba74] text-xs"
                     )
                     ui.label(
-                        "• Κάθετη Γραμμή (|): Μέγιστο = 1 (Ένα στιγμιότυπο / One)\n"
-                        "• Διχάλα / Πόδι Κόρακα (<): Μέγιστο = N ή M (Πολλά στιγμιότυπα / Many)"
+                        "• Vertical Bar (|): Maximum = 1 (One instance)\n"
+                        "• Crow's Foot Fork (<): Maximum = N or M (Many instances)"
                     ).classes("text-xs text-[#b5b0a4] leading-relaxed")
 
         # Official Crow's Foot Connection Reference (7 Variants from Standard / Official Notation)
         with ui.column().classes("w-full gap-4"):
             with ui.row().classes("items-center gap-2"):
                 ui.html('<i class="fa-solid fa-diagram-project text-[#e06b3a]"></i>')
-                ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Επίσημος Οδηγός Συνδέσεων & Ακροδεκτών Crow\'s Foot (7 Παραλλαγές)</h3>')
+                ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Official Crow\'s Foot Connections & Endpoints Guide (7 Variants)</h3>')
             ui.label(
-                "Ο παρακάτω πίνακας παρουσιάζει τόσο τις απλοποιημένες συνδέσεις γενικής χρήσης "
-                "όσο και τις αναλυτικές συνδέσεις Information Engineering (IE) με πλήρη αποτύπωση Modality και Cardinality:"
+                "The following overview presents both generic simplified connections "
+                "and detailed Information Engineering (IE) notations with full Modality and Cardinality representations:"
             ).classes("text-xs text-[#b5b0a4]")
 
             with ui.grid().classes("grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full"):
                 _renderOfficialSymbolCard(
                     title="One to One",
-                    greek_name="Απλό Ένα προς Ένα",
+                    display_name="Generic One-to-One",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
-                    desc="Απλή συνεχής γραμμή 1:1 χωρίς αναλυτική απεικόνιση προαιρετικότητας (Generic One-to-One).",
+                    desc="Continuous solid line for 1:1 without explicit modality markers (Generic One-to-One).",
                     color_class="border-blue-500",
                 )
                 _renderOfficialSymbolCard(
                     title="One to Many (Mandatory)",
-                    greek_name="Απλό Ένα προς Πολλά (Υποχρεωτικό)",
+                    display_name="Simple One-to-Many (Mandatory)",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
@@ -200,12 +200,12 @@ def _renderCrowsFootSection() -> None:
                         <line x1="120" y1="25" x2="145" y2="38" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
-                    desc="Κλασική απλοποιημένη σύνδεση 1:N με μονό τικ στο 1 και διχάλα στα Πολλά (Simple 1:N).",
+                    desc="Simplified 1:N connection with single tick mark on One and fork on Many (Simple 1:N).",
                     color_class="border-emerald-500",
                 )
                 _renderOfficialSymbolCard(
                     title="Many",
-                    greek_name="Απλό Πολλά (Generic Crow's Foot)",
+                    display_name="Generic Many (Crow's Foot)",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
@@ -213,12 +213,12 @@ def _renderCrowsFootSection() -> None:
                         <line x1="15" y1="38" x2="40" y2="25" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
-                    desc="Απλό άκρο πολλών (Many) χωρίς διαχωρισμό μεταξύ μηδενικής ή υποχρεωτικής συμμετοχής.",
+                    desc="Simple Many endpoint without distinction between optional and mandatory participation.",
                     color_class="border-amber-500",
                 )
                 _renderOfficialSymbolCard(
                     title="One and Only One (Mandatory)",
-                    greek_name="Ακριβώς Ένα (1..1 - Υποχρεωτικό)",
+                    display_name="Exactly One (1..1 Mandatory)",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
@@ -226,12 +226,12 @@ def _renderCrowsFootSection() -> None:
                         <line x1="42" y1="12" x2="42" y2="38" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
-                    desc="Δύο κάθετες γραμμές (||): Υποχρεωτική συμμετοχή σε ακριβώς 1 στιγμιότυπο (Modality: 1, Cardinality: 1).",
+                    desc="Two vertical bars (||): Mandatory participation in exactly 1 instance (Modality: 1, Cardinality: 1).",
                     color_class="border-emerald-500",
                 )
                 _renderOfficialSymbolCard(
                     title="One or More (Mandatory)",
-                    greek_name="Ένα ή Περισσότερα (1..N - Υποχρεωτικό)",
+                    display_name="One or More (1..N Mandatory)",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
@@ -240,12 +240,12 @@ def _renderCrowsFootSection() -> None:
                         <line x1="48" y1="12" x2="48" y2="38" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
-                    desc="Διχάλα με κάθετη γραμμή (>|): Υποχρεωτική συμμετοχή σε τουλάχιστον 1 στιγμιότυπο (Modality: 1, Cardinality: N).",
+                    desc="Fork with vertical bar (>|): Mandatory participation in at least 1 instance (Modality: 1, Cardinality: N).",
                     color_class="border-[#e06b3a]",
                 )
                 _renderOfficialSymbolCard(
                     title="Zero or one (Optional)",
-                    greek_name="Μηδέν ή Ένα (0..1 - Προαιρετικό)",
+                    display_name="Zero or One (0..1 Optional)",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
@@ -253,12 +253,12 @@ def _renderCrowsFootSection() -> None:
                         <line x1="46" y1="12" x2="46" y2="38" stroke="#e06b3a" stroke-width="2.5" />
                     </svg>
                     """,
-                    desc="Κύκλος με κάθετη γραμμή (O|): Προαιρετική συμμετοχή σε το πολύ 1 στιγμιότυπο (Modality: 0, Cardinality: 1).",
+                    desc="Circle with vertical bar (O|): Optional participation in at most 1 instance (Modality: 0, Cardinality: 1).",
                     color_class="border-slate-500",
                 )
                 _renderOfficialSymbolCard(
                     title="Zero or Many (Optional)",
-                    greek_name="Μηδέν ή Πολλά (0..N - Προαιρετικό)",
+                    display_name="Zero or Many (0..N Optional)",
                     svg_markup="""
                     <svg viewBox="0 0 160 50" class="w-full h-12">
                         <line x1="15" y1="25" x2="145" y2="25" stroke="#e06b3a" stroke-width="2.5" />
@@ -267,21 +267,21 @@ def _renderCrowsFootSection() -> None:
                         <circle cx="50" cy="25" r="6" fill="var(--svg-canvas-bg, #ffffff)" stroke="#e06b3a" stroke-width="2.5" class="svg-marker-circle" />
                     </svg>
                     """,
-                    desc="Διχάλα με κύκλο (>O): Προαιρετική συμμετοχή σε 0 έως πολλά στιγμιότυπα (Modality: 0, Cardinality: N).",
+                    desc="Fork with circle (>O): Optional participation in 0 to many instances (Modality: 0, Cardinality: N).",
                     color_class="border-blue-500",
                 )
 
         # 4 Fundamental Endpoints Cards with SVGs
         with ui.column().classes("w-full gap-4"):
-            ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Τα 4 Βασικά Άκρα Crow\'s Foot (Endpoints)</h3>')
+            ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">The 4 Fundamental Crow\'s Foot Endpoints</h3>')
 
             with ui.grid().classes("grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full"):
                 # Endpoint 1: Zero or One (0..1)
                 _renderEndpointCard(
                     title="0..1 (Zero or One)",
-                    greek_name="Μηδέν ή Ένα (Προαιρετικό 1)",
-                    modality="0 (Προαιρετικό)",
-                    cardinality="1 (Μοναδικό)",
+                    display_name="Zero or One (Optional 1)",
+                    modality="0 (Optional)",
+                    cardinality="1 (Single)",
                     svg_markup="""
                     <svg viewBox="0 0 160 70" class="w-full h-16">
                         <!-- Line -->
@@ -294,16 +294,16 @@ def _renderCrowsFootSection() -> None:
                         <line x1="130" y1="10" x2="130" y2="60" stroke="#b5b0a4" stroke-width="3" />
                     </svg>
                     """,
-                    example="Ένας υπάλληλος μπορεί να διαχειρίζεται το πολύ 1 τμήμα ή κανένα.",
+                    example="An employee can manage at most 1 department or none.",
                     color_class="border-slate-500",
                 )
 
                 # Endpoint 2: Exactly One (1..1)
                 _renderEndpointCard(
                     title="1..1 (Exactly One)",
-                    greek_name="Ακριβώς Ένα (Υποχρεωτικό 1)",
-                    modality="1 (Υποχρεωτικό)",
-                    cardinality="1 (Μοναδικό)",
+                    display_name="Exactly One (Mandatory 1)",
+                    modality="1 (Mandatory)",
+                    cardinality="1 (Single)",
                     svg_markup="""
                     <svg viewBox="0 0 160 70" class="w-full h-16">
                         <!-- Line -->
@@ -316,16 +316,16 @@ def _renderCrowsFootSection() -> None:
                         <line x1="130" y1="10" x2="130" y2="60" stroke="#b5b0a4" stroke-width="3" />
                     </svg>
                     """,
-                    example="Κάθε τμήμα ανήκει υποχρεωτικά σε ακριβώς 1 σχολή/εταιρεία.",
+                    example="Each department belongs mandatorily to exactly 1 faculty or company.",
                     color_class="border-emerald-500",
                 )
 
                 # Endpoint 3: Zero or Many (0..N / 0..M)
                 _renderEndpointCard(
                     title="0..N / 0..M (Zero or Many)",
-                    greek_name="Μηδέν ή Πολλά (Προαιρετικά Πολλά)",
-                    modality="0 (Προαιρετικό)",
-                    cardinality="N (Πολλά)",
+                    display_name="Zero or Many (Optional Many)",
+                    modality="0 (Optional)",
+                    cardinality="N (Many)",
                     svg_markup="""
                     <svg viewBox="0 0 160 70" class="w-full h-16">
                         <!-- Line -->
@@ -339,16 +339,16 @@ def _renderCrowsFootSection() -> None:
                         <line x1="130" y1="10" x2="130" y2="60" stroke="#b5b0a4" stroke-width="3" />
                     </svg>
                     """,
-                    example="Ένας συγγραφέας μπορεί να έχει γράψει από 0 έως πολλά βιβλία.",
+                    example="An author may have written 0 to many books.",
                     color_class="border-blue-500",
                 )
 
                 # Endpoint 4: One or Many (1..N / 1..M)
                 _renderEndpointCard(
                     title="1..N / 1..M (One or Many)",
-                    greek_name="Ένα ή Πολλά (Υποχρεωτικά Πολλά)",
-                    modality="1 (Υποχρεωτικό)",
-                    cardinality="N (Πολλά)",
+                    display_name="One or Many (Mandatory Many)",
+                    modality="1 (Mandatory)",
+                    cardinality="N (Many)",
                     svg_markup="""
                     <svg viewBox="0 0 160 70" class="w-full h-16">
                         <!-- Line -->
@@ -362,7 +362,7 @@ def _renderCrowsFootSection() -> None:
                         <line x1="130" y1="10" x2="130" y2="60" stroke="#b5b0a4" stroke-width="3" />
                     </svg>
                     """,
-                    example="Κάθε παραγγελία περιλαμβάνει υποχρεωτικά τουλάχιστον 1 είδος.",
+                    example="Each order must mandatorily include at least 1 order line item.",
                     color_class="border-[#e06b3a]",
                 )
 
@@ -370,134 +370,134 @@ def _renderCrowsFootSection() -> None:
         with ui.column().classes("w-full gap-4 mt-4"):
             ui.html(
                 '<h3 class="text-lg font-bold text-[#f4f1ea] m-0">'
-                "Πλήρης Πίνακας Συνδυασμών Συνδέσεων (1:1, 1:N, N:M)"
+                "Complete Connection Combination Matrix (1:1, 1:N, N:M)"
                 "</h3>"
             )
 
             # 1:1 Relationships Group
-            _renderRelationshipCategoryHeader("1:1 — Σχέσεις Ένα-προς-Ένα (One-to-One)", "fa-arrows-left-right", "text-blue-400")
+            _renderRelationshipCategoryHeader("1:1 — One-to-One Relationships", "fa-arrows-left-right", "text-blue-400")
             with ui.column().classes("w-full space-y-3"):
                 _renderConnectionRow(
                     label="1..1 ─── 0..1",
-                    subtitle="Υποχρεωτικό 1 προς Προαιρετικό 1",
-                    left_entity="ΤΜΗΜΑ",
-                    right_entity="ΥΠΑΛΛΗΛΟΣ",
-                    rel_name="διευθύνεται_από",
+                    subtitle="Mandatory 1 to Optional 1",
+                    left_entity="DEPARTMENT",
+                    right_entity="EMPLOYEE",
+                    rel_name="managed_by",
                     left_type="one-mandatory",
                     right_type="one-optional",
-                    explanation="Κάθε Τμήμα έχει υποχρεωτικά 1 Διευθυντή (1..1), αλλά ένας Υπάλληλος μπορεί να είναι διευθυντής σε 0 ή 1 τμήμα (0..1).",
-                    mapping_rule="Το Foreign Key τοποθετείται στον πίνακα του ΤΜΗΜΑΤΟΣ (στην πλευρά με την ολική συμμετοχή) με NOT NULL και UNIQUE περιορισμό.",
+                    explanation="Each Department has mandatorily 1 Manager (1..1), but an Employee can manage 0 or 1 department (0..1).",
+                    mapping_rule="The Foreign Key is placed in the DEPARTMENT table (the side with total participation) with NOT NULL and UNIQUE constraints.",
                 )
                 _renderConnectionRow(
                     label="1..1 ─── 1..1",
-                    subtitle="Υποχρεωτικό 1 προς Υποχρεωτικό 1",
-                    left_entity="ΧΩΡΑ",
-                    right_entity="ΠΡΩΤΕΥΟΥΣΑ",
-                    rel_name="έχει_πρωτεύουσα",
+                    subtitle="Mandatory 1 to Mandatory 1",
+                    left_entity="COUNTRY",
+                    right_entity="CAPITAL",
+                    rel_name="has_capital",
                     left_type="one-mandatory",
                     right_type="one-mandatory",
-                    explanation="Κάθε Χώρα έχει υποχρεωτικά 1 Πρωτεύουσα και κάθε Πρωτεύουσα ανήκει σε ακριβώς 1 Χώρα.",
-                    mapping_rule="Συνήθως συγχωνεύονται σε 1 κοινό πίνακα ή διατηρούνται 2 πίνακες με κοινό Primary Key / FK με NOT NULL + UNIQUE.",
+                    explanation="Each Country has mandatorily 1 Capital and each Capital belongs to exactly 1 Country.",
+                    mapping_rule="Typically merged into 1 combined table or kept as 2 tables sharing a common Primary Key / FK with NOT NULL + UNIQUE.",
                 )
                 _renderConnectionRow(
                     label="0..1 ─── 0..1",
-                    subtitle="Προαιρετικό 1 προς Προαιρετικό 1",
-                    left_entity="ΥΠΑΛΛΗΛΟΣ",
-                    right_entity="ΘΕΣΗ_ΣΤΑΘΜΕΥΣΗΣ",
-                    rel_name="έχει_χώρο",
+                    subtitle="Optional 1 to Optional 1",
+                    left_entity="EMPLOYEE",
+                    right_entity="PARKING_SPACE",
+                    rel_name="assigned_space",
                     left_type="one-optional",
                     right_type="one-optional",
-                    explanation="Ένας υπάλληλος μπορεί να έχει 0 ή 1 θέση, και μια θέση μπορεί να ανήκει σε 0 ή 1 υπάλληλο.",
-                    mapping_rule="Το Foreign Key τοποθετείται σε οποιονδήποτε από τους δύο πίνακες, με UNIQUE περιορισμό και επιτρέποντας NULL τιμές.",
+                    explanation="An employee may have 0 or 1 parking space, and a parking space may belong to 0 or 1 employee.",
+                    mapping_rule="The Foreign Key is placed in either table with a UNIQUE constraint and allowing NULL values.",
                 )
 
             # 1:N Relationships Group
-            _renderRelationshipCategoryHeader("1:N — Σχέσεις Ένα-προς-Πολλά (One-to-Many)", "fa-sitemap", "text-emerald-400")
+            _renderRelationshipCategoryHeader("1:N — One-to-Many Relationships", "fa-sitemap", "text-emerald-400")
             with ui.column().classes("w-full space-y-3"):
                 _renderConnectionRow(
                     label="1..1 ─── 0..N",
-                    subtitle="Υποχρεωτικό 1 προς Προαιρετικά Πολλά (Κλασικό 1:N)",
-                    left_entity="ΤΜΗΜΑ",
-                    right_entity="ΥΠΑΛΛΗΛΟΣ",
-                    rel_name="απασχολεί",
+                    subtitle="Mandatory 1 to Optional Many (Classic 1:N)",
+                    left_entity="DEPARTMENT",
+                    right_entity="EMPLOYEE",
+                    rel_name="employs",
                     left_type="one-mandatory",
                     right_type="many-optional",
-                    explanation="Ένα Τμήμα απασχολεί 0 έως N Υπαλλήλους. Κάθε Υπάλληλος ανήκει υποχρεωτικά σε ακριβώς 1 Τμήμα.",
-                    mapping_rule="Το Primary Key του Τμήματος μπαίνει ως Foreign Key στον πίνακα ΥΠΑΛΛΗΛΟΣ (στην πλευρά του N) και είναι NOT NULL.",
+                    explanation="A Department employs 0 to N Employees. Each Employee belongs mandatorily to exactly 1 Department.",
+                    mapping_rule="The Primary Key of Department is placed as a Foreign Key in the EMPLOYEE table (the N side) and is NOT NULL.",
                 )
                 _renderConnectionRow(
                     label="0..1 ─── 0..N",
-                    subtitle="Προαιρετικό 1 προς Προαιρετικά Πολλά",
-                    left_entity="ΕΡΓΟ",
-                    right_entity="ΥΠΑΛΛΗΛΟΣ",
-                    rel_name="ανατίθεται_σε",
+                    subtitle="Optional 1 to Optional Many",
+                    left_entity="PROJECT",
+                    right_entity="EMPLOYEE",
+                    rel_name="assigned_to",
                     left_type="one-optional",
                     right_type="many-optional",
-                    explanation="Ένα Έργο μπορεί να μην έχει κανέναν ή πολλούς υπαλλήλους. Ένας Υπάλληλος μπορεί να μην έχει αναλάβει έργο ή να έχει το πολύ 1 κύριο έργο.",
-                    mapping_rule="Το Foreign Key πηγαίνει στον πίνακα του N (ΥΠΑΛΛΗΛΟΣ) και είναι NULLABLE (μπορεί να πάρει NULL).",
+                    explanation="A Project may have 0 to many employees. An Employee may have 0 or at most 1 primary assigned project.",
+                    mapping_rule="The Foreign Key is placed in the N-side table (EMPLOYEE) and is NULLABLE.",
                 )
                 _renderConnectionRow(
                     label="1..1 ─── 1..N",
-                    subtitle="Υποχρεωτικό 1 προς Υποχρεωτικά Πολλά",
-                    left_entity="ΠΑΡΑΓΓΕΛΙΑ",
-                    right_entity="ΓΡΑΜΜΗ_ΠΑΡΑΓΓΕΛΙΑΣ",
-                    rel_name="περιλαμβάνει",
+                    subtitle="Mandatory 1 to Mandatory Many",
+                    left_entity="ORDER",
+                    right_entity="ORDER_ITEM",
+                    rel_name="contains",
                     left_type="one-mandatory",
                     right_type="many-mandatory",
-                    explanation="Κάθε Παραγγελία πρέπει να περιλαμβάνει τουλάχιστον 1 γραμμή παραγγελίας. Κάθε γραμμή ανήκει σε ακριβώς 1 Παραγγελία.",
-                    mapping_rule="Foreign Key στον πίνακα ΓΡΑΜΜΗ_ΠΑΡΑΓΓΕΛΙΑΣ με NOT NULL και ON DELETE CASCADE.",
+                    explanation="Each Order must contain at least 1 order item. Each order line item belongs to exactly 1 Order.",
+                    mapping_rule="Foreign Key in the ORDER_ITEM table with NOT NULL and ON DELETE CASCADE constraints.",
                 )
 
             # N:M Relationships Group
-            _renderRelationshipCategoryHeader("N:M — Σχέσεις Πολλά-προς-Πολλά (Many-to-Many)", "fa-network-wired", "text-amber-400")
+            _renderRelationshipCategoryHeader("N:M — Many-to-Many Relationships", "fa-network-wired", "text-amber-400")
             with ui.column().classes("w-full space-y-3"):
                 _renderConnectionRow(
                     label="0..N ─── 0..N",
-                    subtitle="Προαιρετικά Πολλά προς Προαιρετικά Πολλά",
-                    left_entity="ΦΟΙΤΗΤΗΣ",
-                    right_entity="ΜΑΘΗΜΑ",
-                    rel_name="εγγράφεται_σε",
+                    subtitle="Optional Many to Optional Many",
+                    left_entity="STUDENT",
+                    right_entity="COURSE",
+                    rel_name="enrolled_in",
                     left_type="many-optional",
                     right_type="many-optional",
-                    explanation="Ένας Φοιτητής εγγράφεται σε 0..N Μαθήματα. Ένα Μάθημα παρακολουθείται από 0..N Φοιτητές.",
-                    mapping_rule="Δημιουργείται ΝΕΟΣ ενδιάμεσος πίνακας σύνδεσης (Junction Table) με σύνθετο Primary Key = (student_id, course_id).",
+                    explanation="A Student enrolls in 0..N Courses. A Course is attended by 0..N Students.",
+                    mapping_rule="A NEW junction table is created with composite Primary Key = (student_id, course_id).",
                 )
                 _renderConnectionRow(
                     label="1..N ─── 0..N",
-                    subtitle="Υποχρεωτικά Πολλά προς Προαιρετικά Πολλά",
-                    left_entity="ΣΥΓΓΡΑΦΕΑΣ",
-                    right_entity="ΒΙΒΛΙΟ",
-                    rel_name="συγγράφει",
+                    subtitle="Mandatory Many to Optional Many",
+                    left_entity="AUTHOR",
+                    right_entity="BOOK",
+                    rel_name="writes",
                     left_type="many-mandatory",
                     right_type="many-optional",
-                    explanation="Ένα Βιβλίο έχει υποχρεωτικά τουλάχιστον 1 Συγγραφέα (1..N). Ένας Συγγραφέας μπορεί να έχει 0..N Βιβλία.",
-                    mapping_rule="Ενδιάμεσος πίνακας σύνδεσης (author_id, book_id) με FKs και στους δύο πίνακες.",
+                    explanation="A Book must mandatorily have at least 1 Author (1..N). An Author may have written 0..N Books.",
+                    mapping_rule="Junction table (author_id, book_id) with Foreign Keys referencing both participating tables.",
                 )
                 _renderConnectionRow(
                     label="1..N ─── 1..N",
-                    subtitle="Υποχρεωτικά Πολλά προς Υποχρεωτικά Πολλά",
-                    left_entity="ΙΑΤΡΟΣ",
-                    right_entity="ΑΣΘΕΝΗΣ",
-                    rel_name="παρακολουθεί",
+                    subtitle="Mandatory Many to Mandatory Many",
+                    left_entity="DOCTOR",
+                    right_entity="PATIENT",
+                    rel_name="treats",
                     left_type="many-mandatory",
                     right_type="many-mandatory",
-                    explanation="Κάθε Ιατρός παρακολουθεί τουλάχιστον 1 Ασθενή και κάθε Ασθενής παρακολουθείται από τουλάχιστον 1 Ιατρό.",
-                    mapping_rule="Ενδιάμεσος πίνακας σύνδεσης με ελέγχους επιχειρησιακής λογικής / triggers για τη διασφάλιση ελάχιστης πληθικότητας.",
+                    explanation="Each Doctor treats at least 1 Patient, and each Patient is treated by at least 1 Doctor.",
+                    mapping_rule="Junction table with business logic checks / triggers to guarantee minimum cardinality.",
                 )
 
         # Special Architectural Relationship Patterns
         with ui.column().classes("w-full gap-4 mt-6"):
-            ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Ειδικές Μορφές Σχέσεων & Προχωρημένα Μοτίβα</h3>')
+            ui.html('<h3 class="text-lg font-bold text-[#f4f1ea] m-0">Special Relationship Patterns & Advanced Architectures</h3>')
 
             with ui.grid().classes("grid-cols-1 md:grid-cols-3 gap-4 w-full"):
                 # Pattern 1: Weak Entity / Identifying Relationship
                 with ui.column().classes("p-5 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                     with ui.row().classes("items-center gap-2"):
                         ui.html('<i class="fa-solid fa-clone text-amber-400"></i>')
-                        ui.label("Ασθενής Οντότητα & Ταυτοποίηση").classes("font-bold text-amber-300 text-sm")
+                        ui.label("Weak Entity & Identifying Relationship").classes("font-bold text-amber-300 text-sm")
                     ui.label(
-                        "Σχέση Ταυτοποίησης (Identifying Relationship): Η ασθενής οντότητα δανείζεται το PK του ιδιοκτήτη (Owner). "
-                        "Το σύνθετο PK της είναι: (Owner_PK, Partial_Key)."
+                        "Identifying Relationship: The weak entity borrows the PK of its Owner entity. "
+                        "Its composite PK is: (Owner_PK, Partial_Key)."
                     ).classes("text-xs text-[#b5b0a4] leading-relaxed")
                     ui.html(
                         """
@@ -511,10 +511,10 @@ def _renderCrowsFootSection() -> None:
                 with ui.column().classes("p-5 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                     with ui.row().classes("items-center gap-2"):
                         ui.html('<i class="fa-solid fa-arrows-rotate text-blue-400"></i>')
-                        ui.label("Αναδρομικές Σχέσεις (Recursive)").classes("font-bold text-blue-300 text-sm")
+                        ui.label("Recursive (Unary) Relationships").classes("font-bold text-blue-300 text-sm")
                     ui.label(
-                        "Μια οντότητα συνδέεται με τον εαυτό της σε διαφορετικούς ρόλους (π.χ. Υπάλληλος - Προϊστάμενος, Μάθημα - Προαπαιτούμενο). "
-                        "Στον πίνακα προστίθεται αυτοαναφορικό FK (Self-referencing FK)."
+                        "An entity relates to itself in different roles (e.g., Employee - Supervisor, Course - Prerequisite). "
+                        "A self-referencing FK is added to the table schema."
                     ).classes("text-xs text-[#b5b0a4] leading-relaxed")
                     ui.html(
                         """
@@ -528,10 +528,10 @@ def _renderCrowsFootSection() -> None:
                 with ui.column().classes("p-5 rounded-xl bg-[#201f1d] border border-[rgba(255,255,255,0.06)] gap-2"):
                     with ui.row().classes("items-center gap-2"):
                         ui.html('<i class="fa-solid fa-cubes text-emerald-400"></i>')
-                        ui.label("Τριμελείς Σχέσεις (Ternary)").classes("font-bold text-emerald-300 text-sm")
+                        ui.label("Ternary Relationships").classes("font-bold text-emerald-300 text-sm")
                     ui.label(
-                        "Ταυτόχρονη σύνδεση 3 οντοτήτων (π.χ. Προμηθευτής, Έργο, Ανταλλακτικό). "
-                        "Μετατρέπεται ΠΑΝΤΑ σε ξεχωριστό σχεσιακό πίνακα με 3 Foreign Keys και σύνθετο κλειδί."
+                        "Simultaneous association of 3 entities (e.g., Supplier, Project, Part). "
+                        "ALWAYS transformed into a separate relational table with 3 Foreign Keys forming a composite key."
                     ).classes("text-xs text-[#b5b0a4] leading-relaxed")
                     ui.html(
                         """
@@ -544,7 +544,7 @@ def _renderCrowsFootSection() -> None:
 
 def _renderOfficialSymbolCard(
     title: str,
-    greek_name: str,
+    display_name: str,
     svg_markup: str,
     desc: str,
     color_class: str,
@@ -555,14 +555,14 @@ def _renderOfficialSymbolCard(
     ):
         with ui.column().classes("gap-1"):
             ui.label(title).classes("font-bold text-[#f4f1ea] text-sm")
-            ui.label(greek_name).classes("text-xs text-[#e06b3a] font-semibold")
+            ui.label(display_name).classes("text-xs text-[#e06b3a] font-semibold")
         ui.html(svg_markup)
         ui.label(desc).classes("text-[11px] text-[#b5b0a4] leading-relaxed border-t border-[rgba(255,255,255,0.06)] pt-2")
 
 
 def _renderEndpointCard(
     title: str,
-    greek_name: str,
+    display_name: str,
     modality: str,
     cardinality: str,
     svg_markup: str,
@@ -572,7 +572,7 @@ def _renderEndpointCard(
     """Renders a single endpoint explanation card with embedded SVG visualization."""
     with ui.column().classes(f"p-4 rounded-xl bg-[#201f1d] border-t-4 {color_class} border border-[rgba(255,255,255,0.06)] gap-2"):
         ui.label(title).classes("font-bold text-[#f4f1ea] text-sm")
-        ui.label(greek_name).classes("text-xs text-[#e06b3a] font-semibold")
+        ui.label(display_name).classes("text-xs text-[#e06b3a] font-semibold")
 
         ui.html(svg_markup)
 
@@ -585,7 +585,7 @@ def _renderEndpointCard(
                 ui.label(cardinality).classes("font-medium text-[#f4f1ea]")
 
         with ui.column().classes("bg-[#141413] p-2 rounded text-[11px] text-[#78756d] italic mt-1"):
-            ui.label(f"Παράδειγμα: {example}")
+            ui.label(f"Example: {example}")
 
 
 def _renderRelationshipCategoryHeader(title: str, icon: str, color_class: str) -> None:
@@ -617,7 +617,7 @@ def _renderConnectionRow(
             with ui.row().classes("items-center gap-2"):
                 ui.label(label).classes("font-mono font-bold text-sm text-[#e06b3a] bg-[#141413] px-2.5 py-1 rounded-md border border-[rgba(224,107,58,0.3)]")
                 ui.label(subtitle).classes("text-xs font-semibold text-[#f4f1ea]")
-            ui.label(f"Συσχέτιση: {rel_name}").classes("text-[11px] text-[#78756d] font-mono")
+            ui.label(f"Relationship: {rel_name}").classes("text-[11px] text-[#78756d] font-mono")
 
         # Visual Diagram Row
         with ui.row().classes("items-center justify-between w-full py-2 px-2 bg-[#121211] rounded-lg border border-[rgba(255,255,255,0.04)]"):
@@ -641,11 +641,11 @@ def _renderConnectionRow(
         # Explanatory Text and Relational Mapping Tip
         with ui.grid().classes("grid-cols-1 md:grid-cols-2 gap-3 w-full text-xs"):
             with ui.column().classes("gap-1"):
-                ui.label("Ερμηνεία Σχέσης:").classes("text-[#78756d] font-semibold text-[11px]")
+                ui.label("Relationship Interpretation:").classes("text-[#78756d] font-semibold text-[11px]")
                 ui.label(explanation).classes("text-[#b5b0a4] leading-relaxed")
 
             with ui.column().classes("gap-1 bg-[#171615] p-2.5 rounded-lg border border-[rgba(255,255,255,0.04)]"):
-                ui.label("Κανόνας Μετατροπής σε SQL / Πίνακες:").classes("text-[#f59e0b] font-semibold text-[11px]")
+                ui.label("Relational / SQL Conversion Rule:").classes("text-[#f59e0b] font-semibold text-[11px]")
                 ui.label(mapping_rule).classes("text-[#f4f1ea] leading-relaxed")
 
 
@@ -719,75 +719,75 @@ def _renderRelationalMappingRules() -> None:
             with ui.column().classes("gap-0"):
                 ui.html(
                     '<h2 class="text-xl md:text-2xl font-bold text-[#f4f1ea] m-0">'
-                    "Οι 7 Χρυσοί Κανόνες Μετατροπής ER σε Σχεσιακούς Πίνακες (SQL DDL)"
+                    "The 7 Golden Rules for ER-to-Relational Mapping (SQL DDL)"
                     "</h2>"
                 )
                 ui.label(
-                    "Η ακριβής μεθοδολογία για τη δημιουργία πινάκων, Primary Keys, Foreign Keys και περιορισμών."
+                    "The rigorous methodology for deriving tables, Primary Keys, Foreign Keys, and integrity constraints."
                 ).classes("text-xs text-[#b5b0a4] mt-1")
 
         with ui.grid().classes("grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full"):
             # Rule 1
             _renderRuleCard(
                 number="1",
-                title="Ισχυρές Οντότητες (Strong Entities)",
+                title="Strong Entities",
                 icon="fa-cube",
                 color="border-blue-500",
-                description="Κάθε ισχυρή οντότητα γίνεται ένας ξεχωριστός πίνακας. Τα απλά γνωρίσματα γίνονται στήλες και το επιλεγμένο αναγνωριστικό ορίζεται ως PRIMARY KEY.",
+                description="Each strong entity becomes a separate table. Simple attributes become columns, and the designated identifier is defined as the PRIMARY KEY.",
             )
 
             # Rule 2
             _renderRuleCard(
                 number="2",
-                title="Ασθενείς Οντότητες (Weak Entities)",
+                title="Weak Entities",
                 icon="fa-clone",
                 color="border-amber-500",
-                description="Γίνεται πίνακας που περιλαμβάνει όλα τα απλά γνωρίσματά της συν το Primary Key της οντότητας-ιδιοκτήτη (Owner FK). Το PRIMARY KEY είναι ΣΥΝΘΕΤΟ: (Owner_PK, Partial_Key).",
+                description="Becomes a table containing all its simple attributes plus the Primary Key of the owner entity (Owner FK). The PRIMARY KEY is COMPOSITE: (Owner_PK, Partial_Key).",
             )
 
             # Rule 3
             _renderRuleCard(
                 number="3",
-                title="Σχέσεις 1:1 (One-to-One)",
+                title="1:1 Relationships",
                 icon="fa-arrows-left-right",
                 color="border-emerald-500",
-                description="Το PK του ενός πίνακα εισάγεται ως Foreign Key στον άλλο. Προτιμάται ο πίνακας με την ολική (υποχρεωτική) συμμετοχή. Το Foreign Key ορίζεται υποχρεωτικά ως UNIQUE και NOT NULL.",
+                description="The PK of one table is imported as a Foreign Key into the other. Prefer the table with total (mandatory) participation. The Foreign Key is defined as UNIQUE and NOT NULL.",
             )
 
             # Rule 4
             _renderRuleCard(
                 number="4",
-                title="Σχέσεις 1:N (One-to-Many)",
+                title="1:N Relationships",
                 icon="fa-sitemap",
                 color="border-[#e06b3a]",
-                description="Το Primary Key της πλευράς του '1' εισάγεται ως Foreign Key στον πίνακα της πλευράς του 'N'. Εάν η συμμετοχή του N είναι ολική, το FK ορίζεται NOT NULL.",
+                description="The Primary Key of the '1' side is imported as a Foreign Key into the table on the 'N' side. If participation on the N side is total, the FK is defined as NOT NULL.",
             )
 
             # Rule 5
             _renderRuleCard(
                 number="5",
-                title="Σχέσεις N:M (Many-to-Many)",
+                title="N:M Relationships",
                 icon="fa-network-wired",
                 color="border-rose-500",
-                description="Δημιουργείται ΝΕΟΣ ανεξάρτητος πίνακας σύνδεσης. Περιλαμβάνει ως Foreign Keys τα PKs και των δύο συνδεόμενων οντοτήτων συν τυχόν γνωρίσματα της σχέσης. PRIMARY KEY = (FK1, FK2).",
+                description="A NEW independent junction table is created. It includes as Foreign Keys the PKs of both participating entities plus any relationship attributes. PRIMARY KEY = (FK1, FK2).",
             )
 
             # Rule 6
             _renderRuleCard(
                 number="6",
-                title="Πλειότιμα Γνωρίσματα (Multi-valued)",
+                title="Multivalued Attributes",
                 icon="fa-tags",
                 color="border-purple-500",
-                description="Κάθε πλειότιμο γνώρισμα (π.χ. πολλαπλά τηλέφωνα, εγκαταστάσεις) γίνεται νέος πίνακας με: το PK της οντότητας + τη στήλη της τιμής. PRIMARY KEY = (Entity_PK, Attribute_Value).",
+                description="Each multivalued attribute (e.g., multiple phone numbers, facility locations) becomes a new table with: Entity_PK + Attribute_Value column. PRIMARY KEY = (Entity_PK, Attribute_Value).",
             )
 
             # Rule 7
             _renderRuleCard(
                 number="7",
-                title="Σύνθετα Γνωρίσματα (Composite)",
+                title="Composite Attributes",
                 icon="fa-layer-group",
                 color="border-teal-500",
-                description="Διασπώνται στα επιμέρους απλά/ατομικά γνωρίσματά τους (π.χ. Διεύθυνση -> οδός, αριθμός, ΤΚ, πόλη). Το σύνθετο γνώρισμα ως ενιαία έννοια δεν αποτελεί ξεχωριστή στήλη.",
+                description="Decomposed into their atomic simple sub-attributes (e.g., Address -> street, number, postal_code, city). The composite attribute itself is not retained as a separate column.",
             )
 
 
@@ -798,7 +798,7 @@ def _renderRuleCard(number: str, title: str, icon: str, color: str, description:
             with ui.row().classes("items-center gap-2"):
                 ui.html(f'<i class="fa-solid {icon} text-sm text-[#e06b3a]"></i>')
                 ui.label(title).classes("font-bold text-[#f4f1ea] text-xs")
-            ui.label(f"Κανόνας {number}").classes("text-[10px] font-mono text-[#78756d] bg-[#141413] px-2 py-0.5 rounded")
+            ui.label(f"Rule {number}").classes("text-[10px] font-mono text-[#78756d] bg-[#141413] px-2 py-0.5 rounded")
         ui.label(description).classes("text-xs text-[#b5b0a4] leading-relaxed")
 
 
@@ -810,11 +810,11 @@ def _renderNotationComparisonSection() -> None:
             with ui.column().classes("gap-0"):
                 ui.html(
                     '<h2 class="text-xl md:text-2xl font-bold text-[#f4f1ea] m-0">'
-                    "Συγκριτικός Πίνακας Συμβολισμών (Crow's Foot vs Chen vs Min-Max)"
+                    "Notation Comparison Matrix (Crow's Foot vs Chen vs Min-Max)"
                     "</h2>"
                 )
                 ui.label(
-                    "Χρήσιμη αντιστοίχιση για την αναγνώριση θεμάτων εξετάσεων σε διαφορετικές παραλλαγές μοντελοποίησης."
+                    "Reference mapping for recognizing exam problems across diverse ER modeling notations."
                 ).classes("text-xs text-[#b5b0a4] mt-1")
 
         comparison_table = """
@@ -822,66 +822,66 @@ def _renderNotationComparisonSection() -> None:
             <table class="dark-table">
                 <thead>
                     <tr>
-                        <th style="width: 25%;">Έννοια / Τύπος</th>
+                        <th style="width: 25%;">Concept / Type</th>
                         <th style="width: 25%;">Crow's Foot (Martin)</th>
-                        <th style="width: 25%;">Κλασικό ER (Peter Chen)</th>
-                        <th style="width: 25%;">Min-Max Συμβολισμός</th>
+                        <th style="width: 25%;">Classical ER (Peter Chen)</th>
+                        <th style="width: 25%;">Min-Max Notation</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Οντότητα</td>
-                        <td>Ορθογώνιο πλαίσιο με λίστα γνωρισμάτων</td>
-                        <td>Απλό Ορθογώνιο</td>
-                        <td>Ορθογώνιο</td>
+                        <td class="font-bold text-[#f4f1ea]">Entity</td>
+                        <td>Rectangle box with attribute list</td>
+                        <td>Simple Rectangle</td>
+                        <td>Rectangle</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Ασθενής Οντότητα</td>
-                        <td>Πλαίσιο με στρογγυλεμένες γωνίες ή ένδειξη PK</td>
-                        <td>Διπλό Ορθογώνιο</td>
-                        <td>Διπλό Ορθογώνιο</td>
+                        <td class="font-bold text-[#f4f1ea]">Weak Entity</td>
+                        <td>Rounded rectangle or PK note</td>
+                        <td>Double Rectangle</td>
+                        <td>Double Rectangle</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Συσχέτιση</td>
-                        <td>Ευθεία γραμμή με σύμβολα στα άκρα</td>
-                        <td>Ρόμβος (Diamond) ανάμεσα στις οντότητες</td>
-                        <td>Ρόμβος με ετικέτα (min, max)</td>
+                        <td class="font-bold text-[#f4f1ea]">Relationship</td>
+                        <td>Straight line with endpoint symbols</td>
+                        <td>Diamond between entities</td>
+                        <td>Diamond with (min, max) labels</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Πρωτεύον Κλειδί (PK)</td>
-                        <td>Ένδειξη [PK] ή υπογράμμιση στο κουτί</td>
-                        <td>Υπογραμμισμένο κείμενο μέσα σε Έλλειψη</td>
-                        <td>Υπογραμμισμένο γνώρισμα</td>
+                        <td class="font-bold text-[#f4f1ea]">Primary Key (PK)</td>
+                        <td>[PK] tag or underlined in table</td>
+                        <td>Underlined text inside Ellipse</td>
+                        <td>Underlined attribute</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Μερικό Κλειδί (Weak PK)</td>
-                        <td>Ένδειξη [Part-PK]</td>
-                        <td>Διακεκομμένη υπογράμμιση σε Έλλειψη</td>
-                        <td>Διακεκομμένη υπογράμμιση</td>
+                        <td class="font-bold text-[#f4f1ea]">Partial Key (Discriminator)</td>
+                        <td>[Partial Key] tag</td>
+                        <td>Dashed underline inside Ellipse</td>
+                        <td>Dashed underline</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Προαιρετικό Ένα (0..1)</td>
-                        <td>Κύκλος και Κάθετη Γραμμή (O |)</td>
-                        <td>Απλή γραμμή (1) και μερική συμμετοχή</td>
-                        <td>(0, 1) στην πλευρά συμμετοχής</td>
+                        <td class="font-bold text-[#f4f1ea]">Optional One (0..1)</td>
+                        <td>Circle and Vertical Bar (O |)</td>
+                        <td>Single line (1) and partial participation</td>
+                        <td>(0, 1) on participating entity side</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Υποχρεωτικό Ένα (1..1)</td>
-                        <td>Δύο Κάθετες Γραμμές (| |)</td>
-                        <td>Διπλή γραμμή (1) ή ολική συμμετοχή</td>
-                        <td>(1, 1) στην πλευρά συμμετοχής</td>
+                        <td class="font-bold text-[#f4f1ea]">Mandatory One (1..1)</td>
+                        <td>Two Vertical Bars (| |)</td>
+                        <td>Double line (1) or total participation</td>
+                        <td>(1, 1) on participating entity side</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Προαιρετικά Πολλά (0..N)</td>
-                        <td>Κύκλος και Διχάλα (O &lt;)</td>
-                        <td>Απλή γραμμή με ένδειξη N / M</td>
-                        <td>(0, N) στην πλευρά συμμετοχής</td>
+                        <td class="font-bold text-[#f4f1ea]">Optional Many (0..N)</td>
+                        <td>Circle and Fork (O &lt;)</td>
+                        <td>Single line with N / M tag</td>
+                        <td>(0, N) on participating entity side</td>
                     </tr>
                     <tr>
-                        <td class="font-bold text-[#f4f1ea]">Υποχρεωτικά Πολλά (1..N)</td>
-                        <td>Κάθετη Γραμμή και Διχάλα (| &lt;)</td>
-                        <td>Διπλή γραμμή με ένδειξη N / M</td>
-                        <td>(1, N) στην πλευρά συμμετοχής</td>
+                        <td class="font-bold text-[#f4f1ea]">Mandatory Many (1..N)</td>
+                        <td>Vertical Bar and Fork (| &lt;)</td>
+                        <td>Double line with N / M tag</td>
+                        <td>(1, N) on participating entity side</td>
                     </tr>
                 </tbody>
             </table>

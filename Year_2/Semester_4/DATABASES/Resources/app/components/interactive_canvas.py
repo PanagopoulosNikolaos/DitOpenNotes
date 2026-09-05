@@ -52,12 +52,12 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
             with ui.column().classes("gap-1"):
                 with ui.row().classes("items-center gap-2"):
                     ui.html('<i class="fa-solid fa-highlighter text-[#f59e0b] text-lg no-print"></i>')
-                    ui.html('<h2 class="text-lg md:text-xl font-bold text-[var(--text-1)] m-0">Διαδραστικό Canvas Κειμένου Απαιτήσεων</h2>')
+                    ui.html('<h2 class="text-lg md:text-xl font-bold text-[var(--text-1)] m-0">Interactive Requirements Text Canvas</h2>')
                 ui.label(
-                    f"Σενάριο: {scenario.title} — {scenario.subtitle}"
+                    f"Scenario: {scenario.title} — {scenario.subtitle}"
                 ).classes("text-xs text-[var(--accent)] font-medium hidden print:block")
                 ui.label(
-                    "Κάντε κλικ στα φίλτρα για να εμφανίσετε/αποκρύψετε επιμέρους στοιχεία ή επιλέξτε Καθαρό Κείμενο."
+                    "Click on filters to toggle highlights or select Plain Text."
                 ).classes("text-xs text-[var(--text-3)] no-print")
 
             # Interactive Filter Buttons (Presets + Category Toggles - hidden in print)
@@ -65,23 +65,23 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
                 # sanitize=False keeps inline onclick handlers; content is static trusted markup.
                 ui.html(
                     """
-                    <button onclick="setFilterMode('all')" class="filter-chip active" data-filter="all" title="Εμφάνιση όλων των στοιχείων">
-                        <i class="fa-solid fa-layer-group mr-1"></i> Όλα
+                    <button onclick="setFilterMode('all')" class="filter-chip active" data-filter="all" title="Show all elements">
+                        <i class="fa-solid fa-layer-group mr-1"></i> All
                     </button>
-                    <button onclick="setFilterMode('none')" class="filter-chip" data-filter="none" title="Απόκρυψη όλων των επισημάνσεων (Καθαρό κείμενο)">
-                        <i class="fa-solid fa-file-lines mr-1"></i> Καθαρό Κείμενο
+                    <button onclick="setFilterMode('none')" class="filter-chip" data-filter="none" title="Hide all highlights (Plain text)">
+                        <i class="fa-solid fa-file-lines mr-1"></i> Plain Text
                     </button>
-                    <button onclick="toggleCategory('entity')" class="filter-chip active" data-category="entity" title="Εναλλαγή εμφάνισης Οντοτήτων">
-                        <i class="fa-solid fa-cube mr-1 text-blue-500"></i> Οντότητες
+                    <button onclick="toggleCategory('entity')" class="filter-chip active" data-category="entity" title="Toggle Entities">
+                        <i class="fa-solid fa-cube mr-1 text-blue-500"></i> Entities
                     </button>
-                    <button onclick="toggleCategory('key')" class="filter-chip active" data-category="key" title="Εναλλαγή εμφάνισης Κλειδιών">
-                        <i class="fa-solid fa-key mr-1 text-amber-500"></i> Κλειδιά
+                    <button onclick="toggleCategory('key')" class="filter-chip active" data-category="key" title="Toggle Keys">
+                        <i class="fa-solid fa-key mr-1 text-amber-500"></i> Keys
                     </button>
-                    <button onclick="toggleCategory('attr')" class="filter-chip active" data-category="attr" title="Εναλλαγή εμφάνισης Γνωρισμάτων">
-                        <i class="fa-solid fa-tag mr-1 text-emerald-500"></i> Γνωρίσματα
+                    <button onclick="toggleCategory('attr')" class="filter-chip active" data-category="attr" title="Toggle Attributes">
+                        <i class="fa-solid fa-tag mr-1 text-emerald-500"></i> Attributes
                     </button>
-                    <button onclick="toggleCategory('rel')" class="filter-chip active" data-category="rel" title="Εναλλαγή εμφάνισης Σχέσεων">
-                        <i class="fa-solid fa-code-branch mr-1 text-rose-500"></i> Σχέσεις
+                    <button onclick="toggleCategory('rel')" class="filter-chip active" data-category="rel" title="Toggle Relationships">
+                        <i class="fa-solid fa-code-branch mr-1 text-rose-500"></i> Relationships
                     </button>
                     """,
                     sanitize=False,
@@ -93,12 +93,12 @@ def renderInteractiveCanvas(scenario: Scenario) -> None:
         ):
             ui.html(
                 """
-                <span class="inline-flex items-center text-blue-600 dark:text-[#93c5fd] gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Ισχυρή Οντότητα</span>
-                <span class="inline-flex items-center text-purple-600 dark:text-[#d8b4fe] gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Ασθενής Οντότητα</span>
-                <span class="inline-flex items-center text-orange-600 dark:text-[#fdba74] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-[#e06b3a] rounded-sm"></span> Πρωτεύον Κλειδί (PK)</span>
-                <span class="inline-flex items-center text-emerald-600 dark:text-[#86efac] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Απλό/Σύνθετο Γνώρισμα</span>
-                <span class="inline-flex items-center text-fuchsia-600 dark:text-[#f0abfc] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-fuchsia-500 rounded-sm"></span> Πλειότιμο Γνώρισμα</span>
-                <span class="inline-flex items-center text-rose-600 dark:text-[#fda4af] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Σχέση / Πληθικότητα</span>
+                <span class="inline-flex items-center text-blue-600 dark:text-[#93c5fd] gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Strong Entity</span>
+                <span class="inline-flex items-center text-purple-600 dark:text-[#d8b4fe] gap-1.5 font-medium"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Weak Entity</span>
+                <span class="inline-flex items-center text-orange-600 dark:text-[#fdba74] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-[#e06b3a] rounded-sm"></span> Primary Key (PK)</span>
+                <span class="inline-flex items-center text-emerald-600 dark:text-[#86efac] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Simple / Composite Attribute</span>
+                <span class="inline-flex items-center text-fuchsia-600 dark:text-[#f0abfc] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-fuchsia-500 rounded-sm"></span> Multivalued Attribute</span>
+                <span class="inline-flex items-center text-rose-600 dark:text-[#fda4af] gap-1.5 font-medium"><span class="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Relationship / Cardinality</span>
                 """
             )
 
@@ -213,7 +213,7 @@ ui.add_head_html(
         }
 
         function downloadStandaloneHTML() {
-            const title = document.querySelector('h1')?.innerText || 'Οδηγός Ανάλυσης Μοντέλου Ε-Ρ';
+            const title = document.querySelector('h1')?.innerText || 'E-R Model Analysis Guide';
             const subTitle = document.querySelector('header label')?.innerText || '';
             const printSections = document.querySelectorAll('.print-section');
             let sectionsHTML = '';
@@ -225,7 +225,7 @@ ui.add_head_html(
             });
 
             const fullHTML = `<!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
