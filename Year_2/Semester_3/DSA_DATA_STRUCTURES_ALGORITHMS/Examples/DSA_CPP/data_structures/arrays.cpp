@@ -182,6 +182,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     // Dynamic Array Demo
     std::cout << "=== Dynamic Array Demo ===" << std::endl;
@@ -228,3 +229,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

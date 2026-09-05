@@ -350,6 +350,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     // Test array (sorted for most algorithms)
     std::vector<int> sortedArr = {2, 5, 8, 12, 16, 23, 38, 45, 56, 67, 78};
@@ -390,3 +391,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

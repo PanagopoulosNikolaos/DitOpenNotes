@@ -157,12 +157,14 @@ public:
     }
 
     bool contains(const K& key) const {
-        try {
-            get(key);
-            return true;
-        } catch (const std::out_of_range&) {
-            return false;
+        size_t bucketIndex = _hash(key);
+        const auto& bucket = _buckets[bucketIndex];
+        for (const auto& kvp : bucket) {
+            if (kvp.key == key) {
+                return true;
+            }
         }
+        return false;
     }
 
     std::vector<K> keys() const {
@@ -388,6 +390,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::cout << "=== Hash Map with Chaining Demo ===" << std::endl;
     HashMapChaining<std::string, int> hashMap;
@@ -467,3 +470,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

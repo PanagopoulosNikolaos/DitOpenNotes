@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+#include <stack>
 #include <list>
 #include <algorithm>
 #include <climits>
@@ -466,6 +467,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::cout << "=== Graph Adjacency List Demo ===" << std::endl;
     GraphAdjacencyList g(false); // undirected graph
@@ -563,3 +565,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

@@ -309,6 +309,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::cout << "=== Singly Linked List Demo ===" << std::endl;
     SinglyLinkedList sll;
@@ -370,3 +371,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

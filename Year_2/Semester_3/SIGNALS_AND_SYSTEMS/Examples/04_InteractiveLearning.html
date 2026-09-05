@@ -396,7 +396,7 @@
                 linear: true, causal: true, ti: true, stable: true,
                 io: 'SISO', memory: 'Static', app: 'Signal amplification',
                 classification: 'Linear, Causal, Time-Invariant, Stable',
-                test: (a, b) => `y(t) = 2(a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t)) = a_1 \\cdot 2 \\cdot x_1(t) + a_2 \\cdot 2 \\cdot x_2(t) \\, ✓`
+                test: (a, b) => `y(t) = 2(a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t)) = a_1 \\cdot 2 \\cdot x_1(t) + a_2 \\cdot 2 \\cdot x_2(t) \\,`
             },
             'delay': {
                 name: 'Delay System',
@@ -406,7 +406,7 @@
                 linear: true, causal: true, ti: true, stable: true,
                 io: 'SISO', memory: 'Dynamic', app: 'Signal transmission',
                 classification: 'Linear, Causal, Time-Invariant, Stable',
-                test: (a, b) => `y(t) = a_1 \\cdot x_1(t-2) + a_2 \\cdot x_2(t-2) \\, ✓`
+                test: (a, b) => `y(t) = a_1 \\cdot x_1(t-2) + a_2 \\cdot x_2(t-2) \\,`
             },
             'derivative': {
                 name: 'Differentiator',
@@ -416,7 +416,7 @@
                 linear: true, causal: true, ti: true, stable: false,
                 io: 'SISO', memory: 'Dynamic', app: 'Differentiation, edge detection',
                 classification: 'Linear, Causal, Time-Invariant, UNSTABLE (noise amplification)',
-                test: (a, b) => `y(t) = a_1 \\cdot \\frac{dx_1}{dt} + a_2 \\cdot \\frac{dx_2}{dt} \\, ✓`
+                test: (a, b) => `y(t) = a_1 \\cdot \\frac{dx_1}{dt} + a_2 \\cdot \\frac{dx_2}{dt} \\,`
             },
             'integral': {
                 name: 'Integrator',
@@ -426,7 +426,7 @@
                 linear: true, causal: true, ti: true, stable: false,
                 io: 'SISO', memory: 'Dynamic', app: 'Integration, accumulation',
                 classification: 'Linear, Causal, Time-Invariant, UNSTABLE (unbounded)',
-                test: (a, b) => `y(t) = a_1 \\cdot \\int x_1(\\tau)d\\tau + a_2 \\cdot \\int x_2(\\tau)d\\tau \\, ✓`
+                test: (a, b) => `y(t) = a_1 \\cdot \\int x_1(\\tau)d\\tau + a_2 \\cdot \\int x_2(\\tau)d\\tau \\,`
             },
             'quadratic': {
                 name: 'Quadratic (Nonlinear)',
@@ -436,7 +436,7 @@
                 linear: false, causal: true, ti: true, stable: true,
                 io: 'SISO', memory: 'Static', app: 'Envelope detection, modulation',
                 classification: 'Nonlinear, Causal, Time-Invariant, Stable',
-                test: (a, b) => `y(t) = (a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t))^2 \\neq a_1 \\cdot x_1^2(t) + a_2 \\cdot x_2^2(t) \\, ✗`
+                test: (a, b) => `y(t) = (a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t))^2 \\neq a_1 \\cdot x_1^2(t) + a_2 \\cdot x_2^2(t) \\,`
             },
             'future': {
                 name: 'Future Reference',
@@ -446,7 +446,7 @@
                 linear: true, causal: false, ti: true, stable: true,
                 io: 'SISO', memory: 'Dynamic', app: 'Preview systems, offline processing',
                 classification: 'Linear, NON-CAUSAL, Time-Invariant, Stable',
-                test: (a, b) => `y(t) = a_1 \\cdot x_1(t+1) + a_2 \\cdot x_2(t+1) \\, ✓`
+                test: (a, b) => `y(t) = a_1 \\cdot x_1(t+1) + a_2 \\cdot x_2(t+1) \\,`
             },
             'timevar': {
                 name: 'Time-Variant',
@@ -456,7 +456,7 @@
                 linear: true, causal: true, ti: false, stable: true,
                 io: 'SISO', memory: 'Static', app: 'Amplitude modulation',
                 classification: 'Linear, Causal, TIME-VARIANT, Stable',
-                test: (a, b) => `y(t) = t(a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t)) \\, ✓ \\text{ (but not time-invariant)}`
+                test: (a, b) => `y(t) = t(a_1 \\cdot x_1(t) + a_2 \\cdot x_2(t)) \\, \\text{ (but not time-invariant)}`
             }
         };
 

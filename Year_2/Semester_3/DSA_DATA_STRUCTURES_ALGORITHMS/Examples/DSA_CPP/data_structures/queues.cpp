@@ -416,6 +416,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::cout << "=== Array Queue Demo ===" << std::endl;
     ArrayQueue<int> queue;
@@ -489,3 +490,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

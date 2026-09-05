@@ -183,7 +183,7 @@
 </head>
 <body>
 
-    <h1 style="text-align:center; margin-bottom:30px;">🔬 LTI Systems & Properties Explorer</h1>
+    <h1 style="text-align:center; margin-bottom:30px;">LTI Systems & Properties Explorer</h1>
 
     <div class="main-grid">
         
@@ -273,15 +273,15 @@
                 <ul class="prop-list">
                     <li class="prop-item">
                         <span>Linearity</span>
-                        <span class="prop-val fail" id="propLinear">✗ Non-Linear</span>
+                        <span class="prop-val fail" id="propLinear">Non-Linear</span>
                     </li>
                     <li class="prop-item">
                         <span>Time Invariance</span>
-                        <span class="prop-val fail" id="propTI">✗ Time-Variant</span>
+                        <span class="prop-val fail" id="propTI">Time-Variant</span>
                     </li>
                     <li class="prop-item">
                         <span>Causality</span>
-                        <span class="prop-val pass" id="propCausal">✓ Causal</span>
+                        <span class="prop-val pass" id="propCausal">Causal</span>
                     </li>
                     <li class="prop-item">
                         <span>Memory</span>
@@ -289,7 +289,7 @@
                     </li>
                     <li class="prop-item">
                         <span>Stability (BIBO)</span>
-                        <span class="prop-val pass" id="propStable">✓ Stable</span>
+                        <span class="prop-val pass" id="propStable">Stable</span>
                     </li>
                     <li class="prop-item">
                         <span>Classification</span>
@@ -300,7 +300,7 @@
 
             <div class="card" style="text-align:center; background: rgba(74, 222, 128, 0.05); border-color: rgba(74, 222, 128, 0.2);">
                 <h4 style="margin:0; color: var(--success);">Is this System LTI?</h4>
-                <div style="font-size:2em; font-weight:bold; color: var(--danger); margin:10px 0;" id="ltiStatus">✗ NO</div>
+                <div style="font-size:2em; font-weight:bold; color: var(--danger); margin:10px 0;" id="ltiStatus">NO</div>
                 <small style="color:#94a3b8;">
                     LTI requires: <strong>Linear</strong> AND <strong>Time-Invariant</strong>
                 </small>
@@ -334,7 +334,7 @@
 
             <div class="card">
                 <div class="section-header">
-                    <h3>📚 Property Reference</h3>
+                    <h3>Property Reference</h3>
                 </div>
 
                 <div style="font-size:0.85em; color:#cbd5e1; line-height:1.6;">
@@ -520,23 +520,23 @@
         function updateUI() {
             const sys = systems[currentSystem];
             
-            document.getElementById('propLinear').textContent = sys.props.linear ? '✓ Linear' : '✗ Non-Linear';
+            document.getElementById('propLinear').textContent = sys.props.linear ? 'Linear' : 'Non-Linear';
             document.getElementById('propLinear').className = 'prop-val ' + (sys.props.linear ? 'pass' : 'fail');
             
-            document.getElementById('propTI').textContent = sys.props.ti ? '✓ Time-Invariant' : '✗ Time-Variant';
+            document.getElementById('propTI').textContent = sys.props.ti ? 'Time-Invariant' : 'Time-Variant';
             document.getElementById('propTI').className = 'prop-val ' + (sys.props.ti ? 'pass' : 'fail');
             
-            document.getElementById('propCausal').textContent = sys.props.causal ? '✓ Causal' : '✗ Non-Causal';
+            document.getElementById('propCausal').textContent = sys.props.causal ? 'Causal' : 'Non-Causal';
             document.getElementById('propCausal').className = 'prop-val ' + (sys.props.causal ? 'pass' : 'fail');
             
             document.getElementById('propMemory').textContent = sys.props.memory;
-            document.getElementById('propStable').textContent = sys.props.stable ? '✓ Stable (BIBO)' : '✗ Unstable';
+            document.getElementById('propStable').textContent = sys.props.stable ? 'Stable (BIBO)' : 'Unstable';
             document.getElementById('propStable').className = 'prop-val ' + (sys.props.stable ? 'pass' : 'fail');
             
             document.getElementById('propClass').textContent = sys.props.class;
 
             const isLTI = sys.props.linear && sys.props.ti;
-            document.getElementById('ltiStatus').textContent = isLTI ? '✓ YES - LTI' : '✗ NO';
+            document.getElementById('ltiStatus').textContent = isLTI ? 'YES - LTI' : 'NO';
             document.getElementById('ltiStatus').style.color = isLTI ? 'var(--success)' : 'var(--danger)';
 
             const eqStr = sys.eqDisplay(scaleFactor, timeDelay, ampOffset);
@@ -584,8 +584,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.linear ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.linear ? 
-                '✓ PASS: Superposition holds: f(ax+by) = a·f(x) + b·f(y)' :
-                '✗ FAIL: Superposition violated';
+                'PASS: Superposition holds: f(ax+by) = a·f(x) + b·f(y)' :
+                'FAIL: Superposition violated';
             result.style.display = 'block';
         }
 
@@ -594,8 +594,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.ti ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.ti ? 
-                '✓ PASS: Shifted input results in shifted output' :
-                '✗ FAIL: System depends on absolute time t';
+                'PASS: Shifted input results in shifted output' :
+                'FAIL: System depends on absolute time t';
             result.style.display = 'block';
         }
 
@@ -604,8 +604,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.stable ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.stable ? 
-                '✓ PASS: Bounded Input yields Bounded Output' :
-                '✗ FAIL: Output grows to infinity';
+                'PASS: Bounded Input yields Bounded Output' :
+                'FAIL: Output grows to infinity';
             result.style.display = 'block';
         }
 
@@ -614,8 +614,8 @@
             const sys = systems[currentSystem];
             result.className = 'test-result ' + (sys.props.causal ? 'test-pass' : 'test-fail');
             result.textContent = sys.props.causal ? 
-                '✓ PASS: Output depends only on past/present' :
-                '✗ FAIL: Output depends on future values';
+                'PASS: Output depends only on past/present' :
+                'FAIL: Output depends on future values';
             result.style.display = 'block';
         }
 

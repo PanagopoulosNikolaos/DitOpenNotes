@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <queue>
 #include <stack>
 #include <climits>
@@ -32,14 +33,14 @@
  * - Maximum Flow: Network capacity, bipartite matching, resource allocation
  */
 
-struct Edge {
+struct GraphAlgoEdge {
     int to;
     int weight;
     
-    Edge(int t, int w) : to(t), weight(w) {}
+    GraphAlgoEdge(int t, int w) : to(t), weight(w) {}
 };
 
-using Graph = std::unordered_map<int, std::vector<Edge>>;
+using Graph = std::unordered_map<int, std::vector<GraphAlgoEdge>>;
 
 class ShortestPathAlgorithms {
 public:
@@ -86,7 +87,7 @@ public:
 
             visited.insert(currentVertex);
 
-            for (const Edge& edge : graph.at(currentVertex)) {
+            for (const GraphAlgoEdge& edge : graph.at(currentVertex)) {
                 int neighbor = edge.to;
                 int weight = edge.weight;
                 int distance = currentDist + weight;
@@ -138,7 +139,7 @@ public:
         for (size_t i = 0; i < vertices.size() - 1; ++i) {
             for (const auto& node : graph) {
                 int u = node.first;
-                for (const Edge& edge : node.second) {
+                for (const GraphAlgoEdge& edge : node.second) {
                     int v = edge.to;
                     int weight = edge.weight;
                     
@@ -153,7 +154,7 @@ public:
         // Check for negative cycles
         for (const auto& node : graph) {
             int u = node.first;
-            for (const Edge& edge : node.second) {
+            for (const GraphAlgoEdge& edge : node.second) {
                 int v = edge.to;
                 int weight = edge.weight;
                 
@@ -259,7 +260,7 @@ public:
         visited.insert(start);
 
         // Add all edges from start vertex to priority queue
-        for (const Edge& edge : graph.at(start)) {
+        for (const GraphAlgoEdge& edge : graph.at(start)) {
             edges.push(std::make_tuple(edge.weight, start, edge.to));
         }
 
@@ -277,7 +278,7 @@ public:
             totalWeight += weight;
 
             // Add edges from newly added vertex to unvisited vertices
-            for (const Edge& edge : graph.at(v)) {
+            for (const GraphAlgoEdge& edge : graph.at(v)) {
                 if (!visited.count(edge.to)) {
                     edges.push(std::make_tuple(edge.weight, v, edge.to));
                 }
@@ -512,6 +513,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::cout << "=== Dijkstra's Algorithm Demo ===" << std::endl;
     Graph graphDijkstra;
@@ -594,3 +596,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

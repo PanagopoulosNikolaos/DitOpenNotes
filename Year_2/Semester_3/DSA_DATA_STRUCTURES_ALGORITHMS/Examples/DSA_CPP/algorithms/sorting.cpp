@@ -357,6 +357,7 @@ private:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::vector<int> testArr = {64, 34, 25, 12, 22, 11, 90};
 
@@ -417,3 +418,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN

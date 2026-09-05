@@ -314,6 +314,7 @@ public:
 };
 
 // Example usage
+#ifndef SKIP_STANDALONE_MAIN
 int main() {
     std::cout << "=== Array Stack Demo ===" << std::endl;
     ArrayStack<int> stack;
@@ -367,3 +368,4 @@ int main() {
 
     return 0;
 }
+#endif // SKIP_STANDALONE_MAIN
