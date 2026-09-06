@@ -405,6 +405,75 @@ code, pre, .font-mono {
     border-radius: var(--r-md);
 }
 
+/* ==========================================================================
+   QUASAR POPUP & SELECT DROPDOWN THEMING
+   ========================================================================== */
+
+.q-menu,
+.app-select-popup,
+.q-select__dialog,
+.q-menu--square,
+.q-popup {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    color: var(--text-1) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-radius: var(--r-sm) !important;
+}
+
+.q-menu .q-item,
+.app-select-popup .q-item,
+.q-select__dialog .q-item {
+    color: var(--text-1) !important;
+    transition: background 0.15s ease, color 0.15s ease;
+    font-size: 0.82rem !important;
+    padding: 8px 12px !important;
+}
+
+.q-menu .q-item:hover,
+.q-menu .q-item.q-manual-focusable--focused,
+.app-select-popup .q-item:hover,
+.app-select-popup .q-item.q-manual-focusable--focused,
+.q-select__dialog .q-item:hover {
+    background: var(--surface-hover) !important;
+    color: var(--accent) !important;
+}
+
+.q-menu .q-item.q-item--active,
+.q-menu .q-item.text-primary,
+.app-select-popup .q-item.q-item--active,
+.app-select-popup .q-item.text-primary,
+.q-select__dialog .q-item.q-item--active {
+    background: rgba(217, 83, 30, 0.18) !important;
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+}
+
+.q-item__label {
+    color: inherit !important;
+}
+
+.q-select .q-field__native,
+.q-select .q-field__prefix,
+.q-select .q-field__suffix,
+.q-select .q-field__input {
+    color: var(--text-1) !important;
+}
+
+.q-field--outlined .q-field__control {
+    border-color: var(--border) !important;
+    background: var(--input-bg) !important;
+}
+
+.q-field--outlined:hover .q-field__control {
+    border-color: var(--border-accent) !important;
+}
+
+.q-field--outlined.q-field--focused .q-field__control {
+    border-color: var(--border-focus) !important;
+}
+
 /* Print CSS */
 @media print {
     body {
@@ -431,17 +500,23 @@ KATEX_AND_SCRIPTS_HEAD = r"""
 <script>
 // Global Theme Switcher
 function toggleAppTheme() {
-    const isDark = document.body.classList.contains('theme-dark');
+    const isDark = document.body.classList.contains('theme-dark') || document.body.classList.contains('body--dark');
     if (isDark) {
-        document.body.classList.remove('theme-dark');
+        document.body.classList.remove('theme-dark', 'body--dark');
         document.body.classList.add('theme-light');
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('de_theme', 'light');
+        if (window.Quasar && window.Quasar.dark) {
+            window.Quasar.dark.set(false);
+        }
     } else {
         document.body.classList.remove('theme-light');
-        document.body.classList.add('theme-dark');
+        document.body.classList.add('theme-dark', 'body--dark');
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('de_theme', 'dark');
+        if (window.Quasar && window.Quasar.dark) {
+            window.Quasar.dark.set(true);
+        }
     }
 }
 
@@ -641,11 +716,17 @@ function downloadStandaloneHTML() {
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('de_theme') || 'light';
     if (savedTheme === 'dark') {
-        document.body.classList.add('theme-dark');
+        document.body.classList.add('theme-dark', 'body--dark');
         document.documentElement.setAttribute('data-theme', 'dark');
+        if (window.Quasar && window.Quasar.dark) {
+            window.Quasar.dark.set(true);
+        }
     } else {
         document.body.classList.add('theme-light');
         document.documentElement.setAttribute('data-theme', 'light');
+        if (window.Quasar && window.Quasar.dark) {
+            window.Quasar.dark.set(false);
+        }
     }
     renderAllLatex();
 });

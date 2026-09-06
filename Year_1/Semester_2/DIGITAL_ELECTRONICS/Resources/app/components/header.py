@@ -52,7 +52,7 @@ def renderHeader(
             ).props(
                 'outlined dense options-dense popup-content-class="app-select-popup"'
             ).classes(
-                "w-80 md:w-96 bg-[var(--input-bg)] text-[var(--text-1)] text-xs rounded-lg border border-[var(--border-accent)] shadow-sm"
+                "w-80 md:w-96 text-xs rounded-lg shadow-sm"
             )
 
             # Course Badge

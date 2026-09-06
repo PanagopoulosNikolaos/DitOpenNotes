@@ -262,7 +262,14 @@ def createPracticeExam01Scenario() -> Scenario:
                     step_number=3,
                     title="Εκτέλεση Δυαδικής Πρόσθεσης A + B με Ανίχνευση Κρατουμένων",
                     formula="S = A + B \\pmod{2^8}",
-                    substitution="\\begin{array}{r@{\\quad}l} & 00101011_2 \\; (+43) \\\\ + & 11100101_2 \\; (-27) \\\\ \\hline (1) & 00010000_2 \\; (+16) \\end{array}",
+                    substitution=(
+                        "\\begin{array}{rl}"
+                        "  00101011_2 & \\text{(+43)} \\\\"
+                        "+ \\; 11100101_2 & \\text{(-27)} \\\\"
+                        "\\hline"
+                        "(1) \\; 00010000_2 & \\text{(+16)}"
+                        "\\end{array}"
+                    ),
                     result="\\text{Sum} = 00010000_2 = +16_{10}, \\quad C_{out} = 1",
                     rationale="Το κρατούμενο εξόδου C8=1 απορρίπτεται στην αριθμητική C2. Το αποτέλεσμα 00010000_2 ισούται ακριβώς με 16 στο δεκαδικό.",
                 ),
@@ -457,34 +464,46 @@ def createPracticeExam01Scenario() -> Scenario:
                 "3. Εξηγήστε πώς αποτρέπεται η ανεπιθύμητη δημιουργία μανδαλωτών (latches)."
             ),
             given_parameters=[
-                GivenParameter(symbol="\\text{Inputs}", value="d0, d1, d2, d3", description="4 δίαυλοι 8-bit", category="param"),
-                GivenParameter(symbol="\\text{Select}", value="sel (2\\text{ bits})", description="Γραμμές επιλογής MUX", category="param"),
-                GivenParameter(symbol="\\text{Enable}", value="enable (active-high)", description="Σήμα γενικής ενεργοποίησης", category="param"),
-                GivenParameter(symbol="\\text{Output}", value="y (8\\text{ bits})", description="Δίαυλος εξόδου δεδομένων", category="param"),
+                GivenParameter(symbol="\\text{Inputs}", value="\\text{d0, d1, d2, d3 (8-bit)}", description="4 δίαυλοι δεδομένων", category="param"),
+                GivenParameter(symbol="\\text{Select}", value="\\text{sel (2-bit)}", description="Γραμμές επιλογής MUX", category="param"),
+                GivenParameter(symbol="\\text{Enable}", value="\\text{enable (active-high)}", description="Σήμα γενικής ενεργοποίησης", category="param"),
+                GivenParameter(symbol="\\text{Output}", value="\\text{y (8-bit)}", description="Δίαυλος εξόδου δεδομένων", category="param"),
             ],
             calculation_steps=[
                 CalculationStep(
                     step_number=1,
                     title="Ορισμός Οντότητας (Entity Interface)",
-                    formula="\\text{entity mux4to1_8bit is Port(...)}",
-                    substitution="d0..d3: in STD_LOGIC_VECTOR(7 downto 0); sel: in STD_LOGIC_VECTOR(1 downto 0); enable: in STD_LOGIC; y: out STD_LOGIC_VECTOR(7 downto 0)",
-                    result="\\text{Πλήρες interface διαύλων 8-bit}",
+                    formula="\\text{entity mux4to1\\_8bit is port( ... );}",
+                    substitution=(
+                        "\\begin{aligned}"
+                        "&\\text{d0, d1, d2, d3 : in STD\\_LOGIC\\_VECTOR(7 downto 0);} \\\\"
+                        "&\\text{sel : in STD\\_LOGIC\\_VECTOR(1 downto 0); \\quad enable : in STD\\_LOGIC;} \\\\"
+                        "&\\text{y : out STD\\_LOGIC\\_VECTOR(7 downto 0)}"
+                        "\\end{aligned}"
+                    ),
+                    result="\\text{Πλήρες interface διαύλων 8-bit συμβατό με IEEE 1164}",
                     rationale="Όλοι οι δίαυλοι ορίζονται ως STD_LOGIC_VECTOR(7 downto 0) για συμβατότητα με το πρότυπο IEEE 1164.",
                 ),
                 CalculationStep(
                     step_number=2,
                     title="Καθορισμός Λίστας Ευαισθησίας Συνδυαστικής Διεργασίας",
-                    formula="process(d0, d1, d2, d3, sel, enable)",
-                    substitution="\\text{Όλα τα σήματα που διαβάζονται εντός της διεργασίας περιλαμβάνονται στη λίστα}",
+                    formula="\\text{process(d0, d1, d2, d3, sel, enable)}",
+                    substitution="\\text{Όλα τα σήματα εισόδου που αναγιγνώσκονται περιλαμβάνονται στη λίστα}",
                     result="\\text{Πλήρης λίστα ευαισθησίας (Zero Simulation Mismatch)}",
                     rationale="Αν παραλειφθεί κάποιο σήμα εισόδου, ο προσομοιωτής δεν θα ενημερώνει την έξοδο όταν αυτό αλλάζει τιμή.",
                 ),
                 CalculationStep(
                     step_number=3,
                     title="Έλεγχος Enable και Επιλογή Καναλιού μέσω Case",
-                    formula="\\text{if enable = '0' then } y \\Leftarrow 0 \\text{ else case sel ...}",
-                    substitution="\\text{when \"00\" } \\implies d0; \\; \\dots; \\; \\text{when others } \\implies 0",
-                    result="\\text{Συνθέσιμη δομή χωρίς ατελείς διακλαδώσεις}",
+                    formula="\\text{if enable = '0' then } y \\Leftarrow \\text{\"00000000\" else case sel is ...}",
+                    substitution=(
+                        "\\begin{aligned}"
+                        "&\\text{when \"00\"} \\implies y \\Leftarrow d_0; \\quad &\\text{when \"01\"} \\implies y \\Leftarrow d_1; \\\\"
+                        "&\\text{when \"10\"} \\implies y \\Leftarrow d_2; \\quad &\\text{when \"11\"} \\implies y \\Leftarrow d_3; \\\\"
+                        "&\\text{when others} \\implies y \\Leftarrow \\text{(others} \\implies \\text{'0');}"
+                        "\\end{aligned}"
+                    ),
+                    result="\\text{Συνθέσιμη δομή χωρίς latches και πλήρη κάλυψη}",
                     rationale="Η ιεραρχική αξιολόγηση (πρώτα το enable και μετά το sel) αναπαράγει πιστά τη λειτουργία εμπορικών πολυπλεκτών MSI.",
                 ),
             ],

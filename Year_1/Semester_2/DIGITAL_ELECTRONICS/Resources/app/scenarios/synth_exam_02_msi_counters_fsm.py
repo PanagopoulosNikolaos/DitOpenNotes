@@ -214,7 +214,7 @@ def createSyntheticExam02Scenario() -> Scenario:
                 GivenParameter(symbol="F", value="AB + \\overline{A}C", description="Αρχική συνάρτηση με κίνδυνο", category="param"),
                 GivenParameter(symbol="B, C", value="B=1, \\; C=1", description="Σταθερές συνθήκες εισόδου", category="param"),
                 GivenParameter(symbol="A", value="1 \\to 0", description="Μετάβαση εισόδου που προκαλεί glitch", category="param"),
-                GivenParameter(symbol="\\Delta t", value="t_{pd\\_not}", description="Καθυστέρηση διάδοσης αντιστροφέα", category="param"),
+                GivenParameter(symbol="\\Delta t", value="t_{\\text{pd\\_not}}", description="Καθυστέρηση διάδοσης αντιστροφέα", category="param"),
             ],
             calculation_steps=[
                 CalculationStep(
@@ -230,8 +230,10 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Γεωμετρικός Εντοπισμός στον Χάρτη Karnaugh 3 Μεταβλητών",
                     formula="K(A, BC) \\quad \\text{με } A \\in \\{0, 1\\}, \\; BC \\in \\{00, 01, 11, 10\\}",
                     substitution=(
-                        "m(7) = 111 \\in AB \\quad \\text{και} \\quad m(3) = 011 \\in \\overline{A}C. \\\\"
-                        "Τα κελιά 7 και 3 είναι γειτονικά (διαφέρουν μόνο στο A), αλλά ανήκουν σε ξεχωριστούς κύβους!"
+                        "\\begin{aligned}"
+                        "&m(7) = 111 \\in AB \\quad \\text{και} \\quad m(3) = 011 \\in \\overline{A}C. \\\\"
+                        "&\\text{Τα κελιά 7 και 3 είναι γειτονικά (διαφέρουν μόνο στο } A \\text{), αλλά ανήκουν σε ξεχωριστούς κύβους!}"
+                        "\\end{aligned}"
                     ),
                     result="\\text{Μη επικαλυπτόμενοι κύβοι μεταξύ λογικά γειτονικών minterms}",
                     rationale="Όποτε ένα σήμα μεταβαίνει μεταξύ δύο γειτονικών 1 που δεν περικλείονται σε κοινό πρωτεύοντα όρο, υπάρχει κίνδυνος.",
@@ -241,11 +243,11 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Εφαρμογή Θεωρήματος Συναίνεσης (Consensus Theorem)",
                     formula="XY + \\overline{X}Z + YZ = XY + \\overline{X}Z",
                     substitution="X = A, \\; Y = B, \\; Z = C \\implies \\text{Όρος Συναίνεσης} = BC \\implies F_{hf} = AB + \\overline{A}C + BC",
-                    result="F_{hazard\\_free} = AB + \\overline{A}C + BC",
+                    result="F_{\\text{hazard\\_free}} = AB + \\overline{A}C + BC",
                     rationale="Ο όρος BC καλύπτει ταυτόχρονα τα κελιά 3 και 7. Όταν B=1 και C=1, ο όρος BC=1 κρατά σταθερά την έξοδο στο 1.",
                 ),
             ],
-            final_answer="F_{hazard\\_free} = AB + \\overline{A}C + BC \\quad (\\text{Πλήρως απαλλαγμένη από Static-1 Hazard})",
+            final_answer="F_{\\text{hazard\\_free}} = AB + \\overline{A}C + BC \\quad (\\text{Πλήρως απαλλαγμένη από Static-1 Hazard})",
             detailed_justification=(
                 "Η προσθήκη του πλεονάζοντος όρου BC (consensus term) γεφυρώνει τα γειτονικά κελιά m(3) και m(7) στον χάρτη Karnaugh. "
                 "Όταν B=1 και C=1, ο όρος BC διατηρεί την έξοδο στο 1 ανεξάρτητα από τις μεταβάσεις του A και τις καθυστερήσεις "
@@ -253,19 +255,22 @@ def createSyntheticExam02Scenario() -> Scenario:
             ),
             common_pitfalls=[
                 "Θεώρηση ότι η ελαχιστοποίηση SOP είναι πάντα απαλλαγμένη από κινδύνους: η ελάχιστη μορφή συχνά περιέχει hazards!",
-                "Λανθασμένη κατεύθυνση μετάβασης: για static-1 hazard η έξοδος πρέπει θεωρητικά να είναι 1 και στιγμιαία να πέφτει σε 0.",
+                "Παράλειψη του όρου BC επειδή είναι 'πλεονάζων' (redundant) κατά την άλγεβρα Boole.",
+                "Αγνόηση της ασυμμετρίας καθυστέρησης του αντιστροφέα (inverter delay t_pd) που δημιουργεί το dynamic timing skew.",
             ],
-            related_theory_topic="Ενότητα 4: Απλοποίηση Boole, Χάρτες K-Map & Κίνδυνοι (Hazards)",
+            related_theory_topic="Ενότητα 6: Κίνδυνοι & Επιπλοκές Χρονισμού",
         ),
-        # Question 2: MSI Synthesis
+        # Question 2: MSI Multiplexer 8:1 & Decoder 3:8
         ExamQuestion(
             question_number=2,
             title="Σύνθεση Συνδυαστικών Κυκλωμάτων με Πολυπλέκτη 8:1 & Αποκωδικοποιητή 3:8",
-            question_type="MSI Logic Design",
+            question_type="MSI Logic Synthesis",
             prompt_text=(
-                "1. Υλοποιήστε τη συνάρτηση $F(A, B, C, D) = \\sum m(1, 3, 4, 11, 12, 13, 14, 15)$ χρησιμοποιώντας "
-                "έναν πολυπλέκτη 8-σε-1 (74151) με γραμμές επιλογής $S_2 = A, S_1 = B, S_0 = C$ και εισόδους δεδομένων $I_0 - I_7$.\n"
-                "2. Υλοποιήστε τη συνάρτηση $G(A, B, C) = \\sum m(0, 2, 6, 7)$ με αποκωδικοποιητή 3:8 ενεργών χαμηλών εξόδων και μία πύλη NAND."
+                "1. Υλοποιήστε τη λογική συνάρτηση 4 μεταβλητών $F(A, B, C, D) = \\sum m(1, 3, 4, 11, 12, 13, 14, 15)$ "
+                "χρησιμοποιώντας αποκλειστικά έναν πολυπλέκτη 8-σε-1 (8:1 MUX) με γραμμές επιλογής $S_2=A, S_1=B, S_0=C$.\n"
+                "2. Υλοποιήστε τη συνάρτηση 3 μεταβλητών $G(A, B, C) = \\sum m(0, 2, 6, 7)$ χρησιμοποιώντας έναν αποκωδικοποιητή "
+                "3-σε-8 με εξόδους ενεργές σε χαμηλή στάθμη (active-low outputs $\\overline{Y_0} \\dots \\overline{Y_7}$) "
+                "και μία μόνο εξωτερική πύλη λογικής."
             ),
             given_parameters=[
                 GivenParameter(symbol="F", value="\\sum m(1, 3, 4, 11, 12, 13, 14, 15)", description="Συνάρτηση 4 μεταβλητών για MUX", category="param"),
@@ -278,14 +283,16 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Ανάλυση Εισόδων MUX 8:1 ανά Ζεύγος Minterms (D=0, D=1)",
                     formula="I_k = f(m_{2k}, m_{2k+1}) \\quad \\text{για } k \\in [0, 7]",
                     substitution=(
-                        "k=0 (ABC=000): m(0)=0, m(1)=1 \\implies I_0 = D \\\\"
-                        "k=1 (ABC=001): m(2)=0, m(3)=1 \\implies I_1 = D \\\\"
-                        "k=2 (ABC=010): m(4)=1, m(5)=0 \\implies I_2 = \\overline{D} \\\\"
-                        "k=3 (ABC=011): m(6)=0, m(7)=0 \\implies I_3 = 0 \\\\"
-                        "k=4 (ABC=100): m(8)=0, m(9)=0 \\implies I_4 = 0 \\\\"
-                        "k=5 (ABC=101): m(10)=0, m(11)=1 \\implies I_5 = D \\\\"
-                        "k=6 (ABC=110): m(12)=1, m(13)=1 \\implies I_6 = 1 \\\\"
-                        "k=7 (ABC=111): m(14)=1, m(15)=1 \\implies I_7 = 1"
+                        "\\begin{aligned}"
+                        "&k=0 \\ (ABC=000): m(0)=0, m(1)=1 \\implies I_0 = D \\\\"
+                        "&k=1 \\ (ABC=001): m(2)=0, m(3)=1 \\implies I_1 = D \\\\"
+                        "&k=2 \\ (ABC=010): m(4)=1, m(5)=0 \\implies I_2 = \\overline{D} \\\\"
+                        "&k=3 \\ (ABC=011): m(6)=0, m(7)=0 \\implies I_3 = 0 \\\\"
+                        "&k=4 \\ (ABC=100): m(8)=0, m(9)=0 \\implies I_4 = 0 \\\\"
+                        "&k=5 \\ (ABC=101): m(10)=0, m(11)=1 \\implies I_5 = D \\\\"
+                        "&k=6 \\ (ABC=110): m(12)=1, m(13)=1 \\implies I_6 = 1 \\\\"
+                        "&k=7 \\ (ABC=111): m(14)=1, m(15)=1 \\implies I_7 = 1"
+                        "\\end{aligned}"
                     ),
                     result="I_0=D, \\; I_1=D, \\; I_2=\\overline{D}, \\; I_3=0, \\; I_4=0, \\; I_5=D, \\; I_6=1, \\; I_7=1",
                     rationale="Κάθε γραμμή επιλογής ABC απομονώνει δύο διαδοχικά minterms. Η συμπεριφορά της εξόδου ανάγεται σε D, D', 0 ή 1.",
@@ -335,12 +342,14 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Πίνακας Μεταβάσεων και Διεγέρσεων JK",
                     formula="Q \\to Q^+ \\implies (J, K) \\in \\{(0, X), (1, X), (X, 1), (X, 0)\\}",
                     substitution=(
-                        "0 (000) \\to 1 (001): J_2=0, K_2=X; \\; J_1=0, K_1=X; \\; J_0=1, K_0=X \\\\"
-                        "1 (001) \\to 2 (010): J_2=0, K_2=X; \\; J_1=1, K_1=X; \\; J_0=X, K_0=1 \\\\"
-                        "2 (010) \\to 3 (011): J_2=0, K_2=X; \\; J_1=X, K_1=0; \\; J_0=1, K_0=X \\\\"
-                        "3 (011) \\to 4 (100): J_2=1, K_2=X; \\; J_1=X, K_1=1; \\; J_0=X, K_0=1 \\\\"
-                        "4 (100) \\to 5 (101): J_2=X, K_2=0; \\; J_1=0, K_1=X; \\; J_0=1, K_0=X \\\\"
-                        "5 (101) \\to 0 (000): J_2=X, K_2=1; \\; J_1=0, K_1=X; \\; J_0=X, K_0=1"
+                        "\\begin{aligned}"
+                        "&0 \\ (000) \\to 1 \\ (001): J_2=0, K_2=X; \\; J_1=0, K_1=X; \\; J_0=1, K_0=X \\\\"
+                        "&1 \\ (001) \\to 2 \\ (010): J_2=0, K_2=X; \\; J_1=1, K_1=X; \\; J_0=X, K_0=1 \\\\"
+                        "&2 \\ (010) \\to 3 \\ (011): J_2=0, K_2=X; \\; J_1=X, K_1=0; \\; J_0=1, K_0=X \\\\"
+                        "&3 \\ (011) \\to 4 \\ (100): J_2=1, K_2=X; \\; J_1=X, K_1=1; \\; J_0=X, K_0=1 \\\\"
+                        "&4 \\ (100) \\to 5 \\ (101): J_2=X, K_2=0; \\; J_1=0, K_1=X; \\; J_0=1, K_0=X \\\\"
+                        "&5 \\ (101) \\to 0 \\ (000): J_2=X, K_2=1; \\; J_1=0, K_1=X; \\; J_0=X, K_0=1"
+                        "\\end{aligned}"
                     ),
                     result="\\text{Πλήρης πίνακας διεγέρσεων 6 καταστάσεων}",
                     rationale="Η εφαρμογή του πίνακα διέγερσης JK παράγει πλήθος don't cares (X) που επιτρέπουν δραστική απλοποίηση.",
@@ -350,9 +359,11 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Ελαχιστοποίηση με Χάρτες Karnaugh",
                     formula="K(Q_2, Q_1, Q_0) \\quad \\text{με } d(6, 7) = X",
                     substitution=(
-                        "J_0 = 1, \\quad K_0 = 1 \\\\"
-                        "J_1 = \\overline{Q_2} \\cdot Q_0, \\quad K_1 = Q_0 \\\\"
-                        "J_2 = Q_1 \\cdot Q_0, \\quad K_2 = Q_0"
+                        "\\begin{aligned}"
+                        "&J_0 = 1, \\quad K_0 = 1 \\\\"
+                        "&J_1 = \\overline{Q_2} \\cdot Q_0, \\quad K_1 = Q_0 \\\\"
+                        "&J_2 = Q_1 \\cdot Q_0, \\quad K_2 = Q_0"
+                        "\\end{aligned}"
                     ),
                     result="J_0=1, K_0=1; \\quad J_1=\\overline{Q_2}Q_0, K_1=Q_0; \\quad J_2=Q_1Q_0, K_2=Q_0",
                     rationale="Παρατηρούμε ότι K0=1, ενώ K1=K2=Q0, μειώνοντας δραστικά τις απαιτούμενες εξωτερικές πύλες!",
@@ -362,8 +373,10 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Ανάλυση Αυτοδιόρθωσης (Self-Starting Analysis)",
                     formula="Q^+ = J \\overline{Q} + \\overline{K} Q",
                     substitution=(
-                        "\\text{Από κατάσταση } 6 (110): J_0=1, K_0=1 \\implies Q_0^+=1; \\; J_1=0, K_1=0 \\implies Q_1^+=1; \\; J_2=0, K_2=0 \\implies Q_2^+=1 \\implies \\mathbf{111 (7)} \\\\"
-                        "\\text{Από κατάσταση } 7 (111): J_0=1, K_0=1 \\implies Q_0^+=0; \\; J_1=0, K_1=1 \\implies Q_1^+=0; \\; J_2=1, K_2=1 \\implies Q_2^+=0 \\implies \\mathbf{000 (0)}"
+                        "\\begin{aligned}"
+                        "&\\text{Από κατάσταση } 6 (110): J_0=1, K_0=1 \\implies Q_0^+=1; \\; J_1=0, K_1=0 \\implies Q_1^+=1; \\; J_2=0, K_2=0 \\implies Q_2^+=1 \\implies \\mathbf{111 (7)} \\\\"
+                        "&\\text{Από κατάσταση } 7 (111): J_0=1, K_0=1 \\implies Q_0^+=0; \\; J_1=0, K_1=1 \\implies Q_1^+=0; \\; J_2=1, K_2=1 \\implies Q_2^+=0 \\implies \\mathbf{000 (0)}"
+                        "\\end{aligned}"
                     ),
                     result="6 (110) \\to 7 (111) \\to 0 (000) \\implies \\text{Πλήρης Αυτοδιόρθωση}",
                     rationale="Και οι δύο αχρησιμοποίητες καταστάσεις οδηγούν αυτόματα στον κύριο βρόχο μέτρησης. Δεν υπάρχει κίνδυνος εγκλωβισμού.",
@@ -404,12 +417,14 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Ορισμός Καταστάσεων Μηχανής Moore",
                     formula="S_k / Z \\quad \\text{με } S_k \\in \\{S_0, S_1, S_2, S_3\\}",
                     substitution=(
-                        "S_0 / 0: \\text{Reset / Κανένα έγκυρο bit} \\\\"
-                        "S_1 / 0: \\text{Έχει ανιχνευθεί '1'} \\\\"
-                        "S_2 / 0: \\text{Έχουν ανιχνευθεί '11'} \\\\"
-                        "S_3 / 1: \\text{Έχει ανιχνευθεί πλήρως '110'} (Z=1)"
+                        "\\begin{aligned}"
+                        "&S_0 / 0: \\text{Reset / Κανένα έγκυρο bit} \\\\"
+                        "&S_1 / 0: \\text{Έχει ανιχνευθεί '1'} \\\\"
+                        "&S_2 / 0: \\text{Έχουν ανιχνευθεί '11'} \\\\"
+                        "&S_3 / 1: \\text{Έχει ανιχνευθεί πλήρως '110' } (Z=1)"
+                        "\\end{aligned}"
                     ),
-                    result="4 \\text{ καταστάσεις Moore } \\implies \\text{Τύπος } type \\; state\\_type \\; is \\; (S0, S1, S2, S3)",
+                    result="4 \\text{ καταστάσεις Moore } \\implies \\text{type state\\_type is } (S_0, S_1, S_2, S_3)",
                     rationale="Στο μοντέλο Moore η έξοδος Z=1 ανήκει στην κατάσταση S3, εξασφαλίζοντας έξοδο συγχρονισμένη και χωρίς ακμές θορύβου.",
                 ),
                 CalculationStep(
@@ -417,8 +432,10 @@ def createSyntheticExam02Scenario() -> Scenario:
                     title="Δομή Δύο Διεργασιών (Two-Process Model) στη VHDL",
                     formula="\\text{Process 1 (Clocked Register) } + \\text{ Process 2 (Combinational Logic)}",
                     substitution=(
-                        "Process 1: if reset='1' then current_state <= S0; elsif rising_edge(clk) then current_state <= next_state; \\\\"
-                        "Process 2: process(current_state, x) case current_state is ... when S3 => z <= '1'; ..."
+                        "\\begin{aligned}"
+                        "&\\textbf{Process 1: } \\text{if reset='1' then current\\_state } \\Leftarrow S_0\\text{; elsif rising\\_edge(clk) then current\\_state } \\Leftarrow \\text{next\\_state;} \\\\"
+                        "&\\textbf{Process 2: } \\text{process(current\\_state, x) case current\\_state is ... when } S_3 \\implies z \\Leftarrow \\text{'1';}"
+                        "\\end{aligned}"
                     ),
                     result="\\text{Απόλυτος διαχωρισμός στοιχείων μνήμης και συνδυαστικής λογικής}",
                     rationale="Το two-process model αποτελεί το βιομηχανικό πρότυπο σύνθεσης RTL, αποτρέποντας ασυμφωνίες προσομοίωσης.",

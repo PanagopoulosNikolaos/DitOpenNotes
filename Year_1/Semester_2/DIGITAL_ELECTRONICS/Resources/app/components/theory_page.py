@@ -346,10 +346,10 @@ end process;
 
 ### 12.2 Στατική Ανάλυση Χρονισμού (Static Timing Analysis - STA)
 Η μέγιστη συχνότητα λειτουργίας ενός σύγχρονου ψηφιακού κυκλώματος ($f_{max}$) περιορίζεται από τη διαδρομή μεταξύ δύο διαδοχικών Flip-Flops (Register-to-Register Path):
-$$T_{clk} \ge t_{cq} + t_{comb\_max} + t_{su} - t_{skew}$$
-$$f_{max} = \frac{1}{T_{clk\_min}} = \frac{1}{t_{cq} + t_{comb\_max} + t_{su}}$$
-- **Setup Slack:** $Slack_{setup} = T_{required} - T_{arrival} = (T_{clk} - t_{su}) - (t_{cq} + t_{comb})$. Πρέπει να είναι $\ge 0$!
-- **Hold Slack:** $Slack_{hold} = (t_{cq} + t_{comb\_min}) - t_h \ge 0$.
+$$T_{clk} \ge t_{cq} + t_{\text{comb,max}} + t_{su} - t_{skew}$$
+$$f_{max} = \frac{1}{T_{\text{clk,min}}} = \frac{1}{t_{cq} + t_{\text{comb,max}} + t_{su}}$$
+- **Setup Slack:** $Slack_{\text{setup}} = T_{\text{required}} - T_{\text{arrival}} = (T_{clk} - t_{su}) - (t_{cq} + t_{comb})$. Πρέπει να είναι $\ge 0$!
+- **Hold Slack:** $Slack_{\text{hold}} = (t_{cq} + t_{\text{comb,min}}) - t_h \ge 0$.
 """
             ui.html(f'<div class="text-sm text-[var(--text-1)] leading-relaxed latex-target">{renderMathHtml(m12_content)}</div>')
 
@@ -360,7 +360,7 @@ $$f_{max} = \frac{1}{T_{clk\_min}} = \frac{1}{t_{cq} + t_{comb\_max} + t_{su}}$$
                 ui.html('<h2 class="text-lg md:text-xl font-bold text-[var(--text-1)] m-0">13. Οδηγός Αποφυγής Παγίδων Εξετάσεων (Exam Traps Checklist)</h2>')
 
             m13_content = r"""
-- [ ] **Υπερχείλιση C2:** Μην συγχέετε το κρατούμενο εξόδου $C_{out}=1$ με την υπερχείλιση. Το $C_{out}=1$ είναι φυσιολογικό και απορρίπτεται. Υπερχείλιση υπάρχει **μόνο** όταν $C_{in\_msb} \neq C_{out\_msb}$.
+- [ ] **Υπερχείλιση C2:** Μην συγχέετε το κρατούμενο εξόδου $C_{out}=1$ με την υπερχείλιση. Το $C_{out}=1$ είναι φυσιολογικό και απορρίπτεται. Υπερχείλιση υπάρχει **μόνο** όταν $C_{\text{in,msb}} \neq C_{\text{out,msb}}$.
 - [ ] **K-Map Don't Cares:** Μην συμπεριλαμβάνετε don't cares ($d$) σε ομάδες αν δεν διπλασιάζουν το μέγεθος της ομάδας (δεν εξοικονομούν μεταβλητή). Ομάδα που περιέχει **μόνο** don't cares είναι σοβαρό λάθος!
 - [ ] **Σύνθεση με NOR:** Θυμηθείτε ότι $F = \text{SOP} \implies$ εφαρμόζουμε διπλό συμπλήρωμα $F = \overline{\overline{F}}$ και De Morgan στον **εσωτερικό** όρο.
 - [ ] **Επικάλυψη FSM (Overlapping):** Όταν ολοκληρωθεί η ακολουθία (π.χ. `101`), η FSM δεν επιστρέφει στην αρχική κατάσταση $S_0$, αλλά στην κατάσταση που αντιστοιχεί στο μέγιστο κατάλληλο πρόθεμα (εδώ $S_1$).

@@ -84,8 +84,12 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                 with ui.grid().classes("grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full text-xs"):
                     for param in q.given_parameters:
                         with ui.row().classes("items-center gap-2 p-2 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)]"):
-                            ui.html(f'<span class="font-bold text-[var(--accent)] font-mono">${param.symbol}$</span>')
-                            ui.html(f'<span class="text-[var(--text-1)] font-medium">${param.value}$</span>')
+                            clean_sym = param.symbol.strip()
+                            sym_math = clean_sym if clean_sym.startswith("$") else f"${clean_sym}$"
+                            clean_val = param.value.strip()
+                            val_math = clean_val if clean_val.startswith("$") else f"${clean_val}$"
+                            ui.html(f'<span class="font-bold text-[var(--accent)] font-mono latex-target">{sym_math}</span>')
+                            ui.html(f'<span class="text-[var(--text-1)] font-medium latex-target">{val_math}</span>')
                             ui.html(f'<span class="text-[var(--text-3)] text-[0.7rem]">({param.description})</span>')
 
         # Computational / Minimization Steps: Step-by-Step KaTeX Derivation
@@ -106,14 +110,24 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                             with ui.column().classes("w-full p-2.5 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)] gap-1"):
                                 ui.label("Τύπος / Εξίσωση:").classes("text-[0.65rem] font-bold text-[var(--text-3)] uppercase")
                                 clean_formula = step.formula.strip()
-                                display_formula = clean_formula if clean_formula.startswith("$$") else f"$${clean_formula}$$"
+                                if not clean_formula.startswith("$$"):
+                                    if "\\\\" in clean_formula and "\\begin" not in clean_formula:
+                                        clean_formula = f"\\begin{{aligned}}{clean_formula}\\end{{aligned}}"
+                                    display_formula = f"$${clean_formula}$$"
+                                else:
+                                    display_formula = clean_formula
                                 ui.html(f'<div class="text-sm text-[var(--text-1)] latex-target text-center overflow-x-auto my-0.5">{display_formula}</div>')
 
                         if step.substitution:
                             with ui.column().classes("w-full p-2.5 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)] gap-1"):
                                 ui.label("Αριθμητική / Λογική Αντικατάσταση:").classes("text-[0.65rem] font-bold text-[var(--text-3)] uppercase")
                                 clean_subst = step.substitution.strip()
-                                display_subst = clean_subst if clean_subst.startswith("$$") else f"$${clean_subst}$$"
+                                if not clean_subst.startswith("$$"):
+                                    if "\\\\" in clean_subst and "\\begin" not in clean_subst:
+                                        clean_subst = f"\\begin{{aligned}}{clean_subst}\\end{{aligned}}"
+                                    display_subst = f"$${clean_subst}$$"
+                                else:
+                                    display_subst = clean_subst
                                 ui.html(f'<div class="text-sm text-[var(--text-1)] latex-target text-center overflow-x-auto my-0.5">{display_subst}</div>')
 
                         if step.result:
