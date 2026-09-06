@@ -1,9 +1,9 @@
-"""Synthetic & Realistic Exam 1 Scenario Module.
+"""Synthetic Full Coverage Exam 1 Scenario Module.
 
-Contains 1-to-1 representation of all exam questions from Synthetic & Realistic Exam 1:
-- Part A: L2 Frame PDU, Switch micro-segmentation collision domains, d_trans calculation,
-  /25 IPv4 subnet matching, True/False analysis (Statistical multiplexing, Router domains, ARP).
-- Part B: Άσκηση 1 (Multi-hop 2-link delay and RTT), Άσκηση 2 (6-node Link-State Dijkstra execution table),
+Contains 1-to-1 representation of all exam questions from Synthetic Exam 1 (Full Coverage):
+- Part A: Statistical multiplexing, Store-and-Forward principles, OSPF Link-State characteristics,
+  Client-Server Network Edge placement, True/False (Control plane, Server static IP, BGP AS).
+- Part B: Άσκηση 1 (Multi-hop 2-link store-and-forward delay and RTT), Άσκηση 2 (6-node Link-State Dijkstra table),
   Άσκηση 3 (CSMA/CD 64-Byte minimum frame & 7-bit Hamming code with even parity).
 """
 
@@ -20,7 +20,7 @@ from models.scenario import (
 
 
 def createScenario() -> NetworkScenario:
-    """Constructs and returns Synthetic & Realistic Exam 1 scenario.
+    """Constructs and returns Synthetic Full Coverage Exam 1 scenario.
 
     Returns:
         NetworkScenario: The structured scenario object with 1-to-1 parity.
@@ -28,37 +28,37 @@ def createScenario() -> NetworkScenario:
     paragraphs = [
         Paragraph(
             segments=[
-                TextSegment(text="Το πρότυπο διαγώνισμα "),
+                TextSegment(text="Το διαγώνισμα πλήρους κάλυψης "),
                 TextSegment(
-                    text="Synthetic & Realistic Exam 1",
+                    text="Synthetic Exam 1 (Full Coverage)",
                     is_highlight=True,
                     category="protocol",
-                    tag_label="SYNTHETIC REALISTIC 1",
-                    tooltip="Ρεαλιστικό διαγώνισμα προσομοίωσης εξετάσεων",
+                    tag_label="FULL COVERAGE 1",
+                    tooltip="Διαγώνισμα συνολικής επανάληψης ύλης",
                 ),
-                TextSegment(text=" επικεντρώνεται στη δομή των πρωτοκόλλων, στο "),
+                TextSegment(text=" εστιάζει στις θεμελιώδεις αρχές της "),
                 TextSegment(
-                    text="Data Link Layer (PDU: Frame)",
+                    text="Στατιστικής Πολυπλεξίας (Statistical Multiplexing)",
                     is_highlight=True,
                     category="protocol",
-                    tag_label="L2 FRAME",
-                    tooltip="Οργάνωση bits σε πλαίσια με MAC διευθύνσεις",
+                    tag_label="STAT MULTIPLEX",
+                    tooltip="Δυναμικός διαμοιρασμός πόρων on-demand στη μεταγωγή πακέτου",
                 ),
-                TextSegment(text=", στον υπολογισμό "),
+                TextSegment(text=", στη λειτουργία "),
                 TextSegment(
-                    text="Collision Domains σε Switch (Micro-segmentation)",
+                    text="Store-and-Forward σε Δρομολογητές",
                     is_highlight=True,
-                    category="device",
-                    tag_label="DOMAINS",
-                    tooltip="1 Collision Domain ανά θύρα switch",
+                    category="routing",
+                    tag_label="STORE & FORWARD",
+                    tooltip="Λήψη ολόκληρου του πακέτου πριν την προώθηση",
                 ),
-                TextSegment(text=" και στον ακριβή υπολογισμό της "),
+                TextSegment(text=" και στην αρχιτεκτονική του πρωτοκόλλου "),
                 TextSegment(
-                    text="Καθυστέρησης Μετάδοσης d_trans = L / R",
+                    text="OSPF (Link State)",
                     is_highlight=True,
-                    category="delay",
-                    tag_label="D_TRANS",
-                    tooltip="L = 2000 bits, R = 1 Mbps -> d_trans = 2 ms",
+                    category="routing",
+                    tag_label="OSPF LSA",
+                    tooltip="Απαιτεί πλήρη γνώση της τοπολογίας δικτύου",
                 ),
                 TextSegment(text="."),
             ],
@@ -66,13 +66,13 @@ def createScenario() -> NetworkScenario:
         ),
         Paragraph(
             segments=[
-                TextSegment(text="Επιπλέον εξετάζεται η εύρεση ορίων υποδικτύων για διεύθυνση "),
+                TextSegment(text="Στο δεύτερο μέρος αναλύονται οι υπολογισμοί "),
                 TextSegment(
-                    text="192.168.5.130/25",
+                    text="Καθυστερήσεων Μετάδοσης και Διάδοσης σε 2 Ζεύξεις",
                     is_highlight=True,
-                    category="routing",
-                    tag_label="SUBNET /25",
-                    tooltip="Μάσκα 255.255.255.128, Block Size 128 (128-255)",
+                    category="delay",
+                    tag_label="2 HOPS DELAY",
+                    tooltip="t_total = 0.1506 s και RTT = 0.2008 s",
                 ),
                 TextSegment(text=", η εφαρμογή του αλγορίθμου "),
                 TextSegment(
@@ -80,15 +80,15 @@ def createScenario() -> NetworkScenario:
                     is_highlight=True,
                     category="routing",
                     tag_label="DIJKSTRA 6",
-                    tooltip="Εύρεση συντομότερων μονοπατιών από τη ρίζα A",
+                    tooltip="Βέλτιστες διαδρομές από ρίζα A",
                 ),
-                TextSegment(text=" και η κατασκευή "),
+                TextSegment(text=" και η κωδικοποίηση "),
                 TextSegment(
-                    text="Κώδικα Hamming(7,4) με Άρτια Ισοτιμία",
+                    text="Hamming(7,4) με Άρτια Ισοτιμία (0110011)",
                     is_highlight=True,
                     category="error_check",
-                    tag_label="HAMMING(7,4)",
-                    tooltip="3 bits ισοτιμίας για 4 bits δεδομένων",
+                    tag_label="HAMMING EVEN",
+                    tooltip="Διόρθωση μονών σφαλμάτων bit",
                 ),
                 TextSegment(text="."),
             ]
@@ -99,88 +99,85 @@ def createScenario() -> NetworkScenario:
         # Part A - Question 1
         ExamQuestion(
             question_number=1,
-            title="Μονάδα Δεδομένων Πρωτοκόλλου (PDU) στο Επίπεδο 2",
+            title="Χαρακτηριστικό Μεταγωγής Πακέτου έναντι Κυκλώματος",
             question_type="Multiple Choice",
-            prompt_text="Ποιο από τα παρακάτω επίπεδα του μοντέλου OSI χρησιμοποιεί ως PDU το 'Πλαίσιο' (Frame);",
+            prompt_text="Ποιο από τα παρακάτω είναι χαρακτηριστικό της μεταγωγής πακέτου (packet switching) σε αντίθεση με τη μεταγωγή κυκλώματος (circuit switching);",
             options=[
-                QuestionOption("A", "Physical Layer (Επίπεδο 1)", False, "Το Physical Layer χρησιμοποιεί bits."),
-                QuestionOption("B", "Data Link Layer (Επίπεδο 2)", True, "Το Data Link Layer οργανώνει τα bits σε πλαίσια (frames) με επικεφαλίδες MAC."),
-                QuestionOption("C", "Network Layer (Επίπεδο 3)", False, "Το Network Layer χρησιμοποιεί πακέτα (packets/datagrams)."),
-                QuestionOption("D", "Transport Layer (Επίπεδο 4)", False, "Το Transport Layer χρησιμοποιεί τμήματα (segments)."),
+                QuestionOption("A", "Η αποκλειστική δέσμευση πόρων εκ των προτέρων.", False, "Αυτό είναι χαρακτηριστικό του circuit switching."),
+                QuestionOption("B", "Η δυνατότητα στατιστικής πολυπλεξίας (statistical multiplexing).", True, "Το packet switching μοιράζεται δυναμικά τους πόρους, επιτρέποντας σε πολλούς χρήστες να μοιράζονται αποδοτικά το κανάλι."),
+                QuestionOption("C", "Η αδυναμία απώλειας πακέτων (packet loss).", False, "Στο packet switching μπορεί να συμβεί απώλεια λόγω buffer overflow."),
+                QuestionOption("D", "Ο εγγυημένος ρυθμός μετάδοσης (QoS) για κάθε χρήστη.", False, "Εγγυημένο rate προσφέρει το circuit switching."),
             ],
             correct_option_letter="B",
-            detailed_justification="Το Data Link Layer (Επίπεδο 2) οργανώνει τα bits σε πλαίσια (frames) με επικεφαλίδες MAC. Το Network Layer χρησιμοποιεί πακέτα (packets/datagrams) και το Transport Layer τμήματα (segments).",
+            detailed_justification="Η μεταγωγή πακέτου μοιράζεται δυναμικά το εύρος ζώνης μεταξύ των χρηστών on-demand (statistical multiplexing).",
         ),
         # Part A - Question 2
         ExamQuestion(
             question_number=2,
-            title="Πεδία Συγκρούσεων (Collision Domains) σε Switch",
+            title="Λειτουργία Store-and-Forward σε Δρομολογητή",
             question_type="Multiple Choice",
-            prompt_text="Σε ένα δίκτυο αστέρα (Star) που χρησιμοποιεί αποκλειστικά Switch, πόσα πεδία συγκρούσεων (collision domains) δημιουργούνται για 8 συνδεδεμένους υπολογιστές;",
+            prompt_text="Η λειτουργία 'Store-and-Forward' σε έναν δρομολογητή (router) σημαίνει ότι:",
             options=[
-                QuestionOption("A", "1", False, "Αυτό θα ίσχυε μόνο αν χρησιμοποιούνταν παλιό Hub (Layer 1)."),
-                QuestionOption("B", "8", True, "Κάθε φυσική θύρα ενός Switch αποτελεί ξεχωριστό πεδίο συγκρούσεων (micro-segmentation)."),
-                QuestionOption("C", "4", False, "Δεν υπάρχει ομαδοποίηση ανά 2 θύρες."),
-                QuestionOption("D", "0", False, "Κάθε ζεύξη είναι από μόνη της πεδίο συγκρούσεων."),
+                QuestionOption("A", "Ο δρομολογητής πρέπει να λάβει ολόκληρο το πακέτο πριν αρχίσει την προώθησή του.", True, "Πρέπει να ληφθούν όλα τα bits του πακέτου ώστε να ελεγχθεί το checksum/CRC."),
+                QuestionOption("B", "Ο δρομολογητής αποθηκεύει τα πακέτα μόνιμα στο σκληρό του δίσκο.", False, "Αποθηκεύονται προσωρινά σε μνήμη RAM buffer."),
+                QuestionOption("C", "Η προώθηση ξεκινά μόλις ληφθεί η κεφαλίδα (header) του πακέτου.", False, "Αυτό είναι Cut-through switching."),
+                QuestionOption("D", "Ο δρομολογητής δεν ελέγχει ποτέ για σφάλματα κατά τη μεταφορά.", False, "Ελέγχει πλήρως για σφάλματα bit."),
             ],
-            correct_option_letter="B",
-            detailed_justification="Κάθε φυσική θύρα ενός Switch αποτελεί ξεχωριστό πεδίο συγκρούσεων (micro-segmentation). Με 8 υπολογιστές σε 8 θύρες, υπάρχουν 8 ξεχωριστά collision domains.",
+            correct_option_letter="A",
+            detailed_justification="Αυτή είναι η βασική αρχή του Store-and-Forward στο packet switching, προσθέτοντας καθυστέρηση μετάδοσης σε κάθε hop.",
         ),
         # Part A - Question 3
         ExamQuestion(
             question_number=3,
-            title="Υπολογισμός d_trans για Πακέτο L = 2000 bits",
-            question_type="Calculations",
-            prompt_text="Η καθυστέρηση μετάδοσης (d_trans) ενός πακέτου μεγέθους L = 2000 bits σε μια ζεύξη με ρυθμό R = 1 Mbps είναι:",
-            calculation_steps=[
-                CalculationStep(
-                    step_number=1,
-                    title="Εφαρμογή Τύπου d_trans",
-                    formula="d_trans = L / R",
-                    substitution="2000 bits / (1 * 10^6 bps)",
-                    result="2 * 10^-3 s = 2 ms",
-                    rationale="Μετατροπή 1 Mbps = 1.000.000 bps.",
-                )
+            title="Απαιτήσεις Πρωτοκόλλου OSPF (Link-State)",
+            question_type="Multiple Choice",
+            prompt_text="Ποιο από τα παρακάτω πρωτόκολλα δρομολόγησης βασίζεται στον αλγόριθμο Κατάστασης Ζεύξης (Link State) και απαιτεί πλήρη γνώση της τοπολογίας του δικτύου;",
+            options=[
+                QuestionOption("A", "RIP", False, "Το RIP είναι Distance Vector."),
+                QuestionOption("B", "OSPF", True, "Το OSPF βασίζεται στον αλγόριθμο Dijkstra και χτίζει πλήρη τοπολογικό χάρτη."),
+                QuestionOption("C", "BGP", False, "Το BGP είναι Path Vector."),
+                QuestionOption("D", "ARP", False, "Το ARP είναι πρωτόκολλο Layer 2/3."),
             ],
-            detailed_justification="$$d_{\\text{trans}} = \\frac{L}{R} = \\frac{2000}{10^6} = 2 \\times 10^{-3}\\text{ s} = 2\\text{ ms}$$",
+            correct_option_letter="B",
+            detailed_justification="Το OSPF (Open Shortest Path First) βασίζεται στον αλγόριθμο Dijkstra και είναι ένα πρωτόκολλο Link State που απαιτεί πλήρη τοπολογική γνώση.",
         ),
         # Part A - Question 4
         ExamQuestion(
             question_number=4,
-            title="Ταύτιση Υποδικτύου IPv4 /25",
+            title="Αρχιτεκτονική Θέση Μοντέλου Client-Server",
             question_type="Multiple Choice",
-            prompt_text="Ποια από τις παρακάτω IP διευθύνσεις ανήκει στο ίδιο υποδίκτυο με την 192.168.5.130/25;",
+            prompt_text="Το μοντέλο Client-Server ανήκει αρχιτεκτονικά:",
             options=[
-                QuestionOption("A", "192.168.5.10", False, "Ανήκει στο 1ο υποδίκτυο (.0 έως .127)."),
-                QuestionOption("B", "192.168.5.200", True, "Η μάσκα /25 χωρίζει το C class σε δύο μπλοκ: 0-127 και 128-255. Το .130 και το .200 ανήκουν στο 2ο μπλοκ."),
-                QuestionOption("C", "192.168.5.255", False, "Είναι η broadcast διεύθυνση του 2ου υποδικτύου (όχι διαθέσιμη για host)."),
-                QuestionOption("D", "192.168.5.126", False, "Ανήκει στο 1ο υποδίκτυο (.0 έως .127)."),
+                QuestionOption("A", "Στο Network Core (Πυρήνας Δικτύου)", False, "Ο πυρήνας περιλαμβάνει routers και switches."),
+                QuestionOption("B", "Στο Network Edge (Άκρο Δικτύου)", True, "Clients και Servers αποτελούν τα τερματικά συστήματα (end systems)."),
+                QuestionOption("C", "Μόνο σε τοπικά δίκτυα (LAN)", False, "Ισχύει παγκοσμίως."),
+                QuestionOption("D", "Στο Επίπεδο Σύνδεσης Δεδομένων (Data Link Layer)", False, "Ανήκει στο Application Layer."),
             ],
             correct_option_letter="B",
-            detailed_justification="Η μάσκα /25 σημαίνει 255.255.255.128. Το block size είναι 256 - 128 = 128. Υποδίκτυο 1: .0 έως .127. Υποδίκτυο 2: .128 έως .255. Το 192.168.5.130 ανήκει στο 2ο υποδίκτυο, όπως και το 192.168.5.200.",
+            detailed_justification="Οι υπολογιστές-πελάτες και οι εξυπηρετητές αποτελούν τα τερματικά συστήματα που βρίσκονται στο άκρο του δικτύου.",
         ),
         # Part A - Question 5
         ExamQuestion(
             question_number=5,
-            title="Θεωρητικές Προτάσεις Δικτύων (Σωστό/Λάθος)",
+            title="Θεωρητικές Προτάσεις Control Plane, Servers & BGP (Σωστό/Λάθος)",
             question_type="Multiple Choice",
             prompt_text=(
                 "Επιλέξτε Σωστό (Σ) ή Λάθος (Λ) για τις παρακάτω προτάσεις:\n"
-                "1. Στη μεταγωγή πακέτου (packet switching) χρησιμοποιείται στατιστική πολυπλεξία (statistical multiplexing).\n"
-                "2. Ένας δρομολογητής (Router) διαχωρίζει τα πεδία συγκρούσεων (collision domains) αλλά όχι τα πεδία εκπομπής (broadcast domains).\n"
-                "3. Το ARP Request αποστέλλεται ως Broadcast, ενώ το ARP Reply ως Unicast."
+                "1. Το Control Plane ενός router αναλαμβάνει τον υπολογισμό και τη διατήρηση της γνώσης για τη δομή του δικτύου.\n"
+                "2. Ένας εξυπηρετητής (Server) συνήθως έχει δυναμική IP διεύθυνση.\n"
+                "3. Το πρωτόκολλο BGP χρησιμοποιείται για δρομολόγηση μεταξύ διαφορετικών Αυτόνομων Συστημάτων (AS)."
             ),
             options=[
                 QuestionOption("A", "1: Σ, 2: Σ, 3: Σ", False, "Η πρόταση 2 είναι λάθος."),
-                QuestionOption("B", "1: Σ, 2: Λ, 3: Σ", True, "1=Σ (Δυναμικός διαμοιρασμός πόρων), 2=Λ (Ο router διαχωρίζει πάντα broadcast domains), 3=Σ (Broadcast Request, Unicast Reply)."),
-                QuestionOption("C", "1: Λ, 2: Λ, 3: Σ", False, "Η στατιστική πολυπλεξία ισχύει στο packet switching."),
-                QuestionOption("D", "1: Σ, 2: Λ, 3: Λ", False, "Το ARP Request είναι Broadcast και το Reply Unicast."),
+                QuestionOption("B", "1: Σ, 2: Λ, 3: Σ", True, "1=Σ (Control plane routing computation), 2=Λ (Στατική IP για αξιοπιστία), 3=Σ (Inter-AS routing protocol)."),
+                QuestionOption("C", "1: Λ, 2: Λ, 3: Σ", False, "Το Control plane είναι όντως υπεύθυνο για τους αλγορίθμους δρομολόγησης."),
+                QuestionOption("D", "1: Σ, 2: Λ, 3: Λ", False, "Το BGP είναι το παγκόσμιο πρότυπο routing μεταξύ AS."),
             ],
             correct_option_letter="B",
             detailed_justification=(
-                "1. **Σωστό:** Στο packet switching οι πόροι δεσμεύονται δυναμικά on-demand (statistical multiplexing).\n"
-                "2. **Λάθος:** Ο δρομολογητής διαχωρίζει τα broadcast domains ανά interface.\n"
-                "3. **Σωστό:** Το ARP Request αποστέλλεται στο FF:FF:FF:FF:FF:FF (Broadcast), ενώ το ARP Reply επιστρέφει απευθείας στον αιτούντα (Unicast)."
+                "1. **Σωστό:** Το Control Plane είναι υπεύθυνο για τους αλγορίθμους δρομολόγησης.\n"
+                "2. **Λάθος:** Οι Servers απαιτούν μόνιμη, σταθερή IP για να είναι πάντα διαθέσιμοι στους πελάτες.\n"
+                "3. **Σωστό:** Το BGP είναι το de facto πρωτόκολλο δρομολόγησης μεταξύ διαφορετικών AS στο διαδίκτυο."
             ),
         ),
         # Part B - Άσκηση 1
@@ -190,11 +187,11 @@ def createScenario() -> NetworkScenario:
             question_type="Calculations",
             prompt_text=(
                 "Έστω δίκτυο με δύο ζεύξεις σε σειρά: `(A) ============ (B) ============ (C)`\n"
-                "Δίνονται: R1 = 10000 bps, L1 = 100 km, u1 = 2.5*10^8 m/s.\n"
-                "R2 = 20000 bps, L2 = 50 km, u2 = 2.5*10^8 m/s.\n"
+                "Link 1: R1 = 10000 bps, L1 = 100 km, u1 = 2.5*10^8 m/s.\n"
+                "Link 2: R2 = 20000 bps, L2 = 50 km, u2 = 2.5*10^8 m/s.\n"
                 "Μέγεθος πακέτου P = 1000 bits.\n\n"
                 "**a.** Υπολογίστε τον χρόνο που χρειάζεται για την αποστολή ενός πακέτου από τον A στον C.\n"
-                "**b.** Υπολογίστε το RTT για ένα πακέτο που αποστέλλεται από τον A στον B και επιστρέφει αμέσως (αγνοώντας d_proc)."
+                "**b.** Υπολογίστε το RTT για ένα πακέτο που αποστέλλεται από τον A στον B και επιστρέφει αμέσως."
             ),
             calculation_steps=[
                 CalculationStep(
@@ -243,14 +240,7 @@ def createScenario() -> NetworkScenario:
             prompt_text=(
                 "Εφαρμόστε τον αλγόριθμο Dijkstra με κόμβο εκκίνησης τον **A** και βρείτε τα συντομότερα "
                 "μονοπάτια προς όλους τους κόμβους.\n"
-                "Τοπολογία:\n"
-                "```text\n"
-                "      (A) --- 2 --- (B) --- 4 --- (C)\n"
-                "       |             |             |\n"
-                "       5             1             3\n"
-                "       |             |             |\n"
-                "      (D) --- 3 --- (E) --- 2 --- (F)\n"
-                "```"
+                "Τοπολογία: A-B:2, A-D:5, B-C:4, B-E:1, C-F:3, D-E:3, E-F:2."
             ),
             calculation_steps=[
                 CalculationStep(
@@ -279,7 +269,7 @@ def createScenario() -> NetworkScenario:
                 ),
             ],
             detailed_justification=(
-                "Πλήρης πίνακας εκτέλεσης αλγορίθμου Dijkstra:\n\n"
+                "Πίνακας Dijkstra:\n\n"
                 "| Βήμα | Επισκέφθηκε | B | C | D | E | F |\n"
                 "|---|---|---|---|---|---|---|\n"
                 "| 0 | A | **2(A)** | inf | 5(A) | inf | inf |\n"
@@ -353,36 +343,35 @@ def createScenario() -> NetworkScenario:
     ]
 
     nodes = [
-        TopologyNode("h1", "Host 1", "host", 100, 100, "192.168.5.130/25"),
-        TopologyNode("h2", "Host 2", "host", 100, 200, "192.168.5.200/25"),
-        TopologyNode("sw", "Switch L2", "switch", 350, 150),
-        TopologyNode("r1", "Gateway Router", "router", 600, 150, "192.168.5.129/25"),
+        TopologyNode("h1", "Host 1", "host", 100, 150, "10.0.1.10"),
+        TopologyNode("r1", "Router 1", "router", 380, 150, "10.0.1.1"),
+        TopologyNode("r2", "Router 2", "router", 650, 150, "10.0.2.1"),
+        TopologyNode("h2", "Host 2", "host", 900, 150, "10.0.2.10"),
     ]
 
     links = [
-        TopologyLink("h1", "sw", 100, 0.02, 2.0, "copper", "100M UTP"),
-        TopologyLink("h2", "sw", 100, 0.02, 2.0, "copper", "100M UTP"),
-        TopologyLink("sw", "r1", 1000, 0.05, 2.0, "copper", "1G UTP"),
+        TopologyLink("h1", "r1", 10, 100.0, 2.5, "copper", "10M | 100km"),
+        TopologyLink("r1", "r2", 20, 50.0, 2.5, "fiber", "20M | 50km"),
+        TopologyLink("r2", "h2", 100, 0.5, 2.0, "copper", "100M LAN"),
     ]
 
     return NetworkScenario(
-        id="exam_synth_1",
-        title="Synthetic Exam 1: Core, Delays & Subnetting",
-        subtitle="PDUs, Micro-segmentation, d_trans = L/R, /25 Subnets, 6-Node Dijkstra & Hamming(7,4)",
-        course_tag="Synthetic Realistic",
+        id="exam_synth_fc_1",
+        title="Synthetic Exam 1 (Full Coverage)",
+        subtitle="Statistical Multiplexing, Store-and-Forward, 2-Link Delays, Dijkstra & Hamming(7,4)",
+        course_tag="Synthetic Full Coverage",
         duration_info="2 ώρες και 15 λεπτά",
         paragraphs=paragraphs,
         questions=questions,
         nodes=nodes,
         links=links,
         methodology_summary=[
-            "1. L2 PDU = Frame.",
-            "2. Switch ports = 1 collision domain ανά πόρτα (micro-segmentation).",
-            "3. d_trans = L / R = 2000 / 10^6 = 2 ms.",
-            "4. /25 Subnet: Block size 128 (.128 έως .255).",
-            "5. Dijkstra: Βήμα προς βήμα μονιμοποίηση κόμβων.",
-            "6. CSMA/CD: L_min = 2 * d_prop * R = 64 Bytes.",
-            "7. Hamming(7,4) Άρτια: P1=0, P2=1, P4=0 -> 0110011.",
+            "1. Statistical Multiplexing: On-demand dynamic bandwidth allocation.",
+            "2. Store-and-Forward: Full packet reception before forwarding.",
+            "3. 2-Link Delays: t_total = 0.1506 s, RTT = 0.2008 s.",
+            "4. Dijkstra: Συντομότερες διαδρομές από ρίζα A.",
+            "5. CSMA/CD: L_min = 2 * d_prop * R = 64 Bytes.",
+            "6. Hamming(7,4) Even: 0110011.",
         ],
         calculator_type="delay",
     )
