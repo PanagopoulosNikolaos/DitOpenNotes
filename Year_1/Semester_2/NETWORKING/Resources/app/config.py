@@ -12,7 +12,7 @@ HTML export, and LaTeX rendering).
 KATEX_HEAD = """
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="if (typeof renderAllLatex === 'function') renderAllLatex();"></script>
 """
 
 CUSTOM_CSS = r"""
@@ -1230,6 +1230,21 @@ THEME_HEAD_SCRIPT = """
         return localStorage.getItem('app_theme') || 'light';
     }
 
+    function syncThemeUI() {
+        const isDark = (getAppTheme() === 'dark');
+        const themeBtn = document.getElementById('theme-toggle-btn');
+        if (themeBtn) {
+            const icon = themeBtn.querySelector('i');
+            const label = themeBtn.querySelector('.theme-btn-label');
+            if (icon) {
+                icon.className = isDark ? 'fa-solid fa-sun text-amber-500' : 'fa-solid fa-moon text-slate-500';
+            }
+            if (label) {
+                label.textContent = isDark ? 'Φωτεινό' : 'Σκοτεινό';
+            }
+        }
+    }
+
     function setAppTheme(theme) {
         const isDark = (theme === 'dark');
         document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
@@ -1248,19 +1263,7 @@ THEME_HEAD_SCRIPT = """
             } catch (e) {}
         }
         localStorage.setItem('app_theme', isDark ? 'dark' : 'light');
-
-        // Update theme toggle icon and label in the UI
-        const themeBtn = document.getElementById('theme-toggle-btn');
-        if (themeBtn) {
-            const icon = themeBtn.querySelector('i');
-            const label = themeBtn.querySelector('.theme-btn-label');
-            if (icon) {
-                icon.className = isDark ? 'fa-solid fa-sun text-amber-500' : 'fa-solid fa-moon text-slate-500';
-            }
-            if (label) {
-                label.textContent = isDark ? 'Φωτεινό' : 'Σκοτεινό';
-            }
-        }
+        syncThemeUI();
 
         // Re-render the exam diagram with the active theme palette
         if (typeof initExamDiagram === 'function') {
@@ -1282,11 +1285,21 @@ THEME_HEAD_SCRIPT = """
                     delimiters: [
                         {left: '$$', right: '$$', display: true},
                         {left: '\\\\[', right: '\\\\]', display: true},
-                        {left: '\\\\(', right: '\\\\)', display: false}
+                        {left: '\\\\(', right: '\\\\)', display: false},
+                        {left: '$', right: '$', display: false}
                     ],
+                    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
                     throwOnError: false
                 });
-            } catch (e) {}
+            } catch (e) {
+                console.warn('renderAllLatex error:', e);
+            }
+        } else {
+            if (!window._katexRetryCount) window._katexRetryCount = 0;
+            if (window._katexRetryCount < 40) {
+                window._katexRetryCount++;
+                setTimeout(renderAllLatex, 150);
+            }
         }
     }
 
@@ -1328,6 +1341,24 @@ THEME_HEAD_SCRIPT = """
             clone.querySelectorAll('.no-print').forEach(el => el.remove());
             sectionsHTML += `<div class="section-wrapper">${clone.outerHTML}</div>`;
         });
+
+        const katexScript = '<' + 'script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js">' + '<' + '/script>';
+        const autoRenderScript = '<' + 'script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js">' + '<' + '/script>';
+        const renderCode = '<' + 'script>' + `
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\\\[', right: '\\\\]', display: true},
+                            {left: '\\\\(', right: '\\\\)', display: false},
+                            {left: '$', right: '$', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
+            });
+        ` + '<' + '/script>';
 
         const fullHTML = `<!DOCTYPE html>
 <html lang="el">
@@ -1371,22 +1402,9 @@ THEME_HEAD_SCRIPT = """
         <p style="color:#52525b; margin: 4px 0 0 0; font-size: 12px;">${subTitle}</p>
     </div>
     ${sectionsHTML}
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof renderMathInElement === 'function') {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '\\\\[', right: '\\\\]', display: true},
-                        {left: '\\\\(', right: '\\\\)', display: false}
-                    ],
-                    throwOnError: false
-                });
-            }
-        });
-    </script>
+    ${katexScript}
+    ${autoRenderScript}
+    ${renderCode}
 </body>
 </html>`;
 
@@ -1402,15 +1420,17 @@ THEME_HEAD_SCRIPT = """
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = getAppTheme();
-        setAppTheme(savedTheme);
+        setAppTheme(getAppTheme());
         renderAllLatex();
     });
 
-    setTimeout(() => {
-        const savedTheme = getAppTheme();
-        setAppTheme(savedTheme);
+    window.addEventListener('load', () => {
+        setAppTheme(getAppTheme());
         renderAllLatex();
-    }, 50);
+    });
+
+    setTimeout(() => { setAppTheme(getAppTheme()); renderAllLatex(); }, 150);
+    setTimeout(() => { setAppTheme(getAppTheme()); renderAllLatex(); }, 500);
+    setTimeout(() => { setAppTheme(getAppTheme()); renderAllLatex(); }, 1200);
 </script>
 """

@@ -54,10 +54,11 @@ class NetworkingApp:
         # Re-invoke every global renderer after a content re-render
         ui.run_javascript(
             "setTimeout(() => { "
+            "if (typeof syncThemeUI === 'function') syncThemeUI(); "
             "if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); "
             "if (typeof initExamDiagram === 'function') initExamDiagram(); "
             "if (typeof renderAllLatex === 'function') renderAllLatex(); "
-            "}, 50);"
+            "}, 80);"
         )
 
     def renderScenarioContent(self) -> None:
@@ -103,9 +104,6 @@ def buildApp() -> None:
     @ui.page("/")
     def mainPage() -> None:
         """Root page handler rendering header and reactive content."""
-        # Initialize default light theme mode
-        ui.dark_mode(value=False)
-
         current_scenario = scenario_registry.getScenario(net_app.current_scenario_id)
         content_container = ui.column().classes("w-full gap-0 p-0 items-center")
 
@@ -127,6 +125,18 @@ def buildApp() -> None:
         # Main dynamic content area
         with content_container:
             net_app.renderScenarioContent()
+
+        # Synchronize theme and render LaTeX formulas upon client connection
+        ui.timer(
+            0.15,
+            lambda: ui.run_javascript(
+                "if (typeof setAppTheme === 'function') setAppTheme(getAppTheme()); "
+                "if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); "
+                "if (typeof initExamDiagram === 'function') initExamDiagram(); "
+                "if (typeof renderAllLatex === 'function') renderAllLatex(); "
+            ),
+            once=True,
+        )
 
 
 buildApp()
