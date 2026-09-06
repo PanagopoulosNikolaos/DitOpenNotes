@@ -9,7 +9,7 @@ verbatim with three-part contract hover tooltips, followed sequentially by open,
 fully worked solution sheets with step-by-step KaTeX derivations.
 """
 
-from nicegui import ui
+from nicegui import Client, ui
 import config
 from models.registry import scenario_registry
 import scenarios  # Auto-registers all past and synthetic exams
@@ -96,7 +96,7 @@ def buildApp() -> None:
     em_app = ElectromagneticsApp()
 
     @ui.page("/")
-    def mainPage() -> None:
+    async def mainPage(client: Client) -> None:
         """Root page handler rendering sticky header and dynamic content."""
         # Initialize default Orange Light theme
         ui.dark_mode(value=False)
@@ -129,6 +129,9 @@ def buildApp() -> None:
         # Main dynamic content container
         with content_container:
             em_app.renderScenarioContent()
+
+        await client.connected()
+        ui.run_javascript("if (typeof renderAllLatex === 'function') renderAllLatex();")
 
 
 buildApp()

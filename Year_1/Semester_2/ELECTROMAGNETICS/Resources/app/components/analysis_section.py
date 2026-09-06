@@ -6,6 +6,7 @@ any accordions, tabs, collapsibles, or reveal controls.
 
 from nicegui import ui
 from models.scenario import Scenario, ExamQuestion
+from config import renderMathHtml
 
 
 def renderQuestionSolution(q: ExamQuestion) -> None:
@@ -40,7 +41,7 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
             with ui.row().classes("items-center gap-2 text-[var(--text-3)] text-xs font-bold"):
                 ui.html('<i class="fa-solid fa-file-lines"></i>')
                 ui.label("Εκφώνηση Θέματος")
-            ui.markdown(q.prompt_text).classes("text-sm text-[var(--text-1)] leading-relaxed latex-target")
+            ui.html(f'<div class="text-sm text-[var(--text-1)] leading-relaxed latex-target">{renderMathHtml(q.prompt_text)}</div>')
 
         # Multiple-Choice Static Options (Open Solution Sheet: Section 8)
         if q.options:
@@ -64,12 +65,12 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                         with ui.column().classes(f"w-full {opt_class} gap-1"):
                             with ui.row().classes("w-full items-center gap-2"):
                                 ui.html(f'<span class="{badge_class}">{opt.letter}</span>')
-                                ui.markdown(opt.text).classes("text-sm font-semibold text-[var(--text-1)] latex-target")
+                                ui.html(f'<div class="text-sm font-semibold text-[var(--text-1)] latex-target">{renderMathHtml(opt.text)}</div>')
                                 if status_badge:
                                     ui.html(status_badge)
                             # Inline distractor explanation
                             if opt.explanation:
-                                ui.markdown(f"*{opt.explanation}*").classes("text-xs text-[var(--text-3)] ml-8 latex-target leading-normal")
+                                ui.html(f'<div class="text-xs text-[var(--text-3)] ml-8 latex-target leading-normal italic">{renderMathHtml(opt.explanation)}</div>')
 
         # Computational Exercise: Given Parameters Block
         if q.given_parameters:
@@ -103,24 +104,30 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                         if step.formula:
                             with ui.column().classes("w-full p-2.5 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)] gap-1"):
                                 ui.label("Μαθηματικός Τύπος:").classes("text-[0.65rem] font-bold text-[var(--text-3)] uppercase")
-                                ui.markdown(f"$$\n{step.formula}\n$$").classes("text-sm text-[var(--text-1)] latex-target")
+                                clean_formula = step.formula.strip()
+                                display_formula = clean_formula if clean_formula.startswith("$$") else f"$${clean_formula}$$"
+                                ui.html(f'<div class="text-sm text-[var(--text-1)] latex-target text-center overflow-x-auto my-0.5">{display_formula}</div>')
 
                         if step.substitution:
                             with ui.column().classes("w-full p-2.5 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)] gap-1"):
                                 ui.label("Αριθμητική Αντικατάσταση:").classes("text-[0.65rem] font-bold text-[var(--text-3)] uppercase")
-                                ui.markdown(f"$$\n{step.substitution}\n$$").classes("text-sm text-[var(--text-1)] latex-target")
+                                clean_subst = step.substitution.strip()
+                                display_subst = clean_subst if clean_subst.startswith("$$") else f"$${clean_subst}$$"
+                                ui.html(f'<div class="text-sm text-[var(--text-1)] latex-target text-center overflow-x-auto my-0.5">{display_subst}</div>')
 
                         if step.result:
-                            with ui.row().classes("w-full items-center justify-between p-2.5 rounded-lg bg-[rgba(5,150,105,0.08)] border border-[var(--green-ok)]"):
+                            with ui.row().classes("w-full items-center justify-between p-2.5 rounded-lg bg-[rgba(5,150,105,0.08)] border border-[var(--green-ok)] flex-wrap gap-2"):
                                 with ui.row().classes("items-center gap-2"):
                                     ui.html('<i class="fa-solid fa-check text-[var(--green-ok)] text-xs"></i>')
                                     ui.label("Μερικό Αποτέλεσμα:").classes("text-xs font-bold text-[var(--green-ok)]")
-                                ui.markdown(f"**${step.result}$**").classes("text-sm font-bold text-[var(--text-1)] latex-target")
+                                clean_result = step.result.strip()
+                                math_result = clean_result if clean_result.startswith("$") else f"${clean_result}$"
+                                ui.html(f'<div class="text-sm font-bold text-[var(--text-1)] latex-target">{math_result}</div>')
 
                         if step.rationale:
                             with ui.row().classes("items-start gap-2 text-xs text-[var(--text-2)]"):
                                 ui.html('<i class="fa-solid fa-circle-info text-[var(--text-3)] text-xs mt-0.5"></i>')
-                                ui.markdown(step.rationale).classes("leading-relaxed latex-target")
+                                ui.html(f'<div class="leading-relaxed latex-target">{renderMathHtml(step.rationale)}</div>')
 
         # Prominent Final Answer Highlight Box
         if q.final_answer:
@@ -128,7 +135,13 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                 with ui.row().classes("items-center gap-2 text-xs font-bold text-[var(--green-ok)]"):
                     ui.html('<i class="fa-solid fa-flag-checkered"></i>')
                     ui.label("Τελικό Αποτέλεσμα")
-                ui.markdown(f"**{q.final_answer}**").classes("text-base font-black text-[var(--text-1)] latex-target")
+                clean_ans = q.final_answer.strip()
+                has_math = any(tok in clean_ans for tok in ("\\", "^", "_", "=", "<", ">", "+", "*", "/", "≈", "·"))
+                if has_math:
+                    math_ans = clean_ans if clean_ans.startswith("$$") else (clean_ans if clean_ans.startswith("$") else f"$${clean_ans}$$")
+                    ui.html(f'<div class="text-base font-black text-[var(--text-1)] latex-target text-center overflow-x-auto">{math_ans}</div>')
+                else:
+                    ui.html(f'<div class="text-base font-black text-[var(--text-1)] latex-target">{clean_ans}</div>')
 
         # Physics Justification & Rationale
         if q.detailed_justification:
@@ -136,7 +149,7 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                 with ui.row().classes("items-center gap-2 text-xs font-bold text-[var(--blue-action)]"):
                     ui.html('<i class="fa-solid fa-atom"></i>')
                     ui.label("Φυσική Ερμηνεία & Αιτιολόγηση")
-                ui.markdown(q.detailed_justification).classes("text-xs text-[var(--text-2)] leading-relaxed latex-target")
+                ui.html(f'<div class="text-xs text-[var(--text-2)] leading-relaxed latex-target">{renderMathHtml(q.detailed_justification)}</div>')
 
         # Common Traps / Pitfalls
         if q.common_pitfalls:
@@ -147,7 +160,7 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                 for pitfall in q.common_pitfalls:
                     with ui.row().classes("items-start gap-2 text-xs text-[var(--text-2)]"):
                         ui.html('<span class="text-red-500 font-bold">•</span>')
-                        ui.markdown(pitfall).classes("leading-relaxed latex-target")
+                        ui.html(f'<div class="leading-relaxed latex-target">{renderMathHtml(pitfall)}</div>')
 
 
 def renderAnalysisSection(scenario: Scenario) -> None:

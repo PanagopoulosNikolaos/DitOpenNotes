@@ -1,7 +1,6 @@
-"""Solution code and physical justification cards component."""
-
 from nicegui import ui
 from models.scenario import Scenario
+from config import renderMathHtml
 
 
 def renderSolutionCode(scenario: Scenario) -> None:
@@ -49,8 +48,8 @@ def renderSolutionCode(scenario: Scenario) -> None:
                             with ui.row().classes("items-center justify-between w-full"):
                                 ui.label(just.title).classes("font-bold text-sm text-[var(--text-1)]")
                                 ui.html(f'<span class="text-[0.68rem] px-2 py-0.5 rounded-full bg-[var(--surface-2)] text-[var(--accent)] border border-[var(--border-accent)] font-semibold">{just.category}</span>')
-                            ui.markdown(just.description).classes("text-xs text-[var(--text-2)] leading-relaxed latex-target")
-                            ui.markdown(f"**Αιτιολόγηση:** {just.rationale}").classes("text-xs text-[var(--text-3)] leading-relaxed italic latex-target")
+                            ui.html(f'<div class="text-xs text-[var(--text-2)] leading-relaxed latex-target">{renderMathHtml(just.description)}</div>')
+                            ui.html(f'<div class="text-xs text-[var(--text-3)] leading-relaxed italic latex-target">{renderMathHtml(f"**Αιτιολόγηση:** {just.rationale}")}</div>')
 
         # Python Code Display
         if scenario.solution_code:

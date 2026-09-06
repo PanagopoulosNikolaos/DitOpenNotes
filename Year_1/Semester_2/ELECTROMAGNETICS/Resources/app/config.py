@@ -4,6 +4,45 @@ Provides design tokens for Orange Light (default) and Soft Dark themes, KaTeX ma
 support, print-to-PDF styles, canvas highlight classes, and global JavaScript helpers.
 """
 
+import re
+import markdown2
+
+
+def renderMathHtml(text: str) -> str:
+    """Converts markdown text to HTML while preserving LaTeX math delimiters and expressions intact.
+
+    Protects inline math ($...$) and display math ($$...$$) with collision-free
+    alphanumeric tokens before passing to markdown2, preventing subscripts from being
+    mangled into HTML emphasis tags.
+
+    Args:
+        text (str): The markdown string containing optional LaTeX blocks.
+
+    Returns:
+        str: Rendered HTML string with uncorrupted LaTeX delimiters.
+    """
+    if not text:
+        return ""
+
+    math_blocks: list[str] = []
+
+    def saveMath(match: re.Match) -> str:
+        idx = len(math_blocks)
+        math_blocks.append(match.group(0))
+        return f"QQMATHTOKEN{idx}ZZ"
+
+    # Pattern matches $$...$$ display math or $...$ inline math
+    pattern = re.compile(r"(\$\$.*?\$\$|\$[^\$\n]+?\$)", re.DOTALL)
+    protected_text = pattern.sub(saveMath, text)
+
+    html = markdown2.markdown(protected_text, extras=["fenced-code-blocks", "tables"])
+
+    for idx, block in enumerate(math_blocks):
+        html = html.replace(f"QQMATHTOKEN{idx}ZZ", block)
+
+    return html
+
+
 # Color tokens for Light and Dark themes
 CUSTOM_CSS = r"""
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
@@ -519,59 +558,62 @@ KATEX_AND_SCRIPTS_HEAD = r"""
 /* KaTeX Auto-Render Helper */
 function renderAllLatex() {
     if (typeof renderMathInElement !== 'function') {
-        setTimeout(renderAllLatex, 100);
+        setTimeout(renderAllLatex, 60);
         return;
     }
     
-    const selectors = [
-        '.latex-target',
-        '#interactive-text-canvas',
-        '.analysis-section',
-        '.derivation-step-card',
-        '.formula-highlight-box',
-        '.result-highlight-box',
-        '.theory-container',
-        '.nicegui-markdown',
-        '.q-card'
-    ];
-    
-    const targets = document.querySelectorAll(selectors.join(', '));
-    if (targets && targets.length > 0) {
-        targets.forEach(el => {
-            try {
-                renderMathInElement(el, {
-                    delimiters: [
-                        {left: '$$$', right: '$$$', display: false},
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                        {left: '\\\\[', right: '\\\\]', display: true},
-                        {left: '\\\\(', right: '\\\\)', display: false}
-                    ],
-                    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
-                    throwOnError: false
-                });
-            } catch (err) {
-                console.warn('KaTeX render error:', err);
-            }
+    try {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$$', right: '$$$', display: false},
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\[', right: '\\]', display: true},
+                {left: '\\(', right: '\\)', display: false}
+            ],
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
+            throwOnError: false
         });
-    } else {
-        const root = document.getElementById('main-content-area') || document.body;
-        if (root) {
-            try {
-                renderMathInElement(root, {
-                    delimiters: [
-                        {left: '$$$', right: '$$$', display: false},
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false},
-                        {left: '\\\\[', right: '\\\\]', display: true},
-                        {left: '\\\\(', right: '\\\\)', display: false}
-                    ],
-                    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "option"],
-                    throwOnError: false
-                });
-            } catch (err) {}
-        }
+    } catch (err) {
+        console.warn('KaTeX render error:', err);
     }
+}
+window.renderAllLatex = renderAllLatex;
+
+let latexDebounceTimer = null;
+function scheduleLatexRender() {
+    clearTimeout(latexDebounceTimer);
+    latexDebounceTimer = setTimeout(renderAllLatex, 50);
+}
+window.scheduleLatexRender = scheduleLatexRender;
+
+if (typeof MutationObserver !== 'undefined') {
+    const katexObserver = new MutationObserver((mutations) => {
+        let needsRender = false;
+        for (const m of mutations) {
+            if (m.addedNodes && m.addedNodes.length > 0) {
+                for (let i = 0; i < m.addedNodes.length; i++) {
+                    const node = m.addedNodes[i];
+                    if (node.nodeType === 1) {
+                        const el = node;
+                        if (!el.classList?.contains('katex') && !el.closest?.('.katex')) {
+                            needsRender = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (needsRender) break;
+        }
+        if (needsRender) {
+            scheduleLatexRender();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        katexObserver.observe(document.body, { childList: true, subtree: true });
+        scheduleLatexRender();
+    });
 }
 
 /* Theme switching controller */
@@ -763,7 +805,10 @@ function handleEmWheel(e) {
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = getAppTheme();
     setAppTheme(savedTheme);
-    setTimeout(renderAllLatex, 150);
+    scheduleLatexRender();
+    setTimeout(renderAllLatex, 100);
+    setTimeout(renderAllLatex, 300);
+    setTimeout(renderAllLatex, 700);
 });
 </script>
 """

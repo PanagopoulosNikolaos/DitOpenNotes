@@ -1,6 +1,7 @@
 """Comprehensive Master Theory Guide component for Electromagnetics curriculum."""
 
 from nicegui import ui
+from config import renderMathHtml
 
 
 def renderTheoryPage() -> None:
@@ -24,8 +25,7 @@ def renderTheoryPage() -> None:
                 ui.html('<i class="fa-solid fa-calculator text-[var(--accent)] text-xl"></i>')
                 ui.html('<h2 class="section-title m-0">1. Διανυσματικός Λογισμός & Διαφορικοί Τελεστές</h2>')
 
-            ui.markdown(
-                r"""
+            section_1_text = r"""
 Ο τελεστής **Ανάδελτα ($\nabla$)** σε Καρτεσιανές συντεταγμένες $(x, y, z)$ ορίζεται ως:
 $$\nabla = \hat{x}\frac{\partial}{\partial x} + \hat{y}\frac{\partial}{\partial y} + \hat{z}\frac{\partial}{\partial z}$$
 
@@ -50,7 +50,7 @@ $$\nabla \times \vec{A} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \frac{\
 - **Θεώρημα Stokes:** Μετατροπή επιφάνειας σε κλειστό περίγραμμα:
   $$\iint_S (\nabla \times \vec{A}) \cdot d\vec{S} = \oint_C \vec{A} \cdot d\vec{l}$$
 """
-            ).classes("text-sm text-[var(--text-1)] leading-relaxed")
+            ui.html(f'<div class="text-sm text-[var(--text-1)] leading-relaxed latex-target">{renderMathHtml(section_1_text)}</div>')
 
         # SECTION 2: The 4 Maxwell Equations
         with ui.column().classes("w-full glass-panel gap-4 p-6 border border-[var(--border)]"):
@@ -100,8 +100,7 @@ $$\nabla \times \vec{A} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \frac{\
             """
             ui.html(table_maxwell)
 
-            ui.markdown(
-                r"""
+            section_2_text = r"""
 ### Καταστατικές Σχέσεις Γραμμικών Ισότροπων Μέσων
 - $\vec{D} = \epsilon \vec{E} = \epsilon_0 \epsilon_r \vec{E}$
 - $\vec{B} = \mu \vec{H} = \mu_0 \mu_r \vec{H}$
@@ -112,7 +111,7 @@ $$\nabla \times \vec{A} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \frac{\
 - $\mu_0 = 4\pi \times 10^{-7} \text{ T}\cdot\text{m/A} \approx 1.257 \times 10^{-6} \text{ H/m}$ (μαγνητική διαπερατότητα κενού)
 - $c = \frac{1}{\sqrt{\epsilon_0 \mu_0}} \approx 3 \times 10^8 \text{ m/s}$ (ταχύτητα φωτός στο κενό)
 """
-            ).classes("text-sm text-[var(--text-1)] leading-relaxed")
+            ui.html(f'<div class="text-sm text-[var(--text-1)] leading-relaxed latex-target">{renderMathHtml(section_2_text)}</div>')
 
         # SECTION 3: Harmonic Plane Waves & Poynting Vector
         with ui.column().classes("w-full glass-panel gap-4 p-6 border border-[var(--border)]"):
@@ -120,8 +119,7 @@ $$\nabla \times \vec{A} = \begin{vmatrix} \hat{x} & \hat{y} & \hat{z} \\ \frac{\
                 ui.html('<i class="fa-solid fa-wave-square text-[var(--accent)] text-xl"></i>')
                 ui.html('<h2 class="section-title m-0">3. Επίπεδα Ηλεκτρομαγνητικά Κύματα & Διάνυσμα Poynting</h2>')
 
-            ui.markdown(
-                r"""
+            section_3_text = r"""
 ### 3.1 Εξίσωση Κύματος & Μορφή Πεδίων
 Για αρμονικό κύμα πολωμένο κατά $\hat{y}$ που διαδίδεται προς τη διεύθυνση $+z$ στο κενό:
 $$\vec{E}(z, t) = E_0 \cos(kz - \omega t)\hat{y}$$
@@ -142,7 +140,7 @@ $$\vec{S}(z, t) = \frac{E_0 B_0}{\mu_0} \cos^2(kz - \omega t) \hat{k}$$
 Η **χρονική μέση τιμή** του $\cos^2$ σε μία περίοδο ισούται με $1/2$. Συνεπώς, η μέση ένταση ακτινοβολίας $I$ δίνεται από:
 $$I = \langle |\vec{S}| \rangle = \frac{E_0 B_0}{2\mu_0} = \frac{E_0^2}{2\mu_0 c} = \frac{1}{2} c \epsilon_0 E_0^2 = \frac{E_0^2}{2\eta_0}$$
 """
-            ).classes("text-sm text-[var(--text-1)] leading-relaxed")
+            ui.html(f'<div class="text-sm text-[var(--text-1)] leading-relaxed latex-target">{renderMathHtml(section_3_text)}</div>')
 
         # SECTION 4: Transmission Lines & Smith Chart
         with ui.column().classes("w-full glass-panel gap-4 p-6 border border-[var(--border)]"):
@@ -150,8 +148,7 @@ $$I = \langle |\vec{S}| \rangle = \frac{E_0 B_0}{2\mu_0} = \frac{E_0^2}{2\mu_0 c
                 ui.html('<i class="fa-solid fa-network-wired text-[var(--accent)] text-xl"></i>')
                 ui.html('<h2 class="section-title m-0">4. Γραμμές Μεταφοράς & Χάρτης Smith</h2>')
 
-            ui.markdown(
-                r"""
+            section_4_text = r"""
 ### 4.1 Μοντέλο Κατανεμημένων Στοιχείων
 Μια ομοιόμορφη γραμμή μεταφοράς περιγράφεται από παραμέτρους ανά μονάδα μήκους: Αντίσταση $R'$, Αυτεπαγωγή $L'$, Αγωγιμότητα $G'$, Χωρητικότητα $C'$.
 Για **γραμμή χωρίς απώλειες** ($R' = 0, G' = 0$):
@@ -174,7 +171,7 @@ $$\text{VSWR} = \frac{V_{\text{max}}}{V_{\text{min}}} = \frac{1 + |\Gamma_L|}{1 
 $$Z_{\text{in}}(l) = Z_0 \frac{Z_L + j Z_0 \tan(\beta l)}{Z_0 + j Z_L \tan(\beta l)}$$
 *Ειδική περίπτωση $\lambda/4$ (Μετασχηματιστής Τετάρτου Κύματος):* $Z_{\text{in}}(\lambda/4) = \frac{Z_0^2}{Z_L}$.
 """
-            ).classes("text-sm text-[var(--text-1)] leading-relaxed")
+            ui.html(f'<div class="text-sm text-[var(--text-1)] leading-relaxed latex-target">{renderMathHtml(section_4_text)}</div>')
 
         # SECTION 5: Notation, Constants & Symbolism
         with ui.column().classes("w-full glass-panel gap-4 p-6 border border-[var(--border)]"):
