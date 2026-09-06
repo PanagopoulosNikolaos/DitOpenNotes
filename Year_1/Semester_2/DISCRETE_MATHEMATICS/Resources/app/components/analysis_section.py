@@ -9,6 +9,40 @@ from models.scenario import Scenario, ExamQuestion
 from config import renderMathHtml
 
 
+def formatMathBlock(text: str, is_display: bool = True) -> str:
+    """Formats mathematical or markdown content into properly delimited HTML for KaTeX and markdown rendering.
+
+    Args:
+        text (str): The raw string which may contain Markdown, LaTeX commands, or delimiters.
+        is_display (bool): If True and wrapping in KaTeX math mode, uses display mode ($$).
+
+    Returns:
+        str: HTML-safe string with KaTeX delimiters ($...$ or $$...$$) guaranteed.
+    """
+    if not text:
+        return ""
+    clean = text.strip()
+
+    # If the text already has $ or $$ delimiters, it is already marked up for KaTeX!
+    if "$" in clean:
+        return renderMathHtml(clean)
+
+    # If it is a pure LaTeX environment like \begin{array} or \begin{aligned}
+    if clean.startswith(r"\begin{"):
+        return f"$${clean}$$"
+
+    # If it contains LaTeX newline separators (\\), wrap in an aligned display block
+    if "\\\\" in clean:
+        return f"$$\\begin{{aligned}} {clean} \\end{{aligned}}$$"
+
+    # If it contains LaTeX backslash commands or common math symbols
+    if "\\" in clean or any(op in clean for op in ("=", "<", ">", "≤", "≥", "≠", "±", "∈", "∪", "∩", "≡", "→", "⇒")):
+        return f"$${clean}$$" if is_display else f"${clean}$"
+
+    # Otherwise it is plain text without any math or LaTeX
+    return renderMathHtml(clean)
+
+
 def renderQuestionSolution(q: ExamQuestion) -> None:
     """Renders an individual question solution block openly per Section 8 specifications.
 
@@ -112,40 +146,24 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                         if step.formula:
                             with ui.column().classes("w-full max-w-full min-w-0 p-2.5 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)] gap-1 overflow-hidden"):
                                 ui.label("Μαθηματικός Τύπος / Κανόνας:").classes("text-[0.65rem] font-bold text-[var(--text-3)] uppercase")
-                                clean_formula = step.formula.strip()
-                                if clean_formula.startswith("$$") and clean_formula.endswith("$$"):
-                                    display_formula = clean_formula
-                                elif clean_formula.startswith("$") and clean_formula.endswith("$"):
-                                    display_formula = f"$${clean_formula[1:-1]}$$"
-                                elif clean_formula.startswith(r"\begin{"):
-                                    display_formula = f"$${clean_formula}$$"
-                                else:
-                                    display_formula = f"$${clean_formula}$$"
+                                display_formula = formatMathBlock(step.formula, is_display=True)
                                 ui.html(f'<div class="w-full max-w-full min-w-0 text-sm text-[var(--text-1)] latex-target text-center overflow-x-auto my-0.5">{display_formula}</div>')
 
                         # Substitution in KaTeX or Markdown
                         if step.substitution:
                             with ui.column().classes("w-full max-w-full min-w-0 p-2.5 rounded-lg bg-[var(--canvas-bg)] border border-[var(--border)] gap-1 overflow-hidden"):
                                 ui.label("Αντικατάσταση / Απλοποίηση:").classes("text-[0.65rem] font-bold text-[var(--text-3)] uppercase")
-                                clean_subst = step.substitution.strip()
-                                if clean_subst.startswith(r"\begin{array}") or clean_subst.startswith(r"\begin{aligned}") or (clean_subst.startswith("$$") and clean_subst.endswith("$$")):
-                                    display_subst = clean_subst if clean_subst.startswith("$$") else f"$${clean_subst}$$"
-                                    ui.html(f'<div class="w-full max-w-full min-w-0 text-sm text-[var(--text-1)] latex-target text-center overflow-x-auto my-0.5">{display_subst}</div>')
-                                else:
-                                    rendered_subst = renderMathHtml(clean_subst)
-                                    ui.html(f'<div class="w-full max-w-full min-w-0 text-sm text-[var(--text-1)] latex-target leading-relaxed break-words overflow-x-auto">{rendered_subst}</div>')
+                                display_subst = formatMathBlock(step.substitution, is_display=True)
+                                align_class = "text-center" if display_subst.startswith("$$") else "leading-relaxed break-words"
+                                ui.html(f'<div class="w-full max-w-full min-w-0 text-sm text-[var(--text-1)] latex-target {align_class} overflow-x-auto my-0.5">{display_subst}</div>')
 
                         if step.result:
                             with ui.row().classes("w-full max-w-full min-w-0 items-center justify-between p-2.5 rounded-lg bg-[rgba(5,150,105,0.08)] border border-[var(--green-ok)] flex-wrap gap-2 overflow-hidden"):
                                 with ui.row().classes("items-center gap-2"):
                                     ui.html('<i class="fa-solid fa-check text-[var(--green-ok)] text-xs"></i>')
                                     ui.label("Μερικό Αποτέλεσμα / Συμπέρασμα:").classes("text-xs font-bold text-[var(--green-ok)]")
-                                clean_result = step.result.strip()
-                                if clean_result.startswith("$") or clean_result.startswith(r"\text{") or clean_result.startswith(r"\mathbf{"):
-                                    math_result = clean_result if clean_result.startswith("$") else f"${clean_result}$"
-                                    ui.html(f'<div class="text-sm font-bold text-[var(--text-1)] latex-target overflow-x-auto">{math_result}</div>')
-                                else:
-                                    ui.html(f'<div class="text-sm font-bold text-[var(--text-1)] latex-target overflow-x-auto">{renderMathHtml(clean_result)}</div>')
+                                display_result = formatMathBlock(step.result, is_display=False)
+                                ui.html(f'<div class="text-sm font-bold text-[var(--text-1)] latex-target overflow-x-auto">{display_result}</div>')
 
                         if step.rationale:
                             with ui.row().classes("items-start gap-2 text-xs text-[var(--text-2)] max-w-full"):
@@ -158,12 +176,8 @@ def renderQuestionSolution(q: ExamQuestion) -> None:
                 with ui.row().classes("items-center gap-2 text-xs font-bold text-[var(--green-ok)]"):
                     ui.html('<i class="fa-solid fa-flag-checkered"></i>')
                     ui.label("Τελικό Αποτέλεσμα")
-                clean_ans = q.final_answer.strip()
-                if clean_ans.startswith("$$") and clean_ans.endswith("$$"):
-                    ui.html(f'<div class="w-full max-w-full min-w-0 text-base font-black text-[var(--text-1)] latex-target text-center overflow-x-auto">{clean_ans}</div>')
-                else:
-                    rendered_ans = renderMathHtml(clean_ans)
-                    ui.html(f'<div class="w-full max-w-full min-w-0 text-sm md:text-base font-bold text-[var(--text-1)] latex-target leading-relaxed break-words">{rendered_ans}</div>')
+                display_ans = formatMathBlock(q.final_answer, is_display=False)
+                ui.html(f'<div class="w-full max-w-full min-w-0 text-sm md:text-base font-bold text-[var(--text-1)] latex-target leading-relaxed break-words overflow-x-auto">{display_ans}</div>')
 
         # Detailed Mathematical Justification
         if q.detailed_justification:
