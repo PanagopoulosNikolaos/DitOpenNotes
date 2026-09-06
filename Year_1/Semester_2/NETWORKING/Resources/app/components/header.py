@@ -45,7 +45,7 @@ def renderHeader(
         with ui.row().classes("items-center gap-3 flex-wrap"):
             # Scenario selector dropdown (the single top-level switcher)
             scenario_options = scenario_registry.getScenarioOptions()
-            ui.select(
+            select_element = ui.select(
                 options=scenario_options,
                 value=current_scenario_id,
                 on_change=lambda e: on_scenario_change(e.value),
@@ -109,4 +109,8 @@ def renderHeader(
                         on_click=lambda: ui.run_javascript("downloadStandaloneHTML();"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)] font-bold text-blue-500")
 
-    return {"subtitle_label": subtitle_label, "course_label": course_label}
+    return {
+        "subtitle_label": subtitle_label,
+        "course_label": course_label,
+        "select_element": select_element,
+    }

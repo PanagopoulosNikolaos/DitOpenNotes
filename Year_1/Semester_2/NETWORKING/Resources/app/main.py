@@ -13,7 +13,7 @@ solutions with KaTeX derivations, interactive diagrams, verification code,
 and a comprehensive master theory guide.
 """
 
-from nicegui import ui, app
+from nicegui import Client, ui, app
 import config
 from models.registry import scenario_registry
 import scenarios  # Initializes and registers all scenarios
@@ -102,13 +102,16 @@ def buildApp() -> None:
     net_app = NetworkingApp()
 
     @ui.page("/")
-    def mainPage() -> None:
+    async def mainPage(client: Client) -> None:
         """Root page handler rendering header and reactive content."""
+        ui.dark_mode(value=False)
         current_scenario = scenario_registry.getScenario(net_app.current_scenario_id)
-        content_container = ui.column().classes("w-full gap-0 p-0 items-center")
+        content_container = ui.column().classes("w-full gap-0 p-0 items-center min-h-screen")
+
+        header_refs: dict = {}
 
         def handleScenarioSwitch(new_id: str) -> None:
-            """Handles scenario selection event."""
+            """Handles scenario selection event cleanly without deferred timer conflicts."""
             net_app.selectScenario(new_id, content_container)
             if new_id == "theory":
                 header_refs["subtitle_label"].set_text("Πλήρης Θεωρία, Τύποι, Αλγόριθμοι & Παγίδες Εξετάσεων")
@@ -120,22 +123,19 @@ def buildApp() -> None:
                     header_refs["course_label"].set_text(new_scenario.course_tag)
 
         # Top header (direct page child)
-        header_refs = renderHeader(current_scenario, net_app.current_scenario_id, handleScenarioSwitch)
+        header_refs_dict = renderHeader(current_scenario, net_app.current_scenario_id, handleScenarioSwitch)
+        header_refs.update(header_refs_dict)
 
         # Main dynamic content area
         with content_container:
             net_app.renderScenarioContent()
 
-        # Synchronize theme and render LaTeX formulas upon client connection
-        ui.timer(
-            0.15,
-            lambda: ui.run_javascript(
-                "if (typeof setAppTheme === 'function') setAppTheme(getAppTheme()); "
-                "if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); "
-                "if (typeof initExamDiagram === 'function') initExamDiagram(); "
-                "if (typeof renderAllLatex === 'function') renderAllLatex(); "
-            ),
-            once=True,
+        await client.connected()
+        ui.run_javascript(
+            "if (typeof setAppTheme === 'function') setAppTheme(getAppTheme()); "
+            "if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); "
+            "if (typeof initExamDiagram === 'function') initExamDiagram(); "
+            "if (typeof renderAllLatex === 'function') renderAllLatex(); "
         )
 
 
