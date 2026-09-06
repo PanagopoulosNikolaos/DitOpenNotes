@@ -33,6 +33,7 @@
 * **[Projects/](Projects/)**:
   - [`project_01_electromagnetic_field_simulation_python.md`](Projects/project_01_electromagnetic_field_simulation_python.md): Εξαμηνιαίο συνθετικό project αριθμητικής επίλυσης της εξίσωσης Laplace/Poisson με FDM σε Python.
 * **[Resources/](Resources/)**:
+  - [`app/`](Resources/app/): Διαδραστική εκπαιδευτική εφαρμογή NiceGUI για την επίλυση θεμάτων εξετάσεων, οπτικοποίηση κυμάτων Poynting και οδηγό θεωρίας Maxwell.
   - [`resources.md`](Resources/resources.md): Προτεινόμενη διεθνής και ελληνική βιβλιογραφία (Cheng, Hayt κ.ά.).
   - [`Meta/mindmap_electromagnetics_and_transmission_lines.md`](Resources/Meta/mindmap_electromagnetics_and_transmission_lines.md): Εννοιολογικός χάρτης μαθήματος.
   - `Notes/`: Αναλυτικές σημειώσεις θεωρίας και συνοπτικό τυπολόγιο (`notes_electromagnetics_summary.md`, `notes_electrostatics...`, `notes_maxwell...`).
