@@ -44,79 +44,69 @@ class DiscreteMathematicsApp:
         """Initializes application controller with default scenario."""
         default_scenario = scenario_registry.getDefaultScenario()
         self.active_scenario_id: str = default_scenario.id if default_scenario else "final_exam_2025_june"
-        self.content_container: Optional[ui.column] = None
         self.header_refs: dict = {}
 
-    def changeScenario(self, scenario_id: str) -> None:
+    def changeScenario(self, scenario_id: str, content_container: ui.column) -> None:
         """Switches the active view to a new exam scenario or the master theory guide.
 
         Args:
             scenario_id (str): Unique identifier of target scenario or 'theory'.
+            content_container (ui.column): Container holding dynamic page content.
 
         Returns:
             None
         """
         self.active_scenario_id = scenario_id
-        self.renderActiveContent()
+        content_container.clear()
+        with content_container:
+            self.renderScenarioContent()
 
-        # Update header labels if references exist
-        if "selector" in self.header_refs:
-            self.header_refs["selector"].value = scenario_id
-
+        # Update header labels via NiceGUI references (same pattern as DATABASES app)
         if scenario_id == "theory":
             if "course_label" in self.header_refs:
-                self.header_refs["course_label"].text = "Θεωρία / Οδηγός"
+                self.header_refs["course_label"].set_text("Θεωρία / Οδηγός")
             if "subtitle_label" in self.header_refs:
-                self.header_refs["subtitle_label"].text = "Πλήρης Θεωρία & Μεθοδολογία για το 100/100 (Όλη η Ύλη Τζίμα)"
+                self.header_refs["subtitle_label"].set_text("Πλήρης Θεωρία & Μεθοδολογία για το 100/100 (Όλη η Ύλη Τζίμα)")
         else:
             scenario = scenario_registry.getScenario(scenario_id)
             if scenario:
                 if "course_label" in self.header_refs:
-                    self.header_refs["course_label"].text = scenario.course_tag
+                    self.header_refs["course_label"].set_text(scenario.course_tag)
                 if "subtitle_label" in self.header_refs:
-                    self.header_refs["subtitle_label"].text = scenario.subtitle
+                    self.header_refs["subtitle_label"].set_text(scenario.subtitle)
 
         # Re-trigger KaTeX rendering on new DOM elements
-        ui.run_javascript("setTimeout(renderAllLatex, 60);")
+        ui.run_javascript("setTimeout(() => { if (typeof renderAllLatex === 'function') renderAllLatex(); }, 80);")
 
-    def renderActiveContent(self) -> None:
-        """Clears and re-renders the main content container based on active view state.
-
-        Returns:
-            None
-        """
-        if self.content_container is None:
+    def renderScenarioContent(self) -> None:
+        """Renders the active scenario sequential sections or the master theory handbook."""
+        if self.active_scenario_id == "theory":
+            renderTheoryPage()
             return
 
-        self.content_container.clear()
+        scenario = scenario_registry.getScenario(self.active_scenario_id)
+        if scenario is None:
+            ui.label("Το επιλεγμένο θέμα δεν βρέθηκε.").classes("text-red-500 font-bold p-8 text-center")
+            return
 
-        with self.content_container:
-            if self.active_scenario_id == "theory":
-                renderTheoryPage()
-            else:
-                scenario = scenario_registry.getScenario(self.active_scenario_id)
-                if scenario is None:
-                    ui.label("Το επιλεγμένο θέμα δεν βρέθηκε.").classes("text-red-500 font-bold p-8 text-center")
-                    return
+        # Archetype B Master Layout
+        # 1. Sequential Methodology Quick Guidance Cards
+        renderMethodologyCards()
 
-                # Archetype B Master Layout
-                # 1. Sequential Methodology Quick Guidance Cards
-                renderMethodologyCards()
+        # 2. Verbatim Interactive Exam Canvas (3-part tooltips, filter chips, visual legend)
+        renderInteractiveCanvas(scenario)
 
-                # 2. Verbatim Interactive Exam Canvas (3-part tooltips, filter chips, visual legend)
-                renderInteractiveCanvas(scenario)
+        # 3. Open Stacked Question Solution Sheet (No accordions, open KaTeX steps)
+        renderAnalysisSection(scenario)
 
-                # 3. Open Stacked Question Solution Sheet (No accordions, open KaTeX steps)
-                renderAnalysisSection(scenario)
+        # 4. Textual Trigger Recognition & Trap Prevention Table
+        renderMethodologyTable()
 
-                # 4. Textual Trigger Recognition & Trap Prevention Table
-                renderMethodologyTable()
+        # 5. Interactive SVG Graph / Automata Structure Diagram
+        renderVisualDiagram(scenario)
 
-                # 5. Interactive SVG Graph / Automata Structure Diagram
-                renderVisualDiagram(scenario)
-
-                # 6. Design Justification Cards & Python Verification Script
-                renderSolutionCode(scenario)
+        # 6. Design Justification Cards & Python Verification Script
+        renderSolutionCode(scenario)
 
     def buildUi(self) -> None:
         """Builds page structure, registers headers, styles, and initializes view.
@@ -128,18 +118,26 @@ class DiscreteMathematicsApp:
         ui.add_head_html(f"<style>{CUSTOM_CSS}</style>\n{KATEX_AND_SCRIPTS_HEAD}")
 
         active_scenario = scenario_registry.getScenario(self.active_scenario_id)
+        content_container = ui.column().classes("w-full max-w-full min-w-0 space-y-8")
+
+        def handleScenarioSwitch(new_id: str) -> None:
+            """Handles scenario selection event (DATABASES app pattern)."""
+            self.changeScenario(new_id, content_container)
 
         # Sticky Header with Scenario Selector and Theme Switcher
         self.header_refs = renderHeader(
             scenario=active_scenario,
             selected_scenario_id=self.active_scenario_id,
-            on_scenario_change=self.changeScenario,
+            on_scenario_change=handleScenarioSwitch,
         )
 
         # Main Content Reactive Container
         with ui.column().classes("w-full max-w-7xl mx-auto px-4 py-8 space-y-8 min-w-0 max-w-full overflow-x-hidden").props('id="main-app-container"'):
-            self.content_container = ui.column().classes("w-full max-w-full min-w-0 space-y-8")
-            self.renderActiveContent()
+            with content_container:
+                self.renderScenarioContent()
+
+        # Deferred first-paint initialization (KaTeX)
+        ui.run_javascript("setTimeout(() => { if (typeof renderAllLatex === 'function') renderAllLatex(); }, 80);")
 
 
 @ui.page("/")

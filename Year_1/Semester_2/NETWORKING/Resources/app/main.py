@@ -13,7 +13,7 @@ solutions with KaTeX derivations, interactive diagrams, verification code,
 and a comprehensive master theory guide.
 """
 
-from nicegui import Client, ui, app
+from nicegui import ui
 import config
 from models.registry import scenario_registry
 import scenarios  # Initializes and registers all scenarios
@@ -102,7 +102,7 @@ def buildApp() -> None:
     net_app = NetworkingApp()
 
     @ui.page("/")
-    async def mainPage(client: Client) -> None:
+    def mainPage() -> None:
         """Root page handler rendering header and reactive content."""
         ui.dark_mode(value=False)
         current_scenario = scenario_registry.getScenario(net_app.current_scenario_id)
@@ -130,12 +130,14 @@ def buildApp() -> None:
         with content_container:
             net_app.renderScenarioContent()
 
-        await client.connected()
+        # Deferred first-paint initialization (theme sync, canvas, diagram, KaTeX)
         ui.run_javascript(
+            "setTimeout(() => { "
             "if (typeof setAppTheme === 'function') setAppTheme(getAppTheme()); "
             "if (typeof updateCanvasHighlights === 'function') updateCanvasHighlights(); "
             "if (typeof initExamDiagram === 'function') initExamDiagram(); "
             "if (typeof renderAllLatex === 'function') renderAllLatex(); "
+            "}, 80);"
         )
 
 
