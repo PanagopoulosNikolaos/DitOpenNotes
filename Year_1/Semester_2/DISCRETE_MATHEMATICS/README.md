@@ -12,26 +12,41 @@
 
 ## Δομή Καταλόγου
 
-* **[Assignments/](Assignments/)**: Εργασίες εμπέδωσης:
-  - [`assignment_01_topics_0_5_to_7.md`](Assignments/assignment_01_topics_0_5_to_7.md): Σειρά ασκήσεων μαθηματικής επαγωγής, συνόλων, σχέσεων και γράφων.
 * **[Examples/](Examples/)**: Υπολογιστικά εργαλεία και αλγόριθμοι σε Python:
   - [`01_truth_table_generator.py`](Examples/01_truth_table_generator.py): Αυτόματη κατασκευή πινάκων αληθείας και επαλήθευση λογικών ισοδυναμιών.
   - [`02_graph_algorithms_traversal.py`](Examples/02_graph_algorithms_traversal.py): Υλοποίηση γράφων, αλγόριθμοι διάσχισης BFS / DFS και έλεγχος συνεκτικότητας.
 * **[Exams/](Exams/)**: Υλικό εξετάσεων και προετοιμασίας:
-  - [`practice_exam_easy.md`](Exams/practice_exam_easy.md): Διαγώνισμα προσομοίωσης βασικού επιπέδου (Easy).
-  - [`practice_exam_medium.md`](Exams/practice_exam_medium.md): Διαγώνισμα προσομοίωσης ενδιάμεσου επιπέδου (Medium).
-  - [`practice_exam_hard.md`](Exams/practice_exam_hard.md): Διαγώνισμα προσομοίωσης αυξημένης δυσκολίας (Hard).
-  - **`Papers/`**: Αρχείο θεμάτων εξετάσεων:
-    - [`Finals_2025.md`](Exams/Papers/Finals_2025.md) & [`Final_Exam_June_2025.md`](Exams/Papers/Final_Exam_June_2025.md): Θέματα τελικής εξέτασης Ιουνίου 2025.
-    - `midterm_exam_2025_group_a.pdf`, `group_b.pdf`: Επίσημα θέματα προόδου 2025.
-    - `midterm_exam_with_solutions_2025_group_a.pdf`, `group_b.pdf`: Πλήρεις επίσημες λύσεις προόδου 2025.
-    - `Mock_Exam_1_Easier.md` έως `Mock_Exam_5_Gotchas.md` με αντίστοιχες λύσεις στο `Solution_Keys/`.
-    - `images/`: Σαρώσεις πρωτότυπων θεμάτων.
-* **[Exercises/](Exercises/)**: Θεματικές σειρές ασκήσεων με αναλυτικές λύσεις:
-  - [`discrete_math_exercises.md`](Exercises/discrete_math_exercises.md): 20 διαβαθμισμένες ασκήσεις με πλήρεις λύσεις.
-  - [`discrete_mathematics_theory_and_exercise_solutions.md`](Exercises/discrete_mathematics_theory_and_exercise_solutions.md): Θεωρητικό υπόβαθρο και αναλυτική μεθοδολογία επίλυσης ασκήσεων.
-  - [`exercises_combinatorics_and_recurrence_relations.md`](Exercises/exercises_combinatorics_and_recurrence_relations.md): Συνδυαστική, διατάξεις και αναδρομικές σχέσεις.
-  - [`exercises_propositional_logic_and_sets.md`](Exercises/exercises_propositional_logic_and_sets.md): Προτασιακή λογική, άλγεβρα συνόλων και διαγράμματα Venn.
+  - **`Papers/Official/`**: Επίσημα θέματα εξετάσεων:
+    - [`2025_june_final_exam.md`](Exams/Papers/Official/2025_june_final_exam.md): Θέματα τελικής εξέτασης Ιουνίου 2025 (Ομάδες Α, Β, Γ, Δ).
+    - [`2026_june_final_exam.md`](Exams/Papers/Official/2026_june_final_exam.md): Θέματα τελικής εξέτασης Ιουνίου 2026 (Ομάδες Α, Β, Γ, Δ).
+    - `2025_midterm_group_a.pdf`: Επίσημα θέματα προόδου 2025 (Ομάδα Α).
+    - `2025_midterm_group_b.pdf`: Επίσημα θέματα προόδου 2025 (Ομάδα Β).
+  - **`Papers/Practice/`**: Διαγωνίσματα προσομοίωσης διαβαθμισμένης δυσκολίας:
+    - [`mock_exam_01_easier.md`](Exams/Papers/Practice/mock_exam_01_easier.md): Προσομοίωση 1 (Βασικό επίπεδο: Σύνολα, Πίνακες Αληθείας, Βαθμοί Κορυφών).
+    - [`mock_exam_02_standard.md`](Exams/Papers/Practice/mock_exam_02_standard.md): Προσομοίωση 2 (Κανονικό επίπεδο: Κλειστότητες Σχέσεων, DFA, Πιθανότητες).
+    - [`mock_exam_03_standard.md`](Exams/Papers/Practice/mock_exam_03_standard.md): Προσομοίωση 3 (Κανονικό επίπεδο: Πύλες NAND/XOR, Σύνολα, Επαγωγή).
+    - [`mock_exam_04_harder.md`](Exams/Papers/Practice/mock_exam_04_harder.md): Προσομοίωση 4 (Αυξημένο επίπεδο: Επίπεδοι Γράφοι/Euler, Περιορισμένες RegEx, PIE).
+    - [`mock_exam_05_gotchas.md`](Exams/Papers/Practice/mock_exam_05_gotchas.md): Προσομοίωση 5 (Παγίδες εξετάσεων: Δυναμοσύνολα, NFA σε DFA, Σύνθεση Συναρτήσεων).
+  - **`Solutions/`**: Πλήρεις λύσεις εξετάσεων και προσομοιώσεων:
+    - `2025_midterm_with_solutions_group_a.pdf`: Αναλυτικές επίσημες λύσεις προόδου 2025 (Ομάδα Α).
+    - `2025_midterm_with_solutions_group_b.pdf`: Αναλυτικές επίσημες λύσεις προόδου 2025 (Ομάδα Β).
+    - [`solution_key_01_easier.md`](Exams/Solutions/solution_key_01_easier.md): Πλήρεις λύσεις για το Mock Exam 01.
+    - [`solution_key_02_standard.md`](Exams/Solutions/solution_key_02_standard.md): Πλήρεις λύσεις για το Mock Exam 02.
+    - [`solution_key_03_standard.md`](Exams/Solutions/solution_key_03_standard.md): Πλήρεις λύσεις για το Mock Exam 03.
+    - [`solution_key_04_harder.md`](Exams/Solutions/solution_key_04_harder.md): Πλήρεις λύσεις για το Mock Exam 04.
+    - [`solution_key_05_gotchas.md`](Exams/Solutions/solution_key_05_gotchas.md): Πλήρεις λύσεις για το Mock Exam 05.
+  - **`images/`**: Σαρώσεις πρωτότυπων θεμάτων εξετάσεων:
+    - `Exam_paper_2025_06_Team_All_Page_1.jpg`, `Exam_paper_2025_06_Team_All_Page_2.jpg`
+    - `Exam_paper_2026_06_Team_All_Page_1.png`, `Exam_paper_2026_06_Team_All_Page_2.png`
+* **[Exercises/](Exercises/)**: Θεματικές σειρές ασκήσεων με πλήρεις λύσεις και τράπεζα θεμάτων εξετάσεων:
+  - [`01_foundations_and_sets_exercises.md`](Exercises/01_foundations_and_sets_exercises.md): Θεμέλια, περιγραφή συνόλων, πληθικότητα, κενό σύνολο, υποσύνολα και δυναμοσύνολα.
+  - [`02_set_operations_and_venn_exercises.md`](Exercises/02_set_operations_and_venn_exercises.md): Πράξεις συνόλων, διαγράμματα Venn, Αρχή Εγκλεισμού - Αποκλεισμού (PIE) και αλγεβρικές αποδείξεις ταυτοτήτων.
+  - [`03_logic_gates_exercises.md`](Exercises/03_logic_gates_exercises.md): Λογικές πύλες (AND, OR, NOT, NAND, NOR, XOR, XNOR), μετατροπή κυκλωμάτων και απλοποίηση Boole.
+  - [`04_indexed_sets_and_well_ordering_exercises.md`](Exercises/04_indexed_sets_and_well_ordering_exercises.md): Δεικτοδοτημένες οικογένειες συνόλων, γενικευμένες ενώσεις/τομές και Αρχή Καλής Διάταξης (WOP).
+  - [`05_propositional_logic_exercises.md`](Exercises/05_propositional_logic_exercises.md): Πίνακες αληθείας, λογικές ισοδυναμίες, κανονικές μορφές (CNF/DNF) και κανόνες συμπερασμού.
+  - [`06_graph_theory_exercises.md`](Exercises/06_graph_theory_exercises.md): Θεώρημα χειραψιών, πίνακες γειτνίασης, ισομορφισμός, κυκλώματα Euler/Hamilton, επιπεδότητα και δέντρα.
+  - [`07_automata_and_formal_languages_exercises.md`](Exercises/07_automata_and_formal_languages_exercises.md): Τυπικές γλώσσες, κανονικές εκφράσεις (RegEx), σχεδιασμός DFA και μετατροπές NFA σε DFA.
+  - [`08_exam_problem_bank.md`](Exercises/08_exam_problem_bank.md): Τράπεζα θεμάτων επίσημων εξετάσεων με πλήρη καταγραφή και 40+ ασκήσεις διαβαθμισμένης εξάσκησης.
 * **[Lectures/](Lectures/)**: Επίσημες διαλέξεις μαθήματος σε μορφή PDF:
   - `0 Μαθηματική Επαγωγή.pdf`
   - `1 Μαθηματική Λογική.pdf`
@@ -41,19 +56,25 @@
   - `5 Σχέσεις.pdf`
   - `6 Θεωρία Γραφημάτων.pdf`
   - `7 Θεωρία Αυτομάτων και Τυπικών Γλωσσών.pdf`
-* **[Projects/](Projects/)**:
-  - [`project_01_graph_algorithms_and_automata_simulator.md`](Projects/project_01_graph_algorithms_and_automata_simulator.md): Εξαμηνιαίο συνθετικό project ανάπτυξης βιβλιοθήκης γράφων και προσομοιωτή DFA.
+  - `_ Πληροφορίες.pdf`
 * **[Resources/](Resources/)**:
-  - [`resources.md`](Resources/resources.md): Προτεινόμενα συγγράμματα (Rosen, Susanna Epp κ.ά.).
-  - [`Meta/mindmap_discrete_mathematics.md`](Resources/Meta/mindmap_discrete_mathematics.md): Εννοιολογικός χάρτης διακριτών μαθηματικών.
-  - `Notes/`: 7 αναλυτικά αρχεία σημειώσεων θεωρίας (`01_foundations_and_sets.md` έως `07_automata_and_formal_languages.md`).
-* **[Tutorials/](Tutorials/)**:
-  - [`tutorial_01_proof_techniques_and_mathematical_induction.md`](Tutorials/tutorial_01_proof_techniques_and_mathematical_induction.md): Μεθοδολογία αποδείξεων και μαθηματική επαγωγή.
-  - [`tutorial_02_graph_theory_algorithms_python.md`](Tutorials/tutorial_02_graph_theory_algorithms_python.md): Εργαστηριακός οδηγός υλοποίησης αλγορίθμων γράφων με NetworkX και Python.
+  - [`app/`](Resources/app/): Διαδραστική εκπαιδευτική εφαρμογή NiceGUI για μελέτη και επαλήθευση θεμάτων εξετάσεων.
+  - [`resources.md`](Resources/resources.md): Προτεινόμενη διεθνής και ελληνική βιβλιογραφία (Rosen, Epp, Liu κ.ά.).
+  - [`Meta/mindmap_discrete_mathematics.md`](Resources/Meta/mindmap_discrete_mathematics.md): Εννοιολογικός χάρτης διακριτών μαθηματικών σε Mermaid.
+  - **`Notes/`**: Αναλυτικές σημειώσεις θεωρίας ανά ενότητα:
+    - [`01_foundations_and_sets.md`](Resources/Notes/01_foundations_and_sets.md): Εισαγωγή, θεωρία συνόλων και θεμέλια.
+    - [`02_set_operations_and_venn.md`](Resources/Notes/02_set_operations_and_venn.md): Πράξεις συνόλων και διαγράμματα Venn.
+    - [`03_logic_gates.md`](Resources/Notes/03_logic_gates.md): Θεωρία λογικών πυλών και ψηφιακά κυκλώματα.
+    - [`04_indexed_sets_and_well_ordering.md`](Resources/Notes/04_indexed_sets_and_well_ordering.md): Δεικτοδοτημένα σύνολα και Αρχή Καλής Διάταξης.
+    - [`05_propositional_logic.md`](Resources/Notes/05_propositional_logic.md): Προτασιακή λογική, αποδείξεις και συμπερασμοί.
+    - [`06_graph_theory.md`](Resources/Notes/06_graph_theory.md): Θεωρία γραφημάτων και δέντρα.
+    - [`07_automata_and_formal_languages.md`](Resources/Notes/07_automata_and_formal_languages.md): Πεπερασμένα αυτόματα και τυπικές γλώσσες.
 
 ---
 
-## Εκτέλεση Παραδειγμάτων
+## Εκτέλεση Παραδειγμάτων & Εφαρμογής
+
+### Υπολογιστικά Script (Python)
 
 ```bash
 cd Examples
@@ -63,4 +84,16 @@ python3 01_truth_table_generator.py
 
 # Εκτέλεση αλγορίθμων διάσχισης γράφων
 python3 02_graph_algorithms_traversal.py
+```
+
+### Διαδραστική Εφαρμογή (NiceGUI)
+
+```bash
+cd Resources/app
+
+# Εγκατάσταση εξαρτήσεων
+pip install -r requirements.txt
+
+# Εκτέλεση εφαρμογής
+python3 main.py
 ```
