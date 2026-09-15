@@ -1,6 +1,6 @@
 # Κλειδί Λύσεων — Εικονική Εξέταση 4 (Δυσκολότερη)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_4_Harder.md`
+> Αντιστοιχεί στο αρχείο: [`mock_exam_04_harder.md`](../Papers/Practice/mock_exam_04_harder.md)
 
 ---
 

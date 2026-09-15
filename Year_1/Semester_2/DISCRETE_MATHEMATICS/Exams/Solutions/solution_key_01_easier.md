@@ -1,6 +1,6 @@
 # Κλειδί Λύσεων — Εικονική Εξέταση 1 (Ευκολότερη)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_1_Easier.md`
+> Αντιστοιχεί στο αρχείο: [`mock_exam_01_easier.md`](../Papers/Practice/mock_exam_01_easier.md)
 
 ---
 

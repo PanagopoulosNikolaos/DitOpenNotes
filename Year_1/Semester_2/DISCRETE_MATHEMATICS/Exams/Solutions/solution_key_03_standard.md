@@ -1,6 +1,6 @@
 # Κλειδί Λύσεων — Εικονική Εξέταση 3 (Κανονική)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_3_Standard.md`
+> Αντιστοιχεί στο αρχείο: [`mock_exam_03_standard.md`](../Papers/Practice/mock_exam_03_standard.md)
 
 ---
 

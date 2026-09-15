@@ -1,6 +1,6 @@
 # Κλειδί Λύσεων — Εικονική Εξέταση 5 (Με Παγίδες)
 
-> Αντιστοιχεί στο αρχείο: `Mock_Exam_5_Gotchas.md`
+> Αντιστοιχεί στο αρχείο: [`mock_exam_05_gotchas.md`](../Papers/Practice/mock_exam_05_gotchas.md)
 
 ---
 
