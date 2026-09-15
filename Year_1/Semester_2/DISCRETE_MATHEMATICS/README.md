@@ -46,7 +46,7 @@
 * **[Resources/](Resources/)**:
   - [`resources.md`](Resources/resources.md): Προτεινόμενα συγγράμματα (Rosen, Susanna Epp κ.ά.).
   - [`Meta/mindmap_discrete_mathematics.md`](Resources/Meta/mindmap_discrete_mathematics.md): Εννοιολογικός χάρτης διακριτών μαθηματικών.
-  - `Notes/`: 7 αναλυτικά αρχεία σημειώσεων θεωρίας (`1_Discrete Mathematics.md` έως `7_Automata Theory...`).
+  - `Notes/`: 7 αναλυτικά αρχεία σημειώσεων θεωρίας (`01_foundations_and_sets.md` έως `07_automata_and_formal_languages.md`).
 * **[Tutorials/](Tutorials/)**:
   - [`tutorial_01_proof_techniques_and_mathematical_induction.md`](Tutorials/tutorial_01_proof_techniques_and_mathematical_induction.md): Μεθοδολογία αποδείξεων και μαθηματική επαγωγή.
   - [`tutorial_02_graph_theory_algorithms_python.md`](Tutorials/tutorial_02_graph_theory_algorithms_python.md): Εργαστηριακός οδηγός υλοποίησης αλγορίθμων γράφων με NetworkX και Python.
