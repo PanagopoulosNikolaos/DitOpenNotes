@@ -20,4 +20,5 @@ Course_Name/
     ├── Notes/              # Your personal markdown study notes (e.g., topic_1.md)
     ├── Scripts/            # Helper scripts (e.g., python scripts for compiling notes)
     ├── Summaries/          # Cheatsheets or condensed study guides
+    ├── app/                # (Optional) Web app for presenting notes and exams in an interactive way.
     └── Books/              # (Optional) External textbooks and reference material
