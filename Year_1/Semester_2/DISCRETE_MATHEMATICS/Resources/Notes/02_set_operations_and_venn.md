@@ -15,9 +15,8 @@
 ### 1+2:
 ```mermaid
 graph TD
-    subgraph U [" Καθολικό Σύνολο U = {1, 2, 3, 4, 5}"]
+    subgraph U ["Καθολικό Σύνολο U = {1, 2, 3, 4, 5}"]
         subgraph A ["Σύνολο A = {1, 2}"]
-            style A fill:#ffcccb,stroke:#ff6b6b,stroke-width:3px
             a1[1]
             a2[2]
         end
@@ -27,17 +26,21 @@ graph TD
         c5[5]
     end
     
-    subgraph Legend [" "]
-        L1[" Σύνολο A"]
-        L2[" Συμπλήρωμα A' = {3, 4, 5}"]
+    subgraph Legend ["Υπόμνημα"]
+        L1["Σύνολο A"]
+        L2["Συμπλήρωμα A' = {3, 4, 5}"]
     end
     
-    style U fill:#f0f8ff,stroke:#4682b4,stroke-width:2px
-    style c3 fill:#ffffff,stroke:#4caf50
-    style c4 fill:#ffffff,stroke:#4caf50  
-    style c5 fill:#ffffff,stroke:#4caf50
-    style L1 fill:#ffffff,stroke:#ff6b6b
-    style L2 fill:#ffffff,stroke:#4caf50
+    style U fill:#1e293b,stroke:#38bdf8,stroke-width:1px,color:#f8fafc
+    style A fill:#1e3a5f,stroke:#60a5fa,stroke-width:1px,color:#93c5fd
+    style a1 fill:#0f172a,stroke:#60a5fa,color:#f8fafc
+    style a2 fill:#0f172a,stroke:#60a5fa,color:#f8fafc
+    style c3 fill:#0f172a,stroke:#34d399,color:#f8fafc
+    style c4 fill:#0f172a,stroke:#34d399,color:#f8fafc  
+    style c5 fill:#0f172a,stroke:#34d399,color:#f8fafc
+    style Legend fill:#1e293b,stroke:#475569,stroke-width:1px,color:#f8fafc
+    style L1 fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,color:#f8fafc
+    style L2 fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc
 
 ```
 ### 3. Τομή ($A \cap B$)
@@ -62,10 +65,15 @@ graph LR
         end
     end
     
-    style SetA fill:#ffebee,stroke:#e91e63,stroke-width:2px
-    style SetB fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
-    style Overlap fill:#c8e6c9,stroke:#4caf50,stroke-width:3px
-    style common fill:#81c784,stroke:#2e7d32,stroke-width:2px
+    style Venn fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style SetA fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+    style SetB fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style Overlap fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#6ee7b7
+    style a1 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style a2 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style b4 fill:#0f172a,stroke:#a855f7,color:#f8fafc
+    style b5 fill:#0f172a,stroke:#a855f7,color:#f8fafc
+    style common fill:#047857,stroke:#34d399,stroke-width:2px,color:#ffffff
 
 ```
 ### 4. Ένωση ($A \cup B$)
@@ -74,24 +82,31 @@ graph LR
 - **Παράδειγμα**: $\{1, 2, 3\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}$
 ```mermaid
 graph TD
-    subgraph Result [" Ένωση: A ∪ B = {1, 2, 3, 4, 5}"]
+    subgraph Result ["Ένωση: A ∪ B = {1, 2, 3, 4, 5}"]
         subgraph OnlyA ["Μόνο στο A"]
-            style OnlyA fill:#ffebee,stroke:#e91e63
             ua1[1]
             ua2[2]
         end
         
         subgraph Both ["Και στα δύο A & B"]
-            style Both fill:#fff3e0,stroke:#ff9800
             ub3[3]
         end
         
         subgraph OnlyB ["Μόνο στο B"]
-            style OnlyB fill:#e3f2fd,stroke:#2196f3
             ub4[4]
             ub5[5]
         end
     end
+    
+    style Result fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style OnlyA fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+    style Both fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style OnlyB fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style ua1 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style ua2 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style ub3 fill:#0f172a,stroke:#f59e0b,color:#f8fafc
+    style ub4 fill:#0f172a,stroke:#a855f7,color:#f8fafc
+    style ub5 fill:#0f172a,stroke:#a855f7,color:#f8fafc
 
 ```
 ### 5. Διαφορά ($A - B$ ή $A \setminus B$)
@@ -102,43 +117,49 @@ graph TD
 graph TD
     subgraph Operation ["A - B: Αφαίρεση στοιχείων του B από το A"]
         subgraph Original ["Αρχικό Σύνολο A = {1, 2, 3}"]
-            subgraph Keep [" Διατήρηση (όχι στο B)"]
-                style Keep fill:#c8e6c9,stroke:#4caf50,stroke-width:2px
+            subgraph Keep ["Διατήρηση (όχι στο B)"]
                 k1[1]
                 k2[2]
             end
             
-            subgraph Remove [" Αφαίρεση (επίσης στο B)"]
-                style Remove fill:#ffcdd2,stroke:#f44336,stroke-width:2px,stroke-dasharray: 5 5
+            subgraph Remove ["Αφαίρεση (επίσης στο B)"]
                 r3[3]
             end
         end
         
-        subgraph Result [" Αποτέλεσμα: A - B = {1, 2}"]
-            style Result fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px
+        subgraph Result ["Αποτέλεσμα: A - B = {1, 2}"]
             res1[1]
             res2[2]
         end
     end
     
     Keep --> Result
-    style Operation fill:#ffffff,stroke:#666
+    style Operation fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style Original fill:#1e293b,stroke:#475569,stroke-width:1px,color:#e2e8f0
+    style Keep fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style Remove fill:#4c0519,stroke:#f43f5e,stroke-width:2px,stroke-dasharray: 5 5,color:#fecdd3
+    style Result fill:#064e3b,stroke:#34d399,stroke-width:3px,color:#a7f3d0
+    style k1 fill:#0f172a,stroke:#10b981,color:#f8fafc
+    style k2 fill:#0f172a,stroke:#10b981,color:#f8fafc
+    style r3 fill:#0f172a,stroke:#f43f5e,color:#f8fafc
+    style res1 fill:#0f172a,stroke:#34d399,color:#f8fafc
+    style res2 fill:#0f172a,stroke:#34d399,color:#f8fafc
 
 ```
 ## Οπτικές Αναπαραστάσεις
 
 ```mermaid
 graph TD
-    subgraph Summary [" Οπτική Σύνοψη Πράξεων Συνόλων"]
+    subgraph Summary ["Οπτική Σύνοψη Πράξεων Συνόλων"]
         subgraph Row1 ["Βασικές Πράξεις"]
-            A1[" Σύνολο A<br/>{1,2,3}"]
-            B1[" Σύνολο B<br/>{3,4,5}"]
+            A1["Σύνολο A<br/>{1,2,3}"]
+            B1["Σύνολο B<br/>{3,4,5}"]
         end
         
         subgraph Row2 ["Αποτελέσματα"]
-            Int["🟢 A ∩ B<br/>{3}"]
-            Union["🟠 A ∪ B<br/>{1,2,3,4,5}"]
-            Diff["🟡 A - B<br/>{1,2}"]
+            Int["A ∩ B<br/>{3}"]
+            Union["A ∪ B<br/>{1,2,3,4,5}"]
+            Diff["A - B<br/>{1,2}"]
         end
     end
     
@@ -148,34 +169,51 @@ graph TD
     B1 --> Union
     A1 --> Diff
     
-    style A1 fill:#ffebee,stroke:#e91e63
-    style B1 fill:#e3f2fd,stroke:#2196f3
-    style Int fill:#c8e6c9,stroke:#4caf50
-    style Union fill:#fff3e0,stroke:#ff9800
-    style Diff fill:#fff9c4,stroke:#f57f17
+    style Summary fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style Row1 fill:#1e293b,stroke:#475569,stroke-width:1px,color:#e2e8f0
+    style Row2 fill:#1e293b,stroke:#475569,stroke-width:1px,color:#e2e8f0
+    style A1 fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B1 fill:#3b1d4a,stroke:#a855f7,stroke-width:2px,color:#f8fafc
+    style Int fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#f8fafc
+    style Union fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#f8fafc
+    style Diff fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#f8fafc
 
 ```
 
 ```mermaid
 graph LR
-    subgraph "Παραδείγματα Πράξεων Συνόλων"
-        subgraph "A = {1, 2, 3}"
+    subgraph Summary2 ["Παραδείγματα Πράξεων Συνόλων"]
+        subgraph SetA2 ["A = {1, 2, 3}"]
             A1[1] 
             A2[2]
             A3[3]
         end
-        subgraph "B = {3, 4, 5}"
+        subgraph SetB2 ["B = {3, 4, 5}"]
             B3[3]
             B4[4]
             B5[5]
         end
     end
     
-    subgraph Αποτελέσματα
-        Int["A ∩ B = {3}"]
-        Union["A ∪ B = {1, 2, 3, 4, 5}"]
-        Diff["A - B = {1, 2}"]
+    subgraph Results2 ["Αποτελέσματα"]
+        Int2["A ∩ B = {3}"]
+        Union2["A ∪ B = {1, 2, 3, 4, 5}"]
+        Diff2["A - B = {1, 2}"]
     end
+    
+    style Summary2 fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style SetA2 fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+    style SetB2 fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style Results2 fill:#0f172a,stroke:#334155,stroke-width:2px,color:#f8fafc
+    style A1 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style A2 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style A3 fill:#0f172a,stroke:#3b82f6,color:#f8fafc
+    style B3 fill:#0f172a,stroke:#a855f7,color:#f8fafc
+    style B4 fill:#0f172a,stroke:#a855f7,color:#f8fafc
+    style B5 fill:#0f172a,stroke:#a855f7,color:#f8fafc
+    style Int2 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#f8fafc
+    style Union2 fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#f8fafc
+    style Diff2 fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#f8fafc
 ```
 
 ## Ασκήσεις Εμπέδωσης
