@@ -33,11 +33,11 @@ graph TD
     end
     
     style U fill:#f0f8ff,stroke:#4682b4,stroke-width:2px
-    style c3 fill:#f,stroke:#4caf50
-    style c4 fill:#f,stroke:#4caf50  
-    style c5 fill:#f,stroke:#4caf50
-    style L1 fill:#f,stroke:#ff6b6b
-    style L2 fill:#f,stroke:#4caf50
+    style c3 fill:#ffffff,stroke:#4caf50
+    style c4 fill:#ffffff,stroke:#4caf50  
+    style c5 fill:#ffffff,stroke:#4caf50
+    style L1 fill:#ffffff,stroke:#ff6b6b
+    style L2 fill:#ffffff,stroke:#4caf50
 
 ```
 ### 3. Τομή ($A \cap B$)
@@ -122,7 +122,7 @@ graph TD
     end
     
     Keep --> Result
-    style Operation fill:#f,stroke:#666
+    style Operation fill:#ffffff,stroke:#666
 
 ```
 ## Οπτικές Αναπαραστάσεις

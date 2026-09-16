@@ -1,4 +1,4 @@
-# 
+# Δεικτοδοτημένα Σύνολα & Αρχή της Καλής Διάταξης
 
 ## Μέρος 1: Θεωρία
 
@@ -21,11 +21,11 @@ graph TD
     i3 --> A3[A₃]
     dots --> An[Aₙ]
     
-    style I fill:#f
-    style A1 fill:#f
-    style A2 fill:#f
-    style A3 fill:#f
-    style An fill:#f
+    style I fill:#ffffff
+    style A1 fill:#ffffff
+    style A2 fill:#ffffff
+    style A3 fill:#ffffff
+    style An fill:#ffffff
 ```
 
 ### **Πράξεις σε Δεικτοδοτημένα Σύνολα**
@@ -51,9 +51,9 @@ graph LR
     Z["Ακέραιοι"] --> NWO["Όχι Καλά Διατεταγμένο"]
     Q["Θετικοί Ρητοί"] --> NWO2["Όχι Καλά Διατεταγμένο"]
     
-    style WO fill:#f
-    style NWO fill:#f
-    style NWO2 fill:#f
+    style WO fill:#ffffff
+    style NWO fill:#ffffff
+    style NWO2 fill:#ffffff
 
 ```
 
@@ -138,10 +138,16 @@ graph LR
 **Λύση**
 
 **Απόδειξη με απαγωγή σε άτοπο**:
-Έστω $S = \{n \in \mathbb{N} : \gcd(a^n, b^n) > 1\} \neq \emptyset$
+Υποθέτουμε ότι υπάρχει τουλάχιστον ένα $n \in \mathbb{N}$ για το οποίο $\gcd(a^n, b^n) > 1$.
+Ορίζουμε το μη κενό σύνολο:
+$$S = \{n \in \mathbb{N} : \gcd(a^n, b^n) > 1\} \neq \emptyset$$
 
-Από την Αρχή της Καλής Διάταξης, το $S$ έχει ένα ελάχιστο στοιχείο $m$. Αφού $\gcd(a,b) = 1$, έχουμε $m > 1$.
-
-Αν ένας πρώτος $p | \gcd(a^m, b^m)$, τότε $p | a^m$ και $p | b^m$, άρα $p | a$ και $p | b$.
-
-Αυτό έρχεται σε αντίφαση με το $\gcd(a,b) = 1$, επομένως $S = \emptyset$.
+1. Από την **Αρχή της Καλής Διάταξης**, το $S$ περιέχει ένα **ελάχιστο στοιχείο**, έστω $m = \min(S)$.
+2. Επειδή για $n=1$ δίνεται $\gcd(a, b) = 1$, το $1 \notin S$, άρα αναγκαστικά $m > 1$ (επομένως $m - 1 \ge 1$).
+3. Αφού $m \in S$, υπάρχει πρώτος αριθμός $p$ τέτοιος ώστε $p \mid \gcd(a^m, b^m)$. Άρα $p \mid a^m$ και $p \mid b^m$.
+4. Από τη βασική ιδιότητα των πρώτων αριθμών ($p \mid x \cdot y \implies p \mid x$ ή $p \mid y$), έχουμε ότι $p \mid a$ και $p \mid b$.
+5. Συνεπώς:
+   $$p \mid a \implies p \mid a^{m-1} \quad \text{και} \quad p \mid b \implies p \mid b^{m-1}$$
+   που σημαίνει ότι ο $p$ είναι κοινός διαιρέτης των $a^{m-1}$ και $b^{m-1}$, δηλαδή $\gcd(a^{m-1}, b^{m-1}) \geq p > 1$.
+6. Αυτό σημαίνει ότι $m - 1 \in S$. Όμως $m - 1 < m$, πράγμα που έρχεται σε **αντίφαση με την υπόθεση ότι το $m$ είναι το ελάχιστο στοιχείο του $S$**.
+7. Άρα το σύνολο $S$ είναι αναγκαστικά κενό ($S = \emptyset$), αποδεικνύοντας ότι $\gcd(a^n, b^n) = 1$ για όλα τα $n \in \mathbb{N}$.
