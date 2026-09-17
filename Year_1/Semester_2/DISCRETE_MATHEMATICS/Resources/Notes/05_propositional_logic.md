@@ -22,12 +22,20 @@
 
 ```mermaid
 graph TD
-    A[Δήλωση] --> B{Μπορεί να δηλωθεί ως αληθής ή ψευδής;}
-    B -->|Ναι| C[Πρόταση]
-    B -->|Όχι| D[Όχι Πρόταση]
-    D --> E[Ερώτηση/Ερωτηματική]
-    D --> F[Εντολή/Προστακτική]
-    C --> G[Τιμή Αληθείας: 1 ή 0]
+    A["Δήλωση"] --> B{"Μπορεί να δηλωθεί ως αληθής ή ψευδής;"}
+    B -->|Ναι| C["Πρόταση"]
+    B -->|Όχι| D["Όχι Πρόταση"]
+    D --> E["Ερώτηση / Ερωτηματική"]
+    D --> F["Εντολή / Προστακτική"]
+    C --> G["Τιμή Αληθείας: 1 ή 0"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style D fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style E fill:#0f172a,stroke:#f43f5e,stroke-width:1px,color:#f8fafc
+    style F fill:#0f172a,stroke:#f43f5e,stroke-width:1px,color:#f8fafc
+    style G fill:#047857,stroke:#34d399,stroke-width:2px,color:#ffffff
 ```
 
 ## 2. Λογικοί Σύνδεσμοι
@@ -71,15 +79,30 @@ graph TD
 
 ```mermaid
 graph LR
-    A[p] --> B[¬p]
-    C[p] --> D[p ∧ q]
-    E[q] --> D
-    F[p] --> G[p ∨ q]
-    H[q] --> G
-    I[p] --> J[p → q]
-    K[q] --> J
-    L[p] --> M[p ↔ q]
-    N[q] --> M
+    A["p"] --> B["¬p"]
+    C["p"] --> D["p ∧ q"]
+    E["q"] --> D
+    F["p"] --> G["p ∨ q"]
+    H["q"] --> G
+    I["p"] --> J["p → q"]
+    K["q"] --> J
+    L["p"] --> M["p ↔ q"]
+    N["q"] --> M
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style E fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style D fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style F fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style H fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style G fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style I fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style K fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style J fill:#3b1d4a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style L fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style N fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style M fill:#047857,stroke:#34d399,stroke-width:2px,color:#ffffff
 ```
 
 ## 3. Καλά Σχηματισμένοι Τύποι (WFFs)
@@ -163,10 +186,16 @@ graph LR
 
 ```mermaid
 graph TD
-    A[Σύνθετη Πρόταση] --> B{Τιμή Αληθείας στον Πίνακα}
-    B -->|Όλα 1| C[Ταυτολογία]
-    B -->|Όλα 0| D[Αντίφαση]
-    B -->|Μείγμα 1 και 0| E[Ενδεχόμενο]
+    A["Σύνθετη Πρόταση"] --> B{"Τιμή Αληθείας στον Πίνακα"}
+    B -->|"Όλα 1"| C["Ταυτολογία"]
+    B -->|"Όλα 0"| D["Αντίφαση"]
+    B -->|"Μείγμα 1 και 0"| E["Ενδεχόμενο"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style D fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style E fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
 ```
 
 ## 6. Λογική Ισοδυναμία
@@ -237,6 +266,11 @@ graph TD
     C["Αντίστροφη: q → p"] -- "Λογικά Ισοδύναμη" --> D["Αρνητική Αντίστροφη: ¬p → ¬q"]
     A -- "ΔΕΝ είναι Ισοδύναμη" --> C
     A -- "ΔΕΝ είναι Ισοδύναμη" --> D
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style C fill:#3b1d4a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style D fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
 ```
 
 ## 8. Προτασιακά Επιχειρήματα και Κανόνες Συμπερασμού
@@ -310,10 +344,16 @@ $$(M_1) \land (M_2) \land \dots \land (M_k)$$
  
 ```mermaid
 graph TD
-    A[Λογική Έκφραση] --> B[Διαζευκτική Κανονική Μορφή - DNF]
-    A --> C[Συζευκτική Κανονική Μορφή - CNF]
+    A["Λογική Έκφραση"] --> B["Διαζευκτική Κανονική Μορφή (DNF)"]
+    A --> C["Συζευκτική Κανονική Μορφή (CNF)"]
     B --> D["OR από ANDs: (A ∧ B) ∨ (C ∧ D)"]
     C --> E["AND από ORs: (A ∨ B) ∧ (C ∨ D)"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style C fill:#3b1d4a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style D fill:#0f172a,stroke:#10b981,stroke-width:1px,color:#f8fafc
+    style E fill:#0f172a,stroke:#a855f7,stroke-width:1px,color:#f8fafc
 ```
 
 ## 10. Πλήρη Συστήματα Συνδέσμων

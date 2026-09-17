@@ -10,11 +10,18 @@
 
 ```mermaid
 graph TD
-    A[Αλφάβητο Σ] --> B[Σύμβολα];
-    B --> C[Συμβολοσειρά w];
-    C --> D{Σύνολο όλων των συμβολοσειρών};
-    D --> E[Σ*];
-    E --> F[Τυπική Γλώσσα L ⊆ Σ*];
+    A["Αλφάβητο Σ"] --> B["Σύμβολα"]
+    B --> C["Συμβολοσειρά w"]
+    C --> D{"Σύνολο όλων των συμβολοσειρών"}
+    D --> E["Σ*"]
+    E --> F["Τυπική Γλώσσα L ⊆ Σ*"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style C fill:#0f172a,stroke:#38bdf8,color:#f8fafc
+    style D fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style E fill:#3b1d4a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style F fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
 ```
 
 ## 2. Κανονικές Εκφράσεις (Regex)
@@ -46,8 +53,12 @@ graph TD
 
 ```mermaid
 graph LR
-    A[Κανονική Έκφραση] --περιγράφει--> B[Κανονική Γλώσσα];
-    B --αναγνωρίζεται από--> C[Πεπερασμένο Αυτόματο];
+    A["Κανονική Έκφραση"] -->|"περιγράφει"| B["Κανονική Γλώσσα"]
+    B -->|"αναγνωρίζεται από"| C["Πεπερασμένο Αυτόματο"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#3b1d4a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style C fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
 ```
 
 ## 4. Πεπερασμένα Αυτόματα (FA)
@@ -85,12 +96,16 @@ graph LR
   - `δ(q₁, 1) = q₀`
 
 ```mermaid
-graph TD
-    A[Αρχή] --> B(q₀);
-    B -- 1 --> B;
-    B -- 0 --> C((q₁));
-    C -- 1 --> B;
-    C -- 0 --> C;
+graph LR
+    A["Αρχή"] --> B("q₀")
+    B -->|"1"| B
+    B -->|"0"| C(("q₁"))
+    C -->|"1"| B
+    C -->|"0"| C
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style C fill:#064e3b,stroke:#10b981,stroke-width:3px,color:#ffffff
 ```
 Αυτό το DFA αποδέχεται συμβολοσειρές όπως `0`, `10`, `110`, `1010` αλλά απορρίπτει συμβολοσειρές όπως `1`, `101`, `111`.
 
@@ -100,22 +115,33 @@ graph TD
 
 ```mermaid
 graph TD
-    subgraph Ιεραρχία Chomsky
-        A(Τύπος-3: Κανονικές Γλώσσες)
-        B(Τύπος-2: Γλώσσες Ελεύθερες Πλαισίου)
-        C(Τύπος-1: Γλώσσες Ευαίσθητες Πλαισίου)
-        D(Τύπος-0: Αναδρομικά Απαριθμήσιμες Γλώσσες)
+    subgraph Chomsky ["Ιεραρχία Chomsky"]
+        A["Τύπος-3: Κανονικές Γλώσσες"]
+        B["Τύπος-2: Γλώσσες Ελεύθερες Πλαισίου"]
+        C["Τύπος-1: Γλώσσες Ευαίσθητες Πλαισίου"]
+        D["Τύπος-0: Αναδρομικά Απαριθμήσιμες Γλώσσες"]
     end
-    A --> B --> C --> D;
+    A --> B --> C --> D
 
-    subgraph Αντίστοιχα Αυτόματα
-        E(Πεπερασμένα Αυτόματα)
-        F(Αυτόματα Στοίβας / Pushdown)
-        G(Γραμμικά Φραγμένα Αυτόματα)
-        H(Μηχανές Turing)
+    subgraph Automata ["Αντίστοιχα Αυτόματα"]
+        E["Πεπερασμένα Αυτόματα (FA)"]
+        F["Αυτόματα Στοίβας (Pushdown)"]
+        G["Γραμμικά Φραγμένα Αυτόματα (LBA)"]
+        H["Μηχανές Turing (TM)"]
     end
-    A --- E;
-    B --- F;
-    C --- G;
-    D --- H;
+    A --- E
+    B --- F
+    C --- G
+    D --- H
+
+    style Chomsky fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+    style Automata fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style A fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style B fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style C fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style D fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style E fill:#0f172a,stroke:#10b981,stroke-width:1px,color:#f8fafc
+    style F fill:#0f172a,stroke:#3b82f6,stroke-width:1px,color:#f8fafc
+    style G fill:#0f172a,stroke:#f59e0b,stroke-width:1px,color:#f8fafc
+    style H fill:#0f172a,stroke:#f43f5e,stroke-width:1px,color:#f8fafc
 ```

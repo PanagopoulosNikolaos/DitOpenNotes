@@ -12,20 +12,24 @@
 
 ```mermaid
 graph TD
-    I[Σύνολο Δεικτών I] --> i1[i₁]
-    I --> i2[i₂] 
-    I --> i3[i₃]
-    I --> dots[...]
-    i1 --> A1[A₁]
-    i2 --> A2[A₂]
-    i3 --> A3[A₃]
-    dots --> An[Aₙ]
+    I["Σύνολο Δεικτών I"] --> i1["i₁"]
+    I --> i2["i₂"] 
+    I --> i3["i₃"]
+    I --> dots["..."]
+    i1 --> A1["A₁"]
+    i2 --> A2["A₂"]
+    i3 --> A3["A₃"]
+    dots --> An["Aₙ"]
     
-    style I fill:#ffffff
-    style A1 fill:#ffffff
-    style A2 fill:#ffffff
-    style A3 fill:#ffffff
-    style An fill:#ffffff
+    style I fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style i1 fill:#0f172a,stroke:#38bdf8,color:#f8fafc
+    style i2 fill:#0f172a,stroke:#38bdf8,color:#f8fafc
+    style i3 fill:#0f172a,stroke:#38bdf8,color:#f8fafc
+    style dots fill:#0f172a,stroke:#475569,color:#f8fafc
+    style A1 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style A2 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style A3 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style An fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
 ```
 
 ### **Πράξεις σε Δεικτοδοτημένα Σύνολα**
@@ -47,14 +51,16 @@ graph TD
 
 ```mermaid
 graph LR
-    N["Φυσικοί Αριθμοί"] --> WO["Καλά Διατεταγμένο"]
-    Z["Ακέραιοι"] --> NWO["Όχι Καλά Διατεταγμένο"]
-    Q["Θετικοί Ρητοί"] --> NWO2["Όχι Καλά Διατεταγμένο"]
+    N["Φυσικοί Αριθμοί (ℕ)"] --> WO["Καλά Διατεταγμένο"]
+    Z["Ακέραιοι (ℤ)"] --> NWO["Όχι Καλά Διατεταγμένο"]
+    Q["Θετικοί Ρητοί (ℚ⁺)"] --> NWO2["Όχι Καλά Διατεταγμένο"]
     
-    style WO fill:#ffffff
-    style NWO fill:#ffffff
-    style NWO2 fill:#ffffff
-
+    style N fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style Z fill:#1e293b,stroke:#475569,stroke-width:1px,color:#f8fafc
+    style Q fill:#1e293b,stroke:#475569,stroke-width:1px,color:#f8fafc
+    style WO fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style NWO fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style NWO2 fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
 ```
 
 ### **Εφαρμογές & Ισοδυναμίες**

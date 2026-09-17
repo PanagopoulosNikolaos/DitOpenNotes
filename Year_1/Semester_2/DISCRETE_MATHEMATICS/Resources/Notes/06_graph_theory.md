@@ -17,16 +17,25 @@
 
 ```mermaid
 graph TD
-    subgraph Μη Κατευθυνόμενος Γράφος
+    subgraph Undirected ["Μη Κατευθυνόμενος Γράφος"]
         A --- B
         B --- C
         C --- A
     end
-    subgraph Κατευθυνόμενος Γράφος
+    subgraph Directed ["Κατευθυνόμενος Γράφος"]
         D --> E
         F --> E
         D --> F
     end
+
+    style Undirected fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+    style Directed fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style A fill:#1e293b,stroke:#60a5fa,color:#f8fafc
+    style B fill:#1e293b,stroke:#60a5fa,color:#f8fafc
+    style C fill:#1e293b,stroke:#60a5fa,color:#f8fafc
+    style D fill:#1e293b,stroke:#c084fc,color:#f8fafc
+    style E fill:#1e293b,stroke:#c084fc,color:#f8fafc
+    style F fill:#1e293b,stroke:#c084fc,color:#f8fafc
 ```
 
 ## 2. Ορολογία Γράφων
@@ -46,13 +55,20 @@ $$ \sum_{v \in V} \deg(v) = 2|E| $$
 
 ```mermaid
 graph LR
-    A[Κορυφή v] --> B{deg(v) = ;}
-    B --> C[Άθροισμα προσπιπτουσών ακμών]
-    subgraph Κατευθυνόμενος Γράφος
-        D[deg⁻(v)]
-        E[deg⁺(v)]
+    A["Κορυφή v"] --> B{"deg(v)"}
+    B --> C["Άθροισμα προσπιπτουσών ακμών"]
+    subgraph Digraph ["Κατευθυνόμενος Γράφος"]
+        D["deg⁻(v): Εισερχόμενες"]
+        E["deg⁺(v): Εξερχόμενες"]
         C --> D & E
     end
+
+    style Digraph fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#93c5fd
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style D fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style E fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
 ```
 
 ## 3. Μονοπάτια, Διαδρομές και Περίπατοι (Paths, Trails, Walks)
@@ -68,15 +84,26 @@ graph LR
 
 ```mermaid
 graph TD
-    A[Ακολουθία Κορυφών] --> B{Επαναλαμβανόμενες Ακμές;}
-    B -->|Όχι| C[Διαδρομή (Trail)]
-    B -->|Ναι| D[Περίπατος (Walk)]
-    C --> E{Επαναλαμβανόμενες Κορυφές;}
-    E -->|Όχι| F[Μονοπάτι (Path)]
-    E -->|Ναι| G[Διαδρομή (Trail)]
-    F --> H{Κλειστό;}
-    H -->|Ναι| I[Κύκλος (Cycle)]
-    H -->|Όχι| J[Απλό Μονοπάτι]
+    A["Ακολουθία Κορυφών & Ακμών"] --> B{"Επαναλαμβανόμενες Ακμές;"}
+    B -->|Όχι| C["Διαδρομή (Trail)"]
+    B -->|Ναι| D["Περίπατος (Walk)"]
+    C --> E{"Επαναλαμβανόμενες Κορυφές;"}
+    E -->|Όχι| F["Μονοπάτι (Path)"]
+    E -->|Ναι| G["Διαδρομή (Trail)"]
+    F --> H{"Κλειστό (Αρχή = Τέλος);"}
+    H -->|Ναι| I["Κύκλος (Cycle)"]
+    H -->|Όχι| J["Απλό Μονοπάτι"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style D fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style E fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style F fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style G fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style H fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style I fill:#047857,stroke:#34d399,stroke-width:2px,color:#ffffff
+    style J fill:#0f172a,stroke:#60a5fa,stroke-width:2px,color:#f8fafc
 ```
 
 ## 5. Μονοπάτια και Κύκλοι Euler
@@ -94,10 +121,16 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Συνεκτικός Γράφος] --> B{Βαθμοί Κορυφών}
-    B -->|Όλοι Άρτιοι| C[Υπάρχει Κύκλος Euler]
-    B -->|Ακριβώς Δύο Περιττοί| D[Υπάρχει Μονοπάτι Euler]
-    B -->|Περισσότεροι από Δύο Περιττοί| E[Δεν Υπάρχει Κανένα]
+    A["Συνεκτικός Γράφος"] --> B{"Βαθμοί Κορυφών"}
+    B -->|"Όλοι Άρτιοι"| C["Υπάρχει Κύκλος Euler"]
+    B -->|"Ακριβώς Δύο Περιττοί"| D["Υπάρχει Μονοπάτι Euler"]
+    B -->|"Περισσότεροι από Δύο Περιττοί"| E["Δεν Υπάρχει Κανένα"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style D fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style E fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
 ```
 
 ## 6. Μονοπάτια και Κύκλοι Hamiltonian
@@ -113,12 +146,20 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Γράφος] --> B{Επισκέπτεται Κάθε Κορυφή Ακριβώς Μία Φορά;}
-    B -->|Ναι| C[Μονοπάτι/Κύκλος Hamiltonian]
-    B -->|Όχι| D[Όχι Hamiltonian]
-    C --> E{Είναι Κύκλος;}
-    E -->|Ναι| F[Κύκλος Hamiltonian]
-    E -->|Όχι| G[Μονοπάτι Hamiltonian]
+    A["Γράφος"] --> B{"Επισκέπτεται Κάθε Κορυφή Ακριβώς Μία Φορά;"}
+    B -->|Ναι| C["Μονοπάτι/Κύκλος Hamiltonian"]
+    B -->|Όχι| D["Όχι Hamiltonian"]
+    C --> E{"Είναι Κύκλος;"}
+    E -->|Ναι| F["Κύκλος Hamiltonian"]
+    E -->|Όχι| G["Μονοπάτι Hamiltonian"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style D fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style E fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style F fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style G fill:#0f172a,stroke:#60a5fa,stroke-width:2px,color:#f8fafc
 ```
 
 ## 7. Επίπεδοι Γράφοι (Planar Graphs)
@@ -135,15 +176,25 @@ $$ v - e + f = 2 $$
 
 ```mermaid
 graph TD
-    subgraph Μη Επίπεδοι Γράφοι
-        K5((K₅))
-        K33((K₃,₃))
+    subgraph NonPlanarSub ["Μη Επίπεδοι Θεμελιώδεις Γράφοι"]
+        K5(("K₅"))
+        K33(("K₃,₃"))
     end
-    A[Γράφος] --> B{Μπορεί να σχεδιαστεί χωρίς τομές ακμών;}
-    B -->|Ναι| C[Επίπεδος]
-    B -->|Όχι| D[Μη Επίπεδος]
-    D --> E{Περιέχει υποδιαίρεση K₅ ή K₃,₃;}
-    E -->|Ναι| F[Επιβεβαιωμένα Μη Επίπεδος από το Θεώρημα Kuratowski]
+    A["Γράφος"] --> B{"Μπορεί να σχεδιαστεί χωρίς τομές ακμών;"}
+    B -->|Ναι| C["Επίπεδος Γράφος"]
+    B -->|Όχι| D["Μη Επίπεδος Γράφος"]
+    D --> E{"Περιέχει υποδιαίρεση K₅ ή K₃,₃;"}
+    E -->|Ναι| F["Επιβεβαιωμένα Μη Επίπεδος (Θεώρημα Kuratowski)"]
+
+    style NonPlanarSub fill:#0f172a,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style K5 fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#f8fafc
+    style K33 fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#f8fafc
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style C fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style D fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#fecdd3
+    style E fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style F fill:#4c0519,stroke:#f43f5e,stroke-width:2px,color:#f8fafc
 ```
 
 ## 8. Ισομορφισμός Γράφων
@@ -176,17 +227,29 @@ graph TD
 
 ```mermaid
 graph TD
-    A[Αρχή] --> B{Βρες κορυφές με βαθμό εισόδου 0};
-    B --> C[Πρόσθεσε στην ουρά];
-    C --> D{Ουρά κενή;};
-    D -- Όχι --> E[Άντληση κορυφής u];
-    E --> F[Πρόσθεσε τη u στη ταξινομημένη λίστα];
-    F --> G[Για κάθε γείτονα v της u];
-    G --> H{Μείωσε τον βαθμό εισόδου της v};
-    H --> I{βαθμός εισόδου της v == 0;};
-    I -- Ναι --> J[Εισαγωγή v στην ουρά];
-    J --> G;
-    I -- Όχι --> G;
-    G -- Επεξεργασία όλων των γειτόνων --> D;
-    D -- Ναι --> K[Τέλος];
+    A["Αρχή"] --> B["Εύρεση κορυφών με βαθμό εισόδου 0"]
+    B --> C["Εισαγωγή στην ουρά"]
+    C --> D{"Είναι η ουρά κενή;"}
+    D -->|Όχι| E["Άντληση κορυφής u"]
+    E --> F["Προσθήκη u στην τοπολογική διάταξη"]
+    F --> G["Για κάθε γείτονα v της u"]
+    G --> H["Μείωση βαθμού εισόδου: deg⁻(v) = deg⁻(v) - 1"]
+    H --> I{"deg⁻(v) == 0;"}
+    I -->|Ναι| J["Εισαγωγή v στην ουρά"]
+    J --> G
+    I -->|Όχι| G
+    G -->|"Ολοκλήρωση γειτόνων"| D
+    D -->|Ναι| K["Τέλος Αλγορίθμου"]
+
+    style A fill:#1e3a5f,stroke:#3b82f6,stroke-width:2px,color:#f8fafc
+    style B fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style C fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style D fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style E fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#f8fafc
+    style F fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#a7f3d0
+    style G fill:#1e293b,stroke:#475569,stroke-width:1px,color:#f8fafc
+    style H fill:#0f172a,stroke:#38bdf8,color:#f8fafc
+    style I fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#fde68a
+    style J fill:#0f172a,stroke:#10b981,color:#f8fafc
+    style K fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#ffffff
 ```
