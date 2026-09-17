@@ -19,7 +19,7 @@ def renderTheoryPage() -> None:
     Returns:
         None
     """
-    with ui.column().classes("w-full max-w-5xl mx-auto px-4 py-8 space-y-10"):
+    with ui.column().classes("w-full px-5 py-8 space-y-8 items-stretch"):
         # Header Banner
         with ui.column().classes("dash-card w-full p-6 gap-3 bg-gradient-to-r from-[var(--surface-2)] to-[var(--bg-card)] border-l-4 border-[var(--accent)]"):
             with ui.row().classes("items-center gap-3"):

@@ -55,7 +55,7 @@ class DiscreteMathApp:
             ui.label("Το επιλεγμένο θέμα δεν βρέθηκε.").classes("text-red-500 p-4")
             return
 
-        with ui.column().classes("w-full max-w-6xl mx-auto px-4 py-8 space-y-10"):
+        with ui.column().classes("w-full px-5 py-8 space-y-8 items-stretch"):
             # SECTION 1: Top-Level KPI Dashboard & Formula Quick Reference
             renderDashboardMetrics(scenario)
 
@@ -81,7 +81,7 @@ def buildApp() -> None:
         ui.dark_mode(value=False)
 
         current_scenario = scenario_registry.getScenario(app_controller.current_scenario_id)
-        content_container = ui.column().classes("w-full gap-0 p-0 items-center")
+        content_container = ui.column().classes("w-full gap-0 p-0 items-stretch")
 
         def handleScenarioSwitch(new_id: str) -> None:
             """Handles dropdown change events for scenarios."""

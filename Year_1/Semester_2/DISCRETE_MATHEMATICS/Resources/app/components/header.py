@@ -34,7 +34,7 @@ def renderHeader(
 
     with ui.header().classes(
         "w-full bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-accent)] "
-        "px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 z-50 sticky top-0 transition-colors"
+        "px-5 py-4 flex flex-col md:flex-row justify-between items-center gap-4 z-50 sticky top-0 transition-colors"
     ):
         with ui.row().classes("items-center gap-4"):
             ui.html('<i class="fa-solid fa-project-diagram text-[var(--accent)] text-2xl"></i>')
