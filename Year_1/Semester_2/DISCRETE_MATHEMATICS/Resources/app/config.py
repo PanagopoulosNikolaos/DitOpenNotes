@@ -164,6 +164,11 @@ body.body--dark {
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 body {
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--bg-deep);
@@ -242,6 +247,9 @@ code, pre, .font-mono {
     border-radius: 0 var(--r-sm) var(--r-sm) 0;
     font-size: 0.875rem;
     line-height: 1.45;
+    max-width: 100%;
+    overflow-x: auto;
+    min-width: 0;
 }
 
 .callout-formula {
@@ -252,6 +260,36 @@ code, pre, .font-mono {
     border-radius: 0 var(--r-sm) var(--r-sm) 0;
     font-size: 0.875rem;
     line-height: 1.45;
+    max-width: 100%;
+    overflow-x: auto;
+    min-width: 0;
+}
+
+.katex-display,
+.katex-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    padding: 4px 0;
+}
+
+.katex-mathml {
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.q-tabs {
+    max-width: 100%;
+    overflow: hidden !important;
+}
+
+.q-tabs__content {
+    max-width: 100%;
 }
 
 /* Truth Table Styles */
@@ -291,6 +329,71 @@ code, pre, .font-mono {
     font-weight: bold;
 }
 
+/* ==========================================================================
+   QUASAR POPUP & SELECT DROPDOWN THEMING
+   ========================================================================== */
+
+.q-menu,
+.app-select-popup,
+.q-select__dialog,
+.q-menu--square,
+.q-popup {
+    background-color: var(--bg-card) !important;
+    background: var(--bg-card) !important;
+    color: var(--text-1) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-radius: var(--r-sm) !important;
+}
+
+.q-menu .q-item,
+.app-select-popup .q-item,
+.q-select__dialog .q-item {
+    color: var(--text-1) !important;
+    transition: background 0.15s ease, color 0.15s ease;
+    font-size: 0.82rem !important;
+    padding: 8px 12px !important;
+}
+
+.q-menu .q-item:hover,
+.q-menu .q-item.q-manual-focusable--focused,
+.app-select-popup .q-item:hover,
+.app-select-popup .q-item.q-manual-focusable--focused,
+.q-select__dialog .q-item:hover {
+    background: var(--surface-hover) !important;
+    color: var(--accent) !important;
+}
+
+.q-menu .q-item.q-item--active,
+.q-menu .q-item.text-primary,
+.app-select-popup .q-item.q-item--active,
+.app-select-popup .q-item.text-primary,
+.q-select__dialog .q-item.q-item--active {
+    background: rgba(217, 83, 30, 0.18) !important;
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+}
+
+.q-item__label {
+    color: inherit !important;
+}
+
+.q-select .q-field__native,
+.q-select .q-field__prefix,
+.q-select .q-field__suffix,
+.q-select .q-field__input {
+    color: var(--text-1) !important;
+}
+
+.q-field--outlined .q-field__control {
+    border-color: var(--border) !important;
+    background: var(--input-bg) !important;
+}
+
+.q-field--outlined:hover .q-field__control {
+    border-color: var(--border-accent) !important;
+}
+
 /* Print Styles */
 @media print {
     body {
@@ -328,6 +431,34 @@ THEME_HEAD_SCRIPT = """
                     console.warn('KaTeX render error:', err);
                 }
             }
+        }
+    }
+
+    let katexDebounceTimer = null;
+    function scheduleKaTeXRender() {
+        if (katexDebounceTimer) clearTimeout(katexDebounceTimer);
+        katexDebounceTimer = setTimeout(() => {
+            renderKaTeX();
+        }, 50);
+    }
+
+    function initKaTeXObserver() {
+        const target = document.getElementById('content-area');
+        if (target && !window.__katexObserverActive) {
+            window.__katexObserverActive = true;
+            const observer = new MutationObserver((mutations) => {
+                let shouldRender = false;
+                for (const m of mutations) {
+                    if (m.addedNodes.length > 0) {
+                        shouldRender = true;
+                        break;
+                    }
+                }
+                if (shouldRender) {
+                    scheduleKaTeXRender();
+                }
+            });
+            observer.observe(target, { childList: true, subtree: true });
         }
     }
 
@@ -380,11 +511,13 @@ THEME_HEAD_SCRIPT = """
     document.addEventListener('DOMContentLoaded', () => {
         setAppTheme(getAppTheme());
         renderKaTeX();
+        initKaTeXObserver();
     });
 
     setTimeout(() => {
         setAppTheme(getAppTheme());
         renderKaTeX();
+        initKaTeXObserver();
     }, 150);
 </script>
 """

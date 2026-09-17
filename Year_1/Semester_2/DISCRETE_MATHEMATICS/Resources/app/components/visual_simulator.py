@@ -128,7 +128,7 @@ class GraphSimulator:
         node_map = {n.id: n for n in nodes}
 
         svg_parts = [
-            '<svg viewBox="0 0 400 300" class="w-full h-64 bg-[var(--svg-canvas-bg)] rounded-lg border border-[var(--border)]">'
+            '<svg viewBox="0 0 400 300" class="w-full h-72 md:h-80 bg-[var(--svg-canvas-bg)] rounded-lg border border-[var(--border)]">'
         ]
 
         # Draw grid background
@@ -278,7 +278,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                     ui.label("Προσομοιωτές Γράφων, Πινάκων Αληθείας, Διαγραμμάτων Venn, DFA & Επαγωγής").classes("text-xs text-[var(--text-2)]")
 
         # Tab Navigation
-        with ui.tabs().classes("w-full text-xs font-bold border-b border-[var(--border)]") as tabs:
+        with ui.tabs().props("dense mobile-arrows outside-arrows").classes("w-full text-xs font-bold border-b border-[var(--border)]") as tabs:
             tab_graph = ui.tab("1. Γράφοι & Euler", icon="hub")
             tab_truth = ui.tab("2. Πίνακες Αληθείας", icon="table_chart")
             tab_venn = ui.tab("3. Venn & PIE", icon="pie_chart")
@@ -289,9 +289,9 @@ def renderVisualSimulator(scenario: Scenario) -> None:
 
             # PANEL 1: GRAPH & ISOMORPHISM WORKBENCH
             with ui.tab_panel(tab_graph):
-                with ui.row().classes("w-full gap-6 flex-col lg:flex-row items-stretch"):
+                with ui.row().classes("w-full gap-6 flex-col xl:flex-row items-stretch"):
                     # Left: Interactive SVG Canvas
-                    with ui.column().classes("flex-1 gap-3"):
+                    with ui.column().classes("w-full xl:flex-1 min-w-0 max-w-2xl gap-3"):
                         svg_container = ui.html(graph_sim.generateSvg())
 
                         # Graph details chip
@@ -300,7 +300,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                             info_label = ui.label("Κορυφές: |V| = 6, Ακμές: |E| = 8, Βαθμοί: A:3, B:3, C:2, D:3, E:3, F:2")
 
                     # Right: Controls & Stepper
-                    with ui.column().classes("w-full lg:w-96 gap-4 p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]"):
+                    with ui.column().classes("w-full xl:flex-1 min-w-0 max-w-2xl gap-4 p-4 rounded-xl bg-[var(--surface-2)] border border-[var(--border)]"):
                         ui.label("Έλεγχος & Αλγόριθμοι Διάσχισης").classes("text-xs font-bold tracking-wider text-[var(--text-3)]")
 
                         # Graph Selector
@@ -317,7 +317,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                             options={"g1": "Γράφημα G1 (Εξετάσεις 2025/2026)", "g2": "Γράφημα G2 (Ισόμορφο προς έλεγχο)"},
                             value="g1",
                             on_change=onGraphChange,
-                        ).props("outlined dense").classes("w-full text-xs bg-[var(--input-bg)]")
+                        ).props('outlined dense popup-content-class="app-select-popup"').classes("w-full text-xs bg-[var(--input-bg)]")
 
                         # Traversal Actions
                         with ui.row().classes("w-full gap-2"):
@@ -352,10 +352,13 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                             log_label = ui.label("Αναμονή εκτέλεσης αλγορίθμου...").classes("text-xs font-mono font-bold text-[var(--text-1)]")
 
                         # Invariants & Euler Verification
-                        with ui.column().classes("callout-formula w-full gap-1 text-xs"):
-                            ui.label("Επαλήθευση Τύπου Euler (Επίπεδοι Γράφοι):").classes("font-bold")
-                            ui.html(r"<div>$$V - E + R = 2 \implies 6 - 8 + R = 2 \implies R = 4 \text{ περιοχές}$$</div>")
-                            ui.html(r"<div>$$\sum_{v \in V} \deg(v) = (3+3+3+3+2+2) = 16 = 2 \times 8 = 2|E|$$</div>")
+                        with ui.expansion("Επαλήθευση Τύπου Euler & Θεωρήματος Χειραψιών", icon="calculate", value=True).classes(
+                            "w-full callout-formula text-xs font-semibold rounded-lg p-0 overflow-hidden"
+                        ):
+                            with ui.column().classes("w-full p-2 gap-1 text-xs overflow-x-auto"):
+                                ui.label("Επαλήθευση Τύπου Euler (Επίπεδοι Γράφοι):").classes("font-bold text-xs")
+                                ui.html(r'<div class="katex-scroll">$$V - E + R = 2 \implies 6 - 8 + R = 2 \implies R = 4 \text{ περιοχές}$$</div>')
+                                ui.html(r'<div class="katex-scroll">$$\sum_{v \in V} \deg(v) = 16 = 2|E| \quad (3+3+3+3+2+2 = 16)$$</div>')
 
             # PANEL 2: TRUTH TABLE GENERATOR
             with ui.tab_panel(tab_truth):
@@ -373,7 +376,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                                 "custom_2025": "Θέμα 1 (2025): ((p -> q) & (!p -> q)) -> q",
                             },
                             value="syllogism",
-                        ).props("outlined dense").classes("w-96 text-xs bg-[var(--input-bg)]")
+                        ).props('outlined dense popup-content-class="app-select-popup"').classes("w-96 max-w-full text-xs bg-[var(--input-bg)]")
 
                     table_container = ui.column().classes("w-full overflow-x-auto")
 

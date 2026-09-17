@@ -55,7 +55,7 @@ class DiscreteMathApp:
             ui.label("Το επιλεγμένο θέμα δεν βρέθηκε.").classes("text-red-500 p-4")
             return
 
-        with ui.column().classes("w-full px-5 py-8 space-y-8 items-stretch"):
+        with ui.column().classes("w-full px-5 py-8 space-y-8 items-stretch max-w-7xl mx-auto"):
             # SECTION 1: Top-Level KPI Dashboard & Formula Quick Reference
             renderDashboardMetrics(scenario)
 
@@ -77,27 +77,41 @@ def buildApp() -> None:
     @ui.page("/")
     def mainPage() -> None:
         """Root page route handler rendering sticky header and dynamic body."""
-        # Set light theme default
-        ui.dark_mode(value=False)
+        # Synchronize stored theme on page connection without competing with dark_mode.js
+        ui.run_javascript("if (typeof setAppTheme === 'function') setAppTheme(getAppTheme());")
 
         current_scenario = scenario_registry.getScenario(app_controller.current_scenario_id)
         content_container = ui.column().props('id="content-area"').classes("w-full gap-0 p-0 items-stretch")
 
+        is_updating = False
+
         def handleScenarioSwitch(new_id: str) -> None:
-            """Handles dropdown change events for scenarios."""
-            if not new_id:
+            """Handles dropdown change events for scenarios.
+
+            Args:
+                new_id (str): The unique scenario identifier or 'theory'.
+
+            Returns:
+                None
+            """
+            nonlocal is_updating
+            if not new_id or is_updating:
                 return
-            app_controller.selectScenario(new_id, content_container)
-            if header_refs.get("scenario_select") and header_refs["scenario_select"].value != new_id:
-                header_refs["scenario_select"].set_value(new_id)
-            if new_id == "theory":
-                header_refs["subtitle_label"].set_text("Πλήρης Θεωρία, Μεθοδολογία & Συμβολισμοί (Course 203)")
-                header_refs["course_label"].set_text("Θεωρία / Οδηγός")
-            else:
-                new_scenario = scenario_registry.getScenario(new_id)
-                if new_scenario:
-                    header_refs["subtitle_label"].set_text(new_scenario.subtitle)
-                    header_refs["course_label"].set_text(new_scenario.course_tag)
+            is_updating = True
+            try:
+                app_controller.selectScenario(new_id, content_container)
+                if header_refs.get("scenario_select") and header_refs["scenario_select"].value != new_id:
+                    header_refs["scenario_select"].set_value(new_id)
+                if new_id == "theory":
+                    header_refs["subtitle_label"].set_text("Πλήρης Θεωρία, Μεθοδολογία & Συμβολισμοί (Course 203)")
+                    header_refs["course_label"].set_text("Θεωρία / Οδηγός")
+                else:
+                    new_scenario = scenario_registry.getScenario(new_id)
+                    if new_scenario:
+                        header_refs["subtitle_label"].set_text(new_scenario.subtitle)
+                        header_refs["course_label"].set_text(new_scenario.course_tag)
+            finally:
+                is_updating = False
 
         # Sticky Top Header
         header_refs = renderHeader(current_scenario, app_controller.current_scenario_id, handleScenarioSwitch)
@@ -114,5 +128,4 @@ if __name__ in {"__main__", "__mp_main__"}:
         title="Διακριτά Μαθηματικά (Course 203) - Dashboard & Εργαστήριο",
         port=8080,
         reload=False,
-        dark=False,
     )
