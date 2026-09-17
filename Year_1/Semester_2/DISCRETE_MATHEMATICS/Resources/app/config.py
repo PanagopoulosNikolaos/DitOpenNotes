@@ -314,16 +314,19 @@ THEME_HEAD_SCRIPT = """
 <script>
     function renderKaTeX() {
         if (typeof renderMathInElement === 'function') {
-            try {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false}
-                    ],
-                    throwOnError: false
-                });
-            } catch (err) {
-                console.warn('KaTeX render error:', err);
+            const container = document.getElementById('content-area');
+            if (container) {
+                try {
+                    renderMathInElement(container, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '$', right: '$', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                } catch (err) {
+                    console.warn('KaTeX render error:', err);
+                }
             }
         }
     }

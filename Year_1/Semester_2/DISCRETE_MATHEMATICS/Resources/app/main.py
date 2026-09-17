@@ -81,11 +81,15 @@ def buildApp() -> None:
         ui.dark_mode(value=False)
 
         current_scenario = scenario_registry.getScenario(app_controller.current_scenario_id)
-        content_container = ui.column().classes("w-full gap-0 p-0 items-stretch")
+        content_container = ui.column().props('id="content-area"').classes("w-full gap-0 p-0 items-stretch")
 
         def handleScenarioSwitch(new_id: str) -> None:
             """Handles dropdown change events for scenarios."""
+            if not new_id:
+                return
             app_controller.selectScenario(new_id, content_container)
+            if header_refs.get("scenario_select") and header_refs["scenario_select"].value != new_id:
+                header_refs["scenario_select"].set_value(new_id)
             if new_id == "theory":
                 header_refs["subtitle_label"].set_text("Πλήρης Θεωρία, Μεθοδολογία & Συμβολισμοί (Course 203)")
                 header_refs["course_label"].set_text("Θεωρία / Οδηγός")

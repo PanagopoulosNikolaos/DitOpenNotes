@@ -45,12 +45,12 @@ def renderHeader(
         with ui.row().classes("items-center gap-3 flex-wrap"):
             # Scenario Selector Dropdown
             scenario_options = scenario_registry.getScenarioOptions()
-            ui.select(
+            scenario_select = ui.select(
                 options=scenario_options,
                 value=current_scenario_id,
                 on_change=lambda e: on_scenario_change(e.value),
             ).props(
-                'outlined dense options-dense popup-content-class="app-select-popup"'
+                "outlined dense options-dense"
             ).classes(
                 "w-80 md:w-96 bg-[var(--input-bg)] text-[var(--text-1)] text-xs rounded-lg border border-[var(--border-accent)] shadow-sm"
             )
@@ -96,4 +96,8 @@ def renderHeader(
                         on_click=lambda: ui.run_javascript("printDiscreteSection('theory');"),
                     ).classes("text-xs hover:bg-[var(--surface-hover)]")
 
-    return {"subtitle_label": subtitle_label, "course_label": course_label}
+    return {
+        "subtitle_label": subtitle_label,
+        "course_label": course_label,
+        "scenario_select": scenario_select,
+    }
