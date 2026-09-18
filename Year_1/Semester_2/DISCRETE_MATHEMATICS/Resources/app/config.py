@@ -415,22 +415,25 @@ THEME_HEAD_SCRIPT = """
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 <script>
+    let isRenderingKaTeX = false;
     function renderKaTeX() {
-        if (typeof renderMathInElement === 'function') {
-            const container = document.getElementById('content-area');
-            if (container) {
-                try {
-                    renderMathInElement(container, {
-                        delimiters: [
-                            {left: '$$', right: '$$', display: true},
-                            {left: '$', right: '$', display: false}
-                        ],
-                        throwOnError: false
-                    });
-                } catch (err) {
-                    console.warn('KaTeX render error:', err);
-                }
-            }
+        if (isRenderingKaTeX || typeof renderMathInElement !== 'function') return;
+        const container = document.getElementById('content-area');
+        if (!container) return;
+        isRenderingKaTeX = true;
+        try {
+            renderMathInElement(container, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                ignoredClasses: ['q-tabs', 'q-tab-panels', 'q-field', 'q-menu', 'app-select-popup', 'katex'],
+                throwOnError: false
+            });
+        } catch (err) {
+            console.warn('KaTeX render error:', err);
+        } finally {
+            setTimeout(() => { isRenderingKaTeX = false; }, 30);
         }
     }
 
@@ -439,7 +442,7 @@ THEME_HEAD_SCRIPT = """
         if (katexDebounceTimer) clearTimeout(katexDebounceTimer);
         katexDebounceTimer = setTimeout(() => {
             renderKaTeX();
-        }, 50);
+        }, 60);
     }
 
     function initKaTeXObserver() {
@@ -447,12 +450,19 @@ THEME_HEAD_SCRIPT = """
         if (target && !window.__katexObserverActive) {
             window.__katexObserverActive = true;
             const observer = new MutationObserver((mutations) => {
+                if (isRenderingKaTeX) return;
                 let shouldRender = false;
                 for (const m of mutations) {
-                    if (m.addedNodes.length > 0) {
-                        shouldRender = true;
-                        break;
+                    for (const node of m.addedNodes) {
+                        if (node.nodeType === 1) {
+                            if (node.classList && (node.classList.contains('katex') || node.classList.contains('q-tab-panels') || node.classList.contains('q-tabs'))) {
+                                continue;
+                            }
+                            shouldRender = true;
+                            break;
+                        }
                     }
+                    if (shouldRender) break;
                 }
                 if (shouldRender) {
                     scheduleKaTeXRender();

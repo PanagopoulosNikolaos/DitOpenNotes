@@ -26,16 +26,49 @@ def createPastExamJune2026() -> Scenario:
             },
             steps={
                 "Ομάδες Α και Δ": [
-                    "Αυτός είναι ο κλασικός κανόνας του <b>Υποθετικού Συλλογισμού (Hypothetical Syllogism)</b>.",
-                    "Κατασκευάζουμε τον πίνακα αληθείας για τις 8 αποτιμήσεις των $(p, q, r) \\in \\{T, F\\}^3$.",
-                    "Σε κάθε γραμμή όπου η υπόθεση $(p \\to q) \\land (q \\to r)$ είναι αληθής, αποδεικνύεται ότι και το συμπέρασμα $p \\to r$ είναι αληθές.",
-                    "Σε όλες τις υπόλοιπες γραμμές, η υπόθεση είναι ψευδής, άρα η συνεπαγωγή $F \\to (\\dots) \\equiv T$.",
-                    "Συνεπώς, ο τύπος αποτιμάται σε $T$ σε όλες τις $2^3 = 8$ γραμμές και είναι <b>Ταὐτολογία</b>.",
+                    (
+                        "<b>Πλήρης Πίνακας Αληθείας (8 Γραμμές):</b> $((p \\to q) \\land (q \\to r)) \\to (p \\to r)$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>r</th><th>p &rarr; q</th><th>q &rarr; r</th><th>(p &rarr; q) &and; (q &rarr; r)</th><th>p &rarr; r</th><th class=\"res-col\">Αποτέλεσμα &rarr; (p &rarr; r)</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι ο κλασικός <b>Υποθετικός Συλλογισμός (Hypothetical Syllogism)</b> και αποτιμάται σε <b>T</b> σε όλες τις γραμμές (<b>Ταὐτολογία</b>)."
+                    ),
                 ],
                 "Ομάδες Β και Γ": [
-                    "Αναλύουμε τη δεξιά διάζευξη: $(p \\to q) \\lor (q \\to r) \\equiv (\\neg p \\lor q) \\lor (\\neg q \\lor r) \\equiv \\neg p \\lor (q \\lor \\neg q) \\lor r \\equiv \\neg p \\lor \\top \\lor r \\equiv \\top$.",
-                    "Εφόσον το δεξί μέλος είναι ταυτολογικά αληθές ($\top$), η συνολική συνεπαγωγή $(p \\to r) \\to \\top \\equiv \\top$ είναι πάντα αληθής.",
-                    "Συνεπώς, ο τύπος είναι <b>Ταὐτολογία</b> για όλες τις τιμές.",
+                    (
+                        "<b>Πλήρης Πίνακας Αληθείας (8 Γραμμές - AM: 3323):</b> $(p \\to r) \\to ((p \\to q) \\lor (q \\to r))$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>r</th><th>p &rarr; r</th><th>p &rarr; q</th><th>q &rarr; r</th><th>(p &rarr; q) &or; (q &rarr; r)</th><th class=\"res-col\">(p &rarr; r) &rarr; ((p &rarr; q) &or; (q &rarr; r))</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>T</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Αναλυτική Επαλήθευση:</b><br/>"
+                        "1. Η διάζευξη $(p \\to q) \\lor (q \\to r) \\equiv (\\neg p \\lor q) \\lor (\\neg q \\lor r) \\equiv \\neg p \\lor (q \\lor \\neg q) \\lor r \\equiv \\neg p \\lor \\top \\lor r \\equiv \\top$.<br/>"
+                        "2. Επειδή το δεξί μέλος είναι $\\top$ σε όλες τις γραμμές, η συνεπαγωγή $(\\dots) \\to \\top$ είναι πάντοτε αληθής.<br/>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι <b>Ταὐτολογία (Tautology)</b>."
+                    ),
                 ],
             },
             final_answers={

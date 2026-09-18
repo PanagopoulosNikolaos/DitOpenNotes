@@ -278,17 +278,17 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                     ui.label("Προσομοιωτές Γράφων, Πινάκων Αληθείας, Διαγραμμάτων Venn, DFA & Επαγωγής").classes("text-xs text-[var(--text-2)]")
 
         # Tab Navigation
-        with ui.tabs().props("dense mobile-arrows outside-arrows").classes("w-full text-xs font-bold border-b border-[var(--border)]") as tabs:
-            tab_graph = ui.tab("1. Γράφοι & Euler", icon="hub")
-            tab_truth = ui.tab("2. Πίνακες Αληθείας", icon="table_chart")
-            tab_venn = ui.tab("3. Venn & PIE", icon="pie_chart")
-            tab_dfa = ui.tab("4. Αυτόματα DFA", icon="settings")
-            tab_induction = ui.tab("5. Μαθηματική Επαγωγή", icon="view_carousel")
+        with ui.tabs(value="tab_graph").props("dense mobile-arrows outside-arrows").classes("w-full text-xs font-bold border-b border-[var(--border)]") as tabs:
+            ui.tab("tab_graph", label="1. Γράφοι & Euler", icon="hub")
+            ui.tab("tab_truth", label="2. Πίνακες Αληθείας", icon="table_chart")
+            ui.tab("tab_venn", label="3. Venn & PIE", icon="pie_chart")
+            ui.tab("tab_dfa", label="4. Αυτόματα DFA", icon="settings")
+            ui.tab("tab_induction", label="5. Μαθηματική Επαγωγή", icon="view_carousel")
 
-        with ui.tab_panels(tabs, value=tab_graph).classes("w-full bg-transparent p-0 pt-4"):
+        with ui.tab_panels(tabs, value="tab_graph", keep_alive=False).classes("w-full bg-transparent p-0 pt-4"):
 
             # PANEL 1: GRAPH & ISOMORPHISM WORKBENCH
-            with ui.tab_panel(tab_graph):
+            with ui.tab_panel("tab_graph"):
                 with ui.row().classes("w-full gap-6 flex-col xl:flex-row items-stretch"):
                     # Left: Interactive SVG Canvas
                     with ui.column().classes("w-full xl:flex-1 min-w-0 max-w-2xl gap-3"):
@@ -357,11 +357,11 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                         ):
                             with ui.column().classes("w-full p-2 gap-1 text-xs overflow-x-auto"):
                                 ui.label("Επαλήθευση Τύπου Euler (Επίπεδοι Γράφοι):").classes("font-bold text-xs")
-                                ui.html(r'<div class="katex-scroll">$$V - E + R = 2 \implies 6 - 8 + R = 2 \implies R = 4 \text{ περιοχές}$$</div>')
+                                ui.html(r'<div class="katex-scroll">$$V - E + R = 2 \implies 6 - 8 + R = 2 \implies R = 4 \quad (\text{R=4 regions})$$</div>')
                                 ui.html(r'<div class="katex-scroll">$$\sum_{v \in V} \deg(v) = 16 = 2|E| \quad (3+3+3+3+2+2 = 16)$$</div>')
 
             # PANEL 2: TRUTH TABLE GENERATOR
-            with ui.tab_panel(tab_truth):
+            with ui.tab_panel("tab_truth"):
                 with ui.column().classes("w-full gap-4"):
                     with ui.row().classes("w-full justify-between items-center flex-wrap gap-3"):
                         ui.label("Αυτόματη Κατασκευή & Επαλήθευση Πινάκων Αληθείας").classes("text-sm font-bold")
@@ -492,7 +492,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                     renderTruthTable("syllogism")
 
             # PANEL 3: VENN & SET OPERATIONS (PIE)
-            with ui.tab_panel(tab_venn):
+            with ui.tab_panel("tab_venn"):
                 with ui.row().classes("w-full gap-6 flex-col lg:flex-row items-center"):
                     # Venn SVG Visualizer
                     venn_svg = ui.html("""
@@ -540,7 +540,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                         setVennOp("Ένωση (A ∪ B)", "{1, 2, 3, 4, 5, 6}", "|A \\cup B| = |A| + |B| - |A \\cap B| = 4 + 4 - 2 = 6")
 
             # PANEL 4: DFA STRING VALIDATOR
-            with ui.tab_panel(tab_dfa):
+            with ui.tab_panel("tab_dfa"):
                 with ui.row().classes("w-full gap-6 flex-col lg:flex-row items-center"):
                     dfa_svg_container = ui.html(automaton_sim.generateSvg())
 
@@ -576,7 +576,7 @@ def renderVisualSimulator(scenario: Scenario) -> None:
                             )
 
             # PANEL 5: MATHEMATICAL INDUCTION CAROUSEL
-            with ui.tab_panel(tab_induction):
+            with ui.tab_panel("tab_induction"):
                 induction_step = {"curr": 1}
                 total_steps = 4
 

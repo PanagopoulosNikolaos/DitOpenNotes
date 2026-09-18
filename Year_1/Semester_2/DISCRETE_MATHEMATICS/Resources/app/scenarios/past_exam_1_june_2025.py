@@ -45,65 +45,147 @@ def createPastExamJune2025() -> Scenario:
             steps={
                 "Ομάδα Α": [
                     (
-                        "<b>Επίλυση Ερωτήματος α':</b><br/>"
-                        "Αναλύουμε την υπόθεση: $p \\to q \\equiv \\neg p \\lor q$ και $\\neg p \\to q \\equiv \\neg(\\neg p) \\lor q \\equiv p \\lor q$.<br/>"
-                        "Η σύζευξη γίνεται: $(\\neg p \\lor q) \\land (p \\lor q) \\equiv (\\neg p \\land p) \\lor q \\equiv \\bot \\lor q \\equiv q$.<br/>"
-                        "Συνεπώς, ο συνολικός τύπος ισοδυναμεί με: $q \\to q \\equiv \\top$ (Ταὐτολογία, True σε όλες τις γραμμές)."
+                        "<b>Επίλυση Ερωτήματος α':</b> $((p \\to q) \\land (\\neg p \\to q)) \\to q$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>&not;p</th><th>p &rarr; q</th><th>&not;p &rarr; q</th><th>(p &rarr; q) &and; (&not;p &rarr; q)</th><th class=\"res-col\">((p &rarr; q) &and; (&not;p &rarr; q)) &rarr; q</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Η τελική στήλη περιέχει μόνο την τιμή αληθείας <b>T</b> σε όλες τις γραμμές, συνεπώς ο τύπος είναι <b>Ταὐτολογία (Tautology)</b>."
                     ),
                     (
-                        "<b>Επίλυση Ερωτήματος β':</b><br/>"
-                        "Εξετάζουμε τον όρο: $p \\to \\neg p \\equiv \\neg p \\lor \\neg p \\equiv \\neg p$.<br/>"
-                        "Η διάζευξη γίνεται: $\\neg p \\lor (\\neg p \\lor q) \\equiv \\neg p \\lor q \\equiv p \\to q$.<br/>"
-                        "Ο συνολικός τύπος είναι: $p \\to (p \\to q) \\equiv \\neg p \\lor (\\neg p \\lor q) \\equiv \\neg p \\lor q \\equiv p \\to q$."
+                        "<b>Επίλυση Ερωτήματος β':</b> $p \\to ((p \\to \\neg p) \\lor (p \\to q))$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>&not;p</th><th>p &rarr; &not;p</th><th>p &rarr; q</th><th>(p &rarr; &not;p) &or; (p &rarr; q)</th><th class=\"res-col\">p &rarr; ((p &rarr; &not;p) &or; (p &rarr; q))</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false res-col\">F</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι <b>Ενδεχόμενος (Contingency)</b>, ισοδύναμος με τον απλό τύπο $p \\to q$ (λαμβάνει F αποκλειστικά όταν $p=T, q=F$)."
                     ),
                 ],
                 "Ομάδα Β": [
                     (
-                        "<b>Επίλυση Ερωτήματος α':</b><br/>"
-                        "Ο όρος $\\neg q \\to q \\equiv \\neg(\\neg q) \\lor q \\equiv q \\lor q \\equiv q$.<br/>"
-                        "Η σύζευξη γίνεται: $(p \\to q) \\land q \\equiv q$ (λόγω του κανόνα απορρόφησης).<br/>"
-                        "Ο συνολικός τύπος είναι: $q \\to q \\equiv \\top$ (Ταὐτολογία)."
+                        "<b>Επίλυση Ερωτήματος α' (AM: 3323):</b> $((p \\to q) \\land (\\neg q \\to q)) \\to q$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>&not;q</th><th>p &rarr; q</th><th>&not;q &rarr; q</th><th>(p &rarr; q) &and; (&not;q &rarr; q)</th><th class=\"res-col\">((p &rarr; q) &and; (&not;q &rarr; q)) &rarr; q</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Αναλυτική Εξήγηση Στηλών:</b><br/>"
+                        "1. $\\neg q \\to q$: Ψευδές μόνο όταν $\\neg q = T$ και $q = F$, δηλαδή όταν $q = F$. Συνεπώς $\\neg q \\to q \\equiv q$.<br/>"
+                        "2. $(p \\to q) \\land q \\equiv q$ (απορρόφηση).<br/>"
+                        "3. Τελική συνεπαγωγή $q \\to q \\equiv \\top$.<br/>"
+                        "<b>Συμπέρασμα:</b> Όλες οι γραμμές της τελικής στήλης έχουν τιμή <b>T</b>, άρα ο προτασιακός τύπος είναι <b>Ταὐτολογία (Tautology)</b>."
                     ),
                     (
-                        "<b>Επίλυση Ερωτήματος β':</b><br/>"
-                        "Ο όρος $(p \\to \\neg q) \\lor (p \\to q) \\equiv (\\neg p \\lor \\neg q) \\lor (\\neg p \\lor q) \\equiv \\neg p \\lor (\\neg q \\lor q) \\equiv \\neg p \\lor \\top \\equiv \\top$.<br/>"
-                        "Ο συνολικός τύπος είναι: $p \\to \\top \\equiv \\top$ (Ταὐτολογία)."
+                        "<b>Επίλυση Ερωτήματος β' (AM: 3323):</b> $p \\to ((p \\to \\neg q) \\lor (p \\to q))$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>&not;q</th><th>p &rarr; &not;q</th><th>p &rarr; q</th><th>(p &rarr; &not;q) &or; (p &rarr; q)</th><th class=\"res-col\">p &rarr; ((p &rarr; &not;q) &or; (p &rarr; q))</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Αναλυτική Εξήγηση Στηλών:</b><br/>"
+                        "1. Η διάζευξη $(p \\to \\neg q) \\lor (p \\to q) \\equiv (\\neg p \\lor \\neg q) \\lor (\\neg p \\lor q) \\equiv \\neg p \\lor (\\neg q \\lor q) \\equiv \\neg p \\lor \\top \\equiv \\top$.<br/>"
+                        "2. Συνεπώς, η τελική συνεπαγωγή $p \\to \\top \\equiv \\top$ είναι πάντοτε αληθής.<br/>"
+                        "<b>Συμπέρασμα:</b> Όλες οι γραμμές της τελικής στήλης έχουν τιμή <b>T</b>, άρα ο προτασιακός τύπος είναι <b>Ταὐτολογία (Tautology)</b>."
                     ),
                 ],
                 "Ομάδα Γ": [
                     (
-                        "<b>Επίλυση Ερωτήματος α':</b><br/>"
-                        "Ο όρος $\\top \\to q \\equiv \\neg \\top \\lor q \\equiv \\bot \\lor q \\equiv q$.<br/>"
-                        "Σύζευξη: $(p \\to q) \\land q \\equiv q$. Συνολικός τύπος: $q \\to q \\equiv \\top$ (Ταὐτολογία)."
+                        "<b>Επίλυση Ερωτήματος α':</b> $((p \\to q) \\land (\\top \\to q)) \\to q$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>&top;</th><th>p &rarr; q</th><th>&top; &rarr; q</th><th>(p &rarr; q) &and; (&top; &rarr; q)</th><th class=\"res-col\">((p &rarr; q) &and; (&top; &rarr; q)) &rarr; q</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι <b>Ταὐτολογία (Tautology)</b>."
                     ),
                     (
-                        "<b>Επίλυση Ερωτήματος β':</b><br/>"
-                        "Ο όρος $p \\to \\top \\equiv \\top$. Η διάζευξη $\\top \\lor (p \\to q) \\equiv \\top$.<br/>"
-                        "Συνολικός τύπος: $p \\to \\top \\equiv \\top$ (Ταὐτολογία)."
+                        "<b>Επίλυση Ερωτήματος β':</b> $p \\to ((p \\to \\top) \\lor (p \\to q))$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>p &rarr; &top;</th><th>p &rarr; q</th><th>(p &rarr; &top;) &or; (p &rarr; q)</th><th class=\"res-col\">p &rarr; ((p &rarr; &top;) &or; (p &rarr; q))</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι <b>Ταὐτολογία (Tautology)</b>."
                     ),
                 ],
                 "Ομάδα Δ": [
                     (
-                        "<b>Επίλυση Ερωτήματος α':</b><br/>"
-                        "Ο όρος $\\bot \\to q \\equiv \\top$. Η σύζευξη: $(p \\to q) \\land \\top \\equiv p \\to q$.<br/>"
-                        "Συνολικός τύπος: $(p \\to q) \\to q \\equiv \\neg(\\neg p \\lor q) \\lor q \\equiv (p \\land \\neg q) \\lor q \\equiv p \\lor q$.<br/>"
-                        "Ενδεχόμενος τύπος (Ψευδής μόνο όταν $p=F, q=F$)."
+                        "<b>Επίλυση Ερωτήματος α':</b> $((p \\to q) \\land (\\bot \\to q)) \\to q$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>&bot;</th><th>p &rarr; q</th><th>&bot; &rarr; q</th><th>(p &rarr; q) &and; (&bot; &rarr; q)</th><th class=\"res-col\">((p &rarr; q) &and; (&bot; &rarr; q)) &rarr; q</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-false\">F</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-false res-col\">F</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι <b>Ενδεχόμενος (Contingency)</b>, ισοδύναμος με $p \\lor q$ (Ψευδής όταν $p=F, q=F$)."
                     ),
                     (
-                        "<b>Επίλυση Ερωτήματος β':</b><br/>"
-                        "Ο όρος $p \\to \\bot \\equiv \\neg p \\lor \\bot \\equiv \\neg p$.<br/>"
-                        "Η διάζευξη: $\\neg p \\lor (p \\to q) \\equiv \\neg p \\lor (\\neg p \\lor q) \\equiv \\neg p \\lor q \\equiv p \\to q$.<br/>"
-                        "Συνολικός τύπος: $p \\to (p \\to q) \\equiv p \\to q$."
+                        "<b>Επίλυση Ερωτήματος β':</b> $p \\to ((p \\to \\bot) \\lor (p \\to q))$<br/>"
+                        "<div class=\"overflow-x-auto my-3\">"
+                        "<table class=\"truth-table\">"
+                        "<thead><tr>"
+                        "<th>p</th><th>q</th><th>p &rarr; &bot;</th><th>p &rarr; q</th><th>(p &rarr; &bot;) &or; (p &rarr; q)</th><th class=\"res-col\">p &rarr; ((p &rarr; &bot;) &or; (p &rarr; q))</th>"
+                        "</tr></thead>"
+                        "<tbody>"
+                        "<tr><td>T</td><td>T</td><td class=\"val-false\">F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>T</td><td>F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false\">F</td><td class=\"val-false res-col\">F</td></tr>"
+                        "<tr><td>F</td><td>T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "<tr><td>F</td><td>F</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true\">T</td><td class=\"val-true res-col\">T</td></tr>"
+                        "</tbody></table></div>"
+                        "<b>Συμπέρασμα:</b> Ο τύπος είναι <b>Ενδεχόμενος (Contingency)</b>, ισοδύναμος με $p \\to q$ (Ψευδής μόνο όταν $p=T, q=F$)."
                     ),
                 ],
             },
             final_answers={
-                "Ομάδα Α": "α'. Ταὐτολογία (T για όλες τις τιμές), β'. Ισοδύναμο με p -> q (F όταν p=T, q=F)",
-                "Ομάδα Β": "α'. Ταὐτολογία (T), β'. Ταὐτολογία (T)",
-                "Ομάδα Γ": "α'. Ταὐτολογία (T), β'. Ταὐτολογία (T)",
-                "Ομάδα Δ": "α'. Ενδεχόμενος τύπος (ισοδύναμος με p v q), β'. Ισοδύναμος με p -> q",
+                "Ομάδα Α": "α'. Ταὐτολογία (T για όλες τις τιμές) | β'. Ενδεχόμενος (Ισοδύναμο με p -> q)",
+                "Ομάδα Β": "α'. Ταὐτολογία (T για όλες τις τιμές) | β'. Ταὐτολογία (T για όλες τις τιμές)",
+                "Ομάδα Γ": "α'. Ταὐτολογία (T για όλες τις τιμές) | β'. Ταὐτολογία (T για όλες τις τιμές)",
+                "Ομάδα Δ": "α'. Ενδεχόμενος τύπος (ισοδύναμος με p v q) | β'. Ενδεχόμενος (ισοδύναμος με p -> q)",
             },
-            pitfalls="Προσοχή: Τα σύμβολα T και F δεν είναι μεταβλητές, αλλά λογικές σταθερές. Στην Ομάδα Δ το α' δεν είναι ταυτολογία!",
+            pitfalls="Προσοχή: Τα σύμβολα T και F δεν είναι μεταβλητές, αλλά λογικές σταθερές. Στην Ομάδα Δ το α' ΔΕΝ είναι ταυτολογία (στη γραμμή F, F αποτιμάται σε F)!",
             interactive_type="truth_table",
         ),
 
@@ -303,7 +385,20 @@ def createPastExamJune2025() -> Scenario:
                     "Τύπος Euler: $V - E + R = 2 \\implies 6 - 8 + R = 2 \\implies R = 4$ περιοχές (3 εσωτερικές έδρες και 1 εξωτερική).",
                 ],
                 "Ομάδα Β": [
-                    "Ίδια μεθοδολογία: Επαλήθευση ακολουθίας βαθμών και κατασκευή ισομορφισμού. Επαλήθευση τύπου Euler $V - E + R = 2 \\implies 6 - 8 + R = 2 \\implies R = 4$.",
+                    (
+                        "<b>Ερώτημα α' (Ισομορφισμός - AM: 3323):</b><br/>"
+                        "1. Πλήθος κορυφών: $|V_1| = |V_2| = 6$.<br/>"
+                        "2. Πλήθος ακμών: $|E_1| = |E_2| = 8$.<br/>"
+                        "3. Ακολουθία βαθμών $G_1$: $\\deg(A)=3, \\deg(B)=3, \\deg(C)=2, \\deg(D)=3, \\deg(E)=3, \\deg(F)=2$. Ταξινόμηση: $(3, 3, 3, 3, 2, 2)$.<br/>"
+                        "Ακολουθία βαθμών $G_2$: $\\deg(1)=2, \\deg(2)=3, \\deg(3)=3, \\deg(4)=2, \\deg(5)=3, \\deg(6)=3$. Ταξινόμηση: $(3, 3, 3, 3, 2, 2)$.<br/>"
+                        "4. Κατασκευάζουμε 1-1 και επί αντιστοίχιση $f: V_1 \\to V_2$ που διατηρεί τη γειτνίαση ακμών: $A \\mapsto 2, B \\mapsto 5, C \\mapsto 4, D \\mapsto 3, E \\mapsto 6, F \\mapsto 1$.<br/>"
+                        "Όλες οι 8 ακμές διατηρούνται, άρα $G_1 \\cong G_2$."
+                    ),
+                    (
+                        "<b>Ερώτημα β' (Επιπεδότητα & Τύπος Euler):</b><br/>"
+                        "Το γράφημα $G_1$ είναι επίπεδο διότι δεν περιέχει ως υπογράφο υποδιαίρεση του $K_5$ ούτε του $K_{3,3}$ (Θεώρημα Kuratowski).<br/>"
+                        "Επαλήθευση Τύπου Euler: $V - E + R = 2 \\implies 6 - 8 + R = 2 \\implies R = 4$ περιοχές (3 εσωτερικές έδρες και 1 εξωτερική/άπειρη έδρα)."
+                    ),
                 ],
                 "Ομάδα Γ": [
                     "Επαλήθευση ακολουθίας βαθμών και ισομορφισμού. Euler: $V - E + R = 2 \\implies R = 4$.",
@@ -419,7 +514,22 @@ def createPastExamJune2025() -> Scenario:
                     "<b>Συμπέρασμα:</b> Από την αρχή της επαγωγής, ισχύει για κάθε $n \\ge 0$. (Q.E.D.)",
                 ],
                 "Ομάδα Β": [
-                    "Βάση: n=0 $\\implies 1 = (5-1)/4 = 1$.<br/>Επαγωγικό βήμα: $\\frac{5^{k+1}-1}{4} + 5^{k+1} = \\frac{5^{k+1}-1 + 4 \\cdot 5^{k+1}}{4} = \\frac{5^{k+2}-1}{4}$.",
+                    (
+                        "<b>Βασικό Βήμα (n = 0 - AM: 3323):</b><br/>"
+                        "Αριστερό μέλος: $LHS = 5^0 = 1$.<br/>"
+                        "Δεξί μέλος: $RHS = \\frac{5^{0+1}-1}{4} = \\frac{5-1}{4} = \\frac{4}{4} = 1$.<br/>"
+                        "Εφόσον $LHS = RHS = 1$, η βάση της επαγωγής ισχύει για $n = 0$."
+                    ),
+                    (
+                        "<b>Επαγωγική Υπόθεση & Επαγωγικό Βήμα (n = k + 1):</b><br/>"
+                        "Υποθέτουμε ότι ισχύει για κάποιο αυθαίρετο $k \\ge 0$: $1 + 5 + 5^2 + \\dots + 5^k = \\frac{5^{k+1}-1}{4}$.<br/>"
+                        "Θέλουμε να αποδείξουμε ότι ισχύει για $n = k + 1$, δηλαδή:<br/>"
+                        "$$1 + 5 + \\dots + 5^k + 5^{k+1} = \\frac{5^{(k+1)+1}-1}{4} = \\frac{5^{k+2}-1}{4}$$"
+                        "<b>Απόδειξη:</b><br/>"
+                        "$$LHS = \\left(1 + 5 + \\dots + 5^k\\right) + 5^{k+1} = \\frac{5^{k+1}-1}{4} + 5^{k+1}$$"
+                        "$$= \\frac{5^{k+1}-1 + 4 \\cdot 5^{k+1}}{4} = \\frac{(1+4) \\cdot 5^{k+1}-1}{4} = \\frac{5 \\cdot 5^{k+1}-1}{4} = \\frac{5^{k+2}-1}{4} = RHS$$<br/>"
+                        "<b>Συμπέρασμα:</b> Από την αρχή της μαθηματικής επαγωγής, η ισότητα ισχύει για κάθε $n \\ge 0$. (Q.E.D.)"
+                    ),
                 ],
                 "Ομάδα Γ": [
                     "Βάση: n=0 $\\implies 1 = (7-1)/6 = 1$.<br/>Επαγωγικό βήμα: $\\frac{7^{k+1}-1}{6} + 7^{k+1} = \\frac{7^{k+2}-1}{6}$.",
