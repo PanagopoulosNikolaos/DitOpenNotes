@@ -171,19 +171,7 @@ $$(0,0,0) \xrightarrow{A} (1,1,0) \xrightarrow{B} (1,0,1) \xrightarrow{\Gamma} (
 
 ## Δεδομένα: ο γράφος
 
-Ακμές από την εικόνα: A→B, A→C, C→B, C→F, B→D, B→E, D→F, F→E, F→G, E→G.
-
-| Κόμβος | Διάδοχοι (αλφαβητικά) |
-|---|---|
-| A | B, C |
-| B | D, E |
-| C | B, F |
-| D | F |
-| E | G |
-| F | E, G |
-| G | — (στόχος) |
-
-Αρχή: A. Στόχος: G. Ο γράφος είναι άκυκλος, άρα το δέντρο αναζήτησης είναι πεπερασμένο.
+Αρχή: A. Στόχος: G. Ο γράφος είναι κατευθυνόμενος και άκυκλος, άρα το δέντρο αναζήτησης είναι πεπερασμένο.
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'background': '#151a22', 'mainBkg': '#262e3a', 'primaryColor': '#262e3a', 'primaryTextColor': '#d7e0eb', 'primaryBorderColor': '#63728a', 'textColor': '#d7e0eb', 'lineColor': '#7f8fa3', 'secondaryColor': '#202834', 'tertiaryColor': '#1b212b', 'clusterBkg': '#1b212b', 'clusterBorder': '#3f4c5e', 'edgeLabelBackground': '#1f2631', 'fontFamily': 'Verdana, Segoe UI, sans-serif'}}}%%
@@ -223,6 +211,20 @@ flowchart LR
 
 *Μοβ: η βέλτιστη διαδρομή $A \to B \to E \to G$· μπλε: αρχική κατάσταση· πράσινο: στόχος.*
 
+### Πίνακας διαδόχων
+
+Ακμές από τον γράφο: A→B, A→C, C→B, C→F, B→D, B→E, D→F, F→E, F→G, E→G.
+
+| Κόμβος | Διάδοχοι (αλφαβητικά) |
+|---|---|
+| A | B, C |
+| B | D, E |
+| C | B, F |
+| D | F |
+| E | G |
+| F | E, G |
+| G | — (στόχος) |
+
 ---
 
 ## (α) Δέντρο αναζήτησης
@@ -233,27 +235,27 @@ flowchart LR
 %%{init: {'theme': 'base', 'themeVariables': {'background': '#151a22', 'mainBkg': '#262e3a', 'primaryColor': '#262e3a', 'primaryTextColor': '#d7e0eb', 'primaryBorderColor': '#63728a', 'textColor': '#d7e0eb', 'lineColor': '#7f8fa3', 'secondaryColor': '#202834', 'tertiaryColor': '#1b212b', 'clusterBkg': '#1b212b', 'clusterBorder': '#3f4c5e', 'edgeLabelBackground': '#1f2631', 'fontFamily': 'Verdana, Segoe UI, sans-serif'}}}%%
 flowchart TD
   nA["A"]
-  nAB["AB"]
-  nAC["AC"]
-  nABD["ABD"]
-  nABE["ABE"]
-  nACB["ACB"]
-  nACF["ACF"]
-  nABDF["ABDF"]
-  nABEG["ABEG"]
-  nACBD["ACBD"]
-  nACBE["ACBE"]
-  nACFE["ACFE"]
-  nACFG["ACFG"]
-  nABDFE["ABDFE"]
-  nABDFG["ABDFG"]
-  nACBDF["ACBDF"]
-  nACBEG["ACBEG"]
-  nACFEG["ACFEG"]
-  nABDFEG["ABDFEG"]
-  nACBDFE["ACBDFE"]
-  nACBDFG["ACBDFG"]
-  nACBDFEG["ACBDFEG"]
+  nAB["B"]
+  nAC["C"]
+  nABD["D"]
+  nABE["E"]
+  nACB["B"]
+  nACF["F"]
+  nABDF["F"]
+  nABEG["G*"]
+  nACBD["D"]
+  nACBE["E"]
+  nACFE["E"]
+  nACFG["G*"]
+  nABDFE["E"]
+  nABDFG["G*"]
+  nACBDF["F"]
+  nACBEG["G*"]
+  nACFEG["G*"]
+  nABDFEG["G*"]
+  nACBDFE["E"]
+  nACBDFG["G*"]
+  nACBDFEG["G*"]
 
   nA --> nAB
   nA --> nAC
@@ -299,7 +301,7 @@ flowchart TD
   linkStyle 17 stroke:#c9a96e,stroke-width:2.6px
 ```
 
-*Το δέντρο αναζήτησης· οι ετικέτες των κόμβων είναι οι διαδρομές από τη ρίζα. Με μοβ η διαδρομή BFS, με πορτοκαλί η διαδρομή DFS, με γαλάζιο η κοινή ακμή $A \to AB$· πράσινοι οι κόμβοι-στόχοι $G$.*
+*Το δέντρο αναζήτησης· οι κόμβοι φέρουν την κατάσταση στην οποία αντιστοιχούν (με G* και πράσινο χρώμα οι καταστάσεις-στόχοι). Με μοβ η διαδρομή BFS, με πορτοκαλί η διαδρομή DFS, με γαλάζιο η κοινή αρχική ακμή $A \to B$.*
 
 **Κόμβοι ανά βάθος** (διαδρομές, με σειρά αριστερά προς δεξιά):
 
