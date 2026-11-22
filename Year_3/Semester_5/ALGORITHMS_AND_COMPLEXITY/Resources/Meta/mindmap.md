@@ -1,754 +1,305 @@
 ---
-
-## markmap:
-colorFreezeLevel: 2
-initialExpandLevel: 2
-maxWidth: 300
-
-# Algorithms and Complexity (504) Mindmap
-
-* **Algorithms and Complexity (504)**
-* **Exam Scope & Syllabus (Goodrich & Tamassia)**
-
-
-* **Midterm Exam (Proodos) — 7 Chapters**
-
-
-* `Ch. 1` — Analysis of Algorithms (excludes `1.4.1`)
-
-
-* `Ch. 5` — Priority Queues & Heaps (excludes `5.5`)
-
-
-* `Ch. 6` — Hash Tables & Cuckoo Hashing (excludes Linear Probing analysis pp. 202–203, Cuckoo Hashing analysis pp. 208–211, `6.5`)
-
-
-* `Ch. 7` — Union-Find (excludes `7.3.1`)
-
-
-* `Ch. 8` — Sorting & Lower Bounds (all sections included)
-
-
-* `Ch. 10` — Greedy Method (excludes Huffman Coding analysis pp. 294–297)
-
-
-* `Ch. 11` — Divide & Conquer (all sections included)
-
-
-
-
-* **Final Exam (Teliki Exetasi) — All 13 Chapters (Midterm + 6 Additional)**
-
-
-* Includes all Midterm chapters with identical exclusions
-
-
-* `Ch. 12` — Dynamic Programming (excludes `12.4`)
-
-
-* `Ch. 13` — Graphs, DFS & BFS (excludes `13.4.3`, `13.5`)
-
-
-* `Ch. 14` — Shortest Paths (excludes `14.5.2`)
-
-
-* `Ch. 15` — Minimum Spanning Trees (all sections included)
-
-
-* `Ch. 16` — Maximum Flow (excludes `16.2.2`, `16.3`, `16.4`, `16.5`)
-
-
-* `Ch. 17` — NP-Completeness (excludes `17.3`, `17.4`, `17.5`)
-
-
-
-
-
-
-* **Ch. 1: Analysis of Algorithms [Midterm & Final]**
-
-
-* **Computation Model & Scalability**
-
-
-* **RAM Model (Random Access Machine)**
-
-
-* Single CPU with potentially infinite numbered memory cells
-
-
-* Constant time `O(1)` access to any memory cell
-
-
-* Primitive operations — variable assignment, array indexing, method call, method return (`O(1)` each)
-
-
-
-
-* **Scalability** — system capability to handle growing data volume or workload
-
-
-* **Primitive Step Counting**
-
-
-* `arrayMax(A, n)` — `7n - 2` worst-case operations, `5n` best-case operations (`O(n)`)
-
-
-
-
-
-
-* **Seven Important Growth Functions**
-
-
-* Constant `1`, Logarithmic `log n`, Linear `n`, N-Log-N `n log n`, Quadratic `n^2`, Cubic `n^3`, Exponential `2^n`
-
-
-* Input doubling impact — `c n^2` quadruples (`4c n^2`), `c n^3` octuples (`8c n^3`), `c 2^n` squares (`c 2^(2n)`)
-
-
-
-
-* **Asymptotic Notation**
-
-
-* **Big-Oh `O(g(n))**` — asymptotic upper bound (`f(n) <= c * g(n)` for `n >= n0`, `c > 0`, `n0 >= 1`)
-
-
-* Simplification rules — drop lower-order terms, drop constant factors, use tightest simplest class
-
-
-
-
-* **Big-Omega `Omega(g(n))**` — asymptotic lower bound (`f(n) >= c * g(n)` for `n >= n0`)
-
-
-* **Big-Theta `Theta(g(n))**` — asymptotically tight bound (`c' * g(n) <= f(n) <= c'' * g(n)` for `n >= n0`)
-
-
-* **Pitfalls & Gotchas**
-* Using loose bounds (e.g., `2n` as `O(n^2)` instead of `O(n)`)
-
-
-* `n^2` is NOT `O(n)` because `n <= c` cannot hold for constant `c`
-
-
-
-
-
-
-* **Amortized Analysis (Dynamic Arrays)**
-
-
-* **Incremental Strategy** — grow by constant `c` (`k = n/c` resizes)
-
-
-* Total time `T(n) = O(n^2)` — amortized `O(n)` per `add`
-
-
-
-
-* **Doubling Strategy** — double capacity on overflow (`k = log2 n` resizes)
-
-
-* Total time `T(n) = n + 2^(k+1) - 1 = 3n - 1 = O(n)` — amortized `O(1)` per `add`
-
-
-
-
-* **Accounting Method (Cyber-Dollars)**
-
-
-* Charge `3` cyber-dollars per `add` — `1` for current op, `2` banked on inserted element
-
-
-* Overflow at `2^i` elements paid by banked credits in cells `2^(i-1)` to `2^i - 1`
-
-
-
-
-
-
-* **Syllabus Exclusion** — Section `1.4.1` excluded
-
-
-
-
-* **Ch. 5: Priority Queues & Heaps [Midterm & Final]**
-
-
-* **Priority Queue ADT**
-
-
-* Stores `(key, value)` entries ordered by priority
-
-
-* **Core Operations** — `insert(k, v)`, `removeMin()`, `min()`, `size()`, `isEmpty()`
-
-
-* **Applications** — stock matching machines (continuous limit order books), auctions, standby flights
-
-
-* **Sequence Implementations (Sorting Trade-offs)**
-* Unsorted sequence -> Selection-Sort (`O(n^2)`)
-* Sorted sequence -> Insertion-Sort (`O(n^2)`)
-
-
-
-
-* **Binary Heaps**
-
-
-* **Structural & Order Properties**
-
-
-* Heap-Order Property — `key(v) >= key(parent(v))` for every non-root internal node `v`
-
-
-* Complete Binary Tree — `2^i` nodes at depth `i` (`0..h-1`), internal nodes left-aligned at depth `h-1`
-
-
-* Height Theorem — heap with `n` keys has height `h <= log n` (`O(log n)`)
-
-
-
-
-* **Array Representation (1-indexed)**
-* Left child of rank `i` at `2i`, right child at `2i + 1` (no pointer overhead)
-* `add` appends at `n + 1`; `removeMin` swaps root with `n` and shrinks
-
-
-* **Core Operations & Complexity**
-* `insert(k, v)` + `upheap` — swap upward until root or `key(parent) <= k` (`O(log n)`)
-* `removeMin()` + `downheap` — replace root with last node, swap downward with smaller child (`O(log n)`)
-* `min()`, `size()`, `isEmpty()` — `O(1)`
-
-
-* **Bottom-Up Heap Construction**
-* Merges pairs of heaps across `log n` phases using `downheap`
-* Worst-case analysis — each node traversed by at most two right-then-left paths -> `O(n)` total time
-* Accelerates Phase 1 of in-place `HeapSort` (Phase 2 remains `O(n log n)`)
-
-
-
-
-* **Syllabus Exclusion** — Section `5.5` excluded
-
-
-
-
-* **Ch. 6: Maps, Hash Tables & Cuckoo Hashing [Midterm & Final]**
-
-
-* **Map ADT**
-
-
-* Operations — `get(k)`, `put(k, v)`, `remove(k)`, `size()`, `isEmpty()`
-
-
-
-
-* **Hash Tables**
-
-
-* **Hash Functions** — hash code (keys -> integers) + compression map (`[0, N - 1]`)
-* **Collision Handling Schemes**
-
-
-* **Separate Chaining** — each bucket stores a secondary list/map
-* **Open Addressing — Linear Probing** — probe `(h(k) + j) mod N`
-
-
-* Expected `O(1)` when load factor `<= 1/2` (Chernoff bound proof excluded from exam)
-
-
-* Pitfall — primary clustering of contiguous occupied cells
-
-
-
-
-* **Open Addressing — Double Hashing** — secondary hash `d(k)`, probe `(i + j * d(k)) mod N` for `j = 0..N-1`
-
-
-
-
-
-
-* **Cuckoo Hashing (Power of Two Choices)**
-
-
-* **Structure** — two tables `T1`, `T2` of size `N >= 2n` with independent hash functions `h1`, `h2`
-
-
-* **Placement Invariant** — any key `k` resides exclusively at `T1[h1(k)]` or `T2[h2(k)]`
-
-
-* **Complexity** — guaranteed `O(1)` worst-case lookup (`get(k)`)
-
-
-* **Pitfall** — insertion eviction cycles require rehashing with fresh hash functions
-
-
-* **Syllabus Exclusions** — Linear Probing analysis (pp. 202–203), Cuckoo Hashing analysis (pp. 208–211), Section `6.5`
-
-
-
-
-* **Ch. 7: Union-Find (Disjoint Sets) [Midterm & Final]**
-
-
-* **Partition ADT Operations**
-
-
-* `makeSet(u)` — create singleton set `{u}`
-
-
-* `find(u)` — return canonical representative of set containing `u`
-
-
-* `union(A, B)` — merge disjoint sets `A` and `B`
-
-
-
-
-* **Tree-Based Implementation**
-* Each set is an up-tree; root points to itself as set identifier
-* `union` links one root to the other; `find` follows parent pointers to root
-
-
-* **Optimization Heuristics**
-* **Union by Size** — attach smaller tree root under larger tree root
-* Each pointer hop doubles subtree size -> tree height `O(log n)`, `n` ops in `O(n log n)`
-
-
-* **Path Compression** — flatten path during `find` (note: advanced amortized proof in `7.3.1` excluded)
-
-
-
-
-* **Primary Application** — cycle detection and cluster merging in Kruskal's MST algorithm
-
-
-* **Syllabus Exclusion** — Section `7.3.1` excluded
-
-
-
-
-* **Ch. 8: Sorting & Lower Bounds [Midterm & Final]**
-
-
-* **Merge-Sort**
-
-
-* **Paradigm** — Divide (`S` into `S1`, `S2` of size `n/2`), Conquer (recursive sort), Combine (`merge(S1, S2)` in `O(n)`)
-
-
-* **Complexity** — recursion tree height `O(log n)`, `O(n)` work per level -> `O(n log n)` worst-case
-
-
-* **Application** — inverted index construction in Internet search engines
-
-
-
-
-* **Quick-Sort (Randomized)**
-
-
-* **Three-Way Partition** — pick random pivot `x`, split into `L` (`< x`), `E` (`= x`), `G` (`> x`) in `O(n)`
-
-
-* **In-Place Variant** — `inPlaceQuickSort(S, l, r)` swaps elements via `inPlacePartition(x)` returning `(h, k)` bounds
-
-
-* **Complexity** — expected tree height `O(log n)`, expected time `O(n log n)`, worst-case `O(n^2)`
-
-
-
-
-* **Comparison-Based Sorting Lower Bound**
-
-
-* Applies to `bubble-sort`, `selection-sort`, `insertion-sort`, `heap-sort`, `merge-sort`, `quick-sort`
-
-
-* **Decision Tree Model** — internal nodes represent comparisons (`x_i < x_j?`), leaves represent output permutations
-
-
-* **Height Lower Bound** — `n!` distinct permutations require at least `n!` leaves -> height `>= log(n!) = Omega(n log n)`
-
-
-
-
-* **Syllabus Scope** — entire Chapter 8 included
-
-
-
-
-* **Ch. 10: Greedy Method [Midterm & Final]**
-
-
-* **Core Paradigm** — build solution iteratively via locally optimal greedy choices (requires greedy-choice property + optimal substructure)
-
-
-* **Fractional Knapsack Problem**
-
-
-* **Greedy Choice** — sort items by highest value density `v_i = b_i / w_i` and take `min(w_i, W - w)`
-
-
-* **Complexity** — `O(n log n)` sorting + `O(n)` greedy scan -> `O(n log n)`
-
-
-* **Correctness** — proof by contradiction (exchange argument swapping fractions of items `i` and `j`)
-
-
-* **Pitfall** — fails for `0-1 Knapsack` where items cannot be split
-
-
-
-
-* **Task Scheduling (Interval Partitioning)**
-
-
-* **Problem** — schedule all tasks `[s_i, f_i]` minimizing total machines
-
-
-* **Greedy Choice** — process tasks sorted by earliest start time `s_i`, reuse non-conflicting machine or allocate new one
-
-
-* **Complexity** — `O(n log n)`
-
-
-* **Correctness** — if `k` machines used, first task `i` on machine `k` conflicts with `k - 1` active tasks simultaneously
-
-
-
-
-* **Huffman Coding (Data Compression)**
-* **Goal** — optimal prefix-free binary code minimizing encoded length of string `X`
-* **Greedy Choice** — repeatedly merge two lowest-frequency trees using a min-heap priority queue
-* **Complexity** — `O(n + d log d)` (`n` = string length, `d` = distinct characters)
-* **Syllabus Exclusion** — Huffman Coding formal analysis (pp. 294–297) excluded
-
-
-
-
-
-
-* **Ch. 11: Divide & Conquer [Midterm & Final]**
-
-
-* **General Pattern** — Divide input into disjoint subsets, Conquer recursively to base case, Combine sub-solutions
-* **Recurrence Solving Techniques**
-
-
-* **Iterative Substitution ("Plug-and-Chug")** — expand `T(n)` repeatedly until base case pattern emerges
-* **Recursion Tree** — sum work per depth level (`i = 0..log n`)
-* **Guess-and-Test** — hypothesize closed form and prove via mathematical induction
-* **Master Theorem** — for `T(n) = a * T(n/b) + f(n)` (`n >= d`)
-
-
-* **Case 1 (Leaves dominate)** — `f(n) = O(n^(log_b(a) - eps))` -> `T(n) = Theta(n^(log_b(a)))` (e.g., `4T(n/2) + n` -> `O(n^2)`; heap build `2T(n/2) + log n` -> `O(n)`)
-
-
-* **Case 2 (Balanced)** — `f(n) = Theta(n^(log_b(a)) * log^k(n))` -> `T(n) = Theta(n^(log_b(a)) * log^(k+1)(n))` (e.g., binary search `T(n/2) + 1` -> `O(log n)`)
-
-
-* **Case 3 (Root dominates)** — `f(n) = Omega(n^(log_b(a) + eps))` and `a * f(n/b) <= delta * f(n)` (`delta < 1`) -> `T(n) = Theta(f(n))`
-
-
-
-
-
-
-* **Classic Applications**
-* **Fast Integer Multiplication (Karatsuba)** — split `n`-bit integers into high/low halves; algebraically reduce 4 multiplications to 3 (`T(n) = 3T(n/2) + n` -> `O(n^(log_2 3)) ~ O(n^1.585)`)
-* **Maxima Set Problem (2D Multicriteria Optimization)** — `T(n) = 2T(n/2) + bn` -> `O(n log n)`
-
-
-* **Syllabus Scope** — entire Chapter 11 included
-
-
-
-
-* **Ch. 12: Dynamic Programming [Final Only]**
-
-
-* **Core Principles** — Optimal Substructure, Overlapping Subproblems, Bottom-Up Tabulation (avoids exponential recursion)
-
-
-* **Matrix Chain Multiplication**
-
-
-* **Problem** — parenthesize `A_0 * A_1 * ... * A_(n-1)` (`A_i` is `d_i x d_(i+1)`) to minimize scalar ops
-
-
-* **Failed Approaches** — brute-force enumeration is Catalan `~4^n`; greedy max/min ops both have counterexamples
-* **Recurrence** — `N[i, j] = min_{i <= k < j} { N[i, k] + N[k+1, j] + d_i * d_(k+1) * d_(j+1) }`, base `N[i, i] = 0`
-
-
-* **Complexity** — diagonal bottom-up table fill in `O(n^3)` time, `O(n^2)` space
-
-
-
-
-* **Telescope Scheduling (Weighted Interval Scheduling)**
-* **Input** — requests `i` with `(s_i, f_i, b_i)` sorted by finish time `f_i`
-* **Predecessor Computation** — `P[i] = pred(i)` via binary search on finish times (`O(n log n)`)
-* **DP Choice** — `B[i]` either includes observation `i` (`b_i + B[P[i]]`) or excludes it (`B[i - 1]`)
-* **Complexity** — `O(n)` DP fill once sorted and `P` computed (`O(n log n)` overall)
-
-
-* **Longest Common Subsequence (LCS)**
-
-
-* **Application** — bioinformatics DNA sequence alignment over `{A, C, G, T}`
-
-
-* **Brute Force Pitfall** — `2^n` subsequences (exponential)
-
-
-* **Recurrence** — if `x_i == y_j`: `L[i, j] = L[i-1, j-1] + 1`; else `L[i, j] = max(L[i-1, j], L[i, j-1])`
-
-
-* **Complexity** — `O(n * m)` time and space; reconstruct subsequence by backtracking table `L`
-
-
-
-
-* **0-1 Knapsack Problem**
-
-
-* **Constraint** — items indivisible (`x_i in {0, 1}`), maximize benefit `sum(b_i)` subject to `sum(w_i) <= W`
-
-
-* **Complexity Note** — pseudo-polynomial `O(n * W)` (polynomial in numeric value `W`, exponential in bit-length of `W`)
-
-
-
-
-* **Syllabus Exclusion** — Section `12.4` excluded
-
-
-
-
-* **Ch. 13: Graph Terminology & Traversals [Final Only]**
-
-
-* **Graph Fundamentals**
-
-
-* **Definition** — `G = (V, E)` with `n = |V|` vertices and `m = |E|` edges
-
-
-* **Edge & Graph Types** — directed `(u, v)` vs undirected `{u, v}`, parallel edges, self-loops
-
-
-* **Terminology** — endpoints, incident edges, adjacent vertices, vertex degree (`sum(deg(v)) = 2m`)
-
-
-* **Subgraphs** — subgraph `S` (`V_S <= V_G`, `E_S <= E_G`); spanning subgraph (`V_S == V_G`)
-
-
-* **Applications** — electronic circuits, road/flight networks, computer networks, DB ER models
-
-
-
-
-* **Depth-First Search (DFS)**
-
-
-* Explores deepest unvisited neighbors recursively; classifies non-tree edges as **back edges** (`(v, w)` where `w` is ancestor of `v`)
-
-
-* Complexity — `O(n + m)` with adjacency list
-
-
-* **Breadth-First Search (BFS)**
-
-
-* Level-by-level exploration (`L_0, L_1, L_2, ...`) in `O(n + m)` time
-
-
-* Classifies non-tree edges as **cross edges** (`(v, w)` on same or adjacent level)
-
-
-* **Capabilities** — visits all vertices/edges, tests connectivity, finds connected components, computes spanning forest, finds shortest unweighted path (fewest edges), detects cycles
-
-
-
-
-* **Syllabus Exclusions** — Sections `13.4.3`, `13.5` excluded
-
-
-
-
-* **Ch. 14: Shortest Paths [Final Only]**
-
-
-* **Weighted Graphs** — edges carry numeric weights (distances, costs)
-
-
-* **Edge Relaxation** — for edge `e = (u, z)`, update `D[z] = min(D[z], D[u] + weight(e))`
-* **Dijkstra's Algorithm (Single-Source, Non-Negative Weights)**
-* **Strategy** — greedy cloud expansion; extract min-distance vertex `u` from priority queue, relax outgoing edges
-* **Complexity** — `O((n + m) log n)` with adjacency list + binary heap (`O(m log n)` if connected)
-* **Pitfall** — fails on negative-weight edges (vertex finalized in cloud can later have shorter path)
-
-
-* **Bellman-Ford Algorithm (Single-Source, Negative Weights Allowed)**
-* **Strategy** — requires directed edges; iteration `i` finds all shortest paths using at most `i` edges
-* **Complexity** — `O(n * m)`
-* **Negative Cycle Detection** — extra `n`-th relaxation pass detects negative-weight cycles if any `D[z]` decreases
-
-
-* **DAG Shortest Paths**
-* **Strategy** — process vertices in topological order; works with negative weights, no complex data structures
-* **Complexity** — `O(n + m)` (faster than Dijkstra)
-
-
-* **All-Pairs Shortest Paths (Floyd-Warshall DP)**
-* **Recurrence** — `D^k[i, j] = min(D^(k-1)[i, j], D^(k-1)[i, k] + D^(k-1)[k, j])` using intermediate vertices `1..k`
-* **Complexity** — `O(n^3)` (vs `O(n * m log n)` for `n` Dijkstra calls or `O(n^2 * m)` for `n` Bellman-Ford calls)
-
-
-* **Syllabus Exclusion** — Section `14.5.2` excluded
-
-
-
-
-* **Ch. 15: Minimum Spanning Trees (MST) [Final Only]**
-
-
-* **Fundamental MST Properties**
-* **Cycle Property** — heaviest edge on any cycle `C` cannot belong to an MST (proof by contradiction)
-* **Partition (Cut) Property** — minimum-weight edge `e` crossing any vertex partition `(U, V)` belongs to some MST
-
-
-* **Prim-Jarnik Algorithm**
-* **Strategy** — grow single cloud from arbitrary start vertex `s`; `d(v)` tracks min edge weight to cloud
-* **Complexity** — `O((n + m) log n)` with binary heap + adjacency list (`O(m log n)` if connected)
-
-
-* **Kruskal's Algorithm**
-
-
-* **Strategy** — maintain forest of clusters; priority queue extracts edges in ascending weight; accept edge if endpoints in different clusters
-
-
-* **Data Structures** — min-heap PQ (`O(m log n)`) + Union-Find partition (`makeSet`, `find`, `union` in `O(n log n)`)
-
-
-* **Complexity** — `O((n + m) log n)` (faster if edges pre-sorted -> `O(1)` `removeMin`)
-
-
-* **Boruvka's Algorithm**
-* **Strategy** — grow multiple clusters in parallel; each phase picks min outgoing edge per component, halving component count
-* **Complexity** — `O(m log n)` (`O(log n)` phases)
-
-
-* **Syllabus Scope** — entire Chapter 15 included
-
-
-
-
-* **Ch. 16: Maximum Flow [Final Only]**
-
-
-* **Ford-Fulkerson Algorithm**
-
-
-* **Initialization** — `f(e) = 0` for all edges `e`
-* **Iterative Augmentation** — find augmenting path `pi` from `s` to `t` via DFS/BFS where residual capacity `Delta_f(u, v) > 0`; augment flow by `Delta_f(pi)`
-* **Max-Flow Min-Cut Theorem** — terminates when no augmenting path exists; max flow value equals min cut capacity
-* **Complexity & Pitfall** — `O(|f*| * (n + m))` worst-case (`O(n + m)` per augmentation, up to `|f*|` augmentations; alternating paths can cause `|f*|` steps)
-
-
-
-
-* **Applications (Reductions to Max-Flow)**
-
-
-* **Maximum Bipartite Matching** — bipartite graph `(X, Y)` reduced to unit-capacity flow network `H`; edge `e` in matching `M` iff `f(e) = 1`; runs in `O(n * m)`
-
-
-* **Baseball Elimination** — determine if team `i` (with `w_i` wins, `g_i` games left) can finish first given remaining league schedule
-
-
-
-
-* **Syllabus Exclusions** — Sections `16.2.2`, `16.3`, `16.4`, `16.5` excluded
-
-
-
-
-* **Ch. 17: NP-Completeness [Final Only]**
-
-
-* **Formal Framework**
-
-
-* **Input Size `n**` — binary encoding bit-length (distinguishes true polynomial from pseudo-polynomial like 0-1 Knapsack)
-* **Decision Problems & Languages** — binary output (`yes`/`no`); language `L` is set of strings accepted by algorithm `A`
-
-
-* **Complexity Classes**
-
-
-* **`P`** — languages decided by deterministic polynomial-time algorithms (`p(n)`)
-* **`NP` (Two Equivalent Definitions)**
-
-
-* Languages accepted by non-deterministic polynomial-time algorithms (`choose(b)`)
-* Languages verified in polynomial time by deterministic verifier `B(x, y)` given certificate `y`
-
-
-
-
-* **Open Question** — `P <= NP`; `P == NP?` remains open (conjectured `P != NP`)
-
-
-* **Reductions & NP-Completeness**
-
-
-* **Polynomial-Time Reduction** — transform input `x` of `M` into `x'` of `L` in poly-time such that `x in M` iff `x' in L`
-
-
-* **`NP-hard`** — every problem in `NP` reduces to `L` in polynomial time
-
-
-* **`NP-complete`** — `L in NP` AND `L` is `NP-hard` (hardest problems in `NP`; poly-time solution for one implies `P = NP`)
-
-
-
-
-* **Cook-Levin Theorem**
-
-
-* **`CIRCUIT-SAT` is `NP-complete**` — deciding if a Boolean circuit (`AND`, `OR`, `NOT` gates) has an input assignment outputting `1`
-
-
-* **Proof Sketch** — `CIRCUIT-SAT in NP` (guess inputs + gate outputs, verify gates); `NP-hard` by simulating `p(n)` steps of any `NP` verifier `D` with workspace `W` as a polynomial-sized circuit `O(p(n)^3)`
-
-
-
-
-* **Syllabus Exclusions** — Sections `17.3`, `17.4`, `17.5` excluded
-
-
-
-
-
-
+markmap:
+  colorFreezeLevel: 2
+  initialExpandLevel: 2
+  maxWidth: 300
+---
+
+# Αλγόριθμοι και Πολυπλοκότητα (504) Mindmap
+
+* **Αλγόριθμοι και Πολυπλοκότητα (504)**
+  * **00 — Εξεταστέα Ύλη και Δομή Εξετάσεων (Goodrich & Tamassia)**
+    * **Σύγγραμμα Αναφοράς**
+      * «Αλγόριθμοι Σχεδίαση και Εφαρμογές» — M. T. Goodrich και R. Tamassia (εκδόσεις Μ. Γκιούρδας)
+    * **Πρόοδος — 7 Κεφάλαια**
+      * `Κεφ. 1` — Ανάλυση Αλγορίθμων (όχι `1.4.1`) — Διάλεξη `01`
+      * `Κεφ. 5` — Ουρές Προτεραιότητας και Σωροί (όχι `5.5`) — Διαλέξεις `02–03`
+      * `Κεφ. 6` — Πίνακες Κατακερματισμού και Κατακερματισμός Κούκου (όχι Ανάλυση Γραμμικής Αναζήτησης σελ. 202–203, Ανάλυση Κατακερματισμού Κούκου σελ. 208–211, `6.5`) — Διαλέξεις `04–06`
+      * `Κεφ. 7` — Δομές Ένωσης-Εύρεσης (όχι `7.3.1`) — Διάλεξη `07`
+      * `Κεφ. 8` — Ταξινόμηση και Κάτω Όριο (ολόκληρο) — Διαλέξεις `08–10`
+      * `Κεφ. 10` — Η Άπληστη Μέθοδος (όχι Ανάλυση Κωδικοποίησης Huffman σελ. 294–297) — Διάλεξη `11`
+      * `Κεφ. 11` — Διαίρει και Βασίλευε (ολόκληρο) — Διάλεξη `12`
+    * **Τελική Εξέταση — Όλα τα 13 Κεφάλαια (Πρόοδος + 6 Επιπλέον)**
+      * Περιλαμβάνει όλα τα κεφάλαια της Προόδου με τις ίδιες εξαιρέσεις
+      * `Κεφ. 12` — Δυναμικός Προγραμματισμός (όχι `12.4`) — Διαλέξεις `13–16`
+      * `Κεφ. 13` — Γράφοι, DFS και BFS (όχι `13.4.3`, `13.5`) — Διαλέξεις `17–19`
+      * `Κεφ. 14` — Συντομότερες Διαδρομές (όχι `14.5.2`) — Διάλεξη `20`
+      * `Κεφ. 15` — Δέντρα Επικάλυψης Ελαχίστου Κόστους (ολόκληρο) — Διάλεξη `21`
+      * `Κεφ. 16` — Μέγιστη Ροή (όχι `16.2.2`, `16.3`, `16.4`, `16.5`) — Διάλεξη `22`
+      * `Κεφ. 17` — NP-Πληρότητα (όχι `17.3`, `17.4`, `17.5`) — Διάλεξη `23`
+  * **01 — Κεφ. 1: Ανάλυση Αλγορίθμων [Πρόοδος & Τελική]**
+    * **Θεμελιώδεις Έννοιες και Κλιμάκωση**
+      * Αλγόριθμος — διαδικασία βήμα προς βήμα σε πεπερασμένο χρόνο (Είσοδος → Αλγόριθμος → Έξοδος)
+      * Δομή δεδομένων — συστηματικός τρόπος οργάνωσης και πρόσβασης της πληροφορίας
+      * Κλιμάκωση (`Scalability`) — ικανότητα συστήματος να διαχειρίζεται αυξανόμενο όγκο δεδομένων ή φόρτο εργασίας
+      * Χρόνος εκτέλεσης — καλύτερη, μέση και χειρότερη περίπτωση (`worst-case` κρίσιμη για παιχνίδια, οικονομικά, ρομποτική)
+      * Πειραματικές μελέτες έναντι θεωρητικής ανάλυσης — τα πειράματα απαιτούν υλοποίηση, εξαρτώνται από υλικό/λογισμικό και δείγμα εισόδων· η θεωρητική ανάλυση καλύπτει όλες τις εισόδους βάσει $n$
+      * Ψευδοκώδικας — δομημένη περιγραφή υψηλού επιπέδου, ανεξάρτητη γλώσσας προγραμματισμού
+    * **Μοντέλο RAM και Πρωτογενείς Λειτουργίες**
+      * Μοντέλο `RAM` (Μηχανή Τυχαίας Προσπέλασης) — μία CPU, εν δυνάμει άπειρα αριθμημένα κελιά μνήμης, προσπέλαση κάθε κελιού σε $1$ μονάδα χρόνου
+      * Πρωτογενείς λειτουργίες — υπολογισμός έκφρασης, ανάθεση μεταβλητής, δεικτοδότηση πίνακα, κλήση μεθόδου, επιστροφή ($O(1)$ χρόνος)
+      * Μέτρηση βημάτων (`arrayMax`) — $7n - 2$ στη χειρότερη περίπτωση, $5n$ στην καλύτερη ($a(5n) \le T(n) \le b(7n - 2)$), γραμμικός ρυθμός αύξησης $O(n)$
+      * Αναδρομικοί αλγόριθμοι (`recursiveMax`) — χαρακτηρισμός με σχέση αναδρομής $T(1) = 3$, $T(n) = T(n-1) + 7$
+    * **Επτά Σημαντικές Συναρτήσεις και Ρυθμός Αύξησης**
+      * Συναρτήσεις — σταθερή $1$, λογαριθμική $\log n$, γραμμική $n$, $n \log n$, τετραγωνική $n^2$, κυβική $n^3$, εκθετική $2^n$
+      * Διάγραμμα `log-log` — η κλίση δείχνει τον ρυθμό αύξησης
+      * Επίδραση διπλασιασμού εισόδου ($n \to 2n$) — $c n^2$ τετραπλασιάζεται ($4c n^2$), $c n^3$ οκταπλασιάζεται ($8c n^3$), $c 2^n$ τετραγωνίζεται ($c 2^{2n}$)
+      * Σταθεροί παράγοντες και όροι χαμηλότερης τάξης — επηρεάζουν το $T(n)$ κατά σταθερά αλλά όχι τον ρυθμό αύξησης
+    * **Μελέτη Περίπτωσης: Μέγιστος Υπο-πίνακας (`Maximum Subarray`)**
+      * Πρόβλημα — εύρεση υπο-πίνακα $A[j:k]$ που μεγιστοποιεί το $\sum_{i=j}^k a_i$ (εφαρμογή σε ανάλυση μοτίβων ψηφιακών εικόνων)
+      * `MaxsubSlow` — τριπλός βρόχος, χρόνος $O(n^3)$
+      * `MaxsubFaster` — προθεματικά αθροίσματα (`prefix sums`) $S_t = \sum_{i=1}^t a_i$, $s_{j,k} = S_k - S_{j-1}$ σε $O(1)$, συνολικά $O(1+2+\dots+n) = O(n^2)$
+      * `MaxsubFastest` — μέγιστο επιθεματικό άθροισμα $M_t = \max\{0, M_{t-1} + A[t]\}$ με $M_0 = 0$, γραμμικός χρόνος $O(n)$
+    * **Ασυμπτωτική Σημειογραφία**
+      * `Big-Oh` $O(g(n))$ — ασυμπτωτικό άνω όριο ($f(n) \le c \cdot g(n)$ για $n \ge n_0$, με $c > 0$, $n_0 \ge 1$)
+      * Κανόνες `Big-Oh` — αφαίρεση όρων χαμηλότερου βαθμού, αφαίρεση σταθερών, χρήση χαμηλότερης δυνατής κλάσης και απλούστερης έκφρασης
+      * `Big-Omega` $\Omega(g(n))$ — ασυμπτωτικό κάτω όριο ($f(n) \ge c \cdot g(n)$ για $n \ge n_0$)
+      * `Big-Theta` $\Theta(g(n))$ — ασυμπτωτικά σφιχτό όριο ($c' g(n) \le f(n) \le c'' g(n)$ για $n \ge n_0$)
+      * Παγίδες — χρήση χαλαρών ορίων (π.χ. $2n$ ως $O(n^2)$ αντί $O(n)$)· η $n^2$ ΔΕΝ είναι $O(n)$ διότι $n \le c$ δεν ισχύει για σταθερά $c$
+    * **Επιμερισμένη Ανάλυση (`Amortized Analysis` — Επεκτάσιμος Πίνακας)**
+      * Ορισμός — συνολικός χρόνος $T(n)$ ακολουθίας $n$ λειτουργιών στη χειρότερη περίπτωση διά του πλήθους λειτουργιών ($T(n)/n$)
+      * Στρατηγική βηματικής αύξησης — αύξηση κατά σταθερά $c$ ($k = n/c$ αντικαταστάσεις), $T(n) = O(n^2)$, επιμερισμένος χρόνος $O(n)$ ανά `add`
+      * Στρατηγική διπλασιασμού — διπλασιασμός μεγέθους ($k = \log_2 n$ αντικαταστάσεις), $T(n) = n + 2^{k+1} - 1 = 3n - 1 = O(n)$, επιμερισμένος χρόνος $O(1)$
+      * Μέθοδος λογιστή (`Cyber-δολάρια`) — χρέωση $3$ cyber-δολαρίων ανά `add` ($1$ για τη λειτουργία, $2$ αποθηκεύονται στο στοιχείο)· υπερχείλιση στα $2^i$ στοιχεία καλύπτεται από τα αποθέματα στα κελιά $2^{i-1}$ έως $2^i - 1$
+    * **Εξαίρεση Ύλης** — Ενότητα `1.4.1` εκτός ύλης
+  * **02 — Κεφ. 5: Ουρές Προτεραιότητας και Σωροί [Πρόοδος & Τελική]**
+    * **ΑΤΔ Ουράς Προτεραιότητας (`Priority Queue ADT`)**
+      * Αποθήκευση συλλογής εγγραφών `(κλειδί, τιμή)`
+      * Σχέσεις ολικής διάταξης (`Total Order`) — σύγκριση ($x \le y$ ή $y \le x$), ανακλαστική ($x \le x$), αντισυμμετρική ($x \le y \land y \le x \Rightarrow x = y$), μεταβατική ($x \le y \land y \le z \Rightarrow x \le z$)
+      * Κύριες μέθοδοι — `insert(k, v)`, `removeMin()`, `min()`, `size()`, `isEmpty()`
+      * Εφαρμογές — μηχανές αντιστοίχισης μετοχών (βιβλίο συνεχόμενου ορίου εντολών / `continuous limit order book` με ιεραρχία τιμής και χρόνου), δημοπρασίες, πελάτες πτήσεων σε αναμονή
+    * **Υλοποιήσεις Βάσει Λίστας και `PQ-Sort`**
+      * Μη ταξινομημένη λίστα — `insert` $O(1)$, `removeMin`/`min` $O(n)$ → **Ταξινόμηση με επιλογή (`Selection-Sort`)** $O(n^2)$ (υλοποίηση επί τόπου / `in-place`)
+      * Ταξινομημένη λίστα — `insert` $O(n)$, `removeMin`/`min` $O(1)$ → **Ταξινόμηση με εισαγωγή (`Insertion-Sort`)** $O(n^2)$ (υλοποίηση επί τόπου / `in-place` με αντιμεταθέσεις)
+    * **Δυαδικοί Σωροί (`Binary Heaps`)**
+      * Ιδιότητα σειράς σωρού — $\text{key}(v) \ge \text{key}(\text{parent}(v))$ για κάθε εσωτερικό κόμβο $v$ πέραν της ρίζας
+      * Πλήρες δυαδικό δέντρο — $2^i$ κόμβοι στο βάθος $i$ ($0 \le i \le h-1$), εσωτερικοί κόμβοι αριστερά των εξωτερικών στο βάθος $h-1$
+      * Τελευταίος κόμβος — δεξιότερος κόμβος στο μέγιστο βάθος
+      * Θεώρημα ύψους — σωρός με $n$ κλειδιά έχει $n \ge 2^h$, άρα ύψος $h \le \log n = O(\log n)$
+      * Υλοποίηση με πίνακα ($1$-indexed) — κόμβος θέσης `i` έχει αριστερό παιδί `2i` και δεξιό `2i + 1` (χωρίς αποθήκευση δεικτών)· `add` στη θέση $n + 1$, `removeMin` από τη θέση $n$
+    * **Λειτουργίες και Απόδοση Σωρού**
+      * `insert(k, v)` + `upheap` (ανάβαση) — τοποθέτηση στον νέο τελευταίο κόμβο $z$, ανταλλαγή προς τα πάνω μέχρι τη ρίζα ή $\text{key}(\text{parent}) \le k$ ($O(\log n)$)
+      * `removeMin()` + `downheap` (κατάβαση) — αντικατάσταση ρίζας με τελευταίο κόμβο $w$, αφαίρεση $w$, ανταλλαγή προς τα κάτω με το μικρότερο παιδί ($O(\log n)$)
+      * `min()`, `size()`, `isEmpty()` — $O(1)$, χώρος $O(n)$
+      * **Ταξινόμηση σωρού (`Heap-Sort`)** — επί-τόπου, χρόνος $O(n \log n)$
+    * **Κατασκευή Σωρού από Κάτω προς τα Πάνω (`Bottom-Up`)**
+      * Συγχώνευση δύο σωρών με νέο κλειδί $k$ στη ρίζα μέσω `downheap`
+      * Φάσεις — $\log n$ φάσεις, στη φάση $i$ συγχωνεύονται ζεύγη σωρών με $2^i - 1$ κλειδιά σε σωρούς με $2^{i+1} - 1$ κλειδιά
+      * Ανάλυση χειρότερης περίπτωσης — διαδρομές «πρώτα δεξιά και μετά πάντα αριστερά»· κάθε κόμβος διασχίζεται το πολύ από $2$ διαδρομές → συνολικός χρόνος $O(n)$
+      * Επίδραση στο `Heap-Sort` — επιταχύνει την 1η φάση κατασκευής σε $O(n)$ (η 2η φάση παραμένει $O(n \log n)$)
+    * **Εξαίρεση Ύλης** — Ενότητα `5.5` εκτός ύλης
+  * **03 — Κεφ. 6: Πίνακες Αντιστοίχισης, Κατακερματισμός και Κατακερματισμός Κούκου [Πρόοδος & Τελική]**
+    * **ΑΤΔ Πίνακα Αντιστοίχισης (`Map ADT`)**
+      * Συλλογή εγγραφών `(κλειδί, τιμή)` χωρίς πολλαπλές εγγραφές για το ίδιο κλειδί
+      * Λειτουργίες — `get(k)`, `put(k, v)`, `remove(k)`, `size()`, `isEmpty()`
+      * Εφαρμογές — δρομολογητές δικτύου (επιθυμητό $O(1)$), βιβλίο διευθύνσεων, βάσεις εγγραφών
+      * Υλοποίηση με αταξινόμητη διπλά συνδεδεμένη λίστα — `put` $O(1)$, `get`/`remove` $O(n)$ (κατάλληλη για μικρούς πίνακες ή σπάνιες αναζητήσεις)
+    * **Πίνακες Κατακερματισμού (`Hash Tables`) και Συναρτήσεις**
+      * Δομή — πίνακας μεγέθους $N$ και συνάρτηση $h(x) = h_2(h_1(x)) \in [0, N - 1]$
+      * Κώδικες κατακερματισμού (`Hash Codes` $h_1$) — διεύθυνση μνήμης, ακέραια μετατροπή, συνιστώσες αθροίσματος, πολυωνυμική συσσώρευση ($p(z) = \sum a_i z^i$ σε $O(n)$ με κανόνα Horner, $z=33$ για λέξεις), κατακερματισμός βάσει πίνακα (`Tabulation Hashing`: $T_1[x_1] \oplus \dots \oplus T_d[x_d]$, πιθανότητα σύγκρουσης $1/N$)
+      * Συναρτήσεις συμπίεσης (`Compression` $h_2$) — διαίρεση ($y \bmod N$ με $N$ πρώτο), τυχαία γραμμική / MAD ($(ay + b) \bmod N$ με $a \bmod N \ne 0$)
+      * Συντελεστής φόρτωσης (`Load Factor`) — $\alpha = n / N$
+    * **Διαχείριση Συγκρούσεων (`Collision Handling`)**
+      * Ξεχωριστή αλυσίδωση (`Separate Chaining`) — κάθε κελί δείχνει σε συνδεδεμένη λίστα· απλή, αναμενόμενο $O(1)$, απαιτεί επιπλέον μνήμη
+      * Ανοιχτή διευθυνσιοδότηση: Γραμμική ανίχνευση (`Linear Probing`) — έλεγχος $(h(k) + j) \bmod N$· διαγραφή με ειδικό αντικείμενο `DEFUNCT` ή `Shift(i)`· αναμενόμενες ανιχνεύσεις $1/(1-\alpha)$, αναμενόμενο $O(1)$ για $\alpha \le 1/2$, χειρότερο $O(n)$· παγίδα: συσσώρευση (`primary clustering`)
+      * Ανοιχτή διευθυνσιοδότηση: Διπλός κατακερματισμός (`Double Hashing`) — δευτερεύουσα συνάρτηση $d(k) \ne 0$ (π.χ. $d_2(k) = q - (k \bmod q)$, $q < N$ πρώτος, $N$ πρώτος), ανίχνευση $(i + j \cdot d(k)) \bmod N$
+      * Εφαρμογές — μικρές βάσεις δεδομένων, μεταγλωττιστές, λανθάνουσα μνήμη web browsers
+    * **Κατακερματισμός Κούκου (`Cuckoo Hashing` — Δύναμη Δύο Επιλογών)**
+      * Δομή — δύο πίνακες $T_1, T_2$ μεγέθους $N \ge 2n$ με ανεξάρτητες συναρτήσεις $h_1, h_2$
+      * Αναλλοίωτη τοποθέτησης — κάθε κλειδί $k$ βρίσκεται αποκλειστικά στο $T_1[h_1(k)]$ ή στο $T_2[h_2(k)]$
+      * Πολυπλοκότητα — εγγυημένο $O(1)$ στη χειρότερη περίπτωση για `get(k)` και `remove(k)`· επιμερισμένο $O(1)$ για `put(k, v)`
+      * Λειτουργία `put` και παγίδα — απομάκρυνση (`eviction`) συγκρουόμενου στοιχείου στην εναλλακτική του θέση· αν εντοπιστεί κύκλος απομακρύνσεων (υπέρβαση ορίου επαναλήψεων $n$ ή $\log n$), γίνεται επανακατακερματισμός (`rehashing`) με νέες συναρτήσεις
+    * **Εξαιρέσεις Ύλης** — Ανάλυση Γραμμικής Αναζήτησης (σελ. 202–203, φράγμα Chernoff), Ανάλυση Κατακερματισμού Κούκου (σελ. 208–211, Λήμμα 6.1), Ενότητα `6.5`
+  * **04 — Κεφ. 7: Δομές Ένωσης-Εύρεσης (`Union-Find`) [Πρόοδος & Τελική]**
+    * **ΑΤΔ Διαμέρισης (Ξένα Σύνολα)**
+      * `makeSet(e)` — δημιουργία μοναδιαίου συνόλου $\{e\}$
+      * `find(e)` — επιστροφή συνόλου που περιέχει το στοιχείο $e$
+      * `union(A, B)` — συνένωση των ξένων συνόλων $A \cup B$
+    * **Εφαρμογές**
+      * Συνδεδεμένες συνιστώσες σε κοινωνικό δίκτυο — `UFConnectedComponents` σε $O(t(n, n+m))$
+      * Κατασκευή λαβυρίνθου (`MazeGenerator`) και Θεωρία Διήθησης (`Percolation Theory` — πλέγμα $n \times n \times n$)
+      * Εντοπισμός κύκλων και συγχώνευση συστάδων στον αλγόριθμο `Kruskal`
+    * **Υλοποιήσεις και Ευρετικοί Μηχανισμοί**
+      * Υλοποίηση βάσει λίστας — `find` $O(1)$, `union` μετακινεί το μικρότερο σύνολο στο μεγαλύτερο ($\le \log n$ μετακινήσεις ανά στοιχείο) → $O(n \log n + m)$ για $n$ ενώσεις και $m$ ευρέσεις
+      * Υλοποίηση βάσει δέντρων — δέντρα με δείκτες προς γονέα, ρίζα με αυτο-αναφορά ως όνομα συνόλου
+      * Ευρετικός μηχανισμός 1: **Ένωση κατά μέγεθος (`Union by Size`)** — η ρίζα του μικρότερου δέντρου δείχνει στη ρίζα του μεγαλύτερου· κάθε βήμα διπλασιάζει το υπόδεντρο → ύψος $O(\log n)$, $n$ πράξεις σε $O(n \log n)$
+      * Ευρετικός μηχανισμός 2: **Συμπίεση διαδρομής (`Path Compression`)** — κατά το `find`, όλοι οι δείκτες της διαδρομής συνδέονται απευθείας στη ρίζα → σχεδόν γραμμικός χρόνος $O((n+m)\alpha(n))$, όπου $\alpha(n) \le 4$ η αντίστροφη συνάρτηση Ackermann
+    * **Εξαίρεση Ύλης** — Ενότητα `7.3.1` (επιμερισμένη ανάλυση με συνάρτηση Ackermann και κυβερνοδολάρια)
+  * **05 — Κεφ. 8: Ταξινόμηση και Κάτω Όριο Συγκρίσεων [Πρόοδος & Τελική]**
+    * **Ταξινόμηση με Συγχώνευση (`Merge-Sort`)**
+      * Παράδειγμα «Διαίρει και Βασίλευε» — Διαίρει ($S_1, S_2$ μεγέθους $\approx n/2$), Επανάλαβε (αναδρομική ταξινόμηση), Βασίλευε (`merge` δύο ταξινομημένων ακολουθιών σε $O(n)$)
+      * Ανάλυση δέντρου `Merge-Sort` — ύψος $h = O(\log n)$, $2^i$ ακολουθίες μεγέθους $n/2^i$ στο βάθος $i$, έργο $O(n)$ ανά επίπεδο → $O(n \log n)$ στη χειρότερη περίπτωση
+      * Χαρακτηριστικά — χωρίς βοηθητική ουρά προτεραιότητας, σειριακή προσπέλαση (κατάλληλο για τεράστια σύνολα $> 1\text{M}$ σε δίσκο)
+      * Εφαρμογή — κατασκευή ανεστραμμένου αρχείου/ευρετηρίου (`inverted index`) σε μηχανές αναζήτησης στο Internet
+    * **Γρήγορη Ταξινόμηση (`Quick-Sort` — Τυχαιοποιημένη)**
+      * Τριμερής διαμερισμός (`partition`) — επιλογή τυχαίου σημείου περιστροφής (`pivot` $x$), διαχωρισμός σε $L$ ($< x$), $E$ ($= x$), $G$ ($> x$) σε $O(n)$
+      * Χειρότερη περίπτωση — $x$ είναι το ελάχιστο ή μέγιστο στοιχείο (μεγέθη $n-1$ και $0$) → $O(n^2)$
+      * Αναμενόμενος χρόνος — καλή κλήση ($|L|, |G| < 3s/4$) με πιθανότητα $1/2$, αναμενόμενο ύψος $2 \log_{4/3} n = O(\log n)$, έργο $O(n)$ ανά επίπεδο → αναμενόμενο $O(n \log n)$
+      * Επί-τόπου `Quick-Sort` (`inPlaceQuickSort`) — δύο δείκτες $j, k$ (`inPlacePartition`) αναδιατάσσουν τα στοιχεία επιστρέφοντας όρια $(h, k)$
+    * **Σύνοψη Αλγορίθμων Ταξινόμησης**
+      * `Selection-Sort`, `Insertion-Sort` — $O(n^2)$, επί-τόπου, μικρά σύνολα ($< 1\text{K}$)
+      * `Heap-Sort` — $O(n \log n)$, επί-τόπου, μεγάλα σύνολα ($1\text{K}\text{–}1\text{M}$)
+      * `Quick-Sort` — $O(n \log n)$ αναμενόμενο, επί-τόπου, τυχαιοποιημένο, ταχύτερο στην πράξη
+      * `Merge-Sort` — $O(n \log n)$ χειρότερη, σειριακή προσπέλαση, τεράστια σύνολα ($> 1\text{M}$)
+    * **Κάτω Όριο Ταξινόμησης βάσει Συγκρίσεων**
+      * Ισχύει για όλους τους αλγορίθμους συγκρίσεων (`bubble-sort`, `selection-sort`, `insertion-sort`, `heap-sort`, `merge-sort`, `quick-sort`)
+      * Μοντέλο δέντρου αποφάσεων — εσωτερικοί κόμβοι είναι συγκρίσεις ($x_i < x_j?$), φύλλα είναι οι διατάξεις εξόδου, κάθε εκτέλεση αντιστοιχεί σε μονοπάτι ρίζας-φύλλου
+      * Θεώρημα κάτω ορίου — $n!$ μεταθέσεις απαιτούν $\ge n!$ φύλλα → ύψος $\ge \log(n!) \ge \log((n/2)^{n/2}) = (n/2)\log(n/2) = \Omega(n \log n)$
+    * **Εύρος Ύλης** — Ολόκληρο το Κεφάλαιο 8 εντός ύλης
+  * **06 — Κεφ. 10: Η Άπληστη Μέθοδος (`Greedy Method`) [Πρόοδος & Τελική]**
+    * **Θεμελιώδεις Αρχές**
+      * Στοιχεία — διαμορφώσεις (`configurations`) και αντικειμενική συνάρτηση (`objective function`)
+      * Ιδιότητα άπληστης επιλογής (`greedy-choice property`) και βέλτιστη υποδομή — εύρεση καθολικά βέλτιστης λύσης με ακολουθία τοπικών βελτιώσεων
+    * **Κλασματικό Πρόβλημα Σακιδίου (`Fractional Knapsack`)**
+      * Διατύπωση — αντικείμενα με όφελος $b_i$ και βάρος $w_i$, μεγιστοποίηση $\sum b_i (x_i / w_i)$ με περιορισμό $\sum x_i \le W$
+      * Εφαρμογή — διαδικτυακές δημοπρασίες (μερική ικανοποίηση προσφορών)
+      * Άπληστη επιλογή — ταξινόμηση κατά φθίνουσα αξία $v_i = b_i / w_i$, λήψη $x_i = \min\{w_i, W - w\}$
+      * Πολυπλοκότητα — $O(n \log n)$ ταξινόμηση + $O(n)$ σάρωση = $O(n \log n)$
+      * Ορθότητα — απόδειξη εις άτοπον (ανταλλαγή ποσότητας $y = \min\{w_i - x_i, x_j\}$ του $j$ με $i$ όπου $v_i > v_j$)
+      * Παγίδα — αποτυγχάνει στο πρόβλημα σακιδίου `0-1` (μη διαιρετά αντικείμενα)
+    * **Χρονοπρογραμματισμός Εργασιών (`Task Scheduling`)**
+      * Διατύπωση — σύνολο $T$ εργασιών $[s_i, f_i]$, ελαχιστοποίηση αριθμού μηχανών χωρίς συγκρούσεις
+      * Άπληστη επιλογή — ταξινόμηση κατά ώρα έναρξης $s_i$, επαναχρησιμοποίηση μη συγκρουόμενης μηχανής ή προσθήκη νέας
+      * Πολυπλοκότητα — $O(n \log n)$
+      * Ορθότητα — αν χρησιμοποιηθούν $k$ μηχανές, η πρώτη εργασία $i$ στη μηχανή $k$ συγκρούεται ταυτόχρονα με $k - 1$ άλλες εργασίες
+    * **Κωδικοποίηση Huffman (`Huffman Coding`)**
+      * Στόχος — συμπίεση συμβολοσειράς $X$ με βέλτιστη δυαδική **προθεματική κωδικοποίηση (`prefix-free code`)**
+      * Δέντρο κωδικοποίησης — φύλλα οι χαρακτήρες, μονοπάτι $0$ αριστερά / $1$ δεξιά, συχνοί χαρακτήρες με μικρούς κωδικούς
+      * Αλγόριθμος — υπολογισμός συχνοτήτων $f(c)$, χρήση ουράς προτεραιότητας (σωρού), επαναληπτική συγχώνευση των δύο δέντρων ελάχιστης συχνότητας ($f_1 + f_2$)
+      * Πολυπλοκότητα — $O(n + d \log d)$, όπου $n = |X|$ και $d$ οι διακριτοί χαρακτήρες
+    * **Εξαίρεση Ύλης** — Τυπική ανάλυση Κωδικοποίησης Huffman (σελ. 294–297)
+  * **07 — Κεφ. 11: Διαίρει και Βασίλευε (`Divide & Conquer`) [Πρόοδος & Τελική]**
+    * **Γενικό Πρότυπο**
+      * Τρία βήματα — Διαίρει (σε διακριτά υποσύνολα), Βασίλευε (αναδρομική επίλυση μέχρι βασική περίπτωση σταθερού μεγέθους), Συγχώνευσε (σύνθεση λύσης)
+    * **Τεχνικές Επίλυσης Αναδρομικών Εξισώσεων**
+      * Επαναληπτική αντικατάσταση (`Plug-and-Chug`) — διαδοχική ανάπτυξη της $T(n)$ μέχρι εύρεσης μοτίβου και τερματισμού στη βασική περίπτωση ($2^i = n$)
+      * Δέντρο αναδρομής — άθροιση χρόνου ανά επίπεδο βάθους συν τα φύλλα
+      * Μέθοδος εικασίας και ελέγχου (`Guess-and-Test`) — υπόθεση κλειστής μορφής και απόδειξη με μαθηματική επαγωγή
+      * **Μάστερ Θεώρημα (`Master Theorem`)** — για $T(n) = a T(n/b) + f(n)$ ($n \ge d$):
+        * Περίπτωση 1 (κυριαρχούν τα φύλλα) — $f(n) = O(n^{\log_b a - \varepsilon}) \Rightarrow T(n) = \Theta(n^{\log_b a})$ (π.χ. $4T(n/2)+n \to O(n^2)$, κατασκευή σωρού $2T(n/2)+\log n \to O(n)$)
+        * Περίπτωση 2 (ισορροπία) — $f(n) = \Theta(n^{\log_b a} \log^k n) \Rightarrow T(n) = \Theta(n^{\log_b a} \log^{k+1} n)$ (π.χ. $2T(n/2)+n\log n \to O(n\log^2 n)$, δυαδική αναζήτηση $T(n/2)+1 \to O(\log n)$)
+        * Περίπτωση 3 (κυριαρχεί η ρίζα) — $f(n) = \Omega(n^{\log_b a + \varepsilon})$ και $a f(n/b) \le \delta f(n)$ ($\delta < 1$) $\Rightarrow T(n) = \Theta(f(n))$ (π.χ. $T(n/3)+n\log n \to O(n\log n)$)
+        * Αιτιολόγηση — $n^{\log_b a} T(1) + \sum_{i=0}^{\log_b n - 1} a^i f(n/b^i)$
+    * **Κλασικές Εφαρμογές**
+      * Γρήγορος πολλαπλασιασμός ακεραίων (`Karatsuba`) — διάσπαση $n$-bit ακεραίων $I, J$ σε high/low halves· αλγεβρική μείωση από $4$ πολλαπλασιασμούς ($O(n^2)$) σε $3$ ($I_h J_h$, $I_l J_l$, $(I_h - I_l)(J_l - J_h)$) → $T(n) = 3T(n/2) + n \Rightarrow O(n^{\log_2 3}) \approx O(n^{1.585})$
+      * Πρόβλημα συνόλου μεγίστων (`Maxima Set / Pareto Layer`) — πολυκριτηριακή βελτιστοποίηση στο επίπεδο, διάσπαση ως προς διάμεσο σημείο $p$ (λεξικογραφικά $(x, y)$), αφαίρεση σημείων του $M_1$ που κυριαρχούνται από το αριστερότερο σημείο $q \in M_2$ → $T(n) = 2T(n/2) + bn \Rightarrow O(n \log n)$
+    * **Εύρος Ύλης** — Ολόκληρο το Κεφάλαιο 11 εντός ύλης
+  * **08 — Κεφ. 12: Δυναμικός Προγραμματισμός [Μόνο Τελική]**
+    * **Θεμελιώδεις Αρχές**
+      * Απλά υποπροβλήματα — ορισμός με λίγες μεταβλητές
+      * Βελτιστότητα υποπροβλημάτων (`Optimal Substructure`) — καθολικά βέλτιστη λύση εκφράζεται μέσω βέλτιστων υποπροβλημάτων
+      * Επικάλυψη υποπροβλημάτων (`Overlapping Subproblems`) — αποφυγή εκθετικής αναδρομής με απομνημόνευση (`memoization`) ή συμπλήρωση πίνακα από κάτω προς τα πάνω (`bottom-up`)
+    * **Γινόμενα Αλυσίδας Πινάκων (`Matrix Chain Multiplication`)**
+      * Πρόβλημα — τοποθέτηση παρενθέσεων στο $A_0 A_1 \cdots A_{n-1}$ ($A_i$ διαστάσεων $d_i \times d_{i+1}$) για ελαχιστοποίηση πράξεων
+      * Αποτυχημένες προσεγγίσεις — εξαντλητική απαρίθμηση δίνει αριθμό Catalan $\sim 4^n$· άπληστες ιδέες (περισσότερες/λιγότερες πράξεις) έχουν αντιπαραδείγματα
+      * Χαρακτηριστική εξίσωση — $N_{i,j} = \min_{i \le k < j} \{ N_{i,k} + N_{k+1,j} + d_i d_{k+1} d_{j+1} \}$, με $N_{i,i} = 0$
+      * Πολυπλοκότητα — συμπλήρωση πίνακα $N$ κατά διαγωνίους σε $O(n^3)$ χρόνο και $O(n^2)$ χώρο (καταγραφή $k$ για ανάκτηση παρενθέσεων)
+    * **Προγραμματισμός Τηλεσκοπίων (`Telescope Scheduling`)**
+      * Είσοδος — αιτήματα $(s_i, f_i, b_i)$ ταξινομημένα κατά χρόνο τερματισμού $f_i$ (ωμή δύναμη $O(n 2^n)$, άπληστη κατά όφελος αποτυγχάνει)
+      * Προκάτοχοι — $P[i] = \text{pred}(i)$, ο μεγαλύτερος $j < i$ που δεν συγκρούεται με $i$ (ή $0$), υπολογισμός σε $O(n \log n)$ με δυαδική αναζήτηση ή συγχώνευση $L, L'$
+      * Χαρακτηριστική εξίσωση — $B[i] = \max\{B[i-1], B[P[i]] + b_i\}$ με $B[0] = 0$
+      * Πολυπλοκότητα — $O(n)$ η φάση ΔΠ ($O(n \log n)$ συνολικά)
+    * **Μέγιστη Κοινή Υποακολουθία (`Longest Common Subsequence - LCS`)**
+      * Εφαρμογή — αντιστοίχιση ακολουθιών DNA στο αλφάβητο $\{\text{A, C, G, T}\}$ (υποακολουθία $\ne$ υποσυμβολοσειρά· ωμή δύναμη $2^n$)
+      * Χαρακτηριστική εξίσωση — για $X[0..i], Y[0..j]$ (με $L[-1, k] = L[k, -1] = 0$): αν $x_i = y_j$ τότε $L[i,j] = L[i-1, j-1] + 1$, αλλιώς $L[i,j] = \max\{L[i-1, j], L[i, j-1]\}$
+      * Πολυπλοκότητα — $O(nm)$ χρόνος και χώρος, ανάκτηση υποακολουθίας από τον πίνακα $L$
+    * **Πρόβλημα Σακιδίου `0-1` (`0-1 Knapsack`)**
+      * Περιορισμός — αδιαίρετα αντικείμενα $(w_i, b_i)$, μεγιστοποίηση $\sum_{i \in T} b_i$ υπό $\sum_{i \in T} w_i \le W$
+      * Αναδρομική εξίσωση 2D — $B[k, w] = B[k-1, w]$ αν $w_k > w$, αλλιώς $\max\{B[k-1, w], B[k-1, w - w_k] + b_k\}$ (υλοποίηση με δύο πίνακες $A, B$ μήκους $W+1$)
+      * Σημείωση πολυπλοκότητας — $O(nW)$ είναι **ψεύδο-πολυωνυμικός χρόνος** (πολυωνυμικός στην τιμή $W$, εκθετικός στο πλήθος bits της $W$)
+    * **Εξαίρεση Ύλης** — Ενότητα `12.4` εκτός ύλης
+  * **09 — Κεφ. 13: Ορολογία Γράφων, Αναπαραστάσεις και Διασχίσεις (`DFS` & `BFS`) [Μόνο Τελική]**
+    * **Θεμελιώδεις Έννοιες Γράφων**
+      * Ορισμός — $G = (V, E)$ με $n = |V|$ κορυφές και $m = |E|$ ακμές
+      * Τύποι — κατευθυνόμενες $(u, v)$ έναντι μη κατευθυνόμενων ακμών, παράλληλες ακμές, `self-loops`
+      * Ορολογία — τελικές κορυφές, εφαπτόμενες ακμές, γειτονικές κορυφές, βαθμός κορυφής ($\sum_v \deg(v) = 2m$, $m \le n(n-1)/2$ σε απλό μη κατευθυνόμενο γράφο)
+      * Διαδρομές, κύκλοι, δέντρα και δάση — απλή διαδρομή, απλός κύκλος, ελεύθερο δέντρο (συνεκτικό & ακυκλικό), δάσος, παράγων υπογράφος/δέντρο/δάσος, συνεκτικές συνιστώσες
+      * Εφαρμογές — ηλεκτρονικά κυκλώματα, δίκτυα μεταφορών, Διαδίκτυο/`web crawlers`, βάσεις δεδομένων (`ER`)
+    * **Αναπαραστάσεις Γράφων και Πολυπλοκότητα**
+      * Λίστα ακμών — χώρος $O(n+m)$, `incidentEdges`/`areAdjacent`/`removeVertex`: $O(m)$, `insertVertex`/`insertEdge`/`removeEdge`: $O(1)$
+      * Λίστα γειτνίασης — χώρος $O(n+m)$, `incidentEdges(v)`: $O(\deg(v))$, `areAdjacent(v,w)`: $O(\min(\deg(v), \deg(w)))$, `removeVertex(v)`: $O(\deg(v))$
+      * Πίνακας γειτνίασης — χώρος $O(n^2)$, `areAdjacent`: $O(1)$, `incidentEdges(v)`: $O(n)$, `insertVertex`/`removeVertex`: $O(n^2)$
+    * **Αναζήτηση Πρώτα σε Βάθος (`DFS`)**
+      * Μηχανισμός — αναδρομική εξερεύνηση, σήμανση ακμών ως `DISCOVERY` ή **πίσω ακμές (`back edges`)** ($(v, w)$ με $w$ πρόγονο της $v$)
+      * Πολυπλοκότητα και ιδιότητες — $O(n + m)$ με λίστα γειτνίασης, οι ακμές ανακάλυψης σχηματίζουν παράγον δέντρο της συνιστώσας
+      * Επεκτάσεις — εύρεση διαδρομής (`pathDFS`), εντοπισμός κύκλου (`cycleDFS` με στοίβα $S$), δισυνδεδεμένες συνιστώσες
+    * **Αναζήτηση Πρώτα σε Πλάτος (`BFS`)**
+      * Μηχανισμός — εξερεύνηση ανά επίπεδα $L_0, L_1, L_2, \dots$ σε $O(n + m)$ χρόνο, σήμανση μη δέντρων ακμών ως **ακμές διασταύρωσης (`cross edges`)** (ίδιο ή επόμενο επίπεδο)
+      * Ιδιότητες και σύγκριση — κορυφή $v \in L_i$ απέχει ελάχιστα $i$ ακμές από $s$· `BFS` & `DFS` βρίσκουν συνιστώσες, παράγον δάσος, κύκλους· μόνο `BFS` βρίσκει συντομότερες διαδρομές (σε ακμές), μόνο `DFS` δισυνδεδεμένες συνιστώσες
+    * **Εξαιρέσεις Ύλης** — Ενότητες `13.4.3`, `13.5` εκτός ύλης
+  * **10 — Κεφ. 14: Συντομότερες Διαδρομές [Μόνο Τελική]**
+    * **Σταθμισμένοι Γράφοι και Ιδιότητες**
+      * Μήκος διαδρομής — άθροισμα βαρών ακμών (δρομολόγηση πακέτων, πτήσεις, οδήγηση)
+      * Ιδιότητες — υπό-διαδρομή συντομότερης διαδρομής είναι συντομότερη· ύπαρξη δέντρου συντομότερων διαδρομών
+      * Χαλάρωση ακμής (`Edge Relaxation`) — για $e = (u, z)$, $D[z] \leftarrow \min\{D[z], D[u] + \text{weight}(e)\}$
+    * **Αλγόριθμος του `Dijkstra` (Μίας Πηγής, Μη Αρνητικά Βάρη)**
+      * Στρατηγική — άπληστη ανάπτυξη «σύννεφου» από $s$, εξαγωγή ελάχιστης $D[u]$ από ουρά προτεραιότητας, χαλάρωση γειτονικών ακμών
+      * Πολυπλοκότητα — $O((n + m) \log n)$ με λίστα γειτνίασης και σωρό ($O(m \log n)$ αν συνεκτικός)
+      * Παγίδα — αποτυγχάνει σε ακμές αρνητικού βάρους (κορυφή εντός σύννεφου μπορεί αργότερα να έχει μικρότερη διαδρομή)
+    * **Αλγόριθμος `Bellman-Ford` (Αρνητικά Βάρη Επιτρεπτά)**
+      * Στρατηγική — κατευθυνόμενες ακμές· η επανάληψη $i$ ($1 \dots n-1$) βρίσκει συντομότερες διαδρομές με $\le i$ ακμές
+      * Πολυπλοκότητα — $O(n \cdot m)$
+      * Ανίχνευση κύκλου αρνητικού βάρους — αν μετά τις $n-1$ επαναλήψεις υπάρχει ακμή προς χαλάρωση, υπάρχει κύκλος αρνητικού βάρους
+    * **Συντομότερες Διαδρομές σε `DAG`**
+      * Στρατηγική — επεξεργασία κορυφών σε τοπολογική διάταξη (`topological order`), επιτρέπει αρνητικά βάρη χωρίς σύνθετες δομές
+      * Πολυπλοκότητα — $O(n + m)$ (ταχύτερος από `Dijkstra`)
+    * **Συντομότερες Διαδρομές Όλων των Ζευγών (`All-Pairs / Floyd-Warshall`)**
+      * Αναδρομική εξίσωση ΔΠ — $D_k[i, j] = \min\{D_{k-1}[i, j], D_{k-1}[i, k] + D_{k-1}[k, j]\}$ (ενδιάμεσες κορυφές $1 \dots k$)
+      * Πολυπλοκότητα — $O(n^3)$ (έναντι $O(n m \log n)$ για $n$ κλήσεις `Dijkstra` ή $O(n^2 m)$ για $n$ κλήσεις `Bellman-Ford`)
+    * **Εξαίρεση Ύλης** — Ενότητα `14.5.2` εκτός ύλης
+  * **11 — Κεφ. 15: Δέντρα Επικάλυψης Ελαχίστου Κόστους (`MST`) [Μόνο Τελική]**
+    * **Θεμελιώδεις Ιδιότητες MST**
+      * Ορισμός — παράγον δέντρο σταθμισμένου γράφου με ελάχιστο συνολικό βάρος ακμών (δίκτυα επικοινωνιών, μεταφορών)
+      * Ιδιότητα κύκλου (`Cycle Property`) — για ακμή $e \notin T$ και τον κύκλο $C$ που σχηματίζει στο $T$, κάθε ακμή $f \in C$ έχει $\text{weight}(f) \le \text{weight}(e)$ (απόδειξη εις άτοπον)
+      * Ιδιότητα διαμερισμού/τμημάτων (`Partition / Cut Property`) — ελάχιστου βάρους ακμή $e$ μεταξύ τμημάτων $(U, V)$ ανήκει σε κάποιο MST
+    * **Αλγόριθμος `Prim-Jarnik`**
+      * Στρατηγική — ανάπτυξη ενός σύννεφου από τυχαία κορυφή $s$, ετικέτα $d(v)$ για ελάχιστο βάρος ακμής προς το σύννεφο
+      * Πολυπλοκότητα — $O((n + m) \log n)$ με σωρό + λίστα γειτνίασης ($O(m \log n)$ αν συνεκτικός)
+    * **Αλγόριθμος `Kruskal`**
+      * Στρατηγική — δάσος συστάδων, εξαγωγή ακμών από ουρά προτεραιότητας κατά αύξον βάρος, αποδοχή αν ενώνει διαφορετικές συστάδες
+      * Δομές και πολυπλοκότητα — σωρός ($O(m \log n)$) + `Union-Find` ($O(n \log n)$) → $O((n + m) \log n)$· με προ-ταξινομημένες ακμές και δεντρικό `Union-Find`: $O(m \alpha(n))$ (Θεώρημα 15.5)
+    * **Αλγόριθμος `Borůvka`**
+      * Στρατηγική — παράλληλη ανάπτυξη πολλών συστάδων· κάθε φάση επιλέγει την ελάχιστη εξερχόμενη ακμή ανά συνιστώσα, υποδιπλασιάζοντας τις συνιστώσες
+      * Πολυπλοκότητα — $O(m \log n)$ ($O(\log n)$ φάσεις)
+    * **Εύρος Ύλης** — Ολόκληρο το Κεφάλαιο 15 εντός ύλης
+  * **12 — Κεφ. 16: Μέγιστη Ροή (`Maximum Flow`) [Μόνο Τελική]**
+    * **Δίκτυα Ροής και Θεμελιώδεις Κανόνες**
+      * Δίκτυο ροής $N = (G, c, s, t)$ — κατευθυνόμενος γράφος, ακέραιες χωρητικότητες $c(e) \ge 0$, πηγή $s$ (χωρίς εισερχόμενες), καταβόθρα $t$ (χωρίς εξερχόμενες)
+      * Κανόνες ροής — χωρητικότητας ($0 \le f(e) \le c(e)$) και διατήρησης ($\sum_{e \in E^-(v)} f(e) = \sum_{e \in E^+(v)} f(e)$ για $v \ne s, t$), τιμή ροής $|f|$
+      * Τομή (`Cut`) $\chi = (V_s, V_t)$ — $s \in V_s, t \in V_t$, ροή τομής $f(\chi) = |f|$, χωρητικότητα $c(\chi)$, φράγμα $|f| \le c(\chi)$
+    * **Αλγόριθμος `Ford-Fulkerson` και `Max-Flow Min-Cut`**
+      * Αρχικοποίηση — $f(e) = 0$ για κάθε ακμή $e$
+      * Επαυξημένη διαδρομή (`Augmenting Path`) $\pi$ — εύρεση μέσω `DFS`/`BFS` με υπολειπόμενη χωρητικότητα $\Delta_f(u, v) = c(e) - f(e)$ (εμπρός) ή $\Delta_f(v, u) = f(e)$ (πίσω), επαύξηση κατά $\Delta_f(\pi) > 0$
+      * Θεώρημα `Max-Flow Min-Cut` — τερματισμός όταν δεν υπάρχει επαυξημένη διαδρομή· η τιμή μέγιστης ροής ισούται με τη χωρητικότητα ελάχιστης τομής ($c(\chi) = |f|$)
+      * Πολυπλοκότητα — $O(|f^*| (n + m))$ στη χειρότερη περίπτωση ($O(n+m)$ ανά επαύξηση, έως $|f^*|$ επαυξήσεις σε εναλλασσόμενες διαδρομές)
+    * **Εφαρμογές (Αναγωγές στη Μέγιστη Ροή)**
+      * **Μέγιστο Διμερές Ταίριασμα (`Maximum Bipartite Matching`)** — διμερής γράφος $(X, Y)$ ανάγεται σε δίκτυο $H$ μοναδιαίων χωρητικοτήτων ($s \to X \to Y \to t$)· $e \in M \iff f(e) = 1$· χρόνος $O(n \cdot m)$
+      * **Αποκλεισμός Baseball (`Baseball Elimination`)** — έλεγχος αν η ομάδα $k$ (με μέγιστες νίκες $W = w_k + g_k$) μπορεί να τερματίσει 1η, με δίκτυο αγώνων $\{i, j\}$ (χωρητικότητα $g_{i,j}$), ομάδων ($+\infty$) και εξόδου ($W - w_i$) μεγέθους $O(n^2)$
+    * **Εξαιρέσεις Ύλης** — Ενότητες `16.2.2`, `16.3`, `16.4`, `16.5` εκτός ύλης
+  * **13 — Κεφ. 17: NP-Πληρότητα (`NP-Completeness`) [Μόνο Τελική]**
+    * **Τυπικό Πλαίσιο**
+      * Μέγεθος εισόδου $n$ — πλήθος bits μη μοναδιαίας δυαδικής κωδικοποίησης (διαχωρίζει πολυωνυμικούς από ψεύδο-πολυωνυμικούς αλγορίθμους όπως `0-1 Knapsack`)
+      * Προβλήματα απόφασης και γλώσσες — δυαδική έξοδος (`ναι`/`όχι`), γλώσσα $L$ το σύνολο συμβολοσειρών που δέχεται ο αλγόριθμος $A$
+    * **Κλάσεις Πολυπλοκότητας `P` και `NP`**
+      * `P` — γλώσσες που αποφασίζονται από καθοριστικούς αλγορίθμους πολυωνυμικού χρόνου $p(n)$
+      * `NP` (Δύο Ισοδύναμοι Ορισμοί)
+        * Γλώσσες αποδεκτές από μη ντετερμινιστικούς αλγορίθμους πολυωνυμικού χρόνου (`choose(b)`)
+        * Γλώσσες που επικυρώνονται σε πολυωνυμικό χρόνο από καθοριστικό αλγόριθμο $B(x, y)$ δεδομένου πιστοποιητικού $y$
+      * Ανοιχτό ερώτημα — $P \subseteq NP$· το ερώτημα $P = NP?$ παραμένει ανοιχτό (εκτιμάται $P \ne NP$)
+    * **Αναγωγές και NP-Πληρότητα**
+      * Πολυωνυμική αναγωγή — μετασχηματισμός εισόδου $x$ της $M$ σε $x'$ της $L$ σε πολυωνυμικό χρόνο ώστε $x \in M \iff x' \in L$
+      * `NP-hard` — κάθε πρόβλημα στο `NP` ανάγεται στο $L$ σε πολυωνυμικό χρόνο
+      * `NP-πλήρες` (`NP-complete`) — $L \in NP$ ΚΑΙ $L$ είναι `NP-hard` (τα δυσκολότερα προβλήματα στο `NP`· πολυωνυμική λύση για ένα συνεπάγεται $P = NP$)
+    * **Θεώρημα `Cook-Levin`**
+      * `CIRCUIT-SAT` είναι `NP-πλήρες` — απόφαση αν Boolean κύκλωμα (`AND`, `OR`, `NOT`) έχει εκχώρηση εισόδων με έξοδο $1$
+      * Σκίτσο απόδειξης — `CIRCUIT-SAT` $\in NP$ (επιλογή εισόδων και εξόδων πυλών, έλεγχος πυλών)· `NP-hard` με προσομοίωση $p(n)$ βημάτων οποιουδήποτε επικυρωτή $D$ με χώρο εργασίας $W$ ως κύκλωμα $S$ μεγέθους $O(p(n)^2)$, συνολικό κύκλωμα $O(p(n)^3)$
+    * **Εξαιρέσεις Ύλης** — Ενότητες `17.3`, `17.4`, `17.5` εκτός ύλης
 
 ---
 
 *Notes*
 
-* **Midterm vs. Final Strategy:** The Midterm (`Ch. 1, 5, 6, 7, 8, 10, 11`) focuses on asymptotic/amortized analysis, core data structures (heaps, hash tables, union-find), sorting, greedy proofs, and divide-and-conquer recurrences (`Master Theorem`). The Final is cumulative and adds Dynamic Programming (`Ch. 12`), Graph Algorithms (`Ch. 13–16`), and Complexity Theory (`Ch. 17`).
-
-
-* **High-Yield Exam Exclusions:** Do not spend study time on Chernoff-bound Linear Probing proofs (pp. 202–203), Cuckoo Hashing analysis (pp. 208–211), Huffman formal proof (pp. 294–297), or NP-completeness reductions beyond Cook-Levin (`17.3–17.5`).
-
-
-* **Algorithmic Paradigm Selection:** Use **Greedy** when a local choice is provably safe via exchange argument (`Fractional Knapsack`, `Dijkstra`, `MST`); use **Dynamic Programming** when greedy fails and subproblems overlap (`0-1 Knapsack`, `Matrix Chain`, `LCS`, `Telescope Scheduling`, `Floyd-Warshall`).
+- Η Πρόοδος (`Κεφ. 1, 5, 6, 7, 8, 10, 11`) εστιάζει στην ασυμπτωτική και επιμερισμένη ανάλυση, στις θεμελιώδεις δομές δεδομένων (σωροί, πίνακες κατακερματισμού, union-find), στην ταξινόμηση και το κάτω όριο συγκρίσεων, στις άπληστες αποδείξεις ορθότητας και στις αναδρομικές εξισώσεις (`Master Theorem`). Η Τελική Εξέταση είναι σωρευτική και προσθέτει Δυναμικό Προγραμματισμό (`Κεφ. 12`), Αλγορίθμους Γράφων (`Κεφ. 13–16`) και Θεωρία Πολυπλοκότητας (`Κεφ. 17`).
+- Εξαιρέσεις ύλης υψηλής σημασίας: δεν εξετάζονται η ανάλυση γραμμικής αναζήτησης με φράγμα Chernoff (σελ. 202–203), η ανάλυση κατακερματισμού κούκου (σελ. 208–211), η ενότητα `7.3.1` (συνάρτηση Ackermann), η τυπική ανάλυση Huffman (σελ. 294–297) και οι αναγωγές NP-πληρότητας πέραν του Cook-Levin (`17.3–17.5`).
+- Επιλογή αλγοριθμικής στρατηγικής: χρησιμοποιούμε **Άπληστη Μέθοδο** όταν η τοπική επιλογή αποδεικνύεται ασφαλής με επιχείρημα ανταλλαγής (`Fractional Knapsack`, `Dijkstra`, `MST`)· χρησιμοποιούμε **Δυναμικό Προγραμματισμό** όταν η άπληστη επιλογή αποτυγχάνει και τα υποπροβλήματα επικαλύπτονται (`0-1 Knapsack`, `Matrix Chain`, `LCS`, `Telescope Scheduling`, `Floyd-Warshall`).
+- Το πρόβλημα `0-1 Knapsack` επιλύεται σε χρόνο $O(nW)$, ο οποίος είναι **ψεύδο-πολυωνυμικός** και όχι πολυωνυμικός ως προς το δυαδικό μήκος εισόδου.
