@@ -413,6 +413,8 @@ for j ← 0 to N - 1 do
     else if T[c].key = k then
         T[c].value ← v
         return
+if firstDefunct ≠ null then
+    T[firstDefunct] ← (k, v)
 ```
 
 ```text
@@ -555,6 +557,11 @@ class LinearProbingMap:
             if cell[0] == key:
                 self._slots[index] = (key, value)
                 return
+        if first_defunct != -1:
+            # Reuse the first DEFUNCT slot if the table had no empty None cell left.
+            self._slots[first_defunct] = (key, value)
+            self._size += 1
+            return
         raise RuntimeError("Hash table is full")
 
     def get(self, key: int) -> object | None:
@@ -565,9 +572,6 @@ class LinearProbingMap:
 
         Returns:
             object | None: The stored value or None.
-
-        Raises:
-            RuntimeError: If the probe sequence never meets an empty cell.
         """
         start = self._compress(key)
         for step in range(self._capacity):
@@ -577,7 +581,7 @@ class LinearProbingMap:
                 return None  # An empty cell terminates every probe chain.
             if cell is not _DEFUNCT and cell[0] == key:
                 return cell[1]
-        raise RuntimeError("Hash table is full")
+        return None
 
     def remove(self, key: int) -> object | None:
         """Deletes the entry with the given key.
@@ -1097,7 +1101,7 @@ assert cuckoo.get(37) is None
 
 ### 4.5 Παραγωγή των Φραγμάτων
 
-- **Γραμμική ανίχνευση, `put`:** έως $N$ επαναλήψεις βρόχου, καθεμία $O(1)$· αναμενόμενο πλήθος επαναλήψεων $1/(1-\alpha)$, άρα αναμενόμενο $O(1/(1-\alpha))$ και $O(1)$ για $\alpha \le 1/2$. Χειρότερη περίπτωση: όλα τα κλειδιά με τον ίδιο δείκτη, οπότε η σάρωση φτάνει τα $n$ βήματα, $O(n)$. Το `rehash` διπλασιάζει το $N$ και επιμερίζεται, άρα επιμερισμένα $O(1)$ ανά `put` (πρβλ. επεκτάσιμο πίνακα, Ενότητα 01).
+- **Γραμμική ανίχνευση, `put`:** έως $N$ επαναλήψεις βρόχου, καθεμία $O(1)$· αναμενόμενο πλήθος επαναλήψεων $1/(1-\alpha)$, άρα αναμενόμενο $O(1/(1-\alpha))$ και $O(1)$ για $\alpha \le 1/2$. Χειρότερη περίπτωση: όλα τα κλειδιά με τον ίδιο δείκτη, οπότε η σάρωση φτάνει τα $n$ βήματα, $O(n)$. Το `rehash` διπλασιάζει το $N$ και επιμερίζεται, άρα επιμερισμένα $O(1)$ ανά `put` (πρβλ. επεκτάσιμο πίνακα, [01_analysis_of_algorithms.md](01_analysis_of_algorithms.md)).
 - **Διπλός κατακερματισμός:** ίδιο φράγμα με τη γραμμική ανίχνευση, με μικρότερη σταθερά λόγω απουσίας συστάδων· η κάλυψη όλων των θέσεων αποδεικνύεται από την Πρόταση 2.3.
 - **Ξεχωριστή αλυσίδωση:** αναμενόμενο μήκος λίστας $\alpha = n/N$· με $N = \Theta(n)$ το αναμενόμενο κόστος είναι $O(1)$· χειρότερη περίπτωση όλα τα κλειδιά σε μία λίστα, $O(n)$.
 - **Κούκος, `get`/`remove`:** δύο προσπελάσεις κελιών, $\Theta(1)$ χειρότερη (Θεώρημα 2.2).

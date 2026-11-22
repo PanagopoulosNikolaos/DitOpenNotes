@@ -167,16 +167,16 @@ $$E[T(n)] = O(n \log n)$$
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"primaryColor": "#FAF6F0", "primaryTextColor": "#1D352E", "primaryBorderColor": "#F26419", "lineColor": "#F26419", "textColor": "#1D352E", "edgeLabelBackground": "#FAF6F0", "fontFamily": "sans-serif"}}}%%
 flowchart TD
-    c1["START: x1 < x2 ?"] -->|Yes| c2["x2 < x3 ?"]
-    c1 -->|No| c3["x1 < x3 ?"]
-    c2 -->|Yes| l1["OUT: x1, x2, x3"]
-    c2 -->|No| c4["x1 < x3 ?"]
-    c4 -->|Yes| l2["OUT: x1, x3, x2"]
-    c4 -->|No| l3["OUT: x3, x1, x2"]
-    c3 -->|Yes| l4["OUT: x2, x1, x3"]
-    c3 -->|No| c5["x2 < x3 ?"]
-    c5 -->|Yes| l5["OUT: x2, x3, x1"]
-    c5 -->|No| l6["OUT: x3, x2, x1"]
+    c1["START: is x1 less than x2?"] -- Yes --> c2["is x2 less than x3?"]
+    c1 -- No --> c3["is x1 less than x3?"]
+    c2 -- Yes --> l1["OUT: x1, x2, x3"]
+    c2 -- No --> c4["is x1 less than x3?"]
+    c4 -- Yes --> l2["OUT: x1, x3, x2"]
+    c4 -- No --> l3["OUT: x3, x1, x2"]
+    c3 -- Yes --> l4["OUT: x2, x1, x3"]
+    c3 -- No --> c5["is x2 less than x3?"]
+    c5 -- Yes --> l5["OUT: x2, x3, x1"]
+    c5 -- No --> l6["OUT: x3, x2, x1"]
     class c1 focus
     class c2,c3,c4,c5 base
     class l1,l2,l3,l4,l5,l6 mark
@@ -267,12 +267,12 @@ Algorithm merge(S1, S2, S):
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"primaryColor": "#FAF6F0", "primaryTextColor": "#1D352E", "primaryBorderColor": "#F26419", "lineColor": "#F26419", "textColor": "#1D352E", "edgeLabelBackground": "#FAF6F0", "fontFamily": "sans-serif"}}}%%
 flowchart TD
-    r["ROOT: 7 2 | 9 4 -> 2 4 7 9"] --> l["7 | 2 -> 2 7"]
-    r --> ri["9 | 4 -> 4 9"]
-    l --> ll["BASE: 7 -> 7"]
-    l --> lr["BASE: 2 -> 2"]
-    ri --> rl["BASE: 9 -> 9"]
-    ri --> rr["BASE: 4 -> 4"]
+    r["ROOT: 7 2 | 9 4 to 2 4 7 9"] --> l["7 | 2 to 2 7"]
+    r --> ri["9 | 4 to 4 9"]
+    l --> ll["BASE: 7 to 7"]
+    l --> lr["BASE: 2 to 2"]
+    ri --> rl["BASE: 9 to 9"]
+    ri --> rr["BASE: 4 to 4"]
     class r focus
     class l,ri mark
     class ll,lr,rl,rr soft
@@ -309,7 +309,7 @@ flowchart TD
 | $2 \to 1$ | `[2, 7]+[4, 9]`, `[3, 8]+[1, 6]` | `[2, 4, 7, 9]`, `[1, 3, 6, 8]` | $3 + 3 = 6$ |
 | $1 \to 0$ | `[2, 4, 7, 9]+[1, 3, 6, 8]` | `[1, 2, 3, 4, 6, 7, 8, 9]` | $7$ |
 
-**Αναλυτική Ιχνηλάτηση της Τελικής Κλήσης `merge([2, 4, 7, 9], [1, 3, 6, 8])`:**
+**Αναλυτική Ιχνηλάτηση της Τελικής Κλήσης `merge([2, 4, 7, 9], [1, 3, 6, 8])`** *(0-indexed δείκτες, όπως στην υλοποίηση Python)*:
 
 | Βήμα | `i` (`S1[i]`) | `j` (`S2[j]`) | Σύγκριση | Επιλεγμένο στοιχείο | Πίνακας `S` μέχρι στιγμής |
 |---|---|---|---|---|---|

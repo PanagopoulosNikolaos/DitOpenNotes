@@ -286,6 +286,7 @@ def fractionalKnapsackPythonic(
     return total_benefit
 
 
+lecture_items = [(1, 4.0, 12.0), (2, 8.0, 32.0), (3, 2.0, 40.0), (4, 6.0, 30.0), (5, 1.0, 50.0)]
 assert fractionalKnapsackPythonic(lecture_items, 10.0) == 124.0
 ```
 
@@ -469,14 +470,14 @@ Algorithm Huffman(X):
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"primaryColor": "#FAF6F0", "primaryTextColor": "#1D352E", "primaryBorderColor": "#F26419", "lineColor": "#F26419", "textColor": "#1D352E", "edgeLabelBackground": "#FAF6F0", "fontFamily": "sans-serif"}}}%%
 flowchart TD
-    n4["ROOT N4: freq 11"] -->|0| la["Leaf a: code 0 (freq 5)"]
-    n4 -->|1| n3["N3: freq 6"]
-    n3 -->|0| n1["N1: freq 2"]
-    n3 -->|1| n2["N2: freq 4"]
-    n1 -->|0| lc["Leaf c: code 100 (freq 1)"]
-    n1 -->|1| ld["Leaf d: code 101 (freq 1)"]
-    n2 -->|0| lb["Leaf b: code 110 (freq 2)"]
-    n2 -->|1| lr["Leaf r: code 111 (freq 2)"]
+    n4["ROOT N4: freq 11"] -- "0" --> la["Leaf a: code 0 (freq 5)"]
+    n4 -- "1" --> n3["N3: freq 6"]
+    n3 -- "0" --> n1["N1: freq 2"]
+    n3 -- "1" --> n2["N2: freq 4"]
+    n1 -- "0" --> lc["Leaf c: code 100 (freq 1)"]
+    n1 -- "1" --> ld["Leaf d: code 101 (freq 1)"]
+    n2 -- "0" --> lb["Leaf b: code 110 (freq 2)"]
+    n2 -- "1" --> lr["Leaf r: code 111 (freq 2)"]
     class n4 focus
     class n1,n2,n3 soft
     class la mark
@@ -602,6 +603,10 @@ assert len(encoded_str) == 23
 **Pythonic ιδιωματισμός (`collections.Counter` για τις συχνότητες και `heapq.heapify` σε $O(d)$):**
 
 ```python
+from collections import Counter
+import heapq
+
+
 def huffmanCodeLengthsPythonic(text: str) -> dict[str, str]:
     """Builds Huffman codes using collections.Counter and bottom-up heapq.heapify.
 
@@ -637,7 +642,13 @@ def huffmanCodeLengthsPythonic(text: str) -> dict[str, str]:
     return codes
 
 
-assert huffmanCodeLengthsPythonic("abracadabra") == huff_codes
+assert huffmanCodeLengthsPythonic("abracadabra") == {
+    "a": "0",
+    "c": "100",
+    "d": "101",
+    "b": "110",
+    "r": "111",
+}
 ```
 
 | Μορφή | Χρόνος (χειρότερη) | Επιπλέον χώρος | Τι κρύβει ο ιδιωματισμός |

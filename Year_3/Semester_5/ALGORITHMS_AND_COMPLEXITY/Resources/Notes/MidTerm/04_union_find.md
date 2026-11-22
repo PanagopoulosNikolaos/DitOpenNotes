@@ -1,7 +1,7 @@
 # 04 — Δομές Ένωσης-Εύρεσης
 *Union-Find (Disjoint Sets)*
 
-Το κεφάλαιο πραγματεύεται τη διαχείριση μιας συλλογής ξένων συνόλων (`disjoint sets`) υπό δυναμικές συγχωνεύσεις και ερωτήματα συμμετοχής. Η Αφηρημένη Τυπική Δομή (`ADT`) διαμέρισης (`partition ADT`) παρέχει τις λειτουργίες `makeSet`, `find` και `union`, επιτρέποντας την αποδοτική παρακολούθηση συνδεδεμένων συνιστωσών, τη δημιουργία λαβυρίνθων και την προσομοίωση διήθησης. Η ανάλυση των υλοποιήσεων με συνδεδεμένες λίστες και με δέντρα δεικτών γονέα στηρίζεται στην ασυμπτωτική και επιμερισμένη ανάλυση της [01_analysis_of_algorithms.md](01_analysis_of_algorithms.md). Ο συνδυασμός των ευρετικών μηχανισμών ένωσης κατά μέγεθος (`union by size`) και συμπίεσης διαδρομής (`path compression`) επιτυγχάνει σχεδόν γραμμικό συνολικό χρόνο $O((n+m)\alpha(n))$. Εφαρμογή στην Τελική: η δομή `Union-Find` αποτελεί τον πυρήνα του αλγορίθμου `Kruskal` για την ανίχνευση κύκλων και τη συγχώνευση συστάδων στα Δέντρα Επικάλυψης Ελαχίστου Κόστους (`MST`).
+Το κεφάλαιο πραγματεύεται τη διαχείριση μιας συλλογής ξένων συνόλων (`disjoint sets`) υπό δυναμικές συγχωνεύσεις και ερωτήματα συμμετοχής. Ο Αφηρημένος Τύπος Δεδομένων (`ΑΤΔ` / `ADT`) διαμέρισης (`partition ADT`) παρέχει τις λειτουργίες `makeSet`, `find` και `union`, επιτρέποντας την αποδοτική παρακολούθηση συνδεδεμένων συνιστωσών, τη δημιουργία λαβυρίνθων και την προσομοίωση διήθησης. Η ανάλυση των υλοποιήσεων με συνδεδεμένες λίστες και με δέντρα δεικτών γονέα στηρίζεται στην ασυμπτωτική και επιμερισμένη ανάλυση της [01_analysis_of_algorithms.md](01_analysis_of_algorithms.md). Ο συνδυασμός των ευρετικών μηχανισμών ένωσης κατά μέγεθος (`union by size`) και συμπίεσης διαδρομής (`path compression`) επιτυγχάνει σχεδόν γραμμικό συνολικό χρόνο $O((n+m)\alpha(n))$. Εφαρμογή στην Τελική: η δομή `Union-Find` αποτελεί τον πυρήνα του αλγορίθμου `Kruskal` για την ανίχνευση κύκλων και τη συγχώνευση συστάδων στα Δέντρα Επικάλυψης Ελαχίστου Κόστους (`MST`).
 
 > **Εξεταστική κάλυψη:** Πρόοδος
 > **Κεφάλαιο βιβλίου:** Κεφ. 7 | **Διαλέξεις:** `07_union_find.pdf`
@@ -538,17 +538,36 @@ def ufConnectedComponents(
         dict[str, list[str]]: Mapping from component representative to sorted members.
     """
     index_of = {person: idx for idx, person in enumerate(people)}
-    uf_struct = UnionFind(len(people))
+    parent = list(range(len(people)))
+    size = [1] * len(people)
+
+    def findRoot(node: int) -> int:
+        """Returns the set root with iterative path compression."""
+        root = node
+        while parent[root] != root:
+            root = parent[root]
+        curr = node
+        while parent[curr] != root:
+            next_node = parent[curr]
+            parent[curr] = root
+            curr = next_node
+        return root
 
     for first_person, second_person in edges:
-        root_u = uf_struct.find(index_of[first_person])
-        root_v = uf_struct.find(index_of[second_person])
+        root_u = findRoot(index_of[first_person])
+        root_v = findRoot(index_of[second_person])
         if root_u != root_v:
-            uf_struct.union(root_u, root_v)
+            # Attach smaller tree under larger; tie-break keeps smaller index as root.
+            if size[root_u] < size[root_v] or (
+                size[root_u] == size[root_v] and root_u > root_v
+            ):
+                root_u, root_v = root_v, root_u
+            parent[root_v] = root_u
+            size[root_u] += size[root_v]
 
     components: dict[str, list[str]] = {}
     for person in people:
-        rep = people[uf_struct.find(index_of[person])]
+        rep = people[findRoot(index_of[person])]
         components.setdefault(rep, []).append(person)
     return components
 
@@ -651,17 +670,35 @@ def mazeGenerator(
     Returns:
         list[tuple[int, int]]: The subset R of n - 1 removed walls.
     """
-    uf_struct = UnionFind(num_cells)
+    parent = list(range(num_cells))
+    size = [1] * num_cells
     removed_walls: list[tuple[int, int]] = []
+
+    def findRoot(node: int) -> int:
+        """Returns the set root with iterative path compression."""
+        root = node
+        while parent[root] != root:
+            root = parent[root]
+        curr = node
+        while parent[curr] != root:
+            next_node = parent[curr]
+            parent[curr] = root
+            curr = next_node
+        return root
 
     for cell_u, cell_v in wall_order:
         if len(removed_walls) == num_cells - 1:
             break
-        root_u = uf_struct.find(cell_u)
-        root_v = uf_struct.find(cell_v)
+        root_u = findRoot(cell_u)
+        root_v = findRoot(cell_v)
         if root_u != root_v:
             # Removing a wall between distinct components cannot create a cycle.
-            uf_struct.union(root_u, root_v)
+            if size[root_u] < size[root_v] or (
+                size[root_u] == size[root_v] and root_u > root_v
+            ):
+                root_u, root_v = root_v, root_u
+            parent[root_v] = root_u
+            size[root_u] += size[root_v]
             removed_walls.append((cell_u, cell_v))
     return removed_walls
 

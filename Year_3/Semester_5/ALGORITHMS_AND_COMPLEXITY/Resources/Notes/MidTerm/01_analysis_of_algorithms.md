@@ -574,7 +574,9 @@ def maxsubFaster(arr: list[int]) -> int:
         int: Maximum subarray sum (at least 0 for the empty subarray).
     """
     n = len(arr)
-    prefix_sums = computePrefixSums(arr)
+    prefix_sums = [0] * (n + 1)
+    for i, value in enumerate(arr, start=1):
+        prefix_sums[i] = prefix_sums[i - 1] + value
     max_sum = 0
     for start in range(1, n + 1):
         for end in range(start, n + 1):
