@@ -20,7 +20,7 @@ Target models: Gemini 4 Neon, DeepSeek V4.1 Flash, GLM-5.2, all at maximum reaso
 4. **Direct and clear explanations.** One idea per sentence. Define a term before using it. State the rule first, then the reason, then an example.
 5. **Math in LaTeX only.** Inline `$O(n \log n)$`, display `$$ ... $$` on its own lines. No Unicode math symbols in prose (write `$\sum$`, not the Unicode sigma sign). Do not put LaTeX inside Mermaid labels.
 6. **No skipped steps in worked solutions.** Show the substitution into the formula, every intermediate table row, every intermediate state. Never jump to a final answer.
-7. **Mermaid diagrams obey Section 6 exactly.** Copy the template. Never improvise colors.
+7. **Mermaid diagrams obey Section 6 exactly.** Copy the template. Never improvise colors, never add a subgraph or a style line.
 8. **Code obeys Section 5.** Python only, with both the explicit algorithm and the Pythonic idiom when an idiom exists.
 9. **Scope obeys the syllabus.** Excluded textbook sections are not taught (Section 2.3). Do not add topics from outside the mindmap.
 10. **Never fabricate.** No invented page numbers, theorem numbers, past-exam questions, or statistics. If a fact cannot be confirmed from the mindmap, the lecture PDF, or standard textbook knowledge, omit it or mark it `Δεν επιβεβαιώνεται`.
@@ -95,37 +95,34 @@ The metadata block of every General note states the exam tag exactly as `Πρό�
 ### 2.2 Course map
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#F8F5EE", "primaryColor": "#FFFFFF", "primaryTextColor": "#18181B", "primaryBorderColor": "#18181B", "lineColor": "#18181B", "textColor": "#18181B", "nodeTextColor": "#18181B", "titleColor": "#18181B", "edgeLabelBackground": "#F8F5EE", "clusterBkg": "#F8F5EE", "clusterBorder": "#F8F5EE", "fontFamily": "sans-serif"}}}%%
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#FAF6F0", "primaryTextColor": "#1D352E", "primaryBorderColor": "#F26419", "lineColor": "#F26419", "textColor": "#1D352E", "edgeLabelBackground": "#FAF6F0", "fontFamily": "sans-serif"}}}%%
 flowchart LR
-    subgraph canvas["Course dependency map"]
-        direction LR
-        s01["01 Analysis"] --> s02["02 Heaps"]
-        s01 --> s05["05 Sorting"]
-        s02 --> s05
-        s02 --> s06["06 Greedy"]
-        s01 --> s03["03 Hashing"]
-        s01 --> s04["04 Union-Find"]
-        s04 --> s11["11 MST"]
-        s06 --> s07["07 Divide and Conquer"]
-        s07 --> s08["08 Dynamic Programming"]
-        s06 --> s10["10 Shortest Paths"]
-        s02 --> s10
-        s09["09 Graphs"] --> s10
-        s09 --> s11
-        s09 --> s12["12 Max Flow"]
-        s12 --> s13["13 NP-Completeness"]
-        s08 --> s13
-    end
+    s01["01 Analysis"] --> s02["02 Heaps"]
+    s01 --> s03["03 Hashing"]
+    s01 --> s04["04 Union-Find"]
+    s01 --> s05["05 Sorting"]
+    s02 --> s05
+    s02 --> s06["06 Greedy"]
+    s06 --> s07["07 Divide and Conquer"]
+    s07 --> s08["08 Dynamic Programming"]
+    s02 --> s10["10 Shortest Paths"]
+    s09["09 Graphs"] --> s10
+    s09 --> s11["11 MST"]
+    s04 --> s11
+    s09 --> s12["12 Max Flow"]
+    s08 --> s13["13 NP-Completeness"]
+    s12 --> s13
     class s01,s02,s03,s04,s05,s06,s07 base
-    class s08,s09,s10,s11,s12,s13 muted
-    style canvas fill:#F8F5EE,stroke:#F8F5EE,color:#18181B
-    classDef default fill:#FFFFFF,stroke:#18181B,stroke-width:2px,color:#18181B
-    classDef base fill:#FFFFFF,stroke:#18181B,stroke-width:2px,color:#18181B
-    classDef muted fill:#E9E4D8,stroke:#18181B,stroke-width:2px,color:#18181B
-    linkStyle default stroke:#18181B,stroke-width:2px
+    class s08,s09,s10,s11,s12,s13 soft
+    classDef default fill:#FAF6F0,stroke:#F26419,stroke-width:3px,color:#1D352E
+    classDef base fill:#FAF6F0,stroke:#F26419,stroke-width:3px,color:#1D352E
+    classDef soft fill:#D6E2DB,stroke:#F26419,stroke-width:3px,color:#1D352E
+    classDef mark fill:#FAF6F0,stroke:#F26419,stroke-width:6px,color:#1D352E
+    classDef focus fill:#F26419,stroke:#F26419,stroke-width:3px,color:#0F1F1A
+    linkStyle default stroke:#F26419,stroke-width:3px
 ```
 
-Reading: white nodes are Midterm topics (also in the Final); sand nodes are Final-only topics. The colors are secondary to the numbers: the first seven sections are the Midterm.
+Legend: cream nodes are Midterm topics (also in the Final); soft green nodes are Final-only topics. The section numbers carry the meaning: sections 01 to 07 are the Midterm.
 
 ### 2.3 Excluded material (never teach, never test)
 
@@ -291,73 +288,88 @@ Pseudocode follows the textbook style in a `text` block (`Algorithm name(args):`
 
 ## 6. Mermaid Standard (anti-invisible-text rules)
 
-Source of the design rules: the project UI/UX principles file `Principles_of__UX_Motion_Coloring.md`. The applicable parts are: no emojis, 60-30-10 color split, WCAG contrast of at least 4.5:1 for text, never use color alone to convey meaning, generous whitespace, 5 to 7 items per chunk, consistent shapes. The palette is **Editorial Paper** (the documentation palette of that file).
+Source of the design rules: the project UI/UX principles file `Principles_of__UX_Motion_Coloring.md`. Applicable parts: no emojis, the 60-30-10 color split, WCAG contrast of at least 4.5:1 for text, never use color alone to convey meaning, 5 to 7 items per chunk, consistent shapes. The palette is **Organic Studio** from that file, used with exactly three colors.
 
-Common failures this standard eliminates: text invisible because the default theme flips with light or dark mode; lines invisible on a dark page; node fill set without text color; edge labels unreadable.
+Common failures this standard eliminates: text or arrows invisible because the viewer paints its own (often dark) background behind the diagram; fill set without text color; unclassified nodes falling back to the viewer's theme; theme-dependent default line color.
 
-### 6.1 Rules
+**Design principle:** the page background behind a Mermaid diagram belongs to the viewer and cannot be controlled from Mermaid code. Therefore the diagram never depends on it. Every node carries its own fill, border and text color, and every line uses a color that is visible on both light and dark pages.
 
-1. **Flowchart only** (`flowchart TD` for trees and hierarchies, `flowchart LR` for pipelines). Do not use `sequenceDiagram`, `stateDiagram`, `classDiagram`, `erDiagram`, `mindmap`, `timeline`, `gantt`, `pie`, `xychart`. They cannot be wrapped in a fixed canvas, so their text and lines would depend on the viewer's theme. Use tables or `text` blocks for those needs.
-2. **Always start with the exact `init` header** from the template (all `themeVariables` present).
-3. **Always wrap the whole diagram in one `subgraph canvas[...]`** and style it with the cream surface. The canvas fixes the background under all lines and labels, so the diagram is readable on any page theme.
-4. **Never set `fill` without `stroke` and `color`.** Every `classDef` and every `style` line sets all three. Use only the five classes in the template. Define `classDef default` so unclassified nodes are safe.
-5. **Only these colors may appear:** `#F8F5EE` (canvas), `#18181B` (ink, lines, borders, text), `#FFFFFF` (node), `#E9E4D8` (muted node), `#9A3F0A` (focus fill, white text only), `#F6D9C4` (highlight fill), `#C85A17` (accent, used for strokes only, never for text). No other hex values, no named colors.
-6. **Always** set `linkStyle default stroke:#18181B,stroke-width:2px`.
-7. **Meaning never depends on color alone.** Pair every highlighted node with words (`START`, `PRUNED`, `CHOSEN`, `OUT OF SCOPE`, `FAIL`) in its label, and use the dashed class for excluded or failed items. Add a one-line legend below the diagram.
-8. **Label hygiene:** every label in double quotes; no backticks, no LaTeX, no `#`, no `;`, no HTML tags; write complexity as plain text inside quotes (`"O(n log n)"`); ids are short ASCII alphanumerics and never the words `end`, `default`, `graph`, `subgraph`, `class`, `style`; always put a space on both sides of `-->`.
-9. **Prefer text inside nodes over edge labels.** Edge labels only when they are 1 to 3 short words.
-10. **Size:** at most 12 nodes per diagram, at most 7 nodes per level. Split larger structures into two diagrams.
-11. **Every diagram is followed by** a one-line legend and a short explanation (or a table). A diagram is never the only carrier of a fact.
-12. **Use a diagram only when structure is the point:** dependency maps, trees (heap, recursion tree, decision tree, BFS or DFS tree, Huffman tree, union-find forest), small graphs, flow networks, pipelines. Arrays, DP tables, hash tables and traces are Markdown tables or `text` blocks.
+### 6.1 The three colors (60-30-10)
 
-### 6.2 Node classes (copy verbatim)
+| Share | Name | Hex | Allowed use | Forbidden use |
+|---|---|---|---|---|
+| 60% | Clotted Cream | `#FAF6F0` | node fill, edge-label background | text |
+| 30% | Spruce Velvet | `#1D352E` | all text | solid fill of any node |
+| 10% | Tangerine | `#F26419` | every border, every arrow line, the single focus fill | text, large fills |
 
-| Class | Use | Fill | Stroke | Text | Contrast text/fill |
-|---|---|---|---|---|---|
-| `default`, `base` | ordinary node | `#FFFFFF` | `#18181B` | `#18181B` | 17.7 |
-| `muted` | secondary or context node | `#E9E4D8` | `#18181B` | `#18181B` | 14.0 |
-| `focus` | the single focal node or result | `#9A3F0A` | `#18181B` | `#FFFFFF` | 6.8 |
-| `mark` | highlighted step or chosen path | `#F6D9C4` | `#C85A17` | `#18181B` | 13.2 |
-| `skip` | excluded, pruned, failed (dashed) | `#FFFFFF` | `#18181B` | `#18181B` | 17.7 |
+Two derived shades are allowed and no others:
+- `#D6E2DB`: a soft tint of Spruce Velvet, used only as the fill of secondary or context nodes (text on it stays `#1D352E`, contrast 9.8:1).
+- `#0F1F1A`: a deeper shade of Spruce Velvet, used only as the text color inside a tangerine `focus` node (contrast 5.4:1; plain `#1D352E` on tangerine is only 4.1:1, below the 4.5:1 minimum).
 
-### 6.3 Template (copy, then edit only the content between the markers)
+Contrast reference: spruce text on cream 12.2:1; spruce text on soft tint 9.8:1; deep spruce on tangerine 5.4:1; tangerine lines on a dark page 5.6:1 and on a white page 3.2:1 (graphics minimum is 3:1, so lines are always 3px wide).
+
+### 6.2 Rules
+
+1. **Flowchart only** (`flowchart TD` for trees and hierarchies, `flowchart LR` for pipelines). Do not use `sequenceDiagram`, `stateDiagram`, `classDiagram`, `erDiagram`, `mindmap`, `timeline`, `gantt`, `pie`, `xychart`: their text and lines cannot be given explicit colors per element. Use tables or `text` blocks for those needs.
+2. **Always start with the exact `init` header** from the template.
+3. **No `subgraph`, no `style` lines.** Cluster backgrounds are controlled by the viewer and have proven unreliable. Express grouping with node text or with two separate diagrams.
+4. **Every node is assigned to a class explicitly** with a `class` line. Never rely on the `default` class. The `classDef default` line is kept only as a safety net.
+5. **Every `classDef` sets `fill`, `stroke` and `color` together.** Use only the classes in 6.3.
+6. **Always** end with `linkStyle default stroke:#F26419,stroke-width:3px`. Do not use dashed styles (`stroke-dasharray`): they do not render reliably.
+7. **Color mapping is fixed:** text is always `#1D352E` (or `#0F1F1A` inside a `focus` node); fills are cream, soft tint, or tangerine; borders and lines are always tangerine. No other hex values and no named colors.
+8. **Meaning never depends on color alone.** Pair every highlighted node with a word in its label (`START`, `PRUNED`, `CHOSEN`, `ACCEPT`, `REJECT`, `OUT OF SCOPE`). Add a one-line legend below the diagram.
+9. **Label hygiene:** every label in double quotes; no backticks, no LaTeX, no `#`, no `;`, no HTML tags, no emoji; write complexity as plain text inside quotes (`"O(n log n)"`); ids are short ASCII alphanumerics and never the words `end`, `default`, `graph`, `subgraph`, `class`, `style`; always put a space on both sides of `-->`.
+10. **Prefer text inside nodes over edge labels.** Use edge labels only when they are 1 to 3 short words.
+11. **Size:** at most 12 nodes per diagram and at most 7 nodes per level. Split larger structures into two diagrams.
+12. **Every diagram is followed by** a one-line legend and a short explanation or table. A diagram is never the only carrier of a fact.
+13. **Use a diagram only when structure is the point:** dependency maps, trees (heap, recursion tree, decision tree, BFS or DFS tree, Huffman tree, union-find forest), small graphs, flow networks, pipelines. Arrays, DP tables, hash tables and traces are Markdown tables or `text` blocks.
+
+### 6.3 Node classes (copy verbatim)
+
+| Class | Use | Fill | Border | Text |
+|---|---|---|---|---|
+| `base` (and `default`) | ordinary node | `#FAF6F0` | `#F26419`, 3px | `#1D352E` |
+| `soft` | secondary, context, rejected or pruned node (also named in words) | `#D6E2DB` | `#F26419`, 3px | `#1D352E` |
+| `mark` | highlighted step or chosen path | `#FAF6F0` | `#F26419`, 6px | `#1D352E` |
+| `focus` | the single focal node or final result | `#F26419` | `#F26419`, 3px | `#0F1F1A` |
+
+At most one `focus` node per diagram.
+
+### 6.4 Template (copy, then replace only the nodes, edges and `class` lines)
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"background": "#F8F5EE", "primaryColor": "#FFFFFF", "primaryTextColor": "#18181B", "primaryBorderColor": "#18181B", "lineColor": "#18181B", "textColor": "#18181B", "nodeTextColor": "#18181B", "titleColor": "#18181B", "edgeLabelBackground": "#F8F5EE", "clusterBkg": "#F8F5EE", "clusterBorder": "#F8F5EE", "fontFamily": "sans-serif"}}}%%
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#FAF6F0", "primaryTextColor": "#1D352E", "primaryBorderColor": "#F26419", "lineColor": "#F26419", "textColor": "#1D352E", "edgeLabelBackground": "#FAF6F0", "fontFamily": "sans-serif"}}}%%
 flowchart TD
-    subgraph canvas["Diagram title"]
-        direction TD
-        %% --- content start ---
-        root["Root: min key 4"] --> left["Left child: 9"]
-        root --> right["Right child: 6"]
-        left --> leaf1["Leaf: 15"]
-        left --> leaf2["Leaf: 20 PRUNED"]
-        %% --- content end ---
-    end
-    class root focus
-    class left,right base
-    class leaf1 mark
-    class leaf2 skip
-    style canvas fill:#F8F5EE,stroke:#F8F5EE,color:#18181B
-    classDef default fill:#FFFFFF,stroke:#18181B,stroke-width:2px,color:#18181B
-    classDef base fill:#FFFFFF,stroke:#18181B,stroke-width:2px,color:#18181B
-    classDef muted fill:#E9E4D8,stroke:#18181B,stroke-width:2px,color:#18181B
-    classDef focus fill:#9A3F0A,stroke:#18181B,stroke-width:2px,color:#FFFFFF
-    classDef mark fill:#F6D9C4,stroke:#C85A17,stroke-width:3px,color:#18181B
-    classDef skip fill:#FFFFFF,stroke:#18181B,stroke-width:2px,stroke-dasharray:6 4,color:#18181B
-    linkStyle default stroke:#18181B,stroke-width:2px
+    r["Root: 3 (inserted, now at top)"] --> a["Left: 4"]
+    r --> b["Right: 6"]
+    a --> c["Left: 9"]
+    a --> d["Right: 5 (swapped down)"]
+    b --> e["Left: 8"]
+    b --> f["Right: 7 (untouched)"]
+    class r focus
+    class a,d mark
+    class b,c soft
+    class e,f base
+    classDef default fill:#FAF6F0,stroke:#F26419,stroke-width:3px,color:#1D352E
+    classDef base fill:#FAF6F0,stroke:#F26419,stroke-width:3px,color:#1D352E
+    classDef soft fill:#D6E2DB,stroke:#F26419,stroke-width:3px,color:#1D352E
+    classDef mark fill:#FAF6F0,stroke:#F26419,stroke-width:6px,color:#1D352E
+    classDef focus fill:#F26419,stroke:#F26419,stroke-width:3px,color:#0F1F1A
+    linkStyle default stroke:#F26419,stroke-width:3px
 ```
 
-Legend line to write below it: `Σκούρο πορτοκαλί: ρίζα (focus). Διακεκομμένο περίγραμμα: κόμβος που παραλείπεται (PRUNED).`
+Legend line to write below it: `Πορτοκαλί γέμισμα: κόμβος εστίασης (το νέο κλειδί). Παχύ περίγραμμα: κόμβοι που ανταλλάχθηκαν. Απαλό πράσινο: δευτερεύον πλαίσιο.`
 
-### 6.4 Pre-save Mermaid checklist
+### 6.5 Pre-save Mermaid checklist
 
-- Header `%%{init: ...}%%` present and unmodified.
-- Exactly one `subgraph canvas`, closed with `end`, followed by `style canvas`.
-- All five `classDef` lines and `classDef default` present; `linkStyle default` present.
-- Every node has text in double quotes; no forbidden characters; no emoji.
-- No hex value outside the six allowed ones.
-- Diagram has at most 12 nodes and a legend line plus explanation underneath.
+- The `init` header is present and unmodified.
+- No `subgraph`, no `style` line, no `stroke-dasharray`.
+- Every node appears in exactly one `class` line.
+- All five `classDef` lines and `linkStyle default` are present, copied verbatim from the template.
+- Every node text is in double quotes; no forbidden characters; no emoji.
+- Only the five hex values from 6.1 appear: `#FAF6F0`, `#1D352E`, `#F26419`, `#D6E2DB`, `#0F1F1A`.
+- Spruce is never a fill; tangerine is never a text color; at most one `focus` node.
+- At most 12 nodes; a legend line and an explanation sit underneath.
 
 ---
 
