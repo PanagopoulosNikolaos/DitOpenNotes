@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Αλγόριθμοι και Πολυπλοκότητα (504) — Προετοιμασία Προόδου</title>
+  <title>Αλγόριθμοι και Πολυπλοκότητα (504) — Διαδραστικός Οδηγός Προόδου</title>
   <link rel="stylesheet" href="css/styles.css">
   <script defer src="js/icons.js"></script>
+  <script defer src="js/data/prerequisites_data.js"></script>
   <script defer src="js/data/units_part1.js"></script>
   <script defer src="js/data/units_part2.js"></script>
   <script defer src="js/data/quiz_bank.js"></script>
@@ -21,40 +22,50 @@
   <div class="app-shell">
     <div id="sidebar_backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
 
-    <aside id="app_sidebar" class="sidebar" aria-label="Πλοήγηση ενοτήτων">
+    <aside id="app_sidebar" class="sidebar" aria-label="Πλοήγηση μαθημάτων">
       <div class="sidebar-brand">
         <div class="brand-mark" id="brand_icon_slot" aria-hidden="true"></div>
         <div class="brand-text">
           <span class="brand-title">Αλγόριθμοι 504</span>
-          <span class="brand-subtitle">Αρχιτεκτονικό Σχέδιο Προόδου</span>
+          <span class="brand-subtitle">Διαδραστικός Οδηγός Προόδου</span>
         </div>
       </div>
 
-      <section class="mastery-panel" aria-label="Συνολική πρόοδος">
+      <section class="mastery-panel" aria-label="Πρόοδος τρέχουσας συνεδρίας">
         <div class="mastery-header">
-          <span class="mastery-label">Κατάκτηση Ύλης</span>
-          <span id="mastery_ratio" class="mastery-ratio">0 / 8</span>
+          <span class="mastery-label">Ασκήσεις Συνεδρίας</span>
+          <span id="session_solved_ratio" class="mastery-ratio">0 / 0</span>
         </div>
-        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="mastery_progressbar">
-          <div id="mastery_fill" class="progress-fill" style="width: 0%;"></div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="session_progressbar">
+          <div id="session_fill" class="progress-fill" style="width: 0%;"></div>
         </div>
-        <div class="mastery-header" style="margin-top: 12px;">
-          <span class="mastery-label">Διαδραστικές Προκλήσεις</span>
-          <span id="challenges_ratio" class="mastery-ratio">0 / 0</span>
+        <div class="mastery-header" style="margin-top: 4px;">
+          <span class="mastery-label">Πόντοι &amp; Σερί</span>
+          <span id="session_score_label" class="mastery-ratio">0 pts | Σερί 0</span>
         </div>
-        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0" id="challenges_progressbar">
-          <div id="challenges_fill" class="progress-fill" style="width: 0%;"></div>
-        </div>
+        <button type="button" id="btn_reset_session" class="btn btn-ghost" style="width:100%;margin-top:4px;">
+          <span id="reset_session_icon"></span>
+          <span>Επαναφορά Συνεδρίας</span>
+        </button>
       </section>
 
       <nav class="sidebar-nav">
         <div class="nav-group">
-          <div class="nav-group-title">Θεμέλια και Δομές</div>
-          <button type="button" class="nav-item active" data-nav="unit:00">
+          <div class="nav-group-title">Ξεκινώντας</div>
+          <button type="button" class="nav-item active" data-nav="unit:prereq">
+            <span class="nav-code">Βασικά</span>
+            <span class="nav-label">Προαπαιτούμενα &amp; Επανάληψη</span>
+            <span class="nav-status" data-status-unit="prereq"></span>
+          </button>
+          <button type="button" class="nav-item" data-nav="unit:00">
             <span class="nav-code">00</span>
-            <span class="nav-label">Χάρτης και Ύλη</span>
+            <span class="nav-label">Χάρτης &amp; Ύλη Προόδου</span>
             <span class="nav-status" data-status-unit="00"></span>
           </button>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">Ενότητες Προόδου</div>
           <button type="button" class="nav-item" data-nav="unit:01">
             <span class="nav-code">01</span>
             <span class="nav-label">Ανάλυση Αλγορίθμων</span>
@@ -70,10 +81,6 @@
             <span class="nav-label">Κατακερματισμός και Κούκος</span>
             <span class="nav-status" data-status-unit="03"></span>
           </button>
-        </div>
-
-        <div class="nav-group">
-          <div class="nav-group-title">Συνδεσιμότητα και Στρατηγικές</div>
           <button type="button" class="nav-item" data-nav="unit:04">
             <span class="nav-code">04</span>
             <span class="nav-label">Union-Find</span>
@@ -117,15 +124,11 @@
             <span id="mobile_menu_icon"></span>
           </button>
           <div class="topbar-heading">
-            <span id="topbar_chapter_tag" class="meta-pill">Κεφ. 1, 5–8, 10–11</span>
-            <h1 id="topbar_title" class="topbar-title">00 — Χάρτης Μαθήματος και Ύλη Προόδου</h1>
+            <span id="topbar_chapter_tag" class="meta-pill">Προαπαιτούμενα Γνώσης</span>
+            <h1 id="topbar_title" class="topbar-title">Προαπαιτούμενα — Γρήγορη Επανάληψη Βασικών</h1>
           </div>
         </div>
         <div class="topbar-actions">
-          <button type="button" id="btn_toggle_mastery" class="btn btn-secondary">
-            <span id="mastery_btn_icon"></span>
-            <span id="mastery_btn_text">Σήμανση Ολοκλήρωσης</span>
-          </button>
           <button type="button" id="btn_shortcuts_modal" class="btn btn-icon" aria-label="Συντομεύσεις πληκτρολογίου" title="Συντομεύσεις πληκτρολογίου">
             <span id="shortcuts_btn_icon"></span>
           </button>
@@ -133,7 +136,7 @@
       </header>
 
       <main id="app_main" class="main-content" tabindex="-1">
-        <!-- Dynamic content rendered by AppController -->
+        <!-- Dynamic W3Schools-style tutorial content rendered by AppController -->
       </main>
     </div>
   </div>
@@ -141,14 +144,15 @@
   <div id="shortcuts_modal" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="shortcuts_modal_title">
     <div class="modal-card">
       <div class="modal-header">
-        <h2 id="shortcuts_modal_title" class="modal-title">Συντομεύσεις και Οδηγός Μελέτης</h2>
+        <h2 id="shortcuts_modal_title" class="modal-title">Συντομεύσεις Πληκτρολογίου</h2>
         <button type="button" id="btn_close_modal" class="btn btn-icon" aria-label="Κλείσιμο παραθύρου">
           <span id="close_modal_icon"></span>
         </button>
       </div>
       <div class="modal-body">
-        <p class="muted-text">Χρησιμοποιήστε το πληκτρολόγιο για άμεση μετάβαση μεταξύ ενοτήτων, καρτελών και εξεταστικών εργαλείων.</p>
+        <p class="muted-text">Χρησιμοποιήστε το πληκτρολόγιο για άμεση πλοήγηση μεταξύ κεφαλαίων και εξεταστικών εργαλείων.</p>
         <div class="shortcut-list">
+          <div class="shortcut-row"><kbd>0</kbd><span>Προαπαιτούμενα &amp; Γρήγορη Επανάληψη</span></div>
           <div class="shortcut-row"><kbd>1</kbd> – <kbd>8</kbd><span>Μετάβαση στις ενότητες 00 έως 07</span></div>
           <div class="shortcut-row"><kbd>m</kbd><span>Άνοιγμα Προσομοίωσης Προόδου</span></div>
           <div class="shortcut-row"><kbd>r</kbd><span>Άνοιγμα Πίνακα Πολυπλοκοτήτων</span></div>

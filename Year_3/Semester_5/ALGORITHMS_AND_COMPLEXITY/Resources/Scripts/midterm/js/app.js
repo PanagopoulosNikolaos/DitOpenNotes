@@ -2,7 +2,7 @@
   'use strict';
 
   /**
-   * Formats lightweight inline markup such as backticked identifiers and arrows safely.
+   * Formats lightweight inline markup such as backticked identifiers safely.
    *
    * Args:
    *     raw_text (string): Input text that may contain backticks.
@@ -19,133 +19,185 @@
   }
 
   /**
-   * Manages persistence of student mastery and drill progress in localStorage.
+   * Normalizes a student's fill-in answer for tolerant comparison.
    *
-   * Encapsulates safe read/write storage operations with an in-memory fallback.
-   * Methods: loadState(), saveState(), toggleUnitMastery(unit_id), isUnitMastered(unit_id), recordDrillAnswer(q_id, opt_idx).
+   * Args:
+   *     raw_value (string): Student input string.
+   *
+   * Returns:
+   *     string: Lowercased, trimmed, comma-normalized answer string.
    */
-  class StorageManager {
+  function normalizeAnswer(raw_value) {
+    return String(raw_value || '')
+      .trim()
+      .toLowerCase()
+      .replace(/,/g, '.')
+      .replace(/\s+/g, '');
+  }
+
+  /**
+   * Tracks student exercise progress and gamified streak strictly within the current session.
+   *
+   * Clears any legacy persisted storage on startup so reloads always begin completely fresh.
+   * Methods: recordFillResult(fill_id, value, is_correct), resetFillExercises(fill_ids), recordTfAnswer(tf_key, choice_bool), resetTfUnit(unit_id), recordDrillAnswer(q_id, opt_idx), resetDrills(q_ids), markGameCompleted(challenge_id), unmarkGameCompleted(challenge_id), resetAllSession().
+   */
+  class SessionTracker {
     /**
-     * Initializes storage key and loads persisted student progress.
+     * Initializes clean in-memory session state and removes legacy localStorage keys.
      */
     constructor() {
-      this.storage_key = 'dit_algo504_midterm_v1';
-      this.state = this.loadState();
+      try {
+        // Removes legacy persisted state so relaunches never keep old solved answers.
+        global_scope.localStorage.removeItem('dit_algo504_midterm_v1');
+      } catch (_err) {
+        // Ignores private-mode storage restrictions gracefully.
+      }
+      this.resetAllSession();
     }
 
     /**
-     * Loads persisted state from localStorage or returns clean defaults.
-     *
-     * Returns:
-     *     object: State object containing mastered_units and drill_answers.
+     * Resets all in-memory exercise answers, solved games, points, and streak to zero.
      */
-    loadState() {
-      const defaults = {
-        mastered_units: [],
-        drill_answers: {},
-        completed_games: [],
-        tf_answers: {},
-        last_nav: 'unit:00',
-        last_tab: 'overview'
+    resetAllSession() {
+      this.fill_answers = {};
+      this.tf_answers = {};
+      this.drill_answers = {};
+      this.completed_games = [];
+      this.current_streak = 0;
+    }
+
+    /**
+     * Records a fill-in-the-blank submission and updates the active streak.
+     *
+     * Args:
+     *     fill_id (string): Unique fill exercise identifier.
+     *     value (string): Submitted answer string.
+     *     is_correct (boolean): Whether the answer matched an expected solution.
+     */
+    recordFillResult(fill_id, value, is_correct) {
+      this.fill_answers[fill_id] = {
+        value: value,
+        is_correct: is_correct,
+        revealed: false,
+        hint_shown: Boolean(this.fill_answers[fill_id] && this.fill_answers[fill_id].hint_shown)
       };
-      try {
-        const raw = global_scope.localStorage.getItem(this.storage_key);
-        if (!raw) {
-          return defaults;
+      this.current_streak = is_correct ? this.current_streak + 1 : 0;
+    }
+
+    /**
+     * Toggles hint visibility for a fill exercise.
+     *
+     * Args:
+     *     fill_id (string): Unique fill exercise identifier.
+     */
+    toggleFillHint(fill_id) {
+      const prev = this.fill_answers[fill_id] || { value: '', is_correct: null, revealed: false, hint_shown: false };
+      prev.hint_shown = !prev.hint_shown;
+      this.fill_answers[fill_id] = prev;
+    }
+
+    /**
+     * Reveals the canonical solution for a fill exercise without awarding points.
+     *
+     * Args:
+     *     fill_id (string): Unique fill exercise identifier.
+     */
+    revealFillSolution(fill_id) {
+      const prev = this.fill_answers[fill_id] || { value: '', is_correct: null, revealed: false, hint_shown: false };
+      prev.revealed = true;
+      this.fill_answers[fill_id] = prev;
+    }
+
+    /**
+     * Clears one or more fill-in exercises back to their unsolved state.
+     *
+     * Args:
+     *     fill_ids (Array<string>): Identifiers of fill exercises to reset.
+     */
+    resetFillExercises(fill_ids) {
+      for (let i = 0; i < fill_ids.length; i += 1) {
+        delete this.fill_answers[fill_ids[i]];
+      }
+    }
+
+    /**
+     * Records a True/False selection and updates streak status.
+     *
+     * Args:
+     *     tf_key (string): Unique True/False statement key.
+     *     choice_bool (boolean): Selected True or False boolean.
+     *     is_correct (boolean): Whether the selection matches the canonical answer.
+     */
+    recordTfAnswer(tf_key, choice_bool, is_correct) {
+      this.tf_answers[tf_key] = choice_bool;
+      this.current_streak = is_correct ? this.current_streak + 1 : 0;
+    }
+
+    /**
+     * Clears all True/False answers belonging to a specific unit.
+     *
+     * Args:
+     *     unit_id (string): Unit identifier ('prereq', '00'..'07').
+     */
+    resetTfUnit(unit_id) {
+      const prefix = 'tf_' + unit_id + '_';
+      const keys = Object.keys(this.tf_answers);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (keys[i].indexOf(prefix) === 0) {
+          delete this.tf_answers[keys[i]];
         }
-        const parsed = JSON.parse(raw);
-        return {
-          mastered_units: Array.isArray(parsed.mastered_units) ? parsed.mastered_units : [],
-          drill_answers: parsed.drill_answers && typeof parsed.drill_answers === 'object' ? parsed.drill_answers : {},
-          completed_games: Array.isArray(parsed.completed_games) ? parsed.completed_games : [],
-          tf_answers: parsed.tf_answers && typeof parsed.tf_answers === 'object' ? parsed.tf_answers : {},
-          last_nav: typeof parsed.last_nav === 'string' ? parsed.last_nav : 'unit:00',
-          last_tab: typeof parsed.last_tab === 'string' ? parsed.last_tab : 'overview'
-        };
-      } catch (_err) {
-        return defaults;
       }
     }
 
     /**
-     * Persists the current state dictionary to localStorage safely.
-     */
-    saveState() {
-      try {
-        global_scope.localStorage.setItem(this.storage_key, JSON.stringify(this.state));
-      } catch (_err) {
-        // Ignores storage quota or private-mode restrictions gracefully.
-      }
-    }
-
-    /**
-     * Checks whether a given unit ID has been marked mastered.
+     * Records a multiple-choice drill answer and updates streak status.
      *
      * Args:
-     *     unit_id (string): Unit identifier ('00' through '07').
-     *
-     * Returns:
-     *     boolean: True if the unit is marked mastered.
-     */
-    isUnitMastered(unit_id) {
-      return this.state.mastered_units.indexOf(unit_id) !== -1;
-    }
-
-    /**
-     * Toggles mastery status for the requested unit and saves state.
-     *
-     * Args:
-     *     unit_id (string): Unit identifier ('00' through '07').
-     *
-     * Returns:
-     *     boolean: Resulting mastery state after toggle.
-     */
-    toggleUnitMastery(unit_id) {
-      const idx = this.state.mastered_units.indexOf(unit_id);
-      if (idx === -1) {
-        this.state.mastered_units.push(unit_id);
-      } else {
-        this.state.mastered_units.splice(idx, 1);
-      }
-      this.saveState();
-      return idx === -1;
-    }
-
-    /**
-     * Records a student answer for a unit practice drill question.
-     *
-     * Args:
-     *     q_id (string): Unique question identifier.
+     *     q_id (string): Question identifier.
      *     opt_idx (number): Selected option index.
+     *     is_correct (boolean): Whether the option is correct.
      */
-    recordDrillAnswer(q_id, opt_idx) {
-      this.state.drill_answers[q_id] = opt_idx;
-      this.saveState();
+    recordDrillAnswer(q_id, opt_idx, is_correct) {
+      this.drill_answers[q_id] = opt_idx;
+      this.current_streak = is_correct ? this.current_streak + 1 : 0;
     }
 
     /**
-     * Marks an interactive Drop-In or Builder challenge ID as completed.
+     * Clears multiple-choice drill answers for the given question IDs.
+     *
+     * Args:
+     *     q_ids (Array<string>): Question identifiers to clear.
+     */
+    resetDrills(q_ids) {
+      for (let i = 0; i < q_ids.length; i += 1) {
+        delete this.drill_answers[q_ids[i]];
+      }
+    }
+
+    /**
+     * Marks an interactive Drop-In or Builder challenge as solved in this session.
      *
      * Args:
      *     challenge_id (string): Unique puzzle or builder game identifier.
      */
     markGameCompleted(challenge_id) {
-      if (this.state.completed_games.indexOf(challenge_id) === -1) {
-        this.state.completed_games.push(challenge_id);
-        this.saveState();
+      if (this.completed_games.indexOf(challenge_id) === -1) {
+        this.completed_games.push(challenge_id);
+        this.current_streak += 1;
       }
     }
 
     /**
-     * Records a student answer for a True/False recitation statement.
+     * Removes a challenge from the completed list when reset by the student.
      *
      * Args:
-     *     tf_key (string): Unique True/False statement identifier.
-     *     choice_bool (boolean): Selected True or False boolean value.
+     *     challenge_id (string): Unique puzzle or builder game identifier.
      */
-    recordTfAnswer(tf_key, choice_bool) {
-      this.state.tf_answers[tf_key] = choice_bool;
-      this.saveState();
+    unmarkGameCompleted(challenge_id) {
+      const idx = this.completed_games.indexOf(challenge_id);
+      if (idx !== -1) {
+        this.completed_games.splice(idx, 1);
+      }
     }
   }
 
@@ -166,7 +218,6 @@
       this.question_bank = question_bank || [];
       this.active_questions = [];
       this.user_answers = {};
-      this.exam_submitted = false;
       this.selected_count = 10;
       this.selected_unit = 'all';
     }
@@ -176,7 +227,7 @@
      *
      * Args:
      *     question_count (number): Maximum number of questions to include.
-     *     filter_unit (string): Specific unit ID ('00'..'07') or 'all'.
+     *     filter_unit (string): Specific unit ID ('prereq', '00'..'07') or 'all'.
      */
     startSession(question_count, filter_unit) {
       this.selected_count = question_count;
@@ -194,7 +245,6 @@
       }
       this.active_questions = pool.slice(0, Math.min(question_count, pool.length));
       this.user_answers = {};
-      this.exam_submitted = false;
     }
 
     /**
@@ -243,14 +293,14 @@
   }
 
   /**
-   * Coordinates navigation, rendering, progressive disclosure, labs, and exam views.
+   * Coordinates W3Schools-style linear tutorial navigation, inline examples, labs, exercises, and games.
    *
-   * Connects StorageManager, QuizEngine, IconLibrary, curriculum data, and interactive labs.
-   * Methods: init(), bindShellEvents(), navigate(nav_target, tab_name), render(), renderUnitView(unit_id), renderExamView(), renderReferenceView().
+   * Connects SessionTracker, QuizEngine, IconLibrary, curriculum data, and interactive widgets.
+   * Methods: init(), bindShellEvents(), navigate(nav_target), computeSessionStats(), updateSessionHud(), render().
    */
   class AppController {
     /**
-     * Initializes controller dependencies, reference complexity catalog, and initial route.
+     * Initializes controller dependencies, chapter order, reference catalog, and initial route.
      */
     constructor() {
       this.icons = global_scope.MidtermApp.icons;
@@ -262,19 +312,24 @@
       this.true_false_drills = global_scope.MidtermApp.true_false_drills || {};
       this.dropin_engine = global_scope.MidtermApp.dropin_engine;
       this.builder_games = global_scope.MidtermApp.builder_games || {};
-      this.storage = new StorageManager();
+      this.session = new SessionTracker();
       this.quiz_engine = new QuizEngine(this.quiz_bank);
       this.quiz_engine.startSession(10, 'all');
 
-      let puzzle_total = Object.keys(this.builder_games).length;
-      const drop_keys = Object.keys(this.dropin_puzzles);
-      for (let i = 0; i < drop_keys.length; i += 1) {
-        puzzle_total += this.dropin_puzzles[drop_keys[i]].length;
-      }
-      this.total_challenges = puzzle_total;
+      this.chapter_order = ['prereq', '00', '01', '02', '03', '04', '05', '06', '07'];
+      this.chapter_labels = {
+        prereq: 'Προαπαιτούμενα',
+        '00': '00 — Χάρτης',
+        '01': '01 — Ανάλυση',
+        '02': '02 — Σωροί',
+        '03': '03 — Hash & Κούκος',
+        '04': '04 — Union-Find',
+        '05': '05 — Ταξινόμηση',
+        '06': '06 — Άπληστη',
+        '07': '07 — Διαίρει & Βασίλευε'
+      };
 
-      this.current_nav = this.storage.state.last_nav || 'unit:00';
-      this.current_tab = this.storage.state.last_tab || 'overview';
+      this.current_nav = 'unit:prereq';
       this.ref_filter_unit = 'all';
       this.ref_search_query = '';
 
@@ -307,12 +362,12 @@
     }
 
     /**
-     * Initializes static UI icons, binds event listeners, and performs initial render.
+     * Initializes static UI icons, binds shell events, updates HUD, and performs initial render.
      */
     init() {
       this.injectStaticIcons();
       this.bindShellEvents();
-      this.updateMasteryHud();
+      this.updateSessionHud();
       this.render();
     }
 
@@ -322,6 +377,7 @@
     injectStaticIcons() {
       const slot_map = [
         ['brand_icon_slot', 'compass', 20],
+        ['reset_session_icon', 'reset', 15],
         ['nav_exam_icon', 'award', 18],
         ['nav_ref_icon', 'table', 18],
         ['mobile_menu_icon', 'menu', 20],
@@ -337,15 +393,22 @@
     }
 
     /**
-     * Binds navigation rail, topbar buttons, modal controls, and keyboard shortcuts.
+     * Binds navigation rail, session reset button, modal controls, and keyboard shortcuts.
      */
     bindShellEvents() {
       const nav_items = document.querySelectorAll('[data-nav]');
       for (let i = 0; i < nav_items.length; i += 1) {
         nav_items[i].addEventListener('click', (evt) => {
           const target = evt.currentTarget.getAttribute('data-nav');
-          this.navigate(target, 'overview');
+          this.navigate(target);
           this.closeMobileDrawer();
+        });
+      }
+
+      const reset_session_btn = document.getElementById('btn_reset_session');
+      if (reset_session_btn) {
+        reset_session_btn.addEventListener('click', () => {
+          this.resetEntireSession();
         });
       }
 
@@ -359,18 +422,6 @@
       }
       if (backdrop) {
         backdrop.addEventListener('click', () => this.closeMobileDrawer());
-      }
-
-      const mastery_btn = document.getElementById('btn_toggle_mastery');
-      if (mastery_btn) {
-        mastery_btn.addEventListener('click', () => {
-          if (this.current_nav.indexOf('unit:') === 0) {
-            const unit_id = this.current_nav.split(':')[1];
-            this.storage.toggleUnitMastery(unit_id);
-            this.updateMasteryHud();
-            this.updateTopbar();
-          }
-        });
       }
 
       const modal = document.getElementById('shortcuts_modal');
@@ -398,15 +449,36 @@
           this.closeMobileDrawer();
           return;
         }
-        if (evt.key >= '1' && evt.key <= '8') {
+        if (evt.key === '0') {
+          this.navigate('unit:prereq');
+        } else if (evt.key >= '1' && evt.key <= '8') {
           const idx = Number(evt.key) - 1;
-          this.navigate('unit:0' + idx, this.current_tab);
+          this.navigate('unit:0' + idx);
         } else if (evt.key === 'm' || evt.key === 'M') {
-          this.navigate('view:exam', 'overview');
+          this.navigate('view:exam');
         } else if (evt.key === 'r' || evt.key === 'R') {
-          this.navigate('view:reference', 'overview');
+          this.navigate('view:reference');
         }
       });
+    }
+
+    /**
+     * Resets all solved answers, points, streak, Drop-In puzzles, and Builder games for a clean session.
+     */
+    resetEntireSession() {
+      this.session.resetAllSession();
+      if (this.dropin_engine && typeof this.dropin_engine.resetAll === 'function') {
+        this.dropin_engine.resetAll();
+      }
+      const game_keys = Object.keys(this.builder_games);
+      for (let i = 0; i < game_keys.length; i += 1) {
+        const game = this.builder_games[game_keys[i]];
+        if (game && typeof game.resetAll === 'function') {
+          game.resetAll();
+        }
+      }
+      this.updateSessionHud();
+      this.render();
     }
 
     /**
@@ -420,65 +492,144 @@
     }
 
     /**
-     * Updates active route and tab state, persists it, and re-renders the workspace.
+     * Updates active route, scrolls smoothly to top, and re-renders the workspace.
      *
      * Args:
-     *     nav_target (string): Route identifier ('unit:00'..'unit:07', 'view:exam', 'view:reference').
-     *     tab_name (string): Unit tab identifier ('overview', 'theory', 'lab', 'practice').
+     *     nav_target (string): Route identifier ('unit:prereq', 'unit:00'..'unit:07', 'view:exam', 'view:reference').
      */
-    navigate(nav_target, tab_name) {
+    navigate(nav_target) {
       this.current_nav = nav_target;
-      if (tab_name) {
-        this.current_tab = tab_name;
-      }
-      this.storage.state.last_nav = this.current_nav;
-      this.storage.state.last_tab = this.current_tab;
-      this.storage.saveState();
       this.render();
+      global_scope.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     /**
-     * Updates the sidebar mastery progress bar and completion checkmarks.
+     * Computes live solved totals, total exercises, points, and per-unit solved counts.
+     *
+     * Returns:
+     *     object: Aggregated session metrics.
      */
-    updateMasteryHud() {
-      const mastered = this.storage.state.mastered_units;
-      const ratio_el = document.getElementById('mastery_ratio');
-      const fill_el = document.getElementById('mastery_fill');
-      const bar_el = document.getElementById('mastery_progressbar');
+    computeSessionStats() {
+      let total_items = 0;
+      let solved_items = 0;
+      let points = 0;
+      const per_unit = {};
+
+      for (let c = 0; c < this.chapter_order.length; c += 1) {
+        const uid = this.chapter_order[c];
+        const unit = this.units_data[uid];
+        let u_total = 0;
+        let u_solved = 0;
+
+        const fills = (unit && unit.fill_exercises) || [];
+        for (let i = 0; i < fills.length; i += 1) {
+          u_total += 1;
+          const ans = this.session.fill_answers[fills[i].id];
+          if (ans && ans.is_correct) {
+            u_solved += 1;
+            points += 10;
+          }
+        }
+
+        const tfs = this.true_false_drills[uid] || [];
+        for (let i = 0; i < tfs.length; i += 1) {
+          u_total += 1;
+          const chosen = this.session.tf_answers['tf_' + uid + '_' + i];
+          if (typeof chosen === 'boolean' && chosen === tfs[i].answer) {
+            u_solved += 1;
+            points += 5;
+          }
+        }
+
+        const mcqs = this.quiz_bank.filter((q) => q.unit_id === uid);
+        for (let i = 0; i < mcqs.length; i += 1) {
+          u_total += 1;
+          if (this.session.drill_answers[mcqs[i].id] === mcqs[i].correct_index) {
+            u_solved += 1;
+            points += 10;
+          }
+        }
+
+        if (this.builder_games[uid]) {
+          u_total += 1;
+          if (this.session.completed_games.indexOf('game_' + uid) !== -1) {
+            u_solved += 1;
+            points += 20;
+          }
+        }
+
+        const dropins = this.dropin_puzzles[uid] || [];
+        for (let i = 0; i < dropins.length; i += 1) {
+          u_total += 1;
+          if (this.session.completed_games.indexOf(dropins[i].id) !== -1) {
+            u_solved += 1;
+            points += 20;
+          }
+        }
+
+        per_unit[uid] = { solved: u_solved, total: u_total };
+        total_items += u_total;
+        solved_items += u_solved;
+      }
+
+      return {
+        solved: solved_items,
+        total: total_items,
+        points: points,
+        streak: this.session.current_streak,
+        games_done: this.session.completed_games.length,
+        total_games: Object.keys(this.builder_games).length +
+          Object.keys(this.dropin_puzzles).reduce((acc, k) => acc + this.dropin_puzzles[k].length, 0),
+        per_unit: per_unit
+      };
+    }
+
+    /**
+     * Updates the sidebar session progress bar, points, streak, and per-unit badges.
+     */
+    updateSessionHud() {
+      const stats = this.computeSessionStats();
+      const ratio_el = document.getElementById('session_solved_ratio');
+      const fill_el = document.getElementById('session_fill');
+      const bar_el = document.getElementById('session_progressbar');
+      const score_el = document.getElementById('session_score_label');
+
       if (ratio_el) {
-        ratio_el.textContent = mastered.length + ' / 8';
+        ratio_el.textContent = stats.solved + ' / ' + stats.total;
       }
       if (fill_el) {
-        fill_el.style.width = ((mastered.length / 8) * 100) + '%';
+        const pct = stats.total > 0 ? Math.min(100, (stats.solved / stats.total) * 100) : 0;
+        fill_el.style.width = pct + '%';
       }
       if (bar_el) {
-        bar_el.setAttribute('aria-valuenow', String(mastered.length));
+        bar_el.setAttribute('aria-valuemax', String(Math.max(1, stats.total)));
+        bar_el.setAttribute('aria-valuenow', String(stats.solved));
       }
+      if (score_el) {
+        score_el.textContent = stats.points + ' pts | Σερί ' + stats.streak;
+      }
+
       const status_badges = document.querySelectorAll('[data-status-unit]');
       for (let i = 0; i < status_badges.length; i += 1) {
         const uid = status_badges[i].getAttribute('data-status-unit');
-        status_badges[i].innerHTML = this.storage.isUnitMastered(uid) ? this.icons.getIcon('check', 15) : '';
+        const unit_stat = stats.per_unit[uid];
+        if (unit_stat && unit_stat.solved > 0) {
+          status_badges[i].textContent = unit_stat.solved + '/' + unit_stat.total;
+        } else {
+          status_badges[i].textContent = '';
+        }
       }
 
-      const done_games = this.storage.state.completed_games.length;
-      const ch_ratio = document.getElementById('challenges_ratio');
-      const ch_fill = document.getElementById('challenges_fill');
-      const ch_bar = document.getElementById('challenges_progressbar');
-      if (ch_ratio) {
-        ch_ratio.textContent = done_games + ' / ' + this.total_challenges;
-      }
-      if (ch_fill) {
-        const pct = this.total_challenges > 0 ? Math.min(100, (done_games / this.total_challenges) * 100) : 0;
-        ch_fill.style.width = pct + '%';
-      }
-      if (ch_bar) {
-        ch_bar.setAttribute('aria-valuemax', String(this.total_challenges));
-        ch_bar.setAttribute('aria-valuenow', String(done_games));
-      }
+      const hud_pts = document.getElementById('gamified_hud_points');
+      const hud_streak = document.getElementById('gamified_hud_streak');
+      const hud_games = document.getElementById('gamified_hud_games');
+      if (hud_pts) { hud_pts.textContent = stats.points + ' pts'; }
+      if (hud_streak) { hud_streak.textContent = String(stats.streak); }
+      if (hud_games) { hud_games.textContent = stats.games_done + ' / ' + stats.total_games; }
     }
 
     /**
-     * Synchronizes topbar title, chapter badge, mastery button, and active sidebar link.
+     * Synchronizes topbar title, chapter badge, and active sidebar link.
      */
     updateTopbar() {
       const nav_items = document.querySelectorAll('[data-nav]');
@@ -489,9 +640,6 @@
 
       const title_el = document.getElementById('topbar_title');
       const tag_el = document.getElementById('topbar_chapter_tag');
-      const mastery_btn = document.getElementById('btn_toggle_mastery');
-      const mastery_icon = document.getElementById('mastery_btn_icon');
-      const mastery_text = document.getElementById('mastery_btn_text');
 
       if (this.current_nav.indexOf('unit:') === 0) {
         const uid = this.current_nav.split(':')[1];
@@ -500,19 +648,12 @@
           title_el.textContent = unit.title;
           tag_el.textContent = unit.chapter;
         }
-        mastery_btn.style.display = 'inline-flex';
-        const is_done = this.storage.isUnitMastered(uid);
-        mastery_btn.classList.toggle('is-active', is_done);
-        mastery_icon.innerHTML = this.icons.getIcon('check', 16);
-        mastery_text.textContent = is_done ? 'Ολοκληρώθηκε' : 'Σήμανση Ολοκλήρωσης';
       } else if (this.current_nav === 'view:exam') {
         title_el.textContent = 'Προσομοίωση Προόδου (Mock Midterm)';
         tag_el.textContent = 'Τράπεζα ' + this.quiz_bank.length + ' Ερωτήσεων';
-        mastery_btn.style.display = 'none';
       } else {
         title_el.textContent = 'Συγκεντρωτικός Πίνακας Πολυπλοκοτήτων Προόδου';
         tag_el.textContent = 'Ενότητες 01–07';
-        mastery_btn.style.display = 'none';
       }
     }
 
@@ -521,6 +662,7 @@
      */
     render() {
       this.updateTopbar();
+      this.updateSessionHud();
       const main_el = document.getElementById('app_main');
       if (!main_el) {
         return;
@@ -535,11 +677,47 @@
     }
 
     /**
-     * Renders a unit workspace with 4 segmented tabs (Overview, Theory, Lab, Practice).
+     * Builds the W3Schools-style Previous / Next chapter navigation bar markup.
+     *
+     * Args:
+     *     unit_id (string): Active unit identifier.
+     *
+     * Returns:
+     *     string: HTML markup for the lesson navigation bar.
+     */
+    buildLessonNavBar(unit_id) {
+      const idx = this.chapter_order.indexOf(unit_id);
+      const prev_id = idx > 0 ? this.chapter_order[idx - 1] : null;
+      const next_id = idx !== -1 && idx < this.chapter_order.length - 1 ? this.chapter_order[idx + 1] : null;
+
+      let html = '<div class="lesson-nav-bar">';
+      if (prev_id) {
+        html += '<button type="button" class="btn btn-secondary lesson-nav-btn" data-nav-jump="unit:' + prev_id + '">' +
+          this.icons.getIcon('arrow_left', 16) +
+          '<span>Προηγούμενο: ' + formatRichText(this.chapter_labels[prev_id]) + '</span></button>';
+      } else {
+        html += '<span></span>';
+      }
+
+      if (next_id) {
+        html += '<button type="button" class="btn btn-primary lesson-nav-btn" data-nav-jump="unit:' + next_id + '">' +
+          '<span>Επόμενο: ' + formatRichText(this.chapter_labels[next_id]) + '</span>' +
+          this.icons.getIcon('arrow_right', 16) + '</button>';
+      } else {
+        html += '<button type="button" class="btn btn-primary lesson-nav-btn" data-nav-jump="view:exam">' +
+          '<span>Τελική Προσομοίωση Προόδου</span>' +
+          this.icons.getIcon('arrow_right', 16) + '</button>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    /**
+     * Renders a complete W3Schools-style linear lesson page for the selected unit.
      *
      * Args:
      *     main_el (HTMLElement): Main workspace element.
-     *     unit_id (string): Unit identifier ('00'..'07').
+     *     unit_id (string): Unit identifier ('prereq' or '00'..'07').
      */
     renderUnitView(main_el, unit_id) {
       const unit = this.units_data[unit_id];
@@ -548,133 +726,101 @@
         return;
       }
 
-      const tabs = [
-        { id: 'overview', label: 'Πλαίσιο & Ύλη', icon: 'compass' },
-        { id: 'theory', label: 'Θεωρία & Αποδείξεις', icon: 'book' },
-        { id: 'lab', label: 'Διαδραστικό Εργαστήριο', icon: 'cpu' },
-        { id: 'playground', label: 'Κώδικας & Παιχνίδια', icon: 'layers' },
-        { id: 'practice', label: 'Εξάσκηση & Παγίδες', icon: 'shield' }
-      ];
+      const has_lab = Boolean(this.labs[unit_id] && typeof this.labs[unit_id].mount === 'function');
+      const has_games = Boolean(this.builder_games[unit_id]) || ((this.dropin_puzzles[unit_id] || []).length > 0);
+      const stats = this.computeSessionStats();
 
-      let tab_html = '<div class="tab-bar" role="tablist">';
-      for (let i = 0; i < tabs.length; i += 1) {
-        const t = tabs[i];
-        const act = t.id === this.current_tab ? 'active' : '';
-        tab_html += '<button type="button" role="tab" class="tab-btn ' + act + '" data-tab="' + t.id + '">' +
-          this.icons.getIcon(t.icon, 16) +
-          '<span>' + t.label + '</span></button>';
-      }
-      tab_html += '</div><section id="unit_tab_body" class="panel-enter" style="display:flex;flex-direction:column;gap:18px;"></section>';
+      let html = '<div class="panel-enter" style="display:flex;flex-direction:column;gap:24px;">';
+      html += this.buildLessonNavBar(unit_id);
 
-      main_el.innerHTML = tab_html;
+      // In-page section jump pills for immediate navigation without hiding sections behind tabs.
+      html += '<div class="section-jump-bar" aria-label="Ενότητες μαθήματος">' +
+        '<button type="button" class="jump-pill" data-scroll-to="sec_recap">1. Γρήγορη Επανάληψη</button>' +
+        '<button type="button" class="jump-pill" data-scroll-to="sec_theory">2. Θεωρία &amp; Παραδείγματα</button>' +
+        (has_lab ? '<button type="button" class="jump-pill" data-scroll-to="sec_lab">3. Δοκίμασέ το (Εργαστήριο)</button>' : '') +
+        '<button type="button" class="jump-pill" data-scroll-to="sec_worked_code">Λυμένες Ασκήσεις &amp; Python</button>' +
+        '<button type="button" class="jump-pill" data-scroll-to="sec_solve">Ασκήσεις για Επίλυση</button>' +
+        (has_games ? '<button type="button" class="jump-pill" data-scroll-to="sec_games">Παιχνιδοποιημένες Ασκήσεις</button>' : '') +
+        '<button type="button" class="jump-pill" data-scroll-to="sec_traps">Παγίδες &amp; SOS</button>' +
+      '</div>';
 
-      const tab_btns = main_el.querySelectorAll('[data-tab]');
-      for (let i = 0; i < tab_btns.length; i += 1) {
-        tab_btns[i].addEventListener('click', (evt) => {
-          this.current_tab = evt.currentTarget.getAttribute('data-tab');
-          this.storage.state.last_tab = this.current_tab;
-          this.storage.saveState();
-          this.renderUnitView(main_el, unit_id);
-        });
-      }
-
-      const body_el = main_el.querySelector('#unit_tab_body');
-      if (this.current_tab === 'overview') {
-        this.renderUnitOverview(body_el, unit);
-      } else if (this.current_tab === 'theory') {
-        this.renderUnitTheory(body_el, unit);
-      } else if (this.current_tab === 'lab') {
-        this.renderUnitLab(body_el, unit_id);
-      } else if (this.current_tab === 'playground') {
-        this.renderUnitPlayground(body_el, unit_id);
-      } else {
-        this.renderUnitPractice(body_el, unit);
-      }
-    }
-
-    /**
-     * Renders Tab 1: Overview, Exclusions, Learning Objectives, and Teaching Flow.
-     *
-     * Args:
-     *     body_el (HTMLElement): Tab panel body container.
-     *     unit (object): Structured unit curriculum entry.
-     */
-    renderUnitOverview(body_el, unit) {
-      let html = '<div class="card stagger-item">' +
-        '<h2>Εννοιολογικό Πλαίσιο</h2>' +
+      // Lesson Overview Banner
+      html += '<section class="card">' +
+        '<h2>' + formatRichText(unit.title) + '</h2>' +
         '<p>' + formatRichText(unit.summary) + '</p>' +
         '<div class="scope-callout">' +
-          '<div style="display:flex;align-items:center;gap:8px;font-weight:600;color:var(--accent-primary);">' +
-            this.icons.getIcon('alert', 16) + '<span>Όρια Εξεταστέας Ύλης &amp; Εξαιρέσεις</span>' +
+          '<div style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--accent-btn);">' +
+            this.icons.getIcon('alert', 16) + '<span>Όρια Ύλης &amp; Σημαντικές Εξαιρέσεις</span>' +
           '</div>' +
           '<ul class="bullet-list">' + unit.exclusions.map((e) => '<li>' + formatRichText(e) + '</li>').join('') + '</ul>' +
         '</div>' +
-      '</div>';
+      '</section>';
 
-      html += '<div class="grid-2">' +
-        '<div class="card card-interactive stagger-item">' +
-          '<h3>Μαθησιακοί Στόχοι</h3>' +
-          '<ul class="bullet-list">' + unit.objectives.map((o) => '<li>' + formatRichText(o) + '</li>').join('') + '</ul>' +
-        '</div>' +
-        '<div class="card card-interactive stagger-item">' +
-          '<h3>Διδακτική Πορεία Μελέτης</h3>' +
-          '<ul class="bullet-list">' + unit.teaching_flow.map((f) => '<li>' + formatRichText(f) + '</li>').join('') + '</ul>' +
-        '</div>' +
-      '</div>';
-
-      if (unit.dependencies && unit.dependencies.length > 0) {
-        html += '<div class="card stagger-item"><h3>Συνδέσεις με Άλλες Ενότητες Προόδου</h3><div class="grid-2">';
-        for (let i = 0; i < unit.dependencies.length; i += 1) {
-          const dep = unit.dependencies[i];
-          html += '<div class="card-deep">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
-              '<span class="meta-pill accent">Ενότητα ' + dep.target + '</span>' +
-              '<button type="button" class="btn btn-ghost" data-jump-unit="' + dep.target + '">Μετάβαση</button>' +
+      // Section 1: Fast Recap (for beginners or quick refresh)
+      if (unit.fast_recap) {
+        html += '<section id="sec_recap" class="w3-section">' +
+          '<div class="recap-box">' +
+            '<div class="card-header">' +
+              '<div class="w3-section-title">' + this.icons.getIcon('zap', 20) + '<h2>' + formatRichText(unit.fast_recap.title) + '</h2></div>' +
+              (unit_id !== 'prereq' ? '<button type="button" class="btn btn-secondary" data-nav-jump="unit:prereq">Θυμίσου τα Βασικά Μαθηματικά</button>' : '') +
             '</div>' +
-            '<p class="muted-text">' + formatRichText(dep.reason) + '</p>' +
-          '</div>';
-        }
-        html += '</div></div>';
+            '<p>' + unit.fast_recap.intro_html + '</p>' +
+            '<div class="recap-grid">' +
+              unit.fast_recap.key_ideas.map((idea) =>
+                '<div class="recap-item">' +
+                  '<div class="recap-term">' + formatRichText(idea.term) + '</div>' +
+                  '<div>' + formatRichText(idea.plain_explanation) + '</div>' +
+                  '<div class="muted-text" style="font-size:0.86rem;"><code>' + formatRichText(idea.mini_example) + '</code></div>' +
+                '</div>'
+              ).join('') +
+            '</div>' +
+          '</div>' +
+        '</section>';
       }
 
-      body_el.innerHTML = html;
+      // Section 2: Theory + Inline Solved Example Directly Underneath Each Concept
+      html += '<section id="sec_theory" class="w3-section">' +
+        '<div class="w3-section-header">' +
+          '<div class="w3-section-title">' + this.icons.getIcon('book', 20) + '<h2>Θεωρία &amp; Λυμένα Παραδείγματα</h2></div>' +
+          '<span class="meta-pill accent">' + unit.theory_cards.length + ' βασικές έννοιες</span>' +
+        '</div>';
 
-      const jump_btns = body_el.querySelectorAll('[data-jump-unit]');
-      for (let i = 0; i < jump_btns.length; i += 1) {
-        jump_btns[i].addEventListener('click', (evt) => {
-          this.navigate('unit:' + evt.currentTarget.getAttribute('data-jump-unit'), 'overview');
-        });
-      }
-    }
-
-    /**
-     * Renders Tab 2: Theory Concept Cards, Expandable Proofs, and Comparison Table.
-     *
-     * Args:
-     *     body_el (HTMLElement): Tab panel body container.
-     *     unit (object): Structured unit curriculum entry.
-     */
-    renderUnitTheory(body_el, unit) {
-      let html = '';
       for (let i = 0; i < unit.theory_cards.length; i += 1) {
         const card = unit.theory_cards[i];
-        html += '<div class="card stagger-item">' +
-          '<h3>' + formatRichText(card.title) + '</h3>' +
+        html += '<article class="concept-block">' +
+          '<div class="concept-header">' +
+            '<h3>' + formatRichText(card.title) + '</h3>' +
+            '<span class="concept-num">Έννοια ' + (i + 1) + '</span>' +
+          '</div>' +
           '<div class="math-block">' + card.formula_html + '</div>' +
-          '<p>' + card.body_html + '</p>' +
-          '<div class="accordion">' +
+          '<p>' + card.body_html + '</p>';
+
+        if (card.inline_example) {
+          html += '<div class="w3-example-card">' +
+            '<div class="w3-example-label">' + this.icons.getIcon('lightbulb', 18) + '<span>' + formatRichText(card.inline_example.title) + '</span></div>' +
+            '<div class="w3-example-inner">' +
+              '<div><strong>Πρόβλημα:</strong> ' + card.inline_example.prompt_html + '</div>' +
+              '<div>' + card.inline_example.steps_html + '</div>' +
+              '<div class="accent-callout"><strong>Κρατάμε:</strong> ' + card.inline_example.takeaway_html + '</div>' +
+            '</div>' +
+          '</div>';
+        }
+
+        if (card.proof_title && card.proof_html) {
+          html += '<div class="accordion">' +
             '<button type="button" class="accordion-trigger" aria-expanded="false">' +
               '<span>' + formatRichText(card.proof_title) + '</span>' +
               '<span class="accordion-chevron">' + this.icons.getIcon('chevron', 18) + '</span>' +
             '</button>' +
             '<div class="accordion-panel">' + card.proof_html + '</div>' +
-          '</div>' +
-        '</div>';
+          '</div>';
+        }
+        html += '</article>';
       }
 
       if (unit.comparison_table) {
         const tbl = unit.comparison_table;
-        html += '<div class="card stagger-item">' +
+        html += '<div class="card">' +
           '<h3>' + formatRichText(tbl.title) + '</h3>' +
           '<div class="table-wrap"><table class="data-table"><thead><tr>' +
             tbl.headers.map((h) => '<th>' + formatRichText(h) + '</th>').join('') +
@@ -683,117 +829,38 @@
           '</tbody></table></div>' +
         '</div>';
       }
+      html += '</section>';
 
-      body_el.innerHTML = html;
-      this.bindAccordions(body_el);
-    }
-
-    /**
-     * Renders Tab 3: Interactive Algorithm Lab for the active unit.
-     *
-     * Args:
-     *     body_el (HTMLElement): Tab panel body container.
-     *     unit_id (string): Unit identifier ('00'..'07').
-     */
-    renderUnitLab(body_el, unit_id) {
-      const lab = this.labs[unit_id];
-      if (!lab || typeof lab.mount !== 'function') {
-        body_el.innerHTML = '<div class="card"><p>Δεν υπάρχει διαθέσιμο εργαστήριο για αυτή την ενότητα.</p></div>';
-        return;
+      // Section 3: Try It Yourself — Interactive Lab
+      if (has_lab) {
+        html += '<section id="sec_lab" class="w3-section">' +
+          '<div class="w3-section-header">' +
+            '<div class="w3-section-title">' + this.icons.getIcon('cpu', 20) + '<h2>Δοκίμασέ το: Διαδραστικό Εργαστήριο</h2></div>' +
+            '<span class="meta-pill">Βηματική Εκτέλεση</span>' +
+          '</div>' +
+          '<div id="unit_lab_host" style="display:flex;flex-direction:column;gap:16px;"></div>' +
+        '</section>';
       }
-      lab.mount(body_el);
-    }
 
-    /**
-     * Renders Tab 4: Interactive Builder Game, Python Drop-In Puzzles, and Python Code Examples.
-     *
-     * Args:
-     *     body_el (HTMLElement): Tab panel body container.
-     *     unit_id (string): Unit identifier ('00'..'07').
-     */
-    renderUnitPlayground(body_el, unit_id) {
+      // Section 4: Additional Exam-Level Solved Exercises & Clean Python Code
       const examples = this.code_examples[unit_id] || [];
-      let html = '<div id="pg_builder_host" class="stagger-item"></div>';
-      html += '<div id="pg_dropin_host" class="stagger-item"></div>';
+      html += '<section id="sec_worked_code" class="w3-section">' +
+        '<div class="w3-section-header">' +
+          '<div class="w3-section-title">' + this.icons.getIcon('code', 20) + '<h2>Λυμένες Ασκήσεις Εξετάσεων &amp; Κώδικας Python</h2></div>' +
+          '<span class="meta-pill">' + unit.worked_exercises.length + ' ασκήσεις Προόδου</span>' +
+        '</div>' +
+        '<div class="card">' +
+          '<h3>Λυμένες Ασκήσεις Εξεταστικού Επιπέδου (Σημειώσεις &amp; Φροντιστήρια)</h3>' +
+          '<p class="muted-text">Διαβάστε τη στρατηγική, προσπαθήστε να γράψετε τα βήματα στο χαρτί και ανοίξτε τη λύση για επαλήθευση.</p>' +
+          '<div style="display:flex;flex-direction:column;gap:12px;">';
 
-      html += '<div class="card stagger-item">' +
-        '<h3>Παραδείγματα Κώδικα Python (Πρότυπα Σημειώσεων &amp; Φροντιστηρίου)</h3>' +
-        '<p class="muted-text">Αναπτύξτε κάθε υλοποίηση για να μελετήσετε τη δομή, τις συμβάσεις ονοματολογίας και τα σχόλια πολυπλοκότητας.</p>' +
-        '<div style="display:flex;flex-direction:column;gap:12px;">';
-
-      for (let i = 0; i < examples.length; i += 1) {
-        const ex = examples[i];
-        html += '<div class="accordion">' +
-          '<button type="button" class="accordion-trigger" aria-expanded="false">' +
-            '<span style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">' +
-              '<span>' + formatRichText(ex.title) + '</span>' +
-              '<span class="meta-pill">' + formatRichText(ex.source_tag) + '</span>' +
-              '<span class="meta-pill accent">' + formatRichText(ex.complexity) + '</span>' +
-            '</span>' +
-            '<span class="accordion-chevron">' + this.icons.getIcon('chevron', 18) + '</span>' +
-          '</button>' +
-          '<div class="accordion-panel"><pre><code>' +
-            String(ex.code).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
-          '</code></pre></div>' +
-        '</div>';
-      }
-      html += '</div></div>';
-
-      body_el.innerHTML = html;
-      this.bindAccordions(body_el);
-
-      const handleComplete = (challenge_id) => {
-        this.storage.markGameCompleted(challenge_id);
-        this.updateMasteryHud();
-      };
-
-      const builder_host = body_el.querySelector('#pg_builder_host');
-      const builder_game = this.builder_games[unit_id];
-      if (builder_host && builder_game && typeof builder_game.mount === 'function') {
-        builder_game.mount(builder_host, handleComplete);
-      }
-
-      const dropin_host = body_el.querySelector('#pg_dropin_host');
-      if (dropin_host && this.dropin_engine) {
-        this.dropin_engine.mount(dropin_host, unit_id, this.storage.state.completed_games, handleComplete);
-      }
-    }
-
-    /**
-     * Renders Tab 4: Interactive Unit Drills, Worked Exercises, Traps, and SOS Summary.
-     *
-     * Args:
-     *     body_el (HTMLElement): Tab panel body container.
-     *     unit (object): Structured unit curriculum entry.
-     */
-    renderUnitPractice(body_el, unit) {
-      const unit_drills = this.quiz_bank.filter((q) => q.unit_id === unit.unit_id);
-      const tf_items = this.true_false_drills[unit.unit_id] || [];
-
-      let html = '';
-      if (tf_items.length > 0) {
-        html += '<div class="card stagger-item">' +
-          '<div class="card-header"><h3>Γρήγορος Έλεγχος ΣΩΣΤΟ / ΛΑΘΟΣ (Θέματα Φροντιστηρίου)</h3><span class="meta-pill accent">' + tf_items.length + ' προτάσεις</span></div>' +
-          '<div id="unit_tf_host" class="tf-list"></div>' +
-        '</div>';
-      }
-
-      html += '<div class="card stagger-item">' +
-        '<div class="card-header"><h3>Ερωτήσεις Πολλαπλής Επιλογής Ενότητας</h3><span class="meta-pill accent">' + unit_drills.length + ' ερωτήσεις</span></div>' +
-        '<div id="unit_drills_host" style="display:flex;flex-direction:column;gap:18px;"></div>' +
-      '</div>';
-
-      html += '<div class="card stagger-item">' +
-        '<h3>Λυμένες Ασκήσεις Εξεταστικού Επιπέδου (Προοδευτική Αποκάλυψη)</h3>' +
-        '<p class="muted-text">Δοκιμάστε πρώτα να διαμορφώσετε τη λύση μόνοι σας πριν ανοίξετε το πλαίσιο λύσης.</p>' +
-        '<div style="display:flex;flex-direction:column;gap:12px;">';
       for (let i = 0; i < unit.worked_exercises.length; i += 1) {
         const ex = unit.worked_exercises[i];
-        html += '<div class="card-deep">' +
-          '<h4 style="margin-bottom:8px;">' + formatRichText(ex.title) + '</h4>' +
+        html += '<div class="w3-example-card">' +
+          '<h4>' + formatRichText(ex.title) + '</h4>' +
           '<p>' + ex.prompt_html + '</p>' +
           '<p class="muted-text"><strong>Στρατηγική:</strong> ' + ex.strategy_html + '</p>' +
-          '<div class="accordion" style="margin-top:10px;">' +
+          '<div class="accordion">' +
             '<button type="button" class="accordion-trigger" aria-expanded="false">' +
               '<span>Αποκάλυψη Πλήρους Λύσης &amp; Ελέγχου</span>' +
               '<span class="accordion-chevron">' + this.icons.getIcon('chevron', 18) + '</span>' +
@@ -807,7 +874,95 @@
       }
       html += '</div></div>';
 
-      html += '<div class="card stagger-item"><h3>Εξεταστικές Παγίδες</h3><div class="grid-2">';
+      if (examples.length > 0) {
+        html += '<div class="card">' +
+          '<h3>Παραδείγματα Κώδικα Python (Με Καθαρή Ονοματολογία)</h3>' +
+          '<div style="display:flex;flex-direction:column;gap:12px;">';
+        for (let i = 0; i < examples.length; i += 1) {
+          const ex = examples[i];
+          html += '<div class="accordion">' +
+            '<button type="button" class="accordion-trigger" aria-expanded="false">' +
+              '<span style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">' +
+                '<span>' + formatRichText(ex.title) + '</span>' +
+                '<span class="meta-pill">' + formatRichText(ex.source_tag) + '</span>' +
+                '<span class="meta-pill accent">' + formatRichText(ex.complexity) + '</span>' +
+              '</span>' +
+              '<span class="accordion-chevron">' + this.icons.getIcon('chevron', 18) + '</span>' +
+            '</button>' +
+            '<div class="accordion-panel"><pre><code>' +
+              String(ex.code).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+            '</code></pre></div>' +
+          '</div>';
+        }
+        html += '</div></div>';
+      }
+      html += '</section>';
+
+      // Section 5: Exercises to Solve (Fill-in-the-blank + True/False + MCQs)
+      const fill_items = unit.fill_exercises || [];
+      const tf_items = this.true_false_drills[unit_id] || [];
+      const unit_drills = this.quiz_bank.filter((q) => q.unit_id === unit_id);
+
+      html += '<section id="sec_solve" class="w3-section">' +
+        '<div class="w3-section-header">' +
+          '<div class="w3-section-title">' + this.icons.getIcon('edit', 20) + '<h2>Ασκήσεις για Επίλυση (Έλεγξε τις Γνώσεις σου)</h2></div>' +
+          '<span class="meta-pill accent">Επαναφέρονται Πλήρως</span>' +
+        '</div>';
+
+      if (fill_items.length > 0) {
+        html += '<div class="card">' +
+          '<div class="card-header">' +
+            '<div><h3>1. Συμπλήρωσε την Απάντηση (W3Schools Style)</h3><p class="muted-text">Πληκτρολογήστε τη σωστή τιμή και πατήστε Έλεγχος (+10 πόντοι ανά άσκηση).</p></div>' +
+            '<button type="button" class="btn btn-ghost" id="btn_reset_fills">' + this.icons.getIcon('reset', 15) + '<span>Επαναφορά Όλων</span></button>' +
+          '</div>' +
+          '<div id="unit_fill_host" style="display:flex;flex-direction:column;gap:14px;"></div>' +
+        '</div>';
+      }
+
+      if (tf_items.length > 0) {
+        html += '<div class="card">' +
+          '<div class="card-header">' +
+            '<div><h3>2. Γρήγορος Έλεγχος ΣΩΣΤΟ / ΛΑΘΟΣ</h3><p class="muted-text">Θέματα Φροντιστηρίου (+5 πόντοι ανά σωστή απάντηση).</p></div>' +
+            '<button type="button" class="btn btn-ghost" id="btn_reset_tf">' + this.icons.getIcon('reset', 15) + '<span>Επαναφορά</span></button>' +
+          '</div>' +
+          '<div id="unit_tf_host" class="tf-list"></div>' +
+        '</div>';
+      }
+
+      if (unit_drills.length > 0) {
+        html += '<div class="card">' +
+          '<div class="card-header">' +
+            '<div><h3>3. Ερωτήσεις Πολλαπλής Επιλογής Ενότητας</h3><p class="muted-text">Επιλέξτε απάντηση για άμεση αιτιολόγηση (+10 πόντοι ανά σωστή απάντηση).</p></div>' +
+            '<button type="button" class="btn btn-ghost" id="btn_reset_mcqs">' + this.icons.getIcon('reset', 15) + '<span>Επαναφορά</span></button>' +
+          '</div>' +
+          '<div id="unit_drills_host" style="display:flex;flex-direction:column;gap:16px;"></div>' +
+        '</div>';
+      }
+      html += '</section>';
+
+      // Section 6: Gamified Exercises (Builder Game + Python Drop-In Puzzles + Scoreboard)
+      if (has_games) {
+        html += '<section id="sec_games" class="w3-section">' +
+          '<div class="w3-section-header">' +
+            '<div class="w3-section-title">' + this.icons.getIcon('trophy', 20) + '<h2>Παιχνιδοποιημένες Ασκήσεις &amp; Προκλήσεις</h2></div>' +
+            '<span class="meta-pill accent">+20 πόντοι ανά πρόκληση</span>' +
+          '</div>' +
+          '<div class="gamified-hud">' +
+            '<div class="gamified-stat"><span class="gamified-stat-label">Πόντοι Συνεδρίας</span><span class="gamified-stat-val" id="gamified_hud_points">' + stats.points + ' pts</span></div>' +
+            '<div class="gamified-stat"><span class="gamified-stat-label">Τρέχον Σερί</span><span class="gamified-stat-val" id="gamified_hud_streak">' + stats.streak + '</span></div>' +
+            '<div class="gamified-stat"><span class="gamified-stat-label">Ολοκληρωμένα Παιχνίδια</span><span class="gamified-stat-val" id="gamified_hud_games">' + stats.games_done + ' / ' + stats.total_games + '</span></div>' +
+          '</div>' +
+          '<div id="pg_builder_host"></div>' +
+          '<div id="pg_dropin_host"></div>' +
+        '</section>';
+      }
+
+      // Section 7: Exam Traps & SOS Summary
+      html += '<section id="sec_traps" class="w3-section">' +
+        '<div class="w3-section-header">' +
+          '<div class="w3-section-title">' + this.icons.getIcon('shield', 20) + '<h2>Εξεταστικές Παγίδες &amp; Σημεία SOS</h2></div>' +
+        '</div>' +
+        '<div class="card"><h3>Συχνές Παγίδες</h3><div class="grid-2">';
       for (let i = 0; i < unit.traps.length; i += 1) {
         const tr = unit.traps[i];
         html += '<div class="trap-card">' +
@@ -817,33 +972,226 @@
         '</div>';
       }
       html += '</div></div>';
-
-      html += '<div class="card stagger-item"><h3>Σημεία SOS &amp; Γρήγορη Επανάληψη</h3>' +
+      html += '<div class="card"><h3>Σημεία SOS &amp; Γρήγορη Επανάληψη</h3>' +
         '<ul class="bullet-list">' + unit.sos_points.map((s) => '<li>' + formatRichText(s) + '</li>').join('') + '</ul>' +
-      '</div>';
+      '</div></section>';
 
-      body_el.innerHTML = html;
-      this.bindAccordions(body_el);
+      html += this.buildLessonNavBar(unit_id);
+      html += '</div>';
 
-      const tf_host = body_el.querySelector('#unit_tf_host');
-      if (tf_host) {
-        this.renderTrueFalseList(tf_host, unit.unit_id, tf_items);
+      main_el.innerHTML = html;
+
+      // Binds chapter Prev/Next and jump links.
+      const nav_jump_btns = main_el.querySelectorAll('[data-nav-jump]');
+      for (let i = 0; i < nav_jump_btns.length; i += 1) {
+        nav_jump_btns[i].addEventListener('click', (evt) => {
+          this.navigate(evt.currentTarget.getAttribute('data-nav-jump'));
+        });
       }
 
-      const drill_host = body_el.querySelector('#unit_drills_host');
+      const scroll_btns = main_el.querySelectorAll('[data-scroll-to]');
+      for (let i = 0; i < scroll_btns.length; i += 1) {
+        scroll_btns[i].addEventListener('click', (evt) => {
+          const target_el = document.getElementById(evt.currentTarget.getAttribute('data-scroll-to'));
+          if (target_el) {
+            target_el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      this.bindAccordions(main_el);
+
+      // Mounts Unit Lab.
+      const lab_host = main_el.querySelector('#unit_lab_host');
+      if (has_lab && lab_host) {
+        this.labs[unit_id].mount(lab_host);
+      }
+
+      // Mounts Fill-in-the-blank exercises.
+      const fill_host = main_el.querySelector('#unit_fill_host');
+      if (fill_host) {
+        this.renderFillExercises(fill_host, fill_items);
+        const reset_fills_btn = main_el.querySelector('#btn_reset_fills');
+        if (reset_fills_btn) {
+          reset_fills_btn.addEventListener('click', () => {
+            this.session.resetFillExercises(fill_items.map((item) => item.id));
+            this.updateSessionHud();
+            this.renderFillExercises(fill_host, fill_items);
+          });
+        }
+      }
+
+      // Mounts True/False drills.
+      const tf_host = main_el.querySelector('#unit_tf_host');
+      if (tf_host) {
+        this.renderTrueFalseList(tf_host, unit_id, tf_items);
+        const reset_tf_btn = main_el.querySelector('#btn_reset_tf');
+        if (reset_tf_btn) {
+          reset_tf_btn.addEventListener('click', () => {
+            this.session.resetTfUnit(unit_id);
+            this.updateSessionHud();
+            this.renderTrueFalseList(tf_host, unit_id, tf_items);
+          });
+        }
+      }
+
+      // Mounts Unit MCQs.
+      const drill_host = main_el.querySelector('#unit_drills_host');
       if (drill_host) {
-        this.renderQuestionList(drill_host, unit_drills, this.storage.state.drill_answers, (q_id, opt_idx) => {
-          this.storage.recordDrillAnswer(q_id, opt_idx);
+        const renderUnitDrills = () => {
+          this.renderQuestionList(drill_host, unit_drills, this.session.drill_answers, (q_id, opt_idx) => {
+            const q_obj = unit_drills.find((item) => item.id === q_id);
+            const is_ok = Boolean(q_obj && opt_idx === q_obj.correct_index);
+            this.session.recordDrillAnswer(q_id, opt_idx, is_ok);
+            this.updateSessionHud();
+          });
+        };
+        renderUnitDrills();
+        const reset_mcqs_btn = main_el.querySelector('#btn_reset_mcqs');
+        if (reset_mcqs_btn) {
+          reset_mcqs_btn.addEventListener('click', () => {
+            this.session.resetDrills(unit_drills.map((q) => q.id));
+            this.updateSessionHud();
+            renderUnitDrills();
+          });
+        }
+      }
+
+      // Mounts Gamified Builder Game and Python Drop-In Puzzles.
+      const handleGameComplete = (challenge_id) => {
+        this.session.markGameCompleted(challenge_id);
+        this.updateSessionHud();
+      };
+      const handleGameReset = (challenge_id) => {
+        this.session.unmarkGameCompleted(challenge_id);
+        this.updateSessionHud();
+      };
+
+      const builder_host = main_el.querySelector('#pg_builder_host');
+      const builder_game = this.builder_games[unit_id];
+      if (builder_host && builder_game && typeof builder_game.mount === 'function') {
+        builder_game.mount(builder_host, handleGameComplete, handleGameReset);
+      }
+
+      const dropin_host = main_el.querySelector('#pg_dropin_host');
+      if (dropin_host && this.dropin_engine) {
+        this.dropin_engine.mount(dropin_host, unit_id, this.session.completed_games, handleGameComplete, handleGameReset);
+      }
+    }
+
+    /**
+     * Renders W3Schools-style interactive fill-in-the-blank exercises with Check, Hint, Reveal, and Reset.
+     *
+     * Args:
+     *     host_el (HTMLElement): Container element for fill exercises.
+     *     fill_items (Array<object>): Exercise definitions.
+     */
+    renderFillExercises(host_el, fill_items) {
+      let html = '';
+      for (let i = 0; i < fill_items.length; i += 1) {
+        const item = fill_items[i];
+        const state = this.session.fill_answers[item.id] || { value: '', is_correct: null, revealed: false, hint_shown: false };
+        const status_cls = state.is_correct === true ? 'is-correct' : (state.is_correct === false ? 'is-wrong' : '');
+
+        html += '<div class="fill-exercise-card ' + status_cls + '" data-fill-id="' + item.id + '">' +
+          '<div><strong>#' + (i + 1) + '.</strong> ' + formatRichText(item.prompt) + '</div>' +
+          '<div class="fill-input-row">' +
+            '<input type="text" class="input-control" data-fill-input="' + item.id + '" placeholder="' + (item.placeholder || 'απάντηση') + '" value="' + String(state.value || '').replace(/"/g, '&quot;') + '" style="min-width:170px;">' +
+            '<button type="button" class="btn btn-primary" data-fill-check="' + item.id + '">Έλεγχος</button>' +
+            '<button type="button" class="btn btn-secondary" data-fill-hint="' + item.id + '">Υπόδειξη</button>' +
+            '<button type="button" class="btn btn-secondary" data-fill-reveal="' + item.id + '">Λύση</button>' +
+            '<button type="button" class="btn btn-ghost" data-fill-reset="' + item.id + '">Επαναφορά</button>' +
+          '</div>';
+
+        if (state.hint_shown) {
+          html += '<div class="quiz-feedback"><div><strong>Υπόδειξη:</strong> ' + formatRichText(item.hint) + '</div></div>';
+        }
+        if (state.revealed) {
+          html += '<div class="quiz-feedback"><div><strong>Αποδεκτή Λύση:</strong> <code>' + formatRichText(item.expected[0]) + '</code> — ' + formatRichText(item.explanation) + '</div></div>';
+        } else if (state.is_correct === true) {
+          html += '<div class="quiz-feedback is-correct">' +
+            '<div class="feedback-badge">' + this.icons.getIcon('check', 16) + '<span>Σωστά! (+10 πόντοι)</span></div>' +
+            '<div>' + formatRichText(item.explanation) + '</div></div>';
+        } else if (state.is_correct === false) {
+          html += '<div class="quiz-feedback is-wrong">' +
+            '<div class="feedback-badge">' + this.icons.getIcon('alert', 16) + '<span>Προσπάθησε ξανά</span></div>' +
+            '<div>Δες την υπόδειξη ή έλεγξε τους τύπους της θεωρίας.</div></div>';
+        }
+        html += '</div>';
+      }
+
+      host_el.innerHTML = html;
+
+      const submitAnswer = (fill_id) => {
+        const item = fill_items.find((x) => x.id === fill_id);
+        const input_el = host_el.querySelector('[data-fill-input="' + fill_id + '"]');
+        if (!item || !input_el) {
+          return;
+        }
+        const raw_val = input_el.value;
+        const norm_val = normalizeAnswer(raw_val);
+        const is_ok = norm_val.length > 0 && item.expected.some((exp) => normalizeAnswer(exp) === norm_val);
+        this.session.recordFillResult(fill_id, raw_val, is_ok);
+        this.updateSessionHud();
+        this.renderFillExercises(host_el, fill_items);
+      };
+
+      const check_btns = host_el.querySelectorAll('[data-fill-check]');
+      for (let i = 0; i < check_btns.length; i += 1) {
+        check_btns[i].addEventListener('click', (evt) => {
+          submitAnswer(evt.currentTarget.getAttribute('data-fill-check'));
+        });
+      }
+
+      const inputs = host_el.querySelectorAll('[data-fill-input]');
+      for (let i = 0; i < inputs.length; i += 1) {
+        inputs[i].addEventListener('keydown', (evt) => {
+          if (evt.key === 'Enter') {
+            evt.preventDefault();
+            submitAnswer(evt.currentTarget.getAttribute('data-fill-input'));
+          }
+        });
+      }
+
+      const hint_btns = host_el.querySelectorAll('[data-fill-hint]');
+      for (let i = 0; i < hint_btns.length; i += 1) {
+        hint_btns[i].addEventListener('click', (evt) => {
+          const fid = evt.currentTarget.getAttribute('data-fill-hint');
+          const input_el = host_el.querySelector('[data-fill-input="' + fid + '"]');
+          if (input_el && this.session.fill_answers[fid]) {
+            this.session.fill_answers[fid].value = input_el.value;
+          }
+          this.session.toggleFillHint(fid);
+          this.renderFillExercises(host_el, fill_items);
+        });
+      }
+
+      const reveal_btns = host_el.querySelectorAll('[data-fill-reveal]');
+      for (let i = 0; i < reveal_btns.length; i += 1) {
+        reveal_btns[i].addEventListener('click', (evt) => {
+          const fid = evt.currentTarget.getAttribute('data-fill-reveal');
+          this.session.revealFillSolution(fid);
+          this.renderFillExercises(host_el, fill_items);
+        });
+      }
+
+      const reset_btns = host_el.querySelectorAll('[data-fill-reset]');
+      for (let i = 0; i < reset_btns.length; i += 1) {
+        reset_btns[i].addEventListener('click', (evt) => {
+          const fid = evt.currentTarget.getAttribute('data-fill-reset');
+          this.session.resetFillExercises([fid]);
+          this.updateSessionHud();
+          this.renderFillExercises(host_el, fill_items);
         });
       }
     }
 
     /**
-     * Renders rapid-fire True/False recitation statements with immediate explanation feedback.
+     * Renders rapid-fire True/False statements with immediate explanation feedback.
      *
      * Args:
      *     host_el (HTMLElement): Host container for True/False rows.
-     *     unit_id (string): Unit identifier ('00'..'07').
+     *     unit_id (string): Unit identifier ('prereq', '00'..'07').
      *     tf_items (Array<object>): List of { statement, answer, explanation } objects.
      */
     renderTrueFalseList(host_el, unit_id, tf_items) {
@@ -851,7 +1199,7 @@
       for (let i = 0; i < tf_items.length; i += 1) {
         const item = tf_items[i];
         const tf_key = 'tf_' + unit_id + '_' + i;
-        const chosen = this.storage.state.tf_answers[tf_key];
+        const chosen = this.session.tf_answers[tf_key];
         const has_ans = typeof chosen === 'boolean';
         const is_ok = has_ans && chosen === item.answer;
 
@@ -863,7 +1211,7 @@
               '<button type="button" class="btn ' + (has_ans && chosen === false ? 'btn-primary' : 'btn-secondary') + '" data-tf-val="false">ΛΑΘΟΣ</button>' +
             '</div>' +
           '</div>' +
-          (has_ans ? '<div class="muted-text" style="font-size:0.88rem;">' + formatRichText(item.explanation) + '</div>' : '') +
+          (has_ans ? '<div class="muted-text" style="font-size:0.9rem;">' + formatRichText(item.explanation) + '</div>' : '') +
         '</div>';
       }
       host_el.innerHTML = html;
@@ -874,7 +1222,9 @@
           const row = evt.currentTarget.closest('[data-tf-idx]');
           const idx = Number(row.getAttribute('data-tf-idx'));
           const val = evt.currentTarget.getAttribute('data-tf-val') === 'true';
-          this.storage.recordTfAnswer('tf_' + unit_id + '_' + idx, val);
+          const is_ok = tf_items[idx] && val === tf_items[idx].answer;
+          this.session.recordTfAnswer('tf_' + unit_id + '_' + idx, val, is_ok);
+          this.updateSessionHud();
           this.renderTrueFalseList(host_el, unit_id, tf_items);
         });
       }
@@ -900,7 +1250,7 @@
     }
 
     /**
-     * Renders an interactive list of multiple-choice questions with instant Architectural Draft feedback.
+     * Renders an interactive list of multiple-choice questions with instant Editorial Paper feedback.
      *
      * Args:
      *     host_el (HTMLElement): Target DOM element.
@@ -918,7 +1268,7 @@
 
         html += '<div class="card-deep" data-qid="' + q.id + '">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
-            '<span class="meta-pill">Ενότητα ' + q.unit_id + ' | #' + (i + 1) + '</span>' +
+            '<span class="meta-pill">' + (q.unit_id === 'prereq' ? 'Προαπαιτούμενα' : 'Ενότητα ' + q.unit_id) + ' | #' + (i + 1) + '</span>' +
           '</div>' +
           '<p style="font-weight:600;color:var(--ink-bright);">' + formatRichText(q.prompt) + '</p>' +
           '<div class="quiz-options">';
@@ -977,10 +1327,10 @@
       const report = this.quiz_engine.computeReport();
       const pct = report.total > 0 ? Math.round((report.correct / report.total) * 100) : 0;
 
-      let unit_opts = '<option value="all">Όλες οι ενότητες (00–07)</option>';
-      for (let i = 0; i <= 7; i += 1) {
-        const uid = '0' + i;
-        unit_opts += '<option value="' + uid + '" ' + (this.quiz_engine.selected_unit === uid ? 'selected' : '') + '>Ενότητα ' + uid + '</option>';
+      let unit_opts = '<option value="all">Όλες οι ενότητες (00–07 &amp; Βασικά)</option>';
+      for (let i = 0; i < this.chapter_order.length; i += 1) {
+        const uid = this.chapter_order[i];
+        unit_opts += '<option value="' + uid + '" ' + (this.quiz_engine.selected_unit === uid ? 'selected' : '') + '>' + this.chapter_labels[uid] + '</option>';
       }
 
       let html = '<div class="card panel-enter">' +
@@ -1008,7 +1358,7 @@
           const uk = unit_keys[i];
           const st = report.per_unit[uk];
           html += '<div class="array-cell ' + (st.correct === st.total ? 'is-active' : '') + '">' +
-            '<span class="array-cell-idx">Εν. ' + uk + '</span>' +
+            '<span class="array-cell-idx">' + uk + '</span>' +
             '<span class="array-cell-val">' + st.correct + '/' + st.total + '</span>' +
           '</div>';
         }

@@ -39,6 +39,13 @@
     }
 
     /**
+     * Resets the maze Union-Find game back to its initial state.
+     */
+    resetAll() {
+      this.resetGame();
+    }
+
+    /**
      * Resets Union-Find parent pointers and removed maze walls.
      */
     resetGame() {
@@ -91,8 +98,9 @@
      *     should_remove (boolean): True if student chose to remove wall (union); false to keep.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    applyWallDecision(should_remove, container_el, on_complete_cb) {
+    applyWallDecision(should_remove, container_el, on_complete_cb, on_reset_cb) {
       if (this.step_idx >= this.wall_sequence.length) {
         return;
       }
@@ -126,7 +134,7 @@
           ? 'Λάθος: τα κελιά ' + wall.u + ' και ' + wall.v + ' ανήκουν σε ΔΙΑΦΟΡΕΤΙΚΑ σύνολα (find(' + wall.u + ')=' + ru + ' != find(' + wall.v + ')=' + rv + '), άρα ο τοίχος πρέπει να αφαιρεθεί!'
           : 'Παγίδα κύκλου! Τα κελιά ' + wall.u + ' και ' + wall.v + ' έχουν ήδη την ίδια ρίζα (' + ru + '), άρα ΔΕΝ πρέπει να αφαιρεθεί ο τοίχος!';
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -135,8 +143,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const is_done = this.step_idx >= this.wall_sequence.length;
       const active_wall = is_done ? null : this.wall_sequence[this.step_idx];
       const sets_list = this.getCurrentSets();
@@ -203,14 +212,17 @@
       const rem_btn = container_el.querySelector('#g04_remove_btn');
       const keep_btn = container_el.querySelector('#g04_keep_btn');
       if (rem_btn) {
-        rem_btn.addEventListener('click', () => this.applyWallDecision(true, container_el, on_complete_cb));
+        rem_btn.addEventListener('click', () => this.applyWallDecision(true, container_el, on_complete_cb, on_reset_cb));
       }
       if (keep_btn) {
-        keep_btn.addEventListener('click', () => this.applyWallDecision(false, container_el, on_complete_cb));
+        keep_btn.addEventListener('click', () => this.applyWallDecision(false, container_el, on_complete_cb, on_reset_cb));
       }
       container_el.querySelector('#g04_reset_btn').addEventListener('click', () => {
         this.resetGame();
-        this.mount(container_el, on_complete_cb);
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_04');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
     }
   }
@@ -250,6 +262,17 @@
     }
 
     /**
+     * Resets the Decision Tree leaf builder back to its initial empty state.
+     */
+    resetAll() {
+      this.placed = {};
+      this.selected_perm = null;
+      this.drag_perm = null;
+      this.feedback_msg = '';
+      this.feedback_kind = 'neutral';
+    }
+
+    /**
      * Validates placing a permutation chip into a decision-tree leaf slot.
      *
      * Args:
@@ -257,8 +280,9 @@
      *     perm_id (string): Selected permutation token ID.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    placeLeaf(leaf_id, perm_id, container_el, on_complete_cb) {
+    placeLeaf(leaf_id, perm_id, container_el, on_complete_cb, on_reset_cb) {
       const leaf = this.leaves.find((l) => l.id === leaf_id);
       if (!leaf) {
         return;
@@ -280,7 +304,7 @@
         this.feedback_kind = 'wrong';
         this.feedback_msg = 'Λάθος φύλλο για το μονοπάτι: ' + leaf.path_hint + '. Ακολουθήστε προσεκτικά τις ανισότητες!';
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -289,8 +313,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const done_cnt = Object.keys(this.placed).length;
       const is_done = done_cnt === this.leaves.length;
       const used_perms = Object.values(this.placed);
@@ -376,7 +401,7 @@
         chips[i].addEventListener('click', (evt) => {
           const pid = evt.currentTarget.getAttribute('data-perm-id');
           this.selected_perm = this.selected_perm === pid ? null : pid;
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
         chips[i].addEventListener('dragstart', (evt) => {
           this.drag_perm = evt.currentTarget.getAttribute('data-perm-id');
@@ -393,22 +418,23 @@
           evt.currentTarget.classList.remove('is-over');
           const lid = evt.currentTarget.getAttribute('data-leaf-id');
           if (this.drag_perm) {
-            this.placeLeaf(lid, this.drag_perm, container_el, on_complete_cb);
+            this.placeLeaf(lid, this.drag_perm, container_el, on_complete_cb, on_reset_cb);
           }
         });
         slots[i].addEventListener('click', (evt) => {
           const lid = evt.currentTarget.getAttribute('data-leaf-id');
           if (this.selected_perm) {
-            this.placeLeaf(lid, this.selected_perm, container_el, on_complete_cb);
+            this.placeLeaf(lid, this.selected_perm, container_el, on_complete_cb, on_reset_cb);
           }
         });
       }
 
       container_el.querySelector('#g05_reset_btn').addEventListener('click', () => {
-        this.placed = {};
-        this.selected_perm = null;
-        this.feedback_msg = '';
-        this.mount(container_el, on_complete_cb);
+        this.resetAll();
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_05');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
     }
   }
@@ -453,6 +479,13 @@
     }
 
     /**
+     * Resets the Huffman builder back to default ex1 preset.
+     */
+    resetAll() {
+      this.loadPreset('ex1');
+    }
+
+    /**
      * Validates and performs a greedy merge of two selected Huffman subtrees.
      *
      * Args:
@@ -460,11 +493,12 @@
      *     id_b (string): Second subtree root ID.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    tryMergeNodes(id_a, id_b, container_el, on_complete_cb) {
+    tryMergeNodes(id_a, id_b, container_el, on_complete_cb, on_reset_cb) {
       if (id_a === id_b) {
         this.selected_node_id = null;
-        this.mount(container_el, on_complete_cb);
+        this.mount(container_el, on_complete_cb, on_reset_cb);
         return;
       }
       const n1 = this.forest.find((t) => t.id === id_a);
@@ -482,7 +516,7 @@
         this.feedback_kind = 'wrong';
         this.feedback_msg = 'Λάθος συγχώνευση (' + n1.freq + ' + ' + n2.freq + ' = ' + chosen_sum + '): Πρέπει να ενώσετε τους 2 κόμβους με τις ΕΛΑΧΙΣΤΕΣ συχνότητες (' + sorted_freqs[0] + ' και ' + sorted_freqs[1] + ').';
         this.selected_node_id = null;
-        this.mount(container_el, on_complete_cb);
+        this.mount(container_el, on_complete_cb, on_reset_cb);
         return;
       }
 
@@ -517,7 +551,7 @@
         this.feedback_kind = 'correct';
         this.feedback_msg = 'Συγχωνεύτηκαν (' + left_child.label + ':' + left_child.freq + ') + (' + right_child.label + ':' + right_child.freq + ') -> ' + merged.label + '(' + merged.freq + ').';
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -588,8 +622,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const is_done = this.forest.length === 1;
       let html = '<div class="card">';
       html += '<div class="puzzle-header">' +
@@ -631,12 +666,18 @@
       for (let i = 0; i < pre_btns.length; i += 1) {
         pre_btns[i].addEventListener('click', (evt) => {
           this.loadPreset(evt.currentTarget.getAttribute('data-hfpre'));
-          this.mount(container_el, on_complete_cb);
+          if (typeof on_reset_cb === 'function') {
+            on_reset_cb('game_06');
+          }
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
       }
       container_el.querySelector('#g06_reset_btn').addEventListener('click', () => {
         this.loadPreset(this.preset);
-        this.mount(container_el, on_complete_cb);
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_06');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
 
       const node_els = container_el.querySelectorAll('[data-hf-node]');
@@ -648,9 +689,9 @@
           }
           if (this.selected_node_id === null) {
             this.selected_node_id = nid;
-            this.mount(container_el, on_complete_cb);
+            this.mount(container_el, on_complete_cb, on_reset_cb);
           } else {
-            this.tryMergeNodes(this.selected_node_id, nid, container_el, on_complete_cb);
+            this.tryMergeNodes(this.selected_node_id, nid, container_el, on_complete_cb, on_reset_cb);
           }
         });
       }
@@ -700,14 +741,27 @@
     }
 
     /**
+     * Resets both Unit 07 sub-challenges back to their initial empty state.
+     */
+    resetAll() {
+      this.eliminated = {};
+      this.matched = {};
+      this.selected_tok = null;
+      this.drag_tok = null;
+      this.feedback_msg = '';
+      this.feedback_kind = 'neutral';
+    }
+
+    /**
      * Checks whether the clicked point is dominated in Recitation B Ch. 11 #5.
      *
      * Args:
      *     pt_id (string): Clicked point ID.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    tryEliminatePoint(pt_id, container_el, on_complete_cb) {
+    tryEliminatePoint(pt_id, container_el, on_complete_cb, on_reset_cb) {
       const pt = this.pareto_points.find((p) => p.id === pt_id);
       if (!pt) {
         return;
@@ -721,7 +775,7 @@
         this.feedback_kind = 'wrong';
         this.feedback_msg = 'Προσοχή! Το (' + pt.x + ', ' + pt.y + ') ΔΕΝ κυριαρχείται από κανένα άλλο σημείο (ανήκει στο MaximaSet).';
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -732,8 +786,9 @@
      *     tok_id (string): Dropped/selected solution token ID.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    tryMatchRecurrence(rec_id, tok_id, container_el, on_complete_cb) {
+    tryMatchRecurrence(rec_id, tok_id, container_el, on_complete_cb, on_reset_cb) {
       const rec = this.recurrences.find((r) => r.id === rec_id);
       if (!rec) {
         return;
@@ -748,7 +803,7 @@
         this.feedback_kind = 'wrong';
         this.feedback_msg = 'Λάθος για ' + rec.expr + ': ' + rec.hint;
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -771,8 +826,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const elim_cnt = (this.eliminated.pt3 ? 1 : 0) + (this.eliminated.pt6 ? 1 : 0);
       const match_cnt = Object.keys(this.matched).length;
       const is_done = elim_cnt === 2 && match_cnt === 5;
@@ -853,7 +909,7 @@
       const pts = container_el.querySelectorAll('[data-pt-id]');
       for (let i = 0; i < pts.length; i += 1) {
         pts[i].addEventListener('click', (evt) => {
-          this.tryEliminatePoint(evt.currentTarget.getAttribute('data-pt-id'), container_el, on_complete_cb);
+          this.tryEliminatePoint(evt.currentTarget.getAttribute('data-pt-id'), container_el, on_complete_cb, on_reset_cb);
         });
       }
 
@@ -862,7 +918,7 @@
         mtoks[i].addEventListener('click', (evt) => {
           const tid = evt.currentTarget.getAttribute('data-mtok-id');
           this.selected_tok = this.selected_tok === tid ? null : tid;
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
         mtoks[i].addEventListener('dragstart', (evt) => {
           this.drag_tok = evt.currentTarget.getAttribute('data-mtok-id');
@@ -879,23 +935,23 @@
           evt.currentTarget.classList.remove('is-over');
           const rid = evt.currentTarget.getAttribute('data-rec-id');
           if (this.drag_tok) {
-            this.tryMatchRecurrence(rid, this.drag_tok, container_el, on_complete_cb);
+            this.tryMatchRecurrence(rid, this.drag_tok, container_el, on_complete_cb, on_reset_cb);
           }
         });
         rslots[i].addEventListener('click', (evt) => {
           const rid = evt.currentTarget.getAttribute('data-rec-id');
           if (this.selected_tok) {
-            this.tryMatchRecurrence(rid, this.selected_tok, container_el, on_complete_cb);
+            this.tryMatchRecurrence(rid, this.selected_tok, container_el, on_complete_cb, on_reset_cb);
           }
         });
       }
 
       container_el.querySelector('#g07_reset_btn').addEventListener('click', () => {
-        this.eliminated = {};
-        this.matched = {};
-        this.selected_tok = null;
-        this.feedback_msg = '';
-        this.mount(container_el, on_complete_cb);
+        this.resetAll();
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_07');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
     }
   }

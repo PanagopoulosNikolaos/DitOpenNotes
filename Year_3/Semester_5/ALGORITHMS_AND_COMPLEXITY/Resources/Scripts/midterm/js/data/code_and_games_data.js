@@ -2,38 +2,73 @@
   'use strict';
 
   /**
-   * Builds Python code examples, Drop-In puzzles, and Recitation True/False drills for Units 00-07.
+   * Builds Python code examples, Drop-In puzzles, and True/False drills for Prerequisites and Units 00-07.
    *
    * Returns:
    *     object: Bundle containing code_examples, dropin_puzzles, and true_false_drills maps.
    */
   function buildCodeAndGamesBundle() {
     const code_examples = {
+      prereq: [
+        {
+          title: 'Βασικές Συναρτήσεις Επανάληψης (Λογάριθμος & Τριγωνικό Άθροισμα)',
+          source_tag: 'Προαπαιτούμενα — Εργαλεία Ανάλυσης',
+          complexity: 'O(log n) vs Θ(n^2)',
+          code: [
+            'def countHalvings(initial_size: int) -> int:',
+            '    """Counts how many integer halvings reduce initial_size to 1.',
+            '',
+            '    Args:',
+            '        initial_size (int): Positive starting input size.',
+            '',
+            '    Returns:',
+            '        int: Number of halving steps (floor(log2(initial_size))).',
+            '    """',
+            '    halving_steps = 0',
+            '    remaining_size = initial_size',
+            '    while remaining_size > 1:',
+            '        remaining_size //= 2  # Integer floor division cuts problem size in half.',
+            '        halving_steps += 1',
+            '    return halving_steps',
+            '',
+            'def computeTriangularSum(limit_count: int) -> int:',
+            '    """Computes 1 + 2 + ... + limit_count in O(1) using closed form.',
+            '',
+            '    Args:',
+            '        limit_count (int): Non-negative upper integer limit.',
+            '',
+            '    Returns:',
+            '        int: Exact arithmetic series sum.',
+            '    """',
+            '    return limit_count * (limit_count + 1) // 2'
+          ].join('\n')
+        }
+      ],
       '00': [
         {
           title: 'Επιλογή Στρατηγικής Προόδου (Strategy Chooser)',
           source_tag: 'Σημείωση 00 — Ενότητα 3.3',
           complexity: 'Οδηγός Απόφασης Προόδου',
           code: [
-            'def chooseMidtermStrategy(problem_type: str, req: str) -> str:',
+            'def chooseMidtermStrategy(problem_category: str, constraint_key: str) -> str:',
             '    """Maps a Midterm exam problem specification to the optimal strategy.',
             '',
             '    Args:',
-            '        problem_type (str): Category such as "sets", "sort", or "opt".',
-            '        req (str): Key constraint from the problem statement.',
+            '        problem_category (str): Category such as "sets", "sort", or "optimization".',
+            '        constraint_key (str): Key constraint from the problem statement.',
             '',
             '    Returns:',
             '        str: Recommended algorithm or data structure with case bound.',
             '    """',
-            '    if problem_type == "sets":',
-            '        if req == "min_extract":',
+            '    if problem_category == "sets":',
+            '        if constraint_key == "min_extract":',
             '            return "Binary Heap: O(log n) worst, Bottom-Up O(n)"',
-            '        if req == "worst_o1_lookup":',
+            '        if constraint_key == "worst_o1_lookup":',
             '            return "Cuckoo Hashing: O(1) worst get/remove"',
-            '        if req == "disjoint_union":',
+            '        if constraint_key == "disjoint_union":',
             '            return "Union-Find: O((n + m) * alpha(n))"',
-            '    if problem_type == "sort":',
-            '        if req == "disk_sequential":',
+            '    if problem_category == "sort":',
+            '        if constraint_key == "disk_sequential":',
             '            return "Merge-Sort: O(n log n) worst, O(n) space"',
             '        return "inPlaceQuickSort: O(n log n) expected"',
             '    return "Greedy (exchange proof) or Divide & Conquer (Master Theorem)"'
@@ -46,24 +81,24 @@
           code: [
             'import math',
             '',
-            'def compareDoublingEffect(n_val: int) -> dict[str, float]:',
-            '    """Computes the seven core growth rates for input size n_val.',
+            'def compareGrowthRates(input_size: int) -> dict[str, float]:',
+            '    """Computes the seven core growth rates for input_size.',
             '',
             '    Args:',
-            '        n_val (int): Input size (n_val >= 2).',
+            '        input_size (int): Input size (input_size >= 2).',
             '',
             '    Returns:',
             '        dict[str, float]: Growth values for each complexity class.',
             '    """',
-            '    log_n = math.log2(n_val)',
+            '    log2_size = math.log2(input_size)',
             '    return {',
             '        "constant": 1.0,',
-            '        "log_n": log_n,',
-            '        "linear": float(n_val),',
-            '        "n_log_n": n_val * log_n,',
-            '        "quadratic": float(n_val ** 2),',
-            '        "cubic": float(n_val ** 3),',
-            '        "exponential": float(2 ** min(n_val, 30))  # Caps exponent to avoid overflow.',
+            '        "log_n": log2_size,',
+            '        "linear": float(input_size),',
+            '        "n_log_n": input_size * log2_size,',
+            '        "quadratic": float(input_size ** 2),',
+            '        "cubic": float(input_size ** 3),',
+            '        "exponential": float(2 ** min(input_size, 30))  # Caps exponent to avoid overflow.',
             '    }'
           ].join('\n')
         }
@@ -74,21 +109,21 @@
           source_tag: 'Φροντιστήριο A — Κεφ. 1 #10',
           complexity: 'Θ(n) χρόνος, O(1) επιπλέον χώρος',
           code: [
-            'def reverseInPlace(arr: list[int]) -> list[int]:',
+            'def reverseInPlace(numbers: list[int]) -> list[int]:',
             '    """Reverses a list in place using constant auxiliary space.',
             '',
             '    Args:',
-            '        arr (list[int]): Mutable sequence of elements.',
+            '        numbers (list[int]): Mutable sequence of integers.',
             '',
             '    Returns:',
             '        list[int]: The same list reversed in place.',
             '    """',
-            '    n_len = len(arr)',
-            '    for idx in range(n_len // 2):',
-            '        mirror_idx = n_len - 1 - idx',
+            '    total_count = len(numbers)',
+            '    for left_index in range(total_count // 2):',
+            '        right_index = total_count - 1 - left_index',
             '        # Swaps symmetric endpoints without allocating a second array.',
-            '        arr[idx], arr[mirror_idx] = arr[mirror_idx], arr[idx]',
-            '    return arr'
+            '        numbers[left_index], numbers[right_index] = numbers[right_index], numbers[left_index]',
+            '    return numbers'
           ].join('\n')
         },
         {
@@ -96,22 +131,22 @@
           source_tag: 'Σημείωση 01 — Ενότητα 3.3',
           complexity: 'O(n) χειρότερη περίπτωση',
           code: [
-            'def maxsubFastest(arr: list[int]) -> int:',
+            'def maxsubFastest(numbers: list[int]) -> int:',
             '    """Finds maximum contiguous subarray sum using Kadane suffix recurrence.',
             '',
             '    Args:',
-            '        arr (list[int]): Input sequence of integers.',
+            '        numbers (list[int]): Input sequence of integers.',
             '',
             '    Returns:',
             '        int: Maximum subarray sum (0 for empty subarray).',
             '    """',
-            '    current_suffix = 0',
-            '    best_sum = 0',
-            '    for value in arr:',
+            '    current_suffix_sum = 0',
+            '    max_subarray_sum = 0',
+            '    for current_value in numbers:',
             '        # Resets negative suffix to 0 because negative prefix never helps.',
-            '        current_suffix = max(0, current_suffix + value)',
-            '        best_sum = max(best_sum, current_suffix)',
-            '    return best_sum'
+            '        current_suffix_sum = max(0, current_suffix_sum + current_value)',
+            '        max_subarray_sum = max(max_subarray_sum, current_suffix_sum)',
+            '    return max_subarray_sum'
           ].join('\n')
         }
       ],
@@ -123,22 +158,22 @@
           code: [
             'import heapq',
             '',
-            'def extractSmallestKeys(values: list[int], k_count: int) -> list[int]:',
-            '    """Extracts the k_count smallest elements via O(n) heapify and k pops.',
+            'def extractSmallestKeys(input_keys: list[int], smallest_count: int) -> list[int]:',
+            '    """Extracts the smallest_count minimum keys via O(n) heapify and k pops.',
             '',
             '    Args:',
-            '        values (list[int]): Unsorted list of integer keys.',
-            '        k_count (int): Number of smallest keys to extract.',
+            '        input_keys (list[int]): Unsorted list of integer keys.',
+            '        smallest_count (int): Number of smallest keys to extract.',
             '',
             '    Returns:',
-            '        list[int]: Ascending list of the k_count smallest keys.',
+            '        list[int]: Ascending list of the smallest_count minimum keys.',
             '    """',
-            '    heap_copy = list(values)',
-            '    heapq.heapify(heap_copy)  # Bottom-up construction runs in O(n) time.',
-            '    smallest = []',
-            '    for _ in range(min(k_count, len(heap_copy))):',
-            '        smallest.append(heapq.heappop(heap_copy))',
-            '    return smallest'
+            '    min_heap = list(input_keys)',
+            '    heapq.heapify(min_heap)  # Bottom-up construction runs in O(n) time.',
+            '    smallest_keys = []',
+            '    for _ in range(min(smallest_count, len(min_heap))):',
+            '        smallest_keys.append(heapq.heappop(min_heap))',
+            '    return smallest_keys'
           ].join('\n')
         },
         {
@@ -150,21 +185,24 @@
             '    """1-indexed binary min-heap implementing textbook array layout.',
             '',
             '    Attributes:',
-            '        data (list): Internal 1-indexed array with unused index 0.',
+            '        heap_array (list): Internal 1-indexed array with sentinel None at index 0.',
             '    """',
             '',
             '    def __init__(self) -> None:',
             '        """Initializes an empty 1-indexed heap with sentinel at index 0."""',
-            '        self.data = [None]',
+            '        self.heap_array = [None]',
             '',
-            '    def insertKey(self, key: int) -> None:',
-            '        """Inserts key at end and restores heap order via upheap."""',
-            '        self.data.append(key)',
-            '        idx = len(self.data) - 1',
-            '        while idx > 1 and self.data[idx // 2] > self.data[idx]:',
-            '            parent = idx // 2',
-            '            self.data[parent], self.data[idx] = self.data[idx], self.data[parent]',
-            '            idx = parent'
+            '    def insertKey(self, new_key: int) -> None:',
+            '        """Inserts new_key at end and restores heap order via upheap."""',
+            '        self.heap_array.append(new_key)',
+            '        child_index = len(self.heap_array) - 1',
+            '        while child_index > 1 and self.heap_array[child_index // 2] > self.heap_array[child_index]:',
+            '            parent_index = child_index // 2',
+            '            self.heap_array[parent_index], self.heap_array[child_index] = (',
+            '                self.heap_array[child_index],',
+            '                self.heap_array[parent_index]',
+            '            )',
+            '            child_index = parent_index'
           ].join('\n')
         }
       ],
@@ -174,20 +212,20 @@
           source_tag: 'Φροντιστήριο A — Κεφ. 6 #6',
           complexity: 'O(M + N) αναμενόμενη (hash set στη μικρότερη Μ)',
           code: [
-            'def areDisjoint(seq_small: list[int], seq_large: list[int]) -> bool:',
+            'def areDisjoint(smaller_sequence: list[int], larger_sequence: list[int]) -> bool:',
             '    """Checks whether two sequences share no common element.',
             '',
             '    Args:',
-            '        seq_small (list[int]): Smaller sequence of length M.',
-            '        seq_large (list[int]): Larger sequence of length N.',
+            '        smaller_sequence (list[int]): Shorter sequence of length M.',
+            '        larger_sequence (list[int]): Longer sequence of length N (M << N).',
             '',
             '    Returns:',
             '        bool: True if disjoint, False if any common element exists.',
             '    """',
             '    # Hashes the smaller sequence so hash-table space stays O(M).',
-            '    lookup_set = set(seq_small)',
-            '    for item in seq_large:',
-            '        if item in lookup_set:',
+            '    smaller_lookup_set = set(smaller_sequence)',
+            '    for element in larger_sequence:',
+            '        if element in smaller_lookup_set:',
             '            return False',
             '    return True'
           ].join('\n')
@@ -197,20 +235,20 @@
           source_tag: 'Σημείωση 03 — Ενότητα 3.2',
           complexity: 'Θ(n) χειρότερη (n = μήκος συμβολοσειράς)',
           code: [
-            'def polynomialHashCode(word: str, base_z: int = 33) -> int:',
+            'def polynomialHashCode(input_word: str, polynomial_base: int = 33) -> int:',
             '    """Computes polynomial hash code of a string via Horner rule.',
             '',
             '    Args:',
-            '        word (str): Input character string.',
-            '        base_z (int): Polynomial base (33 = 32 + 1 for fast shift-add).',
+            '        input_word (str): Input character string.',
+            '        polynomial_base (int): Polynomial base (33 = 32 + 1 for fast shift-add).',
             '',
             '    Returns:',
             '        int: Integer hash code h1 before compression.',
             '    """',
-            '    acc_hash = 0',
-            '    for ch in word:',
-            '        acc_hash = acc_hash * base_z + ord(ch)',
-            '    return acc_hash'
+            '    hash_accumulator = 0',
+            '    for character in input_word:',
+            '        hash_accumulator = hash_accumulator * polynomial_base + ord(character)',
+            '    return hash_accumulator'
           ].join('\n')
         }
       ],
@@ -223,28 +261,28 @@
             'class UnionFind:',
             '    """Disjoint-set structure with union-by-size and path compression."""',
             '',
-            '    def __init__(self, count: int) -> None:',
-            '        """Initializes count singleton sets indexed 0..count-1."""',
-            '        self.parent = list(range(count))',
-            '        self.size = [1] * count',
+            '    def __init__(self, element_count: int) -> None:',
+            '        """Initializes element_count singleton sets indexed 0..element_count-1."""',
+            '        self.parent_links = list(range(element_count))',
+            '        self.subtree_sizes = [1] * element_count',
             '',
-            '    def findRoot(self, node: int) -> int:',
+            '    def findRoot(self, node_id: int) -> int:',
             '        """Finds representative root and compresses traversed path."""',
-            '        if self.parent[node] != node:',
+            '        if self.parent_links[node_id] != node_id:',
             '            # Redirects every visited node directly to root on unwind.',
-            '            self.parent[node] = self.findRoot(self.parent[node])',
-            '        return self.parent[node]',
+            '            self.parent_links[node_id] = self.findRoot(self.parent_links[node_id])',
+            '        return self.parent_links[node_id]',
             '',
-            '    def unionSets(self, u_node: int, v_node: int) -> bool:',
-            '        """Unites sets containing u_node and v_node by attaching smaller tree."""',
-            '        r_u = self.findRoot(u_node)',
-            '        r_v = self.findRoot(v_node)',
-            '        if r_u == r_v:',
+            '    def unionSets(self, first_node: int, second_node: int) -> bool:',
+            '        """Unites sets containing first_node and second_node by attaching smaller tree."""',
+            '        first_root = self.findRoot(first_node)',
+            '        second_root = self.findRoot(second_node)',
+            '        if first_root == second_root:',
             '            return False',
-            '        if self.size[r_u] < self.size[r_v]:',
-            '            r_u, r_v = r_v, r_u',
-            '        self.parent[r_v] = r_u',
-            '        self.size[r_u] += self.size[r_v]',
+            '        if self.subtree_sizes[first_root] < self.subtree_sizes[second_root]:',
+            '            first_root, second_root = second_root, first_root',
+            '        self.parent_links[second_root] = first_root',
+            '        self.subtree_sizes[first_root] += self.subtree_sizes[second_root]',
             '        return True'
           ].join('\n')
         },
@@ -258,19 +296,19 @@
             '',
             '    Args:',
             '        user_count (int): Total number of users indexed 0..user_count-1.',
-            '        friendships (list[list[int]]): Pairs [u, v] representing edges.',
+            '        friendships (list[list[int]]): Pairs [first_user, second_user] representing edges.',
             '',
             '    Returns:',
             '        dict[int, list[int]]: Components keyed by root representative.',
             '    """',
-            '    uf = UnionFind(user_count)',
-            '    for u_val, v_val in friendships:',
-            '        uf.unionSets(u_val, v_val)',
-            '    groups: dict[int, list[int]] = {}',
-            '    for person in range(user_count):',
-            '        root = uf.findRoot(person)',
-            '        groups.setdefault(root, []).append(person)',
-            '    return groups'
+            '    union_find = UnionFind(user_count)',
+            '    for first_user, second_user in friendships:',
+            '        union_find.unionSets(first_user, second_user)',
+            '    friend_groups: dict[int, list[int]] = {}',
+            '    for person_id in range(user_count):',
+            '        group_root = union_find.findRoot(person_id)',
+            '        friend_groups.setdefault(group_root, []).append(person_id)',
+            '    return friend_groups'
           ].join('\n')
         }
       ],
@@ -280,28 +318,28 @@
           source_tag: 'Φροντιστήριο A — Κεφ. 8 #6',
           complexity: 'O(N) χειρότερη',
           code: [
-            'def mergeSmallestN(arr_a: list[int], arr_b: list[int], n_limit: int) -> list[int]:',
-            '    """Merges two sorted arrays and returns the smallest n_limit values in O(N).',
+            'def mergeSmallestN(first_sorted: list[int], second_sorted: list[int], target_count: int) -> list[int]:',
+            '    """Merges two sorted arrays and returns the smallest target_count values in O(N).',
             '',
             '    Args:',
-            '        arr_a (list[int]): First ascending sorted array.',
-            '        arr_b (list[int]): Second ascending sorted array.',
-            '        n_limit (int): Count of smallest elements to return.',
+            '        first_sorted (list[int]): First ascending sorted array.',
+            '        second_sorted (list[int]): Second ascending sorted array.',
+            '        target_count (int): Count of smallest elements to return.',
             '',
             '    Returns:',
-            '        list[int]: Sorted list of the n_limit smallest elements.',
+            '        list[int]: Sorted list of the target_count smallest elements.',
             '    """',
-            '    merged = [0] * n_limit',
-            '    idx_a = 0',
-            '    idx_b = 0',
-            '    for out_idx in range(n_limit):',
-            '        if arr_a[idx_a] <= arr_b[idx_b]:',
-            '            merged[out_idx] = arr_a[idx_a]',
-            '            idx_a += 1',
+            '    merged_result = [0] * target_count',
+            '    first_index = 0',
+            '    second_index = 0',
+            '    for output_index in range(target_count):',
+            '        if first_sorted[first_index] <= second_sorted[second_index]:',
+            '            merged_result[output_index] = first_sorted[first_index]',
+            '            first_index += 1',
             '        else:',
-            '            merged[out_idx] = arr_b[idx_b]',
-            '            idx_b += 1',
-            '    return merged'
+            '            merged_result[output_index] = second_sorted[second_index]',
+            '            second_index += 1',
+            '    return merged_result'
           ].join('\n')
         },
         {
@@ -309,34 +347,39 @@
           source_tag: 'Σημείωση 05 — Ενότητα 3.3',
           complexity: 'O(r - l + 1) ανά κλήση, O(n log n) αναμενόμενη',
           code: [
-            'def inPlacePartition(seq: list[int], left: int, right: int) -> tuple[int, int]:',
-            '    """Partitions seq[left..right] around pivot seq[right] in place.',
+            'def inPlacePartition(array: list[int], left_bound: int, right_bound: int) -> tuple[int, int]:',
+            '    """Partitions array[left_bound..right_bound] around pivot array[right_bound] in place.',
             '',
             '    Args:',
-            '        seq (list[int]): Target array modified in place.',
-            '        left (int): Left inclusive boundary.',
-            '        right (int): Right inclusive boundary (pivot index).',
+            '        array (list[int]): Target array modified in place.',
+            '        left_bound (int): Left inclusive boundary.',
+            '        right_bound (int): Right inclusive boundary (pivot index).',
             '',
             '    Returns:',
-            '        tuple[int, int]: Boundaries (h_idx, k_idx) of equal-pivot block.',
+            '        tuple[int, int]: Boundaries (equal_start, equal_end) of equal-pivot block.',
             '    """',
-            '    pivot = seq[right]',
-            '    j_ptr, k_ptr = left, right - 1',
-            '    while j_ptr <= k_ptr:',
-            '        while j_ptr <= k_ptr and seq[j_ptr] < pivot: j_ptr += 1',
-            '        while k_ptr >= j_ptr and seq[k_ptr] >= pivot: k_ptr -= 1',
-            '        if j_ptr < k_ptr:',
-            '            seq[j_ptr], seq[k_ptr] = seq[k_ptr], seq[j_ptr]',
-            '            j_ptr += 1; k_ptr -= 1',
-            '    h_idx = j_ptr',
-            '    # Places pivot equal block into seq[h_idx..k2_ptr].',
-            '    j2_ptr, k2_ptr = h_idx, right',
-            '    while j2_ptr <= k2_ptr:',
-            '        while j2_ptr <= k2_ptr and seq[j2_ptr] == pivot: j2_ptr += 1',
-            '        while k2_ptr >= j2_ptr and seq[k2_ptr] > pivot: k2_ptr -= 1',
-            '        if j2_ptr < k2_ptr:',
-            '            seq[j2_ptr], seq[k2_ptr] = seq[k2_ptr], seq[j2_ptr]',
-            '    return h_idx, k2_ptr'
+            '    pivot_value = array[right_bound]',
+            '    scan_left, scan_right = left_bound, right_bound - 1',
+            '    while scan_left <= scan_right:',
+            '        while scan_left <= scan_right and array[scan_left] < pivot_value:',
+            '            scan_left += 1',
+            '        while scan_right >= scan_left and array[scan_right] >= pivot_value:',
+            '            scan_right -= 1',
+            '        if scan_left < scan_right:',
+            '            array[scan_left], array[scan_right] = array[scan_right], array[scan_left]',
+            '            scan_left += 1',
+            '            scan_right -= 1',
+            '    equal_start = scan_left',
+            '    # Places pivot equal block into array[equal_start..pivot_scan_right].',
+            '    pivot_scan_left, pivot_scan_right = equal_start, right_bound',
+            '    while pivot_scan_left <= pivot_scan_right:',
+            '        while pivot_scan_left <= pivot_scan_right and array[pivot_scan_left] == pivot_value:',
+            '            pivot_scan_left += 1',
+            '        while pivot_scan_right >= pivot_scan_left and array[pivot_scan_right] > pivot_value:',
+            '            pivot_scan_right -= 1',
+            '        if pivot_scan_left < pivot_scan_right:',
+            '            array[pivot_scan_left], array[pivot_scan_right] = array[pivot_scan_right], array[pivot_scan_left]',
+            '    return equal_start, pivot_scan_right'
           ].join('\n')
         }
       ],
@@ -346,26 +389,26 @@
           source_tag: 'Φροντιστήριο A — Κεφ. 10 #3 & Σημείωση 06',
           complexity: 'O(n log n) χειρότερη',
           code: [
-            'def fractionalKnapsack(items: list[dict], capacity: float) -> float:',
-            '    """Maximizes total value for divisible items via greedy density sort.',
+            'def fractionalKnapsack(items: list[dict], total_capacity: float) -> float:',
+            '    """Maximizes total benefit for divisible items via greedy density sort.',
             '',
             '    Args:',
-            '        items (list[dict]): Items with "weight" and "value" keys.',
-            '        capacity (float): Total knapsack weight limit.',
+            '        items (list[dict]): Items with "weight" and "benefit" keys.',
+            '        total_capacity (float): Total knapsack weight limit.',
             '',
             '    Returns:',
             '        float: Globally optimal total benefit.',
             '    """',
-            '    ordered = sorted(items, key=lambda x: x["value"] / x["weight"], reverse=True)',
-            '    total_val = 0.0',
-            '    rem_cap = capacity',
-            '    for item in ordered:',
-            '        if rem_cap <= 0:',
+            '    ordered_items = sorted(items, key=lambda item: item["benefit"] / item["weight"], reverse=True)',
+            '    total_benefit = 0.0',
+            '    remaining_capacity = total_capacity',
+            '    for item in ordered_items:',
+            '        if remaining_capacity <= 0:',
             '            break',
-            '        take_w = min(item["weight"], rem_cap)',
-            '        total_val += take_w * (item["value"] / item["weight"])',
-            '        rem_cap -= take_w',
-            '    return total_val'
+            '        taken_weight = min(item["weight"], remaining_capacity)',
+            '        total_benefit += taken_weight * (item["benefit"] / item["weight"])',
+            '        remaining_capacity -= taken_weight',
+            '    return total_benefit'
           ].join('\n')
         },
         {
@@ -376,7 +419,7 @@
             'import heapq',
             '',
             'def scheduleMinMachines(tasks: list[tuple[int, int]]) -> int:',
-            '    """Assigns all tasks [start, finish] to minimum non-conflicting machines.',
+            '    """Assigns all tasks (start_time, finish_time) to minimum non-conflicting machines.',
             '',
             '    Args:',
             '        tasks (list[tuple[int, int]]): Intervals (start_time, finish_time).',
@@ -384,14 +427,14 @@
             '    Returns:',
             '        int: Minimum number of machines required.',
             '    """',
-            '    # Sorts strictly by ascending start time s_i (never by finish time f_i).',
-            '    sorted_tasks = sorted(tasks, key=lambda t: t[0])',
+            '    # Sorts strictly by ascending start_time s_i (never by finish_time f_i).',
+            '    sorted_tasks = sorted(tasks, key=lambda task: task[0])',
             '    machine_finishes: list[int] = []',
-            '    for start_t, finish_t in sorted_tasks:',
-            '        if machine_finishes and machine_finishes[0] <= start_t:',
-            '            heapq.heapreplace(machine_finishes, finish_t)',
+            '    for start_time, finish_time in sorted_tasks:',
+            '        if machine_finishes and machine_finishes[0] <= start_time:',
+            '            heapq.heapreplace(machine_finishes, finish_time)',
             '        else:',
-            '            heapq.heappush(machine_finishes, finish_t)',
+            '            heapq.heappush(machine_finishes, finish_time)',
             '    return len(machine_finishes)'
           ].join('\n')
         }
@@ -402,26 +445,26 @@
           source_tag: 'Φροντιστήριο B — Κεφ. 11 #4',
           complexity: 'Θ(n1 + n2) χειρότερη',
           code: [
-            'def mergeSorted(list_one: list[int], list_two: list[int]) -> list[int]:',
+            'def mergeSorted(first_sorted: list[int], second_sorted: list[int]) -> list[int]:',
             '    """Merges two sorted lists into a single sorted list in linear time.',
             '',
             '    Args:',
-            '        list_one (list[int]): First sorted list.',
-            '        list_two (list[int]): Second sorted list.',
+            '        first_sorted (list[int]): First ascending sorted list.',
+            '        second_sorted (list[int]): Second ascending sorted list.',
             '',
             '    Returns:',
             '        list[int]: Combined ascending sorted list.',
             '    """',
-            '    result: list[int] = []',
-            '    i_idx, j_idx = 0, 0',
-            '    while i_idx < len(list_one) and j_idx < len(list_two):',
-            '        if list_one[i_idx] <= list_two[j_idx]:',
-            '            result.append(list_one[i_idx])',
-            '            i_idx += 1',
+            '    merged_list: list[int] = []',
+            '    first_index, second_index = 0, 0',
+            '    while first_index < len(first_sorted) and second_index < len(second_sorted):',
+            '        if first_sorted[first_index] <= second_sorted[second_index]:',
+            '            merged_list.append(first_sorted[first_index])',
+            '            first_index += 1',
             '        else:',
-            '            result.append(list_two[j_idx])',
-            '            j_idx += 1',
-            '    return result + list_one[i_idx:] + list_two[j_idx:]'
+            '            merged_list.append(second_sorted[second_index])',
+            '            second_index += 1',
+            '    return merged_list + first_sorted[first_index:] + second_sorted[second_index:]'
           ].join('\n')
         },
         {
@@ -429,28 +472,28 @@
           source_tag: 'Σημείωση 07 — Ενότητα 3.1',
           complexity: 'Θ(n^{log_2 3}) ~ Θ(n^1.585)',
           code: [
-            'def karatsuba(num_a: int, num_b: int, base: int = 10) -> int:',
+            'def karatsuba(first_number: int, second_number: int, base: int = 10) -> int:',
             '    """Multiplies two integers using 3 recursive sub-products.',
             '',
             '    Args:',
-            '        num_a (int): First non-negative integer.',
-            '        num_b (int): Second non-negative integer.',
+            '        first_number (int): First non-negative integer.',
+            '        second_number (int): Second non-negative integer.',
             '        base (int): Positional base (10 or 2).',
             '',
             '    Returns:',
-            '        int: Exact integer product num_a * num_b.',
+            '        int: Exact integer product first_number * second_number.',
             '    """',
-            '    if num_a < base or num_b < base:',
-            '        return num_a * num_b',
-            '    half_len = max(len(str(num_a)), len(str(num_b))) // 2',
-            '    split_pow = base ** half_len',
-            '    a_high, a_low = divmod(num_a, split_pow)',
-            '    b_high, b_low = divmod(num_b, split_pow)',
-            '    p1 = karatsuba(a_high, b_high, base)',
-            '    p2 = karatsuba(a_low, b_low, base)',
-            '    p3 = karatsuba(a_high - a_low, b_low - b_high, base)',
-            '    mid_term = p3 + p1 + p2',
-            '    return p1 * (split_pow ** 2) + mid_term * split_pow + p2'
+            '    if first_number < base or second_number < base:',
+            '        return first_number * second_number',
+            '    half_digits = max(len(str(first_number)), len(str(second_number))) // 2',
+            '    split_power = base ** half_digits',
+            '    first_high, first_low = divmod(first_number, split_power)',
+            '    second_high, second_low = divmod(second_number, split_power)',
+            '    high_product = karatsuba(first_high, second_high, base)',
+            '    low_product = karatsuba(first_low, second_low, base)',
+            '    diff_product = karatsuba(first_high - first_low, second_low - second_high, base)',
+            '    middle_term = diff_product + high_product + low_product',
+            '    return high_product * (split_power ** 2) + middle_term * split_power + low_product'
           ].join('\n')
         }
       ]
@@ -463,7 +506,7 @@
           unit_id: '00',
           title: 'Συμπλήρωση Κώδικα: Επιλογέας Στρατηγικής Προόδου',
           source_tag: 'Σημείωση 00 — Strategy Chooser',
-          description: 'Τοποθετήστε τα σωστά σχήματα απόφασης στα κενά ώστε η συνάρτηση να αντιστοιχίζει τις απαιτήσεις Προόδου στη σωστή δομή/αλγόριθμο.',
+          description: 'Τοποθετήστε τις σωστές δομές και αλγορίθμους στα κενά ώστε η συνάρτηση να αντιστοιχίζει τις απαιτήσεις Προόδου.',
           lines: [
             'def pickStructure(requirement: str) -> str:',
             '    if requirement == "worst_o1_get_remove":',
@@ -475,10 +518,10 @@
             '    return {{s3}}'
           ],
           slots: {
-            s0: { expected: 't_cuckoo', hint: 'Μόνο μία δομή κατακερματισμού εγγυάται O(1) χειρότερη στην αναζήτηση.' },
-            s1: { expected: 't_merge', hint: 'Σειριακή προσπέλαση σε δίσκο + σταθερότητα + O(n log n) χειρότερη.' },
-            s2: { expected: 't_uf', hint: 'Διαχείριση ξένων συνόλων με ένωση κατά μέγεθος & συμπίεση διαδρομής.' },
-            s3: { expected: 't_heap', hint: 'Συνεχής εξαγωγή ελάχιστου κλειδιού σε O(log n) χειρότερη.' }
+            s0: { label: 'O(1) χειρότερη αναζήτηση', expected: 't_cuckoo', hint: 'Μόνο μία δομή κατακερματισμού εγγυάται O(1) χειρότερη στην αναζήτηση.' },
+            s1: { label: 'ταξινόμηση δίσκου >1M', expected: 't_merge', hint: 'Σειριακή προσπέλαση σε δίσκο + σταθερότητα + O(n log n) χειρότερη.' },
+            s2: { label: 'δυναμικές συνιστώσες', expected: 't_uf', hint: 'Διαχείριση ξένων συνόλων με ένωση κατά μέγεθος & συμπίεση διαδρομής.' },
+            s3: { label: 'συνεχής εξαγωγή ελαχίστου', expected: 't_heap', hint: 'Συνεχής εξαγωγή ελάχιστου κλειδιού σε O(log n) χειρότερη.' }
           },
           tokens: [
             { id: 't_cuckoo', label: '"Cuckoo Hashing"' },
@@ -496,26 +539,26 @@
           unit_id: '01',
           title: 'Drop-In #1: Αντιστροφή Ακολουθίας σε Χώρο O(1)',
           source_tag: 'Φροντιστήριο A — Κεφ. 1 #10',
-          description: 'Συμπληρώστε το όριο του βρόχου και τον συμμετρικό δείκτη ώστε ο αλγόριθμος να αντιστρέφει τον πίνακα επί-τόπου.',
+          description: 'Συμπληρώστε το όριο του βρόχου και τον συμμετρικό δείκτη ώστε ο αλγόριθμος να αντιστρέφει τη λίστα numbers επί-τόπου.',
           lines: [
-            'def reverseInPlace(arr: list[int]) -> list[int]:',
-            '    n_len = len(arr)',
-            '    for i in range({{s0}}):',
-            '        j = {{s1}}',
-            '        arr[i], arr[j] = {{s2}}',
-            '    return arr'
+            'def reverseInPlace(numbers: list[int]) -> list[int]:',
+            '    total_count = len(numbers)',
+            '    for left_index in range({{s0}}):',
+            '        right_index = {{s1}}',
+            '        numbers[left_index], numbers[right_index] = {{s2}}',
+            '    return numbers'
           ],
           slots: {
-            s0: { expected: 't_half', hint: 'Αν διατρέξουμε όλο το n_len, θα αντιστραφούν τα στοιχεία δύο φορές!' },
-            s1: { expected: 't_mirror', hint: 'Ο συμμετρικός δείκτης του i ξεκινώντας από το τέλος n_len - 1.' },
-            s2: { expected: 't_swap', hint: 'Ανταλλαγή των στοιχείων στις θέσεις i και j.' }
+            s0: { label: 'όριο επαναλήψεων', expected: 't_half', hint: 'Αν διατρέξουμε όλο το total_count, θα αντιστραφούν τα στοιχεία δύο φορές!' },
+            s1: { label: 'συμμετρικός δείκτης', expected: 't_mirror', hint: 'Ο συμμετρικός δείκτης του left_index ξεκινώντας από το τέλος total_count - 1.' },
+            s2: { label: 'ανταλλαγή τιμών', expected: 't_swap', hint: 'Ανταλλαγή των στοιχείων στις θέσεις left_index και right_index.' }
           },
           tokens: [
-            { id: 't_half', label: 'n_len // 2' },
-            { id: 't_mirror', label: 'n_len - 1 - i' },
-            { id: 't_swap', label: 'arr[j], arr[i]' },
-            { id: 't_d1', label: 'n_len' },
-            { id: 't_d2', label: 'n_len - i' }
+            { id: 't_half', label: 'total_count // 2' },
+            { id: 't_mirror', label: 'total_count - 1 - left_index' },
+            { id: 't_swap', label: 'numbers[right_index], numbers[left_index]' },
+            { id: 't_d1', label: 'total_count' },
+            { id: 't_d2', label: 'total_count - left_index' }
           ]
         },
         {
@@ -523,25 +566,25 @@
           unit_id: '01',
           title: 'Drop-In #2: Αναδρομική Σχέση MaxsubFastest',
           source_tag: 'Σημείωση 01 — Ενότητα 3.3',
-          description: 'Συμπληρώστε την ενημέρωση του επιθεματικού αθροίσματος M_t και του καθολικού μεγίστου m.',
+          description: 'Συμπληρώστε την ενημέρωση του τρέχοντος επιθεματικού αθροίσματος (current_suffix_sum) και του καθολικού μεγίστου (max_subarray_sum).',
           lines: [
-            'def maxsubFastest(arr: list[int]) -> int:',
-            '    m_t = 0',
-            '    best_m = 0',
-            '    for val in arr:',
-            '        m_t = {{s0}}',
-            '        best_m = {{s1}}',
-            '    return best_m'
+            'def maxsubFastest(numbers: list[int]) -> int:',
+            '    current_suffix_sum = 0',
+            '    max_subarray_sum = 0',
+            '    for current_value in numbers:',
+            '        current_suffix_sum = {{s0}}',
+            '        max_subarray_sum = {{s1}}',
+            '    return max_subarray_sum'
           ],
           slots: {
-            s0: { expected: 't_mt', hint: 'Αν το επίθεμα γίνει αρνητικό, το μηδενίζουμε (M_t = max{0, M_{t-1} + val}).' },
-            s1: { expected: 't_best', hint: 'Ενημερώνουμε το μέγιστο m που είδαμε μέχρι τώρα.' }
+            s0: { label: 'νέο επίθεμα M_t', expected: 't_mt', hint: 'Αν το επίθεμα γίνει αρνητικό, το μηδενίζουμε (max(0, current_suffix_sum + current_value)).' },
+            s1: { label: 'μέγιστο m', expected: 't_best', hint: 'Ενημερώνουμε το μέγιστο άθροισμα που είδαμε μέχρι τώρα.' }
           },
           tokens: [
-            { id: 't_mt', label: 'max(0, m_t + val)' },
-            { id: 't_best', label: 'max(best_m, m_t)' },
-            { id: 't_d1', label: 'm_t + val' },
-            { id: 't_d2', label: 'min(0, m_t + val)' }
+            { id: 't_mt', label: 'max(0, current_suffix_sum + current_value)' },
+            { id: 't_best', label: 'max(max_subarray_sum, current_suffix_sum)' },
+            { id: 't_d1', label: 'current_suffix_sum + current_value' },
+            { id: 't_d2', label: 'min(0, current_suffix_sum + current_value)' }
           ]
         }
       ],
@@ -549,27 +592,27 @@
         {
           id: 'drop_02_1',
           unit_id: '02',
-          title: 'Drop-In #1: Εξαγωγή 10 Μικρότερων με Heap',
+          title: 'Drop-In #1: Εξαγωγή k Μικρότερων Στοιχείων με Σωρό',
           source_tag: 'Φροντιστήριο A — Κεφ. 5 #7',
-          description: 'Οργανώστε τη λίστα σε σωρό ελαχίστων σε χρόνο O(n) και εξαγάγετε τα k μικρότερα στοιχεία.',
+          description: 'Οργανώστε τη λίστα input_keys σε σωρό ελαχίστων σε χρόνο O(n) και εξαγάγετε τα smallest_count μικρότερα στοιχεία.',
           lines: [
             'import heapq',
-            'def printSmallestTen(items: list[int], k: int) -> list[int]:',
+            'def extractSmallestKeys(input_keys: list[int], smallest_count: int) -> list[int]:',
             '    {{s0}}',
-            '    res = []',
-            '    for _ in range(k):',
-            '        res.append({{s1}})',
-            '    return res'
+            '    smallest_keys = []',
+            '    for _ in range(smallest_count):',
+            '        smallest_keys.append({{s1}})',
+            '    return smallest_keys'
           ],
           slots: {
-            s0: { expected: 't_heapify', hint: 'Bottom-up μετατροπή της λίστας σε σωρό επί-τόπου.' },
-            s1: { expected: 't_pop', hint: 'Αφαίρεση και επιστροφή της ελάχιστης ρίζας σε O(log n).' }
+            s0: { label: 'κατασκευή σωρού O(n)', expected: 't_heapify', hint: 'Bottom-up μετατροπή της λίστας σε σωρό επί-τόπου.' },
+            s1: { label: 'εξαγωγή ελαχίστου', expected: 't_pop', hint: 'Αφαίρεση και επιστροφή της ελάχιστης ρίζας σε O(log n).' }
           },
           tokens: [
-            { id: 't_heapify', label: 'heapq.heapify(items)' },
-            { id: 't_pop', label: 'heapq.heappop(items)' },
-            { id: 't_d1', label: 'items.sort()' },
-            { id: 't_d2', label: 'items.pop()' }
+            { id: 't_heapify', label: 'heapq.heapify(input_keys)' },
+            { id: 't_pop', label: 'heapq.heappop(input_keys)' },
+            { id: 't_d1', label: 'input_keys.sort()' },
+            { id: 't_d2', label: 'input_keys.pop()' }
           ]
         },
         {
@@ -577,27 +620,27 @@
           unit_id: '02',
           title: 'Drop-In #2: Επιλογή Μικρότερου Παιδιού στο downheap (1-indexed)',
           source_tag: 'Σημείωση 02 — Ενότητα 3.3',
-          description: 'Αποφύγετε την παγίδα της ανταλλαγής με το μεγαλύτερο παιδί συμπληρώνοντας τους 1-indexed τύπους.',
+          description: 'Συμπληρώστε τους 1-indexed τύπους παιδιών και τη σύγκριση ώστε το downheap να επιλέγει πάντα το μικρότερο παιδί.',
           lines: [
-            'def downheapStep(arr: list[int], idx: int, n_size: int) -> int:',
-            '    left = {{s0}}',
-            '    right = {{s1}}',
-            '    smaller = left',
-            '    if right <= n_size and {{s2}}:',
-            '        smaller = right',
-            '    return smaller'
+            'def chooseSmallerChildIndex(heap_array: list[int], parent_index: int, heap_size: int) -> int:',
+            '    left_child_index = {{s0}}',
+            '    right_child_index = {{s1}}',
+            '    smaller_child_index = left_child_index',
+            '    if right_child_index <= heap_size and {{s2}}:',
+            '        smaller_child_index = right_child_index',
+            '    return smaller_child_index'
           ],
           slots: {
-            s0: { expected: 't_left', hint: '1-indexed τύπος αριστερού παιδιού.' },
-            s1: { expected: 't_right', hint: '1-indexed τύπος δεξιού παιδιού.' },
-            s2: { expected: 't_cmp', hint: 'Επιλέγουμε το δεξιό παιδί μόνο αν είναι αυστηρά μικρότερο από το αριστερό.' }
+            s0: { label: 'αριστερό παιδί', expected: 't_left', hint: '1-indexed τύπος αριστερού παιδιού.' },
+            s1: { label: 'δεξιό παιδί', expected: 't_right', hint: '1-indexed τύπος δεξιού παιδιού.' },
+            s2: { label: 'έλεγχος μικρότερου παιδιού', expected: 't_cmp', hint: 'Επιλέγουμε το δεξιό παιδί μόνο αν είναι αυστηρά μικρότερο από το αριστερό.' }
           },
           tokens: [
-            { id: 't_left', label: '2 * idx' },
-            { id: 't_right', label: '2 * idx + 1' },
-            { id: 't_cmp', label: 'arr[right] < arr[left]' },
-            { id: 't_d1', label: '2 * idx + 2' },
-            { id: 't_d2', label: 'arr[right] > arr[left]' }
+            { id: 't_left', label: '2 * parent_index' },
+            { id: 't_right', label: '2 * parent_index + 1' },
+            { id: 't_cmp', label: 'heap_array[right_child_index] < heap_array[left_child_index]' },
+            { id: 't_d1', label: '2 * parent_index + 2' },
+            { id: 't_d2', label: 'heap_array[right_child_index] > heap_array[left_child_index]' }
           ]
         }
       ],
@@ -605,28 +648,28 @@
         {
           id: 'drop_03_1',
           unit_id: '03',
-          title: 'Drop-In #1: Έλεγχος Ξένων Ακολουθιών (M << N)',
+          title: 'Drop-In #1: Έλεγχος Ξένων Ακολουθιών (Μικρότερη M << Μεγαλύτερη N)',
           source_tag: 'Φροντιστήριο A — Κεφ. 6 #6',
-          description: 'Επιλέξτε τη σωστή ακολουθία για μετατροπή σε σύνολο κατακερματισμού ώστε η μνήμη του set να είναι O(M).',
+          description: 'Επιλέξτε τη μικρότερη ακολουθία (smaller_sequence, μήκους M) για μετατροπή σε σύνολο κατακερματισμού ώστε η μνήμη του set να είναι O(M), και σαρώστε τη larger_sequence (μήκους N).',
           lines: [
-            'def areDisjoint(seq_m: list[int], seq_n: list[int]) -> bool:',
-            '    fast_lookup = {{s0}}',
-            '    for elem in {{s1}}:',
+            'def areDisjoint(smaller_sequence: list[int], larger_sequence: list[int]) -> bool:',
+            '    smaller_lookup_set = {{s0}}',
+            '    for element in {{s1}}:',
             '        if {{s2}}:',
             '            return False',
             '    return True'
           ],
           slots: {
-            s0: { expected: 't_setm', hint: 'Μετατρέπουμε σε set τη ΜΙΚΡΟΤΕΡΗ ακολουθία M.' },
-            s1: { expected: 't_seqn', hint: 'Σαρώνουμε τα N στοιχεία της μεγαλύτερης ακολουθίας σε O(1) ανά έλεγχο.' },
-            s2: { expected: 't_in', hint: 'Έλεγχος ύπαρξης κοινού στοιχείου.' }
+            s0: { label: 'set της μικρότερης (O(M))', expected: 't_setm', hint: 'Μετατρέπουμε σε set τη ΜΙΚΡΟΤΕΡΗ ακολουθία (smaller_sequence).' },
+            s1: { label: 'σάρωση μεγαλύτερης (O(N))', expected: 't_seqn', hint: 'Σαρώνουμε τα N στοιχεία της larger_sequence σε O(1) αναμενόμενα ανά έλεγχο.' },
+            s2: { label: 'έλεγχος κοινού στοιχείου', expected: 't_in', hint: 'Ελέγχουμε αν το element υπάρχει μέσα στο smaller_lookup_set.' }
           },
           tokens: [
-            { id: 't_setm', label: 'set(seq_m)' },
-            { id: 't_seqn', label: 'seq_n' },
-            { id: 't_in', label: 'elem in fast_lookup' },
-            { id: 't_d1', label: 'set(seq_n)' },
-            { id: 't_d2', label: 'seq_m' }
+            { id: 't_setm', label: 'set(smaller_sequence)' },
+            { id: 't_seqn', label: 'larger_sequence' },
+            { id: 't_in', label: 'element in smaller_lookup_set' },
+            { id: 't_d1', label: 'set(larger_sequence)' },
+            { id: 't_d2', label: 'smaller_sequence' }
           ]
         },
         {
@@ -636,24 +679,24 @@
           source_tag: 'Σημείωση 03 — Ενότητα 3.3',
           description: 'Χειριστείτε σωστά τα κενά κελιά και τους δείκτες DEFUNCT κατά τη σάρωση γραμμικής ανίχνευσης.',
           lines: [
-            'def probeFind(table: list, key: int, cap: int) -> int:',
-            '    for j in range(cap):',
-            '        idx = {{s0}}',
-            '        if table[idx] is None:',
+            'def probeFind(hash_table: list, target_key: int, table_capacity: int) -> int:',
+            '    for probe_step in range(table_capacity):',
+            '        slot_index = {{s0}}',
+            '        if hash_table[slot_index] is None:',
             '            {{s1}}',
-            '        if table[idx] != "DEFUNCT" and table[idx] == key:',
-            '            return idx',
+            '        if hash_table[slot_index] != "DEFUNCT" and hash_table[slot_index] == target_key:',
+            '            return slot_index',
             '    return -1'
           ],
           slots: {
-            s0: { expected: 't_lp', hint: 'Βήμα γραμμικής ανίχνευσης modulo χωρητικότητα cap.' },
-            s1: { expected: 't_stop', hint: 'Μόνο ένα πραγματικά κενό (None) τερματίζει την αναζήτηση· το DEFUNCT προσπερνάται.' }
+            s0: { label: 'δείκτης γραμμικής ανίχνευσης', expected: 't_lp', hint: 'Βήμα γραμμικής ανίχνευσης modulo χωρητικότητα table_capacity.' },
+            s1: { label: 'τερματισμός σε κενό κελί', expected: 't_stop', hint: 'Μόνο ένα πραγματικά κενό (None) τερματίζει την αναζήτηση· το DEFUNCT προσπερνάται.' }
           },
           tokens: [
-            { id: 't_lp', label: '((key % cap) + j) % cap' },
+            { id: 't_lp', label: '((target_key % table_capacity) + probe_step) % table_capacity' },
             { id: 't_stop', label: 'return -1' },
             { id: 't_d1', label: 'continue' },
-            { id: 't_d2', label: '(key + j * j) % cap' }
+            { id: 't_d2', label: '(target_key + probe_step * probe_step) % table_capacity' }
           ]
         }
       ],
@@ -665,21 +708,21 @@
           source_tag: 'Σημείωση 04 — Ενότητα 3.2',
           description: 'Συμπληρώστε τη συνθήκη βάσης και την ανακατεύθυνση γονέα στη ρίζα για τη Συμπίεση Διαδρομής.',
           lines: [
-            'def findRoot(parent: list[int], x: int) -> int:',
+            'def findRoot(parent_links: list[int], node_id: int) -> int:',
             '    if {{s0}}:',
-            '        return x',
-            '    {{s1}} = findRoot(parent, parent[x])',
-            '    return parent[x]'
+            '        return node_id',
+            '    {{s1}} = findRoot(parent_links, parent_links[node_id])',
+            '    return parent_links[node_id]'
           ],
           slots: {
-            s0: { expected: 't_root', hint: 'Μία ρίζα έχει δείκτη γονέα στον εαυτό της.' },
-            s1: { expected: 't_comp', hint: 'Αποθηκεύουμε την επιστρεφόμενη ρίζα απευθείας ως γονέα του x.' }
+            s0: { label: 'συνθήκη ρίζας', expected: 't_root', hint: 'Μία ρίζα έχει δείκτη γονέα στον εαυτό της.' },
+            s1: { label: 'συμπίεση γονέα', expected: 't_comp', hint: 'Αποθηκεύουμε την επιστρεφόμενη ρίζα απευθείας στο parent_links[node_id].' }
           },
           tokens: [
-            { id: 't_root', label: 'parent[x] == x' },
-            { id: 't_comp', label: 'parent[x]' },
-            { id: 't_d1', label: 'parent[x] == 0' },
-            { id: 't_d2', label: 'size[x]' }
+            { id: 't_root', label: 'parent_links[node_id] == node_id' },
+            { id: 't_comp', label: 'parent_links[node_id]' },
+            { id: 't_d1', label: 'parent_links[node_id] == 0' },
+            { id: 't_d2', label: 'subtree_sizes[node_id]' }
           ]
         },
         {
@@ -687,26 +730,26 @@
           unit_id: '04',
           title: 'Drop-In #2: Ένωση κατά Μέγεθος (Union by Size)',
           source_tag: 'Σημείωση 04 — Ενότητα 3.2',
-          description: 'Προσαρτήστε τη μικρότερη ρίζα κάτω από τη μεγαλύτερη και ενημερώστε το μέγεθος μόνο της νέας ρίζας.',
+          description: 'Προσαρτήστε τη μικρότερη ρίζα (second_root) κάτω από τη μεγαλύτερη (first_root) και ενημερώστε το μέγεθος μόνο της νέας ρίζας.',
           lines: [
-            'def unionBySize(parent: list[int], size: list[int], u: int, v: int) -> None:',
-            '    r_u, r_v = findRoot(parent, u), findRoot(parent, v)',
+            'def unionBySize(parent_links: list[int], subtree_sizes: list[int], first_node: int, second_node: int) -> None:',
+            '    first_root, second_root = findRoot(parent_links, first_node), findRoot(parent_links, second_node)',
             '    if {{s0}}:',
             '        return',
-            '    if size[r_u] < size[r_v]:',
-            '        r_u, r_v = r_v, r_u',
+            '    if subtree_sizes[first_root] < subtree_sizes[second_root]:',
+            '        first_root, second_root = second_root, first_root',
             '    {{s1}}',
-            '    size[r_u] += size[r_v]'
+            '    subtree_sizes[first_root] += subtree_sizes[second_root]'
           ],
           slots: {
-            s0: { expected: 't_same', hint: 'Παγίδα: αν ανήκουν ήδη στο ίδιο σύνολο δεν αλλάζουμε ούτε parent ούτε size!' },
-            s1: { expected: 't_attach', hint: 'Ο r_v είναι το μικρότερο δέντρο· ο γονέας του γίνεται ο r_u.' }
+            s0: { label: 'έλεγχος ίδιου συνόλου', expected: 't_same', hint: 'Παγίδα: αν ανήκουν ήδη στο ίδιο σύνολο δεν αλλάζουμε ούτε parent_links ούτε subtree_sizes!' },
+            s1: { label: 'σύνδεση μικρότερου δέντρου', expected: 't_attach', hint: 'Ο second_root είναι το μικρότερο δέντρο· ο γονέας του γίνεται ο first_root.' }
           },
           tokens: [
-            { id: 't_same', label: 'r_u == r_v' },
-            { id: 't_attach', label: 'parent[r_v] = r_u' },
-            { id: 't_d1', label: 'parent[r_u] = r_v' },
-            { id: 't_d2', label: 'u == v' }
+            { id: 't_same', label: 'first_root == second_root' },
+            { id: 't_attach', label: 'parent_links[second_root] = first_root' },
+            { id: 't_d1', label: 'parent_links[first_root] = second_root' },
+            { id: 't_d2', label: 'first_node == second_node' }
           ]
         }
       ],
@@ -716,29 +759,29 @@
           unit_id: '05',
           title: 'Drop-In #1: Συγχώνευση N Μικρότερων Στοιχείων σε O(N)',
           source_tag: 'Φροντιστήριο A — Κεφ. 8 #6',
-          description: 'Συμπληρώστε τη σύγκριση και την αύξηση των δεικτών για τα N μικρότερα στοιχεία από δύο ταξινομημένους πίνακες.',
+          description: 'Συμπληρώστε τη σύγκριση και την αύξηση των δεικτών για τα target_count μικρότερα στοιχεία από δύο ταξινομημένους πίνακες.',
           lines: [
-            'def mergeN(a: list[int], b: list[int], n: int) -> list[int]:',
-            '    c = [0] * n',
-            '    i, j = 0, 0',
-            '    for k in range(n):',
+            'def mergeSmallestN(first_sorted: list[int], second_sorted: list[int], target_count: int) -> list[int]:',
+            '    merged_result = [0] * target_count',
+            '    first_index, second_index = 0, 0',
+            '    for output_index in range(target_count):',
             '        if {{s0}}:',
-            '            c[k] = a[i]',
+            '            merged_result[output_index] = first_sorted[first_index]',
             '            {{s1}}',
             '        else:',
-            '            c[k] = b[j]',
-            '            j += 1',
-            '    return c'
+            '            merged_result[output_index] = second_sorted[second_index]',
+            '            second_index += 1',
+            '    return merged_result'
           ],
           slots: {
-            s0: { expected: 't_cmp', hint: 'Συγκρίνουμε τα τρέχοντα μέτωπα a[i] και b[j].' },
-            s1: { expected: 't_inc', hint: 'Προχωράμε τον δείκτη του πίνακα από τον οποίο πήραμε στοιχείο.' }
+            s0: { label: 'σύγκριση μετώπων', expected: 't_cmp', hint: 'Συγκρίνουμε τα τρέχοντα στοιχεία first_sorted[first_index] και second_sorted[second_index].' },
+            s1: { label: 'προώθηση δείκτη', expected: 't_inc', hint: 'Προχωράμε τον δείκτη first_index από τον οποίο πήραμε στοιχείο.' }
           },
           tokens: [
-            { id: 't_cmp', label: 'a[i] <= b[j]' },
-            { id: 't_inc', label: 'i += 1' },
-            { id: 't_d1', label: 'j += 1' },
-            { id: 't_d2', label: 'a[i] >= b[j]' }
+            { id: 't_cmp', label: 'first_sorted[first_index] <= second_sorted[second_index]' },
+            { id: 't_inc', label: 'first_index += 1' },
+            { id: 't_d1', label: 'second_index += 1' },
+            { id: 't_d2', label: 'first_sorted[first_index] >= second_sorted[second_index]' }
           ]
         },
         {
@@ -748,29 +791,29 @@
           source_tag: 'Φροντιστήριο A — Κεφ. 8 #7',
           description: 'Τοποθετήστε τα μικρότερα του pivot αριστερά και τα μεγαλύτερα/ίσα δεξιά στον βοηθητικό πίνακα.',
           lines: [
-            'def partitionAux(a: list[int]) -> list[int]:',
-            '    temp = [0] * len(a)',
-            '    pivot = a[-1]',
-            '    i, j = 0, len(a) - 1',
-            '    for x in a[:-1]:',
-            '        if x < pivot:',
-            '            temp[i] = x; {{s0}}',
+            'def partitionAuxiliary(numbers: list[int]) -> list[int]:',
+            '    auxiliary_array = [0] * len(numbers)',
+            '    pivot_value = numbers[-1]',
+            '    left_write_index, right_write_index = 0, len(numbers) - 1',
+            '    for element in numbers[:-1]:',
+            '        if element < pivot_value:',
+            '            auxiliary_array[left_write_index] = element; {{s0}}',
             '        else:',
-            '            temp[j] = x; {{s1}}',
+            '            auxiliary_array[right_write_index] = element; {{s1}}',
             '    {{s2}}',
-            '    return temp'
+            '    return auxiliary_array'
           ],
           slots: {
-            s0: { expected: 't_pi', hint: 'Μετακινούμε τον αριστερό δείκτη i προς τα δεξιά.' },
-            s1: { expected: 't_pj', hint: 'Μετακινούμε τον δεξιό δείκτη j προς τα αριστερά.' },
-            s2: { expected: 't_piv', hint: 'Το pivot τοποθετείται στην τελική του θέση συνάντησης i.' }
+            s0: { label: 'μετακίνηση αριστερού δείκτη', expected: 't_pi', hint: 'Μετακινούμε τον αριστερό δείκτη left_write_index προς τα δεξιά.' },
+            s1: { label: 'μετακίνηση δεξιού δείκτη', expected: 't_pj', hint: 'Μετακινούμε τον δεξιό δείκτη right_write_index προς τα αριστερά.' },
+            s2: { label: 'τοποθέτηση pivot', expected: 't_piv', hint: 'Το pivot τοποθετείται στην τελική του θέση συνάντησης left_write_index.' }
           },
           tokens: [
-            { id: 't_pi', label: 'i += 1' },
-            { id: 't_pj', label: 'j -= 1' },
-            { id: 't_piv', label: 'temp[i] = pivot' },
-            { id: 't_d1', label: 'j += 1' },
-            { id: 't_d2', label: 'temp[0] = pivot' }
+            { id: 't_pi', label: 'left_write_index += 1' },
+            { id: 't_pj', label: 'right_write_index -= 1' },
+            { id: 't_piv', label: 'auxiliary_array[left_write_index] = pivot_value' },
+            { id: 't_d1', label: 'right_write_index += 1' },
+            { id: 't_d2', label: 'auxiliary_array[0] = pivot_value' }
           ]
         }
       ],
@@ -778,58 +821,58 @@
         {
           id: 'drop_06_1',
           unit_id: '06',
-          title: 'Drop-In #1: Κλασματικό Σακίδιο (Ταξινόμηση & Ποσότητα x_i)',
+          title: 'Drop-In #1: Κλασματικό Σακίδιο (Ταξινόμηση & Ποσότητα)',
           source_tag: 'Φροντιστήριο A — Κεφ. 10 #3',
-          description: 'Συμπληρώστε το κλειδί ταξινόμησης πυκνότητας και τον υπολογισμό κλασματικής ποσότητας.',
+          description: 'Συμπληρώστε το κλειδί ταξινόμησης πυκνότητας (benefit / weight) και τον υπολογισμό κλασματικής ποσότητας.',
           lines: [
-            'def fractionalKnapsack(items: list[dict], cap: float) -> float:',
-            '    ordered = sorted(items, key={{s0}}, reverse=True)',
-            '    total = 0.0',
-            '    for it in ordered:',
-            '        if cap >= it["w"]:',
-            '            total += it["b"]; cap -= it["w"]',
+            'def fractionalKnapsack(items: list[dict], remaining_capacity: float) -> float:',
+            '    ordered_items = sorted(items, key={{s0}}, reverse=True)',
+            '    total_benefit = 0.0',
+            '    for item in ordered_items:',
+            '        if remaining_capacity >= item["weight"]:',
+            '            total_benefit += item["benefit"]; remaining_capacity -= item["weight"]',
             '        else:',
-            '            total += {{s1}}',
+            '            total_benefit += {{s1}}',
             '            break',
-            '    return total'
+            '    return total_benefit'
           ],
           slots: {
-            s0: { expected: 't_dens', hint: 'Φθίνουσα πυκνότητα αξίας v_i = b_i / w_i.' },
-            s1: { expected: 't_frac', hint: 'Παίρνουμε αναλογικά όση χωρητικότητα cap απέμεινε.' }
+            s0: { label: 'κριτήριο πυκνότητας', expected: 't_dens', hint: 'Φθίνουσα πυκνότητα αξίας = benefit / weight.' },
+            s1: { label: 'κλασματικό όφελος', expected: 't_frac', hint: 'Παίρνουμε αναλογικά όση χωρητικότητα remaining_capacity απέμεινε.' }
           },
           tokens: [
-            { id: 't_dens', label: 'lambda x: x["b"] / x["w"]' },
-            { id: 't_frac', label: 'it["b"] * (cap / it["w"])' },
-            { id: 't_d1', label: 'lambda x: x["b"]' },
-            { id: 't_d2', label: 'it["w"] / it["b"]' }
+            { id: 't_dens', label: 'lambda item: item["benefit"] / item["weight"]' },
+            { id: 't_frac', label: 'item["benefit"] * (remaining_capacity / item["weight"])' },
+            { id: 't_d1', label: 'lambda item: item["benefit"]' },
+            { id: 't_d2', label: 'item["weight"] / item["benefit"]' }
           ]
         },
         {
           id: 'drop_06_2',
           unit_id: '06',
-          title: 'Drop-In #2: Task Scheduling (Κριτήριο Ταξινόμησης & Συνθήκη Επαναχρησιμοποίησης)',
+          title: 'Drop-In #2: Task Scheduling (Κριτήριο Ταξινόμησης & Επαναχρησιμοποίηση)',
           source_tag: 'Φροντιστήριο A — Κεφ. 10 #4',
-          description: 'Επιλέξτε το κριτήριο ταξινόμησης και τη συνθήκη μη σύγκρουσης μηχανής.',
+          description: 'Επιλέξτε το κριτήριο ταξινόμησης (ώρα έναρξης task[0]) και τη συνθήκη μη σύγκρουσης μηχανής.',
           lines: [
             'def scheduleMinMachines(tasks: list[tuple[int, int]]) -> int:',
-            '    ordered = sorted(tasks, key={{s0}})',
-            '    finishes = []',
-            '    for start_t, finish_t in ordered:',
-            '        if finishes and {{s1}}:',
-            '            heapq.heapreplace(finishes, finish_t)',
+            '    ordered_tasks = sorted(tasks, key={{s0}})',
+            '    machine_finishes = []',
+            '    for start_time, finish_time in ordered_tasks:',
+            '        if machine_finishes and {{s1}}:',
+            '            heapq.heapreplace(machine_finishes, finish_time)',
             '        else:',
-            '            heapq.heappush(finishes, finish_t)',
-            '    return len(finishes)'
+            '            heapq.heappush(machine_finishes, finish_time)',
+            '    return len(machine_finishes)'
           ],
           slots: {
-            s0: { expected: 't_start', hint: 'Για ελαχιστοποίηση μηχανών ταξινομούμε κατά ώρα έναρξης t[0] (ΟΧΙ λήξης t[1]).' },
-            s1: { expected: 't_reuse', hint: 'Μία μηχανή επαναχρησιμοποιείται αν η παλιά εργασία τελείωσε <= start_t.' }
+            s0: { label: 'ταξινόμηση κατά s_i', expected: 't_start', hint: 'Για ελαχιστοποίηση μηχανών ταξινομούμε κατά ώρα έναρξης task[0] (ΟΧΙ λήξης task[1]).' },
+            s1: { label: 'έλεγχος ελεύθερης μηχανής', expected: 't_reuse', hint: 'Μία μηχανή επαναχρησιμοποιείται αν η παλιά εργασία τελείωσε <= start_time.' }
           },
           tokens: [
-            { id: 't_start', label: 'lambda t: t[0]' },
-            { id: 't_reuse', label: 'finishes[0] <= start_t' },
-            { id: 't_d1', label: 'lambda t: t[1]' },
-            { id: 't_d2', label: 'finishes[0] > start_t' }
+            { id: 't_start', label: 'lambda task: task[0]' },
+            { id: 't_reuse', label: 'machine_finishes[0] <= start_time' },
+            { id: 't_d1', label: 'lambda task: task[1]' },
+            { id: 't_d2', label: 'machine_finishes[0] > start_time' }
           ]
         }
       ],
@@ -839,26 +882,26 @@
           unit_id: '07',
           title: 'Drop-In #1: Γραμμική Συγχώνευση Λιστών',
           source_tag: 'Φροντιστήριο B — Κεφ. 11 #4',
-          description: 'Ολοκληρώστε τον βρόχο συγχώνευσης δύο ταξινομημένων λιστών σε χρόνο O(n1 + n2).',
+          description: 'Ολοκληρώστε τον βρόχο συγχώνευσης δύο ταξινομημένων λιστών (first_sorted, second_sorted) σε χρόνο O(n1 + n2).',
           lines: [
-            'def merge(l1: list[int], l2: list[int]) -> list[int]:',
-            '    res = []; i = 0; j = 0',
+            'def mergeSorted(first_sorted: list[int], second_sorted: list[int]) -> list[int]:',
+            '    merged_list = []; first_index = 0; second_index = 0',
             '    while {{s0}}:',
-            '        if l1[i] <= l2[j]:',
-            '            res.append(l1[i]); i += 1',
+            '        if first_sorted[first_index] <= second_sorted[second_index]:',
+            '            merged_list.append(first_sorted[first_index]); first_index += 1',
             '        else:',
-            '            res.append(l2[j]); j += 1',
+            '            merged_list.append(second_sorted[second_index]); second_index += 1',
             '    return {{s1}}'
           ],
           slots: {
-            s0: { expected: 't_cond', hint: 'Και οι δύο λίστες πρέπει να έχουν ακόμη ανεπεξέργαστα στοιχεία.' },
-            s1: { expected: 't_tail', hint: 'Επισυνάπτουμε όσα στοιχεία απέμειναν από l1[i:] και l2[j:].' }
+            s0: { label: 'συνθήκη βρόχου', expected: 't_cond', hint: 'Και οι δύο λίστες πρέπει να έχουν ακόμη ανεπεξέργαστα στοιχεία.' },
+            s1: { label: 'υπόλοιπα στοιχεία', expected: 't_tail', hint: 'Επισυνάπτουμε όσα στοιχεία απέμειναν από first_sorted[first_index:] και second_sorted[second_index:].' }
           },
           tokens: [
-            { id: 't_cond', label: 'i < len(l1) and j < len(l2)' },
-            { id: 't_tail', label: 'res + l1[i:] + l2[j:]' },
-            { id: 't_d1', label: 'i < len(l1) or j < len(l2)' },
-            { id: 't_d2', label: 'res' }
+            { id: 't_cond', label: 'first_index < len(first_sorted) and second_index < len(second_sorted)' },
+            { id: 't_tail', label: 'merged_list + first_sorted[first_index:] + second_sorted[second_index:]' },
+            { id: 't_d1', label: 'first_index < len(first_sorted) or second_index < len(second_sorted)' },
+            { id: 't_d2', label: 'merged_list' }
           ]
         },
         {
@@ -866,33 +909,39 @@
           unit_id: '07',
           title: 'Drop-In #2: Σύνθεση 3 Γινομένων Karatsuba',
           source_tag: 'Σημείωση 07 — Ενότητα 3.1',
-          description: 'Εφαρμόστε την αλγεβρική ταυτότητα Karatsuba ώστε I * J να υπολογίζεται με 3 αντί 4 πολλαπλασιασμούς.',
+          description: 'Εφαρμόστε την αλγεβρική ταυτότητα Karatsuba ώστε το γινόμενο να υπολογίζεται με 3 αντί 4 πολλαπλασιασμούς.',
           lines: [
-            'def combineKaratsuba(p1: int, p2: int, ih: int, il: int, jh: int, jl: int, pow_m: int) -> int:',
-            '    p3 = {{s0}}',
-            '    mid = {{s1}}',
-            '    return p1 * (pow_m ** 2) + mid * pow_m + p2'
+            'def combineKaratsuba(high_product: int, low_product: int, first_high: int, first_low: int, second_high: int, second_low: int, split_power: int) -> int:',
+            '    diff_product = {{s0}}',
+            '    middle_term = {{s1}}',
+            '    return high_product * (split_power ** 2) + middle_term * split_power + low_product'
           ],
           slots: {
-            s0: { expected: 't_p3', hint: 'Το τρίτο γινόμενο πολλαπλασιάζει διαφορές (I_h - I_l) και (J_l - J_h).' },
-            s1: { expected: 't_mid', hint: 'Προσθέτοντας p1 + p2 αλληλοαναιρούνται οι όροι -I_h J_h - I_l J_l.' }
+            s0: { label: '3ο αναδρομικό γινόμενο', expected: 't_p3', hint: 'Το τρίτο γινόμενο πολλαπλασιάζει διαφορές (first_high - first_low) και (second_low - second_high).' },
+            s1: { label: 'μεσαίος όρος', expected: 't_mid', hint: 'Προσθέτοντας high_product + low_product αλληλοαναιρούνται οι όροι -I_h J_h - I_l J_l.' }
           },
           tokens: [
-            { id: 't_p3', label: 'karatsuba(ih - il, jl - jh)' },
-            { id: 't_mid', label: 'p3 + p1 + p2' },
-            { id: 't_d1', label: 'p3 - p1 - p2' },
-            { id: 't_d2', label: 'karatsuba(ih, jl)' }
+            { id: 't_p3', label: 'karatsuba(first_high - first_low, second_low - second_high)' },
+            { id: 't_mid', label: 'diff_product + high_product + low_product' },
+            { id: 't_d1', label: 'diff_product - high_product - low_product' },
+            { id: 't_d2', label: 'karatsuba(first_high, second_low)' }
           ]
         }
       ]
     };
 
     const true_false_drills = {
+      prereq: [
+        { statement: 'Στην ανάλυση αλγορίθμων του μαθήματος, όταν γράφουμε log n εννοούμε λογάριθμο βάσης 2 (log_2 n).', answer: true, explanation: 'Σωστό: οι δυαδικές διαιρέσεις και τα δυαδικά δέντρα ορίζουν φυσικά βάση 2.' },
+        { statement: 'Το άθροισμα 1 + 2 + 3 + ... + n ανήκει στην κλάση Θ(n).', answer: false, explanation: 'Λάθος: 1 + 2 + ... + n = n(n + 1) / 2 = Θ(n^2).' },
+        { statement: 'Στον 1-indexed πίνακα ενός δυαδικού σωρού, το αριστερό παιδί της θέσης i είναι στη θέση 2i και ο γονέας στη θέση floor(i/2).', answer: true, explanation: 'Σωστό: το A[0] παραμένει κενό για να ισχύουν οι καθαροί τύποι 2i, 2i+1 και floor(i/2).' },
+        { statement: 'Η ακέραια διαίρεση 9 // 2 στην Python επιστρέφει 5.', answer: false, explanation: 'Λάθος: ο τελεστής // στρογγυλεύει προς τα κάτω (floor), άρα 9 // 2 == 4.' }
+      ],
       '00': [
         { statement: 'Στην Πρόοδο εξετάζονται τα Κεφάλαια 1, 5, 6, 7, 8, 10 και 11 (όχι τα 2, 3, 4, 9, 12–17).', answer: true, explanation: 'Σωστό: Η ύλη της Προόδου καλύπτει αυτά τα 7 κεφάλαια με τις ρητές εξαιρέσεις (1.4.1, 5.5, Chernoff, Λήμμα 6.1, 6.5, 7.3.1, απόδειξη Huffman).' },
         { statement: 'Ο αλγόριθμος Huffman και η πολυπλοκότητά του O(n + d log d) είναι εκτός ύλης Προόδου.', answer: false, explanation: 'Λάθος: Μόνο η τυπική απόδειξη βελτιστότητας (σελ. 294–297) εξαιρείται. Ο αλγόριθμος, η ιχνηλάτηση και το O(n + d log d) εξετάζονται κανονικά.' },
         { statement: 'Η επιμερισμένη ανάλυση (amortized) στηρίζεται σε τυχαίες κατανομές πιθανότητας επί των εισόδων.', answer: false, explanation: 'Λάθος: Η επιμερισμένη ανάλυση είναι ντετερμινιστική στη χειρότερη ακολουθία (χωρίς πιθανότητες).' },
-        { statement: 'Το Φράγμα Chernoff και η απόδειξη Ackermann (7.3.1) εξαιρούνται από την Πρόοδο.', answer: true, explanation: 'Σωστό: Καταγράφονται ρητά στον Πίνακα Εξαιρέσεων 2.2 της Ενότητας 00.' }
+        { statement: 'Το Φράγμα Chernoff και η απόδειξη Ackermann (7.3.1) εξαιρούνται από την Πρόοδο.', answer: true, explanation: 'Σωστό: Καταγράφονται ρητά στον πίνακα εξαιρέσεων της Ενότητας 00.' }
       ],
       '01': [
         { statement: 'Ένας αλγόριθμος O(n log n) εκτελείται ταχύτερα από έναν O(n^2) για ΟΛΕΣ τις περιπτώσεις εισόδου (ακόμα και πολύ μικρά n).', answer: false, explanation: 'Λάθος (Φροντιστήριο A, Κεφ. 1 #1a): Τα ασυμπτωτικά όρια αφορούν μεγάλα n (>= n_0)· για μικρό n οι σταθερές μπορούν να δώσουν προβάδισμα στο O(n^2).' },

@@ -44,6 +44,20 @@
     }
 
     /**
+     * Resets the growth ranking puzzle back to its initial scrambled state.
+     */
+    resetAll() {
+      this.current_order = [
+        'n log n', '1000', 'n^2', 'log n', 'n!',
+        'n^(1/2)', 'log log n', '2^n', 'n', 'n^3'
+      ];
+      this.selected_idx = null;
+      this.drag_idx = null;
+      this.checked_results = null;
+      this.is_completed = false;
+    }
+
+    /**
      * Swaps two positions in the current growth-function ordering.
      *
      * Args:
@@ -67,7 +81,7 @@
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Callback invoked with 'game_00' when solved.
      */
-    verifyOrder(container_el, on_complete_cb) {
+    verifyOrder(container_el, on_complete_cb, on_reset_cb) {
       let correct_count = 0;
       const flags = [];
       for (let i = 0; i < this.expected_order.length; i += 1) {
@@ -83,8 +97,13 @@
         if (typeof on_complete_cb === 'function') {
           on_complete_cb('game_00');
         }
+      } else {
+        this.is_completed = false;
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_00');
+        }
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -93,8 +112,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM container.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       let html = '<div class="card">';
       html += '<div class="puzzle-header">' +
         '<div><h3>Παιχνίδι Διάταξης Ρυθμού Αύξησης (10 Συναρτήσεις)</h3>' +
@@ -158,7 +178,7 @@
             this.swapTiles(this.drag_idx, drop_idx);
             this.drag_idx = null;
             this.selected_idx = null;
-            this.mount(container_el, on_complete_cb);
+            this.mount(container_el, on_complete_cb, on_reset_cb);
           }
         });
         tiles[i].addEventListener('click', (evt) => {
@@ -172,7 +192,7 @@
             this.swapTiles(this.selected_idx, idx);
             this.selected_idx = null;
           }
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
       }
 
@@ -184,19 +204,19 @@
           const target = dir === 'up' ? idx - 1 : idx + 1;
           this.swapTiles(idx, target);
           this.selected_idx = null;
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
       }
 
       container_el.querySelector('#g00_check_btn').addEventListener('click', () => {
-        this.verifyOrder(container_el, on_complete_cb);
+        this.verifyOrder(container_el, on_complete_cb, on_reset_cb);
       });
       container_el.querySelector('#g00_reset_btn').addEventListener('click', () => {
-        this.current_order = ['n log n', '1000', 'n^2', 'log n', 'n!', 'n^(1/2)', 'log log n', '2^n', 'n', 'n^3'];
-        this.checked_results = null;
-        this.selected_idx = null;
-        this.is_completed = false;
-        this.mount(container_el, on_complete_cb);
+        this.resetAll();
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_00');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
     }
   }
@@ -232,6 +252,17 @@
     }
 
     /**
+     * Resets the O(n^2) classification game to its initial empty state.
+     */
+    resetAll() {
+      this.placed = {};
+      this.selected_item_id = null;
+      this.drag_item_id = null;
+      this.feedback_msg = '';
+      this.feedback_kind = 'neutral';
+    }
+
+    /**
      * Validates placing an item into either the O(n^2) bucket or Not-O(n^2) bucket.
      *
      * Args:
@@ -239,8 +270,9 @@
      *     bucket_name (string): 'yes' for O(n^2) or 'no' for Not O(n^2).
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    classifyItem(item_id, bucket_name, container_el, on_complete_cb) {
+    classifyItem(item_id, bucket_name, container_el, on_complete_cb, on_reset_cb) {
       const item = this.items.find((it) => it.id === item_id);
       if (!item) {
         return;
@@ -264,7 +296,7 @@
         this.feedback_msg = 'Λάθος κατηγορία για τη ' + item.label + ': ' +
           (item.in_on2 ? 'Ο κυρίαρχος όρος είναι <= n^2, άρα ΑΝΗΚΕΙ στο O(n^2).' : 'Υπερβαίνει κάθε σταθερό πολλαπλάσιο του n^2, άρα ΔΕΝ ανήκει.');
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -273,8 +305,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const placed_count = Object.keys(this.placed).length;
       const is_done = placed_count === this.items.length;
 
@@ -326,7 +359,7 @@
         chips[i].addEventListener('click', (evt) => {
           const id = evt.currentTarget.getAttribute('data-item-id');
           this.selected_item_id = this.selected_item_id === id ? null : id;
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
         chips[i].addEventListener('dragstart', (evt) => {
           this.drag_item_id = evt.currentTarget.getAttribute('data-item-id');
@@ -348,22 +381,23 @@
           evt.currentTarget.classList.remove('is-over');
           const b = evt.currentTarget.getAttribute('data-bucket');
           if (this.drag_item_id) {
-            this.classifyItem(this.drag_item_id, b, container_el, on_complete_cb);
+            this.classifyItem(this.drag_item_id, b, container_el, on_complete_cb, on_reset_cb);
           }
         });
         buckets[i].addEventListener('click', (evt) => {
           const b = evt.currentTarget.getAttribute('data-bucket');
           if (this.selected_item_id) {
-            this.classifyItem(this.selected_item_id, b, container_el, on_complete_cb);
+            this.classifyItem(this.selected_item_id, b, container_el, on_complete_cb, on_reset_cb);
           }
         });
       }
 
       container_el.querySelector('#g01_reset_btn').addEventListener('click', () => {
-        this.placed = {};
-        this.selected_item_id = null;
-        this.feedback_msg = '';
-        this.mount(container_el, on_complete_cb);
+        this.resetAll();
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_01');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
     }
   }
@@ -428,6 +462,13 @@
     }
 
     /**
+     * Resets the heap tree puzzle back to the default preset.
+     */
+    resetAll() {
+      this.loadPreset('min_repair');
+    }
+
+    /**
      * Swaps two nodes in the tree and checks downheap trap rules and completion.
      *
      * Args:
@@ -435,11 +476,12 @@
      *     idx_b (number): Second 1-indexed node position.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    handleNodeSwap(idx_a, idx_b, container_el, on_complete_cb) {
+    handleNodeSwap(idx_a, idx_b, container_el, on_complete_cb, on_reset_cb) {
       if (idx_a === idx_b) {
         this.selected_node = null;
-        this.mount(container_el, on_complete_cb);
+        this.mount(container_el, on_complete_cb, on_reset_cb);
         return;
       }
 
@@ -451,7 +493,7 @@
           this.feedback_kind = 'wrong';
           this.feedback_msg = 'Στο downheap ανταλλάσσουμε μόνο γονέα με άμεσο παιδί του!';
           this.selected_node = null;
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
           return;
         }
         const left = 2 * parent;
@@ -462,7 +504,7 @@
           this.feedback_kind = 'wrong';
           this.feedback_msg = 'Παγίδα! Στο downheap επιλέγουμε ΠΑΝΤΑ το μικρότερο παιδί (' + this.heap[smaller] + '), όχι το ' + this.heap[child] + '!';
           this.selected_node = null;
-          this.mount(container_el, on_complete_cb);
+          this.mount(container_el, on_complete_cb, on_reset_cb);
           return;
         }
       }
@@ -483,7 +525,7 @@
         this.feedback_kind = 'correct';
         this.feedback_msg = 'Έγινε ανταλλαγή A[' + idx_a + '] <-> A[' + idx_b + ']. Παραμένουν ' + remaining.length + ' παραβιάσεις.';
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -541,8 +583,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const violations = this.findViolations();
       const is_done = violations.length === 0;
       const is_max = this.mode === 'max_recitation';
@@ -587,13 +630,19 @@
       for (let i = 0; i < mode_btns.length; i += 1) {
         mode_btns[i].addEventListener('click', (evt) => {
           this.loadPreset(evt.currentTarget.getAttribute('data-hmode'));
-          this.mount(container_el, on_complete_cb);
+          if (typeof on_reset_cb === 'function') {
+            on_reset_cb('game_02');
+          }
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
       }
 
       container_el.querySelector('#g02_reset_btn').addEventListener('click', () => {
         this.loadPreset(this.mode);
-        this.mount(container_el, on_complete_cb);
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_02');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
 
       const node_els = container_el.querySelectorAll('[data-heap-node]');
@@ -602,9 +651,9 @@
           const idx = Number(evt.currentTarget.getAttribute('data-heap-node'));
           if (this.selected_node === null) {
             this.selected_node = idx;
-            this.mount(container_el, on_complete_cb);
+            this.mount(container_el, on_complete_cb, on_reset_cb);
           } else {
-            this.handleNodeSwap(this.selected_node, idx, container_el, on_complete_cb);
+            this.handleNodeSwap(this.selected_node, idx, container_el, on_complete_cb, on_reset_cb);
           }
         });
       }
@@ -624,6 +673,13 @@
     constructor() {
       this.mode = 'linear';
       this.keys = [3, 14, 25, 36, 47];
+      this.resetGame('linear');
+    }
+
+    /**
+     * Resets the hash table placer game back to default linear mode.
+     */
+    resetAll() {
       this.resetGame('linear');
     }
 
@@ -669,8 +725,9 @@
      *     bucket_idx (number): Clicked/dropped bucket index.
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    tryPlaceKey(bucket_idx, container_el, on_complete_cb) {
+    tryPlaceKey(bucket_idx, container_el, on_complete_cb, on_reset_cb) {
       if (this.step >= this.keys.length) {
         return;
       }
@@ -695,7 +752,7 @@
         this.feedback_msg = 'Λάθος θέση (' + bucket_idx + ') για το ' + key + ': h(' + key + ') = ' + h +
           (this.mode === 'double' ? ', βήμα d(' + key + ') = 7 - (' + key + ' mod 7) = ' + d : ', βήμα +1') + '.';
       }
-      this.mount(container_el, on_complete_cb);
+      this.mount(container_el, on_complete_cb, on_reset_cb);
     }
 
     /**
@@ -704,8 +761,9 @@
      * Args:
      *     container_el (HTMLElement): Host DOM element.
      *     on_complete_cb (Function): Completion callback.
+     *     on_reset_cb (Function): Reset callback.
      */
-    mount(container_el, on_complete_cb) {
+    mount(container_el, on_complete_cb, on_reset_cb) {
       const is_done = this.step >= this.keys.length;
       const current_key = is_done ? null : this.keys[this.step];
 
@@ -755,12 +813,18 @@
       for (let i = 0; i < mode_btns.length; i += 1) {
         mode_btns[i].addEventListener('click', (evt) => {
           this.resetGame(evt.currentTarget.getAttribute('data-hpm'));
-          this.mount(container_el, on_complete_cb);
+          if (typeof on_reset_cb === 'function') {
+            on_reset_cb('game_03');
+          }
+          this.mount(container_el, on_complete_cb, on_reset_cb);
         });
       }
       container_el.querySelector('#g03_reset_btn').addEventListener('click', () => {
         this.resetGame(this.mode);
-        this.mount(container_el, on_complete_cb);
+        if (typeof on_reset_cb === 'function') {
+          on_reset_cb('game_03');
+        }
+        this.mount(container_el, on_complete_cb, on_reset_cb);
       });
 
       const cells = container_el.querySelectorAll('[data-bidx]');
@@ -769,11 +833,11 @@
         cells[i].addEventListener('drop', (evt) => {
           evt.preventDefault();
           const b_idx = Number(evt.currentTarget.getAttribute('data-bidx'));
-          this.tryPlaceKey(b_idx, container_el, on_complete_cb);
+          this.tryPlaceKey(b_idx, container_el, on_complete_cb, on_reset_cb);
         });
         cells[i].addEventListener('click', (evt) => {
           const b_idx = Number(evt.currentTarget.getAttribute('data-bidx'));
-          this.tryPlaceKey(b_idx, container_el, on_complete_cb);
+          this.tryPlaceKey(b_idx, container_el, on_complete_cb, on_reset_cb);
         });
       }
     }
