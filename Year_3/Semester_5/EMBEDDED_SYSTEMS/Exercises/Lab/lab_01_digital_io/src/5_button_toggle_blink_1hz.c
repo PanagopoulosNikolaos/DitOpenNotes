@@ -24,8 +24,7 @@
 #define HALF_PERIOD_1HZ_TICKS   50U                     /* 50 x 10 ms = 500 ms (1 Hz, 50% duty). */
 #define DEBOUNCE_TICKS          2U                      /* 2 x 10 ms = 20 ms switch debounce. */
 
-static void configureGpio(void)
-{
+static void configureGpio(void){
     P1DIR |= BIT0;              // Set 0x01 P1.0 (Red LED1) to output
     P1OUT &= ~BIT0;             // Clear 0x01 P1.0 (Red LED1) to LOW (initial OFF state)
 
@@ -34,8 +33,7 @@ static void configureGpio(void)
     P2OUT |= BIT1;              // Select 0x02 P2.1 internal pull-up resistor (idle HIGH)
 }
 
-int main(void)
-{
+int main(void){
     /**
      * Polls button S1 (P2.1) every 10 ms and switches Red LED (P1.0) between
      * permanently OFF and 1 Hz blinking mode.
